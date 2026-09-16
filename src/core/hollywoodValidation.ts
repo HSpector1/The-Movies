@@ -50,7 +50,7 @@ export type HollywoodLeafValidators = {
 }
 
 /** Strict additive root, using the same frozen leaf validators as player data. */
-export function validateHollywood(value: unknown, state: GameStateV18, shared: HollywoodLeafValidators, technology?: StudioTechnology): asserts value is HollywoodState | null {
+export function validateHollywood(value: unknown, state: GameStateV18, shared: HollywoodLeafValidators, technology?: Pick<StudioTechnology, 'access' | 'adoptions'>): asserts value is HollywoodState | null {
   const moneyKinds = technology === undefined ? RIVAL_MONEY_KINDS.filter(kind => kind !== 'technologyAdoption') : RIVAL_MONEY_KINDS
   campaignDate(state.market.tick)
   if (value === null) {

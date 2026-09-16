@@ -3,7 +3,38 @@
 **Purpose.** The one file a fresh coordinator (or Howard on return) reads first. It is rewritten at every recovery point and pushed on
 `wip/playability-interaction-01-ts` (The-Movies). Everything else it names is pinned by commit. Nothing that matters lives only in a session.
 
-## LOGIC-FIRST WINDOW — newest record (2026-09-16 12:55 CEST; this paragraph controls)
+## LOGIC-FIRST WINDOW — restart record (2026-09-16 13:11 CEST; this paragraph controls)
+- **Why this record exists:** the Owner ordered a stop on delegation until the project subagents (`.claude/agents/*.md`, six roles)
+  are registered. Diagnosis (HEADLESS-PROGRESS §Environment): the files exist and are authoritative, but this session started in
+  `/Users/zacheryspector` (not a repository) before the engine worktree existed, so the Agent tool never registered them. A fresh
+  session is required for discovery.
+- **Replacement session must start from:** directory `/Users/zacheryspector/The-Movies-headless-program` (git toplevel of the engine
+  worktree), branch `wip/headless-program-20260916-ts`. First actions: `/agents` → confirm `contract-auditor`, `instrumentation`,
+  `sim-core`, `test-author`, `uiux-designer`, `unity-ui` are listed; read this file, `HEADLESS-PROGRESS.md`, `plans/P13B-HEADLESS-PLAN.md`;
+  read the clean baseline logs under `evidence/headless-baseline-20260916/` (a detached run was started 13:10 in the sibling worktree
+  `/Users/zacheryspector/The-Movies-baseline` at the unmodified pin; it may still be running — `cat RUN.txt` shows start/end).
+- **State of the tree at the WIP commit (does NOT typecheck; no S1 test is green yet):** technology root v2 (`seats`/`weeks`/`legacy`),
+  `researchCandidates`, seat commands (`assignResearchScientist` multi-seat, `releaseResearchSeat`), seat-aware scheduler with per-week
+  receipts, v2 validator + frozen `validateTechnologyV1`, Save V21 (`validateSaveV21`, `convertV20ToV21`, `migrateToV21`, downgrade
+  refusals), seat-aware `busyTalentIds`/occupancy/presence/adapter, laboratory bridge read model (schema unchanged, projection 32),
+  bridge/UI call sites moved to `migrateToV21`, `tests/p13b-s1-staffing.test.ts` (RED observed before implementation).
+  Remaining `npx tsc --noEmit -p tsconfig.bridge.json` errors (14, all mechanical): `src/core/index.ts` must export `migrateToV21`,
+  `SaveFileV21`, `validateSaveV21`, `convertV20ToV21` (3 bridge import errors); `save.ts:7416` pass the V1 root to
+  `validateSaveV19WithPolicy` (widen its `technology` parameter to `Pick<StudioTechnology,'access'|'adoptions'>`);
+  `technology.ts:351` `technologyAccess` parameter type must accept the V1 root (`{technology?: {access: TechnologyAccess[]}}`);
+  `technology.ts:501–544` narrow `p.legacy`/`p.startedWeek`/`p` after the null checks (use locals);
+  `src/harness/d16/run-d17b-continuation.ts:193`, `run-d17b-week86.ts:125`, `tests/bridge-p07a-w6-result-continuity.test.ts:224/230/277`
+  build a `GameStateV20` where `GameState` is now V21 — retype those fixtures as `GameState` (they carry an empty technology root; use
+  `initialTechnology`). Then: run `tests/p13b-s1-staffing.test.ts`, the P13A suites (`tests/p13a-*.test.ts`, `tests/bridge-p13-*.test.ts`)
+  and update the P13A call sites that must move from `migrateToV20`/`validateSaveV20` to V21 for freshly generated states (the V19→V20
+  fixture test stays on V20 by design).
+- **Delegation once agents are registered:** `test-author` gets the S1 requirement-test brief (scheduler table, conservation, expiry/rehire,
+  same-name identity, determinism/replay, validator refusals, campaign isolation — plan §S1 tests 3–10); `contract-auditor` reviews the
+  slice read-only at the checkpoint; at most two specialists concurrently unless the Owner's later chat amendment (parallel subagents
+  permitted, 2026-09-16) is applied — record which rule is in force.
+- Everything below remains true as history.
+
+## LOGIC-FIRST WINDOW — first record (2026-09-16 ≈12:50 CEST)
 - **Owner directive `OWNER-HEADLESS-PROGRAM-20260916-01`** (published verbatim at
   `docs/operations/fable-team/OWNER-DIRECTIVE-LOGIC-FIRST-20260916.md`): the previous laptop is unavailable; the UI/UX overhaul and all
   Unity/native work are **paused, not accepted**; headless P13B → P14 → P15 → P16 → supported P17/P18 engine work proceeds now.

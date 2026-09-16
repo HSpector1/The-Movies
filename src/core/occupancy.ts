@@ -356,10 +356,14 @@ export function resourceClaims(sources: OccupancySources): ResourceClaim[] {
   for (const research of sources.technology?.projects ?? []) {
     const facilityId = research.laboratoryFacilityId
     if (research.status === 'active') {
-      const slot = 0
-      claims.push({key: resourceSlotKey('facility', facilityId, slot),
-        facilitySlotKey: facilitySlotKey(facilityId, slot), kind: 'facility', facilityId,
-        slot, capability: 'laboratory', owner: 'research', ownerId: research.id, research})
+      // One physical seat per occupied assignment, in seat order (P13B-S1). A
+      // retained assignment whose contract lapsed still holds its seat.
+      const occupied = research.seats.filter(seat => seat.releasedWeek === null)
+      for (const [slot] of occupied.entries()) {
+        claims.push({key: resourceSlotKey('facility', facilityId, slot),
+          facilitySlotKey: facilitySlotKey(facilityId, slot), kind: 'facility', facilityId,
+          slot, capability: 'laboratory', owner: 'research', ownerId: research.id, research})
+      }
     } else {
       // The retained project always names this exact laboratory. Idle records
       // preserve that identity without consuming a research or installation seat.

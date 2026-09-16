@@ -162,7 +162,10 @@ export function busyTalentIds(state: GameState): Set<string> {
   for (const id of activeWritingAssignmentIds(state)) busy.add(id)
   for (const id of industryBusyTalentIds(state.hollywood)) busy.add(id)
   for (const project of state.technology?.projects ?? []) {
-    if (project.status === 'active') busy.add(project.scientistId)
+    if (project.status !== 'active') continue
+    for (const seat of project.seats) {
+      if (seat.releasedWeek === null && activeContract(state, seat.talentId) !== undefined) busy.add(seat.talentId)
+    }
   }
   return busy
 }

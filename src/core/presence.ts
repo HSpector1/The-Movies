@@ -687,30 +687,35 @@ export function studioPresence(state: GameState): StudioPresence {
   const researchClaimedPeople = new Set<string>()
   for (const project of researchProjects) {
     if (project['status'] !== 'active') continue
-    const scientistId = project['scientistId']
     const facilityId = project['laboratoryFacilityId']
     const projectId = project['id']
-    if (!isNonEmptyString(scientistId) || !isNonEmptyString(facilityId) || !isNonEmptyString(projectId)) continue
-    const scientist = talentById.get(scientistId)
-    if (scientist?.role !== 'scientist' || activeContract(state, scientistId, currentWeek) === undefined) {
-      withhold(scientistId, 'research assignment has no employed Scientist')
-      continue
+    const seats = Array.isArray(project['seats']) ? project['seats'] as ReadonlyArray<Record<string, unknown>> : []
+    if (!isNonEmptyString(facilityId) || !isNonEmptyString(projectId)) continue
+    const occupied = seats.filter(seat => seat['releasedWeek'] === null)
+    for (const [slot, seat] of occupied.entries()) {
+      const scientistId = seat['talentId']
+      if (!isNonEmptyString(scientistId)) continue
+      const scientist = talentById.get(scientistId)
+      if (scientist?.role !== 'scientist' || activeContract(state, scientistId, currentWeek) === undefined) {
+        withhold(scientistId, 'research assignment has no employed Scientist')
+        continue
+      }
+      if (claims.has(scientistId) || researchClaimedPeople.has(scientistId)) {
+        withhold(scientistId, 'Scientist has simultaneous active assignments')
+        continue
+      }
+      researchClaimedPeople.add(scientistId)
+      const failure = siteFailure(facilityId, slot)
+      const laboratory = state.operations.facilities.find(facility => facility.id === facilityId)
+      if (failure !== null || laboratory?.capability !== 'laboratory') {
+        withhold(scientistId, failure ?? 'research assignment does not name Laboratory capacity')
+        continue
+      }
+      addClaim('research', {
+        talentId: scientistId, engagement: 'research', credit: 'scientist',
+        ownerId: projectId, facilityId, slot, blockedReason: null,
+      })
     }
-    if (claims.has(scientistId) || researchClaimedPeople.has(scientistId)) {
-      withhold(scientistId, 'Scientist has simultaneous active assignments')
-      continue
-    }
-    researchClaimedPeople.add(scientistId)
-    const failure = siteFailure(facilityId, 0)
-    const laboratory = state.operations.facilities.find(facility => facility.id === facilityId)
-    if (failure !== null || laboratory?.capability !== 'laboratory') {
-      withhold(scientistId, failure ?? 'research assignment does not name Laboratory capacity')
-      continue
-    }
-    addClaim('research', {
-      talentId: scientistId, engagement: 'research', credit: 'scientist',
-      ownerId: projectId, facilityId, slot: 0, blockedReason: null,
-    })
   }
 
   // ── population = every claimed person ∪ every contracted employee ──────────

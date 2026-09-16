@@ -108,7 +108,7 @@ import {
   packageDelta,
   // save
   importSave,
-  migrateToV20,
+  migrateToV21,
   convertV17ToV18,
   convertV4ToV5,
   convertV5ToV6,
@@ -1466,7 +1466,7 @@ export function talentAssignmentContext(
   }
 
   for (const project of state.technology?.projects ?? []) {
-    if (project.status === 'active' && project.scientistId === talentId) {
+    if (project.status === 'active' && project.seats.some(seat => seat.releasedWeek === null && seat.talentId === talentId)) {
       work.push({ kind: 'research', assignmentId: project.id, label: 'Synchronized sound research' })
     }
   }
@@ -1514,7 +1514,8 @@ function engagedTalentIds(state: GameState): Map<string, TalentAssignmentView> {
     busy.set(script.talentId, { kind: 'script', label: script.label })
   }
   for (const project of state.technology?.projects ?? []) {
-    if (project.status === 'active') busy.set(project.scientistId, { kind: 'research', label: 'Synchronized sound research' })
+    if (project.status !== 'active') continue
+    for (const seat of project.seats) if (seat.releasedWeek === null) busy.set(seat.talentId, { kind: 'research', label: 'Synchronized sound research' })
   }
   return busy
 }
@@ -3789,7 +3790,7 @@ export function importSaveJson(json: string): ImportOutcome {
   try {
     const save: SaveFile = importSave(json)
     const converted = save.saveVersion !== 20
-    return { ok: true, state: migrateToV20(save).state, converted }
+    return { ok: true, state: migrateToV21(save).state, converted }
   } catch (e) {
     return { ok: false, error: (e as Error).message }
   }
@@ -3801,7 +3802,7 @@ export function importLegacyV2SaveJson(json: string): ImportOutcome {
   try {
     return {
       ok: true,
-      state: migrateToV20(convertV17ToV18(convertV16ToV17(convertV15ToV16(convertV14ToV15(convertV13ToV14(convertV12ToV13(convertV11ToV12(convertV10ToV11(convertV9ToV10(convertV8ToV9(convertV7ToV8(convertV6ToV7(convertV5ToV6(convertV4ToV5(importLegacyV2ToV4(json)))))))))))))))).state,
+      state: migrateToV21(convertV17ToV18(convertV16ToV17(convertV15ToV16(convertV14ToV15(convertV13ToV14(convertV12ToV13(convertV11ToV12(convertV10ToV11(convertV9ToV10(convertV8ToV9(convertV7ToV8(convertV6ToV7(convertV5ToV6(convertV4ToV5(importLegacyV2ToV4(json)))))))))))))))).state,
       converted: true,
     }
   } catch (e) {
@@ -3815,7 +3816,7 @@ export function importLegacyV1SaveJson(json: string): ImportOutcome {
   try {
     return {
       ok: true,
-      state: migrateToV20(convertV17ToV18(convertV16ToV17(convertV15ToV16(convertV14ToV15(convertV13ToV14(convertV12ToV13(convertV11ToV12(convertV10ToV11(convertV9ToV10(convertV8ToV9(convertV7ToV8(convertV6ToV7(convertV5ToV6(convertV4ToV5(importLegacyV1ToV4(json)))))))))))))))).state,
+      state: migrateToV21(convertV17ToV18(convertV16ToV17(convertV15ToV16(convertV14ToV15(convertV13ToV14(convertV12ToV13(convertV11ToV12(convertV10ToV11(convertV9ToV10(convertV8ToV9(convertV7ToV8(convertV6ToV7(convertV5ToV6(convertV4ToV5(importLegacyV1ToV4(json)))))))))))))))).state,
       converted: true,
     }
   } catch (e) {
@@ -7913,7 +7914,8 @@ export function studioLotSnapshot(state: GameState): StudioLotSnapshotWithJourne
     if (laboratory) {
       const project = state.technology.projects.find(p => p.laboratoryFacilityId === laboratory.id)
       if (project) {
-        const scientist = state.talent.find(t => t.id === project.scientistId)?.name ?? 'Assigned Scientist'
+        const seated = project.seats.filter(seat => seat.releasedWeek === null).map(seat => state.talent.find(t => t.id === seat.talentId)?.name ?? seat.talentId)
+        const scientist = seated.length === 0 ? 'No Scientist seated' : seated.join(', ')
         const work = `${project.verifiedWork}/${SYNCHRONIZED_SOUND.work} verified work`
         if (project.status === 'active') {
           const quote = researchWeekQuote(state, project)

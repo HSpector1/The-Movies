@@ -1,7 +1,6 @@
 import { buildFilmParticipants } from './filmParticipants.js'
-import { applyTechnologyAction } from './technology.js'
+import { applyTechnologyAction, researchAfterEmploymentRelease, researchCandidates, RESEARCH_SCIENTISTS_PER_STUDIO } from './technology.js'
 import { discardUnfilmedProductionTechnology } from './technologyProduction.js'
-import { generateScientist } from './worldgen.js'
 import { withResearchFoundation } from './researchPeople.js'
 // ── §3 applyActions ──────────────────────────────────────────────────────────
 // `applyActions(state, actions): GameState` — pure; validates, then applies the
@@ -2729,14 +2728,7 @@ function applyReleaseTalent(state: GameState, action: Action & { kind: 'releaseT
     contracts: state.contracts.filter((c) => c !== contract),
     ledger: [...state.ledger, entry],
     freeAgents: state.freeAgents.includes(talentId) ? state.freeAgents : [...state.freeAgents, talentId],
-    technology: {
-      ...state.technology,
-      projects: state.technology.projects.map((project) =>
-        project.scientistId === talentId && project.status === 'active'
-          ? { ...project, status: 'paused' }
-          : project,
-      ),
-    },
+    technology: researchAfterEmploymentRelease(state, talentId),
   }
 }
 
@@ -2928,8 +2920,15 @@ export function applyActions(state: GameState, actions: Action[]): GameState {
         if (!next.hollywood || next.founding !== null || !next.operations.facilities.some(f => f.id === action.laboratoryFacilityId && f.capability === 'laboratory')) {
           throw new Error('Complete this Research Laboratory before recruiting its Scientist.')
         }
-        if (next.talent.some(t => t.role === 'scientist' && activeContract(next, t.id))) throw new Error('This programme already employs its Scientist.')
-        const scientist = next.talent.find(t => t.role === 'scientist') ?? generateScientist(next.seed)
+        const candidates = researchCandidates(next)
+        const scientist = action.scientistId === undefined
+          ? candidates.find(candidate => !activeContract(next, candidate.id))
+          : candidates.find(candidate => candidate.id === action.scientistId)
+        if (!scientist) throw new Error(action.scientistId === undefined
+          ? `This studio's research programme already employs its ${RESEARCH_SCIENTISTS_PER_STUDIO === 8 ? 'eight' : String(RESEARCH_SCIENTISTS_PER_STUDIO)} Scientists.`
+          : 'That person is not a research candidate for this studio.')
+        if (activeContract(next, scientist.id)) throw new Error(`This programme already employs ${scientist.name}.`)
+        if (next.talent.filter(t => t.role === 'scientist' && activeContract(next, t.id)).length >= RESEARCH_SCIENTISTS_PER_STUDIO) throw new Error(`This studio's research programme already employs its ${RESEARCH_SCIENTISTS_PER_STUDIO === 8 ? 'eight' : String(RESEARCH_SCIENTISTS_PER_STUDIO)} Scientists.`)
         if (next.talent.some(t => t.id === scientist.id && t !== scientist)) throw new Error('The Scientist identity is already in use.')
         const candidate = next.talent.includes(scientist) ? next : {...next, talent:[...next.talent,scientist], freeAgents:[...next.freeAgents,scientist.id]}
         next = applySignContract(candidate,{kind:'signContract',talentId:scientist.id,termWeeks:208})
@@ -2937,6 +2936,7 @@ export function applyActions(state: GameState, actions: Action[]): GameState {
       }
       case 'installAcousticInstruments':
       case 'assignResearchScientist':
+      case 'releaseResearchSeat':
       case 'beginResearch':
       case 'setResearchBudget':
       case 'pauseResearch':
