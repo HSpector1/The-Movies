@@ -121,24 +121,19 @@ describe('P13B-S4 P09/S3 integration (test 4)', () => {
     const officeFacilityId = base.operations.facilities.find(f => f.capability === 'development-casting')!.id
     let state = queuePlan(base, { kind: 'installation', blueprintId: 'office-conversion-ii', target: { facilityId: officeFacilityId } }, 500_000)
     const planAId = state.physicalPlans.plans[0]!.id
-    // ASSUMPTION (contract gap, reported): `office-conversion-iii`'s quote is
-    // SOURCE-DEPENDENT (§ delegated decisions) -- at the moment this second
-    // plan is queued the body is still standard I, so `planQuoteSnapshot`
-    // freezes the DIRECT I->III price/fingerprint (1,250,000/16w), not the
-    // staged II->III price (850,000/8w) this plan will actually be admitted
-    // at once its dependency clears. `admission:'reviewChangedQuote'` (the
-    // default) requires the fingerprint to be UNCHANGED at admission and
-    // would therefore predictably `hold: 'quote changed since approval'`
-    // rather than admit. `admission:'automatic'` is used here instead because
-    // it forgives a moved fingerprint/cost and checks only the component
-    // LABEL list (physicalPlans.ts `planAdmissionView`) -- which the S4
-    // contract's own wording ("components list the conversion only") implies
-    // is the SAME single label for both the direct and staged quote. If a
-    // real implementation gives the two quotes DIFFERENT component labels,
-    // this plan will legitimately land on `held: 'quote changed since
-    // approval'` instead of `started` -- that failure is evidence of a real
-    // chaining gap in the S4 contract (a price that depends on a predecessor
-    // has nowhere to freeze correctly at queue time), not a broken test.
+    // ADJUDICATED 2026-09-17 (coordinator, in response to this file's original
+    // "assumption" finding): `office-conversion-iii`'s quote is SOURCE-
+    // DEPENDENT (cost/weeks vary with the target's standard at quote time) but
+    // carries ONE CONSTANT component label regardless of source -- at the
+    // moment this second plan is queued the body is still standard I, so
+    // `planQuoteSnapshot` freezes the DIRECT I->III price/fingerprint
+    // (1,250,000/16w), and the LIVE quote moves to the staged II->III price
+    // (850,000/8w) once the dependency clears. `admission:'automatic'`
+    // forgives exactly that (a moved fingerprint/cost with an unchanged
+    // component label list) and is therefore the LAWFUL admission mode for a
+    // chained pair queued ahead of time, within the approved ceiling. The
+    // sibling test below proves the DEFAULT `reviewChangedQuote` admission
+    // holds instead, exactly as designed, for a human to re-approve.
     state = queuePlan(
       state,
       { kind: 'installation', blueprintId: 'office-conversion-iii', target: { facilityId: officeFacilityId } },
@@ -159,6 +154,44 @@ describe('P13B-S4 P09/S3 integration (test 4)', () => {
     expect(developmentStandard(state, officeFacilityId)).toBe('II') // plan A's conversion is operational
 
     state = tick(state) // the FOLLOWING boundary: plan B now sees the met dependency
+    expect(state.physicalPlans.plans[1]!.status).toBe('started')
+  })
+
+  it('the same chained pair under the DEFAULT reviewChangedQuote admission holds on the changed quote and starts once reviewPhysicalPlan re-approves at the live price', () => {
+    const base = p13aLaboratorySlice()
+    const officeFacilityId = base.operations.facilities.find(f => f.capability === 'development-casting')!.id
+    let state = queuePlan(base, { kind: 'installation', blueprintId: 'office-conversion-ii', target: { facilityId: officeFacilityId } }, 500_000)
+    const planAId = state.physicalPlans.plans[0]!.id
+    // DEFAULT admission ('reviewChangedQuote', omitted below): the direct-
+    // I->III price/fingerprint frozen at queue time (the body is still
+    // standard I) legitimately drifts once plan A completes and the body
+    // reads II -- this is the lawful counterpart to the 'automatic' case
+    // above (adjudicated 2026-09-17): `reviewChangedQuote` is designed to
+    // HOLD here for a human to re-approve, not to admit silently.
+    state = queuePlan(
+      state,
+      { kind: 'installation', blueprintId: 'office-conversion-iii', target: { facilityId: officeFacilityId } },
+      1_250_000,
+      { dependsOn: [planAId] },
+    )
+    const w = state.market.tick
+
+    state = tick(state) // w -> w+1: plan A admits
+    for (let week = w + 1; week < w + 1 + 4; week++) state = tick(state) // office-conversion-ii: 4 build weeks
+    expect(developmentStandard(state, officeFacilityId)).toBe('II')
+
+    state = tick(state) // the boundary the dependency clears: plan B's live quote has moved
+    const held = state.physicalPlans.plans[1]!
+    expect(held.status).toBe('held')
+    expect(held.reason).toMatch(/quote changed/)
+    expect(held.pendingQuote).not.toBeNull()
+    expect(held.pendingQuote!.cost).toBe(850_000) // the live, correctly source-dependent II->III price
+
+    state = applyActions(state, [{ kind: 'reviewPhysicalPlan', planId: held.id, approvedMaximumDebit: 850_000 } as never])
+    expect(state.physicalPlans.plans[1]!.status).toBe('queued')
+    expect(state.physicalPlans.plans[1]!.approvedQuote.cost).toBe(850_000)
+
+    state = tick(state) // the FOLLOWING boundary: the re-approved plan starts
     expect(state.physicalPlans.plans[1]!.status).toBe('started')
   })
 })

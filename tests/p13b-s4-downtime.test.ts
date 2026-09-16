@@ -100,29 +100,23 @@ describe('P13B-S4 downtime and money (test 2)', () => {
 
     expect(capexTotal).toBe(1_350_000) // 500,000 (I->II) + 850,000 (II->III)
 
-    // ASSUMPTION / OPEN ENGINE QUESTION (recorded, not resolved by this test,
-    // per the S4 task assignment: "assert exactly that; record in a comment
-    // how the II increment is charged if the engine's ledger differs -- do
-    // NOT weaken; report the delta"). Document 03's number requires ZERO
-    // weeks of the interim $2,500 II increment to ever land on the ledger,
-    // even though the I->II placement record is genuinely `status:
-    // 'operational'` for one instant (week w+4) before the II->III commit
-    // supersedes it. `weeklyPlacementOperatingCost` (placement.ts) sums EVERY
-    // facility with `status:'operational'` at the START of a tick with no
-    // notion of "superseded" -- a literal reading of today's aggregate-opex
-    // mechanism would charge $2,500 for the tick that advances w+4 -> w+5
-    // (the first tick whose INPUT state shows I->II operational), landing at
-    // 1,350,000 + 2,500 + 39*4,000 + 52*5,500 = 1,798,500, not 1,796,000. S4
-    // must therefore either (a) never let a superseded conversion's own
-    // weeklyOperatingCost accrue once a newer conversion targets the same
-    // body, or (b) document 03's number is itself approximate. A failure here
-    // landing on 1,798,500 is evidence for (b), not a broken test.
+    // ADJUDICATED 2026-09-17 (coordinator, in response to this file's original
+    // "open engine question" finding): $1,796,000 stands as the law. A
+    // converting body is OFFLINE for the whole build, and increments are
+    // charged only while the body is online AND operational, at its CURRENT
+    // standard only -- so the II increment never lands during the II->III
+    // work (the body reads II for one instant at week w+4, but the II->III
+    // commit takes it straight back offline the SAME week, before any tick
+    // ever reads it as a charging, operational II body), and after III
+    // completes only the $4,000 III increment charges. Zero weeks of the
+    // interim $2,500 II increment is therefore the CORRECT total, not an
+    // approximation -- sim-core is expected to implement exactly that.
     expect(opexTotal).toBe(40 * 4_000 + 52 * 5_500)
     expect(opexTotal).toBe(446_000)
     expect(capexTotal + opexTotal).toBe(1_796_000)
   })
 
-  it('a new standalone Development Office III on another plot: no downtime on the old office (companion §6 route, document 03 arithmetic asserted where the engine can lawfully reach it)', () => {
+  it('a new standalone Development Office III on another plot: no downtime on the old office; the engine\'s lawful total is $1,776,000 (ENG-2 OPEN -- document 03\'s $1,646,000 needs the undisposed no-II-prerequisite product choice)', () => {
     const built = s4BareOfficeStudio('p13b-s4-downtime-standalone')
     let state = built.state
     // Sunk BEFORE the horizon starts (the same "capital sunk outside the
@@ -148,25 +142,29 @@ describe('P13B-S4 downtime and money (test 2)', () => {
 
     expect(capexTotal).toBe(1_200_000) // Development Office III's own capex
 
-    // CONTRACT CONFLICT (recorded, not resolved by this test -- reported to
-    // the parent as requiring Owner disposition). Document 03 states this
-    // route's 52-week total as $1,646,000 = 1,200,000 (III capex) + 160,000
-    // (40 operational weeks * $4,000) + 286,000 (old office's baseline, 52 *
-    // $5,500) -- with NO line for the standalone Development Office II's OWN
-    // $2,500/week, even though it is a genuinely owned, operational
-    // `PlacedFacility` for the whole 52-week window and the plan's own
-    // delegated-decisions section states "old separately purchased II/III
-    // bodies remain real with their charges" as controlling law. A faithful
-    // reading of THAT law adds 52*2,500 = $130,000 the paper total omits, for
-    // $1,776,000. This test asserts the PLAN'S TEST-LIST NUMBER (1,646,000)
-    // per the S4 task assignment's explicit instruction for this scenario
-    // ("assert the exact document-03 arithmetic for the standalone route...
-    // and record the limit"); a real engine that also charges the sunk Office
-    // II's own opex will fail this assertion at 1,776,000 instead -- that
-    // failure is exposing the document-03 / "old bodies keep their charges"
-    // conflict, not a defective test.
-    expect(opexTotal).toBe(40 * 4_000 + 52 * 5_500)
-    expect(capexTotal + opexTotal).toBe(1_646_000)
+    // ADJUDICATED 2026-09-17 (coordinator, in response to this file's original
+    // "contract conflict" finding): ENG-2 (a standalone III buildable without
+    // ever owning an operational II) is an OPEN product choice the plan does
+    // not code (plan §S4 delegated decisions: "new-III-without-II prerequisite
+    // removal... still require disposition"). Document 03's $1,646,000 for
+    // this route presumes ENG-2. The LAWFUL engine route -- the one this test
+    // actually builds, asserted above -- requires an OPERATIONAL Development
+    // Office II first, and that body is a genuinely owned, operational
+    // `PlacedFacility` for the whole 52-week window, so its own $2,500/week is
+    // a real charge under the plan's "old separately purchased II/III bodies
+    // remain real with their charges" law. This asserts the ENGINE'S LAWFUL
+    // TOTAL, decomposed so the $130,000 delta to document 03 (unreachable
+    // while ENG-2 stays undisposed) is explicit rather than silently absorbed:
+    const oldOfficeBaseline = 52 * 5_500 // 286,000 -- the real office, never offline
+    const standaloneIIOpex = 52 * 2_500 // 130,000 -- the sunk, still-operational Office II; the ENG-2-dependent delta
+    const standaloneIIIOpex = 40 * 4_000 // 160,000 -- 52 - 12 build weeks operational
+    expect(opexTotal).toBe(oldOfficeBaseline + standaloneIIOpex + standaloneIIIOpex)
+    expect(opexTotal).toBe(576_000)
+    expect(capexTotal + opexTotal).toBe(1_776_000)
+    // Document 03's own number, retained ONLY as the named delta -- not
+    // asserted against the live ledger, since it is unreachable while ENG-2
+    // stays an open, uncoded product choice.
+    expect(capexTotal + opexTotal - standaloneIIOpex).toBe(1_646_000)
   })
 })
 
