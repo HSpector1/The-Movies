@@ -75,6 +75,23 @@ caps are planning checkpoints: each phase record restates actual usage; overruns
   client-side off their stable ids (N6), no new wire kind; Alt B (new route kinds + another projection bump) is not adopted. Consequence: the
   Unity DTO must be adopted in a paired commit before Build55, and the synthetic fixtures (generated at projection 30) are regenerated at 31
   as new immutable fixtures (DATA-03) because the native driver binds the fixture schemaId to the contract.
+- C12 (added 2026-09-16, DESIGN-09) N7 help + attention design ADOPTED as the implementation law (`r3-n1-design/R3-N7-HELP-AND-ATTENTION-
+  FAMILY-SHEET.md`, TS 79af664d): one shared help mechanism in USS and IMGUI forms — a focus/hover information line (what it does · what
+  blocks it · what it costs), a `<surface>-help` toggle opening a 2–6 sentence block INSIDE the existing body scroll (never a modal; Escape
+  rung 2c; key F1, verified unused), inline blocker reasons already on the wire; two-tier cues (quiet vs prominent, word + colour + glyph);
+  a host-level session acknowledgement store keyed `<family>:<stableId>` re-armed only when an on-wire fact stamp changes (badge clears,
+  history persists); flood cap 3 with a counted remainder; `operationsEventsProjection` rows land in the existing History chips with
+  `significance` derived from the tier. Named dependencies stay named (contract-lifecycle rows, casting-review completion). The wire delta
+  is exactly one (SIM-N7-01: projection 31 → 32, DTO regen, every fixture family regenerated).
+- C13 (added 2026-09-16, DESIGN-10) N8 route split RATIFIED as designed (`r3-n1-design/R3-N8-OPTIONAL-DRAG-FAMILY-SHEET.md`, TS 44c1ffa0):
+  implement four routes under two controllers — catalogue card → lot placement (drop moves the origin; the `build-quote` strip reviews,
+  `build-commit` commits), candidate → role chip and candidate → slate row (draft edits reviewed by the greenlight quote / slate consequence
+  block), candidate → compare bar (client state, no review exists and none is invented); defer set blueprint → stage, scientist →
+  laboratory and writer → commission with the sheet's reasons. Shared law: lift 6·s px or 160 ms, ghost `min(source, 320·s)` × 40/58/76,
+  verdict word + colour + glyph, edge autoscroll 24·s, Escape rung 0 (a live drag cancels first) through the existing `GuiOwnsCancel`
+  slot, camera keys withheld via `CameraMovementAllowed`. Hazards carried into the N8 brief: `StudioBuildPlacementDriver` writes
+  `SuppressKeyboardMovement` unconditionally every Update (use the gate's one-slot-per-owner pattern), its `IsPointerOverUi` early return
+  must ignore rather than cancel the drag's first frames, and `PointerMoveEvent` is registered nowhere today. Native pointer pass owed.
 - C7 authorization at the revised budget → the directive delegates settled technically-ready work: proceed, report actuals each phase.
 
 ## Budget checkpoint — 2026-09-16 02:20Z (revised stage budgets, published per the directive)
