@@ -6,8 +6,9 @@
 > receipt govern scope, actual source/build identities, cumulative usage and ownership.
 > Current disposition: OWNER DIRECTIVE THREE-WEEK AUTONOMOUS WINDOW (2026-09-15 → 10-06; `docs/operations/fable-team/OWNER-DIRECTIVE-THREE-WEEK-
 > AUTONOMOUS-20260915.md`). Fable is PM: full R3 overhaul (plan `plans/R3-OVERHAUL-PLAN.md`) → P13B → P14 → P15 → P16. Latest candidate
-> Build53 (Unity 12498560 / TS 681b3fdc, seal 48, admission 44): N1 + N2 delivered; F7–F24 corrected with native proof on Build50–53 except F21
-> (keyboard Down → search field, native-only, open). Read `CONTINUATION-STATE.md` first, then the newest K record atop 06.
+> Build56 (Unity 288c4ddb / TS 70a8c3ec, projection 31, seal 51, admission 46): N1 + N2 + N3 delivered (records K9–K11); F7–F25 closed or
+> refuted with native proof on Build50–56; F26 open (Development review control published above the viewport under the fallback inspector at
+> 1280×720 after a workspace closes — N4 IMPL-26). Read `CONTINUATION-STATE.md` first, then the newest K record atop 06.
 > Build46 is the Current Ops-qualified engineering checkpoint (not Owner-accepted); Build47/48/49 are retained superseded records.
 > No further implementation, native input, new audit or specialist dispatch follows automatically.
 > A fresh coordinator must explicitly accept the recorded writer/input handoff and reconcile
