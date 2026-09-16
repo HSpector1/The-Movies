@@ -118,27 +118,104 @@ charged in `HEADLESS-PROGRESS.md`.
 
 ### Tasks
 
-- [ ] **T1 Types + candidate pool (RED→GREEN):** test 1; add `researchCandidates(state)` in
+- [x] **T1 Types + candidate pool (RED→GREEN):** test 1; add `researchCandidates(state)` in
       `technology.ts`; extend `recruitScientist`.
-- [ ] **T2 Seat commands:** test 2; `assignResearchScientist` creates/extends the project with a seat;
+- [x] **T2 Seat commands:** test 2; `assignResearchScientist` creates/extends the project with a seat;
       `releaseResearchSeat`; refusals.
-- [ ] **T3 Scheduler + receipts:** tests 3, 5, 7; `researchWeekQuote` over eligible seats;
+- [x] **T3 Scheduler + receipts:** tests 3, 5, 7; `researchWeekQuote` over eligible seats;
       `advanceResearchWeek` writes receipts and caps the final week.
-- [ ] **T4 Expiry/rehire/pause:** test 4; eligibility, auto-pause, `releaseTalent` seat-aware pause,
+- [x] **T4 Expiry/rehire/pause:** test 4; eligibility, auto-pause, `releaseTalent` seat-aware pause,
       `busyTalentIds`.
-- [ ] **T5 Validator v2:** test 9; rewrite `validateTechnology`; keep `validateTechnologyV1` for V20.
-- [ ] **T6 Save V21 + migration:** test 8, 10; save owner changes; legacy fixtures; downgrade refusals.
-- [ ] **T7 Consumers:** occupancy/presence/adapter/bridge seat-aware; bridge P13 tests updated; test 6.
-- [ ] **T8 Affected suites:** `p13a-*`, `bridge-p13-*`, `tick`, `save`, `replay`, occupancy tests; then a
+- [x] **T5 Validator v2:** test 9; rewrite `validateTechnology`; keep `validateTechnologyV1` for V20.
+- [x] **T6 Save V21 + migration:** test 8, 10; save owner changes; legacy fixtures; downgrade refusals.
+- [x] **T7 Consumers:** occupancy/presence/adapter/bridge seat-aware; bridge P13 tests updated; test 6.
+- [ ] **T8 Affected suites (running 2026-09-16 14:55 on a quiet host against `d74426a`, matched to the baseline flags; evidence 06/07):** `p13a-*`, `bridge-p13-*`, `tick`, `save`, `replay`, occupancy tests; then a
       bounded full core pass; record results and inherited failures.
 - [ ] **T9 Checkpoint:** progress/backlog/continuation records, commit, push.
 
-Each task ends with a commit on this branch. Commands: `npx vitest run --project core --minWorkers=1
+Task evidence (2026-09-16): T1/T2 `tests/p13b-s1-staffing.test.ts` 5/5 (RED 13:02 → GREEN 13:50); T3/T4/T7 `tests/p13b-s1-scheduler.test.ts` 13/13 + `tests/bridge-p13b-s1-identity.test.ts` 1/1; T5 `tests/p13b-s1-validation.test.ts` 7/7 (+ P13A validation 9/9 after the duplicate-charge pre-pass); T6 `tests/p13b-s1-save-v21.test.ts` 8/8 on the three frozen V20 fixtures + accepted V19; commits `b5b2412`, `5a52e1e`, `d74426a`; read-only audit at b5b2412 (no false refusals; 3 findings fixed in d74426a). Each task ends with a commit on this branch. Commands: `npx vitest run --project core --minWorkers=1
 --maxWorkers=2 <files>`; `npx tsc --noEmit -p tsconfig.bridge.json`.
 
 ---
 
-## S2 — Multiple Labs, cooperation and splitting (Ready row 2) — scope record
+## S1b — Bridge read model for seats (projection 33) — task expansion (amendment 2026-09-16)
+
+**Scope.** Publish the S1 facts the Unity consumer will need as data, not labels: `StudioLaboratoryPage.seats[]`
+(`talentId`, `name`, `assignedWeek`, `releasedWeek`, `employed`), `receipts` (the last eight
+`{week, seatTalentIds, spend, units}`), and numeric `weekly` (`ceiling`, `usable`, `seats`, `output`)
+beside the existing labels (labels stay for the paused client). Projection 32 → 33; protocol 4 unchanged.
+Delegated implementation decision: additive fields only; nothing existing renamed. Allowance: 2 h / 1 h.
+
+- [ ] **S1b-T1 Schema + generator (RED→GREEN):** bridge schema test asserts the new members and projection 33;
+      `npm run generate:bridge-contract` + `generate:bridge-contract:fixtures`; manifest hash recorded here and in the backlog.
+- [ ] **S1b-T2 Page:** `bridge/laboratory.ts` fills the members from `occupiedSeats`/`project.weeks`/`researchWeekQuote`;
+      `tests/bridge-p13b-s1b-seats.test.ts` proves seats by id (same-name pair), receipts order, and no private rival data.
+- [ ] **S1b-T3 Records:** backlog (C# binding change: `StudioLaboratoryPage` DTO + fixture regeneration + paired Unity adoption), progress row, commit, push.
+
+## S2 — Multiple Labs, cooperation and splitting (Ready row 2) — task expansion (amendment 2026-09-16)
+
+**Authoritative sources.** Companion `02-P13B-DECISIONS-AND-ACCEPTANCE.md` §4 (candidate briefs, multiple-Labs
+recommendation, unequal-team rule), `03-PAPER-ECONOMICS.md` (formula/clock, 64-unit staffing table, [780,832)
+allocation fixtures) and `06-CURRENT-OPS-CORRECTION-AND-DISPOSITION.md` (Post-onset correction; +$12,000 rows), all at
+`673f49835404e262ea651b4fcb8fda5e259d80a6` (SHA-verified copies in the Owner packet materialization).
+
+**Scope.** Research side only: the second catalogue entry, Lab discipline modules and bench claims, seats across two
+Labs per project, the cooperation output rule and proportional funding, per-Lab receipts, document 03 dates reproduced
+through the real scheduler. Lighting **deployment** (access/equipment/site/installation components, +$1k weekly) is S5;
+its cancellation is S6. The **production consumer** of R07 (demanding lighting setup 4→2 setup units, Set size classes)
+stays DESIGN BLOCKED on the named pre-execution clarification (Future Ops R2 exact recipe) and is not coded here.
+
+**Authoritative choices.**
+- Owner selected: all eight rows retained; direct conversion selected (S4); money scale OPEN-5 stays the Owner's.
+- Delegated implementation decisions: catalogue entry `lighting-control-01` (researchable 780, commercial 936, 64 units,
+  P2) on a Lab `electrical-control-instruments` module ($350k / 5 weeks / +$2k weekly, P09 installation on a Laboratory);
+  `stageInstallationId` for lighting is a P09 installation blueprint `lighting-control-stage` recorded at the whole-package
+  quote ($100k / 4 weeks / +$1k weekly) so catalogue reachability holds — S5 decomposes it into site $50k/2w + install
+  $50k/2w components; `postInstallationId` becomes nullable (lighting has no Post component); **work numerator rebased to
+  1/160,000 (WORK_UNIT × 8) in Save V22** so `a + 0.625·b` is exact in integers (V21→V22 multiplies every stored numerator
+  by 8, byte-identical otherwise); per-Lab receipt rows `{laboratoryFacilityId, seatTalentIds, spend, rawUnits}` under each
+  week receipt with the project credit `units`; project `laboratoryFacilityId` stays the home Lab (first seat), seats carry
+  their own Lab; a person holds one seat across all projects; two operational Labs per studio, third refused.
+- Provisional tuning (companion §4, not Owner-approved balance): 0.625 second-Lab factor (equal full Labs → 13/16 → 9.75),
+  proportional per-Lab funding with whole-dollar remainder to the lowest stable Lab id, $10k usable per seat, 4 seats/Lab.
+- Proposed product choices left uncoded: exact R07 production/Set recipe (Future Ops R2); large-stage body (K4); R02.
+
+**Tests (requirement-derived; each fails before its implementation).**
+1. Catalogue: two entries, stable order, acyclic prerequisites, reachable physical targets (module blueprint on a Lab,
+   stage installation, nullable Post); `knownTechnology` accepts both; one project per (studio, technology).
+2. Module/bench law: lighting research refused in a Lab without an operational electrical/control module (and while its
+   installation runs); sound and lighting active in one Lab on different benches within four seats total; the bench claim
+   is released on pause/cancel and rechecked on resume; a seat on a Lab lacking the discipline module is refused.
+3. Two Labs per project: seats on a second operational Lab accepted (S1's refusal retired), third Lab refused, four per
+   Lab, one seat per person across projects; per-seat Lab identity on the wire of the receipt.
+4. Cooperation arithmetic: equal full Labs at $80k → 9.75/week, 7 funded weeks, R&D 560,000; $40k over 8 seats → spend
+   40,000 split 20,000/20,000 → 8.125/week; 4 + 2 seats at $60k → spend 60,000 split 40,000/20,000, output 6 + 0.625·3;
+   remainder by stable Lab id for an odd split; fixed-point exactness at every receipt (no float drift).
+5. Document 03 [780,832): two Labs with both modules operational at 780, eight people on 208-week contracts hired at
+   780 — cooperate sound then light (knowledge 787 / 794, R&D 1,120,000), split (791 / 791, 880,000), residual light
+   (52 units done) cooperate (787 / 789, 720,000) and split (791 / 782, 520,000); idle person-weeks as stated; payroll,
+   employment overhead and Lab/instrument operating charges reconcile to the ledger by kind.
+6. Expiry/rehire across Labs: a lapsed seat on the second Lab drops b only; the home Lab is unaffected.
+7. Conservation, determinism, save/reload, campaign isolation and validator refusals for the new facts (forged per-Lab
+   split, receipt naming a Lab without the module, third Lab, fifth seat on one Lab, units not matching `a + 0.625·b`).
+8. V21→V22: every S1 fixture and the three legacy V20 fixtures migrate (×8 numerators, empty per-Lab rows for legacy
+   receipts is NOT allowed — S1 receipts gain their single-Lab row from the seat's Lab); `migrateToV21` refuses V22.
+
+**Allowance (plan):** 10 h capability, 3 h verification.
+
+### S2 tasks
+
+- [ ] **S2-T1 Catalogue + parameters:** test 1; `TECHNOLOGY_CATALOGUE` two entries; per-technology work/dates/costs read
+      from the entry (retire hard-coded `SYNCHRONIZED_SOUND.*` reads in the scheduler/validator where the project's
+      technology decides); new blueprints in `tuning.ts`.
+- [ ] **S2-T2 Modules/benches:** test 2; `laboratoryRefusal` per discipline; bench claims in occupancy/presence.
+- [ ] **S2-T3 Two-Lab seats:** test 3; command + validator bounds.
+- [ ] **S2-T4 Cooperation scheduler + V22:** tests 4, 6, 7, 8; per-Lab allocation, exact fixed point, receipts, migration.
+- [ ] **S2-T5 Document 03 fixtures:** test 5 through `src/harness/p13b/fixtures.ts` (generated two-Lab world at 780).
+- [ ] **S2-T6 Bridge (text only):** per-Lab seat/contribution lines on the Laboratory page; second-brief assign rows.
+- [ ] **S2-T7 Affected suites, records, commit, push.**
+
+## S2 — original scope record (superseded by the expansion above; kept verbatim)
 
 Add the second catalogue entry `lighting-control-01` (researchable 780, commercial 936, 64 units, P2,
 electrical/control module blueprint $350k/5 weeks/+$2k weekly, provisional tuning), Lab module claims (one
