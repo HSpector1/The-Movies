@@ -52,7 +52,10 @@ export const PROTOCOL_VERSION = 4 as const
 // It stores nothing, consumes nothing and changes no simulation law; it exists
 // so a decision cue that has cleared stays retrievable in History (N7 family
 // sheet §3). Protocol stays 4 and the durable save format is untouched.
-export const PROJECTION_VERSION = 32 as const
+// P13B-S1b (plan §S1b): 32 -> 33 — additive Laboratory seat data beside the
+// existing labels: `StudioLaboratoryPage.seats/receipts/weekly`. Nothing renamed or
+// removed, protocol stays 4, no simulation law and no durable save format changed.
+export const PROJECTION_VERSION = 33 as const
 
 const nonEmptyText = () => text({ minLength: 1 })
 const nonNegativeInteger = () => integer({ minimum: 0 })

@@ -1,0 +1,22 @@
+RED before implementation; tree HEAD aa0ccce1df575c23a3ec9544911abe1c006d45f9 + untracked tests/bridge-p13b-s1b-seats.test.ts (test-author); start 2026-09-16T14:12:26Z
+ ❯ |core| tests/bridge-p13b-s1b-seats.test.ts (8 tests | 8 failed) 15089ms
+   × P13B-S1b Laboratory seats read model (projection 33) > bumps PROJECTION_VERSION to the S1b wire contract (33) 23ms
+     → expected 32 to be 33 // Object.is equality
+   × P13B-S1b Laboratory seats read model (projection 33) > a. fresh Laboratory with no project publishes empty seats/receipts, zero weekly and snapshotVersion 33 335ms
+     → expected 32 to be 33 // Object.is equality
+   × P13B-S1b Laboratory seats read model (projection 33) > b. four staffed seats publish assignment-order rows, three ascending receipts and the current week quote 475ms
+     → expected undefined to deeply equal [ Array(4) ]
+   × P13B-S1b Laboratory seats read model (projection 33) > c. only the last eight worked-week receipts are published, ascending and contiguous 169ms
+     → Target cannot be null or undefined.
+   × P13B-S1b Laboratory seats read model (projection 33) > d. a released seat keeps its history row; the quote drops to three seats; the next receipt names three ids 173ms
+     → Cannot read properties of undefined (reading '0')
+   × P13B-S1b Laboratory seats read model (projection 33) > e. a same-name pair is seated and charged distinctly by id 175ms
+     → expected undefined to deeply equal [ Array(2) ]
+   × P13B-S1b Laboratory seats read model (projection 33) > f. a paused project zeroes the current week quote but keeps its ceiling and seated rows 207ms
+     → expected undefined to deeply equal { ceiling: 40000, usable: +0, …(2) }
+   × P13B-S1b Laboratory seats read model (projection 33) > player-safe: the Laboratory page names only the player's people and project 13ms
+     → Cannot read properties of undefined (reading 'map')
+ Test Files  1 failed (1)
+      Tests  8 failed (8)
+   Duration  19.14s (transform 2.78s, setup 0ms, collect 3.59s, tests 15.09s, environment 0ms, prepare 107ms)
+end 2026-09-16T14:12:47Z

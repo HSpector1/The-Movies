@@ -146,11 +146,11 @@ Task evidence (2026-09-16): T1/T2 `tests/p13b-s1-staffing.test.ts` 5/5 (RED 13:0
 beside the existing labels (labels stay for the paused client). Projection 32 → 33; protocol 4 unchanged.
 Delegated implementation decision: additive fields only; nothing existing renamed. Allowance: 2 h / 1 h.
 
-- [ ] **S1b-T1 Schema + generator (RED→GREEN):** bridge schema test asserts the new members and projection 33;
+- [x] **S1b-T1 Schema + generator (RED→GREEN; RED 8/8 at aa0ccce, GREEN 8/8; new schemaId `sha256:9ee4bcff04e06d47fa672f6091d3f9eac98c3a19829260fd9587ab22d06d55f6`):** bridge schema test asserts the new members and projection 33;
       `npm run generate:bridge-contract` + `generate:bridge-contract:fixtures`; manifest hash recorded here and in the backlog.
-- [ ] **S1b-T2 Page:** `bridge/laboratory.ts` fills the members from `occupiedSeats`/`project.weeks`/`researchWeekQuote`;
+- [x] **S1b-T2 Page (`tests/bridge-p13b-s1b-seats.test.ts`, test-author; scenarios a–f + player-safe):** `bridge/laboratory.ts` fills the members from `occupiedSeats`/`project.weeks`/`researchWeekQuote`;
       `tests/bridge-p13b-s1b-seats.test.ts` proves seats by id (same-name pair), receipts order, and no private rival data.
-- [ ] **S1b-T3 Records:** backlog (C# binding change: `StudioLaboratoryPage` DTO + fixture regeneration + paired Unity adoption), progress row, commit, push.
+- [x] **S1b-T3 Records (2026-09-16 ≈16:40):** backlog (C# binding change: `StudioLaboratoryPage` DTO + fixture regeneration + paired Unity adoption), progress row, commit, push.
 
 ## S2 — Multiple Labs, cooperation and splitting (Ready row 2) — task expansion (amendment 2026-09-16)
 
@@ -185,7 +185,10 @@ stays DESIGN BLOCKED on the named pre-execution clarification (Future Ops R2 exa
    stage installation, nullable Post); `knownTechnology` accepts both; one project per (studio, technology).
 2. Module/bench law: lighting research refused in a Lab without an operational electrical/control module (and while its
    installation runs); sound and lighting active in one Lab on different benches within four seats total; the bench claim
-   is released on pause/cancel and rechecked on resume; a seat on a Lab lacking the discipline module is refused.
+   is released on pause/cancel and rechecked on resume. Seating itself does NOT require the module (retained P13A law,
+   `tests/p13a-research-identity.test.ts`: seats may be assigned before instruments exist; the project stays paused);
+   begin/resume/weekly eligibility do. Seat slots are numbered per Lab across ALL active projects (stable project-id
+   order), so two technologies in one Lab never double-book a slot and the four-seat cap counts every project's seats.
 3. Two Labs per project: seats on a second operational Lab accepted (S1's refusal retired), third Lab refused, four per
    Lab, one seat per person across projects; per-seat Lab identity on the wire of the receipt.
 4. Cooperation arithmetic: equal full Labs at $80k → 9.75/week, 7 funded weeks, R&D 560,000; $40k over 8 seats → spend

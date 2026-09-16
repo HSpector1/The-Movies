@@ -245,5 +245,13 @@ export function laboratoryPage(state: GameState, buildingId: string | null, inte
         'No synchronized stage, capture and Post chain is operational. Research or purchase must be followed by an exact physical installation.'),
     actions: actions.slice(page * pageSize, (page + 1) * pageSize).map(a => ({ id: a.id, label: a.label, detail: a.detail,
       enabled: a.enabled && enabled.has(a.id), disabledReason: a.disabledReason ?? (enabled.has(a.id) ? null : 'Refresh this Laboratory to review the current decision.'), intent: enabled.get(a.id) ?? null })),
+    // P13B-S1b: the same engine facts as data. Seat history (released rows included) in stored
+    // order, the last eight worked-week receipts ascending, and the CURRENT week's quote.
+    seats: (project?.seats ?? []).filter(seat => seat.laboratoryFacilityId === lab.facilityId).map(seat => ({
+      talentId: seat.talentId, name: state.talent.find(t => t.id === seat.talentId)?.name ?? seat.talentId,
+      assignedWeek: seat.assignedWeek, releasedWeek: seat.releasedWeek, employed: activeContract(state, seat.talentId) !== undefined,
+    })),
+    receipts: (project?.weeks ?? []).slice(-8).map(r => ({ week: r.week, seatTalentIds: [...r.seatTalentIds], spend: r.spend, units: r.units })),
+    weekly: { ceiling: project?.budgetPerWeek ?? 0, usable: quote?.spend ?? 0, seats: quote?.seats ?? 0, output: quote?.output ?? 0 },
   } }
 }

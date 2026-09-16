@@ -1,0 +1,15 @@
+GREEN verification by coordinator; tree HEAD aa0ccce1df575c23a3ec9544911abe1c006d45f9 + sim-core S1b working changes; start 2026-09-16T14:35:24Z
+=== check:bridge-contract ===
+verified /Users/zacheryspector/The-Movies-headless-program/bridge/schema/project-studio-bridge.schema.json
+verified /Users/zacheryspector/The-Movies-headless-program/generated/unity/StudioBridgeDtos.Generated.cs
+verified /Users/zacheryspector/The-Movies-headless-program/generated/unity/project-studio-bridge.contract-manifest.json
+EXIT=0
+=== manifest identity ===
+{"projectionVersion":33,"protocolVersion":4,"schemaId":"sha256:9ee4bcff04e06d47fa672f6091d3f9eac98c3a19829260fd9587ab22d06d55f6","ts":"076893b770110d77864504d46f0503aad574b33ede35702c505338e448217c3d"}
+=== seats test ===
+ ✓ |core| tests/bridge-p13b-s1b-seats.test.ts (8 tests) 10785ms
+ Test Files  1 passed (1)
+      Tests  8 passed (8)
+=== tsc bridge ===
+BRIDGE_TSC_EXIT=0
+end 2026-09-16T14:36:13Z

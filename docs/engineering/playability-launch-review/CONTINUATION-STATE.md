@@ -13,8 +13,13 @@
   vs ≈72–76 s body) exceed budgets calibrated on the old M3 Max on this Air in BOTH trees — never raised or disabled; `p13a-scientist-foundation`
   golden digests fail at the pin (inherited product drift, disposition owed to the P13A owner); r3n1 fixtures and Pillow are environment.
 - **Specialists actually used:** test-author (tests 3–10, 29/29), contract-auditor (read-only, 3 findings), sim-core (fixes) — ≤ 2 concurrent.
-- **Next:** S1b (projection 33 seats read model, plan §S1b) then S2 (plan §S2 expansion; V22 rebases the work numerator ×8; production consumer
-  of R07 stays DESIGN BLOCKED on the Future Ops R2 recipe), both under the standing logic-first directive; no Unity work.
+- **S1b closed (≈16:45): LOGIC VERIFIED · UNITY NOT VERIFIED** — bridge projection 33, schemaId `sha256:9ee4bcff04e06d47fa672f6091d3f9eac98c3a19829260fd9587ab22d06d55f6`,
+  `StudioLaboratoryPage.seats/receipts/weekly`; C# DTO change recorded in the backlog; Save stays V21.
+- **S2 in flight:** tests 1–4 authored RED by test-author (`tests/p13b-s2-catalogue|labs|cooperation.test.ts`, harness `p13bTwoLabWorld`; S1 tests
+  carry `technologyId` — these files are NOT in the S1b commit); sim-core dispatched on S2-T1…T3 (catalogue two entries, blueprints, technologyId
+  routing with the P13A-preserving default, per-technology module law at begin/resume, Lab-level seat slots across projects, two Labs per project);
+  T4 (cooperation scheduler, per-Lab receipts, **V22** ×8 numerator rebase) follows as a separate sim-core increment, then tests 5–8.
+- **Next after S2:** S3 queues → S4 → S5 → S6 → S7 → S8 per the plan order; production consumer of R07 stays DESIGN BLOCKED (Future Ops R2 recipe).
 - Everything below remains true as history.
 
 ## LOGIC-FIRST WINDOW — S1 recovery point 2 (2026-09-16 ≈14:00 CEST; superseded by the closeout above, kept as history)
