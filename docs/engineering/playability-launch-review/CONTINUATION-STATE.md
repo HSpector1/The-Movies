@@ -18,7 +18,13 @@
   per technology. Backlog: S2 entry corrected; S5-R07 future client entry added.
 - **Open, recorded, not S2's:** `bridge-p13-campaign-isolation` 60 s inline budget (72 s body on this host), `bridge-p12-campaign-library` 5/20 s
   budgets, `bridge-founding` random seed, `p13a-scientist-foundation` golden digests, r3n1 fixtures, Pillow.
-- **S3 next:** task expansion is in the plan (persistent physical plans/dependencies/admission; Save V23; projection 35; tests 1–9; T0–T5).
+- **S3 in progress (≈23:35):** T0 fixtures (`e27f4af`), tests 1–8 RED (`dcb34ca`), engine T1–T3 landed `30836b0` (`src/core/physicalPlans.ts`,
+  admission at tick step 1.06 with the arrived-week stamp, Save **V23** live, sweep 22 → 23; S3 files 54/54 after five test-premise amendments;
+  delegated decisions and the coordinator's bound correction recorded in the plan). **T4 in flight:** sim-core on the bridge plans page
+  (projection **35**: `view: 'plans'`, `StudioPlansPage`/`StudioPlanRow`/`StudioPlanQuote`, plan actions, Laboratory `plan-queue-*` companions,
+  five history kinds on the wire) and test-author on `tests/bridge-p13b-s3-plans.test.ts` RED first. Then T5: matched full pass on the final S3
+  source, S3 progress row + backlog entry + label, S4 next.
+- **S3 plan reference:** task expansion in the plan (persistent physical plans/dependencies/admission; Save V23; projection 35; tests 1–9; T0–T5).
   S3-T0 = genuine V22 fixtures minted at the final V22 writer `c8ef3b2` (`tests/fixtures/p13b/legacy-v22-*.json.gz`, provenance beside them)
   before any S3 source change; then test-author tests 1–8 RED and sim-core T1 concurrently on disjoint files.
 
