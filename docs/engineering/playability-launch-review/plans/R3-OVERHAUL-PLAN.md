@@ -60,6 +60,17 @@ caps are planning checkpoints: each phase record restates actual usage; overruns
   nulls instead of parking when a foreign ring owner holds the target (asymmetry with the pictures rail) — N2 tail item.
 - C7 authorization at the revised budget → the directive delegates settled technically-ready work: proceed, report actuals each phase.
 
+## Budget checkpoint — 2026-09-16 02:20Z (revised stage budgets, published per the directive)
+Actuals to date in this window: N1 close-out + N2 ≈ 4.7 h capability / 4.3 h reserve. Whole-program ledger (`budget-ledger.json`):
+capability remaining ≈ 40.0 h; reserve remaining ≈ 7.2 h of which the last 6 h are protected → ≈ 1.2 h unprotected reserve. The directive
+makes the caps planning checkpoints, not stops, and forbids hiding overruns: from here every phase's verification/delivery time is charged
+and reported against the reserve as an **overrun beyond the unprotected balance**, the protected 6 h are never drawn, and the Owner
+decides on return whether the program reserve is re-based. Revised stage budgets (capability / verification, hours): N3 5 / 2.5 ·
+N4 9 / 3 · N5 7 / 2.5 · N6 6 / 2 · N7 7 / 2 · N8 7 / 3 · N9 0 / 10 (all N9 is verification) — total ≈ 41 / 25. Capability fits the
+remaining 40 h only if N7/N8 stay lean; verification cannot fit 1.2 h and will be reported as overrun phase by phase. Efficiency measures
+adopted now: one rendered full-suite run per phase (class runs for iteration), one build/seal/admission per phase, native runs only on the
+phase's changed routes, no harness-only test churn (harness defects are fixed once with the sibling scaffold), TS deltas batched per phase.
+
 ## Recovery points
 Every phase ends with: Unity + TS commits pushed on the working branches; a handoff record (K-numbered) with pinned links; evidence indexed
 on the private review branch; `CONTINUATION-STATE.md` rewritten; `OWNER-PLAYTEST-LIST.md` grown. Merge to main: coordinator's call after

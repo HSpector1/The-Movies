@@ -24,7 +24,9 @@
   people-rail parking asymmetry, mid-display invalidation step of the stale route (driver aim drift on the sliding Development card).
 - Next: IMPL-22 fix → TEST-21 → rendered → Build54 → native F21 check; then **N3** (brief `r3n3/IMPL-N3-brief.md` staged: stage sprites,
   fonts + coverage tests, portrait slots, coverage statement) and the batched TS deltas (`r3n4/SIM-N4-DELTAS-brief.md`) after Build54's seal.
-- Design sheets ready for N3–N6; plan rulings C8/C9 recorded; evidence mirrored (release 92 assets; review folder ≈ 200 files).
+- Design sheets ready for N3–N6; plan rulings C8/C9 recorded; evidence mirrored (release 92 assets; review folder 260 files).
+- **Budget checkpoint 02:20Z**: whole-program capability ≈ 40.0 h; reserve ≈ 7.2 h with 6 h protected (≈ 1.2 h unprotected). Revised
+  stage budgets and the overrun rule are in the plan (verification beyond 1.2 h is reported as overrun; protected hours never drawn).
 
 ## Program order for the window
 1. R3-N1 native close-out (preflight, A, B; native defect fixes if found) → 2. remaining selected R3 UI/UX overhaul phases (plan to be
