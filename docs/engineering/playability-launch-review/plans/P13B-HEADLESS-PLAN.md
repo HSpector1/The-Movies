@@ -268,7 +268,7 @@ stays DESIGN BLOCKED on the named pre-execution clarification (Future Ops R2 exa
       `bridge-founding` "emits the exact founding action at Core coverage" asserts a fixed role sequence on a runtime created with a random seed
       (`BridgeSession.createRuntime()` defaults to `randomUUID()`), received 'actor' for 'director' once; 6/6 solo on the identical source and
       green in both earlier matched runs — disposition owed to the bridge test owner (seed it), not S2's. Closeout label withheld pending S2-T8.
-- [x] **S2-T8 Access identity (disposition §5; RED `cfa6f71` 7 failed | 1 passed → GREEN `c8ef3b2` 8/8; negative cases for the new refusal being added by the test-author):** test-author adds `tests/p13b-s2-access-identity.test.ts` RED on the unchanged candidate (sound→
+- [x] **S2-T8 Access identity (disposition §5; RED `cfa6f71` 7 failed | 1 passed → GREEN `c8ef3b2` 8/8; negative cases `20-t8-access-identity-negative` 14/14 — four forged states refused with `completed research without its access grant`, purchase-row control accepted):** test-author adds `tests/p13b-s2-access-identity.test.ts` RED on the unchanged candidate (sound→
       lighting, lighting→sound, simultaneous completion order-independent, unrelated pending/completed access survives, save/reload and later
       ticks, idempotence, retained same-technology rules, exact provenance); sim-core fixes the shared identity to the exact `(studioId,
       technologyId)` pair and checks related consumers; targeted verification = S2/access/save/P13A boundary suites + the bridge Laboratory

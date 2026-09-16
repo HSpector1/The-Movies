@@ -1,0 +1,32 @@
+HEAD e27f4af327990a5b7cd4be4f82fd5034488a6019 (src/core/technology.ts unchanged since fix commit c8ef3b2 — verified: git diff c8ef3b2 HEAD -- src/core/technology.ts is empty; intervening commits d597e94/e27f4af are unrelated P13B-S3/docs work from another session in this shared worktree)
+fix commit: c8ef3b2 'p13b-s2 T8: research-completion access identity is the exact (studioId, technologyId) pair ... forward validator invariant "completed research without its access grant"; regression 8/8 GREEN'
+start 2026-09-16T19:23:14Z node v20.20.2 host: 2-core 2015 MacBook Air, single-worker
+command: npx vitest run tests/p13b-s2-access-identity.test.ts --minWorkers=1 --maxWorkers=1 --testTimeout=200000 --reporter=verbose
+file under test: tests/p13b-s2-access-identity.test.ts (test-author-owned, tracked & locally modified — 8 original cases unchanged + new describe block: 1 baseline control + cases (a)-(d) + 1 purchase-row control, 14 total)
+result: 14/14 GREEN — original 8-case regression now passes on the fixed engine; all 5 new forged-state refusal/acceptance cases pass
+typecheck: npx tsc --noEmit -p tsconfig.json — clean, no output
+================================================================================
+--- verbose per-test run ---
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p13b-s2-access-identity.test.ts > P13B-S2 access identity: completion grant must key on (studioId, technologyId) > 1. sound then lighting: each completed technology grants its own access row with its own provenance
+ ✓ |core| tests/p13b-s2-access-identity.test.ts > P13B-S2 access identity: completion grant must key on (studioId, technologyId) > 2. lighting then sound (mirror order): each completed technology grants its own access row with its own provenance
+ ✓ |core| tests/p13b-s2-access-identity.test.ts > P13B-S2 access identity: completion grant must key on (studioId, technologyId) > 3. simultaneous completion: both technologies grant their own row with the same acquiredWeek, independent of project creation order
+ ✓ |core| tests/p13b-s2-access-identity.test.ts > P13B-S2 access identity: completion grant must key on (studioId, technologyId) > 4. unrelated pending access survives: a lighting `wait` row is untouched when sound research completes
+ ✓ |core| tests/p13b-s2-access-identity.test.ts > P13B-S2 access identity: completion grant must key on (studioId, technologyId) > 5. unrelated completed access survives: completing lighting adds its own row and leaves the sound row byte-identical
+ ✓ |core| tests/p13b-s2-access-identity.test.ts > P13B-S2 access identity: completion grant must key on (studioId, technologyId) > 6. save/reload and later ticks: exactly two rows, no duplicates, no erasure; validateSaveV22 accepts 617ms
+ ✓ |core| tests/p13b-s2-access-identity.test.ts > P13B-S2 access identity: completion grant must key on (studioId, technologyId) > 7. idempotence: ticking again after completion never adds a duplicate row for either technology
+ ✓ |core| tests/p13b-s2-access-identity.test.ts > P13B-S2 access identity: completion grant must key on (studioId, technologyId) > 8. retained same-technology law: purchase then same-technology research neither overwrites nor duplicates; a second purchase is refused
+ ✓ |core| tests/p13b-s2-access-identity.test.ts > P13B-S2 access identity: forward validator invariant "completed research without its access grant" > accepts the unmutated two-technology-completed save (forging baseline control)
+ ✓ |core| tests/p13b-s2-access-identity.test.ts > P13B-S2 access identity: forward validator invariant "completed research without its access grant" > (a) rejects a two-technology completed state with the lighting access row deleted — the exact shape the old engine produced
+ ✓ |core| tests/p13b-s2-access-identity.test.ts > P13B-S2 access identity: forward validator invariant "completed research without its access grant" > (b) rejects the lighting research row when its researchProjectId points at the sound project instead of its own
+ ✓ |core| tests/p13b-s2-access-identity.test.ts > P13B-S2 access identity: forward validator invariant "completed research without its access grant" > (c) rejects the lighting row when its route is changed to wait with acquiredWeek null
+ ✓ |core| tests/p13b-s2-access-identity.test.ts > P13B-S2 access identity: forward validator invariant "completed research without its access grant" > (d) rejects the lighting row when its acquiredWeek is moved one week off the project completedWeek 323ms
+ ✓ |core| tests/p13b-s2-access-identity.test.ts > P13B-S2 access identity: forward validator invariant "completed research without its access grant" > confirms a purchase row for the same technology (case 8 shape) still validates once its research also completes
+
+ Test Files  1 passed (1)
+      Tests  14 passed (14)
+   Start at  21:22:53
+   Duration  17.20s (transform 1.16s, setup 0ms, collect 1.56s, tests 15.19s, environment 0ms, prepare 139ms)
+

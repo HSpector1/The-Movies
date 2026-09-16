@@ -229,3 +229,114 @@ describe('P13B-S2 access identity: completion grant must key on (studioId, techn
     expect(soundRows[0]).toEqual(purchaseRow)
   })
 })
+
+// Follow-up (2026-09-17, coordinator directive, HEAD c8ef3b2): the production
+// fix landed — both selectors in `advanceResearchWeek` now carry
+// `technologyId`, and `validateTechnology` gained a forward invariant right
+// before `validateSharedTechnology`:
+//
+//   for (const p of root.projects) {
+//     if (p.completedWeek === null) continue
+//     const granted = root.access.find(a => a.studioId === p.studioId && a.technologyId === p.technologyId)
+//     if (!granted || (granted.route === 'research'
+//       ? granted.researchProjectId !== p.id || granted.acquiredWeek !== p.completedWeek
+//       : granted.route !== 'purchase')) fail('completed research without its access grant')
+//   }
+//
+// Case 6 above already proves the ACCEPTING side (a lawful two-technology
+// save round-trips). Nothing yet proves the REFUSAL fires on a forged save
+// carrying the exact shapes the old (fixed) engine used to produce. This
+// block is self-contained (its own `beforeAll`, its own world) so it never
+// depends on scope from the describe above.
+describe('P13B-S2 access identity: forward validator invariant "completed research without its access grant"', () => {
+  type ForgedAccessRow = { studioId: string; technologyId: string; route: string; chosenWeek: number; acquiredWeek: number | null; accessCost: number; researchProjectId: string | null }
+  /** exportSave(makeSave(state)) → parse the JSON envelope → forge exactly the
+   * `technology.access` rows `mutate` touches → reserialize → return a thunk
+   * that calls `importSave` on the forged JSON (which internally dispatches to
+   * `validateSaveV22`, exercising the full save-file boundary, not just the
+   * in-memory validator). */
+  function forgedImport(state: GameState, mutate: (access: ForgedAccessRow[]) => void): () => unknown {
+    const envelope = JSON.parse(exportSave(makeSave(state))) as { state: { technology: { access: ForgedAccessRow[] } } }
+    mutate(envelope.state.technology.access)
+    const json = JSON.stringify(envelope)
+    return () => importSave(json)
+  }
+
+  let world: ReturnType<typeof p13bTwoLabWorld>
+  let lab1: string, lab2: string, own: string, ids: string[]
+  /** Lawful two-technology-completed state (sound 780→787, lighting 787→794),
+   * produced by the FIXED engine — this is the exact shape the old engine
+   * failed to produce (case 1 above), now used as the forging baseline. */
+  let twoTechComplete: GameState
+  let soundId: string
+
+  beforeAll(() => {
+    world = p13bTwoLabWorld()
+    ;[lab1, lab2] = world.laboratoryFacilityIds
+    ids = world.candidateIds
+    own = world.state.hollywood!.playerStudioId
+    const sound = seatAndBegin(world.state, 'synchronized-sound', lab1, lab2, ids.slice(0, 4), ids.slice(4, 8), 80_000)
+    const afterSound = advanceUntilComplete(sound.state, sound.projectId)
+    const released = release(afterSound, sound.projectId, ids)
+    const light = seatAndBegin(released, 'lighting-control-01', lab1, lab2, ids.slice(0, 4), ids.slice(4, 8), 80_000)
+    twoTechComplete = advanceUntilComplete(light.state, light.projectId)
+    soundId = sound.projectId
+    // The forging baseline itself must be lawful before any mutation.
+    expect(() => importSave(exportSave(makeSave(twoTechComplete)))).not.toThrow()
+  }, 120_000)
+
+  it('accepts the unmutated two-technology-completed save (forging baseline control)', () => {
+    expect(() => importSave(exportSave(makeSave(twoTechComplete)))).not.toThrow()
+  })
+
+  it('(a) rejects a two-technology completed state with the lighting access row deleted — the exact shape the old engine produced', () => {
+    const attempt = forgedImport(twoTechComplete, access => {
+      const i = access.findIndex(a => a.technologyId === 'lighting-control-01')
+      access.splice(i, 1)
+    })
+    expect(attempt).toThrow(/completed research without its access grant/)
+  })
+
+  it('(b) rejects the lighting research row when its researchProjectId points at the sound project instead of its own', () => {
+    const attempt = forgedImport(twoTechComplete, access => {
+      const row = access.find(a => a.technologyId === 'lighting-control-01')!
+      row.researchProjectId = soundId
+    })
+    expect(attempt).toThrow(/completed research without its access grant/)
+  })
+
+  it('(c) rejects the lighting row when its route is changed to wait with acquiredWeek null', () => {
+    const attempt = forgedImport(twoTechComplete, access => {
+      const row = access.find(a => a.technologyId === 'lighting-control-01')!
+      row.route = 'wait'
+      row.acquiredWeek = null
+    })
+    expect(attempt).toThrow(/completed research without its access grant/)
+  })
+
+  it('(d) rejects the lighting row when its acquiredWeek is moved one week off the project completedWeek', () => {
+    const attempt = forgedImport(twoTechComplete, access => {
+      const row = access.find(a => a.technologyId === 'lighting-control-01')!
+      row.acquiredWeek = (row.acquiredWeek as number) + 1
+    })
+    // Confirmed by direct run (2026-09-17, vite-node, not the older
+    // `invented invention provenance` wording): the new forward invariant in
+    // `validateTechnology` checks `granted.acquiredWeek !== p.completedWeek`
+    // explicitly and unconditionally runs BEFORE `validateSharedTechnology` is
+    // ever called (it is the statement immediately preceding that call), so
+    // it always fires first for this forgery. The fallback the task
+    // anticipated was not needed.
+    expect(attempt).toThrow(/completed research without its access grant/)
+  })
+
+  it('confirms a purchase row for the same technology (case 8 shape) still validates once its research also completes', () => {
+    const purchased = applyActions(world.state, [{ kind: 'purchaseTechnology', technologyId: 'synchronized-sound' }])
+    const sound = seatAndBegin(purchased, 'synchronized-sound', lab1, lab2, ids.slice(0, 4), ids.slice(4, 8), 80_000)
+    const soundDone = advanceUntilComplete(sound.state, sound.projectId)
+    expect(soundDone.technology.projects.find(p => p.id === sound.projectId)!.completedWeek).toBe(787)
+    const soundRows = soundDone.technology.access.filter(a => a.studioId === own && a.technologyId === 'synchronized-sound')
+    expect(soundRows).toHaveLength(1)
+    expect(soundRows[0]!.route).toBe('purchase')
+    expect(() => importSave(exportSave(makeSave(soundDone)))).not.toThrow()
+  })
+})
