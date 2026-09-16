@@ -463,7 +463,15 @@ export function validateTechnology(state: GameState): void {
   const employment = (state.hollywood?.employment ?? []).filter(c => c.studioId === own)
   const employedThatWeek = (talentId: string, at: number) => employment.some(c => c.terms.talentId === talentId &&
     c.terms.startWeek <= at && at < c.terms.endWeekExclusive && (c.endedWeek === null || at < c.endedWeek))
+  // A repeated charge for one project week is a duplicated payment, not a
+  // reconciliation gap: name it before any per-project receipt arithmetic can
+  // read the same forged row as an expenditure mismatch.
   const chargedWeeks = new Set<string>()
+  for (const e of state.ledger) {
+    if (e.kind !== 'researchSpend') continue
+    const key = `${e.note}/${e.week}`
+    if (chargedWeeks.has(key)) fail('repeated research charge for one project week');chargedWeeks.add(key)
+  }
   for (const p of root.projects) {
     exact(p,['id','studioId','technologyId','laboratoryFacilityId','status','budgetPerWeek','verifiedWork','expenditure','startedWeek','completedWeek','seats','weeks','legacy'])
     knownTechnology(p.technologyId);studio(p.studioId);text(p.id)
@@ -542,8 +550,6 @@ export function validateTechnology(state: GameState): void {
     const p = root.projects.find(p => e.note === `research:${p.id}`) ?? fail('orphan research expense')
     const startedWeek = p.startedWeek ?? fail('orphan research expense')
     if (e.week < startedWeek || p.completedWeek !== null && e.week >= p.completedWeek) fail('orphan research expense')
-    const key = `${p.id}/${e.week}`
-    if (chargedWeeks.has(key)) fail('repeated research charge for one project week');chargedWeeks.add(key)
     if (e.week < (p.legacy?.throughWeek ?? startedWeek)) {if (-e.amount > SYNCHRONIZED_SOUND.usableBudgetPerScientist) fail('legacy research charge exceeds one Scientist')}
     else if (p.weeks.find(r => r.week === e.week)?.spend !== -e.amount) fail('research charge without its receipt')
   }

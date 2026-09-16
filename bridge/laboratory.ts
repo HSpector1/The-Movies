@@ -91,10 +91,12 @@ export function laboratoryActionSpecs(state: GameState): readonly LaboratoryActi
   for (const lab of labs) {
     const buildingId = `placed-${lab.id}`
     const project = state.technology.projects.find(p => p.studioId === own && p.laboratoryFacilityId === lab.facilityId)
-    const candidate = scientists.length < RESEARCH_SCIENTISTS_PER_STUDIO ? researchCandidates(state).find(person => !activeContract(state, person.id)) : undefined
-    if (candidate) {
+    // One selectable row per named candidate who is free to be employed, while
+    // the programme still has room for another Scientist (P13B-S1).
+    if (scientists.length < RESEARCH_SCIENTISTS_PER_STUDIO) for (const candidate of researchCandidates(state)) {
+        if (activeContract(state, candidate.id)) continue
         const offer = offerForTalent(state.seed, candidate, 208, state.market.tick)
-        add(`recruit-${lab.id}`, { kind: 'recruitScientist', laboratoryFacilityId: lab.facilityId },
+        add(`recruit-${lab.id}-${candidate.id}`, { kind: 'recruitScientist', laboratoryFacilityId: lab.facilityId, scientistId: candidate.id },
           `Employ ${candidate.name} · Scientist`,
           `Offer ${candidate.name} a ${offer.termWeeks}-week contract: ${money(weeklySalary(offer.annualSalary))}/week, ` +
           `${money(offer.signingBonus)} signing bonus. ` +

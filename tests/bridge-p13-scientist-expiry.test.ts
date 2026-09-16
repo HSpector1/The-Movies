@@ -40,7 +40,7 @@ describe('P13A Scientist expiration at the shared Gate Hiring boundary', () => {
     expect(page.laboratory.scientistLabel).toContain('$0/week Scientist payroll')
     expect(page.laboratory.scientistLabel).not.toContain('$1,500/week employment overhead for this Scientist')
     expect(parseWireValue(BRIDGE_SCHEMA.$defs.StudioIndustryResponse, page)).toEqual(page)
-    const hire = page.laboratory.actions.find(action => action.id === 'recruit-1')!
+    const hire = page.laboratory.actions.find(action => action.id === `recruit-1-${scientist.id}`)!
     expect(hire.enabled).toBe(true)
     expect(hire.detail).toContain('$2,000/week')
     expect(makeSave(expired)).toEqual(original)

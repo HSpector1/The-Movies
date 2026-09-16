@@ -36,7 +36,7 @@ describe('P13A Laboratory bridge', () => {
     expect(parseWireValue(BRIDGE_SCHEMA.$defs.StudioIndustryResponse, page)).toEqual(page)
     expect(page.laboratory.buildingId).toBe('placed-1')
     expect(page.laboratory.seatLabel).toContain('0 of 4')
-    const recruit = page.laboratory.actions.find(a => a.id === 'recruit-1')!
+    const recruit = page.laboratory.actions.find(a => a.id === 'recruit-1-t-sci-00')!
     expect(recruit.enabled).toBe(true)
     expect(recruit.detail).toContain('208-week contract')
     expect(recruit.detail).toContain('$2,000/week')
@@ -95,7 +95,7 @@ describe('P13A Laboratory bridge', () => {
     const session = new BridgeSession(laboratory(), 'lab-test')
     const page = session.industry(query())
     if (!('laboratory' in page) || !page.laboratory) throw new Error('Laboratory page absent')
-    const recruit = page.laboratory.actions.find(a => a.id === 'recruit-1')!
+    const recruit = page.laboratory.actions.find(a => a.id === 'recruit-1-t-sci-00')!
     const instruments = page.laboratory.actions.find(a => a.id === 'instruments-1')!
     const weeklyBefore = weeklyBurn(session.gameState)
     const command = { protocolVersion: PROTOCOL_VERSION, schemaId: SCHEMA_ID, type: 'submitIntent' as const,

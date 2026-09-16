@@ -421,7 +421,13 @@ export function studioPresence(state: GameState): StudioPresence {
     ? researchRoot['projects'].filter(isObject)
     : []
   for (const project of researchProjects) {
-    if (project['status'] === 'active') countSlot(project['laboratoryFacilityId'], 0)
+    if (project['status'] !== 'active') continue
+    // One Laboratory slot per occupied seat, in seat order: the same
+    // enumeration the research claim loop below (and occupancy.ts) performs.
+    const seats = Array.isArray(project['seats']) ? project['seats'] as ReadonlyArray<Record<string, unknown>> : []
+    for (const [slot] of seats.filter(seat => seat['releasedWeek'] === null).entries()) {
+      countSlot(project['laboratoryFacilityId'], slot)
+    }
   }
   for (let i = 0; i < state.operations.workflows.length; i++) {
     const workflow = state.operations.workflows[i]!
