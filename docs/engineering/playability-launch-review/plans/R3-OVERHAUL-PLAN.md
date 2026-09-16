@@ -52,6 +52,12 @@ caps are planning checkpoints: each phase record restates actual usage; overruns
   strip → 1 row, footer abbreviations) to buy list height; (c) treat 1280×720 as a "compact" class with its own type scale. Recommendation:
   measure first, then (b) before (a); never (c) without an Owner ruling. Handed-on N2 tail items: the lane inspector faces are double-scaled
   (fixing it moves the natively confirmed F14 geometry — schedule with the N4 overlay work), and the pictures footer refusal line can clip.
+- C9 (added 2026-09-16, N2) the 1280×720/200 % compact overlay body viewport → after the overlay font fix and the body-band law, the
+  envelope (310 px) binds: header 92 (0 title lines) + footer 94 + band 132 = 318 > 310, so the body viewport is 112 px against bodyMin 120
+  (8 px short) while every route stays reachable (More-actions disclosure, reveal-on-focus, scroll). Ruling: DECLARED limitation for this
+  window — not a full-screen fallback, not hidden; the remaining lever is chrome (pad 6·s → 4·s, +4 px) which N3's measured typography pass
+  may take; the Owner may later choose a compact-class type scale (C8 option c). Also open from N2: `StudioPeopleRailHud.ValidateFocus`
+  nulls instead of parking when a foreign ring owner holds the target (asymmetry with the pictures rail) — N2 tail item.
 - C7 authorization at the revised budget → the directive delegates settled technically-ready work: proceed, report actuals each phase.
 
 ## Recovery points
