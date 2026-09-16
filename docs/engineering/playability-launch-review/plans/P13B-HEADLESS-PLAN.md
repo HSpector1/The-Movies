@@ -256,6 +256,98 @@ stable Lab id, document 03 allocation fixtures reproduced through the real sched
 Allowance: 10 h capability, 3 h verification. Product choice recorded, not coded: the exact R07 demanding
 lighting-setup production recipe (Current Ops named pre-execution clarification).
 
+## S3 — Persistent physical plans, dependencies and admission (Ready row 3) — task expansion (amendment 2026-09-16)
+
+**Authoritative sources.** Companion `02-P13B-DECISIONS-AND-ACCEPTANCE.md` §6 (queue policy: persistent ordered plans with exact
+campaign/studio/target/project ids, dependencies, approved maximum debit, scope/components, earliest start, admission mode; default
+**review changed quote**; a queued plan reserves nothing; cycles / missing targets / impossible prerequisites refuse admission; a cancelled
+prerequisite blocks dependents and never counts as completion; reordering revalidates; Save As preserves plan/entity ids inside its own
+independent authority; exact quote fingerprint/revision and at-most-once commit receipt survive retry; no global cache keyed only by entity
+id), §5 row 3 + acceptance A4/A11, REF-F/REF-W/REF-B, and the weekly ordering "commit reviewed actions → admit queues in stable order while
+decrementing the actual cash/resource envelope → accrue research/recurring → complete P09 work on arrival → capability → receipts; newly
+completed research may enable a queue only at the next admission boundary, never spend twice within the prior tick" (all at
+`673f49835404e262ea651b4fcb8fda5e259d80a6`). Precedent in this engine: the C2a-M4 production queue (`src/core/queueAdmission.ts`,
+`actions.ts` `queueAdmitted`/`queueIntentExpired`): a queued intent is revalidated at dequeue, nothing is held while queued.
+
+**Scope.** P09 physical work only: body placements (`quoteForBlueprint`/`commitPlacement`) and facility installations
+(`queryFacilityInstallation`/`commitFacilityInstallation`) — Laboratory bodies, `acoustic-instruments`, `electrical-control-instruments`,
+`synchronized-sound-stage`/`-post`, `lighting-control-stage`. Research projects are never queued (S1/S2 explicit-action law). Office
+conversion routes are S4; component receipts/restoration are S5/S6. Plans are per studio and symmetric (rivals get the same root; S8 uses it).
+
+**Delegated implementation decisions (recorded here, not Owner product choices).**
+- New root `state.physicalPlans = {version: 1, nextPlanId, plans: PhysicalPlan[]}` in **Save V23** (V22→V23 adds the empty root; nothing
+  invented; `migrateToV≤22` refuse V23; `validateSaveV22` frozen as the V21 pattern). Genuine V22 fixtures are minted at the last V22 writer
+  BEFORE any S3 source change (S2 lesson).
+- `PhysicalPlan = {id: '<studioId>:plan:<n>', studioId, ordinal, queuedWeek, work, dependsOn: string[], approvedMaximumDebit, earliestStartWeek,
+  admission: 'reviewChangedQuote' | 'automatic', approvedQuote: PlanQuoteSnapshot, pendingQuote: PlanQuoteSnapshot | null, status: 'queued' |
+  'held' | 'blocked' | 'started' | 'cancelled', statusWeek, reason: string | null, startedPlacementId: number | null, commitReceipt: {week,
+  fingerprint, cost} | null}` with `work = {kind:'placement', blueprintId, origin: LotCell} | {kind:'installation', blueprintId, target:
+  {facilityId} | {planId}}` (an installation on a queued body names the body's PLAN id; the facility id is resolved and recorded at start).
+- `PlanQuoteSnapshot = {fingerprint, cost, buildWeeks, weeklyOperatingCost, components: {label, cost, weeks}[]}`; the **quote fingerprint** is a
+  pure deterministic digest (existing core digest helper, no new dependency) over blueprint id, exact target, cost, buildWeeks,
+  weeklyOperatingCost and the component list — the completion week is excluded (it moves every week and is not a scope or price change).
+  Exported from `placement.ts` as the P09 quote fingerprint the Ready row names.
+- Admission runs once per tick at the admission boundary: after the week's reviewed actions, BEFORE `advanceResearchWeek` and before P09
+  completions of that tick, in stable (ordinal) order, against a running cash envelope decremented by every admitted commit. A plan is admitted
+  when: status `queued`, `earliestStartWeek ≤ tick`, every `dependsOn` plan is `started` with an operational placement, the fresh P09 quote
+  has no rejection, cost ≤ `approvedMaximumDebit`, cash covers it, and — `reviewChangedQuote`: fresh fingerprint equals `approvedQuote.fingerprint`;
+  `automatic`: blueprint, target and component labels unchanged and cost ≤ ceiling. Admission calls the SAME P09 commit the front door uses
+  (identical placement record and ledger row as a hand commit that week) and writes `commitReceipt` exactly once. A changed quote under
+  `reviewChangedQuote`, or a quote above the ceiling / with a live rejection under either mode, sets `held` with `pendingQuote` and a reason;
+  insufficient cash leaves the plan `queued` (retried next boundary; the reason is a derived view, not persisted). A cancelled predecessor sets
+  each dependent `blocked` naming it. Nothing is reserved before start: a queued plan changes no cash, burn, capacity, engagement or slot.
+- Actions: `queuePhysicalPlan {work, dependsOn, approvedMaximumDebit, earliestStartWeek?, admission?}` (refuses unknown blueprint/target/plan
+  ids, self/cyclic dependencies, dependencies on cancelled/blocked plans, incompatible target capability, negative or non-integer ceiling;
+  snapshots the current quote as `approvedQuote` — a quote with a live but changeable rejection, e.g. `targetEngaged`, is still queueable);
+  `reorderPhysicalPlans {planIds}` (full permutation of the studio's non-terminal plans; refused if any plan would precede one it depends on);
+  `cancelPhysicalPlan {planId}` (queued/held/blocked only; dependents → blocked); `reviewPhysicalPlan {planId, approvedMaximumDebit}` (held →
+  queued with `pendingQuote` promoted to `approvedQuote`); `setPhysicalPlanAdmission {planId, admission}`. History rows (studio history, existing
+  mechanism): planQueued / planStarted / planHeld / planBlocked / planCancelled with week and reason.
+- Validator: ids monotonic under `nextPlanId`, ordinals unique per studio, `dependsOn` in-studio and acyclic, lawful statuses and weeks, started
+  plans reference an existing placement with the same blueprint and resolved target, one plan per started placement, `commitReceipt` present
+  exactly for started plans, fingerprints well-formed, campaign isolation (a plan never names another studio's target or plan).
+- Bridge (projection 35, text only): `view: 'plans'` industry page (`StudioPlansPage`: rows with status, reason, approved vs pending quote,
+  dependencies, ordinal; intents queue/cancel/review/reorder/setAdmission; a "Review changed plan" row shows the old and new quote side by
+  side) and `queue-<row>` companions beside the Laboratory page's immediate `instruments-<lab>` row and the electrical module route; Back
+  preserves order (read model only; no reservation). Player-safe.
+
+**Tests (requirement-derived; each fails before its implementation).**
+1. Admission law: a queued acoustic installation starts at the next boundary through the existing P09 commit — placement record, cost,
+   completesWeek and ledger row identical to a hand commit that week; `commitReceipt` once; `earliestStartWeek` in the future waits; cost above
+   the ceiling holds with a reason naming both numbers; `automatic` within the ceiling starts.
+2. No reservation: a queued plan changes no cash, `weeklyBurn`, capacity or engagement; two plans on one target/plot — the second starts only
+   when the first no longer engages the target; cancelling a queued plan leaves the state byte-identical except the plan row and history.
+3. Dependencies: an installation on a queued body resolves the facility id at start and waits for the body to be operational; self/cyclic/unknown
+   dependency refused at queue time; dependency on a cancelled plan refused; cancelling a predecessor blocks dependents with an explanation and
+   never counts as completion; reorder placing a dependent before its dependency refused; lawful reorder persists ordinals.
+4. Changed quote: identical quotes give identical fingerprints across weeks (completion week excluded); a persisted `approvedQuote` that no longer
+   matches the live quote (fixture with a forged snapshot — the honest way to produce drift in a constant-tuning engine, recorded as such) holds
+   under `reviewChangedQuote` and starts under `automatic` only when scope is unchanged and cost ≤ ceiling; `reviewPhysicalPlan` re-approves.
+5. Ordering and envelope: two plans with cash for one — the first starts, the second stays queued with no partial debit; research accrual in the
+   same tick sees the post-admission cash (its "insufficient cash" bottleneck fires when the admission consumed the margin); a dependency
+   completing in week w enables its dependent at w+1's boundary, never within w.
+6. Conservation, determinism, replay, history: admitted commits reconcile to the ledger exactly as hand commits; same actions → same bytes;
+   history rows with weeks and reasons; rival symmetry (a rival studio's plan list is validated by the same law).
+7. Save V23 + Save As: genuine V22 fixtures migrate with an empty root (byte-identical otherwise); `migrateToV22` refuses V23; save/reload
+   mid-queue continues identically; a campaign-library Save As copy keeps the same plan ids and advances independently (A11).
+8. Validator refusals: forged cycle, unknown dependency, ordinal collision, started plan without placement, duplicate commit receipt, a plan
+   naming another studio's target, non-integer ceiling.
+9. Bridge (projection 35): plans page rows and intents through the session, "Review changed plan" old-vs-new quote, `queue-` companions on the
+   Laboratory page, stale-revision refusal, player-safe.
+
+**Allowance (plan):** 8 h capability, 3 h verification.
+
+### S3 tasks
+
+- [ ] **S3-T0 Genuine V22 fixtures** minted at the last V22 writer before any S3 source change (coordinator; provenance beside them).
+- [ ] **S3-T1 Types, fingerprint, actions, validator:** tests 3, 8 and the queue-time parts of 1/4 (sim-core; test-author writes 1–8 RED first).
+- [ ] **S3-T2 Admission in `tick`:** tests 1, 2, 4, 5, 6 (ordering boundary, envelope, history).
+- [ ] **S3-T3 Save V23 + migration + Save As:** test 7.
+- [ ] **S3-T4 Bridge projection 35:** test 9 (`tests/bridge-p13b-s3-plans.test.ts`).
+- [ ] **S3-T5 Affected suites, records (backlog entry), commit, push.**
+
+## S3 — original scope record (superseded by the expansion above; kept verbatim)
+
 ## S3 — Persistent queues/dependencies/admission (Ready row 3) — scope record
 
 Ordered plans with exact ids, dependency graph, approved maximum debit, admission mode default "review
