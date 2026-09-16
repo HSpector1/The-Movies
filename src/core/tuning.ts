@@ -707,6 +707,16 @@ export const TUNING = {
   SOUND_POST_BUILD_WEEKS: 6,
   SOUND_MODULE_WEEKLY_OPERATING_COST: 2_000,
 
+  // P13B-S2 lighting control (companion §4, provisional tuning — not Owner-approved balance).
+  ELECTRICAL_CONTROL_INSTRUMENTS_CAPEX: 350_000,
+  ELECTRICAL_CONTROL_INSTRUMENTS_BUILD_WEEKS: 5,
+  ELECTRICAL_CONTROL_INSTRUMENTS_WEEKLY_OPERATING_COST: 2_000,
+  LIGHTING_STAGE_SITE_CAPEX: 50_000,
+  LIGHTING_STAGE_SITE_WEEKS: 2,
+  LIGHTING_STAGE_INSTALLATION_CAPEX: 50_000,
+  LIGHTING_STAGE_INSTALLATION_WEEKS: 2,
+  LIGHTING_MODULE_WEEKLY_OPERATING_COST: 1_000,
+
   // Post Building — the second instance of the founding class (the display-name
   // ruling, §3.1: the engine facility name is the single spoken authority, and the
   // founding one is already called "Post Building"). It carries the same two
@@ -1252,6 +1262,33 @@ export const FACILITY_INSTALLATION_BLUEPRINTS: readonly FacilityBlueprint[] = [
     ledgerNote: 'Synchronized sound stage conversion and capture installation',
     effectSummary: 'Converts this stage for synchronized recording and capture over nine weeks of site work followed by three weeks of installation.',
     requires: [{ kind: 'research', packId: 'synchronized-sound' }],
+  },
+  {
+    id: 'electrical-control-instruments', name: 'Electrical Control Instruments', capability: 'laboratory', capacity: 0,
+    footprint: { width: 1, depth: 1 }, clearanceRing: 0, requiresRoadAccess: false,
+    buildWeeks: TUNING.ELECTRICAL_CONTROL_INSTRUMENTS_BUILD_WEEKS, capex: TUNING.ELECTRICAL_CONTROL_INSTRUMENTS_CAPEX,
+    weeklyOperatingCost: TUNING.ELECTRICAL_CONTROL_INSTRUMENTS_WEEKLY_OPERATING_COST,
+    installationTargetCapability: 'laboratory',
+    installationComponents: [{ label: 'Electrical control instruments', cost: TUNING.ELECTRICAL_CONTROL_INSTRUMENTS_CAPEX, weeks: TUNING.ELECTRICAL_CONTROL_INSTRUMENTS_BUILD_WEEKS }],
+    facilityIdBase: 'module-electrical-control-instruments', projectIdBase: 'installation-electrical-control-instruments',
+    ledgerNote: 'Electrical control instrument installation',
+    effectSummary: 'Equips this Laboratory for lighting-control research after five weeks.', requires: [],
+  },
+  {
+    id: 'lighting-control-stage', name: 'Lighting Control Stage Fit-out', capability: 'soundstage', capacity: 0,
+    footprint: { width: 1, depth: 1 }, clearanceRing: 0, requiresRoadAccess: false,
+    buildWeeks: TUNING.LIGHTING_STAGE_SITE_WEEKS + TUNING.LIGHTING_STAGE_INSTALLATION_WEEKS,
+    capex: TUNING.LIGHTING_STAGE_SITE_CAPEX + TUNING.LIGHTING_STAGE_INSTALLATION_CAPEX,
+    weeklyOperatingCost: TUNING.LIGHTING_MODULE_WEEKLY_OPERATING_COST,
+    installationTargetCapability: 'soundstage',
+    installationComponents: [
+      { label: 'Stage site adaptation', cost: TUNING.LIGHTING_STAGE_SITE_CAPEX, weeks: TUNING.LIGHTING_STAGE_SITE_WEEKS },
+      { label: 'Lighting control installation', cost: TUNING.LIGHTING_STAGE_INSTALLATION_CAPEX, weeks: TUNING.LIGHTING_STAGE_INSTALLATION_WEEKS },
+    ],
+    facilityIdBase: 'module-lighting-control-stage', projectIdBase: 'installation-lighting-control-stage',
+    ledgerNote: 'Lighting control stage fit-out',
+    effectSummary: 'Fits this stage for controlled lighting after two weeks of site work followed by two weeks of installation.',
+    requires: [{ kind: 'research', packId: 'lighting-control-01' }],
   },
   {
     id: 'synchronized-sound-post', name: 'Sound Post Fit-out', capability: 'post', capacity: 0,

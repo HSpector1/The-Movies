@@ -1,0 +1,12 @@
+start 2026-09-16T15:08:11Z
+ ✓ |core| tests/placement-core.test.ts (36 tests) 1906ms
+ ✓ |core| tests/facility-effects.test.ts (20 tests) 6050ms
+ ✓ |core| tests/p13b-s2-catalogue.test.ts (11 tests) 13853ms
+ Test Files  3 passed (3)
+      Tests  67 passed (67)
+=== tsc bridge ===
+BRIDGE_TSC_EXIT=0
+=== tsc root (expect only the T4 'labs' errors in p13b-s2-cooperation) ===
+tests/p13b-s2-cooperation.test.ts(85,18): error TS2339: Property 'labs' does not exist on type 'ResearchWeekReceipt'.
+tests/p13b-s2-cooperation.test.ts(145,20): error TS2339: Property 'labs' does not exist on type 'ResearchWeekReceipt'.
+end 2026-09-16T15:10:03Z

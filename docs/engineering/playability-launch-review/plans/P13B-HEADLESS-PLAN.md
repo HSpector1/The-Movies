@@ -208,11 +208,11 @@ stays DESIGN BLOCKED on the named pre-execution clarification (Future Ops R2 exa
 
 ### S2 tasks
 
-- [ ] **S2-T1 Catalogue + parameters:** test 1; `TECHNOLOGY_CATALOGUE` two entries; per-technology work/dates/costs read
+- [x] **S2-T1 Catalogue + parameters:** test 1; `TECHNOLOGY_CATALOGUE` two entries; per-technology work/dates/costs read
       from the entry (retire hard-coded `SYNCHRONIZED_SOUND.*` reads in the scheduler/validator where the project's
       technology decides); new blueprints in `tuning.ts`.
-- [ ] **S2-T2 Modules/benches:** test 2; `laboratoryRefusal` per discipline; bench claims in occupancy/presence.
-- [ ] **S2-T3 Two-Lab seats:** test 3; command + validator bounds.
+- [x] **S2-T2 Modules/benches:** test 2; `laboratoryRefusal` per discipline; bench claims in occupancy/presence.
+- [x] **S2-T3 Two-Lab seats:** test 3; command + validator bounds.
 - [ ] **S2-T4 Cooperation scheduler + V22:** tests 4, 6, 7, 8; per-Lab allocation, exact fixed point, receipts, migration.
 - [ ] **S2-T5 Document 03 fixtures:** test 5 through `src/harness/p13b/fixtures.ts` (generated two-Lab world at 780).
 - [ ] **S2-T6 Bridge (text only):** per-Lab seat/contribution lines on the Laboratory page; second-brief assign rows.

@@ -342,9 +342,8 @@ export function assertStudioHistoryInvariants(history: StudioHistoryState, conte
     }
     previousId = row.eventId
     if (row.kind === 'technologyMilestone') {
-      if (row.technologyId !== 'synchronized-sound' ||
-        (row.milestone !== 'researchable' && row.milestone !== 'commercialRelease') ||
-        row.week !== technologyMilestoneWeek(row.milestone) || row.significance !== 'major' ||
+      if ((row.milestone !== 'researchable' && row.milestone !== 'commercialRelease') ||
+        row.week !== technologyMilestoneWeek(row.technologyId, row.milestone) || row.significance !== 'major' ||
         row.subjects.length !== 1 || row.subjects[0]?.kind !== 'studio') {
         throw new Error(`${context}: technology milestone is not an exact catalogue boundary`)
       }

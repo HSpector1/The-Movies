@@ -32,7 +32,7 @@ function buildFixtureA(base: GameState, lab: string): FixtureA {
   let state = applyActions(base, [{ kind: 'recruitScientist', laboratoryFacilityId: lab, scientistId: ids[0]! }])
   state = advanceTo(state, 260)
   state = applyActions(state, [ids[1]!, ids[2]!, ids[3]!].map(scientistId => ({ kind: 'recruitScientist' as const, laboratoryFacilityId: lab, scientistId })))
-  state = applyActions(state, [ids[0]!, ids[1]!, ids[2]!, ids[3]!].map(scientistId => ({ kind: 'assignResearchScientist' as const, laboratoryFacilityId: lab, scientistId })))
+  state = applyActions(state, [ids[0]!, ids[1]!, ids[2]!, ids[3]!].map(scientistId => ({ kind: 'assignResearchScientist' as const, laboratoryFacilityId: lab, scientistId, technologyId: 'synchronized-sound' as const })))
   const projectId = state.technology.projects[0]!.id
   const begun = applyActions(state, [{ kind: 'beginResearch', projectId, budgetPerWeek: 40_000 }])
   const boundary = advanceTo(begun, 269)
@@ -47,7 +47,7 @@ function buildFixtureB(base: GameState, lab: string): FixtureB {
   const id = researchCandidates(base)[4]!.id
   let state = applyActions(base, [{ kind: 'recruitScientist', laboratoryFacilityId: lab, scientistId: id }])
   state = advanceTo(state, 260)
-  state = applyActions(state, [{ kind: 'assignResearchScientist', laboratoryFacilityId: lab, scientistId: id }])
+  state = applyActions(state, [{ kind: 'assignResearchScientist', laboratoryFacilityId: lab, scientistId: id, technologyId: 'synchronized-sound' }])
   const projectId = state.technology.projects[0]!.id
   state = applyActions(state, [{ kind: 'beginResearch', projectId, budgetPerWeek: 0 }])
   const paused = advanceTo(state, 268)
@@ -74,7 +74,7 @@ describe('P13B-S1 scheduler table (test 3)', () => {
   function branch(seatCount: number, budgetPerWeek: number) {
     const ids = researchCandidates(entry).slice(0, seatCount).map(c => c.id)
     let state = applyActions(entry, ids.map(scientistId => ({ kind: 'recruitScientist' as const, laboratoryFacilityId, scientistId })))
-    state = applyActions(state, ids.map(scientistId => ({ kind: 'assignResearchScientist' as const, laboratoryFacilityId, scientistId })))
+    state = applyActions(state, ids.map(scientistId => ({ kind: 'assignResearchScientist' as const, laboratoryFacilityId, scientistId, technologyId: 'synchronized-sound' as const })))
     const projectId = state.technology.projects[0]!.id
     state = applyActions(state, [{ kind: 'beginResearch', projectId, budgetPerWeek }])
     const quote = researchWeekQuote(state, state.technology.projects[0]!)
@@ -185,7 +185,7 @@ describe('P13B-S1 expiry, rehire and pause (test 4)', () => {
   it('pauses immediately, in the same action, when the last eligible seat is released early', () => {
     const scientistId = researchCandidates(entry)[0]!.id
     let state = applyActions(entry, [{ kind: 'recruitScientist', laboratoryFacilityId, scientistId }])
-    state = applyActions(state, [{ kind: 'assignResearchScientist', laboratoryFacilityId, scientistId }])
+    state = applyActions(state, [{ kind: 'assignResearchScientist', laboratoryFacilityId, scientistId, technologyId: 'synchronized-sound' }])
     const projectId = state.technology.projects[0]!.id
     state = applyActions(state, [{ kind: 'beginResearch', projectId, budgetPerWeek: 10_000 }])
     expect(state.technology.projects[0]!.status).toBe('active')
@@ -198,7 +198,7 @@ describe('P13B-S1 conservation across a funded interval (test 5)', () => {
   it('reconciles receipts, expenditure, ledger, cash and payroll over six funded weeks', () => {
     const ids = researchCandidates(entry).slice(0, 3).map(c => c.id)
     let state = applyActions(entry, ids.map(scientistId => ({ kind: 'recruitScientist' as const, laboratoryFacilityId, scientistId })))
-    state = applyActions(state, ids.map(scientistId => ({ kind: 'assignResearchScientist' as const, laboratoryFacilityId, scientistId })))
+    state = applyActions(state, ids.map(scientistId => ({ kind: 'assignResearchScientist' as const, laboratoryFacilityId, scientistId, technologyId: 'synchronized-sound' as const })))
     const projectId = state.technology.projects[0]!.id
     state = applyActions(state, [{ kind: 'beginResearch', projectId, budgetPerWeek: 30_000 }])
     const cashBefore = state.studio.cash
@@ -234,7 +234,7 @@ describe('P13B-S1 determinism, replay and interleaving (test 7)', () => {
     const ids = researchCandidates(entry).slice(0, 2).map(c => c.id)
     const sequence = (state: GameState) => {
       let s = applyActions(state, ids.map(scientistId => ({ kind: 'recruitScientist' as const, laboratoryFacilityId, scientistId })))
-      s = applyActions(s, ids.map(scientistId => ({ kind: 'assignResearchScientist' as const, laboratoryFacilityId, scientistId })))
+      s = applyActions(s, ids.map(scientistId => ({ kind: 'assignResearchScientist' as const, laboratoryFacilityId, scientistId, technologyId: 'synchronized-sound' as const })))
       const projectId = s.technology.projects[0]!.id
       s = applyActions(s, [{ kind: 'beginResearch', projectId, budgetPerWeek: 20_000 }])
       return advanceTo(s, s.market.tick + 3)
@@ -248,7 +248,7 @@ describe('P13B-S1 determinism, replay and interleaving (test 7)', () => {
       { kind: 'recruitScientist', laboratoryFacilityId, scientistId: c0! },
       { kind: 'recruitScientist', laboratoryFacilityId, scientistId: c1! },
     ])
-    state = applyActions(state, [{ kind: 'assignResearchScientist', laboratoryFacilityId, scientistId: c0! }])
+    state = applyActions(state, [{ kind: 'assignResearchScientist', laboratoryFacilityId, scientistId: c0!, technologyId: 'synchronized-sound' }])
     const projectId = state.technology.projects[0]!.id
     state = applyActions(state, [{ kind: 'beginResearch', projectId, budgetPerWeek: 10_000 }])
     state = advanceTo(state, state.market.tick + 2)
@@ -257,7 +257,7 @@ describe('P13B-S1 determinism, replay and interleaving (test 7)', () => {
       { week: 261, seatTalentIds: [c0], spend: 10_000, units: 30_000 },
     ])
 
-    state = applyActions(state, [{ kind: 'assignResearchScientist', laboratoryFacilityId, scientistId: c1! }])
+    state = applyActions(state, [{ kind: 'assignResearchScientist', laboratoryFacilityId, scientistId: c1!, technologyId: 'synchronized-sound' }])
     state = tick(state)
     const project = state.technology.projects[0]!
     expect(project.weeks[0]).toEqual({ week: 260, seatTalentIds: [c0], spend: 10_000, units: 30_000 })
@@ -269,13 +269,13 @@ describe('P13B-S1 determinism, replay and interleaving (test 7)', () => {
     const seatId = researchCandidates(entry)[7]!.id
     const seatedOnly = applyActions(
       applyActions(entry, [{ kind: 'recruitScientist', laboratoryFacilityId, scientistId: seatId }]),
-      [{ kind: 'assignResearchScientist', laboratoryFacilityId, scientistId: seatId }],
+      [{ kind: 'assignResearchScientist', laboratoryFacilityId, scientistId: seatId, technologyId: 'synchronized-sound' }],
     )
     assertRoundTrip(seatedOnly)
 
     const fundedId = researchCandidates(entry)[6]!.id
     let funded = applyActions(entry, [{ kind: 'recruitScientist', laboratoryFacilityId, scientistId: fundedId }])
-    funded = applyActions(funded, [{ kind: 'assignResearchScientist', laboratoryFacilityId, scientistId: fundedId }])
+    funded = applyActions(funded, [{ kind: 'assignResearchScientist', laboratoryFacilityId, scientistId: fundedId, technologyId: 'synchronized-sound' }])
     const projectId = funded.technology.projects[0]!.id
     funded = applyActions(funded, [{ kind: 'beginResearch', projectId, budgetPerWeek: 10_000 }])
     funded = advanceTo(funded, funded.market.tick + 3)

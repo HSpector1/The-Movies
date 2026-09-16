@@ -1638,7 +1638,7 @@ export type StudioHistoryEvent =
   | (StudioHistoryRowBase & { kind: 'studioFounded' })
   | (StudioHistoryRowBase & {
       kind: 'technologyMilestone'
-      technologyId: 'synchronized-sound'
+      technologyId: import('./technologyTypes.js').TechnologyId
       milestone: 'researchable' | 'commercialRelease'
     })
   | (StudioHistoryRowBase & {

@@ -1,7 +1,9 @@
 import { applyActions } from '../../core/actions.js'
+import { hasOperationalFacilityInstallation } from '../../core/facilityEffects.js'
+import { commitFacilityInstallation, commitPlacement, queryFacilityInstallation, queryPlacement } from '../../core/placement.js'
 import { researchCandidates } from '../../core/technology.js'
 import type { GameState } from '../../core/types.js'
-import { advanceTo } from '../p13a/fixtures.js'
+import { advanceTo, p13aLaboratorySlice } from '../p13a/fixtures.js'
 
 /**
  * P13B-S1 shared evidence: N named seats staffed on the one Laboratory an
@@ -24,4 +26,61 @@ export function p13bStaffedProject(entry: GameState, weeks = 3, budgetPerWeek = 
   state = applyActions(state, [{ kind: 'beginResearch', projectId, budgetPerWeek }])
   state = advanceTo(state, state.market.tick + weeks)
   return { state, laboratoryFacilityId, projectId, scientistIds }
+}
+
+/** The first lawful origin `queryPlacement` accepts for one more Research Laboratory on this lot. Never a guessed cell. */
+export function nextLaboratoryOrigin(state: GameState): { gx: number; gy: number } {
+  for (let gy = 0; gy < 24; gy++) for (let gx = 0; gx < 24; gx++) {
+    if (queryPlacement(state, { blueprintId: 'research-laboratory', origin: { gx, gy } }).ok) return { gx, gy }
+  }
+  throw new Error('This generated lot offers no lawful site for one more Research Laboratory')
+}
+
+/**
+ * P13B-S2 shared evidence (companion 03, [780,832) fixtures): a generated world
+ * with TWO operational Laboratories, each carrying BOTH discipline modules
+ * (acoustic instruments for synchronized-sound, electrical/control instruments
+ * for lighting-control-01) fully operational, advanced to week 780 — the week
+ * document 03 opens lighting research — with all eight named Scientist
+ * candidates recruited on 208-week contracts. No seat is assigned and no
+ * research is begun; callers stage their own scenario from here.
+ *
+ * Two lawful constraints shape the build (measured 2026-09-16): P09 refuses a
+ * second installation on one body while another runs (`targetEngaged`), so the
+ * two modules per Laboratory are sequenced; and a generated studio that holds two
+ * Laboratories and four modules idle from week 24 is insolvent by 780 (−$5.46M),
+ * so the department is committed late (Lab 2 at 750, modules 750→772) exactly as
+ * document 03 treats its capital: sunk before 780, outside the horizon. Every
+ * commit is quoted first and throws loudly if refused; nothing silently degrades.
+ */
+export function p13bTwoLabWorld(): { state: GameState; laboratoryFacilityIds: [string, string]; candidateIds: string[] } {
+  const install = (state: GameState, blueprintId: string, targetFacilityId: string): GameState => {
+    const quote = queryFacilityInstallation(state, { blueprintId, targetFacilityId })
+    if (!quote.ok) throw new Error(`p13bTwoLabWorld: ${blueprintId} on ${targetFacilityId} refused at week ${state.market.tick}: ${JSON.stringify(quote.rejections)}`)
+    return commitFacilityInstallation(state, { blueprintId, targetFacilityId })
+  }
+  let state = advanceTo(p13aLaboratorySlice(), 750)
+  const lab1 = state.operations.facilities.find(f => f.capability === 'laboratory')!.id
+  state = commitPlacement(state, { blueprintId: 'research-laboratory', origin: nextLaboratoryOrigin(state) })
+  state = install(state, 'acoustic-instruments', lab1)                       // 750 → 755
+  state = advanceTo(state, 755)
+  state = install(state, 'electrical-control-instruments', lab1)             // 755 → 760
+  state = advanceTo(state, 762)                                              // Lab 2 completes 750 + 12
+  const lab2 = state.operations.facilities.find(f => f.capability === 'laboratory' && f.id !== lab1)?.id
+  if (lab2 === undefined) throw new Error('p13bTwoLabWorld: the second Research Laboratory never completed construction')
+  state = install(state, 'acoustic-instruments', lab2)                       // 762 → 767
+  state = advanceTo(state, 767)
+  state = install(state, 'electrical-control-instruments', lab2)             // 767 → 772
+  state = advanceTo(state, 780)
+  for (const laboratoryFacilityId of [lab1, lab2]) {
+    for (const blueprintId of ['acoustic-instruments', 'electrical-control-instruments']) {
+      if (!hasOperationalFacilityInstallation(state, laboratoryFacilityId, blueprintId)) {
+        throw new Error(`p13bTwoLabWorld: "${blueprintId}" never became operational on "${laboratoryFacilityId}" by week 780`)
+      }
+    }
+  }
+  if (state.studio.cash < 0) throw new Error(`p13bTwoLabWorld: the generated studio is insolvent at week 780 (cash ${state.studio.cash})`)
+  const candidateIds = researchCandidates(state).map(c => c.id)
+  state = applyActions(state, candidateIds.map(scientistId => ({ kind: 'recruitScientist' as const, laboratoryFacilityId: lab1, scientistId })))
+  return { state, laboratoryFacilityIds: [lab1, lab2], candidateIds }
 }

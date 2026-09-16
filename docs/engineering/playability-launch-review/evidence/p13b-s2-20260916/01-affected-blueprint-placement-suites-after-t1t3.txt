@@ -1,0 +1,21 @@
+start 2026-09-16T15:01:23Z
+ ✓ |core| tests/blueprint-requirements.test.ts (27 tests) 12720ms
+ ❯ |core| tests/placement-core.test.ts (36 tests | 1 failed) 1619ms
+   × Placement Core V12 — the blueprint catalog > keeps the Annex law exactly as V11 wrote it, inside a widened catalog 21ms
+     → expected [ { …(15) }, { …(15) }, …(13) ] to have a length of 13 but got 15
+stdout | tests/p09a-w0-founding-regime.test.ts > P09 R5/R6 — the ordinary bare-lot studio releases a picture on its own money > HARD-STOP GATE: sparse start → four builds → screenplay → set → picture 
+ ✓ |core| tests/p09a-w0-founding-regime.test.ts (13 tests) 11841ms
+   ✓ P09 R5/R6 — the ordinary bare-lot studio releases a picture on its own money > HARD-STOP GATE: sparse start → four builds → screenplay → set → picture → release → receipts, cash never below zero 
+ ❯ |core| tests/facility-effects.test.ts (20 tests | 1 failed) 3768ms
+   × C1-M4 — the widened catalog > ships the C1 five and the C2a four, each with authored numbers in their stated ranges 18ms
+     → expected [ 'development-casting-annex', …(14) ] to deeply equal [ 'development-casting-annex', …(12) ]
+ ✓ |core| tests/legacy-parcel-ground.test.ts (14 tests) 5883ms
+ ✓ |core| tests/c2a-m2-blueprint-slate.test.ts (12 tests) 36ms
+ ✓ |core| tests/c2a-m4-queue-legibility.test.ts (4 tests) 530ms
+ ✓ |core| tests/p13b-s2-catalogue.test.ts (11 tests) 10213ms
+ ✓ |core| tests/p13b-s1-staffing.test.ts (5 tests) 10979ms
+ ✓ |core| tests/c2a-m4-g101-throughput.test.ts (4 tests) 67056ms
+ ✓ |core| tests/p13a-catalogue.test.ts (2 tests) 8ms
+ Test Files  2 failed | 9 passed (11)
+      Tests  2 failed | 146 passed (148)
+end 2026-09-16T15:05:35Z

@@ -353,15 +353,22 @@ export function resourceClaims(sources: OccupancySources): ResourceClaim[] {
         ownerId: installation.projectId, installation})
     }
   }
-  for (const research of sources.technology?.projects ?? []) {
+  // One physical seat per occupied assignment (P13B-S1), numbered per LABORATORY
+  // across every active project in stable project-id order (P13B-S2): two
+  // technologies working in one Laboratory never claim the same slot. A retained
+  // assignment whose contract lapsed still holds its seat.
+  const researchSlotsByLab = new Map<string, number>()
+  const researchProjects = [...(sources.technology?.projects ?? [])]
+    .sort((a, b) => a.id < b.id ? -1 : a.id > b.id ? 1 : 0)
+  for (const research of researchProjects) {
     const facilityId = research.laboratoryFacilityId
     if (research.status === 'active') {
-      // One physical seat per occupied assignment, in seat order (P13B-S1). A
-      // retained assignment whose contract lapsed still holds its seat.
-      const occupied = research.seats.filter(seat => seat.releasedWeek === null)
-      for (const [slot] of occupied.entries()) {
-        claims.push({key: resourceSlotKey('facility', facilityId, slot),
-          facilitySlotKey: facilitySlotKey(facilityId, slot), kind: 'facility', facilityId,
+      for (const seat of research.seats.filter(seat => seat.releasedWeek === null)) {
+        const seatFacilityId = seat.laboratoryFacilityId
+        const slot = researchSlotsByLab.get(seatFacilityId) ?? 0
+        researchSlotsByLab.set(seatFacilityId, slot + 1)
+        claims.push({key: resourceSlotKey('facility', seatFacilityId, slot),
+          facilitySlotKey: facilitySlotKey(seatFacilityId, slot), kind: 'facility', facilityId: seatFacilityId,
           slot, capability: 'laboratory', owner: 'research', ownerId: research.id, research})
       }
     } else {

@@ -15,7 +15,11 @@
 - **Specialists actually used:** test-author (tests 3–10, 29/29), contract-auditor (read-only, 3 findings), sim-core (fixes) — ≤ 2 concurrent.
 - **S1b closed (≈16:45): LOGIC VERIFIED · UNITY NOT VERIFIED** — bridge projection 33, schemaId `sha256:9ee4bcff04e06d47fa672f6091d3f9eac98c3a19829260fd9587ab22d06d55f6`,
   `StudioLaboratoryPage.seats/receipts/weekly`; C# DTO change recorded in the backlog; Save stays V21.
-- **S2 in flight:** tests 1–4 authored RED by test-author (`tests/p13b-s2-catalogue|labs|cooperation.test.ts`, harness `p13bTwoLabWorld`; S1 tests
+- **S2-T1…T3 landed (≈17:10):** catalogue/labs green, cooperation RED by design (T4 contract); three law-driven test amendments recorded in the
+  progress row; two-Lab fixture repaired (sequenced installs, late department, solvent at 780). Test-author findings carried forward: document 03's
+  residual fixture (52 units at 780) is unlawful in the real timeline (lighting opens 780) → tests 5 reproduce it with the lawful nine-week prehistory
+  (residual dates +9 weeks, differences unchanged) and record the finding.
+- **S2 in flight (earlier record, kept):** tests 1–4 authored RED by test-author (`tests/p13b-s2-catalogue|labs|cooperation.test.ts`, harness `p13bTwoLabWorld`; S1 tests
   carry `technologyId` — these files are NOT in the S1b commit); sim-core dispatched on S2-T1…T3 (catalogue two entries, blueprints, technologyId
   routing with the P13A-preserving default, per-technology module law at begin/resume, Lab-level seat slots across projects, two Labs per project);
   T4 (cooperation scheduler, per-Lab receipts, **V22** ×8 numerator rebase) follows as a separate sim-core increment, then tests 5–8.

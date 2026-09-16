@@ -1,5 +1,5 @@
 /** P13A/P13B: campaign-owned facts. P09 owns every player physical work record. */
-export type TechnologyId = 'synchronized-sound'
+export type TechnologyId = 'synchronized-sound' | 'lighting-control-01'
 export type ResearchStatus = 'active' | 'paused' | 'cancelled' | 'completed'
 
 /** One named occupancy of a Laboratory seat. History is retained; a release closes the row, never deletes it. */
@@ -85,7 +85,8 @@ export type StudioTechnologyV1 = Omit<StudioTechnology, 'version' | 'projects'> 
 export type TechnologyAction =
   | { kind: 'installAcousticInstruments'; laboratoryFacilityId: string }
   | { kind: 'recruitScientist'; laboratoryFacilityId: string; scientistId?: string }
-  | { kind: 'assignResearchScientist'; laboratoryFacilityId: string; scientistId: string }
+  /** `technologyId` omitted = 'synchronized-sound': the P13A single-brief intent stays lawful and means sound. */
+  | { kind: 'assignResearchScientist'; laboratoryFacilityId: string; scientistId: string; technologyId?: TechnologyId }
   | { kind: 'releaseResearchSeat'; projectId: string; scientistId: string }
   | { kind: 'beginResearch'; projectId: string; budgetPerWeek: number }
   | { kind: 'setResearchBudget'; projectId: string; budgetPerWeek: number }

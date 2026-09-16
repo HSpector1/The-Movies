@@ -28,6 +28,7 @@
 // campaign. Engine-side accusations belong in invariant messages, not here.
 
 import { propertyOf } from './lot.js'
+import { TECHNOLOGY_CATALOGUE } from './technologyCatalogue.js'
 import { playerTechnologyAccess } from './technology.js'
 import type {
   BlueprintAvailability,
@@ -117,8 +118,13 @@ export function blueprintRequirementReason(
       return `Requires the ${requirement.certificateId} certificate. ${NOT_YET_ATTAINABLE_KINDS.certificate!}`
     case 'award':
       return `Requires the ${requirement.awardId} award. ${NOT_YET_ATTAINABLE_KINDS.award!}`
-    case 'research':
-      return `Requires ${requirement.packId === 'synchronized-sound' ? 'synchronized-sound access through completed research or commercial purchase' : requirement.packId + ' research'}.`
+    case 'research': {
+      if (requirement.packId === 'synchronized-sound') return 'Requires synchronized-sound access through completed research or commercial purchase.'
+      const pack = TECHNOLOGY_CATALOGUE.find(entry => entry.id === requirement.packId)
+      return pack === undefined
+        ? `Requires ${requirement.packId} research.`
+        : `Requires ${pack.name.toLowerCase()} access through completed research or commercial purchase.`
+    }
     case 'landZone':
       return `Requires owning ${requirement.zoneId}. ${NOT_YET_ATTAINABLE_KINDS.landZone!}`
     default:

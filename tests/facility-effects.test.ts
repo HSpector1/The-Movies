@@ -180,6 +180,9 @@ describe('C1-M4 — the widened catalog', () => {
       'research-laboratory',
       'acoustic-instruments',
       'synchronized-sound-stage',
+      // P13B-S2 — the lighting-control-01 module and stage package (plan §S2 T1).
+      'electrical-control-instruments',
+      'lighting-control-stage',
       'synchronized-sound-post',
     ])
     // The bounded-term law runs at every action, tick, and save boundary; this

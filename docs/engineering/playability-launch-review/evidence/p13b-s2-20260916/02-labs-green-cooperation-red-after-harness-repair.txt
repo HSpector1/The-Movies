@@ -1,0 +1,25 @@
+start 2026-09-16T15:06:42Z
+ ✓ |core| tests/p13b-s2-labs.test.ts (10 tests) 40103ms
+   ✓ P13B-S2 module/bench law (test 2) > refuses lighting beginResearch while the seated Laboratory lacks an operational electrical/control module 10624ms
+   ✓ P13B-S2 module/bench law (test 2) > does not double-book one Laboratory's seat slots when two technologies are both active there (sound 2 + lighting 2, four seats total) 6395ms
+   ✓ P13B-S2 module/bench law (test 2) > seats a person for a technology on a Laboratory lacking its discipline module (retained P13A law), but refuses to begin until the module is operational 8604ms
+   ✓ P13B-S2 module/bench law (test 2) > releases the seat claim on pause and reacquires it on resume — the S1 release law generalized to a lighting project (regression net) 6203ms
+ ❯ |core| tests/p13b-s2-cooperation.test.ts (5 tests | 5 failed) 8085ms
+   × P13B-S2 cooperation arithmetic across two Laboratories (test 4) > (i) two full Labs (4+4) at $80,000: spend 40,000/40,000, raw 6/6, output 9.75/week, 7 funded weeks, verifiedWork 64 and expenditu
+     → expected 12 to be 9.75 // Object.is equality
+   × P13B-S2 cooperation arithmetic across two Laboratories (test 4) > (ii) two full Labs (4+4) at $40,000: spend 20,000/20,000, raw 5/5, output 8.125/week 3ms
+     → expected 10 to be 8.125 // Object.is equality
+   × P13B-S2 cooperation arithmetic across two Laboratories (test 4) > (iii) 4 + 2 seats at $60,000: spend 40,000/20,000, raw 6/3, output 7.875/week 2ms
+     → expected 9 to be 7.875 // Object.is equality
+   × P13B-S2 cooperation arithmetic across two Laboratories (test 4) > (iv) 3 + 2 seats at $33,333: whole-dollar remainder to the lowest stable Lab id, exact fixed-point raw and output 3ms
+     → expected 6.66665 to be 5.66665625 // Object.is equality
+   × P13B-S2 cooperation arithmetic across two Laboratories (test 4) > (v) one Laboratory only (4 seats at $40,000): unchanged S1 output 6, but the receipt now carries the new per-Lab `labs` breakdown
+     → expected undefined to deeply equal [ { …(4) } ]
+AssertionError: expected 12 to be 9.75 // Object.is equality
+AssertionError: expected 10 to be 8.125 // Object.is equality
+AssertionError: expected 9 to be 7.875 // Object.is equality
+AssertionError: expected 6.66665 to be 5.66665625 // Object.is equality
+AssertionError: expected undefined to deeply equal [ { …(4) } ]
+ Test Files  1 failed | 1 passed (2)
+      Tests  5 failed | 10 passed (15)
+end 2026-09-16T15:07:36Z

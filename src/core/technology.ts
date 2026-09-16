@@ -4,16 +4,17 @@ import { commitFacilityInstallation, queryFacilityInstallation } from './placeme
 import { campaignDate } from './calendar.js'
 import { productionHasBegunFilming, retargetProductionTechnologyChoice, assertProductionTechnologyBindings } from './technologyProduction.js'
 import { generateScientist } from './worldgen.js'
+import { isTechnologyId, technologyEntry } from './technologyCatalogue.js'
 import type { GameState, GameStateV20, LedgerEntry, Talent } from './types.js'
 import type { ResearchProject, ResearchProjectV1, ResearchSeat, StudioTechnology, StudioTechnologyV1, TechnologyAction, TechnologyAdoption, TechnologyId } from './technologyTypes.js'
 
-/** Candidate S1-A tuning; the campaign clock and P09 completion clock remain authoritative. */
+/**
+ * The synchronized-sound parameters, retained as a named export for P13A consumers.
+ * The catalogue entry is the authority; this adds only the two output constants no
+ * other technology reads. Per-PROJECT engine reads use `technologyEntry(...)`.
+ */
 export const SYNCHRONIZED_SOUND = Object.freeze({
-  id: 'synchronized-sound' as const, name: 'Synchronized sound', researchableWeek: 260,
-  commercialWeek: 416, work: 64, usableBudgetPerScientist: 10_000,
-  baseWeeklyOutput: 1, saturatedWeeklyOutput: 1.5, accessCost: 200_000,
-  commercialEquipmentCost: 300_000, laterInventorEquipmentCost: 225_000,
-  deploymentWeeks: 12,
+  ...technologyEntry('synchronized-sound'), baseWeeklyOutput: 1, saturatedWeeklyOutput: 1.5,
 })
 /** Provisional P13B tuning (companion §4: two Labs × four seats). Not Owner-approved balance. */
 export const RESEARCH_SCIENTISTS_PER_STUDIO = 8
@@ -49,19 +50,20 @@ function playerStudioId(state: GameState): string {
   return state.hollywood.playerStudioId
 }
 function knownTechnology(id: string): asserts id is TechnologyId {
-  if (id !== SYNCHRONIZED_SOUND.id) throw new Error('That technology is not in this catalogue.')
+  if (!isTechnologyId(id)) throw new Error('That technology is not in this catalogue.')
 }
 export function technologyAccess(state: {technology?: Pick<StudioTechnology, 'access'>}, studioId: string, id: string): boolean {
-  if (id !== SYNCHRONIZED_SOUND.id) return false
+  if (!isTechnologyId(id)) return false
   return state.technology?.access.some(a => a.studioId === studioId && a.technologyId === id && a.acquiredWeek !== null) ?? false
 }
 export function playerTechnologyAccess(state: GameState, id: string): boolean {
   return !!state.hollywood && technologyAccess(state, state.hollywood.playerStudioId, id)
 }
-export function commercialAccessRefusal(state: GameState, studioId: string): string | null {
+export function commercialAccessRefusal(state: GameState, studioId: string, technologyId: TechnologyId = SYNCHRONIZED_SOUND.id): string | null {
+  const entry = technologyEntry(technologyId)
   if (!state.hollywood?.identities.some(s=>s.studioId===studioId && s.enteredWeek!==null)) return 'That studio has not entered this campaign.'
-  if (technologyAccess(state,studioId,SYNCHRONIZED_SOUND.id)) return 'This studio already has synchronized-sound access.'
-  if (state.market.tick < SYNCHRONIZED_SOUND.commercialWeek) return `Commercial purchase opens ${campaignDate(SYNCHRONIZED_SOUND.commercialWeek).label}.`
+  if (technologyAccess(state,studioId,entry.id)) return `This studio already has ${entry.id} access.`
+  if (state.market.tick < entry.commercialWeek) return `Commercial purchase opens ${campaignDate(entry.commercialWeek).label}.`
   return null
 }
 
@@ -83,15 +85,27 @@ export function eligibleSeatIds(state: GameState, project: ResearchProject, week
     .map(s => s.talentId)
 }
 
-function laboratoryRefusal(state: GameState, project: Pick<ResearchProject, 'laboratoryFacilityId'>): string | null {
-  const lab = state.operations.facilities.find(f => f.id === project.laboratoryFacilityId && f.capability === 'laboratory')
-  if (!lab || lab.capacity < 1) return 'Complete the assigned Research Laboratory first.'
-  if (state.placement.facilities.some(p => p.installation?.targetFacilityId === lab.id && p.status === 'underConstruction')) return 'Wait for the Laboratory instrument installation to finish.'
-  if (!hasOperationalFacilityInstallation(state, lab.id, 'acoustic-instruments')) return 'Install acoustic instruments in this Laboratory.'
+/**
+ * P13B-S2: begin/resume/weekly eligibility needs this technology's discipline module
+ * operational in EVERY Laboratory that carries an occupied seat of the project.
+ * Seating itself never asks (retained P13A law); a project with no occupied seat is
+ * judged at its home Laboratory, exactly as the single-Lab slice did.
+ */
+function laboratoryRefusal(state: GameState, project: Pick<ResearchProject, 'laboratoryFacilityId' | 'technologyId'> & {seats?: readonly ResearchSeat[]}): string | null {
+  const entry = technologyEntry(project.technologyId)
+  const labIds = new Set((project.seats ?? []).filter(s => s.releasedWeek === null).map(s => s.laboratoryFacilityId))
+  if (labIds.size === 0) labIds.add(project.laboratoryFacilityId)
+  for (const labId of labIds) {
+    const lab = state.operations.facilities.find(f => f.id === labId && f.capability === 'laboratory')
+    if (!lab || lab.capacity < 1) return 'Complete the assigned Research Laboratory first.'
+    if (state.placement.facilities.some(p => p.installation?.targetFacilityId === lab.id && p.status === 'underConstruction')) return 'Wait for the Laboratory instrument installation to finish.'
+    if (!hasOperationalFacilityInstallation(state, lab.id, entry.instrumentBlueprintId)) return `Install ${entry.instrumentBlueprintId.replace(/-/g, ' ')} in this Laboratory.`
+  }
   return null
 }
 export function researchPrerequisiteRefusal(state: GameState, project: ResearchProject): string | null {
-  if (state.market.tick < SYNCHRONIZED_SOUND.researchableWeek) return `Research opens ${campaignDate(SYNCHRONIZED_SOUND.researchableWeek).label}.`
+  const entry = technologyEntry(project.technologyId)
+  if (state.market.tick < entry.researchableWeek) return `Research opens ${campaignDate(entry.researchableWeek).label}.`
   const physical = laboratoryRefusal(state, project); if (physical) return physical
   if (eligibleSeatIds(state, project).length === 0) return 'Employ and assign a named Scientist.'
   return null
@@ -99,18 +113,19 @@ export function researchPrerequisiteRefusal(state: GameState, project: ResearchP
 export type ResearchWeekQuote = {spend: number; output: number; remainingWeeks: number | null; bottleneck: string; seats: number; seatTalentIds: string[]}
 /** Paper formula (P13B document 03): n eligible seats, spend = min(ceiling, 10,000·n), output = n + spend/20,000. */
 export function researchWeekQuote(state: GameState, project: ResearchProject): ResearchWeekQuote {
+  const entry = technologyEntry(project.technologyId)
   const refusal = researchPrerequisiteRefusal(state, project)
   const idle = {spend: 0, output: 0, remainingWeeks: null, seats: 0, seatTalentIds: [] as string[]}
   if (project.status !== 'active' || refusal) return {...idle, bottleneck: refusal ?? 'Research is paused. Verified work is retained.'}
   const seatTalentIds = eligibleSeatIds(state, project)
   const seats = seatTalentIds.length
-  const usable = SYNCHRONIZED_SOUND.usableBudgetPerScientist * seats
+  const usable = entry.usableBudgetPerScientist * seats
   const spend = Math.min(project.budgetPerWeek, usable)
   if (!canAfford(state, spend).ok) return {...idle, bottleneck: 'Insufficient cash for this week’s usable research budget.'}
   const output = seats + spend / WORK_UNIT
   const who = seats === 1 ? 'One assigned Scientist' : `${seats} assigned Scientists`
   const withWhom = seats === 1 ? 'this Scientist' : `these ${seats} Scientists`
-  return {spend, output, seats, seatTalentIds, remainingWeeks: Math.ceil((SYNCHRONIZED_SOUND.work - project.verifiedWork) / output),
+  return {spend, output, seats, seatTalentIds, remainingWeeks: Math.ceil((entry.work - project.verifiedWork) / output),
     bottleneck: spend >= usable
       ? `${who}: ${money(usable)}/week is usable. A higher budget adds no work and is not charged.`
       : `The research budget limits acceleration. ${money(usable)}/week reaches ${seats * 1.5} work units with ${withWhom}.`}
@@ -177,13 +192,21 @@ export function applyTechnologyAction(state: GameState, action: Exclude<Technolo
     if (state.talent.find(t => t.id === action.scientistId)?.role !== 'scientist' || !activeContract(state, action.scientistId)) throw new Error('Employ this Scientist before assigning a Laboratory seat.')
     if (state.technology.projects.some(p => occupiedSeats(p).some(s => s.talentId === action.scientistId))) throw new Error('This Scientist already holds a Laboratory seat.')
     if (busyTalentIds(state).has(action.scientistId)) throw new Error('This Scientist already has an active assignment.')
-    const existing = state.technology.projects.find(p => p.studioId === own && p.technologyId === SYNCHRONIZED_SOUND.id)
-    if (existing?.status === 'completed') throw new Error('Synchronized-sound research is complete; its seats accept no further assignment.')
-    if (existing && existing.laboratoryFacilityId !== lab.id) throw new Error(`This project is staffed at ${state.operations.facilities.find(f => f.id === existing.laboratoryFacilityId)?.name ?? existing.laboratoryFacilityId}. Seats on a second Laboratory arrive with P13B multiple-Lab allocation.`)
-    if (existing && occupiedSeats(existing, lab.id).length >= lab.capacity) throw new Error(`This Laboratory's ${spelled(lab.capacity)} seats are occupied. Release a seat or review another lawful Laboratory.`)
+    // An omitted brief is the P13A single-brief intent and means synchronized sound.
+    const technologyId = action.technologyId ?? SYNCHRONIZED_SOUND.id
+    const entry = technologyEntry(technologyId)
+    const existing = state.technology.projects.find(p => p.studioId === own && p.technologyId === technologyId)
+    if (existing?.status === 'completed') throw new Error(`${entry.name} research is complete; its seats accept no further assignment.`)
+    if (existing) {
+      const staffedLabs = new Set(occupiedSeats(existing).map(s => s.laboratoryFacilityId))
+      if (!staffedLabs.has(lab.id) && staffedLabs.size >= 2) throw new Error(`This project already works in two Laboratories. A third Laboratory is refused; release its seats there first.`)
+    }
+    // The four-seat cap belongs to the Laboratory, not to one brief: every
+    // project's occupied seats on this body count against it.
+    if (state.technology.projects.reduce((n, p) => n + occupiedSeats(p, lab.id).length, 0) >= lab.capacity) throw new Error(`This Laboratory's ${spelled(lab.capacity)} seats are occupied. Release a seat or review another lawful Laboratory.`)
     const seat: ResearchSeat = {talentId: action.scientistId, laboratoryFacilityId: lab.id, assignedWeek: state.market.tick, releasedWeek: null}
     if (existing) return changeProject(state, existing.id, p => ({...p, seats: [...p.seats, seat]}))
-    const project: ResearchProject = {id: `${own}:research:${SYNCHRONIZED_SOUND.id}`, studioId: own, technologyId: SYNCHRONIZED_SOUND.id,
+    const project: ResearchProject = {id: `${own}:research:${technologyId}`, studioId: own, technologyId,
       laboratoryFacilityId: lab.id, status: 'paused', budgetPerWeek: 10_000,
       verifiedWork: 0, expenditure: 0, startedWeek: null, completedWeek: null, seats: [seat], weeks: [], legacy: null}
     return {...state, technology: {...state.technology, projects: [...state.technology.projects, project]}}
@@ -210,20 +233,21 @@ export function applyTechnologyAction(state: GameState, action: Exclude<Technolo
   })
   if (action.kind === 'waitForTechnology' || action.kind === 'purchaseTechnology') {
     knownTechnology(action.technologyId)
-    if (technologyAccess(state, own, action.technologyId)) throw new Error('This studio already has synchronized-sound access.')
-    if (action.kind === 'purchaseTechnology') {const refusal=commercialAccessRefusal(state,own);if(refusal)throw new Error(refusal)}
+    const entry = technologyEntry(action.technologyId)
+    if (technologyAccess(state, own, action.technologyId)) throw new Error(`This studio already has ${entry.id} access.`)
+    if (action.kind === 'purchaseTechnology') {const refusal=commercialAccessRefusal(state,own,entry.id);if(refusal)throw new Error(refusal)}
     const purchase = action.kind === 'purchaseTechnology'
     const prior = state.technology.access.find(a => a.studioId === own && a.technologyId === action.technologyId)
     if (!purchase && prior?.route === 'wait') throw new Error('This studio is already waiting for commercial release.')
-    const paid = purchase ? charge(state, SYNCHRONIZED_SOUND.accessCost, `technology-access:${own}:${action.technologyId}`) : state
+    const paid = purchase ? charge(state, entry.accessCost, `technology-access:${own}:${action.technologyId}`) : state
     return {...paid, technology: {...paid.technology, access: [...paid.technology.access.filter(a => a !== prior), {
       studioId: own, technologyId: action.technologyId, route: purchase ? 'purchase' : 'wait', chosenWeek: state.market.tick,
-      acquiredWeek: purchase ? state.market.tick : null, accessCost: purchase ? SYNCHRONIZED_SOUND.accessCost : 0, researchProjectId: null}]}}
+      acquiredWeek: purchase ? state.market.tick : null, accessCost: purchase ? entry.accessCost : 0, researchProjectId: null}]}}
   }
   if (action.kind === 'adoptSynchronizedSound') {
     const refusal = adoptionRefusal(state, own, action.stageFacilityId, action.postFacilityId)
     if (refusal) throw new Error(refusal)
-    const access = state.technology.access.find(a => a.studioId === own && a.acquiredWeek !== null)!
+    const access = state.technology.access.find(a => a.studioId === own && a.technologyId === SYNCHRONIZED_SOUND.id && a.acquiredWeek !== null)!
     const inventor = access.route === 'research'
     const prototypeUsed = state.technology.adoptions.some(a => a.studioId === own && a.prototypeProjectId !== null)
     const equipmentCost = inventor ? prototypeUsed ? SYNCHRONIZED_SOUND.laterInventorEquipmentCost : 0 : SYNCHRONIZED_SOUND.commercialEquipmentCost
@@ -266,14 +290,15 @@ export function advanceResearchWeek(state: GameState): {technology: StudioTechno
   const entries: LedgerEntry[] = [], access = [...state.technology.access]
   const nextWeek = state.market.tick + 1
   const projects = state.technology.projects.map(p => {
+    const work = technologyEntry(p.technologyId).work
     const quote = researchWeekQuote(state, p)
     const staffedNextWeek = eligibleSeatIds(state, p, nextWeek).length > 0
     if (quote.output === 0) return p.status === 'active' && !staffedNextWeek ? {...p, status: 'paused' as const} : p
     if (quote.spend > 0) entries.push({week:state.market.tick, kind:'researchSpend', amount:-quote.spend, note:`research:${p.id}`})
     const before = Math.round(p.verifiedWork * WORK_UNIT)
-    const units = Math.min(quote.seats * WORK_UNIT + quote.spend, SYNCHRONIZED_SOUND.work * WORK_UNIT - before)
+    const units = Math.min(quote.seats * WORK_UNIT + quote.spend, work * WORK_UNIT - before)
     const verifiedWork = (before + units) / WORK_UNIT
-    const complete = verifiedWork >= SYNCHRONIZED_SOUND.work
+    const complete = verifiedWork >= work
     if (complete && !access.some(a => a.studioId === p.studioId && a.acquiredWeek !== null)) {
       const pending = access.findIndex(a => a.studioId === p.studioId)
       if (pending >= 0) access.splice(pending, 1)
@@ -295,7 +320,7 @@ export function finishTechnologyWeek(state: GameState): GameState {
     const player = a.studioId === state.hollywood?.playerStudioId
     const complete = player
       ? hasOperationalFacilityInstallation(state,a.stageFacilityId,'synchronized-sound-stage') && hasOperationalFacilityInstallation(state,a.postFacilityId,'synchronized-sound-post')
-      : state.market.tick >= a.committedWeek + SYNCHRONIZED_SOUND.deploymentWeeks
+      : state.market.tick >= a.committedWeek + technologyEntry(a.technologyId).deploymentWeeks
     return complete ? {...a,operationalWeek:state.market.tick} : a
   })
   const newRival = adoptions.filter(a=>a.studioId!==state.hollywood?.playerStudioId && a.operationalWeek!==null && state.technology.adoptions.find(old=>old.id===a.id)?.operationalWeek===null)
@@ -335,7 +360,8 @@ function validateSharedTechnology(state: GameState | GameStateV20, v: Validator,
   for (const a of root.access) {
     exact(a,['studioId','technologyId','route','chosenWeek','acquiredWeek','accessCost','researchProjectId'])
     studio(a.studioId);knownTechnology(a.technologyId);week(a.chosenWeek);integer(a.accessCost)
-    if (accesses.has(a.studioId)) fail('duplicate technology access');accesses.add(a.studioId)
+    const accessKey = `${a.studioId}/${a.technologyId}`
+    if (accesses.has(accessKey)) fail('duplicate technology access');accesses.add(accessKey)
     if (!['wait','research','purchase'].includes(a.route)) fail('unknown access route')
     if (a.acquiredWeek !== null) {week(a.acquiredWeek); if (a.acquiredWeek < a.chosenWeek) fail('access before choice')}
     if (a.route === 'wait') {if (a.acquiredWeek !== null || a.accessCost !== 0 || a.researchProjectId !== null) fail('waiting granted unpurchased capability')}
@@ -343,7 +369,8 @@ function validateSharedTechnology(state: GameState | GameStateV20, v: Validator,
       const completedWeek = a.researchProjectId === null ? undefined : completedProjects.get(`${a.studioId}/${a.researchProjectId}`)
       if (completedWeek === undefined || completedWeek !== a.acquiredWeek || a.accessCost !== 0) fail('invented invention provenance')
     }
-    if (a.route === 'purchase' && (a.acquiredWeek === null || a.acquiredWeek < 416 || a.accessCost !== 200_000 || a.researchProjectId !== null)) fail('invalid commercial access')
+    const entry = technologyEntry(a.technologyId)
+    if (a.route === 'purchase' && (a.acquiredWeek === null || a.acquiredWeek < entry.commercialWeek || a.accessCost !== entry.accessCost || a.researchProjectId !== null)) fail('invalid commercial access')
   }
   const stages = new Set<string>(), adoptionIds = new Set<string>(), prototypes = new Set<string>()
   if(root.adoptions.filter(a=>a.studioId!==own).length>1) fail('Core permits one rival commercial adoption consequence')
@@ -457,8 +484,8 @@ export function validateTechnology(state: GameState): void {
   const {fail, exact, integer, text, week, studio, own} = v
   validateRootShape(state, v, 2)
   const root = state.technology
-  const WORK = SYNCHRONIZED_SOUND.work * WORK_UNIT
   const ids = new Set<string>(), technologies = new Set<string>(), seatHolders = new Set<string>()
+  const occupiedByLab = new Map<string, number>()
   const completed = new Map<string, number>()
   const employment = (state.hollywood?.employment ?? []).filter(c => c.studioId === own)
   const employedThatWeek = (talentId: string, at: number) => employment.some(c => c.terms.talentId === talentId &&
@@ -475,36 +502,42 @@ export function validateTechnology(state: GameState): void {
   for (const p of root.projects) {
     exact(p,['id','studioId','technologyId','laboratoryFacilityId','status','budgetPerWeek','verifiedWork','expenditure','startedWeek','completedWeek','seats','weeks','legacy'])
     knownTechnology(p.technologyId);studio(p.studioId);text(p.id)
+    const entry = technologyEntry(p.technologyId)
+    const WORK = entry.work * WORK_UNIT
     if (p.studioId !== own || p.id !== `${own}:research:${p.technologyId}` || ids.has(p.id)) fail('invalid research ownership or identity')
     ids.add(p.id)
     if (technologies.has(p.technologyId)) fail('one research project per studio and technology');technologies.add(p.technologyId)
     budget(p.budgetPerWeek);integer(p.expenditure)
-    if (!Number.isFinite(p.verifiedWork) || p.verifiedWork < 0 || p.verifiedWork > SYNCHRONIZED_SOUND.work) fail('invalid verified work')
+    if (!Number.isFinite(p.verifiedWork) || p.verifiedWork < 0 || p.verifiedWork > entry.work) fail('invalid verified work')
     const verifiedWorkUnits = Math.round(p.verifiedWork * WORK_UNIT)
     if (p.verifiedWork !== verifiedWorkUnits / WORK_UNIT) fail('verified work is not a whole-dollar research unit')
     if (!['active','paused','cancelled','completed'].includes(p.status)) fail('unknown research status')
     const lab = state.operations.facilities.find(f => f.id === p.laboratoryFacilityId && f.capability === 'laboratory')
     if (!lab) fail('unknown Laboratory')
     if (!Array.isArray(p.seats) || !Array.isArray(p.weeks)) fail('array required')
-    const occupiedByLab = new Map<string, number>()
+    const seatLabs = new Set<string>(), staffedLabs = new Set<string>()
     for (const s of p.seats) {
       exact(s,['talentId','laboratoryFacilityId','assignedWeek','releasedWeek']);text(s.talentId)
       if (state.talent.find(t => t.id === s.talentId)?.role !== 'scientist') fail('unknown Scientist')
-      if (s.laboratoryFacilityId !== p.laboratoryFacilityId) fail('seat outside the project Laboratory')
+      if (!state.operations.facilities.some(f => f.id === s.laboratoryFacilityId && f.capability === 'laboratory')) fail('seat outside a Laboratory of this studio')
+      seatLabs.add(s.laboratoryFacilityId)
       week(s.assignedWeek)
       if (s.releasedWeek !== null) {week(s.releasedWeek);if (s.releasedWeek < s.assignedWeek) fail('seat released before assignment')}
       else {
         if (seatHolders.has(s.talentId)) fail('double assigned Scientist');seatHolders.add(s.talentId)
+        staffedLabs.add(s.laboratoryFacilityId)
         occupiedByLab.set(s.laboratoryFacilityId,(occupiedByLab.get(s.laboratoryFacilityId) ?? 0)+1)
       }
     }
-    for (const [labId,count] of occupiedByLab) if (count > (state.operations.facilities.find(f => f.id === labId)?.capacity ?? 0)) fail('Laboratory seats exceed capacity')
-    if (p.startedWeek !== null) {week(p.startedWeek); if (p.startedWeek < SYNCHRONIZED_SOUND.researchableWeek) fail('research before eligibility')}
+    if (staffedLabs.size > 2) fail('research project staffs more than two Laboratories')
+    if (p.startedWeek !== null) {week(p.startedWeek); if (p.startedWeek < entry.researchableWeek) fail('research before eligibility')}
     else if (p.verifiedWork !== 0 || p.expenditure !== 0 || p.status === 'active' || p.status === 'completed' || p.weeks.length || p.legacy !== null) fail('invented research before start')
-    if (p.completedWeek !== null) {week(p.completedWeek);if (p.startedWeek === null || p.completedWeek <= p.startedWeek || p.verifiedWork !== SYNCHRONIZED_SOUND.work || p.status !== 'completed') fail('invalid completion')}
-    else if (p.verifiedWork === SYNCHRONIZED_SOUND.work || p.status === 'completed') fail('missing research completion receipt')
+    if (p.completedWeek !== null) {week(p.completedWeek);if (p.startedWeek === null || p.completedWeek <= p.startedWeek || p.verifiedWork !== entry.work || p.status !== 'completed') fail('invalid completion')}
+    else if (p.verifiedWork === entry.work || p.status === 'completed') fail('missing research completion receipt')
     if (p.completedWeek !== null) completed.set(`${p.studioId}/${p.id}`, p.completedWeek)
-    if (p.startedWeek !== null && verifiedWorkUnits > ((p.completedWeek ?? state.market.tick) - p.startedWeek) * lab!.capacity * 30_000) fail('verified work exceeds elapsed capacity of the Laboratory seats')
+    // Elapsed capacity is bounded by every Laboratory this project's seats ever named, not only its home body.
+    const seatCapacity = [...seatLabs].reduce((sum,labId) => sum + (state.operations.facilities.find(f => f.id === labId)?.capacity ?? 0), 0) || lab!.capacity
+    if (p.startedWeek !== null && verifiedWorkUnits > ((p.completedWeek ?? state.market.tick) - p.startedWeek) * seatCapacity * 30_000) fail('verified work exceeds elapsed capacity of the Laboratory seats')
     let units = 0, spend = 0, receiptsFrom = p.startedWeek
     const legacy = p.legacy
     if (legacy !== null) {
@@ -531,7 +564,7 @@ export function validateTechnology(state: GameState): void {
         if (!p.seats.some(s => s.talentId === talentId && s.assignedWeek <= r.week && (s.releasedWeek === null || s.releasedWeek > r.week))) fail('research receipt names an unseated person')
         if (!employedThatWeek(talentId, r.week)) fail('research receipt names an unemployed Scientist')
       }
-      if (r.spend > SYNCHRONIZED_SOUND.usableBudgetPerScientist * r.seatTalentIds.length) fail('research charge exceeds its usable seats')
+      if (r.spend > entry.usableBudgetPerScientist * r.seatTalentIds.length) fail('research charge exceeds its usable seats')
       const earned = r.seatTalentIds.length * WORK_UNIT + r.spend
       const final = index === p.weeks.length - 1 && p.completedWeek !== null
       if (final ? r.units > earned || units + r.units !== WORK : r.units !== earned) fail('research receipt units do not match its seats and charge')
@@ -544,13 +577,14 @@ export function validateTechnology(state: GameState): void {
     if (paid !== p.expenditure) fail('research expenditure does not reconcile')
     if (p.status === 'active' && researchPrerequisiteRefusal(state,p)) fail('active research lacks its assigned person or physical prerequisites')
   }
+  for (const [labId,count] of occupiedByLab) if (count > (state.operations.facilities.find(f => f.id === labId)?.capacity ?? 0)) fail('Laboratory seats exceed capacity')
   for (const e of state.ledger) {
     if (e.kind !== 'researchSpend') continue
     week(e.week);integer(-e.amount,1)
     const p = root.projects.find(p => e.note === `research:${p.id}`) ?? fail('orphan research expense')
     const startedWeek = p.startedWeek ?? fail('orphan research expense')
     if (e.week < startedWeek || p.completedWeek !== null && e.week >= p.completedWeek) fail('orphan research expense')
-    if (e.week < (p.legacy?.throughWeek ?? startedWeek)) {if (-e.amount > SYNCHRONIZED_SOUND.usableBudgetPerScientist) fail('legacy research charge exceeds one Scientist')}
+    if (e.week < (p.legacy?.throughWeek ?? startedWeek)) {if (-e.amount > technologyEntry(p.technologyId).usableBudgetPerScientist) fail('legacy research charge exceeds one Scientist')}
     else if (p.weeks.find(r => r.week === e.week)?.spend !== -e.amount) fail('research charge without its receipt')
   }
   validateSharedTechnology(state, v, ids, completed)

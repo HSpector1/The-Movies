@@ -420,13 +420,24 @@ export function studioPresence(state: GameState): StudioPresence {
   const researchProjects = isObject(researchRoot) && Array.isArray(researchRoot['projects'])
     ? researchRoot['projects'].filter(isObject)
     : []
-  for (const project of researchProjects) {
-    if (project['status'] !== 'active') continue
-    // One Laboratory slot per occupied seat, in seat order: the same
-    // enumeration the research claim loop below (and occupancy.ts) performs.
+  // One Laboratory slot per occupied seat, numbered per LABORATORY across every
+  // active project in stable project-id order (P13B-S2) — the same enumeration
+  // occupancy.ts performs, and the one the research claim loop below reuses, so
+  // two technologies sharing a Laboratory never resolve to the same slot.
+  const researchSeatClaims: { projectId: string; facilityId: string; talentId: unknown; slot: number }[] = []
+  const researchSlotsByLab = new Map<string, number>()
+  const activeResearch = researchProjects
+    .filter(project => project['status'] === 'active' && isNonEmptyString(project['id']))
+    .sort((a, b) => String(a['id']) < String(b['id']) ? -1 : String(a['id']) > String(b['id']) ? 1 : 0)
+  for (const project of activeResearch) {
     const seats = Array.isArray(project['seats']) ? project['seats'] as ReadonlyArray<Record<string, unknown>> : []
-    for (const [slot] of seats.filter(seat => seat['releasedWeek'] === null).entries()) {
-      countSlot(project['laboratoryFacilityId'], slot)
+    for (const seat of seats.filter(seat => seat['releasedWeek'] === null)) {
+      const facilityId = seat['laboratoryFacilityId']
+      if (!isNonEmptyString(facilityId)) continue
+      const slot = researchSlotsByLab.get(facilityId) ?? 0
+      researchSlotsByLab.set(facilityId, slot + 1)
+      researchSeatClaims.push({ projectId: String(project['id']), facilityId, talentId: seat['talentId'], slot })
+      countSlot(facilityId, slot)
     }
   }
   for (let i = 0; i < state.operations.workflows.length; i++) {
@@ -691,37 +702,29 @@ export function studioPresence(state: GameState): StudioPresence {
   // active assignment is contradictory authority and is withheld, never hidden
   // by the film/casting presentation precedence.
   const researchClaimedPeople = new Set<string>()
-  for (const project of researchProjects) {
-    if (project['status'] !== 'active') continue
-    const facilityId = project['laboratoryFacilityId']
-    const projectId = project['id']
-    const seats = Array.isArray(project['seats']) ? project['seats'] as ReadonlyArray<Record<string, unknown>> : []
-    if (!isNonEmptyString(facilityId) || !isNonEmptyString(projectId)) continue
-    const occupied = seats.filter(seat => seat['releasedWeek'] === null)
-    for (const [slot, seat] of occupied.entries()) {
-      const scientistId = seat['talentId']
-      if (!isNonEmptyString(scientistId)) continue
-      const scientist = talentById.get(scientistId)
-      if (scientist?.role !== 'scientist' || activeContract(state, scientistId, currentWeek) === undefined) {
-        withhold(scientistId, 'research assignment has no employed Scientist')
-        continue
-      }
-      if (claims.has(scientistId) || researchClaimedPeople.has(scientistId)) {
-        withhold(scientistId, 'Scientist has simultaneous active assignments')
-        continue
-      }
-      researchClaimedPeople.add(scientistId)
-      const failure = siteFailure(facilityId, slot)
-      const laboratory = state.operations.facilities.find(facility => facility.id === facilityId)
-      if (failure !== null || laboratory?.capability !== 'laboratory') {
-        withhold(scientistId, failure ?? 'research assignment does not name Laboratory capacity')
-        continue
-      }
-      addClaim('research', {
-        talentId: scientistId, engagement: 'research', credit: 'scientist',
-        ownerId: projectId, facilityId, slot, blockedReason: null,
-      })
+  for (const { projectId, facilityId, talentId, slot } of researchSeatClaims) {
+    const scientistId = talentId
+    if (!isNonEmptyString(scientistId)) continue
+    const scientist = talentById.get(scientistId)
+    if (scientist?.role !== 'scientist' || activeContract(state, scientistId, currentWeek) === undefined) {
+      withhold(scientistId, 'research assignment has no employed Scientist')
+      continue
     }
+    if (claims.has(scientistId) || researchClaimedPeople.has(scientistId)) {
+      withhold(scientistId, 'Scientist has simultaneous active assignments')
+      continue
+    }
+    researchClaimedPeople.add(scientistId)
+    const failure = siteFailure(facilityId, slot)
+    const laboratory = state.operations.facilities.find(facility => facility.id === facilityId)
+    if (failure !== null || laboratory?.capability !== 'laboratory') {
+      withhold(scientistId, failure ?? 'research assignment does not name Laboratory capacity')
+      continue
+    }
+    addClaim('research', {
+      talentId: scientistId, engagement: 'research', credit: 'scientist',
+      ownerId: projectId, facilityId, slot, blockedReason: null,
+    })
   }
 
   // ── population = every claimed person ∪ every contracted employee ──────────
