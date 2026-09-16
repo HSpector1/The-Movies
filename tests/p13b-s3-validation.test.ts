@@ -96,12 +96,16 @@ function buildBaseline(): { state: GameState; planA: Plan; planB: Plan; planC: P
     admission: 'reviewChangedQuote', approvedQuote: electricalQuote, pendingQuote: null,
     status: 'queued', statusWeek: 260, reason: null, startedPlacementId: null, commitReceipt: null,
   }
+  // statusWeek 260 (not 261): the validator requires statusWeek <= market.tick
+  // (a lawful row is never ahead of the save boundary it's read at) and
+  // >= queuedWeek — src/core/physicalPlans.ts, amended 2026-09-16 after this
+  // baseline was first authored against a week-260 world.
   const planC: Plan = { // held, with a real pendingQuote
     id: `${playerStudioId}:plan:3`, studioId: playerStudioId, ordinal: 3, queuedWeek: 260,
     work: { kind: 'placement', blueprintId: 'research-laboratory', origin },
     dependsOn: [], approvedMaximumDebit: TUNING.RESEARCH_LABORATORY_CAPEX, earliestStartWeek: 260,
     admission: 'reviewChangedQuote', approvedQuote: labQuote, pendingQuote: { ...labQuote, fingerprint: 'fp-plan-c-changed' },
-    status: 'held', statusWeek: 261, reason: 'quote changed', startedPlacementId: null, commitReceipt: null,
+    status: 'held', statusWeek: 260, reason: 'quote changed', startedPlacementId: null, commitReceipt: null,
   }
 
   const withPlans: GameState = {

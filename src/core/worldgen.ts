@@ -60,6 +60,7 @@ import { emptyScriptDevelopment } from './scriptDevelopment.js'
 import { emptyStudioEventLog } from './studioEvents.js'
 import { initialReleaseAuthority } from './releaseAuthority.js'
 import { initialStudioHistory } from './studioHistory.js'
+import { initialPhysicalPlans } from './physicalPlans.js'
 import { stream } from './rng.js'
 import { RngStream } from './rng.js'
 import {
@@ -773,5 +774,7 @@ export function generateWorld(seed: string, options?: GenerateWorldOptions): Gam
     // P08A: a fresh world records its history from week 0 (empty until the economy
     // engages; the headless corpus never appends a row — see studioHistory.ts pin 5).
     studioHistory: initialStudioHistory(),
+    // P13B-S3: a fresh world has planned no physical work and has minted no plan id.
+    physicalPlans: initialPhysicalPlans(),
   }
 }

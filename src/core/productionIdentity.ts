@@ -70,6 +70,8 @@ export function persistedProductionIds(state: GameState): Set<string> {
       case 'standingChanged': if (row.source.kind === 'releaseResult') add(row.source.productionId); break
       case 'studioFounded': case 'standingDriftFolded': case 'facilityCommitted': case 'facilityCompleted':
       case 'facilityDemolished': case 'facilityMoved': case 'technologyMilestone': break
+      // P13B-S3 plan rows name a plan, never a production: they reserve no film id.
+      case 'planQueued': case 'planStarted': case 'planHeld': case 'planBlocked': case 'planCancelled': break
       default: { const exhaustive: never = row; throw new Error(`Unhandled History identity: ${exhaustive}`) }
     }
   }

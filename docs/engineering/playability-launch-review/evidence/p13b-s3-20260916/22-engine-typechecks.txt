@@ -1,0 +1,8 @@
+# Typechecks after S3 (2026-09-16T21:05Z)
+$ npx tsc --noEmit -p tsconfig.json
+exit=0
+$ npx tsc --noEmit -p tsconfig.bridge.json
+tests/bridge-p13b-s3-save-as.test.ts(9,10): error TS6133: 'loadCampaignLibrary' is declared but its value is never read.
+exit=2
+$ npx tsc --noEmit -p ui/tsconfig.json
+exit=0

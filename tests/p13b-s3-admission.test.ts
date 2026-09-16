@@ -56,6 +56,25 @@ function exceptRoots(state: GameState, roots: readonly string[]): string {
 const ACOUSTIC_COST = TUNING.ACOUSTIC_INSTRUMENTS_CAPEX // 350,000
 const ELECTRICAL_COST = TUNING.ELECTRICAL_CONTROL_INSTRUMENTS_CAPEX // 350,000
 
+/**
+ * A genuine, RECONCILED cash move for test setup: written to the ledger, not just
+ * to `studio.cash`. `tick()` enforces "studio cash must equal initial cash plus
+ * the ordered ledger" (`assertStudioPlacementInvariants` / src/core/construction.ts)
+ * and throws before running admission if that invariant does not hold — a bare
+ * `{...state, studio:{...state.studio, cash: target}}` override is refused there
+ * (engine-conflict probe, 2026-09-16). This is the same "adjust cash through a
+ * matching ledger row" idiom `tests/d11-employment.test.ts`'s `reconciles` helper
+ * and `tests/bridge-p11-ready.test.ts:277`'s synthetic ledger already use.
+ */
+function spendDownTo(state: GameState, target: number): GameState {
+  const delta = state.studio.cash - target
+  return {
+    ...state,
+    studio: { ...state.studio, cash: target },
+    ledger: [...state.ledger, { week: state.market.tick, kind: 'overhead', amount: -delta, note: 'weekly studio overhead' }],
+  }
+}
+
 describe('P13B-S3 admission law (test 1)', () => {
   it('a fresh world carries the empty physicalPlans root the contract defines', () => {
     const base = p13aLaboratorySlice()
@@ -116,7 +135,14 @@ describe('P13B-S3 admission law (test 1)', () => {
     let state = started
     for (let i = 0; i < 3; i++) state = tick(state)
     expect(state.physicalPlans.plans[0]!.commitReceipt).toEqual(receiptAtStart)
-    expect(state.ledger.filter(e => e.kind === 'constructionCapex').length).toBe(1)
+    // p13aLaboratorySlice() already carries its OWN constructionCapex row (the
+    // Lab's own construction, week 0) — an unfiltered count of ALL constructionCapex
+    // rows is 2 even though the PLAN charged exactly once (engine-conflict probe A,
+    // 2026-09-16). Filter to the plan's own started placement's projectId so this
+    // asserts "the plan charged exactly once", not "the ledger has exactly one
+    // capex row of any kind".
+    const placement = state.placement.facilities.find(f => f.id === state.physicalPlans.plans[0]!.startedPlacementId)!
+    expect(state.ledger.filter(e => e.kind === 'constructionCapex' && e.constructionProjectId === placement.projectId).length).toBe(1)
   })
 
   it('earliestStartWeek in the future holds admission until it arrives', () => {
@@ -167,7 +193,19 @@ describe('P13B-S3 no reservation (test 2)', () => {
     state = tick(state) // acoustic (ordinal 1) is admitted first and now engages the target
     expect(state.physicalPlans.plans[0]!.status).toBe('started')
     expect(state.physicalPlans.plans[1]!.status).not.toBe('started')
-    for (let i = 0; i < TUNING.ACOUSTIC_INSTRUMENTS_BUILD_WEEKS; i++) state = tick(state)
+    // Admission runs BEFORE this tick's P09 completions (plan law: "before P09
+    // completions of that tick" — the same ordering the production-queue
+    // precedent's step 1.05 uses, and this file's own test 5 dependency case
+    // already relies on). Plan1's module completes AT week 18, but admission for
+    // week 18 still sees the placement under construction, so plan2 stays held
+    // on targetEngaged THROUGH week 18 and starts only at week 19's boundary
+    // (engine-conflict probe B, 2026-09-16).
+    for (let i = 0; i < TUNING.ACOUSTIC_INSTRUMENTS_BUILD_WEEKS; i++) {
+      state = tick(state)
+      expect(state.physicalPlans.plans[1]!.status).toBe('held')
+      expect(state.physicalPlans.plans[1]!.reason).toMatch(/targetEngaged/)
+    }
+    state = tick(state) // the FOLLOWING boundary (week 19): the target is finally free
     expect(state.physicalPlans.plans[1]!.status).toBe('started')
   })
 
@@ -190,12 +228,11 @@ describe('P13B-S3 ordering and envelope (test 5)', () => {
     staged = advanceTo(staged, staged.market.tick + TUNING.RESEARCH_LABORATORY_BUILD_WEEKS) // lab2 completes, real, genuine
     const lab2 = staged.operations.facilities.find(f => f.capability === 'laboratory' && f.id !== lab1)!.id
 
-    // Directly-set cash (established codebase idiom for reaching a genuine,
-    // reachable boundary balance without dozens of unrelated actions/ticks — see
-    // e.g. tests/d17-engagement-persistence.test.ts, tests/c1-m6-second-zone-by-data.test.ts.
-    // $500,000 is a real, reachable studio balance: it comfortably covers ONE
-    // $350,000 module and never two.
-    const poor: GameState = { ...staged, studio: { ...staged.studio, cash: 500_000 } }
+    // A reconciled cash move (see `spendDownTo` above — a bare `studio.cash`
+    // override is refused by `tick()`'s construction cash-ledger invariant;
+    // engine-conflict probe C, 2026-09-16). $500,000 is a real, reachable studio
+    // balance: it comfortably covers ONE $350,000 module and never two.
+    const poor = spendDownTo(staged, 500_000)
     let state = queuePlan(poor, { kind: 'installation', blueprintId: 'acoustic-instruments', target: { facilityId: lab1 } }, ACOUSTIC_COST)
     state = queuePlan(state, { kind: 'installation', blueprintId: 'acoustic-instruments', target: { facilityId: lab2 } }, ACOUSTIC_COST)
 
@@ -214,15 +251,19 @@ describe('P13B-S3 ordering and envelope (test 5)', () => {
 
   it('admission drains cash inside the SAME tick research reads: the plan starts and that week\'s research receipt is skipped for insufficient cash', () => {
     const entry = p13aResearchEntry() // Lab operational with acoustic instruments, week 260
-    const { state: staffed, laboratoryFacilityId, projectId } = p13bStaffedProject(entry, 0, 40_000, 4) // begun, not yet advanced; 4 seats x $40,000 == $40,000/week usable (S1's own literal)
+    const { state: staffed, projectId } = p13bStaffedProject(entry, 0, 40_000, 4) // begun, not yet advanced; 4 seats x $40,000 == $40,000/week usable (S1's own literal)
     const beforeProject = staffed.technology.projects.find(p => p.id === projectId)!
 
-    // Directly-set cash to a real, reachable boundary: affords the $350,000
-    // electrical module plus a $10,000 margin, never the $40,000 research spend
-    // on top of it. Electrical is installable on this Lab (acoustic is already
-    // OPERATIONAL there, not a live install, so it does not hold `targetEngaged`).
-    const poor: GameState = { ...staffed, studio: { ...staffed.studio, cash: ACOUSTIC_COST + 10_000 } }
-    const queued = queuePlan(poor, { kind: 'installation', blueprintId: 'electrical-control-instruments', target: { facilityId: laboratoryFacilityId } }, ELECTRICAL_COST)
+    // The plan's target cannot be the SAME Lab an installation on it would engage:
+    // its research project is ACTIVE, and an active project holds `targetEngaged`
+    // against ANY installation there (four research holders — engine-conflict
+    // probe D, 2026-09-16), so "electrical on the staffed Lab" was never a legal
+    // work item. A second Lab BODY is a free target that proves the identical
+    // ordering law: a reconciled cash move (see `spendDownTo` above) leaves
+    // exactly enough for the $900,000 Laboratory plus a $10,000 margin, never the
+    // $40,000 research spend on top of it.
+    const poor = spendDownTo(staffed, TUNING.RESEARCH_LABORATORY_CAPEX + 10_000)
+    const queued = queuePlan(poor, { kind: 'placement', blueprintId: 'research-laboratory', origin: nextLaboratoryOrigin(poor) }, TUNING.RESEARCH_LABORATORY_CAPEX)
     const ticked = tick(queued)
     expect(ticked.physicalPlans.plans[0]!.status).toBe('started')
 
@@ -231,8 +272,11 @@ describe('P13B-S3 ordering and envelope (test 5)', () => {
     expect(ticked.ledger.some(e => e.week === queued.market.tick && e.kind === 'researchSpend')).toBe(false)
 
     // Pure-function confirmation of the EXACT bottleneck the engine already
-    // names for this cash level (technology.ts:195), pinning the reason.
-    const postAdmissionCash: GameState = { ...poor, studio: { ...poor.studio, cash: poor.studio.cash - ELECTRICAL_COST } }
+    // names for this cash level (technology.ts:195), pinning the reason. This
+    // ONE hand-computed reading is a pure function call (`researchWeekQuote`
+    // never touches `tick()`'s construction cash-ledger invariant), so it stays
+    // a direct `studio.cash` read rather than going through `spendDownTo`.
+    const postAdmissionCash: GameState = { ...poor, studio: { ...poor.studio, cash: poor.studio.cash - TUNING.RESEARCH_LABORATORY_CAPEX } }
     expect(researchWeekQuote(postAdmissionCash, project).bottleneck).toBe('Insufficient cash for this week’s usable research budget.')
 
     // Control: the identical staffed project and starting cash, WITHOUT the

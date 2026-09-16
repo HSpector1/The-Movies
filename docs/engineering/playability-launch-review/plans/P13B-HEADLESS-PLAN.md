@@ -379,7 +379,7 @@ conversion routes are S4; component receipts/restoration are S5/S6. Plans are pe
       cycle refusal covers self-edges and unknown ids, the validator defends forged cycles; reasons use `money()`; cancel blocks dependents
       synchronously; admission is tick step 1.06 after the production-queue admission (1.05) and stamps the ARRIVED week (`currentTick + 1`)
       exactly as that precedent; `physicalPlans` is threaded through the exact-key validator chain as `technology` was.
-- [~] **S3-T1/T2/T3 engine increment (sim-core, 2026-09-16 ≈23:10; uncommitted until the five S3 files are green):** `src/core/physicalPlans.ts`
+- [x] **S3-T1/T2/T3 engine increment (sim-core, 2026-09-16 ≈23:10; committed ≈23:30 with the five S3 files 54/54 after the test amendments, `23-amended-*`, coordinator fresh run `25-*`):** `src/core/physicalPlans.ts`
       (root, quote snapshots, admission view, admission, validator, five action handlers), fingerprints in `placement.ts` (FNV-1a-64 over canonical
       JSON, no dependency), tick step 1.06 after the production-queue admission with the arrived-week stamp, history rows (five kinds, not on the
       wire until T4), Save V23 (`SaveFileV23`, `validateSaveV23`, `convertV22ToV23`, `migrateToV23`, ten downgrade guards, "1 through 23"),

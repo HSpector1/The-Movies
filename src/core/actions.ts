@@ -85,6 +85,7 @@ import {
   placementRegimeReady,
   queryPlacement,
 } from './placement.js'
+import { applyPhysicalPlanAction } from './physicalPlans.js'
 import { propertyOf } from './lot.js'
 import {
   addManagedProductionWorkflow,
@@ -3049,6 +3050,15 @@ export function applyActions(state: GameState, actions: Action[]): GameState {
         break
       case 'commitPictureToRelease':
         next = applyCommitPictureToRelease(next, action)
+        break
+      // P13B-S3: the five plan verbs write `physicalPlans` (and its history rows)
+      // and NOTHING else — a queued plan reserves no cash, slot or engagement.
+      case 'queuePhysicalPlan':
+      case 'reorderPhysicalPlans':
+      case 'cancelPhysicalPlan':
+      case 'reviewPhysicalPlan':
+      case 'setPhysicalPlanAdmission':
+        next = applyPhysicalPlanAction(next, action)
         break
       default: {
         // Exhaustiveness guard: an unknown action kind is a loud abort (M16).

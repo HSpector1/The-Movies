@@ -77,6 +77,7 @@ import { clamp } from './math.js'
 import { assertNoDoubleBookedResourceSlots, setOccupiedFacilitySlots } from './occupancy.js'
 import { advanceManagedProductions, arriveDueScenery } from './operations.js'
 import { admitQueuedIntents } from './queueAdmission.js'
+import { admitPhysicalPlans } from './physicalPlans.js'
 import { sceneryLoadInDecision } from './sceneryLoadIn.js'
 import {
   assertSetsInvariants,
@@ -405,7 +406,24 @@ export function tick(state: GameState, options?: TickOptions): GameState {
     currentTick + 1,
     events,
   )
-  const admitted: GameState = { ...admission.state, technology: technologyProduction.technology(), market: state.market }
+  const queueAdmitted: GameState = { ...admission.state, technology: technologyProduction.technology(), market: state.market }
+
+  // ── 1.06 PHYSICAL PLAN ADMISSION (P13B-S3) ──────────────────────────────
+  // INSERTION, NOT A REORDERING, in exactly the position step 1.05 holds and for
+  // exactly its reason. The studio's persistent physical plans are admitted here,
+  // in ordinal order, against the cash step 1.05 left — so the second plan of a
+  // week sees what the first one spent, and the research accrual below (which
+  // reads THIS state's cash) sees what both of them spent.
+  //
+  // It sits BEFORE this advance's P09 completions on purpose: a building that
+  // opens during this advance was a site for the week being advanced, so a plan
+  // waiting on it starts at the NEXT boundary, never inside the week its
+  // predecessor finished. Commits are stamped against `currentTick + 1` — the
+  // week that has arrived — so an admitted commit is byte-for-byte the placement
+  // and ledger row a hand commit in that week would have written.
+  const planAdmission = admitPhysicalPlans({ ...queueAdmitted, market: { ...state.market, tick: currentTick + 1 } })
+  for (const draft of planAdmission.history) history.append(draft)
+  const admitted: GameState = { ...planAdmission.state, market: state.market }
   // The two roots an admitted intent writes into are the two this advance is
   // still holding in locals. Rebind them, or a granted commission or audition
   // would be assembled away at the end of the tick.
@@ -432,7 +450,9 @@ export function tick(state: GameState, options?: TickOptions): GameState {
   // facility occupies land and contributes ZERO capacity until it flips here, and
   // no existing work is reallocated during the completing advance.
   const placementCompletion = completeDuePlacements(
-    state.placement,
+    // P13B-S3: the post-admission placement root — a plan admitted at step 1.06
+    // committed a real site this week and must not be assembled away here.
+    admitted.placement,
     constructionCompletion.operations,
     currentTick + 1,
   )

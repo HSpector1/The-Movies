@@ -1,0 +1,27 @@
+# Evidence: tests/p13b-s3-save-v23.test.ts run (UNCHANGED by this amendment — confirms already green)
+# Fixture/run environment: repo worktree wip/headless-program-20260916-ts, HEAD a6af37efc82f412f6c66f4831a811fb4cf7da369 plan(p13b-s3): engine increment recorded — results, adjudicated test premises, delegated decisions, coordinator bound correction (uncommitted S3 engine landed)
+# Command: npx vitest run tests/p13b-s3-save-v23.test.ts --minWorkers=1 --maxWorkers=1 --testTimeout=200000 --reporter=verbose
+# Date: 2026-09-16
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p13b-s3-save-v23.test.ts > P13B-S3 Save V23 (test 7) > migrates the genuine V22 fixture './fixtures/p13b/legacy-v22-staffed-4-…' to V23 with an empty physicalPlans root, byte-identical otherwise
+ ✓ |core| tests/p13b-s3-save-v23.test.ts > P13B-S3 Save V23 (test 7) > migrates the genuine V22 fixture './fixtures/p13b/legacy-v22-two-labs-c…' to V23 with an empty physicalPlans root, byte-identical otherwise
+ ✓ |core| tests/p13b-s3-save-v23.test.ts > P13B-S3 Save V23 (test 7) > convertV22ToV23 adds the empty root directly from a validated V22 envelope (the named export the contract pins)
+ ✓ |core| tests/p13b-s3-save-v23.test.ts > P13B-S3 Save V23 (test 7) > chains the genuine V21 fixture './fixtures/p13b/legacy-v21-staffed-4-…' through V22 to V23
+ ✓ |core| tests/p13b-s3-save-v23.test.ts > P13B-S3 Save V23 (test 7) > chains the genuine V21 fixture './fixtures/p13b/legacy-v21-released-p…' through V22 to V23
+ ✓ |core| tests/p13b-s3-save-v23.test.ts > P13B-S3 Save V23 (test 7) > chains the genuine V21 fixture './fixtures/p13b/legacy-v21-two-labs-t…' through V22 to V23
+ ✓ |core| tests/p13b-s3-save-v23.test.ts > P13B-S3 Save V23 (test 7) > chains the genuine V20 fixture './fixtures/p13b/legacy-v20-research-a…' through V21, V22 to V23
+ ✓ |core| tests/p13b-s3-save-v23.test.ts > P13B-S3 Save V23 (test 7) > chains the genuine V20 fixture './fixtures/p13b/legacy-v20-research-p…' through V21, V22 to V23
+ ✓ |core| tests/p13b-s3-save-v23.test.ts > P13B-S3 Save V23 (test 7) > chains the genuine V20 fixture './fixtures/p13b/legacy-v20-research-c…' through V21, V22 to V23
+ ✓ |core| tests/p13b-s3-save-v23.test.ts > P13B-S3 Save V23 (test 7) > migrateToV22 / migrateToV21 / migrateToV20 refuse a V23 save 678ms
+ ✓ |core| tests/p13b-s3-save-v23.test.ts > P13B-S3 Save V23 (test 7) > makeSave writes saveVersion 23
+ ✓ |core| tests/p13b-s3-save-v23.test.ts > P13B-S3 Save V23 (test 7) > an unknown saveVersion 24 is refused, naming the handled range
+ ✓ |core| tests/p13b-s3-save-v23.test.ts > P13B-S3 Save V23 (test 7) > save/reload mid-queue continues identically (byte for byte) 656ms
+
+ Test Files  1 passed (1)
+      Tests  13 passed (13)
+   Start at  23:19:19
+   Duration  5.28s (transform 1.09s, setup 0ms, collect 1.48s, tests 3.44s, environment 0ms, prepare 89ms)
+

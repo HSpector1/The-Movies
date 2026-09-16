@@ -84,6 +84,14 @@ export type {
   StudioPlacement,
   StudioPlacementMode,
   GameStateV12,
+  // ── P13B-S3 physical plans ──
+  PhysicalPlan,
+  PhysicalPlanWork,
+  PhysicalPlanStatus,
+  PhysicalPlanAdmission,
+  PlanQuoteSnapshot,
+  StudioPhysicalPlans,
+  GameStateV23,
   // ── Blueprint Requirements (C1-M2) ──
   BlueprintRequirement,
   BlueprintRequirementKind,
@@ -1232,6 +1240,10 @@ export {
   validateSaveV22,
   migrateToV22,
   convertV21ToV22,
+  // P13B-S3 — live V22 → NEW V23 + migrateToV23 (the persistent physical plan root).
+  validateSaveV23,
+  migrateToV23,
+  convertV22ToV23,
 } from './save.js'
 export type {
   SaveFileV1,
@@ -1256,10 +1268,29 @@ export type {
   SaveFileV20,
   SaveFileV21,
   SaveFileV22,
+  SaveFileV23,
   SaveFile,
   TalentV1,
   GameStateV1,
 } from './save.js'
+
+// ── P13B-S3 Physical plans (persistent queue, dependencies, admission) ───────
+export {
+  initialPhysicalPlans,
+  planQuoteSnapshot,
+  planAdmissionView,
+  resolvedTargetFacilityId,
+  studioPhysicalPlans,
+  validatePhysicalPlans,
+  admitPhysicalPlans,
+  applyPhysicalPlanAction,
+} from './physicalPlans.js'
+export type { PlanAdmissionView, PhysicalPlanAction } from './physicalPlans.js'
+export {
+  installationQuoteFingerprint,
+  placementQuoteFingerprint,
+  physicalQuoteFingerprint,
+} from './placement.js'
 
 // ── P06A Release Authority (charter W1) ──────────────────────────────────────
 export {

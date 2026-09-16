@@ -353,6 +353,15 @@ export function historyProjection(state: GameState): BridgeHistoryProjection {
       }
       case 'standingDriftFolded':
         break
+      // P13B-S3: physical-plan rows are recorded in state from this slice. The
+      // plans page that reads them is S3-T4 (projection 35) — until then nothing
+      // of them reaches the wire, so this projection's output is unchanged.
+      case 'planQueued':
+      case 'planStarted':
+      case 'planHeld':
+      case 'planBlocked':
+      case 'planCancelled':
+        break
       case 'facilityCommitted':
       case 'facilityCompleted':
       case 'facilityDemolished':

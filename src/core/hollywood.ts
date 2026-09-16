@@ -113,7 +113,7 @@ export function hollywoodWorldKey(seed: GameState['seed']): string {
   return Math.floor(stream(seed,'hollywood-v1','identity').next()*0x100000000).toString(16).padStart(8,'0')
 }
 
-export function initializeHollywood(state: GameStateV18 & { hollywood?: HollywoodState | null; technology?: GameState['technology'] }, origin: 'fresh' | 'migration'): GameState {
+export function initializeHollywood(state: GameStateV18 & { hollywood?: HollywoodState | null; technology?: GameState['technology']; physicalPlans?: GameState['physicalPlans'] }, origin: 'fresh' | 'migration'): GameState {
   if (state.hollywood) return state as GameState
   const key = hollywoodWorldKey(state.seed)
   const taken = new Set(state.talent.map(t => t.id))
@@ -132,7 +132,10 @@ export function initializeHollywood(state: GameStateV18 & { hollywood?: Hollywoo
     startingManifest:'living-hollywood-start/v1', origin, originWeek:state.market.tick, worldId:`world-${key}`,
     playerStudioId, identities, businesses:[], employment:[], activeEmploymentOrdinals:[], concepts:[], films:[], careerEvents:[],
     receipts:[], nextReceipt:0, chart:null, previousChart:null }
-  let next: GameState = {...state, hollywood, technology:state.technology ?? initialTechnology(state.market.tick)}
+  // P13B-S3: the physical-plan root TRAVELS WITH THE STATE and is never minted
+  // here — the one caller that passes a pre-V23 state is the frozen V18→V19
+  // conversion, whose output must carry no root V19 never had.
+  let next = {...state, hollywood, technology:state.technology ?? initialTechnology(state.market.tick)} as GameState
   // A due migration entry is at this state's own week, never its scheduled past.
   for (const identity of identities.slice(1)) if (identity.eligibleWeek <= state.market.tick) {
     next = enterRival(next,identity.studioId,origin)

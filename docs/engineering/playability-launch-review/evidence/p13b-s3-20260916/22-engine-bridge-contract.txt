@@ -1,0 +1,98 @@
+# Bridge contract generators + consumer lock after S3 (2026-09-16T20:57Z)
+$ npm run check:bridge-contract
+
+> project-studio-core@0.1.0 check:bridge-contract
+> vite-node scripts/generate-bridge-contract.ts --check
+
+verified /Users/zacheryspector/The-Movies-headless-program/bridge/schema/project-studio-bridge.schema.json
+verified /Users/zacheryspector/The-Movies-headless-program/generated/unity/StudioBridgeDtos.Generated.cs
+verified /Users/zacheryspector/The-Movies-headless-program/generated/unity/project-studio-bridge.contract-manifest.json
+exit=0
+$ npm run check:bridge-contract:fixtures
+
+> project-studio-core@0.1.0 check:bridge-contract:fixtures
+> vite-node scripts/generate-bridge-contract-fixtures.ts --check
+
+verified /Users/zacheryspector/The-Movies-headless-program/generated/unity/tests/StudioBridgeUnionFixtures.Generated.cs
+exit=0
+
+$ npx vitest run tests/bridge-contract-consumer-lock.test.ts --minWorkers=1 --maxWorkers=1
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/bridge-contract-consumer-lock.test.ts (77 tests) 242587ms
+   ✓ CF-09 source bundle and repository identity > rejects a caller-supplied TypeScript root different from the executing verifier checkout 969ms
+   ✓ CF-09 sealed pair > binds the exact pushed clean commits and both committed generated blobs 3847ms
+   ✓ CF-09 sealed pair > rejects the wrong Unity repository before reading a matching file 1558ms
+   ✓ CF-09 sealed pair > rejects a canonical-looking remote redirected by Git URL rewriting 1584ms
+   ✓ CF-09 sealed pair > rejects a Unity subdirectory as the wrong root 1332ms
+   ✓ CF-09 sealed pair > rejects a nonallowlisted generated-file path 1974ms
+   ✓ CF-09 sealed pair > rejects a stale committed Unity consumer 3340ms
+   ✓ CF-09 sealed pair > rejects a one-byte uncommitted consumer drift as dirt before hashing 1842ms
+   ✓ CF-09 sealed pair > rejects a one-byte committed consumer drift 3590ms
+   ✓ CF-09 sealed pair > rejects a schema identity mismatch 2328ms
+   ✓ CF-09 sealed pair > rejects a protocol mismatch 2354ms
+   ✓ CF-09 sealed pair > rejects a projection mismatch 2198ms
+   ✓ CF-09 sealed pair > rejects a staged dirty TypeScript tree 1667ms
+   ✓ CF-09 sealed pair > rejects a unstaged dirty TypeScript tree 1878ms
+   ✓ CF-09 sealed pair > rejects a untracked dirty TypeScript tree 1620ms
+   ✓ CF-09 sealed pair > rejects a staged dirty Unity tree 1855ms
+   ✓ CF-09 sealed pair > rejects a unstaged dirty Unity tree 1704ms
+   ✓ CF-09 sealed pair > rejects a untracked dirty Unity tree 1639ms
+   ✓ CF-09 sealed pair > rejects TypeScript worktree bytes hidden with assume-unchanged 1658ms
+   ✓ CF-09 sealed pair > rejects Unity worktree bytes hidden with skip-worktree 1652ms
+   ✓ CF-09 sealed pair > rejects a hidden index flag anywhere in the TypeScript repository 1548ms
+   ✓ CF-09 sealed pair > rejects a hidden index flag anywhere in the Unity repository 1753ms
+   ✓ CF-09 sealed pair > rejects a missing committed consumer without filename fallback 1734ms
+   ✓ CF-09 sealed pair > rejects a nonexistent immutable commit 1389ms
+   ✓ CF-09 sealed pair > rejects a manifest/blob mismatch 3281ms
+   ✓ CF-09 sealed pair > rejects stale real Unity bytes even when a TypeScript-local self-copy matches 3368ms
+   ✓ CF-09 sealed pair > rejects a committed symlink consumer before content comparison 1853ms
+   ✓ CF-09 sealed pair > rejects path traversal rather than normalizing it 2032ms
+   ✓ CF-09 sealed pair > rejects a wrong branch even when it points to identical bytes and commit 1615ms
+   ✓ CF-09 sealed pair > rejects recursive or unknown manifest commit fields 1926ms
+   ✓ CF-09 sealed pair > rejects a generator source/manifest mismatch in scripts/bridge-contract-csharp.ts 2887ms
+   ✓ CF-09 sealed pair > rejects a generator source/manifest mismatch in bridge/schema/intent-schema.ts 2861ms
+   ✓ CF-09 sealed pair > generation result is independent of current member/property-like file order 6298ms
+   ✓ CF-09 post-commit attestation > CLI cannot emit an attestation before hostile-review ACCEPT 979ms
+   ✓ CF-09 post-commit attestation > requires a fresh hostile-review ACCEPT before emission 992ms
+   ✓ CF-09 post-commit attestation > emits deterministic immutable facts only after both sealed commits exist 8461ms
+   ✓ CF-09 post-commit attestation > rejects seal-time log evidence outside the inferred canonical evidence root 4689ms
+   ✓ CF-09 post-commit attestation > rejects a noncanonical seal-time XML filename 4462ms
+   ✓ CF-09 post-commit attestation > re-verifies immutable commit blobs even after both HEADs move 8444ms
+   ✓ CF-09 post-commit attestation > rejects an attestation naming a nonexistent commit 4383ms
+   ✓ CF-09 post-commit attestation > rejects a manifest hash that does not match the attested commit blob 6467ms
+   ✓ CF-09 post-commit attestation > rejects an attested verifier bundle that differs from the executing verifier 4682ms
+   ✓ CF-09 post-commit attestation > rejects fixture-corpus source drift named by the attestation 6884ms
+   ✓ CF-09 post-commit attestation > rejects one-byte EditMode evidence drift 6836ms
+   ✓ CF-09 post-commit attestation > rejects an attested result traversal path before resolving it 4192ms
+   ✓ CF-09 post-commit attestation > rejects an attested absolute result path before resolving it 4114ms
+   ✓ CF-09 post-commit attestation > rejects an attested nested result path before resolving it 4308ms
+   ✓ CF-09 post-commit attestation > rejects an attested wrong result name path before resolving it 4244ms
+   ✓ CF-09 post-commit attestation > rejects an attested log traversal path before resolving it 4144ms
+   ✓ CF-09 post-commit attestation > rejects an attested absolute log path before resolving it 4241ms
+   ✓ CF-09 post-commit attestation > rejects an attested nested log path before resolving it 4206ms
+   ✓ CF-09 post-commit attestation > rejects an attested wrong log name path before resolving it 4066ms
+   ✓ CF-09 post-commit attestation > does not re-root a traversal path around the caller evidence root 4326ms
+   ✓ CF-09 post-commit attestation > rejects a symlinked caller evidence root 6759ms
+   ✓ CF-09 post-commit attestation > rejects symlinked evidence redirection 6802ms
+   ✓ CF-09 post-commit attestation > rejects symlinked XML evidence redirection 6860ms
+   ✓ CF-09 post-commit attestation > rejects zero/no-op counts EditMode XML 4307ms
+   ✓ CF-09 post-commit attestation > rejects comment-spoofed passing root EditMode XML 4165ms
+   ✓ CF-09 post-commit attestation > rejects comment-spoofed generated suite and sentinel EditMode XML 4242ms
+   ✓ CF-09 post-commit attestation > rejects multiple document roots EditMode XML 3974ms
+   ✓ CF-09 post-commit attestation > rejects failing document root EditMode XML 4240ms
+   ✓ CF-09 post-commit attestation > rejects malformed XML EditMode XML 4116ms
+   ✓ CF-09 post-commit attestation > rejects wrong generated fixture suite EditMode XML 4010ms
+   ✓ CF-09 post-commit attestation > rejects wrong generated fixture suite type EditMode XML 4277ms
+   ✓ CF-09 post-commit attestation > rejects wrong sentinel method EditMode XML 4160ms
+   ✓ CF-09 post-commit attestation > rejects sentinel nested beneath the wrong suite EditMode XML 4079ms
+   ✓ CF-09 post-commit attestation > rejects skipped sentinel method EditMode XML 4170ms
+   ✓ CF-09 post-commit attestation > rejects failing generated fixture suite EditMode XML 4033ms
+   ✓ CF-09 post-commit attestation > rejects failed or internally inconsistent full EditMode XML 4121ms
+
+ Test Files  1 passed (1)
+      Tests  77 passed (77)
+   Start at  22:57:51
+   Duration  243.35s (transform 257ms, setup 0ms, collect 352ms, tests 242.59s, environment 0ms, prepare 100ms)
+

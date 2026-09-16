@@ -6,7 +6,7 @@ import { decodeCampaignStorage } from '../bridge/runtime/campaign-storage-codec.
 import { BridgeSession } from '../bridge/session.ts'
 import { PROTOCOL_VERSION, SCHEMA_ID } from '../bridge/protocol.ts'
 import type { CampaignRequest } from '../bridge/schema/bridge-schema.ts'
-import { loadCampaignLibrary, type CampaignLibrary } from '../bridge/runtime/campaign-library.ts'
+import type { CampaignLibrary } from '../bridge/runtime/campaign-library.ts'
 import { DEFAULT_BRIDGE_RUNTIME_CHECKPOINT_LIMITS } from '../bridge/runtime-checkpoint.ts'
 import { applyActions, importSave, migrateToV23 } from '../src/core/index.js'
 import type { GameState } from '../src/core/types.js'
@@ -85,22 +85,37 @@ describe('P13B-S3 Save As (test 7, A11)', () => {
     const store = new Store()
     const runtime = await createBridgeRuntimeCoordinator(options(store, source))
     try {
-      await runtime.campaign(await request(runtime, 'saveAs', { label: 'Original' }))
+      const savedOriginal = await runtime.campaign(await request(runtime, 'saveAs', { label: 'Original' }))
+      expect(savedOriginal.accepted).toBe(true)
       const originalId = library(store).activeCampaignId!
       const first = state(store)
       const originalPlanIds = first.physicalPlans.plans.map((p: { id: string }) => p.id)
       expect(originalPlanIds).toHaveLength(1)
 
       // A Save As copy of the now-active "Original" record.
-      await runtime.campaign(await request(runtime, 'saveAs', { label: 'Active copy' }))
+      const savedCopy = await runtime.campaign(await request(runtime, 'saveAs', { label: 'Active copy' }))
+      expect(savedCopy.accepted).toBe(true)
       expect(state(store).physicalPlans.plans.map((p: { id: string }) => p.id)).toEqual(originalPlanIds) // same plan ids, preserved exactly
 
       await advance(runtime) // only the ACTIVE copy advances
       expect(state(store).market.tick).toBeGreaterThan(first.market.tick)
 
+      // `unsavedDisposition: 'requireClean'` refuses `load` while the active
+      // copy carries the just-advanced, unsaved week (probe 2, 2026-09-16:
+      // "Save or discard current progress before leaving this campaign, or
+      // cancel."). Save the active copy's own progress first, exactly as a
+      // player choosing "Save" before switching campaigns would.
+      const snap = await runtime.read(s => s.snapshot())
+      const saved = await runtime.dispatch('save', {
+        protocolVersion: PROTOCOL_VERSION, schemaId: SCHEMA_ID, sessionId: snap.sessionId,
+        commandId: randomUUID(), expectedStateRevision: snap.stateRevision,
+      })
+      expect(saved.response.accepted).toBe(true)
+
       // Reload the INACTIVE original: complete-state comparison against its own
       // pre-advance snapshot — it must be untouched, byte for byte.
-      await runtime.campaign(await request(runtime, 'load', { campaignId: originalId }))
+      const loaded = await runtime.campaign(await request(runtime, 'load', { campaignId: originalId }))
+      expect(loaded.accepted).toBe(true)
       expect(state(store)).toEqual(first)
     } finally {
       await runtime.close()

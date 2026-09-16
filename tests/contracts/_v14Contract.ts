@@ -390,6 +390,12 @@ export function projectToV13State(state: GameState): Record<string, unknown> {
     throw new Error('V13 twin cannot discard P13 technology authority')
   }
   delete raw.technology
+  // P13B-S3: the persistent physical-plan root is V23-only, so a genuine V13 file
+  // never carried one. As with technology, real plan authority is never discarded.
+  if (state.physicalPlans !== undefined && state.physicalPlans.plans.length > 0) {
+    throw new Error('V13 twin cannot discard physical plan authority')
+  }
+  delete raw.physicalPlans
   for (const person of raw.talent as Record<string, unknown>[]) {
     for (const key of ['skills', 'ceilings', 'devRate', 'genreExperience', 'workHistory']) {
       delete (person[key] as Record<string, unknown>).research

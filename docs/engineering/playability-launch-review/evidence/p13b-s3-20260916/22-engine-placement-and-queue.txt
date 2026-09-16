@@ -1,0 +1,38 @@
+# Placement/facility/queue-admission owners after S3 (2026-09-16T20:44Z) — rerun after the V11 forgery learned to strip the V23 root
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/facility-move-demolish.test.ts (30 tests) 2461ms
+   ✓ C1-M3a (A) — every persisted holder of a facility blocks both verbs > finds a screenplay reservation, on the RESERVATION and not the status 894ms
+   ✓ C1-M3a (A) — every persisted holder of a facility blocks both verbs > REFUSES both verbs while the facility is engaged, and changes nothing 345ms
+ ✓ |core| tests/placement-core.test.ts (36 tests) 1095ms
+   ✓ Placement Core V12 — the runner invariant (property) > commit quote deep-equals query quote over random requests 451ms
+stdout | tests/p09a-w0-founding-regime.test.ts > P09 R5/R6 — the ordinary bare-lot studio releases a picture on its own money > HARD-STOP GATE: sparse start → four builds → screenplay → set → picture → release → receipts, cash never below zero
+[p09 gate] release week 37; cash floor 7888869; final cash 9778380.025328362; weeks 42
+
+ ✓ |core| tests/p09a-w0-founding-regime.test.ts (13 tests) 5625ms
+   ✓ P09 R1 — the founding regime is persisted, exact, and immutable > V18 round-trips the regime and refuses a forged or missing one 498ms
+   ✓ P09 R1 — the founding regime is persisted, exact, and immutable > the regime is never inferred from what stands on the lot 992ms
+   ✓ P09 R4 — the minimum plant fits and completes on its committed weeks > P09 §10.3: on the sparse lot only the founding office is quotable first; every other row says exactly why 442ms
+   ✓ P09 R4 — the minimum plant fits and completes on its committed weeks > four committed sites complete on their own weeks, become operational, and start paying opex only then 514ms
+   ✓ P09 R4 — the minimum plant fits and completes on its committed weeks > save/load mid-construction continues byte-identically; same-week sites complete together in id order 1033ms
+   ✓ P09 R5/R6 — the ordinary bare-lot studio releases a picture on its own money > HARD-STOP GATE: sparse start → four builds → screenplay → set → picture → release → receipts, cash never below zero 1020ms
+   ✓ P09A W1 R9 — a picture may hold a stage that completed after its greenlight, from the stamped week only > holds from bindings.heldSinceWeek; a stamp forged before completion is refused 605ms
+ ✓ |core| tests/facility-effects.test.ts (20 tests) 3004ms
+   ✓ C1-M4 — Development Office tiers raise what a screenplay becomes > changes nothing at all when no office stands 888ms
+   ✓ C1-M4 — Development Office tiers raise what a screenplay becomes > raises the review EST by exactly the named tier amount 463ms
+   ✓ C1-M4 — Development Office tiers raise what a screenplay becomes > does not stack, and the highest tier wins 595ms
+   ✓ C1-M4 — Development Office tiers raise what a screenplay becomes > never un-writes a screenplay when the office is demolished 419ms
+   ✓ C1-M4 — the whole catalog standing at once > round-trips the whole estate byte-identically and replays deterministically 331ms
+ ✓ |core| tests/c2a-m4-queue-admission.test.ts (13 tests) 420ms
+ ✓ |core| tests/construction-accounting-calendar.test.ts (9 tests) 412ms
+ ✓ |core| tests/placement-lifecycle.test.ts (14 tests) 1770ms
+   ✓ Placement Core V12 — completion flips capacity exactly once, on its week > flips at the same week when the run is split by a save and a reload 1132ms
+ ✓ |core| tests/c2a-m4-queue-legibility.test.ts (4 tests) 380ms
+ ✓ |core| tests/placement-lot.test.ts (14 tests) 150ms
+
+ Test Files  9 passed (9)
+      Tests  153 passed (153)
+   Start at  22:44:15
+   Duration  22.91s (transform 1.55s, setup 0ms, collect 4.36s, tests 15.32s, environment 3ms, prepare 911ms)
+

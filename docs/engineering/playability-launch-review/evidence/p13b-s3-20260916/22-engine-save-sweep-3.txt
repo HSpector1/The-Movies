@@ -1,0 +1,21 @@
+# Save/migration sweep batch 3 (contracts + D-11/D-12/D-14 + P08A/P09A/P06A) after S3 (2026-09-16T20:42Z)
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/contracts/v14-boundary-guards.contract.test.ts (36 tests) 1436ms
+ ✓ |core| tests/contracts/studio-events.contract.test.ts (25 tests) 942ms
+ ✓ |core| tests/contracts/phase-table-agreement.contract.test.ts (10 tests) 803ms
+   ✓ C2a-M0 · G6 (C) — the SAVE BOUNDARY agrees, proved by refusal > refuses a falsified capability multiset, naming the shared module’s own requirement 483ms
+ ✓ |core| tests/contracts/v14-byte-parity.contract.test.ts (6 tests) 775ms
+   ✓ C2a-M1 · parity (A) — the same seeded script exports the same bytes > produces a byte-identical export from two independent runs 311ms
+ ✓ |core| tests/contracts/cross-owner-refusal.contract.test.ts (3 tests) 1075ms
+   ✓ C2a-M0 · §12-M0 gate — a slot claimed by two owners is REFUSED > refuses a screenplay forged onto the slot a production holds 463ms
+   ✓ C2a-M0 · §12-M0 gate — a slot claimed by two owners is REFUSED > refuses a production forged onto the slot a screenplay holds 358ms
+ ✓ |core| tests/contracts/determinism-floor.contract.test.ts (3 tests) 598ms
+   ✓ C2a-M0 · §12-M0 gate — same seed, same actions, same bytes > exports byte-identically across two fresh runs 398ms
+
+ Test Files  6 passed (6)
+      Tests  83 passed (83)
+   Start at  22:42:27
+   Duration  11.82s (transform 1.61s, setup 0ms, collect 3.73s, tests 5.63s, environment 2ms, prepare 643ms)
+

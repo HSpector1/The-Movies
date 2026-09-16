@@ -1,0 +1,30 @@
+# Evidence: tests/p13b-s3-admission.test.ts AMENDED run (post engine-conflict fixes)
+# Fixture/run environment: repo worktree wip/headless-program-20260916-ts, HEAD a6af37efc82f412f6c66f4831a811fb4cf7da369 plan(p13b-s3): engine increment recorded — results, adjudicated test premises, delegated decisions, coordinator bound correction (uncommitted S3 engine landed: src/core/physicalPlans.ts + sweep)
+# Command: npx vitest run tests/p13b-s3-admission.test.ts --minWorkers=1 --maxWorkers=1 --testTimeout=200000 --reporter=verbose
+# Date: 2026-09-16
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p13b-s3-admission.test.ts (17 tests) 18564ms
+   ✓ P13B-S3 admission law (test 1) > a fresh world carries the empty physicalPlans root the contract defines 1292ms
+   ✓ P13B-S3 admission law (test 1) > queuing snapshots the CURRENT quote as approvedQuote via planQuoteSnapshot 420ms
+   ✓ P13B-S3 admission law (test 1) > a queued acoustic installation on a Lab without instruments starts at the next boundary, matching a hand commit at the same week 423ms
+   ✓ P13B-S3 admission law (test 1) > writes commitReceipt exactly once — later ticks never rewrite it or double-charge 495ms
+   ✓ P13B-S3 admission law (test 1) > earliestStartWeek in the future holds admission until it arrives 433ms
+   ✓ P13B-S3 admission law (test 1) > cost above the ceiling holds with a reason naming both dollar amounts; automatic admission within the ceiling starts 821ms
+   ✓ P13B-S3 no reservation (test 2) > a queued plan changes no cash, weeklyBurn, capacity (operations/placement) or ledger 336ms
+   ✓ P13B-S3 no reservation (test 2) > two plans on one target: the second starts only once the first no longer engages it 398ms
+   ✓ P13B-S3 ordering and envelope (test 5) > two plans on independent targets, cash for one: the first starts, the second stays queued with an insufficient-cash reason and no partial debit 648ms
+   ✓ P13B-S3 ordering and envelope (test 5) > admission drains cash inside the SAME tick research reads: the plan starts and that week's research receipt is skipped for insufficient cash 6988ms
+   ✓ P13B-S3 ordering and envelope (test 5) > a dependency completing in week w enables its dependent at w+1's admission boundary, never within w 1194ms
+   ✓ P13B-S3 conservation, determinism, replay, history and rival symmetry (test 6) > conservation: every admitted commit's constructionCapex ledger row equals its commitReceipt.cost 511ms
+   ✓ P13B-S3 conservation, determinism, replay, history and rival symmetry (test 6) > determinism: replaying the same actions from the same start produces byte-identical exportSave output 1843ms
+   ✓ P13B-S3 conservation, determinism, replay, history and rival symmetry (test 6) > replay: save/reload mid-queue then continue matches an uninterrupted run, byte for byte 1462ms
+   ✓ P13B-S3 conservation, determinism, replay, history and rival symmetry (test 6) > history rows: planQueued and planStarted carry week and reason through the existing studio-history mechanism 790ms
+
+ Test Files  1 passed (1)
+      Tests  17 passed (17)
+   Start at  23:17:52
+   Duration  22.29s (transform 2.12s, setup 0ms, collect 2.73s, tests 18.56s, environment 1ms, prepare 227ms)
+

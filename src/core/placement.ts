@@ -840,6 +840,78 @@ export function commitFacilityInstallation(state: GameState, request: FacilityIn
   }
 }
 
+// ── P13B-S3 — the P09 quote fingerprint ──────────────────────────────────────
+// THE QUESTION IT ANSWERS: "is this the quote that was approved?" — so it covers
+// exactly the SCOPE and PRICE facts (blueprint, the exact target, cost, build
+// weeks, weekly operating cost, the component list) and DELIBERATELY excludes the
+// completion week, which moves every single week without anything real changing.
+// Pure and dependency-free: a 64-bit FNV-1a fold over one canonically-ordered
+// JSON string. The core owns no crypto and takes no package for a digest whose
+// only job is equality.
+const FNV64_OFFSET = 0xcbf29ce484222325n;
+const FNV64_PRIME = 0x100000001b3n;
+const FNV64_MASK = 0xffffffffffffffffn;
+
+function fnv1a64(text: string): string {
+  let hash = FNV64_OFFSET;
+  for (let i = 0; i < text.length; i++) {
+    hash = (hash ^ BigInt(text.charCodeAt(i))) * FNV64_PRIME & FNV64_MASK;
+  }
+  return hash.toString(16).padStart(16, '0');
+}
+
+/** The scope/price facts a fingerprint covers. `target` is the exact thing the quote is FOR. */
+export type PhysicalQuoteFacts = {
+  kind: 'placement' | 'installation'
+  blueprintId: string
+  /** A facility id, a plan id (an installation on a body that is itself only planned), or `gx,gy`. */
+  target: string
+  cost: number
+  buildWeeks: number
+  weeklyOperatingCost: number
+  components: readonly { label: string; cost: number; weeks: number }[]
+}
+
+export function physicalQuoteFingerprint(facts: PhysicalQuoteFacts): string {
+  // Key order is fixed by construction, so JSON.stringify is canonical here.
+  return fnv1a64(
+    JSON.stringify([
+      facts.kind,
+      facts.blueprintId,
+      facts.target,
+      facts.cost,
+      facts.buildWeeks,
+      facts.weeklyOperatingCost,
+      facts.components.map((component) => [component.label, component.cost, component.weeks]),
+    ]),
+  );
+}
+
+export function installationQuoteFingerprint(quote: FacilityInstallationQuote): string {
+  return physicalQuoteFingerprint({
+    kind: 'installation',
+    blueprintId: quote.blueprintId,
+    target: quote.targetFacilityId,
+    cost: quote.cost,
+    buildWeeks: quote.buildWeeks,
+    weeklyOperatingCost: quote.weeklyOperatingCost,
+    components: quote.components,
+  });
+}
+
+export function placementQuoteFingerprint(quote: PlacementQuote): string {
+  return physicalQuoteFingerprint({
+    kind: 'placement',
+    blueprintId: quote.blueprintId,
+    target: `${String(quote.origin.gx)},${String(quote.origin.gy)}`,
+    cost: quote.cost,
+    buildWeeks: quote.buildWeeks,
+    weeklyOperatingCost: quote.weeklyOperatingCost,
+    // A body's price is one line; installation components belong to modules.
+    components: [],
+  });
+}
+
 /** Sequential phase disclosure derives from the one committed P09 completion clock. */
 export function facilityInstallationPhase(placed: PlacedFacility, currentWeek: number): string | null {
   if (placed.installation === undefined) return null

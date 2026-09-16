@@ -1,0 +1,54 @@
+# M0A corpus, frozen builders, migration/replay after S3 (2026-09-16T21:02Z)
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/production-operations-save-v8.test.ts (20 tests) 2253ms
+   ✓ Production Operations V1 — frozen V7 to live V8 migration > backfills the additive opening band in legitimate pre-a104970 V1–V4 active forecasts 330ms
+   ✓ Production Operations V1 — frozen V7 to live V8 migration > preserves an active V7 production countdown and continuation exactly 429ms
+ ✓ |core| tests/migration.test.ts (23 tests) 2072ms
+   ✓ faithful ability preservation — primary-discipline ACTUAL-SKILL MEAN ≈ old.skill > mean |Δ| between primary actual-skill-mean and old.skill is < ~3 across a large corpus 585ms
+   ✓ faithful ability preservation — primary-discipline ACTUAL-SKILL MEAN ≈ old.skill > the SIGNED mean deviation is ~0 (no systematic upward/downward bias) 519ms
+   ✓ faithful ability preservation — primary-discipline ACTUAL-SKILL MEAN ≈ old.skill > 10–20% of migrated talent have a USABLE secondary discipline (step 4 target) 380ms
+ ✓ |core| tests/acceptance-corpus.test.ts (11 tests) 119621ms
+   ✓ §15.1 bounds (M11) — every bounded term in range across the representative corpus > craft, cohesion, criticScore, segmentScores, WAS, and forecast low/high/estimate/center ∈ range 57391ms
+   ✓ §15.2 four-quadrant CORPUS reachability (B28 part ii) > at least one released film in EACH cell of (craft ≷ 55) × (cohesion ≷ 0.55) 54113ms
+   ✓ §15.7 replay WITH broadcast — byte-identical SaveFileV1 incl. broadcast copy > Oracle: two full-year runs (same seed) ⇒ byte-identical exportSave; broadcast copy is [] and identical 895ms
+   ✓ §15.7 replay WITH broadcast — byte-identical SaveFileV1 incl. broadcast copy > Random: two full-year runs (same seed) ⇒ byte-identical exportSave; broadcast copy is [] and identical 597ms
+   ✓ deterministic corpus reproduction — identical per-run outcomes on a re-run > end standing + releasedFilms reproduce identically across a small sample (both agents) 6620ms
+ ✓ |core| tests/v14-dual-run.test.ts (8 tests) 947ms
+   ✓ C2a-M1 · presentation parity — the ledger is a witness, never an input > exports byte-identical saves for two identical runs 386ms
+   ✓ C2a-M1 · presentation parity — the ledger is a witness, never an input > changes not one byte when the log is read, projected, and serialised each week 316ms
+ ✓ |core| tests/v14-migration.contract.test.ts (30 tests) 12929ms
+   ✓ C2a-M1 · T9 (A) — the headline matrix covers every phase that holds a reservation > agrees byte-for-byte with the frozen V13 builder wherever that builder writes 685ms
+   ✓ C2a-M1 · T9 (B) — every held phase × blocker kind migrates and plays true > plays development/none byte-identically to its V13 twin for 30 weeks 1022ms
+   ✓ C2a-M1 · T9 (B) — every held phase × blocker kind migrates and plays true > plays preProduction/none byte-identically to its V13 twin for 30 weeks 1104ms
+   ✓ C2a-M1 · T9 (B) — every held phase × blocker kind migrates and plays true > plays preProduction/facility-capacity byte-identically to its V13 twin for 30 weeks 1221ms
+   ✓ C2a-M1 · T9 (B) — every held phase × blocker kind migrates and plays true > plays rehearsal/none byte-identically to its V13 twin for 30 weeks 1018ms
+   ✓ C2a-M1 · T9 (B) — every held phase × blocker kind migrates and plays true > plays rehearsal/facility-capacity byte-identically to its V13 twin for 30 weeks 1028ms
+   ✓ C2a-M1 · T9 (B) — every held phase × blocker kind migrates and plays true > plays shooting/none byte-identically to its V13 twin for 30 weeks 1023ms
+   ✓ C2a-M1 · T9 (B) — every held phase × blocker kind migrates and plays true > plays shooting/scenery-load-in byte-identically to its V13 twin for 30 weeks 1073ms
+   ✓ C2a-M1 · T9 (B) — every held phase × blocker kind migrates and plays true > plays shooting/facility-capacity byte-identically to its V13 twin for 30 weeks 1182ms
+   ✓ C2a-M1 · T9 (B) — every held phase × blocker kind migrates and plays true > plays postProduction/none byte-identically to its V13 twin for 30 weeks 1028ms
+   ✓ C2a-M1 · T9 (C) — the endowed house sets are DERIVED, not invented > leaves the queue and the screenplay root empty for every migrated save (§8.3) 560ms
+ ✓ |core| tests/replay.test.ts (15 tests) 9335ms
+   ✓ §15.7 full-run replay — byte-identical SaveFileV1 (M14) > OracleAgent: two full-year runs with the same seed produce byte-identical exportSave 1712ms
+   ✓ §15.7 full-run replay — byte-identical SaveFileV1 (M14) > OracleAgent: broadcastItems stays [] (broadcast presentation is a phase-6 no-op) 540ms
+   ✓ §15.7 full-run replay — byte-identical SaveFileV1 (M14) > RandomAgent: two full-year runs with the same seed produce byte-identical exportSave 478ms
+   ✓ §15.7/M9 — sim stream advances IFF a release is received that tick > rngState changes exactly on releasing ticks, and the count equals the release count 414ms
+   ✓ §15.7/M9 — candidate/agent draws never advance the sim stream > generateCandidates and both agents leave state.rngState frozen across many calls 605ms
+   ✓ §15.7/D-9.8 — develop:true full-run replay is byte-identical > OracleAgent: two develop:true full-year runs with the same seed are byte-identical 1428ms
+   ✓ §15.7/D-9.8 — develop:true full-run replay is byte-identical > OracleAgent: development actually changed some talent (the flag is not a no-op here) 952ms
+   ✓ §15.7/D-9.8 — develop:true full-run replay is byte-identical > RandomAgent: two develop:true full-year runs with the same seed are byte-identical 448ms
+   ✓ §15.7/D-9.8 — develop:true full-run replay is byte-identical > RandomAgent: development actually changed some talent (the flag is not a no-op here) 470ms
+   ✓ §15.7/D-9.15 — a run resumed from a converted V2 replays byte-identically > OracleAgent/develop-off: two resumes of the same converted V2 are byte-identical 869ms
+   ✓ §15.7/D-9.15 — a run resumed from a converted V2 replays byte-identically > OracleAgent/develop-on: two resumes of the same converted V2 are byte-identical 596ms
+   ✓ §15.7/D-9.15 — a run resumed from a converted V2 replays byte-identically > RandomAgent/develop-on: two resumes of the same converted V2 are byte-identical 563ms
+ ✓ |core| tests/casting-sessions-save-v10.test.ts (6 tests) 912ms
+   ✓ Casting Sessions V1 — SaveFileV10 > writes frozen V10 explicitly and round-trips every session lifecycle byte-identically 354ms
+ ✓ |core| tests/frozen-save-builder-projection.test.ts (2 tests) 197ms
+
+ Test Files  8 passed (8)
+      Tests  115 passed (115)
+   Start at  23:02:43
+   Duration  155.74s (transform 1.71s, setup 0ms, collect 4.49s, tests 148.26s, environment 3ms, prepare 832ms)
+

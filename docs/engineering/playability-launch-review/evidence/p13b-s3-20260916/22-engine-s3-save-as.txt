@@ -1,0 +1,14 @@
+# P13B-S3 Save As (bridge half of test 7), sim-core run (2026-09-16T20:29Z)
+$ npx vitest run tests/bridge-p13b-s3-save-as.test.ts --minWorkers=1 --maxWorkers=1
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/bridge-p13b-s3-save-as.test.ts (1 test | 1 failed) 5962ms
+   × P13B-S3 Save As (test 7, A11) > a Save As copy keeps the same plan ids and advances independently; the inactive original never advances (complete-state comparison) 5959ms
+     → expected { broadcastItems: [], …(33) } to deeply equal { broadcastItems: [], …(33) }
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/bridge-p13b-s3-save-as.test.ts > P13B-S3 Save As (test 7, A11) > a Save As copy keeps the same plan ids and advances independently; the inactive original never advances (complete-state comparison)
+AssertionError: expected { broadcastItems: [], …(33) } to deeply equal { broadcastItems: [], …(33) }
+

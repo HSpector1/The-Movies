@@ -162,6 +162,15 @@ export function classifyHistorySignificance(
       return 'standard'
     case 'careerMilestone':
       return 'standard'
+    // P13B-S3: a physical plan's transitions are exact studio decisions — the
+    // same class a committed building takes. None of them is routine (nothing
+    // here is a weekly settling receipt, so nothing here is ever folded).
+    case 'planQueued':
+    case 'planStarted':
+    case 'planHeld':
+    case 'planBlocked':
+    case 'planCancelled':
+      return 'standard'
     default: {
       const _exhaustive: never = draft
       throw new Error(`classifyHistorySignificance: unknown kind ${JSON.stringify(_exhaustive)}`)

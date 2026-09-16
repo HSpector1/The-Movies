@@ -14,8 +14,9 @@ import { SCHEMA_ID } from '../bridge/protocol.ts'
 import { canonicalJson } from '../bridge/schema/canonical.ts'
 import type { BridgeCheckpointStore } from '../bridge/runtime/checkpoint-store.ts'
 import { createBridgeRuntimeCoordinator } from '../bridge/runtime/runtime-coordinator.ts'
-import { importSave, type SaveFileV22 } from '../src/core/save.js'
+import { importSave, type SaveFileV23 } from '../src/core/save.js'
 import { initialTechnology } from '../src/core/technology.js'
+import { initialPhysicalPlans } from '../src/core/physicalPlans.js'
 import { withResearchFoundation } from '../src/core/researchPeople.js'
 
 // Independent historical authority, not taken from the implementation allowlist:
@@ -49,19 +50,22 @@ function previous(bytes: string): BridgeRuntimeCheckpointV1 {
   return JSON.parse(bytes) as BridgeRuntimeCheckpointV1
 }
 
-function expectPreservedGameplay(beforeJson: string, after: SaveFileV22): void {
+function expectPreservedGameplay(beforeJson: string, after: SaveFileV23): void {
   const before = importSave(beforeJson)
   if (before.saveVersion !== 16) throw new Error('Frozen P06 evidence must contain an original Save V16')
   // Assert every old root, including IDs, commitment, cash/ledger, week and RNG,
   // against the frozen input. V20 adds neutral research person leaves and an
   // empty technology root, and corrects the inert opening soundRequired flag;
-  // V21 lifts that empty root to the seat/receipt shape (P13B-S1) and V22
-  // rebases it on the cooperation law (P13B-S2).
-  // Comparing with migrateToV22's own output would not prove preservation.
+  // V21 lifts that empty root to the seat/receipt shape (P13B-S1), V22
+  // rebases it on the cooperation law (P13B-S2), and V23 adds the empty
+  // physical-plan root (P13B-S3).
+  // Comparing with migrateToV23's own output would not prove preservation.
   const oldIds=new Set(before.state.talent.map(t=>t.id))
-  const {hollywood,technology,...afterState}=after.state
+  const {hollywood,technology,physicalPlans,...afterState}=after.state
   expect(hollywood).toMatchObject({origin:'migration',originWeek:before.state.market.tick,films:[]})
   expect(technology).toEqual(initialTechnology(before.state.market.tick))
+  // P13B-S3: V23 adds the physical-plan root, EMPTY — a migrated save planned nothing.
+  expect(physicalPlans).toEqual(initialPhysicalPlans())
   expect(after.state.talent.filter(t=>oldIds.has(t.id))).toEqual(before.state.talent.map(withResearchFoundation))
   const oldPeople = after.state.talent.filter(t=>oldIds.has(t.id)).map(person => {
     const copied = structuredClone(person)
@@ -69,7 +73,7 @@ function expectPreservedGameplay(beforeJson: string, after: SaveFileV22): void {
     return copied
   })
   expect({...after,state:{...afterState,talent:oldPeople}}).toEqual({
-    saveVersion: 22,
+    saveVersion: 23,
     seed: before.seed,
     state: {
       ...before.state,

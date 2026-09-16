@@ -10,12 +10,13 @@ import {
   migrateToV20,
   migrateToV21,
   migrateToV22,
+  migrateToV23,
   validateSave,
   validateSaveV21,
 } from '../src/core/save.js'
-import type { SaveFileV20, SaveFileV21 } from '../src/core/save.js'
+import type { SaveFileV20, SaveFileV21, SaveFileV22 } from '../src/core/save.js'
 import { tick } from '../src/core/tick.js'
-import type { GameStateV21, GameStateV22 } from '../src/core/types.js'
+import type { GameState, GameStateV21, GameStateV22 } from '../src/core/types.js'
 
 // P13B-S2 plan test 8 (task expansion, 2026-09-16): the V21→V22 migration (×8
 // numerator rebase, derived per-Laboratory `labs` rows, `cooperationFromWeek`
@@ -36,9 +37,16 @@ function assertRootUnchangedExceptTechnology(before: GameStateV21, after: GameSt
   expect(strip(after)).toBe(strip(before))
 }
 
-function roundTripsByteIdentical(state: GameStateV22): string {
+/** P13B-S3: the LIVE writer is V23, so a V22 envelope is lifted once, through the
+ * real migration, before the live round trip. The V21→V22 lift assertions above
+ * stay exactly where they were — this file proves the V22 migration, not V23. */
+function live(save: SaveFileV22): GameState {
+  return migrateToV23(save).state
+}
+
+function roundTripsByteIdentical(state: GameState): string {
   const direct = exportSave(makeSave(state))
-  const restored = migrateToV22(importSave(direct)).state
+  const restored = migrateToV23(importSave(direct)).state
   expect(exportSave(makeSave(restored))).toBe(direct)
   return direct
 }
@@ -148,13 +156,13 @@ describe('P13B-S2 V21 to V22 migration (test 8)', () => {
       expect(migrated.state.technology.adoptions).toEqual(before.state.technology.adoptions)
       expect(migrated.state.technology.productions).toEqual(before.state.technology.productions)
       expect(migrated.state.technology.recordingStartedWeek).toBe(before.state.technology.recordingStartedWeek)
-      roundTripsByteIdentical(migrated.state)
+      roundTripsByteIdentical(live(migrated))
     })
   }
 
   it('continues the migrated active staffed-4-seats-263 project for one more funded week (now carrying its own labs row) and re-saves byte-identically', () => {
     const migrated = migrateToV22(importSave(load('./fixtures/p13b/legacy-v21-staffed-4-seats-263.json.gz')))
-    const next = tick(migrated.state)
+    const next = tick(live(migrated))
     const project = next.technology.projects.find(p => p.technologyId === 'synchronized-sound')!
     expect(project.expenditure).toBe(160_000) // 120,000 + one more $40,000 week
     expect(project.verifiedWork).toBe(24) // 18 + one more 6-unit week (4 seats, $40,000, single Laboratory)
@@ -187,42 +195,42 @@ describe('P13B-S2 V21 to V22 migration (test 8)', () => {
       expect(project.weeks).toEqual([])
       expect(project.seats).toEqual([{ talentId: SCIENTIST_ID, laboratoryFacilityId: LAB_ID, assignedWeek: fixture.week, releasedWeek: null }])
       expect(project.legacy).toEqual({ scientistId: SCIENTIST_ID, throughWeek: fixture.week, verifiedWork: fixture.verifiedWork, expenditure: fixture.expenditure })
-      roundTripsByteIdentical(migrated.state)
+      roundTripsByteIdentical(live(migrated))
     })
   }
 })
 
-describe('P13B-S2 Save V22 envelope law (test 8)', () => {
-  it('makeSave always writes saveVersion 22', () => {
+describe('P13B-S2 envelope law at the live writer (test 8)', () => {
+  it('makeSave always writes the live saveVersion 23', () => {
     const migrated = migrateToV22(importSave(load('./fixtures/p13b/legacy-v21-staffed-4-seats-263.json.gz')))
-    expect(makeSave(migrated.state).saveVersion).toBe(22)
+    expect(makeSave(live(migrated)).saveVersion).toBe(23)
   })
 
-  it('refuses an unknown saveVersion 23 with the updated range', () => {
+  it('refuses an unknown saveVersion 24 with the updated range', () => {
     const migrated = migrateToV22(importSave(load('./fixtures/p13b/legacy-v21-staffed-4-seats-263.json.gz')))
-    const save = makeSave(migrated.state)
-    expect(() => validateSave({ ...save, saveVersion: 23 })).toThrow(/versions 1 through 22 only/)
+    const save = makeSave(live(migrated))
+    expect(() => validateSave({ ...save, saveVersion: 24 })).toThrow(/versions 1 through 23 only/)
   })
 
-  it('round-trips a migrated two-Laboratory save through exportSave/importSave/migrateToV22 byte-identically', () => {
+  it('round-trips a migrated two-Laboratory save through exportSave/importSave/migrateToV23 byte-identically', () => {
     const migrated = migrateToV22(importSave(load('./fixtures/p13b/legacy-v21-two-labs-two-briefs-783.json.gz')))
-    const direct = exportSave(makeSave(migrated.state))
-    const restored = migrateToV22(importSave(direct)).state
+    const direct = exportSave(makeSave(live(migrated)))
+    const restored = migrateToV23(importSave(direct)).state
     expect(exportSave(makeSave(restored))).toBe(direct)
   })
 })
 
-describe('P13B-S2 campaign isolation across V21→V22 (mirrors the S1 case)', () => {
+describe('P13B-S2 campaign isolation across the migrated copies (mirrors the S1 case)', () => {
   it('produces independent migrated copies from the same V21 fixture; advancing one never touches the other', () => {
     const json = load('./fixtures/p13b/legacy-v21-staffed-4-seats-263.json.gz')
-    const a = migrateToV22(importSave(json))
-    const b = migrateToV22(importSave(json))
-    expect(a.state).not.toBe(b.state)
-    expect(a.state.technology).not.toBe(b.state.technology)
-    expect(a.state.technology.projects).not.toBe(b.state.technology.projects)
-    const before = exportSave(makeSave(b.state))
-    const advanced = tick(a.state)
-    expect(exportSave(makeSave(b.state))).toBe(before)
-    expect(advanced.market.tick).toBe(a.state.market.tick + 1)
+    const a = live(migrateToV22(importSave(json)))
+    const b = live(migrateToV22(importSave(json)))
+    expect(a).not.toBe(b)
+    expect(a.technology).not.toBe(b.technology)
+    expect(a.technology.projects).not.toBe(b.technology.projects)
+    const before = exportSave(makeSave(b))
+    const advanced = tick(a)
+    expect(exportSave(makeSave(b))).toBe(before)
+    expect(advanced.market.tick).toBe(a.market.tick + 1)
   })
 })

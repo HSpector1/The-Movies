@@ -1,0 +1,25 @@
+# Evidence: tests/p13b-s3-dependencies.test.ts run (UNCHANGED by this amendment — confirms already green)
+# Fixture/run environment: repo worktree wip/headless-program-20260916-ts, HEAD a6af37efc82f412f6c66f4831a811fb4cf7da369 plan(p13b-s3): engine increment recorded — results, adjudicated test premises, delegated decisions, coordinator bound correction (uncommitted S3 engine landed)
+# Command: npx vitest run tests/p13b-s3-dependencies.test.ts --minWorkers=1 --maxWorkers=1 --testTimeout=200000 --reporter=verbose
+# Date: 2026-09-16
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p13b-s3-dependencies.test.ts > P13B-S3 dependencies (test 3) > an installation on a queued Laboratory body (target: {planId}) resolves the facility id at start and waits for the body to be operational 1686ms
+ ✓ |core| tests/p13b-s3-dependencies.test.ts > P13B-S3 dependencies (test 3) > a plan cannot depend on itself — refused at queue time, using the predicted next plan id
+ ✓ |core| tests/p13b-s3-dependencies.test.ts > P13B-S3 dependencies (test 3) > an unknown dependency id is refused at queue time
+ ✓ |core| tests/p13b-s3-dependencies.test.ts > P13B-S3 dependencies (test 3) > a dependency on a cancelled plan is refused at queue time
+ ✓ |core| tests/p13b-s3-dependencies.test.ts > P13B-S3 dependencies (test 3) > cancelling a predecessor immediately blocks its dependent, naming it, and the dependent never starts (never counts as completion) 372ms
+ ✓ |core| tests/p13b-s3-dependencies.test.ts > P13B-S3 dependencies (test 3) > reordering a dependent before its dependency is refused
+ ✓ |core| tests/p13b-s3-dependencies.test.ts > P13B-S3 dependencies (test 3) > a lawful reorder persists the new ordinals and revalidates 675ms
+ ✓ |core| tests/p13b-s3-dependencies.test.ts > P13B-S3 changed quote (test 4) > identical quotes give identical fingerprints across weeks — completion week (which moves every tick) is excluded from the digest 359ms
+ ✓ |core| tests/p13b-s3-dependencies.test.ts > P13B-S3 changed quote (test 4) > a forged approvedQuote.fingerprint holds under reviewChangedQuote (the default) at the next boundary, with pendingQuote set to the fresh quote and a reason matching /quote changed/ 529ms
+ ✓ |core| tests/p13b-s3-dependencies.test.ts > P13B-S3 changed quote (test 4) > automatic admission ignores a stale fingerprint and starts anyway, once blueprint/target/component labels are unchanged and cost is within the ceiling 463ms
+ ✓ |core| tests/p13b-s3-dependencies.test.ts > P13B-S3 changed quote (test 4) > reviewPhysicalPlan re-approves a held plan (pendingQuote promoted to approvedQuote), which starts at the FOLLOWING boundary 374ms
+
+ Test Files  1 passed (1)
+      Tests  11 passed (11)
+   Start at  23:19:06
+   Duration  8.15s (transform 1.66s, setup 0ms, collect 2.22s, tests 5.38s, environment 0ms, prepare 94ms)
+

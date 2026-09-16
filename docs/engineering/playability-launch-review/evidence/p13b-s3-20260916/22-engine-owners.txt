@@ -1,0 +1,31 @@
+# P06A/P08A/P12 owners + historical control after S3 (2026-09-16T20:44Z)
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p08a-w0-studio-history.test.ts (13 tests) 6711ms
+   ✓ P08A H3/H4 — the release mutation site records exact receipts and the release fact > freezes before/after/deltas equal to the actual Standing change, with the source id and drivers 697ms
+   ✓ P08A H3/H4 — the release mutation site records exact receipts and the release fact > records filmReleased as a LANDMARK for the first film and MAJOR afterwards, by exact id 635ms
+   ✓ P08A H3/H4 — the release mutation site records exact receipts and the release fact > records theatricalRunCompleted exactly once when the run settles 491ms
+   ✓ P08A H3/H5 — weekly settling receipts are exact, bounded, and folded deterministically > records a routine settling receipt only when awareness actually moves, then folds past the window 2871ms
+   ✓ P08A H7 — save/load mid-run continues with identical history > reloaded branch equals the unbroken branch byte-for-byte after more releases 1153ms
+ ✓ |core| tests/legacy-parcel-ground.test.ts (14 tests) 4339ms
+   ✓ C1-M8 (B) — a generic building may not be BUILT there > accepts nothing anywhere on the property whose body the world would not show 3715ms
+ ✓ |core| tests/p06a-w1-release-authority.test.ts (14 tests) 1513ms
+   ✓ P06A W1 — save law > round-trips a committed V16 save byte-exactly and refuses downgrades 714ms
+ ✓ |core| tests/c2a-m3-screenplay-mint.test.ts (8 tests) 801ms
+   ✓ C2a-M3 — a writer goes to work and hands the studio a new movie > mints a concept, a title and a blueprint at COMMISSION-COMMIT, and drafts it 339ms
+ ✓ |core| tests/c2a-m3-rename-and-pooling.test.ts (9 tests) 590ms
+   ✓ C2a-M3 — the bounded writer pool (00E.9) > is refused on a screenplay that is not being drafted 309ms
+ ✓ |core| tests/p12-lifecycle.test.ts (5 tests) 9464ms
+   ✓ R05 shared-law rival lifecycle > rejects forged owners, erased archive announcements, invented employers and invalid chart history 1589ms
+   ✓ R05 shared-law rival lifecycle > rejects forged frozen credits, double roles, and another studio’s reserved performers 400ms
+   ✓ R05 shared-law rival lifecycle > commissions, staffs, funds, operates, releases and settles real films without player RNG draws 2350ms
+   ✓ R05 shared-law rival lifecycle > expires ordinary contracts and crosses the first real arrival from elapsed play 5067ms
+ ✓ |core| tests/p12-starting-world.test.ts (3 tests) 1643ms
+   ✓ R05 canonical starting history and genuine migration > migrates at each old state own week with empty company histories and exact player state 1233ms
+
+ Test Files  7 passed (7)
+      Tests  66 passed (66)
+   Start at  22:44:46
+   Duration  31.83s (transform 1.67s, setup 0ms, collect 3.99s, tests 25.06s, environment 2ms, prepare 666ms)
+

@@ -1,0 +1,256 @@
+# P13B-S3 contract-conflict probes (sim-core, vite-node, 2026-09-16T20:31Z)
+# Four admission-test cases and the Save As case fail on their own premises, not on the
+# admission law. Each is reproduced against the live engine below. Probe sources first,
+# then raw output. Both probe scripts were deleted from the worktree after this run.
+
+======== probe source 1: .s3-probe2.ts (admission cases A-D) ========
+// P13B-S3 contract-conflict probes (sim-core). Each block reproduces ONE failing
+// S3 test case against the live engine and shows the premise that fails.
+import { applyActions } from './src/core/actions.js'
+import { commitPlacement, queryFacilityInstallation } from './src/core/placement.js'
+import { planAdmissionView } from './src/core/physicalPlans.js'
+import { researchWeekQuote } from './src/core/technology.js'
+import { tick } from './src/core/tick.js'
+import { TUNING } from './src/core/tuning.js'
+import { advanceTo, p13aLaboratorySlice, p13aResearchEntry } from './src/harness/p13a/fixtures.js'
+import { nextLaboratoryOrigin, p13bStaffedProject } from './src/harness/p13b/fixtures.js'
+import type { GameState } from './src/core/types.js'
+
+const queue = (s: GameState, work: unknown, ceiling: number, extra: object = {}): GameState =>
+  applyActions(s, [{ kind: 'queuePhysicalPlan', work, approvedMaximumDebit: ceiling, ...extra } as never])
+/** A genuine, reconciled balance: the cash move is WRITTEN to the ledger (a bare
+ *  `studio.cash` assignment is refused by the construction cash invariant at tick entry). */
+function spendDownTo(state: GameState, target: number): GameState {
+  const delta = state.studio.cash - target
+  return { ...state, studio: { ...state.studio, cash: target },
+    ledger: [...state.ledger, { week: state.market.tick, kind: 'overhead', amount: -delta, note: 'weekly studio overhead' }] }
+}
+
+console.log('=== A. test 1 "commitReceipt exactly once" (admission.test.ts:119) ===')
+console.log('The fixture p13aLaboratorySlice() ALREADY carries one constructionCapex row (its own Lab, week 0),')
+console.log('so an unfiltered count of constructionCapex rows is 2 even though the plan charged exactly once.')
+{
+  const base = p13aLaboratorySlice()
+  const lab = base.operations.facilities.find(f => f.capability === 'laboratory')!.id
+  console.log('rows in the fixture BEFORE any plan:', JSON.stringify(base.ledger.filter(e => e.kind === 'constructionCapex').map(e => [e.week, e.amount, e.note])))
+  let s = queue(base, { kind: 'installation', blueprintId: 'acoustic-instruments', target: { facilityId: lab } }, 350_000)
+  for (let i = 0; i < 4; i++) s = tick(s)
+  console.log('rows after 4 ticks              :', JSON.stringify(s.ledger.filter(e => e.kind === 'constructionCapex').map(e => [e.week, e.amount, e.note])))
+  console.log('commitReceipt (written once)    :', JSON.stringify(s.physicalPlans.plans[0]!.commitReceipt))
+}
+
+console.log()
+console.log('=== B. test 2 "two plans on one target" (admission.test.ts:171) ===')
+console.log('The first module completes at week 18; admission runs BEFORE this tick\'s P09 completions')
+console.log('(plan law: "before P09 completions of that tick"), so the second starts at week 19, not 18.')
+{
+  const base = p13aLaboratorySlice()
+  const lab = base.operations.facilities.find(f => f.capability === 'laboratory')!.id
+  let s = queue(base, { kind: 'installation', blueprintId: 'acoustic-instruments', target: { facilityId: lab } }, 350_000)
+  s = queue(s, { kind: 'installation', blueprintId: 'electrical-control-instruments', target: { facilityId: lab } }, 350_000)
+  for (let i = 0; i < 8; i++) {
+    s = tick(s)
+    const first = s.placement.facilities.find(f => f.id === s.physicalPlans.plans[0]!.startedPlacementId)
+    console.log(' week', s.market.tick, '| plan1', s.physicalPlans.plans[0]!.status, first?.status ?? '-', '| plan2', s.physicalPlans.plans[1]!.status, JSON.stringify(s.physicalPlans.plans[1]!.reason))
+  }
+}
+
+console.log()
+console.log('=== C. test 5 case 1 "cash for one of two" (admission.test.ts:198) ===')
+console.log('`{...staged, studio:{...staged.studio, cash: 500_000}}` is refused by tick() itself:')
+{
+  let staged = p13aLaboratorySlice()
+  const lab1 = staged.operations.facilities.find(f => f.capability === 'laboratory')!.id
+  staged = commitPlacement(staged, { blueprintId: 'research-laboratory', origin: nextLaboratoryOrigin(staged) })
+  staged = advanceTo(staged, staged.market.tick + TUNING.RESEARCH_LABORATORY_BUILD_WEEKS)
+  const lab2 = staged.operations.facilities.find(f => f.capability === 'laboratory' && f.id !== lab1)!.id
+  const handSet: GameState = { ...staged, studio: { ...staged.studio, cash: 500_000 } }
+  try { tick(handSet); console.log(' hand-set cash ticked (unexpected)') }
+  catch (e) { console.log(' tick(handSet) THREW:', (e as Error).message) }
+  console.log(' The same case with the cash move WRITTEN to the ledger:')
+  const poor = spendDownTo(staged, 500_000)
+  let s = queue(poor, { kind: 'installation', blueprintId: 'acoustic-instruments', target: { facilityId: lab1 } }, 350_000)
+  s = queue(s, { kind: 'installation', blueprintId: 'acoustic-instruments', target: { facilityId: lab2 } }, 350_000)
+  const ticked = tick(s)
+  console.log('  plan1', ticked.physicalPlans.plans[0]!.status, '| plan2', ticked.physicalPlans.plans[1]!.status,
+    '| planAdmissionView reason', JSON.stringify(planAdmissionView(ticked, ticked.physicalPlans.plans[1]!).reason))
+  const control = tick(poor)
+  const unrelated = poor.studio.cash - control.studio.cash
+  console.log('  cash delta', poor.studio.cash - ticked.studio.cash, '=== one capex 350000 + unrelated weekly', unrelated, '->',
+    poor.studio.cash - ticked.studio.cash === 350_000 + unrelated)
+}
+
+console.log()
+console.log('=== D. test 5 case 2 "research reads post-admission cash" (admission.test.ts:224) ===')
+console.log('Two independent premises fail: the hand-set cash above, and the electrical module cannot be')
+console.log('installed on a Lab whose research project is ACTIVE (P09 targetEngaged: four research holders).')
+{
+  const entry = p13aResearchEntry()
+  const { state: staffed, laboratoryFacilityId, projectId } = p13bStaffedProject(entry, 0, 40_000, 4)
+  const before = staffed.technology.projects.find(p => p.id === projectId)!
+  const quote = queryFacilityInstallation(staffed, { blueprintId: 'electrical-control-instruments', targetFacilityId: laboratoryFacilityId })
+  console.log(' project status', before.status, '| live electrical quote rejections', JSON.stringify(quote.rejections),
+    '| holders', JSON.stringify(quote.holders.map(h => h.kind)))
+  console.log(' The same ordering law against a target the engagement law leaves free (a second Lab body):')
+  const poor = spendDownTo(staffed, TUNING.RESEARCH_LABORATORY_CAPEX + 10_000)
+  const queued = queue(poor, { kind: 'placement', blueprintId: 'research-laboratory', origin: nextLaboratoryOrigin(poor) }, TUNING.RESEARCH_LABORATORY_CAPEX)
+  const ticked = tick(queued)
+  const project = ticked.technology.projects.find(p => p.id === projectId)!
+  console.log('  plan', ticked.physicalPlans.plans[0]!.status, '| research receipts before/after', before.weeks.length, project.weeks.length,
+    '| researchSpend row this week', ticked.ledger.some(e => e.week === queued.market.tick && e.kind === 'researchSpend'))
+  const post: GameState = { ...poor, studio: { ...poor.studio, cash: poor.studio.cash - TUNING.RESEARCH_LABORATORY_CAPEX } }
+  console.log('  researchWeekQuote bottleneck at the post-admission cash:', JSON.stringify(researchWeekQuote(post, project).bottleneck))
+  console.log('  control (same world, no plan queued) research receipts:', tick(poor).technology.projects.find(p => p.id === projectId)!.weeks.length)
+}
+
+======== output 1 ========
+=== A. test 1 "commitReceipt exactly once" (admission.test.ts:119) ===
+The fixture p13aLaboratorySlice() ALREADY carries one constructionCapex row (its own Lab, week 0),
+so an unfiltered count of constructionCapex rows is 2 even though the plan charged exactly once.
+rows in the fixture BEFORE any plan: [[0,-900000,"Research Laboratory construction"]]
+rows after 4 ticks              : [[0,-900000,"Research Laboratory construction"],[13,-350000,"Acoustic instrument installation"]]
+commitReceipt (written once)    : {"week":13,"fingerprint":"90ac63a8edf89487","cost":350000}
+
+=== B. test 2 "two plans on one target" (admission.test.ts:171) ===
+The first module completes at week 18; admission runs BEFORE this tick's P09 completions
+(plan law: "before P09 completions of that tick"), so the second starts at week 19, not 18.
+ week 13 | plan1 started underConstruction | plan2 held "quote refused: targetEngaged"
+ week 14 | plan1 started underConstruction | plan2 held "quote refused: targetEngaged"
+ week 15 | plan1 started underConstruction | plan2 held "quote refused: targetEngaged"
+ week 16 | plan1 started underConstruction | plan2 held "quote refused: targetEngaged"
+ week 17 | plan1 started underConstruction | plan2 held "quote refused: targetEngaged"
+ week 18 | plan1 started operational | plan2 held "quote refused: targetEngaged"
+ week 19 | plan1 started operational | plan2 started null
+ week 20 | plan1 started operational | plan2 started null
+
+=== C. test 5 case 1 "cash for one of two" (admission.test.ts:198) ===
+`{...staged, studio:{...staged.studio, cash: 500_000}}` is refused by tick() itself:
+ tick(handSet) THREW: construction invariant: studio cash must equal initial cash plus the ordered ledger
+ The same case with the cash move WRITTEN to the ledger:
+  plan1 started | plan2 queued | planAdmissionView reason "insufficient cash"
+  cash delta 371000 === one capex 350000 + unrelated weekly 21000 -> true
+
+=== D. test 5 case 2 "research reads post-admission cash" (admission.test.ts:224) ===
+Two independent premises fail: the hand-set cash above, and the electrical module cannot be
+installed on a Lab whose research project is ACTIVE (P09 targetEngaged: four research holders).
+ project status active | live electrical quote rejections ["targetEngaged"] | holders ["research","research","research","research"]
+ The same ordering law against a target the engagement law leaves free (a second Lab body):
+  plan started | research receipts before/after 0 0 | researchSpend row this week false
+  researchWeekQuote bottleneck at the post-admission cash: "Insufficient cash for this week’s usable research budget."
+  control (same world, no plan queued) research receipts: 1
+
+======== probe source 2: .s3-probe.ts (Save As / A11, with and without a queued plan) ========
+import { randomUUID } from 'node:crypto'
+import { createBridgeRuntimeCoordinator, type BridgeRuntimeCoordinator } from './bridge/runtime/runtime-coordinator.ts'
+import type { BridgeCheckpointStore } from './bridge/runtime/checkpoint-store.ts'
+import { decodeCampaignStorage } from './bridge/runtime/campaign-storage-codec.ts'
+import { BridgeSession } from './bridge/session.ts'
+import { PROTOCOL_VERSION, SCHEMA_ID } from './bridge/protocol.ts'
+import type { CampaignRequest } from './bridge/schema/bridge-schema.ts'
+import type { CampaignLibrary } from './bridge/runtime/campaign-library.ts'
+import { DEFAULT_BRIDGE_RUNTIME_CHECKPOINT_LIMITS } from './bridge/runtime-checkpoint.ts'
+import { applyActions, importSave, migrateToV23 } from './src/core/index.js'
+import type { GameState } from './src/core/types.js'
+import { p13aLaboratorySlice } from './src/harness/p13a/fixtures.js'
+
+class Store implements BridgeCheckpointStore {
+  checkpointPath = '/synthetic/probe.json'
+  closed = false
+  constructor(public contents: string | null = null) {}
+  async read() { return this.contents }
+  async writeAtomic(text: string) { this.contents = text }
+  async close() { this.closed = true }
+}
+function options(store: Store, source: GameState) {
+  return { store, fatal: (e: unknown) => { throw e }, campaigns: { durable: true, regime: 'endowed' as const },
+    createFreshSession: () => new BridgeSession(source) }
+}
+async function request(runtime: BridgeRuntimeCoordinator, operation: CampaignRequest['operation'], extra: Partial<CampaignRequest> = {}): Promise<CampaignRequest> {
+  const library = (await runtime.campaignLibrary())!
+  return { protocolVersion: PROTOCOL_VERSION, schemaId: SCHEMA_ID, type: 'campaign', commandId: randomUUID(), sessionId: library.sessionId,
+    expectedStateRevision: library.stateRevision, expectedCatalogueRevision: library.catalogueRevision, expectedActiveCampaignId: library.activeCampaignId,
+    operation, campaignId: null, label: null, overwriteCampaignId: null, confirmDestructive: false, unsavedDisposition: 'requireClean', ...extra }
+}
+function library(store: Store): CampaignLibrary {
+  return decodeCampaignStorage(JSON.parse(store.contents!), DEFAULT_BRIDGE_RUNTIME_CHECKPOINT_LIMITS.maxCheckpointBytes, 32) as CampaignLibrary
+}
+function working(store: Store) { return JSON.parse(library(store).workingCheckpointJson) }
+function state(store: Store): GameState { return migrateToV23(importSave(working(store).currentSaveJson)).state }
+async function advance(runtime: BridgeRuntimeCoordinator) {
+  const snapshot = await runtime.read(s => s.snapshot())
+  const option = snapshot.availableIntents.find(i => i.kind === 'advanceWeek')!
+  const result = await runtime.dispatch('command', { protocolVersion: PROTOCOL_VERSION, schemaId: SCHEMA_ID, sessionId: snapshot.sessionId,
+    commandId: randomUUID(), expectedStateRevision: snapshot.stateRevision, type: 'submitIntent', payload: { intentId: option.intentId } })
+  console.log('advance accepted', result.response.accepted)
+}
+
+async function run(withPlan: boolean) {
+  let source = p13aLaboratorySlice()
+  if (withPlan) {
+    const lab = source.operations.facilities.find(f => f.capability === 'laboratory')!.id
+    source = applyActions(source, [{ kind: 'queuePhysicalPlan', work: { kind: 'installation', blueprintId: 'acoustic-instruments', target: { facilityId: lab } }, approvedMaximumDebit: 350_000 } as never])
+  }
+  const store = new Store()
+  const runtime = await createBridgeRuntimeCoordinator(options(store, source))
+  try {
+    await runtime.campaign(await request(runtime, 'saveAs', { label: 'Original' }))
+    const originalId = library(store).activeCampaignId!
+    const first = state(store)
+    await runtime.campaign(await request(runtime, 'saveAs', { label: 'Active copy' }))
+    const afterCopy = state(store)
+    console.log('withPlan', withPlan, '| ids after copy', JSON.stringify(afterCopy.physicalPlans.plans.map(p => p.id)), '| tick', afterCopy.market.tick)
+    await advance(runtime)
+    console.log('after advance tick', state(store).market.tick)
+    const recordOf = (id: string) => {
+      const record = library(store).records.find(r => r.id === id)!
+      const cp = JSON.parse(record.checkpointJson) as { currentSaveJson: string }
+      return migrateToV23(importSave(cp.currentSaveJson)).state
+    }
+    const storedOriginal = recordOf(originalId)
+    console.log('STORED original record: tick', storedOriginal.market.tick,
+      '| plans', JSON.stringify(storedOriginal.physicalPlans.plans.map(p => [p.id, p.status])),
+      '| equals first', JSON.stringify(storedOriginal) === JSON.stringify(first))
+    const loadResponse = await runtime.campaign(await request(runtime, 'load', { campaignId: originalId }))
+    const r = loadResponse as unknown as { response?: Record<string, unknown> } & Record<string, unknown>
+    console.log('load response accepted:', JSON.stringify((r.response ?? r)['accepted']),
+      'refusal:', JSON.stringify((r.response ?? r)['refusal'] ?? (r.response ?? r)['reason'] ?? (r.response ?? r)['message'] ?? Object.keys(r.response ?? r)))
+    const reloaded = state(store)
+    console.log('reloaded tick', reloaded.market.tick, 'first tick', first.market.tick,
+      '| equal JSON', JSON.stringify(reloaded) === JSON.stringify(first))
+    if (JSON.stringify(reloaded) !== JSON.stringify(first)) {
+      for (const key of Object.keys(first) as (keyof GameState)[]) {
+        if (JSON.stringify(first[key]) !== JSON.stringify(reloaded[key])) console.log('  differs:', key)
+      }
+    }
+  } finally { await runtime.close() }
+}
+await run(false)
+await run(true)
+
+======== output 2 ========
+withPlan false | ids after copy [] | tick 12
+advance accepted true
+after advance tick 13
+STORED original record: tick 12 | plans [] | equals first true
+load response accepted: false refusal: "Save or discard current progress before leaving this campaign, or cancel."
+reloaded tick 13 first tick 12 | equal JSON false
+  differs: hollywood
+  differs: ledger
+  differs: market
+  differs: studio
+  differs: studioHistory
+  differs: talent
+withPlan true | ids after copy ["studio-aca408ec-player:plan:1"] | tick 12
+advance accepted true
+after advance tick 13
+STORED original record: tick 12 | plans [["studio-aca408ec-player:plan:1","queued"]] | equals first true
+load response accepted: false refusal: "Save or discard current progress before leaving this campaign, or cancel."
+reloaded tick 13 first tick 12 | equal JSON false
+  differs: hollywood
+  differs: ledger
+  differs: market
+  differs: physicalPlans
+  differs: placement
+  differs: studio
+  differs: studioHistory
+  differs: talent

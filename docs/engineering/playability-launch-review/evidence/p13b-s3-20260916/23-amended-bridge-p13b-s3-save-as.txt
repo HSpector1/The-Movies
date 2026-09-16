@@ -1,0 +1,15 @@
+# Evidence: tests/bridge-p13b-s3-save-as.test.ts AMENDED run (save-before-load + unused import fix)
+# Fixture/run environment: repo worktree wip/headless-program-20260916-ts, HEAD a6af37efc82f412f6c66f4831a811fb4cf7da369 plan(p13b-s3): engine increment recorded — results, adjudicated test premises, delegated decisions, coordinator bound correction (uncommitted S3 engine landed)
+# Command: npx vitest run tests/bridge-p13b-s3-save-as.test.ts --minWorkers=1 --maxWorkers=1 --testTimeout=200000 --reporter=verbose
+# Date: 2026-09-16
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/bridge-p13b-s3-save-as.test.ts > P13B-S3 Save As (test 7, A11) > a Save As copy keeps the same plan ids and advances independently; the inactive original never advances (complete-state comparison) 6158ms
+
+ Test Files  1 passed (1)
+      Tests  1 passed (1)
+   Start at  23:19:44
+   Duration  9.36s (transform 2.02s, setup 0ms, collect 2.80s, tests 6.16s, environment 0ms, prepare 103ms)
+

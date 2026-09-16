@@ -1681,6 +1681,13 @@ export type StudioHistoryEvent =
       blueprintId: string
       name: string
     })
+  // P13B-S3 producer (exact plan identity). One row per recorded plan transition;
+  // `reason` carries the engine's own explanation, never a presentation string.
+  | (StudioHistoryRowBase & {
+      kind: 'planQueued' | 'planStarted' | 'planHeld' | 'planBlocked' | 'planCancelled'
+      planId: string
+      reason: string | null
+    })
   // P10 producer (exact frozen career event identity). No row exists until P10 emits it.
   | (StudioHistoryRowBase & {
       kind: 'careerMilestone'
@@ -1728,7 +1735,70 @@ export type GameStateV19 = GameStateV18 & { hollywood: import('./hollywoodTypes.
 export type GameStateV20 = GameStateV19 & { technology: import('./technologyTypes.js').StudioTechnologyV1 }
 export type GameStateV21 = GameStateV19 & { technology: import('./technologyTypes.js').StudioTechnologyV2 }
 export type GameStateV22 = GameStateV19 & { technology: import('./technologyTypes.js').StudioTechnology }
-export type GameState = GameStateV22
+
+// ── P13B-S3 — persistent physical plans (Save V23) ───────────────────────────
+// ONE persisted root of the studio's ORDERED physical intentions. A plan RESERVES
+// NOTHING: no cash, burn, capacity, engagement or slot moves when one is queued.
+// It is admitted at the weekly admission boundary through the SAME P09 commit the
+// front door calls, so an admitted commit and a hand commit that week are the same
+// placement and the same ledger row. See `src/core/physicalPlans.ts`.
+
+/** What a plan will build. `target: {planId}` names a body that is itself only planned. */
+export type PhysicalPlanWork =
+  | { kind: 'placement'; blueprintId: string; origin: LotCell }
+  | { kind: 'installation'; blueprintId: string; target: { facilityId: string } | { planId: string } }
+
+/**
+ * The scope-and-price facts of one P09 quote, frozen at approval. The completion
+ * week is DELIBERATELY absent: it moves every week and is neither scope nor price,
+ * so a fingerprint over these fields is stable while nothing real has changed.
+ */
+export type PlanQuoteSnapshot = {
+  fingerprint: string
+  cost: number
+  buildWeeks: number
+  weeklyOperatingCost: number
+  components: readonly { label: string; cost: number; weeks: number }[]
+}
+
+export type PhysicalPlanStatus = 'queued' | 'held' | 'blocked' | 'started' | 'cancelled'
+
+/** `reviewChangedQuote` (the default) needs the exact approved quote; `automatic` needs unchanged scope within the ceiling. */
+export type PhysicalPlanAdmission = 'reviewChangedQuote' | 'automatic'
+
+export type PhysicalPlan = {
+  /** `<studioId>:plan:<n>`, n < nextPlanId. */
+  id: string
+  studioId: string
+  /** Admission order within the studio. Unique per studio; rewritten only by an explicit reorder. */
+  ordinal: number
+  queuedWeek: number
+  work: PhysicalPlanWork
+  /** Plan ids of this studio. Acyclic; a dependency is met only once its placement is operational. */
+  dependsOn: readonly string[]
+  approvedMaximumDebit: number
+  earliestStartWeek: number
+  admission: PhysicalPlanAdmission
+  approvedQuote: PlanQuoteSnapshot
+  /** The live quote that caused a hold. Non-null exactly while `held`. */
+  pendingQuote: PlanQuoteSnapshot | null
+  status: PhysicalPlanStatus
+  statusWeek: number
+  reason: string | null
+  startedPlacementId: number | null
+  /** Written EXACTLY ONCE, at the admission that committed the work. */
+  commitReceipt: { week: number; fingerprint: string; cost: number } | null
+}
+
+export type StudioPhysicalPlans = {
+  version: 1
+  /** Monotonic. NEVER rewinds — a cancelled plan's number is never reissued. */
+  nextPlanId: number
+  plans: readonly PhysicalPlan[]
+}
+
+export type GameStateV23 = GameStateV22 & { physicalPlans: StudioPhysicalPlans }
+export type GameState = GameStateV23
 
 // ── D-14 Talent Career Impact — frozen career-event record (§7) ───────────────
 // The ONE canonical persisted record of a participant's outcome on one released film.
@@ -1847,6 +1917,21 @@ export type Action =
   | { kind: 'strikeSet'; setId: string }
   // ── P06A release authority (charter W1) — the ONE explicit release commitment ──
   | { kind: 'commitPictureToRelease'; productionId: string }
+  // ── P13B-S3 physical plans — five verbs, and what they can reach is the design.
+  // `queuePhysicalPlan` names WORK and a ceiling, never a placement id: a plan
+  // cannot reach an existing building. The other four name a plan id only.
+  | {
+      kind: 'queuePhysicalPlan'
+      work: PhysicalPlanWork
+      approvedMaximumDebit: number
+      dependsOn?: readonly string[]
+      earliestStartWeek?: number
+      admission?: PhysicalPlanAdmission
+    }
+  | { kind: 'reorderPhysicalPlans'; planIds: readonly string[] }
+  | { kind: 'cancelPhysicalPlan'; planId: string }
+  | { kind: 'reviewPhysicalPlan'; planId: string; approvedMaximumDebit: number }
+  | { kind: 'setPhysicalPlanAdmission'; planId: string; admission: PhysicalPlanAdmission }
 
 // §10 Authored talent — extended per D-9.14 (creation budget). `actual` persona
 // stays fully player-chosen; potential/workEthic/skillBias/secondary share a

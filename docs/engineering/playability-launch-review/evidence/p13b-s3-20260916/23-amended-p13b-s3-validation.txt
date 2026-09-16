@@ -1,0 +1,26 @@
+# Evidence: tests/p13b-s3-validation.test.ts AMENDED run (planC.statusWeek fix)
+# Fixture/run environment: repo worktree wip/headless-program-20260916-ts, HEAD a6af37efc82f412f6c66f4831a811fb4cf7da369 plan(p13b-s3): engine increment recorded — results, adjudicated test premises, delegated decisions, coordinator bound correction (uncommitted S3 engine landed; validatePhysicalPlans tightened to statusWeek<=tick)
+# Command: npx vitest run tests/p13b-s3-validation.test.ts --minWorkers=1 --maxWorkers=1 --testTimeout=200000 --reporter=verbose
+# Date: 2026-09-16
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p13b-s3-validation.test.ts > P13B-S3 validator refusals for physicalPlans (test 8) > accepts the unmutated hand-authored baseline directly through validateSaveV23
+ ✓ |core| tests/p13b-s3-validation.test.ts > P13B-S3 validator refusals for physicalPlans (test 8) > (a) rejects a dependency cycle
+ ✓ |core| tests/p13b-s3-validation.test.ts > P13B-S3 validator refusals for physicalPlans (test 8) > (b) rejects a dependency naming an unknown plan id
+ ✓ |core| tests/p13b-s3-validation.test.ts > P13B-S3 validator refusals for physicalPlans (test 8) > (c) rejects two plans sharing one ordinal
+ ✓ |core| tests/p13b-s3-validation.test.ts > P13B-S3 validator refusals for physicalPlans (test 8) > (d) rejects a started plan whose placement does not exist
+ ✓ |core| tests/p13b-s3-validation.test.ts > P13B-S3 validator refusals for physicalPlans (test 8) > (e) rejects a started plan whose placement carries a different blueprint
+ ✓ |core| tests/p13b-s3-validation.test.ts > P13B-S3 validator refusals for physicalPlans (test 8) > (f) rejects two started plans naming the SAME placement (duplicate commitReceipt)
+ ✓ |core| tests/p13b-s3-validation.test.ts > P13B-S3 validator refusals for physicalPlans (test 8) > (g) rejects a plan naming another studio's target (campaign isolation — the same FINDING/limitation tests/p13b-s2-validation.test.ts records: no public action path grows a genuine rival plan, so the rival side of this law is proven by structural injection)
+ ✓ |core| tests/p13b-s3-validation.test.ts > P13B-S3 validator refusals for physicalPlans (test 8) > (h) rejects a non-integer approvedMaximumDebit
+ ✓ |core| tests/p13b-s3-validation.test.ts > P13B-S3 validator refusals for physicalPlans (test 8) > (i) rejects nextPlanId that is not above every existing plan id
+ ✓ |core| tests/p13b-s3-validation.test.ts > P13B-S3 validator refusals for physicalPlans (test 8) > (j) rejects a queued plan carrying a pendingQuote
+ ✓ |core| tests/p13b-s3-validation.test.ts > P13B-S3 validator refusals for physicalPlans (test 8) > (k) rejects a held plan with no pendingQuote
+
+ Test Files  1 passed (1)
+      Tests  12 passed (12)
+   Start at  23:19:30
+   Duration  8.20s (transform 1.28s, setup 0ms, collect 1.64s, tests 6.15s, environment 0ms, prepare 103ms)
+

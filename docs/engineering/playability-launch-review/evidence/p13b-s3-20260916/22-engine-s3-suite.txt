@@ -1,0 +1,110 @@
+# P13B-S3 engine run — the five S3 requirement files (sim-core, 2026-09-16T20:29Z)
+# git HEAD 491e877 + uncommitted S3 implementation
+$ npx vitest run tests/p13b-s3-admission.test.ts tests/p13b-s3-dependencies.test.ts tests/p13b-s3-validation.test.ts tests/p13b-s3-save-v23.test.ts --minWorkers=1 --maxWorkers=1
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/p13b-s3-admission.test.ts (17 tests | 4 failed) 9758ms
+   ✓ P13B-S3 admission law (test 1) > a fresh world carries the empty physicalPlans root the contract defines 941ms
+   ✓ P13B-S3 admission law (test 1) > a queued acoustic installation on a Lab without instruments starts at the next boundary, matching a hand commit at the same week 378ms
+   × P13B-S3 admission law (test 1) > writes commitReceipt exactly once — later ticks never rewrite it or double-charge 345ms
+     → expected 2 to be 1 // Object.is equality
+   ✓ P13B-S3 admission law (test 1) > earliestStartWeek in the future holds admission until it arrives 332ms
+   ✓ P13B-S3 admission law (test 1) > cost above the ceiling holds with a reason naming both dollar amounts; automatic admission within the ceiling starts 463ms
+   × P13B-S3 no reservation (test 2) > two plans on one target: the second starts only once the first no longer engages it 401ms
+     → expected 'held' to be 'started' // Object.is equality
+   × P13B-S3 ordering and envelope (test 5) > two plans on independent targets, cash for one: the first starts, the second stays queued with an insufficient-cash reason and no partial debit 365ms
+     → construction invariant: studio cash must equal initial cash plus the ordered ledger
+   × P13B-S3 ordering and envelope (test 5) > admission drains cash inside the SAME tick research reads: the plan starts and that week's research receipt is skipped for insufficient cash 3598ms
+     → construction invariant: studio cash must equal initial cash plus the ordered ledger
+   ✓ P13B-S3 ordering and envelope (test 5) > a dependency completing in week w enables its dependent at w+1's admission boundary, never within w 386ms
+   ✓ P13B-S3 conservation, determinism, replay, history and rival symmetry (test 6) > determinism: replaying the same actions from the same start produces byte-identical exportSave output 639ms
+   ✓ P13B-S3 conservation, determinism, replay, history and rival symmetry (test 6) > replay: save/reload mid-queue then continue matches an uninterrupted run, byte for byte 621ms
+ ✓ |core| tests/p13b-s3-dependencies.test.ts (11 tests) 4301ms
+   ✓ P13B-S3 dependencies (test 3) > an installation on a queued Laboratory body (target: {planId}) resolves the facility id at start and waits for the body to be operational 1375ms
+   ✓ P13B-S3 dependencies (test 3) > cancelling a predecessor immediately blocks its dependent, naming it, and the dependent never starts (never counts as completion) 376ms
+   ✓ P13B-S3 dependencies (test 3) > a lawful reorder persists the new ordinals and revalidates 387ms
+   ✓ P13B-S3 changed quote (test 4) > a forged approvedQuote.fingerprint holds under reviewChangedQuote (the default) at the next boundary, with pendingQuote set to the fresh quote and a reason matching /quote changed/ 430ms
+   ✓ P13B-S3 changed quote (test 4) > automatic admission ignores a stale fingerprint and starts anyway, once blueprint/target/component labels are unchanged and cost is within the ceiling 339ms
+   ✓ P13B-S3 changed quote (test 4) > reviewPhysicalPlan re-approves a held plan (pendingQuote promoted to approvedQuote), which starts at the FOLLOWING boundary 347ms
+ ✓ |core| tests/p13b-s3-validation.test.ts (12 tests) 6600ms
+ ✓ |core| tests/p13b-s3-save-v23.test.ts (13 tests) 4057ms
+   ✓ P13B-S3 Save V23 (test 7) > migrates the genuine V22 fixture './fixtures/p13b/legacy-v22-staffed-4-…' to V23 with an empty physicalPlans root, byte-identical otherwise 379ms
+   ✓ P13B-S3 Save V23 (test 7) > migrateToV22 / migrateToV21 / migrateToV20 refuse a V23 save 817ms
+   ✓ P13B-S3 Save V23 (test 7) > makeSave writes saveVersion 23 355ms
+   ✓ P13B-S3 Save V23 (test 7) > save/reload mid-queue continues identically (byte for byte) 814ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 4 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p13b-s3-admission.test.ts > P13B-S3 admission law (test 1) > writes commitReceipt exactly once — later ticks never rewrite it or double-charge
+AssertionError: expected 2 to be 1 // Object.is equality
+
+- Expected
++ Received
+
+- 1
++ 2
+
+ ❯ tests/p13b-s3-admission.test.ts:119:77
+    117|     for (let i = 0; i < 3; i++) state = tick(state)
+    118|     expect(state.physicalPlans.plans[0]!.commitReceipt).toEqual(receip…
+    119|     expect(state.ledger.filter(e => e.kind === 'constructionCapex').le…
+       |                                                                             ^
+    120|   })
+    121| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/4]⎯
+
+ FAIL |core|  tests/p13b-s3-admission.test.ts > P13B-S3 no reservation (test 2) > two plans on one target: the second starts only once the first no longer engages it
+AssertionError: expected 'held' to be 'started' // Object.is equality
+
+Expected: "started"
+Received: "held"
+
+ ❯ tests/p13b-s3-admission.test.ts:171:50
+    169|     expect(state.physicalPlans.plans[1]!.status).not.toBe('started')
+    170|     for (let i = 0; i < TUNING.ACOUSTIC_INSTRUMENTS_BUILD_WEEKS; i++) …
+    171|     expect(state.physicalPlans.plans[1]!.status).toBe('started')
+       |                                                  ^
+    172|   })
+    173| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/4]⎯
+
+ FAIL |core|  tests/p13b-s3-admission.test.ts > P13B-S3 ordering and envelope (test 5) > two plans on independent targets, cash for one: the first starts, the second stays queued with an insufficient-cash reason and no partial debit
+Error: construction invariant: studio cash must equal initial cash plus the ordered ledger
+ ❯ invariant src/core/construction.ts:62:25
+     60| 
+     61| function invariant(condition: boolean, message: string): asserts condi…
+     62|   if (!condition) throw new Error(`construction invariant: ${message}`)
+       |                         ^
+     63| }
+     64| 
+ ❯ Module.assertStudioConstructionInvariants src/core/construction.ts:431:3
+ ❯ Module.assertStudioPlacementInvariants src/core/placement.ts:2100:3
+ ❯ Module.tick src/core/tick.ts:213:3
+ ❯ tests/p13b-s3-admission.test.ts:202:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/4]⎯
+
+ FAIL |core|  tests/p13b-s3-admission.test.ts > P13B-S3 ordering and envelope (test 5) > admission drains cash inside the SAME tick research reads: the plan starts and that week's research receipt is skipped for insufficient cash
+Error: construction invariant: studio cash must equal initial cash plus the ordered ledger
+ ❯ invariant src/core/construction.ts:62:25
+     60| 
+     61| function invariant(condition: boolean, message: string): asserts condi…
+     62|   if (!condition) throw new Error(`construction invariant: ${message}`)
+       |                         ^
+     63| }
+     64| 
+ ❯ Module.assertStudioConstructionInvariants src/core/construction.ts:431:3
+ ❯ Module.assertStudioPlacementInvariants src/core/placement.ts:2100:3
+ ❯ Module.tick src/core/tick.ts:213:3
+ ❯ tests/p13b-s3-admission.test.ts:226:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/4]⎯
+
+ Test Files  1 failed | 3 passed (4)
+      Tests  4 failed | 49 passed (53)
+   Start at  22:29:07
+   Duration  28.69s (transform 1.39s, setup 0ms, collect 2.48s, tests 24.72s, environment 1ms, prepare 391ms)
+
