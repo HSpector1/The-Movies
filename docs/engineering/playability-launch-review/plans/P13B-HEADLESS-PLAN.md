@@ -938,9 +938,7 @@ technologies. 5 bridge projection. **Allowance:** 4 h capability, 2 h verificati
 - OPEN (recorded, not resolved): the 884..988 window and 884 announce week, the two replacement sentences — companion wording.
 
 ### S7 tasks
-- [ ] **S7-T0 Genuine V26 fixtures** at the final V26 writer (`83187c2`; only tests/docs changed since): `src/harness/p13b/legacy-v26-fixtures.ts`
-  → `legacy-v26-lighting-cancelled-restoring-<week>` (a cancelled lighting adoption with its receipt, refund row, restoration placement in
-  progress) and `legacy-v26-sound-mid-deployment-<week>` (null cancellation leaves); provenance table; evidence `p13b-s7-20260917/00`.
+- [x] **S7-T0 Genuine V26 fixtures (2026-09-17 ≈22:05)** minted by `src/harness/p13b/legacy-v26-fixtures.ts` at `8796fce` (final V26 writer `83187c2`; `git diff --stat 83187c2..HEAD -- src bridge` empty) before any S7 source change: `legacy-v26-lighting-cancelled-793` (sha `0b74f4d8…`; cancelled at 793 with receipt, refund row, unheld asset, `restoration-lighting-stage` in progress), `legacy-v26-lighting-restored-795` (sha `f48da034…`; restoration complete, cancelled record retained), `legacy-v26-sound-mid-deployment-309` (sha `11ef05be…`; every V26 leaf in its null form); provenance in `tests/fixtures/p13b/PROVENANCE.md`; evidence `p13b-s7-20260917/00`. Contract-auditor dispatched on the refined expansion; test-author follows the audit.
 - [ ] **S7-T1 Tests 1–4 RED-first** (test-author) against `src/core/technologyDisclosure.ts`; evidence `01`–`04`.
 - [ ] **S7-T2 Engine increment** (sim-core): catalogue data, `technologyDisclosure.ts`; S7 files green; no save change (assert `LIVE_SAVE_VERSION`
   26 unchanged in the sweep).
