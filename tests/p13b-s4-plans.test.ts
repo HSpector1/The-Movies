@@ -170,6 +170,53 @@ describe('P13B-S4 P09/S3 integration (test 4)', () => {
     ).toThrow(/standardAlreadyMet/)
   })
 
+  it('BUG (RED, engine gap): a second conversion plan on the same body holds on targetEngaged while the first is under construction, then holds/refuses on standardAlreadyMet -- never starts', () => {
+    // Same engine gap as tests/p13b-s4-quotes.test.ts's sibling case (evidence
+    // PROBE B / 07-red-engagement): the first conversion's own commit zeroes
+    // the office's registry capacity, so the `installation` claim generator
+    // never engages the body for its own running job, and this second plan
+    // is currently free to admit in the SAME tick as the first instead of
+    // holding. LAW (coordinator, 2026-09-17): a running `takesTargetOffline`
+    // installation engages its body for its whole span, independent of
+    // registry capacity -- plan 2 must hold on `targetEngaged` for the whole
+    // build, then hold/refuse on `standardAlreadyMet` once plan 1 completes,
+    // never reaching 'started'.
+    //
+    // MEASURED (2026-09-17): a same-blueprint pair (`office-conversion-ii`
+    // twice, tried first) DOES hold throughout plan 1's build, but for the
+    // WRONG reason -- the pre-existing, unrelated `alreadyInstalled` refusal
+    // (ANY existing placement of the SAME blueprint on the SAME target,
+    // regardless of status) fires immediately and independently of the
+    // targetEngaged law under test, so that pairing would spuriously pass a
+    // `/targetEngaged/` check without ever touching the actual engagement
+    // bug. Plan 1 is `office-conversion-iii` (I->III direct) and plan 2 is
+    // the smaller `office-conversion-ii` here instead -- deliberately
+    // DIFFERENT blueprint ids, so `alreadyInstalled` cannot fire and the only
+    // thing that can hold plan 2 during plan 1's build is targetEngaged.
+    const base = p13aLaboratorySlice()
+    const officeFacilityId = base.operations.facilities.find(f => f.capability === 'development-casting')!.id
+    let state = queuePlan(base, { kind: 'installation', blueprintId: 'office-conversion-iii', target: { facilityId: officeFacilityId } }, 1_250_000)
+    state = queuePlan(state, { kind: 'installation', blueprintId: 'office-conversion-ii', target: { facilityId: officeFacilityId } }, 500_000)
+
+    state = tick(state) // plan 1 (ordinal 1) admits first and now engages the target
+    expect(state.physicalPlans.plans[0]!.status).toBe('started')
+
+    for (let i = 0; i < 16; i++) { // office-conversion-iii: 16 build weeks
+      state = tick(state)
+      expect(state.physicalPlans.plans[1]!.status).toBe('held')
+      expect(state.physicalPlans.plans[1]!.reason).toMatch(/targetEngaged/)
+    }
+
+    // Once plan 1 completes the body reads III; plan 2 (office-conversion-ii,
+    // toStandard II) now targets an already-EXCEEDED standard and must
+    // hold/refuse on standardAlreadyMet permanently -- never starting.
+    for (let i = 0; i < 10; i++) {
+      state = tick(state)
+      expect(state.physicalPlans.plans[1]!.status).not.toBe('started')
+    }
+    expect(state.physicalPlans.plans[1]!.reason).toMatch(/standardAlreadyMet/)
+  })
+
   it('a chained I->II then II->III plan pair via dependsOn: the second starts the boundary after the first completes', () => {
     const base = p13aLaboratorySlice()
     const officeFacilityId = base.operations.facilities.find(f => f.capability === 'development-casting')!.id

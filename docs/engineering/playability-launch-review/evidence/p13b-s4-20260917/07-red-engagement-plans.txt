@@ -1,0 +1,35 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/p13b-s4-plans.test.ts (6 tests | 1 failed) 3984ms
+   ✓ P13B-S4 P09/S3 integration (test 4) > a conversion queued as an S3 plan admits at the next boundary through the same P09 commit as a hand commit at that week 1418ms
+   ✓ P13B-S4 P09/S3 integration (test 4) > a plan queued while the office is occupied by a drafting screenplay holds on targetEngaged and admits the boundary the slot frees (C2a-M4 queue idiom, same ordering S3 test 2 proves for an installation holder) 774ms
+   ✓ P13B-S4 P09/S3 integration (test 4) > queueing a conversion against a body already at its target standard is refused at QUEUE time (standardAlreadyMet is a permanent refusal, never merely held) 566ms
+   × P13B-S4 P09/S3 integration (test 4) > BUG (RED, engine gap): a second conversion plan on the same body holds on targetEngaged while the first is under construction, then holds/refuses on standardAlreadyMet -- never starts 403ms
+     → expected 'started' to be 'held' // Object.is equality
+   ✓ P13B-S4 P09/S3 integration (test 4) > a chained I->II then II->III plan pair via dependsOn: the second starts the boundary after the first completes 418ms
+   ✓ P13B-S4 P09/S3 integration (test 4) > the same chained pair under the DEFAULT reviewChangedQuote admission holds on the changed quote and starts once reviewPhysicalPlan re-approves at the live price 401ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p13b-s4-plans.test.ts > P13B-S4 P09/S3 integration (test 4) > BUG (RED, engine gap): a second conversion plan on the same body holds on targetEngaged while the first is under construction, then holds/refuses on standardAlreadyMet -- never starts
+AssertionError: expected 'started' to be 'held' // Object.is equality
+
+Expected: "held"
+Received: "started"
+
+ ❯ tests/p13b-s4-plans.test.ts:206:52
+    204|     for (let i = 0; i < 16; i++) { // office-conversion-iii: 16 build …
+    205|       state = tick(state)
+    206|       expect(state.physicalPlans.plans[1]!.status).toBe('held')
+       |                                                    ^
+    207|       expect(state.physicalPlans.plans[1]!.reason).toMatch(/targetEnga…
+    208|     }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 5 passed (6)
+   Start at  02:34:34
+   Duration  7.54s (transform 1.95s, setup 0ms, collect 2.82s, tests 3.98s, environment 0ms, prepare 163ms)
+

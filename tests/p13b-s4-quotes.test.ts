@@ -121,6 +121,58 @@ describe('P13B-S4 quotes (test 1)', () => {
     expect(quote.rejections).toContain('insufficientFunds')
   })
 
+  it('BUG (RED, engine gap): a running takesTargetOffline conversion must keep engaging its own body via targetEngaged, independent of registry capacity', () => {
+    // Reported 2026-09-17 as a side finding while fixing this file's own
+    // targetEngaged fixture premise (evidence PROBE B / 05-red-engagement):
+    // a "two conversions on one target" idiom could not demonstrate
+    // targetEngaged, because the FIRST conversion's own commit already zeroes
+    // the body's registry capacity (`placement.ts` `withConversionDowntime`),
+    // and `occupancy.ts`'s `resourceClaims` generates an 'installation' claim
+    // by iterating `0..facility.capacity` for an underConstruction
+    // installation -- zero capacity means zero claims, so a running
+    // conversion never engages its OWN body once it has taken it offline.
+    //
+    // LAW (coordinator, 2026-09-17): while a `takesTargetOffline` installation
+    // is under construction on a body, that body is engaged by the running
+    // work for its whole span -- the same `targetEngaged` refusal a Lab
+    // module under construction gives a second module, independent of
+    // registry capacity.
+    let state = p13aLaboratorySlice()
+    const officeFacilityId = officeIdOf(state)
+    const runningWeek = state.market.tick
+    state = commitFacilityInstallation(state, { blueprintId: 'office-conversion-iii', targetFacilityId: officeFacilityId })
+    const runningPlacement = state.placement.facilities.find(f => f.installation?.targetFacilityId === officeFacilityId)!
+    expect(runningPlacement.status).toBe('underConstruction')
+
+    for (const weekOffset of [0, 1]) {
+      const probe = advanceTo(state, runningWeek + weekOffset)
+      const iiQuote = queryFacilityInstallation(probe, { blueprintId: 'office-conversion-ii', targetFacilityId: officeFacilityId })
+      const iiiQuote = queryFacilityInstallation(probe, { blueprintId: 'office-conversion-iii', targetFacilityId: officeFacilityId })
+
+      expect(iiQuote.ok).toBe(false)
+      expect(iiQuote.rejections).toContain('targetEngaged')
+      expect(iiQuote.holders).toContainEqual(expect.objectContaining({ kind: 'installation', holderId: runningPlacement.projectId }))
+      expect(iiiQuote.ok).toBe(false)
+      expect(iiiQuote.rejections).toContain('targetEngaged')
+      expect(iiiQuote.holders).toContainEqual(expect.objectContaining({ kind: 'installation', holderId: runningPlacement.projectId }))
+
+      // `commitFacilityInstallation` is documented byte-neutral on a refused
+      // request (placement.ts: "a refused or stale request is byte-neutral"
+      // -- existing, non-S4 law): it returns the caller's state UNCHANGED
+      // rather than throwing, so a refused commit is asserted by reference
+      // equality here, not `toThrow`.
+      expect(commitFacilityInstallation(probe, { blueprintId: 'office-conversion-ii', targetFacilityId: officeFacilityId })).toBe(probe)
+      expect(commitFacilityInstallation(probe, { blueprintId: 'office-conversion-iii', targetFacilityId: officeFacilityId })).toBe(probe)
+    }
+
+    state = advanceTo(state, runningWeek + 16)
+    expect(developmentStandard(state, officeFacilityId)).toBe('III')
+    const iiAfter = queryFacilityInstallation(state, { blueprintId: 'office-conversion-ii', targetFacilityId: officeFacilityId })
+    const iiiAfter = queryFacilityInstallation(state, { blueprintId: 'office-conversion-iii', targetFacilityId: officeFacilityId })
+    expect(iiAfter.rejections).toContain('standardAlreadyMet')
+    expect(iiiAfter.rejections).toContain('standardAlreadyMet')
+  })
+
   it('a standalone Development Office III is still refused without II, wording unchanged (existing, non-S4 law)', () => {
     const state = p13aLaboratorySlice()
     // FIXTURE PREMISE FIX (measured 2026-09-17, evidence PROBE A): `s4NextOrigin`

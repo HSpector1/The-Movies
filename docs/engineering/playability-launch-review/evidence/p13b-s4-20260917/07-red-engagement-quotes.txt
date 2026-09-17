@@ -1,0 +1,36 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/p13b-s4-quotes.test.ts (10 tests | 1 failed) 2560ms
+   ✓ P13B-S4 quotes (test 1) > I->II quotes $500,000 over 4 weeks 771ms
+   ✓ P13B-S4 quotes (test 1) > II->III quotes $850,000 over 8 weeks on a body already converted to II; the staged sum exceeds the direct price 311ms
+   ✓ P13B-S4 quotes (test 1) > refuses a body already at III with standardAlreadyMet 346ms
+   × P13B-S4 quotes (test 1) > BUG (RED, engine gap): a running takesTargetOffline conversion must keep engaging its own body via targetEngaged, independent of registry capacity 196ms
+     → expected true to be false // Object.is equality
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p13b-s4-quotes.test.ts > P13B-S4 quotes (test 1) > BUG (RED, engine gap): a running takesTargetOffline conversion must keep engaging its own body via targetEngaged, independent of registry capacity
+AssertionError: expected true to be false // Object.is equality
+
+- Expected
++ Received
+
+- false
++ true
+
+ ❯ tests/p13b-s4-quotes.test.ts:152:26
+    150|       const iiiQuote = queryFacilityInstallation(probe, { blueprintId:…
+    151| 
+    152|       expect(iiQuote.ok).toBe(false)
+       |                          ^
+    153|       expect(iiQuote.rejections).toContain('targetEngaged')
+    154|       expect(iiQuote.holders).toContainEqual(expect.objectContaining({…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 9 passed (10)
+   Start at  02:32:21
+   Duration  5.34s (transform 1.76s, setup 0ms, collect 2.36s, tests 2.56s, environment 0ms, prepare 113ms)
+
