@@ -1,0 +1,29 @@
+S6-T4 matched pass — CORE stage attribution (commit 83187c2, log 20-test-core-83187c2.txt)
+Result: Test Files 9 failed | 258 passed (267); Tests 24 failed | 2984 passed | 1 todo (3009); CORE_EXIT=1
+
+Inherited set (identical to the S2–S5/R07 passes; none is P13B work): 22
+  11  tests/bridge-p12-campaign-library.test.ts        — 5 s / 20 s inline budgets on this host
+   6  tests/r3n1-stale-schedule-take-02{,p31,p32}.test.ts — loadFixtureState ENOENT
+   1  tests/bridge-p13-campaign-isolation.test.ts       — 60 s inline budget vs the body on this host
+   3  tests/p13a-scientist-foundation.test.ts           — golden digests (bytes identical to the pin)
+   1  tests/world-first-scenery-load-in-provenance.test.ts — Pillow not installed
+S6-caused, both TEST-SIDE, both reproduced single-worker before the fix — no S6 law changed after the pass started: 2
+   1  tests/facility-effects.test.ts                    — the catalog roster pins the exact FACILITY_BLUEPRINTS id order; the 25→26 sweep bumped
+                                                          the 17→20 count pins and missed this roster → the three restoration ids appended (58bc9df)
+   1  tests/p11-finance-history-scale.test.ts           — reportBytes 103,332 vs a 100,000 proxy bound; the same 6,240-week report dumped at 06f05cf and
+                                                          at HEAD differs ONLY by the `constructionRefund` category series (13 + 52 zero points per window,
+                                                          4,181 bytes); cash, ledger (6,240 overhead rows) and facilities byte-identical; financeHistory
+                                                          publishes a series per authored category whether or not it has entries → bound 100k→110k with the
+                                                          measurement in the test; the 13/52-point caps unchanged (58bc9df). Evidence 22: both files 21/21.
+New failures attributable to S6 engine or bridge law: NONE. Every S6 file (7 engine files, 31 cases; the bridge file 11 cases + 1 todo) and every
+S1–S5/R07 file is absent from the failing set of this run.
+
+BRIDGE stage (log 21-test-bridge-83187c2.txt): check:bridge-contract verified (schema.json, StudioBridgeDtos.Generated.cs, contract-manifest.json),
+check:bridge-contract:fixtures verified; Test Files 2 failed | 61 passed (63); Tests 11 failed | 620 passed | 1 todo (632); BRIDGE_EXIT=1
+  10  tests/bridge-p12-campaign-library.test.ts   — inherited (budgets; one case under budget this run)
+   1  tests/bridge-p13-campaign-isolation.test.ts — inherited (budget)
+bridge-p13b-s6-cancellation 11/11 + 1 todo (the cancellation-act history row, adjudicated out of S6 scope). New failures attributable to S6: NONE.
+Run window: start 2026-09-17T20:02:51Z, end 21:06:06Z (20-RUN.txt); host quiet at start. Source changed after the pass started: tests only (the two
+files above, 58bc9df); src/ and bridge/ untouched since 83187c2.
+Verdict: P13B-S6 LOGIC VERIFIED · UNITY NOT VERIFIED (S6 only; not P13B completion, not Owner acceptance). OPEN: `facilityCancelled` history kind
+(frozen history validators), `restoration-office` CANDIDATE 25,000/1 w, the S6 acceptance wording against the companion when re-supplied.
