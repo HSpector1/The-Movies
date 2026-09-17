@@ -1,5 +1,6 @@
 import { initialTechnology, initialTechnologyV1, liftTechnologyV1, liftTechnologyV2, liftTechnologyV3, validateTechnology, validateTechnologyV1, validateTechnologyV2, validateTechnologyV3 } from './technology.js'
 import { withResearchFoundation } from './researchPeople.js'
+import { validateProductionSetup } from './productionSetup.js'
 import type { StudioTechnology, StudioTechnologyV1, StudioTechnologyV2, StudioTechnologyV3 } from './technologyTypes.js'
 import { initializeHollywood } from './hollywood.js'
 import { validateHollywood } from './hollywoodValidation.js'
@@ -71,6 +72,8 @@ import type {
   GameStateV22,
   GameStateV23,
   GameStateV24,
+  GameStateV25,
+  ProductionSetupRecord,
   FacilityCapability,
   GameStateV2,
   GameStateV3,
@@ -412,12 +415,22 @@ export type SaveFileV23 = {
   broadcastCache: BroadcastItem[];
 };
 
-// P13B-S5 — the LIVE envelope. V24 carries technology root v4: per-component
-// adoption rows and the studio's durable equipment assets.
+// P13B-S5 — frozen. V24 carries technology root v4: per-component adoption rows
+// and the studio's durable equipment assets.
 export type SaveFileV24 = {
   saveVersion: 24;
   seed: string;
   state: GameStateV24;
+  broadcastCache: BroadcastItem[];
+};
+
+// P13B-S5-R07 — the LIVE envelope. V25 owns NO new root: it carries the widened
+// `ProductionWorkflow.setup` / `.planRevision` leaves and the four setup history
+// rows, which the frozen V24 shape has no schema for and therefore refuses.
+export type SaveFileV25 = {
+  saveVersion: 25;
+  seed: string;
+  state: GameStateV25;
   broadcastCache: BroadcastItem[];
 };
 
@@ -446,7 +459,8 @@ export type SaveFile =
   | SaveFileV21
   | SaveFileV22
   | SaveFileV23
-  | SaveFileV24;
+  | SaveFileV24
+  | SaveFileV25;
 
 // ── Stable stringify (UNCHANGED) ─────────────────────────────────────────────
 // Recursively serializes with object keys sorted lexicographically, so the same
@@ -5143,8 +5157,9 @@ export function validateSave(save: unknown): SaveFile {
   if (s.saveVersion === 22) return validateSaveV22(save);
   if (s.saveVersion === 23) return validateSaveV23(save);
   if (s.saveVersion === 24) return validateSaveV24(save);
+  if (s.saveVersion === 25) return validateSaveV25(save);
   throw new Error(
-    `validateSave: unknown saveVersion ${JSON.stringify(s.saveVersion)} (this build handles versions 1 through 24 only)`,
+    `validateSave: unknown saveVersion ${JSON.stringify(s.saveVersion)} (this build handles versions 1 through 25 only)`,
   );
 }
 
@@ -6208,13 +6223,13 @@ export function makeSaveV16(state: GameStateV16): SaveFileV16 {
   return validateSaveV16(save);
 }
 
-// makeSave — the live V24 boundary. Frozen prior values migrate explicitly.
+// makeSave — the live V25 boundary. Frozen prior values migrate explicitly.
 // The new plain-JSON root is detached once; only final serialization sorts it.
-export function makeSave(state: GameState): SaveFileV24 {
-  const save = validateSaveV24({ saveVersion: 24, seed: state.seed, state, broadcastCache: state.broadcastItems });
+export function makeSave(state: GameState): SaveFileV25 {
+  const save = validateSaveV25({ saveVersion: 25, seed: state.seed, state, broadcastCache: state.broadcastItems });
   // Validation precedes detachment, so undefined/non-JSON authority cannot be
   // silently repaired by stringify before the boundary sees it.
-  return JSON.parse(JSON.stringify(save)) as SaveFileV24;
+  return JSON.parse(JSON.stringify(save)) as SaveFileV25;
 }
 
 // ── Load / export / import ───────────────────────────────────────────────────
@@ -7239,6 +7254,7 @@ export function migrateToV12(save: SaveFile): SaveFileV12 {
 // one widened leaf — the honest, un-guessed `subjectId: null` on any
 // pre-existing `queueIntentExpired` row — at the final V14→V15 step.
 export function migrateToV15(save: SaveFile): SaveFileV15 {
+  if (save.saveVersion === 25) throw new Error("migrateToV15: cannot downgrade SaveFileV25 or discard production setup plans");
   if (save.saveVersion === 24) throw new Error("migrateToV15: cannot downgrade SaveFileV24 or discard equipment assets");
   if (save.saveVersion === 23) throw new Error("migrateToV15: cannot downgrade SaveFileV23 or discard physical plans");
   if (save.saveVersion === 22) throw new Error("migrateToV15: cannot downgrade SaveFileV22 or discard per-Laboratory research receipts");
@@ -7311,6 +7327,7 @@ export function convertV17ToV18(v17: SaveFileV17): SaveFileV18 {
 // identity (after validation at the call boundary); V1–V17 cross every frozen
 // boundary, then receive `endowed` at the final V17→V18 step.
 export function migrateToV18(save: SaveFile): SaveFileV18 {
+  if (save.saveVersion === 25) throw new Error("migrateToV18: cannot downgrade SaveFileV25 or discard production setup plans");
   if (save.saveVersion === 24) throw new Error("migrateToV18: cannot downgrade SaveFileV24 or discard equipment assets");
   if (save.saveVersion === 23) throw new Error("migrateToV18: cannot downgrade SaveFileV23 or discard physical plans");
   if (save.saveVersion === 22) throw new Error("migrateToV18: cannot downgrade SaveFileV22 or discard per-Laboratory research receipts");
@@ -7324,6 +7341,7 @@ export function migrateToV18(save: SaveFile): SaveFileV18 {
 // migrateToV17 — the frozen V17-target migration (P08A). A V18 save can never
 // be downgraded: discarding the founding regime would erase exact history.
 export function migrateToV17(save: SaveFile): SaveFileV17 {
+  if (save.saveVersion === 25) throw new Error("migrateToV17: cannot downgrade SaveFileV25 or discard production setup plans");
   if (save.saveVersion === 24) throw new Error("migrateToV17: cannot downgrade SaveFileV24 or discard equipment assets");
   if (save.saveVersion === 23) throw new Error("migrateToV17: cannot downgrade SaveFileV23 or discard physical plans");
   if (save.saveVersion === 22) throw new Error("migrateToV17: cannot downgrade SaveFileV22 or discard per-Laboratory research receipts");
@@ -7342,6 +7360,7 @@ export function migrateToV17(save: SaveFile): SaveFileV17 {
 // migrateToV16 — the frozen V16-target migration (P06A). A V17 save can never
 // be downgraded: discarding the recorded history would silently erase provenance.
 export function migrateToV16(save: SaveFile): SaveFileV16 {
+  if (save.saveVersion === 25) throw new Error("migrateToV16: cannot downgrade SaveFileV25 or discard production setup plans");
   if (save.saveVersion === 24) throw new Error("migrateToV16: cannot downgrade SaveFileV24 or discard equipment assets");
   if (save.saveVersion === 23) throw new Error("migrateToV16: cannot downgrade SaveFileV23 or discard physical plans");
   if (save.saveVersion === 22) throw new Error("migrateToV16: cannot downgrade SaveFileV22 or discard per-Laboratory research receipts");
@@ -7363,6 +7382,7 @@ export function migrateToV16(save: SaveFile): SaveFileV16 {
 }
 
 export function migrateToV14(save: SaveFile): SaveFileV14 {
+  if (save.saveVersion === 25) throw new Error("migrateToV14: cannot downgrade SaveFileV25 or discard production setup plans");
   if (save.saveVersion === 24) throw new Error("migrateToV14: cannot downgrade SaveFileV24 or discard equipment assets");
   if (save.saveVersion === 23) throw new Error("migrateToV14: cannot downgrade SaveFileV23 or discard physical plans");
   if (save.saveVersion === 22) throw new Error("migrateToV14: cannot downgrade SaveFileV22 or discard per-Laboratory research receipts");
@@ -7394,6 +7414,7 @@ export function migrateToV14(save: SaveFile): SaveFileV14 {
 }
 
 export function migrateToV13(save: SaveFile): SaveFileV13 {
+  if (save.saveVersion === 25) throw new Error("migrateToV13: cannot downgrade SaveFileV25 or discard production setup plans");
   if (save.saveVersion === 24) throw new Error("migrateToV13: cannot downgrade SaveFileV24 or discard equipment assets");
   if (save.saveVersion === 23) throw new Error("migrateToV13: cannot downgrade SaveFileV23 or discard physical plans");
   if (save.saveVersion === 22) throw new Error("migrateToV13: cannot downgrade SaveFileV22 or discard per-Laboratory research receipts");
@@ -7473,6 +7494,7 @@ export function convertV18ToV19(save: SaveFileV18): SaveFileV19 {
   return validateSaveV19({ saveVersion: 19, seed: save.seed, state, broadcastCache: state.broadcastItems });
 }
 export function migrateToV19(save: SaveFile): SaveFileV19 {
+  if (save.saveVersion === 25) throw new Error('migrateToV19: cannot downgrade SaveFileV25 or discard production setup plans');
   if (save.saveVersion === 24) throw new Error('migrateToV19: cannot downgrade SaveFileV24 or discard equipment assets');
   if (save.saveVersion === 23) throw new Error('migrateToV19: cannot downgrade SaveFileV23 or discard physical plans');
   if (save.saveVersion === 22) throw new Error('migrateToV19: cannot downgrade SaveFileV22 or discard per-Laboratory research receipts');
@@ -7548,6 +7570,7 @@ export function convertV20ToV21(save: SaveFileV20): SaveFileV21 {
 }
 
 export function migrateToV21(save: SaveFile): SaveFileV21 {
+  if (save.saveVersion === 25) throw new Error('migrateToV21: cannot downgrade SaveFileV25 or discard production setup plans');
   if (save.saveVersion === 24) throw new Error('migrateToV21: cannot downgrade SaveFileV24 or discard equipment assets');
   if (save.saveVersion === 23) throw new Error('migrateToV21: cannot downgrade SaveFileV23 or discard physical plans');
   if (save.saveVersion === 22) throw new Error('migrateToV21: cannot downgrade SaveFileV22 or discard per-Laboratory research receipts');
@@ -7569,6 +7592,7 @@ export function convertV21ToV22(save: SaveFileV21): SaveFileV22 {
 }
 
 export function migrateToV22(save: SaveFile): SaveFileV22 {
+  if (save.saveVersion === 25) throw new Error('migrateToV22: cannot downgrade SaveFileV25 or discard production setup plans');
   if (save.saveVersion === 24) throw new Error('migrateToV22: cannot downgrade SaveFileV24 or discard equipment assets');
   if (save.saveVersion === 23) throw new Error('migrateToV22: cannot downgrade SaveFileV23 or discard physical plans');
   if (save.saveVersion === 22) return validateSaveV22(save);
@@ -7615,6 +7639,7 @@ export function convertV22ToV23(save: SaveFileV22): SaveFileV23 {
  * so nothing here is trusted on the strength of its declared type alone.
  */
 export function migrateToV23(save: SaveFile | { saveVersion: number }): SaveFileV23 {
+  if (save.saveVersion === 25) throw new Error('migrateToV23: cannot downgrade SaveFileV25 or discard production setup plans');
   if (save.saveVersion === 24) throw new Error('migrateToV23: cannot downgrade SaveFileV24 or discard equipment assets');
   if (save.saveVersion === 23) return validateSaveV23(save);
   return convertV22ToV23(migrateToV22(save as SaveFile));
@@ -7661,8 +7686,221 @@ export function convertV23ToV24(save: SaveFileV23): SaveFileV24 {
  * so nothing here is trusted on the strength of its declared type alone.
  */
 export function migrateToV24(save: SaveFile | { saveVersion: number }): SaveFileV24 {
+  if (save.saveVersion === 25) throw new Error('migrateToV24: cannot downgrade SaveFileV25 or discard production setup plans');
   if (save.saveVersion === 24) return validateSaveV24(save);
   return convertV23ToV24(migrateToV23(save as SaveFile));
+}
+
+/** The four P13B-S5-R07 history kinds. The frozen V24 log has no schema for them. */
+const SETUP_EVENT_KINDS = ["setupAdmitted", "setupUnitCredited", "setupCompleted", "setupRebound"] as const;
+
+const SETUP_RECORD_KEYS = [
+  "recipeId", "planRevision", "admittedWeek", "route", "adoptionId", "equipmentAssetId",
+  "stageFacilityId", "setId", "requiredUnits", "creditedUnits", "lastCreditedWeek", "completedWeek", "priorWork",
+] as const;
+
+function v25Integer(value: unknown, label: string): number {
+  if (!Number.isInteger(value) || (value as number) < 0) {
+    throw new Error(`validateSaveV25: ${label} must be a non-negative integer`);
+  }
+  return value as number;
+}
+
+function v25NullableInteger(value: unknown, label: string): number | null {
+  if (value === null) return null;
+  return v25Integer(value, label);
+}
+
+function v25NonEmptyString(value: unknown, label: string): string {
+  if (typeof value !== "string" || value.length === 0) {
+    throw new Error(`validateSaveV25: ${label} must be a non-empty string`);
+  }
+  return value;
+}
+
+function v25NullableString(value: unknown, label: string): string | null {
+  if (value === null) return null;
+  return v25NonEmptyString(value, label);
+}
+
+/** The setup record's SHAPE. Its meaning is `validateProductionSetup`'s, below. */
+function v25SetupRecord(value: unknown, label: string): void {
+  if (!isRecord(value)) throw new Error(`validateSaveV25: ${label} is not a plain object`);
+  v12ExactKeys(value, [...SETUP_RECORD_KEYS], label);
+  v25NonEmptyString(value.recipeId, `${label}.recipeId`);
+  v25Integer(value.planRevision, `${label}.planRevision`);
+  v25NullableInteger(value.admittedWeek, `${label}.admittedWeek`);
+  if (value.route !== "conventional" && value.route !== "lighting") {
+    throw new Error(`validateSaveV25: ${label}.route is not a known setup route`);
+  }
+  v25NullableString(value.adoptionId, `${label}.adoptionId`);
+  v25NullableString(value.equipmentAssetId, `${label}.equipmentAssetId`);
+  v25NonEmptyString(value.stageFacilityId, `${label}.stageFacilityId`);
+  v25NonEmptyString(value.setId, `${label}.setId`);
+  v25Integer(value.requiredUnits, `${label}.requiredUnits`);
+  v25Integer(value.creditedUnits, `${label}.creditedUnits`);
+  v25NullableInteger(value.lastCreditedWeek, `${label}.lastCreditedWeek`);
+  v25NullableInteger(value.completedWeek, `${label}.completedWeek`);
+  if (!Array.isArray(value.priorWork)) {
+    throw new Error(`validateSaveV25: ${label}.priorWork must be an array`);
+  }
+  for (let i = 0; i < value.priorWork.length; i++) {
+    v25SetupRecord(value.priorWork[i], `${label}.priorWork[${String(i)}]`);
+  }
+}
+
+function v25SetupEventRow(row: Record<string, unknown>, label: string): void {
+  const payload = row.kind === "setupAdmitted"
+    ? ["productionId", "recipeId", "planRevision", "route", "stageFacilityId", "setId", "adoptionId", "requiredUnits"]
+    : row.kind === "setupUnitCredited"
+      ? ["productionId", "creditedUnits", "requiredUnits"]
+      : row.kind === "setupCompleted"
+        ? ["productionId", "recipeId", "creditedUnits"]
+        : ["productionId", "recipeId", "planRevision", "stageFacilityId", "setId"];
+  v12ExactKeys(row, ["seq", "week", "kind", ...payload], label);
+  v25Integer(row.seq, `${label}.seq`);
+  v25Integer(row.week, `${label}.week`);
+  for (const key of payload) {
+    if (key === "adoptionId") v25NullableString(row[key], `${label}.${key}`);
+    else if (key === "planRevision" || key === "requiredUnits" || key === "creditedUnits") {
+      v25Integer(row[key], `${label}.${key}`);
+    } else v25NonEmptyString(row[key], `${label}.${key}`);
+  }
+}
+
+/**
+ * One managed operations root's workflows, with the two V25 leaves validated and
+ * removed. `ownSetupAllowed` is false for a rival business: no engine path
+ * writes a rival setup plan (S8 owns rival symmetry), so a file carrying one is
+ * a file this build could not have written.
+ */
+function v25StrippedWorkflows(
+  operations: Record<string, unknown>,
+  label: string,
+  ownSetupAllowed: boolean,
+): Record<string, unknown>[] {
+  const workflows = operations.workflows;
+  if (!Array.isArray(workflows)) throw new Error(`validateSaveV25: ${label}.workflows is not an array`);
+  return workflows.map((workflow, index) => {
+    const rowLabel = `${label}.workflows[${String(index)}]`;
+    if (!isRecord(workflow)) throw new Error(`validateSaveV25: ${rowLabel} is not a plain object`);
+    // REQUIRED at this version, exactly as `bindings` is at V14: a V25 file
+    // without them is a file the migrator never wrote.
+    if (!Object.hasOwn(workflow, 'setup')) throw new Error(`validateSaveV25: ${rowLabel}.setup is missing`);
+    if (!Object.hasOwn(workflow, 'planRevision')) throw new Error(`validateSaveV25: ${rowLabel}.planRevision is missing`);
+    const { setup, planRevision, ...frozen } = workflow;
+    v25Integer(planRevision, `${rowLabel}.planRevision`);
+    if (setup !== null) {
+      if (!ownSetupAllowed) throw new Error(`validateSaveV25: ${rowLabel}.setup is a setup plan no rival producer can write`);
+      v25SetupRecord(setup, `${rowLabel}.setup`);
+    }
+    return frozen;
+  });
+}
+
+/**
+ * V25 validates its OWN two widened leaves and then hands the frozen V24 shape
+ * exactly what V24 knows: the workflow without `setup`/`planRevision` and the
+ * log without the four setup rows. The strip-then-delegate discipline is V16's
+ * (`releaseCommitted`), for the same reason — the frozen key lists below stay
+ * exactly what they were, so a V24 file carrying a setup plan is still refused.
+ */
+export function validateSaveV25(save: unknown): SaveFileV25 {
+  if (!isRecord(save)) throw new Error('validateSaveV25: object required');
+  v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
+  if (save.saveVersion !== 25) throw new Error('validateSaveV25: expected version 25');
+  const raw = v14Record(checkEnvelope(save, 'validateSaveV25'), 'state');
+  const operationsRaw = raw.operations;
+  if (!isRecord(operationsRaw)) throw new Error('validateSaveV25: operations root missing');
+  const strippedWorkflows = v25StrippedWorkflows(operationsRaw, 'state.operations', true);
+  // EVERY managed operations root, not just the player's: a rival business runs
+  // the same workflow shape through the same shared allocator, so the V25 lift
+  // wrote both leaves there too and the frozen V24 chain must not see either.
+  const hollywoodRaw = raw.hollywood;
+  let strippedHollywood = hollywoodRaw;
+  if (isRecord(hollywoodRaw) && Array.isArray(hollywoodRaw.businesses)) {
+    strippedHollywood = {
+      ...hollywoodRaw,
+      businesses: hollywoodRaw.businesses.map((business, index) => {
+        if (!isRecord(business) || !isRecord(business.operations)) return business;
+        const label = `state.hollywood.businesses[${String(index)}].operations`;
+        return { ...business, operations: { ...business.operations, workflows: v25StrippedWorkflows(business.operations, label, false) } };
+      }),
+    };
+  }
+  const eventsRaw = raw.studioEvents;
+  let strippedEvents = eventsRaw;
+  if (isRecord(eventsRaw) && Array.isArray(eventsRaw.rows)) {
+    const keptRows: unknown[] = [];
+    for (let i = 0; i < eventsRaw.rows.length; i++) {
+      const row = eventsRaw.rows[i];
+      if (isRecord(row) && (SETUP_EVENT_KINDS as readonly unknown[]).includes(row.kind)) {
+        v25SetupEventRow(row, `state.studioEvents.rows[${String(i)}]`);
+        continue;
+      }
+      keptRows.push(row);
+    }
+    strippedEvents = { ...eventsRaw, rows: keptRows };
+  }
+  try {
+    validateSaveV24({
+      saveVersion: 24,
+      seed: save.seed,
+      state: {
+        ...raw,
+        operations: { ...operationsRaw, workflows: strippedWorkflows },
+        hollywood: strippedHollywood,
+        studioEvents: strippedEvents,
+      },
+      broadcastCache: save.broadcastCache,
+    });
+  } catch (error) {
+    throw new Error(`validateSaveV25: frozen V24 state is invalid — ${(error as Error).message}`);
+  }
+  const typed = save as SaveFileV25;
+  // The MEANING of a setup plan — its bindings, bounds, week order, re-derivable
+  // route provenance and un-recycled prior work — has ONE owner, and a file gets
+  // the same law a live state does.
+  const violations = validateProductionSetup(typed.state);
+  if (violations.length > 0) throw new Error(`validateSaveV25: ${violations[0]}`);
+  return typed;
+}
+
+/**
+ * Governed V24→V25: every legacy workflow is lifted with NO setup plan and
+ * revision zero. Nothing is invented — a production that never reviewed a recipe
+ * never had one — and every other root is byte-identical.
+ */
+export function convertV24ToV25(save: SaveFileV24): SaveFileV25 {
+  const validated = validateSaveV24(save);
+  const oldState = JSON.parse(JSON.stringify(validated.state)) as GameStateV24;
+  const lift = (operations: GameStateV24['operations']): GameStateV24['operations'] => ({
+    ...operations,
+    workflows: operations.workflows.map((workflow) => ({
+      ...workflow,
+      setup: null as ProductionSetupRecord | null,
+      planRevision: 0,
+    })),
+  });
+  const state: GameStateV25 = {
+    ...oldState,
+    operations: lift(oldState.operations),
+    hollywood: oldState.hollywood === null ? null : {
+      ...oldState.hollywood,
+      businesses: oldState.hollywood.businesses.map((business) => ({ ...business, operations: lift(business.operations) })),
+    },
+  };
+  return validateSaveV25({ saveVersion: 25, seed: state.seed, state, broadcastCache: state.broadcastItems });
+}
+
+/**
+ * The entry point accepts a PARSED envelope as well as a narrowed `SaveFile`:
+ * every path below validates the whole envelope structurally before returning,
+ * so nothing here is trusted on the strength of its declared type alone.
+ */
+export function migrateToV25(save: SaveFile | { saveVersion: number }): SaveFileV25 {
+  if (save.saveVersion === 25) return validateSaveV25(save);
+  return convertV24ToV25(migrateToV24(save as SaveFile));
 }
 
 export function convertV19ToV20(save: SaveFileV19): SaveFileV20 {
@@ -7683,6 +7921,7 @@ export function convertV19ToV20(save: SaveFileV19): SaveFileV20 {
 }
 
 export function migrateToV20(save: SaveFile): SaveFileV20 {
+  if (save.saveVersion === 25) throw new Error('migrateToV20: cannot downgrade SaveFileV25 or discard production setup plans');
   if (save.saveVersion === 24) throw new Error('migrateToV20: cannot downgrade SaveFileV24 or discard equipment assets');
   if (save.saveVersion === 23) throw new Error('migrateToV20: cannot downgrade SaveFileV23 or discard physical plans');
   if (save.saveVersion === 22) throw new Error('migrateToV20: cannot downgrade SaveFileV22 or discard per-Laboratory research receipts');

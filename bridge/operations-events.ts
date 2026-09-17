@@ -151,9 +151,20 @@ function queueSubjectName(state: GameState, entryKind: string, subjectId: string
   return findConcept(state, subjectId)?.title ?? null
 }
 
+const SETUP_EVENT_KINDS = ['setupAdmitted', 'setupUnitCredited', 'setupCompleted', 'setupRebound'] as const
+type SetupEventKind = (typeof SETUP_EVENT_KINDS)[number]
+
 export function operationsEventsProjection(state: GameState): BridgeOperationsEventsProjection {
   const currentWeek = state.market.tick
-  const rows = state.studioEvents.rows
+  // P13B-S5-R07: the four setup history kinds are ENGINE facts that this
+  // projection-37 wire has no schema for. R07-T3 (projection 38) publishes the
+  // setup plan and its history deliberately; until it does this projection states
+  // only what it can name, rather than inventing a client sentence for a row whose
+  // contract does not exist yet.
+  const rows = state.studioEvents.rows.filter(
+    (row): row is Exclude<StudioEvent, { kind: SetupEventKind }> =>
+      !(SETUP_EVENT_KINDS as readonly string[]).includes(row.kind),
+  )
 
   // ── Name resolution, entirely through existing authorities ────────────────
   const resultIds = new Set(state.studio.releasedFilms.map((film) => film.productionId))
@@ -218,7 +229,7 @@ export function operationsEventsProjection(state: GameState): BridgeOperationsEv
     }
   })
 
-  function describeRow(row: StudioEvent): {
+  function describeRow(row: Exclude<StudioEvent, { kind: SetupEventKind }>): {
     summary: string
     subject: BridgeOperationsEventSubject | null
     route: BridgeOperationsEventRoute

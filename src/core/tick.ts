@@ -76,6 +76,7 @@ import { openTheatricalRun } from './economy.js'
 import { clamp } from './math.js'
 import { assertNoDoubleBookedResourceSlots, setOccupiedFacilitySlots } from './occupancy.js'
 import { advanceManagedProductions, arriveDueScenery } from './operations.js'
+import { createProductionSetupRouteResolver } from './productionSetup.js'
 import { admitQueuedIntents } from './queueAdmission.js'
 import { admitPhysicalPlans } from './physicalPlans.js'
 import { sceneryLoadInDecision } from './sceneryLoadIn.js'
@@ -363,6 +364,9 @@ export function tick(state: GameState, options?: TickOptions): GameState {
       },
     },
     technologyProduction.policy,
+    // P13B-S5-R07: the setup route is derived from the technology root as this
+    // advance found it — one authority, read once, at the admission visit.
+    createProductionSetupRouteResolver(stateAfterLoadIn),
   )
   // ── 1.05 QUEUE ADMISSION (C2a-M4, charter §3.3) ─────────────────────────
   // INSERTION, NOT A REORDERING (D-12 §9, the rule steps 1.5/1.6/1.7 already

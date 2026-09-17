@@ -86,6 +86,7 @@ import {
   queryPlacement,
 } from './placement.js'
 import { applyPhysicalPlanAction } from './physicalPlans.js'
+import { applySetProductionSetupRecipe } from './productionSetup.js'
 import { propertyOf } from './lot.js'
 import {
   addManagedProductionWorkflow,
@@ -3048,6 +3049,9 @@ export function applyActions(state: GameState, actions: Action[]): GameState {
         break
       case 'strikeSet':
         next = applyStrikeSet(next, action)
+        break
+      case 'setProductionSetupRecipe':
+        next = applySetProductionSetupRecipe(next, action)
         break
       case 'commitPictureToRelease':
         next = applyCommitPictureToRelease(next, action)

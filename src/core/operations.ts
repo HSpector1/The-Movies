@@ -33,6 +33,8 @@ import type {
   Production,
   ProductionBlocker,
   ProductionPhase,
+  ProductionSetupRecord,
+  ProductionSetupRouteResolver,
   ProductionWorkflow,
   ShootingTask,
   StudioFacility,
@@ -454,16 +456,61 @@ export function retargetUnfilmedProduction(
       : 'The selected soundstage is occupied. Wait for its current work to finish before changing this film.',
   }
   const derived = deriveBindings(draft.bindings, allocation.reservations, week)
+  const bindings: WorkflowBindings = allocation.boundSet === null ? derived : {
+    ...derived, setId: allocation.boundSet.id, lockedNovelty: allocation.boundSet.novelty,
+    lockedUplift: setBindingUplift(allocation.boundSet, binding.genreOf(productionId)),
+  }
+  // P13B-S5-R07: THIS is a binding change — the one the plan revision counts.
+  // A setup already under way was built for the stage and Set this picture is
+  // leaving, so it does not follow it: the work already done is kept in history
+  // and the new physical setup starts at zero, re-admitted (and its route
+  // re-derived) at the next sweep visit.
+  const rebound = bindings.stageFacilityId !== workflow.bindings.stageFacilityId ||
+    bindings.setId !== workflow.bindings.setId
+  const planRevision = rebound ? workflow.planRevision + 1 : workflow.planRevision
+  const previousSetup = workflow.setup ?? null
+  let setup: ProductionSetupRecord | null = previousSetup
+  if (rebound && previousSetup !== null) {
+    const boundStageId = bindings.stageFacilityId
+    const boundSetId = bindings.setId
+    if (boundStageId === null || boundSetId === null) {
+      // Unreachable by construction — a workflow can only hold a setup plan while
+      // it holds a stage AND a Set, and a rehearsal allocation that binds neither
+      // has already returned a refusal above. Stated rather than silently dropped,
+      // because dropping it would destroy the picture's own preparation history.
+      throw new Error(`tick: production "${productionId}" was rebound to no stage or Set while holding a setup plan`)
+    }
+    setup = {
+      ...previousSetup,
+      planRevision,
+      admittedWeek: null,
+      stageFacilityId: boundStageId,
+      setId: boundSetId,
+      creditedUnits: 0,
+      lastCreditedWeek: null,
+      completedWeek: null,
+      priorWork: [...previousSetup.priorWork, { ...previousSetup, priorWork: [] }],
+    }
+  }
   const replacement: ProductionWorkflow = {
     ...draft, reservations: allocation.reservations,
     // Rehearsal may already be waiting for scenery capacity; that remains the
     // next-phase bottleneck after changing stages, and will be retried by the tick.
-    bindings: allocation.boundSet === null ? derived : {
-      ...derived, setId: allocation.boundSet.id, lockedNovelty: allocation.boundSet.novelty,
-      lockedUplift: setBindingUplift(allocation.boundSet, binding.genreOf(productionId)),
-    },
+    bindings,
+    setup,
+    planRevision,
   }
   recordReservationTransition(events, workflow, allocation.reservations)
+  if (setup !== null && setup !== previousSetup) {
+    events.append({
+      kind: 'setupRebound',
+      productionId,
+      recipeId: setup.recipeId,
+      planRevision: setup.planRevision,
+      stageFacilityId: setup.stageFacilityId,
+      setId: setup.setId,
+    })
+  }
   return { ok: true, operations: replaceWorkflow(operations, replacement) }
 }
 
@@ -554,6 +601,10 @@ export function addManagedProductionWorkflow(
     shootingTask: null,
     blocker: null,
     bindings: emptyWorkflowBindings(requiresSetBinding),
+    // P13B-S5-R07: a new picture carries no setup plan and revision zero. A
+    // recipe is REVIEWED later, against this same counter.
+    setup: null,
+    planRevision: 0,
   }
   const withDraft: StudioOperations = {
     ...operations,
@@ -1449,6 +1500,56 @@ export type ManagedProductionAdvance = {
   admittedReleaseIds: readonly string[]
 }
 
+/**
+ * One week of a setup subtask (P13B-S5-R07).
+ *
+ * ADMISSION is the first sweep visit at which rehearsal work is done and the
+ * gate opens — the visit that would otherwise have moved 6 → 5. It stamps the
+ * week and fixes the route and provenance, and it credits NOTHING: the picture
+ * has not yet worked a setup week. Every later visit credits exactly one unit
+ * for the week it produces, once — `lastCreditedWeek` is what makes a second
+ * sweep visit in the same week, a reload and a retry all credit nothing.
+ */
+function advanceSetupWeek(
+  record: ProductionSetupRecord,
+  week: number,
+  resolve: ProductionSetupRouteResolver | undefined,
+): { record: ProductionSetupRecord; admitted: boolean; credited: boolean } {
+  if (record.admittedWeek === null) {
+    const provenance = resolve?.({
+      stageFacilityId: record.stageFacilityId,
+      recipeId: record.recipeId,
+      week,
+    })
+    const admitted: ProductionSetupRecord =
+      provenance === undefined
+        ? { ...record, admittedWeek: week }
+        : {
+            ...record,
+            admittedWeek: week,
+            route: provenance.route,
+            adoptionId: provenance.adoptionId,
+            equipmentAssetId: provenance.equipmentAssetId,
+            requiredUnits: provenance.requiredUnits,
+          }
+    return { record: admitted, admitted: true, credited: false }
+  }
+  if (record.lastCreditedWeek === week || week <= record.admittedWeek) {
+    return { record, admitted: false, credited: false }
+  }
+  const creditedUnits = record.creditedUnits + 1
+  return {
+    record: {
+      ...record,
+      creditedUnits,
+      lastCreditedWeek: week,
+      completedWeek: creditedUnits >= record.requiredUnits ? week : null,
+    },
+    admitted: false,
+    credited: true,
+  }
+}
+
 export function advanceManagedProductions(
   operations: StudioOperations,
   productions: readonly Production[],
@@ -1465,6 +1566,13 @@ export function advanceManagedProductions(
   events: StudioEventSink = disabledStudioEventSink(),
   binding?: SetBindingContext,
   policy?: ProductionAllocationPolicy,
+  /**
+   * P13B-S5-R07: how this caller derives a setup's route and provenance at the
+   * admission visit. ABSENT means "this caller cannot see the technology root"
+   * — the rival and headless advances — and a record admitted without it keeps
+   * the route its own review derived rather than having one invented here.
+   */
+  setupRoute?: ProductionSetupRouteResolver,
 ): ManagedProductionAdvance {
   const admittedReleaseIds: string[] = []
   let sets: readonly StudioSet[] = binding?.sets ?? []
@@ -1555,6 +1663,59 @@ export function advanceManagedProductions(
       continue
     }
 
+    // ── THE SETUP HOLD (P13B-S5-R07) ────────────────────────────────────────
+    //
+    // A NEW branch beside the `remainingTicks === 5` case above, and it works by
+    // NOT calling `enterPhase`: the picture stays at 6 with the stage and Set it
+    // already holds, no `ShootingTask` is created (that happens only when a phase
+    // entry targets shooting), and the sound lock therefore still fires at the
+    // actual Shooting entry. The 8-tick table is untouched — a setup costs WEEKS,
+    // never ticks — and a production with no record (`setup: null`) never reaches
+    // this branch at all, so every legacy timeline is the timeline it was.
+    let active = workflow
+    const setupRecord = workflow.setup ?? null
+    if (production.remainingTicks === 6 && setupRecord !== null && setupRecord.completedWeek === null) {
+      // The week this advance PRODUCES, which is the week the player will read
+      // beside the record — the same clock every completion in this tick uses.
+      const setupWeek = currentTick + 1
+      const step = advanceSetupWeek(setupRecord, setupWeek, setupRoute)
+      active = { ...workflow, setup: step.record }
+      nextOperations = replaceWorkflow(nextOperations, active)
+      if (step.admitted) {
+        events.append({
+          kind: 'setupAdmitted',
+          productionId: production.id,
+          recipeId: step.record.recipeId,
+          planRevision: step.record.planRevision,
+          route: step.record.route,
+          stageFacilityId: step.record.stageFacilityId,
+          setId: step.record.setId,
+          adoptionId: step.record.adoptionId,
+          requiredUnits: step.record.requiredUnits,
+        }, setupWeek)
+      } else if (step.credited) {
+        events.append({
+          kind: 'setupUnitCredited',
+          productionId: production.id,
+          creditedUnits: step.record.creditedUnits,
+          requiredUnits: step.record.requiredUnits,
+        }, setupWeek)
+      }
+      if (step.record.completedWeek === null) {
+        // Still preparing. It keeps its place, its stage and its Set.
+        settled.add(production.id)
+        continue
+      }
+      events.append({
+        kind: 'setupCompleted',
+        productionId: production.id,
+        recipeId: step.record.recipeId,
+        creditedUnits: step.record.creditedUnits,
+      }, setupWeek)
+      // The work is done in the SAME visit its last unit was credited, so the
+      // picture enters Shooting at that boundary — admission + units, exactly.
+    }
+
     const nextRemaining = production.remainingTicks - 1
     if (nextRemaining === 0) {
       settled.add(production.id)
@@ -1592,7 +1753,7 @@ export function advanceManagedProductions(
 
     const result = enterPhase(
       nextOperations,
-      workflow,
+      active,
       production,
       targetPhase,
       externallyOccupiedSlots,

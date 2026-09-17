@@ -653,6 +653,70 @@ export type WorkflowBindings = {
   heldSinceWeek: number | null
 }
 
+// ── P13B-S5-R07 — the setup subtask between rehearsal and Shooting ───────────
+//
+// A production whose plan names a setup recipe does not leave rehearsal until
+// its setup units are credited. The record below is the ONE authority for that
+// work: which recipe was reviewed, against which plan revision, which physical
+// stage and Set it was admitted against, which route it earned at admission and
+// how much of it has been done. It is `null` for every legacy production and
+// every production that never selected a recipe — those keep today's schedule
+// exactly.
+export type ProductionSetupRecipeId = 'ballroom-reveal-lighting-01' | 'ordinary-interior-01'
+export type ProductionSetupRoute = 'conventional' | 'lighting'
+
+export type ProductionSetupRecord = {
+  recipeId: ProductionSetupRecipeId
+  /** The workflow plan revision this recipe was REVIEWED against. */
+  planRevision: number
+  /**
+   * The sweep visit at which rehearsal work was done and the gate opened —
+   * stamped by `advanceManagedProductions`, not by the player's command. `null`
+   * between selection and that visit: a plan a player has chosen but the week
+   * has not yet reached earns no week it did not work.
+   */
+  admittedWeek: number | null
+  /** Fixed at admission and never re-read afterwards. */
+  route: ProductionSetupRoute
+  /** The exact adoption the lighting route was earned from; null on the conventional route. */
+  adoptionId: string | null
+  /** The exact equipment asset that adoption holds; null on the conventional route. */
+  equipmentAssetId: string | null
+  stageFacilityId: string
+  setId: string
+  requiredUnits: number
+  creditedUnits: number
+  /** The last week a unit was credited — the same-week guard, persisted. */
+  lastCreditedWeek: number | null
+  completedWeek: number | null
+  /**
+   * The retained work of earlier bindings of this same production. Preserved
+   * verbatim and NEVER recycled into `creditedUnits`: a picture that moves to a
+   * different stage or Set builds its setup again, and the week it already
+   * worked stays in its history rather than paying for the new one.
+   */
+  priorWork: readonly ProductionSetupRecord[]
+}
+
+/** What a route derivation yields at setup admission. */
+export type ProductionSetupProvenance = {
+  route: ProductionSetupRoute
+  adoptionId: string | null
+  equipmentAssetId: string | null
+  requiredUnits: number
+}
+
+/**
+ * The caller-owned route derivation the weekly advance consults at admission.
+ * Absent (rival and headless callers) the record keeps the route selection
+ * derived — nothing is invented inside the sweep.
+ */
+export type ProductionSetupRouteResolver = (input: {
+  stageFacilityId: string
+  recipeId: ProductionSetupRecipeId
+  week: number
+}) => ProductionSetupProvenance
+
 export type ProductionWorkflow = {
   productionId: string
   phase: ProductionPhase
@@ -662,6 +726,15 @@ export type ProductionWorkflow = {
   // C2a-M1 leaf widening (§8.2/§8.3). Version-aware at the save boundary:
   // pre-V14 boundaries REFUSE it, V14 REQUIRES it.
   bindings: WorkflowBindings
+  // P13B-S5-R07 leaf widening, version-aware at the V25 boundary exactly as
+  // `bindings` is at V14: pre-V25 boundaries REFUSE both, V25 REQUIRES them.
+  setup: ProductionSetupRecord | null
+  /**
+   * This production plan's own monotonic revision. Bumped by a BINDING change
+   * (the stage or Set this picture stands on), never by an unrelated choice, so
+   * a reviewed recipe can name the exact plan it was reviewed against.
+   */
+  planRevision: number
 }
 
 export type StudioOperations = {
@@ -1512,6 +1585,41 @@ export type StudioEvent =
   | { seq: number; week: number; kind: 'reservationReleased'; ownerId: string; resourceKey: string }
   | { seq: number; week: number; kind: 'phaseEntered'; productionId: string; phase: ProductionPhase }
   | { seq: number; week: number; kind: 'sceneryArrived'; productionId: string }
+  // P13B-S5-R07 setup history. Tier W: this is operating history of one
+  // production's preparation, and the durable record of it is the workflow's own
+  // `setup` leaf, which is never compacted.
+  | {
+      seq: number
+      week: number
+      kind: 'setupAdmitted'
+      productionId: string
+      recipeId: string
+      planRevision: number
+      route: string
+      stageFacilityId: string
+      setId: string
+      adoptionId: string | null
+      requiredUnits: number
+    }
+  | {
+      seq: number
+      week: number
+      kind: 'setupUnitCredited'
+      productionId: string
+      creditedUnits: number
+      requiredUnits: number
+    }
+  | { seq: number; week: number; kind: 'setupCompleted'; productionId: string; recipeId: string; creditedUnits: number }
+  | {
+      seq: number
+      week: number
+      kind: 'setupRebound'
+      productionId: string
+      recipeId: string
+      planRevision: number
+      stageFacilityId: string
+      setId: string
+    }
   | { seq: number; week: number; kind: 'queueAdmitted'; entryKind: string; ordinal: number }
   | {
       seq: number
@@ -1808,7 +1916,16 @@ export type StudioPhysicalPlans = {
 export type GameStateV23 = GameStateV22 & { physicalPlans: StudioPhysicalPlans }
 /** P13B-S5 (Save V24): technology root v4 — adoption component rows and durable equipment assets. */
 export type GameStateV24 = GameStateV19 & { technology: import('./technologyTypes.js').StudioTechnology; physicalPlans: StudioPhysicalPlans }
-export type GameState = GameStateV24
+/**
+ * P13B-S5-R07 (Save V25). NO new root: the change at this version is the widened
+ * `ProductionWorkflow.setup` / `.planRevision` leaves and the four setup
+ * `StudioEvent` arms — shared, version-aware-at-the-boundary leaves, exactly as
+ * `ProductionWorkflow.bindings` was for V13/V14 and `queueIntentExpired
+ * .subjectId` was for V14/V15. The distinct name exists so save.ts's version
+ * dispatch has a version to point `GameState` at.
+ */
+export type GameStateV25 = GameStateV24
+export type GameState = GameStateV25
 
 // ── D-14 Talent Career Impact — frozen career-event record (§7) ───────────────
 // The ONE canonical persisted record of a participant's outcome on one released film.
@@ -1927,6 +2044,16 @@ export type Action =
   | { kind: 'strikeSet'; setId: string }
   // ── P06A release authority (charter W1) — the ONE explicit release commitment ──
   | { kind: 'commitPictureToRelease'; productionId: string }
+  // ── P13B-S5-R07 — the reviewed setup-plan verb ──
+  // It names a production, a catalogue recipe and the plan revision it was
+  // reviewed against, and nothing else: a setup plan cannot reach a stage, a
+  // Set or a week of its own.
+  | {
+      kind: 'setProductionSetupRecipe'
+      productionId: string
+      recipeId: ProductionSetupRecipeId
+      expectedPlanRevision: number
+    }
   // ── P13B-S3 physical plans — five verbs, and what they can reach is the design.
   // `queuePhysicalPlan` names WORK and a ceiling, never a placement id: a plan
   // cannot reach an existing building. The other four name a plan id only.

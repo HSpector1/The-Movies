@@ -98,6 +98,30 @@ export type StudioEventDraft =
   | { kind: 'reservationReleased'; ownerId: string; resourceKey: string }
   | { kind: 'phaseEntered'; productionId: string; phase: ProductionPhase }
   | { kind: 'sceneryArrived'; productionId: string }
+  // P13B-S5-R07: the setup subtask's own facts, stated by the weekly advance
+  // that credits them (admission and completion carry the week the advance
+  // produces, which is the week the record itself is stamped with).
+  | {
+      kind: 'setupAdmitted'
+      productionId: string
+      recipeId: string
+      planRevision: number
+      route: string
+      stageFacilityId: string
+      setId: string
+      adoptionId: string | null
+      requiredUnits: number
+    }
+  | { kind: 'setupUnitCredited'; productionId: string; creditedUnits: number; requiredUnits: number }
+  | { kind: 'setupCompleted'; productionId: string; recipeId: string; creditedUnits: number }
+  | {
+      kind: 'setupRebound'
+      productionId: string
+      recipeId: string
+      planRevision: number
+      stageFacilityId: string
+      setId: string
+    }
   | { kind: 'queueAdmitted'; entryKind: string; ordinal: number }
   | {
       kind: 'queueIntentExpired'

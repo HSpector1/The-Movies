@@ -58,6 +58,10 @@ export type {
   ShootingTaskStatus,
   ShootingTask,
   ProductionBlocker,
+  ProductionSetupRecipeId,
+  ProductionSetupRoute,
+  ProductionSetupRecord,
+  ProductionSetupProvenance,
   ProductionWorkflow,
   StudioOperations,
   ConstructionMode,
@@ -1261,6 +1265,11 @@ export {
   validateSaveV24,
   migrateToV24,
   convertV23ToV24,
+  // P13B-S5-R07 — live V24 → NEW V25 + migrateToV25 (the widened production
+  // setup plan leaves and the four setup history rows).
+  validateSaveV25,
+  migrateToV25,
+  convertV24ToV25,
 } from './save.js'
 export type {
   SaveFileV1,
@@ -1287,10 +1296,22 @@ export type {
   SaveFileV22,
   SaveFileV23,
   SaveFileV24,
+  SaveFileV25,
   SaveFile,
   TalentV1,
   GameStateV1,
 } from './save.js'
+
+// ── P13B-S5-R07 Production setup recipes (the rehearsal → Shooting subtask) ──
+export {
+  SETUP_RECIPES,
+  setupRecipeById,
+  setupForecast,
+  deriveSetupProvenance,
+  createProductionSetupRouteResolver,
+  validateProductionSetup,
+} from './productionSetup.js'
+export type { ProductionSetupRecipe } from './productionSetup.js'
 
 // ── P13B-S3 Physical plans (persistent queue, dependencies, admission) ───────
 export {
