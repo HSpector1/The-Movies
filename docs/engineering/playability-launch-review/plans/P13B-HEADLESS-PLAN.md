@@ -780,6 +780,62 @@ requirement tests, effort forecast, Unity backlog — is written before it begin
   A standard-stage R07 pass cannot close A12 or all of P13B. Future recipe-review → setup → Shooting → take → result journey, client bindings,
   readable waits and art stay in `UNITY-INTEGRATION-BACKLOG.md`.
 
+## S6 — Option-B installation cancellation with component receipts and restoration (Ready row 6) — task expansion (drafted 2026-09-17, after S5's engine landed; refined before S6 begins)
+
+**Authority.** Companion §6 / A7 (cancellation traces in `03-PAPER-ECONOMICS.md`, outside this tree) as paraphrased by the S6 scope record below and
+by S5's retained obligations: components charged once, no negative line, delivered equipment retained and reused never re-spawned, completed work
+paid, unstarted work refundable once, restoration job ($25k/2 w sound, $10k/1 w lighting — candidate tuning), same-tick completion ordering,
+cross-year refund bucket. The R07 disposition §4 (repeated cancel → restart lawful; no cloned work, no refunded research, no repeated entitlement)
+applies to physical work by analogy and is recorded here as the rule, not a new product choice. Versions: the next governed save/projection
+versions at execution, after S5-R07's (relative: Save V26 / projection 39 if R07 lands V25 / 38).
+
+**Engine today (verified 2026-09-17).** A committed installation is a `PlacedFacility {projectId, blueprintId, facilityId, status
+'underConstruction'…, placedWeek, completesWeek, installation: {targetFacilityId}}` paid in full at commit as one `constructionCapex` ledger
+row keyed by `constructionProjectId`; completion is applied at the arrival boundary of `completesWeek` (`placement.ts:1042–1055`); there is no
+per-component progress record and no cancel path for a started installation (`cancelPhysicalPlan` refuses `started`). S5 adoptions carry
+`components` mirroring the blueprint's `installationComponents` (label, cost, weeks, placementId) and a held `equipmentAssetId`; assets are
+never deleted. Calendar years are `1920 + floor(week/52)` (`calendar.ts:17`); finance reporting has no refund kind.
+
+**Scope.** Cancel a running installation (any P09 installation with components, including an adoption's stage/Post work and S4's Office
+conversion) with honest per-component receipts, a once-only refund of unworked components, retained equipment, a restoration job where site work
+had begun, and the finance bucket for refunds; restart after restoration without recycled credit. Rival symmetry is S8; S5-R07's setup consumer
+must see a cancelled/restoring stage as non-qualifying (its gate already names it).
+
+**Delegated implementation decisions (recorded; candidate tuning where money is named).**
+- Component progress is derived, never stored: components run in authored order from `placedWeek`; component k spans `[start_k, start_k +
+  weeks_k)`; at cancel week w (action applied before the boundary to w+1) a component is `completed` (its end ≤ w), `inProgress` (start < w <
+  end; worked = w − start whole weeks; paid = cost·worked/weeks rounded to whole money toward the studio's favour, remainder refunded) or
+  `unstarted` (refunded in full). Zero-week components (capture package) are paid iff any physical component has completed or begun, else refunded.
+- Action `cancelInstallation {projectId}` (and `cancelAdoption {adoptionId}` = cancel every remaining physical component of that adoption): refused
+  when the placement is operational, already cancelled, or not the player's; writes ONE `constructionRefund` ledger row (`constructionProjectId`
+  = the cancelled project, amount = Σ refunds, week w) and a `CancellationReceipt {projectId, week, components: [{label, cost, weeks, status,
+  paid, refunded}], refund, restorationProjectId: string | null}` on the placement record (`status: 'cancelled'`); a second cancel is refused;
+  a later restart of the same blueprint on the same target is a NEW placement quoted anew (no refund credit, no free components).
+- Equipment: an adoption whose physical work is cancelled keeps its asset (`holderAdoptionId → null`, asset unheld); the adoption row gains
+  `cancelledWeek`; the first-prototype entitlement is not restored (the asset exists and is reused at $0 by S5's unheld-asset rule on restart).
+  Research is never refunded; access is never revoked.
+- Restoration: if any site-adaptation component had begun, cancellation auto-commits a restoration installation on the same target
+  (`restoration-sound-stage` $25,000/2 w, `restoration-lighting-stage` $10,000/1 w, `restoration-office` for S4 conversions at the II/III
+  component's own site cost share — candidate) that takes the target offline like S4's conversions and returns it at completion; nothing to
+  restore if no site work began. Restoration is itself cancellable? No — refused (it is the cost of the cancellation).
+- Same-tick ordering: the boundary completion sweep runs before plan admission and before any action of week w+1; a cancel at week w never
+  refunds a component whose end ≤ w and never pays a component whose start ≥ w. Save/reload between the action and the boundary changes nothing.
+- Cross-year refund bucket: the finance report shows refunds as their own line in the calendar year of the refund week, never as a retroactive
+  edit of the year the capex was paid; the report's yearly capex totals stay historical.
+- Validator: receipt sums (Σ paid + Σ refunded = Σ component costs), refund row amount = receipt refund, no negative, one receipt per project,
+  cancelled placement never operational, asset unheld iff its adoption is cancelled, restoration project present iff site work began.
+- Save V(next): placement records gain `cancellation: CancellationReceipt | null`, adoptions `cancelledWeek: number | null`, ledger kind
+  `constructionRefund`; honest lift (null / none); genuine fixtures of the prior version minted at its final writer before any S6 change.
+- Bridge (projection next, text only): `cancel-<projectId>` rows on the Laboratory/Office/plans surfaces with the receipt quote (per component
+  status/paid/refund, restoration cost/weeks, engine refusal + rejections), restoration rows, finance page refund line.
+
+**Tests (RED-first).** 1 receipts by exact trace (lighting cancelled after site complete: paid 50,000 / refund 50,000 + restoration 10,000/1 w;
+during installation week 1 of 2: paid 75,000 / refund 25,000; sound during site week 3 of 9: paid 150,000 / refund 300,000 + 150,000 + 75,000,
+Post placement refunded in full if unstarted, restoration 25,000/2 w; S4 Office II cancelled mid-way with the office restored online). 2 once-only
+refund; restart quoted anew; no cloned work. 3 asset retained and reused at $0 on the next adoption of the same technology; entitlement not
+restored. 4 restoration: target offline until completion, opex law as S4, its own ledger row. 5 same-tick ordering with save/reload. 6 finance
+year bucket. 7 Save V(next) + validator refusals. 8 bridge rows. **Allowance:** 8 h capability, 3 h verification.
+
 ## S6 — Option-B installation cancellation (Ready row 6) — scope record
 
 Component quantity/progress/cost receipts; completed work paid, unstarted refundable once, delivered
