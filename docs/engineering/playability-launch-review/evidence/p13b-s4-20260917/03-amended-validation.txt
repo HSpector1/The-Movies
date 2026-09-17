@@ -1,0 +1,13 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p13b-s4-validation.test.ts (7 tests) 3268ms
+   ✓ P13B-S4 conservation, determinism, save/reload (test 5) > conservation: the conversion's constructionCapex equals the committed quote, and cash reconciles exactly against the ledger 672ms
+   ✓ P13B-S4 conservation, determinism, save/reload (test 5) > determinism: the same actions from the same seed produce a byte-identical exportSave 1157ms
+   ✓ P13B-S4 conservation, determinism, save/reload (test 5) > save/reload mid-conversion continues identically (Save V23 unchanged -- a conversion is a normal placement record) 967ms
+
+ Test Files  1 passed (1)
+      Tests  7 passed (7)
+   Start at  02:26:34
+   Duration  5.97s (transform 1.13s, setup 0ms, collect 2.24s, tests 3.27s, environment 0ms, prepare 107ms)
+

@@ -20,13 +20,31 @@
 
 import { describe, expect, it } from 'vitest'
 import { applyActions } from '../src/core/actions.js'
+import { hiringMarketIds } from '../src/core/employment.js'
 import { commitFacilityInstallation } from '../src/core/placement.js'
 // RED-by-design import: src/core/officeConversion.ts does not exist yet.
 import { developmentStandard } from '../src/core/officeConversion.js'
 import { tick } from '../src/core/tick.js'
 import type { GameState } from '../src/core/types.js'
 import { advanceTo, p13aLaboratorySlice } from '../src/harness/p13a/fixtures.js'
-import { contractedByRole, managedStudio } from './contracts/_contractFixtures.js'
+
+/**
+ * The first week (searched forward, never hardcoded -- deterministic per seed
+ * but not worth pinning to one week number) `hiringMarketIds`' rotation offers
+ * a writer to sign. `p13aLaboratorySlice()` starts with no contracted talent
+ * at all, and signing during the founding draft is not available once the
+ * studio is already operating, so this is the lawful route to one real,
+ * contracted writer on that exact world.
+ */
+function firstWriterInHiringMarket(state: GameState): { state: GameState; writerId: string } {
+  let current = state
+  for (let i = 0; i < 80; i++) {
+    const writer = hiringMarketIds(current).map(id => current.talent.find(t => t.id === id)).find(t => t?.role === 'writer')
+    if (writer !== undefined) return { state: current, writerId: writer.id }
+    current = tick(current)
+  }
+  throw new Error('p13b-s4 plans fixture: no writer entered the hiring market within 80 weeks')
+}
 
 /** Local action-literal type, independent of wherever `PhysicalPlan['work']` ends up living (same idiom `tests/p13b-s3-admission.test.ts` uses). */
 type PlanWork =
@@ -79,13 +97,37 @@ describe('P13B-S4 P09/S3 integration (test 4)', () => {
   })
 
   it('a plan queued while the office is occupied by a drafting screenplay holds on targetEngaged and admits the boundary the slot frees (C2a-M4 queue idiom, same ordering S3 test 2 proves for an installation holder)', () => {
-    let state = managedStudio('p13b-s4-plans-engaged')
+    // FIXTURE PREMISE FIX (measured 2026-09-17, evidence PROBE B): the
+    // ORIGINAL fixture here was `managedStudio(...)`, whose `state.hollywood`
+    // root carries `playerStudioId: null` (it predates the Hollywood/P13
+    // machinery and never calls `initializeHollywood`) -- `queuePhysicalPlan`'s
+    // `ownStudio()` refuses "Found the studio before planning physical work."
+    // before any S4 law runs, on EVERY plan queued from that base, regardless
+    // of occupancy. `p13aLaboratorySlice()` (used by this file's other cases)
+    // carries a real player studio id and is used here instead.
+    //
+    // A "two installations on one target" alternative (S3's own idiom for a
+    // Laboratory module) was tried and does NOT reproduce here (measured
+    // directly against the real engine, 2026-09-17): once the first
+    // conversion commits, `facilityOffline` zeroes the office's registry
+    // capacity, and the `installation` claim generator (`occupancy.ts`
+    // `resourceClaims`) iterates `0..facility.capacity` for an
+    // underConstruction installation -- zero capacity means zero claims, so a
+    // SECOND conversion query on the SAME body sees no `targetEngaged` holder
+    // from the first at all; both admitted in the same tick instead. A
+    // SCREENPLAY's claim is keyed to its own recorded `project.reservation`,
+    // taken BEFORE the office ever goes offline, so it is the occupant that
+    // genuinely demonstrates `targetEngaged` for a conversion.
+    // `p13aLaboratorySlice()` starts with no contracted writer, so one is
+    // signed from the live hiring-market rotation.
+    let state = applyActions(p13aLaboratorySlice(), [{ kind: 'activateScriptDevelopment' }])
     const officeFacilityId = state.operations.facilities.find(f => f.capability === 'development-casting')!.id
-    const writer = contractedByRole(state, 'writer')[0]!
+    const found = firstWriterInHiringMarket(state)
+    state = applyActions(found.state, [{ kind: 'signContract', talentId: found.writerId, termWeeks: 104 }])
     state = applyActions(state, [{
       kind: 'commissionOriginalScreenplay',
       screenplay: {
-        writerId: writer.id,
+        writerId: found.writerId,
         genre: 'drama',
         shape: { opening: 'slowSetup', midpoint: 'revelation', ending: 'bittersweet' },
         promise: {
@@ -95,7 +137,7 @@ describe('P13B-S4 P09/S3 integration (test 4)', () => {
         },
       },
     } as never])
-    const draftingProject = state.scriptDevelopment.projects.find(p => p.writerId === writer.id)!
+    const draftingProject = state.scriptDevelopment.projects.find(p => p.writerId === found.writerId)!
     const dueWeek = draftingProject.dueWeek!
     expect(dueWeek).toBeGreaterThan(state.market.tick) // a real, not-yet-complete draft
 
@@ -114,6 +156,18 @@ describe('P13B-S4 P09/S3 integration (test 4)', () => {
     state = tick(state)
     expect(state.market.tick).toBe(dueWeek)
     expect(state.physicalPlans.plans[0]!.status).toBe('started')
+  })
+
+  it('queueing a conversion against a body already at its target standard is refused at QUEUE time (standardAlreadyMet is a permanent refusal, never merely held)', () => {
+    let state = p13aLaboratorySlice()
+    const officeFacilityId = state.operations.facilities.find(f => f.capability === 'development-casting')!.id
+    state = commitFacilityInstallation(state, { blueprintId: 'office-conversion-iii', targetFacilityId: officeFacilityId })
+    state = advanceTo(state, state.market.tick + 16)
+    expect(developmentStandard(state, officeFacilityId)).toBe('III')
+
+    expect(() =>
+      queuePlan(state, { kind: 'installation', blueprintId: 'office-conversion-iii', target: { facilityId: officeFacilityId } }, 1_250_000),
+    ).toThrow(/standardAlreadyMet/)
   })
 
   it('a chained I->II then II->III plan pair via dependsOn: the second starts the boundary after the first completes', () => {

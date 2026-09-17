@@ -30,7 +30,7 @@ import {
 // RED-by-design import: src/core/officeConversion.ts does not exist yet.
 import { conversionQuote, developmentStandard } from '../src/core/officeConversion.js'
 import { advanceTo, p13aLaboratorySlice } from '../src/harness/p13a/fixtures.js'
-import { s4NextOrigin } from '../src/harness/p13b/s4-fixtures.js'
+import { s4FirstCleanOrigin } from '../src/harness/p13b/s4-fixtures.js'
 import { commissionFor } from './_m4Fixtures.js'
 import { managedStudio, withCash } from './contracts/_contractFixtures.js'
 
@@ -123,9 +123,17 @@ describe('P13B-S4 quotes (test 1)', () => {
 
   it('a standalone Development Office III is still refused without II, wording unchanged (existing, non-S4 law)', () => {
     const state = p13aLaboratorySlice()
-    const origin = s4NextOrigin(state, 'development-office-3')
+    // FIXTURE PREMISE FIX (measured 2026-09-17, evidence PROBE A): `s4NextOrigin`
+    // only ever returns a wholly-`ok` origin and cannot serve a case that is
+    // precisely ABOUT a requirement refusal -- of the 576 origins on this
+    // generated lot, none is `ok:true` for `development-office-3` (it always
+    // needs an operational Development Office II first), so the ORIGINAL
+    // `s4NextOrigin` call here threw instead of exercising the law. The law
+    // itself holds verbatim at a real, geometrically clean origin.
+    const origin = s4FirstCleanOrigin(state, 'development-office-3')
     const quote = queryPlacement(state, { blueprintId: 'development-office-3', origin })
     expect(quote.ok).toBe(false)
-    expect(quote.unmetRequirements.map(u => u.reason)).toContain('Requires an operational Development Office II.')
+    expect(quote.rejections).toContain('requirementsUnmet')
+    expect(quote.unmetRequirements[0]!.reason).toBe('Requires an operational Development Office II.')
   })
 })

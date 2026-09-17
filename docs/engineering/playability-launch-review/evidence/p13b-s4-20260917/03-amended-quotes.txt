@@ -1,0 +1,14 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p13b-s4-quotes.test.ts (9 tests) 2532ms
+   ✓ P13B-S4 quotes (test 1) > I->II quotes $500,000 over 4 weeks 694ms
+   ✓ P13B-S4 quotes (test 1) > II->III quotes $850,000 over 8 weeks on a body already converted to II; the staged sum exceeds the direct price 368ms
+   ✓ P13B-S4 quotes (test 1) > refuses a body already at III with standardAlreadyMet 382ms
+   ✓ P13B-S4 quotes (test 1) > a standalone Development Office III is still refused without II, wording unchanged (existing, non-S4 law) 312ms
+
+ Test Files  1 passed (1)
+      Tests  9 passed (9)
+   Start at  02:22:02
+   Duration  5.13s (transform 1.58s, setup 0ms, collect 2.18s, tests 2.53s, environment 0ms, prepare 116ms)
+
