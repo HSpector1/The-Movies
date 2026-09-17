@@ -11,7 +11,9 @@
   reverified on the final source (`32-*`, 36/36). RED-first evidence: `21-red-*` (tests 1–8), `28` (test 9 at 30836b0). Five test-premise
   amendments and the delegated decisions are itemized in the plan (S3 tasks). Process learnings saved to memory: mint fixtures before the writer
   moves; RED-first files import from a not-yet-existing module (vite binds missing named exports to `undefined`).
-- **S4 in progress (2026-09-17 ≈03:10):** engine complete and committed (`dba78d0` + engagement fix `c2d27d1`; S4 core files 30/30; Save V23
+- **S4 T1–T3 landed; T4 matched pass running on `8334a3f` (2026-09-17 ≈03:45; `evidence/p13b-s4-20260917/12-RUN`, `12-test-core-*`, `13-test-bridge-*`).**
+  Live projection **36** (schemaId `sha256:c2247716…`); Save V23 unchanged. Backlog S4 entry written. Label after attribution; then S5.
+- **S4 in progress (earlier note, ≈03:10):** engine complete and committed (`dba78d0` + engagement fix `c2d27d1`; S4 core files 30/30; Save V23
   unchanged); bridge T3 (projection 36 `view: 'office'`, `StudioOfficePage`, `office-convert-<facilityId>-ii|iii` + plan companions) in flight
   with `tests/bridge-p13b-s4-office.test.ts` being written; then T4 matched pass, backlog entry, label. Adjudications and the engagement gap are
   itemized in the plan's S4 tasks.
