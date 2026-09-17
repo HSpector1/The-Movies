@@ -1,0 +1,22 @@
+S6-T4 attribution follow-up — two non-inherited core failures at 83187c2, both reproduced single-worker, both TEST-SIDE
+
+=== 1. tests/facility-effects.test.ts — catalog roster pins the exact FACILITY_BLUEPRINTS id order; S6 appended restoration-sound-stage, restoration-lighting-stage, restoration-office (sweep miss: the 17→20 count pins were bumped, this roster was not). Fix: the three ids appended with a P13B-S6 comment. ===
+
+=== 2. tests/p11-finance-history-scale.test.ts — reportBytes 103,332 vs a 100,000 proxy bound. Diagnostic: the same 6,240-week report dumped at 06f05cf (temporary worktree) and at HEAD, npx tsx probe-finance-dump.mts ===
+at 06f05cf: 
+{"reportBytes":99151,"ledgerEntries":6240,"cash":-73600000,"facilities":0,"kinds":{"overhead":6240}}
+at 83187c2: 
+{"reportBytes":103332,"ledgerEntries":6240,"cash":-73600000,"facilities":0,"kinds":{"overhead":6240}}
+diff: 406 lines, all additions — the constructionRefund category series (13 + 52 zero points) in both windows; nothing else differs:
+>      "kind": "constructionRefund",
+>      "label": "Cancelled installation capital returned",
+>      "periodAmount": 0,
+>      "kind": "constructionRefund",
+>      "label": "Cancelled installation capital returned",
+>      "periodAmount": 0,
+Cause: financeHistory publishes a series per authored category whether or not it has entries; the S6 category is plan law ('Cancelled installation capital returned'). Fix: the proxy bound raised 100,000 → 110,000 with the measurement in the test; the 13/52-point caps (the actual boundedness law) unchanged.
+
+=== reruns, single-worker ===
+{"proof":"p11-week-history-scale","advances":6240,"ledgerEntries":6240,"saveBytes":726423,"reportBytes":103332,"queryMilliseconds":3.32}
+ Test Files  2 passed (2)
+      Tests  21 passed (21)

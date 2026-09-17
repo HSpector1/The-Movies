@@ -26,7 +26,12 @@ describe('P11 bounded history at long-save scale', () => {
         period.toWeekInclusive, period.id, period.label))
       expect(window.points.at(-1)!.closingCash).toBe(state.studio.cash)
     }
-    expect(reportBytes).toBeLessThan(100_000)
+    // The bound guards growth with SAVE LENGTH (the 13/52-point caps above), not with
+    // the authored category count: every FINANCE_CATEGORIES entry publishes a 13- and
+    // a 52-point series per window whether or not it has entries. Measured on this
+    // trajectory: 99,151 bytes at 18 categories (S4–S5-R07 passes), 103,332 at 19
+    // (P13B-S6 `constructionRefund`; evidence p13b-s6-20260917/22).
+    expect(reportBytes).toBeLessThan(110_000)
     expect(queryMilliseconds).toBeLessThan(2_000)
     expect(stableStringify(makeSaveV18(state))).toBe(saveBefore)
     console.info(JSON.stringify({ proof: 'p11-week-history-scale', advances: 6_240,

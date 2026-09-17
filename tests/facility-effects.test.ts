@@ -188,6 +188,11 @@ describe('C1-M4 — the widened catalog', () => {
       // existing entry's authored position moves.
       'office-conversion-ii',
       'office-conversion-iii',
+      // P13B-S6 — the restoration jobs a cancelled installation commits (plan
+      // §S6 T1), catalogued here only (never offered by a catalogue), APPENDED.
+      'restoration-sound-stage',
+      'restoration-lighting-stage',
+      'restoration-office',
     ])
     // The bounded-term law runs at every action, tick, and save boundary; this
     // pins the authored values themselves so a price cannot drift unnoticed.
