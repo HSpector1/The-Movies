@@ -278,7 +278,7 @@ describe('D-12: reload equals continuous play with an active run straddling the 
 
     const continuous = advance(midRun, 6)
     const reloaded = importSave(exportSave(makeSave(midRun)))
-    if (reloaded.saveVersion !== 23) throw new Error('expected V23')
+    if (reloaded.saveVersion !== 24) throw new Error('expected V24')
     const split = advance(migrateToCurrentControl(reloaded).state, 6)
 
     expect(exportSave(makeSave(split))).toBe(exportSave(makeSave(continuous)))

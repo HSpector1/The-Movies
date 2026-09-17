@@ -40,7 +40,7 @@ import type {
   FilmConcept,
   Segment,
 } from "../src/core/index.js";
-import type { SaveFileV14, SaveFileV15, SaveFileV23 } from "../src/core/save.js";
+import type { SaveFileV14, SaveFileV15, SaveFileV24 } from "../src/core/save.js";
 import { initialProperty } from "../src/core/lot.js";
 import { contendedStudio, freePackage } from "./_m4Fixtures.js";
 
@@ -217,10 +217,10 @@ function makeState(broadcastItems: BroadcastItem[]): GameState {
 }
 
 // A well-formed save: envelope seed === state.seed, broadcastCache === broadcastItems.
-// `makeSave` is the live boundary (P13B-S3): SaveFileV23. Every V1–V13-style shape
+// `makeSave` is the live boundary (P13B-S5): SaveFileV24. Every V1–V13-style shape
 // assertion below is unchanged by the cutover — only the envelope's own version
 // tag moved.
-function wellFormedSave(): SaveFileV23 {
+function wellFormedSave(): SaveFileV24 {
   const items = [broadcastItem];
   const state = makeState(items);
   return makeSave(state);
@@ -261,7 +261,7 @@ describe("§17 — loud rejection of an unknown saveVersion", () => {
     // sentinel this test reaches for one version past the known ceiling moves
     // with it — 17 to 18.
     const save = wellFormedSave();
-    const bad = { ...save, saveVersion: 24 } as unknown as SaveFileV14;
+    const bad = { ...save, saveVersion: 25 } as unknown as SaveFileV14;
     expect(() => loadSave(bad)).toThrow();
   });
 });
@@ -271,7 +271,7 @@ describe("M14 — loud rejection when envelope seed ≠ state.seed", () => {
     // Source: M14 "the envelope seed must equal state.seed; load validation
     // rejects any divergence loudly (same failure mode as an unknown saveVersion)."
     const save = wellFormedSave();
-    const bad: SaveFileV23 = { ...save, seed: "a-different-seed" };
+    const bad: SaveFileV24 = { ...save, seed: "a-different-seed" };
     expect(() => loadSave(bad)).toThrow();
   });
 });
@@ -285,14 +285,14 @@ describe("M14 — loud rejection when broadcastCache ≠ state.broadcastItems", 
       ...broadcastItem,
       template: "release-worse",
     };
-    const bad: SaveFileV23 = { ...save, broadcastCache: [divergentItem] };
+    const bad: SaveFileV24 = { ...save, broadcastCache: [divergentItem] };
     expect(() => loadSave(bad)).toThrow();
   });
 
   it("throws when broadcastCache differs from state.broadcastItems by length", () => {
     // Source: M14 — any divergence (including cardinality) is rejected.
     const save = wellFormedSave();
-    const bad: SaveFileV23 = { ...save, broadcastCache: [] };
+    const bad: SaveFileV24 = { ...save, broadcastCache: [] };
     expect(() => loadSave(bad)).toThrow();
   });
 });
@@ -396,10 +396,10 @@ describe("P04A §2.5 — SaveFileV15 identity-bearing queue expiry", () => {
     ).toMatchObject({ subjectId: null });
   });
 
-  it("rejects an unknown saveVersion 24 with the updated range, and rejects downgrading V15 to V14", () => {
+  it("rejects an unknown saveVersion 25 with the updated range, and rejects downgrading V15 to V14", () => {
     const save = wellFormedV15Save();
-    expect(() => validateSave({ ...save, saveVersion: 24 })).toThrow(
-      /versions 1 through 23 only/,
+    expect(() => validateSave({ ...save, saveVersion: 25 })).toThrow(
+      /versions 1 through 24 only/,
     );
     expect(() => migrateToV14(save)).toThrow(/cannot downgrade SaveFileV15/);
   });

@@ -50,10 +50,32 @@ function runToCompletion(state: GameState, technologyId: string, boundWeek: numb
   return next
 }
 
+/** The genuine, RECONCILED cash move this repo's test files each carry their own
+ * copy of (see tests/p13b-s3-admission.test.ts's `spendDownTo`, duplicated-not-
+ * shared by design) — a bare `studio.cash` override is refused by `tick()`'s
+ * construction cash-ledger invariant. Generalized to fund UP as well as down:
+ * the SAME signed ledger delta (`target - current`) covers both directions. */
+function fundTo(state: GameState, target: number): GameState {
+  const delta = target - state.studio.cash
+  return {
+    ...state,
+    studio: { ...state.studio, cash: target },
+    ledger: [...state.ledger, { week: state.market.tick, kind: 'overhead', amount: delta, note: 'weekly studio overhead' }],
+  }
+}
+
 /** Both technologies researched to completion, seeded once and reused identically by both determinism runs. */
 function bothTechnologiesReady(): { state: GameState; lab1: string; lab2: string } {
   const { state: world, laboratoryFacilityIds: [lab1, lab2], candidateIds } = p13bTwoLabWorld()
-  let state = applyActions(world, [{ kind: 'assignResearchScientist', laboratoryFacilityId: lab1, scientistId: candidateIds[0]!, technologyId: 'synchronized-sound' }])
+  // p13bTwoLabWorld() carries no revenue business, so 1 seat of sound ($10k/wk)
+  // alongside 4 seats of lighting ($40k/wk) run the world into the D-12.11
+  // solvency gate: measured, cash first goes negative at week 811 with sound
+  // frozen at 46.5/64 verifiedWork (lighting has already completed, 64/64, at
+  // week 791 — canAfford failing yields a zero-output research week, so sound
+  // never resumes on its own). Fund the world lawfully up front so both
+  // projects run to completion; measured, sound then completes at week 823
+  // with lighting unchanged at 791.
+  let state = applyActions(fundTo(world, 5_000_000), [{ kind: 'assignResearchScientist', laboratoryFacilityId: lab1, scientistId: candidateIds[0]!, technologyId: 'synchronized-sound' }])
   state = applyActions(state, candidateIds.slice(1, 5).map(scientistId =>
     ({ kind: 'assignResearchScientist' as const, laboratoryFacilityId: lab2, scientistId, technologyId: 'lighting-control-01' as const })))
   state = begin(state, 'synchronized-sound', 10_000)
@@ -75,7 +97,23 @@ describe('P13B-S5 conservation, determinism, campaign isolation (test 6)', () =>
     state = applyActions(state, [{ kind: 'adoptTechnology', technologyId: LIGHTING.id, stageFacilityId: lightingStage } as never])
     state = advanceTo(state, state.market.tick + SOUND.deploymentWeeks) // both fully operational
 
-    const [soundAdoption, lightingAdoption] = state.technology.adoptions
+    // Pre-existing defect found while unblocking S5-T4/T5's fixture-solvency
+    // adjudication (not itself a solvency issue): `p13bTwoLabWorld()` is built
+    // on `p13aLaboratorySlice()`, which already carries the rival's OWN
+    // organic commercial sound adoption (this file's own "campaign isolation"
+    // case documents it, committed week 520) as `technology.adoptions[0]`
+    // BEFORE the player's two rows are appended — so a positional
+    // `const [soundAdoption, lightingAdoption] = state.technology.adoptions`
+    // silently reads [rival's sound, player's sound] instead of [player's
+    // sound, player's lighting]. This was never reached before (the fixture
+    // always errored out on insolvency first), so it was never proven.
+    // Identifying the player's own rows by (studioId, technologyId) — the
+    // exact scoping the entitlement test in tests/p13b-s5-quotes.test.ts
+    // already proves is authoritative — is a test-side data-extraction fix,
+    // not a changed assertion: every expectation below is unchanged.
+    const own = ready.hollywood!.playerStudioId
+    const soundAdoption = state.technology.adoptions.find(a => a.studioId === own && a.technologyId === SOUND.id)
+    const lightingAdoption = state.technology.adoptions.find(a => a.studioId === own && a.technologyId === LIGHTING.id)
     expect(soundAdoption).toBeDefined()
     expect(lightingAdoption).toBeDefined()
     const retainedTotal = soundAdoption!.equipmentCost + soundAdoption!.installationCost + lightingAdoption!.equipmentCost + lightingAdoption!.installationCost

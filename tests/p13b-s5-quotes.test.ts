@@ -78,6 +78,24 @@ function assertNoNegativeLine(components: readonly { cost: number }[]): void {
   for (const c of components) expect(c.cost).toBeGreaterThanOrEqual(0)
 }
 
+/** The genuine, RECONCILED cash move this repo's test files each carry their own
+ * copy of (see tests/p13b-s3-admission.test.ts's `spendDownTo`, duplicated-not-
+ * shared by design) — a bare `studio.cash` override is refused by `tick()`'s
+ * construction cash-ledger invariant. Generalized to fund UP as well as down:
+ * the SAME signed ledger delta (`target - current`) covers both directions.
+ * Needed here because `p13bTwoLabWorld()` carries no revenue business, so it is
+ * insolvent (measured: -$6,431,760) by week 936 on overhead burn alone — the
+ * commercial purchase this fixture drives is refused by the pre-existing
+ * D-12.11 solvency gate (`canAfford`) unless the world is funded first. */
+function fundTo(state: GameState, target: number): GameState {
+  const delta = target - state.studio.cash
+  return {
+    ...state,
+    studio: { ...state.studio, cash: target },
+    ledger: [...state.ledger, { week: state.market.tick, kind: 'overhead', amount: delta, note: 'weekly studio overhead' }],
+  }
+}
+
 describe('P13B-S5 quotes and components per route (test 1)', () => {
   it('first inventor sound: access $0, equipment $0 first-prototype, physical $975k = stage + Post components', () => {
     const state = soundInventorReady()
@@ -171,6 +189,11 @@ describe('P13B-S5 quotes and components per route (test 1)', () => {
 
   it('lighting commercial at 936: access $100k charged once at purchase, equipment $200k commercial, physical $100k', () => {
     let state = advanceTo(p13bTwoLabWorld().state, LIGHTING.commercialWeek)
+    // p13bTwoLabWorld() carries no revenue business; measured cash here is
+    // -$6,431,760 (overhead burn only from week 780 to 936). Fund the world
+    // lawfully before the purchase so the $100,000 access charge is affordable
+    // under the D-12.11 solvency gate — this is fixture staging, not tuning.
+    state = fundTo(state, 1_000_000)
     state = applyActions(state, [{ kind: 'purchaseTechnology', technologyId: LIGHTING.id }])
     const purchases = state.ledger.filter(e => e.kind === 'technologyAdoption' && e.note === `technology-access:${state.hollywood!.playerStudioId}:${LIGHTING.id}`)
     expect(purchases).toHaveLength(1)
@@ -205,7 +228,16 @@ describe('P13B-S5 quotes and components per route (test 1)', () => {
     // entitlement on stage 2 — the two are scoped by (studio, technology,
     // project), never shared.
     const { state: world, laboratoryFacilityIds: [lab1, lab2], candidateIds } = p13bTwoLabWorld()
-    let state = applyActions(world, [{ kind: 'assignResearchScientist', laboratoryFacilityId: lab1, scientistId: candidateIds[0]!, technologyId: 'synchronized-sound' }])
+    // p13bTwoLabWorld() carries no revenue business, so 1 seat of sound ($10k/wk)
+    // alongside 4 seats of lighting ($40k/wk) run the world into the D-12.11
+    // solvency gate: measured, cash first goes negative at week 811 with sound
+    // frozen at 46.5/64 verifiedWork (lighting has already completed, 64/64, at
+    // week 791 — canAfford failing yields a zero-output research week, so sound
+    // never resumes on its own). Fund the world lawfully up front so both
+    // projects run to completion; measured, sound then completes at week 823
+    // with lighting unchanged at 791.
+    let state = fundTo(world, 5_000_000)
+    state = applyActions(state, [{ kind: 'assignResearchScientist', laboratoryFacilityId: lab1, scientistId: candidateIds[0]!, technologyId: 'synchronized-sound' }])
     state = applyActions(state, candidateIds.slice(1, 5).map(scientistId =>
       ({ kind: 'assignResearchScientist' as const, laboratoryFacilityId: lab2, scientistId, technologyId: 'lighting-control-01' as const })))
     state = begin(state, 'synchronized-sound', 10_000)

@@ -62,7 +62,7 @@ import {
   studioPlacementView,
   tick,
   validateSave,
-  validateSaveV23,
+  validateSaveV24,
   assertStudioPlacementInvariants,
   expectedWeeklyOperatingCostAt,
 } from '../src/core/index.js'
@@ -474,7 +474,7 @@ describe('C1-M1a (b) — nothing assumes eight structures or a small placement c
     // And it all round-trips byte-identically at the live boundary.
     const json = exportSave(makeSave(operational))
     const reloaded = migrateToCurrentControl(importSave(json))
-    expect(reloaded.saveVersion).toBe(23)
+    expect(reloaded.saveVersion).toBe(24)
     expect(exportSave(makeSave(reloaded.state))).toBe(json)
     expect(reloaded.state.property).toEqual(INITIAL_PROPERTY)
     expect(reloaded.state.placement.facilities).toEqual(operational.placement.facilities)
@@ -641,9 +641,9 @@ describe('C1-M1a (d) — SaveFileV13', () => {
       const save = makeSave(state)
       // P04A: the LIVE envelope is now V15. The property root and every claim
       // this case makes about it are unchanged — only which version writes it.
-      expect(save.saveVersion).toBe(23)
+      expect(save.saveVersion).toBe(24)
       expect(validateSave(save)).toBe(save)
-      expect(validateSaveV23(save)).toBe(save)
+      expect(validateSaveV24(save)).toBe(save)
       expect(save.state.property).toEqual(INITIAL_PROPERTY)
       const json = exportSave(save)
       expect(exportSave(importSave(json))).toBe(json)
@@ -740,7 +740,7 @@ describe('C1-M1a (d) — SaveFileV13', () => {
     for (const [, mutate, expected] of cases) {
       const bad = clone(valid)
       mutate(bad)
-      expect(() => validateSaveV23(bad)).toThrow(expected)
+      expect(() => validateSaveV24(bad)).toThrow(expected)
     }
   })
 
@@ -809,7 +809,7 @@ describe('C1-M1a (d) — SaveFileV13', () => {
     for (const [, mutate, expected] of cases) {
       const bad = clone(valid)
       mutate(bad)
-      expect(() => validateSaveV23(bad)).toThrow(expected)
+      expect(() => validateSaveV24(bad)).toThrow(expected)
     }
   })
 
@@ -821,7 +821,7 @@ describe('C1-M1a (d) — SaveFileV13', () => {
     const forged = clone(makeSave(state))
     // Move the Theater onto the Annex's ground. Nothing may stand in a body.
     forged.state.property.structures.find((s) => s.id === 'theater')!.origin = { gx: 7, gy: 15 }
-    expect(() => validateSaveV23(forged)).toThrow(
+    expect(() => validateSaveV24(forged)).toThrow(
       /placed facility 1 overlaps property structure "theater"/,
     )
   })
@@ -882,10 +882,10 @@ describe('C1-M1a (d) — SaveFileV13', () => {
     }
   })
 
-  it('rejects unknown V24 beyond the current V23 boundary', () => {
+  it('rejects unknown V25 beyond the current V24 boundary', () => {
     const live = makeSave(managedStudio('c1-m1a-unknown'))
-    expect(() => validateSave({ ...live, saveVersion: 24 })).toThrow(
-      /unknown saveVersion 24.*versions 1 through 23 only/,
+    expect(() => validateSave({ ...live, saveVersion: 25 })).toThrow(
+      /unknown saveVersion 25.*versions 1 through 24 only/,
     )
   })
 })

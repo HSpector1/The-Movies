@@ -21,7 +21,8 @@ function studio(): GameState {
 /** Isolate the P09 transition boundary; research/access history has separate Core tests. */
 function withSoundAccess(state: GameState): GameState {
   return { ...state, technology: {
-    version: 3, recordingStartedWeek: 0, cooperationFromWeek: 0, projects: [], adoptions: [], productions: [],
+    version: 4, recordingStartedWeek: 0, cooperationFromWeek: 0, projects: [], adoptions: [], productions: [],
+    equipment: [], nextEquipmentId: 0,
     access: [{ studioId: state.hollywood!.playerStudioId, technologyId: 'synchronized-sound',
       route: 'research', chosenWeek: 0, acquiredWeek: 0, accessCost: 0, researchProjectId: 'physical-test-access' }],
   } }

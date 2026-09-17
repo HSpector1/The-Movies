@@ -1,0 +1,94 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p13b-s3-admission.test.ts (17 tests) 10423ms
+   ✓ P13B-S3 admission law (test 1) > a fresh world carries the empty physicalPlans root the contract defines 955ms
+   ✓ P13B-S3 admission law (test 1) > a queued acoustic installation on a Lab without instruments starts at the next boundary, matching a hand commit at the same week 362ms
+   ✓ P13B-S3 admission law (test 1) > cost above the ceiling holds with a reason naming both dollar amounts; automatic admission within the ceiling starts 332ms
+   ✓ P13B-S3 ordering and envelope (test 5) > two plans on independent targets, cash for one: the first starts, the second stays queued with an insufficient-cash reason and no partial debit 406ms
+   ✓ P13B-S3 ordering and envelope (test 5) > admission drains cash inside the SAME tick research reads: the plan starts and that week's research receipt is skipped for insufficient cash 4237ms
+   ✓ P13B-S3 ordering and envelope (test 5) > a dependency completing in week w enables its dependent at w+1's admission boundary, never within w 475ms
+   ✓ P13B-S3 conservation, determinism, replay, history and rival symmetry (test 6) > determinism: replaying the same actions from the same start produces byte-identical exportSave output 716ms
+   ✓ P13B-S3 conservation, determinism, replay, history and rival symmetry (test 6) > replay: save/reload mid-queue then continue matches an uninterrupted run, byte for byte 715ms
+ ✓ |core| tests/p13b-s2-access-identity.test.ts (14 tests) 16851ms
+   ✓ P13B-S2 access identity: completion grant must key on (studioId, technologyId) > 6. save/reload and later ticks: exactly two rows, no duplicates, no erasure; validateSaveV24 accepts 604ms
+ ✓ |core| tests/p13b-s2-doc03.test.ts (17 tests) 13375ms
+ ✓ |core| tests/p13b-s4-plans.test.ts (6 tests) 5772ms
+   ✓ P13B-S4 P09/S3 integration (test 4) > a conversion queued as an S3 plan admits at the next boundary through the same P09 commit as a hand commit at that week 1600ms
+   ✓ P13B-S4 P09/S3 integration (test 4) > a plan queued while the office is occupied by a drafting screenplay holds on targetEngaged and admits the boundary the slot frees (C2a-M4 queue idiom, same ordering S3 test 2 proves for an installation holder) 936ms
+   ✓ P13B-S4 P09/S3 integration (test 4) > queueing a conversion against a body already at its target standard is refused at QUEUE time (standardAlreadyMet is a permanent refusal, never merely held) 891ms
+   ✓ P13B-S4 P09/S3 integration (test 4) > BUG (RED, engine gap): a second conversion plan on the same body holds on targetEngaged while the first is under construction, then holds/refuses on standardAlreadyMet -- never starts 1247ms
+   ✓ P13B-S4 P09/S3 integration (test 4) > a chained I->II then II->III plan pair via dependsOn: the second starts the boundary after the first completes 669ms
+   ✓ P13B-S4 P09/S3 integration (test 4) > the same chained pair under the DEFAULT reviewChangedQuote admission holds on the changed quote and starts once reviewPhysicalPlan re-approves at the live price 424ms
+ ✓ |core| tests/p13b-s4-downtime.test.ts (7 tests) 5315ms
+   ✓ P13B-S4 downtime and money (test 2) > direct I->III over a 52-week horizon: baseline continues every week, the $4,000 increment starts only once operational, and the ledger sums to document 03's $1,680,000 2614ms
+   ✓ P13B-S4 downtime and money (test 2) > staged I->II then II->III, the second committed at the first's completion: the ledger sums to document 03's $1,796,000 1102ms
+   ✓ P13B-S4 downtime and money (test 2) > a new standalone Development Office III on another plot: no downtime on the old office; the engine's lawful total is $1,776,000 (ENG-2 OPEN -- document 03's $1,646,000 needs the undisposed no-II-prerequisite product choice) 1413ms
+ ✓ |core| tests/p13b-s2-save-v22.test.ts (12 tests) 9996ms
+   ✓ P13B-S2 V21 to V22 migration (test 8) > lifts ./fixtures/p13b/legacy-v21-staffed-4-seats-263.json.gz: every receipt ×8, per-Laboratory rows derived honestly, cooperationFromWeek stamped at the fixture's own week 879ms
+   ✓ P13B-S2 V21 to V22 migration (test 8) > lifts ./fixtures/p13b/legacy-v21-released-paused-266.json.gz: every receipt ×8, per-Laboratory rows derived honestly, cooperationFromWeek stamped at the fixture's own week 808ms
+   ✓ P13B-S2 V21 to V22 migration (test 8) > lifts ./fixtures/p13b/legacy-v21-two-labs-two-briefs-783.json.gz: every receipt ×8, per-Laboratory rows derived honestly, cooperationFromWeek stamped at the fixture's own week 1230ms
+   ✓ P13B-S2 V21 to V22 migration (test 8) > continues the migrated active staffed-4-seats-263 project for one more funded week (now carrying its own labs row) and re-saves byte-identically 1057ms
+   ✓ P13B-S2 V21 to V22 migration (test 8) > chains V20→V21→V22 for ./fixtures/p13b/legacy-v20-research-active-280.json.gz: the S1 legacy prefix survives intact, weeks stays empty 778ms
+   ✓ P13B-S2 V21 to V22 migration (test 8) > chains V20→V21→V22 for ./fixtures/p13b/legacy-v20-research-paused-expired-468.json.gz: the S1 legacy prefix survives intact, weeks stays empty 846ms
+   ✓ P13B-S2 V21 to V22 migration (test 8) > chains V20→V21→V22 for ./fixtures/p13b/legacy-v20-research-complete-operational-315.json.gz: the S1 legacy prefix survives intact, weeks stays empty 1076ms
+   ✓ P13B-S2 envelope law at the live writer (test 8) > makeSave always writes the live saveVersion 24 741ms
+   ✓ P13B-S2 envelope law at the live writer (test 8) > refuses an unknown saveVersion 25 with the updated range 367ms
+   ✓ P13B-S2 envelope law at the live writer (test 8) > round-trips a migrated two-Laboratory save through exportSave/importSave/migrateToV24 byte-identically 984ms
+   ✓ P13B-S2 campaign isolation across the migrated copies (mirrors the S1 case) > produces independent migrated copies from the same V21 fixture; advancing one never touches the other 1002ms
+ ✓ |core| tests/p13b-s2-validation.test.ts (15 tests) 56221ms
+   ✓ P13B-S2 conservation, determinism, save/reload and campaign isolation (test 7) > conservation: reconciles receipts, expenditure, ledger and cash over a funded cooperate interval 7762ms
+   ✓ P13B-S2 conservation, determinism, save/reload and campaign isolation (test 7) > determinism: two independent builds from the same seed give byte-identical exportSave, both fresh and after identical further actions 15952ms
+   ✓ P13B-S2 conservation, determinism, save/reload and campaign isolation (test 7) > save/reload mid-project: a reloaded cooperate project continues identically to the uninterrupted run over further weeks 8976ms
+   ✓ P13B-S2 conservation, determinism, save/reload and campaign isolation (test 7) > campaign isolation: every project a public action can create carries studioId === the player, by construction 6902ms
+   ✓ P13B-S2 conservation, determinism, save/reload and campaign isolation (test 7) > campaign isolation: a rival two-Laboratory project never surfaces through the player-scoped read filter, and forging the player’s own project never touches its bytes 6952ms
+ ✓ |core| tests/p13b-s3-dependencies.test.ts (11 tests) 6498ms
+   ✓ P13B-S3 dependencies (test 3) > an installation on a queued Laboratory body (target: {planId}) resolves the facility id at start and waits for the body to be operational 1785ms
+   ✓ P13B-S3 dependencies (test 3) > a plan cannot depend on itself — refused at queue time, using the predicted next plan id 532ms
+   ✓ P13B-S3 dependencies (test 3) > an unknown dependency id is refused at queue time 302ms
+   ✓ P13B-S3 dependencies (test 3) > cancelling a predecessor immediately blocks its dependent, naming it, and the dependent never starts (never counts as completion) 514ms
+   ✓ P13B-S3 dependencies (test 3) > a lawful reorder persists the new ordinals and revalidates 449ms
+   ✓ P13B-S3 changed quote (test 4) > identical quotes give identical fingerprints across weeks — completion week (which moves every tick) is excluded from the digest 368ms
+   ✓ P13B-S3 changed quote (test 4) > a forged approvedQuote.fingerprint holds under reviewChangedQuote (the default) at the next boundary, with pendingQuote set to the fresh quote and a reason matching /quote changed/ 780ms
+   ✓ P13B-S3 changed quote (test 4) > automatic admission ignores a stale fingerprint and starts anyway, once blueprint/target/component labels are unchanged and cost is within the ceiling 691ms
+   ✓ P13B-S3 changed quote (test 4) > reviewPhysicalPlan re-approves a held plan (pendingQuote promoted to approvedQuote), which starts at the FOLLOWING boundary 645ms
+ ✓ |core| tests/p13b-s2-labs.test.ts (10 tests) 42750ms
+   ✓ P13B-S2 module/bench law (test 2) > refuses lighting beginResearch while the seated Laboratory lacks an operational electrical/control module 9097ms
+   ✓ P13B-S2 module/bench law (test 2) > does not double-book one Laboratory's seat slots when two technologies are both active there (sound 2 + lighting 2, four seats total) 8418ms
+   ✓ P13B-S2 module/bench law (test 2) > seats a person for a technology on a Laboratory lacking its discipline module (retained P13A law), but refuses to begin until the module is operational 7759ms
+   ✓ P13B-S2 module/bench law (test 2) > releases the seat claim on pause and reacquires it on resume — the S1 release law generalized to a lighting project (regression net) 8336ms
+ ✓ |core| tests/p13b-s3-validation.test.ts (12 tests) 9142ms
+   ✓ P13B-S3 validator refusals for physicalPlans (test 8) > (j) rejects a queued plan carrying a pendingQuote 359ms
+ ✓ |core| tests/p13b-s4-quotes.test.ts (10 tests) 4356ms
+   ✓ P13B-S4 quotes (test 1) > I->II quotes $500,000 over 4 weeks 1040ms
+   ✓ P13B-S4 quotes (test 1) > I->III quotes $1,250,000 over 16 weeks on a studio that never owned II, naming only the conversion 321ms
+   ✓ P13B-S4 quotes (test 1) > II->III quotes $850,000 over 8 weeks on a body already converted to II; the staged sum exceeds the direct price 436ms
+   ✓ P13B-S4 quotes (test 1) > refuses a body already at III with standardAlreadyMet 463ms
+   ✓ P13B-S4 quotes (test 1) > refuses insufficient funds 411ms
+   ✓ P13B-S4 quotes (test 1) > BUG (RED, engine gap): a running takesTargetOffline conversion must keep engaging its own body via targetEngaged, independent of registry capacity 728ms
+   ✓ P13B-S4 quotes (test 1) > a standalone Development Office III is still refused without II, wording unchanged (existing, non-S4 law) 625ms
+ ✓ |core| tests/p13b-s2-expiry.test.ts (3 tests) 22266ms
+ ✓ |core| tests/p13b-s2-cooperation.test.ts (5 tests) 9946ms
+ ✓ |core| tests/p13b-s4-validation.test.ts (7 tests) 4891ms
+   ✓ P13B-S4 conservation, determinism, save/reload (test 5) > conservation: the conversion's constructionCapex equals the committed quote, and cash reconciles exactly against the ledger 1108ms
+   ✓ P13B-S4 conservation, determinism, save/reload (test 5) > determinism: the same actions from the same seed produce a byte-identical exportSave 2076ms
+   ✓ P13B-S4 conservation, determinism, save/reload (test 5) > save/reload mid-conversion continues identically (Save V23 unchanged -- a conversion is a normal placement record) 997ms
+   ✓ P13B-S4 campaign isolation (test 5) > a rival studio's facility can never be a conversion target from the player's actions 357ms
+ ✓ |core| tests/p13b-s3-save-v23.test.ts (13 tests) 7036ms
+   ✓ P13B-S3 Save V23 (test 7) > migrates the genuine V22 fixture './fixtures/p13b/legacy-v22-staffed-4-…' to V23 with an empty physicalPlans root, byte-identical otherwise 460ms
+   ✓ P13B-S3 Save V23 (test 7) > migrates the genuine V22 fixture './fixtures/p13b/legacy-v22-two-labs-c…' to V23 with an empty physicalPlans root, byte-identical otherwise 416ms
+   ✓ P13B-S3 Save V23 (test 7) > chains the genuine V20 fixture './fixtures/p13b/legacy-v20-research-a…' through V21, V22 to V23 631ms
+   ✓ P13B-S3 Save V23 (test 7) > chains the genuine V20 fixture './fixtures/p13b/legacy-v20-research-p…' through V21, V22 to V23 324ms
+   ✓ P13B-S3 Save V23 (test 7) > chains the genuine V20 fixture './fixtures/p13b/legacy-v20-research-c…' through V21, V22 to V23 666ms
+   ✓ P13B-S3 Save V23 (test 7) > migrateToV22 / migrateToV21 / migrateToV20 refuse a live save 1347ms
+   ✓ P13B-S3 Save V23 (test 7) > makeSave writes saveVersion 24 705ms
+   ✓ P13B-S3 Save V23 (test 7) > an unknown saveVersion 25 is refused, naming the handled range 432ms
+   ✓ P13B-S3 Save V23 (test 7) > save/reload mid-queue continues identically (byte for byte) 1217ms
+ ✓ |core| tests/p13b-s2-catalogue.test.ts (11 tests) 11337ms
+   ✓ P13B-S2 catalogue: two technologies, stable order (test 1) > the ordinary action surface (knownTechnology) accepts both technology ids, not only synchronized-sound 1080ms
+
+ Test Files  16 passed (16)
+      Tests  170 passed (170)
+   Start at  06:38:03
+   Duration  251.86s (transform 1.93s, setup 0ms, collect 8.14s, tests 236.18s, environment 5ms, prepare 2.25s)
+

@@ -1,0 +1,48 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p13b-s5-quotes.test.ts (8 tests) 109327ms
+   ✓ P13B-S5 quotes and components per route (test 1) > first inventor sound: access $0, equipment $0 first-prototype, physical $975k = stage + Post components 18563ms
+   ✓ P13B-S5 quotes and components per route (test 1) > second inventor sound installation on another stage while the first holds its asset: equipment $225k later-inventor, existing operational Post reused at $0, stage physical only 15226ms
+   ✓ P13B-S5 quotes and components per route (test 1) > commercial sound: access $200k charged once at purchase, equipment $300k, physical $975k 12441ms
+   ✓ P13B-S5 quotes and components per route (test 1) > lighting inventor first: access $0, equipment $0, site $50k/2w + install $50k/2w, no Post component of any kind 15479ms
+   ✓ P13B-S5 quotes and components per route (test 1) > lighting later inventor: equipment $150k + site/install physical $100k, still no Post 12512ms
+   ✓ P13B-S5 quotes and components per route (test 1) > lighting commercial at 936: access $100k charged once at purchase, equipment $200k commercial, physical $100k 12348ms
+   ✓ P13B-S5 quotes and components per route (test 1) > a lighting adoption with a postFacilityId is refused at commit (the requirement pinned unambiguously at the action layer) 11643ms
+   ✓ P13B-S5 quotes and components per route (test 1) > the first-prototype entitlement fires exactly once per (studio, technology, project) and never blocks a different technology’s project 11113ms
+ ✓ |core| tests/p13b-s5-save-v24.test.ts (15 tests) 22524ms
+   ✓ P13B-S5 Save V24 (test 4) > validates the genuine V23 fixture legacy-v23-sound-operational-315 directly (sha256-pinned, week-pinned) before it is migrated in the chain test below 402ms
+   ✓ P13B-S5 Save V24 (test 4) > migrates legacy-v23-sound-operational-315 and its identical V20 ancestor to V24 with an honest first-prototype lift, byte-identical otherwise 837ms
+   ✓ P13B-S5 Save V24 (test 4) > chains the genuine V22 fixture './fixtures/p13b/legacy-v22-two-labs-c…' through V23 to V24 with the same honest lift 342ms
+   ✓ P13B-S5 Save V24 (test 4) > chains the genuine V21 fixture './fixtures/p13b/legacy-v21-staffed-4-…' through V22, V23 to V24 424ms
+   ✓ P13B-S5 Save V24 (test 4) > chains the genuine V21 fixture './fixtures/p13b/legacy-v21-released-p…' through V22, V23 to V24 475ms
+   ✓ P13B-S5 Save V24 (test 4) > chains the genuine V21 fixture './fixtures/p13b/legacy-v21-two-labs-t…' through V22, V23 to V24 766ms
+   ✓ P13B-S5 Save V24 (test 4) > chains the genuine V20 fixture './fixtures/p13b/legacy-v20-research-a…' through V21, V22, V23 to V24 583ms
+   ✓ P13B-S5 Save V24 (test 4) > chains the genuine V20 fixture './fixtures/p13b/legacy-v20-research-p…' through V21, V22, V23 to V24 611ms
+   ✓ P13B-S5 Save V24 (test 4) > chains the genuine V20 fixture './fixtures/p13b/legacy-v20-research-c…' through V21, V22, V23 to V24 571ms
+   ✓ P13B-S5 Save V24 (test 4) > migrateToV23 / migrateToV22 / migrateToV21 / migrateToV20 refuse a V24 save 1386ms
+   ✓ P13B-S5 Save V24 (test 4) > makeSave writes saveVersion 24 768ms
+   ✓ P13B-S5 Save V24 (test 4) > an unknown saveVersion 25 is refused, naming the handled range "1 through 24" 435ms
+   ✓ P13B-S5 Save V24 (test 4) > save/reload mid-deployment continues identically (byte for byte): a lighting adoption committed but not yet operational 14390ms
+ ✓ |core| tests/p13b-s5-conservation.test.ts (3 tests) 44292ms
+   ✓ P13B-S5 conservation, determinism, campaign isolation (test 6) > cash conservation across a sound and a lighting adoption: every dollar the ledger charges for the two adoptions is exactly equipmentCost + installationCost, no more, no less, and no negative or duplicate row 12481ms
+   ✓ P13B-S5 conservation, determinism, campaign isolation (test 6) > determinism: the SAME action sequence from the SAME starting state produces byte-identical saves 19050ms
+   ✓ P13B-S5 conservation, determinism, campaign isolation (test 6) > campaign isolation: a rival’s organically-purchased sound adoption is byte-unchanged by the player’s own adoption actions, and reconciles to the catalogue’s per-technology values (no hard-coded 300,000/975,000) 12760ms
+ ✓ |core| tests/p13b-s5-operational.test.ts (4 tests) 31423ms
+   ✓ P13B-S5 operational law and charges (test 2) > lighting is operational at exactly committedWeek + 4 (deploymentWeeks), postFacilityId is null, and its +$1,000/week joins the ledger with no lag from the operational week onward 9050ms
+   ✓ P13B-S5 operational law and charges (test 2) > sound with no postFacilityId and no existing operational Post anywhere in the studio is refused 5107ms
+   ✓ P13B-S5 operational law and charges (test 2) > a second sound adoption reuses the existing operational Post: no new Post placement, no re-bill, and only the second stage’s own weekly cost joins the ledger 5432ms
+   ✓ P13B-S5 operational law and charges (test 2) > the sound-only production lock discriminator: a lighting adoption’s stage never carries the synchronized-sound-stage installation a sound adoption’s stage does 11832ms
+ ✓ |core| tests/p13b-s5-equipment.test.ts (5 tests) 34173ms
+   ✓ P13B-S5 equipment assets (test 3) > an adoption’s equipment asset is minted exactly once, held by it, and never duplicated by a second adoption 7667ms
+   ✓ P13B-S5 equipment assets (test 3) > an unheld retained asset (holderAdoptionId null, referenced by no adoption) is reused at $0 by a NEW adoption of the SAME technology 5729ms
+   ✓ P13B-S5 equipment assets (test 3) > an unheld retained asset of one technology is NEVER reused by a different technology’s adoption 10740ms
+   ✓ P13B-S5 equipment assets (test 3) > a held asset cannot be reused: two adoptions naming the same equipmentAssetId is refused on reimport 6200ms
+   ✓ P13B-S5 equipment assets (test 3) > exported-save round trip never fabricates an equipment row: makeSave/exportSave/importSave over an unmutated adoption reproduces the same equipment array byte for byte 3836ms
+ ✓ |core| tests/p13b-s5-validation.test.ts (9 tests) 13197ms
+
+ Test Files  6 passed (6)
+      Tests  44 passed (44)
+   Start at  06:49:37
+   Duration  261.47s (transform 1.55s, setup 0ms, collect 3.75s, tests 254.94s, environment 2ms, prepare 803ms)
+

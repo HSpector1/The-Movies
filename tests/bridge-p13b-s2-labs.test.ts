@@ -368,7 +368,7 @@ describe('case 6: a migrated V21 fixture keeps its honest single-pool receipts o
     const state = session.gameState
     // Migrated by the bridge's own load path (importSaveJsonCurrent); "converted"
     // is true by construction here since saveVersion 21 !== 22 (bridge/session.ts).
-    expect(state.technology.version).toBe(3)
+    expect(state.technology.version).toBe(4)
     expect(state.market.tick).toBe(783)
 
     const soundProject = state.technology.projects.find(p => p.technologyId === 'synchronized-sound')!

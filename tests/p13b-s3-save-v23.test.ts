@@ -95,20 +95,23 @@ describe('P13B-S3 Save V23 (test 7)', () => {
     expect((migrated.state as unknown as { physicalPlans: unknown }).physicalPlans).toEqual(initialPhysicalPlans())
   })
 
-  it('migrateToV22 / migrateToV21 / migrateToV20 refuse a V23 save', () => {
-    const v23 = makeSave(p13aLaboratorySlice()) // once physicalPlans lands, makeSave writes V23
-    expect(() => migrateToV22(v23)).toThrow(/cannot downgrade SaveFileV23/)
-    expect(() => migrateToV21(v23)).toThrow(/cannot downgrade SaveFileV23/)
-    expect(() => migrateToV20(v23)).toThrow(/cannot downgrade SaveFileV23/)
+  it('migrateToV22 / migrateToV21 / migrateToV20 refuse a live save', () => {
+    // P13B-S5: the live writer moved on to V24, so the save these downgrade
+    // guards see is a V24 envelope now; each still refuses at ITS OWN nearest
+    // guard, which reports the true incoming version, not V23.
+    const live = makeSave(p13aLaboratorySlice())
+    expect(() => migrateToV22(live)).toThrow(/cannot downgrade SaveFileV24/)
+    expect(() => migrateToV21(live)).toThrow(/cannot downgrade SaveFileV24/)
+    expect(() => migrateToV20(live)).toThrow(/cannot downgrade SaveFileV24/)
   })
 
-  it('makeSave writes saveVersion 23', () => {
-    expect(makeSave(p13aLaboratorySlice()).saveVersion).toBe(23)
+  it('makeSave writes saveVersion 24', () => {
+    expect(makeSave(p13aLaboratorySlice()).saveVersion).toBe(24)
   })
 
-  it('an unknown saveVersion 24 is refused, naming the handled range', () => {
-    const forged = { ...makeSave(p13aLaboratorySlice()), saveVersion: 24 }
-    expect(() => validateSave(forged)).toThrow(/versions 1 through 23 only/)
+  it('an unknown saveVersion 25 is refused, naming the handled range', () => {
+    const forged = { ...makeSave(p13aLaboratorySlice()), saveVersion: 25 }
+    expect(() => validateSave(forged)).toThrow(/versions 1 through 24 only/)
   })
 
   it('save/reload mid-queue continues identically (byte for byte)', () => {
