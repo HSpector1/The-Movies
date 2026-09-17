@@ -704,8 +704,10 @@ provenance fixed at setup admission; the lighting route halves the Ballroom-reve
   studio holds acquired `lighting-control-01` access AND an operational lighting adoption on the exact bound stage whose equipment asset is
   held AND a completed, non-cancelled `lighting-control-stage` placement on that stage; knowledge only, the Lab module, a different stage, an
   unfinished or cancelled installation, or a restoring/cancelled asset (S6) do not qualify. Lighting needs neither synchronized sound nor Post.
-- Timeline: with a setup record, the 6 → 5 transition holds at `remainingTicks = 6` (rehearsal retained, stage + Set retained via
-  `heldSinceWeek`) while `creditedUnits < requiredUnits`; exactly one unit is credited per eligible `[w, w+1)` after admission (admission at w
+- Timeline: with a setup record, the 6 → 5 transition holds at `remainingTicks = 6` while `creditedUnits < requiredUnits` — a new branch in
+  `advanceManagedProductions`'s sweep (beside the existing `remainingTicks === 5` case) that simply does not call `enterPhase`, so the bound
+  stage + Set are untouched (retention needs no `heldSinceWeek` work) and no `ShootingTask` exists yet (it is created only when `enterPhase`
+  targets shooting), which is also why the sound lock cannot fire early; exactly one unit is credited per eligible `[w, w+1)` after admission (admission at w
   earns its first unit at w+1; none on selection, queue, load, retry or a second sweep visit in the same week); when credited = required the
   production enters Shooting at the next boundary and `completedWeek` is stamped. Matched example: setup-ready 820 → Shooting entry 824
   (conventional) / 822 (lighting) / 821 (ordinary, both routes). No second scheduler, no surcharge, no duplicate payroll, no refund, no global
@@ -723,8 +725,9 @@ provenance fixed at setup admission; the lighting route halves the Ballroom-reve
 **Tests (RED-first; each fails before its implementation).** 1 recipe selection and refusals (wrong Set type/size, unusable Set, no bound stage,
 after Shooting, stale revision, simpler recipe = new plan). 2 timeline through real ticks: 820 → 824 / 822 / 821; admission week earns no unit;
 one unit per week; same-week retries and second sweep visits credit nothing; completed-task idempotence. 3 gate: knowledge-only, Lab-only,
-wrong-stage, active-retrofit, cancelled-installation and unheld-asset cases take the conventional route; the exact-stage operational adoption
-takes lighting. 4 controls: legacy timeline byte-identical; occupied-stage competition and stage-release law unchanged; changed pre-Shooting
+wrong-stage and active-retrofit (unfinished installation) cases take the conventional route; the exact-stage operational adoption takes
+lighting. The cancelled-installation and unheld-asset cases are OPEN pending S6 (no cancelled placement status and no unheld asset can exist
+under the S5 engine; S6 must exercise them against this consumer) — recorded, not proxied. 4 controls: legacy timeline byte-identical; occupied-stage competition and stage-release law unchanged; changed pre-Shooting
 sound choice independent of setup; different-binding restart preserves prior work without recycling credit; no filming/quality/research/P14
 change; a forged operational flag is refused by the validator. 5 Save V25: genuine V24 fixtures + chains, mid-setup save/reload continues
 identically, Save As worlds isolated, downgrade refusals. 6 Bridge projection 38.
@@ -733,6 +736,7 @@ identically, Save As worlds isolated, downgrade refusals. 6 Bridge projection 38
 `productionSetupAction` intent, projection 38 DTOs, Save V25 (client-side load), plus the OPEN A12/K4/CAT-011 items with their owners.
 
 ### S5-R07 tasks
+- [x] **S5-R07 expansion audit (contract-auditor, read-only, 2026-09-17 ≈09:55):** no contradiction with the adopted recipe; every control maps to a test group; engine facts confirmed (stage + Set bound at rehearsal entry; per-technology fit-out check derivable from S5's `adoptionChainOperational`; "valid size fit" has no engine referent and stays the neutral standard class under CAT-011). Two refinements adopted above: the hold is a sweep branch that does not call `enterPhase` (not `heldSinceWeek`); test 3's cancelled-installation / unheld-asset sub-cases are OPEN pending S6.
 - [x] **R07-T0 Genuine V24 fixtures (2026-09-17 ≈09:45, `b8d6b8b`)** minted by `src/harness/p13b/legacy-v24-fixtures.ts` at `2c2c999` (engine unchanged since `6bbaca2`, the final V24 writer) before any R07 source change: `legacy-v24-sound-operational-315` (sha `eeda6efb…`; native V24 inventor sound adoption with six component rows and a held first-prototype asset) and `legacy-v24-lighting-operational-plan-queued` (week 796, sha `94735d52…`; native player lighting adoption via `adoptTechnology` committed 791 / operational 795 with `postFacilityId` null and a held first-prototype asset; rival commercial sound adoption with aggregated rows and a held commercial asset; one queued plan waiting for 900); `evidence/p13b-r07-20260917/00`, provenance in `tests/fixtures/p13b/PROVENANCE.md`. Test-author dispatched for tests 1–5 RED-first against `src/core/productionSetup.ts`.
 - [ ] **R07-T1/T2 Engine increment** (sim-core; test-author tests 1–5 RED first): recipes, record, action, admission/credit law, history,
       validator, Save V25.
