@@ -1,0 +1,1 @@
+commit 06f05cf5d960bc6c70abf3fde555539b38f45ff9 start 2026-09-17T11:41:18Z node v20.20.2 host-quiet: 0 other vitest at start; matched to headless-baseline-20260916 flags
