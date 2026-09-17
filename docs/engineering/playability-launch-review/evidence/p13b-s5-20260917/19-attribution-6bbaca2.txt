@@ -1,0 +1,22 @@
+S5-T5 matched pass — CORE stage attribution (commit 6bbaca2, log 11-test-core-6bbaca2.txt)
+Result: Test Files 11 failed | 242 passed (253); Tests 26 failed | 2890 passed (2916); CORE_EXIT=1
+
+Inherited set (identical to the S2/S3/S4 passes; none is P13B work):
+  11  tests/bridge-p12-campaign-library.test.ts        — 5 s / 20 s inline budgets on this host
+   6  tests/r3n1-stale-schedule-take-02{,p31,p32}.test.ts — loadFixtureState ENOENT (dense fixtures absent from this checkout)
+   1  tests/bridge-p13-campaign-isolation.test.ts       — 60 s inline budget vs 66.0 s body
+   3  tests/p13a-scientist-foundation.test.ts           — golden digests (bytes identical to the pin)
+   1  tests/world-first-scenery-load-in-provenance.test.ts — Pillow not installed
+S5-caused, TEST-SIDE, fixed before the pass ended (3d34cd9, evidence 18: 83/83 on the four files):
+   4  tests/script-projects-save-v9.test.ts, tests/contracts/v14-boundary-guards.contract.test.ts, tests/d17b-save-v7.test.ts,
+      tests/d17a-adv-migration.test.ts — the unknown-version sentinel pinned as 24 / "through 23 only" text, missed by the 23→24 sweep
+      (sweep grepped V23 literals, not sentinels). No engine law changed after the pass started.
+New failures attributable to S5 engine or bridge law: NONE. All seven S5 files passed in this run:
+  bridge-p13b-s5-adoption 11, p13b-s5-quotes 11, save-v24 15, conservation 3, operational 4, equipment 5, validation 9.
+
+BRIDGE stage (log 12-test-bridge-6bbaca2.txt): check:bridge-contract verified (schema.json, StudioBridgeDtos.Generated.cs, contract-manifest.json), check:bridge-contract:fixtures verified;
+Test Files 2 failed | 59 passed (61); Tests 12 failed | 595 passed (607); BRIDGE_EXIT=1
+  11  tests/bridge-p12-campaign-library.test.ts   — inherited (budgets)
+   1  tests/bridge-p13-campaign-isolation.test.ts — inherited (72.4 s body vs 60 s budget)
+bridge-founding passed. bridge-p13b-s5-adoption 11/11. New failures attributable to S5: NONE.
+Run window: start 2026-09-17T06:30:36Z, end 07:31:12Z (11-RUN.txt). Verdict: S5 LOGIC VERIFIED · UNITY NOT VERIFIED (S5 only; not P13B completion, not Owner acceptance).

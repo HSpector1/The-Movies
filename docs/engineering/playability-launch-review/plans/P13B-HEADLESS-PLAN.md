@@ -666,7 +666,7 @@ restoration are S6 (this slice persists what S6 needs); rival lighting purchase/
       refinements adopted above (plan-queue companions per the S3/S4 precedent; `rejections`/`refusal` fields on the adopt rows) and the
       `postFacilityId: string | null` type change stated; the companion documents themselves are not in the engine tree (docs branch), so the
       audit verified the plan's paraphrase against code, not against the primary text.
-- [~] **S5-T5 Matched pass, records (backlog entry), commit, push.** Running on `6bbaca2` (start 2026-09-17 ≈09:30 UTC; `evidence/p13b-s5-20260917/11-RUN`, `11-test-core-6bbaca2`, `12-test-bridge-6bbaca2`).
+- [x] **S5-T5 Matched pass on `6bbaca2` (2026-09-17 06:30→07:31 UTC; `evidence/p13b-s5-20260917/11-RUN`, `11-test-core-6bbaca2`, `12-test-bridge-6bbaca2`, attribution `19`):** core 242/253 files · 2890/2916 tests, bridge 59/61 · 595/607, both contract checks verified; failing set = inherited (campaign-library 11/11, r3n1 6, campaign-isolation 1, scientist-foundation 3, scenery 1) + four TEST-SIDE sentinel pins missed by the 23→24 sweep (fixed at `3d34cd9` before the pass ended, 83/83 on rerun, evidence `18`; no engine law changed); every S5 file passed (seven files, 58 cases) → **S5 LOGIC VERIFIED · UNITY NOT VERIFIED** (S5 only; not P13B completion, not Owner acceptance). Backlog entry `0262224`/`526e868`.
 - [ ] **S5-R07 consumer task** — follows T5; its task expansion is written below ("## S5-R07 — Lighting production consumer", 2026-09-17) per the disposition.
 
 ## S5-R07 — Lighting production consumer: Ballroom-reveal setup units (Current Ops disposition) — task expansion (written 2026-09-17, before the task begins)

@@ -1,0 +1,571 @@
+=== npm run test:bridge (minWorkers=1 maxWorkers=2) ===
+
+> project-studio-core@0.1.0 check:bridge-contract
+> vite-node scripts/generate-bridge-contract.ts --check
+
+verified /Users/zacheryspector/The-Movies-headless-program/bridge/schema/project-studio-bridge.schema.json
+verified /Users/zacheryspector/The-Movies-headless-program/generated/unity/StudioBridgeDtos.Generated.cs
+verified /Users/zacheryspector/The-Movies-headless-program/generated/unity/project-studio-bridge.contract-manifest.json
+
+> project-studio-core@0.1.0 check:bridge-contract:fixtures
+> vite-node scripts/generate-bridge-contract-fixtures.ts --check
+
+verified /Users/zacheryspector/The-Movies-headless-program/generated/unity/tests/StudioBridgeUnionFixtures.Generated.cs
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/bridge-runtime-checkpoint.test.ts (60 tests) 105070ms
+   ✓ BridgeRuntimeCheckpointV1 > forward-migrates protocol 3 by preserving both V15 slots and discarding incompatible replay bytes 11394ms
+   ✓ BridgeRuntimeCheckpointV1 > rolls the previous protocol-4 schema forward without changing either V15 save slot 6193ms
+   ✓ BridgeRuntimeCheckpointV1 > rolls an authentic previous protocol-4 checkpoint with no explicit save slot 4106ms
+   ✓ BridgeRuntimeCheckpointV1 > rejects an impossible open-founding state attributed to the previous protocol-4 runtime 309ms
+   ✓ BridgeRuntimeCheckpointV1 > encodes one exact closed canonical shape with one LF and hydrates stable V15 bytes 6441ms
+   ✓ BridgeRuntimeCheckpointV1 > requires canonical checkpoint bytes followed by exactly one LF 6411ms
+   ✓ BridgeRuntimeCheckpointV1 > rejects missing and additional roots plus incompatible format, version, protocol, and schema 4731ms
+   ✓ BridgeRuntimeCheckpointV1 > requires untouched canonical V15 current and explicit-save bytes with exact digests 12082ms
+   ✓ BridgeRuntimeCheckpointV1 > validates route-specific requests, responses, identity, session, revision, and canonical JSON 6179ms
+   ✓ BridgeRuntimeCheckpointV1 > binds exact historical bytes and rejection semantics to their original route 6083ms
+   ✓ BridgeRuntimeCheckpointV1 > rejects duplicate identities and revision-regressing journal order 5357ms
+   ✓ BridgeRuntimeCheckpointV1 > binds the root revision to the terminal journal response 6389ms
+   ✓ BridgeRuntimeCheckpointV1 > returns a normalized prospective append only after identity and capacity validation 6251ms
+   ✓ BridgeRuntimeCheckpointV1 > enforces injectable entry, journal-byte, and checkpoint-byte bounds before hydration 4038ms
+   ✓ BridgeRuntimeCheckpointV1 > validates an accepted save response V15 payload and digest before journaling it 4319ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > preserves both actual accepted P12 founding slots through the P13 save migration 956ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > migrates a v4-identity (f84ae77e) checkpoint with a V14 current save and an opaque 2-entry journal 322ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > preserves and migrates a non-null savedSaveJson slot for a prior protocol-4 identity 632ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > accepts and migrates the enumerated sha256:c9c07d6febe4afee7f7c27c991acdfa1c86b6c3a7f5dff8528d7fa5ad72e43a1 (projection-v31) identity 318ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > accepts and migrates the enumerated sha256:e64a3b659e4247b98631f1caa1f0e9eb0b6016aac92b0f46be590360ff9cee48 (projection-v30) identity 348ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > accepts and migrates the enumerated sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85 (projection-v29) identity 312ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > accepts and migrates the enumerated sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712 (projection-v28) identity 374ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > accepts and migrates the enumerated sha256:97940e51e0566bed80231b223e5b7303a45d62db8d698f693e525eb244775211 (projection-v27) identity 423ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > accepts and migrates the enumerated sha256:2b339a6a8b3e5add0726b7eaac9ce8746e235d8b6111a6816f890ff56afdffd1 (projection-v26) identity 449ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > accepts and migrates the enumerated sha256:fe9bf4558dc12abc5f258ba8b8f581242e06361cfbae8ae31d8c676f6c7a6460 (projection-v25) identity 515ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > accepts and migrates the enumerated sha256:204a71924bd8c2e8ae9af47591226894b3e42f62457da3cc20ed6b106ede611a (projection-v24) identity 497ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > accepts and migrates the enumerated sha256:ba9cd199704f66d375585d0bec2128c950618a3ba6a8cf0845a5550fde41659f (projection-v4-early) identity 506ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > accepts and migrates the enumerated sha256:f84ae77ec59a0d7ca7cdd89115456504ddecbde2c6e3839936e4951bd65bce61 (projection-v4) identity 442ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > accepts and migrates the enumerated sha256:7e3af4db0d3d18cdeaab00082e0034f304a9141f46ea87e9e64e5a99d985483c (projection-v7) identity 405ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > accepts and migrates the enumerated sha256:510f08e4a551827a30e0f3d93bbe09fa5ddadbd39366b4dcfa93530500c7979c (projection-v9-early) identity 340ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > accepts and migrates the enumerated sha256:01f15efc8fc33fd810b051242857385ca23b5e1c775b357db1bfe5a70e907e1e (projection-v11) identity 346ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > accepts and migrates the enumerated sha256:a481d14f3810ffbafcba2bbf509db7340263f3f0fd665a059507a1567d98923d (projection-v12-stale-urn) identity 434ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > accepts and migrates the enumerated sha256:a6f374596e956800f9547ad538fdd859c01bda3460aac8b877279c67686c6f4b (projection-v12) identity 426ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > accepts and migrates the enumerated sha256:0474ceafd6c148f329fe99eac328c79ed0b0caf906e0f7442b7f3cf0fe40cb4f (projection-v13) identity 481ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > accepts and migrates the enumerated sha256:71529afdcb8e5cf645ab136efb9685256da0039e86d989bfab97b7b2cc5d9a8b (projection-v14) identity 391ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > accepts and migrates the enumerated sha256:ddce1c399ac4ff58327b296a0600428ac3f3346b84f3639e66e48e53a65fbe99 (projection-v15) identity 316ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > accepts and migrates the enumerated sha256:85a6d125960dce49b4775f842d7b56d7360c81cef3638cd819057c79c99f0236 (projection-v16) identity 336ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > accepts and migrates the enumerated sha256:c9dad9f3d8bb94445db1a5425d90db3f9894da9354f47a07992ff96261cfc399 (projection-v17-early) identity 305ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > accepts and migrates the enumerated sha256:ea5d645f34a472f4710b9273b225d6f15433d6d17ae8ed1af3c03686a225c8c4 (projection-v18) identity 315ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > re-hydrates the migrated output via the normal current-schema path (write-read round trip, idempotent) 419ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > never parses journal request/response bodies for a prior protocol-4 identity 311ms
+ ✓ |core| tests/bridge-contract-generator.test.ts (31 tests) 1929ms
+   ✓ CF-08 sound union-to-C# generation > C — closed discriminated object unions > keeps member storage attached and generated bytes identical when anyOf order reverses 664ms
+   ✓ CF-08 sound union-to-C# generation > current accepted contract and future sentinel > F10 emits sound request and response union shapes without changing schema identity 319ms
+   ✓ CF-08 sound union-to-C# generation > current accepted contract and future sentinel > pins exact positive output identities and deterministic rerendering 376ms
+   ✓ CF-08 sound union-to-C# generation > current accepted contract and future sentinel > is a red mutation guard against first-member-wins flattening 336ms
+ ✓ |core| tests/bridge-process-restart.test.ts (10 tests) 79479ms
+   ✓ rejects the post-commit response gate outside a test process before opening runtime state 1857ms
+   ✓ restores one durable logical bridge session and exact HTTP replay after SIGKILL 15410ms
+   ✓ withholds a durably committed command response until SIGKILL and replays it byte-identically after restart 15460ms
+   ✓ withholds a durably committed save response until SIGKILL and replays it byte-identically after restart 8109ms
+   ✓ withholds a durably committed load response until SIGKILL and replays it byte-identically after restart 15164ms
+   ✓ observes a byte-different semantic replay instead of falsely proving an exact request retry 5476ms
+   ✓ drops a durably committed command response and replays it byte-identically in the same process 5763ms
+   ✓ drops a durably committed save response and replays it byte-identically in the same process 4920ms
+   ✓ drops a durably committed load response and replays it byte-identically in the same process 7315ms
+ ✓ |core| tests/bridge-supervisor.test.ts (14 tests) 75657ms
+   ✓ one-command studio supervisor > emits, audits, and supervises the packaged production graph without the development loader 5617ms
+   ✓ one-command studio supervisor > recovers stable empty or partial acquisition artifacts without weakening private ownership 670ms
+   ✓ one-command studio supervisor > launches only after authenticated readiness and preserves one private profile across distinct logs 13513ms
+   ✓ one-command studio supervisor > restarts a SIGKILLed engine on its fixed port without changing durable authority 9165ms
+   ✓ one-command studio supervisor > cancels replacement work when Unity exits during an engine outage 6348ms
+   ✓ one-command studio supervisor > kills a Unity helper that survives TERM before releasing the active lease 10778ms
+   ✓ one-command studio supervisor > rejects a concurrent owner, shuts down on signal, and reclaims only a stale incarnation 14598ms
+   ✓ one-command studio supervisor > bounds engine crash loops and never touches an unrelated process 14712ms
+ ✓ |core| tests/bridge-schema.test.ts (22 tests) 49298ms
+   ✓ canonical Unity bridge schema > projects a real authoritative snapshot to the exact Unity DTO and validates the full envelope 5460ms
+   ✓ canonical Unity bridge schema > keeps live location identities in the projection-v4 building namespace 26964ms
+   ✓ canonical Unity bridge schema > rejects missing, additional, wrong-enum, wrong-nullability, and old-projection data 5974ms
+   ✓ canonical Unity bridge schema > preserves required nullable numeric fields through schema projection 4093ms
+   ✓ canonical Unity bridge schema > models accepted load/command responses as one flat projection envelope 2997ms
+   ✓ canonical Unity bridge schema > requires one closed structured rejection with non-empty guidance and a nullable holder 1420ms
+   ✓ canonical Unity bridge schema > validates the session and health handshake envelopes 2243ms
+ ✓ |core| tests/bridge.test.ts (18 tests) 442121ms
+   ✓ Current-game Unity adoption bridge > pins protocol v4/projection v32 and fingerprints named projections and exact intent fields 6587ms
+   ✓ Current-game Unity adoption bridge > bootstraps through real founding and legal intents, releasing Movie #1 at the Movie #2 gate 3536ms
+   ✓ Current-game Unity adoption bridge > plays exact Movie #2 end to end with current guidance, identities, blockers, and construction visible 89292ms
+   ✓ Current-game Unity adoption bridge > makes the player choose a distinct evidenced cast before greenlight 18122ms
+   ✓ Current-game Unity adoption bridge > rejects stale, forged, wrong-session, and reused command identities without changing truth 4360ms
+   ✓ Current-game Unity adoption bridge > maps every rejection code to closed TypeScript-owned facts 1723ms
+   ✓ Current-game Unity adoption bridge > uses opaque exact identities rather than titles and invalidates every prior-state intent 4822ms
+   ✓ Current-game Unity adoption bridge > protects save/load controls and reconstructs a fresh reconnect session byte-for-byte 12964ms
+   ✓ Current-game Unity adoption bridge > matches direct headless save bytes/digests and is independent of polling cadence 261794ms
+   ✓ Current-game Unity adoption bridge > keeps read-only polling and failed direct intent application save-neutral 4513ms
+   ✓ Current-game Unity adoption bridge > keeps every named projection and root authority token stable across identical polls 3792ms
+   ✓ Current-game Unity adoption bridge > emits and admits a screenplay commission when both authoritative slots are occupied 1897ms
+   ✓ Current-game Unity adoption bridge > emits and admits exact-project auditions when both authoritative slots are occupied 7530ms
+   ✓ Current-game Unity adoption bridge > emits and admits an evidenced exact-project greenlight without committing the package 4721ms
+   ✓ Current-game Unity adoption bridge > publishes advanceWeek through the ready-to-package family and withholds it at a casting-review decision stop 15466ms
+   ✓ Current-game Unity adoption bridge > keeps advanceWeek available while a greenlight sits queued for Development & Casting capacity 810ms
+ ✓ |core| tests/bridge-p13b-s4-office.test.ts (11 tests) 10901ms
+   ✓ case 1: the founding office at week 12 — full quote parity on the wire; office null off the laboratory view > standard I, highest I, offline false, capacity 2, baselineWeeklyOperatingCost 0 (endowed); both conversion rows match the authoritative quote 1180ms
+   ✓ case 1: the founding office at week 12 — full quote parity on the wire; office null off the laboratory view > intent kind: both immediate rows publish installationAction; both plan companions publish physicalPlanAction (adjudicated finding C, 2026-09-17) 433ms
+   ✓ case 2: immediate iii conversion — engagement, reopening, standardAlreadyMet and the exact capex ledger row > commits, engages the body for 16 weeks, reopens at III, and writes one exact -$1,250,000 constructionCapex ledger row 1584ms
+   ✓ case 3: placed office money on the wire > $5,500 baseline continues through a real weekly charge; II->III quotes $850,000/8 weeks with standardDuringWork I 1061ms
+   ✓ case 4: plan companions — queue, start, hiding and the immediate-row lockout > plan-queue-office-convert-iii queues, starts, and offlines the body; the immediate rows lock out while it runs 1069ms
+   ✓ case 4b: a LOWER conversion running immediately leaves a HIGHER companion offered (coordinator-named counter-scenario, 2026-09-17) > while office-convert-ii runs, the iii plan companion is still offered and the ii companion is hidden; queueing iii holds on /targetEngaged/ during the ii work 1986ms
+   ✓ case 5: insufficient funds > both rows read insufficientFunds; plan companions still offered; a queued plan reads next.reason "insufficient cash" 938ms
+   ✓ case 6: stale revision > an office intent submitted with a stale expectedStateRevision is refused with STALE_REVISION, and that attempt changes nothing 1100ms
+   ✓ case 7: player-safe — no rival facility id ever appears > a structurally injected rival facility id is refused as INVALID_CONTROL; no rival studio id leaks anywhere in the player's own office page 300ms
+   ✓ case 8: history — the existing P09 facility-completed row, no invented "office" kind > the completed iii conversion writes one Opened: <name> row through the existing facilityCompleted mechanism, never a new kind 1241ms
+ ✓ |core| tests/bridge-p13b-s3-plans.test.ts (11 tests) 12037ms
+   ✓ case 1: a fresh studio publishes an empty plans page; plans is null off the plans view > snapshotVersion 36; rows and actions are both empty arrays on a fresh studio; laboratory view carries plans: null 1026ms
+   ✓ case 2: the Laboratory-page acoustic companion queues, admits and appears on the plans page > plan-queue-acoustic-<lab> exists beside instruments-<lab> naming the cost/build-weeks/no-reservation facts; dispatching it queues a full row on the plans view; one bridge advance starts it, writing planQueued/planStarted history; the acoustic companion then disappears while electrical still offers 1656ms
+   ✓ case 3: the envelope hold (insufficient cash) and the changed-quote hold (forged fingerprint) > a queued electrical plan with cash spent below its cost stays queued after an advance, with next.reason === "insufficient cash" 1171ms
+   ✓ case 3: the envelope hold (insufficient cash) and the changed-quote hold (forged fingerprint) > a forged approvedQuote.fingerprint holds at the next boundary; plan-review-<planId> names the approved/pending figures; dispatching it re-queues with the pending fingerprint promoted, then it starts 1431ms
+   ✓ case 4: cancel blocks its dependent; a started plan has no cancel row > cancelling the predecessor cancels it and blocks the dependent, naming it, with matching history rows; the cancel row disappears; an independently STARTED plan carries no cancel row at all 1581ms
+   ✓ case 5: reorder > three independent queued plans: move-down swaps ordinals 1<->2 on the wire; move-up is disabled at the top and move-down at the bottom 1473ms
+   ✓ case 5: reorder > a dependent immediately following its predecessor cannot move up: disabled with the engine's own "before its dependency" text 629ms
+   ✓ case 6: admission mode toggle > the mode NOT currently set is the only admission action offered; dispatching it flips the row's admission 1411ms
+   ✓ case 7: stale revision > a plans intent submitted with a stale expectedStateRevision is refused with STALE_REVISION, and that specific attempt changes nothing 1380ms
+ ✓ |core| tests/bridge-p13b-s5-adoption.test.ts (11 tests) 36775ms
+   ✓ requirement 1: laboratory.adoptions[] structured rows and per-row StudioAdoptionQuote > a committed lighting adoption appears on adoptions[] with technologyId/route/committedWeek/operationalWeek/components/equipmentAssetId/postFacilityId 8704ms
+   ✓ requirement 2: lighting rows are access-gated for presence and quote the exact 100,000 first-prototype total > no adopt-lighting-control-01-* row exists anywhere before lighting access is acquired 7081ms
+   ✓ requirement 3: sound rows keep P13A stage+Post pairing, existing-Post reuse at $0 > a second stage's sound row reuses the first stage's operational Post: reusedPostFacilityId set, the Post component existing/$0 4680ms
+   ✓ requirement 4: committing an adopt row through the bridge (engine-truth components, revision advance, stale refusal, row disappears) > commits exactly one adoption with the wire-quoted components, advances stateRevision, refuses the same intent at the old revision, and the committed stage's own row disappears 1895ms
+   ✓ per-technology stage rule: a stage with an adoption of one technology still offers the other, never the same one again > after committing sound on a stage, that stage's own sound row is gone but its lighting row is still offered 8607ms
+   ✓ requirement 5: plan-queue-adopt-<technologyId>-<stageFacilityId> companions never mint an adoption and follow the S4 reachable-hide rule > queues the stage-installation blueprint through queuePhysicalPlan, mints no adoption, and then hides itself once queued (duplicate-queue rule) 1128ms
+   ✓ requirement 6: refusal disclosure and player-safety on a row whose engine quote is refused > a sound row before access is acquired publishes the engine's own refusal/rejections, agrees with disabledReason, and the underlying action throws that exact text 4461ms
+ ✓ |core| tests/bridge-casting.test.ts (12 tests) 9056ms
+   ✓ P04A Casting bridge — quote seam and board > quotes, mints, and commits a screen test with the EXACT player slate — no fee, no hold, one reservation, dueWeek = week+1 2299ms
+   ✓ P04A Casting bridge — quote seam and board > quotes, mints, and commits exact greenlight with controlled fractional cash 0; later refusal changes NOTHING 793ms
+   ✓ P04A Casting bridge — quote seam and board > quotes, mints, and commits exact greenlight with controlled fractional cash 0.25; later refusal changes NOTHING 946ms
+   ✓ P04A Casting bridge — quote seam and board > capacity-only screen test and greenlight both quote queues:true and commit with ZERO commitment 818ms
+   ✓ P04A Casting bridge — quote seam and board > capacity-only greenlight at controlled fractional cash 0 quotes queues:true and commits with ZERO commitment 725ms
+   ✓ P04A Casting bridge — quote seam and board > capacity-only greenlight at controlled fractional cash 0.25 quotes queues:true and commits with ZERO commitment 628ms
+   ✓ P04A Casting bridge — quote seam and board > refuses a stale revision before any engine work 476ms
+   ✓ P04A Casting bridge — quote seam and board > an accepted unrelated command invalidates a live casting quote; the exact same draft is quotable fresh again 691ms
+   ✓ P04A Casting bridge — quote seam and board > refuses malformed slates, unknown ids, and non-menu budgets in plain language, without mutation 611ms
+   ✓ P04A Casting bridge — quote seam and board > a queueIntentExpired notice carries the exact projectId and survives save/load 932ms
+ ✓ |core| tests/bridge-p13b-s2-labs.test.ts (10 tests) 101902ms
+   ✓ case 1: a fresh Laboratory publishes snapshotVersion 37 and an empty projects array > a Laboratory with no research project at all reports laboratory.projects === [] 1034ms
+   ✓ case 2: seating is lawful before a brief's research opens; the wire dates the wait instead of hiding the brief > before week 780 (week 263, S1-style state): both the sound and lighting assign rows exist for a free employed person; the lighting row's detail names the wait, the sound row's does not (sound opened 260); dispatching the lighting assign through the bridge is accepted, publishing a paused lighting project whose bottleneckLabel also names the wait; its begin row is disabled with the same engine text 6234ms
+   ✓ case 3: two full Laboratories — the shared project reads identically from both pages > dispatches 4+4 sound assign rows through the bridge on both Laboratories, funds the full $80,000 ceiling through the bridge's own budget row (the S2-T6 gap that used to cap this menu at $40,000 was closed 2026-09-16 — the menu now reaches 60,000/80,000) and begins through the bridge; before the first tick both pages already report companion test 4 case (i) (7 funded weeks remain, 0 of 64 verified units); one bridge-advanced week reproduces case (i) exactly (output 9.75, units 1,560,000) on both pages 26354ms
+   ✓ case 4: two technologies staffed on one Laboratory > lists two projects rows in stable id order; every project's progressLabel names its own verifiedWork/work; each fully-funded 2-seat project's cooperationLabel reads "One Laboratory: 2 seats" with the real $20,000/60,000 figures; the fifth assign for EITHER technology on this Laboratory is refused with "four seats" 18750ms
+   ✓ case 5: a third Laboratory is refused on the wire > a real, completed third Laboratory (placed and its build time elapsed — the same construction tests/p13b-s2-labs.test.ts's own base3Setup uses for the identical core-level "test 3" case) publishes its assign row disabled with the engine's own "third Laboratory" refusal 10648ms
+   ✓ case 6: a migrated V21 fixture keeps its honest single-pool receipts on the wire > loads through BridgeSession.fromSaveJson (a genuine V21 fixture, migrated on import): the sound project's three stored receipts read labs:null; the lighting project's three receipts each read one derived row; the next quoted week splits 4+2 seats at $60,000 into $40,000/$20,000, output 7.875 539ms
+   ✓ case 7: releasing a seat through the bridge recomputes the funding split > releasing one of Lab 2's two sound seats (4+2 -> 4+1) through the bridge recomputes next week's split to $40,000/$10,000, output 6.9375 9118ms
+   ✓ case 8: player-safe — no rival project, seat or talent id ever appears > the Laboratory page names only the player studio's own project and talent ids 8557ms
+ ✓ |core| tests/bridge-p09a-w1-placement-quote.test.ts (7 tests) 12923ms
+   ✓ P09A W1 — placement quote family over the bridge > R3: a full-grid sweep with two footprints rides every rejection family the ground produces, exactly as the engine says 6911ms
+   ✓ P09A W1 — placement quote family over the bridge > R4: commit builds exactly once at the quoted engine price, then the intent is spent 1132ms
+   ✓ P09A W1 — placement quote family over the bridge > R5: any accepted command retires outstanding placement quotes; a stale revision is refused first 2233ms
+   ✓ P09A W1 — placement quote family over the bridge > R6: the founding regime is on the wire as exact history; the same authority answers per the ground it sees 2088ms
+ ✓ |core| tests/bridge-contract-consumer-lock.test.ts (77 tests) 350170ms
+   ✓ CF-09 source bundle and repository identity > rejects a caller-supplied TypeScript root different from the executing verifier checkout 1790ms
+   ✓ CF-09 sealed pair > binds the exact pushed clean commits and both committed generated blobs 6024ms
+   ✓ CF-09 sealed pair > rejects the wrong Unity repository before reading a matching file 2097ms
+   ✓ CF-09 sealed pair > rejects a canonical-looking remote redirected by Git URL rewriting 2029ms
+   ✓ CF-09 sealed pair > rejects a Unity subdirectory as the wrong root 1889ms
+   ✓ CF-09 sealed pair > rejects a nonallowlisted generated-file path 2643ms
+   ✓ CF-09 sealed pair > rejects a stale committed Unity consumer 4084ms
+   ✓ CF-09 sealed pair > rejects a one-byte uncommitted consumer drift as dirt before hashing 2271ms
+   ✓ CF-09 sealed pair > rejects a one-byte committed consumer drift 4217ms
+   ✓ CF-09 sealed pair > rejects a schema identity mismatch 2650ms
+   ✓ CF-09 sealed pair > rejects a protocol mismatch 3044ms
+   ✓ CF-09 sealed pair > rejects a projection mismatch 2997ms
+   ✓ CF-09 sealed pair > rejects a staged dirty TypeScript tree 2366ms
+   ✓ CF-09 sealed pair > rejects a unstaged dirty TypeScript tree 2385ms
+   ✓ CF-09 sealed pair > rejects a untracked dirty TypeScript tree 2561ms
+   ✓ CF-09 sealed pair > rejects a staged dirty Unity tree 2448ms
+   ✓ CF-09 sealed pair > rejects a unstaged dirty Unity tree 2270ms
+   ✓ CF-09 sealed pair > rejects a untracked dirty Unity tree 2261ms
+   ✓ CF-09 sealed pair > rejects TypeScript worktree bytes hidden with assume-unchanged 2237ms
+   ✓ CF-09 sealed pair > rejects Unity worktree bytes hidden with skip-worktree 2320ms
+   ✓ CF-09 sealed pair > rejects a hidden index flag anywhere in the TypeScript repository 2408ms
+   ✓ CF-09 sealed pair > rejects a hidden index flag anywhere in the Unity repository 2446ms
+   ✓ CF-09 sealed pair > rejects a missing committed consumer without filename fallback 2591ms
+   ✓ CF-09 sealed pair > rejects a nonexistent immutable commit 2129ms
+   ✓ CF-09 sealed pair > rejects a manifest/blob mismatch 4318ms
+   ✓ CF-09 sealed pair > rejects stale real Unity bytes even when a TypeScript-local self-copy matches 5163ms
+   ✓ CF-09 sealed pair > rejects a committed symlink consumer before content comparison 2677ms
+   ✓ CF-09 sealed pair > rejects path traversal rather than normalizing it 2991ms
+   ✓ CF-09 sealed pair > rejects a wrong branch even when it points to identical bytes and commit 3227ms
+   ✓ CF-09 sealed pair > rejects recursive or unknown manifest commit fields 4434ms
+   ✓ CF-09 sealed pair > rejects a generator source/manifest mismatch in scripts/bridge-contract-csharp.ts 4414ms
+   ✓ CF-09 sealed pair > rejects a generator source/manifest mismatch in bridge/schema/intent-schema.ts 5557ms
+   ✓ CF-09 sealed pair > generation result is independent of current member/property-like file order 8081ms
+   ✓ CF-09 post-commit attestation > CLI cannot emit an attestation before hostile-review ACCEPT 1767ms
+   ✓ CF-09 post-commit attestation > requires a fresh hostile-review ACCEPT before emission 1611ms
+   ✓ CF-09 post-commit attestation > emits deterministic immutable facts only after both sealed commits exist 8413ms
+   ✓ CF-09 post-commit attestation > rejects seal-time log evidence outside the inferred canonical evidence root 5130ms
+   ✓ CF-09 post-commit attestation > rejects a noncanonical seal-time XML filename 5278ms
+   ✓ CF-09 post-commit attestation > re-verifies immutable commit blobs even after both HEADs move 9953ms
+   ✓ CF-09 post-commit attestation > rejects an attestation naming a nonexistent commit 7167ms
+   ✓ CF-09 post-commit attestation > rejects a manifest hash that does not match the attested commit blob 11192ms
+   ✓ CF-09 post-commit attestation > rejects an attested verifier bundle that differs from the executing verifier 7089ms
+   ✓ CF-09 post-commit attestation > rejects fixture-corpus source drift named by the attestation 8764ms
+   ✓ CF-09 post-commit attestation > rejects one-byte EditMode evidence drift 10010ms
+   ✓ CF-09 post-commit attestation > rejects an attested result traversal path before resolving it 5528ms
+   ✓ CF-09 post-commit attestation > rejects an attested absolute result path before resolving it 5587ms
+   ✓ CF-09 post-commit attestation > rejects an attested nested result path before resolving it 5870ms
+   ✓ CF-09 post-commit attestation > rejects an attested wrong result name path before resolving it 6960ms
+   ✓ CF-09 post-commit attestation > rejects an attested log traversal path before resolving it 6145ms
+   ✓ CF-09 post-commit attestation > rejects an attested absolute log path before resolving it 5977ms
+   ✓ CF-09 post-commit attestation > rejects an attested nested log path before resolving it 5912ms
+   ✓ CF-09 post-commit attestation > rejects an attested wrong log name path before resolving it 5186ms
+   ✓ CF-09 post-commit attestation > does not re-root a traversal path around the caller evidence root 5753ms
+   ✓ CF-09 post-commit attestation > rejects a symlinked caller evidence root 9920ms
+   ✓ CF-09 post-commit attestation > rejects symlinked evidence redirection 8531ms
+   ✓ CF-09 post-commit attestation > rejects symlinked XML evidence redirection 8361ms
+   ✓ CF-09 post-commit attestation > rejects zero/no-op counts EditMode XML 7259ms
+   ✓ CF-09 post-commit attestation > rejects comment-spoofed passing root EditMode XML 5871ms
+   ✓ CF-09 post-commit attestation > rejects comment-spoofed generated suite and sentinel EditMode XML 6533ms
+   ✓ CF-09 post-commit attestation > rejects multiple document roots EditMode XML 6200ms
+   ✓ CF-09 post-commit attestation > rejects failing document root EditMode XML 6734ms
+   ✓ CF-09 post-commit attestation > rejects malformed XML EditMode XML 5960ms
+   ✓ CF-09 post-commit attestation > rejects wrong generated fixture suite EditMode XML 6691ms
+   ✓ CF-09 post-commit attestation > rejects wrong generated fixture suite type EditMode XML 6672ms
+   ✓ CF-09 post-commit attestation > rejects wrong sentinel method EditMode XML 6904ms
+   ✓ CF-09 post-commit attestation > rejects sentinel nested beneath the wrong suite EditMode XML 9074ms
+   ✓ CF-09 post-commit attestation > rejects skipped sentinel method EditMode XML 5750ms
+   ✓ CF-09 post-commit attestation > rejects failing generated fixture suite EditMode XML 6098ms
+   ✓ CF-09 post-commit attestation > rejects failed or internally inconsistent full EditMode XML 9264ms
+ ✓ |core| tests/bridge-p10a-r1-contract-quote.test.ts (8 tests) 10188ms
+   ✓ P10-R1 — contract renewal / early release over the bridge > R0: the Profile publishes the legal windows and the engine's own terms; the schema publishes both intent kinds 1895ms
+   ✓ P10-R1 — contract renewal / early release over the bridge > R1: a legal renewal reads the engine verbatim, commits once at the quoted bonus, and refuses replay / re-use 2014ms
+   ✓ P10-R1 — contract renewal / early release over the bridge > R2: a legal release carries the engine's termination cost, commits once, and keeps every recorded credit 649ms
+   ✓ P10-R1 — contract renewal / early release over the bridge > R4: a stale quote is refused once the authority moved on 2321ms
+   ✓ P10-R1 — contract renewal / early release over the bridge > R5: unknown person is a draft refusal; no contract is an accepted refusal; a changed contract re-prices 1778ms
+   ✓ P10-R1 — contract renewal / early release over the bridge > R6: the engine's own refusals — unpublished term, the D-12 solvency gate, a screenplay task 659ms
+   ✓ P10-R1 — contract renewal / early release over the bridge > R7: cancellation is state-neutral — a quote without a commit changes nothing 689ms
+stdout | tests/bridge-p11-ready.test.ts > P11 recorded trends and full portfolio > bounds a120-year recorded query to13/52 points with exact totals and no calendar-year invention
+{"kind":"p11-long-history-query-measurement","classification":"synthetic query-scale fixture; not played campaign evidence","weeks":6240,"ledgerEntries":6240,"elapsedMilliseconds":1.0359279999975115,"historyJsonBytes":97275,"syntheticStateJsonBytes":769442,"pointCounts":[13,52]}
+
+ ✓ |core| tests/bridge-p11-ready.test.ts (17 tests) 20436ms
+   ✓ P11 ready Upcoming and discarded financial successors > migrates authentic core25 without relabeling its bytes; strict26 includes a nullable Week0 history 785ms
+   ✓ P11 ready Upcoming and discarded financial successors > keeps completion and first Opex distinct, including the just-completed operational office 347ms
+   ✓ P11 ready Upcoming and discarded financial successors > retains already-open renewal dates; expiry pays its final preceding advance only 2961ms
+   ✓ P11 ready Upcoming and discarded financial successors > publishes only the existing public revenue aggregates and does not serialize locked weekly receipts 330ms
+   ✓ P11 ready Upcoming and discarded financial successors > dates only an actually committed Set repair and adds no completion debit or new recurring cost 571ms
+   ✓ P11 ready Upcoming and discarded financial successors > renew: exact pennies/guarantees and recurring costs agree with the real committed successor 4591ms
+   ✓ P11 ready Upcoming and discarded financial successors > release: exact pennies/guarantees and recurring costs agree with the real committed successor 1237ms
+   ✓ P11 ready Upcoming and discarded financial successors > a refused renewal has no financial successor and cannot become a commit 412ms
+   ✓ P11 ready Upcoming and discarded financial successors > release remains legal when the actual termination payment takes already-negative Cash further down 910ms
+   ✓ P11 ready Upcoming and discarded financial successors > immediate Greenlight pays the exact quoted financial amount once and replaces the project row by its real production 1230ms
+   ✓ P11 ready Upcoming and discarded financial successors > hire reads the real successor, including a new seat; preview remains observation/RNG neutral 1176ms
+   ✓ P11 ready Upcoming and discarded financial successors > queued Greenlight pays nothing now and remains one uncommitted canonical screenplay row 833ms
+   ✓ P11 recorded trends and full portfolio > serves the actual21-film/6240-advance public diagnostic as exact unique rows and52 completed history points 2041ms
+   ✓ P11 recorded trends and full portfolio > covers Development/review, Ready Casting, Production, Post and Release Ready through actual fixture action chains 2065ms
+   ✓ P11 recorded trends and full portfolio > keeps exact film identities, public phases and the accepted per-film economics 433ms
+   ✓ P11 recorded trends and full portfolio > each cost point and period comes from the exact ledger category; missing partial values stay null 404ms
+ ✓ |core| tests/bridge-runtime-checkpoint-prepared-reuse.test.ts (21 tests) 96591ms
+   ✓ prepared checkpoint representation reuse preserves authority boundaries > intersects session and caller maxCheckpointBytes allowances, including after a successful export 3780ms
+   ✓ prepared checkpoint representation reuse preserves authority boundaries > intersects session and caller maxJournalBytes allowances, including after a successful export 3701ms
+   ✓ prepared checkpoint representation reuse preserves authority boundaries > intersects session and caller maxJournalEntries allowances, including after a successful export 2688ms
+   ✓ prepared checkpoint representation reuse preserves authority boundaries > does not retain aliases from exported checkpoints or hydrated state 2788ms
+   ✓ prepared checkpoint representation reuse preserves authority boundaries > keeps repeated public encoding and decoding strict after a successful validation 2790ms
+   ✓ prepared checkpoint representation reuse preserves authority boundaries > replaces saved-slot and journal bytes when Save leaves the state revision unchanged 1934ms
+   ✓ prepared checkpoint representation reuse preserves authority boundaries > uses one final save artifact for its record, response and working checkpoint 4399ms
+   ✓ prepared checkpoint representation reuse preserves authority boundaries > uses one final saveAs artifact for its record, response and working checkpoint 4411ms
+   ✓ prepared checkpoint representation reuse preserves authority boundaries > does not reuse the saved source stage after dirty save-before-load replaces the prospective world 8717ms
+   ✓ prepared checkpoint representation reuse preserves authority boundaries > detaches returned dispatch artifacts from both old and newly committed journal entries 4242ms
+   ✓ prepared checkpoint representation reuse preserves authority boundaries > captures current command/load state and never reuses an artifact after ordinary public changes 9105ms
+   ✓ prepared checkpoint representation reuse preserves authority boundaries > captures a journaled command refusal and returns null for replay or foreign session 1770ms
+   ✓ prepared checkpoint representation reuse preserves authority boundaries > captures a journaled save refusal and returns null for replay or foreign session 2775ms
+   ✓ prepared checkpoint representation reuse preserves authority boundaries > captures a journaled load refusal and returns null for replay or foreign session 2041ms
+   ✓ prepared checkpoint representation reuse preserves authority boundaries > fails tighter caller bounds before command authority mutation and permits a clean retry 7305ms
+   ✓ prepared checkpoint representation reuse preserves authority boundaries > fails tighter caller bounds before save authority mutation and permits a clean retry 6857ms
+   ✓ prepared checkpoint representation reuse preserves authority boundaries > fails tighter caller bounds before load authority mutation and permits a clean retry 7277ms
+   ✓ prepared checkpoint representation reuse preserves authority boundaries > discards failed history preparation before a detached rollover creates its own artifact 2755ms
+   ✓ prepared checkpoint representation reuse preserves authority boundaries > strictly rejects malformed ordinary Save requests before changing the saved slot or journal 2011ms
+   ✓ prepared checkpoint representation reuse preserves authority boundaries > strictly rejects malformed prepared Save requests before changing the saved slot or journal 2943ms
+   ✓ prepared checkpoint representation reuse preserves authority boundaries > preserves live authority on failed Save and replays the exact successful receipt after later changes and restart 12299ms
+ ✓ |core| tests/bridge-p11-finance.test.ts (11 tests) 10164ms
+   ✓ P11 construction financial consequence over the real bridge > development-casting-annex: retains pennies, charges once now and introduces Opex only after completion 3663ms
+   ✓ P11 construction financial consequence over the real bridge > development-office-2: retains pennies, charges once now and introduces Opex only after completion 2555ms
+   ✓ P11 construction financial consequence over the real bridge > gives illegal placement no financial successor and refuses a stale legal financial preview 1262ms
+   ✓ P11 current people, obligations and film economics owners > publishes only current contracts, with guarantees beside literal Cash and exact payroll 615ms
+   ✓ P11 current people, obligations and film economics owners > keeps same-title films independent, preserves every P07 business amount and excludes studio costs 672ms
+   ✓ P11 current people, obligations and film economics owners > marks genuinely missing legacy direct commitments unavailable without rewriting P07 393ms
+   ✓ P11 current people, obligations and film economics owners > does not turn a retained legacy freelancer receipt into a complete film budget 363ms
+   ✓ P11 current people, obligations and film economics owners > discloses legacy bundled production spending without inventing a historic budget split 394ms
+ ✓ |core| tests/bridge-runtime-coordinator.test.ts (11 tests) 47157ms
+   ✓ BridgeRuntimeCoordinator > atomically persists a state-preserving protocol-3 rollover before becoming ready 4258ms
+   ✓ BridgeRuntimeCoordinator > preserves protocol-3 bytes when the migration checkpoint commit fails 4033ms
+   ✓ BridgeRuntimeCoordinator > atomically rolls the previous protocol-4 schema into a fresh replay session 2912ms
+   ✓ BridgeRuntimeCoordinator > keeps prior protocol-4 bytes when its schema rollover commit fails 2380ms
+   ✓ BridgeRuntimeCoordinator > persists a fresh runtime checkpoint before becoming ready 356ms
+   ✓ BridgeRuntimeCoordinator > does not expose a first-seen dispatch to its caller or a queued read before commit 4579ms
+   ✓ BridgeRuntimeCoordinator > restores logical identity, revision, and the exact historical response 4211ms
+   ✓ BridgeRuntimeCoordinator > poisons queued and later reads when a checkpoint commit fails without replacing prior bytes 4181ms
+   ✓ BridgeRuntimeCoordinator > rolls full journals without changing current or explicitly saved game authority 7789ms
+   ✓ BridgeRuntimeCoordinator > poisons instead of rolling when one entry cannot fit an empty journal 5318ms
+   ✓ BridgeRuntimeCoordinator > drains accepted work before releasing the store and rejects work added after close 7137ms
+ ❯ |core| tests/bridge-p12-campaign-library.test.ts (13 tests | 11 failed) 104790ms
+   ✓ R05 independent named campaign transactions > keeps a reviewed contract quote usable across failed and successful catalogue-only rename 5645ms
+   ✓ R05 independent named campaign transactions > keeps a reviewed contract quote usable across failed and successful catalogue-only delete 3817ms
+   × R05 independent named campaign transactions > keeps the shipped Save route and save-before-load consistent with the named record 5495ms
+     → Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+   × R05 independent named campaign transactions > rejects a corrupted cross-world active binding and stops on an uncertain commit 6207ms
+     → Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+   × R05 independent named campaign transactions > saves atomically across the bounded replay journal with a new logical session 5712ms
+     → Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+   × R05 independent named campaign transactions > branches CURRENT complete state, preserves original records, switches scope and survives restart 6029ms
+     → Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+   × R05 independent named campaign transactions > makes failed writes, cancel/unsaved conflicts, stale targets and rename collisions leave authority intact 5524ms
+     → Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+   × R05 independent named campaign transactions > requires exact delete/overwrite confirmation and never recreates a deleted active record 5764ms
+     → Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+   × R05 independent named campaign transactions > imports real old current/saved checkpoints as independently recoverable records without losing original bytes 5043ms
+     → Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+   × R05 independent named campaign transactions > recovers different-world legacy slots and null saved state, preserving exact originals 5899ms
+     → Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+   × R05 independent named campaign transactions > branches a full journal without changing source bytes and retries the exact durable copy after restart 6428ms
+     → Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+   × R05 independent named campaign transactions > durably save dirty progress while preserving two inactive worlds and failed-write authority 21930ms
+     → Test timed out in 20000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+   × R05 independent named campaign transactions > durably discard dirty progress while preserving two inactive worlds and failed-write authority 21295ms
+     → Test timed out in 20000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ✓ |core| tests/bridge-p10a-w0-people-projection.test.ts (10 tests) 7305ms
+   ✓ P10A W0 — people projection > R2 fresh clones: mutating a served projection changes neither GameState nor the next call 421ms
+   ✓ P10A W0 — people projection > R6 provenance: legacy films without participants say Not recorded; frozen rows are verbatim; a credit without an event is partial 328ms
+   ✓ P10A W0 — people projection > R8 grouped attention lists each person at most once, by the highest tier; contract horizons come from the contract alone 5009ms
+   ✓ P10A W0 — people projection > R9 the served section is projection 32 and the projection-17/18 identities stay accepted 367ms
+   ✓ P10A W0 — people projection > R10 a genuine V16 control migrates without changing any original person 504ms
+ ✓ |core| tests/bridge-founding.test.ts (6 tests) 33846ms
+   ✓ Bridge production founding v1 > opens a fresh production runtime on draft-ordered, profession-gated 104-week Actor offers 638ms
+   ✓ Bridge production founding v1 > emits the exact founding action at Core coverage and keeps the reserve Actor optional 29502ms
+   ✓ Bridge production founding v1 > publishes a founding-arrival view whose joins, prices, and previews are the authority's own 702ms
+   ✓ Bridge production founding v1 > replays an accepted founding offer exactly and rejects stale or consumed choices without mutation 1146ms
+   ✓ Bridge production founding v1 > restores an in-progress founding draft with exact authority and replay continuity 1839ms
+ ✓ |core| tests/bridge-r3n4-read-model-deltas.test.ts (9 tests) 905ms
+   ✓ R3-N4-SIM-20 — batched N4/N5/N6 read-model deltas (projection 31) > serves the whole bundle under the regenerated schema with the new fields present 559ms
+[bridge] 2026-09-17T07:24:25.980Z commandId=af6ea4ba-c0fa-4ec4-94ed-14ced1d9a352 expectedRevision=0 operation=save result=accepted revision=0 disposition=first-seen durationMs=24.261
+[bridge] 2026-09-17T07:24:26.078Z commandId=af6ea4ba-c0fa-4ec4-94ed-14ced1d9a352 expectedRevision=0 operation=save result=accepted revision=0 disposition=replay durationMs=24.261
+[bridge] 2026-09-17T07:24:28.285Z commandId=829cf2ca-5dbc-4712-af0b-29370c991fba expectedRevision=0 operation=submitIntent result=accepted revision=1 disposition=first-seen durationMs=294.669
+[bridge] 2026-09-17T07:24:30.477Z commandId=af6ea4ba-c0fa-4ec4-94ed-14ced1d9a352 expectedRevision=0 operation=save result=accepted revision=0 disposition=replay durationMs=24.261
+[bridge] 2026-09-17T07:24:35.069Z commandId=6a8e2d57-2f1b-41c3-9004-9ddafbff7042 expectedRevision=0 operation=save result=accepted revision=0 disposition=first-seen durationMs=35.311
+ ✓ |core| tests/bridge-runtime-worker.test.ts (8 tests) 17325ms
+   ✓ runtime worker production authority > delivers an accepted campaign Save before close completes and recovers its catalogue receipt 4605ms
+   ✓ runtime worker production authority > durably saves exact response bytes and replays them after later progress and reopen 8059ms
+   ✓ runtime worker production authority > refuses a second authority while preserving the first worker and its durable bytes 2645ms
+   ✓ runtime worker responsiveness and lifecycle > keeps the caller timer responsive during synchronous work and retains exact UTF-8 bytes 556ms
+   ✓ runtime worker responsiveness and lifecycle > drains accepted work before graceful close and rejects requests made after closing starts 525ms
+ ✓ |core| tests/bridge-operations-events.test.ts (6 tests) 1171ms
+   ✓ R3-N7-SIM-01 — operationsEventsProjection (projection 32) > L6 is pure, mutates nothing, and validates inside the served projection-37 envelope 869ms
+ ✓ |core| tests/bridge-p07a-w6-result-continuity.test.ts (6 tests) 4011ms
+   ✓ P07A W6 — commitment releases exactly once (R1) > one commit + one week = one FilmResult + one run; later weeks never duplicate 1233ms
+   ✓ P07A W6 — active-run truth and the run-complete flip (R2/R3) > speaks projected while active, final once complete, and stays durably inspectable 638ms
+   ✓ P07A W6 — save/load preserves result truth mid-run (R4) > round-trips the projection byte-for-byte and completes the run identically 1014ms
+   ✓ P07A W6 — duplicate titles are separated by exact id (R5) > two films named identically keep separate results, runs, and wire cards 695ms
+ ✓ |core| tests/bridge-http-security.test.ts (2 tests) 6736ms
+   ✓ fails closed before opening runtime state when the launch capability is absent or invalid 2016ms
+   ✓ denies cross-origin and unauthenticated reads and mutations before runtime access 4719ms
+ ✓ |core| tests/bridge-development.test.ts (4 tests) 15996ms
+   ✓ P03A Development bridge — quote seam and board > quotes, mints, and commits a market commission draft through the quote seam 4283ms
+   ✓ P03A Development bridge — quote seam and board > rejects stale and malformed drafts without mutation 3493ms
+   ✓ P03A Development bridge — quote seam and board > publishes a leak-free Development board and an exact rewrite preview at review 6115ms
+   ✓ P03A Development bridge — quote seam and board > quotes an original screenplay draft with the engine's own clock 2103ms
+ ✓ |core| tests/bridge-p05a3-roster-liveness.test.ts (9 tests) 4391ms
+   ✓ P05A.3 — the two-actor deadlock is a NAMED blocker, never a silent READY > the fixture IS the deadlock state 415ms
+   ✓ P05A.3 — the two-actor deadlock is a NAMED blocker, never a silent READY > publishes the package-staffing blocker with the exact counts and the acquisition remedy 359ms
+   ✓ P05A.3 — sign quote → commit breaks the deadlock (§17-A/E/F/H) > A+H: quotes exact figures, commits, and the signed actor joins the legal pool 1114ms
+   ✓ P05A.3 — sign quote → commit breaks the deadlock (§17-A/E/F/H) > E: an unaffordable sign refuses at quote time with the D-12 sentence and mutates nothing 648ms
+   ✓ P05A.3 — sign quote → commit breaks the deadlock (§17-A/E/F/H) > F: an accepted unrelated sign invalidates a live offer; the same draft is quotable fresh 801ms
+   ✓ P05A.3 — sign quote → commit breaks the deadlock (§17-A/E/F/H) > refuses an unknown or non-signable talent and a missing term in plain language 561ms
+ ✓ |core| tests/bridge-owner-ux-projection20-migration.test.ts (10 tests) 11899ms
+   ✓ Owner UX outgoing projection20 migration > migrates 'frozen Week105 null slot' without changing either V18 gameplay slot 1080ms
+   ✓ Owner UX outgoing projection20 migration > migrates 'frozen R12 Week106 null slot and genu…' without changing either V18 gameplay slot 874ms
+   ✓ Owner UX outgoing projection20 migration > migrates 'constructed distinct-slot envelope fr…' without changing either V18 gameplay slot 980ms
+   ✓ Owner UX outgoing projection20 migration > persists 'frozen Week105 null slot' once, then preserves the new session on restart 1247ms
+   ✓ Owner UX outgoing projection20 migration > persists 'frozen R12 Week106 null slot and genu…' once, then preserves the new session on restart 1138ms
+   ✓ Owner UX outgoing projection20 migration > persists 'constructed distinct-slot envelope fr…' once, then preserves the new session on restart 1680ms
+   ✓ Owner UX outgoing projection20 migration > preserves current-schema journal/session and exact Save retries after real published advance 4147ms
+   ✓ Owner UX outgoing projection20 migration > leaves both predecessor slots and journal intact when migration persistence fails 630ms
+ ✓ |core| tests/bridge-inflight-evidence-verifier.test.ts (9 tests) 82942ms
+   ✓ bridge in-flight native evidence verifier > binds exactly three Unity receipts to commit markers, replay bytes, and the checkpoint 4662ms
+   ✓ bridge in-flight native evidence verifier > requires schema 7 raw-founding identity and an explicitly empty recovery prelude 30269ms
+   ✓ bridge in-flight native evidence verifier > rejects a byte-different semantic retry even when command identity still matches 4840ms
+   ✓ bridge in-flight native evidence verifier > rejects response hashes forged consistently by both marker producers and Unity 4776ms
+   ✓ bridge in-flight native evidence verifier > rejects duplicate, missing, and extra-schema markers 12187ms
+   ✓ bridge in-flight native evidence verifier > rejects noncanonical and incomplete marker lines 8553ms
+   ✓ bridge in-flight native evidence verifier > rejects duplicate Unity routes and incomplete report counts 6935ms
+   ✓ bridge in-flight native evidence verifier > rejects extra durable journal authority and a mismatched final checkpoint digest 7306ms
+   ✓ bridge in-flight native evidence verifier > uses a dedicated fail-closed error without embedding the evidence root 3411ms
+ ✓ |core| tests/bridge-p06-checkpoint-recovery.test.ts (11 tests) 6656ms
+   ✓ AUD-001 — frozen P06 checkpoint recovery > loads 'Ready with no explicit save' through the governed predecessor path 553ms
+   ✓ AUD-001 — frozen P06 checkpoint recovery > loads 'Committed with distinct Ready save an…' through the governed predecessor path 829ms
+   ✓ AUD-001 — frozen P06 checkpoint recovery > persists 'Ready with no explicit save' once and reopens without remigration 1407ms
+   ✓ AUD-001 — frozen P06 checkpoint recovery > persists 'Committed with distinct Ready save an…' once and reopens without remigration 2928ms
+   ✓ AUD-001 — frozen P06 checkpoint recovery > preserves the predecessor if the migration write fails 728ms
+ ✓ |core| tests/bridge-p09a-w5-set-commission.test.ts (5 tests) 5603ms
+   ✓ P09A W5 — Set commission over the bridge > R1: a legal preview reads the engine verbatim and is the one registered commit 1641ms
+   ✓ P09A W5 — Set commission over the bridge > R2: a refused preview is an accepted ok:false answer with the engine reason + remedy; its id is not a commit 1234ms
+   ✓ P09A W5 — Set commission over the bridge > R3: commit builds the Set once at the quoted price; replay refused; the stage is then dressed 1896ms
+   ✓ P09A W5 — Set commission over the bridge > R4: the authored Set catalogue rides the lot projection with engine prices and affordability 776ms
+ ✓ |core| tests/bridge-checkpoint-store.test.ts (12 tests) 1105ms
+ ✓ |core| tests/bridge-owner-ux-saved-slot.test.ts (9 tests) 45647ms
+   ✓ Owner UX saved-slot metadata > publishes null for an unsaved runtime and preserves the existing NO_SAVE response 914ms
+   ✓ Owner UX saved-slot metadata > reports the next saved bytes immediately without changing gameplay revision or digest 4224ms
+   ✓ Owner UX saved-slot metadata > retains the saved week while the live game advances, then updates on a same-revision overwrite 6518ms
+   ✓ Owner UX saved-slot metadata > replays a historical Save receipt without overwriting the newer slot, including after reconnect 9449ms
+   ✓ Owner UX saved-slot metadata > keeps distinct current and saved slots across reconnect and rollover, then Load restores the saved subject 11399ms
+   ✓ Owner UX saved-slot metadata > does not change slot metadata or durable state after stale or wrong-session Save 5223ms
+   ✓ Owner UX saved-slot metadata > does not expose prospective metadata if checkpoint preparation rejects Save 2082ms
+   ✓ Owner UX saved-slot metadata > returns independent metadata objects for polling, accepted receipts, and cached retries 2684ms
+   ✓ Owner UX saved-slot metadata > does not fabricate metadata when the low-level constructor receives unreadable saved bytes 3150ms
+ ✓ |core| tests/bridge-p13-laboratory.test.ts (7 tests) 13554ms
+   ✓ P13A Laboratory bridge > publishes one exact Laboratory with named employment and truthful early-release refusal 1636ms
+   ✓ P13A Laboratory bridge > rejects wrong building, stale revision and Save As session while keeping output detached 754ms
+   ✓ P13A Laboratory bridge > pages decisions without exposing private Laboratory data in public Industry pages 467ms
+   ✓ P13A Laboratory bridge > does not let read-side preflights spend money or invent employment/research history 416ms
+   ✓ P13A Laboratory bridge > commits the exact named hire once, rejects its stale sibling intent, then assigns the employed Scientist 2718ms
+   ✓ P13A Laboratory bridge > acknowledges completed acoustic instruments while the Scientist seat remains unassigned 518ms
+   ✓ P13A Laboratory bridge > shows rival sound only from the actual operational receipt, without exposing private finances 7043ms
+ ✓ |core| tests/bridge-p05a1-owner-greenlight.test.ts (7 tests) 2909ms
+   ✓ P05A.1 — the Owner-profile Queue Greenlight state, replayed > capacity-only affordable package: quote accepted, queues, then ONE queue row and zero commitment 2067ms
+ ✓ |core| tests/bridge-p13b-s1b-seats.test.ts (8 tests) 12056ms
+   ✓ P13B-S1b Laboratory seats read model (projection 37 after S5-T4) > d. a released seat keeps its history row; the quote drops to three seats; the next receipt names three ids 332ms
+ ✓ |core| tests/bridge-snapshot-build-context.test.ts (13 tests) 9396ms
+   ✓ W0 snapshot build context — fact equivalence > serves byte-identical save JSON and digest to the underlying pure functions 360ms
+   ✓ W0 snapshot build context — once-per-state computation > computes each heavy fact at most once across repeated snapshot polls 991ms
+   ✓ W0 snapshot build context — once-per-state computation > computes founding-state facts at most once across repeated founding polls 731ms
+   ✓ W0 snapshot build context — once-per-state computation > recomputes facts exactly once for the successor state after an accepted command 1060ms
+   ✓ W0 snapshot build context — once-per-state computation > folds the save route to one canonical export for digest, payload, and journal 511ms
+   ✓ W0 snapshot build context — envelope isolation and determinism > serves envelopes that never alias a later poll: vandalizing one leaves the next byte-identical 892ms
+   ✓ W0 snapshot build context — envelope isolation and determinism > serves founding envelopes that never alias a later poll either 645ms
+   ✓ W0 snapshot build context — envelope isolation and determinism > keeps command legality intact after a served envelope is vandalized 952ms
+   ✓ W0 snapshot build context — envelope isolation and determinism > produces identical envelopes for identical states and session identity 759ms
+   ✓ W0 snapshot build context — envelope isolation and determinism > keeps intent identity stable against a structurally identical FRESH state 425ms
+   ✓ W0 snapshot build context — envelope isolation and determinism > restores loaded-state facts freshly and exactly on load 1757ms
+ ✓ |core| tests/bridge-p08a-w2-history-projection.test.ts (4 tests) 3491ms
+   ✓ P08A W2 — P1 purity and P2 exact wire contract > derives byte-identically twice, mutates nothing, and validates as the history bundle section 1740ms
+   ✓ P08A W2 — P3 exact routes and P5 provenance > links receipts and rows to the exact production id, marks result availability, and reconciles channels 752ms
+   ✓ P08A W2 — P4 honesty for migrated worlds > says what was not recorded, lists pre-boundary films as unrecorded, and invents no row 560ms
+   ✓ P08A W2 — P4 honesty for migrated worlds > keeps same-title films distinct by id in every row 436ms
+ ✓ |core| tests/bridge-p11-capital-contributors.test.ts (6 tests) 4782ms
+   ✓ P11 recorded facility capital contributors over the real bridge > hydrates genuine outgoing projection24 and joins four original payments to exact construction events 1288ms
+   ✓ P11 recorded facility capital contributors over the real bridge > preserves same-name site identities across periods, completion and history windows 1893ms
+   ✓ P11 recorded facility capital contributors over the real bridge > keeps bounded overflow explicit and its signed amounts reconcilable to the category 340ms
+   ✓ P11 recorded facility capital contributors over the real bridge > never uses history as amount authority or guesses a demolished site from its title or ledger note 371ms
+   ✓ P11 recorded facility capital contributors over the real bridge > caps a real 26-purchase history at 20 without hiding the remaining payments 615ms
+ ✓ |core| tests/bridge-p09a-r2-facility-history-rows.test.ts (5 tests) 3015ms
+   ✓ P09-REQ-040 — facility milestones in Studio History > records Opened at the placement's own completion week, after every row of the advancing week 1165ms
+   ✓ P09-REQ-040 — facility milestones in Studio History > records Demolished; the facility becomes historical with no body to locate, and its old rows follow 718ms
+   ✓ P09-REQ-040 — facility milestones in Studio History > records Moved when a legal move happens, keeping the placement identity 375ms
+   ✓ P09-REQ-040 — facility milestones in Studio History > survives Save/Load byte-exact and validates under the live save law 656ms
+ ✓ |core| tests/bridge-p13-scientist-expiry.test.ts (3 tests) 24557ms
+   ✓ P13A Scientist expiration at the shared Gate Hiring boundary > projects an expired Scientist with exact hire terms and commits the same person through the Laboratory 11041ms
+   ✓ P13A Scientist expiration at the shared Gate Hiring boundary > distinguishes the requested ceiling, usable spend, uncharged balance and retained employment 6499ms
+   ✓ P13A Scientist expiration at the shared Gate Hiring boundary > distinguishes completed research, pending physical work and the exact operational sound chain 7016ms
+ ✓ |core| tests/bridge-p12-industry.test.ts (4 tests) 2259ms
+   ✓ R05 public Industry projections > exposes only actual announced work and earned gross while rivals are still in theatrical runs 1110ms
+   ✓ R05 public Industry projections > follows the exact funded announcement through release, complete credits, history and paged employment 582ms
+   ✓ R05 public Industry projections > keeps recent Output newcomers distinct from incomparable incumbents and absent observations 355ms
+stdout | tests/bridge-p04a2-writer-credit-law.test.ts > P04A.2 §19E — the greenlight quote/command seam publishes no writer-busy blocker > quotes clean, mints ONE opaque intent, and the command is the sole commit
+[P04A.2 WITNESS] §19E bridge packageReadiness (A ready, writer drafting B): {"knownGatesClear":true,"willQueue":false,"blockers":[]}
+
+stdout | tests/bridge-p04a2-writer-credit-law.test.ts > P04A.2 §19E — the greenlight quote/command seam publishes no writer-busy blocker > a stale revision still refuses, and a refusal mutates NOTHING
+[P04A.2 WITNESS] §19E refusals leave no trace: {"staleReason":"STALE_REVISION","budgetRefused":true}
+
+ ✓ |core| tests/bridge-p04a2-writer-credit-law.test.ts (2 tests) 1423ms
+   ✓ P04A.2 §19E — the greenlight quote/command seam publishes no writer-busy blocker > quotes clean, mints ONE opaque intent, and the command is the sole commit 1250ms
+ ❯ |core| tests/bridge-p13-campaign-isolation.test.ts (1 test | 1 failed) 72383ms
+   × P13A research authority across named campaign operations > Save As branches real research, inactive and renamed campaigns stay frozen, and a new campaign receives none of their authority 72382ms
+     → Test timed out in 60000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+stdout | tests/bridge-p09a-w5-bare-lot-first-film.test.ts > P09A W5 — the bare-lot first film, driven only through the bridge > founds sparse, builds the plant and a Set at engine prices, and releases a picture on its own money
+[p09 bridge journey] released week 37; commands 46; rollovers 2; cash floor 8864638; final cash 9374658
+
+ ✓ |core| tests/bridge-p09a-w5-bare-lot-first-film.test.ts (1 test) 240390ms
+   ✓ P09A W5 — the bare-lot first film, driven only through the bridge > founds sparse, builds the plant and a Set at engine prices, and releases a picture on its own money 240381ms
+ ✓ |core| tests/bridge-p09a-w1b-bare-lot-projection.test.ts (5 tests) 33104ms
+   ✓ P09A W1b — the bare lot on the wire > R1: the journey names the missing capacity, routes to Build, then waits for the office, then starts a picture 1077ms
+   ✓ P09A W1b — the bare lot on the wire > R1b: the bridge offers advanceWeek while the office rises, and never before anything is committed 31564ms
+   ✓ P09A W1b — the bare lot on the wire > R3: the engine roads ride the wire with the property, per regime 372ms
+ ✓ |core| tests/bridge-foundation-recovery.test.ts (7 tests) 41991ms
+   ✓ AUD-002: legal post-expiry recovery without a Ready screenplay > keeps ordinary hiring closed throughout the founding draft 446ms
+   ✓ AUD-002: legal post-expiry recovery without a Ready screenplay > still requires an exact Ready project for screenTest 317ms
+   ✓ AUD-002: legal post-expiry recovery without a Ready screenplay > quotes and commits a current writer without a fabricated project, exactly once 2116ms
+   ✓ AUD-002: legal post-expiry recovery without a Ready screenplay > quotes and commits a current actor without a fabricated project, exactly once 1944ms
+   ✓ AUD-002: legal post-expiry recovery without a Ready screenplay > offers explicit time for theatrical settlement and construction with no screenplay or staff 36861ms
+ ✓ |core| tests/bridge-p13b-s3-save-as.test.ts (1 test) 8322ms
+   ✓ P13B-S3 Save As (test 7, A11) > a Save As copy keeps the same plan ids and advances independently; the inactive original never advances (complete-state comparison) 8306ms
+ ✓ |core| tests/bridge-owner-ux-genre-projection.test.ts (6 tests) 330ms
+ ✓ |core| tests/bridge-p11-production-location.test.ts (3 tests) 3391ms
+   ✓ P11 exact production property locations > accepts authentic26 and projects a real immediate Greenlight at the reserved placed office 2292ms
+   ✓ P11 exact production property locations > uses the real placed Post reservation, then no guessed site for ready or committed release 889ms
+ ✓ |core| tests/bridge-p05a-w2-intents.test.ts (4 tests) 2051ms
+   ✓ P05A W2 — all-active production intents > publishes one exact-ID intent per deciding production, ascending 307ms
+   ✓ P05A W2 — all-active production intents > applies a NON-guided production intent and leaves the other decision standing 1251ms
+ ✓ |core| tests/bridge-runtime-session.test.ts (5 tests) 43800ms
+   ✓ BridgeSession runtime checkpoint recovery > creates and restores an unsaved production runtime during founding 1196ms
+   ✓ BridgeSession runtime checkpoint recovery > restores untouched V14 authority bytes, logical identity, revision, and digest 3411ms
+   ✓ BridgeSession runtime checkpoint recovery > replays an accepted command byte-for-byte after checkpoint restoration 3868ms
+   ✓ BridgeSession runtime checkpoint recovery > preserves exact command, save, and load history after later mutations and restart 5873ms
+   ✓ BridgeSession runtime checkpoint recovery > does not silently evict historical command ids at the old 256-entry boundary 29450ms
+ ✓ |core| tests/bridge-p13-profile-availability.test.ts (2 tests) 7730ms
+   ✓ P13A shared profile and roster current-work availability > shows the actual Scientist working after a funded advance, then available when research is paused without changing employment 7332ms
+   ✓ P13A shared profile and roster current-work availability > preserves a credited writer as available while the actual director, cast and craft company are working 397ms
+ ✓ |core| tests/bridge-p13b-s1-identity.test.ts (1 test) 5391ms
+ ✓ |core| tests/bridge-owner-ux-projection21-schema.test.ts (9 tests) 21248ms
+   ✓ Owner UX projection21 public field wire boundary > parses actual current snapshot, Save, and Load envelopes 5161ms
+   ✓ Owner UX projection21 public field wire boundary > requires savedSlot rather than silently defaulting it 2743ms
+   ✓ Owner UX projection21 public field wire boundary > rejects malformed/fabricated slot metadata 0 1911ms
+   ✓ Owner UX projection21 public field wire boundary > rejects malformed/fabricated slot metadata 1 2140ms
+   ✓ Owner UX projection21 public field wire boundary > rejects malformed/fabricated slot metadata 2 2382ms
+   ✓ Owner UX projection21 public field wire boundary > rejects malformed/fabricated slot metadata 3 2138ms
+   ✓ Owner UX projection21 public field wire boundary > rejects malformed/fabricated slot metadata 4 2507ms
+   ✓ Owner UX projection21 public field wire boundary > accepts public fractional and known-zero cells, rejects hidden values and malformed cells 2259ms
+ ✓ |core| tests/bridge-p12-storage-codec.test.ts (4 tests) 69ms
+ ✓ |core| tests/bridge-p13-lot-technology.test.ts (2 tests) 14766ms
+   ✓ P13A exact lot technology status > shows acoustic installation on the existing Laboratory, then its real named paused/active task 7267ms
+   ✓ P13A exact lot technology status > joins actual sound work to the exact founding stage/Post and leaves the other stage unchanged 7497ms
+ ✓ |core| tests/bridge-process-incarnation.test.ts (4 tests) 37ms
+ ✓ |core| tests/bridge-p13-no-laboratory-commercial.test.ts (1 test) 14036ms
+   ✓ P13A commercial route without a Laboratory > keeps wait, purchase and exact stage/Post decisions in the global intent list beside other studio actions 14034ms
+ ✓ |core| tests/bridge-p13-technology-history.test.ts (1 test) 5646ms
+   ✓ P13A dated technology history projection > shows the recorded 1925 and 1928 availability dates without claiming player adoption 5641ms
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 12 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > keeps the shipped Save route and save-before-load consistent with the named record
+ FAIL |core|  tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > rejects a corrupted cross-world active binding and stops on an uncertain commit
+ FAIL |core|  tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > saves atomically across the bounded replay journal with a new logical session
+ FAIL |core|  tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > branches CURRENT complete state, preserves original records, switches scope and survives restart
+ FAIL |core|  tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > makes failed writes, cancel/unsaved conflicts, stale targets and rename collisions leave authority intact
+ FAIL |core|  tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > requires exact delete/overwrite confirmation and never recreates a deleted active record
+ FAIL |core|  tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > imports real old current/saved checkpoints as independently recoverable records without losing original bytes
+ FAIL |core|  tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > recovers different-world legacy slots and null saved state, preserving exact originals
+ FAIL |core|  tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > branches a full journal without changing source bytes and retries the exact durable copy after restart
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/12]⎯
+
+ FAIL |core|  tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > durably save dirty progress while preserving two inactive worlds and failed-write authority
+ FAIL |core|  tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > durably discard dirty progress while preserving two inactive worlds and failed-write authority
+Error: Test timed out in 20000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/12]⎯
+
+ FAIL |core|  tests/bridge-p13-campaign-isolation.test.ts > P13A research authority across named campaign operations > Save As branches real research, inactive and renamed campaigns stay frozen, and a new campaign receives none of their authority
+Error: Test timed out in 60000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/12]⎯
+
+ Test Files  2 failed | 59 passed (61)
+      Tests  12 failed | 595 passed (607)
+   Start at  09:10:26
+   Duration  1245.91s (transform 6.22s, setup 0ms, collect 41.27s, tests 2414.31s, environment 20ms, prepare 7.75s)
+
+BRIDGE_EXIT=1
