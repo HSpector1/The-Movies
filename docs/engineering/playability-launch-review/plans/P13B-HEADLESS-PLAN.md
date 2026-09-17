@@ -532,7 +532,7 @@ highest-operational-standard ladder. Nothing else in the estate changes.
       **Fixture fixes landed `95a6811` (28/28).** **Gap found by the test-author (2026-09-17 ≈02:40), open:** an offline body has registry capacity 0,
       and `occupancy.ts`'s installation claims iterate `0..capacity`, so a RUNNING conversion no longer engages its own body — a second conversion
       on the same body is not refused `targetEngaged` (both admitted in one tick). Law: a `takesTargetOffline` installation under construction
-      engages its body for its whole span independent of capacity. RED cases first (test-author, `07-red-engagement-*`), then the engine fix.
+      engages its body for its whole span independent of capacity. RED cases pinned at `0b836a8` (`07-red-engagement-*`: quotes 9/10 — a live II quote on the converting body returned `ok:true`; plans 5/6 — the second plan `started` in the same tick), engine fix dispatched to sim-core (≈02:55; `08-engagement-fix-*`).
 - [~] **S4-T3 Bridge projection 36 (sim-core dispatched ≈02:20; `view: 'office'` keyed by facility id, `StudioOfficePage` with conversion rows always published incl. refusals, `office-convert-<facilityId>-ii|iii` and `plan-queue-office-convert-*` companions):** test 6 (`tests/bridge-p13b-s4-office.test.ts`, test-author after the fixture fixes).
 - [ ] **S4-T4 Matched pass, records (backlog entry), commit, push.**
 
