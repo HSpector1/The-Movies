@@ -306,6 +306,8 @@ export function officePage(state: GameState, facilityId: string | null, intents:
       enabled: spec.enabled && enabled.has(spec.id),
       disabledReason: spec.disabledReason ?? (enabled.has(spec.id) ? null : 'Refresh this building to review the current decision.'),
       intent: enabled.get(spec.id) ?? null,
+      // P13B-S5: the shared action row's adoption quote. An office conversion never carries one.
+      quote: null,
     })),
   } }
 }

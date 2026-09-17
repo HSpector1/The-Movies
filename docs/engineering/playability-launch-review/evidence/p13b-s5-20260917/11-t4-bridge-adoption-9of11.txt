@@ -1,0 +1,116 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/bridge-p13b-s5-adoption.test.ts > P13B-S5-T4 bridge adoption wire: projection bump (36 -> 37) > bumps PROJECTION_VERSION to 37 and its schema $id / x-project-studio.projectionVersion move with it
+ ✓ |core| tests/bridge-p13b-s5-adoption.test.ts > P13B-S5-T4 bridge adoption wire: projection bump (36 -> 37) > AVAILABLE_INTENT_KINDS gains the adoptTechnology kind, distinct from researchAction/installationAction/physicalPlanAction
+ ✓ |core| tests/bridge-p13b-s5-adoption.test.ts > requirement 1: laboratory.adoptions[] structured rows and per-row StudioAdoptionQuote > a committed lighting adoption appears on adoptions[] with technologyId/route/committedWeek/operationalWeek/components/equipmentAssetId/postFacilityId 10159ms
+ ✓ |core| tests/bridge-p13b-s5-adoption.test.ts > requirement 1: laboratory.adoptions[] structured rows and per-row StudioAdoptionQuote > the adopt-lighting-control-01-<stage> action row carries intent.kind "adoptTechnology" and a quote equal to the engine's own adoptionQuote (minus its ok flag)
+ ✓ |core| tests/bridge-p13b-s5-adoption.test.ts > requirement 2: lighting rows are access-gated for presence and quote the exact 100,000 first-prototype total > no adopt-lighting-control-01-* row exists anywhere before lighting access is acquired 7016ms
+ ✓ |core| tests/bridge-p13b-s5-adoption.test.ts > requirement 2: lighting rows are access-gated for presence and quote the exact 100,000 first-prototype total > once lighting access is acquired (first-prototype route) the row names a compatible stage, no Post, and totals exactly $100,000 (site 50k/2w + installation 50k/2w + equipment $0)
+ ✓ |core| tests/bridge-p13b-s5-adoption.test.ts > requirement 3: sound rows keep P13A stage+Post pairing, existing-Post reuse at $0 > a second stage's sound row reuses the first stage's operational Post: reusedPostFacilityId set, the Post component existing/$0 5585ms
+ × |core| tests/bridge-p13b-s5-adoption.test.ts > requirement 4: committing an adopt row through the bridge (engine-truth components, revision advance, stale refusal, row disappears) > commits exactly one adoption with the wire-quoted components, advances stateRevision, refuses the same intent at the old revision, and the committed stage's own row disappears 1352ms
+   → expected [ { kind: 'access', …(6) }, …(5) ] to deeply equal [ { kind: 'access', …(6) }, …(5) ]
+ × |core| tests/bridge-p13b-s5-adoption.test.ts > per-technology stage rule: a stage with an adoption of one technology still offers the other, never the same one again > after committing sound on a stage, that stage's own sound row is gone but its lighting row is still offered 7096ms
+   → expected false to be true // Object.is equality
+ ✓ |core| tests/bridge-p13b-s5-adoption.test.ts > requirement 5: plan-queue-adopt-<technologyId>-<stageFacilityId> companions never mint an adoption and follow the S4 reachable-hide rule > queues the stage-installation blueprint through queuePhysicalPlan, mints no adoption, and then hides itself once queued (duplicate-queue rule) 1185ms
+ ✓ |core| tests/bridge-p13b-s5-adoption.test.ts > requirement 6: refusal disclosure and player-safety on a row whose engine quote is refused > a sound row before access is acquired publishes the engine's own refusal/rejections, agrees with disabledReason, and the underlying action throws that exact text 3443ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/bridge-p13b-s5-adoption.test.ts > requirement 4: committing an adopt row through the bridge (engine-truth components, revision advance, stale refusal, row disappears) > commits exactly one adoption with the wire-quoted components, advances stateRevision, refuses the same intent at the old revision, and the committed stage's own row disappears
+AssertionError: expected [ { kind: 'access', …(6) }, …(5) ] to deeply equal [ { kind: 'access', …(6) }, …(5) ]
+
+- Expected
++ Received
+
+  Array [
+    Object {
+      "cost": 0,
+      "equipmentAssetId": null,
+      "kind": "access",
+      "label": "Synchronized sound access",
+      "placementId": null,
+      "source": "existing",
+      "weeks": null,
+    },
+    Object {
+      "cost": 0,
+-     "equipmentAssetId": null,
++     "equipmentAssetId": "studio-aca408ec-player:equipment:0",
+      "kind": "equipment",
+      "label": "Synchronized sound equipment: first prototype from your own research",
+      "placementId": null,
+      "source": "first-prototype",
+      "weeks": null,
+    },
+    Object {
+      "cost": 450000,
+      "equipmentAssetId": null,
+      "kind": "site",
+      "label": "Stage site adaptation",
+-     "placementId": null,
++     "placementId": 3,
+      "source": "physical",
+      "weeks": 9,
+    },
+    Object {
+      "cost": 150000,
+      "equipmentAssetId": null,
+      "kind": "installation",
+      "label": "Equipment installation",
+-     "placementId": null,
++     "placementId": 3,
+      "source": "physical",
+      "weeks": 3,
+    },
+    Object {
+      "cost": 75000,
+      "equipmentAssetId": null,
+      "kind": "capture",
+      "label": "Compatible capture package (with equipment)",
+-     "placementId": null,
++     "placementId": 3,
+      "source": "physical",
+      "weeks": 0,
+    },
+    Object {
+      "cost": 300000,
+      "equipmentAssetId": null,
+      "kind": "post",
+      "label": "Sound-capable Post fit-out",
+-     "placementId": null,
++     "placementId": 4,
+      "source": "physical",
+      "weeks": 6,
+    },
+  ]
+
+ ❯ tests/bridge-p13b-s5-adoption.test.ts:364:31
+    362|     expect(session.gameState.technology.adoptions.length).toBe(adoptio…
+    363|     const minted = required(session.gameState.technology.adoptions.fin…
+    364|     expect(minted.components).toEqual(wireQuote.components) // what wa…
+       |                               ^
+    365|     expect(session.stateRevision).not.toBe(staleRevision)
+    366| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL |core|  tests/bridge-p13b-s5-adoption.test.ts > per-technology stage rule: a stage with an adoption of one technology still offers the other, never the same one again > after committing sound on a stage, that stage's own sound row is gone but its lighting row is still offered
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ tests/bridge-p13b-s5-adoption.test.ts:393:33
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 9 passed (11)
+   Start at  07:45:03
+   Duration  40.64s (transform 2.95s, setup 0ms, collect 3.86s, tests 36.05s, environment 0ms, prepare 138ms)
+

@@ -173,6 +173,8 @@ export function plansPage(state: GameState, intents: readonly PlanIntent[], page
       enabled: spec.enabled && enabled.has(spec.id),
       disabledReason: spec.disabledReason ?? (enabled.has(spec.id) ? null : 'Refresh this page to review the current decision.'),
       intent: enabled.get(spec.id) ?? null,
+      // P13B-S5: the shared action row's adoption quote. A plan verb never carries one.
+      quote: null,
     })),
   } }
 }

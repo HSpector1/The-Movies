@@ -35,6 +35,11 @@ export const AVAILABLE_INTENT_KINDS = [
   // standard conversions). The Laboratory's `instruments-<lab>` row keeps `researchAction`
   // because its engine verb genuinely is a TechnologyAction; this one is not research.
   'installationAction',
+  // P13B-S5: committing ONE technology adoption on one exact stage (and, where the
+  // technology has a Post component, one exact Post). Every `adopt-<technologyId>-...`
+  // row carries this kind, including the retained synchronized-sound pairing: an
+  // adoption buys equipment and physical plant, which is neither research nor a plan.
+  'adoptTechnology',
 ] as const
 
 export const StudioBridgeIntentOption = object('StudioBridgeIntentOption', {

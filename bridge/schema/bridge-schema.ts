@@ -81,7 +81,16 @@ export const PROTOCOL_VERSION = 4 as const
 // its `FacilityInstallationRefusal` name; `StudioOfficePage.blueprintId` is null exactly
 // on the endowed founding office, which is a property structure with no placement.
 // Additive only; protocol stays 4, and no new intent kind is minted.
-export const PROJECTION_VERSION = 36 as const
+// P13B-S5-T4 (plan §S5): 36 -> 37 — technology ADOPTION reaches the wire per technology.
+// `StudioAdoptionComponent`/`StudioAdoptionQuote`/`StudioAdoptionRow`, a nullable `quote` on
+// `StudioLaboratoryAction` (populated on `adopt-*` rows only, null on every other row and on
+// every Plans/Office action row), `StudioLaboratoryPage.adoptions` (this studio's committed
+// adoptions), the per-technology row ids `adopt-<technologyId>-<stageFacilityId>[-<postFacilityId>]`
+// and their `plan-queue-adopt-<technologyId>-<stageFacilityId>` companions, and the
+// `adoptTechnology` intent kind. A refused adopt row is still published with the engine's own
+// `rejections`/`refusal`; `postFacilityId` is null exactly when the technology has no Post
+// component. Additive only; protocol stays 4.
+export const PROJECTION_VERSION = 37 as const
 
 const nonEmptyText = () => text({ minLength: 1 })
 const nonNegativeInteger = () => integer({ minimum: 0 })

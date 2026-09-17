@@ -1086,11 +1086,17 @@ function resolveStudioIntents(state: GameState): IntentApplication[] {
   return resolved
 }
 
+/**
+ * P13B-S5: an `adopt-*` row moves equipment and physical plant, not research, so both
+ * adoption verbs — the retained `adoptSynchronizedSound` and the per-technology
+ * `adoptTechnology` — publish the SAME `adoptTechnology` kind. Every other Laboratory
+ * verb keeps `researchAction`; the plan companions keep `physicalPlanAction`.
+ */
 function resolveLaboratoryIntents(state: GameState): Array<IntentApplication & LaboratoryIntent> {
   const stateDigest = authoritativeDigest(state)
   return laboratoryActionSpecs(state).filter(spec => spec.enabled).map(spec => ({
     spec,
-    option: option(stateDigest, {kind:isPhysicalPlanAction(spec.action)?'physicalPlanAction':'researchAction',label:spec.label,detail:spec.detail,
+    option: option(stateDigest, {kind:isPhysicalPlanAction(spec.action)?'physicalPlanAction':spec.action.kind==='adoptTechnology'||spec.action.kind==='adoptSynchronizedSound'?'adoptTechnology':'researchAction',label:spec.label,detail:spec.detail,
       projectId:'projectId' in spec.action?spec.action.projectId:null,castingSessionId:null,
       productionId:'productionId' in spec.action?spec.action.productionId:null}, spec.action),
     apply: current => caught(() => ({ok:true,next:applyActions(current,[spec.action])})),

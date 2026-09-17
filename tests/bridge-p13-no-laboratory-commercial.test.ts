@@ -6,9 +6,12 @@ import { advanceTo, p13aGeneratedStudio } from '../src/harness/p13a/fixtures.js'
 describe('P13A commercial route without a Laboratory', () => {
   it('keeps wait, purchase and exact stage/Post decisions in the global intent list beside other studio actions', () => {
     let session = new BridgeSession(p13aGeneratedStudio('p13a-no-laboratory-commercial'), 'commercial-no-lab')
-    const submit = (label: string, commandId: string) => {
+    // P13B-S5-T4: an `adopt-*` row publishes the `adoptTechnology` kind (it buys equipment
+    // and physical plant); wait/purchase remain `researchAction`. The rows and labels are
+    // the retained P13A ones.
+    const submit = (label: string, commandId: string, kind = 'researchAction') => {
       const snapshot = session.snapshot()
-      const intent = snapshot.availableIntents.find(i => i.kind === 'researchAction' && i.label.startsWith(label))
+      const intent = snapshot.availableIntents.find(i => i.kind === kind && i.label.startsWith(label))
       expect(intent, label).toBeDefined()
       const result = session.command({ protocolVersion: PROTOCOL_VERSION, schemaId: SCHEMA_ID,
         sessionId: snapshot.sessionId, expectedStateRevision: snapshot.stateRevision,
@@ -27,11 +30,11 @@ describe('P13A commercial route without a Laboratory', () => {
     submit('Purchase synchronized-sound access', 'purchase-without-lab')
     expect(session.gameState.technology.access[0]!.route).toBe('purchase')
     expect(session.gameState.placement.facilities).toHaveLength(0)
-    const intents = session.snapshot().availableIntents.filter(i => i.kind === 'researchAction' && i.label.startsWith('Install sound:'))
+    const intents = session.snapshot().availableIntents.filter(i => i.kind === 'adoptTechnology' && i.label.startsWith('Install sound:'))
     expect(intents).toHaveLength(2)
     expect(intents[0]!.detail).toContain('Post')
     expect(intents[0]!.detail).toContain('charged now')
-    submit(intents[0]!.label, 'adopt-exact-chain-without-lab')
+    submit(intents[0]!.label, 'adopt-exact-chain-without-lab', 'adoptTechnology')
     const adoption = session.gameState.technology.adoptions[0]!
     expect(adoption.route).toBe('purchase')
     expect(session.gameState.placement.facilities.every(p => p.installation !== undefined)).toBe(true)

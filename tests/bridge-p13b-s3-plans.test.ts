@@ -189,8 +189,8 @@ function ownHistoryActivities(session: BridgeSession, requestId: string): { head
 // ---------------------------------------------------------------------------
 
 describe('P13B-S3-T4 plans bridge page: projection bump', () => {
-  it('bumps PROJECTION_VERSION to the S3-T4 wire contract (35; 36 after the S4-T3 bump)', () => {
-    expect(PROJECTION_VERSION).toBe(36)
+  it('bumps PROJECTION_VERSION to the S3-T4 wire contract (35; 37 after the S5-T4 bump)', () => {
+    expect(PROJECTION_VERSION).toBe(37)
   })
 })
 
@@ -202,7 +202,7 @@ describe('case 1: a fresh studio publishes an empty plans page; plans is null of
     const session = new BridgeSession(state, 'p13b-s3-plans-1-fresh')
 
     const plans = plansResponse(session, nextRequestId('fresh'))
-    expect(plans.snapshotVersion).toBe(36)
+    expect(plans.snapshotVersion).toBe(37)
     expect(plans.plans.rows).toEqual([])
     expect(plans.plans.actions).toEqual([])
 

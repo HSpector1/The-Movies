@@ -9,6 +9,7 @@ import { TUNING } from '../src/core/tuning.js'
 import { occupiedSeats, playerTechnologyAccess, PROJECT_UNIT, researchCandidates, researchWeekQuote, SYNCHRONIZED_SOUND, weeklyResearchPayroll, RESEARCH_SCIENTISTS_PER_STUDIO } from '../src/core/technology.js'
 import type { ResearchWeekQuote } from '../src/core/technology.js'
 import { TECHNOLOGY_CATALOGUE, technologyEntry } from '../src/core/technologyCatalogue.js'
+import { adoptionQuote, type AdoptionRequest } from '../src/core/technologyAdoption.js'
 import type { ResearchProject, ResearchSeat, ResearchWeekReceipt, TechnologyAction, TechnologyAdoption } from '../src/core/technologyTypes.js'
 import type { PhysicalPlanAction } from '../src/core/physicalPlans.js'
 import type { GameState } from '../src/core/types.js'
@@ -16,6 +17,8 @@ import type { AvailableIntent } from './protocol.ts'
 import type { IndustryPage } from './schema/industry-schema.ts'
 
 type LaboratoryPage = NonNullable<IndustryPage['laboratory']>
+type AdoptionQuoteRow = NonNullable<LaboratoryPage['actions'][number]['quote']>
+type AdoptionRow = LaboratoryPage['adoptions'][number]
 export type LaboratoryActionSpec = {
   id: string
   buildingId: string | null
@@ -26,6 +29,8 @@ export type LaboratoryActionSpec = {
   detail: string
   enabled: boolean
   disabledReason: string | null
+  /** P13B-S5: the engine's own adoption quote, on `adopt-*` rows alone. Null everywhere else. */
+  quote: AdoptionQuoteRow | null
 }
 export type LaboratoryIntent = { spec: LaboratoryActionSpec; option: AvailableIntent }
 const money = (value: number) => '$' + value.toLocaleString('en-US', { maximumFractionDigits: 0 })
@@ -114,6 +119,13 @@ function cooperationLabelFor(quote: ResearchWeekQuote): string {
   return `Two Laboratories: ${first.laboratoryFacilityId} ${first.seats} seats ${money(first.spend)} (${first.rawUnits} raw) + ` +
     `${second.laboratoryFacilityId} ${second.seats} seats ${money(second.spend)} (${second.rawUnits} raw) → ${quote.output} units/week; the second Laboratory counts at 0.625.`
 }
+/** One committed adoption as data: the engine's own row, copied so the page owns its output. */
+const adoptionRow = (adoption: TechnologyAdoption): AdoptionRow => ({
+  technologyId: adoption.technologyId, route: adoption.route,
+  committedWeek: adoption.committedWeek, operationalWeek: adoption.operationalWeek,
+  components: adoption.components.map(component => ({ ...component })),
+  equipmentAssetId: adoption.equipmentAssetId, postFacilityId: adoption.postFacilityId,
+})
 const seatRow = (state: GameState, seat: ResearchSeat) => ({
   talentId: seat.talentId, name: state.talent.find(t => t.id === seat.talentId)?.name ?? seat.talentId,
   laboratoryFacilityId: seat.laboratoryFacilityId, assignedWeek: seat.assignedWeek, releasedWeek: seat.releasedWeek,
@@ -154,7 +166,7 @@ export function laboratoryActionSpecs(state: GameState): readonly LaboratoryActi
   const specs: LaboratoryActionSpec[] = []
   if (!state.technology || !state.hollywood || state.founding !== null || !economyEngaged(state)) return specs
   const own = state.hollywood.playerStudioId
-  function add(id: string, action: TechnologyAction | PhysicalPlanAction, label: string, detail: string, buildingId: string | null = null, refusal: string | null = null) {
+  function add(id: string, action: TechnologyAction | PhysicalPlanAction, label: string, detail: string, buildingId: string | null = null, refusal: string | null = null, quote: AdoptionQuoteRow | null = null) {
     let disabledReason = refusal
     if (disabledReason === null) {
       try {
@@ -162,8 +174,11 @@ export function laboratoryActionSpecs(state: GameState): readonly LaboratoryActi
         if (next === state) throw new Error('This decision is not currently available.')
         const paid = state.studio.cash - next.studio.cash
         detail += ` ${money(paid)} charged now. Cash after this decision: ${money(next.studio.cash)}.`
-        if (action.kind === 'adoptSynchronizedSound') {
-          const adoption = next.technology.adoptions.find(a => a.studioId === own && a.stageFacilityId === action.stageFacilityId)
+        // P13B-S5: the same retained sentence for either adoption verb — the row minted by
+        // this dry run is the one the prior state does not carry.
+        if (action.kind === 'adoptSynchronizedSound' || action.kind === 'adoptTechnology') {
+          const before = new Set(state.technology.adoptions.map(a => a.id))
+          const adoption = next.technology.adoptions.find(a => a.studioId === own && !before.has(a.id))
           if (adoption) detail += ` Equipment charge: ${money(adoption.equipmentCost)}. ` +
             (adoption.prototypeProjectId !== null ? 'Uses this invention’s first prototype entitlement.' : adoption.route === 'research' ? 'Uses the inventor equipment price; the first prototype entitlement has already been used.' : 'Uses commercially purchased equipment.')
         }
@@ -175,7 +190,7 @@ export function laboratoryActionSpecs(state: GameState): readonly LaboratoryActi
           `from ${money(weeklyBurn(state))} to ${money(weeklyBurn(next))}/week. R&D is separate from these employment costs.`
       } catch (error) { disabledReason = (error as Error).message }
     }
-    specs.push({ id, action, label, detail, buildingId, enabled: disabledReason === null, disabledReason })
+    specs.push({ id, action, label, detail, buildingId, enabled: disabledReason === null, disabledReason, quote })
   }
   // P13B-S2: every catalogue brief a seat can still lawfully be opened for — neither
   // completed nor otherwise acquired by this studio. Seating before the brief's research
@@ -293,14 +308,63 @@ export function laboratoryActionSpecs(state: GameState): readonly LaboratoryActi
     'Purchase synchronized-sound access', `Commercial access costs ${money(SYNCHRONIZED_SOUND.accessCost)} from ${campaignDate(SYNCHRONIZED_SOUND.commercialWeek).label}. This buys knowledge access; select and fund an exact stage, capture and Post installation separately before filming with sound.`)
   const stages = ordered(state.operations.facilities.filter(f => f.capability === 'soundstage'))
   const posts = ordered(state.operations.facilities.filter(f => f.capability === 'post'))
-  for (const stage of stages) for (const post of posts) {
-    if (state.technology.adoptions.some(a => a.studioId === own && a.stageFacilityId === stage.id)) continue
-    add(`adopt-${stage.id}-${post.id}`, { kind: 'adoptSynchronizedSound', stageFacilityId: stage.id, postFacilityId: post.id },
-      `Install sound: ${stage.name} + ${post.name}`,
-      `${stage.name}: ${installationDetail(state, 'synchronized-sound-stage', stage.id)} ` +
-      (hasOperationalFacilityInstallation(state, post.id, 'synchronized-sound-post') ? `${post.name}: reuse its operational sound Post fit-out. ` :
-        `${post.name}: ${installationDetail(state, 'synchronized-sound-post', post.id)} `) +
-      'The quoted payment below includes the applicable equipment entitlement. Films that have entered the filming phase keep their technology, even before the first take.')
+  // P13B-S5: one adopt row per (technology, compatible stage, and — where the technology HAS a
+  // Post component — one exact Post). The stage rule is PER TECHNOLOGY: a stage already carrying
+  // an adoption of this technology offers no second row for it, while every other technology is
+  // still offered on that same stage. Every row publishes the engine's own `adoptionQuote`
+  // verbatim, refused or not, so the row never restates a price the engine owns.
+  for (const entry of TECHNOLOGY_CATALOGUE) {
+    // Synchronized sound keeps its P13A presence: its row is published from week 0 and disabled
+    // with the engine's own refusal until access is acquired, which is how the first sound
+    // decision is discoverable at all. A technology with NO Post component has no stage/Post
+    // pairing to disclose before then, so it appears only once its access exists.
+    if (entry.postInstallationId === null && !playerTechnologyAccess(state, entry.id)) continue
+    const word = entry.id === SYNCHRONIZED_SOUND.id ? 'sound' : entry.name.toLowerCase()
+    for (const stage of stages) {
+      if (state.technology.adoptions.some(a => a.studioId === own && a.technologyId === entry.id && a.stageFacilityId === stage.id)) continue
+      for (const post of entry.postInstallationId === null ? [null] : posts) {
+        const request: AdoptionRequest = { technologyId: entry.id, stageFacilityId: stage.id, ...(post === null ? {} : { postFacilityId: post.id }) }
+        const quote = adoptionQuote(state, request)
+        // The retained P13A verb keeps synchronized sound's own adoption identity; every other
+        // technology commits through `adoptTechnology`, which is the same law and the same quote.
+        const action: TechnologyAction = entry.id === SYNCHRONIZED_SOUND.id && post !== null
+          ? { kind: 'adoptSynchronizedSound', stageFacilityId: stage.id, postFacilityId: post.id }
+          : { kind: 'adoptTechnology', ...request }
+        add(`adopt-${entry.id}-${stage.id}${post === null ? '' : `-${post.id}`}`, action,
+          post === null ? `Install ${word}: ${stage.name}` : `Install ${word}: ${stage.name} + ${post.name}`,
+          `${stage.name}: ${installationDetail(state, entry.stageInstallationId, stage.id)} ` +
+          (post === null ? ''
+            : hasOperationalFacilityInstallation(state, post.id, entry.postInstallationId!)
+              ? `${post.name}: reuse its operational ${word} Post fit-out. `
+              : `${post.name}: ${installationDetail(state, entry.postInstallationId!, post.id)} `) +
+          'The quoted payment below includes the applicable equipment entitlement. Films that have entered the filming phase keep their technology, even before the first take.',
+          null, null, {
+            components: quote.components, total: quote.total, reusedPostFacilityId: quote.reusedPostFacilityId,
+            reusedEquipmentAssetId: quote.reusedEquipmentAssetId, rejections: quote.rejections, refusal: quote.refusal,
+          })
+      }
+      // P13B-S3's companion rule on this technology's own STAGE blueprint: the same physical
+      // work as a PLAN, at its own quoted price. It mints NO adoption — a plan reserves and
+      // commits nothing — so the immediate rows above stay offered beside it. Withheld once that
+      // blueprint is already committed on this stage in any status, or already queued, held or
+      // started against it, exactly as the Laboratory's instrument module companions are.
+      if (state.placement.facilities.some(p => p.blueprintId === entry.stageInstallationId && p.installation?.targetFacilityId === stage.id)) continue
+      if (state.physicalPlans.plans.some(plan => plan.studioId === own &&
+        (plan.status === 'queued' || plan.status === 'held' || plan.status === 'started') &&
+        plan.work.kind === 'installation' && plan.work.blueprintId === entry.stageInstallationId &&
+        'facilityId' in plan.work.target && plan.work.target.facilityId === stage.id)) continue
+      const stageQuote = queryFacilityInstallation(state, { blueprintId: entry.stageInstallationId, targetFacilityId: stage.id })
+      const stageName = blueprintById(entry.stageInstallationId)?.name ?? entry.stageInstallationId
+      add(`plan-queue-adopt-${entry.id}-${stage.id}`,
+        { kind: 'queuePhysicalPlan', work: { kind: 'installation', blueprintId: entry.stageInstallationId, target: { facilityId: stage.id } },
+          dependsOn: [], approvedMaximumDebit: stageQuote.cost, admission: 'reviewChangedQuote' },
+        `Queue ${stageName.toLowerCase()} on ${stage.name}`,
+        `Add this stage installation to the studio's physical plans at the quoted ${money(stageQuote.cost)}: ${stageQuote.buildWeeks} weeks of physical work, ` +
+        `then ${money(stageQuote.weeklyOperatingCost)}/week operating cost. This queues the stage work alone: it commits no ${word} adoption and buys no equipment` +
+        (entry.postInstallationId === null ? '' : ', and fits out no Post') +
+        `. Nothing is reserved until the plan starts — no cash, capacity or engagement moves while it waits — and the plan is quoted again at each weekly boundary. ` +
+        `${money(stageQuote.cost)} is the approved ceiling; a changed quote is held for your review.`)
+    }
   }
   const adoptions = state.technology.adoptions.filter(a => a.studioId === own && a.operationalWeek !== null)
   for (const production of ordered(state.studio.activeProductions)) {
@@ -373,7 +437,9 @@ export function laboratoryPage(state: GameState, buildingId: string | null, inte
         committedInstallationLabel(state, a.postFacilityId, 'synchronized-sound-post')).join('\n') :
         'No synchronized stage, capture and Post chain is operational. Research or purchase must be followed by an exact physical installation.'),
     actions: actions.slice(page * pageSize, (page + 1) * pageSize).map(a => ({ id: a.id, label: a.label, detail: a.detail,
-      enabled: a.enabled && enabled.has(a.id), disabledReason: a.disabledReason ?? (enabled.has(a.id) ? null : 'Refresh this Laboratory to review the current decision.'), intent: enabled.get(a.id) ?? null })),
+      enabled: a.enabled && enabled.has(a.id), disabledReason: a.disabledReason ?? (enabled.has(a.id) ? null : 'Refresh this Laboratory to review the current decision.'), intent: enabled.get(a.id) ?? null,
+      // P13B-S5: the engine's own quote for an `adopt-*` row; null on every other row.
+      quote: a.quote === null ? null : { ...a.quote, components: a.quote.components.map(component => ({ ...component })), rejections: [...a.quote.rejections] } })),
     // P13B-S1b: the same engine facts as data. Seat history (released rows included) in stored
     // order, the last eight worked-week receipts ascending, and the CURRENT week's quote.
     seats: (project?.seats ?? []).filter(seat => seat.laboratoryFacilityId === lab.facilityId).map(seat => seatRow(state, seat)),
@@ -384,5 +450,8 @@ export function laboratoryPage(state: GameState, buildingId: string | null, inte
     // P13B-S2: every project this body carries, in stable project-id order. The members above
     // remain the synchronized-sound project alone and are superseded by these rows.
     projects: projectsOnLaboratory(state, own, lab.facilityId).map(p => laboratoryProjectRow(state, own, p)),
+    // P13B-S5: this studio's own COMMITTED adoptions, in stored order, on every Laboratory
+    // page. A rival's adoption is filtered out here and never reaches this private page.
+    adoptions: state.technology.adoptions.filter(a => a.studioId === own).map(adoptionRow),
   } }
 }

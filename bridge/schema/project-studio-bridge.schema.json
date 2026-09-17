@@ -1,5 +1,227 @@
 {
   "$defs": {
+    "StudioAdoptionComponent": {
+      "additionalProperties": false,
+      "properties": {
+        "cost": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "equipmentAssetId": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "kind": {
+          "enum": [
+            "access",
+            "equipment",
+            "site",
+            "installation",
+            "capture",
+            "post"
+          ],
+          "type": "string"
+        },
+        "label": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "placementId": {
+          "anyOf": [
+            {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "source": {
+          "enum": [
+            "commercial",
+            "first-prototype",
+            "later-inventor",
+            "existing",
+            "physical"
+          ],
+          "type": "string"
+        },
+        "weeks": {
+          "anyOf": [
+            {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "cost",
+        "equipmentAssetId",
+        "kind",
+        "label",
+        "placementId",
+        "source",
+        "weeks"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioAdoptionComponent"
+    },
+    "StudioAdoptionQuote": {
+      "additionalProperties": false,
+      "properties": {
+        "components": {
+          "items": {
+            "$ref": "#/$defs/StudioAdoptionComponent"
+          },
+          "type": "array"
+        },
+        "refusal": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "rejections": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "reusedEquipmentAssetId": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "reusedPostFacilityId": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "total": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "components",
+        "refusal",
+        "rejections",
+        "reusedEquipmentAssetId",
+        "reusedPostFacilityId",
+        "total"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioAdoptionQuote"
+    },
+    "StudioAdoptionRow": {
+      "additionalProperties": false,
+      "properties": {
+        "committedWeek": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "components": {
+          "items": {
+            "$ref": "#/$defs/StudioAdoptionComponent"
+          },
+          "type": "array"
+        },
+        "equipmentAssetId": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "operationalWeek": {
+          "anyOf": [
+            {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "postFacilityId": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "route": {
+          "enum": [
+            "research",
+            "purchase"
+          ],
+          "type": "string"
+        },
+        "technologyId": {
+          "enum": [
+            "synchronized-sound",
+            "lighting-control-01"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "committedWeek",
+        "components",
+        "equipmentAssetId",
+        "operationalWeek",
+        "postFacilityId",
+        "route",
+        "technologyId"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioAdoptionRow"
+    },
     "StudioAssignShootingDirectorCommand": {
       "additionalProperties": false,
       "properties": {
@@ -137,7 +359,7 @@
           "$ref": "#/$defs/StudioProjectionBundle"
         },
         "snapshotVersion": {
-          "const": 36,
+          "const": 37,
           "type": "integer"
         },
         "stateDigest": {
@@ -254,7 +476,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 36,
+          "const": 37,
           "type": "integer"
         },
         "stateDigest": {
@@ -327,7 +549,8 @@
             "releaseTalent",
             "researchAction",
             "physicalPlanAction",
-            "installationAction"
+            "installationAction",
+            "adoptTechnology"
           ],
           "type": "string"
         },
@@ -766,7 +989,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 36,
+          "const": 37,
           "type": "integer"
         },
         "stateDigest": {
@@ -845,7 +1068,7 @@
           "$ref": "#/$defs/StudioProjectionBundle"
         },
         "snapshotVersion": {
-          "const": 36,
+          "const": 37,
           "type": "integer"
         },
         "stateDigest": {
@@ -1137,7 +1360,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 36,
+          "const": 37,
           "type": "integer"
         },
         "stateDigest": {
@@ -7708,6 +7931,16 @@
         "label": {
           "minLength": 1,
           "type": "string"
+        },
+        "quote": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StudioAdoptionQuote"
+            },
+            {
+              "type": "null"
+            }
+          ]
         }
       },
       "required": [
@@ -7716,7 +7949,8 @@
         "enabled",
         "id",
         "intent",
-        "label"
+        "label",
+        "quote"
       ],
       "type": "object",
       "x-csharp-name": "StudioLaboratoryAction"
@@ -7727,6 +7961,12 @@
         "actions": {
           "items": {
             "$ref": "#/$defs/StudioLaboratoryAction"
+          },
+          "type": "array"
+        },
+        "adoptions": {
+          "items": {
+            "$ref": "#/$defs/StudioAdoptionRow"
           },
           "type": "array"
         },
@@ -7813,6 +8053,7 @@
       },
       "required": [
         "actions",
+        "adoptions",
         "bottleneckLabel",
         "budgetLabel",
         "buildingId",
@@ -13960,7 +14201,7 @@
       "x-csharp-name": "StudioWrapReceiptSnapshot"
     }
   },
-  "$id": "urn:project-studio:bridge:protocol-4:projection-36",
+  "$id": "urn:project-studio:bridge:protocol-4:projection-37",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "description": "Canonical wire contract owned by the authoritative TypeScript runtime.",
   "oneOf": [
@@ -14016,7 +14257,7 @@
   "title": "Project Studio TypeScript to Unity Bridge",
   "x-project-studio": {
     "contractId": "project-studio-current-game-unity-bridge",
-    "projectionVersion": 36,
+    "projectionVersion": 37,
     "protocolVersion": 4,
     "routes": {
       "command": "POST /command",
