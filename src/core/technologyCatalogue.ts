@@ -15,6 +15,15 @@ export type TechnologyCatalogueEntry = {
   postInstallationId: string | null
   researchableWeek: number
   commercialWeek: number
+  /**
+   * P13B-S7 public milestone disclosure (data, not law): the distant window the wire may
+   * publish before `announceWeek`, and the week the public announcement narrows it to the
+   * exact `commercialWeek`. A degenerate window (`from === to`) is already-public: exact at
+   * every week, and it never produces an announcement row.
+   */
+  publicWindow: { from: number; to: number; announceWeek: number }
+  /** P13B-S7 authored player text: what a commercial purchase of this technology replaces. */
+  replacementLabel: string
   work: number
   usableBudgetPerScientist: number
   accessCost: number
@@ -38,14 +47,20 @@ export const TECHNOLOGY_CATALOGUE: readonly TechnologyCatalogueEntry[] = [
     id: 'lighting-control-01', name: 'Lighting control', capability: 'lighting-control', prerequisiteTechnologyIds: [],
     laboratoryBlueprintId: 'research-laboratory', instrumentBlueprintId: 'electrical-control-instruments',
     stageInstallationId: 'lighting-control-stage', postInstallationId: null,
-    researchableWeek: 780, commercialWeek: 936, work: 64, usableBudgetPerScientist: 10_000,
+    researchableWeek: 780, commercialWeek: 936,
+    publicWindow: { from: 884, to: 988, announceWeek: 884 },
+    replacementLabel: 'Controlled lighting replaces conventional setup on the fitted stage: two setup units instead of four.',
+    work: 64, usableBudgetPerScientist: 10_000,
     accessCost: 100_000, commercialEquipmentCost: 200_000, laterInventorEquipmentCost: 150_000, deploymentWeeks: 4,
   },
   {
     id: 'synchronized-sound', name: 'Synchronized sound', capability: 'synchronized-dialogue', prerequisiteTechnologyIds: [],
     laboratoryBlueprintId: 'research-laboratory', instrumentBlueprintId: 'acoustic-instruments',
     stageInstallationId: 'synchronized-sound-stage', postInstallationId: 'synchronized-sound-post',
-    researchableWeek: 260, commercialWeek: 416, work: 64, usableBudgetPerScientist: 10_000,
+    researchableWeek: 260, commercialWeek: 416,
+    publicWindow: { from: 416, to: 416, announceWeek: 416 },
+    replacementLabel: 'Synchronized dialogue replaces the silent production method on the fitted stage and Post chain.',
+    work: 64, usableBudgetPerScientist: 10_000,
     accessCost: 200_000, commercialEquipmentCost: 300_000, laterInventorEquipmentCost: 225_000, deploymentWeeks: 12,
   },
 ]

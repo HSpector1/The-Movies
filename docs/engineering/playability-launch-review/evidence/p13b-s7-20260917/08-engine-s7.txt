@@ -1,0 +1,57 @@
+=== npx vitest run --project core --minWorkers=1 --maxWorkers=1 --reporter=dot tests/p13b-s7-forecast.test.ts tests/p13b-s7-independence.test.ts tests/p13b-s7-announcements.test.ts tests/p13b-s7-replacement.test.ts ===
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p13b-s7-announcements.test.ts (6 tests) 2908ms
+   ✓ P13B-S7 announcements persist nowhere: genuine V26 fixture, live load, advance past the announce week (test 3) > advanced to week 884: exactly one lighting announcement row, week 884; still no sound row 778ms
+   ✓ P13B-S7 announcements persist nowhere: genuine V26 fixture, live load, advance past the announce week (test 3) > advanced further to week 900: still exactly one lighting row, unchanged content (row week stays 884, not 900) 473ms
+   ✓ P13B-S7 announcements persist nowhere: genuine V26 fixture, live load, advance past the announce week (test 3) > the announcement is derived-only: the exported V26 save carries no announcement record, and round-trips cleanly at the unchanged live version 522ms
+   ✓ P13B-S7 announcements persist nowhere: genuine V26 fixture, live load, advance past the announce week (test 3) > Save As proxy: two independently-loaded copies of the same genuine save publish byte-identical announcement rows at 884 962ms
+ ❯ |core| tests/p13b-s7-independence.test.ts (5 tests | 1 failed) 18446ms
+   × P13B-S7 rival-independence: identical forecast/announcements across states differing only in rival facts (test 2, PARTIAL until S8) > advanced independently to week 900 (past the lighting announcement), the still-divergent states publish byte-identical exact forecasts and announcement rows 11771ms
+     → expected { …(34) } to not deeply equal { …(34) }
+ ✓ |core| tests/p13b-s7-forecast.test.ts (4 tests) 8ms
+ ✓ |core| tests/p13b-s7-replacement.test.ts (5 tests) 7ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p13b-s7-independence.test.ts > P13B-S7 rival-independence: identical forecast/announcements across states differing only in rival facts (test 2, PARTIAL until S8) > advanced independently to week 900 (past the lighting announcement), the still-divergent states publish byte-identical exact forecasts and announcement rows
+AssertionError: expected { …(34) } to not deeply equal { …(34) }
+
+Compared values have no visual difference.
+
+ ❯ tests/p13b-s7-independence.test.ts:121:33
+    119|     expect(rivalVariant900.market.tick).toBe(900)
+    120|     // Still genuinely divergent — the independence claim is not vacuo…
+    121|     expect(rivalVariant900).not.toEqual(base900)
+       |                                 ^
+    122| 
+    123|     const entry = technologyEntry('lighting-control-01')
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed | 3 passed (4)
+      Tests  1 failed | 19 passed (20)
+   Start at  23:38:00
+   Duration  24.82s (transform 1.40s, setup 0ms, collect 2.09s, tests 21.37s, environment 1ms, prepare 427ms)
+
+
+=== DIAGNOSTIC (S7-T2, not a test run): npx vite-node <scratch>/probe.ts — cause of the ONE failure above (tests/p13b-s7-independence.test.ts case 5, line 121 `expect(rivalVariant900).not.toEqual(base900)`) ===
+# The failing assertion is the test's own state-divergence PRECONDITION; it asserts on GameStates only and never calls technologyDisclosure.
+# Engine fact: technologyRival.ts considerRivalSoundPurchase refuses when ANY rival adoption exists (`state.technology.adoptions.some(a=>a.studioId!==playerStudioId)`),
+# and hollywoodTick.ts:225 runs the same consideration each tick. The fixture's manual purchase at week 416 is exactly the purchase the tick itself mints at week 416,
+# so the two worlds re-converge on the next tick and are byte-identical long before week 900.
+week416 base adoptions []
+week416 variant adoptions [{"id":"studio-0047c463-r01:sound-adoption:0","studioId":"studio-0047c463-r01","committedWeek":416,"operationalWeek":null}]
+week900 base adoptions [{"id":"studio-0047c463-r01:sound-adoption:0","studioId":"studio-0047c463-r01","committedWeek":416,"operationalWeek":428}]
+week900 variant adoptions [{"id":"studio-0047c463-r01:sound-adoption:0","studioId":"studio-0047c463-r01","committedWeek":416,"operationalWeek":428}]
+week900 base access weeks [{"s":"studio-0047c463-r01","c":416,"r":"purchase"}]
+week900 variant access weeks [{"s":"studio-0047c463-r01","c":416,"r":"purchase"}]
+JSON equal at 900: true
+
+=== DIAGNOSTIC: npx vite-node <scratch>/probe2.ts — the four disclosure assertions the failed precondition blocked (lines 123-131) evaluated directly on the same two week-900 states ===
+ticks 900 900
+forecast base   {"kind":"exact","commercialWeek":936,"announcedWeek":884}
+forecast variant {"kind":"exact","commercialWeek":936,"announcedWeek":884}
+announce base    [{"technologyId":"lighting-control-01","week":884}]
+announce variant [{"technologyId":"lighting-control-01","week":884}]

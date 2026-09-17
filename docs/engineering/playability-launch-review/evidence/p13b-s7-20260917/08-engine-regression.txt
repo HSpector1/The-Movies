@@ -1,0 +1,105 @@
+=== npx vitest run --project core --minWorkers=1 --maxWorkers=1 --reporter=dot tests/p13a-technology-membership.test.ts tests/p13b-s2-access-identity.test.ts tests/p13b-s2-catalogue.test.ts tests/p13b-s2-cooperation.test.ts tests/p13b-s2-doc03.test.ts tests/p13b-s2-expiry.test.ts tests/p13b-s2-labs.test.ts tests/p13b-s2-save-v22.test.ts tests/p13b-s2-validation.test.ts tests/p13b-s5-conservation.test.ts tests/p13b-s5-equipment.test.ts tests/p13b-s5-operational.test.ts tests/p13b-s5-quotes.test.ts tests/p13b-s5-save-v24.test.ts tests/p13b-s5-validation.test.ts tests/p13b-s6-equipment.test.ts tests/p13b-s6-finance.test.ts tests/p13b-s6-ordering.test.ts tests/p13b-s6-receipts.test.ts tests/p13b-s6-refund-once.test.ts tests/p13b-s6-restoration.test.ts tests/p13b-s6-save-v26.test.ts  ===
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p13b-s5-quotes.test.ts (11 tests) 59298ms
+   ✓ P13B-S5 quotes and components per route (test 1) > first inventor sound: access $0, equipment $0 first-prototype, physical $975k = stage + Post components 5549ms
+   ✓ P13B-S5 quotes and components per route (test 1) > second inventor sound installation on another stage while the first holds its asset: equipment $225k later-inventor, existing operational Post reused at $0, stage physical only 4743ms
+   ✓ P13B-S5 quotes and components per route (test 1) > commercial sound: access $200k charged once at purchase, equipment $300k, physical $975k 5122ms
+   ✓ P13B-S5 quotes and components per route (test 1) > lighting inventor first: access $0, equipment $0, site $50k/2w + install $50k/2w, no Post component of any kind 6273ms
+   ✓ P13B-S5 quotes and components per route (test 1) > lighting later inventor: equipment $150k + site/install physical $100k, still no Post 6009ms
+   ✓ P13B-S5 quotes and components per route (test 1) > lighting commercial at 936: access $100k charged once at purchase, equipment $200k commercial, physical $100k 6053ms
+   ✓ P13B-S5 quotes and components per route (test 1) > a lighting adoption with a postFacilityId is refused at commit (the requirement pinned unambiguously at the action layer) 5079ms
+   ✓ P13B-S5 quotes and components per route (test 1) > the first-prototype entitlement fires exactly once per (studio, technology, project) and never blocks a different technology’s project 5070ms
+   ✓ P13B-S5 quotes and components per route (test 2): the quote refuses an engaged stage with the commit’s own sentence > a stage engaged by one technology’s own underConstruction physical work refuses a DIFFERENT technology’s quote for that same stage with the commit’s exact sentence, and agrees again once the work completes 5226ms
+   ✓ P13B-S5 quotes and components per route (test 2): the quote refuses an engaged stage with the commit’s own sentence > a cash-only obstacle is reported as the commit's cash sentence, by quote and commit alike 5044ms
+   ✓ P13B-S5 quotes and components per route (test 2): the quote refuses an engaged stage with the commit’s own sentence > a total-level cash shortfall is refused by quote and commit alike 5127ms
+ ✓ |core| tests/p13b-s2-access-identity.test.ts (14 tests) 14152ms
+   ✓ P13B-S2 access identity: completion grant must key on (studioId, technologyId) > 3. simultaneous completion: both technologies grant their own row with the same acquiredWeek, independent of project creation order 330ms
+   ✓ P13B-S2 access identity: completion grant must key on (studioId, technologyId) > 6. save/reload and later ticks: exactly two rows, no duplicates, no erasure; validateSaveV26 accepts 574ms
+ ✓ |core| tests/p13b-s6-save-v26.test.ts (11 tests) 1929ms
+   ✓ P13B-S6 Save V26: genuine V25 fixtures, honest lift, chains, validator refusals (test 7) > VALID: a cancelled adoption with a passed original completesWeek is exempt from the v4 "operational receipt differs" clause 499ms
+ ✓ |core| tests/p13b-s2-doc03.test.ts (17 tests) 7271ms
+ ✓ |core| tests/p13b-s6-receipts.test.ts (6 tests) 21445ms
+   ✓ P13B-S6 cancellation receipts by exact trace (test 1) > lighting cancelled exactly when site completes (week 2 of 4): site paid in full, installation refunded in full, restoration committed 7777ms
+   ✓ P13B-S6 cancellation receipts by exact trace (test 1) > lighting cancelled during installation (week 1 of 2, elapsed 3 of 4): site paid in full, installation half paid / half refunded 5742ms
+   ✓ P13B-S6 cancellation receipts by exact trace (test 1) > sound stage cancelled during site adaptation (week 3 of 9): site partially paid, installation and the zero-week capture package both refunded in full 3739ms
+   ✓ P13B-S6 cancellation receipts by exact trace (test 1) > sound Post cancelled in the same week it was committed (unstarted): refunded in full, no restoration (no `site` component on a Post fit-out) 3930ms
+ ✓ |core| tests/p13b-s5-save-v24.test.ts (15 tests) 10610ms
+   ✓ P13B-S5 Save V24 (test 4) > migrates legacy-v23-sound-operational-315 and its identical V20 ancestor to V24 with an honest first-prototype lift, byte-identical otherwise 441ms
+   ✓ P13B-S5 Save V24 (test 4) > migrateToV23 / migrateToV22 / migrateToV21 / migrateToV20 refuse a V24 save 798ms
+   ✓ P13B-S5 Save V24 (test 4) > makeSave writes saveVersion 26 406ms
+   ✓ P13B-S5 Save V24 (test 4) > save/reload mid-deployment continues identically (byte for byte): a lighting adoption committed but not yet operational 6779ms
+ ✓ |core| tests/p13b-s2-save-v22.test.ts (12 tests) 9221ms
+   ✓ P13B-S2 V21 to V22 migration (test 8) > lifts ./fixtures/p13b/legacy-v21-staffed-4-seats-263.json.gz: every receipt ×8, per-Laboratory rows derived honestly, cooperationFromWeek stamped at the fixture's own week 832ms
+   ✓ P13B-S2 V21 to V22 migration (test 8) > lifts ./fixtures/p13b/legacy-v21-released-paused-266.json.gz: every receipt ×8, per-Laboratory rows derived honestly, cooperationFromWeek stamped at the fixture's own week 811ms
+   ✓ P13B-S2 V21 to V22 migration (test 8) > lifts ./fixtures/p13b/legacy-v21-two-labs-two-briefs-783.json.gz: every receipt ×8, per-Laboratory rows derived honestly, cooperationFromWeek stamped at the fixture's own week 1019ms
+   ✓ P13B-S2 V21 to V22 migration (test 8) > continues the migrated active staffed-4-seats-263 project for one more funded week (now carrying its own labs row) and re-saves byte-identically 799ms
+   ✓ P13B-S2 V21 to V22 migration (test 8) > chains V20→V21→V22 for ./fixtures/p13b/legacy-v20-research-active-280.json.gz: the S1 legacy prefix survives intact, weeks stays empty 718ms
+   ✓ P13B-S2 V21 to V22 migration (test 8) > chains V20→V21→V22 for ./fixtures/p13b/legacy-v20-research-paused-expired-468.json.gz: the S1 legacy prefix survives intact, weeks stays empty 1269ms
+   ✓ P13B-S2 V21 to V22 migration (test 8) > chains V20→V21→V22 for ./fixtures/p13b/legacy-v20-research-complete-operational-315.json.gz: the S1 legacy prefix survives intact, weeks stays empty 735ms
+   ✓ P13B-S2 envelope law at the live writer (test 8) > makeSave always writes the live saveVersion 26 422ms
+   ✓ P13B-S2 envelope law at the live writer (test 8) > refuses an unknown saveVersion 27 with the updated range 449ms
+   ✓ P13B-S2 envelope law at the live writer (test 8) > round-trips a migrated two-Laboratory save through exportSave/importSave/migrateToV26 byte-identically 826ms
+   ✓ P13B-S2 campaign isolation across the migrated copies (mirrors the S1 case) > produces independent migrated copies from the same V21 fixture; advancing one never touches the other 1203ms
+ ✓ |core| tests/p13b-s2-validation.test.ts (15 tests) 46174ms
+   ✓ P13B-S2 conservation, determinism, save/reload and campaign isolation (test 7) > conservation: reconciles receipts, expenditure, ledger and cash over a funded cooperate interval 6944ms
+   ✓ P13B-S2 conservation, determinism, save/reload and campaign isolation (test 7) > determinism: two independent builds from the same seed give byte-identical exportSave, both fresh and after identical further actions 15390ms
+   ✓ P13B-S2 conservation, determinism, save/reload and campaign isolation (test 7) > save/reload mid-project: a reloaded cooperate project continues identically to the uninterrupted run over further weeks 6037ms
+   ✓ P13B-S2 conservation, determinism, save/reload and campaign isolation (test 7) > campaign isolation: every project a public action can create carries studioId === the player, by construction 5410ms
+   ✓ P13B-S2 conservation, determinism, save/reload and campaign isolation (test 7) > campaign isolation: a rival two-Laboratory project never surfaces through the player-scoped read filter, and forging the player’s own project never touches its bytes 5628ms
+ ✓ |core| tests/p13b-s2-labs.test.ts (10 tests) 27474ms
+   ✓ P13B-S2 module/bench law (test 2) > refuses lighting beginResearch while the seated Laboratory lacks an operational electrical/control module 6437ms
+   ✓ P13B-S2 module/bench law (test 2) > does not double-book one Laboratory's seat slots when two technologies are both active there (sound 2 + lighting 2, four seats total) 5136ms
+   ✓ P13B-S2 module/bench law (test 2) > seats a person for a technology on a Laboratory lacking its discipline module (retained P13A law), but refuses to begin until the module is operational 5345ms
+   ✓ P13B-S2 module/bench law (test 2) > releases the seat claim on pause and reacquires it on resume — the S1 release law generalized to a lighting project (regression net) 5003ms
+ ✓ |core| tests/p13b-s5-conservation.test.ts (3 tests) 26832ms
+   ✓ P13B-S5 conservation, determinism, campaign isolation (test 6) > cash conservation across a sound and a lighting adoption: every dollar the ledger charges for the two adoptions is exactly equipmentCost + installationCost, no more, no less, and no negative or duplicate row 6738ms
+   ✓ P13B-S5 conservation, determinism, campaign isolation (test 6) > determinism: the SAME action sequence from the SAME starting state produces byte-identical saves 11233ms
+   ✓ P13B-S5 conservation, determinism, campaign isolation (test 6) > campaign isolation: a rival’s organically-purchased sound adoption is byte-unchanged by the player’s own adoption actions, and reconciles to the catalogue’s per-technology values (no hard-coded 300,000/975,000) 8860ms
+ ✓ |core| tests/p13b-s5-operational.test.ts (4 tests) 23305ms
+   ✓ P13B-S5 operational law and charges (test 2) > lighting is operational at exactly committedWeek + 4 (deploymentWeeks), postFacilityId is null, and its +$1,000/week joins the ledger with no lag from the operational week onward 6603ms
+   ✓ P13B-S5 operational law and charges (test 2) > sound with no postFacilityId and no existing operational Post anywhere in the studio is refused 3881ms
+   ✓ P13B-S5 operational law and charges (test 2) > a second sound adoption reuses the existing operational Post: no new Post placement, no re-bill, and only the second stage’s own weekly cost joins the ledger 3890ms
+   ✓ P13B-S5 operational law and charges (test 2) > the sound-only production lock discriminator: a lighting adoption’s stage never carries the synchronized-sound-stage installation a sound adoption’s stage does 8929ms
+ ✓ |core| tests/p13b-s5-equipment.test.ts (5 tests) 23219ms
+   ✓ P13B-S5 equipment assets (test 3) > an adoption’s equipment asset is minted exactly once, held by it, and never duplicated by a second adoption 4974ms
+   ✓ P13B-S5 equipment assets (test 3) > an unheld retained asset (holderAdoptionId null, referenced by no adoption) is reused at $0 by a NEW adoption of the SAME technology 4250ms
+   ✓ P13B-S5 equipment assets (test 3) > an unheld retained asset of one technology is NEVER reused by a different technology’s adoption 5997ms
+   ✓ P13B-S5 equipment assets (test 3) > a held asset cannot be reused: two adoptions naming the same equipmentAssetId is refused on reimport 3988ms
+   ✓ P13B-S5 equipment assets (test 3) > exported-save round trip never fabricates an equipment row: makeSave/exportSave/importSave over an unmutated adoption reproduces the same equipment array byte for byte 4007ms
+ ✓ |core| tests/p13b-s2-expiry.test.ts (3 tests) 11984ms
+ ✓ |core| tests/p13b-s5-validation.test.ts (9 tests) 12204ms
+   ✓ P13B-S5 validator refusals (test 5) > (a) rejects forged component sums (a physical row inflated without changing the retained installationCost) 363ms
+   ✓ P13B-S5 validator refusals (test 5) > (c) rejects a negative component 339ms
+ ✓ |core| tests/p13b-s6-refund-once.test.ts (3 tests) 21982ms
+   ✓ P13B-S6 once-only refund and quoted-anew restart (test 2) > a second cancel of the same project is refused; the ledger keeps exactly ONE constructionRefund row 8567ms
+   ✓ P13B-S6 once-only refund and quoted-anew restart (test 2) > a cancelled adoption is refused a second cancelAdoption the same way 7301ms
+   ✓ P13B-S6 once-only refund and quoted-anew restart (test 2) > restart on the SAME target after cancellation is a NEW placement, quoted at the FULL price — no refund credit, no free components — but only AFTER the cancellation's own restoration completes (see header ADJUDICATED CORRECTION) 6108ms
+ ✓ |core| tests/p13b-s2-cooperation.test.ts (5 tests) 8155ms
+ ✓ |core| tests/p13b-s6-restoration.test.ts (4 tests) 26073ms
+   ✓ P13B-S6 restoration: offline, opex, its own ledger row, not itself cancellable (test 4) > the stage stays ONLINE through its own lighting fit-out (existing law: neither authored blueprint sets takesTargetOffline), then goes offline only once restoration is committed by cancellation 7988ms
+   ✓ P13B-S6 restoration: offline, opex, its own ledger row, not itself cancellable (test 4) > the stage's own baseline weekly operating cost keeps being charged through the restoration window (S4 opex law: baseline is unconditional, an increment is the only thing ever suspended) 7588ms
+   ✓ P13B-S6 restoration: offline, opex, its own ledger row, not itself cancellable (test 4) > a restoration job is refused by cancelInstallation (it is the cost of the cancellation, not itself cancellable) 6170ms
+   ✓ P13B-S6 restoration: offline, opex, its own ledger row, not itself cancellable (test 4) > nothing to restore if no site work began: a Post fit-out (no `site`-kind component) cancelled unstarted commits no restoration and never goes offline 4324ms
+ ✓ |core| tests/p13b-s6-equipment.test.ts (3 tests) 14074ms
+   ✓ P13B-S6 equipment retained, unheld, and reused at $0 (test 3) > cancelling an adoption's remaining physical work unholds its equipment asset, stamps cancelledWeek, and keeps the equipmentAssetId reference as history 5246ms
+   ✓ P13B-S6 equipment retained, unheld, and reused at $0 (test 3) > the unheld asset is reused at $0 by the next quote for the SAME technology (see header ENGINE CONFLICT) 4649ms
+   ✓ P13B-S6 equipment retained, unheld, and reused at $0 (test 3) > the first-prototype entitlement is NOT restored by cancellation: a hypothetical next quote is never first-prototype again, even though the original adoption never became operational 4177ms
+ ✓ |core| tests/p13b-s2-catalogue.test.ts (11 tests) 8027ms
+   ✓ P13B-S2 catalogue: two technologies, stable order (test 1) > the ordinary action surface (knownTechnology) accepts both technology ids, not only synchronized-sound 715ms
+ ✓ |core| tests/p13b-s6-ordering.test.ts (3 tests) 20491ms
+   ✓ P13B-S6 same-tick ordering and save/reload (test 5) > cancelling exactly at elapsed week 1 (of 4): the site component (end=2) is NOT read as completed one week early, and the installation component (start=2) is NOT read as one week begun 7861ms
+   ✓ P13B-S6 same-tick ordering and save/reload (test 5) > a cancel applied via applyActions takes effect at the CURRENT week, strictly before the next tick() boundary — cancelling at the last safe week (elapsed 3 of 4) pre-empts what would otherwise complete on the very next tick() 5997ms
+   ✓ P13B-S6 same-tick ordering and save/reload (test 5) > save/reload between the cancel and the next boundary changes nothing: a live copy and a reimported copy of the SAME cancelled state stay byte-identical and neither ever completes 6631ms
+ ✓ |core| tests/p13b-s6-finance.test.ts (1 test) 5359ms
+   ✓ P13B-S6 finance: refund lands in the refund week's own calendar year (test 6) > the constructionRefund line appears only in the calendar year of the CANCEL week; the CAPEX year is unaffected before and after cancellation 5357ms
+ ✓ |core| tests/p13a-technology-membership.test.ts (9 tests) 7463ms
+   ✓ P13A exact historical technology membership under local indexing > does not reuse membership across independent round-tripped copies with the same world and entity IDs 531ms
+   ✓ P13A exact historical technology membership under local indexing > rechecks the same mutable input after removal and after exact restoration 541ms
+
+ Test Files  22 passed (22)
+      Tests  174 passed (174)
+   Start at  23:40:20
+   Duration  421.89s (transform 1.86s, setup 0ms, collect 7.52s, tests 406.74s, environment 7ms, prepare 2.11s)
+
