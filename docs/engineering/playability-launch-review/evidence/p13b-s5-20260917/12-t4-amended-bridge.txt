@@ -1,0 +1,46 @@
+# P13B-S5-T4 test-author (third pass) amendments — coordinator adjudication 2026-09-17
+# Repo: /Users/zacheryspector/The-Movies-headless-program
+# Branch: wip/headless-program-20260916-ts, HEAD at 526e868322cd7205542398dde1ebc56d39da11d3 (started task at aba6761; tests/bridge-p13b-s5-adoption.test.ts and tests/p13b-s5-quotes.test.ts untouched by intervening commits, confirmed via git diff --stat aba6761 HEAD)
+# Command: npx vitest run tests/bridge-p13b-s5-adoption.test.ts --minWorkers=1 --maxWorkers=1
+# node v20.20.2, vitest 2.1.9
+# Expected 10/11: requirement 4 now green (amendment 1); per-technology stage rule RED at the quote-agreement line (amendment 2, engine gap named, not fixed).
+#
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/bridge-p13b-s5-adoption.test.ts (11 tests | 1 failed) 32375ms
+   ✓ requirement 1: laboratory.adoptions[] structured rows and per-row StudioAdoptionQuote > a committed lighting adoption appears on adoptions[] with technologyId/route/committedWeek/operationalWeek/components/equipmentAssetId/postFacilityId 8198ms
+   ✓ requirement 2: lighting rows are access-gated for presence and quote the exact 100,000 first-prototype total > no adopt-lighting-control-01-* row exists anywhere before lighting access is acquired 5953ms
+   ✓ requirement 3: sound rows keep P13A stage+Post pairing, existing-Post reuse at $0 > a second stage's sound row reuses the first stage's operational Post: reusedPostFacilityId set, the Post component existing/$0 4114ms
+   ✓ requirement 4: committing an adopt row through the bridge (engine-truth components, revision advance, stale refusal, row disappears) > commits exactly one adoption with the wire-quoted components, advances stateRevision, refuses the same intent at the old revision, and the committed stage's own row disappears 1632ms
+   × per-technology stage rule: a stage with an adoption of one technology still offers the other, never the same one again > after committing sound on a stage, that stage's own sound row is gone but its lighting row is still offered 7397ms
+     → expected 'The selected stage or Post cannot beg…' to be null // Object.is equality
+   ✓ requirement 5: plan-queue-adopt-<technologyId>-<stageFacilityId> companions never mint an adoption and follow the S4 reachable-hide rule > queues the stage-installation blueprint through queuePhysicalPlan, mints no adoption, and then hides itself once queued (duplicate-queue rule) 1119ms
+   ✓ requirement 6: refusal disclosure and player-safety on a row whose engine quote is refused > a sound row before access is acquired publishes the engine's own refusal/rejections, agrees with disabledReason, and the underlying action throws that exact text 3706ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/bridge-p13b-s5-adoption.test.ts > per-technology stage rule: a stage with an adoption of one technology still offers the other, never the same one again > after committing sound on a stage, that stage's own sound row is gone but its lighting row is still offered
+AssertionError: expected 'The selected stage or Post cannot beg…' to be null // Object.is equality
+
+- Expected: 
+null
+
++ Received: 
+"The selected stage or Post cannot begin installation. Finish its current work first."
+
+ ❯ tests/bridge-p13b-s5-adoption.test.ts:427:40
+    425|     // do not until `adoptionRejections` gains its own engagement clau…
+    426|     // green only when the engine changes, never by loosening this ass…
+    427|     expect(lightingRow.disabledReason).toBe(lightingQuote.refusal)
+       |                                        ^
+    428|     expect(lightingQuote.refusal).toBe(engagedRefusal)
+    429|     expect(lightingQuote.rejections).toContain(engagedRefusal)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 10 passed (11)
+   Start at  07:55:25
+   Duration  35.78s (transform 2.18s, setup 0ms, collect 2.93s, tests 32.37s, environment 0ms, prepare 95ms)
+

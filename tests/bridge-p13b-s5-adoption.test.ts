@@ -361,7 +361,24 @@ describe('requirement 4: committing an adopt row through the bridge (engine-trut
 
     expect(session.gameState.technology.adoptions.length).toBe(adoptionsBefore + 1)
     const minted = required(session.gameState.technology.adoptions.find(a => a.technologyId === SOUND.id && a.stageFacilityId === stageFacilityId), 'no minted sound adoption on the committed stage')
-    expect(minted.components).toEqual(wireQuote.components) // what was quoted is what was committed
+    // A pre-commit quote cannot carry commit-minted identities: `adoptionQuote`
+    // quotes every physical row with `placementId: null` and the equipment row
+    // with `equipmentAssetId: null` (neither the P09 placements nor the
+    // equipment asset exist until commit). Compare with those two identity
+    // fields projected out on both sides, then prove the commit's own
+    // identities are genuine rather than merely absent.
+    const withoutMintedIdentity = <T extends { placementId: number | null; equipmentAssetId: string | null }>(components: readonly T[]): T[] =>
+      components.map(c => ({ ...c, placementId: null, equipmentAssetId: null }))
+    expect(withoutMintedIdentity(minted.components)).toEqual(withoutMintedIdentity(wireQuote.components))
+    for (const component of minted.components) {
+      if (component.source !== 'physical') continue
+      expect(Number.isInteger(component.placementId)).toBe(true)
+      expect(component.placementId!).toBeGreaterThan(0)
+      expect(session.gameState.placement.facilities.some(p => p.id === component.placementId)).toBe(true)
+    }
+    const equipmentRow = required(minted.components.find(c => c.kind === 'equipment'), 'no equipment row on the minted adoption')
+    expect(equipmentRow.equipmentAssetId).toBe(minted.equipmentAssetId)
+    expect(session.gameState.technology.equipment.some(a => a.id === minted.equipmentAssetId && a.holderAdoptionId === minted.id)).toBe(true)
     expect(session.stateRevision).not.toBe(staleRevision)
 
     const staleResponse = session.command({
@@ -390,7 +407,33 @@ describe('per-technology stage rule: a stage with an adoption of one technology 
     const after = labPage(session, buildingId, nextRequestId('after'))
     expect(after.actions.some(a => a.id === `adopt-${SOUND.id}-${stage1}-${postFacilityId}`)).toBe(false)
     const lightingRow = required(after.actions.find(a => a.id === `adopt-${LIGHTING.id}-${stage1}`), `lighting row for stage "${stage1}" absent after committing sound there: ${JSON.stringify(after.actions.map(a => a.id))}`)
-    expect(lightingRow.enabled).toBe(true)
+    // P09 allows only one installation per body at a time: sound's own physical
+    // chain (site+installation+capture) is now `underConstruction` on stage1, so
+    // this row's dry-run commit (bridge/laboratory.ts's `add`) hits the SAME
+    // `queryFacilityInstallation` targetEngaged refusal the real commit would.
+    // The per-technology rule holds for PRESENCE only — the row stays offered,
+    // disabled with the engine's own sentence.
+    expect(lightingRow.enabled).toBe(false)
+    const engagedRefusal = 'The selected stage or Post cannot begin installation. Finish its current work first.'
+    const lightingQuote = required(lightingRow.quote, 'no quote on the lighting row')
+    // MEASURED ENGINE GAP (2026-09-17): `adoptionRejections` (src/core/
+    // technologyAdoption.ts:87-106) carries no engagement clause, so
+    // `adoptionQuote` itself does not yet know this stage is engaged — only the
+    // dry-run COMMIT (which reaches `queryFacilityInstallation` directly) does.
+    // The three lines below are the RED that names that exact gap: `disabledReason`
+    // (from the commit) and `quote.refusal` (from the pre-check) must agree, and
+    // do not until `adoptionRejections` gains its own engagement clause. They go
+    // green only when the engine changes, never by loosening this assertion.
+    expect(lightingRow.disabledReason).toBe(lightingQuote.refusal)
+    expect(lightingQuote.refusal).toBe(engagedRefusal)
+    expect(lightingQuote.rejections).toContain(engagedRefusal)
+
+    const completed = advanceTo(session.gameState, session.gameState.market.tick + SOUND.deploymentWeeks)
+    const nextSession = new BridgeSession(completed, 'p13b-s5-adopt-per-tech-complete')
+    const completePage = labPage(nextSession, anyLabBuildingId(completed), nextRequestId('complete'))
+    const completedLightingRow = required(completePage.actions.find(a => a.id === `adopt-${LIGHTING.id}-${stage1}`), `lighting row for stage "${stage1}" absent after sound's fit-out completed: ${JSON.stringify(completePage.actions.map(a => a.id))}`)
+    expect(completedLightingRow.enabled).toBe(true)
+    expect(required(completedLightingRow.quote, 'no quote on the completed lighting row').refusal).toBeNull()
   })
 })
 

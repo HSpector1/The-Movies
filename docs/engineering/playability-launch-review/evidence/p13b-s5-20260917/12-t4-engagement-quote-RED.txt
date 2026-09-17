@@ -1,0 +1,48 @@
+# P13B-S5-T4 test-author (third pass) — new engine RED case, coordinator adjudication 2026-09-17
+# Repo: /Users/zacheryspector/The-Movies-headless-program
+# Branch: wip/headless-program-20260916-ts, HEAD at 526e868322cd7205542398dde1ebc56d39da11d3 (started task at aba6761; tests/p13b-s5-quotes.test.ts untouched by intervening commits, confirmed via git diff --stat aba6761 HEAD)
+# Command: npx vitest run tests/p13b-s5-quotes.test.ts --minWorkers=1 --maxWorkers=1
+# node v20.20.2, vitest 2.1.9
+# Expected 8/9: all 8 pre-existing test-1 cases green, byte-identical, untouched; new appended 'test 2' case RED — adoptionQuote returns ok:true for an engaged stage that the commit itself refuses (src/core/technologyAdoption.ts:87-106 has no engagement clause).
+#
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/p13b-s5-quotes.test.ts (9 tests | 1 failed) 47899ms
+   ✓ P13B-S5 quotes and components per route (test 1) > first inventor sound: access $0, equipment $0 first-prototype, physical $975k = stage + Post components 5539ms
+   ✓ P13B-S5 quotes and components per route (test 1) > second inventor sound installation on another stage while the first holds its asset: equipment $225k later-inventor, existing operational Post reused at $0, stage physical only 4253ms
+   ✓ P13B-S5 quotes and components per route (test 1) > commercial sound: access $200k charged once at purchase, equipment $300k, physical $975k 4400ms
+   ✓ P13B-S5 quotes and components per route (test 1) > lighting inventor first: access $0, equipment $0, site $50k/2w + install $50k/2w, no Post component of any kind 5672ms
+   ✓ P13B-S5 quotes and components per route (test 1) > lighting later inventor: equipment $150k + site/install physical $100k, still no Post 6222ms
+   ✓ P13B-S5 quotes and components per route (test 1) > lighting commercial at 936: access $100k charged once at purchase, equipment $200k commercial, physical $100k 6059ms
+   ✓ P13B-S5 quotes and components per route (test 1) > a lighting adoption with a postFacilityId is refused at commit (the requirement pinned unambiguously at the action layer) 5110ms
+   ✓ P13B-S5 quotes and components per route (test 1) > the first-prototype entitlement fires exactly once per (studio, technology, project) and never blocks a different technology’s project 5250ms
+   × P13B-S5 quotes and components per route (test 2): the quote refuses an engaged stage with the commit’s own sentence > a stage engaged by one technology’s own underConstruction physical work refuses a DIFFERENT technology’s quote for that same stage with the commit’s exact sentence, and agrees again once the work completes 5391ms
+     → expected true to be false // Object.is equality
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p13b-s5-quotes.test.ts > P13B-S5 quotes and components per route (test 2): the quote refuses an engaged stage with the commit’s own sentence > a stage engaged by one technology’s own underConstruction physical work refuses a DIFFERENT technology’s quote for that same stage with the commit’s exact sentence, and agrees again once the work completes
+AssertionError: expected true to be false // Object.is equality
+
+- Expected
++ Received
+
+- false
++ true
+
+ ❯ tests/p13b-s5-quotes.test.ts:318:22
+    316|     // busy. It must go green only once that clause lands in the engin…
+    317|     // by loosening this assertion.
+    318|     expect(quote.ok).toBe(false)
+       |                      ^
+    319|     expect(quote.refusal).toBe(engagedRefusal)
+    320|     expect(quote.rejections).toContain(engagedRefusal)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 8 passed (9)
+   Start at  07:56:06
+   Duration  50.01s (transform 1.28s, setup 0ms, collect 1.69s, tests 47.90s, environment 1ms, prepare 98ms)
+

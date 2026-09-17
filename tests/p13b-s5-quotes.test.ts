@@ -267,3 +267,63 @@ describe('P13B-S5 quotes and components per route (test 1)', () => {
     expect(secondSoundEquipment.cost).toBe(SOUND.laterInventorEquipmentCost)
   })
 })
+
+// P13B-S5 test 2 (coordinator adjudication, 2026-09-17). `adoptionRejections`
+// (src/core/technologyAdoption.ts:87-106) lists every reason a request is
+// refused, but carries no clause for a target body that P09 itself considers
+// `targetEngaged` (physical work already `underConstruction` on the exact
+// facility, checked by `queryFacilityInstallation` in src/core/placement.ts).
+// The commit path (`technology.ts`'s `adoptSynchronizedSound`/`adoptTechnology`
+// branch, ~line 378) queries `queryFacilityInstallation` DIRECTLY and throws
+// its own sentence when the target is engaged — so a pre-commit `adoptionQuote`
+// can say `ok: true` for a request the SAME engine's own commit refuses one
+// call later. MEASURED (this file, 2026-09-17): with a combined sound+lighting
+// world, committing sound's own stage installation on stage1 leaves
+// `adoptionQuote(state, { technologyId: LIGHTING.id, stageFacilityId: stage1 })`
+// reporting `ok: true` even while `applyActions` with the matching
+// `adoptTechnology` throws "The selected stage or Post cannot begin
+// installation. Finish its current work first." — the exact engagement
+// sentence `queryFacilityInstallation` names. This is the RED: the quote and
+// the commit must agree, and today they do not.
+describe('P13B-S5 quotes and components per route (test 2): the quote refuses an engaged stage with the commit’s own sentence', () => {
+  it('a stage engaged by one technology’s own underConstruction physical work refuses a DIFFERENT technology’s quote for that same stage with the commit’s exact sentence, and agrees again once the work completes', () => {
+    // A combined world: sound researched on Lab 1 (1 seat), lighting researched
+    // on Lab 2 (4 seats), both to inventor completion — mirrors this file's own
+    // "first-prototype entitlement" combined fixture (duplicated-not-shared by
+    // this file's own convention) so ONE stage can carry sound's committed
+    // physical work while lighting is quoted against that SAME stage.
+    const { state: world, laboratoryFacilityIds: [lab1, lab2], candidateIds } = p13bTwoLabWorld()
+    let state = fundTo(world, 5_000_000)
+    state = applyActions(state, [{ kind: 'assignResearchScientist', laboratoryFacilityId: lab1, scientistId: candidateIds[0]!, technologyId: 'synchronized-sound' }])
+    state = applyActions(state, candidateIds.slice(1, 5).map(scientistId =>
+      ({ kind: 'assignResearchScientist' as const, laboratoryFacilityId: lab2, scientistId, technologyId: 'lighting-control-01' as const })))
+    state = begin(state, 'synchronized-sound', 10_000)
+    state = begin(state, 'lighting-control-01', 40_000)
+    state = runToCompletion(state, 'synchronized-sound', 900)
+    state = runToCompletion(state, 'lighting-control-01', 900)
+
+    const stage1 = state.operations.facilities.find(f => f.capability === 'soundstage')!.id
+    const postFacilityId = state.operations.facilities.find(f => f.capability === 'post')!.id
+    state = applyActions(state, [{ kind: 'adoptSynchronizedSound', stageFacilityId: stage1, postFacilityId }])
+    // stage1 now carries sound's own stage installation, `underConstruction`
+    // (buildWeeks 12, matching SOUND.deploymentWeeks) — engaged, by P09's own
+    // per-facility rule, for ANY installation targeting it, not only sound's.
+
+    const engagedRefusal = 'The selected stage or Post cannot begin installation. Finish its current work first.'
+    const quote = adoptionQuote(state, { technologyId: LIGHTING.id, stageFacilityId: stage1 })
+    // MEASURED RED (2026-09-17): today this is `ok: true` — `adoptionRejections`
+    // has no engagement clause, so the quote does not yet know the stage is
+    // busy. It must go green only once that clause lands in the engine, never
+    // by loosening this assertion.
+    expect(quote.ok).toBe(false)
+    expect(quote.refusal).toBe(engagedRefusal)
+    expect(quote.rejections).toContain(engagedRefusal)
+
+    expect(() => applyActions(state, [{ kind: 'adoptTechnology', technologyId: LIGHTING.id, stageFacilityId: stage1 } as never]))
+      .toThrow(engagedRefusal)
+
+    const completed = advanceTo(state, state.market.tick + SOUND.deploymentWeeks)
+    const completedQuote = adoptionQuote(completed, { technologyId: LIGHTING.id, stageFacilityId: stage1 })
+    expect(completedQuote.ok).toBe(true)
+  })
+})
