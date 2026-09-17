@@ -542,9 +542,21 @@ function validateSharedTechnology(state: TechnologyBearingState, v: Validator, p
   const v4 = (root.version as number) === 4
   if(root.adoptions.filter(a=>a.studioId!==own).length>1) fail('Core permits one rival commercial adoption consequence')
   for (const a of root.adoptions) {
+    // P13B-S6: the live V26 row carries `cancelledWeek`; the frozen V25 chain reads the same root after
+    // `validateSaveV26` strips it, so the live validator accepts both shapes and validates the leaf when present.
+    const withCancellation = v4 && Object.hasOwn(a, 'cancelledWeek')
     exact(a, v4
-      ? ['id','studioId','technologyId','stageFacilityId','postFacilityId','route','committedWeek','operationalWeek','equipmentCost','installationCost','physicalProjectIds','prototypeProjectId','components','equipmentAssetId']
+      ? ['id','studioId','technologyId','stageFacilityId','postFacilityId','route','committedWeek','operationalWeek','equipmentCost','installationCost','physicalProjectIds','prototypeProjectId','components','equipmentAssetId', ...(withCancellation ? ['cancelledWeek'] : [])]
       : ['id','studioId','technologyId','stageFacilityId','postFacilityId','route','committedWeek','operationalWeek','equipmentCost','installationCost','physicalProjectIds','prototypeProjectId'])
+    if (withCancellation) {
+      const cancelledWeek = (a as unknown as {cancelledWeek: unknown}).cancelledWeek
+      if (cancelledWeek !== null) {
+        if (typeof cancelledWeek !== 'number') fail('cancelledWeek must be a week or null')
+        week(cancelledWeek)
+        if (cancelledWeek < a.committedWeek) fail('adoption cancelled before it was committed')
+        if (a.operationalWeek !== null) fail('a cancelled adoption cannot be operational')
+      }
+    }
     studio(a.studioId);knownTechnology(a.technologyId);text(a.id);week(a.committedWeek);integer(a.equipmentCost);integer(a.installationCost)
     const entry = technologyEntry(a.technologyId)
     if (!['research','purchase'].includes(a.route) || !technologyAccess(state,a.studioId,a.technologyId)) fail('adoption without lawful access')
