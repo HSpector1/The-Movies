@@ -623,10 +623,15 @@ restoration are S6 (this slice persists what S6 needs); rival lighting purchase/
   per `physicalProjectIds` entry with the placement's own capex, an `access` row from the access record, and one minted asset per adoption
   (held) — nothing invented, byte-identical otherwise. **S5-T0 mints genuine V23 fixtures at the final V23 writer BEFORE any S5 source change**
   (incl. a state with an operational inventor sound adoption and a completed lighting project).
-- Bridge (projection 37, text only): Laboratory page `adopt-` rows generalized per technology (`adopt-<technologyId>-<stagePlacementId>[-<postPlacementId>]`,
-  intent `adoptTechnology`), a `StudioAdoptionQuote` per row (component list with kind/label/cost/source, total, and the reuse of an existing Post
-  or asset named), and `adoptions: StudioAdoptionRow[]` on the page (technology, route, committedWeek, operationalWeek, components,
-  equipmentAssetId); player-safe.
+- Bridge (projection 37, text only): Laboratory page `adopt-` rows generalized per technology (`adopt-<technologyId>-<stageFacilityId>[-<postFacilityId>]`,
+  intent `adoptTechnology`), a `StudioAdoptionQuote` per row (component list with kind/label/cost/source, total, the reuse of an existing Post
+  or asset named, plus the S4 disclosure pattern: `rejections` = the engine's full refusal list and `refusal` = the engine-primary refusal,
+  null when the row is actionable), `plan-queue-adopt-<technologyId>-<stageFacilityId>` companions beside each immediate row (S3/S4 precedent:
+  the stage-installation blueprint queued through `queuePhysicalPlan`; visible under the same reachable rule as S4's companions; a queued
+  plan never mints the adoption — the adoption is committed by the immediate row only, recorded as a delegated decision), and
+  `adoptions: StudioAdoptionRow[]` on the page (technology, route, committedWeek, operationalWeek, components, equipmentAssetId); player-safe.
+- Type change stated explicitly (audit note 4): `TechnologyAdoption.postFacilityId` becomes `string | null` (null for lighting rows; a sound
+  row keeps its string, including when an existing operational Post is reused).
 
 **Tests (requirement-derived; each fails before its implementation).**
 1. Quotes and components per route: first inventor sound (access $0, equipment $0 first prototype, physical $975k = stage + Post components);
@@ -645,7 +650,8 @@ restoration are S6 (this slice persists what S6 needs); rival lighting purchase/
 5. Validator refusals: forged component sums, a second first-prototype asset for one project, a negative component, an asset held by two
    adoptions, an adoption without acquired access, an `existing` Post row naming a non-operational facility, a lighting adoption with a Post row.
 6. Conservation, determinism, campaign isolation (rival adoption rows untouched by player actions; the rival purchase reconciles per technology).
-7. Bridge (projection 37): per-technology adopt rows with component quotes, adoption rows, refusals, stale revision, player-safe.
+7. Bridge (projection 37): per-technology adopt rows with component quotes, `rejections`/`refusal` disclosure per row, `plan-queue-adopt-*`
+   companions under the reachable rule (queueing never mints the adoption), adoption rows, stale revision, player-safe.
 
 **Allowance (plan):** 6 h capability, 2 h verification (+ S5-R07 separately, ≈4 h + 2 h, expanded before it begins).
 
@@ -655,6 +661,10 @@ restoration are S6 (this slice persists what S6 needs); rival lighting purchase/
 - [ ] **S5-T1/T2/T3 Engine increment** (sim-core; test-author writes tests 1–6 RED first): components, assets, `adoptTechnology`, per-technology
       operational law and charges, validator, Save V24.
 - [ ] **S5-T4 Bridge projection 37:** test 7 (`tests/bridge-p13b-s5-adoption.test.ts`).
+- [x] **S5 expansion audit (contract-auditor, read-only, 2026-09-17 ≈04:55):** figures and engine facts confirmed against code; two should-fix
+      refinements adopted above (plan-queue companions per the S3/S4 precedent; `rejections`/`refusal` fields on the adopt rows) and the
+      `postFacilityId: string | null` type change stated; the companion documents themselves are not in the engine tree (docs branch), so the
+      audit verified the plan's paraphrase against code, not against the primary text.
 - [ ] **S5-T5 Matched pass, records (backlog entry), commit, push.**
 - [ ] **S5-R07 consumer task** — expansion written before it begins (paths, versions, tests, effort, backlog) per the disposition; it follows T5.
 
