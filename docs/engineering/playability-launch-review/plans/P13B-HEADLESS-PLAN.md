@@ -888,8 +888,7 @@ rival facts only from receipts (`filmAnnounced`, `technologyAdopted`) and refuse
   distant window and announcement week are catalogue data per technology (delegated: yes, as `publicWindow {from, to, announceWeek}` on the
   catalogue entry, with sound's window equal to its own commercial week so nothing changes for it).
 - No private rival research exposure: the forecast never reads rival projects, seats, spend or receipts; only the campaign-clock announcement
-  and the catalogue's public window. S8 must keep this invariant when rival research exists (validator: announcement receipts carry no studio
-  authority).
+  and the catalogue's public window. S8 must keep this invariant when rival research exists. [SUPERSEDED by the refinement: no receipt exists; the invariant is carried by the pure read-model signature, not by a receipt validator.]
 - Replacement descriptors on purchase: the commercial purchase row and the access record disclose what the technology replaces (sound:
   synchronized dialogue replaces silent production method on the selected stage chain; lighting: controlled lighting replaces conventional
   setup on the fitted stage — S5-R07's 4 → 2 units) as text derived from catalogue data, not from private facts. OPEN: exact descriptor wording
@@ -906,43 +905,39 @@ technologies. 5 bridge projection. **Allowance:** 4 h capability, 2 h verificati
 
 **Refinement (coordinator, 2026-09-17 ≈21:45, before S7 begins; engine facts verified, supersedes the provisional bullets where they differ).**
 - NO persisted announcement record. Engine facts: `IndustryReceipt` (hollywoodTypes.ts) is keyed to a studio (`studioId` with an entered owner)
-  and `validateHollywood` refuses any kind outside its exact-key table as 'unknown receipt kind' — every frozen reader V12–V26 runs it, so a
+  and `validateHollywood` refuses any kind outside its exact-key table as 'unknown receipt kind' — every frozen reader V19–V26 runs it (the hollywood root exists from V19), so a
   `technologyAnnounced` receipt would force Save V27 and could not be re-minted at its own week after a strip (receipt chronology is enforced).
   The announcement is a DETERMINISTIC CLOCK FACT: catalogue data + the current week, nothing else. Save version unchanged (V26 stays live);
   the technology root stays v4; no migration proof is owed. Fixtures: S7-T0 still mints genuine V26 fixtures at the final V26 writer (`83187c2`,
   tests-only commits since) so the S6 leaves (a cancelled placement with its receipt, refund row, restoration placement, `cancelledWeek`) exist as
   originals BEFORE any S7 or S8 source change — they serve S8's V26→V27 proof.
-- Catalogue data per technology (`src/core/technologyCatalogue.ts`, data not law): `publicWindow: { from, to, announceWeek }` — lighting
-  884..988 announced at 884 (R07 disposition; CANDIDATE numbers), sound `{ from: 416, to: 416, announceWeek: 416 }` (its commercial week is
+- Catalogue data per technology (`src/core/technologyCatalogue.ts`, data not law): `publicWindow: { from, to, announceWeek }` — lighting 884..988 announced at 884 (the S7 scope record's figure — a ±52-week window around the true commercial week; no corroborating transcription exists in this plan's R07 sections or on disk; CANDIDATE, companion wording owed), sound `{ from: 416, to: 416, announceWeek: 416 }` (its commercial week is
   already public; nothing changes for sound); `replacementLabel: string` — authored player text, CANDIDATE wording pending the companion:
   sound "Synchronized dialogue replaces the silent production method on the fitted stage and Post chain."; lighting "Controlled lighting
   replaces conventional setup on the fitted stage: two setup units instead of four." (S5-R07's 4 → 2 units).
 - Engine read model `src/core/technologyDisclosure.ts` (pure; inputs are the catalogue entry and the week ONLY — no `GameState` rival facts):
-  `technologyForecast(entry, week) → { kind: 'window', fromWeek, toWeek } | { kind: 'exact', commercialWeek, announcedWeek }` (window while
-  `week < announceWeek`; exact at/after; sound exact from week 0 since its window is degenerate), `technologyAnnouncements(week) →
+  `technologyForecast(entry, week) → { kind: 'window', fromWeek, toWeek } | { kind: 'exact', commercialWeek, announcedWeek }` (`kind: 'exact'` whenever `week >= announceWeek` OR the window is degenerate (`from === to`); otherwise `kind: 'window'` — sound's {416, 416, 416} is therefore exact at every week including week 0, and its Laboratory disclosure never becomes a two-bound window), `technologyAnnouncements(week) →
   { technologyId, week: announceWeek }[]` for every entry with a non-degenerate window whose `announceWeek <= week` (at most one per technology
   by construction), `replacementDescriptor(entry) → string`. Invariant (test 2): the forecast and announcements are byte-identical across two
   campaigns at the same week that differ only in rival facts (adoptions, receipts, employment) — S8 inherits it.
-- Bridge (projection 40, text only): Laboratory page `forecast: StudioTechnologyForecast[]` per catalogue technology {technologyId, name,
+- Bridge (projection 40; text plus TWO named surface changes — the nullable `studioId` and the per-technology purchase/wait rows below): Laboratory page `forecast: StudioTechnologyForecast[]` per catalogue technology {technologyId, name,
   kind 'window' | 'exact', windowFromLabel, windowToLabel, exactLabel (null while windowed), announcedWeek (null while windowed), basis: the
-  fixed sentence 'Public milestone facts from the catalogue; not a rival schedule.'}; `replacementLabel` on the commercial purchase row
-  (`purchase-*`/`adopt-*` rows, both technologies) and on `adoptions[]` rows; industry page `announcements` group gains one derived row per
-  announced technology (`eventId` `technology-announcement-<technologyId>`, week = announceWeek, headline 'Industry announces <name>', detail
-  naming the exact commercial date) — derived on read, never from receipts. `converted`/save pins unchanged (V26).
+  fixed sentence 'Public milestone facts from the catalogue; not a rival schedule.'}; `replacementLabel` on the commercial purchase row and on `adopt-*` rows for both technologies and on `adoptions[]` rows — the Laboratory page's `wait-*`/`purchase-*` rows, today emitted for sound only (`bridge/laboratory.ts` ≈322–325, a P13A-era relic), are GENERALISED per catalogue entry (`wait-<technologyId>` / `purchase-<technologyId>`; the sound ids are unchanged since `SYNCHRONIZED_SOUND.id === 'synchronized-sound'`), reflecting the engine's own per-technology `waitForTechnology`/`purchaseTechnology` law (`commercialAccessRefusal` per entry) — new bridge surface, not text-only, recorded in the backlog; industry page `announcements` group gains one derived row per announced technology (`eventId` `technology-announcement-<technologyId>`, week = announceWeek, `studioId: null` — the campaign clock owns no studio, so `StudioIndustryActivity.studioId` becomes NULLABLE on the wire (a binding change, backlog) and the row is excluded from every per-studio History filter by construction while it appears in the Industry Pulse feed; headline 'Industry announces <name>', detail naming the exact commercial date) — derived on read, never from receipts. `converted`/save pins unchanged (V26).
 - Tests (RED-first, unchanged in substance; test 3 restated): 1 forecast text before 884 shows 884..988 only (never 936); at/after 884 the
-  exact 936; sound exact throughout. 2 rival-independence (identical wire forecast/announcement rows across two states differing only in
-  rival facts). 3 exactly one announcement row per technology with a non-degenerate window at/after its announce week, week = announce week,
+  exact 936; sound exact throughout. 2 rival-independence (identical wire forecast/announcement rows across two states differing only in rival facts — necessarily PARTIAL until S8 exists: today only rival adoptions, receipts and employment can be varied; the pure signature carries the rest). 3 exactly one announcement row per technology with a non-degenerate window at/after its announce week, week = announce week,
   identical in a Save As world and after a V26 load. 4 replacement descriptors on the purchase row and access rows for both technologies,
   derived from catalogue text. 5 bridge projection 40 (version pin, schema id move, DTOs). Engine tests import from
   `src/core/technologyDisclosure.ts` (missing at RED, so the files fail at resolution).
 - OPEN (recorded, not resolved): the 884..988 window and 884 announce week, the two replacement sentences — companion wording.
+
+**Audit (contract-auditor, read-only, 2026-09-17 ≈22:20):** two blocking findings adopted above (the derived announcement row's `studioId` → nullable on the wire, excluded from per-studio history by construction; the sound-only `wait-*`/`purchase-*` rows generalised per catalogue entry and named as new bridge surface so test 4 covers both technologies), four should-fix adopted (the degenerate-window clause in `technologyForecast`'s rule, the window figure's provenance wording, V19–V26, the superseded receipt-validator sentence), and the coverage note on test 2. Confirmed sound: no persisted announcement, Save V26 unchanged, the pure `(entry, week)` signature, the synthetic `eventId`.
 
 ### S7 tasks
 - [x] **S7-T0 Genuine V26 fixtures (2026-09-17 ≈22:05)** minted by `src/harness/p13b/legacy-v26-fixtures.ts` at `8796fce` (final V26 writer `83187c2`; `git diff --stat 83187c2..HEAD -- src bridge` empty) before any S7 source change: `legacy-v26-lighting-cancelled-793` (sha `0b74f4d8…`; cancelled at 793 with receipt, refund row, unheld asset, `restoration-lighting-stage` in progress), `legacy-v26-lighting-restored-795` (sha `f48da034…`; restoration complete, cancelled record retained), `legacy-v26-sound-mid-deployment-309` (sha `11ef05be…`; every V26 leaf in its null form); provenance in `tests/fixtures/p13b/PROVENANCE.md`; evidence `p13b-s7-20260917/00`. Contract-auditor dispatched on the refined expansion; test-author follows the audit.
 - [ ] **S7-T1 Tests 1–4 RED-first** (test-author) against `src/core/technologyDisclosure.ts`; evidence `01`–`04`.
 - [ ] **S7-T2 Engine increment** (sim-core): catalogue data, `technologyDisclosure.ts`; S7 files green; no save change (assert `LIVE_SAVE_VERSION`
   26 unchanged in the sweep).
-- [ ] **S7-T3 Bridge projection 40**: test 5 RED-first, then sim-core; pins 39 → 40; schema id recorded.
+- [ ] **S7-T3 Bridge projection 40**: test 5 RED-first (forecast rows, replacement labels on purchase/adopt/adoptions rows for both technologies, the derived announcement row with `studioId: null`, the generalised `wait-*`/`purchase-*` rows), then sim-core; pins 39 → 40; schema id recorded; backlog notes the two binding changes.
 - [ ] **S7-T4 Matched pass, attribution, label, records (backlog S7 entry), commit, push.**
 
 ## S7 — Forecast/replacement disclosure (Ready row 5) — scope record
