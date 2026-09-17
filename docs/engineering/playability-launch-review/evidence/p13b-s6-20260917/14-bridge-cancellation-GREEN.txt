@@ -1,0 +1,27 @@
+=== npx vitest run tests/bridge-p13b-s6-cancellation.test.ts --minWorkers=1 --maxWorkers=1 --reporter=verbose ===
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/bridge-p13b-s6-cancellation.test.ts > P13B-S6-T3 item 1: projection version bump (38 -> 39) and the cancellationAction intent kind > bumps PROJECTION_VERSION to 39 and its schema $id / x-project-studio.projectionVersion move with it
+ ✓ |core| tests/bridge-p13b-s6-cancellation.test.ts > P13B-S6-T3 item 1: projection version bump (38 -> 39) and the cancellationAction intent kind > AVAILABLE_INTENT_KINDS gains cancellationAction, distinct from researchAction/installationAction/physicalPlanAction/adoptTechnology
+ ✓ |core| tests/bridge-p13b-s6-cancellation.test.ts > P13B-S6-T3 item 2/3/4: Laboratory cancel-adoption row (lighting) — quote verbatim, commit through the bridge, stale refusal, adoption/equipment wire facts > the full lighting journey: row present with the engine quote, commit through the bridge, exact money trace, stale refusal, row disappears, adoption+equipment facts, reused-at-$0 on a second stage 13671ms
+ ✓ |core| tests/bridge-p13b-s6-cancellation.test.ts > P13B-S6-T3 item 2/3/4: Laboratory cancel-adoption row (lighting) — quote verbatim, commit through the bridge, stale refusal, adoption/equipment wire facts > no cancel-adoption row exists for an OPERATIONAL adoption (item 2: "rows absent for operational... placements") 7429ms
+ ✓ |core| tests/bridge-p13b-s6-cancellation.test.ts > P13B-S6-T3 item 2/3: Office cancel-<projectId> row — quote verbatim, commit through the bridge, offline/offlineUntilWeek, restoration never cancellable > the full Office II journey: row present with the engine quote, commit through the bridge, offline until the restoration completes, restoration itself never gets a cancel row 2052ms
+ ✓ |core| tests/bridge-p13b-s6-cancellation.test.ts > P13B-S6-T3 item 2: Plans page cancel-<projectId> row for a started plan's own placement > a Lab module installed through a queued plan (the proven p13aLaboratorySlice -> queue -> tick -> 'started' recipe) gets a cancel-<projectId> row on the Plans page, distinct from the terminal plan-cancel-<planId> row 1121ms
+ ✓ |core| tests/bridge-p13b-s6-cancellation.test.ts > P13B-S6-T3 item 5: finance category line for the refund week; the prior week's capex unchanged > the constructionRefund category appears only in the week the refund landed; week 303's capex category is byte-identical before and after 7530ms
+ ✓ |core| tests/bridge-p13b-s6-cancellation.test.ts > P13B-S6-T3 item 5: finance category line for the refund week; the prior week's capex unchanged > StudioFinanceFacility.status widens to accept 'cancelled' — the schema round-trip on a snapshot carrying a cancelled installation 9166ms
+ ✓ |core| tests/bridge-p13b-s6-cancellation.test.ts > P13B-S6-T3 item 6: history rows for cancellation/restoration on operationsEvents; player-safe; legacy cancellation:null unchanged > a restoration's own completion reuses the EXISTING constructionCompleted kind — no invented "cancellation"/"restoration" kind (S4 case-8 precedent) 7396ms
+ ✓ |core| tests/bridge-p13b-s6-cancellation.test.ts > P13B-S6-T3 item 6: history rows for cancellation/restoration on operationsEvents; player-safe; legacy cancellation:null unchanged > player-safe: an already-naturally-existing rival adoption never appears in this studio's own adoptions[]/equipment[]/cancel rows 6071ms
+ ✓ |core| tests/bridge-p13b-s6-cancellation.test.ts > P13B-S6-T3 item 6: history rows for cancellation/restoration on operationsEvents; player-safe; legacy cancellation:null unchanged > legacy behaviour unchanged: a live, never-cancelled adoption publishes cancelledWeek: null on the wire once the field exists 4062ms
+
+ Test Files  1 passed (1)
+      Tests  11 passed | 1 todo (12)
+   Start at  22:00:22
+   Duration  62.90s (transform 2.88s, setup 0ms, collect 3.87s, tests 58.51s, environment 1ms, prepare 135ms)
+
+=== npm run typecheck:bridge ===
+
+> project-studio-core@0.1.0 typecheck:bridge
+> tsc -p tsconfig.bridge.json
+
+EXIT_CODE=0

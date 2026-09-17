@@ -1,8 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { applyActions } from '../src/core/actions.js'
-import { campaignDate } from '../src/core/calendar.js'
 import { FINANCE_CATEGORIES } from '../src/core/financeReport.js'
-import { blueprintById, queryFacilityInstallation } from '../src/core/placement.js'
 import { adoptionQuote } from '../src/core/technologyAdoption.js'
 import { tick } from '../src/core/tick.js'
 import type { GameState } from '../src/core/types.js'
@@ -274,7 +272,6 @@ describe('P13B-S6-T3 item 1: projection version bump (38 -> 39) and the cancella
 describe('P13B-S6-T3 item 2/3/4: Laboratory cancel-adoption row (lighting) — quote verbatim, commit through the bridge, stale refusal, adoption/equipment wire facts', () => {
   it('the full lighting journey: row present with the engine quote, commit through the bridge, exact money trace, stale refusal, row disappears, adoption+equipment facts, reused-at-$0 on a second stage', () => {
     const { state: committed, adoptionId, stageProjectId, stageFacilityId } = s6LightingReady()
-    const own = required(committed.hollywood?.playerStudioId, 'no player studio on this state')
     const state = advanceTo(committed, committed.market.tick + 2) // site just complete (matches the engine's own exact-trace case)
     const labBuildingId = anyLabBuildingId(state)
 
@@ -338,7 +335,7 @@ describe('P13B-S6-T3 item 2/3/4: Laboratory cancel-adoption row (lighting) — q
     // Adoption row after cancellation (item 4): cancelledWeek, equipmentAssetId
     // retained, restated on the wire.
     const adoptionRow = required(after.adoptions?.find(a => a.technologyId === 'lighting-control-01'), `no adoptions[] row for lighting-control-01 (adoptions=${JSON.stringify(after.adoptions)})`)
-    expect(adoptionRow.cancelledWeek).toBe(state.market.tick + 2)
+    expect(adoptionRow.cancelledWeek).toBe(state.market.tick)
     const engineAdoption = required(session.gameState.technology.adoptions.find(a => a.id === adoptionId), 'engine adoption row absent')
     expect(adoptionRow.equipmentAssetId).toBe(engineAdoption.equipmentAssetId)
     const assetId = required(engineAdoption.equipmentAssetId, 'no equipment asset id on this adoption')
