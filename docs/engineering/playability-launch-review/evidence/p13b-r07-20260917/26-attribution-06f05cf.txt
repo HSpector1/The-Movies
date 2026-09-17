@@ -20,3 +20,12 @@ never see them), all TEST-SIDE/HARNESS/FROZEN-BUILDER — no R07 law changed aft
    2  tests/roster-wall-campaign.test.ts               — same
        → fix: historicalHashState strips setup/planRevision under a guard (only the null record at revision 0 may be discarded); evidence 25
 New failures attributable to R07 engine or bridge law: NONE. Every R07 and S5 file passed in this run (13 files, 108 cases).
+
+BRIDGE stage (log 21-test-bridge-06f05cf.txt): check:bridge-contract verified (schema.json, StudioBridgeDtos.Generated.cs, contract-manifest.json), check:bridge-contract:fixtures verified;
+Test Files 2 failed | 60 passed (62); Tests 12 failed | 608 passed (620); BRIDGE_EXIT=1
+  11  tests/bridge-p12-campaign-library.test.ts   — inherited (budgets)
+   1  tests/bridge-p13-campaign-isolation.test.ts — inherited (68.4 s body vs 60 s budget)
+bridge-p13b-r07-setup 13/13, bridge-p13b-s5-adoption 11/11, bridge-founding passed. New failures attributable to S5-R07: NONE.
+Run window: start 2026-09-17T11:41:18Z, end 13:00:53Z (20-RUN.txt). Source changed after the pass started, all outside R07 law: save.ts frozen-builder
+projection (builder-only; the live V25 writer and validator untouched), the roster-wall harness lift and hash strip — each with its own targeted evidence
+(22, 23, 25). Verdict: S5-R07 LOGIC VERIFIED · UNITY NOT VERIFIED (S5-R07 only; not P13B completion, not Owner acceptance; A12/K4/CAT-011 OPEN).
