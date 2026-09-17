@@ -221,7 +221,7 @@ function laboratoryBuildingId(state: GameState): string {
 
 describe('P13B-S4-T3 office bridge page: projection bump', () => {
   it('bumps PROJECTION_VERSION to the S4-T3 wire contract (36)', () => {
-    expect(PROJECTION_VERSION).toBe(39)
+    expect(PROJECTION_VERSION).toBe(40)
   })
 })
 
@@ -232,7 +232,7 @@ describe('case 1: the founding office at week 12 — full quote parity on the wi
     const session = new BridgeSession(state, 'p13b-s4-office-1-fresh')
 
     const response = officeResponse(session, facilityId, nextRequestId('fresh'))
-    expect(response.snapshotVersion).toBe(39)
+    expect(response.snapshotVersion).toBe(40)
     const office = response.office
     expect(office.facilityId).toBe(facilityId)
     expect(office.standard).toBe('I')

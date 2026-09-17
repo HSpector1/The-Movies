@@ -109,7 +109,24 @@ export const PROTOCOL_VERSION = 4 as const
 // projection-37 adopt-row shape itself. Nothing is defaulted: a `cancel-*` row simply
 // omits `total`/`reusedPostFacilityId`/`reusedEquipmentAssetId`, and an `adopt-*` row
 // omits `refund`/`restoration`. Protocol stays 4.
-export const PROJECTION_VERSION = 39 as const
+//
+// PROJECTION 40 (P13B-S7): public milestone disclosure reaches the wire.
+// `StudioLaboratoryPage.forecast` publishes one `StudioTechnologyForecast` per catalogue
+// technology, derived from the catalogue entry and the campaign week alone — a two-bound
+// window until the public announcement, the exact commercial date from it. `replacementLabel`
+// (authored catalogue text) joins the `purchase-*`/`adopt-*` action rows as an OPTIONAL member
+// and every `StudioAdoptionRow`. TWO named surface changes, not text-only:
+//   * `StudioIndustryActivity.studioId` is now NULLABLE. The derived announcement row
+//     `technology-announcement-<technologyId>` is minted by the campaign clock, which owns no
+//     studio; null keeps it out of every per-studio History filter by construction while it
+//     appears in the Industry Pulse feed. Every receipt-derived row still carries its studio id.
+//   * The Laboratory `wait-<technologyId>`/`purchase-<technologyId>` rows, published for
+//     synchronized sound alone since P13A, are now per catalogue technology and exist ONLY
+//     while that technology's forecast is EXACT — a row whose text embeds the exact commercial
+//     week cannot be published before that week is public. Sound's window is degenerate, so its
+//     two rows are unchanged at every week; lighting's appear at its announcement week.
+// Nothing is persisted: no announcement receipt, no save change (V26 stays live). Protocol stays 4.
+export const PROJECTION_VERSION = 40 as const
 
 const nonEmptyText = () => text({ minLength: 1 })
 const nonNegativeInteger = () => integer({ minimum: 0 })

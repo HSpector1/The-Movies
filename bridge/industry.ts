@@ -1,5 +1,7 @@
 /** Public, bounded Industry reads. Authoritative IDs and facts only; no private business inputs. */
 import {campaignDate} from '../src/core/calendar.js'
+import {technologyAnnouncements} from '../src/core/technologyDisclosure.js'
+import {technologyEntry} from '../src/core/technologyCatalogue.js'
 import {filmAudienceScore} from '../src/core/index.js'
 import {flattenParticipants} from '../src/core/starPower.js'
 import type {GameState,Standing} from '../src/core/types.js'
@@ -111,6 +113,19 @@ function indexFor(state:GameState):Index {
     }
     return []
   })
+  // P13B-S7: the public technology announcements. A DERIVED CLOCK FACT — the catalogue's
+  // milestone data plus this campaign's week, nothing else: no receipt is minted, read or
+  // needed, so a Save As copy, a reloaded save and two campaigns differing only in rival
+  // facts publish the identical row for the same week. `studioId` is null because the
+  // campaign clock owns no studio, which is also what keeps the row out of every per-studio
+  // History filter below — null never matches a studio id.
+  for(const announcement of technologyAnnouncements(state.market.tick)) {
+    const entry=technologyEntry(announcement.technologyId)
+    activities.push({eventId:`technology-announcement-${entry.id}`,week:announcement.week,dateLabel:campaignDate(announcement.week).label,group:'announcements',
+      headline:`Industry announces ${entry.name}`,
+      detail:`Commercial access opens ${campaignDate(entry.commercialWeek).label}. Public milestone facts from the catalogue; not a rival schedule.`,
+      studioId:null,filmId:null,talentId:null})
+  }
   const index={studios,studioById:new Map(studios.map(s=>[s.studioId,s])),films,filmById:new Map(films.map(f=>[f.filmId,f])),credits,filmsByStudio,filmsByPerson,people,roster,activities}
   indexes.set(state,index);return index
 }
@@ -221,9 +236,12 @@ export function industryPage(state:GameState,sessionId:string,stateRevision:numb
     const person=index.people.get(q.targetId??'');if(!person)throw new Error('That person is absent from this campaign.')
     result.title=person.name;result.people=[person];result.films=page(filterFilms(index.filmsByPerson.get(person.talentId)??[],q,state.market.tick));result.notice=person.notice
   } else {
-    result.title='Industry Pulse';result.notice='Grouped material activity for the last 13 campaign weeks. Routine phase changes and ordinary renewals are omitted.'
+    result.title='Industry Pulse';result.notice='Grouped material activity for the last 13 campaign weeks, and every public technology milestone already announced. Routine phase changes and ordinary renewals are omitted.'
     const groupOrder={releases:0,people:1,studios:2,announcements:3}
-    result.activities=page(index.activities.filter(r=>r.week>=Math.max(0,state.market.tick-12)).sort((a,b)=>groupOrder[a.group]-groupOrder[b.group]||b.week-a.week||byText(a.eventId,b.eventId)))
+    // P13B-S7: the 13-week window retires RECEIPTS. A derived public milestone (studioId null)
+    // is not an event that happened once: it is a standing public fact about a week still to
+    // come, so it stays listed after its own announcement week.
+    result.activities=page(index.activities.filter(r=>r.studioId===null||r.week>=Math.max(0,state.market.tick-12)).sort((a,b)=>groupOrder[a.group]-groupOrder[b.group]||b.week-a.week||byText(a.eventId,b.eventId)))
   }
   return structuredClone(result)
 }

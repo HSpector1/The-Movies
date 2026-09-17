@@ -322,6 +322,10 @@
             }
           ]
         },
+        "replacementLabel": {
+          "minLength": 1,
+          "type": "string"
+        },
         "route": {
           "enum": [
             "research",
@@ -344,6 +348,7 @@
         "equipmentAssetId",
         "operationalWeek",
         "postFacilityId",
+        "replacementLabel",
         "route",
         "technologyId"
       ],
@@ -487,7 +492,7 @@
           "$ref": "#/$defs/StudioProjectionBundle"
         },
         "snapshotVersion": {
-          "const": 39,
+          "const": 40,
           "type": "integer"
         },
         "stateDigest": {
@@ -604,7 +609,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 39,
+          "const": 40,
           "type": "integer"
         },
         "stateDigest": {
@@ -1119,7 +1124,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 39,
+          "const": 40,
           "type": "integer"
         },
         "stateDigest": {
@@ -1198,7 +1203,7 @@
           "$ref": "#/$defs/StudioProjectionBundle"
         },
         "snapshotVersion": {
-          "const": 39,
+          "const": 40,
           "type": "integer"
         },
         "stateDigest": {
@@ -1490,7 +1495,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 39,
+          "const": 40,
           "type": "integer"
         },
         "stateDigest": {
@@ -7112,8 +7117,15 @@
           "type": "string"
         },
         "studioId": {
-          "minLength": 1,
-          "type": "string"
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
         },
         "talentId": {
           "anyOf": [
@@ -8153,6 +8165,10 @@
               "type": "null"
             }
           ]
+        },
+        "replacementLabel": {
+          "minLength": 1,
+          "type": "string"
         }
       },
       "required": [
@@ -8207,6 +8223,12 @@
         "estimateLabel": {
           "minLength": 1,
           "type": "string"
+        },
+        "forecast": {
+          "items": {
+            "$ref": "#/$defs/StudioTechnologyForecast"
+          },
+          "type": "array"
         },
         "installationLabel": {
           "minLength": 1,
@@ -8278,6 +8300,7 @@
         "commercialLabel",
         "equipment",
         "estimateLabel",
+        "forecast",
         "installationLabel",
         "progressLabel",
         "projects",
@@ -14387,6 +14410,90 @@
       "type": "object",
       "x-csharp-name": "StudioTalentSnapshot"
     },
+    "StudioTechnologyForecast": {
+      "additionalProperties": false,
+      "properties": {
+        "announcedWeek": {
+          "anyOf": [
+            {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "basis": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "exactLabel": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "kind": {
+          "enum": [
+            "window",
+            "exact"
+          ],
+          "type": "string"
+        },
+        "name": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "technologyId": {
+          "enum": [
+            "synchronized-sound",
+            "lighting-control-01"
+          ],
+          "type": "string"
+        },
+        "windowFromLabel": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "windowToLabel": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "announcedWeek",
+        "basis",
+        "exactLabel",
+        "kind",
+        "name",
+        "technologyId",
+        "windowFromLabel",
+        "windowToLabel"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioTechnologyForecast"
+    },
     "StudioTreasurySnapshot": {
       "additionalProperties": false,
       "properties": {
@@ -14646,7 +14753,7 @@
       "x-csharp-name": "StudioWrapReceiptSnapshot"
     }
   },
-  "$id": "urn:project-studio:bridge:protocol-4:projection-39",
+  "$id": "urn:project-studio:bridge:protocol-4:projection-40",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "description": "Canonical wire contract owned by the authoritative TypeScript runtime.",
   "oneOf": [
@@ -14702,7 +14809,7 @@
   "title": "Project Studio TypeScript to Unity Bridge",
   "x-project-studio": {
     "contractId": "project-studio-current-game-unity-bridge",
-    "projectionVersion": 39,
+    "projectionVersion": 40,
     "protocolVersion": 4,
     "routes": {
       "command": "POST /command",

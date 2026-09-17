@@ -9,6 +9,7 @@ import { TUNING } from '../src/core/tuning.js'
 import { occupiedSeats, playerTechnologyAccess, PROJECT_UNIT, researchCandidates, researchWeekQuote, SYNCHRONIZED_SOUND, weeklyResearchPayroll, RESEARCH_SCIENTISTS_PER_STUDIO } from '../src/core/technology.js'
 import type { ResearchWeekQuote } from '../src/core/technology.js'
 import { TECHNOLOGY_CATALOGUE, technologyEntry } from '../src/core/technologyCatalogue.js'
+import { replacementDescriptor, technologyForecast } from '../src/core/technologyDisclosure.js'
 import { adoptionQuote, equipmentAssets, type AdoptionRequest } from '../src/core/technologyAdoption.js'
 import { cancellationQuote } from '../src/core/installationCancellation.js'
 import { cancellationDetail, cancellationQuoteRow, isCancellationAction, type CancellationAction } from './cancellation.ts'
@@ -21,6 +22,7 @@ import type { IndustryPage } from './schema/industry-schema.ts'
 type LaboratoryPage = NonNullable<IndustryPage['laboratory']>
 type ActionQuoteRow = NonNullable<LaboratoryPage['actions'][number]['quote']>
 type AdoptionRow = LaboratoryPage['adoptions'][number]
+type ForecastRow = LaboratoryPage['forecast'][number]
 type EquipmentRow = LaboratoryPage['equipment'][number]
 export type LaboratoryActionSpec = {
   id: string
@@ -124,6 +126,38 @@ function cooperationLabelFor(quote: ResearchWeekQuote): string {
   return `Two Laboratories: ${first.laboratoryFacilityId} ${first.seats} seats ${money(first.spend)} (${first.rawUnits} raw) + ` +
     `${second.laboratoryFacilityId} ${second.seats} seats ${money(second.spend)} (${second.rawUnits} raw) → ${quote.output} units/week; the second Laboratory counts at 0.625.`
 }
+/**
+ * P13B-S7: the ONE sentence every forecast row states its own provenance with. The engine's
+ * `technologyForecast` reads the catalogue entry and the week and nothing else, so this is
+ * the whole truth about where the row came from.
+ */
+const FORECAST_BASIS = 'Public milestone facts from the catalogue; not a rival schedule.'
+/**
+ * One technology's public availability milestone at this week. A WINDOW row withholds the
+ * exact commercial week entirely — it is not public yet — and an EXACT row publishes it
+ * with the announcement week that made it public. Neither reads a single rival fact.
+ */
+const forecastRow = (entry: (typeof TECHNOLOGY_CATALOGUE)[number], week: number): ForecastRow => {
+  const forecast = technologyForecast(entry, week)
+  return {
+    technologyId: entry.id, name: entry.name, kind: forecast.kind,
+    windowFromLabel: forecast.kind === 'window' ? campaignDate(forecast.fromWeek).label : null,
+    windowToLabel: forecast.kind === 'window' ? campaignDate(forecast.toWeek).label : null,
+    exactLabel: forecast.kind === 'exact' ? campaignDate(forecast.commercialWeek).label : null,
+    announcedWeek: forecast.kind === 'exact' ? forecast.announcedWeek : null,
+    basis: FORECAST_BASIS,
+  }
+}
+/**
+ * P13B-S7: what a commercial purchase of this technology replaces — the catalogue's own
+ * authored sentence, on the purchase and adopt rows alone. A wait row buys nothing and so
+ * replaces nothing, and no other verb moves a technology at all.
+ */
+function replacementLabelFor(action: LaboratoryActionSpec['action']): { replacementLabel?: string } {
+  if (action.kind === 'adoptSynchronizedSound') return { replacementLabel: replacementDescriptor(SYNCHRONIZED_SOUND) }
+  if (action.kind === 'adoptTechnology' || action.kind === 'purchaseTechnology') return { replacementLabel: replacementDescriptor(technologyEntry(action.technologyId)) }
+  return {}
+}
 /** One committed adoption as data: the engine's own row, copied so the page owns its output. */
 const adoptionRow = (adoption: TechnologyAdoption): AdoptionRow => ({
   technologyId: adoption.technologyId, route: adoption.route,
@@ -133,6 +167,8 @@ const adoptionRow = (adoption: TechnologyAdoption): AdoptionRow => ({
   // P13B-S6: the week this adoption's remaining physical work was cancelled; null on a
   // live adoption. Published as its own member, never inferred from a missing chain.
   cancelledWeek: adoption.cancelledWeek,
+  // P13B-S7: what this adoption's technology replaced, verbatim from the catalogue.
+  replacementLabel: replacementDescriptor(technologyEntry(adoption.technologyId)),
 })
 /** One equipment set this studio owns. `studioId` is dropped: a private page publishes its own rows alone. */
 const equipmentRow = (asset: TechnologyEquipmentAsset): EquipmentRow => ({
@@ -319,10 +355,24 @@ export function laboratoryActionSpecs(state: GameState): readonly LaboratoryActi
         project.budgetPerWeek === amount ? 'This is already the selected budget ceiling.' : null)
     }
   }
-  add('wait-synchronized-sound', { kind: 'waitForTechnology', technologyId: SYNCHRONIZED_SOUND.id },
-    'Wait for commercial sound', `Record deliberate waiting for ${campaignDate(SYNCHRONIZED_SOUND.commercialWeek).label}. No access payment or capability is granted. Existing research and employment continue unless you pause or cancel them separately.`)
-  add('purchase-synchronized-sound', { kind: 'purchaseTechnology', technologyId: SYNCHRONIZED_SOUND.id },
-    'Purchase synchronized-sound access', `Commercial access costs ${money(SYNCHRONIZED_SOUND.accessCost)} from ${campaignDate(SYNCHRONIZED_SOUND.commercialWeek).label}. This buys knowledge access; select and fund an exact stage, capture and Post installation separately before filming with sound.`)
+  // P13B-S7: the two access decisions, per catalogue technology (P13A published them for
+  // synchronized sound alone). Both rows STATE THE EXACT COMMERCIAL WEEK — the wait row in
+  // its own text, the purchase row through the engine's own `commercialAccessRefusal`
+  // sentence — so they exist only while that week is PUBLIC, which is exactly while this
+  // technology's forecast is exact (S7-T3 ruling). Sound's window is degenerate: its two
+  // rows are unchanged at every week. Lighting's appear at its announcement week, disabled
+  // with the engine's refusal until its commercial week. Neither row is offered once this
+  // studio holds the access: there is then nothing left to wait for or to buy, and the
+  // engine refuses both verbs.
+  for (const entry of TECHNOLOGY_CATALOGUE) {
+    if (technologyForecast(entry, state.market.tick).kind !== 'exact') continue
+    if (playerTechnologyAccess(state, entry.id)) continue
+    const word = entry.id === SYNCHRONIZED_SOUND.id ? 'sound' : entry.name.toLowerCase()
+    add(`wait-${entry.id}`, { kind: 'waitForTechnology', technologyId: entry.id },
+      `Wait for commercial ${word}`, `Record deliberate waiting for ${campaignDate(entry.commercialWeek).label}. No access payment or capability is granted. Existing research and employment continue unless you pause or cancel them separately.`)
+    add(`purchase-${entry.id}`, { kind: 'purchaseTechnology', technologyId: entry.id },
+      `Purchase ${entry.id} access`, `Commercial access costs ${money(entry.accessCost)} from ${campaignDate(entry.commercialWeek).label}. This buys knowledge access; select and fund an exact stage${entry.postInstallationId === null ? '' : ', capture and Post'} installation separately before filming with ${word}.`)
+  }
   const stages = ordered(state.operations.facilities.filter(f => f.capability === 'soundstage'))
   const posts = ordered(state.operations.facilities.filter(f => f.capability === 'post'))
   // P13B-S5: one adopt row per (technology, compatible stage, and — where the technology HAS a
@@ -473,7 +523,9 @@ export function laboratoryPage(state: GameState, buildingId: string | null, inte
       enabled: a.enabled && enabled.has(a.id), disabledReason: a.disabledReason ?? (enabled.has(a.id) ? null : 'Refresh this Laboratory to review the current decision.'), intent: enabled.get(a.id) ?? null,
       // P13B-S5/S6: the engine's own quote for an `adopt-*` or `cancel-*` row; null on every
       // other row. Deep-copied either way, so the page owns every array it publishes.
-      quote: a.quote === null ? null : structuredClone(a.quote) })),
+      quote: a.quote === null ? null : structuredClone(a.quote),
+      // P13B-S7: present on the purchase and adopt rows alone; omitted, never defaulted, elsewhere.
+      ...replacementLabelFor(a.action) })),
     // P13B-S1b: the same engine facts as data. Seat history (released rows included) in stored
     // order, the last eight worked-week receipts ascending, and the CURRENT week's quote.
     seats: (project?.seats ?? []).filter(seat => seat.laboratoryFacilityId === lab.facilityId).map(seat => seatRow(state, seat)),
@@ -491,5 +543,9 @@ export function laboratoryPage(state: GameState, buildingId: string | null, inte
     // null exactly while no live adoption holds the set — the fact a later adoption's
     // $0 reuse follows from. A rival's asset never reaches this private page.
     equipment: equipmentAssets(state, own).map(equipmentRow),
+    // P13B-S7: the public availability milestone of every catalogue technology, in catalogue
+    // order, derived from the catalogue and this campaign's week alone. No rival fact reaches
+    // it, so two campaigns at the same week publish byte-identical rows.
+    forecast: TECHNOLOGY_CATALOGUE.map(entry => forecastRow(entry, state.market.tick)),
   } }
 }
