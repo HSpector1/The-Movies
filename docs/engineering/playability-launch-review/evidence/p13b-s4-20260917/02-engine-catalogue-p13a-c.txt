@@ -1,0 +1,25 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/blueprint-requirements.test.ts (27 tests) 8037ms
+   ✓ C1-M2 — requirement kinds evaluate honestly > P13A opens only the exact research gate after actual player access, while waiting remains unmet 6893ms
+   ✓ C1-M2 — the shipped Annex is unchanged > quotes identically across the WHOLE parcel map, gates and all 746ms
+ ✓ |core| tests/p13a-production-technology.test.ts (11 tests) 596ms
+   ✓ P13A first-filming technology and exact production chain > carries the first-filming lock through the complete tick state assembly 424ms
+ ✓ |core| tests/c2a-m2-blueprint-slate.test.ts (12 tests) 21ms
+ ✓ |core| tests/p13b-s2-catalogue.test.ts (11 tests) 6799ms
+   ✓ P13B-S2 catalogue: two technologies, stable order (test 1) > the ordinary action surface (knownTechnology) accepts both technology ids, not only synchronized-sound 699ms
+ ✓ |core| tests/p13a-rival-adoption.test.ts (2 tests) 7808ms
+   ✓ P13A shared commercial adoption and exact rival cash consequence > uses the shared player/rival eligibility function and debits only technology adoption without new plant or RNG draws 388ms
+   ✓ P13A shared commercial adoption and exact rival cash consequence > replays the actual weekly commercial purchase, reconciles its debit and creates one dated operational receipt 1290ms
+ ✓ |core| tests/p13a-technology-membership.test.ts (9 tests) 6730ms
+   ✓ P13A exact historical technology membership under local indexing > does not reuse membership across independent round-tripped copies with the same world and entity IDs 558ms
+   ✓ P13A exact historical technology membership under local indexing > rechecks the same mutable input after removal and after exact restoration 552ms
+ ✓ |core| tests/p13a-technology-milestones.test.ts (4 tests) 5245ms
+   ✓ P13A dated public technology history > round-trips both boundaries exactly and resumes without duplicating the permanent events 536ms
+
+ Test Files  7 passed (7)
+      Tests  76 passed (76)
+   Start at  02:11:07
+   Duration  41.43s (transform 1.86s, setup 0ms, collect 3.78s, tests 35.24s, environment 2ms, prepare 651ms)
+

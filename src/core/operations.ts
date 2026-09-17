@@ -787,8 +787,23 @@ export function assertStudioOperationsInvariants(
     // never fire on a legal state — it exists for the day a new holder is added
     // and one allocator is missed.
     sharedOccupancy?: Omit<OccupancySources, 'operations'>
+    // P13B-S4: the bodies a `takesTargetOffline` installation has CLOSED for the
+    // duration of its build. A closed body keeps its registry entry — it is still
+    // the studio's building, it still pays its baseline operating cost, and its
+    // slots come back on completion — but it offers zero slots meanwhile, which is
+    // the ONE legal way an entry's capacity may be zero. Absent ⇒ none, the law
+    // every pre-S4 state was proved under.
+    //
+    // `'deferred'` is for a NESTED FROZEN PROJECTION that cannot see the placement
+    // root (the same reason those projections already select `configured`): the
+    // generic floor drops to zero here and the exact "zero for exactly these ids"
+    // law is proved by `assertStudioPlacementInvariants` immediately afterwards.
+    offlineFacilityIds?: ReadonlySet<string> | 'deferred'
   },
 ): void {
+  const offlineOption = options?.offlineFacilityIds
+  const offline = typeof offlineOption === 'string' ? undefined : offlineOption
+  const zeroCapacityDeferred = offlineOption === 'deferred'
   if (operations.mode === 'legacy') {
     invariant(operations.facilities.length === 0, 'legacy mode must have no facilities')
     invariant(operations.workflows.length === 0, 'legacy mode must have no workflows')
@@ -802,7 +817,9 @@ export function assertStudioOperationsInvariants(
     invariant(facility.name.length > 0, `facility "${facility.id}" name must be non-empty`)
     invariant(!facilityIds.has(facility.id), `duplicate facility id "${facility.id}"`)
     invariant(
-      Number.isInteger(facility.capacity) && facility.capacity > 0,
+      Number.isInteger(facility.capacity) &&
+        (facility.capacity > 0 ||
+          (facility.capacity === 0 && (zeroCapacityDeferred || offline?.has(facility.id) === true))),
       `facility "${facility.id}" capacity must be a positive integer`,
     )
     facilityIds.add(facility.id)
@@ -884,11 +901,15 @@ export function assertStudioOperationsInvariants(
     for (let i = 0; i < expected.length; i++) {
       const actual = operations.facilities[i]!
       const canonical = expected[i]!
+      // P13B-S4: a CLOSED body is expected to offer zero slots and its blueprint's
+      // slots at every other moment. The set, the order and the identities are
+      // unchanged, so this stays an exact comparison rather than a weaker one.
+      const expectedCapacity = offline?.has(canonical.id) === true ? 0 : canonical.capacity
       invariant(
         actual.id === canonical.id &&
           actual.name === canonical.name &&
           actual.capability === canonical.capability &&
-          actual.capacity === canonical.capacity,
+          actual.capacity === expectedCapacity,
         `managed V12 facility at index ${String(i)} differs from ${canonical.id}`,
       )
     }

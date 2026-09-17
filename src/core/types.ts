@@ -998,6 +998,14 @@ export type FacilityBlueprint = {
   installationTargetCapability?: FacilityCapability
   /** Authored cost and sequential timing disclosure; no separate progress state. */
   installationComponents?: readonly { label: string; cost: number; weeks: number }[]
+  /**
+   * P13B-S4: whether this installation CLOSES its target body for the duration of
+   * its build. TRUE takes the body's slots out of the shared-capacity registry
+   * (`capacity: 0`) and out of any effect ladder it feeds until the work
+   * completes; its baseline operating cost continues unchanged. ABSENT/false is
+   * the proven Laboratory/stage-module behaviour: work goes on around the fitters.
+   */
+  takesTargetOffline?: boolean
   /** Identity bases; the first placement of the blueprint uses them verbatim. */
   facilityIdBase: string
   projectIdBase: string

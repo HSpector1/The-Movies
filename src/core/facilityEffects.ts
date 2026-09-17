@@ -26,6 +26,7 @@
 //      building. That is what lets the whole slate ship without moving a single
 //      existing number.
 
+import { highestOperationalDevelopmentStandard } from './officeConversion.js'
 import {
   FREELANCER_FEE_CRAFT_ANNEX_DISCOUNT,
   SCRIPT_DEVELOPMENT_OFFICE_TIER_2_EST_UPLIFT,
@@ -98,13 +99,19 @@ export const DEVELOPMENT_OFFICE_TIER_BLUEPRINT_IDS = [
  * $1.2M and a construction slot discovering that.
  */
 export function developmentOfficeEstUplift(state: GameState): number {
-  if (hasOperationalBlueprint(state, 'development-office-3')) {
-    return SCRIPT_DEVELOPMENT_OFFICE_TIER_3_EST_UPLIFT
+  // P13B-S4: the ladder is read from the studio's highest OPERATIONAL, OPEN
+  // development standard rather than from two blueprint counts, so a converted
+  // body counts exactly as a separately purchased one does and a body closed for
+  // its own conversion counts as neither. A studio that owns no conversion gets
+  // the identical answer it got before, from the identical two bodies.
+  switch (highestOperationalDevelopmentStandard(state)) {
+    case 'III':
+      return SCRIPT_DEVELOPMENT_OFFICE_TIER_3_EST_UPLIFT
+    case 'II':
+      return SCRIPT_DEVELOPMENT_OFFICE_TIER_2_EST_UPLIFT
+    default:
+      return 0
   }
-  if (hasOperationalBlueprint(state, 'development-office-2')) {
-    return SCRIPT_DEVELOPMENT_OFFICE_TIER_2_EST_UPLIFT
-  }
-  return 0
 }
 
 /**
@@ -125,9 +132,18 @@ export const BASELINE_DEVELOPMENT_OFFICE_TIER = 'development-casting-annex'
  * worked to that week — never a strength term.
  */
 export function developmentOfficeTier(state: GameState): string {
-  if (hasOperationalBlueprint(state, 'development-office-3')) return 'development-office-3'
-  if (hasOperationalBlueprint(state, 'development-office-2')) return 'development-office-2'
-  return BASELINE_DEVELOPMENT_OFFICE_TIER
+  // P13B-S4: same derived standard as the uplift, published in the UNCHANGED
+  // tier-id vocabulary — a screenplay minted under a converted body records
+  // `development-office-3` exactly as one minted under a purchased III does, so no
+  // historical `officeTierAtMint` and no historical audit trail moves.
+  switch (highestOperationalDevelopmentStandard(state)) {
+    case 'III':
+      return 'development-office-3'
+    case 'II':
+      return 'development-office-2'
+    default:
+      return BASELINE_DEVELOPMENT_OFFICE_TIER
+  }
 }
 
 /**

@@ -1,0 +1,35 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/p13b-s4-plans.test.ts (4 tests | 1 failed) 2673ms
+   ✓ P13B-S4 P09/S3 integration (test 4) > a conversion queued as an S3 plan admits at the next boundary through the same P09 commit as a hand commit at that week 1387ms
+   × P13B-S4 P09/S3 integration (test 4) > a plan queued while the office is occupied by a drafting screenplay holds on targetEngaged and admits the boundary the slot frees (C2a-M4 queue idiom, same ordering S3 test 2 proves for an installation holder) 32ms
+     → Found the studio before planning physical work.
+   ✓ P13B-S4 P09/S3 integration (test 4) > a chained I->II then II->III plan pair via dependsOn: the second starts the boundary after the first completes 685ms
+   ✓ P13B-S4 P09/S3 integration (test 4) > the same chained pair under the DEFAULT reviewChangedQuote admission holds on the changed quote and starts once reviewPhysicalPlan re-approves at the live price 566ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p13b-s4-plans.test.ts > P13B-S4 P09/S3 integration (test 4) > a plan queued while the office is occupied by a drafting screenplay holds on targetEngaged and admits the boundary the slot frees (C2a-M4 queue idiom, same ordering S3 test 2 proves for an installation holder)
+Error: Found the studio before planning physical work.
+ ❯ refuse src/core/physicalPlans.ts:439:49
+    437| // ── The five verbs ─────────────────────────────────────────────────…
+    438| 
+    439| function refuse(message: string): never { throw new Error(message) }
+       |                                                 ^
+    440| 
+    441| function ownStudio(state: GameState): string {
+ ❯ ownStudio src/core/physicalPlans.ts:442:45
+ ❯ applyQueuePhysicalPlan src/core/physicalPlans.ts:471:15
+ ❯ Module.applyPhysicalPlanAction src/core/physicalPlans.ts:639:38
+ ❯ Module.applyActions src/core/actions.ts:3061:16
+ ❯ queuePlan tests/p13b-s4-plans.test.ts:42:10
+ ❯ tests/p13b-s4-plans.test.ts:102:13
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 3 passed (4)
+   Start at  02:01:49
+   Duration  5.39s (transform 1.68s, setup 0ms, collect 2.26s, tests 2.67s, environment 0ms, prepare 109ms)
+

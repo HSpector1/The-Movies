@@ -1,0 +1,27 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+stdout | tests/p09a-w0-founding-regime.test.ts > P09 R5/R6 — the ordinary bare-lot studio releases a picture on its own money > HARD-STOP GATE: sparse start → four builds → screenplay → set → picture → release → receipts, cash never below zero
+[p09 gate] release week 37; cash floor 7888869; final cash 9778380.025328362; weeks 42
+
+ ✓ |core| tests/p09a-w0-founding-regime.test.ts (13 tests) 5368ms
+   ✓ P09 R1 — the founding regime is persisted, exact, and immutable > V18 round-trips the regime and refuses a forged or missing one 683ms
+   ✓ P09 R1 — the founding regime is persisted, exact, and immutable > the regime is never inferred from what stands on the lot 933ms
+   ✓ P09 R4 — the minimum plant fits and completes on its committed weeks > P09 §10.3: on the sparse lot only the founding office is quotable first; every other row says exactly why 403ms
+   ✓ P09 R4 — the minimum plant fits and completes on its committed weeks > four committed sites complete on their own weeks, become operational, and start paying opex only then 534ms
+   ✓ P09 R4 — the minimum plant fits and completes on its committed weeks > save/load mid-construction continues byte-identically; same-week sites complete together in id order 1111ms
+   ✓ P09 R5/R6 — the ordinary bare-lot studio releases a picture on its own money > HARD-STOP GATE: sparse start → four builds → screenplay → set → picture → release → receipts, cash never below zero 694ms
+   ✓ P09A W1 R9 — a picture may hold a stage that completed after its greenlight, from the stamped week only > holds from bindings.heldSinceWeek; a stamp forged before completion is refused 472ms
+ ✓ |core| tests/c2a-m4-queue-admission.test.ts (13 tests) 414ms
+ ✓ |core| tests/c2a-m4-release-law.test.ts (5 tests) 246ms
+ ✓ |core| tests/c2a-m4-queue-legibility.test.ts (4 tests) 580ms
+   ✓ C2a-M4 G16 — studioQueueView answers law 2 > renders all four facts non-empty for every waiter in a contended run 427ms
+ ✓ |core| tests/c2a-m4-contention-property.test.ts (7 tests) 465ms
+ ✓ |core| tests/c2a-m4-g101-throughput.test.ts (4 tests) 54207ms
+   ✓ C2a-M4 · G10.1 — purchased capacity is no longer inert > leaves the C1 two-picture policy measurably less relieved, which is why the arm exists 54201ms
+
+ Test Files  6 passed (6)
+      Tests  46 passed (46)
+   Start at  02:03:31
+   Duration  144.59s (transform 1.73s, setup 0ms, collect 81.31s, tests 61.28s, environment 2ms, prepare 540ms)
+

@@ -1,0 +1,28 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/facility-move-demolish.test.ts (30 tests) 2794ms
+   ✓ C1-M3a (A) — every persisted holder of a facility blocks both verbs > finds a screenplay reservation, on the RESERVATION and not the status 1056ms
+   ✓ C1-M3a (A) — every persisted holder of a facility blocks both verbs > finds a casting-session reservation 317ms
+ ✓ |core| tests/construction-core.test.ts (12 tests) 3327ms
+   ✓ Development & Casting Annex V1 core lifecycle > completes on exactly the thirteenth advance from a nonzero start with no recurring charge or RNG draw 953ms
+   ✓ Development & Casting Annex V1 core lifecycle > does not reallocate completing-advance productions into the Annex, then exposes it immediately 512ms
+   ✓ Development & Casting Annex V1 core lifecycle > uses the authoritative greenlight debit to reject skip-first start-clock laundering 372ms
+   ✓ Development & Casting Annex V1 core lifecycle > allows a production started after completion to claim the Annex under normal allocation 365ms
+   ✓ Development & Casting Annex V1 core lifecycle > accepts only the exact Annex V1 facility set and detects cross-owner collisions 661ms
+ ✓ |core| tests/facility-effects.test.ts (20 tests) 2866ms
+   ✓ C1-M4 — Development Office tiers raise what a screenplay becomes > changes nothing at all when no office stands 876ms
+   ✓ C1-M4 — Development Office tiers raise what a screenplay becomes > raises the review EST by exactly the named tier amount 440ms
+   ✓ C1-M4 — Development Office tiers raise what a screenplay becomes > does not stack, and the highest tier wins 518ms
+   ✓ C1-M4 — Development Office tiers raise what a screenplay becomes > never un-writes a screenplay when the office is demolished 431ms
+   ✓ C1-M4 — the whole catalog standing at once > round-trips the whole estate byte-identically and replays deterministically 312ms
+ ✓ |core| tests/construction-save-v11.test.ts (12 tests) 1937ms
+   ✓ Development & Casting Annex V1 — SaveFileV11 > writes V12 by default and round-trips legacy, vacant, building, and completed lifecycle states 511ms
+   ✓ Development & Casting Annex V1 — SaveFileV11 > round-trips and continues byte-identically at start, S+12, and S+13 389ms
+ ✓ |core| tests/construction-accounting-calendar.test.ts (9 tests) 404ms
+
+ Test Files  5 passed (5)
+      Tests  83 passed (83)
+   Start at  02:02:29
+   Duration  16.52s (transform 1.62s, setup 0ms, collect 3.28s, tests 11.33s, environment 1ms, prepare 447ms)
+

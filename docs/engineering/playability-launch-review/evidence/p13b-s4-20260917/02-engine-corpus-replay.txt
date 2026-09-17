@@ -1,0 +1,23 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/d17b-awareness-counterflow.test.ts (20 tests) 2427ms
+   ✓ D-17B §1/E1 — M0A byte-identity by construction (headless spot-run) > a headless year is never engaged, so every standing update uses the legacy 0.58 pivot 1705ms
+ ✓ |core| tests/v14-migration.contract.test.ts (30 tests) 11974ms
+   ✓ C2a-M1 · T9 (A) — the headline matrix covers every phase that holds a reservation > agrees byte-for-byte with the frozen V13 builder wherever that builder writes 694ms
+   ✓ C2a-M1 · T9 (B) — every held phase × blocker kind migrates and plays true > plays development/none byte-identically to its V13 twin for 30 weeks 1044ms
+   ✓ C2a-M1 · T9 (B) — every held phase × blocker kind migrates and plays true > plays preProduction/none byte-identically to its V13 twin for 30 weeks 1073ms
+   ✓ C2a-M1 · T9 (B) — every held phase × blocker kind migrates and plays true > plays preProduction/facility-capacity byte-identically to its V13 twin for 30 weeks 1191ms
+   ✓ C2a-M1 · T9 (B) — every held phase × blocker kind migrates and plays true > plays rehearsal/none byte-identically to its V13 twin for 30 weeks 937ms
+   ✓ C2a-M1 · T9 (B) — every held phase × blocker kind migrates and plays true > plays rehearsal/facility-capacity byte-identically to its V13 twin for 30 weeks 1034ms
+   ✓ C2a-M1 · T9 (B) — every held phase × blocker kind migrates and plays true > plays shooting/none byte-identically to its V13 twin for 30 weeks 919ms
+   ✓ C2a-M1 · T9 (B) — every held phase × blocker kind migrates and plays true > plays shooting/scenery-load-in byte-identically to its V13 twin for 30 weeks 951ms
+   ✓ C2a-M1 · T9 (B) — every held phase × blocker kind migrates and plays true > plays shooting/facility-capacity byte-identically to its V13 twin for 30 weeks 910ms
+   ✓ C2a-M1 · T9 (B) — every held phase × blocker kind migrates and plays true > plays postProduction/none byte-identically to its V13 twin for 30 weeks 906ms
+   ✓ C2a-M1 · T9 (C) — the endowed house sets are DERIVED, not invented > leaves the queue and the screenplay root empty for every migrated save (§8.3) 485ms
+
+ Test Files  2 passed (2)
+      Tests  50 passed (50)
+   Start at  02:08:42
+   Duration  17.47s (transform 1.38s, setup 0ms, collect 2.26s, tests 14.40s, environment 1ms, prepare 211ms)
+

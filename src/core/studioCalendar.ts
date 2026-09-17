@@ -4,6 +4,7 @@
 
 import { renewalWindowOpen, weeklySalary } from './employment.js'
 import { facilitySlotKey, occupiedResourceSlots, resourceSlotClaimsOf } from './occupancy.js'
+import { offlineFacilityIds } from './officeConversion.js'
 import {
   assertStudioOperationsInvariants,
   productionPhaseForRemainingTicks,
@@ -838,6 +839,9 @@ export function studioCalendar(state: GameState): StudioCalendarView {
   // allocation, and command-owner correlation.
   assertStudioOperationsInvariants(state.operations, state.studio.activeProductions, {
     facilityPolicy: 'configured',
+    // P13B-S4: a body closed for a conversion offers zero slots this week. The
+    // calendar reads the same offline derivation the placement authority proves.
+    offlineFacilityIds: offlineFacilityIds(state.placement),
   })
   const facilities = facilityViews(state)
   const commitments = commitmentViews(state)

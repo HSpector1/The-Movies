@@ -28,6 +28,28 @@ export function s4NextOrigin(state: GameState, blueprintId: string): { gx: numbe
 }
 
 /**
+ * The first origin on this generated lot that is GEOMETRICALLY clean for
+ * `blueprintId` — `ok`, or blocked ONLY by an unmet requirement (never by
+ * ownership, terrain, road access, clearance, occupancy or a reserved
+ * parcel). `s4NextOrigin` cannot serve a case that is precisely ABOUT a
+ * requirement refusal: it only ever returns a wholly-`ok` origin, and throws
+ * otherwise (measured 2026-09-17, `docs/engineering/playability-launch-review/
+ * evidence/p13b-s4-20260917/02-engine-conflict-probes.txt` PROBE A — 576
+ * origins scanned for `development-office-3` on a fresh `p13aLaboratorySlice()`,
+ * `ok:true` count 0; the first origin refused only by `requirementsUnmet` is
+ * `{gx:0,gy:2}`).
+ */
+export function s4FirstCleanOrigin(state: GameState, blueprintId: string): { gx: number; gy: number } {
+  for (let gy = 0; gy < 24; gy++) {
+    for (let gx = 0; gx < 24; gx++) {
+      const quote = queryPlacement(state, { blueprintId, origin: { gx, gy } })
+      if (quote.rejections.every((rejection) => rejection === 'requirementsUnmet')) return { gx, gy }
+    }
+  }
+  throw new Error(`p13b-s4 fixture: no geometrically clean site for "${blueprintId}" on this generated lot`)
+}
+
+/**
  * A BARE-LOT studio (P09 §16/§17) that builds its Development & Casting office
  * from scratch as a genuine `PlacedFacility` (`development-casting-office` —
  * `BASELINE_DEVELOPMENT_CASTING_BLUEPRINT`: $1.5M / 14 weeks / capacity 2 /

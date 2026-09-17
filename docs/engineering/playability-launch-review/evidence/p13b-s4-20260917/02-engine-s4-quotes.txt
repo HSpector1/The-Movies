@@ -1,0 +1,31 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/p13b-s4-quotes.test.ts (9 tests | 1 failed) 2877ms
+   ✓ P13B-S4 quotes (test 1) > I->II quotes $500,000 over 4 weeks 641ms
+   ✓ P13B-S4 quotes (test 1) > I->III quotes $1,250,000 over 16 weeks on a studio that never owned II, naming only the conversion 353ms
+   ✓ P13B-S4 quotes (test 1) > II->III quotes $850,000 over 8 weeks on a body already converted to II; the staged sum exceeds the direct price 331ms
+   ✓ P13B-S4 quotes (test 1) > refuses a body already at III with standardAlreadyMet 528ms
+   × P13B-S4 quotes (test 1) > a standalone Development Office III is still refused without II, wording unchanged (existing, non-S4 law) 561ms
+     → p13b-s4 fixture: no lawful site for "development-office-3" on this generated lot
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p13b-s4-quotes.test.ts > P13B-S4 quotes (test 1) > a standalone Development Office III is still refused without II, wording unchanged (existing, non-S4 law)
+Error: p13b-s4 fixture: no lawful site for "development-office-3" on this generated lot
+ ❯ Module.s4NextOrigin src/harness/p13b/s4-fixtures.ts:27:9
+     25|     }
+     26|   }
+     27|   throw new Error(`p13b-s4 fixture: no lawful site for "${blueprintId}…
+       |         ^
+     28| }
+     29| 
+ ❯ tests/p13b-s4-quotes.test.ts:126:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 8 passed (9)
+   Start at  02:01:34
+   Duration  5.22s (transform 1.46s, setup 0ms, collect 1.95s, tests 2.88s, environment 0ms, prepare 96ms)
+

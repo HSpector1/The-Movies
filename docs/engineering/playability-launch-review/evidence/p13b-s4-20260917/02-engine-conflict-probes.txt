@@ -1,0 +1,30 @@
+=== PROBE A — tests/p13b-s4-quotes.test.ts:126 ===
+case: "a standalone Development Office III is still refused without II, wording unchanged"
+line 126: const origin = s4NextOrigin(state, 'development-office-3')
+s4-fixtures.ts:21-28 returns "the first lawful origin queryPlacement ACCEPTS (quote.ok)"
+and throws when no origin is accepted.
+origins scanned: 576; origins with quote.ok === true: 0
+rejection-set histogram: [["notOwned,noRoadAccess,requirementsUnmet",317],["notOwned,requirementsUnmet",108],["requirementsUnmet",30],["notOwned,terrainUnbuildable,noRoadAccess,requirementsUnmet",24],["notOwned,groundReserved,requirementsUnmet",18],["noRoadAccess,requirementsUnmet",15],["notOwned,terrainUnbuildable,requirementsUnmet",14],["terrainUnbuildable,noRoadAccess,requirementsUnmet",12],["notOwned,clearanceRing,noRoadAccess,requirementsUnmet",8],["notOwned,occupied,clearanceRing,requirementsUnmet",7],["groundReserved,requirementsUnmet",6],["terrainUnbuildable,requirementsUnmet",6],["notOwned,terrainUnbuildable,groundReserved,requirementsUnmet",4],["notOwned,clearanceRing,requirementsUnmet",2],["terrainUnbuildable,groundReserved,requirementsUnmet",2],["occupied,requirementsUnmet",1],["occupied,clearanceRing,requirementsUnmet",1],["clearanceRing,requirementsUnmet",1]]
+first origin refused ONLY by requirementsUnmet: {"gx":0,"gy":2}
+quote.ok: false
+quote.rejections: ["requirementsUnmet"]
+quote.unmetRequirements.map(u => u.reason): ["Requires an operational Development Office II."]
+VERDICT A: the LAW the case asserts holds verbatim at a real origin; the
+fixture helper cannot produce an origin for a blueprint whose requirement is
+unmet, because it only returns origins where quote.ok === true. Unrelated to S4.
+
+=== PROBE B — tests/p13b-s4-plans.test.ts:102 ===
+case: "a plan queued while the office is occupied by a drafting screenplay holds on targetEngaged"
+line 82: managedStudio('p13b-s4-plans-engaged'); line 102: queuePlan(...)
+state.hollywood === undefined: false
+state.hollywood?.playerStudioId: null
+physicalPlans.ts:441-442 ownStudio() refuses when playerStudioId is absent:
+  "Found the studio before planning physical work."
+by contrast p13aLaboratorySlice().hollywood?.playerStudioId: "studio-aca408ec-player"
+(the two plan cases that DO use p13aLaboratorySlice pass.)
+VERDICT B: `managedStudio` carries a Hollywood root with NO player studio
+identity, so ownStudio() refuses and no physical plan can be queued from it at
+all -- the refusal happens at queue time, before any S4 code runs. The S4
+targetEngaged law itself is proved by tests/p13b-s4-quotes.test.ts's own
+managedStudio case (a drafting screenplay holds the office):
+queryFacilityInstallation on an idle office ok: true

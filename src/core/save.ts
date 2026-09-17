@@ -2565,12 +2565,21 @@ function checkOperationsContext(
       throw new Error(`${label}: duplicate facility id ${JSON.stringify(id)}`);
     const capability = policy === "technology-v20" && raw.capability === "laboratory"
       ? "laboratory" : asCapability(raw.capability, `${itemLabel}.capability`);
+    // P13B-S4: under a placement-aware policy a body CLOSED for a conversion
+    // carries `capacity: 0` for the duration of the work. That is a domain law
+    // about WHICH ids may be zero and when, and it is proved exactly by
+    // assertStudioPlacementInvariants over the whole state immediately after this
+    // shape pass — so the shape pass admits the zero and nothing else. A frozen
+    // V8–V11 projection predates conversion entirely and keeps the strict floor.
+    const placementAware = placementAwarePolicy(policy);
     if (
       typeof raw.capacity !== "number" ||
       !Number.isInteger(raw.capacity) ||
-      raw.capacity <= 0
+      raw.capacity < (placementAware ? 0 : 1)
     ) {
-      throw new Error(`${itemLabel}.capacity must be a positive integer`);
+      throw new Error(
+        `${itemLabel}.capacity must be a ${placementAware ? "non-negative" : "positive"} integer`,
+      );
     }
     facilities.set(id, { capability, capacity: raw.capacity });
   }
@@ -3001,8 +3010,10 @@ function checkOperationsContext(
           // this nested frozen-V11 projection deliberately cannot see. The V12
           // validator proves it immediately afterwards through
           // assertStudioPlacementInvariants; here only the generic capacity,
-          // reservation, and workflow law applies.
-          { facilityPolicy: "configured" }
+          // reservation, and workflow law applies. P13B-S4: that includes WHICH
+          // bodies are lawfully at zero capacity while a conversion closes them,
+          // so the generic floor defers to the same authority.
+          { facilityPolicy: "configured", offlineFacilityIds: "deferred" as const }
         : undefined,
   );
   return operations as StudioOperations;

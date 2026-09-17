@@ -1,0 +1,17 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p13a-technology-validation.test.ts (9 tests) 10961ms
+ ✓ |core| tests/p13a-save-v20.test.ts (5 tests) 1222ms
+   ✓ P13A governed V19 to V20 persistence > loads the exact accepted product fixture and preserves its history, balances and employment 428ms
+   ✓ P13A governed V19 to V20 persistence > round-trips a migrated V20 world exactly and creates independent state objects 473ms
+ ✓ |core| tests/p13a-research-employment.test.ts (1 test) 5849ms
+   ✓ P13A research employment continuity > releasing the actual Scientist pauses work immediately and survives save/reload without losing verified work 5847ms
+ ✓ |core| tests/p13a-research-identity.test.ts (1 test) 1373ms
+   ✓ P13A retained research Laboratory identity > keeps paused and cancelled Laboratory references intact without blocking lawful instrument installation 1369ms
+
+ Test Files  4 passed (4)
+      Tests  16 passed (16)
+   Start at  02:07:44
+   Duration  23.49s (transform 1.44s, setup 0ms, collect 2.54s, tests 19.40s, environment 1ms, prepare 448ms)
+

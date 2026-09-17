@@ -249,6 +249,17 @@ export {
   operationalBlueprintCount,
   supersedingOperationalBlueprintId,
 } from './facilityEffects.js'
+// P13B-S4 — the Office standard authority. A standard is derived from ordinary
+// placement records, never persisted, so these are the ONE way to read one.
+export {
+  conversionQuote,
+  developmentStandard,
+  facilityOffline,
+  highestOperationalDevelopmentStandard,
+  isOfficeConversionBlueprint,
+  offlineFacilityIds,
+} from './officeConversion.js'
+export type { ConversionQuote, DevelopmentStandard } from './officeConversion.js'
 export {
   LIVE_REQUIREMENT_KINDS,
   blueprintAtInstanceLimit,

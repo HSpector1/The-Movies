@@ -717,6 +717,20 @@ export const TUNING = {
   LIGHTING_STAGE_INSTALLATION_WEEKS: 2,
   LIGHTING_MODULE_WEEKLY_OPERATING_COST: 1_000,
 
+  // P13B-S4 Office standard conversion — [O1 candidate, not Owner-approved]
+  // (companion 02 §6 / 03-PAPER-ECONOMICS "Office gap conversion"). A conversion
+  // raises an EXISTING Development & Casting body's standard in place; the price
+  // and duration of the III conversion depend on the standard it starts from, and
+  // a staged I→II→III route is deliberately dearer and slower than the direct one.
+  OFFICE_CONVERSION_II_CAPEX: 500_000,
+  OFFICE_CONVERSION_II_BUILD_WEEKS: 4,
+  OFFICE_CONVERSION_II_WEEKLY_OPERATING_COST: 2_500,
+  OFFICE_CONVERSION_III_FROM_I_CAPEX: 1_250_000,
+  OFFICE_CONVERSION_III_FROM_I_BUILD_WEEKS: 16,
+  OFFICE_CONVERSION_III_FROM_II_CAPEX: 850_000,
+  OFFICE_CONVERSION_III_FROM_II_BUILD_WEEKS: 8,
+  OFFICE_CONVERSION_III_WEEKLY_OPERATING_COST: 4_000,
+
   // Post Building — the second instance of the founding class (the display-name
   // ruling, §3.1: the engine facility name is the single spoken authority, and the
   // founding one is already called "Post Building"). It carries the same two
@@ -1301,6 +1315,35 @@ export const FACILITY_INSTALLATION_BLUEPRINTS: readonly FacilityBlueprint[] = [
     ledgerNote: 'Sound-capable Post fit-out',
     effectSummary: 'Fits this Post Building for synchronized dialogue after six weeks.',
     requires: [{ kind: 'research', packId: 'synchronized-sound' }],
+  },
+  {
+    id: 'office-conversion-ii', name: 'Development Office II Conversion', capability: 'development-casting', capacity: 0,
+    footprint: { width: 1, depth: 1 }, clearanceRing: 0, requiresRoadAccess: false,
+    buildWeeks: TUNING.OFFICE_CONVERSION_II_BUILD_WEEKS, capex: TUNING.OFFICE_CONVERSION_II_CAPEX,
+    weeklyOperatingCost: TUNING.OFFICE_CONVERSION_II_WEEKLY_OPERATING_COST,
+    installationTargetCapability: 'development-casting',
+    takesTargetOffline: true,
+    // ONE constant label whatever the source standard: the quote moves its price
+    // and weeks (P13B-S4), never the SCOPE, so a plan approved before its
+    // predecessor finishes is still a plan for the same piece of work.
+    installationComponents: [{ label: 'Office conversion to Development Office II', cost: TUNING.OFFICE_CONVERSION_II_CAPEX, weeks: TUNING.OFFICE_CONVERSION_II_BUILD_WEEKS }],
+    facilityIdBase: 'module-office-conversion-ii', projectIdBase: 'installation-office-conversion-ii',
+    ledgerNote: 'Development Office II conversion',
+    effectSummary: 'Raises this Development & Casting building to Development Office II standard; it is closed while the work runs.',
+    requires: [],
+  },
+  {
+    id: 'office-conversion-iii', name: 'Development Office III Conversion', capability: 'development-casting', capacity: 0,
+    footprint: { width: 1, depth: 1 }, clearanceRing: 0, requiresRoadAccess: false,
+    buildWeeks: TUNING.OFFICE_CONVERSION_III_FROM_I_BUILD_WEEKS, capex: TUNING.OFFICE_CONVERSION_III_FROM_I_CAPEX,
+    weeklyOperatingCost: TUNING.OFFICE_CONVERSION_III_WEEKLY_OPERATING_COST,
+    installationTargetCapability: 'development-casting',
+    takesTargetOffline: true,
+    installationComponents: [{ label: 'Office conversion to Development Office III', cost: TUNING.OFFICE_CONVERSION_III_FROM_I_CAPEX, weeks: TUNING.OFFICE_CONVERSION_III_FROM_I_BUILD_WEEKS }],
+    facilityIdBase: 'module-office-conversion-iii', projectIdBase: 'installation-office-conversion-iii',
+    ledgerNote: 'Development Office III conversion',
+    effectSummary: 'Raises this Development & Casting building to Development Office III standard; it is closed while the work runs, and the work is shorter from Office II.',
+    requires: [],
   },
 ]
 

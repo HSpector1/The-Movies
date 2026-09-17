@@ -516,7 +516,8 @@ function applyQueuePhysicalPlan(state: GameState, action: Action & { kind: 'queu
       }
     } else {
       const quote = queryFacilityInstallation(state, { blueprintId: work.blueprintId, targetFacilityId: work.target.facilityId })
-      for (const rejection of ['unknownInstallation', 'unknownTarget', 'incompatibleTarget', 'targetHasNoBody'] as const) {
+      // `standardAlreadyMet` is permanent too (P13B-S4): a body never drops below a standard it holds.
+      for (const rejection of ['unknownInstallation', 'unknownTarget', 'incompatibleTarget', 'targetHasNoBody', 'standardAlreadyMet'] as const) {
         if (quote.rejections.includes(rejection)) refuse(`${blueprint!.name} can never be installed there: ${rejection}.`)
       }
     }

@@ -184,6 +184,10 @@ describe('C1-M4 — the widened catalog', () => {
       'electrical-control-instruments',
       'lighting-control-stage',
       'synchronized-sound-post',
+      // P13B-S4 — the Office standard conversions (plan §S4 T1), APPENDED so no
+      // existing entry's authored position moves.
+      'office-conversion-ii',
+      'office-conversion-iii',
     ])
     // The bounded-term law runs at every action, tick, and save boundary; this
     // pins the authored values themselves so a price cannot drift unnoticed.

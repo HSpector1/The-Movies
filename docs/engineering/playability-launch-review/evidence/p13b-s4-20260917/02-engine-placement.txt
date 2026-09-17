@@ -1,0 +1,16 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/placement-core.test.ts (36 tests) 1140ms
+   ✓ Placement Core V12 — the runner invariant (property) > commit quote deep-equals query quote over random requests 449ms
+ ✓ |core| tests/placement-save-v12.test.ts (20 tests) 2370ms
+   ✓ Placement Core V12 — the frozen envelope > writes V12 explicitly and round-trips every lifecycle state byte-identically 631ms
+ ✓ |core| tests/placement-lifecycle.test.ts (14 tests) 1534ms
+   ✓ Placement Core V12 — completion flips capacity exactly once, on its week > flips at the same week when the run is split by a save and a reload 880ms
+ ✓ |core| tests/placement-lot.test.ts (14 tests) 136ms
+
+ Test Files  4 passed (4)
+      Tests  84 passed (84)
+   Start at  02:02:13
+   Duration  9.49s (transform 1.60s, setup 0ms, collect 2.92s, tests 5.18s, environment 1ms, prepare 359ms)
+

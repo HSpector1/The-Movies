@@ -161,6 +161,18 @@ import type {
   StudioPlacement,
 } from './types.js'
 import { INITIAL_STUDIO_FACILITIES, foundingFacilitiesOf } from './operations.js'
+import {
+  conversionIncrementCharges,
+  conversionIncrementChargedAtWeek,
+  conversionQuote,
+  conversionStandardOf,
+  conversionTargetFacilityIds,
+  isOfficeConversionBlueprint,
+  lawfulConversionCommitments,
+  offlineFacilityIds,
+  placementOffline,
+  standardRank,
+} from './officeConversion.js'
 
 /** The binding legality order. `primary` is the first entry present. */
 export const PLACEMENT_REJECTION_ORDER: readonly PlacementRejection[] = [
@@ -372,7 +384,17 @@ export function capacityProvidingPlacedFacilities(placement: StudioPlacement): P
   })
 }
 
-/** Σ weekly operating cost of every OPERATIONAL placed facility. */
+/**
+ * Σ weekly operating cost of every OPERATIONAL placed facility.
+ *
+ * P13B-S4 adds the ONE exception, and it is an exception about a STANDARD rather
+ * than about a building: a body's own baseline opex is unconditional (it stands
+ * whether or not anyone is working in it, including while it is closed for a
+ * conversion), but a conversion's weekly INCREMENT is the price of working to a
+ * standard — so it is charged only while the body is open and only for the
+ * standard the body is actually at. A II conversion superseded by an operational
+ * III charges nothing, and during II→III work neither increment lands.
+ */
 export function weeklyPlacementOperatingCost(placement: StudioPlacement): number {
   let total = 0
   for (const facility of placement.facilities) {
@@ -381,9 +403,49 @@ export function weeklyPlacementOperatingCost(placement: StudioPlacement): number
     if (blueprint === null) {
       throw new Error(`placement: operating cost references unknown blueprint "${facility.blueprintId}"`)
     }
+    if (!conversionIncrementCharges(placement, facility)) continue
     total += blueprint.weeklyOperatingCost
   }
   return total
+}
+
+/**
+ * The shared-capacity registry with conversion DOWNTIME applied: a body closed by
+ * a `takesTargetOffline` installation offers zero slots, and gets its blueprint
+ * capacity back the moment the work completes.
+ *
+ * Derivation, never a stored second truth — it is recomputed from the placement
+ * records at the two moments the registry is written (commit and completion), and
+ * the save validator proves the same derivation over the loaded file. Only bodies
+ * a conversion has ever touched are considered, so every other registry entry is
+ * returned byte-identical.
+ */
+export function withConversionDowntime(
+  placement: StudioPlacement,
+  operations: StudioOperations,
+): StudioOperations {
+  const touched = conversionTargetFacilityIds(placement)
+  if (touched.size === 0) return operations
+  let changed = false
+  const facilities = operations.facilities.map((facility) => {
+    if (!touched.has(facility.id)) return facility
+    const capacity = placementOffline(placement, facility.id)
+      ? 0
+      : registryCapacityOf(placement, facility.id) ?? facility.capacity
+    if (capacity === facility.capacity) return facility
+    changed = true
+    return { ...facility, capacity }
+  })
+  return changed ? { ...operations, facilities } : operations
+}
+
+/** The slots a body provides when it is OPEN: its blueprint's, or its founding truth's. */
+function registryCapacityOf(placement: StudioPlacement, facilityId: string): number | null {
+  const placed = placement.facilities.find(
+    (candidate) => candidate.installation === undefined && candidate.facilityId === facilityId,
+  )
+  if (placed !== undefined) return blueprintById(placed.blueprintId)?.capacity ?? null
+  return INITIAL_STUDIO_FACILITIES.find((facility) => facility.id === facilityId)?.capacity ?? null
 }
 
 /**
@@ -754,6 +816,11 @@ export type FacilityInstallationRequest = { blueprintId: string; targetFacilityI
 export type FacilityInstallationRefusal =
   | 'regimeNotReady' | 'unknownInstallation' | 'unknownTarget' | 'incompatibleTarget'
   | 'targetHasNoBody' | 'alreadyInstalled' | 'targetEngaged' | 'requirementsUnmet' | 'insufficientFunds'
+  // P13B-S4: the target already works to this standard or better. A conversion is
+  // the one installation whose legality depends on what the body ALREADY is, so it
+  // needs a refusal that says that rather than `alreadyInstalled`, which is about
+  // this blueprint's own record.
+  | 'standardAlreadyMet'
 export type FacilityInstallationQuote = {
   ok: boolean
   blueprintId: string
@@ -807,13 +874,30 @@ export function queryFacilityInstallation(state: GameState, request: FacilityIns
   if (holders.length > 0) rejections.push('targetEngaged')
   const availability = blueprint === null ? null : evaluateBlueprintRequirements(state, blueprint, FACILITY_BLUEPRINTS)
   if (availability !== null && !availability.available) rejections.push('requirementsUnmet')
-  const cost = blueprint?.capex ?? 0
+  // P13B-S4: an Office conversion's PRICE depends on the standard the body starts
+  // from, so the live quote asks the conversion authority for it. Its SCOPE never
+  // moves — the single authored component keeps its label whatever the source is,
+  // which is what lets a plan queued ahead of its predecessor still describe the
+  // same piece of work when it is finally admitted.
+  const conversion =
+    blueprint !== null && isOfficeConversionBlueprint(blueprint.id) && target?.capability === blueprint.installationTargetCapability
+      ? conversionQuote(state, blueprint.id, request.targetFacilityId)
+      : null
+  if (conversion !== null && standardRank(conversion.fromStandard) >= standardRank(conversion.toStandard)) {
+    rejections.push('standardAlreadyMet')
+  }
+  const cost = conversion?.cost ?? blueprint?.capex ?? 0
+  const buildWeeks = conversion?.buildWeeks ?? blueprint?.buildWeeks ?? 0
+  const authoredComponents = blueprint?.installationComponents ?? []
+  const components = conversion === null
+    ? authoredComponents
+    : authoredComponents.map((component) => ({ ...component, cost: conversion.cost, weeks: conversion.buildWeeks }))
   if (!canAfford(state, cost).ok) rejections.push('insufficientFunds')
   return {
     ok: rejections.length === 0, blueprintId: request.blueprintId, targetFacilityId: request.targetFacilityId,
-    cost, buildWeeks: blueprint?.buildWeeks ?? 0, completesOnWeek: state.market.tick + (blueprint?.buildWeeks ?? 0),
+    cost, buildWeeks, completesOnWeek: state.market.tick + buildWeeks,
     weeklyOperatingCost: blueprint?.weeklyOperatingCost ?? 0,
-    components: blueprint?.installationComponents ?? [], rejections, holders, unmetRequirements: availability?.unmet ?? [],
+    components, rejections, holders, unmetRequirements: availability?.unmet ?? [],
   }
 }
 
@@ -831,12 +915,20 @@ export function commitFacilityInstallation(state: GameState, request: FacilityIn
     placedWeek: state.market.tick, completesWeek: quote.completesOnWeek, status: 'underConstruction',
     installation: { targetFacilityId: request.targetFacilityId },
   }
+  const placement: StudioPlacement = {
+    ...state.placement, nextPlacementId: id + 1, facilities: [...state.placement.facilities, placed],
+  }
   return {
     ...state,
     studio: { ...state.studio, cash: state.studio.cash - quote.cost },
     ledger: [...state.ledger, { week: state.market.tick, kind: 'constructionCapex', amount: -quote.cost,
       constructionProjectId: placed.projectId, note: blueprint.ledgerNote }],
-    placement: { ...state.placement, nextPlacementId: id + 1, facilities: [...state.placement.facilities, placed] },
+    placement,
+    // P13B-S4: a job that CLOSES its body takes its slots out of the shared
+    // registry the moment it starts. Work already inside is never evicted — the
+    // commit could not have got here, because an occupied body is `targetEngaged`.
+    // Every other installation returns operations byte-identical.
+    operations: withConversionDowntime(placement, state.operations),
   }
 }
 
@@ -981,14 +1073,18 @@ export function completeDuePlacements(
     }
   }
 
+  const nextPlacement: StudioPlacement = {
+    ...placement,
+    facilities: placement.facilities.map((facility) =>
+      completedIds.has(facility.id) ? { ...facility, status: 'operational' } : facility,
+    ),
+  }
   return {
-    placement: {
-      ...placement,
-      facilities: placement.facilities.map((facility) =>
-        completedIds.has(facility.id) ? { ...facility, status: 'operational' } : facility,
-      ),
-    },
-    operations: { ...operations, facilities },
+    placement: nextPlacement,
+    // P13B-S4: a completing conversion REOPENS its body — the same one derivation
+    // the commit closed it with, so the slots that come back are exactly the ones
+    // that went away and nothing else in the registry moves.
+    operations: withConversionDowntime(nextPlacement, { ...operations, facilities }),
     completed,
   }
 }
@@ -1623,6 +1719,10 @@ function expectedOperatingCostFromHistory(
     if (facility.completesWeek > week) continue
     const blueprint = blueprintById(facility.blueprintId)
     if (blueprint === null) continue
+    // P13B-S4: the same standard law the live charge obeys, asked of that week —
+    // a conversion increment is charged only while its body was open and only for
+    // the standard the body was actually at.
+    if (!conversionIncrementChargedAtWeek(placement, facility, week)) continue
     total += blueprint.weeklyOperatingCost
   }
   for (const demolished of demolishedHistory) {
@@ -1758,6 +1858,27 @@ export function assertStudioPlacementInvariants(
       const targetFacilityId = placed.installation.targetFacilityId
       const target = operations.facilities.find((facility) => facility.id === targetFacilityId)
       const body = installationTargetBody(state, targetFacilityId)
+      // P13B-S4 — THE CONVERSION LAWS, stated first so a forged conversion is
+      // diagnosed as a conversion rather than as a generic installation. A
+      // conversion is a claim about a STANDARD, and a standard is meaningless
+      // without exactly one real development body under it.
+      const conversionStandard = conversionStandardOf(placed.blueprintId)
+      if (conversionStandard !== null) {
+        invariant(body !== null, `${label} conversion names no body: missing body "${targetFacilityId}"`)
+        invariant(target !== undefined && target.capability === 'development-casting',
+          `${label} conversion must target a development body`)
+        // Two operational conversions of one standard on one body would let a
+        // studio be charged twice for a standard it bought once, and would make
+        // "what standard is this body" answerable two ways.
+        invariant(
+          placed.status !== 'operational' ||
+            placement.facilities.filter((candidate) =>
+              candidate.status === 'operational' &&
+              candidate.installation?.targetFacilityId === targetFacilityId &&
+              conversionStandardOf(candidate.blueprintId) === conversionStandard).length === 1,
+          `${label} is a duplicate conversion to the same standard on one body`,
+        )
+      }
       invariant(target !== undefined && target.capability === blueprint.installationTargetCapability,
         `${label} installation has no compatible operational target`)
       invariant(body !== null && body.parcelId === placed.parcelId && body.origin.gx === placed.origin.gx && body.origin.gy === placed.origin.gy,
@@ -1808,9 +1929,17 @@ export function assertStudioPlacementInvariants(
       Number.isInteger(placed.placedWeek) && placed.placedWeek >= 0 && placed.placedWeek <= state.market.tick,
       `${label} placedWeek must be a non-negative integer at or before the current week`,
     )
+    // P13B-S4: a conversion's DURATION is source-dependent (16 weeks from standard
+    // I, 8 from II), and the source is history rather than a persisted field — so
+    // the span is proved against the authored set of durations this blueprint can
+    // ever have been quoted at. Every other blueprint keeps its single exact span.
+    const conversionCommitments = lawfulConversionCommitments(placed.blueprintId)
+    const lawfulSpans = conversionCommitments === null
+      ? [blueprint.buildWeeks]
+      : conversionCommitments.map((commitment) => commitment.buildWeeks)
     invariant(
-      placed.completesWeek === placed.placedWeek + blueprint.buildWeeks,
-      `${label} completesWeek must equal placedWeek + ${String(blueprint.buildWeeks)}`,
+      lawfulSpans.includes(placed.completesWeek - placed.placedWeek),
+      `${label} completesWeek must equal placedWeek + ${lawfulSpans.map(String).join(' or ')}`,
     )
     invariant(
       placed.status === 'underConstruction' || placed.status === 'operational',
@@ -1953,7 +2082,19 @@ export function assertStudioPlacementInvariants(
 
     const blueprint = blueprintById(placed.blueprintId)!
     invariant(entry.week === placed.placedWeek, 'construction capex week must equal placedWeek')
-    invariant(entry.amount === -blueprint.capex, 'construction capex amount must equal the blueprint capex')
+    // P13B-S4: an Office conversion is charged the price of the EXACT source it
+    // was quoted from, so the row is reconciled against the authored (cost, weeks)
+    // PAIR — a $850,000 conversion that took 16 weeks was never quoted by this
+    // engine and is refused as firmly as a wrong amount always was.
+    const commitments = lawfulConversionCommitments(placed.blueprintId)
+    invariant(
+      commitments === null
+        ? entry.amount === -blueprint.capex
+        : commitments.some((commitment) =>
+            entry.amount === -commitment.cost &&
+            placed.completesWeek - placed.placedWeek === commitment.buildWeeks),
+      'construction capex amount must equal the blueprint capex',
+    )
     invariant(entry.note === blueprint.ledgerNote, 'construction capex note is not canonical')
   }
   for (const placed of placement.facilities) {
@@ -2099,6 +2240,9 @@ export function assertStudioPlacementInvariants(
 
   assertStudioConstructionInvariants(state, {
     facilityPolicy: 'placement-v12',
+    // P13B-S4: the bodies a conversion has CLOSED. The registry law stays exact —
+    // a zero-capacity entry is legal exactly for these ids and for no other.
+    offlineFacilityIds: offlineFacilityIds(placement),
     ...(configured
       ? {}
       : {

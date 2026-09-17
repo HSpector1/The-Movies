@@ -107,6 +107,10 @@ export type ConstructionInvariantOptions = {
   // threaded to the operations law so the expected set is founding + placed on
   // the endowed lot and placed-only on the bare lot. Omitted ⇒ the initial truth.
   foundingFacilities?: readonly StudioFacility[]
+  // P13B-S4: the bodies an installation has CLOSED for its build. The placement
+  // authority derives them; this checker only carries them to the operations law,
+  // where "capacity may be zero" holds for exactly these ids.
+  offlineFacilityIds?: ReadonlySet<string>
 }
 
 // Shared action/tick/read/save boundary. Outer exact-key checking belongs to the
@@ -191,13 +195,21 @@ export function assertStudioConstructionInvariants(
       operations,
       state.studio.activeProductions,
       expectedFacilities === undefined
-        ? { facilityPolicy: 'configured' }
+        ? {
+            facilityPolicy: 'configured',
+            ...(options?.offlineFacilityIds === undefined
+              ? {}
+              : { offlineFacilityIds: options.offlineFacilityIds }),
+          }
         : {
             facilityPolicy: 'placement-v12',
             placedFacilities: expectedFacilities,
             ...(options?.foundingFacilities === undefined
               ? {}
               : { foundingFacilities: options.foundingFacilities }),
+            ...(options?.offlineFacilityIds === undefined
+              ? {}
+              : { offlineFacilityIds: options.offlineFacilityIds }),
           },
     )
   } else if (construction.mode === 'legacy') {

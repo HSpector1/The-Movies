@@ -1,0 +1,14 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/d12-economy.test.ts (17 tests) 619ms
+   ✓ D-12: V3→V4 migration records released films as legacyCompleted (no double-pay) > migrated releases carry their full-gross V3 payout and are never credited again 361ms
+ ✓ |core| tests/d12-economy-view.test.ts (12 tests) 2595ms
+   ✓ D-12 read models — active-run revenue mirrors the very next tick > expectedWeeklyRunRevenue predicts EXACTLY the studioRevenue the next tick credits 758ms
+   ✓ D-12 read models — active-run revenue mirrors the very next tick > runRemainingRevenue == share × Σ future weekly gross, and drains to 0 at completion 611ms
+
+ Test Files  2 passed (2)
+      Tests  29 passed (29)
+   Start at  02:06:57
+   Duration  6.23s (transform 1.47s, setup 0ms, collect 2.31s, tests 3.21s, environment 1ms, prepare 188ms)
+

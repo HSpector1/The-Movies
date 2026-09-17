@@ -1,0 +1,17 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/c2a-m3-screenplay-mint.test.ts (8 tests) 905ms
+   ✓ C2a-M3 — a writer goes to work and hands the studio a new movie > mints a concept, a title and a blueprint at COMMISSION-COMMIT, and drafts it 373ms
+ ✓ |core| tests/bridge-development.test.ts (4 tests) 14441ms
+   ✓ P03A Development bridge — quote seam and board > quotes, mints, and commits a market commission draft through the quote seam 4337ms
+   ✓ P03A Development bridge — quote seam and board > rejects stale and malformed drafts without mutation 3125ms
+   ✓ P03A Development bridge — quote seam and board > publishes a leak-free Development board and an exact rewrite preview at review 5302ms
+   ✓ P03A Development bridge — quote seam and board > quotes an original screenplay draft with the engine's own clock 1675ms
+ ✓ |core| tests/c2a-m3-writer-speed.test.ts (12 tests) 122ms
+
+ Test Files  3 passed (3)
+      Tests  24 passed (24)
+   Start at  02:06:03
+   Duration  20.08s (transform 2.07s, setup 0ms, collect 3.42s, tests 15.47s, environment 1ms, prepare 289ms)
+

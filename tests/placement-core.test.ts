@@ -91,9 +91,11 @@ describe('Placement Core V12 — the blueprint catalog', () => {
     // a week, and it is still the entry every migrated V11 world points at.
     // C2a-M2 appended the §3.4 slate (soundstage / post / scenery / baseline
     // office). P13A added the Laboratory and its sound installations; P13B-S2 the
-    // electrical/control module and the lighting stage package (15 entries).
+    // electrical/control module and the lighting stage package. P13B-S4 appended
+    // the two Office standard conversions at the END of the installation list, so
+    // every existing index is unmoved (17 entries).
     // The Annex is still entry ZERO and still byte-identical below.
-    expect(FACILITY_BLUEPRINTS).toHaveLength(15)
+    expect(FACILITY_BLUEPRINTS).toHaveLength(17)
     expect(FACILITY_BLUEPRINTS[0]).toBe(DEVELOPMENT_CASTING_ANNEX_BLUEPRINT)
     expect(DEVELOPMENT_CASTING_ANNEX_BLUEPRINT).toEqual({
       id: 'development-casting-annex',

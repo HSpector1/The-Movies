@@ -1,0 +1,17 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/operations.test.ts (13 tests) 862ms
+   ✓ Production Operations V1 > holds only the blocked production while world time and weekly costs continue 566ms
+ ✓ |core| tests/studio-calendar.test.ts (10 tests) 794ms
+   ✓ Studio Calendar V1 — authoritative read model > keeps a populated migrated studio explicitly legacy while preserving its real clocks 325ms
+ ✓ |core| tests/production-operations-save-v8.test.ts (20 tests) 2188ms
+   ✓ Production Operations V1 — frozen V7 to live V8 migration > preserves an active V7 production countdown and continuation exactly 408ms
+   ✓ Production Operations V1 — managed state validation and continuation > round-trips a blocked shooting task with its real director and reservations 503ms
+ ✓ |core| tests/p12-calendar.test.ts (2 tests) 9ms
+
+ Test Files  4 passed (4)
+      Tests  45 passed (45)
+   Start at  02:10:51
+   Duration  8.32s (transform 1.67s, setup 0ms, collect 2.78s, tests 3.85s, environment 1ms, prepare 552ms)
+
