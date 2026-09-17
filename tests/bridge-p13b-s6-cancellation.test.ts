@@ -121,7 +121,7 @@ function required<T>(value: T | null | undefined, message: string): T {
 // ── Wire shapes (the S6-T3 pin; NONE of this exists at projection 38) ───────
 
 type WireCancellationComponent = {
-  kind?: string; label: string; cost: number; weeks: number
+  kind?: string | null; label: string; cost: number; weeks: number
   status: 'completed' | 'inProgress' | 'unstarted'; paid: number; refunded: number
 }
 type WireCancellationQuote = {
@@ -551,23 +551,23 @@ describe('P13B-S6-T3 item 6: history rows for cancellation/restoration on operat
     expect(rows.some(r => r.kind.toLowerCase().includes('cancel') || r.kind.toLowerCase().includes('restor'))).toBe(false)
   })
 
-  it('GAP NAMED (see header): the cancellation ACT itself writes no operationsEvents row today — this is an engine-level gap (installationCancellation.ts never calls events.append), not a bridge-only fact', () => {
-    const { state: committed, adoptionId } = s6LightingReady()
-    const state = advanceTo(committed, committed.market.tick + 2)
-    const before = new BridgeSession(state, 'p13b-s6-history-gap-before').snapshot()
-    const beforeCount = (before.snapshot.operationsEvents as { operationsEvents: { rows: unknown[] } }).operationsEvents.rows.length
-
-    const cancelled = applyActions(state, [{ kind: 'cancelAdoption', adoptionId } as never])
-    const after = new BridgeSession(cancelled, 'p13b-s6-history-gap-after').snapshot()
-    const afterRows = (after.snapshot.operationsEvents as { operationsEvents: { rows: { summary: string }[] } }).operationsEvents.rows
-    // PIN (per the dispatch message's own item 6): a cancellation should be
-    // discoverable through operationsEvents. This currently FAILS not because
-    // the bridge omits a row the engine already wrote, but because the engine
-    // never wrote one (see header GAP NAMED) — named here rather than silently
-    // dropped.
-    expect(afterRows.length).toBeGreaterThan(beforeCount)
-    expect(afterRows.some(r => r.summary.toLowerCase().includes('cancel'))).toBe(true)
-  })
+  // COORDINATOR ADJUDICATION (2026-09-17, plan authority, commit f246963's
+  // report): the cancellation-ACT operationsEvents row is OUT OF S6 SCOPE.
+  // The plan's S6 expansion defines a cancellation's history as the retained
+  // placement record with its receipt (the record stays in
+  // `placement.facilities` with `status: 'cancelled'`); its bridge bullet asks
+  // for cancel rows, restoration rows and the finance refund line only. No
+  // engine studio event is added in S6 — the natural sibling, a
+  // `facilityCancelled` history kind beside `facilityDemolished`, widens the
+  // frozen history validators and is recorded OPEN in the plan for
+  // owner/companion input. Converted from a real `it` (originally titled 'GAP
+  // NAMED (see header): the cancellation ACT itself writes no operationsEvents
+  // row today — this is an engine-level gap (installationCancellation.ts never
+  // calls events.append), not a bridge-only fact') to `it.todo` per that
+  // adjudication; its former body pinned `afterRows.length` growing and a
+  // 'cancel'-mentioning summary after `cancelAdoption`, against
+  // `session.snapshot().snapshot.operationsEvents.operationsEvents.rows`.
+  it.todo('GAP NAMED (see header): the cancellation ACT itself writes no operationsEvents row today — this is an engine-level gap (installationCancellation.ts never calls events.append), not a bridge-only fact — OUT OF S6 SCOPE: no engine emission; plan S6-T3 adjudication (1), OPEN facilityCancelled history kind')
 
   it('player-safe: an already-naturally-existing rival adoption never appears in this studio\'s own adoptions[]/equipment[]/cancel rows', () => {
     // `state.technology.adoptions`/`state.technology.equipment` ARE multi-studio
