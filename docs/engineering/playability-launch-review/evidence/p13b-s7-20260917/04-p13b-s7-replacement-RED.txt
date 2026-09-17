@@ -1,0 +1,17 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p13b-s7-replacement.test.ts [ tests/p13b-s7-replacement.test.ts ]
+Error: Failed to load url ../src/core/technologyDisclosure.js (resolved id: ../src/core/technologyDisclosure.js) in /Users/zacheryspector/The-Movies-headless-program/tests/p13b-s7-replacement.test.ts. Does the file exist?
+ ❯ loadAndTransform node_modules/vitest/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:51969:17
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed (1)
+      Tests  no tests
+   Start at  23:35:54
+   Duration  617ms (transform 190ms, setup 0ms, collect 0ms, tests 0ms, environment 0ms, prepare 100ms)
+
