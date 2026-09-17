@@ -30,6 +30,20 @@
 // only go green once `resourceClaims` is taught to treat `'cancelled'` the
 // same way it treats "never placed at all" for THIS purpose, which is named
 // here for the engine increment, not silently assumed away.
+//
+// ADJUDICATED CORRECTION (test-author, second pass, 2026-09-17): the landed
+// engine increment (`src/core/placement.ts`'s `queryFacilityInstallation`
+// `holders` filter, ~886-897) does treat a CANCELLED record as unheld exactly
+// as predicted above — but the plan's controlling law is "restart AFTER
+// restoration", not an unconditional immediate restart: cancelling work whose
+// site adaptation had begun auto-commits a restoration job on the SAME target
+// (tests/p13b-s6-restoration.test.ts), and that restoration is itself an
+// `installation` holder while `underConstruction` — the same closed-body law
+// S4's conversions already have — so a restart quoted the moment cancellation
+// lands is correctly REFUSED (`targetEngaged`) until the restoration
+// completes. The restart case below advances past the restoration's own
+// measured completion week before quoting; every other assertion (full price,
+// no credit, no cloned work) is unchanged.
 
 import { describe, expect, it } from 'vitest'
 import type { GameState } from '../src/core/types.js'
@@ -73,21 +87,37 @@ describe('P13B-S6 once-only refund and quoted-anew restart (test 2)', () => {
     expect(() => applyActions(cancelled, [{ kind: 'cancelAdoption', adoptionId } as never])).toThrow()
   })
 
-  it('restart on the SAME target after cancellation is a NEW placement, quoted at the FULL price — no refund credit, no free components (see header ENGINE CONFLICT)', () => {
+  it('restart on the SAME target after cancellation is a NEW placement, quoted at the FULL price — no refund credit, no free components — but only AFTER the cancellation\'s own restoration completes (see header ADJUDICATED CORRECTION)', () => {
     const { state: committed, stageProjectId, stageFacilityId } = s6LightingReady()
     const state = advanceTo(committed, committed.market.tick + 2) // site paid $50,000 already
     const cancelled = applyActions(state, [{ kind: 'cancelInstallation', projectId: stageProjectId } as never])
 
-    const restartQuote = queryFacilityInstallation(cancelled, { blueprintId: 'lighting-control-stage', targetFacilityId: stageFacilityId })
+    // Site work HAD begun (elapsed 2 of the 2-week site component), so this
+    // cancellation auto-committed a restoration job on the same target — and
+    // while it is `underConstruction` it holds the target exactly as S4's own
+    // conversions do, refusing an immediate restart quote.
+    const restoration = cancelled.placement.facilities.find(f =>
+      f.installation?.targetFacilityId === stageFacilityId && f.blueprintId === 'restoration-lighting-stage')!
+    expect(restoration.status).toBe('underConstruction')
+    const blockedQuote = queryFacilityInstallation(cancelled, { blueprintId: 'lighting-control-stage', targetFacilityId: stageFacilityId })
+    expect(blockedQuote.ok).toBe(false)
+    expect(blockedQuote.rejections).toContain('targetEngaged')
+
+    // Advance past the restoration's own MEASURED completion week — the plan's
+    // "restart AFTER restoration" law, not an unconditional immediate restart.
+    const restored = advanceTo(cancelled, restoration.completesWeek)
+    expect(restored.placement.facilities.find(f => f.id === restoration.id)!.status).toBe('operational')
+
+    const restartQuote = queryFacilityInstallation(restored, { blueprintId: 'lighting-control-stage', targetFacilityId: stageFacilityId })
     expect(restartQuote.ok).toBe(true)
     expect(restartQuote.cost).toBe(100_000) // full site+installation price again, no credit for the $50,000 already paid
     expect(restartQuote.buildWeeks).toBe(4)
 
-    const restarted = commitFacilityInstallation(cancelled, { blueprintId: 'lighting-control-stage', targetFacilityId: stageFacilityId })
+    const restarted = commitFacilityInstallation(restored, { blueprintId: 'lighting-control-stage', targetFacilityId: stageFacilityId })
     const newPlacement = restarted.placement.facilities.find(f => f.blueprintId === 'lighting-control-stage' && f.projectId !== stageProjectId
       && f.status === 'underConstruction')
     expect(newPlacement).toBeDefined()
-    expect(newPlacement!.placedWeek).toBe(cancelled.market.tick)
+    expect(newPlacement!.placedWeek).toBe(restored.market.tick)
     const restartCapexRows = restarted.ledger.filter(e => e.kind === 'constructionCapex' && (e as unknown as { constructionProjectId: string }).constructionProjectId === newPlacement!.projectId)
     expect(restartCapexRows).toHaveLength(1)
     expect(restartCapexRows[0]!.amount).toBe(-100_000) // paid in full again — "no cloned work"

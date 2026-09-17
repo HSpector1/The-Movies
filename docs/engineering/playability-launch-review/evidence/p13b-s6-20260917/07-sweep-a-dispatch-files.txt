@@ -1,0 +1,50 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/facility-move-demolish.test.ts (30 tests) 2325ms
+   ✓ C1-M3a (A) — every persisted holder of a facility blocks both verbs > finds a screenplay reservation, on the RESERVATION and not the status 882ms
+   ✓ C1-M3a (A) — every persisted holder of a facility blocks both verbs > finds a casting-session reservation 324ms
+ ✓ |core| tests/placement-core.test.ts (36 tests) 1091ms
+   ✓ Placement Core V12 — the runner invariant (property) > commit quote deep-equals query quote over random requests 453ms
+ ✓ |core| tests/construction-core.test.ts (12 tests) 3445ms
+   ✓ Development & Casting Annex V1 core lifecycle > completes on exactly the thirteenth advance from a nonzero start with no recurring charge or RNG draw 975ms
+   ✓ Development & Casting Annex V1 core lifecycle > does not reallocate completing-advance productions into the Annex, then exposes it immediately 530ms
+   ✓ Development & Casting Annex V1 core lifecycle > uses the authoritative greenlight debit to reject skip-first start-clock laundering 449ms
+   ✓ Development & Casting Annex V1 core lifecycle > allows a production started after completion to claim the Annex under normal allocation 340ms
+   ✓ Development & Casting Annex V1 core lifecycle > accepts only the exact Annex V1 facility set and detects cross-owner collisions 577ms
+ ✓ |core| tests/placement-save-v12.test.ts (20 tests) 3008ms
+   ✓ Placement Core V12 — the frozen envelope > writes V12 explicitly and round-trips every lifecycle state byte-identically 715ms
+   ✓ Placement Core V12 — historical boundary guards (law 19) > keeps the V11 validator rules exactly as they were 354ms
+ ✓ |core| tests/legacy-parcel-ground.test.ts (14 tests) 4699ms
+   ✓ C1-M8 (B) — a generic building may not be BUILT there > accepts nothing anywhere on the property whose body the world would not show 3989ms
+ ✓ |core| tests/construction-save-v11.test.ts (12 tests) 1788ms
+   ✓ Development & Casting Annex V1 — SaveFileV11 > writes V12 by default and round-trips legacy, vacant, building, and completed lifecycle states 385ms
+   ✓ Development & Casting Annex V1 — SaveFileV11 > round-trips and continues byte-identically at start, S+12, and S+13 382ms
+ ✓ |core| tests/p13b-r07-save-v25.test.ts (8 tests) 1056ms
+   ✓ P13B-S5-R07 Save V25 (test 5) > migrates both genuine V24 fixtures to V25: saveVersion 25, technology state byte-identical aside from the version bump, setup: null lift (vacuous — both carry zero workflows) 423ms
+ ✓ |core| tests/p13b-s5-save-v24.test.ts (15 tests) 12270ms
+   ✓ P13B-S5 Save V24 (test 4) > migrates legacy-v23-sound-operational-315 and its identical V20 ancestor to V24 with an honest first-prototype lift, byte-identical otherwise 439ms
+   ✓ P13B-S5 Save V24 (test 4) > migrateToV23 / migrateToV22 / migrateToV21 / migrateToV20 refuse a V24 save 1055ms
+   ✓ P13B-S5 Save V24 (test 4) > makeSave writes saveVersion 26 411ms
+   ✓ P13B-S5 Save V24 (test 4) > save/reload mid-deployment continues identically (byte for byte): a lighting adoption committed but not yet operational 8070ms
+ ✓ |core| tests/p13b-s3-validation.test.ts (12 tests) 7425ms
+ ✓ |core| tests/p13b-s4-validation.test.ts (7 tests) 3192ms
+   ✓ P13B-S4 conservation, determinism, save/reload (test 5) > conservation: the conversion's constructionCapex equals the committed quote, and cash reconciles exactly against the ledger 665ms
+   ✓ P13B-S4 conservation, determinism, save/reload (test 5) > determinism: the same actions from the same seed produce a byte-identical exportSave 1348ms
+   ✓ P13B-S4 conservation, determinism, save/reload (test 5) > save/reload mid-conversion continues identically (Save V23 unchanged -- a conversion is a normal placement record) 763ms
+ ✓ |core| tests/p13a-rival-adoption.test.ts (2 tests) 8095ms
+   ✓ P13A shared commercial adoption and exact rival cash consequence > uses the shared player/rival eligibility function and debits only technology adoption without new plant or RNG draws 425ms
+   ✓ P13A shared commercial adoption and exact rival cash consequence > replays the actual weekly commercial purchase, reconciles its debit and creates one dated operational receipt 1144ms
+ ✓ |core| tests/p13b-s3-save-v23.test.ts (13 tests) 5022ms
+   ✓ P13B-S3 Save V23 (test 7) > chains the genuine V20 fixture './fixtures/p13b/legacy-v20-research-a…' through V21, V22 to V23 434ms
+   ✓ P13B-S3 Save V23 (test 7) > chains the genuine V20 fixture './fixtures/p13b/legacy-v20-research-p…' through V21, V22 to V23 330ms
+   ✓ P13B-S3 Save V23 (test 7) > migrateToV22 / migrateToV21 / migrateToV20 refuse a live save 964ms
+   ✓ P13B-S3 Save V23 (test 7) > makeSave writes saveVersion 26 424ms
+   ✓ P13B-S3 Save V23 (test 7) > an unknown saveVersion 27 is refused, naming the handled range 407ms
+   ✓ P13B-S3 Save V23 (test 7) > save/reload mid-queue continues identically (byte for byte) 1039ms
+
+ Test Files  12 passed (12)
+      Tests  181 passed (181)
+   Start at  20:10:17
+   Duration  64.14s (transform 1.81s, setup 0ms, collect 6.09s, tests 53.42s, environment 4ms, prepare 1.28s)
+

@@ -71,11 +71,15 @@ describe('P13B-S6 restoration: offline, opex, its own ledger row, not itself can
     const throughRestoration = advanceTo(cancelled, restorationStart + 1)
     const opexRows = throughRestoration.ledger.filter(e => e.kind === 'facilityOpex' && e.week === restorationStart)
     expect(opexRows.length).toBeGreaterThan(0) // the studio's aggregated facilityOpex row still lands this week
-    // The stage itself never left `operational` status — only the INSTALLATION
-    // records (fit-out, then restoration) changed status; the base body's own
-    // opex law is therefore unaffected by cancellation, exactly as S4 already
-    // established for office conversions.
-    expect(throughRestoration.operations.facilities.find(f => f.id === stageFacilityId)!.status).toBe('operational')
+    // The stage BODY itself never left `operational` status (S4's own opex law:
+    // baseline is unconditional) — `operations.facilities` (`StudioFacility`)
+    // carries no `status` field to read that from, so the INSTALLATION record
+    // is the one that shows the window closing and reopening: the restoration
+    // (1 week) is due exactly at `restorationStart + 1` and has completed by
+    // the week this file just advanced to.
+    const restoration = throughRestoration.placement.facilities.find(f =>
+      f.installation?.targetFacilityId === stageFacilityId && f.blueprintId === 'restoration-lighting-stage')!
+    expect(restoration.status).toBe('operational')
   })
 
   it('a restoration job is refused by cancelInstallation (it is the cost of the cancellation, not itself cancellable)', () => {

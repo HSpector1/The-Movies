@@ -1,0 +1,162 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p13a-production-technology.test.ts (11 tests) 664ms
+   ✓ P13A first-filming technology and exact production chain > carries the first-filming lock through the complete tick state assembly 479ms
+ ✓ |core| tests/p13a-physical-installation.test.ts (6 tests) 144ms
+ ✓ |core| tests/p13a-rival-adoption.test.ts (2 tests) 7837ms
+   ✓ P13A shared commercial adoption and exact rival cash consequence > uses the shared player/rival eligibility function and debits only technology adoption without new plant or RNG draws 539ms
+   ✓ P13A shared commercial adoption and exact rival cash consequence > replays the actual weekly commercial purchase, reconciles its debit and creates one dated operational receipt 1251ms
+ ✓ |core| tests/p13a-causal-core.test.ts (8 tests) 12956ms
+   ✓ P13A causal Core through the real weekly engine > retains exact paid work and reloads a lawful $1 weekly budget 658ms
+   ✓ P13A causal Core through the real weekly engine > retains exact paid work and reloads a lawful $3 weekly budget 598ms
+   ✓ P13A causal Core through the real weekly engine > retains exact paid work and reloads a lawful $2499 weekly budget 478ms
+   ✓ P13A causal Core through the real weekly engine > retains exact paid work and reloads a lawful $5600 weekly budget 432ms
+   ✓ P13A causal Core through the real weekly engine > retains exact paid work and reloads a lawful $9999 weekly budget 442ms
+   ✓ P13A causal Core through the real weekly engine > one Scientist completes 64 units in 43 funded weeks, then P09 completes the exact chain at315 790ms
+   ✓ P13A causal Core through the real weekly engine > waiting buys no capability; purchase opens416, takes12weeks, and forfeits113weeks of lead 4092ms
+ ❯ |core| tests/p13a-technology-membership.test.ts (9 tests | 4 failed) 7050ms
+   × P13A exact historical technology membership under local indexing > still rejects an exact duplicate original Hollywood film after indexed membership succeeds 59ms
+     → expected [Function] to not throw an error but 'Error: Technology save: exact keys re…' was thrown
+   × P13A exact historical technology membership under local indexing > does not discard an unknown field on an original Hollywood film 67ms
+     → expected [Function] to not throw an error but 'Error: Technology save: exact keys re…' was thrown
+   × P13A exact historical technology membership under local indexing > does not reuse membership across independent round-tripped copies with the same world and entity IDs 408ms
+     → expected [Function] to not throw an error but 'Error: Technology save: exact keys re…' was thrown
+   × P13A exact historical technology membership under local indexing > rechecks the same mutable input after removal and after exact restoration 352ms
+     → expected [Function] to not throw an error but 'Error: Technology save: exact keys re…' was thrown
+ ✓ |core| tests/p13a-technology-validation.test.ts (9 tests) 9810ms
+ ✓ |core| tests/p13a-save-v20.test.ts (5 tests) 969ms
+   ✓ P13A governed V19 to V20 persistence > round-trips a migrated V20 world exactly and creates independent state objects 426ms
+ ✓ |core| tests/p13a-technology-milestones.test.ts (4 tests) 6564ms
+   ✓ P13A dated public technology history > round-trips both boundaries exactly and resumes without duplicating the permanent events 630ms
+ ❯ |core| tests/p13a-scientist-foundation.test.ts (6 tests | 3 failed) 149ms
+   × P13A Scientist identity and employment foundation > preserves accepted people, concepts, market, era and RNG for p13a-person-regression-1 52ms
+     → expected '4a4b2e78a8af26bb7804b4220ba31b2fcb667…' to be '16857a2609206c58bfb34ba3be7b67d95276e…' // Object.is equality
+   × P13A Scientist identity and employment foundation > preserves accepted people, concepts, market, era and RNG for p13a-person-regression-2 32ms
+     → expected 'de6e49d8796e1a037e676b5e147c5850680bb…' to be 'd71583f6fc04af2d251e2010ca6725e6bcc01…' // Object.is equality
+   × P13A Scientist identity and employment foundation > preserves accepted people, concepts, market, era and RNG for m0a-0001 37ms
+     → expected '0b8e21842fc4a820413c3416c90bdd9ce2907…' to be '7517c0d01eb928245e2101752932b99ccd344…' // Object.is equality
+ ✓ |core| tests/p13a-research-employment.test.ts (1 test) 5393ms
+   ✓ P13A research employment continuity > releasing the actual Scientist pauses work immediately and survives save/reload without losing verified work 5391ms
+ ✓ |core| tests/p13a-research-identity.test.ts (1 test) 1074ms
+   ✓ P13A retained research Laboratory identity > keeps paused and cancelled Laboratory references intact without blocking lawful instrument installation 1072ms
+ ✓ |core| tests/p13a-placement-history-validation.test.ts (1 test) 1095ms
+   ✓ P13A bounded historical facility-charge validation > preserves every exact weekly charge across a real build, demolition, idle gap and replacement 1093ms
+ ✓ |core| tests/p13a-catalogue.test.ts (2 tests) 10ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 7 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p13a-scientist-foundation.test.ts > P13A Scientist identity and employment foundation > preserves accepted people, concepts, market, era and RNG for p13a-person-regression-1
+AssertionError: expected '4a4b2e78a8af26bb7804b4220ba31b2fcb667…' to be '16857a2609206c58bfb34ba3be7b67d95276e…' // Object.is equality
+
+Expected: "16857a2609206c58bfb34ba3be7b67d95276e5c96048c5674cb5987aa8a94a17"
+Received: "4a4b2e78a8af26bb7804b4220ba31b2fcb667961c5acec6d5e79c4a466859d99"
+
+ ❯ tests/p13a-scientist-foundation.test.ts:32:77
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/7]⎯
+
+ FAIL |core|  tests/p13a-scientist-foundation.test.ts > P13A Scientist identity and employment foundation > preserves accepted people, concepts, market, era and RNG for p13a-person-regression-2
+AssertionError: expected 'de6e49d8796e1a037e676b5e147c5850680bb…' to be 'd71583f6fc04af2d251e2010ca6725e6bcc01…' // Object.is equality
+
+Expected: "d71583f6fc04af2d251e2010ca6725e6bcc0104fb727d3735155aa5235df01b8"
+Received: "de6e49d8796e1a037e676b5e147c5850680bb1b198ffdd18d41be8c588d7fcc1"
+
+ ❯ tests/p13a-scientist-foundation.test.ts:32:77
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/7]⎯
+
+ FAIL |core|  tests/p13a-scientist-foundation.test.ts > P13A Scientist identity and employment foundation > preserves accepted people, concepts, market, era and RNG for m0a-0001
+AssertionError: expected '0b8e21842fc4a820413c3416c90bdd9ce2907…' to be '7517c0d01eb928245e2101752932b99ccd344…' // Object.is equality
+
+Expected: "7517c0d01eb928245e2101752932b99ccd3444f2ca6848a6badf579ef2fb51c4"
+Received: "0b8e21842fc4a820413c3416c90bdd9ce290750d669bc08b66b0be7705e6a2c6"
+
+ ❯ tests/p13a-scientist-foundation.test.ts:32:77
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/7]⎯
+
+ FAIL |core|  tests/p13a-technology-membership.test.ts > P13A exact historical technology membership under local indexing > still rejects an exact duplicate original Hollywood film after indexed membership succeeds
+AssertionError: expected [Function] to not throw an error but 'Error: Technology save: exact keys re…' was thrown
+
+- Expected: 
+undefined
+
++ Received: 
+"Error: Technology save: exact keys required: id,studioId,technologyId,stageFacilityId,postFacilityId,route,committedWeek,operationalWeek,equipmentCost,installationCost,physicalProjectIds,prototypeProjectId,components,equipmentAssetId"
+
+ ❯ tests/p13a-technology-membership.test.ts:47:49
+     45|     const state = copy()
+     46|     state.hollywood!.films.push(structuredClone(film(state)))
+     47|     expect(() => validateTechnology(state)).not.toThrow()
+       |                                                 ^
+     48|     expect(() => makeSave(state)).toThrow('duplicate film identity')
+     49|   })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/7]⎯
+
+ FAIL |core|  tests/p13a-technology-membership.test.ts > P13A exact historical technology membership under local indexing > does not discard an unknown field on an original Hollywood film
+AssertionError: expected [Function] to not throw an error but 'Error: Technology save: exact keys re…' was thrown
+
+- Expected: 
+undefined
+
++ Received: 
+"Error: Technology save: exact keys required: id,studioId,technologyId,stageFacilityId,postFacilityId,route,committedWeek,operationalWeek,equipmentCost,installationCost,physicalProjectIds,prototypeProjectId,components,equipmentAssetId"
+
+ ❯ tests/p13a-technology-membership.test.ts:62:49
+     60|     const state = copy()
+     61|     Object.assign(film(state), {unrecordedAuthority: undefined})
+     62|     expect(() => validateTechnology(state)).not.toThrow()
+       |                                                 ^
+     63|     expect(() => makeSave(state)).toThrow(/exact keys|unknown/i)
+     64|     expect(Object.hasOwn(film(state), 'unrecordedAuthority')).toBe(tru…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/7]⎯
+
+ FAIL |core|  tests/p13a-technology-membership.test.ts > P13A exact historical technology membership under local indexing > does not reuse membership across independent round-tripped copies with the same world and entity IDs
+AssertionError: expected [Function] to not throw an error but 'Error: Technology save: exact keys re…' was thrown
+
+- Expected: 
+undefined
+
++ Received: 
+"Error: Technology save: exact keys required: id,studioId,technologyId,stageFacilityId,postFacilityId,route,committedWeek,operationalWeek,equipmentCost,installationCost,physicalProjectIds,prototypeProjectId,components,equipmentAssetId"
+
+ ❯ tests/p13a-technology-membership.test.ts:79:52
+     77|     expect(branch.hollywood!.worldId).toBe(original.hollywood!.worldId)
+     78|     expect(loadout(branch)).toEqual(loadout(original))
+     79|     expect(() => validateTechnology(original)).not.toThrow()
+       |                                                    ^
+     80|     branch.hollywood!.films = branch.hollywood!.films.filter(row => ro…
+     81|     // This deliberate branch forgery isolates membership itself. The …
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/7]⎯
+
+ FAIL |core|  tests/p13a-technology-membership.test.ts > P13A exact historical technology membership under local indexing > rechecks the same mutable input after removal and after exact restoration
+AssertionError: expected [Function] to not throw an error but 'Error: Technology save: exact keys re…' was thrown
+
+- Expected: 
+undefined
+
++ Received: 
+"Error: Technology save: exact keys required: id,studioId,technologyId,stageFacilityId,postFacilityId,route,committedWeek,operationalWeek,equipmentCost,installationCost,physicalProjectIds,prototypeProjectId,components,equipmentAssetId"
+
+ ❯ tests/p13a-technology-membership.test.ts:91:49
+     89|     const state = copy()
+     90|     const before = exportCurrentState(state)
+     91|     expect(() => validateTechnology(state)).not.toThrow()
+       |                                                 ^
+     92|     const index = state.hollywood!.films.findIndex(row => row.studioId…
+     93|     const removed = state.hollywood!.films.splice(index, 1)[0]!
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/7]⎯
+
+ Test Files  2 failed | 11 passed (13)
+      Tests  7 failed | 58 passed (65)
+   Start at  19:27:41
+   Duration  63.44s (transform 1.89s, setup 0ms, collect 4.98s, tests 53.71s, environment 4ms, prepare 1.39s)
+

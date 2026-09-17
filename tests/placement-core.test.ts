@@ -93,9 +93,11 @@ describe('Placement Core V12 — the blueprint catalog', () => {
     // office). P13A added the Laboratory and its sound installations; P13B-S2 the
     // electrical/control module and the lighting stage package. P13B-S4 appended
     // the two Office standard conversions at the END of the installation list, so
-    // every existing index is unmoved (17 entries).
+    // every existing index is unmoved (17 entries). P13B-S6 appended the three
+    // restoration blueprints (sound stage / lighting stage / office) after that,
+    // the same way S4 appended its own two conversions — 20 entries.
     // The Annex is still entry ZERO and still byte-identical below.
-    expect(FACILITY_BLUEPRINTS).toHaveLength(17)
+    expect(FACILITY_BLUEPRINTS).toHaveLength(20)
     expect(FACILITY_BLUEPRINTS[0]).toBe(DEVELOPMENT_CASTING_ANNEX_BLUEPRINT)
     expect(DEVELOPMENT_CASTING_ANNEX_BLUEPRINT).toEqual({
       id: 'development-casting-annex',
@@ -427,6 +429,7 @@ describe('Placement Core V12 — the commit', () => {
         status: 'underConstruction',
         placedWeek: 0,
         completesWeek: 13,
+        cancellation: null,
       },
     ])
   })

@@ -102,6 +102,7 @@ describe('P13B-S4 validator refusals for forged conversion facts (test 5)', () =
       placedWeek: base.market.tick,
       completesWeek: base.market.tick + 4,
       installation: { targetFacilityId: officeFacilityId },
+      cancellation: null,
       ...overrides,
     })
     placement.nextPlacementId = nextId + 1

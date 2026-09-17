@@ -1,0 +1,13 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/contracts/phase-table-agreement.contract.test.ts (10 tests) 925ms
+   ✓ C2a-M0 · G6 (C) — the SAVE BOUNDARY agrees, proved by refusal > refuses a falsified capability multiset, naming the shared module’s own requirement 593ms
+ ✓ |core| tests/contracts/cross-owner-refusal.contract.test.ts (3 tests) 558ms
+ ✓ |core| tests/contracts/determinism-floor.contract.test.ts (3 tests) 392ms
+
+ Test Files  3 passed (3)
+      Tests  16 passed (16)
+   Start at  20:11:35
+   Duration  5.86s (transform 1.83s, setup 0ms, collect 2.92s, tests 1.87s, environment 1ms, prepare 282ms)
+

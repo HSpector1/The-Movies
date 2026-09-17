@@ -1,0 +1,15 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/bridge-p06-checkpoint-recovery.test.ts (11 tests) 8022ms
+   ✓ AUD-001 — frozen P06 checkpoint recovery > loads 'Ready with no explicit save' through the governed predecessor path 1152ms
+   ✓ AUD-001 — frozen P06 checkpoint recovery > loads 'Committed with distinct Ready save an…' through the governed predecessor path 1144ms
+   ✓ AUD-001 — frozen P06 checkpoint recovery > persists 'Ready with no explicit save' once and reopens without remigration 2090ms
+   ✓ AUD-001 — frozen P06 checkpoint recovery > persists 'Committed with distinct Ready save an…' once and reopens without remigration 2691ms
+   ✓ AUD-001 — frozen P06 checkpoint recovery > preserves the predecessor if the migration write fails 736ms
+
+ Test Files  1 passed (1)
+      Tests  11 passed (11)
+   Start at  20:11:54
+   Duration  13.89s (transform 3.32s, setup 0ms, collect 4.65s, tests 8.02s, environment 0ms, prepare 539ms)
+

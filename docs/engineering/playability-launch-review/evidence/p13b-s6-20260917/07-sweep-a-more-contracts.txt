@@ -1,0 +1,15 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/contracts/v14-boundary-guards.contract.test.ts (36 tests) 2874ms
+   ✓ C2a-M1 · guards (B) — the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder 412ms
+ ✓ |core| tests/contracts/studio-events.contract.test.ts (25 tests) 1572ms
+ ✓ |core| tests/contracts/v14-byte-parity.contract.test.ts (6 tests) 1559ms
+   ✓ C2a-M1 · parity (A) — the same seeded script exports the same bytes > produces a byte-identical export from two independent runs 582ms
+   ✓ C2a-M1 · parity (A) — the same seeded script exports the same bytes > does NOT produce those bytes from a different seed 340ms
+
+ Test Files  3 passed (3)
+      Tests  67 passed (67)
+   Start at  20:11:54
+   Duration  12.18s (transform 3.02s, setup 0ms, collect 4.51s, tests 6.00s, environment 1ms, prepare 405ms)
+

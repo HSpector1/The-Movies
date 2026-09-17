@@ -11,6 +11,7 @@ import {
   migrateToV20,
   migrateToV21,
   migrateToV25,
+  migrateToV26,
 } from '../src/core/save.js'
 import type { SaveFileV19, SaveFileV20 } from '../src/core/save.js'
 import { tick } from '../src/core/tick.js'
@@ -36,7 +37,7 @@ function assertRootUnchanged(before: GameStateV20, after: GameStateV21) {
 
 function roundTripsByteIdentical(state: GameState): string {
   const direct = exportSave(makeSave(state))
-  const restored = migrateToV25(importSave(direct)).state
+  const restored = migrateToV26(importSave(direct)).state
   expect(exportSave(makeSave(restored))).toBe(direct)
   return direct
 }
@@ -84,7 +85,11 @@ describe('P13B-S1 V20 to V21 migration (test 8)', () => {
   })
 
   it('continues the migrated active-280 project lawfully for one more funded week and re-saves byte-identically', () => {
-    const migrated = migrateToV25(importSave(load('./fixtures/p13b/legacy-v20-research-active-280.json.gz')))
+    // Lifted all the way to the live boundary (V26), not stopped at V25: this
+    // result flows into `roundTripsByteIdentical`, which calls `makeSave`
+    // directly and requires the V26-shaped leaves (`cancellation`,
+    // `cancelledWeek`) `migrateToV25` alone never adds.
+    const migrated = migrateToV26(importSave(load('./fixtures/p13b/legacy-v20-research-active-280.json.gz')))
     const next = tick(migrated.state)
     const project = next.technology.projects[0]!
     expect(project.expenditure).toBe(210_000)
@@ -110,8 +115,10 @@ describe('P13B-S1 V20 to V21 migration (test 8)', () => {
 describe('P13B-S1 campaign isolation (test 10)', () => {
   it('produces independent migrated copies from the same fixture; advancing one never touches the other', () => {
     const json = load('./fixtures/p13b/legacy-v20-research-active-280.json.gz')
-    const a = migrateToV25(importSave(json))
-    const b = migrateToV25(importSave(json))
+    // Lifted to the live boundary (V26) — `b.state` round-trips through
+    // `makeSave` below, which requires the V26-shaped leaves.
+    const a = migrateToV26(importSave(json))
+    const b = migrateToV26(importSave(json))
     expect(a.state).not.toBe(b.state)
     expect(a.state.technology).not.toBe(b.state.technology)
     expect(a.state.technology.projects).not.toBe(b.state.technology.projects)

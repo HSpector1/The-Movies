@@ -39,15 +39,23 @@
 //      failure is `installationCancellation.js` (below), which aborts the
 //      whole file before any test body runs.
 //   2. VALIDATOR-REFUSAL forging technique: this file lifts a GENUINE,
-//      lawfully-reached V25 state to V26 (`withV26.migrateToV26(save
-//      .makeSave(genuineState))`), then HAND-CONSTRUCTS the cancellation
-//      facts directly on the parsed `GameState` (never on raw JSON text) —
-//      the SAME technique `tests/p13b-r07-save-v25.test.ts` used for its own
-//      "mid-setup save/reload" case ("hand-authored... no genuine producer
-//      exists yet"), generalized here because `cancelInstallation` cannot
-//      organically produce a cancelled record either. Every hand-authored
-//      case is captioned with exactly which single fact it violates (or, for
-//      the one positive case, exactly which clause it proves EXEMPT).
+//      lawfully-reached V25 state to V26 (`withV26.migrateToV26`, over an
+//      honest V25 envelope reconstructed from the loaded `GameState` — see
+//      `s6ForgeV26`), then HAND-CONSTRUCTS the cancellation facts directly on
+//      the parsed `GameState` (never on raw JSON text) for the five REFUSED
+//      cases — the SAME technique `tests/p13b-r07-save-v25.test.ts` used for
+//      its own "mid-setup save/reload" case ("hand-authored... no genuine
+//      producer exists yet"). Every hand-authored case is captioned with
+//      exactly which single fact it violates. The one VALID case is instead
+//      realized with the REAL `cancelInstallation` action followed by a real
+//      `advanceTo`: this fixture's own Post fit-out has ALREADY genuinely
+//      completed by week 309 (the fixture's own native week), so a
+//      hand-forged "everything unstarted, refund in full" receipt for it
+//      would contradict the genuine `facilityOpex` history the engine itself
+//      already wrote for weeks it was truly operational — a real cancel
+//      (against the still-`underConstruction` stage only, exactly as a real
+//      `cancelAdoption` would leave an already-complete Post alone) is both
+//      simpler and the only lawful way to reach this case.
 //   3. The forged CancellationReceipt numbers are deliberately the MINIMAL
 //      self-consistent case (cancelled in the SAME week as commit, before any
 //      component began: paid $0, refund = full cost, no restoration needed)
@@ -58,21 +66,16 @@ import { createHash } from 'node:crypto'
 import { readFileSync } from 'node:fs'
 import { gunzipSync } from 'node:zlib'
 import { describe, expect, it } from 'vitest'
+import { applyActions } from '../src/core/actions.js'
 import * as save from '../src/core/save.js'
-import type { GameState } from '../src/core/types.js'
+import type { CancellationReceipt, GameState } from '../src/core/types.js'
+import { advanceTo } from '../src/harness/p13a/fixtures.js'
 // RED-by-design: src/core/installationCancellation.ts does not exist yet.
 // The ONLY import from the new module — everything else above is a real,
 // existing module (namespace-imported where the member itself is new, per
 // INTERPRETATION 1).
 import { cancellationQuote } from '../src/core/installationCancellation.js'
 
-type CancellationReceipt = {
-  projectId: string
-  week: number
-  components: { label: string; cost: number; weeks: number; status: string; paid: number; refunded: number }[]
-  refund: number
-  restorationProjectId: string | null
-}
 type SaveModuleWithV26 = typeof save & {
   migrateToV26: (envelope: unknown) => { saveVersion: number; seed: string; state: GameState; broadcastCache: unknown[] }
 }
@@ -101,9 +104,17 @@ const V25_FIXTURES = {
  * through the real codec (`exportSave`/`importSave`) — see header
  * INTERPRETATION 2. Returns the reimported envelope; throws whatever
  * `importSave`/`validateSave` throws for an invalid mutation.
+ *
+ * `genuineV25State` is lifted through `migrateToV26` from an honest V25
+ * envelope BEFORE anything is mutated — `save.makeSave` stamps and validates
+ * at the LIVE version (26), which a V25-shaped state (no `cancellation` /
+ * `cancelledWeek` leaves yet) always fails; the lift is what the real V25→V26
+ * migration path does for every genuine save, so this reaches the V26 law
+ * the VALID case is testing rather than refusing before `mutate` ever runs.
  */
 function s6ForgeV26(genuineV25State: GameState, mutate: (state: GameState) => GameState) {
-  const lifted = withV26.migrateToV26(save.makeSave(genuineV25State))
+  const v25Envelope = { saveVersion: 25 as const, seed: genuineV25State.seed, state: genuineV25State, broadcastCache: genuineV25State.broadcastItems }
+  const lifted = withV26.migrateToV26(v25Envelope as unknown as Parameters<typeof withV26.migrateToV26>[0])
   const mutated = mutate(lifted.state)
   const envelope = { saveVersion: 26 as const, seed: lifted.seed, state: mutated, broadcastCache: lifted.broadcastCache }
   const json = save.exportSave(envelope as unknown as Parameters<typeof save.exportSave>[0])
@@ -122,7 +133,18 @@ describe('P13B-S6 Save V26: genuine V25 fixtures, honest lift, chains, validator
     const beforePlacement = JSON.stringify((save.validateSave(parsed as never).state as GameState).placement)
     const migrated = withV26.migrateToV26(parsed)
     expect(migrated.saveVersion).toBe(26)
-    expect(JSON.stringify(migrated.state.technology)).toBe(beforeTechnology) // no field renamed/reshaped besides the new null leaves
+    // Everything else in `technology` is unchanged: strip the new leaf from
+    // every adoption (the whole root, not a bare array) and compare — the
+    // raw comparison would always fail since the migrated adoptions now
+    // carry a `cancelledWeek` leaf the pre-migration technology JSON never had.
+    const strippedTechnology = JSON.stringify({
+      ...migrated.state.technology,
+      adoptions: migrated.state.technology.adoptions.map(({ ...a }) => {
+        delete (a as { cancelledWeek?: unknown }).cancelledWeek
+        return a
+      }),
+    })
+    expect(strippedTechnology).toBe(beforeTechnology) // no field renamed/reshaped besides the new null leaf
     for (const adoption of migrated.state.technology.adoptions) {
       expect((adoption as unknown as { cancelledWeek: number | null }).cancelledWeek).toBeNull()
     }
@@ -130,11 +152,16 @@ describe('P13B-S6 Save V26: genuine V25 fixtures, honest lift, chains, validator
       expect((placement as unknown as { cancellation: CancellationReceipt | null }).cancellation).toBeNull()
     }
     expect(migrated.state.ledger.some(e => e.kind === 'constructionRefund')).toBe(false)
-    // Everything else in `placement` is unchanged: strip the new key and compare.
-    const strippedAfter = JSON.stringify(migrated.state.placement.facilities.map(({ ...f }) => {
-      delete (f as { cancellation?: unknown }).cancellation
-      return f
-    }))
+    // Everything else in `placement` is unchanged: strip the new key from
+    // every facility, on the WHOLE root (not just the bare facilities array
+    // `beforePlacement` never was), and compare.
+    const strippedAfter = JSON.stringify({
+      ...migrated.state.placement,
+      facilities: migrated.state.placement.facilities.map(({ ...f }) => {
+        delete (f as { cancellation?: unknown }).cancellation
+        return f
+      }),
+    })
     expect(strippedAfter).toBe(beforePlacement)
 
     // Genuine usage of `cancellationQuote` (not just an unused import — an
@@ -186,46 +213,27 @@ describe('P13B-S6 Save V26: genuine V25 fixtures, honest lift, chains, validator
     const json = load(V25_FIXTURES.soundMidDeployment.file)
     const genuine = (save.validateSave(JSON.parse(json) as never).state as GameState)
     const reimported = s6ForgeV26(genuine, state => {
-      const stagePlacement = state.placement.facilities.find(f => f.blueprintId === 'synchronized-sound-stage')!
-      const postPlacement = state.placement.facilities.find(f => f.blueprintId === 'synchronized-sound-post')!
-      const adoption = state.technology.adoptions.find(a => a.technologyId === 'synchronized-sound')!
-      // Cancelled in the SAME week as commit (303): nothing had begun on either
-      // placement, so every component is `unstarted` (paid $0, refunded in
-      // full) and no restoration is needed on either — the minimal
-      // self-consistent receipt (header INTERPRETATION 3).
-      const stageReceipt: CancellationReceipt = {
-        projectId: stagePlacement.projectId, week: 303, refund: 675_000, restorationProjectId: null,
-        components: [
-          { label: 'Stage site adaptation', cost: 450_000, weeks: 9, status: 'unstarted', paid: 0, refunded: 450_000 },
-          { label: 'Equipment installation', cost: 150_000, weeks: 3, status: 'unstarted', paid: 0, refunded: 150_000 },
-          { label: 'Compatible capture package (with equipment)', cost: 75_000, weeks: 0, status: 'unstarted', paid: 0, refunded: 75_000 },
-        ],
-      }
-      const postReceipt: CancellationReceipt = {
-        projectId: postPlacement.projectId, week: 303, refund: 300_000, restorationProjectId: null,
-        components: [{ label: 'Sound-capable Post fit-out', cost: 300_000, weeks: 6, status: 'unstarted', paid: 0, refunded: 300_000 }],
-      }
-      return {
-        ...state,
-        market: { ...state.market, tick: 320 }, // both placements' completesWeek (315, 309) have now PASSED
-        placement: {
-          ...state.placement,
-          facilities: state.placement.facilities.map(f =>
-            f.id === stagePlacement.id ? { ...f, status: 'cancelled' as const, cancellation: stageReceipt }
-            : f.id === postPlacement.id ? { ...f, status: 'cancelled' as const, cancellation: postReceipt }
-            : f),
-        },
-        technology: {
-          ...state.technology,
-          adoptions: state.technology.adoptions.map(a =>
-            a.id === adoption.id ? { ...a, cancelledWeek: 303, operationalWeek: null } : a),
-        },
-        ledger: [
-          ...state.ledger,
-          { week: 303, kind: 'constructionRefund', amount: 675_000, constructionProjectId: stagePlacement.projectId, note: 'cancellation refund' },
-          { week: 303, kind: 'constructionRefund', amount: 300_000, constructionProjectId: postPlacement.projectId, note: 'cancellation refund' },
-        ] as unknown as GameState['ledger'],
-      }
+      // REAL cancellation, not a hand-forged receipt (header INTERPRETATION
+      // 2): the stage is still genuinely `underConstruction` at week 309
+      // (site work 6 of 9 weeks in), so `cancelInstallation` produces its own
+      // lawful receipt, refund row, restoration job, adoption `cancelledWeek`
+      // stamp and equipment release — every fact the REFUSED cases below
+      // hand-forge, for free and genuinely reconciled with the ledger. The
+      // Post fit-out — already operational by week 309 in this fixture — is
+      // untouched, exactly as a real `cancelAdoption` would leave it:
+      // cancelled history standing next to a completed sibling.
+      const stageProjectId = state.placement.facilities.find(f => f.blueprintId === 'synchronized-sound-stage')!.projectId
+      const cancelled = applyActions(state, [{ kind: 'cancelInstallation', projectId: stageProjectId } as never])
+      // Real ticks, not a forged `market.tick` jump: a bare number bump would
+      // skip the `researchPayroll` ledger rows the studio's continuing
+      // Scientist employment owes for every one of those weeks
+      // (`technology.ts`'s "missing research payroll for historical Scientist
+      // employment"). Advancing through the real engine pays that honestly
+      // and carries the stage's own completesWeek (315) past `market.tick` —
+      // the "passed original completesWeek" the caption requires — while the
+      // cancelled record itself stays permanently out of the completion
+      // clock's reach (already proven by tests/p13b-s6-ordering.test.ts case 3).
+      return advanceTo(cancelled, 320)
     })
     expect((reimported as { saveVersion: number }).saveVersion).toBe(26) // did NOT throw
   })

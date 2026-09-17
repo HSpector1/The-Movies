@@ -29,10 +29,11 @@ import {
   makeSaveV15,
   migrateToV15,
   migrateToV25,
+  migrateToV26,
   mintReleaseCommitmentId,
   stableStringify,
   tick,
-  validateSaveV25,
+  validateSaveV26,
 } from '../src/core/index.js'
 import type { CastSlot, GameState, SegmentId } from '../src/core/index.js'
 
@@ -424,16 +425,16 @@ describe('P06A W1 — save law', () => {
     const ready = foundedToReleaseReady('p06a-roundtrip')
     const committed = commit(ready, ready.studio.activeProductions[0]!.id)
     const save = makeSave(committed)
-    expect(save.saveVersion).toBe(25)
+    expect(save.saveVersion).toBe(26)
 
-    const reimported = migrateToV25(importSave(exportSave(save)))
+    const reimported = migrateToV26(importSave(exportSave(save)))
     expect(stableStringify(reimported)).toBe(stableStringify(save))
     expect(reimported.state.releaseAuthority.commitments).toHaveLength(1)
 
-    expect(() => migrateToV15(save)).toThrow(/cannot downgrade SaveFileV25/)
+    expect(() => migrateToV15(save)).toThrow(/cannot downgrade SaveFileV26/)
   })
 
-  it('validateSaveV25 rejects forged authority at the save boundary', () => {
+  it('validateSaveV26 rejects forged authority at the save boundary', () => {
     const ready = foundedToReleaseReady('p06a-save-forge')
     const id = ready.studio.activeProductions[0]!.id
     const good = makeSave(commit(ready, id))
@@ -442,12 +443,12 @@ describe('P06A W1 — save law', () => {
       state: { releaseAuthority: { commitments: { productionId: string }[] } }
     }
     orphan.state.releaseAuthority.commitments[0]!.productionId = 'prod-9999'
-    expect(() => validateSaveV25(orphan)).toThrow(/foreign identity|orphan/)
+    expect(() => validateSaveV26(orphan)).toThrow(/foreign identity|orphan/)
 
     const extraKey = JSON.parse(exportSave(good)) as {
       state: { releaseAuthority: Record<string, unknown> }
     }
     extraKey.state.releaseAuthority.surprise = true
-    expect(() => validateSaveV25(extraKey)).toThrow(/unknown field .surprise./)
+    expect(() => validateSaveV26(extraKey)).toThrow(/unknown field .surprise./)
   })
 })
