@@ -667,7 +667,77 @@ restoration are S6 (this slice persists what S6 needs); rival lighting purchase/
       `postFacilityId: string | null` type change stated; the companion documents themselves are not in the engine tree (docs branch), so the
       audit verified the plan's paraphrase against code, not against the primary text.
 - [ ] **S5-T5 Matched pass, records (backlog entry), commit, push.**
-- [ ] **S5-R07 consumer task** — expansion written before it begins (paths, versions, tests, effort, backlog) per the disposition; it follows T5.
+- [ ] **S5-R07 consumer task** — follows T5; its task expansion is written below ("## S5-R07 — Lighting production consumer", 2026-09-17) per the disposition.
+
+## S5-R07 — Lighting production consumer: Ballroom-reveal setup units (Current Ops disposition) — task expansion (written 2026-09-17, before the task begins)
+
+**Authority.** The S5-R07 consumer paragraph below (`OPS-P13B-R07-DISPOSITION-20260916-01` adopting `P13B-R07-PRODUCTION-CLARIFICATION.md`
+§§2–6 as candidate tuning) and the retained boundaries: A12 / K4 / CAT-011 stay OPEN; S6 cancellation and S8 rival symmetry bind to this consumer
+later; no take, quality, appeal, research or P14 change. Versions are allocated at execution (this expansion names them relative to S5's live
+versions, never a reused number): **Save V25** if S5 lands V24, **projection 38** if S5 lands 37.
+
+**Engine today (verified 2026-09-17).** `advanceManagedProductions` (`src/core/operations.ts:1452`) sweeps productions in order, counts
+`remainingTicks` down from 8 (`PRODUCTION_TICKS`), maps 6 → rehearsal and 5/4 → shooting (`productionPhases.ts:39–41`), enters a phase through
+`enterPhase` (stage + Set bound atomically into `WorkflowBindings {requiresSetBinding, stageFacilityId, setId, lockedNovelty, lockedUplift,
+heldSinceWeek}`), completes the scheduled `ShootingTask` at 5 → 4, and consults a `ProductionAllocationPolicy` (`allowsFacility`,
+`beforePhaseEntered`) that `technologyProduction.ts` uses for the sound lock at Shooting entry. Sets: `StudioSet {mountedOn, setType, status,
+completesWeek, …}` with `setMountedOn`/`setIsUsable`; blueprint `set-grand-ballroom` (setType `grand-ballroom`) exists. History owner has
+`phaseEntered`, `setBuilt`, `setRetired`. No setup substate, recipe, unit or plan-revision record exists anywhere.
+
+**Scope.** A bounded setup subtask between rehearsal and Shooting for productions that explicitly select a setup recipe, with per-technology
+provenance fixed at setup admission; the lighting route halves the Ballroom-reveal setup on the exact bound stage. Nothing else moves.
+
+**Delegated implementation decisions (recorded; candidate tuning, not final balance).**
+- Recipes as data (`src/core/productionSetup.ts`, new): `ballroom-reveal-lighting-01` ("Ballroom reveal — foreground, entrance and background
+  lighting cues"; requires a usable standing `grand-ballroom` Set mounted on the production's reserved operational soundstage with the neutral
+  standard size class; units 4 conventional / 2 lighting) and `ordinary-interior-01` (`generic-interior` / `apartment-interior`; 1 / 1).
+  Legacy productions and productions that never select a recipe have `setup: null` and keep today's schedule exactly.
+- Persisted record on the workflow (`ProductionWorkflow.setup: ProductionSetupRecord | null`): `{recipeId, planRevision, admittedWeek,
+  route: 'conventional' | 'lighting', adoptionId: string | null, equipmentAssetId: string | null, stageFacilityId, setId, requiredUnits,
+  creditedUnits, lastCreditedWeek: number | null, completedWeek: number | null, priorWork: ProductionSetupWork[]}` (prior work = retained
+  history of an earlier binding: recipe, stage, Set, units credited, weeks). `planRevision` is the production-plan revision the recipe was
+  reviewed against (the workflow's own monotonic counter, bumped by any binding change); the action carries `expectedPlanRevision`.
+- Action `setProductionSetupRecipe {productionId, recipeId, expectedPlanRevision}` (reviewed; refused after Shooting entry, on a stale revision,
+  for a Set of the wrong type/size, for an unusable or under-repair Set, for a production without a bound stage). Selecting a simpler recipe is
+  a new revalidated plan (new record; prior work to `priorWork`); the same recipe cannot skip preparation by being called ordinary.
+- Route and provenance fixed at setup admission (the sweep visit at which rehearsal work is done and the gate opens): `lighting` iff the same
+  studio holds acquired `lighting-control-01` access AND an operational lighting adoption on the exact bound stage whose equipment asset is
+  held AND a completed, non-cancelled `lighting-control-stage` placement on that stage; knowledge only, the Lab module, a different stage, an
+  unfinished or cancelled installation, or a restoring/cancelled asset (S6) do not qualify. Lighting needs neither synchronized sound nor Post.
+- Timeline: with a setup record, the 6 → 5 transition holds at `remainingTicks = 6` (rehearsal retained, stage + Set retained via
+  `heldSinceWeek`) while `creditedUnits < requiredUnits`; exactly one unit is credited per eligible `[w, w+1)` after admission (admission at w
+  earns its first unit at w+1; none on selection, queue, load, retry or a second sweep visit in the same week); when credited = required the
+  production enters Shooting at the next boundary and `completedWeek` is stamped. Matched example: setup-ready 820 → Shooting entry 824
+  (conventional) / 822 (lighting) / 821 (ordinary, both routes). No second scheduler, no surcharge, no duplicate payroll, no refund, no global
+  multiplier, no retrofit discount on partly worked setup; the sound lock stays at actual Shooting entry; setup completes no take.
+- History (production/history owner): `setupAdmitted`, `setupUnitCredited {creditedUnits, requiredUnits}`, `setupCompleted`, `setupRebound`
+  (changed stage/Set/recipe; prior work preserved), each with production/recipe/planRevision/stage/Set ids, route and adoption reference or
+  the explicit conventional route. Live witness: the operations read-model exposes the record verbatim.
+- Save V25 (pattern as before; genuine V24 fixtures minted at the final V24 writer BEFORE any R07 source change; `setup: null` lift for every
+  legacy workflow; validator: record ↔ workflow bindings consistent, units bounded, weeks ordered, route provenance re-derivable at admission
+  week, no record on a legacy or post-Shooting workflow, priorWork never recycled into credit).
+- Bridge (projection 38, text only): operations/production page publishes `setup` (recipe, route, credited/required, next unit week,
+  completion forecast, provenance reference), recipe rows `setup-recipe-<productionId>-<recipeId>` with the `productionSetupAction` intent kind
+  and engine-primary refusal + `rejections`; player-safe.
+
+**Tests (RED-first; each fails before its implementation).** 1 recipe selection and refusals (wrong Set type/size, unusable Set, no bound stage,
+after Shooting, stale revision, simpler recipe = new plan). 2 timeline through real ticks: 820 → 824 / 822 / 821; admission week earns no unit;
+one unit per week; same-week retries and second sweep visits credit nothing; completed-task idempotence. 3 gate: knowledge-only, Lab-only,
+wrong-stage, active-retrofit, cancelled-installation and unheld-asset cases take the conventional route; the exact-stage operational adoption
+takes lighting. 4 controls: legacy timeline byte-identical; occupied-stage competition and stage-release law unchanged; changed pre-Shooting
+sound choice independent of setup; different-binding restart preserves prior work without recycling credit; no filming/quality/research/P14
+change; a forged operational flag is refused by the validator. 5 Save V25: genuine V24 fixtures + chains, mid-setup save/reload continues
+identically, Save As worlds isolated, downgrade refusals. 6 Bridge projection 38.
+
+**Allowance (plan):** 4 h capability, 2 h verification. **Backlog:** setup-recipe review flow, readable setup wait and forecast, history rows,
+`productionSetupAction` intent, projection 38 DTOs, Save V25 (client-side load), plus the OPEN A12/K4/CAT-011 items with their owners.
+
+### S5-R07 tasks
+- [ ] **R07-T0 Genuine V24 fixtures** at the final V24 writer before any R07 source change.
+- [ ] **R07-T1/T2 Engine increment** (sim-core; test-author tests 1–5 RED first): recipes, record, action, admission/credit law, history,
+      validator, Save V25.
+- [ ] **R07-T3 Bridge projection 38:** test 6.
+- [ ] **R07-T4 Matched pass, records (backlog entry), commit, push.**
 
 ## S5 — original scope record (superseded by the expansion above; kept verbatim)
 
