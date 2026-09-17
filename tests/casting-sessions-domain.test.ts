@@ -342,6 +342,8 @@ describe('Casting Sessions V1 domain', () => {
           shootingTask: null,
           blocker: null,
           bindings: emptyWorkflowBindings(),
+          setup: null,
+          planRevision: 0,
         },
       ],
     }

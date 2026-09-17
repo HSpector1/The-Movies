@@ -200,13 +200,17 @@ describe('P13B-S5 Save V24 (test 4)', () => {
     expect(() => migrateToV20(v24 as never)).toThrow(/cannot downgrade/i)
   })
 
-  it('makeSave writes saveVersion 24', () => {
-    expect(makeSave(p13aLaboratorySlice()).saveVersion).toBe(24)
+  // AMENDED (P13B-S5-R07 live-version sweep, 2026-09-17): `makeSave` is the
+  // live V25 boundary now; this section (the live writer's own version and the
+  // unknown-sentinel boundary) moved with it. The V23->V24 chain proofs above
+  // are frozen historical migration proofs and stay untouched.
+  it('makeSave writes saveVersion 25', () => {
+    expect(makeSave(p13aLaboratorySlice()).saveVersion).toBe(25)
   })
 
-  it('an unknown saveVersion 25 is refused, naming the handled range "1 through 24"', () => {
-    const forged = { ...makeSave(p13aLaboratorySlice()), saveVersion: 25 }
-    expect(() => validateSave(forged as never)).toThrow(/versions 1 through 24 only/)
+  it('an unknown saveVersion 26 is refused, naming the handled range "1 through 25"', () => {
+    const forged = { ...makeSave(p13aLaboratorySlice()), saveVersion: 26 }
+    expect(() => validateSave(forged as never)).toThrow(/versions 1 through 25 only/)
   })
 
   it('save/reload mid-deployment continues identically (byte for byte): a lighting adoption committed but not yet operational', () => {

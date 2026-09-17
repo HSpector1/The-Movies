@@ -522,6 +522,8 @@ describe('Production Operations V1', () => {
                 lockedUplift: null,
                 heldSinceWeek: 0,
               },
+              setup: null,
+              planRevision: 0,
             }
           : {
               productionId: waiterId,
@@ -547,6 +549,8 @@ describe('Production Operations V1', () => {
                 lockedUplift: null,
                 heldSinceWeek: null,
               },
+              setup: null,
+              planRevision: 0,
             },
       )
       state = {

@@ -412,11 +412,11 @@ describe("Script Projects V1 — SaveFileV9", () => {
 
   it("rejects unknown V22 and refuses to downgrade V9 through migrateToV8", () => {
     const save = makeSaveV9(generateWorld("save-v9-boundary"));
-    expect(() => validateSave({ ...save, saveVersion: 25 })).toThrow(
-      /unknown saveVersion 25/,
+    expect(() => validateSave({ ...save, saveVersion: 26 })).toThrow(
+      /unknown saveVersion 26/,
     );
-    expect(() => validateSave({ ...save, saveVersion: 25 })).toThrow(
-      /versions 1 through 24 only/,
+    expect(() => validateSave({ ...save, saveVersion: 26 })).toThrow(
+      /versions 1 through 25 only/,
     );
     expect(() => migrateToV8(save)).toThrow(/cannot downgrade SaveFileV9/);
   });
@@ -519,6 +519,10 @@ describe("Script Projects V1 — SaveFileV9", () => {
       shootingTask: null,
       blocker: null,
       bindings: emptyWorkflowBindings(),
+      // P13B-S5-R07: every workflow carries a setup plan (null for a legacy
+      // or recipe-less production) and a plan revision, starting at 0.
+      setup: null,
+      planRevision: 0,
     };
     // P06A W1: a picture at remainingTicks===1 HOLDS until an explicit
     // commitPictureToRelease — commit is required before the release tick.

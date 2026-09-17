@@ -1,5 +1,5 @@
 import { beforeAll, describe, expect, it } from 'vitest'
-import { exportSave, makeSave, validateSaveV24 } from '../src/core/save.js'
+import { exportSave, makeSave, validateSaveV25 } from '../src/core/save.js'
 import { initialPhysicalPlans } from '../src/core/physicalPlans.js'
 import { TUNING } from '../src/core/tuning.js'
 import type { GameState } from '../src/core/types.js'
@@ -136,9 +136,9 @@ describe('P13B-S3 validator refusals for physicalPlans (test 8)', () => {
     base = buildBaseline().state
   }, 60_000)
 
-  it('accepts the unmutated hand-authored baseline directly through validateSaveV24', () => {
+  it('accepts the unmutated hand-authored baseline directly through validateSaveV25', () => {
     const json = exportSave(makeSave(base))
-    expect(() => validateSaveV24(JSON.parse(json))).not.toThrow()
+    expect(() => validateSaveV25(JSON.parse(json))).not.toThrow()
   })
 
   it('(a) rejects a dependency cycle', () => {

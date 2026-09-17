@@ -120,7 +120,8 @@ describe('P13A P09 physical substrate', () => {
     expect(queryFacilityInstallation(state, request).ok).toBe(true)
     state = { ...state, operations: { ...state.operations, workflows: [{ productionId: 'busy-physical-fixture', phase: 'shooting',
       reservations: [{ productionId: 'busy-physical-fixture', phase: 'shooting', facilityId: stage.id, capability: 'soundstage', slot: 0 }], shootingTask: null,
-      blocker: null, bindings: { requiresSetBinding: false, stageFacilityId: null, setId: null, heldSinceWeek: null, lockedNovelty: null, lockedUplift: null } }] } }
+      blocker: null, bindings: { requiresSetBinding: false, stageFacilityId: null, setId: null, heldSinceWeek: null, lockedNovelty: null, lockedUplift: null },
+      setup: null, planRevision: 0 }] } }
     expect(queryFacilityInstallation(state, request).rejections).toContain('targetEngaged')
     expect(commitFacilityInstallation(state, request)).toBe(state)
     expect(queryFacilityInstallation(state, { blueprintId: 'acoustic-instruments', targetFacilityId: stage.id }).rejections).toContain('incompatibleTarget')

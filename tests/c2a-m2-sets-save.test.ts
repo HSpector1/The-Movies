@@ -33,7 +33,7 @@ import {
   setMountedOn,
   stableStringify,
   tick,
-  validateSaveV24,
+  validateSaveV25,
 } from '../src/core/index.js'
 import type { CastSlot, CreativeRole, GameState, SegmentId, Talent } from '../src/core/index.js'
 import { grandfatheredBindings, v13TwinOf } from './contracts/_v14Contract.js'
@@ -168,7 +168,7 @@ describe('C2a-M2 — sets across the save boundary', () => {
     const envelope = JSON.parse(exportSave(makeSave(state))) as {
       state: { sets: Record<string, unknown>[]; nextSetId: number }
     }
-    expect(() => validateSaveV24(envelope)).not.toThrow()
+    expect(() => validateSaveV25(envelope)).not.toThrow()
 
     const forge = (mutate: (sets: Record<string, unknown>[]) => void): unknown => {
       const copy = JSON.parse(JSON.stringify(envelope)) as typeof envelope
@@ -178,7 +178,7 @@ describe('C2a-M2 — sets across the save boundary', () => {
 
     // Two sets on one stage.
     expect(() =>
-      validateSaveV24(
+      validateSaveV25(
         forge((sets) => {
           sets[2]!.mountedOn = STAGE_7
         }),
@@ -187,7 +187,7 @@ describe('C2a-M2 — sets across the save boundary', () => {
 
     // A standing set with no condition — the build/repair discriminator broken.
     expect(() =>
-      validateSaveV24(
+      validateSaveV25(
         forge((sets) => {
           sets[0]!.condition = 0
         }),
@@ -196,7 +196,7 @@ describe('C2a-M2 — sets across the save boundary', () => {
 
     // A set under work that no scenery crew is on.
     expect(() =>
-      validateSaveV24(
+      validateSaveV25(
         forge((sets) => {
           sets[0]!.status = 'under-construction'
           sets[0]!.completesWeek = 400
@@ -246,6 +246,13 @@ describe('C2a-M2 — the §12-M2 gate: a migrated managed V13 save reaches a NEW
           hollywood: null,
           technology: initialTechnology(0),
           physicalPlans: initialPhysicalPlans(),
+      // P13B-S5-R07: `setup`/`planRevision` are V25-only (younger than every
+      // other synthesised root above) — the same `setup: null, planRevision: 0`
+      // lift the real V24->V25 migration writes for every legacy workflow.
+      operations: {
+        ...migrated.operations,
+        workflows: migrated.operations.workflows.map((workflow) => ({ ...workflow, setup: null, planRevision: 0 })),
+      },
     }
     let played = applyActions(liveMigrated, [
       { kind: 'greenlight', production: productionPayload(liveMigrated, 1) },
@@ -276,7 +283,7 @@ describe('C2a-M2 — the §12-M2 gate: a migrated managed V13 save reaches a NEW
     }
 
     // And the whole thing is a legal V15 file at every step.
-    expect(() => validateSaveV24(JSON.parse(exportSave(makeSave(played))))).not.toThrow()
+    expect(() => validateSaveV25(JSON.parse(exportSave(makeSave(played))))).not.toThrow()
   })
 
   it('lets a migrated studio BUILD a set on the stage it just cleared', () => {
@@ -294,6 +301,11 @@ describe('C2a-M2 — the §12-M2 gate: a migrated managed V13 save reaches a NEW
           hollywood: null,
           technology: initialTechnology(0),
           physicalPlans: initialPhysicalPlans(),
+      // P13B-S5-R07: `setup`/`planRevision` are V25-only — same lift as above.
+      operations: {
+        ...migrated.operations,
+        workflows: migrated.operations.workflows.map((workflow) => ({ ...workflow, setup: null, planRevision: 0 })),
+      },
     }
     let played = applyActions(liveMigrated, [{ kind: 'strikeSet', setId: 'set-1' }])
     expect(setMountedOn(played.sets, STAGE_12)).toBeNull()

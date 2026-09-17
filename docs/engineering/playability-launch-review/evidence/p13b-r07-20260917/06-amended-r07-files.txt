@@ -1,0 +1,23 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p13b-r07-gate.test.ts (6 tests) 29856ms
+   ✓ P13B-S5-R07 lighting-route gate (test 3) > knowledge-only: lighting research complete (access acquired), no adoption anywhere -> conventional route 6775ms
+   ✓ P13B-S5-R07 lighting-route gate (test 3) > Lab-only: the electrical-control-instruments module is operational, but lighting research was never begun -> conventional route 6545ms
+   ✓ P13B-S5-R07 lighting-route gate (test 3) > wrong-stage: lighting is operational, but on a DIFFERENT stage than the one this production is bound to -> conventional route 5650ms
+   ✓ P13B-S5-R07 lighting-route gate (test 3) > active-retrofit / unfinished installation: adoption on the exact bound stage genuinely still installing at the gate check -> conventional route — PURE ROUTE-DERIVATION CHECK (see file header amendment (e): no engine-consistent state reaches this combination) 5386ms
+   ✓ P13B-S5-R07 lighting-route gate (test 3) > exact-stage operational adoption -> lighting route, halving the unit count to 2 5495ms
+ ✓ |core| tests/p13b-r07-timeline.test.ts (6 tests) 7118ms
+   ✓ P13B-S5-R07 setup timeline arithmetic (test 2) > walks the lighting ballroom route through real ticks: admission 807, entry 809 7004ms
+ ❯ |core| tests/p13b-r07-controls.test.ts (8 tests | 1 failed) 259ms
+   × P13B-S5-R07 controls (test 4) > a changed pre-Shooting sound choice mid-hold is lawful and leaves the setup record untouched — INTERPRETATION 3 74ms
+     → Found your studio before opening the Research Laboratory.
+ ✓ |core| tests/p13b-r07-recipes.test.ts (9 tests) 276ms
+ ✓ |core| tests/p13b-r07-save-v25.test.ts (8 tests) 1089ms
+   ✓ P13B-S5-R07 Save V25 (test 5) > migrates both genuine V24 fixtures to V25: saveVersion 25, technology state byte-identical aside from the version bump, setup: null lift (vacuous — both carry zero workflows) 313ms
+
+ Test Files  1 failed | 4 passed (5)
+      Tests  1 failed | 36 passed (37)
+   Start at  12:31:35
+   Duration  43.75s (transform 1.67s, setup 0ms, collect 3.45s, tests 38.60s, environment 2ms, prepare 461ms)
+

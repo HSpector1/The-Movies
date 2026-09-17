@@ -40,7 +40,7 @@ import type {
   FilmConcept,
   Segment,
 } from "../src/core/index.js";
-import type { SaveFileV14, SaveFileV15, SaveFileV24 } from "../src/core/save.js";
+import type { SaveFileV14, SaveFileV15, SaveFileV25 } from "../src/core/save.js";
 import { initialProperty } from "../src/core/lot.js";
 import { contendedStudio, freePackage } from "./_m4Fixtures.js";
 
@@ -217,10 +217,10 @@ function makeState(broadcastItems: BroadcastItem[]): GameState {
 }
 
 // A well-formed save: envelope seed === state.seed, broadcastCache === broadcastItems.
-// `makeSave` is the live boundary (P13B-S5): SaveFileV24. Every V1–V13-style shape
+// `makeSave` is the live boundary (P13B-S5): SaveFileV25. Every V1–V13-style shape
 // assertion below is unchanged by the cutover — only the envelope's own version
 // tag moved.
-function wellFormedSave(): SaveFileV24 {
+function wellFormedSave(): SaveFileV25 {
   const items = [broadcastItem];
   const state = makeState(items);
   return makeSave(state);
@@ -261,7 +261,7 @@ describe("§17 — loud rejection of an unknown saveVersion", () => {
     // sentinel this test reaches for one version past the known ceiling moves
     // with it — 17 to 18.
     const save = wellFormedSave();
-    const bad = { ...save, saveVersion: 25 } as unknown as SaveFileV14;
+    const bad = { ...save, saveVersion: 26 } as unknown as SaveFileV14;
     expect(() => loadSave(bad)).toThrow();
   });
 });
@@ -271,7 +271,7 @@ describe("M14 — loud rejection when envelope seed ≠ state.seed", () => {
     // Source: M14 "the envelope seed must equal state.seed; load validation
     // rejects any divergence loudly (same failure mode as an unknown saveVersion)."
     const save = wellFormedSave();
-    const bad: SaveFileV24 = { ...save, seed: "a-different-seed" };
+    const bad: SaveFileV25 = { ...save, seed: "a-different-seed" };
     expect(() => loadSave(bad)).toThrow();
   });
 });
@@ -285,14 +285,14 @@ describe("M14 — loud rejection when broadcastCache ≠ state.broadcastItems", 
       ...broadcastItem,
       template: "release-worse",
     };
-    const bad: SaveFileV24 = { ...save, broadcastCache: [divergentItem] };
+    const bad: SaveFileV25 = { ...save, broadcastCache: [divergentItem] };
     expect(() => loadSave(bad)).toThrow();
   });
 
   it("throws when broadcastCache differs from state.broadcastItems by length", () => {
     // Source: M14 — any divergence (including cardinality) is rejected.
     const save = wellFormedSave();
-    const bad: SaveFileV24 = { ...save, broadcastCache: [] };
+    const bad: SaveFileV25 = { ...save, broadcastCache: [] };
     expect(() => loadSave(bad)).toThrow();
   });
 });
@@ -334,7 +334,21 @@ describe("P04A §2.5 — SaveFileV15 identity-bearing queue expiry", () => {
     );
     expect(expiredRow).toMatchObject({ subjectId: projectId });
 
-    const validSave = makeSaveV15(cancelled);
+    // AMENDED (P13B-S5-R07 live-version sweep, 2026-09-17): a genuine V15 file
+    // predates `setup`/`planRevision` (added at V25) by many versions, exactly
+    // as it predates `bindings` (added at V14) — but this fixture is driven
+    // through the LIVE engine (`managedStudio`/`greenlightScriptProject`), so
+    // its workflows carry those V25 fields and must have them stripped before
+    // reaching the frozen V15 boundary (the same technique
+    // tests/contracts/_v14Contract.ts's `projectToV13State` already uses).
+    const strippedForV15 = {
+      ...cancelled,
+      operations: {
+        ...cancelled.operations,
+        workflows: cancelled.operations.workflows.map(({ setup: _setup, planRevision: _planRevision, ...workflow }) => workflow),
+      },
+    } as unknown as GameState;
+    const validSave = makeSaveV15(strippedForV15);
     expect(() => validateSaveV15(validSave)).not.toThrow();
 
     // Forge the row back to the pre-P04A shape (no subjectId key at all) and
@@ -379,6 +393,12 @@ describe("P04A §2.5 — SaveFileV15 identity-bearing queue expiry", () => {
     const v14State = {
       ...cancelled,
       studioEvents: { ...cancelled.studioEvents, rows: v14Rows },
+      // AMENDED (P13B-S5-R07 live-version sweep, 2026-09-17): strip the V25-only
+      // `setup`/`planRevision` leaves the same way — see the note above.
+      operations: {
+        ...cancelled.operations,
+        workflows: cancelled.operations.workflows.map(({ setup: _setup, planRevision: _planRevision, ...workflow }) => workflow),
+      },
     };
     const v14Save = makeSaveV14(v14State as unknown as GameState);
     expect(v14Save.saveVersion).toBe(14);
@@ -396,10 +416,10 @@ describe("P04A §2.5 — SaveFileV15 identity-bearing queue expiry", () => {
     ).toMatchObject({ subjectId: null });
   });
 
-  it("rejects an unknown saveVersion 25 with the updated range, and rejects downgrading V15 to V14", () => {
+  it("rejects an unknown saveVersion 26 with the updated range, and rejects downgrading V15 to V14", () => {
     const save = wellFormedV15Save();
-    expect(() => validateSave({ ...save, saveVersion: 25 })).toThrow(
-      /versions 1 through 24 only/,
+    expect(() => validateSave({ ...save, saveVersion: 26 })).toThrow(
+      /versions 1 through 25 only/,
     );
     expect(() => migrateToV14(save)).toThrow(/cannot downgrade SaveFileV15/);
   });

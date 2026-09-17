@@ -68,6 +68,17 @@ import { setupForecast } from '../src/core/productionSetup.js'
 // action call in the same week credits nothing" (the same-week "retry" case), but
 // not a forced second internal sweep pass.
 
+// AMENDED (coordinator adjudication, 2026-09-17, test-author second pass): every
+// `selectRecipe(...)` call below moved to BEFORE the gate-week `tick(...)` — the
+// plan's law is that a recipe is selected as a reviewed action DURING rehearsal
+// (on the rehearsal-week state, weeks 11/807/... below), and admission is
+// stamped by the sweep visit that would have moved 6 -> 5 (admittedWeek = that
+// visit's currentTick + 1), crediting nothing and not calling `enterPhase`. The
+// prior ordering (select AFTER ticking to the gate week, with `setup` still
+// null at that visit) would hold a recipe-less picture, which the engine does
+// not do. No assertion value changed by this amendment — admittedWeek still
+// reads 12/807/4 and Shooting entries stay 16/809/5 (sim-core-verified).
+
 const STAGE_7 = 'facility-soundstage-07'
 
 type ProductionSetupRecipeId = 'ballroom-reveal-lighting-01' | 'ordinary-interior-01'
@@ -128,13 +139,14 @@ describe('P13B-S5-R07 setup timeline arithmetic (test 2)', () => {
   it('walks the conventional ballroom route through real ticks: admission 12, one unit per week, entry 16', () => {
     const rehearsing = conventionalBallroomAtRehearsal('r07-timeline-conventional')
     const productionId = rehearsing.studio.activeProductions[0]!.id
+    expect(rehearsing.market.tick).toBe(11)
+    let state = selectRecipe(rehearsing, productionId, 'ballroom-reveal-lighting-01')
     // The gate opens at the visit today's engine would move 6 -> 5, one tick
-    // after rehearsal entry.
-    let state = tick(rehearsing)
+    // after rehearsal entry — the sweep visit that stamps admission.
+    state = tick(state)
     expect(state.market.tick).toBe(12)
     expect(workflowOf(state).phase).toBe('rehearsal') // held, not shooting
     expect(workflowOf(state).shootingTask).toBeNull() // created only when enterPhase targets shooting
-    state = selectRecipe(state, productionId, 'ballroom-reveal-lighting-01')
     const admitted = workflowOf(state).setup!
     expect(admitted.admittedWeek).toBe(12)
     expect(admitted.requiredUnits).toBe(4)
@@ -208,11 +220,11 @@ describe('P13B-S5-R07 setup timeline arithmetic (test 2)', () => {
     expect(state.market.tick).toBe(806)
     const productionId = state.studio.activeProductions[0]!.id
     expect(workflowOf(state).bindings.stageFacilityId).toBe(STAGE_7)
+    state = selectRecipe(state, productionId, 'ballroom-reveal-lighting-01')
 
     state = tick(state) // gate opens at week 807
     expect(state.market.tick).toBe(807)
     expect(workflowOf(state).phase).toBe('rehearsal')
-    state = selectRecipe(state, productionId, 'ballroom-reveal-lighting-01')
     const admitted = workflowOf(state).setup!
     expect(admitted.admittedWeek).toBe(807)
     expect(admitted.route).toBe('lighting')
@@ -233,9 +245,10 @@ describe('P13B-S5-R07 setup timeline arithmetic (test 2)', () => {
   it('walks the ordinary-interior route through real ticks: admission 4, entry 5, both routes agree at 1 unit', () => {
     const rehearsing = ordinaryAtRehearsal('r07-timeline-ordinary')
     const productionId = rehearsing.studio.activeProductions[0]!.id
-    let state = tick(rehearsing)
+    expect(rehearsing.market.tick).toBe(3)
+    let state = selectRecipe(rehearsing, productionId, 'ordinary-interior-01')
+    state = tick(state)
     expect(state.market.tick).toBe(4)
-    state = selectRecipe(state, productionId, 'ordinary-interior-01')
     expect(workflowOf(state).setup!.admittedWeek).toBe(4)
     expect(workflowOf(state).setup!.creditedUnits).toBe(0)
     state = tick(state)
@@ -249,8 +262,8 @@ describe('P13B-S5-R07 setup timeline arithmetic (test 2)', () => {
   it('a same-week repeat selection call ("retry") credits no extra unit', () => {
     const rehearsing = conventionalBallroomAtRehearsal('r07-timeline-retry')
     const productionId = rehearsing.studio.activeProductions[0]!.id
-    let state = tick(rehearsing) // week 12, gate opens
-    state = selectRecipe(state, productionId, 'ballroom-reveal-lighting-01')
+    let state = selectRecipe(rehearsing, productionId, 'ballroom-reveal-lighting-01')
+    state = tick(state) // week 12, gate opens
     state = tick(state) // week 13: 1 credited
     expect(workflowOf(state).setup!.creditedUnits).toBe(1)
     // A resent/duplicate command at the SAME week, same revision, same recipe.
@@ -264,8 +277,8 @@ describe('P13B-S5-R07 setup timeline arithmetic (test 2)', () => {
   it('completed-task idempotence: further ticks past completion never re-credit or move completedWeek', () => {
     const rehearsing = ordinaryAtRehearsal('r07-timeline-idempotent')
     const productionId = rehearsing.studio.activeProductions[0]!.id
-    let state = tick(rehearsing) // week 4, gate opens
-    state = selectRecipe(state, productionId, 'ordinary-interior-01')
+    let state = selectRecipe(rehearsing, productionId, 'ordinary-interior-01')
+    state = tick(state) // week 4, gate opens
     state = tick(state) // week 5: completed, enters Shooting
     const completed = workflowOf(state).setup!
     expect(completed.creditedUnits).toBe(1)

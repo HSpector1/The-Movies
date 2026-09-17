@@ -8,7 +8,7 @@ import { PROTOCOL_VERSION, SCHEMA_ID } from '../bridge/protocol.ts'
 import type { CampaignRequest } from '../bridge/schema/bridge-schema.ts'
 import type { CampaignLibrary } from '../bridge/runtime/campaign-library.ts'
 import { DEFAULT_BRIDGE_RUNTIME_CHECKPOINT_LIMITS } from '../bridge/runtime-checkpoint.ts'
-import { applyActions, importSave, migrateToV24 } from '../src/core/index.js'
+import { applyActions, importSave, migrateToV25 } from '../src/core/index.js'
 import type { GameState } from '../src/core/types.js'
 import { p13aLaboratorySlice } from '../src/harness/p13a/fixtures.js'
 
@@ -59,7 +59,7 @@ function library(store: Store): CampaignLibrary {
   return decodeCampaignStorage(JSON.parse(store.contents!), DEFAULT_BRIDGE_RUNTIME_CHECKPOINT_LIMITS.maxCheckpointBytes, 32) as CampaignLibrary
 }
 function working(store: Store) { return JSON.parse(library(store).workingCheckpointJson) }
-function state(store: Store): GameState { return migrateToV24(importSave(working(store).currentSaveJson)).state }
+function state(store: Store): GameState { return migrateToV25(importSave(working(store).currentSaveJson)).state }
 
 async function advance(runtime: BridgeRuntimeCoordinator) {
   const snapshot = await runtime.read(s => s.snapshot())

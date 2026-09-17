@@ -10,8 +10,10 @@ import { productionPayload } from './contracts/_contractFixtures.js'
 // tests/p13b-r07-recipes.test.ts's header for the full RED-design rationale
 // (shared across every P13B-S5-R07 test-author file). `SETUP_RECIPES` is the
 // ONLY import from the new module (referenced once, to keep the import from
-// being flagged unused under `noUnusedLocals`).
-import { SETUP_RECIPES } from '../src/core/productionSetup.js'
+// being flagged unused under `noUnusedLocals`). `deriveSetupProvenance` was
+// added by amendment (e) below (the pure route-derivation law, used directly
+// where no engine-consistent state can reach the case under test).
+import { deriveSetupProvenance, SETUP_RECIPES } from '../src/core/productionSetup.js'
 
 // P13B-S5-R07 test 3 (task expansion, 2026-09-17, plan lines 672-733).
 // Requirement-derived from test-list item 3 (line 725-726): "gate:
@@ -58,6 +60,52 @@ import { SETUP_RECIPES } from '../src/core/productionSetup.js'
 //     immediately at 791, operational 795 (matches PROVENANCE.md's
 //     operational-795 figure exactly); ballroom commissioned AFTER that, at 795,
 //     standing 803, greenlight 803, rehearsal 806, gate-check 807.
+
+// AMENDED (coordinator adjudication, 2026-09-17, test-author second pass):
+//   (a) every `selectRecipe(...)` call below moved to BEFORE the gate-week
+//       `tick(...)` — see tests/p13b-r07-timeline.test.ts's own AMENDED note for
+//       the full rationale. No assertion value changed.
+//   (d) "knowledge-only"'s `technology.adoptions.length` check scoped to the
+//       player studio — the two-Lab world (`p13bTwoLabWorld`) carries the
+//       rival's own organic sound adoption by week 803, so an unscoped length
+//       check is not "no adoption anywhere for THIS studio", it is a false
+//       positive on a fixture that happens to have none yet. Scoped the same
+//       way tests/p13b-s5-conservation.test.ts already does.
+//   (e) "active-retrofit / unfinished installation" REWRITTEN as a
+//       constructed-state case: committing the lighting fit-out on STAGE_7 AFTER
+//       the picture is already bound and rehearsing there is refused by S5's own
+//       P09 engagement clause (`queryFacilityInstallation` -> `targetEngaged`; a
+//       rehearsing production's soundstage reservation is a `production`-kind
+//       `FacilityEngagement`, which the installation query's holder filter does
+//       NOT exempt — only `set`/`installation`/`research` kinds are). The
+//       REVERSE order (commit first, bind after) was tried and also fails:
+//       `TUNING.FOUNDING_SOUNDSTAGE_CAPACITY` is 1, so an `underConstruction`
+//       stage-lighting-control job claims STAGE_7's only slot for its whole
+//       `deploymentWeeks` span (`occupancy.ts` resourceClaims, `owner:
+//       'installation'`), and the allocator cannot bind a rehearsing production
+//       to a stage with no free slot — both measured against this exact source
+//       tree, not guessed. A THIRD attempt — constructing the state directly,
+//       putting the adoption's `operationalWeek` back to `null` on an otherwise
+//       real "exact-stage operational" fixture — was ALSO tried and ALSO
+//       measured to fail, for a reason beyond a missing pure-action trigger: a
+//       rehearsing production's OWN stage reservation and an `underConstruction`
+//       fit-out job both claim soundstage slot 0 on STAGE_7 (capacity 1), so
+//       ANY state combining them — however it is built — trips
+//       `assertNoDoubleBookedResourceSlots` the moment it is run through
+//       `applyActions`/`tick()` ("occupancy invariant: resource slot
+//       ...facility-soundstage-07:0... is claimed by installation
+//       ...and production..."). This combination is not merely unreached by
+//       today's action set; it is unreachable by ANY internally-consistent
+//       state this engine's own invariants admit. Consequently this case is
+//       tested at the PURE LAW `deriveSetupProvenance` reads and writes
+//       instead — the function both `applySetProductionSetupRecipe`
+//       (selection) and `advanceSetupWeek` (admission) call to derive a
+//       route — evaluated directly against a technology root with that SAME
+//       adoption's `operationalWeek` put back to `null` (still the
+//       constructed-state technique this plan section's own test 1
+//       (recipes.test.ts, "unusable Set") and test 4 (controls.test.ts,
+//       "different-binding restart") use for an edge state no pure action
+//       sequence reaches), never routed through `applyActions`/`tick()`.
 
 const STAGE_7 = 'facility-soundstage-07'
 const STAGE_12 = 'facility-soundstage-12'
@@ -146,12 +194,13 @@ describe('P13B-S5-R07 lighting-route gate (test 3)', () => {
     const productionId = state.studio.activeProductions[state.studio.activeProductions.length - 1]!.id
     state = tick(state); state = tick(state); state = tick(state) // rehearsal, bound STAGE_7, week 802
     expect(state.market.tick).toBe(802)
+    state = selectRecipe(state, productionId, 'ballroom-reveal-lighting-01')
     state = tick(state) // gate-check week 803
     expect(state.market.tick).toBe(803)
     expect(state.technology.access.some((a) => a.technologyId === 'lighting-control-01')).toBe(true)
-    expect(state.technology.adoptions.length).toBe(0)
+    const own = state.hollywood!.playerStudioId
+    expect(state.technology.adoptions.filter((a) => a.studioId === own).length).toBe(0) // scoped to the player studio (amendment d)
 
-    state = selectRecipe(state, productionId, 'ballroom-reveal-lighting-01')
     const record = workflowOf(state).setup!
     expect(record.route).toBe('conventional')
     expect(record.requiredUnits).toBe(4)
@@ -166,11 +215,11 @@ describe('P13B-S5-R07 lighting-route gate (test 3)', () => {
     const productionId = state.studio.activeProductions[state.studio.activeProductions.length - 1]!.id
     state = tick(state); state = tick(state); state = tick(state) // rehearsal, week 791
     expect(state.market.tick).toBe(791)
+    state = selectRecipe(state, productionId, 'ballroom-reveal-lighting-01')
     state = tick(state) // gate-check week 792
     expect(state.market.tick).toBe(792)
     expect(state.technology.access.some((a) => a.technologyId === 'lighting-control-01')).toBe(false)
 
-    state = selectRecipe(state, productionId, 'ballroom-reveal-lighting-01')
     const record = workflowOf(state).setup!
     expect(record.route).toBe('conventional')
   })
@@ -188,40 +237,54 @@ describe('P13B-S5-R07 lighting-route gate (test 3)', () => {
     state = applyActions(state, [{ kind: 'greenlight', production: productionPayload(state) }])
     const productionId = state.studio.activeProductions[state.studio.activeProductions.length - 1]!.id
     state = tick(state); state = tick(state); state = tick(state) // rehearsal, bound STAGE_7
+    state = selectRecipe(state, productionId, 'ballroom-reveal-lighting-01')
     state = tick(state) // gate-check
     expect(workflowOf(state).bindings.stageFacilityId).toBe(STAGE_7)
     expect(state.technology.adoptions.find((a) => a.id === adoption.id)!.stageFacilityId).toBe(STAGE_12)
 
-    state = selectRecipe(state, productionId, 'ballroom-reveal-lighting-01')
     const record = workflowOf(state).setup!
     expect(record.route).toBe('conventional')
   })
 
-  it('active-retrofit / unfinished installation: adoption committed on the exact bound stage but not yet operational at the gate check -> conventional route', () => {
+  it('active-retrofit / unfinished installation: adoption on the exact bound stage genuinely still installing at the gate check -> conventional route — PURE ROUTE-DERIVATION CHECK (see file header amendment (e): no engine-consistent state reaches this combination)', () => {
+    // Reuses the "exact-stage operational" fixture's own real-tick path
+    // verbatim (adoption committed 791, operational 795, ballroom standing 803,
+    // greenlight 803, rehearsal 806, gate-check 807) — a REAL production really
+    // is bound and rehearsing on STAGE_7 by the week under test.
     let state = lightingResearchComplete() // 791
-    state = ballroomStanding(state, STAGE_7) // -> standing 799
-    expect(state.market.tick).toBe(799)
-    state = signCreativeRoster(state)
-    state = applyActions(state, [{ kind: 'greenlight', production: productionPayload(state) }])
-    const productionId = state.studio.activeProductions[state.studio.activeProductions.length - 1]!.id
-    state = tick(state); state = tick(state); state = tick(state) // rehearsal, bound STAGE_7, week 802
-    expect(state.market.tick).toBe(802)
-    expect(workflowOf(state).bindings.stageFacilityId).toBe(STAGE_7)
-
-    // Committed the SAME week rehearsal binds — operationalWeek = 802 + deploymentWeeks(4) = 806.
     state = fundTo(state, 5_000_000)
     state = applyActions(state, [{ kind: 'adoptTechnology', technologyId: 'lighting-control-01', stageFacilityId: STAGE_7 } as unknown as Action])
     const adoption = state.technology.adoptions.find((a) => a.technologyId === 'lighting-control-01' && a.stageFacilityId === STAGE_7)!
-    expect(adoption.committedWeek).toBe(802)
+    while (state.technology.adoptions.find((a) => a.id === adoption.id)!.operationalWeek === null) state = tick(state)
+    expect(state.market.tick).toBe(795)
 
-    state = tick(state) // gate-check week 803
+    state = ballroomStanding(state, STAGE_7) // -> standing 803
     expect(state.market.tick).toBe(803)
-    const liveAdoption = state.technology.adoptions.find((a) => a.id === adoption.id)!
-    expect(liveAdoption.operationalWeek === null || liveAdoption.operationalWeek > 803).toBe(true) // genuinely still installing
+    state = signCreativeRoster(state)
+    state = applyActions(state, [{ kind: 'greenlight', production: productionPayload(state) }])
+    state = tick(state); state = tick(state); state = tick(state) // rehearsal, bound STAGE_7, week 806
+    expect(state.market.tick).toBe(806)
+    expect(workflowOf(state).bindings.stageFacilityId).toBe(STAGE_7)
 
-    state = selectRecipe(state, productionId, 'ballroom-reveal-lighting-01')
-    const record = workflowOf(state).setup!
-    expect(record.route).toBe('conventional')
+    // Directly construct: the SAME adoption row, put back to genuinely
+    // mid-deployment (`operationalWeek: null`) — amendment (e)'s
+    // constructed-state technique, named in the file header. Evaluated
+    // through the PURE route law, not `applyActions`/`tick()` — see the file
+    // header for why the occupancy invariant refuses any consistent state
+    // combining a rehearsing production's stage reservation with an
+    // `underConstruction` fit-out job on that same (capacity-1) stage.
+    const stillInstalling: GameState = {
+      ...state,
+      technology: {
+        ...state.technology,
+        adoptions: state.technology.adoptions.map((a) => (a.id === adoption.id ? { ...a, operationalWeek: null } : a)),
+      },
+    }
+    const recipe = SETUP_RECIPES.find((r) => r.id === 'ballroom-reveal-lighting-01')!
+    const provenance = deriveSetupProvenance(stillInstalling, recipe, STAGE_7, 807) // the gate-check week
+    expect(provenance.route).toBe('conventional')
+    expect(provenance.requiredUnits).toBe(4)
+    expect(provenance.adoptionId).toBeNull()
   })
 
   it('exact-stage operational adoption -> lighting route, halving the unit count to 2', () => {
@@ -239,12 +302,12 @@ describe('P13B-S5-R07 lighting-route gate (test 3)', () => {
     const productionId = state.studio.activeProductions[state.studio.activeProductions.length - 1]!.id
     state = tick(state); state = tick(state); state = tick(state) // rehearsal, bound STAGE_7, week 806
     expect(state.market.tick).toBe(806)
+    state = selectRecipe(state, productionId, 'ballroom-reveal-lighting-01')
     state = tick(state) // gate-check week 807
     expect(state.market.tick).toBe(807)
     expect(workflowOf(state).phase).toBe('rehearsal') // held — not yet in Shooting even under today's engine's own numbering, this is the visit R07 intercepts
     expect(workflowOf(state).shootingTask).toBeNull()
 
-    state = selectRecipe(state, productionId, 'ballroom-reveal-lighting-01')
     const record = workflowOf(state).setup!
     expect(record.route).toBe('lighting')
     expect(record.requiredUnits).toBe(2)

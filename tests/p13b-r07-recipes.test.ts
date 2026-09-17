@@ -137,6 +137,12 @@ function atBallroomRehearsal(seed: string, offset = 0): GameState {
  * (bound) week 3. */
 function atOrdinaryRehearsal(seed: string, offset = 0): GameState {
   let state = withCash(operationsStudio(seed), 5_000_000)
+  // AMENDED (coordinator adjudication, 2026-09-17): the D-12 solvency gate
+  // refuses this greenlight at $5,000,000 for both callers below (measured
+  // commitments $5,659,528 / $5,256,375) — funded above the greenlight, the
+  // same ledger-written `withCash` idiom this file already imports (no new
+  // `fundTo` duplicate needed).
+  state = withCash(state, 5_700_000)
   state = applyActions(state, [{ kind: 'greenlight', production: productionPayload(state, offset) }])
   state = tick(state)
   state = tick(state)

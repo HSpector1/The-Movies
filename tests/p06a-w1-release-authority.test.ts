@@ -28,11 +28,11 @@ import {
   makeSave,
   makeSaveV15,
   migrateToV15,
-  migrateToV24,
+  migrateToV25,
   mintReleaseCommitmentId,
   stableStringify,
   tick,
-  validateSaveV24,
+  validateSaveV25,
 } from '../src/core/index.js'
 import type { CastSlot, GameState, SegmentId } from '../src/core/index.js'
 
@@ -396,12 +396,22 @@ describe('P06A W1 — save law', () => {
   it('imports a pre-P06 Release Ready save as UNCOMMITTED (holds until committed)', () => {
     const ready = foundedToReleaseReady('p06a-migrate-ready',true)
     // Build the frozen V15 envelope this world would have carried before P06.
+    // AMENDED (P13B-S5-R07 live-version sweep, 2026-09-17): a genuine V15 world
+    // predates `setup`/`planRevision` (added at V25, P13B-S5-R07) exactly as it
+    // predates `releaseAuthority` (added at V16, P06A) — strip both leaves the
+    // same way, or `makeSaveV15` refuses the workflow's own unknown field.
     const { releaseAuthority: _drop, ...v15State } = ready
-    const v15 = makeSaveV15(v15State)
+    const v15 = makeSaveV15({
+      ...v15State,
+      operations: {
+        ...v15State.operations,
+        workflows: v15State.operations.workflows.map(({ setup: _setup, planRevision: _planRevision, ...workflow }) => workflow),
+      } as typeof v15State.operations,
+    })
     expect(v15.saveVersion).toBe(15)
 
-    const live = migrateToV24(v15)
-    expect(live.saveVersion).toBe(24)
+    const live = migrateToV25(v15)
+    expect(live.saveVersion).toBe(25)
     expect(live.state.releaseAuthority).toEqual({ commitments: [] })
 
     // The migrated world HOLDS — the legacy auto-release does not survive import.
@@ -414,16 +424,16 @@ describe('P06A W1 — save law', () => {
     const ready = foundedToReleaseReady('p06a-roundtrip')
     const committed = commit(ready, ready.studio.activeProductions[0]!.id)
     const save = makeSave(committed)
-    expect(save.saveVersion).toBe(24)
+    expect(save.saveVersion).toBe(25)
 
-    const reimported = migrateToV24(importSave(exportSave(save)))
+    const reimported = migrateToV25(importSave(exportSave(save)))
     expect(stableStringify(reimported)).toBe(stableStringify(save))
     expect(reimported.state.releaseAuthority.commitments).toHaveLength(1)
 
-    expect(() => migrateToV15(save)).toThrow(/cannot downgrade SaveFileV24/)
+    expect(() => migrateToV15(save)).toThrow(/cannot downgrade SaveFileV25/)
   })
 
-  it('validateSaveV24 rejects forged authority at the save boundary', () => {
+  it('validateSaveV25 rejects forged authority at the save boundary', () => {
     const ready = foundedToReleaseReady('p06a-save-forge')
     const id = ready.studio.activeProductions[0]!.id
     const good = makeSave(commit(ready, id))
@@ -432,12 +442,12 @@ describe('P06A W1 — save law', () => {
       state: { releaseAuthority: { commitments: { productionId: string }[] } }
     }
     orphan.state.releaseAuthority.commitments[0]!.productionId = 'prod-9999'
-    expect(() => validateSaveV24(orphan)).toThrow(/foreign identity|orphan/)
+    expect(() => validateSaveV25(orphan)).toThrow(/foreign identity|orphan/)
 
     const extraKey = JSON.parse(exportSave(good)) as {
       state: { releaseAuthority: Record<string, unknown> }
     }
     extraKey.state.releaseAuthority.surprise = true
-    expect(() => validateSaveV24(extraKey)).toThrow(/unknown field .surprise./)
+    expect(() => validateSaveV25(extraKey)).toThrow(/unknown field .surprise./)
   })
 })

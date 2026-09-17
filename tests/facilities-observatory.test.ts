@@ -416,6 +416,8 @@ describe('Facilities & Construction research observatory', () => {
         lockedUplift: null,
         heldSinceWeek: 0,
       },
+      setup: null,
+      planRevision: 0,
     })
     const hold = (productionId: string) =>
       createFacilitiesProductionHoldIntent({

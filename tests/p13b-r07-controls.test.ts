@@ -54,6 +54,13 @@ import { validateProductionSetup } from '../src/core/productionSetup.js'
 // 803, greenlight 803, rehearsal 806, gate-check 807) — see that file's header
 // for the full probe trace.
 
+// AMENDED (coordinator adjudication, 2026-09-17, test-author second pass): every
+// `selectRecipe(...)` call below moved to BEFORE the gate-week `tick(...)` — see
+// tests/p13b-r07-timeline.test.ts's own AMENDED note for the full rationale. No
+// assertion value changed; admittedWeek still reads 12 throughout this file.
+// Also dropped the unused `productionBId` binding in the "occupied-stage
+// competition" case (never read after capture).
+
 const STAGE_7 = 'facility-soundstage-07'
 const STAGE_12 = 'facility-soundstage-12'
 
@@ -117,14 +124,13 @@ describe('P13B-S5-R07 controls (test 4)', () => {
   it('occupied-stage competition: an extended setup hold on one stage never affects an unrelated production on a different stage', () => {
     // Production A: ballroom recipe on STAGE_7, held for several weeks.
     let state = conventionalBallroomAtRehearsal('r07-controls-competition', 0)
-    state = tick(state) // gate-check week 12
     const productionAId = state.studio.activeProductions[0]!.id
     state = selectRecipe(state, productionAId, 'ballroom-reveal-lighting-01')
+    state = tick(state) // gate-check week 12
     expect(workflowOf(state, 0).setup!.requiredUnits).toBe(4)
 
     // Production B: the endowed house Set on STAGE_12, greenlit the SAME week, no recipe ever selected.
     state = applyActions(state, [{ kind: 'greenlight', production: productionPayload(state, 1) }])
-    const productionBId = state.studio.activeProductions[1]!.id
     state = tick(state) // 13 — A: 1/4 credited; B: no advance (greenlight tick)
     state = tick(state) // 14 — A: 2/4; B: Development -> Pre-production
     state = tick(state) // 15 — A: 3/4; B: Pre-production -> Rehearsal, bound STAGE_12
@@ -138,10 +144,10 @@ describe('P13B-S5-R07 controls (test 4)', () => {
 
   it('stage-release law unchanged: the held stage stays bound to the SAME production throughout the extended hold (never released early)', () => {
     let state = conventionalBallroomAtRehearsal('r07-controls-stage-release')
-    state = tick(state) // 12
     const productionId = state.studio.activeProductions[0]!.id
     state = selectRecipe(state, productionId, 'ballroom-reveal-lighting-01')
     const originalBinding = workflowOf(state).bindings
+    state = tick(state) // 12
     for (let i = 0; i < 3; i++) {
       state = tick(state)
       expect(workflowOf(state).bindings.stageFacilityId).toBe(originalBinding.stageFacilityId)
@@ -152,9 +158,9 @@ describe('P13B-S5-R07 controls (test 4)', () => {
 
   it('a changed pre-Shooting sound choice mid-hold is lawful and leaves the setup record untouched — INTERPRETATION 3', () => {
     let state = conventionalBallroomAtRehearsal('r07-controls-sound-independent')
-    state = tick(state) // 12
     const productionId = state.studio.activeProductions[0]!.id
     state = selectRecipe(state, productionId, 'ballroom-reveal-lighting-01')
+    state = tick(state) // 12
     state = tick(state) // 13: 1/4 credited
     const before = workflowOf(state).setup!
     expect(before.creditedUnits).toBe(1)
@@ -169,9 +175,9 @@ describe('P13B-S5-R07 controls (test 4)', () => {
 
   it('different-binding restart preserves prior work without recycling credit — INTERPRETATION 2: directly-constructed before/after pair', () => {
     let state = conventionalBallroomAtRehearsal('r07-controls-rebind')
-    state = tick(state) // 12
     const productionId = state.studio.activeProductions[0]!.id
     state = selectRecipe(state, productionId, 'ballroom-reveal-lighting-01')
+    state = tick(state) // 12
     state = tick(state) // 13: 1/4 credited
     state = tick(state) // 14: 2/4 credited
     const priorRecord = workflowOf(state).setup!
@@ -234,13 +240,13 @@ describe('P13B-S5-R07 controls (test 4)', () => {
 
   it('no quality/research change: the setup record carries no quality-bearing field, and bind-time lockedUplift/lockedNovelty never move across the hold', () => {
     let state = conventionalBallroomAtRehearsal('r07-controls-no-quality-drift')
-    state = tick(state) // 12
     const productionId = state.studio.activeProductions[0]!.id
     const lockedBefore = workflowOf(state).bindings
     state = selectRecipe(state, productionId, 'ballroom-reveal-lighting-01')
     const record = workflowOf(state).setup!
     expect(Object.keys(record).some((key) => ['quality', 'uplift', 'novelty', 'appeal', 'craft'].includes(key.toLowerCase()))).toBe(false)
 
+    state = tick(state) // 12
     for (let i = 0; i < 4; i++) {
       state = tick(state)
       expect(workflowOf(state).bindings.lockedUplift).toBe(lockedBefore.lockedUplift)
@@ -251,11 +257,11 @@ describe('P13B-S5-R07 controls (test 4)', () => {
 
   it('no research-root change: ticking through an entire setup hold writes no new technology access/project row', () => {
     let state = conventionalBallroomAtRehearsal('r07-controls-no-research-drift')
-    state = tick(state) // 12
     const productionId = state.studio.activeProductions[0]!.id
     const accessBefore = JSON.stringify(state.technology.access)
     const projectsBefore = JSON.stringify(state.technology.projects)
     state = selectRecipe(state, productionId, 'ballroom-reveal-lighting-01')
+    state = tick(state) // 12
     for (let i = 0; i < 4; i++) state = tick(state)
     expect(JSON.stringify(state.technology.access)).toBe(accessBefore)
     expect(JSON.stringify(state.technology.projects)).toBe(projectsBefore)
@@ -263,9 +269,9 @@ describe('P13B-S5-R07 controls (test 4)', () => {
 
   it('a forged operational flag (route: lighting with no matching operational adoption) is refused by validateProductionSetup — INTERPRETATION 1', () => {
     let state = conventionalBallroomAtRehearsal('r07-controls-forged-flag')
-    state = tick(state) // 12
     const productionId = state.studio.activeProductions[0]!.id
     state = selectRecipe(state, productionId, 'ballroom-reveal-lighting-01')
+    state = tick(state) // 12
     expect(validateProductionSetup(state)).toEqual([]) // the genuine conventional record is clean
 
     const bindings = workflowOf(state).bindings

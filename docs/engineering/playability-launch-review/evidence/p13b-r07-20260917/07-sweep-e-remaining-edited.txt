@@ -1,0 +1,203 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/property-state-v13.test.ts (24 tests) 5996ms
+   ✓ C1-M1a (a) — the property IS the constants, in a new representation > decides every query verdict from state exactly as the constants decided it 706ms
+   ✓ C1-M1a (a) — the property IS the constants, in a new representation > keeps the severance walk verdict-identical with structures in the obstacle set 1005ms
+   ✓ C1-M1a (a) — the property IS the constants, in a new representation > plays a migrated V12 world byte-identically to a native V13 world for 30+ weeks 385ms
+   ✓ C1-M1a (b) — nothing assumes eight structures or a small placement count > carries twelve-plus placed facilities through invariants, completion, opex, and save 739ms
+   ✓ C1-M1a (b) — nothing assumes eight structures or a small placement count > carries far more than twelve when the property has room for them 1737ms
+   ✓ C1-M1a (d) — SaveFileV13 > writes V13 by default and round-trips every lifecycle state byte-identically 570ms
+ ✓ |core| tests/facility-move-demolish.test.ts (30 tests) 2846ms
+   ✓ C1-M3a (A) — every persisted holder of a facility blocks both verbs > finds a screenplay reservation, on the RESERVATION and not the status 1131ms
+ ✓ |core| tests/operations.test.ts (13 tests) 1133ms
+   ✓ Production Operations V1 > holds only the blocked production while world time and weekly costs continue 841ms
+ ✓ |core| tests/construction-core.test.ts (12 tests) 3228ms
+   ✓ Development & Casting Annex V1 core lifecycle > completes on exactly the thirteenth advance from a nonzero start with no recurring charge or RNG draw 889ms
+   ✓ Development & Casting Annex V1 core lifecycle > does not reallocate completing-advance productions into the Annex, then exposes it immediately 548ms
+   ✓ Development & Casting Annex V1 core lifecycle > uses the authoritative greenlight debit to reject skip-first start-clock laundering 367ms
+   ✓ Development & Casting Annex V1 core lifecycle > allows a production started after completion to claim the Annex under normal allocation 330ms
+   ✓ Development & Casting Annex V1 core lifecycle > accepts only the exact Annex V1 facility set and detects cross-owner collisions 596ms
+stdout | tests/p09a-w0-founding-regime.test.ts > P09 R5/R6 — the ordinary bare-lot studio releases a picture on its own money > HARD-STOP GATE: sparse start → four builds → screenplay → set → picture → release → receipts, cash never below zero
+[p09 gate] release week 37; cash floor 7888869; final cash 9778380.025328362; weeks 42
+
+ ✓ |core| tests/p09a-w0-founding-regime.test.ts (13 tests) 5240ms
+   ✓ P09 R1 — the founding regime is persisted, exact, and immutable > V18 round-trips the regime and refuses a forged or missing one 510ms
+   ✓ P09 R1 — the founding regime is persisted, exact, and immutable > the regime is never inferred from what stands on the lot 999ms
+   ✓ P09 R4 — the minimum plant fits and completes on its committed weeks > P09 §10.3: on the sparse lot only the founding office is quotable first; every other row says exactly why 418ms
+   ✓ P09 R4 — the minimum plant fits and completes on its committed weeks > four committed sites complete on their own weeks, become operational, and start paying opex only then 493ms
+   ✓ P09 R4 — the minimum plant fits and completes on its committed weeks > save/load mid-construction continues byte-identically; same-week sites complete together in id order 988ms
+   ✓ P09 R5/R6 — the ordinary bare-lot studio releases a picture on its own money > HARD-STOP GATE: sparse start → four builds → screenplay → set → picture → release → receipts, cash never below zero 738ms
+   ✓ P09A W1 R9 — a picture may hold a stage that completed after its greenlight, from the stamped week only > holds from bindings.heldSinceWeek; a stamp forged before completion is refused 558ms
+ ❯ |core| tests/d11-employment.test.ts (36 tests | 2 failed) 5031ms
+   ✓ D-11 — contracts & offers > payroll accrues each week; the ledger reconciles after several weeks 522ms
+   ✓ D-11.8 — expiration > a contract expires at term end and the talent becomes a free agent 1478ms
+   ✓ D-11.7 — renewals > renewing inside the window extends the term and takes a signing bonus from cash 1139ms
+   × D-11 — determinism & live saves > new games save at the live version and round-trip byte-identically 90ms
+     → expected 25 to be 24 // Object.is equality
+   × D-11 — determinism & live saves > no duplicate payroll after reload (reload ≡ continuous run) 435ms
+     → expected V24
+   ✓ D-11 — determinism & live saves > two same-seed founded+advanced runs are byte-identical (deterministic offers/markets) 472ms
+ ✓ |core| tests/placement-save-v12.test.ts (20 tests) 2465ms
+   ✓ Placement Core V12 — the frozen envelope > writes V12 explicitly and round-trips every lifecycle state byte-identically 660ms
+ ✓ |core| tests/p08a-w0-studio-history.test.ts (13 tests) 6244ms
+   ✓ P08A H3/H4 — the release mutation site records exact receipts and the release fact > freezes before/after/deltas equal to the actual Standing change, with the source id and drivers 667ms
+   ✓ P08A H3/H4 — the release mutation site records exact receipts and the release fact > records filmReleased as a LANDMARK for the first film and MAJOR afterwards, by exact id 556ms
+   ✓ P08A H3/H4 — the release mutation site records exact receipts and the release fact > records theatricalRunCompleted exactly once when the run settles 471ms
+   ✓ P08A H3/H5 — weekly settling receipts are exact, bounded, and folded deterministically > records a routine settling receipt only when awareness actually moves, then folds past the window 2613ms
+   ✓ P08A H7 — save/load mid-run continues with identical history > reloaded branch equals the unbroken branch byte-for-byte after more releases 1087ms
+   ✓ P08A H8 — the save boundary refuses forged history > refuses out-of-order ids, pre-boundary rows, lying deltas, and unknown kinds 313ms
+ ✓ |core| tests/script-projects-save-v9.test.ts (8 tests) 1318ms
+   ✓ Script Projects V1 — SaveFileV9 > makes V9 by default and round-trips legacy and every managed lifecycle class byte-identically 692ms
+ ✓ |core| tests/facilities-observatory.test.ts (12 tests) 22868ms
+   ✓ Facilities & Construction research observatory > is deterministic, ledger-reconciled, and samples exact Calendar slot-weeks 1322ms
+   ✓ Facilities & Construction research observatory > keeps every arm explicit and uses one-boundary shadows for current capacity rejections 2311ms
+   ✓ Facilities & Construction research observatory > activates delayed capacity at the exact start-of-week boundary with exact raw manifests 1084ms
+   ✓ Facilities & Construction research observatory > splits D&C rejections at availability and counts the boundary week as post-availability 704ms
+   ✓ Facilities & Construction research observatory > uses one distinct capacity-two research facility while current shadows stay one-slot 2183ms
+   ✓ Facilities & Construction research observatory > emits canonical seed-major/policy-major pairs with frozen provenance boundaries 3459ms
+   ✓ Facilities & Construction research observatory > reaches the Week-260 horizon and reports Week-208 staffing separately 8395ms
+   ✓ Facilities & Construction research observatory > does not alter an ordinary engine replay through module-global state 451ms
+   ✓ Facilities & Construction research observatory > proves the same controller is byte-identical with evidence capture disabled 872ms
+   ✓ Facilities & Construction research observatory > uses the role-specific camera-test slate when packaging auditioned projects 2082ms
+ ✓ |core| tests/cash-ledger-checkpoint-v11.test.ts (10 tests) 4337ms
+   ✓ SaveFileV11 cash/ledger checkpoint — historical migration > migrates an authentic played V2 without fabricating the missing production ledger row 462ms
+   ✓ SaveFileV11 cash/ledger checkpoint — historical migration > preserves validator-accepted non-opening cash through every V1-V10 descendant 347ms
+   ✓ SaveFileV11 cash/ledger checkpoint — post-migration authority > prevents every frozen builder from moving a checkpoint after later gameplay 415ms
+   ✓ SaveFileV11 cash/ledger checkpoint — post-migration authority > retains a nonempty historical checkpoint prefix only through ledger-owning builders 1385ms
+   ✓ SaveFileV11 cash/ledger checkpoint — post-migration authority > preserves exact checkpoint reconciliation through managed payroll and overhead suffixes 666ms
+   ✓ SaveFileV11 cash/ledger checkpoint — post-migration authority > starts and completes the Annex from a mismatched managed V10 with exactly one post-checkpoint capex 431ms
+ ❯ |core| tests/bridge-p12-campaign-library.test.ts (13 tests | 9 failed) 78978ms
+   ✓ R05 independent named campaign transactions > keeps a reviewed contract quote usable across failed and successful catalogue-only rename 3780ms
+   ✓ R05 independent named campaign transactions > keeps a reviewed contract quote usable across failed and successful catalogue-only delete 3057ms
+   × R05 independent named campaign transactions > keeps the shipped Save route and save-before-load consistent with the named record 6014ms
+     → Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+   × R05 independent named campaign transactions > rejects a corrupted cross-world active binding and stops on an uncertain commit 6047ms
+     → Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+   × R05 independent named campaign transactions > saves atomically across the bounded replay journal with a new logical session 5121ms
+     → Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+   × R05 independent named campaign transactions > branches CURRENT complete state, preserves original records, switches scope and survives restart 5655ms
+     → Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+   × R05 independent named campaign transactions > makes failed writes, cancel/unsaved conflicts, stale targets and rename collisions leave authority intact 5680ms
+     → Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+   × R05 independent named campaign transactions > requires exact delete/overwrite confirmation and never recreates a deleted active record 5014ms
+     → Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+   × R05 independent named campaign transactions > imports real old current/saved checkpoints as independently recoverable records without losing original bytes 5214ms
+     → Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+   × R05 independent named campaign transactions > recovers different-world legacy slots and null saved state, preserving exact originals 5385ms
+     → Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+   × R05 independent named campaign transactions > branches a full journal without changing source bytes and retries the exact durable copy after restart 5168ms
+     → Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+   ✓ R05 independent named campaign transactions > durably save dirty progress while preserving two inactive worlds and failed-write authority 14515ms
+   ✓ R05 independent named campaign transactions > durably discard dirty progress while preserving two inactive worlds and failed-write authority 8325ms
+ ✓ |core| tests/script-development.test.ts (10 tests) 119ms
+ ❯ |core| tests/contracts/v14-boundary-guards.contract.test.ts (36 tests | 4 failed) 1255ms
+   × C2a-M1 · guards (C) — LEG 3: the widened leaves are version-aware > refuses a `bindings` leaf inside a V13-tagged workflow 31ms
+     → validateSaveV14: frozen V13 state is invalid — validateSaveV13: frozen V12 state is invalid — validateSaveV12: frozen V11 state is invalid — validateSaveV11: frozen V10 state is invalid — validateSaveV10: frozen V9 state is invalid — validateSaveV9: frozen V8 state is invalid — validateSaveV8: context.operations.workflows[0] has unknown field "setup"
+   × C2a-M1 · guards (C) — LEG 3: the widened leaves are version-aware > refuses the `set-unavailable` blocker arm inside a V13-tagged workflow 6ms
+     → validateSaveV14: frozen V13 state is invalid — validateSaveV13: frozen V12 state is invalid — validateSaveV12: frozen V11 state is invalid — validateSaveV11: frozen V10 state is invalid — validateSaveV10: frozen V9 state is invalid — validateSaveV9: frozen V8 state is invalid — validateSaveV8: context.operations.workflows[0] has unknown field "setup"
+   × C2a-M1 · guards (C) — LEG 3: the widened leaves are version-aware > REQUIRES `bindings` at V14, with exactly the §8.1 key list 9ms
+     → validateSaveV14: frozen V13 state is invalid — validateSaveV13: frozen V12 state is invalid — validateSaveV12: frozen V11 state is invalid — validateSaveV11: frozen V10 state is invalid — validateSaveV10: frozen V9 state is invalid — validateSaveV9: frozen V8 state is invalid — validateSaveV8: context.operations.workflows[0] has unknown field "setup"
+   × C2a-M1 · guards (C) — LEG 3: the widened leaves are version-aware > still ACCEPTS a genuine V13 workflow that carries no `bindings` leaf 5ms
+     → validateSaveV14: frozen V13 state is invalid — validateSaveV13: frozen V12 state is invalid — validateSaveV12: frozen V11 state is invalid — validateSaveV11: frozen V10 state is invalid — validateSaveV10: frozen V9 state is invalid — validateSaveV9: frozen V8 state is invalid — validateSaveV8: context.operations.workflows[0] has unknown field "setup"
+ ✓ |core| tests/bridge-p11-finance.test.ts (11 tests) 8495ms
+   ✓ P11 construction financial consequence over the real bridge > development-casting-annex: retains pennies, charges once now and introduces Opex only after completion 2964ms
+   ✓ P11 construction financial consequence over the real bridge > development-office-2: retains pennies, charges once now and introduces Opex only after completion 2384ms
+   ✓ P11 construction financial consequence over the real bridge > gives illegal placement no financial successor and refuses a stale legal financial preview 1030ms
+   ✓ P11 current people, obligations and film economics owners > publishes only current contracts, with guarantees beside literal Cash and exact payroll 487ms
+   ✓ P11 current people, obligations and film economics owners > keeps same-title films independent, preserves every P07 business amount and excludes studio costs 499ms
+   ✓ P11 current people, obligations and film economics owners > marks genuinely missing legacy direct commitments unavailable without rewriting P07 324ms
+   ✓ P11 current people, obligations and film economics owners > does not turn a retained legacy freelancer receipt into a complete film budget 306ms
+   ✓ P11 current people, obligations and film economics owners > discloses legacy bundled production spending without inventing a historic budget split 303ms
+ ✓ |core| tests/p06a-w1-release-authority.test.ts (14 tests) 1570ms
+   ✓ P06A W1 — save law > imports a pre-P06 Release Ready save as UNCOMMITTED (holds until committed) 301ms
+   ✓ P06A W1 — save law > round-trips a committed V16 save byte-exactly and refuses downgrades 692ms
+   ✓ P06A W1 — save law > validateSaveV25 rejects forged authority at the save boundary 303ms
+ ✓ |core| tests/legacy-parcel-ground.test.ts (14 tests) 4382ms
+   ✓ C1-M8 (B) — a generic building may not be BUILT there > accepts nothing anywhere on the property whose body the world would not show 3690ms
+ ✓ |core| tests/p13b-s1-scheduler.test.ts (13 tests) 15111ms
+   ✓ P13B-S1 determinism, replay and interleaving (test 7) > rebuilds byte-identically from the same seed and the same action list, both before and after further identical actions 3923ms
+   ✓ P13B-S1 determinism, replay and interleaving (test 7) > round-trips save/reload byte-identically after seating, after funded weeks, after expiry and after pause 957ms
+ ✓ |core| tests/construction-save-v11.test.ts (12 tests) 1895ms
+   ✓ Development & Casting Annex V1 — SaveFileV11 > writes V12 by default and round-trips legacy, vacant, building, and completed lifecycle states 387ms
+   ✓ Development & Casting Annex V1 — SaveFileV11 > round-trips and continues byte-identically at start, S+12, and S+13 456ms
+ ✓ |core| tests/contracts/studio-events.contract.test.ts (25 tests) 1065ms
+ ✓ |core| tests/bridge-p10a-w0-people-projection.test.ts (10 tests) 3264ms
+   ✓ P10A W0 — people projection > R8 grouped attention lists each person at most once, by the highest tier; contract horizons come from the contract alone 2216ms
+   ✓ P10A W0 — people projection > R10 a genuine V16 control migrates without changing any original person 354ms
+ ✓ |core| tests/save.test.ts (10 tests) 252ms
+ ✓ |core| tests/bridge-p07a-w6-result-continuity.test.ts (6 tests) 2969ms
+   ✓ P07A W6 — commitment releases exactly once (R1) > one commit + one week = one FilmResult + one run; later weeks never duplicate 989ms
+   ✓ P07A W6 — active-run truth and the run-complete flip (R2/R3) > speaks projected while active, final once complete, and stays durably inspectable 420ms
+   ✓ P07A W6 — save/load preserves result truth mid-run (R4) > round-trips the projection byte-for-byte and completes the run identically 634ms
+   ✓ P07A W6 — duplicate titles are separated by exact id (R5) > two films named identically keep separate results, runs, and wire cards 548ms
+ ✓ |core| tests/c2a-m4-release-law.test.ts (5 tests) 292ms
+ ✓ |core| tests/d17b-save-v7.test.ts (22 tests) 799ms
+ ✓ |core| tests/casting-sessions-domain.test.ts (8 tests) 95ms
+ ✓ |core| tests/c2a-m2-sets-save.test.ts (4 tests) 1735ms
+   ✓ C2a-M2 — sets across the save boundary > round-trips a studio that has built, repaired and struck, byte for byte 959ms
+   ✓ C2a-M2 — sets across the save boundary > refuses, at the V16 boundary, every state the sets authority forbids 427ms
+ ❯ |core| tests/d14-star-power.test.ts (15 tests | 1 failed) 2912ms
+   ✓ D-14 Star Power lifecycle (real engine) > 1 + 12. fame changes only at release, and the career event matches the transition 770ms
+   ✓ D-14 Star Power lifecycle (real engine) > 2. the update occurs exactly once — one career event per participant per film 415ms
+   ✓ D-14 Star Power lifecycle (real engine) > 4. a future film reads the UPDATED fame (progression compounds) 369ms
+   × D-14 Star Power lifecycle (real engine) > 16 + 17. reload cannot apply progression twice, and round-trip preserves career events 456ms
+     → expected V24
+   ✓ D-14 Star Power lifecycle (real engine) > 18. determinism — two identical runs produce identical career events 604ms
+stdout | tests/bridge-p09a-w5-bare-lot-first-film.test.ts > P09A W5 — the bare-lot first film, driven only through the bridge > founds sparse, builds the plant and a Set at engine prices, and releases a picture on its own money
+[p09 bridge journey] released week 37; commands 46; rollovers 2; cash floor 8864638; final cash 9374658
+
+ ✓ |core| tests/bridge-p09a-w5-bare-lot-first-film.test.ts (1 test) 180048ms
+   ✓ P09A W5 — the bare-lot first film, driven only through the bridge > founds sparse, builds the plant and a Set at engine prices, and releases a picture on its own money 180047ms
+ ❯ |core| tests/bridge-p06-checkpoint-recovery.test.ts (11 tests | 2 failed) 6047ms
+   × AUD-001 — frozen P06 checkpoint recovery > loads 'Ready with no explicit save' through the governed predecessor path 999ms
+     → expected { broadcastCache: [], …(3) } to deeply equal { saveVersion: 24, …(3) }
+   × AUD-001 — frozen P06 checkpoint recovery > loads 'Committed with distinct Ready save an…' through the governed predecessor path 1003ms
+     → expected { broadcastCache: [], …(3) } to deeply equal { saveVersion: 24, …(3) }
+   ✓ AUD-001 — frozen P06 checkpoint recovery > persists 'Ready with no explicit save' once and reopens without remigration 1376ms
+   ✓ AUD-001 — frozen P06 checkpoint recovery > persists 'Committed with distinct Ready save an…' once and reopens without remigration 1773ms
+   ✓ AUD-001 — frozen P06 checkpoint recovery > preserves the predecessor if the migration write fails 701ms
+ ✓ |core| tests/d17a-adv-migration.test.ts (17 tests) 22ms
+ ✓ |core| tests/contracts/phase-table-agreement.contract.test.ts (10 tests) 941ms
+   ✓ C2a-M0 · G6 (C) — the SAVE BOUNDARY agrees, proved by refusal > refuses a falsified capability multiset, naming the shared module’s own requirement 559ms
+ ✓ |core| tests/bridge-p08a-w2-history-projection.test.ts (4 tests) 2838ms
+   ✓ P08A W2 — P1 purity and P2 exact wire contract > derives byte-identically twice, mutates nothing, and validates as the history bundle section 1423ms
+   ✓ P08A W2 — P3 exact routes and P5 provenance > links receipts and rows to the exact production id, marks result availability, and reconciles channels 547ms
+   ✓ P08A W2 — P4 honesty for migrated worlds > says what was not recorded, lists pre-boundary films as unrecorded, and invents no row 478ms
+   ✓ P08A W2 — P4 honesty for migrated worlds > keeps same-title films distinct by id in every row 388ms
+ ✓ |core| tests/contracts/v14-byte-parity.contract.test.ts (6 tests) 1144ms
+   ✓ C2a-M1 · parity (A) — the same seeded script exports the same bytes > produces a byte-identical export from two independent runs 433ms
+ ❯ |core| tests/bridge-p13-campaign-isolation.test.ts (1 test | 1 failed) 64940ms
+   × P13A research authority across named campaign operations > Save As branches real research, inactive and renamed campaigns stay frozen, and a new campaign receives none of their authority 64938ms
+     → Test timed out in 60000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ✓ |core| tests/contracts/cross-owner-refusal.contract.test.ts (3 tests) 1250ms
+   ✓ C2a-M0 · §12-M0 gate — a slot claimed by two owners is REFUSED > refuses a screenplay forged onto the slot a production holds 796ms
+ ✓ |core| tests/contracts/determinism-floor.contract.test.ts (3 tests) 517ms
+   ✓ C2a-M0 · §12-M0 gate — same seed, same actions, same bytes > exports byte-identically across two fresh runs 308ms
+ ✓ |core| tests/p13b-s1-save-v21.test.ts (8 tests) 2861ms
+   ✓ P13B-S1 V20 to V21 migration (test 8) > continues the migrated active-280 project lawfully for one more funded week and re-saves byte-identically 630ms
+   ✓ P13B-S1 V20 to V21 migration (test 8) > keeps the migrated paused-expired seat retained but ineligible, refuses resumeResearch, then accepts it after rehiring the same id 345ms
+   ✓ P13B-S1 campaign isolation (test 10) > produces independent migrated copies from the same fixture; advancing one never touches the other 1060ms
+ ✓ |core| tests/p12-lifecycle.test.ts (5 tests) 8672ms
+   ✓ R05 shared-law rival lifecycle > rejects forged owners, erased archive announcements, invented employers and invalid chart history 1217ms
+   ✓ R05 shared-law rival lifecycle > rejects forged frozen credits, double roles, and another studio’s reserved performers 410ms
+   ✓ R05 shared-law rival lifecycle > commissions, staffs, funds, operates, releases and settles real films without player RNG draws 2180ms
+   ✓ R05 shared-law rival lifecycle > expires ordinary contracts and crosses the first real arrival from elapsed play 4786ms
+ ✓ |core| tests/p12-starting-world.test.ts (3 tests) 2392ms
+   ✓ R05 canonical starting history and genuine migration > migrates at each old state own week with empty company histories and exact player state 1847ms
+
+ Test Files  6 failed | 34 passed (40)
+      Tests  19 failed | 472 passed (491)
+   Start at  12:07:41
+   Duration  489.26s (transform 3.57s, setup 0ms, collect 17.71s, tests 457.57s, environment 12ms, prepare 3.96s)
+

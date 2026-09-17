@@ -407,6 +407,10 @@ export function projectToV13State(state: GameState): Record<string, unknown> {
     operations.workflows = operations.workflows.map((entry) => {
       const workflow = { ...(entry as Record<string, unknown>) }
       delete workflow.bindings
+      // P13B-S5-R07: `setup`/`planRevision` are V25-only (younger even than
+      // `releaseAuthority` above) — a genuine V13 file never carried them either.
+      delete workflow.setup
+      delete workflow.planRevision
       return workflow
     })
   }
@@ -791,6 +795,10 @@ export function forgedV13From(v14: { state: Record<string, unknown> }): V13Envel
     operations.workflows = operations.workflows.map((entry) => {
       const workflow = { ...(entry as Record<string, unknown>) }
       delete workflow.bindings
+      // P13B-S5-R07: `setup`/`planRevision` are V25-only — a genuine V13 file
+      // never carried them either (same reasoning as `projectToV13State` above).
+      delete workflow.setup
+      delete workflow.planRevision
       return workflow
     })
   }

@@ -1,0 +1,45 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p13a-production-technology.test.ts (11 tests) 800ms
+   ✓ P13A first-filming technology and exact production chain > carries the first-filming lock through the complete tick state assembly 545ms
+ ✓ |core| tests/p13a-physical-installation.test.ts (6 tests) 200ms
+ ✓ |core| tests/p13a-rival-adoption.test.ts (2 tests) 8157ms
+   ✓ P13A shared commercial adoption and exact rival cash consequence > uses the shared player/rival eligibility function and debits only technology adoption without new plant or RNG draws 429ms
+   ✓ P13A shared commercial adoption and exact rival cash consequence > replays the actual weekly commercial purchase, reconciles its debit and creates one dated operational receipt 1075ms
+ ✓ |core| tests/p13a-causal-core.test.ts (8 tests) 11831ms
+   ✓ P13A causal Core through the real weekly engine > retains exact paid work and reloads a lawful $1 weekly budget 678ms
+   ✓ P13A causal Core through the real weekly engine > retains exact paid work and reloads a lawful $3 weekly budget 608ms
+   ✓ P13A causal Core through the real weekly engine > retains exact paid work and reloads a lawful $2499 weekly budget 485ms
+   ✓ P13A causal Core through the real weekly engine > retains exact paid work and reloads a lawful $5600 weekly budget 445ms
+   ✓ P13A causal Core through the real weekly engine > retains exact paid work and reloads a lawful $9999 weekly budget 434ms
+   ✓ P13A causal Core through the real weekly engine > one Scientist completes 64 units in 43 funded weeks, then P09 completes the exact chain at315 710ms
+   ✓ P13A causal Core through the real weekly engine > waiting buys no capability; purchase opens416, takes12weeks, and forfeits113weeks of lead 3982ms
+ ✓ |core| tests/p13a-technology-membership.test.ts (9 tests) 7044ms
+   ✓ P13A exact historical technology membership under local indexing > does not reuse membership across independent round-tripped copies with the same world and entity IDs 563ms
+   ✓ P13A exact historical technology membership under local indexing > rechecks the same mutable input after removal and after exact restoration 558ms
+ ✓ |core| tests/p13a-technology-validation.test.ts (9 tests) 8592ms
+ ✓ |core| tests/p13a-save-v20.test.ts (5 tests) 923ms
+   ✓ P13A governed V19 to V20 persistence > round-trips a migrated V20 world exactly and creates independent state objects 376ms
+ ✓ |core| tests/p13a-technology-milestones.test.ts (4 tests) 5174ms
+   ✓ P13A dated public technology history > round-trips both boundaries exactly and resumes without duplicating the permanent events 550ms
+ ❯ |core| tests/p13a-scientist-foundation.test.ts (6 tests | 3 failed) 120ms
+   × P13A Scientist identity and employment foundation > preserves accepted people, concepts, market, era and RNG for p13a-person-regression-1 50ms
+     → expected '4a4b2e78a8af26bb7804b4220ba31b2fcb667…' to be '16857a2609206c58bfb34ba3be7b67d95276e…' // Object.is equality
+   × P13A Scientist identity and employment foundation > preserves accepted people, concepts, market, era and RNG for p13a-person-regression-2 20ms
+     → expected 'de6e49d8796e1a037e676b5e147c5850680bb…' to be 'd71583f6fc04af2d251e2010ca6725e6bcc01…' // Object.is equality
+   × P13A Scientist identity and employment foundation > preserves accepted people, concepts, market, era and RNG for m0a-0001 31ms
+     → expected '0b8e21842fc4a820413c3416c90bdd9ce2907…' to be '7517c0d01eb928245e2101752932b99ccd344…' // Object.is equality
+ ✓ |core| tests/p13a-research-employment.test.ts (1 test) 4947ms
+   ✓ P13A research employment continuity > releasing the actual Scientist pauses work immediately and survives save/reload without losing verified work 4945ms
+ ✓ |core| tests/p13a-research-identity.test.ts (1 test) 1394ms
+   ✓ P13A retained research Laboratory identity > keeps paused and cancelled Laboratory references intact without blocking lawful instrument installation 1392ms
+ ✓ |core| tests/p13a-placement-history-validation.test.ts (1 test) 1045ms
+   ✓ P13A bounded historical facility-charge validation > preserves every exact weekly charge across a real build, demolition, idle gap and replacement 1044ms
+ ✓ |core| tests/p13a-catalogue.test.ts (2 tests) 8ms
+
+ Test Files  1 failed | 12 passed (13)
+      Tests  3 failed | 62 passed (65)
+   Start at  11:59:03
+   Duration  59.24s (transform 1.60s, setup 0ms, collect 4.68s, tests 50.23s, environment 4ms, prepare 1.21s)
+

@@ -172,6 +172,8 @@ function withProductionReservation(slot: number): StudioOperations {
       shootingTask: null,
       blocker: null,
       bindings: emptyWorkflowBindings(),
+      setup: null,
+      planRevision: 0,
     }],
   }
 }

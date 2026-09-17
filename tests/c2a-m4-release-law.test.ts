@@ -282,6 +282,8 @@ describe('C2a-M4 `00E`.5 — a completed phase releases, even with nowhere to go
         targetPhase: 'rehearsal' as const,
       },
       bindings: emptyBindings,
+      setup: null,
+      planRevision: 0,
     })
     const operations = {
       ...state.operations,
@@ -318,6 +320,8 @@ describe('C2a-M4 `00E`.5 — a completed phase releases, even with nowhere to go
           },
           blocker: null,
           bindings: { ...emptyBindings, stageFacilityId: 'facility-soundstage-07', heldSinceWeek: 0 },
+          setup: null,
+          planRevision: 0,
         },
         waiting('prod-0102'),
       ],

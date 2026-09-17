@@ -72,7 +72,18 @@ beforeAll(async () => {
   legacy = legacyWorld('c2a-m1-guards-legacy', 8)
   let state = withCash(operationsStudio('c2a-m1-guards-managed'), 50_000_000)
   state = applyActions(state, [{ kind: 'greenlight', production: productionPayload(state) }])
-  inFlight = tick(tick(state))
+  const ticked = tick(tick(state))
+  // P13B-S5-R07: every historical frozen builder this file targets (V1-V14)
+  // predates `setup`/`planRevision` (added at V25) — this fixture never
+  // reviewed a recipe, so both are at their neutral default and are stripped
+  // the same way tests/contracts/_v14Contract.ts's own projections do.
+  inFlight = {
+    ...ticked,
+    operations: {
+      ...ticked.operations,
+      workflows: ticked.operations.workflows.map(({ setup: _setup, planRevision: _planRevision, ...workflow }) => workflow),
+    },
+  } as unknown as GameState
 
   for (const version of CHARTER_SAVE_VERSIONS) {
     const builder = core[`makeSaveV${String(version)}`]
@@ -310,7 +321,7 @@ describe('C2a-M1 · guards (B) — the live boundary moves one way', () => {
   // version now is. 15 is no longer unknown (validateSaveV15 exists); 16 is.
   it('keeps every historical version frozen and rejects unknown V22', () => {
     const save = envelopeAt(14)
-    expect(() => validateSave({ ...save, saveVersion: 25 })).toThrow(/unknown saveVersion 25/)
+    expect(() => validateSave({ ...save, saveVersion: 26 })).toThrow(/unknown saveVersion 26/)
   })
 })
 
