@@ -516,9 +516,20 @@ highest-operational-standard ladder. Nothing else in the estate changes.
       engine route needs an operational II whose $2,500/week is real, so the test asserts $1,776,000 with the +$130,000 delta named as the ENG-2
       consequence; (c) `office-conversion-iii` carries one constant component label with source-dependent cost/weeks, so a chained I→II→III plan
       admits under `automatic` within its ceiling and holds under `reviewChangedQuote` for review; (d) refusal member `standardAlreadyMet`.
-- [ ] **S4-T1 Blueprints, standard derivation, offline law, quotes** (sim-core, dispatched ≈01:50 with T2): tests 1, 3, part of 2.
-- [ ] **S4-T2 Downtime money + S3 integration:** tests 2, 4, 5.
-- [ ] **S4-T3 Bridge projection 36:** test 6 (`tests/bridge-p13b-s4-office.test.ts`).
+- [x] **S4-T1/T2 engine increment (sim-core, 2026-09-17 ≈02:15, commit `dba78d0`):** `src/core/officeConversion.ts` (derived standard, offline,
+      `conversionQuote`), the two conversion blueprints (O1-candidate constants, constant component label, `takesTargetOffline`), source-dependent
+      quotes in `queryFacilityInstallation`, `standardAlreadyMet`, offline registry capacity, increment law (only while online, only the current
+      standard — a superseded II charges nothing), conversion validator invariants, historical reconciliation; Save V23 unchanged. Results:
+      quotes 8/9, downtime 7/7, plans 3/4, validation 7/7 — document 03's direct $1,680,000 and staged $1,796,000 exact through the ledger; the two
+      reds are fixture premises (an origin finder that only returns lawful placements; a base world with no player studio id) proved in
+      `02-engine-conflict-probes` and returned to the test-author. Coordinator addition: `standardAlreadyMet` joined the plans module's queue-time
+      permanent refusals (S3 plan files 40/40 after, `04`). Sweeps `02-engine-*`: placement 84/84, facility/construction 83/83, S3 53/53, P09/queue
+      46/46, screenplay office tier 24/24, save boundary 68/68, d12 29/29, operations/calendar 45/45, catalogue/P13A 76/76 + 16/16, bridge 18/18,
+      corpus/replay 50/50, campaign-isolation solo 79.0 s (inherited budget), P13A 3 inherited digests, contract checks verified, tsc clean.
+      Recorded law generalizations: conversion spans/capex pairs must be authored pairs; registry capacity 0 allowed only for offline bodies;
+      `checkOperationsContext` floor `>= 0` only under the placement-aware policy (frozen projections unchanged). Rivals have no P09 lot, so no
+      rival conversion exists until S8.
+- [~] **S4-T3 Bridge projection 36 (sim-core dispatched ≈02:20; `view: 'office'` keyed by facility id, `StudioOfficePage` with conversion rows always published incl. refusals, `office-convert-<facilityId>-ii|iii` and `plan-queue-office-convert-*` companions):** test 6 (`tests/bridge-p13b-s4-office.test.ts`, test-author after the fixture fixes).
 - [ ] **S4-T4 Matched pass, records (backlog entry), commit, push.**
 
 ## S4 — original scope record (superseded by the expansion above; kept verbatim)
