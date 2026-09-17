@@ -552,8 +552,9 @@ function validateSharedTechnology(state: TechnologyBearingState, v: Validator, p
       const cancelledWeek = (a as unknown as {cancelledWeek: unknown}).cancelledWeek
       if (cancelledWeek !== null) {
         if (typeof cancelledWeek !== 'number') fail('cancelledWeek must be a week or null')
-        week(cancelledWeek)
-        if (cancelledWeek < a.committedWeek) fail('adoption cancelled before it was committed')
+        const cancelled = cancelledWeek as number
+        week(cancelled)
+        if (cancelled < a.committedWeek) fail('adoption cancelled before it was committed')
         if (a.operationalWeek !== null) fail('a cancelled adoption cannot be operational')
       }
     }
