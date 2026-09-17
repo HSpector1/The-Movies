@@ -11,7 +11,7 @@
   reverified on the final source (`32-*`, 36/36). RED-first evidence: `21-red-*` (tests 1–8), `28` (test 9 at 30836b0). Five test-premise
   amendments and the delegated decisions are itemized in the plan (S3 tasks). Process learnings saved to memory: mint fixtures before the writer
   moves; RED-first files import from a not-yet-existing module (vite binds missing named exports to `undefined`).
-- **S4 T1–T3 landed; T4 matched pass running on `8334a3f` (2026-09-17 ≈03:45; `evidence/p13b-s4-20260917/12-RUN`, `12-test-core-*`, `13-test-bridge-*`).**
+- **S4 closed LOGIC VERIFIED · UNITY NOT VERIFIED on the `8334a3f` matched pass (attribution `evidence/p13b-s4-20260917/14`; inherited failures only). S5 started 2026-09-17 ≈04:40: expansion in the plan (`9a3e2da`), T0 genuine V23 fixtures minted at the final V23 writer (`evidence/p13b-s5-20260917/00`), test-author dispatched for tests 1–6 RED-first against `src/core/technologyAdoption.ts`; sim-core follows; then bridge projection 37, matched pass, S5-R07.**
   Live projection **36** (schemaId `sha256:c2247716…`); Save V23 unchanged. Backlog S4 entry written. Label after attribution; then S5.
 - **S4 in progress (earlier note, ≈03:10):** engine complete and committed (`dba78d0` + engagement fix `c2d27d1`; S4 core files 30/30; Save V23
   unchanged); bridge T3 (projection 36 `view: 'office'`, `StudioOfficePage`, `office-convert-<facilityId>-ii|iii` + plan companions) in flight

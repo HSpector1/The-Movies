@@ -553,7 +553,7 @@ highest-operational-standard ladder. Nothing else in the estate changes.
       bridge 18/18, P13 group 16/16, P13B S1/S2/S3 20/20, p10a/p11/owner-ux/r3n4/operations/history 85/85, core S3 + S4 83/83, campaign-isolation
       solo 70–74 s bodies (inherited 60 s budget; the office rows cost ≈0.1 s of it). Unproven: the `conversionStandards` fallback for an
       effect-only standalone II/III body (no registry row) — disclosed via `available:false` + the engine refusal.
-- [ ] **S4-T4 Matched pass, records (backlog entry), commit, push.**
+- [x] **S4-T4 Matched pass on `8334a3f` (2026-09-17 01:39→02:38 UTC; `evidence/p13b-s4-20260917/12-RUN`, `12-test-core-8334a3f`, `13-test-bridge-8334a3f`, attribution `14`):** core 239/246 files · 2836/2858 tests, bridge 58/60 · 585/596, both contract checks OK; failing set = inherited only (campaign-library 11 core / 10 bridge, r3n1 ENOENT 6, campaign-isolation 1, scientist-foundation 3 digests, scenery Pillow 1); `bridge-founding` green this run; every S3/S4 file passed → **S4 LOGIC VERIFIED · UNITY NOT VERIFIED** (S4 only; not P13B completion, not Owner acceptance). Backlog entry landed at `c004b73`.
 
 ## S4 — original scope record (superseded by the expansion above; kept verbatim)
 
@@ -651,7 +651,7 @@ restoration are S6 (this slice persists what S6 needs); rival lighting purchase/
 
 ### S5 tasks
 
-- [ ] **S5-T0 Genuine V23 fixtures** at the final V23 writer before any S5 source change (coordinator; provenance beside them).
+- [x] **S5-T0 Genuine V23 fixtures (2026-09-17 ≈04:40)** minted by `src/harness/p13b/legacy-v23-fixtures.ts` at `9a3e2da` (engine unchanged since `8334a3f`/`c2d27d1`, the final V23 writer) before any S5 source change: `legacy-v23-sound-operational-315` (sha `6f07b68b…`; inventor first-prototype sound adoption, equipmentCost 0, installationCost 975,000, two placements) and `legacy-v23-lighting-complete-plan-queued` (week 793, sha `f894c5f6…`; player lighting research completed 791 with inventor access, rival r05 commercial sound adoption at 520 with EMPTY `physicalProjectIds`, one queued plan waiting for 900); `evidence/p13b-s5-20260917/00`, provenance in `tests/fixtures/p13b/PROVENANCE.md`. Lift rule recorded from the fixture: a rival adoption has no placements → the V24 lift writes one aggregated `installation` row with `placementId: null` and cost = `installationCost`.
 - [ ] **S5-T1/T2/T3 Engine increment** (sim-core; test-author writes tests 1–6 RED first): components, assets, `adoptTechnology`, per-technology
       operational law and charges, validator, Save V24.
 - [ ] **S5-T4 Bridge projection 37:** test 7 (`tests/bridge-p13b-s5-adoption.test.ts`).

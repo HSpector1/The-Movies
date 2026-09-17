@@ -1,0 +1,18 @@
+S4-T4 matched pass — CORE stage attribution (commit 8334a3f, log 12-test-core-8334a3f.txt)
+Result: Test Files 7 failed | 239 passed (246); Tests 22 failed | 2836 passed (2858); CORE_EXIT=1
+
+Every failure is a member of the inherited set recorded before S2 (none is S3/S4 work; the same set failed identically on the S2 and S3 matched passes):
+  11  tests/bridge-p12-campaign-library.test.ts        — R05 named-campaign transactions; 5 s / 20 s inline budgets exceeded on this host (disposition owed to the campaign-library owner)
+   6  tests/r3n1-stale-schedule-take-02{,p31,p32}.test.ts — loadFixtureState ENOENT (r3n1 dense fixtures absent from this checkout)
+   1  tests/bridge-p13-campaign-isolation.test.ts       — 60 s inline budget vs 69.9 s body on this host
+   3  tests/p13a-scientist-foundation.test.ts           — golden digests (received bytes identical to the pin; disposition owed to the fixture owner)
+   1  tests/world-first-scenery-load-in-provenance.test.ts — Pillow not installed on this host
+New failures attributable to S3 or S4 engine/bridge work: NONE.
+Every S3/S4 file passed in this run: tests/p13b-s3-*.test.ts, tests/bridge-p13b-s3-*.test.ts, tests/p13b-s4-*.test.ts, tests/bridge-p13b-s4-office.test.ts, roster-wall historical files.
+
+BRIDGE stage (log 13-test-bridge-8334a3f.txt): check:bridge-contract OK, check:bridge-contract:fixtures OK;
+Test Files 2 failed | 58 passed (60); Tests 11 failed | 585 passed (596); BRIDGE_EXIT=1
+  10  tests/bridge-p12-campaign-library.test.ts   — inherited (one of the eleven budgeted cases passed on this run; timing)
+   1  tests/bridge-p13-campaign-isolation.test.ts — inherited (72.2 s body vs 60 s budget)
+bridge-founding passed on this run (the random-seed flake did not recur). New failures attributable to S3/S4: NONE.
+Run window: start 2026-09-17T01:39:50Z, end 02:38:16Z (12-RUN.txt). Verdict: S4 LOGIC VERIFIED · UNITY NOT VERIFIED.

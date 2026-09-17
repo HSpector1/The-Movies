@@ -4,3 +4,1404 @@
 
  ✓ |core| tests/film-package-truthfulness.test.ts (27 tests) 1124ms
    ✓ #18 a strong, expected-to-profit package can still lose money (authorized uncertainty) > a strong brief with POSITIVE expected profit can still take a real LOSS (D-12 share; scanned witness) 571ms
+ ✓ |core| tests/bridge-runtime-checkpoint.test.ts (60 tests) 110595ms
+   ✓ BridgeRuntimeCheckpointV1 > forward-migrates protocol 3 by preserving both V15 slots and discarding incompatible replay bytes 10831ms
+   ✓ BridgeRuntimeCheckpointV1 > rolls the previous protocol-4 schema forward without changing either V15 save slot 5157ms
+   ✓ BridgeRuntimeCheckpointV1 > rolls an authentic previous protocol-4 checkpoint with no explicit save slot 3046ms
+   ✓ BridgeRuntimeCheckpointV1 > encodes one exact closed canonical shape with one LF and hydrates stable V15 bytes 6985ms
+   ✓ BridgeRuntimeCheckpointV1 > requires canonical checkpoint bytes followed by exactly one LF 5638ms
+   ✓ BridgeRuntimeCheckpointV1 > rejects missing and additional roots plus incompatible format, version, protocol, and schema 3859ms
+   ✓ BridgeRuntimeCheckpointV1 > requires untouched canonical V15 current and explicit-save bytes with exact digests 12487ms
+   ✓ BridgeRuntimeCheckpointV1 > validates route-specific requests, responses, identity, session, revision, and canonical JSON 6977ms
+   ✓ BridgeRuntimeCheckpointV1 > binds exact historical bytes and rejection semantics to their original route 8337ms
+   ✓ BridgeRuntimeCheckpointV1 > rejects duplicate identities and revision-regressing journal order 7254ms
+   ✓ BridgeRuntimeCheckpointV1 > binds the root revision to the terminal journal response 7097ms
+   ✓ BridgeRuntimeCheckpointV1 > returns a normalized prospective append only after identity and capacity validation 7065ms
+   ✓ BridgeRuntimeCheckpointV1 > enforces injectable entry, journal-byte, and checkpoint-byte bounds before hydration 5567ms
+   ✓ BridgeRuntimeCheckpointV1 > validates an accepted save response V15 payload and digest before journaling it 4544ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > preserves both actual accepted P12 founding slots through the P13 save migration 1426ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > migrates a v4-identity (f84ae77e) checkpoint with a V14 current save and an opaque 2-entry journal 417ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > preserves and migrates a non-null savedSaveJson slot for a prior protocol-4 identity 644ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > accepts and migrates the enumerated sha256:c9c07d6febe4afee7f7c27c991acdfa1c86b6c3a7f5dff8528d7fa5ad72e43a1 (projection-v31) identity 345ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > accepts and migrates the enumerated sha256:e64a3b659e4247b98631f1caa1f0e9eb0b6016aac92b0f46be590360ff9cee48 (projection-v30) identity 358ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > accepts and migrates the enumerated sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85 (projection-v29) identity 309ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > accepts and migrates the enumerated sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712 (projection-v28) identity 316ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > accepts and migrates the enumerated sha256:97940e51e0566bed80231b223e5b7303a45d62db8d698f693e525eb244775211 (projection-v27) identity 385ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > accepts and migrates the enumerated sha256:2b339a6a8b3e5add0726b7eaac9ce8746e235d8b6111a6816f890ff56afdffd1 (projection-v26) identity 606ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > accepts and migrates the enumerated sha256:fe9bf4558dc12abc5f258ba8b8f581242e06361cfbae8ae31d8c676f6c7a6460 (projection-v25) identity 497ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > accepts and migrates the enumerated sha256:204a71924bd8c2e8ae9af47591226894b3e42f62457da3cc20ed6b106ede611a (projection-v24) identity 494ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > accepts and migrates the enumerated sha256:ba9cd199704f66d375585d0bec2128c950618a3ba6a8cf0845a5550fde41659f (projection-v4-early) identity 515ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > accepts and migrates the enumerated sha256:f84ae77ec59a0d7ca7cdd89115456504ddecbde2c6e3839936e4951bd65bce61 (projection-v4) identity 495ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > accepts and migrates the enumerated sha256:be7ed660d04ed9b1056f48e946f86f26c10cab42b950a273d57ad9cba372f5bb (projection-v5) identity 425ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > accepts and migrates the enumerated sha256:15033cf9ca43be65abcb25fc6f910f9487ac23056090126ec7d3e2353f6ce587 (projection-v6) identity 315ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > accepts and migrates the enumerated sha256:7e3af4db0d3d18cdeaab00082e0034f304a9141f46ea87e9e64e5a99d985483c (projection-v7) identity 416ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > accepts and migrates the enumerated sha256:510f08e4a551827a30e0f3d93bbe09fa5ddadbd39366b4dcfa93530500c7979c (projection-v9-early) identity 306ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > accepts and migrates the enumerated sha256:80f2f0fcd14d1b25e713c2624286a6c05a98c53ea5cfcb2b47612f8c030f5e47 (projection-v9) identity 497ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > accepts and migrates the enumerated sha256:92317ec179456cdc5bd5cc7c4ca47dd066b768a9e2e45519f1263ef921a211a4 (projection-v10) identity 313ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > accepts and migrates the enumerated sha256:01f15efc8fc33fd810b051242857385ca23b5e1c775b357db1bfe5a70e907e1e (projection-v11) identity 310ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > accepts and migrates the enumerated sha256:a6f374596e956800f9547ad538fdd859c01bda3460aac8b877279c67686c6f4b (projection-v12) identity 310ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > accepts and migrates the enumerated sha256:0474ceafd6c148f329fe99eac328c79ed0b0caf906e0f7442b7f3cf0fe40cb4f (projection-v13) identity 317ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > accepts and migrates the enumerated sha256:ddce1c399ac4ff58327b296a0600428ac3f3346b84f3639e66e48e53a65fbe99 (projection-v15) identity 306ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > accepts and migrates the enumerated sha256:85a6d125960dce49b4775f842d7b56d7360c81cef3638cd819057c79c99f0236 (projection-v16) identity 402ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > accepts and migrates the enumerated sha256:18de162d1a9da3034378f71cec3d3b3f109ea91df8c1a8d40469924108b36e78 (projection-v17) identity 491ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > accepts and migrates the enumerated sha256:d3338cb713385cc23414e6a17293a5900871764f0eeaed19698e17634e74740b (projection-v20) identity 309ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > accepts and migrates the enumerated sha256:b779faa92227bd1f2e623ad04d0899c87e7ddc60ce43f9ae9c39a7626c20a83d (projection-v22) identity 303ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > re-hydrates the migrated output via the normal current-schema path (write-read round trip, idempotent) 434ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > never parses journal request/response bodies for a prior protocol-4 identity 326ms
+ ✓ |core| tests/bridge-contract-generator.test.ts (31 tests) 2256ms
+   ✓ CF-08 sound union-to-C# generation > C — closed discriminated object unions > keeps member storage attached and generated bytes identical when anyOf order reverses 880ms
+   ✓ CF-08 sound union-to-C# generation > current accepted contract and future sentinel > F10 emits sound request and response union shapes without changing schema identity 305ms
+   ✓ CF-08 sound union-to-C# generation > current accepted contract and future sentinel > F11 preserves command member-only directorId and nullable base use 304ms
+   ✓ CF-08 sound union-to-C# generation > current accepted contract and future sentinel > pins exact positive output identities and deterministic rerendering 365ms
+ ✓ |core| tests/bridge-process-restart.test.ts (10 tests) 96150ms
+   ✓ rejects the post-commit response gate outside a test process before opening runtime state 2265ms
+   ✓ restores one durable logical bridge session and exact HTTP replay after SIGKILL 17652ms
+   ✓ withholds a durably committed command response until SIGKILL and replays it byte-identically after restart 10400ms
+   ✓ withholds a durably committed save response until SIGKILL and replays it byte-identically after restart 12882ms
+   ✓ withholds a durably committed load response until SIGKILL and replays it byte-identically after restart 21485ms
+   ✓ observes a byte-different semantic replay instead of falsely proving an exact request retry 9549ms
+   ✓ drops a durably committed command response and replays it byte-identically in the same process 8631ms
+   ✓ drops a durably committed save response and replays it byte-identically in the same process 4662ms
+   ✓ drops a durably committed load response and replays it byte-identically in the same process 8617ms
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19A — the one-writer pipeline never deadlocks > greenlights Ready screenplay A while its credited writer is actively drafting B
+[P04A.2 WITNESS] §19A quote availability (A ready, writer drafting B): {
+  "writerAvailable": true,
+  "knownGatesClear": true,
+  "canSubmitGreenlightIntent": true,
+  "blockers": []
+}
+[P04A.2 WITNESS] §19A single writing assignment after greenlight: {"talentId":"t-wri-02","projectId":"script-0001","status":"drafting","title":"The Restless Sanctuary","label":"Drafting The Restless Sanctuary"}
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19A — the one-writer pipeline never deadlocks > HOSTILE REVIEWER: the credited writer is NOT busy after greenlight, all five seats ARE
+[P04A.2 WITNESS] §19A busy set after greenlight: {"busy":["t-act-01","t-act-09","t-act-21","t-cra-06","t-dir-02"],"creditedWriter":"t-wri-02","writerBusy":false}
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19A — the one-writer pipeline never deadlocks > HOSTILE REVIEWER: the released film record still carries the exact writer talentId
+[P04A.2 WITNESS] §19A released-film writer credit: {"talentId":"t-wri-02","name":"Roland Ashcombe","role":"writer","discipline":"writing","greenlightOVR":77,"greenlightFit":72,"greenlightEP":{"low":67.7800661551918,"high":97.7682901551918,"expected":82.7741781551918},"freelancer":false}
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19B — writing exclusivity is unchanged > the same writer CANNOT draft A and B simultaneously
+[P04A.2 WITNESS] §19B draft-while-drafting refusal: applyActions: commissionScript rejected — writer "t-wri-02" already has an active assignment
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19B — writing exclusivity is unchanged > the same writer CANNOT draft one screenplay and rewrite another
+[P04A.2 WITNESS] §19B rewrite-while-drafting refusal: applyActions: requestScriptRewrite rejected — writer "t-wri-08" already has an active assignment
+[P04A.2 WITNESS] §19B rewrite blockers (writer drafting elsewhere): {"kinds":["writer-assignment"],"legalActions":["acceptScript"]}
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19B — writing exclusivity is unchanged > the same writer CANNOT rewrite two screenplays simultaneously
+[P04A.2 WITNESS] §19B rewrite-while-rewriting refusal: applyActions: requestScriptRewrite rejected — writer "t-wri-08" already has an active assignment
+[P04A.2 WITNESS] §19B draft-while-rewriting refusal: applyActions: commissionScript rejected — writer "t-wri-08" already has an active assignment
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19C — production exclusivity for the five real seats is unweakened > refuses a second greenlight that reuses picture A's director
+[P04A.2 WITNESS] §19C director exclusivity refusal: applyActions: greenlight talent "t-dir-02" is already engaged in an active production (exclusivity, M16)
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19C — production exclusivity for the five real seats is unweakened > refuses a second greenlight that reuses picture A's cast.lead
+[P04A.2 WITNESS] §19C cast.lead exclusivity refusal: applyActions: greenlight talent "t-act-01" is already engaged in an active production (exclusivity, M16)
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19C — production exclusivity for the five real seats is unweakened > refuses a second greenlight that reuses picture A's cast.antagonist
+[P04A.2 WITNESS] §19C cast.antagonist exclusivity refusal: applyActions: greenlight talent "t-act-09" is already engaged in an active production (exclusivity, M16)
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19C — production exclusivity for the five real seats is unweakened > refuses a second greenlight that reuses picture A's cast.support
+[P04A.2 WITNESS] §19C cast.support exclusivity refusal: applyActions: greenlight talent "t-act-14" is already engaged in an active production (exclusivity, M16)
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19C — production exclusivity for the five real seats is unweakened > refuses a second greenlight that reuses picture A's craft
+[P04A.2 WITNESS] §19C craft exclusivity refusal: applyActions: greenlight talent "t-cra-07" is already engaged in an active production (exclusivity, M16)
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19C — production exclusivity for the five real seats is unweakened > CONTROL: the fully disjoint second package IS legal (the five refusals are about the seats, not the world)
+[P04A.2 WITNESS] §19C one writer credited on two live pictures, busy on neither: {"writerId":"t-wri-07","credited":["t-wri-07"],"busy":false}
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19D — the credited writer holds no production presence claim > projects the writer at Development for the screenplay they are DRAFTING, never into the picture they merely wrote
+[P04A.2 WITNESS] §19D presence (A in production, writer drafting B): {"talentId":"t-wri-02","name":"Roland Ashcombe","role":"writer","engagement":"script","credit":"writer","ownerId":"script-0001","site":"facility-development-casting","slot":0,"beats":["home","home","travel","at-site","at-site","at-site","at-site","at-site","at-site","home"],"blockedReason":null}
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19D — the credited writer holds no production presence claim > never puts the credited writer on the soundstage in rehearsal or shooting
+[P04A.2 WITNESS] §19D writer presence across every phase of the picture they wrote: [{"phase":"development","engagement":"script","site":"facility-development-casting"},{"phase":"preProduction","engagement":"roster","site":"facility-development-casting"},{"phase":"rehearsal","engagement":"roster","site":"facility-development-casting"},{"phase":"shooting","engagement":"roster","site":"facility-development-casting"},{"phase":"postProduction","engagement":"roster","site":"facility-development-casting"}]
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19E — the quote projections publish no writer-busy blocker for a CREDIT > both greenlight readiness projections are clear, and name the exact writer id
+[P04A.2 WITNESS] §19E scriptReadModel package availability: {
+  "writerId": "t-wri-02",
+  "writerAvailable": true,
+  "knownGatesClear": true,
+  "canSubmitGreenlightIntent": true,
+  "blockers": []
+}
+[P04A.2 WITNESS] §19E castingPackageReadModel readiness: {"knownGatesClear":true,"willQueue":false,"blockers":[]}
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19E — the quote projections publish no writer-busy blocker for a CREDIT > a REFUSED greenlight command mutates nothing at all
+[P04A.2 WITNESS] §19E refused greenlight (no partial mutation): applyActions: greenlight assigns the same actor to more than one cast slot (t-act-01, t-act-01, t-act-21)
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19F — the queued greenlight path is unchanged and still truthful > a capacity refusal still QUEUES a greenlight whose credited writer is mid-draft
+[P04A.2 WITNESS] §19F queue admission while the credited writer drafts: {"kind":"greenlightScriptProject","ordinal":0,"queuedWeek":2,"writerDrafting":true}
+[P04A.2 WITNESS] §19F dequeue while still slot-starved: {"outcome":"waiting","capacity":0,"namedRefusal":"QueueableCapacityRefusal"}
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19F — the queued greenlight path is unchanged and still truthful > the queued greenlight later executes correctly, preserving the exact writer credit
+[P04A.2 WITNESS] §19F queue drained: {"remaining":0,"productions":[{"projectId":"prod-0002","writerId":"t-wri-06"},{"projectId":"prod-0005","writerId":"t-wri-06"}]}
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19G — the split needs no save migration and survives reload > keeps saveVersion at 16 and round-trips film credit + live writing assignment together
+[P04A.2 WITNESS] §19G saveVersion: {"saveVersion":23}
+[P04A.2 WITNESS] §19G both facts after reload: {"creditedOn":"prod-0001","draftingProject":"script-0001","busy":true}
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19H — an out-of-contract credited writer: the exact current limitation > publishes no writer blocker, and the greenlight succeeds at the ENGINE layer too
+[P04A.3 WITNESS] §19H projection blockers for an out-of-contract credited writer: []
+[P04A.3 WITNESS] §19H out-of-contract greenlight now succeeds at the engine layer: {"activeProductions":1}
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19H — an out-of-contract credited writer: the exact current limitation > the CREDIT itself survives the contract ending mid-production
+[P04A.2 WITNESS] §19H credit survives contract expiry: {"writerId":"t-wri-02","contracted":false,"creditedOn":"prod-0001"}
+[P04A.2 WITNESS] §19H released-film credit for an off-lot writer: {"talentId":"t-wri-02","name":"Roland Ashcombe","role":"writer","discipline":"writing","greenlightOVR":77,"greenlightFit":72,"greenlightEP":{"low":67.7800661551918,"high":97.7682901551918,"expected":82.7741781551918},"freelancer":false}
+
+ ✓ |core| tests/p04a2-writer-credit-law.test.ts (22 tests) 1318ms
+   ✓ P04A.2 §19E — the quote projections publish no writer-busy blocker for a CREDIT > a REFUSED greenlight command mutates nothing at all 415ms
+   ✓ P04A.2 §19G — the split needs no save migration and survives reload > keeps saveVersion at 16 and round-trips film credit + live writing assignment together 320ms
+ ✓ |core| tests/bridge-supervisor.test.ts (14 tests) 91075ms
+   ✓ one-command studio supervisor > emits, audits, and supervises the packaged production graph without the development loader 6156ms
+   ✓ one-command studio supervisor > recovers stable empty or partial acquisition artifacts without weakening private ownership 684ms
+   ✓ one-command studio supervisor > launches only after authenticated readiness and preserves one private profile across distinct logs 16938ms
+   ✓ one-command studio supervisor > restarts a SIGKILLed engine on its fixed port without changing durable authority 11512ms
+   ✓ one-command studio supervisor > cancels replacement work when Unity exits during an engine outage 7310ms
+   ✓ one-command studio supervisor > kills a Unity helper that survives TERM before releasing the active lease 13031ms
+   ✓ one-command studio supervisor > rejects a concurrent owner, shuts down on signal, and reclaims only a stale incarnation 18315ms
+   ✓ one-command studio supervisor > bounds engine crash loops and never touches an unrelated process 16791ms
+ ✓ |core| tests/bridge-schema.test.ts (22 tests) 67135ms
+   ✓ canonical Unity bridge schema > projects a real authoritative snapshot to the exact Unity DTO and validates the full envelope 10342ms
+   ✓ canonical Unity bridge schema > keeps live location identities in the projection-v4 building namespace 42630ms
+   ✓ canonical Unity bridge schema > rejects missing, additional, wrong-enum, wrong-nullability, and old-projection data 4837ms
+   ✓ canonical Unity bridge schema > preserves required nullable numeric fields through schema projection 2876ms
+   ✓ canonical Unity bridge schema > models accepted load/command responses as one flat projection envelope 2285ms
+   ✓ canonical Unity bridge schema > requires one closed structured rejection with non-empty guidance and a nullable holder 1790ms
+   ✓ canonical Unity bridge schema > validates the session and health handshake envelopes 2244ms
+ ✓ |core| tests/first-film-journey.test.ts (10 tests) 2967ms
+   ✓ First Film Journey V1 — the guided chain > walks fresh → commissioned → review → accepted → auditions → package → production 1306ms
+   ✓ First Film Journey V1 — the guided chain > counts the released picture and routes an unavailable next screenplay honestly 484ms
+   ✓ First Film Journey V1 — the guided chain > keeps a concurrent second picture visible until a real production decision takes priority 738ms
+ ✓ |core| tests/bridge.test.ts (18 tests) 556491ms
+   ✓ Current-game Unity adoption bridge > pins protocol v4/projection v32 and fingerprints named projections and exact intent fields 7894ms
+   ✓ Current-game Unity adoption bridge > keeps the managed runtime fixture at Week 0 before Picture #1 459ms
+   ✓ Current-game Unity adoption bridge > bootstraps through real founding and legal intents, releasing Movie #1 at the Movie #2 gate 3240ms
+   ✓ Current-game Unity adoption bridge > plays exact Movie #2 end to end with current guidance, identities, blockers, and construction visible 101680ms
+   ✓ Current-game Unity adoption bridge > makes the player choose a distinct evidenced cast before greenlight 22226ms
+   ✓ Current-game Unity adoption bridge > rejects stale, forged, wrong-session, and reused command identities without changing truth 5515ms
+   ✓ Current-game Unity adoption bridge > maps every rejection code to closed TypeScript-owned facts 1975ms
+   ✓ Current-game Unity adoption bridge > uses opaque exact identities rather than titles and invalidates every prior-state intent 5143ms
+   ✓ Current-game Unity adoption bridge > protects save/load controls and reconstructs a fresh reconnect session byte-for-byte 13856ms
+   ✓ Current-game Unity adoption bridge > matches direct headless save bytes/digests and is independent of polling cadence 346219ms
+   ✓ Current-game Unity adoption bridge > keeps read-only polling and failed direct intent application save-neutral 5418ms
+   ✓ Current-game Unity adoption bridge > keeps every named projection and root authority token stable across identical polls 3980ms
+   ✓ Current-game Unity adoption bridge > emits and admits a screenplay commission when both authoritative slots are occupied 1827ms
+   ✓ Current-game Unity adoption bridge > emits and admits exact-project auditions when both authoritative slots are occupied 8902ms
+   ✓ Current-game Unity adoption bridge > emits and admits an evidenced exact-project greenlight without committing the package 6102ms
+   ✓ Current-game Unity adoption bridge > publishes advanceWeek through the ready-to-package family and withholds it at a casting-review decision stop 20994ms
+   ✓ Current-game Unity adoption bridge > keeps advanceWeek available while a greenlight sits queued for Development & Casting capacity 1057ms
+ ✓ |core| tests/property-state-v13.test.ts (24 tests) 7816ms
+   ✓ C1-M1a (a) — the property IS the constants, in a new representation > decides every query verdict from state exactly as the constants decided it 973ms
+   ✓ C1-M1a (a) — the property IS the constants, in a new representation > keeps the severance walk verdict-identical with structures in the obstacle set 1404ms
+   ✓ C1-M1a (a) — the property IS the constants, in a new representation > plays a migrated V12 world byte-identically to a native V13 world for 30+ weeks 463ms
+   ✓ C1-M1a (b) — nothing assumes eight structures or a small placement count > carries twelve-plus placed facilities through invariants, completion, opex, and save 852ms
+   ✓ C1-M1a (b) — nothing assumes eight structures or a small placement count > carries far more than twelve when the property has room for them 2344ms
+   ✓ C1-M1a (d) — SaveFileV13 > writes V13 by default and round-trips every lifecycle state byte-identically 618ms
+ ✓ |core| tests/actions.test.ts (49 tests) 445ms
+ ✓ |core| tests/facility-move-demolish.test.ts (30 tests) 4687ms
+   ✓ C1-M3a (A) — every persisted holder of a facility blocks both verbs > finds a screenplay reservation, on the RESERVATION and not the status 1991ms
+   ✓ C1-M3a (A) — every persisted holder of a facility blocks both verbs > finds a casting-session reservation 555ms
+   ✓ C1-M3a (A) — every persisted holder of a facility blocks both verbs > reports an idle facility as engaged by nothing, and is deterministic 328ms
+   ✓ C1-M3a (A) — every persisted holder of a facility blocks both verbs > REFUSES both verbs while the facility is engaged, and changes nothing 342ms
+   ✓ C1-M3a (F) — saves, boundaries, and determinism > round-trips a history containing both a move and a demolition 316ms
+ ✓ |core| tests/bridge-p13b-s4-office.test.ts (11 tests) 14757ms
+   ✓ case 1: the founding office at week 12 — full quote parity on the wire; office null off the laboratory view > standard I, highest I, offline false, capacity 2, baselineWeeklyOperatingCost 0 (endowed); both conversion rows match the authoritative quote 1427ms
+   ✓ case 1: the founding office at week 12 — full quote parity on the wire; office null off the laboratory view > intent kind: both immediate rows publish installationAction; both plan companions publish physicalPlanAction (adjudicated finding C, 2026-09-17) 662ms
+   ✓ case 2: immediate iii conversion — engagement, reopening, standardAlreadyMet and the exact capex ledger row > commits, engages the body for 16 weeks, reopens at III, and writes one exact -$1,250,000 constructionCapex ledger row 2096ms
+   ✓ case 3: placed office money on the wire > $5,500 baseline continues through a real weekly charge; II->III quotes $850,000/8 weeks with standardDuringWork I 1387ms
+   ✓ case 4: plan companions — queue, start, hiding and the immediate-row lockout > plan-queue-office-convert-iii queues, starts, and offlines the body; the immediate rows lock out while it runs 1446ms
+   ✓ case 4b: a LOWER conversion running immediately leaves a HIGHER companion offered (coordinator-named counter-scenario, 2026-09-17) > while office-convert-ii runs, the iii plan companion is still offered and the ii companion is hidden; queueing iii holds on /targetEngaged/ during the ii work 2721ms
+   ✓ case 5: insufficient funds > both rows read insufficientFunds; plan companions still offered; a queued plan reads next.reason "insufficient cash" 1707ms
+   ✓ case 6: stale revision > an office intent submitted with a stale expectedStateRevision is refused with STALE_REVISION, and that attempt changes nothing 1505ms
+   ✓ case 7: player-safe — no rival facility id ever appears > a structurally injected rival facility id is refused as INVALID_CONTROL; no rival studio id leaks anywhere in the player's own office page 340ms
+   ✓ case 8: history — the existing P09 facility-completed row, no invented "office" kind > the completed iii conversion writes one Opened: <name> row through the existing facilityCompleted mechanism, never a new kind 1461ms
+ ✓ |core| tests/d9-talent.test.ts (33 tests) 1413ms
+   ✓ D-9.2 Role OVR gates and bounds > roleOVR ∈ [1,99] for every generated talent × discipline across seeds 1166ms
+ ✓ |core| tests/bridge-p13b-s3-plans.test.ts (11 tests) 10709ms
+   ✓ case 1: a fresh studio publishes an empty plans page; plans is null off the plans view > snapshotVersion 36; rows and actions are both empty arrays on a fresh studio; laboratory view carries plans: null 1324ms
+   ✓ case 2: the Laboratory-page acoustic companion queues, admits and appears on the plans page > plan-queue-acoustic-<lab> exists beside instruments-<lab> naming the cost/build-weeks/no-reservation facts; dispatching it queues a full row on the plans view; one bridge advance starts it, writing planQueued/planStarted history; the acoustic companion then disappears while electrical still offers 1535ms
+   ✓ case 3: the envelope hold (insufficient cash) and the changed-quote hold (forged fingerprint) > a queued electrical plan with cash spent below its cost stays queued after an advance, with next.reason === "insufficient cash" 1151ms
+   ✓ case 3: the envelope hold (insufficient cash) and the changed-quote hold (forged fingerprint) > a forged approvedQuote.fingerprint holds at the next boundary; plan-review-<planId> names the approved/pending figures; dispatching it re-queues with the pending fingerprint promoted, then it starts 1433ms
+   ✓ case 4: cancel blocks its dependent; a started plan has no cancel row > cancelling the predecessor cancels it and blocks the dependent, naming it, with matching history rows; the cancel row disappears; an independently STARTED plan carries no cancel row at all 1240ms
+   ✓ case 5: reorder > three independent queued plans: move-down swaps ordinals 1<->2 on the wire; move-up is disabled at the top and move-down at the bottom 1061ms
+   ✓ case 6: admission mode toggle > the mode NOT currently set is the only admission action offered; dispatching it flips the row's admission 937ms
+   ✓ case 7: stale revision > a plans intent submitted with a stale expectedStateRevision is refused with STALE_REVISION, and that specific attempt changes nothing 1400ms
+   ✓ case 8: player-safe — no rival plan, planId or facility ever appears > a structurally injected rival plan row never appears on the player plans view, in no action id, and its studio id leaks nowhere in the page 353ms
+ ✓ |core| tests/film-chronicle.test.ts (28 tests) 969ms
+   ✓ Film Chronicle V1 — SaveFileV11 durability > reconstructs a deep-equal Chronicle after an exact V11 export/import round-trip 663ms
+ ✓ |core| tests/ruling-c-filmshape.test.ts (24 tests) 42ms
+ ✓ |core| tests/bridge-casting.test.ts (12 tests) 9916ms
+   ✓ P04A Casting bridge — quote seam and board > quotes, mints, and commits a screen test with the EXACT player slate — no fee, no hold, one reservation, dueWeek = week+1 3533ms
+   ✓ P04A Casting bridge — quote seam and board > quotes, mints, and commits exact greenlight with controlled fractional cash 0; later refusal changes NOTHING 857ms
+   ✓ P04A Casting bridge — quote seam and board > quotes, mints, and commits exact greenlight with controlled fractional cash 0.25; later refusal changes NOTHING 721ms
+   ✓ P04A Casting bridge — quote seam and board > capacity-only screen test and greenlight both quote queues:true and commit with ZERO commitment 798ms
+   ✓ P04A Casting bridge — quote seam and board > capacity-only greenlight at controlled fractional cash 0 quotes queues:true and commits with ZERO commitment 729ms
+   ✓ P04A Casting bridge — quote seam and board > capacity-only greenlight at controlled fractional cash 0.25 quotes queues:true and commits with ZERO commitment 727ms
+   ✓ P04A Casting bridge — quote seam and board > refuses a stale revision before any engine work 458ms
+   ✓ P04A Casting bridge — quote seam and board > an accepted unrelated command invalidates a live casting quote; the exact same draft is quotable fresh again 688ms
+   ✓ P04A Casting bridge — quote seam and board > refuses malformed slates, unknown ids, and non-menu budgets in plain language, without mutation 507ms
+   ✓ P04A Casting bridge — quote seam and board > a queueIntentExpired notice carries the exact projectId and survives save/load 753ms
+ ✓ |core| tests/bridge-p13b-s2-labs.test.ts (10 tests) 104739ms
+   ✓ case 1: a fresh Laboratory publishes snapshotVersion 36 and an empty projects array > a Laboratory with no research project at all reports laboratory.projects === [] 1338ms
+   ✓ case 2: seating is lawful before a brief's research opens; the wire dates the wait instead of hiding the brief > before week 780 (week 263, S1-style state): both the sound and lighting assign rows exist for a free employed person; the lighting row's detail names the wait, the sound row's does not (sound opened 260); dispatching the lighting assign through the bridge is accepted, publishing a paused lighting project whose bottleneckLabel also names the wait; its begin row is disabled with the same engine text 6947ms
+   ✓ case 3: two full Laboratories — the shared project reads identically from both pages > dispatches 4+4 sound assign rows through the bridge on both Laboratories, funds the full $80,000 ceiling through the bridge's own budget row (the S2-T6 gap that used to cap this menu at $40,000 was closed 2026-09-16 — the menu now reaches 60,000/80,000) and begins through the bridge; before the first tick both pages already report companion test 4 case (i) (7 funded weeks remain, 0 of 64 verified units); one bridge-advanced week reproduces case (i) exactly (output 9.75, units 1,560,000) on both pages 29282ms
+   ✓ case 4: two technologies staffed on one Laboratory > lists two projects rows in stable id order; every project's progressLabel names its own verifiedWork/work; each fully-funded 2-seat project's cooperationLabel reads "One Laboratory: 2 seats" with the real $20,000/60,000 figures; the fifth assign for EITHER technology on this Laboratory is refused with "four seats" 17379ms
+   ✓ case 5: a third Laboratory is refused on the wire > a real, completed third Laboratory (placed and its build time elapsed — the same construction tests/p13b-s2-labs.test.ts's own base3Setup uses for the identical core-level "test 3" case) publishes its assign row disabled with the engine's own "third Laboratory" refusal 9308ms
+   ✓ case 6: a migrated V21 fixture keeps its honest single-pool receipts on the wire > loads through BridgeSession.fromSaveJson (a genuine V21 fixture, migrated on import): the sound project's three stored receipts read labs:null; the lighting project's three receipts each read one derived row; the next quoted week splits 4+2 seats at $60,000 into $40,000/$20,000, output 7.875 374ms
+   ✓ case 7: releasing a seat through the bridge recomputes the funding split > releasing one of Lab 2's two sound seats (4+2 -> 4+1) through the bridge recomputes next week's split to $40,000/$10,000, output 6.9375 8318ms
+   ✓ case 8: player-safe — no rival project, seat or talent id ever appears > the Laboratory page names only the player studio's own project and talent ids 7859ms
+ ✓ |core| tests/bridge-contract-consumer-lock.test.ts (77 tests) 385392ms
+   ✓ CF-09 source bundle and repository identity > rejects a caller-supplied TypeScript root different from the executing verifier checkout 1226ms
+   ✓ CF-09 sealed pair > binds the exact pushed clean commits and both committed generated blobs 5555ms
+   ✓ CF-09 sealed pair > rejects the wrong Unity repository before reading a matching file 2557ms
+   ✓ CF-09 sealed pair > rejects a canonical-looking remote redirected by Git URL rewriting 2272ms
+   ✓ CF-09 sealed pair > rejects a Unity subdirectory as the wrong root 2223ms
+   ✓ CF-09 sealed pair > rejects a nonallowlisted generated-file path 2976ms
+   ✓ CF-09 sealed pair > rejects a stale committed Unity consumer 5116ms
+   ✓ CF-09 sealed pair > rejects a one-byte uncommitted consumer drift as dirt before hashing 3252ms
+   ✓ CF-09 sealed pair > rejects a one-byte committed consumer drift 5214ms
+   ✓ CF-09 sealed pair > rejects a schema identity mismatch 3494ms
+   ✓ CF-09 sealed pair > rejects a protocol mismatch 3650ms
+   ✓ CF-09 sealed pair > rejects a projection mismatch 4715ms
+   ✓ CF-09 sealed pair > rejects a staged dirty TypeScript tree 3999ms
+   ✓ CF-09 sealed pair > rejects a unstaged dirty TypeScript tree 3875ms
+   ✓ CF-09 sealed pair > rejects a untracked dirty TypeScript tree 2757ms
+   ✓ CF-09 sealed pair > rejects a staged dirty Unity tree 3163ms
+   ✓ CF-09 sealed pair > rejects a unstaged dirty Unity tree 2719ms
+   ✓ CF-09 sealed pair > rejects a untracked dirty Unity tree 3184ms
+   ✓ CF-09 sealed pair > rejects TypeScript worktree bytes hidden with assume-unchanged 3031ms
+   ✓ CF-09 sealed pair > rejects Unity worktree bytes hidden with skip-worktree 3544ms
+   ✓ CF-09 sealed pair > rejects a hidden index flag anywhere in the TypeScript repository 2924ms
+   ✓ CF-09 sealed pair > rejects a hidden index flag anywhere in the Unity repository 3158ms
+   ✓ CF-09 sealed pair > rejects a missing committed consumer without filename fallback 3789ms
+   ✓ CF-09 sealed pair > rejects a nonexistent immutable commit 2946ms
+   ✓ CF-09 sealed pair > rejects a manifest/blob mismatch 6828ms
+   ✓ CF-09 sealed pair > rejects stale real Unity bytes even when a TypeScript-local self-copy matches 5604ms
+   ✓ CF-09 sealed pair > rejects a committed symlink consumer before content comparison 2787ms
+   ✓ CF-09 sealed pair > rejects path traversal rather than normalizing it 3154ms
+   ✓ CF-09 sealed pair > rejects a wrong branch even when it points to identical bytes and commit 3410ms
+   ✓ CF-09 sealed pair > rejects recursive or unknown manifest commit fields 3948ms
+   ✓ CF-09 sealed pair > rejects a generator source/manifest mismatch in scripts/bridge-contract-csharp.ts 5617ms
+   ✓ CF-09 sealed pair > rejects a generator source/manifest mismatch in bridge/schema/intent-schema.ts 4101ms
+   ✓ CF-09 sealed pair > generation result is independent of current member/property-like file order 8815ms
+   ✓ CF-09 post-commit attestation > CLI cannot emit an attestation before hostile-review ACCEPT 1895ms
+   ✓ CF-09 post-commit attestation > requires a fresh hostile-review ACCEPT before emission 1815ms
+   ✓ CF-09 post-commit attestation > emits deterministic immutable facts only after both sealed commits exist 12503ms
+   ✓ CF-09 post-commit attestation > rejects seal-time log evidence outside the inferred canonical evidence root 6722ms
+   ✓ CF-09 post-commit attestation > rejects a noncanonical seal-time XML filename 7118ms
+   ✓ CF-09 post-commit attestation > re-verifies immutable commit blobs even after both HEADs move 13467ms
+   ✓ CF-09 post-commit attestation > rejects an attestation naming a nonexistent commit 7130ms
+   ✓ CF-09 post-commit attestation > rejects a manifest hash that does not match the attested commit blob 11451ms
+   ✓ CF-09 post-commit attestation > rejects an attested verifier bundle that differs from the executing verifier 8892ms
+   ✓ CF-09 post-commit attestation > rejects fixture-corpus source drift named by the attestation 13180ms
+   ✓ CF-09 post-commit attestation > rejects one-byte EditMode evidence drift 11533ms
+   ✓ CF-09 post-commit attestation > rejects an attested result traversal path before resolving it 9170ms
+   ✓ CF-09 post-commit attestation > rejects an attested absolute result path before resolving it 6256ms
+   ✓ CF-09 post-commit attestation > rejects an attested nested result path before resolving it 7337ms
+   ✓ CF-09 post-commit attestation > rejects an attested wrong result name path before resolving it 6491ms
+   ✓ CF-09 post-commit attestation > rejects an attested log traversal path before resolving it 7025ms
+   ✓ CF-09 post-commit attestation > rejects an attested absolute log path before resolving it 10169ms
+   ✓ CF-09 post-commit attestation > rejects an attested nested log path before resolving it 5937ms
+   ✓ CF-09 post-commit attestation > rejects an attested wrong log name path before resolving it 5097ms
+   ✓ CF-09 post-commit attestation > does not re-root a traversal path around the caller evidence root 8464ms
+   ✓ CF-09 post-commit attestation > rejects a symlinked caller evidence root 10736ms
+   ✓ CF-09 post-commit attestation > rejects symlinked evidence redirection 8244ms
+   ✓ CF-09 post-commit attestation > rejects symlinked XML evidence redirection 9993ms
+   ✓ CF-09 post-commit attestation > rejects zero/no-op counts EditMode XML 5031ms
+   ✓ CF-09 post-commit attestation > rejects comment-spoofed passing root EditMode XML 5552ms
+   ✓ CF-09 post-commit attestation > rejects comment-spoofed generated suite and sentinel EditMode XML 5936ms
+   ✓ CF-09 post-commit attestation > rejects multiple document roots EditMode XML 5353ms
+   ✓ CF-09 post-commit attestation > rejects failing document root EditMode XML 5494ms
+   ✓ CF-09 post-commit attestation > rejects malformed XML EditMode XML 5569ms
+   ✓ CF-09 post-commit attestation > rejects wrong generated fixture suite EditMode XML 5166ms
+   ✓ CF-09 post-commit attestation > rejects wrong generated fixture suite type EditMode XML 5083ms
+   ✓ CF-09 post-commit attestation > rejects wrong sentinel method EditMode XML 5284ms
+   ✓ CF-09 post-commit attestation > rejects sentinel nested beneath the wrong suite EditMode XML 5381ms
+   ✓ CF-09 post-commit attestation > rejects skipped sentinel method EditMode XML 5157ms
+   ✓ CF-09 post-commit attestation > rejects failing generated fixture suite EditMode XML 5080ms
+   ✓ CF-09 post-commit attestation > rejects failed or internally inconsistent full EditMode XML 5038ms
+ ✓ |core| tests/roster-wall-artifacts.test.ts (16 tests) 50997ms
+   ✓ roster-wall provenance gates > accepts a clean harness/docs/tests-only descendant and stamps exact source identity 794ms
+   ✓ roster-wall provenance gates > rejects untracked executable state, a wrong branch, and production-source drift 1550ms
+   ✓ roster-wall provenance gates > rejects an ignored executable/source shadow 514ms
+   ✓ roster-wall provenance gates > rejects accepted attestation of a repository other than the executing checkout 305ms
+   ✓ roster-wall artifact infrastructure > writes, inventories, verifies, and exactly replays a complete artifact 567ms
+   ✓ roster-wall artifact infrastructure > does not expose an accepted-finalization authority override 564ms
+   ✓ roster-wall artifact infrastructure > rejects the former skeletal smoke counterfeit before semantic acceptance 22665ms
+   ✓ roster-wall artifact infrastructure > reports a valid deterministic replay difference without conflating file sets 403ms
+   ✓ roster-wall artifact infrastructure > rejects rebuilt mechanics semantics against the canonical fixture oracle 22517ms
+   ✓ roster-wall artifact infrastructure > rejects digest tampering and any extra generated file 554ms
+ ✓ |core| tests/operations.test.ts (13 tests) 1199ms
+   ✓ Production Operations V1 > holds only the blocked production while world time and weekly costs continue 744ms
+ ✓ |core| tests/blueprint-requirements.test.ts (27 tests) 10249ms
+   ✓ C1-M2 — requirement kinds evaluate honestly > P13A opens only the exact research gate after actual player access, while waiting remains unmet 8214ms
+   ✓ C1-M2 — the shipped Annex is unchanged > quotes identically across the WHOLE parcel map, gates and all 1338ms
+ ✓ |core| tests/placement-core.test.ts (36 tests) 2063ms
+   ✓ Placement Core V12 — the runner invariant (property) > commit quote deep-equals query quote over random requests 880ms
+ ✓ |core| tests/construction-core.test.ts (12 tests) 4744ms
+   ✓ Development & Casting Annex V1 core lifecycle > completes on exactly the thirteenth advance from a nonzero start with no recurring charge or RNG draw 1329ms
+   ✓ Development & Casting Annex V1 core lifecycle > does not reallocate completing-advance productions into the Annex, then exposes it immediately 648ms
+   ✓ Development & Casting Annex V1 core lifecycle > uses the authoritative greenlight debit to reject skip-first start-clock laundering 430ms
+   ✓ Development & Casting Annex V1 core lifecycle > allows a production started after completion to claim the Annex under normal allocation 575ms
+   ✓ Development & Casting Annex V1 core lifecycle > accepts only the exact Annex V1 facility set and detects cross-owner collisions 1082ms
+ ✓ |core| tests/broadcast.test.ts (26 tests) 4293ms
+   ✓ §8 broadcast is INERT in the natural M0A corpus (contract-forced) > full-year runs produce ZERO broadcast items (both agents, representative seeds) 4270ms
+ ✓ |core| tests/facility-effects.test.ts (20 tests) 4182ms
+   ✓ C1-M4 — Development Office tiers raise what a screenplay becomes > changes nothing at all when no office stands 1221ms
+   ✓ C1-M4 — Development Office tiers raise what a screenplay becomes > raises the review EST by exactly the named tier amount 726ms
+   ✓ C1-M4 — Development Office tiers raise what a screenplay becomes > does not stack, and the highest tier wins 692ms
+   ✓ C1-M4 — Development Office tiers raise what a screenplay becomes > never un-writes a screenplay when the office is demolished 630ms
+   ✓ C1-M4 — the whole catalog standing at once > round-trips the whole estate byte-identically and replays deterministically 449ms
+stdout | tests/p09a-w0-founding-regime.test.ts > P09 R5/R6 — the ordinary bare-lot studio releases a picture on its own money > HARD-STOP GATE: sparse start → four builds → screenplay → set → picture → release → receipts, cash never below zero
+[p09 gate] release week 37; cash floor 7888869; final cash 9778380.025328362; weeks 42
+
+ ✓ |core| tests/p09a-w0-founding-regime.test.ts (13 tests) 7910ms
+   ✓ P09 R1 — the founding regime is persisted, exact, and immutable > V18 round-trips the regime and refuses a forged or missing one 613ms
+   ✓ P09 R1 — the founding regime is persisted, exact, and immutable > the regime is never inferred from what stands on the lot 1313ms
+   ✓ P09 R4 — the minimum plant fits and completes on its committed weeks > P09 §10.3: on the sparse lot only the founding office is quotable first; every other row says exactly why 593ms
+   ✓ P09 R4 — the minimum plant fits and completes on its committed weeks > four committed sites complete on their own weeks, become operational, and start paying opex only then 944ms
+   ✓ P09 R4 — the minimum plant fits and completes on its committed weeks > save/load mid-construction continues byte-identically; same-week sites complete together in id order 1827ms
+   ✓ P09 R5/R6 — the ordinary bare-lot studio releases a picture on its own money > a screenplay commission with no capacity queues, and admits itself when the office opens 388ms
+   ✓ P09 R5/R6 — the ordinary bare-lot studio releases a picture on its own money > HARD-STOP GATE: sparse start → four builds → screenplay → set → picture → release → receipts, cash never below zero 1019ms
+   ✓ P09A W1 R9 — a picture may hold a stage that completed after its greenlight, from the stamped week only > holds from bindings.heldSinceWeek; a stamp forged before completion is refused 912ms
+ ✓ |core| tests/studio-calendar.test.ts (10 tests) 1471ms
+   ✓ Studio Calendar V1 — authoritative read model > keeps a populated migrated studio explicitly legacy while preserving its real clocks 651ms
+ ✓ |core| tests/script-read-model.test.ts (11 tests) 504ms
+ ✓ |core| tests/standing.test.ts (17 tests) 23ms
+ ✓ |core| tests/d17-engagement-persistence.test.ts (30 tests) 2533ms
+   ✓ D-17A/R2: economyEngagedEver is seeded false and set only by founding / signing > a headless run NEVER engages, however many films it releases 914ms
+   ✓ D-17A/R2: convertV5ToV6 reconstructs the fact correctly for every save class > never-engaged headless WITH releases → false (production/boxOffice are excluded) 510ms
+   ✓ D-17A/R2: convertV5ToV6 reconstructs the fact correctly for every save class > legacy V3-migrated never-engaged (economyModelVersion 0 runs) → false 442ms
+ ✓ |core| tests/d11-employment.test.ts (36 tests) 7321ms
+   ✓ D-11.2 — starting applicant draft > no guaranteed superstar: across many seeds, some drafts have no 90+ OVR actor 431ms
+   ✓ D-11 — contracts & offers > payroll accrues each week; the ledger reconciles after several weeks 746ms
+   ✓ D-11.8 — expiration > a contract expires at term end and the talent becomes a free agent 1848ms
+   ✓ D-11.7 — renewals > renewing inside the window extends the term and takes a signing bonus from cash 1545ms
+   ✓ D-11.14 — deterministic markets > the market rotates across epochs (different listings over a full rotation) 361ms
+   ✓ D-11 — determinism & live saves > new games save at the live version and round-trip byte-identically 314ms
+   ✓ D-11 — determinism & live saves > no duplicate payroll after reload (reload ≡ continuous run) 874ms
+   ✓ D-11 — determinism & live saves > two same-seed founded+advanced runs are byte-identical (deterministic offers/markets) 637ms
+ ✓ |core| tests/production-operations-save-v8.test.ts (20 tests) 2759ms
+   ✓ Production Operations V1 — frozen V7 to live V8 migration > backfills the additive opening band in legitimate pre-a104970 V1–V4 active forecasts 424ms
+   ✓ Production Operations V1 — frozen V7 to live V8 migration > preserves an active V7 production countdown and continuation exactly 472ms
+   ✓ Production Operations V1 — managed state validation and continuation > round-trips a blocked shooting task with its real director and reservations 302ms
+ ✓ |core| tests/placement-save-v12.test.ts (20 tests) 4220ms
+   ✓ Placement Core V12 — the frozen envelope > writes V12 explicitly and round-trips every lifecycle state byte-identically 1013ms
+   ✓ Placement Core V12 — historical boundary guards (law 19) > keeps the V11 validator rules exactly as they were 406ms
+   ✓ Placement Core V12 — the V11 → V12 migration > moves a COMPLETED legacy Annex without disturbing its facility or reservations 353ms
+   ✓ Placement Core V12 — the V11 → V12 migration > is deterministic and idempotent 436ms
+ ✓ |core| tests/ruling-a-development-in-play.test.ts (18 tests) 1766ms
+   ✓ RULING A — deterministic, RNG-isolated, replay-exact > full-run replay is byte-identical with development ON (export→import→export) 331ms
+   ✓ RULING A — development survives save round-trips without duplication > export→import preserves the developed talent exactly (no re-development on load) 358ms
+ ✓ |core| tests/d11-cycle3.test.ts (61 tests) 551ms
+ ✓ |core| tests/p13b-s3-admission.test.ts (17 tests) 15236ms
+   ✓ P13B-S3 admission law (test 1) > a fresh world carries the empty physicalPlans root the contract defines 1080ms
+   ✓ P13B-S3 admission law (test 1) > queuing snapshots the CURRENT quote as approvedQuote via planQuoteSnapshot 483ms
+   ✓ P13B-S3 admission law (test 1) > a queued acoustic installation on a Lab without instruments starts at the next boundary, matching a hand commit at the same week 730ms
+   ✓ P13B-S3 admission law (test 1) > writes commitReceipt exactly once — later ticks never rewrite it or double-charge 619ms
+   ✓ P13B-S3 admission law (test 1) > earliestStartWeek in the future holds admission until it arrives 704ms
+   ✓ P13B-S3 admission law (test 1) > cost above the ceiling holds with a reason naming both dollar amounts; automatic admission within the ceiling starts 551ms
+   ✓ P13B-S3 no reservation (test 2) > a queued plan changes no cash, weeklyBurn, capacity (operations/placement) or ledger 319ms
+   ✓ P13B-S3 no reservation (test 2) > two plans on one target: the second starts only once the first no longer engages it 408ms
+   ✓ P13B-S3 no reservation (test 2) > cancelling a queued plan leaves the state byte-identical except the plan row and history 370ms
+   ✓ P13B-S3 ordering and envelope (test 5) > two plans on independent targets, cash for one: the first starts, the second stays queued with an insufficient-cash reason and no partial debit 945ms
+   ✓ P13B-S3 ordering and envelope (test 5) > admission drains cash inside the SAME tick research reads: the plan starts and that week's research receipt is skipped for insufficient cash 5070ms
+   ✓ P13B-S3 ordering and envelope (test 5) > a dependency completing in week w enables its dependent at w+1's admission boundary, never within w 509ms
+   ✓ P13B-S3 conservation, determinism, replay, history and rival symmetry (test 6) > determinism: replaying the same actions from the same start produces byte-identical exportSave output 1303ms
+   ✓ P13B-S3 conservation, determinism, replay, history and rival symmetry (test 6) > replay: save/reload mid-queue then continue matches an uninterrupted run, byte for byte 1129ms
+   ✓ P13B-S3 conservation, determinism, replay, history and rival symmetry (test 6) > history rows: planQueued and planStarted carry week and reason through the existing studio-history mechanism 393ms
+   ✓ P13B-S3 conservation, determinism, replay, history and rival symmetry (test 6) > rival symmetry: validatePhysicalPlans accepts a rival studio's plan list built by structural injection with the same law (mirrors tests/p13b-s2-labs.test.ts's / tests/p13b-s2-validation.test.ts's injection technique — this engine has no public action path that grows a genuine rival physical plan, exactly the FINDING p13b-s2-validation.test.ts already recorded for rival research projects) 340ms
+ ✓ |core| tests/ruling-b-multihyphenate.test.ts (21 tests) 15608ms
+   ✓ RULING B — the same roleOVR formula applies to every discipline (no secondary bonus) > roleOVR depends ONLY on (skills, discipline) — the PRIMARY role field has no effect 1807ms
+   ✓ RULING B — the same roleOVR formula applies to every discipline (no secondary bonus) > two talent with the SAME writing skills read the SAME writing OVR regardless of which discipline is primary 1465ms
+   ✓ RULING B — usable secondaries are real broad SKILLS; ordinary talent is weak elsewhere > a usable secondary's OVR≥60 is EARNED by its skill vector (recomputing OVR from the skills reproduces it) 1552ms
+   ✓ RULING B — usable secondaries are real broad SKILLS; ordinary talent is weak elsewhere > the MAJORITY of talent have all secondaries weak (< 60 OVR) — ordinary talent is single-discipline 1573ms
+   ✓ RULING B — usable secondaries are real broad SKILLS; ordinary talent is weak elsewhere > a weak (non-usable) secondary reads a genuinely low OVR — most secondary slots are weak 991ms
+   ✓ RULING B — the secondary-OVR distribution stays substantially below primary > mean secondary OVR is well below mean primary OVR 1039ms
+   ✓ RULING B — discipline adjacency is a MODEST lean, not a rule > NOT every writer has a usable directing secondary (adjacency is a tendency, not universal) 1267ms
+   ✓ RULING B — discipline adjacency is a MODEST lean, not a rule > the strongest adjacency (writer→directing) is at least as common as a weak one (writer→craft) 780ms
+   ✓ RULING B — capability vs demonstrated career identity > a freshly-generated talent has NO proven identity disciplines (workHistory all 0) 1059ms
+   ✓ RULING B — capability vs demonstrated career identity > a capable-but-uncredited discipline is flagged Capable but Unproven (not part of the identity) 1066ms
+   ✓ RULING B — capability vs demonstrated career identity > once a credit exists (workHistory ≥ 1) at a usable OVR, the discipline JOINS the identity 1345ms
+   ✓ RULING B — capability vs demonstrated career identity > a credit at a NON-usable OVR (< CAPABILITY_OVR_MIN) does NOT create an identity discipline 1404ms
+ ✓ |core| tests/p08a-w0-studio-history.test.ts (13 tests) 9622ms
+   ✓ P08A H3/H4 — the release mutation site records exact receipts and the release fact > freezes before/after/deltas equal to the actual Standing change, with the source id and drivers 923ms
+   ✓ P08A H3/H4 — the release mutation site records exact receipts and the release fact > records filmReleased as a LANDMARK for the first film and MAJOR afterwards, by exact id 911ms
+   ✓ P08A H3/H4 — the release mutation site records exact receipts and the release fact > records theatricalRunCompleted exactly once when the run settles 904ms
+   ✓ P08A H3/H4 — the release mutation site records exact receipts and the release fact > release drivers reproduce the exact update (consistency of the frozen facts) 304ms
+   ✓ P08A H3/H5 — weekly settling receipts are exact, bounded, and folded deterministically > records a routine settling receipt only when awareness actually moves, then folds past the window 4252ms
+   ✓ P08A H7 — save/load mid-run continues with identical history > reloaded branch equals the unbroken branch byte-for-byte after more releases 1299ms
+   ✓ P08A H8 — the save boundary refuses forged history > refuses out-of-order ids, pre-boundary rows, lying deltas, and unknown kinds 503ms
+ ✓ |core| tests/bridge-p09a-w1-placement-quote.test.ts (7 tests) 14759ms
+   ✓ P09A W1 — placement quote family over the bridge > R1: a legal preview is an accepted quote that reads the engine authority verbatim, engine-priced 458ms
+   ✓ P09A W1 — placement quote family over the bridge > R2: an illegal preview is an ACCEPTED ok:false answer with reasons — and its id is not a registered intent 492ms
+   ✓ P09A W1 — placement quote family over the bridge > R3: a full-grid sweep with two footprints rides every rejection family the ground produces, exactly as the engine says 9169ms
+   ✓ P09A W1 — placement quote family over the bridge > R4: commit builds exactly once at the quoted engine price, then the intent is spent 895ms
+   ✓ P09A W1 — placement quote family over the bridge > R5: any accepted command retires outstanding placement quotes; a stale revision is refused first 1819ms
+   ✓ P09A W1 — placement quote family over the bridge > R6: the founding regime is on the wire as exact history; the same authority answers per the ground it sees 1912ms
+ ✓ |core| tests/migration.test.ts (23 tests) 2226ms
+   ✓ faithful ability preservation — primary-discipline ACTUAL-SKILL MEAN ≈ old.skill > mean |Δ| between primary actual-skill-mean and old.skill is < ~3 across a large corpus 629ms
+   ✓ faithful ability preservation — primary-discipline ACTUAL-SKILL MEAN ≈ old.skill > the SIGNED mean deviation is ~0 (no systematic upward/downward bias) 603ms
+   ✓ faithful ability preservation — primary-discipline ACTUAL-SKILL MEAN ≈ old.skill > 10–20% of migrated talent have a USABLE secondary discipline (step 4 target) 405ms
+ ✓ |core| tests/roster-wall-fixtures.test.ts (9 tests) 33567ms
+   ✓ Week-208 roster-wall synthetic mechanics fixtures > refuses artifact-facing fixture rows without accepted source authority 1576ms
+   ✓ Week-208 roster-wall synthetic mechanics fixtures > derives every named cash threshold from each policy's exact offers and retains N/A role rows 7075ms
+   ✓ Week-208 roster-wall synthetic mechanics fixtures > ranks frozen quote metadata in each C0-C6 policy's actual complete basis order 7336ms
+   ✓ Week-208 roster-wall synthetic mechanics fixtures > exercises distinct C0-C6 order, timing, retry, and term semantics 1536ms
+   ✓ Week-208 roster-wall synthetic mechanics fixtures > emits the complete canonical-data-ready matrix deterministically 15160ms
+   ✓ Week-208 roster-wall synthetic mechanics fixtures > prices C6 thresholds from its mixed 52/104/156/208 offers, not 208-week quotes 850ms
+ ✓ |core| tests/p05a-w1-scenery-truth.test.ts (21 tests) 1486ms
+   ✓ P05A W1 — reload keeps the classification > an in-transit trip reloads as the same in-transit trip 344ms
+ ✓ |core| tests/c2a-m5-studio-week-theater.test.ts (19 tests) 1821ms
+   ✓ C2a-M5 §4.2 — the named subjects are all reachable > says all of it in the STUDIO’s words — no engine token reaches a placard (G12) 450ms
+ ✓ |core| tests/p13b-s2-access-identity.test.ts (14 tests) 19136ms
+   ✓ P13B-S2 access identity: completion grant must key on (studioId, technologyId) > 6. save/reload and later ticks: exactly two rows, no duplicates, no erasure; validateSaveV23 accepts 881ms
+ ✓ |core| tests/d17b-awareness-counterflow.test.ts (20 tests) 4042ms
+   ✓ D-17B §1/E1 — M0A byte-identity by construction (headless spot-run) > a headless year is never engaged, so every standing update uses the legacy 0.58 pivot 2878ms
+   ✓ D-17B §1 — the drift is one-sided, anchored, and bounded > the anchor is a FIXED POINT: repeated engaged weeks converge to it from above, never past it 393ms
+ ✓ |core| tests/d17a-fixed-cost-allocation.test.ts (16 tests) 7004ms
+   ✓ D-17A/T3 (a) — synthetic fuzz: the per-week partition is exact > every single week partitions EXACTLY: Σ shares + idle === F(w) 335ms
+   ✓ D-17A/T3 (b) — engine-driven: the allocation reconciles to the real ledger > the fixture really does contain a founding prefix, an overlap, and idle weeks 1270ms
+   ✓ D-17A/T3 (b) — engine-driven: the allocation reconciles to the real ledger > Σ allocated + idle === Σ ledger payroll+overhead over the FULL run 616ms
+   ✓ D-17A/T3 (b) — engine-driven: the allocation reconciles to the real ledger > … and over EVERY sub-window of that run, including ones inside the founding prefix 544ms
+   ✓ D-17A/T3 (b) — engine-driven: the allocation reconciles to the real ledger > an overlap week really is split two ways, and a sole-occupancy week is not 443ms
+   ✓ D-17A/T3 (b) — engine-driven: the allocation reconciles to the real ledger > the declared window convention holds: 8 production weeks, then the run from releaseTick 495ms
+   ✓ D-17A/T3 (b) — engine-driven: the allocation reconciles to the real ledger > a run STILL ACTIVE at the window boundary reconciles (the window simply truncates) 348ms
+   ✓ D-17A/T3 (b) — engine-driven: the allocation reconciles to the real ledger > CONTRACT EXPIRY mid-run: burn drops to bare overhead and the allocation still reconciles 1571ms
+   ✓ D-17A/T3 (c) — negative control: a formula-based allocator FAILS the invariant > recomputing the weekly cost from contracts over-attributes the founding prefix 507ms
+   ✓ D-17A/T3 (c) — negative control: a formula-based allocator FAILS the invariant > the founding prefix is precisely where the two disagree 578ms
+ ✓ |core| tests/bridge-p10a-r1-contract-quote.test.ts (8 tests) 11047ms
+   ✓ P10-R1 — contract renewal / early release over the bridge > R0: the Profile publishes the legal windows and the engine's own terms; the schema publishes both intent kinds 1914ms
+   ✓ P10-R1 — contract renewal / early release over the bridge > R1: a legal renewal reads the engine verbatim, commits once at the quoted bonus, and refuses replay / re-use 2720ms
+   ✓ P10-R1 — contract renewal / early release over the bridge > R2: a legal release carries the engine's termination cost, commits once, and keeps every recorded credit 697ms
+   ✓ P10-R1 — contract renewal / early release over the bridge > R4: a stale quote is refused once the authority moved on 2476ms
+   ✓ P10-R1 — contract renewal / early release over the bridge > R5: unknown person is a draft refusal; no contract is an accepted refusal; a changed contract re-prices 1734ms
+   ✓ P10-R1 — contract renewal / early release over the bridge > R6: the engine's own refusals — unpublished term, the D-12 solvency gate, a screenplay task 722ms
+   ✓ P10-R1 — contract renewal / early release over the bridge > R7: cancellation is state-neutral — a quote without a commit changes nothing 600ms
+ ✓ |core| tests/script-projects-save-v9.test.ts (8 tests) 1768ms
+   ✓ Script Projects V1 — SaveFileV9 > makes V9 by default and round-trips legacy and every managed lifecycle class byte-identically 942ms
+ ✓ |core| tests/forecast.test.ts (20 tests) 47ms
+ ✓ |core| tests/reception-formulas.test.ts (28 tests) 116ms
+ ✓ |core| tests/facilities-observatory.test.ts (12 tests) 28752ms
+   ✓ Facilities & Construction research observatory > is deterministic, ledger-reconciled, and samples exact Calendar slot-weeks 1942ms
+   ✓ Facilities & Construction research observatory > keeps every arm explicit and uses one-boundary shadows for current capacity rejections 2406ms
+   ✓ Facilities & Construction research observatory > activates delayed capacity at the exact start-of-week boundary with exact raw manifests 1285ms
+   ✓ Facilities & Construction research observatory > splits D&C rejections at availability and counts the boundary week as post-availability 803ms
+   ✓ Facilities & Construction research observatory > uses one distinct capacity-two research facility while current shadows stay one-slot 2396ms
+   ✓ Facilities & Construction research observatory > emits canonical seed-major/policy-major pairs with frozen provenance boundaries 3439ms
+   ✓ Facilities & Construction research observatory > reaches the Week-260 horizon and reports Week-208 staffing separately 10858ms
+   ✓ Facilities & Construction research observatory > does not alter an ordinary engine replay through module-global state 570ms
+   ✓ Facilities & Construction research observatory > proves the same controller is byte-identical with evidence capture disabled 1650ms
+   ✓ Facilities & Construction research observatory > uses the role-specific camera-test slate when packaging auditioned projects 3398ms
+ ✓ |core| tests/cash-ledger-checkpoint-v11.test.ts (10 tests) 4600ms
+   ✓ SaveFileV11 cash/ledger checkpoint — historical migration > migrates an authentic played V2 without fabricating the missing production ledger row 484ms
+   ✓ SaveFileV11 cash/ledger checkpoint — historical migration > preserves validator-accepted non-opening cash through every V1-V10 descendant 371ms
+   ✓ SaveFileV11 cash/ledger checkpoint — post-migration authority > prevents every frozen builder from moving a checkpoint after later gameplay 428ms
+   ✓ SaveFileV11 cash/ledger checkpoint — post-migration authority > retains a nonempty historical checkpoint prefix only through ledger-owning builders 1447ms
+   ✓ SaveFileV11 cash/ledger checkpoint — post-migration authority > preserves exact checkpoint reconciliation through managed payroll and overhead suffixes 717ms
+   ✓ SaveFileV11 cash/ledger checkpoint — post-migration authority > starts and completes the Annex from a mismatched managed V10 with exactly one post-checkpoint capex 447ms
+ ✓ |core| tests/bridge-runtime-checkpoint-prepared-reuse.test.ts (21 tests) 96390ms
+   ✓ prepared checkpoint representation reuse preserves authority boundaries > intersects session and caller maxCheckpointBytes allowances, including after a successful export 3262ms
+   ✓ prepared checkpoint representation reuse preserves authority boundaries > intersects session and caller maxJournalBytes allowances, including after a successful export 4289ms
+   ✓ prepared checkpoint representation reuse preserves authority boundaries > intersects session and caller maxJournalEntries allowances, including after a successful export 4390ms
+   ✓ prepared checkpoint representation reuse preserves authority boundaries > does not retain aliases from exported checkpoints or hydrated state 2609ms
+   ✓ prepared checkpoint representation reuse preserves authority boundaries > keeps repeated public encoding and decoding strict after a successful validation 2362ms
+   ✓ prepared checkpoint representation reuse preserves authority boundaries > replaces saved-slot and journal bytes when Save leaves the state revision unchanged 2479ms
+   ✓ prepared checkpoint representation reuse preserves authority boundaries > uses one final save artifact for its record, response and working checkpoint 5385ms
+   ✓ prepared checkpoint representation reuse preserves authority boundaries > uses one final saveAs artifact for its record, response and working checkpoint 3643ms
+   ✓ prepared checkpoint representation reuse preserves authority boundaries > does not reuse the saved source stage after dirty save-before-load replaces the prospective world 8800ms
+   ✓ prepared checkpoint representation reuse preserves authority boundaries > detaches returned dispatch artifacts from both old and newly committed journal entries 3439ms
+   ✓ prepared checkpoint representation reuse preserves authority boundaries > captures current command/load state and never reuses an artifact after ordinary public changes 9984ms
+   ✓ prepared checkpoint representation reuse preserves authority boundaries > captures a journaled command refusal and returns null for replay or foreign session 1696ms
+   ✓ prepared checkpoint representation reuse preserves authority boundaries > captures a journaled save refusal and returns null for replay or foreign session 1581ms
+   ✓ prepared checkpoint representation reuse preserves authority boundaries > captures a journaled load refusal and returns null for replay or foreign session 2070ms
+   ✓ prepared checkpoint representation reuse preserves authority boundaries > fails tighter caller bounds before command authority mutation and permits a clean retry 8505ms
+   ✓ prepared checkpoint representation reuse preserves authority boundaries > fails tighter caller bounds before save authority mutation and permits a clean retry 4935ms
+   ✓ prepared checkpoint representation reuse preserves authority boundaries > fails tighter caller bounds before load authority mutation and permits a clean retry 7616ms
+   ✓ prepared checkpoint representation reuse preserves authority boundaries > discards failed history preparation before a detached rollover creates its own artifact 1986ms
+   ✓ prepared checkpoint representation reuse preserves authority boundaries > strictly rejects malformed ordinary Save requests before changing the saved slot or journal 2033ms
+   ✓ prepared checkpoint representation reuse preserves authority boundaries > strictly rejects malformed prepared Save requests before changing the saved slot or journal 1890ms
+   ✓ prepared checkpoint representation reuse preserves authority boundaries > preserves live authority on failed Save and replays the exact successful receipt after later changes and restart 13427ms
+stdout | tests/bridge-p11-ready.test.ts > P11 recorded trends and full portfolio > bounds a120-year recorded query to13/52 points with exact totals and no calendar-year invention
+{"kind":"p11-long-history-query-measurement","classification":"synthetic query-scale fixture; not played campaign evidence","weeks":6240,"ledgerEntries":6240,"elapsedMilliseconds":14.528211000000738,"historyJsonBytes":97275,"syntheticStateJsonBytes":769407,"pointCounts":[13,52]}
+
+ ✓ |core| tests/bridge-p11-ready.test.ts (17 tests) 20608ms
+   ✓ P11 ready Upcoming and discarded financial successors > migrates authentic core25 without relabeling its bytes; strict26 includes a nullable Week0 history 844ms
+   ✓ P11 ready Upcoming and discarded financial successors > keeps completion and first Opex distinct, including the just-completed operational office 335ms
+   ✓ P11 ready Upcoming and discarded financial successors > retains already-open renewal dates; expiry pays its final preceding advance only 3114ms
+   ✓ P11 ready Upcoming and discarded financial successors > publishes only the existing public revenue aggregates and does not serialize locked weekly receipts 366ms
+   ✓ P11 ready Upcoming and discarded financial successors > dates only an actually committed Set repair and adds no completion debit or new recurring cost 519ms
+   ✓ P11 ready Upcoming and discarded financial successors > renew: exact pennies/guarantees and recurring costs agree with the real committed successor 3343ms
+   ✓ P11 ready Upcoming and discarded financial successors > release: exact pennies/guarantees and recurring costs agree with the real committed successor 1057ms
+   ✓ P11 ready Upcoming and discarded financial successors > a refused renewal has no financial successor and cannot become a commit 356ms
+   ✓ P11 ready Upcoming and discarded financial successors > release remains legal when the actual termination payment takes already-negative Cash further down 962ms
+   ✓ P11 ready Upcoming and discarded financial successors > immediate Greenlight pays the exact quoted financial amount once and replaces the project row by its real production 1109ms
+   ✓ P11 ready Upcoming and discarded financial successors > hire reads the real successor, including a new seat; preview remains observation/RNG neutral 1824ms
+   ✓ P11 ready Upcoming and discarded financial successors > queued Greenlight pays nothing now and remains one uncommitted canonical screenplay row 1009ms
+   ✓ P11 recorded trends and full portfolio > serves the actual21-film/6240-advance public diagnostic as exact unique rows and52 completed history points 2490ms
+   ✓ P11 recorded trends and full portfolio > covers Development/review, Ready Casting, Production, Post and Release Ready through actual fixture action chains 2326ms
+   ✓ P11 recorded trends and full portfolio > keeps exact film identities, public phases and the accepted per-film economics 432ms
+   ✓ P11 recorded trends and full portfolio > each cost point and period comes from the exact ledger category; missing partial values stay null 399ms
+ ✓ |core| tests/c1-m6-second-zone-by-data.test.ts (10 tests) 1464ms
+   ✓ C1-M6 (1) — the committed second-zone fixture is what the generator claimed > validates as SaveFileV13 and round-trips byte-identically at the live boundary 462ms
+ ✓ |core| tests/script-development.test.ts (10 tests) 185ms
+ ✓ |core| tests/c2a-m2-sets-machinery.test.ts (19 tests) 273ms
+ ✓ |core| tests/contracts/v14-boundary-guards.contract.test.ts (36 tests) 1766ms
+ ✓ |core| tests/p13b-s2-doc03.test.ts (17 tests) 11782ms
+ ✓ |core| tests/d17a-economy-selectors.test.ts (23 tests) 2231ms
+   ✓ D-17A/T4 — affordabilityScopes > is BIT-IDENTICAL to the recap position it was extracted from (engaged fixture) 1417ms
+   ✓ D-17A/T5 — postSigningRunway > never reports negative weeks, and reports infinite when revenue covers the new burn 322ms
+ ✓ |core| tests/bridge-p11-finance.test.ts (11 tests) 12735ms
+   ✓ P11 construction financial consequence over the real bridge > development-casting-annex: retains pennies, charges once now and introduces Opex only after completion 4191ms
+   ✓ P11 construction financial consequence over the real bridge > development-office-2: retains pennies, charges once now and introduces Opex only after completion 3267ms
+   ✓ P11 construction financial consequence over the real bridge > gives illegal placement no financial successor and refuses a stale legal financial preview 1596ms
+   ✓ P11 current people, obligations and film economics owners > publishes only current contracts, with guarantees beside literal Cash and exact payroll 659ms
+   ✓ P11 current people, obligations and film economics owners > keeps same-title films independent, preserves every P07 business amount and excludes studio costs 833ms
+   ✓ P11 current people, obligations and film economics owners > marks genuinely missing legacy direct commitments unavailable without rewriting P07 634ms
+   ✓ P11 current people, obligations and film economics owners > does not turn a retained legacy freelancer receipt into a complete film budget 633ms
+   ✓ P11 current people, obligations and film economics owners > discloses legacy bundled production spending without inventing a historic budget split 591ms
+ ✓ |core| tests/c2a-m5-scenery-load-in-layout.test.ts (20 tests) 752ms
+ ❯ |core| tests/bridge-p12-campaign-library.test.ts (13 tests | 11 failed) 109070ms
+   ✓ R05 independent named campaign transactions > keeps a reviewed contract quote usable across failed and successful catalogue-only rename 4732ms
+   ✓ R05 independent named campaign transactions > keeps a reviewed contract quote usable across failed and successful catalogue-only delete 3815ms
+   × R05 independent named campaign transactions > keeps the shipped Save route and save-before-load consistent with the named record 5559ms
+     → Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+   × R05 independent named campaign transactions > rejects a corrupted cross-world active binding and stops on an uncertain commit 5512ms
+     → Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+   × R05 independent named campaign transactions > saves atomically across the bounded replay journal with a new logical session 5940ms
+     → Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+   × R05 independent named campaign transactions > branches CURRENT complete state, preserves original records, switches scope and survives restart 7719ms
+     → Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+   × R05 independent named campaign transactions > makes failed writes, cancel/unsaved conflicts, stale targets and rename collisions leave authority intact 6229ms
+     → Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+   × R05 independent named campaign transactions > requires exact delete/overwrite confirmation and never recreates a deleted active record 9041ms
+     → Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+   × R05 independent named campaign transactions > imports real old current/saved checkpoints as independently recoverable records without losing original bytes 6167ms
+     → Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+   × R05 independent named campaign transactions > recovers different-world legacy slots and null saved state, preserving exact originals 5757ms
+     → Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+   × R05 independent named campaign transactions > branches a full journal without changing source bytes and retries the exact durable copy after restart 5299ms
+     → Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+   × R05 independent named campaign transactions > durably save dirty progress while preserving two inactive worlds and failed-write authority 22219ms
+     → Test timed out in 20000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+   × R05 independent named campaign transactions > durably discard dirty progress while preserving two inactive worlds and failed-write authority 21077ms
+     → Test timed out in 20000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ✓ |core| tests/bridge-runtime-coordinator.test.ts (11 tests) 35379ms
+   ✓ BridgeRuntimeCoordinator > atomically persists a state-preserving protocol-3 rollover before becoming ready 3794ms
+   ✓ BridgeRuntimeCoordinator > preserves protocol-3 bytes when the migration checkpoint commit fails 2675ms
+   ✓ BridgeRuntimeCoordinator > atomically rolls the previous protocol-4 schema into a fresh replay session 2749ms
+   ✓ BridgeRuntimeCoordinator > keeps prior protocol-4 bytes when its schema rollover commit fails 2109ms
+   ✓ BridgeRuntimeCoordinator > persists a fresh runtime checkpoint before becoming ready 350ms
+   ✓ BridgeRuntimeCoordinator > does not expose a first-seen dispatch to its caller or a queued read before commit 3393ms
+   ✓ BridgeRuntimeCoordinator > restores logical identity, revision, and the exact historical response 3749ms
+   ✓ BridgeRuntimeCoordinator > poisons queued and later reads when a checkpoint commit fails without replacing prior bytes 2791ms
+   ✓ BridgeRuntimeCoordinator > rolls full journals without changing current or explicitly saved game authority 8554ms
+   ✓ BridgeRuntimeCoordinator > poisons instead of rolling when one entry cannot fit an empty journal 2262ms
+   ✓ BridgeRuntimeCoordinator > drains accepted work before releasing the store and rejects work added after close 2950ms
+ ✓ |core| tests/d17b-publicity.test.ts (29 tests) 957ms
+ ✓ |core| tests/c2a-m2-set-binding.test.ts (10 tests) 3506ms
+   ✓ C2a-M2 — the stage+set composite at rehearsal entry > AUTO-BINDS the one candidate set, and locks both numbers 391ms
+   ✓ C2a-M2 — the stage+set composite at rehearsal entry > refuses with SET-UNAVAILABLE when a stage is free but nothing is standing on it 483ms
+   ✓ C2a-M2 — wrap, wear, and what reaches the audience > depletes novelty at RELEASE — and a picture that never releases burns none 509ms
+   ✓ C2a-M2 — wrap, wear, and what reaches the audience > makes WHICH SET a real choice — a better set makes a better picture 875ms
+ ✓ |core| tests/legacy-parcel-ground.test.ts (14 tests) 4968ms
+   ✓ C1-M8 (B) — a generic building may not be BUILT there > accepts nothing anywhere on the property whose body the world would not show 4138ms
+ ✓ |core| tests/presence-scenario.test.ts (3 tests) 158ms
+ ✓ |core| tests/casting-sessions-actions.test.ts (8 tests) 1739ms
+   ✓ Casting Sessions V1 action, tick, and read-model integration > runs one optional week, persists only observations, stops for review, and never holds talent 411ms
+   ✓ Casting Sessions V1 action, tick, and read-model integration > hands capacity-only casting forward to a queueable Package and closes the exact queued project 317ms
+ ✓ |core| tests/v14-dual-run.test.ts (8 tests) 855ms
+   ✓ C2a-M1 · presentation parity — the ledger is a witness, never an input > exports byte-identical saves for two identical runs 310ms
+ ✓ |core| tests/p13b-s1-scheduler.test.ts (13 tests) 18255ms
+   ✓ P13B-S1 determinism, replay and interleaving (test 7) > rebuilds byte-identically from the same seed and the same action list, both before and after further identical actions 4716ms
+   ✓ P13B-S1 determinism, replay and interleaving (test 7) > round-trips save/reload byte-identically after seating, after funded weeks, after expiry and after pause 1269ms
+ ✓ |core| tests/d11-cycle2.test.ts (19 tests) 2727ms
+   ✓ D-11.A — each released film keeps its OWN immutable participants > film A and film B use different writers/directors/actors/craft and each records its own 744ms
+   ✓ D-11.A — each released film keeps its OWN immutable participants > participants carry greenlight name/OVR/Fit/EP and contracted status 326ms
+   ✓ D-11.A — each released film keeps its OWN immutable participants > later development does NOT rewrite an older film's locked greenlight OVR/name 514ms
+   ✓ D-11.A — each released film keeps its OWN immutable participants > releasing a participant does NOT remove them from an older film's record 322ms
+   ✓ D-11.A — each released film keeps its OWN immutable participants > save/reload (V3) preserves each film's distinct participant history 563ms
+ ✓ |core| tests/p06a-w1-release-authority.test.ts (14 tests) 1950ms
+   ✓ P06A W1 — save law > imports a pre-P06 Release Ready save as UNCOMMITTED (holds until committed) 371ms
+   ✓ P06A W1 — save law > round-trips a committed V16 save byte-exactly and refuses downgrades 884ms
+   ✓ P06A W1 — save law > validateSaveV23 rejects forged authority at the save boundary 360ms
+ ✓ |core| tests/acceptance-corpus.test.ts (11 tests) 160162ms
+   ✓ §15.1 bounds (M11) — every bounded term in range across the representative corpus > craft, cohesion, criticScore, segmentScores, WAS, and forecast low/high/estimate/center ∈ range 81854ms
+   ✓ §15.2 four-quadrant CORPUS reachability (B28 part ii) > at least one released film in EACH cell of (craft ≷ 55) × (cohesion ≷ 0.55) 68427ms
+   ✓ §15.7 replay WITH broadcast — byte-identical SaveFileV1 incl. broadcast copy > Oracle: two full-year runs (same seed) ⇒ byte-identical exportSave; broadcast copy is [] and identical 911ms
+   ✓ §15.7 replay WITH broadcast — byte-identical SaveFileV1 incl. broadcast copy > Random: two full-year runs (same seed) ⇒ byte-identical exportSave; broadcast copy is [] and identical 625ms
+   ✓ deterministic corpus reproduction — identical per-run outcomes on a re-run > end standing + releasedFilms reproduce identically across a small sample (both agents) 8340ms
+ ✓ |core| tests/v14-migration.contract.test.ts (30 tests) 13820ms
+   ✓ C2a-M1 · T9 (A) — the headline matrix covers every phase that holds a reservation > projects a genuine, legal V13 file for every cell 391ms
+   ✓ C2a-M1 · T9 (A) — the headline matrix covers every phase that holds a reservation > agrees byte-for-byte with the frozen V13 builder wherever that builder writes 1102ms
+   ✓ C2a-M1 · T9 (B) — every held phase × blocker kind migrates and plays true > plays development/none byte-identically to its V13 twin for 30 weeks 1195ms
+   ✓ C2a-M1 · T9 (B) — every held phase × blocker kind migrates and plays true > plays preProduction/none byte-identically to its V13 twin for 30 weeks 1144ms
+   ✓ C2a-M1 · T9 (B) — every held phase × blocker kind migrates and plays true > plays preProduction/facility-capacity byte-identically to its V13 twin for 30 weeks 1069ms
+   ✓ C2a-M1 · T9 (B) — every held phase × blocker kind migrates and plays true > plays rehearsal/none byte-identically to its V13 twin for 30 weeks 1039ms
+   ✓ C2a-M1 · T9 (B) — every held phase × blocker kind migrates and plays true > plays rehearsal/facility-capacity byte-identically to its V13 twin for 30 weeks 1138ms
+   ✓ C2a-M1 · T9 (B) — every held phase × blocker kind migrates and plays true > plays shooting/none byte-identically to its V13 twin for 30 weeks 1028ms
+   ✓ C2a-M1 · T9 (B) — every held phase × blocker kind migrates and plays true > plays shooting/scenery-load-in byte-identically to its V13 twin for 30 weeks 1089ms
+   ✓ C2a-M1 · T9 (B) — every held phase × blocker kind migrates and plays true > plays shooting/facility-capacity byte-identically to its V13 twin for 30 weeks 1022ms
+   ✓ C2a-M1 · T9 (B) — every held phase × blocker kind migrates and plays true > plays postProduction/none byte-identically to its V13 twin for 30 weeks 1029ms
+   ✓ C2a-M1 · T9 (C) — the endowed house sets are DERIVED, not invented > leaves the queue and the screenplay root empty for every migrated save (§8.3) 564ms
+   ✓ C2a-M1 · T9 (D) — migrated workflows are grandfathered, by derivation > derives every bindings field exactly as §8.3 states it 338ms
+   ✓ C2a-M1 · T9 (D) — migrated workflows are grandfathered, by derivation > keeps the in-flight scenery reservation byte-for-byte across the boundary 318ms
+ ✓ |core| tests/construction-save-v11.test.ts (12 tests) 2225ms
+   ✓ Development & Casting Annex V1 — SaveFileV11 > writes V12 by default and round-trips legacy, vacant, building, and completed lifecycle states 535ms
+   ✓ Development & Casting Annex V1 — SaveFileV11 > round-trips and continues byte-identically at start, S+12, and S+13 444ms
+ ✓ |core| tests/bridge-founding.test.ts (6 tests) 24003ms
+   ✓ Bridge production founding v1 > opens a fresh production runtime on draft-ordered, profession-gated 104-week Actor offers 502ms
+   ✓ Bridge production founding v1 > emits the exact founding action at Core coverage and keeps the reserve Actor optional 19678ms
+   ✓ Bridge production founding v1 > publishes a founding-arrival view whose joins, prices, and previews are the authority's own 818ms
+   ✓ Bridge production founding v1 > replays an accepted founding offer exactly and rejects stale or consumed choices without mutation 1130ms
+   ✓ Bridge production founding v1 > restores an in-progress founding draft with exact authority and replay continuity 1855ms
+ ✓ |core| tests/c1-m6-no-property-cap.test.ts (7 tests) 10587ms
+   ✓ C1-M6 (2) — the committed far-property fixture > matches the manifest and round-trips byte-identically at the live boundary 337ms
+   ✓ C1-M6 (2) — composition, legality, completion, move, demolish, save, at scale > fills far past the founding count and completes every one of them 1826ms
+   ✓ C1-M6 (2) — composition, legality, completion, move, demolish, save, at scale > moves and demolishes anywhere on it, with the ledger correlations intact 7706ms
+ ✓ |core| tests/contracts/studio-events.contract.test.ts (25 tests) 1207ms
+ ✓ |core| tests/bridge-p10a-w0-people-projection.test.ts (10 tests) 4068ms
+   ✓ P10A W0 — people projection > R8 grouped attention lists each person at most once, by the highest tier; contract horizons come from the contract alone 2744ms
+   ✓ P10A W0 — people projection > R9 the served section is projection 32 and the projection-17/18 identities stay accepted 327ms
+   ✓ P10A W0 — people projection > R10 a genuine V16 control migrates without changing any original person 384ms
+ ✓ |core| tests/c2a-m4-queue-admission.test.ts (13 tests) 485ms
+ ✓ |core| tests/p13b-s4-plans.test.ts (6 tests) 3619ms
+   ✓ P13B-S4 P09/S3 integration (test 4) > a conversion queued as an S3 plan admits at the next boundary through the same P09 commit as a hand commit at that week 1102ms
+   ✓ P13B-S4 P09/S3 integration (test 4) > a plan queued while the office is occupied by a drafting screenplay holds on targetEngaged and admits the boundary the slot frees (C2a-M4 queue idiom, same ordering S3 test 2 proves for an installation holder) 693ms
+   ✓ P13B-S4 P09/S3 integration (test 4) > queueing a conversion against a body already at its target standard is refused at QUEUE time (standardAlreadyMet is a permanent refusal, never merely held) 436ms
+   ✓ P13B-S4 P09/S3 integration (test 4) > BUG (RED, engine gap): a second conversion plan on the same body holds on targetEngaged while the first is under construction, then holds/refuses on standardAlreadyMet -- never starts 700ms
+   ✓ P13B-S4 P09/S3 integration (test 4) > a chained I->II then II->III plan pair via dependsOn: the second starts the boundary after the first completes 348ms
+   ✓ P13B-S4 P09/S3 integration (test 4) > the same chained pair under the DEFAULT reviewChangedQuote admission holds on the changed quote and starts once reviewPhysicalPlan re-approves at the live price 338ms
+ ✓ |core| tests/roster-wall-summary.test.ts (4 tests) 157672ms
+   ✓ roster-wall summary > derives boundary, recurrence, and player obligations from a real evidence slice 157660ms
+ ✓ |core| tests/d17a-discovery-exposure.test.ts (13 tests) 75ms
+ ✓ |core| tests/d17a-adv-cliff.test.ts (13 tests) 10954ms
+   ✓ D-17A/C — path 1: every contract expires NATURALLY > leaves zero contracts and still reports the economy as engaged 2424ms
+   ✓ D-17A/C — path 1: every contract expires NATURALLY > keeps debiting weekly overhead after the last expiry (the base charge survives) 1434ms
+   ✓ D-17A/C — path 1: every contract expires NATURALLY > opens and PAYS the post-cliff release weekly — no lump, no frozen run 1327ms
+   ✓ D-17A/C — path 1: every contract expires NATURALLY > judges a later greenlight by the ENGAGED branch (D-11.12 / the solvency gate) 1453ms
+   ✓ D-17A/C — path 2: the studio FIRES EVERYONE mid-run > leaves zero contracts and still reports the economy as engaged 337ms
+   ✓ D-17A/C — post-cliff, the ENGAGED greenlight branch is fully live, gate included > charges the engaged freelancer fees and enforces the D-12 solvency gate at the boundary 761ms
+   ✓ D-17A/C — post-cliff, the ENGAGED greenlight branch is fully live, gate included > and that rosterless film still releases into a D-12 theatrical run, never a lump 1164ms
+   ✓ D-17A/C — the regime fact is MONOTONIC (never cleared by any of these paths) > stays true from founding, through a full expiry, a firing, and further play 1203ms
+ ✓ |core| tests/bridge-inflight-evidence-verifier.test.ts (9 tests) 75396ms
+   ✓ bridge in-flight native evidence verifier > binds exactly three Unity receipts to commit markers, replay bytes, and the checkpoint 4066ms
+   ✓ bridge in-flight native evidence verifier > requires schema 7 raw-founding identity and an explicitly empty recovery prelude 27128ms
+   ✓ bridge in-flight native evidence verifier > rejects a byte-different semantic retry even when command identity still matches 3825ms
+   ✓ bridge in-flight native evidence verifier > rejects response hashes forged consistently by both marker producers and Unity 3535ms
+   ✓ bridge in-flight native evidence verifier > rejects duplicate, missing, and extra-schema markers 10571ms
+   ✓ bridge in-flight native evidence verifier > rejects noncanonical and incomplete marker lines 7875ms
+   ✓ bridge in-flight native evidence verifier > rejects duplicate Unity routes and incomplete report counts 7411ms
+   ✓ bridge in-flight native evidence verifier > rejects extra durable journal authority and a mismatched final checkpoint digest 7488ms
+   ✓ bridge in-flight native evidence verifier > uses a dedicated fail-closed error without embedding the evidence root 3494ms
+ ✓ |core| tests/bridge-r3n4-read-model-deltas.test.ts (9 tests) 890ms
+   ✓ R3-N4-SIM-20 — batched N4/N5/N6 read-model deltas (projection 31) > serves the whole bundle under the regenerated schema with the new fields present 546ms
+ ✓ |core| tests/presence-projection.test.ts (14 tests) 553ms
+ ✓ |core| tests/bridge-operations-events.test.ts (6 tests) 1226ms
+   ✓ R3-N7-SIM-01 — operationsEventsProjection (projection 32) > L6 is pure, mutates nothing, and validates inside the served projection-36 envelope 920ms
+ ✓ |core| tests/casting-package-read-model.test.ts (11 tests) 456ms
+ ✓ |core| tests/d12-economy.test.ts (17 tests) 949ms
+   ✓ D-12: V3→V4 migration records released films as legacyCompleted (no double-pay) > migrated releases carry their full-gross V3 payout and are never credited again 619ms
+[bridge] 2026-09-17T02:02:05.986Z commandId=f1a50484-09c8-4615-b352-8c5383ae73e7 expectedRevision=0 operation=save result=accepted revision=0 disposition=first-seen durationMs=30.578
+[bridge] 2026-09-17T02:02:06.083Z commandId=f1a50484-09c8-4615-b352-8c5383ae73e7 expectedRevision=0 operation=save result=accepted revision=0 disposition=replay durationMs=30.578
+ ✓ |core| tests/tick.test.ts (9 tests) 441ms
+[bridge] 2026-09-17T02:02:09.001Z commandId=06cf4b69-e072-4599-9761-924f30c2c236 expectedRevision=0 operation=submitIntent result=accepted revision=1 disposition=first-seen durationMs=455.310
+[bridge] 2026-09-17T02:02:11.350Z commandId=f1a50484-09c8-4615-b352-8c5383ae73e7 expectedRevision=0 operation=save result=accepted revision=0 disposition=replay durationMs=30.578
+[bridge] 2026-09-17T02:02:15.691Z commandId=ff6720fc-3303-49d0-943d-ef45d05377bb expectedRevision=0 operation=save result=accepted revision=0 disposition=first-seen durationMs=25.025
+ ✓ |core| tests/bridge-runtime-worker.test.ts (8 tests) 18397ms
+   ✓ runtime worker production authority > delivers an accepted campaign Save before close completes and recovers its catalogue receipt 4976ms
+   ✓ runtime worker production authority > durably saves exact response bytes and replays them after later progress and reopen 9013ms
+   ✓ runtime worker production authority > refuses a second authority while preserving the first worker and its durable bytes 2457ms
+   ✓ runtime worker responsiveness and lifecycle > keeps the caller timer responsive during synchronous work and retains exact UTF-8 bytes 533ms
+   ✓ runtime worker responsiveness and lifecycle > drains accepted work before graceful close and rejects requests made after closing starts 535ms
+ ✓ |core| tests/c1-m6-identity-not-coordinates.test.ts (6 tests) 1065ms
+   ✓ C1-M6 (3) — a move changes the ground and nothing else > keeps every identity field and moves only what is about position 319ms
+ ✓ |core| tests/d17a-adv-reconciliation.test.ts (14 tests) 14169ms
+   ✓ D-17A/B — Σ perFilm + idle ≡ Σ ledger payroll+overhead, to the dollar > holds over the default window with a founding prefix of 0 weeks 2377ms
+   ✓ D-17A/B — Σ perFilm + idle ≡ Σ ledger payroll+overhead, to the dollar > holds over the default window with a founding prefix of 3 weeks 1597ms
+   ✓ D-17A/B — Σ perFilm + idle ≡ Σ ledger payroll+overhead, to the dollar > holds over the default window with a founding prefix of 11 weeks 1769ms
+   ✓ D-17A/B — Σ perFilm + idle ≡ Σ ledger payroll+overhead, to the dollar > holds over EVERY prefix window [from, k] of the run (a sliding reconciliation sweep) 952ms
+   ✓ D-17A/B — Σ perFilm + idle ≡ Σ ledger payroll+overhead, to the dollar > holds when a release sits at week 0 of engagement (occupancy reaching before the ledger) 519ms
+   ✓ D-17A/B — conservation holds mid-flight, not only on tidy finished slates > holds on a rosterless post-cliff studio still paying overhead 903ms
+   ✓ D-17A/B — a film is charged only for the weeks it actually occupied the studio > allocates 0 to every film over a window disjoint from its occupancy 1027ms
+   ✓ D-17A/B — a film is charged only for the weeks it actually occupied the studio > charges each film 0 in every window that ends before it starts or starts after it ends 1023ms
+   ✓ D-17A/B — window additivity (the partition is per WEEK, so splits are exact) > alloc[a,k] + alloc[k+1,b] === alloc[a,b] per film, per idle, per total — 24 seeded splits 1152ms
+   ✓ D-17A/B — odd dollars: whole-dollar determinism and a governed tie-break > conserves exactly even when the weekly cost is indivisible by the occupant count 417ms
+   ✓ D-17A/B — odd dollars: whole-dollar determinism and a governed tie-break > gives the odd dollar to the lower productionId (largest remainder, ascending plain-<) 479ms
+   ✓ D-17A/B — odd dollars: whole-dollar determinism and a governed tie-break > is identical across two independent calls and across a save → validate → migrate → load trip 1632ms
+ ✓ |core| tests/construction-accounting-calendar.test.ts (9 tests) 639ms
+ ✓ |core| tests/studioRunRecap.test.ts (22 tests) 12258ms
+   ✓ studioRunRecap — purity & determinism > never mutates the state and does not advance the RNG 1831ms
+   ✓ studioRunRecap — purity & determinism > is deterministic — same state → deep-equal recap 1041ms
+   ✓ studioRunRecap — purity & determinism > does not recompute career events (frozen ledger preserved) 499ms
+   ✓ studioRunRecap — capital reconciliation (D-12 §3) > starting cash reconciles to INITIAL_CASH via the ledger invariant 367ms
+   ✓ studioRunRecap — capital reconciliation (D-12 §3) > per-film contributions sum to total film contribution (studio-revenue basis) 617ms
+   ✓ studioRunRecap — capital reconciliation (D-12 §3) > total commitments = production + freelancer ledger; contribution = revenue − commitments 715ms
+   ✓ studioRunRecap — capital reconciliation (D-12 §3) > current weekly burn = payroll + overhead (payroll/overhead NOT allocated per film) 327ms
+   ✓ studioRunRecap — film slate > lists every released film, chronological, with consistent classification 538ms
+   ✓ studioRunRecap — talent development (frozen careerEvents only) > one talent entry per distinct contributor in the career ledger 394ms
+   ✓ studioRunRecap — strategy concentration > detects a single recurring lead across the slate 860ms
+   ✓ studioRunRecap — current position & recovery classification > healthy when a typical film is affordable and cash is not shrinking pressure 399ms
+   ✓ studioRunRecap — current position & recovery classification > noNormalProduction when cash cannot afford even the cheapest legal film 345ms
+   ✓ studioRunRecap — current position & recovery classification > distinguishes cash-positive from able-to-finance-a-normal-film 651ms
+   ✓ studioRunRecap — warnings & inflection points are structured, prioritised, bounded > warnings carry code/severity/priority and are sorted by priority 790ms
+   ✓ studioRunRecap — warnings & inflection points are structured, prioritised, bounded > inflection points are structured and capped, and open with the opening balance 651ms
+   ✓ studioRunRecap — break-even classification > summary profit/break-even/loss counts partition the slate 555ms
+   ✓ studioRunRecap — capital timeline semantics > exposes an opening balance distinct from end-of-week closes 440ms
+   ✓ studioRunRecap — capital timeline semantics > contract-horizon-vs-runway flag is exposed for the current position 528ms
+   ✓ studioRunRecap — authoritative affordability (bare-minimum vs standard film) > exposes a bare-minimum package and a costlier standard film, with a reconciling breakdown 426ms
+ ✓ |core| tests/save.test.ts (10 tests) 298ms
+ ✓ |core| tests/p13b-s4-downtime.test.ts (7 tests) 4135ms
+   ✓ P13B-S4 downtime and money (test 2) > direct I->III over a 52-week horizon: baseline continues every week, the $4,000 increment starts only once operational, and the ledger sums to document 03's $1,680,000 1826ms
+   ✓ P13B-S4 downtime and money (test 2) > staged I->II then II->III, the second committed at the first's completion: the ledger sums to document 03's $1,796,000 975ms
+   ✓ P13B-S4 downtime and money (test 2) > a new standalone Development Office III on another plot: no downtime on the old office; the engine's lawful total is $1,776,000 (ENG-2 OPEN -- document 03's $1,646,000 needs the undisposed no-II-prerequisite product choice) 1143ms
+ ✓ |core| tests/bridge-p07a-w6-result-continuity.test.ts (6 tests) 3852ms
+   ✓ P07A W6 — commitment releases exactly once (R1) > one commit + one week = one FilmResult + one run; later weeks never duplicate 1220ms
+   ✓ P07A W6 — active-run truth and the run-complete flip (R2/R3) > speaks projected while active, final once complete, and stays durably inspectable 516ms
+   ✓ P07A W6 — save/load preserves result truth mid-run (R4) > round-trips the projection byte-for-byte and completes the run identically 908ms
+   ✓ P07A W6 — duplicate titles are separated by exact id (R5) > two films named identically keep separate results, runs, and wire cards 760ms
+ ✓ |core| tests/bridge-http-security.test.ts (2 tests) 6412ms
+   ✓ fails closed before opening runtime state when the launch capability is absent or invalid 1989ms
+   ✓ denies cross-origin and unauthenticated reads and mutations before runtime access 4422ms
+ ✓ |core| tests/c2a-m3-screenplay-mint.test.ts (8 tests) 1185ms
+   ✓ C2a-M3 — a writer goes to work and hands the studio a new movie > mints a concept, a title and a blueprint at COMMISSION-COMMIT, and drafts it 514ms
+   ✓ C2a-M3 — a writer goes to work and hands the studio a new movie > NEVER re-prices the pool — correlateConceptCost is a founding-only permutation 307ms
+ ✓ |core| tests/script-projects-actions.test.ts (4 tests) 329ms
+ ✓ |core| tests/c2a-m4-release-law.test.ts (5 tests) 330ms
+ ✓ |core| tests/c2a-m3-rename-and-pooling.test.ts (9 tests) 792ms
+   ✓ C2a-M3 — the bounded writer pool (00E.9) > is refused on a screenplay that is not being drafted 373ms
+ ✓ |core| tests/d17a-adv-action-parity.test.ts (9 tests) 2317ms
+   ✓ D-17A/A — the reported figures are hand-derivable from the grid and the ledger > recentTypical is the MEDIAN committed cost of the last THREE releases, off the ledger 1969ms
+ ✓ |core| tests/c2a-m0-engine-union.test.ts (11 tests) 1256ms
+   ✓ C2a-M0 — the phase machinery has exactly one source (charter §12-M0) > agrees with the save validator on every phase a real production reaches 1088ms
+ ✓ |core| tests/placement-lifecycle.test.ts (14 tests) 2331ms
+   ✓ Placement Core V12 — completion flips capacity exactly once, on its week > flips at the same week when the run is split by a save and a reload 1406ms
+ ✓ |core| tests/bridge-development.test.ts (4 tests) 19467ms
+   ✓ P03A Development bridge — quote seam and board > quotes, mints, and commits a market commission draft through the quote seam 5444ms
+   ✓ P03A Development bridge — quote seam and board > rejects stale and malformed drafts without mutation 4419ms
+   ✓ P03A Development bridge — quote seam and board > publishes a leak-free Development board and an exact rewrite preview at review 7203ms
+   ✓ P03A Development bridge — quote seam and board > quotes an original screenplay draft with the engine's own clock 2399ms
+ ✓ |core| tests/d17b-save-v7.test.ts (22 tests) 1127ms
+   ✓ D-17B/E4 — the empty publicity state is the seeded default everywhere > ticking a headless world never creates campaign state (the action is engaged-only) 374ms
+   ✓ D-17B/E4 — migrateToV7 lifts every known version, and the chain still holds > a V7 save reloads and continues identically to an uninterrupted run 403ms
+ ✓ |core| tests/bridge-p05a3-roster-liveness.test.ts (9 tests) 4506ms
+   ✓ P05A.3 — the two-actor deadlock is a NAMED blocker, never a silent READY > the fixture IS the deadlock state 369ms
+   ✓ P05A.3 — sign quote → commit breaks the deadlock (§17-A/E/F/H) > A+H: quotes exact figures, commits, and the signed actor joins the legal pool 1073ms
+   ✓ P05A.3 — sign quote → commit breaks the deadlock (§17-A/E/F/H) > E: an unaffordable sign refuses at quote time with the D-12 sentence and mutates nothing 802ms
+   ✓ P05A.3 — sign quote → commit breaks the deadlock (§17-A/E/F/H) > F: an accepted unrelated sign invalidates a live offer; the same draft is quotable fresh 895ms
+   ✓ P05A.3 — sign quote → commit breaks the deadlock (§17-A/E/F/H) > refuses an unknown or non-signable talent and a missing term in plain language 673ms
+ ✓ |core| tests/worldgen.test.ts (25 tests) 6364ms
+   ✓ worldgen — talent/concept counts (WORLD_CONFIG, §9) + role split (B9) > holds the role split across many seeds 583ms
+   ✓ worldgen — talent field bounds (§9, B7, N3) > every talent satisfies §9 bounds across many seeds (truncation/clamp exercised) 1771ms
+   ✓ worldgen — talent field bounds (§9, B7, N3) > salary equals salaryCurve(talent) recomputed (B7 / D-9.13 — public export reuse) 531ms
+   ✓ worldgen — concept field bounds (§9, B8, B11, M4) > every concept satisfies its contract bounds across many seeds 1958ms
+   ✓ worldgen — concept field bounds (§9, B8, B11, M4) > every genre value appears somewhere in a moderately large corpus (M4 uniform) 386ms
+   ✓ worldgen — market (§9, §2.5, D-5, N3, N11) > baseMarketValue ~ uniform(marketValueRange) ∈ [20M, 80M) across many seeds 413ms
+   ✓ worldgen — determinism & isolation (§9, §15.7, M9) > different seeds do not all produce the identical serialized world 429ms
+ ✓ |core| tests/p13a-production-technology.test.ts (11 tests) 952ms
+   ✓ P13A first-filming technology and exact production chain > carries the first-filming lock through the complete tick state assembly 618ms
+ ✓ |core| tests/agents.test.ts (9 tests) 1266ms
+ ✓ |core| tests/casting-sessions-domain.test.ts (8 tests) 187ms
+ ✓ |core| tests/p13b-s2-save-v22.test.ts (12 tests) 11344ms
+   ✓ P13B-S2 V21 to V22 migration (test 8) > lifts ./fixtures/p13b/legacy-v21-staffed-4-seats-263.json.gz: every receipt ×8, per-Laboratory rows derived honestly, cooperationFromWeek stamped at the fixture's own week 1511ms
+   ✓ P13B-S2 V21 to V22 migration (test 8) > lifts ./fixtures/p13b/legacy-v21-released-paused-266.json.gz: every receipt ×8, per-Laboratory rows derived honestly, cooperationFromWeek stamped at the fixture's own week 983ms
+   ✓ P13B-S2 V21 to V22 migration (test 8) > lifts ./fixtures/p13b/legacy-v21-two-labs-two-briefs-783.json.gz: every receipt ×8, per-Laboratory rows derived honestly, cooperationFromWeek stamped at the fixture's own week 1277ms
+   ✓ P13B-S2 V21 to V22 migration (test 8) > continues the migrated active staffed-4-seats-263 project for one more funded week (now carrying its own labs row) and re-saves byte-identically 1092ms
+   ✓ P13B-S2 V21 to V22 migration (test 8) > refuses to downgrade a V22 save to V21, V20 or V19 335ms
+   ✓ P13B-S2 V21 to V22 migration (test 8) > chains V20→V21→V22 for ./fixtures/p13b/legacy-v20-research-active-280.json.gz: the S1 legacy prefix survives intact, weeks stays empty 1031ms
+   ✓ P13B-S2 V21 to V22 migration (test 8) > chains V20→V21→V22 for ./fixtures/p13b/legacy-v20-research-paused-expired-468.json.gz: the S1 legacy prefix survives intact, weeks stays empty 1200ms
+   ✓ P13B-S2 V21 to V22 migration (test 8) > chains V20→V21→V22 for ./fixtures/p13b/legacy-v20-research-complete-operational-315.json.gz: the S1 legacy prefix survives intact, weeks stays empty 986ms
+   ✓ P13B-S2 envelope law at the live writer (test 8) > refuses an unknown saveVersion 24 with the updated range 371ms
+   ✓ P13B-S2 envelope law at the live writer (test 8) > round-trips a migrated two-Laboratory save through exportSave/importSave/migrateToV23 byte-identically 1042ms
+   ✓ P13B-S2 campaign isolation across the migrated copies (mirrors the S1 case) > produces independent migrated copies from the same V21 fixture; advancing one never touches the other 1220ms
+ ✓ |core| tests/p13b-s2-validation.test.ts (15 tests) 55737ms
+   ✓ P13B-S2 conservation, determinism, save/reload and campaign isolation (test 7) > conservation: reconciles receipts, expenditure, ledger and cash over a funded cooperate interval 7282ms
+   ✓ P13B-S2 conservation, determinism, save/reload and campaign isolation (test 7) > determinism: two independent builds from the same seed give byte-identical exportSave, both fresh and after identical further actions 15236ms
+   ✓ P13B-S2 conservation, determinism, save/reload and campaign isolation (test 7) > save/reload mid-project: a reloaded cooperate project continues identically to the uninterrupted run over further weeks 8136ms
+   ✓ P13B-S2 conservation, determinism, save/reload and campaign isolation (test 7) > campaign isolation: every project a public action can create carries studioId === the player, by construction 6778ms
+   ✓ P13B-S2 conservation, determinism, save/reload and campaign isolation (test 7) > campaign isolation: a rival two-Laboratory project never surfaces through the player-scoped read filter, and forging the player’s own project never touches its bytes 8408ms
+ ✓ |core| tests/facilities-observatory-cli.test.ts (7 tests) 44716ms
+   ✓ Facilities observatory artifact runner > builds byte-identical timestamp-free artifacts with every evidence mode explicit 43499ms
+   ✓ Facilities observatory artifact runner > writes exactly three governed files and refuses a stale non-empty run directory 480ms
+   ✓ Facilities observatory artifact runner > treats untracked executable source as dirty provenance 398ms
+   ✓ Facilities observatory artifact runner > refuses an output-directory symlink even when the target is empty 321ms
+ ✓ |core| tests/roster-wall-player-policy.test.ts (12 tests) 152265ms
+   ✓ Week-208 roster-wall mixed-founding-term player policy > serializes the exact Week-196 entry and every player row through one envelope 848ms
+   ✓ Week-208 roster-wall mixed-founding-term player policy > serializes complete canonical boundary accounting and pipeline facts 309ms
+   ✓ Week-208 roster-wall mixed-founding-term player policy > replays deterministically from the same seed and policy 55814ms
+   ✓ Week-208 roster-wall mixed-founding-term player policy > completes the other governed operating policy — direct-package 48686ms
+   ✓ Week-208 roster-wall mixed-founding-term player policy > completes the other governed operating policy — scaled-two-team 46095ms
+ ✓ |core| tests/p13b-s3-dependencies.test.ts (11 tests) 6078ms
+   ✓ P13B-S3 dependencies (test 3) > an installation on a queued Laboratory body (target: {planId}) resolves the facility id at start and waits for the body to be operational 1471ms
+   ✓ P13B-S3 dependencies (test 3) > cancelling a predecessor immediately blocks its dependent, naming it, and the dependent never starts (never counts as completion) 466ms
+   ✓ P13B-S3 dependencies (test 3) > reordering a dependent before its dependency is refused 366ms
+   ✓ P13B-S3 dependencies (test 3) > a lawful reorder persists the new ordinals and revalidates 793ms
+   ✓ P13B-S3 changed quote (test 4) > identical quotes give identical fingerprints across weeks — completion week (which moves every tick) is excluded from the digest 634ms
+   ✓ P13B-S3 changed quote (test 4) > a forged approvedQuote.fingerprint holds under reviewChangedQuote (the default) at the next boundary, with pendingQuote set to the fresh quote and a reason matching /quote changed/ 725ms
+   ✓ P13B-S3 changed quote (test 4) > automatic admission ignores a stale fingerprint and starts anyway, once blueprint/target/component labels are unchanged and cost is within the ceiling 439ms
+   ✓ P13B-S3 changed quote (test 4) > reviewPhysicalPlan re-approves a held plan (pendingQuote promoted to approvedQuote), which starts at the FOLLOWING boundary 466ms
+ ✓ |core| tests/d12-p2-calibration.test.ts (7 tests) 7075ms
+   ✓ D-12 P2 owner route: four ordinary films no longer multiply cash > a competent studio ends four films meaningfully constrained, with real losses 7061ms
+ ✓ |core| tests/reception-bounds.test.ts (29 tests) 28ms
+ ✓ |core| tests/d14-star-power.test.ts (15 tests) 4830ms
+   ✓ D-14 Star Power lifecycle (real engine) > 1 + 12. fame changes only at release, and the career event matches the transition 1016ms
+   ✓ D-14 Star Power lifecycle (real engine) > 2. the update occurs exactly once — one career event per participant per film 685ms
+   ✓ D-14 Star Power lifecycle (real engine) > 3. the released film economics are NOT retroactively changed by its own fame update 470ms
+   ✓ D-14 Star Power lifecycle (real engine) > 4. a future film reads the UPDATED fame (progression compounds) 745ms
+   ✓ D-14 Star Power lifecycle (real engine) > 16 + 17. reload cannot apply progression twice, and round-trip preserves career events 923ms
+   ✓ D-14 Star Power lifecycle (real engine) > 18. determinism — two identical runs produce identical career events 934ms
+ ✓ |core| tests/bridge-owner-ux-projection20-migration.test.ts (10 tests) 14448ms
+   ✓ Owner UX outgoing projection20 migration > migrates 'frozen Week105 null slot' without changing either V18 gameplay slot 1076ms
+   ✓ Owner UX outgoing projection20 migration > migrates 'frozen R12 Week106 null slot and genu…' without changing either V18 gameplay slot 722ms
+   ✓ Owner UX outgoing projection20 migration > migrates 'constructed distinct-slot envelope fr…' without changing either V18 gameplay slot 996ms
+   ✓ Owner UX outgoing projection20 migration > persists 'frozen Week105 null slot' once, then preserves the new session on restart 1181ms
+   ✓ Owner UX outgoing projection20 migration > persists 'frozen R12 Week106 null slot and genu…' once, then preserves the new session on restart 1856ms
+   ✓ Owner UX outgoing projection20 migration > persists 'constructed distinct-slot envelope fr…' once, then preserves the new session on restart 2494ms
+   ✓ Owner UX outgoing projection20 migration > preserves current-schema journal/session and exact Save retries after real published advance 5380ms
+   ✓ Owner UX outgoing projection20 migration > leaves both predecessor slots and journal intact when migration persistence fails 596ms
+ ✓ |core| tests/c2a-m2-sets-save.test.ts (4 tests) 2391ms
+   ✓ C2a-M2 — sets across the save boundary > round-trips a studio that has built, repaired and struck, byte for byte 1359ms
+   ✓ C2a-M2 — sets across the save boundary > refuses, at the V16 boundary, every state the sets authority forbids 579ms
+   ✓ C2a-M2 — the §12-M2 gate: a migrated managed V13 save reaches a NEW greenlight > greenlights, binds a set, and shoots — while the picture it migrated with never does 377ms
+ ✓ |core| tests/candidates.test.ts (12 tests) 641ms
+ ✓ |core| tests/replay.test.ts (15 tests) 10661ms
+   ✓ §15.7 full-run replay — byte-identical SaveFileV1 (M14) > OracleAgent: two full-year runs with the same seed produce byte-identical exportSave 1916ms
+   ✓ §15.7 full-run replay — byte-identical SaveFileV1 (M14) > OracleAgent: broadcastItems stays [] (broadcast presentation is a phase-6 no-op) 612ms
+   ✓ §15.7 full-run replay — byte-identical SaveFileV1 (M14) > RandomAgent: two full-year runs with the same seed produce byte-identical exportSave 498ms
+   ✓ §15.7/M9 — sim stream advances IFF a release is received that tick > rngState changes exactly on releasing ticks, and the count equals the release count 515ms
+   ✓ §15.7/M9 — candidate/agent draws never advance the sim stream > generateCandidates and both agents leave state.rngState frozen across many calls 667ms
+   ✓ §15.7/D-9.8 — develop:true full-run replay is byte-identical > OracleAgent: two develop:true full-year runs with the same seed are byte-identical 1431ms
+   ✓ §15.7/D-9.8 — develop:true full-run replay is byte-identical > OracleAgent: development actually changed some talent (the flag is not a no-op here) 1242ms
+   ✓ §15.7/D-9.8 — develop:true full-run replay is byte-identical > RandomAgent: two develop:true full-year runs with the same seed are byte-identical 561ms
+   ✓ §15.7/D-9.8 — develop:true full-run replay is byte-identical > RandomAgent: development actually changed some talent (the flag is not a no-op here) 484ms
+   ✓ §15.7/D-9.15 — a run resumed from a converted V2 replays byte-identically > OracleAgent/develop-off: two resumes of the same converted V2 are byte-identical 1052ms
+   ✓ §15.7/D-9.15 — a run resumed from a converted V2 replays byte-identically > OracleAgent/develop-on: two resumes of the same converted V2 are byte-identical 705ms
+   ✓ §15.7/D-9.15 — a run resumed from a converted V2 replays byte-identically > RandomAgent/develop-on: two resumes of the same converted V2 are byte-identical 706ms
+ ✓ |core| tests/p13b-s3-validation.test.ts (12 tests) 7951ms
+   ✓ P13B-S3 validator refusals for physicalPlans (test 8) > (i) rejects nextPlanId that is not above every existing plan id 317ms
+ ✓ |core| tests/c2a-m2-blueprint-slate.test.ts (12 tests) 38ms
+ ✓ |core| tests/p13b-s2-labs.test.ts (10 tests) 40647ms
+   ✓ P13B-S2 module/bench law (test 2) > refuses lighting beginResearch while the seated Laboratory lacks an operational electrical/control module 9746ms
+   ✓ P13B-S2 module/bench law (test 2) > does not double-book one Laboratory's seat slots when two technologies are both active there (sound 2 + lighting 2, four seats total) 7620ms
+   ✓ P13B-S2 module/bench law (test 2) > seats a person for a technology on a Laboratory lacking its discipline module (retained P13A law), but refuses to begin until the module is operational 7699ms
+   ✓ P13B-S2 module/bench law (test 2) > releases the seat claim on pause and reacquires it on resume — the S1 release law generalized to a lighting project (regression net) 7909ms
+ ✓ |core| tests/p04a3-greenlight-law.test.ts (8 tests) 241ms
+ ✓ |core| tests/d17a-adv-discovery.test.ts (9 tests) 208ms
+ ✓ |core| tests/forecast-independence.test.ts (10 tests) 52ms
+ ✓ |core| tests/bridge-p06-checkpoint-recovery.test.ts (11 tests) 7415ms
+   ✓ AUD-001 — frozen P06 checkpoint recovery > loads 'Ready with no explicit save' through the governed predecessor path 599ms
+   ✓ AUD-001 — frozen P06 checkpoint recovery > loads 'Committed with distinct Ready save an…' through the governed predecessor path 750ms
+   ✓ AUD-001 — frozen P06 checkpoint recovery > persists 'Ready with no explicit save' once and reopens without remigration 1606ms
+   ✓ AUD-001 — frozen P06 checkpoint recovery > persists 'Committed with distinct Ready save an…' once and reopens without remigration 3127ms
+   ✓ AUD-001 — frozen P06 checkpoint recovery > preserves the predecessor if the migration write fails 1027ms
+ ✓ |core| tests/p13a-physical-installation.test.ts (6 tests) 252ms
+ ✓ |core| tests/bridge-p09a-w5-set-commission.test.ts (5 tests) 7518ms
+   ✓ P09A W5 — Set commission over the bridge > R1: a legal preview reads the engine verbatim and is the one registered commit 2508ms
+   ✓ P09A W5 — Set commission over the bridge > R2: a refused preview is an accepted ok:false answer with the engine reason + remedy; its id is not a commit 1801ms
+   ✓ P09A W5 — Set commission over the bridge > R3: commit builds the Set once at the quoted price; replay refused; the stage is then dressed 2177ms
+   ✓ P09A W5 — Set commission over the bridge > R4: the authored Set catalogue rides the lot projection with engine prices and affordability 940ms
+ ✓ |core| tests/c2a-m4-queue-legibility.test.ts (4 tests) 541ms
+   ✓ C2a-M4 G16 — studioQueueView answers law 2 > renders all four facts non-empty for every waiter in a contended run 339ms
+ ✓ |core| tests/casting-sessions-save-v10.test.ts (6 tests) 1013ms
+   ✓ Casting Sessions V1 — SaveFileV10 > writes frozen V10 explicitly and round-trips every session lifecycle byte-identically 430ms
+ ✓ |core| tests/bridge-checkpoint-store.test.ts (12 tests) 1379ms
+ ✓ |core| tests/bridge-owner-ux-saved-slot.test.ts (9 tests) 44614ms
+   ✓ Owner UX saved-slot metadata > publishes null for an unsaved runtime and preserves the existing NO_SAVE response 1042ms
+   ✓ Owner UX saved-slot metadata > reports the next saved bytes immediately without changing gameplay revision or digest 4382ms
+   ✓ Owner UX saved-slot metadata > retains the saved week while the live game advances, then updates on a same-revision overwrite 7012ms
+   ✓ Owner UX saved-slot metadata > replays a historical Save receipt without overwriting the newer slot, including after reconnect 9381ms
+   ✓ Owner UX saved-slot metadata > keeps distinct current and saved slots across reconnect and rollover, then Load restores the saved subject 11492ms
+   ✓ Owner UX saved-slot metadata > does not change slot metadata or durable state after stale or wrong-session Save 5072ms
+   ✓ Owner UX saved-slot metadata > does not expose prospective metadata if checkpoint preparation rejects Save 1905ms
+   ✓ Owner UX saved-slot metadata > returns independent metadata objects for polling, accepted receipts, and cached retries 2353ms
+   ✓ Owner UX saved-slot metadata > does not fabricate metadata when the low-level constructor receives unreadable saved bytes 1972ms
+ ✓ |core| tests/bridge-p13-laboratory.test.ts (7 tests) 10883ms
+   ✓ P13A Laboratory bridge > publishes one exact Laboratory with named employment and truthful early-release refusal 1008ms
+   ✓ P13A Laboratory bridge > rejects wrong building, stale revision and Save As session while keeping output detached 532ms
+   ✓ P13A Laboratory bridge > pages decisions without exposing private Laboratory data in public Industry pages 325ms
+   ✓ P13A Laboratory bridge > commits the exact named hire once, rejects its stale sibling intent, then assigns the employed Scientist 2054ms
+   ✓ P13A Laboratory bridge > acknowledges completed acoustic instruments while the Scientist seat remains unassigned 514ms
+   ✓ P13A Laboratory bridge > shows rival sound only from the actual operational receipt, without exposing private finances 6163ms
+ ✓ |core| tests/c2a-m2-set-catalog.test.ts (14 tests) 51ms
+ ✓ |core| tests/d17a-adv-migration.test.ts (17 tests) 22ms
+ ✓ |core| tests/p13b-s4-quotes.test.ts (10 tests) 3224ms
+   ✓ P13B-S4 quotes (test 1) > I->II quotes $500,000 over 4 weeks 805ms
+   ✓ P13B-S4 quotes (test 1) > II->III quotes $850,000 over 8 weeks on a body already converted to II; the staged sum exceeds the direct price 424ms
+   ✓ P13B-S4 quotes (test 1) > refuses a body already at III with standardAlreadyMet 485ms
+   ✓ P13B-S4 quotes (test 1) > BUG (RED, engine gap): a running takesTargetOffline conversion must keep engaging its own body via targetEngaged, independent of registry capacity 455ms
+ ✓ |core| tests/contracts/phase-table-agreement.contract.test.ts (10 tests) 961ms
+   ✓ C2a-M0 · G6 (C) — the SAVE BOUNDARY agrees, proved by refusal > refuses a falsified capability multiset, naming the shared module’s own requirement 598ms
+ ✓ |core| tests/c2a-m3-provenance-surfaces.test.ts (8 tests) 969ms
+   ✓ C2a-M3 — provenance is visible > credits the writer of an original screenplay by NAME on its package 337ms
+ ✓ |core| tests/c2a-m4-contention-property.test.ts (7 tests) 585ms
+stdout | tests/bridge-p09a-w5-bare-lot-first-film.test.ts > P09A W5 — the bare-lot first film, driven only through the bridge > founds sparse, builds the plant and a Set at engine prices, and releases a picture on its own money
+[p09 bridge journey] released week 37; commands 46; rollovers 1; cash floor 8864638; final cash 9374658
+
+ ✓ |core| tests/bridge-p09a-w5-bare-lot-first-film.test.ts (1 test) 217106ms
+   ✓ P09A W5 — the bare-lot first film, driven only through the bridge > founds sparse, builds the plant and a Set at engine prices, and releases a picture on its own money 217104ms
+ ✓ |core| tests/placement-lot.test.ts (14 tests) 483ms
+ ✓ |core| tests/bridge-p05a1-owner-greenlight.test.ts (7 tests) 3492ms
+   ✓ P05A.1 — the Owner-profile Queue Greenlight state, replayed > capacity-only affordable package: quote accepted, queues, then ONE queue row and zero commitment 2389ms
+   ✓ P05A.1 — the Owner-profile Queue Greenlight state, replayed > unpublished budget amount: exact sentence names the budget 341ms
+ ✓ |core| tests/bridge-p13b-s1b-seats.test.ts (8 tests) 18477ms
+   ✓ P13B-S1b Laboratory seats read model (projection 36 after S4-T3) > c. only the last eight worked-week receipts are published, ascending and contiguous 326ms
+   ✓ P13B-S1b Laboratory seats read model (projection 36 after S4-T3) > d. a released seat keeps its history row; the quote drops to three seats; the next receipt names three ids 444ms
+ ✓ |core| tests/d12-economy-view.test.ts (12 tests) 4863ms
+   ✓ D-12 read models — active-run revenue mirrors the very next tick > expectedWeeklyRunRevenue predicts EXACTLY the studioRevenue the next tick credits 1312ms
+   ✓ D-12 read models — active-run revenue mirrors the very next tick > runRemainingRevenue == share × Σ future weekly gross, and drains to 0 at completion 899ms
+   ✓ D-12 read models — runway (D-12.16 current commitments only) > an active run out-earning burn → infinite runway (weeks null, "—") 333ms
+   ✓ D-12 read models — run view + ledger reconciliation + period summary > runView: totalGross = Σ weeklyGross, totalStudioRevenue = share × gross, completionTick 361ms
+   ✓ D-12 read models — run view + ledger reconciliation + period summary > financeTotals.net reconciles to cash − INITIAL_CASH; studioRevenue matches the ledger 707ms
+   ✓ D-12 read models — run view + ledger reconciliation + period summary > periodSummary over the whole run window == the run cumulative Studio Revenue + 1 release 687ms
+   ✓ D-12 read models — run view + ledger reconciliation + period summary > financeView bundles the dashboard figures consistently 315ms
+ ✓ |core| tests/studio-decision.test.ts (3 tests) 1508ms
+   ✓ Script Projects V1 — unified studio decision ordering > returns screenplay reviews first in project order, then the legal production command 1393ms
+ ✓ |core| tests/bridge-snapshot-build-context.test.ts (13 tests) 11682ms
+   ✓ W0 snapshot build context — fact equivalence > serves byte-identical save JSON and digest to the underlying pure functions 372ms
+   ✓ W0 snapshot build context — once-per-state computation > computes each heavy fact at most once across repeated snapshot polls 1066ms
+   ✓ W0 snapshot build context — once-per-state computation > computes founding-state facts at most once across repeated founding polls 636ms
+   ✓ W0 snapshot build context — once-per-state computation > recomputes facts exactly once for the successor state after an accepted command 1408ms
+   ✓ W0 snapshot build context — once-per-state computation > folds the save route to one canonical export for digest, payload, and journal 598ms
+   ✓ W0 snapshot build context — envelope isolation and determinism > serves envelopes that never alias a later poll: vandalizing one leaves the next byte-identical 1212ms
+   ✓ W0 snapshot build context — envelope isolation and determinism > serves founding envelopes that never alias a later poll either 723ms
+   ✓ W0 snapshot build context — envelope isolation and determinism > keeps command legality intact after a served envelope is vandalized 1154ms
+   ✓ W0 snapshot build context — envelope isolation and determinism > produces identical envelopes for identical states and session identity 1111ms
+   ✓ W0 snapshot build context — envelope isolation and determinism > keeps intent identity stable against a structurally identical FRESH state 481ms
+   ✓ W0 snapshot build context — envelope isolation and determinism > restores loaded-state facts freshly and exactly on load 2603ms
+ ✓ |core| tests/bridge-p08a-w2-history-projection.test.ts (4 tests) 3772ms
+   ✓ P08A W2 — P1 purity and P2 exact wire contract > derives byte-identically twice, mutates nothing, and validates as the history bundle section 2034ms
+   ✓ P08A W2 — P3 exact routes and P5 provenance > links receipts and rows to the exact production id, marks result availability, and reconciles channels 681ms
+   ✓ P08A W2 — P4 honesty for migrated worlds > says what was not recorded, lists pre-boundary films as unrecorded, and invents no row 639ms
+   ✓ P08A W2 — P4 honesty for migrated worlds > keeps same-title films distinct by id in every row 414ms
+ ❯ |core| tests/r3n1-stale-schedule-take-02p31.test.ts (2 tests | 2 failed) 12ms
+   × R3-N4-DATA-03 — stale production-operation route on r3n1-dense-02p31: SERVER REFUSAL by the bridge > SERVER REFUSAL — a stale expectedStateRevision on the resolveProductionBlocker intent is rejected (STALE_REVISION / state-stale), with no mutation 9ms
+     → ENOENT: no such file or directory, open '/Users/zacheryspector/The-Movies-headless-program/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02p31/generated-r3n1-dense-02p31.checkpoint.json'
+   × R3-N4-DATA-03 — stale production-operation route on r3n1-dense-02p31: SERVER REFUSAL by the bridge > SERVER REFUSAL — the OLD intentId at the CURRENT revision is INTENT_NOT_AVAILABLE once the state has moved on; the fresh resolveProductionBlocker intent for the same production is then accepted exactly once 1ms
+     → ENOENT: no such file or directory, open '/Users/zacheryspector/The-Movies-headless-program/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02p31/generated-r3n1-dense-02p31.checkpoint.json'
+ ✓ |core| tests/c2a-m3-determinism-and-guards.test.ts (8 tests) 2090ms
+   ✓ C2a-M3 — determinism (the milestone gate) > same seed + same action script → BYTE-IDENTICAL blueprints and titles 821ms
+   ✓ C2a-M3 — determinism (the milestone gate) > gives DIFFERENT worlds different screenplays — the seed is really in the key 472ms
+   ✓ C2a-M3 — TRAP 2: the headless agent stream is untouched > never mints in a headless corpus run, so concepts.length is invariant 570ms
+ ✓ |core| tests/roster-wall-continuation.test.ts (6 tests) 182722ms
+   ✓ Week-208 roster-wall continuation layer > fresh-loads the exact Week-196 entry, applies renewal first, and reconciles every transition 6929ms
+   ✓ Week-208 roster-wall continuation layer > keeps C0 voluntary attrition out of involuntary-wall taxonomy 6206ms
+   ✓ Week-208 roster-wall continuation layer > runs all seven primary policies from one entry and builds exact-entry C1 pairs 51959ms
+   ✓ Week-208 roster-wall continuation layer > keeps Annex same-entry policy pairs out of facility-causal paired tables 66862ms
+   ✓ Week-208 roster-wall continuation layer > keeps recurrence attempts out of the original-expiry wall taxonomy 40693ms
+   ✓ Week-208 roster-wall continuation layer > is byte-identical with continuation observation disabled 10071ms
+ ❯ |core| tests/r3n1-stale-schedule-take-02.test.ts (2 tests | 2 failed) 12ms
+   × R3-N1-DATA-02 — stale production-operation route on r3n1-dense-02: SERVER REFUSAL by the bridge > SERVER REFUSAL — a stale expectedStateRevision on the resolveProductionBlocker intent is rejected (STALE_REVISION / state-stale), with no mutation 8ms
+     → ENOENT: no such file or directory, open '/Users/zacheryspector/The-Movies-headless-program/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02/generated-r3n1-dense-02.checkpoint.json'
+   × R3-N1-DATA-02 — stale production-operation route on r3n1-dense-02: SERVER REFUSAL by the bridge > SERVER REFUSAL — the OLD intentId at the CURRENT revision is INTENT_NOT_AVAILABLE once the state has moved on; the fresh resolveProductionBlocker intent for the same production is then accepted exactly once 1ms
+     → ENOENT: no such file or directory, open '/Users/zacheryspector/The-Movies-headless-program/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02/generated-r3n1-dense-02.checkpoint.json'
+ ✓ |core| tests/d13-capital-frontier.test.ts (11 tests) 487ms
+   ✓ script cost ↔ potential correlation (engaged worldgen) > 1. engaged cost and potential are positively but imperfectly related 456ms
+ ✓ |core| tests/c2a-m3-screenplay-vocabulary.test.ts (13 tests) 68ms
+ ✓ |core| tests/c2a-m3-writer-speed.test.ts (12 tests) 159ms
+ ✓ |core| tests/p13b-s2-expiry.test.ts (3 tests) 19275ms
+ ✓ |core| tests/bridge-p11-capital-contributors.test.ts (6 tests) 4596ms
+   ✓ P11 recorded facility capital contributors over the real bridge > hydrates genuine outgoing projection24 and joins four original payments to exact construction events 1237ms
+   ✓ P11 recorded facility capital contributors over the real bridge > preserves same-name site identities across periods, completion and history windows 1688ms
+   ✓ P11 recorded facility capital contributors over the real bridge > keeps bounded overflow explicit and its signed amounts reconcilable to the category 344ms
+   ✓ P11 recorded facility capital contributors over the real bridge > never uses history as amount authority or guesses a demolished site from its title or ledger note 442ms
+   ✓ P11 recorded facility capital contributors over the real bridge > caps a real 26-purchase history at 20 without hiding the remaining payments 612ms
+ ❯ |core| tests/r3n1-stale-schedule-take-02p32.test.ts (2 tests | 2 failed) 11ms
+   × R3-N4-TEST-25 — stale production-operation route on r3n1-dense-02p32: SERVER REFUSAL by the bridge > SERVER REFUSAL — a stale expectedStateRevision on the resolveProductionBlocker intent is rejected (STALE_REVISION / state-stale), with no mutation 8ms
+     → ENOENT: no such file or directory, open '/Users/zacheryspector/The-Movies-headless-program/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02p32/generated-r3n1-dense-02p32.checkpoint.json'
+   × R3-N4-TEST-25 — stale production-operation route on r3n1-dense-02p32: SERVER REFUSAL by the bridge > SERVER REFUSAL — the OLD intentId at the CURRENT revision is INTENT_NOT_AVAILABLE once the state has moved on; the fresh resolveProductionBlocker intent for the same production is then accepted exactly once 1ms
+     → ENOENT: no such file or directory, open '/Users/zacheryspector/The-Movies-headless-program/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02p32/generated-r3n1-dense-02p32.checkpoint.json'
+ ✓ |core| tests/p11-finance-report.test.ts (5 tests) 2455ms
+   ✓ P11 recorded cash and current-pace report > refuses invented pre-checkpoint balances and marks the first recorded week partial 434ms
+   ✓ P11 recorded cash and current-pace report > preserves literal ordered closing Cash over real fractional film receipt intervals 1700ms
+ ✓ |core| tests/contracts/union-producer-subsumption.contract.test.ts (5 tests) 211ms
+ ✓ |core| tests/d12-calibration-closure.test.ts (8 tests) 47ms
+ ✓ |core| tests/bridge-p09a-r2-facility-history-rows.test.ts (5 tests) 3143ms
+   ✓ P09-REQ-040 — facility milestones in Studio History > records Opened at the placement's own completion week, after every row of the advancing week 1177ms
+   ✓ P09-REQ-040 — facility milestones in Studio History > records Demolished; the facility becomes historical with no body to locate, and its old rows follow 730ms
+   ✓ P09-REQ-040 — facility milestones in Studio History > records Moved when a legal move happens, keeping the placement identity 382ms
+   ✓ P09-REQ-040 — facility milestones in Studio History > survives Save/Load byte-exact and validates under the live save law 762ms
+ ✓ |core| tests/contracts/v14-byte-parity.contract.test.ts (6 tests) 1240ms
+   ✓ C2a-M1 · parity (A) — the same seeded script exports the same bytes > produces a byte-identical export from two independent runs 443ms
+ ✓ |core| tests/r3n1-stale-schedule-take.test.ts (2 tests) 4768ms
+   ✓ R3-N1-DATA-01 — stale production-operation route: SERVER REFUSAL by the bridge > SERVER REFUSAL — a stale expectedStateRevision on the production-operation intent is rejected (STALE_REVISION / state-stale), with no mutation 2332ms
+   ✓ R3-N1-DATA-01 — stale production-operation route: SERVER REFUSAL by the bridge > SERVER REFUSAL — the OLD intentId at the CURRENT revision is INTENT_NOT_AVAILABLE once the state has moved on; the fresh intent for the same production is then accepted exactly once 2434ms
+ ✓ |core| tests/bridge-p12-industry.test.ts (4 tests) 1931ms
+   ✓ R05 public Industry projections > exposes only actual announced work and earned gross while rivals are still in theatrical runs 869ms
+   ✓ R05 public Industry projections > follows the exact funded announcement through release, complete credits, history and paged employment 576ms
+   ✓ R05 public Industry projections > keeps recent Output newcomers distinct from incomparable incumbents and absent observations 312ms
+stdout | tests/bridge-p04a2-writer-credit-law.test.ts > P04A.2 §19E — the greenlight quote/command seam publishes no writer-busy blocker > quotes clean, mints ONE opaque intent, and the command is the sole commit
+[P04A.2 WITNESS] §19E bridge packageReadiness (A ready, writer drafting B): {"knownGatesClear":true,"willQueue":false,"blockers":[]}
+
+stdout | tests/bridge-p04a2-writer-credit-law.test.ts > P04A.2 §19E — the greenlight quote/command seam publishes no writer-busy blocker > a stale revision still refuses, and a refusal mutates NOTHING
+[P04A.2 WITNESS] §19E refusals leave no trace: {"staleReason":"STALE_REVISION","budgetRefused":true}
+
+ ✓ |core| tests/bridge-p04a2-writer-credit-law.test.ts (2 tests) 1606ms
+   ✓ P04A.2 §19E — the greenlight quote/command seam publishes no writer-busy blocker > quotes clean, mints ONE opaque intent, and the command is the sole commit 1425ms
+ ✓ |core| tests/contracts/sticky-retention.contract.test.ts (2 tests) 246ms
+ ✓ |core| tests/d17a-recap-studio-economics.test.ts (6 tests) 4255ms
+   ✓ D-17A/T13 — recap fixed-cost reconciliation > totalAllocated + idle === totalLedger, and that IS the ledger 1513ms
+   ✓ D-17A/T13 — recap fixed-cost reconciliation > per-film allocations are integers, non-negative, and sum into the studio total 947ms
+   ✓ D-17A/T13 — recap fixed-cost reconciliation > studioEconomicResult is contribution − allocatedFixedCost, and is the HARSHER figure 669ms
+   ✓ D-17A/T13 — recap fixed-cost reconciliation > C3 — the DIRECT-cost layer is untouched by the additive fields 904ms
+ ✓ |core| tests/bridge-p13-scientist-expiry.test.ts (3 tests) 25236ms
+   ✓ P13A Scientist expiration at the shared Gate Hiring boundary > projects an expired Scientist with exact hire terms and commits the same person through the Laboratory 11331ms
+   ✓ P13A Scientist expiration at the shared Gate Hiring boundary > distinguishes the requested ceiling, usable spend, uncharged balance and retained employment 7463ms
+   ✓ P13A Scientist expiration at the shared Gate Hiring boundary > distinguishes completed research, pending physical work and the exact operational sound chain 6440ms
+ ✓ |core| tests/d12-commercial-outlook-fame.test.ts (7 tests) 427ms
+   ✓ D-12: no UI component independently calculates fame reach > ui/src has zero fame-reach formulas or FAME_REACH_HALF_SAT references 403ms
+ ✓ |core| tests/d12-final-downside.test.ts (7 tests) 55ms
+ ✓ |core| tests/p13b-s2-cooperation.test.ts (5 tests) 12697ms
+ ✓ |core| tests/p13b-s4-validation.test.ts (7 tests) 4717ms
+   ✓ P13B-S4 conservation, determinism, save/reload (test 5) > conservation: the conversion's constructionCapex equals the committed quote, and cash reconciles exactly against the ledger 969ms
+   ✓ P13B-S4 conservation, determinism, save/reload (test 5) > determinism: the same actions from the same seed produce a byte-identical exportSave 2059ms
+   ✓ P13B-S4 conservation, determinism, save/reload (test 5) > save/reload mid-conversion continues identically (Save V23 unchanged -- a conversion is a normal placement record) 1178ms
+ ✓ |core| tests/d17a-adv-prospective-cycle.test.ts (9 tests) 319ms
+ ✓ |core| tests/d17a-adv-offer-truth.test.ts (12 tests) 2524ms
+   ✓ D-17A/F — the reported obligation is what signing actually costs > the obligation is the salary the tick keeps paying — summed over the whole term 2139ms
+ ✓ |core| tests/contracts/cross-owner-refusal.contract.test.ts (3 tests) 897ms
+   ✓ C2a-M0 · §12-M0 gate — a slot claimed by two owners is REFUSED > refuses a screenplay forged onto the slot a production holds 524ms
+ ❯ |core| tests/bridge-p13-campaign-isolation.test.ts (1 test | 1 failed) 69861ms
+   × P13A research authority across named campaign operations > Save As branches real research, inactive and renamed campaigns stay frozen, and a new campaign receives none of their authority 69859ms
+     → Test timed out in 60000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ✓ |core| tests/rng.test.ts (17 tests) 6292ms
+   ✓ §9 distributions — uniform stays in [lo, hi) > uniform(lo, hi) never returns lo>x or x>=hi across many draws 1264ms
+   ✓ §9 distributions — uniform stays in [lo, hi) > uniform over a positive interval respects the same half-open bound 862ms
+   ✓ §9 distributions — truncatedNormal NEVER leaves [lo, hi] > skill (60,15,20,95) stays within [lo,hi] over 10_000 draws 754ms
+   ✓ §9 distributions — truncatedNormal NEVER leaves [lo, hi] > fame (40,22,0,95) stays within [lo,hi] over 10_000 draws 572ms
+   ✓ §9 distributions — truncatedNormal NEVER leaves [lo, hi] > age (38,10,20,70) stays within [lo,hi] over 10_000 draws 925ms
+   ✓ §9 distributions — truncatedNormal NEVER leaves [lo, hi] > baselineStrength (60,15,20,95) stays within [lo,hi] over 10_000 draws 1046ms
+   ✓ §9 distributions — truncatedNormal NEVER leaves [lo, hi] > originalityRaw (55,20,5,100) stays within [lo,hi] over 10_000 draws 835ms
+ ✓ |core| tests/roster-wall-campaign.test.ts (9 tests) 74125ms
+   ✓ Week-208 roster-wall campaign entry harvest > mechanically matches frozen facilities behavior through vacant Week 196 — direct-package 15937ms
+   ✓ Week-208 roster-wall campaign entry harvest > mechanically matches frozen facilities behavior through vacant Week 196 — development-casting 18976ms
+   ✓ Week-208 roster-wall campaign entry harvest > mechanically matches frozen facilities behavior through vacant Week 196 — scaled-two-team 18456ms
+   ✓ Week-208 roster-wall campaign entry harvest > captures pure 52/26/12-week timing shadows and exact SaveFileV16 replay 3596ms
+   ✓ Week-208 roster-wall campaign entry harvest > folds pre-entry cash in ledger order without a floating-point residual 4175ms
+   ✓ Week-208 roster-wall campaign entry harvest > starts the real Annex only through its Week-0 public action and preserves its lifecycle 4392ms
+   ✓ Week-208 roster-wall campaign entry harvest > is byte-neutral with timing, intent, and weekly observation disabled 4452ms
+   ✓ Week-208 roster-wall campaign entry harvest > returns only a byte-, state-, and RNG-neutral harvest from the accepted seam 4112ms
+ ✓ |core| tests/d12-audience-aligned-weak-execution.test.ts (5 tests) 20ms
+ ✓ |core| tests/roster-wall-renewal.test.ts (6 tests) 256ms
+ ✓ |core| tests/bridge-p09a-w1b-bare-lot-projection.test.ts (5 tests) 35204ms
+   ✓ P09A W1b — the bare lot on the wire > R1: the journey names the missing capacity, routes to Build, then waits for the office, then starts a picture 1856ms
+   ✓ P09A W1b — the bare lot on the wire > R1b: the bridge offers advanceWeek while the office rises, and never before anything is committed 32711ms
+   ✓ P09A W1b — the bare lot on the wire > R3: the engine roads ride the wire with the property, per regime 544ms
+ ✓ |core| tests/d13-discoverability.test.ts (12 tests) 64ms
+ ✓ |core| tests/bridge-runtime-session.test.ts (5 tests) 39199ms
+   ✓ BridgeSession runtime checkpoint recovery > creates and restores an unsaved production runtime during founding 1311ms
+   ✓ BridgeSession runtime checkpoint recovery > restores untouched V14 authority bytes, logical identity, revision, and digest 3462ms
+   ✓ BridgeSession runtime checkpoint recovery > replays an accepted command byte-for-byte after checkpoint restoration 3884ms
+   ✓ BridgeSession runtime checkpoint recovery > preserves exact command, save, and load history after later mutations and restart 5411ms
+   ✓ BridgeSession runtime checkpoint recovery > does not silently evict historical command ids at the old 256-entry boundary 25128ms
+ ✓ |core| tests/d17b-disc-shape.test.ts (10 tests) 66ms
+ ✓ |core| tests/bridge-foundation-recovery.test.ts (7 tests) 45409ms
+   ✓ AUD-002: legal post-expiry recovery without a Ready screenplay > keeps ordinary hiring closed throughout the founding draft 586ms
+   ✓ AUD-002: legal post-expiry recovery without a Ready screenplay > still requires an exact Ready project for screenTest 371ms
+   ✓ AUD-002: legal post-expiry recovery without a Ready screenplay > quotes and commits a current writer without a fabricated project, exactly once 2766ms
+   ✓ AUD-002: legal post-expiry recovery without a Ready screenplay > quotes and commits a current actor without a fabricated project, exactly once 2442ms
+   ✓ AUD-002: legal post-expiry recovery without a Ready screenplay > offers explicit time for theatrical settlement and construction with no screenplay or staff 38888ms
+ ✓ |core| tests/bridge-p13b-s3-save-as.test.ts (1 test) 7735ms
+   ✓ P13B-S3 Save As (test 7, A11) > a Save As copy keeps the same plan ids and advances independently; the inactive original never advances (complete-state comparison) 7706ms
+ ✓ |core| tests/p13b-s3-save-v23.test.ts (13 tests) 5631ms
+   ✓ P13B-S3 Save V23 (test 7) > migrates the genuine V22 fixture './fixtures/p13b/legacy-v22-staffed-4-…' to V23 with an empty physicalPlans root, byte-identical otherwise 396ms
+   ✓ P13B-S3 Save V23 (test 7) > chains the genuine V20 fixture './fixtures/p13b/legacy-v20-research-a…' through V21, V22 to V23 388ms
+   ✓ P13B-S3 Save V23 (test 7) > chains the genuine V20 fixture './fixtures/p13b/legacy-v20-research-p…' through V21, V22 to V23 335ms
+   ✓ P13B-S3 Save V23 (test 7) > chains the genuine V20 fixture './fixtures/p13b/legacy-v20-research-c…' through V21, V22 to V23 429ms
+   ✓ P13B-S3 Save V23 (test 7) > migrateToV22 / migrateToV21 / migrateToV20 refuse a V23 save 963ms
+   ✓ P13B-S3 Save V23 (test 7) > makeSave writes saveVersion 23 644ms
+   ✓ P13B-S3 Save V23 (test 7) > an unknown saveVersion 24 is refused, naming the handled range 301ms
+   ✓ P13B-S3 Save V23 (test 7) > save/reload mid-queue continues identically (byte for byte) 1280ms
+ ✓ |core| tests/contracts/determinism-floor.contract.test.ts (3 tests) 770ms
+   ✓ C2a-M0 · §12-M0 gate — same seed, same actions, same bytes > exports byte-identically across two fresh runs 531ms
+ ✓ |core| tests/p13b-s1-save-v21.test.ts (8 tests) 4208ms
+   ✓ P13B-S1 V20 to V21 migration (test 8) > lifts ./fixtures/p13b/legacy-v20-research-active-280.json.gz into one retained seat and a frozen legacy prefix 616ms
+   ✓ P13B-S1 V20 to V21 migration (test 8) > lifts ./fixtures/p13b/legacy-v20-research-paused-expired-468.json.gz into one retained seat and a frozen legacy prefix 504ms
+   ✓ P13B-S1 V20 to V21 migration (test 8) > continues the migrated active-280 project lawfully for one more funded week and re-saves byte-identically 791ms
+   ✓ P13B-S1 V20 to V21 migration (test 8) > keeps the migrated paused-expired seat retained but ineligible, refuses resumeResearch, then accepts it after rehiring the same id 390ms
+   ✓ P13B-S1 campaign isolation (test 10) > produces independent migrated copies from the same fixture; advancing one never touches the other 1312ms
+ ✓ |core| tests/p13b-s2-catalogue.test.ts (11 tests) 10133ms
+   ✓ P13B-S2 catalogue: two technologies, stable order (test 1) > the ordinary action surface (knownTechnology) accepts both technology ids, not only synchronized-sound 1024ms
+ ✓ |core| tests/declarations.test.ts (20 tests) 16ms
+ ✓ |core| tests/p13a-rival-adoption.test.ts (2 tests) 10345ms
+   ✓ P13A shared commercial adoption and exact rival cash consequence > uses the shared player/rival eligibility function and debits only technology adoption without new plant or RNG draws 596ms
+   ✓ P13A shared commercial adoption and exact rival cash consequence > replays the actual weekly commercial purchase, reconciles its debit and creates one dated operational receipt 1449ms
+ ✓ |core| tests/p11-finance-recurring.test.ts (5 tests) 1754ms
+   ✓ P11 W0 complete recurring reporting reconciles with actual advances > preserves the real bare-lot office capital, completion and first $5,500 charge 1200ms
+ ✓ |core| tests/p13b-s1-staffing.test.ts (5 tests) 6976ms
+ ✓ |core| tests/roster-wall-schema.test.ts (5 tests) 14397ms
+   ✓ Week-208 roster-wall evidence schema > projects the exact V11 entry, accounting, dimensions and three warning shadows 5172ms
+   ✓ Week-208 roster-wall evidence schema > rejects even a sub-cent cash mismatch instead of applying tolerance 4857ms
+   ✓ Week-208 roster-wall evidence schema > keeps Annex state descriptive and distinct in the entry ID 4339ms
+ ✓ |core| tests/p05a3-minimal-founding-liveness.test.ts (3 tests) 221ms
+ ✓ |core| tests/bridge-owner-ux-genre-projection.test.ts (6 tests) 501ms
+ ✓ |core| tests/p13a-causal-core.test.ts (8 tests) 16082ms
+   ✓ P13A causal Core through the real weekly engine > retains exact paid work and reloads a lawful $1 weekly budget 784ms
+   ✓ P13A causal Core through the real weekly engine > retains exact paid work and reloads a lawful $3 weekly budget 760ms
+   ✓ P13A causal Core through the real weekly engine > retains exact paid work and reloads a lawful $2499 weekly budget 668ms
+   ✓ P13A causal Core through the real weekly engine > retains exact paid work and reloads a lawful $5600 weekly budget 599ms
+   ✓ P13A causal Core through the real weekly engine > retains exact paid work and reloads a lawful $9999 weekly budget 580ms
+   ✓ P13A causal Core through the real weekly engine > one Scientist completes 64 units in 43 funded weeks, then P09 completes the exact chain at315 1058ms
+   ✓ P13A causal Core through the real weekly engine > saturation caps both output and actual spend, while pause/cancel/resume retain work 327ms
+   ✓ P13A causal Core through the real weekly engine > waiting buys no capability; purchase opens416, takes12weeks, and forfeits113weeks of lead 5589ms
+ ✓ |core| tests/p12-lifecycle.test.ts (5 tests) 12900ms
+   ✓ R05 shared-law rival lifecycle > rejects forged owners, erased archive announcements, invented employers and invalid chart history 1526ms
+   ✓ R05 shared-law rival lifecycle > rejects forged frozen credits, double roles, and another studio’s reserved performers 582ms
+   ✓ R05 shared-law rival lifecycle > commissions, staffs, funds, operates, releases and settles real films without player RNG draws 2773ms
+   ✓ R05 shared-law rival lifecycle > expires ordinary contracts and crosses the first real arrival from elapsed play 7923ms
+ ✓ |core| tests/p12-checker.test.ts (5 tests) 155ms
+ ✓ |core| tests/p13a-technology-membership.test.ts (9 tests) 13586ms
+   ✓ P13A exact historical technology membership under local indexing > does not reuse membership across independent round-tripped copies with the same world and entity IDs 1100ms
+   ✓ P13A exact historical technology membership under local indexing > rechecks the same mutable input after removal and after exact restoration 950ms
+ ✓ |core| tests/p13a-technology-validation.test.ts (9 tests) 17482ms
+ ✓ |core| tests/bridge-p11-production-location.test.ts (3 tests) 3401ms
+   ✓ P11 exact production property locations > accepts authentic26 and projects a real immediate Greenlight at the reserved placed office 2341ms
+   ✓ P11 exact production property locations > uses the real placed Post reservation, then no guessed site for ready or committed release 807ms
+ ✓ |core| tests/p13a-save-v20.test.ts (5 tests) 1296ms
+   ✓ P13A governed V19 to V20 persistence > round-trips a migrated V20 world exactly and creates independent state objects 639ms
+ ✓ |core| tests/tuning.test.ts (36 tests) 18ms
+ ✓ |core| tests/bridge-p05a-w2-intents.test.ts (4 tests) 2212ms
+   ✓ P05A W2 — all-active production intents > publishes one exact-ID intent per deciding production, ascending 363ms
+   ✓ P05A W2 — all-active production intents > applies a NON-guided production intent and leaves the other decision standing 1243ms
+   ✓ P05A W2 — all-active production intents > drops a production’s intent when its decision settles, and keeps digests exact 359ms
+ ✓ |core| tests/presence-determinism.test.ts (4 tests) 1183ms
+   ✓ Presence Projection V1 — determinism > consumes zero simulation RNG: ticks are byte-identical either way 831ms
+ ✓ |core| tests/bridge-owner-ux-projection21-schema.test.ts (9 tests) 21633ms
+   ✓ Owner UX projection21 public field wire boundary > parses actual current snapshot, Save, and Load envelopes 5627ms
+   ✓ Owner UX projection21 public field wire boundary > requires savedSlot rather than silently defaulting it 3042ms
+   ✓ Owner UX projection21 public field wire boundary > rejects malformed/fabricated slot metadata 0 2184ms
+   ✓ Owner UX projection21 public field wire boundary > rejects malformed/fabricated slot metadata 1 2207ms
+   ✓ Owner UX projection21 public field wire boundary > rejects malformed/fabricated slot metadata 2 2065ms
+   ✓ Owner UX projection21 public field wire boundary > rejects malformed/fabricated slot metadata 3 2261ms
+   ✓ Owner UX projection21 public field wire boundary > rejects malformed/fabricated slot metadata 4 2104ms
+   ✓ Owner UX projection21 public field wire boundary > accepts public fractional and known-zero cells, rejects hidden values and malformed cells 2133ms
+ ✓ |core| tests/p13a-technology-milestones.test.ts (4 tests) 7917ms
+   ✓ P13A dated public technology history > round-trips both boundaries exactly and resumes without duplicating the permanent events 884ms
+   ✓ P13A dated public technology history > never backfills after migration, skips dates not actually reached, and leaves the frozen V19 vocabulary closed 398ms
+   ✓ P13A dated public technology history > rejects invented dates, unknown facts, wrong significance or subjects, duplicates, and pre-recording history 358ms
+ ❯ |core| tests/p13a-scientist-foundation.test.ts (6 tests | 3 failed) 167ms
+   × P13A Scientist identity and employment foundation > preserves accepted people, concepts, market, era and RNG for p13a-person-regression-1 58ms
+     → expected '4a4b2e78a8af26bb7804b4220ba31b2fcb667…' to be '16857a2609206c58bfb34ba3be7b67d95276e…' // Object.is equality
+   × P13A Scientist identity and employment foundation > preserves accepted people, concepts, market, era and RNG for p13a-person-regression-2 33ms
+     → expected 'de6e49d8796e1a037e676b5e147c5850680bb…' to be 'd71583f6fc04af2d251e2010ca6725e6bcc01…' // Object.is equality
+   × P13A Scientist identity and employment foundation > preserves accepted people, concepts, market, era and RNG for m0a-0001 49ms
+     → expected '0b8e21842fc4a820413c3416c90bdd9ce2907…' to be '7517c0d01eb928245e2101752932b99ccd344…' // Object.is equality
+ ❯ |core| tests/world-first-scenery-load-in-provenance.test.ts (3 tests | 1 failed) 402ms
+   × World-First Scenery Load-In V1 — frozen district provenance > replays the clean exporter and pins its deliberately non-runtime manifest 322ms
+     → Command failed: python3 /Users/zacheryspector/The-Movies-headless-program/tools/hollywood/export_district.py --source /Users/zacheryspector/The-Movies-headless-program/art/hollywood/source/moonshot-studio-chronicle-concept.png --manifest /Users/zacheryspector/The-Movies-headless-program/art/hollywood/district-manifest.source.json --output /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/studio-scenery-export-8qoaeh
+Traceback (most recent call last):
+  File "/Users/zacheryspector/The-Movies-headless-program/tools/hollywood/export_district.py", line 16, in <module>
+    from PIL import Image, ImageDraw
+ModuleNotFoundError: No module named 'PIL'
+
+ ✓ |core| tests/reception-verdict-canonical.test.ts (7 tests) 9ms
+ ✓ |core| tests/d12-fame-isolation.test.ts (3 tests) 15ms
+ ✓ |core| tests/3d-asset-audit.test.ts (3 tests) 1225ms
+   ✓ 3D asset audit > enforces the GLB and raster size gates deterministically 932ms
+ ✓ |core| tests/bridge-p13-profile-availability.test.ts (2 tests) 11302ms
+   ✓ P13A shared profile and roster current-work availability > shows the actual Scientist working after a funded advance, then available when research is paused without changing employment 10778ms
+   ✓ P13A shared profile and roster current-work availability > preserves a credited writer as available while the actual director, cast and craft company are working 521ms
+ ✓ |core| tests/bridge-p13b-s1-identity.test.ts (1 test) 6202ms
+ ✓ |core| tests/p13b-s1-validation.test.ts (7 tests) 6402ms
+ ✓ |core| tests/p13a-research-employment.test.ts (1 test) 6605ms
+   ✓ P13A research employment continuity > releasing the actual Scientist pauses work immediately and survives save/reload without losing verified work 6593ms
+ ✓ |core| tests/bridge-p13-lot-technology.test.ts (2 tests) 16157ms
+   ✓ P13A exact lot technology status > shows acoustic installation on the existing Laboratory, then its real named paused/active task 6692ms
+   ✓ P13A exact lot technology status > joins actual sound work to the exact founding stage/Post and leaves the other stage unchanged 9462ms
+ ✓ |core| tests/frozen-save-builder-projection.test.ts (2 tests) 309ms
+ ✓ |core| tests/d17b-marketing-menu.test.ts (5 tests) 493ms
+ ✓ |core| tests/p12-starting-world.test.ts (3 tests) 2140ms
+   ✓ R05 canonical starting history and genuine migration > opens four established distinct businesses with settled canonical history and protected applicants 325ms
+   ✓ R05 canonical starting history and genuine migration > migrates at each old state own week with empty company histories and exact player state 1576ms
+ ✓ |core| tests/bridge-p12-storage-codec.test.ts (4 tests) 37ms
+ ✓ |core| tests/p13a-research-identity.test.ts (1 test) 1423ms
+   ✓ P13A retained research Laboratory identity > keeps paused and cancelled Laboratory references intact without blocking lawful instrument installation 1421ms
+ ✓ |core| tests/bridge-p13-no-laboratory-commercial.test.ts (1 test) 12629ms
+   ✓ P13A commercial route without a Laboratory > keeps wait, purchase and exact stage/Post decisions in the global intent list beside other studio actions 12627ms
+ ✓ |core| tests/p13a-placement-history-validation.test.ts (1 test) 1413ms
+   ✓ P13A bounded historical facility-charge validation > preserves every exact weekly charge across a real build, demolition, idle gap and replacement 1411ms
+ ✓ |core| tests/bridge-process-incarnation.test.ts (4 tests) 31ms
+stdout | tests/p11-finance-history-scale.test.ts > P11 bounded history at long-save scale > keeps a 6,240-advance real ledger exact with at most 52 weekly chart/text points
+{"proof":"p11-week-history-scale","advances":6240,"ledgerEntries":6240,"saveBytes":726423,"reportBytes":99151,"queryMilliseconds":5.61}
+
+ ✓ |core| tests/p11-finance-history-scale.test.ts (1 test) 3380ms
+   ✓ P11 bounded history at long-save scale > keeps a 6,240-advance real ledger exact with at most 52 weekly chart/text points 3378ms
+ ✓ |core| tests/hygiene.test.ts (1 test) 230ms
+ ✓ |core| tests/bridge-p13-technology-history.test.ts (1 test) 6032ms
+   ✓ P13A dated technology history projection > shows the recorded 1925 and 1928 availability dates without claiming player adoption 6031ms
+ ✓ |core| tests/p12-calendar.test.ts (2 tests) 10ms
+ ✓ |core| tests/roster-wall-observatory-cli.test.ts (8 tests) 9ms
+ ✓ |core| tests/p13a-catalogue.test.ts (2 tests) 9ms
+ ✓ |core| tests/d11-cycle4.test.ts (2 tests) 5ms
+ ✓ |core| tests/c2a-m4-g101-throughput.test.ts (4 tests) 68875ms
+   ✓ C2a-M4 · G10.1 — purchased capacity is no longer inert > leaves the C1 two-picture policy measurably less relieved, which is why the arm exists 68867ms
+ ✓ |core| tests/roster-wall-corpus.test.ts (2 tests) 7ms
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 22 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > keeps the shipped Save route and save-before-load consistent with the named record
+ FAIL |core|  tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > rejects a corrupted cross-world active binding and stops on an uncertain commit
+ FAIL |core|  tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > saves atomically across the bounded replay journal with a new logical session
+ FAIL |core|  tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > branches CURRENT complete state, preserves original records, switches scope and survives restart
+ FAIL |core|  tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > makes failed writes, cancel/unsaved conflicts, stale targets and rename collisions leave authority intact
+ FAIL |core|  tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > requires exact delete/overwrite confirmation and never recreates a deleted active record
+ FAIL |core|  tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > imports real old current/saved checkpoints as independently recoverable records without losing original bytes
+ FAIL |core|  tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > recovers different-world legacy slots and null saved state, preserving exact originals
+ FAIL |core|  tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > branches a full journal without changing source bytes and retries the exact durable copy after restart
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/22]⎯
+
+ FAIL |core|  tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > durably save dirty progress while preserving two inactive worlds and failed-write authority
+ FAIL |core|  tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > durably discard dirty progress while preserving two inactive worlds and failed-write authority
+Error: Test timed out in 20000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/22]⎯
+
+ FAIL |core|  tests/bridge-p13-campaign-isolation.test.ts > P13A research authority across named campaign operations > Save As branches real research, inactive and renamed campaigns stay frozen, and a new campaign receives none of their authority
+Error: Test timed out in 60000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/22]⎯
+
+ FAIL |core|  tests/p13a-scientist-foundation.test.ts > P13A Scientist identity and employment foundation > preserves accepted people, concepts, market, era and RNG for p13a-person-regression-1
+AssertionError: expected '4a4b2e78a8af26bb7804b4220ba31b2fcb667…' to be '16857a2609206c58bfb34ba3be7b67d95276e…' // Object.is equality
+
+Expected: "16857a2609206c58bfb34ba3be7b67d95276e5c96048c5674cb5987aa8a94a17"
+Received: "4a4b2e78a8af26bb7804b4220ba31b2fcb667961c5acec6d5e79c4a466859d99"
+
+ ❯ tests/p13a-scientist-foundation.test.ts:32:77
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/22]⎯
+
+ FAIL |core|  tests/p13a-scientist-foundation.test.ts > P13A Scientist identity and employment foundation > preserves accepted people, concepts, market, era and RNG for p13a-person-regression-2
+AssertionError: expected 'de6e49d8796e1a037e676b5e147c5850680bb…' to be 'd71583f6fc04af2d251e2010ca6725e6bcc01…' // Object.is equality
+
+Expected: "d71583f6fc04af2d251e2010ca6725e6bcc0104fb727d3735155aa5235df01b8"
+Received: "de6e49d8796e1a037e676b5e147c5850680bb1b198ffdd18d41be8c588d7fcc1"
+
+ ❯ tests/p13a-scientist-foundation.test.ts:32:77
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/22]⎯
+
+ FAIL |core|  tests/p13a-scientist-foundation.test.ts > P13A Scientist identity and employment foundation > preserves accepted people, concepts, market, era and RNG for m0a-0001
+AssertionError: expected '0b8e21842fc4a820413c3416c90bdd9ce2907…' to be '7517c0d01eb928245e2101752932b99ccd344…' // Object.is equality
+
+Expected: "7517c0d01eb928245e2101752932b99ccd3444f2ca6848a6badf579ef2fb51c4"
+Received: "0b8e21842fc4a820413c3416c90bdd9ce290750d669bc08b66b0be7705e6a2c6"
+
+ ❯ tests/p13a-scientist-foundation.test.ts:32:77
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/22]⎯
+
+ FAIL |core|  tests/r3n1-stale-schedule-take-02.test.ts > R3-N1-DATA-02 — stale production-operation route on r3n1-dense-02: SERVER REFUSAL by the bridge > SERVER REFUSAL — a stale expectedStateRevision on the resolveProductionBlocker intent is rejected (STALE_REVISION / state-stale), with no mutation
+Error: ENOENT: no such file or directory, open '/Users/zacheryspector/The-Movies-headless-program/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02/generated-r3n1-dense-02.checkpoint.json'
+ ❯ loadFixtureState tests/r3n1-stale-schedule-take-02.test.ts:100:15
+     98|     'evidence/Playability-Interaction-01/fixtures/r3n1-dense-02/genera…
+     99|   )
+    100|   const raw = readFileSync(path, 'utf8')
+       |               ^
+    101|   const stored = decodeCampaignStorage(
+    102|     JSON.parse(raw),
+ ❯ tests/r3n1-stale-schedule-take-02.test.ts:116:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/22]⎯
+
+ FAIL |core|  tests/r3n1-stale-schedule-take-02.test.ts > R3-N1-DATA-02 — stale production-operation route on r3n1-dense-02: SERVER REFUSAL by the bridge > SERVER REFUSAL — the OLD intentId at the CURRENT revision is INTENT_NOT_AVAILABLE once the state has moved on; the fresh resolveProductionBlocker intent for the same production is then accepted exactly once
+Error: ENOENT: no such file or directory, open '/Users/zacheryspector/The-Movies-headless-program/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02/generated-r3n1-dense-02.checkpoint.json'
+ ❯ loadFixtureState tests/r3n1-stale-schedule-take-02.test.ts:100:15
+     98|     'evidence/Playability-Interaction-01/fixtures/r3n1-dense-02/genera…
+     99|   )
+    100|   const raw = readFileSync(path, 'utf8')
+       |               ^
+    101|   const stored = decodeCampaignStorage(
+    102|     JSON.parse(raw),
+ ❯ tests/r3n1-stale-schedule-take-02.test.ts:151:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/22]⎯
+
+ FAIL |core|  tests/r3n1-stale-schedule-take-02p31.test.ts > R3-N4-DATA-03 — stale production-operation route on r3n1-dense-02p31: SERVER REFUSAL by the bridge > SERVER REFUSAL — a stale expectedStateRevision on the resolveProductionBlocker intent is rejected (STALE_REVISION / state-stale), with no mutation
+Error: ENOENT: no such file or directory, open '/Users/zacheryspector/The-Movies-headless-program/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02p31/generated-r3n1-dense-02p31.checkpoint.json'
+ ❯ loadFixtureState tests/r3n1-stale-schedule-take-02p31.test.ts:107:15
+    105|     'evidence/Playability-Interaction-01/fixtures/r3n1-dense-02p31/gen…
+    106|   )
+    107|   const raw = readFileSync(path, 'utf8')
+       |               ^
+    108|   const stored = decodeCampaignStorage(
+    109|     JSON.parse(raw),
+ ❯ tests/r3n1-stale-schedule-take-02p31.test.ts:126:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/22]⎯
+
+ FAIL |core|  tests/r3n1-stale-schedule-take-02p31.test.ts > R3-N4-DATA-03 — stale production-operation route on r3n1-dense-02p31: SERVER REFUSAL by the bridge > SERVER REFUSAL — the OLD intentId at the CURRENT revision is INTENT_NOT_AVAILABLE once the state has moved on; the fresh resolveProductionBlocker intent for the same production is then accepted exactly once
+Error: ENOENT: no such file or directory, open '/Users/zacheryspector/The-Movies-headless-program/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02p31/generated-r3n1-dense-02p31.checkpoint.json'
+ ❯ loadFixtureState tests/r3n1-stale-schedule-take-02p31.test.ts:107:15
+    105|     'evidence/Playability-Interaction-01/fixtures/r3n1-dense-02p31/gen…
+    106|   )
+    107|   const raw = readFileSync(path, 'utf8')
+       |               ^
+    108|   const stored = decodeCampaignStorage(
+    109|     JSON.parse(raw),
+ ❯ tests/r3n1-stale-schedule-take-02p31.test.ts:161:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/22]⎯
+
+ FAIL |core|  tests/r3n1-stale-schedule-take-02p32.test.ts > R3-N4-TEST-25 — stale production-operation route on r3n1-dense-02p32: SERVER REFUSAL by the bridge > SERVER REFUSAL — a stale expectedStateRevision on the resolveProductionBlocker intent is rejected (STALE_REVISION / state-stale), with no mutation
+Error: ENOENT: no such file or directory, open '/Users/zacheryspector/The-Movies-headless-program/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02p32/generated-r3n1-dense-02p32.checkpoint.json'
+ ❯ loadFixtureState tests/r3n1-stale-schedule-take-02p32.test.ts:98:15
+     96|     'evidence/Playability-Interaction-01/fixtures/r3n1-dense-02p32/gen…
+     97|   )
+     98|   const raw = readFileSync(path, 'utf8')
+       |               ^
+     99|   const loaded = loadCampaignLibrary(raw, limits)
+    100|   if (loaded.changed) {
+ ❯ tests/r3n1-stale-schedule-take-02p32.test.ts:110:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/22]⎯
+
+ FAIL |core|  tests/r3n1-stale-schedule-take-02p32.test.ts > R3-N4-TEST-25 — stale production-operation route on r3n1-dense-02p32: SERVER REFUSAL by the bridge > SERVER REFUSAL — the OLD intentId at the CURRENT revision is INTENT_NOT_AVAILABLE once the state has moved on; the fresh resolveProductionBlocker intent for the same production is then accepted exactly once
+Error: ENOENT: no such file or directory, open '/Users/zacheryspector/The-Movies-headless-program/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02p32/generated-r3n1-dense-02p32.checkpoint.json'
+ ❯ loadFixtureState tests/r3n1-stale-schedule-take-02p32.test.ts:98:15
+     96|     'evidence/Playability-Interaction-01/fixtures/r3n1-dense-02p32/gen…
+     97|   )
+     98|   const raw = readFileSync(path, 'utf8')
+       |               ^
+     99|   const loaded = loadCampaignLibrary(raw, limits)
+    100|   if (loaded.changed) {
+ ❯ tests/r3n1-stale-schedule-take-02p32.test.ts:145:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/22]⎯
+
+ FAIL |core|  tests/world-first-scenery-load-in-provenance.test.ts > World-First Scenery Load-In V1 — frozen district provenance > replays the clean exporter and pins its deliberately non-runtime manifest
+Error: Command failed: python3 /Users/zacheryspector/The-Movies-headless-program/tools/hollywood/export_district.py --source /Users/zacheryspector/The-Movies-headless-program/art/hollywood/source/moonshot-studio-chronicle-concept.png --manifest /Users/zacheryspector/The-Movies-headless-program/art/hollywood/district-manifest.source.json --output /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/studio-scenery-export-8qoaeh
+Traceback (most recent call last):
+  File "/Users/zacheryspector/The-Movies-headless-program/tools/hollywood/export_district.py", line 16, in <module>
+    from PIL import Image, ImageDraw
+ModuleNotFoundError: No module named 'PIL'
+
+ ❯ tests/world-first-scenery-load-in-provenance.test.ts:85:7
+     83|     const output = mkdtempSync(join(tmpdir(), 'studio-scenery-export-'…
+     84|     try {
+     85|       execFileSync('python3', [
+       |       ^
+     86|         resolve('tools/hollywood/export_district.py'),
+     87|         '--source', resolve('art/hollywood/source/moonshot-studio-chro…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[13/22]⎯
+
+ Test Files  7 failed | 239 passed (246)
+      Tests  22 failed | 2836 passed (2858)
+   Start at  03:40:01
+   Duration  2314.82s (transform 10.38s, setup 0ms, collect 304.35s, tests 4200.73s, environment 115ms, prepare 30.21s)
+
+CORE_EXIT=1
