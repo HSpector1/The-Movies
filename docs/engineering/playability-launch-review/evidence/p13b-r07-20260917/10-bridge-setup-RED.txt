@@ -1,0 +1,213 @@
+P13B-S5-R07-T3 bridge test-author — RED evidence
+Command: npx vitest run tests/bridge-p13b-r07-setup.test.ts --minWorkers=1 --maxWorkers=1 --reporter=verbose
+Date: 2026-09-17
+Worktree: /Users/zacheryspector/The-Movies-headless-program, branch wip/headless-program-20260916-ts @ 7145808 (+ this new test file only)
+Result: 11 failed, 2 passed (13 tests). Every failure is a clean assertion mismatch or a
+named `required(...)` Error about a missing projection-38 fact (or, for the "extra pin",
+an exact message-text mismatch demonstrating the stale-literal-23 bug in
+bridge/session.ts:123) — no harness/setup errors. See tests/bridge-p13b-r07-setup.test.ts's
+own header for the full premise list and the one sub-case that could not be built (a
+genuine-V24-fixture "converted: true" control case), reported there rather than forced
+through an illegitimate BridgeSession construction that throws a harness error
+(BridgeRuntimeCheckpointError: checkpoint.savedSaveJson: must be a current V25 save).
+
+--------------------------------------------------------------------------------
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ × |core| tests/bridge-p13b-r07-setup.test.ts > P13B-S5-R07-T3 bridge projection bump (37 -> 38) > PROJECTION_VERSION is 38; schema $id and x-project-studio.projectionVersion move with it
+   → expected 37 to be 38 // Object.is equality
+ × |core| tests/bridge-p13b-r07-setup.test.ts > P13B-S5-R07-T3 bridge projection bump (37 -> 38) > AVAILABLE_INTENT_KINDS gains productionSetupAction, distinct from every existing kind
+   → expected [ 'signFoundingContract', …(21) ] to include 'productionSetupAction'
+ × |core| tests/bridge-p13b-r07-setup.test.ts > requirement 2: each production snapshot gains setup: StudioProductionSetup | null > conventional ballroom: null pre-selection; admission at week 12 with 0 credited; a held rehearsal names the setup wait and a weeksRemaining consistent with the forecast; walked week-by-week to Shooting entry 16 1134ms
+   → expected undefined to be null
+ × |core| tests/bridge-p13b-r07-setup.test.ts > requirement 3: setup-recipe-<productionId>-<recipeId> rows, offered pre-Shooting with a bound stage whose Set type matches the recipe — PREMISE: published as setupRecipeActions on the same productionOperations row > the eligible ballroom recipe row is enabled, carries productionId/recipeId/planRevision, intent kind productionSetupAction, no rejections 813ms
+   → row "setup-recipe-prod-0008-ballroom-reveal-lighting-01" absent from []
+ × |core| tests/bridge-p13b-r07-setup.test.ts > requirement 3: setup-recipe-<productionId>-<recipeId> rows, offered pre-Shooting with a bound stage whose Set type matches the recipe — PREMISE: published as setupRecipeActions on the same productionOperations row > a wrong-Set-type row (ordinary recipe on a ballroom-bound production) is disabled, names its own refusal, and enabled agrees with the refusal 757ms
+   → row "setup-recipe-prod-0008-ordinary-interior-01" absent from []
+ ✓ |core| tests/bridge-p13b-r07-setup.test.ts > requirement 3: setup-recipe-<productionId>-<recipeId> rows, offered pre-Shooting with a bound stage whose Set type matches the recipe — PREMISE: published as setupRecipeActions on the same productionOperations row > rows are absent once the production enters Shooting (legacy path: no recipe ever selected) 812ms
+ × |core| tests/bridge-p13b-r07-setup.test.ts > requirement 4: committing a recipe row through the bridge > writes exactly one setup record, advances stateRevision, refuses the same intent at the old revision, and the forecast matches setupForecast once the sweep visit admits it 826ms
+   → row "setup-recipe-prod-0008-ballroom-reveal-lighting-01" absent from []
+ × |core| tests/bridge-p13b-r07-setup.test.ts > requirement 5: ticking through the bridge credits one unit per week and enters Shooting at the forecast week, on all three measured fixtures; the four setup history kinds appear on the history view > conventional ballroom: admission 12 -> Shooting entry 16, history rows setupAdmitted/setupUnitCredited x4/setupCompleted, production-scoped 1169ms
+   → setup missing at Shooting entry
+ × |core| tests/bridge-p13b-r07-setup.test.ts > requirement 5: ticking through the bridge credits one unit per week and enters Shooting at the forecast week, on all three measured fixtures; the four setup history kinds appear on the history view > lighting ballroom: admission 807 -> Shooting entry 809, route "lighting" 10294ms
+   → setup missing at Shooting entry
+ × |core| tests/bridge-p13b-r07-setup.test.ts > requirement 5: ticking through the bridge credits one unit per week and enters Shooting at the forecast week, on all three measured fixtures; the four setup history kinds appear on the history view > ordinary interior: admission 4 -> Shooting entry 5, both routes agree at 1 unit 649ms
+   → setup missing at Shooting entry
+ ✓ |core| tests/bridge-p13b-r07-setup.test.ts > requirement 6: player-safe; a legacy production publishes setup: null with its schedule unchanged > every productionOperations row belongs to this studio's own activeProductions — MEASURED: the engine has no rival production model to leak (operations/placement are single, player-scoped roots, the same fact tests/bridge-p13b-s4-office.test.ts case 7 and tests/bridge-p13b-s5-adoption.test.ts requirement 6 both rely on for their own rival-injection idiom) 663ms
+ × |core| tests/bridge-p13b-r07-setup.test.ts > requirement 6: player-safe; a legacy production publishes setup: null with its schedule unchanged > legacy timeline byte-identical through the bridge: a production that never selects a recipe publishes setup: null and today's exact (unheld) schedule 870ms
+   → expected undefined to be null
+ × |core| tests/bridge-p13b-r07-setup.test.ts > extra pin (parent instruction): the bridge's save/load "converted" report against the CURRENT save version, not a stale literal 23 (bridge/session.ts:123) > RED: a genuine CURRENT (V25) checkpoint saved and reloaded through the SAME bridge session reports converted: false 657ms
+   → expected 'Authoritative save loaded and migrate…' to be 'Authoritative TypeScript save loaded.' // Object.is equality
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 11 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/bridge-p13b-r07-setup.test.ts > P13B-S5-R07-T3 bridge projection bump (37 -> 38) > PROJECTION_VERSION is 38; schema $id and x-project-studio.projectionVersion move with it
+AssertionError: expected 37 to be 38 // Object.is equality
+
+- Expected
++ Received
+
+- 38
++ 37
+
+ ❯ tests/bridge-p13b-r07-setup.test.ts:320:32
+    318| describe('P13B-S5-R07-T3 bridge projection bump (37 -> 38)', () => {
+    319|   it('PROJECTION_VERSION is 38; schema $id and x-project-studio.projec…
+    320|     expect(PROJECTION_VERSION).toBe(38)
+       |                                ^
+    321|     expect(BRIDGE_SCHEMA.$id).toContain('projection-38')
+    322|     expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(3…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/11]⎯
+
+ FAIL |core|  tests/bridge-p13b-r07-setup.test.ts > P13B-S5-R07-T3 bridge projection bump (37 -> 38) > AVAILABLE_INTENT_KINDS gains productionSetupAction, distinct from every existing kind
+AssertionError: expected [ 'signFoundingContract', …(21) ] to include 'productionSetupAction'
+ ❯ tests/bridge-p13b-r07-setup.test.ts:325:59
+    323|   })
+    324|   it('AVAILABLE_INTENT_KINDS gains productionSetupAction, distinct fro…
+    325|     expect((AVAILABLE_INTENT_KINDS as readonly string[])).toContain('p…
+       |                                                           ^
+    326|   })
+    327| })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/11]⎯
+
+ FAIL |core|  tests/bridge-p13b-r07-setup.test.ts > requirement 2: each production snapshot gains setup: StudioProductionSetup | null > conventional ballroom: null pre-selection; admission at week 12 with 0 credited; a held rehearsal names the setup wait and a weeksRemaining consistent with the forecast; walked week-by-week to Shooting entry 16
+AssertionError: expected undefined to be null
+
+- Expected: 
+null
+
++ Received: 
+undefined
+
+ ❯ tests/bridge-p13b-r07-setup.test.ts:334:108
+    332|     expect(rehearsing.market.tick).toBe(11)
+    333|     const productionId = rehearsing.studio.activeProductions[0]!.id
+    334|     expect(rowFor(new BridgeSession(rehearsing, 'bridge-r07-setup-conv…
+       |                                                                                                            ^
+    335| 
+    336|     let state = tick(selectRecipe(rehearsing, productionId, 'ballroom-…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/11]⎯
+
+ FAIL |core|  tests/bridge-p13b-r07-setup.test.ts > requirement 3: setup-recipe-<productionId>-<recipeId> rows, offered pre-Shooting with a bound stage whose Set type matches the recipe — PREMISE: published as setupRecipeActions on the same productionOperations row > the eligible ballroom recipe row is enabled, carries productionId/recipeId/planRevision, intent kind productionSetupAction, no rejections
+Error: row "setup-recipe-prod-0008-ballroom-reveal-lighting-01" absent from []
+ ❯ required tests/bridge-p13b-r07-setup.test.ts:145:52
+    143| 
+    144| function required<T>(value: T | null | undefined, message: string): T {
+    145|   if (value === null || value === undefined) throw new Error(message)
+       |                                                    ^
+    146|   return value
+    147| }
+ ❯ tests/bridge-p13b-r07-setup.test.ts:393:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/11]⎯
+
+ FAIL |core|  tests/bridge-p13b-r07-setup.test.ts > requirement 3: setup-recipe-<productionId>-<recipeId> rows, offered pre-Shooting with a bound stage whose Set type matches the recipe — PREMISE: published as setupRecipeActions on the same productionOperations row > a wrong-Set-type row (ordinary recipe on a ballroom-bound production) is disabled, names its own refusal, and enabled agrees with the refusal
+Error: row "setup-recipe-prod-0008-ordinary-interior-01" absent from []
+ ❯ required tests/bridge-p13b-r07-setup.test.ts:145:52
+    143| 
+    144| function required<T>(value: T | null | undefined, message: string): T {
+    145|   if (value === null || value === undefined) throw new Error(message)
+       |                                                    ^
+    146|   return value
+    147| }
+ ❯ tests/bridge-p13b-r07-setup.test.ts:412:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/11]⎯
+
+ FAIL |core|  tests/bridge-p13b-r07-setup.test.ts > requirement 4: committing a recipe row through the bridge > writes exactly one setup record, advances stateRevision, refuses the same intent at the old revision, and the forecast matches setupForecast once the sweep visit admits it
+Error: row "setup-recipe-prod-0008-ballroom-reveal-lighting-01" absent from []
+ ❯ required tests/bridge-p13b-r07-setup.test.ts:145:52
+    143| 
+    144| function required<T>(value: T | null | undefined, message: string): T {
+    145|   if (value === null || value === undefined) throw new Error(message)
+       |                                                    ^
+    146|   return value
+    147| }
+ ❯ tests/bridge-p13b-r07-setup.test.ts:442:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/11]⎯
+
+ FAIL |core|  tests/bridge-p13b-r07-setup.test.ts > requirement 5: ticking through the bridge credits one unit per week and enters Shooting at the forecast week, on all three measured fixtures; the four setup history kinds appear on the history view > conventional ballroom: admission 12 -> Shooting entry 16, history rows setupAdmitted/setupUnitCredited x4/setupCompleted, production-scoped
+Error: setup missing at Shooting entry
+ ❯ required tests/bridge-p13b-r07-setup.test.ts:145:52
+    143| 
+    144| function required<T>(value: T | null | undefined, message: string): T {
+    145|   if (value === null || value === undefined) throw new Error(message)
+       |                                                    ^
+    146|   return value
+    147| }
+ ❯ tests/bridge-p13b-r07-setup.test.ts:495:12
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/11]⎯
+
+ FAIL |core|  tests/bridge-p13b-r07-setup.test.ts > requirement 5: ticking through the bridge credits one unit per week and enters Shooting at the forecast week, on all three measured fixtures; the four setup history kinds appear on the history view > lighting ballroom: admission 807 -> Shooting entry 809, route "lighting"
+Error: setup missing at Shooting entry
+ ❯ required tests/bridge-p13b-r07-setup.test.ts:145:52
+    143| 
+    144| function required<T>(value: T | null | undefined, message: string): T {
+    145|   if (value === null || value === undefined) throw new Error(message)
+       |                                                    ^
+    146|   return value
+    147| }
+ ❯ tests/bridge-p13b-r07-setup.test.ts:526:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/11]⎯
+
+ FAIL |core|  tests/bridge-p13b-r07-setup.test.ts > requirement 5: ticking through the bridge credits one unit per week and enters Shooting at the forecast week, on all three measured fixtures; the four setup history kinds appear on the history view > ordinary interior: admission 4 -> Shooting entry 5, both routes agree at 1 unit
+Error: setup missing at Shooting entry
+ ❯ required tests/bridge-p13b-r07-setup.test.ts:145:52
+    143| 
+    144| function required<T>(value: T | null | undefined, message: string): T {
+    145|   if (value === null || value === undefined) throw new Error(message)
+       |                                                    ^
+    146|   return value
+    147| }
+ ❯ tests/bridge-p13b-r07-setup.test.ts:544:12
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/11]⎯
+
+ FAIL |core|  tests/bridge-p13b-r07-setup.test.ts > requirement 6: player-safe; a legacy production publishes setup: null with its schedule unchanged > legacy timeline byte-identical through the bridge: a production that never selects a recipe publishes setup: null and today's exact (unheld) schedule
+AssertionError: expected undefined to be null
+
+- Expected: 
+null
+
++ Received: 
+undefined
+
+ ❯ tests/bridge-p13b-r07-setup.test.ts:574:23
+    572|     const session = new BridgeSession(shooting, 'bridge-r07-legacy')
+    573|     const row = rowFor(session, productionId)
+    574|     expect(row.setup).toBeNull()
+       |                       ^
+    575|     expect(row.phase).toBe('shooting')
+    576|   })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/11]⎯
+
+ FAIL |core|  tests/bridge-p13b-r07-setup.test.ts > extra pin (parent instruction): the bridge's save/load "converted" report against the CURRENT save version, not a stale literal 23 (bridge/session.ts:123) > RED: a genuine CURRENT (V25) checkpoint saved and reloaded through the SAME bridge session reports converted: false
+AssertionError: expected 'Authoritative save loaded and migrate…' to be 'Authoritative TypeScript save loaded.' // Object.is equality
+
+Expected: "Authoritative TypeScript save loaded."
+Received: "Authoritative save loaded and migrated by TypeScript."
+
+ ❯ tests/bridge-p13b-r07-setup.test.ts:596:28
+    594|     // exact gap; it is RED against today's stale literal, not against…
+    595|     // projection-38 fact.
+    596|     expect(loaded.message).toBe('Authoritative TypeScript save loaded.…
+       |                            ^
+    597|   })
+    598| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/11]⎯
+
+ Test Files  1 failed (1)
+      Tests  11 failed | 2 passed (13)
+   Start at  11:18:50
+   Duration  23.14s (transform 2.91s, setup 0ms, collect 3.80s, tests 18.67s, environment 0ms, prepare 123ms)
+
