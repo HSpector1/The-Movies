@@ -1284,3 +1284,431 @@ If this is a long-running test, pass a timeout value as the last argument or con
    ✓ P13A causal Core through the real weekly engine > one Scientist completes 64 units in 43 funded weeks, then P09 completes the exact chain at315 2123ms
    ✓ P13A causal Core through the real weekly engine > saturation caps both output and actual spend, while pause/cancel/resume retain work 1181ms
    ✓ P13A causal Core through the real weekly engine > waiting buys no capability; purchase opens416, takes12weeks, and forfeits113weeks of lead 10968ms
+ ✓ |core| tests/p12-lifecycle.test.ts (5 tests) 17991ms
+   ✓ R05 shared-law rival lifecycle > rejects forged owners, erased archive announcements, invented employers and invalid chart history 2312ms
+   ✓ R05 shared-law rival lifecycle > rejects forged frozen credits, double roles, and another studio’s reserved performers 601ms
+   ✓ R05 shared-law rival lifecycle > commissions, staffs, funds, operates, releases and settles real films without player RNG draws 3641ms
+   ✓ R05 shared-law rival lifecycle > expires ordinary contracts and crosses the first real arrival from elapsed play 11240ms
+ ✓ |core| tests/p12-checker.test.ts (5 tests) 83ms
+ ✓ |core| tests/p13a-technology-membership.test.ts (9 tests) 19240ms
+   ✓ P13A exact historical technology membership under local indexing > rejects an absent historical film with the existing unknown-loadout refusal 302ms
+   ✓ P13A exact historical technology membership under local indexing > still rejects an exact duplicate original Hollywood film after indexed membership succeeds 382ms
+   ✓ P13A exact historical technology membership under local indexing > does not reuse membership across independent round-tripped copies with the same world and entity IDs 2614ms
+   ✓ P13A exact historical technology membership under local indexing > rechecks the same mutable input after removal and after exact restoration 2817ms
+ ✓ |core| tests/p13a-technology-validation.test.ts (9 tests) 25610ms
+ ✓ |core| tests/bridge-p11-production-location.test.ts (3 tests) 6322ms
+   ✓ P11 exact production property locations > accepts authentic26 and projects a real immediate Greenlight at the reserved placed office 3981ms
+   ✓ P11 exact production property locations > uses the real placed Post reservation, then no guessed site for ready or committed release 2060ms
+ ✓ |core| tests/p13a-save-v20.test.ts (5 tests) 2254ms
+   ✓ P13A governed V19 to V20 persistence > loads the exact accepted product fixture and preserves its history, balances and employment 449ms
+   ✓ P13A governed V19 to V20 persistence > round-trips a migrated V20 world exactly and creates independent state objects 889ms
+   ✓ P13A governed V19 to V20 persistence > validates the source before JSON detachment can erase an invalid leaf 533ms
+ ✓ |core| tests/tuning.test.ts (36 tests) 39ms
+ ✓ |core| tests/bridge-p05a-w2-intents.test.ts (4 tests) 4039ms
+   ✓ P05A W2 — all-active production intents > publishes one exact-ID intent per deciding production, ascending 903ms
+   ✓ P05A W2 — all-active production intents > lets the guided journey select ITS production from the shared family 403ms
+   ✓ P05A W2 — all-active production intents > applies a NON-guided production intent and leaves the other decision standing 2256ms
+   ✓ P05A W2 — all-active production intents > drops a production’s intent when its decision settles, and keeps digests exact 467ms
+ ✓ |core| tests/presence-determinism.test.ts (4 tests) 2021ms
+   ✓ Presence Projection V1 — determinism > leaves the state, its save bytes, and rngState untouched 362ms
+   ✓ Presence Projection V1 — determinism > consumes zero simulation RNG: ticks are byte-identical either way 1482ms
+ ✓ |core| tests/bridge-owner-ux-projection21-schema.test.ts (9 tests) 34743ms
+   ✓ Owner UX projection21 public field wire boundary > parses actual current snapshot, Save, and Load envelopes 8334ms
+   ✓ Owner UX projection21 public field wire boundary > requires savedSlot rather than silently defaulting it 4794ms
+   ✓ Owner UX projection21 public field wire boundary > rejects malformed/fabricated slot metadata 0 3937ms
+   ✓ Owner UX projection21 public field wire boundary > rejects malformed/fabricated slot metadata 1 3392ms
+   ✓ Owner UX projection21 public field wire boundary > rejects malformed/fabricated slot metadata 2 3638ms
+   ✓ Owner UX projection21 public field wire boundary > rejects malformed/fabricated slot metadata 3 3662ms
+   ✓ Owner UX projection21 public field wire boundary > rejects malformed/fabricated slot metadata 4 3254ms
+   ✓ Owner UX projection21 public field wire boundary > accepts public fractional and known-zero cells, rejects hidden values and malformed cells 3723ms
+ ✓ |core| tests/p13a-technology-milestones.test.ts (4 tests) 13046ms
+   ✓ P13A dated public technology history > round-trips both boundaries exactly and resumes without duplicating the permanent events 1288ms
+   ✓ P13A dated public technology history > never backfills after migration, skips dates not actually reached, and leaves the frozen V19 vocabulary closed 416ms
+   ✓ P13A dated public technology history > rejects invented dates, unknown facts, wrong significance or subjects, duplicates, and pre-recording history 349ms
+ ❯ |core| tests/p13a-scientist-foundation.test.ts (6 tests | 3 failed) 246ms
+   × P13A Scientist identity and employment foundation > preserves accepted people, concepts, market, era and RNG for p13a-person-regression-1 111ms
+     → expected '4a4b2e78a8af26bb7804b4220ba31b2fcb667…' to be '16857a2609206c58bfb34ba3be7b67d95276e…' // Object.is equality
+   × P13A Scientist identity and employment foundation > preserves accepted people, concepts, market, era and RNG for p13a-person-regression-2 58ms
+     → expected 'de6e49d8796e1a037e676b5e147c5850680bb…' to be 'd71583f6fc04af2d251e2010ca6725e6bcc01…' // Object.is equality
+   × P13A Scientist identity and employment foundation > preserves accepted people, concepts, market, era and RNG for m0a-0001 37ms
+     → expected '0b8e21842fc4a820413c3416c90bdd9ce2907…' to be '7517c0d01eb928245e2101752932b99ccd344…' // Object.is equality
+ ❯ |core| tests/world-first-scenery-load-in-provenance.test.ts (3 tests | 1 failed) 732ms
+   × World-First Scenery Load-In V1 — frozen district provenance > replays the clean exporter and pins its deliberately non-runtime manifest 403ms
+     → Command failed: python3 /Users/zacheryspector/The-Movies-headless-program/tools/hollywood/export_district.py --source /Users/zacheryspector/The-Movies-headless-program/art/hollywood/source/moonshot-studio-chronicle-concept.png --manifest /Users/zacheryspector/The-Movies-headless-program/art/hollywood/district-manifest.source.json --output /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/studio-scenery-export-FmIVsf
+Traceback (most recent call last):
+  File "/Users/zacheryspector/The-Movies-headless-program/tools/hollywood/export_district.py", line 16, in <module>
+    from PIL import Image, ImageDraw
+ModuleNotFoundError: No module named 'PIL'
+
+ ✓ |core| tests/reception-verdict-canonical.test.ts (7 tests) 10ms
+ ✓ |core| tests/d12-fame-isolation.test.ts (3 tests) 44ms
+ ✓ |core| tests/3d-asset-audit.test.ts (3 tests) 1589ms
+   ✓ 3D asset audit > enforces the GLB and raster size gates deterministically 1193ms
+ ✓ |core| tests/bridge-p13-profile-availability.test.ts (2 tests) 13132ms
+   ✓ P13A shared profile and roster current-work availability > shows the actual Scientist working after a funded advance, then available when research is paused without changing employment 12376ms
+   ✓ P13A shared profile and roster current-work availability > preserves a credited writer as available while the actual director, cast and craft company are working 753ms
+ ✓ |core| tests/bridge-p13b-s1-identity.test.ts (1 test) 10466ms
+ ✓ |core| tests/p13b-s1-validation.test.ts (7 tests) 12132ms
+   ✓ P13B-S1 validator refusals on the live save (test 9) > accepts the unmutated staffed saves 342ms
+ ✓ |core| tests/p13a-research-employment.test.ts (1 test) 14208ms
+   ✓ P13A research employment continuity > releasing the actual Scientist pauses work immediately and survives save/reload without losing verified work 14206ms
+ ✓ |core| tests/bridge-p13-lot-technology.test.ts (2 tests) 25081ms
+   ✓ P13A exact lot technology status > shows acoustic installation on the existing Laboratory, then its real named paused/active task 11562ms
+   ✓ P13A exact lot technology status > joins actual sound work to the exact founding stage/Post and leaves the other stage unchanged 13518ms
+ ✓ |core| tests/frozen-save-builder-projection.test.ts (2 tests) 543ms
+   ✓ frozen save builders project exact historical roots > makeSaveV1 through makeSaveV9 omit every later and unknown live-state root 501ms
+ ✓ |core| tests/d17b-marketing-menu.test.ts (5 tests) 716ms
+ ✓ |core| tests/p12-starting-world.test.ts (3 tests) 4881ms
+   ✓ R05 canonical starting history and genuine migration > opens four established distinct businesses with settled canonical history and protected applicants 572ms
+   ✓ R05 canonical starting history and genuine migration > migrates at each old state own week with empty company histories and exact player state 3904ms
+   ✓ R05 canonical starting history and genuine migration > refuses early entry and malformed or duplicate authored history without repairing it 403ms
+ ✓ |core| tests/bridge-p12-storage-codec.test.ts (4 tests) 100ms
+ ✓ |core| tests/p13a-research-identity.test.ts (1 test) 2616ms
+   ✓ P13A retained research Laboratory identity > keeps paused and cancelled Laboratory references intact without blocking lawful instrument installation 2614ms
+ ✓ |core| tests/bridge-p13-no-laboratory-commercial.test.ts (1 test) 24268ms
+   ✓ P13A commercial route without a Laboratory > keeps wait, purchase and exact stage/Post decisions in the global intent list beside other studio actions 24266ms
+ ✓ |core| tests/p13a-placement-history-validation.test.ts (1 test) 2255ms
+   ✓ P13A bounded historical facility-charge validation > preserves every exact weekly charge across a real build, demolition, idle gap and replacement 2253ms
+ ✓ |core| tests/bridge-process-incarnation.test.ts (4 tests) 45ms
+stdout | tests/p11-finance-history-scale.test.ts > P11 bounded history at long-save scale > keeps a 6,240-advance real ledger exact with at most 52 weekly chart/text points
+{"proof":"p11-week-history-scale","advances":6240,"ledgerEntries":6240,"saveBytes":726423,"reportBytes":99151,"queryMilliseconds":5.56}
+
+ ✓ |core| tests/p11-finance-history-scale.test.ts (1 test) 7548ms
+   ✓ P11 bounded history at long-save scale > keeps a 6,240-advance real ledger exact with at most 52 weekly chart/text points 7547ms
+ ✓ |core| tests/hygiene.test.ts (1 test) 105ms
+ ✓ |core| tests/bridge-p13-technology-history.test.ts (1 test) 12108ms
+   ✓ P13A dated technology history projection > shows the recorded 1925 and 1928 availability dates without claiming player adoption 12106ms
+ ✓ |core| tests/p12-calendar.test.ts (2 tests) 19ms
+ ✓ |core| tests/roster-wall-observatory-cli.test.ts (8 tests) 14ms
+ ✓ |core| tests/p13a-catalogue.test.ts (2 tests) 32ms
+ ✓ |core| tests/d11-cycle4.test.ts (2 tests) 7ms
+ ✓ |core| tests/c2a-m4-g101-throughput.test.ts (4 tests) 116549ms
+   ✓ C2a-M4 · G10.1 — purchased capacity is no longer inert > leaves the C1 two-picture policy measurably less relieved, which is why the arm exists 116513ms
+ ✓ |core| tests/roster-wall-corpus.test.ts (2 tests) 8ms
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 41 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/bridge-p05a1-owner-greenlight.test.ts > P05A.1 — the Owner-profile Queue Greenlight state, replayed > capacity-only affordable package: quote accepted, queues, then ONE queue row and zero commitment
+ FAIL |core|  tests/bridge-p05a1-owner-greenlight.test.ts > P05A.1 — the Owner-profile Queue Greenlight state, replayed > unaffordable package: EXACT D-12 sentence rides in the reject message
+ FAIL |core|  tests/bridge-p05a1-owner-greenlight.test.ts > P05A.1 — the Owner-profile Queue Greenlight state, replayed > duplicate actor: exact sentence names the duplicated slots
+ FAIL |core|  tests/bridge-p05a1-owner-greenlight.test.ts > P05A.1 — the Owner-profile Queue Greenlight state, replayed > non-candidate person: exact sentence names the id, role, and title
+ FAIL |core|  tests/bridge-p05a1-owner-greenlight.test.ts > P05A.1 — the Owner-profile Queue Greenlight state, replayed > unpublished budget amount: exact sentence names the budget
+ FAIL |core|  tests/bridge-p05a1-owner-greenlight.test.ts > P05A.1 — the Owner-profile Queue Greenlight state, replayed > stale revision and foreign session are their own reason codes, never ENGINE_REJECTED
+ FAIL |core|  tests/bridge-p05a3-roster-liveness.test.ts > P05A.3 — sign quote → commit breaks the deadlock (§17-A/E/F/H) > A+H: quotes exact figures, commits, and the signed actor joins the legal pool
+ FAIL |core|  tests/bridge-p05a3-roster-liveness.test.ts > P05A.3 — sign quote → commit breaks the deadlock (§17-A/E/F/H) > E: an unaffordable sign refuses at quote time with the D-12 sentence and mutates nothing
+ FAIL |core|  tests/bridge-p05a3-roster-liveness.test.ts > P05A.3 — sign quote → commit breaks the deadlock (§17-A/E/F/H) > F: an accepted unrelated sign invalidates a live offer; the same draft is quotable fresh
+ FAIL |core|  tests/bridge-p05a3-roster-liveness.test.ts > P05A.3 — sign quote → commit breaks the deadlock (§17-A/E/F/H) > refuses an unknown or non-signable talent and a missing term in plain language
+Error: validateSaveV25: state.operations.workflows[0].setup is missing
+ ❯ src/core/save.ts:7795:50
+    7796| 
+    7797| /**
+    7798|  * One managed operations root's workflows, with the two V25 leaves va…
+       |                                           ^
+    7799|  * removed. `ownSetupAllowed` is false for a rival business: no engine…
+    7800|  * writes a rival setup plan (S8 owns rival symmetry), so a file carry…
+ ❯ v25StrippedWorkflows src/core/save.ts:7790:20
+ ❯ validateSaveV25 src/core/save.ts:7821:29
+ ❯ makeSave src/core/save.ts:6235:16
+ ❯ Module.exportCurrentState src/core/save.ts:6258:26
+ ❯ Module.exportSaveJson ui/src/engine/adapter.ts:3780:10
+ ❯ bridge/snapshot-build-context.ts:118:12
+ ❯ bridge/snapshot-build-context.ts:103:15
+ ❯ bridge/snapshot-build-context.ts:126:42
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/41]⎯
+
+ FAIL |core|  tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > keeps the shipped Save route and save-before-load consistent with the named record
+ FAIL |core|  tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > rejects a corrupted cross-world active binding and stops on an uncertain commit
+ FAIL |core|  tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > saves atomically across the bounded replay journal with a new logical session
+ FAIL |core|  tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > branches CURRENT complete state, preserves original records, switches scope and survives restart
+ FAIL |core|  tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > makes failed writes, cancel/unsaved conflicts, stale targets and rename collisions leave authority intact
+ FAIL |core|  tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > requires exact delete/overwrite confirmation and never recreates a deleted active record
+ FAIL |core|  tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > imports real old current/saved checkpoints as independently recoverable records without losing original bytes
+ FAIL |core|  tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > recovers different-world legacy slots and null saved state, preserving exact originals
+ FAIL |core|  tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > branches a full journal without changing source bytes and retries the exact durable copy after restart
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/41]⎯
+
+ FAIL |core|  tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > durably save dirty progress while preserving two inactive worlds and failed-write authority
+ FAIL |core|  tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > durably discard dirty progress while preserving two inactive worlds and failed-write authority
+Error: Test timed out in 20000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/41]⎯
+
+ FAIL |core|  tests/bridge-p13-campaign-isolation.test.ts > P13A research authority across named campaign operations > Save As branches real research, inactive and renamed campaigns stay frozen, and a new campaign receives none of their authority
+Error: Test timed out in 60000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/41]⎯
+
+ FAIL |core|  tests/c2a-m0-engine-union.test.ts > C2a-M0 — the phase machinery has exactly one source (charter §12-M0) > agrees with the save validator on every phase a real production reaches
+Error: validateSaveV14: frozen V13 state is invalid — validateSaveV13: frozen V12 state is invalid — validateSaveV12: frozen V11 state is invalid — validateSaveV11: frozen V10 state is invalid — validateSaveV10: frozen V9 state is invalid — validateSaveV9: frozen V8 state is invalid — validateSaveV8: context.operations.workflows[0] has unknown field "setup"
+ ❯ validateSaveV14WithPolicy src/core/save.ts:4707:11
+    4705|     );
+    4706|   } catch (error) {
+    4707|     throw new Error(
+       |           ^
+    4708|       `validateSaveV14: frozen V13 state is invalid — ${(error as Erro…
+    4709|     );
+ ❯ validateSaveV14 src/core/save.ts:4672:10
+ ❯ Module.makeSaveV14 src/core/save.ts:6134:10
+ ❯ tests/c2a-m0-engine-union.test.ts:290:50
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/41]⎯
+
+ FAIL |core|  tests/c2a-m0-engine-union.test.ts > C2a-M0 — the union producer keeps the M2+ namespace open (charter §3.2) > kind-qualifies every claim at the RUNTIME layer while persisting nothing new
+Error: validateSaveV14: frozen V13 state is invalid — validateSaveV13: frozen V12 state is invalid — validateSaveV12: frozen V11 state is invalid — validateSaveV11: frozen V10 state is invalid — validateSaveV10: frozen V9 state is invalid — validateSaveV9: frozen V8 state is invalid — validateSaveV8: context.operations.workflows[0] has unknown field "setup"
+ ❯ validateSaveV14WithPolicy src/core/save.ts:4707:11
+    4705|     );
+    4706|   } catch (error) {
+    4707|     throw new Error(
+       |           ^
+    4708|       `validateSaveV14: frozen V13 state is invalid — ${(error as Erro…
+    4709|     );
+ ❯ validateSaveV14 src/core/save.ts:4672:10
+ ❯ Module.makeSaveV14 src/core/save.ts:6134:10
+ ❯ tests/c2a-m0-engine-union.test.ts:330:23
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/41]⎯
+
+ FAIL |core|  tests/p13a-scientist-foundation.test.ts > P13A Scientist identity and employment foundation > preserves accepted people, concepts, market, era and RNG for p13a-person-regression-1
+AssertionError: expected '4a4b2e78a8af26bb7804b4220ba31b2fcb667…' to be '16857a2609206c58bfb34ba3be7b67d95276e…' // Object.is equality
+
+Expected: "16857a2609206c58bfb34ba3be7b67d95276e5c96048c5674cb5987aa8a94a17"
+Received: "4a4b2e78a8af26bb7804b4220ba31b2fcb667961c5acec6d5e79c4a466859d99"
+
+ ❯ tests/p13a-scientist-foundation.test.ts:32:77
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/41]⎯
+
+ FAIL |core|  tests/p13a-scientist-foundation.test.ts > P13A Scientist identity and employment foundation > preserves accepted people, concepts, market, era and RNG for p13a-person-regression-2
+AssertionError: expected 'de6e49d8796e1a037e676b5e147c5850680bb…' to be 'd71583f6fc04af2d251e2010ca6725e6bcc01…' // Object.is equality
+
+Expected: "d71583f6fc04af2d251e2010ca6725e6bcc0104fb727d3735155aa5235df01b8"
+Received: "de6e49d8796e1a037e676b5e147c5850680bb1b198ffdd18d41be8c588d7fcc1"
+
+ ❯ tests/p13a-scientist-foundation.test.ts:32:77
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/41]⎯
+
+ FAIL |core|  tests/p13a-scientist-foundation.test.ts > P13A Scientist identity and employment foundation > preserves accepted people, concepts, market, era and RNG for m0a-0001
+AssertionError: expected '0b8e21842fc4a820413c3416c90bdd9ce2907…' to be '7517c0d01eb928245e2101752932b99ccd344…' // Object.is equality
+
+Expected: "7517c0d01eb928245e2101752932b99ccd3444f2ca6848a6badf579ef2fb51c4"
+Received: "0b8e21842fc4a820413c3416c90bdd9ce290750d669bc08b66b0be7705e6a2c6"
+
+ ❯ tests/p13a-scientist-foundation.test.ts:32:77
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/41]⎯
+
+ FAIL |core|  tests/production-operations-save-v8.test.ts > Production Operations V1 — managed state validation and continuation > round-trips a blocked shooting task with its real director and reservations
+Error: validateSaveV16: frozen V15 state is invalid — validateSaveV15: frozen V14 state is invalid — validateSaveV14: frozen V13 state is invalid — validateSaveV13: frozen V12 state is invalid — validateSaveV12: frozen V11 state is invalid — validateSaveV11: frozen V10 state is invalid — validateSaveV10: frozen V9 state is invalid — validateSaveV9: frozen V8 state is invalid — validateSaveV8: context.operations.workflows[0] has unknown field "setup"
+ ❯ validateSaveV16WithPolicy src/core/save.ts:4914:11
+    4912|     }, policy);
+    4913|   } catch (error) {
+    4914|     throw new Error(
+       |           ^
+    4915|       `validateSaveV16: frozen V15 state is invalid — ${(error as Erro…
+    4916|     );
+ ❯ validateSaveV16 src/core/save.ts:4869:10
+ ❯ Module.makeSaveV16 src/core/save.ts:6223:10
+ ❯ Module.expectForwardHistoryTwin tests/_p08HistoryTwins.ts:32:21
+ ❯ tests/production-operations-save-v8.test.ts:541:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/41]⎯
+
+ FAIL |core|  tests/r3n1-stale-schedule-take-02.test.ts > R3-N1-DATA-02 — stale production-operation route on r3n1-dense-02: SERVER REFUSAL by the bridge > SERVER REFUSAL — a stale expectedStateRevision on the resolveProductionBlocker intent is rejected (STALE_REVISION / state-stale), with no mutation
+Error: ENOENT: no such file or directory, open '/Users/zacheryspector/The-Movies-headless-program/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02/generated-r3n1-dense-02.checkpoint.json'
+ ❯ loadFixtureState tests/r3n1-stale-schedule-take-02.test.ts:100:15
+     98|     'evidence/Playability-Interaction-01/fixtures/r3n1-dense-02/genera…
+     99|   )
+    100|   const raw = readFileSync(path, 'utf8')
+       |               ^
+    101|   const stored = decodeCampaignStorage(
+    102|     JSON.parse(raw),
+ ❯ tests/r3n1-stale-schedule-take-02.test.ts:116:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/41]⎯
+
+ FAIL |core|  tests/r3n1-stale-schedule-take-02.test.ts > R3-N1-DATA-02 — stale production-operation route on r3n1-dense-02: SERVER REFUSAL by the bridge > SERVER REFUSAL — the OLD intentId at the CURRENT revision is INTENT_NOT_AVAILABLE once the state has moved on; the fresh resolveProductionBlocker intent for the same production is then accepted exactly once
+Error: ENOENT: no such file or directory, open '/Users/zacheryspector/The-Movies-headless-program/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02/generated-r3n1-dense-02.checkpoint.json'
+ ❯ loadFixtureState tests/r3n1-stale-schedule-take-02.test.ts:100:15
+     98|     'evidence/Playability-Interaction-01/fixtures/r3n1-dense-02/genera…
+     99|   )
+    100|   const raw = readFileSync(path, 'utf8')
+       |               ^
+    101|   const stored = decodeCampaignStorage(
+    102|     JSON.parse(raw),
+ ❯ tests/r3n1-stale-schedule-take-02.test.ts:151:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/41]⎯
+
+ FAIL |core|  tests/r3n1-stale-schedule-take-02p31.test.ts > R3-N4-DATA-03 — stale production-operation route on r3n1-dense-02p31: SERVER REFUSAL by the bridge > SERVER REFUSAL — a stale expectedStateRevision on the resolveProductionBlocker intent is rejected (STALE_REVISION / state-stale), with no mutation
+Error: ENOENT: no such file or directory, open '/Users/zacheryspector/The-Movies-headless-program/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02p31/generated-r3n1-dense-02p31.checkpoint.json'
+ ❯ loadFixtureState tests/r3n1-stale-schedule-take-02p31.test.ts:107:15
+    105|     'evidence/Playability-Interaction-01/fixtures/r3n1-dense-02p31/gen…
+    106|   )
+    107|   const raw = readFileSync(path, 'utf8')
+       |               ^
+    108|   const stored = decodeCampaignStorage(
+    109|     JSON.parse(raw),
+ ❯ tests/r3n1-stale-schedule-take-02p31.test.ts:126:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[13/41]⎯
+
+ FAIL |core|  tests/r3n1-stale-schedule-take-02p31.test.ts > R3-N4-DATA-03 — stale production-operation route on r3n1-dense-02p31: SERVER REFUSAL by the bridge > SERVER REFUSAL — the OLD intentId at the CURRENT revision is INTENT_NOT_AVAILABLE once the state has moved on; the fresh resolveProductionBlocker intent for the same production is then accepted exactly once
+Error: ENOENT: no such file or directory, open '/Users/zacheryspector/The-Movies-headless-program/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02p31/generated-r3n1-dense-02p31.checkpoint.json'
+ ❯ loadFixtureState tests/r3n1-stale-schedule-take-02p31.test.ts:107:15
+    105|     'evidence/Playability-Interaction-01/fixtures/r3n1-dense-02p31/gen…
+    106|   )
+    107|   const raw = readFileSync(path, 'utf8')
+       |               ^
+    108|   const stored = decodeCampaignStorage(
+    109|     JSON.parse(raw),
+ ❯ tests/r3n1-stale-schedule-take-02p31.test.ts:161:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[14/41]⎯
+
+ FAIL |core|  tests/r3n1-stale-schedule-take-02p32.test.ts > R3-N4-TEST-25 — stale production-operation route on r3n1-dense-02p32: SERVER REFUSAL by the bridge > SERVER REFUSAL — a stale expectedStateRevision on the resolveProductionBlocker intent is rejected (STALE_REVISION / state-stale), with no mutation
+Error: ENOENT: no such file or directory, open '/Users/zacheryspector/The-Movies-headless-program/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02p32/generated-r3n1-dense-02p32.checkpoint.json'
+ ❯ loadFixtureState tests/r3n1-stale-schedule-take-02p32.test.ts:98:15
+     96|     'evidence/Playability-Interaction-01/fixtures/r3n1-dense-02p32/gen…
+     97|   )
+     98|   const raw = readFileSync(path, 'utf8')
+       |               ^
+     99|   const loaded = loadCampaignLibrary(raw, limits)
+    100|   if (loaded.changed) {
+ ❯ tests/r3n1-stale-schedule-take-02p32.test.ts:110:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[15/41]⎯
+
+ FAIL |core|  tests/r3n1-stale-schedule-take-02p32.test.ts > R3-N4-TEST-25 — stale production-operation route on r3n1-dense-02p32: SERVER REFUSAL by the bridge > SERVER REFUSAL — the OLD intentId at the CURRENT revision is INTENT_NOT_AVAILABLE once the state has moved on; the fresh resolveProductionBlocker intent for the same production is then accepted exactly once
+Error: ENOENT: no such file or directory, open '/Users/zacheryspector/The-Movies-headless-program/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02p32/generated-r3n1-dense-02p32.checkpoint.json'
+ ❯ loadFixtureState tests/r3n1-stale-schedule-take-02p32.test.ts:98:15
+     96|     'evidence/Playability-Interaction-01/fixtures/r3n1-dense-02p32/gen…
+     97|   )
+     98|   const raw = readFileSync(path, 'utf8')
+       |               ^
+     99|   const loaded = loadCampaignLibrary(raw, limits)
+    100|   if (loaded.changed) {
+ ❯ tests/r3n1-stale-schedule-take-02p32.test.ts:145:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[16/41]⎯
+
+ FAIL |core|  tests/roster-wall-campaign.test.ts > Week-208 roster-wall campaign entry harvest > mechanically matches frozen facilities behavior through vacant Week 196 — direct-package
+ FAIL |core|  tests/roster-wall-campaign.test.ts > Week-208 roster-wall campaign entry harvest > mechanically matches frozen facilities behavior through vacant Week 196 — scaled-two-team
+Error: validateSaveV18: frozen V17 state is invalid — validateSaveV17: frozen V16 state is invalid — validateSaveV16: frozen V15 state is invalid — validateSaveV15: frozen V14 state is invalid — validateSaveV14: frozen V13 state is invalid — validateSaveV13: frozen V12 state is invalid — validateSaveV12: frozen V11 state is invalid — validateSaveV11: frozen V10 state is invalid — validateSaveV10: frozen V9 state is invalid — validateSaveV9: frozen V8 state is invalid — validateSaveV8: context.operations.workflows[0] has unknown field "setup"
+ ❯ validateSaveV18WithPolicy src/core/save.ts:5097:11
+    5095|     }, policy);
+    5096|   } catch (error) {
+    5097|     throw new Error(
+       |           ^
+    5098|       `validateSaveV18: frozen V17 state is invalid — ${(error as Erro…
+    5099|     );
+ ❯ validateSaveV18 src/core/save.ts:5071:10
+ ❯ Module.makeSaveV18 src/core/save.ts:6195:10
+ ❯ harvestSave src/harness/roster-wall/campaign.ts:1426:16
+ ❯ Module.runRosterWallEntryCampaign src/harness/roster-wall/campaign.ts:1513:21
+ ❯ tests/roster-wall-campaign.test.ts:30:23
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[17/41]⎯
+
+ FAIL |core|  tests/roster-wall-continuation.test.ts > Week-208 roster-wall continuation layer > fresh-loads the exact Week-196 entry, applies renewal first, and reconciles every transition
+Error: validateSaveV18: frozen V17 state is invalid — validateSaveV17: frozen V16 state is invalid — validateSaveV16: frozen V15 state is invalid — validateSaveV15: frozen V14 state is invalid — validateSaveV14: frozen V13 state is invalid — validateSaveV13: frozen V12 state is invalid — validateSaveV12: frozen V11 state is invalid — validateSaveV11: frozen V10 state is invalid — validateSaveV10: frozen V9 state is invalid — validateSaveV9: frozen V8 state is invalid — validateSaveV8: context.operations.workflows[0] has unknown field "setup"
+ ❯ validateSaveV18WithPolicy src/core/save.ts:5097:11
+    5095|     }, policy);
+    5096|   } catch (error) {
+    5097|     throw new Error(
+       |           ^
+    5098|       `validateSaveV18: frozen V17 state is invalid — ${(error as Erro…
+    5099|     );
+ ❯ validateSaveV18 src/core/save.ts:5071:10
+ ❯ Module.makeSaveV18 src/core/save.ts:6195:10
+ ❯ harvestSave src/harness/roster-wall/campaign.ts:1426:16
+ ❯ Module.runRosterWallEntryCampaign src/harness/roster-wall/campaign.ts:1513:21
+ ❯ harvest tests/roster-wall-continuation.test.ts:24:10
+ ❯ tests/roster-wall-continuation.test.ts:33:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[18/41]⎯
+
+ FAIL |core|  tests/roster-wall-continuation.test.ts > Week-208 roster-wall continuation layer > runs all seven primary policies from one entry and builds exact-entry C1 pairs
+Error: validateSaveV18: frozen V17 state is invalid — validateSaveV17: frozen V16 state is invalid — validateSaveV16: frozen V15 state is invalid — validateSaveV15: frozen V14 state is invalid — validateSaveV14: frozen V13 state is invalid — validateSaveV13: frozen V12 state is invalid — validateSaveV12: frozen V11 state is invalid — validateSaveV11: frozen V10 state is invalid — validateSaveV10: frozen V9 state is invalid — validateSaveV9: frozen V8 state is invalid — validateSaveV8: context.operations.workflows[0] has unknown field "setup"
+ ❯ validateSaveV18WithPolicy src/core/save.ts:5097:11
+    5095|     }, policy);
+    5096|   } catch (error) {
+    5097|     throw new Error(
+       |           ^
+    5098|       `validateSaveV18: frozen V17 state is invalid — ${(error as Erro…
+    5099|     );
+ ❯ validateSaveV18 src/core/save.ts:5071:10
+ ❯ Module.makeSaveV18 src/core/save.ts:6195:10
+ ❯ harvestSave src/harness/roster-wall/campaign.ts:1426:16
+ ❯ Module.runRosterWallEntryCampaign src/harness/roster-wall/campaign.ts:1513:21
+ ❯ harvest tests/roster-wall-continuation.test.ts:24:10
+ ❯ tests/roster-wall-continuation.test.ts:134:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[19/41]⎯
+
+ FAIL |core|  tests/roster-wall-continuation.test.ts > Week-208 roster-wall continuation layer > keeps recurrence attempts out of the original-expiry wall taxonomy
+Error: validateSaveV18: frozen V17 state is invalid — validateSaveV17: frozen V16 state is invalid — validateSaveV16: frozen V15 state is invalid — validateSaveV15: frozen V14 state is invalid — validateSaveV14: frozen V13 state is invalid — validateSaveV13: frozen V12 state is invalid — validateSaveV12: frozen V11 state is invalid — validateSaveV11: frozen V10 state is invalid — validateSaveV10: frozen V9 state is invalid — validateSaveV9: frozen V8 state is invalid — validateSaveV8: context.operations.workflows[0] has unknown field "setup"
+ ❯ validateSaveV18WithPolicy src/core/save.ts:5097:11
+    5095|     }, policy);
+    5096|   } catch (error) {
+    5097|     throw new Error(
+       |           ^
+    5098|       `validateSaveV18: frozen V17 state is invalid — ${(error as Erro…
+    5099|     );
+ ❯ validateSaveV18 src/core/save.ts:5071:10
+ ❯ Module.makeSaveV18 src/core/save.ts:6195:10
+ ❯ harvestSave src/harness/roster-wall/campaign.ts:1426:16
+ ❯ Module.runRosterWallEntryCampaign src/harness/roster-wall/campaign.ts:1513:21
+ ❯ harvest tests/roster-wall-continuation.test.ts:24:10
+ ❯ tests/roster-wall-continuation.test.ts:216:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[20/41]⎯
+
+ FAIL |core|  tests/roster-wall-player-policy.test.ts > Week-208 roster-wall mixed-founding-term player policy > completes the other governed operating policy — scaled-two-team
+Error: validateSaveV18: frozen V17 state is invalid — validateSaveV17: frozen V16 state is invalid — validateSaveV16: frozen V15 state is invalid — validateSaveV15: frozen V14 state is invalid — validateSaveV14: frozen V13 state is invalid — validateSaveV13: frozen V12 state is invalid — validateSaveV12: frozen V11 state is invalid — validateSaveV11: frozen V10 state is invalid — validateSaveV10: frozen V9 state is invalid — validateSaveV9: frozen V8 state is invalid — validateSaveV8: context.operations.workflows[0] has unknown field "setup"
+ ❯ validateSaveV18WithPolicy src/core/save.ts:5097:11
+    5095|     }, policy);
+    5096|   } catch (error) {
+    5097|     throw new Error(
+       |           ^
+    5098|       `validateSaveV18: frozen V17 state is invalid — ${(error as Erro…
+    5099|     );
+ ❯ validateSaveV18 src/core/save.ts:5071:10
+ ❯ Module.makeSaveV18 src/core/save.ts:6195:10
+ ❯ exactSave src/harness/roster-wall/player-policy.ts:658:16
+ ❯ harvestEntry src/harness/roster-wall/player-policy.ts:688:17
+ ❯ executePlayerPolicy src/harness/roster-wall/player-policy.ts:1105:17
+ ❯ Module.runRosterWallPlayerPolicy src/harness/roster-wall/player-policy.ts:1229:20
+ ❯ tests/roster-wall-player-policy.test.ts:363:25
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[21/41]⎯
+
+ FAIL |core|  tests/world-first-scenery-load-in-provenance.test.ts > World-First Scenery Load-In V1 — frozen district provenance > replays the clean exporter and pins its deliberately non-runtime manifest
+Error: Command failed: python3 /Users/zacheryspector/The-Movies-headless-program/tools/hollywood/export_district.py --source /Users/zacheryspector/The-Movies-headless-program/art/hollywood/source/moonshot-studio-chronicle-concept.png --manifest /Users/zacheryspector/The-Movies-headless-program/art/hollywood/district-manifest.source.json --output /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/studio-scenery-export-FmIVsf
+Traceback (most recent call last):
+  File "/Users/zacheryspector/The-Movies-headless-program/tools/hollywood/export_district.py", line 16, in <module>
+    from PIL import Image, ImageDraw
+ModuleNotFoundError: No module named 'PIL'
+
+ ❯ tests/world-first-scenery-load-in-provenance.test.ts:85:7
+     83|     const output = mkdtempSync(join(tmpdir(), 'studio-scenery-export-'…
+     84|     try {
+     85|       execFileSync('python3', [
+       |       ^
+     86|         resolve('tools/hollywood/export_district.py'),
+     87|         '--source', resolve('art/hollywood/source/moonshot-studio-chro…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[22/41]⎯
+
+ Test Files  14 failed | 245 passed (259)
+      Tests  41 failed | 2925 passed (2966)
+   Start at  13:41:19
+   Duration  2922.21s (transform 10.97s, setup 0ms, collect 427.77s, tests 5253.68s, environment 95ms, prepare 41.70s)
+
+CORE_EXIT=1

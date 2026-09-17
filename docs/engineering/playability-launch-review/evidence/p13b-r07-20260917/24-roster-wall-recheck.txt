@@ -1,0 +1,14 @@
+roster-wall continuation/campaign on 4fab9cb 2026-09-17T12:25:05Z
+   × Week-208 roster-wall continuation layer > fresh-loads the exact Week-196 entry, applies renewal first, and reconciles every transition 10104ms
+     → roster-wall observatory: SaveFileV18 replay changed entry state
+   × Week-208 roster-wall continuation layer > runs all seven primary policies from one entry and builds exact-entry C1 pairs 9097ms
+     → roster-wall observatory: SaveFileV18 replay changed entry state
+   × Week-208 roster-wall continuation layer > keeps recurrence attempts out of the original-expiry wall taxonomy 12205ms
+     → roster-wall observatory: SaveFileV18 replay changed entry state
+   × Week-208 roster-wall campaign entry harvest > mechanically matches frozen facilities behavior through vacant Week 196 — direct-package 10953ms
+     → roster-wall observatory: SaveFileV18 replay changed entry state
+   × Week-208 roster-wall campaign entry harvest > mechanically matches frozen facilities behavior through vacant Week 196 — scaled-two-team 9140ms
+     → roster-wall observatory: SaveFileV18 replay changed entry state
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 5 ⎯⎯⎯⎯⎯⎯⎯
+ Test Files  2 failed (2)
+      Tests  5 failed | 10 passed (15)

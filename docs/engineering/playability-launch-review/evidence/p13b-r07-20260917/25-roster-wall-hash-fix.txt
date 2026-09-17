@@ -1,0 +1,3 @@
+historicalHashState strips setup/planRevision 2026-09-17T12:30:49Z: tests/roster-wall-artifacts.test.ts tests/roster-wall-campaign.test.ts tests/roster-wall-continuation.test.ts tests/roster-wall-corpus.test.ts tests/roster-wall-fixtures.test.ts tests/roster-wall-observatory-cli.test.ts tests/roster-wall-player-policy.test.ts tests/roster-wall-renewal.test.ts tests/roster-wall-schema.test.ts tests/roster-wall-summary.test.ts 
+ Test Files  10 passed (10)
+      Tests  77 passed (77)

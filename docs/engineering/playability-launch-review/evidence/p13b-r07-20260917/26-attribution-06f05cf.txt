@@ -1,0 +1,22 @@
+S5-R07-T4 matched pass — CORE stage attribution (commit 06f05cf, log 20-test-core-06f05cf.txt)
+Result: Test Files 14 failed | 245 passed (259); Tests 41 failed | 2925 passed (2966); CORE_EXIT=1
+
+Inherited set (identical to the S2–S5 passes; none is P13B work): 22
+  11  tests/bridge-p12-campaign-library.test.ts        — 5 s / 20 s inline budgets on this host
+   6  tests/r3n1-stale-schedule-take-02{,p31,p32}.test.ts — loadFixtureState ENOENT
+   1  tests/bridge-p13-campaign-isolation.test.ts       — 60 s inline budget vs 71.8 s body
+   3  tests/p13a-scientist-foundation.test.ts           — golden digests (bytes identical to the pin)
+   1  tests/world-first-scenery-load-in-provenance.test.ts — Pillow not installed
+S5-R07-caused, ONE class (the V25 writer widened ProductionWorkflow with `setup`/`planRevision`; frozen envelopes and historical hashes must
+never see them), all TEST-SIDE/HARNESS/FROZEN-BUILDER — no R07 law changed after the pass started: 19
+   1  tests/production-operations-save-v8.test.ts      — frozen V8/V10 envelope built from a live state
+   2  tests/c2a-m0-engine-union.test.ts                — frozen V14 envelope built from a live state
+   1  tests/roster-wall-player-policy.test.ts          — frozen V18 envelope built from a live state
+       → fixed at 4fab9cb: projectStateV14 projects workflows positively to the V14 frozen shape (bindings kept); evidence 22 (6 files green)
+   4  tests/bridge-p05a3-roster-liveness.test.ts       — harness liftV18Control produced live workflows without the leaves
+   6  tests/bridge-p05a1-owner-greenlight.test.ts      — same harness lift
+       → fixed at 4fab9cb: liftV18Control lifts workflows with setup null / planRevision 0; evidence 23 (16/16)
+   3  tests/roster-wall-continuation.test.ts           — observatory "SaveFileV18 replay changed entry state": the historical hash saw the leaves
+   2  tests/roster-wall-campaign.test.ts               — same
+       → fix: historicalHashState strips setup/planRevision under a guard (only the null record at revision 0 may be discarded); evidence 25
+New failures attributable to R07 engine or bridge law: NONE. Every R07 and S5 file passed in this run (13 files, 108 cases).

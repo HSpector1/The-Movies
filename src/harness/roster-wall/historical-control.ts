@@ -24,6 +24,15 @@ export function historicalHashState<T extends object>(state:T):object {
     if (stableStringify(state.physicalPlans) !== stableStringify(initialPhysicalPlans())) throw new Error('Historical hash cannot discard physical-plan authority')
   }
   const {hollywood: _control, technology: _research, physicalPlans: _plans,...frozen}=state as Partial<GameState>
+  if (frozen.operations) {
+    // P13B S5-R07: the live workflow carries `setup`/`planRevision`; a historical control never selected a recipe, so the only lawful
+    // shape to discard is the null record at revision 0.
+    frozen.operations = {...frozen.operations, workflows: frozen.operations.workflows.map(workflow => {
+      const {setup, planRevision, ...rest} = workflow as typeof workflow & {setup?: unknown; planRevision?: unknown}
+      if ((setup !== undefined && setup !== null) || (planRevision !== undefined && planRevision !== 0)) throw new Error('Historical hash cannot discard production setup authority')
+      return rest as typeof workflow
+    })}
+  }
   if (frozen.talent) frozen.talent = frozen.talent.map(person => {
     if (person.role === 'scientist') throw new Error('Historical hash cannot discard a Scientist')
     const copy = { ...person }
