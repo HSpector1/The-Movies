@@ -1,5 +1,7 @@
 import { moveRivalMoney, rivalWeeklyOperatingCost } from './hollywood.js'
 import { adoptionRefusal, commercialAccessRefusal, SYNCHRONIZED_SOUND } from './technology.js'
+import { aggregatedAdoptionComponents, installationCatalogueCost, mintEquipmentAsset } from './technologyAdoption.js'
+import { technologyEntry } from './technologyCatalogue.js'
 import type { HollywoodState, RivalBusiness } from './hollywoodTypes.js'
 import type { GameState } from './types.js'
 import type { StudioTechnology } from './technologyTypes.js'
@@ -10,7 +12,8 @@ export function considerRivalSoundPurchase(state: GameState, hollywood: Hollywoo
   const stage = business.operations.facilities.find(f=>f.capability==='soundstage')
   const post = business.operations.facilities.find(f=>f.capability==='post')
   if (!stage || !post || business.operations.workflows.some(w=>w.reservations.some(r=>r.facilityId===stage.id || r.facilityId===post.id))) return state.technology
-  const installationCost = 975_000
+  const entry = technologyEntry(SYNCHRONIZED_SOUND.id)
+  const installationCost = installationCatalogueCost(entry)
   const cost = SYNCHRONIZED_SOUND.accessCost + SYNCHRONIZED_SOUND.commercialEquipmentCost + installationCost
   if (business.account.cash < cost + rivalWeeklyOperatingCost(business,hollywood,state.market.tick)*business.policy.reserveWeeks) return state.technology
   const access = {studioId:business.studioId,technologyId:SYNCHRONIZED_SOUND.id,route:'purchase' as const,
@@ -18,9 +21,17 @@ export function considerRivalSoundPurchase(state: GameState, hollywood: Hollywoo
   const technology = {...state.technology,access:[...state.technology.access,access]}
   if (adoptionRefusal({...state,hollywood,technology},business.studioId,stage.id,post.id)) return state.technology
   moveRivalMoney(business.account,'technologyAdoption',-cost,state.market.tick)
-  return {...technology,adoptions:[...technology.adoptions,{id:`${business.studioId}:sound-adoption:0`,studioId:business.studioId,
+  // Abstract plant: this campaign owns no placement of the rival's physical work,
+  // so its chain is ONE aggregated installation row — the same rows the V23→V24
+  // lift writes for a rival adoption, and one durable equipment asset it holds.
+  const id = `${business.studioId}:sound-adoption:0`
+  const equipment = {source:'commercial' as const, cost:entry.commercialEquipmentCost}
+  const asset = mintEquipmentAsset(technology.nextEquipmentId,business.studioId,entry.id,state.market.tick,equipment.source,equipment.cost,id)
+  return {...technology,equipment:[...technology.equipment,asset],nextEquipmentId:technology.nextEquipmentId+1,
+    adoptions:[...technology.adoptions,{id,studioId:business.studioId,
     technologyId:SYNCHRONIZED_SOUND.id,stageFacilityId:stage.id,postFacilityId:post.id,route:'purchase',committedWeek:state.market.tick,
-    operationalWeek:null,equipmentCost:SYNCHRONIZED_SOUND.commercialEquipmentCost,installationCost,physicalProjectIds:[],prototypeProjectId:null}]}
+    operationalWeek:null,equipmentCost:equipment.cost,installationCost,physicalProjectIds:[],prototypeProjectId:null,
+    components:aggregatedAdoptionComponents(entry,equipment,installationCost,asset.id),equipmentAssetId:asset.id}]}
 }
 
 /** Existing rival policy chooses sound only before filming and only after its chain is operational. */

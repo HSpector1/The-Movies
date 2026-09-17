@@ -92,6 +92,7 @@ export type {
   PlanQuoteSnapshot,
   StudioPhysicalPlans,
   GameStateV23,
+  GameStateV24,
   // ── Blueprint Requirements (C1-M2) ──
   BlueprintRequirement,
   BlueprintRequirementKind,
@@ -1251,10 +1252,15 @@ export {
   validateSaveV22,
   migrateToV22,
   convertV21ToV22,
-  // P13B-S3 — live V22 → NEW V23 + migrateToV23 (the persistent physical plan root).
+  // P13B-S3 — frozen V22 → V23 + migrateToV23 (the persistent physical plan root).
   validateSaveV23,
   migrateToV23,
   convertV22ToV23,
+  // P13B-S5 — live V23 → NEW V24 + migrateToV24 (technology root v4: adoption
+  // component rows and durable equipment assets).
+  validateSaveV24,
+  migrateToV24,
+  convertV23ToV24,
 } from './save.js'
 export type {
   SaveFileV1,
@@ -1280,6 +1286,7 @@ export type {
   SaveFileV21,
   SaveFileV22,
   SaveFileV23,
+  SaveFileV24,
   SaveFile,
   TalentV1,
   GameStateV1,
@@ -1370,6 +1377,8 @@ export type {
 export { forecastHistoryForOwner } from './industryCareer.js'
 export { exportCurrentState } from './save.js'
 export { campaignDate } from './calendar.js'
-export { SYNCHRONIZED_SOUND, researchWeekQuote, playerTechnologyAccess, technologyAccess, validateTechnologyV2, liftTechnologyV2 } from './technology.js'
+export { SYNCHRONIZED_SOUND, researchWeekQuote, playerTechnologyAccess, technologyAccess, validateTechnologyV2, validateTechnologyV3, liftTechnologyV2, liftTechnologyV3 } from './technology.js'
+export { adoptionQuote, equipmentAssets } from './technologyAdoption.js'
+export type { AdoptionQuote, AdoptionRequest } from './technologyAdoption.js'
 export { productionTechnologyView } from './technologyProduction.js'
-export type { StudioTechnology, StudioTechnologyV2, TechnologyAction, ResearchProject, ResearchWeekReceipt, ResearchLabContribution, TechnologyAdoption, ProductionTechnology } from './technologyTypes.js'
+export type { StudioTechnology, StudioTechnologyV2, StudioTechnologyV3, TechnologyAction, ResearchProject, ResearchWeekReceipt, ResearchLabContribution, TechnologyAdoption, TechnologyAdoptionComponent, TechnologyEquipmentAsset, ProductionTechnology } from './technologyTypes.js'

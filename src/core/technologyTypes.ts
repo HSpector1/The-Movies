@@ -61,12 +61,42 @@ export type TechnologyAccess = {
   accessCost: number
   researchProjectId: string | null
 }
+/**
+ * P13B-S5: one priced line of an adoption. `physical` rows mirror the target P09
+ * blueprint's own `installationComponents` one-to-one (so S6 can refund unused work
+ * per component from the placement's progress); `existing` rows name work this
+ * studio already owns and is therefore never charged for twice.
+ */
+export type TechnologyAdoptionComponent = {
+  kind: 'access' | 'equipment' | 'site' | 'installation' | 'capture' | 'post'
+  label: string
+  cost: number
+  weeks: number | null
+  source: 'commercial' | 'first-prototype' | 'later-inventor' | 'existing' | 'physical'
+  placementId: number | null
+  equipmentAssetId: string | null
+}
+/**
+ * P13B-S5: one durable equipment set this studio owns for one technology. Minted
+ * once by the adoption that pays for it and never deleted; an UNHELD asset is
+ * reused at $0 by a later adoption of the SAME technology, never re-credited.
+ */
+export type TechnologyEquipmentAsset = {
+  id: string
+  studioId: string
+  technologyId: TechnologyId
+  acquiredWeek: number
+  source: 'first-prototype' | 'later-inventor' | 'commercial'
+  cost: number
+  holderAdoptionId: string | null
+}
 export type TechnologyAdoption = {
   id: string
   studioId: string
   technologyId: TechnologyId
   stageFacilityId: string
-  postFacilityId: string
+  /** Null exactly when this technology has no Post component at all (P13B-S5 lighting). */
+  postFacilityId: string | null
   route: 'research' | 'purchase'
   committedWeek: number
   operationalWeek: number | null
@@ -74,6 +104,8 @@ export type TechnologyAdoption = {
   installationCost: number
   physicalProjectIds: string[]
   prototypeProjectId: string | null
+  components: TechnologyAdoptionComponent[]
+  equipmentAssetId: string | null
 }
 export type ProductionTechnology = {
   studioId: string
@@ -83,25 +115,32 @@ export type ProductionTechnology = {
   lockedWeek: number | null
 }
 /**
- * Technology root v3 (Save V22): seats across two Laboratories, per-Laboratory
- * receipt rows and the 1/160,000 project-credit base. `cooperationFromWeek` is the
- * first week whose receipts are written under the cooperation law — receipts before
- * it are the single-pool rows of an older writer and are read under the older law.
+ * Technology root v4 (Save V24): the v3 corpus — seats across two Laboratories,
+ * per-Laboratory receipt rows and the 1/160,000 project-credit base, with
+ * `cooperationFromWeek` as the first week written under the cooperation law — plus
+ * P13B-S5's durable equipment assets beside the component rows on each adoption.
  */
 export type StudioTechnology = {
-  version: 3
+  version: 4
   recordingStartedWeek: number
   cooperationFromWeek: number
   projects: ResearchProject[]
   access: TechnologyAccess[]
   adoptions: TechnologyAdoption[]
   productions: ProductionTechnology[]
+  /** P13B-S5: every equipment set this campaign's studios own. Never deleted. */
+  equipment: TechnologyEquipmentAsset[]
+  nextEquipmentId: number
 }
+
+/** Frozen P13B-S3 shape (technology root v3, Save V23): no component rows, no equipment assets, a Post on every adoption. */
+export type TechnologyAdoptionV3 = Omit<TechnologyAdoption, 'postFacilityId' | 'components' | 'equipmentAssetId'> & { postFacilityId: string }
+export type StudioTechnologyV3 = Omit<StudioTechnology, 'version' | 'adoptions' | 'equipment' | 'nextEquipmentId'> & { version: 3; adoptions: TechnologyAdoptionV3[] }
 
 /** Frozen P13B-S1 shape (technology root v2, Save V21): single-pool receipts over 1/20,000, no per-Laboratory rows. */
 export type ResearchWeekReceiptV2 = Omit<ResearchWeekReceipt, 'labs'>
 export type ResearchProjectV2 = Omit<ResearchProject, 'weeks'> & { weeks: ResearchWeekReceiptV2[] }
-export type StudioTechnologyV2 = Omit<StudioTechnology, 'version' | 'cooperationFromWeek' | 'projects'> & { version: 2; projects: ResearchProjectV2[] }
+export type StudioTechnologyV2 = Omit<StudioTechnologyV3, 'version' | 'cooperationFromWeek' | 'projects'> & { version: 2; projects: ResearchProjectV2[] }
 
 /** Frozen P13A shape (technology root v1, Save V20). Validated exactly as delivered; never written by the live engine. */
 export type ResearchProjectV1 = Omit<ResearchProject, 'seats' | 'weeks' | 'legacy'> & { scientistId: string }
@@ -120,5 +159,8 @@ export type TechnologyAction =
   | { kind: 'resumeResearch'; projectId: string }
   | { kind: 'waitForTechnology'; technologyId: TechnologyId }
   | { kind: 'purchaseTechnology'; technologyId: TechnologyId }
+  /** P13A intent, retained: `adoptTechnology` for synchronized sound, by its own name. */
   | { kind: 'adoptSynchronizedSound'; stageFacilityId: string; postFacilityId: string }
+  /** P13B-S5: the per-technology adoption. Lighting refuses a `postFacilityId`; sound requires one unless an operational sound Post already stands. */
+  | { kind: 'adoptTechnology'; technologyId: TechnologyId; stageFacilityId: string; postFacilityId?: string }
   | { kind: 'setProductionTechnology'; productionId: string; method: ProductionTechnology['method']; adoptionId: string | null }

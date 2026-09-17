@@ -13,7 +13,7 @@ import { assertScriptDevelopmentInvariants, activeScriptWriterAssignments } from
 import { productionCompanyTalentIds } from './productionPeople.js'
 import type { GameStateV18, Production, StudioOperations, ScriptDevelopment } from './types.js'
 import type { HollywoodState, IndustryFilm } from './hollywoodTypes.js'
-import type { StudioTechnology } from './technologyTypes.js'
+import type { StudioTechnology, StudioTechnologyV3 } from './technologyTypes.js'
 
 function requireFact(condition: unknown, detail: string): asserts condition {
   if (!condition) throw new Error(`Hollywood save: ${detail}`)
@@ -50,7 +50,7 @@ export type HollywoodLeafValidators = {
 }
 
 /** Strict additive root, using the same frozen leaf validators as player data. */
-export function validateHollywood(value: unknown, state: GameStateV18, shared: HollywoodLeafValidators, technology?: Pick<StudioTechnology, 'access' | 'adoptions'>): asserts value is HollywoodState | null {
+export function validateHollywood(value: unknown, state: GameStateV18, shared: HollywoodLeafValidators, technology?: Pick<StudioTechnology, 'access' | 'adoptions'> | Pick<StudioTechnologyV3, 'access' | 'adoptions'>): asserts value is HollywoodState | null {
   const moneyKinds = technology === undefined ? RIVAL_MONEY_KINDS.filter(kind => kind !== 'technologyAdoption') : RIVAL_MONEY_KINDS
   campaignDate(state.market.tick)
   if (value === null) {

@@ -1742,7 +1742,7 @@ export type GameStateV18 = GameStateV17 & {
 export type GameStateV19 = GameStateV18 & { hollywood: import('./hollywoodTypes.js').HollywoodState | null }
 export type GameStateV20 = GameStateV19 & { technology: import('./technologyTypes.js').StudioTechnologyV1 }
 export type GameStateV21 = GameStateV19 & { technology: import('./technologyTypes.js').StudioTechnologyV2 }
-export type GameStateV22 = GameStateV19 & { technology: import('./technologyTypes.js').StudioTechnology }
+export type GameStateV22 = GameStateV19 & { technology: import('./technologyTypes.js').StudioTechnologyV3 }
 
 // ── P13B-S3 — persistent physical plans (Save V23) ───────────────────────────
 // ONE persisted root of the studio's ORDERED physical intentions. A plan RESERVES
@@ -1806,7 +1806,9 @@ export type StudioPhysicalPlans = {
 }
 
 export type GameStateV23 = GameStateV22 & { physicalPlans: StudioPhysicalPlans }
-export type GameState = GameStateV23
+/** P13B-S5 (Save V24): technology root v4 — adoption component rows and durable equipment assets. */
+export type GameStateV24 = GameStateV19 & { technology: import('./technologyTypes.js').StudioTechnology; physicalPlans: StudioPhysicalPlans }
+export type GameState = GameStateV24
 
 // ── D-14 Talent Career Impact — frozen career-event record (§7) ───────────────
 // The ONE canonical persisted record of a participant's outcome on one released film.

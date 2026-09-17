@@ -54,8 +54,13 @@ export function hasOperationalBlueprint(state: GameState, blueprintId: string): 
   return operationalBlueprintCount(state, blueprintId) > 0
 }
 
-/** Exact-target capability consequence; a module on a different body cannot qualify. */
-export function hasOperationalFacilityInstallation(state: GameState, targetFacilityId: string, blueprintId: string): boolean {
+/**
+ * Exact-target capability consequence; a module on a different body cannot
+ * qualify. A null target names NO body (P13B-S5: a technology with no Post
+ * component), so it never matches an installation.
+ */
+export function hasOperationalFacilityInstallation(state: GameState, targetFacilityId: string | null, blueprintId: string): boolean {
+  if (targetFacilityId === null) return false
   return state.placement.facilities.some((placed) => placed.status === 'operational' &&
     placed.blueprintId === blueprintId && placed.installation?.targetFacilityId === targetFacilityId)
 }

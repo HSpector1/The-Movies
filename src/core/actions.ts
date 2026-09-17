@@ -2946,6 +2946,7 @@ export function applyActions(state: GameState, actions: Action[]): GameState {
       case 'waitForTechnology':
       case 'purchaseTechnology':
       case 'adoptSynchronizedSound':
+      case 'adoptTechnology':
       case 'setProductionTechnology':
         next = applyTechnologyAction(next, action)
         break

@@ -9,7 +9,7 @@ import { TUNING } from '../src/core/tuning.js'
 import { occupiedSeats, playerTechnologyAccess, PROJECT_UNIT, researchCandidates, researchWeekQuote, SYNCHRONIZED_SOUND, weeklyResearchPayroll, RESEARCH_SCIENTISTS_PER_STUDIO } from '../src/core/technology.js'
 import type { ResearchWeekQuote } from '../src/core/technology.js'
 import { TECHNOLOGY_CATALOGUE, technologyEntry } from '../src/core/technologyCatalogue.js'
-import type { ResearchProject, ResearchSeat, ResearchWeekReceipt, TechnologyAction } from '../src/core/technologyTypes.js'
+import type { ResearchProject, ResearchSeat, ResearchWeekReceipt, TechnologyAction, TechnologyAdoption } from '../src/core/technologyTypes.js'
 import type { PhysicalPlanAction } from '../src/core/physicalPlans.js'
 import type { GameState } from '../src/core/types.js'
 import type { AvailableIntent } from './protocol.ts'
@@ -67,6 +67,16 @@ function projectsOnLaboratory(state: GameState, own: string, laboratoryFacilityI
     (p.laboratoryFacilityId === laboratoryFacilityId || p.seats.some(s => s.laboratoryFacilityId === laboratoryFacilityId))))
 }
 /** The project holding this person's one occupied seat, across every brief (engine law: one seat per person). */
+/**
+ * This page is still the synchronized-sound page (P13B-S5-T4 generalizes it per
+ * technology): the sound chain rows it prints are the studio's SOUND adoptions,
+ * each of which names its own Post facility. A lighting adoption names none and
+ * is not a sound chain.
+ */
+function soundChains(state: GameState, own: string): (TechnologyAdoption & { postFacilityId: string })[] {
+  return state.technology.adoptions.flatMap(a => a.studioId === own && a.technologyId === SYNCHRONIZED_SOUND.id && a.postFacilityId !== null
+    ? [{ ...a, postFacilityId: a.postFacilityId }] : [])
+}
 function seatedProject(state: GameState, own: string, talentId: string): ResearchProject | undefined {
   return state.technology.projects.find(p => p.studioId === own && occupiedSeats(p).some(s => s.talentId === talentId))
 }
@@ -79,7 +89,7 @@ function bottleneckLabelFor(state: GameState, own: string, project: ResearchProj
   if (project.status === 'completed') {
     if (project.technologyId !== SYNCHRONIZED_SOUND.id) return `${technologyEntry(project.technologyId).name} research is complete. Physical installation is the remaining capability gate.`
     const name = (id: string) => state.operations.facilities.find(f => f.id === id)?.name ?? id
-    const physical = state.technology.adoptions.filter(a => a.studioId === own)
+    const physical = soundChains(state, own)
     const operational = physical.filter(adoption => adoption.operationalWeek !== null)
     return operational.length > 0
       ? `Research is complete. Synchronized dialogue is ready on ${operational.map(adoption => `${name(adoption.stageFacilityId)} + ${name(adoption.postFacilityId)}`).join('; ')}. Select an operational chain before the production enters the filming phase, when its technology locks before the first take.`
@@ -330,7 +340,7 @@ export function laboratoryPage(state: GameState, buildingId: string | null, inte
   const quote = project ? researchWeekQuote(state, project) : null
   const estimate = project && project.status !== 'completed' ? researchWeekQuote(state, { ...project, status: 'active' }) : null
   const access = state.technology.access.find(a => a.studioId === own && a.technologyId === SYNCHRONIZED_SOUND.id)
-  const physical = state.technology.adoptions.filter(a => a.studioId === own)
+  const physical = soundChains(state, own)
   const name = (id: string) => state.operations.facilities.find(f => f.id === id)?.name ?? id
   const actions = laboratoryActionSpecs(state).filter(a => a.buildingId === null || a.buildingId === buildingId)
   const pageCount = Math.ceil(actions.length / pageSize)

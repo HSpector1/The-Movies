@@ -5,8 +5,13 @@ import { campaignDate } from './calendar.js'
 import { productionHasBegunFilming, retargetProductionTechnologyChoice, assertProductionTechnologyBindings } from './technologyProduction.js'
 import { generateScientist } from './worldgen.js'
 import { isTechnologyId, technologyEntry } from './technologyCatalogue.js'
-import type { GameState, GameStateV20, GameStateV21, LedgerEntry, Talent } from './types.js'
-import type { ResearchLabContribution, ResearchProject, ResearchProjectV1, ResearchSeat, StudioTechnology, StudioTechnologyV1, StudioTechnologyV2, TechnologyAction, TechnologyAdoption, TechnologyId } from './technologyTypes.js'
+import {
+  adoptionChainOperational, adoptionComponents, adoptionPhysicalComplete, adoptionQuote, adoptionRejections, aggregatedAdoptionComponents,
+  componentTotal, equipmentPlan, installationCatalogueCost, mintEquipmentAsset, resolvedPostFacilityId,
+  type AdoptionRequest,
+} from './technologyAdoption.js'
+import type { GameState, GameStateV20, GameStateV21, GameStateV23, LedgerEntry, Talent } from './types.js'
+import type { ResearchLabContribution, ResearchProject, ResearchProjectV1, ResearchSeat, StudioTechnology, StudioTechnologyV1, StudioTechnologyV2, StudioTechnologyV3, TechnologyAction, TechnologyAdoption, TechnologyAdoptionComponent, TechnologyEquipmentAsset, TechnologyId } from './technologyTypes.js'
 
 /**
  * The synchronized-sound parameters, retained as a named export for P13A consumers.
@@ -34,7 +39,7 @@ const money = (value: number) => '$' + value.toLocaleString('en-US', { maximumFr
 export const spelled = (n: number): string => ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'][n] ?? String(n)
 
 export function initialTechnology(week: number): StudioTechnology {
-  return {version: 3, recordingStartedWeek: week, cooperationFromWeek: week, projects: [], access: [], adoptions: [], productions: []}
+  return {version: 4, recordingStartedWeek: week, cooperationFromWeek: week, projects: [], access: [], adoptions: [], productions: [], equipment: [], nextEquipmentId: 0}
 }
 /** The frozen P13A root that a genuine V20 save carries; V19→V20 migration still mints it. */
 export function initialTechnologyV1(week: number): StudioTechnologyV1 {
@@ -59,7 +64,7 @@ export function liftTechnologyV1(root: StudioTechnologyV1, week: number): Studio
  * seats spanned two Laboratories keeps `labs: null`, because the split that earned
  * it was never recorded and cannot be recovered. Everything else is unchanged.
  */
-export function liftTechnologyV2(root: StudioTechnologyV2, week: number): StudioTechnology {
+export function liftTechnologyV2(root: StudioTechnologyV2, week: number): StudioTechnologyV3 {
   return {...root, version: 3, cooperationFromWeek: week, projects: root.projects.map(project => ({...project,
     weeks: project.weeks.map(receipt => {
       const labs = new Set(receipt.seatTalentIds.map(talentId =>
@@ -70,6 +75,37 @@ export function liftTechnologyV2(root: StudioTechnologyV2, week: number): Studio
           ? [{laboratoryFacilityId: only, seatTalentIds: [...receipt.seatTalentIds], spend: receipt.spend, rawUnits: receipt.units}]
           : null}
     })}))}
+}
+
+/**
+ * Governed V23→V24 lift: each adoption gains its component rows and exactly one
+ * held equipment asset, derived from facts the save already carries. The
+ * equipment route is read from the retained `prototypeProjectId`, `route` and
+ * `equipmentCost`; each entry in `physicalProjectIds` becomes ONE aggregated
+ * installation row carrying that placement's own capex and its own elapsed
+ * weeks; an adoption with no placements of its own (abstract rival plant) keeps
+ * one aggregated row with no placement. Nothing else moves.
+ */
+export function liftTechnologyV3(root: StudioTechnologyV3, state: Pick<GameState, 'placement' | 'ledger'>): StudioTechnology {
+  const equipment: TechnologyEquipmentAsset[] = []
+  const adoptions = root.adoptions.map((a, index) => {
+    const entry = technologyEntry(a.technologyId)
+    const source: TechnologyEquipmentAsset['source'] = a.prototypeProjectId !== null && a.equipmentCost === 0
+      ? 'first-prototype' : a.route === 'research' ? 'later-inventor' : 'commercial'
+    const asset = mintEquipmentAsset(index, a.studioId, a.technologyId, a.committedWeek, source, a.equipmentCost, a.id)
+    equipment.push(asset)
+    const aggregated = aggregatedAdoptionComponents(entry, {source, cost: a.equipmentCost}, a.installationCost, asset.id)
+    const components: TechnologyAdoptionComponent[] = a.physicalProjectIds.length === 0 ? aggregated
+      : [...aggregated.filter(c => c.source !== 'physical'), ...a.physicalProjectIds.map(projectId => {
+        const placed = state.placement.facilities.find(p => p.projectId === projectId)
+        return {kind: 'installation' as const, label: `${entry.name} installation`,
+          cost: state.ledger.filter(e => e.kind === 'constructionCapex' && e.constructionProjectId === projectId).reduce((sum, e) => sum - e.amount, 0),
+          weeks: placed === undefined ? null : placed.completesWeek - placed.placedWeek,
+          source: 'physical' as const, placementId: placed?.id ?? null, equipmentAssetId: null}
+      })]
+    return {...a, components, equipmentAssetId: asset.id}
+  })
+  return {...root, version: 4, adoptions, equipment, nextEquipmentId: equipment.length}
 }
 
 function playerStudioId(state: GameState): string {
@@ -240,16 +276,14 @@ export function researchAfterEmploymentRelease(state: GameState, talentId: strin
   return projects.every((p, i) => p === state.technology.projects[i]) ? state.technology : {...state.technology, projects}
 }
 
-/** The same eligibility and compatibility law applies to the player and abstract rival plant. */
-export function adoptionRefusal(state: GameState, studioId: string, stageId: string, postId: string): string | null {
-  const identity = state.hollywood?.identities.find(s => s.studioId === studioId && s.enteredWeek !== null)
-  if (!identity) return 'That studio has not entered this campaign.'
-  if (!technologyAccess(state, studioId, SYNCHRONIZED_SOUND.id)) return 'Complete synchronized-sound research or purchase access after commercial release.'
-  const operations = identity.role === 'player' ? state.operations : state.hollywood!.businesses.find(b => b.studioId === studioId)?.operations
-  if (!operations?.facilities.some(f => f.id === stageId && f.capability === 'soundstage')) return 'Select an exact compatible soundstage.'
-  if (!operations.facilities.some(f => f.id === postId && f.capability === 'post')) return 'Select an exact Post facility.'
-  if (state.technology.adoptions.some(a => a.studioId === studioId && a.stageFacilityId === stageId)) return 'This stage already has a synchronized-sound adoption commitment.'
-  return null
+/**
+ * The same eligibility and compatibility law applies to the player and abstract
+ * rival plant. Retained P13A signature: synchronized sound, by its own name. The
+ * per-technology law lives in `adoptionRejections`; this returns its primary reason.
+ */
+export function adoptionRefusal(state: GameState, studioId: string, stageId: string, postId: string | null): string | null {
+  return adoptionRejections(state, studioId, {technologyId: SYNCHRONIZED_SOUND.id, stageFacilityId: stageId,
+    ...(postId === null ? {} : {postFacilityId: postId})})[0] ?? null
 }
 
 export function applyTechnologyAction(state: GameState, action: Exclude<TechnologyAction, {kind:'recruitScientist'}>): GameState {
@@ -318,30 +352,61 @@ export function applyTechnologyAction(state: GameState, action: Exclude<Technolo
       studioId: own, technologyId: action.technologyId, route: purchase ? 'purchase' : 'wait', chosenWeek: state.market.tick,
       acquiredWeek: purchase ? state.market.tick : null, accessCost: purchase ? entry.accessCost : 0, researchProjectId: null}]}}
   }
-  if (action.kind === 'adoptSynchronizedSound') {
-    const refusal = adoptionRefusal(state, own, action.stageFacilityId, action.postFacilityId)
-    if (refusal) throw new Error(refusal)
-    const access = state.technology.access.find(a => a.studioId === own && a.technologyId === SYNCHRONIZED_SOUND.id && a.acquiredWeek !== null)!
+  // P13A's named sound intent and P13B-S5's per-technology intent are ONE commit:
+  // the alias means `adoptTechnology` for synchronized sound, keeps its own
+  // adoption identity so no P13A receipt moves, and obeys exactly the same law.
+  if (action.kind === 'adoptSynchronizedSound' || action.kind === 'adoptTechnology') {
+    const technologyId = action.kind === 'adoptSynchronizedSound' ? SYNCHRONIZED_SOUND.id : action.technologyId
+    knownTechnology(technologyId)
+    const entry = technologyEntry(technologyId)
+    const request: AdoptionRequest = {technologyId, stageFacilityId: action.stageFacilityId,
+      ...(action.postFacilityId === undefined ? {} : {postFacilityId: action.postFacilityId})}
+    const quote = adoptionQuote(state, request)
+    if (!quote.ok) throw new Error(quote.refusal!)
+    const access = state.technology.access.find(a => a.studioId === own && a.technologyId === technologyId && a.acquiredWeek !== null)!
     const inventor = access.route === 'research'
-    const prototypeUsed = state.technology.adoptions.some(a => a.studioId === own && a.prototypeProjectId !== null)
-    const equipmentCost = inventor ? prototypeUsed ? SYNCHRONIZED_SOUND.laterInventorEquipmentCost : 0 : SYNCHRONIZED_SOUND.commercialEquipmentCost
-    const id = `${own}:sound-adoption:${state.technology.adoptions.filter(a => a.studioId === own).length}`
-    const stageQuote = queryFacilityInstallation(state, {blueprintId:'synchronized-sound-stage', targetFacilityId:action.stageFacilityId})
-    const postAlready = hasOperationalFacilityInstallation(state, action.postFacilityId, 'synchronized-sound-post')
-    const postQuote = postAlready ? null : queryFacilityInstallation(state, {blueprintId:'synchronized-sound-post', targetFacilityId:action.postFacilityId})
+    const equipment = equipmentPlan(state, own, technologyId)
+    const postFacilityId = resolvedPostFacilityId(state, own, request)
+    const postAlready = entry.postInstallationId !== null && postFacilityId !== null &&
+      hasOperationalFacilityInstallation(state, postFacilityId, entry.postInstallationId)
+    const newPost = entry.postInstallationId !== null && postFacilityId !== null && !postAlready
+    const id = action.kind === 'adoptSynchronizedSound'
+      ? `${own}:sound-adoption:${state.technology.adoptions.filter(a => a.studioId === own).length}`
+      : `${own}:${technologyId}:adoption:${state.technology.adoptions.filter(a => a.studioId === own).length}`
+    const stageQuote = queryFacilityInstallation(state, {blueprintId: entry.stageInstallationId, targetFacilityId: action.stageFacilityId})
+    const postQuote = newPost ? queryFacilityInstallation(state, {blueprintId: entry.postInstallationId!, targetFacilityId: postFacilityId!}) : null
     if (!stageQuote.ok || postQuote && !postQuote.ok) throw new Error('The selected stage or Post cannot begin installation. Finish its current work first.')
-    if (!canAfford(state, equipmentCost + stageQuote.cost + (postQuote?.cost ?? 0)).ok) throw new Error('There is not enough cash for the complete stage, capture and Post installation commitment.')
-    let next = charge(state, equipmentCost, `technology-equipment:${id}`)
+    if (!canAfford(state, quote.total).ok) throw new Error('There is not enough cash for the complete stage, capture and Post installation commitment.')
+    let next = charge(state, equipment.cost, `technology-equipment:${id}`)
     const before = new Set(next.placement.facilities.map(p => p.projectId))
-    next = commitFacilityInstallation(next, {blueprintId:'synchronized-sound-stage', targetFacilityId:action.stageFacilityId})
-    if (!postAlready) next = commitFacilityInstallation(next, {blueprintId:'synchronized-sound-post', targetFacilityId:action.postFacilityId})
-    const row: TechnologyAdoption = {id, studioId:own, technologyId:SYNCHRONIZED_SOUND.id,
-      stageFacilityId:action.stageFacilityId, postFacilityId:action.postFacilityId, route:inventor?'research':'purchase',
-      committedWeek:state.market.tick, operationalWeek:null, equipmentCost,
-      installationCost:stageQuote.cost + (postQuote?.cost ?? 0),
-      physicalProjectIds:next.placement.facilities.filter(p => !before.has(p.projectId)).map(p => p.projectId),
-      prototypeProjectId:inventor && !prototypeUsed ? access.researchProjectId : null}
-    return {...next, technology:{...next.technology, adoptions:[...next.technology.adoptions,row]}}
+    next = commitFacilityInstallation(next, {blueprintId: entry.stageInstallationId, targetFacilityId: action.stageFacilityId})
+    if (newPost) next = commitFacilityInstallation(next, {blueprintId: entry.postInstallationId!, targetFacilityId: postFacilityId!})
+    const committed = next.placement.facilities.filter(p => !before.has(p.projectId))
+    const stagePlacement = committed.find(p => p.blueprintId === entry.stageInstallationId)
+    const postPlacement = committed.find(p => p.blueprintId === entry.postInstallationId)
+    // The quote priced authored P09 components; the committed placements must be
+    // the same work at the same price, or the commitment is not what was quoted.
+    const {components: quoted} = adoptionComponents(state, own, request, {
+      ...(stagePlacement === undefined ? {} : {stage: stagePlacement.id}),
+      ...(postPlacement === undefined ? {} : {post: postPlacement.id})})
+    const physical = quoted.filter(c => c.source === 'physical')
+    const installationCost = componentTotal(physical)
+    if (installationCost !== stageQuote.cost + (postQuote?.cost ?? 0)) throw new Error('This installation quote differs from its authored physical components.')
+    const asset = equipment.source === 'existing' || equipment.reusedEquipmentAssetId !== null ? null
+      : mintEquipmentAsset(next.technology.nextEquipmentId, own, technologyId, state.market.tick, equipment.source, equipment.cost, id)
+    const equipmentAssetId = asset?.id ?? equipment.reusedEquipmentAssetId!
+    const components = quoted.map(c => c.kind === 'equipment' ? {...c, equipmentAssetId} : c)
+    const row: TechnologyAdoption = {id, studioId: own, technologyId,
+      stageFacilityId: action.stageFacilityId, postFacilityId, route: inventor ? 'research' : 'purchase',
+      committedWeek: state.market.tick, operationalWeek: null, equipmentCost: equipment.cost, installationCost,
+      physicalProjectIds: committed.map(p => p.projectId),
+      prototypeProjectId: equipment.source === 'first-prototype' ? access.researchProjectId : null,
+      components, equipmentAssetId}
+    return {...next, technology: {...next.technology, adoptions: [...next.technology.adoptions, row],
+      equipment: asset === null
+        ? next.technology.equipment.map(e => e.id === equipmentAssetId ? {...e, holderAdoptionId: id} : e)
+        : [...next.technology.equipment, asset],
+      nextEquipmentId: asset === null ? next.technology.nextEquipmentId : next.technology.nextEquipmentId + 1}}
   }
   if (action.kind === 'setProductionTechnology') {
     const p = state.studio.activeProductions.find(p => p.id === action.productionId)
@@ -392,13 +457,18 @@ export function advanceResearchWeek(state: GameState): {technology: StudioTechno
   return {technology:{...state.technology,projects,access}, entries, cost:entries.reduce((sum,e)=>sum-e.amount,0)}
 }
 
-/** Capability follows P09's completed physical facts; research alone cannot grant it. */
+/**
+ * Capability follows P09's completed physical facts; research alone cannot grant
+ * it. Per technology (P13B-S5): the player's adoption is operational when every
+ * `physical` component's placement is operational and every `existing`
+ * component's facility is; abstract rival plant keeps its deployment clock.
+ */
 export function finishTechnologyWeek(state: GameState): GameState {
   const adoptions = state.technology.adoptions.map(a => {
     if (a.operationalWeek !== null) return a
     const player = a.studioId === state.hollywood?.playerStudioId
     const complete = player
-      ? hasOperationalFacilityInstallation(state,a.stageFacilityId,'synchronized-sound-stage') && hasOperationalFacilityInstallation(state,a.postFacilityId,'synchronized-sound-post')
+      ? adoptionPhysicalComplete(state, a)
       : state.market.tick >= a.committedWeek + technologyEntry(a.technologyId).deploymentWeeks
     return complete ? {...a,operationalWeek:state.market.tick} : a
   })
@@ -418,8 +488,8 @@ type Validator = {
   studio: (id: string) => void
   own: string | undefined
 }
-/** Every root the technology validators read: the live v3 state and its two frozen predecessors. */
-type TechnologyBearingState = GameState | GameStateV20 | GameStateV21
+/** Every root the technology validators read: the live v4 state and its three frozen predecessors. */
+type TechnologyBearingState = GameState | GameStateV20 | GameStateV21 | GameStateV23
 function validator(state: TechnologyBearingState): Validator {
   const fail = (message: string): never => { throw new Error(`Technology save: ${message}`) }
   const exact = (value: unknown, keys: readonly string[]) => {
@@ -432,10 +502,15 @@ function validator(state: TechnologyBearingState): Validator {
   const studio = (id: string) => {text(id);if (!studios.has(id)) fail('unknown or reserved studio')}
   return {fail, exact, integer, text, week, studio, own: state.hollywood?.playerStudioId}
 }
-/** Root shape, access, adoptions, loadouts, adoption ledger and payroll: identical law for v1 and v2 roots. */
+/**
+ * Root shape, access, adoptions, loadouts, adoption ledger and payroll: identical
+ * law for every root. The root is READ through the live shape and every v4-only
+ * fact is gated on the stored version, so an older root is never taught a newer
+ * one and never silently tolerates one.
+ */
 function validateSharedTechnology(state: TechnologyBearingState, v: Validator, projectIds: Set<string>, completedProjects: Map<string, number>): void {
   const {fail, exact, integer, text, week, studio, own} = v
-  const root = state.technology
+  const root = state.technology as StudioTechnology
   const full = state as GameState
   const accesses = new Set<string>()
   for (const a of root.access) {
@@ -453,38 +528,112 @@ function validateSharedTechnology(state: TechnologyBearingState, v: Validator, p
     const entry = technologyEntry(a.technologyId)
     if (a.route === 'purchase' && (a.acquiredWeek === null || a.acquiredWeek < entry.commercialWeek || a.accessCost !== entry.accessCost || a.researchProjectId !== null)) fail('invalid commercial access')
   }
-  const stages = new Set<string>(), adoptionIds = new Set<string>(), prototypes = new Set<string>()
+  const stages = new Set<string>(), adoptionIds = new Set<string>(), prototypes = new Set<string>(), heldAssets = new Set<string>()
+  const v4 = (root.version as number) === 4
   if(root.adoptions.filter(a=>a.studioId!==own).length>1) fail('Core permits one rival commercial adoption consequence')
   for (const a of root.adoptions) {
-    exact(a,['id','studioId','technologyId','stageFacilityId','postFacilityId','route','committedWeek','operationalWeek','equipmentCost','installationCost','physicalProjectIds','prototypeProjectId'])
+    exact(a, v4
+      ? ['id','studioId','technologyId','stageFacilityId','postFacilityId','route','committedWeek','operationalWeek','equipmentCost','installationCost','physicalProjectIds','prototypeProjectId','components','equipmentAssetId']
+      : ['id','studioId','technologyId','stageFacilityId','postFacilityId','route','committedWeek','operationalWeek','equipmentCost','installationCost','physicalProjectIds','prototypeProjectId'])
     studio(a.studioId);knownTechnology(a.technologyId);text(a.id);week(a.committedWeek);integer(a.equipmentCost);integer(a.installationCost)
+    const entry = technologyEntry(a.technologyId)
     if (!['research','purchase'].includes(a.route) || !technologyAccess(state,a.studioId,a.technologyId)) fail('adoption without lawful access')
     const access=root.access.find(access=>access.studioId===a.studioId && access.technologyId===a.technologyId)!
     if(access.acquiredWeek===null || access.acquiredWeek>a.committedWeek || access.route!==a.route) fail('adoption precedes or misrepresents acquired access')
-    const stageKey = `${a.studioId}/${a.stageFacilityId}`
+    // Per technology (P13B-S5): one adoption per (studio, technology, stage). A
+    // lighting fit-out and a sound conversion are different work on one stage.
+    const stageKey = `${a.studioId}/${a.technologyId}/${a.stageFacilityId}`
     if (stages.has(stageKey) || adoptionIds.has(a.id)) fail('duplicate adoption');stages.add(stageKey);adoptionIds.add(a.id)
     const operations = a.studioId === own ? state.operations : state.hollywood!.businesses.find(b => b.studioId === a.studioId)?.operations
-    if (!operations?.facilities.some(f => f.id === a.stageFacilityId && f.capability === 'soundstage') || !operations.facilities.some(f => f.id === a.postFacilityId && f.capability === 'post')) fail('adoption has no exact compatible chain')
+    if (!operations?.facilities.some(f => f.id === a.stageFacilityId && f.capability === 'soundstage')) fail('adoption has no exact compatible chain')
+    if (entry.postInstallationId === null) {
+      if (a.postFacilityId !== null) fail('adoption names a Post facility for a technology with no Post component')
+    } else if (a.postFacilityId === null || !operations!.facilities.some(f => f.id === a.postFacilityId && f.capability === 'post')) fail('adoption has no exact compatible chain')
     if (!Array.isArray(a.physicalProjectIds) || new Set(a.physicalProjectIds).size !== a.physicalProjectIds.length) fail('invalid physical project references')
     if (a.studioId === own) {
       const jobs = a.physicalProjectIds.map(id => state.placement.facilities.find(p => p.projectId === id))
       if (jobs.length < 1 || jobs.length > 2 || jobs.some(p => !p?.installation)) fail('missing P09 physical owner')
-      if (!jobs.some(p => p?.blueprintId === 'synchronized-sound-stage' && p.installation?.targetFacilityId === a.stageFacilityId)) fail('stage job mismatch')
-      if(jobs.some(p=>p!.placedWeek!==a.committedWeek || !(p!.blueprintId==='synchronized-sound-stage'&&p!.installation!.targetFacilityId===a.stageFacilityId || p!.blueprintId==='synchronized-sound-post'&&p!.installation!.targetFacilityId===a.postFacilityId))) fail('physical job time or target differs from adoption')
-      const post=state.placement.facilities.find(p=>p.blueprintId==='synchronized-sound-post'&&p.installation?.targetFacilityId===a.postFacilityId)
-      if(!post || !a.physicalProjectIds.includes(post.projectId) && (post.status!=='operational'||post.completesWeek>a.committedWeek)) fail('adoption lacks its compatible Post commitment')
-      const completesWeek=Math.max(...jobs.map(p=>p!.completesWeek),post!.completesWeek)
+      if (!jobs.some(p => p?.blueprintId === entry.stageInstallationId && p.installation?.targetFacilityId === a.stageFacilityId)) fail('stage job mismatch')
+      if(jobs.some(p=>p!.placedWeek!==a.committedWeek || !(p!.blueprintId===entry.stageInstallationId&&p!.installation!.targetFacilityId===a.stageFacilityId || p!.blueprintId===entry.postInstallationId&&p!.installation!.targetFacilityId===a.postFacilityId))) fail('physical job time or its stage or Post target differs from adoption')
+      const post=entry.postInstallationId===null ? undefined : state.placement.facilities.find(p=>p.blueprintId===entry.postInstallationId&&p.installation?.targetFacilityId===a.postFacilityId)
+      if(entry.postInstallationId!==null && (!post || !a.physicalProjectIds.includes(post.projectId) && (post.status!=='operational'||post.completesWeek>a.committedWeek))) fail('adoption lacks its compatible Post commitment')
+      const completesWeek=Math.max(...jobs.map(p=>p!.completesWeek),...(post ? [post.completesWeek] : []))
       if(a.operationalWeek!==null && a.operationalWeek!==completesWeek || a.operationalWeek===null && completesWeek<=state.market.tick) fail('operational receipt differs from exact physical completion')
       const capex = state.ledger.filter(e => e.kind === 'constructionCapex' && a.physicalProjectIds.includes(e.constructionProjectId)).reduce((s,e)=>s-e.amount,0)
       if (capex !== a.installationCost) fail('physical commitment does not reconcile')
-      if (a.operationalWeek !== null && (!hasOperationalFacilityInstallation(full,a.stageFacilityId,'synchronized-sound-stage') || !hasOperationalFacilityInstallation(full,a.postFacilityId,'synchronized-sound-post'))) fail('capability before physical completion')
-    } else if (a.physicalProjectIds.length || a.route !== 'purchase' || a.equipmentCost !== 300_000 || a.installationCost !== 975_000 || a.committedWeek < 416) fail('rival has fabricated physical or research authority')
-    if (a.operationalWeek !== null) {week(a.operationalWeek);if (a.operationalWeek < a.committedWeek + 12) fail('installation finished early')}
+      if (a.operationalWeek !== null && !adoptionChainOperational(full, a as TechnologyAdoption)) fail('capability before physical completion')
+    } else if (a.physicalProjectIds.length || a.route !== 'purchase' || a.equipmentCost !== entry.commercialEquipmentCost || a.installationCost !== installationCatalogueCost(entry) || a.committedWeek < entry.commercialWeek) fail('rival has fabricated physical or research authority')
+    let equipmentSource = ''
+    if (v4) {
+      const row = a as TechnologyAdoption
+      if (!Array.isArray(row.components) || row.components.length === 0) fail('adoption without its component rows')
+      let physicalSum = 0, equipmentRows = 0, accessRows = 0
+      for (const c of row.components) {
+        exact(c,['kind','label','cost','weeks','source','placementId','equipmentAssetId']);text(c.label)
+        if (!['access','equipment','site','installation','capture','post'].includes(c.kind)) fail('unknown adoption component kind')
+        if (!['commercial','first-prototype','later-inventor','existing','physical'].includes(c.source)) fail('unknown adoption component source')
+        if (!Number.isSafeInteger(c.cost) || c.cost < 0) fail('negative or invalid adoption component cost')
+        if (c.weeks !== null) integer(c.weeks)
+        if (c.kind === 'post' && entry.postInstallationId === null) fail('adoption carries a Post component for a technology with no Post')
+        if (c.source === 'physical') physicalSum += c.cost
+        if (c.kind === 'access') {accessRows++;if (c.cost !== 0) fail('adoption charges for access it acquired before committing')}
+        if (c.kind === 'equipment') {
+          equipmentRows++;equipmentSource = c.source
+          if (c.equipmentAssetId !== row.equipmentAssetId) fail('adoption equipment component names a different equipment asset')
+          if (c.cost !== a.equipmentCost) fail('adoption components do not reconcile with the retained equipment commitment')
+        }
+        if (c.source === 'physical' && a.studioId === own) {
+          const placed = state.placement.facilities.find(p => p.id === c.placementId)
+          if (!placed?.installation) fail('adoption component names no committed stage or Post placement')
+          const target = placed!.blueprintId === entry.stageInstallationId ? a.stageFacilityId
+            : placed!.blueprintId === entry.postInstallationId ? a.postFacilityId : null
+          if (target === null || placed!.installation!.targetFacilityId !== target) fail('adoption component names a placement outside its own stage or Post')
+          if (!a.physicalProjectIds.includes(placed!.projectId)) fail('adoption component names work outside its retained physical commitment')
+        } else if (c.source === 'physical' && c.placementId !== null) fail('adoption component names a placement this studio does not own')
+        if (c.source === 'existing' && c.kind === 'post' && !(a.postFacilityId !== null && entry.postInstallationId !== null &&
+          hasOperationalFacilityInstallation(full,a.postFacilityId,entry.postInstallationId))) fail('adoption reuses a Post fit-out that is not operational')
+      }
+      if (equipmentRows !== 1) fail('adoption needs exactly one equipment component')
+      if (accessRows !== 1) fail('adoption needs exactly one access component')
+      if (physicalSum !== a.installationCost) fail('adoption components do not sum to the retained installation commitment')
+      if (row.equipmentAssetId === null) fail('adoption without its equipment asset')
+      const asset = root.equipment.find(e => e.id === row.equipmentAssetId)
+      if (!asset || asset.studioId !== a.studioId || asset.technologyId !== a.technologyId) fail('adoption names an unknown equipment asset')
+      if (asset!.holderAdoptionId !== a.id || heldAssets.has(asset!.id)) fail('equipment asset is held by another adoption')
+      heldAssets.add(asset!.id)
+    }
+    if (a.operationalWeek !== null) {week(a.operationalWeek);if (a.operationalWeek < a.committedWeek + entry.deploymentWeeks) fail('installation finished early')}
     if (a.prototypeProjectId !== null) {
       const completedWeek = completedProjects.get(`${a.studioId}/${a.prototypeProjectId}`)
       if (prototypes.has(a.prototypeProjectId) || a.equipmentCost !== 0 || completedWeek === undefined || completedWeek > a.committedWeek) fail('prototype charged or credited twice')
       prototypes.add(a.prototypeProjectId)
-    } else if (a.equipmentCost !== (a.route === 'research' ? 225_000 : 300_000)) fail('equipment charge mismatch')
+    } else if (a.equipmentCost !== (v4
+      ? equipmentSource === 'existing' ? 0 : equipmentSource === 'later-inventor' ? entry.laterInventorEquipmentCost : entry.commercialEquipmentCost
+      : a.route === 'research' ? entry.laterInventorEquipmentCost : entry.commercialEquipmentCost)) fail('equipment charge mismatch')
+    if (v4 && equipmentSource !== 'existing' && (equipmentSource === 'commercial') !== (a.route === 'purchase')) fail('equipment route differs from the adoption route')
+  }
+  if (v4) {
+    integer(root.nextEquipmentId)
+    const assetIds = new Set<string>(), prototypeAssets = new Set<string>()
+    for (const e of root.equipment) {
+      exact(e,['id','studioId','technologyId','acquiredWeek','source','cost','holderAdoptionId'])
+      studio(e.studioId);knownTechnology(e.technologyId);text(e.id);week(e.acquiredWeek);integer(e.cost)
+      if (assetIds.has(e.id)) fail('duplicate equipment asset identity');assetIds.add(e.id)
+      const prefix = `${e.studioId}:equipment:`
+      const index = e.id.startsWith(prefix) ? Number(e.id.slice(prefix.length)) : Number.NaN
+      if (!Number.isSafeInteger(index) || index < 0 || index >= root.nextEquipmentId) fail('invalid equipment asset identity')
+      const entry = technologyEntry(e.technologyId)
+      if (!['first-prototype','later-inventor','commercial'].includes(e.source)) fail('unknown equipment asset source')
+      if (e.cost !== (e.source === 'first-prototype' ? 0 : e.source === 'later-inventor' ? entry.laterInventorEquipmentCost : entry.commercialEquipmentCost)) fail('equipment asset cost differs from its acquisition route')
+      if (e.source === 'first-prototype') {
+        const key = `${e.studioId}/${e.technologyId}`
+        if (prototypeAssets.has(key)) fail('a second first-prototype equipment asset for one research project');prototypeAssets.add(key)
+      }
+      if (e.holderAdoptionId !== null) {
+        const holder = root.adoptions.find(a => a.id === e.holderAdoptionId)
+        if (!holder || holder.equipmentAssetId !== e.id || holder.studioId !== e.studioId || holder.technologyId !== e.technologyId) fail('equipment asset names a holder that does not hold it')
+      }
+    }
   }
   // This invocation still validates every original loadout; the save validator
   // still checks the original Hollywood root. Index only historical membership:
@@ -548,29 +697,43 @@ function validateSharedTechnology(state: TechnologyBearingState, v: Validator, p
   if (projectIds.size !== root.projects.length) fail('duplicate research identity')
   assertProductionTechnologyBindings(full)
 }
-function validateRootShape(state: TechnologyBearingState, v: Validator, version: 1 | 2 | 3): void {
+function validateRootShape(state: TechnologyBearingState, v: Validator, version: 1 | 2 | 3 | 4): void {
   const {fail, exact, integer} = v
-  const root = state.technology
-  exact(root, version === 3
+  const root = state.technology as StudioTechnology
+  exact(root, version === 4
+    ? ['version','recordingStartedWeek','cooperationFromWeek','projects','access','adoptions','productions','equipment','nextEquipmentId']
+    : version === 3
     ? ['version','recordingStartedWeek','cooperationFromWeek','projects','access','adoptions','productions']
     : ['version','recordingStartedWeek','projects','access','adoptions','productions'])
-  if (root.version !== version) fail('unknown version')
+  if ((root.version as number) !== version) fail('unknown version')
   integer(root.recordingStartedWeek,0,state.market.tick)
   // The week the cooperation law took effect: minted at founding, or stamped at the
   // V21→V22 migration. A real, never future-dated week; it is deliberately not tied
   // to recordingStartedWeek, so a forged recording boundary keeps its own refusal.
-  if (root.version === 3) integer(root.cooperationFromWeek,0,state.market.tick)
+  if (version >= 3) integer(root.cooperationFromWeek,0,state.market.tick)
   for (const rows of [root.projects,root.access,root.adoptions,root.productions]) if (!Array.isArray(rows)) fail('array required')
   if (state.studioHistory.rows.some(r=>r.kind==='technologyMilestone' && r.week<=root.recordingStartedWeek)) fail('invented technology history before recording began')
   if ((!state.hollywood || state.founding !== null) && [root.projects,root.access,root.adoptions,root.productions].some(a => a.length)) fail('unfounded or non-player corpus cannot hold technology authority')
 }
 
-/** Exact, campaign-local P13B boundary for the live v3 root. It never repairs or invents a receipt. */
+/** Exact, campaign-local P13B boundary for the live v4 root. It never repairs or invents a receipt. */
 export function validateTechnology(state: GameState): void {
+  validateTechnologyRoot(state, 4)
+}
+/**
+ * Frozen P13B-S3 validator for a genuine V23 (and V22) root — technology root v3:
+ * no component rows, no equipment assets, a Post facility on every adoption. It
+ * reads the SAME law as the live root with every v4-only fact gated off by the
+ * stored version, so a v3 save is never asked for a fact it could not carry.
+ */
+export function validateTechnologyV3(state: GameStateV23): void {
+  validateTechnologyRoot(state as unknown as GameState, 3)
+}
+function validateTechnologyRoot(state: GameState, version: 3 | 4): void {
   const v = validator(state)
   const {fail, exact, integer, text, week, studio, own} = v
-  validateRootShape(state, v, 3)
-  const root = state.technology
+  validateRootShape(state, v, version)
+  const root = state.technology as StudioTechnology
   const ids = new Set<string>(), technologies = new Set<string>(), seatHolders = new Set<string>()
   const occupiedByLab = new Map<string, number>()
   const completed = new Map<string, number>()
