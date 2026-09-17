@@ -428,7 +428,13 @@ describe('per-technology stage rule: a stage with an adoption of one technology 
     expect(lightingQuote.refusal).toBe(engagedRefusal)
     expect(lightingQuote.rejections).toContain(engagedRefusal)
 
-    const completed = advanceTo(session.gameState, session.gameState.market.tick + SOUND.deploymentWeeks)
+    // AMENDED 2026-09-17 (coordinator solvency correction): fund lawfully
+    // immediately before building the fresh session, so the only obstacle this
+    // row's quote/enabled state can report is the engagement this case tests,
+    // never a cash shortfall from the fit-out's own burn (MEASURED, mirrors
+    // tests/p13b-s5-quotes.test.ts's own solvency amendment for this exact
+    // completion point).
+    const completed = fundTo(advanceTo(session.gameState, session.gameState.market.tick + SOUND.deploymentWeeks), 1_000_000)
     const nextSession = new BridgeSession(completed, 'p13b-s5-adopt-per-tech-complete')
     const completePage = labPage(nextSession, anyLabBuildingId(completed), nextRequestId('complete'))
     const completedLightingRow = required(completePage.actions.find(a => a.id === `adopt-${LIGHTING.id}-${stage1}`), `lighting row for stage "${stage1}" absent after sound's fit-out completed: ${JSON.stringify(completePage.actions.map(a => a.id))}`)

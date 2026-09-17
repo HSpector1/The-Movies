@@ -9,6 +9,8 @@ import {
   adoptionChainOperational, adoptionComponents, adoptionPhysicalComplete, adoptionQuote, adoptionRejections, aggregatedAdoptionComponents,
   componentTotal, equipmentPlan, installationCatalogueCost, mintEquipmentAsset, resolvedPostFacilityId,
   type AdoptionRequest,
+  installationRefusalSentence,
+  INSTALLATION_CASH_REFUSAL,
 } from './technologyAdoption.js'
 import type { GameState, GameStateV20, GameStateV21, GameStateV23, LedgerEntry, Talent } from './types.js'
 import type { ResearchLabContribution, ResearchProject, ResearchProjectV1, ResearchSeat, StudioTechnology, StudioTechnologyV1, StudioTechnologyV2, StudioTechnologyV3, TechnologyAction, TechnologyAdoption, TechnologyAdoptionComponent, TechnologyEquipmentAsset, TechnologyId } from './technologyTypes.js'
@@ -375,8 +377,9 @@ export function applyTechnologyAction(state: GameState, action: Exclude<Technolo
       : `${own}:${technologyId}:adoption:${state.technology.adoptions.filter(a => a.studioId === own).length}`
     const stageQuote = queryFacilityInstallation(state, {blueprintId: entry.stageInstallationId, targetFacilityId: action.stageFacilityId})
     const postQuote = newPost ? queryFacilityInstallation(state, {blueprintId: entry.postInstallationId!, targetFacilityId: postFacilityId!}) : null
-    if (!stageQuote.ok || postQuote && !postQuote.ok) throw new Error('The selected stage or Post cannot begin installation. Finish its current work first.')
-    if (!canAfford(state, quote.total).ok) throw new Error('There is not enough cash for the complete stage, capture and Post installation commitment.')
+    const installationRefusal = installationRefusalSentence([stageQuote, postQuote])
+    if (installationRefusal !== null) throw new Error(installationRefusal)
+    if (!canAfford(state, quote.total).ok) throw new Error(INSTALLATION_CASH_REFUSAL)
     let next = charge(state, equipment.cost, `technology-equipment:${id}`)
     const before = new Set(next.placement.facilities.map(p => p.projectId))
     next = commitFacilityInstallation(next, {blueprintId: entry.stageInstallationId, targetFacilityId: action.stageFacilityId})

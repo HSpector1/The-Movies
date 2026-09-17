@@ -1,0 +1,17 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/bridge-p13b-s5-adoption.test.ts (11 tests) 32337ms
+   ✓ requirement 1: laboratory.adoptions[] structured rows and per-row StudioAdoptionQuote > a committed lighting adoption appears on adoptions[] with technologyId/route/committedWeek/operationalWeek/components/equipmentAssetId/postFacilityId 7010ms
+   ✓ requirement 2: lighting rows are access-gated for presence and quote the exact 100,000 first-prototype total > no adopt-lighting-control-01-* row exists anywhere before lighting access is acquired 5747ms
+   ✓ requirement 3: sound rows keep P13A stage+Post pairing, existing-Post reuse at $0 > a second stage's sound row reuses the first stage's operational Post: reusedPostFacilityId set, the Post component existing/$0 4354ms
+   ✓ requirement 4: committing an adopt row through the bridge (engine-truth components, revision advance, stale refusal, row disappears) > commits exactly one adoption with the wire-quoted components, advances stateRevision, refuses the same intent at the old revision, and the committed stage's own row disappears 2027ms
+   ✓ per-technology stage rule: a stage with an adoption of one technology still offers the other, never the same one again > after committing sound on a stage, that stage's own sound row is gone but its lighting row is still offered 7363ms
+   ✓ requirement 5: plan-queue-adopt-<technologyId>-<stageFacilityId> companions never mint an adoption and follow the S4 reachable-hide rule > queues the stage-installation blueprint through queuePhysicalPlan, mints no adoption, and then hides itself once queued (duplicate-queue rule) 1602ms
+   ✓ requirement 6: refusal disclosure and player-safety on a row whose engine quote is refused > a sound row before access is acquired publishes the engine's own refusal/rejections, agrees with disabledReason, and the underlying action throws that exact text 4016ms
+
+ Test Files  1 passed (1)
+      Tests  11 passed (11)
+   Start at  08:11:30
+   Duration  35.67s (transform 2.15s, setup 0ms, collect 2.91s, tests 32.34s, environment 0ms, prepare 95ms)
+

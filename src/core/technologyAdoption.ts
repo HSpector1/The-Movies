@@ -15,8 +15,9 @@
 // commit (charges, P09 placements, the persisted row); it imports from here, and
 // nothing here imports it back.
 
+import { canAfford } from './employment.js'
 import { hasOperationalFacilityInstallation } from './facilityEffects.js'
-import { queryFacilityInstallation } from './placement.js'
+import { queryFacilityInstallation, type FacilityInstallationQuote } from './placement.js'
 import { technologyEntry, type TechnologyCatalogueEntry } from './technologyCatalogue.js'
 import { FACILITY_BLUEPRINTS } from './tuning.js'
 import type { GameState, StudioOperations } from './types.js'
@@ -102,7 +103,35 @@ export function adoptionRejections(state: GameState, studioId: string, request: 
   if (state.technology.adoptions.some(a => a.studioId === studioId && a.technologyId === entry.id && a.stageFacilityId === request.stageFacilityId)) {
     rejections.push(`This stage already has a ${entry.id} adoption commitment.`)
   }
+  // The commit path refuses a stage or Post whose body cannot begin the P09 installation (engaged by
+  // running work, unmet requirements, cash); the quote must say so with the same sentence, in the same
+  // order. Only the player's lot has P09 bodies: a rival's commercial purchase is a paper commitment at
+  // catalogue cost (S8 owns rival plant), so the query never applies to it.
+  if (rejections.length === 0 && studioId === state.hollywood?.playerStudioId) {
+    const stageQuote = queryFacilityInstallation(state, { blueprintId: entry.stageInstallationId, targetFacilityId: request.stageFacilityId })
+    const post = entry.postInstallationId === null ? null : resolvedPostFacilityId(state, studioId, request)
+    const newPost = post !== null && entry.postInstallationId !== null && !hasOperationalFacilityInstallation(state, post, entry.postInstallationId)
+    const postQuote = newPost ? queryFacilityInstallation(state, { blueprintId: entry.postInstallationId!, targetFacilityId: post! }) : null
+    const sentence = installationRefusalSentence([stageQuote, postQuote])
+    if (sentence !== null) rejections.push(sentence)
+  }
   return rejections
+}
+
+/** The commit path's own sentence for a stage or Post whose body cannot begin its installation. */
+export const INSTALLATION_ENGAGED_REFUSAL = 'The selected stage or Post cannot begin installation. Finish its current work first.'
+/** The commit path's own sentence when cash is the only obstacle to the complete commitment. */
+export const INSTALLATION_CASH_REFUSAL = 'There is not enough cash for the complete stage, capture and Post installation commitment.'
+
+/**
+ * Classifies refused P09 installation queries the way the commit path must report them:
+ * cash when `insufficientFunds` is the only rejection on every refused query, otherwise the
+ * body cannot begin its work (engaged, unmet requirements, wrong target). Null when every query is ok.
+ */
+export function installationRefusalSentence(quotes: readonly (FacilityInstallationQuote | null)[]): string | null {
+  const refused = quotes.filter((q): q is FacilityInstallationQuote => q !== null && !q.ok)
+  if (refused.length === 0) return null
+  return refused.every(q => q.rejections.length > 0 && q.rejections.every(r => r === 'insufficientFunds')) ? INSTALLATION_CASH_REFUSAL : INSTALLATION_ENGAGED_REFUSAL
 }
 
 type EquipmentPlan = {
@@ -193,7 +222,15 @@ export function adoptionQuote(state: GameState, request: AdoptionRequest): Adopt
       refusal: rejections[0]!, rejections }
   }
   const { components, reusedPostFacilityId, equipment } = adoptionComponents(state, studioId, request)
-  return { ok: true, components, total: componentTotal(components), reusedPostFacilityId,
+  const total = componentTotal(components)
+  // The commit checks the COMPLETE bill (equipment + physical work); the P09 query above priced the
+  // physical work alone. A cash-only shortfall on the whole bill is refused here with the commit's
+  // own sentence, and the bill stays published: it is real even when it cannot be paid today.
+  if (!canAfford(state, total).ok) {
+    return { ok: false, components, total, reusedPostFacilityId, reusedEquipmentAssetId: equipment.reusedEquipmentAssetId,
+      refusal: INSTALLATION_CASH_REFUSAL, rejections: [INSTALLATION_CASH_REFUSAL] }
+  }
+  return { ok: true, components, total, reusedPostFacilityId,
     reusedEquipmentAssetId: equipment.reusedEquipmentAssetId, refusal: null, rejections: [] }
 }
 

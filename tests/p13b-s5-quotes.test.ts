@@ -252,15 +252,23 @@ describe('P13B-S5 quotes and components per route (test 1)', () => {
     // Consume sound's entitlement on stage 1.
     state = applyActions(state, [{ kind: 'adoptSynchronizedSound', stageFacilityId: stage1, postFacilityId }])
 
+    // AMENDED 2026-09-17 (coordinator solvency correction): the shared Post is
+    // now `underConstruction` (6-week fit-out from this commit) — engaged for
+    // ANY quote naming it, sound's own later quote included. Advance to
+    // operational (fund lawfully first; measured, the world stays solvent
+    // through the fit-out at this cash level — fixture staging, not tuning)
+    // before taking either quote below, so neither reflects a stale engagement.
+    state = fundTo(state, 2_000_000)
+    state = advanceTo(state, state.market.tick + SOUND.deploymentWeeks)
+
     // Lighting's OWN entitlement on stage 2 is untouched by sound's consumption.
     const lightingQuote = adoptionQuote(state, { technologyId: LIGHTING.id, stageFacilityId: stage2 })
     const lightingEquipment = lightingQuote.components.find(c => c.kind === 'equipment')!
     expect(lightingEquipment.cost).toBe(0)
     expect(lightingEquipment.source).toBe('first-prototype')
 
-    // A further sound quote (hypothetically on the same stage 1, ignoring the
-    // duplicate-stage refusal for the purpose of reading only the equipment
-    // component's source/cost) reflects the ALREADY-CONSUMED entitlement.
+    // A further sound quote on stage 2 (the shared, now-operational Post
+    // reused) reflects the ALREADY-CONSUMED entitlement.
     const secondSoundQuote = adoptionQuote(state, { technologyId: SOUND.id, stageFacilityId: stage2, postFacilityId })
     const secondSoundEquipment = secondSoundQuote.components.find(c => c.kind === 'equipment')!
     expect(secondSoundEquipment.source).toBe('later-inventor')
@@ -322,8 +330,110 @@ describe('P13B-S5 quotes and components per route (test 2): the quote refuses an
     expect(() => applyActions(state, [{ kind: 'adoptTechnology', technologyId: LIGHTING.id, stageFacilityId: stage1 } as never]))
       .toThrow(engagedRefusal)
 
-    const completed = advanceTo(state, state.market.tick + SOUND.deploymentWeeks)
+    // AMENDED 2026-09-17 (coordinator solvency correction): fund lawfully
+    // immediately before the post-completion quote. Measured: by the time the
+    // fit-out completes the world has burned its own cash on overhead and the
+    // physical commitment above, which would otherwise refuse this quote on
+    // cash alone and mask the engagement clause this case actually tests.
+    const completed = fundTo(advanceTo(state, state.market.tick + SOUND.deploymentWeeks), 1_000_000)
     const completedQuote = adoptionQuote(completed, { technologyId: LIGHTING.id, stageFacilityId: stage1 })
     expect(completedQuote.ok).toBe(true)
+  })
+
+  // P13B-S5 NEW RED (coordinator adjudication, 2026-09-17). `adoptionRejections`'s
+  // engagement clause (src/core/technologyAdoption.ts ~107-114) pushes
+  // `INSTALLATION_ENGAGED_REFUSAL` for ANY `!ok` `queryFacilityInstallation`
+  // result, including a pure `insufficientFunds` rejection that has nothing to
+  // do with engagement. The commit path (src/core/technology.ts ~378) throws
+  // the SAME wrong sentence one line before its own `canAfford` check, for the
+  // identical reason. A cash-only obstacle must be reported with the commit's
+  // OWN cash sentence ('There is not enough cash for the complete stage,
+  // capture and Post installation commitment.', technology.ts ~379), by quote
+  // and by commit alike. This is the RED: today both misreport it as the
+  // engagement sentence.
+  it('a cash-only obstacle is reported as the commit\'s cash sentence, by quote and commit alike', () => {
+    // Same combined-world construction as the case above (duplicated-not-shared
+    // by this file's own convention): sound on Lab 1, lighting on Lab 2, both to
+    // inventor completion; sound then committed on stage1 and advanced to
+    // operational so NO engagement holder remains there — the only obstacle
+    // left for a lighting quote on that same stage is cash.
+    const { state: world, laboratoryFacilityIds: [lab1, lab2], candidateIds } = p13bTwoLabWorld()
+    let state = fundTo(world, 5_000_000)
+    state = applyActions(state, [{ kind: 'assignResearchScientist', laboratoryFacilityId: lab1, scientistId: candidateIds[0]!, technologyId: 'synchronized-sound' }])
+    state = applyActions(state, candidateIds.slice(1, 5).map(scientistId =>
+      ({ kind: 'assignResearchScientist' as const, laboratoryFacilityId: lab2, scientistId, technologyId: 'lighting-control-01' as const })))
+    state = begin(state, 'synchronized-sound', 10_000)
+    state = begin(state, 'lighting-control-01', 40_000)
+    state = runToCompletion(state, 'synchronized-sound', 900)
+    state = runToCompletion(state, 'lighting-control-01', 900)
+
+    const stage1 = state.operations.facilities.find(f => f.capability === 'soundstage')!.id
+    const postFacilityId = state.operations.facilities.find(f => f.capability === 'post')!.id
+    state = applyActions(state, [{ kind: 'adoptSynchronizedSound', stageFacilityId: stage1, postFacilityId }])
+    state = advanceTo(state, state.market.tick + SOUND.deploymentWeeks) // operational; no holder remains
+
+    // Drain the studio lawfully to below the $100,000 lighting commitment — the
+    // only obstacle left for a lighting quote on stage1 is cash.
+    state = fundTo(state, 50_000)
+
+    const cashRefusal = 'There is not enough cash for the complete stage, capture and Post installation commitment.'
+    const quote = adoptionQuote(state, { technologyId: LIGHTING.id, stageFacilityId: stage1 })
+    // MEASURED RED (2026-09-17): must go green only by giving the engine its
+    // own cash-specific clause, never by loosening this assertion.
+    expect(quote.ok).toBe(false)
+    expect(quote.refusal).toBe(cashRefusal)
+    expect(quote.rejections).toContain(cashRefusal)
+
+    expect(() => applyActions(state, [{ kind: 'adoptTechnology', technologyId: LIGHTING.id, stageFacilityId: stage1 } as never]))
+      .toThrow(cashRefusal)
+  })
+
+  // P13B-S5 NEW RED (independent-test-engineer, 2026-09-17). `adoptionRejections`'s
+  // engagement/cash check (src/core/technologyAdoption.ts ~107-114) only prices
+  // whether the P09 body itself — the physical installation alone — can begin,
+  // via `queryFacilityInstallation`'s own cash check on the INSTALLATION cost.
+  // The commit's own gate (src/core/technology.ts ~382, `canAfford(state,
+  // quote.total)`) covers the WHOLE bill: equipment + installation together. So
+  // when cash covers the physical work alone but not the complete total, the
+  // pre-check query is satisfied (`installationRefusalSentence` sees no
+  // refusal), `adoptionRejections` stays empty, and `adoptionQuote` reports
+  // `ok: true` — while the commit, one call later, throws the cash sentence on
+  // its own separate total-level check. MEASURED (this file, 2026-09-17): with
+  // a later-inventor lighting adoption (equipment $150,000, physical $100,000,
+  // total $250,000) and cash funded to exactly $120,000 — enough for the
+  // $100,000 physical work alone, not for the $250,000 total —
+  // `adoptionQuote(...).ok` is `true` today. This is the RED: the quote must
+  // refuse a total-level shortfall with the commit's own cash sentence, and
+  // must still publish the real components/total on that refusal (the bill is
+  // real even when unaffordable), never by loosening these assertions.
+  it('a total-level cash shortfall is refused by quote and commit alike', () => {
+    const { state: ready } = lightingInventorReady()
+    const stage1 = ready.operations.facilities.find(f => f.capability === 'soundstage')!.id
+    let state = applyActions(ready, [{ kind: 'adoptTechnology', technologyId: LIGHTING.id, stageFacilityId: stage1 } as never])
+    state = advanceTo(state, state.market.tick + LIGHTING.deploymentWeeks) // stage1's own adoption now operational; its equipment is held, not reusable
+    const stage2 = state.operations.facilities.find(f => f.capability === 'soundstage' && f.id !== stage1)!.id
+
+    // Physical work alone ($100,000) is affordable; the complete total
+    // (equipment $150,000 later-inventor + physical $100,000 = $250,000) is not.
+    state = fundTo(state, 120_000)
+
+    const cashRefusal = 'There is not enough cash for the complete stage, capture and Post installation commitment.'
+    const quote = adoptionQuote(state, { technologyId: LIGHTING.id, stageFacilityId: stage2 })
+    expect(quote.ok).toBe(false)
+    expect(quote.refusal).toBe(cashRefusal)
+    expect(quote.rejections).toContain(cashRefusal)
+    // The bill is real even when unaffordable: components/total still published.
+    expect(quote.total).toBe(250_000)
+    const equipment = quote.components.find(c => c.kind === 'equipment')!
+    expect(equipment.cost).toBe(150_000)
+    expect(equipment.source).toBe('later-inventor')
+
+    expect(() => applyActions(state, [{ kind: 'adoptTechnology', technologyId: LIGHTING.id, stageFacilityId: stage2 } as never]))
+      .toThrow(cashRefusal)
+
+    const funded = fundTo(state, 300_000)
+    const fundedQuote = adoptionQuote(funded, { technologyId: LIGHTING.id, stageFacilityId: stage2 })
+    expect(fundedQuote.ok).toBe(true)
+    expect(fundedQuote.total).toBe(250_000)
   })
 })

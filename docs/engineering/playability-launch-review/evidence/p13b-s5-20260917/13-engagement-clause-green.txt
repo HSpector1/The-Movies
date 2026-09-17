@@ -1,0 +1,9 @@
+engagement clause GREEN check 2026-09-17T05:59:49Z on 6429ea0 + working tree (src/core/technologyAdoption.ts adoptionRejections clause)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯
+
+ Test Files  2 failed (2)
+      Tests  3 failed | 17 passed (20)
+   Start at  07:59:51
+   Duration  94.20s (transform 3.00s, setup 0ms, collect 4.15s, tests 89.12s, environment 1ms, prepare 224ms)
+

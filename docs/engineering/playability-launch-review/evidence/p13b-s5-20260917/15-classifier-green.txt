@@ -1,0 +1,24 @@
+classifier GREEN check 2026-09-17T06:13:58Z on 6429ea0 + working tree (installationRefusalSentence in quote clause and commit path)
+ ✓ |core| tests/bridge-p13b-s5-adoption.test.ts > P13B-S5-T4 bridge adoption wire: projection bump (36 -> 37) > bumps PROJECTION_VERSION to 37 and its schema $id / x-project-studio.projectionVersion m
+ ✓ |core| tests/bridge-p13b-s5-adoption.test.ts > P13B-S5-T4 bridge adoption wire: projection bump (36 -> 37) > AVAILABLE_INTENT_KINDS gains the adoptTechnology kind, distinct from researchAction/inst
+ ✓ |core| tests/bridge-p13b-s5-adoption.test.ts > requirement 1: laboratory.adoptions[] structured rows and per-row StudioAdoptionQuote > a committed lighting adoption appears on adoptions[] with tech
+ ✓ |core| tests/bridge-p13b-s5-adoption.test.ts > requirement 1: laboratory.adoptions[] structured rows and per-row StudioAdoptionQuote > the adopt-lighting-control-01-<stage> action row carries inten
+ ✓ |core| tests/bridge-p13b-s5-adoption.test.ts > requirement 2: lighting rows are access-gated for presence and quote the exact 100,000 first-prototype total > no adopt-lighting-control-01-* row exis
+ ✓ |core| tests/bridge-p13b-s5-adoption.test.ts > requirement 2: lighting rows are access-gated for presence and quote the exact 100,000 first-prototype total > once lighting access is acquired (first
+ ✓ |core| tests/bridge-p13b-s5-adoption.test.ts > requirement 3: sound rows keep P13A stage+Post pairing, existing-Post reuse at $0 > a second stage's sound row reuses the first stage's operational Po
+ ✓ |core| tests/bridge-p13b-s5-adoption.test.ts > requirement 4: committing an adopt row through the bridge (engine-truth components, revision advance, stale refusal, row disappears) > commits exactly
+ ✓ |core| tests/bridge-p13b-s5-adoption.test.ts > per-technology stage rule: a stage with an adoption of one technology still offers the other, never the same one again > after committing sound on a s
+ ✓ |core| tests/bridge-p13b-s5-adoption.test.ts > requirement 5: plan-queue-adopt-<technologyId>-<stageFacilityId> companions never mint an adoption and follow the S4 reachable-hide rule > queues the 
+ ✓ |core| tests/bridge-p13b-s5-adoption.test.ts > requirement 6: refusal disclosure and player-safety on a row whose engine quote is refused > a sound row before access is acquired publishes the engin
+ ✓ |core| tests/p13b-s5-quotes.test.ts > P13B-S5 quotes and components per route (test 1) > first inventor sound: access $0, equipment $0 first-prototype, physical $975k = stage + Post components 5567
+ ✓ |core| tests/p13b-s5-quotes.test.ts > P13B-S5 quotes and components per route (test 1) > second inventor sound installation on another stage while the first holds its asset: equipment $225k later-i
+ ✓ |core| tests/p13b-s5-quotes.test.ts > P13B-S5 quotes and components per route (test 1) > commercial sound: access $200k charged once at purchase, equipment $300k, physical $975k 5113ms
+ ✓ |core| tests/p13b-s5-quotes.test.ts > P13B-S5 quotes and components per route (test 1) > lighting inventor first: access $0, equipment $0, site $50k/2w + install $50k/2w, no Post component of any k
+ ✓ |core| tests/p13b-s5-quotes.test.ts > P13B-S5 quotes and components per route (test 1) > lighting later inventor: equipment $150k + site/install physical $100k, still no Post 6402ms
+ ✓ |core| tests/p13b-s5-quotes.test.ts > P13B-S5 quotes and components per route (test 1) > lighting commercial at 936: access $100k charged once at purchase, equipment $200k commercial, physical $100
+ ✓ |core| tests/p13b-s5-quotes.test.ts > P13B-S5 quotes and components per route (test 1) > a lighting adoption with a postFacilityId is refused at commit (the requirement pinned unambiguously at the 
+ ✓ |core| tests/p13b-s5-quotes.test.ts > P13B-S5 quotes and components per route (test 1) > the first-prototype entitlement fires exactly once per (studio, technology, project) and never blocks a diff
+ ✓ |core| tests/p13b-s5-quotes.test.ts > P13B-S5 quotes and components per route (test 2): the quote refuses an engaged stage with the commit’s own sentence > a stage engaged by one technology’s own u
+ ✓ |core| tests/p13b-s5-quotes.test.ts > P13B-S5 quotes and components per route (test 2): the quote refuses an engaged stage with the commit’s own sentence > a cash-only obstacle is reported as the c
+ Test Files  2 passed (2)
+      Tests  21 passed (21)
