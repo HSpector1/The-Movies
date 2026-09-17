@@ -1,5 +1,186 @@
 {
   "$defs": {
+    "StudioActionQuote": {
+      "additionalProperties": false,
+      "properties": {
+        "components": {
+          "items": {
+            "$ref": "#/$defs/StudioActionQuoteComponent"
+          },
+          "type": "array"
+        },
+        "refund": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "refusal": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "rejections": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "restoration": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StudioCancellationRestoration"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "reusedEquipmentAssetId": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "reusedPostFacilityId": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "total": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "components",
+        "refusal",
+        "rejections"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioActionQuote"
+    },
+    "StudioActionQuoteComponent": {
+      "additionalProperties": false,
+      "properties": {
+        "cost": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "equipmentAssetId": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "kind": {
+          "anyOf": [
+            {
+              "enum": [
+                "access",
+                "equipment",
+                "site",
+                "installation",
+                "capture",
+                "post"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "label": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "paid": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "placementId": {
+          "anyOf": [
+            {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "refunded": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "source": {
+          "enum": [
+            "commercial",
+            "first-prototype",
+            "later-inventor",
+            "existing",
+            "physical"
+          ],
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "completed",
+            "inProgress",
+            "unstarted"
+          ],
+          "type": "string"
+        },
+        "weeks": {
+          "anyOf": [
+            {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "cost",
+        "kind",
+        "label",
+        "weeks"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioActionQuoteComponent"
+    },
     "StudioAdoptionComponent": {
       "additionalProperties": false,
       "properties": {
@@ -81,75 +262,21 @@
       "type": "object",
       "x-csharp-name": "StudioAdoptionComponent"
     },
-    "StudioAdoptionQuote": {
-      "additionalProperties": false,
-      "properties": {
-        "components": {
-          "items": {
-            "$ref": "#/$defs/StudioAdoptionComponent"
-          },
-          "type": "array"
-        },
-        "refusal": {
-          "anyOf": [
-            {
-              "minLength": 1,
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "rejections": {
-          "items": {
-            "minLength": 1,
-            "type": "string"
-          },
-          "type": "array"
-        },
-        "reusedEquipmentAssetId": {
-          "anyOf": [
-            {
-              "minLength": 1,
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "reusedPostFacilityId": {
-          "anyOf": [
-            {
-              "minLength": 1,
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "total": {
-          "maximum": 2147483647,
-          "minimum": 0,
-          "type": "integer"
-        }
-      },
-      "required": [
-        "components",
-        "refusal",
-        "rejections",
-        "reusedEquipmentAssetId",
-        "reusedPostFacilityId",
-        "total"
-      ],
-      "type": "object",
-      "x-csharp-name": "StudioAdoptionQuote"
-    },
     "StudioAdoptionRow": {
       "additionalProperties": false,
       "properties": {
+        "cancelledWeek": {
+          "anyOf": [
+            {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
         "committedWeek": {
           "maximum": 2147483647,
           "minimum": 0,
@@ -211,6 +338,7 @@
         }
       },
       "required": [
+        "cancelledWeek",
         "committedWeek",
         "components",
         "equipmentAssetId",
@@ -359,7 +487,7 @@
           "$ref": "#/$defs/StudioProjectionBundle"
         },
         "snapshotVersion": {
-          "const": 38,
+          "const": 39,
           "type": "integer"
         },
         "stateDigest": {
@@ -476,7 +604,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 38,
+          "const": 39,
           "type": "integer"
         },
         "stateDigest": {
@@ -551,7 +679,8 @@
             "physicalPlanAction",
             "installationAction",
             "adoptTechnology",
-            "productionSetupAction"
+            "productionSetupAction",
+            "cancellationAction"
           ],
           "type": "string"
         },
@@ -990,7 +1119,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 38,
+          "const": 39,
           "type": "integer"
         },
         "stateDigest": {
@@ -1069,7 +1198,7 @@
           "$ref": "#/$defs/StudioProjectionBundle"
         },
         "snapshotVersion": {
-          "const": 38,
+          "const": 39,
           "type": "integer"
         },
         "stateDigest": {
@@ -1361,7 +1490,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 38,
+          "const": 39,
           "type": "integer"
         },
         "stateDigest": {
@@ -1575,6 +1704,32 @@
       ],
       "type": "object",
       "x-csharp-name": "StudioCampaignSummary"
+    },
+    "StudioCancellationRestoration": {
+      "additionalProperties": false,
+      "properties": {
+        "blueprintId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "cost": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "weeks": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "blueprintId",
+        "cost",
+        "weeks"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioCancellationRestoration"
     },
     "StudioCastingActiveSlateSnapshot": {
       "additionalProperties": false,
@@ -4245,6 +4400,61 @@
       "type": "object",
       "x-csharp-name": "StudioDevelopmentSnapshot"
     },
+    "StudioEquipmentAsset": {
+      "additionalProperties": false,
+      "properties": {
+        "acquiredWeek": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "cost": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "holderAdoptionId": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "source": {
+          "enum": [
+            "first-prototype",
+            "later-inventor",
+            "commercial"
+          ],
+          "type": "string"
+        },
+        "technologyId": {
+          "enum": [
+            "synchronized-sound",
+            "lighting-control-01"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "acquiredWeek",
+        "cost",
+        "holderAdoptionId",
+        "id",
+        "source",
+        "technologyId"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioEquipmentAsset"
+    },
     "StudioFilmResultSnapshot": {
       "additionalProperties": false,
       "properties": {
@@ -4816,7 +5026,8 @@
         "status": {
           "enum": [
             "underConstruction",
-            "operational"
+            "operational",
+            "cancelled"
           ],
           "type": "string"
         },
@@ -7936,7 +8147,7 @@
         "quote": {
           "anyOf": [
             {
-              "$ref": "#/$defs/StudioAdoptionQuote"
+              "$ref": "#/$defs/StudioActionQuote"
             },
             {
               "type": "null"
@@ -7986,6 +8197,12 @@
         "commercialLabel": {
           "minLength": 1,
           "type": "string"
+        },
+        "equipment": {
+          "items": {
+            "$ref": "#/$defs/StudioEquipmentAsset"
+          },
+          "type": "array"
         },
         "estimateLabel": {
           "minLength": 1,
@@ -8059,6 +8276,7 @@
         "budgetLabel",
         "buildingId",
         "commercialLabel",
+        "equipment",
         "estimateLabel",
         "installationLabel",
         "progressLabel",
@@ -14428,7 +14646,7 @@
       "x-csharp-name": "StudioWrapReceiptSnapshot"
     }
   },
-  "$id": "urn:project-studio:bridge:protocol-4:projection-38",
+  "$id": "urn:project-studio:bridge:protocol-4:projection-39",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "description": "Canonical wire contract owned by the authoritative TypeScript runtime.",
   "oneOf": [
@@ -14484,7 +14702,7 @@
   "title": "Project Studio TypeScript to Unity Bridge",
   "x-project-studio": {
     "contractId": "project-studio-current-game-unity-bridge",
-    "projectionVersion": 38,
+    "projectionVersion": 39,
     "protocolVersion": 4,
     "routes": {
       "command": "POST /command",

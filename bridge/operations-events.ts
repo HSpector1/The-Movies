@@ -43,7 +43,7 @@ import {
   TIER_D_STUDIO_EVENT_KINDS,
 } from '../src/core/studioEvents.ts'
 import { studioHistoryChronology } from '../src/core/studioHistory.ts'
-import { TUNING } from '../src/core/tuning.ts'
+import { isRestorationBlueprint, TUNING } from '../src/core/tuning.ts'
 import { findConcept } from '../ui/src/engine/adapter.ts'
 import type {
   GameState,
@@ -274,10 +274,21 @@ export function operationsEventsProjection(state: GameState): BridgeOperationsEv
       case 'constructionCompleted': {
         const name = buildingName(row.placementId)
         const placed = placementOf(row.placementId)
+        // P13B-S6: a RESTORATION is not a building opening on the lot — it is the job
+        // that puts an existing body back after a cancellation, and it reuses this same
+        // generic completion kind rather than inventing one. Its sentence says what
+        // actually happened, and names the body it gave back where the body is known.
+        const restored = placed !== undefined && isRestorationBlueprint(placed.blueprintId)
+          ? facilityName(placed.installation?.targetFacilityId ?? '')
+          : null
         return {
-          summary: name === null
-            ? 'A building opens on the lot.'
-            : `${name} opens on the lot.`,
+          summary: restored !== null
+            ? `${restored} is back in service: ${name ?? 'the restoration'} is complete.`
+            : placed !== undefined && isRestorationBlueprint(placed.blueprintId)
+              ? `${name ?? 'A restoration'} is complete and the building is back in service.`
+              : name === null
+                ? 'A building opens on the lot.'
+                : `${name} opens on the lot.`,
           subject: { kind: 'building', id: row.placementId },
           route: {
             filmId: null,

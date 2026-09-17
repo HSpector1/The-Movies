@@ -66,6 +66,7 @@ import {
 import { canonicalJson } from './schema/canonical.ts'
 import { snapshotBuildContextFor } from './snapshot-build-context.ts'
 import {industryPage} from './industry.ts'
+import {isCancellationAction} from './cancellation.ts'
 import {laboratoryActionSpecs,type LaboratoryIntent} from './laboratory.ts'
 import {isPhysicalPlanAction,planActionSpecs,type PlanIntent} from './plans.ts'
 import {applyOfficeAction,officeActionSpecs,type OfficeIntent} from './office.ts'
@@ -1101,7 +1102,7 @@ function resolveLaboratoryIntents(state: GameState): Array<IntentApplication & L
   const stateDigest = authoritativeDigest(state)
   return laboratoryActionSpecs(state).filter(spec => spec.enabled).map(spec => ({
     spec,
-    option: option(stateDigest, {kind:isPhysicalPlanAction(spec.action)?'physicalPlanAction':spec.action.kind==='adoptTechnology'||spec.action.kind==='adoptSynchronizedSound'?'adoptTechnology':'researchAction',label:spec.label,detail:spec.detail,
+    option: option(stateDigest, {kind:isCancellationAction(spec.action)?'cancellationAction':isPhysicalPlanAction(spec.action)?'physicalPlanAction':spec.action.kind==='adoptTechnology'||spec.action.kind==='adoptSynchronizedSound'?'adoptTechnology':'researchAction',label:spec.label,detail:spec.detail,
       projectId:'projectId' in spec.action?spec.action.projectId:null,castingSessionId:null,
       productionId:'productionId' in spec.action?spec.action.productionId:null}, spec.action),
     apply: current => caught(() => ({ok:true,next:applyActions(current,[spec.action])})),
@@ -1113,8 +1114,8 @@ function resolvePlanIntents(state: GameState): Array<IntentApplication & PlanInt
   const stateDigest = authoritativeDigest(state)
   return planActionSpecs(state).filter(spec => spec.enabled).map(spec => ({
     spec,
-    option: option(stateDigest, {kind:'physicalPlanAction',label:spec.label,detail:spec.detail,
-      projectId:null,castingSessionId:null,productionId:null}, spec.action),
+    option: option(stateDigest, {kind:isCancellationAction(spec.action)?'cancellationAction':'physicalPlanAction',label:spec.label,detail:spec.detail,
+      projectId:'projectId' in spec.action?spec.action.projectId:null,castingSessionId:null,productionId:null}, spec.action),
     apply: current => caught(() => ({ok:true,next:applyActions(current,[spec.action])})),
   }))
 }
@@ -1129,8 +1130,8 @@ function resolveOfficeIntents(state: GameState): Array<IntentApplication & Offic
   const stateDigest = authoritativeDigest(state)
   return officeActionSpecs(state).filter(spec => spec.enabled).map(spec => ({
     spec,
-    option: option(stateDigest, {kind:isPhysicalPlanAction(spec.action)?'physicalPlanAction':'installationAction',label:spec.label,detail:spec.detail,
-      projectId:null,castingSessionId:null,productionId:null}, spec.action),
+    option: option(stateDigest, {kind:isCancellationAction(spec.action)?'cancellationAction':isPhysicalPlanAction(spec.action)?'physicalPlanAction':'installationAction',label:spec.label,detail:spec.detail,
+      projectId:'projectId' in spec.action?spec.action.projectId:null,castingSessionId:null,productionId:null}, spec.action),
     apply: current => caught(() => ({ok:true,next:applyOfficeAction(current,spec.action)})),
   }))
 }

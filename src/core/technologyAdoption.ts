@@ -55,14 +55,27 @@ export function installationCatalogueCost(entry: TechnologyCatalogueEntry): numb
     .reduce((total, id) => total + (id === null ? 0 : FACILITY_BLUEPRINTS.find(b => b.id === id)?.capex ?? 0), 0)
 }
 
-/** The component kind an authored P09 installation component carries. An unmapped label is a gap, not a default. */
-function physicalKind(label: string): TechnologyAdoptionComponent['kind'] {
+/**
+ * The component kind an authored P09 installation component carries, or NULL for a
+ * label this classifier has no authored mapping for. The null is the gap itself —
+ * P13B-S6's bridge publishes it verbatim on a cancellation receipt line (an Office
+ * conversion authors one component whose label names no physical class) rather than
+ * defaulting it to a kind the authored text never claimed.
+ */
+export function physicalKindOrNull(label: string): TechnologyAdoptionComponent['kind'] | null {
   const text = label.toLowerCase()
   if (text.includes('site adaptation')) return 'site'
   if (text.includes('capture package')) return 'capture'
   if (text.includes('post fit-out')) return 'post'
   if (text.includes('installation')) return 'installation'
-  throw new Error(`Technology adoption: no component kind is authored for "${label}".`)
+  return null
+}
+
+/** The same classifier where an unmapped label is a gap, not a default: an adoption row must carry a kind. */
+function physicalKind(label: string): TechnologyAdoptionComponent['kind'] {
+  const kind = physicalKindOrNull(label)
+  if (kind === null) throw new Error(`Technology adoption: no component kind is authored for "${label}".`)
+  return kind
 }
 
 function operationsOf(state: GameState, studioId: string): StudioOperations | undefined {

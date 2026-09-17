@@ -44,6 +44,11 @@ export const AVAILABLE_INTENT_KINDS = [
   // enters Shooting. Not research, not a plan and not an installation: it moves
   // that picture's own preparation schedule and nothing else.
   'productionSetupAction',
+  // P13B-S6: cancelling ONE committed installation — an adoption's remaining physical
+  // work, a running Office conversion, or a started plan's own placement. Its own kind:
+  // a cancellation returns capital and can owe a restoration job, which is neither
+  // research, nor a plan, nor an installation commit.
+  'cancellationAction',
 ] as const
 
 export const StudioBridgeIntentOption = object('StudioBridgeIntentOption', {

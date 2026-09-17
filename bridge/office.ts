@@ -7,16 +7,19 @@ import {
   developmentStandard, facilityOffline, highestOperationalDevelopmentStandard,
   isOfficeConversionBlueprint, standardRank, type DevelopmentStandard,
 } from '../src/core/officeConversion.js'
+import { cancellationQuote } from '../src/core/installationCancellation.js'
 import { resolvedTargetFacilityId, studioPhysicalPlans, type PhysicalPlanAction } from '../src/core/physicalPlans.js'
 import {
   blueprintById, commitFacilityInstallation, queryFacilityInstallation,
   type FacilityInstallationQuote,
 } from '../src/core/placement.js'
 import type { GameState } from '../src/core/types.js'
+import { cancellationDetail, cancellationQuoteRow, isCancellationAction, type CancellationAction } from './cancellation.ts'
 import type { AvailableIntent } from './protocol.ts'
 import type { IndustryPage } from './schema/industry-schema.ts'
 
 type OfficePage = NonNullable<IndustryPage['office']>
+type ActionQuoteRow = NonNullable<OfficePage['actions'][number]['quote']>
 type ConversionRow = OfficePage['conversions'][number]
 type ConversionBlueprintId = ConversionRow['blueprintId']
 
@@ -33,7 +36,9 @@ export type OfficeConversionCommit = {
   blueprintId: ConversionBlueprintId
   targetFacilityId: string
 }
-export type OfficeAction = OfficeConversionCommit | PhysicalPlanAction
+// P13B-S6: a running conversion can be STOPPED from this page. `cancelInstallation` is
+// an ordinary engine action, so it needs no bridge-authored commit descriptor.
+export type OfficeAction = OfficeConversionCommit | PhysicalPlanAction | CancellationAction
 export type OfficeActionSpec = {
   id: string
   /** The body this row acts on: the page publishes only its own building's rows. */
@@ -43,6 +48,8 @@ export type OfficeActionSpec = {
   detail: string
   enabled: boolean
   disabledReason: string | null
+  /** P13B-S6: the engine's own `cancellationQuote` on a `cancel-*` row; null on every conversion verb. */
+  quote: ActionQuoteRow | null
 }
 export type OfficeIntent = { spec: OfficeActionSpec; option: AvailableIntent }
 
@@ -220,9 +227,11 @@ export function officeActionSpecs(state: GameState): readonly OfficeActionSpec[]
   const specs: OfficeActionSpec[] = []
   if (!state.hollywood || state.founding !== null || !economyEngaged(state)) return specs
   const own = state.hollywood.playerStudioId
-  function add(id: string, facilityId: string, action: OfficeAction, label: string, detail: string, refusal: string | null = null) {
+  function add(id: string, facilityId: string, action: OfficeAction, label: string, detail: string, refusal: string | null = null, quote: ActionQuoteRow | null = null) {
     let disabledReason = refusal
-    if (disabledReason === null) {
+    // P13B-S6: a cancel row is priced and refused by `cancellationQuote` alone (see
+    // bridge/laboratory.ts's own note) — its detail already states the money.
+    if (disabledReason === null && !isCancellationAction(action)) {
       try {
         const next = applyOfficeAction(state, action)
         if (next === state) throw new Error('This decision is not currently available.')
@@ -230,7 +239,7 @@ export function officeActionSpecs(state: GameState): readonly OfficeActionSpec[]
         detail += ` ${money(paid)} charged now. Cash after this decision: ${money(next.studio.cash)}.`
       } catch (error) { disabledReason = (error as Error).message }
     }
-    specs.push({ id, facilityId, action, label, detail, enabled: disabledReason === null, disabledReason })
+    specs.push({ id, facilityId, action, label, detail, enabled: disabledReason === null, disabledReason, quote })
   }
   for (const facilityId of developmentBodyFacilityIds(state)) {
     for (const conversion of CONVERSIONS) {
@@ -256,6 +265,22 @@ export function officeActionSpecs(state: GameState): readonly OfficeActionSpec[]
         `with the building closed throughout, then ${money(row.weeklyOperatingCost)}/week while it works to standard ${row.toStandard}. ` +
         'Nothing is reserved until the plan starts — no cash, capacity or engagement moves while it waits — and the plan is quoted again at each weekly boundary. ' +
         `${money(row.cost)} is the approved ceiling; a changed quote is held for your review.`)
+    }
+    // P13B-S6: one cancel row per installation still RUNNING on this body. The ENGINE
+    // decides which: `cancellationQuote` refuses a completed record, an already-cancelled
+    // one and a restoration job, so this page never has to restate any of those three laws
+    // — which is also why a restoration, the one installation the player cannot stop,
+    // publishes no row here even while it is closing the building.
+    for (const placed of state.placement.facilities) {
+      if (placed.installation?.targetFacilityId !== facilityId) continue
+      const quote = cancellationQuote(state, { projectId: placed.projectId })
+      if (!quote.ok) continue
+      const row = cancellationQuoteRow(state, { projectId: placed.projectId })
+      add(`cancel-${placed.projectId}`, facilityId, { kind: 'cancelInstallation', projectId: placed.projectId },
+        `Cancel ${(blueprintById(placed.blueprintId)?.name ?? placed.blueprintId).toLowerCase()}`,
+        cancellationDetail(state, row) +
+        ' This building keeps the development standard it worked to before the conversion was committed.',
+        quote.refusal, row)
     }
   }
   quotes.set(state, specs)
@@ -306,8 +331,9 @@ export function officePage(state: GameState, facilityId: string | null, intents:
       enabled: spec.enabled && enabled.has(spec.id),
       disabledReason: spec.disabledReason ?? (enabled.has(spec.id) ? null : 'Refresh this building to review the current decision.'),
       intent: enabled.get(spec.id) ?? null,
-      // P13B-S5: the shared action row's adoption quote. An office conversion never carries one.
-      quote: null,
+      // P13B-S5/S6: the shared action row's quote. An office conversion never carries one;
+      // a P13B-S6 `cancel-*` row carries the engine's own cancellation quote.
+      quote: spec.quote,
     })),
   } }
 }

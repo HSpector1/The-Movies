@@ -90,7 +90,26 @@ export const PROTOCOL_VERSION = 4 as const
 // `adoptTechnology` intent kind. A refused adopt row is still published with the engine's own
 // `rejections`/`refusal`; `postFacilityId` is null exactly when the technology has no Post
 // component. Additive only; protocol stays 4.
-export const PROJECTION_VERSION = 38 as const
+//
+// PROJECTION 39 (P13B-S6): installation cancellation reaches the wire. The
+// `cancel-adoption-<adoptionId>` row on the Laboratory page and the
+// `cancel-<projectId>` rows on the Office and plans pages each carry the engine's
+// own `cancellationQuote` in the shared action-row `quote` member, plus the
+// `cancellationAction` intent kind, `cancelledWeek` on every adoption row, the
+// studio's `equipment[]` beside `adoptions[]`, and the third `cancelled` placement
+// status wherever an INSTALLATION record is published (the lot views stay two-value
+// by construction: they carry bodies, which can never be cancelled).
+//
+// NOT purely additive at ONE site, and deliberately so: the action row's `quote` now
+// references `StudioActionQuote`/`StudioActionQuoteComponent`, which REPLACE
+// `StudioAdoptionQuote` and carry each verb's own members as OPTIONAL properties. A
+// discriminated union of the two quote shapes is what this would otherwise be, and the
+// C# contract generator refuses an object union without a shared required const/enum
+// discriminator (CF08) — adding one to the adoption arm would have changed the
+// projection-37 adopt-row shape itself. Nothing is defaulted: a `cancel-*` row simply
+// omits `total`/`reusedPostFacilityId`/`reusedEquipmentAssetId`, and an `adopt-*` row
+// omits `refund`/`restoration`. Protocol stays 4.
+export const PROJECTION_VERSION = 39 as const
 
 const nonEmptyText = () => text({ minLength: 1 })
 const nonNegativeInteger = () => integer({ minimum: 0 })
@@ -2327,7 +2346,11 @@ const StudioFinanceEmployee = object('StudioFinanceEmployee', {
 })
 const StudioFinanceFacility = object('StudioFinanceFacility', {
   placementId: nonNegativeInteger(), buildingId: nonEmptyText(), facilityId: nonEmptyText(), projectId: nonEmptyText(),
-  name: nonEmptyText(), status: enumeration(['underConstruction','operational']), completesWeek: nonNegativeInteger(),
+  name: nonEmptyText(),
+  // P13B-S6: this row publishes EVERY placement record, installations included, so it
+  // carries the engine's third `PlacementStatus`. The lot views stay two-value by
+  // construction: `PlacedFacilityView` filters to bodies, which can never be cancelled.
+  status: enumeration(['underConstruction','operational','cancelled']), completesWeek: nonNegativeInteger(),
   weeklyOperatingCost: number(), chargedNextAdvance: number(), capacity: nonNegativeInteger(), capability: nullable(text()), onsetLine: nonEmptyText(),
 })
 const StudioFinanceFilm = object('StudioFinanceFilm', {

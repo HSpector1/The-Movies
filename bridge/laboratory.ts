@@ -9,28 +9,33 @@ import { TUNING } from '../src/core/tuning.js'
 import { occupiedSeats, playerTechnologyAccess, PROJECT_UNIT, researchCandidates, researchWeekQuote, SYNCHRONIZED_SOUND, weeklyResearchPayroll, RESEARCH_SCIENTISTS_PER_STUDIO } from '../src/core/technology.js'
 import type { ResearchWeekQuote } from '../src/core/technology.js'
 import { TECHNOLOGY_CATALOGUE, technologyEntry } from '../src/core/technologyCatalogue.js'
-import { adoptionQuote, type AdoptionRequest } from '../src/core/technologyAdoption.js'
-import type { ResearchProject, ResearchSeat, ResearchWeekReceipt, TechnologyAction, TechnologyAdoption } from '../src/core/technologyTypes.js'
+import { adoptionQuote, equipmentAssets, type AdoptionRequest } from '../src/core/technologyAdoption.js'
+import { cancellationQuote } from '../src/core/installationCancellation.js'
+import { cancellationDetail, cancellationQuoteRow, isCancellationAction, type CancellationAction } from './cancellation.ts'
+import type { ResearchProject, ResearchSeat, ResearchWeekReceipt, TechnologyAction, TechnologyAdoption, TechnologyEquipmentAsset } from '../src/core/technologyTypes.js'
 import type { PhysicalPlanAction } from '../src/core/physicalPlans.js'
 import type { GameState } from '../src/core/types.js'
 import type { AvailableIntent } from './protocol.ts'
 import type { IndustryPage } from './schema/industry-schema.ts'
 
 type LaboratoryPage = NonNullable<IndustryPage['laboratory']>
-type AdoptionQuoteRow = NonNullable<LaboratoryPage['actions'][number]['quote']>
+type ActionQuoteRow = NonNullable<LaboratoryPage['actions'][number]['quote']>
 type AdoptionRow = LaboratoryPage['adoptions'][number]
+type EquipmentRow = LaboratoryPage['equipment'][number]
 export type LaboratoryActionSpec = {
   id: string
   buildingId: string | null
   // P13B-S3: the queue companions put a PLAN verb on this page beside the immediate
   // installation row. Same row shape, same dry run; the engine decides both.
-  action: TechnologyAction | PhysicalPlanAction
+  // P13B-S6: a `cancel-adoption-*` row moves neither research nor a plan — it stops
+  // committed physical work, returns capital and can commit a restoration.
+  action: TechnologyAction | PhysicalPlanAction | CancellationAction
   label: string
   detail: string
   enabled: boolean
   disabledReason: string | null
-  /** P13B-S5: the engine's own adoption quote, on `adopt-*` rows alone. Null everywhere else. */
-  quote: AdoptionQuoteRow | null
+  /** P13B-S5/S6: the engine's own quote — `adoptionQuote` on `adopt-*` rows, `cancellationQuote` on `cancel-adoption-*` rows. Null everywhere else. */
+  quote: ActionQuoteRow | null
 }
 export type LaboratoryIntent = { spec: LaboratoryActionSpec; option: AvailableIntent }
 const money = (value: number) => '$' + value.toLocaleString('en-US', { maximumFractionDigits: 0 })
@@ -125,6 +130,14 @@ const adoptionRow = (adoption: TechnologyAdoption): AdoptionRow => ({
   committedWeek: adoption.committedWeek, operationalWeek: adoption.operationalWeek,
   components: adoption.components.map(component => ({ ...component })),
   equipmentAssetId: adoption.equipmentAssetId, postFacilityId: adoption.postFacilityId,
+  // P13B-S6: the week this adoption's remaining physical work was cancelled; null on a
+  // live adoption. Published as its own member, never inferred from a missing chain.
+  cancelledWeek: adoption.cancelledWeek,
+})
+/** One equipment set this studio owns. `studioId` is dropped: a private page publishes its own rows alone. */
+const equipmentRow = (asset: TechnologyEquipmentAsset): EquipmentRow => ({
+  id: asset.id, technologyId: asset.technologyId, acquiredWeek: asset.acquiredWeek,
+  source: asset.source, cost: asset.cost, holderAdoptionId: asset.holderAdoptionId,
 })
 const seatRow = (state: GameState, seat: ResearchSeat) => ({
   talentId: seat.talentId, name: state.talent.find(t => t.id === seat.talentId)?.name ?? seat.talentId,
@@ -166,9 +179,13 @@ export function laboratoryActionSpecs(state: GameState): readonly LaboratoryActi
   const specs: LaboratoryActionSpec[] = []
   if (!state.technology || !state.hollywood || state.founding !== null || !economyEngaged(state)) return specs
   const own = state.hollywood.playerStudioId
-  function add(id: string, action: TechnologyAction | PhysicalPlanAction, label: string, detail: string, buildingId: string | null = null, refusal: string | null = null, quote: AdoptionQuoteRow | null = null) {
+  function add(id: string, action: TechnologyAction | PhysicalPlanAction | CancellationAction, label: string, detail: string, buildingId: string | null = null, refusal: string | null = null, quote: ActionQuoteRow | null = null) {
     let disabledReason = refusal
-    if (disabledReason === null) {
+    // P13B-S6: a cancel row is priced and refused by `cancellationQuote` alone — its
+    // caller passes that refusal in, and its detail already states the money. A dry run
+    // here would only restate a charge as a negative "charged now" and give the row a
+    // second refusal authority the engine never asked for.
+    if (disabledReason === null && !isCancellationAction(action)) {
       try {
         const next = applyActions(state, [action])
         if (next === state) throw new Error('This decision is not currently available.')
@@ -366,6 +383,22 @@ export function laboratoryActionSpecs(state: GameState): readonly LaboratoryActi
         `${money(stageQuote.cost)} is the approved ceiling; a changed quote is held for your review.`)
     }
   }
+  // P13B-S6: one cancel row per adoption whose physical work is still running. The
+  // ENGINE decides: the row exists exactly while `cancellationQuote` accepts the
+  // adoption, which is what makes it absent for an operational, an already-cancelled
+  // and a rival adoption without this page re-stating any of those three laws.
+  for (const adoption of state.technology.adoptions) {
+    if (adoption.studioId !== own) continue
+    const quote = cancellationQuote(state, { adoptionId: adoption.id })
+    if (!quote.ok) continue
+    const entry = technologyEntry(adoption.technologyId)
+    const row = cancellationQuoteRow(state, { adoptionId: adoption.id })
+    add(`cancel-adoption-${adoption.id}`, { kind: 'cancelAdoption', adoptionId: adoption.id },
+      `Cancel ${entry.name.toLowerCase()} installation: ${state.operations.facilities.find(f => f.id === adoption.stageFacilityId)?.name ?? adoption.stageFacilityId}`,
+      cancellationDetail(state, row) +
+      ' The equipment set this adoption bought is retained and can be reused at no equipment cost by a later adoption of the same technology; the knowledge access is unaffected.',
+      null, quote.refusal, row)
+  }
   const adoptions = state.technology.adoptions.filter(a => a.studioId === own && a.operationalWeek !== null)
   for (const production of ordered(state.studio.activeProductions)) {
     const loadout = state.technology.productions.find(p => p.studioId === own && p.productionId === production.id)
@@ -438,8 +471,9 @@ export function laboratoryPage(state: GameState, buildingId: string | null, inte
         'No synchronized stage, capture and Post chain is operational. Research or purchase must be followed by an exact physical installation.'),
     actions: actions.slice(page * pageSize, (page + 1) * pageSize).map(a => ({ id: a.id, label: a.label, detail: a.detail,
       enabled: a.enabled && enabled.has(a.id), disabledReason: a.disabledReason ?? (enabled.has(a.id) ? null : 'Refresh this Laboratory to review the current decision.'), intent: enabled.get(a.id) ?? null,
-      // P13B-S5: the engine's own quote for an `adopt-*` row; null on every other row.
-      quote: a.quote === null ? null : { ...a.quote, components: a.quote.components.map(component => ({ ...component })), rejections: [...a.quote.rejections] } })),
+      // P13B-S5/S6: the engine's own quote for an `adopt-*` or `cancel-*` row; null on every
+      // other row. Deep-copied either way, so the page owns every array it publishes.
+      quote: a.quote === null ? null : structuredClone(a.quote) })),
     // P13B-S1b: the same engine facts as data. Seat history (released rows included) in stored
     // order, the last eight worked-week receipts ascending, and the CURRENT week's quote.
     seats: (project?.seats ?? []).filter(seat => seat.laboratoryFacilityId === lab.facilityId).map(seat => seatRow(state, seat)),
@@ -453,5 +487,9 @@ export function laboratoryPage(state: GameState, buildingId: string | null, inte
     // P13B-S5: this studio's own COMMITTED adoptions, in stored order, on every Laboratory
     // page. A rival's adoption is filtered out here and never reaches this private page.
     adoptions: state.technology.adoptions.filter(a => a.studioId === own).map(adoptionRow),
+    // P13B-S6: this studio's own equipment sets, in mint order. `holderAdoptionId` is
+    // null exactly while no live adoption holds the set — the fact a later adoption's
+    // $0 reuse follows from. A rival's asset never reaches this private page.
+    equipment: equipmentAssets(state, own).map(equipmentRow),
   } }
 }

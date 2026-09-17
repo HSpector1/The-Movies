@@ -1,0 +1,369 @@
+P13B-S6-T3 — bridge projection 39 verification (sim-core, 2026-09-17)
+Repo /Users/zacheryspector/The-Movies-headless-program, branch wip/headless-program-20260916-ts at 9fa76bf (working tree, uncommitted).
+Schema identity: sha256:bdd3e666c84dce94c8ae65415fc5878e61c4616574c1a57d1f2951cb793d2213 (projection 39, protocol 4).
+Generated C# contract sha256:fa34e626550394b85b83264def74a508819acc54deca7cd1c75637c33d5172ae.
+Single worker throughout: --minWorkers=1 --maxWorkers=1. Raw output, unedited.
+
+=== npx vitest run tests/bridge-p13b-s6-cancellation.test.ts --minWorkers=1 --maxWorkers=1 --reporter=dot ===
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/bridge-p13b-s6-cancellation.test.ts (12 tests | 1 failed | 1 skipped) 85596ms
+   × P13B-S6-T3 item 2/3/4: Laboratory cancel-adoption row (lighting) — quote verbatim, commit through the bridge, stale refusal, adoption/equipment wire facts > the full lighting journey: row present with the engine quote, commit through the bridge, exact money trace, stale refusal, row disappears, adoption+equipment facts, reused-at-$0 on a second stage 16152ms
+     → expected 793 to be 795 // Object.is equality
+   ✓ P13B-S6-T3 item 2/3/4: Laboratory cancel-adoption row (lighting) — quote verbatim, commit through the bridge, stale refusal, adoption/equipment wire facts > no cancel-adoption row exists for an OPERATIONAL adoption (item 2: "rows absent for operational... placements") 20889ms
+   ✓ P13B-S6-T3 item 2/3: Office cancel-<projectId> row — quote verbatim, commit through the bridge, offline/offlineUntilWeek, restoration never cancellable > the full Office II journey: row present with the engine quote, commit through the bridge, offline until the restoration completes, restoration itself never gets a cancel row 4109ms
+   ✓ P13B-S6-T3 item 2: Plans page cancel-<projectId> row for a started plan's own placement > a Lab module installed through a queued plan (the proven p13aLaboratorySlice -> queue -> tick -> 'started' recipe) gets a cancel-<projectId> row on the Plans page, distinct from the terminal plan-cancel-<planId> row 2831ms
+   ✓ P13B-S6-T3 item 5: finance category line for the refund week; the prior week's capex unchanged > the constructionRefund category appears only in the week the refund landed; week 303's capex category is byte-identical before and after 9199ms
+   ✓ P13B-S6-T3 item 5: finance category line for the refund week; the prior week's capex unchanged > StudioFinanceFacility.status widens to accept 'cancelled' — the schema round-trip on a snapshot carrying a cancelled installation 11714ms
+   ✓ P13B-S6-T3 item 6: history rows for cancellation/restoration on operationsEvents; player-safe; legacy cancellation:null unchanged > a restoration's own completion reuses the EXISTING constructionCompleted kind — no invented "cancellation"/"restoration" kind (S4 case-8 precedent) 6477ms
+   ✓ P13B-S6-T3 item 6: history rows for cancellation/restoration on operationsEvents; player-safe; legacy cancellation:null unchanged > player-safe: an already-naturally-existing rival adoption never appears in this studio's own adoptions[]/equipment[]/cancel rows 7444ms
+   ✓ P13B-S6-T3 item 6: history rows for cancellation/restoration on operationsEvents; player-safe; legacy cancellation:null unchanged > legacy behaviour unchanged: a live, never-cancelled adoption publishes cancelledWeek: null on the wire once the field exists 6773ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/bridge-p13b-s6-cancellation.test.ts > P13B-S6-T3 item 2/3/4: Laboratory cancel-adoption row (lighting) — quote verbatim, commit through the bridge, stale refusal, adoption/equipment wire facts > the full lighting journey: row present with the engine quote, commit through the bridge, exact money trace, stale refusal, row disappears, adoption+equipment facts, reused-at-$0 on a second stage
+AssertionError: expected 793 to be 795 // Object.is equality
+
+- Expected
++ Received
+
+- 795
++ 793
+
+ ❯ tests/bridge-p13b-s6-cancellation.test.ts:341:39
+    339|     // retained, restated on the wire.
+    340|     const adoptionRow = required(after.adoptions?.find(a => a.technolo…
+    341|     expect(adoptionRow.cancelledWeek).toBe(state.market.tick + 2)
+       |                                       ^
+    342|     const engineAdoption = required(session.gameState.technology.adopt…
+    343|     expect(adoptionRow.equipmentAssetId).toBe(engineAdoption.equipment…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 10 passed | 1 todo (12)
+   Start at  21:41:03
+   Duration  90.60s (transform 3.35s, setup 0ms, collect 4.34s, tests 85.60s, environment 0ms, prepare 125ms)
+
+
+=== npx vitest run tests/bridge-p13b-r07-setup.test.ts tests/bridge-p13b-s5-adoption.test.ts tests/bridge-p13b-s4-office.test.ts tests/bridge-p13b-s3-plans.test.ts tests/bridge-p13-laboratory.test.ts tests/bridge-p13b-s2-labs.test.ts --minWorkers=1 --maxWorkers=1 --reporter=dot ===
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/bridge-p13b-s4-office.test.ts (11 tests) 12795ms
+   ✓ case 1: the founding office at week 12 — full quote parity on the wire; office null off the laboratory view > standard I, highest I, offline false, capacity 2, baselineWeeklyOperatingCost 0 (endowed); both conversion rows match the authoritative quote 1987ms
+   ✓ case 1: the founding office at week 12 — full quote parity on the wire; office null off the laboratory view > intent kind: both immediate rows publish installationAction; both plan companions publish physicalPlanAction (adjudicated finding C, 2026-09-17) 659ms
+   ✓ case 2: immediate iii conversion — engagement, reopening, standardAlreadyMet and the exact capex ledger row > commits, engages the body for 16 weeks, reopens at III, and writes one exact -$1,250,000 constructionCapex ledger row 1747ms
+   ✓ case 3: placed office money on the wire > $5,500 baseline continues through a real weekly charge; II->III quotes $850,000/8 weeks with standardDuringWork I 1100ms
+   ✓ case 4: plan companions — queue, start, hiding and the immediate-row lockout > plan-queue-office-convert-iii queues, starts, and offlines the body; the immediate rows lock out while it runs 1303ms
+   ✓ case 4b: a LOWER conversion running immediately leaves a HIGHER companion offered (coordinator-named counter-scenario, 2026-09-17) > while office-convert-ii runs, the iii plan companion is still offered and the ii companion is hidden; queueing iii holds on /targetEngaged/ during the ii work 2081ms
+   ✓ case 5: insufficient funds > both rows read insufficientFunds; plan companions still offered; a queued plan reads next.reason "insufficient cash" 1077ms
+   ✓ case 6: stale revision > an office intent submitted with a stale expectedStateRevision is refused with STALE_REVISION, and that attempt changes nothing 1233ms
+   ✓ case 8: history — the existing P09 facility-completed row, no invented "office" kind > the completed iii conversion writes one Opened: <name> row through the existing facilityCompleted mechanism, never a new kind 1371ms
+ ✓ |core| tests/bridge-p13b-r07-setup.test.ts (13 tests) 26376ms
+   ✓ requirement 2: each production snapshot gains setup: StudioProductionSetup | null > conventional ballroom: null pre-selection; admission at week 12 with 0 credited; a held rehearsal names the setup wait and a weeksRemaining consistent with the forecast; walked week-by-week to Shooting entry 16 5110ms
+   ✓ requirement 3: setup-recipe-<productionId>-<recipeId> rows, offered pre-Shooting with a bound stage whose Set type matches the recipe — PREMISE: published as setupRecipeActions on the same productionOperations row > the eligible ballroom recipe row is enabled, carries productionId/recipeId/planRevision, intent kind productionSetupAction, no rejections 751ms
+   ✓ requirement 3: setup-recipe-<productionId>-<recipeId> rows, offered pre-Shooting with a bound stage whose Set type matches the recipe — PREMISE: published as setupRecipeActions on the same productionOperations row > a wrong-Set-type row (ordinary recipe on a ballroom-bound production) is disabled, names its own refusal, and enabled agrees with the refusal 783ms
+   ✓ requirement 3: setup-recipe-<productionId>-<recipeId> rows, offered pre-Shooting with a bound stage whose Set type matches the recipe — PREMISE: published as setupRecipeActions on the same productionOperations row > rows are absent once the production enters Shooting (legacy path: no recipe ever selected) 980ms
+   ✓ requirement 4: committing a recipe row through the bridge > writes exactly one setup record, advances stateRevision, refuses the same intent at the old revision, and the forecast matches setupForecast once the sweep visit admits it 2886ms
+   ✓ requirement 5: ticking through the bridge credits one unit per week and enters Shooting at the forecast week, on all three measured fixtures; the four setup history kinds appear on the history view > conventional ballroom: admission 12 -> Shooting entry 16, history rows setupAdmitted/setupUnitCredited x4/setupCompleted, production-scoped 1009ms
+   ✓ requirement 5: ticking through the bridge credits one unit per week and enters Shooting at the forecast week, on all three measured fixtures; the four setup history kinds appear on the history view > lighting ballroom: admission 807 -> Shooting entry 809, route "lighting" 12404ms
+   ✓ requirement 5: ticking through the bridge credits one unit per week and enters Shooting at the forecast week, on all three measured fixtures; the four setup history kinds appear on the history view > ordinary interior: admission 4 -> Shooting entry 5, both routes agree at 1 unit 648ms
+   ✓ requirement 6: player-safe; a legacy production publishes setup: null with its schedule unchanged > every productionOperations row belongs to this studio's own activeProductions — MEASURED: the engine has no rival production model to leak (operations/placement are single, player-scoped roots, the same fact tests/bridge-p13b-s4-office.test.ts case 7 and tests/bridge-p13b-s5-adoption.test.ts requirement 6 both rely on for their own rival-injection idiom) 594ms
+   ✓ requirement 6: player-safe; a legacy production publishes setup: null with its schedule unchanged > legacy timeline byte-identical through the bridge: a production that never selects a recipe publishes setup: null and today's exact (unheld) schedule 675ms
+   ✓ extra pin (parent instruction): the bridge's save/load "converted" report against the CURRENT save version, not a stale literal 23 (bridge/session.ts:123) > RED: a genuine CURRENT (V25) checkpoint saved and reloaded through the SAME bridge session reports converted: false 525ms
+ ✓ |core| tests/bridge-p13b-s3-plans.test.ts (11 tests) 8631ms
+   ✓ case 1: a fresh studio publishes an empty plans page; plans is null off the plans view > snapshotVersion 36; rows and actions are both empty arrays on a fresh studio; laboratory view carries plans: null 892ms
+   ✓ case 2: the Laboratory-page acoustic companion queues, admits and appears on the plans page > plan-queue-acoustic-<lab> exists beside instruments-<lab> naming the cost/build-weeks/no-reservation facts; dispatching it queues a full row on the plans view; one bridge advance starts it, writing planQueued/planStarted history; the acoustic companion then disappears while electrical still offers 1207ms
+   ✓ case 3: the envelope hold (insufficient cash) and the changed-quote hold (forged fingerprint) > a queued electrical plan with cash spent below its cost stays queued after an advance, with next.reason === "insufficient cash" 941ms
+   ✓ case 3: the envelope hold (insufficient cash) and the changed-quote hold (forged fingerprint) > a forged approvedQuote.fingerprint holds at the next boundary; plan-review-<planId> names the approved/pending figures; dispatching it re-queues with the pending fingerprint promoted, then it starts 1200ms
+   ✓ case 4: cancel blocks its dependent; a started plan has no cancel row > cancelling the predecessor cancels it and blocks the dependent, naming it, with matching history rows; the cancel row disappears; an independently STARTED plan carries no cancel row at all 1088ms
+   ✓ case 5: reorder > three independent queued plans: move-down swaps ordinals 1<->2 on the wire; move-up is disabled at the top and move-down at the bottom 954ms
+   ✓ case 6: admission mode toggle > the mode NOT currently set is the only admission action offered; dispatching it flips the row's admission 821ms
+   ✓ case 7: stale revision > a plans intent submitted with a stale expectedStateRevision is refused with STALE_REVISION, and that specific attempt changes nothing 1079ms
+ ✓ |core| tests/bridge-p13b-s5-adoption.test.ts (11 tests) 33173ms
+   ✓ requirement 1: laboratory.adoptions[] structured rows and per-row StudioAdoptionQuote > a committed lighting adoption appears on adoptions[] with technologyId/route/committedWeek/operationalWeek/components/equipmentAssetId/postFacilityId 7364ms
+   ✓ requirement 2: lighting rows are access-gated for presence and quote the exact 100,000 first-prototype total > no adopt-lighting-control-01-* row exists anywhere before lighting access is acquired 6159ms
+   ✓ requirement 3: sound rows keep P13A stage+Post pairing, existing-Post reuse at $0 > a second stage's sound row reuses the first stage's operational Post: reusedPostFacilityId set, the Post component existing/$0 4352ms
+   ✓ requirement 4: committing an adopt row through the bridge (engine-truth components, revision advance, stale refusal, row disappears) > commits exactly one adoption with the wire-quoted components, advances stateRevision, refuses the same intent at the old revision, and the committed stage's own row disappears 1594ms
+   ✓ per-technology stage rule: a stage with an adoption of one technology still offers the other, never the same one again > after committing sound on a stage, that stage's own sound row is gone but its lighting row is still offered 8571ms
+   ✓ requirement 5: plan-queue-adopt-<technologyId>-<stageFacilityId> companions never mint an adoption and follow the S4 reachable-hide rule > queues the stage-installation blueprint through queuePhysicalPlan, mints no adoption, and then hides itself once queued (duplicate-queue rule) 1056ms
+   ✓ requirement 6: refusal disclosure and player-safety on a row whose engine quote is refused > a sound row before access is acquired publishes the engine's own refusal/rejections, agrees with disabledReason, and the underlying action throws that exact text 3920ms
+ ✓ |core| tests/bridge-p13b-s2-labs.test.ts (10 tests) 87151ms
+   ✓ case 1: a fresh Laboratory publishes snapshotVersion 38 and an empty projects array > a Laboratory with no research project at all reports laboratory.projects === [] 892ms
+   ✓ case 2: seating is lawful before a brief's research opens; the wire dates the wait instead of hiding the brief > before week 780 (week 263, S1-style state): both the sound and lighting assign rows exist for a free employed person; the lighting row's detail names the wait, the sound row's does not (sound opened 260); dispatching the lighting assign through the bridge is accepted, publishing a paused lighting project whose bottleneckLabel also names the wait; its begin row is disabled with the same engine text 5040ms
+   ✓ case 3: two full Laboratories — the shared project reads identically from both pages > dispatches 4+4 sound assign rows through the bridge on both Laboratories, funds the full $80,000 ceiling through the bridge's own budget row (the S2-T6 gap that used to cap this menu at $40,000 was closed 2026-09-16 — the menu now reaches 60,000/80,000) and begins through the bridge; before the first tick both pages already report companion test 4 case (i) (7 funded weeks remain, 0 of 64 verified units); one bridge-advanced week reproduces case (i) exactly (output 9.75, units 1,560,000) on both pages 21085ms
+   ✓ case 4: two technologies staffed on one Laboratory > lists two projects rows in stable id order; every project's progressLabel names its own verifiedWork/work; each fully-funded 2-seat project's cooperationLabel reads "One Laboratory: 2 seats" with the real $20,000/60,000 figures; the fifth assign for EITHER technology on this Laboratory is refused with "four seats" 15067ms
+   ✓ case 5: a third Laboratory is refused on the wire > a real, completed third Laboratory (placed and its build time elapsed — the same construction tests/p13b-s2-labs.test.ts's own base3Setup uses for the identical core-level "test 3" case) publishes its assign row disabled with the engine's own "third Laboratory" refusal 8120ms
+   ✓ case 6: a migrated V21 fixture keeps its honest single-pool receipts on the wire > loads through BridgeSession.fromSaveJson (a genuine V21 fixture, migrated on import): the sound project's three stored receipts read labs:null; the lighting project's three receipts each read one derived row; the next quoted week splits 4+2 seats at $60,000 into $40,000/$20,000, output 7.875 914ms
+   ✓ case 7: releasing a seat through the bridge recomputes the funding split > releasing one of Lab 2's two sound seats (4+2 -> 4+1) through the bridge recomputes next week's split to $40,000/$10,000, output 6.9375 10345ms
+   ✓ case 8: player-safe — no rival project, seat or talent id ever appears > the Laboratory page names only the player studio's own project and talent ids 7208ms
+ ✓ |core| tests/bridge-p13-laboratory.test.ts (7 tests) 10103ms
+   ✓ P13A Laboratory bridge > publishes one exact Laboratory with named employment and truthful early-release refusal 773ms
+   ✓ P13A Laboratory bridge > rejects wrong building, stale revision and Save As session while keeping output detached 394ms
+   ✓ P13A Laboratory bridge > commits the exact named hire once, rejects its stale sibling intent, then assigns the employed Scientist 2007ms
+   ✓ P13A Laboratory bridge > acknowledges completed acoustic instruments while the Scientist seat remains unassigned 506ms
+   ✓ P13A Laboratory bridge > shows rival sound only from the actual operational receipt, without exposing private finances 5875ms
+
+ Test Files  6 passed (6)
+      Tests  63 passed (63)
+   Start at  21:42:42
+   Duration  192.27s (transform 6.32s, setup 0ms, collect 10.60s, tests 178.23s, environment 5ms, prepare 1.07s)
+
+
+=== npx vitest run tests/bridge-p13b-s3-save-as.test.ts tests/bridge-operations-events.test.ts tests/bridge-p11-finance.test.ts tests/bridge-p08a-w2-history-projection.test.ts --minWorkers=1 --maxWorkers=1 --reporter=dot ===
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/bridge-p11-finance.test.ts (11 tests) 12147ms
+   ✓ P11 construction financial consequence over the real bridge > development-casting-annex: retains pennies, charges once now and introduces Opex only after completion 5049ms
+   ✓ P11 construction financial consequence over the real bridge > development-office-2: retains pennies, charges once now and introduces Opex only after completion 3145ms
+   ✓ P11 construction financial consequence over the real bridge > gives illegal placement no financial successor and refuses a stale legal financial preview 1228ms
+   ✓ P11 current people, obligations and film economics owners > publishes only current contracts, with guarantees beside literal Cash and exact payroll 474ms
+   ✓ P11 current people, obligations and film economics owners > keeps same-title films independent, preserves every P07 business amount and excludes studio costs 584ms
+   ✓ P11 current people, obligations and film economics owners > marks genuinely missing legacy direct commitments unavailable without rewriting P07 438ms
+   ✓ P11 current people, obligations and film economics owners > does not turn a retained legacy freelancer receipt into a complete film budget 481ms
+   ✓ P11 current people, obligations and film economics owners > discloses legacy bundled production spending without inventing a historic budget split 384ms
+ ✓ |core| tests/bridge-operations-events.test.ts (6 tests) 967ms
+   ✓ R3-N7-SIM-01 — operationsEventsProjection (projection 32) > L6 is pure, mutates nothing, and validates inside the served projection-39 envelope 726ms
+ ✓ |core| tests/bridge-p08a-w2-history-projection.test.ts (4 tests) 2533ms
+   ✓ P08A W2 — P1 purity and P2 exact wire contract > derives byte-identically twice, mutates nothing, and validates as the history bundle section 1156ms
+   ✓ P08A W2 — P3 exact routes and P5 provenance > links receipts and rows to the exact production id, marks result availability, and reconciles channels 602ms
+   ✓ P08A W2 — P4 honesty for migrated worlds > says what was not recorded, lists pre-boundary films as unrecorded, and invents no row 483ms
+ ✓ |core| tests/bridge-p13b-s3-save-as.test.ts (1 test) 9246ms
+   ✓ P13B-S3 Save As (test 7, A11) > a Save As copy keeps the same plan ids and advances independently; the inactive original never advances (complete-state comparison) 9244ms
+
+ Test Files  4 passed (4)
+      Tests  22 passed (22)
+   Start at  21:27:40
+   Duration  34.02s (transform 4.48s, setup 0ms, collect 7.30s, tests 24.89s, environment 2ms, prepare 531ms)
+
+
+=== npx vitest run tests/bridge-schema.test.ts tests/bridge-contract-generator.test.ts tests/bridge-contract-consumer-lock.test.ts tests/bridge-owner-ux-projection21-schema.test.ts --minWorkers=1 --maxWorkers=1 --reporter=dot ===
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/bridge-contract-generator.test.ts (31 tests) 1551ms
+   ✓ CF-08 sound union-to-C# generation > C — closed discriminated object unions > keeps member storage attached and generated bytes identical when anyOf order reverses 583ms
+   ✓ CF-08 sound union-to-C# generation > current accepted contract and future sentinel > pins exact positive output identities and deterministic rerendering 305ms
+ ✓ |core| tests/bridge-schema.test.ts (22 tests) 32099ms
+   ✓ canonical Unity bridge schema > projects a real authoritative snapshot to the exact Unity DTO and validates the full envelope 4945ms
+   ✓ canonical Unity bridge schema > keeps live location identities in the projection-v4 building namespace 18426ms
+   ✓ canonical Unity bridge schema > rejects missing, additional, wrong-enum, wrong-nullability, and old-projection data 2171ms
+   ✓ canonical Unity bridge schema > preserves required nullable numeric fields through schema projection 1875ms
+   ✓ canonical Unity bridge schema > models accepted load/command responses as one flat projection envelope 1636ms
+   ✓ canonical Unity bridge schema > requires one closed structured rejection with non-empty guidance and a nullable holder 1483ms
+   ✓ canonical Unity bridge schema > validates the session and health handshake envelopes 1463ms
+ ✓ |core| tests/bridge-contract-consumer-lock.test.ts (77 tests) 274565ms
+   ✓ CF-09 source bundle and repository identity > rejects a caller-supplied TypeScript root different from the executing verifier checkout 1100ms
+   ✓ CF-09 sealed pair > binds the exact pushed clean commits and both committed generated blobs 3647ms
+   ✓ CF-09 sealed pair > rejects the wrong Unity repository before reading a matching file 1816ms
+   ✓ CF-09 sealed pair > rejects a canonical-looking remote redirected by Git URL rewriting 1408ms
+   ✓ CF-09 sealed pair > rejects a Unity subdirectory as the wrong root 1245ms
+   ✓ CF-09 sealed pair > rejects a nonallowlisted generated-file path 2168ms
+   ✓ CF-09 sealed pair > rejects a stale committed Unity consumer 3372ms
+   ✓ CF-09 sealed pair > rejects a one-byte uncommitted consumer drift as dirt before hashing 1898ms
+   ✓ CF-09 sealed pair > rejects a one-byte committed consumer drift 3281ms
+   ✓ CF-09 sealed pair > rejects a schema identity mismatch 2225ms
+   ✓ CF-09 sealed pair > rejects a protocol mismatch 2046ms
+   ✓ CF-09 sealed pair > rejects a projection mismatch 2223ms
+   ✓ CF-09 sealed pair > rejects a staged dirty TypeScript tree 1586ms
+   ✓ CF-09 sealed pair > rejects a unstaged dirty TypeScript tree 1492ms
+   ✓ CF-09 sealed pair > rejects a untracked dirty TypeScript tree 1619ms
+   ✓ CF-09 sealed pair > rejects a staged dirty Unity tree 1673ms
+   ✓ CF-09 sealed pair > rejects a unstaged dirty Unity tree 1682ms
+   ✓ CF-09 sealed pair > rejects a untracked dirty Unity tree 1926ms
+   ✓ CF-09 sealed pair > rejects TypeScript worktree bytes hidden with assume-unchanged 1772ms
+   ✓ CF-09 sealed pair > rejects Unity worktree bytes hidden with skip-worktree 1736ms
+   ✓ CF-09 sealed pair > rejects a hidden index flag anywhere in the TypeScript repository 1645ms
+   ✓ CF-09 sealed pair > rejects a hidden index flag anywhere in the Unity repository 1842ms
+   ✓ CF-09 sealed pair > rejects a missing committed consumer without filename fallback 1633ms
+   ✓ CF-09 sealed pair > rejects a nonexistent immutable commit 1464ms
+   ✓ CF-09 sealed pair > rejects a manifest/blob mismatch 3293ms
+   ✓ CF-09 sealed pair > rejects stale real Unity bytes even when a TypeScript-local self-copy matches 7158ms
+   ✓ CF-09 sealed pair > rejects a committed symlink consumer before content comparison 5711ms
+   ✓ CF-09 sealed pair > rejects path traversal rather than normalizing it 5151ms
+   ✓ CF-09 sealed pair > rejects a wrong branch even when it points to identical bytes and commit 2136ms
+   ✓ CF-09 sealed pair > rejects recursive or unknown manifest commit fields 3025ms
+   ✓ CF-09 sealed pair > rejects a generator source/manifest mismatch in scripts/bridge-contract-csharp.ts 4024ms
+   ✓ CF-09 sealed pair > rejects a generator source/manifest mismatch in bridge/schema/intent-schema.ts 4353ms
+   ✓ CF-09 sealed pair > generation result is independent of current member/property-like file order 7804ms
+   ✓ CF-09 post-commit attestation > CLI cannot emit an attestation before hostile-review ACCEPT 2134ms
+   ✓ CF-09 post-commit attestation > requires a fresh hostile-review ACCEPT before emission 1787ms
+   ✓ CF-09 post-commit attestation > emits deterministic immutable facts only after both sealed commits exist 8501ms
+   ✓ CF-09 post-commit attestation > rejects seal-time log evidence outside the inferred canonical evidence root 4852ms
+   ✓ CF-09 post-commit attestation > rejects a noncanonical seal-time XML filename 4581ms
+   ✓ CF-09 post-commit attestation > re-verifies immutable commit blobs even after both HEADs move 7467ms
+   ✓ CF-09 post-commit attestation > rejects an attestation naming a nonexistent commit 5445ms
+   ✓ CF-09 post-commit attestation > rejects a manifest hash that does not match the attested commit blob 8005ms
+   ✓ CF-09 post-commit attestation > rejects an attested verifier bundle that differs from the executing verifier 5186ms
+   ✓ CF-09 post-commit attestation > rejects fixture-corpus source drift named by the attestation 7207ms
+   ✓ CF-09 post-commit attestation > rejects one-byte EditMode evidence drift 7288ms
+   ✓ CF-09 post-commit attestation > rejects an attested result traversal path before resolving it 4291ms
+   ✓ CF-09 post-commit attestation > rejects an attested absolute result path before resolving it 4589ms
+   ✓ CF-09 post-commit attestation > rejects an attested nested result path before resolving it 4460ms
+   ✓ CF-09 post-commit attestation > rejects an attested wrong result name path before resolving it 4870ms
+   ✓ CF-09 post-commit attestation > rejects an attested log traversal path before resolving it 4885ms
+   ✓ CF-09 post-commit attestation > rejects an attested absolute log path before resolving it 4424ms
+   ✓ CF-09 post-commit attestation > rejects an attested nested log path before resolving it 4928ms
+   ✓ CF-09 post-commit attestation > rejects an attested wrong log name path before resolving it 4649ms
+   ✓ CF-09 post-commit attestation > does not re-root a traversal path around the caller evidence root 4366ms
+   ✓ CF-09 post-commit attestation > rejects a symlinked caller evidence root 7744ms
+   ✓ CF-09 post-commit attestation > rejects symlinked evidence redirection 7580ms
+   ✓ CF-09 post-commit attestation > rejects symlinked XML evidence redirection 7123ms
+   ✓ CF-09 post-commit attestation > rejects zero/no-op counts EditMode XML 4612ms
+   ✓ CF-09 post-commit attestation > rejects comment-spoofed passing root EditMode XML 4324ms
+   ✓ CF-09 post-commit attestation > rejects comment-spoofed generated suite and sentinel EditMode XML 4398ms
+   ✓ CF-09 post-commit attestation > rejects multiple document roots EditMode XML 4556ms
+   ✓ CF-09 post-commit attestation > rejects failing document root EditMode XML 4429ms
+   ✓ CF-09 post-commit attestation > rejects malformed XML EditMode XML 4628ms
+   ✓ CF-09 post-commit attestation > rejects wrong generated fixture suite EditMode XML 4410ms
+   ✓ CF-09 post-commit attestation > rejects wrong generated fixture suite type EditMode XML 4536ms
+   ✓ CF-09 post-commit attestation > rejects wrong sentinel method EditMode XML 4827ms
+   ✓ CF-09 post-commit attestation > rejects sentinel nested beneath the wrong suite EditMode XML 4561ms
+   ✓ CF-09 post-commit attestation > rejects skipped sentinel method EditMode XML 4537ms
+   ✓ CF-09 post-commit attestation > rejects failing generated fixture suite EditMode XML 4610ms
+   ✓ CF-09 post-commit attestation > rejects failed or internally inconsistent full EditMode XML 4596ms
+ ✓ |core| tests/bridge-owner-ux-projection21-schema.test.ts (9 tests) 19764ms
+   ✓ Owner UX projection21 public field wire boundary > parses actual current snapshot, Save, and Load envelopes 4831ms
+   ✓ Owner UX projection21 public field wire boundary > requires savedSlot rather than silently defaulting it 2647ms
+   ✓ Owner UX projection21 public field wire boundary > rejects malformed/fabricated slot metadata 0 2333ms
+   ✓ Owner UX projection21 public field wire boundary > rejects malformed/fabricated slot metadata 1 2093ms
+   ✓ Owner UX projection21 public field wire boundary > rejects malformed/fabricated slot metadata 2 1858ms
+   ✓ Owner UX projection21 public field wire boundary > rejects malformed/fabricated slot metadata 3 2146ms
+   ✓ Owner UX projection21 public field wire boundary > rejects malformed/fabricated slot metadata 4 1920ms
+   ✓ Owner UX projection21 public field wire boundary > accepts public fractional and known-zero cells, rejects hidden values and malformed cells 1928ms
+
+ Test Files  4 passed (4)
+      Tests  139 passed (139)
+   Start at  21:49:40
+   Duration  334.24s (transform 2.55s, setup 0ms, collect 4.53s, tests 327.98s, environment 1ms, prepare 423ms)
+
+
+=== npx vitest run tests/bridge-owner-ux-projection20-migration.test.ts tests/bridge-p10a-w0-people-projection.test.ts tests/bridge-p11-capital-contributors.test.ts tests/bridge-p11-ready.test.ts tests/bridge-p13b-s1b-seats.test.ts tests/bridge-r3n4-read-model-deltas.test.ts tests/bridge.test.ts --minWorkers=1 --maxWorkers=1 --reporter=dot ===
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/bridge.test.ts (18 tests) 306341ms
+   ✓ Current-game Unity adoption bridge > pins protocol v4/projection v32 and fingerprints named projections and exact intent fields 4760ms
+   ✓ Current-game Unity adoption bridge > bootstraps through real founding and legal intents, releasing Movie #1 at the Movie #2 gate 3080ms
+   ✓ Current-game Unity adoption bridge > plays exact Movie #2 end to end with current guidance, identities, blockers, and construction visible 62708ms
+   ✓ Current-game Unity adoption bridge > makes the player choose a distinct evidenced cast before greenlight 13866ms
+   ✓ Current-game Unity adoption bridge > rejects stale, forged, wrong-session, and reused command identities without changing truth 3017ms
+   ✓ Current-game Unity adoption bridge > maps every rejection code to closed TypeScript-owned facts 1377ms
+   ✓ Current-game Unity adoption bridge > uses opaque exact identities rather than titles and invalidates every prior-state intent 2908ms
+   ✓ Current-game Unity adoption bridge > protects save/load controls and reconstructs a fresh reconnect session byte-for-byte 4731ms
+   ✓ Current-game Unity adoption bridge > matches direct headless save bytes/digests and is independent of polling cadence 178739ms
+   ✓ Current-game Unity adoption bridge > keeps read-only polling and failed direct intent application save-neutral 3338ms
+   ✓ Current-game Unity adoption bridge > keeps every named projection and root authority token stable across identical polls 2393ms
+   ✓ Current-game Unity adoption bridge > emits and admits a screenplay commission when both authoritative slots are occupied 1366ms
+   ✓ Current-game Unity adoption bridge > emits and admits exact-project auditions when both authoritative slots are occupied 6245ms
+   ✓ Current-game Unity adoption bridge > emits and admits an evidenced exact-project greenlight without committing the package 3623ms
+   ✓ Current-game Unity adoption bridge > publishes advanceWeek through the ready-to-package family and withholds it at a casting-review decision stop 13192ms
+   ✓ Current-game Unity adoption bridge > keeps advanceWeek available while a greenlight sits queued for Development & Casting capacity 791ms
+stdout | tests/bridge-p11-ready.test.ts > P11 recorded trends and full portfolio > bounds a120-year recorded query to13/52 points with exact totals and no calendar-year invention
+{"kind":"p11-long-history-query-measurement","classification":"synthetic query-scale fixture; not played campaign evidence","weeks":6240,"ledgerEntries":6240,"elapsedMilliseconds":1.0210689999985334,"historyJsonBytes":101456,"syntheticStateJsonBytes":769442,"pointCounts":[13,52]}
+
+ ✓ |core| tests/bridge-p11-ready.test.ts (17 tests) 15933ms
+   ✓ P11 ready Upcoming and discarded financial successors > migrates authentic core25 without relabeling its bytes; strict26 includes a nullable Week0 history 641ms
+   ✓ P11 ready Upcoming and discarded financial successors > keeps completion and first Opex distinct, including the just-completed operational office 337ms
+   ✓ P11 ready Upcoming and discarded financial successors > retains already-open renewal dates; expiry pays its final preceding advance only 2510ms
+   ✓ P11 ready Upcoming and discarded financial successors > dates only an actually committed Set repair and adds no completion debit or new recurring cost 445ms
+   ✓ P11 ready Upcoming and discarded financial successors > renew: exact pennies/guarantees and recurring costs agree with the real committed successor 2700ms
+   ✓ P11 ready Upcoming and discarded financial successors > release: exact pennies/guarantees and recurring costs agree with the real committed successor 955ms
+   ✓ P11 ready Upcoming and discarded financial successors > a refused renewal has no financial successor and cannot become a commit 361ms
+   ✓ P11 ready Upcoming and discarded financial successors > release remains legal when the actual termination payment takes already-negative Cash further down 877ms
+   ✓ P11 ready Upcoming and discarded financial successors > immediate Greenlight pays the exact quoted financial amount once and replaces the project row by its real production 1025ms
+   ✓ P11 ready Upcoming and discarded financial successors > hire reads the real successor, including a new seat; preview remains observation/RNG neutral 969ms
+   ✓ P11 ready Upcoming and discarded financial successors > queued Greenlight pays nothing now and remains one uncommitted canonical screenplay row 690ms
+   ✓ P11 recorded trends and full portfolio > serves the actual21-film/6240-advance public diagnostic as exact unique rows and52 completed history points 1852ms
+   ✓ P11 recorded trends and full portfolio > covers Development/review, Ready Casting, Production, Post and Release Ready through actual fixture action chains 1600ms
+   ✓ P11 recorded trends and full portfolio > keeps exact film identities, public phases and the accepted per-film economics 307ms
+   ✓ P11 recorded trends and full portfolio > each cost point and period comes from the exact ledger category; missing partial values stay null 301ms
+ ✓ |core| tests/bridge-p10a-w0-people-projection.test.ts (10 tests) 3462ms
+   ✓ P10A W0 — people projection > R8 grouped attention lists each person at most once, by the highest tier; contract horizons come from the contract alone 2378ms
+   ✓ P10A W0 — people projection > R10 a genuine V16 control migrates without changing any original person 342ms
+ ✓ |core| tests/bridge-r3n4-read-model-deltas.test.ts (9 tests) 662ms
+   ✓ R3-N4-SIM-20 — batched N4/N5/N6 read-model deltas (projection 31) > serves the whole bundle under the regenerated schema with the new fields present 393ms
+ ✓ |core| tests/bridge-owner-ux-projection20-migration.test.ts (10 tests) 11807ms
+   ✓ Owner UX outgoing projection20 migration > migrates 'frozen Week105 null slot' without changing either V18 gameplay slot 896ms
+   ✓ Owner UX outgoing projection20 migration > migrates 'frozen R12 Week106 null slot and genu…' without changing either V18 gameplay slot 686ms
+   ✓ Owner UX outgoing projection20 migration > migrates 'constructed distinct-slot envelope fr…' without changing either V18 gameplay slot 931ms
+   ✓ Owner UX outgoing projection20 migration > persists 'frozen Week105 null slot' once, then preserves the new session on restart 994ms
+   ✓ Owner UX outgoing projection20 migration > persists 'frozen R12 Week106 null slot and genu…' once, then preserves the new session on restart 1194ms
+   ✓ Owner UX outgoing projection20 migration > persists 'constructed distinct-slot envelope fr…' once, then preserves the new session on restart 1733ms
+   ✓ Owner UX outgoing projection20 migration > preserves current-schema journal/session and exact Save retries after real published advance 4450ms
+   ✓ Owner UX outgoing projection20 migration > leaves both predecessor slots and journal intact when migration persistence fails 823ms
+ ✓ |core| tests/bridge-p13b-s1b-seats.test.ts (8 tests) 11365ms
+ ✓ |core| tests/bridge-p11-capital-contributors.test.ts (6 tests) 5398ms
+   ✓ P11 recorded facility capital contributors over the real bridge > hydrates genuine outgoing projection24 and joins four original payments to exact construction events 1325ms
+   ✓ P11 recorded facility capital contributors over the real bridge > preserves same-name site identities across periods, completion and history windows 2420ms
+   ✓ P11 recorded facility capital contributors over the real bridge > keeps bounded overflow explicit and its signed amounts reconcilable to the category 336ms
+   ✓ P11 recorded facility capital contributors over the real bridge > never uses history as amount authority or guesses a demolished site from its title or ledger note 312ms
+   ✓ P11 recorded facility capital contributors over the real bridge > caps a real 26-purchase history at 20 without hiding the remaining payments 717ms
+
+ Test Files  7 passed (7)
+      Tests  78 passed (78)
+   Start at  21:28:26
+   Duration  366.74s (transform 4.59s, setup 0ms, collect 8.62s, tests 354.97s, environment 2ms, prepare 913ms)
+
+
+=== npm run check:bridge-contract ===
+
+> project-studio-core@0.1.0 check:bridge-contract
+> vite-node scripts/generate-bridge-contract.ts --check
+
+verified /Users/zacheryspector/The-Movies-headless-program/bridge/schema/project-studio-bridge.schema.json
+verified /Users/zacheryspector/The-Movies-headless-program/generated/unity/StudioBridgeDtos.Generated.cs
+verified /Users/zacheryspector/The-Movies-headless-program/generated/unity/project-studio-bridge.contract-manifest.json
+exit=0
+
+=== npm run check:bridge-contract:fixtures ===
+
+> project-studio-core@0.1.0 check:bridge-contract:fixtures
+> vite-node scripts/generate-bridge-contract-fixtures.ts --check
+
+verified /Users/zacheryspector/The-Movies-headless-program/generated/unity/tests/StudioBridgeUnionFixtures.Generated.cs
+exit=0
+
+=== npm run typecheck:bridge ===
+
+> project-studio-core@0.1.0 typecheck:bridge
+> tsc -p tsconfig.bridge.json
+
+tests/bridge-p13b-s6-cancellation.test.ts(3,1): error TS6133: 'campaignDate' is declared but its value is never read.
+tests/bridge-p13b-s6-cancellation.test.ts(5,1): error TS6192: All imports in import declaration are unused.
+tests/bridge-p13b-s6-cancellation.test.ts(277,11): error TS6133: 'own' is declared but its value is never read.
+exit=2
+
+=== npm run typecheck ===
+
+> project-studio-core@0.1.0 typecheck
+> tsc --noEmit && tsc -p ui/tsconfig.json --noEmit
+
+exit=0
+
+=== PREMISE CONFLICT (one case, refused, not worked around) ===
+tests/bridge-p13b-s6-cancellation.test.ts:341 asserts adoptionRow.cancelledWeek === state.market.tick + 2.
+ENGINE FACT: src/core/installationCancellation.ts applyCancellation stamps `const week = state.market.tick`,
+so adoption.cancelledWeek is the week the cancel COMMITTED. In that case `state` is already
+advanceTo(committed, committed.market.tick + 2) = week 793 (committed = 791), so the engine writes 793 and
+the assertion demands 795. MEASURED (probe, same fixture and the same real BridgeSession): wire cancelledWeek
+793 === engine adoption.cancelledWeek 793 === state.market.tick 793. The bridge publishes the engine leaf
+verbatim; 795 is not reachable without fabricating a week. Reading committed.market.tick + 2 (= 793) — which
+the same line two statements earlier uses to build `state` — makes the line pass.
+Every OTHER assertion of that case holds; measured through the real BridgeSession:
+  row present: true  intent.kind: cancellationAction  enabled: true
+  commit accepted: true
+  L343 adoptionRow.equipmentAssetId === engine adoption.equipmentAssetId: true
+  L348 equipment[] row present: true  holderAdoptionId null: true  technologyId: lighting-control-01
+  L356 second adopt row present: true  quote.reusedEquipmentAssetId === assetId: true  engine agrees: true  total agrees: true (100000)
+  L366 cancellationQuote(state, {projectId}).ok after the cancel: false
+
+=== typecheck:bridge residual (PRE-EXISTING, test-side, not introduced here) ===
+The three TS6133/TS6192 errors above are unused imports/locals inside the RED test file itself
+(campaignDate, blueprintById+queryFacilityInstallation, and `own` at line 277 — each appears only at its
+own declaration; grep-verified). tests/ is unchanged from 9fa76bf apart from the 38 -> 39 projection pins
+and the generator schema-identity/feature-hash pins, and no bridge source change can create an unused
+identifier in that file. `npm run typecheck` (root + ui) is clean, exit 0.

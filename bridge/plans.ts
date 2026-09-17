@@ -1,23 +1,30 @@
 /** P13B-S3's private player Plans read side. The engine's plan law is the authority. */
 import { applyActions } from '../src/core/actions.js'
 import { campaignDate } from '../src/core/calendar.js'
+import { cancellationQuote } from '../src/core/installationCancellation.js'
 import { blueprintById } from '../src/core/placement.js'
 import { planAdmissionView, studioPhysicalPlans, resolvedTargetFacilityId, type PhysicalPlanAction } from '../src/core/physicalPlans.js'
 import type { GameState, PhysicalPlan, PhysicalPlanWork, PlanQuoteSnapshot } from '../src/core/types.js'
+import { cancellationDetail, cancellationQuoteRow, isCancellationAction, type CancellationAction } from './cancellation.ts'
 import type { AvailableIntent } from './protocol.ts'
 import type { IndustryPage } from './schema/industry-schema.ts'
 
 type PlansPage = NonNullable<IndustryPage['plans']>
 type PlanRow = PlansPage['rows'][number]
+type ActionQuoteRow = NonNullable<PlansPage['actions'][number]['quote']>
 export type PlanActionSpec = {
   id: string
   /** The plan this row acts on: the page publishes only the rows its own page of plans owns. */
   planId: string
-  action: PhysicalPlanAction
+  // P13B-S6: a STARTED plan owns a committed placement, and stopping that placement is
+  // not a plan verb — the plan itself is already permanent at admission.
+  action: PhysicalPlanAction | CancellationAction
   label: string
   detail: string
   enabled: boolean
   disabledReason: string | null
+  /** P13B-S6: the engine's own `cancellationQuote` on a `cancel-*` row; null on every plan verb. */
+  quote: ActionQuoteRow | null
 }
 export type PlanIntent = { spec: PlanActionSpec; option: AvailableIntent }
 
@@ -75,15 +82,17 @@ export function planActionSpecs(state: GameState): readonly PlanActionSpec[] {
   const specs: PlanActionSpec[] = []
   const own = state.hollywood?.playerStudioId
   if (own === undefined) { quotes.set(state, specs); return specs }
-  function add(id: string, planId: string, action: PhysicalPlanAction, label: string, detail: string, refusal: string | null = null) {
+  function add(id: string, planId: string, action: PhysicalPlanAction | CancellationAction, label: string, detail: string, refusal: string | null = null, quote: ActionQuoteRow | null = null) {
     let disabledReason = refusal
-    if (disabledReason === null) {
+    // P13B-S6: a cancel row is priced and refused by `cancellationQuote` alone (see
+    // bridge/laboratory.ts's own note); a second dry run would be a second authority.
+    if (disabledReason === null && !isCancellationAction(action)) {
       try {
         const next = applyActions(state, [action])
         if (next === state) throw new Error('This decision is not currently available.')
       } catch (error) { disabledReason = (error as Error).message }
     }
-    specs.push({ id, planId, action, label, detail, enabled: disabledReason === null, disabledReason })
+    specs.push({ id, planId, action, label, detail, enabled: disabledReason === null, disabledReason, quote })
   }
   const plans = studioPhysicalPlans(state, own)
   // The engine's own reorder set: a started or cancelled plan is never named in a permutation.
@@ -94,6 +103,24 @@ export function planActionSpecs(state: GameState): readonly PlanActionSpec[] {
       add(`plan-cancel-${plan.id}`, plan.id, { kind: 'cancelPhysicalPlan', planId: plan.id },
         `Cancel plan: ${label}`,
         'Nothing was reserved for this plan, so nothing is refunded or released. Plans that depend on it are blocked here and never count it as completion.')
+    }
+    // P13B-S6: a STARTED plan's own committed placement. `plan-cancel-<planId>` above is
+    // withheld for a started plan and stays withheld — cancelling the PLAN and cancelling
+    // the WORK it already committed are different decisions with different money — so this
+    // is a separate row on the engine's own project id. The ENGINE decides it exists:
+    // `cancellationQuote` refuses a completed record, a cancelled one, a restoration and a
+    // whole-body placement (only work inside an existing building can be stopped).
+    if (plan.status === 'started' && plan.startedPlacementId !== null) {
+      const placed = state.placement.facilities.find(candidate => candidate.id === plan.startedPlacementId)
+      const quote = placed === undefined ? null : cancellationQuote(state, { projectId: placed.projectId })
+      if (placed !== undefined && quote !== null && quote.ok) {
+        const row = cancellationQuoteRow(state, { projectId: placed.projectId })
+        add(`cancel-${placed.projectId}`, plan.id, { kind: 'cancelInstallation', projectId: placed.projectId },
+          `Cancel committed work: ${label}`,
+          cancellationDetail(state, row) +
+          ' The plan record itself keeps its admission history; it is already started and is not queued again.',
+          quote.refusal, row)
+      }
     }
     if (plan.status === 'held' && plan.pendingQuote !== null) {
       add(`plan-review-${plan.id}`, plan.id,
@@ -173,8 +200,9 @@ export function plansPage(state: GameState, intents: readonly PlanIntent[], page
       enabled: spec.enabled && enabled.has(spec.id),
       disabledReason: spec.disabledReason ?? (enabled.has(spec.id) ? null : 'Refresh this page to review the current decision.'),
       intent: enabled.get(spec.id) ?? null,
-      // P13B-S5: the shared action row's adoption quote. A plan verb never carries one.
-      quote: null,
+      // P13B-S5/S6: the shared action row's quote. A plan verb never carries one; a
+      // P13B-S6 `cancel-*` row carries the engine's own cancellation quote.
+      quote: spec.quote,
     })),
   } }
 }
