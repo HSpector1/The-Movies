@@ -934,7 +934,7 @@ technologies. 5 bridge projection. **Allowance:** 4 h capability, 2 h verificati
 
 ### S7 tasks
 - [x] **S7-T0 Genuine V26 fixtures (2026-09-17 ≈22:05)** minted by `src/harness/p13b/legacy-v26-fixtures.ts` at `8796fce` (final V26 writer `83187c2`; `git diff --stat 83187c2..HEAD -- src bridge` empty) before any S7 source change: `legacy-v26-lighting-cancelled-793` (sha `0b74f4d8…`; cancelled at 793 with receipt, refund row, unheld asset, `restoration-lighting-stage` in progress), `legacy-v26-lighting-restored-795` (sha `f48da034…`; restoration complete, cancelled record retained), `legacy-v26-sound-mid-deployment-309` (sha `11ef05be…`; every V26 leaf in its null form); provenance in `tests/fixtures/p13b/PROVENANCE.md`; evidence `p13b-s7-20260917/00`. Contract-auditor dispatched on the refined expansion; test-author follows the audit.
-- [ ] **S7-T1 Tests 1–4 RED-first** (test-author) against `src/core/technologyDisclosure.ts`; evidence `01`–`04`.
+- [~] **S7-T1 Tests 1–4 RED-first** (test-author dispatched 2026-09-17 ≈22:30 after the audit) against `src/core/technologyDisclosure.ts`: `tests/p13b-s7-{forecast,independence,announcements,replacement}.test.ts`; evidence `01`–`04`.
 - [ ] **S7-T2 Engine increment** (sim-core): catalogue data, `technologyDisclosure.ts`; S7 files green; no save change (assert `LIVE_SAVE_VERSION`
   26 unchanged in the sweep).
 - [ ] **S7-T3 Bridge projection 40**: test 5 RED-first (forecast rows, replacement labels on purchase/adopt/adoptions rows for both technologies, the derived announcement row with `studioId: null`, the generalised `wait-*`/`purchase-*` rows), then sim-core; pins 39 → 40; schema id recorded; backlog notes the two binding changes.
