@@ -564,6 +564,102 @@ without II prerequisite is a proposed product choice for disposition and is not 
 retained body Opex, standard increments only while operational, existing assessments unchanged.
 Allowance: 6 h capability, 2 h verification.
 
+## S5 — Component inventor pricing and prototypes per technology (Ready row 7) — task expansion (amendment 2026-09-17)
+
+**Authoritative sources.** Companion `02-P13B-DECISIONS-AND-ACCEPTANCE.md` §6 (P13 provenance decomposes access, equipment, site
+adaptation, installation, compatible capture and Post; the first prototype covers one actual equipment set, no access charge waived twice, no
+negative line; later inventor equipment at the existing 25 % concession — sound $225k, lighting $150k; physical work receives no inventor
+discount; an existing sound Post is charged only if actually absent and later stages reuse compatible operational Post; entitlement scoped by
+campaign, studio, technology and project; an actual retained equipment asset can be reused, never spawned repeatedly), §5 row 7 + acceptance
+**A8** (first and subsequent inventor installations for sound and light, commercial direct buy, cancellation/reuse: components charged once,
+no negative quote, existing compatible Post not rebilled), the §4 physical-deployment row (sound: first inventor $975k, later +$225k,
+commercial access $200k + equipment $300k + physical $975k; lighting: access $100k commercial / $0 inventor; equipment $200k commercial / $0
+first prototype / $150k later inventor; site $50k/2 w then install $50k/2 w; +$1k weekly at operation), REF-F/REF-W, and the R07 disposition
+§5's S5 instruction (generalize `finishTechnologyWeek` and the shared adoption validation per technology — target identity and prototype
+accounting together; never make Post optional everywhere or let a lighting adoption satisfy synchronized-sound requirements). `03-PAPER-
+ECONOMICS.md` cancellation traces (A7) are S6's acceptance and are only PERSISTED-FOR here (component quantity/progress/cost).
+
+**Engine today.** `adoptSynchronizedSound {stageFacilityId, postFacilityId}` (sound only): equipment = $0 first prototype / $225k later inventor /
+$300k commercial, plus the stage and Post P09 installation quotes; `TechnologyAdoption {equipmentCost, installationCost, physicalProjectIds,
+prototypeProjectId}`; `finishTechnologyWeek` marks the player's adoption operational when the sound stage AND Post installations are
+operational (rival: `committedWeek + deploymentWeeks`); the validator reconciles `installationCost` to the placements' capex and hard-codes the
+rival purchase at 300,000 / 975,000; `considerRivalSoundPurchase` is sound-only (S8 owns rival capacity). The catalogue already carries every
+per-technology price and `lighting-control-stage` already lists its two physical components.
+
+**Scope.** Per-technology adoption with explicit component provenance and durable equipment ownership: `adoptTechnology` for both briefs
+(`adoptSynchronizedSound` stays as the lawful sound alias), component rows on every adoption, equipment assets that are minted once and
+reused rather than re-credited, the per-technology operational law and operating charges, Save V24, and the wire. Cancellation, refunds and
+restoration are S6 (this slice persists what S6 needs); rival lighting purchase/research is S8; the production consumer of lighting is S5-R07
+(named below, after this chain lands).
+
+**Delegated implementation decisions (recorded, not Owner product choices).**
+- `TechnologyAction` gains `{kind:'adoptTechnology', technologyId, stageFacilityId, postFacilityId?: string}`; `adoptSynchronizedSound` is kept
+  and means `adoptTechnology` for sound (P13A intents and tests stay lawful). Lighting refuses a `postFacilityId` (no Post component); sound
+  requires one unless an operational sound Post already exists in the studio (then the component is `existing`, cost 0, no new installation).
+- `TechnologyAdoption` gains `components: TechnologyAdoptionComponent[]` = `{kind: 'access'|'equipment'|'site'|'installation'|'capture'|'post',
+  label, cost, weeks: number|null, source: 'commercial'|'first-prototype'|'later-inventor'|'existing'|'physical', placementId: number|null,
+  equipmentAssetId: string|null}` and `equipmentAssetId: string|null`; the physical rows mirror the P09 blueprint's `installationComponents`
+  one-to-one (lighting: site $50k/2 w + installation $50k/2 w; sound stage/Post: their authored components) so S6 can refund unused work per
+  component from the placement's progress; `installationCost` = Σ physical rows, `equipmentCost` = the equipment row — both retained.
+- Technology root v4 gains `equipment: TechnologyEquipmentAsset[]` = `{id: '<studioId>:equipment:<n>', studioId, technologyId, acquiredWeek,
+  source: 'first-prototype'|'later-inventor'|'commercial', cost, holderAdoptionId: string|null}` with `nextEquipmentId`. An adoption's equipment
+  row either mints a new asset (cost by route: first prototype $0 exactly once per (studio, technology, research project) — the entitlement —
+  later inventor at the catalogue concession, commercial at the catalogue price) or reuses an UNHELD retained asset of that technology
+  (`source: 'existing'`, cost 0). Assets are never deleted; S6 detaches the holder on cancellation. No negative line anywhere.
+- Access: the commercial route's `accessCost` is charged once at `purchaseTechnology` (existing access row) and appears on the adoption as an
+  `access` component with `source: 'existing'`, cost 0 (never charged twice); the inventor route's access row carries $0.
+- Operational law (`finishTechnologyWeek`, per technology): the player's adoption is operational when every `physical` component's placement is
+  operational and every `existing` component's facility is operational; rival: `committedWeek + deploymentWeeks` as today. Operating charges
+  come from the installed blueprints' own weekly costs as today (lighting +$1,000 from the stage fit-out's completion; sound Post/stage as
+  delivered). A lighting adoption never satisfies a sound requirement and vice versa (`technologyProduction.ts` keeps its sound-only method).
+- Validator (live v4): components sum to the retained totals, exactly one equipment component per adoption, at most one first-prototype asset
+  per (studio, technology, research project), an asset held by at most one adoption, every `physical` row names a placement of the entry's
+  installation blueprint on the adoption's stage/Post, every `existing` row names an operational facility, no negative cost, no access charge
+  on an inventor adoption, an adoption only with acquired access to that technology; the rival hard-coded 300,000/975,000 becomes the
+  catalogue's values per technology (no behaviour change for sound). Frozen `validateTechnologyV3` + `liftTechnologyV3` for genuine V23 saves.
+- **Save V24** (`SaveFileV24`, `validateSaveV24`, `convertV23ToV24`, `migrateToV24`, `makeSave` → 24, downgrade guards, "1 through 24"):
+  the lift derives components honestly from the retained facts — equipment row from `equipmentCost` (`first-prototype` when
+  `prototypeProjectId` is set and the cost is 0, `later-inventor`/`commercial` by route and price), one aggregated `installation` physical row
+  per `physicalProjectIds` entry with the placement's own capex, an `access` row from the access record, and one minted asset per adoption
+  (held) — nothing invented, byte-identical otherwise. **S5-T0 mints genuine V23 fixtures at the final V23 writer BEFORE any S5 source change**
+  (incl. a state with an operational inventor sound adoption and a completed lighting project).
+- Bridge (projection 37, text only): Laboratory page `adopt-` rows generalized per technology (`adopt-<technologyId>-<stagePlacementId>[-<postPlacementId>]`,
+  intent `adoptTechnology`), a `StudioAdoptionQuote` per row (component list with kind/label/cost/source, total, and the reuse of an existing Post
+  or asset named), and `adoptions: StudioAdoptionRow[]` on the page (technology, route, committedWeek, operationalWeek, components,
+  equipmentAssetId); player-safe.
+
+**Tests (requirement-derived; each fails before its implementation).**
+1. Quotes and components per route: first inventor sound (access $0, equipment $0 first prototype, physical $975k = stage + Post components);
+   second inventor sound installation on another stage while the first holds its asset (equipment $225k later inventor, existing operational
+   Post reused at $0, stage physical only); commercial sound (access $200k charged once at purchase, equipment $300k, physical $975k); lighting
+   inventor first (access $0, equipment $0, site $50k/2 w + install $50k/2 w), lighting later inventor ($150k + $100k), lighting commercial at
+   936 ($100k + $200k + $100k); a lighting adoption with a `postFacilityId` refused; no negative line; the first-prototype entitlement fires
+   exactly once per (studio, technology, project) and never for a different technology's project.
+2. Operational law and charges: lighting operational at stage fit-out completion (+4 weeks) with +$1,000/week from then, no Post; sound needs
+   stage + Post (or an existing operational Post); an existing Post is not re-billed and not re-installed; `technologyProduction` still locks
+   sound only; charges reconcile to the ledger weekly.
+3. Equipment assets: minted once per adoption, held by it, never duplicated; an unheld retained asset (structural fixture for S6's future
+   detachment) is reused at $0 by a new adoption of the same technology and never by another technology; a held asset cannot be reused.
+4. Save V24: genuine V23 fixtures (T0) and the V20/V21/V22 chains migrate with honest components and one held asset per adoption, byte-identical
+   otherwise; `migrateToV≤23` refuse V24; save/reload mid-deployment continues identically; unknown 25 refused.
+5. Validator refusals: forged component sums, a second first-prototype asset for one project, a negative component, an asset held by two
+   adoptions, an adoption without acquired access, an `existing` Post row naming a non-operational facility, a lighting adoption with a Post row.
+6. Conservation, determinism, campaign isolation (rival adoption rows untouched by player actions; the rival purchase reconciles per technology).
+7. Bridge (projection 37): per-technology adopt rows with component quotes, adoption rows, refusals, stale revision, player-safe.
+
+**Allowance (plan):** 6 h capability, 2 h verification (+ S5-R07 separately, ≈4 h + 2 h, expanded before it begins).
+
+### S5 tasks
+
+- [ ] **S5-T0 Genuine V23 fixtures** at the final V23 writer before any S5 source change (coordinator; provenance beside them).
+- [ ] **S5-T1/T2/T3 Engine increment** (sim-core; test-author writes tests 1–6 RED first): components, assets, `adoptTechnology`, per-technology
+      operational law and charges, validator, Save V24.
+- [ ] **S5-T4 Bridge projection 37:** test 7 (`tests/bridge-p13b-s5-adoption.test.ts`).
+- [ ] **S5-T5 Matched pass, records (backlog entry), commit, push.**
+- [ ] **S5-R07 consumer task** — expansion written before it begins (paths, versions, tests, effort, backlog) per the disposition; it follows T5.
+
+## S5 — original scope record (superseded by the expansion above; kept verbatim)
+
 ## S5 — Component inventor pricing/prototypes (Ready row 7) — scope record
 
 Access/equipment/site/installation/capture/Post components per technology; first prototype covers one
