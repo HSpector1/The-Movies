@@ -1,0 +1,72 @@
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ × |core| tests/bridge-p13b-s5-adoption.test.ts > P13B-S5-T4 bridge adoption wire: projection bump (36 -> 37) > bumps PROJECTION_VERSION to 37 and its schema $id / x-project-studio.projectionVersion move with it
+   → expected 36 to be 37 // Object.is equality
+ × |core| tests/bridge-p13b-s5-adoption.test.ts > P13B-S5-T4 bridge adoption wire: projection bump (36 -> 37) > AVAILABLE_INTENT_KINDS gains the adoptTechnology kind, distinct from researchAction/installationAction/physicalPlanAction
+   → expected [ 'signFoundingContract', …(20) ] to include 'adoptTechnology'
+ × |core| tests/bridge-p13b-s5-adoption.test.ts > requirement 1: laboratory.adoptions[] structured rows and per-row StudioAdoptionQuote > a committed lighting adoption appears on adoptions[] with technologyId/route/committedWeek/operationalWeek/components/equipmentAssetId/postFacilityId 8010ms
+   → expected false to be true // Object.is equality
+ × |core| tests/bridge-p13b-s5-adoption.test.ts > requirement 1: laboratory.adoptions[] structured rows and per-row StudioAdoptionQuote > the adopt-lighting-control-01-<stage> action row carries intent.kind "adoptTechnology" and a quote equal to the engine's own adoptionQuote (minus its ok flag)
+   → row "adopt-lighting-control-01-facility-soundstage-07" absent from ["assign-1-t-sci-00-synchronized-sound","assign-1-t-sci-01-synchronized-sound","assign-1-t-sci-02-synchronized-sound","assign-1-t-sci-03-synchronized-sound","assign-1-t-sci-04-synchronized-sound","assign-1-t-sci-05-synchronized-sound","assign-1-t-sci-06-synchronized-sound","assign-1-t-sci-07-synchronized-sound","wait-synchronized-sound","purchase-synchronized-sound","adopt-facility-soundstage-07-facility-post-building","adopt-facility-soundstage-12-facility-post-building"]
+ ✓ |core| tests/bridge-p13b-s5-adoption.test.ts > requirement 2: lighting rows are access-gated for presence and quote the exact 100,000 first-prototype total > no adopt-lighting-control-01-* row exists anywhere before lighting access is acquired 7184ms
+ × |core| tests/bridge-p13b-s5-adoption.test.ts > requirement 2: lighting rows are access-gated for presence and quote the exact 100,000 first-prototype total > once lighting access is acquired (first-prototype route) the row names a compatible stage, no Post, and totals exactly $100,000 (site 50k/2w + installation 50k/2w + equipment $0)
+   → row "adopt-lighting-control-01-facility-soundstage-07" absent from ["assign-1-t-sci-00-synchronized-sound","assign-1-t-sci-01-synchronized-sound","assign-1-t-sci-02-synchronized-sound","assign-1-t-sci-03-synchronized-sound","assign-1-t-sci-04-synchronized-sound","assign-1-t-sci-05-synchronized-sound","assign-1-t-sci-06-synchronized-sound","assign-1-t-sci-07-synchronized-sound","wait-synchronized-sound","purchase-synchronized-sound","adopt-facility-soundstage-07-facility-post-building","adopt-facility-soundstage-12-facility-post-building"]
+ × |core| tests/bridge-p13b-s5-adoption.test.ts > requirement 3: sound rows keep P13A stage+Post pairing, existing-Post reuse at $0 > a second stage's sound row reuses the first stage's operational Post: reusedPostFacilityId set, the Post component existing/$0 4683ms
+   → row "adopt-synchronized-sound-facility-soundstage-12-facility-post-building" absent from ["recruit-1-t-sci-01","recruit-1-t-sci-02","recruit-1-t-sci-03","recruit-1-t-sci-04","recruit-1-t-sci-05","recruit-1-t-sci-06","recruit-1-t-sci-07","assign-1-t-sci-00-lighting-control-01","release-1-t-sci-00","plan-queue-electrical-1","wait-synchronized-sound","purchase-synchronized-sound","adopt-facility-soundstage-12-facility-post-building"]
+ × |core| tests/bridge-p13b-s5-adoption.test.ts > requirement 4: committing an adopt row through the bridge (engine-truth components, revision advance, stale refusal, row disappears) > commits exactly one adoption with the wire-quoted components, advances stateRevision, refuses the same intent at the old revision, and the committed stage's own row disappears
+   → row "adopt-synchronized-sound-facility-soundstage-07-facility-post-building" absent from ["recruit-1-t-sci-01","recruit-1-t-sci-02","recruit-1-t-sci-03","recruit-1-t-sci-04","recruit-1-t-sci-05","recruit-1-t-sci-06","recruit-1-t-sci-07","assign-1-t-sci-00-lighting-control-01","release-1-t-sci-00","plan-queue-electrical-1","wait-synchronized-sound","purchase-synchronized-sound","adopt-facility-soundstage-07-facility-post-building","adopt-facility-soundstage-12-facility-post-building"]
+ × |core| tests/bridge-p13b-s5-adoption.test.ts > per-technology stage rule: a stage with an adoption of one technology still offers the other, never the same one again > after committing sound on a stage, that stage's own sound row is gone but its lighting row is still offered
+   → Row "adopt-synchronized-sound-facility-soundstage-07-facility-post-building" is absent from ["release-1-t-sci-00","wait-synchronized-sound","purchase-synchronized-sound","adopt-facility-soundstage-07-facility-post-building","adopt-facility-soundstage-12-facility-post-building"].
+ × |core| tests/bridge-p13b-s5-adoption.test.ts > requirement 5: plan-queue-adopt-<technologyId>-<stageFacilityId> companions never mint an adoption and follow the S4 reachable-hide rule > queues the stage-installation blueprint through queuePhysicalPlan, mints no adoption, and then hides itself once queued (duplicate-queue rule)
+   → companion "plan-queue-adopt-lighting-control-01-facility-soundstage-07" absent from ["assign-1-t-sci-00-synchronized-sound","assign-1-t-sci-01-synchronized-sound","assign-1-t-sci-02-synchronized-sound","assign-1-t-sci-03-synchronized-sound","assign-1-t-sci-04-synchronized-sound","assign-1-t-sci-05-synchronized-sound","assign-1-t-sci-06-synchronized-sound","assign-1-t-sci-07-synchronized-sound","wait-synchronized-sound","purchase-synchronized-sound","adopt-facility-soundstage-07-facility-post-building","adopt-facility-soundstage-12-facility-post-building"]
+ × |core| tests/bridge-p13b-s5-adoption.test.ts > requirement 6: refusal disclosure and player-safety on a row whose engine quote is refused > a sound row before access is acquired publishes the engine's own refusal/rejections, agrees with disabledReason, and the underlying action throws that exact text
+   → row "adopt-synchronized-sound-facility-soundstage-07-facility-post-building" absent from ["recruit-1-t-sci-01","recruit-1-t-sci-02","recruit-1-t-sci-03","recruit-1-t-sci-04","recruit-1-t-sci-05","recruit-1-t-sci-06","recruit-1-t-sci-07","assign-1-t-sci-00-lighting-control-01","release-1-t-sci-00","plan-queue-electrical-1","run-studio-aca408ec-player:research:synchronized-sound","cancel-studio-aca408ec-player:research:synchronized-sound","budget-studio-aca408ec-player:research:synchronized-sound-0","budget-studio-aca408ec-player:research:synchronized-sound-2500","budget-studio-aca408ec-player:research:synchronized-sound-10000","budget-studio-aca408ec-player:research:synchronized-sound-40000","budget-studio-aca408ec-player:research:synchronized-sound-60000","budget-studio-aca408ec-player:research:synchronized-sound-80000","wait-synchronized-sound","purchase-synchronized-sound","adopt-facility-soundstage-07-facility-post-building","adopt-facility-soundstage-12-facility-post-building"]
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 10 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/bridge-p13b-s5-adoption.test.ts > P13B-S5-T4 bridge adoption wire: projection bump (36 -> 37) > bumps PROJECTION_VERSION to 37 and its schema $id / x-project-studio.projectionVersion move with it
+AssertionError: expected 36 to be 37 // Object.is equality
+
+- Expected
++ Received
+
+- 37
++ 36
+
+ ❯ tests/bridge-p13b-s5-adoption.test.ts:250:32
+
+ FAIL |core|  tests/bridge-p13b-s5-adoption.test.ts > requirement 6: refusal disclosure and player-safety on a row whose engine quote is refused > a sound row before access is acquired publishes the engine's own refusal/rejections, agrees with disabledReason, and the underlying action throws that exact text
+Error: row "adopt-synchronized-sound-facility-soundstage-07-facility-post-building" absent from ["recruit-1-t-sci-01","recruit-1-t-sci-02","recruit-1-t-sci-03","recruit-1-t-sci-04","recruit-1-t-sci-05","recruit-1-t-sci-06","recruit-1-t-sci-07","assign-1-t-sci-00-lighting-control-01","release-1-t-sci-00","plan-queue-electrical-1","run-studio-aca408ec-player:research:synchronized-sound","cancel-studio-aca408ec-player:research:synchronized-sound","budget-studio-aca408ec-player:research:synchronized-sound-0","budget-studio-aca408ec-player:research:synchronized-sound-2500","budget-studio-aca408ec-player:research:synchronized-sound-10000","budget-studio-aca408ec-player:research:synchronized-sound-40000","budget-studio-aca408ec-player:research:synchronized-sound-60000","budget-studio-aca408ec-player:research:synchronized-sound-80000","wait-synchronized-sound","purchase-synchronized-sound","adopt-facility-soundstage-07-facility-post-building","adopt-facility-soundstage-12-facility-post-building"]
+ ❯ required tests/bridge-p13b-s5-adoption.test.ts:85:52
+     83| 
+     84| function required<T>(value: T | null | undefined, message: string): T {
+     85|   if (value === null || value === undefined) throw new Error(message)
+       |                                                    ^
+     86|   return value
+     87| }
+ ❯ tests/bridge-p13b-s5-adoption.test.ts:438:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/10]⎯
+
+ Test Files  1 failed (1)
+      Tests  10 failed | 1 passed (11)
+   Start at  07:12:10
+   Duration  36.97s (transform 2.33s, setup 0ms, collect 3.14s, tests 33.31s, environment 0ms, prepare 110ms)
+
+[NOTE — appended by the test author, not part of the raw vitest output: the
+full run produced 10 failure blocks, one per failing test, each with its own
+stack trace; this file elides failure blocks 2-9 (each following the exact
+same "AssertionError expected X to be Y" or "Error: row/companion ... absent
+from [...]" shape as blocks 1 and 10 shown above) to respect the brief's
+"tail -80" sizing. The command actually run, verbatim:
+`npx vitest run tests/bridge-p13b-s5-adoption.test.ts --minWorkers=1
+--maxWorkers=1 --reporter=verbose 2>&1 | tail -80`. Every one of the 10
+failures is either a clean expect() mismatch or a clean required()-thrown
+"absent from [...]" diagnostic; none is a module-resolution or harness crash.
+The single PASS (requirement 2's "no adopt-lighting-control-01-* row exists
+anywhere before lighting access is acquired") is a legitimate but currently
+vacuous pass: lighting rows never exist on the wire today for ANY reason yet
+(the technology is unimplemented on the bridge), so absence-before-access
+holds trivially; it will become a meaningful check once lighting rows exist
+at all. See the test author's final report for the full per-requirement
+breakdown.]
