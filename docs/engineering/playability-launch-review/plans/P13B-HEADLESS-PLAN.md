@@ -881,6 +881,44 @@ technologies. 5 bridge projection. **Allowance:** 4 h capability, 2 h verificati
 Public milestone facts only; R07 distant window 884..988 narrowing on public announcement at 884 to 936;
 no private rival research exposure; replacement descriptors on purchase. Requires S2. Allowance: 4 h / 2 h.
 
+## S8 — Symmetric rival research and finance (Ready row 8) — provisional task expansion (drafted 2026-09-17; refined after S6/S7 land and once the companion is re-supplied)
+
+**Authority.** The S8 scope record below; the R07 disposition (rival symmetry must be bound through real rival producers before any symmetry
+claim; S8 binds comparable rival behaviour to the S5-R07 consumer); S3's symmetric `physicalPlans` root; S5's per-technology adoption and
+equipment law; S6's cancellation receipts. Companion text not on disk (see S7's input limit). Versions: the next governed save/projection
+versions at execution, after S6/S7's.
+
+**Engine today (verified 2026-09-17).** Rivals are `RivalBusiness {account: RivalAccount, operations: StudioOperations, productions, projects,
+policy {affinities, negativeScale, marketingRatio, reserveWeeks}, …}` advanced by `advanceHollywoodWeek`; their technology is a paper
+commercial purchase (`considerRivalSoundPurchase`, sound only, S5 writes it as aggregated component rows with a held commercial asset) and a
+sound production choice; rival ledger kinds are `development | production | marketing | studioRevenue | technologyAdoption`; rivals have no
+Laboratories, Scientists, research projects, physical plans or installations; player-only admission in S3 and player-only P09 bodies in S5.
+
+**Scope.** Rivals research and deploy under the same law as the player, through the same roots, with receipts for everything and typed finance:
+- Rival Lab capacity: receipt-backed Laboratory construction and instrument installation on the rival's own operations (≤ 2 Labs × 4 seats),
+  through the shared placement/installation law where the rival's lot exists, else through the S3 physical-plan root with rival admission
+  (the `reserveWeeks` policy governs when a rival commits capital); no invented plant — every Lab and module has a placement or plan receipt.
+- Rival research: the same `ResearchProject`/seat/receipt law (S1–S2) driven by a rival policy (technology interest, budget ceiling within
+  `reserveWeeks`), Scientists employed through the shared employment law (S1 identity, contracts, expiry); cooperation/splitting as the player.
+- Rival adoption per technology (S5): the P09 query clause applies to the rival's bodies once they exist; first-prototype entitlement, later
+  inventor, commercial purchase — identical; the rival's commercial purchase keeps its current shape until its plant exists.
+- Typed rival ledger kinds: `researchSpend`, `researchCapacity` (Lab/instrument capex), `technologyRestoration` (S6), `technologyRefund` (S6),
+  beside the existing kinds; interval Opex for rival plant (weekly operating cost booked per interval, as the player's baseline opex); the
+  migration basis frozen at the migration week (a rival that enters by migration carries its historical account as-is; legacy zero-Opex rivals
+  grandfathered — no invented back-charges).
+- Forecast invariant (S7): rival research never leaks; the announcement stays campaign-clock driven.
+- S5-R07 symmetry: rival productions use the same setup recipe/unit law with their own provenance; no shortcut.
+- Validator: rival roots hold the same invariants as the player's (access identity, component sums, asset holders, plan admission), plus
+  "no rival authority without a receipt" for every Lab, seat, adoption and plan.
+- Bridge (projection next, text only): industry page publishes rival technology facts only from receipts (adoption operational, announcement),
+  never research state; rival finance exposed only through the existing public standings.
+
+**Tests (RED-first).** 1 rival Lab/instrument receipts (≤ 2 × 4, reserveWeeks respected, no plant without receipt). 2 rival research under the
+shared law (identical receipts for identical inputs vs a player run; expiry/renewal). 3 rival adoption per technology with the P09 clause on
+rival bodies; commercial purchase unchanged where no plant exists. 4 typed ledger kinds and interval Opex reconcile; migration basis frozen;
+legacy zero-Opex grandfathered. 5 S7 non-leak invariant with rival research present. 6 S5-R07 symmetry through a real rival production.
+7 Save V(next) + validator refusals. 8 bridge. **Allowance:** 12 h capability, 4 h verification.
+
 ## S8 — Symmetric rival research and finance (Ready row 8) — scope record
 
 Receipt-backed rival Lab construction/instruments (≤2 Labs × 4 seats), same law as players, reserveWeeks
