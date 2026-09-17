@@ -1,0 +1,14 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p13b-s7-independence.test.ts > P13B-S7 rival-independence: identical forecast/announcements across states differing only in rival facts (test 2, PARTIAL until S8) > precondition: the rival-purchase variant genuinely differs from the base world in rival facts only, at the identical week
+ ✓ |core| tests/p13b-s7-independence.test.ts > P13B-S7 rival-independence: identical forecast/announcements across states differing only in rival facts (test 2, PARTIAL until S8) > lighting forecast (windowed) is byte-identical across the two rival-divergent states at week 416
+ ✓ |core| tests/p13b-s7-independence.test.ts > P13B-S7 rival-independence: identical forecast/announcements across states differing only in rival facts (test 2, PARTIAL until S8) > sound forecast (exact) is byte-identical across the two rival-divergent states at week 416
+ ✓ |core| tests/p13b-s7-independence.test.ts > P13B-S7 rival-independence: identical forecast/announcements across states differing only in rival facts (test 2, PARTIAL until S8) > technologyAnnouncements(416) is byte-identical (both empty — lighting has not announced yet) across the two states
+ ✓ |core| tests/p13b-s7-independence.test.ts > P13B-S7 rival-independence: identical forecast/announcements across states differing only in rival facts (test 2, PARTIAL until S8) > advanced independently to week 900 (past the lighting announcement), a rival-only fact the engine PRESERVES past ticks keeps the pair genuinely divergent, and forecasts/announcements still publish byte-identical 8999ms
+
+ Test Files  1 passed (1)
+      Tests  5 passed (5)
+   Start at  23:58:35
+   Duration  17.10s (transform 1.19s, setup 0ms, collect 1.62s, tests 15.12s, environment 0ms, prepare 92ms)
+

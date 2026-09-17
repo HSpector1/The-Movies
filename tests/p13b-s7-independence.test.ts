@@ -42,8 +42,37 @@
 // divergent states to a later shared week; `market.tick` is a plain integer
 // counter untouched by which rival owns what, so both branches reach the
 // identical week by construction regardless of anything rival-side.
+//
+// CORRECTION (post-S7-T2, engine measured — evidence 08-engine-s7.txt, this
+// file's own case 5 originally at line ~121): `considerRivalSoundPurchase`
+// admits at most one rival adoption per campaign and `advanceHollywoodWeek`
+// runs it on EVERY tick (`hollywoodTick.ts:225`); the base world's own tick
+// at week 416 mints byte-for-byte the same purchase this file applies
+// manually (same business, same `committedWeek`), so `base`/`rivalVariant`
+// re-converge to JSON-identical states from week 417 on and a week-900
+// "not.toEqual" precondition on the UNCHANGED pair is vacuous. Case 5 below
+// instead layers ONE ADDITIONAL rival-only fact, local to that case (`base`
+// and `rivalVariant` themselves, and cases 1-4 above, are untouched): a
+// leading no-op `RivalFinancePeriod` (`newFinancePeriod`, the real
+// production helper — opening===closing, every `RivalMoneyKind` movement
+// zero) spliced before one rival business's real `account.periods`, at that
+// business's own entry week. `hollywoodValidation.ts` sums every money kind
+// ACROSS periods (a zero period changes no sum) except the one PER-PERIOD
+// check ("technology adoption movements do not reconcile with receipts",
+// `inPeriod` against `technology.access`/`adoptions`) — placing the synthetic
+// period at the business's entry week (years before any technology event)
+// avoids that overlap. VERIFIED with the real validator
+// (`save.exportCurrentState`, which round-trips through `validateHollywood`):
+// accepted both immediately after construction and after `advanceTo(900)`
+// (measured via `vite-node`, not committed — see the case's own inline
+// assertion, which is the persisted proof). The forged period is never
+// detected or reconciled away by any tick, so the pair stays genuinely
+// divergent (`not.toEqual`) through week 900 while `operations`, `placement`
+// and `technology.access` (the player-visible roots) stay byte-identical.
 
 import { beforeAll, describe, expect, it } from 'vitest'
+import { newFinancePeriod } from '../src/core/hollywood.js'
+import * as save from '../src/core/save.js'
 import { technologyEntry } from '../src/core/technologyCatalogue.js'
 import { considerRivalSoundPurchase } from '../src/core/technologyRival.js'
 import { advanceTo, p13aGeneratedStudio } from '../src/harness/p13a/fixtures.js'
@@ -112,13 +141,42 @@ describe('P13B-S7 rival-independence: identical forecast/announcements across st
     expect(fromBase).toEqual([])
   })
 
-  it('advanced independently to week 900 (past the lighting announcement), the still-divergent states publish byte-identical exact forecasts and announcement rows', () => {
+  it('advanced independently to week 900 (past the lighting announcement), a rival-only fact the engine PRESERVES past ticks keeps the pair genuinely divergent, and forecasts/announcements still publish byte-identical', () => {
+    // The precondition pair from beforeAll re-converges by week 417 (see this
+    // file's header "CORRECTION"): the tick itself mints the identical rival
+    // purchase this fixture applies manually. Layer ONE additional rival-only
+    // fact, local to THIS case only — `base`/`rivalVariant` (used unchanged by
+    // cases 1-4 above) are never mutated.
+    const target = rivalVariant.hollywood!.businesses[0]!
+    const leadingWeek = target.account.periods[0]!.fromWeek // the business's own entry week — years before any technology event
+    const hollywood = {
+      ...rivalVariant.hollywood!,
+      businesses: rivalVariant.hollywood!.businesses.map(b =>
+        b.studioId === target.studioId
+          ? { ...b, account: { ...b.account, periods: [newFinancePeriod(leadingWeek, b.account.openingBalance), ...b.account.periods] } }
+          : b),
+    }
+    const rivalVariantForged: GameState = { ...rivalVariant, hollywood }
+
+    // Verify with the real validator (round-trips through `validateHollywood`)
+    // before trusting this fixture — a leading zero-movement period changes no
+    // reconciled sum, so it is accepted, not merely unchecked.
+    expect(() => save.exportCurrentState(rivalVariantForged)).not.toThrow()
+
     const base900 = advanceTo(base, 900)
-    const rivalVariant900 = advanceTo(rivalVariant, 900)
+    const rivalVariant900 = advanceTo(rivalVariantForged, 900)
     expect(base900.market.tick).toBe(900)
     expect(rivalVariant900.market.tick).toBe(900)
     // Still genuinely divergent — the independence claim is not vacuous.
     expect(rivalVariant900).not.toEqual(base900)
+    // ...but confined to the rival side: the player-visible roots the plan's
+    // own invariant names (a rival adoption/receipt/employment fact, never a
+    // player one) are untouched.
+    expect(rivalVariant900.operations).toEqual(base900.operations)
+    expect(rivalVariant900.placement).toEqual(base900.placement)
+    expect(rivalVariant900.technology.access).toEqual(base900.technology.access)
+    // The forged fact itself survived every tick from 416 to 900, unreconciled.
+    expect(() => save.exportCurrentState(rivalVariant900)).not.toThrow()
 
     const entry = technologyEntry('lighting-control-01')
     const forecastFromBase = technologyForecast(entry, base900.market.tick)
