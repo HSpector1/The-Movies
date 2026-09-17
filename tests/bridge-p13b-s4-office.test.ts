@@ -32,35 +32,58 @@ import { parseWireValue } from '../bridge/schema/runtime.ts'
 // assertion is still written to the CONTRACT and is flagged "CONTRACT CHECK"
 // inline, exactly as tests/bridge-p13b-s3-plans.test.ts's own case 2 does.
 //
-// TWO CONTRACT CHECK findings recur across cases 2 and 4 (same two root causes,
-// reproduced independently in both places; NOT four separate defects):
+// TWO CONTRACT CHECK findings were originally raised against cases 2 and 4 (same
+// two root causes, reproduced independently in both places). Both were reported
+// to the coordinator, who ADJUDICATED them on 2026-09-17 while three concurrent
+// sim-core additions to bridge/* landed (see the AMENDMENT NOTE below the
+// original findings for the corrected assertions now in force):
 //
 //  (A) refusal precedence on the SAME blueprint's own row while it is running.
-//  bridge/office.ts's `refusalOf` returns `quote.rejections[0]` whenever
-//  `standardAlreadyMet` is absent. `queryFacilityInstallation` (src/core/
-//  placement.ts) pushes `alreadyInstalled` (any placement record of this exact
-//  blueprint already targets this facility, in ANY status) BEFORE `targetEngaged`
-//  (occupancy holders) into `rejections`. So the row for the blueprint that is
-//  ITSELF currently under construction reports `refusal: 'alreadyInstalled'`, not
-//  `'targetEngaged'` — even though the engine's own `rejections` array correctly
-//  contains BOTH (confirmed: `tests/p13b-s4-quotes.test.ts`'s own engagement test,
-//  lines 124-174, asserts `rejections.toContain('targetEngaged')`, which is true
-//  and unaffected by this — the gap is only in the bridge's single-string
-//  precedence choice). Reproduction: `queryFacilityInstallation(committed,
-//  {blueprintId:'office-conversion-iii', targetFacilityId})` on a state where
-//  `commitFacilityInstallation` just committed that same blueprint returns
-//  `rejections: ['alreadyInstalled', 'targetEngaged']`.
+//  `queryFacilityInstallation` (src/core/placement.ts) pushes `alreadyInstalled`
+//  (any placement record of this exact blueprint already targets this facility,
+//  in ANY status) BEFORE `targetEngaged` (occupancy holders) into `rejections`.
+//  So the row for the blueprint that is ITSELF currently under construction
+//  reports `refusal: 'alreadyInstalled'`, not `'targetEngaged'` — the engine's
+//  own `rejections` array always correctly contained BOTH (confirmed:
+//  `tests/p13b-s4-quotes.test.ts`'s own engagement test, lines 124-174, asserts
+//  `rejections.toContain('targetEngaged')`, which is true and unaffected by any
+//  of this). ADJUDICATED: this is the intended behavior, not a gap. The wire now
+//  publishes the engine's own `rejections: string[]` member alongside `refusal`
+//  (= `rejections[0]`) so a client never has to guess what the primary refusal
+//  hid. Cases 2 and 4 below assert this directly.
 //
-//  (B) plan-companion hiding is scoped to ONE blueprint. bridge/office.ts's
-//  `companionHidden(state, own, facilityId, blueprintId)` checks only placement
-//  records / queued-or-later plans of THAT EXACT blueprintId. Once the iii
-//  companion starts (a real committed installation now targets the body), the
-//  iii companion row correctly disappears, but the ii companion — a DIFFERENT
-//  blueprintId — is untouched by that check and stays `enabled: true`, even
-//  though the body is offline and every immediate `office-convert-*` row is
-//  disabled. Reproduction: dispatch `plan-queue-office-convert-<id>-iii` on a
-//  fresh founding office, advance one bridge week, re-fetch the office page —
-//  `plan-queue-office-convert-<id>-ii` is still present with `enabled: true`.
+//  (B) plan-companion hiding was originally scoped to ONE blueprint only, which
+//  under-hid a companion whose OWN blueprint was not the one running but whose
+//  target standard the body could already reach through what WAS running.
+//  ADJUDICATED: refined, not loosened — a companion is now hidden when its own
+//  blueprint is committed/planned on the body OR its target standard is <= the
+//  body's REACHABLE standard (current standard, every committed-in-any-status
+//  conversion's toStandard, and every queued/held/started plan's toStandard —
+//  `bridge/office.ts`'s new `reachableStandard`). Case 4 (both companions hidden
+//  once the iii plan's conversion commits) now stands as originally written,
+//  correctly, under this refined rule; case 4b (below) adds the coordinator's
+//  named counter-scenario: a LOWER conversion running immediately leaves a
+//  HIGHER companion still offered, because chaining upward stays lawful.
+//
+//  (C) NEW, not a finding: the immediate `office-convert-*` commit now publishes
+//  intent kind `'installationAction'` (bridge/schema/intent-schema.ts) instead of
+//  reusing `'researchAction'` — a new, S4-specific kind, distinct from the
+//  Laboratory's `instruments-<lab>` row (which genuinely is a TechnologyAction
+//  and keeps `'researchAction'`). The plan-queue companions are unaffected and
+//  keep `'physicalPlanAction'`. Asserted directly in case 1.
+//
+//  (D) DISCOVERED AND FIXED, same session: implementing (A)'s amendment first
+//  broke a DIFFERENT, still-standing (never amended) piece of the original T3
+//  contract — a conversion row querying its OWN blueprint after that blueprint
+//  is OPERATIONAL (complete, not running) briefly ALSO read
+//  `refusal: 'alreadyInstalled'` instead of the contract's `'standardAlreadyMet'`,
+//  because `alreadyInstalled`'s own check (src/core/placement.ts) carries no
+//  status filter and the amended `refusalOf` no longer special-cased
+//  `standardAlreadyMet` to outrank it. Reported rather than silently absorbed
+//  (the original assertions at case 2's "done" section and case 3's "after"
+//  section were never weakened, and briefly went RED); sim-core fixed
+//  `refusalOf` the same session to special-case a COMPLETED record's own row.
+//  Both assertions pass again, unchanged from their first-written form.
 //
 // Style and helper conventions follow tests/bridge-p13b-s3-plans.test.ts (session
 // construction, rawIndustry/dispatchRow/ownHistoryActivities idioms, the
@@ -103,14 +126,14 @@ type WireAction = { id: string; label: string; detail: string; enabled: boolean;
 type WireConversionRow = {
   blueprintId: 'office-conversion-ii' | 'office-conversion-iii'; label: string; cost: number; buildWeeks: number
   weeklyOperatingCost: number; fromStandard: string; toStandard: string; standardDuringWork: string; standardAfter: string
-  downtimeWeeks: number; available: boolean; refusal: string | null; refusalText: string | null
+  downtimeWeeks: number; available: boolean; rejections: string[]; refusal: string | null; refusalText: string | null
 }
 type WireOfficePage = {
   facilityId: string; title: string; blueprintId: string | null; standard: string; highestOperationalStandard: string
   offline: boolean; offlineUntilWeek: number | null; capacity: number; baselineWeeklyOperatingCost: number
   conversions: WireConversionRow[]; planIds: string[]; actions: WireAction[]
 }
-type WirePlanRow = { planId: string; status: string; workLabel: string; approvedMaximumDebit: number; next: { outcome: string; reason: string | null } | null }
+type WirePlanRow = { planId: string; status: string; reason: string | null; workLabel: string; approvedMaximumDebit: number; next: { outcome: string; reason: string | null } | null }
 
 function rawIndustry(session: BridgeSession, view: string, requestId: string, extra: Record<string, unknown> = {}): Record<string, unknown> {
   return session.industry({
@@ -237,6 +260,23 @@ describe('case 1: the founding office at week 12 — full quote parity on the wi
     const laboratory = rawIndustry(session, 'laboratory', nextRequestId('fresh-lab'), { targetId: laboratoryBuildingId(state) })
     expect(laboratory.office).toBeNull()
   })
+
+  it('intent kind: both immediate rows publish installationAction; both plan companions publish physicalPlanAction (adjudicated finding C, 2026-09-17)', () => {
+    const state = p13aLaboratorySlice()
+    const facilityId = officeFacilityIdOf(state)
+    const session = new BridgeSession(state, 'p13b-s4-office-1-kinds')
+    const office = officePage(session, facilityId, nextRequestId('kinds'))
+
+    const convertII = required(office.actions.find(a => a.id === `office-convert-${facilityId}-ii`), 'ii immediate row absent')
+    const convertIII = required(office.actions.find(a => a.id === `office-convert-${facilityId}-iii`), 'iii immediate row absent')
+    expect(convertII.intent?.kind).toBe('installationAction')
+    expect(convertIII.intent?.kind).toBe('installationAction')
+
+    const queueII = required(office.actions.find(a => a.id === `plan-queue-office-convert-${facilityId}-ii`), 'ii plan companion absent')
+    const queueIII = required(office.actions.find(a => a.id === `plan-queue-office-convert-${facilityId}-iii`), 'iii plan companion absent')
+    expect(queueII.intent?.kind).toBe('physicalPlanAction')
+    expect(queueIII.intent?.kind).toBe('physicalPlanAction')
+  })
 })
 
 describe('case 2: immediate iii conversion — engagement, reopening, standardAlreadyMet and the exact capex ledger row', () => {
@@ -257,16 +297,15 @@ describe('case 2: immediate iii conversion — engagement, reopening, standardAl
     const midII = required(mid.conversions.find(c => c.blueprintId === 'office-conversion-ii'), 'ii row absent mid-construction')
     expect(midII.available).toBe(false)
     expect(midII.refusal).toBe('targetEngaged')
-    // CONTRACT CHECK (flagged finding A — see this file's header): the contract
-    // states BOTH rows read `targetEngaged` here. The row for the blueprint that
-    // is ITSELF running instead reads `alreadyInstalled` first (bridge/office.ts
-    // `refusalOf` returns `rejections[0]`, and `queryFacilityInstallation` pushes
-    // `alreadyInstalled` before `targetEngaged`). Written to the contract, so this
-    // is a genuine requirement-vs-implementation gap to report, not a test to
-    // quietly loosen to match today's output.
+    expect(midII.rejections).toContain('targetEngaged')
+    // ADJUDICATED finding A (coordinator, 2026-09-17 — see this file's header):
+    // the row for the blueprint that is ITSELF running reports its own engine
+    // precedence, `refusal: 'alreadyInstalled'` — `rejections[0]` — while its
+    // `rejections` member still names `targetEngaged` too, so nothing is hidden.
     const midIII = required(mid.conversions.find(c => c.blueprintId === 'office-conversion-iii'), 'iii row absent mid-construction')
     expect(midIII.available).toBe(false)
-    expect(midIII.refusal).toBe('targetEngaged')
+    expect(midIII.refusal).toBe('alreadyInstalled')
+    expect(midIII.rejections).toEqual(expect.arrayContaining(['alreadyInstalled', 'targetEngaged']))
     expect(mid.actions.find(a => a.id === `office-convert-${facilityId}-ii`)?.enabled).toBe(false)
     expect(mid.actions.find(a => a.id === `office-convert-${facilityId}-iii`)?.enabled).toBe(false)
 
@@ -279,6 +318,13 @@ describe('case 2: immediate iii conversion — engagement, reopening, standardAl
     expect(done.standard).toBe('III')
     expect(done.highestOperationalStandard).toBe('III')
     expect(required(done.conversions.find(c => c.blueprintId === 'office-conversion-ii'), 'ii row absent after completion').refusal).toBe('standardAlreadyMet')
+    // FINDING (D) — discovered while implementing the coordinator's finding-A
+    // amendment, reported (not silently absorbed), and FIXED by sim-core the same
+    // session (see this file's header): `refusalOf` (bridge/office.ts) now special-
+    // cases a COMPLETED conversion's own row to yield to `standardAlreadyMet`,
+    // while an UNDER-CONSTRUCTION one still reads `alreadyInstalled` first (finding
+    // A, above). This assertion was never weakened across the whole episode —
+    // it reads exactly as the original, unamended T3 contract always specified.
     expect(required(done.conversions.find(c => c.blueprintId === 'office-conversion-iii'), 'iii row absent after completion').refusal).toBe('standardAlreadyMet')
     expect(done.actions.every(a => a.enabled === false)).toBe(true) // no convert action enabled
 
@@ -302,6 +348,7 @@ describe('case 3: placed office money on the wire', () => {
     expect(after.standard).toBe('II')
     expect(after.baselineWeeklyOperatingCost).toBe(5_500) // the body's own placement opex, unaffected by the conversion
     const ii = required(after.conversions.find(c => c.blueprintId === 'office-conversion-ii'), 'ii row absent')
+    // Same finding (D) as case 2's "done" section (see its comment) — fixed.
     expect(ii.refusal).toBe('standardAlreadyMet')
     const iii = required(after.conversions.find(c => c.blueprintId === 'office-conversion-iii'), 'iii row absent')
     expect(iii).toMatchObject({
@@ -338,18 +385,60 @@ describe('case 4: plan companions — queue, start, hiding and the immediate-row
     const startedOffice = officePage(nextSession, facilityId, nextRequestId('started-office'))
     expect(startedOffice.offline).toBe(true)
     expect(startedOffice.actions.some(a => a.id === `plan-queue-office-convert-${facilityId}-iii`)).toBe(false) // iii companion hidden: committed
-    // CONTRACT CHECK (flagged finding B — see this file's header): the contract
-    // states BOTH plan companions are hidden once a committed conversion exists on
-    // the body. `companionHidden` is scoped to ONE blueprintId, so the ii
-    // companion (a different blueprint) stays offered. Written to the contract.
+    // ADJUDICATED finding B (coordinator, 2026-09-17 — see this file's header):
+    // under the refined `reachableStandard` rule, the ii companion is ALSO hidden
+    // here — the body's reachable standard is already III (the committed iii
+    // conversion), and II <= III — so this stands as originally written.
     expect(startedOffice.actions.some(a => a.id === `plan-queue-office-convert-${facilityId}-ii`)).toBe(false)
     const iiImmediate = required(startedOffice.actions.find(a => a.id === `office-convert-${facilityId}-ii`), 'ii immediate row absent while the plan runs')
     expect(iiImmediate.enabled).toBe(false)
     const iiiImmediate = required(startedOffice.actions.find(a => a.id === `office-convert-${facilityId}-iii`), 'iii immediate row absent while the plan runs')
     expect(iiiImmediate.enabled).toBe(false)
-    // The underlying refusal (finding A applies again here, on the iii row only):
-    expect(required(startedOffice.conversions.find(c => c.blueprintId === 'office-conversion-ii'), 'ii conversion row absent').refusal).toBe('targetEngaged')
-    expect(required(startedOffice.conversions.find(c => c.blueprintId === 'office-conversion-iii'), 'iii conversion row absent').refusal).toBe('targetEngaged')
+    // The underlying refusal (adjudicated finding A applies again here, on the iii
+    // row only — it is the one whose own blueprint is committed):
+    const iiRow = required(startedOffice.conversions.find(c => c.blueprintId === 'office-conversion-ii'), 'ii conversion row absent')
+    expect(iiRow.refusal).toBe('targetEngaged')
+    expect(iiRow.rejections).toContain('targetEngaged')
+    const iiiRow = required(startedOffice.conversions.find(c => c.blueprintId === 'office-conversion-iii'), 'iii conversion row absent')
+    expect(iiiRow.refusal).toBe('alreadyInstalled')
+    expect(iiiRow.rejections).toEqual(expect.arrayContaining(['alreadyInstalled', 'targetEngaged']))
+  }, 30_000)
+})
+
+describe('case 4b: a LOWER conversion running immediately leaves a HIGHER companion offered (coordinator-named counter-scenario, 2026-09-17)', () => {
+  it('while office-convert-ii runs, the iii plan companion is still offered and the ii companion is hidden; queueing iii holds on /targetEngaged/ during the ii work', () => {
+    const base = p13aLaboratorySlice()
+    const facilityId = officeFacilityIdOf(base)
+    const session = new BridgeSession(base, 'p13b-s4-office-4b-lower-running')
+
+    const before = officePage(session, facilityId, nextRequestId('before'))
+    dispatchRow(session, before.actions, `office-convert-${facilityId}-ii`)
+
+    const running = officePage(session, facilityId, nextRequestId('running'))
+    expect(running.offline).toBe(true) // the ii conversion is under construction
+    // ii's own blueprint is now committed on the body: its companion is hidden.
+    expect(running.actions.some(a => a.id === `plan-queue-office-convert-${facilityId}-ii`)).toBe(false)
+    // iii's target standard (III) is ABOVE the body's reachable standard (II, from
+    // the running ii conversion) — chaining upward stays lawful, so iii's
+    // companion is STILL offered.
+    const queueIII = required(running.actions.find(a => a.id === `plan-queue-office-convert-${facilityId}-iii`), 'iii plan companion absent while a lower conversion runs')
+    expect(queueIII.enabled).toBe(true)
+    expect(queueIII.intent?.kind).toBe('physicalPlanAction')
+
+    dispatchRow(session, running.actions, `plan-queue-office-convert-${facilityId}-iii`)
+    const queuedPlans = plansPage(session, nextRequestId('queued'))
+    const iiiPlan = required(queuedPlans.rows.find(r => r.workLabel.includes('Development Office III Conversion')), 'queued iii plan row absent')
+    expect(iiiPlan.status).toBe('queued')
+
+    const ticked = tick(session.gameState)
+    const nextSession = new BridgeSession(ticked, 'p13b-s4-office-4b-held')
+    const afterTick = plansPage(nextSession, nextRequestId('held'))
+    const heldRow = required(afterTick.rows.find(r => r.planId === iiiPlan.planId), 'iii plan row absent after the tick')
+    // The iii plan's own quote is live-refused (the body is engaged by the running
+    // ii work): admission holds on the engine's own refusal name, never silently
+    // starts and never (wrongly) treats a live refusal as a cash wait.
+    expect(heldRow.status).toBe('held')
+    expect(heldRow.reason).toMatch(/targetEngaged/)
   }, 30_000)
 })
 
