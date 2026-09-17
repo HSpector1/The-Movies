@@ -850,6 +850,12 @@ from authored order confirmed sound; refund rows never enter the capex reconcili
 S5-R07 gate excludes cancelled placements through `adoptionPhysicalComplete`; S3's `started` plan status stays untouched (it is already
 permanent at normal completion).
 
+### S6 tasks
+- [x] **S6-T0 Genuine V25 fixtures (2026-09-17 ≈15:10)** minted by `src/harness/p13b/legacy-v25-fixtures.ts` at `050fc67` (live writer unchanged since `90e8307`, the final V25 writer) before any S6 source change: `legacy-v25-sound-mid-deployment-309` (sha `7de40f1a…`; Post operational, stage site work in progress) and `legacy-v25-lighting-mid-deployment-793` (sha `eee66ad7…`; site done, installation unstarted); `evidence/p13b-s6-20260917/00`, provenance in `tests/fixtures/p13b/PROVENANCE.md`. Test-author dispatched for tests 1–7 RED-first against `src/core/installationCancellation.ts`.
+- [ ] **S6-T1/T2 Engine increment** (sim-core): component progress, cancel actions, receipts, once-only refund, retained assets, restoration jobs, validator, finance bucket, Save V26.
+- [ ] **S6-T3 Bridge projection 39:** test 8.
+- [ ] **S6-T4 Matched pass, records (backlog entry), commit, push.**
+
 **Tests (RED-first).** 1 receipts by exact trace (lighting cancelled after site complete: paid 50,000 / refund 50,000 + restoration 10,000/1 w;
 during installation week 1 of 2: paid 75,000 / refund 25,000; sound during site week 3 of 9: paid 150,000 / refund 300,000 + 150,000 + 75,000,
 Post placement refunded in full if unstarted, restoration 25,000/2 w; S4 Office II cancelled mid-way with the office restored online). 2 once-only
