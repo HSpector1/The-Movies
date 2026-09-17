@@ -359,14 +359,14 @@ export function laboratoryActionSpecs(state: GameState): readonly LaboratoryActi
   // synchronized sound alone). Both rows STATE THE EXACT COMMERCIAL WEEK — the wait row in
   // its own text, the purchase row through the engine's own `commercialAccessRefusal`
   // sentence — so they exist only while that week is PUBLIC, which is exactly while this
-  // technology's forecast is exact (S7-T3 ruling). Sound's window is degenerate: its two
-  // rows are unchanged at every week. Lighting's appear at its announcement week, disabled
-  // with the engine's refusal until its commercial week. Neither row is offered once this
-  // studio holds the access: there is then nothing left to wait for or to buy, and the
-  // engine refuses both verbs.
+  // technology's forecast is exact (S7-T3 ruling). That forecast kind is the WHOLE existence
+  // rule: sound's window is degenerate, so its two rows are published at every week exactly as
+  // P13A published them, and lighting's appear at its announcement week. Whether either row can
+  // be taken is the ENGINE's answer alone, through `add`'s dry run — access already held
+  // disables both with the engine's own sentence, and a purchase before the commercial week
+  // carries `commercialAccessRefusal`. This page hides no decision it can state a reason for.
   for (const entry of TECHNOLOGY_CATALOGUE) {
     if (technologyForecast(entry, state.market.tick).kind !== 'exact') continue
-    if (playerTechnologyAccess(state, entry.id)) continue
     const word = entry.id === SYNCHRONIZED_SOUND.id ? 'sound' : entry.name.toLowerCase()
     add(`wait-${entry.id}`, { kind: 'waitForTechnology', technologyId: entry.id },
       `Wait for commercial ${word}`, `Record deliberate waiting for ${campaignDate(entry.commercialWeek).label}. No access payment or capability is granted. Existing research and employment continue unless you pause or cancel them separately.`)
