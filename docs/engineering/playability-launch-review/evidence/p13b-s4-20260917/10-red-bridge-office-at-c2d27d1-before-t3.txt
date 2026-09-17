@@ -1,0 +1,346 @@
+
+ RUN  v2.1.9 /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/154fda95-524f-4734-9a1a-376fe09a0946/scratchpad/red-c2d27d1
+
+ ❯ |core| tests/bridge-p13b-s4-office.test.ts (11 tests | 11 failed) 6473ms
+   × P13B-S4-T3 office bridge page: projection bump > bumps PROJECTION_VERSION to the S4-T3 wire contract (36) 21ms
+     → expected 35 to be 36 // Object.is equality
+   × case 1: the founding office at week 12 — full quote parity on the wire; office null off the laboratory view > standard I, highest I, offline false, capacity 2, baselineWeeklyOperatingCost 0 (endowed); both conversion rows match the authoritative quote 1765ms
+     → office view rejected for facility "facility-development-casting" (request fresh-req-0): {"protocolVersion":4,"schemaId":"sha256:889c83c6278aaf54fc392282bb555ce03f61f8381e20cc62618e0106cf6f1da3","snapshotVersion":35,"type":"industryPage","requestId":"fresh-req-0","sessionId":"p13b-s4-office-1-fresh","stateRevision":0,"stateDigest":"19de2189b955045236dcd7868e87e1b0085a17debfa10dcdc5bc842a64db6c11","calendar":{"policy":"campaign-calendar-1920-52/v1","absoluteWeek":12,"year":1920,"weekOfYear":13,"label":"1920 · Week 13"},"view":"office","targetId":"facility-development-casting","page":
+   × case 1: the founding office at week 12 — full quote parity on the wire; office null off the laboratory view > intent kind: both immediate rows publish installationAction; both plan companions publish physicalPlanAction (adjudicated finding C, 2026-09-17) 587ms
+     → office view rejected for facility "facility-development-casting" (request kinds-req-1-p0): {"protocolVersion":4,"schemaId":"sha256:889c83c6278aaf54fc392282bb555ce03f61f8381e20cc62618e0106cf6f1da3","snapshotVersion":35,"type":"industryPage","requestId":"kinds-req-1-p0","sessionId":"p13b-s4-office-1-kinds","stateRevision":0,"stateDigest":"19de2189b955045236dcd7868e87e1b0085a17debfa10dcdc5bc842a64db6c11","calendar":{"policy":"campaign-calendar-1920-52/v1","absoluteWeek":12,"year":1920,"weekOfYear":13,"label":"1920 · Week 13"},"view":"office","targetId":"facility-development-casting","pag
+   × case 2: immediate iii conversion — engagement, reopening, standardAlreadyMet and the exact capex ledger row > commits, engages the body for 16 weeks, reopens at III, and writes one exact -$1,250,000 constructionCapex ledger row 424ms
+     → office view rejected for facility "facility-development-casting" (request before-req-2-p0): {"protocolVersion":4,"schemaId":"sha256:889c83c6278aaf54fc392282bb555ce03f61f8381e20cc62618e0106cf6f1da3","snapshotVersion":35,"type":"industryPage","requestId":"before-req-2-p0","sessionId":"p13b-s4-office-2-commit","stateRevision":0,"stateDigest":"19de2189b955045236dcd7868e87e1b0085a17debfa10dcdc5bc842a64db6c11","calendar":{"policy":"campaign-calendar-1920-52/v1","absoluteWeek":12,"year":1920,"weekOfYear":13,"label":"1920 · Week 13"},"view":"office","targetId":"facility-development-casting","p
+   × case 3: placed office money on the wire > $5,500 baseline continues through a real weekly charge; II->III quotes $850,000/8 weeks with standardDuringWork I 531ms
+     → office view rejected for facility "facility-development-casting-office" (request before-req-3-p0): {"protocolVersion":4,"schemaId":"sha256:889c83c6278aaf54fc392282bb555ce03f61f8381e20cc62618e0106cf6f1da3","snapshotVersion":35,"type":"industryPage","requestId":"before-req-3-p0","sessionId":"p13b-s4-office-3","stateRevision":0,"stateDigest":"e1c2a1594856e8d28074ac4a5ebe762efd784fe2ef2c70dbb33e67de28f79c1e","calendar":{"policy":"campaign-calendar-1920-52/v1","absoluteWeek":14,"year":1920,"weekOfYear":15,"label":"1920 · Week 15"},"view":"office","targetId":"facility-development-casting-office","p
+   × case 4: plan companions — queue, start, hiding and the immediate-row lockout > plan-queue-office-convert-iii queues, starts, and offlines the body; the immediate rows lock out while it runs 671ms
+     → office view rejected for facility "facility-development-casting" (request before-req-4-p0): {"protocolVersion":4,"schemaId":"sha256:889c83c6278aaf54fc392282bb555ce03f61f8381e20cc62618e0106cf6f1da3","snapshotVersion":35,"type":"industryPage","requestId":"before-req-4-p0","sessionId":"p13b-s4-office-4-queue","stateRevision":0,"stateDigest":"19de2189b955045236dcd7868e87e1b0085a17debfa10dcdc5bc842a64db6c11","calendar":{"policy":"campaign-calendar-1920-52/v1","absoluteWeek":12,"year":1920,"weekOfYear":13,"label":"1920 · Week 13"},"view":"office","targetId":"facility-development-casting","pa
+   × case 4b: a LOWER conversion running immediately leaves a HIGHER companion offered (coordinator-named counter-scenario, 2026-09-17) > while office-convert-ii runs, the iii plan companion is still offered and the ii companion is hidden; queueing iii holds on /targetEngaged/ during the ii work 370ms
+     → office view rejected for facility "facility-development-casting" (request before-req-5-p0): {"protocolVersion":4,"schemaId":"sha256:889c83c6278aaf54fc392282bb555ce03f61f8381e20cc62618e0106cf6f1da3","snapshotVersion":35,"type":"industryPage","requestId":"before-req-5-p0","sessionId":"p13b-s4-office-4b-lower-running","stateRevision":0,"stateDigest":"19de2189b955045236dcd7868e87e1b0085a17debfa10dcdc5bc842a64db6c11","calendar":{"policy":"campaign-calendar-1920-52/v1","absoluteWeek":12,"year":1920,"weekOfYear":13,"label":"1920 · Week 13"},"view":"office","targetId":"facility-development-cas
+   × case 5: insufficient funds > both rows read insufficientFunds; plan companions still offered; a queued plan reads next.reason "insufficient cash" 407ms
+     → office view rejected for facility "facility-development-casting" (request poor-req-6-p0): {"protocolVersion":4,"schemaId":"sha256:889c83c6278aaf54fc392282bb555ce03f61f8381e20cc62618e0106cf6f1da3","snapshotVersion":35,"type":"industryPage","requestId":"poor-req-6-p0","sessionId":"p13b-s4-office-5-poor","stateRevision":0,"stateDigest":"ec81670e7b687452d6d0d835f530e40502873628091e72e78ac3d4d6284a7945","calendar":{"policy":"campaign-calendar-1920-52/v1","absoluteWeek":12,"year":1920,"weekOfYear":13,"label":"1920 · Week 13"},"view":"office","targetId":"facility-development-casting","page"
+   × case 6: stale revision > an office intent submitted with a stale expectedStateRevision is refused with STALE_REVISION, and that attempt changes nothing 496ms
+     → office view rejected for facility "facility-development-casting" (request stale-req-7-p0): {"protocolVersion":4,"schemaId":"sha256:889c83c6278aaf54fc392282bb555ce03f61f8381e20cc62618e0106cf6f1da3","snapshotVersion":35,"type":"industryPage","requestId":"stale-req-7-p0","sessionId":"p13b-s4-office-6-stale","stateRevision":0,"stateDigest":"19de2189b955045236dcd7868e87e1b0085a17debfa10dcdc5bc842a64db6c11","calendar":{"policy":"campaign-calendar-1920-52/v1","absoluteWeek":12,"year":1920,"weekOfYear":13,"label":"1920 · Week 13"},"view":"office","targetId":"facility-development-casting","pag
+   × case 7: player-safe — no rival facility id ever appears > a structurally injected rival facility id is refused as INVALID_CONTROL; no rival studio id leaks anywhere in the player's own office page 507ms
+     → expected { protocolVersion: 4, …(27) } to match object { accepted: false, …(1) }
+(33 matching properties omitted from actual)
+   × case 8: history — the existing P09 facility-completed row, no invented "office" kind > the completed iii conversion writes one Opened: <name> row through the existing facilityCompleted mechanism, never a new kind 689ms
+     → office view rejected for facility "facility-development-casting" (request before-req-9-p0): {"protocolVersion":4,"schemaId":"sha256:889c83c6278aaf54fc392282bb555ce03f61f8381e20cc62618e0106cf6f1da3","snapshotVersion":35,"type":"industryPage","requestId":"before-req-9-p0","sessionId":"p13b-s4-office-8-history","stateRevision":0,"stateDigest":"19de2189b955045236dcd7868e87e1b0085a17debfa10dcdc5bc842a64db6c11","calendar":{"policy":"campaign-calendar-1920-52/v1","absoluteWeek":12,"year":1920,"weekOfYear":13,"label":"1920 · Week 13"},"view":"office","targetId":"facility-development-casting","
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 11 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/bridge-p13b-s4-office.test.ts > P13B-S4-T3 office bridge page: projection bump > bumps PROJECTION_VERSION to the S4-T3 wire contract (36)
+AssertionError: expected 35 to be 36 // Object.is equality
+
+- Expected
++ Received
+
+- 36
++ 35
+
+ ❯ tests/bridge-p13b-s4-office.test.ts:224:32
+    222| describe('P13B-S4-T3 office bridge page: projection bump', () => {
+    223|   it('bumps PROJECTION_VERSION to the S4-T3 wire contract (36)', () =>…
+    224|     expect(PROJECTION_VERSION).toBe(36)
+       |                                ^
+    225|   })
+    226| })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/11]⎯
+
+ FAIL |core|  tests/bridge-p13b-s4-office.test.ts > case 1: the founding office at week 12 — full quote parity on the wire; office null off the laboratory view > standard I, highest I, offline false, capacity 2, baselineWeeklyOperatingCost 0 (endowed); both conversion rows match the authoritative quote
+Error: office view rejected for facility "facility-development-casting" (request fresh-req-0): {"protocolVersion":4,"schemaId":"sha256:889c83c6278aaf54fc392282bb555ce03f61f8381e20cc62618e0106cf6f1da3","snapshotVersion":35,"type":"industryPage","requestId":"fresh-req-0","sessionId":"p13b-s4-office-1-fresh","stateRevision":0,"stateDigest":"19de2189b955045236dcd7868e87e1b0085a17debfa10dcdc5bc842a64db6c11","calendar":{"policy":"campaign-calendar-1920-52/v1","absoluteWeek":12,"year":1920,"weekOfYear":13,"label":"1920 · Week 13"},"view":"office","targetId":"facility-development-casting","page":
+ ❯ officeResponse tests/bridge-p13b-s4-office.test.ts:150:66
+    148| function officeResponse(session: BridgeSession, facilityId: string, re…
+    149|   const response = rawIndustry(session, 'office', requestId, { targetI…
+    150|   if (!('office' in response) || response.office === null) throw new E…
+       |                                                                  ^
+    151|   expect(parseWireValue(BRIDGE_SCHEMA.$defs.StudioIndustryResponse, re…
+    152|   return response as unknown as { office: WireOfficePage; pageCount: n…
+ ❯ tests/bridge-p13b-s4-office.test.ts:234:22
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/11]⎯
+
+ FAIL |core|  tests/bridge-p13b-s4-office.test.ts > case 1: the founding office at week 12 — full quote parity on the wire; office null off the laboratory view > intent kind: both immediate rows publish installationAction; both plan companions publish physicalPlanAction (adjudicated finding C, 2026-09-17)
+Error: office view rejected for facility "facility-development-casting" (request kinds-req-1-p0): {"protocolVersion":4,"schemaId":"sha256:889c83c6278aaf54fc392282bb555ce03f61f8381e20cc62618e0106cf6f1da3","snapshotVersion":35,"type":"industryPage","requestId":"kinds-req-1-p0","sessionId":"p13b-s4-office-1-kinds","stateRevision":0,"stateDigest":"19de2189b955045236dcd7868e87e1b0085a17debfa10dcdc5bc842a64db6c11","calendar":{"policy":"campaign-calendar-1920-52/v1","absoluteWeek":12,"year":1920,"weekOfYear":13,"label":"1920 · Week 13"},"view":"office","targetId":"facility-development-casting","pag
+ ❯ officeResponse tests/bridge-p13b-s4-office.test.ts:150:66
+    148| function officeResponse(session: BridgeSession, facilityId: string, re…
+    149|   const response = rawIndustry(session, 'office', requestId, { targetI…
+    150|   if (!('office' in response) || response.office === null) throw new E…
+       |                                                                  ^
+    151|   expect(parseWireValue(BRIDGE_SCHEMA.$defs.StudioIndustryResponse, re…
+    152|   return response as unknown as { office: WireOfficePage; pageCount: n…
+ ❯ officePage tests/bridge-p13b-s4-office.test.ts:159:17
+ ❯ tests/bridge-p13b-s4-office.test.ts:268:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/11]⎯
+
+ FAIL |core|  tests/bridge-p13b-s4-office.test.ts > case 2: immediate iii conversion — engagement, reopening, standardAlreadyMet and the exact capex ledger row > commits, engages the body for 16 weeks, reopens at III, and writes one exact -$1,250,000 constructionCapex ledger row
+Error: office view rejected for facility "facility-development-casting" (request before-req-2-p0): {"protocolVersion":4,"schemaId":"sha256:889c83c6278aaf54fc392282bb555ce03f61f8381e20cc62618e0106cf6f1da3","snapshotVersion":35,"type":"industryPage","requestId":"before-req-2-p0","sessionId":"p13b-s4-office-2-commit","stateRevision":0,"stateDigest":"19de2189b955045236dcd7868e87e1b0085a17debfa10dcdc5bc842a64db6c11","calendar":{"policy":"campaign-calendar-1920-52/v1","absoluteWeek":12,"year":1920,"weekOfYear":13,"label":"1920 · Week 13"},"view":"office","targetId":"facility-development-casting","p
+ ❯ officeResponse tests/bridge-p13b-s4-office.test.ts:150:66
+    148| function officeResponse(session: BridgeSession, facilityId: string, re…
+    149|   const response = rawIndustry(session, 'office', requestId, { targetI…
+    150|   if (!('office' in response) || response.office === null) throw new E…
+       |                                                                  ^
+    151|   expect(parseWireValue(BRIDGE_SCHEMA.$defs.StudioIndustryResponse, re…
+    152|   return response as unknown as { office: WireOfficePage; pageCount: n…
+ ❯ officePage tests/bridge-p13b-s4-office.test.ts:159:17
+ ❯ tests/bridge-p13b-s4-office.test.ts:289:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/11]⎯
+
+ FAIL |core|  tests/bridge-p13b-s4-office.test.ts > case 3: placed office money on the wire > $5,500 baseline continues through a real weekly charge; II->III quotes $850,000/8 weeks with standardDuringWork I
+Error: office view rejected for facility "facility-development-casting-office" (request before-req-3-p0): {"protocolVersion":4,"schemaId":"sha256:889c83c6278aaf54fc392282bb555ce03f61f8381e20cc62618e0106cf6f1da3","snapshotVersion":35,"type":"industryPage","requestId":"before-req-3-p0","sessionId":"p13b-s4-office-3","stateRevision":0,"stateDigest":"e1c2a1594856e8d28074ac4a5ebe762efd784fe2ef2c70dbb33e67de28f79c1e","calendar":{"policy":"campaign-calendar-1920-52/v1","absoluteWeek":14,"year":1920,"weekOfYear":15,"label":"1920 · Week 15"},"view":"office","targetId":"facility-development-casting-office","p
+ ❯ officeResponse tests/bridge-p13b-s4-office.test.ts:150:66
+    148| function officeResponse(session: BridgeSession, facilityId: string, re…
+    149|   const response = rawIndustry(session, 'office', requestId, { targetI…
+    150|   if (!('office' in response) || response.office === null) throw new E…
+       |                                                                  ^
+    151|   expect(parseWireValue(BRIDGE_SCHEMA.$defs.StudioIndustryResponse, re…
+    152|   return response as unknown as { office: WireOfficePage; pageCount: n…
+ ❯ officePage tests/bridge-p13b-s4-office.test.ts:159:17
+ ❯ tests/bridge-p13b-s4-office.test.ts:340:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/11]⎯
+
+ FAIL |core|  tests/bridge-p13b-s4-office.test.ts > case 4: plan companions — queue, start, hiding and the immediate-row lockout > plan-queue-office-convert-iii queues, starts, and offlines the body; the immediate rows lock out while it runs
+Error: office view rejected for facility "facility-development-casting" (request before-req-4-p0): {"protocolVersion":4,"schemaId":"sha256:889c83c6278aaf54fc392282bb555ce03f61f8381e20cc62618e0106cf6f1da3","snapshotVersion":35,"type":"industryPage","requestId":"before-req-4-p0","sessionId":"p13b-s4-office-4-queue","stateRevision":0,"stateDigest":"19de2189b955045236dcd7868e87e1b0085a17debfa10dcdc5bc842a64db6c11","calendar":{"policy":"campaign-calendar-1920-52/v1","absoluteWeek":12,"year":1920,"weekOfYear":13,"label":"1920 · Week 13"},"view":"office","targetId":"facility-development-casting","pa
+ ❯ officeResponse tests/bridge-p13b-s4-office.test.ts:150:66
+    148| function officeResponse(session: BridgeSession, facilityId: string, re…
+    149|   const response = rawIndustry(session, 'office', requestId, { targetI…
+    150|   if (!('office' in response) || response.office === null) throw new E…
+       |                                                                  ^
+    151|   expect(parseWireValue(BRIDGE_SCHEMA.$defs.StudioIndustryResponse, re…
+    152|   return response as unknown as { office: WireOfficePage; pageCount: n…
+ ❯ officePage tests/bridge-p13b-s4-office.test.ts:159:17
+ ❯ tests/bridge-p13b-s4-office.test.ts:367:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/11]⎯
+
+ FAIL |core|  tests/bridge-p13b-s4-office.test.ts > case 4b: a LOWER conversion running immediately leaves a HIGHER companion offered (coordinator-named counter-scenario, 2026-09-17) > while office-convert-ii runs, the iii plan companion is still offered and the ii companion is hidden; queueing iii holds on /targetEngaged/ during the ii work
+Error: office view rejected for facility "facility-development-casting" (request before-req-5-p0): {"protocolVersion":4,"schemaId":"sha256:889c83c6278aaf54fc392282bb555ce03f61f8381e20cc62618e0106cf6f1da3","snapshotVersion":35,"type":"industryPage","requestId":"before-req-5-p0","sessionId":"p13b-s4-office-4b-lower-running","stateRevision":0,"stateDigest":"19de2189b955045236dcd7868e87e1b0085a17debfa10dcdc5bc842a64db6c11","calendar":{"policy":"campaign-calendar-1920-52/v1","absoluteWeek":12,"year":1920,"weekOfYear":13,"label":"1920 · Week 13"},"view":"office","targetId":"facility-development-cas
+ ❯ officeResponse tests/bridge-p13b-s4-office.test.ts:150:66
+    148| function officeResponse(session: BridgeSession, facilityId: string, re…
+    149|   const response = rawIndustry(session, 'office', requestId, { targetI…
+    150|   if (!('office' in response) || response.office === null) throw new E…
+       |                                                                  ^
+    151|   expect(parseWireValue(BRIDGE_SCHEMA.$defs.StudioIndustryResponse, re…
+    152|   return response as unknown as { office: WireOfficePage; pageCount: n…
+ ❯ officePage tests/bridge-p13b-s4-office.test.ts:159:17
+ ❯ tests/bridge-p13b-s4-office.test.ts:414:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/11]⎯
+
+ FAIL |core|  tests/bridge-p13b-s4-office.test.ts > case 5: insufficient funds > both rows read insufficientFunds; plan companions still offered; a queued plan reads next.reason "insufficient cash"
+Error: office view rejected for facility "facility-development-casting" (request poor-req-6-p0): {"protocolVersion":4,"schemaId":"sha256:889c83c6278aaf54fc392282bb555ce03f61f8381e20cc62618e0106cf6f1da3","snapshotVersion":35,"type":"industryPage","requestId":"poor-req-6-p0","sessionId":"p13b-s4-office-5-poor","stateRevision":0,"stateDigest":"ec81670e7b687452d6d0d835f530e40502873628091e72e78ac3d4d6284a7945","calendar":{"policy":"campaign-calendar-1920-52/v1","absoluteWeek":12,"year":1920,"weekOfYear":13,"label":"1920 · Week 13"},"view":"office","targetId":"facility-development-casting","page"
+ ❯ officeResponse tests/bridge-p13b-s4-office.test.ts:150:66
+    148| function officeResponse(session: BridgeSession, facilityId: string, re…
+    149|   const response = rawIndustry(session, 'office', requestId, { targetI…
+    150|   if (!('office' in response) || response.office === null) throw new E…
+       |                                                                  ^
+    151|   expect(parseWireValue(BRIDGE_SCHEMA.$defs.StudioIndustryResponse, re…
+    152|   return response as unknown as { office: WireOfficePage; pageCount: n…
+ ❯ officePage tests/bridge-p13b-s4-office.test.ts:159:17
+ ❯ tests/bridge-p13b-s4-office.test.ts:453:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/11]⎯
+
+ FAIL |core|  tests/bridge-p13b-s4-office.test.ts > case 6: stale revision > an office intent submitted with a stale expectedStateRevision is refused with STALE_REVISION, and that attempt changes nothing
+Error: office view rejected for facility "facility-development-casting" (request stale-req-7-p0): {"protocolVersion":4,"schemaId":"sha256:889c83c6278aaf54fc392282bb555ce03f61f8381e20cc62618e0106cf6f1da3","snapshotVersion":35,"type":"industryPage","requestId":"stale-req-7-p0","sessionId":"p13b-s4-office-6-stale","stateRevision":0,"stateDigest":"19de2189b955045236dcd7868e87e1b0085a17debfa10dcdc5bc842a64db6c11","calendar":{"policy":"campaign-calendar-1920-52/v1","absoluteWeek":12,"year":1920,"weekOfYear":13,"label":"1920 · Week 13"},"view":"office","targetId":"facility-development-casting","pag
+ ❯ officeResponse tests/bridge-p13b-s4-office.test.ts:150:66
+    148| function officeResponse(session: BridgeSession, facilityId: string, re…
+    149|   const response = rawIndustry(session, 'office', requestId, { targetI…
+    150|   if (!('office' in response) || response.office === null) throw new E…
+       |                                                                  ^
+    151|   expect(parseWireValue(BRIDGE_SCHEMA.$defs.StudioIndustryResponse, re…
+    152|   return response as unknown as { office: WireOfficePage; pageCount: n…
+ ❯ officePage tests/bridge-p13b-s4-office.test.ts:159:17
+ ❯ tests/bridge-p13b-s4-office.test.ts:485:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/11]⎯
+
+ FAIL |core|  tests/bridge-p13b-s4-office.test.ts > case 7: player-safe — no rival facility id ever appears > a structurally injected rival facility id is refused as INVALID_CONTROL; no rival studio id leaks anywhere in the player's own office page
+AssertionError: expected { protocolVersion: 4, …(27) } to match object { accepted: false, …(1) }
+(33 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  Object {
+-   "accepted": false,
+-   "reasonCode": "INVALID_CONTROL",
++   "activities": Array [
++     Object {
++       "dateLabel": "1920 · Week 12",
++       "detail": "Released through recorded development, production, post-production and release commitments. Release Standing: Audience Awareness 49.7 → 49.5; Industry Prestige 46.0 → 47.4; Commercial Confidence 61.0 → 61.8. These are separate recorded changes at release, before later drift.",
++       "eventId": "industry-event-32",
++       "filmId": "studio-aca408ec-r01:film:0",
++       "group": "releases",
++       "headline": "Bellwether Pictures releases Dust and Serpent",
++       "studioId": "studio-aca408ec-r01",
++       "talentId": null,
++       "week": 11,
++     },
++     Object {
++       "dateLabel": "1920 · Week 12",
++       "detail": "Released through recorded development, production, post-production and release commitments. Release Standing: Audience Awareness 41.4 → 40.8; Industry Prestige 55.0 → 55.0; Commercial Confidence 49.0 → 49.8. These are separate recorded changes at release, before later drift.",
++       "eventId": "industry-event-33",
++       "filmId": "studio-aca408ec-r03:film:0",
++       "group": "releases",
++       "headline": "Night Orchard Productions releases Shadow of the Foundling",
++       "studioId": "studio-aca408ec-r03",
++       "talentId": null,
++       "week": 11,
++     },
++     Object {
++       "dateLabel": "1920 · Week 1",
++       "detail": "Starting incumbent. Earlier authored film records are already settled.",
++       "eventId": "industry-event-13",
++       "filmId": null,
++       "group": "studios",
++       "headline": "Rose Lantern Films joins Hollywood",
++       "studioId": "studio-aca408ec-r02",
++       "talentId": null,
++       "week": 0,
++     },
++     Object {
++       "dateLabel": "1920 · Week 1",
++       "detail": "Starting incumbent. Earlier authored film records are already settled.",
++       "eventId": "industry-event-20",
++       "filmId": null,
++       "group": "studios",
++       "headline": "Night Orchard Productions joins Hollywood",
++       "studioId": "studio-aca408ec-r03",
++       "talentId": null,
++       "week": 0,
++     },
++     Object {
++       "dateLabel": "1920 · Week 1",
++       "detail": "Starting incumbent. Earlier authored film records are already settled.",
++       "eventId": "industry-event-27",
++       "filmId": null,
++       "group": "studios",
++       "headline": "Silver Current Pictures joins Hollywood",
++       "studioId": "studio-aca408ec-r04",
++       "talentId": null,
++       "week": 0,
++     },
++     Object {
++       "dateLabel": "1920 · Week 1",
++       "detail": "Starting incumbent. Earlier authored film records are already settled.",
++       "eventId": "industry-event-6",
++       "filmId": null,
++       "group": "studios",
++       "headline": "Bellwether Pictures joins Hollywood",
++       "studioId": "studio-aca408ec-r01",
++       "talentId": null,
++       "week": 0,
++     },
++     Object {
++       "dateLabel": "1920 · Week 5",
++       "detail": "An actual funded production has been greenlit. No release date is promised.",
++       "eventId": "industry-event-30",
++       "filmId": "studio-aca408ec-r02:film:0",
++       "group": "announcements",
++       "headline": "Rose Lantern Films announces a film",
++       "studioId": "studio-aca408ec-r02",
++       "talentId": null,
++       "week": 4,
++     },
++     Object {
++       "dateLabel": "1920 · Week 5",
++       "detail": "An actual funded production has been greenlit. No release date is promised.",
++       "eventId": "industry-event-31",
++       "filmId": "studio-aca408ec-r04:film:0",
++       "group": "announcements",
++       "headline": "Silver Current Pictures announces a film",
++       "studioId": "studio-aca408ec-r04",
++       "talentId": null,
++       "week": 4,
++     },
++     Object {
++       "dateLabel": "1920 · Week 4",
++       "detail": "An actual funded production has been greenlit. No release date is promised.",
++       "eventId": "industry-event-28",
++       "filmId": "studio-aca408ec-r01:film:0",
++       "group": "announcements",
++       "headline": "Bellwether Pictures announces a film",
++       "studioId": "studio-aca408ec-r01",
++       "talentId": null,
++       "week": 3,
++     },
++     Object {
++       "dateLabel": "1920 · Week 4",
++       "detail": "An actual funded production has been greenlit. No release date is promised.",
++       "eventId": "industry-event-29",
++       "filmId": "studio-aca408ec-r03:film:0",
++       "group": "announcements",
++       "headline": "Night Orchard Productions announces a film",
++       "studioId": "studio-aca408ec-r03",
++       "talentId": null,
++       "week": 3,
++     },
++   ],
++   "calendar": Object {
++     "absoluteWeek": 12,
++     "label": "1920 · Week 13",
++     "policy": "campaign-calendar-1920-52/v1",
++     "weekOfYear": 13,
++     "year": 1920,
++   },
++   "credits": Array [],
++   "films": Array [],
++   "laboratory": null,
++   "lane": "audienceAwareness",
++   "notice": "Grouped material activity for the last 13 campaign weeks. Routine phase changes and ordinary renewals are omitted.",
++   "page": 0,
++   "pageCount": 1,
++   "pageSize": 50,
++   "people": Array [],
++   "period": "all",
++   "plans": null,
++   "projects": Array [],
++   "protocolVersion": 4,
++   "requestId": "rival-req-8",
++   "schemaId": "sha256:889c83c6278aaf54fc392282bb555ce03f61f8381e20cc62618e0106cf6f1da3",
++   "sessionId": "p13b-s4-office-7-player-safe",
++   "snapshotVersion": 35,
++   "stateDigest": "19de2189b955045236dcd7868e87e1b0085a17debfa10dcdc5bc842a64db6c11",
++   "stateRevision": 0,
++   "studios": Array [],
++   "targetId": "studio-aca408ec-r01:facility:development-casting",
++   "tendencies": Array [],
++   "title": "Industry Pulse",
++   "totalRows": 10,
++   "type": "industryPage",
++   "view": "office",
+  }
+
+ ❯ tests/bridge-p13b-s4-office.test.ts:524:22
+    522|     const session = new BridgeSession(base, 'p13b-s4-office-7-player-s…
+    523|     const rejected = rawIndustry(session, 'office', nextRequestId('riv…
+    524|     expect(rejected).toMatchObject({ accepted: false, reasonCode: 'INV…
+       |                      ^
+    525| 
+    526|     const ownOffice = officeResponse(session, facilityId, nextRequestI…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/11]⎯
+
+ FAIL |core|  tests/bridge-p13b-s4-office.test.ts > case 8: history — the existing P09 facility-completed row, no invented "office" kind > the completed iii conversion writes one Opened: <name> row through the existing facilityCompleted mechanism, never a new kind
+Error: office view rejected for facility "facility-development-casting" (request before-req-9-p0): {"protocolVersion":4,"schemaId":"sha256:889c83c6278aaf54fc392282bb555ce03f61f8381e20cc62618e0106cf6f1da3","snapshotVersion":35,"type":"industryPage","requestId":"before-req-9-p0","sessionId":"p13b-s4-office-8-history","stateRevision":0,"stateDigest":"19de2189b955045236dcd7868e87e1b0085a17debfa10dcdc5bc842a64db6c11","calendar":{"policy":"campaign-calendar-1920-52/v1","absoluteWeek":12,"year":1920,"weekOfYear":13,"label":"1920 · Week 13"},"view":"office","targetId":"facility-development-casting","
+ ❯ officeResponse tests/bridge-p13b-s4-office.test.ts:150:66
+    148| function officeResponse(session: BridgeSession, facilityId: string, re…
+    149|   const response = rawIndustry(session, 'office', requestId, { targetI…
+    150|   if (!('office' in response) || response.office === null) throw new E…
+       |                                                                  ^
+    151|   expect(parseWireValue(BRIDGE_SCHEMA.$defs.StudioIndustryResponse, re…
+    152|   return response as unknown as { office: WireOfficePage; pageCount: n…
+ ❯ officePage tests/bridge-p13b-s4-office.test.ts:159:17
+ ❯ tests/bridge-p13b-s4-office.test.ts:538:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/11]⎯
+
+ Test Files  1 failed (1)
+      Tests  11 failed (11)
+   Start at  03:19:06
+   Duration  12.94s (transform 4.44s, setup 0ms, collect 5.71s, tests 6.47s, environment 0ms, prepare 167ms)
+
