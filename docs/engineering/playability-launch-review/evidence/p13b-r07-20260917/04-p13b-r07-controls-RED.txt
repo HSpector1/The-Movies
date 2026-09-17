@@ -1,0 +1,17 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p13b-r07-controls.test.ts [ tests/p13b-r07-controls.test.ts ]
+Error: Failed to load url ../src/core/productionSetup.js (resolved id: ../src/core/productionSetup.js) in /Users/zacheryspector/The-Movies-headless-program/tests/p13b-r07-controls.test.ts. Does the file exist?
+ ❯ loadAndTransform node_modules/vitest/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:51969:17
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed (1)
+      Tests  no tests
+   Start at  09:57:40
+   Duration  2.81s (transform 1.79s, setup 0ms, collect 0ms, tests 0ms, environment 0ms, prepare 132ms)
+
