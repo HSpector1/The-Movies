@@ -533,6 +533,14 @@ highest-operational-standard ladder. Nothing else in the estate changes.
       and `occupancy.ts`'s installation claims iterate `0..capacity`, so a RUNNING conversion no longer engages its own body — a second conversion
       on the same body is not refused `targetEngaged` (both admitted in one tick). Law: a `takesTargetOffline` installation under construction
       engages its body for its whole span independent of capacity. RED cases pinned at `0b836a8` (`07-red-engagement-*`: quotes 9/10 — a live II quote on the converting body returned `ok:true`; plans 5/6 — the second plan `started` in the same tick), fixed in `src/core/occupancy.ts` (one body-level claim for an under-construction `takesTargetOffline` installation, keyed on the blueprint flag not on capacity; `facilityEngagements` folds it into the one named engagement; `08-engagement-fix-*` 222/222 across S4 30/30, S3 + placement 64/64, claim consumers 44/44, presence + demolish 51/51, c2a-m4 33/33, tsc clean; coordinator fresh `09` 26/26).
+- [~] **S4-T3 findings (test-author, `tests/bridge-p13b-s4-office.test.ts` 7/9 against the in-flight page; ≈03:10):** (A) the running conversion's own
+      row read `alreadyInstalled` where the contract said `targetEngaged` — adjudicated: the row carries the ENGINE's primary rejection
+      (`rejections[0]`) plus a new full `rejections` list; the contract was over-specified. (B) plan-companion hiding was scoped to one blueprint —
+      adjudicated to a reachable-standard rule: hide a companion whose own blueprint is committed/planned on the body OR whose target standard is
+      ≤ max(current standard, every committed-in-any-status conversion's and every queued/held/started plan's target) — ii hidden while iii runs,
+      iii still offered while ii runs (chaining is lawful). (C) immediate `office-convert-*` rows publish the honest intent kind `installationAction`
+      (the Laboratory instruments row keeps `researchAction`: its engine action is a TechnologyAction). Additions sent to sim-core; test amendments
+      to the test-author; RED baseline for test 6 captured from the pre-T3 commit `c2d27d1` after the amendments.
 - [~] **S4-T3 Bridge projection 36 (sim-core dispatched ≈02:20; `view: 'office'` keyed by facility id, `StudioOfficePage` with conversion rows always published incl. refusals, `office-convert-<facilityId>-ii|iii` and `plan-queue-office-convert-*` companions):** test 6 (`tests/bridge-p13b-s4-office.test.ts`, test-author after the fixture fixes).
 - [ ] **S4-T4 Matched pass, records (backlog entry), commit, push.**
 

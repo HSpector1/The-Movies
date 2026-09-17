@@ -1,0 +1,118 @@
+P13B-S4-T3 — first run of tests/bridge-p13b-s4-office.test.ts
+Independent test engineer, 2026-09-17. Repo /Users/zacheryspector/The-Movies-headless-program,
+worktree branch wip/headless-program-20260916-ts, HEAD c2d27d1 at task assignment.
+
+PROJECTION_VERSION at the moment this file was first written and run: 36
+  ($ grep -n "PROJECTION_VERSION = 36" bridge/schema/bridge-schema.ts -> line 84 matched)
+
+This means T3 (bridge/office.ts, the office view wiring in bridge/industry.ts and
+bridge/session.ts, and the StudioOfficePage/StudioOfficeConversionRow schema defs
+in bridge/schema/industry-schema.ts) was ALREADY LANDED, complete and uncommitted
+in the shared working tree, before this test file's very first run. This is NOT a
+pre-T3 RED baseline — the task briefing's own note applies verbatim: "if 36, the
+RED baseline is not capturable in the shared tree and the coordinator will capture
+it from the pre-T3 commit." Per that instruction this file is still produced as
+the literal first-run capture; it is a same-implementation capture, not a RED
+baseline.
+
+Command:
+  npx vitest run tests/bridge-p13b-s4-office.test.ts --minWorkers=1 --maxWorkers=1 --testTimeout=200000
+
+DISCLOSURE (full, per this task's error-handling standard): the literal first
+invocation of the completed file produced 3 failures, not 2. Case 6 (stale
+revision) failed for a reason that was MY OWN test-construction bug, not a product
+finding: I computed `expectedStateRevision: staleRevision - 1` on a fresh session
+whose starting revision is 0, producing -1, which the bridge runtime checkpoint's
+own request-contract validation rejects before the STALE_REVISION check is ever
+reached ("$.expectedStateRevision: expected a value >= 0"). I fixed this
+immediately by chaining a legitimate dispatch first (mirroring
+tests/bridge-p13b-s3-plans.test.ts's case 7 idiom exactly) so the captured "stale"
+revision is a real, non-negative, already-superseded revision. This is recorded
+here rather than silently re-run away. The raw tail below is the UNMODIFIED output
+of that literal first invocation, bug included.
+
+Cases 2 and 4's failures are NOT test bugs — they are genuine, reproducible
+requirement-vs-implementation gaps against the coordinator's fixed T3 contract,
+unchanged before and after the case-6 fix (see 06-t3-bridge-office-after-t3.txt
+for the corrected file's stable, final per-case results, and this test file's own
+header comment for the full technical explanation and reproduction steps).
+================================================================================
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/bridge-p13b-s4-office.test.ts (9 tests | 3 failed) 11241ms
+   ✓ case 1: the founding office at week 12 — full quote parity on the wire; office null off the laboratory view > standard I, highest I, offline false, capacity 2, baselineWeeklyOperatingCost 0 (endowed); both conversion rows match the authoritative quote 1671ms
+   × case 2: immediate iii conversion — engagement, reopening, standardAlreadyMet and the exact capex ledger row > commits, engages the body for 16 weeks, reopens at III, and writes one exact -$1,250,000 constructionCapex ledger row 2537ms
+     → expected 'alreadyInstalled' to be 'targetEngaged' // Object.is equality
+   ✓ case 3: placed office money on the wire > $5,500 baseline continues through a real weekly charge; II->III quotes $850,000/8 weeks with standardDuringWork I 2239ms
+   × case 4: plan companions — queue, start, hiding and the immediate-row lockout > plan-queue-office-convert-iii queues, starts, and offlines the body; the immediate rows lock out while it runs 1767ms
+     → expected true to be false // Object.is equality
+   ✓ case 5: insufficient funds > both rows read insufficientFunds; plan companions still offered; a queued plan reads next.reason "insufficient cash" 1167ms
+   × case 6: stale revision > an office intent submitted with a stale expectedStateRevision is refused with STALE_REVISION, and that attempt changes nothing 412ms
+     → checkpoint.journal[0].requestJson: does not match the command request contract: $.expectedStateRevision: expected a value >= 0
+   ✓ case 8: history — the existing P09 facility-completed row, no invented "office" kind > the completed iii conversion writes one Opened: <name> row through the existing facilityCompleted mechanism, never a new kind 1192ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/bridge-p13b-s4-office.test.ts > case 2: immediate iii conversion — engagement, reopening, standardAlreadyMet and the exact capex ledger row > commits, engages the body for 16 weeks, reopens at III, and writes one exact -$1,250,000 constructionCapex ledger row
+AssertionError: expected 'alreadyInstalled' to be 'targetEngaged' // Object.is equality
+
+Expected: "targetEngaged"
+Received: "alreadyInstalled"
+
+ ❯ tests/bridge-p13b-s4-office.test.ts:269:28
+    267|     const midIII = required(mid.conversions.find(c => c.blueprintId ==…
+    268|     expect(midIII.available).toBe(false)
+    269|     expect(midIII.refusal).toBe('targetEngaged')
+       |                            ^
+    270|     expect(mid.actions.find(a => a.id === `office-convert-${facilityId…
+    271|     expect(mid.actions.find(a => a.id === `office-convert-${facilityId…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL |core|  tests/bridge-p13b-s4-office.test.ts > case 4: plan companions — queue, start, hiding and the immediate-row lockout > plan-queue-office-convert-iii queues, starts, and offlines the body; the immediate rows lock out while it runs
+AssertionError: expected true to be false // Object.is equality
+
+- Expected
++ Received
+
+- false
++ true
+
+ ❯ tests/bridge-p13b-s4-office.test.ts:345:100
+    343|     // the body. `companionHidden` is scoped to ONE blueprintId, so th…
+    344|     // companion (a different blueprint) stays offered. Written to the…
+    345|     expect(startedOffice.actions.some(a => a.id === `plan-queue-office…
+       |                                                                                                    ^
+    346|     const iiImmediate = required(startedOffice.actions.find(a => a.id …
+    347|     expect(iiImmediate.enabled).toBe(false)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+ FAIL |core|  tests/bridge-p13b-s4-office.test.ts > case 6: stale revision > an office intent submitted with a stale expectedStateRevision is refused with STALE_REVISION, and that attempt changes nothing
+BridgeRuntimeCheckpointError: checkpoint.journal[0].requestJson: does not match the command request contract: $.expectedStateRevision: expected a value >= 0
+ ❯ fail bridge/runtime-checkpoint.ts:329:9
+    327| 
+    328| function fail(path: string, message: string): never {
+    329|   throw new BridgeRuntimeCheckpointError(path, message)
+       |         ^
+    330| }
+    331| 
+ ❯ parseRequest bridge/runtime-checkpoint.ts:473:5
+ ❯ hydrateEntry bridge/runtime-checkpoint.ts:521:19
+ ❯ hydrateAndEncodeBridgeRuntimeCheckpoint bridge/runtime-checkpoint.ts:1095:22
+ ❯ Module.createEncodedBridgeRuntimeCheckpoint bridge/runtime-checkpoint.ts:1321:20
+ ❯ BridgeSession.prepareEntry bridge/session.ts:2084:21
+ ❯ BridgeSession.remember bridge/session.ts:2046:24
+ ❯ BridgeSession.executeCommand bridge/session.ts:1518:12
+ ❯ BridgeSession.command bridge/session.ts:1501:17
+ ❯ tests/bridge-p13b-s4-office.test.ts:400:30
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯
+
+ Test Files  1 failed (1)
+      Tests  3 failed | 6 passed (9)
+   Start at  03:00:02
+   Duration  15.58s (transform 2.81s, setup 0ms, collect 3.77s, tests 11.24s, environment 0ms, prepare 177ms)
+
