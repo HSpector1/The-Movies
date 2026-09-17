@@ -809,21 +809,32 @@ must see a cancelled/restoring stage as non-qualifying (its gate already names i
 - Component progress is derived, never stored: components run in authored order from `placedWeek`; component k spans `[start_k, start_k +
   weeks_k)`; at cancel week w (action applied before the boundary to w+1) a component is `completed` (its end ≤ w), `inProgress` (start < w <
   end; worked = w − start whole weeks; paid = cost·worked/weeks rounded to whole money toward the studio's favour, remainder refunded) or
-  `unstarted` (refunded in full). Zero-week components (capture package) are paid iff any physical component has completed or begun, else refunded.
+  `unstarted` (refunded in full). A zero-week component (the sound capture package, authored third) is paid iff the component authored
+  before it has completed, else refunded; a leading zero-week component would be paid at commit (none is authored today).
+- Type change stated explicitly: `PlacementStatus` gains `'cancelled'` (`'underConstruction' | 'operational' | 'cancelled'`); every frozen
+  validator keeps its two-value law and the live validator accepts the third only with a receipt.
 - Action `cancelInstallation {projectId}` (and `cancelAdoption {adoptionId}` = cancel every remaining physical component of that adoption): refused
-  when the placement is operational, already cancelled, or not the player's; writes ONE `constructionRefund` ledger row (`constructionProjectId`
+  when the placement is operational, already cancelled, not the player's, or a RESTORATION job (identified by its blueprint family
+  `restoration-*`, see below — it is the cost of the cancellation); writes ONE `constructionRefund` ledger row (`constructionProjectId`
   = the cancelled project, amount = Σ refunds, week w) and a `CancellationReceipt {projectId, week, components: [{label, cost, weeks, status,
   paid, refunded}], refund, restorationProjectId: string | null}` on the placement record (`status: 'cancelled'`); a second cancel is refused;
   a later restart of the same blueprint on the same target is a NEW placement quoted anew (no refund credit, no free components).
 - Equipment: an adoption whose physical work is cancelled keeps its asset (`holderAdoptionId → null`, asset unheld); the adoption row gains
   `cancelledWeek`; the first-prototype entitlement is not restored (the asset exists and is reused at $0 by S5's unheld-asset rule on restart).
-  Research is never refunded; access is never revoked.
+  Research is never refunded; access is never revoked. **Validator reconciliation (audit blocking finding):** today's v4 clause
+  `operational receipt differs from exact physical completion` requires `operationalWeek` once every referenced placement's `completesWeek` has
+  passed; a cancelled adoption (`cancelledWeek !== null`) is EXEMPT from that clause, keeps its `physicalProjectIds` and component rows as
+  history (the cancelled placement stays in `placement.facilities` with `status: 'cancelled'` and its receipt), and can never become
+  operational; `finishTechnologyWeek` skips cancelled adoptions; `adoptionPhysicalComplete` is false for them.
 - Restoration: if any site-adaptation component had begun, cancellation auto-commits a restoration installation on the same target
   (`restoration-sound-stage` $25,000/2 w, `restoration-lighting-stage` $10,000/1 w, `restoration-office` for S4 conversions at the II/III
   component's own site cost share — candidate) that takes the target offline like S4's conversions and returns it at completion; nothing to
-  restore if no site work began. Restoration is itself cancellable? No — refused (it is the cost of the cancellation).
-- Same-tick ordering: the boundary completion sweep runs before plan admission and before any action of week w+1; a cancel at week w never
-  refunds a component whose end ≤ w and never pays a component whose start ≥ w. Save/reload between the action and the boundary changes nothing.
+  restore if no site work began. The three restoration blueprints are authored with `takesTargetOffline: true` (so S4's body-level claim
+  applies) and the id family `restoration-*`; a restoration job is refused by `cancelInstallation`.
+- Same-tick ordering: a cancel is an action applied during week w (`applyActions`), so it is evaluated before the boundary to w+1 whatever the
+  tick's internal step order (today step 1.06 plan admission runs before step 1.6 `completeDuePlacements`, `tick.ts:428/456`); a cancel at
+  week w never refunds a component whose end ≤ w and never pays a component whose start ≥ w. Save/reload between the action and the boundary
+  changes nothing.
 - Cross-year refund bucket: the finance report shows refunds as their own line in the calendar year of the refund week, never as a retroactive
   edit of the year the capex was paid; the report's yearly capex totals stay historical.
 - Validator: receipt sums (Σ paid + Σ refunded = Σ component costs), refund row amount = receipt refund, no negative, one receipt per project,
@@ -832,6 +843,12 @@ must see a cancelled/restoring stage as non-qualifying (its gate already names i
   `constructionRefund`; honest lift (null / none); genuine fixtures of the prior version minted at its final writer before any S6 change.
 - Bridge (projection next, text only): `cancel-<projectId>` rows on the Laboratory/Office/plans surfaces with the receipt quote (per component
   status/paid/refund, restoration cost/weeks, engine refusal + rejections), restoration rows, finance page refund line.
+
+**Audit (contract-auditor, read-only, 2026-09-17 ≈13:55):** two blocking findings adopted above (validator exemption for cancelled adoptions;
+restoration discriminator), two should-fix adopted (tick step order sentence; `PlacementStatus` type change stated); per-component progress
+from authored order confirmed sound; refund rows never enter the capex reconciliation; restoration reuses the `takesTargetOffline` claim; the
+S5-R07 gate excludes cancelled placements through `adoptionPhysicalComplete`; S3's `started` plan status stays untouched (it is already
+permanent at normal completion).
 
 **Tests (RED-first).** 1 receipts by exact trace (lighting cancelled after site complete: paid 50,000 / refund 50,000 + restoration 10,000/1 w;
 during installation week 1 of 2: paid 75,000 / refund 25,000; sound during site week 3 of 9: paid 150,000 / refund 300,000 + 150,000 + 75,000,
