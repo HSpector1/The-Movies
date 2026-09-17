@@ -1,0 +1,33 @@
+# P13B-S6 independent-test-engineer — test 7 (Save V26 + validator refusals), RED-first
+# Repo: /Users/zacheryspector/The-Movies-headless-program
+# Branch: wip/headless-program-20260916-ts, HEAD at 2235ec1756c1a1d02315edf4c9ee1280737ba093
+# Command: npx vitest run tests/p13b-s6-save-v26.test.ts --minWorkers=1 --maxWorkers=1
+# node v20.20.2, vitest 2.1.9
+# Expected: module resolution failure on src/core/installationCancellation.js (does not exist yet). Single named cause; no test bodies execute.
+# NOTE (measured 2026-09-17): an EARLIER draft of this file imported cancellationQuote
+# but never called it; esbuild's transform silently ELIDED the unused import specifier,
+# so the file loaded and RAN (6 passed / 5 failed on unrelated runtime causes) instead of
+# failing at module resolution. Fixed by giving cancellationQuote a genuine call in the
+# first test body; re-verified below. Recorded as a methodological finding for future
+# P13B test-author files in this repo: an unused named import from a not-yet-existing
+# module is not sufficient to guarantee a single-cause RED — it must be put to genuine use.
+#
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/p13b-s6-save-v26.test.ts (0 test)
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p13b-s6-save-v26.test.ts [ tests/p13b-s6-save-v26.test.ts ]
+Error: Failed to load url ../src/core/installationCancellation.js (resolved id: ../src/core/installationCancellation.js) in /Users/zacheryspector/The-Movies-headless-program/tests/p13b-s6-save-v26.test.ts. Does the file exist?
+ ❯ loadAndTransform node_modules/vitest/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:51969:17
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed (1)
+      Tests  no tests
+   Start at  15:29:39
+   Duration  1.82s (transform 1.08s, setup 0ms, collect 0ms, tests 0ms, environment 0ms, prepare 94ms)
+

@@ -1,0 +1,26 @@
+# P13B-S6 independent-test-engineer — test 6 (finance year bucket), RED-first
+# Repo: /Users/zacheryspector/The-Movies-headless-program
+# Branch: wip/headless-program-20260916-ts, HEAD at 2235ec1756c1a1d02315edf4c9ee1280737ba093
+# Command: npx vitest run tests/p13b-s6-finance.test.ts --minWorkers=1 --maxWorkers=1
+# node v20.20.2, vitest 2.1.9
+# Expected: module resolution failure on src/core/installationCancellation.js (does not exist yet). Single named cause; no test bodies execute.
+#
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/p13b-s6-finance.test.ts (0 test)
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p13b-s6-finance.test.ts [ tests/p13b-s6-finance.test.ts ]
+Error: Failed to load url ../src/core/installationCancellation.js (resolved id: ../src/core/installationCancellation.js) in /Users/zacheryspector/The-Movies-headless-program/tests/p13b-s6-finance.test.ts. Does the file exist?
+ ❯ loadAndTransform node_modules/vitest/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:51969:17
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed (1)
+      Tests  no tests
+   Start at  15:25:26
+   Duration  2.43s (transform 1.42s, setup 0ms, collect 0ms, tests 0ms, environment 0ms, prepare 94ms)
+
