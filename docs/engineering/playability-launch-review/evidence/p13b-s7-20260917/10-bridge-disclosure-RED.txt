@@ -1,0 +1,80 @@
+
+ ❯ tests/bridge-p13b-s7-disclosure.test.ts:492:111
+    490|     const real = required(activitiesOf(response)[0], 'no activity row …
+    491|     expect(typeof real.studioId).toBe('string') // existing receipt ro…
+    492|     expect(() => parseWireValue(BRIDGE_SCHEMA.$defs.StudioIndustryActi…
+       |                                                                                                               ^
+    493|   })
+    494| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/16]⎯
+
+ FAIL |core|  tests/bridge-p13b-s7-disclosure.test.ts > P13B-S7-T3 item 5: Industry announcement row — derived, nullable studioId, excluded from per-studio History, absent for sound, Save As identical > identical in a Save As world: two independently-saved-as campaign slots of the same week-884 state publish byte-identical announcement rows
+AssertionError: expected [] to have a length of 1 but got +0
+
+- Expected
++ Received
+
+- 1
++ 0
+
+ ❯ tests/bridge-p13b-s7-disclosure.test.ts:538:28
+    536| 
+    537|       expect(originalRows).toEqual(copyRows)
+    538|       expect(originalRows).toHaveLength(1)
+       |                            ^
+    539|       expect(originalRows[0]!.eventId).toBe('technology-announcement-l…
+    540|     } finally {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[13/16]⎯
+
+ FAIL |core|  tests/bridge-p13b-s7-disclosure.test.ts > P13B-S7-T3 item 6: rival-independence on the wire — identical forecast/announcement rows across states differing only in rival facts (PARTIAL until S8, per the engine's own test 2 scope) > Laboratory forecast rows (both technologies) are byte-identical across the two rival-divergent states at week 416
+Error: no forecast[] (base)
+ ❯ required tests/bridge-p13b-s7-disclosure.test.ts:145:52
+    143| function nextRequestId(prefix: string): string { return `${prefix}-req…
+    144| function required<T>(value: T | null | undefined, message: string): T {
+    145|   if (value === null || value === undefined) throw new Error(message)
+       |                                                    ^
+    146|   return value
+    147| }
+ ❯ tests/bridge-p13b-s7-disclosure.test.ts:561:26
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[14/16]⎯
+
+ FAIL |core|  tests/bridge-p13b-s7-disclosure.test.ts > P13B-S7-T3 item 6: rival-independence on the wire — identical forecast/announcement rows across states differing only in rival facts (PARTIAL until S8, per the engine's own test 2 scope) > industry announcement rows are byte-identical across the two rival-divergent states, both at week 416 (empty) and advanced independently to week 900 (one lighting row)
+AssertionError: expected [] to have a length of 1 but got +0
+
+- Expected
++ Received
+
+- 1
++ 0
+
+ ❯ tests/bridge-p13b-s7-disclosure.test.ts:606:25
+    604|     const variantRows900 = activitiesOf(industryQuery(variantSession90…
+    605|     expect(variantRows900).toEqual(baseRows900)
+    606|     expect(baseRows900).toHaveLength(1)
+       |                         ^
+    607|     expect(baseRows900[0]!.eventId).toBe('technology-announcement-ligh…
+    608|   }, 30_000)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[15/16]⎯
+
+ FAIL |core|  tests/bridge-p13b-s7-disclosure.test.ts > P13B-S7-T3 item 7: genuine V26 fixture loads through the bridge and publishes the windowed lighting forecast at week 795 > sha256 matches provenance; BridgeSession.fromSaveJson loads it; the Laboratory page publishes a windowed lighting forecast (884..988), never 936
+Error: no forecast[] on the Laboratory page (RED: absent at projection 39)
+ ❯ required tests/bridge-p13b-s7-disclosure.test.ts:145:52
+    143| function nextRequestId(prefix: string): string { return `${prefix}-req…
+    144| function required<T>(value: T | null | undefined, message: string): T {
+    145|   if (value === null || value === undefined) throw new Error(message)
+       |                                                    ^
+    146|   return value
+    147| }
+ ❯ tests/bridge-p13b-s7-disclosure.test.ts:628:22
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[16/16]⎯
+
+ Test Files  1 failed (1)
+      Tests  16 failed | 6 passed (22)
+   Start at  00:17:20
+   Duration  39.89s (transform 2.34s, setup 0ms, collect 16.81s, tests 22.61s, environment 0ms, prepare 111ms)
+
