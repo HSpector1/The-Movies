@@ -11,6 +11,7 @@ import {studioPresence} from '../src/core/presence.ts'
 import {historyProjection} from './history.ts'
 import {laboratoryPage,type LaboratoryIntent} from './laboratory.ts'
 import {plansPage,type PlanIntent} from './plans.ts'
+import {officePage,type OfficeIntent} from './office.ts'
 
 type Film=IndustryPage['films'][number]
 type Credit=IndustryPage['credits'][number]
@@ -119,11 +120,18 @@ function filterFilms(rows:Film[],q:IndustryQuery,week:number):Film[] {
     .sort((a,b)=>{const value=(f:Film)=>q.lane==='critics'?f.criticScore:q.lane==='audience'?f.audienceScore:q.lane==='opening'?f.openingGross:q.lane==='total'?f.totalGross:chronology(f);return value(b)-value(a)||byText(a.filmId,b.filmId)})
 }
 /** Query results own their output objects; the immutable per-state index never escapes. */
-export function industryPage(state:GameState,sessionId:string,stateRevision:number,q:IndustryQuery,laboratoryIntents:readonly LaboratoryIntent[]=[],planIntents:readonly PlanIntent[]=[]):IndustryPage {
+export function industryPage(state:GameState,sessionId:string,stateRevision:number,q:IndustryQuery,laboratoryIntents:readonly LaboratoryIntent[]=[],planIntents:readonly PlanIntent[]=[],officeIntents:readonly OfficeIntent[]=[]):IndustryPage {
   const index=indexFor(state),h=state.hollywood!,calendar=campaignDate(state.market.tick)
-  const result:IndustryPage={protocolVersion:PROTOCOL_VERSION,schemaId:SCHEMA_ID,snapshotVersion:SNAPSHOT_VERSION,type:'industryPage',requestId:q.requestId,sessionId,stateRevision,stateDigest:snapshotBuildContextFor(state).stateDigest(),calendar,view:q.view,targetId:q.targetId,page:q.page,pageSize:q.pageSize,totalRows:0,pageCount:0,lane:q.lane,period:q.period,title:'Industry',notice:'Public facts only. Standing channels and film measures have separate meanings; there is no combined Power score.',studios:[],films:[],people:[],credits:[],activities:[],projects:[],tendencies:[],laboratory:null,plans:null}
+  const result:IndustryPage={protocolVersion:PROTOCOL_VERSION,schemaId:SCHEMA_ID,snapshotVersion:SNAPSHOT_VERSION,type:'industryPage',requestId:q.requestId,sessionId,stateRevision,stateDigest:snapshotBuildContextFor(state).stateDigest(),calendar,view:q.view,targetId:q.targetId,page:q.page,pageSize:q.pageSize,totalRows:0,pageCount:0,lane:q.lane,period:q.period,title:'Industry',notice:'Public facts only. Standing channels and film measures have separate meanings; there is no combined Power score.',studios:[],films:[],people:[],credits:[],activities:[],projects:[],tendencies:[],laboratory:null,plans:null,office:null}
   const page=<T>(rows:T[]):T[]=>{result.totalRows=rows.length;result.pageCount=Math.ceil(rows.length/q.pageSize);if(q.page>0&&q.page>=result.pageCount)throw new Error('That page is outside this snapshot. Return to the first page.');return rows.slice(q.page*q.pageSize,(q.page+1)*q.pageSize)}
-  if(q.view==='plans') {
+  if(q.view==='office') {
+    // P13B-S4: one Development & Casting building's standard and its in-place
+    // conversions. `officePage` resolves this studio's own bodies alone; a rival
+    // facility id is absent from that set and refused above as INVALID_CONTROL.
+    const office=officePage(state,q.targetId,officeIntents,q.page,q.pageSize)
+    result.office=office.office;result.totalRows=office.totalRows;result.pageCount=office.pageCount
+    result.title=office.office.title;result.notice='Your studio\u2019s Development & Casting building. A conversion raises this building\u2019s development standard in place and closes the building while the work runs; the standard increment is charged only once it reopens.'
+  } else if(q.view==='plans') {
     // P13B-S3: the studio's own ordered physical intentions. Player-safe by construction —
     // `plansPage` reads the player studio's plans alone; a rival's row never reaches here.
     const page=plansPage(state,planIntents,q.page,q.pageSize)

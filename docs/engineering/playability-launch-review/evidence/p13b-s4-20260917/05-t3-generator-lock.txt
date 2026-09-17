@@ -1,0 +1,9 @@
+$ npx vitest run tests/bridge-contract-generator.test.ts tests/bridge-contract-consumer-lock.test.ts --minWorkers=1 --maxWorkers=1
+   ✓ CF-09 post-commit attestation > rejects failing generated fixture suite EditMode XML 4033ms
+   ✓ CF-09 post-commit attestation > rejects failed or internally inconsistent full EditMode XML 4104ms
+
+ Test Files  2 passed (2)
+      Tests  108 passed (108)
+   Start at  03:16:21
+   Duration  305.40s (transform 512ms, setup 0ms, collect 733ms, tests 303.76s, environment 1ms, prepare 209ms)
+

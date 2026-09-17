@@ -1,0 +1,11 @@
+$ npx vitest run tests/bridge.test.ts --minWorkers=1 --maxWorkers=1   (rerun after the installationAction intent kind)
+   ✓ Current-game Unity adoption bridge > emits and admits exact-project auditions when both authoritative slots are occupied 6437ms
+   ✓ Current-game Unity adoption bridge > emits and admits an evidenced exact-project greenlight without committing the package 3658ms
+   ✓ Current-game Unity adoption bridge > publishes advanceWeek through the ready-to-package family and withholds it at a casting-review decision stop 13195ms
+   ✓ Current-game Unity adoption bridge > keeps advanceWeek available while a greenlight sits queued for Development & Casting capacity 762ms
+
+ Test Files  1 passed (1)
+      Tests  18 passed (18)
+   Start at  03:21:33
+   Duration  300.82s (transform 2.21s, setup 0ms, collect 2.96s, tests 297.40s, environment 0ms, prepare 93ms)
+

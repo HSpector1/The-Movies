@@ -1,0 +1,40 @@
+$ npx vitest run tests/bridge-p13-campaign-isolation.test.ts --minWorkers=1 --maxWorkers=1   (solo, inherited 60_000 ms inline budget)
+# run A — with the S4 office intents (this task): body 70.23 s, file 74.41 s — TIMEOUT at the inherited 60 s budget
+# run B — same tree with `...resolveOfficeIntents(state)` temporarily removed from resolveAvailableIntents: body 70.12 s, file 74.40 s — SAME TIMEOUT
+# the office rows cost ~0.1 s of a 70 s body: this failure is inherited, not caused by S4-T3. The temporary removal was reverted immediately (bridge/session.ts line 1128 restored, tsc clean).
+
+$ npx vitest run tests/bridge-p13-campaign-isolation.test.ts --minWorkers=1 --maxWorkers=1
+ ❯ |core| tests/bridge-p13-campaign-isolation.test.ts (1 test | 1 failed) 70227ms
+   × P13A research authority across named campaign operations > Save As branches real research, inactive and renamed campaigns stay frozen, and a new campaign receives none of their authority 70225ms
+     → Test timed out in 60000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/bridge-p13-campaign-isolation.test.ts > P13A research authority across named campaign operations > Save As branches real research, inactive and renamed campaigns stay frozen, and a new campaign receives none of their authority
+Error: Test timed out in 60000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed (1)
+      Tests  1 failed (1)
+   Start at  03:01:06
+   Duration  74.41s (transform 2.68s, setup 0ms, collect 3.61s, tests 70.23s, environment 0ms, prepare 126ms)
+
+real 76.65
+user 88.29
+sys 5.45
+
+# confirming run after A/B/C + finding D (2026-09-17 03:3x):
+$ npx vitest run tests/bridge-p13-campaign-isolation.test.ts --minWorkers=1 --maxWorkers=1
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/bridge-p13-campaign-isolation.test.ts (1 test) 73820ms
+   ✓ P13A research authority across named campaign operations > Save As branches real research, inactive and renamed campaigns stay frozen, and a new campaign receives none of their authority 73818ms
+
+ Test Files  1 passed (1)
+      Tests  1 passed (1)
+   Start at  03:33:47
+   Duration  77.56s (transform 2.46s, setup 0ms, collect 3.27s, tests 73.82s, environment 0ms, prepare 118ms)
+

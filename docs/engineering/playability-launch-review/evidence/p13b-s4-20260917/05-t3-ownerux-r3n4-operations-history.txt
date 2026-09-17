@@ -1,0 +1,17 @@
+# FIRST PASS, BEFORE the coordinator amendments A/B/C + finding D (schemaId sha256:b9e06642...). Kept verbatim; the post-amendment rerun is the authority.
+
+$ npx vitest run tests/bridge-owner-ux-projection20-migration.test.ts tests/bridge-owner-ux-projection21-schema.test.ts tests/bridge-r3n4-read-model-deltas.test.ts tests/bridge-operations-events.test.ts tests/bridge-p08a-w2-history-projection.test.ts --minWorkers=1 --maxWorkers=1
+ ✓ |core| tests/bridge-owner-ux-projection21-schema.test.ts (9 tests) 16527ms
+   ✓ Owner UX projection21 public field wire boundary > parses actual current snapshot, Save, and Load envelopes 3815ms
+   ✓ Owner UX projection21 public field wire boundary > requires savedSlot rather than silently defaulting it 2601ms
+   ✓ Owner UX projection21 public field wire boundary > rejects malformed/fabricated slot metadata 0 1839ms
+   ✓ Owner UX projection21 public field wire boundary > rejects malformed/fabricated slot metadata 1 1817ms
+   ✓ Owner UX projection21 public field wire boundary > rejects malformed/fabricated slot metadata 2 1595ms
+   ✓ Owner UX projection21 public field wire boundary > rejects malformed/fabricated slot metadata 3 1573ms
+   ✓ Owner UX projection21 public field wire boundary > rejects malformed/fabricated slot metadata 4 1560ms
+   ✓ Owner UX projection21 public field wire boundary > accepts public fractional and known-zero cells, rejects hidden values and malformed cells 1720ms
+
+ Test Files  5 passed (5)
+      Tests  38 passed (38)
+   Start at  03:05:59
+   Duration  41.26s (transform 2.54s, setup 0ms, collect 5.91s, tests 33.15s, environment 2ms, prepare 601ms)

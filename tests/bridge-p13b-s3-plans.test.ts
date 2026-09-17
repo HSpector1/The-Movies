@@ -189,20 +189,20 @@ function ownHistoryActivities(session: BridgeSession, requestId: string): { head
 // ---------------------------------------------------------------------------
 
 describe('P13B-S3-T4 plans bridge page: projection bump', () => {
-  it('bumps PROJECTION_VERSION to the S3-T4 wire contract (35)', () => {
-    expect(PROJECTION_VERSION).toBe(35)
+  it('bumps PROJECTION_VERSION to the S3-T4 wire contract (35; 36 after the S4-T3 bump)', () => {
+    expect(PROJECTION_VERSION).toBe(36)
   })
 })
 
 describe('case 1: a fresh studio publishes an empty plans page; plans is null off the plans view', () => {
-  it('snapshotVersion 35; rows and actions are both empty arrays on a fresh studio; laboratory view carries plans: null', () => {
+  it('snapshotVersion 36; rows and actions are both empty arrays on a fresh studio; laboratory view carries plans: null', () => {
     const state = p13aLaboratorySlice() // week 12, one operational Lab, no research, no plans queued
     const laboratoryFacilityId = state.operations.facilities.find(f => f.capability === 'laboratory')!.id
     const buildingId = buildingIdOf(state, laboratoryFacilityId)
     const session = new BridgeSession(state, 'p13b-s3-plans-1-fresh')
 
     const plans = plansResponse(session, nextRequestId('fresh'))
-    expect(plans.snapshotVersion).toBe(35)
+    expect(plans.snapshotVersion).toBe(36)
     expect(plans.plans.rows).toEqual([])
     expect(plans.plans.actions).toEqual([])
 

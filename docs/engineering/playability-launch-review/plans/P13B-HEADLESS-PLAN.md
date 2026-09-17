@@ -541,7 +541,18 @@ highest-operational-standard ladder. Nothing else in the estate changes.
       iii still offered while ii runs (chaining is lawful). (C) immediate `office-convert-*` rows publish the honest intent kind `installationAction`
       (the Laboratory instruments row keeps `researchAction`: its engine action is a TechnologyAction). Additions sent to sim-core; test amendments
       to the test-author; RED baseline for test 6 captured from the pre-T3 commit `c2d27d1` after the amendments.
-- [~] **S4-T3 Bridge projection 36 (sim-core dispatched ≈02:20; `view: 'office'` keyed by facility id, `StudioOfficePage` with conversion rows always published incl. refusals, `office-convert-<facilityId>-ii|iii` and `plan-queue-office-convert-*` companions):** test 6 (`tests/bridge-p13b-s4-office.test.ts`, test-author after the fixture fixes).
+- [x] **S4-T3 Bridge projection 36 (2026-09-17 ≈03:40):** `bridge/office.ts` (new), `view: 'office'` on request and response keyed by facility id,
+      `StudioOfficePage` (nullable `blueprintId` — the endowed founding office is a property structure, publishing a purchased blueprint there would
+      claim a building never bought; `offlineUntilWeek` nullable; live registry `capacity`), `StudioOfficeConversionRow` (both rows always
+      published; `rejections` = the engine's list, `refusal` = its primary with one presentation rule: a COMPLETED record's own row yields to
+      `standardAlreadyMet`, a running one keeps `alreadyInstalled` — finding D), rows `office-convert-<facilityId>-ii|iii` (intent kind
+      `installationAction`, bridge-local descriptor composed of P09's own quote/commit, refusal raised not swallowed) and
+      `plan-queue-office-convert-*` under the reachable-standard visibility rule; schemaId `sha256:c2247716…`, contract sha `e0d44f46…`, checks
+      verified; pins 35 → 36 in fourteen files. Test 6 RED 11/11 at `c2d27d1` (`10`) → 11/11 (`05-t3-bridge-s4-office`, `06-t3-*`; coordinator
+      fresh `11`: office + s3-plans + laboratory 29/29, tsc bridge/root clean, contract checks verified). Sweeps `05-t3-*`: generator/lock 108/108,
+      bridge 18/18, P13 group 16/16, P13B S1/S2/S3 20/20, p10a/p11/owner-ux/r3n4/operations/history 85/85, core S3 + S4 83/83, campaign-isolation
+      solo 70–74 s bodies (inherited 60 s budget; the office rows cost ≈0.1 s of it). Unproven: the `conversionStandards` fallback for an
+      effect-only standalone II/III body (no registry row) — disclosed via `available:false` + the engine refusal.
 - [ ] **S4-T4 Matched pass, records (backlog entry), commit, push.**
 
 ## S4 — original scope record (superseded by the expansion above; kept verbatim)

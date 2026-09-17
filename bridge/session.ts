@@ -68,6 +68,7 @@ import { snapshotBuildContextFor } from './snapshot-build-context.ts'
 import {industryPage} from './industry.ts'
 import {laboratoryActionSpecs,type LaboratoryIntent} from './laboratory.ts'
 import {isPhysicalPlanAction,planActionSpecs,type PlanIntent} from './plans.ts'
+import {applyOfficeAction,officeActionSpecs,type OfficeIntent} from './office.ts'
 import {sameNativeCampaignOrigin} from './campaign-origin.ts'
 import type {IndustryQuery} from './schema/industry-schema.ts'
 import type {
@@ -1107,8 +1108,24 @@ function resolvePlanIntents(state: GameState): Array<IntentApplication & PlanInt
   }))
 }
 
+/**
+ * P13B-S4: the office rows. The plan companions are plan verbs and say so; the
+ * immediate conversion is P09's own installation quote/commit pair — no new ENGINE
+ * action kind (plan §S4) — and carries `installationAction`, because calling a
+ * building conversion a research action would make the wire lie about what it moves.
+ */
+function resolveOfficeIntents(state: GameState): Array<IntentApplication & OfficeIntent> {
+  const stateDigest = authoritativeDigest(state)
+  return officeActionSpecs(state).filter(spec => spec.enabled).map(spec => ({
+    spec,
+    option: option(stateDigest, {kind:isPhysicalPlanAction(spec.action)?'physicalPlanAction':'installationAction',label:spec.label,detail:spec.detail,
+      projectId:null,castingSessionId:null,productionId:null}, spec.action),
+    apply: current => caught(() => ({ok:true,next:applyOfficeAction(current,spec.action)})),
+  }))
+}
+
 function resolveAvailableIntents(state: GameState): IntentApplication[] {
-  return [...resolveStudioIntents(state), ...resolveLaboratoryIntents(state), ...resolvePlanIntents(state)]
+  return [...resolveStudioIntents(state), ...resolveLaboratoryIntents(state), ...resolvePlanIntents(state), ...resolveOfficeIntents(state)]
 }
 
 export function availableIntents(state: GameState): AvailableIntent[] {
@@ -1341,7 +1358,7 @@ export class BridgeSession {
   industry(request:IndustryQuery) {
     if(request.sessionId!==this.sessionId)return this.protocolReject(request.requestId,'SESSION_MISMATCH','The active campaign changed. Refresh Industry.')
     if(request.expectedStateRevision!==this.stateRevision)return this.protocolReject(request.requestId,'STALE_REVISION','The studio advanced. Refresh this Industry page before continuing.')
-    try{return industryPage(this.state,this.sessionId,this.stateRevision,request,request.view==='laboratory'?resolveLaboratoryIntents(this.state):[],request.view==='plans'?resolvePlanIntents(this.state):[])}
+    try{return industryPage(this.state,this.sessionId,this.stateRevision,request,request.view==='laboratory'?resolveLaboratoryIntents(this.state):[],request.view==='plans'?resolvePlanIntents(this.state):[],request.view==='office'?resolveOfficeIntents(this.state):[])}
     catch(error){return this.protocolReject(request.requestId,'INVALID_CONTROL',(error as Error).message)}
   }
 

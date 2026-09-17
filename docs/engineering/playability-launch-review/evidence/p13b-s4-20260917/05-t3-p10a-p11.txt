@@ -1,0 +1,17 @@
+# FIRST PASS, BEFORE the coordinator amendments A/B/C + finding D (schemaId sha256:b9e06642...). Kept verbatim; the post-amendment rerun is the authority.
+
+$ npx vitest run tests/bridge-p10a-w0-people-projection.test.ts tests/bridge-p11-capital-contributors.test.ts tests/bridge-p11-finance.test.ts tests/bridge-p11-production-location.test.ts tests/bridge-p11-ready.test.ts --minWorkers=1 --maxWorkers=1
+   ✓ P10A W0 — people projection > R8 grouped attention lists each person at most once, by the highest tier; contract horizons come from the contract alone 2270ms
+   ✓ P10A W0 — people projection > R10 a genuine V16 control migrates without changing any original person 310ms
+ ✓ |core| tests/bridge-p11-capital-contributors.test.ts (6 tests) 3180ms
+   ✓ P11 recorded facility capital contributors over the real bridge > hydrates genuine outgoing projection24 and joins four original payments to exact construction events 855ms
+   ✓ P11 recorded facility capital contributors over the real bridge > preserves same-name site identities across periods, completion and history windows 1347ms
+   ✓ P11 recorded facility capital contributors over the real bridge > caps a real 26-purchase history at 20 without hiding the remaining payments 369ms
+ ✓ |core| tests/bridge-p11-production-location.test.ts (3 tests) 3539ms
+   ✓ P11 exact production property locations > accepts authentic26 and projects a real immediate Greenlight at the reserved placed office 2450ms
+   ✓ P11 exact production property locations > uses the real placed Post reservation, then no guessed site for ready or committed release 794ms
+
+ Test Files  5 passed (5)
+      Tests  47 passed (47)
+   Start at  03:05:05
+   Duration  43.79s (transform 2.67s, setup 0ms, collect 5.74s, tests 36.26s, environment 2ms, prepare 487ms)

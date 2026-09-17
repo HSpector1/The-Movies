@@ -1,0 +1,17 @@
+$ npm run check:bridge-contract
+> vite-node scripts/generate-bridge-contract.ts --check
+
+verified /Users/zacheryspector/The-Movies-headless-program/bridge/schema/project-studio-bridge.schema.json
+verified /Users/zacheryspector/The-Movies-headless-program/generated/unity/StudioBridgeDtos.Generated.cs
+verified /Users/zacheryspector/The-Movies-headless-program/generated/unity/project-studio-bridge.contract-manifest.json
+$ npm run check:bridge-contract:fixtures
+> vite-node scripts/generate-bridge-contract-fixtures.ts --check
+
+verified /Users/zacheryspector/The-Movies-headless-program/generated/unity/tests/StudioBridgeUnionFixtures.Generated.cs
+$ npx vitest run tests/bridge-contract-generator.test.ts --minWorkers=1 --maxWorkers=1
+
+ Test Files  1 passed (1)
+      Tests  31 passed (31)
+   Start at  03:11:02
+   Duration  2.42s (transform 469ms, setup 0ms, collect 607ms, tests 1.39s, environment 0ms, prepare 105ms)
+

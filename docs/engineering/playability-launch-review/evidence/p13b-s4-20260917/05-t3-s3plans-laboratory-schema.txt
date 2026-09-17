@@ -1,0 +1,21 @@
+$ npx vitest run tests/bridge-p13b-s3-plans.test.ts tests/bridge-p13-laboratory.test.ts tests/bridge-schema.test.ts --minWorkers=1 --maxWorkers=1
+   ✓ case 4: cancel blocks its dependent; a started plan has no cancel row > cancelling the predecessor cancels it and blocks the dependent, naming it, with matching history rows; the cancel row disappears; an independently STARTED plan carries no cancel row at all 1974ms
+   ✓ case 5: reorder > three independent queued plans: move-down swaps ordinals 1<->2 on the wire; move-up is disabled at the top and move-down at the bottom 2521ms
+   ✓ case 5: reorder > a dependent immediately following its predecessor cannot move up: disabled with the engine's own "before its dependency" text 637ms
+   ✓ case 6: admission mode toggle > the mode NOT currently set is the only admission action offered; dispatching it flips the row's admission 1831ms
+   ✓ case 7: stale revision > a plans intent submitted with a stale expectedStateRevision is refused with STALE_REVISION, and that specific attempt changes nothing 1964ms
+   ✓ case 8: player-safe — no rival plan, planId or facility ever appears > a structurally injected rival plan row never appears on the player plans view, in no action id, and its studio id leaks nowhere in the page 318ms
+ ✓ |core| tests/bridge-p13-laboratory.test.ts (7 tests) 14278ms
+   ✓ P13A Laboratory bridge > publishes one exact Laboratory with named employment and truthful early-release refusal 1129ms
+   ✓ P13A Laboratory bridge > rejects wrong building, stale revision and Save As session while keeping output detached 624ms
+   ✓ P13A Laboratory bridge > pages decisions without exposing private Laboratory data in public Industry pages 408ms
+   ✓ P13A Laboratory bridge > does not let read-side preflights spend money or invent employment/research history 317ms
+   ✓ P13A Laboratory bridge > commits the exact named hire once, rejects its stale sibling intent, then assigns the employed Scientist 2511ms
+   ✓ P13A Laboratory bridge > acknowledges completed acoustic instruments while the Scientist seat remains unassigned 563ms
+   ✓ P13A Laboratory bridge > shows rival sound only from the actual operational receipt, without exposing private finances 8724ms
+
+ Test Files  3 passed (3)
+      Tests  40 passed (40)
+   Start at  03:14:55
+   Duration  77.87s (transform 2.35s, setup 0ms, collect 4.83s, tests 71.74s, environment 1ms, prepare 319ms)
+

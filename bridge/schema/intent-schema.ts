@@ -31,6 +31,10 @@ export const AVAILABLE_INTENT_KINDS = [
   // P13B-S3: the five physical-plan verbs (queue/reorder/cancel/review/set admission).
   // A plan is not research: a separate kind keeps the wire honest about what it moves.
   'physicalPlanAction',
+  // P13B-S4: an IMMEDIATE P09 installation commit on an existing building (the Office
+  // standard conversions). The Laboratory's `instruments-<lab>` row keeps `researchAction`
+  // because its engine verb genuinely is a TechnologyAction; this one is not research.
+  'installationAction',
 ] as const
 
 export const StudioBridgeIntentOption = object('StudioBridgeIntentOption', {

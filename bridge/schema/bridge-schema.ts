@@ -72,7 +72,16 @@ export const PROTOCOL_VERSION = 4 as const
 // `StudioHistoryEventSnapshot.kind`, and the `physicalPlanAction` intent kind for the
 // five plan verbs. `StudioPlanRow.next` is null exactly on a started or cancelled row:
 // a terminal plan has no next admission boundary. Additive only; protocol stays 4.
-export const PROJECTION_VERSION = 35 as const
+// P13B-S4-T3 (plan §S4): 35 -> 36 — one Development & Casting building's development
+// standard and its in-place conversions reach the wire. A new `view: 'office'` industry
+// page (`StudioOfficePage` with `StudioOfficeConversionRow`), `StudioIndustryResponse
+// .office` (null on every other view, as `laboratory` and `plans` are), and the office
+// row ids `office-convert-<facilityId>-ii|iii` / `plan-queue-office-convert-<facilityId>
+// -ii|iii`. Every conversion row is published even when the engine refuses it, carrying
+// its `FacilityInstallationRefusal` name; `StudioOfficePage.blueprintId` is null exactly
+// on the endowed founding office, which is a property structure with no placement.
+// Additive only; protocol stays 4, and no new intent kind is minted.
+export const PROJECTION_VERSION = 36 as const
 
 const nonEmptyText = () => text({ minLength: 1 })
 const nonNegativeInteger = () => integer({ minimum: 0 })

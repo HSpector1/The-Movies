@@ -1,0 +1,13 @@
+$ npx vitest run tests/bridge-p10a-w0-people-projection.test.ts tests/bridge-p11-*.test.ts tests/bridge-owner-ux-projection2*.test.ts tests/bridge-r3n4-read-model-deltas.test.ts tests/bridge-operations-events.test.ts tests/bridge-p08a-w2-history-projection.test.ts --minWorkers=1 --maxWorkers=1   (rerun after A/B/C + finding D)
+   ✓ Owner UX projection21 public field wire boundary > rejects malformed/fabricated slot metadata 0 1674ms
+   ✓ Owner UX projection21 public field wire boundary > rejects malformed/fabricated slot metadata 1 1748ms
+   ✓ Owner UX projection21 public field wire boundary > rejects malformed/fabricated slot metadata 2 1596ms
+   ✓ Owner UX projection21 public field wire boundary > rejects malformed/fabricated slot metadata 3 1572ms
+   ✓ Owner UX projection21 public field wire boundary > rejects malformed/fabricated slot metadata 4 1661ms
+   ✓ Owner UX projection21 public field wire boundary > accepts public fractional and known-zero cells, rejects hidden values and malformed cells 1918ms
+
+ Test Files  10 passed (10)
+      Tests  85 passed (85)
+   Start at  03:29:58
+   Duration  73.66s (transform 2.44s, setup 0ms, collect 7.26s, tests 62.81s, environment 3ms, prepare 919ms)
+

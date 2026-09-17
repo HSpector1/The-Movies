@@ -1,0 +1,11 @@
+$ npx vitest run tests/bridge-p13b-s1-identity.test.ts tests/bridge-p13b-s1b-seats.test.ts tests/bridge-p13b-s2-labs.test.ts tests/bridge-p13b-s3-save-as.test.ts --minWorkers=1 --maxWorkers=1   (rerun after A/B/C + finding D)
+ ✓ |core| tests/bridge-p13b-s1b-seats.test.ts (8 tests) 9588ms
+ ✓ |core| tests/bridge-p13b-s3-save-as.test.ts (1 test) 5565ms
+   ✓ P13B-S3 Save As (test 7, A11) > a Save As copy keeps the same plan ids and advances independently; the inactive original never advances (complete-state comparison) 5563ms
+ ✓ |core| tests/bridge-p13b-s1-identity.test.ts (1 test) 3986ms
+
+ Test Files  4 passed (4)
+      Tests  20 passed (20)
+   Start at  03:28:01
+   Duration  107.34s (transform 2.12s, setup 0ms, collect 4.16s, tests 101.75s, environment 1ms, prepare 376ms)
+

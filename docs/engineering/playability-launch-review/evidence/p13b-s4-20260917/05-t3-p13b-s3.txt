@@ -1,0 +1,22 @@
+# FIRST PASS, BEFORE the coordinator amendments A/B/C + finding D (schemaId sha256:b9e06642...). Kept verbatim; the post-amendment rerun is the authority.
+
+$ npx vitest run tests/bridge-p13b-s3-plans.test.ts tests/bridge-p13b-s3-save-as.test.ts --minWorkers=1 --maxWorkers=1
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/bridge-p13b-s3-plans.test.ts (11 tests) 9037ms
+   ✓ case 1: a fresh studio publishes an empty plans page; plans is null off the plans view > snapshotVersion 35; rows and actions are both empty arrays on a fresh studio; laboratory view carries plans: null 767ms
+   ✓ case 2: the Laboratory-page acoustic companion queues, admits and appears on the plans page > plan-queue-acoustic-<lab> exists beside instruments-<lab> naming the cost/build-weeks/no-reservation facts; dispatching it queues a full row on the plans view; one bridge advance starts it, writing planQueued/planStarted history; the acoustic companion then disappears while electrical still offers 1171ms
+   ✓ case 3: the envelope hold (insufficient cash) and the changed-quote hold (forged fingerprint) > a queued electrical plan with cash spent below its cost stays queued after an advance, with next.reason === "insufficient cash" 937ms
+   ✓ case 3: the envelope hold (insufficient cash) and the changed-quote hold (forged fingerprint) > a forged approvedQuote.fingerprint holds at the next boundary; plan-review-<planId> names the approved/pending figures; dispatching it re-queues with the pending fingerprint promoted, then it starts 1371ms
+   ✓ case 4: cancel blocks its dependent; a started plan has no cancel row > cancelling the predecessor cancels it and blocks the dependent, naming it, with matching history rows; the cancel row disappears; an independently STARTED plan carries no cancel row at all 1217ms
+   ✓ case 5: reorder > three independent queued plans: move-down swaps ordinals 1<->2 on the wire; move-up is disabled at the top and move-down at the bottom 1063ms
+   ✓ case 6: admission mode toggle > the mode NOT currently set is the only admission action offered; dispatching it flips the row's admission 954ms
+   ✓ case 7: stale revision > a plans intent submitted with a stale expectedStateRevision is refused with STALE_REVISION, and that specific attempt changes nothing 1075ms
+ ✓ |core| tests/bridge-p13b-s3-save-as.test.ts (1 test) 5823ms
+   ✓ P13B-S3 Save As (test 7, A11) > a Save As copy keeps the same plan ids and advances independently; the inactive original never advances (complete-state comparison) 5822ms
+
+ Test Files  2 passed (2)
+      Tests  12 passed (12)
+   Start at  02:59:00
+   Duration  19.39s (transform 2.31s, setup 0ms, collect 3.80s, tests 14.86s, environment 1ms, prepare 201ms)

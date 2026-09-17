@@ -1,0 +1,27 @@
+# FIRST PASS, BEFORE the coordinator amendments A/B/C + finding D (schemaId sha256:b9e06642...). Kept verbatim; the post-amendment rerun is the authority.
+
+$ npx vitest run tests/bridge-schema.test.ts tests/bridge-contract-generator.test.ts tests/bridge-contract-consumer-lock.test.ts --minWorkers=1 --maxWorkers=1
+   ✓ CF-09 post-commit attestation > rejects an attested nested log path before resolving it 4474ms
+   ✓ CF-09 post-commit attestation > rejects an attested wrong log name path before resolving it 4654ms
+   ✓ CF-09 post-commit attestation > does not re-root a traversal path around the caller evidence root 4652ms
+   ✓ CF-09 post-commit attestation > rejects a symlinked caller evidence root 7487ms
+   ✓ CF-09 post-commit attestation > rejects symlinked evidence redirection 8585ms
+   ✓ CF-09 post-commit attestation > rejects symlinked XML evidence redirection 10992ms
+   ✓ CF-09 post-commit attestation > rejects zero/no-op counts EditMode XML 5164ms
+   ✓ CF-09 post-commit attestation > rejects comment-spoofed passing root EditMode XML 5678ms
+   ✓ CF-09 post-commit attestation > rejects comment-spoofed generated suite and sentinel EditMode XML 4843ms
+   ✓ CF-09 post-commit attestation > rejects multiple document roots EditMode XML 4937ms
+   ✓ CF-09 post-commit attestation > rejects failing document root EditMode XML 7830ms
+   ✓ CF-09 post-commit attestation > rejects malformed XML EditMode XML 4430ms
+   ✓ CF-09 post-commit attestation > rejects wrong generated fixture suite EditMode XML 4148ms
+   ✓ CF-09 post-commit attestation > rejects wrong generated fixture suite type EditMode XML 4922ms
+   ✓ CF-09 post-commit attestation > rejects wrong sentinel method EditMode XML 8513ms
+   ✓ CF-09 post-commit attestation > rejects sentinel nested beneath the wrong suite EditMode XML 4259ms
+   ✓ CF-09 post-commit attestation > rejects skipped sentinel method EditMode XML 4364ms
+   ✓ CF-09 post-commit attestation > rejects failing generated fixture suite EditMode XML 4365ms
+   ✓ CF-09 post-commit attestation > rejects failed or internally inconsistent full EditMode XML 4835ms
+
+ Test Files  3 passed (3)
+      Tests  130 passed (130)
+   Start at  02:45:32
+   Duration  341.09s (transform 2.89s, setup 0ms, collect 4.43s, tests 335.03s, environment 1ms, prepare 486ms)

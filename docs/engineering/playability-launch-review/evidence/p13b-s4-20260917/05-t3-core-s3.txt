@@ -1,0 +1,14 @@
+# FIRST PASS, BEFORE the coordinator amendments A/B/C + finding D (schemaId sha256:b9e06642...). Kept verbatim; the post-amendment rerun is the authority.
+
+$ npx vitest run tests/p13b-s3-*.test.ts --minWorkers=1 --maxWorkers=1
+   ✓ P13B-S3 dependencies (test 3) > reordering a dependent before its dependency is refused 344ms
+   ✓ P13B-S3 dependencies (test 3) > a lawful reorder persists the new ordinals and revalidates 432ms
+   ✓ P13B-S3 changed quote (test 4) > identical quotes give identical fingerprints across weeks — completion week (which moves every tick) is excluded from the digest 353ms
+   ✓ P13B-S3 changed quote (test 4) > a forged approvedQuote.fingerprint holds under reviewChangedQuote (the default) at the next boundary, with pendingQuote set to the fresh quote and a reason matching /quote changed/ 565ms
+   ✓ P13B-S3 changed quote (test 4) > automatic admission ignores a stale fingerprint and starts anyway, once blueprint/target/component labels are unchanged and cost is within the ceiling 375ms
+   ✓ P13B-S3 changed quote (test 4) > reviewPhysicalPlan re-approves a held plan (pendingQuote promoted to approvedQuote), which starts at the FOLLOWING boundary 397ms
+
+ Test Files  2 passed (2)
+      Tests  28 passed (28)
+   Start at  03:07:19
+   Duration  20.90s (transform 1.52s, setup 0ms, collect 2.26s, tests 17.80s, environment 1ms, prepare 217ms)
