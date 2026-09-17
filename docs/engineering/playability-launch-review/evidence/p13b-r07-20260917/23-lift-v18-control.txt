@@ -1,0 +1,8 @@
+liftV18Control V25 leaves 2026-09-17T12:23:59Z: tests/bridge-p05a3-roster-liveness.test.ts tests/bridge-p05a1-owner-greenlight.test.ts 
+   ✓ P05A.3 — the hiring market is alive on the wire (§11/§13) > publishes the freelancer-market rotation week (week 8 → next rotation at week 13) 312ms
+   ✓ P05A.3 — sign quote → commit breaks the deadlock (§17-A/E/F/H) > A+H: quotes exact figures, commits, and the signed actor joins the legal pool 3566ms
+   ✓ P05A.3 — sign quote → commit breaks the deadlock (§17-A/E/F/H) > E: an unaffordable sign refuses at quote time with the D-12 sentence and mutates nothing 2006ms
+   ✓ P05A.3 — sign quote → commit breaks the deadlock (§17-A/E/F/H) > F: an accepted unrelated sign invalidates a live offer; the same draft is quotable fresh 2606ms
+   ✓ P05A.3 — sign quote → commit breaks the deadlock (§17-A/E/F/H) > refuses an unknown or non-signable talent and a missing term in plain language 1640ms
+ Test Files  2 passed (2)
+      Tests  16 passed (16)

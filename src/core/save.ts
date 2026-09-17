@@ -5494,14 +5494,34 @@ function projectStateV13(state: GameStateV13): GameStateV13 {
 // The live projection (C2a-M1). Positive enumeration again, one version on: the
 // studio's sets and the counter that names them, the queue of admitted intents,
 // the original-screenplay blueprints, and the studio's own history.
+// P13B S5-R07: the V25 writer widened `ProductionWorkflow` with `setup` and
+// `planRevision`. Every frozen envelope from V14 through V24 carries the V14
+// workflow shape (`bindings` included, nothing newer), so the frozen builders
+// project a live workflow down positively — the same discipline as
+// `projectWorkflowPreV14`, one version later. Never clone-then-delete.
+function projectWorkflowV14Frozen(workflow: ProductionWorkflow): ProductionWorkflow {
+  return {
+    productionId: workflow.productionId,
+    phase: workflow.phase,
+    reservations: workflow.reservations,
+    shootingTask: workflow.shootingTask,
+    blocker: workflow.blocker,
+    bindings: workflow.bindings,
+  } as unknown as ProductionWorkflow;
+}
+
+function projectOperationsV14Frozen(operations: StudioOperations): StudioOperations {
+  return { ...operations, workflows: operations.workflows.map(projectWorkflowV14Frozen) };
+}
+
 function projectStateV14(state: GameStateV14): GameStateV14 {
   return {
     ...projectStateV13(state),
     // The frozen projections below this one enumerate the widened V14 LEAVES
     // away, because a frozen envelope must carry its own version's shape. The
     // live envelope carries them, so they are restored here — positively, at the
-    // one version that owns them.
-    operations: state.operations,
+    // one version that owns them (and the V25 workflow leaves projected away).
+    operations: projectOperationsV14Frozen(state.operations),
     scriptDevelopment: state.scriptDevelopment,
     sets: state.sets,
     nextSetId: state.nextSetId,

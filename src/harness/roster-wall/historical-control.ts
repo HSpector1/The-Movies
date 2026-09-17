@@ -9,7 +9,9 @@ import type { GameState, GameStateV18 } from '../../core/types.js'
 export { beginFoundingHistoricalControl as beginFounding } from '../../core/employment.js'
 export { makeSaveV18 as makeSave } from '../../core/save.js'
 /** Call only AFTER exact original import/hash checks. This is not gameplay migration. */
-export function liftV18Control(state:GameStateV18):GameState { return {...structuredClone(state),hollywood:null,talent:state.talent.map(withResearchFoundation),technology:initialTechnology(state.market.tick),physicalPlans:initialPhysicalPlans()} }
+export function liftV18Control(state:GameStateV18):GameState { const cloned=structuredClone(state); return {...cloned,hollywood:null,
+  // P13B S5-R07: the live workflow carries `setup`/`planRevision`; a historical control never selected a recipe.
+  operations:{...cloned.operations,workflows:cloned.operations.workflows.map(w=>({...w,setup:null,planRevision:0}))},talent:state.talent.map(withResearchFoundation),technology:initialTechnology(state.market.tick),physicalPlans:initialPhysicalPlans()} }
 export function historicalHashState<T extends object>(state:T):object {
   if(!('technology' in state) && !('hollywood' in state) && !('physicalPlans' in state))return state
   if('hollywood' in state && state.hollywood!==null)throw new Error('Historical hash cannot discard a living industry')

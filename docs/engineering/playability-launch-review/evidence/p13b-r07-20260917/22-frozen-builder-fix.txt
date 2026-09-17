@@ -1,0 +1,16 @@
+frozen-builder projection fix 2026-09-17T12:15:02Z: projectStateV14 projects workflows to the V14 frozen shape (drops setup/planRevision)
+   × P05A.3 — sign quote → commit breaks the deadlock (§17-A/E/F/H) > A+H: quotes exact figures, commits, and the signed actor joins the legal pool 352ms
+     → validateSaveV25: state.operations.workflows[0].setup is missing
+   × P05A.3 — sign quote → commit breaks the deadlock (§17-A/E/F/H) > E: an unaffordable sign refuses at quote time with the D-12 sentence and mutates nothing 587ms
+     → validateSaveV25: state.operations.workflows[0].setup is missing
+   × P05A.3 — sign quote → commit breaks the deadlock (§17-A/E/F/H) > F: an accepted unrelated sign invalidates a live offer; the same draft is quotable fresh 189ms
+     → validateSaveV25: state.operations.workflows[0].setup is missing
+   × P05A.3 — sign quote → commit breaks the deadlock (§17-A/E/F/H) > refuses an unknown or non-signable talent and a missing term in plain language 235ms
+     → validateSaveV25: state.operations.workflows[0].setup is missing
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 4 ⎯⎯⎯⎯⎯⎯⎯
+ FAIL |core|  tests/bridge-p05a3-roster-liveness.test.ts > P05A.3 — sign quote → commit breaks the deadlock (§17-A/E/F/H) > A+H: quotes exact figures, commits, and the signed actor joins the legal poo
+ FAIL |core|  tests/bridge-p05a3-roster-liveness.test.ts > P05A.3 — sign quote → commit breaks the deadlock (§17-A/E/F/H) > E: an unaffordable sign refuses at quote time with the D-12 sentence and mut
+ FAIL |core|  tests/bridge-p05a3-roster-liveness.test.ts > P05A.3 — sign quote → commit breaks the deadlock (§17-A/E/F/H) > F: an accepted unrelated sign invalidates a live offer; the same draft is qu
+ FAIL |core|  tests/bridge-p05a3-roster-liveness.test.ts > P05A.3 — sign quote → commit breaks the deadlock (§17-A/E/F/H) > refuses an unknown or non-signable talent and a missing term in plain langua
+ Test Files  1 failed | 6 passed (7)
+      Tests  4 failed | 68 passed (72)
