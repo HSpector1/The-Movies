@@ -3,6 +3,8 @@ import { applyActions } from '../src/core/actions.js'
 import { tick } from '../src/core/tick.js'
 import { TUNING } from '../src/core/tuning.js'
 import type { Action, GameState, ProductionWorkflow, StudioSet } from '../src/core/types.js'
+import { advanceTo } from '../src/harness/p13a/fixtures.js'
+import { p13bTwoLabWorld } from '../src/harness/p13b/fixtures.js'
 import { operationsStudio, productionPayload, withCash } from './contracts/_contractFixtures.js'
 // RED-by-design: `src/core/productionSetup.ts` does not exist yet — see
 // tests/p13b-r07-recipes.test.ts's header for the full RED-design rationale
@@ -45,7 +47,20 @@ import { validateProductionSetup } from '../src/core/productionSetup.js'
 //      that action already checks) reads `remainingTicks <= 5`, which stays FALSE
 //      throughout the hold (remainingTicks stays 6 by the delegated decision's
 //      own law), so an unrelated technology selection during the hold is exactly
-//      as lawful today as it will be once R07 lands.
+//      as lawful today as it will be once R07 lands. FIXTURE PREMISE FOUND
+//      (test-author third pass, 2026-09-17): `setProductionTechnology` resolves
+//      `own = playerStudioId(state)` (technology.ts:261/292), which THROWS
+//      unless `state.hollywood` is set, `state.founding` is null AND
+//      `economyEngaged(state)` (technology.ts:113-118) — a premise this file's
+//      OTHER cases never need. `conventionalBallroomAtRehearsal`'s
+//      `operationsStudio` base is a `richFoundedStudio`/`foundStudio` world that
+//      never sets `state.hollywood`, so that gate can never pass there. THIS ONE
+//      case is rebuilt on the Hollywood-mode lighting-ballroom fixture
+//      tests/p13b-r07-timeline.test.ts already carries (`p13bTwoLabWorld`, built
+//      via `initializeHollywood` + `economyEngagedEver: true` —
+//      src/harness/p13a/fixtures.ts:9-11 — so the gate genuinely opens); every
+//      other case in this file keeps the original conventional/operationsStudio
+//      fixture, untouched.
 //
 // MEASURED WEEKS: reuses tests/p13b-r07-timeline.test.ts's own conventional
 // ballroom fixture verbatim (commission week 0, standing 8, greenlight 8,
@@ -157,14 +172,74 @@ describe('P13B-S5-R07 controls (test 4)', () => {
   })
 
   it('a changed pre-Shooting sound choice mid-hold is lawful and leaves the setup record untouched — INTERPRETATION 3', () => {
-    let state = conventionalBallroomAtRehearsal('r07-controls-sound-independent')
+    // Verbatim copy of tests/p13b-r07-timeline.test.ts's own lighting-ballroom
+    // build (its second `it`, up through admission week 807 and one credited
+    // unit at 808) — see the FIXTURE PREMISE FOUND note above item 3.
+    function fundTo(state: GameState, target: number): GameState {
+      const delta = target - state.studio.cash
+      if (delta === 0) return state
+      return {
+        ...state,
+        studio: { ...state.studio, cash: target },
+        ledger: [
+          ...state.ledger,
+          { week: state.market.tick, kind: (delta > 0 ? 'studioRevenue' : 'overhead') as 'studioRevenue' | 'overhead', amount: delta, note: 'r07-controls fixture fund' },
+        ],
+      }
+    }
+    const { state: world, laboratoryFacilityIds: [, lab2], candidateIds } = p13bTwoLabWorld()
+    let state = applyActions(
+      world,
+      candidateIds
+        .slice(0, 4)
+        .map((scientistId: string) => ({ kind: 'assignResearchScientist' as const, laboratoryFacilityId: lab2, scientistId, technologyId: 'lighting-control-01' as const })),
+    )
+    const project = state.technology.projects.find((p) => p.technologyId === 'lighting-control-01')!
+    state = applyActions(state, [{ kind: 'beginResearch', projectId: project.id, budgetPerWeek: 40_000 }])
+    while (state.technology.projects.find((p) => p.id === project.id)!.status !== 'completed') {
+      if (state.market.tick > 900) throw new Error('r07-controls fixture: lighting research did not complete before week 900')
+      state = advanceTo(state, state.market.tick + 1)
+    }
+    state = fundTo(state, 5_000_000)
+    state = applyActions(state, [{ kind: 'adoptTechnology', technologyId: 'lighting-control-01', stageFacilityId: STAGE_7 } as unknown as Action])
+    const adoption = state.technology.adoptions.find((a) => a.technologyId === 'lighting-control-01' && a.stageFacilityId === STAGE_7)!
+    while (state.technology.adoptions.find((a) => a.id === adoption.id)!.operationalWeek === null) state = tick(state)
+    expect(state.market.tick).toBe(795)
+
+    state = fundTo(state, 30_000_000)
+    state = applyActions(state, [{ kind: 'strikeSet', setId: 'set-0' }])
+    state = applyActions(state, [{ kind: 'commissionSet', commission: { blueprintId: 'set-grand-ballroom', stageFacilityId: STAGE_7 } }])
+    for (let week = 0; week < TUNING.SET_BUILD_WEEKS_BAND_HIGH; week++) state = tick(state)
+    expect(state.market.tick).toBe(803)
+
+    const byRole = (role: string) => state.talent.filter((t) => t.role === role)
+    const roster = [...byRole('writer').slice(0, 1), ...byRole('director').slice(0, 1), ...byRole('actor').slice(0, 3), ...byRole('craft').slice(0, 1)]
+    state = applyActions(state, roster.map((t) => ({ kind: 'signContract' as const, talentId: t.id, termWeeks: 208 })))
+    state = applyActions(state, [{ kind: 'greenlight', production: productionPayload(state) }])
+    state = tick(state)
+    state = tick(state)
+    state = tick(state)
+    expect(state.market.tick).toBe(806)
     const productionId = state.studio.activeProductions[0]!.id
+    expect(workflowOf(state).bindings.stageFacilityId).toBe(STAGE_7)
     state = selectRecipe(state, productionId, 'ballroom-reveal-lighting-01')
-    state = tick(state) // 12
-    state = tick(state) // 13: 1/4 credited
+
+    state = tick(state) // gate opens at week 807
+    expect(state.market.tick).toBe(807)
+    expect(workflowOf(state).phase).toBe('rehearsal')
+    const admitted = workflowOf(state).setup!
+    expect(admitted.admittedWeek).toBe(807)
+    expect(admitted.route).toBe('lighting')
+    expect(admitted.requiredUnits).toBe(2)
+    expect(admitted.creditedUnits).toBe(0)
+
+    state = tick(state) // 808: 1/2 credited, still mid-hold (entry is 809)
     const before = workflowOf(state).setup!
     expect(before.creditedUnits).toBe(1)
 
+    // No operational synchronized-sound adoption exists in this fixture (only
+    // lighting-control-01 was researched/adopted), so only the `silent` choice
+    // is exercised here — see INTERPRETATION 3 above.
     state = applyActions(state, [{ kind: 'setProductionTechnology', productionId, method: 'silent', adoptionId: null }])
     const after = workflowOf(state).setup!
     expect(after.creditedUnits).toBe(before.creditedUnits)

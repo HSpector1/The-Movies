@@ -1,0 +1,25 @@
+# P13B-S5-R07 controls (test-author third pass) — INTERPRETATION 3 rebuilt on Hollywood-mode lighting-ballroom fixture
+# date: 2026-09-17
+# worktree: /Users/zacheryspector/The-Movies-headless-program
+# branch: wip/headless-program-20260916-ts
+# commit: 007524c58351380ad2a2c7081b95e73408882677
+# file edited: tests/p13b-r07-controls.test.ts (only)
+# command: npx vitest run tests/p13b-r07-controls.test.ts --project core --minWorkers=1 --maxWorkers=1 --reporter=verbose
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p13b-r07-controls.test.ts > P13B-S5-R07 controls (test 4) > legacy timeline byte-identical: a production that never selects a recipe keeps setup: null and today's EXACT schedule
+ ✓ |core| tests/p13b-r07-controls.test.ts > P13B-S5-R07 controls (test 4) > occupied-stage competition: an extended setup hold on one stage never affects an unrelated production on a different stage
+ ✓ |core| tests/p13b-r07-controls.test.ts > P13B-S5-R07 controls (test 4) > stage-release law unchanged: the held stage stays bound to the SAME production throughout the extended hold (never released early)
+ ✓ |core| tests/p13b-r07-controls.test.ts > P13B-S5-R07 controls (test 4) > a changed pre-Shooting sound choice mid-hold is lawful and leaves the setup record untouched — INTERPRETATION 3 9879ms
+ ✓ |core| tests/p13b-r07-controls.test.ts > P13B-S5-R07 controls (test 4) > different-binding restart preserves prior work without recycling credit — INTERPRETATION 2: directly-constructed before/after pair
+ ✓ |core| tests/p13b-r07-controls.test.ts > P13B-S5-R07 controls (test 4) > no quality/research change: the setup record carries no quality-bearing field, and bind-time lockedUplift/lockedNovelty never move across the hold
+ ✓ |core| tests/p13b-r07-controls.test.ts > P13B-S5-R07 controls (test 4) > no research-root change: ticking through an entire setup hold writes no new technology access/project row
+ ✓ |core| tests/p13b-r07-controls.test.ts > P13B-S5-R07 controls (test 4) > a forged operational flag (route: lighting with no matching operational adoption) is refused by validateProductionSetup — INTERPRETATION 1
+
+ Test Files  1 passed (1)
+      Tests  8 passed (8)
+   Start at  13:03:11
+   Duration  14.14s (transform 2.28s, setup 0ms, collect 3.02s, tests 10.24s, environment 1ms, prepare 192ms)
+
