@@ -1,0 +1,80 @@
+Error: Row "cancel-adoption-studio-aca408ec-player:sound-adoption:0" is absent from ["recruit-1-t-sci-01","recruit-1-t-sci-02","recruit-1-t-sci-03","recruit-1-t-sci-04","recruit-1-t-sci-05","recruit-1-t-sci-06","recruit-1-t-sci-07","assign-1-t-sci-00-lighting-control-01","release-1-t-sci-00","plan-queue-electrical-1","wait-synchronized-sound","purchase-synchronized-sound","adopt-synchronized-sound-facility-soundstage-12-facility-post-building","plan-queue-adopt-synchronized-sound-facility-soundstage-12"].
+ ❯ required tests/bridge-p13b-s6-cancellation.test.ts:117:52
+    115| 
+    116| function required<T>(value: T | null | undefined, message: string): T {
+    117|   if (value === null || value === undefined) throw new Error(message)
+       |                                                    ^
+    118|   return value
+    119| }
+ ❯ dispatchRow tests/bridge-p13b-s6-cancellation.test.ts:224:15
+ ❯ tests/bridge-p13b-s6-cancellation.test.ts:498:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/11]⎯
+
+ FAIL |core|  tests/bridge-p13b-s6-cancellation.test.ts > P13B-S6-T3 item 5: finance category line for the refund week; the prior week's capex unchanged > StudioFinanceFacility.status widens to accept 'cancelled' — the schema round-trip on a snapshot carrying a cancelled installation
+ FAIL |core|  tests/bridge-p13b-s6-cancellation.test.ts > P13B-S6-T3 item 6: history rows for cancellation/restoration on operationsEvents; player-safe; legacy cancellation:null unchanged > a restoration's own completion reuses the EXISTING constructionCompleted kind — no invented "cancellation"/"restoration" kind (S4 case-8 precedent)
+ FAIL |core|  tests/bridge-p13b-s6-cancellation.test.ts > P13B-S6-T3 item 6: history rows for cancellation/restoration on operationsEvents; player-safe; legacy cancellation:null unchanged > GAP NAMED (see header): the cancellation ACT itself writes no operationsEvents row today — this is an engine-level gap (installationCancellation.ts never calls events.append), not a bridge-only fact
+BridgeSchemaError: $.snapshot.finance.finance.facilities[6].status: expected one of underConstruction, operational
+ ❯ project bridge/schema/runtime.ts:118:11
+    116|   const enumValues = schema['enum']
+    117|   if (Array.isArray(enumValues) && !enumValues.includes(value)) {
+    118|     throw new BridgeSchemaError(path, `expected one of ${enumValues.ma…
+       |           ^
+    119|   }
+    120| 
+ ❯ project bridge/schema/runtime.ts:170:23
+ ❯ bridge/schema/runtime.ts:145:42
+ ❯ project bridge/schema/runtime.ts:145:20
+ ❯ project bridge/schema/runtime.ts:170:23
+ ❯ project bridge/schema/runtime.ts:170:23
+ ❯ section bridge/schema/runtime.ts:202:5
+ ❯ Module.projectStudioProjectionBundle bridge/schema/runtime.ts:221:14
+ ❯ BridgeSession.snapshotFor bridge/session.ts:1486:22
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+Serialized Error: { wirePath: '$.snapshot.finance.finance.facilities[6].status' }
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/11]⎯
+
+ FAIL |core|  tests/bridge-p13b-s6-cancellation.test.ts > P13B-S6-T3 item 6: history rows for cancellation/restoration on operationsEvents; player-safe; legacy cancellation:null unchanged > player-safe: an already-naturally-existing rival adoption never appears in this studio's own adoptions[]/equipment[]/cancel rows
+AssertionError: expected undefined to be false // Object.is equality
+
+- Expected: 
+false
+
++ Received: 
+undefined
+
+ ❯ tests/bridge-p13b-s6-cancellation.test.ts:593:63
+    591|     const page = labPage(session, anyLabBuildingId(committed), nextReq…
+    592|     expect(page.adoptions?.some(a => (a as unknown as { id?: string })…
+    593|     expect(page.equipment?.some(e => e.id === rivalAsset.id)).toBe(fal…
+       |                                                               ^
+    594|     expect(page.actions.some(a => a.id === `cancel-adoption-${rivalAdo…
+    595|     const json = JSON.stringify(page)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/11]⎯
+
+ FAIL |core|  tests/bridge-p13b-s6-cancellation.test.ts > P13B-S6-T3 item 6: history rows for cancellation/restoration on operationsEvents; player-safe; legacy cancellation:null unchanged > legacy behaviour unchanged: a live, never-cancelled adoption publishes cancelledWeek: null on the wire once the field exists
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ tests/bridge-p13b-s6-cancellation.test.ts:604:49
+    602|     const page = labPage(session, anyLabBuildingId(committed), nextReq…
+    603|     const row = required(page.adoptions?.find(a => a.technologyId === …
+    604|     expect(Object.hasOwn(row, 'cancelledWeek')).toBe(true) // the fiel…
+       |                                                 ^
+    605|     expect(row.cancelledWeek).toBeNull()
+    606|   })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/11]⎯
+
+ Test Files  1 failed (1)
+      Tests  11 failed | 1 passed (12)
+   Start at  20:46:55
+   Duration  51.38s (transform 2.27s, setup 0ms, collect 3.02s, tests 47.69s, environment 0ms, prepare 116ms)
+
