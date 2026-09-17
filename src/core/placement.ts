@@ -134,7 +134,6 @@ import {
   FACILITY_DEMOLITION_REFUND_FRACTION,
   FACILITY_MOVE_COST,
   FACILITY_OPEX_LEDGER_NOTE,
-  isRestorationBlueprint,
   TUNING,
 } from './tuning.js'
 import type {
@@ -890,13 +889,11 @@ export function queryFacilityInstallation(state: GameState, request: FacilityIns
       if (set?.status === 'standing') return false
     }
     if (held.kind === 'installation') {
-      // P13B-S6: a RESTORATION is the cost of a cancellation the studio has already
-      // paid, not work it chose to run, so it never refuses the restart the plan
-      // requires to be lawful ("restart quoted anew, at full price"). It keeps every
-      // other hold it has — the body stays CLOSED while it runs (S4's offline law)
-      // and cannot be demolished out from under it.
-      return state.placement.facilities.some((placed) => placed.projectId === held.holderId &&
-        placed.status === 'underConstruction' && !isRestorationBlueprint(placed.blueprintId))
+      // P13B-S6: a RESTORATION holds its body exactly as S4's conversions do — it
+      // closes the building while it runs, so a restart on that target waits for it
+      // to finish. A CANCELLED record holds nothing (it never installed anything),
+      // which is what makes that later restart lawful at all.
+      return state.placement.facilities.some((placed) => placed.projectId === held.holderId && placed.status === 'underConstruction')
     }
     if (held.kind === 'research') {
       return state.technology.projects.some((project) => project.id === held.holderId && project.status === 'active')

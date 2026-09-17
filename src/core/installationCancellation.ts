@@ -401,17 +401,28 @@ export function validateInstallationCancellation(state: GameState): string[] {
     if (adoption.operationalWeek !== null) violations.push(`adoption "${adoption.id}" is cancelled and operational`)
   }
 
-  // The exploitable direction of "an asset is unheld exactly while its adoption is
-  // cancelled": an UNHELD asset that a live adoption still names would be reused at
-  // $0 by that studio's next adoption while the first one still works. (The other
-  // direction — a cancelled adoption still holding its asset — costs the studio the
-  // reuse it is owed and can never pay it twice, so it is not refused here.)
+  // "An asset is unheld exactly while its adoption is cancelled", in BOTH
+  // directions, asked of the HOLDER relationship rather than of every historical
+  // reference: a cancelled adoption keeps naming the asset it paid for forever, and
+  // a restart may lawfully be holding that same asset (S5's reuse at $0), so the
+  // rule is about who HOLDS it now.
+  //   * an asset whose holder is a cancelled adoption is refused — cancelling is
+  //     what lets go of it, and a stuck asset would deny the studio the reuse it
+  //     paid for;
+  //   * an UNHELD asset that a live adoption still names is refused — that adoption
+  //     is working, so the set is in use and cannot also be free for the next one.
   for (const asset of state.technology.equipment) {
-    if (asset.holderAdoptionId !== null) continue
-    for (const adoption of state.technology.adoptions) {
-      if (adoption.equipmentAssetId === asset.id && adoption.cancelledWeek === null) {
-        violations.push(`equipment asset "${asset.id}" is unheld while adoption "${adoption.id}" still owns it`)
+    if (asset.holderAdoptionId === null) {
+      for (const adoption of state.technology.adoptions) {
+        if (adoption.equipmentAssetId === asset.id && adoption.cancelledWeek === null) {
+          violations.push(`equipment asset "${asset.id}" is unheld while adoption "${adoption.id}" still owns it`)
+        }
       }
+      continue
+    }
+    const holder = state.technology.adoptions.find((adoption) => adoption.id === asset.holderAdoptionId)
+    if (holder !== undefined && holder.cancelledWeek !== null) {
+      violations.push(`equipment asset "${asset.id}" is still held by cancelled adoption "${holder.id}"`)
     }
   }
   return violations
