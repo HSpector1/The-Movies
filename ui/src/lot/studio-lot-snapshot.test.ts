@@ -1244,6 +1244,8 @@ describe('studioLotSnapshot — managed Production Operations truth', () => {
             reservations: [],
             shootingTask: null,
             blocker: null,
+            setup: null,
+            planRevision: 0,
             // C2a-M1 (§8.3): the mechanical widening the charter names — this
             // fixture literal-constructs a workflow, and V14 requires the
             // bindings leaf. A releaseReady picture holds no stage.
