@@ -1,0 +1,16 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/facility-move-demolish.test.ts (30 tests) 3009ms
+   ✓ C1-M3a (A) — every persisted holder of a facility blocks both verbs > finds a screenplay reservation, on the RESERVATION and not the status 1031ms
+   ✓ C1-M3a (F) — saves, boundaries, and determinism > round-trips a history containing both a move and a demolition 463ms
+ ✓ |core| tests/presence-scenario.test.ts (3 tests) 152ms
+ ✓ |core| tests/presence-projection.test.ts (14 tests) 444ms
+ ✓ |core| tests/presence-determinism.test.ts (4 tests) 912ms
+   ✓ Presence Projection V1 — determinism > consumes zero simulation RNG: ticks are byte-identical either way 651ms
+
+ Test Files  4 passed (4)
+      Tests  51 passed (51)
+   Start at  02:39:46
+   Duration  9.35s (transform 1.56s, setup 0ms, collect 3.17s, tests 4.52s, environment 1ms, prepare 433ms)
+

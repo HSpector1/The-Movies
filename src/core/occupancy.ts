@@ -84,6 +84,7 @@ import type {
   PlacedFacility,
 } from './types.js'
 import type { StudioTechnology, ResearchProject } from './technologyTypes.js'
+import { blueprintTakesTargetOffline } from './officeConversion.js'
 
 /**
  * The kinds of resource a claim can name. `facility` addresses a schedulable slot
@@ -345,6 +346,23 @@ export function resourceClaims(sources: OccupancySources): ResourceClaim[] {
         claims.push({key: resourceSlotKey('facility', facilityId, slot),
           facilitySlotKey: facilitySlotKey(facilityId, slot), kind: 'facility', facilityId,
           slot, capability: facility.capability, owner: 'installation',
+          ownerId: installation.projectId, installation})
+      }
+      // P13B-S4 — A JOB THAT CLOSES ITS BODY HOLDS THE WHOLE BODY, INDEPENDENT OF
+      // CAPACITY. The slot walk above expresses "this work occupies every slot",
+      // which said everything while every installable body had slots. A
+      // `takesTargetOffline` conversion takes its target's slots out of the
+      // registry for its whole span, so that walk emits NOTHING for the one job
+      // that engages the building most completely — and a second conversion would
+      // quote `ok` on a building that is currently a construction site.
+      //
+      // The body-level claim is the shape this producer already uses for a
+      // completed installation's destruction hold, so every consumer reads it
+      // today; `facilityEngagements` folds it into ONE named installation
+      // engagement, which is what `targetEngaged` refuses on.
+      if (blueprintTakesTargetOffline(installation.blueprintId)) {
+        claims.push({key: resourceFacilityKey('facility', facilityId), facilitySlotKey: null,
+          kind: 'facility', facilityId, slot: null, capability: null, owner: 'installation',
           ownerId: installation.projectId, installation})
       }
     } else {

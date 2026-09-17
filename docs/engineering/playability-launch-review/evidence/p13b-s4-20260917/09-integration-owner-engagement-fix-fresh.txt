@@ -1,0 +1,29 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p13b-s4-plans.test.ts (6 tests) 5383ms
+   ✓ P13B-S4 P09/S3 integration (test 4) > a conversion queued as an S3 plan admits at the next boundary through the same P09 commit as a hand commit at that week 1903ms
+   ✓ P13B-S4 P09/S3 integration (test 4) > a plan queued while the office is occupied by a drafting screenplay holds on targetEngaged and admits the boundary the slot frees (C2a-M4 queue idiom, same ordering S3 test 2 proves for an installation holder) 1540ms
+   ✓ P13B-S4 P09/S3 integration (test 4) > queueing a conversion against a body already at its target standard is refused at QUEUE time (standardAlreadyMet is a permanent refusal, never merely held) 610ms
+   ✓ P13B-S4 P09/S3 integration (test 4) > BUG (RED, engine gap): a second conversion plan on the same body holds on targetEngaged while the first is under construction, then holds/refuses on standardAlreadyMet -- never starts 587ms
+   ✓ P13B-S4 P09/S3 integration (test 4) > a chained I->II then II->III plan pair via dependsOn: the second starts the boundary after the first completes 436ms
+   ✓ P13B-S4 P09/S3 integration (test 4) > the same chained pair under the DEFAULT reviewChangedQuote admission holds on the changed quote and starts once reviewPhysicalPlan re-approves at the live price 305ms
+ ✓ |core| tests/p13a-physical-installation.test.ts (6 tests) 343ms
+ ✓ |core| tests/p13b-s4-quotes.test.ts (10 tests) 4630ms
+   ✓ P13B-S4 quotes (test 1) > I->II quotes $500,000 over 4 weeks 1049ms
+   ✓ P13B-S4 quotes (test 1) > I->III quotes $1,250,000 over 16 weeks on a studio that never owned II, naming only the conversion 609ms
+   ✓ P13B-S4 quotes (test 1) > II->III quotes $850,000 over 8 weeks on a body already converted to II; the staged sum exceeds the direct price 453ms
+   ✓ P13B-S4 quotes (test 1) > refuses a Laboratory target with incompatibleTarget 417ms
+   ✓ P13B-S4 quotes (test 1) > refuses a body already at III with standardAlreadyMet 605ms
+   ✓ P13B-S4 quotes (test 1) > refuses insufficient funds 355ms
+   ✓ P13B-S4 quotes (test 1) > BUG (RED, engine gap): a running takesTargetOffline conversion must keep engaging its own body via targetEngaged, independent of registry capacity 769ms
+   ✓ P13B-S4 quotes (test 1) > a standalone Development Office III is still refused without II, wording unchanged (existing, non-S4 law) 336ms
+ ✓ |core| tests/presence-determinism.test.ts (4 tests) 2305ms
+   ✓ Presence Projection V1 — determinism > leaves the state, its save bytes, and rngState untouched 333ms
+   ✓ Presence Projection V1 — determinism > consumes zero simulation RNG: ticks are byte-identical either way 1756ms
+
+ Test Files  4 passed (4)
+      Tests  26 passed (26)
+   Start at  02:46:07
+   Duration  20.56s (transform 2.92s, setup 0ms, collect 5.17s, tests 12.66s, environment 2ms, prepare 670ms)
+

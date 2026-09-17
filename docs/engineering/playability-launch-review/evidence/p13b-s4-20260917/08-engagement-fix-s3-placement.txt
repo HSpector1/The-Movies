@@ -1,0 +1,34 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/placement-core.test.ts (36 tests) 1716ms
+   ✓ Placement Core V12 — the runner invariant (property) > commit quote deep-equals query quote over random requests 658ms
+ ✓ |core| tests/p13b-s3-admission.test.ts (17 tests) 13377ms
+   ✓ P13B-S3 admission law (test 1) > a fresh world carries the empty physicalPlans root the contract defines 890ms
+   ✓ P13B-S3 admission law (test 1) > queuing snapshots the CURRENT quote as approvedQuote via planQuoteSnapshot 346ms
+   ✓ P13B-S3 admission law (test 1) > a queued acoustic installation on a Lab without instruments starts at the next boundary, matching a hand commit at the same week 447ms
+   ✓ P13B-S3 admission law (test 1) > writes commitReceipt exactly once — later ticks never rewrite it or double-charge 499ms
+   ✓ P13B-S3 admission law (test 1) > earliestStartWeek in the future holds admission until it arrives 367ms
+   ✓ P13B-S3 admission law (test 1) > cost above the ceiling holds with a reason naming both dollar amounts; automatic admission within the ceiling starts 348ms
+   ✓ P13B-S3 no reservation (test 2) > two plans on one target: the second starts only once the first no longer engages it 326ms
+   ✓ P13B-S3 ordering and envelope (test 5) > two plans on independent targets, cash for one: the first starts, the second stays queued with an insufficient-cash reason and no partial debit 481ms
+   ✓ P13B-S3 ordering and envelope (test 5) > admission drains cash inside the SAME tick research reads: the plan starts and that week's research receipt is skipped for insufficient cash 5718ms
+   ✓ P13B-S3 ordering and envelope (test 5) > a dependency completing in week w enables its dependent at w+1's admission boundary, never within w 497ms
+   ✓ P13B-S3 conservation, determinism, replay, history and rival symmetry (test 6) > determinism: replaying the same actions from the same start produces byte-identical exportSave output 1049ms
+   ✓ P13B-S3 conservation, determinism, replay, history and rival symmetry (test 6) > replay: save/reload mid-queue then continue matches an uninterrupted run, byte for byte 1031ms
+   ✓ P13B-S3 conservation, determinism, replay, history and rival symmetry (test 6) > history rows: planQueued and planStarted carry week and reason through the existing studio-history mechanism 338ms
+ ✓ |core| tests/p13b-s3-dependencies.test.ts (11 tests) 5792ms
+   ✓ P13B-S3 dependencies (test 3) > an installation on a queued Laboratory body (target: {planId}) resolves the facility id at start and waits for the body to be operational 1813ms
+   ✓ P13B-S3 dependencies (test 3) > a dependency on a cancelled plan is refused at queue time 631ms
+   ✓ P13B-S3 dependencies (test 3) > cancelling a predecessor immediately blocks its dependent, naming it, and the dependent never starts (never counts as completion) 395ms
+   ✓ P13B-S3 dependencies (test 3) > a lawful reorder persists the new ordinals and revalidates 431ms
+   ✓ P13B-S3 changed quote (test 4) > identical quotes give identical fingerprints across weeks — completion week (which moves every tick) is excluded from the digest 356ms
+   ✓ P13B-S3 changed quote (test 4) > a forged approvedQuote.fingerprint holds under reviewChangedQuote (the default) at the next boundary, with pendingQuote set to the fresh quote and a reason matching /quote changed/ 536ms
+   ✓ P13B-S3 changed quote (test 4) > automatic admission ignores a stale fingerprint and starts anyway, once blueprint/target/component labels are unchanged and cost is within the ceiling 409ms
+   ✓ P13B-S3 changed quote (test 4) > reviewPhysicalPlan re-approves a held plan (pendingQuote promoted to approvedQuote), which starts at the FOLLOWING boundary 515ms
+
+ Test Files  3 passed (3)
+      Tests  64 passed (64)
+   Start at  02:38:20
+   Duration  25.58s (transform 1.98s, setup 0ms, collect 3.26s, tests 20.88s, environment 1ms, prepare 333ms)
+

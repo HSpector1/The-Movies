@@ -1,0 +1,22 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/c2a-m0-engine-union.test.ts (11 tests) 892ms
+   ✓ C2a-M0 — the phase machinery has exactly one source (charter §12-M0) > agrees with the save validator on every phase a real production reaches 786ms
+ ✓ |core| tests/p13a-production-technology.test.ts (11 tests) 818ms
+   ✓ P13A first-filming technology and exact production chain > carries the first-filming lock through the complete tick state assembly 550ms
+ ✓ |core| tests/p13b-s2-labs.test.ts (10 tests) 37281ms
+   ✓ P13B-S2 module/bench law (test 2) > refuses lighting beginResearch while the seated Laboratory lacks an operational electrical/control module 8945ms
+   ✓ P13B-S2 module/bench law (test 2) > does not double-book one Laboratory's seat slots when two technologies are both active there (sound 2 + lighting 2, four seats total) 7794ms
+   ✓ P13B-S2 module/bench law (test 2) > seats a person for a technology on a Laboratory lacking its discipline module (retained P13A law), but refuses to begin until the module is operational 8026ms
+   ✓ P13B-S2 module/bench law (test 2) > releases the seat claim on pause and reacquires it on resume — the S1 release law generalized to a lighting project (regression net) 6571ms
+ ✓ |core| tests/p13a-physical-installation.test.ts (6 tests) 158ms
+ ✓ |core| tests/contracts/union-producer-subsumption.contract.test.ts (5 tests) 147ms
+ ✓ |core| tests/p13a-research-identity.test.ts (1 test) 1381ms
+   ✓ P13A retained research Laboratory identity > keeps paused and cancelled Laboratory references intact without blocking lawful instrument installation 1380ms
+
+ Test Files  6 passed (6)
+      Tests  44 passed (44)
+   Start at  02:38:53
+   Duration  47.09s (transform 1.92s, setup 0ms, collect 3.98s, tests 40.68s, environment 3ms, prepare 740ms)
+
