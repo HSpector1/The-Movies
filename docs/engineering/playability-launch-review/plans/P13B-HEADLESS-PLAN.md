@@ -842,6 +842,40 @@ Component quantity/progress/cost receipts; completed work paid, unstarted refund
 equipment retained, restoration job ($25k/2 weeks sound, $10k/1 week lighting, candidate), same-tick
 completion ordering, cross-year refund bucket. Requires S5. Allowance: 8 h / 3 h.
 
+## S7 — Forecast/replacement disclosure (Ready row 5) — provisional task expansion (drafted 2026-09-17 from the plan's own record; VERIFY against the companion before S7 begins)
+
+**Input limit (recorded, not resolved).** The companion `02-P13B-DECISIONS-AND-ACCEPTANCE.md` and `03-PAPER-ECONOMICS.md` are not on disk in
+any of the three worktrees nor in any local git ref (searched 2026-09-17 ≈08:00); the R07 packet on disk is only the disposition zip. This
+expansion is derived from the S7 scope record and the retained engine facts; its acceptance wording must be re-checked against the companion's
+own text when it is re-supplied. Nothing here is a product decision; anything not derivable is flagged OPEN.
+
+**Engine today.** The catalogue carries `researchableWeek` and `commercialWeek` per technology (lighting 780 / 936; sound 260 / 416) and the
+Laboratory page already discloses the player's own research opening and commercial purchase dates verbatim. The industry page publishes
+rival facts only from receipts (`filmAnnounced`, `technologyAdopted`) and refuses private schedules; rival research does not exist yet (S8).
+
+**Scope.** Public, milestone-only disclosure of a technology's expected commercial availability and of what a commercial purchase replaces:
+- Forecast: before any public announcement the wire publishes a DISTANT WINDOW for lighting (884..988, candidate) — never the exact commercial
+  week; at week 884 a public announcement (a hollywood receipt `technologyAnnounced`, minted by the campaign clock, not by rival research)
+  narrows the disclosure to the exact 936. Sound's history is retained as-is (its commercial week is already public in P13A). OPEN: whether the
+  distant window and announcement week are catalogue data per technology (delegated: yes, as `publicWindow {from, to, announceWeek}` on the
+  catalogue entry, with sound's window equal to its own commercial week so nothing changes for it).
+- No private rival research exposure: the forecast never reads rival projects, seats, spend or receipts; only the campaign-clock announcement
+  and the catalogue's public window. S8 must keep this invariant when rival research exists (validator: announcement receipts carry no studio
+  authority).
+- Replacement descriptors on purchase: the commercial purchase row and the access record disclose what the technology replaces (sound:
+  synchronized dialogue replaces silent production method on the selected stage chain; lighting: controlled lighting replaces conventional
+  setup on the fitted stage — S5-R07's 4 → 2 units) as text derived from catalogue data, not from private facts. OPEN: exact descriptor wording
+  (companion text needed).
+- Persisted facts: at most one `technologyAnnounced` receipt per technology (hollywood receipts, existing root); no new save root is expected —
+  if one is needed the next governed version is allocated at execution.
+- Bridge (projection next, text only): Laboratory page `forecast` per technology {windowFromLabel, windowToLabel | exactLabel, announcedWeek,
+  basis}, `replacementLabel` on the purchase row and on access rows; industry page announcement row for the campaign announcement.
+
+**Tests (RED-first).** 1 forecast text before 884 shows the window only, never 936; at/after 884 shows the exact date; sound unchanged. 2 the
+forecast is independent of any rival state (two campaigns differing only in rival facts publish identical forecasts). 3 one announcement
+receipt per technology, at the clock week, in Save As worlds too. 4 replacement descriptors on the purchase row and access rows for both
+technologies. 5 bridge projection. **Allowance:** 4 h capability, 2 h verification.
+
 ## S7 — Forecast/replacement disclosure (Ready row 5) — scope record
 
 Public milestone facts only; R07 distant window 884..988 narrowing on public announcement at 884 to 936;
