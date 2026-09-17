@@ -733,7 +733,7 @@ identically, Save As worlds isolated, downgrade refusals. 6 Bridge projection 38
 `productionSetupAction` intent, projection 38 DTOs, Save V25 (client-side load), plus the OPEN A12/K4/CAT-011 items with their owners.
 
 ### S5-R07 tasks
-- [ ] **R07-T0 Genuine V24 fixtures** at the final V24 writer before any R07 source change.
+- [x] **R07-T0 Genuine V24 fixtures (2026-09-17 ≈09:45, `b8d6b8b`)** minted by `src/harness/p13b/legacy-v24-fixtures.ts` at `2c2c999` (engine unchanged since `6bbaca2`, the final V24 writer) before any R07 source change: `legacy-v24-sound-operational-315` (sha `eeda6efb…`; native V24 inventor sound adoption with six component rows and a held first-prototype asset) and `legacy-v24-lighting-operational-plan-queued` (week 796, sha `94735d52…`; native player lighting adoption via `adoptTechnology` committed 791 / operational 795 with `postFacilityId` null and a held first-prototype asset; rival commercial sound adoption with aggregated rows and a held commercial asset; one queued plan waiting for 900); `evidence/p13b-r07-20260917/00`, provenance in `tests/fixtures/p13b/PROVENANCE.md`. Test-author dispatched for tests 1–5 RED-first against `src/core/productionSetup.ts`.
 - [ ] **R07-T1/T2 Engine increment** (sim-core; test-author tests 1–5 RED first): recipes, record, action, admission/credit law, history,
       validator, Save V25.
 - [ ] **R07-T3 Bridge projection 38:** test 6.
