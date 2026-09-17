@@ -20,7 +20,7 @@
 //       floor; after a compaction past the window the Tier-D rows survive, the
 //       Tier-W rows do not, and the coverage sentence stops claiming a span.
 //   L6  PURE AND SERVED. Two derivations are byte-identical, the state digest is
-//       untouched, and the section validates inside the real projection-37
+//       untouched, and the section validates inside the real projection-38
 //       envelope exactly as the client will parse it.
 //
 // THE FIXTURE IS A REAL CAMPAIGN, not a hand-written log. Nineteen weeks of
@@ -320,7 +320,7 @@ describe('R3-N7-SIM-01 — operationsEventsProjection (projection 32)', () => {
       .toEqual(projection.rows.filter((row) => row.tier === 'permanent').map((row) => row.seq))
   })
 
-  it('L6 is pure, mutates nothing, and validates inside the served projection-37 envelope', () => {
+  it('L6 is pure, mutates nothing, and validates inside the served projection-38 envelope', () => {
     const state = studio()
     const before = digest(state)
     expect(stableStringify(operationsEventsProjection(state)))
@@ -330,7 +330,7 @@ describe('R3-N7-SIM-01 — operationsEventsProjection (projection 32)', () => {
     const response = new BridgeSession(state, 'r3n7-operations-events').snapshot()
     expect(() => parseWireValue(BRIDGE_SCHEMA.$defs.StudioBridgeSnapshotResponse, response)).not.toThrow()
     expect(response.snapshotVersion).toBe(PROJECTION_VERSION)
-    expect(PROJECTION_VERSION).toBe(37)
+    expect(PROJECTION_VERSION).toBe(38)
     const served = response.snapshot.operationsEvents.operationsEvents
     // The served section is the projection itself — no re-derivation on the way out.
     expect(stableStringify(served)).toBe(stableStringify(operationsEventsProjection(state)))

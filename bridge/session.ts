@@ -38,7 +38,7 @@ import type {
   FoundingApplicantRow,
   GameState,
 } from '../ui/src/engine/adapter.ts'
-import { applyActions, importSave, migrateToV25 } from '../src/core/index.js'
+import { applyActions, importSave, LIVE_SAVE_VERSION, migrateToV25 } from '../src/core/index.js'
 import type { FoundingRegime } from '../src/core/index.js'
 import {
   PROTOCOL_VERSION,
@@ -69,6 +69,7 @@ import {industryPage} from './industry.ts'
 import {laboratoryActionSpecs,type LaboratoryIntent} from './laboratory.ts'
 import {isPhysicalPlanAction,planActionSpecs,type PlanIntent} from './plans.ts'
 import {applyOfficeAction,officeActionSpecs,type OfficeIntent} from './office.ts'
+import {setupRecipeActionSpecs,withProductionSetupRows,type ProductionSetupIntent} from './productionSetup.ts'
 import {sameNativeCampaignOrigin} from './campaign-origin.ts'
 import type {IndustryQuery} from './schema/industry-schema.ts'
 import type {
@@ -117,10 +118,14 @@ type ImportOutcome =
 // and semantics as every prior live wrapper.
 // P08A: the live save version is V17; every prior version live-migrates through
 // the canonical chain (the same two-step the ui adapter's importSaveJson mirrors).
+// P13B-S5-R07-T3: `converted` means "this envelope was NOT already the live
+// version", so it compares against `LIVE_SAVE_VERSION` — the constant beside
+// `makeSave` — instead of a literal (23) that went stale at V24 and V25 and made
+// every genuine current checkpoint report itself as a migration.
 function importSaveJsonCurrent(json: string): ImportOutcome {
   try {
     const save = importSave(json)
-    const converted = save.saveVersion !== 23
+    const converted = save.saveVersion !== LIVE_SAVE_VERSION
     return { ok: true, state: migrateToV25(save).state, converted }
   } catch (error) {
     return { ok: false, error: (error as Error).message }
@@ -1130,8 +1135,24 @@ function resolveOfficeIntents(state: GameState): Array<IntentApplication & Offic
   }))
 }
 
+/**
+ * P13B-S5-R07: one row per reachable setup recipe on one exact pre-Shooting
+ * picture. Its own kind: a setup plan is not research, not a physical plan and
+ * not an installation — it moves that picture's preparation schedule and nothing
+ * else. Only rows the engine's own dry run accepted are published.
+ */
+function resolveProductionSetupIntents(state: GameState): Array<IntentApplication & ProductionSetupIntent> {
+  const stateDigest = authoritativeDigest(state)
+  return setupRecipeActionSpecs(state).filter(spec => spec.enabled).map(spec => ({
+    spec,
+    option: option(stateDigest, {kind:'productionSetupAction',label:spec.label,detail:spec.detail,
+      projectId:null,castingSessionId:null,productionId:spec.productionId}, spec.action),
+    apply: current => caught(() => ({ok:true,next:applyActions(current,[spec.action])})),
+  }))
+}
+
 function resolveAvailableIntents(state: GameState): IntentApplication[] {
-  return [...resolveStudioIntents(state), ...resolveLaboratoryIntents(state), ...resolvePlanIntents(state), ...resolveOfficeIntents(state)]
+  return [...resolveStudioIntents(state), ...resolveLaboratoryIntents(state), ...resolvePlanIntents(state), ...resolveOfficeIntents(state), ...resolveProductionSetupIntents(state)]
 }
 
 export function availableIntents(state: GameState): AvailableIntent[] {
@@ -1461,11 +1482,20 @@ export class BridgeSession {
     // result into the bundle at the bridge boundary, so the browser's own
     // snapshot stays untouched. The bundle projection deep-copies every input,
     // so the shared context facts never reach a served envelope by reference.
+    const lot = context.lotSnapshot()
     const snapshot = projectStudioProjectionBundle({
       industry:context.industry(),
       // P07A W2 — `results` now rides inside context.lotSnapshot() (the builder owns the
       // derivation, mirroring releasedFilms), so the projection partition invariant holds.
-      ...context.lotSnapshot(),
+      ...lot,
+      // P13B-S5-R07 (projection 38): the setup plan, its recipe rows and the
+      // setup-aware wait ride the SAME production rows, composed here rather than
+      // inside the broad lot selector the browser also reads.
+      productionOperations: withProductionSetupRows(
+        state,
+        lot.productionOperations ?? [],
+        resolveProductionSetupIntents(state),
+      ),
       development: context.development(),
       casting: context.casting(),
       release: context.release(),

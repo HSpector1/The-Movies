@@ -40,6 +40,10 @@ export const AVAILABLE_INTENT_KINDS = [
   // row carries this kind, including the retained synchronized-sound pairing: an
   // adoption buys equipment and physical plant, which is neither research nor a plan.
   'adoptTechnology',
+  // P13B-S5-R07: reviewing ONE setup recipe for ONE exact production before it
+  // enters Shooting. Not research, not a plan and not an installation: it moves
+  // that picture's own preparation schedule and nothing else.
+  'productionSetupAction',
 ] as const
 
 export const StudioBridgeIntentOption = object('StudioBridgeIntentOption', {

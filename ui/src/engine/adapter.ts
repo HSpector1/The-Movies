@@ -108,6 +108,7 @@ import {
   packageDelta,
   // save
   importSave,
+  LIVE_SAVE_VERSION,
   migrateToV25,
   convertV17ToV18,
   convertV4ToV5,
@@ -3789,7 +3790,9 @@ export type ImportOutcome =
 export function importSaveJson(json: string): ImportOutcome {
   try {
     const save: SaveFile = importSave(json)
-    const converted = save.saveVersion !== 23
+    // P13B-S5-R07-T3: the live version is the constant beside `makeSave`, never a
+    // literal — a stale one reported every current save as a migration.
+    const converted = save.saveVersion !== LIVE_SAVE_VERSION
     return { ok: true, state: migrateToV25(save).state, converted }
   } catch (e) {
     return { ok: false, error: (e as Error).message }

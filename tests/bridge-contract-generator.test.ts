@@ -549,12 +549,12 @@ describe('CF-08 sound union-to-C# generation', () => {
       expect(response.promotedProperties.map((property) => property.wireName)).not.toContain('title')
       expect(response.promotedProperties.map((property) => property.wireName)).not.toContain('noFeeLine')
 
-      const generated = generateCsharpContract({ schema, protocolVersion: 4, projectionVersion: 37 })
+      const generated = generateCsharpContract({ schema, protocolVersion: 4, projectionVersion: 38 })
       expect(generated).toContain(
-        '// Schema identity: sha256:2158ef1606497912f8589b5ae6496e55d4d73a2ee687e4b1867837c593af7aa8',
+        '// Schema identity: sha256:baecd21e5fbfd4f13bd08b7af132d4b05fe24a40f1b38cd19d2782d9e2d0851e',
       )
       expect(schemaIdentity(schema)).toBe(
-        'sha256:2158ef1606497912f8589b5ae6496e55d4d73a2ee687e4b1867837c593af7aa8',
+        'sha256:baecd21e5fbfd4f13bd08b7af132d4b05fe24a40f1b38cd19d2782d9e2d0851e',
       )
       expect(generated).toContain('public sealed partial class StudioQuoteCastingRequest : StudioBridgeQuoteRequest')
       expect(generated).toContain('public StudioCastingDraftPayload draft;')
@@ -619,14 +619,15 @@ describe('CF-08 sound union-to-C# generation', () => {
         F03_COMPATIBLE_OBJECTS: '99f44add260a66d0eab17a86d3f743110277292606dff073a90a354bad335c68',
         F04_DISCRIMINATED_OBJECTS: 'd878443418291974137b9affddf066d3b65d8d09286febebcafec35561a2fc5b',
         F09_ARRAY_ITEM_UNION: '7c1f83b70b0e82152821b0c4a5e59bdedcf901f639445b45ec7ef49010e2af1b',
-        // P13B-S5-T4 (projection 37): the adoption read model joins the schema —
-        // StudioAdoptionComponent/StudioAdoptionQuote/StudioAdoptionRow, the nullable
-        // `quote` on `StudioLaboratoryAction`, `StudioLaboratoryPage.adoptions`, and the
-        // `adoptTechnology` intent kind for one committed technology adoption. No history
-        // kind and no industry view moved. Both fixtures render the WHOLE current
+        // P13B-S5-R07-T3 (projection 38): the production setup read model joins the
+        // schema — StudioProductionSetup/StudioSetupRecipeAction, the optional `setup`
+        // and `setupRecipeActions` members on `StudioProductionOperationsSnapshot`, the
+        // four setup history kinds on the operations-events enum, and the
+        // `productionSetupAction` intent kind for one reviewed setup recipe. No quote
+        // union and no industry view moved. Both fixtures render the WHOLE current
         // BRIDGE_SCHEMA, so both identities move together.
-        F10_CURRENT_QUOTE_UNIONS: 'dc94ab3bb48826bf15607c7a60996402c95ed025e39ea0c655c939a4f203300c',
-        F11_CURRENT_COMMAND_UNION: 'dc94ab3bb48826bf15607c7a60996402c95ed025e39ea0c655c939a4f203300c',
+        F10_CURRENT_QUOTE_UNIONS: 'f811b3250284aef60763560feea38f80b124dd45dbf8b43dc3dfa8dd380ea333',
+        F11_CURRENT_COMMAND_UNION: 'f811b3250284aef60763560feea38f80b124dd45dbf8b43dc3dfa8dd380ea333',
         F12_P05_PRODUCTION_SENTINEL: '78d68a2d7670585946f79ebbfc449c85c8ad98ac381b422a8a9abea66702bde6',
       } as const
       for (const [name, expectedHash] of Object.entries(expected)) {

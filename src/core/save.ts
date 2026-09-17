@@ -6223,6 +6223,12 @@ export function makeSaveV16(state: GameStateV16): SaveFileV16 {
   return validateSaveV16(save);
 }
 
+// P13B-S5-R07-T3: the ONE live save version, beside the writer that stamps it.
+// Every caller that asks "is this envelope a migration?" compares against this
+// constant rather than a literal that goes stale the next time `makeSave` moves
+// (the bridge and the ui adapter both still compared against 23 at V25).
+export const LIVE_SAVE_VERSION = 25 as const;
+
 // makeSave — the live V25 boundary. Frozen prior values migrate explicitly.
 // The new plain-JSON root is detached once; only final serialization sorts it.
 export function makeSave(state: GameState): SaveFileV25 {

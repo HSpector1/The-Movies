@@ -1,0 +1,21 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/bridge-p13b-r07-setup.test.ts (13 tests) 26301ms
+   ✓ requirement 2: each production snapshot gains setup: StudioProductionSetup | null > conventional ballroom: null pre-selection; admission at week 12 with 0 credited; a held rehearsal names the setup wait and a weeksRemaining consistent with the forecast; walked week-by-week to Shooting entry 16 5020ms
+   ✓ requirement 3: setup-recipe-<productionId>-<recipeId> rows, offered pre-Shooting with a bound stage whose Set type matches the recipe — PREMISE: published as setupRecipeActions on the same productionOperations row > the eligible ballroom recipe row is enabled, carries productionId/recipeId/planRevision, intent kind productionSetupAction, no rejections 865ms
+   ✓ requirement 3: setup-recipe-<productionId>-<recipeId> rows, offered pre-Shooting with a bound stage whose Set type matches the recipe — PREMISE: published as setupRecipeActions on the same productionOperations row > a wrong-Set-type row (ordinary recipe on a ballroom-bound production) is disabled, names its own refusal, and enabled agrees with the refusal 723ms
+   ✓ requirement 3: setup-recipe-<productionId>-<recipeId> rows, offered pre-Shooting with a bound stage whose Set type matches the recipe — PREMISE: published as setupRecipeActions on the same productionOperations row > rows are absent once the production enters Shooting (legacy path: no recipe ever selected) 944ms
+   ✓ requirement 4: committing a recipe row through the bridge > writes exactly one setup record, advances stateRevision, refuses the same intent at the old revision, and the forecast matches setupForecast once the sweep visit admits it 2940ms
+   ✓ requirement 5: ticking through the bridge credits one unit per week and enters Shooting at the forecast week, on all three measured fixtures; the four setup history kinds appear on the history view > conventional ballroom: admission 12 -> Shooting entry 16, history rows setupAdmitted/setupUnitCredited x4/setupCompleted, production-scoped 1321ms
+   ✓ requirement 5: ticking through the bridge credits one unit per week and enters Shooting at the forecast week, on all three measured fixtures; the four setup history kinds appear on the history view > lighting ballroom: admission 807 -> Shooting entry 809, route "lighting" 12078ms
+   ✓ requirement 5: ticking through the bridge credits one unit per week and enters Shooting at the forecast week, on all three measured fixtures; the four setup history kinds appear on the history view > ordinary interior: admission 4 -> Shooting entry 5, both routes agree at 1 unit 582ms
+   ✓ requirement 6: player-safe; a legacy production publishes setup: null with its schedule unchanged > every productionOperations row belongs to this studio's own activeProductions — MEASURED: the engine has no rival production model to leak (operations/placement are single, player-scoped roots, the same fact tests/bridge-p13b-s4-office.test.ts case 7 and tests/bridge-p13b-s5-adoption.test.ts requirement 6 both rely on for their own rival-injection idiom) 569ms
+   ✓ requirement 6: player-safe; a legacy production publishes setup: null with its schedule unchanged > legacy timeline byte-identical through the bridge: a production that never selects a recipe publishes setup: null and today's exact (unheld) schedule 748ms
+   ✓ extra pin (parent instruction): the bridge's save/load "converted" report against the CURRENT save version, not a stale literal 23 (bridge/session.ts:123) > RED: a genuine CURRENT (V25) checkpoint saved and reloaded through the SAME bridge session reports converted: false 504ms
+
+ Test Files  1 passed (1)
+      Tests  13 passed (13)
+   Start at  13:37:35
+   Duration  32.15s (transform 3.89s, setup 0ms, collect 5.25s, tests 26.30s, environment 0ms, prepare 192ms)
+

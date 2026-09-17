@@ -1156,6 +1156,7 @@ export {
   validateSaveV14,
   validateSaveV15,
   validateSaveV16,
+  LIVE_SAVE_VERSION,
   makeSave,
   makeSaveV1,
   makeSaveV2,

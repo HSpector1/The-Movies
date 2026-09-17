@@ -90,7 +90,7 @@ export const PROTOCOL_VERSION = 4 as const
 // `adoptTechnology` intent kind. A refused adopt row is still published with the engine's own
 // `rejections`/`refusal`; `postFacilityId` is null exactly when the technology has no Post
 // component. Additive only; protocol stays 4.
-export const PROJECTION_VERSION = 37 as const
+export const PROJECTION_VERSION = 38 as const
 
 const nonEmptyText = () => text({ minLength: 1 })
 const nonNegativeInteger = () => integer({ minimum: 0 })
@@ -419,6 +419,56 @@ const StudioStageProductionSnapshot = object('StudioStageProductionSnapshot', {
   presentationHint: nullable(text()),
 })
 
+// ── P13B-S5-R07 (projection 38) — the production SETUP subtask ───────────────
+// The engine's own `ProductionWorkflow.setup` record, published verbatim: the
+// recipe it names, the route its provenance was fixed on at admission, the units
+// credited against the units required, and the two derived weeks a client needs
+// to state the wait honestly (`nextUnitWeek`, `forecastShootingEntryWeek` =
+// `setupForecast(admittedWeek, requiredUnits)`). Every week member is null
+// exactly where the engine has not stamped it yet — a selected plan the weekly
+// sweep has not admitted forecasts nothing, and a completed setup owes no
+// further unit.
+const StudioProductionSetup = object('StudioProductionSetup', {
+  recipeId: nonEmptyText(),
+  /** The catalogue's own `name` for that recipe; never an id dressed as a label. */
+  recipeLabel: nonEmptyText(),
+  route: enumeration(['conventional', 'lighting']),
+  creditedUnits: nonNegativeInteger(),
+  requiredUnits: nonNegativeInteger(),
+  /** The sweep visit that opened the gate. Null between selection and that visit. */
+  admittedWeek: nullable(nonNegativeInteger()),
+  /** The next week a unit can credit; null before admission and once complete. */
+  nextUnitWeek: nullable(nonNegativeInteger()),
+  /** `admittedWeek + requiredUnits`; null before admission. */
+  forecastShootingEntryWeek: nullable(nonNegativeInteger()),
+  completedWeek: nullable(nonNegativeInteger()),
+  /** The exact adoption the lighting route was earned from; null on the conventional route. */
+  adoptionId: nullable(text()),
+  stageFacilityId: nonEmptyText(),
+  setId: nonEmptyText(),
+  planRevision: nonNegativeInteger(),
+})
+
+// One reviewable recipe choice for one exact production, with the S4 disclosure
+// pattern: `refusal` is the engine's own primary refusal (its thrown sentence)
+// and `rejections` the full list this row was refused for, so a client never has
+// to guess what a disabled row hid. `enabled` and `refusal` never disagree.
+const StudioSetupRecipeAction = object('StudioSetupRecipeAction', {
+  /** `setup-recipe-<productionId>-<recipeId>`. */
+  id: nonEmptyText(),
+  productionId: nonEmptyText(),
+  recipeId: nonEmptyText(),
+  /** The plan revision this row was quoted against — the commit's own staleness key. */
+  planRevision: nonNegativeInteger(),
+  label: nonEmptyText(),
+  detail: text(),
+  enabled: bool(),
+  disabledReason: nullable(text()),
+  rejections: array(nonEmptyText()),
+  refusal: nullable(text()),
+  intent: nullable(reference('StudioBridgeIntentOption', StudioBridgeIntentOption)),
+})
+
 const StudioProductionOperationsSnapshot = object('StudioProductionOperationsSnapshot', {
   productionId: nonEmptyText(),
   title: nonEmptyText(),
@@ -507,6 +557,15 @@ const StudioProductionOperationsSnapshot = object('StudioProductionOperationsSna
     StudioProductionBlockerAnatomySnapshot,
   )),
   wrapReceipt: nullable(reference('StudioWrapReceiptSnapshot', StudioWrapReceiptSnapshot)),
+  // ── P13B-S5-R07 (projection 38). OPTIONAL, and the reason is stated rather
+  //    than assumed: these two members are added at the BRIDGE boundary
+  //    (`bridge/productionSetup.ts`, composed in `BridgeSession.snapshotFor`),
+  //    not by the broad lot selector every other member here comes from, so a
+  //    raw `studioLotSnapshot()` row carries neither. Every SERVED row carries
+  //    both — `setup` explicitly null when this production has no setup plan,
+  //    `setupRecipeActions` empty once the picture has entered Shooting. ──
+  setup: optional(nullable(reference('StudioProductionSetup', StudioProductionSetup))),
+  setupRecipeActions: optional(array(reference('StudioSetupRecipeAction', StudioSetupRecipeAction))),
 })
 
 const StudioPersonSnapshot = object('StudioPersonSnapshot', {
@@ -2139,7 +2198,7 @@ export const StudioHistoryProjectionSchema = object('StudioHistoryProjection', {
 // `significance` is deliberately the SAME vocabulary History's four shipped
 // filter chips already use, so one chip strip governs both lists.
 
-/** The twelve `StudioEventDraft` kinds, exactly (`src/core/studioEvents.ts`). */
+/** The sixteen `StudioEventDraft` kinds, exactly (`src/core/studioEvents.ts`). */
 const operationsEventKind = () =>
   enumeration([
     'wrapped',
@@ -2152,6 +2211,13 @@ const operationsEventKind = () =>
     'reservationReleased',
     'phaseEntered',
     'sceneryArrived',
+    // P13B-S5-R07 (projection 38): the four setup history kinds. Tier W, like
+    // every other operating row here; the durable record is the workflow's own
+    // `setup` leaf, published beside it on the production row.
+    'setupAdmitted',
+    'setupUnitCredited',
+    'setupCompleted',
+    'setupRebound',
     'queueAdmitted',
     'queueIntentExpired',
   ])
@@ -2161,7 +2227,7 @@ const StudioOperationsEventSubject = object('StudioOperationsEventSubject', {
 })
 const StudioOperationsEventRoute = object('StudioOperationsEventRoute', {
   filmId: nullable(text()),
-  /** Always null: not one of the twelve kinds carries a talent id. */
+  /** Always null: not one of the sixteen kinds carries a talent id. */
   personId: nullable(text()),
   buildingId: nullable(text()),
 })
@@ -2575,6 +2641,8 @@ const definitions = {
   StudioWrapReceiptSnapshot,
   StudioStageLogisticsCueSnapshot,
   StudioStageProductionSnapshot,
+  StudioProductionSetup,
+  StudioSetupRecipeAction,
   StudioProductionOperationsSnapshot,
   StudioPersonSnapshot,
   StudioPresencePersonSnapshot,

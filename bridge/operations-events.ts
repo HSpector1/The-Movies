@@ -30,12 +30,13 @@
 //
 // ROUTES. The route triple is exactly `BridgeHistoryEventSnapshot`'s
 // (`bridge/history.ts`), so History's shipped routing serves these rows without
-// a second routing vocabulary. `personId` is ALWAYS null: not one of the twelve
+// a second routing vocabulary. `personId` is ALWAYS null: not one of the sixteen
 // kinds carries a talent id, and that absence is stated rather than invented.
 import { campaignDate } from '../src/core/calendar.ts'
 import { blueprintById } from '../src/core/placement.ts'
 import { PHASE_LABEL } from '../src/core/studioQueueView.ts'
 import { queueEntryLabel } from '../src/core/productionQueue.ts'
+import { setupRecipeById } from '../src/core/productionSetup.ts'
 import { setById } from '../src/core/sets.ts'
 import {
   isTierDStudioEventKind,
@@ -65,7 +66,7 @@ export type BridgeOperationsEventSubject = {
 export type BridgeOperationsEventRoute = {
   /** Exact durable P07 result route (`productionId`) when a result row exists. */
   filmId: string | null
-  /** Always null for these twelve kinds: none of them carries a talent id. */
+  /** Always null for these sixteen kinds: none of them carries a talent id. */
   personId: string | null
   /** Exact world body id (`placed-<placementId>`) when a current body exists. */
   buildingId: string | null
@@ -151,20 +152,14 @@ function queueSubjectName(state: GameState, entryKind: string, subjectId: string
   return findConcept(state, subjectId)?.title ?? null
 }
 
-const SETUP_EVENT_KINDS = ['setupAdmitted', 'setupUnitCredited', 'setupCompleted', 'setupRebound'] as const
-type SetupEventKind = (typeof SETUP_EVENT_KINDS)[number]
-
 export function operationsEventsProjection(state: GameState): BridgeOperationsEventsProjection {
   const currentWeek = state.market.tick
-  // P13B-S5-R07: the four setup history kinds are ENGINE facts that this
-  // projection-37 wire has no schema for. R07-T3 (projection 38) publishes the
-  // setup plan and its history deliberately; until it does this projection states
-  // only what it can name, rather than inventing a client sentence for a row whose
-  // contract does not exist yet.
-  const rows = state.studioEvents.rows.filter(
-    (row): row is Exclude<StudioEvent, { kind: SetupEventKind }> =>
-      !(SETUP_EVENT_KINDS as readonly string[]).includes(row.kind),
-  )
+  // P13B-S5-R07 / projection 38: the four setup history kinds are published here
+  // beside every other operating row. Their engine payload carries production,
+  // recipe, plan revision, stage, Set, route and units; rule 1 still binds the
+  // SENTENCE, so each one resolves those ids to the studio's own names and keeps
+  // the exact production id in `subject` for the client's deep link.
+  const rows = state.studioEvents.rows
 
   // ── Name resolution, entirely through existing authorities ────────────────
   const resultIds = new Set(state.studio.releasedFilms.map((film) => film.productionId))
@@ -207,6 +202,15 @@ export function operationsEventsProjection(state: GameState): BridgeOperationsEv
     )
     return placed === undefined ? null : `placed-${String(placed.id)}`
   }
+  /** The setup catalogue's own word for a recipe; the bare id only if it ever left the catalogue. */
+  const recipeName = (recipeId: string): string => setupRecipeById(recipeId)?.name ?? recipeId
+  /** " on Sound Stage 7, using the Grand Ballroom" — whichever halves can be named. */
+  const placeOf = (stageFacilityId: string, setId: string): string => {
+    const stage = facilityName(stageFacilityId)
+    const set = setById(state.sets, setId)?.name ?? null
+    const where = stage === null ? '' : ` on ${stage}`
+    return set === null ? where : `${where}, using the ${set}`
+  }
   const filmRoute = (productionId: string): BridgeOperationsEventRoute => ({
     filmId: resultIds.has(productionId) ? productionId : null,
     personId: null,
@@ -229,7 +233,7 @@ export function operationsEventsProjection(state: GameState): BridgeOperationsEv
     }
   })
 
-  function describeRow(row: Exclude<StudioEvent, { kind: SetupEventKind }>): {
+  function describeRow(row: StudioEvent): {
     summary: string
     subject: BridgeOperationsEventSubject | null
     route: BridgeOperationsEventRoute
@@ -345,6 +349,43 @@ export function operationsEventsProjection(state: GameState): BridgeOperationsEv
         const title = titleOf(row.productionId)
         return {
           summary: title === null ? 'Scenery arrives on the stage.' : `Scenery arrives for ${title}.`,
+          subject: { kind: 'production', id: row.productionId },
+          route: filmRoute(row.productionId),
+        }
+      }
+      // ── P13B-S5-R07 — the setup subtask's own four rows ───────────────────
+      case 'setupAdmitted': {
+        const picture = titleOf(row.productionId) ?? 'A picture'
+        return {
+          summary: `${picture} begins its ${recipeName(row.recipeId)} setup${placeOf(row.stageFacilityId, row.setId)} — ` +
+            `${String(row.requiredUnits)} weeks on the ${row.route} route.`,
+          subject: { kind: 'production', id: row.productionId },
+          route: filmRoute(row.productionId),
+        }
+      }
+      case 'setupUnitCredited': {
+        const picture = titleOf(row.productionId) ?? 'A picture'
+        return {
+          summary: `${picture} completes setup week ${String(row.creditedUnits)} of ${String(row.requiredUnits)}.`,
+          subject: { kind: 'production', id: row.productionId },
+          route: filmRoute(row.productionId),
+        }
+      }
+      case 'setupCompleted': {
+        const picture = titleOf(row.productionId) ?? 'A picture'
+        return {
+          summary: `${picture} finishes its ${recipeName(row.recipeId)} setup after ${String(row.creditedUnits)} weeks, and is ready to shoot.`,
+          subject: { kind: 'production', id: row.productionId },
+          route: filmRoute(row.productionId),
+        }
+      }
+      case 'setupRebound': {
+        const picture = titleOf(row.productionId) ?? 'A picture'
+        return {
+          // The engine keeps the earlier work in `priorWork` and never recycles it
+          // into the new credit; the sentence says exactly that and no more.
+          summary: `${picture} starts its ${recipeName(row.recipeId)} setup again${placeOf(row.stageFacilityId, row.setId)}. ` +
+            'The weeks already worked stay in its history.',
           subject: { kind: 'production', id: row.productionId },
           route: filmRoute(row.productionId),
         }

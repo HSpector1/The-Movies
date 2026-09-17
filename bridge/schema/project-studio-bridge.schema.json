@@ -359,7 +359,7 @@
           "$ref": "#/$defs/StudioProjectionBundle"
         },
         "snapshotVersion": {
-          "const": 37,
+          "const": 38,
           "type": "integer"
         },
         "stateDigest": {
@@ -476,7 +476,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 37,
+          "const": 38,
           "type": "integer"
         },
         "stateDigest": {
@@ -550,7 +550,8 @@
             "researchAction",
             "physicalPlanAction",
             "installationAction",
-            "adoptTechnology"
+            "adoptTechnology",
+            "productionSetupAction"
           ],
           "type": "string"
         },
@@ -989,7 +990,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 37,
+          "const": 38,
           "type": "integer"
         },
         "stateDigest": {
@@ -1068,7 +1069,7 @@
           "$ref": "#/$defs/StudioProjectionBundle"
         },
         "snapshotVersion": {
-          "const": 37,
+          "const": 38,
           "type": "integer"
         },
         "stateDigest": {
@@ -1360,7 +1361,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 37,
+          "const": 38,
           "type": "integer"
         },
         "stateDigest": {
@@ -8559,6 +8560,10 @@
             "reservationReleased",
             "phaseEntered",
             "sceneryArrived",
+            "setupAdmitted",
+            "setupUnitCredited",
+            "setupCompleted",
+            "setupRebound",
             "queueAdmitted",
             "queueIntentExpired"
           ],
@@ -8674,6 +8679,10 @@
               "reservationReleased",
               "phaseEntered",
               "sceneryArrived",
+              "setupAdmitted",
+              "setupUnitCredited",
+              "setupCompleted",
+              "setupRebound",
               "queueAdmitted",
               "queueIntentExpired"
             ],
@@ -11326,6 +11335,22 @@
           },
           "type": "array"
         },
+        "setup": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StudioProductionSetup"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "setupRecipeActions": {
+          "items": {
+            "$ref": "#/$defs/StudioSetupRecipeAction"
+          },
+          "type": "array"
+        },
         "stageBuildingId": {
           "anyOf": [
             {
@@ -11504,6 +11529,124 @@
       ],
       "type": "object",
       "x-csharp-name": "StudioProductionRemedyRouteSnapshot"
+    },
+    "StudioProductionSetup": {
+      "additionalProperties": false,
+      "properties": {
+        "admittedWeek": {
+          "anyOf": [
+            {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "adoptionId": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "completedWeek": {
+          "anyOf": [
+            {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "creditedUnits": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "forecastShootingEntryWeek": {
+          "anyOf": [
+            {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "nextUnitWeek": {
+          "anyOf": [
+            {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "planRevision": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "recipeId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "recipeLabel": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "requiredUnits": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "route": {
+          "enum": [
+            "conventional",
+            "lighting"
+          ],
+          "type": "string"
+        },
+        "setId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "stageFacilityId": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "admittedWeek",
+        "adoptionId",
+        "completedWeek",
+        "creditedUnits",
+        "forecastShootingEntryWeek",
+        "nextUnitWeek",
+        "planRevision",
+        "recipeId",
+        "recipeLabel",
+        "requiredUnits",
+        "route",
+        "setId",
+        "stageFacilityId"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioProductionSetup"
     },
     "StudioProductionSnapshot": {
       "additionalProperties": false,
@@ -13470,6 +13613,90 @@
       "type": "object",
       "x-csharp-name": "StudioSetSnapshot"
     },
+    "StudioSetupRecipeAction": {
+      "additionalProperties": false,
+      "properties": {
+        "detail": {
+          "type": "string"
+        },
+        "disabledReason": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "enabled": {
+          "type": "boolean"
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "intent": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StudioBridgeIntentOption"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "label": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "planRevision": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "productionId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "recipeId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "refusal": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "rejections": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "detail",
+        "disabledReason",
+        "enabled",
+        "id",
+        "intent",
+        "label",
+        "planRevision",
+        "productionId",
+        "recipeId",
+        "refusal",
+        "rejections"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioSetupRecipeAction"
+    },
     "StudioStageLogisticsCueSnapshot": {
       "additionalProperties": false,
       "properties": {
@@ -14201,7 +14428,7 @@
       "x-csharp-name": "StudioWrapReceiptSnapshot"
     }
   },
-  "$id": "urn:project-studio:bridge:protocol-4:projection-37",
+  "$id": "urn:project-studio:bridge:protocol-4:projection-38",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "description": "Canonical wire contract owned by the authoritative TypeScript runtime.",
   "oneOf": [
@@ -14257,7 +14484,7 @@
   "title": "Project Studio TypeScript to Unity Bridge",
   "x-project-studio": {
     "contractId": "project-studio-current-game-unity-bridge",
-    "projectionVersion": 37,
+    "projectionVersion": 38,
     "protocolVersion": 4,
     "routes": {
       "command": "POST /command",

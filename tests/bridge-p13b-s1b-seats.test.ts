@@ -71,9 +71,9 @@ function identityFixture(seed: string, idA: string, idB: string) {
   return { state, laboratoryFacilityId, assignedWeek }
 }
 
-describe('P13B-S1b Laboratory seats read model (projection 37 after S5-T4)', () => {
-  it('bumps PROJECTION_VERSION to the S1b wire contract (33; 37 after the S5-T4 bump)', () => {
-    expect(PROJECTION_VERSION).toBe(37)
+describe('P13B-S1b Laboratory seats read model (projection 38 after S5-R07-T3)', () => {
+  it('bumps PROJECTION_VERSION to the S1b wire contract (33; 38 after the S5-R07-T3 bump)', () => {
+    expect(PROJECTION_VERSION).toBe(38)
   })
 
   let entry: GameState
@@ -97,9 +97,9 @@ describe('P13B-S1b Laboratory seats read model (projection 37 after S5-T4)', () 
     identity = identityFixture(IDENTITY_SEED, IDENTITY_A, IDENTITY_B)
   }, 120_000)
 
-  it('a. fresh Laboratory with no project publishes empty seats/receipts, zero weekly and snapshotVersion 37', () => {
+  it('a. fresh Laboratory with no project publishes empty seats/receipts, zero weekly and snapshotVersion 38', () => {
     const page = readLaboratory(entry, entryLabFacilityId)
-    expect(page.snapshotVersion).toBe(37)
+    expect(page.snapshotVersion).toBe(38)
     expect(page.laboratory!.seats).toEqual([])
     expect(page.laboratory!.receipts).toEqual([])
     expect(page.laboratory!.weekly).toEqual({ ceiling: 0, usable: 0, seats: 0, output: 0, units: 0, labs: [] })
