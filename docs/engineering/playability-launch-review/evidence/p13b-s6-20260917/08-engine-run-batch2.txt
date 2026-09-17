@@ -1,0 +1,37 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/production-operations-save-v8.test.ts (20 tests) 2050ms
+   ✓ Production Operations V1 — frozen V7 to live V8 migration > preserves an active V7 production countdown and continuation exactly 449ms
+   ✓ Production Operations V1 — managed state validation and continuation > round-trips a blocked shooting task with its real director and reservations 420ms
+ ✓ |core| tests/c2a-m0-engine-union.test.ts (11 tests) 567ms
+   ✓ C2a-M0 — the phase machinery has exactly one source (charter §12-M0) > agrees with the save validator on every phase a real production reaches 500ms
+ ✓ |core| tests/p11-finance-report.test.ts (5 tests) 1955ms
+   ✓ P11 recorded cash and current-pace report > preserves literal ordered closing Cash over real fractional film receipt intervals 1397ms
+ ❯ |core| tests/p13a-rival-adoption.test.ts (2 tests | 1 failed) 6813ms
+   ✓ P13A shared commercial adoption and exact rival cash consequence > uses the shared player/rival eligibility function and debits only technology adoption without new plant or RNG draws 398ms
+   × P13A shared commercial adoption and exact rival cash consequence > replays the actual weekly commercial purchase, reconciles its debit and creates one dated operational receipt 223ms
+     → migrateToV25: cannot downgrade SaveFileV26 or discard installation cancellations
+ ✓ |core| tests/p13a-technology-validation.test.ts (9 tests) 8864ms
+ ✓ |core| tests/frozen-save-builder-projection.test.ts (2 tests) 186ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p13a-rival-adoption.test.ts > P13A shared commercial adoption and exact rival cash consequence > replays the actual weekly commercial purchase, reconciles its debit and creates one dated operational receipt
+Error: migrateToV25: cannot downgrade SaveFileV26 or discard installation cancellations
+ ❯ Module.migrateToV25 src/core/save.ts:8037:38
+    8035|  */
+    8036| export function migrateToV25(save: SaveFile | { saveVersion: number })…
+    8037|   if (save.saveVersion === 26) throw new Error('migrateToV25: cannot d…
+       |                                      ^
+    8038|   if (save.saveVersion === 25) return validateSaveV25(save);
+    8039|   return convertV24ToV25(migrateToV24(save as SaveFile));
+ ❯ tests/p13a-rival-adoption.test.ts:66:22
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed | 5 passed (6)
+      Tests  1 failed | 48 passed (49)
+   Start at  18:30:40
+   Duration  26.42s (transform 1.82s, setup 0ms, collect 3.87s, tests 20.43s, environment 2ms, prepare 569ms)
+

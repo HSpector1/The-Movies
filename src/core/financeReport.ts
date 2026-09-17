@@ -9,6 +9,10 @@ export const FINANCE_CATEGORIES: Record<LedgerKind, string> = {
   payroll: 'Payroll', overhead: 'Ordinary studio overhead', facilityOpex: 'Facility operating costs',
   production: 'Film production and marketing commitments', freelancerFee: 'Film freelancer fees',
   constructionCapex: 'Facility capital spending', facilityDemolitionRefund: 'Facility capital recovered',
+  // P13B-S6: its OWN line, in the calendar year of the refund week. A refund never
+  // rewrites the year its capital was committed in — that year's capex total is
+  // history — so the two rows sit in different periods and both stay true.
+  constructionRefund: 'Cancelled installation capital returned',
   setCapex: 'Set capital spending', setDemolitionRefund: 'Set capital recovered',
   setMaintenance: 'One-time Set repairs', signingBonus: 'Signing and renewal bonuses',
   termination: 'Termination payments', publicity: 'Publicity',

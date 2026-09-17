@@ -1,0 +1,351 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/facility-move-demolish.test.ts (30 tests | 1 failed) 2157ms
+   ✓ C1-M3a (A) — every persisted holder of a facility blocks both verbs > finds a screenplay reservation, on the RESERVATION and not the status 888ms
+   × C1-M3a (F) — saves, boundaries, and determinism > round-trips a history containing both a move and a demolition 73ms
+     → expected 26 to be 25 // Object.is equality
+ ❯ |core| tests/construction-core.test.ts (12 tests | 4 failed) 3181ms
+   × Development & Casting Annex V1 core lifecycle > enforces the exact affordability boundary and makes one atomic immutable commitment 99ms
+     → expected { id: 1, …(10) } to deeply equal { id: 1, …(9) }
+   ✓ Development & Casting Annex V1 core lifecycle > completes on exactly the thirteenth advance from a nonzero start with no recurring charge or RNG draw 912ms
+   × Development & Casting Annex V1 core lifecycle > does not reallocate completing-advance productions into the Annex, then exposes it immediately 478ms
+     → expected [Function] to throw error matching /cannot reserve the Annex before Week …/ but got 'validateSaveV25: expected version 25'
+   × Development & Casting Annex V1 core lifecycle > uses the authoritative greenlight debit to reject skip-first start-clock laundering 435ms
+     → expected [Function] to throw error matching /placed-facility reservation disagrees…/ but got 'validateSaveV25: expected version 25'
+   × Development & Casting Annex V1 core lifecycle > allows a production started after completion to claim the Annex under normal allocation 307ms
+     → expected [Function] to not throw an error but 'Error: validateSaveV25: expected vers…' was thrown
+   ✓ Development & Casting Annex V1 core lifecycle > accepts only the exact Annex V1 facility set and detects cross-owner collisions 597ms
+ ❯ |core| tests/placement-core.test.ts (36 tests | 2 failed) 1137ms
+   × Placement Core V12 — the blueprint catalog > keeps the Annex law exactly as V11 wrote it, inside a widened catalog 18ms
+     → expected [ { …(15) }, { …(15) }, …(18) ] to have a length of 17 but got 20
+   × Placement Core V12 — the commit > records a placed facility with a monotonic reserved identity 12ms
+     → expected [ { id: 1, …(10) } ] to deeply equal [ { id: 1, …(9) } ]
+   ✓ Placement Core V12 — the runner invariant (property) > commit quote deep-equals query quote over random requests 466ms
+ ❯ |core| tests/placement-save-v12.test.ts (20 tests | 2 failed) 2162ms
+   ✓ Placement Core V12 — the frozen envelope > writes V12 explicitly and round-trips every lifecycle state byte-identically 566ms
+   × Placement Core V12 — the frozen envelope > rejects overlapping placements and clearance-ring violations in a forged save 63ms
+     → validateSaveV25: expected version 25
+   × Placement Core V12 — the frozen envelope > rejects a forged operating charge that disagrees with the operational facilities 41ms
+     → validateSaveV25: expected version 25
+ ❯ |core| tests/construction-save-v11.test.ts (12 tests | 4 failed) 1644ms
+   × Development & Casting Annex V1 — SaveFileV11 > writes V12 by default and round-trips legacy, vacant, building, and completed lifecycle states 125ms
+     → expected 26 to be 25 // Object.is equality
+   ✓ Development & Casting Annex V1 — SaveFileV11 > round-trips and continues byte-identically at start, S+12, and S+13 518ms
+   × Development & Casting Annex V1 — SaveFileV11 > rejects every canonical Annex ID in persisted production history while building 55ms
+     → expected [Function] to throw error matching /canonical Annex id .*collides with pe…/ but got 'validateSaveV25: expected version 25'
+   × Development & Casting Annex V1 — SaveFileV11 > rejects every canonical Annex ID in persisted production history while completed 65ms
+     → expected [Function] to throw error matching /canonical Annex id .*collides with pe…/ but got 'validateSaveV25: expected version 25'
+   × Development & Casting Annex V1 — SaveFileV11 > validates original current input and rejects unknown future versions 31ms
+     → expected [Function] to throw an error
+ ✓ |core| tests/construction-accounting-calendar.test.ts (9 tests) 752ms
+ ✓ |core| tests/placement-lifecycle.test.ts (14 tests) 1647ms
+   ✓ Placement Core V12 — completion flips capacity exactly once, on its week > flips at the same week when the run is split by a save and a reload 1059ms
+ ✓ |core| tests/placement-lot.test.ts (14 tests) 152ms
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 13 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/construction-core.test.ts > Development & Casting Annex V1 core lifecycle > enforces the exact affordability boundary and makes one atomic immutable commitment
+AssertionError: expected { id: 1, …(10) } to deeply equal { id: 1, …(9) }
+
+- Expected
++ Received
+
+  Object {
+    "blueprintId": "development-casting-annex",
++   "cancellation": null,
+    "cells": Array [
+      Object {
+        "gx": 7,
+        "gy": 15,
+      },
+      Object {
+        "gx": 8,
+        "gy": 15,
+      },
+      Object {
+        "gx": 9,
+        "gy": 15,
+      },
+      Object {
+        "gx": 7,
+        "gy": 16,
+      },
+      Object {
+        "gx": 8,
+        "gy": 16,
+      },
+      Object {
+        "gx": 9,
+        "gy": 16,
+      },
+    ],
+    "completesWeek": 13,
+    "facilityId": "facility-development-casting-annex",
+    "id": 1,
+    "origin": Object {
+      "gx": 7,
+      "gy": 15,
+    },
+    "parcelId": "expansion",
+    "placedWeek": 0,
+    "projectId": "construction-development-casting-annex",
+    "status": "underConstruction",
+  }
+
+ ❯ tests/construction-core.test.ts:298:45
+    296|     // Its price, duration, identities, and parcel are the V11 law unc…
+    297|     expect(started.construction.projects).toEqual([])
+    298|     expect(started.placement.facilities[0]).toEqual({
+       |                                             ^
+    299|       id: 1,
+    300|       blueprintId: 'development-casting-annex',
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/13]⎯
+
+ FAIL |core|  tests/construction-core.test.ts > Development & Casting Annex V1 core lifecycle > does not reallocate completing-advance productions into the Annex, then exposes it immediately
+AssertionError: expected [Function] to throw error matching /cannot reserve the Annex before Week …/ but got 'validateSaveV25: expected version 25'
+
+- Expected: 
+/cannot reserve the Annex before Week 13/
+
++ Received: 
+"validateSaveV25: expected version 25"
+
+ ❯ tests/construction-core.test.ts:496:47
+    494|     const forgedSave = JSON.parse(stableStringify(makeSave(state))) as…
+    495|     forgedSave.state.operations.workflows[0]!.reservations[0]!.facilit…
+    496|     expect(() => validateSaveV25(forgedSave)).toThrow(
+       |                                               ^
+    497|       /cannot reserve the Annex before Week 13/,
+    498|     )
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/13]⎯
+
+ FAIL |core|  tests/construction-core.test.ts > Development & Casting Annex V1 core lifecycle > uses the authoritative greenlight debit to reject skip-first start-clock laundering
+AssertionError: expected [Function] to throw error matching /placed-facility reservation disagrees…/ but got 'validateSaveV25: expected version 25'
+
+- Expected: 
+/placed-facility reservation disagrees with its authoritative greenlight week/
+
++ Received: 
+"validateSaveV25: expected version 25"
+
+ ❯ tests/construction-core.test.ts:565:47
+    563|     forgedSave.state.studio.activeProductions[0]!.startTick = 13
+    564|     forgedSave.state.operations.workflows[0]!.reservations[0]!.facilit…
+    565|     expect(() => validateSaveV25(forgedSave)).toThrow(
+       |                                               ^
+    566|       /placed-facility reservation disagrees with its authoritative gr…
+    567|     )
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/13]⎯
+
+ FAIL |core|  tests/construction-core.test.ts > Development & Casting Annex V1 core lifecycle > allows a production started after completion to claim the Annex under normal allocation
+AssertionError: expected [Function] to not throw an error but 'Error: validateSaveV25: expected vers…' was thrown
+
+- Expected: 
+undefined
+
++ Received: 
+"Error: validateSaveV25: expected version 25"
+
+ ❯ tests/construction-core.test.ts:663:56
+    661|     expect(state.operations.facilities.at(-1)!.id).toBe(ANNEX_FACILITY…
+    662|     expect(state.placement.facilities[0]).toMatchObject({ status: 'ope…
+    663|     expect(() => validateSaveV25(makeSave(state))).not.toThrow()
+       |                                                        ^
+    664|   })
+    665| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/13]⎯
+
+ FAIL |core|  tests/construction-save-v11.test.ts > Development & Casting Annex V1 — SaveFileV11 > writes V12 by default and round-trips legacy, vacant, building, and completed lifecycle states
+AssertionError: expected 26 to be 25 // Object.is equality
+
+- Expected
++ Received
+
+- 25
++ 26
+
+ ❯ tests/construction-save-v11.test.ts:189:32
+    187|     for (const state of states) {
+    188|       const save = makeSave(state);
+    189|       expect(save.saveVersion).toBe(25);
+       |                                ^
+    190|       expect(validateSave(save)).toBe(save);
+    191|       expect(validateSaveV25(save)).toBe(save);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/13]⎯
+
+ FAIL |core|  tests/construction-save-v11.test.ts > Development & Casting Annex V1 — SaveFileV11 > rejects every canonical Annex ID in persisted production history while building
+ FAIL |core|  tests/construction-save-v11.test.ts > Development & Casting Annex V1 — SaveFileV11 > rejects every canonical Annex ID in persisted production history while completed
+AssertionError: expected [Function] to throw error matching /canonical Annex id .*collides with pe…/ but got 'validateSaveV25: expected version 25'
+
+- Expected: 
+/canonical Annex id .*collides with persisted production history/
+
++ Received: 
+"validateSaveV25: expected version 25"
+
+ ❯ tests/construction-save-v11.test.ts:514:50
+    512|           note: "forged persisted production identity",
+    513|         });
+    514|         expect(() => validateSaveV25(forgedV13)).toThrow(
+       |                                                  ^
+    515|           /canonical Annex id .*collides with persisted production his…
+    516|         );
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/13]⎯
+
+ FAIL |core|  tests/construction-save-v11.test.ts > Development & Casting Annex V1 — SaveFileV11 > validates original current input and rejects unknown future versions
+AssertionError: expected [Function] to throw an error
+
+- Expected: 
+null
+
++ Received: 
+undefined
+
+ ❯ tests/construction-save-v11.test.ts:553:62
+    551|     expect(() => makeSave(withFuture)).toThrow(/unknown field "futureV…
+    552|     const save = makeSave(managedVacant("save-v11-projection"));
+    553|     expect(() => validateSave({ ...save, saveVersion: 26 })).toThrow(
+       |                                                              ^
+    554|       /unknown saveVersion 26.*versions 1 through 25 only/,
+    555|     );
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/13]⎯
+
+ FAIL |core|  tests/facility-move-demolish.test.ts > C1-M3a (F) — saves, boundaries, and determinism > round-trips a history containing both a move and a demolition
+AssertionError: expected 26 to be 25 // Object.is equality
+
+- Expected
++ Received
+
+- 25
++ 26
+
+ ❯ tests/facility-move-demolish.test.ts:778:30
+    776| 
+    777|     const save = makeSave(state)
+    778|     expect(save.saveVersion).toBe(25)
+       |                              ^
+    779|     expect(validateSave(save)).toBe(save)
+    780|     expect(validateSaveV25(save)).toBe(save)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/13]⎯
+
+ FAIL |core|  tests/placement-core.test.ts > Placement Core V12 — the blueprint catalog > keeps the Annex law exactly as V11 wrote it, inside a widened catalog
+AssertionError: expected [ { …(15) }, { …(15) }, …(18) ] to have a length of 17 but got 20
+
+- Expected
++ Received
+
+- 17
++ 20
+
+ ❯ tests/placement-core.test.ts:98:33
+     96|     // every existing index is unmoved (17 entries).
+     97|     // The Annex is still entry ZERO and still byte-identical below.
+     98|     expect(FACILITY_BLUEPRINTS).toHaveLength(17)
+       |                                 ^
+     99|     expect(FACILITY_BLUEPRINTS[0]).toBe(DEVELOPMENT_CASTING_ANNEX_BLUE…
+    100|     expect(DEVELOPMENT_CASTING_ANNEX_BLUEPRINT).toEqual({
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/13]⎯
+
+ FAIL |core|  tests/placement-core.test.ts > Placement Core V12 — the commit > records a placed facility with a monotonic reserved identity
+AssertionError: expected [ { id: 1, …(10) } ] to deeply equal [ { id: 1, …(9) } ]
+
+- Expected
++ Received
+
+  Array [
+    Object {
+      "blueprintId": "development-casting-annex",
++     "cancellation": null,
+      "cells": Array [
+        Object {
+          "gx": 7,
+          "gy": 15,
+        },
+        Object {
+          "gx": 8,
+          "gy": 15,
+        },
+        Object {
+          "gx": 9,
+          "gy": 15,
+        },
+        Object {
+          "gx": 7,
+          "gy": 16,
+        },
+        Object {
+          "gx": 8,
+          "gy": 16,
+        },
+        Object {
+          "gx": 9,
+          "gy": 16,
+        },
+      ],
+      "completesWeek": 13,
+      "facilityId": "facility-development-casting-annex",
+      "id": 1,
+      "origin": Object {
+        "gx": 7,
+        "gy": 15,
+      },
+      "parcelId": "expansion",
+      "placedWeek": 0,
+      "projectId": "construction-development-casting-annex",
+      "status": "underConstruction",
+    },
+  ]
+
+ ❯ tests/placement-core.test.ts:411:39
+    409|     const next = commitPlacement(state, ORIGIN.legacyExpansion)
+    410|     expect(next.placement.nextPlacementId).toBe(2)
+    411|     expect(next.placement.facilities).toEqual([
+       |                                       ^
+    412|       {
+    413|         id: 1,
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/13]⎯
+
+ FAIL |core|  tests/placement-save-v12.test.ts > Placement Core V12 — the frozen envelope > rejects overlapping placements and clearance-ring violations in a forged save
+Error: validateSaveV25: expected version 25
+ ❯ validateSaveV25WithPolicy src/core/save.ts:7946:38
+    7944|   if (!isRecord(save)) throw new Error('validateSaveV25: object requir…
+    7945|   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'…
+    7946|   if (save.saveVersion !== 25) throw new Error('validateSaveV25: expec…
+       |                                      ^
+    7947|   const raw = v14Record(checkEnvelope(save, 'validateSaveV25'), 'state…
+    7948|   const operationsRaw = raw.operations;
+ ❯ Module.validateSaveV25 src/core/save.ts:7939:10
+ ❯ tests/placement-save-v12.test.ts:411:12
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/13]⎯
+
+ FAIL |core|  tests/placement-save-v12.test.ts > Placement Core V12 — the frozen envelope > rejects a forged operating charge that disagrees with the operational facilities
+Error: validateSaveV25: expected version 25
+ ❯ validateSaveV25WithPolicy src/core/save.ts:7946:38
+    7944|   if (!isRecord(save)) throw new Error('validateSaveV25: object requir…
+    7945|   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'…
+    7946|   if (save.saveVersion !== 25) throw new Error('validateSaveV25: expec…
+       |                                      ^
+    7947|   const raw = v14Record(checkEnvelope(save, 'validateSaveV25'), 'state…
+    7948|   const operationsRaw = raw.operations;
+ ❯ Module.validateSaveV25 src/core/save.ts:7939:10
+ ❯ tests/placement-save-v12.test.ts:435:12
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/13]⎯
+
+ Test Files  5 failed | 3 passed (8)
+      Tests  13 failed | 134 passed (147)
+   Start at  18:31:14
+   Duration  20.39s (transform 1.78s, setup 0ms, collect 4.68s, tests 12.83s, environment 2ms, prepare 808ms)
+

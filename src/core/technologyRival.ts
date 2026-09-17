@@ -30,7 +30,7 @@ export function considerRivalSoundPurchase(state: GameState, hollywood: Hollywoo
   return {...technology,equipment:[...technology.equipment,asset],nextEquipmentId:technology.nextEquipmentId+1,
     adoptions:[...technology.adoptions,{id,studioId:business.studioId,
     technologyId:SYNCHRONIZED_SOUND.id,stageFacilityId:stage.id,postFacilityId:post.id,route:'purchase',committedWeek:state.market.tick,
-    operationalWeek:null,equipmentCost:equipment.cost,installationCost,physicalProjectIds:[],prototypeProjectId:null,
+    operationalWeek:null,cancelledWeek:null,equipmentCost:equipment.cost,installationCost,physicalProjectIds:[],prototypeProjectId:null,
     components:aggregatedAdoptionComponents(entry,equipment,installationCost,asset.id),equipmentAssetId:asset.id}]}
 }
 

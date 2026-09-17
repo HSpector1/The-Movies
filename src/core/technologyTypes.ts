@@ -100,6 +100,13 @@ export type TechnologyAdoption = {
   route: 'research' | 'purchase'
   committedWeek: number
   operationalWeek: number | null
+  /**
+   * P13B-S6: the week this adoption's remaining physical work was cancelled, or
+   * null. A cancelled adoption keeps its component rows, its `physicalProjectIds`
+   * and its `equipmentAssetId` as history, holds no equipment asset, is skipped by
+   * the weekly completion pass and can never become operational.
+   */
+  cancelledWeek: number | null
   equipmentCost: number
   installationCost: number
   physicalProjectIds: string[]
@@ -134,7 +141,7 @@ export type StudioTechnology = {
 }
 
 /** Frozen P13B-S3 shape (technology root v3, Save V23): no component rows, no equipment assets, a Post on every adoption. */
-export type TechnologyAdoptionV3 = Omit<TechnologyAdoption, 'postFacilityId' | 'components' | 'equipmentAssetId'> & { postFacilityId: string }
+export type TechnologyAdoptionV3 = Omit<TechnologyAdoption, 'postFacilityId' | 'components' | 'equipmentAssetId' | 'cancelledWeek'> & { postFacilityId: string }
 export type StudioTechnologyV3 = Omit<StudioTechnology, 'version' | 'adoptions' | 'equipment' | 'nextEquipmentId'> & { version: 3; adoptions: TechnologyAdoptionV3[] }
 
 /** Frozen P13B-S1 shape (technology root v2, Save V21): single-pool receipts over 1/20,000, no per-Laboratory rows. */

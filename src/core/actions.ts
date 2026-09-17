@@ -59,6 +59,7 @@ import {
 import { computeForecast, type ForecastContext } from './forecast.js'
 import { forecastHistoryForOwner } from './industryCareer.js'
 import { recordPlayerEmployment } from './industryEmployment.js'
+import { cancelAdoption, cancelInstallation, cancellationQuote } from './installationCancellation.js'
 import { clamp } from './math.js'
 import { assertNoDoubleBookedResourceSlots, setOccupiedFacilitySlots } from './occupancy.js'
 import {
@@ -1482,6 +1483,33 @@ function applyPlaceFacility(
   action: Action & { kind: 'placeFacility' },
 ): GameState {
   return rejectIllegalPlacement(state, 'placeFacility', action.placement)
+}
+
+/**
+ * P13B-S6 — the two cancellation verbs, in the shape every destructive placement
+ * verb already has: validate the whole state FIRST so a forged ledger cannot
+ * launder an apparently lawful refund, then ask the ONE quote authority, then
+ * apply — and abort loudly if the pure helper disagrees with the quote that just
+ * passed. The thrown message carries the quote's own player sentence, because a
+ * second copy of that sentence is a second chance to lie.
+ */
+function applyCancellation(
+  state: GameState,
+  action: Action & { kind: 'cancelInstallation' | 'cancelAdoption' },
+): GameState {
+  assertStudioPlacementInvariants(state)
+  const target = action.kind === 'cancelInstallation'
+    ? { projectId: action.projectId }
+    : { adoptionId: action.adoptionId }
+  const quote = cancellationQuote(state, target)
+  if (!quote.ok) throw new Error(`applyActions: ${action.kind} rejected — ${quote.refusal ?? 'refused'}`)
+  const next = action.kind === 'cancelInstallation'
+    ? cancelInstallation(state, action.projectId)
+    : cancelAdoption(state, action.adoptionId)
+  if (next === state) {
+    throw new Error(`applyActions: ${action.kind} rejected — the helper refused a cancellation its own quote accepted`)
+  }
+  return next
 }
 
 /**
@@ -3040,6 +3068,10 @@ export function applyActions(state: GameState, actions: Action[]): GameState {
         break
       case 'demolishFacility':
         next = applyDemolishFacility(next, action)
+        break
+      case 'cancelInstallation':
+      case 'cancelAdoption':
+        next = applyCancellation(next, action)
         break
       case 'commissionSet':
         next = applyCommissionSet(next, action)

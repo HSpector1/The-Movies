@@ -399,8 +399,14 @@ export type LedgerKindV13 = LedgerKindV12 | 'facilityDemolitionRefund'
 // life is auditable on its own kinds rather than laundered through the facility
 // family. No producer exists until M2 builds sets; the kinds and their historical
 // boundary legs land NOW so the V14 schema is complete in one milestone.
+// P13B-S6: the credit returned when a running installation is CANCELLED. Its own
+// kind for the same reason the demolition refund has one — the capital life of a
+// job (committed, part-worked, refunded) is one auditable trail correlated by
+// `constructionProjectId`, and an unworked component's money is never laundered
+// through generic revenue or a negative capex.
 export type LedgerKind =
   | LedgerKindV13
+  | 'constructionRefund'
   | 'setCapex'
   | 'setMaintenance'
   | 'setDemolitionRefund'
@@ -465,6 +471,20 @@ export type LedgerEntry =
   | {
       week: number
       kind: 'facilityDemolitionRefund'
+      amount: number
+      talentId?: never
+      productionId?: never
+      constructionProjectId: string
+      note: string
+    }
+  // P13B-S6. A POSITIVE amount, exactly as the demolition refund is, carrying the
+  // SAME `constructionProjectId` as the capex row it partly returns: exactly one
+  // refund per cancelled project, never a refund without a prior capex, and never
+  // more than the component money that was never worked. All three are asserted by
+  // the placement invariants and by the V26 cancellation validator.
+  | {
+      week: number
+      kind: 'constructionRefund'
       amount: number
       talentId?: never
       productionId?: never
@@ -1147,7 +1167,37 @@ export type CommissionSetPayload = {
   stageFacilityId: string
 }
 
-export type PlacementStatus = 'underConstruction' | 'operational'
+/**
+ * P13B-S6: what a cancelled installation was charged and refunded, component by
+ * component, written ONCE at the cancel week and never recomputed. The components
+ * mirror the blueprint's own authored `installationComponents` in authored order;
+ * `paid + refunded === cost` on every line, and `refund` is the sum of the
+ * refunded column — the exact amount of the single `constructionRefund` ledger row
+ * this receipt is correlated with by `projectId`.
+ */
+export type CancellationReceipt = {
+  projectId: string
+  week: number
+  components: readonly {
+    label: string
+    cost: number
+    weeks: number
+    /** Derived at the cancel week from `placedWeek` and the authored order. */
+    status: 'completed' | 'inProgress' | 'unstarted'
+    paid: number
+    refunded: number
+  }[]
+  refund: number
+  /** The `projectId` of the restoration job this cancellation committed, or null. */
+  restorationProjectId: string | null
+}
+
+/**
+ * P13B-S6 adds the third value. A cancelled record is retained forever — it is
+ * the proof of what was paid — and is never operational, never completes, never
+ * claims its body and never counts as an installation standing on its target.
+ */
+export type PlacementStatus = 'underConstruction' | 'operational' | 'cancelled'
 
 export type PlacedFacility = {
   /** Monotonic, never reused. Reserved through `StudioPlacement.nextPlacementId`. */
@@ -1167,6 +1217,12 @@ export type PlacedFacility = {
   completesWeek: number
   /** A P09 physical-work arm. Empty cells; exact existing body owns the ground. */
   installation?: { targetFacilityId: string }
+  /**
+   * P13B-S6 leaf widening, version-aware at the V26 boundary exactly as
+   * `ProductionWorkflow.setup` is at V25: pre-V26 boundaries REFUSE it, V26
+   * REQUIRES it. Non-null EXACTLY when `status === 'cancelled'`.
+   */
+  cancellation: CancellationReceipt | null
 }
 
 // ── C1-M3a Move & Demolish V1 ────────────────────────────────────────────────
@@ -1925,7 +1981,15 @@ export type GameStateV24 = GameStateV19 & { technology: import('./technologyType
  * dispatch has a version to point `GameState` at.
  */
 export type GameStateV25 = GameStateV24
-export type GameState = GameStateV25
+/**
+ * P13B-S6 (Save V26). NO new root: the change at this version is the widened
+ * `PlacedFacility.cancellation` and `TechnologyAdoption.cancelledWeek` leaves, the
+ * third `PlacementStatus` value and the `constructionRefund` ledger kind — all
+ * version-aware at the boundary, exactly as V25's setup leaves were. The distinct
+ * name exists so save.ts's version dispatch has a version to point `GameState` at.
+ */
+export type GameStateV26 = GameStateV25
+export type GameState = GameStateV26
 
 // ── D-14 Talent Career Impact — frozen career-event record (§7) ───────────────
 // The ONE canonical persisted record of a participant's outcome on one released film.
@@ -2054,6 +2118,12 @@ export type Action =
       recipeId: ProductionSetupRecipeId
       expectedPlanRevision: number
     }
+  // ── P13B-S6 — the two cancellation verbs. Each names ONE thing it may cancel:
+  // a committed installation project, or an adoption whose remaining physical work
+  // it stops. Neither can reach a price, a week or a refund of its own — the
+  // receipt is derived from the placement's own committed clock.
+  | { kind: 'cancelInstallation'; projectId: string }
+  | { kind: 'cancelAdoption'; adoptionId: string }
   // ── P13B-S3 physical plans — five verbs, and what they can reach is the design.
   // `queuePhysicalPlan` names WORK and a ceiling, never a placement id: a plan
   // cannot reach an existing building. The other four name a plan id only.

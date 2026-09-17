@@ -1,0 +1,54 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/roster-wall-artifacts.test.ts (16 tests) 43096ms
+   ✓ roster-wall provenance gates > accepts a clean harness/docs/tests-only descendant and stamps exact source identity 777ms
+   ✓ roster-wall provenance gates > rejects untracked executable state, a wrong branch, and production-source drift 1127ms
+   ✓ roster-wall provenance gates > rejects an ignored executable/source shadow 410ms
+   ✓ roster-wall artifact infrastructure > writes, inventories, verifies, and exactly replays a complete artifact 513ms
+   ✓ roster-wall artifact infrastructure > does not expose an accepted-finalization authority override 563ms
+   ✓ roster-wall artifact infrastructure > rejects the former skeletal smoke counterfeit before semantic acceptance 20088ms
+   ✓ roster-wall artifact infrastructure > rejects rebuilt mechanics semantics against the canonical fixture oracle 18384ms
+ ✓ |core| tests/roster-wall-fixtures.test.ts (9 tests) 20072ms
+   ✓ Week-208 roster-wall synthetic mechanics fixtures > refuses artifact-facing fixture rows without accepted source authority 568ms
+   ✓ Week-208 roster-wall synthetic mechanics fixtures > derives every named cash threshold from each policy's exact offers and retains N/A role rows 4251ms
+   ✓ Week-208 roster-wall synthetic mechanics fixtures > ranks frozen quote metadata in each C0-C6 policy's actual complete basis order 3335ms
+   ✓ Week-208 roster-wall synthetic mechanics fixtures > exercises distinct C0-C6 order, timing, retry, and term semantics 725ms
+   ✓ Week-208 roster-wall synthetic mechanics fixtures > emits the complete canonical-data-ready matrix deterministically 10636ms
+   ✓ Week-208 roster-wall synthetic mechanics fixtures > prices C6 thresholds from its mixed 52/104/156/208 offers, not 208-week quotes 536ms
+ ✓ |core| tests/roster-wall-summary.test.ts (4 tests) 131365ms
+   ✓ roster-wall summary > derives boundary, recurrence, and player obligations from a real evidence slice 131354ms
+ ✓ |core| tests/roster-wall-player-policy.test.ts (12 tests) 119164ms
+   ✓ Week-208 roster-wall mixed-founding-term player policy > serializes the exact Week-196 entry and every player row through one envelope 740ms
+   ✓ Week-208 roster-wall mixed-founding-term player policy > replays deterministically from the same seed and policy 41329ms
+   ✓ Week-208 roster-wall mixed-founding-term player policy > completes the other governed operating policy — direct-package 36962ms
+   ✓ Week-208 roster-wall mixed-founding-term player policy > completes the other governed operating policy — scaled-two-team 39419ms
+ ✓ |core| tests/roster-wall-continuation.test.ts (6 tests) 127726ms
+   ✓ Week-208 roster-wall continuation layer > fresh-loads the exact Week-196 entry, applies renewal first, and reconciles every transition 5745ms
+   ✓ Week-208 roster-wall continuation layer > keeps C0 voluntary attrition out of involuntary-wall taxonomy 5284ms
+   ✓ Week-208 roster-wall continuation layer > runs all seven primary policies from one entry and builds exact-entry C1 pairs 43843ms
+   ✓ Week-208 roster-wall continuation layer > keeps Annex same-entry policy pairs out of facility-causal paired tables 45602ms
+   ✓ Week-208 roster-wall continuation layer > keeps recurrence attempts out of the original-expiry wall taxonomy 21978ms
+   ✓ Week-208 roster-wall continuation layer > is byte-identical with continuation observation disabled 5272ms
+ ✓ |core| tests/roster-wall-campaign.test.ts (9 tests) 50151ms
+   ✓ Week-208 roster-wall campaign entry harvest > mechanically matches frozen facilities behavior through vacant Week 196 — direct-package 11069ms
+   ✓ Week-208 roster-wall campaign entry harvest > mechanically matches frozen facilities behavior through vacant Week 196 — development-casting 9192ms
+   ✓ Week-208 roster-wall campaign entry harvest > mechanically matches frozen facilities behavior through vacant Week 196 — scaled-two-team 11505ms
+   ✓ Week-208 roster-wall campaign entry harvest > captures pure 52/26/12-week timing shadows and exact SaveFileV16 replay 3101ms
+   ✓ Week-208 roster-wall campaign entry harvest > folds pre-entry cash in ledger order without a floating-point residual 3838ms
+   ✓ Week-208 roster-wall campaign entry harvest > starts the real Annex only through its Week-0 public action and preserves its lifecycle 3761ms
+   ✓ Week-208 roster-wall campaign entry harvest > is byte-neutral with timing, intent, and weekly observation disabled 3859ms
+   ✓ Week-208 roster-wall campaign entry harvest > returns only a byte-, state-, and RNG-neutral harvest from the accepted seam 3797ms
+ ✓ |core| tests/roster-wall-renewal.test.ts (6 tests) 169ms
+ ✓ |core| tests/roster-wall-schema.test.ts (5 tests) 10463ms
+   ✓ Week-208 roster-wall evidence schema > projects the exact V11 entry, accounting, dimensions and three warning shadows 3703ms
+   ✓ Week-208 roster-wall evidence schema > rejects even a sub-cent cash mismatch instead of applying tolerance 3451ms
+   ✓ Week-208 roster-wall evidence schema > keeps Annex state descriptive and distinct in the entry ID 3294ms
+ ✓ |core| tests/roster-wall-observatory-cli.test.ts (8 tests) 9ms
+ ✓ |core| tests/roster-wall-corpus.test.ts (2 tests) 7ms
+
+ Test Files  10 passed (10)
+      Tests  77 passed (77)
+   Start at  18:32:03
+   Duration  545.94s (transform 1.99s, setup 0ms, collect 40.35s, tests 502.22s, environment 3ms, prepare 912ms)
+

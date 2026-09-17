@@ -11,7 +11,9 @@ export { makeSaveV18 as makeSave } from '../../core/save.js'
 /** Call only AFTER exact original import/hash checks. This is not gameplay migration. */
 export function liftV18Control(state:GameStateV18):GameState { const cloned=structuredClone(state); return {...cloned,hollywood:null,
   // P13B S5-R07: the live workflow carries `setup`/`planRevision`; a historical control never selected a recipe.
-  operations:{...cloned.operations,workflows:cloned.operations.workflows.map(w=>({...w,setup:null,planRevision:0}))},talent:state.talent.map(withResearchFoundation),technology:initialTechnology(state.market.tick),physicalPlans:initialPhysicalPlans()} }
+  operations:{...cloned.operations,workflows:cloned.operations.workflows.map(w=>({...w,setup:null,planRevision:0}))},
+  // P13B-S6: the live placement record carries `cancellation`; a historical control cancelled nothing.
+  placement:{...cloned.placement,facilities:cloned.placement.facilities.map(f=>({...f,cancellation:null}))},talent:state.talent.map(withResearchFoundation),technology:initialTechnology(state.market.tick),physicalPlans:initialPhysicalPlans()} }
 export function historicalHashState<T extends object>(state:T):object {
   if(!('technology' in state) && !('hollywood' in state) && !('physicalPlans' in state))return state
   if('hollywood' in state && state.hollywood!==null)throw new Error('Historical hash cannot discard a living industry')
@@ -31,6 +33,15 @@ export function historicalHashState<T extends object>(state:T):object {
       const {setup, planRevision, ...rest} = workflow as typeof workflow & {setup?: unknown; planRevision?: unknown}
       if ((setup !== undefined && setup !== null) || (planRevision !== undefined && planRevision !== 0)) throw new Error('Historical hash cannot discard production setup authority')
       return rest as typeof workflow
+    })}
+  }
+  if (frozen.placement) {
+    // P13B-S6: the live placement record carries `cancellation`; a historical control cancelled nothing, so the only
+    // lawful shape to discard is the null receipt on a record that was never cancelled.
+    frozen.placement = {...frozen.placement, facilities: frozen.placement.facilities.map(placed => {
+      const {cancellation, ...rest} = placed as typeof placed & {cancellation?: unknown}
+      if ((cancellation !== undefined && cancellation !== null) || placed.status === 'cancelled') throw new Error('Historical hash cannot discard installation cancellation authority')
+      return rest as typeof placed
     })}
   }
   if (frozen.talent) frozen.talent = frozen.talent.map(person => {

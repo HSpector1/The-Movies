@@ -109,7 +109,7 @@ import {
   // save
   importSave,
   LIVE_SAVE_VERSION,
-  migrateToV25,
+  migrateToV26,
   convertV17ToV18,
   convertV4ToV5,
   convertV5ToV6,
@@ -3793,7 +3793,7 @@ export function importSaveJson(json: string): ImportOutcome {
     // P13B-S5-R07-T3: the live version is the constant beside `makeSave`, never a
     // literal — a stale one reported every current save as a migration.
     const converted = save.saveVersion !== LIVE_SAVE_VERSION
-    return { ok: true, state: migrateToV25(save).state, converted }
+    return { ok: true, state: migrateToV26(save).state, converted }
   } catch (e) {
     return { ok: false, error: (e as Error).message }
   }
@@ -3805,7 +3805,7 @@ export function importLegacyV2SaveJson(json: string): ImportOutcome {
   try {
     return {
       ok: true,
-      state: migrateToV25(convertV17ToV18(convertV16ToV17(convertV15ToV16(convertV14ToV15(convertV13ToV14(convertV12ToV13(convertV11ToV12(convertV10ToV11(convertV9ToV10(convertV8ToV9(convertV7ToV8(convertV6ToV7(convertV5ToV6(convertV4ToV5(importLegacyV2ToV4(json)))))))))))))))).state,
+      state: migrateToV26(convertV17ToV18(convertV16ToV17(convertV15ToV16(convertV14ToV15(convertV13ToV14(convertV12ToV13(convertV11ToV12(convertV10ToV11(convertV9ToV10(convertV8ToV9(convertV7ToV8(convertV6ToV7(convertV5ToV6(convertV4ToV5(importLegacyV2ToV4(json)))))))))))))))).state,
       converted: true,
     }
   } catch (e) {
@@ -3819,7 +3819,7 @@ export function importLegacyV1SaveJson(json: string): ImportOutcome {
   try {
     return {
       ok: true,
-      state: migrateToV25(convertV17ToV18(convertV16ToV17(convertV15ToV16(convertV14ToV15(convertV13ToV14(convertV12ToV13(convertV11ToV12(convertV10ToV11(convertV9ToV10(convertV8ToV9(convertV7ToV8(convertV6ToV7(convertV5ToV6(convertV4ToV5(importLegacyV1ToV4(json)))))))))))))))).state,
+      state: migrateToV26(convertV17ToV18(convertV16ToV17(convertV15ToV16(convertV14ToV15(convertV13ToV14(convertV12ToV13(convertV11ToV12(convertV10ToV11(convertV9ToV10(convertV8ToV9(convertV7ToV8(convertV6ToV7(convertV5ToV6(convertV4ToV5(importLegacyV1ToV4(json)))))))))))))))).state,
       converted: true,
     }
   } catch (e) {

@@ -134,6 +134,7 @@ import {
   FACILITY_DEMOLITION_REFUND_FRACTION,
   FACILITY_MOVE_COST,
   FACILITY_OPEX_LEDGER_NOTE,
+  isRestorationBlueprint,
   TUNING,
 } from './tuning.js'
 import type {
@@ -788,6 +789,8 @@ export function commitPlacement(state: GameState, request: PlacementRequest): Ga
     status: 'underConstruction',
     placedWeek: state.market.tick,
     completesWeek: quote.completesOnWeek,
+    // P13B-S6: the leaf is REQUIRED at V26 and null until a cancellation writes it.
+    cancellation: null,
   }
   const entry: LedgerEntry = {
     week: state.market.tick,
@@ -807,6 +810,25 @@ export function commitPlacement(state: GameState, request: PlacementRequest): Ga
       // Stored in ascending id order — ids are monotonic, so appending preserves it.
       facilities: [...state.placement.facilities, placed],
     },
+  }
+}
+
+/**
+ * The next placement identity for one blueprint: the reserved id and the canonical
+ * facility/project names derived from it. Exported because P13B-S6's restoration
+ * job is committed by the cancellation authority rather than by a player quote, and
+ * a second copy of the identity rule is a second chance to mint a colliding id.
+ */
+export function reservePlacementIdentity(
+  state: GameState,
+  blueprint: FacilityBlueprint,
+): { id: number; facilityId: string; projectId: string } {
+  const id = state.placement.nextPlacementId
+  const numbered = blueprint.numberedInstances === true
+  return {
+    id,
+    facilityId: deriveIdentity(blueprint.facilityIdBase, id, takenFacilityIds(state), numbered),
+    projectId: deriveIdentity(blueprint.projectIdBase, id, takenProjectIds(state), numbered),
   }
 }
 
@@ -853,7 +875,11 @@ export function queryFacilityInstallation(state: GameState, request: FacilityIns
   if (target === undefined) rejections.push('unknownTarget')
   else if (blueprint?.installationTargetCapability !== target.capability) rejections.push('incompatibleTarget')
   if (installationTargetBody(state, request.targetFacilityId) === null) rejections.push('targetHasNoBody')
-  if (state.placement.facilities.some((placed) => placed.installation?.targetFacilityId === request.targetFacilityId && placed.blueprintId === request.blueprintId)) {
+  // P13B-S6: a CANCELLED record installed nothing — it is the receipt for work that
+  // was stopped — so it never makes the same blueprint "already installed" on that
+  // body. The restart the plan requires is a new placement quoted at full price.
+  if (state.placement.facilities.some((placed) => placed.installation?.targetFacilityId === request.targetFacilityId &&
+    placed.blueprintId === request.blueprintId && placed.status !== 'cancelled')) {
     rejections.push('alreadyInstalled')
   }
   // A standing idle set is compatible with adaptation; live work and set construction are not.
@@ -864,7 +890,13 @@ export function queryFacilityInstallation(state: GameState, request: FacilityIns
       if (set?.status === 'standing') return false
     }
     if (held.kind === 'installation') {
-      return state.placement.facilities.some((placed) => placed.projectId === held.holderId && placed.status === 'underConstruction')
+      // P13B-S6: a RESTORATION is the cost of a cancellation the studio has already
+      // paid, not work it chose to run, so it never refuses the restart the plan
+      // requires to be lawful ("restart quoted anew, at full price"). It keeps every
+      // other hold it has — the body stays CLOSED while it runs (S4's offline law)
+      // and cannot be demolished out from under it.
+      return state.placement.facilities.some((placed) => placed.projectId === held.holderId &&
+        placed.status === 'underConstruction' && !isRestorationBlueprint(placed.blueprintId))
     }
     if (held.kind === 'research') {
       return state.technology.projects.some((project) => project.id === held.holderId && project.status === 'active')
@@ -914,6 +946,7 @@ export function commitFacilityInstallation(state: GameState, request: FacilityIn
     projectId: deriveIdentity(blueprint.projectIdBase, id, takenProjectIds(state)),
     placedWeek: state.market.tick, completesWeek: quote.completesOnWeek, status: 'underConstruction',
     installation: { targetFacilityId: request.targetFacilityId },
+    cancellation: null,
   }
   const placement: StudioPlacement = {
     ...state.placement, nextPlacementId: id + 1, facilities: [...state.placement.facilities, placed],
@@ -1008,6 +1041,7 @@ export function placementQuoteFingerprint(quote: PlacementQuote): string {
 export function facilityInstallationPhase(placed: PlacedFacility, currentWeek: number): string | null {
   if (placed.installation === undefined) return null
   if (placed.status === 'operational') return 'Operational'
+  if (placed.status === 'cancelled') return 'Cancelled'
   const blueprint = blueprintById(placed.blueprintId)
   let elapsed = Math.max(0, currentWeek - placed.placedWeek)
   for (const component of blueprint?.installationComponents ?? []) {
@@ -1717,6 +1751,12 @@ function expectedOperatingCostFromHistory(
   let total = 0
   for (const facility of placement.facilities) {
     if (facility.completesWeek > week) continue
+    // P13B-S6: a CANCELLED record never opened, so it never paid an operating cost —
+    // in any week, including the ones after the completion week its stopped work
+    // would have arrived at. The live weekly charge reads `status`; this historical
+    // reconstruction must read the same fact or the two disagree the moment the
+    // calendar walks past a cancelled job's committed completion week.
+    if (facility.status === 'cancelled') continue
     const blueprint = blueprintById(facility.blueprintId)
     if (blueprint === null) continue
     // P13B-S4: the same standard law the live charge obeys, asked of that week —
@@ -1884,8 +1924,10 @@ export function assertStudioPlacementInvariants(
       invariant(body !== null && body.parcelId === placed.parcelId && body.origin.gx === placed.origin.gx && body.origin.gy === placed.origin.gy,
         `${label} installation location disagrees with its exact target body`)
       invariant(placed.cells.length === 0, `${label} installation must not occupy a second body`)
-      invariant(placement.facilities.filter((candidate) => candidate.blueprintId === placed.blueprintId &&
-        candidate.installation?.targetFacilityId === targetFacilityId).length === 1,
+      // P13B-S6: cancelled records are not installations on this body — a restart
+      // after a cancellation is lawfully the same blueprint on the same target.
+      invariant(placed.status === 'cancelled' || placement.facilities.filter((candidate) => candidate.blueprintId === placed.blueprintId &&
+        candidate.installation?.targetFacilityId === targetFacilityId && candidate.status !== 'cancelled').length === 1,
       `${label} duplicates an installation on the same target`)
     } else {
       const expectedCells = footprintCells(blueprint, placed.origin)
@@ -1942,11 +1984,16 @@ export function assertStudioPlacementInvariants(
       `${label} completesWeek must equal placedWeek + ${lawfulSpans.map(String).join(' or ')}`,
     )
     invariant(
-      placed.status === 'underConstruction' || placed.status === 'operational',
+      placed.status === 'underConstruction' || placed.status === 'operational' || placed.status === 'cancelled',
       `${label} has unknown status ${String(placed.status)}`,
     )
+    // P13B-S6: a CANCELLED record is out of the completion clock's reach forever —
+    // its work stopped at its receipt's week and the calendar walking past its
+    // committed completion week changes nothing about it. Its own law (one receipt,
+    // one refund row, the restoration it owed) is the V26 cancellation validator's.
     invariant(
-      (placed.status === 'operational') === (placed.completesWeek <= state.market.tick),
+      placed.status === 'cancelled' ||
+        (placed.status === 'operational') === (placed.completesWeek <= state.market.tick),
       `${label} status disagrees with its committed completion week`,
     )
 
@@ -2461,7 +2508,12 @@ export type PlacedFacilityView = {
   parcelId: string
   origin: LotCell
   cells: LotCell[]
-  status: PlacedFacility['status']
+  /**
+   * P13B-S6: the LOT view keeps the two-value law. Only an INSTALLATION can be
+   * cancelled and this view carries bodies alone, so the third value is
+   * unreachable here — asserted in the mapping below rather than assumed.
+   */
+  status: Exclude<PlacedFacility['status'], 'cancelled'>
   placedWeek: number
   completesWeek: number
   weeksRemaining: number
@@ -2573,6 +2625,9 @@ export function studioPlacementView(state: GameState): StudioPlacementView {
     const blueprint = blueprintById(placed.blueprintId)
     if (blueprint === null) {
       throw new Error(`placement view: unknown blueprint "${placed.blueprintId}"`)
+    }
+    if (placed.status === 'cancelled') {
+      throw new Error(`placement view: placed facility ${String(placed.id)} is a cancelled body, which no verb can produce`)
     }
     return {
       id: placed.id,

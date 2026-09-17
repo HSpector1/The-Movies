@@ -148,7 +148,12 @@ type EquipmentPlan = {
 export function equipmentPlan(state: GameState, studioId: string, technologyId: TechnologyId): EquipmentPlan {
   const entry = technologyEntry(technologyId)
   const owned = state.technology.equipment.filter(asset => asset.studioId === studioId && asset.technologyId === technologyId)
-  const unheld = owned.find(asset => asset.holderAdoptionId === null && !state.technology.adoptions.some(a => a.equipmentAssetId === asset.id))
+  // P13B-S6: an asset is reusable exactly when NOTHING HOLDS IT. The holder field
+  // is that fact; a cancelled adoption keeps naming the asset it paid for as its own
+  // history, which is why the predicate can never also require that no adoption row
+  // mentions it (the save validator refuses an unheld asset a LIVE adoption names,
+  // so a null holder is proof the work that owned it was cancelled or finished).
+  const unheld = owned.find(asset => asset.holderAdoptionId === null)
   if (unheld) return { source: 'existing', cost: 0, reusedEquipmentAssetId: unheld.id }
   const access = state.technology.access.find(a => a.studioId === studioId && a.technologyId === technologyId && a.acquiredWeek !== null)
   const inventor = access?.route === 'research'
@@ -241,6 +246,10 @@ export function adoptionQuote(state: GameState, request: AdoptionRequest): Adopt
  */
 export function adoptionPhysicalComplete(state: GameState, adoption: TechnologyAdoption): boolean {
   const entry = technologyEntry(adoption.technologyId)
+  // P13B-S6: a cancelled adoption's physical facts are final and incomplete. Read
+  // through `?? null` because the frozen V24/V25 delegation strips the leaf before
+  // the shared law runs over an older root, where its absence means "never cancelled".
+  if ((adoption.cancelledWeek ?? null) !== null) return false
   if (!adoption.components.some(component => component.source === 'physical')) return false
   return adoption.components.every(component => {
     if (component.source === 'physical') {
@@ -258,6 +267,9 @@ export function adoptionPhysicalComplete(state: GameState, adoption: TechnologyA
 /** Whether this adoption's installed chain is operational on its own exact bodies. */
 export function adoptionChainOperational(state: GameState, adoption: TechnologyAdoption): boolean {
   const entry = technologyEntry(adoption.technologyId)
+  // P13B-S6: a cancelled adoption never has an operational chain, whatever else
+  // stands on its bodies — its own work stopped. `?? null`: see above.
+  if ((adoption.cancelledWeek ?? null) !== null) return false
   if (!hasOperationalFacilityInstallation(state, adoption.stageFacilityId, entry.stageInstallationId)) return false
   return entry.postInstallationId === null || (adoption.postFacilityId !== null &&
     hasOperationalFacilityInstallation(state, adoption.postFacilityId, entry.postInstallationId))

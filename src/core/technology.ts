@@ -105,7 +105,10 @@ export function liftTechnologyV3(root: StudioTechnologyV3, state: Pick<GameState
           weeks: placed === undefined ? null : placed.completesWeek - placed.placedWeek,
           source: 'physical' as const, placementId: placed?.id ?? null, equipmentAssetId: null}
       })]
-    return {...a, components, equipmentAssetId: asset.id}
+    // The FROZEN V24 adoption shape is the live one MINUS S6's `cancelledWeek`:
+    // this lift writes a V24 root, and the governed V25→V26 conversion is what adds
+    // that leaf. The cast is the projection boundary, not a type convenience.
+    return {...a, components, equipmentAssetId: asset.id} as unknown as TechnologyAdoption
   })
   return {...root, version: 4, adoptions, equipment, nextEquipmentId: equipment.length}
 }
@@ -401,7 +404,7 @@ export function applyTechnologyAction(state: GameState, action: Exclude<Technolo
     const components = quoted.map(c => c.kind === 'equipment' ? {...c, equipmentAssetId} : c)
     const row: TechnologyAdoption = {id, studioId: own, technologyId,
       stageFacilityId: action.stageFacilityId, postFacilityId, route: inventor ? 'research' : 'purchase',
-      committedWeek: state.market.tick, operationalWeek: null, equipmentCost: equipment.cost, installationCost,
+      committedWeek: state.market.tick, operationalWeek: null, cancelledWeek: null, equipmentCost: equipment.cost, installationCost,
       physicalProjectIds: committed.map(p => p.projectId),
       prototypeProjectId: equipment.source === 'first-prototype' ? access.researchProjectId : null,
       components, equipmentAssetId}
@@ -469,6 +472,10 @@ export function advanceResearchWeek(state: GameState): {technology: StudioTechno
 export function finishTechnologyWeek(state: GameState): GameState {
   const adoptions = state.technology.adoptions.map(a => {
     if (a.operationalWeek !== null) return a
+    // P13B-S6: a cancelled adoption is skipped for good. The player's own is already
+    // incomplete by its placements, but a rival's deployment is a CLOCK — without
+    // this it would quietly go operational on work that was stopped.
+    if ((a.cancelledWeek ?? null) !== null) return a
     const player = a.studioId === state.hollywood?.playerStudioId
     const complete = player
       ? adoptionPhysicalComplete(state, a)
@@ -561,7 +568,15 @@ function validateSharedTechnology(state: TechnologyBearingState, v: Validator, p
       const post=entry.postInstallationId===null ? undefined : state.placement.facilities.find(p=>p.blueprintId===entry.postInstallationId&&p.installation?.targetFacilityId===a.postFacilityId)
       if(entry.postInstallationId!==null && (!post || !a.physicalProjectIds.includes(post.projectId) && (post.status!=='operational'||post.completesWeek>a.committedWeek))) fail('adoption lacks its compatible Post commitment')
       const completesWeek=Math.max(...jobs.map(p=>p!.completesWeek),...(post ? [post.completesWeek] : []))
-      if(a.operationalWeek!==null && a.operationalWeek!==completesWeek || a.operationalWeek===null && completesWeek<=state.market.tick) fail('operational receipt differs from exact physical completion')
+      // P13B-S6: an adoption with CANCELLED physical work is exempt from this clause
+      // and from nothing else. Its committed completion week goes on passing while
+      // the work stays stopped, so demanding an operational receipt for it would make
+      // a lawful cancelled campaign unsavable. The cancelled record itself is read
+      // here (rather than the adoption's own `cancelledWeek`) because the frozen V24
+      // delegation strips that leaf, and both must reach the same verdict.
+      const cancelledWork = jobs.some(p=>p!.status==='cancelled') || post?.status==='cancelled'
+      if(cancelledWork && a.operationalWeek!==null) fail('capability on cancelled physical work')
+      if(!cancelledWork && (a.operationalWeek!==null && a.operationalWeek!==completesWeek || a.operationalWeek===null && completesWeek<=state.market.tick)) fail('operational receipt differs from exact physical completion')
       const capex = state.ledger.filter(e => e.kind === 'constructionCapex' && a.physicalProjectIds.includes(e.constructionProjectId)).reduce((s,e)=>s-e.amount,0)
       if (capex !== a.installationCost) fail('physical commitment does not reconcile')
       if (a.operationalWeek !== null && !adoptionChainOperational(full, a as TechnologyAdoption)) fail('capability before physical completion')
@@ -602,8 +617,13 @@ function validateSharedTechnology(state: TechnologyBearingState, v: Validator, p
       if (row.equipmentAssetId === null) fail('adoption without its equipment asset')
       const asset = root.equipment.find(e => e.id === row.equipmentAssetId)
       if (!asset || asset.studioId !== a.studioId || asset.technologyId !== a.technologyId) fail('adoption names an unknown equipment asset')
-      if (asset!.holderAdoptionId !== a.id || heldAssets.has(asset!.id)) fail('equipment asset is held by another adoption')
-      heldAssets.add(asset!.id)
+      // P13B-S6: an adoption whose physical work was cancelled LETS GO of its asset
+      // (so a restart reuses it at $0) while keeping the reference as history, so a
+      // null holder is lawful for it — and only for it.
+      const cancelled = a.studioId === own && a.physicalProjectIds.some(id =>
+        state.placement.facilities.some(p => p.projectId === id && p.status === 'cancelled'))
+      if (asset!.holderAdoptionId !== a.id && !(cancelled && asset!.holderAdoptionId === null) || heldAssets.has(asset!.id)) fail('equipment asset is held by another adoption')
+      if (asset!.holderAdoptionId !== null) heldAssets.add(asset!.id)
     }
     if (a.operationalWeek !== null) {week(a.operationalWeek);if (a.operationalWeek < a.committedWeek + entry.deploymentWeeks) fail('installation finished early')}
     if (a.prototypeProjectId !== null) {

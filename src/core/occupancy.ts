@@ -339,6 +339,13 @@ export function resourceClaims(sources: OccupancySources): ResourceClaim[] {
 
   for (const installation of sources.placement?.facilities ?? []) {
     if (!installation.installation) continue
+    // P13B-S6 — A CANCELLED JOB CLAIMS NOTHING. The body-level claim below is the
+    // DESTRUCTION hold of work that actually stands on a building ("installed
+    // equipment attached to this facility"); a cancelled record installed nothing,
+    // so treating it like a completed module would hold its target forever and
+    // refuse the restart the cancellation law requires to be lawful. Its receipt is
+    // retained authority about money, never a claim on a room.
+    if (installation.status === 'cancelled') continue
     const facilityId = installation.installation.targetFacilityId
     const facility = sources.operations?.facilities.find(f => f.id === facilityId)
     if (installation.status === 'underConstruction' && facility) {

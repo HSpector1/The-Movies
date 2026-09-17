@@ -1,13 +1,13 @@
-import {migrateToV18,migrateToV25,type SaveFile,type SaveFileV25,type GameStateV18,type GameState} from '../src/core/index.js'
+import {migrateToV18,migrateToV26,type SaveFile,type SaveFileV26,type GameStateV18,type GameState} from '../src/core/index.js'
 import {withResearchFoundation} from '../src/core/researchPeople.js'
 import {initialTechnology} from '../src/core/technology.js'
 import {initialPhysicalPlans} from '../src/core/physicalPlans.js'
 /** Historical player-law control: preserve pre-P12 authority while lifting the
  * type to the current test engine. Native migration uses the real V20 chain. */
-export function migrateToCurrentControl(save:SaveFile):SaveFileV25 {
-  if(save.saveVersion>=19)return migrateToV25(save)
+export function migrateToCurrentControl(save:SaveFile):SaveFileV26 {
+  if(save.saveVersion>=19)return migrateToV26(save)
   const old=migrateToV18(save)
-  return {...old,saveVersion:25,state:liftHistoricalState(old.state)}
+  return {...old,saveVersion:26,state:liftHistoricalState(old.state)}
 }
 
 export function liftHistoricalState(state:GameStateV18):GameState {
@@ -15,5 +15,9 @@ export function liftHistoricalState(state:GameStateV18):GameState {
   return {...state,hollywood:null,talent:state.talent.map(withResearchFoundation),technology:initialTechnology(state.market.tick),physicalPlans:initialPhysicalPlans(),
     // P13B-S5-R07 (Save V25): the same lift the real V24->V25 migration writes —
     // a historical picture reviewed no setup recipe and its plan is at revision 0.
-    operations:{...state.operations,workflows:state.operations.workflows.map(workflow=>({...workflow,setup:null,planRevision:0}))}}
+    operations:{...state.operations,workflows:state.operations.workflows.map(workflow=>({...workflow,setup:null,planRevision:0}))},
+    // P13B-S6 (Save V26): the same lift the real V25->V26 migration writes — a
+    // historical campaign cancelled nothing, so every placement carries a null
+    // cancellation receipt and no refund row is reconstructed from its history.
+    placement:{...state.placement,facilities:state.placement.facilities.map(facility=>({...facility,cancellation:null}))}}
 }

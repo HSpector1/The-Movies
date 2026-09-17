@@ -38,7 +38,7 @@ import type {
   FoundingApplicantRow,
   GameState,
 } from '../ui/src/engine/adapter.ts'
-import { applyActions, importSave, LIVE_SAVE_VERSION, migrateToV25 } from '../src/core/index.js'
+import { applyActions, importSave, LIVE_SAVE_VERSION, migrateToV26 } from '../src/core/index.js'
 import type { FoundingRegime } from '../src/core/index.js'
 import {
   PROTOCOL_VERSION,
@@ -126,7 +126,7 @@ function importSaveJsonCurrent(json: string): ImportOutcome {
   try {
     const save = importSave(json)
     const converted = save.saveVersion !== LIVE_SAVE_VERSION
-    return { ok: true, state: migrateToV25(save).state, converted }
+    return { ok: true, state: migrateToV26(save).state, converted }
   } catch (error) {
     return { ok: false, error: (error as Error).message }
   }

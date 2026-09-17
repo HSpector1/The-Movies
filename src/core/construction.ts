@@ -149,6 +149,19 @@ export function assertStudioConstructionInvariants(
       // which owns the placement record this row points at.
       continue
     }
+    if (entry.kind === 'constructionRefund') {
+      // P13B-S6: the cancellation refund shares the capex row's correlation for the
+      // same reason the demolition refund does. Its amount, its correlation to a
+      // real prior capex row and the one-row-per-cancelled-project law are proved by
+      // the cancellation validator, which owns the receipt this row points at.
+      invariant(
+        placementOwned,
+        'installation cancellation refund belongs to the placement catalog, not the canonical Annex project',
+      )
+      invariant(entry.talentId === undefined, 'cancellation refund cannot identify talent')
+      invariant(entry.productionId === undefined, 'cancellation refund cannot identify a production')
+      continue
+    }
     if (entry.kind === 'constructionCapex') {
       if (placementOwned) continue
       invariant(

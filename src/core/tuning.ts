@@ -731,6 +731,23 @@ export const TUNING = {
   OFFICE_CONVERSION_III_FROM_II_BUILD_WEEKS: 8,
   OFFICE_CONVERSION_III_WEEKLY_OPERATING_COST: 4_000,
 
+  // P13B-S6 restoration after a cancelled installation — [candidate tuning, not
+  // Owner-approved] (plan "S6 — Option-B installation cancellation", Delegated
+  // implementation decisions). Putting a part-adapted body back into service is
+  // its own short job, priced well below the site adaptation it undoes: a studio
+  // that changes its mind pays for the mess, never for the whole conversion twice.
+  // Sound and lighting figures are the plan's own; the office figure is authored
+  // here as a CANDIDATE (the plan names "the II/III component's own site cost
+  // share", and an office conversion authors ONE component with no site share to
+  // take) at the same 1/18th ratio to its conversion that the sound restoration
+  // bears to its own site component, rounded to the sound figure.
+  RESTORATION_SOUND_STAGE_CAPEX: 25_000,
+  RESTORATION_SOUND_STAGE_WEEKS: 2,
+  RESTORATION_LIGHTING_STAGE_CAPEX: 10_000,
+  RESTORATION_LIGHTING_STAGE_WEEKS: 1,
+  RESTORATION_OFFICE_CAPEX: 25_000,
+  RESTORATION_OFFICE_WEEKS: 1,
+
   // Post Building — the second instance of the founding class (the display-name
   // ruling, §3.1: the engine facility name is the single spoken authority, and the
   // founding one is already called "Post Building"). It carries the same two
@@ -1347,6 +1364,88 @@ export const FACILITY_INSTALLATION_BLUEPRINTS: readonly FacilityBlueprint[] = [
   },
 ]
 
+/**
+ * P13B-S6 — the restoration family. A restoration is NOT a thing the player may
+ * choose to build: it is committed automatically by a cancellation that had
+ * already torn up its target's site, and it is refused by `cancelInstallation`
+ * because it IS the cost of that cancellation. So it is authored OUTSIDE
+ * `FACILITY_INSTALLATION_BLUEPRINTS` (which is what the installation catalogue and
+ * every P09 quote offer) and only joined to `FACILITY_BLUEPRINTS`, which is the
+ * identity/price/weeks authority every placement record is read against.
+ *
+ * Each one carries `takesTargetOffline: true`, so S4's own closed-body law applies
+ * to it unchanged: the body offers no slot, feeds no effect ladder and charges no
+ * standard increment while the work runs, and gets all three back the week it
+ * completes. The `restoration-` id prefix is the discriminator.
+ */
+export const RESTORATION_BLUEPRINT_ID_PREFIX = 'restoration-'
+export const RESTORATION_BLUEPRINTS: readonly FacilityBlueprint[] = [
+  {
+    id: 'restoration-sound-stage', name: 'Sound Stage Restoration', capability: 'soundstage', capacity: 0,
+    footprint: { width: 1, depth: 1 }, clearanceRing: 0, requiresRoadAccess: false,
+    buildWeeks: TUNING.RESTORATION_SOUND_STAGE_WEEKS, capex: TUNING.RESTORATION_SOUND_STAGE_CAPEX,
+    weeklyOperatingCost: 0,
+    installationTargetCapability: 'soundstage',
+    takesTargetOffline: true,
+    installationComponents: [{ label: 'Stage restoration', cost: TUNING.RESTORATION_SOUND_STAGE_CAPEX, weeks: TUNING.RESTORATION_SOUND_STAGE_WEEKS }],
+    facilityIdBase: 'module-restoration-sound-stage', projectIdBase: 'installation-restoration-sound-stage',
+    ledgerNote: 'Sound stage restoration after cancellation',
+    effectSummary: 'Puts this stage back to its original working condition after cancelled sound work; the stage is closed until it is done.',
+    requires: [],
+  },
+  {
+    id: 'restoration-lighting-stage', name: 'Lighting Stage Restoration', capability: 'soundstage', capacity: 0,
+    footprint: { width: 1, depth: 1 }, clearanceRing: 0, requiresRoadAccess: false,
+    buildWeeks: TUNING.RESTORATION_LIGHTING_STAGE_WEEKS, capex: TUNING.RESTORATION_LIGHTING_STAGE_CAPEX,
+    weeklyOperatingCost: 0,
+    installationTargetCapability: 'soundstage',
+    takesTargetOffline: true,
+    installationComponents: [{ label: 'Stage restoration', cost: TUNING.RESTORATION_LIGHTING_STAGE_CAPEX, weeks: TUNING.RESTORATION_LIGHTING_STAGE_WEEKS }],
+    facilityIdBase: 'module-restoration-lighting-stage', projectIdBase: 'installation-restoration-lighting-stage',
+    ledgerNote: 'Lighting stage restoration after cancellation',
+    effectSummary: 'Puts this stage back to its original working condition after cancelled lighting work; the stage is closed until it is done.',
+    requires: [],
+  },
+  {
+    id: 'restoration-office', name: 'Development Office Restoration', capability: 'development-casting', capacity: 0,
+    footprint: { width: 1, depth: 1 }, clearanceRing: 0, requiresRoadAccess: false,
+    buildWeeks: TUNING.RESTORATION_OFFICE_WEEKS, capex: TUNING.RESTORATION_OFFICE_CAPEX,
+    weeklyOperatingCost: 0,
+    installationTargetCapability: 'development-casting',
+    takesTargetOffline: true,
+    installationComponents: [{ label: 'Office restoration', cost: TUNING.RESTORATION_OFFICE_CAPEX, weeks: TUNING.RESTORATION_OFFICE_WEEKS }],
+    facilityIdBase: 'module-restoration-office', projectIdBase: 'installation-restoration-office',
+    ledgerNote: 'Development office restoration after cancellation',
+    effectSummary: 'Puts this building back into service after a cancelled conversion; it stays closed until the work is done.',
+    requires: [],
+  },
+]
+
+/** Whether this blueprint id names a restoration job (the S6 id family). */
+export function isRestorationBlueprint(blueprintId: string): boolean {
+  return blueprintId.startsWith(RESTORATION_BLUEPRINT_ID_PREFIX)
+}
+
+/** The restoration a cancelled installation of this blueprint commits, or null. */
+export function restorationBlueprintIdFor(blueprintId: string): string | null {
+  return RESTORATION_FOR_INSTALLATION[blueprintId] ?? null
+}
+
+/**
+ * The closed map from an installation to the restoration its cancellation owes.
+ * ABSENT means the blueprint's work leaves nothing to put back: a Laboratory
+ * instrument installation and a Post fit-out author no site-adaptation component
+ * at all, so there is no torn-up body to restore however far they had run.
+ * PRESENT means the FIRST authored component is that blueprint's site work, and a
+ * cancellation owes this restoration exactly when that component had begun.
+ */
+const RESTORATION_FOR_INSTALLATION: Readonly<Record<string, string>> = {
+  'synchronized-sound-stage': 'restoration-sound-stage',
+  'lighting-control-stage': 'restoration-lighting-stage',
+  'office-conversion-ii': 'restoration-office',
+  'office-conversion-iii': 'restoration-office',
+}
+
 export const FACILITY_BLUEPRINTS: readonly FacilityBlueprint[] = [
   DEVELOPMENT_CASTING_ANNEX_BLUEPRINT,
   DEVELOPMENT_CASTING_HALL_BLUEPRINT,
@@ -1359,6 +1458,7 @@ export const FACILITY_BLUEPRINTS: readonly FacilityBlueprint[] = [
   BASELINE_DEVELOPMENT_CASTING_BLUEPRINT,
   RESEARCH_LABORATORY_BLUEPRINT,
   ...FACILITY_INSTALLATION_BLUEPRINTS,
+  ...RESTORATION_BLUEPRINTS,
 ]
 
 /** The canonical ledger note for a weekly placed-facility operating charge. */

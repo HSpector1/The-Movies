@@ -468,6 +468,7 @@ const KIND_FIELD: Record<LedgerKind, keyof FinanceTotals> = {
   termination: 'termination',
   publicity: 'publicity',
   constructionCapex: 'construction',
+  constructionRefund: 'construction',
   // C1-M3a: a demolition refund recovers CAPITAL, so it reports in the same
   // bucket its capex row did. `construction` therefore reads as NET capital
   // spend — what the studio actually sank into buildings it still has — which is
@@ -581,6 +582,9 @@ export function periodSummary(state: GameState, fromWeek: number, toWeekInclusiv
       // nets capital recovered against capital committed. Same reasoning as
       // KIND_FIELD above; the two must never disagree.
       case 'facilityDemolitionRefund':
+      // P13B-S6: a cancellation refund is a POSITIVE amount in the same bucket, so
+      // this line nets the unworked capital returned against the capital committed.
+      case 'constructionRefund':
         s.construction += e.amount
         break
       // C2a-M1: the set capital family, filed exactly as KIND_FIELD files it —
