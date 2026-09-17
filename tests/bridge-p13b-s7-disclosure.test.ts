@@ -72,10 +72,20 @@
 // holds), `purchase-lighting-control-01` disabled with the engine's own
 // `commercialAccessRefusal` sentence (which MAY name 936 from 884 on — the
 // date is public then, so no leak) until 936, enabled at/after 936 with
-// `accessCost`, both absent once lighting access is held. This file's item 4
+// `accessCost`. RULING CHANGE (coordinator, 2026-09-18, "the plan mandates no
+// hiding"; committed `c08d368`): the "absent once access is held" clause was
+// the brief's own gloss, not the plan's, and is WITHDRAWN — once lighting
+// access is held both rows are PUBLISHED and DISABLED with the engine's own
+// sentence, exactly as sound has always read: `waitForTechnology` throws
+// `'This studio already has lighting-control-01 access.'` (`technology.ts`
+// ~350) and `commercialAccessRefusal` returns the same text (`technology.ts`
+// ~135) for the purchase; both reach the row's `disabledReason` through the
+// same `add()` dry run every other refused row already uses, with
+// `intent: null` (a disabled row is never dispatchable). This file's item 4
 // tests that exact law: absence at 793, presence (wait enabled / purchase
-// disabled-with-sentence) at 884, the same at 900, and the full commit flow
-// at 936.
+// disabled-with-sentence) at 884, the same at 900, the full commit flow at
+// 936, and both rows published-but-disabled with the access-held sentence
+// once access is held.
 //
 // INTERPRETATIONS NAMED:
 //   1. `replacementLabel` is modelled as a new OPTIONAL member on the shared
@@ -93,12 +103,15 @@
 //      once `kind` is `'exact'` (the dispatch text's own "window labels
 //      null" for the 884/900 exact cases) — symmetric with `exactLabel`/
 //      `announcedWeek` being null while `kind` is `'window'`.
-//   3. "Absent once the studio holds lighting access" (item 4) is asserted
-//      as a forward-looking regression guard. It is necessarily VACUOUS at
-//      RED (the rows are absent today regardless of state, since no
-//      generalisation exists yet) — named here, not hidden, per this file's
-//      own convention of flagging vacuity risk (`tests/p13b-s7-independence
-//      .test.ts`'s own header does the same for its week-900 case).
+//   3. WITHDRAWN (coordinator ruling, 2026-09-18): "absent once the studio
+//      holds lighting access" was this file's own prior interpretation, not
+//      the plan's — the plan mandates no hiding. Once access is held, both
+//      `wait-lighting-control-01` and `purchase-lighting-control-01` are
+//      PUBLISHED and DISABLED with the engine's own access-held sentence
+//      (`'This studio already has lighting-control-01 access.'`,
+//      `technology.ts` ~135/~350), `intent: null`, exactly as sound's own
+//      two rows have always read once sound access is held. The week-936
+//      commit-flow case below asserts this directly.
 //
 // RUN NOTE: this file's `describe` blocks advance real campaigns to weeks up
 // to 936 (via `advanceTo`/`tick`), matching the cost profile the already-
@@ -406,7 +419,7 @@ describe('P13B-S7-T3 item 4: generalised wait-<id>/purchase-<id> rows — sound 
     expect(purchase.disabledReason).toBe(expectedRefusal)
   })
 
-  it('purchase-lighting-control-01 at week 936 (commercial open): enabled, accessCost in its own text; commit charges accessCost once, advances stateRevision, refuses the same intent at the old revision, and the row disappears once access is held', () => {
+  it('purchase-lighting-control-01 at week 936 (commercial open): enabled, accessCost in its own text; commit charges accessCost once, advances stateRevision, refuses the same intent at the old revision, and both rows publish disabled with the engine\'s access-held sentence once access is held', () => {
     const entry = technologyEntry('lighting-control-01')
     const buildingId = anyLabBuildingId(S936)
     const session = new BridgeSession(S936, 'p13b-s7-purchase-lighting-936')
@@ -435,11 +448,21 @@ describe('P13B-S7-T3 item 4: generalised wait-<id>/purchase-<id> rows — sound 
     })
     expect(staleResponse).toMatchObject({ accepted: false, reasonCode: 'STALE_REVISION' })
 
-    // INTERPRETATION 3 (see header) — necessarily vacuous at RED today, since neither row
-    // exists regardless of state; asserted as a forward regression guard.
+    // WITHDRAWN INTERPRETATION 3 (see header, coordinator ruling 2026-09-18,
+    // `c08d368`): both rows stay PUBLISHED once access is held, disabled with
+    // the engine's own access-held sentence — `waitForTechnology` throws it
+    // (`technology.ts` ~350) and `commercialAccessRefusal` returns it
+    // (`technology.ts` ~135), exactly as sound's own two rows have always read.
     const after = labPage(session, buildingId, nextRequestId('purchase-936-after'))
-    expect(after.actions.some(a => a.id === 'purchase-lighting-control-01')).toBe(false)
-    expect(after.actions.some(a => a.id === 'wait-lighting-control-01')).toBe(false)
+    const ACCESS_HELD_SENTENCE = 'This studio already has lighting-control-01 access.'
+    const purchaseAfter = required(after.actions.find(a => a.id === 'purchase-lighting-control-01'), 'no purchase-lighting-control-01 row once access is held')
+    expect(purchaseAfter.enabled).toBe(false)
+    expect(purchaseAfter.intent).toBeNull()
+    expect(purchaseAfter.disabledReason).toBe(ACCESS_HELD_SENTENCE)
+    const waitAfter = required(after.actions.find(a => a.id === 'wait-lighting-control-01'), 'no wait-lighting-control-01 row once access is held')
+    expect(waitAfter.enabled).toBe(false)
+    expect(waitAfter.intent).toBeNull()
+    expect(waitAfter.disabledReason).toBe(ACCESS_HELD_SENTENCE)
   })
 })
 
