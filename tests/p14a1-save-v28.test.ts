@@ -188,19 +188,19 @@ describe('P14A.1 test 8: Save V28 (genuine V27 fixtures, honest lift, downgrade,
     const lifted = withV28.migrateToV28(parsed)
     const forgedCase = {
       ...lifted,
-      state: { ...lifted.state, talentMarket: { cases: [{ talentId: 'forged', status: 'discovered' }], proposals: [], receipts: [] } },
+      state: { ...lifted.state, talentMarket: { cases: [{ talentId: 'forged', status: 'discovered' }], proposals: [], receipts: [], legacyTerminations: [] } },
     }
     expect(() => save.migrateToV27(forgedCase as never)).toThrow(/cannot downgrade/i)
 
     const forgedProposal = {
       ...lifted,
-      state: { ...lifted.state, talentMarket: { cases: [], proposals: [{ talentId: 'forged', issuerStudioId: 'forged', representation: null }], receipts: [] } },
+      state: { ...lifted.state, talentMarket: { cases: [], proposals: [{ talentId: 'forged', issuerStudioId: 'forged', representation: null }], receipts: [], legacyTerminations: [] } },
     }
     expect(() => save.migrateToV27(forgedProposal as never)).toThrow(/cannot downgrade/i)
 
     const forgedReceipt = {
       ...lifted,
-      state: { ...lifted.state, talentMarket: { cases: [], proposals: [], receipts: [{ kind: 'discovered', talentId: 'forged' }] } },
+      state: { ...lifted.state, talentMarket: { cases: [], proposals: [], receipts: [{ kind: 'discovered', talentId: 'forged' }], legacyTerminations: [] } },
     }
     expect(() => save.migrateToV27(forgedReceipt as never)).toThrow(/cannot downgrade/i)
   })
@@ -211,7 +211,7 @@ describe('P14A.1 test 8: Save V28 (genuine V27 fixtures, honest lift, downgrade,
     const lifted = withV28.migrateToV28(parsed)
     const forged = {
       ...lifted,
-      state: { ...lifted.state, talentMarket: { cases: [{ talentId: 'forged-subject', status: 'discovered' }], proposals: [], receipts: [] } },
+      state: { ...lifted.state, talentMarket: { cases: [{ talentId: 'forged-subject', status: 'discovered' }], proposals: [], receipts: [], legacyTerminations: [] } },
     }
     expect(() => withV28.validateSaveV28(forged as never)).toThrow()
   })
@@ -222,13 +222,13 @@ describe('P14A.1 test 8: Save V28 (genuine V27 fixtures, honest lift, downgrade,
     const lifted = withV28.migrateToV28(parsed)
     const missingKey = {
       ...lifted,
-      state: { ...lifted.state, talentMarket: { cases: [], proposals: [{ talentId: 'x', issuerStudioId: 'y', termWeeks: 52, premiumTier: 1.0 }], receipts: [] } },
+      state: { ...lifted.state, talentMarket: { cases: [], proposals: [{ talentId: 'x', issuerStudioId: 'y', termWeeks: 52, premiumTier: 1.0 }], receipts: [], legacyTerminations: [] } },
     }
     expect(() => withV28.validateSaveV28(missingKey as never)).toThrow(/representation/i)
 
     const nonNull = {
       ...lifted,
-      state: { ...lifted.state, talentMarket: { cases: [], proposals: [{ talentId: 'x', issuerStudioId: 'y', termWeeks: 52, premiumTier: 1.0, representation: 'agent-1' }], receipts: [] } },
+      state: { ...lifted.state, talentMarket: { cases: [], proposals: [{ talentId: 'x', issuerStudioId: 'y', termWeeks: 52, premiumTier: 1.0, representation: 'agent-1' }], receipts: [], legacyTerminations: [] } },
     }
     expect(() => withV28.validateSaveV28(nonNull as never)).toThrow(/representation/i)
   })

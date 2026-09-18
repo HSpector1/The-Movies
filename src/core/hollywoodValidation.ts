@@ -2,7 +2,8 @@ import { flattenParticipants } from './starPower.js'
 import { sameContractTerms } from './industryEmployment.js'
 import { HOLLYWOOD_STARTING_MANIFEST, RIVAL_CREDIT_ROLES, RIVAL_TEAM_ROLES } from './hollywoodStartingData.js'
 import { persistedConceptIds, persistedProductionIds } from './productionIdentity.js'
-import { weeklySalary, terminationCost } from './employment.js'
+import { weeklySalary, PRE_V28_TERMINATION_LAW } from './employment.js'
+import type { TerminationLaw } from './employment.js'
 import type { GameState } from './types.js'
 import { CAMPAIGN_CALENDAR_POLICY, campaignDate, historicalDate, RIVAL_ARRIVAL_WEEKS } from './calendar.js'
 import { RIVAL_MONEY_KINDS, RIVAL_RESEARCH_MONEY_KINDS, instrumentWeeklyOperatingCost, rivalCapacityOpex, rivalStartingFacilities, hollywoodWorldKey } from './hollywood.js'
@@ -56,7 +57,11 @@ export type HollywoodLeafValidators = {
  * five rival research receipt kinds exist only under it, so no frozen envelope
  * learns them and every older file keeps exactly the law it shipped with.
  */
-export function validateHollywood(value: unknown, state: GameStateV18, shared: HollywoodLeafValidators, technology?: Pick<StudioTechnology, 'access' | 'adoptions'> | Pick<StudioTechnologyV3, 'access' | 'adoptions'>, research = false, plans: readonly PhysicalPlan[] = []): asserts value is HollywoodState | null {
+// R4 — `terminationLaw` is the save ERA's termination law, threaded in
+// explicitly by the caller that knows which era it is reading (never sniffed off
+// the state). It defaults to the FROZEN pre-V28 law, so every existing frozen
+// reader keeps reconciling under the law its own era wrote.
+export function validateHollywood(value: unknown, state: GameStateV18, shared: HollywoodLeafValidators, technology?: Pick<StudioTechnology, 'access' | 'adoptions'> | Pick<StudioTechnologyV3, 'access' | 'adoptions'>, research = false, plans: readonly PhysicalPlan[] = [], terminationLaw: TerminationLaw = PRE_V28_TERMINATION_LAW): asserts value is HollywoodState | null {
   const researchKinds = new Set<string>(RIVAL_RESEARCH_MONEY_KINDS)
   const moneyKinds = RIVAL_MONEY_KINDS.filter(kind =>
     (technology !== undefined || kind !== 'technologyAdoption') && (research || !researchKinds.has(kind)))
@@ -502,7 +507,7 @@ export function validateHollywood(value: unknown, state: GameStateV18, shared: H
     requireFact(starts.length===1 && starts[0]!.kind==='employment' && starts[0]!.talentId===e.terms.talentId && starts[0]!.week===(e.reason==='existing-player-contract'?h.originWeek:e.terms.startWeek) && starts[0]!.reason===e.reason, 'employment interval lacks exact signing or observation receipt')
     const ends=grouped('employment',`${e.contractId}:end`)
     const terminated=ends.length===1&&ends[0]!.kind==='employment'&&ends[0]!.reason==='termination'&&e.studioId===h.playerStudioId
-    if(terminated)requireFact(state.ledger.some(row=>row.kind==='termination'&&row.talentId===e.terms.talentId&&row.week===e.endedWeek&&close(row.amount,-terminationCost(e.terms,e.endedWeek!))),'employment termination lacks its actual player payment')
+    if(terminated){const lawful=terminationLaw(e.terms,e.endedWeek!,e.contractId);requireFact(state.ledger.some(row=>row.kind==='termination'&&row.talentId===e.terms.talentId&&row.week===e.endedWeek&&lawful.some(charge=>close(row.amount,-charge))),'employment termination lacks its actual player payment')}
     if(e.studioId===h.playerStudioId&&e.reason!=='existing-player-contract'&&!(h.origin==='fresh'&&e.reason==='player-contract'&&e.terms.startWeek===0))
       requireFact(state.ledger.some(row=>row.kind==='signingBonus'&&row.talentId===e.terms.talentId&&row.week===e.terms.startWeek&&close(row.amount,-e.terms.signingBonus)),'employment start lacks its actual player signing payment')
     requireFact(ends.length===(e.endedWeek===e.terms.endWeekExclusive||terminated?1:0),'employment interval lacks exact end receipt or has an extra one')

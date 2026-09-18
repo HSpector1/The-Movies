@@ -1,0 +1,47 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/d11-employment.test.ts (36 tests) 6926ms
+   ✓ D-11.2 — starting applicant draft > no guaranteed superstar: across many seeds, some drafts have no 90+ OVR actor 560ms
+   ✓ D-11 — contracts & offers > payroll accrues each week; the ledger reconciles after several weeks 966ms
+   ✓ D-11.8 — expiration > a contract expires at term end and the talent becomes a free agent 2053ms
+   ✓ D-11.7 — renewals > renewing inside the window is refused as underMarketCase and redirected to the proposal path (P14A §2.1.3 / R6) 1257ms
+   ✓ D-11 — determinism & live saves > no duplicate payroll after reload (reload ≡ continuous run) 704ms
+   ✓ D-11 — determinism & live saves > two same-seed founded+advanced runs are byte-identical (deterministic offers/markets) 513ms
+ ✓ |core| tests/contracts/v14-boundary-guards.contract.test.ts (36 tests) 2052ms
+ ✓ |core| tests/contracts/studio-events.contract.test.ts (25 tests) 1000ms
+ ✓ |core| tests/p13b-s8-save-v27.test.ts (8 tests) 3109ms
+   ✓ P13B-S8 Save V27: genuine V26 fixtures, honest lift, conditional downgrade, validator refusals, sentinel 28 (test 7) > genuine V26 sound-mid-deployment fixture: sha256 matches, migrates to V27 with the four new RivalMoneyKind movement keys at 0 on every period and NO new receipts, otherwise byte-identical 341ms
+   ✓ P13B-S8 Save V27: genuine V26 fixtures, honest lift, conditional downgrade, validator refusals, sentinel 28 (test 7) > downgrade REFUSED: a NATURAL campaign whose rival genuinely admitted a Laboratory carries a nonzero researchCapacity movement, and save.migrateToV26 refuses it 1209ms
+   ✓ P13B-S8 Save V27: genuine V26 fixtures, honest lift, conditional downgrade, validator refusals, sentinel 28 (test 7) > downgrade REFUSED: the same natural campaign also carries a new receipt kind (laboratoryCommitted/laboratoryOperational), independently sufficient to refuse V27->V26 720ms
+ ✓ |core| tests/contracts/phase-table-agreement.contract.test.ts (10 tests) 927ms
+   ✓ C2a-M0 · G6 (C) — the SAVE BOUNDARY agrees, proved by refusal > refuses a falsified capability multiset, naming the shared module’s own requirement 595ms
+ ✓ |core| tests/contracts/union-producer-subsumption.contract.test.ts (5 tests) 152ms
+ ✓ |core| tests/contracts/v14-byte-parity.contract.test.ts (6 tests) 1651ms
+   ✓ C2a-M1 · parity (A) — the same seeded script exports the same bytes > produces a byte-identical export from two independent runs 553ms
+   ✓ C2a-M1 · parity (A) — the same seeded script exports the same bytes > does NOT produce those bytes from a different seed 405ms
+   ✓ C2a-M1 · parity (B) — the ledger survives a reload > exports the same bytes whether or not the run was saved and loaded midway 424ms
+ ✓ |core| tests/contracts/sticky-retention.contract.test.ts (2 tests) 416ms
+ ✓ |core| tests/contracts/cross-owner-refusal.contract.test.ts (3 tests) 829ms
+   ✓ C2a-M0 · §12-M0 gate — a slot claimed by two owners is REFUSED > refuses a screenplay forged onto the slot a production holds 306ms
+   ✓ C2a-M0 · §12-M0 gate — a slot claimed by two owners is REFUSED > refuses an audition forged onto the slot a screenplay holds 348ms
+ ✓ |core| tests/contracts/determinism-floor.contract.test.ts (3 tests) 629ms
+   ✓ C2a-M0 · §12-M0 gate — same seed, same actions, same bytes > exports byte-identically across two fresh runs 405ms
+ ✓ |core| tests/p12-lifecycle.test.ts (5 tests) 9519ms
+   ✓ R05 shared-law rival lifecycle > rejects forged owners, erased archive announcements, invented employers and invalid chart history 1225ms
+   ✓ R05 shared-law rival lifecycle > rejects forged frozen credits, double roles, and another studio’s reserved performers 427ms
+   ✓ R05 shared-law rival lifecycle > commissions, staffs, funds, operates, releases and settles real films without player RNG draws 2557ms
+   ✓ R05 shared-law rival lifecycle > expires ordinary contracts and crosses the first real arrival from elapsed play 5249ms
+ ✓ |core| tests/p12-checker.test.ts (5 tests) 35ms
+ ✓ |core| tests/p13a-research-employment.test.ts (1 test) 5943ms
+   ✓ P13A research employment continuity > releasing the actual Scientist pauses work immediately and survives save/reload without losing verified work 5941ms
+ ✓ |core| tests/p12-starting-world.test.ts (3 tests) 2214ms
+   ✓ R05 canonical starting history and genuine migration > opens four established distinct businesses with settled canonical history and protected applicants 415ms
+   ✓ R05 canonical starting history and genuine migration > migrates at each old state own week with empty company histories and exact player state 1651ms
+ ✓ |core| tests/p12-calendar.test.ts (2 tests) 9ms
+
+ Test Files  15 passed (15)
+      Tests  150 passed (150)
+   Start at  09:58:33
+   Duration  47.90s (transform 1.94s, setup 0ms, collect 6.85s, tests 35.41s, environment 5ms, prepare 1.51s)
+

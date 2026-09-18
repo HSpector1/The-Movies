@@ -122,7 +122,7 @@ describe('Owner UX outgoing projection20 migration', () => {
       // P13B-S3: V23 adds the physical-plan root, empty at the migration week.
       expect(physicalPlans).toEqual({ version: 1, nextPlanId: 1, plans: [] })
       // P14A.1: V28 adds the contested-market root, empty at the migration week.
-      expect(talentMarket).toEqual({ cases: [], proposals: [], receipts: [], representation: null })
+      expect(talentMarket).toEqual({ cases: [], proposals: [], receipts: [], legacyTerminations: [], representation: null })
       for (const person of oldRoots.talent) {
         expect(person.skills.research).toEqual(Object.fromEntries(['scientificMethod','acoustics','instrumentation','experimentation','engineering','documentation'].map(skill => [skill,{ actual: 1, perceived: 1 }])))
         expect(person.workHistory.research).toBe(0)

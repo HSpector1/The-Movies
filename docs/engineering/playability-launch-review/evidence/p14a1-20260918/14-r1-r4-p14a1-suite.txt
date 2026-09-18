@@ -1,0 +1,77 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p14a1-save-v28.test.ts (9 tests) 841ms
+ ❯ |core| tests/p14a1-settlement.test.ts (3 tests | 2 failed) 3019ms
+   ✓ P14A.1 test 5: atomic settlement > a dominant incumbent proposal wins deterministically at the decision week, with order-only reasons and no amounts 1615ms
+   × P14A.1 test 5: atomic settlement > price drift does not invalidate a proposal's version: a proposal submitted at the window's first week settles at the re-derived decision-week price, not the submission-week quote 745ms
+     → expected 'declined' to be 'settled' // Object.is equality
+   × P14A.1 test 5: atomic settlement > the digest covers material terms only: a price drift leaves the version digest unchanged 658ms
+     → expected '6cd626e666cb3a16' to be '031fa0e5999d19b3' // Object.is equality
+ ✓ |core| tests/p14a1-firing.test.ts (6 tests) 5051ms
+   ✓ P14A.1 test 7: firing — 26-week cap, R1 floor, disclosure content > the cap does NOT apply when 26 or fewer weeks remain: charge = all remaining guaranteed base salary, unchanged from today's formula at that boundary 1467ms
+   ✓ P14A.1 test 7: firing — 26-week cap, R1 floor, disclosure content > the charge law is continuous at exactly 26 weeks remaining (no cliff, §3.5 E5) 2958ms
+   ✓ P14A.1 test 7: firing — 26-week cap, R1 floor, disclosure content > the disclosure content per direction 2 states remaining duration, remaining guaranteed compensation, the cap, the exact charge, and the effective end — two branches (cap applies / cap does not apply) 510ms
+ ✓ |core| tests/p14a1-proposals.test.ts (7 tests) 3802ms
+   ✓ P14A.1 test 3: proposals — one per studio, premium tier bounds, draft reference, affordability > premium tier 1.00 equals the plain ask; the signing bonus is 18% of the priced annual, both issuers, same law 1095ms
+   ✓ P14A.1 test 3: proposals — one per studio, premium tier bounds, draft reference, affordability > a higher premium tier strictly increases the priced annual salary over 1.00 (exact tier values are OPEN; only monotonicity is pinned) 497ms
+   ✓ P14A.1 test 3: proposals — one per studio, premium tier bounds, draft reference, affordability > a below-1.00 premium tier is refused (not offered in P14A) 442ms
+   ✓ P14A.1 test 3: proposals — one per studio, premium tier bounds, draft reference, affordability > at most one current proposal per studio: a second submission from the same studio replaces (revises) rather than stacks 449ms
+   ✓ P14A.1 test 3: proposals — one per studio, premium tier bounds, draft reference, affordability > draft reference: the digest is deterministic for identical inputs and changes when a material term changes 435ms
+   ✓ P14A.1 test 3: proposals — one per studio, premium tier bounds, draft reference, affordability > affordability (player): submitProposal is refused via the accepted canAfford legality gate when the bonus would leave cash negative 455ms
+   ✓ P14A.1 test 3: proposals — one per studio, premium tier bounds, draft reference, affordability > affordability (rival): submitProposal is refused via the reserve rule when the rival's account cannot clear operatingReserve after the bonus 428ms
+ ✓ |core| tests/p14a1-disclosure.test.ts (3 tests) 2262ms
+   ✓ P14A.1 test 6: disclosure — UNKNOWN markers, nothing private leaks > the case, its subject and decision week, and the competing proposal's existence/issuer/term/effective-week are public to both viewers 1208ms
+   ✓ P14A.1 test 6: disclosure — UNKNOWN markers, nothing private leaks > a proposal's premium tier, salary and bonus say UNKNOWN to every studio that did not issue it — never a band, estimate or invented number 550ms
+   ✓ P14A.1 test 6: disclosure — UNKNOWN markers, nothing private leaks > nothing private leaks: the exact competing salary/bonus figures never appear anywhere in the serialized disclosure, for either viewer 503ms
+ ✓ |core| tests/p14a1-eligibility.test.ts (5 tests) 1772ms
+   ✓ P14A.1 test 1: market eligibility (six states; reserved rivals; in-term refusal) > renewal_window: a 52-week player contract at its window-open week (week 40) opens a case; the incumbent (player) and every ENTERED rival may propose 1230ms
+   ✓ P14A.1 test 1: market eligibility (six states; reserved rivals; in-term refusal) > reserved rivals cannot propose: row 5 (eligibleWeek 520, enteredWeek null at week 40) is excluded from the renewal_window proposer set 484ms
+ ✓ |core| tests/p14a1-rival-trigger.test.ts (2 tests) 6827ms
+   ✓ P14A.1 test 4: rival proposal trigger (pure policy) and the staff() case-subject exclusion > branch (a) — own person in the window: the trigger fires (deterministically, twice) for a rival subject at its own window-open week (196) 3630ms
+   ✓ P14A.1 test 4: rival proposal trigger (pure policy) and the staff() case-subject exclusion > staff()'s renewal loop excludes the case subject for the whole open-case span (week 196 through 207): the founding contract is never renewed early 3195ms
+ ✓ |core| tests/p14a1-case.test.ts (6 tests) 2777ms
+   ✓ P14A.1 test 2: case lifecycle, derived decision week, invalidation, underMarketCase > discovery: a case exists with status "discovered" at the exact window-open week (week 40 for a 52-week contract) 1230ms
+   ✓ P14A.1 test 2: case lifecycle, derived decision week, invalidation, underMarketCase > the decision week is derived from the subject's live endWeekExclusive, not a stored copy 550ms
+   ✓ P14A.1 test 2: case lifecycle, derived decision week, invalidation, underMarketCase > invalidation: an early release invalidates the open case 473ms
+   ✓ P14A.1 test 2: case lifecycle, derived decision week, invalidation, underMarketCase > underMarketCase: renewContract on a cased person is refused, redirecting to the proposal path 457ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14a1-settlement.test.ts > P14A.1 test 5: atomic settlement > price drift does not invalidate a proposal's version: a proposal submitted at the window's first week settles at the re-derived decision-week price, not the submission-week quote
+AssertionError: expected 'declined' to be 'settled' // Object.is equality
+
+Expected: "settled"
+Received: "declined"
+
+ ❯ tests/p14a1-settlement.test.ts:204:32
+    202|     // RED: currently 'declined' — survivesFreeze rejects the drifted …
+    203|     // frozen reservation check and the frozen digest (companion §2.1.…
+    204|     expect(settledCase.status).toBe('settled')
+       |                                ^
+    205| 
+    206|     const renewed = state.contracts.find((c) => c.talentId === talentI…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL |core|  tests/p14a1-settlement.test.ts > P14A.1 test 5: atomic settlement > the digest covers material terms only: a price drift leaves the version digest unchanged
+AssertionError: expected '6cd626e666cb3a16' to be '031fa0e5999d19b3' // Object.is equality
+
+Expected: "031fa0e5999d19b3"
+Received: "6cd626e666cb3a16"
+
+ ❯ tests/p14a1-settlement.test.ts:245:28
+    243|     // not material), so this fails under the defective code even thou…
+    244|     // material term (talentId, issuerStudioId, termWeeks, startWeek, …
+    245|     expect(draft51.digest).toBe(draft40.digest)
+       |                            ^
+    246|   })
+    247| })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+ Test Files  1 failed | 7 passed (8)
+      Tests  2 failed | 39 passed (41)
+   Start at  09:57:48
+   Duration  32.57s (transform 1.40s, setup 0ms, collect 3.52s, tests 26.35s, environment 2ms, prepare 736ms)
+

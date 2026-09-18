@@ -198,6 +198,31 @@ export function terminationCost(contract: Contract, week: number): number {
   return weeklySalary(contract.annualSalary) * Math.min(remainingWeeks, TUNING.HIRING_TERMINATION_CAP_WEEKS)
 }
 
+// ── the termination charge by SAVE ERA (R4, companion §3.4) ──────────────────
+//
+// `terminationCost` above is today's law for EVERY live caller. A FROZEN reader
+// validating a save written before V28 must reconcile that save's charge under
+// the law in force in ITS era, never today's: every player termination written
+// before P14A.1 was charged `round(HIRING_TERMINATION_FRACTION × remaining
+// guaranteed base salary)`, which is the one purpose that TUNING constant is
+// still retained for.
+export function legacyTerminationCost(contract: Contract, week: number): number {
+  return Math.round(TUNING.HIRING_TERMINATION_FRACTION * guaranteedComp(contract, week))
+}
+
+/** The charges ONE reader will accept for ONE player termination. Threaded
+ * explicitly down the save chain — never sniffed off the state. */
+export type TerminationLaw = (contract: Contract, endedWeek: number, contractId: string) => readonly number[]
+
+/**
+ * Save V27 and earlier. A V27 envelope reaches a frozen reader two lawful ways:
+ * as a genuine pre-P14A.1 file (the 50% law) or as the V27 PROJECTION of a live
+ * V28 campaign (the cap law). The frozen reader cannot tell them apart and both
+ * are real, so it accepts exactly those two charges and nothing else.
+ */
+export const PRE_V28_TERMINATION_LAW: TerminationLaw = (contract, endedWeek) =>
+  [legacyTerminationCost(contract, endedWeek), terminationCost(contract, endedWeek)]
+
 // Total weekly payroll: Σ round(annualSalary/52) over contracts active at `week`.
 export function weeklyPayroll(state: GameState, week: number = state.market.tick): number {
   let total = 0

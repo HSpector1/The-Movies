@@ -51,7 +51,9 @@ import {
 import { assertReleaseAuthorityInvariants } from './releaseAuthority.js'
 import { assertStudioHistoryInvariants, migratedStudioHistory } from './studioHistory.js'
 import { initialPhysicalPlans, validatePhysicalPlans } from './physicalPlans.js'
-import { initialTalentMarket, projectTalentMarketPreV28, validateTalentMarketRoot } from './talentMarket.js'
+import { initialTalentMarket, projectLegacyTerminations, projectTalentMarketPreV28, talentMarketTerminationLaw, validateTalentMarketRoot } from './talentMarket.js'
+import { PRE_V28_TERMINATION_LAW } from './employment.js'
+import type { TerminationLaw } from './employment.js'
 import type {
   BroadcastItem,
   Ceilings,
@@ -7624,6 +7626,10 @@ function validateSaveV19WithPolicy(
   // against. It is stripped from the frozen V19 state below, so it travels
   // beside it rather than being read off a state that no longer carries it.
   plans?: readonly PhysicalPlan[],
+  // P14A.1/R4: the ERA's termination law, travelling beside the state for the
+  // same reason `plans` does — the V28 root that names the legacy charges is
+  // stripped before this chain ever sees the state.
+  terminationLaw: TerminationLaw = PRE_V28_TERMINATION_LAW,
 ): SaveFileV19 {
   if (!isRecord(save)) throw new Error('validateSaveV19: object required');
   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
@@ -7648,7 +7654,7 @@ function validateSaveV19WithPolicy(
     // `validateHollywood` immediately afterwards.
     operations: (v, productions) => checkOperationsContext({ operations: v, activeProductions: productions, engaged: true, founding: null }, 'hollywood.operations', policy === 'research-v27' ? policy : 'sets-v14'),
     development: v => checkScriptDevelopmentShape(v, 'sets-v14'),
-  }, technology, policy === 'research-v27', plans ?? []);
+  }, technology, policy === 'research-v27', plans ?? [], terminationLaw);
   return save as SaveFileV19;
 }
 
@@ -7856,7 +7862,7 @@ export function validateSaveV24(save: unknown): SaveFileV24 {
  * and refund rows, while a genuine V24 or V25 file is still validated under
  * 'technology-v20' and still refuses both.
  */
-function validateSaveV24WithPolicy(save: unknown, policy: 'technology-v20' | 'cancellation-v26' | 'research-v27'): SaveFileV24 {
+function validateSaveV24WithPolicy(save: unknown, policy: 'technology-v20' | 'cancellation-v26' | 'research-v27', terminationLaw: TerminationLaw = PRE_V28_TERMINATION_LAW): SaveFileV24 {
   if (!isRecord(save)) throw new Error('validateSaveV24: object required');
   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
   if (save.saveVersion !== 24) throw new Error('validateSaveV24: expected version 24');
@@ -7867,7 +7873,7 @@ function validateSaveV24WithPolicy(save: unknown, policy: 'technology-v20' | 'ca
   validateTechnology(typed.state as unknown as GameState);
   validatePhysicalPlans(typed.state as unknown as GameState);
   const { technology, physicalPlans: _physicalPlans, ...legacy } = raw;
-  validateSaveV19WithPolicy({ saveVersion: 19, seed: save.seed, state: legacy, broadcastCache: save.broadcastCache }, policy, technology as StudioTechnology, typed.state.physicalPlans.plans);
+  validateSaveV19WithPolicy({ saveVersion: 19, seed: save.seed, state: legacy, broadcastCache: save.broadcastCache }, policy, technology as StudioTechnology, typed.state.physicalPlans.plans, terminationLaw);
   assertNoDoubleBookedResourceSlots(typed.state as unknown as GameState);
   return typed;
 }
@@ -8018,7 +8024,7 @@ export function validateSaveV25(save: unknown): SaveFileV25 {
 }
 
 /** See `validateSaveV24WithPolicy`: the V26 chain threads its own policy down. */
-function validateSaveV25WithPolicy(save: unknown, policy: 'technology-v20' | 'cancellation-v26' | 'research-v27'): SaveFileV25 {
+function validateSaveV25WithPolicy(save: unknown, policy: 'technology-v20' | 'cancellation-v26' | 'research-v27', terminationLaw: TerminationLaw = PRE_V28_TERMINATION_LAW): SaveFileV25 {
   if (!isRecord(save)) throw new Error('validateSaveV25: object required');
   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
   if (save.saveVersion !== 25) throw new Error('validateSaveV25: expected version 25');
@@ -8066,7 +8072,7 @@ function validateSaveV25WithPolicy(save: unknown, policy: 'technology-v20' | 'ca
         studioEvents: strippedEvents,
       },
       broadcastCache: save.broadcastCache,
-    }, policy);
+    }, policy, terminationLaw);
   } catch (error) {
     throw new Error(`validateSaveV25: frozen V24 state is invalid — ${(error as Error).message}`);
   }
@@ -8214,7 +8220,7 @@ export function validateSaveV26(save: unknown): SaveFileV26 {
 }
 
 /** See `validateSaveV25WithPolicy`: the V27 chain threads its own policy down. */
-function validateSaveV26WithPolicy(save: unknown, policy: 'cancellation-v26' | 'research-v27'): SaveFileV26 {
+function validateSaveV26WithPolicy(save: unknown, policy: 'cancellation-v26' | 'research-v27', terminationLaw: TerminationLaw = PRE_V28_TERMINATION_LAW): SaveFileV26 {
   if (!isRecord(save)) throw new Error('validateSaveV26: object required');
   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
   if (save.saveVersion !== 26) throw new Error('validateSaveV26: expected version 26');
@@ -8235,7 +8241,7 @@ function validateSaveV26WithPolicy(save: unknown, policy: 'cancellation-v26' | '
         technology: { ...technologyRaw, adoptions: strippedAdoptions },
       },
       broadcastCache: save.broadcastCache,
-    }, policy);
+    }, policy, terminationLaw);
   } catch (error) {
     throw new Error(`validateSaveV26: frozen V25 state is invalid — ${(error as Error).message}`);
   }
@@ -8352,13 +8358,19 @@ function v27Movements(raw: Record<string, unknown>): void {
  * real records while every frozen POLICY keeps the ten-kind record it shipped with.
  */
 export function validateSaveV27(save: unknown): SaveFileV27 {
+  return validateSaveV27WithLaw(save, PRE_V28_TERMINATION_LAW);
+}
+
+/** P14A.1/R4: V28 reads the same frozen V27 state under ITS OWN era's
+ * termination law. Everything else about the chain is unchanged. */
+function validateSaveV27WithLaw(save: unknown, terminationLaw: TerminationLaw): SaveFileV27 {
   if (!isRecord(save)) throw new Error('validateSaveV27: object required');
   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
   if (save.saveVersion !== 27) throw new Error('validateSaveV27: expected version 27');
   const raw = v14Record(checkEnvelope(save, 'validateSaveV27'), 'state');
   v27Movements(raw);
   try {
-    validateSaveV26WithPolicy({ saveVersion: 26, seed: save.seed, state: raw, broadcastCache: save.broadcastCache }, 'research-v27');
+    validateSaveV26WithPolicy({ saveVersion: 26, seed: save.seed, state: raw, broadcastCache: save.broadcastCache }, 'research-v27', terminationLaw);
   } catch (error) {
     throw new Error(`validateSaveV27: frozen V26 state is invalid — ${(error as Error).message}`);
   }
@@ -8439,7 +8451,7 @@ export function validateSaveV28(save: unknown): SaveFileV28 {
   validateTalentMarketRoot(raw.talentMarket, raw);
   const { talentMarket: _talentMarket, ...legacy } = raw;
   try {
-    validateSaveV27({ saveVersion: 27, seed: save.seed, state: legacy, broadcastCache: save.broadcastCache });
+    validateSaveV27WithLaw({ saveVersion: 27, seed: save.seed, state: legacy, broadcastCache: save.broadcastCache }, talentMarketTerminationLaw(raw.talentMarket));
   } catch (error) {
     throw new Error(`validateSaveV28: frozen V27 state is invalid — ${(error as Error).message}`);
   }
@@ -8447,17 +8459,25 @@ export function validateSaveV28(save: unknown): SaveFileV28 {
 }
 
 /**
- * Governed V27→V28: the new root opens EMPTY. A save written before the market
- * existed held no contested expiry, so NO case is fabricated — not even for a
+ * Governed V27→V28: the market itself opens EMPTY. A save written before the
+ * market existed held no contested expiry, so NO case is fabricated — not even for a
  * subject that is already inside its renewal window at the migration week. That
  * subject is DISCOVERED by the next live tick's discovery step, one week after
  * load, because discovery is a tick-time mechanism and R22 forbids fabricated
  * pre-P14 facts. Every other root is byte-identical.
+ *
+ * R4 is the ONE thing this lift records: the terminations this campaign already
+ * paid for under the older era's 50% law, with the amount ACTUALLY charged, so
+ * the V28 reader reconciles them against what was paid instead of back-charging
+ * today's cap law. No money moves.
  */
 export function convertV27ToV28(save: SaveFileV27): SaveFileV28 {
   const validated = validateSaveV27(save);
   const oldState = JSON.parse(JSON.stringify(validated.state)) as GameStateV27;
-  const state: GameStateV28 = { ...oldState, talentMarket: initialTalentMarket() };
+  const state: GameStateV28 = {
+    ...oldState,
+    talentMarket: { ...initialTalentMarket(), legacyTerminations: projectLegacyTerminations(oldState) },
+  };
   return validateSaveV28({ saveVersion: 28, seed: state.seed, state, broadcastCache: state.broadcastItems });
 }
 

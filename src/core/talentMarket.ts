@@ -32,11 +32,11 @@ import { rivalEmployment, rivalWeeklyOperatingCost, moveRivalMoney } from './hol
 import { RIVAL_TEAM_ROLES } from './hollywoodStartingData.js'
 import { recordPlayerEmployment } from './industryEmployment.js'
 import { activeContract, canAfford, contractOffer, guaranteedComp, renewalWindowOpen, terminationCost } from './employment.js'
-import type { ContractOffer } from './employment.js'
+import type { ContractOffer, TerminationLaw } from './employment.js'
 import { fnv1a64 } from './math.js'
 import { careerIdentity } from './talentSummary.js'
 import { TUNING } from './tuning.js'
-import type { Contract, GameState, LedgerEntry, MarketCaseStatus, MarketEligibilityStatus,
+import type { Contract, GameState, LedgerEntry, LegacyTermination, MarketCaseStatus, MarketEligibilityStatus,
   Standing, TalentMarketCase, TalentMarketProposal, TalentMarketReceipt, TalentMarketState } from './types.js'
 import type { HollywoodState, IndustryEmployment, IndustryReceipt, RivalBusiness } from './hollywoodTypes.js'
 
@@ -44,7 +44,7 @@ const iround = (x: number): number => Math.round(x)
 
 /** The empty root. A world that has held no case, no proposal and no receipt. */
 export function initialTalentMarket(): TalentMarketState {
-  return { cases: [], proposals: [], receipts: [], representation: null }
+  return { cases: [], proposals: [], receipts: [], legacyTerminations: [], representation: null }
 }
 
 // ── engagement ───────────────────────────────────────────────────────────────
@@ -983,7 +983,7 @@ export function validateTalentMarketRoot(talentMarket: unknown, state: unknown):
     throw new Error(`validateSaveV28: ${message}`)
   }
   if (!isRecord(talentMarket)) return fail('state.talentMarket is not a plain object')
-  for (const key of ['cases', 'proposals', 'receipts'] as const) {
+  for (const key of ['cases', 'proposals', 'receipts', 'legacyTerminations'] as const) {
     if (!Array.isArray(talentMarket[key])) return fail(`state.talentMarket.${key} is not an array`)
   }
   const cases = talentMarket.cases as unknown[]
@@ -1003,6 +1003,9 @@ export function validateTalentMarketRoot(talentMarket: unknown, state: unknown):
 
   const hollywood = isRecord(state) ? state.hollywood : null
   const identities = isRecord(hollywood) && Array.isArray(hollywood.identities) ? hollywood.identities : []
+  const employment = isRecord(hollywood) && Array.isArray(hollywood.employment) ? hollywood.employment : []
+  const industryReceipts = isRecord(hollywood) && Array.isArray(hollywood.receipts) ? hollywood.receipts : []
+  const playerStudioId = isRecord(hollywood) ? hollywood.playerStudioId : undefined
   const entered = new Set(identities
     .filter((s): s is Record<string, unknown> => isRecord(s) && s.enteredWeek !== null)
     .map((s) => String(s.studioId)))
@@ -1030,8 +1033,82 @@ export function validateTalentMarketRoot(talentMarket: unknown, state: unknown):
     }
   }
 
+  // R4 — every recorded legacy termination names a REAL terminated player
+  // employment row of this world, at its own ended week, for a non-negative
+  // integer amount, once. Nothing here can be minted live: the V28 writer
+  // charges the cap law, so this list only ever arrives through the migration.
+  const terminatedPlayerRows = new Map<string, number>()
+  for (const row of employment) {
+    if (!isRecord(row) || row.studioId !== playerStudioId || row.endedWeek === null) continue
+    const ended = industryReceipts.some((r) => isRecord(r) && r.kind === 'employment'
+      && r.contractId === row.contractId && r.toStudioId === null && r.reason === 'termination')
+    if (ended) terminatedPlayerRows.set(String(row.contractId), Number(row.endedWeek))
+  }
+  const seenLegacy = new Set<string>()
+  const legacyRows = talentMarket.legacyTerminations as unknown[]
+  for (let i = 0; i < legacyRows.length; i++) {
+    const row = legacyRows[i]
+    const label = `state.talentMarket.legacyTerminations[${String(i)}]`
+    if (!isRecord(row)) return fail(`${label} is not a plain object`)
+    const contractId = String(row.contractId)
+    if (!terminatedPlayerRows.has(contractId)) {
+      return fail(`${label}.contractId "${contractId}" is not a terminated player employment row of this world`)
+    }
+    if (seenLegacy.has(contractId)) return fail(`${label}.contractId "${contractId}" is recorded twice`)
+    seenLegacy.add(contractId)
+    if (row.endedWeek !== terminatedPlayerRows.get(contractId)) {
+      return fail(`${label}.endedWeek differs from the employment row it names`)
+    }
+    if (!Number.isInteger(row.amountPaid) || (row.amountPaid as number) < 0) {
+      return fail(`${label}.amountPaid must be a non-negative integer`)
+    }
+  }
+
   if (!Object.hasOwn(talentMarket, 'representation')) return fail('state.talentMarket.representation is missing (required, pinned null)')
   if (talentMarket.representation !== null) return fail('state.talentMarket.representation must be null under P14 root version 1')
+}
+
+/**
+ * R4, the MIGRATION record. Every player termination this campaign has already
+ * paid for, read from the SAME two records the industry validator reads — the
+ * P12 end receipt with reason `termination`, and the P10 `termination` ledger
+ * row it is keyed to — and recorded with the amount actually charged. No
+ * back-charge, no refund, no re-pricing: cash never moves at a migration. A
+ * terminated player row with no ledger row FAILS here rather than being recorded
+ * as zero, because that V27 state was already invalid.
+ */
+export function projectLegacyTerminations(state: Pick<GameState, 'hollywood' | 'ledger'>): LegacyTermination[] {
+  const hollywood = state.hollywood
+  if (hollywood === null) return []
+  const recorded: LegacyTermination[] = []
+  for (const row of hollywood.employment) {
+    if (row.studioId !== hollywood.playerStudioId || row.endedWeek === null) continue
+    const ends = hollywood.receipts.filter((r) => r.kind === 'employment' && r.contractId === row.contractId && r.toStudioId === null)
+    const end = ends[0]
+    if (ends.length !== 1 || end === undefined || end.kind !== 'employment' || end.reason !== 'termination') continue
+    const paid = state.ledger.find((entry) => entry.kind === 'termination'
+      && entry.talentId === row.terms.talentId && entry.week === row.endedWeek)
+    if (paid === undefined) {
+      throw new Error(`migrateToV28: player termination "${row.contractId}" has no termination ledger row — that state was already invalid`)
+    }
+    recorded.push({ contractId: row.contractId, endedWeek: row.endedWeek, amountPaid: -paid.amount })
+  }
+  return recorded
+}
+
+/**
+ * Save V28's termination law: today's cap law for every charge this era wrote,
+ * EXCEPT the contracts the migration recorded as legacy — those reconcile
+ * against the amount their own era actually paid.
+ */
+export function talentMarketTerminationLaw(talentMarket: unknown): TerminationLaw {
+  const rows = isRecord(talentMarket) && Array.isArray(talentMarket.legacyTerminations) ? talentMarket.legacyTerminations : []
+  const paid = new Map<string, number>()
+  for (const row of rows) if (isRecord(row)) paid.set(String(row.contractId), Number(row.amountPaid))
+  return (contract, endedWeek, contractId) => {
+    const legacy = paid.get(contractId)
+    return legacy === undefined ? [terminationCost(contract, endedWeek)] : [legacy]
+  }
 }
 
 /**

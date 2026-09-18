@@ -2079,10 +2079,24 @@ export type TalentMarketReceipt = {
   reasons: readonly string[]
 }
 
+/**
+ * R4 — ONE player termination this campaign ALREADY paid for under a pre-V28
+ * law, recorded at the migration boundary so a V28 reader reconciles it against
+ * what was ACTUALLY paid instead of back-charging today's law. Frozen there: a
+ * live V28 writer charges the cap law and never appends one of these.
+ */
+export type LegacyTermination = {
+  contractId: string
+  endedWeek: number
+  /** The termination ledger row's own charge, positive. Never re-derived. */
+  amountPaid: number
+}
+
 export type TalentMarketState = {
   cases: readonly TalentMarketCase[]
   proposals: readonly TalentMarketProposal[]
   receipts: readonly TalentMarketReceipt[]
+  legacyTerminations: readonly LegacyTermination[]
   /** R10 / direction 8. Required at the root and pinned `null`; nothing reads it.
    * The root's VERSION is the save version itself (V28) — no second, drifting
    * version field is persisted for a root that has shipped exactly once. */
