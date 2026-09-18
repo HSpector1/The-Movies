@@ -1,0 +1,237 @@
+── P14A.1 T4 · evidence 25 · three pre-market rival sound-adoption pins re-expressed under the market law ──
+Worktree: /Users/zacheryspector/The-Movies-headless-program, branch wip/headless-program-20260916-ts
+Base HEAD before this pass: 1798786 (diagnosis, evidence 24)
+Files changed: tests/bridge-p13-laboratory.test.ts, tests/p13b-s5-conservation.test.ts, tests/p13b-s5-equipment.test.ts
+No source (src/, bridge/, ui/) file touched. Single vitest worker throughout; slot probed free (ps -axo command | grep -c '[v]itest' = 0) before every run.
+
+=== npm run typecheck ===
+
+> project-studio-core@0.1.0 typecheck
+> tsc --noEmit && tsc -p ui/tsconfig.json --noEmit
+
+EXIT:0
+=== npm run typecheck:bridge ===
+
+> project-studio-core@0.1.0 typecheck:bridge
+> tsc -p tsconfig.bridge.json
+
+EXIT:0
+=== npx vitest run --project core --minWorkers=1 --maxWorkers=1 tests/p13b-s5-conservation.test.ts tests/p13b-s5-equipment.test.ts tests/bridge-p13-laboratory.test.ts ===
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/bridge-p13-laboratory.test.ts (7 tests) 17311ms
+   ✓ P13A Laboratory bridge > publishes one exact Laboratory with named employment and truthful early-release refusal 1354ms
+   ✓ P13A Laboratory bridge > rejects wrong building, stale revision and Save As session while keeping output detached 668ms
+   ✓ P13A Laboratory bridge > pages decisions without exposing private Laboratory data in public Industry pages 320ms
+   ✓ P13A Laboratory bridge > does not let read-side preflights spend money or invent employment/research history 362ms
+   ✓ P13A Laboratory bridge > commits the exact named hire once, rejects its stale sibling intent, then assigns the employed Scientist 3834ms
+   ✓ P13A Laboratory bridge > acknowledges completed acoustic instruments while the Scientist seat remains unassigned 900ms
+   ✓ P13A Laboratory bridge > shows rival sound only from the actual operational receipt, without exposing private finances 9870ms
+ ❯ |core| tests/p13b-s5-conservation.test.ts (3 tests | 1 failed) 33177ms
+   ✓ P13B-S5 conservation, determinism, campaign isolation (test 6) > cash conservation across a sound and a lighting adoption: every dollar the ledger charges for the two adoptions is exactly equipmentCost + installationCost, no more, no less, and no negative or duplicate row 10012ms
+   ✓ P13B-S5 conservation, determinism, campaign isolation (test 6) > determinism: the SAME action sequence from the SAME starting state produces byte-identical saves 13240ms
+   × P13B-S5 conservation, determinism, campaign isolation (test 6) > campaign isolation: a rival’s organically-purchased sound adoption is byte-unchanged by the player’s own adoption actions, and reconciles to the catalogue’s per-technology values (no hard-coded 300,000/975,000) 9923ms
+     → expected '{"id":"studio-aca408ec-r05:sound-adop…' to be '{"id":"studio-aca408ec-r05:sound-adop…' // Object.is equality
+ ✓ |core| tests/p13b-s5-equipment.test.ts (5 tests) 23563ms
+   ✓ P13B-S5 equipment assets (test 3) > an adoption’s equipment asset is minted exactly once, held by it, and never duplicated by a second adoption 4938ms
+   ✓ P13B-S5 equipment assets (test 3) > an unheld retained asset (holderAdoptionId null, referenced by no adoption) is reused at $0 by a NEW adoption of the SAME technology 4367ms
+   ✓ P13B-S5 equipment assets (test 3) > an unheld retained asset of one technology is NEVER reused by a different technology’s adoption 6165ms
+   ✓ P13B-S5 equipment assets (test 3) > a held asset cannot be reused: two adoptions naming the same equipmentAssetId is refused on reimport 4204ms
+   ✓ P13B-S5 equipment assets (test 3) > exported-save round trip never fabricates an equipment row: makeSave/exportSave/importSave over an unmutated adoption reproduces the same equipment array byte for byte 3888ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p13b-s5-conservation.test.ts > P13B-S5 conservation, determinism, campaign isolation (test 6) > campaign isolation: a rival’s organically-purchased sound adoption is byte-unchanged by the player’s own adoption actions, and reconciles to the catalogue’s per-technology values (no hard-coded 300,000/975,000)
+AssertionError: expected '{"id":"studio-aca408ec-r05:sound-adop…' to be '{"id":"studio-aca408ec-r05:sound-adop…' // Object.is equality
+
+Expected: "{"id":"studio-aca408ec-r05:sound-adoption:0","studioId":"studio-aca408ec-r05","technologyId":"synchronized-sound","stageFacilityId":"studio-aca408ec-r05:stage","postFacilityId":"studio-aca408ec-r05:post","route":"purchase","committedWeek":520,"operationalWeek":532,"cancelledWeek":null,"equipmentCost":300000,"installationCost":975000,"physicalProjectIds":[],"prototypeProjectId":null,"components":[{"kind":"access","label":"Synchronized sound access","cost":0,"weeks":null,"source":"existing","placementId":null,"equipmentAssetId":null},{"kind":"equipment","label":"Synchronized sound equipment set at the commercial price","cost":300000,"weeks":null,"source":"commercial","placementId":null,"equipmentAssetId":"studio-aca408ec-r05:equipment:1"},{"kind":"installation","label":"Synchronized sound installation","cost":975000,"weeks":12,"source":"physical","placementId":null,"equipmentAssetId":null}],"equipmentAssetId":"studio-aca408ec-r05:equipment:1"}"
+Received: "{"id":"studio-aca408ec-r05:sound-adoption:0","studioId":"studio-aca408ec-r05","technologyId":"synchronized-sound","stageFacilityId":"studio-aca408ec-r05:stage","postFacilityId":"studio-aca408ec-r05:post","route":"purchase","committedWeek":520,"operationalWeek":532,"cancelledWeek":null,"equipmentCost":300000,"installationCost":975000,"physicalProjectIds":[],"prototypeProjectId":null,"components":[{"kind":"access","label":"Synchronized sound access","cost":0,"weeks":null,"source":"existing","placementId":null,"equipmentAssetId":null},{"kind":"equipment","label":"Synchronized sound equipment set at the commercial price","cost":300000,"weeks":null,"source":"commercial","placementId":null,"equipmentAssetId":"studio-aca408ec-r05:equipment:0"},{"kind":"installation","label":"Synchronized sound installation","cost":975000,"weeks":12,"source":"physical","placementId":null,"equipmentAssetId":null}],"equipmentAssetId":"studio-aca408ec-r05:equipment:0"}"
+
+ ❯ tests/p13b-s5-conservation.test.ts:180:40
+    178| 
+    179|     const rivalAfter = state.technology.adoptions.find(a => a.studioId…
+    180|     expect(JSON.stringify(rivalAfter)).toBe(rivalBytesBefore)
+       |                                        ^
+    181|     expect(JSON.stringify(equipmentAssets(state, rivalBefore.studioId)…
+    182|     // The player's own row is real and independent of the rival's.
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed | 2 passed (3)
+      Tests  1 failed | 14 passed (15)
+   Start at  14:29:24
+   Duration  79.78s (transform 2.97s, setup 0ms, collect 4.47s, tests 74.05s, environment 2ms, prepare 357ms)
+
+EXIT:1
+=== npx vitest run --project core --minWorkers=1 --maxWorkers=1 tests/bridge-p13-laboratory.test.ts ===
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/bridge-p13-laboratory.test.ts (7 tests) 14939ms
+   ✓ P13A Laboratory bridge > publishes one exact Laboratory with named employment and truthful early-release refusal 1268ms
+   ✓ P13A Laboratory bridge > rejects wrong building, stale revision and Save As session while keeping output detached 802ms
+   ✓ P13A Laboratory bridge > pages decisions without exposing private Laboratory data in public Industry pages 552ms
+   ✓ P13A Laboratory bridge > does not let read-side preflights spend money or invent employment/research history 451ms
+   ✓ P13A Laboratory bridge > commits the exact named hire once, rejects its stale sibling intent, then assigns the employed Scientist 3348ms
+   ✓ P13A Laboratory bridge > acknowledges completed acoustic instruments while the Scientist seat remains unassigned 687ms
+   ✓ P13A Laboratory bridge > shows rival sound only from the actual operational receipt, without exposing private finances 7828ms
+
+ Test Files  1 passed (1)
+      Tests  7 passed (7)
+   Start at  14:35:33
+   Duration  18.87s (transform 2.54s, setup 0ms, collect 3.41s, tests 14.94s, environment 0ms, prepare 129ms)
+
+EXIT:0
+=== npx vitest run --project core --minWorkers=1 --maxWorkers=1 tests/p13b-s5-conservation.test.ts ===
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/p13b-s5-conservation.test.ts (3 tests | 1 failed) 39119ms
+   ✓ P13B-S5 conservation, determinism, campaign isolation (test 6) > cash conservation across a sound and a lighting adoption: every dollar the ledger charges for the two adoptions is exactly equipmentCost + installationCost, no more, no less, and no negative or duplicate row 12914ms
+   ✓ P13B-S5 conservation, determinism, campaign isolation (test 6) > determinism: the SAME action sequence from the SAME starting state produces byte-identical saves 16171ms
+   × P13B-S5 conservation, determinism, campaign isolation (test 6) > campaign isolation: a rival’s organically-purchased sound adoption is byte-unchanged by the player’s own adoption actions, and reconciles to the catalogue’s per-technology values (no hard-coded 300,000/975,000) 10033ms
+     → expected '{"id":"studio-aca408ec-r05:sound-adop…' to be '{"id":"studio-aca408ec-r05:sound-adop…' // Object.is equality
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p13b-s5-conservation.test.ts > P13B-S5 conservation, determinism, campaign isolation (test 6) > campaign isolation: a rival’s organically-purchased sound adoption is byte-unchanged by the player’s own adoption actions, and reconciles to the catalogue’s per-technology values (no hard-coded 300,000/975,000)
+AssertionError: expected '{"id":"studio-aca408ec-r05:sound-adop…' to be '{"id":"studio-aca408ec-r05:sound-adop…' // Object.is equality
+
+Expected: "{"id":"studio-aca408ec-r05:sound-adoption:0","studioId":"studio-aca408ec-r05","technologyId":"synchronized-sound","stageFacilityId":"studio-aca408ec-r05:stage","postFacilityId":"studio-aca408ec-r05:post","route":"purchase","committedWeek":520,"operationalWeek":532,"cancelledWeek":null,"equipmentCost":300000,"installationCost":975000,"physicalProjectIds":[],"prototypeProjectId":null,"components":[{"kind":"access","label":"Synchronized sound access","cost":0,"weeks":null,"source":"existing","placementId":null,"equipmentAssetId":null},{"kind":"equipment","label":"Synchronized sound equipment set at the commercial price","cost":300000,"weeks":null,"source":"commercial","placementId":null,"equipmentAssetId":"studio-aca408ec-r05:equipment:1"},{"kind":"installation","label":"Synchronized sound installation","cost":975000,"weeks":12,"source":"physical","placementId":null,"equipmentAssetId":null}],"equipmentAssetId":"studio-aca408ec-r05:equipment:1"}"
+Received: "{"id":"studio-aca408ec-r05:sound-adoption:0","studioId":"studio-aca408ec-r05","technologyId":"synchronized-sound","stageFacilityId":"studio-aca408ec-r05:stage","postFacilityId":"studio-aca408ec-r05:post","route":"purchase","committedWeek":520,"operationalWeek":532,"cancelledWeek":null,"equipmentCost":300000,"installationCost":975000,"physicalProjectIds":[],"prototypeProjectId":null,"components":[{"kind":"access","label":"Synchronized sound access","cost":0,"weeks":null,"source":"existing","placementId":null,"equipmentAssetId":null},{"kind":"equipment","label":"Synchronized sound equipment set at the commercial price","cost":300000,"weeks":null,"source":"commercial","placementId":null,"equipmentAssetId":"studio-aca408ec-r05:equipment:0"},{"kind":"installation","label":"Synchronized sound installation","cost":975000,"weeks":12,"source":"physical","placementId":null,"equipmentAssetId":null}],"equipmentAssetId":"studio-aca408ec-r05:equipment:0"}"
+
+ ❯ tests/p13b-s5-conservation.test.ts:180:40
+    178| 
+    179|     const rivalAfter = state.technology.adoptions.find(a => a.studioId…
+    180|     expect(JSON.stringify(rivalAfter)).toBe(rivalBytesBefore)
+       |                                        ^
+    181|     expect(JSON.stringify(equipmentAssets(state, rivalBefore.studioId)…
+    182|     // The player's own row is real and independent of the rival's.
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 2 passed (3)
+   Start at  14:36:14
+   Duration  44.10s (transform 3.07s, setup 0ms, collect 3.96s, tests 39.12s, environment 0ms, prepare 264ms)
+
+EXIT:1
+=== npx vitest run --project core --minWorkers=1 --maxWorkers=1 tests/p13b-s5-equipment.test.ts ===
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p13b-s5-equipment.test.ts (5 tests) 39521ms
+   ✓ P13B-S5 equipment assets (test 3) > an adoption’s equipment asset is minted exactly once, held by it, and never duplicated by a second adoption 9588ms
+   ✓ P13B-S5 equipment assets (test 3) > an unheld retained asset (holderAdoptionId null, referenced by no adoption) is reused at $0 by a NEW adoption of the SAME technology 6359ms
+   ✓ P13B-S5 equipment assets (test 3) > an unheld retained asset of one technology is NEVER reused by a different technology’s adoption 12852ms
+   ✓ P13B-S5 equipment assets (test 3) > a held asset cannot be reused: two adoptions naming the same equipmentAssetId is refused on reimport 5921ms
+   ✓ P13B-S5 equipment assets (test 3) > exported-save round trip never fabricates an equipment row: makeSave/exportSave/importSave over an unmutated adoption reproduces the same equipment array byte for byte 4796ms
+
+ Test Files  1 passed (1)
+      Tests  5 passed (5)
+   Start at  14:37:11
+   Duration  44.20s (transform 3.15s, setup 0ms, collect 4.17s, tests 39.52s, environment 0ms, prepare 177ms)
+
+EXIT:0
+=== npx vitest run --minWorkers=1 --maxWorkers=1 tests/bridge-p13-laboratory.test.ts (no --project) ===
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/bridge-p13-laboratory.test.ts (7 tests) 12871ms
+   ✓ P13A Laboratory bridge > publishes one exact Laboratory with named employment and truthful early-release refusal 1463ms
+   ✓ P13A Laboratory bridge > rejects wrong building, stale revision and Save As session while keeping output detached 784ms
+   ✓ P13A Laboratory bridge > pages decisions without exposing private Laboratory data in public Industry pages 454ms
+   ✓ P13A Laboratory bridge > does not let read-side preflights spend money or invent employment/research history 487ms
+   ✓ P13A Laboratory bridge > commits the exact named hire once, rejects its stale sibling intent, then assigns the employed Scientist 2441ms
+   ✓ P13A Laboratory bridge > acknowledges completed acoustic instruments while the Scientist seat remains unassigned 555ms
+   ✓ P13A Laboratory bridge > shows rival sound only from the actual operational receipt, without exposing private finances 6679ms
+
+ Test Files  1 passed (1)
+      Tests  7 passed (7)
+   Start at  14:38:08
+   Duration  16.95s (transform 2.68s, setup 0ms, collect 3.59s, tests 12.87s, environment 0ms, prepare 131ms)
+
+EXIT:0
+
+═════ SUPPLEMENTARY DIAGNOSIS — a SECOND, previously-unreached premise in
+tests/p13b-s5-conservation.test.ts's "campaign isolation" case, exposed only
+by applying the prescribed case-2 fix (NOT part of the three prescribed
+fixes; reported per contract, NOT silently patched) ═════
+
+The prescribed one-line fix (`find(a => a.studioId !== own && a.route ===
+'purchase')`) is applied verbatim and DOES fix the originally-diagnosed
+failure at line 152 (equipmentCost). Running the corrected file exposes a
+SECOND failure, never reached before because vitest aborts an `it()` at its
+first failing `expect` — evidence 24's diagnosis measured only up to the
+first assertion and could not see past it. New failure, same `it()`, later:
+
+  AssertionError: expected '...sound-adoption:0...' to be '...sound-adoption:0...'
+  at tests/p13b-s5-conservation.test.ts:180
+    expect(JSON.stringify(rivalAfter)).toBe(rivalBytesBefore)
+  Expected (rivalBefore, from the "before" chain): equipmentAssetId
+    "studio-aca408ec-r05:equipment:1"
+  Received (rivalAfter, from the "after" chain):   equipmentAssetId
+    "studio-aca408ec-r05:equipment:0"
+  Every OTHER field is byte-identical: route "purchase", committedWeek 520,
+  operationalWeek 532, equipmentCost 300000, installationCost 975000,
+  physicalProjectIds [], prototypeProjectId null. Only the equipment-asset
+  ID (top-level and inside `components[1]`) differs.
+
+MINIMAL REPRODUCTION (disposable vite-node probe, read-only, no source or
+test edit — script discarded after use):
+  const atWeek540 = advanceTo(p13aLaboratorySlice(), 540)
+  // "before" chain (no player action at all): r01 researches sound
+  // independently, adopts at committedWeek 276, mints equipment:0; r05
+  // purchases at 520/532, mints equipment:1. nextEquipmentId = 2.
+  let state = runToCompletion(begin(p13aResearchReady(), 'synchronized-sound', 10_000), 'synchronized-sound', 400)
+  state = advanceTo(state, atWeek540.market.tick)
+  // "after" chain (player independently researches + completes sound by
+  // week 303): r01 has ZERO technology.projects rows — never even started.
+  // r05 still purchases at 520/532 (byte-identical), but as the FIRST
+  // equipment mint: nextEquipmentId = 1, r05 gets equipment:0.
+  // rngState is IDENTICAL between both chains at week 540
+  // (2598418427,508725886,1318803286,3129010527) — this is NOT an RNG
+  // divergence; both rivalResearch.ts and technologyRival.ts are documented
+  // "no RNG, no clock, no I/O" modules.
+
+ROOT CAUSE (source read, no edit): src/core/rivalResearch.ts `interests()`
+(~line 89-95), under the ratified P13B-S8 "one inventor per technology"
+policy documented in the function's own comment ("one studio at a time
+pursues a given technology... a technology has ONE inventor and every other
+studio reaches it the way it always has — by commercial purchase"):
+  return !state.technology.projects.some(p => p.studioId !== business.studioId
+    && p.technologyId === row.technologyId && p.status !== 'cancelled')
+Once ANY studio (the player included) holds a non-cancelled project for a
+technology, EVERY OTHER studio is permanently excluded from ever pursuing it
+by research. In the "after" chain the PLAYER's own sound project exists
+(begun ~week 260, completed week 303) BEFORE r01 would otherwise start, so
+r01 never gets a project row at all — a direct, DOCUMENTED, intentional
+consequence of the shared "one inventor" law, not a bug. r05's OWN purchase
+decision is provably unaffected (byte-identical facts, identical rngState),
+confirming r05's row itself IS isolated. What is NOT isolated — by design —
+is the GLOBAL `technology.nextEquipmentId` mint-order counter: whether r01
+ever mints an equipment asset (and thus whether r05's is index 0 or 1)
+depends on this same cross-studio "one inventor" interaction. This is the
+identical MECHANICAL CLASS of premise already diagnosed for case 3 (evidence
+24: "nextEquipmentId... is a GLOBAL... counter, not per-studio"), now
+surfacing through case 2's own full-byte comparison instead of a hard-set
+literal.
+
+CLASSIFICATION: PREMISE, not a defect — but OUT OF THIS ASSIGNMENT'S EXACT,
+PRESCRIBED SCOPE (a one-line route-selector fix). Recommended re-expression
+(NOT applied here; would additionally weaken/restructure an assertion beyond
+the prescribed diff, which this assignment's contract reserves): compare
+`rivalAfter`/`rivalBefore` on every substantive field (route, committedWeek,
+operationalWeek, cancelledWeek, equipmentCost, installationCost,
+physicalProjectIds, prototypeProjectId, studioId, technologyId, facility
+ids) and separately on `equipmentAssets(...)` MATCHED BY SUBSTANCE (cost,
+source, technologyId, holderAdoptionId-shape) rather than by exact global
+ID string, mirroring the case-3 precedent — a decision for whoever owns this
+test's scope, not taken unilaterally here.
+
+RESULT: tests/p13b-s5-conservation.test.ts remains 2/3 green after the
+prescribed fix (13 assertions across "cash conservation" and "determinism"
+pass; "campaign isolation" fails at line 180, NOT at the originally-diagnosed
+line 152 — the prescribed fix is confirmed correct and sufficient for its own
+target line, this is a second, previously-unreachable premise).

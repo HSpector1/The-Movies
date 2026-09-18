@@ -33,6 +33,19 @@ import { equipmentAssets } from '../src/core/technologyAdoption.js'
 // with `technologyEntry('synchronized-sound')`'s own catalogue values — "no
 // behaviour change for sound" per the plan text) and campaign isolation,
 // without inventing rival state this engine cannot organically produce.
+//
+// MEASUREMENT NOTE, RE-EXPRESSED (test-author, P14A.1 T4, evidence 24/25):
+// the rival PURCHASE itself is byte-unchanged under the market/seat-budget
+// law (still r05, committedWeek 520, operational 532, equipmentCost 300,000,
+// installationCost 975,000 — exactly what was measured 2026-09-17 above).
+// What changed is that the seat budget frees the founding rivals' cash
+// enough for r01 to independently complete its OWN sound research and adopt
+// by the RESEARCH route at week 276 — a non-player adoption row that did not
+// exist before and now sorts ahead of r05's purchase by array position. The
+// selector below is corrected test-side to select the PURCHASE route
+// explicitly — the identical correction tests/bridge-p13-laboratory.test.ts
+// already made at e0676f9 for the same reason (the first non-player row is
+// no longer necessarily this case's own commercial-purchase subject).
 
 const SOUND = technologyEntry('synchronized-sound')
 const LIGHTING = technologyEntry('lighting-control-01')
@@ -147,7 +160,7 @@ describe('P13B-S5 conservation, determinism, campaign isolation (test 6)', () =>
   it('campaign isolation: a rival’s organically-purchased sound adoption is byte-unchanged by the player’s own adoption actions, and reconciles to the catalogue’s per-technology values (no hard-coded 300,000/975,000)', () => {
     const atWeek540 = advanceTo(p13aLaboratorySlice(), 540)
     const own = atWeek540.hollywood!.playerStudioId
-    const rivalBefore = atWeek540.technology.adoptions.find(a => a.studioId !== own)!
+    const rivalBefore = atWeek540.technology.adoptions.find(a => a.studioId !== own && a.route === 'purchase')!
     expect(rivalBefore.technologyId).toBe(SOUND.id)
     expect(rivalBefore.equipmentCost).toBe(SOUND.commercialEquipmentCost) // the catalogue's own value, not a bare literal
     expect(rivalBefore.installationCost).toBe(975_000)

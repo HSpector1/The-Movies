@@ -24,6 +24,20 @@ import { adoptionQuote, equipmentAssets } from '../src/core/technologyAdoption.j
 // `s3ForgeAndReimport` (src/harness/p13b/s3-fixtures.ts), the SAME round-trip
 // technique tests/p13b-s3-validation.test.ts already uses for facts this
 // engine's public action surface cannot organically produce.
+//
+// RE-EXPRESSED (test-author, P14A.1 T4, evidence 24/25): the two forged-unheld
+// cases below used to hard-set a FORGED equipment id and `nextEquipmentId`
+// value that assumed the world held exactly one (or zero) prior equipment
+// rows. Under the market/seat-budget law, `p13aLaboratorySlice()` and
+// `p13bTwoLabWorld()` (built on it) can legitimately already hold a rival's
+// own equipment row before this test's own forge runs (a rival now
+// independently reaches sound by the research route), so the world's
+// `nextEquipmentId` may already be past the hard-set value — the engine's own
+// root stays self-consistent (index N against nextEquipmentId N+1); the
+// refusal was produced by the forge asserting a counter it does not own, not
+// by any engine predicate. Both cases now read the LIVE `nextEquipmentId` at
+// forge time and inject at that free index, which is forge-order independent
+// and survives any future rival asset. No assertion below is weakened.
 
 const SOUND = technologyEntry('synchronized-sound')
 const LIGHTING = technologyEntry('lighting-control-01')
@@ -92,11 +106,13 @@ describe('P13B-S5 equipment assets (test 3)', () => {
     state = applyActions(state, [{ kind: 'adoptSynchronizedSound', stageFacilityId: stage1, postFacilityId }]) // mints "...:equipment:0", held
     state = advanceTo(state, state.market.tick + SOUND.deploymentWeeks)
 
-    const injectedId = `${own}:equipment:1`
+    let injectedId = ''
     state = s3ForgeAndReimport(state, parsed => {
       const equipment = equipmentOf(parsed)
+      const n = technologyOf(parsed).nextEquipmentId as number
+      injectedId = `${own}:equipment:${n}`
       equipment.push({ id: injectedId, studioId: own, technologyId: SOUND.id, acquiredWeek: state.market.tick, source: 'later-inventor', cost: SOUND.laterInventorEquipmentCost, holderAdoptionId: null })
-      technologyOf(parsed).nextEquipmentId = 2
+      technologyOf(parsed).nextEquipmentId = n + 1
     })
 
     const beforeAdopt = equipmentAssets(state, own)
@@ -126,11 +142,13 @@ describe('P13B-S5 equipment assets (test 3)', () => {
     // Inject an UNHELD SOUND equipment asset (structurally, since this world never
     // researched sound) into the lighting-ready world, then confirm a lighting
     // quote never reuses it (cross-technology reuse must be refused by construction).
-    const injectedId = `${own}:equipment:0`
+    let injectedId = ''
     state = s3ForgeAndReimport(state, parsed => {
       const equipment = equipmentOf(parsed)
+      const n = technologyOf(parsed).nextEquipmentId as number
+      injectedId = `${own}:equipment:${n}`
       equipment.push({ id: injectedId, studioId: own, technologyId: SOUND.id, acquiredWeek: state.market.tick, source: 'commercial', cost: SOUND.commercialEquipmentCost, holderAdoptionId: null })
-      technologyOf(parsed).nextEquipmentId = 1
+      technologyOf(parsed).nextEquipmentId = n + 1
     })
 
     const quote = adoptionQuote(state, { technologyId: LIGHTING.id, stageFacilityId })

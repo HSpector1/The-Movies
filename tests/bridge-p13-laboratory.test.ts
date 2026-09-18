@@ -4,6 +4,7 @@ import { generateWorld } from '../src/core/worldgen.js'
 import { initializeHollywood } from '../src/core/hollywood.js'
 import { commitPlacement } from '../src/core/placement.js'
 import { tick } from '../src/core/tick.js'
+import { campaignDate } from '../src/core/calendar.js'
 import { weeklyBurn } from '../src/core/economyView.js'
 import type { GameState } from '../src/core/types.js'
 import { laboratoryActionSpecs } from '../bridge/laboratory.ts'
@@ -141,36 +142,67 @@ describe('P13A Laboratory bridge', () => {
   })
 
   it('shows rival sound only from the actual operational receipt, without exposing private finances', () => {
-    let state = initializeHollywood(generateWorld('p13-public-commercial-adoption'), 'fresh')
-    while (state.market.tick < 417) state = tick(state)
     // P13B-S8 (ratified CANDIDATE law): the shared technology.adoptions array
     // now also carries a rival INVENTOR's own row (research completed ~276,
     // committed 276, operational 288 — already operational by week 417), so
     // the first non-player row is no longer necessarily this case's own
     // commercial-purchase subject. This case is specifically about the
-    // COMMERCIAL route (`'commercial purchase'`/week-428 assertions below),
-    // so it selects that route explicitly rather than array position.
+    // COMMERCIAL route (`'commercial purchase'` assertions below), so it
+    // selects that route explicitly rather than array position.
+    //
+    // RE-EXPRESSED (test-author, P14A.1 T4, evidence 24/25): pinning the
+    // purchase to week 428 and reading the pulse's first 50 rows are BOTH
+    // falsified by pinned law, not by a defect — week 416 is now the
+    // market's SECOND synchronized expiry, whose settlement round writes
+    // up to 50 employment receipts into this same 13-week pulse window
+    // (paging the technologyAdopted row off page 0), and the settlement's
+    // premium-tier payroll/signing bonuses cost the week-416-eligible rival
+    // the §48 cash gate by exactly 348,487 (evidence 18), so the first
+    // purchase-route adoption is now a LATER-ENTERING rival. Derive the
+    // purchasing studio, its committed/operational weeks and the pulse row
+    // from the chain's own receipts instead — the technique
+    // tests/p13a-rival-adoption.test.ts already uses (`naturalPurchaseSnapshot`:
+    // walk forward from the catalogue's own `commercialWeek` floor, 416,
+    // until a `route === 'purchase'` row appears) — and page/filter the
+    // pulse for the row instead of assuming it is on page 0. Every
+    // disclosure assertion below (no private finances) is unchanged.
+    let prev = initializeHollywood(generateWorld('p13-public-commercial-adoption'), 'fresh')
+    while (prev.market.tick < 416) prev = tick(prev) // synchronized-sound's own fixed catalogue commercialWeek floor
+    let state = prev
+    while (!state.technology.adoptions.some(a => a.route === 'purchase')) { prev = state; state = tick(state) }
     const pending = state.technology.adoptions.find(a => a.studioId !== state.hollywood!.playerStudioId && a.route === 'purchase')
     expect(pending).toBeDefined()
     expect(pending!.operationalWeek).toBeNull()
     const studioQuery = query({ view: 'studio', targetId: pending!.studioId, lane: 'recent' })
     const before = industryPage(state, 'lab-test', 0, studioQuery)
     expect(before.tendencies.some(t => t.label === 'Observed sound adoption')).toBe(false)
-    while (state.market.tick < 428) state = tick(state)
+    while (state.technology.adoptions.find(a => a.id === pending!.id)!.operationalWeek === null) state = tick(state)
+    const operationalWeek = state.technology.adoptions.find(a => a.id === pending!.id)!.operationalWeek!
     const receipt = state.hollywood!.receipts.find(r => r.kind === 'technologyAdopted' && r.adoptionId === pending!.id)
-    expect(receipt).toMatchObject({ week: 428, studioId: pending!.studioId })
+    expect(receipt).toMatchObject({ week: operationalWeek, studioId: pending!.studioId })
     const after = industryPage(state, 'lab-test', 0, studioQuery)
     const observed = after.tendencies.find(t => t.label === 'Observed sound adoption')!
-    expect(observed.detail).toContain('1928 · Week 13')
+    expect(observed.detail).toContain(campaignDate(operationalWeek).label)
     expect(observed.detail).toContain('commercial purchase')
     expect(observed.basis).toContain('not a strategy forecast')
-    const pulse = industryPage(state, 'lab-test', 0, query({ view: 'pulse', targetId: null, pageSize: 50 }))
-    expect(pulse.activities.some(a => a.eventId === receipt!.eventId && a.headline.includes('operational synchronized sound'))).toBe(true)
-    for (const page of [after, pulse]) {
+    // The pulse's own row order is by GROUP first (releases, people, studios,
+    // announcements) and only then by week — a settlement week can legitimately
+    // fill the window with dozens of 'people'-group rows that outrank the
+    // 'studios'-group technologyAdopted row. Page until found, or exhaust every page.
+    let pulse: ReturnType<typeof industryPage> | undefined
+    let found: ReturnType<typeof industryPage>['activities'][number] | undefined
+    for (let page = 0; ; page++) {
+      pulse = industryPage(state, 'lab-test', 0, query({ view: 'pulse', targetId: null, pageSize: 50, page }))
+      found = pulse.activities.find(a => a.eventId === receipt!.eventId)
+      if (found || page + 1 >= pulse.pageCount) break
+    }
+    expect(found).toBeDefined()
+    expect(found!.headline).toContain('operational synchronized sound')
+    for (const page of [after, pulse!]) {
       expect(parseWireValue(BRIDGE_SCHEMA.$defs.StudioIndustryResponse, page)).toEqual(page)
       const json = JSON.stringify(page)
       for (const privateField of ['equipmentCost', 'accessCost', 'account', 'annualSalary', 'researchSpend', 'negativeScale'])
         expect(json).not.toContain('"' + privateField + '"')
     }
-  }, 30_000)
+  }, 60_000)
 })
