@@ -114,6 +114,16 @@ type SaveModuleWithV28 = typeof save & {
 }
 const withV28 = save as SaveModuleWithV28
 
+// P14B.1.T2c (moved-neighbour pin): the live GameState is V29 now, and every
+// action that can terminate a contract (`releaseTalent`) unconditionally
+// threads through `breakPromisesOnTermination`, which refuses loudly on a
+// state missing the V29 roots (`src/core/promises.ts` `requirePromiseRoots`).
+// The R4 case below needs a state that can actually TAKE that live action.
+type SaveModuleWithV29 = typeof save & {
+  migrateToV29: (envelope: unknown) => { saveVersion: number; seed: string; state: GameState; broadcastCache: unknown[] }
+}
+const withV29 = save as SaveModuleWithV29
+
 const load = (relative: string) => gunzipSync(readFileSync(new URL(relative, import.meta.url))).toString('utf8')
 function assertSha256(json: string, expected: string) {
   expect(createHash('sha256').update(json).digest('hex')).toBe(expected)
@@ -236,38 +246,67 @@ describe('P14A.1 test 8: Save V28 (genuine V27 fixtures, honest lift, downgrade,
     expect(() => withV28.validateSaveV28(nonNull as never)).toThrow(/representation/i)
   })
 
-  it('an unknown saveVersion 29 is refused, naming the handled range "1 through 28 only"', () => {
+  it('an unknown saveVersion 30 is refused, naming the handled range "1 through 29 only"', () => {
     const json = load(V27_FIXTURES.naturalRivalLabs.file)
     const lifted = withV28.migrateToV28(JSON.parse(json))
-    const forged = { ...lifted, saveVersion: 29 }
-    expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 28 only/)
+    const forged = { ...lifted, saveVersion: 30 }
+    expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 29 only/)
+  })
+
+  it('releaseTalent on a migrateToV28-only state throws the named V29-roots-missing message (T2c: pins the fail-loud behaviour that made the R4 case below need migrateToV29 for its live action)', () => {
+    const json = load(V27_FIXTURES.naturalRivalLabs.file)
+    const v28State = withV28.migrateToV28(JSON.parse(json)).state
+    const actorId = hiringMarketIds(v28State, v28State.market.tick).map((id) => v28State.talent.find((t) => t.id === id)).find((t) => t?.role === 'actor')!.id
+    const signed = applyActions(v28State, [{ kind: 'signContract', talentId: actorId, termWeeks: 208 }])
+    expect(() => applyActions(signed, [{ kind: 'releaseTalent', talentId: actorId }])).toThrow(
+      'promises: the Save V29 roots are missing — migrate this state to V29 before acting on it',
+    )
   })
 
   it('R4 legacy terminations: a V27 termination priced under the OLD 50% law still validates through the frozen chain, and lifts to V28 recorded as legacy with no invented back-charge', () => {
     const json = load(V27_FIXTURES.naturalRivalLabs.file)
-    const genuine = save.validateSave(JSON.parse(json) as never).state as GameState
-    expect(genuine.contracts).toEqual([]) // this fixture carries no player contracts — sign one first (see header)
+    // T2c (moved-neighbour pin): `releaseTalent` now refuses loudly on a
+    // state missing the V29 roots (see the fail-loud case immediately
+    // above), so the LIVE action below runs on a state migrated all the way
+    // to V29 (`migrateToV29`, not `migrateToV28`) — a shadow copy used ONLY
+    // to produce the real contract/ledger/employment facts a live action
+    // makes. `genuineV27` (the frozen, unmigrated V27 shape — no
+    // `talentMarket`/`promises`/`firstTakes` roots at all) is what the rest
+    // of this test still forges and re-validates, so assertion (a) below
+    // keeps proving a genuinely CLEAN V27 envelope, not one carrying
+    // V29-era roots it never had.
+    const genuineV27 = save.validateSave(JSON.parse(json) as never).state as GameState
+    expect(genuineV27.contracts).toEqual([]) // this fixture carries no player contracts — sign one first (see header)
+    const genuineForAction = withV29.migrateToV29(JSON.parse(json)).state
 
-    const actorId = hiringMarketIds(genuine, genuine.market.tick).map((id) => genuine.talent.find((t) => t.id === id)).find((t) => t?.role === 'actor')!.id
-    const signed = applyActions(genuine, [{ kind: 'signContract', talentId: actorId, termWeeks: 208 }])
+    const actorId = hiringMarketIds(genuineForAction, genuineForAction.market.tick).map((id) => genuineForAction.talent.find((t) => t.id === id)).find((t) => t?.role === 'actor')!.id
+    const signed = applyActions(genuineForAction, [{ kind: 'signContract', talentId: actorId, termWeeks: 208 }])
     const contract = signed.contracts.find((c) => c.talentId === actorId)!
     const released = applyActions(signed, [{ kind: 'releaseTalent', talentId: actorId }]) // real release: real ledger row, real P12 mirror, real receipt
     const ledgerRow = released.ledger.find((r) => r.kind === 'termination' && r.talentId === actorId)!
     const newLawCharge = -ledgerRow.amount
     const empRow = released.hollywood!.employment.find((e) => e.terms.talentId === actorId && e.studioId === released.hollywood!.playerStudioId)!
-    expect(empRow.endedWeek).toBe(genuine.market.tick)
+    expect(empRow.endedWeek).toBe(genuineForAction.market.tick)
 
     // The OLD law this contract was NEVER actually charged under (the engine
     // only ever produced newLawCharge above) — computed directly from the
     // discarded HIRING_TERMINATION_FRACTION formula companion §3.1 names.
-    const oldLawCharge = Math.round(TUNING.HIRING_TERMINATION_FRACTION * guaranteedComp(contract, genuine.market.tick))
+    const oldLawCharge = Math.round(TUNING.HIRING_TERMINATION_FRACTION * guaranteedComp(contract, genuineForAction.market.tick))
     expect(oldLawCharge).not.toBe(newLawCharge) // sanity: genuinely distinguishable, not a coincidental tie
 
-    // Hand-forge ONLY the price: the ledger row and cash, consistent with the
-    // old law, for the SAME real contractId/endedWeek/receipt the engine
-    // already produced — nothing else in the state is touched.
+    // Hand-forge ONLY the price, replayed onto the CLEAN V27 shape: the real
+    // contracts/hollywood/ledger facts the live action (run on the V29
+    // shadow copy) actually produced, minus the two roots that fixture never
+    // had (`talentMarket`, `promises`, `firstTakes`) — nothing else in the
+    // state is touched, and no V29-era root leaks into a V27 envelope.
     const forgedLedger = released.ledger.map((r) => (r === ledgerRow ? { ...r, amount: -oldLawCharge } : r))
-    const forgedState: GameState = { ...released, ledger: forgedLedger, studio: { ...released.studio, cash: released.studio.cash + (newLawCharge - oldLawCharge) } }
+    const forgedState: GameState = {
+      ...genuineV27,
+      contracts: released.contracts,
+      hollywood: released.hollywood,
+      ledger: forgedLedger,
+      studio: { ...released.studio, cash: released.studio.cash + (newLawCharge - oldLawCharge) },
+    }
     const forgedEnvelope = { saveVersion: 27 as const, seed: forgedState.seed, state: forgedState, broadcastCache: forgedState.broadcastItems }
 
     // (a) still validates as V27 through the frozen chain — the frozen

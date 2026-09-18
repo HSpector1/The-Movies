@@ -57,24 +57,44 @@
 //      `string` or a `string[]` reading, without silently passing on an
 //      undefined field.
 //
-// PREMISES NOT SATISFIED:
-//   - "After the S5-R07 setup gate" is not independently re-verified by this
-//     file: `advanceManagedProductions`'s own control flow (read at T1,
-//     operations.ts ~1650-1654) makes the `remainingTicks === 5` branch
-//     unreachable for a production that has not already cleared the setup
-//     hold at `remainingTicks === 6`, so any production this file observes
-//     at 5 has already cleared it by construction; the T0 fixture's own
-//     provenance additionally records the real setup completion for the
-//     player case.
+// PREMISES NOT SATISFIED (T1's own premise for the PLAYER case, corrected at
+// T2c per the T2 ruling's "TEST-SIDE premises" note): the shooting-5
+// fixture's own shooting task is `unassigned`, not `scheduled` —
+// `advanceManagedProductions`'s 5 -> 4 branch (operations.ts ~1653) requires
+// `scheduled`, produced only by the player's own `assignShootingDirector` +
+// `scheduleShootingTake` actions, and the fixture's world was minted on the
+// operations studio (`hollywood: null`), so it carries no studio identity
+// for the receipt's own `studioId` field. Ticking the raw fixture forward
+// would either throw (`hollywood` null downstream) or never fire the 5 -> 4
+// branch at all (the task never scheduled) — neither proves the claim. The
+// PLAYER case below is instead built LIVE on an INDUSTRY world
+// (`p13aGeneratedStudio()`), through the same S5-R07 setup-gated recipe the
+// T0 fixture's own minter used (`src/harness/p14/legacy-v28-fixtures.ts`
+// block (d): sign the creative roster, fund, commission and build a
+// grand-ballroom Set on `facility-soundstage-07`, greenlight, walk to
+// Rehearsal, select the `ballroom-reveal-lighting-01` recipe, tick to
+// `remainingTicks === 5`) — then, the part block (d) deliberately stopped
+// short of, `assignShootingDirector` and `scheduleShootingTake` before the
+// final tick. The shooting-5 fixture itself remains genuine V28 evidence for
+// the FIRST `it` below (no `firstTakes` root before migration) and for test
+// 8's migration proof (`tests/p14b1-save-v29.test.ts`, unaffected by this
+// file) — only the PLAYER take claim moves off it. `hiringMarketIds` is
+// walked forward per role (never assumed present at week 0), mirroring
+// `signOne`/`signActor` in `tests/p14b1-promises.test.ts` and
+// `tests/p14b1-trust-chooser.test.ts` (D-11.14: signing a candidate the
+// hiring market does not currently offer is refused).
 
 import { readFileSync } from 'node:fs'
 import { createHash } from 'node:crypto'
 import { gunzipSync } from 'node:zlib'
 import { describe, expect, it } from 'vitest'
+import { applyActions } from '../src/core/actions.js'
+import { hiringMarketIds } from '../src/core/employment.js'
 import { tick } from '../src/core/tick.js'
+import { TUNING } from '../src/core/tuning.js'
 import * as save from '../src/core/save.js'
 import { p13aGeneratedStudio } from '../src/harness/p13a/fixtures.js'
-import type { GameState } from '../src/core/types.js'
+import type { CastSlot, GameState, SegmentId } from '../src/core/types.js'
 // RED-by-design: src/core/promises.ts does not exist. firstTakeReceipts is
 // CALLED below.
 import { firstTakeReceipts } from '../src/core/promises.js'
@@ -92,6 +112,128 @@ function takesFor(state: GameState, productionId: string): FirstTake[] {
 }
 function includesSupport(support: readonly string[] | string, expected: string): boolean {
   return Array.isArray(support) ? support.includes(expected) : support === expected
+}
+
+const STAGE_7 = 'facility-soundstage-07'
+
+/** One free-agent person of `role`, found by walking the hiring market
+ * forward (never assumed present at week 0 — mirrors `signOne`/`signActor`
+ * in tests/p14b1-promises.test.ts and tests/p14b1-trust-chooser.test.ts). */
+function signOneOfRole(state: GameState, role: 'writer' | 'director' | 'actor' | 'craft', termWeeks = 208): GameState {
+  let next = state
+  for (let i = 0; i < 60; i++) {
+    const candidates = hiringMarketIds(next, next.market.tick)
+    const person = candidates.map((id) => next.talent.find((t) => t.id === id)).find((t) => t?.role === role)
+    if (person !== undefined) return applyActions(next, [{ kind: 'signContract', talentId: person.id, termWeeks }])
+    next = tick(next)
+  }
+  throw new Error(`fixture premise failed: no free-agent ${role} found within 60 weeks`)
+}
+
+function contractedByRole(state: GameState, role: string): readonly { id: string }[] {
+  return state.contracts
+    .filter((c) => state.talent.find((t) => t.id === c.talentId)?.role === role)
+    .map((c) => state.talent.find((t) => t.id === c.talentId)!)
+}
+
+/** A cash bootstrap before any production choice is made — the SAME
+ * 30,000,000 headroom the T0 fixture's own minter used, not a fact about the
+ * picture, its cast or its setup. */
+function fundTo(state: GameState, target: number): GameState {
+  const delta = target - state.studio.cash
+  if (delta === 0) return state
+  return {
+    ...state,
+    studio: { ...state.studio, cash: target },
+    ledger: [...state.ledger, { week: state.market.tick, kind: (delta > 0 ? 'studioRevenue' : 'overhead') as 'studioRevenue' | 'overhead', amount: delta, note: 'test fixture cash bootstrap' }],
+  }
+}
+
+/**
+ * Builds a PLAYER production on an industry world to `remainingTicks === 5`
+ * with its shooting task SCHEDULED — the T0 minter's own recipe
+ * (`src/harness/p14/legacy-v28-fixtures.ts` block (d): sign the roster,
+ * fund, commission and build a grand-ballroom Set on
+ * `facility-soundstage-07`, greenlight, walk to Rehearsal, select
+ * `ballroom-reveal-lighting-01`, tick to `remainingTicks === 5`) plus the
+ * two actions block (d) deliberately stopped short of, so the 5 -> 4 branch
+ * (operations.ts ~1653) can actually fire on the very next tick.
+ */
+function buildScheduledPlayerProduction(): { state: GameState; productionId: string; directorId: string; cast: Record<CastSlot, string> } {
+  let state = p13aGeneratedStudio()
+  state = signOneOfRole(state, 'writer')
+  state = signOneOfRole(state, 'director')
+  state = signOneOfRole(state, 'actor')
+  state = signOneOfRole(state, 'actor')
+  state = signOneOfRole(state, 'actor')
+  state = signOneOfRole(state, 'craft')
+  state = fundTo(state, 30_000_000)
+  const mounted = state.sets.find((s) => s.mountedOn === STAGE_7 && s.status !== 'retired')
+  if (mounted !== undefined) state = applyActions(state, [{ kind: 'strikeSet', setId: mounted.id }])
+  state = applyActions(state, [{ kind: 'commissionSet', commission: { blueprintId: 'set-grand-ballroom', stageFacilityId: STAGE_7 } }])
+  for (let week = 0; week < TUNING.SET_BUILD_WEEKS_BAND_HIGH; week++) state = tick(state)
+
+  const concept = state.concepts[0]!
+  const actors = contractedByRole(state, 'actor')
+  const cast: Record<CastSlot, string> = { lead: actors[0]!.id, antagonist: actors[1]!.id, support: actors[2]!.id }
+  const directorId = contractedByRole(state, 'director')[0]!.id
+  const payload = {
+    conceptId: concept.id,
+    shape: { opening: 'slowSetup', midpoint: 'revelation', ending: 'bittersweet' } as const,
+    promise: {
+      genre: concept.genre,
+      intendedSegments: ['adult'] as SegmentId[],
+      ranges: { intimacy: [-0.5, 0.5] as [number, number], tonalWeight: [-0.5, 0.5] as [number, number], kineticEnergy: [-0.5, 0.5] as [number, number] },
+    },
+    writerId: contractedByRole(state, 'writer')[0]!.id,
+    directorId,
+    cast,
+    craftIds: [contractedByRole(state, 'craft')[0]!.id],
+    budget: { negative: concept.baseNegativeCost, marketing: 0 },
+  }
+  state = applyActions(state, [{ kind: 'greenlight', production: payload }])
+  const productionId = state.studio.activeProductions[state.studio.activeProductions.length - 1]!.id
+  state = tick(state) // greenlight tick: skip
+  state = tick(state) // Development -> Pre-production
+  state = tick(state) // Pre-production -> Rehearsal
+  const rehearsalWorkflow = state.operations.workflows.find((w) => w.productionId === productionId)
+  if (rehearsalWorkflow === undefined) throw new Error('fixture premise failed: no workflow for the greenlit production at rehearsal')
+  if (rehearsalWorkflow.phase !== 'rehearsal') {
+    throw new Error(`fixture premise failed: phase "${rehearsalWorkflow.phase}" at week ${String(state.market.tick)}, expected rehearsal`)
+  }
+  state = applyActions(state, [
+    { kind: 'setProductionSetupRecipe', productionId, recipeId: 'ballroom-reveal-lighting-01', expectedPlanRevision: rehearsalWorkflow.planRevision },
+  ])
+
+  let production = state.studio.activeProductions.find((p) => p.id === productionId)!
+  let guard = 0
+  while (production.remainingTicks !== 5) {
+    state = tick(state)
+    production = state.studio.activeProductions.find((p) => p.id === productionId)!
+    guard += 1
+    if (guard > 40) throw new Error(`fixture premise failed: remainingTicks never reached 5 within ${String(guard)} weeks`)
+  }
+  const shootingWorkflow = state.operations.workflows.find((w) => w.productionId === productionId)!
+  if (shootingWorkflow.phase !== 'shooting' || shootingWorkflow.shootingTask === null) {
+    throw new Error('fixture premise failed: not in Shooting with a shooting task at remainingTicks 5')
+  }
+  if (shootingWorkflow.shootingTask.status !== 'unassigned') {
+    throw new Error(`fixture premise failed: shooting task status "${shootingWorkflow.shootingTask.status}", expected unassigned before scheduling`)
+  }
+
+  // THE PART BLOCK (d) STOPPED SHORT OF: the player's own actions that make
+  // the 5 -> 4 branch reachable (operations.ts ~1653: task.status ===
+  // 'scheduled', blocker === null).
+  state = applyActions(state, [{ kind: 'assignShootingDirector', productionId, directorId }])
+  state = applyActions(state, [{ kind: 'scheduleShootingTake', productionId }])
+  const scheduledWorkflow = state.operations.workflows.find((w) => w.productionId === productionId)!
+  if (scheduledWorkflow.shootingTask?.status !== 'scheduled' || scheduledWorkflow.blocker !== null) {
+    throw new Error(
+      `fixture premise failed: shooting task status "${String(scheduledWorkflow.shootingTask?.status)}" / blocker ${JSON.stringify(scheduledWorkflow.blocker)}, expected scheduled with no blocker`,
+    )
+  }
+
+  return { state, productionId, directorId, cast }
 }
 
 const PLAYER_FIXTURE = {
@@ -114,38 +256,41 @@ describe('P14B.1 test 1: the first-take receipt', () => {
     expect(parsed.state.firstTakes).toBeUndefined()
   })
 
-  it('PLAYER: never at shooting entry (empty at remainingTicks 5, three weeks into Shooting on the genuine fixture); appended exactly once at the 5 -> 4 advance; idempotent on a later tick; byte-stable across save/load', () => {
-    const json = load(PLAYER_FIXTURE.file)
-    const migrated = withV29.migrateToV29(JSON.parse(json))
-    expect(migrated.state.market.tick).toBe(PLAYER_FIXTURE.week)
-    const production = migrated.state.studio.activeProductions.find((p) => p.id === PLAYER_FIXTURE.productionId)
-    if (production === undefined) throw new Error('fixture premise failed: prod-0008 not found in activeProductions')
-    expect(production.remainingTicks).toBe(5)
+  it('PLAYER: never at shooting entry (empty at remainingTicks 5, shooting task unassigned then scheduled through the real actions, still empty after scheduling); appended exactly once at the 5 -> 4 advance; idempotent on a later tick; byte-stable across save/load', () => {
+    const { state: scheduled, productionId, directorId, cast } = buildScheduledPlayerProduction()
+    const week = scheduled.market.tick
 
-    expect(takesFor(migrated.state, PLAYER_FIXTURE.productionId)).toEqual([]) // not yet completed its first take
+    // Scheduling is not completion: the take has not fired yet.
+    expect(takesFor(scheduled, productionId)).toEqual([])
 
-    const afterFirstWeek = tick(migrated.state)
-    const advancedProduction = afterFirstWeek.studio.activeProductions.find((p) => p.id === PLAYER_FIXTURE.productionId)
+    const afterFirstWeek = tick(scheduled)
+    const advancedProduction = afterFirstWeek.studio.activeProductions.find((p) => p.id === productionId)
     expect(advancedProduction?.remainingTicks).toBe(4) // the natural 5 -> 4 advance
 
-    const takes = takesFor(afterFirstWeek, PLAYER_FIXTURE.productionId)
+    const takes = takesFor(afterFirstWeek, productionId)
     expect(takes.length).toBe(1)
     const take = takes[0]!
-    expect(take.week).toBe(PLAYER_FIXTURE.week + 1)
+    expect(take.week).toBe(week + 1)
     expect(take.studioId).toBe(afterFirstWeek.hollywood!.playerStudioId)
-    expect(take.directorId).toBe(PLAYER_FIXTURE.directorId)
-    expect(take.cast.lead).toBe(PLAYER_FIXTURE.cast.lead)
-    expect(take.cast.antagonist).toBe(PLAYER_FIXTURE.cast.antagonist)
-    expect(includesSupport(take.cast.support, PLAYER_FIXTURE.cast.support)).toBe(true)
+    expect(take.directorId).toBe(directorId)
+    expect(take.cast.lead).toBe(cast.lead)
+    expect(take.cast.antagonist).toBe(cast.antagonist)
+    expect(includesSupport(take.cast.support, cast.support)).toBe(true)
 
     // idempotent: a second natural tick does not duplicate the receipt.
     const afterSecondWeek = tick(afterFirstWeek)
-    expect(takesFor(afterSecondWeek, PLAYER_FIXTURE.productionId).length).toBe(1)
+    expect(takesFor(afterSecondWeek, productionId).length).toBe(1)
 
     // byte-stable across save/load.
     const envelope = { saveVersion: 29, seed: afterFirstWeek.seed, state: afterFirstWeek, broadcastCache: afterFirstWeek.broadcastItems }
     const roundTripped = withV29.validateSaveV29(JSON.parse(JSON.stringify(envelope))) as Envelope
-    expect(JSON.stringify(firstTakeReceipts(roundTripped.state))).toBe(JSON.stringify(takes))
+    // Filtered by productionId, exactly like `takes` above: an industry
+    // world's `firstTakes` root also carries every rival's own first takes
+    // (unlike the V28-fixture's isolated operations-only world), so the
+    // whole-root comparison this file's earlier V28-fixture version used
+    // would compare against rival receipts that were never part of the
+    // claim.
+    expect(JSON.stringify(takesFor(roundTripped.state, productionId))).toBe(JSON.stringify(takes))
   })
 
   it('RIVAL: the same receipt is appended once at the 5 -> 4 advance for a rival production found by direct search over the natural chain (never a magic week)', () => {

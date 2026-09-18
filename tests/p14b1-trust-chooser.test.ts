@@ -232,24 +232,63 @@ describe('P14B.1 test 6: trust, the widened chooser and the priority order', () 
     expect(settlement.dropped.some((sentence) => /distrust/i.test(sentence))).toBe(true)
   })
 
-  it('opportunity breaks an otherwise 1-1 tie: a rival ahead on compensation vs the incumbent ahead on incumbency (companion Case 2 shape) — attaching a feasible promise to the incumbent side tips the case to it, with an opportunity-naming reason', () => {
-    // Rival wins D1 (tier 1.10 vs 1.00); player wins D7 (incumbent). A 1-1
-    // tie under today's 4-live-descriptor law. Adding D3 (a feasible
-    // promise) to the PLAYER side gives it 2 wins (D3+D7) against the
-    // rival's 1 (D1) — an outright pairwise win, needing no tie-break.
-    const { state: opened, talentId, playerStudioId } = openCaseWithRival(1.0, 1.1)
-    const week = opened.market.tick
-    const state = attachPromise(opened, talentId, playerStudioId, {
-      family: 'APPEARANCE_COUNT',
-      predicate: { count: 1 },
-      windowStartWeek: week,
-      dueWeekExclusive: week + 52,
-    })
-    const settlement = settleAt52(state, talentId)
-    expect(settlement.kind).toBe('settled')
-    expect(settlement.studioId).toBe(playerStudioId)
-    expect(settlement.reasons.some((reason) => /opportunit/i.test(reason))).toBe(true)
-  })
+  // T2c: this case previously used `openCaseWithRival(1.0, 1.1)` at week 52
+  // on a fresh `p13aGeneratedStudio()` — MEASURED OBSTACLE (T2 ruling):
+  // that construction hits the SAME founding-roster seat cap P14A.1-F1
+  // already measured (every founding rival holds its full RIVAL_TEAM_ROLES
+  // cap on every role until week 208), so the lone rival proposal is
+  // dropped `noSeatForRole` at freeze — one survivor, no descriptor
+  // comparison ever runs (the case settles on the player's proposal alone,
+  // `reasons: ["theirs was the only proposal on the table"]`, never
+  // "opportunity").
+  //
+  // The week-404 construction was attempted instead (this file's own header
+  // interpretation 5: the SECOND synchronized churn on seed
+  // `p13-public-commercial-adoption`, where T1 measured every SURVIVING
+  // two-proposal contest keeps the case's own incumbent). Disposable,
+  // uncommitted vite-node probes against the real engine (deleted after
+  // use; commands and full output recorded in this task's own evidence
+  // file) found:
+  //   - Of the 12 rival-subject ACTOR cases that open at week 404 on this
+  //     seed, exactly ONE has an UNPROVEN subject
+  //     (`person-studio-5a47d054-r04-3`, `publicPriorityOrder(state,
+  //     talentId)[0] === 'opportunity'`) — every other subject there is
+  //     proven, and the tie-break priority order only puts opportunity
+  //     FIRST for the unproven archetype (interpretation 1 above), so a
+  //     proven subject cannot exercise this case's own D3-breaks-the-tie
+  //     claim at all.
+  //   - That one subject's own employer, `studio-5a47d054-r04`, is
+  //     INSOLVENT through the entire decision window: its business
+  //     account's own `closing` balance is -8,933,725 at week 404 and
+  //     worsens every week to -10,127,665 by the decision week 416 (its
+  //     payroll/overhead/facilityOpex movements alone exceed 4.7M across
+  //     the window, with zero revenue). `submitProposal` itself REFUSES an
+  //     incumbent retention bid at this studio outright: "talentMarket:
+  //     proposal rejected — the signing bonus would leave
+  //     \"studio-5a47d054-r04\" under its operating reserve" — so D7
+  //     (incumbency) can NEVER be won by the rival side in this
+  //     construction; there is no live incumbent bid to attach it to, hand-
+  //     forging one would fabricate a fact `submitProposal`'s own law
+  //     refuses, and this suite's convention forbids exactly that.
+  //   - Walking the case forward WITHOUT any manual intervention confirms
+  //     the natural (unforced) resolution: the two OTHER rivals' bids on
+  //     this same case (r01 at tier 1.05, r02 at tier 1.10) are both
+  //     dropped `noSeatForRole` at the decision week too, and the case
+  //     settles `declined` / "all proposals dropped" — zero survivors, the
+  //     SAME shape of obstacle as the week-52 construction, for a different
+  //     underlying cause (studio insolvency rather than a full roster).
+  //   - No other unproven rival-subject actor case exists anywhere in
+  //     weeks 0-450 on this seed (a full scan of every rival-subject actor
+  //     case's `publicPriorityOrder` found exactly one match: this SAME
+  //     person, at its FIRST churn, week 196 — when `studio-5a47d054-r04`
+  //     WAS solvent, closing balance +12,284,652 — but T1's own ruling
+  //     requires the SECOND synchronized churn specifically, where every
+  //     surviving pair keeps the incumbent; this case's incumbent cannot
+  //     reach that churn with a live bid at all).
+  it.todo(
+    'opportunity breaks an otherwise 1-1 tie: a rival ahead on compensation vs the incumbent ahead on incumbency (companion Case 2 shape), constructed at the week-404 second synchronized churn on seed p13-public-commercial-adoption — ' +
+      'OBSTACLE: the one unproven rival-subject actor case at week 404 (talentId person-studio-5a47d054-r04-3, subject studio-5a47d054-r04) has an INSOLVENT incumbent (closing account balance -8,933,725 at week 404, -10,127,665 by the decision week 416) that submitProposal itself refuses ("under its operating reserve"), so D7 (incumbency) can never be won by the rival side; the natural, unforced settlement of this exact case is declined/"all proposals dropped" with zero survivors at week 416 (r01 and r02\'s own challenger bids both dropped noSeatForRole too) — measured by a direct search over every rival-subject actor case opening at week 404 and by walking that case to its natural decision, both disposable vite-node probes against the real engine, recorded in this task\'s own evidence file.',
+  )
 
   it('a Reliable issuer beats a Mixed-record issuer on the trust band, in the same otherwise-1-1-tie shape', () => {
     const { state: opened, talentId, playerStudioId, rivalStudioId } = openCaseWithRival(1.0, 1.1)
@@ -347,6 +386,66 @@ describe('P14B.1 test 7: rival symmetry', () => {
     )
     if (minted === undefined) throw new Error('test premise failed: attachPromise minted no promise record for the rival probe')
     expect(carries).toBe(minted.feasibilityReceipt.classification === 'REASONABLY_ACHIEVABLE')
+  })
+
+  // T2c ADDITION (ruling ii, T2 ruling: "rival promise AUTHORING (item 9)
+  // lands at T2b as planned under S25"): the case above already pins the
+  // GENERAL "carries IFF achievable" shape on whichever proposal the chain
+  // happens to find first — which, on the default seed, is a WRITER subject
+  // (IMPOSSIBLE under the landed M16.2 role gate, `carries` vacuously
+  // false). This case walks PAST that vacuous match to the first
+  // ACTOR-subject rival proposal, whose own feasibility is
+  // REASONABLY_ACHIEVABLE, so the "carries exactly one P1 promise" half of
+  // the claim is genuinely exercised — RED today (no rival authors a
+  // promise yet); T2b makes it green. The writer-subject proposal is kept
+  // as the CONTRAST clause: its own feasibility is IMPOSSIBLE (permanently,
+  // since M16.2's role gate is not time-dependent), so it must carry none —
+  // true both today and after T2b, needing no artificial construction.
+  it("rival promise AUTHORING (ruling ii): the FIRST rival proposalSubmitted receipts on the natural chain are for the rivals' own WRITER subjects — IMPOSSIBLE under the landed M16.2 role gate (a writer takes no cast seat), so that proposal carries NO promise (true both today and after T2b); walking on to the first ACTOR-subject rival proposal, whose own feasibility is REASONABLY_ACHIEVABLE, it must carry exactly one P1 promise naming family APPEARANCE_COUNT — RED today (rivals author no promise yet); T2b makes it green", () => {
+    let state = p13aGeneratedStudio()
+    let firstWriter: { talentId: string; studioId: string } | undefined
+    let firstActor: { talentId: string; studioId: string } | undefined
+    outer: for (let week = 0; week < 220 && firstActor === undefined; week++) {
+      const hits = state.talentMarket.receipts.filter(
+        (r) => r.kind === 'proposalSubmitted' && r.studioId !== null && r.studioId !== state.hollywood!.playerStudioId && r.week === week,
+      )
+      for (const hit of hits) {
+        const person = state.talent.find((t) => t.id === hit.talentId)
+        if (firstWriter === undefined && person?.role === 'writer') firstWriter = { talentId: hit.talentId, studioId: hit.studioId! }
+        if (firstActor === undefined && person?.role === 'actor') { firstActor = { talentId: hit.talentId, studioId: hit.studioId! }; break outer }
+      }
+      state = tick(state)
+    }
+    if (firstWriter === undefined) throw new Error('search premise failed: no rival WRITER-subject proposal found within 220 weeks on the default seed')
+    if (firstActor === undefined) throw new Error('search premise failed: no rival ACTOR-subject proposal found within 220 weeks on the default seed')
+
+    const writerProposal = state.talentMarket.proposals.find((p) => p.talentId === firstWriter!.talentId && p.issuerStudioId === firstWriter!.studioId) as unknown as { promises: readonly string[] } | undefined
+    if (writerProposal === undefined) throw new Error('test premise failed: the writer-subject proposal has already settled (no live proposal to read)')
+    expect(writerProposal.promises.length).toBe(0) // IMPOSSIBLE (role gate) -> carries none
+
+    const actorProposal = state.talentMarket.proposals.find((p) => p.talentId === firstActor!.talentId && p.issuerStudioId === firstActor!.studioId) as unknown as { startWeek: number; termWeeks: number; promises: readonly string[] } | undefined
+    if (actorProposal === undefined) throw new Error('test premise failed: the actor-subject proposal has already settled (no live proposal to read)')
+
+    // Independent classification, the SAME `attachPromise` probe technique
+    // the case above uses — never assumed.
+    const probed = attachPromise(state, firstActor.talentId, firstActor.studioId, {
+      family: 'APPEARANCE_COUNT',
+      predicate: { count: 1 },
+      windowStartWeek: actorProposal.startWeek,
+      dueWeekExclusive: actorProposal.startWeek + actorProposal.termWeeks,
+    })
+    const probedMinted = (probed as unknown as { promises: readonly PersistedPromise[] }).promises.find(
+      (p) => p.beneficiaryPersonId === firstActor!.talentId && p.issuerStudioId === firstActor!.studioId,
+    )
+    if (probedMinted === undefined) throw new Error('test premise failed: attachPromise minted no promise record for the rival probe')
+    expect(probedMinted.feasibilityReceipt.classification).toBe('REASONABLY_ACHIEVABLE') // sanity: genuinely achievable
+
+    expect(actorProposal.promises.length).toBe(1) // RED today: rivals author no promise yet
+    const authoredId = actorProposal.promises[0]
+    if (authoredId !== undefined) {
+      const authored = (state as unknown as { promises: readonly PersistedPromise[] }).promises.find((p) => p.promiseId === authoredId)
+      expect(authored?.family).toBe('APPEARANCE_COUNT')
+    }
   })
 
   it('a rival first take satisfies a promise exactly as a player one does — found by direct search over the natural chain (never a magic week)', () => {

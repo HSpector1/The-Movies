@@ -89,20 +89,30 @@
 //     mirroring how `DROP_SENTENCE` itself is documented in
 //     talentMarket.ts as "CANDIDATE WORDING... the coordinator pinned the
 //     CONTRACT... not the prose."
+//   - T2c (this pass): test 5's SATISFIED case and its due-week BROKEN case
+//     are RE-EXPRESSED per the T2 ruling's "TEST-SIDE premises" note — see
+//     each test's own header comment immediately above it for the specific
+//     premise that failed and how it is corrected. The due-week BROKEN
+//     case's new companion (a promise attached to a LOSING/withdrawn
+//     proposal) is a deliberate RED case pinning RULING (i) — "a promise
+//     BINDS only when its proposal is committed" — which `advancePromisesWeek`
+//     does not yet enforce (T2b closes it); its RED output is recorded in
+//     this task's own evidence file, not silently accepted as green.
 
 import { describe, expect, it } from 'vitest'
 import { applyActions } from '../src/core/actions.js'
 import { hiringMarketIds } from '../src/core/employment.js'
 import { tick } from '../src/core/tick.js'
+import { TUNING } from '../src/core/tuning.js'
 import { readFileSync } from 'node:fs'
 import { gunzipSync } from 'node:zlib'
 import * as save from '../src/core/save.js'
 import { p13aGeneratedStudio, advanceTo } from '../src/harness/p13a/fixtures.js'
 import type { GameState, CastSlot, SegmentId } from '../src/core/types.js'
-import { submitProposal } from '../src/core/talentMarket.js'
+import { submitProposal, withdrawProposal } from '../src/core/talentMarket.js'
 // RED-by-design: src/core/promises.ts does not exist. All four names below
 // are CALLED, not merely imported.
-import { attachPromise, promiseFeasibility, promiseOutcomes, firstTakeReceipts } from '../src/core/promises.js'
+import { attachPromise, promiseFeasibility, promiseOutcomes, firstTakeReceipts, trustDescriptor } from '../src/core/promises.js'
 
 // ── shared local helpers (this file is self-contained; nothing is imported
 // from any other tests/*.test.ts file, per this suite's convention) ────────
@@ -185,12 +195,126 @@ function greenlightPayload(
   }
 }
 
-/** Signs one free-agent person of `role` and returns their id. */
+/** Signs one free-agent person of `role`, found by walking the hiring
+ * market forward one week at a time (D-11.14: a candidate `state.talent`
+ * merely CONTAINS is not necessarily one `signContract` currently accepts —
+ * `hiringMarketIds` is the one lawful gate, exactly as `signActor` above
+ * already reads it; a role not in THIS week's rotation is searched again
+ * next week rather than assumed absent). */
 function signOne(state: GameState, role: 'actor' | 'director' | 'writer' | 'craft', termWeeks = 208): { state: GameState; id: string } {
-  const person = state.talent.find((t) => t.role === role && !state.contracts.some((c) => c.talentId === t.id))
-  if (person === undefined) throw new Error(`test premise failed: no free-agent ${role} on this seed`)
-  const signed = applyActions(state, [{ kind: 'signContract', talentId: person.id, termWeeks }])
-  return { state: signed, id: person.id }
+  let next = state
+  for (let i = 0; i < 60; i++) {
+    const week = next.market.tick
+    const candidates = hiringMarketIds(next, week)
+    const person = candidates.map((id) => next.talent.find((t) => t.id === id)).find((t) => t?.role === role)
+    if (person !== undefined) return { state: applyActions(next, [{ kind: 'signContract', talentId: person.id, termWeeks }]), id: person.id }
+    next = tick(next)
+  }
+  throw new Error(`test premise failed: no free-agent ${role} found within 60 weeks`)
+}
+
+const STAGE_7 = 'facility-soundstage-07'
+
+function contractedByRole(state: GameState, role: string): readonly { id: string }[] {
+  return state.contracts
+    .filter((c) => state.talent.find((t) => t.id === c.talentId)?.role === role)
+    .map((c) => state.talent.find((t) => t.id === c.talentId)!)
+}
+
+/** A cash bootstrap before any production choice is made — the SAME
+ * 30,000,000 headroom the P14B.1-T0 fixture's own minter used (`src/harness/
+ * p14/legacy-v28-fixtures.ts` block (d)), not a fact about the picture. */
+function fundTo(state: GameState, target: number): GameState {
+  const delta = target - state.studio.cash
+  if (delta === 0) return state
+  return {
+    ...state,
+    studio: { ...state.studio, cash: target },
+    ledger: [...state.ledger, { week: state.market.tick, kind: (delta > 0 ? 'studioRevenue' : 'overhead') as 'studioRevenue' | 'overhead', amount: delta, note: 'test fixture cash bootstrap' }],
+  }
+}
+
+/**
+ * Builds a PLAYER production on an INDUSTRY world to `remainingTicks === 5`
+ * with its shooting task SCHEDULED — the T0 minter's own recipe (sign the
+ * roster, fund, commission and build a grand-ballroom Set on
+ * `facility-soundstage-07`, greenlight, walk to Rehearsal, select
+ * `ballroom-reveal-lighting-01`, tick to `remainingTicks === 5`) plus the
+ * `assignShootingDirector` + `scheduleShootingTake` actions the T0 fixture
+ * deliberately stopped short of, so the 5 -> 4 branch (operations.ts ~1653)
+ * fires on the very next tick. Duplicated from tests/p14b1-first-take.test.ts
+ * per this suite's own self-contained-file convention (see that file's
+ * header note 5).
+ */
+function buildScheduledPlayerProduction(): { state: GameState; productionId: string; directorId: string; cast: Record<CastSlot, string> } {
+  let state = p13aGeneratedStudio()
+  state = signOne(state, 'writer').state
+  state = signOne(state, 'director').state
+  state = signOne(state, 'actor').state
+  state = signOne(state, 'actor').state
+  state = signOne(state, 'actor').state
+  state = signOne(state, 'craft').state
+  state = fundTo(state, 30_000_000)
+  const mounted = state.sets.find((s) => s.mountedOn === STAGE_7 && s.status !== 'retired')
+  if (mounted !== undefined) state = applyActions(state, [{ kind: 'strikeSet', setId: mounted.id }])
+  state = applyActions(state, [{ kind: 'commissionSet', commission: { blueprintId: 'set-grand-ballroom', stageFacilityId: STAGE_7 } }])
+  for (let week = 0; week < TUNING.SET_BUILD_WEEKS_BAND_HIGH; week++) state = tick(state)
+
+  const concept = state.concepts[0]!
+  const actors = contractedByRole(state, 'actor')
+  const cast: Record<CastSlot, string> = { lead: actors[0]!.id, antagonist: actors[1]!.id, support: actors[2]!.id }
+  const directorId = contractedByRole(state, 'director')[0]!.id
+  const payload = {
+    conceptId: concept.id,
+    shape: { opening: 'slowSetup', midpoint: 'revelation', ending: 'bittersweet' } as const,
+    promise: {
+      genre: concept.genre,
+      intendedSegments: ['adult'] as SegmentId[],
+      ranges: { intimacy: [-0.5, 0.5] as [number, number], tonalWeight: [-0.5, 0.5] as [number, number], kineticEnergy: [-0.5, 0.5] as [number, number] },
+    },
+    writerId: contractedByRole(state, 'writer')[0]!.id,
+    directorId,
+    cast,
+    craftIds: [contractedByRole(state, 'craft')[0]!.id],
+    budget: { negative: concept.baseNegativeCost, marketing: 0 },
+  }
+  state = applyActions(state, [{ kind: 'greenlight', production: payload }])
+  const productionId = state.studio.activeProductions[state.studio.activeProductions.length - 1]!.id
+  state = tick(state) // greenlight tick: skip
+  state = tick(state) // Development -> Pre-production
+  state = tick(state) // Pre-production -> Rehearsal
+  const rehearsalWorkflow = state.operations.workflows.find((w) => w.productionId === productionId)
+  if (rehearsalWorkflow === undefined) throw new Error('fixture premise failed: no workflow for the greenlit production at rehearsal')
+  if (rehearsalWorkflow.phase !== 'rehearsal') {
+    throw new Error(`fixture premise failed: phase "${rehearsalWorkflow.phase}" at week ${String(state.market.tick)}, expected rehearsal`)
+  }
+  state = applyActions(state, [
+    { kind: 'setProductionSetupRecipe', productionId, recipeId: 'ballroom-reveal-lighting-01', expectedPlanRevision: rehearsalWorkflow.planRevision },
+  ])
+
+  let production = state.studio.activeProductions.find((p) => p.id === productionId)!
+  let guard = 0
+  while (production.remainingTicks !== 5) {
+    state = tick(state)
+    production = state.studio.activeProductions.find((p) => p.id === productionId)!
+    guard += 1
+    if (guard > 40) throw new Error(`fixture premise failed: remainingTicks never reached 5 within ${String(guard)} weeks`)
+  }
+  const shootingWorkflow = state.operations.workflows.find((w) => w.productionId === productionId)!
+  if (shootingWorkflow.phase !== 'shooting' || shootingWorkflow.shootingTask === null) {
+    throw new Error('fixture premise failed: not in Shooting with a shooting task at remainingTicks 5')
+  }
+
+  state = applyActions(state, [{ kind: 'assignShootingDirector', productionId, directorId }])
+  state = applyActions(state, [{ kind: 'scheduleShootingTake', productionId }])
+  const scheduledWorkflow = state.operations.workflows.find((w) => w.productionId === productionId)!
+  if (scheduledWorkflow.shootingTask?.status !== 'scheduled' || scheduledWorkflow.blocker !== null) {
+    throw new Error(
+      `fixture premise failed: shooting task status "${String(scheduledWorkflow.shootingTask?.status)}" / blocker ${JSON.stringify(scheduledWorkflow.blocker)}, expected scheduled with no blocker`,
+    )
+  }
+
+  return { state, productionId, directorId, cast }
 }
 
 describe('P14B.1 test 2: the promise record and the widened digest', () => {
@@ -411,39 +535,35 @@ describe('P14B.1 test 5: outcomes', () => {
   // B.1 seeds)." Plus the assigning brief: BROKEN-on-capacity-collapse via
   // the landed `cancel` action, asserted iff re-feasibility is IMPOSSIBLE.
 
-  const FIXTURE = {
-    file: './fixtures/p14/legacy-v28-shooting-5.json.gz',
-    productionId: 'prod-0008',
-    week: 16,
-    lead: 't-act-07',
-  }
-  type Envelope = { saveVersion: number; seed: string; state: GameState; broadcastCache: unknown[] }
-  type SaveModuleWithV29 = typeof save & { migrateToV29: (envelope: unknown) => Envelope }
-  const withV29 = save as SaveModuleWithV29
-  function loadShooting5(): GameState {
-    const json = gunzipSync(readFileSync(new URL(FIXTURE.file, import.meta.url))).toString('utf8')
-    return withV29.migrateToV29(JSON.parse(json)).state
-  }
+  // T2c PREMISE CORRECTION (T2 ruling, "TEST-SIDE premises"): the SATISFIED
+  // case below previously loaded `legacy-v28-shooting-5.json.gz` and read
+  // `state.hollywood!.playerStudioId` — that fixture was minted on the
+  // operations studio (`hollywood: null`), so the read threw
+  // "Cannot read properties of null (reading 'playerStudioId')" before any
+  // assertion ran. It is re-expressed on a LIVE industry world, built to the
+  // same `remainingTicks === 5`, SCHEDULED shooting task through
+  // `buildScheduledPlayerProduction()` above (the T0 minter's own recipe,
+  // plus the `assignShootingDirector` + `scheduleShootingTake` actions that
+  // fixture deliberately stopped short of).
 
   it('SATISFIED once the X-th qualifying first take occurs, with evidence refs naming the causing eventId; idempotent on a later tick', () => {
-    const state = loadShooting5()
-    const contract = state.contracts.find((c) => c.talentId === FIXTURE.lead)
-    if (contract === undefined) throw new Error('fixture premise failed: no player contract found for the fixture\'s lead actor')
+    const { state, productionId, cast } = buildScheduledPlayerProduction()
+    const week = state.market.tick
     const record: PersistedPromise = {
       promiseId: 'promise-satisfied-0',
       family: 'APPEARANCE_COUNT',
       issuerStudioId: state.hollywood!.playerStudioId,
-      beneficiaryPersonId: FIXTURE.lead,
+      beneficiaryPersonId: cast.lead,
       predicate: { count: 1 },
-      windowStartWeek: FIXTURE.week,
-      dueWeekExclusive: FIXTURE.week + 52,
+      windowStartWeek: week,
+      dueWeekExclusive: week + 52,
       feasibilityReceipt: { classification: 'REASONABLY_ACHIEVABLE', bottleneck: null },
       progress: 0,
       evidenceRefs: [],
       outcome: null,
       outcomeWeek: null,
       outcomeCause: null,
-      contractId: `player:contract:${FIXTURE.lead}`,
+      contractId: `player:contract:${cast.lead}`,
     }
     let next = withPromises(state, [record])
     // Bounded search (<= 3 ticks): the first-take fires on the first tick;
@@ -454,9 +574,9 @@ describe('P14B.1 test 5: outcomes', () => {
       next = tick(next)
       satisfied = promiseOutcomes(next).find((p: PersistedPromise) => p.promiseId === record.promiseId)
     }
-    if (satisfied === undefined) throw new Error('test premise failed: the promise never reached an outcome within 3 ticks of the fixture\'s remainingTicks===5 state')
+    if (satisfied === undefined) throw new Error('test premise failed: the promise never reached an outcome within 3 ticks of the scheduled remainingTicks===5 state')
     expect(satisfied.outcome).toBe('SATISFIED')
-    const takes = (firstTakeReceipts(next) as readonly { eventId: string; productionId: string }[]).filter((r) => r.productionId === FIXTURE.productionId)
+    const takes = (firstTakeReceipts(next) as readonly { eventId: string; productionId: string }[]).filter((r) => r.productionId === productionId)
     expect(takes.length).toBe(1)
     expect(satisfied.evidenceRefs).toContain(takes[0]!.eventId)
 
@@ -466,35 +586,112 @@ describe('P14B.1 test 5: outcomes', () => {
     expect(stillOne[0]!.outcome).toBe('SATISFIED')
   })
 
-  it('BROKEN at dueWeekExclusive when the window passes unsatisfied (nobody was ever cast)', () => {
-    const state = p13aGeneratedStudio()
-    const week = state.market.tick
-    const beneficiaryPersonId = state.talent.find((t) => t.role === 'actor' && !state.contracts.some((c) => c.talentId === t.id))!.id
-    const record: PersistedPromise = {
-      promiseId: 'promise-broken-due-0',
+  // T2c ADDITIONS (T2 ruling (i), "a promise BINDS only when its proposal is
+  // committed (`contractId` set)" — companion §4.1's "the `contractId` it
+  // rode in on"): the due-week BROKEN case previously ran on a CONTRACT-LESS
+  // free agent (`contractId: null` throughout, no proposal, no case) — a
+  // shape §4.1 does not recognise (free agents are instant-sign, no
+  // proposal, no promise) and one the landed law only evaluates today
+  // because the binding rule itself is not yet implemented (T2b). It is
+  // re-expressed below through a promise that genuinely BINDS — attached to
+  // the player's own winning proposal on the genuine
+  // legacy-v28-open-case-45 fixture, committed at settlement (`contractId`
+  // set by `commitWinningPromise`, `talentMarket.ts` ~1075) — so the
+  // due-week evaluation this test pins survives T2b's binding-rule landing
+  // instead of being invalidated by it. A second, new case immediately below
+  // pins the CONVERSE — a promise attached to a proposal that then LOSES
+  // stays unbound and is never evaluated — RED TODAY (the landed due-week
+  // evaluation is unconditional on `contractId`); T2b makes it green.
+
+  const OPEN_CASE_45 = {
+    file: './fixtures/p14/legacy-v28-open-case-45.json.gz',
+    sha256: 'c9ff26fe70b7216784bf5718ed26d2bef10df8ca836b05050f5e1d7bcaac8afd',
+    week: 45,
+  }
+  type Envelope = { saveVersion: number; seed: string; state: GameState; broadcastCache: unknown[] }
+  type SaveModuleWithV29 = typeof save & { migrateToV29: (envelope: unknown) => Envelope }
+  const withV29 = save as SaveModuleWithV29
+  function loadOpenCase45(): GameState {
+    const json = gunzipSync(readFileSync(new URL(OPEN_CASE_45.file, import.meta.url))).toString('utf8')
+    return withV29.migrateToV29(JSON.parse(json)).state
+  }
+
+  it("BROKEN at dueWeekExclusive when the window passes unsatisfied, through a BOUND promise: on genuine legacy-v28-open-case-45, attach a P1 promise to the player's own proposal, settle at 52 (retained -> bound, contractId set), then walk to dueWeekExclusive with no qualifying first take", () => {
+    const state = loadOpenCase45()
+    const talentId = state.talentMarket.cases[0]!.talentId
+    const playerStudioId = state.hollywood!.playerStudioId
+    const week = state.market.tick // 45
+    const attached = attachPromise(state, talentId, playerStudioId, {
       family: 'APPEARANCE_COUNT',
-      issuerStudioId: state.hollywood!.playerStudioId,
-      beneficiaryPersonId,
       predicate: { count: 1 },
       windowStartWeek: week,
-      dueWeekExclusive: week + 3,
-      feasibilityReceipt: { classification: 'FRAGILE', bottleneck: 'needs a picture not yet commissioned' },
-      progress: 0,
-      evidenceRefs: [],
-      outcome: null,
-      outcomeWeek: null,
-      outcomeCause: null,
-      contractId: null,
-    }
-    let next = withPromises(state, [record])
-    while (next.market.tick < week + 5) next = tick(next) // past dueWeekExclusive
-    const broken = promiseOutcomes(next).find((p: PersistedPromise) => p.promiseId === record.promiseId)
-    if (broken === undefined) throw new Error('test premise failed: the promise never reached an outcome by dueWeekExclusive + 2')
+      dueWeekExclusive: week + 30,
+    })
+    const [minted] = promisesOf(attached).filter((p) => p.beneficiaryPersonId === talentId)
+    if (minted === undefined) throw new Error('test premise failed: attachPromise minted no promise record')
+    expect(minted.feasibilityReceipt.classification).toBe('REASONABLY_ACHIEVABLE') // sanity: feasible at submission
+
+    let next = attached
+    while (next.market.tick < 52) next = tick(next)
+    const settlement = next.talentMarket.receipts.find((r) => r.talentId === talentId && (r.kind === 'settled' || r.kind === 'declined'))
+    if (settlement === undefined) throw new Error('test premise failed: no settlement receipt was written by week 52')
+    expect(settlement.kind).toBe('settled') // genuinely retained by the player (the fixture's own known outcome)
+    expect(settlement.studioId).toBe(playerStudioId)
+    const bound = promisesOf(next).find((p) => p.promiseId === minted.promiseId)
+    if (bound === undefined) throw new Error('test premise failed: the promise vanished at settlement')
+    expect(bound.contractId).not.toBeNull() // committed: the promise now rides on the winning employment row
+
+    while (next.market.tick < week + 30) next = tick(next) // past dueWeekExclusive
+    const broken = promiseOutcomes(next).find((p: PersistedPromise) => p.promiseId === minted.promiseId)
+    if (broken === undefined) throw new Error('test premise failed: the bound promise never reached an outcome by dueWeekExclusive')
     expect(broken.outcome).toBe('BROKEN')
     expect(broken.evidenceRefs).toEqual([])
+    expect(broken.outcomeEventId).not.toBeNull()
+    const namedReceipt = next.talentMarket.receipts.find((r) => r.eventId === broken.outcomeEventId)
+    if (namedReceipt === undefined) throw new Error('test premise failed: outcomeEventId does not name a receipt in this state')
+    expect(namedReceipt.kind).toBe('promiseOutcome') // outcomeEventId names the due-week evaluation itself
 
     const again = tick(next)
-    expect(promiseOutcomes(again).filter((p: PersistedPromise) => p.promiseId === record.promiseId).length).toBe(1) // idempotent
+    expect(promiseOutcomes(again).filter((p: PersistedPromise) => p.promiseId === minted.promiseId).length).toBe(1) // idempotent
+  })
+
+  it("RED (T2b closes this): a promise attached to a proposal that then LOSES stays UNBOUND (contractId null) and is never evaluated — on genuine legacy-v28-open-case-45, withdrawing the player's own proposal leaves the promise attached to a proposal that vanishes at settlement (declined, \"all proposals dropped\"); past its own dueWeekExclusive the record must keep outcome: null and contractId: null, mint no promiseOutcome receipt, and leave the issuer's trust descriptor without a promiseBroken driver", () => {
+    const state = loadOpenCase45()
+    const talentId = state.talentMarket.cases[0]!.talentId
+    const playerStudioId = state.hollywood!.playerStudioId
+    const week = state.market.tick // 45
+    const attached = attachPromise(state, talentId, playerStudioId, {
+      family: 'APPEARANCE_COUNT',
+      predicate: { count: 1 },
+      windowStartWeek: week,
+      dueWeekExclusive: week + 30,
+    })
+    const [minted] = promisesOf(attached).filter((p) => p.beneficiaryPersonId === talentId)
+    if (minted === undefined) throw new Error('test premise failed: attachPromise minted no promise record')
+
+    // WITHDRAW the player's own proposal — the promise rode in on it, but the
+    // proposal that carried it never survives to settlement.
+    const withdrawn = withdrawProposal(attached, talentId, playerStudioId)
+    expect(withdrawn.talentMarket.proposals.some((p) => p.talentId === talentId && p.issuerStudioId === playerStudioId)).toBe(false)
+
+    let next = withdrawn
+    while (next.market.tick < 52) next = tick(next)
+    const settlement = next.talentMarket.receipts.find((r) => r.talentId === talentId && (r.kind === 'settled' || r.kind === 'declined'))
+    if (settlement === undefined) throw new Error('test premise failed: no settlement receipt was written by week 52')
+    expect(settlement.kind).toBe('declined') // the seat law drops the rival's now-uncontested bid too (noSeatForRole) — nobody wins
+
+    while (next.market.tick < week + 30) next = tick(next) // past dueWeekExclusive
+
+    const stillUnbound = promisesOf(next).find((p) => p.promiseId === minted.promiseId)
+    if (stillUnbound === undefined) throw new Error('test premise failed: the promise record vanished from state.promises')
+    expect(stillUnbound.outcome).toBeNull() // RULING (i): an unbound promise is never evaluated
+    expect(stillUnbound.contractId).toBeNull()
+
+    const outcomeReceipt = next.talentMarket.receipts.find((r) => r.kind === 'promiseOutcome' && r.talentId === talentId)
+    expect(outcomeReceipt).toBeUndefined() // no promiseOutcome receipt exists for an unbound promise
+
+    const descriptor = trustDescriptor(next, talentId, playerStudioId, next.market.tick)
+    expect(descriptor.drivers.some((d) => d.kind === 'promiseBroken')).toBe(false) // the issuer's trust record carries no driver from this
   })
 
   it('BROKEN immediately (within one tick) when the issuing studio terminates the beneficiary early', () => {

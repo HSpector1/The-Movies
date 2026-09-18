@@ -1,0 +1,394 @@
+P14B.1-T2c — test-side: re-express the four falsified premises and three moved-neighbour
+pins; add RED cases for the binding rule (ruling i) and rival promise authoring (ruling ii).
+Worktree /Users/zacheryspector/The-Movies-headless-program, branch wip/headless-program-20260916-ts.
+Starting HEAD 84dab5a (tree clean, as recorded by the assigning message). During this pass
+another worker landed db13007 "p14b1 T3a: bridge test 10 RED..." on the SAME branch — it
+touches only tests/bridge-p14b1-promises.test.ts and its own evidence file 14-...; no overlap
+with this task's five assigned test files or with src/core. This task's own commit lands on
+top of db13007.
+Every vitest run below is single-worker (--minWorkers=1 --maxWorkers=1), preceded by a
+SEPARATE 'ps -axo command | grep -c [v]itest' probe returning 0 immediately before it.
+Disposable, uncommitted vite-node probes (12 of them: probe1.ts .. probe13.ts) were run
+against the real engine from a scratch directory OUTSIDE this repo
+(/private/tmp/claude-501/.../scratchpad/) to measure obstacles and verify constructions
+before writing assertions; none were ever created inside the repo, so none needed deletion
+from it. Their exact commands and raw output are reproduced inline below wherever they
+informed a ruling (the week-404 insolvency finding, the V29-roots-missing fail-loud
+behaviour, and the player-production-to-first-take recipe).
+
+FILES EDITED (exactly the five assigned; no production source; no other file):
+  tests/p14b1-first-take.test.ts
+  tests/p14b1-promises.test.ts
+  tests/p14b1-trust-chooser.test.ts
+  tests/p14a1-f1-priority-order.test.ts
+  tests/p14a1-save-v28.test.ts
+
+════════════════════════════════════════════════════════════════════════════════════════
+BEFORE — the five T1 files' baseline (4 failed | 31 passed | 2 todo across the three
+P14B.1 files, cited verbatim from the parent's own evidence
+docs/engineering/playability-launch-review/evidence/p14b1-20260918/10-engine-v29-GREEN.txt
+lines 5-102, reproduced there twice byte-identically) plus this task's own fresh
+single-file runs for the two P14A.1 files (not part of that prior aggregate; captured by
+this pass before any edit to either file).
+════════════════════════════════════════════════════════════════════════════════════════
+
+=== BEFORE (cited, not re-run by this pass): npx vitest run --project core --minWorkers=1 --maxWorkers=1 --reporter=dot tests/p14b1-first-take.test.ts tests/p14b1-promises.test.ts tests/p14b1-trust-chooser.test.ts tests/p14b1-save-v29.test.ts tests/p14b1-leak.test.ts ===
+(full command output at evidence/p14b1-20260918/10-engine-v29-GREEN.txt lines 5-102; the four failures reproduced verbatim here for this task's own record)
+
+ ❯ |core| tests/p14b1-promises.test.ts (14 tests | 2 failed) 4336ms
+   × P14B.1 test 5: outcomes > SATISFIED once the X-th qualifying first take occurs, with evidence refs naming the causing eventId; idempotent on a later tick 135ms
+     → Cannot read properties of null (reading 'playerStudioId')
+   × P14B.1 test 5: outcomes > BROKEN on capacity collapse: cancelling the promised person's ONLY production before its first take, with a due week too close for any other path, makes re-feasibility IMPOSSIBLE and the promise BROKEN 14ms
+     → applyActions: signContract rejected — talent "t-dir-00" is not currently available to sign (D-11.14)
+ ❯ |core| tests/p14b1-trust-chooser.test.ts (12 tests | 1 failed | 2 skipped) 6669ms
+   × P14B.1 test 6: trust, the widened chooser and the priority order > opportunity breaks an otherwise 1-1 tie: a rival ahead on compensation vs the incumbent ahead on incumbency (companion Case 2 shape) — attaching a feasible promise to the incumbent side tips the case to it, with an opportunity-naming reason 719ms
+     → expected false to be true // Object.is equality
+ ✓ |core| tests/p14b1-save-v29.test.ts (6 tests) 705ms   [unedited file, not in scope]
+ ❯ |core| tests/p14b1-first-take.test.ts (3 tests | 1 failed) 1022ms
+   × P14B.1 test 1: the first-take receipt > PLAYER: never at shooting entry (empty at remainingTicks 5, three weeks into Shooting on the genuine fixture); appended exactly once at the 5 -> 4 advance; idempotent on a later tick; byte-stable across save/load 142ms
+     → expected 5 to be 4 // Object.is equality
+ ✓ |core| tests/p14b1-leak.test.ts (2 tests) 2745ms   [unedited file, not in scope]
+
+ Test Files  3 failed | 2 passed (5)
+      Tests  4 failed | 31 passed | 2 todo (37)
+
+=== BEFORE (this pass, fresh, before any edit): npx vitest run --project core --minWorkers=1 --maxWorkers=1 --reporter=dot tests/p14a1-f1-priority-order.test.ts tests/p14a1-save-v28.test.ts ===
+
+ ❯ |core| tests/p14a1-save-v28.test.ts (9 tests | 2 failed) 840ms
+   × P14A.1 test 8: Save V28 (...) > an unknown saveVersion 29 is refused, naming the handled range "1 through 28 only" 61ms
+     → expected [Function] to throw error matching /versions 1 through 28 only/ but got 'validateSaveV29: firstTakes root miss…'
+   × P14A.1 test 8: Save V28 (...) > R4 legacy terminations: a V27 termination priced under the OLD 50% law still validates through the frozen chain, and lifts to V28 recorded as legacy with no invented back-charge 32ms
+     → promises: the Save V29 roots are missing — migrate this state to V29 before acting on it
+        at requirePromiseRoots src/core/promises.ts:85
+        at Module.breakPromisesOnTermination src/core/promises.ts:563
+        at applyReleaseTalent src/core/actions.ts:2794
+        at Module.applyActions src/core/actions.ts:3039
+        at tests/p14a1-save-v28.test.ts:254
+ ❯ |core| tests/p14a1-f1-priority-order.test.ts (5 tests | 2 failed | 1 skipped) 24ms
+   × P14A.1-F1: (...) > capable-but-unproven (...): publicPriorityOrder reduces to compensation, term, standing, incumbency 18ms
+     → expected [ 'opportunity', 'compensation', 'term', 'trust', 'standing', 'incumbency' ] to deeply equal [ 'compensation', 'term', 'standing', 'incumbency' ]
+   × P14A.1-F1: (...) > proven (...): publicPriorityOrder reduces to compensation, term, incumbency, standing — already correct; pinned so the fix cannot disturb it 3ms
+     → expected [ 'compensation', 'term', 'trust', 'incumbency', 'standing', 'opportunity' ] to deeply equal [ 'compensation', 'term', 'incumbency', 'standing' ]
+
+ Test Files  2 failed (2)
+      Tests  4 failed | 9 passed | 1 todo (14)
+
+════════════════════════════════════════════════════════════════════════════════════════
+KEY PROBES that informed the constructions below (disposable vite-node, deleted after use —
+never committed; run from outside the repo)
+════════════════════════════════════════════════════════════════════════════════════════
+
+=== npx vite-node <scratch>/probe12.ts / probe13.ts — R4's live-action fail-loud discovery ===
+newLawCharge 624650
+oldLawCharge 2498600
+validateSave THREW (probe12, migrateToV29 wholesale): validateSaveV27: frozen V26 state is
+  invalid — ... — validateSaveV12: state has unknown field "talentMarket"
+  [confirms a V27-tagged envelope carrying V29-shaped state (talentMarket/promises/
+  firstTakes) is rejected by the frozen chain — migrateToV29 cannot be used wholesale for
+  the "genuine" state that gets re-tagged V27]
+(probe13, replay-only-the-touched-fields fix)
+forgedState has talentMarket? false
+forgedState has promises? false
+validateSave(V27) OK, saveVersion 27
+migrateToV28 OK, saveVersion 28
+legacy [{"contractId":"studio-aca408ec-player:contract:t-act-10:20:player-24","endedWeek":20,"amountPaid":2498600}]
+liftedLedgerRow.amount -2498600 expected -2498600
+lifted cash 16976522 forgedState cash 16976522
+validateSaveV28(lifted) OK
+releaseTalent on migrateToV28 state THREW: promises: the Save V29 roots are missing —
+  migrate this state to V29 before acting on it
+
+=== npx vite-node <scratch>/probe11.ts — the player-production-to-first-take recipe on p13aGeneratedStudio() ===
+week after set build 34
+productionId prod-0034
+phase at rehearsal rehearsal planRevision 0
+week at remainingTicks=5 42
+workflow phase shooting shootingTask {"...","status":"unassigned"} blocker null
+after assignShootingDirector: shootingTask {"...","status":"ready"} blocker null
+after scheduleShootingTake: shootingTask {"...","status":"scheduled"}
+remainingTicks after final tick 4
+firstTakes after final tick [...,{"eventId":"first-take-event-16","week":43,"productionId":"prod-0034","studioId":"studio-aca408ec-player","directorId":"t-dir-05","cast":{"lead":"t-act-07","antagonist":"t-act-08","support":"t-act-06"}}]
+
+=== npx vite-node <scratch>/probe2.ts / probe6.ts — the bound-vs-unbound promise pair on legacy-v28-open-case-45 ===
+=== bound-promise BROKEN construction ===
+minted classification REASONABLY_ACHIEVABLE promiseId promise-0
+settlement kind settled studioId studio-aca408ec-player
+bound contractId studio-aca408ec-player:contract:t-act-09:52:player-25 outcome null
+broken outcome:"BROKEN" outcomeWeek:75 outcomeEventId:"talent-market-event-4"
+namedReceipt kind:"promiseOutcome" week:75 eventId:"talent-market-event-4"
+=== withdrawn/unbound promise RED construction ===
+settlement2 kind declined studioId null
+stillOpen (unbound promise) after due week outcome:"BROKEN" contractId:null   <- the bug T2b fixes
+anyOutcomeReceipt for this talent kind:"promiseOutcome" week:75   <- exists today; must not, per ruling (i)
+=== trust descriptor check ===
+before {"label":"Mixed record","drivers":[]}
+after  {"label":"Mixed record","drivers":[{"kind":"promiseBroken","week":75,...},{"kind":"ranToEnd","week":52,...}]}
+  <- a promiseBroken driver appears today for an UNBOUND promise; must not, per ruling (i)
+
+=== npx vite-node <scratch>/probe3.ts / probe4.ts / probe7.ts — the week-404 opportunity-tie obstacle (seed p13-public-commercial-adoption) ===
+week 404 rivalActorCases: 12 cases (r01x3, r02x3, r03x3, r04x3), all subjectStudioId != player
+publicPriorityOrder[0] per subject: 11 x "compensation" (proven), 1 x "opportunity" (unproven:
+  person-studio-5a47d054-r04-3, subject studio-5a47d054-r04)
+playerStandingMean 41.67; r01 70.22; r02 63.26; r03 58.53; r04 61.66
+player cash 13,940,000 (bonus fundable)
+r04 business account closing balance: week404 -8,933,725.03 ... week416 -10,127,665.03
+  (payroll/overhead/facilityOpex only; studioRevenue 0 every week in the window)
+submitProposal(r04 incumbent retention) THREW: talentmarket: proposal rejected — the signing
+  bonus would leave "studio-5a47d054-r04" under its operating reserve
+natural walk to week 417 (no manual intervention): week 416 receipt
+  kind:"declined" studioId:null reasons:["Bellwether Pictures had no seat open...",
+  "Rose Lantern Films had no seat open..."] dropped: same two sentences (noSeatForRole x2,
+  zero survivors)
+=== npx vite-node <scratch>/probe8.ts — full scan, weeks 0-450, every rival-subject actor case with publicPriorityOrder[0]==='opportunity' ===
+week 196 talent person-studio-5a47d054-r04-3 subject studio-5a47d054-r04 closing +12,284,652.97 (solvent, FIRST churn)
+week 404 talent person-studio-5a47d054-r04-3 subject studio-5a47d054-r04 closing -8,933,725.03 (insolvent, SECOND churn)
+  <- exactly one unproven rival-subject actor case exists in the whole range; its incumbent
+     is solvent only at the FIRST churn, which T1's own ruling does not use.
+
+=== npx vite-node <scratch>/probe10.ts — the rival-authoring RED construction (default seed) ===
+firstAny  {"week":196,"talentId":"person-studio-aca408ec-r01-0","studioId":"studio-aca408ec-r01","role":"writer"}
+firstActor {"week":196,"talentId":"person-studio-aca408ec-r01-2","studioId":"studio-aca408ec-r01","role":"actor"}
+live proposal (actor) promises:[] (0 today)
+minted classification (independent probe) REASONABLY_ACHIEVABLE
+scan of all 33 rival actor-subject live proposals at week 196: every one REASONABLY_ACHIEVABLE,
+  promises.length(live) 0 on every one (no naturally-occurring infeasible rival actor
+  proposal at week 196 on this seed — the writer-subject proposal supplies the "infeasible
+  carries none" contrast instead, by the M16.2 role gate, permanently IMPOSSIBLE)
+
+════════════════════════════════════════════════════════════════════════════════════════
+AFTER — this pass's own single-file runs, one file per invocation, each preceded by its own
+'ps -axo command | grep -c [v]itest' probe (all five returned 0 immediately before their run)
+════════════════════════════════════════════════════════════════════════════════════════
+
+=== ps -axo command | grep -c '[v]itest' === (returned 0, immediately before the next command, every time — five separate probes, omitted here for brevity, all five returned exactly 0)
+
+=== npx vitest run --project core --minWorkers=1 --maxWorkers=1 --reporter=dot tests/p14b1-first-take.test.ts ===
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p14b1-first-take.test.ts (3 tests) 3118ms
+   ✓ P14B.1 test 1: the first-take receipt > PLAYER: never at shooting entry (empty at remainingTicks 5, shooting task unassigned then scheduled through the real actions, still empty after scheduling); appended exactly once at the 5 -> 4 advance; idempotent on a later tick; byte-stable across save/load 2734ms
+   ✓ P14B.1 test 1: the first-take receipt > RIVAL: the same receipt is appended once at the 5 -> 4 advance for a rival production found by direct search over the natural chain (never a magic week) 368ms
+
+ Test Files  1 passed (1)
+      Tests  3 passed (3)
+
+(NOTE: the first attempt at this file failed once, on a bug in THIS PASS'S OWN new test —
+the byte-stable check compared the WHOLE `firstTakes` root (which, on an industry world with
+rivals, also carries every rival's own first-take receipts) against `takes`, which was
+already filtered to this one productionId. Fixed by filtering the round-tripped side too
+(`takesFor(roundTripped.state, productionId)`); the fix touches only this pass's own new
+code, not a premise or a production file. First (broken) attempt, for the record:
+  AssertionError: expected '[{"eventId":"first-take-event-0","wee…' to be '[{"eventId":
+  "first-take-event-16","we…' — Received carried all 17 root entries (16 rival + 1 player);
+  Expected carried only the 1 player entry.)
+
+=== npx vitest run --project core --minWorkers=1 --maxWorkers=1 --reporter=dot tests/p14b1-promises.test.ts ===
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/p14b1-promises.test.ts (15 tests | 1 failed) 9294ms
+   ✓ P14B.1 test 2: the promise record and the widened digest > attaching a promise changes the digest; a second attach on an already-promised proposal is refused (enforced at most one); revising (re-submit, then attach a different promise) and removing (re-submit with no attach) both change the digest again — removing restores the exact original 2152ms
+   ✓ P14B.1 test 2: the promise record and the widened digest > a window outside the proposed contract is IMPOSSIBLE by construction 1747ms
+   ✓ P14B.1 test 2: the promise record and the widened digest > a promise DRIFTED after attachment (its own definition changed through some other channel) drops materialTermsChanged at freeze 1058ms
+   ✓ P14B.1 test 4: settlement freeze re-classification > a promise REASONABLY_ACHIEVABLE at submission erodes to FRAGILE by the decision week purely through slack (the 7-week submission-to-decision gap), and the case drops it with a promise-naming sentence 1306ms
+   ✓ P14B.1 test 5: outcomes > SATISFIED once the X-th qualifying first take occurs, with evidence refs naming the causing eventId; idempotent on a later tick 856ms
+   ✓ P14B.1 test 5: outcomes > BROKEN at dueWeekExclusive when the window passes unsatisfied, through a BOUND promise: on genuine legacy-v28-open-case-45, attach a P1 promise to the player's own proposal, settle at 52 (retained -> bound, contractId set), then walk to dueWeekExclusive with no qualifying first take 947ms
+   × P14B.1 test 5: outcomes > RED (T2b closes this): a promise attached to a proposal that then LOSES stays UNBOUND (contractId null) and is never evaluated — on genuine legacy-v28-open-case-45, withdrawing the player's own proposal leaves the promise attached to a proposal that vanishes at settlement (declined, "all proposals dropped"); past its own dueWeekExclusive the record must keep outcome: null and contractId: null, mint no promiseOutcome receipt, and leave the issuer's trust descriptor without a promiseBroken driver 710ms
+     → expected 'BROKEN' to be null
+   ✓ P14B.1 test 5: outcomes > BROKEN on capacity collapse: cancelling the promised person's ONLY production before its first take, with a due week too close for any other path, makes re-feasibility IMPOSSIBLE and the promise BROKEN 349ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14b1-promises.test.ts > P14B.1 test 5: outcomes > RED (T2b closes this): a promise attached to a proposal that then LOSES stays UNBOUND (contractId null) and is never evaluated — on genuine legacy-v28-open-case-45, withdrawing the player's own proposal leaves the promise attached to a proposal that vanishes at settlement (declined, "all proposals dropped"); past its own dueWeekExclusive the record must keep outcome: null and contractId: null, mint no promiseOutcome receipt, and leave the issuer's trust descriptor without a promiseBroken driver
+AssertionError: expected 'BROKEN' to be null
+
+- Expected:
+null
+
++ Received:
+"BROKEN"
+
+ ❯ tests/p14b1-promises.test.ts:687:34
+    685|     const stillUnbound = promisesOf(next).find((p) => p.promiseId === …
+    686|     if (stillUnbound === undefined) throw new Error('test premise fail…
+    687|     expect(stillUnbound.outcome).toBeNull() // RULING (i): an unbound …
+       |                                  ^
+    688|     expect(stillUnbound.contractId).toBeNull()
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 14 passed (15)
+
+=== npx vitest run --project core --minWorkers=1 --maxWorkers=1 --reporter=dot tests/p14b1-trust-chooser.test.ts ===
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/p14b1-trust-chooser.test.ts (13 tests | 1 failed | 3 skipped) 13004ms
+   ✓ P14B.1 test 6: trust, the widened chooser and the priority order > a Distrusted issuer is dropped issuerDistrusted at reservation, and the other (healthy) proposal settles the case 2876ms
+   ✓ P14B.1 test 6: trust, the widened chooser and the priority order > a Reliable issuer beats a Mixed-record issuer on the trust band, in the same otherwise-1-1-tie shape 1372ms
+   ✓ P14B.1 test 7: rival symmetry > attachPromise and its feasibility classification work identically when the issuer is a RIVAL (no player-only special-casing) 1032ms
+   ✓ P14B.1 test 7: rival symmetry > a rival proposal carries a P1 promise IFF its own feasibility is REASONABLY_ACHIEVABLE — derived from the FIRST rival proposalSubmitted receipt on the natural chain, never assumed 3941ms
+   × P14B.1 test 7: rival symmetry > rival promise AUTHORING (ruling ii): the FIRST rival proposalSubmitted receipts on the natural chain are for the rivals' own WRITER subjects — IMPOSSIBLE under the landed M16.2 role gate (a writer takes no cast seat), so that proposal carries NO promise (true both today and after T2b); walking on to the first ACTOR-subject rival proposal, whose own feasibility is REASONABLY_ACHIEVABLE, it must carry exactly one P1 promise naming family APPEARANCE_COUNT — RED today (rivals author no promise yet); T2b makes it green 3315ms
+     → expected +0 to be 1 // Object.is equality
+   ✓ P14B.1 test 7: rival symmetry > a rival first take satisfies a promise exactly as a player one does — found by direct search over the natural chain (never a magic week) 320ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14b1-trust-chooser.test.ts > P14B.1 test 7: rival symmetry > rival promise AUTHORING (ruling ii): (...) — RED today (rivals author no promise yet); T2b makes it green
+AssertionError: expected +0 to be 1 // Object.is equality
+ ❯ tests/p14b1-trust-chooser.test.ts:443:43
+    441|     expect(probedMinted.feasibilityReceipt.classification).toBe('REASO…
+    442|
+    443|     expect(actorProposal.promises.length).toBe(1) // RED today: rivals…
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 9 passed | 3 todo (13)
+
+(3 todo = the file's original two it.todo entries, UNCHANGED, plus this pass's new it.todo
+replacing the failing "opportunity breaks an otherwise 1-1 tie" case with the measured
+week-404 obstacle.)
+
+=== npx vitest run --project core --minWorkers=1 --maxWorkers=1 --reporter=dot tests/p14a1-f1-priority-order.test.ts ===
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p14a1-f1-priority-order.test.ts (5 tests | 1 skipped) 8ms
+
+ Test Files  1 passed (1)
+      Tests  4 passed | 1 todo (5)
+
+=== npx vitest run --project core --minWorkers=1 --maxWorkers=1 --reporter=dot tests/p14a1-save-v28.test.ts ===
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p14a1-save-v28.test.ts (10 tests) 1349ms
+   ✓ P14A.1 test 8: Save V28 (genuine V27 fixtures, honest lift, downgrade, validator refusals, sentinel 29) > R4 legacy terminations: a V27 termination priced under the OLD 50% law still validates through the frozen chain, and lifts to V28 recorded as legacy with no invented back-charge 384ms
+
+ Test Files  1 passed (1)
+      Tests  10 passed (10)
+
+=== npm run -s typecheck === (run twice: once mid-pass after items 5-6 landed, once after every item landed — both clean, zero output)
+(no output; exit 0 both times)
+
+════════════════════════════════════════════════════════════════════════════════════════
+SUMMARY, per file (BEFORE -> AFTER)
+════════════════════════════════════════════════════════════════════════════════════════
+tests/p14b1-first-take.test.ts        3 tests | 1 failed            -> 3 tests | 0 failed
+tests/p14b1-promises.test.ts         14 tests | 2 failed            -> 15 tests | 1 failed (intentional RED, ruling i)
+tests/p14b1-trust-chooser.test.ts    12 tests | 1 failed | 2 todo   -> 13 tests | 1 failed (intentional RED, ruling ii) | 3 todo
+tests/p14a1-f1-priority-order.test.ts 5 tests | 2 failed | 1 todo   -> 5 tests | 0 failed | 1 todo
+tests/p14a1-save-v28.test.ts          9 tests | 2 failed            -> 10 tests | 0 failed
+                                                                     -------------------------------
+TOTAL (five files)                   43 tests | 8 failed | 3 todo   -> 46 tests | 2 failed (both intentional RED) | 4 todo
+
+════════════════════════════════════════════════════════════════════════════════════════
+TABLE — item -> assertion -> what it now pins -> expected state after T2b
+════════════════════════════════════════════════════════════════════════════════════════
+
+1. tests/p14b1-first-take.test.ts, "PLAYER: never at shooting entry (...)" ->
+   asserts firstTakeReceipts empty at remainingTicks===5 (scheduled but not yet completed),
+   exactly one FirstTakeReceipt {studioId=hollywood.playerStudioId, directorId, cast} at the
+   5->4 advance, idempotent on a second tick, byte-stable across a save/load round trip ->
+   pins the S5-R07-gated, SCHEDULED 5->4 branch on a genuine industry world (never
+   shooting entry, never an unscheduled task) -> UNCHANGED by T2b (T2b is binding-rule +
+   rival authoring only; this test is already fully green and orthogonal to it).
+
+1b. tests/p14b1-promises.test.ts, "SATISFIED once the X-th qualifying first take occurs (...)" ->
+   asserts a promise attached to the SAME engine-built production's cast lead reaches
+   SATISFIED with evidenceRefs containing the firing take's eventId, idempotent on a later
+   tick -> pins SATISFIED evaluation on a real industry-world production, replacing the
+   null-hollywood-fixture premise -> UNCHANGED by T2b.
+
+2. tests/p14b1-promises.test.ts, "BROKEN on capacity collapse (...)" (signOne fix only,
+   no test-body assertion changed) -> the local `signOne` helper now walks
+   `hiringMarketIds(state, week)` one candidate at a time instead of picking any matching
+   `state.talent` entry regardless of market availability -> pins the SAME BROKEN-on-cancel
+   claim as before, now actually reachable (D-11.14 no longer trips before the test's own
+   assertions run) -> UNCHANGED by T2b.
+
+3a. tests/p14b1-promises.test.ts, "BROKEN at dueWeekExclusive (...) through a BOUND promise" ->
+   asserts, on genuine legacy-v28-open-case-45: submission-time classification
+   REASONABLY_ACHIEVABLE; settlement `kind==='settled'` and `studioId===playerStudioId`;
+   the promise's `contractId` is set (not null) once committed; BROKEN once at
+   dueWeekExclusive with `evidenceRefs===[]` and `outcomeEventId` naming a real
+   `promiseOutcome` receipt; idempotent on a later tick -> pins the due-week BROKEN
+   evaluation through a promise that GENUINELY BINDS (§4.1's "the contractId it rode in
+   on"), replacing the old contract-less-free-agent premise -> UNCHANGED by T2b (a bound
+   promise is exactly the case T2b's binding check must still evaluate).
+
+3b. tests/p14b1-promises.test.ts, "RED (T2b closes this): a promise attached to a proposal
+   that then LOSES stays UNBOUND (...)" -> on the SAME fixture, withdraws the player's own
+   proposal before settlement (case settles declined, "all proposals dropped", the rival's
+   now-uncontested bid dropped noSeatForRole too); asserts past dueWeekExclusive the
+   promise record keeps `outcome: null` and `contractId: null`, no `promiseOutcome` receipt
+   exists for this talentId, and `trustDescriptor(...).drivers` carries no `promiseBroken`
+   entry -> pins RULING (i) itself: an unbound promise is never evaluated -> RED TODAY
+   (`advancePromisesWeek` evaluates every promise unconditionally, with no `contractId`
+   check at all: actual result is `outcome: "BROKEN"`, a real `promiseOutcome` receipt at
+   week 75, and a `promiseBroken` trust driver — all three violate the ruling) -> EXPECTED
+   GREEN AFTER T2b, once the binding check gates evaluation on `contractId !== null`.
+
+4a. tests/p14b1-trust-chooser.test.ts, the former "opportunity breaks an otherwise 1-1 tie"
+   case -> converted to `it.todo` with the measured week-404 obstacle (r04's own account is
+   insolvent through the whole decision window; `submitProposal` itself refuses its
+   incumbent retention bid; the natural settlement is declined with zero survivors) ->
+   pins nothing new (a todo); records why the D3-vs-D7 tie shape is not constructible on
+   this seed's second synchronized churn -> UNCHANGED by T2b (the obstacle is studio
+   solvency and seat law, not the promise/binding/authoring mechanics T2b touches); still a
+   real defect surface worth a coordinator decision (see "Regressions/gaps" below).
+
+4b. tests/p14b1-trust-chooser.test.ts, "rival promise AUTHORING (ruling ii): (...)" ->
+   asserts the live rival WRITER-subject proposal (found first on the natural chain)
+   carries no promise (permanently true: IMPOSSIBLE under the M16.2 role gate); walks on to
+   the first ACTOR-subject rival proposal, independently confirms REASONABLY_ACHIEVABLE via
+   the same `attachPromise` probe technique this suite already uses, then asserts the LIVE
+   proposal carries exactly one promise with `family==='APPEARANCE_COUNT'` -> pins RULING
+   (ii): rival authoring lands at T2b -> RED TODAY (`actorProposal.promises.length` is 0;
+   no rival authors anything yet) -> EXPECTED GREEN AFTER T2b, once rivals attach one P1
+   promise whenever their own feasibility is REASONABLY_ACHIEVABLE.
+
+5. tests/p14a1-f1-priority-order.test.ts, the two `publicPriorityOrder` `toEqual` arrays ->
+   updated from the four-descriptor reduction (`[compensation,term,standing,incumbency]` /
+   `[compensation,term,incumbency,standing]`) to the SIX-descriptor reduction the engine
+   now publishes (`[opportunity,compensation,term,trust,standing,incumbency]` /
+   `[compensation,term,trust,incumbency,standing,opportunity]`) -> pins the WIDENED order
+   with the F1 requirement still visible in each `it` title (compensation before term,
+   unproven; incumbency before standing, proven) -> already GREEN today (T2's own widening
+   already landed this exact array; this was a straight supersession, not a RED case) ->
+   UNCHANGED by T2b.
+
+6a. tests/p14a1-save-v28.test.ts, sentinel case -> forged `saveVersion` bumped 29 -> 30, and
+   the matched message "1 through 28 only" -> "1 through 29 only" -> pins the CURRENT
+   one-past-live-version refusal (29 is now a real, handled version; 30 is not) ->
+   UNCHANGED by T2b.
+
+6b. tests/p14a1-save-v28.test.ts, new case "releaseTalent on a migrateToV28-only state
+   throws the named V29-roots-missing message" -> pins the fail-loud behaviour itself
+   (added, not modified) -> UNCHANGED by T2b.
+
+6c. tests/p14a1-save-v28.test.ts, R4 legacy-terminations case -> the LIVE action
+   (sign + release, to discover the real new-law charge) now runs on a state migrated with
+   `migrateToV29` (not `migrateToV28`, which throws per 6b); the rest of the test (the
+   "still validates as V27" and "lifts to V28 as legacy" proofs) replays ONLY the touched
+   fields (`contracts`, `hollywood`, `ledger`, `studio`) onto the ORIGINAL, unmigrated V27
+   state, so the forged V27 envelope never carries a V29-era root it never had -> pins the
+   SAME R4 claim as before (an old-law termination survives the frozen V27 chain and lifts
+   to V28 as `legacyTerminations`), now reachable under the new fail-loud law -> UNCHANGED
+   by T2b.
+
+════════════════════════════════════════════════════════════════════════════════════════
+REGRESSIONS / GAPS THAT REMAIN even with the requested test set passing
+════════════════════════════════════════════════════════════════════════════════════════
+- Item 4a (trust-chooser test 6, "opportunity breaks an otherwise 1-1 tie") is now an
+  it.todo, not a passing test: the companion's D3-opportunity-breaks-a-tie claim stays
+  UNEXERCISED end-to-end on both measured constructions (week 52: seat cap; week 404: the
+  one candidate incumbent is insolvent). This is a genuine coverage gap, not merely a
+  premise wording issue, and needs either a THIRD construction (a different seed/week, or a
+  deliberately funded rival) or an explicit Owner/coordinator ruling that the claim stays
+  unexercised in B.1.
+- Two RED cases (3b, 4b) are BY DESIGN failing today and will stay failing until T2b lands
+  the binding check and rival authoring respectively — this is the assigned outcome, not a
+  defect, but it means `tests/p14b1-promises.test.ts` and `tests/p14b1-trust-chooser.test.ts`
+  are NOT fully green after this pass (1 failed each, both intentional).
+- `npm run -s typecheck` is clean; `typecheck:bridge` was NOT run (per the assignment: red
+  until T3, and T3a already landed a new bridge RED file on this same branch during this
+  pass — untouched by this task).
+- No broader suite (natural-chain regression sweep) was run; only the five assigned files,
+  per the explicit single-worker/no-suites constraint. Any wider regression from these
+  edits is UNMEASURED by this pass — the five files' own results are the only claim made
+  here.

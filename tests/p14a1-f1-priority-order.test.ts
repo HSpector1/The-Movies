@@ -21,18 +21,33 @@
 // profile (hypothesis: capable-but-unproven and under-30 → opportunity,
 // compensation, relationships, term, trust, Standing, incumbency; proven
 // veterans → compensation, term, trust, relationships, incumbency, Standing,
-// opportunity)". D3 (opportunity), D4 (trust) and D5 (relationships) are
-// NEUTRAL in P14A (talentMarket.ts DESCRIPTOR_ORDER comment, ~608–615), so
-// the archetype orders reduce, over the four LIVE descriptors only, to:
-//   unproven: compensation, term, standing, incumbency
-//   proven:   compensation, term, incumbency, standing
+// opportunity)". At P14A.1-F1 (T1/T2 below), D3 (opportunity), D4 (trust)
+// and D5 (relationships) were all NEUTRAL (talentMarket.ts DESCRIPTOR_ORDER
+// comment, ~608–615), so the archetype orders reduced, over the four LIVE
+// descriptors only, to `compensation, term, standing, incumbency` (unproven)
+// and `compensation, term, incumbency, standing` (proven) — the two arrays
+// this file originally pinned.
 //
-// EXPECTED RED (per the assigning brief): the unproven-order case below
-// fails today (the landed code returns `term` first); the proven-order case
-// and both `publicPreferredTerm` cases pass today (pinning current, correct
-// behaviour so T2's fix cannot regress or couple them). The fifth case (a
-// settlement-level 1–1 Copeland tie) is `it.todo` — see its comment for the
-// obstacle, established by measurement, not assumption.
+// SUPERSEDED AT P14B.1.T2c (moved-neighbour pin, T2 ruling (v)): P14B.1 (8)
+// widened `DESCRIPTOR_ORDER` to six live descriptors — D3 opportunity and D4
+// trust go live, D5 relationships stays neutral (moved to P14B.2) — so the
+// SAME companion sentence now reduces to the SIX-descriptor orders below.
+// The F1 requirement survives inside both: compensation still precedes term
+// for the unproven branch, and incumbency still precedes standing for the
+// proven one (both named explicitly in each `it` title below).
+//   unproven: opportunity, compensation, term, trust, standing, incumbency
+//   proven:   compensation, term, trust, incumbency, standing, opportunity
+//
+// EXPECTED RED (per the assigning brief, HISTORICAL — T1): the unproven-order
+// case below failed at T1 (the landed code returned `term` first over the
+// four-descriptor reduction); the proven-order case and both
+// `publicPreferredTerm` cases passed at T1 (pinning current, correct
+// behaviour so T2's fix could not regress or couple them). Both
+// `publicPriorityOrder` arrays are moved-neighbour pins as of T2c (values
+// only — the two `it`s below assert THIS file's job, never re-litigated);
+// the two `publicPreferredTerm` cases and the `it.todo` are UNCHANGED. The
+// fifth case (a settlement-level 1–1 Copeland tie) is `it.todo` — see its
+// comment for the obstacle, established by measurement, not assumption.
 
 import { describe, expect, it } from 'vitest'
 import { p13aGeneratedStudio } from '../src/harness/p13a/fixtures.js'
@@ -66,15 +81,14 @@ function findProven(): string {
 }
 
 describe('P14A.1-F1: publicPriorityOrder and publicPreferredTerm against companion §2.1.7', () => {
-  it('capable-but-unproven (age < 30, no identity-discipline credit): publicPriorityOrder reduces to compensation, term, standing, incumbency', () => {
-    // RED today: the landed unproven branch returns ['term','compensation','standing','incumbency'].
+  it('capable-but-unproven (age < 30, no identity-discipline credit): publicPriorityOrder is the WIDENED six-descriptor order (opportunity, compensation, term, trust, standing, incumbency) — compensation still precedes term (the F1 fix survives the widening)', () => {
     const talentId = findUnproven()
-    expect(publicPriorityOrder(state, talentId)).toEqual(['compensation', 'term', 'standing', 'incumbency'])
+    expect(publicPriorityOrder(state, talentId)).toEqual(['opportunity', 'compensation', 'term', 'trust', 'standing', 'incumbency'])
   })
 
-  it('proven (an identity-discipline credit, or age >= 30): publicPriorityOrder reduces to compensation, term, incumbency, standing — already correct; pinned so the fix cannot disturb it', () => {
+  it('proven (an identity-discipline credit, or age >= 30): publicPriorityOrder is the WIDENED six-descriptor order (compensation, term, trust, incumbency, standing, opportunity) — incumbency still precedes standing (the F1 fix survives the widening); pinned so neither fix can disturb the other', () => {
     const talentId = findProven()
-    expect(publicPriorityOrder(state, talentId)).toEqual(['compensation', 'term', 'incumbency', 'standing'])
+    expect(publicPriorityOrder(state, talentId)).toEqual(['compensation', 'term', 'trust', 'incumbency', 'standing', 'opportunity'])
   })
 
   it('proven: publicPreferredTerm is the longest TUNING.CONTRACT_TERM_OPTIONS entry', () => {
