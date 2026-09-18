@@ -1012,7 +1012,7 @@ Coverage additions: test 1 pins that the tick and the validator do not throw onc
 
 ### S8 tasks
 - [x] **S8-T0 Genuine V26 fixtures** — the S7-T0 set at `8796fce` (final V26 writer `83187c2`; S7 changed no save): `legacy-v26-lighting-cancelled-793`, `legacy-v26-lighting-restored-795`, `legacy-v26-sound-mid-deployment-309`.
-- [ ] **S8-T1 Tests 1–7 RED-first** (test-author) against `src/core/rivalResearch.ts` (new; tests import from it so the files fail at resolution): `tests/p13b-s8-{capacity,research,adoption,finance,nonleak,setup-symmetry,save-v27}.test.ts`; evidence `p13b-s8-20260918/01`–`07`.
+- [~] **S8-T1 Tests 1–7 RED-first** (test-author dispatched 2026-09-18 ≈01:30 on `1d0902c`, after the audit) against `src/core/rivalResearch.ts` (new; tests import from it so the files fail at resolution): `tests/p13b-s8-{capacity,research,adoption,finance,nonleak,setup-symmetry,save-v27}.test.ts`; evidence `p13b-s8-20260918/01`–`07`.
 - [ ] **S8-T2 Engine increment** (sim-core): V27, rival admission/research/hiring, movement kinds, receipts, validator; sweep 26→27 (the six literal classes + rosters/bounds; frozen builders; roster-wall harness).
 - [ ] **S8-T3 Bridge projection 41**: test 8 RED-first, then sim-core; pins 40 → 41.
 - [ ] **S8-T4 Matched pass, attribution, label, records (backlog S8 entry), commit, push.**
