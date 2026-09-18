@@ -148,10 +148,10 @@ function employmentQuery(sessionId: string, targetId: string): IndustryQuery {
 // ── group 1: PROJECTION_VERSION / schema $id / x-project-studio ─────────────
 
 describe('group 1: PROJECTION_VERSION', () => {
-  it('PROJECTION_VERSION is 42; the schema $id and x-project-studio.projectionVersion move with it', () => {
-    expect(PROJECTION_VERSION).toBe(42)
-    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${String(PROTOCOL_VERSION)}:projection-42`)
-    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(42)
+  it('PROJECTION_VERSION is 43; the schema $id and x-project-studio.projectionVersion move with it', () => {
+    expect(PROJECTION_VERSION).toBe(43)
+    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${String(PROTOCOL_VERSION)}:projection-43`)
+    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(43)
   })
 })
 
@@ -398,7 +398,7 @@ describe('group 7: save/load', () => {
     expect(marketCaseProjection(state, subject!.id, state.hollywood!.playerStudioId)).toBeNull()
   })
 
-  it('a V28 save round-trips through the bridge save/load path, carrying legacyTerminations, at projection 42', () => {
+  it('a V28 save round-trips through the bridge save/load path, carrying legacyTerminations, at projection 43', () => {
     const { state } = signActor(p13aGeneratedStudio('p14a1-bridge-roundtrip'), 52)
     const session = new BridgeSession(state, 'p14a1-bridge-roundtrip')
     const saved = session.save({ protocolVersion: PROTOCOL_VERSION, schemaId: SCHEMA_ID, sessionId: session.sessionId, commandId: 'save-1', expectedStateRevision: session.stateRevision })

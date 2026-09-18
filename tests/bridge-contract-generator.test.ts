@@ -551,12 +551,12 @@ describe('CF-08 sound union-to-C# generation', () => {
       expect(response.promotedProperties.map((property) => property.wireName)).not.toContain('title')
       expect(response.promotedProperties.map((property) => property.wireName)).not.toContain('noFeeLine')
 
-      const generated = generateCsharpContract({ schema, protocolVersion: 4, projectionVersion: 42 })
+      const generated = generateCsharpContract({ schema, protocolVersion: 4, projectionVersion: 43 })
       expect(generated).toContain(
-        '// Schema identity: sha256:a3f8b03c00eee8e7c18b7f7c5d1f56c884f96d6173f5ab59ed7396911f56e981',
+        '// Schema identity: sha256:95351b9d1af70fd7d890dc6d8dc75ac40430d059f87fec526a42707b1f7bb1c7',
       )
       expect(schemaIdentity(schema)).toBe(
-        'sha256:a3f8b03c00eee8e7c18b7f7c5d1f56c884f96d6173f5ab59ed7396911f56e981',
+        'sha256:95351b9d1af70fd7d890dc6d8dc75ac40430d059f87fec526a42707b1f7bb1c7',
       )
       expect(generated).toContain('public sealed partial class StudioQuoteCastingRequest : StudioBridgeQuoteRequest')
       expect(generated).toContain('public StudioCastingDraftPayload draft;')
@@ -631,8 +631,13 @@ describe('CF-08 sound union-to-C# generation', () => {
         // P14A.1-T3 (projection 42): the Profile market case block (StudioMarketCaseSnapshot,
         // the discriminated own/undisclosed proposal rows, attention rows, preferences) and the
         // market-proposal quote family join the schema, so both whole-schema identities move.
-        F10_CURRENT_QUOTE_UNIONS: 'a77a51fa310ad3d79d15053d783718d58b0a9880af653eca589e4319f8fe3ffc',
-        F11_CURRENT_COMMAND_UNION: 'a77a51fa310ad3d79d15053d783718d58b0a9880af653eca589e4319f8fe3ffc',
+        // P14A.2-T2 (projection 43): the Talent Market workspace page (StudioMarketPage and its
+        // bucket/detail/history rows), `view:'market'` with the optional `historyPage` on the
+        // request, `StudioIndustryResponse.market` and the optional
+        // `StudioIndustryActivity.settlementKind` the folded Pulse row carries. No union moved;
+        // both whole-schema identities move together again.
+        F10_CURRENT_QUOTE_UNIONS: '2c57f1fac7de79b9f81473bc3307dd4692bbb8e877055a4f89a01890d05727ce',
+        F11_CURRENT_COMMAND_UNION: '2c57f1fac7de79b9f81473bc3307dd4692bbb8e877055a4f89a01890d05727ce',
         F12_P05_PRODUCTION_SENTINEL: '78d68a2d7670585946f79ebbfc449c85c8ad98ac381b422a8a9abea66702bde6',
       } as const
       for (const [name, expectedHash] of Object.entries(expected)) {

@@ -1,0 +1,519 @@
+P14A.2-T2 — bridge projection 43: the Talent Market workspace (view 'market') and the Pulse retained/moved fold
+Worktree /Users/zacheryspector/The-Movies-headless-program, branch wip/headless-program-20260916-ts, base fe96d40.
+Single worker throughout (--minWorkers=1 --maxWorkers=1); no other specialist running.
+
+=== git status --short (before commit) ===
+ M bridge/industry.ts
+ M bridge/people.ts
+ M bridge/schema/bridge-schema.ts
+ M bridge/schema/industry-schema.ts
+ M bridge/schema/project-studio-bridge.schema.json
+ M generated/unity/StudioBridgeDtos.Generated.cs
+ M generated/unity/project-studio-bridge.contract-manifest.json
+ M tests/bridge-contract-generator.test.ts
+ M tests/bridge-operations-events.test.ts
+ M tests/bridge-owner-ux-projection20-migration.test.ts
+ M tests/bridge-owner-ux-projection21-schema.test.ts
+ M tests/bridge-p10a-w0-people-projection.test.ts
+ M tests/bridge-p11-capital-contributors.test.ts
+ M tests/bridge-p11-ready.test.ts
+ M tests/bridge-p13b-r07-setup.test.ts
+ M tests/bridge-p13b-s1b-seats.test.ts
+ M tests/bridge-p13b-s2-labs.test.ts
+ M tests/bridge-p13b-s3-plans.test.ts
+ M tests/bridge-p13b-s4-office.test.ts
+ M tests/bridge-p13b-s5-adoption.test.ts
+ M tests/bridge-p13b-s6-cancellation.test.ts
+ M tests/bridge-p13b-s7-disclosure.test.ts
+ M tests/bridge-p13b-s8-rivals.test.ts
+ M tests/bridge-p14a1-market.test.ts
+ M tests/bridge-r3n4-read-model-deltas.test.ts
+ M tests/bridge-schema.test.ts
+ M tests/bridge.test.ts
+?? bridge/market.ts
+?? docs/engineering/playability-launch-review/evidence/p14a2-20260918/10-bridge-projection-43-GREEN.txt
+
+=== npm run typecheck:bridge ===
+
+> project-studio-core@0.1.0 typecheck:bridge
+> tsc -p tsconfig.bridge.json
+
+
+=== npm run check:bridge-contract ===
+
+> project-studio-core@0.1.0 check:bridge-contract
+> vite-node scripts/generate-bridge-contract.ts --check
+
+verified /Users/zacheryspector/The-Movies-headless-program/bridge/schema/project-studio-bridge.schema.json
+verified /Users/zacheryspector/The-Movies-headless-program/generated/unity/StudioBridgeDtos.Generated.cs
+verified /Users/zacheryspector/The-Movies-headless-program/generated/unity/project-studio-bridge.contract-manifest.json
+
+=== npm run check:bridge-contract:fixtures ===
+
+> project-studio-core@0.1.0 check:bridge-contract:fixtures
+> vite-node scripts/generate-bridge-contract-fixtures.ts --check
+
+verified /Users/zacheryspector/The-Movies-headless-program/generated/unity/tests/StudioBridgeUnionFixtures.Generated.cs
+
+=== schema identity (generated/unity/StudioBridgeDtos.Generated.cs) ===
+3:// Schema identity: sha256:95351b9d1af70fd7d890dc6d8dc75ac40430d059f87fec526a42707b1f7bb1c7
+18:        public const int ProjectionVersion = 43;
+6:  "projectionVersion": 43,
+8:  "schemaId": "sha256:95351b9d1af70fd7d890dc6d8dc75ac40430d059f87fec526a42707b1f7bb1c7",
+
+=== npm run typecheck ===
+
+> project-studio-core@0.1.0 typecheck
+> tsc --noEmit && tsc -p ui/tsconfig.json --noEmit
+
+
+=== ps -axo command | grep -c '[v]itest' (probe before the RED-file run) ===
+2
+
+=== npx vitest run tests/bridge-p14a2-market.test.ts --minWorkers=1 --maxWorkers=1 --reporter=dot ===
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/bridge-p14a2-market.test.ts (16 tests | 6 failed) 10408ms
+   × group 2: buckets — one bucket per case, fixed order, paged closed > two open cases sharing a decision week sort renewalWindow by discovery order; a settling case one week before its decision reads under settling, not renewalWindow 1165ms
+     → expected 'discovered' to be 'proposals_open' // Object.is equality
+   × group 2: buckets — one bucket per case, fixed order, paged closed > free agents: role in the fixed discipline order, then ask descending (equal-ask secondary key not exercised — see header premise) 13ms
+     → expected [] to have a length of 2 but got +0
+   × group 3: workspace attention rows > deduplicated per (cause, talentId), including termsRevised (a rival revision after the player proposed) and decisionWeekNear (one week before the decision) 9ms
+     → fixture assumption failed: fewer than 3 actors in the week-0 hiring market
+   × group 4: selected — candidate rail, offer comparison, settlement reasons/dropped > the rail's case block is byte-equal to marketCaseProjection; the own row equals proposalDraft; every competing figure is UNKNOWN 665ms
+     → expected undefined to deeply equal { talentId: 't-act-19', …(8) }
+   × group 4: selected — candidate rail, offer comparison, settlement reasons/dropped > after settlement (settled-208): the receipt's order-only reasons show; no dropped sentence shows for a case where the player never proposed 197ms
+     → Cannot read properties of undefined (reading 'settlementReasons')
+   ✓ group 5: paged employer/career history > employer intervals from the P12 rows, rival salaries private, credits by reference, bounded by MARKET_HISTORY_PAGE_SIZE 307ms
+   ✓ group 6: workspace intents (Review & Submit / Revise / Withdraw) > the same quote -> commit -> STALE_REVISION -> revise -> withdraw -> INTENT_NOT_AVAILABLE sequence as A.1 group 8, from a session whose current page is the market page 5263ms
+   × group 7: Pulse fold on view:"pulse" > one activity row per settlement, naming the person/studio/term length, salary absent, correlated by (talentId, week) against the two P12 receipts — never doubled 175ms
+     → expected 24 to be 48 // Object.is equality
+   ✓ group 8: disclosure leak check — workspace and pulse JSON > the rival's real figures at a non-1.00 tier appear nowhere in the workspace or pulse JSON 739ms
+   ✓ group 9: save/load > LIVE_SAVE_VERSION === 28; a genuine V27 fixture converts to an EMPTY workspace (no attention, no cases, no selected) 327ms
+   ✓ group 9: save/load > the three genuine V28 T0 fixtures load byte-stable and the market page reads them as T0 pins 1000ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 6 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/bridge-p14a2-market.test.ts > group 2: buckets — one bucket per case, fixed order, paged closed > two open cases sharing a decision week sort renewalWindow by discovery order; a settling case one week before its decision reads under settling, not renewalWindow
+AssertionError: expected 'discovered' to be 'proposals_open' // Object.is equality
+
+Expected: "proposals_open"
+Received: "discovered"
+
+ ❯ tests/bridge-p14a2-market.test.ts:244:27
+    242|     for (const talentId of talentIds) {
+    243|       const view = caseForTalent(state, talentId, state.market.tick)!
+    244|       expect(view.status).toBe('proposals_open') // sanity: both genui…
+       |                           ^
+    245|     }
+    246|     // NOT YET EXISTING: marketPage — this test's RED cause.
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/6]⎯
+
+ FAIL |core|  tests/bridge-p14a2-market.test.ts > group 2: buckets — one bucket per case, fixed order, paged closed > free agents: role in the fixed discipline order, then ask descending (equal-ask secondary key not exercised — see header premise)
+AssertionError: expected [] to have a length of 2 but got +0
+
+- Expected
++ Received
+
+- 2
++ 0
+
+ ❯ tests/bridge-p14a2-market.test.ts:321:18
+    319|     const rows = (page.cases.freeAgents as Array<{ talentId: string; p…
+    320|       .filter((r) => r.talentId === roleWithTwoDistinctAsks!.a || r.ta…
+    321|     expect(rows).toHaveLength(2)
+       |                  ^
+    322|     const higher = roleWithTwoDistinctAsks.askA > roleWithTwoDistinctA…
+    323|     expect(rows[0]!.talentId).toBe(higher) // descending ask within on…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/6]⎯
+
+ FAIL |core|  tests/bridge-p14a2-market.test.ts > group 3: workspace attention rows > deduplicated per (cause, talentId), including termsRevised (a rival revision after the player proposed) and decisionWeekNear (one week before the decision)
+Error: fixture assumption failed: fewer than 3 actors in the week-0 hiring market
+ ❯ signActorsSameTerm tests/bridge-p14a2-market.test.ts:177:38
+    175|     .slice(0, count)
+    176|     .map((t) => t!.id)
+    177|   if (actorIds.length < count) throw new Error(`fixture assumption fai…
+       |                                      ^
+    178|   const state = applyActions(world, actorIds.map((talentId) => ({ kind…
+    179|   return { state, talentIds: actorIds }
+ ❯ tests/bridge-p14a2-market.test.ts:345:42
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/6]⎯
+
+ FAIL |core|  tests/bridge-p14a2-market.test.ts > group 4: selected — candidate rail, offer comparison, settlement reasons/dropped > the rail's case block is byte-equal to marketCaseProjection; the own row equals proposalDraft; every competing figure is UNKNOWN
+AssertionError: expected undefined to deeply equal { talentId: 't-act-19', …(8) }
+
+- Expected: 
+Object {
+  "attentionRows": Array [
+    Object {
+      "cause": "newCompetingProposal",
+      "reason": "Another studio has a competing proposal on this case.",
+      "talentId": "t-act-19",
+    },
+  ],
+  "decisionWeek": 52,
+  "decisionWeekLabel": "1921 · Week 1",
+  "preferences": Object {
+    "line": "Prefers terms of 4 years · Weighs compensation first, then term length",
+    "preferredTermWeeks": 208,
+    "priorityOrder": Array [
+      "compensation",
+      "term",
+      "incumbency",
+      "standing",
+    ],
+  },
+  "proposals": Array [
+    Object {
+      "annualSalary": 2113048,
+      "disclosure": "own",
+      "effectiveWeek": 52,
+      "issuerStudioId": "studio-c60d14ab-player",
+      "premiumTier": 1.25,
+      "signingBonus": 380349,
+      "submittedWeek": 45,
+      "termWeeks": 52,
+    },
+    Object {
+      "annualSalary": "UNKNOWN",
+      "disclosure": "undisclosed",
+      "effectiveWeek": 52,
+      "issuerStudioId": "studio-c60d14ab-r01",
+      "premiumTier": "UNKNOWN",
+      "signingBonus": "UNKNOWN",
+      "submittedWeek": 45,
+      "termWeeks": 52,
+    },
+  ],
+  "settlementReasons": Array [],
+  "status": "proposals_open",
+  "subjectStudioId": "studio-c60d14ab-player",
+  "talentId": "t-act-19",
+}
+
++ Received: 
+undefined
+
+ ❯ tests/bridge-p14a2-market.test.ts:403:26
+    401|     expect(detail).not.toBeNull()
+    402|     const block = marketCaseProjection(state, talentId, playerStudioId…
+    403|     expect(detail!.case).toEqual(block) // by reference to the A.1 DTO…
+       |                          ^
+    404|     expect(detail!.rail.talentId).toBe(talentId)
+    405|     expect(detail!.rail.role).toBe(state.talent.find((t) => t.id === t…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/6]⎯
+
+ FAIL |core|  tests/bridge-p14a2-market.test.ts > group 4: selected — candidate rail, offer comparison, settlement reasons/dropped > after settlement (settled-208): the receipt's order-only reasons show; no dropped sentence shows for a case where the player never proposed
+TypeError: Cannot read properties of undefined (reading 'settlementReasons')
+ ❯ tests/bridge-p14a2-market.test.ts:441:25
+    439|     expect(detail).not.toBeNull()
+    440|     const disclosure = caseDisclosure(state, withDrops.talentId, playe…
+    441|     expect(detail!.case.settlementReasons).toEqual(disclosure.settleme…
+       |                         ^
+    442|     for (const reason of detail!.case.settlementReasons) expect(reason…
+    443|     // No dropped[] sentence appears anywhere in the detail JSON for a…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/6]⎯
+
+ FAIL |core|  tests/bridge-p14a2-market.test.ts > group 7: Pulse fold on view:"pulse" > one activity row per settlement, naming the person/studio/term length, salary absent, correlated by (talentId, week) against the two P12 receipts — never doubled
+AssertionError: expected 24 to be 48 // Object.is equality
+
+- Expected
++ Received
+
+- 48
++ 24
+
+ ❯ tests/bridge-p14a2-market.test.ts:627:41
+    625|     // is expected to flip once bridge/industry.ts's pulse fold lands …
+    626|     const rowsForSettledTalent = pulse.activities.filter((a) => expect…
+    627|     expect(rowsForSettledTalent.length).toBe(48) // 2 rows × 24 settle…
+       |                                         ^
+    628|     // Once folded, the count must equal the settled count, never doub…
+    629|     // no row leaks a salary figure.
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/6]⎯
+
+ Test Files  1 failed (1)
+      Tests  6 failed | 10 passed (16)
+   Start at  16:04:24
+   Duration  14.48s (transform 2.74s, setup 0ms, collect 3.59s, tests 10.41s, environment 0ms, prepare 112ms)
+
+
+=== ps -axo command | grep -c '[v]itest' ===
+2
+
+=== npx vitest run tests/bridge-p14a1-market.test.ts tests/bridge-p10a-r1-contract-quote.test.ts tests/bridge-p11-ready.test.ts tests/bridge-p13b-s8-rivals.test.ts tests/bridge-p13b-s7-disclosure.test.ts --minWorkers=1 --maxWorkers=1 --reporter=dot ===
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/bridge-p13b-s7-disclosure.test.ts (22 tests) 33752ms
+ ✓ |core| tests/bridge-p14a1-market.test.ts (16 tests) 12363ms
+ ✓ |core| tests/bridge-p13b-s8-rivals.test.ts (17 tests) 15632ms
+ ✓ |core| tests/bridge-p10a-r1-contract-quote.test.ts (9 tests) 9504ms
+stdout | tests/bridge-p11-ready.test.ts > P11 recorded trends and full portfolio > bounds a120-year recorded query to13/52 points with exact totals and no calendar-year invention
+{"kind":"p11-long-history-query-measurement","classification":"synthetic query-scale fixture; not played campaign evidence","weeks":6240,"ledgerEntries":6240,"elapsedMilliseconds":1.0267389999971783,"historyJsonBytes":101456,"syntheticStateJsonBytes":769545,"pointCounts":[13,52]}
+
+ ✓ |core| tests/bridge-p11-ready.test.ts (17 tests) 19197ms
+
+ Test Files  5 passed (5)
+      Tests  81 passed (81)
+   Start at  16:04:57
+   Duration  118.54s (transform 2.95s, setup 0ms, collect 25.86s, tests 90.45s, environment 1ms, prepare 549ms)
+
+
+=== npx vitest run tests/bridge-p12-industry.test.ts tests/bridge-p06-checkpoint-recovery.test.ts tests/bridge-p13b-s3-save-as.test.ts tests/bridge-owner-ux-projection20-migration.test.ts --minWorkers=1 --maxWorkers=1 --reporter=dot ===
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/bridge-owner-ux-projection20-migration.test.ts (10 tests) 12268ms
+ ✓ |core| tests/bridge-p06-checkpoint-recovery.test.ts (11 tests) 7142ms
+ ✓ |core| tests/bridge-p12-industry.test.ts (4 tests) 1853ms
+ ✓ |core| tests/bridge-p13b-s3-save-as.test.ts (1 test) 7313ms
+
+ Test Files  4 passed (4)
+      Tests  26 passed (26)
+   Start at  16:06:58
+   Duration  35.62s (transform 2.72s, setup 0ms, collect 5.37s, tests 28.58s, environment 1ms, prepare 423ms)
+
+
+=== npx vitest run tests/bridge-schema.test.ts tests/bridge-contract-generator.test.ts tests/bridge-contract-consumer-lock.test.ts tests/bridge-owner-ux-projection21-schema.test.ts tests/bridge.test.ts tests/bridge-operations-events.test.ts --minWorkers=1 --maxWorkers=1 --reporter=dot ===
+(FIRST run — the whole-schema C# sentinel pair F10/F11 still carried the projection-42 hash; raw failure preserved, then the pin was bumped exactly as P14A.1-T3 bumped the schema identity)
+2
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/bridge-contract-generator.test.ts > CF-08 sound union-to-C# generation > current accepted contract and future sentinel > pins exact positive output identities and deterministic rerendering
+AssertionError: F10_CURRENT_QUOTE_UNIONS: expected '2c57f1fac7de79b9f81473bc3307dd4692bbb…' to be 'a77a51fa310ad3d79d15053d783718d58b0a9…' // Object.is equality
+
+Expected: "a77a51fa310ad3d79d15053d783718d58b0a9880af653eca589e4319f8fe3ffc"
+Received: "2c57f1fac7de79b9f81473bc3307dd4692bbb8e877055a4f89a01890d05727ce"
+
+ ❯ tests/bridge-contract-generator.test.ts:643:37
+    641|         const second = generateCsharpTypeDeclarations(schema)
+    642|         expect(second, name).toBe(first)
+    643|         expect(sha256(first), name).toBe(expectedHash)
+       |                                     ^
+    644|       }
+    645|     })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed | 5 passed (6)
+      Tests  1 failed | 162 passed (163)
+   Start at  15:44:01
+   Duration  641.94s (transform 2.90s, setup 0ms, collect 6.47s, tests 633.19s, environment 2ms, prepare 614ms)
+
+
+[exited with code 0]
+
+=== npx vitest run tests/bridge-contract-generator.test.ts --minWorkers=1 --maxWorkers=1 --reporter=dot (after the F10/F11 sentinel bump) ===
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/bridge-contract-generator.test.ts (31 tests) 1872ms
+
+ Test Files  1 passed (1)
+      Tests  31 passed (31)
+   Start at  16:07:49
+   Duration  2.88s (transform 381ms, setup 0ms, collect 512ms, tests 1.87s, environment 1ms, prepare 103ms)
+
+
+=== npx vitest run tests/bridge-p13b-r07-setup.test.ts tests/bridge-p13b-s1b-seats.test.ts tests/bridge-p13b-s2-labs.test.ts tests/bridge-p13b-s3-plans.test.ts tests/bridge-p13b-s4-office.test.ts tests/bridge-p13b-s5-adoption.test.ts tests/bridge-p13b-s6-cancellation.test.ts --minWorkers=1 --maxWorkers=1 --reporter=dot ===
+ ✓ |core| tests/bridge-p13b-s3-plans.test.ts (11 tests) 8803ms
+ ✓ |core| tests/bridge-p13b-s5-adoption.test.ts (11 tests) 30423ms
+ ✓ |core| tests/bridge-p13b-s2-labs.test.ts (10 tests) 86810ms
+ ✓ |core| tests/bridge-p13b-s1b-seats.test.ts (8 tests) 8839ms
+
+ Test Files  7 passed (7)
+      Tests  75 passed | 1 todo (76)
+   Start at  15:55:28
+   Duration  229.83s (transform 3.05s, setup 0ms, collect 7.36s, tests 219.75s, environment 2ms, prepare 697ms)
+
+
+[exited with code 0]
+
+=== npx vitest run tests/bridge-p10a-w0-people-projection.test.ts tests/bridge-p11-capital-contributors.test.ts tests/bridge-r3n4-read-model-deltas.test.ts tests/bridge-p08a-w2-history-projection.test.ts tests/bridge-p09a-r2-facility-history-rows.test.ts tests/bridge-p13-profile-availability.test.ts tests/bridge-p13-technology-history.test.ts --minWorkers=1 --maxWorkers=1 --reporter=dot ===
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/bridge-p10a-w0-people-projection.test.ts (10 tests) 3606ms
+ ✓ |core| tests/bridge-r3n4-read-model-deltas.test.ts (9 tests) 1010ms
+ ✓ |core| tests/bridge-p08a-w2-history-projection.test.ts (4 tests) 3206ms
+ ✓ |core| tests/bridge-p11-capital-contributors.test.ts (6 tests) 4679ms
+ ✓ |core| tests/bridge-p09a-r2-facility-history-rows.test.ts (5 tests) 2301ms
+ ✓ |core| tests/bridge-p13-profile-availability.test.ts (2 tests) 5735ms
+ ✓ |core| tests/bridge-p13-technology-history.test.ts (1 test) 5531ms
+
+ Test Files  7 passed (7)
+      Tests  37 passed (37)
+   Start at  15:59:43
+   Duration  35.34s (transform 2.90s, setup 0ms, collect 6.58s, tests 26.07s, environment 2ms, prepare 707ms)
+
+
+[exited with code 0]
+
+=== DISPOSABLE PROBES (vite-node, NOT tests; no fixture, no test file was written) ===
+Probe A/B/C exercise the three RED cases whose own fixture premises fail before marketPage is reached,
+so the workspace behaviour behind them is shown against the real engine rather than asserted.
+--- npx vite-node <scratchpad>/probe5.ts ---
+(a) renewalWindow ids [ 't-act-25', 't-act-26' ] expected [ 't-act-25', 't-act-26' ]
+(a) statuses [ 'discovered', 'discovered' ] settling 0 closed 0
+(a) at 51 settling [ [ 't-act-25', 52 ], [ 't-act-26', 52 ] ] renewalWindow 0
+(b) seed probe-attn-1 attention [
+  [ 'decisionWeekNear', 0 ],
+  [ 'decisionWeekNear', 1 ],
+  [ 'decisionWeekNear', 2 ],
+  [ 'newCompetingProposal', 2 ],
+  [ 'termsRevised', 2 ]
+]
+(b) dedup ok true
+(b) decisionWeekNear A,B true true
+(b) termsRevised C true
+(b) buckets: settling [ 't-act-12', 't-act-09', 't-act-11' ] renewal 0
+(c) state.freeAgents at 60 2
+(c) freeAgents rows [
+  [ 't-act-25', 'Actor', 351531, true, null ],
+  [ 't-act-26', 'Actor', 136318, true, null ]
+]
+(c) closed [ [ 't-act-25', 'expired', 52 ], [ 't-act-26', 'expired', 52 ] ]
+
+--- npx vite-node <scratchpad>/probe3.ts (the free-agent signability and settled-208 pool facts) ---
+conversion t-wri-00 {"ok":false,"error":"\"t-wri-00\" is not currently signable — not a free agent or hiring-market candidate."}
+hm includes t-wri-00 false
+hm ids [
+  't-act-20',
+  't-act-26',
+  't-act-27',
+  't-dir-02',
+  't-cra-07',
+  't-cra-00',
+  't-act-12',
+  't-act-19'
+]
+week0 free_agent count 60 of 84
+208: freeAgents in talent 24 of 24
+208: eligibility of first 3 freeAgents [
+  'contracted_outside_window',
+  'contracted_outside_window',
+  'contracted_outside_window'
+]
+208: case for first 3 [ 'settled', 'settled', 'settled' ]
+208: hiringMarketIds [
+  't-act-00',
+  't-dir-06',
+  't-dir-09',
+  't-cra-07',
+  't-act-19',
+  't-act-01',
+  't-act-02',
+  't-cra-06'
+]
+208: conversion for first freeAgent {"ok":false,"error":"\"person-studio-5a47d054-r01-0\" is not currently signable — not a free agent or hiring-market candidate."}
+208: founding null
+
+=== RESULT: tests/bridge-p14a2-market.test.ts 10/16 — every remaining failure named with its premise ===
+
+1. group 2 case 1 ("two open cases sharing a decision week ..."), line 244 —
+   TEST-SIDE ENGINE PREMISE. The case's own sanity assertion fails before marketPage is
+   reached: `caseForTalent(state, talentId, 40).status` is 'discovered', not
+   'proposals_open'. Both cases are DISCOVERED AT week 40 (endWeekExclusive 52 minus the
+   12-week window), and `caseStatusAt` reads `week <= openedWeek ? 'discovered'`. Nothing
+   in the workspace can change that. The workspace behaviour the case then pins is shown
+   by probe A above: renewalWindow reads ['t-act-25','t-act-26'] — exactly the signing
+   (discovery) order the case asserts — settling and closed are empty, and the same world
+   held at week 51 moves BOTH cases into `settling` with renewalWindow empty. The plan's
+   bucket rule counts `discovered` as renewalWindow, so the bucket assignment is correct
+   under the plan even though the engine status the case expected is not observable.
+
+2. group 2 case 3 ("free agents: role in the fixed discipline order ..."), line 321 —
+   PLAN/TEST CONFLICT, resolved for the plan, plus a second test-side premise.
+   The plan's scope sentence sources this bucket from "people in `state.freeAgents` whose
+   `marketEligibility` is free-agent-signable". `state.freeAgents` is EMPTY in a generated
+   week-0 world (probe: 0 of 84), so the bucket is empty and the case's two picked writers
+   (t-wri-00 / t-wri-01, chosen from ALL free_agent-ELIGIBLE talent — 60 of 84) are absent.
+   The case's own last assertion is independently false: `castingDraftToEngine(state,
+   {kind:'signActor', signTalentId:'t-wri-00', ...})` returns ok:false ("not currently
+   signable — not a free agent or hiring-market candidate"), because the existing hiring
+   conversion accepts `state.freeAgents` plus the sampled hiring market, not every
+   eligible person. Sourcing the bucket from all eligible talent instead would break
+   group 2 case 2's `expect(page0.cases.freeAgents).toEqual([])` on the genuine settled-208
+   fixture (60 eligible people there) AND still fail this case at the conversion line, so
+   the plan's own source is implemented. Probe C shows the bucket on a state where
+   `state.freeAgents` is genuinely populated (two actors whose terms expired at week 52):
+   two rows, ask descending (351,531 then 136,318), both `signable: true` through the
+   EXISTING `signContract` path — the plan's source is exactly the set that path accepts.
+
+3. group 3 (attention), line 177 — TEST-SIDE FIXTURE ASSUMPTION. `signActorsSameTerm`
+   throws "fewer than 3 actors in the week-0 hiring market" on its own seed
+   ('p14a2-bridge-attention'); marketPage is never called. Probe B runs the identical
+   scenario on a seed that does have three signable actors: attention reads
+   [decisionWeekNear#0, decisionWeekNear#1, decisionWeekNear#2, newCompetingProposal#2,
+   termsRevised#2] — only known causes, no (cause, talentId) pair repeated, discovery
+   order ascending, and both of the inherited-unexercised causes (termsRevised via the
+   rival's genuine revision, decisionWeekNear one week before the decision) fire.
+
+4/5. group 4 cases 1 and 2, lines 403 and 441 — PIN REFUSED BY THE C# GENERATOR.
+   The T1 pin names the detail member `case`. `scripts/bridge-contract-csharp.ts` refuses
+   it: "C# contract generation failed [CF08-IDENTIFIER-COLLISION] at
+   #/$defs/StudioMarketCaseDetail/properties/case: schema name "case" emits invalid C#
+   identifier "case"" — `case` is a C# keyword and the wire name IS the emitted
+   identifier (no per-property rename hook exists). The member is `marketCase`, the SAME
+   name projection 42 already publishes for this same block on the Profile
+   (`StudioPersonProfileSnapshot.marketCase`). Everything else both cases assert is
+   satisfied: `detail.marketCase` is byte-equal to `marketCaseProjection`, the rail reads
+   the person's role and the block's own preferences, the own comparison row equals
+   `proposalDraft` at the read week, every competing figure is the literal UNKNOWN with no
+   null anywhere, and the settled-208 case publishes the disclosure's order-only reasons
+   with NO dropped sentence for a case the player never proposed in.
+
+6. group 7 (Pulse fold), line 627 — THE FLIP THE PLAN REQUIRES. The case documents
+   today's unfolded shape (`expect(rowsForSettledTalent.length).toBe(48)`) and says in its
+   own comment that it "is expected to flip once bridge/industry.ts's pulse fold lands at
+   T2". With the fold it reads 24 — one row per settlement, never doubled. Note the pin
+   was ALSO unsatisfiable before the fold: the pulse page is paged at pageSize 50 and
+   sorted releases-first, so page 0 carried 44 people rows (6 releases + 44), never 48.
+   The loop that follows it — no `detail` matching /\$\d/ on any pulse row — passes.
+
+=== WHAT THE A.1 PIN THE PLAN CALLS SUPERSEDED ACTUALLY ASSERTS ===
+tests/bridge-p14a1-market.test.ts group 6, line 370:
+    const activities = industryPage(state, 'p14a1-bridge-settlement-industry', 0,
+      employmentQuery('p14a1-bridge-settlement-industry', talentId)).activities
+    const atSettlement = activities.filter((a) => a.week === week)
+    expect(atSettlement.length).toBe(2) // expiry + player-contract: still two rows, no folded retained/moved row exists yet
+That assertion is on the per-person EMPLOYMENT route, not on Pulse. The A.2 fold is scoped
+to `view:'pulse'` exactly as the plan words it, so the Employment route still publishes the
+two authoritative receipts unfolded and this pin STAYS GREEN (bridge-p14a1-market 16/16
+above). It is therefore NOT superseded in fact; the test-author should decide whether the
+Employment route is meant to fold too. Recorded, not edited.
+
+=== LIMITS AND INTERPRETATIONS RECORDED (not resolved here) ===
+* MARKET_CLOSED_PAGE_SIZE = 20, MARKET_HISTORY_PAGE_SIZE = 10 — both OPEN values marked as
+  hypotheses in bridge/market.ts. 20 makes settled-208 a genuine two-page read (20 + 4).
+* The free-agent ask is quoted at the SHORTEST published term (TUNING.CONTRACT_TERM_OPTIONS[0]
+  = 52), which is also the term the RED file's own ordering oracle prices at. The plan names
+  `playerOffer` but no term.
+* The free-agent tie-break chain after "ask descending" is unexercised (no natural ask
+  collision): most recent P12 employment ordinal descending (−1 last), then the roster ordinal.
+  The DIRECTION of the employment-ordinal key is an interpretation; the plan states the key,
+  not its direction.
+* `settling` is `decisionWeek <= week + 1`, not `=== week + 1`: a case already AT its decision
+  week (the transient, unobservable `decision_pending`) would otherwise fall out of every
+  bucket and break "exactly one bucket".
+* Attention is gathered over EVERY case, not only open ones: `settlementCompleted` is one of
+  the five causes and can only come from a terminal case. `marketAttentionRows` still returns
+  nothing for a case that is neither this studio's subject nor one it bid on.
+* `StudioMarketCaseDetail.droppedReasons` is a FIFTH member the T1 pin does not name: the plan
+  requires the player's own dropped[] sentence and the pinned members have no home for it.
+  It is filtered by the issuing studio's own name (the engine's own DROP_SENTENCE prefix) and
+  gated on this studio having a `proposalSubmitted` receipt on that case; two rival studios
+  whose names share a prefix are separated by nothing but that name (recorded limit).
+* `caseForTalent` answers with a person's LATEST case, so a person with two cases contributes
+  one row, at the later case's discovery ordinal. No engine reader exists for a superseded case.
+* Multi-page employer history is still unexercised (no fixture has enough transitions), exactly
+  as T1 recorded.
