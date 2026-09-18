@@ -1,0 +1,147 @@
+=== P13B-S8 bridge/ui live-version sweep 26 -> 27 (no PROJECTION_VERSION change, no projection-41 facts) ===
+
+=== npm run typecheck:bridge ===
+
+> project-studio-core@0.1.0 typecheck:bridge
+> tsc -p tsconfig.bridge.json
+
+EXIT=0
+
+=== npm run typecheck ===
+tests/p13b-s8-research.test.ts(68,7): error TS6133: 'SEED' is declared but its value is never read.
+tests/p13b-s8-research.test.ts(82,70): error TS6133: 'i' is declared but its value is never read.
+tsc --noEmit EXIT=2
+ui tsc EXIT=0
+
+=== npx vitest run --project core --minWorkers=1 --maxWorkers=1 --reporter=dot tests/bridge-p06-checkpoint-recovery.test.ts tests/bridge-p13b-s3-save-as.test.ts tests/bridge-p12-campaign-library.test.ts tests/bridge-p13-campaign-isolation.test.ts ===
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/bridge-p12-campaign-library.test.ts (13 tests | 9 failed) 91029ms
+   ✓ R05 independent named campaign transactions > keeps a reviewed contract quote usable across failed and successful catalogue-only rename 4780ms
+   ✓ R05 independent named campaign transactions > keeps a reviewed contract quote usable across failed and successful catalogue-only delete 3469ms
+   × R05 independent named campaign transactions > keeps the shipped Save route and save-before-load consistent with the named record 6197ms
+     → Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+   × R05 independent named campaign transactions > rejects a corrupted cross-world active binding and stops on an uncertain commit 7584ms
+     → Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+   × R05 independent named campaign transactions > saves atomically across the bounded replay journal with a new logical session 6197ms
+     → Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+   × R05 independent named campaign transactions > branches CURRENT complete state, preserves original records, switches scope and survives restart 5471ms
+     → Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+   × R05 independent named campaign transactions > makes failed writes, cancel/unsaved conflicts, stale targets and rename collisions leave authority intact 5116ms
+     → Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+   × R05 independent named campaign transactions > requires exact delete/overwrite confirmation and never recreates a deleted active record 5693ms
+     → Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+   × R05 independent named campaign transactions > imports real old current/saved checkpoints as independently recoverable records without losing original bytes 6728ms
+     → Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+   × R05 independent named campaign transactions > recovers different-world legacy slots and null saved state, preserving exact originals 5152ms
+     → Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+   × R05 independent named campaign transactions > branches a full journal without changing source bytes and retries the exact durable copy after restart 6053ms
+     → Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+   ✓ R05 independent named campaign transactions > durably save dirty progress while preserving two inactive worlds and failed-write authority 19544ms
+   ✓ R05 independent named campaign transactions > durably discard dirty progress while preserving two inactive worlds and failed-write authority 9042ms
+ ✓ |core| tests/bridge-p06-checkpoint-recovery.test.ts (11 tests) 6449ms
+   ✓ AUD-001 — frozen P06 checkpoint recovery > loads 'Ready with no explicit save' through the governed predecessor path 547ms
+   ✓ AUD-001 — frozen P06 checkpoint recovery > loads 'Committed with distinct Ready save an…' through the governed predecessor path 763ms
+   ✓ AUD-001 — frozen P06 checkpoint recovery > persists 'Ready with no explicit save' once and reopens without remigration 1518ms
+   ✓ AUD-001 — frozen P06 checkpoint recovery > persists 'Committed with distinct Ready save an…' once and reopens without remigration 2586ms
+   ✓ AUD-001 — frozen P06 checkpoint recovery > preserves the predecessor if the migration write fails 824ms
+ ❯ |core| tests/bridge-p13-campaign-isolation.test.ts (1 test | 1 failed) 67105ms
+   × P13A research authority across named campaign operations > Save As branches real research, inactive and renamed campaigns stay frozen, and a new campaign receives none of their authority 67103ms
+     → Test timed out in 60000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ✓ |core| tests/bridge-p13b-s3-save-as.test.ts (1 test) 8942ms
+   ✓ P13B-S3 Save As (test 7, A11) > a Save As copy keeps the same plan ids and advances independently; the inactive original never advances (complete-state comparison) 8941ms
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 10 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > keeps the shipped Save route and save-before-load consistent with the named record
+ FAIL |core|  tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > rejects a corrupted cross-world active binding and stops on an uncertain commit
+ FAIL |core|  tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > saves atomically across the bounded replay journal with a new logical session
+ FAIL |core|  tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > branches CURRENT complete state, preserves original records, switches scope and survives restart
+ FAIL |core|  tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > makes failed writes, cancel/unsaved conflicts, stale targets and rename collisions leave authority intact
+ FAIL |core|  tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > requires exact delete/overwrite confirmation and never recreates a deleted active record
+ FAIL |core|  tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > imports real old current/saved checkpoints as independently recoverable records without losing original bytes
+ FAIL |core|  tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > recovers different-world legacy slots and null saved state, preserving exact originals
+ FAIL |core|  tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > branches a full journal without changing source bytes and retries the exact durable copy after restart
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/10]⎯
+
+ FAIL |core|  tests/bridge-p13-campaign-isolation.test.ts > P13A research authority across named campaign operations > Save As branches real research, inactive and renamed campaigns stay frozen, and a new campaign receives none of their authority
+Error: Test timed out in 60000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/10]⎯
+
+ Test Files  2 failed | 2 passed (4)
+      Tests  10 failed | 16 passed (26)
+   Start at  04:54:12
+   Duration  181.07s (transform 3.06s, setup 0ms, collect 5.81s, tests 173.52s, environment 1ms, prepare 493ms)
+
+
+=== npx vitest run --project ui --minWorkers=1 --maxWorkers=1 --reporter=dot ui/src/saves.test.tsx ui/src/session.test.tsx ui/src/engine/d17-save-migration.test.ts ui/src/engine/film-chronicle-adapter.test.ts ui/src/lot/snapshot/v14SetHolderBoundary.test.ts ===
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |ui| ui/src/session.test.tsx (17 tests) 10499ms
+   ✓ D-12 active-session recovery — exact round-trip > refresh restores a founded studio exactly 629ms
+   ✓ D-12 active-session recovery — exact round-trip > restores an ACTIVE production mid-flight 406ms
+   ✓ D-12 active-session recovery — exact round-trip > restores a theatrical run mid-flight — week, payments received/remaining, no duplicate 1974ms
+   ✓ D-12 active-session recovery — exact round-trip > restores completed releases + their film records 958ms
+   ✓ D-12 active-session recovery — App startup > a valid autosave is RESTORED on mount (no new studio) with a continuation notice 395ms
+   ✓ D-12 active-session recovery — App startup > keeps restored Chronicle, Clipping, and session-only Autopsy as three honest paths 1702ms
+   ✓ D-12 New Studio — confirmed destructive action > asks for confirmation and PRESERVES the studio when the player declines 597ms
+   ✓ D-12 New Studio — confirmed destructive action > wipes to the Start screen and clears the autosave when the player confirms 383ms
+   ✓ D-17A fix-pass — a stored V5 autosave migrates on load > an ENGAGED V5 session restores with the flag true and the converted banner 981ms
+   ✓ D-17A fix-pass — a stored V5 autosave migrates on load > a NEVER-ENGAGED headless V5 session restores with the flag false 1125ms
+   ✓ Script Projects V1 — a stored V8 autosave migrates on load > preserves operations, seeds legacy screenplay and casting state, then re-saves as V15 908ms
+ ✓ |ui| ui/src/saves.test.tsx (15 tests) 9250ms
+   ✓ saves: export → import round-trips the EXACT state > importSaveJson(exportSaveJson(state)) has a serialized form equal to the original 1250ms
+   ✓ saves: export → import round-trips the EXACT state > a restored state continues deterministically (same next tick as the original) 398ms
+   ✓ saves: export → import round-trips the EXACT state > the Saves screen exports the exact state and re-imports it, restoring it (UI path) 547ms
+   ✓ saves: legacy V1 import (D-9.15) converts and reports the conversion > a legacy V1 save auto-loads, is flagged converted, and yields a playable current state 1246ms
+   ✓ saves: legacy V1 import (D-9.15) converts and reports the conversion > the explicit "Import legacy V1 save" affordance converts and shows a conversion notice 1097ms
+   ✓ saves: migration disclosure through real App navigation > shows a one-shot, version-neutral notice after an accepted V8 load leaves Saves 1608ms
+   ✓ saves: migration disclosure through real App navigation > keeps the live studio and emits no success notice when App rejects an import 454ms
+   ✓ saves: migration disclosure through real App navigation > carries the same version-neutral notice through a Start-screen V8 import 1148ms
+   ✓ saves: migration disclosure through real App navigation > discloses migration when App restores an older active-session envelope 934ms
+ ✓ |ui| ui/src/engine/film-chronicle-adapter.test.ts (2 tests) 3648ms
+   ✓ Film Chronicle V1 — real adapter wiring > associates the middle film with its exact Produced project and production debit 1922ms
+   ✓ Film Chronicle V1 — real adapter wiring > uses current market week as the chronology gate and reconstructs deeply after V13 reload 1724ms
+ ✓ |ui| ui/src/engine/d17-save-migration.test.ts (6 tests) 6442ms
+   ✓ V11: adapter migration preserves an honest pre-ledger cash checkpoint > a played literal V2 save preserves its pre-ledger cash checkpoint when upgraded to V11 1398ms
+   ✓ D-17A: importSaveJson recovers economyEngagedEver from a literal V5 file > an ENGAGED V5 save loads into the current state with engagement preserved 843ms
+   ✓ D-17A: importSaveJson recovers economyEngagedEver from a literal V5 file > a NEVER-ENGAGED V5 save loads as a non-engaged studio (byte-identical behaviour) 1732ms
+   ✓ D-17A: importSaveJson recovers economyEngagedEver from a literal V5 file > a CURRENT-version save round-trips through the adapter as NOT converted 347ms
+   ✓ D-17A: importSaveJson recovers economyEngagedEver from a literal V5 file > a literal V8 save upgrades to V16 with legacy screenplay, casting, construction, placement, and property state 1196ms
+   ✓ D-17A: importSaveJson recovers economyEngagedEver from a literal V5 file > a V5 file with a hand-added economyEngagedEver is still read as V5 (the flag is recomputed) 923ms
+ ✓ |ui| ui/src/lot/snapshot/v14SetHolderBoundary.test.ts (5 tests) 489ms
+
+ Test Files  5 passed (5)
+      Tests  45 passed (45)
+   Start at  05:00:08
+   Duration  56.72s (transform 6.37s, setup 1.87s, collect 12.52s, tests 30.33s, environment 9.33s, prepare 861ms)
+
+
+=== npm run typecheck:bridge (re-run after the test-author's concurrent S8 edits) ===
+
+> project-studio-core@0.1.0 typecheck:bridge
+> tsc -p tsconfig.bridge.json
+
+EXIT=0
+
+=== npm run typecheck (re-run; tests/p13b-s8-* belong to the test-author) ===
+
+> project-studio-core@0.1.0 typecheck
+> tsc --noEmit && tsc -p ui/tsconfig.json --noEmit
+
+EXIT=0
