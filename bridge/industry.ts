@@ -106,6 +106,14 @@ function indexFor(state:GameState):Index {
     if(r.kind==='filmReleased')return [{...base,group:'releases' as const,headline:`${studio} releases ${filmById.get(r.productionId)?.title??r.productionId}`,detail:`Released through recorded development, production, post-production and release commitments. Release Standing: ${(['audienceAwareness','industryPrestige','commercialConfidence'] as const).map(key=>`${laneLabels[key]} ${r.before[key].toFixed(1)} → ${r.after[key].toFixed(1)}`).join('; ')}. These are separate recorded changes at release, before later drift.`,filmId:r.productionId,talentId:null}]
     if(r.kind==='filmSettled')return [{...base,group:'releases' as const,headline:`${filmById.get(r.productionId)?.title??r.productionId} completes its theatrical run`,detail:'The final scheduled payment was received. The settled public result is now complete.',filmId:r.productionId,talentId:null}]
     if(r.kind==='filmAnnounced')return [{...base,group:'announcements' as const,headline:`${studio} announces a film`,detail:'An actual funded production has been greenlit. No release date is promised.',filmId:r.productionId,talentId:null}]
+    // P13B-S8: the ONE public rival research fact. A rival Laboratory becoming operational
+    // is observable plant; its seats, instruments, projects and spend are not. So
+    // `laboratoryCommitted`, `instrumentOperational`, `researchSeatAssigned` and
+    // `researchCompleted` fall through to the empty return below and publish nothing at
+    // all, and no count reaches this text — "how much capacity" is exactly the private
+    // fact. Rival finance stays behind the public standings; no money kind is read here.
+    if(r.kind==='laboratoryOperational')return [{...base,group:'studios' as const,headline:`${studio} expands its research capacity`,
+      detail:'A recorded research Laboratory is now operational. Its seats, instruments, research projects and spending remain private.',filmId:null,talentId:null}]
     if(r.kind==='technologyAdopted') {
       const adoption=observedAdoption(state,r);if(!adoption)return []
       return [{...base,group:'studios',headline:`${studio} now has operational synchronized sound`,

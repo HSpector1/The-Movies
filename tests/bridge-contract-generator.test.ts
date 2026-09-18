@@ -549,12 +549,12 @@ describe('CF-08 sound union-to-C# generation', () => {
       expect(response.promotedProperties.map((property) => property.wireName)).not.toContain('title')
       expect(response.promotedProperties.map((property) => property.wireName)).not.toContain('noFeeLine')
 
-      const generated = generateCsharpContract({ schema, protocolVersion: 4, projectionVersion: 40 })
+      const generated = generateCsharpContract({ schema, protocolVersion: 4, projectionVersion: 41 })
       expect(generated).toContain(
-        '// Schema identity: sha256:3283d0fd2117eeb2935711bbc633eb9659c1b228bc9db9ecdf5161b7b196e791',
+        '// Schema identity: sha256:16b8432222d8cccf08be3fa056db4b4c975f39648ac67cd57d103a4c74663365',
       )
       expect(schemaIdentity(schema)).toBe(
-        'sha256:3283d0fd2117eeb2935711bbc633eb9659c1b228bc9db9ecdf5161b7b196e791',
+        'sha256:16b8432222d8cccf08be3fa056db4b4c975f39648ac67cd57d103a4c74663365',
       )
       expect(generated).toContain('public sealed partial class StudioQuoteCastingRequest : StudioBridgeQuoteRequest')
       expect(generated).toContain('public StudioCastingDraftPayload draft;')

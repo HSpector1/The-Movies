@@ -126,7 +126,24 @@ export const PROTOCOL_VERSION = 4 as const
 //     week cannot be published before that week is public. Sound's window is degenerate, so its
 //     two rows are unchanged at every week; lighting's appear at its announcement week.
 // Nothing is persisted: no announcement receipt, no save change (V26 stays live). Protocol stays 4.
-export const PROJECTION_VERSION = 40 as const
+//
+// PROJECTION 41 (P13B-S8): rival research becomes visible as ONE public fact, text only.
+// Save V27 landed five rival-only receipt kinds (`laboratoryCommitted`,
+// `laboratoryOperational`, `instrumentOperational`, `researchSeatAssigned`,
+// `researchCompleted`) and four rival ledger kinds (`researchSpend`, `researchCapacity`,
+// `technologyRestoration`, `technologyRefund`). The projection publishes rival research
+// facts FROM RECEIPTS ONLY, and only one of them: a `laboratoryOperational` receipt mints
+// one `StudioIndustryActivity` in the existing `studios` group ("<studio> expands its
+// research capacity"), with no seat, Lab or instrument count in its text. The other four
+// receipt kinds mint NO row and no text anywhere — a commitment, an instrument, a seat and
+// a finished project are the rival's private research STATE, which the S8 law keeps off
+// every page. Rival finance stays behind the existing public standings: none of the four
+// rival money kinds, no rival cash and no rival period reaches any surface. The player's
+// Laboratory and finance pages read the player's own slices and are unchanged.
+// NO DTO CHANGE: the row uses the projection-40 `StudioIndustryActivity` shape as minted,
+// and the schema moves only through its own `$id`/`x-project-studio.projectionVersion`.
+// Save V27 is live (`742fb1e`); protocol stays 4.
+export const PROJECTION_VERSION = 41 as const
 
 const nonEmptyText = () => text({ minLength: 1 })
 const nonNegativeInteger = () => integer({ minimum: 0 })
