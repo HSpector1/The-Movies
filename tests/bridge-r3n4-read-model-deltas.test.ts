@@ -141,8 +141,8 @@ describe('R3-N4-SIM-20 — batched N4/N5/N6 read-model deltas (projection 31)', 
     // deltas below are unchanged by that; what this case still owns is the law
     // that the identity this task retired stays accepted forever.
     expect(PROTOCOL_VERSION).toBe(4)
-    expect(PROJECTION_VERSION).toBe(41)
-    expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-41')
+    expect(PROJECTION_VERSION).toBe(42)
+    expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-42')
     // A bump that forgets its outgoing identity bricks every durable checkpoint
     // written under it; a bump that keeps the RUNNING identity re-migrates forever.
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_PROJECTION_30_SCHEMA_ID)).toBe('projection-v30')
@@ -348,7 +348,7 @@ describe('R3-N4-SIM-20 — batched N4/N5/N6 read-model deltas (projection 31)', 
 
     const response = new BridgeSession(state, 'r3n4-bundle').snapshot()
     expect(() => parseWireValue(BRIDGE_SCHEMA.$defs.StudioBridgeSnapshotResponse, response)).not.toThrow()
-    expect(response.snapshotVersion).toBe(41)
+    expect(response.snapshotVersion).toBe(42)
 
     const development = response.snapshot.development.development.board!
     expect(development.projects.length).toBeGreaterThan(0)

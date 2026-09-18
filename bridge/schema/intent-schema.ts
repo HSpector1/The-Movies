@@ -49,6 +49,10 @@ export const AVAILABLE_INTENT_KINDS = [
   // a cancellation returns capital and can owe a restoration job, which is neither
   // research, nor a plan, nor an installation commit.
   'cancellationAction',
+  // P14A.1: ONE proposal on an open market case (propose/revise/withdraw), minted only
+  // by an accepted, legal market-proposal quote; commit revalidates. Not a contract action:
+  // nothing is signed or charged this week — the case settles at its decision week.
+  'marketProposalAction',
 ] as const
 
 export const StudioBridgeIntentOption = object('StudioBridgeIntentOption', {

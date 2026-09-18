@@ -265,11 +265,11 @@ function ownPlans<T extends { studioId: string }>(state: { physicalPlans: { plan
   return state.physicalPlans.plans.filter(plan => plan.studioId === state.hollywood!.playerStudioId)
 }
 
-describe('P13B-S6-T3 item 1: projection version bump (38 -> 39; 41 after the S8-T3 bump) and the cancellationAction intent kind', () => {
+describe('P13B-S6-T3 item 1: projection version bump (38 -> 39; 42 after the P14A.1-T3 bump) and the cancellationAction intent kind', () => {
   it('bumps PROJECTION_VERSION to 41 and its schema $id / x-project-studio.projectionVersion move with it', () => {
-    expect(PROJECTION_VERSION).toBe(41)
-    expect(BRIDGE_SCHEMA.$id).toContain('projection-41')
-    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(41)
+    expect(PROJECTION_VERSION).toBe(42)
+    expect(BRIDGE_SCHEMA.$id).toContain('projection-42')
+    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(42)
   })
   it('AVAILABLE_INTENT_KINDS gains cancellationAction, distinct from researchAction/installationAction/physicalPlanAction/adoptTechnology', () => {
     const kinds = AVAILABLE_INTENT_KINDS as readonly string[]

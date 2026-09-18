@@ -530,6 +530,8 @@ describe('CF-08 sound union-to-C# generation', () => {
         ['StudioQuoteCommissionRequest', ['quoteCommission'], ['draft', 'type']],
         // P10-R1: the contract quote family (renewal / early release) joins the same envelope.
         ['StudioQuoteContractRequest', ['quoteContract'], ['draft', 'type']],
+        // P14A.1: the market-proposal quote family (propose/revise/withdraw) joins it too.
+        ['StudioQuoteMarketProposalRequest', ['quoteMarketProposal'], ['draft', 'type']],
         // P09 W1: the placement quote family joins the SAME union envelope.
         ['StudioQuotePlacementRequest', ['quotePlacement'], ['draft', 'type']],
         ['StudioQuoteSetCommissionRequest', ['quoteSetCommission'], ['draft', 'type']],
@@ -549,12 +551,12 @@ describe('CF-08 sound union-to-C# generation', () => {
       expect(response.promotedProperties.map((property) => property.wireName)).not.toContain('title')
       expect(response.promotedProperties.map((property) => property.wireName)).not.toContain('noFeeLine')
 
-      const generated = generateCsharpContract({ schema, protocolVersion: 4, projectionVersion: 41 })
+      const generated = generateCsharpContract({ schema, protocolVersion: 4, projectionVersion: 42 })
       expect(generated).toContain(
-        '// Schema identity: sha256:16b8432222d8cccf08be3fa056db4b4c975f39648ac67cd57d103a4c74663365',
+        '// Schema identity: sha256:a3f8b03c00eee8e7c18b7f7c5d1f56c884f96d6173f5ab59ed7396911f56e981',
       )
       expect(schemaIdentity(schema)).toBe(
-        'sha256:16b8432222d8cccf08be3fa056db4b4c975f39648ac67cd57d103a4c74663365',
+        'sha256:a3f8b03c00eee8e7c18b7f7c5d1f56c884f96d6173f5ab59ed7396911f56e981',
       )
       expect(generated).toContain('public sealed partial class StudioQuoteCastingRequest : StudioBridgeQuoteRequest')
       expect(generated).toContain('public StudioCastingDraftPayload draft;')
@@ -626,8 +628,11 @@ describe('CF-08 sound union-to-C# generation', () => {
         // (the derived technology-announcement row is minted by the campaign clock, which
         // owns no studio). No quote union and no industry view moved. Both fixtures
         // render the WHOLE current BRIDGE_SCHEMA, so both identities move together.
-        F10_CURRENT_QUOTE_UNIONS: '52f806124a254d6daac2b53cc7ba095a31e401b98689ac70125f65c90e6fb6da',
-        F11_CURRENT_COMMAND_UNION: '52f806124a254d6daac2b53cc7ba095a31e401b98689ac70125f65c90e6fb6da',
+        // P14A.1-T3 (projection 42): the Profile market case block (StudioMarketCaseSnapshot,
+        // the discriminated own/undisclosed proposal rows, attention rows, preferences) and the
+        // market-proposal quote family join the schema, so both whole-schema identities move.
+        F10_CURRENT_QUOTE_UNIONS: 'a77a51fa310ad3d79d15053d783718d58b0a9880af653eca589e4319f8fe3ffc',
+        F11_CURRENT_COMMAND_UNION: 'a77a51fa310ad3d79d15053d783718d58b0a9880af653eca589e4319f8fe3ffc',
         F12_P05_PRODUCTION_SENTINEL: '78d68a2d7670585946f79ebbfc449c85c8ad98ac381b422a8a9abea66702bde6',
       } as const
       for (const [name, expectedHash] of Object.entries(expected)) {

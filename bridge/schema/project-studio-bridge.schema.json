@@ -492,7 +492,7 @@
           "$ref": "#/$defs/StudioProjectionBundle"
         },
         "snapshotVersion": {
-          "const": 41,
+          "const": 42,
           "type": "integer"
         },
         "stateDigest": {
@@ -609,7 +609,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 41,
+          "const": 42,
           "type": "integer"
         },
         "stateDigest": {
@@ -685,7 +685,8 @@
             "installationAction",
             "adoptTechnology",
             "productionSetupAction",
-            "cancellationAction"
+            "cancellationAction",
+            "marketProposalAction"
           ],
           "type": "string"
         },
@@ -820,6 +821,9 @@
         },
         {
           "$ref": "#/$defs/StudioQuoteContractRequest"
+        },
+        {
+          "$ref": "#/$defs/StudioQuoteMarketProposalRequest"
         }
       ],
       "x-csharp-name": "StudioBridgeQuoteRequest"
@@ -1124,7 +1128,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 41,
+          "const": 42,
           "type": "integer"
         },
         "stateDigest": {
@@ -1203,7 +1207,7 @@
           "$ref": "#/$defs/StudioProjectionBundle"
         },
         "snapshotVersion": {
-          "const": 41,
+          "const": 42,
           "type": "integer"
         },
         "stateDigest": {
@@ -1495,7 +1499,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 41,
+          "const": 42,
           "type": "integer"
         },
         "stateDigest": {
@@ -3787,7 +3791,8 @@
                 "renewalWindowClosed",
                 "unpublishedTerm",
                 "insufficientFunds",
-                "onScreenplayTask"
+                "onScreenplayTask",
+                "underMarketCase"
               ],
               "type": "string"
             },
@@ -8523,6 +8528,517 @@
       "type": "object",
       "x-csharp-name": "StudioLotProjection"
     },
+    "StudioMarketAttentionRowSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "cause": {
+          "enum": [
+            "decisionWeekNear",
+            "newCompetingProposal",
+            "termsRevised",
+            "settlementCompleted",
+            "proposalWouldFail"
+          ],
+          "type": "string"
+        },
+        "reason": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "talentId": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "cause",
+        "reason",
+        "talentId"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioMarketAttentionRowSnapshot"
+    },
+    "StudioMarketCaseSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "attentionRows": {
+          "items": {
+            "$ref": "#/$defs/StudioMarketAttentionRowSnapshot"
+          },
+          "type": "array"
+        },
+        "decisionWeek": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "decisionWeekLabel": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "preferences": {
+          "$ref": "#/$defs/StudioMarketPreferencesSnapshot"
+        },
+        "proposals": {
+          "items": {
+            "$ref": "#/$defs/StudioMarketProposalSnapshot"
+          },
+          "type": "array"
+        },
+        "settlementReasons": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "status": {
+          "enum": [
+            "discovered",
+            "proposals_open",
+            "decision_pending",
+            "settled",
+            "declined",
+            "expired",
+            "invalidated"
+          ],
+          "type": "string"
+        },
+        "subjectStudioId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "talentId": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "attentionRows",
+        "decisionWeek",
+        "decisionWeekLabel",
+        "preferences",
+        "proposals",
+        "settlementReasons",
+        "status",
+        "subjectStudioId",
+        "talentId"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioMarketCaseSnapshot"
+    },
+    "StudioMarketOwnProposalSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "annualSalary": {
+          "minimum": 0,
+          "type": "number"
+        },
+        "disclosure": {
+          "const": "own",
+          "type": "string"
+        },
+        "effectiveWeek": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "issuerStudioId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "premiumTier": {
+          "minimum": 1,
+          "type": "number"
+        },
+        "signingBonus": {
+          "minimum": 0,
+          "type": "number"
+        },
+        "submittedWeek": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "termWeeks": {
+          "maximum": 2147483647,
+          "minimum": 1,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "annualSalary",
+        "disclosure",
+        "effectiveWeek",
+        "issuerStudioId",
+        "premiumTier",
+        "signingBonus",
+        "submittedWeek",
+        "termWeeks"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioMarketOwnProposalSnapshot"
+    },
+    "StudioMarketPreferencesSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "line": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "preferredTermWeeks": {
+          "maximum": 2147483647,
+          "minimum": 1,
+          "type": "integer"
+        },
+        "priorityOrder": {
+          "items": {
+            "enum": [
+              "compensation",
+              "term",
+              "standing",
+              "incumbency"
+            ],
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "line",
+        "preferredTermWeeks",
+        "priorityOrder"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioMarketPreferencesSnapshot"
+    },
+    "StudioMarketProposalDraftPayload": {
+      "additionalProperties": false,
+      "properties": {
+        "premiumTier": {
+          "anyOf": [
+            {
+              "minimum": 1,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "talentId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "termWeeks": {
+          "anyOf": [
+            {
+              "maximum": 2147483647,
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "verb": {
+          "enum": [
+            "propose",
+            "revise",
+            "withdraw"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "premiumTier",
+        "talentId",
+        "termWeeks",
+        "verb"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioMarketProposalDraftPayload"
+    },
+    "StudioMarketProposalQuoteSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "affordable": {
+          "type": "boolean"
+        },
+        "annualSalary": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "commitLabel": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "consequence": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "decisionWeek": {
+          "anyOf": [
+            {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "decisionWeekLabel": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "effectiveWeek": {
+          "anyOf": [
+            {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "intentId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "marketProposalAction"
+          ],
+          "type": "string"
+        },
+        "ok": {
+          "type": "boolean"
+        },
+        "premiumTier": {
+          "anyOf": [
+            {
+              "minimum": 1,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "queueNote": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "queues": {
+          "type": "boolean"
+        },
+        "refusal": {
+          "anyOf": [
+            {
+              "enum": [
+                "unknownTalent",
+                "noOpenCase",
+                "notEligibleProposer",
+                "unpublishedTerm",
+                "unpublishedTier",
+                "insufficientFunds",
+                "noCurrentProposal"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "refusalReason": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "refusalRemedy": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "signingBonus": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "startsNow": {
+          "type": "boolean"
+        },
+        "talentId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "talentName": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "termLabel": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "termWeeks": {
+          "anyOf": [
+            {
+              "maximum": 2147483647,
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "verb": {
+          "enum": [
+            "propose",
+            "revise",
+            "withdraw"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "affordable",
+        "annualSalary",
+        "commitLabel",
+        "consequence",
+        "decisionWeek",
+        "decisionWeekLabel",
+        "effectiveWeek",
+        "intentId",
+        "kind",
+        "ok",
+        "premiumTier",
+        "queueNote",
+        "queues",
+        "refusal",
+        "refusalReason",
+        "refusalRemedy",
+        "signingBonus",
+        "startsNow",
+        "talentId",
+        "talentName",
+        "termLabel",
+        "termWeeks",
+        "verb"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioMarketProposalQuoteSnapshot"
+    },
+    "StudioMarketProposalSnapshot": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/StudioMarketOwnProposalSnapshot"
+        },
+        {
+          "$ref": "#/$defs/StudioMarketUndisclosedProposalSnapshot"
+        }
+      ],
+      "x-csharp-name": "StudioMarketProposalSnapshot"
+    },
+    "StudioMarketUndisclosedProposalSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "annualSalary": {
+          "const": "UNKNOWN",
+          "type": "string"
+        },
+        "disclosure": {
+          "const": "undisclosed",
+          "type": "string"
+        },
+        "effectiveWeek": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "issuerStudioId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "premiumTier": {
+          "const": "UNKNOWN",
+          "type": "string"
+        },
+        "signingBonus": {
+          "const": "UNKNOWN",
+          "type": "string"
+        },
+        "submittedWeek": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "termWeeks": {
+          "maximum": 2147483647,
+          "minimum": 1,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "annualSalary",
+        "disclosure",
+        "effectiveWeek",
+        "issuerStudioId",
+        "premiumTier",
+        "signingBonus",
+        "submittedWeek",
+        "termWeeks"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioMarketUndisclosedProposalSnapshot"
+    },
     "StudioOfficeConversionRow": {
       "additionalProperties": false,
       "properties": {
@@ -9736,6 +10252,16 @@
           },
           "type": "array"
         },
+        "marketCase": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StudioMarketCaseSnapshot"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
         "name": {
           "minLength": 1,
           "type": "string"
@@ -9828,6 +10354,7 @@
         "disciplines",
         "employment",
         "genreExperience",
+        "marketCase",
         "name",
         "nameShared",
         "potentialNotice",
@@ -12356,6 +12883,50 @@
       "type": "object",
       "x-csharp-name": "StudioQuoteContractRequest"
     },
+    "StudioQuoteMarketProposalRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "commandId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "draft": {
+          "$ref": "#/$defs/StudioMarketProposalDraftPayload"
+        },
+        "expectedStateRevision": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "protocolVersion": {
+          "const": 4,
+          "type": "integer"
+        },
+        "schemaId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "sessionId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "type": {
+          "const": "quoteMarketProposal",
+          "type": "string"
+        }
+      },
+      "required": [
+        "commandId",
+        "draft",
+        "expectedStateRevision",
+        "protocolVersion",
+        "schemaId",
+        "sessionId",
+        "type"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioQuoteMarketProposalRequest"
+    },
     "StudioQuotePlacementRequest": {
       "additionalProperties": false,
       "properties": {
@@ -12460,6 +13031,9 @@
         },
         {
           "$ref": "#/$defs/StudioContractQuoteSnapshot"
+        },
+        {
+          "$ref": "#/$defs/StudioMarketProposalQuoteSnapshot"
         }
       ],
       "x-csharp-name": "StudioQuoteSnapshot"
@@ -14753,7 +15327,7 @@
       "x-csharp-name": "StudioWrapReceiptSnapshot"
     }
   },
-  "$id": "urn:project-studio:bridge:protocol-4:projection-41",
+  "$id": "urn:project-studio:bridge:protocol-4:projection-42",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "description": "Canonical wire contract owned by the authoritative TypeScript runtime.",
   "oneOf": [
@@ -14809,7 +15383,7 @@
   "title": "Project Studio TypeScript to Unity Bridge",
   "x-project-studio": {
     "contractId": "project-studio-current-game-unity-bridge",
-    "projectionVersion": 41,
+    "projectionVersion": 42,
     "protocolVersion": 4,
     "routes": {
       "command": "POST /command",

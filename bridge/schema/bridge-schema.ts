@@ -143,7 +143,30 @@ export const PROTOCOL_VERSION = 4 as const
 // NO DTO CHANGE: the row uses the projection-40 `StudioIndustryActivity` shape as minted,
 // and the schema moves only through its own `$id`/`x-project-studio.projectionVersion`.
 // Save V27 is live (`742fb1e`); protocol stays 4.
-export const PROJECTION_VERSION = 41 as const
+//
+// PROJECTION 42 (P14A.1): the contested talent-market case reaches the client through
+// the Profile — the thin player surface of companion §2.1.10/§2.1.11 and nothing more.
+//   * `StudioPersonProfileSnapshot.marketCase` is a NULLABLE `StudioMarketCaseSnapshot`:
+//     present exactly while the engine holds a case for that person (`caseForTalent`),
+//     null for everyone else. It carries the derived status, the derived decision week
+//     and its campaign-calendar label, the person's public preference facts, one row per
+//     current proposal, the profile-route attention rows, and the settlement reasons.
+//   * The proposal row is a DISCRIMINATED union on `disclosure`, because the two rows are
+//     genuinely different facts: `StudioMarketOwnProposalSnapshot` carries the viewer's own
+//     numbers (re-derived at the read week through the shared pricing entry — never the
+//     stored submission-week quote), and `StudioMarketUndisclosedProposalSnapshot` carries
+//     the literal `"UNKNOWN"` marker in `premiumTier`/`annualSalary`/`signingBonus`. A
+//     competing studio's real figures are never serialized anywhere, and the marker is
+//     never null and never omitted (companion §2.1.5). The blanket privacy of
+//     `bridge/industry.ts` and the `contract: null` of `bridge/people.ts` are UNCHANGED
+//     for everyone outside a case: this is the authored narrowing, not a new disclosure.
+//   * `marketProposalAction` joins `AVAILABLE_INTENT_KINDS` with its own quote family
+//     (`quoteMarketProposal` → `StudioMarketProposalQuoteSnapshot`): propose / revise /
+//     withdraw through the accepted quote → refusal → digest-bound commit pattern, with
+//     `underMarketCase` joining the contract refusal vocabulary (the Renew row now reads
+//     the engine's own case-time refusal instead of offering a commit the engine throws on).
+// Save V28 is live; protocol stays 4; no new persisted fact.
+export const PROJECTION_VERSION = 42 as const
 
 const nonEmptyText = () => text({ minLength: 1 })
 const nonNegativeInteger = () => integer({ minimum: 0 })
@@ -1622,6 +1645,10 @@ const CONTRACT_REFUSAL_KINDS = [
   'unpublishedTerm',
   'insufficientFunds',
   'onScreenplayTask',
+  // P14A.1 (projection 42): the person is under an open market case, so the
+  // incumbent's renewal IS a proposal settled at the decision week — the engine's
+  // own `underMarketCase` refusal (src/core/actions.ts, applyRenewContract).
+  'underMarketCase',
 ] as const
 
 const StudioContractDraftPayload = object('StudioContractDraftPayload', {
@@ -1641,12 +1668,47 @@ const StudioQuoteContractRequest = object('StudioQuoteContractRequest', {
   draft: reference('StudioContractDraftPayload', StudioContractDraftPayload),
 })
 
+// ── P14A.1 — the market-proposal quote family (propose / revise / withdraw) ──
+// The incumbent's renewal for a person under an open case is a PROPOSAL settled at
+// the decision week (companion §2.1.3/R6), so it needs the same route the contract
+// family already has. The draft names no issuer: the session always proposes as the
+// player's own studio, so no client can author a rival's proposal.
+const MARKET_PROPOSAL_REFUSAL_KINDS = [
+  'unknownTalent',
+  'noOpenCase',
+  'notEligibleProposer',
+  'unpublishedTerm',
+  'unpublishedTier',
+  'insufficientFunds',
+  'noCurrentProposal',
+] as const
+
+const StudioMarketProposalDraftPayload = object('StudioMarketProposalDraftPayload', {
+  verb: enumeration(['propose', 'revise', 'withdraw']),
+  talentId: nonEmptyText(),
+  /** Required for propose/revise: one of the person's PUBLISHED terms. */
+  termWeeks: nullable(integer({ minimum: 1 })),
+  /** Required for propose/revise: one of the published premium tiers (1.00 is the floor). */
+  premiumTier: nullable(number({ minimum: 1 })),
+})
+
+const StudioQuoteMarketProposalRequest = object('StudioQuoteMarketProposalRequest', {
+  protocolVersion: literal(PROTOCOL_VERSION),
+  schemaId: nonEmptyText(),
+  sessionId: nonEmptyText(),
+  commandId: nonEmptyText(),
+  expectedStateRevision: nonNegativeInteger(),
+  type: literal('quoteMarketProposal'),
+  draft: reference('StudioMarketProposalDraftPayload', StudioMarketProposalDraftPayload),
+})
+
 const StudioBridgeQuoteRequest = union('StudioBridgeQuoteRequest', [
   reference('StudioQuoteCommissionRequest', StudioQuoteCommissionRequest),
   reference('StudioQuoteCastingRequest', StudioQuoteCastingRequest),
   reference('StudioQuotePlacementRequest', StudioQuotePlacementRequest),
   reference('StudioQuoteSetCommissionRequest', StudioQuoteSetCommissionRequest),
   reference('StudioQuoteContractRequest', StudioQuoteContractRequest),
+  reference('StudioQuoteMarketProposalRequest', StudioQuoteMarketProposalRequest),
 ] as const)
 
 const StudioFinancialConsequence = object('StudioFinancialConsequence', {
@@ -1817,12 +1879,46 @@ const StudioContractQuoteSnapshot = object('StudioContractQuoteSnapshot', {
   consequence: nonEmptyText(),
 })
 
+// P14A.1: the market-proposal consequence sheet. Nothing is charged by submitting —
+// the signing bonus is due at settlement IF this person selects it — so the sheet
+// publishes the decision week, the terms and the affordability answer, never a debit.
+const StudioMarketProposalQuoteSnapshot = object('StudioMarketProposalQuoteSnapshot', {
+  /** The union's shared identity slot; REGISTERED for commit only when `ok`. */
+  intentId: nonEmptyText(),
+  kind: enumeration(['marketProposalAction']),
+  commitLabel: nonEmptyText(),
+  /** A proposal never takes effect now: it is settled at the decision week. */
+  startsNow: bool(),
+  queues: bool(),
+  queueNote: nullable(text()),
+  ok: bool(),
+  verb: enumeration(['propose', 'revise', 'withdraw']),
+  talentId: nonEmptyText(),
+  talentName: nonEmptyText(),
+  decisionWeek: nullable(nonNegativeInteger()),
+  decisionWeekLabel: nullable(text()),
+  termWeeks: nullable(integer({ minimum: 1 })),
+  termLabel: nullable(text()),
+  premiumTier: nullable(number({ minimum: 1 })),
+  annualSalary: nullable(number({ minimum: 0 })),
+  /** Due at settlement, not now. */
+  signingBonus: nullable(number({ minimum: 0 })),
+  effectiveWeek: nullable(nonNegativeInteger()),
+  refusal: nullable(enumeration(MARKET_PROPOSAL_REFUSAL_KINDS)),
+  refusalReason: nullable(text()),
+  refusalRemedy: nullable(text()),
+  /** The accepted D-12 answer on the bonus, asked at the read week. */
+  affordable: bool(),
+  consequence: nonEmptyText(),
+})
+
 const StudioQuoteSnapshot = union('StudioQuoteSnapshot', [
   reference('StudioCommissionQuoteSnapshot', StudioCommissionQuoteSnapshot),
   reference('StudioCastingQuoteSnapshot', StudioCastingQuoteSnapshot),
   reference('StudioPlacementQuoteSnapshot', StudioPlacementQuoteSnapshot),
   reference('StudioSetCommissionQuoteSnapshot', StudioSetCommissionQuoteSnapshot),
   reference('StudioContractQuoteSnapshot', StudioContractQuoteSnapshot),
+  reference('StudioMarketProposalQuoteSnapshot', StudioMarketProposalQuoteSnapshot),
 ] as const)
 
 const StudioBridgeQuoteResponse = object('StudioBridgeQuoteResponse', {
@@ -2014,6 +2110,77 @@ const StudioPersonCareerSnapshot = object('StudioPersonCareerSnapshot', {
   provenance: enumeration(['recorded', 'partial', 'notRecorded', 'none']),
   provenanceNotice: nullable(text()),
 })
+// ── P14A.1 (projection 42) — the Profile's market case block ────────────────
+// Public (companion §2.1.5): that a case exists, its subject, its decision week, the
+// person's public preference facts, and that a competing proposal exists — from which
+// studio, since which week, for how long, from which effective week. PRIVATE, before
+// and after settlement: every non-issuer's premium tier, salary and bonus, which read
+// the literal marker below. No band, no estimate, no rumour is invented here.
+const MARKET_UNKNOWN = 'UNKNOWN' as const
+const marketProposalCommon = {
+  issuerStudioId: nonEmptyText(),
+  submittedWeek: nonNegativeInteger(),
+  termWeeks: integer({ minimum: 1 }),
+  /** The week the proposal would take effect: the case's decision week. */
+  effectiveWeek: nonNegativeInteger(),
+}
+const StudioMarketOwnProposalSnapshot = object('StudioMarketOwnProposalSnapshot', {
+  disclosure: literal('own'),
+  ...marketProposalCommon,
+  premiumTier: number({ minimum: 1 }),
+  /** RE-DERIVED at the read week through the shared pricing entry, never the stored quote. */
+  annualSalary: number({ minimum: 0 }),
+  signingBonus: number({ minimum: 0 }),
+})
+const StudioMarketUndisclosedProposalSnapshot = object('StudioMarketUndisclosedProposalSnapshot', {
+  disclosure: literal('undisclosed'),
+  ...marketProposalCommon,
+  premiumTier: literal(MARKET_UNKNOWN),
+  annualSalary: literal(MARKET_UNKNOWN),
+  signingBonus: literal(MARKET_UNKNOWN),
+})
+const StudioMarketProposalSnapshot = union('StudioMarketProposalSnapshot', [
+  reference('StudioMarketOwnProposalSnapshot', StudioMarketOwnProposalSnapshot),
+  reference('StudioMarketUndisclosedProposalSnapshot', StudioMarketUndisclosedProposalSnapshot),
+] as const)
+// The five interrupt causes of companion §2.1.11 and nothing else on this route.
+const MARKET_ATTENTION_CAUSES = [
+  'decisionWeekNear',
+  'newCompetingProposal',
+  'termsRevised',
+  'settlementCompleted',
+  'proposalWouldFail',
+] as const
+const StudioMarketAttentionRowSnapshot = object('StudioMarketAttentionRowSnapshot', {
+  cause: enumeration(MARKET_ATTENTION_CAUSES),
+  talentId: nonEmptyText(),
+  reason: nonEmptyText(),
+})
+// §2.1.7: the archetype-derived priority order and preferred term are "readable on the
+// profile and not manipulable" — the engine's own public accessors, never a second copy.
+const StudioMarketPreferencesSnapshot = object('StudioMarketPreferencesSnapshot', {
+  priorityOrder: array(enumeration(['compensation', 'term', 'standing', 'incumbency'])),
+  preferredTermWeeks: integer({ minimum: 1 }),
+  line: nonEmptyText(),
+})
+const StudioMarketCaseSnapshot = object('StudioMarketCaseSnapshot', {
+  talentId: nonEmptyText(),
+  /** The employer whose contract is expiring (the case's subject studio). */
+  subjectStudioId: nonEmptyText(),
+  status: enumeration([
+    'discovered', 'proposals_open', 'decision_pending', 'settled', 'declined', 'expired', 'invalidated',
+  ]),
+  /** DERIVED on read from the live employment row the case names. */
+  decisionWeek: nonNegativeInteger(),
+  /** The same authoritative campaign calendar Industry and the Profile already use. */
+  decisionWeekLabel: nonEmptyText(),
+  preferences: reference('StudioMarketPreferencesSnapshot', StudioMarketPreferencesSnapshot),
+  proposals: array(reference('StudioMarketProposalSnapshot', StudioMarketProposalSnapshot)),
+  attentionRows: array(reference('StudioMarketAttentionRowSnapshot', StudioMarketAttentionRowSnapshot)),
+  /** Order-only, after settlement. Never an amount. */
+  settlementReasons: array(nonEmptyText()),
+})
+
 const StudioPersonProfileSnapshot = object('StudioPersonProfileSnapshot', {
   talentId: nonEmptyText(),
   name: nonEmptyText(),
@@ -2041,6 +2208,8 @@ const StudioPersonProfileSnapshot = object('StudioPersonProfileSnapshot', {
   presence: reference('StudioPersonPresenceSnapshot', StudioPersonPresenceSnapshot),
   attention: reference('StudioPersonAttentionSnapshot', StudioPersonAttentionSnapshot),
   career: reference('StudioPersonCareerSnapshot', StudioPersonCareerSnapshot),
+  /** P14A.1: present exactly while the engine holds a case for this person; null otherwise. */
+  marketCase: nullable(reference('StudioMarketCaseSnapshot', StudioMarketCaseSnapshot)),
 })
 const StudioRosterOvrSnapshot = object('StudioRosterOvrSnapshot', {
   discipline: disciplineEnum(),
@@ -2774,6 +2943,9 @@ const definitions = {
   StudioQuoteSetCommissionRequest,
   StudioContractDraftPayload,
   StudioQuoteContractRequest,
+  StudioMarketProposalDraftPayload,
+  StudioQuoteMarketProposalRequest,
+  StudioMarketProposalQuoteSnapshot,
   StudioBridgeQuoteRequest,
   StudioCastingQuoteSnapshot,
   StudioPlacementCellVerdictSnapshot,
@@ -2822,6 +2994,12 @@ const definitions = {
   StudioPersonAttentionSnapshot,
   StudioPersonCareerRowSnapshot,
   StudioPersonCareerSnapshot,
+  StudioMarketOwnProposalSnapshot,
+  StudioMarketUndisclosedProposalSnapshot,
+  StudioMarketProposalSnapshot,
+  StudioMarketAttentionRowSnapshot,
+  StudioMarketPreferencesSnapshot,
+  StudioMarketCaseSnapshot,
   StudioPersonProfileSnapshot,
   StudioRosterOvrSnapshot,
   StudioRosterRowSnapshot,
@@ -2953,6 +3131,14 @@ export type BridgeContractDraftPayload = InferSchema<typeof StudioContractDraftP
 export type BridgeQuoteContractRequest = InferSchema<typeof StudioQuoteContractRequest>
 export type BridgeContractQuoteSnapshot = InferSchema<typeof StudioContractQuoteSnapshot>
 export type BridgeContractRefusalKind = (typeof CONTRACT_REFUSAL_KINDS)[number]
+export type BridgeMarketProposalDraftPayload = InferSchema<typeof StudioMarketProposalDraftPayload>
+export type BridgeQuoteMarketProposalRequest = InferSchema<typeof StudioQuoteMarketProposalRequest>
+export type BridgeMarketProposalQuoteSnapshot = InferSchema<typeof StudioMarketProposalQuoteSnapshot>
+export type BridgeMarketProposalRefusalKind = (typeof MARKET_PROPOSAL_REFUSAL_KINDS)[number]
+export type BridgeMarketProposalSnapshot = InferSchema<typeof StudioMarketProposalSnapshot>
+export type BridgeMarketAttentionRowSnapshot = InferSchema<typeof StudioMarketAttentionRowSnapshot>
+export type BridgeMarketAttentionCause = (typeof MARKET_ATTENTION_CAUSES)[number]
+export type BridgeMarketCaseSnapshot = InferSchema<typeof StudioMarketCaseSnapshot>
 export type BridgePersonRenewalTermSnapshot = InferSchema<typeof StudioPersonRenewalTermSnapshot>
 export type BridgePersonContractActionsSnapshot = InferSchema<typeof StudioPersonContractActionsSnapshot>
 export type BridgePlacementQuoteSnapshot = InferSchema<typeof StudioPlacementQuoteSnapshot>

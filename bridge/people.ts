@@ -37,8 +37,16 @@ import { campaignDate } from '../src/core/calendar.ts'
 import { rivalEmployment } from '../src/core/hollywood.ts'
 import { DISCIPLINE_ORDER, PERSON_DISCIPLINE_ORDER, ROLE_TO_DISCIPLINE } from '../src/core/tuning.ts'
 import { guaranteedComp, activeContract, busyTalentIds, renewalWindowOpen } from '../src/core/employment.ts'
-import { contractActionDecisions } from './contract.ts'
-import type { BridgePersonContractActionsSnapshot } from './schema/bridge-schema.ts'
+import {
+  caseDisclosure, caseForTalent, caseOpenForTalent, currentProposals,
+  publicPreferredTerm, publicPriorityOrder, submitProposal, UNKNOWN,
+} from '../src/core/talentMarket.ts'
+import type { Disclosed, MarketCaseView } from '../src/core/talentMarket.ts'
+import { contractActionDecisions, contractTermLabel } from './contract.ts'
+import type {
+  BridgeMarketAttentionRowSnapshot, BridgeMarketCaseSnapshot, BridgeMarketProposalSnapshot,
+  BridgePersonContractActionsSnapshot,
+} from './schema/bridge-schema.ts'
 import type {
   CreativeRole,
   Discipline,
@@ -201,6 +209,8 @@ export type BridgePersonProfileSnapshot = {
   presence: BridgePersonPresenceSnapshot
   attention: BridgePersonAttentionSnapshot
   career: BridgePersonCareerSnapshot
+  /** P14A.1: the contested-expiry case block, present only while the engine holds a case. */
+  marketCase: BridgeMarketCaseSnapshot | null
 }
 
 export type BridgeRosterRowSnapshot = {
@@ -454,6 +464,7 @@ function buildProfile(
   const career = buildCareer(input)
   const attention = decideAttention(employment, work, presence, input.week)
   const identityLabel = careerIdentityLabel(identity)
+  const marketCase = marketCaseProjection(state, talent.id, state.hollywood?.playerStudioId ?? '', input.week)
   return {
     talentId: talent.id,
     name: talent.name,
@@ -492,6 +503,7 @@ function buildProfile(
     presence,
     attention,
     career,
+    marketCase,
   }
 }
 
@@ -802,4 +814,152 @@ function buildAttention(profiles: BridgePersonProfileSnapshot[], week: number): 
     .map(([key, talentIds]) => ({ key, label: COHORT_LABEL[key]!.label, tier: COHORT_LABEL[key]!.tier, talentIds }))
     .sort((a, b) => COHORT_LABEL[a.key]!.order - COHORT_LABEL[b.key]!.order)
   return { cohorts, currentWeek: week }
+}
+
+// ── P14A.1 — the Profile's market case block (companion §2.1.3/§2.1.5/§2.1.11) ─
+//
+// The thin player surface of A.1 and nothing more: no workspace (A.2), no world route
+// (A.3), no Pulse fold. Every fact below is the engine's own, read at the CURRENT week:
+// the case and its derived decision week (`caseForTalent`), what this viewer may lawfully
+// know (`caseDisclosure` — the viewer's own figures re-derived at the read week, every
+// other issuer's premium tier, salary and bonus the literal `UNKNOWN` marker), and the
+// person's public preference facts (`publicPriorityOrder` / `publicPreferredTerm`).
+// Nothing here is persisted and nothing is invented: a competing studio's real numbers
+// are not read, not rounded, not banded and not estimated anywhere in this module.
+
+/**
+ * §2.1.11 interrupts "for a decision week crossing the configured stop horizon". The
+ * companion configures no NUMBER, and this bridge has no multi-week run control: the
+ * session advances exactly ONE authoritative week per `advanceWeek` intent and stops on
+ * a decision. Read under that existing convention, the horizon is one week — the last
+ * week on which the player can still act before the decision week is crossed. If the
+ * Owner later configures a wider horizon this constant is the single place it moves.
+ */
+export const MARKET_DECISION_STOP_HORIZON_WEEKS = 1
+
+/** The three outcomes the settlement step itself produces (`settleCase`); an invalidated
+ * case was closed by a release, which is not a settlement. */
+const SETTLEMENT_OUTCOMES = new Set(['settled', 'declined', 'expired'])
+
+const DESCRIPTOR_LABEL: Record<string, string> = {
+  compensation: 'compensation',
+  term: 'term length',
+  standing: 'studio standing',
+  incumbency: 'staying where they are',
+}
+
+const unbox = (value: Disclosed<number>): number | null => (value === UNKNOWN ? null : value)
+
+/** Has this issuer already replaced an earlier proposal on this case? A.1 persists no
+ * per-viewer read-state, so "terms revised after review" is derived from the REVISION
+ * itself: a second `proposalSubmitted` receipt from the same studio inside the open span
+ * (the limit is recorded — a revision the player has already read still shows). */
+function hasRevised(state: GameState, view: MarketCaseView, studioId: string): boolean {
+  let count = 0
+  for (const receipt of state.talentMarket.receipts) {
+    if (receipt.kind !== 'proposalSubmitted') continue
+    if (receipt.talentId !== view.talentId || receipt.studioId !== studioId) continue
+    if (receipt.week < view.openedWeek) continue
+    count += 1
+    if (count > 1) return true
+  }
+  return false
+}
+
+/** The engine's own dry run: would re-submitting this exact proposal be refused NOW?
+ * (UX-014's live response window — most often the D-12 gate on the bonus.) */
+function proposalWouldFailNow(state: GameState, proposal: { talentId: string; issuerStudioId: string; termWeeks: number; premiumTier: number }): boolean {
+  try {
+    submitProposal(state, proposal)
+    return false
+  } catch {
+    return true
+  }
+}
+
+function marketAttentionRows(
+  state: GameState,
+  view: MarketCaseView,
+  viewerStudioId: string,
+  week: number,
+): BridgeMarketAttentionRowSnapshot[] {
+  const rows: BridgeMarketAttentionRowSnapshot[] = []
+  const add = (cause: BridgeMarketAttentionRowSnapshot['cause'], reason: string): void => {
+    rows.push({ cause, talentId: view.talentId, reason })
+  }
+  const proposals = currentProposals(state, view.talentId)
+  const mine = proposals.find((p) => p.issuerStudioId === viewerStudioId)
+  // Interrupt only what is this studio's business: a case it has bid on, or one about
+  // its own employee. Everything else is grouped, not interrupted (§2.1.11).
+  if (mine === undefined && view.subjectStudioId !== viewerStudioId) return rows
+  const open = caseOpenForTalent(state, view.talentId, week)
+  if (open && view.decisionWeek - week <= MARKET_DECISION_STOP_HORIZON_WEEKS) {
+    add('decisionWeekNear', `This case decides in Week ${String(view.decisionWeek)} — the next week crosses it.`)
+  }
+  if (mine !== undefined) {
+    const others = proposals.filter((p) => p.issuerStudioId !== viewerStudioId)
+    if (others.some((p) => p.submittedWeek >= mine.submittedWeek)) {
+      add('newCompetingProposal', 'Another studio has a competing proposal on this case.')
+    }
+    if (others.some((p) => hasRevised(state, view, p.issuerStudioId))) {
+      add('termsRevised', 'A competing studio has revised its proposal on this case.')
+    }
+    if (open && proposalWouldFailNow(state, mine)) {
+      add('proposalWouldFail', 'Your proposal would be refused if it were submitted this week.')
+    }
+  }
+  if (SETTLEMENT_OUTCOMES.has(view.status)) {
+    add('settlementCompleted', `This case closed in Week ${String(view.decisionWeek)}.`)
+  }
+  return rows
+}
+
+/**
+ * The case block for one person as ONE studio may lawfully see it, or null when the
+ * engine holds no case for them (a free agent, a person in term, a world with no
+ * industry, and every state a migration lifted — the V27→V28 lift never fabricates a
+ * case, so a converted save reads null here until discovery runs).
+ */
+export function marketCaseProjection(
+  state: GameState,
+  talentId: string,
+  viewerStudioId: string,
+  week: number = state.market.tick,
+): BridgeMarketCaseSnapshot | null {
+  if (state.hollywood === null) return null
+  const view = caseForTalent(state, talentId, week)
+  if (view === null) return null
+  const disclosure = caseDisclosure(state, talentId, viewerStudioId, week)
+  const proposals: BridgeMarketProposalSnapshot[] = disclosure.proposals.map((row) => {
+    const common = {
+      issuerStudioId: row.issuerStudioId,
+      submittedWeek: row.submittedWeek,
+      termWeeks: row.termWeeks,
+      effectiveWeek: row.effectiveWeek,
+    }
+    const premiumTier = unbox(row.premiumTier)
+    const annualSalary = unbox(row.annualSalary)
+    const signingBonus = unbox(row.signingBonus)
+    return premiumTier === null || annualSalary === null || signingBonus === null
+      ? { disclosure: 'undisclosed' as const, ...common, premiumTier: UNKNOWN, annualSalary: UNKNOWN, signingBonus: UNKNOWN }
+      : { disclosure: 'own' as const, ...common, premiumTier, annualSalary, signingBonus }
+  })
+  const priorityOrder = [...publicPriorityOrder(state, talentId)]
+  const preferredTermWeeks = publicPreferredTerm(state, talentId)
+  return {
+    talentId: view.talentId,
+    subjectStudioId: view.subjectStudioId,
+    status: view.status,
+    decisionWeek: view.decisionWeek,
+    // The same authoritative campaign calendar Industry and the Profile already speak.
+    decisionWeekLabel: campaignDate(view.decisionWeek).label,
+    preferences: {
+      priorityOrder,
+      preferredTermWeeks,
+      line: `Prefers terms of ${contractTermLabel(preferredTermWeeks)} · Weighs ${DESCRIPTOR_LABEL[priorityOrder[0] ?? 'compensation']!} first, then ${DESCRIPTOR_LABEL[priorityOrder[1] ?? 'term']!}`,
+    },
+    proposals,
+    attentionRows: marketAttentionRows(state, view, viewerStudioId, week),
+    settlementReasons: [...disclosure.settlementReasons],
+  }
 }

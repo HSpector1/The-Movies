@@ -36,6 +36,17 @@ import {
   type GameState,
   type Talent,
 } from '../src/core/index.ts'
+import {
+  campaignDate,
+  caseForTalent,
+  caseOpenForTalent,
+  currentProposals,
+  isPremiumTier,
+  marketEligibility,
+  proposalDraft,
+  submitProposal,
+  withdrawProposal,
+} from '../src/core/index.ts'
 import { financialConsequence } from './finance-consequence.ts'
 import { TUNING } from '../src/core/tuning.ts'
 import type { ActionOutcome } from '../ui/src/engine/adapter.ts'
@@ -43,6 +54,9 @@ import type {
   BridgeContractDraftPayload,
   BridgeContractQuoteSnapshot,
   BridgeContractRefusalKind,
+  BridgeMarketProposalDraftPayload,
+  BridgeMarketProposalQuoteSnapshot,
+  BridgeMarketProposalRefusalKind,
   BridgePersonContractActionsSnapshot,
   BridgePersonRenewalTermSnapshot,
 } from './schema/bridge-schema.ts'
@@ -109,6 +123,19 @@ export function renewalRefusal(state: GameState, talent: Talent, contract: Contr
         ? `${talent.name}'s renewal window is not open yet — it opens ${String(opensIn)} weeks from now (Week ${String(opensWeek)}), ${String(TUNING.HIRING_RENEWAL_WINDOW_WEEKS)} weeks before the contract ends in Week ${String(contract.endWeekExclusive)}.`
         : `${talent.name}'s contract has already ended (Week ${String(contract.endWeekExclusive)}).`,
       remedy: opensIn > 0 ? `Review the renewal again from Week ${String(opensWeek)}.` : 'Sign a new contract from the talent market instead.',
+    }
+  }
+  // P14A.1 (companion §2.1.3 / R6): once a market case is open for this person the
+  // engine refuses `renewContract` outright (`underMarketCase`, src/core/actions.ts) —
+  // the incumbent renews by submitting a PROPOSAL settled at the decision week against
+  // everyone else's. The row consulted here is the same predicate the engine consults,
+  // so the Profile can never offer a renewal the commit would throw on.
+  if (caseOpenForTalent(state, talent.id, week)) {
+    const decisionWeek = caseForTalent(state, talent.id, week)?.decisionWeek ?? contract.endWeekExclusive
+    return {
+      code: 'underMarketCase',
+      reason: `${talent.name} is under an open market case — renewing in term is closed, and the incumbent's renewal is now a proposal settled in Week ${String(decisionWeek)} against every competing proposal.`,
+      remedy: 'Review and submit your proposal for the decision week instead.',
     }
   }
   return null
@@ -287,5 +314,212 @@ export function contractQuoteSnapshot(
     cashAfter: cashBefore - cost,
     affordable: canAfford(state, cost).ok,
     consequence,
+  }
+}
+
+// ── P14A.1 — the market-proposal route (propose / revise / withdraw) ─────────
+//
+// The same shape as the contract family above and for the same reason: the client
+// never prices, never decides eligibility and never constructs an engine payload.
+// What differs is what a commit MEANS — a proposal changes no contract and moves no
+// money this week; it stands until the case's decision week, when the person chooses
+// among every surviving proposal (companion §2.1.3/§2.1.7). Every authority is the
+// engine's own: `caseForTalent`/`caseOpenForTalent` (is there a case), `marketEligibility`
+// (may this studio propose), `proposalDraft` (the price, re-derived at the read week),
+// `canAfford` (the accepted D-12 gate on the bonus) and `submitProposal`/`withdrawProposal`.
+
+export type MarketProposalDraft = {
+  verb: 'propose' | 'revise' | 'withdraw'
+  talentId: string
+  issuerStudioId: string
+  /** Required for propose/revise; ignored by withdraw. */
+  termWeeks?: number | null
+  premiumTier?: number | null
+}
+
+export type MarketProposalRefusal = {
+  code: BridgeMarketProposalRefusalKind
+  reason: string
+  remedy: string
+}
+
+export type MarketProposalConversionOk = {
+  ok: true
+  kind: 'marketProposalAction'
+  draft: MarketProposalDraft
+  talent: Talent
+  commitLabel: string
+  /** null for withdraw (and for a draft refused before pricing). */
+  termWeeks: number | null
+  premiumTier: number | null
+  annualSalary: number | null
+  signingBonus: number | null
+  effectiveWeek: number | null
+  decisionWeek: number | null
+  refusal: MarketProposalRefusal | null
+  apply: (state: GameState) => ActionOutcome
+}
+
+export type MarketProposalConversion = MarketProposalConversionOk | { ok: false; error: string }
+
+/** The proposal refusal on THIS state, or null when the verb is legal. */
+function liveMarketRefusal(state: GameState, draft: MarketProposalDraft, talent: Talent): MarketProposalRefusal | null {
+  const week = state.market.tick
+  if (!caseOpenForTalent(state, talent.id, week)) {
+    return {
+      code: 'noOpenCase',
+      reason: `${talent.name} has no open market case.`,
+      remedy: 'A proposal is only possible while a case is open — free agents are signed directly.',
+    }
+  }
+  if (draft.verb === 'withdraw') {
+    const mine = currentProposals(state, talent.id).some((p) => p.issuerStudioId === draft.issuerStudioId)
+    return mine ? null : {
+      code: 'noCurrentProposal',
+      reason: `No current proposal for ${talent.name} to withdraw.`,
+      remedy: 'Submit a proposal first.',
+    }
+  }
+  if (!marketEligibility(state, talent.id, week).proposers.includes(draft.issuerStudioId)) {
+    return {
+      code: 'notEligibleProposer',
+      reason: `This studio may not propose for ${talent.name} this week.`,
+      remedy: 'Only an entered studio may propose, and only while the person is in an approved window.',
+    }
+  }
+  const priced = proposalDraft(state, draft.issuerStudioId, talent.id, draft.termWeeks ?? 0, draft.premiumTier ?? 0, week)
+  // The D-12 gate is the PLAYER's; a rival issuer answers to its own P12 reserve rule
+  // inside `submitProposal`, which this route never second-guesses.
+  if (draft.issuerStudioId === state.hollywood?.playerStudioId) {
+    const affordability = canAfford(state, priced.signingBonus)
+    if (!affordability.ok) {
+      return {
+        code: 'insufficientFunds',
+        reason: `The studio cannot cover the ${dollars(priced.signingBonus)} signing bonus this proposal would owe at settlement (${affordability.reason}).`,
+        remedy: 'Choose a shorter term or a lower tier, or propose once cash allows.',
+      }
+    }
+  }
+  return null
+}
+
+/**
+ * ONE module-level `apply`, not a fresh closure per conversion: two conversions of the
+ * same draft on the same state must be INDISTINGUISHABLE (the accepted "a quote mutates
+ * nothing and asking again is deterministic" invariant is asserted by deep equality, and
+ * two distinct closures are never deeply equal). The draft it commits is its own `this`.
+ */
+function applyMarketProposal(this: MarketProposalConversionOk, current: GameState): ActionOutcome {
+  // Commit revalidates: the same authorities, the live state.
+  const live = liveMarketRefusal(current, this.draft, this.talent)
+  if (live !== null) return { ok: false, error: `${live.reason} ${live.remedy}`.trim() }
+  try {
+    const next = this.draft.verb === 'withdraw'
+      ? withdrawProposal(current, this.draft.talentId, this.draft.issuerStudioId)
+      : submitProposal(current, {
+          talentId: this.draft.talentId,
+          issuerStudioId: this.draft.issuerStudioId,
+          termWeeks: this.termWeeks ?? 0,
+          premiumTier: this.premiumTier ?? 0,
+        })
+    return { ok: true, next }
+  } catch (e) {
+    return { ok: false, error: (e as Error).message }
+  }
+}
+
+/** The ONLY conversion from a market-proposal draft to the engine. */
+export function marketProposalDraftToEngine(state: GameState, draft: MarketProposalDraft): MarketProposalConversion {
+  const talent = talentById(state, draft.talentId)
+  if (talent === undefined) {
+    return { ok: false, error: `"${draft.talentId}" is not a person this world knows.` }
+  }
+  const priced = draft.verb === 'withdraw'
+  if (!priced) {
+    if (draft.termWeeks === null || draft.termWeeks === undefined || !TUNING.CONTRACT_TERM_OPTIONS.includes(draft.termWeeks)) {
+      return { ok: false, error: 'Choose one of the published terms before proposing.' }
+    }
+    if (draft.premiumTier === null || draft.premiumTier === undefined || !isPremiumTier(draft.premiumTier)) {
+      return { ok: false, error: 'Choose one of the published compensation tiers before proposing.' }
+    }
+  }
+  const week = state.market.tick
+  const view = caseForTalent(state, talent.id, week)
+  const refusal = liveMarketRefusal(state, draft, talent)
+  // Priced through the engine's own draft entry at the READ week, so what the sheet
+  // shows is what settlement will re-derive from the same material terms.
+  const quote = priced || refusal?.code === 'noOpenCase'
+    ? null
+    : proposalDraft(state, draft.issuerStudioId, talent.id, draft.termWeeks ?? 0, draft.premiumTier ?? 0, week)
+  const termLabel = priced ? '' : contractTermLabel(draft.termWeeks ?? 0).toUpperCase()
+  const commitLabel = draft.verb === 'withdraw'
+    ? `WITHDRAW PROPOSAL — ${talent.name.toUpperCase()}`
+    : `${draft.verb === 'revise' ? 'REVISE' : 'SUBMIT'} PROPOSAL — ${talent.name.toUpperCase()} · ${termLabel} · DECIDES WEEK ${String(view?.decisionWeek ?? week)}`
+  return {
+    ok: true,
+    kind: 'marketProposalAction',
+    draft,
+    talent,
+    commitLabel,
+    termWeeks: quote?.termWeeks ?? null,
+    premiumTier: quote?.premiumTier ?? null,
+    annualSalary: quote?.annualSalary ?? null,
+    signingBonus: quote?.signingBonus ?? null,
+    effectiveWeek: quote?.startWeek ?? null,
+    decisionWeek: view?.decisionWeek ?? null,
+    refusal,
+    apply: applyMarketProposal,
+  }
+}
+
+/** The market-proposal consequence sheet Unity renders verbatim. */
+export function marketProposalQuoteSnapshot(
+  state: GameState,
+  draft: MarketProposalDraft,
+  conversion: MarketProposalConversionOk,
+  intentId: string,
+): BridgeMarketProposalQuoteSnapshot {
+  const { talent, refusal, annualSalary, signingBonus, termWeeks, decisionWeek } = conversion
+  const ok = refusal === null
+  const consequence = !ok
+    ? `${refusal.reason} ${refusal.remedy}`.trim()
+    : draft.verb === 'withdraw'
+      ? `Withdraws your proposal for ${talent.name}. Nothing is charged, and you may propose again while the case is open.`
+      : `Stands until Week ${String(decisionWeek ?? state.market.tick)}, when ${talent.name} chooses among every proposal on the table. If they choose yours, the contract runs ${contractTermLabel(termWeeks ?? 0)} at ${dollars(annualSalary ?? 0)} a year and the ${dollars(signingBonus ?? 0)} signing bonus is paid then — nothing is charged now. A competing studio's terms stay UNKNOWN.`
+  return {
+    intentId,
+    kind: 'marketProposalAction',
+    commitLabel: conversion.commitLabel,
+    startsNow: false,
+    queues: true,
+    queueNote: decisionWeek === null ? null : `Settles in Week ${String(decisionWeek)}.`,
+    ok,
+    verb: draft.verb,
+    talentId: talent.id,
+    talentName: talent.name,
+    decisionWeek,
+    decisionWeekLabel: decisionWeek === null ? null : campaignDate(decisionWeek).label,
+    termWeeks,
+    termLabel: termWeeks === null ? null : contractTermLabel(termWeeks),
+    premiumTier: conversion.premiumTier,
+    annualSalary,
+    signingBonus,
+    effectiveWeek: conversion.effectiveWeek,
+    refusal: refusal === null ? null : refusal.code,
+    refusalReason: refusal === null ? null : refusal.reason,
+    refusalRemedy: refusal === null ? null : refusal.remedy,
+    affordable: signingBonus === null ? true : canAfford(state, signingBonus).ok,
+    consequence,
+  }
+}
+
+/** The player's own issuer identity for every market proposal this route mints. */
+export function playerProposalDraft(state: GameState, payload: BridgeMarketProposalDraftPayload): MarketProposalDraft {
+  return {
+    verb: payload.verb,
+    talentId: payload.talentId,
+    issuerStudioId: state.hollywood?.playerStudioId ?? '',
+    termWeeks: payload.termWeeks,
+    premiumTier: payload.premiumTier,
   }
 }

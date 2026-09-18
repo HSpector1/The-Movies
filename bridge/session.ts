@@ -98,6 +98,9 @@ import type {
   BridgeContractDraftPayload,
   BridgeQuoteContractRequest,
   BridgeContractQuoteSnapshot,
+  BridgeMarketProposalDraftPayload,
+  BridgeQuoteMarketProposalRequest,
+  BridgeMarketProposalQuoteSnapshot,
 } from './schema/bridge-schema.ts'
 import { projectStudioProjectionBundle } from './schema/runtime.ts'
 import {
@@ -107,7 +110,10 @@ import {
 import { castingDraftToEngine, castingQuoteSnapshot } from './casting.ts'
 import { placementDraftToEngine, placementQuoteSnapshot } from './placement.ts'
 import { setCommissionDraftToEngine, setCommissionQuoteSnapshot } from './setCommission.ts'
-import { contractDraftToEngine, contractQuoteSnapshot } from './contract.ts'
+import {
+  contractDraftToEngine, contractQuoteSnapshot,
+  marketProposalDraftToEngine, marketProposalQuoteSnapshot, playerProposalDraft,
+} from './contract.ts'
 
 type ImportOutcome =
   | { ok: true; state: GameState; converted: boolean }
@@ -205,6 +211,14 @@ type PendingQuote =
       draft: BridgeContractDraftPayload
       stateDigest: string
       kind: 'renewContract' | 'releaseTalent'
+      commitLabel: string
+    }
+  | {
+      // P14A.1: a LEGAL market-proposal preview (propose/revise/withdraw) mints the one commit.
+      family: 'marketProposal'
+      draft: BridgeMarketProposalDraftPayload
+      stateDigest: string
+      kind: 'marketProposalAction'
       commitLabel: string
     }
 
@@ -1628,7 +1642,9 @@ export class BridgeSession {
           ? placementDraftToEngine(this.state, pending.draft)
           : pending.family === 'setCommission'
             ? setCommissionDraftToEngine(this.state, pending.draft)
-            : contractDraftToEngine(this.state, pending.draft)
+            : pending.family === 'marketProposal'
+              ? marketProposalDraftToEngine(this.state, playerProposalDraft(this.state, pending.draft))
+              : contractDraftToEngine(this.state, pending.draft)
     if (!conversion.ok) {
       return {
         option: { intentId, ...fields },
@@ -1652,6 +1668,14 @@ export class BridgeSession {
         apply: () => ({ ok: false, error: `This contract action is no longer legal (${conversion.refusal!.code}): ${conversion.refusal!.reason}` }),
       }
     }
+    // P14A.1: a market proposal that is no longer legal on the live state fails closed at
+    // commit the same way — the case may have settled, closed or moved out of reach.
+    if (conversion.kind === 'marketProposalAction' && conversion.refusal !== null) {
+      return {
+        option: { intentId, ...fields },
+        apply: () => ({ ok: false, error: `This proposal is no longer legal (${conversion.refusal!.code}): ${conversion.refusal!.reason}` }),
+      }
+    }
     // P09A W5: a Set quote that is no longer legal fails closed at commit the same way.
     if (conversion.kind === 'commissionSet' && conversion.refusal !== null) {
       return {
@@ -1659,7 +1683,10 @@ export class BridgeSession {
         apply: () => ({ ok: false, error: `This Set commission is no longer legal (${conversion.refusal!.code}).` }),
       }
     }
-    return { option: { intentId, ...fields }, apply: conversion.apply }
+    // Called as a METHOD, never detached: the market-proposal conversion's `apply` reads its
+    // own draft off `this` (ONE shared function, so re-quoting the same draft on the same
+    // state stays deeply equal — the accepted "asking again is deterministic" invariant).
+    return { option: { intentId, ...fields }, apply: (current) => conversion.apply(current) }
   }
 
   /** Session-mismatch/stale-revision envelope guard shared by both quote families. */
@@ -1728,9 +1755,11 @@ export class BridgeSession {
   quote(request: BridgeQuotePlacementRequest): AcceptedQuoteResponseFor<BridgePlacementQuoteSnapshot> | RejectedResponse
   quote(request: BridgeQuoteSetCommissionRequest): AcceptedQuoteResponseFor<BridgeSetCommissionQuoteSnapshot> | RejectedResponse
   quote(request: BridgeQuoteContractRequest): AcceptedQuoteResponseFor<BridgeContractQuoteSnapshot> | RejectedResponse
+  quote(request: BridgeQuoteMarketProposalRequest): AcceptedQuoteResponseFor<BridgeMarketProposalQuoteSnapshot> | RejectedResponse
   quote(request: BridgeQuoteRequest): QuoteResponse
   quote(request: BridgeQuoteRequest): QuoteResponse {
     const started = performance.now()
+    const { commandId } = request
     const guarded = this.quoteGuard(request, started)
     if (guarded !== null) return guarded
     if (request.type === 'quotePlacement') {
@@ -1861,32 +1890,78 @@ export class BridgeSession {
       return this.mintQuoteResponse(request, started, stateDigest, quote)
     }
 
-    const conversion = castingDraftToEngine(this.state, request.draft)
-    if (!conversion.ok) {
-      return this.reject(request.commandId, 'ENGINE_REJECTED', conversion.error, started)
+    if (request.type === 'quoteMarketProposal') {
+      // P14A.1: a refused proposal preview is an ACCEPTED answer (`ok:false`, the engine's
+      // own reason + remedy); only a legal one is preflighted and registered for commit.
+      // The issuer is ALWAYS the player's own studio — no client authors a rival proposal.
+      const draft = playerProposalDraft(this.state, request.draft)
+      const conversion = marketProposalDraftToEngine(this.state, draft)
+      if (!conversion.ok) {
+        return this.reject(request.commandId, 'ENGINE_REJECTED', conversion.error, started)
+      }
+      const stateDigest = authoritativeDigest(this.state)
+      const intentId = opaqueIntentId(stateDigest, { marketProposalDraft: request.draft })
+      if (conversion.refusal !== null) {
+        return this.mintQuoteResponse(
+          request, started, stateDigest,
+          marketProposalQuoteSnapshot(this.state, draft, conversion, intentId),
+        )
+      }
+      const preflight = caught(() => conversion.apply(this.state))
+      if (!preflight.ok) {
+        return this.reject(request.commandId, 'ENGINE_REJECTED', preflight.error, started)
+      }
+      const quote = marketProposalQuoteSnapshot(this.state, draft, conversion, intentId)
+      this.pendingQuotes.set(intentId, {
+        family: 'marketProposal',
+        draft: request.draft,
+        stateDigest,
+        kind: 'marketProposalAction',
+        commitLabel: quote.commitLabel,
+      })
+      this.capPendingQuotes()
+      return this.mintQuoteResponse(request, started, stateDigest, quote)
     }
-    const preflight = caught(() => conversion.apply(this.state))
-    if (!preflight.ok) {
-      return this.reject(request.commandId, 'ENGINE_REJECTED', preflight.error, started)
+
+    if (request.type === 'quoteCasting') {
+      const conversion = castingDraftToEngine(this.state, request.draft)
+      if (!conversion.ok) {
+        return this.reject(request.commandId, 'ENGINE_REJECTED', conversion.error, started)
+      }
+      const preflight = caught(() => conversion.apply(this.state))
+      if (!preflight.ok) {
+        return this.reject(request.commandId, 'ENGINE_REJECTED', preflight.error, started)
+      }
+      const stateDigest = authoritativeDigest(this.state)
+      const intentId = opaqueIntentId(stateDigest, { castingDraft: request.draft })
+      const quote = castingQuoteSnapshot(
+        this.state,
+        request.draft,
+        conversion,
+        preflight.next,
+        intentId,
+      )
+      this.pendingQuotes.set(intentId, {
+        family: 'casting',
+        draft: request.draft,
+        stateDigest,
+        kind: conversion.kind,
+        commitLabel: quote.commitLabel,
+      })
+      this.capPendingQuotes()
+      return this.mintQuoteResponse(request, started, stateDigest, quote)
     }
-    const stateDigest = authoritativeDigest(this.state)
-    const intentId = opaqueIntentId(stateDigest, { castingDraft: request.draft })
-    const quote = castingQuoteSnapshot(
-      this.state,
-      request.draft,
-      conversion,
-      preflight.next,
-      intentId,
+
+    // FAIL LOUD (P14A.1): every family above is explicit, so an unrecognized `type`
+    // is refused as an invalid command. It used to fall through into the casting
+    // handler, which would silently misread another family's draft and answer with an
+    // unrelated casting error.
+    return this.reject(
+      commandId,
+      'INVALID_COMMAND',
+      `Unknown quote type ${JSON.stringify((request as { type: string }).type)}.`,
+      started,
     )
-    this.pendingQuotes.set(intentId, {
-      family: 'casting',
-      draft: request.draft,
-      stateDigest,
-      kind: conversion.kind,
-      commitLabel: quote.commitLabel,
-    })
-    this.capPendingQuotes()
-    return this.mintQuoteResponse(request, started, stateDigest, quote)
   }
 
   save(control: ControlEnvelope): SaveResponse {
