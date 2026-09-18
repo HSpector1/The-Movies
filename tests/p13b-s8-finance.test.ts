@@ -21,9 +21,19 @@
 //   10. researchCapacity reconciliation (coverage 4): per period equals
 //      -Sum(approvedQuote.total) of the rival's plans admitted in the period.
 //
-// RED-by-design: `src/core/rivalResearch.ts` does not exist yet.
-// `admitRivalPlans` is the import from that new module and is CALLED below,
-// so this file fails at module resolution before any test body runs.
+// RED-by-design (T1, before the S8 engine landed): `src/core/rivalResearch.ts`
+// did not exist; `admitRivalPlans` was this file's one import from that
+// module, called below. AMENDED (coordinator, plan authority, 2026-09-18,
+// engine landed at `c609e0a`): two cases were rewritten against the landed
+// law rather than the T1 pre-engine gap —
+//   - The former "PRECONDITION" case asserted `rivalCapacityOpex` THROWING
+//     on a rival Laboratory; the landed law PRICES it instead (S8 LAW item
+//     6) — inverted, and extended to price a held instrument module too.
+//   - "Migration basis frozen" now lifts a GENUINE V26 period (ten keys)
+//     through the real `migrateToV27` and compares it to its own V26
+//     source, rather than widening a LIVE period against itself — a live
+//     period already carries all fourteen keys under the landed engine, so
+//     that comparison was vacuous.
 //
 // PREMISES NAMED:
 //   1. `admitRivalPlans(state)` returns `{state, history}` — same premise as
@@ -34,25 +44,25 @@
 //      `expenditure` field's increase across the period — mirroring how
 //      technology.ts's OWN validator reconciles a player's `researchSpend`
 //      ledger rows against `project.expenditure` (technology.ts, "research
-//      expenditure does not reconcile with its receipts").
-//   3. "Migration basis frozen" is tested at the DATA level (every kind
-//      besides the four new ones, and every `opening`/`closing` figure, is
-//      byte-identical before/after a period is widened with the four new
-//      keys at zero) rather than by calling the not-yet-existing V26->V27
-//      migration FUNCTION — that function-level proof belongs to
-//      tests/p13b-s8-save-v27.test.ts (test 7), which this file does not
-//      duplicate.
+//      expenditure does not reconcile with its receipts"). Not directly
+//      exercised below (no active rival project in this file); the S8-T2
+//      validator itself enforces it (see tests/p13b-s8-save-v27.test.ts).
 
 import { describe, expect, it } from 'vitest'
 import * as save from '../src/core/save.js'
-import { rivalCapacityOpex, rivalWeeklyOperatingCost, RIVAL_MONEY_KINDS } from '../src/core/hollywood.js'
+import { instrumentWeeklyOperatingCost, rivalCapacityOpex, rivalWeeklyOperatingCost, RIVAL_RESEARCH_MONEY_KINDS } from '../src/core/hollywood.js'
 import { TUNING } from '../src/core/tuning.js'
 import { advanceTo, p13aGeneratedStudio } from '../src/harness/p13a/fixtures.js'
 import type { GameState } from '../src/core/types.js'
-import type { HollywoodState, RivalBusiness, RivalFinancePeriod } from '../src/core/hollywoodTypes.js'
+import type { HollywoodState, IndustryReceipt, RivalBusiness } from '../src/core/hollywoodTypes.js'
 // RED-by-design: src/core/rivalResearch.ts does not exist yet. This is the
 // ONE import from that new module in this file.
 import { admitRivalPlans } from '../src/core/rivalResearch.js'
+
+type SaveModuleWithV27 = typeof save & {
+  migrateToV27: (envelope: unknown) => { saveVersion: number; seed: string; state: GameState; broadcastCache: unknown[] }
+}
+const withV27 = save as SaveModuleWithV27
 
 const SEED = 'p13b-s8-finance-01'
 
@@ -79,12 +89,20 @@ function withRivalCash(state: GameState, studioId: string, cash: number): GameSt
 }
 
 describe('P13B-S8 rival finance: typed kinds and interval Opex reconcile, migration frozen, legacy grandfathered (test 4)', () => {
-  it('PRECONDITION (today, pre-S8, real code): rivalCapacityOpex throws for any business holding a Laboratory facility — the reconciliation gap S8-T2 closes', () => {
+  it('baseline (S8 LAW item 6, landed): rivalCapacityOpex prices a held Laboratory at its authored weekly cost, and each instrumentOperational receipt adds ITS OWN module\'s weekly cost on top', () => {
     const base = p13aGeneratedStudio(SEED)
-    const { business } = bellwether(base)
+    const { hollywood, business } = bellwether(base)
+    const labId = `${business.studioId}:lab-forged`
     const forged: RivalBusiness = { ...business, operations: { ...business.operations, facilities: [...business.operations.facilities,
-      { id: `${business.studioId}:lab-forged`, name: 'Research Laboratory', capability: 'laboratory' as const, capacity: 4 }] } }
-    expect(() => rivalCapacityOpex(forged)).toThrow('P13A rival capacity cannot contain a Laboratory')
+      { id: labId, name: 'Research Laboratory', capability: 'laboratory' as const, capacity: 4 }] } }
+    const baseline = TUNING.BASELINE_DEVELOPMENT_CASTING_WEEKLY_OPERATING_COST + TUNING.STAGE_STANDARD_WEEKLY_OPERATING_COST +
+      TUNING.SCENERY_SHOP_WEEKLY_OPERATING_COST + TUNING.POST_BUILDING_WEEKLY_OPERATING_COST
+    expect(rivalCapacityOpex(forged)).toBe(baseline + TUNING.RESEARCH_LABORATORY_WEEKLY_OPERATING_COST) // no receipts arg: Laboratory priced alone
+    const instrumentReceipt: IndustryReceipt = { eventId: 'industry-event-forged-instrument', week: base.market.tick,
+      studioId: business.studioId, kind: 'instrumentOperational', facilityId: labId, technologyId: 'synchronized-sound' }
+    const receipts = [...hollywood.receipts, instrumentReceipt]
+    expect(rivalCapacityOpex(forged, receipts)).toBe(
+      baseline + TUNING.RESEARCH_LABORATORY_WEEKLY_OPERATING_COST + instrumentWeeklyOperatingCost('synchronized-sound'))
   })
 
   it('legacy zero-Opex grandfathered (today, real code): a rival that never builds a Laboratory is UNAFFECTED — its rivalCapacityOpex is exactly the starting-facility baseline, unchanged by S8', () => {
@@ -138,25 +156,30 @@ describe('P13B-S8 rival finance: typed kinds and interval Opex reconcile, migrat
     expect(totalAfterRepeat).toBe(-TUNING.RESEARCH_LABORATORY_CAPEX)
   }, 30_000)
 
-  it('migration basis frozen (data-level): widening a V26-shaped period with the four new kinds at zero changes nothing else — the same opening/closing and every existing kind\'s movement, byte-identical', () => {
-    const base = p13aGeneratedStudio(SEED)
+  it('migration basis frozen: a GENUINE V26 period (ten keys), lifted through the real migrateToV27, carries the four new keys at zero and its nine original movements byte-identical (coordinator ruling: a LIVE period already carries all 14 keys — this compares the lifted period against its OWN V26 source, never a live period against itself)', () => {
+    const base = p13aGeneratedStudio(SEED) // week 0: no rival research fact exists yet, so the downgrade below is lossless
     const { business } = bellwether(base)
-    const v26Period = business.account.periods[0]! // the genuine entry period, ten existing kinds only
-    expect(Object.keys(v26Period.movements).sort()).toEqual([...RIVAL_MONEY_KINDS].sort())
-    const widened: RivalFinancePeriod = {
-      ...v26Period,
-      movements: { ...v26Period.movements, researchSpend: 0, researchCapacity: 0, technologyRestoration: 0, technologyRefund: 0 },
+    const v27Envelope = save.makeSave(base)
+    const v26Envelope = save.migrateToV26(v27Envelope) // genuine, lossless V26 envelope — ten-key periods
+    const v26Hollywood = v26Envelope.state.hollywood as unknown as HollywoodState
+    const v26Business = v26Hollywood.businesses.find(b => b.studioId === business.studioId)!
+    const v26Period = v26Business.account.periods[0]!
+    expect(Object.keys(v26Period.movements)).toHaveLength(10) // the genuine pre-S8 shape: ten kinds, none of the four research ones
+    for (const kind of RIVAL_RESEARCH_MONEY_KINDS) expect(Object.hasOwn(v26Period.movements, kind)).toBe(false)
+
+    const lifted = withV27.migrateToV27(v26Envelope)
+    const liftedHollywood = lifted.state.hollywood as unknown as HollywoodState
+    const liftedBusiness = liftedHollywood.businesses.find(b => b.studioId === business.studioId)!
+    const liftedPeriod = liftedBusiness.account.periods[0]!
+    const liftedMovements = { ...liftedPeriod.movements } as unknown as Record<string, number>
+    for (const kind of RIVAL_RESEARCH_MONEY_KINDS) {
+      expect(liftedMovements[kind]).toBe(0) // "every period carries the four keys at 0 on lift"
+      delete liftedMovements[kind]
     }
-    const { researchSpend, researchCapacity, technologyRestoration, technologyRefund, ...strippedNew } = widened.movements as unknown as Record<string, number>
-    expect(researchSpend).toBe(0); expect(researchCapacity).toBe(0); expect(technologyRestoration).toBe(0); expect(technologyRefund).toBe(0)
-    expect(strippedNew).toEqual(v26Period.movements)
-    expect(widened.opening).toBe(v26Period.opening)
-    expect(widened.closing).toBe(v26Period.closing)
-    expect(widened.fromWeek).toBe(v26Period.fromWeek)
-    expect(widened.throughWeek).toBe(v26Period.throughWeek)
-    // Sanity: the real save/validator round-trip a state with only this one
-    // rival business's account untouched still succeeds today (nothing about
-    // widening pre-supposes an engine change to be a no-op on every OTHER root).
-    expect(() => save.exportCurrentState(base)).not.toThrow()
+    expect(liftedMovements).toEqual(v26Period.movements) // the nine originals, byte-identical
+    expect(liftedPeriod.opening).toBe(v26Period.opening)
+    expect(liftedPeriod.closing).toBe(v26Period.closing)
+    expect(liftedPeriod.fromWeek).toBe(v26Period.fromWeek)
+    expect(liftedPeriod.throughWeek).toBe(v26Period.throughWeek)
   })
 })

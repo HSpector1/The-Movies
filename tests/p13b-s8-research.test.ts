@@ -20,52 +20,49 @@
 //      seats; "the same contract length/renewal law; a seat released by
 //      contract end through the generalised researchAfterEmploymentRelease."
 //
-// RED-by-design: `src/core/rivalResearch.ts` does not exist yet.
-// `advanceRivalResearchWeek` (this file's own name for "the rival research
-// step" — the plan names the step's EXISTENCE and its law, never an export
-// identifier) is the import from that new module and is CALLED below, so
-// this file fails at module resolution before any test body runs.
-//
-// PREMISES NAMED:
-//   1. Export name `advanceRivalResearchWeek(state, business, project)` is
-//      ASSUMED (the plan text never names it); it is assumed to return
-//      `{technology, entries, cost}` mirroring the PLAYER
-//      `advanceResearchWeek`'s own existing signature in technology.ts,
-//      scoped to one rival project for one week.
-//   2. "Identical receipts for identical inputs" is tested at the
-//      observable weekly `spend` figure: `usableBudgetPerScientist * seats`
-//      when the budget ceiling is fully funded (`entry.usableBudgetPerScientist`
-//      is a real, exported catalogue fact). The SAME number is obtained
-//      through the REAL, existing player-side `researchWeekQuote` for cross-check.
-//   3. Expiry/renewal is tested structurally (a lapsed rival Scientist
-//      contract with no successor pauses the project), the OUTCOME the
-//      player's own private `pausedWithoutEligibleSeats` law already
-//      produces ("an active project with no seat left that can work
-//      pauses") — asserted on the rival path since that private helper is
-//      not itself reachable from a test.
-//   4. Rival seat eligibility is resolved through `hollywood.employment`
-//      (the StudioContext.employment the Audit names for the rival branch),
-//      never `state.contracts` (the player-only root `activeContract` reads
-//      today) — this file mints real Scientist Talent rows
-//      (`generateScientist`, the same producer `researchCandidates` uses)
-//      and real rival employment rows for every rival seat, so a genuine
-//      Contract-shaped record backs every seat this file forges.
+// AMENDED (coordinator, plan authority, 2026-09-18, engine landed at
+// `c609e0a`): the T1 RED-first version of this file asserted the PRE-S8 gap
+// and carried two fixture defects the landed increment now exposes:
+//   - `p13bStaffedProject(p13aResearchReady(), ...)` re-recruited `t-sci-00`,
+//     already employed by `p13aResearchReady()` — the harness's own doc
+//     comment names an `entry`-shaped state (`p13aResearchEntry()`) as its
+//     input, never a `ready`-shaped one.
+//   - Every rival `ResearchProject` this file forges must name a Laboratory
+//     from the RIVAL's own `business.operations.facilities` (the per-studio
+//     `StudioContext` the landed law resolves through), never the PLAYER's
+//     `state.operations.facilities` — reusing the player's Lab id silently
+//     made every rival project's `researchPrerequisiteRefusal` fail on "no
+//     Laboratory" regardless of employment, which happened not to surface as
+//     a wrong PASS only because the (also broken) renewal fixture below left
+//     the pause outcome coincidentally right.
+//   - The 1-week forged contract fell inside the shared 12-week renewal
+//     window (`TUNING.HIRING_RENEWAL_WINDOW_WEEKS`); `staff()`'s renewal law
+//     renewed it before the "expiry" case ever observed a lapse. Split into
+//     two cases per the ruling: a genuine RENEWAL (ample cash, real tick,
+//     stays active) and a genuine EXPIRY (cash too low to afford the
+//     renewal's signing bonus + reserve, so `staff()` skips it and the
+//     contract lapses at its own end).
+// Every case below is rebuilt against the landed `src/core/rivalResearch.ts`
+// and `technology.ts`'s exported `StudioContext`/`studioContext`; every
+// asserted REQUIREMENT (identical receipts for identical inputs; the player's
+// cash/ledger isolation; expiry pauses; renewal keeps active) is unchanged
+// from the plan's own words.
 
 import { describe, expect, it } from 'vitest'
 import { applyActions } from '../src/core/actions.js'
-import { researchWeekQuote, advanceResearchWeek } from '../src/core/technology.js'
+import { advanceResearchWeek, researchWeekQuote, studioContext } from '../src/core/technology.js'
 import { technologyEntry } from '../src/core/technologyCatalogue.js'
 import { generateScientist } from '../src/core/worldgen.js'
-import { advanceTo, p13aResearchReady } from '../src/harness/p13a/fixtures.js'
+import { advanceTo, p13aResearchEntry } from '../src/harness/p13a/fixtures.js'
 import { p13bStaffedProject } from '../src/harness/p13b/fixtures.js'
 import type { GameState, Talent } from '../src/core/types.js'
-import type { HollywoodState, RivalBusiness } from '../src/core/hollywoodTypes.js'
+import type { HollywoodState, IndustryReceipt, RivalBusiness } from '../src/core/hollywoodTypes.js'
 import type { ResearchProject } from '../src/core/technologyTypes.js'
-// RED-by-design: src/core/rivalResearch.ts does not exist yet. This is the
-// ONE import from that new module in this file.
+// The rival research step this file names `advanceRivalResearchWeek`
+// (the plan never fixes an export identifier for it — see the historical
+// premise this file carried at T1) — landed, re-exported from
+// src/core/rivalResearch.ts. Called directly in the expiry case below.
 import { advanceRivalResearchWeek } from '../src/core/rivalResearch.js'
-
-const SEED = 'p13b-s8-research-01'
 
 function bellwether(state: GameState): { hollywood: HollywoodState; business: RivalBusiness } {
   const hollywood = state.hollywood!
@@ -74,17 +71,46 @@ function bellwether(state: GameState): { hollywood: HollywoodState; business: Ri
   return { hollywood, business }
 }
 
+/** Genuinely reduces one rival's cash (and its current period's closing/movements), the same forging technique tests/p13b-s7-independence.test.ts already relies on for a rival-only fact. */
+function withRivalCash(state: GameState, studioId: string, cash: number): GameState {
+  const hollywood = structuredClone(state.hollywood)!
+  hollywood.businesses = hollywood.businesses.map(b => {
+    if (b.studioId !== studioId) return b
+    const periods = [...b.account.periods]
+    const last = { ...periods[periods.length - 1]! }
+    const delta = cash - b.account.cash
+    last.movements = { ...last.movements, capacity: last.movements.capacity + delta }
+    last.closing = cash
+    periods[periods.length - 1] = last
+    return { ...b, account: { ...b.account, cash, periods } }
+  })
+  return { ...state, hollywood }
+}
+
+/** Gives one rival business its own abstract Laboratory ({capability:'laboratory', capacity:4} — S8 LAW item 9) with an operational instrument receipt for `technologyId`, resolved through the RIVAL's own StudioContext (never the player's `state.operations`). */
+function withRivalLaboratory(state: GameState, business: RivalBusiness, technologyId: 'synchronized-sound' | 'lighting-control-01'): { state: GameState; labId: string } {
+  const week = state.market.tick
+  const labId = `${business.studioId}:laboratory:0`
+  const hollywood = state.hollywood!
+  const businesses = hollywood.businesses.map(b => b.studioId === business.studioId
+    ? { ...b, operations: { ...b.operations, facilities: [...b.operations.facilities, { id: labId, name: 'Research Laboratory', capability: 'laboratory' as const, capacity: 4 }] } }
+    : b)
+  const receipt: IndustryReceipt = { eventId: `industry-event-${String(hollywood.nextReceipt)}`, week, studioId: business.studioId, kind: 'instrumentOperational', facilityId: labId, technologyId }
+  const receipts = [...hollywood.receipts, receipt]
+  return { state: { ...state, hollywood: { ...hollywood, businesses, receipts, nextReceipt: hollywood.nextReceipt + 1 } }, labId }
+}
+
 /** Mints `count` real Scientist Talent rows (generateScientist — the same producer researchCandidates uses) and real rival employment contracts for them, active [week, week+termWeeks). Returns the updated state and the minted talent ids. */
 function forgeRivalScientists(state: GameState, business: RivalBusiness, count: number, week: number, termWeeks = 208): { state: GameState; talentIds: string[] } {
-  const scientists: Talent[] = Array.from({ length: count }, (_, i) => generateScientist(state.seed, `${business.studioId}:scientist-forged-${String(i)}`))
+  const scientists: Talent[] = Array.from({ length: count }, (_, index) => generateScientist(state.seed, `${business.studioId}:scientist-forged-${String(index)}`))
   const hollywood = state.hollywood!
   const startOrdinal = hollywood.employment.length
-  const employment = [...hollywood.employment, ...scientists.map((s, i) => ({
+  const employment = [...hollywood.employment, ...scientists.map(s => ({
     contractId: `${business.studioId}:contract:${s.id}:${String(week)}`, studioId: business.studioId,
     terms: { talentId: s.id, annualSalary: s.salary ?? 60_000, signingBonus: 0, startWeek: week, endWeekExclusive: week + termWeeks, termWeeks },
     endedWeek: null, reason: 'entry' as const,
   }))]
-  const activeEmploymentOrdinals = [...hollywood.activeEmploymentOrdinals, ...scientists.map((_, i) => startOrdinal + i)]
+  const activeEmploymentOrdinals = [...hollywood.activeEmploymentOrdinals, ...scientists.map((_, index) => startOrdinal + index)]
   const nextState: GameState = { ...state, talent: [...state.talent, ...scientists], hollywood: { ...hollywood, employment, activeEmploymentOrdinals } }
   return { state: nextState, talentIds: scientists.map(s => s.id) }
 }
@@ -100,68 +126,89 @@ function forgeRivalProject(business: RivalBusiness, technologyId: 'synchronized-
 }
 
 describe('P13B-S8 rival research under the shared law: identical receipts, expiry/renewal, player isolation (test 2)', () => {
-  it('PRECONDITION (today, pre-S8, real code): advanceResearchWeek aggregates EVERY project\'s spend regardless of studioId — a hand-forged rival project (reusing today\'s ONLY notion of "active contract", state.contracts) is charged exactly as tick.ts would apply it to the PLAYER\'s cash, precisely the B4 defect S8-T2 must partition away', () => {
-    const player = p13aResearchReady()
+  it('player-only partition (S8 LAW item 3): advanceResearchWeek returns ONLY the player\'s slice — a rival-owned project contributes nothing to the player\'s cost/entries and is returned untouched', () => {
+    const player = p13aResearchEntry()
     const { business } = bellwether(player)
-    const labId = player.operations.facilities.find(f => f.capability === 'laboratory')!.id
-    // Today's eligibility (`eligibleSeatIds` -> `activeContract`) reads ONLY
-    // `state.contracts` (player-only) — reusing the player's own already-
-    // contracted Scientist is the only way to get a real "active contract"
-    // today, and is exactly what demonstrates the absence of any studioId
-    // partition in the current engine.
-    const playerScientistId = player.talent.find(t => t.role === 'scientist')!.id
-    const rivalProject = forgeRivalProject(business, 'synchronized-sound', labId, [playerScientistId], 10_000, player.market.tick)
-    const withRivalProject: GameState = { ...player, technology: { ...player.technology, projects: [...player.technology.projects, rivalProject] } }
-    const { cost, entries } = advanceResearchWeek(withRivalProject)
-    expect(cost).toBeGreaterThan(0) // the rival project earns real spend...
-    expect(entries.some(e => e.note === `research:${rivalProject.id}`)).toBe(true)
-    // ...and today's tick.ts (technology.ts's own caller, tick.ts:529-531)
-    // applies the WHOLE `cost` to `state.studio.cash` with no studioId filter
-    // at all — there is no partition today, so this `cost` is exactly what
-    // would be wrongly debited from the player for a rival's own research.
+    const { state: withLab, labId } = withRivalLaboratory(player, business, 'synchronized-sound')
+    const { state: withScientist, talentIds } = forgeRivalScientists(withLab, business, 1, player.market.tick)
+    const rivalProject = forgeRivalProject(business, 'synchronized-sound', labId, talentIds, 10_000, player.market.tick)
+    const withRivalProject: GameState = { ...withScientist, technology: { ...withScientist.technology, projects: [...withScientist.technology.projects, rivalProject] } }
+
+    const playerOnly = advanceResearchWeek(player)
+    const withRival = advanceResearchWeek(withRivalProject)
+    expect(withRival.cost).toBe(playerOnly.cost) // the rival project contributes NOTHING to the player's bill
+    expect(withRival.entries.length).toBe(playerOnly.entries.length)
+    expect(withRival.entries.some(e => e.note === `research:${rivalProject.id}`)).toBe(false)
+    // advanceResearchWeek never advances a non-player project — returned exactly as given.
+    expect(withRival.technology.projects.find(p => p.id === rivalProject.id)).toEqual(rivalProject)
   })
 
-  it('identical receipts for identical inputs: the weekly spend for N seats fully funded on technology T is usableBudgetPerScientist*N for BOTH the real player law and the rival step', () => {
-    const { state: playerState, projectId } = p13bStaffedProject(p13aResearchReady(), 1, 40_000, 4)
+  it('identical receipts for identical inputs: the weekly spend for N seats fully funded on technology T is usableBudgetPerScientist*N for BOTH the real player law and the rival, through the SAME researchWeekQuote', () => {
+    const { state: playerState, projectId } = p13bStaffedProject(p13aResearchEntry(), 1, 40_000, 4)
     const project = playerState.technology.projects.find(p => p.id === projectId)!
     const playerQuote = researchWeekQuote(playerState, project)
     const entry = technologyEntry('synchronized-sound')
     expect(playerQuote.spend).toBe(entry.usableBudgetPerScientist * 4) // fully funded at 4 seats
 
     const { business } = bellwether(playerState)
-    const labId = playerState.operations.facilities.find(f => f.capability === 'laboratory')!.id
-    const { state: withScientists, talentIds } = forgeRivalScientists(playerState, business, 4, playerState.market.tick)
+    const { state: withLab, labId } = withRivalLaboratory(playerState, business, 'synchronized-sound')
+    const { state: withScientists, talentIds } = forgeRivalScientists(withLab, business, 4, playerState.market.tick)
     const rivalProject = forgeRivalProject(business, 'synchronized-sound', labId, talentIds, 40_000, playerState.market.tick)
-    const rivalStep = advanceRivalResearchWeek(withScientists, business, rivalProject)
-    const rivalEntry = rivalStep.entries.find(e => e.note === `research:${rivalProject.id}`)
-    expect(rivalEntry).toBeDefined()
-    expect(-rivalEntry!.amount).toBe(playerQuote.spend) // identical inputs -> identical weekly spend
+    const withRivalProject: GameState = { ...withScientists, technology: { ...withScientists.technology, projects: [...withScientists.technology.projects, rivalProject] } }
+    const rivalQuote = researchWeekQuote(withRivalProject, rivalProject)
+    expect(rivalQuote.spend).toBe(playerQuote.spend) // identical inputs -> identical weekly spend, through the SAME function
+    expect(rivalQuote.output).toBe(playerQuote.output)
   })
 
-  it('expiry/renewal: a rival Scientist\'s contract lapsing with no successor pauses the project, the same "no eligible seats" law the player\'s own researchAfterEmploymentRelease produces', () => {
-    const player = p13aResearchReady()
-    const { business } = bellwether(player)
-    const labId = player.operations.facilities.find(f => f.capability === 'laboratory')!.id
-    const week = player.market.tick
-    // The forged rival contract ends at `week + 1` — genuinely expired by the
-    // time the research step is asked about the NEXT boundary.
-    const { state: withScientist, talentIds } = forgeRivalScientists(player, business, 1, week, 1)
+  it('renewal (positive case): a rival Scientist\'s contract renews inside the shared 12-week window when cash is ample — the seat, and the project, stay active', () => {
+    const base = p13aResearchEntry()
+    const { business } = bellwether(base)
+    const week = base.market.tick
+    const { state: withLab, labId } = withRivalLaboratory(base, business, 'synchronized-sound')
+    const { state: withScientist, talentIds } = forgeRivalScientists(withLab, business, 1, week, 1) // termWeeks=1: falls inside the renewal window at week+1
+    const talentId = talentIds[0]!
     const rivalProject = forgeRivalProject(business, 'synchronized-sound', labId, talentIds, 10_000, week)
-    const nextWeekState = advanceTo(withScientist, week + 1) // the contract has now lapsed
-    const stepAfterExpiry = advanceRivalResearchWeek(nextWeekState, business, rivalProject)
-    expect(stepAfterExpiry.technology.projects.find(p => p.id === rivalProject.id)?.status).toBe('paused')
-  })
+    const withProject: GameState = { ...withScientist, technology: { ...withScientist.technology, projects: [...withScientist.technology.projects, rivalProject] } }
+
+    const nextWeekState = advanceTo(withProject, week + 1) // real tick; ample rival cash — staff() renews
+    const renewedRow = nextWeekState.hollywood!.employment.filter(e => e.terms.talentId === talentId).at(-1)!
+    expect(renewedRow.reason).toBe('renewal')
+    expect(renewedRow.terms.endWeekExclusive).toBeGreaterThan(week + 1) // a fresh full-length term, not the forged 1-week one
+    expect(studioContext(nextWeekState, business.studioId).employed(talentId, week + 1)).toBe(true)
+    expect(nextWeekState.technology.projects.find(p => p.id === rivalProject.id)?.status).not.toBe('paused')
+  }, 30_000)
+
+  it('expiry (negative case): when the rival cannot afford the renewal\'s signing bonus + reserve, the contract lapses at its own end — the seat becomes ineligible, and the project pauses (the same "no eligible seats" law the player\'s own researchAfterEmploymentRelease produces)', () => {
+    const base = p13aResearchEntry()
+    const { business } = bellwether(base)
+    const week = base.market.tick
+    const { state: withLab, labId } = withRivalLaboratory(base, business, 'synchronized-sound')
+    const { state: withScientist, talentIds } = forgeRivalScientists(withLab, business, 1, week, 1) // termWeeks=1
+    const talentId = talentIds[0]!
+    const rivalProject = forgeRivalProject(business, 'synchronized-sound', labId, talentIds, 10_000, week)
+    const withProject: GameState = { ...withScientist, technology: { ...withScientist.technology, projects: [...withScientist.technology.projects, rivalProject] } }
+    // Too little cash for ANY signing bonus plus reserve: staff()'s renewal offer is refused on affordability.
+    const poor = withRivalCash(withProject, business.studioId, 1)
+
+    const nextWeekState = advanceTo(poor, week + 1) // real tick; renewal refused on cash — the contract simply expires
+    expect(studioContext(nextWeekState, business.studioId).employed(talentId, week + 1)).toBe(false)
+    const lapsedProject = nextWeekState.technology.projects.find(p => p.id === rivalProject.id)!
+    expect(lapsedProject.status).toBe('paused')
+    // Direct confirmation through the exported rival research step itself, not only the emergent tick outcome.
+    const directStep = advanceRivalResearchWeek(nextWeekState, business, lapsedProject)
+    expect(directStep.technology.projects.find(p => p.id === rivalProject.id)?.status).toBe('paused')
+  }, 30_000)
 
   it('coverage: the player\'s cash and ledger are byte-identical across two states differing only in whether a rival runs active research', () => {
-    const base = p13aResearchReady()
+    const base = p13aResearchEntry()
     const { business } = bellwether(base)
-    const labId = base.operations.facilities.find(f => f.capability === 'laboratory')!.id
     const week = base.market.tick
-    const { state: withScientists, talentIds } = forgeRivalScientists(base, business, 2, week)
+    const { state: withLab, labId } = withRivalLaboratory(base, business, 'synchronized-sound')
+    const { state: withScientists, talentIds } = forgeRivalScientists(withLab, business, 2, week)
     const rivalProject = forgeRivalProject(business, 'synchronized-sound', labId, talentIds, 20_000, week)
     // The rival-research variant differs ONLY in a rival-owned project on the
-    // shared technology root plus the rival employment/talent it needs to be
-    // real — never in `operations`, `placement` or `studio`.
+    // shared technology root plus the rival Laboratory/employment/talent it
+    // needs to be real — never in `operations`, `placement` or `studio`.
     const withRivalResearch: GameState = { ...withScientists, technology: { ...withScientists.technology, projects: [...withScientists.technology.projects, rivalProject] } }
 
     const advancedBase = advanceTo(base, week + 3)

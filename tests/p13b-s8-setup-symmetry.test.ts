@@ -14,17 +14,14 @@
 // against the parameterised signature (a prerequisite source change, RED at
 // the missing parameter's effect, not at resolution)."
 //
-// RED-by-design: `src/core/rivalResearch.ts` does not exist yet.
-// `RIVAL_RESEARCH_POLICY` is the import from that new module and is READ
-// below, so this file fails at module resolution before any test body runs
-// — the blanket rule this whole P13B-S8-T1 assignment follows for all seven
-// files. `deriveSetupProvenance` itself is real, existing code
-// (productionSetup.ts) at its CURRENT 4-parameter signature; case "today"
-// below calls it with the future 5th argument extra (a no-op at runtime
-// under today's signature — TypeScript's own excess-argument checking is
-// not enforced by vitest's esbuild transform, which does not type-check),
-// documenting exactly the Audit's own phrase: "RED at the missing
-// parameter's effect, not at resolution."
+// RED-by-design (T1, before the S8 engine landed): `src/core/rivalResearch.ts`
+// did not exist; `RIVAL_RESEARCH_POLICY` was this file's one import from that
+// module. UPDATE (T1 rerun, engine landed at `c609e0a`): `rivalResearch.ts`
+// and `deriveSetupProvenance`'s real 5-parameter signature
+// (`studioId: string | null = playerStudioId(state)`) both now exist; this
+// file's cases run against the REAL functions directly (no type-cast
+// workaround — see the coordinator's typecheck ruling below), and every case
+// asserted here PASSES against the landed engine (verified 2026-09-18).
 //
 // RULING (coordinator, plan authority, 2026-09-18 — supersedes this file's
 // own original "PREMISES NAMED" §1 below, which wrongly resolved the same
@@ -55,6 +52,12 @@ import type { TechnologyAdoption, TechnologyEquipmentAsset } from '../src/core/t
 import { RIVAL_RESEARCH_POLICY } from '../src/core/rivalResearch.js'
 
 const SEED = 'p13b-s8-setup-symmetry-01'
+
+/** The same small helper duplicated across this repository's own test files (e.g. tests/bridge-p13b-s7-disclosure.test.ts) — narrows a possibly-undefined lookup or throws loudly. */
+function required<T>(value: T | null | undefined, message: string): T {
+  if (value === null || value === undefined) throw new Error(message)
+  return value
+}
 
 function bellwether(state: GameState): { hollywood: HollywoodState; business: RivalBusiness } {
   const hollywood = state.hollywood!
@@ -92,9 +95,7 @@ describe('P13B-S8 setup symmetry: a real rival production takes the lighting rou
     const recipe = setupRecipeById('ballroom-reveal-lighting-01')!
     expect(recipe.units).toEqual({ conventional: 4, lighting: 2 })
 
-    const provenance = (deriveSetupProvenance as unknown as (
-      state: GameState, recipe: typeof recipe, stageFacilityId: string, week: number, studioId: string,
-    ) => ReturnType<typeof deriveSetupProvenance>)(state, recipe, stageFacilityId, week, business.studioId)
+    const provenance = deriveSetupProvenance(state, recipe, stageFacilityId, week, business.studioId)
 
     expect(provenance.route).toBe('lighting')
     expect(provenance.adoptionId).toBe(adoption.id)
@@ -108,16 +109,14 @@ describe('P13B-S8 setup symmetry: a real rival production takes the lighting rou
     const recipe = setupRecipeById('ballroom-reveal-lighting-01')!
     const playerStudioId = state.hollywood!.playerStudioId
 
-    const playerProvenance = (deriveSetupProvenance as unknown as (
-      state: GameState, recipe: typeof recipe, stageFacilityId: string, week: number, studioId: string,
-    ) => ReturnType<typeof deriveSetupProvenance>)(state, recipe, stageFacilityId, week, playerStudioId)
+    const playerProvenance = deriveSetupProvenance(state, recipe, stageFacilityId, week, playerStudioId)
 
     expect(playerProvenance.route).toBe('conventional')
     expect(playerProvenance.adoptionId).toBeNull()
     expect(playerProvenance.requiredUnits).toBe(4)
   })
 
-  it('TODAY (pre-S8, the current 4-parameter signature): the same call with no studioId argument resolves to the PLAYER regardless of which stage is asked about, so it never sees the rival\'s own operational adoption — "RED at the missing parameter\'s effect, not at resolution"', () => {
+  it('default parameter: the same call with the studioId argument OMITTED still resolves to the PLAYER (the shipped default, `studioId = playerStudioId(state)`), so a 4-argument caller is unaffected and never sees the rival\'s own operational adoption', () => {
     const base = p13aGeneratedStudio(SEED)
     const { state, stageFacilityId, week } = withOperationalRivalLighting(base)
     const recipe = setupRecipeById('ballroom-reveal-lighting-01')!
@@ -127,8 +126,8 @@ describe('P13B-S8 setup symmetry: a real rival production takes the lighting rou
   })
 
   it('RIVAL_RESEARCH_POLICY names lighting-control-01 as a technology of rival interest (its interestFromWeek pinned to researchableWeek — the same premise tests/p13b-s8-adoption.test.ts states in full)', () => {
-    const row = RIVAL_RESEARCH_POLICY.find((p: { technologyId: string }) => p.technologyId === 'lighting-control-01')
-    expect(row).toBeDefined()
+    const found = RIVAL_RESEARCH_POLICY.find((p: { technologyId: string }) => p.technologyId === 'lighting-control-01')
+    const row = required(found, 'RIVAL_RESEARCH_POLICY names no row for lighting-control-01')
     expect(row.interestFromWeek).toBe(technologyEntry('lighting-control-01').researchableWeek)
   })
 })

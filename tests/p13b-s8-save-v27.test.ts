@@ -59,11 +59,16 @@ import { describe, expect, it } from 'vitest'
 import * as save from '../src/core/save.js'
 import { rivalWeeklyOperatingCost } from '../src/core/hollywood.js'
 import { TUNING } from '../src/core/tuning.js'
+import { advanceTo, p13aGeneratedStudio } from '../src/harness/p13a/fixtures.js'
 import type { GameState } from '../src/core/types.js'
-import type { HollywoodState, IndustryReceipt, RivalBusiness } from '../src/core/hollywoodTypes.js'
+import type { HollywoodState, RivalBusiness } from '../src/core/hollywoodTypes.js'
 // RED-by-design: src/core/rivalResearch.ts does not exist yet. This is the
 // ONE import from that new module in this file.
 import { admitRivalPlans } from '../src/core/rivalResearch.js'
+
+/** A natural, unforged campaign whose rivals genuinely admit and complete a Laboratory (RIVAL_ARRIVAL_WEEKS rows 1-4 enter at week 0; Lab admission is unconditional and lands week 1; TUNING.RESEARCH_LABORATORY_BUILD_WEEKS=12 completes it week 13) — measured via vite-node probe, 2026-09-18. */
+const NATURAL_SEED = 'p13b-s8-save-v27-natural-01'
+const NEW_RECEIPT_KINDS = ['laboratoryCommitted', 'laboratoryOperational', 'instrumentOperational', 'researchSeatAssigned', 'researchCompleted']
 
 type SaveModuleWithV27 = typeof save & {
   migrateToV27: (envelope: unknown) => { saveVersion: number; seed: string; state: GameState; broadcastCache: unknown[] }
@@ -154,36 +159,40 @@ describe('P13B-S8 Save V27: genuine V26 fixtures, honest lift, conditional downg
     }
   })
 
-  it('downgrade LOSSLESS: a freshly-lifted V27 state with every new key still zero downgrades to V26 byte-identical to the genuine fixture it came from', () => {
+  // AMENDED (coordinator, plan authority, 2026-09-18): `exportSave`/`importSave`
+  // dispatch on the ENVELOPE's OWN declared version and never attempt a
+  // downgrade — routing a V27 envelope through them (as `s8ForgeV27` did)
+  // only ever validates it AS V27, so the three cases below now call
+  // `save.migrateToV26(v27Envelope)` DIRECTLY, the one function that
+  // actually implements the V27->V26 downgrade law (`convertV27ToV26`,
+  // reached because `save.ts`'s `migrateToV26` switches on
+  // `save.saveVersion === 27`).
+  it('downgrade LOSSLESS: a freshly-lifted V27 state (genuine V26 fixture, every new key still zero) downgrades through save.migrateToV26 directly, byte-identical to the source', () => {
     const json = load(V26_FIXTURES.soundMidDeployment.file)
     const parsed = JSON.parse(json) as { saveVersion: number }
-    const beforeState = (save.validateSave(parsed as never).state as GameState)
+    const beforeHollywood = JSON.stringify((save.validateSave(parsed as never).state as GameState).hollywood)
     const lifted = withV27.migrateToV27(parsed)
-    const reimported = s8ForgeV27(beforeState, () => lifted.state) // no mutation — the honest lift itself
-    expect((reimported as { saveVersion: number }).saveVersion).toBe(26) // migrateToV26 accepted the lossless V27 input
+    const downgraded = save.migrateToV26(lifted as never)
+    expect(downgraded.saveVersion).toBe(26)
+    expect(JSON.stringify((downgraded.state as GameState).hollywood)).toBe(beforeHollywood)
   })
 
-  it('downgrade REFUSED: a nonzero researchCapacity movement in any single period is enough to refuse V27->V26', () => {
-    const json = load(V26_FIXTURES.soundMidDeployment.file)
-    const genuine = (save.validateSave(JSON.parse(json) as never).state as GameState)
-    expect(() => s8ForgeV27(genuine, state => {
-      const hollywood = state.hollywood as unknown as HollywoodState
-      const businesses = hollywood.businesses.map((b, i) => i === 0
-        ? { ...b, account: { ...b.account, periods: b.account.periods.map((p, j) => j === 0 ? { ...p, movements: { ...p.movements, researchCapacity: -900_000 } } : p) } }
-        : b)
-      return { ...state, hollywood: { ...hollywood, businesses } as unknown as GameState['hollywood'] }
-    })).toThrow(/cannot downgrade/i)
+  it('downgrade REFUSED: a NATURAL campaign whose rival genuinely admitted a Laboratory carries a nonzero researchCapacity movement, and save.migrateToV26 refuses it', () => {
+    const natural = advanceTo(p13aGeneratedStudio(NATURAL_SEED), 20)
+    const { business } = bellwether(natural)
+    const totalResearchCapacity = natural.hollywood!.businesses.find(b => b.studioId === business.studioId)!
+      .account.periods.reduce((sum, p) => sum + p.movements.researchCapacity, 0)
+    expect(totalResearchCapacity).not.toBe(0) // the fact this refusal depends on is genuinely nonzero, not forged
+    const envelope = save.makeSave(natural) // LIVE_SAVE_VERSION is 27 — a real, validated SaveFileV27
+    expect(envelope.saveVersion).toBe(27)
+    expect(() => save.migrateToV26(envelope as never)).toThrow(/cannot downgrade/i)
   })
 
-  it('downgrade REFUSED: the mere presence of one new receipt kind (laboratoryOperational) is enough to refuse V27->V26, even with every movement still zero', () => {
-    const json = load(V26_FIXTURES.soundMidDeployment.file)
-    const genuine = (save.validateSave(JSON.parse(json) as never).state as GameState)
-    expect(() => s8ForgeV27(genuine, state => {
-      const hollywood = state.hollywood as unknown as HollywoodState
-      const business = hollywood.businesses[0]!
-      const receipt: IndustryReceipt = { eventId: `industry-event-${String(hollywood.nextReceipt)}`, week: state.market.tick, studioId: business.studioId, kind: 'laboratoryOperational', facilityId: `${business.studioId}:lab-0` } as unknown as IndustryReceipt
-      return { ...state, hollywood: { ...hollywood, receipts: [...hollywood.receipts, receipt], nextReceipt: hollywood.nextReceipt + 1 } as unknown as GameState['hollywood'] }
-    })).toThrow(/cannot downgrade/i)
+  it('downgrade REFUSED: the same natural campaign also carries a new receipt kind (laboratoryCommitted/laboratoryOperational), independently sufficient to refuse V27->V26', () => {
+    const natural = advanceTo(p13aGeneratedStudio(NATURAL_SEED), 20)
+    expect(natural.hollywood!.receipts.some(r => NEW_RECEIPT_KINDS.includes(r.kind))).toBe(true)
+    const envelope = save.makeSave(natural)
+    expect(() => save.migrateToV26(envelope as never)).toThrow(/cannot downgrade/i)
   })
 
   it('VALIDATOR REFUSED: "no rival authority without a receipt" — a rival Laboratory facility with no laboratoryCommitted/laboratoryOperational receipt is refused', () => {
@@ -206,7 +215,7 @@ describe('P13B-S8 Save V27: genuine V26 fixtures, honest lift, conditional downg
     expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 27 only/)
   })
 
-  it('genuine usage of admitRivalPlans (not just an unused import — the same measured-risk guard tests/p13b-s6-save-v26.test.ts names for cancellationQuote): admitting a well-funded rival Laboratory books researchCapacity, which this file\'s own downgrade-refused case above depends on being a REAL, nonzero fact once S8-T2 lands', () => {
+  it('genuine usage of admitRivalPlans (not just an unused import — the same measured-risk guard tests/p13b-s6-save-v26.test.ts names for cancellationQuote): admitting a well-funded rival Laboratory books a real, nonzero researchCapacity movement — the same fact the natural-campaign downgrade-refused cases above observe emerging on their own', () => {
     const json = load(V26_FIXTURES.soundMidDeployment.file)
     const genuine = (save.validateSave(JSON.parse(json) as never).state as GameState)
     const { business } = bellwether(genuine)

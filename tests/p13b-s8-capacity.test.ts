@@ -96,7 +96,7 @@ function withRivalCash(state: GameState, studioId: string, cash: number): GameSt
 }
 
 describe('P13B-S8 rival Laboratory/instrument capacity: receipts, <=2x4, reserveWeeks (test 1)', () => {
-  it('PRECONDITION (today, pre-S8): a rival business holding a Laboratory facility makes rivalCapacityOpex throw, and the validator therefore refuses it too — the exact gap S8-T2 closes', () => {
+  it('baseline (S8 LAW item 6, landed): rivalCapacityOpex PRICES a Laboratory at its authored weekly cost instead of refusing it — the starting-facility baseline plus TUNING.RESEARCH_LABORATORY_WEEKLY_OPERATING_COST, exactly once per Laboratory held', () => {
     const base = p13aGeneratedStudio(SEED)
     const { hollywood, business } = bellwether(base)
     const forgedHollywood: HollywoodState = {
@@ -106,10 +106,10 @@ describe('P13B-S8 rival Laboratory/instrument capacity: receipts, <=2x4, reserve
             { id: `${b.studioId}:lab-forged`, name: 'Research Laboratory', capability: 'laboratory' as const, capacity: 4 }] } }
         : b),
     }
-    const forged: GameState = { ...base, hollywood: forgedHollywood }
-    expect(() => rivalCapacityOpex(forgedHollywood.businesses.find(b => b.studioId === business.studioId)!))
-      .toThrow('P13A rival capacity cannot contain a Laboratory')
-    expect(() => save.exportCurrentState(forged)).toThrow()
+    const forgedBusiness = forgedHollywood.businesses.find(b => b.studioId === business.studioId)!
+    const baseline = TUNING.BASELINE_DEVELOPMENT_CASTING_WEEKLY_OPERATING_COST + TUNING.STAGE_STANDARD_WEEKLY_OPERATING_COST +
+      TUNING.SCENERY_SHOP_WEEKLY_OPERATING_COST + TUNING.POST_BUILDING_WEEKLY_OPERATING_COST
+    expect(rivalCapacityOpex(forgedBusiness)).toBe(baseline + TUNING.RESEARCH_LABORATORY_WEEKLY_OPERATING_COST)
   })
 
   it('admission: admitRivalPlans commits a Laboratory only when cash covers the quote PLUS reserveWeeks of runway, booking the full capex as one negative researchCapacity movement with a laboratoryCommitted receipt {planId, facilityId} — no facility yet', () => {
@@ -161,8 +161,9 @@ describe('P13B-S8 rival Laboratory/instrument capacity: receipts, <=2x4, reserve
     expect(operationalReceipt).toBeDefined()
     expect(operationalReceipt!.facilityId).toBe(labs[0]!.id)
     expect(operationalReceipt!.week).toBe(week + TUNING.RESEARCH_LABORATORY_BUILD_WEEKS)
-    // "no placement record": this abstract plant never appears on the shared P09 root.
-    expect(completed.placement.facilities.some(f => f.id === labs[0]!.id)).toBe(false)
+    // "no placement record": this abstract plant never appears on the shared P09 root
+    // (no placement's `installation.targetFacilityId` ever names this Laboratory's own facility id).
+    expect(completed.placement.facilities.some(f => f.installation?.targetFacilityId === labs[0]!.id)).toBe(false)
   }, 30_000)
 
   it('bound: a rival never holds more than 2 Laboratories, each never exceeding 4 seats of capacity — repeated admission past the bound is a no-op, not a refusal that leaves partial state', () => {
@@ -183,18 +184,19 @@ describe('P13B-S8 rival Laboratory/instrument capacity: receipts, <=2x4, reserve
     void week
   }, 30_000)
 
-  it('coverage: once a rival Laboratory exists, the tick (advanceHollywoodWeek, via a real advanceTo) and the validator (save.exportCurrentState) do not throw', () => {
+  it('coverage: once a rival Laboratory exists, the tick (advanceHollywoodWeek, via a real advanceTo) and the validator (save.exportCurrentState) do not throw — a NATURAL campaign, no forged cash (coordinator ruling: withRivalCash\'s `movements.capacity` patch is validator-inconsistent — the pre-existing law pins that movement to the starting capex exactly)', () => {
     const base = p13aGeneratedStudio(SEED)
     const { business } = bellwether(base)
-    const week = base.market.tick
-    const quote = TUNING.RESEARCH_LABORATORY_CAPEX
-    const requiredReserve = rivalWeeklyOperatingCost(business, base.hollywood!, week) * business.policy.reserveWeeks
-    const funded = withRivalCash(base, business.studioId, quote + requiredReserve + 1_000_000)
-    const committed = admitRivalPlans(funded).state
-    const completed = advanceTo(committed, week + TUNING.RESEARCH_LABORATORY_BUILD_WEEKS)
+    // Measured (vite-node probe, 2026-09-18): every row-1..4 rival's ample
+    // starting capital admits its Laboratory at week 1 and completes it at
+    // week 1 + TUNING.RESEARCH_LABORATORY_BUILD_WEEKS = 13, with no forging
+    // of any kind — admitRivalPlansInWeek/completeRivalPlans run
+    // automatically inside the real weekly tick (hollywoodTick.ts).
+    const completed = advanceTo(base, 13)
     expect(completed.hollywood!.businesses.find(b => b.studioId === business.studioId)!
       .operations.facilities.some(f => f.capability === 'laboratory')).toBe(true)
-    expect(() => advanceTo(completed, completed.market.tick + 4)).not.toThrow()
-    expect(() => save.exportCurrentState(advanceTo(completed, completed.market.tick + 4))).not.toThrow()
+    let further: GameState = completed
+    expect(() => { further = advanceTo(completed, completed.market.tick + 7) }).not.toThrow()
+    expect(() => save.exportCurrentState(further)).not.toThrow()
   }, 30_000)
 })

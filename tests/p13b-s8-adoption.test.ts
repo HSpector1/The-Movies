@@ -59,6 +59,12 @@ import { RIVAL_RESEARCH_POLICY } from '../src/core/rivalResearch.js'
 
 const SEED = 'p13b-s8-adoption-01'
 
+/** The same small helper duplicated across this repository's own test files (e.g. tests/bridge-p13b-s7-disclosure.test.ts) — narrows a possibly-undefined lookup or throws loudly. */
+function required<T>(value: T | null | undefined, message: string): T {
+  if (value === null || value === undefined) throw new Error(message)
+  return value
+}
+
 /** Real rival commercial sound purchase, looped exactly as tests/p13a-rival-adoption.test.ts and tests/p13b-s7-independence.test.ts already do. */
 function withRivalPurchase(state: GameState): { state: GameState; studioId: string } {
   const hollywood = structuredClone(state.hollywood)!
@@ -121,8 +127,8 @@ describe('P13B-S8 rival adoption per technology: clock timing pinned, commercial
   it('RIVAL_RESEARCH_POLICY: one row per catalogue technology, interestFromWeek pinned to researchableWeek, seats/budgetPerWeek within the stated bounds', () => {
     expect(RIVAL_RESEARCH_POLICY.length).toBe(TECHNOLOGY_CATALOGUE.length)
     for (const entry of TECHNOLOGY_CATALOGUE) {
-      const row = RIVAL_RESEARCH_POLICY.find((p: { technologyId: string }) => p.technologyId === entry.id)
-      expect(row).toBeDefined()
+      const found = RIVAL_RESEARCH_POLICY.find((p: { technologyId: string }) => p.technologyId === entry.id)
+      const row = required(found, `RIVAL_RESEARCH_POLICY names no row for ${entry.id}`)
       expect(row.interestFromWeek).toBe(entry.researchableWeek) // "interestFromWeek (= researchableWeek)"
       expect(row.seats).toBeGreaterThan(0)
       expect(row.seats).toBeLessThanOrEqual(4) // "seats (<= 4)"
