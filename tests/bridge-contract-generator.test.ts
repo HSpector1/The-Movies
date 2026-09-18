@@ -551,12 +551,12 @@ describe('CF-08 sound union-to-C# generation', () => {
       expect(response.promotedProperties.map((property) => property.wireName)).not.toContain('title')
       expect(response.promotedProperties.map((property) => property.wireName)).not.toContain('noFeeLine')
 
-      const generated = generateCsharpContract({ schema, protocolVersion: 4, projectionVersion: 43 })
+      const generated = generateCsharpContract({ schema, protocolVersion: 4, projectionVersion: 44 })
       expect(generated).toContain(
-        '// Schema identity: sha256:95351b9d1af70fd7d890dc6d8dc75ac40430d059f87fec526a42707b1f7bb1c7',
+        '// Schema identity: sha256:05e53f126b28c601a2ed80fb614347da571c90946b65808f111f77bf7bdd5392',
       )
       expect(schemaIdentity(schema)).toBe(
-        'sha256:95351b9d1af70fd7d890dc6d8dc75ac40430d059f87fec526a42707b1f7bb1c7',
+        'sha256:05e53f126b28c601a2ed80fb614347da571c90946b65808f111f77bf7bdd5392',
       )
       expect(generated).toContain('public sealed partial class StudioQuoteCastingRequest : StudioBridgeQuoteRequest')
       expect(generated).toContain('public StudioCastingDraftPayload draft;')
@@ -636,8 +636,13 @@ describe('CF-08 sound union-to-C# generation', () => {
         // request, `StudioIndustryResponse.market` and the optional
         // `StudioIndustryActivity.settlementKind` the folded Pulse row carries. No union moved;
         // both whole-schema identities move together again.
-        F10_CURRENT_QUOTE_UNIONS: '2c57f1fac7de79b9f81473bc3307dd4692bbb8e877055a4f89a01890d05727ce',
-        F11_CURRENT_COMMAND_UNION: '2c57f1fac7de79b9f81473bc3307dd4692bbb8e877055a4f89a01890d05727ce',
+        // P14A.3-T2 (projection 44): the world route — StudioWorldRouteSnapshot and
+        // StudioWorldCaseRef join the schema, `StudioPersonProfileSnapshot.worldRoute`
+        // (required), `StudioRosterRowSnapshot.worldStatusLine` and the public Industry person
+        // row's `caseStatusLine`/`caseRef` (all nullable). No union moved; both whole-schema
+        // identities move together again.
+        F10_CURRENT_QUOTE_UNIONS: '48a31e2c252e3762f9cc3bf2074c19402e4fdcbc522bec939ebf6f883ff7a81b',
+        F11_CURRENT_COMMAND_UNION: '48a31e2c252e3762f9cc3bf2074c19402e4fdcbc522bec939ebf6f883ff7a81b',
         F12_P05_PRODUCTION_SENTINEL: '78d68a2d7670585946f79ebbfc449c85c8ad98ac381b422a8a9abea66702bde6',
       } as const
       for (const [name, expectedHash] of Object.entries(expected)) {

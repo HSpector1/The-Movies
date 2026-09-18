@@ -78,10 +78,10 @@ describe('canonical Unity bridge schema', () => {
     assertEveryObjectIsClosed(BRIDGE_SCHEMA)
     expect(BRIDGE_SCHEMA['x-project-studio']).toMatchObject({
       protocolVersion: 4,
-      projectionVersion: 43,
+      projectionVersion: 44,
       transport: 'http-json-localhost',
     })
-    expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-43')
+    expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-44')
   })
 
   it('projects a real authoritative snapshot to the exact Unity DTO and validates the full envelope', () => {
@@ -337,8 +337,8 @@ describe('canonical Unity bridge schema', () => {
     expect(() => parseWireValue(definition, int32Overflow)).toThrow(/<= 2147483647/)
 
     const oldProjection = { ...clone(envelope), snapshotVersion: 24 }
-    expect(PROJECTION_VERSION).toBe(43)
-    expect(() => parseWireValue(definition, oldProjection)).toThrow(/expected literal 43/)
+    expect(PROJECTION_VERSION).toBe(44)
+    expect(() => parseWireValue(definition, oldProjection)).toThrow(/expected literal 44/)
 
     const missingSection = clone(envelope)
     delete (missingSection.snapshot as Partial<typeof missingSection.snapshot>).releaseResults
@@ -573,7 +573,7 @@ describe('canonical Unity bridge schema', () => {
     expect(checkedInSchema).toBe(canonicalJsonPretty(BRIDGE_SCHEMA))
     expect(generatedCsharp).toContain(`public const string SchemaId = "${SCHEMA_ID}";`)
     expect(generatedCsharp).toContain('public const int ProtocolVersion = 4;')
-    expect(generatedCsharp).toContain('public const int ProjectionVersion = 43;')
+    expect(generatedCsharp).toContain('public const int ProjectionVersion = 44;')
     expect(generatedCsharp).toContain('public int protocolVersion;')
     expect(generatedCsharp).toContain('public int snapshotVersion;')
     expect(generatedCsharp.match(/public string runtimeInstanceId;/g)).toHaveLength(2)

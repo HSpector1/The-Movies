@@ -265,11 +265,11 @@ const S884 = advanceTo(S793, 884) // lighting: exact, just announced
 const S900 = advanceTo(S884, 900) // lighting: exact, announced, still pre-commercial (< 936)
 const S936 = advanceTo(S900, 936) // lighting: exact, commercial access open
 
-describe('P13B-S7-T3 item 1: projection version bump 39 -> 40; 43 after the P14A.2-T2 bump', () => {
+describe('P13B-S7-T3 item 1: projection version bump 39 -> 40; 44 after the P14A.3-T2 bump', () => {
   it('bumps PROJECTION_VERSION to 41 and its schema $id / x-project-studio.projectionVersion move with it', () => {
-    expect(PROJECTION_VERSION).toBe(43)
-    expect(BRIDGE_SCHEMA.$id).toContain('projection-43')
-    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(43)
+    expect(PROJECTION_VERSION).toBe(44)
+    expect(BRIDGE_SCHEMA.$id).toContain('projection-44')
+    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(44)
   })
 })
 

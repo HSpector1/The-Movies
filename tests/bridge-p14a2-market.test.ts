@@ -212,11 +212,11 @@ function marketQuery(sessionId: string, targetId: string | null, page = 0, histo
 
 // ── group 1: PROJECTION_VERSION / schema $id / view market / converted law ──
 
-describe('group 1: PROJECTION_VERSION 43 / schema / view market / converted law', () => {
-  it('PROJECTION_VERSION is 43; the schema $id and x-project-studio.projectionVersion move with it', () => {
-    expect(PROJECTION_VERSION).toBe(43)
-    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${String(PROTOCOL_VERSION)}:projection-43`)
-    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(43)
+describe('group 1: PROJECTION_VERSION 44 / schema / view market / converted law', () => {
+  it('PROJECTION_VERSION is 44; the schema $id and x-project-studio.projectionVersion move with it', () => {
+    expect(PROJECTION_VERSION).toBe(44)
+    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${String(PROTOCOL_VERSION)}:projection-44`)
+    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(44)
   })
 
   it('a view:"market" industry request validates against the wire schema, and marketPage answers it', () => {
@@ -228,7 +228,7 @@ describe('group 1: PROJECTION_VERSION 43 / schema / view market / converted law'
     expect(page).toBeDefined()
   })
 
-  it('LIVE_SAVE_VERSION stays 28 under projection 43 — no persisted fact, the converted law is unchanged', () => {
+  it('LIVE_SAVE_VERSION stays 28 under projection 44 — no persisted fact, the converted law is unchanged', () => {
     expect(LIVE_SAVE_VERSION).toBe(28)
   })
 })
