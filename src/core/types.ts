@@ -2062,6 +2062,12 @@ export type TalentMarketProposal = {
   signingBonus: number
   submittedWeek: number
   digest: string
+  /** P14B.1 (3): the attached promises BY ID (the draft-by-reference precedent),
+   * a MATERIAL term — the digest is `(talentId, issuerStudioId, termWeeks,
+   * startWeek, premiumTier, promiseDigest)`, so attaching, revising or removing
+   * one is a revision. At most ONE in B.1. Empty on every V28 proposal the
+   * migration lifts. */
+  promises: readonly string[]
   /** R10 / direction 8: the representation seam. Required, pinned `null` under root version 1. */
   representation: null
 }
@@ -2073,6 +2079,9 @@ export type TalentMarketReceiptKind =
   | 'declined'
   | 'expired'
   | 'invalidated'
+  /** P14B.1 (6): the ONE promise receipt kind, carrying the outcome as a typed
+   * field on the promise record it names and the causing event's id. */
+  | 'promiseOutcome'
 
 /** Reasons are ORDERING ONLY (companion §2.1.5): never an amount, never a formula. */
 export type TalentMarketReceipt = {
@@ -2115,7 +2124,91 @@ export type TalentMarketState = {
 }
 
 export type GameStateV28 = GameStateV27 & { talentMarket: TalentMarketState }
-export type GameState = GameStateV28
+
+// ── P14B.1 — the first kept promise (Save V29) ───────────────────────────────
+
+/** The QUALIFYING EVENT of the P1 family (companion §4.2): the first shooting
+ * week COMPLETING — the 5 → 4 advance inside `advanceManagedProductions`, for a
+ * player production and a rival one alike. Never shooting ENTRY (6 → 5), which is
+ * only capacity-gated. Append-only, once per production, in-state ordinal id.
+ * `cast` copies the accepted `Production.cast` shape exactly (one id per slot). */
+export type FirstTakeReceipt = {
+  eventId: string
+  week: number
+  productionId: string
+  studioId: string
+  directorId: string
+  cast: Record<CastSlot, string>
+}
+
+/** Companion §4.2's five families. P14B.1 OFFERS `APPEARANCE_COUNT` only; the
+ * other four are enumerated members that the feasibility service refuses with a
+ * typed reason, exactly as A.1 enumerates its three unreachable P14C statuses. */
+export type PromiseFamily =
+  | 'APPEARANCE_COUNT'
+  | 'LEAD_OR_SIGNIFICANT_ROLE_COUNT'
+  | 'DIRECTING_COUNT'
+  | 'PREFERRED_GENRE_OPPORTUNITY'
+  | 'SPECIFIC_PROJECT'
+
+export type PromiseClassification = 'REASONABLY_ACHIEVABLE' | 'FRAGILE' | 'IMPOSSIBLE'
+
+/** Companion §4.3: written at offer time and again at settlement freeze, carried
+ * for the promise's life so a later reviewer can see exactly why it was offerable.
+ * `bottleneck` is the exact refusal reason and is null iff the promise is
+ * REASONABLY ACHIEVABLE. */
+export type PromiseFeasibilityReceipt = {
+  classification: PromiseClassification
+  bottleneck: string | null
+  /** The service's own inputs, digested — so "same inputs, byte-equal receipt" is
+   * checkable without re-running it. */
+  inputsDigest: string
+  rulesVersion: number
+  week: number
+}
+
+/** Companion §4.4. WAIVED and VOIDED are enumerated and unreachable in B.1 (no
+ * waiver acceptance rule, no P14C retirement), exactly as A.1's `decision_pending`
+ * was enumerated before it was reachable. */
+export type PromiseOutcome = 'SATISFIED' | 'BROKEN' | 'WAIVED' | 'VOIDED'
+
+/** Companion §4.1. Named `ProfessionalPromise` because `Promise` is already the
+ * accepted screenplay-promise type. Typed, versioned, attached to a proposal,
+ * evaluated by events and by its due week — never polled, never free text, never
+ * a salary term. */
+export type ProfessionalPromise = {
+  promiseId: string
+  family: PromiseFamily
+  version: number
+  issuerStudioId: string
+  beneficiaryPersonId: string
+  /** The typed predicate parameters. P1 carries the promised count X. */
+  predicate: { count: number }
+  windowStartWeek: number
+  dueWeekExclusive: number
+  feasibilityReceipt: PromiseFeasibilityReceipt
+  /** Event-derived, bounded by `predicate.count`. Never a second authority: it is
+   * recomputed from `firstTakes` at every weekly evaluation. */
+  progress: number
+  /** The `FirstTakeReceipt.eventId`s that satisfied it, by reference. */
+  evidenceRefs: readonly string[]
+  outcome: PromiseOutcome | null
+  outcomeWeek: number | null
+  outcomeCause: string | null
+  /** The causing event's own id (a first take, or the market receipt the outcome
+   * was recorded on) — §4.4's "the causing event's receipt". */
+  outcomeEventId: string | null
+  /** Set once the proposal it rode in on is committed. */
+  contractId: string | null
+}
+
+export type GameStateV29 = GameStateV28 & {
+  /** P14B.1 (1): append-only, in-state ordinal. The ONE durable first-take fact. */
+  firstTakes: readonly FirstTakeReceipt[]
+  /** P14B.1 (2): every promise this world has minted, open or terminal. */
+  promises: readonly ProfessionalPromise[]
+}
+export type GameState = GameStateV29
 
 // ── D-14 Talent Career Impact — frozen career-event record (§7) ───────────────
 // The ONE canonical persisted record of a participant's outcome on one released film.

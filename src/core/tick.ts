@@ -1,4 +1,5 @@
 import { advanceHollywoodWeek, finishHollywoodWeek } from './hollywoodTick.js'
+import { advancePromisesWeek, appendFirstTakes } from './promises.js'
 import { advanceTalentMarketWeek } from './talentMarket.js'
 import { advanceResearchWeek, finishTechnologyWeek, weeklyResearchPayroll } from './technology.js'
 import { createProductionTechnologyPolicy } from './technologyProduction.js'
@@ -1093,7 +1094,20 @@ export function tick(state: GameState, options?: TickOptions): GameState {
   // expiry step has removed the subject's contract, scheduled rival entry has run,
   // and `finishHollywoodWeek` has closed the subject's interval and written the
   // `expiry` receipt the chooser receipt references.
-  return advanceTalentMarketWeek(finishHollywoodWeek(finishTechnologyWeek(finalized)))
+  // P14B.1 (1): the ONE first-take append, on the week this advance PRODUCES,
+  // for the player's advance and every rival's — one root, one ordinal sequence,
+  // written before anything reads it. P14B.1 (6): promise outcomes are then
+  // evaluated ONCE, before the terminal market step, so a promise kept or broken
+  // this week is already a fact when the market ranks on trust.
+  const withTakes = appendFirstTakes(
+    finishHollywoodWeek(finishTechnologyWeek(finalized)),
+    [
+      ...productionAdvance.firstTakes.map((production) => ({ studioId: finalized.hollywood?.playerStudioId ?? '', production })),
+      ...industry.firstTakes,
+    ],
+    finalized.market.tick,
+  )
+  return advanceTalentMarketWeek(advancePromisesWeek(withTakes))
 }
 
 /**

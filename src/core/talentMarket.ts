@@ -33,10 +33,11 @@ import { RIVAL_TEAM_ROLES } from './hollywoodStartingData.js'
 import { recordPlayerEmployment } from './industryEmployment.js'
 import { activeContract, canAfford, contractOffer, guaranteedComp, renewalWindowOpen, terminationCost } from './employment.js'
 import type { ContractOffer, TerminationLaw } from './employment.js'
-import { fnv1a64 } from './math.js'
+import { attachedPromiseDigest, promiseFeasibility, proposalDigest, trustDescriptor } from './promises.js'
 import { careerIdentity } from './talentSummary.js'
 import { TUNING } from './tuning.js'
 import type { Contract, GameState, LedgerEntry, LegacyTermination, MarketCaseStatus, MarketEligibilityStatus,
+  PromiseClassification, PromiseFamily,
   Standing, TalentMarketCase, TalentMarketProposal, TalentMarketReceipt, TalentMarketState } from './types.js'
 import type { HollywoodState, IndustryEmployment, IndustryReceipt, RivalBusiness } from './hollywoodTypes.js'
 
@@ -301,6 +302,8 @@ export function proposalDraft(
   termWeeks: number,
   premiumTier: number,
   week: number = state.market.tick,
+  /** P14B.1 (3): the attached promises' own digest, `''` when none is attached. */
+  promisePart = '',
 ): ProposalDraft {
   if (!isPremiumTier(premiumTier)) {
     throw new Error(
@@ -320,10 +323,12 @@ export function proposalDraft(
     signingBonus,
     startWeek,
     endWeekExclusive: startWeek + ask.termWeeks,
-    // MATERIAL terms only (companion §2.1.4). Price is DERIVED, never material:
-    // ordinary drift between submission and the decision week must not invalidate
-    // a version. Key order is fixed by construction, so JSON.stringify is canonical.
-    digest: fnv1a64(JSON.stringify([talentId, issuerStudioId, ask.termWeeks, startWeek, premiumTier])),
+    // MATERIAL terms only (companion §2.1.4), WIDENED by P14B.1 (3) with the
+    // attached promise. Price is DERIVED, never material: ordinary drift between
+    // submission and the decision week must not invalidate a version. A proposal
+    // carrying NO promise digests byte-identically to its V28 self, so every
+    // migrated proposal re-derives its stored digest unchanged.
+    digest: proposalDigest(talentId, issuerStudioId, ask.termWeeks, startWeek, premiumTier, promisePart),
   }
 }
 
@@ -415,6 +420,10 @@ export function submitProposal(state: GameState, intent: ProposalIntent): GameSt
     signingBonus: draft.signingBonus,
     submittedWeek: week,
     digest: draft.digest,
+    // A re-submission is this codebase's own "revise in place": the fresh
+    // proposal restores the material terms and carries NO promise, so removing a
+    // promise is exactly a re-submit with nothing attached.
+    promises: [],
     representation: null,
   }
   const others = state.talentMarket.proposals.filter(
@@ -444,6 +453,16 @@ export function currentProposals(state: GameState, talentId: string): readonly T
 export const UNKNOWN = 'UNKNOWN' as const
 export type Disclosed<T> = T | typeof UNKNOWN
 
+/** P14B.1: what an attached promise says to its OWN issuer. Ordering-only facts
+ * (family, count, window, classification) — never a salary term, never free text. */
+export type DisclosedPromise = {
+  family: PromiseFamily
+  count: number
+  windowStartWeek: number
+  dueWeekExclusive: number
+  classification: PromiseClassification
+}
+
 export type DisclosedProposal = {
   issuerStudioId: string
   submittedWeek: number
@@ -452,6 +471,10 @@ export type DisclosedProposal = {
   premiumTier: Disclosed<number>
   annualSalary: Disclosed<number>
   signingBonus: Disclosed<number>
+  /** §2.1.5 row "the competing proposal's attached promises": UNKNOWN to every
+   * non-issuer, before and after settlement. The issuer's own row carries the
+   * real draft, or `null` when it attached none. */
+  promise: Disclosed<DisclosedPromise | null>
 }
 
 export type CaseDisclosure = {
@@ -500,9 +523,26 @@ export function caseDisclosure(
         premiumTier: mine ? p.premiumTier : UNKNOWN,
         annualSalary: priced === null ? UNKNOWN : priced.annualSalary,
         signingBonus: priced === null ? UNKNOWN : priced.signingBonus,
+        promise: mine ? disclosedPromise(state, p) : UNKNOWN,
       }
     }),
     settlementReasons: settlement?.reasons ?? [],
+  }
+}
+
+/** The issuer's OWN attached promise, as facts rather than prose. At most one
+ * rides a proposal in B.1, so this reads the first and only member. */
+function disclosedPromise(state: GameState, proposal: TalentMarketProposal): DisclosedPromise | null {
+  const id = proposal.promises[0]
+  if (id === undefined) return null
+  const promise = state.promises.find((p) => p.promiseId === id)
+  if (promise === undefined) return null
+  return {
+    family: promise.family,
+    count: promise.predicate.count,
+    windowStartWeek: promise.windowStartWeek,
+    dueWeekExclusive: promise.dueWeekExclusive,
+    classification: promise.feasibilityReceipt.classification,
   }
 }
 
@@ -611,20 +651,23 @@ export function rivalProposalTrigger(
 // each reduced to a small BAND so near-equal offers TIE rather than differ by a
 // dollar; every band difference produces a typed, ordering-only reason.
 //
-// D3 (opportunity), D4 (trust) and D5 (relationships) are NEUTRAL in P14A — no
-// promise, trust or relationship fact exists yet, so they would tie for every
-// pair and are omitted rather than faked. They arrive with P14B.
+// D3 (opportunity) and D4 (trust) GO LIVE with P14B.1: a promise and a trust
+// record are now real facts. D5 (relationships) stays NEUTRAL — no relationship
+// fact exists yet, so it would tie for every pair and is omitted rather than
+// faked. It arrives with P14B.2.
 //
 // The band edges below marked HYPOTHESIS are NUMERICAL/CONTENT HYPOTHESIS per the
 // companion, not settled law; the RULE (bands, pairwise wins, dominance, the
 // public priority order) is what is settled.
 
-const DESCRIPTOR_ORDER = ['compensation', 'term', 'standing', 'incumbency'] as const
+const DESCRIPTOR_ORDER = ['compensation', 'term', 'opportunity', 'trust', 'standing', 'incumbency'] as const
 export type DescriptorKey = (typeof DESCRIPTOR_ORDER)[number]
 
 const DESCRIPTOR_REASON: Record<DescriptorKey, string> = {
   compensation: 'their compensation band ranked above the others',
   term: 'their term matched what this person prefers',
+  opportunity: 'they offered an opportunity',
+  trust: 'their record with this person ranked above the others',
   standing: 'their studio standing ranked higher',
   incumbency: 'they are the current employer',
 }
@@ -639,16 +682,18 @@ function isProven(state: GameState, talentId: string): boolean {
   return talent !== undefined && (careerIdentity(talent).identityDisciplines.length > 0 || talent.age >= 30)
 }
 
-/** §2.1.7's two archetype orders, reduced over the LIVE descriptors (D3 opportunity,
- * D4 trust and D5 relationships are NEUTRAL in P14A — see DESCRIPTOR_ORDER above):
- * capable-but-unproven (opportunity, compensation, relationships, term, trust,
- * Standing, incumbency) → compensation, term, standing, incumbency; proven veterans
+/** §2.1.7's two archetype orders, reduced over the LIVE descriptors (only D5
+ * relationships stays NEUTRAL — see DESCRIPTOR_ORDER above): capable-but-unproven
+ * (opportunity, compensation, relationships, term, trust, Standing, incumbency) →
+ * opportunity, compensation, term, trust, standing, incumbency; proven veterans
  * (compensation, term, trust, relationships, incumbency, Standing, opportunity) →
- * compensation, term, incumbency, standing. */
+ * compensation, term, trust, incumbency, standing, opportunity. The P14A.1-F1 fix
+ * is PRESERVED by this widening: compensation still precedes term for the
+ * unproven branch, and incumbency still precedes Standing for the proven one. */
 function priorityOrder(state: GameState, talentId: string): readonly DescriptorKey[] {
   return isProven(state, talentId)
-    ? (['compensation', 'term', 'incumbency', 'standing'] as const)
-    : (['compensation', 'term', 'standing', 'incumbency'] as const)
+    ? (['compensation', 'term', 'trust', 'incumbency', 'standing', 'opportunity'] as const)
+    : (['opportunity', 'compensation', 'term', 'trust', 'standing', 'incumbency'] as const)
 }
 
 /** HYPOTHESIS: the person's public term preference — a proven professional
@@ -685,10 +730,31 @@ function issuerStanding(state: GameState, issuerStudioId: string): number {
   return business === undefined ? 0 : standingMean(business.standing)
 }
 
+/** The live classification of whatever promise a proposal carries, re-run against
+ * committed state at `week` — null when it carries none. */
+function attachedClassification(state: GameState, proposal: TalentMarketProposal, week: number): PromiseClassification | null {
+  const id = proposal.promises[0]
+  if (id === undefined) return null
+  const promise = state.promises.find((p) => p.promiseId === id)
+  if (promise === undefined) return null
+  return promiseFeasibility(state, {
+    family: promise.family,
+    issuerStudioId: promise.issuerStudioId,
+    beneficiaryPersonId: promise.beneficiaryPersonId,
+    predicate: promise.predicate,
+    windowStartWeek: promise.windowStartWeek,
+    dueWeekExclusive: promise.dueWeekExclusive,
+    startWeek: proposal.startWeek,
+    termWeeks: proposal.termWeeks,
+    promiseId: promise.promiseId,
+  }, week).classification
+}
+
 function bandsFor(
   state: GameState,
   proposals: readonly TalentMarketProposal[],
   kase: TalentMarketCase,
+  week: number,
 ): Map<TalentMarketProposal, Record<DescriptorKey, number>> {
   const standings = proposals.map((p) => issuerStanding(state, p.issuerStudioId))
   const highest = Math.max(...standings)
@@ -707,7 +773,16 @@ function bandsFor(
     const standing = mine >= highest - STANDING_BAND_TOLERANCE ? 2 : mine <= lowest + STANDING_BAND_TOLERANCE ? 0 : 1
     // D7 incumbency.
     const incumbency = p.issuerStudioId === kase.subjectStudioId ? 1 : 0
-    out.set(p, { compensation, term, standing, incumbency })
+    // D3 opportunity (P14B.1 (8)): a qualifying promise is attached and still
+    // REASONABLY ACHIEVABLE at freeze. The class-preference filter waits for the
+    // rest of the catalogue, so the band is binary in B.1.
+    const opportunity = attachedClassification(state, p, week) === 'REASONABLY_ACHIEVABLE' ? 1 : 0
+    // D4 trust (P14B.1 (8)): `Reliable` > `Mixed record` > `Distrusted`, read for
+    // THIS person against THIS issuer — a Distrusted issuer never reaches ranking
+    // at all, so the band's floor is only ever seen through the studio aggregate.
+    const band = trustDescriptor(state, kase.talentId, p.issuerStudioId, week).label
+    const trust = band === 'Reliable' ? 2 : band === 'Mixed record' ? 1 : 0
+    out.set(p, { compensation, term, opportunity, trust, standing, incumbency })
   })
   return out
 }
@@ -731,9 +806,10 @@ function chooseProposal(
   state: GameState,
   kase: TalentMarketCase,
   survivors: readonly TalentMarketProposal[],
+  week: number,
 ): ProposalChoice {
   if (survivors.length === 0) return { winner: null, tiedCount: 0 }
-  const bands = bandsFor(state, survivors, kase)
+  const bands = bandsFor(state, survivors, kase, week)
   // Dominated proposals are removed first.
   const live = survivors.filter((p) => !survivors.some((q) => q !== p && dominates(bands.get(q)!, bands.get(p)!)))
   const pool = live.length > 0 ? live : survivors
@@ -900,6 +976,10 @@ export type FreezeDrop =
   | 'materialTermsChanged'
   | 'bonusUnaffordable'
   | 'noSeatForRole'
+  /** P14B.1 (5): the attached promise is no longer REASONABLY ACHIEVABLE at W. */
+  | 'promiseNotFeasible'
+  /** P14B.1 (8) / companion §2.1.7: the reservation predicate "not Distrusted". */
+  | 'issuerDistrusted'
 
 /** The studio as a person would name it; the id only if this world has no identity
  * for it (a state that could not have produced the proposal in the first place). */
@@ -919,6 +999,8 @@ const DROP_SENTENCE: Record<FreezeDrop, (studio: string) => string> = {
   materialTermsChanged: (studio) => `${studio}'s terms changed since submission.`,
   bonusUnaffordable: (studio) => `${studio} could not fund the signing bonus.`,
   noSeatForRole: (studio) => `${studio} had no seat open for this person's role at the decision week.`,
+  promiseNotFeasible: (studio) => `${studio}'s attached promise no longer had a feasible path by the decision week.`,
+  issuerDistrusted: (studio) => `${studio} holds a record this person distrusts.`,
 }
 
 /**
@@ -947,6 +1029,12 @@ function seatsHeldAfter(state: GameState, hollywood: HollywoodState, studioId: s
 function survivesFreeze(state: GameState, proposal: TalentMarketProposal, week: number): FreezeDrop | null {
   const hollywood = state.hollywood!
   if (!enteredStudioIds(hollywood).includes(proposal.issuerStudioId)) return 'issuerNotEntered'
+  // Reservation, P14B.1 (8): this person refuses a Distrusted issuer OUTRIGHT —
+  // companion §2.1.7 lists reservation before legality and affordability, and
+  // this predicate needs neither a price nor a seat to decide. It is checked
+  // ahead of the rival seat budget for exactly that reason: "I will not work for
+  // them" is not a fact about whether they had a chair free.
+  if (trustDescriptor(state, proposal.talentId, proposal.issuerStudioId, week).label === 'Distrusted') return 'issuerDistrusted'
   if (subjectTerms(state, proposal.talentId, week) !== undefined) return 'subjectCommittedElsewhere'
   if (proposal.startWeek !== week) return 'startWeekMoved'
   // The seat budget binds a RIVAL only. The player's roster law is P10's and has no
@@ -963,10 +1051,34 @@ function survivesFreeze(state: GameState, proposal: TalentMarketProposal, week: 
   // for that term at W — true by construction while the premium tier is ≥ 1.00
   // (companion §2.1.7), kept explicit because it is cheap and it is the law.
   if (priced.annualSalary < priced.askAnnual) return 'belowAsk'
-  // The draft REFERENCE is re-derived; a MATERIAL-term mismatch invalidates the version.
-  const redrawn = proposalDraft(state, proposal.issuerStudioId, proposal.talentId, proposal.termWeeks, proposal.premiumTier, week)
+  // The draft REFERENCE is re-derived; a MATERIAL-term mismatch invalidates the
+  // version — and the attached promise is one of those material terms, so a
+  // promise that DRIFTED after attachment is caught here, as a revision, before
+  // anything asks whether it is still feasible.
+  const redrawn = proposalDraft(state, proposal.issuerStudioId, proposal.talentId, proposal.termWeeks, proposal.premiumTier, week,
+    attachedPromiseDigest(state, proposal.promises))
   if (redrawn.digest !== proposal.digest) return 'materialTermsChanged'
+  // P14B.1 (5) / companion §2.1.8, the ONE settlement-step addition: every
+  // attached promise is re-classified against committed state at W, and a promise
+  // no longer REASONABLY ACHIEVABLE invalidates this proposal version BEFORE the
+  // chooser runs.
+  if (proposal.promises.length > 0 && attachedClassification(state, proposal, week) !== 'REASONABLY_ACHIEVABLE') {
+    return 'promiseNotFeasible'
+  }
   return affordabilityRefusal(state, proposal.issuerStudioId, priced.signingBonus, week) === null ? null : 'bonusUnaffordable'
+}
+
+/** P14B.1 (5): the surviving winner's promise is COMMITTED — it now names the
+ * employment row it rode in on, so a later reader can see which contract carried
+ * it. Losing proposals' promises are left exactly as drafted: nothing accepted
+ * them, and B.1 mints no outcome for an offer nobody took. */
+function commitWinningPromise(state: GameState, winner: TalentMarketProposal, week: number): GameState {
+  const id = winner.promises[0]
+  if (id === undefined) return state
+  const row = state.hollywood?.employment.find(
+    (e) => e.terms.talentId === winner.talentId && e.studioId === winner.issuerStudioId && e.endedWeek === null && e.terms.startWeek === week)
+  const contractId = row?.contractId ?? null
+  return { ...state, promises: state.promises.map((p) => (p.promiseId === id ? { ...p, contractId } : p)) }
 }
 
 function settleCase(state: GameState, kase: TalentMarketCase, week: number): GameState {
@@ -986,7 +1098,7 @@ function settleCase(state: GameState, kase: TalentMarketCase, week: number): Gam
     // per dropped proposal, naming the studio and the predicate that dropped it.
     return closeCase(state, kase, 'declined', week, 'all proposals dropped', null, dropped, dropped)
   }
-  const chosen = chooseProposal(state, kase, survivors)
+  const chosen = chooseProposal(state, kase, survivors, week)
   if (chosen.winner === null) {
     // A FULL LEGAL survivor set the tie order ran out on — nothing failed
     // reservation. One ordering-only sentence, no amount. CANDIDATE wording.
@@ -996,7 +1108,8 @@ function settleCase(state: GameState, kase: TalentMarketCase, week: number): Gam
   const committed = chosen.winner.issuerStudioId === state.hollywood!.playerStudioId
     ? commitPlayerWinner(state, chosen.winner, week)
     : commitRivalWinner(state, chosen.winner, week)
-  return closeCase(committed, kase, 'settled', week, 'settled at the decision week', chosen.winner.issuerStudioId, chosen.reasons, dropped)
+  return closeCase(commitWinningPromise(committed, chosen.winner, week), kase, 'settled', week, 'settled at the decision week',
+    chosen.winner.issuerStudioId, chosen.reasons, dropped)
 }
 
 // ── the weekly market step (tick.ts, terminal and fixed-order) ───────────────

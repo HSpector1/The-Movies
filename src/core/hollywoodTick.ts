@@ -224,9 +224,12 @@ function decide(state:GameState,h:HollywoodState,b:RivalBusiness,talent:Talent[]
 }
 
 /** Stage rival work against pre-development talent. All writes are to new local objects. */
-export function advanceHollywoodWeek(state:GameState):{hollywood:HollywoodState|null;talent:Talent[];growth:ReleaseGrowthRecord[];technology:GameState['technology'];physicalPlans:GameState['physicalPlans']} {
+export function advanceHollywoodWeek(state:GameState):{hollywood:HollywoodState|null;talent:Talent[];growth:ReleaseGrowthRecord[];technology:GameState['technology'];physicalPlans:GameState['physicalPlans'];
+  /** P14B.1 (1): this week's rival first takes (the 5 -> 4 advance), handed to
+   * the outer tick so the ONE first-take root is appended in one place. */
+  firstTakes:{studioId:string;production:Production}[]} {
   const source=state.hollywood
-  if(!source)return {hollywood:null,talent:state.talent,growth:[],technology:state.technology,physicalPlans:state.physicalPlans}
+  if(!source)return {hollywood:null,talent:state.talent,growth:[],technology:state.technology,physicalPlans:state.physicalPlans,firstTakes:[]}
   const week=state.market.tick
   const h:HollywoodState={...source,businesses:source.businesses.map(b=>({...b,account:{...b.account,
     periods:b.account.periods.map((p,i)=>i===b.account.periods.length-1?{...p,movements:{...p.movements}}:p)}}))}
@@ -234,6 +237,7 @@ export function advanceHollywoodWeek(state:GameState):{hollywood:HollywoodState|
   let technology=state.technology
   let physicalPlans=state.physicalPlans
   const growth:ReleaseGrowthRecord[]=[]
+  const firstTakes:{studioId:string;production:Production}[]=[]
   for(const b of h.businesses) {
     technology=considerRivalSoundPurchase({...state,technology,hollywood:h},h,b)
     if(week>=b.nextDecisionWeek)talent=staff(state,h,b,talent,week,
@@ -252,6 +256,7 @@ export function advanceHollywoodWeek(state:GameState):{hollywood:HollywoodState|
     const productionTechnology=createProductionTechnologyPolicy({...state,hollywood:h,technology},b.studioId)
     const advanced=advanceManagedProductions(b.operations,b.productions,week,committedReleaseIds(b.releaseAuthority),new Set([...scriptOccupiedFacilitySlots(hotDevelopment(b)),...rivalInstallationSlots(technology,b)]),undefined,undefined,productionTechnology.policy)
     technology=productionTechnology.technology()
+    for(const production of advanced.firstTakes)firstTakes.push({studioId:b.studioId,production})
     const releasing=advanced.productions.filter(p=>p.remainingTicks===0).sort((a,b)=>a.id<b.id?-1:a.id>b.id?1:0)
     const ids=new Set(releasing.map(p=>p.id))
     if(ids.size!==advanced.admittedReleaseIds.length||advanced.admittedReleaseIds.some(id=>!ids.has(id)))throw new Error('Industry release admission mismatch')
@@ -312,7 +317,7 @@ export function advanceHollywoodWeek(state:GameState):{hollywood:HollywoodState|
     for(const project of complete.projects)if(project.status==='review')complete=acceptScriptProject(complete,project.id)
     storeHotDevelopment(b,complete)
   }
-  return {hollywood:h,talent,growth,technology,physicalPlans}
+  return {hollywood:h,talent,growth,technology,physicalPlans,firstTakes}
 }
 
 /** End-of-week expiry follows payroll; future entrants are attached by the outer tick. */

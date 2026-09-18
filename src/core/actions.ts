@@ -58,6 +58,7 @@ import {
 import { computeForecast, type ForecastContext } from './forecast.js'
 import { forecastHistoryForOwner } from './industryCareer.js'
 import { recordPlayerEmployment } from './industryEmployment.js'
+import { breakPromisesOnCancel, breakPromisesOnTermination } from './promises.js'
 import { caseOpenForTalent, playerOffer } from './talentMarket.js'
 import { cancelAdoption, cancelInstallation, cancellationQuote } from './installationCancellation.js'
 import { clamp } from './math.js'
@@ -717,11 +718,12 @@ function applyCancel(state: GameState, action: Action & { kind: 'cancel' }): Gam
       `applyActions: cancel references productionId "${action.productionId}" not in activeProductions`,
     )
   }
+  const cancelled = state.studio.activeProductions[idx]!
   const scriptDevelopment =
     state.scriptDevelopment.mode === 'managed'
       ? returnScriptProjectToReady(state.scriptDevelopment, action.productionId)
       : state.scriptDevelopment
-  return {
+  const withoutProduction: GameState = {
     ...state,
     studio: {
       ...state.studio,
@@ -733,6 +735,15 @@ function applyCancel(state: GameState, action: Action & { kind: 'cancel' }): Gam
     technology: discardUnfilmedProductionTechnology(state,action.productionId),
     scriptDevelopment,
   }
+  // P14B.1 (6) / companion §4.4: BROKEN is recorded IMMEDIATELY by the studio-caused
+  // event that makes the predicate unsatisfiable. Cancelling a picture the promised
+  // person was cast in BEFORE its first take is exactly that — but only when the
+  // re-run feasibility says IMPOSSIBLE; a cancellation the schedule can absorb is
+  // priced by trust instead, and a picture that already filmed never un-satisfies.
+  const playerStudioId = state.hollywood?.playerStudioId
+  return playerStudioId === undefined
+    ? withoutProduction
+    : breakPromisesOnCancel(withoutProduction, playerStudioId, cancelled)
 }
 
 // ── createTalent (§10 / D-9.14 creation budget) ──────────────────────────────
@@ -2767,7 +2778,7 @@ function applyReleaseTalent(state: GameState, action: Action & { kind: 'releaseT
     talentId,
     note: 'early-release termination cost',
   }
-  return {
+  const released: GameState = {
     ...state,
     studio: { ...state.studio, cash: state.studio.cash - cost },
     contracts: state.contracts.filter((c) => c !== contract),
@@ -2775,6 +2786,12 @@ function applyReleaseTalent(state: GameState, action: Action & { kind: 'releaseT
     freeAgents: state.freeAgents.includes(talentId) ? state.freeAgents : [...state.freeAgents, talentId],
     technology: researchAfterEmploymentRelease(state, talentId),
   }
+  // P14B.1 (6) / companion §4.4: every open promise this studio made this person is
+  // BROKEN at the termination itself — "the causing event's receipt", not the next
+  // weekly pass. No new charge and no second record: the trust driver is read from
+  // the termination receipt P12 already writes.
+  const playerStudioId = state.hollywood?.playerStudioId
+  return playerStudioId === undefined ? released : breakPromisesOnTermination(released, playerStudioId, talentId)
 }
 
 // ── D-17B §2 — the publicity campaign action ─────────────────────────────────

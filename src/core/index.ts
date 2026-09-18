@@ -1279,6 +1279,11 @@ export {
   // P14A.1 — live V27 → NEW V28 + migrateToV28 (the `talentMarket` root).
   validateSaveV28,
   migrateToV28,
+  // P14B.1 — live V28 → NEW V29 + migrateToV29 (`firstTakes` + `promises`).
+  validateSaveV29,
+  migrateToV29,
+  convertV28ToV29,
+  convertV29ToV28,
   convertV27ToV28,
   convertV28ToV27,
   // P13B-S5-R07 — live V24 → NEW V25 + migrateToV25 (the widened production
@@ -1316,6 +1321,7 @@ export type {
   SaveFileV26,
   SaveFileV27,
   SaveFileV28,
+  SaveFileV29,
   SaveFile,
   TalentV1,
   GameStateV1,
@@ -1370,8 +1376,43 @@ export type {
   CaseDisclosure,
   DisclosedProposal,
   ReleaseDisclosure,
+  DisclosedPromise,
   Disclosed,
 } from './talentMarket.js'
+
+// ── P14B.1 The first kept promise (promises, feasibility, outcomes, trust) ──
+export {
+  firstTakeReceipts,
+  appendFirstTakes,
+  allPromises,
+  promiseOutcomes,
+  promiseFeasibility,
+  reclassifyPromise,
+  attachPromise,
+  advancePromisesWeek,
+  breakPromisesOnTermination,
+  breakPromisesOnCancel,
+  trustDrivers,
+  trustDescriptor,
+  promiseBuffer,
+  proposalDigest,
+  promiseDigest,
+  attachedPromiseDigest,
+  projectPromisesPreV29,
+  validatePromiseRoots,
+  PROMISE_RULES_VERSION,
+  PROMISE_SLACK_WEEKS,
+  TRUST_HORIZON_WEEKS,
+  WEEKS_TO_FIRST_TAKE,
+} from './promises.js'
+export type {
+  PromiseAttachment,
+  PromiseDraft,
+  TrustDescriptor,
+  TrustDriver,
+  TrustDriverKind,
+  TrustLabel,
+} from './promises.js'
 
 // ── P13B-S3 Physical plans (persistent queue, dependencies, admission) ───────
 export {

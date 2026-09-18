@@ -1498,6 +1498,13 @@ export type ManagedProductionAdvance = {
    * serialized, never a second authority.
    */
   admittedReleaseIds: readonly string[]
+  /**
+   * P14B.1 (1): exactly the productions this advance moved 5 → 4 — the FIRST
+   * TAKE completing (companion §4.2), never shooting ENTRY. EPHEMERAL, like
+   * `admittedReleaseIds`: the caller turns each into the durable
+   * `FirstTakeReceipt` its own studio owns, and nothing is serialized here.
+   */
+  firstTakes: readonly Production[]
 }
 
 /**
@@ -1575,6 +1582,7 @@ export function advanceManagedProductions(
   setupRoute?: ProductionSetupRouteResolver,
 ): ManagedProductionAdvance {
   const admittedReleaseIds: string[] = []
+  const firstTakes: Production[] = []
   let sets: readonly StudioSet[] = binding?.sets ?? []
   if (operations.mode !== 'managed') {
     return {
@@ -1592,6 +1600,9 @@ export function advanceManagedProductions(
       operations,
       sets,
       admittedReleaseIds,
+      // The legacy arm has no Shooting workflow and no scheduled take, so it
+      // raises no first take: a legacy world's timeline is the timeline it was.
+      firstTakes: [],
     }
   }
 
@@ -1655,6 +1666,11 @@ export function advanceManagedProductions(
       settled.add(production.id)
       if (task === null || task.status !== 'scheduled' || workflow.blocker !== null) continue
       production = { ...production, remainingTicks: 4 }
+      // P14B.1 (1): THE FIRST TAKE. This branch runs only when the locked
+      // director is assigned, the load-in is cleared, the take is scheduled and
+      // no blocker stands — and the S5-R07 setup hold at 6 is upstream of it, so
+      // a picture reaching here has already cleared the setup gate.
+      firstTakes.push(production)
       nextOperations = replaceWorkflow(nextOperations, {
         ...workflow,
         shootingTask: { ...task, status: 'completed' },
@@ -1792,5 +1808,8 @@ export function advanceManagedProductions(
     operations: nextOperations,
     sets,
     admittedReleaseIds,
+    // The post-advance productions, so the receipt records the picture as it
+    // stands at its own first take.
+    firstTakes: firstTakes.map((production) => byId.get(production.id)!),
   }
 }

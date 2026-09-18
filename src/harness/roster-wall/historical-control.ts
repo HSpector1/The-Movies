@@ -17,10 +17,19 @@ export function liftV18Control(state:GameStateV18):GameState { const cloned=stru
   placement:{...cloned.placement,facilities:cloned.placement.facilities.map(f=>({...f,cancellation:null}))},talent:state.talent.map(withResearchFoundation),technology:initialTechnology(state.market.tick),physicalPlans:initialPhysicalPlans(),
   // P14A.1 (Save V28): a historical control has no industry, so it holds no market
   // case, proposal or receipt — the empty root, exactly what the real lift writes.
-  talentMarket:initialTalentMarket()} }
+  talentMarket:initialTalentMarket(),
+  // P14B.1 (Save V29): a historical control films no first take and makes no
+  // promise — the two empty roots, exactly what the real lift writes.
+  firstTakes:[],promises:[]} }
 export function historicalHashState<T extends object>(state:T):object {
-  if(!('technology' in state) && !('hollywood' in state) && !('physicalPlans' in state) && !('talentMarket' in state))return state
+  if(!('technology' in state) && !('hollywood' in state) && !('physicalPlans' in state) && !('talentMarket' in state)
+    && !('firstTakes' in state) && !('promises' in state))return state
   if('hollywood' in state && state.hollywood!==null)throw new Error('Historical hash cannot discard a living industry')
+  // P14B.1: the control records no qualifying event and no commitment; an empty
+  // pair of roots is the only lawful shape to discard.
+  for(const key of ['firstTakes','promises'] as const) {
+    if(key in state && (state as Partial<GameState>)[key]?.length!==0)throw new Error(`Historical hash cannot discard ${key} authority`)
+  }
   if ('technology' in state) {
     const technology = state.technology as GameState['technology']
     if (stableStringify(technology) !== stableStringify(initialTechnology(technology.recordingStartedWeek))) throw new Error('Historical hash cannot discard technology authority')
@@ -33,7 +42,8 @@ export function historicalHashState<T extends object>(state:T):object {
     // P14A.1: the historical control fights no contested expiry; an empty market root is the only lawful shape to discard.
     if (stableStringify(state.talentMarket) !== stableStringify(initialTalentMarket())) throw new Error('Historical hash cannot discard talent-market authority')
   }
-  const {hollywood: _control, technology: _research, physicalPlans: _plans, talentMarket: _market,...frozen}=state as Partial<GameState>
+  const {hollywood: _control, technology: _research, physicalPlans: _plans, talentMarket: _market,
+    firstTakes: _takes, promises: _promises,...frozen}=state as Partial<GameState>
   if (frozen.operations) {
     // P13B S5-R07: the live workflow carries `setup`/`planRevision`; a historical control never selected a recipe, so the only lawful
     // shape to discard is the null record at revision 0.

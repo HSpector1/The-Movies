@@ -780,5 +780,8 @@ export function generateWorld(seed: string, options?: GenerateWorldOptions): Gam
     // P14A.1: a fresh world has held no contested expiry — no case, no proposal,
     // no receipt. The market engages only once an industry exists.
     talentMarket: initialTalentMarket(),
+    // P14B.1: a fresh world has filmed no first take and made no promise.
+    firstTakes: [],
+    promises: [],
   }
 }
