@@ -1,0 +1,12 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p14a1-decline-reasons.test.ts (2 tests) 2023ms
+   ✓ P14A.1: typed decline reasons > A. tie exhaustion: two entered rivals with identical material terms and tier, tied Standing band → reason "tie exhausted", one order-only sentence naming the tied count, never "reservation" 1408ms
+   ✓ P14A.1: typed decline reasons > B. all proposals dropped: a single rival proposal fails affordability at the decision week → reason "all proposals dropped", one sentence naming the studio and the bonus predicate, never "reservation" 612ms
+
+ Test Files  1 passed (1)
+      Tests  2 passed (2)
+   Start at  10:55:55
+   Duration  4.44s (transform 1.56s, setup 0ms, collect 2.00s, tests 2.02s, environment 0ms, prepare 110ms)
+

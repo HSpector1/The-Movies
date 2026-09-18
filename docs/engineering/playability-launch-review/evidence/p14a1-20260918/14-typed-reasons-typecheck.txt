@@ -1,0 +1,23 @@
+== npm run typecheck ==
+
+> project-studio-core@0.1.0 typecheck
+> tsc --noEmit && tsc -p ui/tsconfig.json --noEmit
+
+exit=0
+
+== npm run typecheck:bridge ==
+
+> project-studio-core@0.1.0 typecheck:bridge
+> tsc -p tsconfig.bridge.json
+
+tests/bridge-p10a-r1-contract-quote.test.ts(64,3): error TS2305: Module '"../bridge/contract.ts"' has no exported member 'marketProposalDraftToEngine'.
+tests/bridge-p14a1-market.test.ts(96,28): error TS2305: Module '"../bridge/people.ts"' has no exported member 'marketCaseProjection'.
+tests/bridge-p14a1-market.test.ts(97,35): error TS2305: Module '"../bridge/contract.ts"' has no exported member 'marketProposalDraftToEngine'.
+tests/bridge-p14a1-market.test.ts(202,40): error TS7006: Parameter 'r' implicitly has an 'any' type.
+tests/bridge-p14a1-market.test.ts(213,42): error TS7006: Parameter 'r' implicitly has an 'any' type.
+tests/bridge-p14a1-market.test.ts(248,38): error TS7006: Parameter 'r' implicitly has an 'any' type.
+tests/bridge-p14a1-market.test.ts(259,38): error TS7006: Parameter 'r' implicitly has an 'any' type.
+tests/bridge-p14a1-market.test.ts(269,38): error TS7006: Parameter 'r' implicitly has an 'any' type.
+exit=2
+
+NOTE: every typecheck:bridge error above is in the CONCURRENT T3 bridge test-author's two files (landed at f1b7132 while this run was in flight) (tests/bridge-p14a1-market.test.ts, tests/bridge-p10a-r1-contract-quote.test.ts) and is RED-by-design on bridge exports the T3 bridge IMPLEMENTER has not written yet (marketProposalDraftToEngine, marketCaseProjection). No file this commit touches produces an error; the root typecheck is clean.

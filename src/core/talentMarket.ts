@@ -617,7 +617,7 @@ export function rivalProposalTrigger(
 // public priority order) is what is settled.
 
 const DESCRIPTOR_ORDER = ['compensation', 'term', 'standing', 'incumbency'] as const
-type DescriptorKey = (typeof DESCRIPTOR_ORDER)[number]
+export type DescriptorKey = (typeof DESCRIPTOR_ORDER)[number]
 
 const DESCRIPTOR_REASON: Record<DescriptorKey, string> = {
   compensation: 'their compensation band ranked above the others',
@@ -642,6 +642,20 @@ function priorityOrder(state: GameState, talentId: string): readonly DescriptorK
 function preferredTerm(state: GameState, talentId: string): number {
   const options = TUNING.CONTRACT_TERM_OPTIONS
   return priorityOrder(state, talentId)[0] === 'compensation' ? options[options.length - 1]! : options[0]!
+}
+
+/**
+ * The person's PUBLIC preference, read-only. §2.1.7 says the archetype-derived
+ * priority order is "readable on the profile and not manipulable" — these two
+ * accessors are that read and nothing more: pure, deterministic, no save fact, no
+ * receipt, and no second copy of the rule (they ARE `priorityOrder`/`preferredTerm`).
+ */
+export function publicPriorityOrder(state: GameState, talentId: string): readonly DescriptorKey[] {
+  return priorityOrder(state, talentId)
+}
+
+export function publicPreferredTerm(state: GameState, talentId: string): number {
+  return preferredTerm(state, talentId)
 }
 
 const STANDING_BAND_TOLERANCE = 5 // HYPOTHESIS: standing points inside which two studios are "similar"
@@ -692,14 +706,19 @@ function dominates(a: Record<DescriptorKey, number>, b: Record<DescriptorKey, nu
   return DESCRIPTOR_ORDER.every((key) => a[key] >= b[key]) && DESCRIPTOR_ORDER.some((key) => a[key] > b[key])
 }
 
-/** The winner and the ordering-only reasons it won, or null when the person
- * declines every proposal. */
+/** The winner and the ordering-only reasons it won — or NO winner, carrying the
+ * size of the set the §2.1.7 tie order could not separate, so a decline can say
+ * "the order ran out between N" rather than blaming reservation. */
+type ProposalChoice =
+  | { winner: TalentMarketProposal; reasons: string[] }
+  | { winner: null; tiedCount: number }
+
 function chooseProposal(
   state: GameState,
   kase: TalentMarketCase,
   survivors: readonly TalentMarketProposal[],
-): { winner: TalentMarketProposal; reasons: string[] } | null {
-  if (survivors.length === 0) return null
+): ProposalChoice {
+  if (survivors.length === 0) return { winner: null, tiedCount: 0 }
   const bands = bandsFor(state, survivors, kase)
   // Dominated proposals are removed first.
   const live = survivors.filter((p) => !survivors.some((q) => q !== p && dominates(bands.get(q)!, bands.get(p)!)))
@@ -735,7 +754,9 @@ function chooseProposal(
     const incumbent = tied.filter((p) => p.issuerStudioId === kase.subjectStudioId)
     if (incumbent.length > 0) tied = incumbent
   }
-  if (tied.length !== 1) return null // decline-all rather than pick by array order
+  // decline-all rather than pick by array order (R8) — the tied set travels out
+  // so the receipt can name how many the order could not separate.
+  if (tied.length !== 1) return { winner: null, tiedCount: tied.length }
   const winner = tied[0]!
   const others = survivors.filter((p) => p !== winner)
   const reasons = others.length === 0
@@ -850,25 +871,58 @@ function commitRivalWinner(state: GameState, proposal: TalentMarketProposal, wee
   }
 }
 
+/**
+ * The SIX freeze predicates of companion §2.1.7 line 104 ("Proposals that fail
+ * reservation, legality or affordability at freeze are dropped with typed reasons
+ * before ranking"), named so a decline can state the predicate that actually
+ * dropped each proposal instead of asserting a reservation failure for every one.
+ */
+export type FreezeDrop =
+  | 'issuerNotEntered'
+  | 'subjectCommittedElsewhere'
+  | 'startWeekMoved'
+  | 'belowAsk'
+  | 'materialTermsChanged'
+  | 'bonusUnaffordable'
+
+/** The studio as a person would name it; the id only if this world has no identity
+ * for it (a state that could not have produced the proposal in the first place). */
+function studioLabel(state: GameState, studioId: string): string {
+  return state.hollywood?.identities.find((s) => s.studioId === studioId)?.name ?? studioId
+}
+
+/** CANDIDATE WORDING (the coordinator pinned the CONTRACT — one sentence per
+ * dropped proposal, the issuing studio named, the predicate from this closed
+ * vocabulary — not the prose). Ordering-only: no amount appears in any of them,
+ * and "reservation" appears for the ask predicate ALONE. */
+const DROP_SENTENCE: Record<FreezeDrop, (studio: string) => string> = {
+  issuerNotEntered: (studio) => `${studio} had not entered the industry by the decision week.`,
+  subjectCommittedElsewhere: (studio) => `${studio}'s offer lapsed — this person was already committed elsewhere by the decision week.`,
+  startWeekMoved: (studio) => `${studio}'s offer named a start week that no longer matches this decision.`,
+  belowAsk: (studio) => `${studio}'s offer fell below this person's reservation for that term.`,
+  materialTermsChanged: (studio) => `${studio}'s terms changed since submission.`,
+  bonusUnaffordable: (studio) => `${studio} could not fund the signing bonus.`,
+}
+
 /** A proposal is DROPPED at freeze when it fails P10 legality (interval algebra
  * at W), P12 (the issuer has entered; the person is not committed elsewhere),
  * reservation, or affordability. A dropped proposal never cancels a valid one. */
-function survivesFreeze(state: GameState, proposal: TalentMarketProposal, week: number): boolean {
+function survivesFreeze(state: GameState, proposal: TalentMarketProposal, week: number): FreezeDrop | null {
   const hollywood = state.hollywood!
-  if (!enteredStudioIds(hollywood).includes(proposal.issuerStudioId)) return false
-  if (subjectTerms(state, proposal.talentId, week) !== undefined) return false
-  if (proposal.startWeek !== week) return false
+  if (!enteredStudioIds(hollywood).includes(proposal.issuerStudioId)) return 'issuerNotEntered'
+  if (subjectTerms(state, proposal.talentId, week) !== undefined) return 'subjectCommittedElsewhere'
+  if (proposal.startWeek !== week) return 'startWeekMoved'
   // Everything below is judged on the price RE-DERIVED at W, never on the
   // submission-week quote stored on the proposal.
   const priced = proposalPriceAt(state, proposal, week)
   // Reservation (absolute): the re-derived annual must clear the person's own ask
   // for that term at W — true by construction while the premium tier is ≥ 1.00
   // (companion §2.1.7), kept explicit because it is cheap and it is the law.
-  if (priced.annualSalary < priced.askAnnual) return false
+  if (priced.annualSalary < priced.askAnnual) return 'belowAsk'
   // The draft REFERENCE is re-derived; a MATERIAL-term mismatch invalidates the version.
   const redrawn = proposalDraft(state, proposal.issuerStudioId, proposal.talentId, proposal.termWeeks, proposal.premiumTier, week)
-  if (redrawn.digest !== proposal.digest) return false
-  return affordabilityRefusal(state, proposal.issuerStudioId, priced.signingBonus, week) === null
+  if (redrawn.digest !== proposal.digest) return 'materialTermsChanged'
+  return affordabilityRefusal(state, proposal.issuerStudioId, priced.signingBonus, week) === null ? null : 'bonusUnaffordable'
 }
 
 function settleCase(state: GameState, kase: TalentMarketCase, week: number): GameState {
@@ -876,10 +930,20 @@ function settleCase(state: GameState, kase: TalentMarketCase, week: number): Gam
   if (submitted.length === 0) {
     return closeCase(state, kase, 'expired', week, 'no proposal was submitted', null, ['no studio proposed before the decision week'])
   }
-  const survivors = submitted.filter((p) => survivesFreeze(state, p, week))
+  const frozen = submitted.map((proposal) => ({ proposal, drop: survivesFreeze(state, proposal, week) }))
+  const survivors = frozen.filter((f) => f.drop === null).map((f) => f.proposal)
+  if (survivors.length === 0) {
+    // Every proposal failed a freeze predicate BEFORE ranking: one typed sentence
+    // per dropped proposal, naming the studio and the predicate that dropped it.
+    return closeCase(state, kase, 'declined', week, 'all proposals dropped', null,
+      frozen.map((f) => DROP_SENTENCE[f.drop!](studioLabel(state, f.proposal.issuerStudioId))))
+  }
   const chosen = chooseProposal(state, kase, survivors)
-  if (chosen === null) {
-    return closeCase(state, kase, 'declined', week, 'no proposal cleared', null, ['no proposal cleared this person’s reservation'])
+  if (chosen.winner === null) {
+    // A FULL LEGAL survivor set the tie order ran out on — nothing failed
+    // reservation. One ordering-only sentence, no amount. CANDIDATE wording.
+    return closeCase(state, kase, 'declined', week, 'tie exhausted', null,
+      [`this person could not separate ${String(chosen.tiedCount)} equally ranked proposals.`])
   }
   const committed = chosen.winner.issuerStudioId === state.hollywood!.playerStudioId
     ? commitPlayerWinner(state, chosen.winner, week)

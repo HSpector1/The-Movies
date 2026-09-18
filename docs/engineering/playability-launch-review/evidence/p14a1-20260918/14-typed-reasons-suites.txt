@@ -1,0 +1,57 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/bridge-p13b-s8-rivals.test.ts (17 tests) 8980ms
+   ✓ P13B-S8-T3 item 1: projection version bump 40 -> 41; converted flag > converted: false for a genuine current live-version save, round-tripped through save()/load() on the SAME session (regression guard — matches tests/bridge-p13b-r07-setup.test.ts's own now-fixed case) 907ms
+   ✓ P13B-S8-T3 item 1: projection version bump 40 -> 41; converted flag > converted: true BY CONSTRUCTION for a genuine V26 fixture load (legacy-v26-lighting-restored-795, saveVersion 26 !== LIVE_SAVE_VERSION) — see header for why this cannot be a directly observed wire boolean through the current session API 370ms
+   ✓ P13B-S8-T3 item 3: rival finance exposed only through existing public standings > researchCapacity, technologyRestoration and technologyRefund never appear on the industry pulse page, the Laboratory page, or session.snapshot() (week 13: researchCapacity is genuinely nonzero from real rival Lab admission) 313ms
+   ✓ P13B-S8-T3 item 3: rival finance exposed only through existing public standings > the player's own finance researchSpend channel reads $0 in every window even while the rival's real researchSpend is nonzero elsewhere in the same state (week 293 — RE-EXPRESSED from 288, see the WEEK288 fixture note above) 485ms
+   ✓ P13B-S8-T3 item 5: the bridge accepts a real S8 state on snapshot(); history projections ignore the five kinds > session.snapshot() does not throw on a naturally-reached state carrying all five S8 receipt kinds and genuinely nonzero researchCapacity/researchSpend (week 288) 374ms
+   ✓ P13B-S8-T3 item 5: the bridge accepts a real S8 state on snapshot(); history projections ignore the five kinds > the player's own History (historyProjection, a disjoint root from IndustryReceipt) is untouched: session.snapshot() does not throw and its history section mentions none of the five kinds (week 288) 366ms
+   ✓ P13B-S8-T3 item 6: live-version save round-trip, Save As, genuine V26 fixture loads > a live-version save round-trips through the bridge byte-identically (week 288, real S8 facts: all five receipt kinds, nonzero researchCapacity/researchSpend) 2703ms
+   ✓ P13B-S8-T3 item 6: live-version save round-trip, Save As, genuine V26 fixture loads > a Save As world keeps the same rival receipts and publishes identical industry rows (week 13, natural rival Lab facts) 1992ms
+   ✓ P13B-S8-T3 item 6: live-version save round-trip, Save As, genuine V26 fixture loads > the three genuine V26 fixtures load through the bridge (sha256 verified) and their industry pulse page carries no S8-kind text anywhere (V26 predates S8; converted true by construction as item 1 documents) 1011ms
+ ✓ |core| tests/p14a1-save-v28.test.ts (9 tests) 818ms
+ ✓ |core| tests/p14a1-settlement.test.ts (3 tests) 3014ms
+   ✓ P14A.1 test 5: atomic settlement > a dominant incumbent proposal wins deterministically at the decision week, with order-only reasons and no amounts 1673ms
+   ✓ P14A.1 test 5: atomic settlement > price drift does not invalidate a proposal's version: a proposal submitted at the window's first week settles at the re-derived decision-week price, not the submission-week quote 709ms
+   ✓ P14A.1 test 5: atomic settlement > the digest covers material terms only: a price drift leaves the version digest unchanged 631ms
+ ✓ |core| tests/p14a1-decline-reasons.test.ts (2 tests) 2494ms
+   ✓ P14A.1: typed decline reasons > A. tie exhaustion: two entered rivals with identical material terms and tier, tied Standing band → reason "tie exhausted", one order-only sentence naming the tied count, never "reservation" 1590ms
+   ✓ P14A.1: typed decline reasons > B. all proposals dropped: a single rival proposal fails affordability at the decision week → reason "all proposals dropped", one sentence naming the studio and the bonus predicate, never "reservation" 902ms
+ ✓ |core| tests/p14a1-firing.test.ts (6 tests) 4645ms
+   ✓ P14A.1 test 7: firing — 26-week cap, R1 floor, disclosure content > the cap does NOT apply when 26 or fewer weeks remain: charge = all remaining guaranteed base salary, unchanged from today's formula at that boundary 1294ms
+   ✓ P14A.1 test 7: firing — 26-week cap, R1 floor, disclosure content > the charge law is continuous at exactly 26 weeks remaining (no cliff, §3.5 E5) 2721ms
+   ✓ P14A.1 test 7: firing — 26-week cap, R1 floor, disclosure content > the disclosure content per direction 2 states remaining duration, remaining guaranteed compensation, the cap, the exact charge, and the effective end — two branches (cap applies / cap does not apply) 558ms
+ ✓ |core| tests/p13a-rival-adoption.test.ts (2 tests) 9192ms
+   ✓ P13A shared commercial adoption and exact rival cash consequence > uses the shared player/rival eligibility function and debits only technology adoption without new plant or RNG draws 562ms
+   ✓ P13A shared commercial adoption and exact rival cash consequence > replays the actual weekly commercial purchase, reconciles its debit and creates one dated operational receipt 1441ms
+ ✓ |core| tests/p14a1-proposals.test.ts (7 tests) 4802ms
+   ✓ P14A.1 test 3: proposals — one per studio, premium tier bounds, draft reference, affordability > premium tier 1.00 equals the plain ask; the signing bonus is 18% of the priced annual, both issuers, same law 1604ms
+   ✓ P14A.1 test 3: proposals — one per studio, premium tier bounds, draft reference, affordability > a higher premium tier strictly increases the priced annual salary over 1.00 (exact tier values are OPEN; only monotonicity is pinned) 619ms
+   ✓ P14A.1 test 3: proposals — one per studio, premium tier bounds, draft reference, affordability > a below-1.00 premium tier is refused (not offered in P14A) 542ms
+   ✓ P14A.1 test 3: proposals — one per studio, premium tier bounds, draft reference, affordability > at most one current proposal per studio: a second submission from the same studio replaces (revises) rather than stacks 466ms
+   ✓ P14A.1 test 3: proposals — one per studio, premium tier bounds, draft reference, affordability > draft reference: the digest is deterministic for identical inputs and changes when a material term changes 504ms
+   ✓ P14A.1 test 3: proposals — one per studio, premium tier bounds, draft reference, affordability > affordability (player): submitProposal is refused via the accepted canAfford legality gate when the bonus would leave cash negative 497ms
+   ✓ P14A.1 test 3: proposals — one per studio, premium tier bounds, draft reference, affordability > affordability (rival): submitProposal is refused via the reserve rule when the rival's account cannot clear operatingReserve after the bonus 569ms
+ ✓ |core| tests/p14a1-disclosure.test.ts (3 tests) 2249ms
+   ✓ P14A.1 test 6: disclosure — UNKNOWN markers, nothing private leaks > the case, its subject and decision week, and the competing proposal's existence/issuer/term/effective-week are public to both viewers 1213ms
+   ✓ P14A.1 test 6: disclosure — UNKNOWN markers, nothing private leaks > a proposal's premium tier, salary and bonus say UNKNOWN to every studio that did not issue it — never a band, estimate or invented number 532ms
+   ✓ P14A.1 test 6: disclosure — UNKNOWN markers, nothing private leaks > nothing private leaks: the exact competing salary/bonus figures never appear anywhere in the serialized disclosure, for either viewer 502ms
+ ✓ |core| tests/p14a1-eligibility.test.ts (5 tests) 1728ms
+   ✓ P14A.1 test 1: market eligibility (six states; reserved rivals; in-term refusal) > renewal_window: a 52-week player contract at its window-open week (week 40) opens a case; the incumbent (player) and every ENTERED rival may propose 1165ms
+   ✓ P14A.1 test 1: market eligibility (six states; reserved rivals; in-term refusal) > reserved rivals cannot propose: row 5 (eligibleWeek 520, enteredWeek null at week 40) is excluded from the renewal_window proposer set 504ms
+ ✓ |core| tests/p14a1-rival-trigger.test.ts (2 tests) 6101ms
+   ✓ P14A.1 test 4: rival proposal trigger (pure policy) and the staff() case-subject exclusion > branch (a) — own person in the window: the trigger fires (deterministically, twice) for a rival subject at its own window-open week (196) 3385ms
+   ✓ P14A.1 test 4: rival proposal trigger (pure policy) and the staff() case-subject exclusion > staff()'s renewal loop excludes the case subject for the whole open-case span (week 196 through 207): the founding contract is never renewed early 2715ms
+ ✓ |core| tests/p14a1-case.test.ts (6 tests) 3392ms
+   ✓ P14A.1 test 2: case lifecycle, derived decision week, invalidation, underMarketCase > discovery: a case exists with status "discovered" at the exact window-open week (week 40 for a 52-week contract) 1681ms
+   ✓ P14A.1 test 2: case lifecycle, derived decision week, invalidation, underMarketCase > the decision week is derived from the subject's live endWeekExclusive, not a stored copy 625ms
+   ✓ P14A.1 test 2: case lifecycle, derived decision week, invalidation, underMarketCase > invalidation: an early release invalidates the open case 523ms
+   ✓ P14A.1 test 2: case lifecycle, derived decision week, invalidation, underMarketCase > underMarketCase: renewContract on a cased person is refused, redirecting to the proposal path 507ms
+
+ Test Files  11 passed (11)
+      Tests  62 passed (62)
+   Start at  10:56:12
+   Duration  62.17s (transform 2.52s, setup 0ms, collect 10.98s, tests 47.41s, environment 4ms, prepare 1.04s)
+

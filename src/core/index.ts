@@ -1342,6 +1342,8 @@ export {
   caseOpenForTalent,
   isPremiumTier,
   releaseFloor,
+  publicPriorityOrder,
+  publicPreferredTerm,
   studioOffer,
   playerOffer,
   playerOfferOptions,
@@ -1358,6 +1360,8 @@ export {
   UNKNOWN,
 } from './talentMarket.js'
 export type {
+  DescriptorKey,
+  FreezeDrop,
   MarketEligibility,
   MarketCaseView,
   MarketCaseDescriptor,
