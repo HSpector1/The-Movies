@@ -33,7 +33,7 @@ import { RIVAL_TEAM_ROLES } from './hollywoodStartingData.js'
 import { recordPlayerEmployment } from './industryEmployment.js'
 import { activeContract, canAfford, contractOffer, guaranteedComp, renewalWindowOpen, terminationCost } from './employment.js'
 import type { ContractOffer, TerminationLaw } from './employment.js'
-import { attachedPromiseDigest, promiseFeasibility, proposalDigest, trustDescriptor } from './promises.js'
+import { attachPromise, attachedPromiseDigest, promiseFeasibility, proposalDigest, trustDescriptor } from './promises.js'
 import { careerIdentity } from './talentSummary.js'
 import { TUNING } from './tuning.js'
 import type { Contract, GameState, LedgerEntry, LegacyTermination, MarketCaseStatus, MarketEligibilityStatus,
@@ -1193,6 +1193,10 @@ export function advanceTalentMarketWeek(state: GameState): GameState {
         // A refused proposal (reserve, eligibility) writes nothing. The rival simply
         // does not bid this week; nothing else in the pass is affected.
       }
+      // Outside the catch: a refusal above leaves no proposal and this is a no-op,
+      // but a failure to author on a proposal that DOES exist is a real fault and
+      // must not be swallowed with it.
+      next = authorRivalPromise(next, kase.talentId, business.studioId)
     }
   }
 
@@ -1206,6 +1210,34 @@ export function advanceTalentMarketWeek(state: GameState): GameState {
 
 function openCasesAt(state: GameState, week: number): TalentMarketCase[] {
   return state.talentMarket.cases.filter((c) => c.outcome === null && !TERMINAL.has(caseStatusAt(state, c, week)))
+}
+
+/**
+ * P14B.1 (9), RULING (ii) under S25 symmetry: a rival authors its own promise at
+ * its own proposal site, through the SAME `attachPromise` and the SAME feasibility
+ * service the player uses — exactly ONE `APPEARANCE_COUNT` promise, X = 1, over a
+ * window spanning its own proposed term, IFF that rival's OWN feasibility reads
+ * REASONABLY ACHIEVABLE at submission; otherwise none. Pure and deterministic: no
+ * RNG, no policy field, no new persisted fact (the record is the same V29
+ * promise). A losing rival's promise is simply never bound (ruling (i)).
+ */
+function authorRivalPromise(state: GameState, talentId: string, issuerStudioId: string): GameState {
+  const proposal = state.talentMarket.proposals.find((p) => p.talentId === talentId && p.issuerStudioId === issuerStudioId)
+  if (proposal === undefined || proposal.promises.length > 0) return state
+  const attachment = {
+    family: 'APPEARANCE_COUNT' as PromiseFamily,
+    predicate: { count: 1 },
+    windowStartWeek: proposal.startWeek,
+    dueWeekExclusive: proposal.startWeek + proposal.termWeeks,
+  }
+  const classification = promiseFeasibility(state, {
+    ...attachment,
+    issuerStudioId,
+    beneficiaryPersonId: talentId,
+    startWeek: proposal.startWeek,
+    termWeeks: proposal.termWeeks,
+  }, state.market.tick).classification
+  return classification === 'REASONABLY_ACHIEVABLE' ? attachPromise(state, talentId, issuerStudioId, attachment) : state
 }
 
 /** HYPOTHESIS (the plan records the rival's trigger policy NUMBERS as OPEN): the

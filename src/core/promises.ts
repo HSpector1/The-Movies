@@ -478,6 +478,24 @@ export function attachPromise(
 
 /** The qualifying first takes for one promise: this studio's own, inside the
  * window, with this person in a cast seat. Ordered as they were recorded. */
+/**
+ * RULING (i) (plan, P14B.1 T2): a promise BINDS only when the proposal that
+ * carried it is COMMITTED at settlement — `commitWinningPromise` setting the
+ * `contractId` it rode in on (companion §4.1). A promise whose proposal LOST,
+ * was dropped at freeze, or was withdrawn is UNBOUND and is NEVER evaluated: no
+ * due-week BROKEN, no SATISFIED, no termination or cancellation BROKEN, no
+ * `promiseOutcome` receipt and therefore no trust driver — its record keeps
+ * `outcome: null` and `contractId: null` for good. B.1 mints no outcome for an
+ * offer nobody took.
+ *
+ * DELIBERATELY NOT GATED: the feasibility quote (`reservedByActivePromises`) and
+ * the freeze re-classification act on ATTACHED, not-yet-bound promises by
+ * design — quoting a promise before anyone has accepted it is what they are for.
+ */
+function evaluable(promise: ProfessionalPromise): boolean {
+  return promise.outcome === null && promise.contractId !== null
+}
+
 function qualifyingTakes(state: GameState, promise: ProfessionalPromise): readonly FirstTakeReceipt[] {
   return state.firstTakes.filter((take) =>
     take.studioId === promise.issuerStudioId &&
@@ -524,7 +542,7 @@ export function advancePromisesWeek(state: GameState): GameState {
   const week = state.market.tick
   let next = state
   for (const promise of state.promises) {
-    if (promise.outcome !== null) continue
+    if (!evaluable(promise)) continue
     const takes = qualifyingTakes(next, promise)
     const progress = Math.min(promise.predicate.count, takes.length)
     if (takes.length >= promise.predicate.count) {
@@ -534,7 +552,14 @@ export function advancePromisesWeek(state: GameState): GameState {
         evidenceRefs,
         outcome: 'SATISFIED',
         outcomeCause: 'the promised pictures began filming inside the window',
-        outcomeEventId: evidenceRefs[evidenceRefs.length - 1]!,
+        // `outcomeEventId` names this promise's OWN outcome event — the
+        // `promiseOutcome` receipt `settle` appends — in every branch, never the
+        // causing first take, which `evidenceRefs` already names. ONE take seats
+        // up to three promised people (measured: r01's `first-take-event-76`
+        // satisfies three of its own promises at week 216), so pointing the field
+        // at the take made several promises name one event and the V29 root
+        // validator refused the save: "records a second outcome".
+        outcomeEventId: null,
       }, week, 'a promise to this person was kept')
       continue
     }
@@ -564,7 +589,7 @@ export function breakPromisesOnTermination(state: GameState, issuerStudioId: str
   const week = state.market.tick
   let next = state
   for (const promise of state.promises) {
-    if (promise.outcome !== null) continue
+    if (!evaluable(promise)) continue
     if (promise.issuerStudioId !== issuerStudioId || promise.beneficiaryPersonId !== personId) continue
     next = settle(next, promise, {
       outcome: 'BROKEN',
@@ -590,7 +615,7 @@ export function breakPromisesOnCancel(state: GameState, issuerStudioId: string, 
   const seated = new Set(CAST_SLOTS.map((slot) => cancelled.cast[slot]))
   let next = state
   for (const promise of state.promises) {
-    if (promise.outcome !== null) continue
+    if (!evaluable(promise)) continue
     if (promise.issuerStudioId !== issuerStudioId || !seated.has(promise.beneficiaryPersonId)) continue
     if (reclassifyPromise(next, promise, week).classification !== 'IMPOSSIBLE') continue
     next = settle(next, promise, {

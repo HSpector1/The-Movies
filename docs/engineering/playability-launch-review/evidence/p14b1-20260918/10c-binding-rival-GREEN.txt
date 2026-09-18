@@ -1,0 +1,691 @@
+P14B.1 T2b — engine: the promise binding rule (unbound promises are never evaluated)
+and rival promise authoring (one P1 promise iff REASONABLY ACHIEVABLE)
+
+Worktree /Users/zacheryspector/The-Movies-headless-program, branch wip/headless-program-20260916-ts,
+parent 3cd423e (tree clean at start). Writer: sim-core (one engine writer).
+Files written: src/core/promises.ts, src/core/talentMarket.ts. No save-format change
+(LIVE_SAVE_VERSION stays 29, no V28->V29 conversion edit), no bridge/generated edit,
+no test edit.
+
+STATUS: PARTIAL. Both T2c RED targets are addressed at the law level; the binding-rule
+RED is GREEN, the rival-authoring RED still fails on a test-side premise the law cannot
+satisfy (named below). Three previously green cases now fail on the SAME test-side
+premise class: they inject a synthetic promise record with `contractId: null`, which
+ruling (i) makes UNBOUND and therefore never evaluated.
+
+WHAT LANDED
+ (i) `evaluable(promise)` in src/core/promises.ts gates the three OUTCOME paths on
+     `outcome === null && contractId !== null`: `advancePromisesWeek` (both the
+     first-take SATISFIED branch and the due-week BROKEN branch),
+     `breakPromisesOnTermination` and `breakPromisesOnCancel`. `contractId` is set in
+     exactly one place, `commitWinningPromise` (talentMarket.ts), so a promise whose
+     proposal lost, was dropped at freeze or was withdrawn keeps `outcome: null`,
+     `contractId: null`, mints no `promiseOutcome` receipt and produces no trust driver
+     (`trustDrivers` already filters `outcome === null`). NOT gated, deliberately:
+     `reservedByActivePromises` (the feasibility quote) and the freeze
+     re-classification, which act on attached, not-yet-bound promises by design.
+ (ii) `authorRivalPromise` in src/core/talentMarket.ts, called at the P12 rival
+     proposal site immediately after `submitProposal` (OUTSIDE its catch, so a genuine
+     authoring fault is loud instead of being swallowed with a refused bid): one
+     APPEARANCE_COUNT promise, count 1, window = the rival's own proposed term, iff
+     `promiseFeasibility` for THAT rival reads REASONABLY_ACHIEVABLE at submission;
+     otherwise none. Pure, no RNG, same V29 record, no new persisted fact.
+ (iii) COLLATERAL CORRECTION, one line + comment, forced by (ii): the SATISFIED branch
+     of `settle` pointed `outcomeEventId` at the causing first take. One first take
+     seats up to three promised people, so with rival promises on the natural chain
+     three of r01's promises named `first-take-event-76` and the V29 root validator
+     refused every save export: `validateSaveV29: state.promises[2].outcomeEventId
+     "first-take-event-76" records a second outcome` (measured, week 216, seed
+     p13-public-commercial-adoption; it broke all 15 of tests/p13a-rival-adoption +
+     tests/bridge-p13b-s8-rivals collection). `outcomeEventId` now names this promise's
+     own `promiseOutcome` receipt in EVERY branch; `evidenceRefs` still names the
+     causing take(s). Alternative not taken: loosen the validator's outcome-event
+     uniqueness. No test pinned the old SATISFIED value (only the BROKEN case pins
+     `outcomeEventId`, and it pins "names a promiseOutcome receipt").
+
+=== git diff --stat (working tree vs 3cd423e) ===
+ src/core/promises.ts     | 33 +++++++++++++++++++++++++++++----
+ src/core/talentMarket.ts | 34 +++++++++++++++++++++++++++++++++-
+ 2 files changed, 62 insertions(+), 5 deletions(-)
+
+=== git diff src/core ===
+diff --git a/src/core/promises.ts b/src/core/promises.ts
+index c09f042..408dea9 100644
+--- a/src/core/promises.ts
++++ b/src/core/promises.ts
+@@ -478,6 +478,24 @@ export function attachPromise(
+ 
+ /** The qualifying first takes for one promise: this studio's own, inside the
+  * window, with this person in a cast seat. Ordered as they were recorded. */
++/**
++ * RULING (i) (plan, P14B.1 T2): a promise BINDS only when the proposal that
++ * carried it is COMMITTED at settlement — `commitWinningPromise` setting the
++ * `contractId` it rode in on (companion §4.1). A promise whose proposal LOST,
++ * was dropped at freeze, or was withdrawn is UNBOUND and is NEVER evaluated: no
++ * due-week BROKEN, no SATISFIED, no termination or cancellation BROKEN, no
++ * `promiseOutcome` receipt and therefore no trust driver — its record keeps
++ * `outcome: null` and `contractId: null` for good. B.1 mints no outcome for an
++ * offer nobody took.
++ *
++ * DELIBERATELY NOT GATED: the feasibility quote (`reservedByActivePromises`) and
++ * the freeze re-classification act on ATTACHED, not-yet-bound promises by
++ * design — quoting a promise before anyone has accepted it is what they are for.
++ */
++function evaluable(promise: ProfessionalPromise): boolean {
++  return promise.outcome === null && promise.contractId !== null
++}
++
+ function qualifyingTakes(state: GameState, promise: ProfessionalPromise): readonly FirstTakeReceipt[] {
+   return state.firstTakes.filter((take) =>
+     take.studioId === promise.issuerStudioId &&
+@@ -524,7 +542,7 @@ export function advancePromisesWeek(state: GameState): GameState {
+   const week = state.market.tick
+   let next = state
+   for (const promise of state.promises) {
+-    if (promise.outcome !== null) continue
++    if (!evaluable(promise)) continue
+     const takes = qualifyingTakes(next, promise)
+     const progress = Math.min(promise.predicate.count, takes.length)
+     if (takes.length >= promise.predicate.count) {
+@@ -534,7 +552,14 @@ export function advancePromisesWeek(state: GameState): GameState {
+         evidenceRefs,
+         outcome: 'SATISFIED',
+         outcomeCause: 'the promised pictures began filming inside the window',
+-        outcomeEventId: evidenceRefs[evidenceRefs.length - 1]!,
++        // `outcomeEventId` names this promise's OWN outcome event — the
++        // `promiseOutcome` receipt `settle` appends — in every branch, never the
++        // causing first take, which `evidenceRefs` already names. ONE take seats
++        // up to three promised people (measured: r01's `first-take-event-76`
++        // satisfies three of its own promises at week 216), so pointing the field
++        // at the take made several promises name one event and the V29 root
++        // validator refused the save: "records a second outcome".
++        outcomeEventId: null,
+       }, week, 'a promise to this person was kept')
+       continue
+     }
+@@ -564,7 +589,7 @@ export function breakPromisesOnTermination(state: GameState, issuerStudioId: str
+   const week = state.market.tick
+   let next = state
+   for (const promise of state.promises) {
+-    if (promise.outcome !== null) continue
++    if (!evaluable(promise)) continue
+     if (promise.issuerStudioId !== issuerStudioId || promise.beneficiaryPersonId !== personId) continue
+     next = settle(next, promise, {
+       outcome: 'BROKEN',
+@@ -590,7 +615,7 @@ export function breakPromisesOnCancel(state: GameState, issuerStudioId: string,
+   const seated = new Set(CAST_SLOTS.map((slot) => cancelled.cast[slot]))
+   let next = state
+   for (const promise of state.promises) {
+-    if (promise.outcome !== null) continue
++    if (!evaluable(promise)) continue
+     if (promise.issuerStudioId !== issuerStudioId || !seated.has(promise.beneficiaryPersonId)) continue
+     if (reclassifyPromise(next, promise, week).classification !== 'IMPOSSIBLE') continue
+     next = settle(next, promise, {
+diff --git a/src/core/talentMarket.ts b/src/core/talentMarket.ts
+index 539eb8e..bddb704 100644
+--- a/src/core/talentMarket.ts
++++ b/src/core/talentMarket.ts
+@@ -33,7 +33,7 @@ import { RIVAL_TEAM_ROLES } from './hollywoodStartingData.js'
+ import { recordPlayerEmployment } from './industryEmployment.js'
+ import { activeContract, canAfford, contractOffer, guaranteedComp, renewalWindowOpen, terminationCost } from './employment.js'
+ import type { ContractOffer, TerminationLaw } from './employment.js'
+-import { attachedPromiseDigest, promiseFeasibility, proposalDigest, trustDescriptor } from './promises.js'
++import { attachPromise, attachedPromiseDigest, promiseFeasibility, proposalDigest, trustDescriptor } from './promises.js'
+ import { careerIdentity } from './talentSummary.js'
+ import { TUNING } from './tuning.js'
+ import type { Contract, GameState, LedgerEntry, LegacyTermination, MarketCaseStatus, MarketEligibilityStatus,
+@@ -1193,6 +1193,10 @@ export function advanceTalentMarketWeek(state: GameState): GameState {
+         // A refused proposal (reserve, eligibility) writes nothing. The rival simply
+         // does not bid this week; nothing else in the pass is affected.
+       }
++      // Outside the catch: a refusal above leaves no proposal and this is a no-op,
++      // but a failure to author on a proposal that DOES exist is a real fault and
++      // must not be swallowed with it.
++      next = authorRivalPromise(next, kase.talentId, business.studioId)
+     }
+   }
+ 
+@@ -1208,6 +1212,34 @@ function openCasesAt(state: GameState, week: number): TalentMarketCase[] {
+   return state.talentMarket.cases.filter((c) => c.outcome === null && !TERMINAL.has(caseStatusAt(state, c, week)))
+ }
+ 
++/**
++ * P14B.1 (9), RULING (ii) under S25 symmetry: a rival authors its own promise at
++ * its own proposal site, through the SAME `attachPromise` and the SAME feasibility
++ * service the player uses — exactly ONE `APPEARANCE_COUNT` promise, X = 1, over a
++ * window spanning its own proposed term, IFF that rival's OWN feasibility reads
++ * REASONABLY ACHIEVABLE at submission; otherwise none. Pure and deterministic: no
++ * RNG, no policy field, no new persisted fact (the record is the same V29
++ * promise). A losing rival's promise is simply never bound (ruling (i)).
++ */
++function authorRivalPromise(state: GameState, talentId: string, issuerStudioId: string): GameState {
++  const proposal = state.talentMarket.proposals.find((p) => p.talentId === talentId && p.issuerStudioId === issuerStudioId)
++  if (proposal === undefined || proposal.promises.length > 0) return state
++  const attachment = {
++    family: 'APPEARANCE_COUNT' as PromiseFamily,
++    predicate: { count: 1 },
++    windowStartWeek: proposal.startWeek,
++    dueWeekExclusive: proposal.startWeek + proposal.termWeeks,
++  }
++  const classification = promiseFeasibility(state, {
++    ...attachment,
++    issuerStudioId,
++    beneficiaryPersonId: talentId,
++    startWeek: proposal.startWeek,
++    termWeeks: proposal.termWeeks,
++  }, state.market.tick).classification
++  return classification === 'REASONABLY_ACHIEVABLE' ? attachPromise(state, talentId, issuerStudioId, attachment) : state
++}
++
+ /** HYPOTHESIS (the plan records the rival's trigger policy NUMBERS as OPEN): the
+  * rival's tier is derived from its EXISTING policy fields, with no persisted
+  * policy change — an incumbent retains at the ask; a challenger pays above it,
+
+=== npm run typecheck ===
+
+> project-studio-core@0.1.0 typecheck
+> tsc --noEmit && tsc -p ui/tsconfig.json --noEmit
+
+exit 0
+
+=== npx vitest run --project core --minWorkers=1 --maxWorkers=1 --reporter=dot tests/p14b1-first-take.test.ts tests/p14b1-promises.test.ts tests/p14b1-trust-chooser.test.ts tests/p14b1-save-v29.test.ts tests/p14b1-leak.test.ts ===
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/p14b1-promises.test.ts (15 tests | 2 failed) 6361ms
+   ✓ P14B.1 test 2: the promise record and the widened digest > attaching a promise changes the digest; a second attach on an already-promised proposal is refused (enforced at most one); revising (re-submit, then attach a different promise) and removing (re-submit with no attach) both change the digest again — removing restores the exact original 1668ms
+   ✓ P14B.1 test 2: the promise record and the widened digest > a window outside the proposed contract is IMPOSSIBLE by construction 749ms
+   ✓ P14B.1 test 2: the promise record and the widened digest > a promise DRIFTED after attachment (its own definition changed through some other channel) drops materialTermsChanged at freeze 715ms
+   ✓ P14B.1 test 4: settlement freeze re-classification > a promise REASONABLY_ACHIEVABLE at submission erodes to FRAGILE by the decision week purely through slack (the 7-week submission-to-decision gap), and the case drops it with a promise-naming sentence 688ms
+   ✓ P14B.1 test 5: outcomes > SATISFIED once the X-th qualifying first take occurs, with evidence refs naming the causing eventId; idempotent on a later tick 733ms
+   ✓ P14B.1 test 5: outcomes > BROKEN at dueWeekExclusive when the window passes unsatisfied, through a BOUND promise: on genuine legacy-v28-open-case-45, attach a P1 promise to the player's own proposal, settle at 52 (retained -> bound, contractId set), then walk to dueWeekExclusive with no qualifying first take 845ms
+   ✓ P14B.1 test 5: outcomes > RED (T2b closes this): a promise attached to a proposal that then LOSES stays UNBOUND (contractId null) and is never evaluated — on genuine legacy-v28-open-case-45, withdrawing the player's own proposal leaves the promise attached to a proposal that vanishes at settlement (declined, "all proposals dropped"); past its own dueWeekExclusive the record must keep outcome: null and contractId: null, mint no promiseOutcome receipt, and leave the issuer's trust descriptor without a promiseBroken driver 451ms
+   × P14B.1 test 5: outcomes > BROKEN immediately (within one tick) when the issuing studio terminates the beneficiary early 24ms
+     → test premise failed: the promise never reached an outcome within one tick of releaseTalent
+   × P14B.1 test 5: outcomes > BROKEN on capacity collapse: cancelling the promised person's ONLY production before its first take, with a due week too close for any other path, makes re-feasibility IMPOSSIBLE and the promise BROKEN 416ms
+     → test premise failed: the promise never reached an outcome within one tick of cancel
+ ❯ |core| tests/p14b1-trust-chooser.test.ts (13 tests | 2 failed | 3 skipped) 9468ms
+   ✓ P14B.1 test 6: trust, the widened chooser and the priority order > a Distrusted issuer is dropped issuerDistrusted at reservation, and the other (healthy) proposal settles the case 2149ms
+   ✓ P14B.1 test 6: trust, the widened chooser and the priority order > a Reliable issuer beats a Mixed-record issuer on the trust band, in the same otherwise-1-1-tie shape 726ms
+   ✓ P14B.1 test 7: rival symmetry > attachPromise and its feasibility classification work identically when the issuer is a RIVAL (no player-only special-casing) 570ms
+   ✓ P14B.1 test 7: rival symmetry > a rival proposal carries a P1 promise IFF its own feasibility is REASONABLY_ACHIEVABLE — derived from the FIRST rival proposalSubmitted receipt on the natural chain, never assumed 2667ms
+   × P14B.1 test 7: rival symmetry > rival promise AUTHORING (ruling ii): the FIRST rival proposalSubmitted receipts on the natural chain are for the rivals' own WRITER subjects — IMPOSSIBLE under the landed M16.2 role gate (a writer takes no cast seat), so that proposal carries NO promise (true both today and after T2b); walking on to the first ACTOR-subject rival proposal, whose own feasibility is REASONABLY_ACHIEVABLE, it must carry exactly one P1 promise naming family APPEARANCE_COUNT — RED today (rivals author no promise yet); T2b makes it green 2949ms
+     → promises: studio "studio-aca408ec-r01"'s proposal for "person-studio-aca408ec-r01-2" already carries a promise — P14B.1 attaches at most one; re-submit the proposal to revise it
+   × P14B.1 test 7: rival symmetry > a rival first take satisfies a promise exactly as a player one does — found by direct search over the natural chain (never a magic week) 251ms
+     → expected null to be 'SATISFIED' // Object.is equality
+ ✓ |core| tests/p14b1-first-take.test.ts (3 tests) 1911ms
+   ✓ P14B.1 test 1: the first-take receipt > PLAYER: never at shooting entry (empty at remainingTicks 5, shooting task unassigned then scheduled through the real actions, still empty after scheduling); appended exactly once at the 5 -> 4 advance; idempotent on a later tick; byte-stable across save/load 1675ms
+ ✓ |core| tests/p14b1-save-v29.test.ts (6 tests) 714ms
+ ✓ |core| tests/p14b1-leak.test.ts (2 tests) 2442ms
+   ✓ P14B.1 test 9: leak — a rival promise never discloses to a non-issuer, and settlement reasons stay ordering-only > a promise attached to the RIVAL's proposal says UNKNOWN on the player's disclosure view and something other than UNKNOWN on the rival's own 1701ms
+   ✓ P14B.1 test 9: leak — a rival promise never discloses to a non-issuer, and settlement reasons stay ordering-only > settlement reasons stay ordering-only (no dollar sign, no bare 3+-digit figure) even when an attached promise is part of the decision 740ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 4 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14b1-promises.test.ts > P14B.1 test 5: outcomes > BROKEN immediately (within one tick) when the issuing studio terminates the beneficiary early
+Error: test premise failed: the promise never reached an outcome within one tick of releaseTalent
+ ❯ tests/p14b1-promises.test.ts:724:37
+    722|     const afterTick = tick(state) // interpretation 4: outcome lands o…
+    723|     const broken = promiseOutcomes(afterTick).find((p: PersistedPromis…
+    724|     if (broken === undefined) throw new Error('test premise failed: th…
+       |                                     ^
+    725|     expect(broken.outcome).toBe('BROKEN')
+    726|     expect(broken.outcomeCause ?? '').toMatch(/terminat/i)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/4]⎯
+
+ FAIL |core|  tests/p14b1-promises.test.ts > P14B.1 test 5: outcomes > BROKEN on capacity collapse: cancelling the promised person's ONLY production before its first take, with a due week too close for any other path, makes re-feasibility IMPOSSIBLE and the promise BROKEN
+Error: test premise failed: the promise never reached an outcome within one tick of cancel
+ ❯ tests/p14b1-promises.test.ts:780:37
+    778|     const afterTick = tick(state)
+    779|     const broken = promiseOutcomes(afterTick).find((p: PersistedPromis…
+    780|     if (broken === undefined) throw new Error('test premise failed: th…
+       |                                     ^
+    781|     expect(broken.outcome).toBe('BROKEN')
+    782|   })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/4]⎯
+
+ FAIL |core|  tests/p14b1-trust-chooser.test.ts > P14B.1 test 7: rival symmetry > rival promise AUTHORING (ruling ii): the FIRST rival proposalSubmitted receipts on the natural chain are for the rivals' own WRITER subjects — IMPOSSIBLE under the landed M16.2 role gate (a writer takes no cast seat), so that proposal carries NO promise (true both today and after T2b); walking on to the first ACTOR-subject rival proposal, whose own feasibility is REASONABLY_ACHIEVABLE, it must carry exactly one P1 promise naming family APPEARANCE_COUNT — RED today (rivals author no promise yet); T2b makes it green
+Error: promises: studio "studio-aca408ec-r01"'s proposal for "person-studio-aca408ec-r01-2" already carries a promise — P14B.1 attaches at most one; re-submit the proposal to revise it
+ ❯ Module.attachPromise src/core/promises.ts:426:11
+    424|   }
+    425|   if (proposal.promises.length > 0) {
+    426|     throw new Error(
+       |           ^
+    427|       `promises: studio "${issuerStudioId}"'s proposal for "${talentId…
+    428|     )
+ ❯ tests/p14b1-trust-chooser.test.ts:431:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/4]⎯
+
+ FAIL |core|  tests/p14b1-trust-chooser.test.ts > P14B.1 test 7: rival symmetry > a rival first take satisfies a promise exactly as a player one does — found by direct search over the natural chain (never a magic week)
+AssertionError: expected null to be 'SATISFIED' // Object.is equality
+
+- Expected: 
+"SATISFIED"
+
++ Received: 
+null
+
+ ❯ tests/p14b1-trust-chooser.test.ts:495:29
+    493|     }
+    494|     if (record2 === undefined) throw new Error('test premise failed: t…
+    495|     expect(record2.outcome).toBe('SATISFIED')
+       |                             ^
+    496|   })
+    497| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/4]⎯
+
+ Test Files  2 failed | 3 passed (5)
+      Tests  4 failed | 32 passed | 3 todo (39)
+   Start at  23:35:31
+   Duration  26.67s (transform 1.80s, setup 0ms, collect 3.72s, tests 20.89s, environment 2ms, prepare 545ms)
+
+exit 1
+
+=== npx vitest run --project core --minWorkers=1 --maxWorkers=1 --reporter=dot tests/p14a1-f1-priority-order.test.ts tests/p14a1-save-v28.test.ts tests/p14a1-settlement.test.ts tests/p14a1-decline-reasons.test.ts tests/p14a1-seat-budget.test.ts ===
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p14a1-seat-budget.test.ts (4 tests) 7351ms
+   ✓ P14A.1: rival seat budget at freeze (commitRivalWinner has no seat cap; rivalProposalTrigger branch (c) fires for everyone at a synchronized expiry) > A. natural synchronized expiry at week 208 (seed 'p13-public-commercial-adoption'): every rival studio's active roster stays within RIVAL_TEAM_ROLES per role and in total at week 209 5220ms
+   ✓ P14A.1: rival seat budget at freeze (commitRivalWinner has no seat cap; rivalProposalTrigger branch (c) fires for everyone at a synchronized expiry) > B. unit-scale: a rival that already holds its full RIVAL_TEAM_ROLES actor seats through the decision week submits a challenge proposal on a player's expiring actor → declined, reason 'all proposals dropped', one drop sentence naming the rival and containing 'seat'; the rival's roster does not grow 726ms
+   ✓ P14A.1: rival seat budget at freeze (commitRivalWinner has no seat cap; rivalProposalTrigger branch (c) fires for everyone at a synchronized expiry) > C. the player is NOT seat-budgeted: a dominant incumbent player proposal settles even though the player already holds more actor contracts than RIVAL_TEAM_ROLES's 3-actor cap (guard against over-reach of the fix) — GREEN now, must stay GREEN 691ms
+   ✓ P14A.1: rival seat budget at freeze (commitRivalWinner has no seat cap; rivalProposalTrigger branch (c) fires for everyone at a synchronized expiry) > D. a rival that IS full at the decision week has its challenge on the player's expiring actor seat-dropped (dropped[] names the rival and contains "seat"), while the case still settles to the incumbent player 712ms
+ ✓ |core| tests/p14a1-save-v28.test.ts (10 tests) 1537ms
+   ✓ P14A.1 test 8: Save V28 (genuine V27 fixtures, honest lift, downgrade, validator refusals, sentinel 29) > R4 legacy terminations: a V27 termination priced under the OLD 50% law still validates through the frozen chain, and lifts to V28 recorded as legacy with no invented back-charge 329ms
+ ✓ |core| tests/p14a1-decline-reasons.test.ts (2 tests | 1 skipped) 4775ms
+   ✓ P14A.1: typed decline reasons > B. all proposals dropped: a single rival proposal fails affordability at the decision week → reason "all proposals dropped", one sentence naming the studio and the bonus predicate, never "reservation" 4773ms
+ ✓ |core| tests/p14a1-settlement.test.ts (3 tests) 4154ms
+   ✓ P14A.1 test 5: atomic settlement > a dominant incumbent proposal wins deterministically at the decision week, with order-only reasons and no amounts 2547ms
+   ✓ P14A.1 test 5: atomic settlement > price drift does not invalidate a proposal's version: a proposal submitted at the window's first week settles at the re-derived decision-week price, not the submission-week quote 800ms
+   ✓ P14A.1 test 5: atomic settlement > the digest covers material terms only: a price drift leaves the version digest unchanged 804ms
+ ✓ |core| tests/p14a1-f1-priority-order.test.ts (5 tests | 1 skipped) 9ms
+
+ Test Files  5 passed (5)
+      Tests  22 passed | 2 todo (24)
+   Start at  23:36:13
+   Duration  25.56s (transform 2.40s, setup 0ms, collect 5.04s, tests 17.83s, environment 2ms, prepare 794ms)
+
+exit 0
+
+=== npx vitest run --project core --minWorkers=1 --maxWorkers=1 --reporter=dot tests/p13a-rival-adoption.test.ts tests/bridge-p13b-s8-rivals.test.ts ===
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/bridge-p13b-s8-rivals.test.ts (17 tests | 8 failed) 2763ms
+   × P13B-S8-T3 item 1: projection version bump 40 -> 41; converted flag > converted: false for a genuine current live-version save, round-tripped through save()/load() on the SAME session (regression guard — matches tests/bridge-p13b-r07-setup.test.ts's own now-fixed case) 213ms
+     → checkpoint.currentSaveJson: must be a current V28 save, received V29
+   × P13B-S8-T3 item 1: projection version bump 40 -> 41; converted flag > converted: true BY CONSTRUCTION for a genuine V26 fixture load (legacy-v26-lighting-restored-795, saveVersion 26 !== LIVE_SAVE_VERSION) — see header for why this cannot be a directly observed wire boolean through the current session API 622ms
+     → validateSaveV29: firstTakes root missing
+   ✓ P13B-S8-T3 item 3: rival finance exposed only through existing public standings > researchCapacity, technologyRestoration and technologyRefund never appear on the industry pulse page, the Laboratory page, or session.snapshot() (week 13: researchCapacity is genuinely nonzero from real rival Lab admission) 485ms
+   × P13B-S8-T3 item 3: rival finance exposed only through existing public standings > the player's own finance researchSpend channel reads $0 in every window even while the rival's real researchSpend is nonzero elsewhere in the same state (week 288) 172ms
+     → $.snapshot.talent.talent.profiles[0].marketCase: matched no allowed type ($.snapshot.talent.talent.profiles[0].marketCase.preferences.priorityOrder[0]: expected one of compensation, term, standing, incumbency; $.snapshot.talent.talent.profiles[0].marketCase: expected null)
+   × P13B-S8-T3 item 5: the bridge accepts a real S8 state on snapshot(); history projections ignore the five kinds > session.snapshot() does not throw on a naturally-reached state carrying all five S8 receipt kinds and genuinely nonzero researchCapacity/researchSpend (week 288) 101ms
+     → expected [Function] to not throw an error but 'BridgeSchemaError: $.snapshot.talent.…' was thrown
+   × P13B-S8-T3 item 5: the bridge accepts a real S8 state on snapshot(); history projections ignore the five kinds > the player's own History (historyProjection, a disjoint root from IndustryReceipt) is untouched: session.snapshot() does not throw and its history section mentions none of the five kinds (week 288) 86ms
+     → expected [Function] to not throw an error but 'BridgeSchemaError: $.snapshot.talent.…' was thrown
+   × P13B-S8-T3 item 6: live-version save round-trip, Save As, genuine V26 fixture loads > a live-version save round-trips through the bridge byte-identically (week 288, real S8 facts: all five receipt kinds, nonzero researchCapacity/researchSpend) 187ms
+     → checkpoint.currentSaveJson: must be a current V28 save, received V29
+   × P13B-S8-T3 item 6: live-version save round-trip, Save As, genuine V26 fixture loads > a Save As world keeps the same rival receipts and publishes identical industry rows (week 13, natural rival Lab facts) 30ms
+     → checkpoint.currentSaveJson: must be a current V28 save, received V29
+   × P13B-S8-T3 item 6: live-version save round-trip, Save As, genuine V26 fixture loads > the three genuine V26 fixtures load through the bridge (sha256 verified) and their industry pulse page carries no S8-kind text anywhere (V26 predates S8; converted true by construction as item 1 documents) 326ms
+     → validateSaveV29: firstTakes root missing
+ ✓ |core| tests/p13a-rival-adoption.test.ts (2 tests) 10201ms
+   ✓ P13A shared commercial adoption and exact rival cash consequence > uses the shared player/rival eligibility function and debits only technology adoption without new plant or RNG draws 521ms
+   ✓ P13A shared commercial adoption and exact rival cash consequence > replays the actual weekly commercial purchase, reconciles its debit and creates one dated operational receipt 1560ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 8 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/bridge-p13b-s8-rivals.test.ts > P13B-S8-T3 item 1: projection version bump 40 -> 41; converted flag > converted: false for a genuine current live-version save, round-tripped through save()/load() on the SAME session (regression guard — matches tests/bridge-p13b-r07-setup.test.ts's own now-fixed case)
+BridgeRuntimeCheckpointError: checkpoint.currentSaveJson: must be a current V28 save, received V29
+ ❯ fail bridge/runtime-checkpoint.ts:329:9
+    327| 
+    328| function fail(path: string, message: string): never {
+    329|   throw new BridgeRuntimeCheckpointError(path, message)
+       |         ^
+    330| }
+    331| 
+ ❯ validateCanonicalCurrentSave bridge/runtime-checkpoint.ts:452:5
+ ❯ hydrateAndEncodeBridgeRuntimeCheckpoint bridge/runtime-checkpoint.ts:1074:23
+ ❯ Module.createEncodedBridgeRuntimeCheckpoint bridge/runtime-checkpoint.ts:1321:20
+ ❯ BridgeSession.prepareEntry bridge/session.ts:2196:21
+ ❯ BridgeSession.executeSave bridge/session.ts:1992:24
+ ❯ BridgeSession.save bridge/session.ts:1968:17
+ ❯ tests/bridge-p13b-s8-rivals.test.ts:230:27
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/8]⎯
+
+ FAIL |core|  tests/bridge-p13b-s8-rivals.test.ts > P13B-S8-T3 item 1: projection version bump 40 -> 41; converted flag > converted: true BY CONSTRUCTION for a genuine V26 fixture load (legacy-v26-lighting-restored-795, saveVersion 26 !== LIVE_SAVE_VERSION) — see header for why this cannot be a directly observed wire boolean through the current session API
+Error: validateSaveV29: firstTakes root missing
+ ❯ validateSaveV29 src/core/save.ts:8577:48
+    8575|   if (save.saveVersion !== 29) throw new Error('validateSaveV29: expec…
+    8576|   const raw = v14Record(checkEnvelope(save, 'validateSaveV29'), 'state…
+    8577|   if (!Object.hasOwn(raw, 'firstTakes')) throw new Error('validateSave…
+       |                                                ^
+    8578|   if (!Object.hasOwn(raw, 'promises')) throw new Error('validateSaveV2…
+    8579|   validatePromiseRoots(raw);
+ ❯ makeSave src/core/save.ts:6389:16
+ ❯ Module.exportCurrentState src/core/save.ts:6412:26
+ ❯ Module.exportSaveJson ui/src/engine/adapter.ts:3780:10
+ ❯ bridge/snapshot-build-context.ts:118:12
+ ❯ Object.saveJson bridge/snapshot-build-context.ts:103:15
+ ❯ Function.fromSaveJson bridge/session.ts:1359:47
+ ❯ tests/bridge-p13b-s8-rivals.test.ts:246:35
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/8]⎯
+
+ FAIL |core|  tests/bridge-p13b-s8-rivals.test.ts > P13B-S8-T3 item 3: rival finance exposed only through existing public standings > the player's own finance researchSpend channel reads $0 in every window even while the rival's real researchSpend is nonzero elsewhere in the same state (week 288)
+BridgeSchemaError: $.snapshot.talent.talent.profiles[0].marketCase: matched no allowed type ($.snapshot.talent.talent.profiles[0].marketCase.preferences.priorityOrder[0]: expected one of compensation, term, standing, incumbency; $.snapshot.talent.talent.profiles[0].marketCase: expected null)
+ ❯ project bridge/schema/runtime.ts:110:11
+    108|       }
+    109|     }
+    110|     throw new BridgeSchemaError(path, `matched no allowed type (${fail…
+       |           ^
+    111|   }
+    112| 
+ ❯ project bridge/schema/runtime.ts:170:23
+ ❯ bridge/schema/runtime.ts:145:42
+ ❯ project bridge/schema/runtime.ts:145:20
+ ❯ project bridge/schema/runtime.ts:170:23
+ ❯ project bridge/schema/runtime.ts:170:23
+ ❯ section bridge/schema/runtime.ts:202:5
+ ❯ Module.projectStudioProjectionBundle bridge/schema/runtime.ts:222:13
+ ❯ BridgeSession.snapshotFor bridge/session.ts:1501:22
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/8]⎯
+
+ FAIL |core|  tests/bridge-p13b-s8-rivals.test.ts > P13B-S8-T3 item 5: the bridge accepts a real S8 state on snapshot(); history projections ignore the five kinds > session.snapshot() does not throw on a naturally-reached state carrying all five S8 receipt kinds and genuinely nonzero researchCapacity/researchSpend (week 288)
+AssertionError: expected [Function] to not throw an error but 'BridgeSchemaError: $.snapshot.talent.…' was thrown
+
+- Expected: 
+undefined
+
++ Received: 
+"BridgeSchemaError: $.snapshot.talent.talent.profiles[0].marketCase: matched no allowed type ($.snapshot.talent.talent.profiles[0].marketCase.preferences.priorityOrder[0]: expected one of compensation, term, standing, incumbency; $.snapshot.talent.talent.profiles[0].marketCase: expected null)"
+
+ ❯ tests/bridge-p13b-s8-rivals.test.ts:364:42
+    362|     // Named, not silently skipped.
+    363|     const session = new BridgeSession(WEEK288, 'p13b-s8-snapshot-accep…
+    364|     expect(() => session.snapshot()).not.toThrow()
+       |                                          ^
+    365|   })
+    366| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/8]⎯
+
+ FAIL |core|  tests/bridge-p13b-s8-rivals.test.ts > P13B-S8-T3 item 5: the bridge accepts a real S8 state on snapshot(); history projections ignore the five kinds > the player's own History (historyProjection, a disjoint root from IndustryReceipt) is untouched: session.snapshot() does not throw and its history section mentions none of the five kinds (week 288)
+AssertionError: expected [Function] to not throw an error but 'BridgeSchemaError: $.snapshot.talent.…' was thrown
+
+- Expected: 
+undefined
+
++ Received: 
+"BridgeSchemaError: $.snapshot.talent.talent.profiles[0].marketCase: matched no allowed type ($.snapshot.talent.talent.profiles[0].marketCase.preferences.priorityOrder[0]: expected one of compensation, term, standing, incumbency; $.snapshot.talent.talent.profiles[0].marketCase: expected null)"
+
+ ❯ tests/bridge-p13b-s8-rivals.test.ts:383:53
+    381|     const session = new BridgeSession(WEEK288, 'p13b-s8-player-history…
+    382|     let snap: unknown
+    383|     expect(() => { snap = session.snapshot() }).not.toThrow()
+       |                                                     ^
+    384|     const historyJson = JSON.stringify((snap as { snapshot: { history:…
+    385|     for (const kind of RIVAL_RESEARCH_RECEIPT_KINDS) expect(historyJso…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/8]⎯
+
+ FAIL |core|  tests/bridge-p13b-s8-rivals.test.ts > P13B-S8-T3 item 6: live-version save round-trip, Save As, genuine V26 fixture loads > a live-version save round-trips through the bridge byte-identically (week 288, real S8 facts: all five receipt kinds, nonzero researchCapacity/researchSpend)
+BridgeRuntimeCheckpointError: checkpoint.currentSaveJson: must be a current V28 save, received V29
+ ❯ fail bridge/runtime-checkpoint.ts:329:9
+    327| 
+    328| function fail(path: string, message: string): never {
+    329|   throw new BridgeRuntimeCheckpointError(path, message)
+       |         ^
+    330| }
+    331| 
+ ❯ validateCanonicalCurrentSave bridge/runtime-checkpoint.ts:452:5
+ ❯ hydrateAndEncodeBridgeRuntimeCheckpoint bridge/runtime-checkpoint.ts:1074:23
+ ❯ Module.createEncodedBridgeRuntimeCheckpoint bridge/runtime-checkpoint.ts:1321:20
+ ❯ BridgeSession.prepareEntry bridge/session.ts:2196:21
+ ❯ BridgeSession.executeSave bridge/session.ts:1992:24
+ ❯ BridgeSession.save bridge/session.ts:1968:17
+ ❯ tests/bridge-p13b-s8-rivals.test.ts:401:33
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/8]⎯
+
+ FAIL |core|  tests/bridge-p13b-s8-rivals.test.ts > P13B-S8-T3 item 6: live-version save round-trip, Save As, genuine V26 fixture loads > a Save As world keeps the same rival receipts and publishes identical industry rows (week 13, natural rival Lab facts)
+BridgeRuntimeCheckpointError: checkpoint.currentSaveJson: must be a current V28 save, received V29
+ ❯ fail bridge/runtime-checkpoint.ts:329:9
+    327| 
+    328| function fail(path: string, message: string): never {
+    329|   throw new BridgeRuntimeCheckpointError(path, message)
+       |         ^
+    330| }
+    331| 
+ ❯ validateCanonicalCurrentSave bridge/runtime-checkpoint.ts:452:5
+ ❯ hydrateAndEncodeBridgeRuntimeCheckpoint bridge/runtime-checkpoint.ts:1074:23
+ ❯ Module.createEncodedBridgeRuntimeCheckpoint bridge/runtime-checkpoint.ts:1321:20
+ ❯ BridgeSession.exportRuntimeCheckpointEncoded bridge/session.ts:1414:12
+ ❯ encodeSession bridge/runtime/campaign-library.ts:36:106
+ ❯ Module.initialCampaignLibrary bridge/runtime/campaign-library.ts:64:45
+ ❯ Module.createBridgeRuntimeCoordinator bridge/runtime/runtime-coordinator.ts:311:17
+ ❯ tests/bridge-p13b-s8-rivals.test.ts:441:21
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/8]⎯
+
+ FAIL |core|  tests/bridge-p13b-s8-rivals.test.ts > P13B-S8-T3 item 6: live-version save round-trip, Save As, genuine V26 fixture loads > the three genuine V26 fixtures load through the bridge (sha256 verified) and their industry pulse page carries no S8-kind text anywhere (V26 predates S8; converted true by construction as item 1 documents)
+Error: validateSaveV29: firstTakes root missing
+ ❯ validateSaveV29 src/core/save.ts:8577:48
+    8575|   if (save.saveVersion !== 29) throw new Error('validateSaveV29: expec…
+    8576|   const raw = v14Record(checkEnvelope(save, 'validateSaveV29'), 'state…
+    8577|   if (!Object.hasOwn(raw, 'firstTakes')) throw new Error('validateSave…
+       |                                                ^
+    8578|   if (!Object.hasOwn(raw, 'promises')) throw new Error('validateSaveV2…
+    8579|   validatePromiseRoots(raw);
+ ❯ makeSave src/core/save.ts:6389:16
+ ❯ Module.exportCurrentState src/core/save.ts:6412:26
+ ❯ Module.exportSaveJson ui/src/engine/adapter.ts:3780:10
+ ❯ bridge/snapshot-build-context.ts:118:12
+ ❯ Object.saveJson bridge/snapshot-build-context.ts:103:15
+ ❯ Function.fromSaveJson bridge/session.ts:1359:47
+ ❯ tests/bridge-p13b-s8-rivals.test.ts:478:37
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/8]⎯
+
+ Test Files  1 failed | 1 passed (2)
+      Tests  8 failed | 11 passed (19)
+   Start at  23:36:48
+   Duration  23.80s (transform 2.75s, setup 0ms, collect 9.54s, tests 12.96s, environment 1ms, prepare 290ms)
+
+exit 1
+
+=== BASELINE at 3cd423e (src/core restored to HEAD for this run, then the working changes put back; filtered command as written) ===
+=== npx vitest run --project core --minWorkers=1 --maxWorkers=1 --reporter=dot tests/bridge-p13b-s8-rivals.test.ts | grep -E '^ (✓|❯|×)|→|Tests |Test Files' | cut -c1-170 ===
+ ❯ |core| tests/bridge-p13b-s8-rivals.test.ts (17 tests | 8 failed) 2206ms
+     → checkpoint.currentSaveJson: must be a current V28 save, received V29
+     → validateSaveV29: firstTakes root missing
+     → $.snapshot.talent.talent.profiles[0].marketCase: matched no allowed type ($.snapshot.talent.talent.profiles[0].marketCase.preferences.priorityOrder[0]: expected on
+     → expected [Function] to not throw an error but 'BridgeSchemaError: $.snapshot.talent.…' was thrown
+     → expected [Function] to not throw an error but 'BridgeSchemaError: $.snapshot.talent.…' was thrown
+     → checkpoint.currentSaveJson: must be a current V28 save, received V29
+     → checkpoint.currentSaveJson: must be a current V28 save, received V29
+     → validateSaveV29: firstTakes root missing
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 8 ⎯⎯⎯⎯⎯⎯⎯
+ ❯ fail bridge/runtime-checkpoint.ts:329:9
+ ❯ validateCanonicalCurrentSave bridge/runtime-checkpoint.ts:452:5
+ ❯ hydrateAndEncodeBridgeRuntimeCheckpoint bridge/runtime-checkpoint.ts:1074:23
+ ❯ Module.createEncodedBridgeRuntimeCheckpoint bridge/runtime-checkpoint.ts:1321:20
+ ❯ BridgeSession.prepareEntry bridge/session.ts:2196:21
+ ❯ BridgeSession.executeSave bridge/session.ts:1992:24
+ ❯ BridgeSession.save bridge/session.ts:1968:17
+ ❯ tests/bridge-p13b-s8-rivals.test.ts:230:27
+ ❯ validateSaveV29 src/core/save.ts:8577:48
+ ❯ makeSave src/core/save.ts:6389:16
+ ❯ Module.exportCurrentState src/core/save.ts:6412:26
+ ❯ Module.exportSaveJson ui/src/engine/adapter.ts:3780:10
+ ❯ bridge/snapshot-build-context.ts:118:12
+ ❯ Object.saveJson bridge/snapshot-build-context.ts:103:15
+ ❯ Function.fromSaveJson bridge/session.ts:1359:47
+ ❯ tests/bridge-p13b-s8-rivals.test.ts:246:35
+ ❯ project bridge/schema/runtime.ts:110:11
+ ❯ project bridge/schema/runtime.ts:170:23
+ ❯ bridge/schema/runtime.ts:145:42
+ ❯ project bridge/schema/runtime.ts:145:20
+ ❯ project bridge/schema/runtime.ts:170:23
+ ❯ project bridge/schema/runtime.ts:170:23
+ ❯ section bridge/schema/runtime.ts:202:5
+ ❯ Module.projectStudioProjectionBundle bridge/schema/runtime.ts:222:13
+ ❯ BridgeSession.snapshotFor bridge/session.ts:1501:22
+ ❯ tests/bridge-p13b-s8-rivals.test.ts:364:42
+ ❯ tests/bridge-p13b-s8-rivals.test.ts:383:53
+ ❯ fail bridge/runtime-checkpoint.ts:329:9
+ ❯ validateCanonicalCurrentSave bridge/runtime-checkpoint.ts:452:5
+ ❯ hydrateAndEncodeBridgeRuntimeCheckpoint bridge/runtime-checkpoint.ts:1074:23
+ ❯ Module.createEncodedBridgeRuntimeCheckpoint bridge/runtime-checkpoint.ts:1321:20
+ ❯ BridgeSession.prepareEntry bridge/session.ts:2196:21
+ ❯ BridgeSession.executeSave bridge/session.ts:1992:24
+ ❯ BridgeSession.save bridge/session.ts:1968:17
+ ❯ tests/bridge-p13b-s8-rivals.test.ts:401:33
+ ❯ fail bridge/runtime-checkpoint.ts:329:9
+ ❯ validateCanonicalCurrentSave bridge/runtime-checkpoint.ts:452:5
+ ❯ hydrateAndEncodeBridgeRuntimeCheckpoint bridge/runtime-checkpoint.ts:1074:23
+ ❯ Module.createEncodedBridgeRuntimeCheckpoint bridge/runtime-checkpoint.ts:1321:20
+ ❯ BridgeSession.exportRuntimeCheckpointEncoded bridge/session.ts:1414:12
+ ❯ encodeSession bridge/runtime/campaign-library.ts:36:106
+ ❯ Module.initialCampaignLibrary bridge/runtime/campaign-library.ts:64:45
+ ❯ Module.createBridgeRuntimeCoordinator bridge/runtime/runtime-coordinator.ts:311:17
+ ❯ tests/bridge-p13b-s8-rivals.test.ts:441:21
+ ❯ validateSaveV29 src/core/save.ts:8577:48
+ ❯ makeSave src/core/save.ts:6389:16
+ ❯ Module.exportCurrentState src/core/save.ts:6412:26
+ ❯ Module.exportSaveJson ui/src/engine/adapter.ts:3780:10
+ ❯ bridge/snapshot-build-context.ts:118:12
+ ❯ Object.saveJson bridge/snapshot-build-context.ts:103:15
+ ❯ Function.fromSaveJson bridge/session.ts:1359:47
+ ❯ tests/bridge-p13b-s8-rivals.test.ts:478:37
+ Test Files  1 failed (1)
+      Tests  8 failed | 9 passed (17)
+
+READ: 8 failed | 9 passed (17) BEFORE the change and 8 failed (the SAME eight tests, the same three
+causes: 'must be a current V28 save, received V29', 'validateSaveV29: firstTakes root missing', and the
+priorityOrder enum 'matched no allowed type') AFTER it. tests/p13a-rival-adoption is 2/2 GREEN after the
+change (it was 2/2 RED on the collection fault in (iii) before the SATISFIED outcomeEventId correction).
+NO natural-chain pin moved: no rival cash value, week, digest or roster count in either file changed. The
+eight bridge failures are the inherited T2 V28->V29 bridge breakage the plan records as red until T3.
+
+=== npx vite-node <scratch probe>: state.promises after advanceTo(p13aGeneratedStudio('p13-public-commercial-adoption'), 260) ===
+(columns: promiseId | issuerStudioId | beneficiaryPersonId | outcome | outcomeWeek | outcomeEventId | contractId | evidenceRefs)
+(run WITH the landed change: SATISFIED rows now name their own talent-market-event outcome receipt while
+evidenceRefs still names the causing first take. The same probe BEFORE correction (iii) printed
+  promise-0 ... | SATISFIED | 216 | first-take-event-76 | ... | ["first-take-event-76"]
+  promise-2 ... | SATISFIED | 216 | first-take-event-76 | ... | ["first-take-event-76"]
+  promise-4 ... | SATISFIED | 216 | first-take-event-76 | ... | ["first-take-event-76"]
+i.e. three of r01's promises naming ONE event — the state the V29 root validator refused.
+ALSO READ HERE: ruling (i) holds on the natural chain — every losing rival's authored promise (promise-1,
+-3, -5, -6, -8, -10 and the whole r03/r04 block whose cases declined) keeps outcome null and contractId
+null; and ruling (ii) holds — both solvent rivals author exactly one promise per contested actor case.)
+promises 24 firstTakes 86
+promise-0 | studio-5a47d054-r01 | person-studio-5a47d054-r01-2 | SATISFIED | 216 | talent-market-event-144 | studio-5a47d054-r01:contract:person-studio-5a47d054-r01-2:208 | ["first-take-event-76"]
+promise-1 | studio-5a47d054-r02 | person-studio-5a47d054-r01-2 |  |  |  |  | []
+promise-2 | studio-5a47d054-r01 | person-studio-5a47d054-r01-3 | SATISFIED | 216 | talent-market-event-145 | studio-5a47d054-r01:contract:person-studio-5a47d054-r01-3:208 | ["first-take-event-76"]
+promise-3 | studio-5a47d054-r02 | person-studio-5a47d054-r01-3 |  |  |  |  | []
+promise-4 | studio-5a47d054-r01 | person-studio-5a47d054-r01-4 | SATISFIED | 216 | talent-market-event-146 | studio-5a47d054-r01:contract:person-studio-5a47d054-r01-4:208 | ["first-take-event-76"]
+promise-5 | studio-5a47d054-r02 | person-studio-5a47d054-r01-4 |  |  |  |  | []
+promise-6 | studio-5a47d054-r01 | person-studio-5a47d054-r02-2 |  |  |  |  | []
+promise-7 | studio-5a47d054-r02 | person-studio-5a47d054-r02-2 | SATISFIED | 216 | talent-market-event-147 | studio-5a47d054-r02:contract:person-studio-5a47d054-r02-2:208 | ["first-take-event-77"]
+promise-8 | studio-5a47d054-r01 | person-studio-5a47d054-r02-3 |  |  |  |  | []
+promise-9 | studio-5a47d054-r02 | person-studio-5a47d054-r02-3 | SATISFIED | 216 | talent-market-event-148 | studio-5a47d054-r02:contract:person-studio-5a47d054-r02-3:208 | ["first-take-event-77"]
+promise-10 | studio-5a47d054-r01 | person-studio-5a47d054-r02-4 |  |  |  |  | []
+promise-11 | studio-5a47d054-r02 | person-studio-5a47d054-r02-4 | SATISFIED | 216 | talent-market-event-149 | studio-5a47d054-r02:contract:person-studio-5a47d054-r02-4:208 | ["first-take-event-77"]
+promise-12 | studio-5a47d054-r01 | person-studio-5a47d054-r03-2 |  |  |  |  | []
+promise-13 | studio-5a47d054-r02 | person-studio-5a47d054-r03-2 |  |  |  |  | []
+promise-14 | studio-5a47d054-r01 | person-studio-5a47d054-r03-3 |  |  |  |  | []
+promise-15 | studio-5a47d054-r02 | person-studio-5a47d054-r03-3 |  |  |  |  | []
+promise-16 | studio-5a47d054-r01 | person-studio-5a47d054-r03-4 |  |  |  |  | []
+promise-17 | studio-5a47d054-r02 | person-studio-5a47d054-r03-4 |  |  |  |  | []
+promise-18 | studio-5a47d054-r01 | person-studio-5a47d054-r04-2 |  |  |  |  | []
+promise-19 | studio-5a47d054-r02 | person-studio-5a47d054-r04-2 |  |  |  |  | []
+promise-20 | studio-5a47d054-r01 | person-studio-5a47d054-r04-3 |  |  |  |  | []
+promise-21 | studio-5a47d054-r02 | person-studio-5a47d054-r04-3 |  |  |  |  | []
+promise-22 | studio-5a47d054-r01 | person-studio-5a47d054-r04-4 |  |  |  |  | []
+promise-23 | studio-5a47d054-r02 | person-studio-5a47d054-r04-4 |  |  |  |  | []
+exit 0
+
+════════════════════════════════════════════════════════════════════════════════
+COUNTS (target -> actual)
+════════════════════════════════════════════════════════════════════════════════
+ tests/p14b1-first-take.test.ts        3/3        -> 3/3            MET
+ tests/p14b1-promises.test.ts          15/15      -> 13 passed, 2 failed (15)
+ tests/p14b1-trust-chooser.test.ts     10 + 3 todo-> 8 passed, 2 failed, 3 todo (13)
+ tests/p14b1-save-v29.test.ts          6/6        -> 6/6            MET (unchanged from T2)
+ tests/p14b1-leak.test.ts              2/2        -> 2/2            MET (unchanged from T2)
+ tests/p14a1-f1-priority-order.test.ts 4 + 1 todo -> 4 passed + 1 todo (5)   MET
+ tests/p14a1-save-v28.test.ts          10/10      -> 10/10          MET
+ tests/p14a1-settlement.test.ts                   -> 3/3
+ tests/p14a1-decline-reasons.test.ts              -> 1 passed + 1 todo (2)
+ tests/p14a1-seat-budget.test.ts                  -> 4/4
+ tests/p13a-rival-adoption.test.ts                -> 2/2  (pins unmoved)
+ tests/bridge-p13b-s8-rivals.test.ts              -> 9 passed / 8 failed, BYTE-EQUAL to the
+                                                     3cd423e baseline above (inherited V29 bridge
+                                                     breakage, red until T3; not run: typecheck:bridge)
+ npm run typecheck                                -> exit 0, clean
+
+════════════════════════════════════════════════════════════════════════════════
+THE FOUR REMAINING RED CASES AND THEIR PREMISES (no test was edited)
+════════════════════════════════════════════════════════════════════════════════
+R1. tests/p14b1-trust-chooser.test.ts:404 "rival promise AUTHORING (ruling ii) …"
+    Actual: Error at tests/p14b1-trust-chooser.test.ts:431 —
+      promises: studio "studio-aca408ec-r01"'s proposal for "person-studio-aca408ec-r01-2"
+      already carries a promise — P14B.1 attaches at most one; re-submit the proposal to revise it
+    PREMISE THE LAW CANNOT SATISFY: the case probes the classification by calling
+    `attachPromise(state, firstActor.talentId, firstActor.studioId, …)` on the SAME LIVE
+    proposal it then asserts carries one promise. Under ruling (ii) that proposal already
+    carries the rival's authored promise, and `attachPromise` refuses a second one by
+    design (the at-most-one refusal is itself pinned by p14b1-promises test 2). The probe
+    therefore throws BEFORE line 443's `expect(actorProposal.promises.length).toBe(1)`.
+    The failure message is positive evidence that ruling (ii) landed: r01 authored on its
+    own actor case. Its earlier assertion, `writerProposal.promises.length === 0`, passed
+    (the M16.2 role gate makes a writer subject IMPOSSIBLE, so no promise is authored).
+    TEST-SIDE FIX (test-author, not this writer): drop the probe, or read the authored
+    record (the case already does that in its `if (authoredId !== undefined)` block), or
+    probe on a copy whose proposal was withdrawn and re-submitted first.
+
+R2. tests/p14b1-promises.test.ts:697 "BROKEN immediately (within one tick) when the issuing
+    studio terminates the beneficiary early"
+R3. tests/p14b1-promises.test.ts:729 "BROKEN on capacity collapse: cancelling the promised
+    person's ONLY production before its first take …"
+R4. tests/p14b1-trust-chooser.test.ts:451 "a rival first take satisfies a promise exactly as
+    a player one does …"
+    All three were GREEN at T2c and all three fail on ONE premise: each injects a synthetic
+    promise record through the local `withPromises()` helper with `contractId: null`, and
+    ruling (i) makes such a record UNBOUND — never evaluated, so no BROKEN (R2, R3) and no
+    SATISFIED (R4). T2c's own table marks R3 and R4 "UNCHANGED by T2b"; that prediction is
+    falsified by the ruling as the assigning brief words it ("the due-week evaluation, the
+    first-take SATISFIED path, `breakPromisesOnCancel` and the termination path all filter
+    on bound promises"). The player SATISFIED case at line 549 shows the shape that does
+    survive: it sets `contractId: `player:contract:${cast.lead}``.
+    TEST-SIDE FIX (one field per record, test-author): set `contractId` to the real
+    employment row's id (R2/R3: `state.hollywood.employment` after `signOne`; R4: the
+    rival row for `found.cast.lead`), or to the same synthetic string the SATISFIED case
+    uses. No engine change can make an unbound record evaluate without repealing ruling (i).
+    EVIDENCE LIMIT created by this: the termination BROKEN path and the cancel BROKEN path
+    are now unexercised end to end. Their code is untouched apart from the shared
+    `evaluable` gate, and the bound due-week BROKEN path (p14b1-promises:619) and the bound
+    SATISFIED path (p14b1-promises:549, plus 24 rival promises settling on the natural chain
+    in the probe above) both stay green.
+
+════════════════════════════════════════════════════════════════════════════════
+CONFIRMATIONS
+════════════════════════════════════════════════════════════════════════════════
+ · NO SAVE-FORMAT CHANGE. `LIVE_SAVE_VERSION` stays 29; no validator, migrator, converter,
+   projection or frozen-chain file is in the diff (git diff above touches two files:
+   src/core/promises.ts, src/core/talentMarket.ts). tests/p14b1-save-v29 6/6 and
+   tests/p14a1-save-v28 10/10 unchanged. The promise record is the SAME V29 record; a
+   rival's promise adds no field and no new persisted fact.
+ · `rngState` UNTOUCHED. Nothing added consumes RNG: `authorRivalPromise` is a pure read
+   (`promiseFeasibility`) plus `attachPromise`, and the binding gate is a field test.
+   Pinned by tests/p14b1-promises test 3 ("consumes no RNG (state.rngState unchanged)",
+   green) and by tests/p13a-rival-adoption's "without new plant or RNG draws" case on a
+   natural chain that now carries 24 rival promises (green).
+ · Not run, per the assigning brief: `npm run typecheck:bridge` (red until T3), and no suite.
