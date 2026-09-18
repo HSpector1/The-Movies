@@ -1,0 +1,178 @@
+P14B.1-T1 — engine tests 1-9 RED at module resolution of src/core/promises.ts
+Repo /Users/zacheryspector/The-Movies-headless-program, branch wip/headless-program-20260916-ts.
+HEAD at start of this evidence capture: 206223f (p14b1 T0). Node v20.20.2, vitest 2.1.9.
+Machine: 2 cores; single worker per run (--minWorkers=1 --maxWorkers=1); before EVERY run, a separate
+'ps -axo command | grep -c [v]itest' probe returned 0 (recorded, not shown per-run below to keep this
+file to the required commands' raw output; every probe in this session returned 0).
+
+=== npm run -s typecheck ===
+tests/p14b1-first-take.test.ts(80,35): error TS2307: Cannot find module '../src/core/promises.js' or its corresponding type declarations.
+tests/p14b1-leak.test.ts(59,31): error TS2307: Cannot find module '../src/core/promises.js' or its corresponding type declarations.
+tests/p14b1-promises.test.ts(105,87): error TS2307: Cannot find module '../src/core/promises.js' or its corresponding type declarations.
+tests/p14b1-save-v29.test.ts(70,35): error TS2307: Cannot find module '../src/core/promises.js' or its corresponding type declarations.
+tests/p14b1-trust-chooser.test.ts(105,48): error TS2307: Cannot find module '../src/core/promises.js' or its corresponding type declarations.
+EXIT:2
+
+=== npx vitest run --project core --minWorkers=1 --maxWorkers=1 --reporter=dot tests/p14b1-first-take.test.ts ===
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/p14b1-first-take.test.ts (0 test)
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14b1-first-take.test.ts [ tests/p14b1-first-take.test.ts ]
+Error: Failed to load url ../src/core/promises.js (resolved id: ../src/core/promises.js) in /Users/zacheryspector/The-Movies-headless-program/tests/p14b1-first-take.test.ts. Does the file exist?
+ ❯ loadAndTransform node_modules/vitest/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:51969:17
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed (1)
+      Tests  no tests
+   Start at  21:36:22
+   Duration  2.74s (transform 1.59s, setup 0ms, collect 0ms, tests 0ms, environment 0ms, prepare 130ms)
+
+EXIT:1
+
+=== npx vitest run --project core --minWorkers=1 --maxWorkers=1 --reporter=dot tests/p14b1-promises.test.ts ===
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/p14b1-promises.test.ts (0 test)
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14b1-promises.test.ts [ tests/p14b1-promises.test.ts ]
+Error: Failed to load url ../src/core/promises.js (resolved id: ../src/core/promises.js) in /Users/zacheryspector/The-Movies-headless-program/tests/p14b1-promises.test.ts. Does the file exist?
+ ❯ loadAndTransform node_modules/vitest/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:51969:17
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed (1)
+      Tests  no tests
+   Start at  21:36:37
+   Duration  2.24s (transform 1.36s, setup 0ms, collect 0ms, tests 0ms, environment 0ms, prepare 101ms)
+
+EXIT:1
+
+=== npx vitest run --project core --minWorkers=1 --maxWorkers=1 --reporter=dot tests/p14b1-trust-chooser.test.ts ===
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/p14b1-trust-chooser.test.ts (0 test)
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14b1-trust-chooser.test.ts [ tests/p14b1-trust-chooser.test.ts ]
+Error: Failed to load url ../src/core/promises.js (resolved id: ../src/core/promises.js) in /Users/zacheryspector/The-Movies-headless-program/tests/p14b1-trust-chooser.test.ts. Does the file exist?
+ ❯ loadAndTransform node_modules/vitest/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:51969:17
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed (1)
+      Tests  no tests
+   Start at  21:36:50
+   Duration  2.45s (transform 1.42s, setup 0ms, collect 0ms, tests 0ms, environment 0ms, prepare 123ms)
+
+EXIT:1
+
+=== npx vitest run --project core --minWorkers=1 --maxWorkers=1 --reporter=dot tests/p14b1-save-v29.test.ts ===
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/p14b1-save-v29.test.ts (0 test)
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14b1-save-v29.test.ts [ tests/p14b1-save-v29.test.ts ]
+Error: Failed to load url ../src/core/promises.js (resolved id: ../src/core/promises.js) in /Users/zacheryspector/The-Movies-headless-program/tests/p14b1-save-v29.test.ts. Does the file exist?
+ ❯ loadAndTransform node_modules/vitest/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:51969:17
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed (1)
+      Tests  no tests
+   Start at  21:37:02
+   Duration  2.00s (transform 1.27s, setup 0ms, collect 0ms, tests 0ms, environment 0ms, prepare 93ms)
+
+EXIT:1
+
+=== npx vitest run --project core --minWorkers=1 --maxWorkers=1 --reporter=dot tests/p14b1-leak.test.ts ===
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/p14b1-leak.test.ts (0 test)
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14b1-leak.test.ts [ tests/p14b1-leak.test.ts ]
+Error: Failed to load url ../src/core/promises.js (resolved id: ../src/core/promises.js) in /Users/zacheryspector/The-Movies-headless-program/tests/p14b1-leak.test.ts. Does the file exist?
+ ❯ loadAndTransform node_modules/vitest/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:51969:17
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed (1)
+      Tests  no tests
+   Start at  21:37:13
+   Duration  2.54s (transform 1.52s, setup 0ms, collect 0ms, tests 0ms, environment 0ms, prepare 100ms)
+
+EXIT:1
+
+=== summary: RED at module resolution, exactly one TS2307 each, nothing else ===
+Every one of the five commands above reports "Failed to load url ../src/core/promises.js" —
+module resolution failure, never an undefined-export pass-through. The typecheck run shows
+exactly one TS2307 per new file (five total) and no other diagnostic (no TS7006, no TS2339,
+no TS2322) — the noUnusedLocals/noUnusedParameters/exactOptionalPropertyTypes strict flags in
+tsconfig.json are satisfied by every line in these five files.
+
+file -> groups (describe) -> cases (it + it.todo) -> premise each relies on
+-----------------------------------------------------------------------------
+tests/p14b1-first-take.test.ts -> 1 -> 3 (3 it, 0 todo)
+  premise: genuine V28 fixture tests/fixtures/p14/legacy-v28-shooting-5.json.gz (week 16,
+  sha256 4872e5659c7214b04159d01a97e57261d35b0744bef875c2f37476c5f78f2d82, prod-0008 at
+  remainingTicks===5, minted at 881de7c per tests/fixtures/p13b/PROVENANCE.md); the rival
+  construction's own week (7, seed p13a-core-causal-01, studio-aca408ec-r01:film:0) is NOT
+  hardcoded in the file — it is found at runtime by the same bounded search a disposable,
+  uncommitted vite-node probe used once to confirm the search terminates and the 5->4 advance
+  is clean (no blocker) before this file was written.
+
+tests/p14b1-promises.test.ts -> 4 -> 14 (14 it, 0 todo)
+  premise: the standard open-case-at-week-45/decision-at-52 construction this whole suite
+  already relies on (tests/p14a1-settlement.test.ts, tests/p14a1-disclosure.test.ts); a
+  locally-declared PersistedPromise shape hand-injected onto state.promises wherever no
+  landed action can yet produce the fact (test 4's drift, every sub-case of test 5), mirroring
+  tests/p14a1-save-v28.test.ts's (R4) and tests/p14a1-settlement.test.ts's (induced price
+  drift) own hand-forge convention; a locally-rebuilt plain-greenlight payload (mirroring
+  tests/contracts/_contractFixtures.ts's productionPayload shape, not imported) for the
+  capacity-collapse construction; outcome evaluation assumed to land inside
+  advanceTalentMarketWeek (talentMarket.ts, a T2-named file) within a bounded <=3-tick search
+  rather than the exact same tick as the causing event (actions.ts is NOT in T2's named file
+  list) — flagged as a disagreement candidate in this report.
+
+tests/p14b1-trust-chooser.test.ts -> 2 -> 12 (10 it, 2 todo)
+  premise: the widened archetype priority orders derived by reducing the companion's full
+  per-archetype order over the SIX live descriptors (compensation, term, opportunity, trust,
+  standing, incumbency — relationships still excluded), consistent with (not contradicting)
+  P14A.1-F1's landed fix; a "1-1 tie, add opportunity/trust to one side" construction in place
+  of the literal "equal on compensation, term, standing AND incumbency" case, which is
+  it.todo'd with the obstacle measured directly (a disposable, uncommitted vite-node probe
+  over seed p13-public-commercial-adoption, weeks 209-430: every surviving two-proposal
+  contest keeps the case's own incumbent as one of the two survivors; every non-incumbent-vs-
+  non-incumbent pairing is dropped 0-for-2 at the seat budget before ranking); rival early
+  termination it.todo'd citing companion §2.1.9 verbatim ("Ready work rather than Core").
+
+tests/p14b1-save-v29.test.ts -> 1 -> 6 (6 it, 0 todo)
+  premise: genuine V28 fixture tests/fixtures/p14/legacy-v28-open-case-45.json.gz (week 45,
+  sha256 c9ff26fe70b7216784bf5718ed26d2bef10df8ca836b05050f5e1d7bcaac8afd, 2 live proposals);
+  migration read as a pure additive lift that never recomputes an existing proposal's digest;
+  migrateToV29/validateSaveV29 accessed through a type-widening cast on the save namespace
+  import, exactly as tests/p14a1-save-v28.test.ts did for migrateToV28/validateSaveV28.
+
+tests/p14b1-leak.test.ts -> 1 -> 2 (2 it, 0 todo)
+  premise: the same open-case-at-45/decision-at-52 construction; DisclosedProposal's widened
+  `promise` field accessed through an inline `as unknown as {promise: unknown}` cast (the
+  field does not exist on today's real, resolving DisclosedProposal type); the settlement
+  reasons/dropped regex convention (`/\$|\d{3,}/`) reused verbatim from
+  tests/p14a1-settlement.test.ts.
+
+TOTALS: 5 files, 9 describe groups, 35 `it` cases + 2 `it.todo` = 37 cases named.
