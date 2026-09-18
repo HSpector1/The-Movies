@@ -1,0 +1,130 @@
+── P14A.1 · the three unattributed T4 failures (READ-ONLY; no source or test edit) ──
+Disposable vite-node probes and throwaway `git worktree add` checkouts under the
+session scratchpad, all removed afterwards; node_modules symlinked, one runner at a
+time, every vitest run `--project core --minWorkers=1 --maxWorkers=1`.
+
+═════ REPRODUCED AT HEAD b338ad4 ═════
+tests/bridge-p13-laboratory.test.ts + tests/p13b-s5-conservation.test.ts +
+tests/p13b-s5-equipment.test.ts → Test Files 3 failed (3) · Tests 3 failed | 12 passed (15)
+  1. bridge-p13-laboratory.test.ts:154  AssertionError: expected undefined to be defined
+  2. p13b-s5-conservation.test.ts:152   AssertionError: expected +0 to be 300000
+  3. p13b-s5-equipment.test.ts:130      Error: validateSaveV28: … validateSaveV25: frozen
+                                        V24 state is invalid — Technology save: invalid
+                                        equipment asset identity
+
+═════ BISECT TABLE (each cell = that worktree's OWN tree, run there) ═════
+commit                         case 1                      case 2   case 3
+ef9ff76  S8 close              FAIL "expected 288 to be null" (OLD test file)  PASS  PASS
+e0676f9  S8 CLOSED record      PASS                        PASS     PASS
+d49cc27  T2 engine (market)    FAIL at :168 (pulse row)    PASS     PASS
+c972f99  bridge/ui sweep       [engine fact measured: r02 still buys at 416]   (bracketed PASS)
+a2d59e0  settlement re-deriv.  [engine fact: r02 NO LONGER buys → :154 fails]  PASS  PASS
+b3ad486  typed decline reasons [as above]                  PASS     PASS
+daaf95f  rival seat budget     [as above]                  FAIL     FAIL
+b338ad4  HEAD                  FAIL at :154                FAIL     FAIL
+NOTE ON HONESTY: the laboratory FILE was run at ef9ff76, e0676f9, d49cc27 and HEAD
+only. At c972f99/a2d59e0 the underlying engine fact was measured directly instead
+(whether r02's commercial purchase happens at all), which decides :154 by itself.
+ef9ff76's failure is NOT this case's cause: the file was rewritten one commit later
+at e0676f9 ("two P13A bridge test premises fixed test-side against the one-inventor
+law"), and e0676f9 is the clean green baseline. tests/p13b-s5-conservation.test.ts
+and tests/p13b-s5-equipment.test.ts have NOT changed since ef9ff76 (git log confirms
+no commit touches either file in ef9ff76..b338ad4), so their baseline is clean.
+
+═════ CASE 1 — bridge-p13-laboratory.test.ts:154 — PREMISE (two stacked breaks) ═════
+Seed p13-public-commercial-adoption, initializeHollywood(generateWorld(...)).
+Non-player adoptions and the pulse window, measured:
+  e0676f9  w417: r01 research(276/288) + r02 PURCHASE committed 416, operational 428
+           receipts in weeks 416..428 = 5 {filmSettled 2, filmReleased 1,
+           filmAnnounced 1, technologyAdopted 1}; employment at w416 = 0        → GREEN
+  d49cc27  w417: SAME two rows — r02 still buys at 416, operational 428.
+           receipts in weeks 416..428 = 54 {employment 50, filmAnnounced 2,
+           filmReleased 1, technologyAdopted 1}; employment at w416 EXACTLY 50.
+           BREAK (i): week 416 is the SECOND synchronized expiry (208 + 208), so the
+           settlement round writes 50 employment receipts into the same 13-week pulse
+           window the case reads at pageSize 50, and the single technologyAdopted row
+           is pushed off the page — the case fails at :168
+           (`pulse.activities.some(a => a.eventId === receipt.eventId)` → false),
+           NOT at :154; `pending` was still defined and the receipt still existed.
+  c972f99  r02 @415 cash 10,875,300 reserve 1,633,230 → still buys at 416.
+  a2d59e0  r02 @415 cash 4,991,722 reserve 2,519,334 → NO purchase at all.
+           BREAK (ii), pinned week by week at the commercialWeek floor:
+             w416 r02 cash 3,900,619  reserve 2,774,106  cost 1,475,000 → gate FAILS
+                  by 348,487; stage=yes post=yes stageBusy=false
+             w417..w427 cash falls 3,746,502 → 2,205,332, gate fails every week.
+           The refusing term is unambiguously technologyRival.ts:48
+           (`cash < cost + rivalWeeklyOperatingCost × reserveWeeks`) — the stage is
+           present and unreserved throughout, so no other gate is in play. This is
+           evidence 18's exact 348,487 figure and its exact driver (the settlement
+           law's premium-tier payroll and signing bonuses), measured here on this
+           fixture and pinned to a2d59e0.
+  HEAD     w417: only r01 research(276/288). The commercial purchase MOVED to
+           week 520 by the later-entering r05 (operational 532, equipmentCost
+           300,000). receipts 416..428 = 40 {employment 36, …}, technologyAdopted
+           ABSENT from the window. `find(route === 'purchase')` at 417 → undefined,
+           so the case now fails at :154 instead of :168.
+CLASSIFICATION: PREMISE (test-side re-expression). The case pins a rival commercial
+purchase at week 428 and a pulse row inside a 50-row page at that week. Both are
+falsified by pinned law, not by a defect: (i) a synchronized expiry legitimately
+fills the pulse window with 36–50 employment receipts, and (ii) r02 legitimately
+misses the §48 cash gate by 348,487. Re-expression: derive the purchase week and
+studio from the chain's own receipts (the technique tests/p13a-rival-adoption.test.ts
+already adopted at 1f3fcd6) — measured today that is week 520, studio r05,
+operational 532 — and read the pulse with a page large enough for the settlement
+week, or filter the activity list rather than paging it.
+
+═════ CASE 2 — p13b-s5-conservation.test.ts:152 — PREMISE (selector, one line) ═════
+Fixture advanceTo(p13aLaboratorySlice(), 540); the selector is
+`atWeek540.technology.adoptions.find(a => a.studioId !== own)` — FIRST non-player row
+by ARRAY POSITION.
+  b3ad486  all non-player rows at w540: [r05 purchase, committed 520, equipmentCost
+           300,000]. One row. find() returns it. GREEN.
+  daaf95f  all non-player rows at w540: [r01 RESEARCH, committed 276, operational
+           288, equipmentCost 0] then [r05 purchase, committed 520, equipmentCost
+           300,000]. find() returns r01's research row → equipmentCost 0 ≠ 300,000.
+THE COMMERCIAL PURCHASE ITSELF IS BYTE-UNCHANGED: r05, committedWeek 520,
+equipmentCost 300,000, installationCost 975,000 — exactly what the file's own header
+measured in 2026-09-17. What changed is that the seat budget frees the founding
+rivals' cash (evidence 20: r01 roster 28 → 10, payroll 267,276 → 108,857, cash at
+week 416 37.9M → 52.0M), and on THIS seed that is enough for r01 to complete its own
+sound research and adopt by the RESEARCH route at week 276 — a row that did not
+exist here before. The case's actual claim (the rival purchase reconciles to the
+catalogue and is untouched by the player) still holds.
+CLASSIFICATION: PREMISE. Exact fix, test-side, one line: select the route explicitly,
+`find(a => a.studioId !== own && a.route === 'purchase')` — the SAME correction
+tests/bridge-p13-laboratory.test.ts already made at e0676f9 for the same reason
+("the first non-player row is no longer necessarily this case's own commercial-
+purchase subject"). No engine predicate is at fault.
+
+═════ CASE 3 — p13b-s5-equipment.test.ts:130 — PREMISE (forged root, not the engine) ═════
+The case takes a NATURAL chain (p13bTwoLabWorld → lighting researched to completion,
+week 791) and then FORGES: it pushes one asset `${own}:equipment:0` and hard-sets
+`technology.nextEquipmentId = 1`.
+  b3ad486  at week 791 the world holds 1 equipment row —
+           studio-aca408ec-r05:equipment:0 (commercial, sound) — nextEquipmentId = 1.
+           Forcing nextEquipmentId = 1 is consistent; both rows have index 0. GREEN.
+  daaf95f  at week 791 the world holds 2 equipment rows —
+           studio-aca408ec-r01:equipment:0 (first-prototype, sound) and
+           studio-aca408ec-r05:equipment:1 (commercial, sound) — nextEquipmentId = 2.
+           Forcing nextEquipmentId = 1 leaves r05's row at index 1, and
+           technology.ts:805 refuses: `index >= root.nextEquipmentId` → "invalid
+           equipment asset identity". No id collides with the injected id.
+THE ENGINE'S OWN ROOT IS SELF-CONSISTENT (indices 0 and 1 against nextEquipmentId 2).
+The refusal is produced by the FORGE, which asserts a world-level counter it does not
+own. The new second asset is r01's, from the same seat-budget cash relief as case 2.
+CLASSIFICATION: PREMISE. Exact site: the test's own
+`technologyOf(parsed).nextEquipmentId = 1` at p13b-s5-equipment.test.ts:133 (and the
+hardcoded injected index in `${own}:equipment:0` at :129). Re-expression, test-side:
+read the live counter and inject at the next free index —
+`const n = technologyOf(parsed).nextEquipmentId; id = `${own}:equipment:${n}`;
+technologyOf(parsed).nextEquipmentId = n + 1` — which is forge-order independent and
+survives any future rival asset. The sibling case at :86 does the same thing with
+`${own}:equipment:1` / `nextEquipmentId = 2` and PASSES today only because its own
+fixture happens to hold exactly one prior asset; it carries the same latent premise.
+
+═════ VERDICT ═════
+All three are PREMISE, none is a DEFECT. No engine predicate misbehaves: the §48 cash
+gate, the pulse paging, the adoption array and the equipment-identity validator each
+do exactly what their law says on a world the market and the seat budget legitimately
+changed. Two of the three (cases 2 and 3) are one-line test-side corrections; case 1
+needs the derive-from-receipts re-expression already used elsewhere in this slice.
