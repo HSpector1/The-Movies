@@ -1,7 +1,6 @@
 # P14 — Contested Talent Market, Bonds and Promises, Career Lifecycle — headless plan (logic-first)
 
-**Status (2026-09-18).** DRAFT v1, written after P13B S8's engine and bridge landed and before its matched pass closed; refined and audited
-(contract-auditor, read-only) before P14A.1 begins. Engine implementation and verification only; Unity/rendered UI/native/visual acceptance
+**Status (2026-09-18).** DRAFT v1 written after P13B S8's engine and bridge landed and before its matched pass closed; AUDITED (contract-auditor, read-only, ≈06:40): two blocking items (T0 gated on the S8 close; the Identities row) and six should-fix adopted in place, two coverage tests added (the `staff()` exclusion; the firing disclosure), one P14B flag (first take, not Shooting entry). P14A.1 may begin only after the S8 close commit is named in T0. Engine implementation and verification only; Unity/rendered UI/native/visual acceptance
 deferred and never claimed verified; every engine change creating client work is recorded in `../UNITY-INTEGRATION-BACKLOG.md`.
 
 ## 1. Authority and inputs
@@ -23,12 +22,12 @@ deferred and never claimed verified; every engine change creating client work is
 | P13 seam | P13B fact now in force (branch `wip/headless-program-20260916-ts`) | Consequence for P14 |
 |---|---|---|
 | Era / timeline facts | `campaignDate(week)` (`src/core/calendar.ts`) is the only public era/date law; technology milestones are catalogue data (`researchableWeek`, `commercialWeek`, S7 `publicWindow`); no era root was added | P14 reads `campaignDate` for cohort ages and profile copy; no era symbol to refresh |
-| First-filming seam | S5-R07: a production enters Shooting when its setup units are credited (`ProductionWorkflow.setup`, `setupAdmitted`/`setupCompleted` events); the first take is the first `ShootingTask` after entry | the promise qualifying event and the relationship shared-work boundary read the S5-R07 Shooting entry, not `phaseEntered` alone |
+| First-filming seam | S5-R07: a production enters Shooting when its setup units are credited (`ProductionWorkflow.setup`, `setupAdmitted`/`setupCompleted` events); the first take is the first `ShootingTask` after entry | P14B's promise qualifying event and the relationship shared-work boundary read the FIRST TAKE COMPLETING (the 5 → 4 advance, companion §4.2/R12), which now follows the S5-R07 setup-gated Shooting entry — not Shooting entry itself and not `phaseEntered` alone (flag for the P14B expansion) |
 | Stage durations and capacity | `FACILITY_BLUEPRINTS` (20 entries incl. `restoration-*`, `office-conversion-*`, technology installations); Laboratory capability with 4 seats; installations and cancellations (S6) take bodies offline | the feasibility service (P14B) reads live capability/offline state through `occupancy.ts`; durations from the blueprint table |
 | Professions | `CreativeRole = FilmCreativeRole | 'scientist'`, `Discipline = FilmDiscipline | 'research'`; Scientists employ through the shared contract law (P13A), rivals hire them through `staff()`'s scientist slots (S8) | the Scientist joins market eligibility, aging and retirement; its retirement window and market rule are OPEN (companion §7.3-adjacent; no Owner text) |
 | Rival movements | `RivalMoneyKind` = 14 kinds (P13A `technologyAdoption`; S8 `researchSpend`, `researchCapacity`, `technologyRestoration`, `technologyRefund`); period exact-key validation | P14's `termination` rival kind lands in its own governed save step, as the package foresaw |
 | Persistence | live save **V27** (`LIVE_SAVE_VERSION`), bridge projection **41**, schema `sha256:16b84322…`; frozen chain V12–V26 with positive projections (`projectPlacementPreV26`, `projectHollywoodPreV27`) and policy threading | P14A.1 allocates **V28 / projection 42** at execution; genuine V27 fixtures are minted at the final V27 writer before any P14 source change |
-| Identities | the S8 closeout commit and its matched-pass attribution (P13B progress table) | cited by the P14A.1 records; no Owner acceptance of P13B exists (LOGIC VERIFIED · UNITY NOT VERIFIED only) |
+| Identities | the S8 closeout commit and its matched-pass attribution (P13B progress table) — NOT YET PRODUCED as of this draft; P14A.1-T0 blocks on it | cited by the P14A.1 records once it exists; no Owner acceptance of P13B exists (LOGIC VERIFIED · UNITY NOT VERIFIED only) |
 | Process-global caches | one pre-existing module-level memo in `src/core/hollywood.ts:50` — `employmentByPerson`, a `WeakMap` keyed by the employment ARRAY instance (object identity, GC-safe), not by seed, `worldId`, `PersonId`, `caseId`, `contractId`, receipt id, `campaignId` or `sessionId`; no other module-level `Map`/cache binding in `src/core` (grep 2026-09-18); every P13B reducer is copy-on-write | admissible under the reconciliation's rule (identity-keyed, not id-keyed); P14 adds no seed/id-keyed module state and does not extend this memo |
 
 ## 3. Slice order
@@ -52,26 +51,23 @@ the person's ask (`offerForTalent`), no player money lever; contract terms of ri
 
 **Scope (companion §2.1.10).** One immutable `PersonId`, two entered studios (player + one rival present at week 0), one market case per
 eligible expiry (`discovered → proposals_open → decision_pending → settled | declined | expired | invalidated`), at most one current proposal
-per studio, the symmetric premium tier on both proposals (bounded; CANDIDATE tiers), P10 draft references with version invalidation, the rival
-proposal trigger inside `nextDecisionWeek`, case-aware admission (the incumbent's renewal becomes a proposal while a case is open), the
-terminal atomic settlement at the subject's `endWeekExclusive` (derived on read), the disclosure table (§2.1.5: existence/subject/decision
-week/competing term public; premium/salary/bonus UNKNOWN; ranking reasons order-only after settlement), receipts for discovery, proposal,
+per studio, the symmetric premium tier on both proposals — a small TYPED/ENUMERATED tier, not a continuous input (companion §2.1.4 hypothesis {1.00 … 1.25}; the values OPEN), P10 draft references with version invalidation, the rival
+proposal trigger inside `nextDecisionWeek`, case-aware admission — `applyRenewContract` on a cased person is REFUSED with a new typed refusal `underMarketCase` that redirects to the proposal path (companion §2.1.3/R6), and `staff()`'s existing renewal loop (`hollywoodTick.ts` ≈95–111, which runs BEFORE `decide()` in the same weekly pass and would otherwise auto-renew a rival's expiring person for 208 weeks in the discovery week) EXCLUDES case subjects — the exclusion lands with the case-open check, not with settlement (the second bounded `staff()` edit, companion §2.5), the terminal atomic settlement at the subject's `endWeekExclusive` (derived on read), appended in `tick.ts` AFTER `finishHollywoodWeek(finishTechnologyWeek(finalized))` (the pipeline's last call, on the already-incremented week; companion §2.1.8) — never inside `advanceHollywoodWeek`/`decide()`, which run pre-increment, the disclosure table (§2.1.5: existence/subject/decision week/competing term public; premium/salary/bonus UNKNOWN; ranking reasons order-only after settlement) — a NARROWING of today's blanket rule that rival contract terms are private (`bridge/industry.ts` ≈239 'Contract terms are kept private in Industry.', `bridge/people.ts` ≈516 `contract: null`): the case block discloses exactly the listed fields and those two call sites keep every other term private (test 6 asserts both halves), receipts for discovery, proposal,
 withdrawal, settlement, invalidation; free agents stay instant-sign.
 - Persisted facts: a `talentMarket` root (cases, proposals, receipts) — **Save V28**; a `termination` rival money kind if rival firing is
   reached (deferred: companion §4 "Rival early termination — Ready"), else not in this slice.
 - Bridge (projection 42, text only): profile case block (case status, decision week label, own proposal, competing proposal's known terms
   and UNKNOWN markers, settlement receipt reasons), intent kinds for propose/withdraw, attention rows for the five interrupt causes.
-- OPEN (recorded, not resolved): premium tier bounds and the rival's trigger policy numbers; the anti-exploit guard's exact form (§3.5
-  recommendation); Q1–Q4 of companion §7.3 (none blocks A.1); the Scientist's retirement window and market rule; acceptance wording.
+- SETTLED by the package (not OPEN): the anti-exploit guard is companion §3.5/§3.6 recommendation **R1** — a persistent salary floor toward the releasing studio, no new persisted fact, alternatives (cooldowns) rejected; only its status as a Future-Ops-reviewable recommendation remains, not its form. Direction 8 (no agent) is realised by a `representation` key required and pinned `null` (R10).
+- OPEN (recorded, not resolved): the premium tier values and the rival's trigger policy numbers; Q1–Q4 of companion §7.3 (none blocks A.1); the Scientist's retirement window and market rule; acceptance wording.
 
 **Tests (RED-first, against `src/core/talentMarket.ts`).** 1 eligibility table (six states; reserved rivals cannot propose; in-term
 approaches refused). 2 case lifecycle and derived decision week; invalidation triggers. 3 proposals: one current per studio, premium tier
-bounds, draft reference invalidation, affordability gates (`canAfford` for the player; the rival's reserve). 4 rival trigger inside
-`nextDecisionWeek` (pure policy, receipt-backed). 5 atomic settlement: deterministic ranking, exactly once, receipts, incumbent renewal as a
-proposal, order-only reasons. 6 disclosure (UNKNOWN markers; nothing private leaks). 7 firing: the 26-week cap and the anti-exploit guard.
-8 Save V28 with genuine V27 fixtures; validator refusals. 9 bridge projection 42.
+bounds, draft reference invalidation, affordability gates (`canAfford` for the player; the rival's reserve). 4 rival trigger inside `nextDecisionWeek` (pure policy, receipt-backed) AND the `staff()` case-subject exclusion: a rival's expiring person under an open case is not auto-renewed in the discovery week, so the rival contest of the Core pass sentence is reachable. 5 atomic settlement: deterministic ranking, exactly once, receipts, incumbent renewal as a
+proposal, order-only reasons. 6 disclosure (UNKNOWN markers; nothing private leaks). 7 firing: the 26-week cap, the anti-exploit floor (R1), AND the confirmation's disclosure content per direction 2 (remaining duration, remaining guaranteed compensation, the cap where it applies, the exact charge, the effective end, the other authoritative consequences — the two copy branches of companion §3.4).
+8 Save V28 with genuine V27 fixtures; validator refusals incl. the `representation` key required and `null` (R10). 9 bridge projection 42.
 
 ### P14A.1 tasks
-- [ ] **T0 Genuine V27 fixtures** at the final V27 writer (S8's closeout commit) — `src/harness/p13b/legacy-v27-fixtures.ts`; provenance.
+- [ ] **T0 Genuine V27 fixtures** at the final V27 writer — GATED: runs only after an S8 close/label/attribution commit exists and is named here (a pass may still force engine fixes on top of `ef9ff76`); `src/harness/p13b/legacy-v27-fixtures.ts` (staged); provenance.
 - [ ] **T1 Tests 1–8 RED-first** (test-author). - [ ] **T2 Engine increment** (sim-core; V28; sweep 27→28 incl. rosters/bounds).
 - [ ] **T3 Bridge projection 42** (test 9 RED-first, then sim-core). - [ ] **T4 Matched pass, attribution, label, records, commit, push.**
