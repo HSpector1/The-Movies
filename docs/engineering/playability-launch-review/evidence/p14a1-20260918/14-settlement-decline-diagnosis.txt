@@ -1,0 +1,356 @@
+seed p13b-s8-bridge-probe-01 + commitPlacement(research-laboratory); walking tick() from week 0 to 340
+playerStudioId = studio-efb645e3-player
+
+── case person-studio-efb645e3-r01-0 (writer) · incumbent studio-efb645e3-r01 · opened 196 · DECISION WEEK W=208 · DECLINED
+   reason text: ["no proposal cleared this person’s reservation"]
+   proposals carried into W: 4; submitted AT W (step 3): 0; incumbent proposed: true
+   trigger[studio-efb645e3-r01] nextDecisionWeek=208 branch=a (own person in the window) proposed=true
+   trigger[studio-efb645e3-r02] nextDecisionWeek=208 branch=NONE (covered writer: 1/1) proposed=true
+   trigger[studio-efb645e3-r03] nextDecisionWeek=208 branch=NONE (covered writer: 1/1) proposed=true
+   trigger[studio-efb645e3-r04] nextDecisionWeek=208 branch=c (short writer: holds 0/1 at W) proposed=true
+   proposal { issuer=studio-efb645e3-r01, submittedWeek=196, tier=1, termWeeks=208, startWeek=208 vs W=208 } → SURVIVES (ask(W)=331762, annual=331762, bonus=59717)
+   proposal { issuer=studio-efb645e3-r02, submittedWeek=196, tier=1.1, termWeeks=208, startWeek=208 vs W=208 } → SURVIVES (ask(W)=331762, annual=364938, bonus=65689)
+   proposal { issuer=studio-efb645e3-r03, submittedWeek=196, tier=1.1, termWeeks=208, startWeek=208 vs W=208 } → SURVIVES (ask(W)=331762, annual=364938, bonus=65689)
+   proposal { issuer=studio-efb645e3-r04, submittedWeek=196, tier=1.05, termWeeks=208, startWeek=208 vs W=208 } → SURVIVES (ask(W)=331762, annual=348350, bonus=62703)
+   RANKING (§2.1.7, local copy over the 4 survivors): r01{c0,t0,s2,i1} r02{c1,t0,s2,i0} r03{c1,t0,s0,i0} r04{c1,t0,s2,i0} | pool=[r01,r02,r04] copeland-best=[r01,r02,r04] | after priority order [term>compensation>standing>incumbency] -> [r02,r04] | after earliest submittedWeek (196) -> [r02,r04] | after incumbent-if-present -> [r02,r04] | RESULT NULL (tied.length=2) -> decline-all
+
+── case person-studio-efb645e3-r01-1 (director) · incumbent studio-efb645e3-r01 · opened 196 · DECISION WEEK W=208 · DECLINED
+   reason text: ["no proposal cleared this person’s reservation"]
+   proposals carried into W: 4; submitted AT W (step 3): 0; incumbent proposed: true
+   trigger[studio-efb645e3-r01] nextDecisionWeek=208 branch=a (own person in the window) proposed=true
+   trigger[studio-efb645e3-r02] nextDecisionWeek=208 branch=NONE (covered director: 1/1) proposed=true
+   trigger[studio-efb645e3-r03] nextDecisionWeek=208 branch=NONE (covered director: 1/1) proposed=true
+   trigger[studio-efb645e3-r04] nextDecisionWeek=208 branch=c (short director: holds 0/1 at W) proposed=true
+   proposal { issuer=studio-efb645e3-r01, submittedWeek=196, tier=1, termWeeks=208, startWeek=208 vs W=208 } → SURVIVES (ask(W)=580157, annual=580157, bonus=104428)
+   proposal { issuer=studio-efb645e3-r02, submittedWeek=196, tier=1.1, termWeeks=208, startWeek=208 vs W=208 } → SURVIVES (ask(W)=580157, annual=638173, bonus=114871)
+   proposal { issuer=studio-efb645e3-r03, submittedWeek=196, tier=1.1, termWeeks=208, startWeek=208 vs W=208 } → SURVIVES (ask(W)=580157, annual=638173, bonus=114871)
+   proposal { issuer=studio-efb645e3-r04, submittedWeek=196, tier=1.05, termWeeks=208, startWeek=208 vs W=208 } → SURVIVES (ask(W)=580157, annual=609165, bonus=109650)
+   RANKING (§2.1.7, local copy over the 4 survivors): r01{c0,t2,s2,i1} r02{c1,t2,s2,i0} r03{c1,t2,s0,i0} r04{c1,t2,s2,i0} | pool=[r01,r02,r04] copeland-best=[r01,r02,r04] | after priority order [compensation>term>incumbency>standing] -> [r02,r04] | after earliest submittedWeek (196) -> [r02,r04] | after incumbent-if-present -> [r02,r04] | RESULT NULL (tied.length=2) -> decline-all
+
+── case person-studio-efb645e3-r01-2 (actor) · incumbent studio-efb645e3-r01 · opened 196 · DECISION WEEK W=208 · DECLINED
+   reason text: ["no proposal cleared this person’s reservation"]
+   proposals carried into W: 4; submitted AT W (step 3): 0; incumbent proposed: true
+   trigger[studio-efb645e3-r01] nextDecisionWeek=208 branch=a (own person in the window) proposed=true
+   trigger[studio-efb645e3-r02] nextDecisionWeek=208 branch=NONE (covered actor: 3/3) proposed=true
+   trigger[studio-efb645e3-r03] nextDecisionWeek=208 branch=NONE (covered actor: 3/3) proposed=true
+   trigger[studio-efb645e3-r04] nextDecisionWeek=208 branch=c (short actor: holds 0/3 at W) proposed=true
+   proposal { issuer=studio-efb645e3-r01, submittedWeek=196, tier=1, termWeeks=208, startWeek=208 vs W=208 } → SURVIVES (ask(W)=335475, annual=335475, bonus=60386)
+   proposal { issuer=studio-efb645e3-r02, submittedWeek=196, tier=1.1, termWeeks=208, startWeek=208 vs W=208 } → SURVIVES (ask(W)=335475, annual=369023, bonus=66424)
+   proposal { issuer=studio-efb645e3-r03, submittedWeek=196, tier=1.1, termWeeks=208, startWeek=208 vs W=208 } → SURVIVES (ask(W)=335475, annual=369023, bonus=66424)
+   proposal { issuer=studio-efb645e3-r04, submittedWeek=196, tier=1.05, termWeeks=208, startWeek=208 vs W=208 } → SURVIVES (ask(W)=335475, annual=352249, bonus=63405)
+   RANKING (§2.1.7, local copy over the 4 survivors): r01{c0,t0,s2,i1} r02{c1,t0,s2,i0} r03{c1,t0,s0,i0} r04{c1,t0,s2,i0} | pool=[r01,r02,r04] copeland-best=[r01,r02,r04] | after priority order [term>compensation>standing>incumbency] -> [r02,r04] | after earliest submittedWeek (196) -> [r02,r04] | after incumbent-if-present -> [r02,r04] | RESULT NULL (tied.length=2) -> decline-all
+
+── case person-studio-efb645e3-r01-3 (actor) · incumbent studio-efb645e3-r01 · opened 196 · DECISION WEEK W=208 · DECLINED
+   reason text: ["no proposal cleared this person’s reservation"]
+   proposals carried into W: 4; submitted AT W (step 3): 0; incumbent proposed: true
+   trigger[studio-efb645e3-r01] nextDecisionWeek=208 branch=a (own person in the window) proposed=true
+   trigger[studio-efb645e3-r02] nextDecisionWeek=208 branch=NONE (covered actor: 3/3) proposed=true
+   trigger[studio-efb645e3-r03] nextDecisionWeek=208 branch=NONE (covered actor: 3/3) proposed=true
+   trigger[studio-efb645e3-r04] nextDecisionWeek=208 branch=c (short actor: holds 0/3 at W) proposed=true
+   proposal { issuer=studio-efb645e3-r01, submittedWeek=196, tier=1, termWeeks=208, startWeek=208 vs W=208 } → SURVIVES (ask(W)=778790, annual=778790, bonus=140182)
+   proposal { issuer=studio-efb645e3-r02, submittedWeek=196, tier=1.1, termWeeks=208, startWeek=208 vs W=208 } → SURVIVES (ask(W)=778790, annual=856669, bonus=154200)
+   proposal { issuer=studio-efb645e3-r03, submittedWeek=196, tier=1.1, termWeeks=208, startWeek=208 vs W=208 } → SURVIVES (ask(W)=778790, annual=856669, bonus=154200)
+   proposal { issuer=studio-efb645e3-r04, submittedWeek=196, tier=1.05, termWeeks=208, startWeek=208 vs W=208 } → SURVIVES (ask(W)=778790, annual=817730, bonus=147191)
+   RANKING (§2.1.7, local copy over the 4 survivors): r01{c0,t2,s2,i1} r02{c1,t2,s2,i0} r03{c1,t2,s0,i0} r04{c1,t2,s2,i0} | pool=[r01,r02,r04] copeland-best=[r01,r02,r04] | after priority order [compensation>term>incumbency>standing] -> [r02,r04] | after earliest submittedWeek (196) -> [r02,r04] | after incumbent-if-present -> [r02,r04] | RESULT NULL (tied.length=2) -> decline-all
+
+── case person-studio-efb645e3-r01-4 (actor) · incumbent studio-efb645e3-r01 · opened 196 · DECISION WEEK W=208 · DECLINED
+   reason text: ["no proposal cleared this person’s reservation"]
+   proposals carried into W: 4; submitted AT W (step 3): 0; incumbent proposed: true
+   trigger[studio-efb645e3-r01] nextDecisionWeek=208 branch=a (own person in the window) proposed=true
+   trigger[studio-efb645e3-r02] nextDecisionWeek=208 branch=NONE (covered actor: 3/3) proposed=true
+   trigger[studio-efb645e3-r03] nextDecisionWeek=208 branch=NONE (covered actor: 3/3) proposed=true
+   trigger[studio-efb645e3-r04] nextDecisionWeek=208 branch=c (short actor: holds 0/3 at W) proposed=true
+   proposal { issuer=studio-efb645e3-r01, submittedWeek=196, tier=1, termWeeks=208, startWeek=208 vs W=208 } → SURVIVES (ask(W)=1105726, annual=1105726, bonus=199031)
+   proposal { issuer=studio-efb645e3-r02, submittedWeek=196, tier=1.1, termWeeks=208, startWeek=208 vs W=208 } → SURVIVES (ask(W)=1105726, annual=1216299, bonus=218934)
+   proposal { issuer=studio-efb645e3-r03, submittedWeek=196, tier=1.1, termWeeks=208, startWeek=208 vs W=208 } → SURVIVES (ask(W)=1105726, annual=1216299, bonus=218934)
+   proposal { issuer=studio-efb645e3-r04, submittedWeek=196, tier=1.05, termWeeks=208, startWeek=208 vs W=208 } → SURVIVES (ask(W)=1105726, annual=1161012, bonus=208982)
+   RANKING (§2.1.7, local copy over the 4 survivors): r01{c0,t2,s2,i1} r02{c1,t2,s2,i0} r03{c1,t2,s0,i0} r04{c1,t2,s2,i0} | pool=[r01,r02,r04] copeland-best=[r01,r02,r04] | after priority order [compensation>term>incumbency>standing] -> [r02,r04] | after earliest submittedWeek (196) -> [r02,r04] | after incumbent-if-present -> [r02,r04] | RESULT NULL (tied.length=2) -> decline-all
+
+── case person-studio-efb645e3-r01-5 (craft) · incumbent studio-efb645e3-r01 · opened 196 · DECISION WEEK W=208 · DECLINED
+   reason text: ["no proposal cleared this person’s reservation"]
+   proposals carried into W: 4; submitted AT W (step 3): 0; incumbent proposed: true
+   trigger[studio-efb645e3-r01] nextDecisionWeek=208 branch=a (own person in the window) proposed=true
+   trigger[studio-efb645e3-r02] nextDecisionWeek=208 branch=NONE (covered craft: 1/1) proposed=true
+   trigger[studio-efb645e3-r03] nextDecisionWeek=208 branch=c (short craft: holds 0/1 at W) proposed=true
+   trigger[studio-efb645e3-r04] nextDecisionWeek=208 branch=c (short craft: holds 0/1 at W) proposed=true
+   proposal { issuer=studio-efb645e3-r01, submittedWeek=196, tier=1, termWeeks=208, startWeek=208 vs W=208 } → SURVIVES (ask(W)=917593, annual=917593, bonus=165167)
+   proposal { issuer=studio-efb645e3-r02, submittedWeek=196, tier=1.1, termWeeks=208, startWeek=208 vs W=208 } → SURVIVES (ask(W)=917593, annual=1009352, bonus=181683)
+   proposal { issuer=studio-efb645e3-r03, submittedWeek=196, tier=1.1, termWeeks=208, startWeek=208 vs W=208 } → SURVIVES (ask(W)=917593, annual=1009352, bonus=181683)
+   proposal { issuer=studio-efb645e3-r04, submittedWeek=196, tier=1.05, termWeeks=208, startWeek=208 vs W=208 } → SURVIVES (ask(W)=917593, annual=963473, bonus=173425)
+   RANKING (§2.1.7, local copy over the 4 survivors): r01{c0,t2,s2,i1} r02{c1,t2,s2,i0} r03{c1,t2,s0,i0} r04{c1,t2,s2,i0} | pool=[r01,r02,r04] copeland-best=[r01,r02,r04] | after priority order [compensation>term>incumbency>standing] -> [r02,r04] | after earliest submittedWeek (196) -> [r02,r04] | after incumbent-if-present -> [r02,r04] | RESULT NULL (tied.length=2) -> decline-all
+
+── case person-studio-efb645e3-r02-0 (writer) · incumbent studio-efb645e3-r02 · opened 196 · DECISION WEEK W=208 · SETTLED
+   reason text: ["they are the current employer"]
+   proposals carried into W: 4; submitted AT W (step 3): 0; incumbent proposed: true
+   trigger[studio-efb645e3-r01] nextDecisionWeek=208 branch=c (short writer: holds 0/1 at W) proposed=true
+   trigger[studio-efb645e3-r02] nextDecisionWeek=208 branch=a (own person in the window) proposed=true
+   trigger[studio-efb645e3-r03] nextDecisionWeek=208 branch=NONE (covered writer: 1/1) proposed=true
+   trigger[studio-efb645e3-r04] nextDecisionWeek=208 branch=c (short writer: holds 0/1 at W) proposed=true
+   WINNER: studio-efb645e3-r02 (incumbent? true)
+   RANKING (§2.1.7, local copy over the 4 survivors): r01{c1,t2,s2,i0} r02{c1,t2,s2,i1} r03{c1,t2,s0,i0} r04{c1,t2,s2,i0} | pool=[r02] copeland-best=[r02] | RESULT winner studio-efb645e3-r02
+
+── case person-studio-efb645e3-r02-1 (director) · incumbent studio-efb645e3-r02 · opened 196 · DECISION WEEK W=208 · SETTLED
+   reason text: ["they are the current employer"]
+   proposals carried into W: 4; submitted AT W (step 3): 0; incumbent proposed: true
+   trigger[studio-efb645e3-r01] nextDecisionWeek=208 branch=c (short director: holds 0/1 at W) proposed=true
+   trigger[studio-efb645e3-r02] nextDecisionWeek=208 branch=a (own person in the window) proposed=true
+   trigger[studio-efb645e3-r03] nextDecisionWeek=208 branch=NONE (covered director: 1/1) proposed=true
+   trigger[studio-efb645e3-r04] nextDecisionWeek=208 branch=c (short director: holds 0/1 at W) proposed=true
+   WINNER: studio-efb645e3-r02 (incumbent? true)
+   RANKING (§2.1.7, local copy over the 4 survivors): r01{c1,t0,s2,i0} r02{c1,t0,s2,i1} r03{c1,t0,s0,i0} r04{c1,t0,s2,i0} | pool=[r02] copeland-best=[r02] | RESULT winner studio-efb645e3-r02
+
+── case person-studio-efb645e3-r02-2 (actor) · incumbent studio-efb645e3-r02 · opened 196 · DECISION WEEK W=208 · SETTLED
+   reason text: ["they are the current employer"]
+   proposals carried into W: 4; submitted AT W (step 3): 0; incumbent proposed: true
+   trigger[studio-efb645e3-r01] nextDecisionWeek=208 branch=c (short actor: holds 0/3 at W) proposed=true
+   trigger[studio-efb645e3-r02] nextDecisionWeek=208 branch=a (own person in the window) proposed=true
+   trigger[studio-efb645e3-r03] nextDecisionWeek=208 branch=NONE (covered actor: 3/3) proposed=true
+   trigger[studio-efb645e3-r04] nextDecisionWeek=208 branch=c (short actor: holds 0/3 at W) proposed=true
+   WINNER: studio-efb645e3-r02 (incumbent? true)
+   RANKING (§2.1.7, local copy over the 4 survivors): r01{c1,t2,s2,i0} r02{c1,t2,s2,i1} r03{c1,t2,s0,i0} r04{c1,t2,s2,i0} | pool=[r02] copeland-best=[r02] | RESULT winner studio-efb645e3-r02
+
+── case person-studio-efb645e3-r02-3 (actor) · incumbent studio-efb645e3-r02 · opened 196 · DECISION WEEK W=208 · SETTLED
+   reason text: ["they are the current employer"]
+   proposals carried into W: 4; submitted AT W (step 3): 0; incumbent proposed: true
+   trigger[studio-efb645e3-r01] nextDecisionWeek=208 branch=c (short actor: holds 0/3 at W) proposed=true
+   trigger[studio-efb645e3-r02] nextDecisionWeek=208 branch=a (own person in the window) proposed=true
+   trigger[studio-efb645e3-r03] nextDecisionWeek=208 branch=NONE (covered actor: 3/3) proposed=true
+   trigger[studio-efb645e3-r04] nextDecisionWeek=208 branch=c (short actor: holds 0/3 at W) proposed=true
+   WINNER: studio-efb645e3-r02 (incumbent? true)
+   RANKING (§2.1.7, local copy over the 4 survivors): r01{c1,t2,s2,i0} r02{c1,t2,s2,i1} r03{c1,t2,s0,i0} r04{c1,t2,s2,i0} | pool=[r02] copeland-best=[r02] | RESULT winner studio-efb645e3-r02
+
+── case person-studio-efb645e3-r02-4 (actor) · incumbent studio-efb645e3-r02 · opened 196 · DECISION WEEK W=208 · SETTLED
+   reason text: ["they are the current employer"]
+   proposals carried into W: 4; submitted AT W (step 3): 0; incumbent proposed: true
+   trigger[studio-efb645e3-r01] nextDecisionWeek=208 branch=c (short actor: holds 0/3 at W) proposed=true
+   trigger[studio-efb645e3-r02] nextDecisionWeek=208 branch=a (own person in the window) proposed=true
+   trigger[studio-efb645e3-r03] nextDecisionWeek=208 branch=NONE (covered actor: 3/3) proposed=true
+   trigger[studio-efb645e3-r04] nextDecisionWeek=208 branch=c (short actor: holds 0/3 at W) proposed=true
+   WINNER: studio-efb645e3-r02 (incumbent? true)
+   RANKING (§2.1.7, local copy over the 4 survivors): r01{c1,t2,s2,i0} r02{c1,t2,s2,i1} r03{c1,t2,s0,i0} r04{c1,t2,s2,i0} | pool=[r02] copeland-best=[r02] | RESULT winner studio-efb645e3-r02
+
+── case person-studio-efb645e3-r02-5 (craft) · incumbent studio-efb645e3-r02 · opened 196 · DECISION WEEK W=208 · SETTLED
+   reason text: ["they are the current employer"]
+   proposals carried into W: 4; submitted AT W (step 3): 0; incumbent proposed: true
+   trigger[studio-efb645e3-r01] nextDecisionWeek=208 branch=c (short craft: holds 0/1 at W) proposed=true
+   trigger[studio-efb645e3-r02] nextDecisionWeek=208 branch=a (own person in the window) proposed=true
+   trigger[studio-efb645e3-r03] nextDecisionWeek=208 branch=c (short craft: holds 0/1 at W) proposed=true
+   trigger[studio-efb645e3-r04] nextDecisionWeek=208 branch=c (short craft: holds 0/1 at W) proposed=true
+   WINNER: studio-efb645e3-r02 (incumbent? true)
+   RANKING (§2.1.7, local copy over the 4 survivors): r01{c1,t2,s2,i0} r02{c1,t2,s2,i1} r03{c1,t2,s0,i0} r04{c1,t2,s2,i0} | pool=[r02] copeland-best=[r02] | RESULT winner studio-efb645e3-r02
+
+── case person-studio-efb645e3-r03-0 (writer) · incumbent studio-efb645e3-r03 · opened 196 · DECISION WEEK W=208 · SETTLED
+   reason text: ["they are the current employer"]
+   proposals carried into W: 4; submitted AT W (step 3): 0; incumbent proposed: true
+   trigger[studio-efb645e3-r01] nextDecisionWeek=208 branch=c (short writer: holds 0/1 at W) proposed=true
+   trigger[studio-efb645e3-r02] nextDecisionWeek=208 branch=NONE (covered writer: 1/1) proposed=true
+   trigger[studio-efb645e3-r03] nextDecisionWeek=208 branch=a (own person in the window) proposed=true
+   trigger[studio-efb645e3-r04] nextDecisionWeek=208 branch=c (short writer: holds 0/1 at W) proposed=true
+   WINNER: studio-efb645e3-r03 (incumbent? true)
+   RANKING (§2.1.7, local copy over the 4 survivors): r01{c1,t2,s2,i0} r02{c1,t2,s2,i0} r03{c1,t2,s0,i1} r04{c1,t2,s2,i0} | pool=[r01,r02,r03,r04] copeland-best=[r01,r02,r03,r04] | after priority order [compensation>term>incumbency>standing] -> [r03] | RESULT winner studio-efb645e3-r03
+
+── case person-studio-efb645e3-r03-1 (director) · incumbent studio-efb645e3-r03 · opened 196 · DECISION WEEK W=208 · SETTLED
+   reason text: ["they are the current employer"]
+   proposals carried into W: 4; submitted AT W (step 3): 0; incumbent proposed: true
+   trigger[studio-efb645e3-r01] nextDecisionWeek=208 branch=c (short director: holds 0/1 at W) proposed=true
+   trigger[studio-efb645e3-r02] nextDecisionWeek=208 branch=NONE (covered director: 1/1) proposed=true
+   trigger[studio-efb645e3-r03] nextDecisionWeek=208 branch=a (own person in the window) proposed=true
+   trigger[studio-efb645e3-r04] nextDecisionWeek=208 branch=c (short director: holds 0/1 at W) proposed=true
+   WINNER: studio-efb645e3-r03 (incumbent? true)
+   RANKING (§2.1.7, local copy over the 4 survivors): r01{c1,t2,s2,i0} r02{c1,t2,s2,i0} r03{c1,t2,s0,i1} r04{c1,t2,s2,i0} | pool=[r01,r02,r03,r04] copeland-best=[r01,r02,r03,r04] | after priority order [compensation>term>incumbency>standing] -> [r03] | RESULT winner studio-efb645e3-r03
+
+── case person-studio-efb645e3-r03-2 (actor) · incumbent studio-efb645e3-r03 · opened 196 · DECISION WEEK W=208 · SETTLED
+   reason text: ["they are the current employer"]
+   proposals carried into W: 4; submitted AT W (step 3): 0; incumbent proposed: true
+   trigger[studio-efb645e3-r01] nextDecisionWeek=208 branch=c (short actor: holds 0/3 at W) proposed=true
+   trigger[studio-efb645e3-r02] nextDecisionWeek=208 branch=NONE (covered actor: 3/3) proposed=true
+   trigger[studio-efb645e3-r03] nextDecisionWeek=208 branch=a (own person in the window) proposed=true
+   trigger[studio-efb645e3-r04] nextDecisionWeek=208 branch=c (short actor: holds 0/3 at W) proposed=true
+   WINNER: studio-efb645e3-r03 (incumbent? true)
+   RANKING (§2.1.7, local copy over the 4 survivors): r01{c1,t2,s2,i0} r02{c1,t2,s2,i0} r03{c1,t2,s0,i1} r04{c1,t2,s2,i0} | pool=[r01,r02,r03,r04] copeland-best=[r01,r02,r03,r04] | after priority order [compensation>term>incumbency>standing] -> [r03] | RESULT winner studio-efb645e3-r03
+
+── case person-studio-efb645e3-r03-3 (actor) · incumbent studio-efb645e3-r03 · opened 196 · DECISION WEEK W=208 · SETTLED
+   reason text: ["they are the current employer"]
+   proposals carried into W: 4; submitted AT W (step 3): 0; incumbent proposed: true
+   trigger[studio-efb645e3-r01] nextDecisionWeek=208 branch=c (short actor: holds 0/3 at W) proposed=true
+   trigger[studio-efb645e3-r02] nextDecisionWeek=208 branch=NONE (covered actor: 3/3) proposed=true
+   trigger[studio-efb645e3-r03] nextDecisionWeek=208 branch=a (own person in the window) proposed=true
+   trigger[studio-efb645e3-r04] nextDecisionWeek=208 branch=c (short actor: holds 0/3 at W) proposed=true
+   WINNER: studio-efb645e3-r03 (incumbent? true)
+   RANKING (§2.1.7, local copy over the 4 survivors): r01{c1,t2,s2,i0} r02{c1,t2,s2,i0} r03{c1,t2,s0,i1} r04{c1,t2,s2,i0} | pool=[r01,r02,r03,r04] copeland-best=[r01,r02,r03,r04] | after priority order [compensation>term>incumbency>standing] -> [r03] | RESULT winner studio-efb645e3-r03
+
+── case person-studio-efb645e3-r03-4 (actor) · incumbent studio-efb645e3-r03 · opened 196 · DECISION WEEK W=208 · SETTLED
+   reason text: ["they are the current employer"]
+   proposals carried into W: 4; submitted AT W (step 3): 0; incumbent proposed: true
+   trigger[studio-efb645e3-r01] nextDecisionWeek=208 branch=c (short actor: holds 0/3 at W) proposed=true
+   trigger[studio-efb645e3-r02] nextDecisionWeek=208 branch=NONE (covered actor: 3/3) proposed=true
+   trigger[studio-efb645e3-r03] nextDecisionWeek=208 branch=a (own person in the window) proposed=true
+   trigger[studio-efb645e3-r04] nextDecisionWeek=208 branch=c (short actor: holds 0/3 at W) proposed=true
+   WINNER: studio-efb645e3-r03 (incumbent? true)
+   RANKING (§2.1.7, local copy over the 4 survivors): r01{c1,t2,s2,i0} r02{c1,t2,s2,i0} r03{c1,t2,s0,i1} r04{c1,t2,s2,i0} | pool=[r01,r02,r03,r04] copeland-best=[r01,r02,r03,r04] | after priority order [compensation>term>incumbency>standing] -> [r03] | RESULT winner studio-efb645e3-r03
+
+── case person-studio-efb645e3-r03-5 (craft) · incumbent studio-efb645e3-r03 · opened 196 · DECISION WEEK W=208 · DECLINED
+   reason text: ["no proposal cleared this person’s reservation"]
+   proposals carried into W: 4; submitted AT W (step 3): 0; incumbent proposed: true
+   trigger[studio-efb645e3-r01] nextDecisionWeek=208 branch=c (short craft: holds 0/1 at W) proposed=true
+   trigger[studio-efb645e3-r02] nextDecisionWeek=208 branch=NONE (covered craft: 1/1) proposed=true
+   trigger[studio-efb645e3-r03] nextDecisionWeek=208 branch=a (own person in the window) proposed=true
+   trigger[studio-efb645e3-r04] nextDecisionWeek=208 branch=c (short craft: holds 0/1 at W) proposed=true
+   proposal { issuer=studio-efb645e3-r01, submittedWeek=196, tier=1.05, termWeeks=208, startWeek=208 vs W=208 } → SURVIVES (ask(W)=871381, annual=914950, bonus=164691)
+   proposal { issuer=studio-efb645e3-r02, submittedWeek=196, tier=1.1, termWeeks=208, startWeek=208 vs W=208 } → SURVIVES (ask(W)=871381, annual=958519, bonus=172533)
+   proposal { issuer=studio-efb645e3-r03, submittedWeek=196, tier=1.05, termWeeks=208, startWeek=208 vs W=208 } → SURVIVES (ask(W)=871381, annual=914950, bonus=164691)
+   proposal { issuer=studio-efb645e3-r04, submittedWeek=196, tier=1.05, termWeeks=208, startWeek=208 vs W=208 } → SURVIVES (ask(W)=871381, annual=914950, bonus=164691)
+   RANKING (§2.1.7, local copy over the 4 survivors): r01{c1,t0,s2,i0} r02{c1,t0,s2,i0} r03{c1,t0,s0,i1} r04{c1,t0,s2,i0} | pool=[r01,r02,r03,r04] copeland-best=[r01,r02,r03,r04] | after priority order [term>compensation>standing>incumbency] -> [r01,r02,r04] | after earliest submittedWeek (196) -> [r01,r02,r04] | after incumbent-if-present -> [r01,r02,r04] | RESULT NULL (tied.length=3) -> decline-all
+
+── case person-studio-efb645e3-r04-0 (writer) · incumbent studio-efb645e3-r04 · opened 196 · DECISION WEEK W=208 · DECLINED
+   reason text: ["no proposal cleared this person’s reservation"]
+   proposals carried into W: 4; submitted AT W (step 3): 0; incumbent proposed: true
+   trigger[studio-efb645e3-r01] nextDecisionWeek=208 branch=c (short writer: holds 0/1 at W) proposed=true
+   trigger[studio-efb645e3-r02] nextDecisionWeek=208 branch=NONE (covered writer: 1/1) proposed=true
+   trigger[studio-efb645e3-r03] nextDecisionWeek=208 branch=NONE (covered writer: 1/1) proposed=true
+   trigger[studio-efb645e3-r04] nextDecisionWeek=208 branch=a (own person in the window) proposed=true
+   proposal { issuer=studio-efb645e3-r01, submittedWeek=196, tier=1.05, termWeeks=208, startWeek=208 vs W=208 } → SURVIVES (ask(W)=933239, annual=979901, bonus=176382)
+   proposal { issuer=studio-efb645e3-r02, submittedWeek=196, tier=1.1, termWeeks=208, startWeek=208 vs W=208 } → SURVIVES (ask(W)=933239, annual=1026563, bonus=184781)
+   proposal { issuer=studio-efb645e3-r03, submittedWeek=196, tier=1.1, termWeeks=208, startWeek=208 vs W=208 } → SURVIVES (ask(W)=933239, annual=1026563, bonus=184781)
+   proposal { issuer=studio-efb645e3-r04, submittedWeek=196, tier=1, termWeeks=208, startWeek=208 vs W=208 } → SURVIVES (ask(W)=933239, annual=933239, bonus=167983)
+   RANKING (§2.1.7, local copy over the 4 survivors): r01{c1,t2,s2,i0} r02{c1,t2,s2,i0} r03{c1,t2,s0,i0} r04{c0,t2,s2,i1} | pool=[r01,r02,r04] copeland-best=[r01,r02,r04] | after priority order [compensation>term>incumbency>standing] -> [r01,r02] | after earliest submittedWeek (196) -> [r01,r02] | after incumbent-if-present -> [r01,r02] | RESULT NULL (tied.length=2) -> decline-all
+
+── case person-studio-efb645e3-r04-1 (director) · incumbent studio-efb645e3-r04 · opened 196 · DECISION WEEK W=208 · DECLINED
+   reason text: ["no proposal cleared this person’s reservation"]
+   proposals carried into W: 4; submitted AT W (step 3): 0; incumbent proposed: true
+   trigger[studio-efb645e3-r01] nextDecisionWeek=208 branch=c (short director: holds 0/1 at W) proposed=true
+   trigger[studio-efb645e3-r02] nextDecisionWeek=208 branch=NONE (covered director: 1/1) proposed=true
+   trigger[studio-efb645e3-r03] nextDecisionWeek=208 branch=NONE (covered director: 1/1) proposed=true
+   trigger[studio-efb645e3-r04] nextDecisionWeek=208 branch=a (own person in the window) proposed=true
+   proposal { issuer=studio-efb645e3-r01, submittedWeek=196, tier=1.05, termWeeks=208, startWeek=208 vs W=208 } → SURVIVES (ask(W)=546845, annual=574187, bonus=103354)
+   proposal { issuer=studio-efb645e3-r02, submittedWeek=196, tier=1.1, termWeeks=208, startWeek=208 vs W=208 } → SURVIVES (ask(W)=546845, annual=601530, bonus=108275)
+   proposal { issuer=studio-efb645e3-r03, submittedWeek=196, tier=1.1, termWeeks=208, startWeek=208 vs W=208 } → SURVIVES (ask(W)=546845, annual=601530, bonus=108275)
+   proposal { issuer=studio-efb645e3-r04, submittedWeek=196, tier=1, termWeeks=208, startWeek=208 vs W=208 } → SURVIVES (ask(W)=546845, annual=546845, bonus=98432)
+   RANKING (§2.1.7, local copy over the 4 survivors): r01{c1,t2,s2,i0} r02{c1,t2,s2,i0} r03{c1,t2,s0,i0} r04{c0,t2,s2,i1} | pool=[r01,r02,r04] copeland-best=[r01,r02,r04] | after priority order [compensation>term>incumbency>standing] -> [r01,r02] | after earliest submittedWeek (196) -> [r01,r02] | after incumbent-if-present -> [r01,r02] | RESULT NULL (tied.length=2) -> decline-all
+
+── case person-studio-efb645e3-r04-2 (actor) · incumbent studio-efb645e3-r04 · opened 196 · DECISION WEEK W=208 · DECLINED
+   reason text: ["no proposal cleared this person’s reservation"]
+   proposals carried into W: 4; submitted AT W (step 3): 0; incumbent proposed: true
+   trigger[studio-efb645e3-r01] nextDecisionWeek=208 branch=c (short actor: holds 0/3 at W) proposed=true
+   trigger[studio-efb645e3-r02] nextDecisionWeek=208 branch=NONE (covered actor: 3/3) proposed=true
+   trigger[studio-efb645e3-r03] nextDecisionWeek=208 branch=NONE (covered actor: 3/3) proposed=true
+   trigger[studio-efb645e3-r04] nextDecisionWeek=208 branch=a (own person in the window) proposed=true
+   proposal { issuer=studio-efb645e3-r01, submittedWeek=196, tier=1.05, termWeeks=208, startWeek=208 vs W=208 } → SURVIVES (ask(W)=1512036, annual=1587638, bonus=285775)
+   proposal { issuer=studio-efb645e3-r02, submittedWeek=196, tier=1.1, termWeeks=208, startWeek=208 vs W=208 } → SURVIVES (ask(W)=1512036, annual=1663240, bonus=299383)
+   proposal { issuer=studio-efb645e3-r03, submittedWeek=196, tier=1.1, termWeeks=208, startWeek=208 vs W=208 } → SURVIVES (ask(W)=1512036, annual=1663240, bonus=299383)
+   proposal { issuer=studio-efb645e3-r04, submittedWeek=196, tier=1, termWeeks=208, startWeek=208 vs W=208 } → SURVIVES (ask(W)=1512036, annual=1512036, bonus=272166)
+   RANKING (§2.1.7, local copy over the 4 survivors): r01{c1,t2,s2,i0} r02{c1,t2,s2,i0} r03{c1,t2,s0,i0} r04{c0,t2,s2,i1} | pool=[r01,r02,r04] copeland-best=[r01,r02,r04] | after priority order [compensation>term>incumbency>standing] -> [r01,r02] | after earliest submittedWeek (196) -> [r01,r02] | after incumbent-if-present -> [r01,r02] | RESULT NULL (tied.length=2) -> decline-all
+
+── case person-studio-efb645e3-r04-3 (actor) · incumbent studio-efb645e3-r04 · opened 196 · DECISION WEEK W=208 · DECLINED
+   reason text: ["no proposal cleared this person’s reservation"]
+   proposals carried into W: 4; submitted AT W (step 3): 0; incumbent proposed: true
+   trigger[studio-efb645e3-r01] nextDecisionWeek=208 branch=c (short actor: holds 0/3 at W) proposed=true
+   trigger[studio-efb645e3-r02] nextDecisionWeek=208 branch=NONE (covered actor: 3/3) proposed=true
+   trigger[studio-efb645e3-r03] nextDecisionWeek=208 branch=NONE (covered actor: 3/3) proposed=true
+   trigger[studio-efb645e3-r04] nextDecisionWeek=208 branch=a (own person in the window) proposed=true
+   proposal { issuer=studio-efb645e3-r01, submittedWeek=196, tier=1.05, termWeeks=208, startWeek=208 vs W=208 } → SURVIVES (ask(W)=632119, annual=663725, bonus=119471)
+   proposal { issuer=studio-efb645e3-r02, submittedWeek=196, tier=1.1, termWeeks=208, startWeek=208 vs W=208 } → SURVIVES (ask(W)=632119, annual=695331, bonus=125160)
+   proposal { issuer=studio-efb645e3-r03, submittedWeek=196, tier=1.1, termWeeks=208, startWeek=208 vs W=208 } → SURVIVES (ask(W)=632119, annual=695331, bonus=125160)
+   proposal { issuer=studio-efb645e3-r04, submittedWeek=196, tier=1, termWeeks=208, startWeek=208 vs W=208 } → SURVIVES (ask(W)=632119, annual=632119, bonus=113781)
+   RANKING (§2.1.7, local copy over the 4 survivors): r01{c1,t2,s2,i0} r02{c1,t2,s2,i0} r03{c1,t2,s0,i0} r04{c0,t2,s2,i1} | pool=[r01,r02,r04] copeland-best=[r01,r02,r04] | after priority order [compensation>term>incumbency>standing] -> [r01,r02] | after earliest submittedWeek (196) -> [r01,r02] | after incumbent-if-present -> [r01,r02] | RESULT NULL (tied.length=2) -> decline-all
+
+── case person-studio-efb645e3-r04-4 (actor) · incumbent studio-efb645e3-r04 · opened 196 · DECISION WEEK W=208 · DECLINED
+   reason text: ["no proposal cleared this person’s reservation"]
+   proposals carried into W: 4; submitted AT W (step 3): 0; incumbent proposed: true
+   trigger[studio-efb645e3-r01] nextDecisionWeek=208 branch=c (short actor: holds 0/3 at W) proposed=true
+   trigger[studio-efb645e3-r02] nextDecisionWeek=208 branch=NONE (covered actor: 3/3) proposed=true
+   trigger[studio-efb645e3-r03] nextDecisionWeek=208 branch=NONE (covered actor: 3/3) proposed=true
+   trigger[studio-efb645e3-r04] nextDecisionWeek=208 branch=a (own person in the window) proposed=true
+   proposal { issuer=studio-efb645e3-r01, submittedWeek=196, tier=1.05, termWeeks=208, startWeek=208 vs W=208 } → SURVIVES (ask(W)=1031795, annual=1083385, bonus=195009)
+   proposal { issuer=studio-efb645e3-r02, submittedWeek=196, tier=1.1, termWeeks=208, startWeek=208 vs W=208 } → SURVIVES (ask(W)=1031795, annual=1134975, bonus=204296)
+   proposal { issuer=studio-efb645e3-r03, submittedWeek=196, tier=1.1, termWeeks=208, startWeek=208 vs W=208 } → SURVIVES (ask(W)=1031795, annual=1134975, bonus=204296)
+   proposal { issuer=studio-efb645e3-r04, submittedWeek=196, tier=1, termWeeks=208, startWeek=208 vs W=208 } → SURVIVES (ask(W)=1031795, annual=1031795, bonus=185723)
+   RANKING (§2.1.7, local copy over the 4 survivors): r01{c1,t2,s2,i0} r02{c1,t2,s2,i0} r03{c1,t2,s0,i0} r04{c0,t2,s2,i1} | pool=[r01,r02,r04] copeland-best=[r01,r02,r04] | after priority order [compensation>term>incumbency>standing] -> [r01,r02] | after earliest submittedWeek (196) -> [r01,r02] | after incumbent-if-present -> [r01,r02] | RESULT NULL (tied.length=2) -> decline-all
+
+── case person-studio-efb645e3-r04-5 (craft) · incumbent studio-efb645e3-r04 · opened 196 · DECISION WEEK W=208 · DECLINED
+   reason text: ["no proposal cleared this person’s reservation"]
+   proposals carried into W: 4; submitted AT W (step 3): 0; incumbent proposed: true
+   trigger[studio-efb645e3-r01] nextDecisionWeek=208 branch=c (short craft: holds 0/1 at W) proposed=true
+   trigger[studio-efb645e3-r02] nextDecisionWeek=208 branch=NONE (covered craft: 1/1) proposed=true
+   trigger[studio-efb645e3-r03] nextDecisionWeek=208 branch=c (short craft: holds 0/1 at W) proposed=true
+   trigger[studio-efb645e3-r04] nextDecisionWeek=208 branch=a (own person in the window) proposed=true
+   proposal { issuer=studio-efb645e3-r01, submittedWeek=196, tier=1.05, termWeeks=208, startWeek=208 vs W=208 } → SURVIVES (ask(W)=673957, annual=707655, bonus=127378)
+   proposal { issuer=studio-efb645e3-r02, submittedWeek=196, tier=1.1, termWeeks=208, startWeek=208 vs W=208 } → SURVIVES (ask(W)=673957, annual=741353, bonus=133444)
+   proposal { issuer=studio-efb645e3-r03, submittedWeek=196, tier=1.1, termWeeks=208, startWeek=208 vs W=208 } → SURVIVES (ask(W)=673957, annual=741353, bonus=133444)
+   proposal { issuer=studio-efb645e3-r04, submittedWeek=196, tier=1, termWeeks=208, startWeek=208 vs W=208 } → SURVIVES (ask(W)=673957, annual=673957, bonus=121312)
+   RANKING (§2.1.7, local copy over the 4 survivors): r01{c1,t0,s2,i0} r02{c1,t0,s2,i0} r03{c1,t0,s0,i0} r04{c0,t0,s2,i1} | pool=[r01,r02,r04] copeland-best=[r01,r02,r04] | after priority order [term>compensation>standing>incumbency] -> [r01,r02] | after earliest submittedWeek (196) -> [r01,r02] | after incumbent-if-present -> [r01,r02] | RESULT NULL (tied.length=2) -> decline-all
+
+── totals ──────────────────────────────────────────────────────────────
+cases closed through week 340: {"declined":13,"settled":11} (total 24)
+decision weeks: [208,208,208,208,208,208,208,208,208,208,208,208,208,208,208,208,208,208,208,208,208,208,208,208]
+cases per decision week: [["208",24]]
+
+rival studio-efb645e3-r01: incumbent for 6 closed case(s); submitted 24 proposal(s); reserveWeeks=13; cash=96909275.40849149
+rival studio-efb645e3-r02: incumbent for 6 closed case(s); submitted 24 proposal(s); reserveWeeks=18; cash=328484078.3058508
+rival studio-efb645e3-r03: incumbent for 6 closed case(s); submitted 24 proposal(s); reserveWeeks=20; cash=89775855.63136733
+rival studio-efb645e3-r04: incumbent for 6 closed case(s); submitted 24 proposal(s); reserveWeeks=15; cash=187802470.9033364
+PLAYER studio-efb645e3-player: incumbent for 0 closed case(s); submitted 0 proposal(s)
+technologyAdopted receipts: [{"week":293,"studioId":"studio-efb645e3-r01"}]
+
+── METHOD AND ITS ONE LIMIT ─────────────────────────────────────────────
+Disposable vite-node probe under the session scratchpad; no source file was
+edited and nothing here is committed by me. The probe walks tick() week by week,
+captures state at W-1 (the submitted proposal set) and evaluates the six
+survivesFreeze predicates and the whole §2.1.7 ranking against the POST-tick
+state at W, using LOCAL COPIES of subjectTerms, rivalOperatingReserve/
+affordabilityRefusal, rivalProposalTrigger and bandsFor/dominance/Copeland/
+tie-breaks.
+LIMIT: predicates are read on the state AFTER all 24 cases of W=208 were
+processed, so rival cash is at its LOWEST point of the week. Affordability
+therefore passed a fortiori at every earlier point in the same pass; no other
+predicate reads anything the same-week commits move. SELF-CHECK: the local
+ranking copy reproduces the engine's real outcome for all 24 cases (the same 11
+winners, the same 13 declines), so the trace is the engine's own decision, not an
+approximation of it.
+
+── THE CAUSE (one paragraph) ────────────────────────────────────────────
+No proposal was dropped. All 24 cases decide at the SAME week W=208, every one of
+the four rivals proposed on every one of the 24 cases (96 proposals; the player
+proposed on none, as expected — it is incumbent for no case on this seed), and in
+all 24 cases all four proposals pass every survivesFreeze predicate: issuer
+entered, subject not committed elsewhere, startWeek == W == 208, digest equal
+(material terms identical), reservation cleared (tier >= 1.00 by construction) and
+affordability cleared with multi-million-dollar headroom. The 13 declines are
+produced by `chooseProposal` returning null on `tied.length !== 1` — the law's
+explicit "decline-all rather than pick by array order" — and `closeCase` then
+stamps them with the fixed text "no proposal cleared this person's reservation",
+which is FALSE for every one of the 13. The tie is structural, not incidental:
+`rivalPremiumTier` discriminates on exactly two bits — is-incumbent and
+reserveWeeks >= 16 — so on this seed the four rivals collapse onto three tiers
+(incumbent r01/r04 at 1.00, incumbent r02/r03 and challengers r01/r04 at 1.05,
+challengers r02/r03 at 1.10), every rival submits at week 196 for the same
+208-week term, D3-D5 are neutral in P14A, and the standing bands separate only
+r03. The result is two or three NON-INCUMBENT proposals with byte-identical
+descriptor vectors and the same submittedWeek, which the ladder (priority order ->
+earliest submittedWeek -> incumbent-if-present) cannot separate because none of
+them is the incumbent. Note also that the incumbent is given the LOWEST tier of
+any bidder (index 0 for being the incumbent), which pushes r01 and r04 into a
+strictly worse compensation band than their challengers and hands their own six
+people to an unbreakable challenger tie; r02 and r03 (reserveWeeks >= 16) bid 1.05
+as incumbents, tie the challengers on compensation, and win all 11 settlements on
+incumbency.
+
+── CLASSIFICATION ───────────────────────────────────────────────────────
+GENUINE GAME BEHAVIOUR under the pinned law, driven by a RIVAL-POLICY GAP, plus
+one reporting defect. The engine executes §2.1.7 exactly as written; the ranking
+is not defective. The gap is `rivalPremiumTier`'s two-bit discrimination combined
+with D3-D5 being neutral in P14A: it manufactures exact descriptor ties among
+non-incumbents, which the terminal tie-break cannot break, so the person declines
+everyone. The reporting defect (named, NOT fixed, per instruction): a tie-break
+exhaustion is recorded as a reservation failure. Companion §2.1.7 requires
+proposals to be "dropped with typed reasons before ranking"; here NOTHING was
+dropped, and the receipt still tells the player their money was refused. The
+predicate named as the cause is `chooseProposal`'s `if (tied.length !== 1) return
+null`, reached with a full, legal, affordable survivor set.
+
+── ON 288 vs 293 ────────────────────────────────────────────────────────
+Unchanged by any of this: all 24 rival contracts now expire at week 208 and only
+11 are re-signed, so 13 rival staff become free agents at 208 whether their case
+settles or declines. That world change (the market existing at all, and staff()'s
+case-subject exclusion suppressing the old renewal path from week 196) is what
+moved r01's adoption off 288, not the settlement outcome.
