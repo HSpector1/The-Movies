@@ -235,3 +235,52 @@ prescribed fix (13 assertions across "cash conservation" and "determinism"
 pass; "campaign isolation" fails at line 180, NOT at the originally-diagnosed
 line 152 — the prescribed fix is confirmed correct and sufficient for its own
 target line, this is a second, previously-unreachable premise).
+
+═════ COORDINATOR RULING + FOLLOW-UP RE-EXPRESSION — substance-only
+campaign-isolation comparison (test-author, P14A.1 T4) ═════
+Ruling: re-express SUBSTANCE-ONLY. The claim was written at S5 before two
+later laws that legitimately let the player's research change the rival
+world: (a) the ratified P13B-S8 one-inventor-per-technology rule
+(src/core/rivalResearch.ts `interests()`) — the player's own sound research
+bars rival r01 from researching sound, so r01 mints no first-prototype asset
+in the "after" chain; (b) the global `technology.nextEquipmentId` sequence,
+under which a minted asset's ORDINAL depends on cross-studio mint order
+while its IDENTITY stays deterministic and immutable. Applied: the rival's
+purchase adoption is compared with `equipmentAssetId` (top-level and
+per-component) excluded from the byte comparison; the referenced equipment
+asset is compared by CONTENT (studioId, technologyId, source, cost,
+acquiredWeek, holderAdoptionId — i.e. every field except its ordinal `id`)
+rather than by ordinal. Every other field stays byte-compared: route,
+committedWeek, operationalWeek, equipmentCost, installationCost, and a NEW
+explicit `state.rngState === atWeek540.rngState` check at the shared
+week-540 checkpoint (both chains reach absolute week 540 with byte-identical
+rngState despite the divergent action sequence — the addition formalizes
+what the supplementary diagnosis above measured ad hoc, ruling out RNG
+entanglement as an alternate explanation for the ordinal difference).
+ENGINEERING NOTE (recorded verbatim per ruling): "per-studio asset ordinals
+would make a rival's asset identity independent of other studios' mint
+order — a P13B-S5 identity refinement, not this slice."
+
+=== npm run typecheck (follow-up: substance-only re-expression) ===
+
+> project-studio-core@0.1.0 typecheck
+> tsc --noEmit && tsc -p ui/tsconfig.json --noEmit
+
+EXIT:0
+=== npx vitest run --project core --minWorkers=1 --maxWorkers=1 tests/p13b-s5-conservation.test.ts (follow-up: substance-only campaign-isolation re-expression) ===
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p13b-s5-conservation.test.ts (3 tests) 34263ms
+   ✓ P13B-S5 conservation, determinism, campaign isolation (test 6) > cash conservation across a sound and a lighting adoption: every dollar the ledger charges for the two adoptions is exactly equipmentCost + installationCost, no more, no less, and no negative or duplicate row 11077ms
+   ✓ P13B-S5 conservation, determinism, campaign isolation (test 6) > determinism: the SAME action sequence from the SAME starting state produces byte-identical saves 13630ms
+   ✓ P13B-S5 conservation, determinism, campaign isolation (test 6) > campaign isolation: a rival’s organically-purchased sound adoption is byte-unchanged by the player’s own adoption actions, and reconciles to the catalogue’s per-technology values (no hard-coded 300,000/975,000) 9554ms
+
+ Test Files  1 passed (1)
+      Tests  3 passed (3)
+   Start at  14:45:26
+   Duration  37.24s (transform 1.94s, setup 0ms, collect 2.48s, tests 34.26s, environment 0ms, prepare 163ms)
+
+EXIT:0
+
+RESULT: tests/p13b-s5-conservation.test.ts is now 3/3 green.

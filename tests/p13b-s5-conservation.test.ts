@@ -157,6 +157,34 @@ describe('P13B-S5 conservation, determinism, campaign isolation (test 6)', () =>
     expect(exportSave(makeSave(second))).toBe(exportSave(makeSave(first)))
   })
 
+  // RE-EXPRESSED SUBSTANCE-ONLY (test-author, P14A.1 T4, coordinator ruling,
+  // evidence 25): this claim was written at S5 before two later laws that
+  // legitimately let the player's OWN research change the rival world:
+  //   (a) the ratified P13B-S8 one-inventor-per-technology rule
+  //       (src/core/rivalResearch.ts `interests()`) — once ANY studio holds a
+  //       non-cancelled project for a technology, every other studio is
+  //       permanently barred from researching it. When the player's own
+  //       independent sound research exists in this file's "after" chain, it
+  //       bars rival r01 from ever researching sound, so r01 mints no
+  //       first-prototype equipment asset in that timeline (it does in the
+  //       "before" chain, where the player never researches at all).
+  //   (b) the global `technology.nextEquipmentId` mint-order sequence, under
+  //       which a minted asset's ORDINAL (the trailing number in its id)
+  //       depends on cross-studio mint order — whether r01 minted an asset
+  //       first — while the asset's IDENTITY (owning studio, technology,
+  //       source, cost, acquiredWeek, holder) stays deterministic and
+  //       immutable regardless of that order.
+  // So: the rival's purchase adoption is compared with `equipmentAssetId`
+  // (top-level and per-component) excluded from the byte comparison, and the
+  // referenced equipment asset is compared by CONTENT (owning studio,
+  // technology, source, cost, acquiredWeek, holder) rather than by ordinal.
+  // Every other field stays byte-compared: route, committedWeek,
+  // operationalWeek, equipmentCost, installationCost, and (new) rngState
+  // identity at the shared week-540 checkpoint, which rules out RNG
+  // entanglement as an alternate explanation for the ordinal difference.
+  // ENGINEERING NOTE: per-studio asset ordinals would make a rival's asset
+  // identity independent of other studios' mint order — a P13B-S5 identity
+  // refinement, not this slice.
   it('campaign isolation: a rival’s organically-purchased sound adoption is byte-unchanged by the player’s own adoption actions, and reconciles to the catalogue’s per-technology values (no hard-coded 300,000/975,000)', () => {
     const atWeek540 = advanceTo(p13aLaboratorySlice(), 540)
     const own = atWeek540.hollywood!.playerStudioId
@@ -164,21 +192,25 @@ describe('P13B-S5 conservation, determinism, campaign isolation (test 6)', () =>
     expect(rivalBefore.technologyId).toBe(SOUND.id)
     expect(rivalBefore.equipmentCost).toBe(SOUND.commercialEquipmentCost) // the catalogue's own value, not a bare literal
     expect(rivalBefore.installationCost).toBe(975_000)
-    const rivalBytesBefore = JSON.stringify(rivalBefore)
-    const rivalEquipmentBefore = JSON.stringify(equipmentAssets(atWeek540, rivalBefore.studioId))
+    const withoutEquipmentOrdinal = (adoption: typeof rivalBefore) => JSON.stringify({ ...adoption, equipmentAssetId: undefined,
+      components: adoption.components.map(c => ({ ...c, equipmentAssetId: undefined })) })
+    const equipmentContent = (assets: ReturnType<typeof equipmentAssets>) => JSON.stringify(assets.map(({ id, ...rest }) => rest))
+    const rivalBytesBefore = withoutEquipmentOrdinal(rivalBefore)
+    const rivalEquipmentBefore = equipmentContent(equipmentAssets(atWeek540, rivalBefore.studioId))
 
     // The player independently researches and adopts sound, entirely on their
     // OWN studio's facilities — this must never touch the rival's row.
     let state = runToCompletion(begin(p13aResearchReady(), 'synchronized-sound', 10_000), 'synchronized-sound', 400)
     state = advanceTo(state, atWeek540.market.tick) // catch back up to the same campaign week as the rival snapshot
+    expect(state.rngState).toBe(atWeek540.rngState) // identical RNG consumption at the same campaign week despite the divergent action sequence — rules out RNG entanglement (evidence 25)
     const stageFacilityId = state.operations.facilities.find(f => f.capability === 'soundstage')!.id
     const postFacilityId = state.operations.facilities.find(f => f.capability === 'post')!.id
     state = applyActions(state, [{ kind: 'adoptSynchronizedSound', stageFacilityId, postFacilityId }])
     state = advanceTo(state, state.market.tick + SOUND.deploymentWeeks)
 
     const rivalAfter = state.technology.adoptions.find(a => a.studioId === rivalBefore.studioId)!
-    expect(JSON.stringify(rivalAfter)).toBe(rivalBytesBefore)
-    expect(JSON.stringify(equipmentAssets(state, rivalBefore.studioId))).toBe(rivalEquipmentBefore)
+    expect(withoutEquipmentOrdinal(rivalAfter)).toBe(rivalBytesBefore)
+    expect(equipmentContent(equipmentAssets(state, rivalBefore.studioId))).toBe(rivalEquipmentBefore)
     // The player's own row is real and independent of the rival's.
     const playerAdoption = state.technology.adoptions.find(a => a.studioId === state.hollywood!.playerStudioId)!
     expect(playerAdoption.id).not.toBe(rivalAfter.id)
