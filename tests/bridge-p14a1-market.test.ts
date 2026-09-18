@@ -92,7 +92,9 @@ import { gunzipSync } from 'node:zlib'
 import { describe, expect, it } from 'vitest'
 import { PROTOCOL_VERSION, SCHEMA_ID } from '../bridge/protocol.ts'
 import { AVAILABLE_INTENT_KINDS, BRIDGE_SCHEMA, PROJECTION_VERSION } from '../bridge/schema/bridge-schema.ts'
+import type { BridgeQuoteRequest } from '../bridge/schema/bridge-schema.ts'
 import type { IndustryQuery } from '../bridge/schema/industry-schema.ts'
+import { parseWireValue } from '../bridge/schema/runtime.ts'
 import { peopleProjection, marketCaseProjection } from '../bridge/people.ts'
 import { contractActionDecisions, marketProposalDraftToEngine } from '../bridge/contract.ts'
 import { industryPage } from '../bridge/industry.ts'
@@ -102,9 +104,8 @@ import {
 } from '../src/core/index.js'
 import type { GameState } from '../src/core/types.js'
 import {
-  caseDisclosure, caseForTalent, currentProposals, marketEligibility, proposalDraft, studioOffer, submitProposal, UNKNOWN,
+  caseDisclosure, caseForTalent, currentProposals, marketEligibility, proposalDraft, submitProposal, UNKNOWN,
 } from '../src/core/talentMarket.js'
-import { TUNING } from '../src/core/tuning.js'
 import { advanceTo, p13aGeneratedStudio } from '../src/harness/p13a/fixtures.js'
 
 // ── fixtures ─────────────────────────────────────────────────────────────────
@@ -118,14 +119,17 @@ function signActor(state: GameState, termWeeks: number): { state: GameState; tal
 }
 
 /** The proven dominance-settled scenario of tests/p14a1-settlement.test.ts,
- * reused so this file needs no new fact about the still-open tie-break law. */
-function openCaseWithBothProposals(seed: string) {
+ * reused so this file needs no new fact about the still-open tie-break law.
+ * `rivalPremiumTier` defaults to the original 1.00 (every existing caller is
+ * unaffected); group 5's re-expression passes a tier != 1.00 so the rival's
+ * real figures are not coincidentally a public number (see that test). */
+function openCaseWithBothProposals(seed: string, rivalPremiumTier = 1.0) {
   const { state: signed, talentId } = signActor(p13aGeneratedStudio(seed), 52)
   const atSubmission = advanceTo(signed, 45)
   const playerStudioId = atSubmission.hollywood!.playerStudioId
   const rivalStudioId = atSubmission.hollywood!.identities.find((s) => s.role === 'rival' && s.enteredWeek !== null)!.studioId
   let state = submitProposal(atSubmission, { talentId, issuerStudioId: playerStudioId, termWeeks: 52, premiumTier: 1.25 })
-  state = submitProposal(state, { talentId, issuerStudioId: rivalStudioId, termWeeks: 52, premiumTier: 1.0 })
+  state = submitProposal(state, { talentId, issuerStudioId: rivalStudioId, termWeeks: 52, premiumTier: rivalPremiumTier })
   return { state, talentId, playerStudioId, rivalStudioId }
 }
 
@@ -280,22 +284,43 @@ describe('group 4: attention rows', () => {
 // ── group 5: disclosure narrowing ────────────────────────────────────────────
 
 describe('group 5: disclosure narrowing', () => {
-  it('the case block\'s disclosed fields never leak the rival\'s real figures, from either serialization surface', () => {
-    const { state, talentId, playerStudioId, rivalStudioId } = openCaseWithBothProposals('p14a1-bridge-disclosure-leak')
-    const rivalAsk = studioOffer(state, rivalStudioId, talentId, 52, state.market.tick) // rival premiumTier 1.0 — the ask IS the real price
-    const rivalRealAnnual = rivalAsk.annualSalary
-    const rivalRealBonus = Math.round(rivalRealAnnual * TUNING.CONTRACT_SIGNING_BONUS_FRACTION)
+  it('the case block\'s disclosed fields never leak the rival\'s real figures, from every serialization surface — a rival tier that is not otherwise a public figure', () => {
+    // RE-EXPRESSED (P14A.1-T3, coordinator adjudication #2, projection-42 landing —
+    // docs/engineering/playability-launch-review/evidence/p14a1-20260918/
+    // 15-bridge-projection-42-GREEN.txt item 2): the ORIGINAL check compared against
+    // the rival's premiumTier-1.00 figure, which is not a private number at all — at
+    // tier 1.00 the rival's ask IS the shared public P10 market ask (`contractOffer`),
+    // and on this fixture that exact number is the PLAYER'S OWN employee's published
+    // contract salary (t-act-05, projection 19; `buildEmployment` is untouched by this
+    // feature and was always going to publish it). The case block itself leaks nothing
+    // (probed); the check must use a figure that is not otherwise public — the rival's
+    // competing proposal at a tier != 1.00.
+    const { state, talentId, playerStudioId, rivalStudioId } = openCaseWithBothProposals('p14a1-bridge-disclosure-leak', 1.1)
+    const rivalDraft = proposalDraft(state, rivalStudioId, talentId, 52, 1.1, state.market.tick)
+    const rivalRealAnnual = rivalDraft.annualSalary
+    const rivalRealBonus = rivalDraft.signingBonus
 
-    // NOT YET EXISTING: marketCaseProjection — RED cause.
     const block = marketCaseProjection(state, talentId, playerStudioId)!
     const blockJson = JSON.stringify(block)
     expect(blockJson).not.toContain(String(rivalRealAnnual))
     expect(blockJson).not.toContain(String(rivalRealBonus))
+    const theirs = block.proposals.find((r) => r.issuerStudioId === rivalStudioId)!
+    // Explicit UNKNOWN marker on the competing row — never the real figure.
+    expect(theirs.premiumTier).toBe(UNKNOWN)
+    expect(theirs.annualSalary).toBe(UNKNOWN)
+    expect(theirs.signingBonus).toBe(UNKNOWN)
 
     // Both directions: the existing, unrelated people projection must not carry it either.
     const peopleJson = JSON.stringify(peopleProjection(state))
     expect(peopleJson).not.toContain(String(rivalRealAnnual))
     expect(peopleJson).not.toContain(String(rivalRealBonus))
+
+    // Nor the third serialization surface, Industry.
+    const industryJson = JSON.stringify(
+      industryPage(state, 'p14a1-bridge-disclosure-leak-industry', 0, employmentQuery('p14a1-bridge-disclosure-leak-industry', talentId)),
+    )
+    expect(industryJson).not.toContain(String(rivalRealAnnual))
+    expect(industryJson).not.toContain(String(rivalRealBonus))
   })
 
   it('bridge/industry.ts\'s private-contract-terms rows and bridge/people.ts\'s contract:null for rival-employed people are UNCHANGED for a person outside any case', () => {
@@ -398,5 +423,148 @@ describe('group 7: save/load', () => {
     // NOT YET EXISTING: marketCaseProjection — ties this round trip to
     // projection 42; this test's RED cause.
     expect(marketCaseProjection(reloaded.gameState, session.gameState.talent[0]!.id, session.gameState.hollywood!.playerStudioId)).toBeNull()
+  })
+})
+
+// ── group 8: session-level marketProposalAction — the owed requirement test ──
+//
+// NEW (P14A.1-T3, projection 42 landed 562cdf2): "no authorized test exercised
+// quoteMarketProposal — a session-level requirement test for the new intent kind
+// (quote → commit → STALE_REVISION → replay INTENT_NOT_AVAILABLE) is owed
+// test-side with the three re-expressions" (evidence 15). Unlike group 3, this
+// walks the REAL `BridgeSession.quote()`/`command()` dispatch end to end — the
+// fall-through hazard the file header describes was for `marketProposalAction`
+// as an UNRECOGNIZED type; `quoteMarketProposal` is now a named branch
+// (bridge/session.ts) with its own FAIL-LOUD tail for anything still unknown, so
+// exercising it here is exactly the missing coverage, not the harness trap.
+describe('group 8: session-level marketProposalAction', () => {
+  it('quote -> commit -> stale revision -> revise -> withdraw -> a superseded intent after the state moved -> an unknown quote type, all through BridgeSession', () => {
+    const { state, talentId, playerStudioId } = openCaseWithBothProposals('p14a1-bridge-session-market-proposal')
+    const session = new BridgeSession(state, 'p14a1-bridge-session-market-proposal')
+    const week = state.market.tick
+
+    // (a) quote propose (the contract's term, tier 1.25): an accepted quote that
+    // validates against the wire quote-response schema, kind marketProposalAction,
+    // the own-row figures equal to the engine's own re-derivation at the read week.
+    const proposeRequest = {
+      protocolVersion: PROTOCOL_VERSION, schemaId: SCHEMA_ID, sessionId: session.sessionId,
+      commandId: 'q-propose', expectedStateRevision: session.stateRevision,
+      type: 'quoteMarketProposal' as const,
+      draft: { verb: 'propose' as const, talentId, termWeeks: 52, premiumTier: 1.25 },
+    }
+    const proposeResponse = session.quote(proposeRequest)
+    if (!proposeResponse.accepted) throw new Error(proposeResponse.message)
+    expect(parseWireValue(BRIDGE_SCHEMA.$defs.StudioBridgeQuoteResponse, proposeResponse)).toEqual(proposeResponse)
+    expect(proposeResponse.quote.kind).toBe('marketProposalAction')
+    expect(proposeResponse.quote.ok).toBe(true)
+    const redraft = proposalDraft(state, playerStudioId, talentId, 52, 1.25, week)
+    expect(proposeResponse.quote.termWeeks).toBe(redraft.termWeeks)
+    expect(proposeResponse.quote.premiumTier).toBe(redraft.premiumTier)
+    expect(proposeResponse.quote.annualSalary).toBe(redraft.annualSalary)
+    expect(proposeResponse.quote.signingBonus).toBe(redraft.signingBonus)
+
+    // (b) commit advances stateRevision; the proposal lands — both on the engine's
+    // own currentProposals and on the profile's own case-block row.
+    const revisionAtPropose = session.stateRevision
+    const commitPropose = session.command({
+      protocolVersion: PROTOCOL_VERSION, schemaId: SCHEMA_ID, sessionId: session.sessionId,
+      commandId: 'c-propose', expectedStateRevision: session.stateRevision,
+      type: 'submitIntent' as const, payload: { intentId: proposeResponse.quote.intentId },
+    })
+    expect(commitPropose.accepted).toBe(true)
+    expect(session.stateRevision).toBe(revisionAtPropose + 1)
+    expect(currentProposals(session.gameState, talentId).find((p) => p.issuerStudioId === playerStudioId))
+      .toMatchObject({ termWeeks: 52, premiumTier: 1.25 })
+    const ownRowAfterPropose = marketCaseProjection(session.gameState, talentId, playerStudioId)!
+      .proposals.find((r) => r.issuerStudioId === playerStudioId)!
+    expect(ownRowAfterPropose.termWeeks).toBe(52)
+    expect(ownRowAfterPropose.premiumTier).toBe(1.25)
+
+    // (c) committing the SAME quote's intentId again on the (now stale) pre-commit
+    // revision is STALE_REVISION — a fresh commandId so this is not a memoized
+    // replay of (b)'s own commandId.
+    const staleRevisionReplay = session.command({
+      protocolVersion: PROTOCOL_VERSION, schemaId: SCHEMA_ID, sessionId: session.sessionId,
+      commandId: 'c-propose-stale-revision', expectedStateRevision: revisionAtPropose,
+      type: 'submitIntent' as const, payload: { intentId: proposeResponse.quote.intentId },
+    })
+    expect(staleRevisionReplay.accepted).toBe(false)
+    if (!staleRevisionReplay.accepted) expect(staleRevisionReplay.reasonCode).toBe('STALE_REVISION')
+
+    // (e) revise replaces the earlier proposal — one current proposal per studio.
+    const reviseResponse = session.quote({
+      protocolVersion: PROTOCOL_VERSION, schemaId: SCHEMA_ID, sessionId: session.sessionId,
+      commandId: 'q-revise', expectedStateRevision: session.stateRevision,
+      type: 'quoteMarketProposal' as const,
+      draft: { verb: 'revise' as const, talentId, termWeeks: 104, premiumTier: 1.1 },
+    })
+    if (!reviseResponse.accepted) throw new Error(reviseResponse.message)
+    expect(reviseResponse.quote.ok).toBe(true)
+    const commitRevise = session.command({
+      protocolVersion: PROTOCOL_VERSION, schemaId: SCHEMA_ID, sessionId: session.sessionId,
+      commandId: 'c-revise', expectedStateRevision: session.stateRevision,
+      type: 'submitIntent' as const, payload: { intentId: reviseResponse.quote.intentId },
+    })
+    expect(commitRevise.accepted).toBe(true)
+    const mineAfterRevise = currentProposals(session.gameState, talentId).filter((p) => p.issuerStudioId === playerStudioId)
+    expect(mineAfterRevise).toHaveLength(1) // replaced, not appended
+    expect(mineAfterRevise[0]!.termWeeks).toBe(104)
+    expect(mineAfterRevise[0]!.premiumTier).toBe(1.1)
+
+    // (d)+(f) withdraw removes it; the ORIGINAL propose-quote's intentId — minted
+    // before (b), already superseded by (e)'s revise, and now stale again after this
+    // withdraw — is refused as INTENT_NOT_AVAILABLE, not STALE_REVISION, when
+    // resubmitted at the CORRECT (current) revision. Pinned against the actual code
+    // in bridge/session.ts: `command()`'s STALE_REVISION guard passes (the revision
+    // argument matches), so execution reaches `resolveAvailableIntents(...).find(...)
+    // ?? this.quotedIntentFor(intentId)`; `quotedIntentFor` looks the intentId up in
+    // `this.pendingQuotes`, which EVERY accepted command clears in full
+    // (`this.pendingQuotes.clear()` at the end of `command()`) — (b)'s own commit
+    // already evicted it, so `pending` is `undefined`, `quotedIntentFor` returns
+    // `undefined`, `resolved` is `undefined`, and `command()` rejects with the fixed
+    // message "Intent was not emitted by the current authoritative TypeScript state."
+    // under `reasonCode: 'INTENT_NOT_AVAILABLE'`.
+    const withdrawResponse = session.quote({
+      protocolVersion: PROTOCOL_VERSION, schemaId: SCHEMA_ID, sessionId: session.sessionId,
+      commandId: 'q-withdraw', expectedStateRevision: session.stateRevision,
+      type: 'quoteMarketProposal' as const,
+      draft: { verb: 'withdraw' as const, talentId, termWeeks: null, premiumTier: null },
+    })
+    if (!withdrawResponse.accepted) throw new Error(withdrawResponse.message)
+    expect(withdrawResponse.quote.ok).toBe(true)
+    const commitWithdraw = session.command({
+      protocolVersion: PROTOCOL_VERSION, schemaId: SCHEMA_ID, sessionId: session.sessionId,
+      commandId: 'c-withdraw', expectedStateRevision: session.stateRevision,
+      type: 'submitIntent' as const, payload: { intentId: withdrawResponse.quote.intentId },
+    })
+    expect(commitWithdraw.accepted).toBe(true)
+    expect(currentProposals(session.gameState, talentId).some((p) => p.issuerStudioId === playerStudioId)).toBe(false)
+
+    const staleIntentAfterMove = session.command({
+      protocolVersion: PROTOCOL_VERSION, schemaId: SCHEMA_ID, sessionId: session.sessionId,
+      commandId: 'c-propose-stale-after-move', expectedStateRevision: session.stateRevision,
+      type: 'submitIntent' as const, payload: { intentId: proposeResponse.quote.intentId },
+    })
+    expect(staleIntentAfterMove.accepted).toBe(false)
+    if (!staleIntentAfterMove.accepted) {
+      expect(staleIntentAfterMove.reasonCode).toBe('INTENT_NOT_AVAILABLE')
+      expect(staleIntentAfterMove.message).toMatch(/not emitted by the current authoritative/)
+    }
+
+    // (g) an unknown quote type is refused loud — the fail-loud tail (bridge/
+    // session.ts: "every family above is explicit, so an unrecognized `type` is
+    // refused as an invalid command" — it used to fall through into the casting
+    // handler and silently misread another family's draft).
+    const unknownTypeRequest = {
+      protocolVersion: PROTOCOL_VERSION, schemaId: SCHEMA_ID, sessionId: session.sessionId,
+      commandId: 'q-unknown-type', expectedStateRevision: session.stateRevision,
+      type: 'quoteNothing', draft: { verb: 'propose', talentId, termWeeks: 52, premiumTier: 1.0 },
+    } as unknown as BridgeQuoteRequest
+    const unknownTypeResponse = session.quote(unknownTypeRequest)
+    expect(unknownTypeResponse.accepted).toBe(false)
+    if (!unknownTypeResponse.accepted) {
+      expect(unknownTypeResponse.reasonCode).toBe('INVALID_COMMAND')
+      expect(unknownTypeResponse.message).toMatch(/Unknown quote type/)
+    }
   })
 })

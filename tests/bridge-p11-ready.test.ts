@@ -111,16 +111,12 @@ describe('P11 ready Upcoming and discarded financial successors', () => {
     expect(complete.ledger.slice(repaired.ledger.length).some(e=>e.kind==='setMaintenance')).toBe(false)
     expect(weeklyBurn(complete)).toBe(weeklyBurn(state))
   })
-  for (const verb of ['renew', 'release'] as const) it(`${verb}: exact pennies/guarantees and recurring costs agree with the real committed successor`, () => {
-    let state = fixture('s6-p11-positive-long-payroll')
-    if (verb === 'renew') {
-      const opens = Math.min(...state.contracts.map(c => c.endWeekExclusive)) - 12
-      while (state.market.tick < opens) state = tick(state)
-    }
+  it('release: exact pennies/guarantees and recurring costs agree with the real committed successor', () => {
+    const state = fixture('s6-p11-positive-long-payroll')
     const c = [...state.contracts].sort((a,b)=>a.endWeekExclusive-b.endWeekExclusive)[0]!
-    const session = new BridgeSession(state, `ready-${verb}`)
+    const session = new BridgeSession(state, 'ready-release')
     const before = stableStringify(session.exportRuntimeCheckpoint())
-    const quote = contractQuote(session, { verb, talentId: c.talentId, termWeeks: verb === 'renew' ? 104 : null })
+    const quote = contractQuote(session, { verb: 'release', talentId: c.talentId, termWeeks: null })
     expect(quote.ok).toBe(true)
     expect(stableStringify(session.exportRuntimeCheckpoint())).toBe(before)
     const financial = quote.financial!
@@ -132,6 +128,44 @@ describe('P11 ready Upcoming and discarded financial successors', () => {
     expect(weeklyPayroll(session.gameState)-weeklyPayroll(state)).toBe(financial.weeklyPayrollChange)
     expect(financial.guaranteesAfter).toBeGreaterThanOrEqual(0)
     expect(session.gameState.ledger.slice(state.ledger.length)).toHaveLength(1)
+  })
+  it('renew: RE-EXPRESSED under the market law — the renew quote is the engine\'s own underMarketCase refusal, and the same person\'s renewal is reachable as the incumbent\'s proposal', () => {
+    // Original claim: a COMMITTED renewal's exact pennies/guarantees/recurring costs
+    // agree with the real successor. P14A.1 repeals the in-window renewContract
+    // commit (R6): the instant the window opens, this contract is a market-case
+    // subject and the engine itself refuses renewContract with `underMarketCase`
+    // (src/core/actions.ts, applyRenewContract) — INHERITED from the T2 engine
+    // landing, not from this bridge change (reproduced directly on this fixture:
+    // evidence docs/engineering/playability-launch-review/evidence/p14a1-20260918/
+    // 15-bridge-projection-42-GREEN.txt item 3, talent t-act-20, week 92, decision
+    // week 104). Re-expressed as: the renew quote is now an ACCEPTED ok:false
+    // answer carrying the engine's own reason (never an ENGINE_REJECTED preflight
+    // throw), and the incumbent's renewal is reachable as a PROPOSAL instead.
+    let state = fixture('s6-p11-positive-long-payroll')
+    const opens = Math.min(...state.contracts.map(c => c.endWeekExclusive)) - 12
+    while (state.market.tick < opens) state = tick(state)
+    const c = [...state.contracts].sort((a,b)=>a.endWeekExclusive-b.endWeekExclusive)[0]!
+    const session = new BridgeSession(state, 'ready-renew')
+    const before = stableStringify(session.exportRuntimeCheckpoint())
+    const quote = contractQuote(session, { verb: 'renew', talentId: c.talentId, termWeeks: 104 })
+    expect(quote.ok).toBe(false)
+    expect(quote.refusal).toBe('underMarketCase')
+    expect(quote.refusalReason).toMatch(/market case/i)
+    expect(quote.financial).toBeNull()
+    expect(stableStringify(session.exportRuntimeCheckpoint())).toBe(before)
+    expect(submit(session, quote.intentId).accepted).toBe(false)
+    expect(session.gameState).toBe(state)
+
+    // The same person's renewal is reachable as the incumbent's PROPOSAL (P14A
+    // §2.1.3): propose at the contract's own term, at the floor tier.
+    const proposalResponse = session.quote({
+      protocolVersion: PROTOCOL_VERSION, schemaId: SCHEMA_ID, sessionId: session.sessionId,
+      commandId: 'q-incumbent-proposal', expectedStateRevision: session.stateRevision,
+      type: 'quoteMarketProposal' as const,
+      draft: { verb: 'propose', talentId: c.talentId, termWeeks: c.termWeeks, premiumTier: 1.0 },
+    })
+    if (!proposalResponse.accepted) throw new Error(proposalResponse.message)
+    expect(proposalResponse.quote.ok).toBe(true)
   })
   it('a refused renewal has no financial successor and cannot become a commit', () => {
     const state = fixture('s6-p11-positive-long-payroll'),session = new BridgeSession(state, 'ready-refusal')

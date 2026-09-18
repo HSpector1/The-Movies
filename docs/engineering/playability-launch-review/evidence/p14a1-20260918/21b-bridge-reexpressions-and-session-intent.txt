@@ -1,0 +1,74 @@
+P14A.1-T3 bridge re-expressions + session-level marketProposalAction test (independent test-author)
+Worktree /Users/zacheryspector/The-Movies-headless-program, branch wip/headless-program-20260916-ts, HEAD 17f4d44490f24e76fc91b8881584164a14484afb
+
+=== npm run typecheck:bridge ===
+
+> project-studio-core@0.1.0 typecheck:bridge
+> tsc -p tsconfig.bridge.json
+
+tests/bridge-p10a-r1-contract-quote.test.ts(54,3): error TS6133: 'contractTermLabel' is declared but its value is never read.
+=== npm run typecheck:bridge (retry) ===
+
+> project-studio-core@0.1.0 typecheck:bridge
+> tsc -p tsconfig.bridge.json
+
+=== npm run typecheck ===
+
+> project-studio-core@0.1.0 typecheck
+> tsc --noEmit && tsc -p ui/tsconfig.json --noEmit
+
+=== npx vitest run tests/bridge-p14a1-market.test.ts tests/bridge-p10a-r1-contract-quote.test.ts tests/bridge-p11-ready.test.ts --minWorkers=1 --maxWorkers=1 --reporter=verbose ===
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/bridge-p14a1-market.test.ts > group 1: PROJECTION_VERSION > PROJECTION_VERSION is 42; the schema $id and x-project-studio.projectionVersion move with it
+ ✓ |core| tests/bridge-p14a1-market.test.ts > group 3: marketProposalAction (propose/revise/withdraw) > is not yet a published intent kind
+ ✓ |core| tests/bridge-p14a1-market.test.ts > group 3: marketProposalAction (propose/revise/withdraw) > drafts propose/revise/withdraw through the draft-to-engine conversion, with affordability via canAfford 2237ms
+ ✓ |core| tests/bridge-p14a1-market.test.ts > group 3: marketProposalAction (propose/revise/withdraw) > the profile's renew row does not yet surface underMarketCase once a case is open — the gap the case block must close 973ms
+ ✓ |core| tests/bridge-p14a1-market.test.ts > group 2: profile Contract case block > publishes status, the DERIVED decision-week label, and one row per proposal — the player's own re-derived at the read week, the rival's premium/salary/bonus an explicit UNKNOWN marker 705ms
+ ✓ |core| tests/bridge-p14a1-market.test.ts > group 2: profile Contract case block > no case block outside a case 575ms
+ ✓ |core| tests/bridge-p14a1-market.test.ts > group 4: attention rows > a new competing proposal on a case the player has a proposal in 521ms
+ ✓ |core| tests/bridge-p14a1-market.test.ts > group 4: attention rows > settlement completed 695ms
+ ✓ |core| tests/bridge-p14a1-market.test.ts > group 4: attention rows > a player proposal that would currently fail 688ms
+ ✓ |core| tests/bridge-p14a1-market.test.ts > group 4: attention rows > restricted to exactly the five named causes, and nothing else on the profile route (two causes not independently exercised — see header premises) 828ms
+ ✓ |core| tests/bridge-p14a1-market.test.ts > group 5: disclosure narrowing > the case block's disclosed fields never leak the rival's real figures, from every serialization surface — a rival tier that is not otherwise a public figure 781ms
+ ✓ |core| tests/bridge-p14a1-market.test.ts > group 5: disclosure narrowing > bridge/industry.ts's private-contract-terms rows and bridge/people.ts's contract:null for rival-employed people are UNCHANGED for a person outside any case 795ms
+ ✓ |core| tests/bridge-p14a1-market.test.ts > group 6: settlement on the wire > after the decision week the case reads settled with order-only reasons; the winner's employer/contract updates; the two industry receipts stay separate rows (no folded row — A.2's Pulse projection, not A.1) 761ms
+ ✓ |core| tests/bridge-p14a1-market.test.ts > group 7: save/load > a genuine V27 fixture loads through the bridge converted, with an empty market root and no case block for its in-window subject
+ ✓ |core| tests/bridge-p14a1-market.test.ts > group 7: save/load > a V28 save round-trips through the bridge save/load path, carrying legacyTerminations, at projection 42
+ ✓ |core| tests/bridge-p14a1-market.test.ts > group 8: session-level marketProposalAction > quote -> commit -> stale revision -> revise -> withdraw -> a superseded intent after the state moved -> an unknown quote type, all through BridgeSession 4953ms
+ ✓ |core| tests/bridge-p10a-r1-contract-quote.test.ts > P10-R1 — contract renewal / early release over the bridge > R0: the Profile publishes the legal windows and the engine's own terms; the schema publishes both intent kinds 1465ms
+ ✓ |core| tests/bridge-p10a-r1-contract-quote.test.ts > P10-R1 — contract renewal / early release over the bridge > R1 → re-expressed under R6: the incumbent's PROPOSAL reads the engine verbatim, commits once at the quoted bonus, and refuses replay / re-use 458ms
+ ✓ |core| tests/bridge-p10a-r1-contract-quote.test.ts > P10-R1 — contract renewal / early release over the bridge > R2: a legal release carries the engine's termination cost, commits once, and keeps every recorded credit 830ms
+ ✓ |core| tests/bridge-p10a-r1-contract-quote.test.ts > P10-R1 — contract renewal / early release over the bridge > R3: a closed renewal window is an accepted ok:false answer whose id is never a commit
+ ✓ |core| tests/bridge-p10a-r1-contract-quote.test.ts > P10-R1 — contract renewal / early release over the bridge > R4 → re-expressed under R6: a proposal draft that is no longer legal on the live state is refused once the authority moved on 1477ms
+ ✓ |core| tests/bridge-p10a-r1-contract-quote.test.ts > P10-R1 — contract renewal / early release over the bridge > R5: unknown person is a draft refusal; no contract is an accepted refusal; a changed PROPOSAL re-prices (re-expressed under R6) 638ms
+ ✓ |core| tests/bridge-p10a-r1-contract-quote.test.ts > P10-R1 — contract renewal / early release over the bridge > R6: the engine's own refusals — unpublished term, a screenplay task (UNCHANGED); D-12 on a PROPOSAL (re-expressed under R6) 801ms
+ ✓ |core| tests/bridge-p10a-r1-contract-quote.test.ts > P10-R1 — contract renewal / early release over the bridge > R7 → re-expressed under R6: cancellation is state-neutral for a PROPOSAL draft — drafting mutates nothing, and asking again is deterministic 657ms
+ ✓ |core| tests/bridge-p10a-r1-contract-quote.test.ts > P10-R1 — contract renewal / early release over the bridge > R6 ruling, ADDED (iii): in-window renewContract is now refused — the market-case redirect (P14A §2.1.3), verbatim 542ms
+stdout | tests/bridge-p11-ready.test.ts > P11 recorded trends and full portfolio > bounds a120-year recorded query to13/52 points with exact totals and no calendar-year invention
+{"kind":"p11-long-history-query-measurement","classification":"synthetic query-scale fixture; not played campaign evidence","weeks":6240,"ledgerEntries":6240,"elapsedMilliseconds":1.6886500000000524,"historyJsonBytes":101456,"syntheticStateJsonBytes":769545,"pointCounts":[13,52]}
+
+ ✓ |core| tests/bridge-p11-ready.test.ts > P11 ready Upcoming and discarded financial successors > migrates authentic core25 without relabeling its bytes; strict26 includes a nullable Week0 history 1140ms
+ ✓ |core| tests/bridge-p11-ready.test.ts > P11 ready Upcoming and discarded financial successors > keeps completion and first Opex distinct, including the just-completed operational office 447ms
+ ✓ |core| tests/bridge-p11-ready.test.ts > P11 ready Upcoming and discarded financial successors > retains already-open renewal dates; expiry pays its final preceding advance only 3464ms
+ ✓ |core| tests/bridge-p11-ready.test.ts > P11 ready Upcoming and discarded financial successors > publishes only the existing public revenue aggregates and does not serialize locked weekly receipts 348ms
+ ✓ |core| tests/bridge-p11-ready.test.ts > P11 ready Upcoming and discarded financial successors > dates only an actually committed Set repair and adds no completion debit or new recurring cost 483ms
+ ✓ |core| tests/bridge-p11-ready.test.ts > P11 ready Upcoming and discarded financial successors > release: exact pennies/guarantees and recurring costs agree with the real committed successor 1112ms
+ ✓ |core| tests/bridge-p11-ready.test.ts > P11 ready Upcoming and discarded financial successors > renew: RE-EXPRESSED under the market law — the renew quote is the engine's own underMarketCase refusal, and the same person's renewal is reachable as the incumbent's proposal 1978ms
+ ✓ |core| tests/bridge-p11-ready.test.ts > P11 ready Upcoming and discarded financial successors > a refused renewal has no financial successor and cannot become a commit 432ms
+ ✓ |core| tests/bridge-p11-ready.test.ts > P11 ready Upcoming and discarded financial successors > release remains legal when the actual termination payment takes already-negative Cash further down 1016ms
+ ✓ |core| tests/bridge-p11-ready.test.ts > P11 ready Upcoming and discarded financial successors > immediate Greenlight pays the exact quoted financial amount once and replaces the project row by its real production 1300ms
+ ✓ |core| tests/bridge-p11-ready.test.ts > P11 ready Upcoming and discarded financial successors > hire reads the real successor, including a new seat; preview remains observation/RNG neutral 1195ms
+ ✓ |core| tests/bridge-p11-ready.test.ts > P11 ready Upcoming and discarded financial successors > queued Greenlight pays nothing now and remains one uncommitted canonical screenplay row 876ms
+ ✓ |core| tests/bridge-p11-ready.test.ts > P11 recorded trends and full portfolio > serves the actual21-film/6240-advance public diagnostic as exact unique rows and52 completed history points 2460ms
+ ✓ |core| tests/bridge-p11-ready.test.ts > P11 recorded trends and full portfolio > covers Development/review, Ready Casting, Production, Post and Release Ready through actual fixture action chains 2419ms
+ ✓ |core| tests/bridge-p11-ready.test.ts > P11 recorded trends and full portfolio > keeps exact film identities, public phases and the accepted per-film economics 453ms
+ ✓ |core| tests/bridge-p11-ready.test.ts > P11 recorded trends and full portfolio > each cost point and period comes from the exact ledger category; missing partial values stay null 392ms
+ ✓ |core| tests/bridge-p11-ready.test.ts > P11 recorded trends and full portfolio > bounds a120-year recorded query to13/52 points with exact totals and no calendar-year invention
+
+ Test Files  3 passed (3)
+      Tests  42 passed (42)
+   Start at  12:23:07
+   Duration  49.00s (transform 3.65s, setup 0ms, collect 5.97s, tests 41.70s, environment 1ms, prepare 344ms)
+

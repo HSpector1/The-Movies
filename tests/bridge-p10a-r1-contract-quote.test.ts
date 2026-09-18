@@ -51,7 +51,6 @@ import { AVAILABLE_INTENT_KINDS, type BridgeContractDraftPayload } from '../brid
 import { BridgeSession, authoritativeDigest } from '../bridge/session.ts'
 import {
   contractActionDecisions,
-  contractTermLabel,
   // NOT YET EXISTING (P14A.1-T3 bridge test 9 — projection 42): the
   // `marketProposalAction` (propose/revise/withdraw) draft-to-engine
   // conversion. SAME missing binding, SAME module path, as
@@ -70,18 +69,15 @@ import {
   applyActions,
   beginFounding,
   contractOffer,
-  contractOfferOptions,
   FOUNDING_MINIMUMS,
   generateWorld,
   guaranteedComp,
   renewalWindowOpen,
   terminationCost,
   tick,
-  weeklySalary,
 } from '../src/core/index.js'
 import type { CommissionOriginalScreenplayPayload, CreativeRole, GameState, Genre, SegmentId } from '../src/core/index.js'
-import { currentProposals, playerOffer } from '../src/core/talentMarket.js'
-import { TUNING } from '../src/core/tuning.js'
+import { caseForTalent, currentProposals, playerOffer } from '../src/core/talentMarket.js'
 
 const TERM = 52
 
@@ -157,19 +153,28 @@ describe('P10-R1 — contract renewal / early release over the bridge', () => {
     const state = intoWindow('p10-r1-windows')
     const open = state.contracts.find((c) => renewalWindowOpen(c, state.market.tick))!
     const decision = contractActionDecisions(state, open.talentId)
-    expect(decision.renewAvailable).toBe(true)
-    const offers = contractOfferOptions(state, open.talentId)
-    expect(decision.renewalTerms.map((t) => t.termWeeks)).toEqual([...TUNING.CONTRACT_TERM_OPTIONS])
-    for (const [i, term] of decision.renewalTerms.entries()) {
-      expect(term.annualSalary).toBe(offers[i]!.annualSalary)
-      expect(term.signingBonus).toBe(offers[i]!.signingBonus)
-      expect(term.weeklySalary).toBe(weeklySalary(offers[i]!.annualSalary))
-      expect(term.endWeekExclusive).toBe(state.market.tick + term.termWeeks)
-      expect(term.termLabel).toBe(contractTermLabel(term.termWeeks))
-    }
-    // The wire carries the same decision (the Profile cannot disagree with the sheet).
+    // RE-EXPRESSED (P14A.1-T3, coordinator adjudication #1, projection-42 landing —
+    // docs/engineering/playability-launch-review/evidence/p14a1-20260918/
+    // 15-bridge-projection-42-GREEN.txt item 1): `intoWindow`'s own tick loop has
+    // already opened a market case for this person the SAME tick its renewal window
+    // opened (companion §2.1.3 discovery is part of the identical weekly pass) —
+    // the renew row is now a REFUSAL naming the open case, never the four published
+    // offers the engine's own `renewContract` commit would throw `underMarketCase`
+    // on. The original sub-claim (renewAvailable: true, four priced terms) was the
+    // repealed in-window renewal (R6); joins the R1/R4/R5/R6/R7 re-expression bucket.
+    expect(decision.renewAvailable).toBe(false)
+    expect(decision.renewReason ?? '').toMatch(/market case/i)
+    expect(decision.renewalTerms).toHaveLength(0)
+    const openCase = caseForTalent(state, open.talentId, state.market.tick)
+    expect(openCase).not.toBeNull()
+    expect(openCase!.status).toBe('discovered')
+    expect(openCase!.decisionWeek).toBe(52)
+    // The wire carries the same decision (the Profile cannot disagree with the
+    // sheet), and the profile's own marketCase block names the same open case.
     const profile = peopleProjection(state).profiles.find((p) => p.talentId === open.talentId)!
     expect(profile.employment.contract?.actions).toEqual(decision)
+    expect(profile.marketCase?.status).toBe('discovered')
+    expect(profile.marketCase?.decisionWeek).toBe(52)
     // Nothing hidden rides the actions block.
     const serialized = JSON.stringify(profile.employment.contract?.actions)
     for (const forbidden of ['actual', 'ceilings', 'devRate', 'seed']) expect(serialized).not.toContain(`"${forbidden}"`)
