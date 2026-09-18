@@ -177,3 +177,39 @@ npm run typecheck: exit 0 (RUN 3 above; tsc --noEmit + ui/tsconfig.json).
 Combined vitest count this pass: 22 passed / 1 failed (declared, expected)
 across the three files (4 + 2 + 17 = 23 total cases; case A of
 decline-reasons fails as designed, the other 22 pass).
+
+=== RUN 4 (coordinator ruling): case A -> it.todo. npx vitest run tests/p14a1-decline-reasons.test.ts --project core --minWorkers=1 --maxWorkers=1 --reporter=verbose ===
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p14a1-decline-reasons.test.ts > P14A.1: typed decline reasons > B. all proposals dropped: a single rival proposal fails affordability at the decision week → reason "all proposals dropped", one sentence naming the studio and the bonus predicate, never "reservation" 3178ms
+
+ Test Files  1 passed (1)
+      Tests  1 passed | 1 todo (2)
+   Start at  12:42:20
+   Duration  5.32s (transform 1.36s, setup 0ms, collect 1.76s, tests 3.18s, environment 0ms, prepare 109ms)
+
+
+=== RUN 4 typecheck: npm run typecheck ===
+
+> project-studio-core@0.1.0 typecheck
+> tsc --noEmit && tsc -p ui/tsconfig.json --noEmit
+
+typecheck exit: 0
+
+RULING APPLIED (coordinator): decline-reasons case A converted to
+it.todo(name, fn) — the tests/bridge-p13b-s6-cancellation.test.ts precedent.
+The ORIGINAL case A body is retained verbatim as the todo's second argument
+(never executed; vitest reports it as "todo", not "passed"/"failed"), which
+keeps every helper it calls (submitProposal, closestStandingRivalPair,
+standingMean, STANDING_BAND_TOLERANCE) referenced so noUnusedLocals stays
+clean without deleting any code — confirmed via a disposable
+tests/tmp-todo-check.test.ts probe (deleted before commit) showing a
+throwing/failing body under it.todo reports "1 todo" and never runs.
+Title extended with the exact obstacle: under the seat law with staff()
+refilling every freed seat in the same tick before the freeze, no pair of
+entered rivals is simultaneously seat-free, solvent and Standing-tied on any
+of >90 probed seeds; tie-exhausted was last exercised GREEN at b3ad486
+before the seat budget landed (recorded coverage limit); follow-up named:
+three computed cash drains at a synchronized expiry so two rivals lose their
+own expensive people and tie on a cheaper third subject.

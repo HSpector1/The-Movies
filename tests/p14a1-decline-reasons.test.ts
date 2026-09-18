@@ -63,8 +63,26 @@
 // CLAIMS (a genuine tie exhaustion; a genuine affordability drop) are
 // unchanged from the original file; only the fixture construction moves.
 //
-// ── CASE A: SEARCHED, NOT SATISFIED (test-author; premise declared, not a
-// silent weakening) ──────────────────────────────────────────────────────
+// ── CASE A: SEARCHED, NOT SATISFIED, CONVERTED TO it.todo (coordinator
+// ruling, test-author; premise declared, not a silent weakening) ──────────
+//
+// COORDINATOR RULING (pinned exactly): "the claim stands and is NOT
+// weakened, but a permanently failing case cannot enter the matched pass";
+// converted to `it.todo(...)` (the `tests/bridge-p13b-s6-cancellation.test.ts`
+// precedent — a real `it` whose body is retained as the SECOND argument to
+// `it.todo(name, fn)`, which vitest accepts and never executes, so every
+// helper the body calls (`submitProposal`, `closestStandingRivalPair`,
+// `standingMean`, `STANDING_BAND_TOLERANCE`) stays referenced and
+// `noUnusedLocals` stays clean — confirmed empirically with a disposable
+// `tests/tmp-todo-check.test.ts` probe before editing this file: a thrown,
+// failing body under `it.todo` reports "1 todo", never runs, never fails).
+// The tie-exhausted typed reason was last exercised GREEN at `b3ad486`
+// (before the seat budget `daaf95f` landed) and is a recorded COVERAGE
+// LIMIT, not a defect — follow-up (not built here): construct it under the
+// final law with three computed cash drains at a synchronized expiry, so
+// two rivals lose their own EXPENSIVE people (freeing a seat each, the same
+// mechanism Case B below uses) and then tie with each other on a CHEAPER
+// third subject neither has a seat conflict over.
 //
 // The companion instruction's preferred constructions, in order, and what was
 // found for each (disposable `npx vite-node` probes under the session
@@ -215,13 +233,16 @@ function marketOf(state: GameState): TalentMarketRoot {
 }
 
 describe('P14A.1: typed decline reasons', () => {
-  it('A. tie exhaustion: two entered rivals with identical material terms and tier, tied Standing band → reason "tie exhausted", one order-only sentence naming the tied count, never "reservation"', () => {
+  it.todo('A. tie exhaustion: two entered rivals with identical material terms and tier, tied Standing band → reason "tie exhausted", one order-only sentence naming the tied count, never "reservation" — UNCONSTRUCTIBLE under the seat law with staff() refilling every freed seat in the same tick before the freeze: no pair of entered rivals is simultaneously seat-free, solvent and Standing-tied on any of >90 probed seeds; last exercised GREEN at b3ad486 before the seat budget landed — recorded coverage limit; follow-up: three computed cash drains at a synchronized expiry so two rivals lose their own expensive people and tie on a cheaper third subject', () => {
     // NOT SATISFIED under the landed seat budget on this construction — see
     // the file header "CASE A: SEARCHED, NOT SATISFIED" for the searched
     // alternatives and the named obstacle. Left unweakened: both rivals in
     // the closest Standing pair are full through week 208 on this seed, so
     // they are seat-dropped (kase.reason 'all proposals dropped') before the
-    // tie ladder this case targets ever runs.
+    // tie ladder this case targets ever runs. Body retained, never executed
+    // under it.todo (coordinator ruling) — kept exactly as originally
+    // written so the claim and its would-be assertions stay legible for the
+    // follow-up construction.
     const { state: signed, talentId } = signActor(p13aGeneratedStudio(), 52)
     const at40 = advanceTo(signed, 40)
     const [rivalA, rivalB] = closestStandingRivalPair(at40, 40)
