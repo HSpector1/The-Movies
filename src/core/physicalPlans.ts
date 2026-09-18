@@ -334,7 +334,13 @@ export function validatePhysicalPlans(state: GameState): void {
     }
     const minted = Number(plan.id.slice(plan.id.lastIndexOf(':') + 1))
     integer(minted, `plan ${plan.id} number`, 1)
-    if (minted >= root.nextPlanId) fail(`plan ${plan.id} was minted at or beyond nextPlanId ${String(root.nextPlanId)}`)
+    // P13B-S8: `nextPlanId` is the PLAYER's counter — the one its queue verb mints
+    // from. A rival's own plan numbers are its own ascending sequence and never
+    // move it, so the player's plan identities are unchanged by rival plant. Their
+    // uniqueness is the same id law every row answers to, just above.
+    if (plan.studioId === state.hollywood?.playerStudioId && minted >= root.nextPlanId) {
+      fail(`plan ${plan.id} was minted at or beyond nextPlanId ${String(root.nextPlanId)}`)
+    }
     if (ids.has(plan.id)) fail(`duplicate plan id ${plan.id}`)
     ids.add(plan.id)
     integer(plan.ordinal, `plan ${plan.id} ordinal`, 1)
@@ -396,7 +402,28 @@ export function validatePhysicalPlans(state: GameState): void {
     }
 
     // Started plans name a real building of the same blueprint and target.
-    if (plan.status === 'started') {
+    // P13B-S8: the lot is the PLAYER's. A rival's admitted plan therefore names no
+    // placement at all — its building is proved by its own industry receipts (the
+    // `laboratoryCommitted` row that carries this plan id) and by its commit
+    // receipt, which is what the finance root reconciles `researchCapacity` against.
+    const rival = state.hollywood !== null && plan.studioId !== state.hollywood.playerStudioId
+    if (plan.status === 'started' && rival) {
+      if (plan.startedPlacementId !== null) fail(`plan ${plan.id} names a placement on a lot its studio does not own`)
+      if (plan.commitReceipt === null) fail(`plan ${plan.id} started without a commit receipt`)
+      exact(plan.commitReceipt, ['week', 'fingerprint', 'cost'], `plan ${plan.id} commit receipt`)
+      integer(plan.commitReceipt!.week, `plan ${plan.id} commit week`)
+      if (plan.commitReceipt!.week > state.market.tick) fail(`plan ${plan.id} was committed in a week that has not happened`)
+      text(plan.commitReceipt!.fingerprint, `plan ${plan.id} commit fingerprint`)
+      integer(plan.commitReceipt!.cost, `plan ${plan.id} commit cost`)
+      // A BODY this studio has no lot for is proved by its own commitment
+      // receipt. An installation is proved by this admitted row itself (and by
+      // the `instrumentOperational` receipt its completion writes), exactly as
+      // the player's module is proved by the placement its admission committed.
+      if (work.kind === 'placement' && !state.hollywood!.receipts.some((receipt) => receipt.kind === 'laboratoryCommitted' &&
+        receipt.studioId === plan.studioId && receipt.planId === plan.id && receipt.week === plan.commitReceipt!.week)) {
+        fail(`plan ${plan.id} was admitted with no industry receipt to prove it`)
+      }
+    } else if (plan.status === 'started') {
       if (plan.startedPlacementId === null || plan.commitReceipt === null) fail(`plan ${plan.id} started without a placement and a commit receipt`)
       const placed = state.placement.facilities.find((facility) => facility.id === plan.startedPlacementId)
       if (placed === undefined) fail(`plan ${plan.id} names placement ${String(plan.startedPlacementId)}, which does not exist`)

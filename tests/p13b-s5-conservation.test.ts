@@ -38,12 +38,14 @@ const SOUND = technologyEntry('synchronized-sound')
 const LIGHTING = technologyEntry('lighting-control-01')
 
 function begin(state: GameState, technologyId: string, budgetPerWeek: number): GameState {
-  const project = state.technology.projects.find(p => p.technologyId === technologyId)!
+  // P13B-S8 sweep: a rival researches the SAME catalogue technologies now, so a
+  // project is identified by (studio, technology) — never by technology alone.
+  const project = state.technology.projects.find(p => p.technologyId === technologyId && p.studioId === state.hollywood!.playerStudioId)!
   return applyActions(state, [{ kind: 'beginResearch', projectId: project.id, budgetPerWeek }])
 }
 function runToCompletion(state: GameState, technologyId: string, boundWeek: number): GameState {
   let next = state
-  while (next.technology.projects.find(p => p.technologyId === technologyId)!.status !== 'completed') {
+  while (next.technology.projects.find(p => p.technologyId === technologyId && p.studioId === next.hollywood!.playerStudioId)!.status !== 'completed') {
     if (next.market.tick > boundWeek) throw new Error(`p13b-s5-conservation fixture: ${technologyId} research did not complete before week ${boundWeek}`)
     next = advanceTo(next, next.market.tick + 1)
   }

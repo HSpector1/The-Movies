@@ -8,13 +8,18 @@ import { initialManagedScriptDevelopment, scriptProjectWriterIds } from './scrip
 import { stream } from './rng.js'
 import { generateIndustryTalent } from './worldgen.js'
 import { initialTechnology } from './technology.js'
-import { GENRE_ORDER, ROLE_TO_DISCIPLINE, TUNING } from './tuning.js'
+import { FACILITY_BLUEPRINTS, GENRE_ORDER, ROLE_TO_DISCIPLINE, TUNING } from './tuning.js'
+import { TECHNOLOGY_CATALOGUE } from './technologyCatalogue.js'
 import type { GameState, GameStateV18, Genre, Talent } from './types.js'
-import type { HollywoodState, RivalAccount, RivalBusiness, RivalFinancePeriod,
-  RivalMoneyKind, StudioIdentity } from './hollywoodTypes.js'
+import type { HollywoodState, IndustryReceipt, RivalAccount, RivalBusiness, RivalFinancePeriod,
+  RivalMoneyKind, RivalResearchMoneyKind, StudioIdentity } from './hollywoodTypes.js'
 
+/** P13B-S8: the four research kinds, as one roster the save boundary and the projection share. */
+export const RIVAL_RESEARCH_MONEY_KINDS: readonly RivalResearchMoneyKind[] =
+  ['researchSpend','researchCapacity','technologyRestoration','technologyRefund']
 export const RIVAL_MONEY_KINDS: readonly RivalMoneyKind[] = ['capacity','signing','payroll','overhead',
-  'facilityOpex','development','production','marketing','studioRevenue','technologyAdoption']
+  'facilityOpex','development','production','marketing','studioRevenue','technologyAdoption',
+  ...RIVAL_RESEARCH_MONEY_KINDS]
 
 export function uniqueIdentity(base: string, taken: Set<string>): string {
   let id = base
@@ -83,20 +88,38 @@ export function rivalWeeklyOperatingCost(business: RivalBusiness, hollywood: Hol
   const contracts = hollywood.activeEmploymentOrdinals.map(i=>hollywood.employment[i]!).filter(row => row.studioId === business.studioId && row.endedWeek === null &&
     row.terms.startWeek <= week && week < row.terms.endWeekExclusive)
   return contracts.reduce((sum,row) => sum + weeklySalary(row.terms.annualSalary),0) +
-    TUNING.OVERHEAD_BASE + TUNING.OVERHEAD_PER_EMPLOYEE * contracts.length + rivalCapacityOpex(business)
+    TUNING.OVERHEAD_BASE + TUNING.OVERHEAD_PER_EMPLOYEE * contracts.length + rivalCapacityOpex(business,hollywood.receipts)
 }
 
-export function rivalCapacityOpex(business: RivalBusiness): number {
-  return business.operations.facilities.reduce((sum,f) => {
+/** P13B-S8: the authored weekly operating cost of one technology's Laboratory instrument module. */
+export function instrumentWeeklyOperatingCost(technologyId: string): number {
+  const blueprintId = TECHNOLOGY_CATALOGUE.find(entry => entry.id === technologyId)?.instrumentBlueprintId
+  const blueprint = FACILITY_BLUEPRINTS.find(row => row.id === blueprintId)
+  if (!blueprint) throw new Error(`Unknown rival instrument technology: ${technologyId}`)
+  return blueprint.weeklyOperatingCost
+}
+
+/**
+ * P13B-S8 (B2): a rival Laboratory is real plant and pays its authored weekly cost,
+ * and each instrument module it holds pays its own — module presence is a RECEIPT
+ * for a studio with no placements. Opex starts at the Lab's operational week: the
+ * weekly booking reads the facilities that exist THAT week, so nothing is ever
+ * back-charged and a legacy rival that never built one is untouched.
+ */
+export function rivalCapacityOpex(business: RivalBusiness, receipts: readonly IndustryReceipt[] = []): number {
+  const bodies = business.operations.facilities.reduce((sum,f) => {
     switch (f.capability) {
       case 'development-casting': return sum + TUNING.BASELINE_DEVELOPMENT_CASTING_WEEKLY_OPERATING_COST
       case 'soundstage': return sum + TUNING.STAGE_STANDARD_WEEKLY_OPERATING_COST
       case 'post': return sum + TUNING.POST_BUILDING_WEEKLY_OPERATING_COST
       case 'set-scenery': return sum + TUNING.SCENERY_SHOP_WEEKLY_OPERATING_COST
-      case 'laboratory': throw new Error('P13A rival capacity cannot contain a Laboratory')
+      case 'laboratory': return sum + TUNING.RESEARCH_LABORATORY_WEEKLY_OPERATING_COST
       default: {const unknown: never = f.capability; throw new Error(`Unknown rival capacity: ${String(unknown)}`)}
     }
   },0)
+  const held = new Set(business.operations.facilities.map(f => f.id))
+  return receipts.reduce((sum,r) => r.kind === 'instrumentOperational' && r.studioId === business.studioId && held.has(r.facilityId)
+    ? sum + instrumentWeeklyOperatingCost(r.technologyId) : sum, bodies)
 }
 
 /** New root only; null is the historical non-player harness, never a native campaign. */

@@ -12,7 +12,7 @@ import {
   installationRefusalSentence,
   INSTALLATION_CASH_REFUSAL,
 } from './technologyAdoption.js'
-import type { GameState, GameStateV20, GameStateV21, GameStateV23, LedgerEntry, Talent } from './types.js'
+import type { GameState, GameStateV20, GameStateV21, GameStateV23, LedgerEntry, StudioFacility, Talent } from './types.js'
 import type { ResearchLabContribution, ResearchProject, ResearchProjectV1, ResearchSeat, StudioTechnology, StudioTechnologyV1, StudioTechnologyV2, StudioTechnologyV3, TechnologyAction, TechnologyAdoption, TechnologyAdoptionComponent, TechnologyEquipmentAsset, TechnologyId } from './technologyTypes.js'
 
 /**
@@ -119,6 +119,55 @@ function playerStudioId(state: GameState): string {
   }
   return state.hollywood.playerStudioId
 }
+/**
+ * P13B-S8 (audit item 1): the RESEARCH law is one law, resolved PER STUDIO. Every
+ * physical, employment and cash fact the seat/week internals need is read through
+ * this resolver, so a rival advances a project through the same functions the
+ * player does — it just answers "which Laboratory, which contract, which module,
+ * whose cash" from its own roots (`business.operations`, the industry employment
+ * register, its own receipts and account) instead of the player's.
+ */
+export type StudioContext = {
+  studioId: string
+  facilities: readonly StudioFacility[]
+  /** Whether this person is this studio's employee over [week, week+1). */
+  employed: (talentId: string, week: number) => boolean
+  /** Whether this Laboratory carries this technology's operational instrument module. */
+  instrumentOperational: (laboratoryFacilityId: string, technologyId: TechnologyId) => boolean
+  /** Whether an instrument installation is still under construction on this body. */
+  instrumentInstalling: (laboratoryFacilityId: string) => boolean
+  /** Whether this studio can pay one week of research from its own cash. */
+  affordable: (amount: number) => boolean
+}
+export function studioContext(state: GameState, studioId: string): StudioContext {
+  const own = state.hollywood?.playerStudioId
+  if (studioId === own) return {
+    studioId,
+    facilities: state.operations.facilities,
+    employed: (talentId, week) => activeContract(state, talentId, week) !== undefined,
+    instrumentOperational: (labId, technologyId) => hasOperationalFacilityInstallation(state, labId, technologyEntry(technologyId).instrumentBlueprintId),
+    instrumentInstalling: labId => state.placement.facilities.some(p => p.installation?.targetFacilityId === labId && p.status === 'underConstruction'),
+    affordable: amount => canAfford(state, amount).ok,
+  }
+  const business = state.hollywood?.businesses.find(b => b.studioId === studioId)
+  const employment = state.hollywood?.employment ?? []
+  const receipts = state.hollywood?.receipts ?? []
+  return {
+    studioId,
+    facilities: business?.operations.facilities ?? [],
+    employed: (talentId, week) => employment.some(row => row.studioId === studioId && row.terms.talentId === talentId &&
+      row.terms.startWeek <= week && week < row.terms.endWeekExclusive && (row.endedWeek === null || week < row.endedWeek)),
+    // A studio with no placements proves its modules by receipt (audit item 9).
+    instrumentOperational: (labId, technologyId) => receipts.some(r => r.kind === 'instrumentOperational' &&
+      r.studioId === studioId && r.facilityId === labId && r.technologyId === technologyId && r.week <= state.market.tick),
+    instrumentInstalling: () => false,
+    affordable: amount => (business?.account.cash ?? 0) >= amount,
+  }
+}
+/** The context a project's own studio is judged under. */
+function contextFor(state: GameState, project: {studioId?: string}): StudioContext {
+  return studioContext(state, project.studioId ?? state.hollywood?.playerStudioId ?? '')
+}
 function knownTechnology(id: string): asserts id is TechnologyId {
   if (!isTechnologyId(id)) throw new Error('That technology is not in this catalogue.')
 }
@@ -145,15 +194,16 @@ export function researchCandidates(state: Pick<GameState, 'seed' | 'talent'>): T
   })
 }
 /** The seat-bearing part of a project: enough for every eligibility read, and the shape a frozen root still satisfies. */
-type SeatedProject = Pick<ResearchProject, 'laboratoryFacilityId' | 'technologyId' | 'seats'>
+type SeatedProject = Pick<ResearchProject, 'laboratoryFacilityId' | 'technologyId' | 'seats'> & {studioId?: string}
 /** Seats currently held (not released), optionally within one Laboratory. */
 export function occupiedSeats(project: Pick<ResearchProject, 'seats'>, laboratoryFacilityId?: string): ResearchSeat[] {
   return project.seats.filter(s => s.releasedWeek === null && (laboratoryFacilityId === undefined || s.laboratoryFacilityId === laboratoryFacilityId))
 }
 /** Seats that can work over [week, week+1): held by an employed Scientist. Expired or released seats earn and charge nothing. */
-export function eligibleSeatIds(state: GameState, project: Pick<ResearchProject, 'seats'>, week = state.market.tick): string[] {
+export function eligibleSeatIds(state: GameState, project: Pick<ResearchProject, 'seats'> & {studioId?: string}, week = state.market.tick,
+  context: StudioContext = contextFor(state, project)): string[] {
   return occupiedSeats(project)
-    .filter(s => state.talent.find(t => t.id === s.talentId)?.role === 'scientist' && activeContract(state, s.talentId, week) !== undefined)
+    .filter(s => state.talent.find(t => t.id === s.talentId)?.role === 'scientist' && context.employed(s.talentId, week))
     .map(s => s.talentId)
 }
 
@@ -163,23 +213,25 @@ export function eligibleSeatIds(state: GameState, project: Pick<ResearchProject,
  * Seating itself never asks (retained P13A law); a project with no occupied seat is
  * judged at its home Laboratory, exactly as the single-Lab slice did.
  */
-function laboratoryRefusal(state: GameState, project: Omit<SeatedProject, 'seats'> & {seats?: readonly ResearchSeat[]}): string | null {
+function laboratoryRefusal(state: GameState, project: Omit<SeatedProject, 'seats'> & {seats?: readonly ResearchSeat[]},
+  context: StudioContext = contextFor(state, project)): string | null {
   const entry = technologyEntry(project.technologyId)
   const labIds = new Set((project.seats ?? []).filter(s => s.releasedWeek === null).map(s => s.laboratoryFacilityId))
   if (labIds.size === 0) labIds.add(project.laboratoryFacilityId)
   for (const labId of labIds) {
-    const lab = state.operations.facilities.find(f => f.id === labId && f.capability === 'laboratory')
+    const lab = context.facilities.find(f => f.id === labId && f.capability === 'laboratory')
     if (!lab || lab.capacity < 1) return 'Complete the assigned Research Laboratory first.'
-    if (state.placement.facilities.some(p => p.installation?.targetFacilityId === lab.id && p.status === 'underConstruction')) return 'Wait for the Laboratory instrument installation to finish.'
-    if (!hasOperationalFacilityInstallation(state, lab.id, entry.instrumentBlueprintId)) return `Install ${entry.instrumentBlueprintId.replace(/-/g, ' ')} in this Laboratory.`
+    if (context.instrumentInstalling(lab.id)) return 'Wait for the Laboratory instrument installation to finish.'
+    if (!context.instrumentOperational(lab.id, project.technologyId)) return `Install ${entry.instrumentBlueprintId.replace(/-/g, ' ')} in this Laboratory.`
   }
   return null
 }
-export function researchPrerequisiteRefusal(state: GameState, project: SeatedProject): string | null {
+export function researchPrerequisiteRefusal(state: GameState, project: SeatedProject,
+  context: StudioContext = contextFor(state, project)): string | null {
   const entry = technologyEntry(project.technologyId)
   if (state.market.tick < entry.researchableWeek) return `Research opens ${campaignDate(entry.researchableWeek).label}.`
-  const physical = laboratoryRefusal(state, project); if (physical) return physical
-  if (eligibleSeatIds(state, project).length === 0) return 'Employ and assign a named Scientist.'
+  const physical = laboratoryRefusal(state, project, context); if (physical) return physical
+  if (eligibleSeatIds(state, project, state.market.tick, context).length === 0) return 'Employ and assign a named Scientist.'
   return null
 }
 
@@ -224,16 +276,17 @@ export type ResearchWeekQuote = {spend: number; output: number; remainingWeeks: 
  * Laboratory's raw output n_L·20,000 + spend_L, and the project credit
  * 8·raw_a + 5·raw_b over 160,000 — one Laboratory alone keeps S1's n + spend/20,000.
  */
-export function researchWeekQuote(state: GameState, project: ResearchProject): ResearchWeekQuote {
+export function researchWeekQuote(state: GameState, project: ResearchProject,
+  context: StudioContext = contextFor(state, project)): ResearchWeekQuote {
   const entry = technologyEntry(project.technologyId)
-  const refusal = researchPrerequisiteRefusal(state, project)
+  const refusal = researchPrerequisiteRefusal(state, project, context)
   const idle = {spend: 0, output: 0, remainingWeeks: null, seats: 0, seatTalentIds: [] as string[], labs: [] as ResearchLabShare[]}
   if (project.status !== 'active' || refusal) return {...idle, bottleneck: refusal ?? 'Research is paused. Verified work is retained.'}
-  const seatTalentIds = eligibleSeatIds(state, project)
+  const seatTalentIds = eligibleSeatIds(state, project, state.market.tick, context)
   const seats = seatTalentIds.length
   const usable = entry.usableBudgetPerScientist * seats
   const spend = Math.min(project.budgetPerWeek, usable)
-  if (!canAfford(state, spend).ok) return {...idle, bottleneck: 'Insufficient cash for this week’s usable research budget.'}
+  if (!context.affordable(spend)) return {...idle, bottleneck: 'Insufficient cash for this week’s usable research budget.'}
   const byLab = seatsByLaboratory(project.seats, seatTalentIds)
   const labs = fundingSplit(byLab, spend)
   const units = cooperationUnits(labs)
@@ -247,7 +300,10 @@ export function researchWeekQuote(state: GameState, project: ResearchProject): R
 }
 export function weeklyResearchSpend(state: GameState): number {
   if (!economyEngaged(state) || state.founding !== null) return 0
-  return (state.technology?.projects ?? []).reduce((sum, p) => sum + researchWeekQuote(state, p).spend, 0)
+  // P13B-S8: the player's own weekly research bill. A rival's research is paid
+  // from its own account in its own step and is never the player's forecast.
+  const own = state.hollywood?.playerStudioId
+  return (state.technology?.projects ?? []).filter(p => p.studioId === own).reduce((sum, p) => sum + researchWeekQuote(state, p).spend, 0)
 }
 export function weeklyResearchPayroll(state: GameState, week = state.market.tick): number {
   const scientists = new Set(state.talent.filter(t => t.role === 'scientist').map(t => t.id))
@@ -260,8 +316,9 @@ function charge(state: GameState, amount: number, note: string): GameState {
   const row: LedgerEntry = {week: state.market.tick, kind: 'technologyAdoption', amount: -amount, note}
   return {...state, studio: {...state.studio, cash: state.studio.cash - amount}, ledger: [...state.ledger, row]}
 }
-function changeProject(state: GameState, projectId: string, change: (project: ResearchProject) => ResearchProject): GameState {
-  const own = playerStudioId(state)
+function changeProject(state: GameState, projectId: string, change: (project: ResearchProject) => ResearchProject,
+  studioId?: string): GameState {
+  const own = studioId ?? playerStudioId(state)
   const project = state.technology.projects.find(p => p.id === projectId && p.studioId === own)
   if (!project) throw new Error('That research project is absent from this campaign.')
   return {...state, technology: {...state.technology, projects: state.technology.projects.map(p => p === project ? change(p) : p)}}
@@ -271,13 +328,23 @@ function budget(value: number): number {
   return value
 }
 /** An active project with no seat left that can work pauses; verified work and seats are retained. */
-function pausedWithoutEligibleSeats(state: GameState, project: ResearchProject): ResearchProject {
-  return project.status === 'active' && eligibleSeatIds(state, project).length === 0 ? {...project, status: 'paused'} : project
+function pausedWithoutEligibleSeats(state: GameState, project: ResearchProject,
+  context: StudioContext = contextFor(state, project)): ResearchProject {
+  return project.status === 'active' && eligibleSeatIds(state, project, state.market.tick, context).length === 0 ? {...project, status: 'paused'} : project
 }
-/** Early release of an employee: the same pause law, evaluated on the state without that contract. */
-export function researchAfterEmploymentRelease(state: GameState, talentId: string): StudioTechnology {
+/**
+ * Early release of an employee: the same pause law, evaluated as if that person
+ * were no longer employed. P13B-S8: `studioId` names whose employment ended, so a
+ * rival Scientist's contract end pauses the rival's project through this one law.
+ */
+export function researchAfterEmploymentRelease(state: GameState, talentId: string,
+  studioId: string | undefined = state.hollywood?.playerStudioId): StudioTechnology {
   const without = {...state, contracts: state.contracts.filter(c => c.talentId !== talentId)}
-  const projects = state.technology.projects.map(p => pausedWithoutEligibleSeats(without, p))
+  const projects = state.technology.projects.map(p => {
+    if (p.studioId !== studioId) return p
+    const context = studioContext(without, p.studioId)
+    return pausedWithoutEligibleSeats(without, p, {...context, employed: (id, week) => id !== talentId && context.employed(id, week)})
+  })
   return projects.every((p, i) => p === state.technology.projects[i]) ? state.technology : {...state.technology, projects}
 }
 
@@ -291,6 +358,53 @@ export function adoptionRefusal(state: GameState, studioId: string, stageId: str
     ...(postId === null ? {} : {postFacilityId: postId})})[0] ?? null
 }
 
+/**
+ * P13B-S8 (audit item 4): seating a named Scientist, for whichever studio the
+ * context names. The player's intent boundary derives `own` once and delegates
+ * here; the rival policy step calls the same internal with its own context, so
+ * one seat law — Laboratory, employment, double assignment, two-Laboratory limit
+ * and the body's four-seat cap — governs every studio.
+ */
+export function assignSeat(state: GameState, context: StudioContext,
+  request: {laboratoryFacilityId: string; scientistId: string; technologyId: TechnologyId}): GameState {
+  const own = context.studioId
+  const lab = context.facilities.find(f => f.id === request.laboratoryFacilityId && f.capability === 'laboratory')
+  if (!lab) throw new Error('Complete this Research Laboratory before assigning its seats.')
+  if (state.talent.find(t => t.id === request.scientistId)?.role !== 'scientist' || !context.employed(request.scientistId, state.market.tick)) throw new Error('Employ this Scientist before assigning a Laboratory seat.')
+  if (state.technology.projects.some(p => occupiedSeats(p).some(s => s.talentId === request.scientistId))) throw new Error('This Scientist already holds a Laboratory seat.')
+  if (busyTalentIds(state).has(request.scientistId)) throw new Error('This Scientist already has an active assignment.')
+  const entry = technologyEntry(request.technologyId)
+  const existing = state.technology.projects.find(p => p.studioId === own && p.technologyId === request.technologyId)
+  if (existing?.status === 'completed') throw new Error(`${entry.name} research is complete; its seats accept no further assignment.`)
+  if (existing) {
+    const staffedLabs = new Set(occupiedSeats(existing).map(s => s.laboratoryFacilityId))
+    if (!staffedLabs.has(lab.id) && staffedLabs.size >= 2) throw new Error(`This project already works in two Laboratories. A third Laboratory is refused; release its seats there first.`)
+  }
+  // The four-seat cap belongs to the Laboratory, not to one brief: every
+  // project's occupied seats on this body count against it.
+  if (state.technology.projects.reduce((n, p) => n + occupiedSeats(p, lab.id).length, 0) >= lab.capacity) throw new Error(`This Laboratory's ${spelled(lab.capacity)} seats are occupied. Release a seat or review another lawful Laboratory.`)
+  const seat: ResearchSeat = {talentId: request.scientistId, laboratoryFacilityId: lab.id, assignedWeek: state.market.tick, releasedWeek: null}
+  if (existing) return changeProject(state, existing.id, p => ({...p, seats: [...p.seats, seat]}), own)
+  const project: ResearchProject = {id: `${own}:research:${request.technologyId}`, studioId: own, technologyId: request.technologyId,
+    laboratoryFacilityId: lab.id, status: 'paused', budgetPerWeek: 10_000,
+    verifiedWork: 0, expenditure: 0, startedWeek: null, completedWeek: null, seats: [seat], weeks: [], legacy: null}
+  return {...state, technology: {...state.technology, projects: [...state.technology.projects, project]}}
+}
+
+/**
+ * P13B-S8: begin or resume one studio's project under the shared prerequisite
+ * law. The player's own verbs reach it through `applyTechnologyAction`; a rival's
+ * policy step calls it directly with its own context.
+ */
+export function beginProject(state: GameState, context: StudioContext, projectId: string, budgetPerWeek?: number): GameState {
+  return changeProject(state, projectId, p => {
+    if (p.status === 'completed' || p.status === 'active') throw new Error('This project is already active or complete.')
+    const reason = researchPrerequisiteRefusal(state, p, context); if (reason) throw new Error(reason)
+    return {...p, status: 'active', budgetPerWeek: budgetPerWeek === undefined ? p.budgetPerWeek : budget(budgetPerWeek),
+      startedWeek: p.startedWeek ?? state.market.tick}
+  }, context.studioId)
+}
+
 export function applyTechnologyAction(state: GameState, action: Exclude<TechnologyAction, {kind:'recruitScientist'}>): GameState {
   const own = playerStudioId(state)
   if (action.kind === 'installAcousticInstruments') {
@@ -300,29 +414,8 @@ export function applyTechnologyAction(state: GameState, action: Exclude<Technolo
     return commitFacilityInstallation(state,request)
   }
   if (action.kind === 'assignResearchScientist') {
-    const lab = state.operations.facilities.find(f => f.id === action.laboratoryFacilityId && f.capability === 'laboratory')
-    if (!lab) throw new Error('Complete this Research Laboratory before assigning its seats.')
-    if (state.talent.find(t => t.id === action.scientistId)?.role !== 'scientist' || !activeContract(state, action.scientistId)) throw new Error('Employ this Scientist before assigning a Laboratory seat.')
-    if (state.technology.projects.some(p => occupiedSeats(p).some(s => s.talentId === action.scientistId))) throw new Error('This Scientist already holds a Laboratory seat.')
-    if (busyTalentIds(state).has(action.scientistId)) throw new Error('This Scientist already has an active assignment.')
-    // An omitted brief is the P13A single-brief intent and means synchronized sound.
-    const technologyId = action.technologyId ?? SYNCHRONIZED_SOUND.id
-    const entry = technologyEntry(technologyId)
-    const existing = state.technology.projects.find(p => p.studioId === own && p.technologyId === technologyId)
-    if (existing?.status === 'completed') throw new Error(`${entry.name} research is complete; its seats accept no further assignment.`)
-    if (existing) {
-      const staffedLabs = new Set(occupiedSeats(existing).map(s => s.laboratoryFacilityId))
-      if (!staffedLabs.has(lab.id) && staffedLabs.size >= 2) throw new Error(`This project already works in two Laboratories. A third Laboratory is refused; release its seats there first.`)
-    }
-    // The four-seat cap belongs to the Laboratory, not to one brief: every
-    // project's occupied seats on this body count against it.
-    if (state.technology.projects.reduce((n, p) => n + occupiedSeats(p, lab.id).length, 0) >= lab.capacity) throw new Error(`This Laboratory's ${spelled(lab.capacity)} seats are occupied. Release a seat or review another lawful Laboratory.`)
-    const seat: ResearchSeat = {talentId: action.scientistId, laboratoryFacilityId: lab.id, assignedWeek: state.market.tick, releasedWeek: null}
-    if (existing) return changeProject(state, existing.id, p => ({...p, seats: [...p.seats, seat]}))
-    const project: ResearchProject = {id: `${own}:research:${technologyId}`, studioId: own, technologyId,
-      laboratoryFacilityId: lab.id, status: 'paused', budgetPerWeek: 10_000,
-      verifiedWork: 0, expenditure: 0, startedWeek: null, completedWeek: null, seats: [seat], weeks: [], legacy: null}
-    return {...state, technology: {...state.technology, projects: [...state.technology.projects, project]}}
+    return assignSeat(state, studioContext(state, own), {laboratoryFacilityId: action.laboratoryFacilityId,
+      scientistId: action.scientistId, technologyId: action.technologyId ?? SYNCHRONIZED_SOUND.id})
   }
   if (action.kind === 'releaseResearchSeat') return changeProject(state, action.projectId, p => {
     const seat = occupiedSeats(p).find(s => s.talentId === action.scientistId)
@@ -330,12 +423,10 @@ export function applyTechnologyAction(state: GameState, action: Exclude<Technolo
     const released = {...p, seats: p.seats.map(s => s === seat ? {...s, releasedWeek: state.market.tick} : s)}
     return pausedWithoutEligibleSeats(state, released)
   })
-  if (action.kind === 'beginResearch' || action.kind === 'resumeResearch') return changeProject(state, action.projectId, p => {
-    if (p.status === 'completed' || p.status === 'active') throw new Error('This project is already active or complete.')
-    const reason = researchPrerequisiteRefusal(state, p); if (reason) throw new Error(reason)
-    return {...p, status: 'active', budgetPerWeek: action.kind === 'beginResearch' ? budget(action.budgetPerWeek) : p.budgetPerWeek,
-      startedWeek: p.startedWeek ?? state.market.tick}
-  })
+  if (action.kind === 'beginResearch' || action.kind === 'resumeResearch') {
+    return beginProject(state, studioContext(state, own), action.projectId,
+      action.kind === 'beginResearch' ? action.budgetPerWeek : undefined)
+  }
   if (action.kind === 'setResearchBudget') return changeProject(state, action.projectId, p => {
     if (p.status === 'completed') throw new Error('Completed research has no active budget.')
     return {...p, budgetPerWeek: budget(action.budgetPerWeek)}
@@ -430,14 +521,19 @@ export function applyTechnologyAction(state: GameState, action: Exclude<Technolo
   throw new Error(`Unknown technology action: ${JSON.stringify(impossible)}`)
 }
 
-/** Beginning-of-week research inputs; availability is stamped at the next boundary. One receipt per worked project week. */
-export function advanceResearchWeek(state: GameState): {technology: StudioTechnology; entries: LedgerEntry[]; cost: number} {
-  const entries: LedgerEntry[] = [], access = [...state.technology.access]
+/**
+ * ONE project's week, for whichever studio owns it (P13B-S8 audit item 1). The
+ * caller supplies the access list it is folding grants into and receives the
+ * advanced row plus the week's charge; where that charge is BOOKED — the player's
+ * ledger, or a rival's `researchSpend` movement — belongs to the caller's step.
+ */
+function advanceProjectWeek(state: GameState, p: ResearchProject, access: StudioTechnology['access'], entries: LedgerEntry[]): ResearchProject {
+  const context = contextFor(state, p)
   const nextWeek = state.market.tick + 1
-  const projects = state.technology.projects.map(p => {
+  {
     const work = technologyEntry(p.technologyId).work
-    const quote = researchWeekQuote(state, p)
-    const staffedNextWeek = eligibleSeatIds(state, p, nextWeek).length > 0
+    const quote = researchWeekQuote(state, p, context)
+    const staffedNextWeek = eligibleSeatIds(state, p, nextWeek, context).length > 0
     if (quote.output === 0) return p.status === 'active' && !staffedNextWeek ? {...p, status: 'paused' as const} : p
     if (quote.spend > 0) entries.push({week:state.market.tick, kind:'researchSpend', amount:-quote.spend, note:`research:${p.id}`})
     const before = Math.round(p.verifiedWork * PROJECT_UNIT)
@@ -459,8 +555,36 @@ export function advanceResearchWeek(state: GameState): {technology: StudioTechno
         labs: quote.labs.map(({laboratoryFacilityId, seatTalentIds, spend, rawUnits}) => ({laboratoryFacilityId, seatTalentIds, spend, rawUnits}))}],
       status:complete?'completed' as const:!staffedNextWeek?'paused' as const:p.status,
       completedWeek:complete?nextWeek:null}
-  })
+  }
+}
+
+/**
+ * Beginning-of-week research inputs; availability is stamped at the next boundary.
+ * One receipt per worked project week. P13B-S8 (audit item 3): the PLAYER's slice.
+ * Every other studio's projects are advanced in their own weekly step, against
+ * their own cash, so tick.ts can never debit the player for a rival's research.
+ */
+export function advanceResearchWeek(state: GameState): {technology: StudioTechnology; entries: LedgerEntry[]; cost: number} {
+  const entries: LedgerEntry[] = [], access = [...state.technology.access]
+  const own = state.hollywood?.playerStudioId
+  const projects = state.technology.projects.map(p => p.studioId === own ? advanceProjectWeek(state, p, access, entries) : p)
   return {technology:{...state.technology,projects,access}, entries, cost:entries.reduce((sum,e)=>sum-e.amount,0)}
+}
+
+/**
+ * P13B-S8: one rival project's week, through the SAME internals. Pure — the
+ * project row is created in the root when it is not there yet, the week's charge
+ * is returned rather than booked, and the caller's step moves the rival's money.
+ */
+export function advanceRivalResearchWeek(state: GameState, business: {studioId: string}, project: ResearchProject):
+  {technology: StudioTechnology; entries: LedgerEntry[]; cost: number} {
+  if (project.studioId !== business.studioId) throw new Error('That research project belongs to another studio.')
+  const known = state.technology.projects.some(p => p.id === project.id)
+  const root: StudioTechnology = known ? state.technology : {...state.technology, projects: [...state.technology.projects, project]}
+  const working: GameState = known ? state : {...state, technology: root}
+  const entries: LedgerEntry[] = [], access = [...root.access]
+  const projects = root.projects.map(p => p.id === project.id ? advanceProjectWeek(working, p, access, entries) : p)
+  return {technology: {...root, projects, access}, entries, cost: entries.reduce((sum,e)=>sum-e.amount,0)}
 }
 
 /**
@@ -540,7 +664,17 @@ function validateSharedTechnology(state: TechnologyBearingState, v: Validator, p
   }
   const stages = new Set<string>(), adoptionIds = new Set<string>(), prototypes = new Set<string>(), heldAssets = new Set<string>()
   const v4 = (root.version as number) === 4
-  if(root.adoptions.filter(a=>a.studioId!==own).length>1) fail('Core permits one rival commercial adoption consequence')
+  // P13A permitted exactly ONE rival adoption in a campaign. P13B-S8 deploys rival
+  // technology under the same law as the player's, so the bound is now per studio
+  // and per technology: a rival holds at most one adoption of one technology (its
+  // single stage already makes a second one duplicate work on the same body).
+  const rivalAdoptionKeys = new Set<string>()
+  for (const a of root.adoptions) {
+    if (a.studioId === own) continue
+    const key = `${a.studioId}/${a.technologyId}`
+    if (rivalAdoptionKeys.has(key)) fail('Core permits one rival adoption consequence per technology')
+    rivalAdoptionKeys.add(key)
+  }
   for (const a of root.adoptions) {
     // P13B-S6: the live V26 row carries `cancelledWeek`; the frozen V25 chain reads the same root after
     // `validateSaveV26` strips it, so the live validator accepts both shapes and validates the leaf when present.
@@ -593,7 +727,18 @@ function validateSharedTechnology(state: TechnologyBearingState, v: Validator, p
       const capex = state.ledger.filter(e => e.kind === 'constructionCapex' && a.physicalProjectIds.includes(e.constructionProjectId)).reduce((s,e)=>s-e.amount,0)
       if (capex !== a.installationCost) fail('physical commitment does not reconcile')
       if (a.operationalWeek !== null && !adoptionChainOperational(full, a as TechnologyAdoption)) fail('capability before physical completion')
-    } else if (a.physicalProjectIds.length || a.route !== 'purchase' || a.equipmentCost !== entry.commercialEquipmentCost || a.installationCost !== installationCatalogueCost(entry) || a.committedWeek < entry.commercialWeek) fail('rival has fabricated physical or research authority')
+    } else if (a.physicalProjectIds.length || a.installationCost !== installationCatalogueCost(entry)) {
+      fail('rival has fabricated physical or research authority')
+    } else if (a.route === 'purchase') {
+      // The commercial consequence, unchanged: the catalogue price, never before
+      // the technology is on sale.
+      if (a.equipmentCost !== entry.commercialEquipmentCost || a.committedWeek < entry.commercialWeek) fail('rival has fabricated physical or research authority')
+    } else if (a.equipmentCost !== 0 && a.equipmentCost !== entry.laterInventorEquipmentCost) {
+      // P13B-S8: a rival deploying its OWN invention pays nothing for the first
+      // prototype it is entitled to, or the inventor's price for a later set. Its
+      // access row already proves the completed project behind the route.
+      fail('rival has fabricated physical or research authority')
+    }
     let equipmentSource = ''
     if (v4) {
       const row = a as TechnologyAdoption
@@ -770,12 +915,24 @@ function validateTechnologyRoot(state: GameState, version: 3 | 4): void {
   const {fail, exact, integer, text, week, studio, own} = v
   validateRootShape(state, v, version)
   const root = state.technology as StudioTechnology
-  const ids = new Set<string>(), technologies = new Set<string>(), seatHolders = new Set<string>()
+  const ids = new Set<string>(), seatHolders = new Set<string>()
   const occupiedByLab = new Map<string, number>()
   const completed = new Map<string, number>()
-  const employment = (state.hollywood?.employment ?? []).filter(c => c.studioId === own)
-  const employedThatWeek = (talentId: string, at: number) => employment.some(c => c.terms.talentId === talentId &&
-    c.terms.startWeek <= at && at < c.terms.endWeekExclusive && (c.endedWeek === null || at < c.endedWeek))
+  // P13B-S8 (audit item 2): the same law, resolved per studio. The player's
+  // Laboratories and contracts come from the player roots; an entered rival's come
+  // from its own operations and the industry employment register.
+  const contexts = new Map<string, StudioContext>()
+  const contextOf = (studioId: string): StudioContext => {
+    const known = contexts.get(studioId)
+    if (known) return known
+    const made = studioContext(state, studioId)
+    contexts.set(studioId, made)
+    return made
+  }
+  const employedThatWeek = (studioId: string, talentId: string, at: number) =>
+    (state.hollywood?.employment ?? []).some(c => c.studioId === studioId && c.terms.talentId === talentId &&
+      c.terms.startWeek <= at && at < c.terms.endWeekExclusive && (c.endedWeek === null || at < c.endedWeek))
+  const technologiesByStudio = new Map<string, Set<string>>()
   // A repeated charge for one project week is a duplicated payment, not a
   // reconciliation gap: name it before any per-project receipt arithmetic can
   // read the same forged row as an expenditure mismatch.
@@ -790,22 +947,34 @@ function validateTechnologyRoot(state: GameState, version: 3 | 4): void {
     knownTechnology(p.technologyId);studio(p.studioId);text(p.id)
     const entry = technologyEntry(p.technologyId)
     const WORK = entry.work * PROJECT_UNIT
-    if (p.studioId !== own || p.id !== `${own}:research:${p.technologyId}` || ids.has(p.id)) fail('invalid research ownership or identity')
+    if (p.id !== `${p.studioId}:research:${p.technologyId}` || ids.has(p.id)) fail('invalid research ownership or identity')
     ids.add(p.id)
-    if (technologies.has(p.technologyId)) fail('one research project per studio and technology');technologies.add(p.technologyId)
+    const context = contextOf(p.studioId)
+    const player = p.studioId === own
+    const ownTechnologies = technologiesByStudio.get(p.studioId) ?? new Set<string>()
+    if (ownTechnologies.has(p.technologyId)) fail('one research project per studio and technology')
+    ownTechnologies.add(p.technologyId);technologiesByStudio.set(p.studioId,ownTechnologies)
     budget(p.budgetPerWeek);integer(p.expenditure)
     if (!Number.isFinite(p.verifiedWork) || p.verifiedWork < 0 || p.verifiedWork > entry.work) fail('invalid verified work')
     const verifiedWorkUnits = Math.round(p.verifiedWork * PROJECT_UNIT)
     if (p.verifiedWork !== verifiedWorkUnits / PROJECT_UNIT) fail('verified work is not a whole-dollar research unit')
     if (!['active','paused','cancelled','completed'].includes(p.status)) fail('unknown research status')
-    const lab = state.operations.facilities.find(f => f.id === p.laboratoryFacilityId && f.capability === 'laboratory')
+    const lab = context.facilities.find(f => f.id === p.laboratoryFacilityId && f.capability === 'laboratory')
     if (!lab) fail('unknown Laboratory')
+    // P13B-S8 (audit item 12): a rival's Laboratory is authority it must have a
+    // receipt for — no placement stands behind it.
+    if (!player && !(state.hollywood?.receipts ?? []).some(r => r.kind === 'laboratoryOperational' && r.studioId === p.studioId && r.facilityId === lab!.id)) {
+      fail('rival Laboratory without its operational receipt')
+    }
     if (!Array.isArray(p.seats) || !Array.isArray(p.weeks)) fail('array required')
     const seatLabs = new Set<string>(), staffedLabs = new Set<string>()
     for (const s of p.seats) {
       exact(s,['talentId','laboratoryFacilityId','assignedWeek','releasedWeek']);text(s.talentId)
       if (state.talent.find(t => t.id === s.talentId)?.role !== 'scientist') fail('unknown Scientist')
-      if (!state.operations.facilities.some(f => f.id === s.laboratoryFacilityId && f.capability === 'laboratory')) fail('seat outside a Laboratory of this studio')
+      if (!context.facilities.some(f => f.id === s.laboratoryFacilityId && f.capability === 'laboratory')) fail('seat outside a Laboratory of this studio')
+      if (!player && !(state.hollywood?.receipts ?? []).some(r => r.kind === 'researchSeatAssigned' && r.studioId === p.studioId && r.projectId === p.id && r.talentId === s.talentId)) {
+        fail('rival Laboratory seat without its receipt')
+      }
       seatLabs.add(s.laboratoryFacilityId)
       week(s.assignedWeek)
       if (s.releasedWeek !== null) {week(s.releasedWeek);if (s.releasedWeek < s.assignedWeek) fail('seat released before assignment')}
@@ -822,7 +991,7 @@ function validateTechnologyRoot(state: GameState, version: 3 | 4): void {
     else if (p.verifiedWork === entry.work || p.status === 'completed') fail('missing research completion receipt')
     if (p.completedWeek !== null) completed.set(`${p.studioId}/${p.id}`, p.completedWeek)
     // Elapsed capacity is bounded by every Laboratory this project's seats ever named, not only its home body.
-    const seatCapacity = [...seatLabs].reduce((sum,labId) => sum + (state.operations.facilities.find(f => f.id === labId)?.capacity ?? 0), 0) || lab!.capacity
+    const seatCapacity = [...seatLabs].reduce((sum,labId) => sum + (context.facilities.find(f => f.id === labId)?.capacity ?? 0), 0) || lab!.capacity
     if (p.startedWeek !== null && verifiedWorkUnits > ((p.completedWeek ?? state.market.tick) - p.startedWeek) * seatCapacity * 240_000) fail('verified work exceeds elapsed capacity of the Laboratory seats')
     let units = 0, spend = 0, receiptsFrom = p.startedWeek
     const legacy = p.legacy
@@ -848,7 +1017,7 @@ function validateTechnologyRoot(state: GameState, version: 3 | 4): void {
       if (!Array.isArray(r.seatTalentIds) || r.seatTalentIds.length < 1 || new Set(r.seatTalentIds).size !== r.seatTalentIds.length) fail('research receipt without distinct seats')
       for (const talentId of r.seatTalentIds) {
         if (!p.seats.some(s => s.talentId === talentId && s.assignedWeek <= r.week && (s.releasedWeek === null || s.releasedWeek > r.week))) fail('research receipt names an unseated person')
-        if (!employedThatWeek(talentId, r.week)) fail('research receipt names an unemployed Scientist')
+        if (!employedThatWeek(p.studioId, talentId, r.week)) fail('research receipt names an unemployed Scientist')
       }
       if (r.spend > entry.usableBudgetPerScientist * r.seatTalentIds.length) fail('research charge exceeds its usable seats')
       const final = index === p.weeks.length - 1 && p.completedWeek !== null
@@ -890,11 +1059,21 @@ function validateTechnologyRoot(state: GameState, version: 3 | 4): void {
     }
     if (units !== verifiedWorkUnits) fail('verified work does not reconcile with its receipts')
     if (spend !== p.expenditure) fail('research expenditure does not reconcile with its receipts')
-    const paid = state.ledger.filter(e => e.kind === 'researchSpend' && e.note === `research:${p.id}`).reduce((sum,e) => sum-e.amount,0)
-    if (paid !== p.expenditure) fail('research expenditure does not reconcile')
-    if (p.status === 'active' && researchPrerequisiteRefusal(state,p)) fail('active research lacks its assigned person or physical prerequisites')
+    // The player's research is paid from the player's ledger; a rival's is paid
+    // from its own account, and reconciles there (`researchSpend` per period).
+    if (player) {
+      const paid = state.ledger.filter(e => e.kind === 'researchSpend' && e.note === `research:${p.id}`).reduce((sum,e) => sum-e.amount,0)
+      if (paid !== p.expenditure) fail('research expenditure does not reconcile')
+    }
+    if (p.completedWeek !== null && !player && !(state.hollywood?.receipts ?? []).some(r => r.kind === 'researchCompleted' && r.studioId === p.studioId && r.projectId === p.id)) {
+      fail('rival research completion without its receipt')
+    }
+    if (p.status === 'active' && researchPrerequisiteRefusal(state,p,context)) fail('active research lacks its assigned person or physical prerequisites')
   }
-  for (const [labId,count] of occupiedByLab) if (count > (state.operations.facilities.find(f => f.id === labId)?.capacity ?? 0)) fail('Laboratory seats exceed capacity')
+  for (const [labId,count] of occupiedByLab) {
+    const capacity = [...contexts.values()].reduce((found,c) => found ?? c.facilities.find(f => f.id === labId)?.capacity, undefined as number | undefined)
+    if (count > (capacity ?? 0)) fail('Laboratory seats exceed capacity')
+  }
   for (const e of state.ledger) {
     if (e.kind !== 'researchSpend') continue
     week(e.week);integer(-e.amount,1)

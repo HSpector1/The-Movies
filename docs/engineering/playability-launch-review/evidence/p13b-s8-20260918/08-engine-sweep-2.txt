@@ -1,0 +1,40 @@
+=== sweep verification batch 2 (8 files) ===
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/property-state-v13.test.ts (24 tests) 5808ms
+   ✓ C1-M1a (a) — the property IS the constants, in a new representation > decides every query verdict from state exactly as the constants decided it 716ms
+   ✓ C1-M1a (a) — the property IS the constants, in a new representation > keeps the severance walk verdict-identical with structures in the obstacle set 941ms
+   ✓ C1-M1a (a) — the property IS the constants, in a new representation > plays a migrated V12 world byte-identically to a native V13 world for 30+ weeks 320ms
+   ✓ C1-M1a (b) — nothing assumes eight structures or a small placement count > carries twelve-plus placed facilities through invariants, completion, opex, and save 591ms
+   ✓ C1-M1a (b) — nothing assumes eight structures or a small placement count > carries far more than twelve when the property has room for them 1943ms
+   ✓ C1-M1a (d) — SaveFileV13 > writes V13 by default and round-trips every lifecycle state byte-identically 492ms
+ ✓ |core| tests/construction-core.test.ts (12 tests) 3962ms
+   ✓ Development & Casting Annex V1 core lifecycle > completes on exactly the thirteenth advance from a nonzero start with no recurring charge or RNG draw 1244ms
+   ✓ Development & Casting Annex V1 core lifecycle > does not reallocate completing-advance productions into the Annex, then exposes it immediately 652ms
+   ✓ Development & Casting Annex V1 core lifecycle > uses the authoritative greenlight debit to reject skip-first start-clock laundering 419ms
+   ✓ Development & Casting Annex V1 core lifecycle > allows a production started after completion to claim the Annex under normal allocation 363ms
+   ✓ Development & Casting Annex V1 core lifecycle > accepts only the exact Annex V1 facility set and detects cross-owner collisions 675ms
+ ✓ |core| tests/placement-save-v12.test.ts (20 tests) 2253ms
+   ✓ Placement Core V12 — the frozen envelope > writes V12 explicitly and round-trips every lifecycle state byte-identically 579ms
+ ✓ |core| tests/cash-ledger-checkpoint-v11.test.ts (10 tests) 3778ms
+   ✓ SaveFileV11 cash/ledger checkpoint — historical migration > migrates an authentic played V2 without fabricating the missing production ledger row 390ms
+   ✓ SaveFileV11 cash/ledger checkpoint — post-migration authority > prevents every frozen builder from moving a checkpoint after later gameplay 339ms
+   ✓ SaveFileV11 cash/ledger checkpoint — post-migration authority > retains a nonempty historical checkpoint prefix only through ledger-owning builders 1201ms
+   ✓ SaveFileV11 cash/ledger checkpoint — post-migration authority > preserves exact checkpoint reconciliation through managed payroll and overhead suffixes 614ms
+   ✓ SaveFileV11 cash/ledger checkpoint — post-migration authority > starts and completes the Annex from a mismatched managed V10 with exactly one post-checkpoint capex 380ms
+ ✓ |core| tests/construction-save-v11.test.ts (12 tests) 2128ms
+   ✓ Development & Casting Annex V1 — SaveFileV11 > writes V12 by default and round-trips legacy, vacant, building, and completed lifecycle states 461ms
+   ✓ Development & Casting Annex V1 — SaveFileV11 > round-trips and continues byte-identically at start, S+12, and S+13 462ms
+ ✓ |core| tests/c2a-m3-screenplay-mint.test.ts (8 tests) 890ms
+   ✓ C2a-M3 — a writer goes to work and hands the studio a new movie > mints a concept, a title and a blueprint at COMMISSION-COMMIT, and drafts it 395ms
+ ✓ |core| tests/c2a-m3-rename-and-pooling.test.ts (9 tests) 517ms
+ ✓ |core| tests/c2a-m2-sets-save.test.ts (4 tests) 1664ms
+   ✓ C2a-M2 — sets across the save boundary > round-trips a studio that has built, repaired and struck, byte for byte 896ms
+   ✓ C2a-M2 — sets across the save boundary > refuses, at the V16 boundary, every state the sets authority forbids 423ms
+
+ Test Files  8 passed (8)
+      Tests  99 passed (99)
+   Start at  04:20:24
+   Duration  28.45s (transform 1.88s, setup 0ms, collect 4.74s, tests 21.00s, environment 2ms, prepare 754ms)
+

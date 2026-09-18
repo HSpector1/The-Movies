@@ -74,9 +74,17 @@ function assertSha256(json: string, expected: string) {
   expect(createHash('sha256').update(json).digest('hex')).toBe(expected)
 }
 
+/**
+ * P13B-S8 sweep (26 -> 27): the live writer is V27, so a genuine V26 fixture is
+ * LIFTED through the governed migration before the live engine runs on it — the
+ * same path every real load takes. S7's own claim is unchanged: the announcement
+ * is derived from the campaign clock and persists nowhere.
+ */
+const liveState = (json: string): GameState => save.migrateToV27(JSON.parse(json) as never).state as GameState
+
 describe('P13B-S7 announcements persist nowhere: genuine V26 fixture, live load, advance past the announce week (test 3)', () => {
-  it('LIVE_SAVE_VERSION is still 26 — S7 changes no save (sweep target for a future version bump)', () => {
-    expect(save.LIVE_SAVE_VERSION).toBe(26)
+  it('LIVE_SAVE_VERSION is 27 (P13B-S8) — S7 itself changes no save', () => {
+    expect(save.LIVE_SAVE_VERSION).toBe(27)
   })
 
   it('genuine V26 fixture at week 795 (before lighting announces at 884): sha256 matches, loads through the live path, no lighting announcement row', () => {
@@ -87,8 +95,8 @@ describe('P13B-S7 announcements persist nowhere: genuine V26 fixture, live load,
     expect(parsed.state.market.tick).toBe(FIXTURE.week)
 
     const loaded = save.importSave(json)
-    expect(loaded.saveVersion).toBe(26)
-    const state = loaded.state as GameState
+    expect(loaded.saveVersion).toBe(26) // the FIXTURE's own version, unchanged
+    const state = liveState(json)
     expect(state.market.tick).toBe(795)
 
     const rows = technologyAnnouncements(state.market.tick)
@@ -98,7 +106,7 @@ describe('P13B-S7 announcements persist nowhere: genuine V26 fixture, live load,
 
   it('advanced to week 884: exactly one lighting announcement row, week 884; still no sound row', () => {
     const json = load(FIXTURE.file)
-    const state = save.importSave(json).state as GameState
+    const state = liveState(json)
     const at884 = advanceTo(state, 884)
     expect(at884.market.tick).toBe(884)
     const rows = technologyAnnouncements(at884.market.tick)
@@ -107,16 +115,16 @@ describe('P13B-S7 announcements persist nowhere: genuine V26 fixture, live load,
 
   it('advanced further to week 900: still exactly one lighting row, unchanged content (row week stays 884, not 900)', () => {
     const json = load(FIXTURE.file)
-    const state = save.importSave(json).state as GameState
+    const state = liveState(json)
     const at900 = advanceTo(state, 900)
     expect(at900.market.tick).toBe(900)
     const rows = technologyAnnouncements(at900.market.tick)
     expect(rows).toEqual([{ technologyId: 'lighting-control-01', week: 884 }])
   })
 
-  it('the announcement is derived-only: the exported V26 save carries no announcement record, and round-trips cleanly at the unchanged live version', () => {
+  it('the announcement is derived-only: the exported live save carries no announcement record, and round-trips cleanly at the unchanged live version', () => {
     const json = load(FIXTURE.file)
-    const state = save.importSave(json).state as GameState
+    const state = liveState(json)
     const at884 = advanceTo(state, 884)
 
     const exported = save.exportCurrentState(at884)
@@ -124,14 +132,14 @@ describe('P13B-S7 announcements persist nowhere: genuine V26 fixture, live load,
     expect(exported).not.toMatch(/"announcement/i)
 
     const reimported = save.importSave(exported)
-    expect(reimported.saveVersion).toBe(26) // no new save root, no version bump — round-trips at the live version
+    expect(reimported.saveVersion).toBe(27) // S7 added no save root; the live version is S8's
   })
 
   it('Save As proxy: two independently-loaded copies of the same genuine save publish byte-identical announcement rows at 884', () => {
     const jsonA = load(FIXTURE.file)
     const jsonB = load(FIXTURE.file) // independent read + parse, never a shared reference
-    const stateA = advanceTo(save.importSave(jsonA).state as GameState, 884)
-    const stateB = advanceTo(save.importSave(jsonB).state as GameState, 884)
+    const stateA = advanceTo(liveState(jsonA), 884)
+    const stateB = advanceTo(liveState(jsonB), 884)
     expect(stateA).toEqual(stateB) // same lineage, independently loaded — still equal, never linked
     expect(technologyAnnouncements(stateA.market.tick)).toEqual(technologyAnnouncements(stateB.market.tick))
     expect(technologyAnnouncements(stateA.market.tick)).toEqual([{ technologyId: 'lighting-control-01', week: 884 }])

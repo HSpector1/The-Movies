@@ -1,0 +1,17 @@
+=== npm run typecheck ===
+
+> project-studio-core@0.1.0 typecheck
+> tsc --noEmit && tsc -p ui/tsconfig.json --noEmit
+
+tests/p13b-s8-adoption.test.ts(126,14): error TS18048: 'row' is possibly 'undefined'.
+tests/p13b-s8-adoption.test.ts(127,14): error TS18048: 'row' is possibly 'undefined'.
+tests/p13b-s8-adoption.test.ts(128,14): error TS18048: 'row' is possibly 'undefined'.
+tests/p13b-s8-adoption.test.ts(129,14): error TS18048: 'row' is possibly 'undefined'.
+tests/p13b-s8-adoption.test.ts(129,86): error TS18048: 'row' is possibly 'undefined'.
+tests/p13b-s8-capacity.test.ts(165,53): error TS2367: This comparison appears to be unintentional because the types 'number' and 'string' have no overlap.
+tests/p13b-s8-research.test.ts(68,7): error TS6133: 'SEED' is declared but its value is never read.
+tests/p13b-s8-research.test.ts(82,70): error TS6133: 'i' is declared but its value is never read.
+tests/p13b-s8-setup-symmetry.test.ts(96,25): error TS2502: 'recipe' is referenced directly or indirectly in its own type annotation.
+tests/p13b-s8-setup-symmetry.test.ts(112,25): error TS2502: 'recipe' is referenced directly or indirectly in its own type annotation.
+tests/p13b-s8-setup-symmetry.test.ts(132,12): error TS18048: 'row' is possibly 'undefined'.
+EXIT=2

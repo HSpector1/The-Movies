@@ -1,0 +1,25 @@
+=== npx vitest run --project core --minWorkers=1 --maxWorkers=1 --reporter=dot tests/p13b-s5-validation tests/p13b-s1-* tests/p13b-s4-plans (6 files) ===
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p13b-s1-scheduler.test.ts (13 tests) 14699ms
+   ✓ P13B-S1 determinism, replay and interleaving (test 7) > rebuilds byte-identically from the same seed and the same action list, both before and after further identical actions 3857ms
+   ✓ P13B-S1 determinism, replay and interleaving (test 7) > round-trips save/reload byte-identically after seating, after funded weeks, after expiry and after pause 992ms
+ ✓ |core| tests/p13b-s4-plans.test.ts (6 tests) 2772ms
+   ✓ P13B-S4 P09/S3 integration (test 4) > a conversion queued as an S3 plan admits at the next boundary through the same P09 commit as a hand commit at that week 744ms
+   ✓ P13B-S4 P09/S3 integration (test 4) > a plan queued while the office is occupied by a drafting screenplay holds on targetEngaged and admits the boundary the slot frees (C2a-M4 queue idiom, same ordering S3 test 2 proves for an installation holder) 626ms
+   ✓ P13B-S4 P09/S3 integration (test 4) > queueing a conversion against a body already at its target standard is refused at QUEUE time (standardAlreadyMet is a permanent refusal, never merely held) 370ms
+   ✓ P13B-S4 P09/S3 integration (test 4) > BUG (RED, engine gap): a second conversion plan on the same body holds on targetEngaged while the first is under construction, then holds/refuses on standardAlreadyMet -- never starts 476ms
+ ✓ |core| tests/p13b-s5-validation.test.ts (9 tests) 13010ms
+ ✓ |core| tests/p13b-s1-save-v21.test.ts (8 tests) 3230ms
+   ✓ P13B-S1 V20 to V21 migration (test 8) > continues the migrated active-280 project lawfully for one more funded week and re-saves byte-identically 840ms
+   ✓ P13B-S1 V20 to V21 migration (test 8) > keeps the migrated paused-expired seat retained but ineligible, refuses resumeResearch, then accepts it after rehiring the same id 375ms
+   ✓ P13B-S1 campaign isolation (test 10) > produces independent migrated copies from the same fixture; advancing one never touches the other 1123ms
+ ✓ |core| tests/p13b-s1-staffing.test.ts (5 tests) 4770ms
+ ✓ |core| tests/p13b-s1-validation.test.ts (7 tests) 5433ms
+
+ Test Files  6 passed (6)
+      Tests  48 passed (48)
+   Start at  04:32:30
+   Duration  49.18s (transform 1.42s, setup 0ms, collect 3.23s, tests 43.91s, environment 2ms, prepare 548ms)
+

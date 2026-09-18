@@ -392,7 +392,12 @@ export function projectToV13State(state: GameState): Record<string, unknown> {
   delete raw.technology
   // P13B-S3: the persistent physical-plan root is V23-only, so a genuine V13 file
   // never carried one. As with technology, real plan authority is never discarded.
-  if (state.physicalPlans !== undefined && state.physicalPlans.plans.length > 0) {
+  // P13B-S8: the root is shared, and this twin already discards the whole industry
+  // above (`delete raw.hollywood`) — a rival's own Laboratory plans go with the
+  // studio that owns them. THIS studio's plan authority is still never discarded.
+  const ownTwinPlans = state.physicalPlans === undefined ? []
+    : state.physicalPlans.plans.filter(plan => plan.studioId === state.hollywood?.playerStudioId)
+  if (ownTwinPlans.length > 0) {
     throw new Error('V13 twin cannot discard physical plan authority')
   }
   delete raw.physicalPlans

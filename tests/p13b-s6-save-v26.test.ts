@@ -121,6 +121,22 @@ function s6ForgeV26(genuineV25State: GameState, mutate: (state: GameState) => Ga
   return save.importSave(json)
 }
 
+/**
+ * P13B-S8 sweep (26 -> 27): the same forge for a case whose mutation RUNS THE LIVE
+ * ENGINE. A live advance writes at the live save version, so the state is lifted
+ * through the governed V25→V26→V27 chain first and the envelope is stamped at the
+ * live version. Nothing about the S6 law under test moves: the V26 leaves and
+ * their refusals are validated by the same owners, one version further down.
+ */
+function s6ForgeLive(genuineV25State: GameState, mutate: (state: GameState) => GameState) {
+  const v25Envelope = { saveVersion: 25 as const, seed: genuineV25State.seed, state: genuineV25State, broadcastCache: genuineV25State.broadcastItems }
+  const lifted = (save as unknown as { migrateToV27: (envelope: unknown) => { seed: string; state: GameState; broadcastCache: unknown } }).migrateToV27(v25Envelope)
+  const mutated = mutate(lifted.state)
+  const envelope = { saveVersion: 27 as const, seed: lifted.seed, state: mutated, broadcastCache: lifted.broadcastCache }
+  const json = save.exportSave(envelope as unknown as Parameters<typeof save.exportSave>[0])
+  return save.importSave(json)
+}
+
 describe('P13B-S6 Save V26: genuine V25 fixtures, honest lift, chains, validator refusals (test 7)', () => {
   it('genuine V25 sound-mid-deployment fixture: sha256 matches, migrates to V26 with cancellation:null / cancelledWeek:null and no constructionRefund rows, otherwise byte-identical', () => {
     const json = load(V25_FIXTURES.soundMidDeployment.file)
@@ -202,17 +218,17 @@ describe('P13B-S6 Save V26: genuine V25 fixtures, honest lift, chains, validator
     expect(() => save.migrateToV20(v26 as never)).toThrow(/cannot downgrade/i)
   })
 
-  it('an unknown saveVersion 27 is refused, naming the handled range "1 through 26 only" (mechanical extrapolation of the templated message at save.ts:5162)', () => {
+  it('an unknown saveVersion 28 is refused, naming the handled range "1 through 27 only" (mechanical extrapolation of the templated message at save.ts:5162)', () => {
     const json = load(V25_FIXTURES.soundMidDeployment.file)
     const v26 = withV26.migrateToV26(JSON.parse(json))
-    const forged = { ...v26, saveVersion: 27 }
-    expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 26 only/)
+    const forged = { ...v26, saveVersion: 28 }
+    expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 27 only/)
   })
 
   it('VALID: a cancelled adoption with a passed original completesWeek is exempt from the v4 "operational receipt differs" clause', () => {
     const json = load(V25_FIXTURES.soundMidDeployment.file)
     const genuine = (save.validateSave(JSON.parse(json) as never).state as GameState)
-    const reimported = s6ForgeV26(genuine, state => {
+    const reimported = s6ForgeLive(genuine, state => {
       // REAL cancellation, not a hand-forged receipt (header INTERPRETATION
       // 2): the stage is still genuinely `underConstruction` at week 309
       // (site work 6 of 9 weeks in), so `cancelInstallation` produces its own
@@ -235,7 +251,7 @@ describe('P13B-S6 Save V26: genuine V25 fixtures, honest lift, chains, validator
       // clock's reach (already proven by tests/p13b-s6-ordering.test.ts case 3).
       return advanceTo(cancelled, 320)
     })
-    expect((reimported as { saveVersion: number }).saveVersion).toBe(26) // did NOT throw
+    expect((reimported as { saveVersion: number }).saveVersion).toBe(27) // did NOT throw (at the live version this real advance writes)
   })
 
   it('REFUSED: a cancelled placement marked operational', () => {

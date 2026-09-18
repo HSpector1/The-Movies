@@ -103,7 +103,7 @@ describe('P13B-S2 document 03 [780,832) through the real scheduler (test 5)', ()
     let s = state
     if (ids1.length) s = applyActions(s, ids1.map(scientistId => ({ kind: 'assignResearchScientist' as const, laboratoryFacilityId: lab1, scientistId, technologyId })))
     if (ids2.length) s = applyActions(s, ids2.map(scientistId => ({ kind: 'assignResearchScientist' as const, laboratoryFacilityId: lab2, scientistId, technologyId })))
-    const projectId = s.technology.projects.find(p => p.technologyId === technologyId)!.id
+    const projectId = s.technology.projects.find(p => p.technologyId === technologyId && p.studioId === s.hollywood!.playerStudioId)!.id
     s = applyActions(s, [{ kind: 'beginResearch', projectId, budgetPerWeek }])
     return { state: s, projectId }
   }
@@ -125,7 +125,7 @@ describe('P13B-S2 document 03 [780,832) through the real scheduler (test 5)', ()
    * `world.state`, per this file's own "never mutate the shared world" rule. */
   function buildResidualPrehistory(ids4: string[]): { state: GameState; projectId: string } {
     let s = applyActions(world.state, ids4.map(scientistId => ({ kind: 'assignResearchScientist' as const, laboratoryFacilityId: lab1, scientistId, technologyId: 'lighting-control-01' as const })))
-    const projectId = s.technology.projects.find(p => p.technologyId === 'lighting-control-01')!.id
+    const projectId = s.technology.projects.find(p => p.technologyId === 'lighting-control-01' && p.studioId === s.hollywood!.playerStudioId)!.id
     s = applyActions(s, [{ kind: 'beginResearch', projectId, budgetPerWeek: 40_000 }])
     for (let i = 0; i < 8; i++) s = tick(s) // 780..787 worked: eight fully funded four-seat weeks, 48 units
     s = applyActions(s, [{ kind: 'setResearchBudget', projectId, budgetPerWeek: 0 }])

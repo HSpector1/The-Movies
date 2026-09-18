@@ -74,7 +74,11 @@ describe('P13B-S2 module/bench law (test 2)', () => {
     })
     state = injectProject(injectProject(state, soundProject), lightingProject)
     expect(findDoubleBookedResourceSlot(state)).toBeNull()
-    const researchClaims = resourceClaimsOf(occupiedResourceSlots(state)).filter(c => c.owner === 'research')
+    // P13B-S8: the occupancy producer reads the SHARED technology root, so a
+    // rival's own Laboratory seats are claims too — on its own bodies. This
+    // studio's four seats are the ones under test.
+    const researchClaims = resourceClaimsOf(occupiedResourceSlots(state))
+      .filter(c => c.owner === 'research' && c.research.studioId === own)
     expect(researchClaims).toHaveLength(4)
   })
 
@@ -86,7 +90,7 @@ describe('P13B-S2 module/bench law (test 2)', () => {
     state = applyActions(state, [{ kind: 'recruitScientist', laboratoryFacilityId, scientistId }])
     // Retained P13A law (tests/p13a-research-identity.test.ts): seating precedes instruments; the project waits paused.
     state = applyActions(state, [{ kind: 'assignResearchScientist', laboratoryFacilityId, scientistId, technologyId: 'lighting-control-01' }])
-    const project = state.technology.projects.find(p => p.technologyId === 'lighting-control-01')!
+    const project = state.technology.projects.find(p => p.technologyId === 'lighting-control-01' && p.studioId === state.hollywood!.playerStudioId)!
     expect(project).toMatchObject({ status: 'paused', seats: [{ talentId: scientistId, laboratoryFacilityId, releasedWeek: null }] })
     expect(() => applyActions(state, [{ kind: 'beginResearch', projectId: project.id, budgetPerWeek: 10_000 }]))
       .toThrow(/module|electrical|control/i)
@@ -105,11 +109,11 @@ describe('P13B-S2 module/bench law (test 2)', () => {
       status: 'active', startedWeek: 780, seats: [seatOf(scientistId, laboratoryFacilityId, 780)],
     })
     const active = injectProject(base, activeProject)
-    const activeClaims = resourceClaimsOf(occupiedResourceSlots(active)).filter(c => c.owner === 'research')
+    const activeClaims = resourceClaimsOf(occupiedResourceSlots(active)).filter(c => c.owner === 'research' && c.research.studioId === own)
     expect(activeClaims).toEqual([expect.objectContaining({ slot: 0, facilitySlotKey: `${laboratoryFacilityId}:0`, ownerId: projectId })])
 
     const paused = injectProject(base, { ...activeProject, status: 'paused' })
-    const pausedClaims = resourceClaimsOf(occupiedResourceSlots(paused)).filter(c => c.owner === 'research')
+    const pausedClaims = resourceClaimsOf(occupiedResourceSlots(paused)).filter(c => c.owner === 'research' && c.research.studioId === own)
     expect(pausedClaims).toEqual([expect.objectContaining({ slot: null, facilitySlotKey: null, ownerId: projectId })])
   })
 })

@@ -1,0 +1,225 @@
+=== npx vitest run --project core --minWorkers=1 --maxWorkers=1 --reporter=dot tests/p13b-s8-{capacity,research,adoption,finance,nonleak,setup-symmetry,save-v27}.test.ts ===
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/p13b-s8-save-v27.test.ts (8 tests | 3 failed) 1325ms
+   × P13B-S8 Save V27: genuine V26 fixtures, honest lift, conditional downgrade, validator refusals, sentinel 28 (test 7) > downgrade LOSSLESS: a freshly-lifted V27 state with every new key still zero downgrades to V26 byte-identical to the genuine fixture it came from 287ms
+     → expected 27 to be 26 // Object.is equality
+   × P13B-S8 Save V27: genuine V26 fixtures, honest lift, conditional downgrade, validator refusals, sentinel 28 (test 7) > downgrade REFUSED: a nonzero researchCapacity movement in any single period is enough to refuse V27->V26 128ms
+     → expected [Function] to throw error matching /cannot downgrade/i but got 'validateSaveV27: frozen V26 state is …'
+   × P13B-S8 Save V27: genuine V26 fixtures, honest lift, conditional downgrade, validator refusals, sentinel 28 (test 7) > downgrade REFUSED: the mere presence of one new receipt kind (laboratoryOperational) is enough to refuse V27->V26, even with every movement still zero 120ms
+     → expected [Function] to throw error matching /cannot downgrade/i but got 'validateSaveV27: frozen V26 state is …'
+ ❯ |core| tests/p13b-s8-capacity.test.ts (5 tests | 2 failed) 2008ms
+   × P13B-S8 rival Laboratory/instrument capacity: receipts, <=2x4, reserveWeeks (test 1) > PRECONDITION (today, pre-S8): a rival business holding a Laboratory facility makes rivalCapacityOpex throw, and the validator therefore refuses it too — the exact gap S8-T2 closes 52ms
+     → expected [Function] to throw an error
+   ✓ P13B-S8 rival Laboratory/instrument capacity: receipts, <=2x4, reserveWeeks (test 1) > completion: a committed Laboratory becomes an abstract {capability: "laboratory", capacity: 4} facility on the rival operations at the plan's completion week, with a laboratoryOperational {facilityId} receipt, and no placement record is ever written for it 597ms
+   ✓ P13B-S8 rival Laboratory/instrument capacity: receipts, <=2x4, reserveWeeks (test 1) > bound: a rival never holds more than 2 Laboratories, each never exceeding 4 seats of capacity — repeated admission past the bound is a no-op, not a refusal that leaves partial state 969ms
+   × P13B-S8 rival Laboratory/instrument capacity: receipts, <=2x4, reserveWeeks (test 1) > coverage: once a rival Laboratory exists, the tick (advanceHollywoodWeek, via a real advanceTo) and the validator (save.exportCurrentState) do not throw 361ms
+     → expected [Function] to not throw an error but 'Error: validateSaveV27: frozen V26 st…' was thrown
+ ❯ |core| tests/p13b-s8-research.test.ts (4 tests | 3 failed) 15242ms
+   × P13B-S8 rival research under the shared law: identical receipts, expiry/renewal, player isolation (test 2) > PRECONDITION (today, pre-S8, real code): advanceResearchWeek aggregates EVERY project's spend regardless of studioId — a hand-forged rival project (reusing today's ONLY notion of "active contract", state.contracts) is charged exactly as tick.ts would apply it to the PLAYER's cash, precisely the B4 defect S8-T2 must partition away 4149ms
+     → expected 0 to be greater than 0
+   × P13B-S8 rival research under the shared law: identical receipts, expiry/renewal, player isolation (test 2) > identical receipts for identical inputs: the weekly spend for N seats fully funded on technology T is usableBudgetPerScientist*N for BOTH the real player law and the rival step 3509ms
+     → This programme already employs Otto Salazar.
+   × P13B-S8 rival research under the shared law: identical receipts, expiry/renewal, player isolation (test 2) > expiry/renewal: a rival Scientist's contract lapsing with no successor pauses the project, the same "no eligible seats" law the player's own researchAfterEmploymentRelease produces 3725ms
+     → expected 'active' to be 'paused' // Object.is equality
+   ✓ P13B-S8 rival research under the shared law: identical receipts, expiry/renewal, player isolation (test 2) > coverage: the player's cash and ledger are byte-identical across two states differing only in whether a rival runs active research 3857ms
+ ❯ |core| tests/p13b-s8-finance.test.ts (5 tests | 2 failed) 596ms
+   × P13B-S8 rival finance: typed kinds and interval Opex reconcile, migration frozen, legacy grandfathered (test 4) > PRECONDITION (today, pre-S8, real code): rivalCapacityOpex throws for any business holding a Laboratory facility — the reconciliation gap S8-T2 closes 49ms
+     → expected [Function] to throw an error
+   ✓ P13B-S8 rival finance: typed kinds and interval Opex reconcile, migration frozen, legacy grandfathered (test 4) > interval Opex: no back-charges — a Laboratory adds its weekly cost only from its own operational week, never retroactively 512ms
+   × P13B-S8 rival finance: typed kinds and interval Opex reconcile, migration frozen, legacy grandfathered (test 4) > migration basis frozen (data-level): widening a V26-shaped period with the four new kinds at zero changes nothing else — the same opening/closing and every existing kind's movement, byte-identical 14ms
+     → expected { capacity: -5900000, …(9) } to deeply equal { capacity: -5900000, …(13) }
+ ✓ |core| tests/p13b-s8-nonleak.test.ts (5 tests) 5980ms
+   ✓ P13B-S8 non-leak: forecast/announcements identical across states differing ONLY in rival RESEARCH state (test 5, upgrades S7's PARTIAL to genuine) > advanced independently to week 900 (past the lighting announcement), the rival-research-only divergence persists in the engine roots but forecasts/announcements still publish byte-identical 632ms
+ ✓ |core| tests/p13b-s8-setup-symmetry.test.ts (4 tests) 74ms
+ ✓ |core| tests/p13b-s8-adoption.test.ts (3 tests) 15471ms
+   ✓ P13B-S8 rival adoption per technology: clock timing pinned, commercial purchase unchanged (test 3) > REGRESSION (today, real code): a rival's commercial sound purchase — no plant of its own — still becomes operational EXACTLY at committedWeek + deploymentWeeks through the unchanged clock branch 5811ms
+   ✓ P13B-S8 rival adoption per technology: clock timing pinned, commercial purchase unchanged (test 3) > core: a rival RESEARCH-route adoption (no player placement at all) becomes operational through the SAME unchanged clock branch — "the rival's stage facility existing and the receipt" satisfies the P09 clause on rival bodies 9657ms
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 10 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p13b-s8-capacity.test.ts > P13B-S8 rival Laboratory/instrument capacity: receipts, <=2x4, reserveWeeks (test 1) > PRECONDITION (today, pre-S8): a rival business holding a Laboratory facility makes rivalCapacityOpex throw, and the validator therefore refuses it too — the exact gap S8-T2 closes
+AssertionError: expected [Function] to throw an error
+
+- Expected: 
+null
+
++ Received: 
+undefined
+
+ ❯ tests/p13b-s8-capacity.test.ts:111:8
+    109|     const forged: GameState = { ...base, hollywood: forgedHollywood }
+    110|     expect(() => rivalCapacityOpex(forgedHollywood.businesses.find(b =…
+    111|       .toThrow('P13A rival capacity cannot contain a Laboratory')
+       |        ^
+    112|     expect(() => save.exportCurrentState(forged)).toThrow()
+    113|   })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/10]⎯
+
+ FAIL |core|  tests/p13b-s8-capacity.test.ts > P13B-S8 rival Laboratory/instrument capacity: receipts, <=2x4, reserveWeeks (test 1) > coverage: once a rival Laboratory exists, the tick (advanceHollywoodWeek, via a real advanceTo) and the validator (save.exportCurrentState) do not throw
+AssertionError: expected [Function] to not throw an error but 'Error: validateSaveV27: frozen V26 st…' was thrown
+
+- Expected: 
+undefined
+
++ Received: 
+"Error: validateSaveV27: frozen V26 state is invalid — validateSaveV26: frozen V25 state is invalid — validateSaveV25: frozen V24 state is invalid — Hollywood save: capacity acquisition not paid exactly once"
+
+ ❯ tests/p13b-s8-capacity.test.ts:198:96
+    196|       .operations.facilities.some(f => f.capability === 'laboratory'))…
+    197|     expect(() => advanceTo(completed, completed.market.tick + 4)).not.…
+    198|     expect(() => save.exportCurrentState(advanceTo(completed, complete…
+       |                                                                                                ^
+    199|   }, 30_000)
+    200| })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/10]⎯
+
+ FAIL |core|  tests/p13b-s8-finance.test.ts > P13B-S8 rival finance: typed kinds and interval Opex reconcile, migration frozen, legacy grandfathered (test 4) > PRECONDITION (today, pre-S8, real code): rivalCapacityOpex throws for any business holding a Laboratory facility — the reconciliation gap S8-T2 closes
+AssertionError: expected [Function] to throw an error
+
+- Expected: 
+null
+
++ Received: 
+undefined
+
+ ❯ tests/p13b-s8-finance.test.ts:87:45
+     85|     const forged: RivalBusiness = { ...business, operations: { ...busi…
+     86|       { id: `${business.studioId}:lab-forged`, name: 'Research Laborat…
+     87|     expect(() => rivalCapacityOpex(forged)).toThrow('P13A rival capaci…
+       |                                             ^
+     88|   })
+     89| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/10]⎯
+
+ FAIL |core|  tests/p13b-s8-finance.test.ts > P13B-S8 rival finance: typed kinds and interval Opex reconcile, migration frozen, legacy grandfathered (test 4) > migration basis frozen (data-level): widening a V26-shaped period with the four new kinds at zero changes nothing else — the same opening/closing and every existing kind's movement, byte-identical
+AssertionError: expected { capacity: -5900000, …(9) } to deeply equal { capacity: -5900000, …(13) }
+
+- Expected
++ Received
+
+  Object {
+    "capacity": -5900000,
+    "development": 0,
+    "facilityOpex": 0,
+    "marketing": 0,
+    "overhead": 0,
+    "payroll": 0,
+    "production": 0,
+-   "researchCapacity": 0,
+-   "researchSpend": 0,
+    "signing": -717317,
+    "studioRevenue": 0,
+    "technologyAdoption": 0,
+-   "technologyRefund": 0,
+-   "technologyRestoration": 0,
+  }
+
+ ❯ tests/p13b-s8-finance.test.ts:152:25
+    150|     const { researchSpend, researchCapacity, technologyRestoration, te…
+    151|     expect(researchSpend).toBe(0); expect(researchCapacity).toBe(0); e…
+    152|     expect(strippedNew).toEqual(v26Period.movements)
+       |                         ^
+    153|     expect(widened.opening).toBe(v26Period.opening)
+    154|     expect(widened.closing).toBe(v26Period.closing)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/10]⎯
+
+ FAIL |core|  tests/p13b-s8-research.test.ts > P13B-S8 rival research under the shared law: identical receipts, expiry/renewal, player isolation (test 2) > PRECONDITION (today, pre-S8, real code): advanceResearchWeek aggregates EVERY project's spend regardless of studioId — a hand-forged rival project (reusing today's ONLY notion of "active contract", state.contracts) is charged exactly as tick.ts would apply it to the PLAYER's cash, precisely the B4 defect S8-T2 must partition away
+AssertionError: expected 0 to be greater than 0
+ ❯ tests/p13b-s8-research.test.ts:116:18
+    114|     const withRivalProject: GameState = { ...player, technology: { ...…
+    115|     const { cost, entries } = advanceResearchWeek(withRivalProject)
+    116|     expect(cost).toBeGreaterThan(0) // the rival project earns real sp…
+       |                  ^
+    117|     expect(entries.some(e => e.note === `research:${rivalProject.id}`)…
+    118|     // ...and today's tick.ts (technology.ts's own caller, tick.ts:529…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/10]⎯
+
+ FAIL |core|  tests/p13b-s8-research.test.ts > P13B-S8 rival research under the shared law: identical receipts, expiry/renewal, player isolation (test 2) > identical receipts for identical inputs: the weekly spend for N seats fully funded on technology T is usableBudgetPerScientist*N for BOTH the real player law and the rival step
+Error: This programme already employs Otto Salazar.
+ ❯ Module.applyActions src/core/actions.ts:2960:55
+
+ ❯ Module.p13bStaffedProject src/harness/p13b/fixtures.ts:23:15
+ ❯ tests/p13b-s8-research.test.ts:125:47
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/10]⎯
+
+ FAIL |core|  tests/p13b-s8-research.test.ts > P13B-S8 rival research under the shared law: identical receipts, expiry/renewal, player isolation (test 2) > expiry/renewal: a rival Scientist's contract lapsing with no successor pauses the project, the same "no eligible seats" law the player's own researchAfterEmploymentRelease produces
+AssertionError: expected 'active' to be 'paused' // Object.is equality
+
+Expected: "paused"
+Received: "active"
+
+ ❯ tests/p13b-s8-research.test.ts:152:93
+    150|     const nextWeekState = advanceTo(withScientist, week + 1) // the co…
+    151|     const stepAfterExpiry = advanceRivalResearchWeek(nextWeekState, bu…
+    152|     expect(stepAfterExpiry.technology.projects.find(p => p.id === riva…
+       |                                                                                             ^
+    153|   })
+    154| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/10]⎯
+
+ FAIL |core|  tests/p13b-s8-save-v27.test.ts > P13B-S8 Save V27: genuine V26 fixtures, honest lift, conditional downgrade, validator refusals, sentinel 28 (test 7) > downgrade LOSSLESS: a freshly-lifted V27 state with every new key still zero downgrades to V26 byte-identical to the genuine fixture it came from
+AssertionError: expected 27 to be 26 // Object.is equality
+
+- Expected
++ Received
+
+- 26
++ 27
+
+ ❯ tests/p13b-s8-save-v27.test.ts:163:65
+    161|     const lifted = withV27.migrateToV27(parsed)
+    162|     const reimported = s8ForgeV27(beforeState, () => lifted.state) // …
+    163|     expect((reimported as { saveVersion: number }).saveVersion).toBe(2…
+       |                                                                 ^
+    164|   })
+    165| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/10]⎯
+
+ FAIL |core|  tests/p13b-s8-save-v27.test.ts > P13B-S8 Save V27: genuine V26 fixtures, honest lift, conditional downgrade, validator refusals, sentinel 28 (test 7) > downgrade REFUSED: a nonzero researchCapacity movement in any single period is enough to refuse V27->V26
+AssertionError: expected [Function] to throw error matching /cannot downgrade/i but got 'validateSaveV27: frozen V26 state is …'
+
+- Expected: 
+/cannot downgrade/i
+
++ Received: 
+"validateSaveV27: frozen V26 state is invalid — validateSaveV26: frozen V25 state is invalid — validateSaveV25: frozen V24 state is invalid — Hollywood save: research capacity movements do not reconcile with admitted plans"
+
+ ❯ tests/p13b-s8-save-v27.test.ts:175:9
+    173|         : b)
+    174|       return { ...state, hollywood: { ...hollywood, businesses } as un…
+    175|     })).toThrow(/cannot downgrade/i)
+       |         ^
+    176|   })
+    177| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/10]⎯
+
+ FAIL |core|  tests/p13b-s8-save-v27.test.ts > P13B-S8 Save V27: genuine V26 fixtures, honest lift, conditional downgrade, validator refusals, sentinel 28 (test 7) > downgrade REFUSED: the mere presence of one new receipt kind (laboratoryOperational) is enough to refuse V27->V26, even with every movement still zero
+AssertionError: expected [Function] to throw error matching /cannot downgrade/i but got 'validateSaveV27: frozen V26 state is …'
+
+- Expected: 
+/cannot downgrade/i
+
++ Received: 
+"validateSaveV27: frozen V26 state is invalid — validateSaveV26: frozen V25 state is invalid — validateSaveV25: frozen V24 state is invalid — Hollywood save: Laboratory operational receipt has no Laboratory"
+
+ ❯ tests/p13b-s8-save-v27.test.ts:186:9
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/10]⎯
+
+ Test Files  4 failed | 3 passed (7)
+      Tests  10 failed | 24 passed (34)
+   Start at  04:24:54
+   Duration  46.36s (transform 1.55s, setup 0ms, collect 3.30s, tests 40.70s, environment 2ms, prepare 646ms)
+

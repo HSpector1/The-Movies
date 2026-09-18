@@ -1,7 +1,7 @@
 import { beforeAll, describe, expect, it } from 'vitest'
 import { applyActions } from '../src/core/actions.js'
 import { tick } from '../src/core/tick.js'
-import { exportSave, importSave, makeSave, migrateToV26, validateSaveV26 } from '../src/core/save.js'
+import { exportSave, importSave, makeSave, migrateToV27, validateSaveV27 } from '../src/core/save.js'
 import { playerTechnologyAccess } from '../src/core/technology.js'
 import type { TechnologyAccess, TechnologyId } from '../src/core/technologyTypes.js'
 import type { GameState } from '../src/core/types.js'
@@ -35,7 +35,7 @@ function seatAndBegin(
   let s = state
   if (ids1.length) s = applyActions(s, ids1.map(scientistId => ({ kind: 'assignResearchScientist' as const, laboratoryFacilityId: lab1, scientistId, technologyId })))
   if (ids2.length) s = applyActions(s, ids2.map(scientistId => ({ kind: 'assignResearchScientist' as const, laboratoryFacilityId: lab2, scientistId, technologyId })))
-  const projectId = s.technology.projects.find(p => p.technologyId === technologyId)!.id
+  const projectId = s.technology.projects.find(p => p.technologyId === technologyId && p.studioId === s.hollywood!.playerStudioId)!.id
   s = applyActions(s, [{ kind: 'beginResearch', projectId, budgetPerWeek }])
   return { state: s, projectId }
 }
@@ -113,10 +113,10 @@ describe('P13B-S2 access identity: completion grant must key on (studioId, techn
   it('3. simultaneous completion: both technologies grant their own row with the same acquiredWeek, independent of project creation order', () => {
     const buildAt790 = (): { state: GameState; soundId: string; lightId: string } => {
       let s = applyActions(world.state, ids.slice(0, 4).map(scientistId => ({ kind: 'assignResearchScientist' as const, laboratoryFacilityId: lab1, scientistId, technologyId: 'synchronized-sound' as const })))
-      const soundId = s.technology.projects.find(p => p.technologyId === 'synchronized-sound')!.id
+      const soundId = s.technology.projects.find(p => p.technologyId === 'synchronized-sound' && p.studioId === s.hollywood!.playerStudioId)!.id
       s = applyActions(s, [{ kind: 'beginResearch', projectId: soundId, budgetPerWeek: 40_000 }])
       s = applyActions(s, ids.slice(4, 8).map(scientistId => ({ kind: 'assignResearchScientist' as const, laboratoryFacilityId: lab2, scientistId, technologyId: 'lighting-control-01' as const })))
-      const lightId = s.technology.projects.find(p => p.technologyId === 'lighting-control-01')!.id
+      const lightId = s.technology.projects.find(p => p.technologyId === 'lighting-control-01' && p.studioId === s.hollywood!.playerStudioId)!.id
       s = applyActions(s, [{ kind: 'beginResearch', projectId: lightId, budgetPerWeek: 40_000 }])
       return { state: advanceTo(s, 790), soundId, lightId } // one tick before both complete (confirmed 2026-09-16)
     }
@@ -178,11 +178,11 @@ describe('P13B-S2 access identity: completion grant must key on (studioId, techn
     expect(JSON.stringify(soundRowAfter)).toBe(JSON.stringify(soundRowBefore))
   })
 
-  it('6. save/reload and later ticks: exactly two rows, no duplicates, no erasure; validateSaveV26 accepts', () => {
+  it('6. save/reload and later ticks: exactly two rows, no duplicates, no erasure; validateSaveV27 accepts', () => {
     const { afterSecond, firstId, secondId } = soundThenLight
     const json = exportSave(makeSave(afterSecond))
     const imported = importSave(json)
-    const migrated = migrateToV26(imported)
+    const migrated = migrateToV27(imported)
     let state: GameState = migrated.state
     for (let i = 0; i < 10; i++) state = tick(state)
     const soundRows = state.technology.access.filter(a => a.studioId === own && a.technologyId === 'synchronized-sound')
@@ -193,7 +193,7 @@ describe('P13B-S2 access identity: completion grant must key on (studioId, techn
     expect(lightRows).toHaveLength(1)
     expect(soundRows[0]).toEqual({ studioId: own, technologyId: 'synchronized-sound', route: 'research', chosenWeek: 780, acquiredWeek: 787, accessCost: 0, researchProjectId: firstId })
     expect(lightRows[0]).toEqual({ studioId: own, technologyId: 'lighting-control-01', route: 'research', chosenWeek: 787, acquiredWeek: 794, accessCost: 0, researchProjectId: secondId })
-    expect(() => validateSaveV26(makeSave(state))).not.toThrow()
+    expect(() => validateSaveV27(makeSave(state))).not.toThrow()
   })
 
   it('7. idempotence: ticking again after completion never adds a duplicate row for either technology', () => {
@@ -253,7 +253,7 @@ describe('P13B-S2 access identity: forward validator invariant "completed resear
   /** exportSave(makeSave(state)) → parse the JSON envelope → forge exactly the
    * `technology.access` rows `mutate` touches → reserialize → return a thunk
    * that calls `importSave` on the forged JSON (which internally dispatches to
-   * `validateSaveV26`, exercising the full save-file boundary, not just the
+   * `validateSaveV27`, exercising the full save-file boundary, not just the
    * in-memory validator). */
   function forgedImport(state: GameState, mutate: (access: ForgedAccessRow[]) => void): () => unknown {
     const envelope = JSON.parse(exportSave(makeSave(state))) as { state: { technology: { access: ForgedAccessRow[] } } }

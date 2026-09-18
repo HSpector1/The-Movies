@@ -1,0 +1,29 @@
+=== INDEPENDENT ENGINE PROBES (vite-node, not vitest) — the facts three T1 cases assert through fixtures the increment invalidates ===
+
+--- probe2: a NATURAL campaign's rival research, plant and save validity at weeks 100/260/275/300 ---
+100 labs 1 instrRcpts 0 seatRcpts 0 projects [] spend [] => OK
+260 labs 1 instrRcpts 0 seatRcpts 0 projects [] spend [] => OK
+266 labs 1 instrRcpts 4 seatRcpts 4 projects [ 'onized-sound/active/6/40000/4' ] spend [ -40000 ] => OK
+275 labs 1 instrRcpts 4 seatRcpts 4 projects [ 'onized-sound/active/60/400000/4' ] spend [ -400000 ] => OK
+300 labs 2 instrRcpts 4 seatRcpts 4 projects [ 'onized-sound/completed/64/440000/4' ] spend [ -440000 ] => OK
+
+--- probe4: rival access/adoption routes at weeks 290/300/320/430 (one inventor, others buy commercially) ---
+290 rivalAccess [ 'synch:research@276' ] rivalAdoptions [ 'synch:research:0:op288' ] => OK
+300 rivalAccess [ 'synch:research@276' ] rivalAdoptions [ 'synch:research:0:op288' ] => OK
+320 rivalAccess [ 'synch:research@276' ] rivalAdoptions [ 'synch:research:0:op288' ] => OK
+430 rivalAccess [ 'synch:research@276', 'synch:purchase@416', 'synch:purchase@416' ] rivalAdoptions [
+  'synch:research:0:op288',
+  'synch:purchase:300000:op428',
+  'synch:purchase:300000:op428'
+] => OK
+
+--- probe6: the V27 -> V26 downgrade law on a LAWFUL researched campaign ---
+live version 27 rival researchCapacity [ -900000 ] new receipts 8
+downgrade refused: migrateToV26: cannot downgrade SaveFileV27 or discard rival research — frozen save projection cannot discard authoritative V27 rival research state on receipt industry-event-28
+
+--- probe5: lift/lossless downgrade + coverage on a natural campaign ---
+lift 27
+downgrade lossless -> 26
+movement downgrade refused: validateSaveV27: frozen V26 state is invalid — validateSaveV26: frozen V25 state is invalid — validateSaveV25: frozen V24 state is invalid —
+receipt downgrade refused: validateSaveV27: frozen V26 state is invalid — validateSaveV26: frozen V25 state is invalid — validateSaveV25: frozen V24 state is invalid —
+natural labs 1 tick ok 28 export ok true

@@ -256,6 +256,15 @@ function expectedRestorationFor(placedBlueprintId: string, components: readonly 
 
 // ---------------------------------------------------------------------------
 
+/**
+ * P13B-S8 sweep: the physical-plan root is shared by every studio (`PhysicalPlan
+ * .studioId`), and a rival now admits its own Laboratory plans onto it. Every
+ * positional read below means THE PLAYER's own plans, in its own order.
+ */
+function ownPlans<T extends { studioId: string }>(state: { physicalPlans: { plans: readonly T[] }; hollywood: { playerStudioId: string } | null }): readonly T[] {
+  return state.physicalPlans.plans.filter(plan => plan.studioId === state.hollywood!.playerStudioId)
+}
+
 describe('P13B-S6-T3 item 1: projection version bump (38 -> 39; 40 after the S7-T3 bump) and the cancellationAction intent kind', () => {
   it('bumps PROJECTION_VERSION to 40 and its schema $id / x-project-studio.projectionVersion move with it', () => {
     expect(PROJECTION_VERSION).toBe(40)
@@ -450,7 +459,7 @@ describe('P13B-S6-T3 item 2: Plans page cancel-<projectId> row for a started pla
     const session0 = new BridgeSession(base, 'p13b-s6-plans-1')
     const lab = labPage(session0, buildingIdOf(base, laboratoryFacilityId), nextRequestId('queue'))
     dispatchRow(session0, lab.actions, `plan-queue-acoustic-${labPlacementId}`)
-    const queuedPlanId = required(session0.gameState.physicalPlans.plans[0], 'no plan queued').id
+    const queuedPlanId = required(ownPlans(session0.gameState)[0], 'no plan queued').id
     expect(session0.gameState.physicalPlans.plans.find(p => p.id === queuedPlanId)!.status).toBe('queued')
 
     const ticked = tick(session0.gameState) // admission boundary: week 12 -> 13

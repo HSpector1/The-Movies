@@ -26,7 +26,7 @@ describe('P13B-S2 expiry/rehire across Laboratories (test 6)', () => {
   function stage(state: GameState, ids1: string[], ids2: string[], budgetPerWeek: number): { state: GameState; projectId: string } {
     let s = applyActions(state, ids1.map(scientistId => ({ kind: 'assignResearchScientist' as const, laboratoryFacilityId: lab1, scientistId, technologyId: 'synchronized-sound' as const })))
     s = applyActions(s, ids2.map(scientistId => ({ kind: 'assignResearchScientist' as const, laboratoryFacilityId: lab2, scientistId, technologyId: 'synchronized-sound' as const })))
-    const projectId = s.technology.projects.find(p => p.technologyId === 'synchronized-sound')!.id
+    const projectId = s.technology.projects.find(p => p.technologyId === 'synchronized-sound' && p.studioId === s.hollywood!.playerStudioId)!.id
     s = applyActions(s, [{ kind: 'beginResearch', projectId, budgetPerWeek }])
     return { state: s, projectId }
   }
@@ -81,7 +81,7 @@ describe('P13B-S2 expiry/rehire across Laboratories (test 6)', () => {
       const [labA, labB] = early.laboratoryFacilityIds
       let s = applyActions(early.state, lab1Ids.map(scientistId => ({ kind: 'assignResearchScientist' as const, laboratoryFacilityId: labA, scientistId, technologyId: 'synchronized-sound' as const })))
       s = applyActions(s, lab2Ids.map(scientistId => ({ kind: 'assignResearchScientist' as const, laboratoryFacilityId: labB, scientistId, technologyId: 'synchronized-sound' as const })))
-      const project0 = s.technology.projects.find(p => p.technologyId === 'synchronized-sound')!
+      const project0 = s.technology.projects.find(p => p.technologyId === 'synchronized-sound' && p.studioId === s.hollywood!.playerStudioId)!
       projectId = project0.id
       s = applyActions(s, [{ kind: 'beginResearch', projectId, budgetPerWeek: 60_000 }])
 

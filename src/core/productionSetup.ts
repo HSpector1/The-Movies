@@ -16,10 +16,8 @@
 // `validateProductionSetup` at the V25 boundary so a forged record cannot be
 // loaded from a file either.
 
-import { hasOperationalFacilityInstallation } from './facilityEffects.js'
 import { setById, setIsUsable } from './sets.js'
 import { adoptionChainOperational } from './technologyAdoption.js'
-import { technologyEntry } from './technologyCatalogue.js'
 import type { TechnologyAdoption, TechnologyId } from './technologyTypes.js'
 import type {
   Action,
@@ -122,11 +120,11 @@ function lightingAdoption(
   )
   if (adoption === undefined) return null
   // The completed, non-cancelled fit-out on that exact body, read through S5's
-  // own chain authority rather than a second copy of the rule.
+  // own chain authority rather than a second copy of the rule. P13B-S8: that
+  // authority resolves PER STUDIO — the player's chain is its placements; a rival
+  // owns none, so its own deployment clock (already read above) and its held
+  // equipment are what stand behind the claim.
   if (!adoptionChainOperational(state, adoption)) return null
-  if (!hasOperationalFacilityInstallation(state, stageFacilityId, technologyEntry(technologyId).stageInstallationId)) {
-    return null
-  }
   const held = state.technology.equipment.some(
     (asset) =>
       asset.id === adoption.equipmentAssetId &&
@@ -142,8 +140,12 @@ export function deriveSetupProvenance(
   recipe: ProductionSetupRecipe,
   stageFacilityId: string,
   week: number,
+  // P13B-S8 (audit item 5): whose stage this is. The default is the player, so
+  // both existing call sites are unchanged; a rival production asks about its own
+  // plant and one studio's adoption is never mistaken for another's.
+  studioId: string | null = playerStudioId(state),
 ): ProductionSetupProvenance {
-  const adoption = lightingAdoption(state, playerStudioId(state), recipe.technologyId, stageFacilityId, week)
+  const adoption = lightingAdoption(state, studioId, recipe.technologyId, stageFacilityId, week)
   if (adoption === null) {
     return { route: 'conventional', adoptionId: null, equipmentAssetId: null, requiredUnits: recipe.units.conventional }
   }

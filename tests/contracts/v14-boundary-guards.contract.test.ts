@@ -321,7 +321,7 @@ describe('C2a-M1 · guards (B) — the live boundary moves one way', () => {
   // version now is. 15 is no longer unknown (validateSaveV15 exists); 16 is.
   it('keeps every historical version frozen and rejects unknown V22', () => {
     const save = envelopeAt(14)
-    expect(() => validateSave({ ...save, saveVersion: 27 })).toThrow(/unknown saveVersion 27/)
+    expect(() => validateSave({ ...save, saveVersion: 28 })).toThrow(/unknown saveVersion 28/)
   })
 })
 

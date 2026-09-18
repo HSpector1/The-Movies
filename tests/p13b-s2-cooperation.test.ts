@@ -60,7 +60,7 @@ describe('P13B-S2 cooperation arithmetic across two Laboratories (test 4)', () =
       state = applyActions(state, ids2.map(scientistId =>
         ({ kind: 'assignResearchScientist' as const, laboratoryFacilityId: lab2, scientistId, technologyId: 'synchronized-sound' as const })))
     }
-    const projectId = state.technology.projects.find(p => p.technologyId === 'synchronized-sound')!.id
+    const projectId = state.technology.projects.find(p => p.technologyId === 'synchronized-sound' && p.studioId === state.hollywood!.playerStudioId)!.id
     state = applyActions(state, [{ kind: 'beginResearch', projectId, budgetPerWeek }])
     return { state, projectId }
   }

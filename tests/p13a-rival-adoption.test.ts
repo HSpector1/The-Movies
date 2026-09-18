@@ -1,6 +1,6 @@
 import { beforeAll, describe, expect, it } from 'vitest'
 import { applyActions } from '../src/core/actions.js'
-import { exportCurrentState, importSave, migrateToV26 } from '../src/core/save.js'
+import { exportCurrentState, importSave, migrateToV27 } from '../src/core/save.js'
 import * as technology from '../src/core/technology.js'
 import { considerRivalSoundPurchase } from '../src/core/technologyRival.js'
 import { tick } from '../src/core/tick.js'
@@ -48,8 +48,11 @@ describe('P13A shared commercial adoption and exact rival cash consequence', () 
       const period = selected.account.periods.at(-1)!
       expect(Object.keys(period).sort()).toEqual(['closing', 'fromWeek', 'movements', 'opening', 'throughWeek'])
       expect(period).toMatchObject({fromWeek: 416, throughWeek: 416, opening: original.account.cash, closing: original.account.cash - 1_475_000})
+      // P13B-S8 sweep: every period carries the four research kinds too; this
+      // studio spent nothing on research in the period it bought sound.
       expect(period.movements).toEqual({capacity: 0, signing: 0, payroll: 0, overhead: 0, facilityOpex: 0,
-        development: 0, production: 0, marketing: 0, studioRevenue: 0, technologyAdoption: -1_475_000})
+        development: 0, production: 0, marketing: 0, studioRevenue: 0, technologyAdoption: -1_475_000,
+        researchSpend: 0, researchCapacity: 0, technologyRestoration: 0, technologyRefund: 0})
       const duplicateBefore = JSON.stringify(hollywood)
       expect(considerRivalSoundPurchase({...released, technology: result}, hollywood, selected)).toBe(result)
       expect(JSON.stringify(hollywood)).toBe(duplicateBefore)
@@ -62,25 +65,28 @@ describe('P13A shared commercial adoption and exact rival cash consequence', () 
   })
 
   it('replays the actual weekly commercial purchase, reconciles its debit and creates one dated operational receipt', () => {
-    expect(released.technology.adoptions).toEqual([])
+    // P13B-S8 sweep: by week 416 one rival has already INVENTED sound in its own
+    // Laboratory and deployed it. The P13A fact this case tracks is the
+    // COMMERCIAL consequence, which has not happened yet.
+    expect(released.technology.adoptions.filter(row => row.route === 'purchase')).toEqual([])
     // AMENDED (P13B-S6 live-version sweep, 2026-09-17): `migrateToV25` refuses
     // to downgrade a live envelope now that live has moved to V26 — this is
     // the identity lift through whichever version is CURRENTLY live, not a
-    // pinned V25 fact, so it tracks forward to `migrateToV26`.
-    const restored = migrateToV26(importSave(exportCurrentState(released))).state
+    // pinned V25 fact, so it tracks forward to `migrateToV27`.
+    const restored = migrateToV27(importSave(exportCurrentState(released))).state
     const committed = tick(released)
     expect(exportCurrentState(tick(restored))).toBe(exportCurrentState(committed))
-    const receipt = committed.technology.adoptions.find(row => row.studioId !== committed.hollywood!.playerStudioId)!
+    const receipt = committed.technology.adoptions.find(row => row.studioId !== committed.hollywood!.playerStudioId && row.route === 'purchase')!
     expect(receipt.committedWeek).toBe(416)
     expect(receipt.operationalWeek).toBeNull()
     const business = committed.hollywood!.businesses.find(row => row.studioId === receipt.studioId)!
     expect(business.operations.facilities).toEqual(released.hollywood!.businesses.find(row => row.studioId === receipt.studioId)!.operations.facilities)
     expect(business.account.periods.reduce((total, period) => total + period.movements.technologyAdoption, 0)).toBe(-1_475_000)
     const operational = advanceTo(committed, 428)
-    expect(operational.technology.adoptions).toHaveLength(1)
-    expect(operational.technology.adoptions[0]).toMatchObject({id: receipt.id, operationalWeek: 428})
+    expect(operational.technology.adoptions.filter(row => row.studioId === receipt.studioId)).toHaveLength(1)
+    expect(operational.technology.adoptions.find(row => row.id === receipt.id)).toMatchObject({id: receipt.id, operationalWeek: 428})
     expect(operational.hollywood!.receipts.filter(row => row.kind === 'technologyAdopted' && row.adoptionId === receipt.id)).toHaveLength(1)
     expect(operational.hollywood!.receipts.find(row => row.kind === 'technologyAdopted' && row.adoptionId === receipt.id)).toMatchObject({week: 428, studioId: receipt.studioId})
-    expect(exportCurrentState(migrateToV26(importSave(exportCurrentState(operational))).state)).toBe(exportCurrentState(operational))
+    expect(exportCurrentState(migrateToV27(importSave(exportCurrentState(operational))).state)).toBe(exportCurrentState(operational))
   }, 30_000)
 })

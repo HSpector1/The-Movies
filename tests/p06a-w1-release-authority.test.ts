@@ -29,11 +29,11 @@ import {
   makeSaveV15,
   migrateToV15,
   migrateToV25,
-  migrateToV26,
+  migrateToV27,
   mintReleaseCommitmentId,
   stableStringify,
   tick,
-  validateSaveV26,
+  validateSaveV27,
 } from '../src/core/index.js'
 import type { CastSlot, GameState, SegmentId } from '../src/core/index.js'
 
@@ -425,16 +425,16 @@ describe('P06A W1 — save law', () => {
     const ready = foundedToReleaseReady('p06a-roundtrip')
     const committed = commit(ready, ready.studio.activeProductions[0]!.id)
     const save = makeSave(committed)
-    expect(save.saveVersion).toBe(26)
+    expect(save.saveVersion).toBe(27)
 
-    const reimported = migrateToV26(importSave(exportSave(save)))
+    const reimported = migrateToV27(importSave(exportSave(save)))
     expect(stableStringify(reimported)).toBe(stableStringify(save))
     expect(reimported.state.releaseAuthority.commitments).toHaveLength(1)
 
-    expect(() => migrateToV15(save)).toThrow(/cannot downgrade SaveFileV26/)
+    expect(() => migrateToV15(save)).toThrow(/cannot downgrade SaveFileV27/)
   })
 
-  it('validateSaveV26 rejects forged authority at the save boundary', () => {
+  it('validateSaveV27 rejects forged authority at the save boundary', () => {
     const ready = foundedToReleaseReady('p06a-save-forge')
     const id = ready.studio.activeProductions[0]!.id
     const good = makeSave(commit(ready, id))
@@ -443,12 +443,12 @@ describe('P06A W1 — save law', () => {
       state: { releaseAuthority: { commitments: { productionId: string }[] } }
     }
     orphan.state.releaseAuthority.commitments[0]!.productionId = 'prod-9999'
-    expect(() => validateSaveV26(orphan)).toThrow(/foreign identity|orphan/)
+    expect(() => validateSaveV27(orphan)).toThrow(/foreign identity|orphan/)
 
     const extraKey = JSON.parse(exportSave(good)) as {
       state: { releaseAuthority: Record<string, unknown> }
     }
     extraKey.state.releaseAuthority.surprise = true
-    expect(() => validateSaveV26(extraKey)).toThrow(/unknown field .surprise./)
+    expect(() => validateSaveV27(extraKey)).toThrow(/unknown field .surprise./)
   })
 })

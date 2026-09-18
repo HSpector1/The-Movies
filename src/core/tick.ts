@@ -1037,6 +1037,9 @@ export function tick(state: GameState, options?: TickOptions): GameState {
     // original commission minted, and the blueprint root that recorded them.
     ...admitted,
     technology: industry.technology,
+    // P13B-S8: a rival's own admitted plans live on the shared plan root; the
+    // player's admission at step 1.06 already wrote its rows into `admitted`.
+    physicalPlans: industry.physicalPlans,
     hollywood,
     rngState: rng.serialize(),
     market: { ...state.market, tick: currentTick + 1 },

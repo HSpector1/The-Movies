@@ -1,0 +1,22 @@
+=== sweep verification batch 1 (8 files) ===
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/script-projects-save-v9.test.ts (8 tests) 1418ms
+   ✓ Script Projects V1 — SaveFileV9 > makes V9 by default and round-trips legacy and every managed lifecycle class byte-identically 718ms
+ ✓ |core| tests/contracts/v14-boundary-guards.contract.test.ts (36 tests) 1387ms
+ ✓ |core| tests/contracts/studio-events.contract.test.ts (25 tests) 1233ms
+ ✓ |core| tests/save.test.ts (10 tests) 559ms
+   ✓ P04A §2.5 — SaveFileV15 identity-bearing queue expiry > migrates a V14 save forward with subjectId: null on a pre-existing queueIntentExpired row 345ms
+ ✓ |core| tests/contracts/phase-table-agreement.contract.test.ts (10 tests) 909ms
+   ✓ C2a-M0 · G6 (C) — the SAVE BOUNDARY agrees, proved by refusal > refuses a falsified capability multiset, naming the shared module’s own requirement 550ms
+ ✓ |core| tests/contracts/v14-byte-parity.contract.test.ts (6 tests) 961ms
+   ✓ C2a-M1 · parity (A) — the same seeded script exports the same bytes > produces a byte-identical export from two independent runs 379ms
+ ✓ |core| tests/contracts/cross-owner-refusal.contract.test.ts (3 tests) 602ms
+ ✓ |core| tests/contracts/determinism-floor.contract.test.ts (3 tests) 407ms
+
+ Test Files  8 passed (8)
+      Tests  101 passed (101)
+   Start at  04:18:27
+   Duration  15.23s (transform 1.80s, setup 0ms, collect 4.80s, tests 7.47s, environment 2ms, prepare 800ms)
+

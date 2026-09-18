@@ -60,15 +60,24 @@ function queuePlan(
   return applyActions(state, [{ kind: 'queuePhysicalPlan', work, approvedMaximumDebit, ...extra } as never])
 }
 
+/**
+ * P13B-S8 sweep: the physical-plan root is shared by every studio (`PhysicalPlan
+ * .studioId`), and a rival now admits its own Laboratory plans onto it. Every
+ * positional read below means THE PLAYER's own plans, in its own order.
+ */
+function ownPlans<T extends { studioId: string }>(state: { physicalPlans: { plans: readonly T[] }; hollywood: { playerStudioId: string } | null }): readonly T[] {
+  return state.physicalPlans.plans.filter(plan => plan.studioId === state.hollywood!.playerStudioId)
+}
+
 describe('P13B-S4 P09/S3 integration (test 4)', () => {
   it('a conversion queued as an S3 plan admits at the next boundary through the same P09 commit as a hand commit at that week', () => {
     const base = p13aLaboratorySlice()
     const officeFacilityId = base.operations.facilities.find(f => f.capability === 'development-casting')!.id
     const queued = queuePlan(base, { kind: 'installation', blueprintId: 'office-conversion-ii', target: { facilityId: officeFacilityId } }, 500_000)
-    expect(queued.physicalPlans.plans[0]!.status).toBe('queued')
+    expect(ownPlans(queued)[0]!.status).toBe('queued')
 
     const started = tick(queued)
-    const admittedPlan = started.physicalPlans.plans[0]!
+    const admittedPlan = ownPlans(started)[0]!
     expect(admittedPlan.status).toBe('started')
     expect(admittedPlan.commitReceipt).not.toBeNull()
     expect(admittedPlan.startedPlacementId).not.toBeNull()
@@ -142,7 +151,7 @@ describe('P13B-S4 P09/S3 integration (test 4)', () => {
     expect(dueWeek).toBeGreaterThan(state.market.tick) // a real, not-yet-complete draft
 
     state = queuePlan(state, { kind: 'installation', blueprintId: 'office-conversion-ii', target: { facilityId: officeFacilityId } }, 500_000)
-    expect(state.physicalPlans.plans[0]!.status).toBe('queued')
+    expect(ownPlans(state)[0]!.status).toBe('queued')
 
     // Script/casting completions (tick.ts step 0.5) run BEFORE queue admission
     // (step 1.05) within the SAME tick, so the plan is held through every
@@ -150,12 +159,12 @@ describe('P13B-S4 P09/S3 integration (test 4)', () => {
     // -- that final advance both completes the draft and admits the plan.
     while (state.market.tick < dueWeek - 1) {
       state = tick(state)
-      expect(state.physicalPlans.plans[0]!.status).toBe('held')
-      expect(state.physicalPlans.plans[0]!.reason).toMatch(/targetEngaged/)
+      expect(ownPlans(state)[0]!.status).toBe('held')
+      expect(ownPlans(state)[0]!.reason).toMatch(/targetEngaged/)
     }
     state = tick(state)
     expect(state.market.tick).toBe(dueWeek)
-    expect(state.physicalPlans.plans[0]!.status).toBe('started')
+    expect(ownPlans(state)[0]!.status).toBe('started')
   })
 
   it('queueing a conversion against a body already at its target standard is refused at QUEUE time (standardAlreadyMet is a permanent refusal, never merely held)', () => {
@@ -199,12 +208,12 @@ describe('P13B-S4 P09/S3 integration (test 4)', () => {
     state = queuePlan(state, { kind: 'installation', blueprintId: 'office-conversion-ii', target: { facilityId: officeFacilityId } }, 500_000)
 
     state = tick(state) // plan 1 (ordinal 1) admits first and now engages the target
-    expect(state.physicalPlans.plans[0]!.status).toBe('started')
+    expect(ownPlans(state)[0]!.status).toBe('started')
 
     for (let i = 0; i < 16; i++) { // office-conversion-iii: 16 build weeks
       state = tick(state)
-      expect(state.physicalPlans.plans[1]!.status).toBe('held')
-      expect(state.physicalPlans.plans[1]!.reason).toMatch(/targetEngaged/)
+      expect(ownPlans(state)[1]!.status).toBe('held')
+      expect(ownPlans(state)[1]!.reason).toMatch(/targetEngaged/)
     }
 
     // Once plan 1 completes the body reads III; plan 2 (office-conversion-ii,
@@ -212,16 +221,16 @@ describe('P13B-S4 P09/S3 integration (test 4)', () => {
     // hold/refuse on standardAlreadyMet permanently -- never starting.
     for (let i = 0; i < 10; i++) {
       state = tick(state)
-      expect(state.physicalPlans.plans[1]!.status).not.toBe('started')
+      expect(ownPlans(state)[1]!.status).not.toBe('started')
     }
-    expect(state.physicalPlans.plans[1]!.reason).toMatch(/standardAlreadyMet/)
+    expect(ownPlans(state)[1]!.reason).toMatch(/standardAlreadyMet/)
   })
 
   it('a chained I->II then II->III plan pair via dependsOn: the second starts the boundary after the first completes', () => {
     const base = p13aLaboratorySlice()
     const officeFacilityId = base.operations.facilities.find(f => f.capability === 'development-casting')!.id
     let state = queuePlan(base, { kind: 'installation', blueprintId: 'office-conversion-ii', target: { facilityId: officeFacilityId } }, 500_000)
-    const planAId = state.physicalPlans.plans[0]!.id
+    const planAId = ownPlans(state)[0]!.id
     // ADJUDICATED 2026-09-17 (coordinator, in response to this file's original
     // "assumption" finding): `office-conversion-iii`'s quote is SOURCE-
     // DEPENDENT (cost/weeks vary with the target's standard at quote time) but
@@ -244,25 +253,25 @@ describe('P13B-S4 P09/S3 integration (test 4)', () => {
     const w = state.market.tick
 
     state = tick(state) // w -> w+1: plan A admits (nothing else is ahead of it)
-    expect(state.physicalPlans.plans[0]!.status).toBe('started')
-    expect(state.physicalPlans.plans[1]!.status).not.toBe('started')
+    expect(ownPlans(state)[0]!.status).toBe('started')
+    expect(ownPlans(state)[1]!.status).not.toBe('started')
 
     // office-conversion-ii builds for 4 weeks from w+1 (the week it was admitted).
     for (let week = w + 1; week < w + 1 + 4; week++) {
       state = tick(state)
-      expect(state.physicalPlans.plans[1]!.status).not.toBe('started')
+      expect(ownPlans(state)[1]!.status).not.toBe('started')
     }
     expect(developmentStandard(state, officeFacilityId)).toBe('II') // plan A's conversion is operational
 
     state = tick(state) // the FOLLOWING boundary: plan B now sees the met dependency
-    expect(state.physicalPlans.plans[1]!.status).toBe('started')
+    expect(ownPlans(state)[1]!.status).toBe('started')
   })
 
   it('the same chained pair under the DEFAULT reviewChangedQuote admission holds on the changed quote and starts once reviewPhysicalPlan re-approves at the live price', () => {
     const base = p13aLaboratorySlice()
     const officeFacilityId = base.operations.facilities.find(f => f.capability === 'development-casting')!.id
     let state = queuePlan(base, { kind: 'installation', blueprintId: 'office-conversion-ii', target: { facilityId: officeFacilityId } }, 500_000)
-    const planAId = state.physicalPlans.plans[0]!.id
+    const planAId = ownPlans(state)[0]!.id
     // DEFAULT admission ('reviewChangedQuote', omitted below): the direct-
     // I->III price/fingerprint frozen at queue time (the body is still
     // standard I) legitimately drifts once plan A completes and the body
@@ -282,17 +291,17 @@ describe('P13B-S4 P09/S3 integration (test 4)', () => {
     expect(developmentStandard(state, officeFacilityId)).toBe('II')
 
     state = tick(state) // the boundary the dependency clears: plan B's live quote has moved
-    const held = state.physicalPlans.plans[1]!
+    const held = ownPlans(state)[1]!
     expect(held.status).toBe('held')
     expect(held.reason).toMatch(/quote changed/)
     expect(held.pendingQuote).not.toBeNull()
     expect(held.pendingQuote!.cost).toBe(850_000) // the live, correctly source-dependent II->III price
 
     state = applyActions(state, [{ kind: 'reviewPhysicalPlan', planId: held.id, approvedMaximumDebit: 850_000 } as never])
-    expect(state.physicalPlans.plans[1]!.status).toBe('queued')
-    expect(state.physicalPlans.plans[1]!.approvedQuote.cost).toBe(850_000)
+    expect(ownPlans(state)[1]!.status).toBe('queued')
+    expect(ownPlans(state)[1]!.approvedQuote.cost).toBe(850_000)
 
     state = tick(state) // the FOLLOWING boundary: the re-approved plan starts
-    expect(state.physicalPlans.plans[1]!.status).toBe('started')
+    expect(ownPlans(state)[1]!.status).toBe('started')
   })
 })

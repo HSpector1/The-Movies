@@ -1,0 +1,48 @@
+=== sweep verification batch 3 (8 files) ===
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/d11-employment.test.ts (36 tests) 5075ms
+   ✓ D-11 — contracts & offers > payroll accrues each week; the ledger reconciles after several weeks 617ms
+   ✓ D-11.8 — expiration > a contract expires at term end and the talent becomes a free agent 1302ms
+   ✓ D-11.7 — renewals > renewing inside the window extends the term and takes a signing bonus from cash 1017ms
+   ✓ D-11 — determinism & live saves > no duplicate payroll after reload (reload ≡ continuous run) 723ms
+   ✓ D-11 — determinism & live saves > two same-seed founded+advanced runs are byte-identical (deterministic offers/markets) 460ms
+ ✓ |core| tests/d17-engagement-persistence.test.ts (30 tests) 2123ms
+   ✓ D-17A/R2: economyEngagedEver is seeded false and set only by founding / signing > a headless run NEVER engages, however many films it releases 779ms
+   ✓ D-17A/R2: convertV5ToV6 reconstructs the fact correctly for every save class > never-engaged headless WITH releases → false (production/boxOffice are excluded) 459ms
+   ✓ D-17A/R2: convertV5ToV6 reconstructs the fact correctly for every save class > legacy V3-migrated never-engaged (economyModelVersion 0 runs) → false 300ms
+ ✓ |core| tests/d17b-publicity.test.ts (29 tests) 846ms
+ ✓ |core| tests/d11-cycle2.test.ts (19 tests) 2652ms
+   ✓ D-11.A — each released film keeps its OWN immutable participants > film A and film B use different writers/directors/actors/craft and each records its own 656ms
+   ✓ D-11.A — each released film keeps its OWN immutable participants > later development does NOT rewrite an older film's locked greenlight OVR/name 586ms
+   ✓ D-11.A — each released film keeps its OWN immutable participants > releasing a participant does NOT remove them from an older film's record 318ms
+   ✓ D-11.A — each released film keeps its OWN immutable participants > save/reload (V3) preserves each film's distinct participant history 565ms
+ ✓ |core| tests/d12-economy.test.ts (17 tests) 539ms
+   ✓ D-12: V3→V4 migration records released films as legacyCompleted (no double-pay) > migrated releases carry their full-gross V3 payout and are never credited again 303ms
+ ✓ |core| tests/d17a-adv-reconciliation.test.ts (14 tests) 10466ms
+   ✓ D-17A/B — Σ perFilm + idle ≡ Σ ledger payroll+overhead, to the dollar > holds over the default window with a founding prefix of 0 weeks 1857ms
+   ✓ D-17A/B — Σ perFilm + idle ≡ Σ ledger payroll+overhead, to the dollar > holds over the default window with a founding prefix of 3 weeks 1022ms
+   ✓ D-17A/B — Σ perFilm + idle ≡ Σ ledger payroll+overhead, to the dollar > holds over the default window with a founding prefix of 11 weeks 1340ms
+   ✓ D-17A/B — Σ perFilm + idle ≡ Σ ledger payroll+overhead, to the dollar > holds over EVERY prefix window [from, k] of the run (a sliding reconciliation sweep) 674ms
+   ✓ D-17A/B — Σ perFilm + idle ≡ Σ ledger payroll+overhead, to the dollar > holds when a release sits at week 0 of engagement (occupancy reaching before the ledger) 382ms
+   ✓ D-17A/B — conservation holds mid-flight, not only on tidy finished slates > holds on a rosterless post-cliff studio still paying overhead 725ms
+   ✓ D-17A/B — a film is charged only for the weeks it actually occupied the studio > allocates 0 to every film over a window disjoint from its occupancy 718ms
+   ✓ D-17A/B — a film is charged only for the weeks it actually occupied the studio > charges each film 0 in every window that ends before it starts or starts after it ends 756ms
+   ✓ D-17A/B — window additivity (the partition is per WEEK, so splits are exact) > alloc[a,k] + alloc[k+1,b] === alloc[a,b] per film, per idle, per total — 24 seeded splits 762ms
+   ✓ D-17A/B — odd dollars: whole-dollar determinism and a governed tie-break > conserves exactly even when the weekly cost is indivisible by the occupant count 336ms
+   ✓ D-17A/B — odd dollars: whole-dollar determinism and a governed tie-break > gives the odd dollar to the lower productionId (largest remainder, ascending plain-<) 348ms
+   ✓ D-17A/B — odd dollars: whole-dollar determinism and a governed tie-break > is identical across two independent calls and across a save → validate → migrate → load trip 1302ms
+ ✓ |core| tests/d14-star-power.test.ts (15 tests) 3178ms
+   ✓ D-14 Star Power lifecycle (real engine) > 1 + 12. fame changes only at release, and the career event matches the transition 722ms
+   ✓ D-14 Star Power lifecycle (real engine) > 2. the update occurs exactly once — one career event per participant per film 415ms
+   ✓ D-14 Star Power lifecycle (real engine) > 4. a future film reads the UPDATED fame (progression compounds) 391ms
+   ✓ D-14 Star Power lifecycle (real engine) > 16 + 17. reload cannot apply progression twice, and round-trip preserves career events 669ms
+   ✓ D-14 Star Power lifecycle (real engine) > 18. determinism — two identical runs produce identical career events 650ms
+ ✓ |core| tests/d17a-adv-migration.test.ts (17 tests) 21ms
+
+ Test Files  8 passed (8)
+      Tests  177 passed (177)
+   Start at  04:21:03
+   Duration  32.68s (transform 1.69s, setup 0ms, collect 4.87s, tests 24.90s, environment 3ms, prepare 758ms)
+

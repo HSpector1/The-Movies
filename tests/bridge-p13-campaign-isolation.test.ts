@@ -9,7 +9,7 @@ import type { BridgeCheckpointStore } from '../bridge/runtime/checkpoint-store.t
 import { createBridgeRuntimeCoordinator, type BridgeRuntimeCoordinator } from '../bridge/runtime/runtime-coordinator.ts'
 import { DEFAULT_BRIDGE_RUNTIME_CHECKPOINT_LIMITS, type BridgeRuntimeCheckpointLimits } from '../bridge/runtime-checkpoint.ts'
 import { applyActions } from '../src/core/actions.js'
-import { importSave, migrateToV26 } from '../src/core/save.js'
+import { importSave, migrateToV27 } from '../src/core/save.js'
 import { advanceTo, p13aResearchReady } from '../src/harness/p13a/fixtures.js'
 
 class MemoryStore implements BridgeCheckpointStore {
@@ -23,7 +23,7 @@ function library(store: MemoryStore): CampaignLibrary {
   return loadCampaignLibrary(store.contents!, DEFAULT_BRIDGE_RUNTIME_CHECKPOINT_LIMITS).library
 }
 function state(store: MemoryStore) {
-  return migrateToV26(importSave(JSON.parse(library(store).workingCheckpointJson).currentSaveJson)).state
+  return migrateToV27(importSave(JSON.parse(library(store).workingCheckpointJson).currentSaveJson)).state
 }
 async function request(runtime: BridgeRuntimeCoordinator, operation: CampaignRequest['operation'], extra: Partial<CampaignRequest> = {}): Promise<CampaignRequest> {
   const current = (await runtime.campaignLibrary())!

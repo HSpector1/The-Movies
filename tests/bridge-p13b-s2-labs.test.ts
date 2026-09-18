@@ -213,7 +213,7 @@ describe('case 3: two full Laboratories — the shared project reads identically
     const session = new BridgeSession(world.state, 'p13b-s2-labs-3-dispatch')
     for (const scientistId of ids.slice(0, 4)) dispatch(session, building1, `assign-${rl1}-${scientistId}-synchronized-sound`)
     for (const scientistId of ids.slice(4, 8)) dispatch(session, building2, `assign-${rl2}-${scientistId}-synchronized-sound`)
-    const projectId = required(session.gameState.technology.projects.find(p => p.technologyId === 'synchronized-sound'), 'sound project absent after 8 assign dispatches').id
+    const projectId = required(session.gameState.technology.projects.find(p => p.technologyId === 'synchronized-sound' && p.studioId === session.gameState.hollywood!.playerStudioId), 'sound project absent after 8 assign dispatches').id
 
     const scan = labPage(session, building1, nextRequestId('budget-scan'))
     const budgetPrefix = `budget-${projectId}-`
@@ -301,8 +301,8 @@ describe('case 4: two technologies staffed on one Laboratory', () => {
     const session = new BridgeSession(world.state, 'p13b-s2-labs-4-two-tech')
     for (const scientistId of ids.slice(0, 2)) dispatch(session, building2, `assign-${rl2}-${scientistId}-synchronized-sound`)
     for (const scientistId of ids.slice(2, 4)) dispatch(session, building2, `assign-${rl2}-${scientistId}-lighting-control-01`)
-    const soundId = session.gameState.technology.projects.find(p => p.technologyId === 'synchronized-sound')!.id
-    const lightingId = session.gameState.technology.projects.find(p => p.technologyId === 'lighting-control-01')!.id
+    const soundId = session.gameState.technology.projects.find(p => p.technologyId === 'synchronized-sound' && p.studioId === session.gameState.hollywood!.playerStudioId)!.id
+    const lightingId = session.gameState.technology.projects.find(p => p.technologyId === 'lighting-control-01' && p.studioId === session.gameState.hollywood!.playerStudioId)!.id
     dispatch(session, building2, `budget-${soundId}-40000`)
     dispatch(session, building2, `run-${soundId}`)
     dispatch(session, building2, `budget-${lightingId}-40000`)
@@ -371,8 +371,8 @@ describe('case 6: a migrated V21 fixture keeps its honest single-pool receipts o
     expect(state.technology.version).toBe(4)
     expect(state.market.tick).toBe(783)
 
-    const soundProject = state.technology.projects.find(p => p.technologyId === 'synchronized-sound')!
-    const lightingProject = state.technology.projects.find(p => p.technologyId === 'lighting-control-01')!
+    const soundProject = state.technology.projects.find(p => p.technologyId === 'synchronized-sound' && p.studioId === state.hollywood!.playerStudioId)!
+    const lightingProject = state.technology.projects.find(p => p.technologyId === 'lighting-control-01' && p.studioId === state.hollywood!.playerStudioId)!
     expect(soundProject.weeks).toHaveLength(3)
     for (const receipt of soundProject.weeks) expect(receipt.labs).toBeNull()
     expect(lightingProject.weeks).toHaveLength(3)
@@ -422,7 +422,7 @@ describe('case 7: releasing a seat through the bridge recomputes the funding spl
       ({ kind: 'assignResearchScientist' as const, laboratoryFacilityId: lab1, scientistId, technologyId: 'synchronized-sound' as const })))
     staged = applyActions(staged, ids.slice(4, 6).map(scientistId =>
       ({ kind: 'assignResearchScientist' as const, laboratoryFacilityId: lab2, scientistId, technologyId: 'synchronized-sound' as const })))
-    const projectId = staged.technology.projects.find(p => p.technologyId === 'synchronized-sound')!.id
+    const projectId = staged.technology.projects.find(p => p.technologyId === 'synchronized-sound' && p.studioId === staged.hollywood!.playerStudioId)!.id
     staged = applyActions(staged, [{ kind: 'beginResearch', projectId, budgetPerWeek: 60_000 }])
     // Sanity: this is p13b-s2-cooperation.test.ts's own case (iii) before any release.
     expect(researchWeekQuote(staged, staged.technology.projects.find(p => p.id === projectId)!).output).toBe(7.875)

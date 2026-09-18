@@ -1,5 +1,5 @@
 import { beforeAll, describe, expect, it } from 'vitest'
-import { exportSave, makeSave, validateSaveV26 } from '../src/core/save.js'
+import { exportSave, makeSave, validateSaveV27 } from '../src/core/save.js'
 import { initialPhysicalPlans } from '../src/core/physicalPlans.js'
 import { TUNING } from '../src/core/tuning.js'
 import type { GameState } from '../src/core/types.js'
@@ -110,13 +110,27 @@ function buildBaseline(): { state: GameState; planA: Plan; planB: Plan; planC: P
 
   const withPlans: GameState = {
     ...entry,
-    physicalPlans: { ...initialPhysicalPlans(), nextPlanId: 4, plans: [planA, planB, planC] } as unknown as GameState['physicalPlans'],
+    // P13B-S8 sweep: the plan root is shared. This studio's three hand-authored
+    // rows stand BESIDE whatever plans the rivals of this world lawfully admitted
+    // (their Laboratories), whose capital their own accounts already reconcile
+    // against these very rows.
+    physicalPlans: { ...initialPhysicalPlans(), nextPlanId: 4, plans: [...entry.physicalPlans.plans, planA, planB, planC] } as unknown as GameState['physicalPlans'],
   }
   return { state: withPlans, planA, planB, planC }
 }
 
-function plansOf(parsed: Record<string, unknown>): Plan[] {
+/**
+ * P13B-S8 sweep: the plan root is shared, and this world's rivals have admitted
+ * their own Laboratory plans onto it. Every positional read in this file means
+ * THIS STUDIO's three hand-authored rows (planA, planB, planC), in their order;
+ * `allPlansOf` is the raw list, for the cases that append to it.
+ */
+function allPlansOf(parsed: Record<string, unknown>): Plan[] {
   return ((parsed.state as Record<string, unknown>).physicalPlans as Record<string, unknown>).plans as Plan[]
+}
+function plansOf(parsed: Record<string, unknown>): Plan[] {
+  const own = hollywoodOf(parsed).playerStudioId
+  return allPlansOf(parsed).filter(plan => plan.studioId === own)
 }
 function physicalPlansOf(parsed: Record<string, unknown>): Record<string, unknown> {
   return (parsed.state as Record<string, unknown>).physicalPlans as Record<string, unknown>
@@ -139,9 +153,9 @@ describe('P13B-S3 validator refusals for physicalPlans (test 8)', () => {
   // AMENDED (P13B-S6 live-version sweep, 2026-09-17): `makeSave` writes the
   // live envelope, now V26 — this case tracks whichever validator is live
   // rather than pinning a stale version number.
-  it('accepts the unmutated hand-authored baseline directly through validateSaveV26', () => {
+  it('accepts the unmutated hand-authored baseline directly through validateSaveV27', () => {
     const json = exportSave(makeSave(base))
-    expect(() => validateSaveV26(JSON.parse(json))).not.toThrow()
+    expect(() => validateSaveV27(JSON.parse(json))).not.toThrow()
   })
 
   it('(a) rejects a dependency cycle', () => {
@@ -150,7 +164,7 @@ describe('P13B-S3 validator refusals for physicalPlans (test 8)', () => {
       const { playerStudioId } = hollywoodOf(parsed)
       const planD: Plan = { ...list[1]!, id: `${playerStudioId}:plan:4`, ordinal: 4, status: 'queued', dependsOn: [`${playerStudioId}:plan:5`], startedPlacementId: null, commitReceipt: null, pendingQuote: null }
       const planE: Plan = { ...list[1]!, id: `${playerStudioId}:plan:5`, ordinal: 5, status: 'queued', dependsOn: [`${playerStudioId}:plan:4`], startedPlacementId: null, commitReceipt: null, pendingQuote: null }
-      list.push(planD, planE)
+      allPlansOf(parsed).push(planD, planE)
       physicalPlansOf(parsed).nextPlanId = 6
     }, /cycle/i)
   })
@@ -184,7 +198,7 @@ describe('P13B-S3 validator refusals for physicalPlans (test 8)', () => {
       const list = plansOf(parsed)
       const { playerStudioId } = hollywoodOf(parsed)
       const duplicate: Plan = { ...list[0]!, id: `${playerStudioId}:plan:4`, ordinal: 4 }
-      list.push(duplicate)
+      allPlansOf(parsed).push(duplicate)
       physicalPlansOf(parsed).nextPlanId = 5
     }, /placement|receipt|duplicate/i)
   })

@@ -75,10 +75,23 @@ function spendDownTo(state: GameState, target: number): GameState {
   }
 }
 
+/**
+ * P13B-S8 sweep: the physical-plan root is shared by every studio (`PhysicalPlan
+ * .studioId`), and a rival now admits its own Laboratory plans onto it. Every
+ * positional read below means THE PLAYER's own plans, in its own order.
+ */
+function ownPlans<T extends { studioId: string }>(state: { physicalPlans: { plans: readonly T[] }; hollywood: { playerStudioId: string } | null }): readonly T[] {
+  return state.physicalPlans.plans.filter(plan => plan.studioId === state.hollywood!.playerStudioId)
+}
+
 describe('P13B-S3 admission law (test 1)', () => {
-  it('a fresh world carries the empty physicalPlans root the contract defines', () => {
+  it('a fresh world carries the empty physicalPlans root the contract defines — for THIS studio (P13B-S8: a rival admits its own Laboratory plans onto the shared root)', () => {
     const base = p13aLaboratorySlice()
-    expect(base.physicalPlans).toEqual(initialPhysicalPlans())
+    expect(ownPlans(base)).toEqual([])
+    expect(base.physicalPlans.version).toBe(initialPhysicalPlans().version)
+    // `nextPlanId` is this studio's own counter: a rival's plant never moves it.
+    expect(base.physicalPlans.nextPlanId).toBe(initialPhysicalPlans().nextPlanId)
+    expect(base.physicalPlans.plans.every(plan => plan.studioId !== base.hollywood!.playerStudioId)).toBe(true)
   })
 
   it('queuing snapshots the CURRENT quote as approvedQuote via planQuoteSnapshot', () => {
@@ -86,17 +99,17 @@ describe('P13B-S3 admission law (test 1)', () => {
     const laboratoryFacilityId = base.operations.facilities.find(f => f.capability === 'laboratory')!.id
     const work: PlanWork = { kind: 'installation', blueprintId: 'acoustic-instruments', target: { facilityId: laboratoryFacilityId } }
     const queued = queuePlan(base, work, ACOUSTIC_COST)
-    expect(queued.physicalPlans.plans[0]!.approvedQuote).toEqual(planQuoteSnapshot(base, work))
+    expect(ownPlans(queued)[0]!.approvedQuote).toEqual(planQuoteSnapshot(base, work))
   })
 
   it('a queued acoustic installation on a Lab without instruments starts at the next boundary, matching a hand commit at the same week', () => {
     const base = p13aLaboratorySlice() // week 12, Lab placed, no instruments
     const laboratoryFacilityId = base.operations.facilities.find(f => f.capability === 'laboratory')!.id
     const queued = queuePlan(base, { kind: 'installation', blueprintId: 'acoustic-instruments', target: { facilityId: laboratoryFacilityId } }, ACOUSTIC_COST)
-    expect(queued.physicalPlans.plans[0]!.status).toBe('queued')
+    expect(ownPlans(queued)[0]!.status).toBe('queued')
 
     const started = tick(queued) // admission boundary: week 12 -> 13
-    const admittedPlan = started.physicalPlans.plans[0]!
+    const admittedPlan = ownPlans(started)[0]!
     expect(admittedPlan.status).toBe('started')
     expect(admittedPlan.commitReceipt).not.toBeNull()
     expect(admittedPlan.startedPlacementId).not.toBeNull()
@@ -131,17 +144,17 @@ describe('P13B-S3 admission law (test 1)', () => {
     const laboratoryFacilityId = base.operations.facilities.find(f => f.capability === 'laboratory')!.id
     const queued = queuePlan(base, { kind: 'installation', blueprintId: 'acoustic-instruments', target: { facilityId: laboratoryFacilityId } }, ACOUSTIC_COST)
     const started = tick(queued)
-    const receiptAtStart = started.physicalPlans.plans[0]!.commitReceipt
+    const receiptAtStart = ownPlans(started)[0]!.commitReceipt
     let state = started
     for (let i = 0; i < 3; i++) state = tick(state)
-    expect(state.physicalPlans.plans[0]!.commitReceipt).toEqual(receiptAtStart)
+    expect(ownPlans(state)[0]!.commitReceipt).toEqual(receiptAtStart)
     // p13aLaboratorySlice() already carries its OWN constructionCapex row (the
     // Lab's own construction, week 0) — an unfiltered count of ALL constructionCapex
     // rows is 2 even though the PLAN charged exactly once (engine-conflict probe A,
     // 2026-09-16). Filter to the plan's own started placement's projectId so this
     // asserts "the plan charged exactly once", not "the ledger has exactly one
     // capex row of any kind".
-    const placement = state.placement.facilities.find(f => f.id === state.physicalPlans.plans[0]!.startedPlacementId)!
+    const placement = state.placement.facilities.find(f => f.id === ownPlans(state)[0]!.startedPlacementId)!
     expect(state.ledger.filter(e => e.kind === 'constructionCapex' && e.constructionProjectId === placement.projectId).length).toBe(1)
   })
 
@@ -152,10 +165,10 @@ describe('P13B-S3 admission law (test 1)', () => {
     let state = queuePlan(base, { kind: 'installation', blueprintId: 'acoustic-instruments', target: { facilityId: laboratoryFacilityId } }, ACOUSTIC_COST, { earliestStartWeek: future })
     while (state.market.tick < future) {
       state = tick(state)
-      expect(state.physicalPlans.plans[0]!.status).toBe('queued')
+      expect(ownPlans(state)[0]!.status).toBe('queued')
     }
     state = tick(state) // crosses `future`
-    expect(state.physicalPlans.plans[0]!.status).toBe('started')
+    expect(ownPlans(state)[0]!.status).toBe('started')
   })
 
   it('cost above the ceiling holds with a reason naming both dollar amounts; automatic admission within the ceiling starts', () => {
@@ -163,13 +176,13 @@ describe('P13B-S3 admission law (test 1)', () => {
     const laboratoryFacilityId = base.operations.facilities.find(f => f.capability === 'laboratory')!.id
 
     const tooLow = queuePlan(base, { kind: 'installation', blueprintId: 'acoustic-instruments', target: { facilityId: laboratoryFacilityId } }, ACOUSTIC_COST - 1)
-    const held = tick(tooLow).physicalPlans.plans[0]!
+    const held = ownPlans(tick(tooLow))[0]!
     expect(held.status).toBe('held')
     expect(held.reason).toMatch(/349,999|349999/)
     expect(held.reason).toMatch(/350,000|350000/)
 
     const withinCeiling = queuePlan(base, { kind: 'installation', blueprintId: 'acoustic-instruments', target: { facilityId: laboratoryFacilityId } }, ACOUSTIC_COST, { admission: 'automatic' })
-    expect(tick(withinCeiling).physicalPlans.plans[0]!.status).toBe('started')
+    expect(ownPlans(tick(withinCeiling))[0]!.status).toBe('started')
   })
 })
 
@@ -191,8 +204,8 @@ describe('P13B-S3 no reservation (test 2)', () => {
     let state = queuePlan(base, { kind: 'installation', blueprintId: 'acoustic-instruments', target: { facilityId: laboratoryFacilityId } }, ACOUSTIC_COST)
     state = queuePlan(state, { kind: 'installation', blueprintId: 'electrical-control-instruments', target: { facilityId: laboratoryFacilityId } }, ELECTRICAL_COST)
     state = tick(state) // acoustic (ordinal 1) is admitted first and now engages the target
-    expect(state.physicalPlans.plans[0]!.status).toBe('started')
-    expect(state.physicalPlans.plans[1]!.status).not.toBe('started')
+    expect(ownPlans(state)[0]!.status).toBe('started')
+    expect(ownPlans(state)[1]!.status).not.toBe('started')
     // Admission runs BEFORE this tick's P09 completions (plan law: "before P09
     // completions of that tick" — the same ordering the production-queue
     // precedent's step 1.05 uses, and this file's own test 5 dependency case
@@ -202,20 +215,20 @@ describe('P13B-S3 no reservation (test 2)', () => {
     // (engine-conflict probe B, 2026-09-16).
     for (let i = 0; i < TUNING.ACOUSTIC_INSTRUMENTS_BUILD_WEEKS; i++) {
       state = tick(state)
-      expect(state.physicalPlans.plans[1]!.status).toBe('held')
-      expect(state.physicalPlans.plans[1]!.reason).toMatch(/targetEngaged/)
+      expect(ownPlans(state)[1]!.status).toBe('held')
+      expect(ownPlans(state)[1]!.reason).toMatch(/targetEngaged/)
     }
     state = tick(state) // the FOLLOWING boundary (week 19): the target is finally free
-    expect(state.physicalPlans.plans[1]!.status).toBe('started')
+    expect(ownPlans(state)[1]!.status).toBe('started')
   })
 
   it('cancelling a queued plan leaves the state byte-identical except the plan row and history', () => {
     const base = p13aLaboratorySlice()
     const laboratoryFacilityId = base.operations.facilities.find(f => f.capability === 'laboratory')!.id
     const queued = queuePlan(base, { kind: 'installation', blueprintId: 'acoustic-instruments', target: { facilityId: laboratoryFacilityId } }, ACOUSTIC_COST)
-    const planId = queued.physicalPlans.plans[0]!.id
+    const planId = ownPlans(queued)[0]!.id
     const cancelled = applyActions(queued, [{ kind: 'cancelPhysicalPlan', planId } as never])
-    expect(cancelled.physicalPlans.plans[0]!.status).toBe('cancelled')
+    expect(ownPlans(cancelled)[0]!.status).toBe('cancelled')
     expect(exceptRoots(cancelled, ['physicalPlans', 'studioHistory'])).toBe(exceptRoots(queued, ['physicalPlans', 'studioHistory']))
   })
 })
@@ -237,7 +250,7 @@ describe('P13B-S3 ordering and envelope (test 5)', () => {
     state = queuePlan(state, { kind: 'installation', blueprintId: 'acoustic-instruments', target: { facilityId: lab2 } }, ACOUSTIC_COST)
 
     const ticked = tick(state)
-    const [first, second] = ticked.physicalPlans.plans
+    const [first, second] = ownPlans(ticked)
     expect(first!.status).toBe('started')
     expect(second!.status).toBe('queued')
     expect(planAdmissionView(ticked, second!).reason).toMatch(/insufficient cash/i)
@@ -265,7 +278,7 @@ describe('P13B-S3 ordering and envelope (test 5)', () => {
     const poor = spendDownTo(staffed, TUNING.RESEARCH_LABORATORY_CAPEX + 10_000)
     const queued = queuePlan(poor, { kind: 'placement', blueprintId: 'research-laboratory', origin: nextLaboratoryOrigin(poor) }, TUNING.RESEARCH_LABORATORY_CAPEX)
     const ticked = tick(queued)
-    expect(ticked.physicalPlans.plans[0]!.status).toBe('started')
+    expect(ownPlans(ticked)[0]!.status).toBe('started')
 
     const project = ticked.technology.projects.find(p => p.id === projectId)!
     expect(project.weeks.length).toBe(beforeProject.weeks.length) // no new receipt this week
@@ -292,7 +305,7 @@ describe('P13B-S3 ordering and envelope (test 5)', () => {
     const origin = nextLaboratoryOrigin(base)
     let state = queuePlan(base, { kind: 'placement', blueprintId: 'research-laboratory', origin }, TUNING.RESEARCH_LABORATORY_CAPEX)
     state = tick(state) // the body plan starts this boundary
-    const bodyPlan = state.physicalPlans.plans[0]!
+    const bodyPlan = ownPlans(state)[0]!
     expect(bodyPlan.status).toBe('started')
     const bodyPlacement = state.placement.facilities.find(f => f.id === bodyPlan.startedPlacementId)!
     const completesWeek = bodyPlacement.completesWeek
@@ -302,10 +315,10 @@ describe('P13B-S3 ordering and envelope (test 5)', () => {
     while (state.market.tick < completesWeek - 1) state = tick(state)
     const arrival = tick(state) // this tick's arrival week === completesWeek
     expect(arrival.placement.facilities.find(f => f.id === bodyPlan.startedPlacementId)!.status).toBe('operational')
-    expect(arrival.physicalPlans.plans[1]!.status).not.toBe('started') // never within w
+    expect(ownPlans(arrival)[1]!.status).not.toBe('started') // never within w
 
     const following = tick(arrival)
-    expect(following.physicalPlans.plans[1]!.status).toBe('started') // only at w+1's boundary
+    expect(ownPlans(following)[1]!.status).toBe('started') // only at w+1's boundary
   })
 })
 
@@ -315,7 +328,7 @@ describe('P13B-S3 conservation, determinism, replay, history and rival symmetry 
     const laboratoryFacilityId = base.operations.facilities.find(f => f.capability === 'laboratory')!.id
     const queued = queuePlan(base, { kind: 'installation', blueprintId: 'acoustic-instruments', target: { facilityId: laboratoryFacilityId } }, ACOUSTIC_COST)
     const ticked = tick(queued)
-    const plan = ticked.physicalPlans.plans[0]!
+    const plan = ownPlans(ticked)[0]!
     const placement = ticked.placement.facilities.find(f => f.id === plan.startedPlacementId)!
     const row = ticked.ledger.find(e => e.kind === 'constructionCapex' && e.constructionProjectId === placement.projectId)!
     expect(Math.abs(row.amount)).toBe(plan.commitReceipt!.cost)
@@ -360,11 +373,16 @@ describe('P13B-S3 conservation, determinism, replay, history and rival symmetry 
     const queued = queuePlan(base, { kind: 'installation', blueprintId: 'acoustic-instruments', target: { facilityId: lab } }, ACOUSTIC_COST)
     const own = queued.hollywood!.playerStudioId
     const rivalStudioId = queued.hollywood!.identities.find(i => i.studioId !== own)!.studioId
-    const ownPlan = queued.physicalPlans.plans[0]!
-    const rivalPlan: PhysicalPlan = { ...ownPlan, id: `${rivalStudioId}:plan:1`, studioId: rivalStudioId }
+    const ownPlan = ownPlans(queued)[0]!
+    // P13B-S8 sweep: that rival now admits its OWN Laboratory plans through the
+    // engine (numbered in its own sequence, never from the player's counter), so
+    // this injected row takes a number of its own rather than colliding with one.
+    const rivalNumber = queued.physicalPlans.plans.filter(plan => plan.studioId === rivalStudioId).length + 1
+    const rivalPlan: PhysicalPlan = { ...ownPlan, id: `${rivalStudioId}:plan:${String(rivalNumber)}`, studioId: rivalStudioId,
+      ordinal: queued.physicalPlans.plans.filter(plan => plan.studioId === rivalStudioId).reduce((highest, plan) => Math.max(highest, plan.ordinal), 0) + 1 }
     const withRival: GameState = {
       ...queued,
-      physicalPlans: { ...queued.physicalPlans, nextPlanId: queued.physicalPlans.nextPlanId + 1, plans: [...queued.physicalPlans.plans, rivalPlan] },
+      physicalPlans: { ...queued.physicalPlans, plans: [...queued.physicalPlans.plans, rivalPlan] },
     }
     expect(() => validatePhysicalPlans(withRival)).not.toThrow()
   })

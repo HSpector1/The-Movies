@@ -3,7 +3,7 @@ import { applyActions } from '../src/core/actions.js'
 import { initializeHollywood } from '../src/core/hollywood.js'
 import { occupiedResourceSlots, resourceClaimsOf } from '../src/core/occupancy.js'
 import { commitPlacement, demolishFacility, facilityDemolitionRefusal, moveFacility, queryFacilityInstallation } from '../src/core/placement.js'
-import { exportSave, importSave, makeSave, migrateToV26 } from '../src/core/save.js'
+import { exportSave, importSave, makeSave, migrateToV27 } from '../src/core/save.js'
 import { tick } from '../src/core/tick.js'
 import { generateWorld } from '../src/core/worldgen.js'
 
@@ -28,12 +28,12 @@ describe('P13A retained research Laboratory identity', () => {
       expect(moveFacility(state, { placementId: lab.id, origin: { gx: 5, gy: 9 } })).toBe(state)
       expect(queryFacilityInstallation(state, { blueprintId: 'acoustic-instruments', targetFacilityId: lab.facilityId }).ok).toBe(true)
       const json = exportSave(makeSave(state))
-      expect(exportSave(makeSave(migrateToV26(importSave(json)).state))).toBe(json)
+      expect(exportSave(makeSave(migrateToV27(importSave(json)).state))).toBe(json)
     }
     const installed = applyActions(state, [{ kind: 'installAcousticInstruments', laboratoryFacilityId: lab.facilityId }])
     expect(installed.placement.facilities).toHaveLength(2)
     expect(resourceClaimsOf(occupiedResourceSlots(installed)).filter(claim => claim.owner === 'installation' && claim.slot !== null)).toHaveLength(4)
     const installedJson = exportSave(makeSave(installed))
-    expect(exportSave(makeSave(migrateToV26(importSave(installedJson)).state))).toBe(installedJson)
+    expect(exportSave(makeSave(migrateToV27(importSave(installedJson)).state))).toBe(installedJson)
   }, 30_000)
 })

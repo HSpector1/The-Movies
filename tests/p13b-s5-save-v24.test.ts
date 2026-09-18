@@ -207,19 +207,19 @@ describe('P13B-S5 Save V24 (test 4)', () => {
   // AMENDED AGAIN (P13B-S6 live-version sweep, 2026-09-17): `makeSave` moved to
   // the live V26 boundary; this section moved with it a second time.
   it('makeSave writes saveVersion 26', () => {
-    expect(makeSave(p13aLaboratorySlice()).saveVersion).toBe(26)
+    expect(makeSave(p13aLaboratorySlice()).saveVersion).toBe(27)
   })
 
-  it('an unknown saveVersion 27 is refused, naming the handled range "1 through 26"', () => {
-    const forged = { ...makeSave(p13aLaboratorySlice()), saveVersion: 27 }
-    expect(() => validateSave(forged as never)).toThrow(/versions 1 through 26 only/)
+  it('an unknown saveVersion 28 is refused, naming the handled range "1 through 27"', () => {
+    const forged = { ...makeSave(p13aLaboratorySlice()), saveVersion: 28 }
+    expect(() => validateSave(forged as never)).toThrow(/versions 1 through 27 only/)
   })
 
   it('save/reload mid-deployment continues identically (byte for byte): a lighting adoption committed but not yet operational', () => {
     const { state: world, laboratoryFacilityIds: [, lab2], candidateIds } = p13bTwoLabWorld()
     let state = applyActions(world, candidateIds.slice(0, 4).map(scientistId =>
       ({ kind: 'assignResearchScientist' as const, laboratoryFacilityId: lab2, scientistId, technologyId: 'lighting-control-01' as const })))
-    const project = state.technology.projects.find(p => p.technologyId === 'lighting-control-01')!
+    const project = state.technology.projects.find(p => p.technologyId === 'lighting-control-01' && p.studioId === state.hollywood!.playerStudioId)!
     state = applyActions(state, [{ kind: 'beginResearch', projectId: project.id, budgetPerWeek: 40_000 }])
     while (state.technology.projects.find(p => p.id === project.id)!.status !== 'completed') {
       if (state.market.tick > 900) throw new Error('p13b-s5-save-v24 fixture: lighting research did not complete before week 900')

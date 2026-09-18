@@ -283,6 +283,11 @@ export function adoptionChainOperational(state: GameState, adoption: TechnologyA
   // P13B-S6: a cancelled adoption never has an operational chain, whatever else
   // stands on its bodies — its own work stopped. `?? null`: see above.
   if ((adoption.cancelledWeek ?? null) !== null) return false
+  // P13B-S8: physical completion is resolved PER STUDIO. The lot — and therefore
+  // every placed installation — is the player's; a rival's abstract plant carries
+  // its deployment CLOCK instead, which `finishTechnologyWeek` stamps as
+  // `operationalWeek` and never grants to cancelled work.
+  if (state.hollywood !== null && adoption.studioId !== state.hollywood.playerStudioId) return adoption.operationalWeek !== null
   if (!hasOperationalFacilityInstallation(state, adoption.stageFacilityId, entry.stageInstallationId)) return false
   return entry.postInstallationId === null || (adoption.postFacilityId !== null &&
     hasOperationalFacilityInstallation(state, adoption.postFacilityId, entry.postInstallationId))

@@ -188,6 +188,15 @@ function ownHistoryActivities(session: BridgeSession, requestId: string): { head
 
 // ---------------------------------------------------------------------------
 
+/**
+ * P13B-S8 sweep: the physical-plan root is shared by every studio (`PhysicalPlan
+ * .studioId`), and a rival now admits its own Laboratory plans onto it. Every
+ * positional read below means THE PLAYER's own plans, in its own order.
+ */
+function ownPlans<T extends { studioId: string }>(state: { physicalPlans: { plans: readonly T[] }; hollywood: { playerStudioId: string } | null }): readonly T[] {
+  return state.physicalPlans.plans.filter(plan => plan.studioId === state.hollywood!.playerStudioId)
+}
+
 describe('P13B-S3-T4 plans bridge page: projection bump', () => {
   it('bumps PROJECTION_VERSION to the S3-T4 wire contract (35; 38 after the S5-R07-T3 bump)', () => {
     expect(PROJECTION_VERSION).toBe(40)
@@ -313,12 +322,12 @@ describe('case 3: the envelope hold (insufficient cash) and the changed-quote ho
     const laboratoryFacilityId = base.operations.facilities.find(f => f.capability === 'laboratory')!.id
     const queued = queuePlan(base, { kind: 'installation', blueprintId: 'acoustic-instruments', target: { facilityId: laboratoryFacilityId } }, ACOUSTIC_COST)
     const forged = s3ForgeAndReimport(queued, parsed => {
-      const s = parsed.state as { physicalPlans: { plans: { approvedQuote: { fingerprint: string } }[] } }
-      s.physicalPlans.plans[0]!.approvedQuote.fingerprint = `${s.physicalPlans.plans[0]!.approvedQuote.fingerprint}-forged-drift`
+      const s = parsed.state as { physicalPlans: { plans: { studioId: string; approvedQuote: { fingerprint: string } }[] }; hollywood: { playerStudioId: string } | null }
+      ownPlans(s)[0]!.approvedQuote.fingerprint = `${ownPlans(s)[0]!.approvedQuote.fingerprint}-forged-drift`
     })
     const heldState = tick(forged)
-    const planId = heldState.physicalPlans.plans[0]!.id
-    expect(heldState.physicalPlans.plans[0]!.status).toBe('held') // engine-level sanity, matches tests/p13b-s3-dependencies.test.ts test 4
+    const planId = ownPlans(heldState)[0]!.id
+    expect(ownPlans(heldState)[0]!.status).toBe('held') // engine-level sanity, matches tests/p13b-s3-dependencies.test.ts test 4
 
     const session = new BridgeSession(heldState, 'p13b-s3-plans-3b-held')
     const plans = plansPage(session, nextRequestId('held'))
@@ -361,17 +370,17 @@ describe('case 4: cancel blocks its dependent; a started plan has no cancel row'
     // dependency, no target conflict with the two below) so this case can also prove
     // a started plan carries no cancel row, per the contract's own closing clause.
     state = queuePlan(state, { kind: 'placement', blueprintId: 'research-laboratory', origin: nextLaboratoryOrigin(state) }, TUNING.RESEARCH_LABORATORY_CAPEX)
-    const startedPlanId = state.physicalPlans.plans[0]!.id
+    const startedPlanId = ownPlans(state)[0]!.id
     state = tick(state)
-    expect(state.physicalPlans.plans[0]!.status).toBe('started') // engine-level sanity
+    expect(ownPlans(state)[0]!.status).toBe('started') // engine-level sanity
 
     // The dependency chain: bridge/laboratory.ts's Laboratory companions never set
     // dependsOn (contract text), so both plans are built through applyActions on the
     // seed state, then the session is loaded from a save of that state.
     state = queuePlan(state, { kind: 'installation', blueprintId: 'acoustic-instruments', target: { facilityId: laboratoryFacilityId } }, ACOUSTIC_COST)
-    const firstId = state.physicalPlans.plans[1]!.id
+    const firstId = ownPlans(state)[1]!.id
     state = queuePlan(state, { kind: 'installation', blueprintId: 'electrical-control-instruments', target: { facilityId: laboratoryFacilityId } }, ELECTRICAL_COST, { dependsOn: [firstId] })
-    const secondId = state.physicalPlans.plans[2]!.id
+    const secondId = ownPlans(state)[2]!.id
 
     const session = BridgeSession.fromSaveJson(exportSave(makeSave(state)), 'p13b-s3-plans-4-cancel')
     const before = plansPage(session, nextRequestId('before-cancel'))
@@ -405,11 +414,11 @@ describe('case 5: reorder', () => {
     const laboratoryFacilityId = state.operations.facilities.find(f => f.capability === 'laboratory')!.id
     const origin = nextLaboratoryOrigin(state) // computed once, before any queueing — queueing never touches placement/ground
     state = queuePlan(state, { kind: 'installation', blueprintId: 'acoustic-instruments', target: { facilityId: laboratoryFacilityId } }, ACOUSTIC_COST)
-    const planA = state.physicalPlans.plans[0]!.id
+    const planA = ownPlans(state)[0]!.id
     state = queuePlan(state, { kind: 'installation', blueprintId: 'electrical-control-instruments', target: { facilityId: laboratoryFacilityId } }, ELECTRICAL_COST)
-    const planB = state.physicalPlans.plans[1]!.id
+    const planB = ownPlans(state)[1]!.id
     state = queuePlan(state, { kind: 'placement', blueprintId: 'research-laboratory', origin }, TUNING.RESEARCH_LABORATORY_CAPEX)
-    const planC = state.physicalPlans.plans[2]!.id
+    const planC = ownPlans(state)[2]!.id
 
     const session = new BridgeSession(state, 'p13b-s3-plans-5-reorder')
     const before = plansPage(session, nextRequestId('before-reorder'))
@@ -430,9 +439,9 @@ describe('case 5: reorder', () => {
     const base = p13aLaboratorySlice()
     const laboratoryFacilityId = base.operations.facilities.find(f => f.capability === 'laboratory')!.id
     let state = queuePlan(base, { kind: 'installation', blueprintId: 'acoustic-instruments', target: { facilityId: laboratoryFacilityId } }, ACOUSTIC_COST)
-    const predecessorId = state.physicalPlans.plans[0]!.id
+    const predecessorId = ownPlans(state)[0]!.id
     state = queuePlan(state, { kind: 'installation', blueprintId: 'electrical-control-instruments', target: { facilityId: laboratoryFacilityId } }, ELECTRICAL_COST, { dependsOn: [predecessorId] })
-    const dependentId = state.physicalPlans.plans[1]!.id
+    const dependentId = ownPlans(state)[1]!.id
 
     const session = new BridgeSession(state, 'p13b-s3-plans-5b-dependency')
     const plans = plansPage(session, nextRequestId('dependency'))
@@ -447,8 +456,8 @@ describe('case 6: admission mode toggle', () => {
     const base = p13aLaboratorySlice()
     const laboratoryFacilityId = base.operations.facilities.find(f => f.capability === 'laboratory')!.id
     const state = queuePlan(base, { kind: 'installation', blueprintId: 'acoustic-instruments', target: { facilityId: laboratoryFacilityId } }, ACOUSTIC_COST)
-    const planId = state.physicalPlans.plans[0]!.id
-    expect(state.physicalPlans.plans[0]!.admission).toBe('reviewChangedQuote') // the queuePhysicalPlan default
+    const planId = ownPlans(state)[0]!.id
+    expect(ownPlans(state)[0]!.admission).toBe('reviewChangedQuote') // the queuePhysicalPlan default
 
     const session = new BridgeSession(state, 'p13b-s3-plans-6-admission')
     const before = plansPage(session, nextRequestId('before-admission'))
@@ -499,7 +508,7 @@ describe('case 8: player-safe — no rival plan, planId or facility ever appears
     const queued = queuePlan(base, { kind: 'installation', blueprintId: 'acoustic-instruments', target: { facilityId: laboratoryFacilityId } }, ACOUSTIC_COST)
     const own = queued.hollywood!.playerStudioId
     const rivalStudioId = queued.hollywood!.identities.find(i => i.studioId !== own)!.studioId
-    const ownPlan = queued.physicalPlans.plans[0]!
+    const ownPlan = ownPlans(queued)[0]!
     // Structural injection — the same idiom tests/p13b-s3-admission.test.ts's own
     // rival-symmetry test and tests/bridge-p13b-s2-labs.test.ts's case 8 use: this
     // engine has no public action path that grows a genuine rival physical plan.

@@ -10,7 +10,7 @@ import {
   migrateToV20,
   migrateToV21,
   migrateToV22,
-  migrateToV26,
+  migrateToV27,
   validateSave,
   validateSaveV21,
 } from '../src/core/save.js'
@@ -41,12 +41,12 @@ function assertRootUnchangedExceptTechnology(before: GameStateV21, after: GameSt
  * real migration, before the live round trip. The V21→V22 lift assertions above
  * stay exactly where they were — this file proves the V22 migration, not V26. */
 function live(save: SaveFileV22): GameState {
-  return migrateToV26(save).state
+  return migrateToV27(save).state
 }
 
 function roundTripsByteIdentical(state: GameState): string {
   const direct = exportSave(makeSave(state))
-  const restored = migrateToV26(importSave(direct)).state
+  const restored = migrateToV27(importSave(direct)).state
   expect(exportSave(makeSave(restored))).toBe(direct)
   return direct
 }
@@ -129,11 +129,11 @@ describe('P13B-S2 V21 to V22 migration (test 8)', () => {
       expect(migrated.state.market.tick).toBe(fixture.week)
 
       for (const expectedProject of fixture.projects) {
-        const project = migrated.state.technology.projects.find(p => p.technologyId === expectedProject.technologyId)!
+        const project = migrated.state.technology.projects.find(p => p.technologyId === expectedProject.technologyId && p.studioId === migrated.state.hollywood!.playerStudioId)!
         expect(project.verifiedWork).toBe(expectedProject.verifiedWork)
         expect(project.expenditure).toBe(expectedProject.expenditure)
-        expect(project.status).toBe(before.state.technology.projects.find(p => p.technologyId === expectedProject.technologyId)!.status)
-        expect(project.seats).toEqual(before.state.technology.projects.find(p => p.technologyId === expectedProject.technologyId)!.seats)
+        expect(project.status).toBe(before.state.technology.projects.find(p => p.technologyId === expectedProject.technologyId && p.studioId === before.state.hollywood!.playerStudioId)!.status)
+        expect(project.seats).toEqual(before.state.technology.projects.find(p => p.technologyId === expectedProject.technologyId && p.studioId === before.state.hollywood!.playerStudioId)!.seats)
         expect(project.weeks).toHaveLength(expectedProject.receipts.length)
         expectedProject.receipts.forEach((expectedReceipt, i) => {
           const receipt = project.weeks[i]!
@@ -163,7 +163,7 @@ describe('P13B-S2 V21 to V22 migration (test 8)', () => {
   it('continues the migrated active staffed-4-seats-263 project for one more funded week (now carrying its own labs row) and re-saves byte-identically', () => {
     const migrated = migrateToV22(importSave(load('./fixtures/p13b/legacy-v21-staffed-4-seats-263.json.gz')))
     const next = tick(live(migrated))
-    const project = next.technology.projects.find(p => p.technologyId === 'synchronized-sound')!
+    const project = next.technology.projects.find(p => p.technologyId === 'synchronized-sound' && p.studioId === next.hollywood!.playerStudioId)!
     expect(project.expenditure).toBe(160_000) // 120,000 + one more $40,000 week
     expect(project.verifiedWork).toBe(24) // 18 + one more 6-unit week (4 seats, $40,000, single Laboratory)
     const receipt = project.weeks.at(-1)!
@@ -203,19 +203,19 @@ describe('P13B-S2 V21 to V22 migration (test 8)', () => {
 describe('P13B-S2 envelope law at the live writer (test 8)', () => {
   it('makeSave always writes the live saveVersion 26', () => {
     const migrated = migrateToV22(importSave(load('./fixtures/p13b/legacy-v21-staffed-4-seats-263.json.gz')))
-    expect(makeSave(live(migrated)).saveVersion).toBe(26)
+    expect(makeSave(live(migrated)).saveVersion).toBe(27)
   })
 
-  it('refuses an unknown saveVersion 27 with the updated range', () => {
+  it('refuses an unknown saveVersion 28 with the updated range', () => {
     const migrated = migrateToV22(importSave(load('./fixtures/p13b/legacy-v21-staffed-4-seats-263.json.gz')))
     const save = makeSave(live(migrated))
-    expect(() => validateSave({ ...save, saveVersion: 27 })).toThrow(/versions 1 through 26 only/)
+    expect(() => validateSave({ ...save, saveVersion: 28 })).toThrow(/versions 1 through 27 only/)
   })
 
-  it('round-trips a migrated two-Laboratory save through exportSave/importSave/migrateToV26 byte-identically', () => {
+  it('round-trips a migrated two-Laboratory save through exportSave/importSave/migrateToV27 byte-identically', () => {
     const migrated = migrateToV22(importSave(load('./fixtures/p13b/legacy-v21-two-labs-two-briefs-783.json.gz')))
     const direct = exportSave(makeSave(live(migrated)))
-    const restored = migrateToV26(importSave(direct)).state
+    const restored = migrateToV27(importSave(direct)).state
     expect(exportSave(makeSave(restored))).toBe(direct)
   })
 })

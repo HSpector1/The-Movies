@@ -1989,7 +1989,15 @@ export type GameStateV25 = GameStateV24
  * name exists so save.ts's version dispatch has a version to point `GameState` at.
  */
 export type GameStateV26 = GameStateV25
-export type GameState = GameStateV26
+/**
+ * P13B-S8 (Save V27). NO new root: the change at this version is the widened
+ * `RivalMoneyKind` movement record (the four research kinds) and the five rival
+ * research `IndustryReceipt` arms — version-aware at the boundary, exactly as
+ * V26's cancellation leaves were. The distinct name exists so save.ts's version
+ * dispatch has a version to point `GameState` at.
+ */
+export type GameStateV27 = GameStateV26
+export type GameState = GameStateV27
 
 // ── D-14 Talent Career Impact — frozen career-event record (§7) ───────────────
 // The ONE canonical persisted record of a participant's outcome on one released film.

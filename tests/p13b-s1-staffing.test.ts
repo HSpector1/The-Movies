@@ -30,6 +30,15 @@ const secondLaboratoryOrigin = (state: GameState) => {
   throw new Error('This generated lot offers no lawful site for a second Research Laboratory')
 }
 
+/**
+ * P13B-S8 sweep: rivals research the same catalogue technologies on the same
+ * shared root, so THIS studio's project is found by its own studio id, never by
+ * position.
+ */
+function ownProjects(state: GameState) {
+  return state.technology.projects.filter(p => p.studioId === state.hollywood!.playerStudioId)
+}
+
 describe('P13B-S1 named research candidates', () => {
   it('offers eight deterministic, distinct candidates with Otto first and no RNG advance', () => {
     const candidates = researchCandidates(entry)
@@ -69,8 +78,8 @@ describe('P13B-S1 named seats on one Laboratory', () => {
     const ids = researchCandidates(staffed).map(c => c.id)
     let state = staffed
     for (const id of ids.slice(0, 4)) state = assign(state, id)
-    expect(state.technology.projects).toHaveLength(1)
-    const project = state.technology.projects[0]!
+    expect(ownProjects(state)).toHaveLength(1)
+    const project = ownProjects(state)[0]!
     expect(project.id).toBe(`${state.hollywood!.playerStudioId}:research:synchronized-sound`)
     expect(project.seats.map(s => s.talentId)).toEqual(ids.slice(0, 4))
     expect(project.seats.every(s => s.laboratoryFacilityId === laboratoryFacilityId && s.assignedWeek === state.market.tick && s.releasedWeek === null)).toBe(true)
@@ -88,22 +97,22 @@ describe('P13B-S1 named seats on one Laboratory', () => {
     state = assign(state, researchCandidates(state)[0]!.id)
     // S2 (plan §S2 test 3) retires S1's second-Laboratory refusal: the seat is accepted and carries its own Lab.
     state = assign(state, researchCandidates(state)[1]!.id, second.id)
-    expect(state.technology.projects[0]!.seats.map(s => s.laboratoryFacilityId)).toEqual([laboratoryFacilityId, second.id])
+    expect(ownProjects(state)[0]!.seats.map(s => s.laboratoryFacilityId)).toEqual([laboratoryFacilityId, second.id])
   })
 
   it('releases a seat, keeps its history, and lets the same person be re-seated', () => {
     const [first, second] = researchCandidates(staffed).map(c => c.id)
     let state = assign(assign(staffed, first!), second!)
-    const projectId = state.technology.projects[0]!.id
+    const projectId = ownProjects(state)[0]!.id
     state = advanceTo(state, state.market.tick + 2)
     state = applyActions(state, [{ kind: 'releaseResearchSeat', projectId, scientistId: first! }])
-    expect(state.technology.projects[0]!.seats).toEqual([
+    expect(ownProjects(state)[0]!.seats).toEqual([
       { talentId: first, laboratoryFacilityId, assignedWeek: staffed.market.tick, releasedWeek: staffed.market.tick + 2 },
       { talentId: second, laboratoryFacilityId, assignedWeek: staffed.market.tick, releasedWeek: null },
     ])
     expect(() => applyActions(state, [{ kind: 'releaseResearchSeat', projectId, scientistId: first! }])).toThrow(/no occupied seat/)
     state = assign(state, first!)
-    expect(state.technology.projects[0]!.seats).toHaveLength(3)
-    expect(state.technology.projects[0]!.seats[2]).toEqual({ talentId: first, laboratoryFacilityId, assignedWeek: staffed.market.tick + 2, releasedWeek: null })
+    expect(ownProjects(state)[0]!.seats).toHaveLength(3)
+    expect(ownProjects(state)[0]!.seats[2]).toEqual({ talentId: first, laboratoryFacilityId, assignedWeek: staffed.market.tick + 2, releasedWeek: null })
   })
 })

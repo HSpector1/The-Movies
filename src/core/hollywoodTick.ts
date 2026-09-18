@@ -3,6 +3,8 @@ import { considerRivalSoundPurchase, selectRivalSoundProduction, rivalInstallati
 import { createProductionTechnologyPolicy } from './technologyProduction.js'
 import { busyTalentIds, offerForTalent, weeklySalary, renewalWindowOpen } from './employment.js'
 import { moveRivalMoney, rivalCapacityOpex, rivalWeeklyOperatingCost, uniqueIdentity } from './hollywood.js'
+import { admitRivalPlansInWeek, advanceRivalResearch, completeRivalPlans, rivalScientistDemand } from './rivalResearch.js'
+import { researchAfterEmploymentRelease } from './technology.js'
 import { RIVAL_TEAM_ROLES } from './hollywoodStartingData.js'
 import { buildFilmParticipants } from './filmParticipants.js'
 import { computeForecast } from './forecast.js'
@@ -84,7 +86,7 @@ function operateStage(b:RivalBusiness) {
 }
 
 /** Fill only actual role deficits. Existing lawful employees are preferred; no player poaching. */
-function staff(state:GameState,h:HollywoodState,b:RivalBusiness,talent:Talent[],week:number):Talent[] {
+function staff(state:GameState,h:HollywoodState,b:RivalBusiness,talent:Talent[],week:number,extraRoles:readonly Talent['role'][]=[]):Talent[] {
   const reserveAfterOffer=(terms:import('./types.js').Contract,replacing?:number)=>{
     const employment=[...h.employment,{contractId:'prospective',studioId:b.studioId,terms,endedWeek:null,reason:'replacement' as const}]
     const activeEmploymentOrdinals=[...h.activeEmploymentOrdinals.filter(i=>i!==replacing),employment.length-1]
@@ -113,7 +115,9 @@ function staff(state:GameState,h:HollywoodState,b:RivalBusiness,talent:Talent[],
   const own=currentEmployees(h,b.studioId)
   const filled=new Set<string>()
   let next=talent
-  for(const [slot,role] of RIVAL_TEAM_ROLES.entries()) {
+  // P13B-S8: the fixed production team, then the Scientists this studio's own
+  // research policy demands — one list, one contract law, one receipt per hire.
+  for(const [slot,role] of [...RIVAL_TEAM_ROLES,...extraRoles].entries()) {
     const retained=own.find(e=>!filled.has(e.terms.talentId)&&next.find(t=>t.id===e.terms.talentId)?.role===role)
     if(retained){filled.add(retained.terms.talentId);continue}
     const expired=[...h.employment].reverse().find(e=>e.studioId===b.studioId && next.find(t=>t.id===e.terms.talentId)?.role===role && !filled.has(e.terms.talentId))
@@ -212,18 +216,25 @@ function decide(state:GameState,h:HollywoodState,b:RivalBusiness,talent:Talent[]
 }
 
 /** Stage rival work against pre-development talent. All writes are to new local objects. */
-export function advanceHollywoodWeek(state:GameState):{hollywood:HollywoodState|null;talent:Talent[];growth:ReleaseGrowthRecord[];technology:GameState['technology']} {
+export function advanceHollywoodWeek(state:GameState):{hollywood:HollywoodState|null;talent:Talent[];growth:ReleaseGrowthRecord[];technology:GameState['technology'];physicalPlans:GameState['physicalPlans']} {
   const source=state.hollywood
-  if(!source)return {hollywood:null,talent:state.talent,growth:[],technology:state.technology}
+  if(!source)return {hollywood:null,talent:state.talent,growth:[],technology:state.technology,physicalPlans:state.physicalPlans}
   const week=state.market.tick
   const h:HollywoodState={...source,businesses:source.businesses.map(b=>({...b,account:{...b.account,
     periods:b.account.periods.map((p,i)=>i===b.account.periods.length-1?{...p,movements:{...p.movements}}:p)}}))}
   let talent=state.talent
   let technology=state.technology
+  let physicalPlans=state.physicalPlans
   const growth:ReleaseGrowthRecord[]=[]
   for(const b of h.businesses) {
     technology=considerRivalSoundPurchase({...state,technology,hollywood:h},h,b)
-    if(week>=b.nextDecisionWeek)talent=staff(state,h,b,talent,week)
+    if(week>=b.nextDecisionWeek)talent=staff(state,h,b,talent,week,
+      Array.from({length:rivalScientistDemand({...state,technology,physicalPlans,hollywood:h},h,b,talent,week)},()=>'scientist' as const))
+    // P13B-S8 (audit item 7): this studio's own physical admission and research
+    // week, after its hiring and before it commissions a film — its capital and
+    // its research bill are spent from the same account the film draws on.
+    physicalPlans=admitRivalPlansInWeek({...state,technology,physicalPlans,hollywood:h,talent},h,b,physicalPlans,week)
+    technology=advanceRivalResearch({...state,technology,physicalPlans,hollywood:h,talent},h,b,talent,week)
     decide(state,h,b,talent,week)
     operateStage(b)
     for(const p of b.productions) if(releaseCommitmentRefusal({productions:b.productions,operations:b.operations,releaseAuthority:b.releaseAuthority,concepts:[]},p.id)===null) {
@@ -286,14 +297,14 @@ export function advanceHollywoodWeek(state:GameState):{hollywood:HollywoodState|
     const employees=currentEmployees(h,b.studioId)
     moveRivalMoney(b.account,'payroll',-employees.reduce((sum,e)=>sum+weeklySalary(e.terms.annualSalary),0),week)
     moveRivalMoney(b.account,'overhead',-(TUNING.OVERHEAD_BASE+TUNING.OVERHEAD_PER_EMPLOYEE*employees.length),week)
-    moveRivalMoney(b.account,'facilityOpex',-rivalCapacityOpex(b),week)
+    moveRivalMoney(b.account,'facilityOpex',-rivalCapacityOpex(b,h.receipts),week)
     const hot=hotDevelopment(b)
     const concepts=b.activeScriptOrdinals.map(i=>h.concepts[b.projects[i]!.conceptOrdinal]!)
     let complete=completeDueScriptWork(hot,week+1,{concepts,talent,estUplift:0})
     for(const project of complete.projects)if(project.status==='review')complete=acceptScriptProject(complete,project.id)
     storeHotDevelopment(b,complete)
   }
-  return {hollywood:h,talent,growth,technology}
+  return {hollywood:h,talent,growth,technology,physicalPlans}
 }
 
 /** End-of-week expiry follows payroll; future entrants are attached by the outer tick. */
@@ -319,5 +330,15 @@ export function finishHollywoodWeek(state:GameState):GameState {
     h={...h,previousChart:h.chart,chart:{week,rows}}
   }
   const freeAgents=expired.length>0?[...new Set([...state.freeAgents,...expired.map(i=>h.employment[i]!.terms.talentId)])]:state.freeAgents
-  return h===source?state:{...state,hollywood:h,freeAgents}
+  let next:GameState=h===source?state:{...state,hollywood:h,freeAgents}
+  // P13B-S8: a Scientist whose contract ended holds no seat that can work — the
+  // same pause law the player's own release runs, for that studio's own project.
+  for(const i of expired) {
+    const e=h.employment[i]!
+    if(e.studioId===h.playerStudioId)continue
+    next={...next,technology:researchAfterEmploymentRelease(next,e.terms.talentId,e.studioId)}
+  }
+  // Plans that finished their authored build weeks become this studio's plant, on
+  // the week that has ARRIVED — the boundary a rival adoption's own clock uses.
+  return completeRivalPlans(next)
 }

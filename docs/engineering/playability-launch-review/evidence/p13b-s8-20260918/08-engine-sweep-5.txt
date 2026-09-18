@@ -1,0 +1,30 @@
+=== sweep verification batch 5 (6 files) ===
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/ruling-a-development-in-play.test.ts (18 tests) 842ms
+ ✓ |core| tests/p13b-s6-save-v26.test.ts (11 tests) 2186ms
+   ✓ P13B-S6 Save V26: genuine V25 fixtures, honest lift, chains, validator refusals (test 7) > genuine V25 sound-mid-deployment fixture: sha256 matches, migrates to V26 with cancellation:null / cancelledWeek:null and no constructionRefund rows, otherwise byte-identical 311ms
+   ✓ P13B-S6 Save V26: genuine V25 fixtures, honest lift, chains, validator refusals (test 7) > VALID: a cancelled adoption with a passed original completesWeek is exempt from the v4 "operational receipt differs" clause 495ms
+ ✓ |core| tests/p13b-r07-save-v25.test.ts (8 tests) 925ms
+   ✓ P13B-S5-R07 Save V25 (test 5) > migrates both genuine V24 fixtures to V25: saveVersion 25, technology state byte-identical aside from the version bump, setup: null lift (vacuous — both carry zero workflows) 321ms
+ ✓ |core| tests/p13b-s7-announcements.test.ts (6 tests) 4456ms
+   ✓ P13B-S7 announcements persist nowhere: genuine V26 fixture, live load, advance past the announce week (test 3) > genuine V26 fixture at week 795 (before lighting announces at 884): sha256 matches, loads through the live path, no lighting announcement row 372ms
+   ✓ P13B-S7 announcements persist nowhere: genuine V26 fixture, live load, advance past the announce week (test 3) > advanced to week 884: exactly one lighting announcement row, week 884; still no sound row 1283ms
+   ✓ P13B-S7 announcements persist nowhere: genuine V26 fixture, live load, advance past the announce week (test 3) > advanced further to week 900: still exactly one lighting row, unchanged content (row week stays 884, not 900) 676ms
+   ✓ P13B-S7 announcements persist nowhere: genuine V26 fixture, live load, advance past the announce week (test 3) > the announcement is derived-only: the exported live save carries no announcement record, and round-trips cleanly at the unchanged live version 877ms
+   ✓ P13B-S7 announcements persist nowhere: genuine V26 fixture, live load, advance past the announce week (test 3) > Save As proxy: two independently-loaded copies of the same genuine save publish byte-identical announcement rows at 884 1246ms
+ ✓ |core| tests/p12-lifecycle.test.ts (5 tests) 9772ms
+   ✓ R05 shared-law rival lifecycle > rejects forged owners, erased archive announcements, invented employers and invalid chart history 1320ms
+   ✓ R05 shared-law rival lifecycle > rejects forged frozen credits, double roles, and another studio’s reserved performers 467ms
+   ✓ R05 shared-law rival lifecycle > commissions, staffs, funds, operates, releases and settles real films without player RNG draws 2327ms
+   ✓ R05 shared-law rival lifecycle > expires ordinary contracts and crosses the first real arrival from elapsed play 5574ms
+ ✓ |core| tests/p12-starting-world.test.ts (3 tests) 2235ms
+   ✓ R05 canonical starting history and genuine migration > opens four established distinct businesses with settled canonical history and protected applicants 331ms
+   ✓ R05 canonical starting history and genuine migration > migrates at each old state own week with empty company histories and exact player state 1759ms
+
+ Test Files  6 passed (6)
+      Tests  51 passed (51)
+   Start at  04:24:11
+   Duration  26.63s (transform 1.80s, setup 0ms, collect 3.96s, tests 20.42s, environment 2ms, prepare 617ms)
+

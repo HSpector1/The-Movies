@@ -44,8 +44,15 @@ export type LiveIndustryFilm = FilmIdentity & {
   releaseCommitmentId: string
 }
 export type IndustryFilm = AuthoredFilm | LiveIndustryFilm
+/**
+ * P13B-S8 (Save V27): the four research kinds join the ten P13A/P13B kinds. Every
+ * period carries all fourteen; a V26 period is lifted with the four at zero and a
+ * V27 period whose four are all zero downgrades losslessly.
+ */
+export type RivalResearchMoneyKind = 'researchSpend' | 'researchCapacity' | 'technologyRestoration' | 'technologyRefund'
 export type RivalMoneyKind = 'capacity' | 'signing' | 'payroll' | 'overhead' | 'facilityOpex'
   | 'development' | 'production' | 'marketing' | 'studioRevenue' | 'technologyAdoption'
+  | RivalResearchMoneyKind
 export type RivalFinancePeriod = {
   fromWeek: number
   throughWeek: number
@@ -101,7 +108,18 @@ export type IndustryReceipt = { eventId: string; week: number; studioId: string 
   | { kind: 'filmReleased'; productionId: string; conceptId: string; before: Standing; after: Standing }
   | { kind: 'filmSettled'; productionId: string }
   | { kind: 'technologyAdopted'; adoptionId: string }
+  // P13B-S8: rival-only emitters. A rival owns no placement, so its Laboratory,
+  // its instruments, its seats and its finished research are matters of record
+  // here — "no rival authority without a receipt" is validated against these.
+  | { kind: 'laboratoryCommitted'; planId: string; facilityId: string }
+  | { kind: 'laboratoryOperational'; facilityId: string }
+  | { kind: 'instrumentOperational'; facilityId: string; technologyId: string }
+  | { kind: 'researchSeatAssigned'; projectId: string; talentId: string }
+  | { kind: 'researchCompleted'; projectId: string }
 )
+/** The five V27 receipt kinds, as one roster the save boundary and the projection share. */
+export const RIVAL_RESEARCH_RECEIPT_KINDS = ['laboratoryCommitted', 'laboratoryOperational',
+  'instrumentOperational', 'researchSeatAssigned', 'researchCompleted'] as const
 export type HollywoodChartSnapshot = { week: number; rows: { studioId: string; standing: Standing; output: number }[] }
 export type HollywoodState = {
   version: 1

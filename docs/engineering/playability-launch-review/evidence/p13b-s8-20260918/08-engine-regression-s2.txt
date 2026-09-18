@@ -1,0 +1,40 @@
+=== npx vitest run --project core --minWorkers=1 --maxWorkers=1 --reporter=dot tests/p13b-s2-*.test.ts (8 files) ===
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p13b-s2-access-identity.test.ts (14 tests) 16383ms
+   ✓ P13B-S2 access identity: completion grant must key on (studioId, technologyId) > 6. save/reload and later ticks: exactly two rows, no duplicates, no erasure; validateSaveV27 accepts 574ms
+ ✓ |core| tests/p13b-s2-doc03.test.ts (17 tests) 8945ms
+ ✓ |core| tests/p13b-s2-validation.test.ts (15 tests) 43205ms
+   ✓ P13B-S2 conservation, determinism, save/reload and campaign isolation (test 7) > conservation: reconciles receipts, expenditure, ledger and cash over a funded cooperate interval 5558ms
+   ✓ P13B-S2 conservation, determinism, save/reload and campaign isolation (test 7) > determinism: two independent builds from the same seed give byte-identical exportSave, both fresh and after identical further actions 11751ms
+   ✓ P13B-S2 conservation, determinism, save/reload and campaign isolation (test 7) > save/reload mid-project: a reloaded cooperate project continues identically to the uninterrupted run over further weeks 6181ms
+   ✓ P13B-S2 conservation, determinism, save/reload and campaign isolation (test 7) > campaign isolation: every project a public action can create carries studioId === the player, by construction 5701ms
+   ✓ P13B-S2 conservation, determinism, save/reload and campaign isolation (test 7) > campaign isolation: a rival two-Laboratory project never surfaces through the player-scoped read filter, and forging the player’s own project never touches its bytes 5499ms
+ ✓ |core| tests/p13b-s2-save-v22.test.ts (12 tests) 8835ms
+   ✓ P13B-S2 V21 to V22 migration (test 8) > lifts ./fixtures/p13b/legacy-v21-staffed-4-seats-263.json.gz: every receipt ×8, per-Laboratory rows derived honestly, cooperationFromWeek stamped at the fixture's own week 839ms
+   ✓ P13B-S2 V21 to V22 migration (test 8) > lifts ./fixtures/p13b/legacy-v21-released-paused-266.json.gz: every receipt ×8, per-Laboratory rows derived honestly, cooperationFromWeek stamped at the fixture's own week 672ms
+   ✓ P13B-S2 V21 to V22 migration (test 8) > lifts ./fixtures/p13b/legacy-v21-two-labs-two-briefs-783.json.gz: every receipt ×8, per-Laboratory rows derived honestly, cooperationFromWeek stamped at the fixture's own week 852ms
+   ✓ P13B-S2 V21 to V22 migration (test 8) > continues the migrated active staffed-4-seats-263 project for one more funded week (now carrying its own labs row) and re-saves byte-identically 697ms
+   ✓ P13B-S2 V21 to V22 migration (test 8) > chains V20→V21→V22 for ./fixtures/p13b/legacy-v20-research-active-280.json.gz: the S1 legacy prefix survives intact, weeks stays empty 733ms
+   ✓ P13B-S2 V21 to V22 migration (test 8) > chains V20→V21→V22 for ./fixtures/p13b/legacy-v20-research-paused-expired-468.json.gz: the S1 legacy prefix survives intact, weeks stays empty 992ms
+   ✓ P13B-S2 V21 to V22 migration (test 8) > chains V20→V21→V22 for ./fixtures/p13b/legacy-v20-research-complete-operational-315.json.gz: the S1 legacy prefix survives intact, weeks stays empty 883ms
+   ✓ P13B-S2 envelope law at the live writer (test 8) > makeSave always writes the live saveVersion 26 458ms
+   ✓ P13B-S2 envelope law at the live writer (test 8) > refuses an unknown saveVersion 28 with the updated range 456ms
+   ✓ P13B-S2 envelope law at the live writer (test 8) > round-trips a migrated two-Laboratory save through exportSave/importSave/migrateToV27 byte-identically 1018ms
+   ✓ P13B-S2 campaign isolation across the migrated copies (mirrors the S1 case) > produces independent migrated copies from the same V21 fixture; advancing one never touches the other 1131ms
+ ✓ |core| tests/p13b-s2-labs.test.ts (10 tests) 30574ms
+   ✓ P13B-S2 module/bench law (test 2) > refuses lighting beginResearch while the seated Laboratory lacks an operational electrical/control module 6580ms
+   ✓ P13B-S2 module/bench law (test 2) > does not double-book one Laboratory's seat slots when two technologies are both active there (sound 2 + lighting 2, four seats total) 5634ms
+   ✓ P13B-S2 module/bench law (test 2) > seats a person for a technology on a Laboratory lacking its discipline module (retained P13A law), but refuses to begin until the module is operational 6210ms
+   ✓ P13B-S2 module/bench law (test 2) > releases the seat claim on pause and reacquires it on resume — the S1 release law generalized to a lighting project (regression net) 5659ms
+ ✓ |core| tests/p13b-s2-expiry.test.ts (3 tests) 13830ms
+ ✓ |core| tests/p13b-s2-cooperation.test.ts (5 tests) 6983ms
+ ✓ |core| tests/p13b-s2-catalogue.test.ts (11 tests) 7235ms
+   ✓ P13B-S2 catalogue: two technologies, stable order (test 1) > the ordinary action surface (knownTechnology) accepts both technology ids, not only synchronized-sound 688ms
+
+ Test Files  8 passed (8)
+      Tests  87 passed (87)
+   Start at  03:57:28
+   Duration  142.69s (transform 1.57s, setup 0ms, collect 3.79s, tests 135.99s, environment 2ms, prepare 749ms)
+

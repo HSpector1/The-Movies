@@ -1266,10 +1266,16 @@ export {
   validateSaveV24,
   migrateToV24,
   convertV23ToV24,
-  // P13B-S6 — live V25 → NEW V26 + migrateToV26 (the widened cancellation leaves).
+  // P13B-S6 — V25 → V26 + migrateToV26 (the widened cancellation leaves).
   validateSaveV26,
   migrateToV26,
   convertV25ToV26,
+  // P13B-S8 — live V26 → NEW V27 + migrateToV27 (the rival research movements and receipts).
+  validateSaveV27,
+  migrateToV27,
+  convertV26ToV27,
+  convertV27ToV26,
+  projectHollywoodPreV27,
   // P13B-S5-R07 — live V24 → NEW V25 + migrateToV25 (the widened production
   // setup plan leaves and the four setup history rows).
   validateSaveV25,
@@ -1303,6 +1309,7 @@ export type {
   SaveFileV24,
   SaveFileV25,
   SaveFileV26,
+  SaveFileV27,
   SaveFile,
   TalentV1,
   GameStateV1,

@@ -111,13 +111,16 @@ describe('P13B-S2 catalogue: two technologies, stable order (test 1)', () => {
     }, 60_000)
 
     it('creates two distinct projects keyed by (studio, technology), not one shared synchronized-sound project', () => {
-      expect(state.technology.projects).toHaveLength(2)
+      // P13B-S8: rivals research the same catalogue on the same shared root, so
+      // "this studio's projects" is the (studio, technology) key, not the array.
       const own = state.hollywood!.playerStudioId
-      expect(state.technology.projects.map(p => p.id).sort()).toEqual([
+      const ownProjects = state.technology.projects.filter(p => p.studioId === own)
+      expect(ownProjects).toHaveLength(2)
+      expect(ownProjects.map(p => p.id).sort()).toEqual([
         `${own}:research:lighting-control-01`,
         `${own}:research:synchronized-sound`,
       ])
-      expect(state.technology.projects.map(p => p.technologyId).sort()).toEqual(['lighting-control-01', 'synchronized-sound'])
+      expect(ownProjects.map(p => p.technologyId).sort()).toEqual(['lighting-control-01', 'synchronized-sound'])
     })
   })
 })

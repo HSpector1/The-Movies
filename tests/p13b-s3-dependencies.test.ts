@@ -45,8 +45,8 @@ function queuePlan(
 /** Forge ONLY `approvedQuote.fingerprint` on the first physical plan, byte-round-tripped through the save JSON. */
 function forgeFirstPlanFingerprint(state: GameState): GameState {
   return s3ForgeAndReimport(state, parsed => {
-    const s = parsed.state as { physicalPlans: { plans: { approvedQuote: { fingerprint: string } }[] } }
-    const plan = s.physicalPlans.plans[0]!
+    const s = parsed.state as { physicalPlans: { plans: { studioId: string; approvedQuote: { fingerprint: string } }[] }; hollywood: { playerStudioId: string } | null }
+    const plan = ownPlans(s)[0]!
     plan.approvedQuote.fingerprint = `${plan.approvedQuote.fingerprint}-forged-drift`
   })
 }
@@ -54,26 +54,35 @@ function forgeFirstPlanFingerprint(state: GameState): GameState {
 const ACOUSTIC_COST = TUNING.ACOUSTIC_INSTRUMENTS_CAPEX
 const ELECTRICAL_COST = TUNING.ELECTRICAL_CONTROL_INSTRUMENTS_CAPEX
 
+/**
+ * P13B-S8 sweep: the physical-plan root is shared by every studio (`PhysicalPlan
+ * .studioId`), and a rival now admits its own Laboratory plans onto it. Every
+ * positional read below means THE PLAYER's own plans, in its own order.
+ */
+function ownPlans<T extends { studioId: string }>(state: { physicalPlans: { plans: readonly T[] }; hollywood: { playerStudioId: string } | null }): readonly T[] {
+  return state.physicalPlans.plans.filter(plan => plan.studioId === state.hollywood!.playerStudioId)
+}
+
 describe('P13B-S3 dependencies (test 3)', () => {
   it('an installation on a queued Laboratory body (target: {planId}) resolves the facility id at start and waits for the body to be operational', () => {
     const base = p13aLaboratorySlice()
     const origin = nextLaboratoryOrigin(base)
     let state = queuePlan(base, { kind: 'placement', blueprintId: 'research-laboratory', origin }, TUNING.RESEARCH_LABORATORY_CAPEX)
-    const bodyPlanId = state.physicalPlans.plans[0]!.id
+    const bodyPlanId = ownPlans(state)[0]!.id
     state = queuePlan(state, { kind: 'installation', blueprintId: 'acoustic-instruments', target: { planId: bodyPlanId } }, ACOUSTIC_COST, { dependsOn: [bodyPlanId] })
 
     state = tick(state) // body plan starts
-    const bodyPlan = state.physicalPlans.plans[0]!
+    const bodyPlan = ownPlans(state)[0]!
     expect(bodyPlan.status).toBe('started')
-    expect(state.physicalPlans.plans[1]!.status).not.toBe('started') // still waits — body not operational yet
+    expect(ownPlans(state)[1]!.status).not.toBe('started') // still waits — body not operational yet
 
     const bodyPlacement = state.placement.facilities.find(f => f.id === bodyPlan.startedPlacementId)!
     while (state.placement.facilities.find(f => f.id === bodyPlan.startedPlacementId)!.status !== 'operational') {
       state = tick(state)
-      expect(state.physicalPlans.plans[1]!.status).not.toBe('started') // never within the body's own completion week
+      expect(ownPlans(state)[1]!.status).not.toBe('started') // never within the body's own completion week
     }
     state = tick(state) // the FOLLOWING boundary (test 5's w+1 law)
-    const dependent = state.physicalPlans.plans[1]!
+    const dependent = ownPlans(state)[1]!
     expect(dependent.status).toBe('started')
     const dependentPlacement = state.placement.facilities.find(f => f.id === dependent.startedPlacementId)!
     expect(dependentPlacement.installation).toEqual({ targetFacilityId: bodyPlacement.facilityId })
@@ -99,9 +108,9 @@ describe('P13B-S3 dependencies (test 3)', () => {
     const base = p13aLaboratorySlice()
     const laboratoryFacilityId = base.operations.facilities.find(f => f.capability === 'laboratory')!.id
     let state = queuePlan(base, { kind: 'installation', blueprintId: 'acoustic-instruments', target: { facilityId: laboratoryFacilityId } }, ACOUSTIC_COST)
-    const planId = state.physicalPlans.plans[0]!.id
+    const planId = ownPlans(state)[0]!.id
     state = applyActions(state, [{ kind: 'cancelPhysicalPlan', planId } as never])
-    expect(state.physicalPlans.plans[0]!.status).toBe('cancelled')
+    expect(ownPlans(state)[0]!.status).toBe('cancelled')
     expect(() => queuePlan(state, { kind: 'installation', blueprintId: 'electrical-control-instruments', target: { facilityId: laboratoryFacilityId } }, ELECTRICAL_COST, { dependsOn: [planId] }))
       .toThrow(/cancelled|blocked/i)
   })
@@ -110,26 +119,26 @@ describe('P13B-S3 dependencies (test 3)', () => {
     const base = p13aLaboratorySlice()
     const laboratoryFacilityId = base.operations.facilities.find(f => f.capability === 'laboratory')!.id
     let state = queuePlan(base, { kind: 'installation', blueprintId: 'acoustic-instruments', target: { facilityId: laboratoryFacilityId } }, ACOUSTIC_COST)
-    const predecessorId = state.physicalPlans.plans[0]!.id
+    const predecessorId = ownPlans(state)[0]!.id
     state = queuePlan(state, { kind: 'installation', blueprintId: 'electrical-control-instruments', target: { facilityId: laboratoryFacilityId } }, ELECTRICAL_COST, { dependsOn: [predecessorId] })
     state = applyActions(state, [{ kind: 'cancelPhysicalPlan', planId: predecessorId } as never])
-    expect(state.physicalPlans.plans[0]!.status).toBe('cancelled')
-    const dependent = state.physicalPlans.plans[1]!
+    expect(ownPlans(state)[0]!.status).toBe('cancelled')
+    const dependent = ownPlans(state)[1]!
     expect(dependent.status).toBe('blocked')
     expect(dependent.reason).toContain(predecessorId)
 
     let after = state
     for (let i = 0; i < 10; i++) after = tick(after)
-    expect(after.physicalPlans.plans[1]!.status).toBe('blocked') // never starts
+    expect(ownPlans(after)[1]!.status).toBe('blocked') // never starts
   })
 
   it('reordering a dependent before its dependency is refused', () => {
     const base = p13aLaboratorySlice()
     const laboratoryFacilityId = base.operations.facilities.find(f => f.capability === 'laboratory')!.id
     let state = queuePlan(base, { kind: 'installation', blueprintId: 'acoustic-instruments', target: { facilityId: laboratoryFacilityId } }, ACOUSTIC_COST)
-    const predecessorId = state.physicalPlans.plans[0]!.id
+    const predecessorId = ownPlans(state)[0]!.id
     state = queuePlan(state, { kind: 'installation', blueprintId: 'electrical-control-instruments', target: { facilityId: laboratoryFacilityId } }, ELECTRICAL_COST, { dependsOn: [predecessorId] })
-    const dependentId = state.physicalPlans.plans[1]!.id
+    const dependentId = ownPlans(state)[1]!.id
     expect(() => applyActions(state, [{ kind: 'reorderPhysicalPlans', planIds: [dependentId, predecessorId] } as never]))
       .toThrow(/before its dependency/i)
   })
@@ -142,10 +151,10 @@ describe('P13B-S3 dependencies (test 3)', () => {
     const lab2 = state.operations.facilities.find(f => f.capability === 'laboratory' && f.id !== lab1)!.id
     state = queuePlan(state, { kind: 'installation', blueprintId: 'acoustic-instruments', target: { facilityId: lab1 } }, ACOUSTIC_COST)
     state = queuePlan(state, { kind: 'installation', blueprintId: 'acoustic-instruments', target: { facilityId: lab2 } }, ACOUSTIC_COST)
-    const [planA, planB] = state.physicalPlans.plans
+    const [planA, planB] = ownPlans(state)
     const reordered = applyActions(state, [{ kind: 'reorderPhysicalPlans', planIds: [planB!.id, planA!.id] } as never])
-    expect(reordered.physicalPlans.plans.map(p => p.id)).toEqual([planB!.id, planA!.id])
-    expect(reordered.physicalPlans.plans[0]!.ordinal).toBeLessThan(reordered.physicalPlans.plans[1]!.ordinal)
+    expect(ownPlans(reordered).map(p => p.id)).toEqual([planB!.id, planA!.id])
+    expect(ownPlans(reordered)[0]!.ordinal).toBeLessThan(ownPlans(reordered)[1]!.ordinal)
     expect(() => validatePhysicalPlans(reordered)).not.toThrow()
   })
 })
@@ -167,7 +176,7 @@ describe('P13B-S3 changed quote (test 4)', () => {
     const queued = queuePlan(base, { kind: 'installation', blueprintId: 'acoustic-instruments', target: { facilityId: laboratoryFacilityId } }, ACOUSTIC_COST)
     const forged = forgeFirstPlanFingerprint(queued)
     const heldState = tick(forged)
-    const held = heldState.physicalPlans.plans[0]!
+    const held = ownPlans(heldState)[0]!
     expect(held.status).toBe('held')
     expect(held.reason).toMatch(/quote changed/i)
     expect(held.pendingQuote).toEqual(planQuoteSnapshot(heldState, held.work))
@@ -178,7 +187,7 @@ describe('P13B-S3 changed quote (test 4)', () => {
     const laboratoryFacilityId = base.operations.facilities.find(f => f.capability === 'laboratory')!.id
     const queued = queuePlan(base, { kind: 'installation', blueprintId: 'acoustic-instruments', target: { facilityId: laboratoryFacilityId } }, ACOUSTIC_COST, { admission: 'automatic' })
     const forged = forgeFirstPlanFingerprint(queued)
-    expect(tick(forged).physicalPlans.plans[0]!.status).toBe('started')
+    expect(ownPlans(tick(forged))[0]!.status).toBe('started')
   })
 
   it('reviewPhysicalPlan re-approves a held plan (pendingQuote promoted to approvedQuote), which starts at the FOLLOWING boundary', () => {
@@ -187,16 +196,16 @@ describe('P13B-S3 changed quote (test 4)', () => {
     const queued = queuePlan(base, { kind: 'installation', blueprintId: 'acoustic-instruments', target: { facilityId: laboratoryFacilityId } }, ACOUSTIC_COST)
     const forged = forgeFirstPlanFingerprint(queued)
     const held = tick(forged)
-    const heldPlan = held.physicalPlans.plans[0]!
+    const heldPlan = ownPlans(held)[0]!
     expect(heldPlan.status).toBe('held')
     const pendingBefore = heldPlan.pendingQuote!
 
     const reviewed = applyActions(held, [{ kind: 'reviewPhysicalPlan', planId: heldPlan.id, approvedMaximumDebit: ACOUSTIC_COST } as never])
-    const reviewedPlan = reviewed.physicalPlans.plans[0]!
+    const reviewedPlan = ownPlans(reviewed)[0]!
     expect(reviewedPlan.status).toBe('queued')
     expect(reviewedPlan.approvedQuote).toEqual(pendingBefore)
     expect(reviewedPlan.pendingQuote).toBeNull()
 
-    expect(tick(reviewed).physicalPlans.plans[0]!.status).toBe('started')
+    expect(ownPlans(tick(reviewed))[0]!.status).toBe('started')
   })
 })

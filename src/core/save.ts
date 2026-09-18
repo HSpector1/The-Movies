@@ -5,6 +5,9 @@ import { validateInstallationCancellation } from './installationCancellation.js'
 import type { StudioTechnology, StudioTechnologyV1, StudioTechnologyV2, StudioTechnologyV3 } from './technologyTypes.js'
 import { initializeHollywood } from './hollywood.js'
 import { validateHollywood } from './hollywoodValidation.js'
+import { RIVAL_RESEARCH_MONEY_KINDS } from './hollywood.js'
+import { RIVAL_RESEARCH_RECEIPT_KINDS } from './hollywoodTypes.js'
+import type { HollywoodState, RivalFinancePeriod } from './hollywoodTypes.js'
 // ── §17 Save format + rev. 4 item M14 + D-9 SaveFileV2 (owner ruling) ─────────
 // Historical V1/V2 foundation (the versioned union below now continues through V11):
 //   SaveFileV1 (saveVersion: 1) — FROZEN. Describes the OLD (pre-D-9) world, whose
@@ -75,7 +78,9 @@ import type {
   GameStateV24,
   GameStateV25,
   GameStateV26,
+  GameStateV27,
   CancellationReceipt,
+  PhysicalPlan,
   PlacedFacility,
   ProductionSetupRecord,
   FacilityCapability,
@@ -449,6 +454,17 @@ export type SaveFileV26 = {
   broadcastCache: BroadcastItem[];
 };
 
+// P13B-S8 — the LIVE envelope. V27 owns NO new root: it carries the four widened
+// `RivalMoneyKind` movement keys on every rival finance period and the five rival
+// research `IndustryReceipt` kinds, none of which the frozen V26 shape has a
+// schema for and all of which it therefore refuses.
+export type SaveFileV27 = {
+  saveVersion: 27;
+  seed: string;
+  state: GameStateV27;
+  broadcastCache: BroadcastItem[];
+};
+
 // Any envelope (the return of the version-dispatching validateSave/loadSave).
 export type SaveFile =
   | SaveFileV1
@@ -476,7 +492,8 @@ export type SaveFile =
   | SaveFileV23
   | SaveFileV24
   | SaveFileV25
-  | SaveFileV26;
+  | SaveFileV26
+  | SaveFileV27;
 
 // ── Stable stringify (UNCHANGED) ─────────────────────────────────────────────
 // Recursively serializes with object keys sorted lexicographically, so the same
@@ -1109,7 +1126,14 @@ type LiveStateValidationPolicy =
   // A genuine SaveFileV24/V25 is still validated under "technology-v20" and still
   // refuses both, which is what keeps every frozen validator's two-value placement
   // law exactly as it shipped.
-  | "cancellation-v26";
+  | "cancellation-v26"
+  // P13B-S8: the live V27 policy. It differs from "cancellation-v26" in exactly
+  // two ways — it admits the four rival research movement kinds and the five
+  // rival research receipt kinds — and it exists so neither can leak backwards.
+  // A genuine SaveFileV26 is still validated under "cancellation-v26" and still
+  // refuses both, which keeps every frozen validator's ten-kind rival finance
+  // record exactly as it shipped.
+  | "research-v27";
 
 /** Every policy that knows about the placement root and its catalog project ids. */
 function placementAwarePolicy(policy: LiveStateValidationPolicy): boolean {
@@ -1138,12 +1162,12 @@ function setsAwarePolicy(policy: LiveStateValidationPolicy): boolean {
  * narrower check that names them.
  */
 function technologyAwarePolicy(policy: LiveStateValidationPolicy): boolean {
-  return policy === "technology-v20" || policy === "cancellation-v26";
+  return policy === "technology-v20" || cancellationAwarePolicy(policy);
 }
 
 /** The ONE policy that admits a cancelled placement record and its refund row. */
 function cancellationAwarePolicy(policy: LiveStateValidationPolicy): boolean {
-  return policy === "cancellation-v26";
+  return policy === "cancellation-v26" || policy === "research-v27";
 }
 const CAREER_REASON_CODES = [
   "substantialLeadExposure",
@@ -4079,7 +4103,7 @@ function checkPlacementShape(value: unknown, policy: LiveStateValidationPolicy =
 // this returns. Structure, envelope, and the frozen V11 law all still run here.
 function validateSaveV12WithPolicy(
   save: unknown,
-  policy: "placement-v12" | "property-v13" | "sets-v14" | "technology-v20" | "cancellation-v26",
+  policy: "placement-v12" | "property-v13" | "sets-v14" | "technology-v20" | "cancellation-v26" | "research-v27" | "research-v27" | "research-v27",
 ): SaveFileV12 {
   if (!isRecord(save)) {
     throw new Error("validateSaveV12: save is not a plain object");
@@ -4264,7 +4288,7 @@ function checkPropertyShape(value: unknown): PropertyState {
 // carries rather than the authored constants.
 function validateSaveV13WithPolicy(
   save: unknown,
-  policy: "property-v13" | "sets-v14" | "technology-v20" | "cancellation-v26",
+  policy: "property-v13" | "sets-v14" | "technology-v20" | "cancellation-v26" | "research-v27" | "research-v27",
 ): SaveFileV13 {
   if (!isRecord(save)) {
     throw new Error("validateSaveV13: save is not a plain object");
@@ -4724,7 +4748,7 @@ export function validateSaveV14(save: unknown): SaveFileV14 {
   return validateSaveV14WithPolicy(save, "sets-v14");
 }
 
-function validateSaveV14WithPolicy(save: unknown, policy: "sets-v14" | "technology-v20" | "cancellation-v26"): SaveFileV14 {
+function validateSaveV14WithPolicy(save: unknown, policy: "sets-v14" | "technology-v20" | "cancellation-v26" | "research-v27"): SaveFileV14 {
   if (!isRecord(save)) {
     throw new Error("validateSaveV14: save is not a plain object");
   }
@@ -4848,7 +4872,7 @@ export function validateSaveV15(save: unknown): SaveFileV15 {
   return validateSaveV15WithPolicy(save, "sets-v14");
 }
 
-function validateSaveV15WithPolicy(save: unknown, policy: "sets-v14" | "technology-v20" | "cancellation-v26"): SaveFileV15 {
+function validateSaveV15WithPolicy(save: unknown, policy: "sets-v14" | "technology-v20" | "cancellation-v26" | "research-v27"): SaveFileV15 {
   if (!isRecord(save)) {
     throw new Error("validateSaveV15: save is not a plain object");
   }
@@ -4921,7 +4945,7 @@ export function validateSaveV16(save: unknown): SaveFileV16 {
   return validateSaveV16WithPolicy(save, "sets-v14");
 }
 
-function validateSaveV16WithPolicy(save: unknown, policy: "sets-v14" | "technology-v20" | "cancellation-v26"): SaveFileV16 {
+function validateSaveV16WithPolicy(save: unknown, policy: "sets-v14" | "technology-v20" | "cancellation-v26" | "research-v27"): SaveFileV16 {
   if (!isRecord(save)) {
     throw new Error("validateSaveV16: save is not a plain object");
   }
@@ -5020,7 +5044,7 @@ export function validateSaveV17(save: unknown): SaveFileV17 {
   return validateSaveV17WithPolicy(save, "sets-v14");
 }
 
-function validateSaveV17WithPolicy(save: unknown, policy: "sets-v14" | "technology-v20" | "cancellation-v26"): SaveFileV17 {
+function validateSaveV17WithPolicy(save: unknown, policy: "sets-v14" | "technology-v20" | "cancellation-v26" | "research-v27"): SaveFileV17 {
   if (!isRecord(save)) {
     throw new Error("validateSaveV17: save is not a plain object");
   }
@@ -5123,7 +5147,7 @@ export function validateSaveV18(save: unknown): SaveFileV18 {
   return validateSaveV18WithPolicy(save, "sets-v14");
 }
 
-function validateSaveV18WithPolicy(save: unknown, policy: "sets-v14" | "technology-v20" | "cancellation-v26"): SaveFileV18 {
+function validateSaveV18WithPolicy(save: unknown, policy: "sets-v14" | "technology-v20" | "cancellation-v26" | "research-v27"): SaveFileV18 {
   if (!isRecord(save)) {
     throw new Error("validateSaveV18: save is not a plain object");
   }
@@ -5211,8 +5235,9 @@ export function validateSave(save: unknown): SaveFile {
   if (s.saveVersion === 24) return validateSaveV24(save);
   if (s.saveVersion === 25) return validateSaveV25(save);
   if (s.saveVersion === 26) return validateSaveV26(save);
+  if (s.saveVersion === 27) return validateSaveV27(save);
   throw new Error(
-    `validateSave: unknown saveVersion ${JSON.stringify(s.saveVersion)} (this build handles versions 1 through 26 only)`,
+    `validateSave: unknown saveVersion ${JSON.stringify(s.saveVersion)} (this build handles versions 1 through 27 only)`,
   );
 }
 
@@ -6324,15 +6349,15 @@ export function makeSaveV16(state: GameStateV16): SaveFileV16 {
 // Every caller that asks "is this envelope a migration?" compares against this
 // constant rather than a literal that goes stale the next time `makeSave` moves
 // (the bridge and the ui adapter both still compared against 23 at V25).
-export const LIVE_SAVE_VERSION = 26 as const;
+export const LIVE_SAVE_VERSION = 27 as const;
 
-// makeSave — the live V26 boundary. Frozen prior values migrate explicitly.
+// makeSave — the live V27 boundary. Frozen prior values migrate explicitly.
 // The new plain-JSON root is detached once; only final serialization sorts it.
-export function makeSave(state: GameState): SaveFileV26 {
-  const save = validateSaveV26({ saveVersion: 26, seed: state.seed, state, broadcastCache: state.broadcastItems });
+export function makeSave(state: GameState): SaveFileV27 {
+  const save = validateSaveV27({ saveVersion: 27, seed: state.seed, state, broadcastCache: state.broadcastItems });
   // Validation precedes detachment, so undefined/non-JSON authority cannot be
   // silently repaired by stringify before the boundary sees it.
-  return JSON.parse(JSON.stringify(save)) as SaveFileV26;
+  return JSON.parse(JSON.stringify(save)) as SaveFileV27;
 }
 
 // ── Load / export / import ───────────────────────────────────────────────────
@@ -7363,6 +7388,7 @@ export function migrateToV12(save: SaveFile): SaveFileV12 {
 // one widened leaf — the honest, un-guessed `subjectId: null` on any
 // pre-existing `queueIntentExpired` row — at the final V14→V15 step.
 export function migrateToV15(save: SaveFile): SaveFileV15 {
+  if (save.saveVersion === 27) throw new Error("migrateToV15: cannot downgrade SaveFileV27 or discard rival research");
   if (save.saveVersion === 26) throw new Error("migrateToV15: cannot downgrade SaveFileV26 or discard installation cancellations");
   if (save.saveVersion === 25) throw new Error("migrateToV15: cannot downgrade SaveFileV25 or discard production setup plans");
   if (save.saveVersion === 24) throw new Error("migrateToV15: cannot downgrade SaveFileV24 or discard equipment assets");
@@ -7437,6 +7463,7 @@ export function convertV17ToV18(v17: SaveFileV17): SaveFileV18 {
 // identity (after validation at the call boundary); V1–V17 cross every frozen
 // boundary, then receive `endowed` at the final V17→V18 step.
 export function migrateToV18(save: SaveFile): SaveFileV18 {
+  if (save.saveVersion === 27) throw new Error("migrateToV18: cannot downgrade SaveFileV27 or discard rival research");
   if (save.saveVersion === 26) throw new Error("migrateToV18: cannot downgrade SaveFileV26 or discard installation cancellations");
   if (save.saveVersion === 25) throw new Error("migrateToV18: cannot downgrade SaveFileV25 or discard production setup plans");
   if (save.saveVersion === 24) throw new Error("migrateToV18: cannot downgrade SaveFileV24 or discard equipment assets");
@@ -7452,6 +7479,7 @@ export function migrateToV18(save: SaveFile): SaveFileV18 {
 // migrateToV17 — the frozen V17-target migration (P08A). A V18 save can never
 // be downgraded: discarding the founding regime would erase exact history.
 export function migrateToV17(save: SaveFile): SaveFileV17 {
+  if (save.saveVersion === 27) throw new Error("migrateToV17: cannot downgrade SaveFileV27 or discard rival research");
   if (save.saveVersion === 26) throw new Error("migrateToV17: cannot downgrade SaveFileV26 or discard installation cancellations");
   if (save.saveVersion === 25) throw new Error("migrateToV17: cannot downgrade SaveFileV25 or discard production setup plans");
   if (save.saveVersion === 24) throw new Error("migrateToV17: cannot downgrade SaveFileV24 or discard equipment assets");
@@ -7472,6 +7500,7 @@ export function migrateToV17(save: SaveFile): SaveFileV17 {
 // migrateToV16 — the frozen V16-target migration (P06A). A V17 save can never
 // be downgraded: discarding the recorded history would silently erase provenance.
 export function migrateToV16(save: SaveFile): SaveFileV16 {
+  if (save.saveVersion === 27) throw new Error("migrateToV16: cannot downgrade SaveFileV27 or discard rival research");
   if (save.saveVersion === 26) throw new Error("migrateToV16: cannot downgrade SaveFileV26 or discard installation cancellations");
   if (save.saveVersion === 25) throw new Error("migrateToV16: cannot downgrade SaveFileV25 or discard production setup plans");
   if (save.saveVersion === 24) throw new Error("migrateToV16: cannot downgrade SaveFileV24 or discard equipment assets");
@@ -7495,6 +7524,7 @@ export function migrateToV16(save: SaveFile): SaveFileV16 {
 }
 
 export function migrateToV14(save: SaveFile): SaveFileV14 {
+  if (save.saveVersion === 27) throw new Error("migrateToV14: cannot downgrade SaveFileV27 or discard rival research");
   if (save.saveVersion === 26) throw new Error("migrateToV14: cannot downgrade SaveFileV26 or discard installation cancellations");
   if (save.saveVersion === 25) throw new Error("migrateToV14: cannot downgrade SaveFileV25 or discard production setup plans");
   if (save.saveVersion === 24) throw new Error("migrateToV14: cannot downgrade SaveFileV24 or discard equipment assets");
@@ -7528,6 +7558,7 @@ export function migrateToV14(save: SaveFile): SaveFileV14 {
 }
 
 export function migrateToV13(save: SaveFile): SaveFileV13 {
+  if (save.saveVersion === 27) throw new Error("migrateToV13: cannot downgrade SaveFileV27 or discard rival research");
   if (save.saveVersion === 26) throw new Error("migrateToV13: cannot downgrade SaveFileV26 or discard installation cancellations");
   if (save.saveVersion === 25) throw new Error("migrateToV13: cannot downgrade SaveFileV25 or discard production setup plans");
   if (save.saveVersion === 24) throw new Error("migrateToV13: cannot downgrade SaveFileV24 or discard equipment assets");
@@ -7567,8 +7598,12 @@ export function validateSaveV19(save: unknown): SaveFileV19 {
 
 function validateSaveV19WithPolicy(
   save: unknown,
-  policy: "sets-v14" | "technology-v20" | "cancellation-v26",
+  policy: "sets-v14" | "technology-v20" | "cancellation-v26" | "research-v27",
   technology?: Pick<StudioTechnology, 'access' | 'adoptions'> | Pick<StudioTechnologyV3, 'access' | 'adoptions'>,
+  // P13B-S8: the plan root the industry law reconciles `researchCapacity`
+  // against. It is stripped from the frozen V19 state below, so it travels
+  // beside it rather than being read off a state that no longer carries it.
+  plans?: readonly PhysicalPlan[],
 ): SaveFileV19 {
   if (!isRecord(save)) throw new Error('validateSaveV19: object required');
   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
@@ -7585,9 +7620,15 @@ function validateSaveV19WithPolicy(
     production: (v, concepts) => { v8Production(v, 'hollywood.production', people, concepts) },
     run: (v, films, concepts) => v8TheatricalRun(v, 'hollywood.run', films, concepts),
     career: (v, films) => v8CareerEvent(v, 'hollywood.career', people, films),
-    operations: (v, productions) => checkOperationsContext({ operations: v, activeProductions: productions, engaged: true, founding: null }, 'hollywood.operations', 'sets-v14'),
+    // P13B-S8: under the V27 policy the rival operations SHAPE pass admits one
+    // more capability — `laboratory` — because a rival may now hold its own
+    // Research Laboratory. Nothing else moves ('sets-v14' is already
+    // placement-aware here), and the exact rival facility SET (the costed four,
+    // then at most two receipt-backed Laboratories at four seats) is pinned by
+    // `validateHollywood` immediately afterwards.
+    operations: (v, productions) => checkOperationsContext({ operations: v, activeProductions: productions, engaged: true, founding: null }, 'hollywood.operations', policy === 'research-v27' ? policy : 'sets-v14'),
     development: v => checkScriptDevelopmentShape(v, 'sets-v14'),
-  }, technology);
+  }, technology, policy === 'research-v27', plans ?? []);
   return save as SaveFileV19;
 }
 
@@ -7604,11 +7645,19 @@ export function convertV18ToV19(save: SaveFileV18): SaveFileV19 {
     for (const period of business.account.periods) {
       if (period.movements.technologyAdoption !== 0) throw new Error('V18 to V19 cannot discard technology expenditure');
       Reflect.deleteProperty(period.movements, 'technologyAdoption');
+      // P13B-S8: the shared initializer now mints the four research kinds too.
+      // This FROZEN intermediate emits only V19's own keys, exactly as it does for
+      // `technologyAdoption`, and never discards a real movement.
+      for (const kind of RIVAL_RESEARCH_MONEY_KINDS) {
+        if (period.movements[kind] !== 0) throw new Error('V18 to V19 cannot discard rival research expenditure');
+        Reflect.deleteProperty(period.movements, kind);
+      }
     }
   }
   return validateSaveV19({ saveVersion: 19, seed: save.seed, state, broadcastCache: state.broadcastItems });
 }
 export function migrateToV19(save: SaveFile): SaveFileV19 {
+  if (save.saveVersion === 27) throw new Error('migrateToV19: cannot downgrade SaveFileV27 or discard rival research');
   if (save.saveVersion === 26) throw new Error('migrateToV19: cannot downgrade SaveFileV26 or discard installation cancellations');
   if (save.saveVersion === 25) throw new Error('migrateToV19: cannot downgrade SaveFileV25 or discard production setup plans');
   if (save.saveVersion === 24) throw new Error('migrateToV19: cannot downgrade SaveFileV24 or discard equipment assets');
@@ -7686,6 +7735,7 @@ export function convertV20ToV21(save: SaveFileV20): SaveFileV21 {
 }
 
 export function migrateToV21(save: SaveFile): SaveFileV21 {
+  if (save.saveVersion === 27) throw new Error('migrateToV21: cannot downgrade SaveFileV27 or discard rival research');
   if (save.saveVersion === 26) throw new Error('migrateToV21: cannot downgrade SaveFileV26 or discard installation cancellations');
   if (save.saveVersion === 25) throw new Error('migrateToV21: cannot downgrade SaveFileV25 or discard production setup plans');
   if (save.saveVersion === 24) throw new Error('migrateToV21: cannot downgrade SaveFileV24 or discard equipment assets');
@@ -7709,6 +7759,7 @@ export function convertV21ToV22(save: SaveFileV21): SaveFileV22 {
 }
 
 export function migrateToV22(save: SaveFile): SaveFileV22 {
+  if (save.saveVersion === 27) throw new Error('migrateToV22: cannot downgrade SaveFileV27 or discard rival research');
   if (save.saveVersion === 26) throw new Error('migrateToV22: cannot downgrade SaveFileV26 or discard installation cancellations');
   if (save.saveVersion === 25) throw new Error('migrateToV22: cannot downgrade SaveFileV25 or discard production setup plans');
   if (save.saveVersion === 24) throw new Error('migrateToV22: cannot downgrade SaveFileV24 or discard equipment assets');
@@ -7757,6 +7808,7 @@ export function convertV22ToV23(save: SaveFileV22): SaveFileV23 {
  * so nothing here is trusted on the strength of its declared type alone.
  */
 export function migrateToV23(save: SaveFile | { saveVersion: number }): SaveFileV23 {
+  if (save.saveVersion === 27) throw new Error('migrateToV23: cannot downgrade SaveFileV27 or discard rival research');
   if (save.saveVersion === 26) throw new Error('migrateToV23: cannot downgrade SaveFileV26 or discard installation cancellations');
   if (save.saveVersion === 25) throw new Error('migrateToV23: cannot downgrade SaveFileV25 or discard production setup plans');
   if (save.saveVersion === 24) throw new Error('migrateToV23: cannot downgrade SaveFileV24 or discard equipment assets');
@@ -7780,7 +7832,7 @@ export function validateSaveV24(save: unknown): SaveFileV24 {
  * and refund rows, while a genuine V24 or V25 file is still validated under
  * 'technology-v20' and still refuses both.
  */
-function validateSaveV24WithPolicy(save: unknown, policy: 'technology-v20' | 'cancellation-v26'): SaveFileV24 {
+function validateSaveV24WithPolicy(save: unknown, policy: 'technology-v20' | 'cancellation-v26' | 'research-v27'): SaveFileV24 {
   if (!isRecord(save)) throw new Error('validateSaveV24: object required');
   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
   if (save.saveVersion !== 24) throw new Error('validateSaveV24: expected version 24');
@@ -7791,7 +7843,7 @@ function validateSaveV24WithPolicy(save: unknown, policy: 'technology-v20' | 'ca
   validateTechnology(typed.state);
   validatePhysicalPlans(typed.state);
   const { technology, physicalPlans: _physicalPlans, ...legacy } = raw;
-  validateSaveV19WithPolicy({ saveVersion: 19, seed: save.seed, state: legacy, broadcastCache: save.broadcastCache }, policy, technology as StudioTechnology);
+  validateSaveV19WithPolicy({ saveVersion: 19, seed: save.seed, state: legacy, broadcastCache: save.broadcastCache }, policy, technology as StudioTechnology, typed.state.physicalPlans.plans);
   assertNoDoubleBookedResourceSlots(typed.state);
   return typed;
 }
@@ -7815,6 +7867,7 @@ export function convertV23ToV24(save: SaveFileV23): SaveFileV24 {
  * so nothing here is trusted on the strength of its declared type alone.
  */
 export function migrateToV24(save: SaveFile | { saveVersion: number }): SaveFileV24 {
+  if (save.saveVersion === 27) throw new Error('migrateToV24: cannot downgrade SaveFileV27 or discard rival research');
   if (save.saveVersion === 26) throw new Error('migrateToV24: cannot downgrade SaveFileV26 or discard installation cancellations');
   if (save.saveVersion === 25) throw new Error('migrateToV24: cannot downgrade SaveFileV25 or discard production setup plans');
   if (save.saveVersion === 24) return validateSaveV24(save);
@@ -7940,7 +7993,7 @@ export function validateSaveV25(save: unknown): SaveFileV25 {
 }
 
 /** See `validateSaveV24WithPolicy`: the V26 chain threads its own policy down. */
-function validateSaveV25WithPolicy(save: unknown, policy: 'technology-v20' | 'cancellation-v26'): SaveFileV25 {
+function validateSaveV25WithPolicy(save: unknown, policy: 'technology-v20' | 'cancellation-v26' | 'research-v27'): SaveFileV25 {
   if (!isRecord(save)) throw new Error('validateSaveV25: object required');
   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
   if (save.saveVersion !== 25) throw new Error('validateSaveV25: expected version 25');
@@ -8034,6 +8087,7 @@ export function convertV24ToV25(save: SaveFileV24): SaveFileV25 {
  * so nothing here is trusted on the strength of its declared type alone.
  */
 export function migrateToV25(save: SaveFile | { saveVersion: number }): SaveFileV25 {
+  if (save.saveVersion === 27) throw new Error('migrateToV25: cannot downgrade SaveFileV27 or discard rival research');
   if (save.saveVersion === 26) throw new Error('migrateToV25: cannot downgrade SaveFileV26 or discard installation cancellations');
   if (save.saveVersion === 25) return validateSaveV25(save);
   return convertV24ToV25(migrateToV24(save as SaveFile));
@@ -8130,6 +8184,11 @@ function v26StrippedAdoptions(technology: Record<string, unknown>, label: string
  * while every frozen POLICY keeps the two-value placement law it shipped with.
  */
 export function validateSaveV26(save: unknown): SaveFileV26 {
+  return validateSaveV26WithPolicy(save, 'cancellation-v26');
+}
+
+/** See `validateSaveV25WithPolicy`: the V27 chain threads its own policy down. */
+function validateSaveV26WithPolicy(save: unknown, policy: 'cancellation-v26' | 'research-v27'): SaveFileV26 {
   if (!isRecord(save)) throw new Error('validateSaveV26: object required');
   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
   if (save.saveVersion !== 26) throw new Error('validateSaveV26: expected version 26');
@@ -8150,7 +8209,7 @@ export function validateSaveV26(save: unknown): SaveFileV26 {
         technology: { ...technologyRaw, adoptions: strippedAdoptions },
       },
       broadcastCache: save.broadcastCache,
-    }, 'cancellation-v26');
+    }, policy);
   } catch (error) {
     throw new Error(`validateSaveV26: frozen V25 state is invalid — ${(error as Error).message}`);
   }
@@ -8189,8 +8248,150 @@ export function convertV25ToV26(save: SaveFileV25): SaveFileV26 {
  * so nothing here is trusted on the strength of its declared type alone.
  */
 export function migrateToV26(save: SaveFile | { saveVersion: number }): SaveFileV26 {
+  if (save.saveVersion === 27) return convertV27ToV26(save as SaveFileV27);
   if (save.saveVersion === 26) return validateSaveV26(save);
   return convertV25ToV26(migrateToV25(save as SaveFile));
+}
+
+// ── Rival research — SaveFileV27 (P13B-S8) ───────────────────────────────────
+
+/**
+ * The industry root as every version BEFORE V27 knows it: ten movement kinds per
+ * rival finance period and six receipt kinds. A root that actually carries V27
+ * authority — a non-zero research movement in any period, or any one of the five
+ * rival research receipts — is REFUSED rather than flattened, exactly as
+ * `projectPlacementPreV26` refuses a cancelled placement: an envelope that
+ * quietly dropped a rival's Laboratory, its seats or its research spending would
+ * misreport a studio that researched as one that never did.
+ */
+export function projectHollywoodPreV27(hollywood: HollywoodState | null): HollywoodState | null {
+  if (hollywood === null) return null;
+  for (const receipt of hollywood.receipts) {
+    if ((RIVAL_RESEARCH_RECEIPT_KINDS as readonly string[]).includes(receipt.kind)) {
+      throw new Error(`frozen save projection cannot discard authoritative V27 rival research state on receipt ${receipt.eventId}`);
+    }
+  }
+  return {
+    ...hollywood,
+    businesses: hollywood.businesses.map((business) => ({
+      ...business,
+      account: {
+        ...business.account,
+        periods: business.account.periods.map((period) => {
+          const { researchSpend, researchCapacity, technologyRestoration, technologyRefund, ...frozen } = period.movements;
+          if (researchSpend !== 0 || researchCapacity !== 0 || technologyRestoration !== 0 || technologyRefund !== 0) {
+            throw new Error(`frozen save projection cannot discard authoritative V27 research finance for ${business.studioId}`);
+          }
+          return { ...period, movements: frozen as RivalFinancePeriod['movements'] };
+        }),
+      },
+    })),
+  };
+}
+
+/** Every rival finance period carries all four V27 movement keys — REQUIRED at this version. */
+function v27Movements(raw: Record<string, unknown>): void {
+  const hollywood = raw.hollywood;
+  if (hollywood === null || hollywood === undefined) return;
+  if (!isRecord(hollywood)) throw new Error('validateSaveV27: state.hollywood is not a plain object');
+  const businesses = hollywood.businesses;
+  if (!Array.isArray(businesses)) throw new Error('validateSaveV27: state.hollywood.businesses is not an array');
+  for (let i = 0; i < businesses.length; i++) {
+    const business = businesses[i];
+    if (!isRecord(business)) throw new Error(`validateSaveV27: state.hollywood.businesses[${String(i)}] is not a plain object`);
+    const account = business.account;
+    if (!isRecord(account) || !Array.isArray(account.periods)) throw new Error(`validateSaveV27: state.hollywood.businesses[${String(i)}].account.periods is not an array`);
+    for (let j = 0; j < account.periods.length; j++) {
+      const label = `state.hollywood.businesses[${String(i)}].account.periods[${String(j)}]`;
+      const period = account.periods[j];
+      if (!isRecord(period) || !isRecord(period.movements)) throw new Error(`validateSaveV27: ${label}.movements is not a plain object`);
+      for (const kind of RIVAL_RESEARCH_MONEY_KINDS) {
+        if (!Object.hasOwn(period.movements, kind)) throw new Error(`validateSaveV27: ${label}.movements.${kind} is missing`);
+        const value = (period.movements as Record<string, unknown>)[kind];
+        if (typeof value !== 'number' || !Number.isFinite(value)) throw new Error(`validateSaveV27: ${label}.movements.${kind} must be a finite number`);
+      }
+    }
+  }
+}
+
+/**
+ * V27 validates its OWN widened leaf — the four research movement keys on every
+ * rival finance period — and then hands the WHOLE state down under the V27
+ * policy. The two V27 facts cannot be stripped: a research movement removed from
+ * a period would unbalance the very opening/closing reconciliation the shared law
+ * checks, and a removed receipt would orphan the Laboratory it proves. They
+ * travel down under the policy instead — exactly the device V26 used for the
+ * third placement status and the refund ledger row — so the frozen laws judge the
+ * real records while every frozen POLICY keeps the ten-kind record it shipped with.
+ */
+export function validateSaveV27(save: unknown): SaveFileV27 {
+  if (!isRecord(save)) throw new Error('validateSaveV27: object required');
+  v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
+  if (save.saveVersion !== 27) throw new Error('validateSaveV27: expected version 27');
+  const raw = v14Record(checkEnvelope(save, 'validateSaveV27'), 'state');
+  v27Movements(raw);
+  try {
+    validateSaveV26WithPolicy({ saveVersion: 26, seed: save.seed, state: raw, broadcastCache: save.broadcastCache }, 'research-v27');
+  } catch (error) {
+    throw new Error(`validateSaveV27: frozen V26 state is invalid — ${(error as Error).message}`);
+  }
+  return save as SaveFileV27;
+}
+
+/**
+ * Governed V26→V27: every rival finance period is lifted with the four research
+ * movement kinds at zero. Nothing is invented — a campaign written before rival
+ * research existed researched nothing, built no Laboratory and hired no Scientist
+ * — and every other root is byte-identical.
+ */
+export function convertV26ToV27(save: SaveFileV26): SaveFileV27 {
+  const validated = validateSaveV26(save);
+  const oldState = JSON.parse(JSON.stringify(validated.state)) as GameStateV26;
+  const state: GameStateV27 = {
+    ...oldState,
+    hollywood: oldState.hollywood === null ? null : {
+      ...oldState.hollywood,
+      businesses: oldState.hollywood.businesses.map((business) => ({
+        ...business,
+        account: {
+          ...business.account,
+          periods: business.account.periods.map((period) => ({
+            ...period,
+            movements: { ...period.movements, researchSpend: 0, researchCapacity: 0, technologyRestoration: 0, technologyRefund: 0 },
+          })),
+        },
+      })),
+    },
+  };
+  return validateSaveV27({ saveVersion: 27, seed: state.seed, state, broadcastCache: state.broadcastItems });
+}
+
+/**
+ * Governed V27→V26, and the ONE downgrade this version allows: lossless exactly
+ * when the campaign holds no rival research fact at all. `projectHollywoodPreV27`
+ * refuses anything else.
+ */
+export function convertV27ToV26(save: SaveFileV27): SaveFileV26 {
+  const validated = validateSaveV27(save);
+  const oldState = JSON.parse(JSON.stringify(validated.state)) as GameStateV27;
+  let hollywood: HollywoodState | null;
+  try {
+    hollywood = projectHollywoodPreV27(oldState.hollywood);
+  } catch (error) {
+    throw new Error(`migrateToV26: cannot downgrade SaveFileV27 or discard rival research — ${(error as Error).message}`);
+  }
+  const state: GameStateV26 = { ...oldState, hollywood };
+  return validateSaveV26({ saveVersion: 26, seed: state.seed, state, broadcastCache: state.broadcastItems });
+}
+
+/**
+ * The entry point accepts a PARSED envelope as well as a narrowed `SaveFile`:
+ * every path below validates the whole envelope structurally before returning,
+ * so nothing here is trusted on the strength of its declared type alone.
+ */
+export function migrateToV27(save: SaveFile | { saveVersion: number }): SaveFileV27 {
+  if (save.saveVersion === 27) return validateSaveV27(save);
+  return convertV26ToV27(migrateToV26(save as SaveFile));
 }
 
 export function convertV19ToV20(save: SaveFileV19): SaveFileV20 {
@@ -8211,6 +8412,7 @@ export function convertV19ToV20(save: SaveFileV19): SaveFileV20 {
 }
 
 export function migrateToV20(save: SaveFile): SaveFileV20 {
+  if (save.saveVersion === 27) throw new Error('migrateToV20: cannot downgrade SaveFileV27 or discard rival research');
   if (save.saveVersion === 26) throw new Error('migrateToV20: cannot downgrade SaveFileV26 or discard installation cancellations');
   if (save.saveVersion === 25) throw new Error('migrateToV20: cannot downgrade SaveFileV25 or discard production setup plans');
   if (save.saveVersion === 24) throw new Error('migrateToV20: cannot downgrade SaveFileV24 or discard equipment assets');

@@ -1,0 +1,12 @@
+=== npm run typecheck:bridge ===
+
+> project-studio-core@0.1.0 typecheck:bridge
+> tsc -p tsconfig.bridge.json
+
+tests/bridge-p06-checkpoint-recovery.test.ts(160,50): error TS2345: Argument of type 'SaveFileV26' is not assignable to parameter of type 'SaveFileV27'.
+  Types of property 'saveVersion' are incompatible.
+    Type '26' is not assignable to type '27'.
+tests/bridge-p06-checkpoint-recovery.test.ts(167,50): error TS2345: Argument of type 'SaveFileV26' is not assignable to parameter of type 'SaveFileV27'.
+  Types of property 'saveVersion' are incompatible.
+    Type '26' is not assignable to type '27'.
+EXIT=2

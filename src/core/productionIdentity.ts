@@ -96,6 +96,9 @@ export function persistedProductionIds(state: GameState): Set<string> {
     switch (event.kind) {
       case 'filmAnnounced': case 'filmReleased': case 'filmSettled': add(event.productionId); break
       case 'studioEntered': case 'employment': case 'technologyAdopted': break
+      // P13B-S8: the five rival research receipts name no production identity.
+      case 'laboratoryCommitted': case 'laboratoryOperational': case 'instrumentOperational':
+      case 'researchSeatAssigned': case 'researchCompleted': break
       default: { const exhaustive: never = event; throw new Error(`Unhandled Industry identity: ${exhaustive}`) }
     }
   }

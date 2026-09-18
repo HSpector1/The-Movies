@@ -93,12 +93,12 @@ function nextRequestId(prefix: string): string { return `${prefix}-req-${String(
 // ── Fixtures (duplicated-not-shared, mirrors tests/p13b-s5-quotes.test.ts) ──
 
 function begin(state: GameState, technologyId: string, budgetPerWeek: number): GameState {
-  const project = state.technology.projects.find(p => p.technologyId === technologyId)!
+  const project = state.technology.projects.find(p => p.technologyId === technologyId && p.studioId === state.hollywood!.playerStudioId)!
   return applyActions(state, [{ kind: 'beginResearch', projectId: project.id, budgetPerWeek }])
 }
 function runToCompletion(state: GameState, technologyId: string, boundWeek: number): GameState {
   let next = state
-  while (next.technology.projects.find(p => p.technologyId === technologyId)!.status !== 'completed') {
+  while (next.technology.projects.find(p => p.technologyId === technologyId && p.studioId === next.hollywood!.playerStudioId)!.status !== 'completed') {
     if (next.market.tick > boundWeek) throw new Error(`bridge-p13b-s5-adoption fixture: ${technologyId} research did not complete before week ${boundWeek}`)
     next = advanceTo(next, next.market.tick + 1)
   }

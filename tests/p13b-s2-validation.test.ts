@@ -1,6 +1,6 @@
 import { beforeAll, describe, expect, it } from 'vitest'
 import { applyActions } from '../src/core/actions.js'
-import { exportSave, importSave, makeSave, migrateToV26 } from '../src/core/save.js'
+import { exportSave, importSave, makeSave, migrateToV27 } from '../src/core/save.js'
 import { tick } from '../src/core/tick.js'
 import { generateScientist } from '../src/core/worldgen.js'
 import type { GameState } from '../src/core/types.js'
@@ -23,7 +23,7 @@ function stage(state: GameState, lab1: string, lab2: string, ids1: string[], ids
   let s = state
   if (ids1.length) s = applyActions(s, ids1.map(scientistId => ({ kind: 'assignResearchScientist' as const, laboratoryFacilityId: lab1, scientistId, technologyId: 'synchronized-sound' as const })))
   if (ids2.length) s = applyActions(s, ids2.map(scientistId => ({ kind: 'assignResearchScientist' as const, laboratoryFacilityId: lab2, scientistId, technologyId: 'synchronized-sound' as const })))
-  const projectId = s.technology.projects.find(p => p.technologyId === 'synchronized-sound')!.id
+  const projectId = s.technology.projects.find(p => p.technologyId === 'synchronized-sound' && p.studioId === s.hollywood!.playerStudioId)!.id
   s = applyActions(s, [{ kind: 'beginResearch', projectId, budgetPerWeek }])
   return { state: s, projectId }
 }
@@ -180,7 +180,7 @@ describe('P13B-S2 conservation, determinism, save/reload and campaign isolation 
     for (let i = 0; i < 2; i++) running = tick(running)
 
     const direct = exportSave(makeSave(running))
-    const reloaded = migrateToV26(importSave(direct)).state
+    const reloaded = migrateToV27(importSave(direct)).state
     expect(exportSave(makeSave(reloaded))).toBe(direct)
 
     let runningFurther = running, reloadedFurther = reloaded
@@ -193,7 +193,13 @@ describe('P13B-S2 conservation, determinism, save/reload and campaign isolation 
     const [lab1, lab2] = world.laboratoryFacilityIds
     const staged = stage(world.state, lab1, lab2, world.candidateIds.slice(0, 4), world.candidateIds.slice(4, 8), 80_000)
     const own = staged.state.hollywood!.playerStudioId
-    expect(staged.state.technology.projects.every(p => p.studioId === own)).toBe(true)
+    // P13B-S8: a rival's own policy step creates rival projects on the shared
+    // root. The law under test is about the PUBLIC ACTION path — every project
+    // these dispatches created carries this studio's identity.
+    const before = new Set(world.state.technology.projects.map(p => p.id))
+    const created = staged.state.technology.projects.filter(p => !before.has(p.id) && p.studioId === own)
+    expect(created.length).toBeGreaterThan(0)
+    expect(created.every(p => p.id === `${own}:research:${p.technologyId}`)).toBe(true)
   })
 
   it('campaign isolation: a rival two-Laboratory project never surfaces through the player-scoped read filter, and forging the player’s own project never touches its bytes', () => {
