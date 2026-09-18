@@ -96,8 +96,15 @@
 //     every "short" studio the scan found had simply not yet entered the
 //     industry (a DIFFERENT freeze cause, `issuerNotEntered`, equally fatal
 //     to a bid). This is a real, reproducible gap between the plan's assumed
-//     construction and the landed seat-budget law, not an invented one — see
-//     `it.todo` in group 5 and evidence 01 §group-5-departure-probe.
+//     construction and the landed seat-budget law, not an invented one.
+//     Ruling P14A.3-T2b: this specific "moved" construction stays
+//     unconstructible, but the REQUIREMENT it serves (a departure happens at
+//     the effective week only) is satisfiable through a DIFFERENT genuine
+//     construction — group 5 now carries a real `it` (not `it.todo`) that
+//     withdraws the player's own proposal on the same open case and lets the
+//     seat law itself decline the rival's uncontested bid; see evidence 01
+//     §group-5-departure-probe for the original obstacle probe and evidence
+//     10b for the T2b re-expression probe.
 //   - Test 5's ARRIVAL clause (the audit's own escape hatch: "if the
 //     construction cannot be made to settle for the player ... becomes an
 //     `it.todo`") does not settle either, for a DIFFERENT reason: a player
@@ -148,7 +155,7 @@ import { BridgeSession } from '../bridge/session.ts'
 import { personWorldRoute } from '../bridge/world.ts'
 import { activeContract, applyActions, hiringMarketIds, tick } from '../src/core/index.js'
 import type { GameState, FacilityCapability } from '../src/core/types.js'
-import { caseForTalent, proposalDraft, submitProposal } from '../src/core/talentMarket.js'
+import { caseForTalent, proposalDraft, submitProposal, withdrawProposal } from '../src/core/talentMarket.js'
 import { LIVE_SAVE_VERSION } from '../src/core/save.js'
 import { studioPresence } from '../src/core/presence.js'
 import type { PresenceCredit, PresenceEngagement } from '../src/core/presence.js'
@@ -381,14 +388,15 @@ describe('group 5: the effective-week law from receipts (settled-208 carries no 
     expect(stayed.length).toBeGreaterThan(0) // the stayed set, asserted non-empty
   })
 
-  // OBSTACLE (probed 2026-09-18, disposable vite-node scripts against the real
-  // engine, deleted before this commit — see the file header's PREMISES NOT
-  // SATISFIED note and evidence 01 §group-5-departure-probe): the plan's own
-  // recipe ("sign a person on a short term, let a rival proposal at a higher
-  // tier win the expiry case") does not settle under the landed law. Every
-  // founding rival roster holds EXACTLY RIVAL_TEAM_ROLES (writer 1, director 1,
-  // actor 3, craft 1 — src/core/hollywoodStartingData.ts) with ZERO slack, so
-  // survivesFreeze's noSeatForRole (src/core/talentMarket.ts ~936-947) drops
+  // OBSTACLE, STILL TRUE for this ONE construction (probed 2026-09-18,
+  // disposable vite-node scripts against the real engine, deleted before
+  // that commit — see the file header's PREMISES NOT SATISFIED note and
+  // evidence 01 §group-5-departure-probe): the plan's own recipe ("sign a
+  // person on a short term, let a rival proposal at a higher tier win the
+  // expiry case") does not settle under the landed law. Every founding rival
+  // roster holds EXACTLY RIVAL_TEAM_ROLES (writer 1, director 1, actor 3,
+  // craft 1 — src/core/hollywoodStartingData.ts) with ZERO slack, so
+  // survivesFreeze's noSeatForRole (src/core/talentMarket.ts ~936–947) drops
   // any rival bid on a player employee before the first natural churn (week
   // 196, the renewal window for every 208-week founding contract): reproduced
   // by a manual, uncontested rival proposal at week 45 (declined, "all
@@ -403,8 +411,62 @@ describe('group 5: the effective-week law from receipts (settled-208 carries no 
   // all four roles) found none — every "short" studio the scan found had
   // simply not yet entered the industry (a different, equally fatal freeze
   // cause). This is a real, reproducible gap between the plan's assumed
-  // construction and the landed seat-budget law.
-  it.todo('the departure clause: a rival proposal wins the player\'s own expiry case — BLOCKED under the landed seat-budget law: every founding rival roster holds RIVAL_TEAM_ROLES with zero slack and survivesFreeze drops any bid as noSeatForRole (week 45 direct, and week 208/416 natural churn, 6 seeds probed) because each bidding rival\'s own incumbent retention (condition (a), unconditional) settles earlier in the same weekly pass and refills its seat first — src/core/talentMarket.ts survivesFreeze/seatsHeldAfter/openCasesAt')
+  // "moved" construction and the landed seat-budget law.
+  //
+  // RE-EXPRESSED (ruling P14A.3-T2b, probed 2026-09-18, disposable vite-node
+  // script against the real engine and the genuine V28_OPEN_CASE_45 bytes,
+  // deleted before this commit — evidence 10b): the REQUIREMENT the "moved"
+  // recipe was meant to exercise — a departure happens at the effective week
+  // only — does not need a rival WINNER to be genuine. On the same fixture
+  // used by the retained clause above (player 1.25 vs rival 1.00, decided
+  // 52), WITHDRAWING the player's own proposal leaves only the rival's
+  // uncontested 1.00 bid — and the seat law that blocked every "moved"
+  // attempt blocks this bid too: `noSeatForRole` drops it, nobody wins, the
+  // case settles `declined` / "all proposals dropped" at the decision week
+  // exactly. The person is confirmed on the lot through week 51 (the
+  // withdrawal changes nothing early) and off the lot at week 52 (the case's
+  // own decision week) — a genuine, non-vacuous departure at the effective
+  // week, constructed from the landed law rather than against it.
+  it('the departure clause, re-expressed through the declined outcome: on genuine legacy-v28-open-case-45, WITHDRAWING the player\'s own proposal leaves only the rival\'s uncontested 1.00 bid, which the seat law itself drops (noSeatForRole) — onLot stays true through week 51 (no early presence change), the case settles declined/"all proposals dropped" at week 52 exactly, and the person is off the lot at 52', () => {
+    const json = load(V28_OPEN_CASE_45.file)
+    assertSha256(json, V28_OPEN_CASE_45.sha256)
+    const session = BridgeSession.fromSaveJson(json, 'p14a3-bridge-world-departure')
+    const talentId = session.gameState.talentMarket.cases[0]!.talentId
+    const playerStudioId = session.gameState.hollywood!.playerStudioId
+    const rivalProposal = session.gameState.talentMarket.proposals.find((p) => p.talentId === talentId && p.issuerStudioId !== playerStudioId)!
+    expect(rivalProposal).toBeDefined() // sanity: the fixture's own known second proposal
+    const rivalStudioId = rivalProposal.issuerStudioId
+    const rivalName = session.gameState.hollywood!.identities.find((s) => s.studioId === rivalStudioId)!.name
+
+    let state = withdrawProposal(session.gameState, talentId, playerStudioId)
+    expect(state.talentMarket.proposals.filter((p) => p.talentId === talentId).map((p) => p.issuerStudioId)).toEqual([rivalStudioId]) // only the rival's bid remains on the table
+
+    // Weeks between the withdrawal (45) and the decision week (52): the case
+    // stays open, and presence never changes early.
+    for (const week of [46, 47, 48, 49, 50, 51]) {
+      state = advanceTo(state, week)
+      expect(caseForTalent(state, talentId, week)!.status).toBe('proposals_open') // still open, never settles early
+      const profile = peopleProjection(state).profiles.find((p) => p.talentId === talentId)!
+      expect(profile.presence.onLot).toBe(true) // no presence change between the withdrawal and 52
+    }
+
+    const at52 = advanceTo(state, 52)
+    expect(caseForTalent(at52, talentId, 52)!.status).toBe('declined')
+    const kase = at52.talentMarket.cases.find((c) => c.talentId === talentId)
+    expect(kase).toBeDefined() // the case exists — never a silent pass
+    expect(kase!.outcome).toBe('declined')
+    expect(kase!.reason).toBe('all proposals dropped')
+
+    const declineReceipts = at52.talentMarket.receipts.filter((r) => r.talentId === talentId && r.kind === 'declined')
+    expect(declineReceipts.length).toBe(1) // the receipt exists — exactly one
+    const reason = declineReceipts[0]!.reasons[0]!
+    expect(reason.includes(rivalStudioId) || reason.includes(rivalName)).toBe(true) // names the rival whose bid was dropped
+    expect(reason.toLowerCase()).toContain('seat') // noSeatForRole specifically, not some other freeze predicate
+
+    expect(activeContract(at52, talentId, 52)).toBeUndefined() // no contract survives — genuinely off, not a stale projection
+    const profileAt52 = peopleProjection(at52).profiles.find((p) => p.talentId === talentId)!
+    expect(profileAt52.presence.onLot).toBe(false) // departs at the effective week exactly
+  })
 
   // OBSTACLE (probed 2026-09-18, disposable vite-node script, deleted before
   // this commit — see evidence 01 §group-5-arrival-probe; this is the audit's
@@ -472,7 +534,11 @@ describe('group 6: negative pins — the TypeScript unions and the ONE true wire
         }
       }
     }
-    const state = p13aGeneratedStudio('p14a3-bridge-world-credit-union')
+    // A week-0 fresh world carries zero player contracts, and Presence
+    // Projection V1 projects contracted people only — genuinely empty, not a
+    // bug (probed 2026-09-18, evidence 10b: contracts 0, presence.people 0).
+    // Put one real person on the lot through the engine first.
+    const { state } = signActor(p13aGeneratedStudio('p14a3-bridge-world-credit-union'), 52)
     const presence = studioPresence(state)
     expect(presence.people.length).toBeGreaterThan(0) // sanity: genuinely exercised over real people
     for (const person of presence.people) assertCreditExhaustive(person.credit)

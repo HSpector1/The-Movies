@@ -1,0 +1,183 @@
+P14A.3-T2b — the departure clause re-expressed through the `declined` outcome
+(+ group 6 test 2's presence sanity premise, named in the same brief)
+Repo: /Users/zacheryspector/The-Movies-headless-program
+Branch: wip/headless-program-20260916-ts
+Base commit at task start (as stated by the assigning brief): a3ebe95 (p14a3 T2: pins 43 -> 44, evidence 10)
+ACTUAL HEAD at task start (git log, verified): 080eb8c, two commits ahead of a3ebe95 —
+  97d3361 records(p14a3): T2 DONE b39e646/a3ebe95 ... T2b in flight ... (docs only)
+  080eb8c plan(p14b1): First Kept Promise Core expansion drafted ... (docs only, P14B1 planning)
+  Neither commit touches tests/bridge-p14a3-world.test.ts or any file this task reads/writes;
+  tree was clean at 080eb8c before this task's one edit. Named for the record, not treated as
+  a conflict — see this file's own closing note.
+Files edited: tests/bridge-p14a3-world.test.ts (ONLY; no production source touched).
+Run environment: darwin (Darwin 21.6.0), node via npx, vitest 2.1.9, machine budget 2 cores.
+Single worker for every vitest run (--minWorkers=1 --maxWorkers=1); a separate probe of
+`ps -axo command | grep -c '[v]itest'` required 0 before each one (shown below, each returned 0).
+Date: 2026-09-18
+
+SCOPE (two items, same file, same commit):
+  1. Group 5's departure `it.todo` re-expressed as a real `it` (ruling P14A.3-T2b): the plan's
+     own "moved" construction stays unconstructible under the landed seat law (unchanged from
+     T1/T2's finding), but the REQUIREMENT it served — a departure happens at the effective
+     week only — is satisfiable a different way. On genuine legacy-v28-open-case-45 (player
+     1.25 vs rival 1.00, decided 52), WITHDRAWING the player's own proposal
+     (`withdrawProposal` from src/core/talentMarket.ts) leaves only the rival's uncontested
+     1.00 bid, which the SAME seat law (`noSeatForRole`) drops — nobody wins, the case settles
+     `declined` / "all proposals dropped" at the decision week exactly.
+  2. Group 6 test 2's own sanity line (`expect(presence.people.length).toBeGreaterThan(0)`)
+     re-expressed to sign one real actor first (`signActor`, the file's own A.1/A.2 helper)
+     before reading `studioPresence` — a week-0 fresh world carries zero player contracts and
+     Presence Projection V1 projects contracted people only, so the lot is genuinely empty by
+     construction, not a defect. Both compile-time union pins (`Record<PresenceEngagement,
+     true>`, the exhaustive `PresenceCredit` switch) are untouched.
+
+=== disposable probe: withdrawal + settlement trace on legacy-v28-open-case-45 (vite-node,
+    deleted after this run) ===
+Script (scratchpad, deleted; reproduces the real engine against the genuine fixture bytes,
+sha256 c9ff26fe70b7216784bf5718ed26d2bef10df8ca836b05050f5e1d7bcaac8afd, never invented data):
+
+sha256 c9ff26fe70b7216784bf5718ed26d2bef10df8ca836b05050f5e1d7bcaac8afd
+talentId t-act-09 role actor
+playerStudioId studio-aca408ec-player
+proposals before withdraw [
+  { issuer: 'studio-aca408ec-player', tier: 1.25 },
+  { issuer: 'studio-aca408ec-r01', tier: 1 }
+]
+proposals after withdraw [ { issuer: 'studio-aca408ec-r01', tier: 1 } ]
+week 45 onLot true activeContract? true
+week 46 onLot true caseStatus proposals_open activeContract? true
+week 47 onLot true caseStatus proposals_open activeContract? true
+week 48 onLot true caseStatus proposals_open activeContract? true
+week 49 onLot true caseStatus proposals_open activeContract? true
+week 50 onLot true caseStatus proposals_open activeContract? true
+week 51 onLot true caseStatus proposals_open activeContract? true
+week 52 onLot false caseStatus declined activeContract? false
+final case outcome declined reason all proposals dropped
+decline receipts [
+  {
+    "kind": "declined",
+    "week": 52,
+    "talentId": "t-act-09",
+    "studioId": null,
+    "reasons": [
+      "Bellwether Pictures had no seat open for this person's role at the decision week."
+    ],
+    "dropped": [
+      "Bellwether Pictures had no seat open for this person's role at the decision week."
+    ],
+    "eventId": "talent-market-event-3"
+  }
+]
+contracts for talent []
+rival employment rows for talent [
+  {
+    contractId: 'studio-aca408ec-player:contract:t-act-09:0:player-24',
+    endedWeek: 52,
+    reason: 'player-contract',
+    studioId: 'studio-aca408ec-player',
+    terms: { annualSalary: 656156, endWeekExclusive: 52, signingBonus: 118108, startWeek: 0, talentId: 't-act-09', termWeeks: 52 }
+  }
+]
+
+Confirms: the rival's bid is dropped `noSeatForRole` (its studio label, "Bellwether Pictures",
+appears in the sole drop sentence); the case settles `declined` / "all proposals dropped" at
+week 52 exactly, never early; the player's own employment row for this person closes at 52
+with reason `player-contract` (its own natural expiry, not a rival win — no rival employment
+row for this talentId exists anywhere in the resulting state); onLot is true through 51 and
+false at 52.
+
+=== ps -axo command | grep -c '[v]itest' (before the BEFORE run) ===
+0
+
+=== BEFORE: npx vitest run --project core --minWorkers=1 --maxWorkers=1 --reporter=dot tests/bridge-p14a3-world.test.ts (working tree reset to HEAD's committed copy of the test file only, to capture the baseline verbatim) ===
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/bridge-p14a3-world.test.ts (16 tests | 1 failed | 2 skipped) 6275ms
+   ✓ group 2: the player's own open case — statusLine exact, caseRef, reach, presence, a person without a case > legacy-v28-open-case-45: statusLine exact, caseRef.targetId, reach playerLot, presence.onLot true; the market page is byte-equal to the Profile; the roster row carries the same line; a person without a case reads null/null 391ms
+   ✓ group 3: the settling line — decisionWeek <= week + 1 while open, null after close > legacy-v28-open-case-45 walked from 45 to 51 (the settling text) and past 52 (null, closed) 476ms
+   ✓ group 4: a rival's person — off the player's lot, reach industry, the Industry row carries the line, no leak > the first week a rival-subject case is open (never a magic week): onLot false, canLocate false, reach industry; the Industry roster row of that studio carries caseStatusLine/caseRef; the rival's tier/salary (non-1.00) appear nowhere 2880ms
+   ✓ group 5: the effective-week law from receipts (settled-208 carries no player contract — never used for a player-lot fact; the stayed/moved-away/won-over sets are built through the engine, never read off an empty fixture) > the retained clause: genuine legacy-v28-open-case-45 (player 1.25 vs rival 1.00, decided 52) stays on the player's lot at 51, 52 and 53; the stayed set is asserted non-empty 560ms
+   × group 6: negative pins — the TypeScript unions and the ONE true wire enum (no capability/marker/meeting concept added anywhere) > PresenceEngagement and PresenceCredit (src/core/presence.ts) are exactly the P13B sets 30ms
+     → expected 0 to be greater than 0
+   ✓ group 7: save/load — V28 unchanged, the world route converts and round-trips > the three genuine V28 T0 fixtures read byte-stable and the world route reads identically across the bridge save/load path 1339ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/bridge-p14a3-world.test.ts > group 6: negative pins — the TypeScript unions and the ONE true wire enum (no capability/marker/meeting concept added anywhere) > PresenceEngagement and PresenceCredit (src/core/presence.ts) are exactly the P13B sets
+AssertionError: expected 0 to be greater than 0
+ ❯ tests/bridge-p14a3-world.test.ts:477:36
+    475|     const state = p13aGeneratedStudio('p14a3-bridge-world-credit-union…
+    476|     const presence = studioPresence(state)
+    477|     expect(presence.people.length).toBeGreaterThan(0) // sanity: genui…
+       |                                    ^
+    478|     for (const person of presence.people) assertCreditExhaustive(perso…
+    479|   })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 13 passed | 2 todo (16)
+   Start at  19:04:56
+   Duration  10.56s (transform 2.76s, setup 0ms, collect 3.71s, tests 6.27s, environment 0ms, prepare 119ms)
+
+=== working tree restored to the edited copy (byte-identical to the post-edit file; md5
+    cdcf2cf08e08df12155a7b6016c90141 verified equal before and after the round-trip) ===
+
+=== ps -axo command | grep -c '[v]itest' (before the AFTER run) ===
+0
+
+=== AFTER: npx vitest run --project core --minWorkers=1 --maxWorkers=1 --reporter=dot tests/bridge-p14a3-world.test.ts ===
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/bridge-p14a3-world.test.ts (16 tests | 1 skipped) 6598ms
+   ✓ group 2: the player's own open case — statusLine exact, caseRef, reach, presence, a person without a case > legacy-v28-open-case-45: statusLine exact, caseRef.targetId, reach playerLot, presence.onLot true; the market page is byte-equal to the Profile; the roster row carries the same line; a person without a case reads null/null 301ms
+   ✓ group 3: the settling line — decisionWeek <= week + 1 while open, null after close > legacy-v28-open-case-45 walked from 45 to 51 (the settling text) and past 52 (null, closed) 499ms
+   ✓ group 4: a rival's person — off the player's lot, reach industry, the Industry row carries the line, no leak > the first week a rival-subject case is open (never a magic week): onLot false, canLocate false, reach industry; the Industry roster row of that studio carries caseStatusLine/caseRef; the rival's tier/salary (non-1.00) appear nowhere 3037ms
+   ✓ group 5: the effective-week law from receipts (settled-208 carries no player contract — never used for a player-lot fact; the stayed/moved-away/won-over sets are built through the engine, never read off an empty fixture) > the retained clause: genuine legacy-v28-open-case-45 (player 1.25 vs rival 1.00, decided 52) stays on the player's lot at 51, 52 and 53; the stayed set is asserted non-empty 451ms
+   ✓ group 5: the effective-week law from receipts (settled-208 carries no player contract — never used for a player-lot fact; the stayed/moved-away/won-over sets are built through the engine, never read off an empty fixture) > the departure clause, re-expressed through the declined outcome: on genuine legacy-v28-open-case-45, WITHDRAWING the player's own proposal leaves only the rival's uncontested 1.00 bid, which the seat law itself drops (noSeatForRole) — onLot stays true through week 51 (no early presence change), the case settles declined/"all proposals dropped" at week 52 exactly, and the person is off the lot at 52 320ms
+   ✓ group 7: save/load — V28 unchanged, the world route converts and round-trips > the three genuine V28 T0 fixtures read byte-stable and the world route reads identically across the bridge save/load path 1380ms
+   ✓ group 7: save/load — V28 unchanged, the world route converts and round-trips > a fresh V28 state round-trips through the bridge save/load path and the world route reads identically on both sides 320ms
+
+ Test Files  1 passed (1)
+      Tests  15 passed | 1 todo (16)
+   Start at  19:05:20
+   Duration  10.34s (transform 2.41s, setup 0ms, collect 3.32s, tests 6.60s, environment 0ms, prepare 97ms)
+
+=== summary ===
+Before: tests/bridge-p14a3-world.test.ts   13 passed | 1 failed | 2 todo (16 cases)
+After:  tests/bridge-p14a3-world.test.ts   15 passed | 0 failed | 1 todo (16 cases)
+Remaining todo: group 5's arrival clause (`it.todo`, untouched — out of this task's scope,
+blocked by the rival Standing gap named in T1, src/core/talentMarket.ts
+chooseProposal/bandsFor/STANDING_BAND_TOLERANCE).
+
+WHAT EACH RE-EXPRESSED ASSERTION NOW PINS:
+  - Departure clause (group 5, second `it`): after `withdrawProposal(state, talentId,
+    playerStudioId)`, only the rival's proposal remains on the table. Weeks 46-51: the case
+    stays `proposals_open` and `profile.presence.onLot` stays `true` (no early effect of the
+    withdrawal — pins that nothing changes before the decision week). Week 52: the case's own
+    `status` is `declined`; the case record's `outcome` is `declined` and `reason` is exactly
+    `'all proposals dropped'`; exactly one `declined`-kind receipt exists for this talentId,
+    and its `reasons[0]` names the rival (id or display name) and contains "seat" (pins the
+    predicate as `noSeatForRole` specifically, not some other freeze drop); `activeContract`
+    is `undefined` and `profile.presence.onLot` is `false` at 52 (pins the departure to the
+    effective week exactly, both from the market-case side and the presence-projection side).
+  - Group 6 test 2's sanity line: pins that `studioPresence` is exercised over a genuinely
+    non-empty population (>0) by first putting one real signed actor on the lot through the
+    engine (`signActor`), rather than reading an empty week-0 world. The two exhaustiveness
+    pins in the same test (`PresenceEngagement`, `PresenceCredit`) are unchanged — still
+    compile-time checks against the SAME sets.
+
+WHAT COULD NOT BE CONSTRUCTED: nothing in this task's two assigned items. The arrival clause
+(group 5's remaining `it.todo`) was explicitly out of scope for T2b ("keep the arrival
+`it.todo` as is") and is untouched.
+
+NOTE ON HEAD DRIFT: the assigning brief stated HEAD as a3ebe95; the actual HEAD at task start
+was 080eb8c (two doc/plan-only commits ahead, by the same author, touching neither this test
+file nor any file this task reads). Named here for the record; it did not affect this task's
+one-file diff or its evidence.
+
+No suite run and no matched-pass runner run (out of scope for this task). No production source
+touched (src/**, bridge/** other than reading, untouched). No save change (LIVE_SAVE_VERSION
+untouched by this task; group 7's save/load tests, unmodified, still pass).
