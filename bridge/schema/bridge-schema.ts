@@ -166,7 +166,27 @@ export const PROTOCOL_VERSION = 4 as const
 //     `underMarketCase` joining the contract refusal vocabulary (the Renew row now reads
 //     the engine's own case-time refusal instead of offering a commit the engine throws on).
 // Save V28 is live; protocol stays 4; no new persisted fact.
-export const PROJECTION_VERSION = 42 as const
+//
+// PROJECTION 43 (P14A.2): the Talent Market WORKSPACE — `view: 'market'` with
+// `StudioIndustryResponse.market` (nullable `StudioMarketPage`), and the Pulse fold.
+//   * Read models over the landed A.1 law only: no new engine law, no new intent kind
+//     (`Review & Submit` / `Revise` / `Withdraw` stay the existing `marketProposalAction`
+//     quote family), and Save V28 is UNCHANGED — nothing here is persisted.
+//   * Four buckets by DERIVED facts, a case in exactly one: `renewalWindow`, `freeAgents`,
+//     `settling` (the decision week is the NEXT authoritative week) and the paged `closed`.
+//     Row order inside every bucket is fixed and derived, never an array/Map/PersonId order.
+//   * `selected` carries the A.1 case block itself, a rail BY REFERENCE to the projection-42
+//     profile pieces, the proposal comparison (the same A.1 disclosure union — every
+//     competing figure the literal `"UNKNOWN"`) and the paged P12 employer history, whose
+//     rival-owned intervals carry NO salary member at all.
+//   * `StudioIndustryActivity.settlementKind` is a new OPTIONAL member carried by the ONE
+//     folded Pulse row a settlement now writes — `retained` (same employer) or `moved` (a
+//     new one) in place of the two separate P12 rows, naming the person, the studio and the
+//     term length and never a figure. Every other activity row is unchanged and omits it.
+//   * The industry request gains `view: 'market'` and an OPTIONAL `historyPage`; every
+//     existing request shape stays valid as minted.
+// Save V28 is live; protocol stays 4; no new persisted fact.
+export const PROJECTION_VERSION = 43 as const
 
 const nonEmptyText = () => text({ minLength: 1 })
 const nonNegativeInteger = () => integer({ minimum: 0 })
@@ -2181,6 +2201,144 @@ const StudioMarketCaseSnapshot = object('StudioMarketCaseSnapshot', {
   settlementReasons: array(nonEmptyText()),
 })
 
+// ── P14A.2 — the Talent Market workspace page (projection 43) ────────────────
+// READ MODELS over the landed A.1 law: no new engine law, no new intent kind, Save V28
+// unchanged. Disclosure is the A.1 disclosure exactly — every competing proposal figure
+// is the same literal `"UNKNOWN"` marker (the workspace reuses `StudioMarketProposal
+// Snapshot` itself rather than minting a second row shape), and a RIVAL-owned employment
+// interval carries NO `annualSalary` member at all: absence, not a marker, because that
+// figure was never this studio's to disclose or withhold.
+//
+// The definitions live here beside the other market DTOs; `StudioIndustryResponse.market`
+// (industry-schema.ts) references `StudioMarketPage` by name, which keeps the two schema
+// modules acyclic — both land in the one shared `$defs` map.
+const MARKET_CASE_ROW_STATUSES = [
+  'discovered', 'proposals_open', 'decision_pending', 'settled', 'declined', 'expired', 'invalidated',
+] as const
+const MARKET_CASE_OUTCOMES = ['settled', 'declined', 'expired', 'invalidated'] as const
+// One case in a workspace bucket. Public facts only: that a case exists, whose it is,
+// when it decides, HOW MANY proposals are on the table (existence is public; the figures
+// are not) and whether this studio is one of the issuers.
+const StudioMarketCaseRow = object('StudioMarketCaseRow', {
+  talentId: nonEmptyText(),
+  name: nonEmptyText(),
+  roleLabel: nonEmptyText(),
+  /** The employer whose contract is expiring (the case's subject studio). */
+  subjectStudioId: nonEmptyText(),
+  subjectStudioName: nonEmptyText(),
+  status: enumeration(MARKET_CASE_ROW_STATUSES),
+  /** DERIVED on read from the live employment row the case names. */
+  decisionWeek: nonNegativeInteger(),
+  decisionWeekLabel: nonEmptyText(),
+  /** The STORED terminal week: null on a live case, and on a DERIVED invalidation
+   * (a release closed the interval early, which no receipt stamped as a closure). */
+  closedWeek: nullable(nonNegativeInteger()),
+  outcome: nullable(enumeration(MARKET_CASE_OUTCOMES)),
+  proposalCount: nonNegativeInteger(),
+  ownProposal: bool(),
+})
+// One free agent this studio may sign OUTRIGHT (R26 instant signing): no case, no
+// deadline, no person choice on that path. The ask is RE-DERIVED at the read week
+// through `playerOffer` at the shortest published term, and the row carries the
+// EXISTING `signContract` hiring path — the workspace mints no new intent kind, and a
+// person the existing conversion refuses says so instead of offering a commit it throws on.
+const StudioMarketFreeAgentRow = object('StudioMarketFreeAgentRow', {
+  talentId: nonEmptyText(),
+  name: nonEmptyText(),
+  roleLabel: nonEmptyText(),
+  termWeeks: integer({ minimum: 1 }),
+  annualSalary: nonNegativeInteger(),
+  signingBonus: nonNegativeInteger(),
+  intentKind: literal('signContract'),
+  signable: bool(),
+  /** The existing hiring conversion's own refusal sentence; null when it accepts. */
+  refusal: nullable(nonEmptyText()),
+})
+// The one BOUNDED bucket. The three live buckets are bounded by the live world (open
+// cases cannot exceed the active employment rows inside a renewal window; free agents
+// cannot exceed the pool), so they are hot summaries bounded by construction; closed
+// cases accumulate for a century and are paged.
+const StudioMarketClosedCases = object('StudioMarketClosedCases', {
+  rows: array(reference('StudioMarketCaseRow', StudioMarketCaseRow)),
+  page: nonNegativeInteger(),
+  pageSize: integer({ minimum: 1 }),
+  total: nonNegativeInteger(),
+})
+// A case appears in EXACTLY ONE bucket, by DERIVED facts alone. Row order inside each
+// bucket is fixed and never an array, Map, Set or PersonId order: `renewalWindow` and
+// `settling` by decision week ascending then discovery order; `closed` by closed week
+// descending then discovery order; `freeAgents` by role in the fixed discipline order,
+// then the ask at the read week descending, then the most recent P12 employment ordinal,
+// then the person's ordinal in the append-only `state.talent` roster.
+const StudioMarketCases = object('StudioMarketCases', {
+  renewalWindow: array(reference('StudioMarketCaseRow', StudioMarketCaseRow)),
+  freeAgents: array(reference('StudioMarketFreeAgentRow', StudioMarketFreeAgentRow)),
+  settling: array(reference('StudioMarketCaseRow', StudioMarketCaseRow)),
+  closed: reference('StudioMarketClosedCases', StudioMarketClosedCases),
+})
+// One recorded employer interval from the P12 rows. `annualSalary` is present on THIS
+// studio's own intervals alone and is ABSENT — never null, never a marker — on every
+// rival-owned interval, exactly as Industry keeps rival contract terms private.
+const StudioMarketEmployerRow = object('StudioMarketEmployerRow', {
+  studioId: nonEmptyText(),
+  studioName: nonEmptyText(),
+  fromWeek: nonNegativeInteger(),
+  fromLabel: nonEmptyText(),
+  /** The interval's live end: its early end when one was recorded, else its term end. */
+  toWeek: nonNegativeInteger(),
+  toLabel: nonEmptyText(),
+  termWeeks: integer({ minimum: 1 }),
+  transition: enumeration(['entry', 'renewal', 'replacement', 'player-contract', 'existing-player-contract']),
+  own: bool(),
+  ended: bool(),
+  annualSalary: optional(nonNegativeInteger()),
+})
+// The candidate rail: BY REFERENCE to the projection-42 profile pieces. It copies no
+// profile field — `preferences` is the case block's own preference line, `standingLine`
+// is composed from the People projection's already-published labels, and `profileRef` is
+// the key the client opens the full profile with (null when the projection holds none).
+const StudioMarketCandidateRail = object('StudioMarketCandidateRail', {
+  talentId: nonEmptyText(),
+  role: professionEnum(),
+  standingLine: nonEmptyText(),
+  preferences: reference('StudioMarketPreferencesSnapshot', StudioMarketPreferencesSnapshot),
+  profileRef: nullable(nonEmptyText()),
+})
+// The paged career and employer history. `employers` is paged by row ordinal
+// (`MARKET_HISTORY_PAGE_SIZE`); `credits` is the People projection's own career rows by
+// reference, unpaged, so no credit fact is derived a second time here.
+const StudioMarketHistory = object('StudioMarketHistory', {
+  employers: array(reference('StudioMarketEmployerRow', StudioMarketEmployerRow)),
+  credits: array(reference('StudioPersonCareerRowSnapshot', StudioPersonCareerRowSnapshot)),
+  page: nonNegativeInteger(),
+  pageSize: integer({ minimum: 1 }),
+  total: nonNegativeInteger(),
+})
+// The selected case. `comparison` is the case block's own proposal rows (one per current
+// proposal, the viewer's own re-derived at the read week, every competing figure the
+// UNKNOWN marker); after settlement the engine clears the proposals and the order-only
+// reasons stay on `case.settlementReasons`. `droppedReasons` carries THIS studio's OWN
+// dropped proposal's sentence and nothing else — a rival's drop sentence is never shown.
+// `marketCase` and NOT `case`: the C# generator refuses a wire member that emits a
+// reserved identifier (CF08-IDENTIFIER-COLLISION — `case` is a C# keyword), and this is
+// the same member name projection 42 already publishes for this exact block on the
+// Profile (`StudioPersonProfileSnapshot.marketCase`).
+const StudioMarketCaseDetail = object('StudioMarketCaseDetail', {
+  marketCase: reference('StudioMarketCaseSnapshot', StudioMarketCaseSnapshot),
+  rail: reference('StudioMarketCandidateRail', StudioMarketCandidateRail),
+  comparison: array(reference('StudioMarketProposalSnapshot', StudioMarketProposalSnapshot)),
+  history: reference('StudioMarketHistory', StudioMarketHistory),
+  droppedReasons: array(nonEmptyText()),
+})
+// The workspace. `attention` gathers the five A.1 causes across every case this studio
+// may lawfully be interrupted about, deduplicated per (cause, talentId), in decision-week
+// then discovery order. `selected` is null for a targetId the engine holds no case for.
+const StudioMarketPage = object('StudioMarketPage', {
+  attention: array(reference('StudioMarketAttentionRowSnapshot', StudioMarketAttentionRowSnapshot)),
+  cases: reference('StudioMarketCases', StudioMarketCases),
+  selected: nullable(reference('StudioMarketCaseDetail', StudioMarketCaseDetail)),
+})
+
 const StudioPersonProfileSnapshot = object('StudioPersonProfileSnapshot', {
   talentId: nonEmptyText(),
   name: nonEmptyText(),
@@ -3000,6 +3158,15 @@ const definitions = {
   StudioMarketAttentionRowSnapshot,
   StudioMarketPreferencesSnapshot,
   StudioMarketCaseSnapshot,
+  StudioMarketCaseRow,
+  StudioMarketFreeAgentRow,
+  StudioMarketClosedCases,
+  StudioMarketCases,
+  StudioMarketEmployerRow,
+  StudioMarketCandidateRail,
+  StudioMarketHistory,
+  StudioMarketCaseDetail,
+  StudioMarketPage,
   StudioPersonProfileSnapshot,
   StudioRosterOvrSnapshot,
   StudioRosterRowSnapshot,
@@ -3139,6 +3306,12 @@ export type BridgeMarketProposalSnapshot = InferSchema<typeof StudioMarketPropos
 export type BridgeMarketAttentionRowSnapshot = InferSchema<typeof StudioMarketAttentionRowSnapshot>
 export type BridgeMarketAttentionCause = (typeof MARKET_ATTENTION_CAUSES)[number]
 export type BridgeMarketCaseSnapshot = InferSchema<typeof StudioMarketCaseSnapshot>
+export type BridgeMarketCaseRow = InferSchema<typeof StudioMarketCaseRow>
+export type BridgeMarketFreeAgentRow = InferSchema<typeof StudioMarketFreeAgentRow>
+export type BridgeMarketCases = InferSchema<typeof StudioMarketCases>
+export type BridgeMarketEmployerRow = InferSchema<typeof StudioMarketEmployerRow>
+export type BridgeMarketCaseDetail = InferSchema<typeof StudioMarketCaseDetail>
+export type BridgeMarketPage = InferSchema<typeof StudioMarketPage>
 export type BridgePersonRenewalTermSnapshot = InferSchema<typeof StudioPersonRenewalTermSnapshot>
 export type BridgePersonContractActionsSnapshot = InferSchema<typeof StudioPersonContractActionsSnapshot>
 export type BridgePlacementQuoteSnapshot = InferSchema<typeof StudioPlacementQuoteSnapshot>

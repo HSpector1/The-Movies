@@ -492,7 +492,7 @@
           "$ref": "#/$defs/StudioProjectionBundle"
         },
         "snapshotVersion": {
-          "const": 42,
+          "const": 43,
           "type": "integer"
         },
         "stateDigest": {
@@ -609,7 +609,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 42,
+          "const": 43,
           "type": "integer"
         },
         "stateDigest": {
@@ -1128,7 +1128,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 42,
+          "const": 43,
           "type": "integer"
         },
         "stateDigest": {
@@ -1207,7 +1207,7 @@
           "$ref": "#/$defs/StudioProjectionBundle"
         },
         "snapshotVersion": {
-          "const": 42,
+          "const": 43,
           "type": "integer"
         },
         "stateDigest": {
@@ -1499,7 +1499,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 42,
+          "const": 43,
           "type": "integer"
         },
         "stateDigest": {
@@ -7121,6 +7121,13 @@
           "minLength": 1,
           "type": "string"
         },
+        "settlementKind": {
+          "enum": [
+            "retained",
+            "moved"
+          ],
+          "type": "string"
+        },
         "studioId": {
           "anyOf": [
             {
@@ -7552,6 +7559,11 @@
           "minimum": 0,
           "type": "integer"
         },
+        "historyPage": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
         "lane": {
           "enum": [
             "audienceAwareness",
@@ -7630,7 +7642,8 @@
             "employment",
             "laboratory",
             "plans",
-            "office"
+            "office",
+            "market"
           ],
           "type": "string"
         }
@@ -7689,6 +7702,16 @@
         "lane": {
           "minLength": 1,
           "type": "string"
+        },
+        "market": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StudioMarketPage"
+            },
+            {
+              "type": "null"
+            }
+          ]
         },
         "notice": {
           "minLength": 1,
@@ -7825,7 +7848,8 @@
             "employment",
             "laboratory",
             "plans",
-            "office"
+            "office",
+            "market"
           ],
           "type": "string"
         }
@@ -7837,6 +7861,7 @@
         "films",
         "laboratory",
         "lane",
+        "market",
         "notice",
         "office",
         "page",
@@ -8558,6 +8583,186 @@
       "type": "object",
       "x-csharp-name": "StudioMarketAttentionRowSnapshot"
     },
+    "StudioMarketCandidateRail": {
+      "additionalProperties": false,
+      "properties": {
+        "preferences": {
+          "$ref": "#/$defs/StudioMarketPreferencesSnapshot"
+        },
+        "profileRef": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "role": {
+          "enum": [
+            "actor",
+            "director",
+            "writer",
+            "craft",
+            "scientist"
+          ],
+          "type": "string"
+        },
+        "standingLine": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "talentId": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "preferences",
+        "profileRef",
+        "role",
+        "standingLine",
+        "talentId"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioMarketCandidateRail"
+    },
+    "StudioMarketCaseDetail": {
+      "additionalProperties": false,
+      "properties": {
+        "comparison": {
+          "items": {
+            "$ref": "#/$defs/StudioMarketProposalSnapshot"
+          },
+          "type": "array"
+        },
+        "droppedReasons": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "history": {
+          "$ref": "#/$defs/StudioMarketHistory"
+        },
+        "marketCase": {
+          "$ref": "#/$defs/StudioMarketCaseSnapshot"
+        },
+        "rail": {
+          "$ref": "#/$defs/StudioMarketCandidateRail"
+        }
+      },
+      "required": [
+        "comparison",
+        "droppedReasons",
+        "history",
+        "marketCase",
+        "rail"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioMarketCaseDetail"
+    },
+    "StudioMarketCaseRow": {
+      "additionalProperties": false,
+      "properties": {
+        "closedWeek": {
+          "anyOf": [
+            {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "decisionWeek": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "decisionWeekLabel": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "name": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "outcome": {
+          "anyOf": [
+            {
+              "enum": [
+                "settled",
+                "declined",
+                "expired",
+                "invalidated"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "ownProposal": {
+          "type": "boolean"
+        },
+        "proposalCount": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "roleLabel": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "discovered",
+            "proposals_open",
+            "decision_pending",
+            "settled",
+            "declined",
+            "expired",
+            "invalidated"
+          ],
+          "type": "string"
+        },
+        "subjectStudioId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "subjectStudioName": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "talentId": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "closedWeek",
+        "decisionWeek",
+        "decisionWeekLabel",
+        "name",
+        "outcome",
+        "ownProposal",
+        "proposalCount",
+        "roleLabel",
+        "status",
+        "subjectStudioId",
+        "subjectStudioName",
+        "talentId"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioMarketCaseRow"
+    },
     "StudioMarketCaseSnapshot": {
       "additionalProperties": false,
       "properties": {
@@ -8627,6 +8832,249 @@
       "type": "object",
       "x-csharp-name": "StudioMarketCaseSnapshot"
     },
+    "StudioMarketCases": {
+      "additionalProperties": false,
+      "properties": {
+        "closed": {
+          "$ref": "#/$defs/StudioMarketClosedCases"
+        },
+        "freeAgents": {
+          "items": {
+            "$ref": "#/$defs/StudioMarketFreeAgentRow"
+          },
+          "type": "array"
+        },
+        "renewalWindow": {
+          "items": {
+            "$ref": "#/$defs/StudioMarketCaseRow"
+          },
+          "type": "array"
+        },
+        "settling": {
+          "items": {
+            "$ref": "#/$defs/StudioMarketCaseRow"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "closed",
+        "freeAgents",
+        "renewalWindow",
+        "settling"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioMarketCases"
+    },
+    "StudioMarketClosedCases": {
+      "additionalProperties": false,
+      "properties": {
+        "page": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "pageSize": {
+          "maximum": 2147483647,
+          "minimum": 1,
+          "type": "integer"
+        },
+        "rows": {
+          "items": {
+            "$ref": "#/$defs/StudioMarketCaseRow"
+          },
+          "type": "array"
+        },
+        "total": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "page",
+        "pageSize",
+        "rows",
+        "total"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioMarketClosedCases"
+    },
+    "StudioMarketEmployerRow": {
+      "additionalProperties": false,
+      "properties": {
+        "annualSalary": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "ended": {
+          "type": "boolean"
+        },
+        "fromLabel": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "fromWeek": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "own": {
+          "type": "boolean"
+        },
+        "studioId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "studioName": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "termWeeks": {
+          "maximum": 2147483647,
+          "minimum": 1,
+          "type": "integer"
+        },
+        "toLabel": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "toWeek": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "transition": {
+          "enum": [
+            "entry",
+            "renewal",
+            "replacement",
+            "player-contract",
+            "existing-player-contract"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "ended",
+        "fromLabel",
+        "fromWeek",
+        "own",
+        "studioId",
+        "studioName",
+        "termWeeks",
+        "toLabel",
+        "toWeek",
+        "transition"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioMarketEmployerRow"
+    },
+    "StudioMarketFreeAgentRow": {
+      "additionalProperties": false,
+      "properties": {
+        "annualSalary": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "intentKind": {
+          "const": "signContract",
+          "type": "string"
+        },
+        "name": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "refusal": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "roleLabel": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "signable": {
+          "type": "boolean"
+        },
+        "signingBonus": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "talentId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "termWeeks": {
+          "maximum": 2147483647,
+          "minimum": 1,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "annualSalary",
+        "intentKind",
+        "name",
+        "refusal",
+        "roleLabel",
+        "signable",
+        "signingBonus",
+        "talentId",
+        "termWeeks"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioMarketFreeAgentRow"
+    },
+    "StudioMarketHistory": {
+      "additionalProperties": false,
+      "properties": {
+        "credits": {
+          "items": {
+            "$ref": "#/$defs/StudioPersonCareerRowSnapshot"
+          },
+          "type": "array"
+        },
+        "employers": {
+          "items": {
+            "$ref": "#/$defs/StudioMarketEmployerRow"
+          },
+          "type": "array"
+        },
+        "page": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "pageSize": {
+          "maximum": 2147483647,
+          "minimum": 1,
+          "type": "integer"
+        },
+        "total": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "credits",
+        "employers",
+        "page",
+        "pageSize",
+        "total"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioMarketHistory"
+    },
     "StudioMarketOwnProposalSnapshot": {
       "additionalProperties": false,
       "properties": {
@@ -8678,6 +9126,37 @@
       ],
       "type": "object",
       "x-csharp-name": "StudioMarketOwnProposalSnapshot"
+    },
+    "StudioMarketPage": {
+      "additionalProperties": false,
+      "properties": {
+        "attention": {
+          "items": {
+            "$ref": "#/$defs/StudioMarketAttentionRowSnapshot"
+          },
+          "type": "array"
+        },
+        "cases": {
+          "$ref": "#/$defs/StudioMarketCases"
+        },
+        "selected": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StudioMarketCaseDetail"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "attention",
+        "cases",
+        "selected"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioMarketPage"
     },
     "StudioMarketPreferencesSnapshot": {
       "additionalProperties": false,
@@ -15327,7 +15806,7 @@
       "x-csharp-name": "StudioWrapReceiptSnapshot"
     }
   },
-  "$id": "urn:project-studio:bridge:protocol-4:projection-42",
+  "$id": "urn:project-studio:bridge:protocol-4:projection-43",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "description": "Canonical wire contract owned by the authoritative TypeScript runtime.",
   "oneOf": [
@@ -15383,7 +15862,7 @@
   "title": "Project Studio TypeScript to Unity Bridge",
   "x-project-studio": {
     "contractId": "project-studio-current-game-unity-bridge",
-    "projectionVersion": 42,
+    "projectionVersion": 43,
     "protocolVersion": 4,
     "routes": {
       "command": "POST /command",

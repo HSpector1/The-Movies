@@ -14,6 +14,8 @@ import {historyProjection} from './history.ts'
 import {laboratoryPage,type LaboratoryIntent} from './laboratory.ts'
 import {plansPage,type PlanIntent} from './plans.ts'
 import {officePage,type OfficeIntent} from './office.ts'
+import {contractTermLabel} from './contract.ts'
+import {marketPage,MARKET_CLOSED_PAGE_SIZE} from './market.ts'
 
 type Film=IndustryPage['films'][number]
 type Credit=IndustryPage['credits'][number]
@@ -137,6 +139,49 @@ function indexFor(state:GameState):Index {
   const index={studios,studioById:new Map(studios.map(s=>[s.studioId,s])),films,filmById:new Map(films.map(f=>[f.filmId,f])),credits,filmsByStudio,filmsByPerson,people,roster,activities}
   indexes.set(state,index);return index
 }
+// ── P14A.2: the Pulse fold — ONE row per talent-market settlement ───────────
+// Companion §2.1.8 and the disclosure row at line 92: after settlement, WHO the person
+// joined and on WHAT TERM LENGTH is public; the compensation stays private. A settlement
+// writes two P12 employment receipts — the subject's `expiry` and the winner's start —
+// which the Pulse has published as two separate rows. They are ONE public event, so they
+// fold into one `retained` (same employer) or `moved` (a new one) row.
+//
+// The join is (talentId, settlement week, receipt kind) and it is EXACT, not a
+// coincidence: a person holds one contract at a time, so at most one expiry and one
+// start receipt exist for that person in that week. The companion's prose says the
+// `settled` receipt references the two by `eventId`; the landed receipt carries no such
+// field, and persisting one would be a new save fact (a V29 candidate) that no consumer
+// needs while this join is exact — recorded OPEN, deliberately not added here.
+//
+// Declined, expired and invalidated cases keep the existing rows: nobody signed, and the
+// person leaves for the free-agent pool exactly as today. The per-person Employment route
+// is untouched — it publishes the authoritative receipts themselves, unfolded.
+type EmploymentReceipt=Extract<IndustryReceipt,{kind:'employment'}>
+function pulseSettlementFold(state:GameState,people:Map<string,Person>):{drop:Set<string>;replace:Map<string,Activity>} {
+  const drop=new Set<string>(),replace=new Map<string,Activity>()
+  const h=state.hollywood
+  if(!h)return {drop,replace}
+  const names=new Map(h.identities.map(s=>[s.studioId,s.name]))
+  const receipt=(talentId:string,week:number,reasons:readonly EmploymentReceipt['reason'][]):EmploymentReceipt|undefined=>
+    h.receipts.find((r):r is EmploymentReceipt=>r.kind==='employment'&&r.talentId===talentId&&r.week===week&&reasons.includes(r.reason))
+  for(const settled of state.talentMarket.receipts) {
+    if(settled.kind!=='settled')continue
+    const expiry=receipt(settled.talentId,settled.week,['expiry'])
+    const start=receipt(settled.talentId,settled.week,['replacement','player-contract'])
+    if(!expiry||!start||start.toStudioId===null)continue
+    const termWeeks=h.employment.find(e=>e.contractId===start.contractId)?.terms.termWeeks
+    if(termWeeks===undefined)continue
+    const name=people.get(settled.talentId)?.name??settled.talentId
+    const joined=names.get(start.toStudioId)??start.toStudioId
+    const retained=expiry.studioId===start.toStudioId
+    drop.add(expiry.eventId)
+    replace.set(start.eventId,{eventId:start.eventId,week:settled.week,dateLabel:campaignDate(settled.week).label,group:'people',
+      studioId:start.toStudioId,filmId:null,talentId:settled.talentId,settlementKind:retained?'retained':'moved',
+      headline:retained?`${name} re-signs with ${joined}`:`${name} moves to ${joined}`,
+      detail:`Settled contract case: ${contractTermLabel(termWeeks)}. Compensation remains private.`})
+  }
+  return {drop,replace}
+}
 const chronology=(f:Film)=>(f.releaseWeek??((f.historicalYear??1919)-1920)*52)
 function filterFilms(rows:Film[],q:IndustryQuery,week:number):Film[] {
   return rows.filter(f=>q.period==='authored'?f.provenance==='authored-start/v1':q.period==='live'?f.provenance!=='authored-start/v1':q.period==='recent'?f.releaseWeek!==null&&f.releaseWeek>=Math.max(0,week-51):true)
@@ -145,7 +190,7 @@ function filterFilms(rows:Film[],q:IndustryQuery,week:number):Film[] {
 /** Query results own their output objects; the immutable per-state index never escapes. */
 export function industryPage(state:GameState,sessionId:string,stateRevision:number,q:IndustryQuery,laboratoryIntents:readonly LaboratoryIntent[]=[],planIntents:readonly PlanIntent[]=[],officeIntents:readonly OfficeIntent[]=[]):IndustryPage {
   const index=indexFor(state),h=state.hollywood!,calendar=campaignDate(state.market.tick)
-  const result:IndustryPage={protocolVersion:PROTOCOL_VERSION,schemaId:SCHEMA_ID,snapshotVersion:SNAPSHOT_VERSION,type:'industryPage',requestId:q.requestId,sessionId,stateRevision,stateDigest:snapshotBuildContextFor(state).stateDigest(),calendar,view:q.view,targetId:q.targetId,page:q.page,pageSize:q.pageSize,totalRows:0,pageCount:0,lane:q.lane,period:q.period,title:'Industry',notice:'Public facts only. Standing channels and film measures have separate meanings; there is no combined Power score.',studios:[],films:[],people:[],credits:[],activities:[],projects:[],tendencies:[],laboratory:null,plans:null,office:null}
+  const result:IndustryPage={protocolVersion:PROTOCOL_VERSION,schemaId:SCHEMA_ID,snapshotVersion:SNAPSHOT_VERSION,type:'industryPage',requestId:q.requestId,sessionId,stateRevision,stateDigest:snapshotBuildContextFor(state).stateDigest(),calendar,view:q.view,targetId:q.targetId,page:q.page,pageSize:q.pageSize,totalRows:0,pageCount:0,lane:q.lane,period:q.period,title:'Industry',notice:'Public facts only. Standing channels and film measures have separate meanings; there is no combined Power score.',studios:[],films:[],people:[],credits:[],activities:[],projects:[],tendencies:[],laboratory:null,plans:null,office:null,market:null}
   const page=<T>(rows:T[]):T[]=>{result.totalRows=rows.length;result.pageCount=Math.ceil(rows.length/q.pageSize);if(q.page>0&&q.page>=result.pageCount)throw new Error('That page is outside this snapshot. Return to the first page.');return rows.slice(q.page*q.pageSize,(q.page+1)*q.pageSize)}
   if(q.view==='office') {
     // P13B-S4: one Development & Casting building's standard and its in-place
@@ -154,6 +199,17 @@ export function industryPage(state:GameState,sessionId:string,stateRevision:numb
     const office=officePage(state,q.targetId,officeIntents,q.page,q.pageSize)
     result.office=office.office;result.totalRows=office.totalRows;result.pageCount=office.pageCount
     result.title=office.office.title;result.notice='Your studio\u2019s Development & Casting building. A conversion raises this building\u2019s development standard in place and closes the building while the work runs; the standard increment is charged only once it reopens.'
+  } else if(q.view==='market') {
+    // P14A.2: the player's own Talent Market workspace. `marketPage` reads this studio's
+    // lawful disclosure alone — a competing studio's tier, salary and bonus reach it only
+    // as the engine's literal UNKNOWN marker, and a rival employment interval publishes no
+    // compensation at all. `page` pages the CLOSED bucket, `historyPage` the selected
+    // person's employer history; the response's own `pageSize` stays the request's.
+    const market=marketPage(state,{view:'market',targetId:q.targetId,page:q.page,historyPage:q.historyPage??0})
+    result.market=market;result.totalRows=market.cases.closed.total
+    result.pageCount=Math.ceil(market.cases.closed.total/MARKET_CLOSED_PAGE_SIZE)
+    result.title='Talent Market'
+    result.notice='Open contract cases, the people free to sign now, and your own proposals. What a competing studio is paying is not public; that a proposal exists, for how long and from when, is.'
   } else if(q.view==='plans') {
     // P13B-S3: the studio's own ordered physical intentions. Player-safe by construction —
     // `plansPage` reads the player studio's plans alone; a rival's row never reaches here.
@@ -249,7 +305,10 @@ export function industryPage(state:GameState,sessionId:string,stateRevision:numb
     // P13B-S7: the 13-week window retires RECEIPTS. A derived public milestone (studioId null)
     // is not an event that happened once: it is a standing public fact about a week still to
     // come, so it stays listed after its own announcement week.
-    result.activities=page(index.activities.filter(r=>r.studioId===null||r.week>=Math.max(0,state.market.tick-12)).sort((a,b)=>groupOrder[a.group]-groupOrder[b.group]||b.week-a.week||byText(a.eventId,b.eventId)))
+    // P14A.2: each settlement's two P12 rows fold into the ONE public row above.
+    const fold=pulseSettlementFold(state,index.people)
+    const rows=index.activities.flatMap(r=>fold.drop.has(r.eventId)?[]:[fold.replace.get(r.eventId)??r])
+    result.activities=page(rows.filter(r=>r.studioId===null||r.week>=Math.max(0,state.market.tick-12)).sort((a,b)=>groupOrder[a.group]-groupOrder[b.group]||b.week-a.week||byText(a.eventId,b.eventId)))
   }
   return structuredClone(result)
 }

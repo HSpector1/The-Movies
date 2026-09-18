@@ -877,7 +877,9 @@ function proposalWouldFailNow(state: GameState, proposal: { talentId: string; is
   }
 }
 
-function marketAttentionRows(
+/** Exported for the P14A.2 workspace (`bridge/market.ts`), which gathers these same
+ * rows across every case instead of re-deriving a second attention vocabulary. */
+export function marketAttentionRows(
   state: GameState,
   view: MarketCaseView,
   viewerStudioId: string,
