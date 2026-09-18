@@ -100,9 +100,9 @@ import { careerIdentity } from '../src/core/talentSummary.js'
 import type { GameState } from '../src/core/types.js'
 import { publicPriorityOrder, publicPreferredTerm, submitProposal } from '../src/core/talentMarket.js'
 import { TUNING } from '../src/core/tuning.js'
-// RED-by-design: src/core/promises.ts does not exist. Both names below are
-// CALLED, not merely imported.
-import { attachPromise, trustDescriptor } from '../src/core/promises.js'
+// RED-by-design: src/core/promises.ts does not exist. All three names below
+// are CALLED, not merely imported.
+import { attachPromise, promiseFeasibility, trustDescriptor } from '../src/core/promises.js'
 
 type PersistedPromise = {
   promiseId: string
@@ -118,6 +118,7 @@ type PersistedPromise = {
   outcome: string | null
   outcomeWeek: number | null
   outcomeCause: string | null
+  outcomeEventId: string | null
   contractId: string | null
 }
 function withPromises(state: GameState, promises: readonly PersistedPromise[]): GameState {
@@ -195,6 +196,7 @@ describe('P14B.1 test 6: trust, the widened chooser and the priority order', () 
       outcome: 'SATISFIED',
       outcomeWeek: 10 + i,
       outcomeCause: null,
+      outcomeEventId: null,
       contractId: null,
     }))
     const reliableState = withPromises(state, positiveFacts)
@@ -223,6 +225,7 @@ describe('P14B.1 test 6: trust, the widened chooser and the priority order', () 
       outcome: 'BROKEN',
       outcomeWeek: 5 + i,
       outcomeCause: 'dueWeekExclusive reached unsatisfied',
+      outcomeEventId: null,
       contractId: null,
     }))
     const state = withPromises(opened, negativeFacts)
@@ -306,6 +309,7 @@ describe('P14B.1 test 6: trust, the widened chooser and the priority order', () 
       outcome: 'SATISFIED',
       outcomeWeek: 20,
       outcomeCause: null,
+      outcomeEventId: null,
       contractId: null,
     }
     const mixedForRival: PersistedPromise = {
@@ -322,6 +326,7 @@ describe('P14B.1 test 6: trust, the widened chooser and the priority order', () 
       outcome: 'BROKEN',
       outcomeWeek: 8,
       outcomeCause: 'dueWeekExclusive reached unsatisfied',
+      outcomeEventId: null,
       contractId: null,
     }
     const state = withPromises(opened, [reliableForPlayer, mixedForRival])
@@ -419,33 +424,55 @@ describe('P14B.1 test 7: rival symmetry', () => {
     if (firstWriter === undefined) throw new Error('search premise failed: no rival WRITER-subject proposal found within 220 weeks on the default seed')
     if (firstActor === undefined) throw new Error('search premise failed: no rival ACTOR-subject proposal found within 220 weeks on the default seed')
 
-    const writerProposal = state.talentMarket.proposals.find((p) => p.talentId === firstWriter!.talentId && p.issuerStudioId === firstWriter!.studioId) as unknown as { promises: readonly string[] } | undefined
+    const writerProposal = state.talentMarket.proposals.find((p) => p.talentId === firstWriter!.talentId && p.issuerStudioId === firstWriter!.studioId) as unknown as { startWeek: number; termWeeks: number; promises: readonly string[] } | undefined
     if (writerProposal === undefined) throw new Error('test premise failed: the writer-subject proposal has already settled (no live proposal to read)')
     expect(writerProposal.promises.length).toBe(0) // IMPOSSIBLE (role gate) -> carries none
+    // Independent classification confirming WHY: a writer takes no cast seat
+    // (M16.2), so this family is IMPOSSIBLE for it regardless of window.
+    const writerClassification = promiseFeasibility(
+      state,
+      {
+        family: 'APPEARANCE_COUNT',
+        issuerStudioId: firstWriter.studioId,
+        beneficiaryPersonId: firstWriter.talentId,
+        predicate: { count: 1 },
+        windowStartWeek: writerProposal.startWeek,
+        dueWeekExclusive: writerProposal.startWeek + writerProposal.termWeeks,
+        startWeek: writerProposal.startWeek,
+        termWeeks: writerProposal.termWeeks,
+      },
+      state.market.tick,
+    )
+    expect(writerClassification.classification).toBe('IMPOSSIBLE')
 
     const actorProposal = state.talentMarket.proposals.find((p) => p.talentId === firstActor!.talentId && p.issuerStudioId === firstActor!.studioId) as unknown as { startWeek: number; termWeeks: number; promises: readonly string[] } | undefined
     if (actorProposal === undefined) throw new Error('test premise failed: the actor-subject proposal has already settled (no live proposal to read)')
 
-    // Independent classification, the SAME `attachPromise` probe technique
-    // the case above uses — never assumed.
-    const probed = attachPromise(state, firstActor.talentId, firstActor.studioId, {
-      family: 'APPEARANCE_COUNT',
-      predicate: { count: 1 },
-      windowStartWeek: actorProposal.startWeek,
-      dueWeekExclusive: actorProposal.startWeek + actorProposal.termWeeks,
-    })
-    const probedMinted = (probed as unknown as { promises: readonly PersistedPromise[] }).promises.find(
-      (p) => p.beneficiaryPersonId === firstActor!.talentId && p.issuerStudioId === firstActor!.studioId,
-    )
-    if (probedMinted === undefined) throw new Error('test premise failed: attachPromise minted no promise record for the rival probe')
-    expect(probedMinted.feasibilityReceipt.classification).toBe('REASONABLY_ACHIEVABLE') // sanity: genuinely achievable
-
-    expect(actorProposal.promises.length).toBe(1) // RED today: rivals author no promise yet
+    // RULING (ii): the rival ALREADY authored its own promise on this exact
+    // live proposal (authorRivalPromise, talentMarket.ts) at submission time,
+    // so a second attachPromise on it would be refused ("already carries a
+    // promise — at most one"). A FRESH standalone promiseFeasibility probe
+    // is not a substitute sanity check here either: it would count the
+    // rival's own just-authored promise as an ACTIVE reservation against the
+    // SAME beneficiary/issuer (reservedByActivePromises has nothing to
+    // exclude it by, absent a promiseId), so a second hypothetical promise
+    // correctly reads FRAGILE ("needs a picture not yet commissioned") even
+    // though the FIRST one was genuinely REASONABLY_ACHIEVABLE when minted —
+    // exactly companion Example B's shape, self-inflicted by probing twice.
+    // The authored record's OWN persisted feasibilityReceipt (captured at
+    // mint time, before it reserved anything against itself) is read below
+    // instead — the only classification this case can honestly assert.
+    expect(actorProposal.promises.length).toBe(1)
     const authoredId = actorProposal.promises[0]
-    if (authoredId !== undefined) {
-      const authored = (state as unknown as { promises: readonly PersistedPromise[] }).promises.find((p) => p.promiseId === authoredId)
-      expect(authored?.family).toBe('APPEARANCE_COUNT')
-    }
+    if (authoredId === undefined) throw new Error('test premise failed: actor-subject proposal carries promises.length === 1 but no promiseId at index 0')
+    const authored = (state as unknown as { promises: readonly PersistedPromise[] }).promises.find((p) => p.promiseId === authoredId)
+    if (authored === undefined) throw new Error(`test premise failed: promiseId "${authoredId}" not found in state.promises`)
+    expect(authored.family).toBe('APPEARANCE_COUNT')
+    expect(authored.predicate.count).toBe(1)
+    expect(authored.windowStartWeek).toBe(actorProposal.startWeek)
+    expect(authored.dueWeekExclusive).toBe(actorProposal.startWeek + actorProposal.termWeeks)
+    expect(authored.feasibilityReceipt.classification).toBe('REASONABLY_ACHIEVABLE')
+    expect(authored.contractId).toBeNull() // unbound while the case is still open (RULING i)
   })
 
   it('a rival first take satisfies a promise exactly as a player one does — found by direct search over the natural chain (never a magic week)', () => {
@@ -463,6 +490,16 @@ describe('P14B.1 test 7: rival symmetry', () => {
     }
     if (found === undefined) throw new Error('search premise failed: no rival production reached remainingTicks === 5 within 60 weeks on the default seed')
 
+    // RULING (i): the promise BINDS only when contractId names a real
+    // employment row — bind it to the lead's own row at the rival studio
+    // (looked up, never assumed by pattern).
+    const employmentRow = state.hollywood!.employment.find(
+      (e) => e.terms.talentId === found!.cast.lead && e.studioId === found!.studioId && e.endedWeek === null,
+    )
+    if (employmentRow === undefined) {
+      throw new Error(`test premise failed: no active employment row for "${found.cast.lead}" at rival studio "${found.studioId}"`)
+    }
+
     const record: PersistedPromise = {
       promiseId: 'promise-rival-satisfied-0',
       family: 'APPEARANCE_COUNT',
@@ -477,15 +514,20 @@ describe('P14B.1 test 7: rival symmetry', () => {
       outcome: null,
       outcomeWeek: null,
       outcomeCause: null,
-      contractId: null,
+      outcomeEventId: null,
+      contractId: employmentRow.contractId,
     }
     state = withPromises(state, [record])
     let next = tick(state)
     // bounded (<= 3 ticks) for the same reason as tests/p14b1-promises.test.ts's
     // own SATISFIED case: outcome evaluation timing relative to the first-take
     // tick is not assumed.
-    let record2: { outcome: string | null } | undefined
+    let record2: { outcome: string | null; outcomeEventId: string | null } | undefined
     for (let i = 0; i < 2; i++) {
+      // Looked up by THIS promise's own promiseId, never by (beneficiary,
+      // issuer) alone — RULING (ii) means rivals now author their own
+      // promises on the natural chain too, so state.promises may carry more
+      // than this one synthetic record.
       const proms = (next as unknown as { promises: readonly PersistedPromise[] }).promises
       record2 = proms.find((p) => p.promiseId === record.promiseId)
       if (record2?.outcome !== null && record2?.outcome !== undefined) break
@@ -493,6 +535,10 @@ describe('P14B.1 test 7: rival symmetry', () => {
     }
     if (record2 === undefined) throw new Error('test premise failed: the promise record disappeared from state')
     expect(record2.outcome).toBe('SATISFIED')
+    expect(record2.outcomeEventId).not.toBeNull()
+    const namedReceipt = next.talentMarket.receipts.find((r) => r.eventId === record2!.outcomeEventId)
+    if (namedReceipt === undefined) throw new Error('test premise failed: outcomeEventId does not name a receipt in this state')
+    expect(namedReceipt.kind).toBe('promiseOutcome')
   })
 
   it('a rival Distrusted issuer / Reliable-vs-Mixed comparison reads through the SAME trustDescriptor accessor for a rival studioId as for the player', () => {
@@ -513,6 +559,7 @@ describe('P14B.1 test 7: rival symmetry', () => {
       outcome: 'SATISFIED',
       outcomeWeek: 10 + i,
       outcomeCause: null,
+      outcomeEventId: null,
       contractId: null,
     }))
     const reliableState = withPromises(state, positiveFacts)

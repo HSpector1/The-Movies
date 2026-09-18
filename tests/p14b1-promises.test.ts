@@ -166,6 +166,19 @@ function withPromises(state: GameState, promises: readonly PersistedPromise[]): 
   return { ...(state as unknown as Record<string, unknown>), promises } as unknown as GameState
 }
 
+/** RULING (i) (T2b): a promise BINDS only when its contractId names a REAL
+ * employment row — the forward industry table `industryEmployment.ts` mints
+ * (`${owner}:contract:${talentId}:${startWeek}:player-${ordinal}`), never
+ * guessed by pattern here. Looked up by (talentId, studioId, still active);
+ * throws a named premise error if no such row exists. */
+function activeEmploymentContractId(state: GameState, talentId: string, studioId: string): string {
+  const row = state.hollywood!.employment.find((e) => e.terms.talentId === talentId && e.studioId === studioId && e.endedWeek === null)
+  if (row === undefined) {
+    throw new Error(`test premise failed: no active employment row for "${talentId}" at studio "${studioId}"`)
+  }
+  return row.contractId
+}
+
 /** The plain `{kind:'greenlight'}` door — a full production payload built
  * from an UNUSED concept and already-CONTRACTED cast, mirroring
  * tests/contracts/_contractFixtures.ts's `productionPayload` shape (not
@@ -699,10 +712,16 @@ describe('P14B.1 test 5: outcomes', () => {
     const { state: signed, id: actorId } = signOne(state, 'actor', 208)
     state = signed
     const week = state.market.tick
+    const playerStudioId = state.hollywood!.playerStudioId
+    // RULING (i): the promise BINDS only when contractId names a real
+    // employment row — bind it to the row signOne's own signContract action
+    // already wrote into state.hollywood.employment (looked up, never
+    // assumed by pattern).
+    const contractId = activeEmploymentContractId(state, actorId, playerStudioId)
     const record: PersistedPromise = {
       promiseId: 'promise-broken-termination-0',
       family: 'APPEARANCE_COUNT',
-      issuerStudioId: state.hollywood!.playerStudioId,
+      issuerStudioId: playerStudioId,
       beneficiaryPersonId: actorId,
       predicate: { count: 1 },
       windowStartWeek: week,
@@ -713,7 +732,7 @@ describe('P14B.1 test 5: outcomes', () => {
       outcome: null,
       outcomeWeek: null,
       outcomeCause: null,
-      contractId: null,
+      contractId,
     }
     state = withPromises(state, [record])
     // the landed early-termination action (companion §4.4's "the A.1
@@ -740,6 +759,10 @@ describe('P14B.1 test 5: outcomes', () => {
     if (production === undefined) throw new Error('test premise failed: greenlight did not create the production')
 
     const week = state.market.tick
+    const playerStudioId = state.hollywood!.playerStudioId
+    // RULING (i): bind to the lead's REAL employment row (looked up, never
+    // assumed by pattern) so the promise is evaluable at all.
+    const contractId = activeEmploymentContractId(state, lead.id, playerStudioId)
     // Far too close for ANY path (even an already-greenlit production's OWN
     // remaining pipeline) to reach a first take: the fixed schedule needs at
     // least 5 weeks from greenlight, and this production is about to be
@@ -747,7 +770,7 @@ describe('P14B.1 test 5: outcomes', () => {
     const record: PersistedPromise = {
       promiseId: 'promise-broken-capacity-0',
       family: 'APPEARANCE_COUNT',
-      issuerStudioId: state.hollywood!.playerStudioId,
+      issuerStudioId: playerStudioId,
       beneficiaryPersonId: lead.id,
       predicate: { count: 1 },
       windowStartWeek: week,
@@ -758,7 +781,7 @@ describe('P14B.1 test 5: outcomes', () => {
       outcome: null,
       outcomeWeek: null,
       outcomeCause: null,
-      contractId: null,
+      contractId,
     }
     state = withPromises(state, [record])
     // sanity: re-feasibility is already IMPOSSIBLE BEFORE the cancel too

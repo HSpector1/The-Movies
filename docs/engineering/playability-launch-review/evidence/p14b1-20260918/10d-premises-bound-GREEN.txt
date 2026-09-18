@@ -1,0 +1,226 @@
+P14B.1-T2d — test-side: four premises re-expressed on the binding rule (T2b,
+`faf45f3`) and rival promise authoring. Tests only; no production source
+touched. Repo /Users/zacheryspector/The-Movies-headless-program, branch
+wip/headless-program-20260916-ts, HEAD at start of this task `8a6bcdc`.
+
+NOTE ON T2c's PREDICTION TABLE (evidence `10b`): T2c predicted cases 2-4 of
+the four listed there were "UNCHANGED by T2b". That prediction is FALSIFIED
+by ruling (i) as actually landed: the `evaluable()` gate at T2b applies to
+`breakPromisesOnTermination` and `breakPromisesOnCancel` too (not only to
+`advancePromisesWeek`'s due-week/SATISFIED path), so any synthetic promise
+record built with `contractId: null` in those two cases is also never
+evaluated. Recorded here so the record stays honest; both cases needed the
+same one-field fix as the due-week case T2b's own ruling text already
+anticipated.
+
+Machine: 2 cores. Every vitest run below was preceded by a SEPARATE probe
+`ps -axo command | grep -c '[v]itest'`, confirmed 0 before launching, per
+the shared-machine protocol (a bridge specialist may run vitest
+concurrently). `git status --short` at the start of this task showed
+unrelated in-flight changes in `bridge/*.ts`,
+`tests/bridge-p06-checkpoint-recovery.test.ts` and untracked
+`bridge/promises.ts` — NOT touched by this task, left exactly as found.
+
+=== ps -axo command | grep -c '[v]itest' (before every run below; all read 0) ===
+0
+
+── BEFORE: the four premises failing on the pre-T2d test text, run against a
+disposable copy of the original (HEAD `8a6bcdc`) file content
+(`tests/_before-p14b1-promises.test.ts`, `tests/_before-p14b1-trust-
+chooser.test.ts`, written via `git show HEAD:<path>`, deleted immediately
+after these two runs, never staged) ──────────────────────────────────────
+
+=== npx vitest run --project core --minWorkers=1 --maxWorkers=1 --reporter=dot tests/_before-p14b1-promises.test.ts ===
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/_before-p14b1-promises.test.ts (15 tests | 2 failed) 7536ms
+   ✓ P14B.1 test 2: the promise record and the widened digest > attaching a promise changes the digest; a second attach on an already-promised proposal is refused (enforced at most one); revising (re-submit, then attach a different promise) and removing (re-submit with no attach) both change the digest again — removing restores the exact original 2039ms
+   ✓ P14B.1 test 2: the promise record and the widened digest > a window outside the proposed contract is IMPOSSIBLE by construction 701ms
+   ✓ P14B.1 test 2: the promise record and the widened digest > a promise DRIFTED after attachment (its own definition changed through some other channel) drops materialTermsChanged at freeze 939ms
+   ✓ P14B.1 test 4: settlement freeze re-classification > a promise REASONABLY_ACHIEVABLE at submission erodes to FRAGILE by the decision week purely through slack (the 7-week submission-to-decision gap), and the case drops it with a promise-naming sentence 777ms
+   ✓ P14B.1 test 5: outcomes > SATISFIED once the X-th qualifying first take occurs, with evidence refs naming the causing eventId; idempotent on a later tick 852ms
+   ✓ P14B.1 test 5: outcomes > BROKEN at dueWeekExclusive when the window passes unsatisfied, through a BOUND promise: on genuine legacy-v28-open-case-45, attach a P1 promise to the player's own proposal, settle at 52 (retained -> bound, contractId set), then walk to dueWeekExclusive with no qualifying first take 1178ms
+   ✓ P14B.1 test 5: outcomes > RED (T2b closes this): a promise attached to a proposal that then LOSES stays UNBOUND (contractId null) and is never evaluated — on genuine legacy-v28-open-case-45, withdrawing the player's own proposal leaves the promise attached to a proposal that vanishes at settlement (declined, "all proposals dropped"); past its own dueWeekExclusive the record must keep outcome: null and contractId: null, mint no promiseOutcome receipt, and leave the issuer's trust descriptor without a promiseBroken driver 519ms
+   × P14B.1 test 5: outcomes > BROKEN immediately (within one tick) when the issuing studio terminates the beneficiary early 27ms
+     → test premise failed: the promise never reached an outcome within one tick of releaseTalent
+   × P14B.1 test 5: outcomes > BROKEN on capacity collapse: cancelling the promised person's ONLY production before its first take, with a due week too close for any other path, makes re-feasibility IMPOSSIBLE and the promise BROKEN 431ms
+     → test premise failed: the promise never reached an outcome within one tick of cancel
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/_before-p14b1-promises.test.ts > P14B.1 test 5: outcomes > BROKEN immediately (within one tick) when the issuing studio terminates the beneficiary early
+Error: test premise failed: the promise never reached an outcome within one tick of releaseTalent
+ ❯ tests/_before-p14b1-promises.test.ts:724:37
+
+ FAIL |core|  tests/_before-p14b1-promises.test.ts > P14B.1 test 5: outcomes > BROKEN on capacity collapse: cancelling the promised person's ONLY production before its first take, with a due week too close for any other path, makes re-feasibility IMPOSSIBLE and the promise BROKEN
+Error: test premise failed: the promise never reached an outcome within one tick of cancel
+ ❯ tests/_before-p14b1-promises.test.ts:780:37
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 13 passed (15)
+   Start at  23:57:08
+   Duration  9.92s
+
+=== npx vitest run --project core --minWorkers=1 --maxWorkers=1 --reporter=dot tests/_before-p14b1-trust-chooser.test.ts ===
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/_before-p14b1-trust-chooser.test.ts (13 tests | 2 failed | 3 skipped) 9413ms
+   ✓ P14B.1 test 6: trust, the widened chooser and the priority order > a Distrusted issuer is dropped issuerDistrusted at reservation, and the other (healthy) proposal settles the case 1383ms
+   ✓ P14B.1 test 6: trust, the widened chooser and the priority order > a Reliable issuer beats a Mixed-record issuer on the trust band, in the same otherwise-1-1-tie shape 723ms
+   ✓ P14B.1 test 7: rival symmetry > attachPromise and its feasibility classification work identically when the issuer is a RIVAL (no player-only special-casing) 624ms
+   ✓ P14B.1 test 7: rival symmetry > a rival proposal carries a P1 promise IFF its own feasibility is REASONABLY_ACHIEVABLE — derived from the FIRST rival proposalSubmitted receipt on the natural chain, never assumed 2962ms
+   × P14B.1 test 7: rival symmetry > rival promise AUTHORING (ruling ii): ... 3347ms
+     → promises: studio "studio-aca408ec-r01"'s proposal for "person-studio-aca408ec-r01-2" already carries a promise — P14B.1 attaches at most one; re-submit the proposal to revise it
+   × P14B.1 test 7: rival symmetry > a rival first take satisfies a promise exactly as a player one does — found by direct search over the natural chain (never a magic week) 227ms
+     → expected null to be 'SATISFIED' // Object.is equality
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/_before-p14b1-trust-chooser.test.ts > P14B.1 test 7: rival symmetry > rival promise AUTHORING (ruling ii): the FIRST rival proposalSubmitted receipts on the natural chain are for the rivals' own WRITER subjects — IMPOSSIBLE under the landed M16.2 role gate (a writer takes no cast seat), so that proposal carries NO promise (true both today and after T2b); walking on to the first ACTOR-subject rival proposal, whose own feasibility is REASONABLY_ACHIEVABLE, it must carry exactly one P1 promise naming family APPEARANCE_COUNT — RED today (rivals author no promise yet); T2b makes it green
+Error: promises: studio "studio-aca408ec-r01"'s proposal for "person-studio-aca408ec-r01-2" already carries a promise — P14B.1 attaches at most one; re-submit the proposal to revise it
+ ❯ Module.attachPromise src/core/promises.ts:426:11
+ ❯ tests/_before-p14b1-trust-chooser.test.ts:431:20
+
+ FAIL |core|  tests/_before-p14b1-trust-chooser.test.ts > P14B.1 test 7: rival symmetry > a rival first take satisfies a promise exactly as a player one does — found by direct search over the natural chain (never a magic week)
+AssertionError: expected null to be 'SATISFIED' // Object.is equality
+- Expected:
+"SATISFIED"
++ Received:
+null
+ ❯ tests/_before-p14b1-trust-chooser.test.ts:495:29
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 8 passed | 3 todo (13)
+   Start at  23:57:27
+   Duration  12.05s
+
+(disposable copies deleted immediately after this pair of runs:
+`rm -f tests/_before-p14b1-promises.test.ts tests/_before-p14b1-trust-chooser.test.ts`;
+`git status --short` confirmed no trace staged or left behind)
+
+── AFTER: the T2d-edited files (all four premises re-expressed) ──────────
+
+=== npm run typecheck (background, exit code captured) ===
+> project-studio-core@0.1.0 typecheck
+> tsc --noEmit && tsc -p ui/tsconfig.json --noEmit
+[exited with code 0]
+
+=== npx vitest run --project core --minWorkers=1 --maxWorkers=1 --reporter=dot tests/p14b1-promises.test.ts ===
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p14b1-promises.test.ts (15 tests) 6797ms
+   ✓ P14B.1 test 2: the promise record and the widened digest > attaching a promise changes the digest; a second attach on an already-promised proposal is refused (enforced at most one); revising (re-submit, then attach a different promise) and removing (re-submit with no attach) both change the digest again — removing restores the exact original 1734ms
+   ✓ P14B.1 test 2: the promise record and the widened digest > a window outside the proposed contract is IMPOSSIBLE by construction 967ms
+   ✓ P14B.1 test 2: the promise record and the widened digest > a promise DRIFTED after attachment (its own definition changed through some other channel) drops materialTermsChanged at freeze 717ms
+   ✓ P14B.1 test 4: settlement freeze re-classification > a promise REASONABLY_ACHIEVABLE at submission erodes to FRAGILE by the decision week purely through slack (the 7-week submission-to-decision gap), and the case drops it with a promise-naming sentence 731ms
+   ✓ P14B.1 test 5: outcomes > SATISFIED once the X-th qualifying first take occurs, with evidence refs naming the causing eventId; idempotent on a later tick 756ms
+   ✓ P14B.1 test 5: outcomes > BROKEN at dueWeekExclusive when the window passes unsatisfied, through a BOUND promise: on genuine legacy-v28-open-case-45, attach a P1 promise to the player's own proposal, settle at 52 (retained -> bound, contractId set), then walk to dueWeekExclusive with no qualifying first take 755ms
+   ✓ P14B.1 test 5: outcomes > RED (T2b closes this): a promise attached to a proposal that then LOSES stays UNBOUND (contractId null) and is never evaluated — on genuine legacy-v28-open-case-45, withdrawing the player's own proposal leaves the promise attached to a proposal that vanishes at settlement (declined, "all proposals dropped"); past its own dueWeekExclusive the record must keep outcome: null and contractId: null, mint no promiseOutcome receipt, and leave the issuer's trust descriptor without a promiseBroken driver 630ms
+   ✓ P14B.1 test 5: outcomes > BROKEN on capacity collapse: cancelling the promised person's ONLY production before its first take, with a due week too close for any other path, makes re-feasibility IMPOSSIBLE and the promise BROKEN 385ms
+   (2 more passed: "BROKEN immediately ... terminates the beneficiary early", "WAIVED and VOIDED are never emitted on the B.1 seeds" — dot-reporter live-render truncated their named lines in this capture; the summary below is exact)
+
+ Test Files  1 passed (1)
+      Tests  15 passed (15)
+   Start at  23:50:52
+   Duration  9.52s (transform 1.74s, setup 0ms, collect 2.22s, tests 6.80s, environment 0ms, prepare 131ms)
+
+=== npx vitest run --project core --minWorkers=1 --maxWorkers=1 --reporter=dot tests/p14b1-trust-chooser.test.ts (FIRST pass, before removing the self-colliding probe) ===
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/p14b1-trust-chooser.test.ts (13 tests | 1 failed | 3 skipped) 8619ms
+   ✓ ... (4 passed) ...
+   × P14B.1 test 7: rival symmetry > rival promise AUTHORING (ruling ii): ... 2775ms
+     → expected 'FRAGILE' to be 'REASONABLY_ACHIEVABLE' // Object.is equality
+     at tests/p14b1-trust-chooser.test.ts:470:49
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 9 passed | 3 todo (13)
+   Start at  23:51:22
+   Duration  10.85s
+
+FINDING recorded, not silently patched over: my FIRST attempt at re-
+expressing case 1 (the AUTHORING test) kept a redundant standalone
+`promiseFeasibility` "sanity" probe on the actor-subject proposal AFTER
+confirming its promise was already authored. That probe self-collides:
+`reservedByActivePromises` counts the rival's OWN just-minted promise as an
+active reservation against the SAME (issuerStudioId, beneficiaryPersonId)
+pair (nothing in a fresh, promiseId-less draft excludes it), so a
+hypothetical SECOND promise correctly reads FRAGILE ("needs a picture not
+yet commissioned") — companion Example B's shape, self-inflicted by probing
+twice. This is a genuine test-authoring defect in my own first attempt, not
+an engine defect: the honest assertion is the AUTHORED record's OWN
+persisted `feasibilityReceipt.classification` (captured at mint time, before
+it reserved anything against itself), which the task itself named as the
+assertion to add. Removed the standalone actor-side probe; kept it for the
+writer-subject contrast clause only (no self-collision there — no promise
+is ever minted for a writer subject).
+
+=== npx vitest run --project core --minWorkers=1 --maxWorkers=1 --reporter=dot tests/p14b1-trust-chooser.test.ts (SECOND / final pass, after removing the self-colliding probe) ===
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p14b1-trust-chooser.test.ts (13 tests | 3 skipped) 20942ms
+   ✓ P14B.1 test 6: trust, the widened chooser and the priority order > a Distrusted issuer is dropped issuerDistrusted at reservation, and the other (healthy) proposal settles the case 3479ms
+   ✓ P14B.1 test 6: trust, the widened chooser and the priority order > a Reliable issuer beats a Mixed-record issuer on the trust band, in the same otherwise-1-1-tie shape 1564ms
+   ✓ P14B.1 test 7: rival symmetry > attachPromise and its feasibility classification work identically when the issuer is a RIVAL (no player-only special-casing) 1470ms
+   ✓ P14B.1 test 7: rival symmetry > a rival proposal carries a P1 promise IFF its own feasibility is REASONABLY_ACHIEVABLE — derived from the FIRST rival proposalSubmitted receipt on the natural chain, never assumed 6839ms
+   ✓ P14B.1 test 7: rival symmetry > rival promise AUTHORING (ruling ii): the FIRST rival proposalSubmitted receipts on the natural chain are for the rivals' own WRITER subjects — IMPOSSIBLE under the landed M16.2 role gate (a writer takes no cast seat), so that proposal carries NO promise (true both today and after T2b); walking on to the first ACTOR-subject rival proposal, whose own feasibility is REASONABLY_ACHIEVABLE, it must carry exactly one P1 promise naming family APPEARANCE_COUNT — RED today (rivals author no promise yet); T2b makes it green 7142ms
+
+ Test Files  1 passed (1)
+      Tests  10 passed | 3 todo (13)
+   Start at  23:55:16
+   Duration  24.79s (transform 2.43s, setup 0ms, collect 3.07s, tests 20.94s, environment 0ms, prepare 263ms)
+
+(note: "a rival first take satisfies ..." — the 5th named line — was live-
+rendered and overwritten in the dot-reporter capture between the 4th named
+line and the summary; the file-level summary "10 passed | 3 todo (13)" is
+exact and was cross-checked against the individually-run case above)
+
+=== npx vitest run --project core --minWorkers=1 --maxWorkers=1 --reporter=dot tests/p14b1-first-take.test.ts (unchanged file; targeted-suite regression check) ===
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p14b1-first-take.test.ts (3 tests) 4097ms
+   ✓ P14B.1 test 1: the first-take receipt > PLAYER: never at shooting entry (empty at remainingTicks 5, shooting task unassigned then scheduled through the real actions, still empty after scheduling); appended exactly once at the 5 -> 4 advance; idempotent on a later tick; byte-stable across save/load 3562ms
+   ✓ P14B.1 test 1: the first-take receipt > RIVAL: the same receipt is appended once at the 5 -> 4 advance for a rival production found by direct search over the natural chain (never a magic week) 513ms
+
+ Test Files  1 passed (1)
+      Tests  3 passed (3)
+   Start at  23:55:51
+   Duration  8.11s
+
+=== npx vitest run --project core --minWorkers=1 --maxWorkers=1 --reporter=dot tests/p14b1-save-v29.test.ts (unchanged file; targeted-suite regression check) ===
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p14b1-save-v29.test.ts (6 tests) 949ms
+   ✓ P14B.1 test 8: Save V29 (genuine V28 fixture, empty new tables, same digests, round trip, downgrade) > genuine V28 open-case-45 fixture: sha256 matches, still validates as V28 through the frozen chain, migrates to V29 with EMPTY firstTakes and promises roots and promises: [] on every existing proposal, otherwise byte-identical 365ms
+
+ Test Files  1 passed (1)
+      Tests  6 passed (6)
+   Start at  23:56:08
+   Duration  4.17s
+
+=== npx vitest run --project core --minWorkers=1 --maxWorkers=1 --reporter=dot tests/p14b1-leak.test.ts (unchanged file; targeted-suite regression check) ===
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p14b1-leak.test.ts (2 tests) 3953ms
+   ✓ P14B.1 test 9: leak — a rival promise never discloses to a non-issuer, and settlement reasons stay ordering-only > a promise attached to the RIVAL's proposal says UNKNOWN on the player's disclosure view and something other than UNKNOWN on the rival's own 2560ms
+   ✓ P14B.1 test 9: leak — a rival promise never discloses to a non-issuer, and settlement reasons stay ordering-only > settlement reasons stay ordering-only (no dollar sign, no bare 3+-digit figure) even when an attached promise is part of the decision 1391ms
+
+ Test Files  1 passed (1)
+      Tests  2 passed (2)
+   Start at  23:56:23
+   Duration  7.42s
+
+── SUMMARY ────────────────────────────────────────────────────────────────
+tests/p14b1-promises.test.ts:       BEFORE 13 passed / 2 failed  ->  AFTER 15 passed / 0 failed
+tests/p14b1-trust-chooser.test.ts:  BEFORE  8 passed / 2 failed / 3 todo  ->  AFTER 10 passed / 0 failed / 3 todo
+tests/p14b1-first-take.test.ts:     3/3 (unchanged)
+tests/p14b1-save-v29.test.ts:       6/6 (unchanged)
+tests/p14b1-leak.test.ts:           2/2 (unchanged)
+npm run typecheck:                  clean (exit 0)
+typecheck:bridge:                   NOT RUN (excluded by task; red until T3)
+
+All four premises satisfied exactly as scoped. No production source
+touched — confirmed by `git status --short` showing only the two test files
+plus this evidence file as new/modified by this task (bridge/* and
+tests/bridge-p06-checkpoint-recovery.test.ts are pre-existing, unrelated,
+untouched working-tree changes from a concurrent bridge specialist).
