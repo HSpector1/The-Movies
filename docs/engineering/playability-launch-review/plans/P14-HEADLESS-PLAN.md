@@ -29,7 +29,7 @@ deferred and never claimed verified; every engine change creating client work is
 | Rival movements | `RivalMoneyKind` = 14 kinds (P13A `technologyAdoption`; S8 `researchSpend`, `researchCapacity`, `technologyRestoration`, `technologyRefund`); period exact-key validation | P14's `termination` rival kind lands in its own governed save step, as the package foresaw |
 | Persistence | live save **V27** (`LIVE_SAVE_VERSION`), bridge projection **41**, schema `sha256:16b84322…`; frozen chain V12–V26 with positive projections (`projectPlacementPreV26`, `projectHollywoodPreV27`) and policy threading | P14A.1 allocates **V28 / projection 42** at execution; genuine V27 fixtures are minted at the final V27 writer before any P14 source change |
 | Identities | the S8 closeout commit and its matched-pass attribution (P13B progress table) | cited by the P14A.1 records; no Owner acceptance of P13B exists (LOGIC VERIFIED · UNITY NOT VERIFIED only) |
-| Process-global caches | none found in `src/core` (grep for module-level `Map`/cache bindings, 2026-09-18); every P13B reducer is copy-on-write | keep it so; P14 adds no seed/id-keyed module state |
+| Process-global caches | one pre-existing module-level memo in `src/core/hollywood.ts:50` — `employmentByPerson`, a `WeakMap` keyed by the employment ARRAY instance (object identity, GC-safe), not by seed, `worldId`, `PersonId`, `caseId`, `contractId`, receipt id, `campaignId` or `sessionId`; no other module-level `Map`/cache binding in `src/core` (grep 2026-09-18); every P13B reducer is copy-on-write | admissible under the reconciliation's rule (identity-keyed, not id-keyed); P14 adds no seed/id-keyed module state and does not extend this memo |
 
 ## 3. Slice order
 
