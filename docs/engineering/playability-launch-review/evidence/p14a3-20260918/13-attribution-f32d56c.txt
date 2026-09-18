@@ -1,0 +1,17 @@
+P14A.3-T3 attribution — matched pass on f32d56c (2026-09-18 17:08:22Z → 18:24:48Z, 76 min; runner run-p14a3-matched-pass.sh; flags matched to headless-baseline-20260916)
+Source under test: f32d56c = b39e646 (bridge projection 44) + a3ebe95 (pins 43→44) + 016327c/f32d56c (tests only) + docs. Production diff a3ebe95..f32d56c over src/bridge/ui/generated: EMPTY. src/core unchanged since d894692 (the final V28 writer).
+
+CORE (11-test-core-f32d56c.txt): Test Files 7 failed | 286 passed (293); Tests 22 failed | 3174 passed | 3 todo (3199); CORE_EXIT=1
+BRIDGE (12-test-bridge-f32d56c.txt): check:bridge-contract verified, check:bridge-contract:fixtures verified; Test Files 2 failed | 66 passed (68); Tests 12 failed | 706 passed | 2 todo (720); BRIDGE_EXIT=1
+
+file                                   core / bridge   cause (stack-aware classifier; every header resolved)      bound   class
+bridge-p12-campaign-library            11 / 11         'Test timed out in Nms' (5 s / 20 s budgets)                ≤ 11    inherited
+bridge-p13-campaign-isolation           1 / 1          'Test timed out in Nms' (60 s inline budget)                1       inherited
+p13a-scientist-foundation               3 / –          golden digest AssertionError ×3                             3       inherited
+r3n1-stale-schedule-take-02{,p31,p32}   6 / –          ENOENT fixture files ×6                                     6       inherited
+world-first-scenery-load-in-provenance  1 / –          python3 export_district.py command failed                   1       inherited
+TOTAL                                  22 / 12         all inherited; zero failures in any P14 file; zero new files
+
+Delta from the P14A.2 pass (a0611b8, evidence p14a2-20260918/11,12,13): core +1 file / +16 tests (tests/bridge-p14a3-world.test.ts: 15 passed + 1 todo), bridge +1 file / +16 tests, +1 todo each (the arrival clause); every inherited count identical.
+
+LABEL: P14A.3 CLOSED — LOGIC VERIFIED · UNITY NOT VERIFIED on the f32d56c matched pass. Not Owner acceptance. LABEL CAVEAT (plan): this closes the world-route FACTS only; the companion's three client deliverables (lot status glyph and world entry, keyboard/controller paths, Unity parity) stay open in the backlog. Named limits: the arrival clause todo (rival Standing dominance); the `moved` departure unconstructible under the seat law (departure pinned through `declined`); status-line copy CANDIDATE; caseRef null with statusLine (implementation decision); no Unity code compiled or run.

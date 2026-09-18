@@ -165,7 +165,7 @@ verified in Unity. Generated C# produced by the TypeScript generator is text, no
 | Migration / integration risks | Build56 (projection 31) and the paused Unity branch (32) are unpaired with 43; Save V28 unchanged by this slice, so every V28 fixture from P14A.1 reads unchanged. The Pulse fold changes row counts for any consumer that pinned pulse totals (none in this repo did). The page-size values are hypotheses: a value change is a projection bump, not a save change. The two receipts do not carry each other's `eventId` (companion §2.1.8 prose vs the landed receipt — V29 candidate); the (talentId, week, kind) join is exact by one-contract-per-person. |
 | Unresolved product choices | The two page-size values (20 / 10); whether the per-person EMPLOYMENT route folds a settlement as Pulse does (today it shows both rows — plan A.2 item 3 scopes the fold to Pulse); durable review marks; the decision stop horizon (1 week, inherited Owner call); the fold row's prose. None decided here. |
 
-### P14A.3 — World route facts (engine Save V28 unchanged; bridge projection 44 — landed `b39e646`/`a3ebe95`; T3 matched pass pending, no label yet)
+### P14A.3 — World route facts (engine Save V28 unchanged; bridge projection 44 — landed `b39e646`/`a3ebe95`; CLOSED LOGIC VERIFIED · UNITY NOT VERIFIED on the `f32d56c` matched pass, attribution `evidence/p14a3-20260918/13`; facts only — the three client deliverables below stay open; not Owner acceptance)
 
 | Item | Record |
 |---|---|
