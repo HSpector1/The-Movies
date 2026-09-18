@@ -1,0 +1,179 @@
+p14a1: seat-law re-expressions — evidence 21
+Date: 2026-09-18. Worktree: /Users/zacheryspector/The-Movies-headless-program
+Branch: wip/headless-program-20260916-ts. HEAD at start: ce06f33.
+Role: independent test engineer (test-author), single vitest worker slot,
+probed with `ps -axo command | grep -c '[v]itest'` before each run (0 = free).
+
+Files touched (tests + evidence only):
+  tests/p14a1-seat-budget.test.ts       (case A secondary assertion -> dropped[]; new case D)
+  tests/p14a1-decline-reasons.test.ts   (case A premise documented NOT SATISFIED, left RED unweakened; case B re-expressed)
+  tests/bridge-p13b-s8-rivals.test.ts   (WEEK288 fixture + 3 descriptions restored to natural week 288)
+  docs/engineering/playability-launch-review/evidence/p14a1-20260918/21-premise-reexpressions.txt (this file)
+
+Bridge-file ownership check (before editing tests/bridge-p13b-s8-rivals.test.ts):
+`git diff` showed ONE pre-existing uncommitted hunk from the bridge implementer:
+PROJECTION_VERSION 41 -> 42 in the "item 1" describe block (three assertions:
+PROJECTION_VERSION, BRIDGE_SCHEMA.$id, x-project-studio.projectionVersion).
+That hunk was left untouched; my edits are confined to the WEEK288 fixture
+block and the three "natural week 293" description/error strings, all in a
+DIFFERENT describe block ("item 2"/"item 3"). Diff reviewed again after
+editing: still exactly 4 hunks, none overlapping the implementer's pin.
+
+=== RUN 1: npx vitest run tests/p14a1-seat-budget.test.ts tests/p14a1-decline-reasons.test.ts --project core --minWorkers=1 --maxWorkers=1 --reporter=verbose ===
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p14a1-seat-budget.test.ts > P14A.1: rival seat budget at freeze (commitRivalWinner has no seat cap; rivalProposalTrigger branch (c) fires for everyone at a synchronized expiry) > A. natural synchronized expiry at week 208 (seed 'p13-public-commercial-adoption'): every rival studio's active roster stays within RIVAL_TEAM_ROLES per role and in total at week 209 3284ms
+ ✓ |core| tests/p14a1-seat-budget.test.ts > P14A.1: rival seat budget at freeze (commitRivalWinner has no seat cap; rivalProposalTrigger branch (c) fires for everyone at a synchronized expiry) > B. unit-scale: a rival that already holds its full RIVAL_TEAM_ROLES actor seats through the decision week submits a challenge proposal on a player's expiring actor → declined, reason 'all proposals dropped', one drop sentence naming the rival and containing 'seat'; the rival's roster does not grow 597ms
+ ✓ |core| tests/p14a1-seat-budget.test.ts > P14A.1: rival seat budget at freeze (commitRivalWinner has no seat cap; rivalProposalTrigger branch (c) fires for everyone at a synchronized expiry) > C. the player is NOT seat-budgeted: a dominant incumbent player proposal settles even though the player already holds more actor contracts than RIVAL_TEAM_ROLES's 3-actor cap (guard against over-reach of the fix) — GREEN now, must stay GREEN 575ms
+ ✓ |core| tests/p14a1-seat-budget.test.ts > P14A.1: rival seat budget at freeze (commitRivalWinner has no seat cap; rivalProposalTrigger branch (c) fires for everyone at a synchronized expiry) > D. a rival that IS full at the decision week has its challenge on the player's expiring actor seat-dropped (dropped[] names the rival and contains "seat"), while the case still settles to the incumbent player 588ms
+ × |core| tests/p14a1-decline-reasons.test.ts > P14A.1: typed decline reasons > A. tie exhaustion: two entered rivals with identical material terms and tier, tied Standing band → reason "tie exhausted", one order-only sentence naming the tied count, never "reservation" 1622ms
+   → expected 'all proposals dropped' to be 'tie exhausted' // Object.is equality
+ ✓ |core| tests/p14a1-decline-reasons.test.ts > P14A.1: typed decline reasons > B. all proposals dropped: a single rival proposal fails affordability at the decision week → reason "all proposals dropped", one sentence naming the studio and the bonus predicate, never "reservation" 3106ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14a1-decline-reasons.test.ts > P14A.1: typed decline reasons > A. tie exhaustion: two entered rivals with identical material terms and tier, tied Standing band → reason "tie exhausted", one order-only sentence naming the tied count, never "reservation"
+AssertionError: expected 'all proposals dropped' to be 'tie exhausted' // Object.is equality
+
+Expected: "tie exhausted"
+Received: "all proposals dropped"
+
+ ❯ tests/p14a1-decline-reasons.test.ts:248:25
+    246|     const kase = marketOf(state).cases.find((c) => c.talentId === tale…
+    247|     expect(kase.outcome).toBe('declined')
+    248|     expect(kase.reason).toBe('tie exhausted') // RED, expected: see NO…
+       |                         ^
+    249| 
+    250|     const declineReceipts = marketOf(state).receipts.filter((r) => r.t…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed | 1 passed (2)
+      Tests  1 failed | 5 passed (6)
+   Start at  12:33:04
+   Duration  12.64s (transform 1.43s, setup 0ms, collect 2.12s, tests 9.78s, environment 1ms, prepare 212ms)
+
+
+=== RUN 2: npx vitest run tests/bridge-p13b-s8-rivals.test.ts --minWorkers=1 --maxWorkers=1 --reporter=verbose (no --project) ===
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/bridge-p13b-s8-rivals.test.ts > P13B-S8-T3 item 1: projection version bump 40 -> 41; converted flag > bumps PROJECTION_VERSION to 41 and its schema $id / x-project-studio.projectionVersion move with it
+ ✓ |core| tests/bridge-p13b-s8-rivals.test.ts > P13B-S8-T3 item 1: projection version bump 40 -> 41; converted flag > converted: false for a genuine current live-version save, round-tripped through save()/load() on the SAME session (regression guard — matches tests/bridge-p13b-r07-setup.test.ts's own now-fixed case) 1007ms
+ ✓ |core| tests/bridge-p13b-s8-rivals.test.ts > P13B-S8-T3 item 1: projection version bump 40 -> 41; converted flag > converted: true BY CONSTRUCTION for a genuine V26 fixture load (legacy-v26-lighting-restored-795, saveVersion 26 !== LIVE_SAVE_VERSION) — see header for why this cannot be a directly observed wire boolean through the current session API 566ms
+ ✓ |core| tests/bridge-p13b-s8-rivals.test.ts > P13B-S8-T3 item 2: Industry page rival technology facts — laboratoryOperational publishes; the other four kinds do not; existing kinds unchanged > a rival laboratoryOperational receipt yields exactly one activity per rival, in an existing group, headline verbatim, detail without counts (natural week 13: 4 rivals, 4 receipts)
+ ✓ |core| tests/bridge-p13b-s8-rivals.test.ts > P13B-S8-T3 item 2: Industry page rival technology facts — laboratoryOperational publishes; the other four kinds do not; existing kinds unchanged > laboratoryCommitted, instrumentOperational, researchSeatAssigned and researchCompleted receipts yield NO activity row (regression guard — already true today; natural week 277, all four kinds genuinely present and within the 13-week pulse window)
+ ✓ |core| tests/bridge-p13b-s8-rivals.test.ts > P13B-S8-T3 item 2: Industry page rival technology facts — laboratoryOperational publishes; the other four kinds do not; existing kinds unchanged > technologyAdopted rows are unchanged (regression guard; natural week 288, rival r01's real synchronized-sound adoption)
+ ✓ |core| tests/bridge-p13b-s8-rivals.test.ts > P13B-S8-T3 item 2: Industry page rival technology facts — laboratoryOperational publishes; the other four kinds do not; existing kinds unchanged > the S7 campaign-clock announcement row is unchanged (regression guard; heavy natural rival research present, week 288, both technologies pre-announcement)
+ ✓ |core| tests/bridge-p13b-s8-rivals.test.ts > P13B-S8-T3 item 3: rival finance exposed only through existing public standings > researchCapacity, technologyRestoration and technologyRefund never appear on the industry pulse page, the Laboratory page, or session.snapshot() (week 13: researchCapacity is genuinely nonzero from real rival Lab admission) 356ms
+ ✓ |core| tests/bridge-p13b-s8-rivals.test.ts > P13B-S8-T3 item 3: rival finance exposed only through existing public standings > the player's own finance researchSpend channel reads $0 in every window even while the rival's real researchSpend is nonzero elsewhere in the same state (week 288) 545ms
+ ✓ |core| tests/bridge-p13b-s8-rivals.test.ts > P13B-S8-T3 item 4: the player's Laboratory page is unchanged by rival research > forecast[] is byte-identical across two independently-seeded natural campaigns at the same week (genuinely different rival identities and rival research facts)
+ ✓ |core| tests/bridge-p13b-s8-rivals.test.ts > P13B-S8-T3 item 4: the player's Laboratory page is unchanged by rival research > no row for a rival project, no rival seat, no rival studioId anywhere in the JSON (week 288: heavy real rival research including a completed technology adoption)
+ ✓ |core| tests/bridge-p13b-s8-rivals.test.ts > P13B-S8-T3 item 5: the bridge accepts a real S8 state on snapshot(); history projections ignore the five kinds > session.snapshot() does not throw on a naturally-reached state carrying all five S8 receipt kinds and genuinely nonzero researchCapacity/researchSpend (week 288) 402ms
+ ✓ |core| tests/bridge-p13b-s8-rivals.test.ts > P13B-S8-T3 item 5: the bridge accepts a real S8 state on snapshot(); history projections ignore the five kinds > a non-player studio's own History view ignores the four no-row kinds (no row, no crash; week 288)
+ ✓ |core| tests/bridge-p13b-s8-rivals.test.ts > P13B-S8-T3 item 5: the bridge accepts a real S8 state on snapshot(); history projections ignore the five kinds > the player's own History (historyProjection, a disjoint root from IndustryReceipt) is untouched: session.snapshot() does not throw and its history section mentions none of the five kinds (week 288) 408ms
+ ✓ |core| tests/bridge-p13b-s8-rivals.test.ts > P13B-S8-T3 item 6: live-version save round-trip, Save As, genuine V26 fixture loads > a live-version save round-trips through the bridge byte-identically (week 288, real S8 facts: all five receipt kinds, nonzero researchCapacity/researchSpend) 2659ms
+ ✓ |core| tests/bridge-p13b-s8-rivals.test.ts > P13B-S8-T3 item 6: live-version save round-trip, Save As, genuine V26 fixture loads > a Save As world keeps the same rival receipts and publishes identical industry rows (week 13, natural rival Lab facts) 1931ms
+ ✓ |core| tests/bridge-p13b-s8-rivals.test.ts > P13B-S8-T3 item 6: live-version save round-trip, Save As, genuine V26 fixture loads > the three genuine V26 fixtures load through the bridge (sha256 verified) and their industry pulse page carries no S8-kind text anywhere (V26 predates S8; converted true by construction as item 1 documents) 1188ms
+
+ Test Files  1 passed (1)
+      Tests  17 passed (17)
+   Start at  12:33:26
+   Duration  17.84s (transform 2.44s, setup 0ms, collect 7.95s, tests 9.48s, environment 0ms, prepare 88ms)
+
+
+=== RUN 3: npm run typecheck (tsc --noEmit && tsc -p ui/tsconfig.json --noEmit) ===
+
+> project-studio-core@0.1.0 typecheck
+> tsc --noEmit && tsc -p ui/tsconfig.json --noEmit
+
+typecheck exit: 0
+
+=== SUMMARY ===
+
+tests/p14a1-seat-budget.test.ts: 4/4 green (A, B, C, D).
+  - A's secondary claim now reads dropped[] instead of reasons[] (disclosure
+    ruling postdates the original assertion); primary roster-cap claim
+    verbatim, unchanged.
+  - D is new (unit-scale guard): a rival naturally full through the decision
+    week challenges the player's expiring actor alongside the player's own
+    dominant proposal; the case SETTLES to the player, and the SETTLED
+    receipt's dropped[] carries exactly one sentence naming the rival and
+    containing "seat". Reuses case B's programmatic "full rival" discovery
+    verbatim (no hardcoded studio suffix).
+
+tests/p14a1-decline-reasons.test.ts: 1/2 (B green, A RED — DECLARED, not a
+regression):
+  - Case A: SEARCHED, NOT SATISFIED. Preference-order constructions tried and
+    their exact obstacles (both measured via disposable `npx vite-node`
+    probes under the session scratchpad, never committed):
+      (i) natural: >90 seeded probes (default seed, 'p13-public-commercial-
+          adoption', 'p14a1-dr-search-0..159') found no pair of ENTERED
+          rivals that is simultaneously (a) short the same role at some
+          decision week, (b) mutually solvent enough to submit AND settle an
+          affordable tier-1.00 proposal, and (c) within the Standing
+          tolerance. Concrete counterexample: seed 'p14a1-dr-search-56' pairs
+          r01/r02 short one actor seat at week 208-209 with Standing diff
+          2.33 (within tolerance) and cash 588,835 / 1,168,322 — but even the
+          CHEAPEST available actor (fame 11.6) is dropped "could not fund the
+          signing bonus" for both, because rivalOperatingReserve alone
+          (independent of the specific bonus) already exceeds their cash.
+          Root cause: under the landed seat budget, own-person cases settle
+          first in the fixed order, so a rival shows up short a seat ONLY
+          when it failed to defend its own incumbent — which correlates
+          with being the seed's financially weak studio, not a coincidence.
+      (ii) constructed copy-on-write edit: measured on THREE timings (edit at
+          week 5, week 40, and immediately before the settling tick at week
+          51) that `staff()` (src/core/hollywoodTick.ts, HOLLYWOOD_DECISION_
+          WEEKS=1) runs every week in the SAME tick as market settlement and
+          BEFORE it, and either auto-renews a freed row the moment its
+          window opens (the retention loop, unless the employee is itself an
+          open market-case subject) or synthesizes a brand-new hire for any
+          role deficit unconditionally (subject only to affordability). The
+          seat is refilled within one week every time, confirmed
+          empirically; genuinely protecting a constructed rival's seat the
+          way a real founding-cohort person is protected requires a SECOND,
+          independently-resolved nested market case per rival — materially
+          larger than "a declared copy-on-write edit".
+      (iii) per the assigning instruction: case A is left EXACTLY as
+          originally written (same seed, same closestStandingRivalPair
+          construction, same 'tie exhausted' claim — UNCHANGED, UNWEAKENED)
+          and is EXPECTED and OBSERVED to fail: `expected 'all proposals
+          dropped' to be 'tie exhausted'` (RUN 1 above). This is the named
+          obstacle, not a defect: the seat budget's own OPEN product
+          consequence already records that challenger proposals almost
+          always seat-drop at a synchronized expiry.
+  - Case B: RE-EXPRESSED, construction (i)/(ii) hybrid (declared, not
+    hidden). Reuses seed 'p13-public-commercial-adoption' at decision week
+    208 (the SAME synchronized founding-cohort expiry the seat-budget test
+    exercises), where every entered rival's rivalProposalTrigger branch (b)
+    fires automatically (no manual submitProposal call). ONE declared
+    copy-on-write edit — draining the FIRST entered rival's cash to 0
+    immediately before the settling tick (the file's original, non-hardcoded
+    selection) — causes that rival to ALSO fail its own six incumbent
+    defenses in the SAME pass (genuinely seat-free by settlement) and THEN
+    fail affordability on the subject's bonus specifically, while the other
+    three entered rivals (still solvent, having just defended their own six
+    seats) are seat-dropped. Confirmed symmetric across all four entered
+    rivals (draining any one produces the identical shape) — not
+    privileging one studio's identity. Cardinality changed from the
+    original file's "one proposal, one drop" to "four proposals (every
+    entered rival auto-challenges at the synchronized week), four drops,
+    one of them bonus-typed" — declared in the file header, not silently
+    narrowed; the underlying claim (a rival with room still declines on
+    affordability, never "reservation") is unchanged.
+
+tests/bridge-p13b-s8-rivals.test.ts: 17/17 green (RUN 2 above), including the
+implementer's own uncommitted PROJECTION_VERSION 42 pin (untouched by me).
+WEEK288 restored to advanceTo(WEEK277, 288); the three "natural week 293 —
+RE-EXPRESSED from 288" descriptions/error strings reverted to "natural week
+288" wording; header note replaced per the assigning instruction (market
+moved the week to 293 only while the roster was unbounded; the seat budget
+returns it to 288, evidence 20-seat-budget-measurements.txt final line).
+
+npm run typecheck: exit 0 (RUN 3 above; tsc --noEmit + ui/tsconfig.json).
+
+Combined vitest count this pass: 22 passed / 1 failed (declared, expected)
+across the three files (4 + 2 + 17 = 23 total cases; case A of
+decline-reasons fails as designed, the other 22 pass).

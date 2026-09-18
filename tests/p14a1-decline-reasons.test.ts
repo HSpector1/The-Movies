@@ -32,48 +32,125 @@
 //   - for a tie: exactly ONE sentence naming the number of tied proposals,
 //     containing neither "reservation" nor any amount.
 //   - for drops: exactly one sentence PER dropped proposal, naming the issuing
-//     studio and its predicate, from a typed six-predicate vocabulary (not
-//     entered; committed elsewhere; start week no longer matches; terms
-//     changed since submission; below the ask; could not fund the signing
-//     bonus) mirroring `survivesFreeze`'s own checks in `src/core/
-//     talentMarket.ts`.
+//     studio and its predicate, from a typed vocabulary (not entered;
+//     committed elsewhere; start week no longer matches; terms changed since
+//     submission; below the ask; could not fund the signing bonus; no seat
+//     open for the role — `FreezeDrop`, `src/core/talentMarket.ts`).
 // The exact sentence WORDING is CANDIDATE (not pinned by the coordinator);
 // this file pins only: the count, the studio's identification (studioId or
 // its public display name — the coordinator did not choose between them),
 // the word "reservation" absent (unless the predicate is the ask), and the
-// predicate keyword present ("bonus" for affordability).
+// predicate keyword present ("bonus" for affordability, "seat" for the rival
+// seat budget).
 //
-// RED-by-design: `closeCase`/`settleCase` in `src/core/talentMarket.ts` do
-// not yet distinguish a tie exhaustion from a drop — every decline is
-// currently stamped `reason: 'no proposal cleared'` with the fixed receipt
-// sentence "no proposal cleared this person's reservation" regardless of
-// cause. Both cases below are expected to fail against that current text.
+// LANDED SINCE THIS FILE WAS FIRST WRITTEN (`1f3fcd6`): the rival seat budget
+// (`daaf95f`, plan P14A.1 T2 log, evidence
+// p14a1-20260918/20-seat-budget-measurements.txt / 20-seat-budget-suites.txt)
+// added a SEVENTH `FreezeDrop`, `noSeatForRole`: a rival proposal is dropped
+// at freeze when the issuer has no seat for the subject's role at the
+// decision week. `survivesFreeze` checks it BEFORE reservation/affordability
+// (`src/core/talentMarket.ts` ≈936-960), so a rival that is genuinely full at
+// the decision week is seat-dropped before the tie ladder or the bonus check
+// ever runs for it.
 //
-// PREMISES DECLARED (searched empirically, not assumed):
-//   - On the default p13a fixture seed ('p13a-core-causal-01',
-//     `p13aGeneratedStudio()`'s default), a disposable vite-node probe (not
-//     committed) confirmed NO rival auto-proposes on a freshly-signed player
-//     actor's case between weeks 40 and 52: every rival's freshly-generated
-//     roster already meets `RIVAL_TEAM_ROLES`, so `rivalProposalTrigger`
-//     branch (c) never fires and branch (a)/(b) do not apply to a case whose
-//     `subjectStudioId` is the player. The only proposals present at week 52
-//     are the ones this file submits by hand.
-//   - Case A's exact tie needs two entered rivals whose `standingMean` differs
-//     by <= 5 (`STANDING_BAND_TOLERANCE`, `talentMarket.ts` — the D6 standing
-//     band: `mine >= highest - TOLERANCE ? 2 : …`, so within-tolerance issuers
-//     both land in the top band). The same probe measured, on this seed at
-//     week 40: r01=47.516, r02=48.061 (diff 0.545), r03=42.430, r04=45.384 —
-//     multiple pairs tie; this file picks the closest pair programmatically
-//     (never hardcodes a studio suffix) and asserts the premise explicitly so
-//     a future world-gen change fails loud here rather than mis-scoring the
-//     case silently.
-//   - Case B's affordability drop is INDUCED (not observed): the chosen
-//     rival's `account.cash` is set to 0 by a direct copy-on-write edit,
-//     after its (affordable) submission and before the settling tick — the
-//     same declared-premise idiom `tests/p14a1-settlement.test.ts` uses for
-//     induced fame drift. `rivalWeeklyOperatingCost(...) * reserveWeeks` is
-//     always positive, so cash=0 fails `affordabilityRefusal` unconditionally
-//     regardless of the exact reserve figure.
+// THREE-CONFLICT ADJUDICATION (coordinator, cited by the assigning
+// instruction verbatim): "`p14a1-decline-reasons` A/B hand-submit a rival
+// challenge on the player's week-52 actor and every founding rival is full
+// through 52, so both are seat-dropped before the tie/affordability they
+// test — re-expressed with a seat-free issuer (construction and premises
+// declared by the test-author; the claims unchanged)." This re-expression
+// (test-author, P14A.1 T2, second pass) is that work. Both cases' underlying
+// CLAIMS (a genuine tie exhaustion; a genuine affordability drop) are
+// unchanged from the original file; only the fixture construction moves.
+//
+// ── CASE A: SEARCHED, NOT SATISFIED (test-author; premise declared, not a
+// silent weakening) ──────────────────────────────────────────────────────
+//
+// The companion instruction's preferred constructions, in order, and what was
+// found for each (disposable `npx vite-node` probes under the session
+// scratchpad throughout — never committed, deleted after use):
+//
+// (i) NATURAL: searched for two ENTERED rivals, tied in Standing (within the
+//     D6 band, `STANDING_BAND_TOLERANCE`), BOTH with an open seat for the
+//     SAME role at some decision week, BOTH still solvent enough to submit
+//     and settle an affordable tier-1.00 proposal for a modest-fame actor.
+//     Measured across the default seed, 'p13-public-commercial-adoption' and
+//     >90 additional seeded probes (`p14a1-dr-search-0..159`) at weeks
+//     196-400: whenever two rivals are BOTH short the same role, they are
+//     also the seed's financially weak pair (e.g. seed
+//     'p14a1-dr-search-56': r01/r02 both short one actor seat at week
+//     208-209, Standing diff 2.33 — WITHIN tolerance — cash 588,835 /
+//     1,168,322; submitting a tier-1.00 proposal for the CHEAPEST available
+//     actor (fame 11.6, not the first-found fame-46.3 one) STILL drops both
+//     for "could not fund the signing bonus" — the operating RESERVE alone
+//     (`rivalOperatingReserve`, independent of the specific bonus) already
+//     exceeds their cash). This is not a coincidence: under the LANDED seat
+//     budget, own-person cases settle first in the fixed processing order
+//     (plan P14A.1 T2 log, the seat-budget "OPEN product consequence"), so a
+//     rival only shows up short a seat when it FAILED to defend its own
+//     incumbent — and failing that defense is itself typically a symptom of
+//     being the seed's cash-weak studio. No naturally-occurring pair of
+//     mutually solvent, close-Standing, same-role-short rivals was found.
+// (ii) CONSTRUCTED (a declared copy-on-write edit): measured directly (see
+//     Case B below for the full mechanics) that ending an employee's row or
+//     lowering `terms.endWeekExclusive` while leaving the row in
+//     `activeEmploymentOrdinals` does NOT survive to the decision week —
+//     `staff()` (`src/core/hollywoodTick.ts`, `HOLLYWOOD_DECISION_WEEKS: 1`)
+//     runs every week for every entered rival, in the SAME tick as market
+//     settlement and BEFORE it, and either (a) auto-RENEWS the row the
+//     moment its renewal window opens (the retention loop, unless the
+//     employee is itself an open market-case subject — the ONLY protection
+//     the engine has), or (b) if the row is fully removed from
+//     `activeEmploymentOrdinals`, SYNTHESIZES a brand-new hire for the role
+//     deficit unconditionally, subject only to affordability. Confirmed
+//     empirically on three timings (edit at week 5, at week 40, and
+//     immediately before the settling tick at week 51): the seat is back to
+//     full within one week every time the rival can afford a hire, and
+//     drops as low as $0 the SAME way construction (i) does when it can't.
+//     Making the rival's OWN role-slot genuinely protected the way a real
+//     founding-cohort person is (via an open market case of its own,
+//     resolving without the studio winning it back) is a SECOND, nested,
+//     independently-resolved market case per rival — materially larger than
+//     "a declared copy-on-write edit", and is not built here.
+// Given (i) and (ii) both fail, per the assigning instruction: the case is
+// left AS ORIGINALLY WRITTEN (same seed, same `closestStandingRivalPair`
+// construction, same 'tie exhausted' claim, UNCHANGED and UNWEAKENED) and is
+// EXPECTED TO FAIL against current law — `expected 'all proposals dropped'
+// to be 'tie exhausted'` — because on the default seed both members of the
+// closest Standing pair are full through week 208 and are seat-dropped
+// before the tie ladder ever runs. This is the named obstacle, not a defect
+// in the seat-budget law: the assigning instruction's own "OPEN product
+// consequence" already records that challenger proposals almost always
+// seat-drop at a synchronized expiry.
+//
+// ── CASE B: RE-EXPRESSED, construction (i)/(ii) HYBRID (declared) ─────────
+//
+// Reuses seed 'p13-public-commercial-adoption' and decision week 208 — the
+// SAME synchronized founding-cohort expiry `tests/p14a1-seat-budget.test.ts`
+// case A exercises — so the player's subject case is decided in the SAME
+// weekly pass as the 24 native cases. Measured fresh: at week 208 every
+// ENTERED rival's OWN same-role row also ends at week 208, so
+// `rivalProposalTrigger` branch (b) ("holds a same-role contract ending at or
+// before the subject's effective week") fires for ALL FOUR automatically —
+// no manual `submitProposal` call is needed or made. ONE declared
+// copy-on-write edit, applied to the FIRST entered rival (the same
+// non-hardcoded selection the file's original case B used — no studio suffix
+// named), immediately before the settling tick (week 207): its cash is
+// drained to 0, the same induced-premise idiom `tests/p14a1-settlement.test.ts`
+// uses for induced fame drift. Measured fresh (confirmed symmetric across all
+// four entered rivals — draining any one produces the identical shape): this
+// single edit ALSO causes that rival to fail its own six incumbent defenses
+// in the SAME pass (no affordable signing bonus, no winner — those six seats
+// simply lapse), so by the time our subject's case is evaluated the drained
+// rival genuinely has no held seat for the role (passes `noSeatForRole`) and
+// THEN fails on affordability for our subject's bonus specifically — while
+// every OTHER entered rival, still solvent and having just defended its own
+// six seats, is seat-dropped. The seat-freedom and the affordability failure
+// are therefore not two independent premises but one declared, causally
+// connected consequence of a single edit — named here, not hidden. The
+// underlying CLAIM (a rival that has room for one more seat still gets
+// declined on affordability, never on "reservation") is exactly the file's
+// original claim.
 
 import { describe, expect, it } from 'vitest'
 import { applyActions } from '../src/core/actions.js'
@@ -139,6 +216,12 @@ function marketOf(state: GameState): TalentMarketRoot {
 
 describe('P14A.1: typed decline reasons', () => {
   it('A. tie exhaustion: two entered rivals with identical material terms and tier, tied Standing band → reason "tie exhausted", one order-only sentence naming the tied count, never "reservation"', () => {
+    // NOT SATISFIED under the landed seat budget on this construction — see
+    // the file header "CASE A: SEARCHED, NOT SATISFIED" for the searched
+    // alternatives and the named obstacle. Left unweakened: both rivals in
+    // the closest Standing pair are full through week 208 on this seed, so
+    // they are seat-dropped (kase.reason 'all proposals dropped') before the
+    // tie ladder this case targets ever runs.
     const { state: signed, talentId } = signActor(p13aGeneratedStudio(), 52)
     const at40 = advanceTo(signed, 40)
     const [rivalA, rivalB] = closestStandingRivalPair(at40, 40)
@@ -162,7 +245,7 @@ describe('P14A.1: typed decline reasons', () => {
 
     const kase = marketOf(state).cases.find((c) => c.talentId === talentId)!
     expect(kase.outcome).toBe('declined')
-    expect(kase.reason).toBe('tie exhausted') // RED: current code stamps 'no proposal cleared'
+    expect(kase.reason).toBe('tie exhausted') // RED, expected: see NOT SATISFIED note above
 
     const declineReceipts = marketOf(state).receipts.filter((r) => r.talentId === talentId && r.kind === 'declined')
     expect(declineReceipts.length).toBe(1)
@@ -178,40 +261,44 @@ describe('P14A.1: typed decline reasons', () => {
   })
 
   it('B. all proposals dropped: a single rival proposal fails affordability at the decision week → reason "all proposals dropped", one sentence naming the studio and the bonus predicate, never "reservation"', () => {
-    const { state: signed, talentId } = signActor(p13aGeneratedStudio(), 52)
-    const at40 = advanceTo(signed, 40)
-    const rivalStudioId = at40.hollywood!.identities.find((s) => s.role === 'rival' && s.enteredWeek !== null)!.studioId
-    const rivalName = at40.hollywood!.identities.find((s) => s.studioId === rivalStudioId)!.name
+    // RE-EXPRESSED (test-author, P14A.1 T2) — see the file header "CASE B"
+    // note for the full construction and its declared causal chain.
+    const { state: signed, talentId } = signActor(p13aGeneratedStudio('p13-public-commercial-adoption'), 208)
+    const preDecision = advanceTo(signed, 207)
 
-    // Submitted while affordable (tier 1.0); drained just before the settling
-    // tick — a declared premise (see file header), not an observed fact. The
-    // drain runs AFTER advanceTo(51), not right after submission, because the
-    // ordinary weekly rival economy (revenue/payroll) would otherwise refill
-    // cash across the intervening 11 weeks and the drop would never happen.
-    let state = submitProposal(at40, { talentId, issuerStudioId: rivalStudioId, termWeeks: 52, premiumTier: 1.0 })
-    state = advanceTo(state, 51)
-    state = drainCash(state, rivalStudioId)
-    state = tick(state) // market.tick 51 -> 52, the decision week
-    expect(state.market.tick).toBe(52)
+    const rivalStudioId = preDecision.hollywood!.identities.find((s) => s.role === 'rival' && s.enteredWeek !== null)!.studioId
+    const rivalName = preDecision.hollywood!.identities.find((s) => s.studioId === rivalStudioId)!.name
+
+    let state = drainCash(preDecision, rivalStudioId)
+    state = tick(state) // market.tick 207 -> 208, the decision week
+    expect(state.market.tick).toBe(208)
 
     const settledView = caseForTalent(state, talentId, state.market.tick)!
     expect(settledView.status).toBe('declined')
 
     const kase = marketOf(state).cases.find((c) => c.talentId === talentId)!
     expect(kase.outcome).toBe('declined')
-    expect(kase.reason).toBe('all proposals dropped') // RED: current code stamps 'no proposal cleared'
+    expect(kase.reason).toBe('all proposals dropped')
 
     const declineReceipts = marketOf(state).receipts.filter((r) => r.talentId === talentId && r.kind === 'declined')
     expect(declineReceipts.length).toBe(1)
     const reasons = declineReceipts[0]!.reasons
-    expect(reasons.length).toBe(1) // one proposal submitted, one proposal dropped
+    // Every entered rival's own same-role row also ends at week 208 (the
+    // synchronized expiry), so every entered rival auto-proposes (branch b) —
+    // four sentences, one per issuer (see file header; the original file's
+    // single-proposal premise no longer holds under the seat budget).
+    expect(reasons.length).toBe(4)
+    const drainedSentence = reasons.find((r) => r.includes(rivalStudioId) || r.includes(rivalName))
+    expect(drainedSentence).toBeDefined()
     // Interpretation named (file header): the coordinator did not choose
     // between studioId and display name for "the studio name present".
-    expect(reasons[0].includes(rivalStudioId) || reasons[0].includes(rivalName)).toBe(true)
-    expect(reasons[0]).toMatch(/bonus/i) // the affordability predicate keyword
-    expect(reasons[0]).not.toMatch(/reservation/i)
+    expect(drainedSentence).toMatch(/bonus/i) // the affordability predicate keyword
+    expect(drainedSentence).not.toMatch(/reservation/i)
+    const others = reasons.filter((r) => r !== drainedSentence)
+    expect(others).toHaveLength(3)
+    for (const sentence of others) expect(sentence.toLowerCase()).toContain('seat') // the other three: genuinely full, seat-dropped
 
-    expect(state.contracts.find((c) => c.talentId === talentId && c.startWeek === 52)).toBeUndefined()
-    expect(state.hollywood!.employment.find((e) => e.terms.talentId === talentId && e.terms.startWeek === 52)).toBeUndefined()
+    expect(state.contracts.find((c) => c.talentId === talentId && c.startWeek === 208)).toBeUndefined()
+    expect(state.hollywood!.employment.find((e) => e.terms.talentId === talentId && e.terms.startWeek === 208)).toBeUndefined()
   })
 })
