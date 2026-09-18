@@ -208,7 +208,18 @@ export const PROTOCOL_VERSION = 4 as const
 //   * The presence/attention DTOs are UNCHANGED: no capability, marker or meeting concept
 //     is added anywhere, and the presence engagement and credit vocabularies gain nothing.
 // Save V28 is live; protocol stays 4; no new persisted fact.
-export const PROJECTION_VERSION = 44 as const
+// P14B.1 (projection 45) — Save V29 is live (the `firstTakes` and `promises` roots)
+// and the THIN CORE promise surface joins the wire: the case block's proposal rows
+// gain `promise` (the issuer's own row carries family, count, window and
+// classification; every competing row carries the SAME literal `"UNKNOWN"` marker
+// §2.1.5 already used for the tier, salary and bonus), the block gains `trustLabel`
+// (§4.5's public descriptor per viewing studio, no driver text) and `promiseHistory`
+// (the VIEWING studio's own BOUND promises for this person, open and settled), the
+// market-proposal draft gains an OPTIONAL `promise` and its quote a `promise`
+// verdict, and `priorityOrder` widens to the six landed descriptors. No new view,
+// page or intent kind; the trust driver text, the Pulse promise activities, the
+// promise attention causes and the workspace history are P14B.2.
+export const PROJECTION_VERSION = 45 as const
 
 const nonEmptyText = () => text({ minLength: 1 })
 const nonNegativeInteger = () => integer({ minimum: 0 })
@@ -1710,6 +1721,20 @@ const StudioQuoteContractRequest = object('StudioQuoteContractRequest', {
   draft: reference('StudioContractDraftPayload', StudioContractDraftPayload),
 })
 
+// ── P14B.1 (projection 45) — the promise facts a proposal row may carry ─────
+// ORDERING-ONLY facts (companion §4.1: never free text, never a salary term). The
+// three vocabularies are the engine's own unions verbatim; B.1 offers
+// `APPEARANCE_COUNT` alone and refuses the other four families at quote, but the
+// wire enumerates all five exactly as the engine's `PromiseFamily` does.
+const PROMISE_FAMILIES = [
+  'APPEARANCE_COUNT', 'LEAD_OR_SIGNIFICANT_ROLE_COUNT', 'DIRECTING_COUNT',
+  'PREFERRED_GENRE_OPPORTUNITY', 'SPECIFIC_PROJECT',
+] as const
+const PROMISE_CLASSIFICATIONS = ['REASONABLY_ACHIEVABLE', 'FRAGILE', 'IMPOSSIBLE'] as const
+const PROMISE_OUTCOMES = ['SATISFIED', 'BROKEN', 'WAIVED', 'VOIDED'] as const
+/** §4.5's public descriptor. No driver text on this projection (P14B.2). */
+const TRUST_LABELS = ['Reliable', 'Mixed record', 'Distrusted'] as const
+
 // ── P14A.1 — the market-proposal quote family (propose / revise / withdraw) ──
 // The incumbent's renewal for a person under an open case is a PROPOSAL settled at
 // the decision week (companion §2.1.3/R6), so it needs the same route the contract
@@ -1725,6 +1750,15 @@ const MARKET_PROPOSAL_REFUSAL_KINDS = [
   'noCurrentProposal',
 ] as const
 
+// P14B.1: the promise a propose/revise draft may carry. The window is read against
+// the SAME proposed contract the draft names (`startWeek` is the case's decision
+// week, `termWeeks` the draft's own term), so the payload carries neither.
+const StudioMarketProposalPromiseDraftPayload = object('StudioMarketProposalPromiseDraftPayload', {
+  family: enumeration(PROMISE_FAMILIES),
+  count: integer({ minimum: 1 }),
+  windowStartWeek: nonNegativeInteger(),
+  dueWeekExclusive: nonNegativeInteger(),
+})
 const StudioMarketProposalDraftPayload = object('StudioMarketProposalDraftPayload', {
   verb: enumeration(['propose', 'revise', 'withdraw']),
   talentId: nonEmptyText(),
@@ -1732,6 +1766,9 @@ const StudioMarketProposalDraftPayload = object('StudioMarketProposalDraftPayloa
   termWeeks: nullable(integer({ minimum: 1 })),
   /** Required for propose/revise: one of the published premium tiers (1.00 is the floor). */
   premiumTier: nullable(number({ minimum: 1 })),
+  /** OPTIONAL and ABSENT by default: a draft without a promise carries no member at
+   * all, so every client written before projection 45 stays wire-legal. */
+  promise: optional(reference('StudioMarketProposalPromiseDraftPayload', StudioMarketProposalPromiseDraftPayload)),
 })
 
 const StudioQuoteMarketProposalRequest = object('StudioQuoteMarketProposalRequest', {
@@ -1921,6 +1958,16 @@ const StudioContractQuoteSnapshot = object('StudioContractQuoteSnapshot', {
   consequence: nonEmptyText(),
 })
 
+// P14B.1: the offerability verdict for a drafted promise, as §4.3 decides it.
+// `message` is null exactly when `ok`; otherwise it is the typed refusal "not
+// offerable: <bottleneck>" carrying the feasibility service's own bottleneck text.
+// The drafted FAMILY is deliberately absent: a verdict names no promise terms.
+const StudioMarketPromiseQuoteSnapshot = object('StudioMarketPromiseQuoteSnapshot', {
+  ok: bool(),
+  classification: enumeration(PROMISE_CLASSIFICATIONS),
+  message: nullable(text()),
+})
+
 // P14A.1: the market-proposal consequence sheet. Nothing is charged by submitting —
 // the signing bonus is due at settlement IF this person selects it — so the sheet
 // publishes the decision week, the terms and the affordability answer, never a debit.
@@ -1952,6 +1999,9 @@ const StudioMarketProposalQuoteSnapshot = object('StudioMarketProposalQuoteSnaps
   /** The accepted D-12 answer on the bonus, asked at the read week. */
   affordable: bool(),
   consequence: nonEmptyText(),
+  /** P14B.1: null when the draft carried no promise (and on withdraw). A promise
+   * verdict never changes `ok` — B.1 commits no promise through this route. */
+  promise: nullable(reference('StudioMarketPromiseQuoteSnapshot', StudioMarketPromiseQuoteSnapshot)),
 })
 
 const StudioQuoteSnapshot = union('StudioQuoteSnapshot', [
@@ -2166,6 +2216,26 @@ const marketProposalCommon = {
   /** The week the proposal would take effect: the case's decision week. */
   effectiveWeek: nonNegativeInteger(),
 }
+const StudioMarketPromiseSnapshot = object('StudioMarketPromiseSnapshot', {
+  family: enumeration(PROMISE_FAMILIES),
+  /** The promised count X of a count family. */
+  count: integer({ minimum: 1 }),
+  windowStartWeek: nonNegativeInteger(),
+  dueWeekExclusive: nonNegativeInteger(),
+  classification: enumeration(PROMISE_CLASSIFICATIONS),
+})
+/** One row of the VIEWING studio's own promise record for this person: bound
+ * (`contractId` set) promises only, open (`outcome: null`) and settled. */
+const StudioMarketPromiseHistoryRow = object('StudioMarketPromiseHistoryRow', {
+  promiseId: nonEmptyText(),
+  family: enumeration(PROMISE_FAMILIES),
+  count: integer({ minimum: 1 }),
+  windowStartWeek: nonNegativeInteger(),
+  dueWeekExclusive: nonNegativeInteger(),
+  /** null while the promise is open. */
+  outcome: nullable(enumeration(PROMISE_OUTCOMES)),
+  outcomeWeek: nullable(nonNegativeInteger()),
+})
 const StudioMarketOwnProposalSnapshot = object('StudioMarketOwnProposalSnapshot', {
   disclosure: literal('own'),
   ...marketProposalCommon,
@@ -2173,6 +2243,8 @@ const StudioMarketOwnProposalSnapshot = object('StudioMarketOwnProposalSnapshot'
   /** RE-DERIVED at the read week through the shared pricing entry, never the stored quote. */
   annualSalary: number({ minimum: 0 }),
   signingBonus: number({ minimum: 0 }),
+  /** The issuer's OWN attached promise, or null when it attached none. */
+  promise: nullable(reference('StudioMarketPromiseSnapshot', StudioMarketPromiseSnapshot)),
 })
 const StudioMarketUndisclosedProposalSnapshot = object('StudioMarketUndisclosedProposalSnapshot', {
   disclosure: literal('undisclosed'),
@@ -2180,6 +2252,9 @@ const StudioMarketUndisclosedProposalSnapshot = object('StudioMarketUndisclosedP
   premiumTier: literal(MARKET_UNKNOWN),
   annualSalary: literal(MARKET_UNKNOWN),
   signingBonus: literal(MARKET_UNKNOWN),
+  /** §2.1.5 "a competing proposal's attached promises": the SAME marker the tier,
+   * salary and bonus already use — never a band, an estimate or a rumour. */
+  promise: literal(MARKET_UNKNOWN),
 })
 const StudioMarketProposalSnapshot = union('StudioMarketProposalSnapshot', [
   reference('StudioMarketOwnProposalSnapshot', StudioMarketOwnProposalSnapshot),
@@ -2201,7 +2276,11 @@ const StudioMarketAttentionRowSnapshot = object('StudioMarketAttentionRowSnapsho
 // §2.1.7: the archetype-derived priority order and preferred term are "readable on the
 // profile and not manipulable" — the engine's own public accessors, never a second copy.
 const StudioMarketPreferencesSnapshot = object('StudioMarketPreferencesSnapshot', {
-  priorityOrder: array(enumeration(['compensation', 'term', 'standing', 'incumbency'])),
+  priorityOrder: array(enumeration(
+    // P14B.1: the six LANDED descriptors (`talentMarket.ts` DESCRIPTOR_ORDER) — D3
+    // `opportunity` and D4 `trust` joined the engine's own public order at T2.
+    ['opportunity', 'compensation', 'term', 'trust', 'standing', 'incumbency'],
+  )),
   preferredTermWeeks: integer({ minimum: 1 }),
   line: nonEmptyText(),
 })
@@ -2221,6 +2300,12 @@ const StudioMarketCaseSnapshot = object('StudioMarketCaseSnapshot', {
   attentionRows: array(reference('StudioMarketAttentionRowSnapshot', StudioMarketAttentionRowSnapshot)),
   /** Order-only, after settlement. Never an amount. */
   settlementReasons: array(nonEmptyText()),
+  /** P14B.1 §4.5: how this person's record reads for the VIEWING studio. Derived on
+   * read from persisted facts, never a persisted meter, and never a hidden number. */
+  trustLabel: enumeration(TRUST_LABELS),
+  /** P14B.1: the VIEWING studio's own bound promises to this person. A rival's
+   * promise is never a row here — it is UNKNOWN on the proposal row and nowhere else. */
+  promiseHistory: array(reference('StudioMarketPromiseHistoryRow', StudioMarketPromiseHistoryRow)),
 })
 
 // ── P14A.2 — the Talent Market workspace page (projection 43) ────────────────
@@ -3149,8 +3234,10 @@ const definitions = {
   StudioQuoteSetCommissionRequest,
   StudioContractDraftPayload,
   StudioQuoteContractRequest,
+  StudioMarketProposalPromiseDraftPayload,
   StudioMarketProposalDraftPayload,
   StudioQuoteMarketProposalRequest,
+  StudioMarketPromiseQuoteSnapshot,
   StudioMarketProposalQuoteSnapshot,
   StudioBridgeQuoteRequest,
   StudioCastingQuoteSnapshot,
@@ -3200,6 +3287,8 @@ const definitions = {
   StudioPersonAttentionSnapshot,
   StudioPersonCareerRowSnapshot,
   StudioPersonCareerSnapshot,
+  StudioMarketPromiseSnapshot,
+  StudioMarketPromiseHistoryRow,
   StudioMarketOwnProposalSnapshot,
   StudioMarketUndisclosedProposalSnapshot,
   StudioMarketProposalSnapshot,
@@ -3352,6 +3441,10 @@ export type BridgeMarketProposalDraftPayload = InferSchema<typeof StudioMarketPr
 export type BridgeQuoteMarketProposalRequest = InferSchema<typeof StudioQuoteMarketProposalRequest>
 export type BridgeMarketProposalQuoteSnapshot = InferSchema<typeof StudioMarketProposalQuoteSnapshot>
 export type BridgeMarketProposalRefusalKind = (typeof MARKET_PROPOSAL_REFUSAL_KINDS)[number]
+export type BridgeMarketPromiseSnapshot = InferSchema<typeof StudioMarketPromiseSnapshot>
+export type BridgeMarketPromiseHistoryRow = InferSchema<typeof StudioMarketPromiseHistoryRow>
+export type BridgeMarketPromiseQuoteSnapshot = InferSchema<typeof StudioMarketPromiseQuoteSnapshot>
+export type BridgeMarketProposalPromiseDraftPayload = InferSchema<typeof StudioMarketProposalPromiseDraftPayload>
 export type BridgeMarketProposalSnapshot = InferSchema<typeof StudioMarketProposalSnapshot>
 export type BridgeMarketAttentionRowSnapshot = InferSchema<typeof StudioMarketAttentionRowSnapshot>
 export type BridgeMarketAttentionCause = (typeof MARKET_ATTENTION_CAUSES)[number]

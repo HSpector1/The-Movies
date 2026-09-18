@@ -492,7 +492,7 @@
           "$ref": "#/$defs/StudioProjectionBundle"
         },
         "snapshotVersion": {
-          "const": 44,
+          "const": 45,
           "type": "integer"
         },
         "stateDigest": {
@@ -609,7 +609,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 44,
+          "const": 45,
           "type": "integer"
         },
         "stateDigest": {
@@ -1128,7 +1128,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 44,
+          "const": 45,
           "type": "integer"
         },
         "stateDigest": {
@@ -1207,7 +1207,7 @@
           "$ref": "#/$defs/StudioProjectionBundle"
         },
         "snapshotVersion": {
-          "const": 44,
+          "const": 45,
           "type": "integer"
         },
         "stateDigest": {
@@ -1499,7 +1499,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 44,
+          "const": 45,
           "type": "integer"
         },
         "stateDigest": {
@@ -8807,6 +8807,12 @@
         "preferences": {
           "$ref": "#/$defs/StudioMarketPreferencesSnapshot"
         },
+        "promiseHistory": {
+          "items": {
+            "$ref": "#/$defs/StudioMarketPromiseHistoryRow"
+          },
+          "type": "array"
+        },
         "proposals": {
           "items": {
             "$ref": "#/$defs/StudioMarketProposalSnapshot"
@@ -8839,6 +8845,14 @@
         "talentId": {
           "minLength": 1,
           "type": "string"
+        },
+        "trustLabel": {
+          "enum": [
+            "Reliable",
+            "Mixed record",
+            "Distrusted"
+          ],
+          "type": "string"
         }
       },
       "required": [
@@ -8846,11 +8860,13 @@
         "decisionWeek",
         "decisionWeekLabel",
         "preferences",
+        "promiseHistory",
         "proposals",
         "settlementReasons",
         "status",
         "subjectStudioId",
-        "talentId"
+        "talentId",
+        "trustLabel"
       ],
       "type": "object",
       "x-csharp-name": "StudioMarketCaseSnapshot"
@@ -9122,6 +9138,16 @@
           "minimum": 1,
           "type": "number"
         },
+        "promise": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StudioMarketPromiseSnapshot"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
         "signingBonus": {
           "minimum": 0,
           "type": "number"
@@ -9143,6 +9169,7 @@
         "effectiveWeek",
         "issuerStudioId",
         "premiumTier",
+        "promise",
         "signingBonus",
         "submittedWeek",
         "termWeeks"
@@ -9196,8 +9223,10 @@
         "priorityOrder": {
           "items": {
             "enum": [
+              "opportunity",
               "compensation",
               "term",
+              "trust",
               "standing",
               "incumbency"
             ],
@@ -9214,6 +9243,159 @@
       "type": "object",
       "x-csharp-name": "StudioMarketPreferencesSnapshot"
     },
+    "StudioMarketPromiseHistoryRow": {
+      "additionalProperties": false,
+      "properties": {
+        "count": {
+          "maximum": 2147483647,
+          "minimum": 1,
+          "type": "integer"
+        },
+        "dueWeekExclusive": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "family": {
+          "enum": [
+            "APPEARANCE_COUNT",
+            "LEAD_OR_SIGNIFICANT_ROLE_COUNT",
+            "DIRECTING_COUNT",
+            "PREFERRED_GENRE_OPPORTUNITY",
+            "SPECIFIC_PROJECT"
+          ],
+          "type": "string"
+        },
+        "outcome": {
+          "anyOf": [
+            {
+              "enum": [
+                "SATISFIED",
+                "BROKEN",
+                "WAIVED",
+                "VOIDED"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "outcomeWeek": {
+          "anyOf": [
+            {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "promiseId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "windowStartWeek": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "count",
+        "dueWeekExclusive",
+        "family",
+        "outcome",
+        "outcomeWeek",
+        "promiseId",
+        "windowStartWeek"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioMarketPromiseHistoryRow"
+    },
+    "StudioMarketPromiseQuoteSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "classification": {
+          "enum": [
+            "REASONABLY_ACHIEVABLE",
+            "FRAGILE",
+            "IMPOSSIBLE"
+          ],
+          "type": "string"
+        },
+        "message": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "ok": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "classification",
+        "message",
+        "ok"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioMarketPromiseQuoteSnapshot"
+    },
+    "StudioMarketPromiseSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "classification": {
+          "enum": [
+            "REASONABLY_ACHIEVABLE",
+            "FRAGILE",
+            "IMPOSSIBLE"
+          ],
+          "type": "string"
+        },
+        "count": {
+          "maximum": 2147483647,
+          "minimum": 1,
+          "type": "integer"
+        },
+        "dueWeekExclusive": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "family": {
+          "enum": [
+            "APPEARANCE_COUNT",
+            "LEAD_OR_SIGNIFICANT_ROLE_COUNT",
+            "DIRECTING_COUNT",
+            "PREFERRED_GENRE_OPPORTUNITY",
+            "SPECIFIC_PROJECT"
+          ],
+          "type": "string"
+        },
+        "windowStartWeek": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "classification",
+        "count",
+        "dueWeekExclusive",
+        "family",
+        "windowStartWeek"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioMarketPromiseSnapshot"
+    },
     "StudioMarketProposalDraftPayload": {
       "additionalProperties": false,
       "properties": {
@@ -9227,6 +9409,9 @@
               "type": "null"
             }
           ]
+        },
+        "promise": {
+          "$ref": "#/$defs/StudioMarketProposalPromiseDraftPayload"
         },
         "talentId": {
           "minLength": 1,
@@ -9261,6 +9446,44 @@
       ],
       "type": "object",
       "x-csharp-name": "StudioMarketProposalDraftPayload"
+    },
+    "StudioMarketProposalPromiseDraftPayload": {
+      "additionalProperties": false,
+      "properties": {
+        "count": {
+          "maximum": 2147483647,
+          "minimum": 1,
+          "type": "integer"
+        },
+        "dueWeekExclusive": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "family": {
+          "enum": [
+            "APPEARANCE_COUNT",
+            "LEAD_OR_SIGNIFICANT_ROLE_COUNT",
+            "DIRECTING_COUNT",
+            "PREFERRED_GENRE_OPPORTUNITY",
+            "SPECIFIC_PROJECT"
+          ],
+          "type": "string"
+        },
+        "windowStartWeek": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "count",
+        "dueWeekExclusive",
+        "family",
+        "windowStartWeek"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioMarketProposalPromiseDraftPayload"
     },
     "StudioMarketProposalQuoteSnapshot": {
       "additionalProperties": false,
@@ -9339,6 +9562,16 @@
             {
               "minimum": 1,
               "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "promise": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StudioMarketPromiseQuoteSnapshot"
             },
             {
               "type": "null"
@@ -9462,6 +9695,7 @@
         "kind",
         "ok",
         "premiumTier",
+        "promise",
         "queueNote",
         "queues",
         "refusal",
@@ -9513,6 +9747,10 @@
           "const": "UNKNOWN",
           "type": "string"
         },
+        "promise": {
+          "const": "UNKNOWN",
+          "type": "string"
+        },
         "signingBonus": {
           "const": "UNKNOWN",
           "type": "string"
@@ -9534,6 +9772,7 @@
         "effectiveWeek",
         "issuerStudioId",
         "premiumTier",
+        "promise",
         "signingBonus",
         "submittedWeek",
         "termWeeks"
@@ -15904,7 +16143,7 @@
       "x-csharp-name": "StudioWrapReceiptSnapshot"
     }
   },
-  "$id": "urn:project-studio:bridge:protocol-4:projection-44",
+  "$id": "urn:project-studio:bridge:protocol-4:projection-45",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "description": "Canonical wire contract owned by the authoritative TypeScript runtime.",
   "oneOf": [
@@ -15960,7 +16199,7 @@
   "title": "Project Studio TypeScript to Unity Bridge",
   "x-project-studio": {
     "contractId": "project-studio-current-game-unity-bridge",
-    "projectionVersion": 44,
+    "projectionVersion": 45,
     "protocolVersion": 4,
     "routes": {
       "command": "POST /command",

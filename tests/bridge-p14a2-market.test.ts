@@ -212,11 +212,11 @@ function marketQuery(sessionId: string, targetId: string | null, page = 0, histo
 
 // ── group 1: PROJECTION_VERSION / schema $id / view market / converted law ──
 
-describe('group 1: PROJECTION_VERSION 44 / schema / view market / converted law', () => {
-  it('PROJECTION_VERSION is 44; the schema $id and x-project-studio.projectionVersion move with it', () => {
-    expect(PROJECTION_VERSION).toBe(44)
-    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${String(PROTOCOL_VERSION)}:projection-44`)
-    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(44)
+describe('group 1: PROJECTION_VERSION 45 / schema / view market / converted law', () => {
+  it('PROJECTION_VERSION is 45; the schema $id and x-project-studio.projectionVersion move with it', () => {
+    expect(PROJECTION_VERSION).toBe(45)
+    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${String(PROTOCOL_VERSION)}:projection-45`)
+    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(45)
   })
 
   it('a view:"market" industry request validates against the wire schema, and marketPage answers it', () => {
@@ -228,7 +228,7 @@ describe('group 1: PROJECTION_VERSION 44 / schema / view market / converted law'
     expect(page).toBeDefined()
   })
 
-  it('LIVE_SAVE_VERSION stays 28 under projection 44 — no persisted fact, the converted law is unchanged', () => {
+  it('LIVE_SAVE_VERSION is 29 under projection 45 — no persisted fact of A.2’s own, the converted law is unchanged', () => {
     expect(LIVE_SAVE_VERSION).toBe(29)
   })
 })
@@ -765,7 +765,11 @@ describe('group 9: save/load', () => {
     const openSession = BridgeSession.fromSaveJson(openJson, 'p14a2-bridge-v28-open')
     const reSavedOpen = openSession.save({ protocolVersion: PROTOCOL_VERSION, schemaId: SCHEMA_ID, sessionId: openSession.sessionId, commandId: 'save-1', expectedStateRevision: openSession.stateRevision })
     expect(reSavedOpen.accepted).toBe(true)
-    if (reSavedOpen.accepted) assertSha256(reSavedOpen.saveJson, V28_OPEN_CASE_45.sha256)
+    // P14B.1-T3 sweep (Save V29 is live): loading a genuine V28 fixture CONVERTS it
+    // by law (the two new roots are added), so the re-save is V29 bytes and can never
+    // equal the V28 fixture's own sha. The fixture's V28 sha above stays the provenance
+    // pin; what the re-save must prove is that it is the LIVE envelope.
+    if (reSavedOpen.accepted) expect((JSON.parse(reSavedOpen.saveJson) as { saveVersion: number }).saveVersion).toBe(29)
     // NOT YET EXISTING: marketPage — this test's RED cause.
     const openPage = marketPage(openSession.gameState, { view: 'market', targetId: null })
     expect(openPage.cases.renewalWindow).toHaveLength(1)
@@ -777,7 +781,7 @@ describe('group 9: save/load', () => {
     const settledSession = BridgeSession.fromSaveJson(settledJson, 'p14a2-bridge-v28-settled')
     const reSavedSettled = settledSession.save({ protocolVersion: PROTOCOL_VERSION, schemaId: SCHEMA_ID, sessionId: settledSession.sessionId, commandId: 'save-1', expectedStateRevision: settledSession.stateRevision })
     expect(reSavedSettled.accepted).toBe(true)
-    if (reSavedSettled.accepted) assertSha256(reSavedSettled.saveJson, V28_SETTLED_208.sha256)
+    if (reSavedSettled.accepted) expect((JSON.parse(reSavedSettled.saveJson) as { saveVersion: number }).saveVersion).toBe(29)
     const settledPage = marketPage(settledSession.gameState, { view: 'market', targetId: null })
     expect(settledPage.cases.closed.total).toBe(24)
 
@@ -787,7 +791,7 @@ describe('group 9: save/load', () => {
     const legacySession = BridgeSession.fromSaveJson(legacyJson, 'p14a2-bridge-v28-legacy')
     const reSavedLegacy = legacySession.save({ protocolVersion: PROTOCOL_VERSION, schemaId: SCHEMA_ID, sessionId: legacySession.sessionId, commandId: 'save-1', expectedStateRevision: legacySession.stateRevision })
     expect(reSavedLegacy.accepted).toBe(true)
-    if (reSavedLegacy.accepted) assertSha256(reSavedLegacy.saveJson, V28_LEGACY_TERMINATIONS_20.sha256)
+    if (reSavedLegacy.accepted) expect((JSON.parse(reSavedLegacy.saveJson) as { saveVersion: number }).saveVersion).toBe(29)
     expect((legacySession.gameState as unknown as { talentMarket: { legacyTerminations: unknown[] } }).talentMarket.legacyTerminations).toHaveLength(1)
     const legacyPage = marketPage(legacySession.gameState, { view: 'market', targetId: null })
     expect(legacyPage.attention).toEqual([])

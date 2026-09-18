@@ -62,7 +62,7 @@ describe('Owner UX outgoing projection20 migration', () => {
     expect(sha(beforeBytes)).toBe('88049d4408573de3a36a56957c2b8d3aed36655b9b3dbadc68da7bef991a8510')
     expect(sha(afterBytes)).toBe('a02fd2ac61c4dab71327cc685d0649da005c43f3834e47366f63a46318dfd10b')
     expect(PROTOCOL_VERSION).toBe(4)
-    expect(PROJECTION_VERSION).toBe(44)
+    expect(PROJECTION_VERSION).toBe(45)
     expect(SCHEMA_ID).not.toBe(P20_SCHEMA)
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(P20_SCHEMA)).toBe('projection-v20')
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)
@@ -117,12 +117,16 @@ describe('Owner UX outgoing projection20 migration', () => {
       if(beforeJson===null){expect(afterJson).toBeNull();expect(afterDigest).toBeNull();continue}
       const before=JSON.parse(beforeJson),after=JSON.parse(afterJson!)
       expect(after.saveVersion).toBe(29)
-      const {hollywood,technology,physicalPlans,talentMarket,...oldRoots}=after.state
+      const {hollywood,technology,physicalPlans,talentMarket,firstTakes,promises,...oldRoots}=after.state
       expect(technology).toEqual({ version: 4, recordingStartedWeek: before.state.market.tick, cooperationFromWeek: before.state.market.tick, projects: [], access: [], adoptions: [], productions: [], equipment: [], nextEquipmentId: 0 })
       // P13B-S3: V23 adds the physical-plan root, empty at the migration week.
       expect(physicalPlans).toEqual({ version: 1, nextPlanId: 1, plans: [] })
       // P14A.1: V28 adds the contested-market root, empty at the migration week.
       expect(talentMarket).toEqual({ cases: [], proposals: [], receipts: [], legacyTerminations: [], representation: null })
+      // P14B.1: V29 adds the two promise roots, empty at the migration week — no
+      // first take and no promise is reconstructed for anything already recorded.
+      expect(firstTakes).toEqual([])
+      expect(promises).toEqual([])
       for (const person of oldRoots.talent) {
         expect(person.skills.research).toEqual(Object.fromEntries(['scientificMethod','acoustics','instrumentation','experimentation','engineering','documentation'].map(skill => [skill,{ actual: 1, perceived: 1 }])))
         expect(person.workHistory.research).toBe(0)

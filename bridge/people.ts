@@ -42,6 +42,8 @@ import {
   publicPreferredTerm, publicPriorityOrder, submitProposal, UNKNOWN,
 } from '../src/core/talentMarket.ts'
 import type { Disclosed, MarketCaseView } from '../src/core/talentMarket.ts'
+import { trustDescriptor } from '../src/core/promises.ts'
+import { promiseHistoryFor, unboxPromise } from './promises.ts'
 import { contractActionDecisions, contractTermLabel } from './contract.ts'
 import { personWorldRoute } from './world.ts'
 import type {
@@ -858,6 +860,10 @@ const DESCRIPTOR_LABEL: Record<string, string> = {
   term: 'term length',
   standing: 'studio standing',
   incumbency: 'staying where they are',
+  // P14B.1: D3 and D4 joined the engine's own public order at T2 — an unproven
+  // person now weighs `opportunity` FIRST, so both need a published phrase here.
+  opportunity: 'the opportunity offered',
+  trust: 'a studio’s record with them',
 }
 
 const unbox = (value: Disclosed<number>): number | null => (value === UNKNOWN ? null : value)
@@ -954,9 +960,11 @@ export function marketCaseProjection(
     const premiumTier = unbox(row.premiumTier)
     const annualSalary = unbox(row.annualSalary)
     const signingBonus = unbox(row.signingBonus)
+    // P14B.1: the promise travels on the SAME disclosure test as the figures — the
+    // engine set both from one issuer check, so a competing row can only say UNKNOWN.
     return premiumTier === null || annualSalary === null || signingBonus === null
-      ? { disclosure: 'undisclosed' as const, ...common, premiumTier: UNKNOWN, annualSalary: UNKNOWN, signingBonus: UNKNOWN }
-      : { disclosure: 'own' as const, ...common, premiumTier, annualSalary, signingBonus }
+      ? { disclosure: 'undisclosed' as const, ...common, premiumTier: UNKNOWN, annualSalary: UNKNOWN, signingBonus: UNKNOWN, promise: UNKNOWN }
+      : { disclosure: 'own' as const, ...common, premiumTier, annualSalary, signingBonus, promise: unboxPromise(row.promise) }
   })
   const priorityOrder = [...publicPriorityOrder(state, talentId)]
   const preferredTermWeeks = publicPreferredTerm(state, talentId)
@@ -975,5 +983,9 @@ export function marketCaseProjection(
     proposals,
     attentionRows: marketAttentionRows(state, view, viewerStudioId, week),
     settlementReasons: [...disclosure.settlementReasons],
+    // P14B.1 §4.5: the public descriptor label for THIS viewing studio, derived on
+    // read through the engine's own service. No driver text on this projection.
+    trustLabel: trustDescriptor(state, talentId, viewerStudioId, week).label,
+    promiseHistory: promiseHistoryFor(state, talentId, viewerStudioId),
   }
 }

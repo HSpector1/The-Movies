@@ -471,7 +471,12 @@ describe('group 6: save/load', () => {
 
     const reSaved = session.save({ protocolVersion: PROTOCOL_VERSION, schemaId: SCHEMA_ID, sessionId: session.sessionId, commandId: 'save-1', expectedStateRevision: session.stateRevision })
     expect(reSaved.accepted).toBe(true)
-    if (reSaved.accepted) assertSha256(reSaved.saveJson, V28_OPEN_CASE_45.sha256) // byte-stable — unmodified round trip stays V28
+    // T3 CORRECTION to this file's own T3a premise: an unmodified round trip does NOT
+    // stay V28. Save V29 is the live writer and `fromSaveJson` migrates on load (the two
+    // empty roots asserted above ARE that conversion), so the re-save is V29 bytes by
+    // law. The fixture's V28 sha stays the provenance pin on the FILE (line above); the
+    // re-save proves only that the bridge wrote the live envelope.
+    if (reSaved.accepted) expect((JSON.parse(reSaved.saveJson) as { saveVersion: number }).saveVersion).toBe(29)
   })
 
   it('a live V29 state carrying a real promise round-trips through the bridge save/load path byte-stable, and the promise-row read is identical on both sides', () => {

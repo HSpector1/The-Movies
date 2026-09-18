@@ -315,11 +315,11 @@ function lightingBallroomAtRehearsal(): GameState {
 
 // ---------------------------------------------------------------------------
 
-describe('P13B-S5-R07-T3 bridge projection bump (37 -> 38; 44 after the P14A.3-T2 bump)', () => {
+describe('P13B-S5-R07-T3 bridge projection bump (37 -> 38; 45 after the P14B.1-T3 bump)', () => {
   it('PROJECTION_VERSION is 40; schema $id and x-project-studio.projectionVersion move with it', () => {
-    expect(PROJECTION_VERSION).toBe(44)
-    expect(BRIDGE_SCHEMA.$id).toContain('projection-44')
-    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(44)
+    expect(PROJECTION_VERSION).toBe(45)
+    expect(BRIDGE_SCHEMA.$id).toContain('projection-45')
+    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(45)
   })
   it('AVAILABLE_INTENT_KINDS gains productionSetupAction, distinct from every existing kind', () => {
     expect((AVAILABLE_INTENT_KINDS as readonly string[])).toContain('productionSetupAction')
@@ -584,7 +584,7 @@ describe('extra pin (parent instruction): the bridge\'s save/load "converted" re
     expect(saved.accepted).toBe(true)
     if (!saved.accepted) throw new Error(`save refused: ${JSON.stringify(saved)}`)
     const parsedSaveVersion = (JSON.parse(saved.saveJson) as { saveVersion: number }).saveVersion
-    expect(parsedSaveVersion).toBe(28) // the CURRENT live version — confirms this is not genuinely a migration
+    expect(parsedSaveVersion).toBe(29) // the CURRENT live version — confirms this is not genuinely a migration
 
     const loaded = session.load(control(session, nextCommandId('load')))
     expect(loaded.accepted).toBe(true)

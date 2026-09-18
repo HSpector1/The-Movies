@@ -222,13 +222,13 @@ function studioQuery(sessionId: string, targetId: string): IndustryQuery {
   }
 }
 
-// ── group 1: PROJECTION_VERSION 44 / schema / converted law ─────────────────
+// ── group 1: PROJECTION_VERSION 45 / schema / converted law ─────────────────
 
-describe('group 1: PROJECTION_VERSION 44 / schema / converted law', () => {
-  it('PROJECTION_VERSION is 44; the schema $id and x-project-studio.projectionVersion move with it', () => {
-    expect(PROJECTION_VERSION).toBe(44)
-    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${String(PROTOCOL_VERSION)}:projection-44`)
-    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(44)
+describe('group 1: PROJECTION_VERSION 45 / schema / converted law', () => {
+  it('PROJECTION_VERSION is 45; the schema $id and x-project-studio.projectionVersion move with it', () => {
+    expect(PROJECTION_VERSION).toBe(45)
+    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${String(PROTOCOL_VERSION)}:projection-45`)
+    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(45)
   })
 
   it('personWorldRoute answers for a freshly signed actor with no case yet — reach playerLot, statusLine null, caseRef null', () => {
@@ -241,7 +241,7 @@ describe('group 1: PROJECTION_VERSION 44 / schema / converted law', () => {
     expect(route.reach).toBe('playerLot')
   })
 
-  it('LIVE_SAVE_VERSION stays 28 under projection 44 — no persisted fact, the converted law is unchanged', () => {
+  it('LIVE_SAVE_VERSION is 29 under projection 45 — no persisted fact of A.3’s own, the converted law is unchanged', () => {
     expect(LIVE_SAVE_VERSION).toBe(29)
   })
 })
@@ -594,7 +594,10 @@ describe('group 7: save/load — V28 unchanged, the world route converts and rou
       const saved = session.save({ protocolVersion: PROTOCOL_VERSION, schemaId: SCHEMA_ID, sessionId: session.sessionId, commandId: 'save-1', expectedStateRevision: session.stateRevision })
       expect(saved.accepted).toBe(true)
       if (!saved.accepted) throw new Error(`save refused: ${JSON.stringify(saved)}`)
-      assertSha256(saved.saveJson, fixture.sha256)
+      // P14B.1-T3 sweep (Save V29 is live): the load CONVERTS this genuine V28
+      // fixture by law, so the re-save is V29 bytes — never the fixture's own sha,
+      // which stays the provenance pin asserted on the file above.
+      expect((JSON.parse(saved.saveJson) as { saveVersion: number }).saveVersion).toBe(29)
       const reloaded = BridgeSession.fromSaveJson(saved.saveJson, `p14a3-bridge-world-v28-reload-${String(fixture.week)}`)
       // A bounded sample: any case subject, plus the first five roster ids.
       const subjectIds = new Set(session.gameState.talentMarket.cases.map((c) => c.talentId))

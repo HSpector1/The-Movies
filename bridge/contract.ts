@@ -48,6 +48,8 @@ import {
   withdrawProposal,
 } from '../src/core/index.ts'
 import { financialConsequence } from './finance-consequence.ts'
+import { promiseQuoteSnapshot } from './promises.ts'
+import type { PromiseFamily } from '../src/core/types.ts'
 import { TUNING } from '../src/core/tuning.ts'
 import type { ActionOutcome } from '../ui/src/engine/adapter.ts'
 import type {
@@ -55,6 +57,7 @@ import type {
   BridgeContractQuoteSnapshot,
   BridgeContractRefusalKind,
   BridgeMarketProposalDraftPayload,
+  BridgeMarketPromiseQuoteSnapshot,
   BridgeMarketProposalQuoteSnapshot,
   BridgeMarketProposalRefusalKind,
   BridgePersonContractActionsSnapshot,
@@ -328,6 +331,16 @@ export function contractQuoteSnapshot(
 // (may this studio propose), `proposalDraft` (the price, re-derived at the read week),
 // `canAfford` (the accepted D-12 gate on the bonus) and `submitProposal`/`withdrawProposal`.
 
+/** P14B.1: the promise a propose/revise draft may carry. The proposed contract
+ * interval it is checked against comes from the draft's own term and the case's
+ * decision week — a client never names either. */
+export type MarketPromiseDraft = {
+  family: PromiseFamily
+  count: number
+  windowStartWeek: number
+  dueWeekExclusive: number
+}
+
 export type MarketProposalDraft = {
   verb: 'propose' | 'revise' | 'withdraw'
   talentId: string
@@ -335,6 +348,10 @@ export type MarketProposalDraft = {
   /** Required for propose/revise; ignored by withdraw. */
   termWeeks?: number | null
   premiumTier?: number | null
+  /** Optional, and null when the draft carries none. B.1 PREVIEWS a promise here:
+   * the verdict rides the quote, and no commit path attaches one (attachment is the
+   * engine's own entry), so nothing on this route can bind a promise. */
+  promise?: MarketPromiseDraft | null
 }
 
 export type MarketProposalRefusal = {
@@ -357,6 +374,9 @@ export type MarketProposalConversionOk = {
   effectiveWeek: number | null
   decisionWeek: number | null
   refusal: MarketProposalRefusal | null
+  /** The §4.3 verdict for the drafted promise; null when the draft carried none
+   * (and on withdraw, and on a draft refused before pricing). */
+  promise: BridgeMarketPromiseQuoteSnapshot | null
   apply: (state: GameState) => ActionOutcome
 }
 
@@ -468,6 +488,18 @@ export function marketProposalDraftToEngine(state: GameState, draft: MarketPropo
     effectiveWeek: quote?.startWeek ?? null,
     decisionWeek: view?.decisionWeek ?? null,
     refusal,
+    // The window is read against the contract THIS draft proposes: the decision week
+    // the engine itself priced, and the draft's own term. No second interval exists.
+    promise: draft.promise === undefined || draft.promise === null || quote === null
+      ? null
+      : promiseQuoteSnapshot(state, draft.issuerStudioId, talent.id, {
+          family: draft.promise.family,
+          count: draft.promise.count,
+          windowStartWeek: draft.promise.windowStartWeek,
+          dueWeekExclusive: draft.promise.dueWeekExclusive,
+          startWeek: quote.startWeek,
+          termWeeks: quote.termWeeks,
+        }, week),
     apply: applyMarketProposal,
   }
 }
@@ -510,6 +542,7 @@ export function marketProposalQuoteSnapshot(
     refusalRemedy: refusal === null ? null : refusal.remedy,
     affordable: signingBonus === null ? true : canAfford(state, signingBonus).ok,
     consequence,
+    promise: conversion.promise,
   }
 }
 
@@ -521,5 +554,6 @@ export function playerProposalDraft(state: GameState, payload: BridgeMarketPropo
     issuerStudioId: state.hollywood?.playerStudioId ?? '',
     termWeeks: payload.termWeeks,
     premiumTier: payload.premiumTier,
+    promise: payload.promise ?? null,
   }
 }

@@ -551,12 +551,12 @@ describe('CF-08 sound union-to-C# generation', () => {
       expect(response.promotedProperties.map((property) => property.wireName)).not.toContain('title')
       expect(response.promotedProperties.map((property) => property.wireName)).not.toContain('noFeeLine')
 
-      const generated = generateCsharpContract({ schema, protocolVersion: 4, projectionVersion: 44 })
+      const generated = generateCsharpContract({ schema, protocolVersion: 4, projectionVersion: 45 })
       expect(generated).toContain(
-        '// Schema identity: sha256:05e53f126b28c601a2ed80fb614347da571c90946b65808f111f77bf7bdd5392',
+        '// Schema identity: sha256:5b2a4ca93d930e90a288db55bb5cc3fdc8eea070ef51fa1450a193a325bd755d',
       )
       expect(schemaIdentity(schema)).toBe(
-        'sha256:05e53f126b28c601a2ed80fb614347da571c90946b65808f111f77bf7bdd5392',
+        'sha256:5b2a4ca93d930e90a288db55bb5cc3fdc8eea070ef51fa1450a193a325bd755d',
       )
       expect(generated).toContain('public sealed partial class StudioQuoteCastingRequest : StudioBridgeQuoteRequest')
       expect(generated).toContain('public StudioCastingDraftPayload draft;')
@@ -641,8 +641,16 @@ describe('CF-08 sound union-to-C# generation', () => {
         // (required), `StudioRosterRowSnapshot.worldStatusLine` and the public Industry person
         // row's `caseStatusLine`/`caseRef` (all nullable). No union moved; both whole-schema
         // identities move together again.
-        F10_CURRENT_QUOTE_UNIONS: '48a31e2c252e3762f9cc3bf2074c19402e4fdcbc522bec939ebf6f883ff7a81b',
-        F11_CURRENT_COMMAND_UNION: '48a31e2c252e3762f9cc3bf2074c19402e4fdcbc522bec939ebf6f883ff7a81b',
+        // P14B.1-T3 (projection 45): the thin Core promise surface — StudioMarketPromise
+        // Snapshot, StudioMarketPromiseHistoryRow, StudioMarketPromiseQuoteSnapshot and
+        // StudioMarketProposalPromiseDraftPayload join the schema; `promise` joins BOTH
+        // proposal-row members (the own row nullable, the undisclosed row the same
+        // `"UNKNOWN"` marker), `trustLabel`/`promiseHistory` join the case block, the
+        // market-proposal draft gains an OPTIONAL `promise` and its quote a nullable
+        // `promise` verdict, and `priorityOrder` widens to the six landed descriptors. The
+        // quote-request union gained no member; both whole-schema identities move together.
+        F10_CURRENT_QUOTE_UNIONS: 'c69088b3e114fdd6d801d9119a48db798f002ce749504855d031784b50f89222',
+        F11_CURRENT_COMMAND_UNION: 'c69088b3e114fdd6d801d9119a48db798f002ce749504855d031784b50f89222',
         F12_P05_PRODUCTION_SENTINEL: '78d68a2d7670585946f79ebbfc449c85c8ad98ac381b422a8a9abea66702bde6',
       } as const
       for (const [name, expectedHash] of Object.entries(expected)) {
