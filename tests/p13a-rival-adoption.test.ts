@@ -43,16 +43,32 @@ describe('P13A shared commercial adoption and exact rival cash consequence', () 
       expect(technology.adoptionRefusal(rivalCommitted, selected.studioId, receipt.stageFacilityId, 'missing-post')).toBe(technology.adoptionRefusal(player, own, ownStage.id, 'missing-post'))
       expect(selected.account.cash - original.account.cash).toBe(-1_475_000)
       expect({...selected, account: original.account}).toEqual(original)
-      expect(selected.account.periods.slice(0, original.account.periods.length)).toEqual(original.account.periods)
-      expect(selected.account.periods).toHaveLength(original.account.periods.length + 1)
+      // AMENDED (P14A.1 engine, d49cc27): under the ratified law the incumbent's
+      // renewal is a proposal settled at the decision week, and staff() skips
+      // case subjects — so this rival's founding roster runs to week 208 and is
+      // re-signed there for 208 more weeks (208 -> 416); THAT contract's own
+      // decision week is 416, so `released` (advanceTo(...,416)) already carries
+      // a settlement signing movement in the finance period covering week 416
+      // before this test's standalone considerRivalSoundPurchase call ever runs.
+      // The period the purchase would open is therefore ALREADY open, and the
+      // purchase folds into it instead of opening a new one. This case is about
+      // the PURCHASE's own consequence, not the settlement's premise, so every
+      // assertion below is expressed relative to `original` (the genuinely
+      // observed pre-purchase state), never as a hardcoded absolute.
+      expect(selected.account.periods).toHaveLength(original.account.periods.length)
+      expect(selected.account.periods.slice(0, -1)).toEqual(original.account.periods.slice(0, -1))
       const period = selected.account.periods.at(-1)!
+      const originalPeriod = original.account.periods.at(-1)!
       expect(Object.keys(period).sort()).toEqual(['closing', 'fromWeek', 'movements', 'opening', 'throughWeek'])
-      expect(period).toMatchObject({fromWeek: 416, throughWeek: 416, opening: original.account.cash, closing: original.account.cash - 1_475_000})
-      // P13B-S8 sweep: every period carries the four research kinds too; this
-      // studio spent nothing on research in the period it bought sound.
-      expect(period.movements).toEqual({capacity: 0, signing: 0, payroll: 0, overhead: 0, facilityOpex: 0,
-        development: 0, production: 0, marketing: 0, studioRevenue: 0, technologyAdoption: -1_475_000,
-        researchSpend: 0, researchCapacity: 0, technologyRestoration: 0, technologyRefund: 0})
+      expect(period.fromWeek).toBe(originalPeriod.fromWeek)
+      expect(period.throughWeek).toBe(originalPeriod.throughWeek)
+      expect(period.opening).toBe(originalPeriod.opening)
+      expect(period.closing).toBe(originalPeriod.closing - 1_475_000)
+      // The purchase's own consequence, and nothing else: technologyAdoption
+      // moves by exactly -1,475,000 in this period; every OTHER movement kind
+      // equals whatever `original` already carried in that same period (P13B-S8
+      // sweep: all fourteen keys present either way).
+      expect(period.movements).toEqual({...originalPeriod.movements, technologyAdoption: originalPeriod.movements.technologyAdoption - 1_475_000})
       const duplicateBefore = JSON.stringify(hollywood)
       expect(considerRivalSoundPurchase({...released, technology: result}, hollywood, selected)).toBe(result)
       expect(JSON.stringify(hollywood)).toBe(duplicateBefore)

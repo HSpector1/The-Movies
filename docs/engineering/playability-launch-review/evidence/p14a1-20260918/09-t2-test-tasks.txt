@@ -1,0 +1,94 @@
+
+=== npx vitest run --project core --minWorkers=1 --maxWorkers=1 --reporter=verbose tests/p13a-rival-adoption.test.ts ===
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p13a-rival-adoption.test.ts > P13A shared commercial adoption and exact rival cash consequence > uses the shared player/rival eligibility function and debits only technology adoption without new plant or RNG draws 439ms
+ ✓ |core| tests/p13a-rival-adoption.test.ts > P13A shared commercial adoption and exact rival cash consequence > replays the actual weekly commercial purchase, reconciles its debit and creates one dated operational receipt 1253ms
+
+ Test Files  1 passed (1)
+      Tests  2 passed (2)
+   Start at  09:22:23
+   Duration  11.68s (transform 1.60s, setup 0ms, collect 2.06s, tests 9.22s, environment 0ms, prepare 110ms)
+
+
+=== npx vitest run --project core --minWorkers=1 --maxWorkers=1 --reporter=verbose tests/p14a1-firing.test.ts ===
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p14a1-firing.test.ts > P14A.1 test 7: firing — 26-week cap, R1 floor, disclosure content > the cap applies when more than 26 weeks remain: charge = weekly × 26, strictly less than the discarded 50%-of-guaranteed rule
+ ✓ |core| tests/p14a1-firing.test.ts > P14A.1 test 7: firing — 26-week cap, R1 floor, disclosure content > the cap does NOT apply when 26 or fewer weeks remain: charge = all remaining guaranteed base salary, unchanged from today's formula at that boundary 1121ms
+ ✓ |core| tests/p14a1-firing.test.ts > P14A.1 test 7: firing — 26-week cap, R1 floor, disclosure content > the charge law is continuous at exactly 26 weeks remaining (no cliff, §3.5 E5) 2733ms
+ ✓ |core| tests/p14a1-firing.test.ts > P14A.1 test 7: firing — 26-week cap, R1 floor, disclosure content > R1 floor: a released person's ask toward the releasing studio is floored at the terminated contract's annual salary, valid until the ORIGINAL endWeekExclusive
+ ✓ |core| tests/p14a1-firing.test.ts > P14A.1 test 7: firing — 26-week cap, R1 floor, disclosure content > the disclosure content per direction 2 states remaining duration, remaining guaranteed compensation, the cap, the exact charge, and the effective end — two branches (cap applies / cap does not apply) 556ms
+ × |core| tests/p14a1-firing.test.ts > P14A.1 test 7: firing — 26-week cap, R1 floor, disclosure content > E1 closed by R1: releasing a person, then re-signing the SAME PersonId to the SAME studio through the real player signContract, must be floored at the terminated contract's annual salary — not the plain (lower) market ask
+   → expected 546797 to be 656156 // Object.is equality
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14a1-firing.test.ts > P14A.1 test 7: firing — 26-week cap, R1 floor, disclosure content > E1 closed by R1: releasing a person, then re-signing the SAME PersonId to the SAME studio through the real player signContract, must be floored at the terminated contract's annual salary — not the plain (lower) market ask
+AssertionError: expected 546797 to be 656156 // Object.is equality
+
+- Expected
++ Received
+
+- 656156
++ 546797
+
+ ❯ tests/p14a1-firing.test.ts:196:38
+    194|     const resigned = applyActions(released, [{ kind: 'signContract', t…
+    195|     const newContract = resigned.contracts.find((c) => c.talentId === …
+    196|     expect(newContract.annualSalary).toBe(correctlyFloored.annualSalar…
+       |                                      ^
+    197|     expect(newContract.annualSalary).toBeGreaterThanOrEqual(floor.floo…
+    198|   })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 5 passed (6)
+   Start at  09:22:43
+   Duration  6.73s (transform 1.45s, setup 0ms, collect 1.89s, tests 4.49s, environment 0ms, prepare 90ms)
+
+
+=== npx vitest run --project core --minWorkers=1 --maxWorkers=1 --reporter=verbose tests/p14a1-save-v28.test.ts ===
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p14a1-save-v28.test.ts > P14A.1 test 8: Save V28 (genuine V27 fixtures, honest lift, downgrade, validator refusals, sentinel 29) > genuine V27 natural-rival-labs fixture: sha256 matches, migrates to V28 with an EMPTY talentMarket root and no P14 receipts, otherwise byte-identical
+ ✓ |core| tests/p14a1-save-v28.test.ts > P14A.1 test 8: Save V28 (genuine V27 fixtures, honest lift, downgrade, validator refusals, sentinel 29) > genuine V27 renewal-window-456 fixture (a player Scientist already inside its 12-week renewal window): still migrates to V28 with an EMPTY talentMarket root — migration invents no case
+ ✓ |core| tests/p14a1-save-v28.test.ts > P14A.1 test 8: Save V28 (genuine V27 fixtures, honest lift, downgrade, validator refusals, sentinel 29) > genuine usage of marketEligibility (not a dead import): the renewal-window-456 fixture's player Scientist subject classifies as renewal_window on the lifted V28 state
+ ✓ |core| tests/p14a1-save-v28.test.ts > P14A.1 test 8: Save V28 (genuine V27 fixtures, honest lift, downgrade, validator refusals, sentinel 29) > downgrade LOSSLESS: a freshly-lifted V28 state (empty talentMarket root) downgrades through save.migrateToV27 directly, byte-identical to the source
+ ✓ |core| tests/p14a1-save-v28.test.ts > P14A.1 test 8: Save V28 (genuine V27 fixtures, honest lift, downgrade, validator refusals, sentinel 29) > downgrade REFUSED: a talentMarket root carrying any case/proposal/receipt refuses V28->V27
+ ✓ |core| tests/p14a1-save-v28.test.ts > P14A.1 test 8: Save V28 (genuine V27 fixtures, honest lift, downgrade, validator refusals, sentinel 29) > VALIDATOR REFUSED: a talentMarket case with no backing discovery receipt is refused (no market authority without a receipt, mirroring the S8 rival-authority invariant)
+ ✓ |core| tests/p14a1-save-v28.test.ts > P14A.1 test 8: Save V28 (genuine V27 fixtures, honest lift, downgrade, validator refusals, sentinel 29) > VALIDATOR REFUSED: a proposal missing the required `representation` key, or carrying a non-null value, is refused (R10)
+ ✓ |core| tests/p14a1-save-v28.test.ts > P14A.1 test 8: Save V28 (genuine V27 fixtures, honest lift, downgrade, validator refusals, sentinel 29) > an unknown saveVersion 29 is refused, naming the handled range "1 through 28 only"
+ × |core| tests/p14a1-save-v28.test.ts > P14A.1 test 8: Save V28 (genuine V27 fixtures, honest lift, downgrade, validator refusals, sentinel 29) > R4 legacy terminations: a V27 termination priced under the OLD 50% law still validates through the frozen chain, and lifts to V28 recorded as legacy with no invented back-charge
+   → expected [Function] to not throw an error but 'Error: validateSaveV27: frozen V26 st…' was thrown
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14a1-save-v28.test.ts > P14A.1 test 8: Save V28 (genuine V27 fixtures, honest lift, downgrade, validator refusals, sentinel 29) > R4 legacy terminations: a V27 termination priced under the OLD 50% law still validates through the frozen chain, and lifts to V28 recorded as legacy with no invented back-charge
+AssertionError: expected [Function] to not throw an error but 'Error: validateSaveV27: frozen V26 st…' was thrown
+
+- Expected: 
+undefined
+
++ Received: 
+"Error: validateSaveV27: frozen V26 state is invalid — validateSaveV26: frozen V25 state is invalid — validateSaveV25: frozen V24 state is invalid — Hollywood save: employment termination lacks its actual player payment"
+
+ ❯ tests/p14a1-save-v28.test.ts:273:66
+    271|     // readers must reconcile a termination under the law in force at …
+    272|     // era, not today's law.
+    273|     expect(() => save.validateSave(forgedEnvelope as never)).not.toThr…
+       |                                                                  ^
+    274| 
+    275|     // (b) lifts to V28 with the termination recorded as legacy, no in…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 8 passed (9)
+   Start at  09:22:59
+   Duration  3.27s (transform 1.40s, setup 0ms, collect 1.86s, tests 784ms, environment 1ms, prepare 121ms)
+

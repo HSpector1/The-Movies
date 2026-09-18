@@ -32,10 +32,25 @@
 // differs for a Scientist, only that this particular fixture's subject
 // happens to be one.
 //
-// RED-by-design: `src/core/talentMarket.ts` does not exist yet.
-// `marketEligibility` is the ONE import from that new module (the same
-// interpreted name as tests/p14a1-eligibility.test.ts), and it is CALLED
-// below, so this file fails at module resolution before any test body runs.
+// P14A.1 T2 landed at `d49cc27`: `src/core/talentMarket.ts` now exists (this
+// file's original RED-by-module-resolution cause is gone; all 8 cases above
+// pass, evidence `p14a1-20260918/08-engine-p14a1-suite.txt`).
+// ADDED (coordinator instruction, post-T2): one more case for R4 (legacy
+// terminations, companion §3.4/§3.5, recommendation R4). ENGINE FACT,
+// verified directly against `d49cc27` source and by vite-node probe:
+// `terminationCost` (src/core/employment.ts) is the SAME, unversioned
+// 26-week-cap formula for EVERY caller and EVERY save era; grep of
+// `src/core/save.ts`/`src/core/talentMarket.ts` for `legacyTerminations`
+// returns nothing — no R4 migration-receipt mechanism exists. Probed
+// directly: signing then releasing a real player contract on the genuine
+// `legacy-v27-natural-rival-labs-20` fixture produces a real, validator-
+// passing termination (ledger row + P12 mirror + receipt) priced at the NEW
+// law (624,650 for this probe's contract); replacing ONLY that ledger row's
+// amount with the OLD `HIRING_TERMINATION_FRACTION` (0.5) figure for the
+// SAME contract (2,498,600) and re-validating throws today, verbatim:
+// "Hollywood save: employment termination lacks its actual player payment"
+// (hollywoodValidation.ts ≈505, reached through the frozen V26/V25/V24
+// chain) — confirming the engine fact and the RED cause named below.
 //
 // INTERPRETATIONS NAMED:
 //   1. `SaveFileV28`/`migrateToV28`/`validateSaveV28` are accessed through a
@@ -70,15 +85,27 @@
 //     case-insensitive substring match on "cannot downgrade" (mirroring the
 //     S6/S8 template) and a substring match on "representation" for the R10
 //     refusal.
+//   - The R4 case (below) forges its termination on a FRESHLY-SIGNED player
+//     contract (the natural-rival-labs-20 fixture carries no player
+//     contracts at all, per direct probe: `contracts count 0`), not on a
+//     pre-existing historical one — the coordinator's "genuine ...
+//     fixture... hand construction" is read as "use the real sign/release
+//     actions to produce a validator-consistent substrate on the genuine
+//     fixture, then hand-forge only the price", matching the one technique
+//     available given this fixture's actual contents. The `legacyTerminations`
+//     field name/shape is an INTERPRETATION (companion §3.4's own words:
+//     "exact `contractId`, `endedWeek` and the ledger amount actually
+//     paid"); only presence and those three facts are asserted.
 
 import { createHash } from 'node:crypto'
 import { readFileSync } from 'node:fs'
 import { gunzipSync } from 'node:zlib'
 import { describe, expect, it } from 'vitest'
+import { applyActions } from '../src/core/actions.js'
+import { guaranteedComp, hiringMarketIds } from '../src/core/employment.js'
 import * as save from '../src/core/save.js'
+import { TUNING } from '../src/core/tuning.js'
 import type { GameState } from '../src/core/types.js'
-// RED-by-design: src/core/talentMarket.ts does not exist. This is the ONE
-// import from that new module in this file.
 import { marketEligibility } from '../src/core/talentMarket.js'
 
 type SaveModuleWithV28 = typeof save & {
@@ -211,5 +238,50 @@ describe('P14A.1 test 8: Save V28 (genuine V27 fixtures, honest lift, downgrade,
     const lifted = withV28.migrateToV28(JSON.parse(json))
     const forged = { ...lifted, saveVersion: 29 }
     expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 28 only/)
+  })
+
+  it('R4 legacy terminations: a V27 termination priced under the OLD 50% law still validates through the frozen chain, and lifts to V28 recorded as legacy with no invented back-charge', () => {
+    const json = load(V27_FIXTURES.naturalRivalLabs.file)
+    const genuine = save.validateSave(JSON.parse(json) as never).state as GameState
+    expect(genuine.contracts).toEqual([]) // this fixture carries no player contracts — sign one first (see header)
+
+    const actorId = hiringMarketIds(genuine, genuine.market.tick).map((id) => genuine.talent.find((t) => t.id === id)).find((t) => t?.role === 'actor')!.id
+    const signed = applyActions(genuine, [{ kind: 'signContract', talentId: actorId, termWeeks: 208 }])
+    const contract = signed.contracts.find((c) => c.talentId === actorId)!
+    const released = applyActions(signed, [{ kind: 'releaseTalent', talentId: actorId }]) // real release: real ledger row, real P12 mirror, real receipt
+    const ledgerRow = released.ledger.find((r) => r.kind === 'termination' && r.talentId === actorId)!
+    const newLawCharge = -ledgerRow.amount
+    const empRow = released.hollywood!.employment.find((e) => e.terms.talentId === actorId && e.studioId === released.hollywood!.playerStudioId)!
+    expect(empRow.endedWeek).toBe(genuine.market.tick)
+
+    // The OLD law this contract was NEVER actually charged under (the engine
+    // only ever produced newLawCharge above) — computed directly from the
+    // discarded HIRING_TERMINATION_FRACTION formula companion §3.1 names.
+    const oldLawCharge = Math.round(TUNING.HIRING_TERMINATION_FRACTION * guaranteedComp(contract, genuine.market.tick))
+    expect(oldLawCharge).not.toBe(newLawCharge) // sanity: genuinely distinguishable, not a coincidental tie
+
+    // Hand-forge ONLY the price: the ledger row and cash, consistent with the
+    // old law, for the SAME real contractId/endedWeek/receipt the engine
+    // already produced — nothing else in the state is touched.
+    const forgedLedger = released.ledger.map((r) => (r === ledgerRow ? { ...r, amount: -oldLawCharge } : r))
+    const forgedState: GameState = { ...released, ledger: forgedLedger, studio: { ...released.studio, cash: released.studio.cash + (newLawCharge - oldLawCharge) } }
+    const forgedEnvelope = { saveVersion: 27 as const, seed: forgedState.seed, state: forgedState, broadcastCache: forgedState.broadcastItems }
+
+    // (a) still validates as V27 through the frozen chain — the frozen
+    // readers must reconcile a termination under the law in force at ITS
+    // era, not today's law.
+    expect(() => save.validateSave(forgedEnvelope as never)).not.toThrow()
+
+    // (b) lifts to V28 with the termination recorded as legacy, no invented
+    // back-charge (the ledger keeps the OLD amount actually paid; cash is
+    // untouched by migration).
+    const lifted = withV28.migrateToV28(forgedEnvelope as never)
+    expect(lifted.saveVersion).toBe(28)
+    const legacy = (lifted.state as unknown as { talentMarket: { legacyTerminations: { contractId: string; endedWeek: number; amountPaid: number }[] } }).talentMarket.legacyTerminations
+    expect(legacy).toContainEqual({ contractId: empRow.contractId, endedWeek: empRow.endedWeek, amountPaid: oldLawCharge })
+    const liftedLedgerRow = (lifted.state as GameState).ledger.find((r) => r.kind === 'termination' && r.talentId === actorId)!
+    expect(liftedLedgerRow.amount).toBe(-oldLawCharge) // no back-charge invented at migration
+    expect((lifted.state as GameState).studio.cash).toBe(forgedState.studio.cash) // cash untouched by migration
+    expect(() => withV28.validateSaveV28(lifted as never)).not.toThrow()
   })
 })
