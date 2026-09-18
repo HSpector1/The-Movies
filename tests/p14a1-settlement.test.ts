@@ -57,6 +57,47 @@
 //     tested here, only that a second, LATER `tick()` does not re-settle an
 //     already-settled case.
 
+// ── ADDED (coordinator instruction, post-T2, settlement re-derivation) ───────
+//
+// Requirement source: docs/engineering/p14-preparation-8ef5246a/P14-PREPARATION-COMPANION.md
+// §2.1.4 ("The draft"), line 70: a proposal "stores (talentId, termWeeks, startWeek,
+// premiumTier) and a digest of the derived ContractOffer, and re-derives the six
+// accepted terms through the shared pricing entry at review and at settlement; a
+// digest mismatch invalidates the version. … Material terms are termWeeks, startWeek,
+// premiumTier and, when P14B exists, the attached promise set; a change to any of
+// them → new version." And §2.1.7 ("Reservation"), line 104: "A proposal clears
+// reservation iff its annual salary ≥ the person's ask for that term (true by
+// construction while the premium tier is ≥ 1.00)".
+//
+// Coordinator ruling (adopted for the fix, which the engine specialist implements
+// AFTER this RED lands): the version identity (digest) covers MATERIAL terms only —
+// (talentId, issuerStudioId, termWeeks, startWeek, premiumTier); price is derived,
+// never material. Settlement commits `annual = iround(ask(W).annualSalary ×
+// premiumTier)` and `signingBonus = iround(annual × TUNING.CONTRACT_SIGNING_BONUS_FRACTION)`,
+// where `ask(W) = studioOffer(stateAtW, issuerStudioId, talentId, termWeeks, W)`.
+//
+// DEFECT DIAGNOSED (engine specialist, seed p13b-s8-bridge-probe-01, week 208): all
+// 24 open talent-market cases DECLINED with "no proposal cleared this person's
+// reservation". Cause: `survivesFreeze` (talentMarket.ts ≈line 798) freezes the
+// SUBMISSION-WEEK price into the reservation check (`proposal.annualSalary <
+// ask.annualSalary`) and into the digest (`proposalDraft` ≈line 291 digests
+// `annualSalary` and `signingBonus`), so ordinary fame drift between submission and
+// the decision week invalidates every proposal. The two cases below pin the LAW
+// (re-derivation), not the current defective behavior — both are expected RED.
+//
+// PREMISE NOT SATISFIED (searched, not assumed): a disposable probe (vite-node,
+// not committed) checked every week-0 hiring-market actor's 52-week ask between
+// week 40 (a week-0 52-week signing's renewal-window first week; 52-40=12=
+// TUNING.HIRING_RENEWAL_WINDOW_WEEKS) and week 52, under the natural chain (the one
+// `signContract` action, then pure `tick()` advancement, no other player action).
+// None drifted: 6 candidates on seed 'p13a-core-causal-01' (this file's default
+// fixture seed), 5 on 'p13b-s8-bridge-probe-01' (the diagnosis seed) — the world
+// never touches an idle, uncast actor's `fame` week to week (fame only moves via
+// the cast/reception path in `starPower.ts`, exercised only for actors actually cast
+// in a production). So drift is INDUCED here by a direct edit to the subject's
+// `fame` on `state.talent` (plain data, copy-on-write) after the proposal is
+// submitted, and declared as this premise rather than pinned as an observed fact.
+
 import { describe, expect, it } from 'vitest'
 import { applyActions } from '../src/core/actions.js'
 import { hiringMarketIds } from '../src/core/employment.js'
@@ -65,7 +106,8 @@ import { p13aGeneratedStudio, advanceTo } from '../src/harness/p13a/fixtures.js'
 import type { GameState } from '../src/core/types.js'
 // RED-by-design: src/core/talentMarket.ts does not exist. These are the two
 // imports from that new module in this file; submitProposal is CALLED below.
-import { submitProposal, caseForTalent } from '../src/core/talentMarket.js'
+import { submitProposal, caseForTalent, proposalDraft, studioOffer } from '../src/core/talentMarket.js'
+import { TUNING } from '../src/core/tuning.js'
 
 function signActor(state: GameState, termWeeks: number): { state: GameState; talentId: string } {
   const candidates = hiringMarketIds(state, 0)
@@ -125,5 +167,81 @@ describe('P14A.1 test 5: atomic settlement', () => {
     const again = tick(state)
     const chooserReceiptsAgain = marketOf(again).receipts.filter((r) => r.talentId === talentId && r.kind !== 'discovered' && r.kind !== 'proposalSubmitted')
     expect(chooserReceiptsAgain.length).toBe(1)
+  })
+
+  it("price drift does not invalidate a proposal's version: a proposal submitted at the window's first week settles at the re-derived decision-week price, not the submission-week quote", () => {
+    const { state: signed, talentId } = signActor(p13aGeneratedStudio(), 52)
+    // window opens when 0 < remaining <= HIRING_RENEWAL_WINDOW_WEEKS (12); for a
+    // week-0 52-week signing the first window week is 52-12=40.
+    const at40 = advanceTo(signed, 40)
+    const playerStudioId = at40.hollywood!.playerStudioId
+    const openView = caseForTalent(at40, talentId, 40)
+    expect(openView).not.toBeNull()
+    expect(openView!.status).not.toBe('settled') // open, not yet decided
+
+    // The submission-week quote, captured BEFORE the drift is induced — this is the
+    // frozen price the current (defective) code checks against at the decision week.
+    const submissionQuote = proposalDraft(at40, playerStudioId, talentId, 52, 1.25, 40)
+    let state = submitProposal(at40, { talentId, issuerStudioId: playerStudioId, termWeeks: 52, premiumTier: 1.25 })
+
+    // PREMISE (see file header): no week-0 hiring-market actor drifts naturally on
+    // this seed between week 40 and week 52. Drift is induced here by a direct fame
+    // edit on the copy-on-write talent record, after submission.
+    const subject = state.talent.find((t) => t.id === talentId)!
+    const bumpedFame = subject.fame > 50 ? Math.max(0, subject.fame - 40) : Math.min(100, subject.fame + 40)
+    state = { ...state, talent: state.talent.map((t) => (t.id === talentId ? { ...t, fame: bumpedFame } : t)) }
+
+    state = advanceTo(state, 51)
+    const preSettlement = state.contracts.find((c) => c.talentId === talentId)!
+    expect(preSettlement.endWeekExclusive).toBe(52) // the original contract, unrenewed, one week before decision
+
+    state = tick(state) // advances market.tick 51 -> 52, the decision week: settlement runs
+    expect(state.market.tick).toBe(52)
+
+    const settledCase = caseForTalent(state, talentId, state.market.tick)!
+    // RED: currently 'declined' — survivesFreeze rejects the drifted proposal on the
+    // frozen reservation check and the frozen digest (companion §2.1.4/§2.1.7).
+    expect(settledCase.status).toBe('settled')
+
+    const renewed = state.contracts.find((c) => c.talentId === talentId && c.startWeek === 52)
+    expect(renewed).toBeDefined()
+
+    // ask(W): studioOffer is a pure function of the talent record and any R1
+    // release-floor receipt for (issuerStudioId, talentId). This is a RENEWAL (no
+    // termination receipt for this pair exists), so the floor is null and the value
+    // is identical whether read just before or just after the settling tick — the
+    // POST-tick state is used here, as the task's instruction prefers.
+    const atW = state
+    const askAtW = studioOffer(atW, playerStudioId, talentId, 52, 52)
+    const expectedAnnual = Math.round(askAtW.annualSalary * 1.25)
+    expect(renewed!.annualSalary).toBe(expectedAnnual) // re-derived at the decision week, not frozen
+
+    expect(renewed!.annualSalary).not.toBe(submissionQuote.annualSalary) // proves re-derivation, not a frozen quote
+
+    const expectedBonus = Math.round(expectedAnnual * TUNING.CONTRACT_SIGNING_BONUS_FRACTION)
+    expect(renewed!.signingBonus).toBe(expectedBonus)
+  })
+
+  it('the digest covers material terms only: a price drift leaves the version digest unchanged', () => {
+    const { state: signed, talentId } = signActor(p13aGeneratedStudio(), 52)
+    const at40 = advanceTo(signed, 40)
+    const playerStudioId = at40.hollywood!.playerStudioId
+    const draft40 = proposalDraft(at40, playerStudioId, talentId, 52, 1.25, 40)
+
+    // PREMISE (see file header): drift induced by a direct fame edit — no week-0
+    // hiring-market actor drifts naturally on this seed between week 40 and week 52.
+    const subject = at40.talent.find((t) => t.id === talentId)!
+    const bumpedFame = subject.fame > 50 ? Math.max(0, subject.fame - 40) : Math.min(100, subject.fame + 40)
+    const drifted = { ...at40, talent: at40.talent.map((t) => (t.id === talentId ? { ...t, fame: bumpedFame } : t)) }
+    const at51 = advanceTo(drifted, 51) // still before the decision week (52): startWeek is unaffected
+    const draft51 = proposalDraft(at51, playerStudioId, talentId, 52, 1.25, 51)
+
+    expect(draft51.startWeek).toBe(draft40.startWeek) // material terms unchanged (both derive decisionWeek 52)
+    expect(draft51.annualSalary).not.toBe(draft40.annualSalary) // the induced premise actually drifted the price
+
+    // RED: the current digest formula folds in annualSalary/signingBonus (derived,
+    // not material), so this fails under the defective code even though every
+    // material term (talentId, issuerStudioId, termWeeks, startWeek, premiumTier) matches.
+    expect(draft51.digest).toBe(draft40.digest)
   })
 })

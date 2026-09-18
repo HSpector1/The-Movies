@@ -1,0 +1,49 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/p14a1-settlement.test.ts (3 tests | 2 failed) 4548ms
+   ✓ P14A.1 test 5: atomic settlement > a dominant incumbent proposal wins deterministically at the decision week, with order-only reasons and no amounts 2019ms
+   × P14A.1 test 5: atomic settlement > price drift does not invalidate a proposal's version: a proposal submitted at the window's first week settles at the re-derived decision-week price, not the submission-week quote 1464ms
+     → expected 'declined' to be 'settled' // Object.is equality
+   × P14A.1 test 5: atomic settlement > the digest covers material terms only: a price drift leaves the version digest unchanged 1063ms
+     → expected '6cd626e666cb3a16' to be '031fa0e5999d19b3' // Object.is equality
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14a1-settlement.test.ts > P14A.1 test 5: atomic settlement > price drift does not invalidate a proposal's version: a proposal submitted at the window's first week settles at the re-derived decision-week price, not the submission-week quote
+AssertionError: expected 'declined' to be 'settled' // Object.is equality
+
+Expected: "settled"
+Received: "declined"
+
+ ❯ tests/p14a1-settlement.test.ts:204:32
+    202|     // RED: currently 'declined' — survivesFreeze rejects the drifted …
+    203|     // frozen reservation check and the frozen digest (companion §2.1.…
+    204|     expect(settledCase.status).toBe('settled')
+       |                                ^
+    205| 
+    206|     const renewed = state.contracts.find((c) => c.talentId === talentI…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL |core|  tests/p14a1-settlement.test.ts > P14A.1 test 5: atomic settlement > the digest covers material terms only: a price drift leaves the version digest unchanged
+AssertionError: expected '6cd626e666cb3a16' to be '031fa0e5999d19b3' // Object.is equality
+
+Expected: "031fa0e5999d19b3"
+Received: "6cd626e666cb3a16"
+
+ ❯ tests/p14a1-settlement.test.ts:245:28
+    243|     // not material), so this fails under the defective code even thou…
+    244|     // material term (talentId, issuerStudioId, termWeeks, startWeek, …
+    245|     expect(draft51.digest).toBe(draft40.digest)
+       |                            ^
+    246|   })
+    247| })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 1 passed (3)
+   Start at  09:48:37
+   Duration  7.96s (transform 2.08s, setup 0ms, collect 2.72s, tests 4.55s, environment 0ms, prepare 194ms)
+
