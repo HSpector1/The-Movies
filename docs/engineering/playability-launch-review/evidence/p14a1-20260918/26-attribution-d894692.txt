@@ -1,0 +1,36 @@
+P14A.1 One Contested Expiry Core — matched-pass attribution and label (2026-09-18)
+
+MATCHED PASS: run on e575fc1 (10:44–11:58Z, headless-baseline-20260916 flags; 22-RUN.txt, 22-test-core-e575fc1.txt, 23-test-bridge-e575fc1.txt; committed b338ad4)
+  core   : 281/291 files · 3141 passed / 24 failed / 2 todo (2775.93 s)      CORE_EXIT=1
+  bridge : 63/66 files · 674 passed / 13 failed / 1 todo (1636.45 s)         BRIDGE_EXIT=1
+  check:bridge-contract and check:bridge-contract:fixtures: verified (schema, DTOs, manifest, union fixtures)
+
+FINAL SOURCE: d894692. `git diff --stat e575fc1..d894692 -- src bridge ui generated` is EMPTY — no production source moved after the pass;
+  only three test files and evidence changed (3eee428, d894692), so the pass stands for every other file (the S3 closure precedent).
+
+ATTRIBUTION — inherited set (bounds from the S-series closeouts)
+  bridge-p12-campaign-library      10 core / 11 bridge   5 s / 20 s budgets            bound ≤ 11   inherited
+  r3n1-stale-schedule-take-02{,p31,p32}   6 core          fixture loads                 6            inherited
+  p13a-scientist-foundation         3 core                golden digests                3            inherited
+  world-first-scenery-load-in-provenance  1 core          clean-exporter replay         1            inherited
+  bridge-p13-campaign-isolation     1 core / 1 bridge     60 s inline budget            1            inherited
+  subtotal                          21 core / 12 bridge
+
+ATTRIBUTION — the three NOT in the inherited set (diagnosed read-only, evidence 24; all PREMISE, no engine predicate misbehaves)
+  bridge-p13-laboratory 'shows rival sound only from the actual operational receipt'   first broken d49cc27 (settlement receipts page the pulse at the second synchronized expiry 416), then a2d59e0 (r02 fails the §48 gate by 348,487 = evidence 18); first purchase now r05 at 520/532
+      → re-expressed 3eee428: purchase derived from the chain's receipts, pulse row found by paging; disclosure assertions verbatim   reverified 7/7 (evidence 25)
+  p13b-s5-conservation 'campaign isolation'                                               first broken daaf95f (seat-budget cash relief lets r01 adopt sound by research at 276/288: a new first non-player row); the commercial purchase byte-unchanged (r05, 520, 300,000, 975,000)
+      → re-expressed 3eee428 (route === 'purchase' selector) + d894692 (substance-only comparison: the S8 one-inventor law and the global equipment ordinal legitimately move a rival asset's ordinal, identity unchanged)   reverified 3/3 (evidence 25)
+  p13b-s5-equipment 'an unheld retained asset … NEVER reused' (+ the :86 sibling)          first broken daaf95f (the forge hard-set nextEquipmentId = 1 against a natural chain now holding two assets)
+      → re-expressed 3eee428: forge at the live counter                                    reverified 5/5 (evidence 25)
+  subtotal 3 core / 1 bridge → 0 after reverification on the final source
+
+TOTAL: 24 core = 21 inherited + 3 re-expressed and green; 13 bridge = 12 inherited + 1 re-expressed and green. No unattributed failure remains.
+
+LABEL: P14A.1 LOGIC VERIFIED · UNITY NOT VERIFIED (not Owner acceptance). Named limits:
+  - tests/p14a1-decline-reasons.test.ts case A (tie exhaustion) is it.todo — unconstructible under the seat law with weekly refill on >90 probed seeds; the typed reason was last exercised GREEN at b3ad486 (evidence 21)
+  - attention causes `termsRevised` and `decisionWeekNear` unexercised at A.1 — A.2 test 3 must exercise both
+  - MARKET_DECISION_STOP_HORIZON_WEEKS = 1 (§2.1.11 'configured', no number) — an Owner call; 12 recorded, not applied
+  - `--project ui` not run (typecheck-clean only); weekly-advance latency unmeasured (ponytail note in talentMarket.ts)
+  - product consequences recorded OPEN, not tuned: the two-bit rival tier hypothesis (exact challenger ties → decline-all on some seeds), own-person priority in the fixed order, contests rare under weekly deficit filling, the inherited founding-rival insolvency (evidence 18), a settlement week flooding the 13-week pulse window (A.2's fold)
+  - no Unity/native/visual verification of any kind
