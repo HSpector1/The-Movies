@@ -1,0 +1,42 @@
+=== npx vitest run --project core --minWorkers=1 --maxWorkers=1 --reporter=dot tests/d11-employment.test.ts tests/d11-cycle2.test.ts tests/d11-cycle3.test.ts tests/d11-cycle4.test.ts tests/d12-economy.test.ts tests/d12-economy-view.test.ts tests/v14-migration.contract.test.ts tests/contracts/sticky-retention.contract.test.ts ===
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/d11-employment.test.ts (36 tests) 5731ms
+   ✓ D-11 — contracts & offers > payroll accrues each week; the ledger reconciles after several weeks 992ms
+   ✓ D-11.8 — expiration > a contract expires at term end and the talent becomes a free agent 1602ms
+   ✓ D-11.7 — renewals > renewing inside the window is refused as underMarketCase and redirected to the proposal path (P14A §2.1.3 / R6) 1078ms
+   ✓ D-11 — determinism & live saves > no duplicate payroll after reload (reload ≡ continuous run) 615ms
+   ✓ D-11 — determinism & live saves > two same-seed founded+advanced runs are byte-identical (deterministic offers/markets) 418ms
+ ✓ |core| tests/d11-cycle3.test.ts (61 tests) 223ms
+ ✓ |core| tests/d11-cycle2.test.ts (19 tests) 2184ms
+   ✓ D-11.A — each released film keeps its OWN immutable participants > film A and film B use different writers/directors/actors/craft and each records its own 591ms
+   ✓ D-11.A — each released film keeps its OWN immutable participants > later development does NOT rewrite an older film's locked greenlight OVR/name 479ms
+   ✓ D-11.A — each released film keeps its OWN immutable participants > save/reload (V3) preserves each film's distinct participant history 407ms
+ ✓ |core| tests/v14-migration.contract.test.ts (30 tests) 12960ms
+   ✓ C2a-M1 · T9 (A) — the headline matrix covers every phase that holds a reservation > agrees byte-for-byte with the frozen V13 builder wherever that builder writes 738ms
+   ✓ C2a-M1 · T9 (B) — every held phase × blocker kind migrates and plays true > plays development/none byte-identically to its V13 twin for 30 weeks 978ms
+   ✓ C2a-M1 · T9 (B) — every held phase × blocker kind migrates and plays true > plays preProduction/none byte-identically to its V13 twin for 30 weeks 971ms
+   ✓ C2a-M1 · T9 (B) — every held phase × blocker kind migrates and plays true > plays preProduction/facility-capacity byte-identically to its V13 twin for 30 weeks 960ms
+   ✓ C2a-M1 · T9 (B) — every held phase × blocker kind migrates and plays true > plays rehearsal/none byte-identically to its V13 twin for 30 weeks 972ms
+   ✓ C2a-M1 · T9 (B) — every held phase × blocker kind migrates and plays true > plays rehearsal/facility-capacity byte-identically to its V13 twin for 30 weeks 1020ms
+   ✓ C2a-M1 · T9 (B) — every held phase × blocker kind migrates and plays true > plays shooting/none byte-identically to its V13 twin for 30 weeks 1014ms
+   ✓ C2a-M1 · T9 (B) — every held phase × blocker kind migrates and plays true > plays shooting/scenery-load-in byte-identically to its V13 twin for 30 weeks 1043ms
+   ✓ C2a-M1 · T9 (B) — every held phase × blocker kind migrates and plays true > plays shooting/facility-capacity byte-identically to its V13 twin for 30 weeks 1451ms
+   ✓ C2a-M1 · T9 (B) — every held phase × blocker kind migrates and plays true > plays postProduction/none byte-identically to its V13 twin for 30 weeks 1280ms
+   ✓ C2a-M1 · T9 (C) — the endowed house sets are DERIVED, not invented > leaves the queue and the screenplay root empty for every migrated save (§8.3) 542ms
+ ✓ |core| tests/d12-economy.test.ts (17 tests) 588ms
+ ✓ |core| tests/d12-economy-view.test.ts (12 tests) 2616ms
+   ✓ D-12 read models — active-run revenue mirrors the very next tick > expectedWeeklyRunRevenue predicts EXACTLY the studioRevenue the next tick credits 575ms
+   ✓ D-12 read models — active-run revenue mirrors the very next tick > runRemainingRevenue == share × Σ future weekly gross, and drains to 0 at completion 584ms
+   ✓ D-12 read models — runway (D-12.16 current commitments only) > an active run out-earning burn → infinite runway (weeks null, "—") 322ms
+   ✓ D-12 read models — run view + ledger reconciliation + period summary > financeTotals.net reconciles to cash − INITIAL_CASH; studioRevenue matches the ledger 301ms
+   ✓ D-12 read models — run view + ledger reconciliation + period summary > periodSummary over the whole run window == the run cumulative Studio Revenue + 1 release 344ms
+ ✓ |core| tests/contracts/sticky-retention.contract.test.ts (2 tests) 189ms
+ ✓ |core| tests/d11-cycle4.test.ts (2 tests) 5ms
+
+ Test Files  8 passed (8)
+      Tests  179 passed (179)
+   Start at  08:40:33
+   Duration  32.14s (transform 1.93s, setup 0ms, collect 4.63s, tests 24.50s, environment 2ms, prepare 749ms)
+

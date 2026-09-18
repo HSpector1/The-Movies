@@ -3,7 +3,7 @@ import { gunzipSync } from 'node:zlib'
 import { beforeAll, describe, expect, it } from 'vitest'
 import { applyActions } from '../src/core/actions.js'
 import { initializeHollywood } from '../src/core/hollywood.js'
-import { exportSave, importSave, makeSave, migrateToV25, migrateToV27, validateSaveV19, validateSaveV27 } from '../src/core/save.js'
+import { exportSave, importSave, makeSave, migrateToV25, migrateToV28, validateSaveV19, validateSaveV28 } from '../src/core/save.js'
 import { tick } from '../src/core/tick.js'
 import { technologyMilestoneDrafts } from '../src/core/technologyMilestones.js'
 import type { GameState } from '../src/core/types.js'
@@ -44,7 +44,7 @@ describe('P13A dated public technology history', () => {
     for (const week of [259, 260, 415, 416]) {
       const state = states.get(week)!
       const json = exportSave(makeSave(state))
-      const restored = migrateToV27(importSave(json)).state
+      const restored = migrateToV28(importSave(json)).state
       expect(exportSave(makeSave(restored))).toBe(json)
       expect(milestones(tick(restored))).toEqual(milestones(states.get(week + 1)!))
     }
@@ -52,7 +52,7 @@ describe('P13A dated public technology history', () => {
 
   it('never backfills after migration, skips dates not actually reached, and leaves the frozen V19 vocabulary closed', () => {
     const migrated = migrateToV25(accepted())
-    expect(milestones(migrated.state)).toEqual([])
+    expect(milestones(migrated.state as unknown as GameState)).toEqual([]) /* P14A.1: this envelope is deliberately pinned at its own frozen version; the live-typed reader never touches the V28 root. */
     const state = states.get(259)!
     expect(technologyMilestoneDrafts(state, 416)).toEqual([])
     expect(technologyMilestoneDrafts({ ...state, technology: { ...state.technology, recordingStartedWeek: 260 } }, 260)).toEqual([])
@@ -71,14 +71,14 @@ describe('P13A dated public technology history', () => {
     ]) {
       const forged = structuredClone(save)
       Object.assign(milestones(forged.state)[0]!, change)
-      expect(() => validateSaveV27(forged)).toThrow(/technology milestone/)
+      expect(() => validateSaveV28(forged)).toThrow(/technology milestone/)
     }
     const duplicated = structuredClone(save)
     duplicated.state.studioHistory.rows = [...duplicated.state.studioHistory.rows,
       { ...milestones(duplicated.state)[0]!, eventId: duplicated.state.studioHistory.nextEventId++ }]
-    expect(() => validateSaveV27(duplicated)).toThrow(/duplicate technology milestone/)
+    expect(() => validateSaveV28(duplicated)).toThrow(/duplicate technology milestone/)
     const preRecorded = structuredClone(save)
     preRecorded.state.technology.recordingStartedWeek = 260
-    expect(() => validateSaveV27(preRecorded)).toThrow(/invented technology history/)
+    expect(() => validateSaveV28(preRecorded)).toThrow(/invented technology history/)
   })
 })

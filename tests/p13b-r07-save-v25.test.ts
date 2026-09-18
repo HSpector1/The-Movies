@@ -136,7 +136,7 @@ function workflowOf(state: GameState, index = 0): WorkflowWithSetup {
 
 // AMENDED (P13B-S6 live-version sweep, 2026-09-17): `makeSave` moved past V25
 // to the live V26 boundary, and V26's own `migrateToV25` now REFUSES to
-// downgrade a V26 envelope at all ("cannot downgrade SaveFileV27 or discard
+// downgrade a V26 envelope at all ("cannot downgrade SaveFileV28 or discard
 // installation cancellations") — so this section's old shortcut
 // (`migrateToV25(save.makeSave(...))`, back when `makeSave` WAS the V25
 // boundary) can no longer reach V25 through `makeSave`. `legacyRehearsingWorld`
@@ -160,6 +160,9 @@ function asV25Envelope(state: GameState): { saveVersion: 25; seed: string; state
     placement: { ...state.placement, facilities },
     technology: { ...state.technology, adoptions },
   } as GameState
+  // P14A.1 sweep: a frozen V25 envelope carries no `talentMarket` root — the
+  // frozen chain's exact-key law refuses a root V25 never had.
+  delete (stripped as unknown as { talentMarket?: unknown }).talentMarket
   return { saveVersion: 25, seed: stripped.seed, state: stripped, broadcastCache: stripped.broadcastItems }
 }
 
@@ -203,7 +206,7 @@ describe('P13B-S5-R07 Save V25 (test 5)', () => {
     const migrated = withV25.migrateToV25(v24)
     expect(migrated.saveVersion).toBe(25)
     expect(migrated.state.operations.workflows).toHaveLength(1)
-    expect(workflowOf(migrated.state).setup).toBeNull()
+    expect(workflowOf(migrated.state as unknown as GameState).setup).toBeNull() /* P14A.1: this envelope is deliberately pinned at its own frozen version; the live-typed reader never touches the V28 root. */
     // Nothing else about the lifted workflow moved.
     expect(migrated.state.operations.workflows[0]!.phase).toBe(rehearsing.operations.workflows[0]!.phase)
     expect(migrated.state.operations.workflows[0]!.bindings).toEqual(rehearsing.operations.workflows[0]!.bindings)
@@ -224,10 +227,10 @@ describe('P13B-S5-R07 Save V25 (test 5)', () => {
   // the CURRENT total supported range, so this case tracks the live boundary
   // forward exactly as p13b-s5-save-v24.test.ts's own sentinel case does
   // (superseded as the canonical proof by tests/p13b-s6-save-v26.test.ts's
-  // "an unknown saveVersion 28..." case, kept here rather than deleted).
-  it('an unknown saveVersion 28 is refused, naming the handled range "1 through 27" (mechanical extrapolation of the templated message at save.ts:5147)', () => {
-    const forged = { ...save.makeSave(legacyRehearsingWorld('r07-save-v25-unknown-version')), saveVersion: 28 }
-    expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 27 only/)
+  // "an unknown saveVersion 29..." case, kept here rather than deleted).
+  it('an unknown saveVersion 29 is refused, naming the handled range "1 through 27" (mechanical extrapolation of the templated message at save.ts:5147)', () => {
+    const forged = { ...save.makeSave(legacyRehearsingWorld('r07-save-v25-unknown-version')), saveVersion: 29 }
+    expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 28 only/)
   })
 
   it('mid-setup save/reload round-trips byte-identically (export/import codec only) — INTERPRETATION 3: hand-authored setup, no genuine producer exists yet', () => {

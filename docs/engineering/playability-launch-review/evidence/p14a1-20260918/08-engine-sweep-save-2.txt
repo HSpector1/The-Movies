@@ -1,0 +1,49 @@
+=== npx vitest run --project core --minWorkers=1 --maxWorkers=1 --reporter=dot tests/legacy-parcel-ground.test.ts tests/placement-save-v12.test.ts tests/p08a-w0-studio-history.test.ts tests/p09a-w0-founding-regime.test.ts tests/facility-move-demolish.test.ts tests/construction-core.test.ts tests/film-chronicle.test.ts tests/d17-engagement-persistence.test.ts ===
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/facility-move-demolish.test.ts (30 tests) 2978ms
+   ✓ C1-M3a (A) — every persisted holder of a facility blocks both verbs > finds a screenplay reservation, on the RESERVATION and not the status 1087ms
+   ✓ C1-M3a (A) — every persisted holder of a facility blocks both verbs > finds a casting-session reservation 328ms
+   ✓ C1-M3a (A) — every persisted holder of a facility blocks both verbs > reports an idle facility as engaged by nothing, and is deterministic 301ms
+   ✓ C1-M3a (A) — every persisted holder of a facility blocks both verbs > REFUSES both verbs while the facility is engaged, and changes nothing 311ms
+ ✓ |core| tests/film-chronicle.test.ts (28 tests) 399ms
+   ✓ Film Chronicle V1 — SaveFileV11 durability > reconstructs a deep-equal Chronicle after an exact V11 export/import round-trip 302ms
+ ✓ |core| tests/construction-core.test.ts (12 tests) 3812ms
+   ✓ Development & Casting Annex V1 core lifecycle > completes on exactly the thirteenth advance from a nonzero start with no recurring charge or RNG draw 1096ms
+   ✓ Development & Casting Annex V1 core lifecycle > does not reallocate completing-advance productions into the Annex, then exposes it immediately 730ms
+   ✓ Development & Casting Annex V1 core lifecycle > uses the authoritative greenlight debit to reject skip-first start-clock laundering 418ms
+   ✓ Development & Casting Annex V1 core lifecycle > allows a production started after completion to claim the Annex under normal allocation 349ms
+   ✓ Development & Casting Annex V1 core lifecycle > accepts only the exact Annex V1 facility set and detects cross-owner collisions 629ms
+stdout | tests/p09a-w0-founding-regime.test.ts > P09 R5/R6 — the ordinary bare-lot studio releases a picture on its own money > HARD-STOP GATE: sparse start → four builds → screenplay → set → picture → release → receipts, cash never below zero
+[p09 gate] release week 37; cash floor 7888869; final cash 9778380.025328362; weeks 42
+
+ ✓ |core| tests/p09a-w0-founding-regime.test.ts (13 tests) 5089ms
+   ✓ P09 R1 — the founding regime is persisted, exact, and immutable > V18 round-trips the regime and refuses a forged or missing one 446ms
+   ✓ P09 R1 — the founding regime is persisted, exact, and immutable > the regime is never inferred from what stands on the lot 977ms
+   ✓ P09 R4 — the minimum plant fits and completes on its committed weeks > P09 §10.3: on the sparse lot only the founding office is quotable first; every other row says exactly why 414ms
+   ✓ P09 R4 — the minimum plant fits and completes on its committed weeks > four committed sites complete on their own weeks, become operational, and start paying opex only then 522ms
+   ✓ P09 R4 — the minimum plant fits and completes on its committed weeks > save/load mid-construction continues byte-identically; same-week sites complete together in id order 1015ms
+   ✓ P09 R5/R6 — the ordinary bare-lot studio releases a picture on its own money > HARD-STOP GATE: sparse start → four builds → screenplay → set → picture → release → receipts, cash never below zero 743ms
+   ✓ P09A W1 R9 — a picture may hold a stage that completed after its greenlight, from the stamped week only > holds from bindings.heldSinceWeek; a stamp forged before completion is refused 493ms
+ ✓ |core| tests/d17-engagement-persistence.test.ts (30 tests) 1524ms
+   ✓ D-17A/R2: economyEngagedEver is seeded false and set only by founding / signing > a headless run NEVER engages, however many films it releases 544ms
+   ✓ D-17A/R2: convertV5ToV6 reconstructs the fact correctly for every save class > never-engaged headless WITH releases → false (production/boxOffice are excluded) 314ms
+ ✓ |core| tests/placement-save-v12.test.ts (20 tests) 2217ms
+   ✓ Placement Core V12 — the frozen envelope > writes V12 explicitly and round-trips every lifecycle state byte-identically 559ms
+ ✓ |core| tests/p08a-w0-studio-history.test.ts (13 tests) 6974ms
+   ✓ P08A H3/H4 — the release mutation site records exact receipts and the release fact > freezes before/after/deltas equal to the actual Standing change, with the source id and drivers 614ms
+   ✓ P08A H3/H4 — the release mutation site records exact receipts and the release fact > records filmReleased as a LANDMARK for the first film and MAJOR afterwards, by exact id 596ms
+   ✓ P08A H3/H4 — the release mutation site records exact receipts and the release fact > records theatricalRunCompleted exactly once when the run settles 564ms
+   ✓ P08A H3/H5 — weekly settling receipts are exact, bounded, and folded deterministically > records a routine settling receipt only when awareness actually moves, then folds past the window 3096ms
+   ✓ P08A H6 — V16→V17 migration invents nothing and every downgrade is refused > begins recording at the migration week, keeps every other root and the current Standing 315ms
+   ✓ P08A H7 — save/load mid-run continues with identical history > reloaded branch equals the unbroken branch byte-for-byte after more releases 1115ms
+   ✓ P08A H8 — the save boundary refuses forged history > refuses out-of-order ids, pre-boundary rows, lying deltas, and unknown kinds 337ms
+ ✓ |core| tests/legacy-parcel-ground.test.ts (14 tests) 4410ms
+   ✓ C1-M8 (B) — a generic building may not be BUILT there > accepts nothing anywhere on the property whose body the world would not show 3742ms
+
+ Test Files  8 passed (8)
+      Tests  160 passed (160)
+   Start at  08:54:48
+   Duration  34.85s (transform 1.81s, setup 0ms, collect 4.76s, tests 27.40s, environment 2ms, prepare 736ms)
+

@@ -78,3 +78,20 @@ export function product(xs: number[]): number {
   for (const x of xs) p *= x
   return p
 }
+
+// ── 64-bit FNV-1a fold (promoted from placement.ts, P14A.1) ──────────────────
+// Pure and dependency-free: the core owns no crypto and takes no package for a
+// digest whose only job is equality. Promoted here unchanged when a SECOND
+// caller needed it (the P14 proposal draft reference, companion §2.1.4), so the
+// one fold serves the physical quote fingerprint and the market draft digest.
+const FNV64_OFFSET = 0xcbf29ce484222325n
+const FNV64_PRIME = 0x100000001b3n
+const FNV64_MASK = 0xffffffffffffffffn
+
+export function fnv1a64(text: string): string {
+  let hash = FNV64_OFFSET
+  for (let i = 0; i < text.length; i++) {
+    hash = (hash ^ BigInt(text.charCodeAt(i))) * FNV64_PRIME & FNV64_MASK
+  }
+  return hash.toString(16).padStart(16, '0')
+}

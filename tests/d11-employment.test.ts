@@ -31,7 +31,7 @@ import {
   isContracted,
   makeSave,
   makeSaveV2,
-  migrateToV27,
+  migrateToV28,
   renewalWindowOpen,
   rosterTalent,
   terminationCost,
@@ -332,12 +332,23 @@ describe('D-11.8 — expiration', () => {
 
 // ── D-11.9 early release + termination cost ───────────────────────────────────
 describe('D-11.9 — early release', () => {
-  it('termination cost = 50% of remaining guaranteed salary; talent becomes a free agent', () => {
+  // PREMISE CORRECTED (P14A.1, 2026-09-18). This case asserted the 50%-of-remaining-
+  // guaranteed charge. That figure is explicitly NOT LAW any more: rulings §3.4.1
+  // direction 1 ("the old 50% figure is not law") and direction 2 ("the charge is the
+  // lesser of all remaining guaranteed base salary and twenty-six weeks of that
+  // person's base salary"), realised in companion §3.2 as
+  // `weekly x min(remaining, 26)`. The expectation below is derived from that ruling,
+  // not read back from the implementation, and `guaranteedComp` is still asserted
+  // unchanged as the base it is capped against.
+  it('termination cost = the lesser of the remaining guarantee and 26 weeks of base salary (rulings §3.4.1 direction 2); talent becomes a free agent', () => {
     const s0 = foundStudio('release-1', 104)
     const t = rosterTalent(s0)[0]!
     const c = activeContract(s0, t.id)!
     const week = s0.market.tick
-    const expectedCost = iround(TUNING.HIRING_TERMINATION_FRACTION * guaranteedComp(c, week))
+    const remainingWeeks = c.endWeekExclusive - week
+    expect(guaranteedComp(c, week)).toBe(iround(c.annualSalary / TUNING.TICKS_PER_YEAR) * remainingWeeks)
+    const expectedCost = iround(c.annualSalary / TUNING.TICKS_PER_YEAR) * Math.min(remainingWeeks, 26)
+    expect(expectedCost).toBeLessThan(guaranteedComp(c, week)) // 104 weeks remain: the cap genuinely bites
     expect(terminationCost(c, week)).toBe(expectedCost)
     const cashBefore = s0.studio.cash
     const s = applyActions(s0, [{ kind: 'releaseTalent', talentId: t.id }])
@@ -365,7 +376,19 @@ describe('D-11.7 — renewals', () => {
     expect(renewalWindowOpen(c0, 52 - TUNING.HIRING_RENEWAL_WINDOW_WEEKS)).toBe(true)
   })
 
-  it('renewing inside the window extends the term and takes a signing bonus from cash', () => {
+  // PREMISE CORRECTED (P14A.1, 2026-09-18). This case asserted the accepted D-11.7
+  // immediate replacement inside the window. For a person under an open market case
+  // that behavior is REPEALED: companion §2.1.3 / R6 — "for a person under a case the
+  // incumbent's renewal becomes the incumbent's PROPOSAL... `renewContract` on a cased
+  // person is refused with a new typed refusal (`underMarketCase`) that redirects to
+  // the proposal path" — pinned by tests/p14a1-case.test.ts. In a world with an
+  // industry a case opens at the window's FIRST week, so every in-window renewal is
+  // now under a case and the old write set is unreachable here; the replacement write
+  // set (contract from the decision week, bonus at settlement) is asserted by
+  // tests/p14a1-settlement.test.ts. What this case still proves is that the window
+  // itself is genuinely open at this week and that the refusal is the market one, not
+  // the D-11.7 out-of-window one.
+  it('renewing inside the window is refused as underMarketCase and redirected to the proposal path (P14A §2.1.3 / R6)', () => {
     const s0 = foundStudio('renew-extend', 52)
     const t = rosterTalent(s0)[0]!
     // advance to a week inside the renewal window (remaining ≤ window)
@@ -373,12 +396,10 @@ describe('D-11.7 — renewals', () => {
     const s1 = advanceWeeks(s0, week)
     expect(renewalWindowOpen(activeContract(s1, t.id)!, week)).toBe(true)
     const cashBefore = s1.studio.cash
-    const offer = contractOffer(s1, t.id, 104, week)
-    const s2 = applyActions(s1, [{ kind: 'renewContract', talentId: t.id, termWeeks: 104 }])
-    const c = activeContract(s2, t.id)!
-    expect(c.endWeekExclusive).toBe(week + 104)
-    expect(s2.studio.cash).toBe(cashBefore - offer.signingBonus)
-    expect(reconciles(s2)).toBe(true)
+    expect(() => applyActions(s1, [{ kind: 'renewContract', talentId: t.id, termWeeks: 104 }])).toThrow(/underMarketCase/)
+    expect(s1.studio.cash).toBe(cashBefore) // a refusal writes nothing
+    expect(activeContract(s1, t.id)!.endWeekExclusive).toBe(52) // the running contract is untouched
+    expect(reconciles(s1)).toBe(true)
   })
 
   it('renewing outside the window is rejected', () => {
@@ -526,7 +547,7 @@ describe('D-11 — determinism & live saves', () => {
   it('new games save at the live version and round-trip byte-identically', () => {
     const s = foundStudio('save-v4')
     const save = makeSave(s)
-    expect(save.saveVersion).toBe(27) // P13B-S8: new games save as V27.
+    expect(save.saveVersion).toBe(28) // P13B-S8: new games save as V27.
     const a = exportSave(save)
     const b = exportSave(importSave(a))
     expect(b).toBe(a)
@@ -538,8 +559,8 @@ describe('D-11 — determinism & live saves', () => {
     // Split: advance 3, export/import at the live version, advance 3 more.
     const mid = advanceWeeks(s0, 3)
     const reloaded = importSave(exportSave(makeSave(mid)))
-    if (reloaded.saveVersion !== 27) throw new Error('expected V27')
-    const split = advanceWeeks(migrateToV27(reloaded).state, 3)
+    if (reloaded.saveVersion !== 28) throw new Error('expected V28')
+    const split = advanceWeeks(migrateToV28(reloaded).state, 3)
     expect(split.studio.cash).toBe(continuous.studio.cash)
     expect(split.ledger.length).toBe(continuous.ledger.length)
     expect(exportSave(makeSave(split))).toBe(exportSave(makeSave(continuous)))

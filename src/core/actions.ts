@@ -59,6 +59,7 @@ import {
 import { computeForecast, type ForecastContext } from './forecast.js'
 import { forecastHistoryForOwner } from './industryCareer.js'
 import { recordPlayerEmployment } from './industryEmployment.js'
+import { caseOpenForTalent } from './talentMarket.js'
 import { cancelAdoption, cancelInstallation, cancellationQuote } from './installationCancellation.js'
 import { clamp } from './math.js'
 import { assertNoDoubleBookedResourceSlots, setOccupiedFacilitySlots } from './occupancy.js'
@@ -2696,6 +2697,18 @@ function applyRenewContract(state: GameState, action: Action & { kind: 'renewCon
   if (!renewalWindowOpen(contract, week)) {
     throw new Error(
       `applyActions: renewContract rejected — talent "${talentId}" is not in its renewal window (D-11.7)`,
+    )
+  }
+  // P14A.1 case-aware admission (companion §2.1.3 / R6). For a person under an
+  // open market case the incumbent's renewal is no longer an immediate
+  // replacement of the running contract: it becomes the incumbent's PROPOSAL, a
+  // draft starting at the old contract's `endWeekExclusive` and settled at the
+  // decision week with everyone else's. Refused here with the typed reason that
+  // redirects to that path. OUTSIDE a case the accepted D-11.7 semantics above
+  // stand unchanged.
+  if (caseOpenForTalent(state, talentId, week)) {
+    throw new Error(
+      `applyActions: renewContract rejected — talent "${talentId}" is underMarketCase; submit a proposal for the decision week instead (P14A §2.1.3)`,
     )
   }
   const offer = contractOffer(state, talentId, termWeeks, week)

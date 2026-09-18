@@ -1,0 +1,33 @@
+=== npx vitest run --project core --minWorkers=1 --maxWorkers=1 --reporter=dot tests/p13b-s7-forecast.test.ts tests/p13b-s7-independence.test.ts tests/p13b-s7-replacement.test.ts tests/p13b-s6-equipment.test.ts tests/p13b-s6-finance.test.ts tests/p13b-s6-ordering.test.ts tests/p13b-s6-receipts.test.ts tests/p13b-s6-refund-once.test.ts ===
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p13b-s6-receipts.test.ts (6 tests) 20872ms
+   ✓ P13B-S6 cancellation receipts by exact trace (test 1) > lighting cancelled exactly when site completes (week 2 of 4): site paid in full, installation refunded in full, restoration committed 7539ms
+   ✓ P13B-S6 cancellation receipts by exact trace (test 1) > lighting cancelled during installation (week 1 of 2, elapsed 3 of 4): site paid in full, installation half paid / half refunded 6202ms
+   ✓ P13B-S6 cancellation receipts by exact trace (test 1) > sound stage cancelled during site adaptation (week 3 of 9): site partially paid, installation and the zero-week capture package both refunded in full 3398ms
+   ✓ P13B-S6 cancellation receipts by exact trace (test 1) > sound Post cancelled in the same week it was committed (unstarted): refunded in full, no restoration (no `site` component on a Post fit-out) 3491ms
+ ✓ |core| tests/p13b-s7-independence.test.ts (5 tests) 14082ms
+   ✓ P13B-S7 rival-independence: identical forecast/announcements across states differing only in rival facts (test 2, PARTIAL until S8) > advanced independently to week 900 (past the lighting announcement), a rival-only fact the engine PRESERVES past ticks keeps the pair genuinely divergent, and forecasts/announcements still publish byte-identical 7717ms
+ ✓ |core| tests/p13b-s6-refund-once.test.ts (3 tests) 17660ms
+   ✓ P13B-S6 once-only refund and quoted-anew restart (test 2) > a second cancel of the same project is refused; the ledger keeps exactly ONE constructionRefund row 6674ms
+   ✓ P13B-S6 once-only refund and quoted-anew restart (test 2) > a cancelled adoption is refused a second cancelAdoption the same way 5720ms
+   ✓ P13B-S6 once-only refund and quoted-anew restart (test 2) > restart on the SAME target after cancellation is a NEW placement, quoted at the FULL price — no refund credit, no free components — but only AFTER the cancellation's own restoration completes (see header ADJUDICATED CORRECTION) 5265ms
+ ✓ |core| tests/p13b-s6-equipment.test.ts (3 tests) 11201ms
+   ✓ P13B-S6 equipment retained, unheld, and reused at $0 (test 3) > cancelling an adoption's remaining physical work unholds its equipment asset, stamps cancelledWeek, and keeps the equipmentAssetId reference as history 4249ms
+   ✓ P13B-S6 equipment retained, unheld, and reused at $0 (test 3) > the unheld asset is reused at $0 by the next quote for the SAME technology (see header ENGINE CONFLICT) 3600ms
+   ✓ P13B-S6 equipment retained, unheld, and reused at $0 (test 3) > the first-prototype entitlement is NOT restored by cancellation: a hypothetical next quote is never first-prototype again, even though the original adoption never became operational 3350ms
+ ✓ |core| tests/p13b-s7-forecast.test.ts (4 tests) 8ms
+ ✓ |core| tests/p13b-s6-ordering.test.ts (3 tests) 19271ms
+   ✓ P13B-S6 same-tick ordering and save/reload (test 5) > cancelling exactly at elapsed week 1 (of 4): the site component (end=2) is NOT read as completed one week early, and the installation component (start=2) is NOT read as one week begun 6980ms
+   ✓ P13B-S6 same-tick ordering and save/reload (test 5) > a cancel applied via applyActions takes effect at the CURRENT week, strictly before the next tick() boundary — cancelling at the last safe week (elapsed 3 of 4) pre-empts what would otherwise complete on the very next tick() 5694ms
+   ✓ P13B-S6 same-tick ordering and save/reload (test 5) > save/reload between the cancel and the next boundary changes nothing: a live copy and a reimported copy of the SAME cancelled state stay byte-identical and neither ever completes 6595ms
+ ✓ |core| tests/p13b-s6-finance.test.ts (1 test) 4702ms
+   ✓ P13B-S6 finance: refund lands in the refund week's own calendar year (test 6) > the constructionRefund line appears only in the calendar year of the CANCEL week; the CAPEX year is unaffected before and after cancellation 4700ms
+ ✓ |core| tests/p13b-s7-replacement.test.ts (5 tests) 6ms
+
+ Test Files  8 passed (8)
+      Tests  30 passed (30)
+   Start at  08:20:27
+   Duration  93.85s (transform 1.52s, setup 0ms, collect 3.38s, tests 87.80s, environment 3ms, prepare 712ms)
+

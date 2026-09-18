@@ -1,0 +1,40 @@
+=== npx vitest run --project core --minWorkers=1 --maxWorkers=1 --reporter=dot tests/p14a1-eligibility.test.ts tests/p14a1-case.test.ts tests/p14a1-proposals.test.ts tests/p14a1-rival-trigger.test.ts tests/p14a1-settlement.test.ts tests/p14a1-disclosure.test.ts tests/p14a1-firing.test.ts tests/p14a1-save-v28.test.ts ===
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p14a1-save-v28.test.ts (8 tests) 720ms
+ ✓ |core| tests/p14a1-proposals.test.ts (7 tests) 4693ms
+   ✓ P14A.1 test 3: proposals — one per studio, premium tier bounds, draft reference, affordability > premium tier 1.00 equals the plain ask; the signing bonus is 18% of the priced annual, both issuers, same law 1526ms
+   ✓ P14A.1 test 3: proposals — one per studio, premium tier bounds, draft reference, affordability > a higher premium tier strictly increases the priced annual salary over 1.00 (exact tier values are OPEN; only monotonicity is pinned) 620ms
+   ✓ P14A.1 test 3: proposals — one per studio, premium tier bounds, draft reference, affordability > a below-1.00 premium tier is refused (not offered in P14A) 535ms
+   ✓ P14A.1 test 3: proposals — one per studio, premium tier bounds, draft reference, affordability > at most one current proposal per studio: a second submission from the same studio replaces (revises) rather than stacks 478ms
+   ✓ P14A.1 test 3: proposals — one per studio, premium tier bounds, draft reference, affordability > draft reference: the digest is deterministic for identical inputs and changes when a material term changes 492ms
+   ✓ P14A.1 test 3: proposals — one per studio, premium tier bounds, draft reference, affordability > affordability (player): submitProposal is refused via the accepted canAfford legality gate when the bonus would leave cash negative 491ms
+   ✓ P14A.1 test 3: proposals — one per studio, premium tier bounds, draft reference, affordability > affordability (rival): submitProposal is refused via the reserve rule when the rival's account cannot clear operatingReserve after the bonus 549ms
+ ✓ |core| tests/p14a1-firing.test.ts (5 tests) 5083ms
+   ✓ P14A.1 test 7: firing — 26-week cap, R1 floor, disclosure content > the cap does NOT apply when 26 or fewer weeks remain: charge = all remaining guaranteed base salary, unchanged from today's formula at that boundary 1615ms
+   ✓ P14A.1 test 7: firing — 26-week cap, R1 floor, disclosure content > the charge law is continuous at exactly 26 weeks remaining (no cliff, §3.5 E5) 2818ms
+   ✓ P14A.1 test 7: firing — 26-week cap, R1 floor, disclosure content > the disclosure content per direction 2 states remaining duration, remaining guaranteed compensation, the cap, the exact charge, and the effective end — two branches (cap applies / cap does not apply) 567ms
+ ✓ |core| tests/p14a1-disclosure.test.ts (3 tests) 2270ms
+   ✓ P14A.1 test 6: disclosure — UNKNOWN markers, nothing private leaks > the case, its subject and decision week, and the competing proposal's existence/issuer/term/effective-week are public to both viewers 1199ms
+   ✓ P14A.1 test 6: disclosure — UNKNOWN markers, nothing private leaks > a proposal's premium tier, salary and bonus say UNKNOWN to every studio that did not issue it — never a band, estimate or invented number 561ms
+   ✓ P14A.1 test 6: disclosure — UNKNOWN markers, nothing private leaks > nothing private leaks: the exact competing salary/bonus figures never appear anywhere in the serialized disclosure, for either viewer 508ms
+ ✓ |core| tests/p14a1-settlement.test.ts (1 test) 1300ms
+   ✓ P14A.1 test 5: atomic settlement > a dominant incumbent proposal wins deterministically at the decision week, with order-only reasons and no amounts 1299ms
+ ✓ |core| tests/p14a1-eligibility.test.ts (5 tests) 1819ms
+   ✓ P14A.1 test 1: market eligibility (six states; reserved rivals; in-term refusal) > renewal_window: a 52-week player contract at its window-open week (week 40) opens a case; the incumbent (player) and every ENTERED rival may propose 1198ms
+   ✓ P14A.1 test 1: market eligibility (six states; reserved rivals; in-term refusal) > reserved rivals cannot propose: row 5 (eligibleWeek 520, enteredWeek null at week 40) is excluded from the renewal_window proposer set 563ms
+ ✓ |core| tests/p14a1-rival-trigger.test.ts (2 tests) 5960ms
+   ✓ P14A.1 test 4: rival proposal trigger (pure policy) and the staff() case-subject exclusion > branch (a) — own person in the window: the trigger fires (deterministically, twice) for a rival subject at its own window-open week (196) 3351ms
+   ✓ P14A.1 test 4: rival proposal trigger (pure policy) and the staff() case-subject exclusion > staff()'s renewal loop excludes the case subject for the whole open-case span (week 196 through 207): the founding contract is never renewed early 2608ms
+ ✓ |core| tests/p14a1-case.test.ts (6 tests) 2714ms
+   ✓ P14A.1 test 2: case lifecycle, derived decision week, invalidation, underMarketCase > discovery: a case exists with status "discovered" at the exact window-open week (week 40 for a 52-week contract) 1253ms
+   ✓ P14A.1 test 2: case lifecycle, derived decision week, invalidation, underMarketCase > the decision week is derived from the subject's live endWeekExclusive, not a stored copy 525ms
+   ✓ P14A.1 test 2: case lifecycle, derived decision week, invalidation, underMarketCase > invalidation: an early release invalidates the open case 443ms
+   ✓ P14A.1 test 2: case lifecycle, derived decision week, invalidation, underMarketCase > underMarketCase: renewContract on a cased person is refused, redirecting to the proposal path 442ms
+
+ Test Files  8 passed (8)
+      Tests  37 passed (37)
+   Start at  09:01:27
+   Duration  30.70s (transform 1.43s, setup 0ms, collect 3.54s, tests 24.56s, environment 2ms, prepare 725ms)
+

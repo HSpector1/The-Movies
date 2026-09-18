@@ -1,0 +1,28 @@
+=== npx vitest run --project core --minWorkers=1 --maxWorkers=1 --reporter=dot tests/roster-wall-player-policy.test.ts tests/roster-wall-renewal.test.ts tests/roster-wall-schema.test.ts tests/roster-wall-summary.test.ts tests/production-operations-save-v8.test.ts tests/c2a-m0-engine-union.test.ts ===
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/production-operations-save-v8.test.ts (20 tests) 2228ms
+   ✓ Production Operations V1 — frozen V7 to live V8 migration > backfills the additive opening band in legitimate pre-a104970 V1–V4 active forecasts 435ms
+   ✓ Production Operations V1 — frozen V7 to live V8 migration > preserves an active V7 production countdown and continuation exactly 418ms
+   ✓ Production Operations V1 — managed state validation and continuation > round-trips a blocked shooting task with its real director and reservations 382ms
+ ✓ |core| tests/roster-wall-summary.test.ts (4 tests) 135405ms
+   ✓ roster-wall summary > derives boundary, recurrence, and player obligations from a real evidence slice 135394ms
+ ✓ |core| tests/roster-wall-player-policy.test.ts (12 tests) 108036ms
+   ✓ Week-208 roster-wall mixed-founding-term player policy > serializes the exact Week-196 entry and every player row through one envelope 410ms
+   ✓ Week-208 roster-wall mixed-founding-term player policy > replays deterministically from the same seed and policy 33344ms
+   ✓ Week-208 roster-wall mixed-founding-term player policy > completes the other governed operating policy — direct-package 34715ms
+   ✓ Week-208 roster-wall mixed-founding-term player policy > completes the other governed operating policy — scaled-two-team 39022ms
+ ✓ |core| tests/c2a-m0-engine-union.test.ts (11 tests) 538ms
+   ✓ C2a-M0 — the phase machinery has exactly one source (charter §12-M0) > agrees with the save validator on every phase a real production reaches 469ms
+ ✓ |core| tests/roster-wall-renewal.test.ts (6 tests) 187ms
+ ✓ |core| tests/roster-wall-schema.test.ts (5 tests) 10108ms
+   ✓ Week-208 roster-wall evidence schema > projects the exact V11 entry, accounting, dimensions and three warning shadows 3419ms
+   ✓ Week-208 roster-wall evidence schema > rejects even a sub-cent cash mismatch instead of applying tolerance 3440ms
+   ✓ Week-208 roster-wall evidence schema > keeps Annex state descriptive and distinct in the entry ID 3233ms
+
+ Test Files  6 passed (6)
+      Tests  58 passed (58)
+   Start at  08:45:53
+   Duration  296.70s (transform 2.11s, setup 0ms, collect 38.11s, tests 256.50s, environment 3ms, prepare 542ms)
+

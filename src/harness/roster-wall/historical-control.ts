@@ -2,6 +2,7 @@
 // The original provenance guards deliberately reject accepted evidence on a P12 branch.
 import { initialTechnology } from '../../core/technology.js'
 import { initialPhysicalPlans } from '../../core/physicalPlans.js'
+import { initialTalentMarket } from '../../core/talentMarket.js'
 import { withResearchFoundation } from '../../core/researchPeople.js'
 import { stableStringify } from '../../core/save.js'
 import { SKILL_ORDER, GENRE_ORDER } from '../../core/tuning.js'
@@ -13,9 +14,12 @@ export function liftV18Control(state:GameStateV18):GameState { const cloned=stru
   // P13B S5-R07: the live workflow carries `setup`/`planRevision`; a historical control never selected a recipe.
   operations:{...cloned.operations,workflows:cloned.operations.workflows.map(w=>({...w,setup:null,planRevision:0}))},
   // P13B-S6: the live placement record carries `cancellation`; a historical control cancelled nothing.
-  placement:{...cloned.placement,facilities:cloned.placement.facilities.map(f=>({...f,cancellation:null}))},talent:state.talent.map(withResearchFoundation),technology:initialTechnology(state.market.tick),physicalPlans:initialPhysicalPlans()} }
+  placement:{...cloned.placement,facilities:cloned.placement.facilities.map(f=>({...f,cancellation:null}))},talent:state.talent.map(withResearchFoundation),technology:initialTechnology(state.market.tick),physicalPlans:initialPhysicalPlans(),
+  // P14A.1 (Save V28): a historical control has no industry, so it holds no market
+  // case, proposal or receipt — the empty root, exactly what the real lift writes.
+  talentMarket:initialTalentMarket()} }
 export function historicalHashState<T extends object>(state:T):object {
-  if(!('technology' in state) && !('hollywood' in state) && !('physicalPlans' in state))return state
+  if(!('technology' in state) && !('hollywood' in state) && !('physicalPlans' in state) && !('talentMarket' in state))return state
   if('hollywood' in state && state.hollywood!==null)throw new Error('Historical hash cannot discard a living industry')
   if ('technology' in state) {
     const technology = state.technology as GameState['technology']
@@ -25,7 +29,11 @@ export function historicalHashState<T extends object>(state:T):object {
     // P13B-S3: the historical control never queues physical work; an empty plan root is the only lawful shape to discard.
     if (stableStringify(state.physicalPlans) !== stableStringify(initialPhysicalPlans())) throw new Error('Historical hash cannot discard physical-plan authority')
   }
-  const {hollywood: _control, technology: _research, physicalPlans: _plans,...frozen}=state as Partial<GameState>
+  if ('talentMarket' in state) {
+    // P14A.1: the historical control fights no contested expiry; an empty market root is the only lawful shape to discard.
+    if (stableStringify(state.talentMarket) !== stableStringify(initialTalentMarket())) throw new Error('Historical hash cannot discard talent-market authority')
+  }
+  const {hollywood: _control, technology: _research, physicalPlans: _plans, talentMarket: _market,...frozen}=state as Partial<GameState>
   if (frozen.operations) {
     // P13B S5-R07: the live workflow carries `setup`/`planRevision`; a historical control never selected a recipe, so the only lawful
     // shape to discard is the null record at revision 0.

@@ -390,7 +390,20 @@ export const TUNING = {
 
   // Renewal / termination (D-11.7 / D-11.9).
   HIRING_RENEWAL_WINDOW_WEEKS: 12, // window opens when 0 < remaining ≤ this (owner 8–12)
-  HIRING_TERMINATION_FRACTION: 0.5, // terminationCost = this × remaining guaranteed salary
+  // P14A.1 (rulings §3.4.1 direction 2, companion §3.2): the early-termination
+  // charge is the LESSER of all remaining guaranteed base salary and this many
+  // weeks of it — `weekly × min(remaining, 26)`. The 50% fraction below is NOT
+  // law any more (direction 1/S3); it is retained only as the D-16 observatory's
+  // recorded historical constant.
+  HIRING_TERMINATION_CAP_WEEKS: 26,
+  HIRING_TERMINATION_FRACTION: 0.5, // HISTORICAL (pre-P14A): the discarded 50%-of-guaranteed rule
+
+  // P14A.1 market premium tier (companion §2.1.4, R7). A small TYPED enum, not a
+  // continuous input, symmetric for BOTH issuers: annual = round(ask(term) × tier).
+  // 1.00 is the plain ask and the floor — a below-ask tier is not offered in P14A.
+  // NUMERICAL HYPOTHESIS: the plan records the VALUES as OPEN; only the enum shape,
+  // the 1.00 floor and monotonicity are settled.
+  MARKET_PREMIUM_TIERS: [1.0, 1.05, 1.1, 1.15, 1.2, 1.25] as readonly number[],
 
   // Freelancers (D-11.10). fee = round(salaryCurve × premium); a one-time project cost.
   FREELANCER_FEE_PREMIUM: 1.5, // freelancer one-film fee vs base per-production salary

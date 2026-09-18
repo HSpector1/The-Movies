@@ -1,0 +1,41 @@
+=== npx vitest run --project core --minWorkers=1 --maxWorkers=1 --reporter=dot tests/p13b-r07-controls.test.ts tests/p13b-r07-gate.test.ts tests/p13b-r07-recipes.test.ts tests/p13b-r07-save-v25.test.ts tests/p13b-r07-timeline.test.ts tests/p13b-s3-admission.test.ts tests/p13b-s3-dependencies.test.ts tests/p13b-s3-save-v23.test.ts ===
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p13b-s3-admission.test.ts (17 tests) 9718ms
+   ✓ P13B-S3 admission law (test 1) > a fresh world carries the empty physicalPlans root the contract defines — for THIS studio (P13B-S8: a rival admits its own Laboratory plans onto the shared root) 796ms
+   ✓ P13B-S3 admission law (test 1) > queuing snapshots the CURRENT quote as approvedQuote via planQuoteSnapshot 315ms
+   ✓ P13B-S3 admission law (test 1) > a queued acoustic installation on a Lab without instruments starts at the next boundary, matching a hand commit at the same week 346ms
+   ✓ P13B-S3 admission law (test 1) > cost above the ceiling holds with a reason naming both dollar amounts; automatic admission within the ceiling starts 314ms
+   ✓ P13B-S3 ordering and envelope (test 5) > two plans on independent targets, cash for one: the first starts, the second stays queued with an insufficient-cash reason and no partial debit 392ms
+   ✓ P13B-S3 ordering and envelope (test 5) > admission drains cash inside the SAME tick research reads: the plan starts and that week's research receipt is skipped for insufficient cash 3959ms
+   ✓ P13B-S3 ordering and envelope (test 5) > a dependency completing in week w enables its dependent at w+1's admission boundary, never within w 426ms
+   ✓ P13B-S3 conservation, determinism, replay, history and rival symmetry (test 6) > determinism: replaying the same actions from the same start produces byte-identical exportSave output 681ms
+   ✓ P13B-S3 conservation, determinism, replay, history and rival symmetry (test 6) > replay: save/reload mid-queue then continue matches an uninterrupted run, byte for byte 658ms
+ ✓ |core| tests/p13b-r07-controls.test.ts (8 tests) 7517ms
+   ✓ P13B-S5-R07 controls (test 4) > a changed pre-Shooting sound choice mid-hold is lawful and leaves the setup record untouched — INTERPRETATION 3 7291ms
+ ✓ |core| tests/p13b-r07-gate.test.ts (6 tests) 28760ms
+   ✓ P13B-S5-R07 lighting-route gate (test 3) > knowledge-only: lighting research complete (access acquired), no adoption anywhere -> conventional route 6905ms
+   ✓ P13B-S5-R07 lighting-route gate (test 3) > Lab-only: the electrical-control-instruments module is operational, but lighting research was never begun -> conventional route 5759ms
+   ✓ P13B-S5-R07 lighting-route gate (test 3) > wrong-stage: lighting is operational, but on a DIFFERENT stage than the one this production is bound to -> conventional route 5659ms
+   ✓ P13B-S5-R07 lighting-route gate (test 3) > active-retrofit / unfinished installation: adoption on the exact bound stage genuinely still installing at the gate check -> conventional route — PURE ROUTE-DERIVATION CHECK (see file header amendment (e): no engine-consistent state reaches this combination) 5241ms
+   ✓ P13B-S5-R07 lighting-route gate (test 3) > exact-stage operational adoption -> lighting route, halving the unit count to 2 5192ms
+ ✓ |core| tests/p13b-r07-save-v25.test.ts (8 tests) 826ms
+ ✓ |core| tests/p13b-r07-timeline.test.ts (6 tests) 7063ms
+   ✓ P13B-S5-R07 setup timeline arithmetic (test 2) > walks the lighting ballroom route through real ticks: admission 807, entry 809 6957ms
+ ✓ |core| tests/p13b-r07-recipes.test.ts (9 tests) 182ms
+ ✓ |core| tests/p13b-s3-dependencies.test.ts (11 tests) 3764ms
+   ✓ P13B-S3 dependencies (test 3) > an installation on a queued Laboratory body (target: {planId}) resolves the facility id at start and waits for the body to be operational 967ms
+   ✓ P13B-S3 dependencies (test 3) > a lawful reorder persists the new ordinals and revalidates 372ms
+   ✓ P13B-S3 changed quote (test 4) > a forged approvedQuote.fingerprint holds under reviewChangedQuote (the default) at the next boundary, with pendingQuote set to the fresh quote and a reason matching /quote changed/ 428ms
+   ✓ P13B-S3 changed quote (test 4) > automatic admission ignores a stale fingerprint and starts anyway, once blueprint/target/component labels are unchanged and cost is within the ceiling 341ms
+   ✓ P13B-S3 changed quote (test 4) > reviewPhysicalPlan re-approves a held plan (pendingQuote promoted to approvedQuote), which starts at the FOLLOWING boundary 333ms
+ ✓ |core| tests/p13b-s3-save-v23.test.ts (13 tests) 3489ms
+   ✓ P13B-S3 Save V23 (test 7) > migrateToV22 / migrateToV21 / migrateToV20 refuse a live save 678ms
+   ✓ P13B-S3 Save V23 (test 7) > save/reload mid-queue continues identically (byte for byte) 751ms
+
+ Test Files  8 passed (8)
+      Tests  78 passed (78)
+   Start at  08:30:30
+   Duration  68.41s (transform 1.86s, setup 0ms, collect 4.44s, tests 61.32s, environment 2ms, prepare 736ms)
+

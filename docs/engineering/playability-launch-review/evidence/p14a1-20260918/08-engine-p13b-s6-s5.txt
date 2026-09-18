@@ -1,0 +1,50 @@
+=== npx vitest run --project core --minWorkers=1 --maxWorkers=1 --reporter=dot tests/p13b-s6-restoration.test.ts tests/p13b-s6-save-v26.test.ts tests/p13b-s5-conservation.test.ts tests/p13b-s5-equipment.test.ts tests/p13b-s5-operational.test.ts tests/p13b-s5-quotes.test.ts tests/p13b-s5-save-v24.test.ts tests/p13b-s5-validation.test.ts ===
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p13b-s5-quotes.test.ts (11 tests) 55771ms
+   ✓ P13B-S5 quotes and components per route (test 1) > first inventor sound: access $0, equipment $0 first-prototype, physical $975k = stage + Post components 4505ms
+   ✓ P13B-S5 quotes and components per route (test 1) > second inventor sound installation on another stage while the first holds its asset: equipment $225k later-inventor, existing operational Post reused at $0, stage physical only 3721ms
+   ✓ P13B-S5 quotes and components per route (test 1) > commercial sound: access $200k charged once at purchase, equipment $300k, physical $975k 4857ms
+   ✓ P13B-S5 quotes and components per route (test 1) > lighting inventor first: access $0, equipment $0, site $50k/2w + install $50k/2w, no Post component of any kind 5662ms
+   ✓ P13B-S5 quotes and components per route (test 1) > lighting later inventor: equipment $150k + site/install physical $100k, still no Post 5219ms
+   ✓ P13B-S5 quotes and components per route (test 1) > lighting commercial at 936: access $100k charged once at purchase, equipment $200k commercial, physical $100k 5675ms
+   ✓ P13B-S5 quotes and components per route (test 1) > a lighting adoption with a postFacilityId is refused at commit (the requirement pinned unambiguously at the action layer) 5387ms
+   ✓ P13B-S5 quotes and components per route (test 1) > the first-prototype entitlement fires exactly once per (studio, technology, project) and never blocks a different technology’s project 5116ms
+   ✓ P13B-S5 quotes and components per route (test 2): the quote refuses an engaged stage with the commit’s own sentence > a stage engaged by one technology’s own underConstruction physical work refuses a DIFFERENT technology’s quote for that same stage with the commit’s exact sentence, and agrees again once the work completes 5070ms
+   ✓ P13B-S5 quotes and components per route (test 2): the quote refuses an engaged stage with the commit’s own sentence > a cash-only obstacle is reported as the commit's cash sentence, by quote and commit alike 5023ms
+   ✓ P13B-S5 quotes and components per route (test 2): the quote refuses an engaged stage with the commit’s own sentence > a total-level cash shortfall is refused by quote and commit alike 5535ms
+ ✓ |core| tests/p13b-s6-save-v26.test.ts (11 tests) 1893ms
+   ✓ P13B-S6 Save V26: genuine V25 fixtures, honest lift, chains, validator refusals (test 7) > VALID: a cancelled adoption with a passed original completesWeek is exempt from the v4 "operational receipt differs" clause 552ms
+ ✓ |core| tests/p13b-s5-save-v24.test.ts (15 tests) 11090ms
+   ✓ P13B-S5 Save V24 (test 4) > migrates legacy-v23-sound-operational-315 and its identical V20 ancestor to V24 with an honest first-prototype lift, byte-identical otherwise 432ms
+   ✓ P13B-S5 Save V24 (test 4) > migrateToV23 / migrateToV22 / migrateToV21 / migrateToV20 refuse a V24 save 880ms
+   ✓ P13B-S5 Save V24 (test 4) > makeSave writes saveVersion 26 420ms
+   ✓ P13B-S5 Save V24 (test 4) > save/reload mid-deployment continues identically (byte for byte): a lighting adoption committed but not yet operational 7118ms
+ ✓ |core| tests/p13b-s5-conservation.test.ts (3 tests) 27344ms
+   ✓ P13B-S5 conservation, determinism, campaign isolation (test 6) > cash conservation across a sound and a lighting adoption: every dollar the ledger charges for the two adoptions is exactly equipmentCost + installationCost, no more, no less, and no negative or duplicate row 7023ms
+   ✓ P13B-S5 conservation, determinism, campaign isolation (test 6) > determinism: the SAME action sequence from the SAME starting state produces byte-identical saves 11383ms
+   ✓ P13B-S5 conservation, determinism, campaign isolation (test 6) > campaign isolation: a rival’s organically-purchased sound adoption is byte-unchanged by the player’s own adoption actions, and reconciles to the catalogue’s per-technology values (no hard-coded 300,000/975,000) 8936ms
+ ✓ |core| tests/p13b-s5-operational.test.ts (4 tests) 23267ms
+   ✓ P13B-S5 operational law and charges (test 2) > lighting is operational at exactly committedWeek + 4 (deploymentWeeks), postFacilityId is null, and its +$1,000/week joins the ledger with no lag from the operational week onward 6863ms
+   ✓ P13B-S5 operational law and charges (test 2) > sound with no postFacilityId and no existing operational Post anywhere in the studio is refused 3555ms
+   ✓ P13B-S5 operational law and charges (test 2) > a second sound adoption reuses the existing operational Post: no new Post placement, no re-bill, and only the second stage’s own weekly cost joins the ledger 3940ms
+   ✓ P13B-S5 operational law and charges (test 2) > the sound-only production lock discriminator: a lighting adoption’s stage never carries the synchronized-sound-stage installation a sound adoption’s stage does 8908ms
+ ✓ |core| tests/p13b-s5-equipment.test.ts (5 tests) 21874ms
+   ✓ P13B-S5 equipment assets (test 3) > an adoption’s equipment asset is minted exactly once, held by it, and never duplicated by a second adoption 4652ms
+   ✓ P13B-S5 equipment assets (test 3) > an unheld retained asset (holderAdoptionId null, referenced by no adoption) is reused at $0 by a NEW adoption of the SAME technology 3957ms
+   ✓ P13B-S5 equipment assets (test 3) > an unheld retained asset of one technology is NEVER reused by a different technology’s adoption 5997ms
+   ✓ P13B-S5 equipment assets (test 3) > a held asset cannot be reused: two adoptions naming the same equipmentAssetId is refused on reimport 3647ms
+   ✓ P13B-S5 equipment assets (test 3) > exported-save round trip never fabricates an equipment row: makeSave/exportSave/importSave over an unmutated adoption reproduces the same equipment array byte for byte 3619ms
+ ✓ |core| tests/p13b-s5-validation.test.ts (9 tests) 11675ms
+ ✓ |core| tests/p13b-s6-restoration.test.ts (4 tests) 20730ms
+   ✓ P13B-S6 restoration: offline, opex, its own ledger row, not itself cancellable (test 4) > the stage stays ONLINE through its own lighting fit-out (existing law: neither authored blueprint sets takesTargetOffline), then goes offline only once restoration is committed by cancellation 6732ms
+   ✓ P13B-S6 restoration: offline, opex, its own ledger row, not itself cancellable (test 4) > the stage's own baseline weekly operating cost keeps being charged through the restoration window (S4 opex law: baseline is unconditional, an increment is the only thing ever suspended) 5451ms
+   ✓ P13B-S6 restoration: offline, opex, its own ledger row, not itself cancellable (test 4) > a restoration job is refused by cancelInstallation (it is the cost of the cancellation, not itself cancellable) 5210ms
+   ✓ P13B-S6 restoration: offline, opex, its own ledger row, not itself cancellable (test 4) > nothing to restore if no site work began: a Post fit-out (no `site`-kind component) cancelled unstarted commits no restoration and never goes offline 3336ms
+
+ Test Files  8 passed (8)
+      Tests  62 passed (62)
+   Start at  08:25:40
+   Duration  179.85s (transform 1.43s, setup 0ms, collect 3.57s, tests 173.64s, environment 2ms, prepare 703ms)
+

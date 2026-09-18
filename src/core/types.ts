@@ -1997,7 +1997,100 @@ export type GameStateV26 = GameStateV25
  * dispatch has a version to point `GameState` at.
  */
 export type GameStateV27 = GameStateV26
-export type GameState = GameStateV27
+
+// ── P14A.1 — the contested talent market (Save V28) ──────────────────────────
+// ONE persisted root of the market's own authority: the open/closed CASES, the
+// current PROPOSALS and the market RECEIPTS. It owns no person, contract, money,
+// employer interval or era fact — P10 owns the contract, P12 the employer truth
+// and the intervals, P11 the money (rulings §3.4.1 direction 14). Every fact the
+// market needs that another owner already holds is DERIVED on read, never copied:
+// the decision week is the subject's live `endWeekExclusive`, read through the
+// P12 employment row this case names by `contractId`.
+
+/** The six-state eligibility table of companion §2.1.2. The three P14C rows are
+ * declared here and are NOT reachable before P14C lands. */
+export type MarketEligibilityStatus =
+  | 'contracted_outside_window'
+  | 'renewal_window'
+  | 'retirement_announced'
+  | 'free_agent'
+  | 'finishing_commitments'
+  | 'retired_or_ineligible'
+
+/** companion §2.1.3: discovered → proposals_open → decision_pending → settled | declined | expired | invalidated. */
+export type MarketCaseStatus =
+  | 'discovered'
+  | 'proposals_open'
+  | 'decision_pending'
+  | 'settled'
+  | 'declined'
+  | 'expired'
+  | 'invalidated'
+
+/** The four TERMINAL states. A case's live status is derived; only its terminal
+ * outcome is persisted, because everything before it is a function of the week. */
+export type MarketCaseOutcome = 'settled' | 'declined' | 'expired' | 'invalidated'
+
+export type TalentMarketCase = {
+  talentId: string
+  /** The incumbent employer at discovery (player or rival). */
+  subjectStudioId: string
+  /** The P12 employment row whose LIVE `terms.endWeekExclusive` is the decision week. */
+  contractId: string
+  openedWeek: number
+  outcome: MarketCaseOutcome | null
+  closedWeek: number | null
+  reason: string | null
+}
+
+/** companion §2.1.4: a proposal REFERENCES a P10-priced draft (inputs + digest),
+ * it never copies a contract. A material-term change mints a new digest, which
+ * invalidates the prior version. */
+export type TalentMarketProposal = {
+  talentId: string
+  issuerStudioId: string
+  termWeeks: number
+  premiumTier: number
+  /** The effective week: the subject's decision week at submission. */
+  startWeek: number
+  annualSalary: number
+  signingBonus: number
+  submittedWeek: number
+  digest: string
+  /** R10 / direction 8: the representation seam. Required, pinned `null` under root version 1. */
+  representation: null
+}
+
+export type TalentMarketReceiptKind =
+  | 'discovered'
+  | 'proposalSubmitted'
+  | 'settled'
+  | 'declined'
+  | 'expired'
+  | 'invalidated'
+
+/** Reasons are ORDERING ONLY (companion §2.1.5): never an amount, never a formula. */
+export type TalentMarketReceipt = {
+  eventId: string
+  kind: TalentMarketReceiptKind
+  week: number
+  talentId: string
+  studioId: string | null
+  reasons: readonly string[]
+}
+
+export type TalentMarketState = {
+  cases: readonly TalentMarketCase[]
+  proposals: readonly TalentMarketProposal[]
+  receipts: readonly TalentMarketReceipt[]
+  /** R10 / direction 8. Required at the root and pinned `null`; nothing reads it.
+   * The root's VERSION is the save version itself (V28) — no second, drifting
+   * version field is persisted for a root that has shipped exactly once. */
+  representation: null
+}
+
+export type GameStateV28 = GameStateV27 & { talentMarket: TalentMarketState }
+export type GameState = GameStateV28
 
 // ── D-14 Talent Career Impact — frozen career-event record (§7) ───────────────
 // The ONE canonical persisted record of a participant's outcome on one released film.

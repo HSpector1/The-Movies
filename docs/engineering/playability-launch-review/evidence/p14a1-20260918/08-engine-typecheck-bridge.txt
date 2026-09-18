@@ -1,0 +1,48 @@
+=== npm run typecheck:bridge ===
+
+> project-studio-core@0.1.0 typecheck:bridge
+> tsc -p tsconfig.bridge.json
+
+bridge/runtime-checkpoint.ts(847,33): error TS2379: Argument of type 'GameStateV24' is not assignable to parameter of type 'GameStateV28' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Property 'talentMarket' is missing in type 'GameStateV24' but required in type '{ talentMarket: TalentMarketState; }'.
+bridge/runtime/campaign-library.ts(41,77): error TS2379: Argument of type 'GameStateV24' is not assignable to parameter of type 'GameStateV28' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Property 'talentMarket' is missing in type 'GameStateV24' but required in type '{ talentMarket: TalentMarketState; }'.
+bridge/runtime/campaign-library.ts(66,92): error TS2379: Argument of type 'GameStateV24' is not assignable to parameter of type 'GameStateV28' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Property 'talentMarket' is missing in type 'GameStateV24' but required in type '{ talentMarket: TalentMarketState; }'.
+bridge/session.ts(130,24): error TS2375: Type 'GameStateV24' is not assignable to type 'GameStateV28' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Property 'talentMarket' is missing in type 'GameStateV24' but required in type '{ talentMarket: TalentMarketState; }'.
+tests/bridge-p07a-w6-result-continuity.test.ts(224,46): error TS2379: Argument of type 'GameStateV24' is not assignable to parameter of type 'GameStateV28' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Property 'talentMarket' is missing in type 'GameStateV24' but required in type '{ talentMarket: TalentMarketState; }'.
+tests/bridge-p07a-w6-result-continuity.test.ts(230,41): error TS2379: Argument of type 'GameStateV24' is not assignable to parameter of type 'GameStateV28' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Property 'talentMarket' is missing in type 'GameStateV24' but required in type '{ talentMarket: TalentMarketState; }'.
+tests/bridge-p07a-w6-result-continuity.test.ts(277,46): error TS2379: Argument of type 'GameStateV24' is not assignable to parameter of type 'GameStateV28' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Property 'talentMarket' is missing in type 'GameStateV24' but required in type '{ talentMarket: TalentMarketState; }'.
+tests/bridge-p08a-w2-history-projection.test.ts(178,33): error TS2379: Argument of type 'GameStateV24' is not assignable to parameter of type 'GameStateV28' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Property 'talentMarket' is missing in type 'GameStateV24' but required in type '{ talentMarket: TalentMarketState; }'.
+tests/bridge-p08a-w2-history-projection.test.ts(189,27): error TS2379: Argument of type 'GameStateV24' is not assignable to parameter of type 'GameStateV28' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Property 'talentMarket' is missing in type 'GameStateV24' but required in type '{ talentMarket: TalentMarketState; }'.
+tests/bridge-p09a-w5-bare-lot-first-film.test.ts(97,32): error TS2375: Type 'GameStateV24' is not assignable to type 'GameStateV28' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Property 'talentMarket' is missing in type 'GameStateV24' but required in type '{ talentMarket: TalentMarketState; }'.
+tests/bridge-p10a-w0-people-projection.test.ts(341,36): error TS2379: Argument of type 'GameStateV24' is not assignable to parameter of type 'GameStateV28' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Property 'talentMarket' is missing in type 'GameStateV24' but required in type '{ talentMarket: TalentMarketState; }'.
+tests/bridge-p11-finance.test.ts(274,38): error TS2379: Argument of type 'GameStateV24' is not assignable to parameter of type 'GameStateV28' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Property 'talentMarket' is missing in type 'GameStateV24' but required in type '{ talentMarket: TalentMarketState; }'.
+tests/bridge-p11-finance.test.ts(275,35): error TS2379: Argument of type 'GameStateV24' is not assignable to parameter of type 'GameStateV28' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Property 'talentMarket' is missing in type 'GameStateV24' but required in type '{ talentMarket: TalentMarketState; }'.
+tests/bridge-p11-finance.test.ts(275,62): error TS2379: Argument of type 'GameStateV24' is not assignable to parameter of type 'GameStateV28' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Property 'talentMarket' is missing in type 'GameStateV24' but required in type '{ talentMarket: TalentMarketState; }'.
+tests/bridge-p11-finance.test.ts(282,27): error TS2379: Argument of type 'GameStateV24' is not assignable to parameter of type 'GameStateV28' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Property 'talentMarket' is missing in type 'GameStateV24' but required in type '{ talentMarket: TalentMarketState; }'.
+tests/bridge-p11-finance.test.ts(293,35): error TS2379: Argument of type 'GameStateV24' is not assignable to parameter of type 'GameStateV28' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Property 'talentMarket' is missing in type 'GameStateV24' but required in type '{ talentMarket: TalentMarketState; }'.
+tests/bridge-p11-finance.test.ts(293,62): error TS2379: Argument of type 'GameStateV24' is not assignable to parameter of type 'GameStateV28' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Property 'talentMarket' is missing in type 'GameStateV24' but required in type '{ talentMarket: TalentMarketState; }'.
+tests/bridge-p11-finance.test.ts(306,37): error TS2379: Argument of type 'GameStateV24' is not assignable to parameter of type 'GameStateV28' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Property 'talentMarket' is missing in type 'GameStateV24' but required in type '{ talentMarket: TalentMarketState; }'.
+tests/bridge-p11-finance.test.ts(307,35): error TS2379: Argument of type 'GameStateV24' is not assignable to parameter of type 'GameStateV28' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Property 'talentMarket' is missing in type 'GameStateV24' but required in type '{ talentMarket: TalentMarketState; }'.
+tests/bridge-p11-finance.test.ts(307,62): error TS2379: Argument of type 'GameStateV24' is not assignable to parameter of type 'GameStateV28' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Property 'talentMarket' is missing in type 'GameStateV24' but required in type '{ talentMarket: TalentMarketState; }'.
+tests/bridge-p13b-s3-save-as.test.ts(62,43): error TS2375: Type 'GameStateV24' is not assignable to type 'GameStateV28' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Property 'talentMarket' is missing in type 'GameStateV24' but required in type '{ talentMarket: TalentMarketState; }'.
+typecheck:bridge exit=2

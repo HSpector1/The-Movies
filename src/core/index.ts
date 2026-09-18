@@ -1276,6 +1276,11 @@ export {
   convertV26ToV27,
   convertV27ToV26,
   projectHollywoodPreV27,
+  // P14A.1 — live V27 → NEW V28 + migrateToV28 (the `talentMarket` root).
+  validateSaveV28,
+  migrateToV28,
+  convertV27ToV28,
+  convertV28ToV27,
   // P13B-S5-R07 — live V24 → NEW V25 + migrateToV25 (the widened production
   // setup plan leaves and the four setup history rows).
   validateSaveV25,
@@ -1310,6 +1315,7 @@ export type {
   SaveFileV25,
   SaveFileV26,
   SaveFileV27,
+  SaveFileV28,
   SaveFile,
   TalentV1,
   GameStateV1,
@@ -1325,6 +1331,41 @@ export {
   validateProductionSetup,
 } from './productionSetup.js'
 export type { ProductionSetupRecipe } from './productionSetup.js'
+
+// ── P14A.1 The contested talent market (One Contested Expiry Core) ──────────
+export {
+  initialTalentMarket,
+  talentMarketEngaged,
+  enteredStudioIds,
+  marketEligibility,
+  caseForTalent,
+  caseOpenForTalent,
+  isPremiumTier,
+  releaseFloor,
+  studioOffer,
+  proposalDraft,
+  submitProposal,
+  withdrawProposal,
+  currentProposals,
+  caseDisclosure,
+  releaseDisclosure,
+  rivalProposalTrigger,
+  advanceTalentMarketWeek,
+  projectTalentMarketPreV28,
+  validateTalentMarketRoot,
+  UNKNOWN,
+} from './talentMarket.js'
+export type {
+  MarketEligibility,
+  MarketCaseView,
+  MarketCaseDescriptor,
+  ProposalDraft,
+  ProposalIntent,
+  CaseDisclosure,
+  DisclosedProposal,
+  ReleaseDisclosure,
+  Disclosed,
+} from './talentMarket.js'
 
 // ── P13B-S3 Physical plans (persistent queue, dependencies, admission) ───────
 export {

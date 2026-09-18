@@ -115,7 +115,7 @@ describe('P13B-S5 Save V24 (test 4)', () => {
       expect(physical.reduce((sum, c) => sum + c.cost, 0)).toBe(975_000)
       expect(physical.every(c => c.placementId !== null)).toBe(true) // a REAL player placement, never null here
       const own = migrated.state.hollywood!.playerStudioId
-      const assets = equipmentAssets(migrated.state, own)
+      const assets = equipmentAssets(migrated.state as unknown as GameState, own) /* P14A.1: this envelope is deliberately pinned at its own frozen version; the live-typed reader never touches the V28 root. */
       expect(assets).toHaveLength(1)
       expect(assets[0]!.holderAdoptionId).toBe(adoption.id)
       expect(assets[0]!.cost).toBe(0)
@@ -155,7 +155,7 @@ describe('P13B-S5 Save V24 (test 4)', () => {
     expect(physical[0]!.cost).toBe(975_000)
     expect(physical[0]!.placementId).toBeNull()
 
-    const assets = equipmentAssets(migrated.state, 'studio-aca408ec-r05')
+    const assets = equipmentAssets(migrated.state as unknown as GameState, 'studio-aca408ec-r05') /* P14A.1: this envelope is deliberately pinned at its own frozen version; the live-typed reader never touches the V28 root. */
     expect(assets).toHaveLength(1)
     expect(assets[0]!.source).toBe('commercial')
     expect(assets[0]!.cost).toBe(300_000)
@@ -207,12 +207,12 @@ describe('P13B-S5 Save V24 (test 4)', () => {
   // AMENDED AGAIN (P13B-S6 live-version sweep, 2026-09-17): `makeSave` moved to
   // the live V26 boundary; this section moved with it a second time.
   it('makeSave writes saveVersion 26', () => {
-    expect(makeSave(p13aLaboratorySlice()).saveVersion).toBe(27)
+    expect(makeSave(p13aLaboratorySlice()).saveVersion).toBe(28)
   })
 
-  it('an unknown saveVersion 28 is refused, naming the handled range "1 through 27"', () => {
-    const forged = { ...makeSave(p13aLaboratorySlice()), saveVersion: 28 }
-    expect(() => validateSave(forged as never)).toThrow(/versions 1 through 27 only/)
+  it('an unknown saveVersion 29 is refused, naming the handled range "1 through 27"', () => {
+    const forged = { ...makeSave(p13aLaboratorySlice()), saveVersion: 29 }
+    expect(() => validateSave(forged as never)).toThrow(/versions 1 through 28 only/)
   })
 
   it('save/reload mid-deployment continues identically (byte for byte): a lighting adoption committed but not yet operational', () => {

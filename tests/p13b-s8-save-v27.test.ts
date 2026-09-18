@@ -183,8 +183,8 @@ describe('P13B-S8 Save V27: genuine V26 fixtures, honest lift, conditional downg
     const totalResearchCapacity = natural.hollywood!.businesses.find(b => b.studioId === business.studioId)!
       .account.periods.reduce((sum, p) => sum + p.movements.researchCapacity, 0)
     expect(totalResearchCapacity).not.toBe(0) // the fact this refusal depends on is genuinely nonzero, not forged
-    const envelope = save.makeSave(natural) // LIVE_SAVE_VERSION is 27 — a real, validated SaveFileV27
-    expect(envelope.saveVersion).toBe(27)
+    const envelope = save.makeSave(natural) // LIVE_SAVE_VERSION is 28 (P14A.1) — a real, validated SaveFileV28
+    expect(envelope.saveVersion).toBe(28)
     expect(() => save.migrateToV26(envelope as never)).toThrow(/cannot downgrade/i)
   })
 
@@ -208,11 +208,11 @@ describe('P13B-S8 Save V27: genuine V26 fixtures, honest lift, conditional downg
     })).toThrow()
   })
 
-  it('an unknown saveVersion 28 is refused, naming the handled range "1 through 27 only" (mechanical extrapolation of the S6 template one version up)', () => {
+  it('an unknown saveVersion 29 is refused, naming the handled range "1 through 28 only" (mechanical extrapolation of the S6 template one version up; P14A.1 moved the live boundary to V28)', () => {
     const json = load(V26_FIXTURES.soundMidDeployment.file)
     const v27 = withV27.migrateToV27(JSON.parse(json))
-    const forged = { ...v27, saveVersion: 28 }
-    expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 27 only/)
+    const forged = { ...v27, saveVersion: 29 }
+    expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 28 only/)
   })
 
   it('genuine usage of admitRivalPlans (not just an unused import — the same measured-risk guard tests/p13b-s6-save-v26.test.ts names for cancellationQuote): admitting a well-funded rival Laboratory books a real, nonzero researchCapacity movement — the same fact the natural-campaign downgrade-refused cases above observe emerging on their own', () => {

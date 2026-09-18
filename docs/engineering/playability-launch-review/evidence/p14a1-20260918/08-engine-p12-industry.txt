@@ -1,0 +1,20 @@
+=== npx vitest run --project core --minWorkers=1 --maxWorkers=1 --reporter=dot tests/p12-calendar.test.ts tests/p12-checker.test.ts tests/p12-lifecycle.test.ts tests/p12-starting-world.test.ts ===
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p12-lifecycle.test.ts (5 tests) 9262ms
+   ✓ R05 shared-law rival lifecycle > rejects forged owners, erased archive announcements, invented employers and invalid chart history 1194ms
+   ✓ R05 shared-law rival lifecycle > rejects forged frozen credits, double roles, and another studio’s reserved performers 440ms
+   ✓ R05 shared-law rival lifecycle > commissions, staffs, funds, operates, releases and settles real films without player RNG draws 2138ms
+   ✓ R05 shared-law rival lifecycle > expires ordinary contracts and crosses the first real arrival from elapsed play 5429ms
+ ✓ |core| tests/p12-checker.test.ts (5 tests) 39ms
+ ✓ |core| tests/p12-starting-world.test.ts (3 tests) 2334ms
+   ✓ R05 canonical starting history and genuine migration > opens four established distinct businesses with settled canonical history and protected applicants 305ms
+   ✓ R05 canonical starting history and genuine migration > migrates at each old state own week with empty company histories and exact player state 1808ms
+ ✓ |core| tests/p12-calendar.test.ts (2 tests) 10ms
+
+ Test Files  4 passed (4)
+      Tests  15 passed (15)
+   Start at  08:51:02
+   Duration  15.60s (transform 1.67s, setup 0ms, collect 2.57s, tests 11.65s, environment 1ms, prepare 390ms)
+

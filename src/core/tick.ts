@@ -1,4 +1,5 @@
 import { advanceHollywoodWeek, finishHollywoodWeek } from './hollywoodTick.js'
+import { advanceTalentMarketWeek } from './talentMarket.js'
 import { advanceResearchWeek, finishTechnologyWeek, weeklyResearchPayroll } from './technology.js'
 import { createProductionTechnologyPolicy } from './technologyProduction.js'
 import { technologyMilestoneDrafts } from './technologyMilestones.js'
@@ -1086,7 +1087,13 @@ export function tick(state: GameState, options?: TickOptions): GameState {
       finalized=enterRival(finalized,identity.studioId,'scheduled')
     }
   }
-  return finishHollywoodWeek(finishTechnologyWeek(finalized))
+  // P14A.1 (companion §2.1.8): the TERMINAL, fixed-order market step — appended
+  // after the pipeline's last call, on the already-incremented week, never inside
+  // `advanceHollywoodWeek`/`decide()`, which run pre-increment. By here the P10
+  // expiry step has removed the subject's contract, scheduled rival entry has run,
+  // and `finishHollywoodWeek` has closed the subject's interval and written the
+  // `expiry` receipt the chooser receipt references.
+  return advanceTalentMarketWeek(finishHollywoodWeek(finishTechnologyWeek(finalized)))
 }
 
 /**

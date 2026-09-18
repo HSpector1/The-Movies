@@ -1,0 +1,288 @@
+=== npx vitest run --project core --minWorkers=1 --maxWorkers=1 --reporter=dot tests/p13a-research-employment.test.ts tests/p13a-research-identity.test.ts tests/p13a-rival-adoption.test.ts tests/p13a-save-v20.test.ts tests/p13a-scientist-foundation.test.ts tests/p13a-technology-membership.test.ts tests/p13a-technology-milestones.test.ts tests/p13a-technology-validation.test.ts ===
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/p13a-rival-adoption.test.ts (2 tests | 1 failed) 7967ms
+   × P13A shared commercial adoption and exact rival cash consequence > uses the shared player/rival eligibility function and debits only technology adoption without new plant or RNG draws 225ms
+     → expected [ { fromWeek: +0, …(4) }, …(8) ] to deeply equal [ { fromWeek: +0, …(4) }, …(8) ]
+   ✓ P13A shared commercial adoption and exact rival cash consequence > replays the actual weekly commercial purchase, reconciles its debit and creates one dated operational receipt 1211ms
+ ✓ |core| tests/p13a-technology-membership.test.ts (9 tests) 7775ms
+   ✓ P13A exact historical technology membership under local indexing > does not reuse membership across independent round-tripped copies with the same world and entity IDs 562ms
+   ✓ P13A exact historical technology membership under local indexing > rechecks the same mutable input after removal and after exact restoration 586ms
+ ✓ |core| tests/p13a-technology-validation.test.ts (9 tests) 8604ms
+ ✓ |core| tests/p13a-save-v20.test.ts (5 tests) 1036ms
+   ✓ P13A governed V19 to V20 persistence > round-trips a migrated V20 world exactly and creates independent state objects 447ms
+ ✓ |core| tests/p13a-technology-milestones.test.ts (4 tests) 5558ms
+   ✓ P13A dated public technology history > round-trips both boundaries exactly and resumes without duplicating the permanent events 596ms
+   ✓ P13A dated public technology history > never backfills after migration, skips dates not actually reached, and leaves the frozen V19 vocabulary closed 330ms
+ ❯ |core| tests/p13a-scientist-foundation.test.ts (6 tests | 3 failed) 128ms
+   × P13A Scientist identity and employment foundation > preserves accepted people, concepts, market, era and RNG for p13a-person-regression-1 53ms
+     → expected '4a4b2e78a8af26bb7804b4220ba31b2fcb667…' to be '16857a2609206c58bfb34ba3be7b67d95276e…' // Object.is equality
+   × P13A Scientist identity and employment foundation > preserves accepted people, concepts, market, era and RNG for p13a-person-regression-2 32ms
+     → expected 'de6e49d8796e1a037e676b5e147c5850680bb…' to be 'd71583f6fc04af2d251e2010ca6725e6bcc01…' // Object.is equality
+   × P13A Scientist identity and employment foundation > preserves accepted people, concepts, market, era and RNG for m0a-0001 22ms
+     → expected '0b8e21842fc4a820413c3416c90bdd9ce2907…' to be '7517c0d01eb928245e2101752932b99ccd344…' // Object.is equality
+ ✓ |core| tests/p13a-research-employment.test.ts (1 test) 5217ms
+   ✓ P13A research employment continuity > releasing the actual Scientist pauses work immediately and survives save/reload without losing verified work 5215ms
+ ✓ |core| tests/p13a-research-identity.test.ts (1 test) 1073ms
+   ✓ P13A retained research Laboratory identity > keeps paused and cancelled Laboratory references intact without blocking lawful instrument installation 1072ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 4 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p13a-rival-adoption.test.ts > P13A shared commercial adoption and exact rival cash consequence > uses the shared player/rival eligibility function and debits only technology adoption without new plant or RNG draws
+AssertionError: expected [ { fromWeek: +0, …(4) }, …(8) ] to deeply equal [ { fromWeek: +0, …(4) }, …(8) ]
+
+- Expected
++ Received
+
+  Array [
+    Object {
+      "closing": 19549508.47829368,
+      "fromWeek": 0,
+      "movements": Object {
+        "capacity": -5900000,
+        "development": 0,
+        "facilityOpex": -1342000,
+        "marketing": -7388330,
+        "overhead": -1248000,
+        "payroll": -2962960,
+        "production": -23507240,
+        "researchCapacity": -900000,
+        "researchSpend": 0,
+        "signing": -533332,
+        "studioRevenue": 34331370.47829368,
+        "technologyAdoption": 0,
+        "technologyRefund": 0,
+        "technologyRestoration": 0,
+      },
+      "opening": 29000000,
+      "throughWeek": 51,
+    },
+    Object {
+      "closing": 24802301.883544736,
+      "fromWeek": 52,
+      "movements": Object {
+        "capacity": 0,
+        "development": 0,
+        "facilityOpex": -1378000,
+        "marketing": -5810820,
+        "overhead": -1248000,
+        "payroll": -2962960,
+        "production": -17214904,
+        "researchCapacity": 0,
+        "researchSpend": 0,
+        "signing": 0,
+        "studioRevenue": 33867477.405251056,
+        "technologyAdoption": 0,
+        "technologyRefund": 0,
+        "technologyRestoration": 0,
+      },
+      "opening": 19549508.47829368,
+      "throughWeek": 103,
+    },
+    Object {
+      "closing": 26408464.45894099,
+      "fromWeek": 104,
+      "movements": Object {
+        "capacity": 0,
+        "development": 0,
+        "facilityOpex": -1378000,
+        "marketing": -5429969,
+        "overhead": -1248000,
+        "payroll": -2962960,
+        "production": -17586042,
+        "researchCapacity": 0,
+        "researchSpend": 0,
+        "signing": 0,
+        "studioRevenue": 30211133.575396247,
+        "technologyAdoption": 0,
+        "technologyRefund": 0,
+        "technologyRestoration": 0,
+      },
+      "opening": 24802301.883544736,
+      "throughWeek": 155,
+    },
+    Object {
+      "closing": 26408358.762996852,
+      "fromWeek": 156,
+      "movements": Object {
+        "capacity": 0,
+        "development": 0,
+        "facilityOpex": -1378000,
+        "marketing": -5777553,
+        "overhead": -1248000,
+        "payroll": -2962960,
+        "production": -18475161,
+        "researchCapacity": 0,
+        "researchSpend": 0,
+        "signing": 0,
+        "studioRevenue": 29841568.304055866,
+        "technologyAdoption": 0,
+        "technologyRefund": 0,
+        "technologyRestoration": 0,
+      },
+      "opening": 26408464.45894099,
+      "throughWeek": 207,
+    },
+    Object {
+      "closing": 25279225.43081119,
+      "fromWeek": 208,
+      "movements": Object {
+        "capacity": 0,
+        "development": 0,
+        "facilityOpex": -1378000,
+        "marketing": 0,
+        "overhead": -1248000,
+        "payroll": -1988220,
+        "production": 0,
+        "researchCapacity": 0,
+        "researchSpend": 0,
+        "signing": -357883,
+        "studioRevenue": 3842969.6678143367,
+        "technologyAdoption": 0,
+        "technologyRefund": 0,
+        "technologyRestoration": 0,
+      },
+      "opening": 26408358.762996852,
+      "throughWeek": 259,
+    },
+    Object {
+      "closing": 20221005.43081119,
+      "fromWeek": 260,
+      "movements": Object {
+        "capacity": 0,
+        "development": 0,
+        "facilityOpex": -1472000,
+        "marketing": 0,
+        "overhead": -1248000,
+        "payroll": -1988220,
+        "production": 0,
+        "researchCapacity": -350000,
+        "researchSpend": 0,
+        "signing": 0,
+        "studioRevenue": 0,
+        "technologyAdoption": 0,
+        "technologyRefund": 0,
+        "technologyRestoration": 0,
+      },
+      "opening": 25279225.43081119,
+      "throughWeek": 311,
+    },
+    Object {
+      "closing": 15502785.43081119,
+      "fromWeek": 312,
+      "movements": Object {
+        "capacity": 0,
+        "development": 0,
+        "facilityOpex": -1482000,
+        "marketing": 0,
+        "overhead": -1248000,
+        "payroll": -1988220,
+        "production": 0,
+        "researchCapacity": 0,
+        "researchSpend": 0,
+        "signing": 0,
+        "studioRevenue": 0,
+        "technologyAdoption": 0,
+        "technologyRefund": 0,
+        "technologyRestoration": 0,
+      },
+      "opening": 20221005.43081119,
+      "throughWeek": 363,
+    },
+    Object {
+      "closing": 10784565.43081119,
+      "fromWeek": 364,
+      "movements": Object {
+        "capacity": 0,
+        "development": 0,
+        "facilityOpex": -1482000,
+        "marketing": 0,
+        "overhead": -1248000,
+        "payroll": -1988220,
+        "production": 0,
+        "researchCapacity": 0,
+        "researchSpend": 0,
+        "signing": 0,
+        "studioRevenue": 0,
+        "technologyAdoption": 0,
+        "technologyRefund": 0,
+        "technologyRestoration": 0,
+      },
+      "opening": 15502785.43081119,
+      "throughWeek": 415,
+    },
+    Object {
+-     "closing": 10504993.43081119,
++     "closing": 9029993.43081119,
+      "fromWeek": 416,
+      "movements": Object {
+        "capacity": 0,
+        "development": 0,
+        "facilityOpex": 0,
+        "marketing": 0,
+        "overhead": 0,
+        "payroll": 0,
+        "production": 0,
+        "researchCapacity": 0,
+        "researchSpend": 0,
+        "signing": -279572,
+        "studioRevenue": 0,
+-       "technologyAdoption": 0,
++       "technologyAdoption": -1475000,
+        "technologyRefund": 0,
+        "technologyRestoration": 0,
+      },
+      "opening": 10784565.43081119,
+      "throughWeek": 416,
+    },
+  ]
+
+ ❯ tests/p13a-rival-adoption.test.ts:46:82
+     44|       expect(selected.account.cash - original.account.cash).toBe(-1_47…
+     45|       expect({...selected, account: original.account}).toEqual(origina…
+     46|       expect(selected.account.periods.slice(0, original.account.period…
+       |                                                                                  ^
+     47|       expect(selected.account.periods).toHaveLength(original.account.p…
+     48|       const period = selected.account.periods.at(-1)!
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/4]⎯
+
+ FAIL |core|  tests/p13a-scientist-foundation.test.ts > P13A Scientist identity and employment foundation > preserves accepted people, concepts, market, era and RNG for p13a-person-regression-1
+AssertionError: expected '4a4b2e78a8af26bb7804b4220ba31b2fcb667…' to be '16857a2609206c58bfb34ba3be7b67d95276e…' // Object.is equality
+
+Expected: "16857a2609206c58bfb34ba3be7b67d95276e5c96048c5674cb5987aa8a94a17"
+Received: "4a4b2e78a8af26bb7804b4220ba31b2fcb667961c5acec6d5e79c4a466859d99"
+
+ ❯ tests/p13a-scientist-foundation.test.ts:32:77
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/4]⎯
+
+ FAIL |core|  tests/p13a-scientist-foundation.test.ts > P13A Scientist identity and employment foundation > preserves accepted people, concepts, market, era and RNG for p13a-person-regression-2
+AssertionError: expected 'de6e49d8796e1a037e676b5e147c5850680bb…' to be 'd71583f6fc04af2d251e2010ca6725e6bcc01…' // Object.is equality
+
+Expected: "d71583f6fc04af2d251e2010ca6725e6bcc0104fb727d3735155aa5235df01b8"
+Received: "de6e49d8796e1a037e676b5e147c5850680bb1b198ffdd18d41be8c588d7fcc1"
+
+ ❯ tests/p13a-scientist-foundation.test.ts:32:77
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/4]⎯
+
+ FAIL |core|  tests/p13a-scientist-foundation.test.ts > P13A Scientist identity and employment foundation > preserves accepted people, concepts, market, era and RNG for m0a-0001
+AssertionError: expected '0b8e21842fc4a820413c3416c90bdd9ce2907…' to be '7517c0d01eb928245e2101752932b99ccd344…' // Object.is equality
+
+Expected: "7517c0d01eb928245e2101752932b99ccd3444f2ca6848a6badf579ef2fb51c4"
+Received: "0b8e21842fc4a820413c3416c90bdd9ce290750d669bc08b66b0be7705e6a2c6"
+
+ ❯ tests/p13a-scientist-foundation.test.ts:32:77
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/4]⎯
+
+ Test Files  2 failed | 6 passed (8)
+      Tests  4 failed | 33 passed (37)
+   Start at  08:58:21
+   Duration  43.52s (transform 1.55s, setup 0ms, collect 3.57s, tests 37.36s, environment 2ms, prepare 706ms)
+

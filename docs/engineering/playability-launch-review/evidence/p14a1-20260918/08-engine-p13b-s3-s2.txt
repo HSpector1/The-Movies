@@ -1,0 +1,35 @@
+=== npx vitest run --project core --minWorkers=1 --maxWorkers=1 --reporter=dot tests/p13b-s3-validation.test.ts tests/p13b-s2-access-identity.test.ts tests/p13b-s2-catalogue.test.ts tests/p13b-s2-cooperation.test.ts tests/p13b-s2-doc03.test.ts tests/p13b-s2-expiry.test.ts tests/p13b-s2-labs.test.ts tests/p13b-s2-save-v22.test.ts ===
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p13b-s2-access-identity.test.ts (14 tests) 16453ms
+   ✓ P13B-S2 access identity: completion grant must key on (studioId, technologyId) > 6. save/reload and later ticks: exactly two rows, no duplicates, no erasure; validateSaveV28 accepts 754ms
+ ✓ |core| tests/p13b-s2-doc03.test.ts (17 tests) 7757ms
+ ✓ |core| tests/p13b-s2-save-v22.test.ts (12 tests) 9670ms
+   ✓ P13B-S2 V21 to V22 migration (test 8) > lifts ./fixtures/p13b/legacy-v21-staffed-4-seats-263.json.gz: every receipt ×8, per-Laboratory rows derived honestly, cooperationFromWeek stamped at the fixture's own week 862ms
+   ✓ P13B-S2 V21 to V22 migration (test 8) > lifts ./fixtures/p13b/legacy-v21-released-paused-266.json.gz: every receipt ×8, per-Laboratory rows derived honestly, cooperationFromWeek stamped at the fixture's own week 794ms
+   ✓ P13B-S2 V21 to V22 migration (test 8) > lifts ./fixtures/p13b/legacy-v21-two-labs-two-briefs-783.json.gz: every receipt ×8, per-Laboratory rows derived honestly, cooperationFromWeek stamped at the fixture's own week 1192ms
+   ✓ P13B-S2 V21 to V22 migration (test 8) > continues the migrated active staffed-4-seats-263 project for one more funded week (now carrying its own labs row) and re-saves byte-identically 964ms
+   ✓ P13B-S2 V21 to V22 migration (test 8) > chains V20→V21→V22 for ./fixtures/p13b/legacy-v20-research-active-280.json.gz: the S1 legacy prefix survives intact, weeks stays empty 883ms
+   ✓ P13B-S2 V21 to V22 migration (test 8) > chains V20→V21→V22 for ./fixtures/p13b/legacy-v20-research-paused-expired-468.json.gz: the S1 legacy prefix survives intact, weeks stays empty 853ms
+   ✓ P13B-S2 V21 to V22 migration (test 8) > chains V20→V21→V22 for ./fixtures/p13b/legacy-v20-research-complete-operational-315.json.gz: the S1 legacy prefix survives intact, weeks stays empty 776ms
+   ✓ P13B-S2 envelope law at the live writer (test 8) > makeSave always writes the live saveVersion 26 539ms
+   ✓ P13B-S2 envelope law at the live writer (test 8) > refuses an unknown saveVersion 29 with the updated range 484ms
+   ✓ P13B-S2 envelope law at the live writer (test 8) > round-trips a migrated two-Laboratory save through exportSave/importSave/migrateToV28 byte-identically 932ms
+   ✓ P13B-S2 campaign isolation across the migrated copies (mirrors the S1 case) > produces independent migrated copies from the same V21 fixture; advancing one never touches the other 1262ms
+ ✓ |core| tests/p13b-s3-validation.test.ts (12 tests) 5814ms
+ ✓ |core| tests/p13b-s2-labs.test.ts (10 tests) 27242ms
+   ✓ P13B-S2 module/bench law (test 2) > refuses lighting beginResearch while the seated Laboratory lacks an operational electrical/control module 6180ms
+   ✓ P13B-S2 module/bench law (test 2) > does not double-book one Laboratory's seat slots when two technologies are both active there (sound 2 + lighting 2, four seats total) 5345ms
+   ✓ P13B-S2 module/bench law (test 2) > seats a person for a technology on a Laboratory lacking its discipline module (retained P13A law), but refuses to begin until the module is operational 5214ms
+   ✓ P13B-S2 module/bench law (test 2) > releases the seat claim on pause and reacquires it on resume — the S1 release law generalized to a lighting project (regression net) 5117ms
+ ✓ |core| tests/p13b-s2-expiry.test.ts (3 tests) 12077ms
+ ✓ |core| tests/p13b-s2-cooperation.test.ts (5 tests) 6698ms
+ ✓ |core| tests/p13b-s2-catalogue.test.ts (11 tests) 6590ms
+   ✓ P13B-S2 catalogue: two technologies, stable order (test 1) > the ordinary action surface (knownTechnology) accepts both technology ids, not only synchronized-sound 638ms
+
+ Test Files  8 passed (8)
+      Tests  84 passed (84)
+   Start at  08:31:45
+   Duration  98.36s (transform 1.39s, setup 0ms, collect 3.48s, tests 92.30s, environment 2ms, prepare 716ms)
+

@@ -1,0 +1,16 @@
+=== npx vitest run --project core --minWorkers=1 --maxWorkers=1 --reporter=dot tests/d12-audience-aligned-weak-execution.test.ts tests/d12-commercial-outlook-fame.test.ts tests/d12-fame-isolation.test.ts tests/d12-final-downside.test.ts tests/d12-p2-calibration.test.ts ===
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/d12-p2-calibration.test.ts (7 tests) 5295ms
+   ✓ D-12 P2 owner route: four ordinary films no longer multiply cash > a competent studio ends four films meaningfully constrained, with real losses 5284ms
+ ✓ |core| tests/d12-commercial-outlook-fame.test.ts (7 tests) 213ms
+ ✓ |core| tests/d12-final-downside.test.ts (7 tests) 22ms
+ ✓ |core| tests/d12-audience-aligned-weak-execution.test.ts (5 tests) 19ms
+ ✓ |core| tests/d12-fame-isolation.test.ts (3 tests) 14ms
+
+ Test Files  5 passed (5)
+      Tests  29 passed (29)
+   Start at  08:58:03
+   Duration  11.01s (transform 1.57s, setup 0ms, collect 3.68s, tests 5.56s, environment 1ms, prepare 485ms)
+

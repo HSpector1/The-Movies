@@ -100,6 +100,7 @@
 // cycle a player can farm. The bound is enforced as an invariant, not a habit.
 
 import { canAfford, economyEngaged, type Affordability } from './employment.js'
+import { fnv1a64 } from './math.js'
 import { supersedingOperationalBlueprintId } from './facilityEffects.js'
 import { occupiedResourceSlots, resourceClaimsOf } from './occupancy.js'
 import {
@@ -969,18 +970,8 @@ export function commitFacilityInstallation(state: GameState, request: FacilityIn
 // completion week, which moves every single week without anything real changing.
 // Pure and dependency-free: a 64-bit FNV-1a fold over one canonically-ordered
 // JSON string. The core owns no crypto and takes no package for a digest whose
-// only job is equality.
-const FNV64_OFFSET = 0xcbf29ce484222325n;
-const FNV64_PRIME = 0x100000001b3n;
-const FNV64_MASK = 0xffffffffffffffffn;
-
-function fnv1a64(text: string): string {
-  let hash = FNV64_OFFSET;
-  for (let i = 0; i < text.length; i++) {
-    hash = (hash ^ BigInt(text.charCodeAt(i))) * FNV64_PRIME & FNV64_MASK;
-  }
-  return hash.toString(16).padStart(16, '0');
-}
+// only job is equality. P14A.1 promoted the fold itself to `math.ts` when the
+// market draft digest became its second caller; the law here is unchanged.
 
 /** The scope/price facts a fingerprint covers. `target` is the exact thing the quote is FOR. */
 export type PhysicalQuoteFacts = {

@@ -1,0 +1,38 @@
+=== npx vitest run --project core --minWorkers=1 --maxWorkers=1 --reporter=dot tests/p13b-s2-validation.test.ts tests/p13b-s1-save-v21.test.ts tests/p13b-s1-scheduler.test.ts tests/p13a-catalogue.test.ts tests/p13a-causal-core.test.ts tests/p13a-physical-installation.test.ts tests/p13a-placement-history-validation.test.ts tests/p13a-production-technology.test.ts ===
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p13b-s1-scheduler.test.ts (13 tests) 15429ms
+   ✓ P13B-S1 determinism, replay and interleaving (test 7) > rebuilds byte-identically from the same seed and the same action list, both before and after further identical actions 3734ms
+   ✓ P13B-S1 determinism, replay and interleaving (test 7) > round-trips save/reload byte-identically after seating, after funded weeks, after expiry and after pause 979ms
+ ✓ |core| tests/p13b-s2-validation.test.ts (15 tests) 41281ms
+   ✓ P13B-S2 conservation, determinism, save/reload and campaign isolation (test 7) > conservation: reconciles receipts, expenditure, ledger and cash over a funded cooperate interval 5957ms
+   ✓ P13B-S2 conservation, determinism, save/reload and campaign isolation (test 7) > determinism: two independent builds from the same seed give byte-identical exportSave, both fresh and after identical further actions 10844ms
+   ✓ P13B-S2 conservation, determinism, save/reload and campaign isolation (test 7) > save/reload mid-project: a reloaded cooperate project continues identically to the uninterrupted run over further weeks 5664ms
+   ✓ P13B-S2 conservation, determinism, save/reload and campaign isolation (test 7) > campaign isolation: every project a public action can create carries studioId === the player, by construction 5391ms
+   ✓ P13B-S2 conservation, determinism, save/reload and campaign isolation (test 7) > campaign isolation: a rival two-Laboratory project never surfaces through the player-scoped read filter, and forging the player’s own project never touches its bytes 5268ms
+ ✓ |core| tests/p13a-production-technology.test.ts (11 tests) 765ms
+   ✓ P13A first-filming technology and exact production chain > carries the first-filming lock through the complete tick state assembly 562ms
+ ✓ |core| tests/p13a-physical-installation.test.ts (6 tests) 169ms
+ ✓ |core| tests/p13b-s1-save-v21.test.ts (8 tests) 3879ms
+   ✓ P13B-S1 V20 to V21 migration (test 8) > lifts ./fixtures/p13b/legacy-v20-research-active-280.json.gz into one retained seat and a frozen legacy prefix 338ms
+   ✓ P13B-S1 V20 to V21 migration (test 8) > continues the migrated active-280 project lawfully for one more funded week and re-saves byte-identically 928ms
+   ✓ P13B-S1 V20 to V21 migration (test 8) > keeps the migrated paused-expired seat retained but ineligible, refuses resumeResearch, then accepts it after rehiring the same id 578ms
+   ✓ P13B-S1 campaign isolation (test 10) > produces independent migrated copies from the same fixture; advancing one never touches the other 1434ms
+ ✓ |core| tests/p13a-causal-core.test.ts (8 tests) 11571ms
+   ✓ P13A causal Core through the real weekly engine > retains exact paid work and reloads a lawful $1 weekly budget 564ms
+   ✓ P13A causal Core through the real weekly engine > retains exact paid work and reloads a lawful $3 weekly budget 530ms
+   ✓ P13A causal Core through the real weekly engine > retains exact paid work and reloads a lawful $2499 weekly budget 445ms
+   ✓ P13A causal Core through the real weekly engine > retains exact paid work and reloads a lawful $5600 weekly budget 541ms
+   ✓ P13A causal Core through the real weekly engine > retains exact paid work and reloads a lawful $9999 weekly budget 673ms
+   ✓ P13A causal Core through the real weekly engine > one Scientist completes 64 units in 43 funded weeks, then P09 completes the exact chain at315 621ms
+   ✓ P13A causal Core through the real weekly engine > waiting buys no capability; purchase opens416, takes12weeks, and forfeits113weeks of lead 3888ms
+ ✓ |core| tests/p13a-placement-history-validation.test.ts (1 test) 1076ms
+   ✓ P13A bounded historical facility-charge validation > preserves every exact weekly charge across a real build, demolition, idle gap and replacement 1075ms
+ ✓ |core| tests/p13a-catalogue.test.ts (2 tests) 8ms
+
+ Test Files  8 passed (8)
+      Tests  64 passed (64)
+   Start at  08:33:31
+   Duration  80.89s (transform 1.97s, setup 0ms, collect 3.99s, tests 74.18s, environment 2ms, prepare 744ms)
+

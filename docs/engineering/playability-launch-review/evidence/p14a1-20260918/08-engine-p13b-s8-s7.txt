@@ -1,0 +1,37 @@
+=== npx vitest run --project core --minWorkers=1 --maxWorkers=1 --reporter=dot tests/p13b-s8-adoption.test.ts tests/p13b-s8-capacity.test.ts tests/p13b-s8-finance.test.ts tests/p13b-s8-nonleak.test.ts tests/p13b-s8-research.test.ts tests/p13b-s8-save-v27.test.ts tests/p13b-s8-setup-symmetry.test.ts tests/p13b-s7-announcements.test.ts ===
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p13b-s8-research.test.ts (5 tests) 19331ms
+   ✓ P13B-S8 rival research under the shared law: identical receipts, expiry/renewal, player isolation (test 2) > player-only partition (S8 LAW item 3): advanceResearchWeek returns ONLY the player's slice — a rival-owned project contributes nothing to the player's cost/entries and is returned untouched 4173ms
+   ✓ P13B-S8 rival research under the shared law: identical receipts, expiry/renewal, player isolation (test 2) > identical receipts for identical inputs: the weekly spend for N seats fully funded on technology T is usableBudgetPerScientist*N for BOTH the real player law and the rival, through the SAME researchWeekQuote 3647ms
+   ✓ P13B-S8 rival research under the shared law: identical receipts, expiry/renewal, player isolation (test 2) > renewal (positive case): a rival Scientist's contract renews inside the shared 12-week window when cash is ample — the seat, and the project, stay active 3395ms
+   ✓ P13B-S8 rival research under the shared law: identical receipts, expiry/renewal, player isolation (test 2) > expiry (negative case): when the rival cannot afford the renewal's signing bonus + reserve, the contract lapses at its own end — the seat becomes ineligible, and the project pauses (the same "no eligible seats" law the player's own researchAfterEmploymentRelease produces) 3917ms
+   ✓ P13B-S8 rival research under the shared law: identical receipts, expiry/renewal, player isolation (test 2) > coverage: the player's cash and ledger are byte-identical across two states differing only in whether a rival runs active research 4197ms
+ ✓ |core| tests/p13b-s8-save-v27.test.ts (8 tests) 2396ms
+   ✓ P13B-S8 Save V27: genuine V26 fixtures, honest lift, conditional downgrade, validator refusals, sentinel 28 (test 7) > downgrade REFUSED: a NATURAL campaign whose rival genuinely admitted a Laboratory carries a nonzero researchCapacity movement, and save.migrateToV26 refuses it 909ms
+   ✓ P13B-S8 Save V27: genuine V26 fixtures, honest lift, conditional downgrade, validator refusals, sentinel 28 (test 7) > downgrade REFUSED: the same natural campaign also carries a new receipt kind (laboratoryCommitted/laboratoryOperational), independently sufficient to refuse V27->V26 475ms
+ ✓ |core| tests/p13b-s8-capacity.test.ts (5 tests) 1979ms
+   ✓ P13B-S8 rival Laboratory/instrument capacity: receipts, <=2x4, reserveWeeks (test 1) > completion: a committed Laboratory becomes an abstract {capability: "laboratory", capacity: 4} facility on the rival operations at the plan's completion week, with a laboratoryOperational {facilityId} receipt, and no placement record is ever written for it 549ms
+   ✓ P13B-S8 rival Laboratory/instrument capacity: receipts, <=2x4, reserveWeeks (test 1) > bound: a rival never holds more than 2 Laboratories, each never exceeding 4 seats of capacity — repeated admission past the bound is a no-op, not a refusal that leaves partial state 1012ms
+   ✓ P13B-S8 rival Laboratory/instrument capacity: receipts, <=2x4, reserveWeeks (test 1) > coverage: once a rival Laboratory exists, the tick (advanceHollywoodWeek, via a real advanceTo) and the validator (save.exportCurrentState) do not throw — a NATURAL campaign, no forged cash (coordinator ruling: withRivalCash's `movements.capacity` patch is validator-inconsistent — the pre-existing law pins that movement to the starting capex exactly) 354ms
+ ✓ |core| tests/p13b-s8-finance.test.ts (5 tests) 816ms
+   ✓ P13B-S8 rival finance: typed kinds and interval Opex reconcile, migration frozen, legacy grandfathered (test 4) > interval Opex: no back-charges — a Laboratory adds its weekly cost only from its own operational week, never retroactively 550ms
+ ✓ |core| tests/p13b-s8-nonleak.test.ts (5 tests) 6815ms
+   ✓ P13B-S8 non-leak: forecast/announcements identical across states differing ONLY in rival RESEARCH state (test 5, upgrades S7's PARTIAL to genuine) > advanced independently to week 900 (past the lighting announcement), the rival-research-only divergence persists in the engine roots but forecasts/announcements still publish byte-identical 807ms
+ ✓ |core| tests/p13b-s8-adoption.test.ts (3 tests) 20855ms
+   ✓ P13B-S8 rival adoption per technology: clock timing pinned, commercial purchase unchanged (test 3) > REGRESSION (today, real code): a rival's commercial sound purchase — no plant of its own — still becomes operational EXACTLY at committedWeek + deploymentWeeks through the unchanged clock branch 7502ms
+   ✓ P13B-S8 rival adoption per technology: clock timing pinned, commercial purchase unchanged (test 3) > core: a rival RESEARCH-route adoption (no player placement at all) becomes operational through the SAME unchanged clock branch — "the rival's stage facility existing and the receipt" satisfies the P09 clause on rival bodies 13350ms
+ ✓ |core| tests/p13b-s8-setup-symmetry.test.ts (4 tests) 79ms
+ ✓ |core| tests/p13b-s7-announcements.test.ts (6 tests) 3974ms
+   ✓ P13B-S7 announcements persist nowhere: genuine V26 fixture, live load, advance past the announce week (test 3) > genuine V26 fixture at week 795 (before lighting announces at 884): sha256 matches, loads through the live path, no lighting announcement row 426ms
+   ✓ P13B-S7 announcements persist nowhere: genuine V26 fixture, live load, advance past the announce week (test 3) > advanced to week 884: exactly one lighting announcement row, week 884; still no sound row 965ms
+   ✓ P13B-S7 announcements persist nowhere: genuine V26 fixture, live load, advance past the announce week (test 3) > advanced further to week 900: still exactly one lighting row, unchanged content (row week stays 884, not 900) 611ms
+   ✓ P13B-S7 announcements persist nowhere: genuine V26 fixture, live load, advance past the announce week (test 3) > the announcement is derived-only: the exported live save carries no announcement record, and round-trips cleanly at the unchanged live version 782ms
+   ✓ P13B-S7 announcements persist nowhere: genuine V26 fixture, live load, advance past the announce week (test 3) > Save As proxy: two independently-loaded copies of the same genuine save publish byte-identical announcement rows at 884 1186ms
+
+ Test Files  8 passed (8)
+      Tests  41 passed (41)
+   Start at  08:19:16
+   Duration  62.57s (transform 1.48s, setup 0ms, collect 3.60s, tests 56.24s, environment 2ms, prepare 746ms)
+

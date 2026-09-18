@@ -48,7 +48,7 @@ import {
   studioCalendar,
   tick,
   validateSave,
-  validateSaveV27,
+  validateSaveV28,
 } from '../src/core/index.js'
 import {
   DEVELOPMENT_CASTING_ANNEX_BLUEPRINT,
@@ -775,9 +775,9 @@ describe('C1-M3a (F) — saves, boundaries, and determinism', () => {
     state = advance(state, 2)
 
     const save = makeSave(state)
-    expect(save.saveVersion).toBe(27)
+    expect(save.saveVersion).toBe(28)
     expect(validateSave(save)).toBe(save)
-    expect(validateSaveV27(save)).toBe(save)
+    expect(validateSaveV28(save)).toBe(save)
     const json = exportSave(save)
     expect(exportSave(importSave(json))).toBe(json)
     const reloaded = migrateToCurrentControl(importSave(json)).state
@@ -823,6 +823,8 @@ describe('C1-M3a (F) — saves, boundaries, and determinism', () => {
     delete forgedV11.state.technology
     // P13B-S3: and the persistent physical-plan root, for the same reason.
     delete forgedV11.state.physicalPlans
+    // P14A.1: and the contested-market root (V28), for the same reason.
+    delete forgedV11.state.talentMarket
     for (const person of forgedV11.state.talent as Record<string, unknown>[]) {
       for (const key of ['skills', 'ceilings', 'devRate', 'genreExperience', 'workHistory']) {
         delete (person[key] as Record<string, unknown>).research

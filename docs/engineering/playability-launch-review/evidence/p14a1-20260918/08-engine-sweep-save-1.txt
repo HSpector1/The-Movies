@@ -1,0 +1,37 @@
+=== npx vitest run --project core --minWorkers=1 --maxWorkers=1 --reporter=dot tests/save.test.ts tests/c2a-m2-sets-save.test.ts tests/cash-ledger-checkpoint-v11.test.ts tests/script-projects-save-v9.test.ts tests/property-state-v13.test.ts tests/construction-save-v11.test.ts tests/d17b-save-v7.test.ts tests/d17a-adv-migration.test.ts ===
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/property-state-v13.test.ts (24 tests) 5123ms
+   ✓ C1-M1a (a) — the property IS the constants, in a new representation > decides every query verdict from state exactly as the constants decided it 640ms
+   ✓ C1-M1a (a) — the property IS the constants, in a new representation > keeps the severance walk verdict-identical with structures in the obstacle set 910ms
+   ✓ C1-M1a (a) — the property IS the constants, in a new representation > plays a migrated V12 world byte-identically to a native V13 world for 30+ weeks 312ms
+   ✓ C1-M1a (b) — nothing assumes eight structures or a small placement count > carries twelve-plus placed facilities through invariants, completion, opex, and save 581ms
+   ✓ C1-M1a (b) — nothing assumes eight structures or a small placement count > carries far more than twelve when the property has room for them 1512ms
+   ✓ C1-M1a (d) — SaveFileV13 > writes V13 by default and round-trips every lifecycle state byte-identically 473ms
+ ✓ |core| tests/script-projects-save-v9.test.ts (8 tests) 1449ms
+   ✓ Script Projects V1 — SaveFileV9 > makes V9 by default and round-trips legacy and every managed lifecycle class byte-identically 726ms
+ ✓ |core| tests/cash-ledger-checkpoint-v11.test.ts (10 tests) 4370ms
+   ✓ SaveFileV11 cash/ledger checkpoint — historical migration > migrates an authentic played V2 without fabricating the missing production ledger row 590ms
+   ✓ SaveFileV11 cash/ledger checkpoint — historical migration > preserves validator-accepted non-opening cash through every V1-V10 descendant 313ms
+   ✓ SaveFileV11 cash/ledger checkpoint — post-migration authority > prevents every frozen builder from moving a checkpoint after later gameplay 400ms
+   ✓ SaveFileV11 cash/ledger checkpoint — post-migration authority > retains a nonempty historical checkpoint prefix only through ledger-owning builders 1296ms
+   ✓ SaveFileV11 cash/ledger checkpoint — post-migration authority > preserves exact checkpoint reconciliation through managed payroll and overhead suffixes 648ms
+   ✓ SaveFileV11 cash/ledger checkpoint — post-migration authority > starts and completes the Annex from a mismatched managed V10 with exactly one post-checkpoint capex 440ms
+ ✓ |core| tests/construction-save-v11.test.ts (12 tests) 2267ms
+   ✓ Development & Casting Annex V1 — SaveFileV11 > writes V12 by default and round-trips legacy, vacant, building, and completed lifecycle states 523ms
+   ✓ Development & Casting Annex V1 — SaveFileV11 > round-trips and continues byte-identically at start, S+12, and S+13 403ms
+ ✓ |core| tests/save.test.ts (10 tests) 247ms
+ ✓ |core| tests/d17b-save-v7.test.ts (22 tests) 864ms
+   ✓ D-17B/E4 — migrateToV7 lifts every known version, and the chain still holds > a V7 save reloads and continues identically to an uninterrupted run 306ms
+ ✓ |core| tests/c2a-m2-sets-save.test.ts (4 tests) 1716ms
+   ✓ C2a-M2 — sets across the save boundary > round-trips a studio that has built, repaired and struck, byte for byte 860ms
+   ✓ C2a-M2 — sets across the save boundary > refuses, at the V16 boundary, every state the sets authority forbids 414ms
+   ✓ C2a-M2 — the §12-M2 gate: a migrated managed V13 save reaches a NEW greenlight > greenlights, binds a set, and shoots — while the picture it migrated with never does 374ms
+ ✓ |core| tests/d17a-adv-migration.test.ts (17 tests) 17ms
+
+ Test Files  8 passed (8)
+      Tests  107 passed (107)
+   Start at  08:53:21
+   Duration  23.62s (transform 1.93s, setup 0ms, collect 4.77s, tests 16.05s, environment 2ms, prepare 766ms)
+

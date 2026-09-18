@@ -1,0 +1,21 @@
+=== npx vitest run --project core --minWorkers=1 --maxWorkers=1 --reporter=dot tests/contracts/cross-owner-refusal.contract.test.ts tests/contracts/determinism-floor.contract.test.ts tests/contracts/phase-table-agreement.contract.test.ts tests/contracts/studio-events.contract.test.ts tests/contracts/union-producer-subsumption.contract.test.ts tests/contracts/v14-boundary-guards.contract.test.ts tests/contracts/v14-byte-parity.contract.test.ts tests/d12-calibration-closure.test.ts ===
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/contracts/v14-boundary-guards.contract.test.ts (36 tests) 1852ms
+ ✓ |core| tests/contracts/studio-events.contract.test.ts (25 tests) 1196ms
+ ✓ |core| tests/contracts/phase-table-agreement.contract.test.ts (10 tests) 997ms
+   ✓ C2a-M0 · G6 (C) — the SAVE BOUNDARY agrees, proved by refusal > refuses a falsified capability multiset, naming the shared module’s own requirement 624ms
+ ✓ |core| tests/contracts/union-producer-subsumption.contract.test.ts (5 tests) 155ms
+ ✓ |core| tests/d12-calibration-closure.test.ts (8 tests) 21ms
+ ✓ |core| tests/contracts/v14-byte-parity.contract.test.ts (6 tests) 910ms
+   ✓ C2a-M1 · parity (A) — the same seeded script exports the same bytes > produces a byte-identical export from two independent runs 364ms
+ ✓ |core| tests/contracts/cross-owner-refusal.contract.test.ts (3 tests) 631ms
+ ✓ |core| tests/contracts/determinism-floor.contract.test.ts (3 tests) 513ms
+   ✓ C2a-M0 · §12-M0 gate — same seed, same actions, same bytes > exports byte-identically across two fresh runs 300ms
+
+ Test Files  8 passed (8)
+      Tests  96 passed (96)
+   Start at  08:41:13
+   Duration  14.25s (transform 1.84s, setup 0ms, collect 4.91s, tests 6.28s, environment 4ms, prepare 929ms)
+

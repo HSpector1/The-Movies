@@ -51,6 +51,7 @@ import {
 import { assertReleaseAuthorityInvariants } from './releaseAuthority.js'
 import { assertStudioHistoryInvariants, migratedStudioHistory } from './studioHistory.js'
 import { initialPhysicalPlans, validatePhysicalPlans } from './physicalPlans.js'
+import { initialTalentMarket, projectTalentMarketPreV28, validateTalentMarketRoot } from './talentMarket.js'
 import type {
   BroadcastItem,
   Ceilings,
@@ -79,6 +80,7 @@ import type {
   GameStateV25,
   GameStateV26,
   GameStateV27,
+  GameStateV28,
   CancellationReceipt,
   PhysicalPlan,
   PlacedFacility,
@@ -465,6 +467,16 @@ export type SaveFileV27 = {
   broadcastCache: BroadcastItem[];
 };
 
+// P14A.1 — the LIVE envelope. V28 mints exactly ONE new root: `talentMarket`
+// (cases, proposals, receipts and the pinned `representation` seam). Every other
+// root is byte-identical to V27's.
+export type SaveFileV28 = {
+  saveVersion: 28;
+  seed: string;
+  state: GameStateV28;
+  broadcastCache: BroadcastItem[];
+};
+
 // Any envelope (the return of the version-dispatching validateSave/loadSave).
 export type SaveFile =
   | SaveFileV1
@@ -493,7 +505,8 @@ export type SaveFile =
   | SaveFileV24
   | SaveFileV25
   | SaveFileV26
-  | SaveFileV27;
+  | SaveFileV27
+  | SaveFileV28;
 
 // ── Stable stringify (UNCHANGED) ─────────────────────────────────────────────
 // Recursively serializes with object keys sorted lexicographically, so the same
@@ -5236,8 +5249,9 @@ export function validateSave(save: unknown): SaveFile {
   if (s.saveVersion === 25) return validateSaveV25(save);
   if (s.saveVersion === 26) return validateSaveV26(save);
   if (s.saveVersion === 27) return validateSaveV27(save);
+  if (s.saveVersion === 28) return validateSaveV28(save);
   throw new Error(
-    `validateSave: unknown saveVersion ${JSON.stringify(s.saveVersion)} (this build handles versions 1 through 27 only)`,
+    `validateSave: unknown saveVersion ${JSON.stringify(s.saveVersion)} (this build handles versions 1 through 28 only)`,
   );
 }
 
@@ -6349,15 +6363,15 @@ export function makeSaveV16(state: GameStateV16): SaveFileV16 {
 // Every caller that asks "is this envelope a migration?" compares against this
 // constant rather than a literal that goes stale the next time `makeSave` moves
 // (the bridge and the ui adapter both still compared against 23 at V25).
-export const LIVE_SAVE_VERSION = 27 as const;
+export const LIVE_SAVE_VERSION = 28 as const;
 
-// makeSave — the live V27 boundary. Frozen prior values migrate explicitly.
+// makeSave — the live V28 boundary. Frozen prior values migrate explicitly.
 // The new plain-JSON root is detached once; only final serialization sorts it.
-export function makeSave(state: GameState): SaveFileV27 {
-  const save = validateSaveV27({ saveVersion: 27, seed: state.seed, state, broadcastCache: state.broadcastItems });
+export function makeSave(state: GameState): SaveFileV28 {
+  const save = validateSaveV28({ saveVersion: 28, seed: state.seed, state, broadcastCache: state.broadcastItems });
   // Validation precedes detachment, so undefined/non-JSON authority cannot be
   // silently repaired by stringify before the boundary sees it.
-  return JSON.parse(JSON.stringify(save)) as SaveFileV27;
+  return JSON.parse(JSON.stringify(save)) as SaveFileV28;
 }
 
 // ── Load / export / import ───────────────────────────────────────────────────
@@ -7388,6 +7402,7 @@ export function migrateToV12(save: SaveFile): SaveFileV12 {
 // one widened leaf — the honest, un-guessed `subjectId: null` on any
 // pre-existing `queueIntentExpired` row — at the final V14→V15 step.
 export function migrateToV15(save: SaveFile): SaveFileV15 {
+  if (save.saveVersion === 28) throw new Error('migrateToV15: cannot downgrade SaveFileV28 or discard the talent market');
   if (save.saveVersion === 27) throw new Error("migrateToV15: cannot downgrade SaveFileV27 or discard rival research");
   if (save.saveVersion === 26) throw new Error("migrateToV15: cannot downgrade SaveFileV26 or discard installation cancellations");
   if (save.saveVersion === 25) throw new Error("migrateToV15: cannot downgrade SaveFileV25 or discard production setup plans");
@@ -7463,6 +7478,7 @@ export function convertV17ToV18(v17: SaveFileV17): SaveFileV18 {
 // identity (after validation at the call boundary); V1–V17 cross every frozen
 // boundary, then receive `endowed` at the final V17→V18 step.
 export function migrateToV18(save: SaveFile): SaveFileV18 {
+  if (save.saveVersion === 28) throw new Error('migrateToV18: cannot downgrade SaveFileV28 or discard the talent market');
   if (save.saveVersion === 27) throw new Error("migrateToV18: cannot downgrade SaveFileV27 or discard rival research");
   if (save.saveVersion === 26) throw new Error("migrateToV18: cannot downgrade SaveFileV26 or discard installation cancellations");
   if (save.saveVersion === 25) throw new Error("migrateToV18: cannot downgrade SaveFileV25 or discard production setup plans");
@@ -7479,6 +7495,7 @@ export function migrateToV18(save: SaveFile): SaveFileV18 {
 // migrateToV17 — the frozen V17-target migration (P08A). A V18 save can never
 // be downgraded: discarding the founding regime would erase exact history.
 export function migrateToV17(save: SaveFile): SaveFileV17 {
+  if (save.saveVersion === 28) throw new Error('migrateToV17: cannot downgrade SaveFileV28 or discard the talent market');
   if (save.saveVersion === 27) throw new Error("migrateToV17: cannot downgrade SaveFileV27 or discard rival research");
   if (save.saveVersion === 26) throw new Error("migrateToV17: cannot downgrade SaveFileV26 or discard installation cancellations");
   if (save.saveVersion === 25) throw new Error("migrateToV17: cannot downgrade SaveFileV25 or discard production setup plans");
@@ -7500,6 +7517,7 @@ export function migrateToV17(save: SaveFile): SaveFileV17 {
 // migrateToV16 — the frozen V16-target migration (P06A). A V17 save can never
 // be downgraded: discarding the recorded history would silently erase provenance.
 export function migrateToV16(save: SaveFile): SaveFileV16 {
+  if (save.saveVersion === 28) throw new Error('migrateToV16: cannot downgrade SaveFileV28 or discard the talent market');
   if (save.saveVersion === 27) throw new Error("migrateToV16: cannot downgrade SaveFileV27 or discard rival research");
   if (save.saveVersion === 26) throw new Error("migrateToV16: cannot downgrade SaveFileV26 or discard installation cancellations");
   if (save.saveVersion === 25) throw new Error("migrateToV16: cannot downgrade SaveFileV25 or discard production setup plans");
@@ -7524,6 +7542,7 @@ export function migrateToV16(save: SaveFile): SaveFileV16 {
 }
 
 export function migrateToV14(save: SaveFile): SaveFileV14 {
+  if (save.saveVersion === 28) throw new Error('migrateToV14: cannot downgrade SaveFileV28 or discard the talent market');
   if (save.saveVersion === 27) throw new Error("migrateToV14: cannot downgrade SaveFileV27 or discard rival research");
   if (save.saveVersion === 26) throw new Error("migrateToV14: cannot downgrade SaveFileV26 or discard installation cancellations");
   if (save.saveVersion === 25) throw new Error("migrateToV14: cannot downgrade SaveFileV25 or discard production setup plans");
@@ -7558,6 +7577,7 @@ export function migrateToV14(save: SaveFile): SaveFileV14 {
 }
 
 export function migrateToV13(save: SaveFile): SaveFileV13 {
+  if (save.saveVersion === 28) throw new Error('migrateToV13: cannot downgrade SaveFileV28 or discard the talent market');
   if (save.saveVersion === 27) throw new Error("migrateToV13: cannot downgrade SaveFileV27 or discard rival research");
   if (save.saveVersion === 26) throw new Error("migrateToV13: cannot downgrade SaveFileV26 or discard installation cancellations");
   if (save.saveVersion === 25) throw new Error("migrateToV13: cannot downgrade SaveFileV25 or discard production setup plans");
@@ -7657,6 +7677,7 @@ export function convertV18ToV19(save: SaveFileV18): SaveFileV19 {
   return validateSaveV19({ saveVersion: 19, seed: save.seed, state, broadcastCache: state.broadcastItems });
 }
 export function migrateToV19(save: SaveFile): SaveFileV19 {
+  if (save.saveVersion === 28) throw new Error('migrateToV19: cannot downgrade SaveFileV28 or discard the talent market');
   if (save.saveVersion === 27) throw new Error('migrateToV19: cannot downgrade SaveFileV27 or discard rival research');
   if (save.saveVersion === 26) throw new Error('migrateToV19: cannot downgrade SaveFileV26 or discard installation cancellations');
   if (save.saveVersion === 25) throw new Error('migrateToV19: cannot downgrade SaveFileV25 or discard production setup plans');
@@ -7735,6 +7756,7 @@ export function convertV20ToV21(save: SaveFileV20): SaveFileV21 {
 }
 
 export function migrateToV21(save: SaveFile): SaveFileV21 {
+  if (save.saveVersion === 28) throw new Error('migrateToV21: cannot downgrade SaveFileV28 or discard the talent market');
   if (save.saveVersion === 27) throw new Error('migrateToV21: cannot downgrade SaveFileV27 or discard rival research');
   if (save.saveVersion === 26) throw new Error('migrateToV21: cannot downgrade SaveFileV26 or discard installation cancellations');
   if (save.saveVersion === 25) throw new Error('migrateToV21: cannot downgrade SaveFileV25 or discard production setup plans');
@@ -7759,6 +7781,7 @@ export function convertV21ToV22(save: SaveFileV21): SaveFileV22 {
 }
 
 export function migrateToV22(save: SaveFile): SaveFileV22 {
+  if (save.saveVersion === 28) throw new Error('migrateToV22: cannot downgrade SaveFileV28 or discard the talent market');
   if (save.saveVersion === 27) throw new Error('migrateToV22: cannot downgrade SaveFileV27 or discard rival research');
   if (save.saveVersion === 26) throw new Error('migrateToV22: cannot downgrade SaveFileV26 or discard installation cancellations');
   if (save.saveVersion === 25) throw new Error('migrateToV22: cannot downgrade SaveFileV25 or discard production setup plans');
@@ -7808,6 +7831,7 @@ export function convertV22ToV23(save: SaveFileV22): SaveFileV23 {
  * so nothing here is trusted on the strength of its declared type alone.
  */
 export function migrateToV23(save: SaveFile | { saveVersion: number }): SaveFileV23 {
+  if (save.saveVersion === 28) throw new Error('migrateToV23: cannot downgrade SaveFileV28 or discard the talent market');
   if (save.saveVersion === 27) throw new Error('migrateToV23: cannot downgrade SaveFileV27 or discard rival research');
   if (save.saveVersion === 26) throw new Error('migrateToV23: cannot downgrade SaveFileV26 or discard installation cancellations');
   if (save.saveVersion === 25) throw new Error('migrateToV23: cannot downgrade SaveFileV25 or discard production setup plans');
@@ -7840,11 +7864,11 @@ function validateSaveV24WithPolicy(save: unknown, policy: 'technology-v20' | 'ca
   if (!Object.hasOwn(raw, 'technology')) throw new Error('validateSaveV24: technology root missing');
   if (!Object.hasOwn(raw, 'physicalPlans')) throw new Error('validateSaveV24: physicalPlans root missing');
   const typed = save as SaveFileV24;
-  validateTechnology(typed.state);
-  validatePhysicalPlans(typed.state);
+  validateTechnology(typed.state as unknown as GameState);
+  validatePhysicalPlans(typed.state as unknown as GameState);
   const { technology, physicalPlans: _physicalPlans, ...legacy } = raw;
   validateSaveV19WithPolicy({ saveVersion: 19, seed: save.seed, state: legacy, broadcastCache: save.broadcastCache }, policy, technology as StudioTechnology, typed.state.physicalPlans.plans);
-  assertNoDoubleBookedResourceSlots(typed.state);
+  assertNoDoubleBookedResourceSlots(typed.state as unknown as GameState);
   return typed;
 }
 
@@ -7867,6 +7891,7 @@ export function convertV23ToV24(save: SaveFileV23): SaveFileV24 {
  * so nothing here is trusted on the strength of its declared type alone.
  */
 export function migrateToV24(save: SaveFile | { saveVersion: number }): SaveFileV24 {
+  if (save.saveVersion === 28) throw new Error('migrateToV24: cannot downgrade SaveFileV28 or discard the talent market');
   if (save.saveVersion === 27) throw new Error('migrateToV24: cannot downgrade SaveFileV27 or discard rival research');
   if (save.saveVersion === 26) throw new Error('migrateToV24: cannot downgrade SaveFileV26 or discard installation cancellations');
   if (save.saveVersion === 25) throw new Error('migrateToV24: cannot downgrade SaveFileV25 or discard production setup plans');
@@ -8049,7 +8074,7 @@ function validateSaveV25WithPolicy(save: unknown, policy: 'technology-v20' | 'ca
   // The MEANING of a setup plan — its bindings, bounds, week order, re-derivable
   // route provenance and un-recycled prior work — has ONE owner, and a file gets
   // the same law a live state does.
-  const violations = validateProductionSetup(typed.state);
+  const violations = validateProductionSetup(typed.state as unknown as GameState);
   if (violations.length > 0) throw new Error(`validateSaveV25: ${violations[0]}`);
   return typed;
 }
@@ -8087,6 +8112,7 @@ export function convertV24ToV25(save: SaveFileV24): SaveFileV25 {
  * so nothing here is trusted on the strength of its declared type alone.
  */
 export function migrateToV25(save: SaveFile | { saveVersion: number }): SaveFileV25 {
+  if (save.saveVersion === 28) throw new Error('migrateToV25: cannot downgrade SaveFileV28 or discard the talent market');
   if (save.saveVersion === 27) throw new Error('migrateToV25: cannot downgrade SaveFileV27 or discard rival research');
   if (save.saveVersion === 26) throw new Error('migrateToV25: cannot downgrade SaveFileV26 or discard installation cancellations');
   if (save.saveVersion === 25) return validateSaveV25(save);
@@ -8214,7 +8240,7 @@ function validateSaveV26WithPolicy(save: unknown, policy: 'cancellation-v26' | '
     throw new Error(`validateSaveV26: frozen V25 state is invalid — ${(error as Error).message}`);
   }
   const typed = save as SaveFileV26;
-  const violations = validateInstallationCancellation(typed.state);
+  const violations = validateInstallationCancellation(typed.state as unknown as GameState);
   if (violations.length > 0) throw new Error(`validateSaveV26: ${violations[0]}`);
   return typed;
 }
@@ -8248,6 +8274,7 @@ export function convertV25ToV26(save: SaveFileV25): SaveFileV26 {
  * so nothing here is trusted on the strength of its declared type alone.
  */
 export function migrateToV26(save: SaveFile | { saveVersion: number }): SaveFileV26 {
+  if (save.saveVersion === 28) return convertV27ToV26(convertV28ToV27(save as SaveFileV28));
   if (save.saveVersion === 27) return convertV27ToV26(save as SaveFileV27);
   if (save.saveVersion === 26) return validateSaveV26(save);
   return convertV25ToV26(migrateToV25(save as SaveFile));
@@ -8390,8 +8417,79 @@ export function convertV27ToV26(save: SaveFileV27): SaveFileV26 {
  * so nothing here is trusted on the strength of its declared type alone.
  */
 export function migrateToV27(save: SaveFile | { saveVersion: number }): SaveFileV27 {
+  if (save.saveVersion === 28) return convertV28ToV27(save as SaveFileV28);
   if (save.saveVersion === 27) return validateSaveV27(save);
   return convertV26ToV27(migrateToV26(save as SaveFile));
+}
+
+// ── The contested talent market — SaveFileV28 (P14A.1) ───────────────────────
+
+/**
+ * V28 validates its OWN new root and then hands the frozen V27 chain exactly what
+ * V27 knows: the state with `talentMarket` STRIPPED. An older validator is never
+ * taught a newer root and never silently tolerates one — the same device V23 used
+ * for the physical-plan root.
+ */
+export function validateSaveV28(save: unknown): SaveFileV28 {
+  if (!isRecord(save)) throw new Error('validateSaveV28: object required');
+  v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
+  if (save.saveVersion !== 28) throw new Error('validateSaveV28: expected version 28');
+  const raw = v14Record(checkEnvelope(save, 'validateSaveV28'), 'state');
+  if (!Object.hasOwn(raw, 'talentMarket')) throw new Error('validateSaveV28: talentMarket root missing');
+  validateTalentMarketRoot(raw.talentMarket, raw);
+  const { talentMarket: _talentMarket, ...legacy } = raw;
+  try {
+    validateSaveV27({ saveVersion: 27, seed: save.seed, state: legacy, broadcastCache: save.broadcastCache });
+  } catch (error) {
+    throw new Error(`validateSaveV28: frozen V27 state is invalid — ${(error as Error).message}`);
+  }
+  return save as SaveFileV28;
+}
+
+/**
+ * Governed V27→V28: the new root opens EMPTY. A save written before the market
+ * existed held no contested expiry, so NO case is fabricated — not even for a
+ * subject that is already inside its renewal window at the migration week. That
+ * subject is DISCOVERED by the next live tick's discovery step, one week after
+ * load, because discovery is a tick-time mechanism and R22 forbids fabricated
+ * pre-P14 facts. Every other root is byte-identical.
+ */
+export function convertV27ToV28(save: SaveFileV27): SaveFileV28 {
+  const validated = validateSaveV27(save);
+  const oldState = JSON.parse(JSON.stringify(validated.state)) as GameStateV27;
+  const state: GameStateV28 = { ...oldState, talentMarket: initialTalentMarket() };
+  return validateSaveV28({ saveVersion: 28, seed: state.seed, state, broadcastCache: state.broadcastItems });
+}
+
+/**
+ * Governed V28→V27, and the ONE downgrade this version allows: lossless exactly
+ * when the campaign holds no market fact at all. `projectTalentMarketPreV28`
+ * refuses anything else — and it is asked BEFORE the envelope is validated, so a
+ * root that really carries a case is refused as a DOWNGRADE, never as a shape
+ * complaint about a record the older version has no schema for.
+ */
+export function convertV28ToV27(save: SaveFileV28): SaveFileV27 {
+  const rawState = isRecord(save) ? (save as Record<string, unknown>).state : undefined;
+  try {
+    projectTalentMarketPreV28(isRecord(rawState) ? rawState.talentMarket : undefined);
+  } catch (error) {
+    throw new Error(`migrateToV27: cannot downgrade SaveFileV28 or discard the talent market — ${(error as Error).message}`);
+  }
+  const validated = validateSaveV28(save);
+  const oldState = JSON.parse(JSON.stringify(validated.state)) as GameStateV28;
+  const { talentMarket: _talentMarket, ...frozen } = oldState;
+  const state = frozen as GameStateV27;
+  return validateSaveV27({ saveVersion: 27, seed: state.seed, state, broadcastCache: state.broadcastItems });
+}
+
+/**
+ * The entry point accepts a PARSED envelope as well as a narrowed `SaveFile`:
+ * every path below validates the whole envelope structurally before returning,
+ * so nothing here is trusted on the strength of its declared type alone.
+ */
+export function migrateToV28(save: SaveFile | { saveVersion: number }): SaveFileV28 {
+  if (save.saveVersion === 28) return validateSaveV28(save);
+  return convertV27ToV28(migrateToV27(save as SaveFile));
 }
 
 export function convertV19ToV20(save: SaveFileV19): SaveFileV20 {
@@ -8412,6 +8510,7 @@ export function convertV19ToV20(save: SaveFileV19): SaveFileV20 {
 }
 
 export function migrateToV20(save: SaveFile): SaveFileV20 {
+  if (save.saveVersion === 28) throw new Error('migrateToV20: cannot downgrade SaveFileV28 or discard the talent market');
   if (save.saveVersion === 27) throw new Error('migrateToV20: cannot downgrade SaveFileV27 or discard rival research');
   if (save.saveVersion === 26) throw new Error('migrateToV20: cannot downgrade SaveFileV26 or discard installation cancellations');
   if (save.saveVersion === 25) throw new Error('migrateToV20: cannot downgrade SaveFileV25 or discard production setup plans');

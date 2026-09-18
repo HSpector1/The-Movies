@@ -401,6 +401,13 @@ export function projectToV13State(state: GameState): Record<string, unknown> {
     throw new Error('V13 twin cannot discard physical plan authority')
   }
   delete raw.physicalPlans
+  // P14A.1: the contested-market root is V28-only, so a genuine V13 file never
+  // carried one. Real market authority is never discarded, exactly as above.
+  const twinMarket = state.talentMarket
+  if (twinMarket !== undefined && (twinMarket.cases.length > 0 || twinMarket.proposals.length > 0 || twinMarket.receipts.length > 0)) {
+    throw new Error('V13 twin cannot discard talent-market authority')
+  }
+  delete raw.talentMarket
   for (const person of raw.talent as Record<string, unknown>[]) {
     for (const key of ['skills', 'ceilings', 'devRate', 'genreExperience', 'workHistory']) {
       delete (person[key] as Record<string, unknown>).research

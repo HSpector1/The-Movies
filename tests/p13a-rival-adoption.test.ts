@@ -1,6 +1,6 @@
 import { beforeAll, describe, expect, it } from 'vitest'
 import { applyActions } from '../src/core/actions.js'
-import { exportCurrentState, importSave, migrateToV27 } from '../src/core/save.js'
+import { exportCurrentState, importSave, migrateToV28 } from '../src/core/save.js'
 import * as technology from '../src/core/technology.js'
 import { considerRivalSoundPurchase } from '../src/core/technologyRival.js'
 import { tick } from '../src/core/tick.js'
@@ -72,8 +72,8 @@ describe('P13A shared commercial adoption and exact rival cash consequence', () 
     // AMENDED (P13B-S6 live-version sweep, 2026-09-17): `migrateToV25` refuses
     // to downgrade a live envelope now that live has moved to V26 — this is
     // the identity lift through whichever version is CURRENTLY live, not a
-    // pinned V25 fact, so it tracks forward to `migrateToV27`.
-    const restored = migrateToV27(importSave(exportCurrentState(released))).state
+    // pinned V25 fact, so it tracks forward to `migrateToV28`.
+    const restored = migrateToV28(importSave(exportCurrentState(released))).state
     const committed = tick(released)
     expect(exportCurrentState(tick(restored))).toBe(exportCurrentState(committed))
     const receipt = committed.technology.adoptions.find(row => row.studioId !== committed.hollywood!.playerStudioId && row.route === 'purchase')!
@@ -87,6 +87,6 @@ describe('P13A shared commercial adoption and exact rival cash consequence', () 
     expect(operational.technology.adoptions.find(row => row.id === receipt.id)).toMatchObject({id: receipt.id, operationalWeek: 428})
     expect(operational.hollywood!.receipts.filter(row => row.kind === 'technologyAdopted' && row.adoptionId === receipt.id)).toHaveLength(1)
     expect(operational.hollywood!.receipts.find(row => row.kind === 'technologyAdopted' && row.adoptionId === receipt.id)).toMatchObject({week: 428, studioId: receipt.studioId})
-    expect(exportCurrentState(migrateToV27(importSave(exportCurrentState(operational))).state)).toBe(exportCurrentState(operational))
+    expect(exportCurrentState(migrateToV28(importSave(exportCurrentState(operational))).state)).toBe(exportCurrentState(operational))
   }, 30_000)
 })

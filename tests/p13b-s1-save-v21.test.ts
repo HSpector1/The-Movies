@@ -10,8 +10,7 @@ import {
   migrateToV19,
   migrateToV20,
   migrateToV21,
-  migrateToV25,
-  migrateToV27,
+  migrateToV28,
 } from '../src/core/save.js'
 import type { SaveFileV19, SaveFileV20 } from '../src/core/save.js'
 import { tick } from '../src/core/tick.js'
@@ -37,7 +36,7 @@ function assertRootUnchanged(before: GameStateV20, after: GameStateV21) {
 
 function roundTripsByteIdentical(state: GameState): string {
   const direct = exportSave(makeSave(state))
-  const restored = migrateToV27(importSave(direct)).state
+  const restored = migrateToV28(importSave(direct)).state
   expect(exportSave(makeSave(restored))).toBe(direct)
   return direct
 }
@@ -89,7 +88,7 @@ describe('P13B-S1 V20 to V21 migration (test 8)', () => {
     // result flows into `roundTripsByteIdentical`, which calls `makeSave`
     // directly and requires the V26-shaped leaves (`cancellation`,
     // `cancelledWeek`) `migrateToV25` alone never adds.
-    const migrated = migrateToV27(importSave(load('./fixtures/p13b/legacy-v20-research-active-280.json.gz')))
+    const migrated = migrateToV28(importSave(load('./fixtures/p13b/legacy-v20-research-active-280.json.gz')))
     const next = tick(migrated.state)
     const project = next.technology.projects[0]!
     expect(project.expenditure).toBe(210_000)
@@ -100,7 +99,7 @@ describe('P13B-S1 V20 to V21 migration (test 8)', () => {
   })
 
   it('keeps the migrated paused-expired seat retained but ineligible, refuses resumeResearch, then accepts it after rehiring the same id', () => {
-    const migrated = migrateToV25(importSave(load('./fixtures/p13b/legacy-v20-research-paused-expired-468.json.gz'))).state
+    const migrated = migrateToV28(importSave(load('./fixtures/p13b/legacy-v20-research-paused-expired-468.json.gz'))).state
     const project = migrated.technology.projects[0]!
     expect(project.seats).toEqual([{ talentId: SCIENTIST_ID, laboratoryFacilityId: LAB_ID, assignedWeek: 468, releasedWeek: null }])
     expect(eligibleSeatIds(migrated, project)).toEqual([])
@@ -117,8 +116,8 @@ describe('P13B-S1 campaign isolation (test 10)', () => {
     const json = load('./fixtures/p13b/legacy-v20-research-active-280.json.gz')
     // Lifted to the live boundary (V26) — `b.state` round-trips through
     // `makeSave` below, which requires the V26-shaped leaves.
-    const a = migrateToV27(importSave(json))
-    const b = migrateToV27(importSave(json))
+    const a = migrateToV28(importSave(json))
+    const b = migrateToV28(importSave(json))
     expect(a.state).not.toBe(b.state)
     expect(a.state.technology).not.toBe(b.state.technology)
     expect(a.state.technology.projects).not.toBe(b.state.technology.projects)

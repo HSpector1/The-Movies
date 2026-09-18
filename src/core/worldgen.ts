@@ -61,6 +61,7 @@ import { emptyStudioEventLog } from './studioEvents.js'
 import { initialReleaseAuthority } from './releaseAuthority.js'
 import { initialStudioHistory } from './studioHistory.js'
 import { initialPhysicalPlans } from './physicalPlans.js'
+import { initialTalentMarket } from './talentMarket.js'
 import { stream } from './rng.js'
 import { RngStream } from './rng.js'
 import {
@@ -776,5 +777,8 @@ export function generateWorld(seed: string, options?: GenerateWorldOptions): Gam
     studioHistory: initialStudioHistory(),
     // P13B-S3: a fresh world has planned no physical work and has minted no plan id.
     physicalPlans: initialPhysicalPlans(),
+    // P14A.1: a fresh world has held no contested expiry — no case, no proposal,
+    // no receipt. The market engages only once an industry exists.
+    talentMarket: initialTalentMarket(),
   }
 }

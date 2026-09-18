@@ -1,0 +1,44 @@
+=== npx vitest run --project core --minWorkers=1 --maxWorkers=1 --reporter=dot tests/roster-wall-artifacts.test.ts tests/roster-wall-campaign.test.ts tests/roster-wall-continuation.test.ts tests/roster-wall-corpus.test.ts tests/roster-wall-fixtures.test.ts tests/roster-wall-observatory-cli.test.ts ===
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/roster-wall-artifacts.test.ts (16 tests) 41833ms
+   ✓ roster-wall provenance gates > accepts a clean harness/docs/tests-only descendant and stamps exact source identity 716ms
+   ✓ roster-wall provenance gates > rejects untracked executable state, a wrong branch, and production-source drift 1074ms
+   ✓ roster-wall provenance gates > rejects an ignored executable/source shadow 526ms
+   ✓ roster-wall artifact infrastructure > writes, inventories, verifies, and exactly replays a complete artifact 558ms
+   ✓ roster-wall artifact infrastructure > does not expose an accepted-finalization authority override 509ms
+   ✓ roster-wall artifact infrastructure > rejects the former skeletal smoke counterfeit before semantic acceptance 19625ms
+   ✓ roster-wall artifact infrastructure > reports a valid deterministic replay difference without conflating file sets 311ms
+   ✓ roster-wall artifact infrastructure > rejects rebuilt mechanics semantics against the canonical fixture oracle 17622ms
+ ✓ |core| tests/roster-wall-fixtures.test.ts (9 tests) 20029ms
+   ✓ Week-208 roster-wall synthetic mechanics fixtures > refuses artifact-facing fixture rows without accepted source authority 576ms
+   ✓ Week-208 roster-wall synthetic mechanics fixtures > derives every named cash threshold from each policy's exact offers and retains N/A role rows 4054ms
+   ✓ Week-208 roster-wall synthetic mechanics fixtures > ranks frozen quote metadata in each C0-C6 policy's actual complete basis order 3473ms
+   ✓ Week-208 roster-wall synthetic mechanics fixtures > exercises distinct C0-C6 order, timing, retry, and term semantics 759ms
+   ✓ Week-208 roster-wall synthetic mechanics fixtures > emits the complete canonical-data-ready matrix deterministically 10590ms
+   ✓ Week-208 roster-wall synthetic mechanics fixtures > prices C6 thresholds from its mixed 52/104/156/208 offers, not 208-week quotes 558ms
+ ✓ |core| tests/roster-wall-continuation.test.ts (6 tests) 128775ms
+   ✓ Week-208 roster-wall continuation layer > fresh-loads the exact Week-196 entry, applies renewal first, and reconciles every transition 7409ms
+   ✓ Week-208 roster-wall continuation layer > keeps C0 voluntary attrition out of involuntary-wall taxonomy 6386ms
+   ✓ Week-208 roster-wall continuation layer > runs all seven primary policies from one entry and builds exact-entry C1 pairs 44786ms
+   ✓ Week-208 roster-wall continuation layer > keeps Annex same-entry policy pairs out of facility-causal paired tables 44847ms
+   ✓ Week-208 roster-wall continuation layer > keeps recurrence attempts out of the original-expiry wall taxonomy 20017ms
+   ✓ Week-208 roster-wall continuation layer > is byte-identical with continuation observation disabled 5328ms
+ ✓ |core| tests/roster-wall-campaign.test.ts (9 tests) 53256ms
+   ✓ Week-208 roster-wall campaign entry harvest > mechanically matches frozen facilities behavior through vacant Week 196 — direct-package 10543ms
+   ✓ Week-208 roster-wall campaign entry harvest > mechanically matches frozen facilities behavior through vacant Week 196 — development-casting 9077ms
+   ✓ Week-208 roster-wall campaign entry harvest > mechanically matches frozen facilities behavior through vacant Week 196 — scaled-two-team 11318ms
+   ✓ Week-208 roster-wall campaign entry harvest > captures pure 52/26/12-week timing shadows and exact SaveFileV16 replay 3013ms
+   ✓ Week-208 roster-wall campaign entry harvest > folds pre-entry cash in ledger order without a floating-point residual 4649ms
+   ✓ Week-208 roster-wall campaign entry harvest > starts the real Annex only through its Week-0 public action and preserves its lifecycle 5148ms
+   ✓ Week-208 roster-wall campaign entry harvest > is byte-neutral with timing, intent, and weekly observation disabled 4941ms
+   ✓ Week-208 roster-wall campaign entry harvest > returns only a byte-, state-, and RNG-neutral harvest from the accepted seam 4532ms
+ ✓ |core| tests/roster-wall-observatory-cli.test.ts (8 tests) 9ms
+ ✓ |core| tests/roster-wall-corpus.test.ts (2 tests) 7ms
+
+ Test Files  6 passed (6)
+      Tests  50 passed (50)
+   Start at  08:41:34
+   Duration  250.64s (transform 2.02s, setup 0ms, collect 4.57s, tests 243.91s, environment 2ms, prepare 590ms)
+

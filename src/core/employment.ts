@@ -181,9 +181,21 @@ export function guaranteedComp(contract: Contract, week: number): number {
   return weeklySalary(contract.annualSalary) * remainingWeeks
 }
 
-// Early-release termination cost (D-11.9): fraction of remaining guaranteed salary.
+// Early-release termination cost (D-11.9, RECALIBRATED by P14A.1).
+//
+// Owner-selected product direction (rulings §3.4.1 item 2; companion §3.2): the
+// charge is the LESSER of (a) all remaining guaranteed base salary and (b) 26
+// weeks of that person's base salary:
+//
+//     charge = weekly × min(remaining, HIRING_TERMINATION_CAP_WEEKS)
+//
+// It never rounds (integer × integer). It equals the discarded 50% rule at
+// exactly 52 weeks remaining, is HIGHER below that and LOWER above it, and is
+// continuous at the 26-week boundary (companion §3.5 E5 — no cliff). The old
+// `round(0.5 × guaranteed)` figure is explicitly not law (direction 1 / S3).
 export function terminationCost(contract: Contract, week: number): number {
-  return iround(TUNING.HIRING_TERMINATION_FRACTION * guaranteedComp(contract, week))
+  const remainingWeeks = Math.max(0, contract.endWeekExclusive - week)
+  return weeklySalary(contract.annualSalary) * Math.min(remainingWeeks, TUNING.HIRING_TERMINATION_CAP_WEEKS)
 }
 
 // Total weekly payroll: Σ round(annualSalary/52) over contracts active at `week`.

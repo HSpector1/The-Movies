@@ -2,6 +2,7 @@ import {chooseIndustryPackage} from './hollywoodPolicy.js'
 import { considerRivalSoundPurchase, selectRivalSoundProduction, rivalInstallationSlots } from './technologyRival.js'
 import { createProductionTechnologyPolicy } from './technologyProduction.js'
 import { busyTalentIds, offerForTalent, weeklySalary, renewalWindowOpen } from './employment.js'
+import { caseOpenForTalent } from './talentMarket.js'
 import { moveRivalMoney, rivalCapacityOpex, rivalWeeklyOperatingCost, uniqueIdentity } from './hollywood.js'
 import { admitRivalPlansInWeek, advanceRivalResearch, completeRivalPlans, rivalScientistDemand } from './rivalResearch.js'
 import { researchAfterEmploymentRelease } from './technology.js'
@@ -97,6 +98,13 @@ function staff(state:GameState,h:HollywoodState,b:RivalBusiness,talent:Talent[],
   for(const ordinal of [...h.activeEmploymentOrdinals]) {
     const old=h.employment[ordinal]!
     if(old.studioId!==b.studioId||!renewalWindowOpen(old.terms,week))continue
+    // P14A.1 (companion §2.1.3 / §2.5, the second bounded staff() edit): this loop
+    // runs BEFORE decide() in the same weekly pass and would otherwise auto-renew a
+    // rival's expiring person for 208 weeks in the discovery week, so a rival's
+    // person could never reach a contested expiry. A CASE SUBJECT is excluded for
+    // the whole open-case span — the exclusion lands with the case-open check, not
+    // with settlement. Under a case the incumbent's retention is its PROPOSAL.
+    if(caseOpenForTalent({...state,hollywood:h,talent},old.terms.talentId,week))continue
     const person=talent.find(t=>t.id===old.terms.talentId)!
     const terms=offerForTalent(state.seed,person,TUNING.HOLLYWOOD_CONTRACT_WEEKS,week)
     if(b.account.cash-terms.signingBonus<reserveAfterOffer(terms,ordinal))continue
