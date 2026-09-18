@@ -1,0 +1,7 @@
+P14A.1-T0 genuine V27 fixtures minted at e0676f9a1feb878b87f12ff1daa81e9fc4dd52e6 (S8 close commit e0676f9; final V27 writer ef9ff76; tests/docs-only commits since) 2026-09-18T05:25:48Z node v20.20.2
+=== git diff --stat ef9ff76..HEAD -- src bridge ===
+(harness-only file src/harness/p13b/legacy-v27-fixtures.ts added by this task; it moves no writer)
+=== npx vite-node src/harness/p13b/legacy-v27-fixtures.ts ===
+legacy-v27-natural-rival-labs-20.json.gz saveVersion=27 week=20 bytes=485994 sha256(json)=00183e1c8feafab9607bb76c942ace3a1bcdbab6d295af26051dbfe9e1aa4948 receiptKinds={"employment":24,"studioEntered":4,"laboratoryCommitted":4,"filmAnnounced":8,"filmReleased":4,"laboratoryOperational":4,"filmSettled":4} rivalLabs=[1,1,1,1] playerContractsInWindow=0
+legacy-v27-renewal-window-456.json.gz saveVersion=27 week=456 bytes=1166876 sha256(json)=af659268eddcc78da0b893056ba97794a3ed0a159488cb3de36e155b3ec1fa3f receiptKinds={"employment":67,"studioEntered":4,"laboratoryCommitted":4,"filmAnnounced":45,"filmReleased":45,"laboratoryOperational":4,"filmSettled":45} rivalLabs=[1,1,1,1] playerContractsInWindow=1
+EXIT=0
