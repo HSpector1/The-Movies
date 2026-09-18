@@ -18,14 +18,22 @@ import { advanceTo, p13aGeneratedStudio } from '../src/harness/p13a/fixtures.js'
 // rival's founding-roster cases now decide at week 208 (11 settle, 13
 // decline), and every settlement pays a signing bonus out of that rival's
 // cash — the market existing at all moves the natural chain (§ "ON 288 vs
-// 293"). On THIS file's seed ('p13-public-commercial-adoption'), that cash
-// effect is severe enough that NONE of the four founding rivals (r01–r04) can
-// afford the $1,475,000 commercial purchase by week 416 any more: measured
-// under the landed law, r02's cash never recovers above ~3.3M vs a ~1.475M+
-// reserve gate, and r03/r04 go and stay deeply NEGATIVE (measured -16M/-8M by
-// week 420, worsening through week 500+) — this is the exact "11 rival
+// 293"). CORRECTED (test-author, evidence 18: docs/engineering/
+// playability-launch-review/evidence/p14a1-20260918/18-rival-cash-diagnosis.txt):
+// this file previously read that cash effect as the CAUSE of the founding
+// rivals' insolvency and the missed week-416 purchase. Evidence 18 refutes
+// that: at the S8 close `ef9ff76` (no talent market in the build at all) this
+// same seed already had r03 at -14,726,582 and r04 at -9,584,173, both at
+// roster 0, by week 416 — the insolvency is INHERITED and pre-market. The
+// market's WHOLE measured effect on r02 is +5.0% weekly payroll (96,779 ->
+// 101,617, the premium tiers) and +93,490 of extra signing bonuses by week
+// 416, which costs r02 the §48 purchase gate by exactly 348,487 — r02 stood
+// 251,911 CLEAR of the gate before the market existed and misses it by
+// -348,487 under the market — so the first purchase falls from r02 at week
+// 416 to a LATER-ENTERING fifth rival at week 520; this is the "11 rival
 // re-signings at 208 move rival cash" mechanism named in the assigning
-// instruction. The commercial-purchase WEEK GATE itself (`commercialWeek:
+// instruction, sized exactly by evidence 18, not a cause of r03/r04's
+// insolvency. The commercial-purchase WEEK GATE itself (`commercialWeek:
 // 416` in `technologyCatalogue.ts`) is untouched by the settlement fix — it
 // is a fixed catalogue constant, not derived from any rival's cash — so
 // week 416 remains the EARLIEST legal week; what moved is WHICH studio can
@@ -41,8 +49,9 @@ import { advanceTo, p13aGeneratedStudio } from '../src/harness/p13a/fixtures.js'
 // (a scheduled founding after week 208, so its cash was never touched by the
 // week-208 settlement round) — not one of the original four. That the
 // original four founding rivals no longer reach this purchase at all by
-// week ~500 in this fixture is a genuine, separate product fact surfaced by
-// this re-expression, not fixed here (out of this test-author's scope).
+// week ~500 in this fixture is INHERITED pre-market insolvency (evidence 18,
+// see above), a genuine, separate product fact surfaced by this
+// re-expression, not fixed here (out of this test-author's scope).
 function naturalPurchaseSnapshot(seed: string): GameState {
   let prev = advanceTo(p13aGeneratedStudio(seed), 416) // the fixed catalogue commercialWeek floor
   let state = prev

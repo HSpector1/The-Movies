@@ -1,0 +1,97 @@
+== RED evidence: tests/p14a1-seat-budget.test.ts ==
+Command: npx vitest run tests/p14a1-seat-budget.test.ts --project core --minWorkers=1 --maxWorkers=1
+Repo HEAD: 1eb496e2fdd7414e63b8fad6d213e8c5416a3c54
+Date: 2026-09-18T11:28:21Z (local run clock; date -u command above ran 2026-09-18T09:30:46Z)
+
+Cases A and B expected RED (the seat-budget defect, evidence 18); case C
+expected GREEN (the player is not seat-budgeted — guard against over-reach).
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/p14a1-seat-budget.test.ts (3 tests | 2 failed) 4732ms
+   × P14A.1: rival seat budget at freeze (commitRivalWinner has no seat cap; rivalProposalTrigger branch (c) fires for everyone at a synchronized expiry) > A. natural synchronized expiry at week 208 (seed 'p13-public-commercial-adoption'): every rival studio's active roster stays within RIVAL_TEAM_ROLES per role and in total at week 209 3418ms
+     → studio-5a47d054-r01 role writer at week 209: expected 2 to be less than or equal to 1
+   × P14A.1: rival seat budget at freeze (commitRivalWinner has no seat cap; rivalProposalTrigger branch (c) fires for everyone at a synchronized expiry) > B. unit-scale: a rival that already holds its full RIVAL_TEAM_ROLES actor seats through the decision week submits a challenge proposal on a player's expiring actor → declined, reason 'all proposals dropped', one drop sentence naming the rival and containing 'seat'; the rival's roster does not grow 665ms
+     → expected 'settled' to be 'declined' // Object.is equality
+   ✓ P14A.1: rival seat budget at freeze (commitRivalWinner has no seat cap; rivalProposalTrigger branch (c) fires for everyone at a synchronized expiry) > C. the player is NOT seat-budgeted: a dominant incumbent player proposal settles even though the player already holds more actor contracts than RIVAL_TEAM_ROLES's 3-actor cap (guard against over-reach of the fix) — GREEN now, must stay GREEN 647ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14a1-seat-budget.test.ts > P14A.1: rival seat budget at freeze (commitRivalWinner has no seat cap; rivalProposalTrigger branch (c) fires for everyone at a synchronized expiry) > A. natural synchronized expiry at week 208 (seed 'p13-public-commercial-adoption'): every rival studio's active roster stays within RIVAL_TEAM_ROLES per role and in total at week 209
+AssertionError: studio-5a47d054-r01 role writer at week 209: expected 2 to be less than or equal to 1
+ ❯ tests/p14a1-seat-budget.test.ts:161:85
+    159|       for (const [role, cap] of requiredByRole) {
+    160|         // PRIMARY CLAIM. Expected RED now for r01: 6 actor rows held against a cap of 3 (12 total against 6).
+    161|         expect(byRole.get(role) ?? 0, `${rival.studioId} role ${role} at week 209`).toBeLessThanOrEqual(cap)
+       |                                                                                     ^
+    162|       }
+    163|       expect(active.length, `${rival.studioId} total roster at week 209`).toBeLessThanOrEqual(RIVAL_TEAM_ROLES.length)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL |core|  tests/p14a1-seat-budget.test.ts > P14A.1: rival seat budget at freeze (commitRivalWinner has no seat cap; rivalProposalTrigger branch (c) fires for everyone at a synchronized expiry) > B. unit-scale: a rival that already holds its full RIVAL_TEAM_ROLES actor seats through the decision week submits a challenge proposal on a player's expiring actor → declined, reason 'all proposals dropped', one drop sentence naming the rival and containing 'seat'; the rival's roster does not grow
+AssertionError: expected 'settled' to be 'declined' // Object.is equality
+
+Expected: "declined"
+Received: "settled"
+
+ ❯ tests/p14a1-seat-budget.test.ts:204:32
+    202|     const settledView = caseForTalent(state, talentId, state.market.tick)!
+    203|     // RED: currently 'settled' — commitRivalWinner has no seat budget (evidence 18).
+    204|     expect(settledView.status).toBe('declined')
+       |                                ^
+    205|
+    206|     const kase = marketOf(state).cases.find((c) => c.talentId === talentId)!
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 1 passed (3)
+   Start at  11:28:21
+   Duration  7.10s (transform 1.57s, setup 0ms, collect 2.02s, tests 4.73s, environment 0ms, prepare 90ms)
+
+── measured rosters (case A, at week 209, seed 'p13-public-commercial-adoption') ──
+(from the disposable, uncommitted vite-node probe used to design the test — not
+part of the vitest run above; reproducible by the assertion failure itself,
+recorded here for the record per rival/role)
+  studio-5a47d054-r01 (row 1, Bellwether Pictures)      total 12  {writer:2, director:2, actor:6, craft:2}  — cap {writer:1, director:1, actor:3, craft:1}, total cap 6 — VIOLATES every per-role cap and the total
+  studio-5a47d054-r02 (row 2, Rose Lantern Films)        total 6   {writer:1, director:1, actor:3, craft:1}  — within cap
+  studio-5a47d054-r03 (row 3, Night Orchard Productions) total 6   {writer:1, director:1, actor:3, craft:1}  — within cap
+  studio-5a47d054-r04 (row 4, Silver Current Pictures)   total 6   {writer:1, director:1, actor:3, craft:1}  — within cap (refilled via the ordinary staff() replacement path by week 209 after losing all 6 of its own people to r01 at week 208)
+  receipts at week 208: 24 total, all kind 'settled', 0 'declined' — so the
+  file's secondary "at least one seat-drop sentence" assertion is currently
+  unsatisfiable for TWO reasons: no seat predicate exists yet, AND no case
+  declines at all on this seed at week 208 under the current code (see the
+  test file's header PREMISES for the case-order caveat on this point after
+  a real fix lands).
+
+== GREEN confirmation: tests/p13a-rival-adoption.test.ts (2/2, header premise correction only — no code change) ==
+Command: npx vitest run tests/p13a-rival-adoption.test.ts --project core --minWorkers=1 --maxWorkers=1
+Repo HEAD: 1eb496e2fdd7414e63b8fad6d213e8c5416a3c54
+Date: 2026-09-18T11:28:40Z
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p13a-rival-adoption.test.ts (2 tests) 10617ms
+   ✓ P13A shared commercial adoption and exact rival cash consequence > uses the shared player/rival eligibility function and debits only technology adoption without new plant or RNG draws 614ms
+   ✓ P13A shared commercial adoption and exact rival cash consequence > replays the actual weekly commercial purchase, reconciles its debit and creates one dated operational receipt 1942ms
+
+ Test Files  1 passed (1)
+      Tests  2 passed (2)
+   Start at  11:28:40
+   Duration  13.11s (transform 1.47s, setup 0ms, collect 1.94s, tests 10.62s, environment 0ms, prepare 110ms)
+
+== npm run typecheck ==
+Command: npm run typecheck (tsc --noEmit && tsc -p ui/tsconfig.json --noEmit)
+Repo HEAD: 1eb496e2fdd7414e63b8fad6d213e8c5416a3c54
+Result: exit 0, no output (clean)
+
+== Runner-slot note ==
+The native/bridge test runner slot was busy for ~9.5 minutes before this run
+(a concurrent bridge-implementer session running
+`vitest run tests/bridge-p10a-w0-people-projection.test.ts tests/bridge-p13-profile-availability.test.ts
+tests/bridge-schema.test.ts tests/bridge-contract-generator.test.ts
+tests/bridge-contract-consumer-lock.test.ts tests/bridge-owner-ux-projection21-schema.test.ts
+tests/bridge.test.ts --minWorkers=1 --maxWorkers=1`). Probed manually with
+`ps -axo command | grep -c '[v]itest'` (never an until/while loop naming the
+runner) until it returned 0, then ran the two suites above back to back.
