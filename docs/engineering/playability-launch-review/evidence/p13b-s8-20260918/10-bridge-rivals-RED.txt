@@ -1,0 +1,68 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ × |core| tests/bridge-p13b-s8-rivals.test.ts > P13B-S8-T3 item 1: projection version bump 40 -> 41; converted flag > bumps PROJECTION_VERSION to 41 and its schema $id / x-project-studio.projectionVersion move with it
+   → expected 40 to be 41 // Object.is equality
+ ✓ |core| tests/bridge-p13b-s8-rivals.test.ts > P13B-S8-T3 item 1: projection version bump 40 -> 41; converted flag > converted: false for a genuine current V27 save, round-tripped through save()/load() on the SAME session (regression guard — matches tests/bridge-p13b-r07-setup.test.ts's own now-fixed case) 1063ms
+ ✓ |core| tests/bridge-p13b-s8-rivals.test.ts > P13B-S8-T3 item 1: projection version bump 40 -> 41; converted flag > converted: true BY CONSTRUCTION for a genuine V26 fixture load (legacy-v26-lighting-restored-795, saveVersion 26 !== LIVE_SAVE_VERSION 27) — see header for why this cannot be a directly observed wire boolean through the current session API 416ms
+ × |core| tests/bridge-p13b-s8-rivals.test.ts > P13B-S8-T3 item 2: Industry page rival technology facts — laboratoryOperational publishes; the other four kinds do not; existing kinds unchanged > a rival laboratoryOperational receipt yields exactly one activity per rival, in an existing group, headline verbatim, detail without counts (natural week 13: 4 rivals, 4 receipts)
+   → expected [] to have a length of 4 but got +0
+ ✓ |core| tests/bridge-p13b-s8-rivals.test.ts > P13B-S8-T3 item 2: Industry page rival technology facts — laboratoryOperational publishes; the other four kinds do not; existing kinds unchanged > laboratoryCommitted, instrumentOperational, researchSeatAssigned and researchCompleted receipts yield NO activity row (regression guard — already true today; natural week 277, all four kinds genuinely present and within the 13-week pulse window)
+ ✓ |core| tests/bridge-p13b-s8-rivals.test.ts > P13B-S8-T3 item 2: Industry page rival technology facts — laboratoryOperational publishes; the other four kinds do not; existing kinds unchanged > technologyAdopted rows are unchanged (regression guard; natural week 288, rival r01's real synchronized-sound adoption)
+ ✓ |core| tests/bridge-p13b-s8-rivals.test.ts > P13B-S8-T3 item 2: Industry page rival technology facts — laboratoryOperational publishes; the other four kinds do not; existing kinds unchanged > the S7 campaign-clock announcement row is unchanged (regression guard; heavy natural rival research present, week 288, both technologies pre-announcement)
+ ✓ |core| tests/bridge-p13b-s8-rivals.test.ts > P13B-S8-T3 item 3: rival finance exposed only through existing public standings > researchCapacity, technologyRestoration and technologyRefund never appear on the industry pulse page, the Laboratory page, or session.snapshot() (week 13: researchCapacity is genuinely nonzero from real rival Lab admission) 330ms
+ ✓ |core| tests/bridge-p13b-s8-rivals.test.ts > P13B-S8-T3 item 3: rival finance exposed only through existing public standings > the player's own finance researchSpend channel reads $0 in every window even while the rival's real researchSpend is nonzero elsewhere in the same state (week 288) 493ms
+ ✓ |core| tests/bridge-p13b-s8-rivals.test.ts > P13B-S8-T3 item 4: the player's Laboratory page is unchanged by rival research > forecast[] is byte-identical across two independently-seeded natural campaigns at the same week (genuinely different rival identities and rival research facts)
+ ✓ |core| tests/bridge-p13b-s8-rivals.test.ts > P13B-S8-T3 item 4: the player's Laboratory page is unchanged by rival research > no row for a rival project, no rival seat, no rival studioId anywhere in the JSON (week 288: heavy real rival research including a completed technology adoption)
+ ✓ |core| tests/bridge-p13b-s8-rivals.test.ts > P13B-S8-T3 item 5: the bridge accepts a real S8 state on snapshot(); history projections ignore the five kinds > session.snapshot() does not throw on a naturally-reached state carrying all five S8 receipt kinds and genuinely nonzero researchCapacity/researchSpend (week 288) 417ms
+ ✓ |core| tests/bridge-p13b-s8-rivals.test.ts > P13B-S8-T3 item 5: the bridge accepts a real S8 state on snapshot(); history projections ignore the five kinds > a non-player studio's own History view ignores the four no-row kinds (no row, no crash; week 288)
+ ✓ |core| tests/bridge-p13b-s8-rivals.test.ts > P13B-S8-T3 item 5: the bridge accepts a real S8 state on snapshot(); history projections ignore the five kinds > the player's own History (historyProjection, a disjoint root from IndustryReceipt) is untouched: session.snapshot() does not throw and its history section mentions none of the five kinds (week 288) 433ms
+ ✓ |core| tests/bridge-p13b-s8-rivals.test.ts > P13B-S8-T3 item 6: Save V27 round-trip, Save As, genuine V26 fixture loads > a V27 save round-trips through the bridge byte-identically (week 288, real S8 facts: all five receipt kinds, nonzero researchCapacity/researchSpend) 2666ms
+ ✓ |core| tests/bridge-p13b-s8-rivals.test.ts > P13B-S8-T3 item 6: Save V27 round-trip, Save As, genuine V26 fixture loads > a Save As world keeps the same rival receipts and publishes identical industry rows (week 13, natural rival Lab facts) 1718ms
+ ✓ |core| tests/bridge-p13b-s8-rivals.test.ts > P13B-S8-T3 item 6: Save V27 round-trip, Save As, genuine V26 fixture loads > the three genuine V26 fixtures load through the bridge (sha256 verified) and their industry pulse page carries no S8-kind text anywhere (V26 predates S8; converted true by construction as item 1 documents) 999ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/bridge-p13b-s8-rivals.test.ts > P13B-S8-T3 item 1: projection version bump 40 -> 41; converted flag > bumps PROJECTION_VERSION to 41 and its schema $id / x-project-studio.projectionVersion move with it
+AssertionError: expected 40 to be 41 // Object.is equality
+
+- Expected
++ Received
+
+- 41
++ 40
+
+ ❯ tests/bridge-p13b-s8-rivals.test.ts:208:32
+    206| describe('P13B-S8-T3 item 1: projection version bump 40 -> 41; convert…
+    207|   it('bumps PROJECTION_VERSION to 41 and its schema $id / x-project-st…
+    208|     expect(PROJECTION_VERSION).toBe(41) // RED: today PROJECTION_VERSI…
+       |                                ^
+    209|     expect(BRIDGE_SCHEMA.$id).toContain('projection-41')
+    210|     expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(4…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL |core|  tests/bridge-p13b-s8-rivals.test.ts > P13B-S8-T3 item 2: Industry page rival technology facts — laboratoryOperational publishes; the other four kinds do not; existing kinds unchanged > a rival laboratoryOperational receipt yields exactly one activity per rival, in an existing group, headline verbatim, detail without counts (natural week 13: 4 rivals, 4 receipts)
+AssertionError: expected [] to have a length of 4 but got +0
+
+- Expected
++ Received
+
+- 4
++ 0
+
+ ❯ tests/bridge-p13b-s8-rivals.test.ts:247:18
+    245|     expect(receipts).toHaveLength(4) // precondition: genuinely 4 natu…
+    246|     const rows = activitiesOf(industryQuery(session, 'pulse')).filter(…
+    247|     expect(rows).toHaveLength(receipts.length) // RED: today this is 0…
+       |                  ^
+    248|     expect(new Set(rows.map(r => r.studioId)).size).toBe(4) // one dis…
+    249|     for (const receipt of receipts) {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 15 passed (17)
+   Start at  05:37:09
+   Duration  17.42s (transform 2.15s, setup 0ms, collect 8.02s, tests 8.97s, environment 0ms, prepare 108ms)
+
