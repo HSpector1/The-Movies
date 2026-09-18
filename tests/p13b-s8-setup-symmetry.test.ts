@@ -26,29 +26,21 @@
 // documenting exactly the Audit's own phrase: "RED at the missing
 // parameter's effect, not at resolution."
 //
-// PREMISES NAMED (the plan does not fully specify these; a real
-// architectural gap is named explicitly rather than silently assumed away):
-//   1. `deriveSetupProvenance`'s own internal `lightingAdoption` helper calls
-//      `adoptionChainOperational` -> `hasOperationalFacilityInstallation`,
-//      which reads ONLY `state.placement.facilities` (the refinement's own
-//      words: "the lot is the player's; rivals own no placements" — a rival
-//      structurally has no entry there under S8's own Laboratory law). The
-//      Audit names NO change to `hasOperationalFacilityInstallation` or
-//      `adoptionChainOperational` themselves (S8 LAW items 1-13 are silent
-//      on both). This file's fixture therefore adds ONE raw entry to the
-//      SHARED `state.placement.facilities` array (a `PlacedFacility` whose
-//      `installation.targetFacilityId` is the RIVAL's own stage facility
-//      id) as the minimal construction that satisfies today's UNCHANGED
-//      `hasOperationalFacilityInstallation` — `PlacedFacility` itself
-//      carries no studio key, so nothing in that function's own shape
-//      forbids this. If S8-T2 instead generalises
-//      `hasOperationalFacilityInstallation`/`adoptionChainOperational` to
-//      recognise a receipt-backed rival installation with NO placement at
-//      all (consistent with the Laboratory law's "no placement record"),
-//      this file's FIXTURE (not its asserted REQUIREMENT — rival provenance
-//      via deriveSetupProvenance, units 4 -> 2) would need revision. Named
-//      here as the gap this file could not close against the plan alone.
-//   2. `RIVAL_RESEARCH_POLICY`'s shape/bounds premise is the same one
+// RULING (coordinator, plan authority, 2026-09-18 — supersedes this file's
+// own original "PREMISES NAMED" §1 below, which wrongly resolved the same
+// gap it correctly named): rivals own NO placements. The chain-operational
+// check (`lightingAdoption` -> `adoptionChainOperational` ->
+// `hasOperationalFacilityInstallation`) resolves physical completion PER
+// STUDIO — player: placements, exactly as today; rival: the adoption's own
+// clock (`operationalWeek !== null`) with its held equipment asset, NEVER a
+// placement lookup. This is adjudication (b), now an S8-T2 source change
+// landing concurrently in sim-core. This file's fixture therefore injects NO
+// `state.placement.facilities` row for the rival at all — a placement-less
+// rival adoption, operational purely by its own `operationalWeek` clock, is
+// the LAWFUL construction, not a workaround for one.
+//
+// PREMISES NAMED:
+//   1. `RIVAL_RESEARCH_POLICY`'s shape/bounds premise is the same one
 //      tests/p13b-s8-adoption.test.ts's header states (not repeated here).
 
 import { describe, expect, it } from 'vitest'
@@ -71,7 +63,7 @@ function bellwether(state: GameState): { hollywood: HollywoodState; business: Ri
   return { hollywood, business }
 }
 
-/** A genuine (for this file's purposes) OPERATIONAL rival lighting-control-01 adoption on the rival's own stage: access, adoption, equipment asset, and the one placement fixture premise 1 above names. */
+/** A genuine (for this file's purposes) OPERATIONAL rival lighting-control-01 adoption on the rival's own stage: access, adoption (operational by its own clock), and its held equipment asset. Placement-less throughout — see the RULING above: rivals own no placements; the rival branch resolves physical completion through the adoption's own `operationalWeek`, never a placement lookup. */
 function withOperationalRivalLighting(state: GameState) {
   const { business } = bellwether(state)
   const stage = business.operations.facilities.find(f => f.capability === 'soundstage')!
@@ -85,16 +77,10 @@ function withOperationalRivalLighting(state: GameState) {
   const adoption: TechnologyAdoption = { id: asset.holderAdoptionId!, studioId: business.studioId, technologyId: 'lighting-control-01',
     stageFacilityId: stage.id, postFacilityId: null, route: 'research', committedWeek: week, operationalWeek: week, cancelledWeek: null,
     equipmentCost: 0, installationCost: 0, physicalProjectIds: [], prototypeProjectId: access.researchProjectId, components: [], equipmentAssetId }
-  const placementFacility = {
-    id: 9_001, blueprintId: entry.stageInstallationId, parcelId: 'parcel-forged', origin: { gx: 0, gy: 0 }, cells: [{ gx: 0, gy: 0 }],
-    facilityId: `module-${entry.stageInstallationId}-forged`, projectId: 'installation-forged-rival-lighting-stage',
-    status: 'operational' as const, placedWeek: week, completesWeek: week, installation: { targetFacilityId: stage.id }, cancellation: null,
-  }
   const withState: GameState = {
     ...state,
     technology: { ...state.technology, access: [...state.technology.access, access], adoptions: [...state.technology.adoptions, adoption],
       equipment: [...state.technology.equipment, asset] },
-    placement: { ...state.placement, facilities: [...state.placement.facilities, placementFacility as never] },
   }
   return { state: withState, business, stageFacilityId: stage.id, week, adoption, asset }
 }
