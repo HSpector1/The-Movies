@@ -1,0 +1,152 @@
+P14B.1-T3a — bridge test 10 RED at module resolution of bridge/promises.ts
+Repo /Users/zacheryspector/The-Movies-headless-program, branch wip/headless-program-20260916-ts.
+HEAD at this evidence capture: 84dab5a4015aba21407b70ac6ebf2864759b1e5b (records(p14b1): T2 LANDED).
+Node v20.20.2, vitest/2.1.9 darwin-x64 node-v20.20.2.
+Machine: 2 cores; single worker per run (--project core --minWorkers=1 --maxWorkers=1). Before EVERY
+run in this session, a SEPARATE Bash call ran `ps -axo command | grep -c '[v]itest'`; every probe in
+this session returned 0 before the run it gated.
+New file: tests/bridge-p14b1-promises.test.ts (only file created — no production source, no other
+test file touched). File under test does not exist: bridge/promises.ts (`test -f bridge/promises.ts`
+reports absent).
+
+=== npm run -s typecheck:bridge  (BASELINE, before tests/bridge-p14b1-promises.test.ts existed) ===
+bridge/people.ts(971,7): error TS2322: Type '("standing" | "compensation" | "term" | "opportunity" | "trust" | "incumbency")[]' is not assignable to type '("standing" | "compensation" | "term" | "incumbency")[]'.
+  Type '"standing" | "compensation" | "term" | "opportunity" | "trust" | "incumbency"' is not assignable to type '"standing" | "compensation" | "term" | "incumbency"'.
+    Type '"opportunity"' is not assignable to type '"standing" | "compensation" | "term" | "incumbency"'.
+bridge/runtime-checkpoint.ts(847,33): error TS2379: Argument of type 'GameStateV28' is not assignable to parameter of type 'GameStateV29' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Type 'GameStateV28' is missing the following properties from type '{ firstTakes: readonly FirstTakeReceipt[]; promises: readonly ProfessionalPromise[]; }': firstTakes, promises
+bridge/runtime/campaign-library.ts(41,77): error TS2379: Argument of type 'GameStateV28' is not assignable to parameter of type 'GameStateV29' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Type 'GameStateV28' is missing the following properties from type '{ firstTakes: readonly FirstTakeReceipt[]; promises: readonly ProfessionalPromise[]; }': firstTakes, promises
+bridge/runtime/campaign-library.ts(66,92): error TS2379: Argument of type 'GameStateV28' is not assignable to parameter of type 'GameStateV29' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Type 'GameStateV28' is missing the following properties from type '{ firstTakes: readonly FirstTakeReceipt[]; promises: readonly ProfessionalPromise[]; }': firstTakes, promises
+bridge/session.ts(136,24): error TS2375: Type 'GameStateV28' is not assignable to type 'GameStateV29' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Type 'GameStateV28' is missing the following properties from type '{ firstTakes: readonly FirstTakeReceipt[]; promises: readonly ProfessionalPromise[]; }': firstTakes, promises
+EXIT:2
+
+NOTE on the coordinator's ADJUSTMENT (1): the brief paraphrased this baseline as "six known sites —
+bridge/session.ts 41/136, bridge/runtime-checkpoint.ts 6/843/452, bridge/runtime/campaign-library.ts
+5/48/127 — and the priorityOrder schema enum at bridge-schema.ts 2204". The ACTUAL, re-run baseline at
+this exact HEAD is FIVE errors at FOUR files, with the priorityOrder mismatch surfacing at its
+CONSUMPTION site (bridge/people.ts:971, inside marketCaseProjection's own `preferences.priorityOrder`
+assignment) rather than at the bridge-schema.ts:2204 enum declaration itself, and session.ts/runtime-
+checkpoint.ts/campaign-library.ts each showing FEWER occurrences than paraphrased (likely minor HEAD
+drift since the brief was drafted, or the paraphrase already rounded up). Recorded verbatim above, per
+the adjustment's own instruction, rather than reconciled to the brief's approximate description.
+
+=== npx vitest run --project core --minWorkers=1 --maxWorkers=1 tests/bridge-p14b1-promises.test.ts ===
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/bridge-p14b1-promises.test.ts (0 test)
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/bridge-p14b1-promises.test.ts [ tests/bridge-p14b1-promises.test.ts ]
+Error: Failed to load url ../bridge/promises.ts (resolved id: ../bridge/promises.ts) in /Users/zacheryspector/The-Movies-headless-program/tests/bridge-p14b1-promises.test.ts. Does the file exist?
+ ❯ loadAndTransform node_modules/vitest/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:51969:17
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed (1)
+      Tests  no tests
+   Start at  23:10:23
+   Duration  4.03s (transform 2.69s, setup 0ms, collect 0ms, tests 0ms, environment 0ms, prepare 96ms)
+
+EXIT:1
+
+RED LINE: "Failed to load url ../bridge/promises.ts (resolved id: ../bridge/promises.ts) ... Does the
+file exist?" — module resolution failure, before any describe/it body runs (0 tests collected). This
+is the SAME shape as tests/bridge-p14a2-market.test.ts's own RED against the then-absent bridge/
+market.ts, the stronger of this repo's two RED-first precedents (no missing-named-export ambiguity).
+
+=== npm run -s typecheck:bridge  (AFTER tests/bridge-p14b1-promises.test.ts) ===
+bridge/people.ts(971,7): error TS2322: Type '("standing" | "compensation" | "term" | "opportunity" | "trust" | "incumbency")[]' is not assignable to type '("standing" | "compensation" | "term" | "incumbency")[]'.
+  Type '"standing" | "compensation" | "term" | "opportunity" | "trust" | "incumbency"' is not assignable to type '"standing" | "compensation" | "term" | "incumbency"'.
+    Type '"opportunity"' is not assignable to type '"standing" | "compensation" | "term" | "incumbency"'.
+bridge/runtime-checkpoint.ts(847,33): error TS2379: Argument of type 'GameStateV28' is not assignable to parameter of type 'GameStateV29' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Type 'GameStateV28' is missing the following properties from type '{ firstTakes: readonly FirstTakeReceipt[]; promises: readonly ProfessionalPromise[]; }': firstTakes, promises
+bridge/runtime/campaign-library.ts(41,77): error TS2379: Argument of type 'GameStateV28' is not assignable to parameter of type 'GameStateV29' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Type 'GameStateV28' is missing the following properties from type '{ firstTakes: readonly FirstTakeReceipt[]; promises: readonly ProfessionalPromise[]; }': firstTakes, promises
+bridge/runtime/campaign-library.ts(66,92): error TS2379: Argument of type 'GameStateV28' is not assignable to parameter of type 'GameStateV29' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Type 'GameStateV28' is missing the following properties from type '{ firstTakes: readonly FirstTakeReceipt[]; promises: readonly ProfessionalPromise[]; }': firstTakes, promises
+bridge/session.ts(136,24): error TS2375: Type 'GameStateV28' is not assignable to type 'GameStateV29' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Type 'GameStateV28' is missing the following properties from type '{ firstTakes: readonly FirstTakeReceipt[]; promises: readonly ProfessionalPromise[]; }': firstTakes, promises
+tests/bridge-p14b1-promises.test.ts(149,54): error TS2307: Cannot find module '../bridge/promises.ts' or its corresponding type declarations.
+EXIT:2
+
+DIFF vs baseline: the same five pre-existing errors, byte-identical, PLUS EXACTLY ONE new error —
+tests/bridge-p14b1-promises.test.ts(149,54) TS2307 "Cannot find module '../bridge/promises.ts'" — the
+required "exactly one additional TS2307" (line 149 is the `import { promiseQuoteSnapshot,
+promiseRowsFor } from '../bridge/promises.ts'` statement). No other line of this file adds an error:
+every field this file reads off an EXISTING, already-typed function (marketCaseProjection, marketPage,
+peopleProjection, BridgeSession.quote/save, industryPage) that does not carry the field yet is read
+through an explicit `as unknown as <shape>` cast (the same idiom tests/bridge-p14a1-market.test.ts's
+`unknownTypeRequest` and tests/bridge-p14a2-market.test.ts's `marketQuery` already use), and every
+value returned by the two not-yet-existing bindings is assigned to an explicitly-typed `const` before
+any `.find`/`.map` callback reads it (avoiding noImplicitAny TS7006 on the resulting `any`).
+
+=== group -> cases -> premise ===
+group 1 (PROJECTION_VERSION / LIVE_SAVE_VERSION)                                    1 case
+  - LIVE_SAVE_VERSION===29 (already true, T2-landed); PROJECTION_VERSION===45 is a FORWARD PIN
+    (today 44 — never reached this run; T3's own "pins 44 -> 45" task lands it)
+
+group 2 (case block + market page promise rows — requirements a, c)                 2 cases
+  - own row real (family/count/window/classification) vs competing row UNKNOWN, cross-checked
+    against the engine's own landed caseDisclosure as oracle (requirement a)
+  - the market page comparison row carries the identical fact (bridge/market.ts's own
+    `comparison: block.proposals` already reuses the case block's array by reference; verified
+    by reading bridge/market.ts directly) (requirement c)
+
+group 3 (trust descriptor label + person promise history — requirement b)           1 case
+  - open right after settlement, then BROKEN once the window passes unsatisfied; both the
+    trustLabel and promiseHistory fields derived through the landed trustDescriptor and
+    state.promises as the oracle, not hardcoded; EMPIRICALLY PROBED against the real landed
+    engine (disposable vite-node script, seed p14b1-bridge-promise-history) to confirm the
+    promise reclassifies REASONABLY_ACHIEVABLE at freeze, wins, and is BOUND (contractId set)
+    before any outcome is evaluated — never the still-open T2c/T2b unbound-evaluation premise
+
+group 4 (marketProposalAction's promise draft/quote — requirement d)                3 cases
+  - the achievable case: promiseQuoteSnapshot's classification matches promiseFeasibility's own
+    (the oracle), AND the same fact rides the EXISTING quoteMarketProposal session intent (no
+    new intent kind — AVAILABLE_INTENT_KINDS asserted unchanged)
+  - a window outside the proposed contract: IMPOSSIBLE, "not offerable: the due week falls
+    outside the proposed contract" (deterministic, no seed-specific pipeline knowledge needed)
+  - a non-P1 family (DIRECTING_COUNT): IMPOSSIBLE, "not offerable: a directing promise is not
+    offered in this slice" (deterministic — NOT_OFFERED_IN_B1 short-circuits before any
+    pipeline check)
+
+group 5 (leak — requirement e)                                                      1 case
+  - a RIVAL-issued promise (built through attachPromise/submitProposal directly, per
+    ADJUSTMENT 2 — rival AUTHORING lands at T2b) never appears in the profile, market page, a
+    player-requested quote or Pulse: structural UNKNOWN check (primary) + the family string
+    absent + EXACT numeric-value tree search (never substring) for the rival's real window
+    weeks, widened past the 0-100 discipline-stat range and EMPIRICALLY PROBED (disposable
+    vite-node script) for zero coincidental collisions on this construction
+
+group 6 (save/load — requirement f)                                                 2 cases
+  - the genuine V28 open-case-45 fixture (tests/fixtures/p13b/PROVENANCE.md row; same file/
+    sha256 as tests/bridge-p14a2-market.test.ts's V28_OPEN_CASE_45) converts to V29 with empty
+    firstTakes/promises, the bridge reads both proposal rows with no promise fact (null for the
+    player's own empty row, UNKNOWN for the rival's), and an unmodified resave stays byte-
+    identical to the original V28 bytes
+  - a live V29 state carrying one real, attached promise round-trips through save/load byte-
+    stable (both the whole gameState and the promiseRowsFor read, JSON-normalized both sides
+    per the accepted -0-vs-0 idiom)
+
+TOTAL: 6 groups / 10 cases.
+
+=== premises this author could not construct ===
+  - Whether the trust label / promise history belong on marketCaseProjection (this file's own
+    choice, explicitly flagged in the file header as an INTERPRETATION) or a separate,
+    un-viewered Profile field: not settled by anything read for this task.
+  - A SATISFIED (as opposed to BROKEN) terminal promise is not constructed anywhere in this
+    file — it needs a real qualifying first take (greenlight, cast, advance through production
+    ticks), materially larger setup than a RED-first bridge test needs to pin the wiring; the
+    engine's own T1 test 5 already covers SATISFIED end-to-end.
+  - The promise's bare `count` is not independently leak-checked as a raw JSON number in group 5
+    (small integers collide constantly with unrelated legitimate fields — probed and confirmed
+    at this fixture's scale); the family string plus the window-week numbers carry the leak
+    evidence instead, alongside the primary structural UNKNOWN check.
+  - Per the brief's own NOT-IN-SCOPE line (B.2): the top-three trust driver reasons TEXT, the
+    Pulse promiseKept/promiseBroken activities, the attention causes promiseDue/promiseOutcome,
+    and the workspace promise-history bucket are asserted nowhere in this file.
