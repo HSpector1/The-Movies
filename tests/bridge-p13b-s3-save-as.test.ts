@@ -89,13 +89,19 @@ describe('P13B-S3 Save As (test 7, A11)', () => {
       expect(savedOriginal.accepted).toBe(true)
       const originalId = library(store).activeCampaignId!
       const first = state(store)
-      const originalPlanIds = first.physicalPlans.plans.map((p: { id: string }) => p.id)
+      // P13B-S8 sweep: the plan root is shared by every studio, and a rival now
+      // admits its own Laboratory plans onto it. The Save As claim under test is
+      // about THIS studio's plan identities.
+      const own = first.hollywood!.playerStudioId
+      const ownPlanIds = (s: typeof first): string[] =>
+        s.physicalPlans.plans.filter((p: { studioId: string }) => p.studioId === own).map((p: { id: string }) => p.id)
+      const originalPlanIds = ownPlanIds(first)
       expect(originalPlanIds).toHaveLength(1)
 
       // A Save As copy of the now-active "Original" record.
       const savedCopy = await runtime.campaign(await request(runtime, 'saveAs', { label: 'Active copy' }))
       expect(savedCopy.accepted).toBe(true)
-      expect(state(store).physicalPlans.plans.map((p: { id: string }) => p.id)).toEqual(originalPlanIds) // same plan ids, preserved exactly
+      expect(ownPlanIds(state(store))).toEqual(originalPlanIds) // same plan ids, preserved exactly
 
       await advance(runtime) // only the ACTIVE copy advances
       expect(state(store).market.tick).toBeGreaterThan(first.market.tick)

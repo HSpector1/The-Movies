@@ -80,7 +80,7 @@ function expectPreservedGameplay(beforeJson: string, after: SaveFileV27): void {
     return copied
   })
   expect({...after,state:{...afterState,talent:oldPeople}}).toEqual({
-    saveVersion: 26,
+    saveVersion: 27,
     seed: before.seed,
     state: {
       ...before.state,
