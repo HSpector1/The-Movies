@@ -1,0 +1,67 @@
+P14A.3-T1 — bridge tests 1-7 RED at module resolution of bridge/world.ts
+Repo: /Users/zacheryspector/The-Movies-headless-program
+Branch: wip/headless-program-20260916-ts
+Base commit (HEAD at start of this task): bf8b2e4
+New file: tests/bridge-p14a3-world.test.ts (test-side only; no production source edited)
+Run environment: darwin (Darwin 21.6.0), node via npm scripts, vitest 2.1.9, machine budget 2 cores.
+Date: 2026-09-18
+
+=== ps -axo command | grep -c '[v]itest'  (probe before the vitest run; separate Bash call) ===
+0
+
+=== npx vitest run --project core --minWorkers=1 --maxWorkers=1 --reporter=dot tests/bridge-p14a3-world.test.ts ===
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/bridge-p14a3-world.test.ts (0 test)
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/bridge-p14a3-world.test.ts [ tests/bridge-p14a3-world.test.ts ]
+Error: Failed to load url ../bridge/world.ts (resolved id: ../bridge/world.ts) in /Users/zacheryspector/The-Movies-headless-program/tests/bridge-p14a3-world.test.ts. Does the file exist?
+ ❯ loadAndTransform node_modules/vitest/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:51969:17
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed (1)
+      Tests  no tests
+   Start at  18:18:27
+   Duration  4.25s (transform 2.83s, setup 0ms, collect 0ms, tests 0ms, environment 0ms, prepare 132ms)
+
+RESULT: module-resolution failure ("Failed to load url ../bridge/world.ts ... Does the file
+exist?"), never a missing-named-export TypeError bound to undefined. 0 tests collected — no
+describe/it body ran. This is the strongest, least-ambiguous form of the repo's RED-first rule.
+
+=== ps -axo command | grep -c '[v]itest'  (probe before typecheck; separate Bash call) ===
+0
+
+=== npm run -s typecheck:bridge ===
+tests/bridge-p14a3-world.test.ts(148,34): error TS2307: Cannot find module '../bridge/world.ts' or its corresponding type declarations.
+
+RESULT: exactly one error, exactly TS2307, exactly at the `personWorldRoute` import line
+(148:34) in this new file. No other error anywhere else in the bridge typecheck project
+(`tests/bridge*.test.ts`, `tests/r3n1-*.test.ts`, `bridge/**/*.ts`, `src/**/*.ts`, etc. — the
+full `tsconfig.bridge.json` include list). Verified by raw line/error count:
+  wc -l  -> 1 line total
+  grep -c "error TS" -> 1
+  grep -c "TS2307"   -> 1
+
+=== group -> cases -> premise table ===
+
+7 describe groups, 16 total cases (14 `it`, 2 `it.todo`).
+
+| Group | Cases | Premise it relies on |
+|---|---|---|
+| 1: PROJECTION_VERSION 44 / schema / converted law | 3 it | PROJECTION_VERSION/BRIDGE_SCHEMA already real (existing code, currently 43); personWorldRoute exists and answers {statusLine,caseRef,reach} for a fresh signed actor; LIVE_SAVE_VERSION already real (28). |
+| 2: the player's own open case | 1 it | genuine fixture legacy-v28-open-case-45 (sha pinned, week 45, decisionWeek 52, subjectStudioId=player, t-act-09); personWorldRoute's statusLine candidate copy (plan scope item 1, OPEN/CANDIDATE per the plan's own OPEN section); marketPage/peopleProjection byte-equal correspondence (both already real, landed A.1/A.2); the not-yet-widened BridgeRosterRowSnapshot.worldStatusLine carrier (T2 scope, read via a defensive cast). |
+| 3: the settling line | 1 it | same genuine open-case-45 fixture walked via advanceTo (already-real engine); the landed A.2 settling rule decisionWeek<=week+1 (bridge/market.ts ~260, already real); personWorldRoute's two candidate strings. |
+| 4: a rival's person | 1 it | firstRivalOpenCase walking helper over a genuine p13a-generated world (never a magic week; found at week 196/decisionWeek 208 in every probed seed); a manually submitted non-1.00-tier rival proposal (submitProposal, already real) for the leak-check control value; the not-yet-existing Industry row's caseStatusLine/caseRef carrier (T2 scope, read via a defensive cast); studioPresence-derived onLot/canLocate via the already-landed Profile presence block. |
+| 5: the effective-week law (NON-VACUOUS) | 1 it + 2 it.todo | RETAINED clause: genuine open-case-45 fixture, the already-proven dominance-settled law (A.1 tests/p14a1-settlement.test.ts). DEPARTURE it.todo: BLOCKED — every founding rival roster holds RIVAL_TEAM_ROLES with zero slack; survivesFreeze's noSeatForRole drops any rival bid on a player employee before the first natural churn (week 196/208); 2-3 naturally-bidding rivals per seed at week 208 are STILL dropped because each one's own incumbent retention resolves earlier in the same settlement pass and refills its seat first (reproduced across 6 probed seeds, disposable vite-node scripts, deleted before commit). ARRIVAL it.todo: BLOCKED — a player proposal on a rival-employee's first-cycle case is out-Copelanded by the rival's own studio Standing (player mean ~41.7 vs rival ~73.1 at week 208 in the probed seed, tolerance +-5), reproduced in 3/3 probed seeds; the audit's own named escape hatch for this exact case. |
+| 6: negative pins (TS unions / wire enum) | 4 it | FacilityCapability/PresenceEngagement/PresenceCredit already-real unions (src/core/types.ts, src/core/presence.ts) via type-level exhaustiveness (compile-time, not runtime-introspectable); StudioPersonPresenceSnapshot.engagement already-real wire schema (bridge/schema/bridge-schema.ts ~2092); a runtime scan of BRIDGE_SCHEMA.$defs for every key matching /presence/i (three real DTOs found: StudioPresencePersonSnapshot, StudioPresenceSnapshot, StudioPersonPresenceSnapshot). Independent of bridge/world.ts; needs no personWorldRoute call. |
+| 7: save/load | 3 it | genuine V27 fixture (legacy-v27-renewal-window-456, sha pinned) and the three genuine V28 T0 fixtures (open-case-45, settled-208, legacy-terminations-20, sha pinned) via BridgeSession.fromSaveJson/.save (already real); a fresh V28 world via p13aGeneratedStudio+signActor; personWorldRoute called on both sides of every save/reload round trip. |
+
+Not-yet-existing bindings this file's own RED cause: `personWorldRoute` (bridge/world.ts, the
+whole module absent). Not-yet-widened carrier fields read defensively (T2 scope, not this
+task's RED cause, read via `as unknown as {...}` casts matching the repo's own established
+convention in tests/bridge-p14a2-market.test.ts): BridgeRosterRowSnapshot.worldStatusLine
+(group 2); the Industry Person row's caseStatusLine/caseRef (group 4).
