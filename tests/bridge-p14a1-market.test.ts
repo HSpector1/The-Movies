@@ -367,7 +367,7 @@ describe('group 6: settlement on the wire', () => {
 
     const activities = industryPage(state, 'p14a1-bridge-settlement-industry', 0, employmentQuery('p14a1-bridge-settlement-industry', talentId)).activities
     const atSettlement = activities.filter((a) => a.week === week)
-    expect(atSettlement.length).toBe(2) // expiry + player-contract: still two rows, no folded retained/moved row exists yet
+    expect(atSettlement.length).toBe(2) // expiry + player-contract: two rows on the Employment route; the A.2 fold is Pulse-scoped (plan A.2 item 3); an Employment-route fold is OPEN
 
     // NOT YET EXISTING: marketCaseProjection — this test's RED cause.
     const block = marketCaseProjection(state, talentId, playerStudioId)!

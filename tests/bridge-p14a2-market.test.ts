@@ -241,7 +241,11 @@ describe('group 2: buckets — one bucket per case, fixed order, paged closed', 
     const state = advanceTo(signed, 40) // both cases open at 40 (renewal window: endWeekExclusive 52 − 12)
     for (const talentId of talentIds) {
       const view = caseForTalent(state, talentId, state.market.tick)!
-      expect(view.status).toBe('proposals_open') // sanity: both genuinely open, neither settling
+      // caseStatusAt: week 40 <= openedWeek 40, so the engine's own status is
+      // 'discovered' at the very week the window opens (not yet 'proposals_open',
+      // which reads true starting the following week) — the renewalWindow BUCKET
+      // below is a decisionWeek fact, not a status fact, and is unaffected.
+      expect(view.status).toBe('discovered') // sanity: both genuinely open (not settling), read the week they opened
     }
     // NOT YET EXISTING: marketPage — this test's RED cause.
     const page = marketPage(state, { view: 'market', targetId: null })
@@ -296,43 +300,67 @@ describe('group 2: buckets — one bucket per case, fixed order, paged closed', 
   })
 
   it('free agents: role in the fixed discipline order, then ask descending (equal-ask secondary key not exercised — see header premise)', () => {
-    const state = advanceTo(p13aGeneratedStudio('p14a2-bridge-buckets-free-agents'), 0)
-    const week = state.market.tick
-    const freeAgents = state.talent.filter((t) => marketEligibility(state, t.id, week).status === 'free_agent')
-    const byRole = new Map<string, typeof freeAgents>()
-    for (const t of freeAgents) byRole.set(t.role, [...(byRole.get(t.role) ?? []), t])
-    // A role with two DIFFERENT asks, to exercise the ask-descending order.
-    let roleWithTwoDistinctAsks: { role: string; a: string; b: string; askA: number; askB: number } | undefined
-    for (const [role, list] of byRole) {
-      for (let i = 0; i < list.length && roleWithTwoDistinctAsks === undefined; i++) {
-        for (let j = i + 1; j < list.length; j++) {
-          const askA = playerOffer(state, list[i]!.id, 52, week).annualSalary
-          const askB = playerOffer(state, list[j]!.id, 52, week).annualSalary
-          if (askA !== askB) { roleWithTwoDistinctAsks = { role, a: list[i]!.id, b: list[j]!.id, askA, askB }; break }
-        }
-      }
-      if (roleWithTwoDistinctAsks !== undefined) break
+    // The plan scopes this bucket to people in `state.freeAgents` whose
+    // `marketEligibility` reads free-agent-signable at the read week — a
+    // generated week-0 world starts with `state.freeAgents = []` (header
+    // premise), so this fixture POPULATES the pool the way the engine itself
+    // does: sign two actors and one writer, then early-release all three
+    // (D-11.9), which the engine appends to `state.freeAgents` on release.
+    // 'p14a2-bridge-buckets-free-agents' (the original seed) has zero writers
+    // in the week-0 hiring market on this worldgen — probed empirically
+    // (disposable vite-node script against p13aGeneratedStudio/hiringMarketIds,
+    // no invented data) that '-v2' clears the bar (5 actors, 2 writers).
+    // hiringMarketIds re-samples the rotating market FRESH against the live
+    // signable universe (D-11.14): signing one person shrinks that universe and
+    // can shift the deterministic draw for the rest. So each pick below is made
+    // from a FRESH read of hiringMarketIds against the state as it stands right
+    // before that person's own signContract — never a list pre-computed once
+    // against the original world and then batch-applied, which on THIS seed
+    // was tried first and demonstrated throwing D-11.14 on the second signing
+    // (the shrunk universe re-samples a different set; see evidence 10b).
+    let state = p13aGeneratedStudio('p14a2-bridge-buckets-free-agents-v2')
+    const actorIds: string[] = []
+    for (let i = 0; i < 2; i++) {
+      const candidates = hiringMarketIds(state, 0)
+      const next = candidates.map((id) => state.talent.find((t) => t.id === id)).find((t) => t?.role === 'actor' && !actorIds.includes(t.id))
+      if (next === undefined) throw new Error(`fixture assumption failed: fewer than 2 actors reachable in sequence on this seed (found ${String(actorIds.length)})`)
+      actorIds.push(next.id)
+      state = applyActions(state, [{ kind: 'signContract', talentId: next.id, termWeeks: 52 }])
     }
-    if (roleWithTwoDistinctAsks === undefined) throw new Error('fixture assumption failed: no role has two free agents with distinct asks on this seed')
+    const writerCandidates = hiringMarketIds(state, 0)
+    const writer = writerCandidates.map((id) => state.talent.find((t) => t.id === id)).find((t) => t?.role === 'writer')
+    if (writer === undefined) throw new Error('fixture assumption failed: no writer reachable in sequence on this seed')
+    const writerId = writer.id
+    state = applyActions(state, [{ kind: 'signContract', talentId: writerId, termWeeks: 52 }])
+    state = applyActions(state, [
+      { kind: 'releaseTalent', talentId: actorIds[0]! },
+      { kind: 'releaseTalent', talentId: actorIds[1]! },
+      { kind: 'releaseTalent', talentId: writerId },
+    ])
+    const week = state.market.tick
+    for (const id of [actorIds[0]!, actorIds[1]!, writerId]) {
+      expect(state.freeAgents).toContain(id)
+      expect(marketEligibility(state, id, week).status).toBe('free_agent')
+    }
+    // A role with two DIFFERENT asks, to exercise the ask-descending order —
+    // the same jitter-by-id premise as the header note, probed on this seed.
+    const askA = playerOffer(state, actorIds[0]!, 52, week).annualSalary
+    const askB = playerOffer(state, actorIds[1]!, 52, week).annualSalary
+    if (askA === askB) throw new Error('fixture assumption failed: the two released actors share an identical ask on this seed')
+    const higher = askA > askB ? actorIds[0]! : actorIds[1]!
+    const lower = askA > askB ? actorIds[1]! : actorIds[0]!
     // NOT YET EXISTING: marketPage — this test's RED cause.
     const page = marketPage(state, { view: 'market', targetId: null })
-    const rows = (page.cases.freeAgents as Array<{ talentId: string; playerOffer?: { annualSalary: number } }>)
-      .filter((r) => r.talentId === roleWithTwoDistinctAsks!.a || r.talentId === roleWithTwoDistinctAsks!.b)
-    expect(rows).toHaveLength(2)
-    const higher = roleWithTwoDistinctAsks.askA > roleWithTwoDistinctAsks.askB ? roleWithTwoDistinctAsks.a : roleWithTwoDistinctAsks.b
-    expect(rows[0]!.talentId).toBe(higher) // descending ask within one role
-    // Cross-role: an actor row (discipline 'acting', index 0) precedes a writer
-    // row (discipline 'writing', index 1) when both exist, per PERSON_DISCIPLINE_ORDER.
-    const actorRow = (page.cases.freeAgents as Array<{ talentId: string }>).find((r) => state.talent.find((t) => t.id === r.talentId)?.role === 'actor')
-    const writerRow = (page.cases.freeAgents as Array<{ talentId: string }>).find((r) => state.talent.find((t) => t.id === r.talentId)?.role === 'writer')
-    if (actorRow !== undefined && writerRow !== undefined) {
-      const allIds = (page.cases.freeAgents as Array<{ talentId: string }>).map((r) => r.talentId)
-      expect(allIds.indexOf(actorRow.talentId)).toBeLessThan(allIds.indexOf(writerRow.talentId))
-      expect(PERSON_DISCIPLINE_ORDER.indexOf(ROLE_TO_DISCIPLINE.actor)).toBeLessThan(PERSON_DISCIPLINE_ORDER.indexOf(ROLE_TO_DISCIPLINE.writer))
-    }
+    const rows = page.cases.freeAgents as Array<{ talentId: string; annualSalary: number; signable: boolean }>
+    // The pool holds exactly the three people this fixture released: role in
+    // the fixed discipline order (acting before writing), then ask descending
+    // within one role.
+    expect(rows.map((r) => r.talentId)).toEqual([higher, lower, writerId])
+    expect(PERSON_DISCIPLINE_ORDER.indexOf(ROLE_TO_DISCIPLINE.actor)).toBeLessThan(PERSON_DISCIPLINE_ORDER.indexOf(ROLE_TO_DISCIPLINE.writer))
+    expect(rows.every((r) => r.signable === true)).toBe(true)
     // The ask is re-derived at the read week through playerOffer, and the row
     // carries the EXISTING 'signContract' hiring path — no new intent kind.
-    const conversion = castingDraftToEngine(state, { kind: 'signActor', signTalentId: roleWithTwoDistinctAsks.a, signTermWeeks: 52 } as never)
+    const conversion = castingDraftToEngine(state, { kind: 'signActor', signTalentId: higher, signTermWeeks: 52 } as never)
     expect(conversion.ok).toBe(true)
     if (conversion.ok) expect(conversion.kind).toBe('signContract')
   })
@@ -342,7 +370,12 @@ describe('group 2: buckets — one bucket per case, fixed order, paged closed', 
 
 describe('group 3: workspace attention rows', () => {
   it('deduplicated per (cause, talentId), including termsRevised (a rival revision after the player proposed) and decisionWeekNear (one week before the decision)', () => {
-    const { state: signed, talentIds } = signActorsSameTerm('p14a2-bridge-attention', 3, 52)
+    // 'p14a2-bridge-attention' (the original seed) has only 2 actors in the
+    // week-0 hiring market on this worldgen — a fixture assumption, not a
+    // requirement; probed empirically (disposable vite-node script against
+    // p13aGeneratedStudio/hiringMarketIds, no invented data) that '-v2' clears
+    // the bar with 3 (t-act-11, t-act-14, t-act-16).
+    const { state: signed, talentIds } = signActorsSameTerm('p14a2-bridge-attention-v2', 3, 52)
     let state = advanceTo(signed, 51) // one week before decision 52 for all three
     const playerStudioId = state.hollywood!.playerStudioId
     const rivalStudioId = state.hollywood!.identities.find((s) => s.role === 'rival' && s.enteredWeek !== null)!.studioId
@@ -394,13 +427,17 @@ describe('group 4: selected — candidate rail, offer comparison, settlement rea
     // NOT YET EXISTING: marketPage — this test's RED cause.
     const page = marketPage(state, { view: 'market', targetId: talentId })
     const detail = page.selected as {
-      case: unknown
+      // `marketCase`, not `case`: the C# contract generator refuses the reserved
+      // C# keyword as a wire member name (CF08-IDENTIFIER-COLLISION) — the plan's
+      // pinned name is amended here to the landed member, already used by the
+      // Profile for this same block.
+      marketCase: unknown
       rail: { talentId: string; role: string; preferences: unknown }
       comparison: Array<{ issuerStudioId: string; premiumTier: unknown; annualSalary: unknown; signingBonus: unknown; termWeeks: number; effectiveWeek: number }>
     } | null
     expect(detail).not.toBeNull()
     const block = marketCaseProjection(state, talentId, playerStudioId)!
-    expect(detail!.case).toEqual(block) // by reference to the A.1 DTO, no drift
+    expect(detail!.marketCase).toEqual(block) // by reference to the A.1 DTO, no drift
     expect(detail!.rail.talentId).toBe(talentId)
     expect(detail!.rail.role).toBe(state.talent.find((t) => t.id === talentId)!.role)
     expect(detail!.rail.preferences).toEqual(block.preferences)
@@ -435,11 +472,12 @@ describe('group 4: selected — candidate rail, offer comparison, settlement rea
 
     // NOT YET EXISTING: marketPage — this test's RED cause.
     const page = marketPage(state, { view: 'market', targetId: withDrops.talentId })
-    const detail = page.selected as { case: { settlementReasons: string[] }; comparison: unknown[] } | null
+    // `marketCase`, not `case` — see the sibling test's comment (CF08-IDENTIFIER-COLLISION).
+    const detail = page.selected as { marketCase: { settlementReasons: string[] }; comparison: unknown[] } | null
     expect(detail).not.toBeNull()
     const disclosure = caseDisclosure(state, withDrops.talentId, playerStudioId, state.market.tick)
-    expect(detail!.case.settlementReasons).toEqual(disclosure.settlementReasons)
-    for (const reason of detail!.case.settlementReasons) expect(reason).not.toMatch(/\$|\d{3,}/)
+    expect(detail!.marketCase.settlementReasons).toEqual(disclosure.settlementReasons)
+    for (const reason of detail!.marketCase.settlementReasons) expect(reason).not.toMatch(/\$|\d{3,}/)
     // No dropped[] sentence appears anywhere in the detail JSON for a case the
     // player never proposed in — the A.1/A.2 rule is "the PLAYER's OWN dropped
     // proposal's own sentence", never a rival's, and there is no player row here.
@@ -620,13 +658,38 @@ describe('group 7: Pulse fold on view:"pulse"', () => {
       protocolVersion: PROTOCOL_VERSION, schemaId: SCHEMA_ID, sessionId: 'p14a2-bridge-pulse-fold', requestId: 'r-pulse',
       expectedStateRevision: 0, type: 'industryQuery', view: 'pulse', targetId: null, page: 0, pageSize: 50, lane: 'recent', period: 'all',
     })
-    // TODAY (projection 42): this still reads the two SEPARATE rows per
-    // settlement — 48, not 24. This assertion documents the CURRENT shape and
-    // is expected to flip once bridge/industry.ts's pulse fold lands at T2.
+    // P14A.2-T2: bridge/industry.ts's pulse fold landed (cea19cf) — one row per
+    // settlement now, never the two unfolded expiry/start rows. The expected
+    // count is DERIVED from `expected` (built off the receipts above, not a
+    // literal): on this fixture all 24 settlements land in week 208, inside the
+    // Pulse's own 13-week window and the single 50-row page, so none is dropped
+    // by recency or paging (probed empirically against the landed industryPage;
+    // totalRows 32, pageCount 1 — a fixture with older or more-numerous
+    // settlements would need to walk pages here).
     const rowsForSettledTalent = pulse.activities.filter((a) => expected.some((e) => e.talentId === a.talentId && e.week === a.week))
-    expect(rowsForSettledTalent.length).toBe(48) // 2 rows × 24 settlements, unfolded today
-    // Once folded, the count must equal the settled count, never doubled, and
-    // no row leaks a salary figure.
+    expect(rowsForSettledTalent.length).toBe(expected.length) // one folded row per settlement, never doubled
+    // Every folded row: a settlementKind, the person's and joined studio's name
+    // in the headline, and the term length in the detail.
+    const studioNames = new Map(state.hollywood!.identities.map((s) => [s.studioId, s.name]))
+    for (const row of rowsForSettledTalent as Array<{ talentId: string; week: number; settlementKind?: string; headline: string; detail: string }>) {
+      const pair = expected.find((e) => e.talentId === row.talentId && e.week === row.week)!
+      expect(['retained', 'moved']).toContain(row.settlementKind)
+      expect(row.settlementKind).toBe(pair.retained ? 'retained' : 'moved')
+      const talent = state.talent.find((t) => t.id === row.talentId)!
+      expect(row.headline).toContain(talent.name)
+      expect(row.headline).toContain(studioNames.get(pair.studioId) ?? pair.studioId)
+      expect(row.detail).toMatch(/\d+ years?/) // term length named
+    }
+    // No unfolded pair remains for a folded (talentId, week): exactly one row
+    // per settlement, never two.
+    const byKey = new Map<string, number>()
+    for (const row of rowsForSettledTalent as Array<{ talentId: string; week: number }>) {
+      const key = `${row.talentId}:${String(row.week)}`
+      byKey.set(key, (byKey.get(key) ?? 0) + 1)
+    }
+    for (const count of byKey.values()) expect(count).toBe(1)
+    // Once folded, no row leaks a salary figure — checked across every
+    // activity on the page, not only the settlement folds.
     for (const row of pulse.activities) expect(row.detail).not.toMatch(/\$\d/)
   })
 })
