@@ -32,6 +32,7 @@ import { rivalEmployment, rivalWeeklyOperatingCost, moveRivalMoney } from './hol
 import { RIVAL_TEAM_ROLES } from './hollywoodStartingData.js'
 import { recordPlayerEmployment } from './industryEmployment.js'
 import { activeContract, canAfford, contractOffer, guaranteedComp, renewalWindowOpen, terminationCost } from './employment.js'
+import type { ContractOffer } from './employment.js'
 import { fnv1a64 } from './math.js'
 import { careerIdentity } from './talentSummary.js'
 import { TUNING } from './tuning.js'
@@ -227,13 +228,45 @@ export function studioOffer(
   talentId: string,
   termWeeks: number,
   week: number = state.market.tick,
-): { annualSalary: number; termWeeks: number } {
+): ContractOffer {
   const offer = contractOffer(state, talentId, termWeeks, week)
   const floor = releaseFloor(state, studioId, talentId, week)
+  if (floor === null || floor.floorAnnual <= offer.annualSalary) return offer
+  // The bonus is the same published fraction of the annual everywhere (§2.1.4 /
+  // `offerForTalent`), so a floored annual carries a floored bonus.
   return {
-    annualSalary: floor === null ? offer.annualSalary : Math.max(offer.annualSalary, floor.floorAnnual),
-    termWeeks: offer.termWeeks,
+    ...offer,
+    annualSalary: floor.floorAnnual,
+    signingBonus: iround(floor.floorAnnual * TUNING.CONTRACT_SIGNING_BONUS_FRACTION),
   }
+}
+
+/**
+ * The PLAYER studio's studio-aware ask: the one entry every player quote and
+ * every player contract action prices through, so what is shown and what is
+ * charged cannot diverge (R1, companion §3.5 / §2.1.4).
+ */
+export function playerOffer(
+  state: GameState,
+  talentId: string,
+  termWeeks: number,
+  week: number = state.market.tick,
+): ContractOffer {
+  // No industry root means no P12 employment row a floor could be read from, so
+  // the ask IS the plain market ask — by law (the market engages iff
+  // `state.hollywood !== null`), not as a fallback.
+  return state.hollywood === null
+    ? contractOffer(state, talentId, termWeeks, week)
+    : studioOffer(state, state.hollywood.playerStudioId, talentId, termWeeks, week)
+}
+
+/** The bounded term alternatives (D-11.6), priced through `playerOffer`. */
+export function playerOfferOptions(
+  state: GameState,
+  talentId: string,
+  week: number = state.market.tick,
+): ContractOffer[] {
+  return TUNING.CONTRACT_TERM_OPTIONS.map((t) => playerOffer(state, talentId, t, week))
 }
 
 export type ProposalDraft = {

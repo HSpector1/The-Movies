@@ -35,13 +35,13 @@
 import {
   assignmentProjectCost,
   busyTalentIds,
-  contractOfferOptions,
   economyEngaged,
   freelancerMarketIds,
   hiringMarketIds,
   isContracted,
   type ContractOffer,
 } from './employment.js'
+import { playerOfferOptions } from './talentMarket.js'
 import { offerObligation } from './economyView.js'
 import { releaseCommitmentFor } from './releaseAuthority.js'
 import { TUNING } from './tuning.js'
@@ -619,7 +619,7 @@ export function hiringMarketView(state: GameState): HiringCandidateView[] {
       availabilityLabel: freeAgents.has(talentId)
         ? 'Free agent — immediately signable'
         : 'In the hiring market — requires a contract before casting',
-      offers: contractOfferOptions(state, talentId).map(contractOfferView),
+      offers: playerOfferOptions(state, talentId).map(contractOfferView),
     }
   })
 }

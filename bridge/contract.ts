@@ -7,7 +7,8 @@
 // guard on release). What was missing was the ROUTE: no quote family carried them
 // across the bridge, so the Profile could only show the contract read-only. This
 // module is that route and nothing more. It composes the existing authorities
-// (`activeContract`, `renewalWindowOpen`, `contractOffer[Options]`, `terminationCost`,
+// (`activeContract`, `renewalWindowOpen`, `playerOffer[Options]` — the R1-floored
+// studio-aware entry the player actions themselves price through, `terminationCost`,
 // `guaranteedComp`, `canAfford`, `activeScriptWriterAssignments`) into ONE decision
 // the Profile publishes (`contractActionDecisions`), ONE draft conversion the session
 // quotes and commits (`contractDraftToEngine`), and ONE consequence sheet Unity renders
@@ -24,8 +25,8 @@ import {
   activeScriptWriterAssignments,
   applyActions,
   canAfford,
-  contractOffer,
-  contractOfferOptions,
+  playerOffer,
+  playerOfferOptions,
   guaranteedComp,
   renewalWindowOpen,
   terminationCost,
@@ -149,7 +150,7 @@ export function contractActionDecisions(state: GameState, talentId: string): Bri
   return {
     renewAvailable: renew === null,
     renewReason: renew === null ? null : renew.reason,
-    renewalTerms: renew === null ? contractOfferOptions(state, talentId).map(renewalTerm) : [],
+    renewalTerms: renew === null ? playerOfferOptions(state, talentId).map(renewalTerm) : [],
     releaseAvailable: release === null,
     releaseReason: release === null ? null : release.reason,
   }
@@ -174,7 +175,7 @@ function liveRefusal(state: GameState, draft: BridgeContractDraftPayload, talent
   if (draft.verb === 'release') return releaseRefusal(state, talent, contract)
   const window = renewalRefusal(state, talent, contract)
   if (window !== null) return window
-  const offer = contractOffer(state, talent.id, draft.termWeeks ?? 0)
+  const offer = playerOffer(state, talent.id, draft.termWeeks ?? 0)
   const affordability = canAfford(state, offer.signingBonus)
   if (!affordability.ok) {
     return {
@@ -200,7 +201,7 @@ export function contractDraftToEngine(state: GameState, draft: BridgeContractDra
   const contract = activeContract(state, talent.id)
   const refusal = liveRefusal(state, draft, talent)
   const offer = draft.verb === 'renew' && contract !== undefined && refusal?.code !== 'renewalWindowClosed'
-    ? contractOffer(state, talent.id, draft.termWeeks ?? 0)
+    ? playerOffer(state, talent.id, draft.termWeeks ?? 0)
     : null
   const week = state.market.tick
   const cost = draft.verb === 'renew'

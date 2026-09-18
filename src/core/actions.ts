@@ -45,7 +45,6 @@ import {
   activeWritingAssignmentIds,
   busyTalentIds,
   canAfford,
-  contractOffer,
   economyEngaged,
   foundingGaps,
   foundingMinimumsMet,
@@ -59,7 +58,7 @@ import {
 import { computeForecast, type ForecastContext } from './forecast.js'
 import { forecastHistoryForOwner } from './industryCareer.js'
 import { recordPlayerEmployment } from './industryEmployment.js'
-import { caseOpenForTalent } from './talentMarket.js'
+import { caseOpenForTalent, playerOffer } from './talentMarket.js'
 import { cancelAdoption, cancelInstallation, cancellationQuote } from './installationCancellation.js'
 import { clamp } from './math.js'
 import { assertNoDoubleBookedResourceSlots, setOccupiedFacilitySlots } from './occupancy.js'
@@ -2625,7 +2624,10 @@ function applySignContract(state: GameState, action: Action & { kind: 'signContr
   if (isContracted(state, talentId)) {
     throw new Error(`applyActions: signContract rejected — talent "${talentId}" is already contracted (D-11)`)
   }
-  const offer = contractOffer(state, talentId, termWeeks, week)
+  // R1 (companion §3.5): the player prices through the studio-aware entry, so a
+  // release-then-re-sign of the SAME person is floored at the terminated
+  // contract's annual salary (exploit E1).
+  const offer = playerOffer(state, talentId, termWeeks, week)
   const contract: Contract = {
     talentId,
     annualSalary: offer.annualSalary,
@@ -2711,7 +2713,7 @@ function applyRenewContract(state: GameState, action: Action & { kind: 'renewCon
       `applyActions: renewContract rejected — talent "${talentId}" is underMarketCase; submit a proposal for the decision week instead (P14A §2.1.3)`,
     )
   }
-  const offer = contractOffer(state, talentId, termWeeks, week)
+  const offer = playerOffer(state, talentId, termWeeks, week)
   const renewed: Contract = {
     talentId,
     annualSalary: offer.annualSalary,

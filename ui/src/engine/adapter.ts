@@ -149,8 +149,8 @@ import {
   isContracted,
   busyTalentIds,
   activeContract,
-  contractOffer,
-  contractOfferOptions,
+  playerOffer,
+  playerOfferOptions,
   freelancerFee,
   freelancerMarketIds,
   hiringMarketIds,
@@ -4029,7 +4029,7 @@ export function employmentInfo(state: GameState, talentId: string): EmploymentIn
   const signable =
     status === 'freeAgent' ||
     (state.founding !== null && state.founding.applicantIds.includes(talentId) && c === undefined)
-  const offerOptions = signable ? contractOfferOptions(state, talentId) : []
+  const offerOptions = signable ? playerOfferOptions(state, talentId) : []
   const fee = status === 'availableFreelancer' && t ? freelancerFee(state, t) : null
   return { status, contract, offerOptions, freelancerFee: fee }
 }
@@ -4045,9 +4045,9 @@ export function employmentInfo(state: GameState, talentId: string): EmploymentIn
 // salary payroll debits, and the ONE runway rule from T1). These selectors only pair them
 // with the exact offer the ACTION will use, so what is shown and what is charged cannot
 // diverge:
-//   • signing  — `contractOfferOptions` (what the hiring market already renders), priced as
+//   • signing  — `playerOfferOptions` (what the hiring market already renders), priced as
 //                a NEW SEAT, so the runway also carries OVERHEAD_PER_EMPLOYEE;
-//   • renewing — `contractOffer(state, talentId, term)`, byte-identical to the offer
+//   • renewing — `playerOffer(state, talentId, term)`, byte-identical to the offer
 //                `applyRenewContract` builds, priced as a REPLACEMENT (no new seat, so only
 //                the weekly-salary delta moves the burn).
 // Read-model only: nothing here enforces a gate. `bonusAffordable` reports the engine's own
@@ -4077,13 +4077,13 @@ export function signOfferTruth(state: GameState, offer: ContractOffer): OfferTru
 
 /**
  * The full truth of every renewal term available for a contracted talent, using the SAME
- * `contractOffer` the renew action itself calls. Empty when there is no active contract.
+ * `playerOffer` the renew action itself calls. Empty when there is no active contract.
  */
 export function renewOfferTruths(state: GameState, talentId: string): OfferTruth[] {
   const current = activeContract(state, talentId)
   if (current === undefined) return []
   return TUNING.CONTRACT_TERM_OPTIONS.map((term) =>
-    offerTruthOf(state, contractOffer(state, talentId, term), current),
+    offerTruthOf(state, playerOffer(state, talentId, term), current),
   )
 }
 

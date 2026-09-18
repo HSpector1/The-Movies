@@ -1343,6 +1343,8 @@ export {
   isPremiumTier,
   releaseFloor,
   studioOffer,
+  playerOffer,
+  playerOfferOptions,
   proposalDraft,
   submitProposal,
   withdrawProposal,

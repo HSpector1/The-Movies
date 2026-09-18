@@ -1,0 +1,14 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p14a1-save-v28.test.ts (9 tests) 778ms
+ ✓ |core| tests/p14a1-firing.test.ts (6 tests) 4205ms
+   ✓ P14A.1 test 7: firing — 26-week cap, R1 floor, disclosure content > the cap does NOT apply when 26 or fewer weeks remain: charge = all remaining guaranteed base salary, unchanged from today's formula at that boundary 1060ms
+   ✓ P14A.1 test 7: firing — 26-week cap, R1 floor, disclosure content > the charge law is continuous at exactly 26 weeks remaining (no cliff, §3.5 E5) 2551ms
+   ✓ P14A.1 test 7: firing — 26-week cap, R1 floor, disclosure content > the disclosure content per direction 2 states remaining duration, remaining guaranteed compensation, the cap, the exact charge, and the effective end — two branches (cap applies / cap does not apply) 520ms
+
+ Test Files  2 passed (2)
+      Tests  15 passed (15)
+   Start at  09:57:21
+   Duration  7.68s (transform 1.41s, setup 0ms, collect 2.01s, tests 4.98s, environment 1ms, prepare 197ms)
+
