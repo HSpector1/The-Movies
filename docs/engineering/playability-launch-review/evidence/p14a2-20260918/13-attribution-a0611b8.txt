@@ -1,0 +1,17 @@
+P14A.2-T3 attribution — matched pass on a0611b8 (2026-09-18 14:36:33Z → 15:51:31Z, 75 min; runner run-p14a2-matched-pass.sh; flags matched to headless-baseline-20260916)
+Source under test: a0611b8 = cea19cf (bridge projection 43) + e210513 (pins 42→43) + a0611b8 (tests only). Production diff cea19cf..a0611b8 over src/bridge/ui/generated: EMPTY. Nothing moved after the pass.
+
+CORE (11-test-core-a0611b8.txt): Test Files 7 failed | 285 passed (292); Tests 22 failed | 3159 passed | 2 todo (3183); CORE_EXIT=1
+BRIDGE (12-test-bridge-a0611b8.txt): check:bridge-contract verified, check:bridge-contract:fixtures verified; Test Files 2 failed | 65 passed (67); Tests 12 failed | 691 passed | 1 todo (704); BRIDGE_EXIT=1
+
+file                               core / bridge   cause (verbatim class)                                   A.1 bound        class
+bridge-p12-campaign-library        11 / 11         9 × 'Test timed out in 5000ms' + 2 × 'Test timed out in 20000ms' (5 s / 20 s budgets)   ≤ 11   inherited
+bridge-p13-campaign-isolation       1 / 1          'Test timed out in 60000ms' (60 s inline budget)          1                inherited
+p13a-scientist-foundation           3 / –          golden digest AssertionError ×3                            3                inherited
+r3n1-stale-schedule-take-02{,p31,p32} 6 / –        ENOENT fixture files ×6                                    6                inherited
+world-first-scenery-load-in-provenance 1 / –       python3 export_district.py command failed                  1                inherited
+TOTAL                              22 / 12         all inherited; zero failures in any P14A.2 or P14A.1 file; zero new files
+
+Delta from the P14A.1 pass (e575fc1, evidence p14a1-20260918/22,23,26): core +1 file / +16 tests (tests/bridge-p14a2-market.test.ts), bridge +1 file / +16 tests, both green; the three A.1 re-expressed premises (p13b-s5-equipment, p13b-s5-conservation, bridge-p13-laboratory) now green; campaign-library core 10 → 11 inside the recorded ≤ 11 bound (a 20 s-budget test crossed its budget under load; same cause class). Todo counts unchanged (core 2, bridge 1).
+
+LABEL: P14A.2 LOGIC VERIFIED · UNITY NOT VERIFIED on the a0611b8 matched pass. Not Owner acceptance. No Unity code compiled or run; no rendered UI; page sizes 20/10 and the fold prose remain OPEN; the Employment-route fold is OPEN; the eventId-reference gap is a V29 candidate.
