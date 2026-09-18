@@ -28,14 +28,24 @@ describe('P13A commercial route without a Laboratory', () => {
     expect(session.gameState.placement.facilities).toHaveLength(0)
     session = new BridgeSession(advanceTo(session.gameState, 416), 'commercial-no-lab-at-release')
     submit('Purchase synchronized-sound access', 'purchase-without-lab')
-    expect(session.gameState.technology.access[0]!.route).toBe('purchase')
+    // P13B-S8 (ratified CANDIDATE law): technology.access is shared across
+    // studios, and a rival's own research-route row (its invention, ~week
+    // 276) now precedes the player's purchase (week 416) in the array — so
+    // this reads the PLAYER's own row by identity, not by array position.
+    const ownAccess = session.gameState.technology.access.find(a =>
+      a.studioId === session.gameState.hollywood!.playerStudioId && a.technologyId === 'synchronized-sound')!
+    expect(ownAccess.route).toBe('purchase')
     expect(session.gameState.placement.facilities).toHaveLength(0)
     const intents = session.snapshot().availableIntents.filter(i => i.kind === 'adoptTechnology' && i.label.startsWith('Install sound:'))
     expect(intents).toHaveLength(2)
     expect(intents[0]!.detail).toContain('Post')
     expect(intents[0]!.detail).toContain('charged now')
     submit(intents[0]!.label, 'adopt-exact-chain-without-lab', 'adoptTechnology')
-    const adoption = session.gameState.technology.adoptions[0]!
+    // Same S8 fact as `ownAccess` above: the rival inventor's own adoption
+    // row (committed ~week 276) now precedes the player's in the shared
+    // technology.adoptions array — select the player's own row by identity.
+    const adoption = session.gameState.technology.adoptions.find(a =>
+      a.studioId === session.gameState.hollywood!.playerStudioId && a.technologyId === 'synchronized-sound')!
     expect(adoption.route).toBe('purchase')
     expect(session.gameState.placement.facilities.every(p => p.installation !== undefined)).toBe(true)
     expect(session.gameState.operations.facilities.some(f => f.capability === 'laboratory')).toBe(false)

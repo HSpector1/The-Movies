@@ -143,7 +143,14 @@ describe('P13A Laboratory bridge', () => {
   it('shows rival sound only from the actual operational receipt, without exposing private finances', () => {
     let state = initializeHollywood(generateWorld('p13-public-commercial-adoption'), 'fresh')
     while (state.market.tick < 417) state = tick(state)
-    const pending = state.technology.adoptions.find(a => a.studioId !== state.hollywood!.playerStudioId)
+    // P13B-S8 (ratified CANDIDATE law): the shared technology.adoptions array
+    // now also carries a rival INVENTOR's own row (research completed ~276,
+    // committed 276, operational 288 — already operational by week 417), so
+    // the first non-player row is no longer necessarily this case's own
+    // commercial-purchase subject. This case is specifically about the
+    // COMMERCIAL route (`'commercial purchase'`/week-428 assertions below),
+    // so it selects that route explicitly rather than array position.
+    const pending = state.technology.adoptions.find(a => a.studioId !== state.hollywood!.playerStudioId && a.route === 'purchase')
     expect(pending).toBeDefined()
     expect(pending!.operationalWeek).toBeNull()
     const studioQuery = query({ view: 'studio', targetId: pending!.studioId, lane: 'recent' })
