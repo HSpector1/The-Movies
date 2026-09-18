@@ -197,7 +197,23 @@ const NATURAL_SEED = 'p13b-s8-bridge-probe-01'
 const withPlayerLab = commitPlacement(p13aGeneratedStudio(NATURAL_SEED), { blueprintId: 'research-laboratory', origin: { gx: 0, gy: 9 } })
 const WEEK13 = advanceTo(withPlayerLab, 13) // 4 rivals: laboratoryCommitted(0)/laboratoryOperational(12) each
 const WEEK277 = advanceTo(WEEK13, 277) // + r01: instrumentOperational/researchSeatAssigned(265), laboratoryCommitted(266, 2nd lab), researchCompleted(276)
-const WEEK288 = advanceTo(WEEK277, 288) // + r01: laboratoryOperational(278, 2nd lab), technologyAdopted(288)
+// RE-EXPRESSED (test-author, P14A.1 T2, against the landed settlement law
+// a2d59e0): this fixture's own natural chain moved r01's `technologyAdopted`
+// commercial-capability receipt from week 288 to week 293 — measured fresh
+// (`npx vite-node`, not assumed) on this exact seed/chain, matching the
+// diagnosis's own probe. The kept identifier is still `WEEK288` (every other
+// case in this file references it unchanged); what changed is only which
+// week it is built at. Header note (assigning instruction, verbatim): "the
+// market existing at all moves the natural chain: all 24 rival contracts
+// expire at 208 and only 11 re-sign (evidence 14-settlement-decline-diagnosis)"
+// — docs/engineering/playability-launch-review/evidence/p14a1-20260918/
+// 14-settlement-decline-diagnosis.txt. staff()'s case-subject exclusion
+// suppresses the old pre-P14A renewal path from week 196, so r01's founding
+// roster now runs to its own week-208 decision instead, and the settlement's
+// signing-bonus cash movement delays r01's second-Laboratory research chain
+// by five weeks (288 -> 293) — the market existing at all, not this file's
+// own scope, per the diagnosis's "ON 288 vs 293" section.
+const WEEK288 = advanceTo(WEEK277, 293) // + r01: laboratoryOperational(278, 2nd lab), technologyAdopted(293)
 const RIVAL_1 = required(WEEK13.hollywood!.businesses[0], 'no rival business on the natural fixture')
 
 const DIVERGENT_WEEK13 = advanceTo(commitPlacement(p13aGeneratedStudio('p13b-s8-bridge-rivals-divergent-01'),
@@ -270,17 +286,17 @@ describe('P13B-S8-T3 item 2: Industry page rival technology facts — laboratory
     for (const receipt of targetReceipts) expect(rows.some(a => a.eventId === receipt.eventId)).toBe(false)
   })
 
-  it('technologyAdopted rows are unchanged (regression guard; natural week 288, rival r01\'s real synchronized-sound adoption)', () => {
+  it('technologyAdopted rows are unchanged (regression guard; natural week 293 — RE-EXPRESSED from 288, see the WEEK288 fixture note above; rival r01\'s real synchronized-sound adoption)', () => {
     const session = new BridgeSession(WEEK288, 'p13b-s8-technology-adopted-unchanged')
     const h = WEEK288.hollywood!
-    const receipt = required(h.receipts.find(r => r.kind === 'technologyAdopted'), 'no natural technologyAdopted receipt on the week-288 fixture')
+    const receipt = required(h.receipts.find(r => r.kind === 'technologyAdopted'), 'no natural technologyAdopted receipt on the week-293 fixture')
     const studio = required(h.identities.find(s => s.studioId === receipt.studioId), 'no identity for the adopting rival')
     const rows = activitiesOf(industryQuery(session, 'pulse'))
     const row = required(rows.find(a => a.eventId === receipt.eventId), 'no activity row for the natural technologyAdopted receipt')
     expect(row.headline).toBe(`${studio.name} now has operational synchronized sound`)
   })
 
-  it('the S7 campaign-clock announcement row is unchanged (regression guard; heavy natural rival research present, week 288, both technologies pre-announcement)', () => {
+  it('the S7 campaign-clock announcement row is unchanged (regression guard; heavy natural rival research present, week 293 — RE-EXPRESSED from 288, see the WEEK288 fixture note above; both technologies pre-announcement)', () => {
     const session = new BridgeSession(WEEK288, 'p13b-s8-announcement-unchanged')
     const rows = activitiesOf(industryQuery(session, 'pulse')).filter(a => a.eventId.startsWith('technology-announcement-'))
     expect(rows).toHaveLength(0) // lighting's own researchableWeek (780) has not arrived; sound's window is degenerate/already-open
@@ -301,7 +317,7 @@ describe('P13B-S8-T3 item 3: rival finance exposed only through existing public 
     }
   })
 
-  it('the player\'s own finance researchSpend channel reads $0 in every window even while the rival\'s real researchSpend is nonzero elsewhere in the same state (week 288)', () => {
+  it('the player\'s own finance researchSpend channel reads $0 in every window even while the rival\'s real researchSpend is nonzero elsewhere in the same state (week 293 — RE-EXPRESSED from 288, see the WEEK288 fixture note above)', () => {
     const rival = required(WEEK288.hollywood!.businesses.find(b => b.studioId === RIVAL_1.studioId), 'no rival business')
     const totalRivalSpend = rival.account.periods.reduce((sum, p) => sum + p.movements.researchSpend, 0)
     expect(totalRivalSpend).not.toBe(0) // precondition: the rival genuinely spent on research, not vacuous

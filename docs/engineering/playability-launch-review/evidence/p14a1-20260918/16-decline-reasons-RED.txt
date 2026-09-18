@@ -1,0 +1,53 @@
+== RED evidence: tests/p14a1-decline-reasons.test.ts ==
+Command: npx vitest run --project core --minWorkers=1 --maxWorkers=1 tests/p14a1-decline-reasons.test.ts
+Repo HEAD: f05ad4eb07e175d6c12f991297ab30f2d10673be
+Date: 2026-09-18T08:32:16Z
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/p14a1-decline-reasons.test.ts (2 tests | 2 failed) 1950ms
+   × P14A.1: typed decline reasons > A. tie exhaustion: two entered rivals with identical material terms and tier, tied Standing band → reason "tie exhausted", one order-only sentence naming the tied count, never "reservation" 1315ms
+     → expected 'no proposal cleared' to be 'tie exhausted' // Object.is equality
+   × P14A.1: typed decline reasons > B. all proposals dropped: a single rival proposal fails affordability at the decision week → reason "all proposals dropped", one sentence naming the studio and the bonus predicate, never "reservation" 634ms
+     → expected 'no proposal cleared' to be 'all proposals dropped' // Object.is equality
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14a1-decline-reasons.test.ts > P14A.1: typed decline reasons > A. tie exhaustion: two entered rivals with identical material terms and tier, tied Standing band → reason "tie exhausted", one order-only sentence naming the tied count, never "reservation"
+AssertionError: expected 'no proposal cleared' to be 'tie exhausted' // Object.is equality
+
+Expected: "tie exhausted"
+Received: "no proposal cleared"
+
+ ❯ tests/p14a1-decline-reasons.test.ts:165:25
+    163|     const kase = marketOf(state).cases.find((c) => c.talentId === tale…
+    164|     expect(kase.outcome).toBe('declined')
+    165|     expect(kase.reason).toBe('tie exhausted') // RED: current code sta…
+       |                         ^
+    166| 
+    167|     const declineReceipts = marketOf(state).receipts.filter((r) => r.t…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL |core|  tests/p14a1-decline-reasons.test.ts > P14A.1: typed decline reasons > B. all proposals dropped: a single rival proposal fails affordability at the decision week → reason "all proposals dropped", one sentence naming the studio and the bonus predicate, never "reservation"
+AssertionError: expected 'no proposal cleared' to be 'all proposals dropped' // Object.is equality
+
+Expected: "all proposals dropped"
+Received: "no proposal cleared"
+
+ ❯ tests/p14a1-decline-reasons.test.ts:202:25
+    200|     const kase = marketOf(state).cases.find((c) => c.talentId === tale…
+    201|     expect(kase.outcome).toBe('declined')
+    202|     expect(kase.reason).toBe('all proposals dropped') // RED: current …
+       |                         ^
+    203| 
+    204|     const declineReceipts = marketOf(state).receipts.filter((r) => r.t…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+ Test Files  1 failed (1)
+      Tests  2 failed (2)
+   Start at  10:32:17
+   Duration  4.17s (transform 1.46s, setup 0ms, collect 1.87s, tests 1.95s, environment 0ms, prepare 92ms)
+

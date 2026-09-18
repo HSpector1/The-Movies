@@ -1,0 +1,48 @@
+== Part 2(a) re-expression: tests/p13a-rival-adoption.test.ts ==
+Command: npx vitest run --project core --minWorkers=1 --maxWorkers=1 tests/p13a-rival-adoption.test.ts
+Repo HEAD: f05ad4eb07e175d6c12f991297ab30f2d10673be
+Date: 2026-09-18T08:40:40Z
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p13a-rival-adoption.test.ts (2 tests) 11206ms
+   ✓ P13A shared commercial adoption and exact rival cash consequence > uses the shared player/rival eligibility function and debits only technology adoption without new plant or RNG draws 689ms
+   ✓ P13A shared commercial adoption and exact rival cash consequence > replays the actual weekly commercial purchase, reconciles its debit and creates one dated operational receipt 1878ms
+
+ Test Files  1 passed (1)
+      Tests  2 passed (2)
+   Start at  10:40:41
+   Duration  13.65s (transform 1.52s, setup 0ms, collect 2.05s, tests 11.21s, environment 0ms, prepare 93ms)
+
+== Part 2(b) re-expression: tests/bridge-p13b-s8-rivals.test.ts (natural week 288 -> 293) ==
+Command: npx vitest run tests/bridge-p13b-s8-rivals.test.ts --reporter=verbose
+Repo HEAD: f05ad4eb07e175d6c12f991297ab30f2d10673be
+Date: 2026-09-18T08:45:27Z
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/bridge-p13b-s8-rivals.test.ts > P13B-S8-T3 item 1: projection version bump 40 -> 41; converted flag > bumps PROJECTION_VERSION to 41 and its schema $id / x-project-studio.projectionVersion move with it
+ ✓ |core| tests/bridge-p13b-s8-rivals.test.ts > P13B-S8-T3 item 1: projection version bump 40 -> 41; converted flag > converted: false for a genuine current live-version save, round-tripped through save()/load() on the SAME session (regression guard — matches tests/bridge-p13b-r07-setup.test.ts's own now-fixed case) 1321ms
+ ✓ |core| tests/bridge-p13b-s8-rivals.test.ts > P13B-S8-T3 item 1: projection version bump 40 -> 41; converted flag > converted: true BY CONSTRUCTION for a genuine V26 fixture load (legacy-v26-lighting-restored-795, saveVersion 26 !== LIVE_SAVE_VERSION) — see header for why this cannot be a directly observed wire boolean through the current session API 502ms
+ ✓ |core| tests/bridge-p13b-s8-rivals.test.ts > P13B-S8-T3 item 2: Industry page rival technology facts — laboratoryOperational publishes; the other four kinds do not; existing kinds unchanged > a rival laboratoryOperational receipt yields exactly one activity per rival, in an existing group, headline verbatim, detail without counts (natural week 13: 4 rivals, 4 receipts)
+ ✓ |core| tests/bridge-p13b-s8-rivals.test.ts > P13B-S8-T3 item 2: Industry page rival technology facts — laboratoryOperational publishes; the other four kinds do not; existing kinds unchanged > laboratoryCommitted, instrumentOperational, researchSeatAssigned and researchCompleted receipts yield NO activity row (regression guard — already true today; natural week 277, all four kinds genuinely present and within the 13-week pulse window)
+ ✓ |core| tests/bridge-p13b-s8-rivals.test.ts > P13B-S8-T3 item 2: Industry page rival technology facts — laboratoryOperational publishes; the other four kinds do not; existing kinds unchanged > technologyAdopted rows are unchanged (regression guard; natural week 293 — RE-EXPRESSED from 288, see the WEEK288 fixture note above; rival r01's real synchronized-sound adoption)
+ ✓ |core| tests/bridge-p13b-s8-rivals.test.ts > P13B-S8-T3 item 2: Industry page rival technology facts — laboratoryOperational publishes; the other four kinds do not; existing kinds unchanged > the S7 campaign-clock announcement row is unchanged (regression guard; heavy natural rival research present, week 293 — RE-EXPRESSED from 288, see the WEEK288 fixture note above; both technologies pre-announcement)
+ ✓ |core| tests/bridge-p13b-s8-rivals.test.ts > P13B-S8-T3 item 3: rival finance exposed only through existing public standings > researchCapacity, technologyRestoration and technologyRefund never appear on the industry pulse page, the Laboratory page, or session.snapshot() (week 13: researchCapacity is genuinely nonzero from real rival Lab admission) 368ms
+ ✓ |core| tests/bridge-p13b-s8-rivals.test.ts > P13B-S8-T3 item 3: rival finance exposed only through existing public standings > the player's own finance researchSpend channel reads $0 in every window even while the rival's real researchSpend is nonzero elsewhere in the same state (week 293 — RE-EXPRESSED from 288, see the WEEK288 fixture note above) 431ms
+ ✓ |core| tests/bridge-p13b-s8-rivals.test.ts > P13B-S8-T3 item 4: the player's Laboratory page is unchanged by rival research > forecast[] is byte-identical across two independently-seeded natural campaigns at the same week (genuinely different rival identities and rival research facts)
+ ✓ |core| tests/bridge-p13b-s8-rivals.test.ts > P13B-S8-T3 item 4: the player's Laboratory page is unchanged by rival research > no row for a rival project, no rival seat, no rival studioId anywhere in the JSON (week 288: heavy real rival research including a completed technology adoption)
+ ✓ |core| tests/bridge-p13b-s8-rivals.test.ts > P13B-S8-T3 item 5: the bridge accepts a real S8 state on snapshot(); history projections ignore the five kinds > session.snapshot() does not throw on a naturally-reached state carrying all five S8 receipt kinds and genuinely nonzero researchCapacity/researchSpend (week 288) 363ms
+ ✓ |core| tests/bridge-p13b-s8-rivals.test.ts > P13B-S8-T3 item 5: the bridge accepts a real S8 state on snapshot(); history projections ignore the five kinds > a non-player studio's own History view ignores the four no-row kinds (no row, no crash; week 288)
+ ✓ |core| tests/bridge-p13b-s8-rivals.test.ts > P13B-S8-T3 item 5: the bridge accepts a real S8 state on snapshot(); history projections ignore the five kinds > the player's own History (historyProjection, a disjoint root from IndustryReceipt) is untouched: session.snapshot() does not throw and its history section mentions none of the five kinds (week 288) 382ms
+ ✓ |core| tests/bridge-p13b-s8-rivals.test.ts > P13B-S8-T3 item 6: live-version save round-trip, Save As, genuine V26 fixture loads > a live-version save round-trips through the bridge byte-identically (week 288, real S8 facts: all five receipt kinds, nonzero researchCapacity/researchSpend) 2903ms
+ ✓ |core| tests/bridge-p13b-s8-rivals.test.ts > P13B-S8-T3 item 6: live-version save round-trip, Save As, genuine V26 fixture loads > a Save As world keeps the same rival receipts and publishes identical industry rows (week 13, natural rival Lab facts) 1947ms
+ ✓ |core| tests/bridge-p13b-s8-rivals.test.ts > P13B-S8-T3 item 6: live-version save round-trip, Save As, genuine V26 fixture loads > the three genuine V26 fixtures load through the bridge (sha256 verified) and their industry pulse page carries no S8-kind text anywhere (V26 predates S8; converted true by construction as item 1 documents) 1161ms
+
+ Test Files  1 passed (1)
+      Tests  17 passed (17)
+   Start at  10:45:28
+   Duration  22.56s (transform 3.55s, setup 0ms, collect 11.96s, tests 9.83s, environment 0ms, prepare 202ms)
+
