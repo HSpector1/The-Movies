@@ -18,7 +18,10 @@ import { hiringMarketIds } from '../../core/employment.js'
 import { exportSave, makeSave, migrateToV28, validateSave } from '../../core/save.js'
 import type { SaveFileV28 } from '../../core/save.js'
 import { caseForTalent, currentProposals, submitProposal } from '../../core/talentMarket.js'
+import { tick } from '../../core/tick.js'
+import { TUNING } from '../../core/tuning.js'
 import { advanceTo, p13aGeneratedStudio } from '../p13a/fixtures.js'
+import { operationsStudio, productionPayload, withCash } from '../../../tests/contracts/_contractFixtures.js'
 import type { GameState } from '../../core/types.js'
 
 const out = new URL('../../../tests/fixtures/p14/', import.meta.url)
@@ -125,4 +128,86 @@ function signWeekZeroActor(state: GameState, termWeeks: number): { state: GameSt
 
   emit(`legacy-v28-legacy-terminations-${lifted.state.market.tick}.json.gz`, lifted, lifted.state.market.tick)
   console.log(`  legacyTerminations[0]=${JSON.stringify(row)} ledgerAmount=${ledgerRow.amount} cash=${lifted.state.studio.cash} cases=0 proposals=0 receipts=0`)
+}
+
+// ── (d) P14B.1-T0 — the FIRST SHOOTING WEEK, remainingTicks 5, a credited S5-R07 setup ──
+// tests/p13b-r07-controls.test.ts's `conventionalBallroomAtRehearsal` construction
+// verbatim (richFoundedStudio + activateStudioOperations via `operationsStudio`, a
+// grand-ballroom Set struck-and-rebuilt on facility-soundstage-07, greenlit, walked to
+// rehearsal at week 11), then that same file's "occupied-stage competition" case's
+// Production A: a setup recipe (`ballroom-reveal-lighting-01`, conventional route, 4
+// units) selected during rehearsal so the S5-R07 gate genuinely holds and credits
+// before Shooting entry. `withCash` only lifts the studio's starting purse to the SAME
+// 30,000,000 headroom that proven recipe uses — a cash bootstrap before any production
+// choice is made, not a fact about the picture, its cast or its setup; nothing about
+// the shooting state itself is hand-authored. The loop below stops at the FIRST tick
+// that reads remainingTicks === 5 — derived from state, never a hardcoded week.
+//
+// There is no phaseEntered-independent "first take" fact anywhere in a V28 save: the
+// only two authorities a reader has for "this is the first, not-yet-completed Shooting
+// week" are `production.remainingTicks === 5` and `workflow.shootingTask` (created but
+// not yet `scheduled`/`completed`). The P14B first-take receipt this fixture exists to
+// exercise fires at the 5 -> 4 advance, which this save deliberately stops BEFORE.
+{
+  const STAGE_7 = 'facility-soundstage-07'
+  let state = withCash(operationsStudio('p14b1-shooting-5'), 30_000_000)
+  state = applyActions(state, [{ kind: 'strikeSet', setId: 'set-0' }])
+  state = applyActions(state, [
+    { kind: 'commissionSet', commission: { blueprintId: 'set-grand-ballroom', stageFacilityId: STAGE_7 } },
+  ])
+  for (let week = 0; week < TUNING.SET_BUILD_WEEKS_BAND_HIGH; week++) state = tick(state)
+  state = applyActions(state, [{ kind: 'greenlight', production: productionPayload(state, 0) }])
+  state = tick(state) // greenlight tick: skip
+  state = tick(state) // Development -> Pre-production
+  state = tick(state) // Pre-production -> Rehearsal
+
+  const productionId = state.studio.activeProductions[0]!.id
+  const workflowAtRehearsal = state.operations.workflows.find((w) => w.productionId === productionId)
+  if (workflowAtRehearsal === undefined) throw new Error('premise failed: no workflow for the greenlit production at rehearsal')
+  if (workflowAtRehearsal.phase !== 'rehearsal') {
+    throw new Error(`premise failed: phase "${workflowAtRehearsal.phase}" at week ${String(state.market.tick)}, expected rehearsal`)
+  }
+
+  state = applyActions(state, [
+    {
+      kind: 'setProductionSetupRecipe',
+      productionId,
+      recipeId: 'ballroom-reveal-lighting-01',
+      expectedPlanRevision: workflowAtRehearsal.planRevision,
+    },
+  ])
+
+  let production = state.studio.activeProductions.find((p) => p.id === productionId)!
+  let guard = 0
+  while (production.remainingTicks !== 5) {
+    state = tick(state)
+    production = state.studio.activeProductions.find((p) => p.id === productionId)!
+    guard += 1
+    if (guard > 40) {
+      throw new Error(`premise failed: remainingTicks never reached 5 within ${String(guard)} weeks (stuck at ${String(production.remainingTicks)})`)
+    }
+  }
+
+  const workflow = state.operations.workflows.find((w) => w.productionId === productionId)!
+  if (workflow.phase !== 'shooting') throw new Error(`premise failed: phase "${workflow.phase}" at remainingTicks 5, expected shooting`)
+  const setup = workflow.setup
+  if (setup === null) throw new Error('premise failed: no setup record on the shooting-entry workflow')
+  if (setup.completedWeek === null || setup.creditedUnits !== setup.requiredUnits) {
+    throw new Error(
+      `premise failed: setup not completed (credited ${String(setup.creditedUnits)}/${String(setup.requiredUnits)}, completedWeek ${String(setup.completedWeek)})`,
+    )
+  }
+  if (workflow.shootingTask === null) throw new Error('premise failed: no shootingTask at Shooting entry')
+
+  emit('legacy-v28-shooting-5.json.gz', makeSave(state), state.market.tick)
+  console.log(
+    `  productionId=${productionId} week=${state.market.tick} remainingTicks=${production.remainingTicks} phase=${workflow.phase} shootingTaskStatus=${workflow.shootingTask.status}`,
+  )
+  console.log(
+    `  directorId=${production.directorId} writerId=${production.writerId} cast=${JSON.stringify(production.cast)} craftIds=${JSON.stringify(production.craftIds)}`,
+  )
+  console.log(
+    `  setup: recipe=${setup.recipeId} route=${setup.route} requiredUnits=${setup.requiredUnits} creditedUnits=${setup.creditedUnits} admittedWeek=${setup.admittedWeek} completedWeek=${setup.completedWeek}`,
+  )
+  console.log('  no phaseEntered-independent first-take fact exists in this save at V28 — remainingTicks and shootingTask are the only authorities')
 }

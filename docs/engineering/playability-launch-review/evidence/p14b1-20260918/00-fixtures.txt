@@ -1,0 +1,86 @@
+=== git status ===
+On branch wip/headless-program-20260916-ts
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   src/harness/p14/legacy-v28-fixtures.ts
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	docs/engineering/playability-launch-review/evidence/p14b1-20260918/
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+=== git log -1 ===
+881de7c records(p14a1-f1): T2 DONE a36449f — F1 CLOSED (targeted verification; full-suite effect at B.1-T4); backlog A.1 addendum (priorityOrder values, projection 44 unchanged); B.1 T0 in flight
+
+=== git diff a36449f..HEAD -- src/core (gate: must be empty) ===
+(empty above = clean)
+
+=== grep LIVE_SAVE_VERSION src/core/save.ts (gate: must be 28) ===
+6368:export const LIVE_SAVE_VERSION = 28 as const;
+
+=== ps -axo command | grep -c '[v]itest' (must be 0, probed before minting) ===
+0
+
+=== sha256 of existing V28 fixtures BEFORE minting (.gz bytes) ===
+d4259dea4c236eab45a41f4eca5961cf67ccc945c3c95b29edf42d2baa7fd8aa  tests/fixtures/p14/legacy-v28-legacy-terminations-20.json.gz
+8ae5943ef5f647e5257632a501060a1cfa27a47b7f41b596190c67de2fefc78d  tests/fixtures/p14/legacy-v28-open-case-45.json.gz
+f9981ea00720cd0a43a317470d9d902f231b91a69fab781f127e25864a8c6664  tests/fixtures/p14/legacy-v28-settled-208.json.gz
+
+=== node --version / vite-node version ===
+v20.20.2
+vite-node/2.1.9 darwin-x64 node-v20.20.2
+
+=== npx vite-node src/harness/p14/legacy-v28-fixtures.ts ===
+legacy-v28-open-case-45.json.gz saveVersion=28 week=45 bytes=662890 sha256(json)=c9ff26fe70b7216784bf5718ed26d2bef10df8ca836b05050f5e1d7bcaac8afd revalidated=byte-stable
+  subject=t-act-09 subjectStudio=studio-aca408ec-player status=proposals_open decisionWeek=52 openedWeek=40
+  cases=1 currentProposals=2 [player tier=1.25 term=52 start=52 submitted=45 representation=null] [rival tier=1 term=52 start=52 submitted=45 representation=null]
+  receiptKinds={"discovered":1,"proposalSubmitted":2} legacyTerminations=0
+legacy-v28-settled-208: week208Receipts=24 settled=24 droppedSentences=36 seatDropSentences=36 receiptsCarryingASeatDrop=18
+legacy-v28-settled-208.json.gz saveVersion=28 week=209 bytes=1478721 sha256(json)=3a468e06925435503d75e2b07772d06d5a2020d26d653d897a8d82ed611d4e4c revalidated=byte-stable
+  cases=24 closedAt208=24 receiptKinds={"discovered":24,"proposalSubmitted":96,"settled":24}
+  firstSeatDropSentence="Bellwether Pictures had no seat open for this person's role at the decision week."
+legacy-v28-legacy-terminations: source=legacy-v27-player-termination-20.json.gz sha256(json)=3069236689fa0fe0e7c75eb9e87b4b0b06c81d4b4b22af407249979e5bbeb240
+legacy-v28-legacy-terminations-20.json.gz saveVersion=28 week=20 bytes=487255 sha256(json)=6957a8570a5655c0c1bf3415024781f1e838ee7f93fd91f7965ced70ce653a32 revalidated=byte-stable
+  legacyTerminations[0]={"contractId":"studio-aca408ec-player:contract:t-act-10:20:player-24","endedWeek":20,"amountPaid":2498600} ledgerAmount=-2498600 cash=16976522 cases=0 proposals=0 receipts=0
+legacy-v28-shooting-5.json.gz saveVersion=28 week=16 bytes=280466 sha256(json)=4872e5659c7214b04159d01a97e57261d35b0744bef875c2f37476c5f78f2d82 revalidated=byte-stable
+  productionId=prod-0008 week=16 remainingTicks=5 phase=shooting shootingTaskStatus=unassigned
+  directorId=t-dir-00 writerId=t-wri-00 cast={"lead":"t-act-07","antagonist":"t-act-08","support":"t-act-10"} craftIds=["t-cra-06"]
+  setup: recipe=ballroom-reveal-lighting-01 route=conventional requiredUnits=4 creditedUnits=4 admittedWeek=12 completedWeek=16
+  no phaseEntered-independent first-take fact exists in this save at V28 — remainingTicks and shootingTask are the only authorities
+
+=== sha256 of all four fixtures AFTER minting (.gz bytes) ===
+d4259dea4c236eab45a41f4eca5961cf67ccc945c3c95b29edf42d2baa7fd8aa  tests/fixtures/p14/legacy-v28-legacy-terminations-20.json.gz
+8ae5943ef5f647e5257632a501060a1cfa27a47b7f41b596190c67de2fefc78d  tests/fixtures/p14/legacy-v28-open-case-45.json.gz
+f9981ea00720cd0a43a317470d9d902f231b91a69fab781f127e25864a8c6664  tests/fixtures/p14/legacy-v28-settled-208.json.gz
+05b2f1398bddde9e3b334552bea18030340a36532e87afe52065ff63cbc9ddd8  tests/fixtures/p14/legacy-v28-shooting-5.json.gz
+
+=== verify the three pre-existing fixtures are byte-identical (before vs after) ===
+d4259dea4c236eab45a41f4eca5961cf67ccc945c3c95b29edf42d2baa7fd8aa  tests/fixtures/p14/legacy-v28-legacy-terminations-20.json.gz
+8ae5943ef5f647e5257632a501060a1cfa27a47b7f41b596190c67de2fefc78d  tests/fixtures/p14/legacy-v28-open-case-45.json.gz
+f9981ea00720cd0a43a317470d9d902f231b91a69fab781f127e25864a8c6664  tests/fixtures/p14/legacy-v28-settled-208.json.gz
+05b2f1398bddde9e3b334552bea18030340a36532e87afe52065ff63cbc9ddd8  tests/fixtures/p14/legacy-v28-shooting-5.json.gz
+
+=== ps -axo command | grep -c '[v]itest' (must be 0, probed before the vitest proof run) ===
+0
+
+=== npx vitest run --project core --minWorkers=1 --maxWorkers=1 --reporter=dot tests/bridge-p14a2-market.test.ts ===
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/bridge-p14a2-market.test.ts (16 tests) 13841ms
+   ✓ group 2: buckets — one bucket per case, fixed order, paged closed > two open cases sharing a decision week sort renewalWindow by discovery order; a settling case one week before its decision reads under settling, not renewalWindow 3284ms
+   ✓ group 3: workspace attention rows > deduplicated per (cause, talentId), including termsRevised (a rival revision after the player proposed) and decisionWeekNear (one week before the decision) 868ms
+   ✓ group 4: selected — candidate rail, offer comparison, settlement reasons/dropped > the rail's case block is byte-equal to marketCaseProjection; the own row equals proposalDraft; every competing figure is UNKNOWN 762ms
+   ✓ group 5: paged employer/career history > employer intervals from the P12 rows, rival salaries private, credits by reference, bounded by MARKET_HISTORY_PAGE_SIZE 383ms
+   ✓ group 6: workspace intents (Review & Submit / Revise / Withdraw) > the same quote -> commit -> STALE_REVISION -> revise -> withdraw -> INTENT_NOT_AVAILABLE sequence as A.1 group 8, from a session whose current page is the market page 5568ms
+   ✓ group 8: disclosure leak check — workspace and pulse JSON > the rival's real figures at a non-1.00 tier appear nowhere in the workspace or pulse JSON 718ms
+   ✓ group 9: save/load > LIVE_SAVE_VERSION === 28; a genuine V27 fixture converts to an EMPTY workspace (no attention, no cases, no selected) 301ms
+   ✓ group 9: save/load > the three genuine V28 T0 fixtures load byte-stable and the market page reads them as T0 pins 975ms
+
+ Test Files  1 passed (1)
+      Tests  16 passed (16)
+   Start at  20:57:51
+   Duration  17.97s (transform 2.78s, setup 0ms, collect 3.71s, tests 13.84s, environment 0ms, prepare 116ms)
+
