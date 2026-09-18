@@ -1,0 +1,39 @@
+=== npx vitest run --project core --minWorkers=1 --maxWorkers=1 --reporter=dot tests/p14a1-f1-priority-order.test.ts ===
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/p14a1-f1-priority-order.test.ts (5 tests | 1 failed | 1 skipped) 23ms
+   × P14A.1-F1: publicPriorityOrder and publicPreferredTerm against companion §2.1.7 > capable-but-unproven (age < 30, no identity-discipline credit): publicPriorityOrder reduces to compensation, term, standing, incumbency 19ms
+     → expected [ 'term', 'compensation', …(2) ] to deeply equal [ 'compensation', 'term', …(2) ]
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14a1-f1-priority-order.test.ts > P14A.1-F1: publicPriorityOrder and publicPreferredTerm against companion §2.1.7 > capable-but-unproven (age < 30, no identity-discipline credit): publicPriorityOrder reduces to compensation, term, standing, incumbency
+AssertionError: expected [ 'term', 'compensation', …(2) ] to deeply equal [ 'compensation', 'term', …(2) ]
+
+- Expected
++ Received
+
+  Array [
+-   "compensation",
+    "term",
++   "compensation",
+    "standing",
+    "incumbency",
+  ]
+
+ ❯ tests/p14a1-f1-priority-order.test.ts:72:50
+     70|     // RED today: the landed unproven branch returns ['term','compensa…
+     71|     const talentId = findUnproven()
+     72|     expect(publicPriorityOrder(state, talentId)).toEqual(['compensatio…
+       |                                                  ^
+     73|   })
+     74| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 3 passed | 1 todo (5)
+   Start at  20:36:10
+   Duration  3.32s (transform 2.01s, setup 0ms, collect 2.68s, tests 23ms, environment 0ms, prepare 148ms)
+
