@@ -1,0 +1,381 @@
+P14A.1-F1-T2 — fix evidence (unproven public priority order; preferredTerm decoupled)
+worktree /Users/zacheryspector/The-Movies-headless-program  branch wip/headless-program-20260916-ts
+base HEAD 29fddb1 (tree clean)  date 2026-09-18
+machine: 2 cores; every vitest run single-worker, probed with 'ps -axo command | grep -c [v]itest' == 0 in a separate call first
+
+=== git diff -- src/core/talentMarket.ts ===
+diff --git a/src/core/talentMarket.ts b/src/core/talentMarket.ts
+index c63be67..da21a3d 100644
+--- a/src/core/talentMarket.ts
++++ b/src/core/talentMarket.ts
+@@ -631,20 +631,31 @@ const DESCRIPTOR_REASON: Record<DescriptorKey, string> = {
+ 
+ /** HYPOTHESIS: the person's public archetype, from public facts only — a proven
+  * professional (any discipline with a real credit) or at or past the age band, or
+- * else capable-but-unproven. It is readable on the profile and not manipulable. */
+-function priorityOrder(state: GameState, talentId: string): readonly DescriptorKey[] {
++ * else capable-but-unproven. It is readable on the profile and not manipulable.
++ * The ONE archetype test: both public preferences below read it directly, so the
++ * term preference never rides on the priority order's array positions. */
++function isProven(state: GameState, talentId: string): boolean {
+   const talent = state.talent.find((t) => t.id === talentId)
+-  const proven = talent !== undefined && (careerIdentity(talent).identityDisciplines.length > 0 || talent.age >= 30)
+-  return proven
++  return talent !== undefined && (careerIdentity(talent).identityDisciplines.length > 0 || talent.age >= 30)
++}
++
++/** §2.1.7's two archetype orders, reduced over the LIVE descriptors (D3 opportunity,
++ * D4 trust and D5 relationships are NEUTRAL in P14A — see DESCRIPTOR_ORDER above):
++ * capable-but-unproven (opportunity, compensation, relationships, term, trust,
++ * Standing, incumbency) → compensation, term, standing, incumbency; proven veterans
++ * (compensation, term, trust, relationships, incumbency, Standing, opportunity) →
++ * compensation, term, incumbency, standing. */
++function priorityOrder(state: GameState, talentId: string): readonly DescriptorKey[] {
++  return isProven(state, talentId)
+     ? (['compensation', 'term', 'incumbency', 'standing'] as const)
+-    : (['term', 'compensation', 'standing', 'incumbency'] as const)
++    : (['compensation', 'term', 'standing', 'incumbency'] as const)
+ }
+ 
+ /** HYPOTHESIS: the person's public term preference — a proven professional
+  * prefers the longest catalogue term, a rising one the shortest. */
+ function preferredTerm(state: GameState, talentId: string): number {
+   const options = TUNING.CONTRACT_TERM_OPTIONS
+-  return priorityOrder(state, talentId)[0] === 'compensation' ? options[options.length - 1]! : options[0]!
++  return isProven(state, talentId) ? options[options.length - 1]! : options[0]!
+ }
+ 
+ /**
+
+=== npx vitest run --project core --minWorkers=1 --maxWorkers=1 --reporter=dot tests/p14a1-f1-priority-order.test.ts ===
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p14a1-f1-priority-order.test.ts (5 tests | 1 skipped) 10ms
+
+ Test Files  1 passed (1)
+      Tests  4 passed | 1 todo (5)
+   Start at  20:38:55
+   Duration  2.59s (transform 1.49s, setup 0ms, collect 2.00s, tests 10ms, environment 0ms, prepare 134ms)
+
+exit=0
+
+=== npx vitest run --project core --minWorkers=1 --maxWorkers=1 --reporter=dot tests/p14a1-settlement.test.ts ===
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p14a1-settlement.test.ts (3 tests) 3253ms
+   ✓ P14A.1 test 5: atomic settlement > a dominant incumbent proposal wins deterministically at the decision week, with order-only reasons and no amounts 1692ms
+   ✓ P14A.1 test 5: atomic settlement > price drift does not invalidate a proposal's version: a proposal submitted at the window's first week settles at the re-derived decision-week price, not the submission-week quote 802ms
+   ✓ P14A.1 test 5: atomic settlement > the digest covers material terms only: a price drift leaves the version digest unchanged 756ms
+
+ Test Files  1 passed (1)
+      Tests  3 passed (3)
+   Start at  20:39:10
+   Duration  5.64s (transform 1.54s, setup 0ms, collect 1.98s, tests 3.25s, environment 0ms, prepare 110ms)
+
+exit=0
+
+=== npx vitest run --project core --minWorkers=1 --maxWorkers=1 --reporter=dot tests/p14a1-decline-reasons.test.ts ===
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p14a1-decline-reasons.test.ts (2 tests | 1 skipped) 4373ms
+   ✓ P14A.1: typed decline reasons > B. all proposals dropped: a single rival proposal fails affordability at the decision week → reason "all proposals dropped", one sentence naming the studio and the bonus predicate, never "reservation" 4371ms
+
+ Test Files  1 passed (1)
+      Tests  1 passed | 1 todo (2)
+   Start at  20:39:30
+   Duration  6.60s (transform 1.37s, setup 0ms, collect 1.80s, tests 4.37s, environment 0ms, prepare 128ms)
+
+exit=0
+
+=== npx vitest run --project core --minWorkers=1 --maxWorkers=1 --reporter=dot tests/p14a1-seat-budget.test.ts ===
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p14a1-seat-budget.test.ts (4 tests) 6175ms
+   ✓ P14A.1: rival seat budget at freeze (commitRivalWinner has no seat cap; rivalProposalTrigger branch (c) fires for everyone at a synchronized expiry) > A. natural synchronized expiry at week 208 (seed 'p13-public-commercial-adoption'): every rival studio's active roster stays within RIVAL_TEAM_ROLES per role and in total at week 209 3809ms
+   ✓ P14A.1: rival seat budget at freeze (commitRivalWinner has no seat cap; rivalProposalTrigger branch (c) fires for everyone at a synchronized expiry) > B. unit-scale: a rival that already holds its full RIVAL_TEAM_ROLES actor seats through the decision week submits a challenge proposal on a player's expiring actor → declined, reason 'all proposals dropped', one drop sentence naming the rival and containing 'seat'; the rival's roster does not grow 722ms
+   ✓ P14A.1: rival seat budget at freeze (commitRivalWinner has no seat cap; rivalProposalTrigger branch (c) fires for everyone at a synchronized expiry) > C. the player is NOT seat-budgeted: a dominant incumbent player proposal settles even though the player already holds more actor contracts than RIVAL_TEAM_ROLES's 3-actor cap (guard against over-reach of the fix) — GREEN now, must stay GREEN 709ms
+   ✓ P14A.1: rival seat budget at freeze (commitRivalWinner has no seat cap; rivalProposalTrigger branch (c) fires for everyone at a synchronized expiry) > D. a rival that IS full at the decision week has its challenge on the player's expiring actor seat-dropped (dropped[] names the rival and contains "seat"), while the case still settles to the incumbent player 933ms
+
+ Test Files  1 passed (1)
+      Tests  4 passed (4)
+   Start at  20:39:47
+   Duration  8.31s (transform 1.31s, setup 0ms, collect 1.76s, tests 6.17s, environment 1ms, prepare 94ms)
+
+exit=0
+
+=== npx vitest run --project core --minWorkers=1 --maxWorkers=1 --reporter=dot tests/bridge-p14a1-market.test.ts ===
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/bridge-p14a1-market.test.ts (16 tests) 13120ms
+   ✓ group 3: marketProposalAction (propose/revise/withdraw) > drafts propose/revise/withdraw through the draft-to-engine conversion, with affordability via canAfford 1477ms
+   ✓ group 3: marketProposalAction (propose/revise/withdraw) > the profile's renew row does not yet surface underMarketCase once a case is open — the gap the case block must close 759ms
+   ✓ group 2: profile Contract case block > publishes status, the DERIVED decision-week label, and one row per proposal — the player's own re-derived at the read week, the rival's premium/salary/bonus an explicit UNKNOWN marker 588ms
+   ✓ group 2: profile Contract case block > no case block outside a case 540ms
+   ✓ group 4: attention rows > a new competing proposal on a case the player has a proposal in 443ms
+   ✓ group 4: attention rows > settlement completed 656ms
+   ✓ group 4: attention rows > a player proposal that would currently fail 578ms
+   ✓ group 4: attention rows > restricted to exactly the five named causes, and nothing else on the profile route (two causes not independently exercised — see header premises) 741ms
+   ✓ group 5: disclosure narrowing > the case block's disclosed fields never leak the rival's real figures, from every serialization surface — a rival tier that is not otherwise a public figure 815ms
+   ✓ group 5: disclosure narrowing > bridge/industry.ts's private-contract-terms rows and bridge/people.ts's contract:null for rival-employed people are UNCHANGED for a person outside any case 702ms
+   ✓ group 6: settlement on the wire > after the decision week the case reads settled with order-only reasons; the winner's employer/contract updates; the two industry receipts stay separate rows (no folded row — A.2's Pulse projection, not A.1) 696ms
+   ✓ group 8: session-level marketProposalAction > quote -> commit -> stale revision -> revise -> withdraw -> a superseded intent after the state moved -> an unknown quote type, all through BridgeSession 4571ms
+
+ Test Files  1 passed (1)
+      Tests  16 passed (16)
+   Start at  20:40:16
+   Duration  17.28s (transform 2.78s, setup 0ms, collect 3.68s, tests 13.12s, environment 1ms, prepare 112ms)
+
+exit=0
+
+=== npx vitest run --project core --minWorkers=1 --maxWorkers=1 --reporter=dot tests/bridge-p14a2-market.test.ts ===
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/bridge-p14a2-market.test.ts (16 tests) 12663ms
+   ✓ group 2: buckets — one bucket per case, fixed order, paged closed > two open cases sharing a decision week sort renewalWindow by discovery order; a settling case one week before its decision reads under settling, not renewalWindow 2645ms
+   ✓ group 2: buckets — one bucket per case, fixed order, paged closed > every closed case in the settled-208 fixture is bounded by MARKET_CLOSED_PAGE_SIZE and pages deterministically across two reads; no case appears in a live bucket 302ms
+   ✓ group 3: workspace attention rows > deduplicated per (cause, talentId), including termsRevised (a rival revision after the player proposed) and decisionWeekNear (one week before the decision) 797ms
+   ✓ group 4: selected — candidate rail, offer comparison, settlement reasons/dropped > the rail's case block is byte-equal to marketCaseProjection; the own row equals proposalDraft; every competing figure is UNKNOWN 664ms
+   ✓ group 5: paged employer/career history > employer intervals from the P12 rows, rival salaries private, credits by reference, bounded by MARKET_HISTORY_PAGE_SIZE 407ms
+   ✓ group 6: workspace intents (Review & Submit / Revise / Withdraw) > the same quote -> commit -> STALE_REVISION -> revise -> withdraw -> INTENT_NOT_AVAILABLE sequence as A.1 group 8, from a session whose current page is the market page 5279ms
+   ✓ group 8: disclosure leak check — workspace and pulse JSON > the rival's real figures at a non-1.00 tier appear nowhere in the workspace or pulse JSON 648ms
+   ✓ group 9: save/load > the three genuine V28 T0 fixtures load byte-stable and the market page reads them as T0 pins 879ms
+
+ Test Files  1 passed (1)
+      Tests  16 passed (16)
+   Start at  20:40:46
+   Duration  16.49s (transform 2.46s, setup 0ms, collect 3.35s, tests 12.66s, environment 0ms, prepare 98ms)
+
+exit=0
+
+=== npx vitest run --project core --minWorkers=1 --maxWorkers=1 --reporter=dot tests/bridge-p14a3-world.test.ts ===
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/bridge-p14a3-world.test.ts (16 tests | 1 skipped) 8139ms
+   ✓ group 2: the player's own open case — statusLine exact, caseRef, reach, presence, a person without a case > legacy-v28-open-case-45: statusLine exact, caseRef.targetId, reach playerLot, presence.onLot true; the market page is byte-equal to the Profile; the roster row carries the same line; a person without a case reads null/null 401ms
+   ✓ group 3: the settling line — decisionWeek <= week + 1 while open, null after close > legacy-v28-open-case-45 walked from 45 to 51 (the settling text) and past 52 (null, closed) 656ms
+   ✓ group 4: a rival's person — off the player's lot, reach industry, the Industry row carries the line, no leak > the first week a rival-subject case is open (never a magic week): onLot false, canLocate false, reach industry; the Industry roster row of that studio carries caseStatusLine/caseRef; the rival's tier/salary (non-1.00) appear nowhere 3535ms
+   ✓ group 5: the effective-week law from receipts (settled-208 carries no player contract — never used for a player-lot fact; the stayed/moved-away/won-over sets are built through the engine, never read off an empty fixture) > the retained clause: genuine legacy-v28-open-case-45 (player 1.25 vs rival 1.00, decided 52) stays on the player's lot at 51, 52 and 53; the stayed set is asserted non-empty 476ms
+   ✓ group 5: the effective-week law from receipts (settled-208 carries no player contract — never used for a player-lot fact; the stayed/moved-away/won-over sets are built through the engine, never read off an empty fixture) > the departure clause, re-expressed through the declined outcome: on genuine legacy-v28-open-case-45, WITHDRAWING the player's own proposal leaves only the rival's uncontested 1.00 bid, which the seat law itself drops (noSeatForRole) — onLot stays true through week 51 (no early presence change), the case settles declined/"all proposals dropped" at week 52 exactly, and the person is off the lot at 52 356ms
+   ✓ group 7: save/load — V28 unchanged, the world route converts and round-trips > the three genuine V28 T0 fixtures read byte-stable and the world route reads identically across the bridge save/load path 1573ms
+   ✓ group 7: save/load — V28 unchanged, the world route converts and round-trips > a fresh V28 state round-trips through the bridge save/load path and the world route reads identically on both sides 787ms
+
+ Test Files  1 passed (1)
+      Tests  15 passed | 1 todo (16)
+   Start at  20:41:16
+   Duration  12.69s (transform 3.02s, setup 0ms, collect 4.03s, tests 8.14s, environment 0ms, prepare 140ms)
+
+exit=0
+
+=== npx vitest run --project core --minWorkers=1 --maxWorkers=1 --reporter=dot tests/p13a-rival-adoption.test.ts ===
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p13a-rival-adoption.test.ts (2 tests) 11231ms
+   ✓ P13A shared commercial adoption and exact rival cash consequence > uses the shared player/rival eligibility function and debits only technology adoption without new plant or RNG draws 643ms
+   ✓ P13A shared commercial adoption and exact rival cash consequence > replays the actual weekly commercial purchase, reconciles its debit and creates one dated operational receipt 1624ms
+
+ Test Files  1 passed (1)
+      Tests  2 passed (2)
+   Start at  20:41:42
+   Duration  13.55s (transform 1.45s, setup 0ms, collect 1.87s, tests 11.23s, environment 0ms, prepare 115ms)
+
+exit=0
+
+=== npx vitest run --project core --minWorkers=1 --maxWorkers=1 --reporter=dot tests/bridge-p13b-s8-rivals.test.ts ===
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/bridge-p13b-s8-rivals.test.ts (17 tests) 10838ms
+   ✓ P13B-S8-T3 item 1: projection version bump 40 -> 41; converted flag > converted: false for a genuine current live-version save, round-tripped through save()/load() on the SAME session (regression guard — matches tests/bridge-p13b-r07-setup.test.ts's own now-fixed case) 1234ms
+   ✓ P13B-S8-T3 item 1: projection version bump 40 -> 41; converted flag > converted: true BY CONSTRUCTION for a genuine V26 fixture load (legacy-v26-lighting-restored-795, saveVersion 26 !== LIVE_SAVE_VERSION) — see header for why this cannot be a directly observed wire boolean through the current session API 501ms
+   ✓ P13B-S8-T3 item 3: rival finance exposed only through existing public standings > researchCapacity, technologyRestoration and technologyRefund never appear on the industry pulse page, the Laboratory page, or session.snapshot() (week 13: researchCapacity is genuinely nonzero from real rival Lab admission) 437ms
+   ✓ P13B-S8-T3 item 3: rival finance exposed only through existing public standings > the player's own finance researchSpend channel reads $0 in every window even while the rival's real researchSpend is nonzero elsewhere in the same state (week 288) 678ms
+   ✓ P13B-S8-T3 item 5: the bridge accepts a real S8 state on snapshot(); history projections ignore the five kinds > session.snapshot() does not throw on a naturally-reached state carrying all five S8 receipt kinds and genuinely nonzero researchCapacity/researchSpend (week 288) 478ms
+   ✓ P13B-S8-T3 item 5: the bridge accepts a real S8 state on snapshot(); history projections ignore the five kinds > the player's own History (historyProjection, a disjoint root from IndustryReceipt) is untouched: session.snapshot() does not throw and its history section mentions none of the five kinds (week 288) 621ms
+   ✓ P13B-S8-T3 item 6: live-version save round-trip, Save As, genuine V26 fixture loads > a live-version save round-trips through the bridge byte-identically (week 288, real S8 facts: all five receipt kinds, nonzero researchCapacity/researchSpend) 2781ms
+   ✓ P13B-S8-T3 item 6: live-version save round-trip, Save As, genuine V26 fixture loads > a Save As world keeps the same rival receipts and publishes identical industry rows (week 13, natural rival Lab facts) 2380ms
+   ✓ P13B-S8-T3 item 6: live-version save round-trip, Save As, genuine V26 fixture loads > the three genuine V26 fixtures load through the bridge (sha256 verified) and their industry pulse page carries no S8-kind text anywhere (V26 predates S8; converted true by construction as item 1 documents) 1164ms
+
+ Test Files  1 passed (1)
+      Tests  17 passed (17)
+   Start at  20:42:07
+   Duration  19.63s (transform 2.42s, setup 0ms, collect 8.31s, tests 10.84s, environment 1ms, prepare 97ms)
+
+exit=0
+
+=== npx vitest run --project core --minWorkers=1 --maxWorkers=1 --reporter=dot tests/p13b-s5-conservation.test.ts ===
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p13b-s5-conservation.test.ts (3 tests) 38093ms
+   ✓ P13B-S5 conservation, determinism, campaign isolation (test 6) > cash conservation across a sound and a lighting adoption: every dollar the ledger charges for the two adoptions is exactly equipmentCost + installationCost, no more, no less, and no negative or duplicate row 11325ms
+   ✓ P13B-S5 conservation, determinism, campaign isolation (test 6) > determinism: the SAME action sequence from the SAME starting state produces byte-identical saves 16417ms
+   ✓ P13B-S5 conservation, determinism, campaign isolation (test 6) > campaign isolation: a rival’s organically-purchased sound adoption is byte-unchanged by the player’s own adoption actions, and reconciles to the catalogue’s per-technology values (no hard-coded 300,000/975,000) 10348ms
+
+ Test Files  1 passed (1)
+      Tests  3 passed (3)
+   Start at  20:42:39
+   Duration  40.60s (transform 1.65s, setup 0ms, collect 2.09s, tests 38.09s, environment 0ms, prepare 114ms)
+
+exit=0
+
+=== npx vitest run --project core --minWorkers=1 --maxWorkers=1 --reporter=dot tests/p13b-s5-equipment.test.ts ===
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p13b-s5-equipment.test.ts (5 tests) 25815ms
+   ✓ P13B-S5 equipment assets (test 3) > an adoption’s equipment asset is minted exactly once, held by it, and never duplicated by a second adoption 5870ms
+   ✓ P13B-S5 equipment assets (test 3) > an unheld retained asset (holderAdoptionId null, referenced by no adoption) is reused at $0 by a NEW adoption of the SAME technology 4562ms
+   ✓ P13B-S5 equipment assets (test 3) > an unheld retained asset of one technology is NEVER reused by a different technology’s adoption 6482ms
+   ✓ P13B-S5 equipment assets (test 3) > a held asset cannot be reused: two adoptions naming the same equipmentAssetId is refused on reimport 4365ms
+   ✓ P13B-S5 equipment assets (test 3) > exported-save round trip never fabricates an equipment row: makeSave/exportSave/importSave over an unmutated adoption reproduces the same equipment array byte for byte 4534ms
+
+ Test Files  1 passed (1)
+      Tests  5 passed (5)
+   Start at  20:43:31
+   Duration  28.32s (transform 1.59s, setup 0ms, collect 2.07s, tests 25.81s, environment 0ms, prepare 115ms)
+
+exit=0
+
+=== npx vitest run --project core --minWorkers=1 --maxWorkers=1 --reporter=dot tests/bridge-p13-laboratory.test.ts ===
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/bridge-p13-laboratory.test.ts (7 tests) 12017ms
+   ✓ P13A Laboratory bridge > publishes one exact Laboratory with named employment and truthful early-release refusal 1211ms
+   ✓ P13A Laboratory bridge > rejects wrong building, stale revision and Save As session while keeping output detached 525ms
+   ✓ P13A Laboratory bridge > pages decisions without exposing private Laboratory data in public Industry pages 311ms
+   ✓ P13A Laboratory bridge > does not let read-side preflights spend money or invent employment/research history 465ms
+   ✓ P13A Laboratory bridge > commits the exact named hire once, rejects its stale sibling intent, then assigns the employed Scientist 2350ms
+   ✓ P13A Laboratory bridge > acknowledges completed acoustic instruments while the Scientist seat remains unassigned 456ms
+   ✓ P13A Laboratory bridge > shows rival sound only from the actual operational receipt, without exposing private finances 6697ms
+
+ Test Files  1 passed (1)
+      Tests  7 passed (7)
+   Start at  20:44:10
+   Duration  15.84s (transform 2.54s, setup 0ms, collect 3.42s, tests 12.02s, environment 0ms, prepare 99ms)
+
+exit=0
+
+=== npx vitest run --project core --minWorkers=1 --maxWorkers=1 --reporter=dot tests/bridge-p11-ready.test.ts ===
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+stdout | tests/bridge-p11-ready.test.ts > P11 recorded trends and full portfolio > bounds a120-year recorded query to13/52 points with exact totals and no calendar-year invention
+{"kind":"p11-long-history-query-measurement","classification":"synthetic query-scale fixture; not played campaign evidence","weeks":6240,"ledgerEntries":6240,"elapsedMilliseconds":1.2640680000004068,"historyJsonBytes":101456,"syntheticStateJsonBytes":769545,"pointCounts":[13,52]}
+
+ ✓ |core| tests/bridge-p11-ready.test.ts (17 tests) 19201ms
+   ✓ P11 ready Upcoming and discarded financial successors > migrates authentic core25 without relabeling its bytes; strict26 includes a nullable Week0 history 776ms
+   ✓ P11 ready Upcoming and discarded financial successors > keeps completion and first Opex distinct, including the just-completed operational office 377ms
+   ✓ P11 ready Upcoming and discarded financial successors > retains already-open renewal dates; expiry pays its final preceding advance only 2613ms
+   ✓ P11 ready Upcoming and discarded financial successors > publishes only the existing public revenue aggregates and does not serialize locked weekly receipts 356ms
+   ✓ P11 ready Upcoming and discarded financial successors > dates only an actually committed Set repair and adds no completion debit or new recurring cost 537ms
+   ✓ P11 ready Upcoming and discarded financial successors > release: exact pennies/guarantees and recurring costs agree with the real committed successor 1321ms
+   ✓ P11 ready Upcoming and discarded financial successors > renew: RE-EXPRESSED under the market law — the renew quote is the engine's own underMarketCase refusal, and the same person's renewal is reachable as the incumbent's proposal 2130ms
+   ✓ P11 ready Upcoming and discarded financial successors > a refused renewal has no financial successor and cannot become a commit 506ms
+   ✓ P11 ready Upcoming and discarded financial successors > release remains legal when the actual termination payment takes already-negative Cash further down 988ms
+   ✓ P11 ready Upcoming and discarded financial successors > immediate Greenlight pays the exact quoted financial amount once and replaces the project row by its real production 1233ms
+   ✓ P11 ready Upcoming and discarded financial successors > hire reads the real successor, including a new seat; preview remains observation/RNG neutral 1444ms
+   ✓ P11 ready Upcoming and discarded financial successors > queued Greenlight pays nothing now and remains one uncommitted canonical screenplay row 876ms
+   ✓ P11 recorded trends and full portfolio > serves the actual21-film/6240-advance public diagnostic as exact unique rows and52 completed history points 2401ms
+   ✓ P11 recorded trends and full portfolio > covers Development/review, Ready Casting, Production, Post and Release Ready through actual fixture action chains 2476ms
+   ✓ P11 recorded trends and full portfolio > keeps exact film identities, public phases and the accepted per-film economics 636ms
+   ✓ P11 recorded trends and full portfolio > each cost point and period comes from the exact ledger category; missing partial values stay null 453ms
+
+ Test Files  1 passed (1)
+      Tests  17 passed (17)
+   Start at  20:44:38
+   Duration  23.27s (transform 2.70s, setup 0ms, collect 3.61s, tests 19.20s, environment 0ms, prepare 108ms)
+
+exit=0
+
+=== npx vitest run --project core --minWorkers=1 --maxWorkers=1 --reporter=dot tests/bridge-p10a-r1-contract-quote.test.ts ===
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/bridge-p10a-r1-contract-quote.test.ts (9 tests) 7633ms
+   ✓ P10-R1 — contract renewal / early release over the bridge > R0: the Profile publishes the legal windows and the engine's own terms; the schema publishes both intent kinds 1690ms
+   ✓ P10-R1 — contract renewal / early release over the bridge > R1 → re-expressed under R6: the incumbent's PROPOSAL reads the engine verbatim, commits once at the quoted bonus, and refuses replay / re-use 675ms
+   ✓ P10-R1 — contract renewal / early release over the bridge > R2: a legal release carries the engine's termination cost, commits once, and keeps every recorded credit 1091ms
+   ✓ P10-R1 — contract renewal / early release over the bridge > R4 → re-expressed under R6: a proposal draft that is no longer legal on the live state is refused once the authority moved on 1357ms
+   ✓ P10-R1 — contract renewal / early release over the bridge > R5: unknown person is a draft refusal; no contract is an accepted refusal; a changed PROPOSAL re-prices (re-expressed under R6) 619ms
+   ✓ P10-R1 — contract renewal / early release over the bridge > R6: the engine's own refusals — unpublished term, a screenplay task (UNCHANGED); D-12 on a PROPOSAL (re-expressed under R6) 805ms
+   ✓ P10-R1 — contract renewal / early release over the bridge > R7 → re-expressed under R6: cancellation is state-neutral for a PROPOSAL draft — drafting mutates nothing, and asking again is deterministic 574ms
+   ✓ P10-R1 — contract renewal / early release over the bridge > R6 ruling, ADDED (iii): in-window renewContract is now refused — the market-case redirect (P14A §2.1.3), verbatim 666ms
+
+ Test Files  1 passed (1)
+      Tests  9 passed (9)
+   Start at  20:45:14
+   Duration  11.79s (transform 2.74s, setup 0ms, collect 3.68s, tests 7.63s, environment 0ms, prepare 107ms)
+
+exit=0
+
+=== npm run typecheck ===
+
+> project-studio-core@0.1.0 typecheck
+> tsc --noEmit && tsc -p ui/tsconfig.json --noEmit
+
+exit=0
+
+=== npm run typecheck:bridge ===
+
+> project-studio-core@0.1.0 typecheck:bridge
+> tsc -p tsconfig.bridge.json
+
+exit=0
+
+=== bridge-consumer finding (grep publicPriorityOrder / publicPreferredTerm) ===
+$ grep -rn "publicPriorityOrder\|publicPreferredTerm" --include=*.ts --include=*.cs . | grep -v node_modules
+src/core/index.ts:1345,1346        — re-export only, no shape.
+bridge/people.ts:42                — import.
+bridge/people.ts:961,962           — marketCaseProjection reads both:
+                                      const priorityOrder = [...publicPriorityOrder(state, talentId)]
+                                      const preferredTermWeeks = publicPreferredTerm(state, talentId)
+bridge/people.ts:971-973           — published in `preferences` as priorityOrder,
+                                     preferredTermWeeks and the derived `line`
+                                     ("… Weighs <label of [0]> first, then <label of [1]>").
+bridge/schema/bridge-schema.ts:2204-2205, 2219, 2326
+                                   — StudioMarketPreferencesSnapshot.priorityOrder is
+                                     array(enumeration(['compensation','term','standing','incumbency']))
+                                     and preferredTermWeeks is integer(min 1); carried by the
+                                     case block and the profile field.
+No other consumer (no Unity .cs reader, no UI component, no test outside the F1 file).
+
+VERDICT: a DTO DOES carry the order, but only its VALUES move — for an unproven person the
+array becomes ['compensation','term','standing','incumbency'] and the `line` names compensation
+first. Field names, types, enum membership, cardinality and nullability are unchanged, and
+preferredTermWeeks is byte-identical for both archetypes (proven 208 / unproven 52 preserved by
+reading the archetype directly). Therefore PROJECTION_VERSION stays 44 and SNAPSHOT_VERSION with
+it; no schema edit, no save-format change (V28 stays).
+
+=== targeted verification summary (14 files, each run single-worker after a 0 probe) ===
+tests/p14a1-f1-priority-order.test.ts        1 file passed | 4 passed | 1 todo (the T1 tie case)
+tests/p14a1-settlement.test.ts               1 file passed | 3 passed
+tests/p14a1-decline-reasons.test.ts          1 file passed | 1 passed | 1 todo
+tests/p14a1-seat-budget.test.ts              1 file passed | 4 passed
+tests/bridge-p14a1-market.test.ts            1 file passed | 16 passed
+tests/bridge-p14a2-market.test.ts            1 file passed | 16 passed  (group 9: the three genuine V28 fixtures load byte-stable)
+tests/bridge-p14a3-world.test.ts             1 file passed | 15 passed | 1 todo
+tests/p13a-rival-adoption.test.ts            1 file passed | 2 passed
+tests/bridge-p13b-s8-rivals.test.ts          1 file passed | 17 passed
+tests/p13b-s5-conservation.test.ts           1 file passed | 3 passed
+tests/p13b-s5-equipment.test.ts              1 file passed | 5 passed
+tests/bridge-p13-laboratory.test.ts          1 file passed | 7 passed
+tests/bridge-p11-ready.test.ts               1 file passed | 17 passed
+tests/bridge-p10a-r1-contract-quote.test.ts  1 file passed | 9 passed
+npm run typecheck        exit 0 (tsc --noEmit && tsc -p ui/tsconfig.json --noEmit)
+npm run typecheck:bridge exit 0 (tsc -p tsconfig.bridge.json)
+
+MOVED PREMISES: none. No targeted test changed outcome under the corrected order; no test
+assertion was edited. The settlement/natural-chain files are unaffected because `priorityOrder`
+is consumed only by `chooseProposal`'s tie-break loop (talentMarket.ts ~743), which runs only
+when the Copeland count leaves more than one proposal tied — a situation none of these fixtures
+reaches (consistent with T1's measured finding that the 1-1 tie is not constructible on the
+landed seat law) — and `preferredTerm` (the band input at ~685) is unchanged by construction.

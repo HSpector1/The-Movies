@@ -631,20 +631,31 @@ const DESCRIPTOR_REASON: Record<DescriptorKey, string> = {
 
 /** HYPOTHESIS: the person's public archetype, from public facts only — a proven
  * professional (any discipline with a real credit) or at or past the age band, or
- * else capable-but-unproven. It is readable on the profile and not manipulable. */
-function priorityOrder(state: GameState, talentId: string): readonly DescriptorKey[] {
+ * else capable-but-unproven. It is readable on the profile and not manipulable.
+ * The ONE archetype test: both public preferences below read it directly, so the
+ * term preference never rides on the priority order's array positions. */
+function isProven(state: GameState, talentId: string): boolean {
   const talent = state.talent.find((t) => t.id === talentId)
-  const proven = talent !== undefined && (careerIdentity(talent).identityDisciplines.length > 0 || talent.age >= 30)
-  return proven
+  return talent !== undefined && (careerIdentity(talent).identityDisciplines.length > 0 || talent.age >= 30)
+}
+
+/** §2.1.7's two archetype orders, reduced over the LIVE descriptors (D3 opportunity,
+ * D4 trust and D5 relationships are NEUTRAL in P14A — see DESCRIPTOR_ORDER above):
+ * capable-but-unproven (opportunity, compensation, relationships, term, trust,
+ * Standing, incumbency) → compensation, term, standing, incumbency; proven veterans
+ * (compensation, term, trust, relationships, incumbency, Standing, opportunity) →
+ * compensation, term, incumbency, standing. */
+function priorityOrder(state: GameState, talentId: string): readonly DescriptorKey[] {
+  return isProven(state, talentId)
     ? (['compensation', 'term', 'incumbency', 'standing'] as const)
-    : (['term', 'compensation', 'standing', 'incumbency'] as const)
+    : (['compensation', 'term', 'standing', 'incumbency'] as const)
 }
 
 /** HYPOTHESIS: the person's public term preference — a proven professional
  * prefers the longest catalogue term, a rising one the shortest. */
 function preferredTerm(state: GameState, talentId: string): number {
   const options = TUNING.CONTRACT_TERM_OPTIONS
-  return priorityOrder(state, talentId)[0] === 'compensation' ? options[options.length - 1]! : options[0]!
+  return isProven(state, talentId) ? options[options.length - 1]! : options[0]!
 }
 
 /**
