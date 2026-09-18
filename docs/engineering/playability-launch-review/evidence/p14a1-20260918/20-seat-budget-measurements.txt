@@ -1,0 +1,74 @@
+══ seed p13-public-commercial-adoption · week 209 · caps {"writer":1,"director":1,"actor":3,"craft":1} ══
+  r01 total=6 {"writer":1,"director":1,"actor":3,"craft":1}  payroll/wk=78,030
+  r02 total=6 {"writer":1,"director":1,"actor":3,"craft":1}  payroll/wk=87,463
+  r03 total=6 {"writer":1,"director":1,"actor":3,"craft":1}  payroll/wk=73,347
+  r04 total=6 {"writer":1,"director":1,"actor":3,"craft":1}  payroll/wk=46,995
+
+week-208 receipt kinds: {"settled":24}
+  settled   person-studio-5a47d054-r02-0  winner=studio-5a47d054-r02  dropped=1 (seat 1)
+      - Bellwether Pictures had no seat open for this person's role at the decision week.
+  settled   person-studio-5a47d054-r02-1  winner=studio-5a47d054-r02  dropped=1 (seat 1)
+      - Bellwether Pictures had no seat open for this person's role at the decision week.
+  settled   person-studio-5a47d054-r02-2  winner=studio-5a47d054-r02  dropped=1 (seat 1)
+      - Bellwether Pictures had no seat open for this person's role at the decision week.
+  settled   person-studio-5a47d054-r02-3  winner=studio-5a47d054-r02  dropped=1 (seat 1)
+      - Bellwether Pictures had no seat open for this person's role at the decision week.
+  settled   person-studio-5a47d054-r02-4  winner=studio-5a47d054-r02  dropped=1 (seat 1)
+      - Bellwether Pictures had no seat open for this person's role at the decision week.
+  settled   person-studio-5a47d054-r02-5  winner=studio-5a47d054-r02  dropped=1 (seat 1)
+      - Bellwether Pictures had no seat open for this person's role at the decision week.
+  settled   person-studio-5a47d054-r03-0  winner=studio-5a47d054-r03  dropped=2 (seat 2)
+      - Bellwether Pictures had no seat open for this person's role at the decision week.
+      - Rose Lantern Films had no seat open for this person's role at the decision week.
+  settled   person-studio-5a47d054-r03-1  winner=studio-5a47d054-r03  dropped=2 (seat 2)
+      - Bellwether Pictures had no seat open for this person's role at the decision week.
+      - Rose Lantern Films had no seat open for this person's role at the decision week.
+  settled   person-studio-5a47d054-r03-2  winner=studio-5a47d054-r03  dropped=2 (seat 2)
+      - Bellwether Pictures had no seat open for this person's role at the decision week.
+      - Rose Lantern Films had no seat open for this person's role at the decision week.
+  settled   person-studio-5a47d054-r03-3  winner=studio-5a47d054-r03  dropped=2 (seat 2)
+      - Bellwether Pictures had no seat open for this person's role at the decision week.
+      - Rose Lantern Films had no seat open for this person's role at the decision week.
+  settled   person-studio-5a47d054-r03-4  winner=studio-5a47d054-r03  dropped=2 (seat 2)
+      - Bellwether Pictures had no seat open for this person's role at the decision week.
+      - Rose Lantern Films had no seat open for this person's role at the decision week.
+  settled   person-studio-5a47d054-r03-5  winner=studio-5a47d054-r03  dropped=2 (seat 2)
+      - Bellwether Pictures had no seat open for this person's role at the decision week.
+      - Rose Lantern Films had no seat open for this person's role at the decision week.
+  settled   person-studio-5a47d054-r04-0  winner=studio-5a47d054-r04  dropped=3 (seat 3)
+      - Bellwether Pictures had no seat open for this person's role at the decision week.
+      - Rose Lantern Films had no seat open for this person's role at the decision week.
+      - Night Orchard Productions had no seat open for this person's role at the decision week.
+  settled   person-studio-5a47d054-r04-1  winner=studio-5a47d054-r04  dropped=3 (seat 3)
+      - Bellwether Pictures had no seat open for this person's role at the decision week.
+      - Rose Lantern Films had no seat open for this person's role at the decision week.
+      - Night Orchard Productions had no seat open for this person's role at the decision week.
+  settled   person-studio-5a47d054-r04-2  winner=studio-5a47d054-r04  dropped=3 (seat 3)
+      - Bellwether Pictures had no seat open for this person's role at the decision week.
+      - Rose Lantern Films had no seat open for this person's role at the decision week.
+      - Night Orchard Productions had no seat open for this person's role at the decision week.
+  settled   person-studio-5a47d054-r04-3  winner=studio-5a47d054-r04  dropped=3 (seat 3)
+      - Bellwether Pictures had no seat open for this person's role at the decision week.
+      - Rose Lantern Films had no seat open for this person's role at the decision week.
+      - Night Orchard Productions had no seat open for this person's role at the decision week.
+  settled   person-studio-5a47d054-r04-4  winner=studio-5a47d054-r04  dropped=3 (seat 3)
+      - Bellwether Pictures had no seat open for this person's role at the decision week.
+      - Rose Lantern Films had no seat open for this person's role at the decision week.
+      - Night Orchard Productions had no seat open for this person's role at the decision week.
+  settled   person-studio-5a47d054-r04-5  winner=studio-5a47d054-r04  dropped=3 (seat 3)
+      - Bellwether Pictures had no seat open for this person's role at the decision week.
+      - Rose Lantern Films had no seat open for this person's role at the decision week.
+      - Night Orchard Productions had no seat open for this person's role at the decision week.
+TOTAL week-208 drops: 36 (seat drops 36)
+week-208 receipts whose REASONS[] contain "seat": 0
+case outcomes through 209: {"settled:settled at the decision week":24}
+
+══ week 416 · the §48 purchase gate (cost 1,475,000) ══
+studio  cash            roster payroll/wk  opCost/wk  resWks  reserve       slack           passes
+r01         52,012,563     10     108,857    170,357      13     2,214,641      48,322,922  YES
+r02          3,900,619      6     101,617    154,117      18     2,774,106        -348,487  no
+r03        -16,239,214      0           0     43,500      20       870,000     -18,584,214  no
+r04        -10,127,665      0           0     43,500      15       652,500     -12,255,165  no
+first purchase-route adoption: week 520 by studio-5a47d054-r05
+
+seed p13b-s8-bridge-probe-01 technologyAdopted receipts through 340: [{"week":288,"studioId":"studio-efb645e3-r01"}]

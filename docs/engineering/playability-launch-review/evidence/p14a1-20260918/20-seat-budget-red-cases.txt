@@ -1,0 +1,28 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/p14a1-seat-budget.test.ts (3 tests | 1 failed) 10475ms
+   × P14A.1: rival seat budget at freeze (commitRivalWinner has no seat cap; rivalProposalTrigger branch (c) fires for everyone at a synchronized expiry) > A. natural synchronized expiry at week 208 (seed 'p13-public-commercial-adoption'): every rival studio's active roster stays within RIVAL_TEAM_ROLES per role and in total at week 209 7945ms
+     → expected 0 to be greater than or equal to 1
+   ✓ P14A.1: rival seat budget at freeze (commitRivalWinner has no seat cap; rivalProposalTrigger branch (c) fires for everyone at a synchronized expiry) > B. unit-scale: a rival that already holds its full RIVAL_TEAM_ROLES actor seats through the decision week submits a challenge proposal on a player's expiring actor → declined, reason 'all proposals dropped', one drop sentence naming the rival and containing 'seat'; the rival's roster does not grow 1093ms
+   ✓ P14A.1: rival seat budget at freeze (commitRivalWinner has no seat cap; rivalProposalTrigger branch (c) fires for everyone at a synchronized expiry) > C. the player is NOT seat-budgeted: a dominant incumbent player proposal settles even though the player already holds more actor contracts than RIVAL_TEAM_ROLES's 3-actor cap (guard against over-reach of the fix) — GREEN now, must stay GREEN 1435ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14a1-seat-budget.test.ts > P14A.1: rival seat budget at freeze (commitRivalWinner has no seat cap; rivalProposalTrigger branch (c) fires for everyone at a synchronized expiry) > A. natural synchronized expiry at week 208 (seed 'p13-public-commercial-adoption'): every rival studio's active roster stays within RIVAL_TEAM_ROLES per role and in total at week 209
+AssertionError: expected 0 to be greater than or equal to 1
+ ❯ tests/p14a1-seat-budget.test.ts:170:30
+    168|     const receipts208 = marketOf(state).receipts.filter((r) => r.week …
+    169|     const seatDrops = receipts208.filter((r) => r.reasons.some((senten…
+    170|     expect(seatDrops.length).toBeGreaterThanOrEqual(1)
+       |                              ^
+    171|   })
+    172| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 2 passed (3)
+   Start at  11:43:12
+   Duration  12.83s (transform 1.46s, setup 0ms, collect 1.93s, tests 10.48s, environment 0ms, prepare 114ms)
+

@@ -385,10 +385,13 @@ function requireOpenCase(state: GameState, talentId: string, week: number): Mark
   return view
 }
 
-function appendReceipt(market: TalentMarketState, draft: Omit<TalentMarketReceipt, 'eventId'>): TalentMarketState {
+function appendReceipt(
+  market: TalentMarketState,
+  draft: Omit<TalentMarketReceipt, 'eventId' | 'dropped'> & { dropped?: readonly string[] },
+): TalentMarketState {
   return {
     ...market,
-    receipts: [...market.receipts, { ...draft, eventId: `talent-market-event-${market.receipts.length}` }],
+    receipts: [...market.receipts, { ...draft, dropped: draft.dropped ?? [], eventId: `talent-market-event-${market.receipts.length}` }],
   }
 }
 
@@ -776,6 +779,7 @@ function closeCase(
   reason: string,
   receiptStudioId: string | null,
   reasons: readonly string[],
+  dropped: readonly string[] = [],
 ): GameState {
   const cases = state.talentMarket.cases.map((c) =>
     c === kase ? { ...c, outcome, closedWeek: week, reason } : c)
@@ -786,7 +790,7 @@ function closeCase(
       // A terminal case keeps no CURRENT proposal: the receipt is the record.
       proposals: state.talentMarket.proposals.filter((p) => p.talentId !== kase.talentId),
     },
-    { kind: outcome, week, talentId: kase.talentId, studioId: receiptStudioId, reasons },
+    { kind: outcome, week, talentId: kase.talentId, studioId: receiptStudioId, reasons, dropped },
   )
   return { ...state, talentMarket: market }
 }
@@ -884,6 +888,7 @@ export type FreezeDrop =
   | 'belowAsk'
   | 'materialTermsChanged'
   | 'bonusUnaffordable'
+  | 'noSeatForRole'
 
 /** The studio as a person would name it; the id only if this world has no identity
  * for it (a state that could not have produced the proposal in the first place). */
@@ -902,6 +907,27 @@ const DROP_SENTENCE: Record<FreezeDrop, (studio: string) => string> = {
   belowAsk: (studio) => `${studio}'s offer fell below this person's reservation for that term.`,
   materialTermsChanged: (studio) => `${studio}'s terms changed since submission.`,
   bonusUnaffordable: (studio) => `${studio} could not fund the signing bonus.`,
+  noSeatForRole: (studio) => `${studio} had no seat open for this person's role at the decision week.`,
+}
+
+/**
+ * The rival seat budget at freeze (companion §2.1.4 line 74: rival maintenance
+ * "fills deficits against six fixed seats", and §2.1.7 line 104 drops what fails
+ * legality BEFORE ranking). Held = the studio's rows for that role that survive
+ * PAST W — which is exactly the rows it keeps plus the wins it committed EARLIER
+ * in this same fixed-order weekly pass, because a commit at W writes a row ending
+ * at W + termWeeks. The subject's OWN expiring row is closed at W by
+ * `finishHollywoodWeek` before settlement runs, so an incumbent always has its own
+ * seat back for its own renewal.
+ */
+function seatsHeldAfter(state: GameState, hollywood: HollywoodState, studioId: string, role: string, week: number): number {
+  let held = 0
+  for (const ordinal of hollywood.activeEmploymentOrdinals) {
+    const row = hollywood.employment[ordinal]!
+    if (row.studioId !== studioId || row.endedWeek !== null || row.terms.endWeekExclusive <= week) continue
+    if (state.talent.find((t) => t.id === row.terms.talentId)?.role === role) held++
+  }
+  return held
 }
 
 /** A proposal is DROPPED at freeze when it fails P10 legality (interval algebra
@@ -912,6 +938,13 @@ function survivesFreeze(state: GameState, proposal: TalentMarketProposal, week: 
   if (!enteredStudioIds(hollywood).includes(proposal.issuerStudioId)) return 'issuerNotEntered'
   if (subjectTerms(state, proposal.talentId, week) !== undefined) return 'subjectCommittedElsewhere'
   if (proposal.startWeek !== week) return 'startWeekMoved'
+  // The seat budget binds a RIVAL only. The player's roster law is P10's and has no
+  // RIVAL_TEAM_ROLES-shaped cap anywhere; nothing here invents one for it.
+  if (proposal.issuerStudioId !== hollywood.playerStudioId) {
+    const role = state.talent.find((t) => t.id === proposal.talentId)?.role
+    if (role !== undefined && seatsHeldAfter(state, hollywood, proposal.issuerStudioId, role, week)
+      >= RIVAL_TEAM_ROLES.filter((r) => r === role).length) return 'noSeatForRole'
+  }
   // Everything below is judged on the price RE-DERIVED at W, never on the
   // submission-week quote stored on the proposal.
   const priced = proposalPriceAt(state, proposal, week)
@@ -932,23 +965,27 @@ function settleCase(state: GameState, kase: TalentMarketCase, week: number): Gam
   }
   const frozen = submitted.map((proposal) => ({ proposal, drop: survivesFreeze(state, proposal, week) }))
   const survivors = frozen.filter((f) => f.drop === null).map((f) => f.proposal)
+  // The ONE drop list this case produces. It is the decline's own sentences when
+  // everything was dropped, and it rides the SETTLED receipt too — a studio whose
+  // proposal was dropped learns why even when someone else won. No second wording.
+  const dropped = frozen.filter((f) => f.drop !== null)
+    .map((f) => DROP_SENTENCE[f.drop!](studioLabel(state, f.proposal.issuerStudioId)))
   if (survivors.length === 0) {
     // Every proposal failed a freeze predicate BEFORE ranking: one typed sentence
     // per dropped proposal, naming the studio and the predicate that dropped it.
-    return closeCase(state, kase, 'declined', week, 'all proposals dropped', null,
-      frozen.map((f) => DROP_SENTENCE[f.drop!](studioLabel(state, f.proposal.issuerStudioId))))
+    return closeCase(state, kase, 'declined', week, 'all proposals dropped', null, dropped, dropped)
   }
   const chosen = chooseProposal(state, kase, survivors)
   if (chosen.winner === null) {
     // A FULL LEGAL survivor set the tie order ran out on — nothing failed
     // reservation. One ordering-only sentence, no amount. CANDIDATE wording.
     return closeCase(state, kase, 'declined', week, 'tie exhausted', null,
-      [`this person could not separate ${String(chosen.tiedCount)} equally ranked proposals.`])
+      [`this person could not separate ${String(chosen.tiedCount)} equally ranked proposals.`], dropped)
   }
   const committed = chosen.winner.issuerStudioId === state.hollywood!.playerStudioId
     ? commitPlayerWinner(state, chosen.winner, week)
     : commitRivalWinner(state, chosen.winner, week)
-  return closeCase(committed, kase, 'settled', week, 'settled at the decision week', chosen.winner.issuerStudioId, chosen.reasons)
+  return closeCase(committed, kase, 'settled', week, 'settled at the decision week', chosen.winner.issuerStudioId, chosen.reasons, dropped)
 }
 
 // ── the weekly market step (tick.ts, terminal and fixed-order) ───────────────
@@ -1123,6 +1160,20 @@ export function validateTalentMarketRoot(talentMarket: unknown, state: unknown):
     const row = proposals[i] as Record<string, unknown>
     if (!entered.has(String(row.issuerStudioId))) {
       return fail(`state.talentMarket.proposals[${String(i)}].issuerStudioId "${String(row.issuerStudioId)}" is not an entered studio of this world`)
+    }
+  }
+
+  // Every receipt carries its drop list: ordering-only sentences, never an amount,
+  // never blank. Empty is the normal case (nothing was dropped).
+  for (let i = 0; i < receipts.length; i++) {
+    const row = receipts[i]
+    const label = `state.talentMarket.receipts[${String(i)}]`
+    if (!isRecord(row)) return fail(`${label} is not a plain object`)
+    const drops = row.dropped
+    if (!Array.isArray(drops)) return fail(`${label}.dropped is not an array`)
+    for (const sentence of drops) {
+      if (typeof sentence !== 'string' || sentence.trim() === '') return fail(`${label}.dropped carries an empty sentence`)
+      if (sentence.includes('$') || /\d{3,}/.test(sentence)) return fail(`${label}.dropped carries an amount — drop reasons are ordering-only`)
     }
   }
 

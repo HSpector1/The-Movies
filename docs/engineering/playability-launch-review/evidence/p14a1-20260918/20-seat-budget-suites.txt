@@ -1,0 +1,146 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/bridge-p13b-s8-rivals.test.ts (17 tests) 9613ms
+   ✓ P13B-S8-T3 item 1: projection version bump 40 -> 41; converted flag > converted: false for a genuine current live-version save, round-tripped through save()/load() on the SAME session (regression guard — matches tests/bridge-p13b-r07-setup.test.ts's own now-fixed case) 1050ms
+   ✓ P13B-S8-T3 item 1: projection version bump 40 -> 41; converted flag > converted: true BY CONSTRUCTION for a genuine V26 fixture load (legacy-v26-lighting-restored-795, saveVersion 26 !== LIVE_SAVE_VERSION) — see header for why this cannot be a directly observed wire boolean through the current session API 431ms
+   ✓ P13B-S8-T3 item 3: rival finance exposed only through existing public standings > researchCapacity, technologyRestoration and technologyRefund never appear on the industry pulse page, the Laboratory page, or session.snapshot() (week 13: researchCapacity is genuinely nonzero from real rival Lab admission) 335ms
+   ✓ P13B-S8-T3 item 3: rival finance exposed only through existing public standings > the player's own finance researchSpend channel reads $0 in every window even while the rival's real researchSpend is nonzero elsewhere in the same state (week 293 — RE-EXPRESSED from 288, see the WEEK288 fixture note above) 526ms
+   ✓ P13B-S8-T3 item 5: the bridge accepts a real S8 state on snapshot(); history projections ignore the five kinds > session.snapshot() does not throw on a naturally-reached state carrying all five S8 receipt kinds and genuinely nonzero researchCapacity/researchSpend (week 288) 400ms
+   ✓ P13B-S8-T3 item 5: the bridge accepts a real S8 state on snapshot(); history projections ignore the five kinds > the player's own History (historyProjection, a disjoint root from IndustryReceipt) is untouched: session.snapshot() does not throw and its history section mentions none of the five kinds (week 288) 360ms
+   ✓ P13B-S8-T3 item 6: live-version save round-trip, Save As, genuine V26 fixture loads > a live-version save round-trips through the bridge byte-identically (week 288, real S8 facts: all five receipt kinds, nonzero researchCapacity/researchSpend) 2828ms
+   ✓ P13B-S8-T3 item 6: live-version save round-trip, Save As, genuine V26 fixture loads > a Save As world keeps the same rival receipts and publishes identical industry rows (week 13, natural rival Lab facts) 2146ms
+   ✓ P13B-S8-T3 item 6: live-version save round-trip, Save As, genuine V26 fixture loads > the three genuine V26 fixtures load through the bridge (sha256 verified) and their industry pulse page carries no S8-kind text anywhere (V26 predates S8; converted true by construction as item 1 documents) 1068ms
+ ✓ |core| tests/p14a1-save-v28.test.ts (9 tests) 777ms
+ ❯ |core| tests/p14a1-seat-budget.test.ts (3 tests | 1 failed) 4921ms
+   × P14A.1: rival seat budget at freeze (commitRivalWinner has no seat cap; rivalProposalTrigger branch (c) fires for everyone at a synchronized expiry) > A. natural synchronized expiry at week 208 (seed 'p13-public-commercial-adoption'): every rival studio's active roster stays within RIVAL_TEAM_ROLES per role and in total at week 209 3608ms
+     → expected 0 to be greater than or equal to 1
+   ✓ P14A.1: rival seat budget at freeze (commitRivalWinner has no seat cap; rivalProposalTrigger branch (c) fires for everyone at a synchronized expiry) > B. unit-scale: a rival that already holds its full RIVAL_TEAM_ROLES actor seats through the decision week submits a challenge proposal on a player's expiring actor → declined, reason 'all proposals dropped', one drop sentence naming the rival and containing 'seat'; the rival's roster does not grow 698ms
+   ✓ P14A.1: rival seat budget at freeze (commitRivalWinner has no seat cap; rivalProposalTrigger branch (c) fires for everyone at a synchronized expiry) > C. the player is NOT seat-budgeted: a dominant incumbent player proposal settles even though the player already holds more actor contracts than RIVAL_TEAM_ROLES's 3-actor cap (guard against over-reach of the fix) — GREEN now, must stay GREEN 613ms
+ ✓ |core| tests/p13b-s8-research.test.ts (5 tests) 23368ms
+   ✓ P13B-S8 rival research under the shared law: identical receipts, expiry/renewal, player isolation (test 2) > player-only partition (S8 LAW item 3): advanceResearchWeek returns ONLY the player's slice — a rival-owned project contributes nothing to the player's cost/entries and is returned untouched 4576ms
+   ✓ P13B-S8 rival research under the shared law: identical receipts, expiry/renewal, player isolation (test 2) > identical receipts for identical inputs: the weekly spend for N seats fully funded on technology T is usableBudgetPerScientist*N for BOTH the real player law and the rival, through the SAME researchWeekQuote 3352ms
+   ✓ P13B-S8 rival research under the shared law: identical receipts, expiry/renewal, player isolation (test 2) > renewal (positive case): a rival Scientist's contract renews inside the shared 12-week window when cash is ample — the seat, and the project, stay active 3835ms
+   ✓ P13B-S8 rival research under the shared law: identical receipts, expiry/renewal, player isolation (test 2) > expiry (negative case): when the rival cannot afford the renewal's signing bonus + reserve, the contract lapses at its own end — the seat becomes ineligible, and the project pauses (the same "no eligible seats" law the player's own researchAfterEmploymentRelease produces) 6958ms
+   ✓ P13B-S8 rival research under the shared law: identical receipts, expiry/renewal, player isolation (test 2) > coverage: the player's cash and ledger are byte-identical across two states differing only in whether a rival runs active research 4645ms
+ ✓ |core| tests/p14a1-settlement.test.ts (3 tests) 2583ms
+   ✓ P14A.1 test 5: atomic settlement > a dominant incumbent proposal wins deterministically at the decision week, with order-only reasons and no amounts 1338ms
+   ✓ P14A.1 test 5: atomic settlement > price drift does not invalidate a proposal's version: a proposal submitted at the window's first week settles at the re-derived decision-week price, not the submission-week quote 643ms
+   ✓ P14A.1 test 5: atomic settlement > the digest covers material terms only: a price drift leaves the version digest unchanged 600ms
+ ✓ |core| tests/p13b-s8-save-v27.test.ts (8 tests) 2540ms
+   ✓ P13B-S8 Save V27: genuine V26 fixtures, honest lift, conditional downgrade, validator refusals, sentinel 28 (test 7) > downgrade REFUSED: a NATURAL campaign whose rival genuinely admitted a Laboratory carries a nonzero researchCapacity movement, and save.migrateToV26 refuses it 1005ms
+   ✓ P13B-S8 Save V27: genuine V26 fixtures, honest lift, conditional downgrade, validator refusals, sentinel 28 (test 7) > downgrade REFUSED: the same natural campaign also carries a new receipt kind (laboratoryCommitted/laboratoryOperational), independently sufficient to refuse V27->V26 459ms
+ ✓ |core| tests/p13b-s8-capacity.test.ts (5 tests) 1951ms
+   ✓ P13B-S8 rival Laboratory/instrument capacity: receipts, <=2x4, reserveWeeks (test 1) > completion: a committed Laboratory becomes an abstract {capability: "laboratory", capacity: 4} facility on the rival operations at the plan's completion week, with a laboratoryOperational {facilityId} receipt, and no placement record is ever written for it 544ms
+   ✓ P13B-S8 rival Laboratory/instrument capacity: receipts, <=2x4, reserveWeeks (test 1) > bound: a rival never holds more than 2 Laboratories, each never exceeding 4 seats of capacity — repeated admission past the bound is a no-op, not a refusal that leaves partial state 990ms
+   ✓ P13B-S8 rival Laboratory/instrument capacity: receipts, <=2x4, reserveWeeks (test 1) > coverage: once a rival Laboratory exists, the tick (advanceHollywoodWeek, via a real advanceTo) and the validator (save.exportCurrentState) do not throw — a NATURAL campaign, no forged cash (coordinator ruling: withRivalCash's `movements.capacity` patch is validator-inconsistent — the pre-existing law pins that movement to the starting capex exactly) 357ms
+ ❯ |core| tests/p14a1-decline-reasons.test.ts (2 tests | 2 failed) 1926ms
+   × P14A.1: typed decline reasons > A. tie exhaustion: two entered rivals with identical material terms and tier, tied Standing band → reason "tie exhausted", one order-only sentence naming the tied count, never "reservation" 1283ms
+     → expected 'all proposals dropped' to be 'tie exhausted' // Object.is equality
+   × P14A.1: typed decline reasons > B. all proposals dropped: a single rival proposal fails affordability at the decision week → reason "all proposals dropped", one sentence naming the studio and the bonus predicate, never "reservation" 641ms
+     → expected 'Bellwether Pictures had no seat open …' to match /bonus/i
+ ✓ |core| tests/p14a1-firing.test.ts (6 tests) 5162ms
+   ✓ P14A.1 test 7: firing — 26-week cap, R1 floor, disclosure content > the cap does NOT apply when 26 or fewer weeks remain: charge = all remaining guaranteed base salary, unchanged from today's formula at that boundary 1585ms
+   ✓ P14A.1 test 7: firing — 26-week cap, R1 floor, disclosure content > the charge law is continuous at exactly 26 weeks remaining (no cliff, §3.5 E5) 2966ms
+   ✓ P14A.1 test 7: firing — 26-week cap, R1 floor, disclosure content > the disclosure content per direction 2 states remaining duration, remaining guaranteed compensation, the cap, the exact charge, and the effective end — two branches (cap applies / cap does not apply) 540ms
+ ✓ |core| tests/p13a-rival-adoption.test.ts (2 tests) 9453ms
+   ✓ P13A shared commercial adoption and exact rival cash consequence > uses the shared player/rival eligibility function and debits only technology adoption without new plant or RNG draws 451ms
+   ✓ P13A shared commercial adoption and exact rival cash consequence > replays the actual weekly commercial purchase, reconciles its debit and creates one dated operational receipt 1353ms
+ ✓ |core| tests/p13b-s8-finance.test.ts (5 tests) 836ms
+   ✓ P13B-S8 rival finance: typed kinds and interval Opex reconcile, migration frozen, legacy grandfathered (test 4) > interval Opex: no back-charges — a Laboratory adds its weekly cost only from its own operational week, never retroactively 560ms
+ ✓ |core| tests/p13b-s7-independence.test.ts (5 tests) 29563ms
+   ✓ P13B-S7 rival-independence: identical forecast/announcements across states differing only in rival facts (test 2, PARTIAL until S8) > advanced independently to week 900 (past the lighting announcement), a rival-only fact the engine PRESERVES past ticks keeps the pair genuinely divergent, and forecasts/announcements still publish byte-identical 21299ms
+ ✓ |core| tests/p14a1-proposals.test.ts (7 tests) 6850ms
+   ✓ P14A.1 test 3: proposals — one per studio, premium tier bounds, draft reference, affordability > premium tier 1.00 equals the plain ask; the signing bonus is 18% of the priced annual, both issuers, same law 2015ms
+   ✓ P14A.1 test 3: proposals — one per studio, premium tier bounds, draft reference, affordability > a higher premium tier strictly increases the priced annual salary over 1.00 (exact tier values are OPEN; only monotonicity is pinned) 935ms
+   ✓ P14A.1 test 3: proposals — one per studio, premium tier bounds, draft reference, affordability > a below-1.00 premium tier is refused (not offered in P14A) 943ms
+   ✓ P14A.1 test 3: proposals — one per studio, premium tier bounds, draft reference, affordability > at most one current proposal per studio: a second submission from the same studio replaces (revises) rather than stacks 925ms
+   ✓ P14A.1 test 3: proposals — one per studio, premium tier bounds, draft reference, affordability > draft reference: the digest is deterministic for identical inputs and changes when a material term changes 684ms
+   ✓ P14A.1 test 3: proposals — one per studio, premium tier bounds, draft reference, affordability > affordability (player): submitProposal is refused via the accepted canAfford legality gate when the bonus would leave cash negative 738ms
+   ✓ P14A.1 test 3: proposals — one per studio, premium tier bounds, draft reference, affordability > affordability (rival): submitProposal is refused via the reserve rule when the rival's account cannot clear operatingReserve after the bonus 609ms
+ ✓ |core| tests/p13b-s8-nonleak.test.ts (5 tests) 9950ms
+   ✓ P13B-S8 non-leak: forecast/announcements identical across states differing ONLY in rival RESEARCH state (test 5, upgrades S7's PARTIAL to genuine) > advanced independently to week 900 (past the lighting announcement), the rival-research-only divergence persists in the engine roots but forecasts/announcements still publish byte-identical 1201ms
+ ✓ |core| tests/p13b-s8-adoption.test.ts (3 tests) 29819ms
+   ✓ P13B-S8 rival adoption per technology: clock timing pinned, commercial purchase unchanged (test 3) > REGRESSION (today, real code): a rival's commercial sound purchase — no plant of its own — still becomes operational EXACTLY at committedWeek + deploymentWeeks through the unchanged clock branch 10331ms
+   ✓ P13B-S8 rival adoption per technology: clock timing pinned, commercial purchase unchanged (test 3) > core: a rival RESEARCH-route adoption (no player placement at all) becomes operational through the SAME unchanged clock branch — "the rival's stage facility existing and the receipt" satisfies the P09 clause on rival bodies 19486ms
+ ✓ |core| tests/p14a1-disclosure.test.ts (3 tests) 3322ms
+   ✓ P14A.1 test 6: disclosure — UNKNOWN markers, nothing private leaks > the case, its subject and decision week, and the competing proposal's existence/issuer/term/effective-week are public to both viewers 1796ms
+   ✓ P14A.1 test 6: disclosure — UNKNOWN markers, nothing private leaks > a proposal's premium tier, salary and bonus say UNKNOWN to every studio that did not issue it — never a band, estimate or invented number 848ms
+   ✓ P14A.1 test 6: disclosure — UNKNOWN markers, nothing private leaks > nothing private leaks: the exact competing salary/bonus figures never appear anywhere in the serialized disclosure, for either viewer 676ms
+ ✓ |core| tests/p13b-s8-setup-symmetry.test.ts (4 tests) 127ms
+ ✓ |core| tests/p14a1-eligibility.test.ts (5 tests) 2935ms
+   ✓ P14A.1 test 1: market eligibility (six states; reserved rivals; in-term refusal) > renewal_window: a 52-week player contract at its window-open week (week 40) opens a case; the incumbent (player) and every ENTERED rival may propose 1824ms
+   ✓ P14A.1 test 1: market eligibility (six states; reserved rivals; in-term refusal) > reserved rivals cannot propose: row 5 (eligibleWeek 520, enteredWeek null at week 40) is excluded from the renewal_window proposer set 974ms
+ ✓ |core| tests/p14a1-rival-trigger.test.ts (2 tests) 9574ms
+   ✓ P14A.1 test 4: rival proposal trigger (pure policy) and the staff() case-subject exclusion > branch (a) — own person in the window: the trigger fires (deterministically, twice) for a rival subject at its own window-open week (196) 5171ms
+   ✓ P14A.1 test 4: rival proposal trigger (pure policy) and the staff() case-subject exclusion > staff()'s renewal loop excludes the case subject for the whole open-case span (week 196 through 207): the founding contract is never renewed early 4401ms
+ ✓ |core| tests/p14a1-case.test.ts (6 tests) 4679ms
+   ✓ P14A.1 test 2: case lifecycle, derived decision week, invalidation, underMarketCase > discovery: a case exists with status "discovered" at the exact window-open week (week 40 for a 52-week contract) 2014ms
+   ✓ P14A.1 test 2: case lifecycle, derived decision week, invalidation, underMarketCase > the decision week is derived from the subject's live endWeekExclusive, not a stored copy 928ms
+   ✓ P14A.1 test 2: case lifecycle, derived decision week, invalidation, underMarketCase > invalidation: an early release invalidates the open case 762ms
+   ✓ P14A.1 test 2: case lifecycle, derived decision week, invalidation, underMarketCase > underMarketCase: renewContract on a cased person is refused, redirecting to the proposal path 851ms
+ ✓ |core| tests/p12-lifecycle.test.ts (5 tests) 14764ms
+   ✓ R05 shared-law rival lifecycle > rejects forged owners, erased archive announcements, invented employers and invalid chart history 1917ms
+   ✓ R05 shared-law rival lifecycle > rejects forged frozen credits, double roles, and another studio’s reserved performers 610ms
+   ✓ R05 shared-law rival lifecycle > commissions, staffs, funds, operates, releases and settles real films without player RNG draws 3544ms
+   ✓ R05 shared-law rival lifecycle > expires ordinary contracts and crosses the first real arrival from elapsed play 8599ms
+ ✓ |core| tests/p12-checker.test.ts (5 tests) 38ms
+ ✓ |core| tests/p12-starting-world.test.ts (3 tests) 3081ms
+   ✓ R05 canonical starting history and genuine migration > opens four established distinct businesses with settled canonical history and protected applicants 348ms
+   ✓ R05 canonical starting history and genuine migration > migrates at each old state own week with empty company histories and exact player state 2484ms
+ ✓ |core| tests/p12-calendar.test.ts (2 tests) 17ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14a1-decline-reasons.test.ts > P14A.1: typed decline reasons > A. tie exhaustion: two entered rivals with identical material terms and tier, tied Standing band → reason "tie exhausted", one order-only sentence naming the tied count, never "reservation"
+AssertionError: expected 'all proposals dropped' to be 'tie exhausted' // Object.is equality
+
+Expected: "tie exhausted"
+Received: "all proposals dropped"
+
+ ❯ tests/p14a1-decline-reasons.test.ts:165:25
+    163|     const kase = marketOf(state).cases.find((c) => c.talentId === tale…
+    164|     expect(kase.outcome).toBe('declined')
+    165|     expect(kase.reason).toBe('tie exhausted') // RED: current code sta…
+       |                         ^
+    166| 
+    167|     const declineReceipts = marketOf(state).receipts.filter((r) => r.t…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL |core|  tests/p14a1-decline-reasons.test.ts > P14A.1: typed decline reasons > B. all proposals dropped: a single rival proposal fails affordability at the decision week → reason "all proposals dropped", one sentence naming the studio and the bonus predicate, never "reservation"
+AssertionError: expected 'Bellwether Pictures had no seat open …' to match /bonus/i
+
+- Expected: 
+/bonus/i
+
++ Received: 
+"Bellwether Pictures had no seat open for this person's role at the decision week."
+
+ ❯ tests/p14a1-decline-reasons.test.ts:211:24
+    209|     // between studioId and display name for "the studio name present".
+    210|     expect(reasons[0].includes(rivalStudioId) || reasons[0].includes(r…
+    211|     expect(reasons[0]).toMatch(/bonus/i) // the affordability predicat…
+       |                        ^
+    212|     expect(reasons[0]).not.toMatch(/reservation/i)
+    213| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+ FAIL |core|  tests/p14a1-seat-budget.test.ts > P14A.1: rival seat budget at freeze (commitRivalWinner has no seat cap; rivalProposalTrigger branch (c) fires for everyone at a synchronized expiry) > A. natural synchronized expiry at week 208 (seed 'p13-public-commercial-adoption'): every rival studio's active roster stays within RIVAL_TEAM_ROLES per role and in total at week 209
+AssertionError: expected 0 to be greater than or equal to 1
+ ❯ tests/p14a1-seat-budget.test.ts:170:30
+    168|     const receipts208 = marketOf(state).receipts.filter((r) => r.week …
+    169|     const seatDrops = receipts208.filter((r) => r.reasons.some((senten…
+    170|     expect(seatDrops.length).toBeGreaterThanOrEqual(1)
+       |                              ^
+    171|   })
+    172| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯
+
+ Test Files  2 failed | 22 passed (24)
+      Tests  3 failed | 117 passed (120)
+   Start at  11:47:49
+   Duration  203.44s (transform 2.87s, setup 0ms, collect 15.52s, tests 177.85s, environment 7ms, prepare 2.93s)
+

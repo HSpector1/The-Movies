@@ -2082,6 +2082,12 @@ export type TalentMarketReceipt = {
   talentId: string
   studioId: string | null
   reasons: readonly string[]
+  /** Every proposal DROPPED at freeze on this case, one ordering-only sentence
+   * each, empty when nothing was dropped. Carried on a SETTLED receipt too, so a
+   * studio whose own proposal was dropped learns why even when someone else won.
+   * `reasons` is untouched by it: that stays the winner's order-only reasons, or
+   * the decline's own sentences. */
+  dropped: readonly string[]
 }
 
 /**
