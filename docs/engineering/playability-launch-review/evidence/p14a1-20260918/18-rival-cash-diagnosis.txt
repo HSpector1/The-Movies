@@ -1,0 +1,285 @@
+── P14A.1 · rival cash diagnosis (READ-ONLY; no source edit; not committed by me) ──
+Disposable vite-node probes under the session scratchpad. Baseline measured in a
+throwaway worktree at ef9ff76 (the S8 close, PRE-MARKET), created with
+`git worktree add` and removed afterwards; no file was checked out in the main tree.
+COLUMN CAVEAT: `rehires` counts every employment receipt with fromStudioId === null,
+which `commitRivalWinner` and `staff()`'s seat fill BOTH write. staff()-only hires =
+rehires - won for the same interval.
+
+===== HEAD (market landed, b3ad486) =====
+
+══ HEAD · seed p13-public-commercial-adoption · founding rivals r01,r02,r03,r04 ══
+week  studio  cash            roster payroll/wk  bonusOutSinceLast  won lost declIncumbent rehires
+ 200  r01         46,841,939      6      50,756            475,073    0    0             0       0
+ 200  r02         26,142,849      6      56,980            533,332    0    0             0       0
+ 200  r03         11,693,755      6      53,783            503,402    0    0             0       0
+ 200  r04         11,937,489      6      36,291            339,681    0    0             0       0
+
+ 208  r01         45,793,626     12     127,374          1,192,230   12    0             0      12
+ 208  r02         25,589,702      6      87,463            818,657    6    0             0       6
+ 208  r03         10,172,962      6      73,347            686,529    6    0             0       6
+ 208  r04         11,243,161      0           0                  0    0    6             0       0
+
+ 216  r01         46,871,382     12     127,374                  0   12    0             0       0
+ 216  r02         24,060,529      6      87,463                  0    6    0             0       0
+ 216  r03          9,182,186      6      73,347                  0    6    0             0       0
+ 216  r04         10,209,602      6      36,265            339,439    0    6             0       6
+
+ 260  r01         46,451,938     12     127,374                  0   12    0             0       0
+ 260  r02         18,802,659      6      87,463                  0    6    0             0       0
+ 260  r03          3,732,918      6      73,347                  0    6    0             0       0
+ 260  r04          6,391,942      6      36,265                  0    0    6             0       0
+
+ 320  r01         42,826,473     16     135,374             74,880   12    0             0       4
+ 320  r02         11,530,680      6      87,463                  0    6    0             0       0
+ 320  r03         -4,157,902      6      73,347                  0    6    0             0       0
+ 320  r04            726,042      6      36,265                  0    0    6             0       0
+
+ 420  r01         36,694,893     28     267,276          2,426,828   42    0             0      24
+ 420  r02          3,284,151      6     101,617            951,140   12    0             0       6
+ 420  r03        -16,413,214      0           0                  0    0   12             0       0
+ 420  r04         -7,969,398      0           0                  0    0   12             0       0
+
+  HEAD p13-public-commercial-adoption — weekly roster/cash for r01 across 204..216:
+    w204 roster= 6 payroll=   50,756 cash=   46,526,202 signingCum=     -475,073
+    w205 roster= 6 payroll=   50,756 cash=   46,802,052 signingCum=     -475,073
+    w206 roster= 6 payroll=   50,756 cash=   46,944,582 signingCum=     -475,073
+    w207 roster= 6 payroll=   50,756 cash=   47,087,112 signingCum=     -475,073
+    w208 roster=12 payroll=  127,374 cash=   45,793,626 signingCum=   -1,667,303
+    w209 roster=12 payroll=  127,374 cash=   45,606,752 signingCum=   -1,667,303
+    w210 roster=12 payroll=  127,374 cash=   45,419,878 signingCum=   -1,667,303
+    w211 roster=12 payroll=  127,374 cash=   47,452,984 signingCum=   -1,667,303
+    w212 roster=12 payroll=  127,374 cash=   45,500,223 signingCum=   -1,667,303
+    w213 roster=12 payroll=  127,374 cash=   46,317,677 signingCum=   -1,667,303
+    w214 roster=12 payroll=  127,374 cash=   46,646,251 signingCum=   -1,667,303
+    w215 roster=12 payroll=  127,374 cash=   46,758,816 signingCum=   -1,667,303
+    w216 roster=12 payroll=  127,374 cash=   46,871,382 signingCum=   -1,667,303
+
+══ HEAD · seed p13b-s8-bridge-probe-01 · founding rivals r01,r02,r03,r04 ══
+week  studio  cash            roster payroll/wk  bonusOutSinceLast  won lost declIncumbent rehires
+ 200  r01         98,018,571      6      42,335            396,270    0    0             0       0
+ 200  r02        174,092,865      6      67,685            633,522    0    0             0       0
+ 200  r03         67,343,083      6      60,579            567,021    0    0             0       0
+ 200  r04        116,895,372      6      71,583            670,020    0    0             0       0
+
+ 208  r01        101,850,055      0           0                  0    0    0             6       0
+ 208  r02        179,038,422      6     111,720          1,045,685    6    0             0       6
+ 208  r03         69,598,343      5      80,468            753,179    5    0             1       5
+ 208  r04        121,120,248      0           0                  0    0    0             6       0
+
+ 216  r01        108,112,409      6      35,453            331,845    0    0             6       6
+ 216  r02        189,028,982      6     111,720                  0    6    0             0       0
+ 216  r03         70,637,044      6      97,492            159,345    5    0             1       1
+ 216  r04        132,509,165      6      60,363            565,005    0    0             6       6
+
+ 260  r01        108,841,543      6      35,453                  0    0    0             6       0
+ 260  r02        237,427,016      6     111,720                  0    6    0             0       0
+ 260  r03         78,484,500      6      97,492                  0    5    0             1       0
+ 260  r04        147,100,682      6      60,363                  0    0    0             6       0
+
+ 320  r01         99,008,335     10      43,453             74,880    0    0             6       4
+ 320  r02        299,404,171      6     111,720                  0    6    0             0       0
+ 320  r03         85,130,645      6      97,492                  0    5    0             1       0
+ 320  r04        173,990,587      6      60,363                  0    0    0             6       0
+
+ 420  r01         88,141,649     10      46,413            359,546    0    0            12       6
+ 420  r02        421,634,603     12     253,981          2,377,260   18    0             0      12
+ 420  r03         84,664,307      6     119,750          1,120,850   11    0             1       6
+ 420  r04        253,445,528      6      32,663            305,723    0    6             6       6
+
+  HEAD p13b-s8-bridge-probe-01 — weekly roster/cash for r01 across 204..216:
+    w204 roster= 6 payroll=   42,335 cash=  100,512,964 signingCum=     -396,270
+    w205 roster= 6 payroll=   42,335 cash=  101,167,953 signingCum=     -396,270
+    w206 roster= 6 payroll=   42,335 cash=  101,555,421 signingCum=     -396,270
+    w207 roster= 6 payroll=   42,335 cash=  101,942,890 signingCum=     -396,270
+    w208 roster= 0 payroll=        0 cash=  101,850,055 signingCum=     -396,270
+    w209 roster= 6 payroll=   35,453 cash=  101,432,257 signingCum=     -728,115
+    w210 roster= 6 payroll=   35,453 cash=  101,346,304 signingCum=     -728,115
+    w211 roster= 6 payroll=   35,453 cash=  105,168,151 signingCum=     -728,115
+    w212 roster= 6 payroll=   35,453 cash=  108,132,111 signingCum=     -728,115
+    w213 roster= 6 payroll=   35,453 cash=  109,545,422 signingCum=     -728,115
+    w214 roster= 6 payroll=   35,453 cash=  110,196,471 signingCum=     -728,115
+    w215 roster= 6 payroll=   35,453 cash=  107,724,416 signingCum=     -728,115
+    w216 roster= 6 payroll=   35,453 cash=  108,112,409 signingCum=     -728,115
+
+===== ef9ff76 — S8 CLOSE, PRE-MARKET =====
+
+══ S8CLOSE · seed p13-public-commercial-adoption · founding rivals r01,r02,r03,r04 ══
+week  studio  cash            roster payroll/wk  bonusOutSinceLast  won lost declIncumbent rehires
+ 200  r01         46,014,514      6      77,129          1,197,006    0    0             0       0
+ 200  r02         25,271,053      6      82,314          1,303,792    0    0             0       0
+ 200  r03         10,975,634      6      69,854          1,157,239    0    0             0       0
+ 200  r04         11,454,807      6      46,995            779,547    0    0             0       0
+
+ 208  r01         45,947,447      6      77,129                  0    0    0             0       0
+ 208  r02         25,333,891      6      82,314                  0    0    0             0       0
+ 208  r03         10,012,802      6      69,854                  0    0    0             0       0
+ 208  r04         10,674,847      6      46,995                  0    0    0             0       0
+
+ 216  r01         47,499,163      6      77,129                  0    0    0             0       0
+ 216  r02         23,845,910      6      82,314                  0    0    0             0       0
+ 216  r03          9,049,970      6      69,854                  0    0    0             0       0
+ 216  r04          9,894,887      6      46,995                  0    0    0             0       0
+
+ 260  r01         49,686,499      6      77,129                  0    0    0             0       0
+ 260  r02         18,814,596      6      82,314                  0    0    0             0       0
+ 260  r03          3,754,394      6      69,854                  0    0    0             0       0
+ 260  r04          5,605,107      6      46,995                  0    0    0             0       0
+
+ 320  r01         49,615,734     10      85,129             74,880    0    0             0       4
+ 320  r02         11,851,557      6      82,314                  0    0    0             0       0
+ 320  r03         -3,926,846      6      69,854                  0    0    0             0       0
+ 320  r04           -704,593      6      46,995                  0    0    0             0       0
+
+ 420  r01         50,913,027     10     106,546            922,387    0    0             0       0
+ 420  r02          2,341,817      6      96,779            905,847    0    0             0       0
+ 420  r03        -14,900,582      0           0                  0    0    0             0       0
+ 420  r04         -9,758,173      0           0                  0    0    0             0       0
+
+  S8CLOSE p13-public-commercial-adoption — weekly roster/cash for r01 across 204..216:
+    w204 roster= 6 payroll=   77,129 cash=   45,593,285 signingCum=   -1,197,006
+    w205 roster= 6 payroll=   77,129 cash=   45,842,762 signingCum=   -1,197,006
+    w206 roster= 6 payroll=   77,129 cash=   45,958,919 signingCum=   -1,197,006
+    w207 roster= 6 payroll=   77,129 cash=   46,075,076 signingCum=   -1,197,006
+    w208 roster= 6 payroll=   77,129 cash=   45,947,447 signingCum=   -1,197,006
+    w209 roster= 6 payroll=   77,129 cash=   45,819,818 signingCum=   -1,197,006
+    w210 roster= 6 payroll=   77,129 cash=   45,692,189 signingCum=   -1,197,006
+    w211 roster= 6 payroll=   77,129 cash=   47,784,540 signingCum=   -1,197,006
+    w212 roster= 6 payroll=   77,129 cash=   45,891,024 signingCum=   -1,197,006
+    w213 roster= 6 payroll=   77,129 cash=   46,767,723 signingCum=   -1,197,006
+    w214 roster= 6 payroll=   77,129 cash=   47,155,542 signingCum=   -1,197,006
+    w215 roster= 6 payroll=   77,129 cash=   47,327,352 signingCum=   -1,197,006
+    w216 roster= 6 payroll=   77,129 cash=   47,499,163 signingCum=   -1,197,006
+
+══ S8CLOSE · seed p13b-s8-bridge-probe-01 · founding rivals r01,r02,r03,r04 ══
+week  studio  cash            roster payroll/wk  bonusOutSinceLast  won lost declIncumbent rehires
+ 200  r01         97,166,410      6      76,460          1,111,931    0    0             0       0
+ 200  r02        172,965,183      6     104,672          1,613,256    0    0             0       0
+ 200  r03         66,353,227      6      92,229          1,430,277    0    0             0       0
+ 200  r04        115,829,943      6     101,180          1,617,061    0    0             0       0
+
+ 208  r01        100,724,894      6      76,460                  0    0    0             0       0
+ 208  r02        178,660,529      6     104,672                  0    0    0             0       0
+ 208  r03         69,108,466      6      92,229                  0    0    0             0       0
+ 208  r04        119,818,043      6     101,180                  0    0    0             0       0
+
+ 216  r01        103,058,288      6      76,460                  0    0    0             0       0
+ 216  r02        188,707,473      6     104,672                  0    0    0             0       0
+ 216  r03         70,335,439      6      92,229                  0    0    0             0       0
+ 216  r04        130,695,258      6     101,180                  0    0    0             0       0
+
+ 260  r01        122,967,162      6      76,460                  0    0    0             0       0
+ 260  r02        237,415,619      6     104,672                  0    0    0             0       0
+ 260  r03         79,879,410      6      92,229                  0    0    0             0       0
+ 260  r04        161,172,250      6     101,180                  0    0    0             0       0
+
+ 320  r01        133,199,366     10      84,460             74,880    0    0             0       4
+ 320  r02        299,815,654      6     104,672                  0    0    0             0       0
+ 320  r03         89,346,947      6      92,229                  0    0    0             0       0
+ 320  r04        203,277,237      6     101,180                  0    0    0             0       0
+
+ 420  r01        180,824,509     10     115,959          1,010,496    0    0             0       0
+ 420  r02        423,676,220      6     133,506          1,249,618    0    0             0       0
+ 420  r03         93,397,530      6     114,056          1,067,568    0    0             0       0
+ 420  r04        305,241,184      6     128,842          1,205,969    0    0             0       0
+
+  S8CLOSE p13b-s8-bridge-probe-01 — weekly roster/cash for r01 across 204..216:
+    w204 roster= 6 payroll=   76,460 cash=   99,524,303 signingCum=   -1,111,931
+    w205 roster= 6 payroll=   76,460 cash=  100,145,167 signingCum=   -1,111,931
+    w206 roster= 6 payroll=   76,460 cash=  100,498,510 signingCum=   -1,111,931
+    w207 roster= 6 payroll=   76,460 cash=  100,851,854 signingCum=   -1,111,931
+    w208 roster= 6 payroll=   76,460 cash=  100,724,894 signingCum=   -1,111,931
+    w209 roster= 6 payroll=   76,460 cash=  100,597,934 signingCum=   -1,111,931
+    w210 roster= 6 payroll=   76,460 cash=  100,470,974 signingCum=   -1,111,931
+    w211 roster= 6 payroll=   76,460 cash=  104,251,814 signingCum=   -1,111,931
+    w212 roster= 6 payroll=   76,460 cash=  100,381,970 signingCum=   -1,111,931
+    w213 roster= 6 payroll=   76,460 cash=  101,754,274 signingCum=   -1,111,931
+    w214 roster= 6 payroll=   76,460 cash=  102,364,316 signingCum=   -1,111,931
+    w215 roster= 6 payroll=   76,460 cash=  102,711,302 signingCum=   -1,111,931
+    w216 roster= 6 payroll=   76,460 cash=  103,058,288 signingCum=   -1,111,931
+
+═════ THE §48 COMMERCIAL-PURCHASE GATE AT WEEK 416, BOTH WORLDS ═════
+seed p13-public-commercial-adoption. Gate (technologyRival.ts:48):
+  refuse when  cash < cost + rivalWeeklyOperatingCost(business, hollywood, week) × policy.reserveWeeks
+
+ef9ff76 — S8 CLOSE, PRE-MARKET
+studio  cash            roster payroll/wk   opCost/wk  resWks  reserve      cash-cost-reserve  passes
+r01      51,399,560        10     106,546     168,046      13   2,184,598         47,739,962   YES
+r02       4,413,933         6      96,779     149,279      18   2,687,022           +251,911   YES  <= buys
+r03     -14,726,582         0           0      43,500      20     870,000        -17,071,582   no
+r04      -9,584,173         0           0      43,500      15     652,500        -11,711,673   no
+first purchase-route adoption: week 416 by ...-r02 (entered week 0)
+
+HEAD — MARKET LANDED
+r01      37,932,346        28     267,276     355,776      13   4,625,088         31,832,258   YES (already adopted by RESEARCH, so no purchase route)
+r02       3,900,619         6     101,617     154,117      18   2,774,106           -348,487   no   <= misses by 348,487
+r03     -16,239,214         0           0      43,500      20     870,000        -18,584,214   no
+r04      -7,795,398         0           0      43,500      15     652,500         -9,922,898   no
+first purchase-route adoption: week 520 by ...-r05 (entered week 520)
+
+r02's whole delta, from its cumulative movements at week 416:
+  payroll  -29,624,320 -> -30,044,144   (+419,824)
+  signing   -2,209,639 ->  -2,303,129   ( +93,490)
+  every other kind BYTE-IDENTICAL (production, marketing, facilityOpex, overhead,
+  capacity, researchCapacity, studioRevenue all unchanged)
+  total +513,314 spent; reserve rose +87,084 (payroll 96,779 -> 101,617, +5.0%)
+  → +600,398 against a +251,911 margin. The purchase falls to the next eligible studio.
+
+═════ THE FIVE HYPOTHESES, AGAINST THE NUMBERS ═════
+H1 duplicate payroll during the open span 196->208 — REFUTED. The weekly trace for
+   r01 (both seeds) holds roster = 6 and signingCum FLAT at w204, 205, 206, 207 and
+   only moves at w208. staff()'s §2.1.3 case-subject exclusion works; no replacement
+   is hired while a case is open.
+H2 premium tiers raise payroll 5-10% only — CONFIRMED, and it is the DECISIVE margin
+   here: r02's weekly payroll 96,779 -> 101,617 is +5.0%, exactly in band, and the
+   cumulative +419,824 by week 416 is most of the 513,314 that costs r02 the purchase.
+H3 a signing bonus per settlement and per free-agent re-hire — CONFIRMED but SMALL:
+   r02 +93,490 across 416 weeks; r01's twelve week-208 settlements cost 1,192,230
+   against 45.8M of cash.
+H4 a double charge at commitRivalWinner — REFUTED. r01's signingCum moves ONCE at
+   w208 (-475,073 -> -1,667,303 = 1,192,230 for 12 settlements, ~99k each, one bonus
+   per person) and is then FLAT through w216: no staff() charge for the same person,
+   no second row paid.
+H5 challenger wins shuffle people across rivals with a bonus each cycle — CONFIRMED,
+   and it is the large roster effect: on p13-public-commercial-adoption r01 wins 12
+   at week 208 (its own 6 plus all 6 of r04's), roster 6 -> 12, payroll 50,756 ->
+   127,374; r04 drops to roster 0, refills all 6 seats at week 216 for a fresh
+   339,439, and loses them again. By week 420 r01 holds 28 people on a six-seat team
+   (RIVAL_TEAM_ROLES) at 267,276/week, having won 42 cases.
+
+═════ CAUSE (one paragraph) ═════
+The rival cash collapse the re-expression attributed to the market is INHERITED and
+pre-market. At ef9ff76, with no talent market in the build at all, r03 is already
+-14,726,582 and r04 -9,584,173 at week 416, both at roster 0, and r02 already caps
+near 4.4M; under the market those become -16,239,214, -7,795,398 and 3,900,619 —
+r03 1.5M worse, r04 1.8M BETTER, r02 0.5M worse. The market did not create that
+trajectory and does not meaningfully deepen it; the P13B-S8 rival economy already
+ran r03 and r04 into permanent insolvency on this seed. What the market genuinely
+changed is one 348,487-dollar margin: a settlement re-signs a rival's own person at
+a PREMIUM TIER instead of staff()'s plain ask, which cost r02 419,824 of extra
+payroll and 93,490 of extra bonuses by week 416 and raised its operating reserve by
+87,084 — enough to flip its +251,911 slack at the week-416 gate to -348,487, so the
+first commercial synchronized-sound purchase falls from r02 at week 416 to the
+later-entering r05 at week 520. That is GENUINE BEHAVIOUR under the pinned
+settlement law and the OPEN rival tier hypothesis: a contested re-signing is
+supposed to cost more than an uncontested renewal, and r02 was 251,911 from the gate
+before the market existed.
+
+═════ THE ONE DEFECT, AND ITS EXACT SITE ═════
+Separately from the cash question, the measurements expose a roster the law does not
+intend. `commitRivalWinner` (src/core/talentMarket.ts) appends the winner's
+employment row and pushes its ordinal onto activeEmploymentOrdinals with NO seat
+budget, and nothing ever releases the surplus, so a rival that wins challenger cases
+grows past RIVAL_TEAM_ROLES without bound: r01 goes 6 -> 12 (week 208) -> 16 (320)
+-> 28 (420), paying payroll on 28 people for a six-role team forever, which more
+than doubles its operating reserve (2,184,598 -> 4,625,088).
+The enabling predicate is `rivalProposalTrigger` branch (c),
+  const heldAtEffectiveWeek = sameRole.filter(e => e.terms.endWeekExclusive > descriptor.decisionWeek).length
+  return heldAtEffectiveWeek < required
+At a SYNCHRONIZED expiry week — which is exactly what a founding cohort signed at
+week 0 on identical 208-week terms produces — every one of the studio's own rows has
+endWeekExclusive EQUAL to the decision week, so the filter counts zero held for every
+role and branch (c) fires for every case in the industry, even though that studio's
+own settlements are about to refill those very seats. Every rival therefore bids on
+every person, and whoever wins keeps them all on top of its retained roster. No fix
+proposed here.
