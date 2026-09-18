@@ -577,14 +577,14 @@ describe('requirement 6: player-safe; a legacy production publishes setup: null 
 })
 
 describe('extra pin (parent instruction): the bridge\'s save/load "converted" report against the CURRENT save version, not a stale literal 23 (bridge/session.ts:123)', () => {
-  it('RED: a genuine CURRENT (V25) checkpoint saved and reloaded through the SAME bridge session reports converted: false', () => {
+  it('RED: a genuine CURRENT (live-version) checkpoint saved and reloaded through the SAME bridge session reports converted: false', () => {
     const state = withCash(operationsStudio('bridge-r07-converted-current'), 5_000_000)
     const session = new BridgeSession(state, 'bridge-r07-converted-current')
     const saved = session.save(control(session, nextCommandId('save')))
     expect(saved.accepted).toBe(true)
     if (!saved.accepted) throw new Error(`save refused: ${JSON.stringify(saved)}`)
     const parsedSaveVersion = (JSON.parse(saved.saveJson) as { saveVersion: number }).saveVersion
-    expect(parsedSaveVersion).toBe(27) // the CURRENT live version — confirms this is not genuinely a migration
+    expect(parsedSaveVersion).toBe(28) // the CURRENT live version — confirms this is not genuinely a migration
 
     const loaded = session.load(control(session, nextCommandId('load')))
     expect(loaded.accepted).toBe(true)

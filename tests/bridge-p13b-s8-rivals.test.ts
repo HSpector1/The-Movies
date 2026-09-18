@@ -49,7 +49,7 @@
 //     abandoned: EVERY bridge read (`session.industry()`, `session.snapshot()`)
 //     unconditionally computes `stateDigest()` -> `exportSaveJson` ->
 //     `exportCurrentState` -> the FULL save validator chain
-//     (`validateSaveV27` down through `validateTechnologyRoot`), so any
+//     (`validateSaveV28` down through `validateTechnologyRoot`), so any
 //     receipt whose backing state fact is not itself fully validator-consistent
 //     throws a HARNESS error before any bridge assertion can run (confirmed:
 //     an unreconciled `researchCapacity` movement throws "research capacity
@@ -80,7 +80,7 @@
 //     `session.load()` DOES expose `converted` (via its `message` field,
 //     `bridge/session.ts` ~1957-1959) but unconditionally validates its input
 //     through `validateCanonicalCurrentSave`, which throws unless the saved
-//     JSON is EXACTLY the canonical current (V27) save — so `session.load()`
+//     JSON is EXACTLY the canonical current (live-version) save — so `session.load()`
 //     can never legitimately observe a genuine cross-version migration. This
 //     is the SAME architecture gap `tests/bridge-p13b-r07-setup.test.ts`'s own
 //     "extra pin" describe block already names and leaves OMITTED for exactly
@@ -89,7 +89,7 @@
 //     RED"). Item 1's "converted: true for a genuine V26 fixture load" is
 //     therefore tested the same way `tests/bridge-p13b-s2-labs.test.ts`'s own
 //     case 6 already does for a V21 fixture: asserted TRUE BY CONSTRUCTION
-//     (`saveVersion 26 !== LIVE_SAVE_VERSION 27`) via a code comment beside a
+//     (`saveVersion 26 !== LIVE_SAVE_VERSION`) via a code comment beside a
 //     `fromSaveJson` load, never as a directly observed wire boolean — an
 //     UNSATISFIABLE premise against the current session API, named rather
 //     than worked around with an illegitimate construction (matching the
@@ -210,19 +210,19 @@ describe('P13B-S8-T3 item 1: projection version bump 40 -> 41; converted flag', 
     expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(41)
   })
 
-  it('converted: false for a genuine current V27 save, round-tripped through save()/load() on the SAME session (regression guard — matches tests/bridge-p13b-r07-setup.test.ts\'s own now-fixed case)', () => {
+  it('converted: false for a genuine current live-version save, round-tripped through save()/load() on the SAME session (regression guard — matches tests/bridge-p13b-r07-setup.test.ts\'s own now-fixed case)', () => {
     const session = new BridgeSession(WEEK13, 'p13b-s8-converted-false')
     const saved = session.save(control(session, nextCommandId('save')))
     expect(saved.accepted).toBe(true)
     if (!saved.accepted) throw new Error(`save refused: ${JSON.stringify(saved)}`)
-    expect((JSON.parse(saved.saveJson) as { saveVersion: number }).saveVersion).toBe(27)
+    expect((JSON.parse(saved.saveJson) as { saveVersion: number }).saveVersion).toBe(28)
     const loaded = session.load(control(session, nextCommandId('load')))
     expect(loaded.accepted).toBe(true)
     if (!loaded.accepted) throw new Error(`load refused: ${JSON.stringify(loaded)}`)
     expect(loaded.message).toBe('Authoritative TypeScript save loaded.')
   })
 
-  it('converted: true BY CONSTRUCTION for a genuine V26 fixture load (legacy-v26-lighting-restored-795, saveVersion 26 !== LIVE_SAVE_VERSION 27) — see header for why this cannot be a directly observed wire boolean through the current session API', () => {
+  it('converted: true BY CONSTRUCTION for a genuine V26 fixture load (legacy-v26-lighting-restored-795, saveVersion 26 !== LIVE_SAVE_VERSION) — see header for why this cannot be a directly observed wire boolean through the current session API', () => {
     const json = load('./fixtures/p13b/legacy-v26-lighting-restored-795.json.gz')
     assertSha256(json, 'f48da034f2bd64c35b23361ab12726b2ba0a8f02a7d8dc59caa84055f92f5314')
     const parsed = JSON.parse(json) as { saveVersion: number; state: { market: { tick: number } } }
@@ -371,8 +371,8 @@ describe('P13B-S8-T3 item 5: the bridge accepts a real S8 state on snapshot(); h
   })
 })
 
-describe('P13B-S8-T3 item 6: Save V27 round-trip, Save As, genuine V26 fixture loads', () => {
-  it('a V27 save round-trips through the bridge byte-identically (week 288, real S8 facts: all five receipt kinds, nonzero researchCapacity/researchSpend)', () => {
+describe('P13B-S8-T3 item 6: live-version save round-trip, Save As, genuine V26 fixture loads', () => {
+  it('a live-version save round-trips through the bridge byte-identically (week 288, real S8 facts: all five receipt kinds, nonzero researchCapacity/researchSpend)', () => {
     // MEASURED (this run): comparing the raw in-memory GameState before/after
     // via `toEqual` is a FALSE negative unrelated to S8 — some floating-point
     // fields on this natural campaign hold `-0` (e.g. `genreExpBefore`,
@@ -386,7 +386,7 @@ describe('P13B-S8-T3 item 6: Save V27 round-trip, Save As, genuine V26 fixture l
     const savedBefore = session.save(control(session, nextCommandId('save-before')))
     expect(savedBefore.accepted).toBe(true)
     if (!savedBefore.accepted) throw new Error(`save refused: ${JSON.stringify(savedBefore)}`)
-    expect((JSON.parse(savedBefore.saveJson) as { saveVersion: number }).saveVersion).toBe(27)
+    expect((JSON.parse(savedBefore.saveJson) as { saveVersion: number }).saveVersion).toBe(28)
     const loaded = session.load(control(session, nextCommandId('load')))
     expect(loaded.accepted).toBe(true)
     if (!loaded.accepted) throw new Error(`load refused: ${JSON.stringify(loaded)}`)

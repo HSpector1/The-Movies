@@ -116,11 +116,13 @@ describe('Owner UX outgoing projection20 migration', () => {
     for(const [beforeJson,afterJson,afterDigest] of [[predecessor.currentSaveJson,next.currentSaveJson,next.currentStateDigest],[predecessor.savedSaveJson,next.savedSaveJson,next.savedStateDigest]]){
       if(beforeJson===null){expect(afterJson).toBeNull();expect(afterDigest).toBeNull();continue}
       const before=JSON.parse(beforeJson),after=JSON.parse(afterJson!)
-      expect(after.saveVersion).toBe(27)
-      const {hollywood,technology,physicalPlans,...oldRoots}=after.state
+      expect(after.saveVersion).toBe(28)
+      const {hollywood,technology,physicalPlans,talentMarket,...oldRoots}=after.state
       expect(technology).toEqual({ version: 4, recordingStartedWeek: before.state.market.tick, cooperationFromWeek: before.state.market.tick, projects: [], access: [], adoptions: [], productions: [], equipment: [], nextEquipmentId: 0 })
       // P13B-S3: V23 adds the physical-plan root, empty at the migration week.
       expect(physicalPlans).toEqual({ version: 1, nextPlanId: 1, plans: [] })
+      // P14A.1: V28 adds the contested-market root, empty at the migration week.
+      expect(talentMarket).toEqual({ cases: [], proposals: [], receipts: [], representation: null })
       for (const person of oldRoots.talent) {
         expect(person.skills.research).toEqual(Object.fromEntries(['scientificMethod','acoustics','instrumentation','experimentation','engineering','documentation'].map(skill => [skill,{ actual: 1, perceived: 1 }])))
         expect(person.workHistory.research).toBe(0)

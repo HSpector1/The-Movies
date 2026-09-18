@@ -517,7 +517,7 @@ describe('case 8: player-safe — no rival plan, planId or facility ever appears
     // `nextPlanId`. This fixture (`p13aLaboratorySlice`, week 12) already carries
     // one such real rival plan per entered rival — use it directly instead of
     // forging a row (a forged `${rivalStudioId}:plan:1` now DUPLICATES this genuine
-    // plan's id and `validateSaveV27` refuses it inside `stateDigest()`: "Physical
+    // plan's id and `validateSaveV28` refuses it inside `stateDigest()`: "Physical
     // plans save: duplicate plan id studio-aca408ec-r01:plan:1").
     const rivalPlan: PhysicalPlan = required(queued.physicalPlans.plans.find(p => p.studioId === rivalStudioId),
       'no genuine rival plan on this fixture — the S8 admission premise this case now rests on has changed again')
