@@ -502,23 +502,27 @@ describe('case 7: stale revision', () => {
 })
 
 describe('case 8: player-safe — no rival plan, planId or facility ever appears', () => {
-  it('a structurally injected rival plan row never appears on the player plans view, in no action id, and its studio id leaks nowhere in the page', () => {
+  it('a genuine rival physical plan never appears on the player plans view, in no action id, and its studio id leaks nowhere in the page', () => {
     const base = p13aLaboratorySlice()
     const laboratoryFacilityId = base.operations.facilities.find(f => f.capability === 'laboratory')!.id
     const queued = queuePlan(base, { kind: 'installation', blueprintId: 'acoustic-instruments', target: { facilityId: laboratoryFacilityId } }, ACOUSTIC_COST)
     const own = queued.hollywood!.playerStudioId
     const rivalStudioId = queued.hollywood!.identities.find(i => i.studioId !== own)!.studioId
     const ownPlan = ownPlans(queued)[0]!
-    // Structural injection — the same idiom tests/p13b-s3-admission.test.ts's own
-    // rival-symmetry test and tests/bridge-p13b-s2-labs.test.ts's case 8 use: this
-    // engine has no public action path that grows a genuine rival physical plan.
-    const rivalPlan: PhysicalPlan = { ...ownPlan, id: `${rivalStudioId}:plan:1`, studioId: rivalStudioId }
-    const withRival: GameState = {
-      ...queued,
-      physicalPlans: { ...queued.physicalPlans, nextPlanId: queued.physicalPlans.nextPlanId + 1, plans: [...queued.physicalPlans.plans, rivalPlan] },
-    }
+    // P13B-S8 ENGINE FACT (c609e0a, `admitRivalPlans` in `src/core/rivalResearch.ts`):
+    // the earlier premise here ("this engine has no public action path that grows a
+    // genuine rival physical plan") is FALSIFIED — a rival now genuinely admits its
+    // own Laboratory plan every natural week, minted from the RIVAL's OWN id
+    // sequence (`${studioId}:plan:${ordinal}`), never touching the player's
+    // `nextPlanId`. This fixture (`p13aLaboratorySlice`, week 12) already carries
+    // one such real rival plan per entered rival — use it directly instead of
+    // forging a row (a forged `${rivalStudioId}:plan:1` now DUPLICATES this genuine
+    // plan's id and `validateSaveV27` refuses it inside `stateDigest()`: "Physical
+    // plans save: duplicate plan id studio-aca408ec-r01:plan:1").
+    const rivalPlan: PhysicalPlan = required(queued.physicalPlans.plans.find(p => p.studioId === rivalStudioId),
+      'no genuine rival plan on this fixture — the S8 admission premise this case now rests on has changed again')
 
-    const session = new BridgeSession(withRival, 'p13b-s3-plans-8-player-safe')
+    const session = new BridgeSession(queued, 'p13b-s3-plans-8-player-safe')
     const plans = plansPage(session, nextRequestId('player-safe'))
     expect(plans.rows).toHaveLength(1)
     expect(plans.rows[0]!.planId).toBe(ownPlan.id)

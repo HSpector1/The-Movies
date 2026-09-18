@@ -427,10 +427,18 @@ describe('P13B-S8-T3 item 6: Save V27 round-trip, Save As, genuine V26 fixture l
     try {
       const savedOriginal = await runtime.campaign(await request(runtime, 'saveAs', { label: 'Original' }))
       expect(savedOriginal.accepted).toBe(true)
+      expect(library(store).records).toHaveLength(1) // the library listing: exactly one slot after the first Save As
+      const originalId = library(store).activeCampaignId!
+      expect(originalId).toBe(library(store).records[0]!.id)
       const originalRows = activitiesOf(await runtime.read(s => industryQuery(s as unknown as BridgeSession, 'pulse')))
 
       const savedCopy = await runtime.campaign(await request(runtime, 'saveAs', { label: 'Active copy' }))
       expect(savedCopy.accepted).toBe(true)
+      // The library listing now carries BOTH slots, each keeping its own copy of the
+      // same rival-research-bearing world; the new slot becomes active.
+      expect(library(store).records).toHaveLength(2)
+      expect(library(store).records.map(r => r.label).sort()).toEqual(['Active copy', 'Original'])
+      expect(library(store).activeCampaignId).not.toBe(originalId)
       const copyRows = activitiesOf(await runtime.read(s => industryQuery(s as unknown as BridgeSession, 'pulse')))
 
       expect(copyRows).toEqual(originalRows)

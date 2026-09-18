@@ -1,0 +1,35 @@
+=== npx vitest run tests/bridge-p13b-s8-rivals.test.ts tests/bridge-p13b-s3-plans.test.ts --minWorkers=1 --maxWorkers=1 --reporter=dot ===
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/bridge-p13b-s3-plans.test.ts (11 tests) 9376ms
+   ✓ case 1: a fresh studio publishes an empty plans page; plans is null off the plans view > snapshotVersion 36; rows and actions are both empty arrays on a fresh studio; laboratory view carries plans: null 992ms
+   ✓ case 2: the Laboratory-page acoustic companion queues, admits and appears on the plans page > plan-queue-acoustic-<lab> exists beside instruments-<lab> naming the cost/build-weeks/no-reservation facts; dispatching it queues a full row on the plans view; one bridge advance starts it, writing planQueued/planStarted history; the acoustic companion then disappears while electrical still offers 1220ms
+   ✓ case 3: the envelope hold (insufficient cash) and the changed-quote hold (forged fingerprint) > a queued electrical plan with cash spent below its cost stays queued after an advance, with next.reason === "insufficient cash" 1100ms
+   ✓ case 3: the envelope hold (insufficient cash) and the changed-quote hold (forged fingerprint) > a forged approvedQuote.fingerprint holds at the next boundary; plan-review-<planId> names the approved/pending figures; dispatching it re-queues with the pending fingerprint promoted, then it starts 1354ms
+   ✓ case 4: cancel blocks its dependent; a started plan has no cancel row > cancelling the predecessor cancels it and blocks the dependent, naming it, with matching history rows; the cancel row disappears; an independently STARTED plan carries no cancel row at all 1185ms
+   ✓ case 5: reorder > three independent queued plans: move-down swaps ordinals 1<->2 on the wire; move-up is disabled at the top and move-down at the bottom 897ms
+   ✓ case 6: admission mode toggle > the mode NOT currently set is the only admission action offered; dispatching it flips the row's admission 1021ms
+   ✓ case 7: stale revision > a plans intent submitted with a stale expectedStateRevision is refused with STALE_REVISION, and that specific attempt changes nothing 1138ms
+ ✓ |core| tests/bridge-p13b-s8-rivals.test.ts (17 tests) 8725ms
+   ✓ P13B-S8-T3 item 1: projection version bump 40 -> 41; converted flag > converted: false for a genuine current V27 save, round-tripped through save()/load() on the SAME session (regression guard — matches tests/bridge-p13b-r07-setup.test.ts's own now-fixed case) 968ms
+   ✓ P13B-S8-T3 item 1: projection version bump 40 -> 41; converted flag > converted: true BY CONSTRUCTION for a genuine V26 fixture load (legacy-v26-lighting-restored-795, saveVersion 26 !== LIVE_SAVE_VERSION 27) — see header for why this cannot be a directly observed wire boolean through the current session API 336ms
+   ✓ P13B-S8-T3 item 3: rival finance exposed only through existing public standings > researchCapacity, technologyRestoration and technologyRefund never appear on the industry pulse page, the Laboratory page, or session.snapshot() (week 13: researchCapacity is genuinely nonzero from real rival Lab admission) 338ms
+   ✓ P13B-S8-T3 item 3: rival finance exposed only through existing public standings > the player's own finance researchSpend channel reads $0 in every window even while the rival's real researchSpend is nonzero elsewhere in the same state (week 288) 479ms
+   ✓ P13B-S8-T3 item 5: the bridge accepts a real S8 state on snapshot(); history projections ignore the five kinds > session.snapshot() does not throw on a naturally-reached state carrying all five S8 receipt kinds and genuinely nonzero researchCapacity/researchSpend (week 288) 366ms
+   ✓ P13B-S8-T3 item 5: the bridge accepts a real S8 state on snapshot(); history projections ignore the five kinds > the player's own History (historyProjection, a disjoint root from IndustryReceipt) is untouched: session.snapshot() does not throw and its history section mentions none of the five kinds (week 288) 363ms
+   ✓ P13B-S8-T3 item 6: Save V27 round-trip, Save As, genuine V26 fixture loads > a V27 save round-trips through the bridge byte-identically (week 288, real S8 facts: all five receipt kinds, nonzero researchCapacity/researchSpend) 2609ms
+   ✓ P13B-S8-T3 item 6: Save V27 round-trip, Save As, genuine V26 fixture loads > a Save As world keeps the same rival receipts and publishes identical industry rows (week 13, natural rival Lab facts) 1975ms
+   ✓ P13B-S8-T3 item 6: Save V27 round-trip, Save As, genuine V26 fixture loads > the three genuine V26 fixtures load through the bridge (sha256 verified) and their industry pulse page carries no S8-kind text anywhere (V26 predates S8; converted true by construction as item 1 documents) 863ms
+
+ Test Files  2 passed (2)
+      Tests  28 passed (28)
+   Start at  06:07:34
+   Duration  29.27s (transform 3.02s, setup 0ms, collect 10.12s, tests 18.10s, environment 1ms, prepare 231ms)
+
+
+=== npm run typecheck:bridge ===
+> project-studio-core@0.1.0 typecheck:bridge
+> tsc -p tsconfig.bridge.json
+
+typecheck:bridge exit code: 0
