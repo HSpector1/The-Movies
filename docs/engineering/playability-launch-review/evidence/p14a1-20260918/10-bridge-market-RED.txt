@@ -1,0 +1,235 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ × |core| tests/bridge-p14a1-market.test.ts > group 1: PROJECTION_VERSION > PROJECTION_VERSION is 42; the schema $id and x-project-studio.projectionVersion move with it
+   → expected 41 to be 42 // Object.is equality
+ × |core| tests/bridge-p14a1-market.test.ts > group 3: marketProposalAction (propose/revise/withdraw) > is not yet a published intent kind
+   → expected [ 'signFoundingContract', …(23) ] to include 'marketProposalAction'
+ × |core| tests/bridge-p14a1-market.test.ts > group 3: marketProposalAction (propose/revise/withdraw) > drafts propose/revise/withdraw through the draft-to-engine conversion, with affordability via canAfford 1080ms
+   → marketProposalDraftToEngine is not a function
+ × |core| tests/bridge-p14a1-market.test.ts > group 3: marketProposalAction (propose/revise/withdraw) > the profile's renew row does not yet surface underMarketCase once a case is open — the gap the case block must close 607ms
+   → expected true to be false // Object.is equality
+ × |core| tests/bridge-p14a1-market.test.ts > group 2: profile Contract case block > publishes status, the DERIVED decision-week label, and one row per proposal — the player's own re-derived at the read week, the rival's premium/salary/bonus an explicit UNKNOWN marker 533ms
+   → marketCaseProjection is not a function
+ × |core| tests/bridge-p14a1-market.test.ts > group 2: profile Contract case block > no case block outside a case 638ms
+   → marketCaseProjection is not a function
+ × |core| tests/bridge-p14a1-market.test.ts > group 4: attention rows > a new competing proposal on a case the player has a proposal in 396ms
+   → marketCaseProjection is not a function
+ × |core| tests/bridge-p14a1-market.test.ts > group 4: attention rows > settlement completed 594ms
+   → marketCaseProjection is not a function
+ × |core| tests/bridge-p14a1-market.test.ts > group 4: attention rows > a player proposal that would currently fail 484ms
+   → marketCaseProjection is not a function
+ × |core| tests/bridge-p14a1-market.test.ts > group 4: attention rows > restricted to exactly the five named causes, and nothing else on the profile route (two causes not independently exercised — see header premises) 659ms
+   → marketCaseProjection is not a function
+ × |core| tests/bridge-p14a1-market.test.ts > group 5: disclosure narrowing > the case block's disclosed fields never leak the rival's real figures, from either serialization surface 534ms
+   → marketCaseProjection is not a function
+ × |core| tests/bridge-p14a1-market.test.ts > group 5: disclosure narrowing > bridge/industry.ts's private-contract-terms rows and bridge/people.ts's contract:null for rival-employed people are UNCHANGED for a person outside any case 658ms
+   → marketCaseProjection is not a function
+ × |core| tests/bridge-p14a1-market.test.ts > group 6: settlement on the wire > after the decision week the case reads settled with order-only reasons; the winner's employer/contract updates; the two industry receipts stay separate rows (no folded row — A.2's Pulse projection, not A.1) 719ms
+   → marketCaseProjection is not a function
+ × |core| tests/bridge-p14a1-market.test.ts > group 7: save/load > a genuine V27 fixture loads through the bridge converted, with an empty market root and no case block for its in-window subject
+   → marketCaseProjection is not a function
+ × |core| tests/bridge-p14a1-market.test.ts > group 7: save/load > a V28 save round-trips through the bridge save/load path, carrying legacyTerminations, at projection 42 306ms
+   → marketCaseProjection is not a function
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 15 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/bridge-p14a1-market.test.ts > group 1: PROJECTION_VERSION > PROJECTION_VERSION is 42; the schema $id and x-project-studio.projectionVersion move with it
+AssertionError: expected 41 to be 42 // Object.is equality
+
+- Expected
++ Received
+
+- 42
++ 41
+
+ ❯ tests/bridge-p14a1-market.test.ts:148:32
+    146| describe('group 1: PROJECTION_VERSION', () => {
+    147|   it('PROJECTION_VERSION is 42; the schema $id and x-project-studio.pr…
+    148|     expect(PROJECTION_VERSION).toBe(42)
+       |                                ^
+    149|     expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol…
+    150|     expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(4…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/15]⎯
+
+ FAIL |core|  tests/bridge-p14a1-market.test.ts > group 3: marketProposalAction (propose/revise/withdraw) > is not yet a published intent kind
+AssertionError: expected [ 'signFoundingContract', …(23) ] to include 'marketProposalAction'
+ ❯ tests/bridge-p14a1-market.test.ts:158:36
+    156| describe('group 3: marketProposalAction (propose/revise/withdraw)', ()…
+    157|   it('is not yet a published intent kind', () => {
+    158|     expect(AVAILABLE_INTENT_KINDS).toContain('marketProposalAction')
+       |                                    ^
+    159|   })
+    160| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/15]⎯
+
+ FAIL |core|  tests/bridge-p14a1-market.test.ts > group 3: marketProposalAction (propose/revise/withdraw) > drafts propose/revise/withdraw through the draft-to-engine conversion, with affordability via canAfford
+TypeError: marketProposalDraftToEngine is not a function
+ ❯ tests/bridge-p14a1-market.test.ts:165:21
+    163|     // NOT YET EXISTING: marketProposalDraftToEngine (see header). Thi…
+    164|     // this test's RED cause today.
+    165|     const propose = marketProposalDraftToEngine(state, { verb: 'propos…
+       |                     ^
+    166|     expect(propose.ok).toBe(true)
+    167|     const revise = marketProposalDraftToEngine(state, { verb: 'revise'…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/15]⎯
+
+ FAIL |core|  tests/bridge-p14a1-market.test.ts > group 3: marketProposalAction (propose/revise/withdraw) > the profile's renew row does not yet surface underMarketCase once a case is open — the gap the case block must close
+AssertionError: expected true to be false // Object.is equality
+
+- Expected
++ Received
+
+- false
++ true
+
+ ❯ tests/bridge-p14a1-market.test.ts:181:37
+    179|     // assertion on the EXISTING exported function — no invented bindi…
+    180|     const decision = contractActionDecisions(state, talentId)
+    181|     expect(decision.renewAvailable).toBe(false)
+       |                                     ^
+    182|     expect(decision.renewReason ?? '').toMatch(/market case/i)
+    183|   })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/15]⎯
+
+ FAIL |core|  tests/bridge-p14a1-market.test.ts > group 2: profile Contract case block > publishes status, the DERIVED decision-week label, and one row per proposal — the player's own re-derived at the read week, the rival's premium/salary/bonus an explicit UNKNOWN marker
+TypeError: marketCaseProjection is not a function
+ ❯ tests/bridge-p14a1-market.test.ts:196:19
+    194| 
+    195|     // NOT YET EXISTING: marketCaseProjection (see header) — this test…
+    196|     const block = marketCaseProjection(state, talentId, playerStudioId…
+       |                   ^
+    197|     expect(block.status).toBe(view.status)
+    198|     expect(block.decisionWeek).toBe(view.decisionWeek)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/15]⎯
+
+ FAIL |core|  tests/bridge-p14a1-market.test.ts > group 2: profile Contract case block > no case block outside a case
+TypeError: marketCaseProjection is not a function
+ ❯ tests/bridge-p14a1-market.test.ts:229:12
+    227|     expect(freeAgentOrUncontracted).toBeDefined()
+    228|     // NOT YET EXISTING: marketCaseProjection — RED cause.
+    229|     expect(marketCaseProjection(state, freeAgentOrUncontracted!.id, ri…
+       |            ^
+    230|   })
+    231| })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/15]⎯
+
+ FAIL |core|  tests/bridge-p14a1-market.test.ts > group 4: attention rows > a new competing proposal on a case the player has a proposal in
+TypeError: marketCaseProjection is not a function
+ ❯ tests/bridge-p14a1-market.test.ts:247:19
+    245|     const withRival = submitProposal(mineOnly, { talentId, issuerStudi…
+    246|     // NOT YET EXISTING: marketCaseProjection — RED cause.
+    247|     const block = marketCaseProjection(withRival, talentId, playerStud…
+       |                   ^
+    248|     expect(block.attentionRows.some((r) => r.cause === 'newCompetingPr…
+    249|   })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/15]⎯
+
+ FAIL |core|  tests/bridge-p14a1-market.test.ts > group 4: attention rows > settlement completed
+TypeError: marketCaseProjection is not a function
+ ❯ tests/bridge-p14a1-market.test.ts:258:19
+    256|     expect(view.status).toBe('settled')
+    257|     // NOT YET EXISTING: marketCaseProjection — RED cause.
+    258|     const block = marketCaseProjection(state, talentId, playerStudioId…
+       |                   ^
+    259|     expect(block.attentionRows.some((r) => r.cause === 'settlementComp…
+    260|   })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/15]⎯
+
+ FAIL |core|  tests/bridge-p14a1-market.test.ts > group 4: attention rows > a player proposal that would currently fail
+TypeError: marketCaseProjection is not a function
+ ❯ tests/bridge-p14a1-market.test.ts:268:19
+    266|     expect(canAfford(broke, mine.signingBonus).ok).toBe(false) // sani…
+    267|     // NOT YET EXISTING: marketCaseProjection — RED cause.
+    268|     const block = marketCaseProjection(broke, talentId, playerStudioId…
+       |                   ^
+    269|     expect(block.attentionRows.some((r) => r.cause === 'proposalWouldF…
+    270|   })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/15]⎯
+
+ FAIL |core|  tests/bridge-p14a1-market.test.ts > group 4: attention rows > restricted to exactly the five named causes, and nothing else on the profile route (two causes not independently exercised — see header premises)
+TypeError: marketCaseProjection is not a function
+ ❯ tests/bridge-p14a1-market.test.ts:275:19
+    273|     const { state, talentId, playerStudioId } = openCaseWithBothPropos…
+    274|     // NOT YET EXISTING: marketCaseProjection — RED cause.
+    275|     const block = marketCaseProjection(state, talentId, playerStudioId…
+       |                   ^
+    276|     for (const row of block.attentionRows) expect(KNOWN_ATTENTION_CAUS…
+    277|   })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/15]⎯
+
+ FAIL |core|  tests/bridge-p14a1-market.test.ts > group 5: disclosure narrowing > the case block's disclosed fields never leak the rival's real figures, from either serialization surface
+TypeError: marketCaseProjection is not a function
+ ❯ tests/bridge-p14a1-market.test.ts:290:19
+    288| 
+    289|     // NOT YET EXISTING: marketCaseProjection — RED cause.
+    290|     const block = marketCaseProjection(state, talentId, playerStudioId…
+       |                   ^
+    291|     const blockJson = JSON.stringify(block)
+    292|     expect(blockJson).not.toContain(String(rivalRealAnnual))
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/15]⎯
+
+ FAIL |core|  tests/bridge-p14a1-market.test.ts > group 5: disclosure narrowing > bridge/industry.ts's private-contract-terms rows and bridge/people.ts's contract:null for rival-employed people are UNCHANGED for a person outside any case
+TypeError: marketCaseProjection is not a function
+ ❯ tests/bridge-p14a1-market.test.ts:320:12
+    318|     // NOT YET EXISTING: marketCaseProjection — this test's RED cause:…
+    319|     // block must not exist for a peer outside any case.
+    320|     expect(marketCaseProjection(state, otherRivalEmployee!.terms.talen…
+       |            ^
+    321|   })
+    322| })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/15]⎯
+
+ FAIL |core|  tests/bridge-p14a1-market.test.ts > group 6: settlement on the wire > after the decision week the case reads settled with order-only reasons; the winner's employer/contract updates; the two industry receipts stay separate rows (no folded row — A.2's Pulse projection, not A.1)
+TypeError: marketCaseProjection is not a function
+ ❯ tests/bridge-p14a1-market.test.ts:348:19
+    346| 
+    347|     // NOT YET EXISTING: marketCaseProjection — this test's RED cause.
+    348|     const block = marketCaseProjection(state, talentId, playerStudioId…
+       |                   ^
+    349|     expect(block.status).toBe('settled')
+    350|     expect(block.settlementReasons).toEqual(disclosure.settlementReaso…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[13/15]⎯
+
+ FAIL |core|  tests/bridge-p14a1-market.test.ts > group 7: save/load > a genuine V27 fixture loads through the bridge converted, with an empty market root and no case block for its in-window subject
+TypeError: marketCaseProjection is not a function
+ ❯ tests/bridge-p14a1-market.test.ts:373:12
+    371|     // NOT YET EXISTING: marketCaseProjection — RED cause; migration i…
+    372|     // case (tests/p14a1-save-v28.test.ts), so this must read null onc…
+    373|     expect(marketCaseProjection(state, subject!.id, state.hollywood!.p…
+       |            ^
+    374|   })
+    375| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[14/15]⎯
+
+ FAIL |core|  tests/bridge-p14a1-market.test.ts > group 7: save/load > a V28 save round-trips through the bridge save/load path, carrying legacyTerminations, at projection 42
+TypeError: marketCaseProjection is not a function
+ ❯ tests/bridge-p14a1-market.test.ts:400:12
+    398|     // NOT YET EXISTING: marketCaseProjection — ties this round trip to
+    399|     // projection 42; this test's RED cause.
+    400|     expect(marketCaseProjection(reloaded.gameState, session.gameState.…
+       |            ^
+    401|   })
+    402| })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[15/15]⎯
+
+ Test Files  1 failed (1)
+      Tests  15 failed (15)
+   Start at  10:37:19
+   Duration  10.95s (transform 2.22s, setup 0ms, collect 3.04s, tests 7.47s, environment 0ms, prepare 109ms)
+

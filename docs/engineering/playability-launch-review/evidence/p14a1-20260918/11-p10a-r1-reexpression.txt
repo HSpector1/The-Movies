@@ -1,0 +1,85 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/bridge-p10a-r1-contract-quote.test.ts > P10-R1 — contract renewal / early release over the bridge > R0: the Profile publishes the legal windows and the engine's own terms; the schema publishes both intent kinds 1229ms
+ × |core| tests/bridge-p10a-r1-contract-quote.test.ts > P10-R1 — contract renewal / early release over the bridge > R1 → re-expressed under R6: the incumbent's PROPOSAL reads the engine verbatim, commits once at the quoted bonus, and refuses replay / re-use 626ms
+   → marketProposalDraftToEngine is not a function
+ ✓ |core| tests/bridge-p10a-r1-contract-quote.test.ts > P10-R1 — contract renewal / early release over the bridge > R2: a legal release carries the engine's termination cost, commits once, and keeps every recorded credit 779ms
+ ✓ |core| tests/bridge-p10a-r1-contract-quote.test.ts > P10-R1 — contract renewal / early release over the bridge > R3: a closed renewal window is an accepted ok:false answer whose id is never a commit
+ × |core| tests/bridge-p10a-r1-contract-quote.test.ts > P10-R1 — contract renewal / early release over the bridge > R4 → re-expressed under R6: a proposal draft that is no longer legal on the live state is refused once the authority moved on 973ms
+   → marketProposalDraftToEngine is not a function
+ × |core| tests/bridge-p10a-r1-contract-quote.test.ts > P10-R1 — contract renewal / early release over the bridge > R5: unknown person is a draft refusal; no contract is an accepted refusal; a changed PROPOSAL re-prices (re-expressed under R6) 654ms
+   → marketProposalDraftToEngine is not a function
+ × |core| tests/bridge-p10a-r1-contract-quote.test.ts > P10-R1 — contract renewal / early release over the bridge > R6: the engine's own refusals — unpublished term, a screenplay task (UNCHANGED); D-12 on a PROPOSAL (re-expressed under R6) 827ms
+   → marketProposalDraftToEngine is not a function
+ × |core| tests/bridge-p10a-r1-contract-quote.test.ts > P10-R1 — contract renewal / early release over the bridge > R7 → re-expressed under R6: cancellation is state-neutral for a PROPOSAL draft — drafting mutates nothing, and asking again is deterministic 599ms
+   → marketProposalDraftToEngine is not a function
+ ✓ |core| tests/bridge-p10a-r1-contract-quote.test.ts > P10-R1 — contract renewal / early release over the bridge > R6 ruling, ADDED (iii): in-window renewContract is now refused — the market-case redirect (P14A §2.1.3), verbatim 471ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 5 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/bridge-p10a-r1-contract-quote.test.ts > P10-R1 — contract renewal / early release over the bridge > R1 → re-expressed under R6: the incumbent's PROPOSAL reads the engine verbatim, commits once at the quoted bonus, and refuses replay / re-use
+TypeError: marketProposalDraftToEngine is not a function
+ ❯ tests/bridge-p10a-r1-contract-quote.test.ts:193:19
+    191|     const offer = playerOffer(state, open.talentId, 104, week)
+    192| 
+    193|     const draft = marketProposalDraftToEngine(state, { verb: 'propose'…
+       |                   ^
+    194|     expect(draft.ok).toBe(true)
+    195|     if (!draft.ok) return
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/5]⎯
+
+ FAIL |core|  tests/bridge-p10a-r1-contract-quote.test.ts > P10-R1 — contract renewal / early release over the bridge > R4 → re-expressed under R6: a proposal draft that is no longer legal on the live state is refused once the authority moved on
+TypeError: marketProposalDraftToEngine is not a function
+ ❯ tests/bridge-p10a-r1-contract-quote.test.ts:303:24
+    301|     const playerStudioId = state.hollywood!.playerStudioId
+    302| 
+    303|     const staleDraft = marketProposalDraftToEngine(state, { verb: 'pro…
+       |                        ^
+    304|     expect(staleDraft.ok).toBe(true)
+    305|     if (!staleDraft.ok) return
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/5]⎯
+
+ FAIL |core|  tests/bridge-p10a-r1-contract-quote.test.ts > P10-R1 — contract renewal / early release over the bridge > R5: unknown person is a draft refusal; no contract is an accepted refusal; a changed PROPOSAL re-prices (re-expressed under R6)
+TypeError: marketProposalDraftToEngine is not a function
+ ❯ tests/bridge-p10a-r1-contract-quote.test.ts:345:27
+    343|     const open = state.contracts.find((c) => renewalWindowOpen(c, stat…
+    344|     const playerStudioId = state.hollywood!.playerStudioId
+    345|     const firstProposal = marketProposalDraftToEngine(state, { verb: '…
+       |                           ^
+    346|     expect(firstProposal.ok).toBe(true)
+    347|     if (!firstProposal.ok) return
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/5]⎯
+
+ FAIL |core|  tests/bridge-p10a-r1-contract-quote.test.ts > P10-R1 — contract renewal / early release over the bridge > R6: the engine's own refusals — unpublished term, a screenplay task (UNCHANGED); D-12 on a PROPOSAL (re-expressed under R6)
+TypeError: marketProposalDraftToEngine is not a function
+ ❯ tests/bridge-p10a-r1-contract-quote.test.ts:393:24
+    391|     const playerStudioId = state.hollywood!.playerStudioId
+    392|     const broke: GameState = { ...state, studio: { ...state.studio, ca…
+    393|     const brokeDraft = marketProposalDraftToEngine(broke, { verb: 'pro…
+       |                        ^
+    394|     expect(brokeDraft.ok).toBe(true) // the DRAFT itself is legal; aff…
+    395|     if (!brokeDraft.ok) return
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/5]⎯
+
+ FAIL |core|  tests/bridge-p10a-r1-contract-quote.test.ts > P10-R1 — contract renewal / early release over the bridge > R7 → re-expressed under R6: cancellation is state-neutral for a PROPOSAL draft — drafting mutates nothing, and asking again is deterministic
+TypeError: marketProposalDraftToEngine is not a function
+ ❯ tests/bridge-p10a-r1-contract-quote.test.ts:407:19
+    405|     const digest = authoritativeDigest(state)
+    406| 
+    407|     const draft = marketProposalDraftToEngine(state, { verb: 'propose'…
+       |                   ^
+    408|     expect(draft.ok).toBe(true)
+    409|     expect(authoritativeDigest(state)).toBe(digest) // drafting mutate…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/5]⎯
+
+ Test Files  1 failed (1)
+      Tests  5 failed | 4 passed (9)
+   Start at  10:48:23
+   Duration  10.21s (transform 2.52s, setup 0ms, collect 3.47s, tests 6.28s, environment 0ms, prepare 129ms)
+
