@@ -1,0 +1,17 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/bridge-p14a2-market.test.ts [ tests/bridge-p14a2-market.test.ts ]
+Error: Failed to load url ../bridge/market.ts (resolved id: ../bridge/market.ts) in /Users/zacheryspector/The-Movies-headless-program/tests/bridge-p14a2-market.test.ts. Does the file exist?
+ ❯ loadAndTransform node_modules/vitest/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:51969:17
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed (1)
+      Tests  no tests
+   Start at  15:17:51
+   Duration  4.22s (transform 2.82s, setup 0ms, collect 0ms, tests 0ms, environment 0ms, prepare 124ms)
+

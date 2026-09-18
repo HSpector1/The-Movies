@@ -1,0 +1,5 @@
+
+> project-studio-core@0.1.0 typecheck:bridge
+> tsc -p tsconfig.bridge.json
+
+tests/bridge-p14a2-market.test.ts(146,79): error TS2307: Cannot find module '../bridge/market.ts' or its corresponding type declarations.
