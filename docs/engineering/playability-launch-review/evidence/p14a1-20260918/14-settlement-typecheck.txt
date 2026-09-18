@@ -1,0 +1,16 @@
+
+> project-studio-core@0.1.0 typecheck:bridge
+> tsc -p tsconfig.bridge.json
+
+typecheck:bridge exit=0
+
+── disposable probe (vite-node, not committed): the natural adoption week ──
+seed p13b-s8-bridge-probe-01, commitPlacement(research-laboratory) then advanceTo(340),
+with Task A + Task B + Task C applied:
+
+technologyAdopted receipts through week 340: [{"week":293,"studioId":"studio-efb645e3-r01"}]
+talent-market outcomes through 340: {"declined":13,"settled":11}
+
+The week did NOT return to 288. It is 293, and NOT because every case declines:
+11 of 24 cases now settle. The "every case declined" hypothesis for the slide is
+refuted by this measurement. tests/bridge-p13b-s8-rivals.test.ts was NOT adjusted.

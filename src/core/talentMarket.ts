@@ -320,9 +320,29 @@ export function proposalDraft(
     signingBonus,
     startWeek,
     endWeekExclusive: startWeek + ask.termWeeks,
-    // Key order is fixed by construction, so JSON.stringify is canonical here.
-    digest: fnv1a64(JSON.stringify([talentId, issuerStudioId, ask.termWeeks, startWeek, premiumTier, annualSalary, signingBonus])),
+    // MATERIAL terms only (companion §2.1.4). Price is DERIVED, never material:
+    // ordinary drift between submission and the decision week must not invalidate
+    // a version. Key order is fixed by construction, so JSON.stringify is canonical.
+    digest: fnv1a64(JSON.stringify([talentId, issuerStudioId, ask.termWeeks, startWeek, premiumTier])),
   }
+}
+
+/**
+ * The proposal's price AT `week`, re-derived from its MATERIAL terms through the
+ * same shared pricing entry the draft used (companion §2.1.4: "re-derives the six
+ * accepted terms through the shared pricing entry at review and at settlement").
+ * This is the ONE re-derivation reservation, affordability, ranking, the commit
+ * and every "current price" read share; the price stored on the persisted
+ * proposal is the submission-week QUOTE and is never read here.
+ */
+function proposalPriceAt(
+  state: GameState,
+  proposal: Pick<TalentMarketProposal, 'talentId' | 'issuerStudioId' | 'termWeeks' | 'premiumTier'>,
+  week: number,
+): { askAnnual: number; annualSalary: number; signingBonus: number } {
+  const ask = studioOffer(state, proposal.issuerStudioId, proposal.talentId, proposal.termWeeks, week)
+  const annualSalary = iround(ask.annualSalary * proposal.premiumTier)
+  return { askAnnual: ask.annualSalary, annualSalary, signingBonus: iround(annualSalary * TUNING.CONTRACT_SIGNING_BONUS_FRACTION) }
 }
 
 // ── affordability (companion §2.1.4; neither rule is P11's) ──────────────────
@@ -466,14 +486,17 @@ export function caseDisclosure(
     decisionWeek: view.decisionWeek,
     proposals: currentProposals(state, talentId).map((p) => {
       const mine = p.issuerStudioId === viewerStudioId
+      // The issuer's own figures are the price RE-DERIVED at the read week — the
+      // same number settlement will commit — never the submission-week quote.
+      const priced = mine ? proposalPriceAt(state, p, week) : null
       return {
         issuerStudioId: p.issuerStudioId,
         submittedWeek: p.submittedWeek,
         termWeeks: p.termWeeks,
         effectiveWeek: p.startWeek,
         premiumTier: mine ? p.premiumTier : UNKNOWN,
-        annualSalary: mine ? p.annualSalary : UNKNOWN,
-        signingBonus: mine ? p.signingBonus : UNKNOWN,
+        annualSalary: priced === null ? UNKNOWN : priced.annualSalary,
+        signingBonus: priced === null ? UNKNOWN : priced.signingBonus,
       }
     }),
     settlementReasons: settlement?.reasons ?? [],
@@ -751,10 +774,11 @@ function closeCase(
  * bonus ledger row stamped W, the free-agent filter, then `recordPlayerEmployment`
  * LAST so the P12 mirror writes the `player-contract` start. */
 function commitPlayerWinner(state: GameState, proposal: TalentMarketProposal, week: number): GameState {
+  const priced = proposalPriceAt(state, proposal, week)
   const contract: Contract = {
     talentId: proposal.talentId,
-    annualSalary: proposal.annualSalary,
-    signingBonus: proposal.signingBonus,
+    annualSalary: priced.annualSalary,
+    signingBonus: priced.signingBonus,
     startWeek: week,
     endWeekExclusive: week + proposal.termWeeks,
     termWeeks: proposal.termWeeks,
@@ -762,13 +786,13 @@ function commitPlayerWinner(state: GameState, proposal: TalentMarketProposal, we
   const entry: LedgerEntry = {
     week,
     kind: 'signingBonus',
-    amount: -proposal.signingBonus,
+    amount: -priced.signingBonus,
     talentId: proposal.talentId,
     note: 'market settlement signing bonus',
   }
   return recordPlayerEmployment({
     ...state,
-    studio: { ...state.studio, cash: state.studio.cash - proposal.signingBonus },
+    studio: { ...state.studio, cash: state.studio.cash - priced.signingBonus },
     contracts: [...state.contracts, contract],
     ledger: [...state.ledger, entry],
     freeAgents: state.freeAgents.filter((id) => id !== proposal.talentId),
@@ -780,6 +804,7 @@ function commitPlayerWinner(state: GameState, proposal: TalentMarketProposal, we
  * reason `replacement` (the closed union — a lawful hire from the free pool), its
  * ordinal, the `signing` movement and the start receipt. */
 function commitRivalWinner(state: GameState, proposal: TalentMarketProposal, week: number): GameState {
+  const priced = proposalPriceAt(state, proposal, week)
   const source = state.hollywood!
   const businesses = source.businesses.map((b) =>
     b.studioId !== proposal.issuerStudioId ? b : {
@@ -793,13 +818,13 @@ function commitRivalWinner(state: GameState, proposal: TalentMarketProposal, wee
   const contractId = `${proposal.issuerStudioId}:contract:${proposal.talentId}:${week}`
   const terms: Contract = {
     talentId: proposal.talentId,
-    annualSalary: proposal.annualSalary,
-    signingBonus: proposal.signingBonus,
+    annualSalary: priced.annualSalary,
+    signingBonus: priced.signingBonus,
     startWeek: week,
     endWeekExclusive: week + proposal.termWeeks,
     termWeeks: proposal.termWeeks,
   }
-  moveRivalMoney(business.account, 'signing', -proposal.signingBonus, week)
+  moveRivalMoney(business.account, 'signing', -priced.signingBonus, week)
   const ordinal = source.employment.length
   const receipt: IndustryReceipt = {
     eventId: `industry-event-${source.nextReceipt}`,
@@ -833,13 +858,17 @@ function survivesFreeze(state: GameState, proposal: TalentMarketProposal, week: 
   if (!enteredStudioIds(hollywood).includes(proposal.issuerStudioId)) return false
   if (subjectTerms(state, proposal.talentId, week) !== undefined) return false
   if (proposal.startWeek !== week) return false
-  // Reservation (absolute): the annual must clear the person's own ask for that term.
-  const ask = studioOffer(state, proposal.issuerStudioId, proposal.talentId, proposal.termWeeks, week)
-  if (proposal.annualSalary < ask.annualSalary) return false
-  // The draft REFERENCE is re-derived; a digest mismatch invalidates the version.
+  // Everything below is judged on the price RE-DERIVED at W, never on the
+  // submission-week quote stored on the proposal.
+  const priced = proposalPriceAt(state, proposal, week)
+  // Reservation (absolute): the re-derived annual must clear the person's own ask
+  // for that term at W — true by construction while the premium tier is ≥ 1.00
+  // (companion §2.1.7), kept explicit because it is cheap and it is the law.
+  if (priced.annualSalary < priced.askAnnual) return false
+  // The draft REFERENCE is re-derived; a MATERIAL-term mismatch invalidates the version.
   const redrawn = proposalDraft(state, proposal.issuerStudioId, proposal.talentId, proposal.termWeeks, proposal.premiumTier, week)
   if (redrawn.digest !== proposal.digest) return false
-  return affordabilityRefusal(state, proposal.issuerStudioId, proposal.signingBonus, week) === null
+  return affordabilityRefusal(state, proposal.issuerStudioId, priced.signingBonus, week) === null
 }
 
 function settleCase(state: GameState, kase: TalentMarketCase, week: number): GameState {

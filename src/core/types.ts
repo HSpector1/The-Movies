@@ -2053,6 +2053,11 @@ export type TalentMarketProposal = {
   premiumTier: number
   /** The effective week: the subject's decision week at submission. */
   startWeek: number
+  /** The SUBMISSION-WEEK QUOTE. Derived, never material: it is the figure the
+   * issuer was shown and afforded when it submitted, and it is NOT read at
+   * settlement — reservation, ranking, affordability and the commit all
+   * re-derive the price from the material terms at the decision week
+   * (companion §2.1.4). */
   annualSalary: number
   signingBonus: number
   submittedWeek: number

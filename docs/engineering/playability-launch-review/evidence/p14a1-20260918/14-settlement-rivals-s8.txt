@@ -1,0 +1,91 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/bridge-p13b-s8-rivals.test.ts (17 tests | 1 failed) 10529ms
+   ✓ P13B-S8-T3 item 1: projection version bump 40 -> 41; converted flag > converted: false for a genuine current live-version save, round-tripped through save()/load() on the SAME session (regression guard — matches tests/bridge-p13b-r07-setup.test.ts's own now-fixed case) 941ms
+   ✓ P13B-S8-T3 item 1: projection version bump 40 -> 41; converted flag > converted: true BY CONSTRUCTION for a genuine V26 fixture load (legacy-v26-lighting-restored-795, saveVersion 26 !== LIVE_SAVE_VERSION) — see header for why this cannot be a directly observed wire boolean through the current session API 354ms
+   × P13B-S8-T3 item 2: Industry page rival technology facts — laboratoryOperational publishes; the other four kinds do not; existing kinds unchanged > technologyAdopted rows are unchanged (regression guard; natural week 288, rival r01's real synchronized-sound adoption) 14ms
+     → no natural technologyAdopted receipt on the week-288 fixture
+   ✓ P13B-S8-T3 item 3: rival finance exposed only through existing public standings > researchCapacity, technologyRestoration and technologyRefund never appear on the industry pulse page, the Laboratory page, or session.snapshot() (week 13: researchCapacity is genuinely nonzero from real rival Lab admission) 323ms
+   ✓ P13B-S8-T3 item 3: rival finance exposed only through existing public standings > the player's own finance researchSpend channel reads $0 in every window even while the rival's real researchSpend is nonzero elsewhere in the same state (week 288) 490ms
+   ✓ P13B-S8-T3 item 5: the bridge accepts a real S8 state on snapshot(); history projections ignore the five kinds > session.snapshot() does not throw on a naturally-reached state carrying all five S8 receipt kinds and genuinely nonzero researchCapacity/researchSpend (week 288) 399ms
+   ✓ P13B-S8-T3 item 5: the bridge accepts a real S8 state on snapshot(); history projections ignore the five kinds > the player's own History (historyProjection, a disjoint root from IndustryReceipt) is untouched: session.snapshot() does not throw and its history section mentions none of the five kinds (week 288) 401ms
+   ✓ P13B-S8-T3 item 6: live-version save round-trip, Save As, genuine V26 fixture loads > a live-version save round-trips through the bridge byte-identically (week 288, real S8 facts: all five receipt kinds, nonzero researchCapacity/researchSpend) 3514ms
+   ✓ P13B-S8-T3 item 6: live-version save round-trip, Save As, genuine V26 fixture loads > a Save As world keeps the same rival receipts and publishes identical industry rows (week 13, natural rival Lab facts) 2415ms
+   ✓ P13B-S8-T3 item 6: live-version save round-trip, Save As, genuine V26 fixture loads > the three genuine V26 fixtures load through the bridge (sha256 verified) and their industry pulse page carries no S8-kind text anywhere (V26 predates S8; converted true by construction as item 1 documents) 1161ms
+ ✓ |core| tests/p13b-s8-research.test.ts (5 tests) 17728ms
+   ✓ P13B-S8 rival research under the shared law: identical receipts, expiry/renewal, player isolation (test 2) > player-only partition (S8 LAW item 3): advanceResearchWeek returns ONLY the player's slice — a rival-owned project contributes nothing to the player's cost/entries and is returned untouched 3925ms
+   ✓ P13B-S8 rival research under the shared law: identical receipts, expiry/renewal, player isolation (test 2) > identical receipts for identical inputs: the weekly spend for N seats fully funded on technology T is usableBudgetPerScientist*N for BOTH the real player law and the rival, through the SAME researchWeekQuote 3414ms
+   ✓ P13B-S8 rival research under the shared law: identical receipts, expiry/renewal, player isolation (test 2) > renewal (positive case): a rival Scientist's contract renews inside the shared 12-week window when cash is ample — the seat, and the project, stay active 3424ms
+   ✓ P13B-S8 rival research under the shared law: identical receipts, expiry/renewal, player isolation (test 2) > expiry (negative case): when the rival cannot afford the renewal's signing bonus + reserve, the contract lapses at its own end — the seat becomes ineligible, and the project pauses (the same "no eligible seats" law the player's own researchAfterEmploymentRelease produces) 3457ms
+   ✓ P13B-S8 rival research under the shared law: identical receipts, expiry/renewal, player isolation (test 2) > coverage: the player's cash and ledger are byte-identical across two states differing only in whether a rival runs active research 3506ms
+ ✓ |core| tests/p13b-s8-save-v27.test.ts (8 tests) 2377ms
+   ✓ P13B-S8 Save V27: genuine V26 fixtures, honest lift, conditional downgrade, validator refusals, sentinel 28 (test 7) > downgrade REFUSED: a NATURAL campaign whose rival genuinely admitted a Laboratory carries a nonzero researchCapacity movement, and save.migrateToV26 refuses it 906ms
+   ✓ P13B-S8 Save V27: genuine V26 fixtures, honest lift, conditional downgrade, validator refusals, sentinel 28 (test 7) > downgrade REFUSED: the same natural campaign also carries a new receipt kind (laboratoryCommitted/laboratoryOperational), independently sufficient to refuse V27->V26 464ms
+ ✓ |core| tests/p13b-s8-capacity.test.ts (5 tests) 1988ms
+   ✓ P13B-S8 rival Laboratory/instrument capacity: receipts, <=2x4, reserveWeeks (test 1) > completion: a committed Laboratory becomes an abstract {capability: "laboratory", capacity: 4} facility on the rival operations at the plan's completion week, with a laboratoryOperational {facilityId} receipt, and no placement record is ever written for it 557ms
+   ✓ P13B-S8 rival Laboratory/instrument capacity: receipts, <=2x4, reserveWeeks (test 1) > bound: a rival never holds more than 2 Laboratories, each never exceeding 4 seats of capacity — repeated admission past the bound is a no-op, not a refusal that leaves partial state 1002ms
+   ✓ P13B-S8 rival Laboratory/instrument capacity: receipts, <=2x4, reserveWeeks (test 1) > coverage: once a rival Laboratory exists, the tick (advanceHollywoodWeek, via a real advanceTo) and the validator (save.exportCurrentState) do not throw — a NATURAL campaign, no forged cash (coordinator ruling: withRivalCash's `movements.capacity` patch is validator-inconsistent — the pre-existing law pins that movement to the starting capex exactly) 365ms
+ ✓ |core| tests/p13b-s8-finance.test.ts (5 tests) 854ms
+   ✓ P13B-S8 rival finance: typed kinds and interval Opex reconcile, migration frozen, legacy grandfathered (test 4) > interval Opex: no back-charges — a Laboratory adds its weekly cost only from its own operational week, never retroactively 563ms
+ ✓ |core| tests/p13b-s7-independence.test.ts (5 tests) 13214ms
+   ✓ P13B-S7 rival-independence: identical forecast/announcements across states differing only in rival facts (test 2, PARTIAL until S8) > advanced independently to week 900 (past the lighting announcement), a rival-only fact the engine PRESERVES past ticks keeps the pair genuinely divergent, and forecasts/announcements still publish byte-identical 6701ms
+ ✓ |core| tests/p13b-s8-nonleak.test.ts (5 tests) 6140ms
+   ✓ P13B-S8 non-leak: forecast/announcements identical across states differing ONLY in rival RESEARCH state (test 5, upgrades S7's PARTIAL to genuine) > advanced independently to week 900 (past the lighting announcement), the rival-research-only divergence persists in the engine roots but forecasts/announcements still publish byte-identical 661ms
+ ✓ |core| tests/p13b-s8-adoption.test.ts (3 tests) 18142ms
+   ✓ P13B-S8 rival adoption per technology: clock timing pinned, commercial purchase unchanged (test 3) > REGRESSION (today, real code): a rival's commercial sound purchase — no plant of its own — still becomes operational EXACTLY at committedWeek + deploymentWeeks through the unchanged clock branch 6652ms
+   ✓ P13B-S8 rival adoption per technology: clock timing pinned, commercial purchase unchanged (test 3) > core: a rival RESEARCH-route adoption (no player placement at all) becomes operational through the SAME unchanged clock branch — "the rival's stage facility existing and the receipt" satisfies the P09 clause on rival bodies 11487ms
+ ✓ |core| tests/p13b-s8-setup-symmetry.test.ts (4 tests) 77ms
+ ❯ |core| tests/p13a-rival-adoption.test.ts (2 tests | 2 failed) 7264ms
+   × P13A shared commercial adoption and exact rival cash consequence > uses the shared player/rival eligibility function and debits only technology adoption without new plant or RNG draws 298ms
+     → expected { version: 4, …(8) } not to be { version: 4, …(8) } // Object.is equality
+   × P13A shared commercial adoption and exact rival cash consequence > replays the actual weekly commercial purchase, reconciles its debit and creates one dated operational receipt 612ms
+     → Cannot read properties of undefined (reading 'committedWeek')
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/bridge-p13b-s8-rivals.test.ts > P13B-S8-T3 item 2: Industry page rival technology facts — laboratoryOperational publishes; the other four kinds do not; existing kinds unchanged > technologyAdopted rows are unchanged (regression guard; natural week 288, rival r01's real synchronized-sound adoption)
+Error: no natural technologyAdopted receipt on the week-288 fixture
+ ❯ required tests/bridge-p13b-s8-rivals.test.ts:156:52
+    154| 
+    155| function required<T>(value: T | null | undefined, message: string): T {
+    156|   if (value === null || value === undefined) throw new Error(message)
+       |                                                    ^
+    157|   return value
+    158| }
+ ❯ tests/bridge-p13b-s8-rivals.test.ts:276:21
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL |core|  tests/p13a-rival-adoption.test.ts > P13A shared commercial adoption and exact rival cash consequence > uses the shared player/rival eligibility function and debits only technology adoption without new plant or RNG draws
+AssertionError: expected { version: 4, …(8) } not to be { version: 4, …(8) } // Object.is equality
+
+Compared values have no visual difference.
+
+ ❯ tests/p13a-rival-adoption.test.ts:32:26
+     30|         if (result !== released.technology) { selected = business; bre…
+     31|       }
+     32|       expect(result).not.toBe(released.technology)
+       |                          ^
+     33|       const original = released.hollywood!.businesses.find(business =>…
+     34|       const receipt = result.adoptions.find(row => row.studioId === se…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+ FAIL |core|  tests/p13a-rival-adoption.test.ts > P13A shared commercial adoption and exact rival cash consequence > replays the actual weekly commercial purchase, reconciles its debit and creates one dated operational receipt
+TypeError: Cannot read properties of undefined (reading 'committedWeek')
+ ❯ tests/p13a-rival-adoption.test.ts:96:20
+     94|     expect(exportCurrentState(tick(restored))).toBe(exportCurrentState…
+     95|     const receipt = committed.technology.adoptions.find(row => row.stu…
+     96|     expect(receipt.committedWeek).toBe(416)
+       |                    ^
+     97|     expect(receipt.operationalWeek).toBeNull()
+     98|     const business = committed.hollywood!.businesses.find(row => row.s…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯
+
+ Test Files  2 failed | 8 passed (10)
+      Tests  3 failed | 56 passed (59)
+   Start at  10:09:01
+   Duration  91.26s (transform 2.48s, setup 0ms, collect 9.73s, tests 78.31s, environment 3ms, prepare 878ms)
+

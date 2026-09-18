@@ -1,0 +1,38 @@
+── A/B baseline vs Task C: the same two measurements, same seed ──────────────
+Seed p13b-s8-bridge-probe-01, commitPlacement('research-laboratory') then
+advanceTo(340). Disposable vite-node probe, not committed; the two source files
+(src/core/talentMarket.ts, src/core/types.ts) were checked out at ad35a81 for the
+baseline run and restored immediately after.
+
+BASELINE ad35a81 (Task A + Task B, NO settlement re-derivation)
+  technologyAdopted: [{"week":293,"studioId":"studio-efb645e3-r01"}]
+  talent-market outcomes: {"declined":24}
+  npx vitest run --project core --minWorkers=1 --maxWorkers=1 tests/p13a-rival-adoption.test.ts
+    Test Files  1 passed (1)
+         Tests  2 passed (2)
+
+WITH TASK C (f31e05a)
+  technologyAdopted: [{"week":293,"studioId":"studio-efb645e3-r01"}]
+  talent-market outcomes: {"settled":11,"declined":13}
+  tests/p13a-rival-adoption.test.ts  2 failed (2)
+    × "uses the shared player/rival eligibility function and debits only technology
+      adoption without new plant or RNG draws"
+      AssertionError at tests/p13a-rival-adoption.test.ts:32 —
+      expect(result).not.toBe(released.technology)  (no rival adopts in the probed loop)
+    × "replays the actual weekly commercial purchase, reconciles its debit and creates
+      one dated operational receipt"
+      TypeError at tests/p13a-rival-adoption.test.ts:96 —
+      Cannot read properties of undefined (reading 'committedWeek'); expected 416
+
+CONCLUSIONS (measurement, not inference)
+  1. tests/bridge-p13b-s8-rivals.test.ts's natural week-288 technologyAdopted guard
+     fails at BOTH baselines: the adoption is at week 293 with and without Task C.
+     It is INHERITED (the market existing at all, d49cc27), not caused by Task C, and
+     settlement working does NOT restore 288. The stated cause ("the chain slid to
+     293 only because every case declined") is refuted: 11 of 24 cases now settle and
+     the week is unchanged.
+  2. tests/p13a-rival-adoption.test.ts REGRESSED with Task C: green at ad35a81, two
+     failures at f31e05a. Its claim was re-expressed at 7f19228 against a world where
+     every case declined; it does not hold once settlement actually commits rival
+     signings (rival cash moves, so the commercial-purchase week moves off 416).
+  No test file was edited.

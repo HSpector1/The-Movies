@@ -1,0 +1,13 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p14a1-settlement.test.ts (3 tests) 2606ms
+   ✓ P14A.1 test 5: atomic settlement > a dominant incumbent proposal wins deterministically at the decision week, with order-only reasons and no amounts 1373ms
+   ✓ P14A.1 test 5: atomic settlement > price drift does not invalidate a proposal's version: a proposal submitted at the window's first week settles at the re-derived decision-week price, not the submission-week quote 627ms
+   ✓ P14A.1 test 5: atomic settlement > the digest covers material terms only: a price drift leaves the version digest unchanged 605ms
+
+ Test Files  1 passed (1)
+      Tests  3 passed (3)
+   Start at  10:08:02
+   Duration  4.76s (transform 1.36s, setup 0ms, collect 1.76s, tests 2.61s, environment 0ms, prepare 109ms)
+
