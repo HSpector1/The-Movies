@@ -1,0 +1,6 @@
+=== vitest run --project core --minWorkers=1 --maxWorkers=2 --reporter=dot ===
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/film-package-truthfulness.test.ts (27 tests) 931ms
+   ✓ #18 a strong, expected-to-profit package can still lose money (authorized uncertainty) > a strong brief with POSITIVE expected profit can still take a real LOSS (D-12 share; scanned witness) 528ms
