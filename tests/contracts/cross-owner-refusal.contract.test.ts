@@ -21,8 +21,8 @@
 
 import { describe, expect, it } from 'vitest'
 
-import { applyActions, exportSave, importSave, makeSave, stableStringify, tick, validateSaveV28 } from '../../src/core/index.js'
-import type { GameState, SaveFileV28 } from '../../src/core/index.js'
+import { applyActions, exportSave, importSave, makeSave, stableStringify, tick, validateSaveV29 } from '../../src/core/index.js'
+import type { GameState, SaveFileV29 } from '../../src/core/index.js'
 import {
   auditionSlate,
   availableConceptId,
@@ -67,9 +67,9 @@ function auditionBesideScreenplay(seed: string): GameState {
   return commission(state)
 }
 
-function legalSave(state: GameState): SaveFileV28 {
+function legalSave(state: GameState): SaveFileV29 {
   const save = makeSave(state)
-  expect(validateSaveV28(save)).toBe(save)
+  expect(validateSaveV29(save)).toBe(save)
   return save
 }
 
@@ -80,12 +80,12 @@ function legalSave(state: GameState): SaveFileV28 {
  * the original BYTES exactly.
  */
 function proveRefusal(
-  legal: SaveFileV28,
-  forge: (save: SaveFileV28) => { restore: (save: SaveFileV28) => void; slotKey: string },
+  legal: SaveFileV29,
+  forge: (save: SaveFileV29) => { restore: (save: SaveFileV29) => void; slotKey: string },
   label: string,
 ): void {
   const legalJson = exportSave(legal)
-  expect(exportSave(importSave(legalJson) as SaveFileV28), `${label}: legal twin round-trips`).toBe(
+  expect(exportSave(importSave(legalJson) as SaveFileV29), `${label}: legal twin round-trips`).toBe(
     legalJson,
   )
 
@@ -97,7 +97,7 @@ function proveRefusal(
 
   let thrown: unknown = null
   try {
-    validateSaveV28(forged)
+    validateSaveV29(forged)
   } catch (error) {
     thrown = error
   }
@@ -115,7 +115,7 @@ function proveRefusal(
   expect(stableStringify(forged), `${label}: the twin is byte-identical`).toBe(
     stableStringify(legal),
   )
-  expect(validateSaveV28(forged as SaveFileV28)).toBe(forged)
+  expect(validateSaveV29(forged as SaveFileV29)).toBe(forged)
 }
 
 describe('C2a-M0 · §12-M0 gate — a slot claimed by two owners is REFUSED', () => {

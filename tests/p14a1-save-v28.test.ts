@@ -125,8 +125,11 @@ const V27_FIXTURES = {
 }
 
 type TalentMarketRoot = { cases: unknown[]; proposals: unknown[]; receipts: unknown[] }
-function marketRootOf(state: GameState): TalentMarketRoot {
-  return (state as unknown as { talentMarket: TalentMarketRoot }).talentMarket
+// P14B.1 live-version sweep: the live `GameState` is V29 now, so a V28 envelope's
+// own state is one root short of it. This file is the V28 BOUNDARY's test and
+// keeps reading the V28 shape; only the read's parameter type widened.
+function marketRootOf(state: unknown): TalentMarketRoot {
+  return (state as { talentMarket: TalentMarketRoot }).talentMarket
 }
 
 describe('P14A.1 test 8: Save V28 (genuine V27 fixtures, honest lift, downgrade, validator refusals, sentinel 29)', () => {
@@ -168,7 +171,7 @@ describe('P14A.1 test 8: Save V28 (genuine V27 fixtures, honest lift, downgrade,
     const state = migrated.state
     const subject = state.talent.find((t) => t.role === 'scientist' && state.contracts.some((c) => c.talentId === t.id))
     expect(subject).toBeDefined() // sanity: the fixture genuinely carries a contracted Scientist
-    const result = marketEligibility(state, subject!.id, state.market.tick)
+    const result = marketEligibility(state as unknown as GameState, subject!.id, state.market.tick)
     expect(result.status).toBe('renewal_window')
   })
 

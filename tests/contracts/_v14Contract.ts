@@ -408,6 +408,13 @@ export function projectToV13State(state: GameState): Record<string, unknown> {
     throw new Error('V13 twin cannot discard talent-market authority')
   }
   delete raw.talentMarket
+  // P14B.1: the first-take and promise roots are V29-only, so a genuine V13 file
+  // never carried either. Real authority in them is never discarded, as above.
+  if ((state.firstTakes ?? []).length > 0 || (state.promises ?? []).length > 0) {
+    throw new Error('V13 twin cannot discard first-take or promise authority')
+  }
+  delete raw.firstTakes
+  delete raw.promises
   for (const person of raw.talent as Record<string, unknown>[]) {
     for (const key of ['skills', 'ceilings', 'devRate', 'genreExperience', 'workHistory']) {
       delete (person[key] as Record<string, unknown>).research

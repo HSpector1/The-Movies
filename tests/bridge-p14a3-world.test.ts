@@ -242,7 +242,7 @@ describe('group 1: PROJECTION_VERSION 44 / schema / converted law', () => {
   })
 
   it('LIVE_SAVE_VERSION stays 28 under projection 44 — no persisted fact, the converted law is unchanged', () => {
-    expect(LIVE_SAVE_VERSION).toBe(28)
+    expect(LIVE_SAVE_VERSION).toBe(29)
   })
 })
 
@@ -572,7 +572,7 @@ describe('group 6: negative pins — the TypeScript unions and the ONE true wire
 
 describe('group 7: save/load — V28 unchanged, the world route converts and round-trips', () => {
   it('a genuine V27 fixture converts with statusLine null for every person (no case exists anywhere in a converted state)', () => {
-    expect(LIVE_SAVE_VERSION).toBe(28)
+    expect(LIVE_SAVE_VERSION).toBe(29)
     const json = load(V27_RENEWAL_WINDOW.file)
     assertSha256(json, V27_RENEWAL_WINDOW.sha256)
     const session = BridgeSession.fromSaveJson(json, 'p14a3-bridge-world-v27-load')
@@ -616,7 +616,7 @@ describe('group 7: save/load — V28 unchanged, the world route converts and rou
     expect(saved.accepted).toBe(true)
     if (!saved.accepted) throw new Error(`save refused: ${JSON.stringify(saved)}`)
     const parsed = JSON.parse(saved.saveJson) as { saveVersion: number }
-    expect(parsed.saveVersion).toBe(28)
+    expect(parsed.saveVersion).toBe(29)
     const reloaded = BridgeSession.fromSaveJson(saved.saveJson, 'p14a3-bridge-world-roundtrip-reload')
     // NOT YET EXISTING: personWorldRoute — this test's RED cause.
     const before = personWorldRoute(session.gameState, talentId) as WorldRouteSnapshot

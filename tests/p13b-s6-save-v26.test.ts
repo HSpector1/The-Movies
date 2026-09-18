@@ -130,7 +130,7 @@ function s6ForgeV26(genuineV25State: GameState, mutate: (state: GameState) => Ga
  */
 function s6ForgeLive(genuineV25State: GameState, mutate: (state: GameState) => GameState) {
   const v25Envelope = { saveVersion: 25 as const, seed: genuineV25State.seed, state: genuineV25State, broadcastCache: genuineV25State.broadcastItems }
-  const lifted = (save as unknown as { migrateToV28: (envelope: unknown) => { seed: string; state: GameState; broadcastCache: unknown } }).migrateToV28(v25Envelope)
+  const lifted = (save as unknown as { migrateToV29: (envelope: unknown) => { seed: string; state: GameState; broadcastCache: unknown } }).migrateToV29(v25Envelope)
   const mutated = mutate(lifted.state)
   const envelope = { saveVersion: 28 as const, seed: lifted.seed, state: mutated, broadcastCache: lifted.broadcastCache }
   const json = save.exportSave(envelope as unknown as Parameters<typeof save.exportSave>[0])
@@ -218,11 +218,11 @@ describe('P13B-S6 Save V26: genuine V25 fixtures, honest lift, chains, validator
     expect(() => save.migrateToV20(v26 as never)).toThrow(/cannot downgrade/i)
   })
 
-  it('an unknown saveVersion 29 is refused, naming the handled range "1 through 28 only" (mechanical extrapolation of the templated message at save.ts:5162)', () => {
+  it('an unknown saveVersion 30 is refused, naming the handled range "1 through 29 only" (mechanical extrapolation of the templated message at save.ts:5162)', () => {
     const json = load(V25_FIXTURES.soundMidDeployment.file)
     const v26 = withV26.migrateToV26(JSON.parse(json))
-    const forged = { ...v26, saveVersion: 29 }
-    expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 28 only/)
+    const forged = { ...v26, saveVersion: 30 }
+    expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 29 only/)
   })
 
   it('VALID: a cancelled adoption with a passed original completesWeek is exempt from the v4 "operational receipt differs" clause', () => {
@@ -251,7 +251,7 @@ describe('P13B-S6 Save V26: genuine V25 fixtures, honest lift, chains, validator
       // clock's reach (already proven by tests/p13b-s6-ordering.test.ts case 3).
       return advanceTo(cancelled, 320)
     })
-    expect((reimported as { saveVersion: number }).saveVersion).toBe(28) // did NOT throw (at the live version this real advance writes)
+    expect((reimported as { saveVersion: number }).saveVersion).toBe(29) // did NOT throw (at the live version this real advance writes)
   })
 
   it('REFUSED: a cancelled placement marked operational', () => {

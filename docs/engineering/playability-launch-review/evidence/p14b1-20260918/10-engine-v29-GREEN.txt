@@ -1,0 +1,1699 @@
+P14B.1-T2 — engine: the First Kept Promise Core (Save V29). Raw check outputs.
+Worktree /Users/zacheryspector/The-Movies-headless-program, branch wip/headless-program-20260916-ts, base HEAD 63bbc70.
+Every run single-worker (--minWorkers=1 --maxWorkers=1), preceded by a separate 'ps -axo command | grep -c [v]itest' probe returning 0.
+
+=== npx vitest run --project core --minWorkers=1 --maxWorkers=1 --reporter=dot tests/p14b1-first-take.test.ts tests/p14b1-promises.test.ts tests/p14b1-trust-chooser.test.ts tests/p14b1-save-v29.test.ts tests/p14b1-leak.test.ts ===
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/p14b1-promises.test.ts (14 tests | 2 failed) 4336ms
+   ✓ P14B.1 test 2: the promise record and the widened digest > attaching a promise changes the digest; a second attach on an already-promised proposal is refused (enforced at most one); revising (re-submit, then attach a different promise) and removing (re-submit with no attach) both change the digest again — removing restores the exact original 1820ms
+   ✓ P14B.1 test 2: the promise record and the widened digest > a window outside the proposed contract is IMPOSSIBLE by construction 749ms
+   ✓ P14B.1 test 2: the promise record and the widened digest > a promise DRIFTED after attachment (its own definition changed through some other channel) drops materialTermsChanged at freeze 671ms
+   ✓ P14B.1 test 4: settlement freeze re-classification > a promise REASONABLY_ACHIEVABLE at submission erodes to FRAGILE by the decision week purely through slack (the 7-week submission-to-decision gap), and the case drops it with a promise-naming sentence 687ms
+   × P14B.1 test 5: outcomes > SATISFIED once the X-th qualifying first take occurs, with evidence refs naming the causing eventId; idempotent on a later tick 135ms
+     → Cannot read properties of null (reading 'playerStudioId')
+   × P14B.1 test 5: outcomes > BROKEN on capacity collapse: cancelling the promised person's ONLY production before its first take, with a due week too close for any other path, makes re-feasibility IMPOSSIBLE and the promise BROKEN 14ms
+     → applyActions: signContract rejected — talent "t-dir-00" is not currently available to sign (D-11.14)
+ ❯ |core| tests/p14b1-trust-chooser.test.ts (12 tests | 1 failed | 2 skipped) 6669ms
+   ✓ P14B.1 test 6: trust, the widened chooser and the priority order > a Distrusted issuer is dropped issuerDistrusted at reservation, and the other (healthy) proposal settles the case 1520ms
+   × P14B.1 test 6: trust, the widened chooser and the priority order > opportunity breaks an otherwise 1-1 tie: a rival ahead on compensation vs the incumbent ahead on incumbency (companion Case 2 shape) — attaching a feasible promise to the incumbent side tips the case to it, with an opportunity-naming reason 719ms
+     → expected false to be true // Object.is equality
+   ✓ P14B.1 test 6: trust, the widened chooser and the priority order > a Reliable issuer beats a Mixed-record issuer on the trust band, in the same otherwise-1-1-tie shape 727ms
+   ✓ P14B.1 test 7: rival symmetry > attachPromise and its feasibility classification work identically when the issuer is a RIVAL (no player-only special-casing) 563ms
+   ✓ P14B.1 test 7: rival symmetry > a rival proposal carries a P1 promise IFF its own feasibility is REASONABLY_ACHIEVABLE — derived from the FIRST rival proposalSubmitted receipt on the natural chain, never assumed 2824ms
+ ✓ |core| tests/p14b1-save-v29.test.ts (6 tests) 705ms
+   ✓ P14B.1 test 8: Save V29 (genuine V28 fixture, empty new tables, same digests, round trip, downgrade) > genuine V28 open-case-45 fixture: sha256 matches, still validates as V28 through the frozen chain, migrates to V29 with EMPTY firstTakes and promises roots and promises: [] on every existing proposal, otherwise byte-identical 318ms
+ ❯ |core| tests/p14b1-first-take.test.ts (3 tests | 1 failed) 1022ms
+   × P14B.1 test 1: the first-take receipt > PLAYER: never at shooting entry (empty at remainingTicks 5, three weeks into Shooting on the genuine fixture); appended exactly once at the 5 -> 4 advance; idempotent on a later tick; byte-stable across save/load 142ms
+     → expected 5 to be 4 // Object.is equality
+   ✓ P14B.1 test 1: the first-take receipt > RIVAL: the same receipt is appended once at the 5 -> 4 advance for a rival production found by direct search over the natural chain (never a magic week) 865ms
+ ✓ |core| tests/p14b1-leak.test.ts (2 tests) 2745ms
+   ✓ P14B.1 test 9: leak — a rival promise never discloses to a non-issuer, and settlement reasons stay ordering-only > a promise attached to the RIVAL's proposal says UNKNOWN on the player's disclosure view and something other than UNKNOWN on the rival's own 1792ms
+   ✓ P14B.1 test 9: leak — a rival promise never discloses to a non-issuer, and settlement reasons stay ordering-only > settlement reasons stay ordering-only (no dollar sign, no bare 3+-digit figure) even when an attached promise is part of the decision 951ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 4 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14b1-first-take.test.ts > P14B.1 test 1: the first-take receipt > PLAYER: never at shooting entry (empty at remainingTicks 5, three weeks into Shooting on the genuine fixture); appended exactly once at the 5 -> 4 advance; idempotent on a later tick; byte-stable across save/load
+AssertionError: expected 5 to be 4 // Object.is equality
+
+- Expected
++ Received
+
+- 4
++ 5
+
+ ❯ tests/p14b1-first-take.test.ts:129:48
+    127|     const afterFirstWeek = tick(migrated.state)
+    128|     const advancedProduction = afterFirstWeek.studio.activeProductions…
+    129|     expect(advancedProduction?.remainingTicks).toBe(4) // the natural …
+       |                                                ^
+    130| 
+    131|     const takes = takesFor(afterFirstWeek, PLAYER_FIXTURE.productionId)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/4]⎯
+
+ FAIL |core|  tests/p14b1-promises.test.ts > P14B.1 test 5: outcomes > SATISFIED once the X-th qualifying first take occurs, with evidence refs naming the causing eventId; idempotent on a later tick
+TypeError: Cannot read properties of null (reading 'playerStudioId')
+ ❯ tests/p14b1-promises.test.ts:435:40
+    433|       promiseId: 'promise-satisfied-0',
+    434|       family: 'APPEARANCE_COUNT',
+    435|       issuerStudioId: state.hollywood!.playerStudioId,
+       |                                        ^
+    436|       beneficiaryPersonId: FIXTURE.lead,
+    437|       predicate: { count: 1 },
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/4]⎯
+
+ FAIL |core|  tests/p14b1-promises.test.ts > P14B.1 test 5: outcomes > BROKEN on capacity collapse: cancelling the promised person's ONLY production before its first take, with a due week too close for any other path, makes re-feasibility IMPOSSIBLE and the promise BROKEN
+Error: applyActions: signContract rejected — talent "t-dir-00" is not currently available to sign (D-11.14)
+ ❯ applySignContract src/core/actions.ts:2675:11
+    2673|   // Operating phase: talent must be currently signable (hiring market…
+    2674|   if (!hiringMarketIds(state).includes(talentId)) {
+    2675|     throw new Error(
+       |           ^
+    2676|       `applyActions: signContract rejected — talent "${talentId}" is n…
+    2677|     )
+ ❯ Module.applyActions src/core/actions.ts:3033:16
+ ❯ signOne tests/p14b1-promises.test.ts:192:18
+ ❯ tests/p14b1-promises.test.ts:534:22
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/4]⎯
+
+ FAIL |core|  tests/p14b1-trust-chooser.test.ts > P14B.1 test 6: trust, the widened chooser and the priority order > opportunity breaks an otherwise 1-1 tie: a rival ahead on compensation vs the incumbent ahead on incumbency (companion Case 2 shape) — attaching a feasible promise to the incumbent side tips the case to it, with an opportunity-naming reason
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ tests/p14b1-trust-chooser.test.ts:251:77
+    249|     expect(settlement.kind).toBe('settled')
+    250|     expect(settlement.studioId).toBe(playerStudioId)
+    251|     expect(settlement.reasons.some((reason) => /opportunit/i.test(reas…
+       |                                                                             ^
+    252|   })
+    253| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/4]⎯
+
+ Test Files  3 failed | 2 passed (5)
+      Tests  4 failed | 31 passed | 2 todo (37)
+   Start at  22:21:38
+   Duration  20.59s (transform 1.52s, setup 0ms, collect 3.15s, tests 15.48s, environment 2ms, prepare 543ms)
+
+
+=== npx vitest run --project core --minWorkers=1 --maxWorkers=1 --reporter=dot tests/p14a1-f1-priority-order.test.ts tests/p14a1-settlement.test.ts tests/p14a1-decline-reasons.test.ts tests/p14a1-seat-budget.test.ts tests/p14a1-save-v28.test.ts tests/p14a1-disclosure.test.ts ===
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p14a1-seat-budget.test.ts (4 tests) 5638ms
+   ✓ P14A.1: rival seat budget at freeze (commitRivalWinner has no seat cap; rivalProposalTrigger branch (c) fires for everyone at a synchronized expiry) > A. natural synchronized expiry at week 208 (seed 'p13-public-commercial-adoption'): every rival studio's active roster stays within RIVAL_TEAM_ROLES per role and in total at week 209 3741ms
+   ✓ P14A.1: rival seat budget at freeze (commitRivalWinner has no seat cap; rivalProposalTrigger branch (c) fires for everyone at a synchronized expiry) > B. unit-scale: a rival that already holds its full RIVAL_TEAM_ROLES actor seats through the decision week submits a challenge proposal on a player's expiring actor → declined, reason 'all proposals dropped', one drop sentence naming the rival and containing 'seat'; the rival's roster does not grow 642ms
+   ✓ P14A.1: rival seat budget at freeze (commitRivalWinner has no seat cap; rivalProposalTrigger branch (c) fires for everyone at a synchronized expiry) > C. the player is NOT seat-budgeted: a dominant incumbent player proposal settles even though the player already holds more actor contracts than RIVAL_TEAM_ROLES's 3-actor cap (guard against over-reach of the fix) — GREEN now, must stay GREEN 643ms
+   ✓ P14A.1: rival seat budget at freeze (commitRivalWinner has no seat cap; rivalProposalTrigger branch (c) fires for everyone at a synchronized expiry) > D. a rival that IS full at the decision week has its challenge on the player's expiring actor seat-dropped (dropped[] names the rival and contains "seat"), while the case still settles to the incumbent player 610ms
+ ✓ |core| tests/p14a1-decline-reasons.test.ts (2 tests | 1 skipped) 3647ms
+   ✓ P14A.1: typed decline reasons > B. all proposals dropped: a single rival proposal fails affordability at the decision week → reason "all proposals dropped", one sentence naming the studio and the bonus predicate, never "reservation" 3645ms
+ ❯ |core| tests/p14a1-save-v28.test.ts (9 tests | 2 failed) 766ms
+   × P14A.1 test 8: Save V28 (genuine V27 fixtures, honest lift, downgrade, validator refusals, sentinel 29) > an unknown saveVersion 29 is refused, naming the handled range "1 through 28 only" 58ms
+     → expected [Function] to throw error matching /versions 1 through 28 only/ but got 'validateSaveV29: firstTakes root miss…'
+   × P14A.1 test 8: Save V28 (genuine V27 fixtures, honest lift, downgrade, validator refusals, sentinel 29) > R4 legacy terminations: a V27 termination priced under the OLD 50% law still validates through the frozen chain, and lifts to V28 recorded as legacy with no invented back-charge 30ms
+     → state.promises is not iterable
+ ✓ |core| tests/p14a1-settlement.test.ts (3 tests) 3100ms
+   ✓ P14A.1 test 5: atomic settlement > a dominant incumbent proposal wins deterministically at the decision week, with order-only reasons and no amounts 1557ms
+   ✓ P14A.1 test 5: atomic settlement > price drift does not invalidate a proposal's version: a proposal submitted at the window's first week settles at the re-derived decision-week price, not the submission-week quote 844ms
+   ✓ P14A.1 test 5: atomic settlement > the digest covers material terms only: a price drift leaves the version digest unchanged 697ms
+ ✓ |core| tests/p14a1-disclosure.test.ts (3 tests) 2922ms
+   ✓ P14A.1 test 6: disclosure — UNKNOWN markers, nothing private leaks > the case, its subject and decision week, and the competing proposal's existence/issuer/term/effective-week are public to both viewers 1526ms
+   ✓ P14A.1 test 6: disclosure — UNKNOWN markers, nothing private leaks > a proposal's premium tier, salary and bonus say UNKNOWN to every studio that did not issue it — never a band, estimate or invented number 733ms
+   ✓ P14A.1 test 6: disclosure — UNKNOWN markers, nothing private leaks > nothing private leaks: the exact competing salary/bonus figures never appear anywhere in the serialized disclosure, for either viewer 661ms
+ ❯ |core| tests/p14a1-f1-priority-order.test.ts (5 tests | 2 failed | 1 skipped) 23ms
+   × P14A.1-F1: publicPriorityOrder and publicPreferredTerm against companion §2.1.7 > capable-but-unproven (age < 30, no identity-discipline credit): publicPriorityOrder reduces to compensation, term, standing, incumbency 16ms
+     → expected [ 'opportunity', 'compensation', …(4) ] to deeply equal [ 'compensation', 'term', …(2) ]
+   × P14A.1-F1: publicPriorityOrder and publicPreferredTerm against companion §2.1.7 > proven (an identity-discipline credit, or age >= 30): publicPriorityOrder reduces to compensation, term, incumbency, standing — already correct; pinned so the fix cannot disturb it 3ms
+     → expected [ 'compensation', 'term', …(4) ] to deeply equal [ 'compensation', 'term', …(2) ]
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 4 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14a1-f1-priority-order.test.ts > P14A.1-F1: publicPriorityOrder and publicPreferredTerm against companion §2.1.7 > capable-but-unproven (age < 30, no identity-discipline credit): publicPriorityOrder reduces to compensation, term, standing, incumbency
+AssertionError: expected [ 'opportunity', 'compensation', …(4) ] to deeply equal [ 'compensation', 'term', …(2) ]
+
+- Expected
++ Received
+
+  Array [
++   "opportunity",
+    "compensation",
+    "term",
++   "trust",
+    "standing",
+    "incumbency",
+  ]
+
+ ❯ tests/p14a1-f1-priority-order.test.ts:72:50
+     70|     // RED today: the landed unproven branch returns ['term','compensa…
+     71|     const talentId = findUnproven()
+     72|     expect(publicPriorityOrder(state, talentId)).toEqual(['compensatio…
+       |                                                  ^
+     73|   })
+     74| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/4]⎯
+
+ FAIL |core|  tests/p14a1-f1-priority-order.test.ts > P14A.1-F1: publicPriorityOrder and publicPreferredTerm against companion §2.1.7 > proven (an identity-discipline credit, or age >= 30): publicPriorityOrder reduces to compensation, term, incumbency, standing — already correct; pinned so the fix cannot disturb it
+AssertionError: expected [ 'compensation', 'term', …(4) ] to deeply equal [ 'compensation', 'term', …(2) ]
+
+- Expected
++ Received
+
+  Array [
+    "compensation",
+    "term",
++   "trust",
+    "incumbency",
+    "standing",
++   "opportunity",
+  ]
+
+ ❯ tests/p14a1-f1-priority-order.test.ts:77:50
+     75|   it('proven (an identity-discipline credit, or age >= 30): publicPrio…
+     76|     const talentId = findProven()
+     77|     expect(publicPriorityOrder(state, talentId)).toEqual(['compensatio…
+       |                                                  ^
+     78|   })
+     79| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/4]⎯
+
+ FAIL |core|  tests/p14a1-save-v28.test.ts > P14A.1 test 8: Save V28 (genuine V27 fixtures, honest lift, downgrade, validator refusals, sentinel 29) > an unknown saveVersion 29 is refused, naming the handled range "1 through 28 only"
+AssertionError: expected [Function] to throw error matching /versions 1 through 28 only/ but got 'validateSaveV29: firstTakes root miss…'
+
+- Expected: 
+/versions 1 through 28 only/
+
++ Received: 
+"validateSaveV29: firstTakes root missing"
+
+ ❯ tests/p14a1-save-v28.test.ts:243:54
+    241|     const lifted = withV28.migrateToV28(JSON.parse(json))
+    242|     const forged = { ...lifted, saveVersion: 29 }
+    243|     expect(() => save.validateSave(forged as never)).toThrow(/versions…
+       |                                                      ^
+    244|   })
+    245| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/4]⎯
+
+ FAIL |core|  tests/p14a1-save-v28.test.ts > P14A.1 test 8: Save V28 (genuine V27 fixtures, honest lift, downgrade, validator refusals, sentinel 29) > R4 legacy terminations: a V27 termination priced under the OLD 50% law still validates through the frozen chain, and lifts to V28 recorded as legacy with no invented back-charge
+TypeError: state.promises is not iterable
+ ❯ Module.breakPromisesOnTermination src/core/promises.ts:550:31
+    548|   const week = state.market.tick
+    549|   let next = state
+    550|   for (const promise of state.promises) {
+       |                               ^
+    551|     if (promise.outcome !== null) continue
+    552|     if (promise.issuerStudioId !== issuerStudioId || promise.beneficia…
+ ❯ applyReleaseTalent src/core/actions.ts:2794:52
+ ❯ Module.applyActions src/core/actions.ts:3039:16
+ ❯ tests/p14a1-save-v28.test.ts:254:22
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/4]⎯
+
+ Test Files  2 failed | 4 passed (6)
+      Tests  4 failed | 20 passed | 2 todo (26)
+   Start at  22:22:18
+   Duration  22.17s (transform 1.78s, setup 0ms, collect 3.65s, tests 16.10s, environment 2ms, prepare 850ms)
+
+
+--- re-run after the loud V29-root guard (promises.ts requirePromiseRoots) ---
+=== npx vitest run --project core --minWorkers=1 --maxWorkers=1 --reporter=dot tests/p14a1-f1-priority-order.test.ts tests/p14a1-settlement.test.ts tests/p14a1-decline-reasons.test.ts tests/p14a1-seat-budget.test.ts tests/p14a1-save-v28.test.ts tests/p14a1-disclosure.test.ts ===
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p14a1-seat-budget.test.ts (4 tests) 6946ms
+   ✓ P14A.1: rival seat budget at freeze (commitRivalWinner has no seat cap; rivalProposalTrigger branch (c) fires for everyone at a synchronized expiry) > A. natural synchronized expiry at week 208 (seed 'p13-public-commercial-adoption'): every rival studio's active roster stays within RIVAL_TEAM_ROLES per role and in total at week 209 4552ms
+   ✓ P14A.1: rival seat budget at freeze (commitRivalWinner has no seat cap; rivalProposalTrigger branch (c) fires for everyone at a synchronized expiry) > B. unit-scale: a rival that already holds its full RIVAL_TEAM_ROLES actor seats through the decision week submits a challenge proposal on a player's expiring actor → declined, reason 'all proposals dropped', one drop sentence naming the rival and containing 'seat'; the rival's roster does not grow 795ms
+   ✓ P14A.1: rival seat budget at freeze (commitRivalWinner has no seat cap; rivalProposalTrigger branch (c) fires for everyone at a synchronized expiry) > C. the player is NOT seat-budgeted: a dominant incumbent player proposal settles even though the player already holds more actor contracts than RIVAL_TEAM_ROLES's 3-actor cap (guard against over-reach of the fix) — GREEN now, must stay GREEN 916ms
+   ✓ P14A.1: rival seat budget at freeze (commitRivalWinner has no seat cap; rivalProposalTrigger branch (c) fires for everyone at a synchronized expiry) > D. a rival that IS full at the decision week has its challenge on the player's expiring actor seat-dropped (dropped[] names the rival and contains "seat"), while the case still settles to the incumbent player 682ms
+ ✓ |core| tests/p14a1-decline-reasons.test.ts (2 tests | 1 skipped) 4142ms
+   ✓ P14A.1: typed decline reasons > B. all proposals dropped: a single rival proposal fails affordability at the decision week → reason "all proposals dropped", one sentence naming the studio and the bonus predicate, never "reservation" 4141ms
+ ❯ |core| tests/p14a1-save-v28.test.ts (9 tests | 2 failed) 754ms
+   × P14A.1 test 8: Save V28 (genuine V27 fixtures, honest lift, downgrade, validator refusals, sentinel 29) > an unknown saveVersion 29 is refused, naming the handled range "1 through 28 only" 60ms
+     → expected [Function] to throw error matching /versions 1 through 28 only/ but got 'validateSaveV29: firstTakes root miss…'
+   × P14A.1 test 8: Save V28 (genuine V27 fixtures, honest lift, downgrade, validator refusals, sentinel 29) > R4 legacy terminations: a V27 termination priced under the OLD 50% law still validates through the frozen chain, and lifts to V28 recorded as legacy with no invented back-charge 37ms
+     → promises: the Save V29 roots are missing — migrate this state to V29 before acting on it
+ ✓ |core| tests/p14a1-settlement.test.ts (3 tests) 2989ms
+   ✓ P14A.1 test 5: atomic settlement > a dominant incumbent proposal wins deterministically at the decision week, with order-only reasons and no amounts 1533ms
+   ✓ P14A.1 test 5: atomic settlement > price drift does not invalidate a proposal's version: a proposal submitted at the window's first week settles at the re-derived decision-week price, not the submission-week quote 780ms
+   ✓ P14A.1 test 5: atomic settlement > the digest covers material terms only: a price drift leaves the version digest unchanged 674ms
+ ✓ |core| tests/p14a1-disclosure.test.ts (3 tests) 2918ms
+   ✓ P14A.1 test 6: disclosure — UNKNOWN markers, nothing private leaks > the case, its subject and decision week, and the competing proposal's existence/issuer/term/effective-week are public to both viewers 1482ms
+   ✓ P14A.1 test 6: disclosure — UNKNOWN markers, nothing private leaks > a proposal's premium tier, salary and bonus say UNKNOWN to every studio that did not issue it — never a band, estimate or invented number 672ms
+   ✓ P14A.1 test 6: disclosure — UNKNOWN markers, nothing private leaks > nothing private leaks: the exact competing salary/bonus figures never appear anywhere in the serialized disclosure, for either viewer 762ms
+ ❯ |core| tests/p14a1-f1-priority-order.test.ts (5 tests | 2 failed | 1 skipped) 23ms
+   × P14A.1-F1: publicPriorityOrder and publicPreferredTerm against companion §2.1.7 > capable-but-unproven (age < 30, no identity-discipline credit): publicPriorityOrder reduces to compensation, term, standing, incumbency 17ms
+     → expected [ 'opportunity', 'compensation', …(4) ] to deeply equal [ 'compensation', 'term', …(2) ]
+   × P14A.1-F1: publicPriorityOrder and publicPreferredTerm against companion §2.1.7 > proven (an identity-discipline credit, or age >= 30): publicPriorityOrder reduces to compensation, term, incumbency, standing — already correct; pinned so the fix cannot disturb it 3ms
+     → expected [ 'compensation', 'term', …(4) ] to deeply equal [ 'compensation', 'term', …(2) ]
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 4 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14a1-f1-priority-order.test.ts > P14A.1-F1: publicPriorityOrder and publicPreferredTerm against companion §2.1.7 > capable-but-unproven (age < 30, no identity-discipline credit): publicPriorityOrder reduces to compensation, term, standing, incumbency
+AssertionError: expected [ 'opportunity', 'compensation', …(4) ] to deeply equal [ 'compensation', 'term', …(2) ]
+
+- Expected
++ Received
+
+  Array [
++   "opportunity",
+    "compensation",
+    "term",
++   "trust",
+    "standing",
+    "incumbency",
+  ]
+
+ ❯ tests/p14a1-f1-priority-order.test.ts:72:50
+     70|     // RED today: the landed unproven branch returns ['term','compensa…
+     71|     const talentId = findUnproven()
+     72|     expect(publicPriorityOrder(state, talentId)).toEqual(['compensatio…
+       |                                                  ^
+     73|   })
+     74| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/4]⎯
+
+ FAIL |core|  tests/p14a1-f1-priority-order.test.ts > P14A.1-F1: publicPriorityOrder and publicPreferredTerm against companion §2.1.7 > proven (an identity-discipline credit, or age >= 30): publicPriorityOrder reduces to compensation, term, incumbency, standing — already correct; pinned so the fix cannot disturb it
+AssertionError: expected [ 'compensation', 'term', …(4) ] to deeply equal [ 'compensation', 'term', …(2) ]
+
+- Expected
++ Received
+
+  Array [
+    "compensation",
+    "term",
++   "trust",
+    "incumbency",
+    "standing",
++   "opportunity",
+  ]
+
+ ❯ tests/p14a1-f1-priority-order.test.ts:77:50
+     75|   it('proven (an identity-discipline credit, or age >= 30): publicPrio…
+     76|     const talentId = findProven()
+     77|     expect(publicPriorityOrder(state, talentId)).toEqual(['compensatio…
+       |                                                  ^
+     78|   })
+     79| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/4]⎯
+
+ FAIL |core|  tests/p14a1-save-v28.test.ts > P14A.1 test 8: Save V28 (genuine V27 fixtures, honest lift, downgrade, validator refusals, sentinel 29) > an unknown saveVersion 29 is refused, naming the handled range "1 through 28 only"
+AssertionError: expected [Function] to throw error matching /versions 1 through 28 only/ but got 'validateSaveV29: firstTakes root miss…'
+
+- Expected: 
+/versions 1 through 28 only/
+
++ Received: 
+"validateSaveV29: firstTakes root missing"
+
+ ❯ tests/p14a1-save-v28.test.ts:243:54
+    241|     const lifted = withV28.migrateToV28(JSON.parse(json))
+    242|     const forged = { ...lifted, saveVersion: 29 }
+    243|     expect(() => save.validateSave(forged as never)).toThrow(/versions…
+       |                                                      ^
+    244|   })
+    245| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/4]⎯
+
+ FAIL |core|  tests/p14a1-save-v28.test.ts > P14A.1 test 8: Save V28 (genuine V27 fixtures, honest lift, downgrade, validator refusals, sentinel 29) > R4 legacy terminations: a V27 termination priced under the OLD 50% law still validates through the frozen chain, and lifts to V28 recorded as legacy with no invented back-charge
+Error: promises: the Save V29 roots are missing — migrate this state to V29 before acting on it
+ ❯ requirePromiseRoots src/core/promises.ts:85:11
+     83| function requirePromiseRoots(state: GameState): void {
+     84|   if (state.promises === undefined || state.firstTakes === undefined) {
+     85|     throw new Error('promises: the Save V29 roots are missing — migrat…
+       |           ^
+     86|   }
+     87| }
+ ❯ Module.breakPromisesOnTermination src/core/promises.ts:563:3
+ ❯ applyReleaseTalent src/core/actions.ts:2794:52
+ ❯ Module.applyActions src/core/actions.ts:3039:16
+ ❯ tests/p14a1-save-v28.test.ts:254:22
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/4]⎯
+
+ Test Files  2 failed | 4 passed (6)
+      Tests  4 failed | 20 passed | 2 todo (26)
+   Start at  22:24:55
+   Duration  23.58s (transform 1.65s, setup 0ms, collect 3.59s, tests 17.77s, environment 2ms, prepare 627ms)
+
+
+=== npx vitest run --project core --minWorkers=1 --maxWorkers=1 --reporter=dot tests/bridge-p14a1-market.test.ts tests/bridge-p14a2-market.test.ts tests/bridge-p14a3-world.test.ts ===
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/bridge-p14a2-market.test.ts (16 tests | 8 failed) 7969ms
+   ✓ group 2: buckets — one bucket per case, fixed order, paged closed > two open cases sharing a decision week sort renewalWindow by discovery order; a settling case one week before its decision reads under settling, not renewalWindow 3025ms
+   × group 2: buckets — one bucket per case, fixed order, paged closed > every closed case in the settled-208 fixture is bounded by MARKET_CLOSED_PAGE_SIZE and pages deterministically across two reads; no case appears in a live bucket 252ms
+     → validateSaveV29: firstTakes root missing
+   ✓ group 3: workspace attention rows > deduplicated per (cause, talentId), including termsRevised (a rival revision after the player proposed) and decisionWeekNear (one week before the decision) 894ms
+   ✓ group 4: selected — candidate rail, offer comparison, settlement reasons/dropped > the rail's case block is byte-equal to marketCaseProjection; the own row equals proposalDraft; every competing figure is UNKNOWN 755ms
+   × group 4: selected — candidate rail, offer comparison, settlement reasons/dropped > after settlement (settled-208): the receipt's order-only reasons show; no dropped sentence shows for a case where the player never proposed 89ms
+     → validateSaveV29: firstTakes root missing
+   × group 5: paged employer/career history > employer intervals from the P12 rows, rival salaries private, credits by reference, bounded by MARKET_HISTORY_PAGE_SIZE 48ms
+     → validateSaveV29: firstTakes root missing
+   × group 6: workspace intents (Review & Submit / Revise / Withdraw) > the same quote -> commit -> STALE_REVISION -> revise -> withdraw -> INTENT_NOT_AVAILABLE sequence as A.1 group 8, from a session whose current page is the market page 1533ms
+     → $.snapshot.talent.talent.profiles[37].marketCase: matched no allowed type ($.snapshot.talent.talent.profiles[37].marketCase.preferences.priorityOrder[2]: expected one of compensation, term, standing, incumbency; $.snapshot.talent.talent.profiles[37].marketCase: expected null)
+   × group 7: Pulse fold on view:"pulse" > one activity row per settlement, naming the person/studio/term length, salary absent, correlated by (talentId, week) against the two P12 receipts — never doubled 82ms
+     → validateSaveV29: firstTakes root missing
+   ✓ group 8: disclosure leak check — workspace and pulse JSON > the rival's real figures at a non-1.00 tier appear nowhere in the workspace or pulse JSON 774ms
+   × group 9: save/load > LIVE_SAVE_VERSION === 28; a genuine V27 fixture converts to an EMPTY workspace (no attention, no cases, no selected) 203ms
+     → validateSaveV29: firstTakes root missing
+   × group 9: save/load > the three genuine V28 T0 fixtures load byte-stable and the market page reads them as T0 pins 56ms
+     → validateSaveV29: firstTakes root missing
+   × group 9: save/load > a V28 save round-trips through the bridge save/load path, and the market page reads identically on both sides 166ms
+     → checkpoint.currentSaveJson: must be a current V28 save, received V29
+ ❯ |core| tests/bridge-p14a3-world.test.ts (16 tests | 7 failed | 1 skipped) 3925ms
+   × group 2: the player's own open case — statusLine exact, caseRef, reach, presence, a person without a case > legacy-v28-open-case-45: statusLine exact, caseRef.targetId, reach playerLot, presence.onLot true; the market page is byte-equal to the Profile; the roster row carries the same line; a person without a case reads null/null 309ms
+     → validateSaveV29: firstTakes root missing
+   × group 3: the settling line — decisionWeek <= week + 1 while open, null after close > legacy-v28-open-case-45 walked from 45 to 51 (the settling text) and past 52 (null, closed) 55ms
+     → validateSaveV29: firstTakes root missing
+   ✓ group 4: a rival's person — off the player's lot, reach industry, the Industry row carries the line, no leak > the first week a rival-subject case is open (never a magic week): onLot false, canLocate false, reach industry; the Industry roster row of that studio carries caseStatusLine/caseRef; the rival's tier/salary (non-1.00) appear nowhere 3081ms
+   × group 5: the effective-week law from receipts (settled-208 carries no player contract — never used for a player-lot fact; the stayed/moved-away/won-over sets are built through the engine, never read off an empty fixture) > the retained clause: genuine legacy-v28-open-case-45 (player 1.25 vs rival 1.00, decided 52) stays on the player's lot at 51, 52 and 53; the stayed set is asserted non-empty 39ms
+     → validateSaveV29: firstTakes root missing
+   × group 5: the effective-week law from receipts (settled-208 carries no player contract — never used for a player-lot fact; the stayed/moved-away/won-over sets are built through the engine, never read off an empty fixture) > the departure clause, re-expressed through the declined outcome: on genuine legacy-v28-open-case-45, WITHDRAWING the player's own proposal leaves only the rival's uncontested 1.00 bid, which the seat law itself drops (noSeatForRole) — onLot stays true through week 51 (no early presence change), the case settles declined/"all proposals dropped" at week 52 exactly, and the person is off the lot at 52 43ms
+     → validateSaveV29: firstTakes root missing
+   × group 7: save/load — V28 unchanged, the world route converts and round-trips > a genuine V27 fixture converts with statusLine null for every person (no case exists anywhere in a converted state) 134ms
+     → validateSaveV29: firstTakes root missing
+   × group 7: save/load — V28 unchanged, the world route converts and round-trips > the three genuine V28 T0 fixtures read byte-stable and the world route reads identically across the bridge save/load path 40ms
+     → validateSaveV29: firstTakes root missing
+   × group 7: save/load — V28 unchanged, the world route converts and round-trips > a fresh V28 state round-trips through the bridge save/load path and the world route reads identically on both sides 157ms
+     → checkpoint.currentSaveJson: must be a current V28 save, received V29
+ ❯ |core| tests/bridge-p14a1-market.test.ts (16 tests | 3 failed) 8941ms
+   ✓ group 3: marketProposalAction (propose/revise/withdraw) > drafts propose/revise/withdraw through the draft-to-engine conversion, with affordability via canAfford 1214ms
+   ✓ group 3: marketProposalAction (propose/revise/withdraw) > the profile's renew row does not yet surface underMarketCase once a case is open — the gap the case block must close 593ms
+   ✓ group 2: profile Contract case block > publishes status, the DERIVED decision-week label, and one row per proposal — the player's own re-derived at the read week, the rival's premium/salary/bonus an explicit UNKNOWN marker 661ms
+   ✓ group 2: profile Contract case block > no case block outside a case 520ms
+   ✓ group 4: attention rows > a new competing proposal on a case the player has a proposal in 441ms
+   ✓ group 4: attention rows > settlement completed 623ms
+   ✓ group 4: attention rows > a player proposal that would currently fail 537ms
+   ✓ group 4: attention rows > restricted to exactly the five named causes, and nothing else on the profile route (two causes not independently exercised — see header premises) 776ms
+   ✓ group 5: disclosure narrowing > the case block's disclosed fields never leak the rival's real figures, from every serialization surface — a rival tier that is not otherwise a public figure 802ms
+   ✓ group 5: disclosure narrowing > bridge/industry.ts's private-contract-terms rows and bridge/people.ts's contract:null for rival-employed people are UNCHANGED for a person outside any case 591ms
+   ✓ group 6: settlement on the wire > after the decision week the case reads settled with order-only reasons; the winner's employer/contract updates; the two industry receipts stay separate rows (no folded row — A.2's Pulse projection, not A.1) 669ms
+   × group 7: save/load > a genuine V27 fixture loads through the bridge converted, with an empty market root and no case block for its in-window subject 215ms
+     → validateSaveV29: firstTakes root missing
+   × group 7: save/load > a V28 save round-trips through the bridge save/load path, carrying legacyTerminations, at projection 44 202ms
+     → checkpoint.currentSaveJson: must be a current V28 save, received V29
+   × group 8: session-level marketProposalAction > quote -> commit -> stale revision -> revise -> withdraw -> a superseded intent after the state moved -> an unknown quote type, all through BridgeSession 1091ms
+     → $.snapshot.talent.talent.profiles[25].marketCase: matched no allowed type ($.snapshot.talent.talent.profiles[25].marketCase.preferences.priorityOrder[0]: expected one of compensation, term, standing, incumbency; $.snapshot.talent.talent.profiles[25].marketCase: expected null)
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 18 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/bridge-p14a1-market.test.ts > group 7: save/load > a genuine V27 fixture loads through the bridge converted, with an empty market root and no case block for its in-window subject
+Error: validateSaveV29: firstTakes root missing
+ ❯ validateSaveV29 src/core/save.ts:8577:48
+    8575|   if (save.saveVersion !== 29) throw new Error('validateSaveV29: expec…
+    8576|   const raw = v14Record(checkEnvelope(save, 'validateSaveV29'), 'state…
+    8577|   if (!Object.hasOwn(raw, 'firstTakes')) throw new Error('validateSave…
+       |                                                ^
+    8578|   if (!Object.hasOwn(raw, 'promises')) throw new Error('validateSaveV2…
+    8579|   validatePromiseRoots(raw);
+ ❯ makeSave src/core/save.ts:6389:16
+ ❯ Module.exportCurrentState src/core/save.ts:6412:26
+ ❯ Module.exportSaveJson ui/src/engine/adapter.ts:3780:10
+ ❯ bridge/snapshot-build-context.ts:118:12
+ ❯ Object.saveJson bridge/snapshot-build-context.ts:103:15
+ ❯ Function.fromSaveJson bridge/session.ts:1359:47
+ ❯ tests/bridge-p14a1-market.test.ts:385:35
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/18]⎯
+
+ FAIL |core|  tests/bridge-p14a1-market.test.ts > group 7: save/load > a V28 save round-trips through the bridge save/load path, carrying legacyTerminations, at projection 44
+BridgeRuntimeCheckpointError: checkpoint.currentSaveJson: must be a current V28 save, received V29
+ ❯ fail bridge/runtime-checkpoint.ts:329:9
+    327| 
+    328| function fail(path: string, message: string): never {
+    329|   throw new BridgeRuntimeCheckpointError(path, message)
+       |         ^
+    330| }
+    331| 
+ ❯ validateCanonicalCurrentSave bridge/runtime-checkpoint.ts:452:5
+ ❯ hydrateAndEncodeBridgeRuntimeCheckpoint bridge/runtime-checkpoint.ts:1074:23
+ ❯ Module.createEncodedBridgeRuntimeCheckpoint bridge/runtime-checkpoint.ts:1321:20
+ ❯ BridgeSession.prepareEntry bridge/session.ts:2196:21
+ ❯ BridgeSession.executeSave bridge/session.ts:1992:24
+ ❯ BridgeSession.save bridge/session.ts:1968:17
+ ❯ tests/bridge-p14a1-market.test.ts:404:27
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/18]⎯
+
+ FAIL |core|  tests/bridge-p14a1-market.test.ts > group 8: session-level marketProposalAction > quote -> commit -> stale revision -> revise -> withdraw -> a superseded intent after the state moved -> an unknown quote type, all through BridgeSession
+BridgeSchemaError: $.snapshot.talent.talent.profiles[25].marketCase: matched no allowed type ($.snapshot.talent.talent.profiles[25].marketCase.preferences.priorityOrder[0]: expected one of compensation, term, standing, incumbency; $.snapshot.talent.talent.profiles[25].marketCase: expected null)
+ ❯ project bridge/schema/runtime.ts:110:11
+    108|       }
+    109|     }
+    110|     throw new BridgeSchemaError(path, `matched no allowed type (${fail…
+       |           ^
+    111|   }
+    112| 
+ ❯ project bridge/schema/runtime.ts:170:23
+ ❯ bridge/schema/runtime.ts:145:42
+ ❯ project bridge/schema/runtime.ts:145:20
+ ❯ project bridge/schema/runtime.ts:170:23
+ ❯ project bridge/schema/runtime.ts:170:23
+ ❯ section bridge/schema/runtime.ts:202:5
+ ❯ Module.projectStudioProjectionBundle bridge/schema/runtime.ts:222:13
+ ❯ BridgeSession.snapshotFor bridge/session.ts:1501:22
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/18]⎯
+
+ FAIL |core|  tests/bridge-p14a2-market.test.ts > group 2: buckets — one bucket per case, fixed order, paged closed > every closed case in the settled-208 fixture is bounded by MARKET_CLOSED_PAGE_SIZE and pages deterministically across two reads; no case appears in a live bucket
+Error: validateSaveV29: firstTakes root missing
+ ❯ validateSaveV29 src/core/save.ts:8577:48
+    8575|   if (save.saveVersion !== 29) throw new Error('validateSaveV29: expec…
+    8576|   const raw = v14Record(checkEnvelope(save, 'validateSaveV29'), 'state…
+    8577|   if (!Object.hasOwn(raw, 'firstTakes')) throw new Error('validateSave…
+       |                                                ^
+    8578|   if (!Object.hasOwn(raw, 'promises')) throw new Error('validateSaveV2…
+    8579|   validatePromiseRoots(raw);
+ ❯ makeSave src/core/save.ts:6389:16
+ ❯ Module.exportCurrentState src/core/save.ts:6412:26
+ ❯ Module.exportSaveJson ui/src/engine/adapter.ts:3780:10
+ ❯ bridge/snapshot-build-context.ts:118:12
+ ❯ Object.saveJson bridge/snapshot-build-context.ts:103:15
+ ❯ Function.fromSaveJson bridge/session.ts:1359:47
+ ❯ tests/bridge-p14a2-market.test.ts:277:35
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/18]⎯
+
+ FAIL |core|  tests/bridge-p14a2-market.test.ts > group 4: selected — candidate rail, offer comparison, settlement reasons/dropped > after settlement (settled-208): the receipt's order-only reasons show; no dropped sentence shows for a case where the player never proposed
+Error: validateSaveV29: firstTakes root missing
+ ❯ validateSaveV29 src/core/save.ts:8577:48
+    8575|   if (save.saveVersion !== 29) throw new Error('validateSaveV29: expec…
+    8576|   const raw = v14Record(checkEnvelope(save, 'validateSaveV29'), 'state…
+    8577|   if (!Object.hasOwn(raw, 'firstTakes')) throw new Error('validateSave…
+       |                                                ^
+    8578|   if (!Object.hasOwn(raw, 'promises')) throw new Error('validateSaveV2…
+    8579|   validatePromiseRoots(raw);
+ ❯ makeSave src/core/save.ts:6389:16
+ ❯ Module.exportCurrentState src/core/save.ts:6412:26
+ ❯ Module.exportSaveJson ui/src/engine/adapter.ts:3780:10
+ ❯ bridge/snapshot-build-context.ts:118:12
+ ❯ Object.saveJson bridge/snapshot-build-context.ts:103:15
+ ❯ Function.fromSaveJson bridge/session.ts:1359:47
+ ❯ tests/bridge-p14a2-market.test.ts:461:35
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/18]⎯
+
+ FAIL |core|  tests/bridge-p14a2-market.test.ts > group 5: paged employer/career history > employer intervals from the P12 rows, rival salaries private, credits by reference, bounded by MARKET_HISTORY_PAGE_SIZE
+Error: validateSaveV29: firstTakes root missing
+ ❯ validateSaveV29 src/core/save.ts:8577:48
+    8575|   if (save.saveVersion !== 29) throw new Error('validateSaveV29: expec…
+    8576|   const raw = v14Record(checkEnvelope(save, 'validateSaveV29'), 'state…
+    8577|   if (!Object.hasOwn(raw, 'firstTakes')) throw new Error('validateSave…
+       |                                                ^
+    8578|   if (!Object.hasOwn(raw, 'promises')) throw new Error('validateSaveV2…
+    8579|   validatePromiseRoots(raw);
+ ❯ makeSave src/core/save.ts:6389:16
+ ❯ Module.exportCurrentState src/core/save.ts:6412:26
+ ❯ Module.exportSaveJson ui/src/engine/adapter.ts:3780:10
+ ❯ bridge/snapshot-build-context.ts:118:12
+ ❯ Object.saveJson bridge/snapshot-build-context.ts:103:15
+ ❯ Function.fromSaveJson bridge/session.ts:1359:47
+ ❯ tests/bridge-p14a2-market.test.ts:498:35
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/18]⎯
+
+ FAIL |core|  tests/bridge-p14a2-market.test.ts > group 6: workspace intents (Review & Submit / Revise / Withdraw) > the same quote -> commit -> STALE_REVISION -> revise -> withdraw -> INTENT_NOT_AVAILABLE sequence as A.1 group 8, from a session whose current page is the market page
+BridgeSchemaError: $.snapshot.talent.talent.profiles[37].marketCase: matched no allowed type ($.snapshot.talent.talent.profiles[37].marketCase.preferences.priorityOrder[2]: expected one of compensation, term, standing, incumbency; $.snapshot.talent.talent.profiles[37].marketCase: expected null)
+ ❯ project bridge/schema/runtime.ts:110:11
+    108|       }
+    109|     }
+    110|     throw new BridgeSchemaError(path, `matched no allowed type (${fail…
+       |           ^
+    111|   }
+    112| 
+ ❯ project bridge/schema/runtime.ts:170:23
+ ❯ bridge/schema/runtime.ts:145:42
+ ❯ project bridge/schema/runtime.ts:145:20
+ ❯ project bridge/schema/runtime.ts:170:23
+ ❯ project bridge/schema/runtime.ts:170:23
+ ❯ section bridge/schema/runtime.ts:202:5
+ ❯ Module.projectStudioProjectionBundle bridge/schema/runtime.ts:222:13
+ ❯ BridgeSession.snapshotFor bridge/session.ts:1501:22
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/18]⎯
+
+ FAIL |core|  tests/bridge-p14a2-market.test.ts > group 7: Pulse fold on view:"pulse" > one activity row per settlement, naming the person/studio/term length, salary absent, correlated by (talentId, week) against the two P12 receipts — never doubled
+Error: validateSaveV29: firstTakes root missing
+ ❯ validateSaveV29 src/core/save.ts:8577:48
+    8575|   if (save.saveVersion !== 29) throw new Error('validateSaveV29: expec…
+    8576|   const raw = v14Record(checkEnvelope(save, 'validateSaveV29'), 'state…
+    8577|   if (!Object.hasOwn(raw, 'firstTakes')) throw new Error('validateSave…
+       |                                                ^
+    8578|   if (!Object.hasOwn(raw, 'promises')) throw new Error('validateSaveV2…
+    8579|   validatePromiseRoots(raw);
+ ❯ makeSave src/core/save.ts:6389:16
+ ❯ Module.exportCurrentState src/core/save.ts:6412:26
+ ❯ Module.exportSaveJson ui/src/engine/adapter.ts:3780:10
+ ❯ bridge/snapshot-build-context.ts:118:12
+ ❯ Object.saveJson bridge/snapshot-build-context.ts:103:15
+ ❯ Function.fromSaveJson bridge/session.ts:1359:47
+ ❯ tests/bridge-p14a2-market.test.ts:642:35
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/18]⎯
+
+ FAIL |core|  tests/bridge-p14a2-market.test.ts > group 9: save/load > LIVE_SAVE_VERSION === 28; a genuine V27 fixture converts to an EMPTY workspace (no attention, no cases, no selected)
+Error: validateSaveV29: firstTakes root missing
+ ❯ validateSaveV29 src/core/save.ts:8577:48
+    8575|   if (save.saveVersion !== 29) throw new Error('validateSaveV29: expec…
+    8576|   const raw = v14Record(checkEnvelope(save, 'validateSaveV29'), 'state…
+    8577|   if (!Object.hasOwn(raw, 'firstTakes')) throw new Error('validateSave…
+       |                                                ^
+    8578|   if (!Object.hasOwn(raw, 'promises')) throw new Error('validateSaveV2…
+    8579|   validatePromiseRoots(raw);
+ ❯ makeSave src/core/save.ts:6389:16
+ ❯ Module.exportCurrentState src/core/save.ts:6412:26
+ ❯ Module.exportSaveJson ui/src/engine/adapter.ts:3780:10
+ ❯ bridge/snapshot-build-context.ts:118:12
+ ❯ Object.saveJson bridge/snapshot-build-context.ts:103:15
+ ❯ Function.fromSaveJson bridge/session.ts:1359:47
+ ❯ tests/bridge-p14a2-market.test.ts:742:35
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/18]⎯
+
+ FAIL |core|  tests/bridge-p14a2-market.test.ts > group 9: save/load > the three genuine V28 T0 fixtures load byte-stable and the market page reads them as T0 pins
+Error: validateSaveV29: firstTakes root missing
+ ❯ validateSaveV29 src/core/save.ts:8577:48
+    8575|   if (save.saveVersion !== 29) throw new Error('validateSaveV29: expec…
+    8576|   const raw = v14Record(checkEnvelope(save, 'validateSaveV29'), 'state…
+    8577|   if (!Object.hasOwn(raw, 'firstTakes')) throw new Error('validateSave…
+       |                                                ^
+    8578|   if (!Object.hasOwn(raw, 'promises')) throw new Error('validateSaveV2…
+    8579|   validatePromiseRoots(raw);
+ ❯ makeSave src/core/save.ts:6389:16
+ ❯ Module.exportCurrentState src/core/save.ts:6412:26
+ ❯ Module.exportSaveJson ui/src/engine/adapter.ts:3780:10
+ ❯ bridge/snapshot-build-context.ts:118:12
+ ❯ Object.saveJson bridge/snapshot-build-context.ts:103:15
+ ❯ Function.fromSaveJson bridge/session.ts:1359:47
+ ❯ tests/bridge-p14a2-market.test.ts:765:39
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/18]⎯
+
+ FAIL |core|  tests/bridge-p14a2-market.test.ts > group 9: save/load > a V28 save round-trips through the bridge save/load path, and the market page reads identically on both sides
+BridgeRuntimeCheckpointError: checkpoint.currentSaveJson: must be a current V28 save, received V29
+ ❯ fail bridge/runtime-checkpoint.ts:329:9
+    327| 
+    328| function fail(path: string, message: string): never {
+    329|   throw new BridgeRuntimeCheckpointError(path, message)
+       |         ^
+    330| }
+    331| 
+ ❯ validateCanonicalCurrentSave bridge/runtime-checkpoint.ts:452:5
+ ❯ hydrateAndEncodeBridgeRuntimeCheckpoint bridge/runtime-checkpoint.ts:1074:23
+ ❯ Module.createEncodedBridgeRuntimeCheckpoint bridge/runtime-checkpoint.ts:1321:20
+ ❯ BridgeSession.prepareEntry bridge/session.ts:2196:21
+ ❯ BridgeSession.executeSave bridge/session.ts:1992:24
+ ❯ BridgeSession.save bridge/session.ts:1968:17
+ ❯ tests/bridge-p14a2-market.test.ts:801:27
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/18]⎯
+
+ FAIL |core|  tests/bridge-p14a3-world.test.ts > group 2: the player's own open case — statusLine exact, caseRef, reach, presence, a person without a case > legacy-v28-open-case-45: statusLine exact, caseRef.targetId, reach playerLot, presence.onLot true; the market page is byte-equal to the Profile; the roster row carries the same line; a person without a case reads null/null
+Error: validateSaveV29: firstTakes root missing
+ ❯ validateSaveV29 src/core/save.ts:8577:48
+    8575|   if (save.saveVersion !== 29) throw new Error('validateSaveV29: expec…
+    8576|   const raw = v14Record(checkEnvelope(save, 'validateSaveV29'), 'state…
+    8577|   if (!Object.hasOwn(raw, 'firstTakes')) throw new Error('validateSave…
+       |                                                ^
+    8578|   if (!Object.hasOwn(raw, 'promises')) throw new Error('validateSaveV2…
+    8579|   validatePromiseRoots(raw);
+ ❯ makeSave src/core/save.ts:6389:16
+ ❯ Module.exportCurrentState src/core/save.ts:6412:26
+ ❯ Module.exportSaveJson ui/src/engine/adapter.ts:3780:10
+ ❯ bridge/snapshot-build-context.ts:118:12
+ ❯ Object.saveJson bridge/snapshot-build-context.ts:103:15
+ ❯ Function.fromSaveJson bridge/session.ts:1359:47
+ ❯ tests/bridge-p14a3-world.test.ts:255:35
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/18]⎯
+
+ FAIL |core|  tests/bridge-p14a3-world.test.ts > group 3: the settling line — decisionWeek <= week + 1 while open, null after close > legacy-v28-open-case-45 walked from 45 to 51 (the settling text) and past 52 (null, closed)
+Error: validateSaveV29: firstTakes root missing
+ ❯ validateSaveV29 src/core/save.ts:8577:48
+    8575|   if (save.saveVersion !== 29) throw new Error('validateSaveV29: expec…
+    8576|   const raw = v14Record(checkEnvelope(save, 'validateSaveV29'), 'state…
+    8577|   if (!Object.hasOwn(raw, 'firstTakes')) throw new Error('validateSave…
+       |                                                ^
+    8578|   if (!Object.hasOwn(raw, 'promises')) throw new Error('validateSaveV2…
+    8579|   validatePromiseRoots(raw);
+ ❯ makeSave src/core/save.ts:6389:16
+ ❯ Module.exportCurrentState src/core/save.ts:6412:26
+ ❯ Module.exportSaveJson ui/src/engine/adapter.ts:3780:10
+ ❯ bridge/snapshot-build-context.ts:118:12
+ ❯ Object.saveJson bridge/snapshot-build-context.ts:103:15
+ ❯ Function.fromSaveJson bridge/session.ts:1359:47
+ ❯ tests/bridge-p14a3-world.test.ts:299:35
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[13/18]⎯
+
+ FAIL |core|  tests/bridge-p14a3-world.test.ts > group 5: the effective-week law from receipts (settled-208 carries no player contract — never used for a player-lot fact; the stayed/moved-away/won-over sets are built through the engine, never read off an empty fixture) > the retained clause: genuine legacy-v28-open-case-45 (player 1.25 vs rival 1.00, decided 52) stays on the player's lot at 51, 52 and 53; the stayed set is asserted non-empty
+Error: validateSaveV29: firstTakes root missing
+ ❯ validateSaveV29 src/core/save.ts:8577:48
+    8575|   if (save.saveVersion !== 29) throw new Error('validateSaveV29: expec…
+    8576|   const raw = v14Record(checkEnvelope(save, 'validateSaveV29'), 'state…
+    8577|   if (!Object.hasOwn(raw, 'firstTakes')) throw new Error('validateSave…
+       |                                                ^
+    8578|   if (!Object.hasOwn(raw, 'promises')) throw new Error('validateSaveV2…
+    8579|   validatePromiseRoots(raw);
+ ❯ makeSave src/core/save.ts:6389:16
+ ❯ Module.exportCurrentState src/core/save.ts:6412:26
+ ❯ Module.exportSaveJson ui/src/engine/adapter.ts:3780:10
+ ❯ bridge/snapshot-build-context.ts:118:12
+ ❯ Object.saveJson bridge/snapshot-build-context.ts:103:15
+ ❯ Function.fromSaveJson bridge/session.ts:1359:47
+ ❯ tests/bridge-p14a3-world.test.ts:370:35
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[14/18]⎯
+
+ FAIL |core|  tests/bridge-p14a3-world.test.ts > group 5: the effective-week law from receipts (settled-208 carries no player contract — never used for a player-lot fact; the stayed/moved-away/won-over sets are built through the engine, never read off an empty fixture) > the departure clause, re-expressed through the declined outcome: on genuine legacy-v28-open-case-45, WITHDRAWING the player's own proposal leaves only the rival's uncontested 1.00 bid, which the seat law itself drops (noSeatForRole) — onLot stays true through week 51 (no early presence change), the case settles declined/"all proposals dropped" at week 52 exactly, and the person is off the lot at 52
+Error: validateSaveV29: firstTakes root missing
+ ❯ validateSaveV29 src/core/save.ts:8577:48
+    8575|   if (save.saveVersion !== 29) throw new Error('validateSaveV29: expec…
+    8576|   const raw = v14Record(checkEnvelope(save, 'validateSaveV29'), 'state…
+    8577|   if (!Object.hasOwn(raw, 'firstTakes')) throw new Error('validateSave…
+       |                                                ^
+    8578|   if (!Object.hasOwn(raw, 'promises')) throw new Error('validateSaveV2…
+    8579|   validatePromiseRoots(raw);
+ ❯ makeSave src/core/save.ts:6389:16
+ ❯ Module.exportCurrentState src/core/save.ts:6412:26
+ ❯ Module.exportSaveJson ui/src/engine/adapter.ts:3780:10
+ ❯ bridge/snapshot-build-context.ts:118:12
+ ❯ Object.saveJson bridge/snapshot-build-context.ts:103:15
+ ❯ Function.fromSaveJson bridge/session.ts:1359:47
+ ❯ tests/bridge-p14a3-world.test.ts:433:35
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[15/18]⎯
+
+ FAIL |core|  tests/bridge-p14a3-world.test.ts > group 7: save/load — V28 unchanged, the world route converts and round-trips > a genuine V27 fixture converts with statusLine null for every person (no case exists anywhere in a converted state)
+Error: validateSaveV29: firstTakes root missing
+ ❯ validateSaveV29 src/core/save.ts:8577:48
+    8575|   if (save.saveVersion !== 29) throw new Error('validateSaveV29: expec…
+    8576|   const raw = v14Record(checkEnvelope(save, 'validateSaveV29'), 'state…
+    8577|   if (!Object.hasOwn(raw, 'firstTakes')) throw new Error('validateSave…
+       |                                                ^
+    8578|   if (!Object.hasOwn(raw, 'promises')) throw new Error('validateSaveV2…
+    8579|   validatePromiseRoots(raw);
+ ❯ makeSave src/core/save.ts:6389:16
+ ❯ Module.exportCurrentState src/core/save.ts:6412:26
+ ❯ Module.exportSaveJson ui/src/engine/adapter.ts:3780:10
+ ❯ bridge/snapshot-build-context.ts:118:12
+ ❯ Object.saveJson bridge/snapshot-build-context.ts:103:15
+ ❯ Function.fromSaveJson bridge/session.ts:1359:47
+ ❯ tests/bridge-p14a3-world.test.ts:578:35
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[16/18]⎯
+
+ FAIL |core|  tests/bridge-p14a3-world.test.ts > group 7: save/load — V28 unchanged, the world route converts and round-trips > the three genuine V28 T0 fixtures read byte-stable and the world route reads identically across the bridge save/load path
+Error: validateSaveV29: firstTakes root missing
+ ❯ validateSaveV29 src/core/save.ts:8577:48
+    8575|   if (save.saveVersion !== 29) throw new Error('validateSaveV29: expec…
+    8576|   const raw = v14Record(checkEnvelope(save, 'validateSaveV29'), 'state…
+    8577|   if (!Object.hasOwn(raw, 'firstTakes')) throw new Error('validateSave…
+       |                                                ^
+    8578|   if (!Object.hasOwn(raw, 'promises')) throw new Error('validateSaveV2…
+    8579|   validatePromiseRoots(raw);
+ ❯ makeSave src/core/save.ts:6389:16
+ ❯ Module.exportCurrentState src/core/save.ts:6412:26
+ ❯ Module.exportSaveJson ui/src/engine/adapter.ts:3780:10
+ ❯ bridge/snapshot-build-context.ts:118:12
+ ❯ Object.saveJson bridge/snapshot-build-context.ts:103:15
+ ❯ Function.fromSaveJson bridge/session.ts:1359:47
+ ❯ tests/bridge-p14a3-world.test.ts:593:37
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[17/18]⎯
+
+ FAIL |core|  tests/bridge-p14a3-world.test.ts > group 7: save/load — V28 unchanged, the world route converts and round-trips > a fresh V28 state round-trips through the bridge save/load path and the world route reads identically on both sides
+BridgeRuntimeCheckpointError: checkpoint.currentSaveJson: must be a current V28 save, received V29
+ ❯ fail bridge/runtime-checkpoint.ts:329:9
+    327| 
+    328| function fail(path: string, message: string): never {
+    329|   throw new BridgeRuntimeCheckpointError(path, message)
+       |         ^
+    330| }
+    331| 
+ ❯ validateCanonicalCurrentSave bridge/runtime-checkpoint.ts:452:5
+ ❯ hydrateAndEncodeBridgeRuntimeCheckpoint bridge/runtime-checkpoint.ts:1074:23
+ ❯ Module.createEncodedBridgeRuntimeCheckpoint bridge/runtime-checkpoint.ts:1321:20
+ ❯ BridgeSession.prepareEntry bridge/session.ts:2196:21
+ ❯ BridgeSession.executeSave bridge/session.ts:1992:24
+ ❯ BridgeSession.save bridge/session.ts:1968:17
+ ❯ tests/bridge-p14a3-world.test.ts:615:27
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[18/18]⎯
+
+ Test Files  3 failed (3)
+      Tests  18 failed | 29 passed | 1 todo (48)
+   Start at  22:25:29
+   Duration  27.12s (transform 2.83s, setup 0ms, collect 4.93s, tests 20.83s, environment 1ms, prepare 515ms)
+
+
+=== npx vitest run --project core --minWorkers=1 --maxWorkers=1 --reporter=dot tests/save.test.ts tests/migration.test.ts tests/v14-migration.contract.test.ts tests/d17a-adv-migration.test.ts tests/p13b-s5-conservation.test.ts tests/cash-ledger-checkpoint-v11.test.ts tests/bridge-p06-checkpoint-recovery.test.ts ===
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/migration.test.ts (23 tests) 1947ms
+   ✓ faithful ability preservation — primary-discipline ACTUAL-SKILL MEAN ≈ old.skill > mean |Δ| between primary actual-skill-mean and old.skill is < ~3 across a large corpus 525ms
+   ✓ faithful ability preservation — primary-discipline ACTUAL-SKILL MEAN ≈ old.skill > the SIGNED mean deviation is ~0 (no systematic upward/downward bias) 520ms
+   ✓ faithful ability preservation — primary-discipline ACTUAL-SKILL MEAN ≈ old.skill > 10–20% of migrated talent have a USABLE secondary discipline (step 4 target) 371ms
+ ❯ |core| tests/cash-ledger-checkpoint-v11.test.ts (10 tests | 3 failed) 4464ms
+   ✓ SaveFileV11 cash/ledger checkpoint — historical migration > migrates an authentic played V2 without fabricating the missing production ledger row 431ms
+   ✓ SaveFileV11 cash/ledger checkpoint — historical migration > preserves validator-accepted non-opening cash through every V1-V10 descendant 347ms
+   × SaveFileV11 cash/ledger checkpoint — historical migration > keeps native and existing reconciled V11 files on the original omitted-field shape 76ms
+     → validateSaveV28: expected version 28
+   × SaveFileV11 cash/ledger checkpoint — historical migration > rejects malformed and redundant checkpoints at the exact V11 boundary 118ms
+     → expected [Function] to throw error matching /checkpoint must encode a genuine hist…/ but got 'validateSaveV28: expected version 28'
+   ✓ SaveFileV11 cash/ledger checkpoint — post-migration authority > prevents every frozen builder from moving a checkpoint after later gameplay 532ms
+   ✓ SaveFileV11 cash/ledger checkpoint — post-migration authority > retains a nonempty historical checkpoint prefix only through ledger-owning builders 1599ms
+   × SaveFileV11 cash/ledger checkpoint — post-migration authority > anchors cash and rejects checkpoint, cash, boundary, and suffix tampering 199ms
+     → expected [Function] to throw error matching /studio cash must equal the historical…/ but got 'validateSaveV28: expected version 28'
+   ✓ SaveFileV11 cash/ledger checkpoint — post-migration authority > preserves exact checkpoint reconciliation through managed payroll and overhead suffixes 660ms
+   ✓ SaveFileV11 cash/ledger checkpoint — post-migration authority > starts and completes the Annex from a mismatched managed V10 with exactly one post-checkpoint capex 421ms
+ ❯ |core| tests/v14-migration.contract.test.ts (30 tests | 25 failed) 363ms
+   × C2a-M1 · T9 (A) — the headline matrix covers every phase that holds a reservation > projects a genuine, legal V13 file for every cell 23ms
+     → C2a-M1 (§8.3, the widened-leaf boundary rule) contract not met: a GENUINE V13 save — one carrying no `bindings` leaf, no `set-unavailable` arm and none of the four new roots, which is what every pre-C2 file on a player's disk looks like — was refused at the V13 boundary. §8.3: "the workflow exact-key list and the blocker validator become version-aware — pre-V14 boundaries still REFUSE `bindings` and the `set-unavailable` arm; V14 requires them." REFUSING a bindings leaf is only half the rule: a V13 file that HAS none must still load, or every save on disk is unreadable and there is nothing left for the migrator to migrate. The refusal was: validateSaveV12: state has unknown field "firstTakes"
+   × C2a-M1 · T9 (A) — the headline matrix covers every phase that holds a reservation > agrees byte-for-byte with the frozen V13 builder wherever that builder writes 8ms
+     → C2a-M1 (§8.3, the widened-leaf boundary rule) contract not met: a GENUINE V13 save — one carrying no `bindings` leaf, no `set-unavailable` arm and none of the four new roots, which is what every pre-C2 file on a player's disk looks like — was refused at the V13 boundary. §8.3: "the workflow exact-key list and the blocker validator become version-aware — pre-V14 boundaries still REFUSE `bindings` and the `set-unavailable` arm; V14 requires them." REFUSING a bindings leaf is only half the rule: a V13 file that HAS none must still load, or every save on disk is unreadable and there is nothing left for the migrator to migrate. The refusal was: validateSaveV12: state has unknown field "firstTakes"
+   × C2a-M1 · T9 (B) — every held phase × blocker kind migrates and plays true > migrates development/none to V14 without touching one V13-visible byte 9ms
+     → C2a-M1 (§8.3, the widened-leaf boundary rule) contract not met: a GENUINE V13 save — one carrying no `bindings` leaf, no `set-unavailable` arm and none of the four new roots, which is what every pre-C2 file on a player's disk looks like — was refused at the V13 boundary. §8.3: "the workflow exact-key list and the blocker validator become version-aware — pre-V14 boundaries still REFUSE `bindings` and the `set-unavailable` arm; V14 requires them." REFUSING a bindings leaf is only half the rule: a V13 file that HAS none must still load, or every save on disk is unreadable and there is nothing left for the migrator to migrate. The refusal was: validateSaveV12: state has unknown field "firstTakes"
+   × C2a-M1 · T9 (B) — every held phase × blocker kind migrates and plays true > plays development/none byte-identically to its V13 twin for 30 weeks 8ms
+     → C2a-M1 (§8.3, the widened-leaf boundary rule) contract not met: a GENUINE V13 save — one carrying no `bindings` leaf, no `set-unavailable` arm and none of the four new roots, which is what every pre-C2 file on a player's disk looks like — was refused at the V13 boundary. §8.3: "the workflow exact-key list and the blocker validator become version-aware — pre-V14 boundaries still REFUSE `bindings` and the `set-unavailable` arm; V14 requires them." REFUSING a bindings leaf is only half the rule: a V13 file that HAS none must still load, or every save on disk is unreadable and there is nothing left for the migrator to migrate. The refusal was: validateSaveV12: state has unknown field "firstTakes"
+   × C2a-M1 · T9 (B) — every held phase × blocker kind migrates and plays true > migrates preProduction/none to V14 without touching one V13-visible byte 8ms
+     → C2a-M1 (§8.3, the widened-leaf boundary rule) contract not met: a GENUINE V13 save — one carrying no `bindings` leaf, no `set-unavailable` arm and none of the four new roots, which is what every pre-C2 file on a player's disk looks like — was refused at the V13 boundary. §8.3: "the workflow exact-key list and the blocker validator become version-aware — pre-V14 boundaries still REFUSE `bindings` and the `set-unavailable` arm; V14 requires them." REFUSING a bindings leaf is only half the rule: a V13 file that HAS none must still load, or every save on disk is unreadable and there is nothing left for the migrator to migrate. The refusal was: validateSaveV12: state has unknown field "firstTakes"
+   × C2a-M1 · T9 (B) — every held phase × blocker kind migrates and plays true > plays preProduction/none byte-identically to its V13 twin for 30 weeks 12ms
+     → C2a-M1 (§8.3, the widened-leaf boundary rule) contract not met: a GENUINE V13 save — one carrying no `bindings` leaf, no `set-unavailable` arm and none of the four new roots, which is what every pre-C2 file on a player's disk looks like — was refused at the V13 boundary. §8.3: "the workflow exact-key list and the blocker validator become version-aware — pre-V14 boundaries still REFUSE `bindings` and the `set-unavailable` arm; V14 requires them." REFUSING a bindings leaf is only half the rule: a V13 file that HAS none must still load, or every save on disk is unreadable and there is nothing left for the migrator to migrate. The refusal was: validateSaveV12: state has unknown field "firstTakes"
+   × C2a-M1 · T9 (B) — every held phase × blocker kind migrates and plays true > migrates preProduction/facility-capacity to V14 without touching one V13-visible byte 7ms
+     → C2a-M1 (§8.3, the widened-leaf boundary rule) contract not met: a GENUINE V13 save — one carrying no `bindings` leaf, no `set-unavailable` arm and none of the four new roots, which is what every pre-C2 file on a player's disk looks like — was refused at the V13 boundary. §8.3: "the workflow exact-key list and the blocker validator become version-aware — pre-V14 boundaries still REFUSE `bindings` and the `set-unavailable` arm; V14 requires them." REFUSING a bindings leaf is only half the rule: a V13 file that HAS none must still load, or every save on disk is unreadable and there is nothing left for the migrator to migrate. The refusal was: validateSaveV12: state has unknown field "firstTakes"
+   × C2a-M1 · T9 (B) — every held phase × blocker kind migrates and plays true > plays preProduction/facility-capacity byte-identically to its V13 twin for 30 weeks 7ms
+     → C2a-M1 (§8.3, the widened-leaf boundary rule) contract not met: a GENUINE V13 save — one carrying no `bindings` leaf, no `set-unavailable` arm and none of the four new roots, which is what every pre-C2 file on a player's disk looks like — was refused at the V13 boundary. §8.3: "the workflow exact-key list and the blocker validator become version-aware — pre-V14 boundaries still REFUSE `bindings` and the `set-unavailable` arm; V14 requires them." REFUSING a bindings leaf is only half the rule: a V13 file that HAS none must still load, or every save on disk is unreadable and there is nothing left for the migrator to migrate. The refusal was: validateSaveV12: state has unknown field "firstTakes"
+   × C2a-M1 · T9 (B) — every held phase × blocker kind migrates and plays true > migrates rehearsal/none to V14 without touching one V13-visible byte 7ms
+     → C2a-M1 (§8.3, the widened-leaf boundary rule) contract not met: a GENUINE V13 save — one carrying no `bindings` leaf, no `set-unavailable` arm and none of the four new roots, which is what every pre-C2 file on a player's disk looks like — was refused at the V13 boundary. §8.3: "the workflow exact-key list and the blocker validator become version-aware — pre-V14 boundaries still REFUSE `bindings` and the `set-unavailable` arm; V14 requires them." REFUSING a bindings leaf is only half the rule: a V13 file that HAS none must still load, or every save on disk is unreadable and there is nothing left for the migrator to migrate. The refusal was: validateSaveV12: state has unknown field "firstTakes"
+   × C2a-M1 · T9 (B) — every held phase × blocker kind migrates and plays true > plays rehearsal/none byte-identically to its V13 twin for 30 weeks 7ms
+     → C2a-M1 (§8.3, the widened-leaf boundary rule) contract not met: a GENUINE V13 save — one carrying no `bindings` leaf, no `set-unavailable` arm and none of the four new roots, which is what every pre-C2 file on a player's disk looks like — was refused at the V13 boundary. §8.3: "the workflow exact-key list and the blocker validator become version-aware — pre-V14 boundaries still REFUSE `bindings` and the `set-unavailable` arm; V14 requires them." REFUSING a bindings leaf is only half the rule: a V13 file that HAS none must still load, or every save on disk is unreadable and there is nothing left for the migrator to migrate. The refusal was: validateSaveV12: state has unknown field "firstTakes"
+   × C2a-M1 · T9 (B) — every held phase × blocker kind migrates and plays true > migrates rehearsal/facility-capacity to V14 without touching one V13-visible byte 6ms
+     → C2a-M1 (§8.3, the widened-leaf boundary rule) contract not met: a GENUINE V13 save — one carrying no `bindings` leaf, no `set-unavailable` arm and none of the four new roots, which is what every pre-C2 file on a player's disk looks like — was refused at the V13 boundary. §8.3: "the workflow exact-key list and the blocker validator become version-aware — pre-V14 boundaries still REFUSE `bindings` and the `set-unavailable` arm; V14 requires them." REFUSING a bindings leaf is only half the rule: a V13 file that HAS none must still load, or every save on disk is unreadable and there is nothing left for the migrator to migrate. The refusal was: validateSaveV12: state has unknown field "firstTakes"
+   × C2a-M1 · T9 (B) — every held phase × blocker kind migrates and plays true > plays rehearsal/facility-capacity byte-identically to its V13 twin for 30 weeks 7ms
+     → C2a-M1 (§8.3, the widened-leaf boundary rule) contract not met: a GENUINE V13 save — one carrying no `bindings` leaf, no `set-unavailable` arm and none of the four new roots, which is what every pre-C2 file on a player's disk looks like — was refused at the V13 boundary. §8.3: "the workflow exact-key list and the blocker validator become version-aware — pre-V14 boundaries still REFUSE `bindings` and the `set-unavailable` arm; V14 requires them." REFUSING a bindings leaf is only half the rule: a V13 file that HAS none must still load, or every save on disk is unreadable and there is nothing left for the migrator to migrate. The refusal was: validateSaveV12: state has unknown field "firstTakes"
+   × C2a-M1 · T9 (B) — every held phase × blocker kind migrates and plays true > migrates shooting/none to V14 without touching one V13-visible byte 8ms
+     → C2a-M1 (§8.3, the widened-leaf boundary rule) contract not met: a GENUINE V13 save — one carrying no `bindings` leaf, no `set-unavailable` arm and none of the four new roots, which is what every pre-C2 file on a player's disk looks like — was refused at the V13 boundary. §8.3: "the workflow exact-key list and the blocker validator become version-aware — pre-V14 boundaries still REFUSE `bindings` and the `set-unavailable` arm; V14 requires them." REFUSING a bindings leaf is only half the rule: a V13 file that HAS none must still load, or every save on disk is unreadable and there is nothing left for the migrator to migrate. The refusal was: validateSaveV12: state has unknown field "firstTakes"
+   × C2a-M1 · T9 (B) — every held phase × blocker kind migrates and plays true > plays shooting/none byte-identically to its V13 twin for 30 weeks 7ms
+     → C2a-M1 (§8.3, the widened-leaf boundary rule) contract not met: a GENUINE V13 save — one carrying no `bindings` leaf, no `set-unavailable` arm and none of the four new roots, which is what every pre-C2 file on a player's disk looks like — was refused at the V13 boundary. §8.3: "the workflow exact-key list and the blocker validator become version-aware — pre-V14 boundaries still REFUSE `bindings` and the `set-unavailable` arm; V14 requires them." REFUSING a bindings leaf is only half the rule: a V13 file that HAS none must still load, or every save on disk is unreadable and there is nothing left for the migrator to migrate. The refusal was: validateSaveV12: state has unknown field "firstTakes"
+   × C2a-M1 · T9 (B) — every held phase × blocker kind migrates and plays true > migrates shooting/scenery-load-in to V14 without touching one V13-visible byte 8ms
+     → C2a-M1 (§8.3, the widened-leaf boundary rule) contract not met: a GENUINE V13 save — one carrying no `bindings` leaf, no `set-unavailable` arm and none of the four new roots, which is what every pre-C2 file on a player's disk looks like — was refused at the V13 boundary. §8.3: "the workflow exact-key list and the blocker validator become version-aware — pre-V14 boundaries still REFUSE `bindings` and the `set-unavailable` arm; V14 requires them." REFUSING a bindings leaf is only half the rule: a V13 file that HAS none must still load, or every save on disk is unreadable and there is nothing left for the migrator to migrate. The refusal was: validateSaveV12: state has unknown field "firstTakes"
+   × C2a-M1 · T9 (B) — every held phase × blocker kind migrates and plays true > plays shooting/scenery-load-in byte-identically to its V13 twin for 30 weeks 8ms
+     → C2a-M1 (§8.3, the widened-leaf boundary rule) contract not met: a GENUINE V13 save — one carrying no `bindings` leaf, no `set-unavailable` arm and none of the four new roots, which is what every pre-C2 file on a player's disk looks like — was refused at the V13 boundary. §8.3: "the workflow exact-key list and the blocker validator become version-aware — pre-V14 boundaries still REFUSE `bindings` and the `set-unavailable` arm; V14 requires them." REFUSING a bindings leaf is only half the rule: a V13 file that HAS none must still load, or every save on disk is unreadable and there is nothing left for the migrator to migrate. The refusal was: validateSaveV12: state has unknown field "firstTakes"
+   × C2a-M1 · T9 (B) — every held phase × blocker kind migrates and plays true > migrates shooting/facility-capacity to V14 without touching one V13-visible byte 8ms
+     → C2a-M1 (§8.3, the widened-leaf boundary rule) contract not met: a GENUINE V13 save — one carrying no `bindings` leaf, no `set-unavailable` arm and none of the four new roots, which is what every pre-C2 file on a player's disk looks like — was refused at the V13 boundary. §8.3: "the workflow exact-key list and the blocker validator become version-aware — pre-V14 boundaries still REFUSE `bindings` and the `set-unavailable` arm; V14 requires them." REFUSING a bindings leaf is only half the rule: a V13 file that HAS none must still load, or every save on disk is unreadable and there is nothing left for the migrator to migrate. The refusal was: validateSaveV12: state has unknown field "firstTakes"
+   × C2a-M1 · T9 (B) — every held phase × blocker kind migrates and plays true > plays shooting/facility-capacity byte-identically to its V13 twin for 30 weeks 8ms
+     → C2a-M1 (§8.3, the widened-leaf boundary rule) contract not met: a GENUINE V13 save — one carrying no `bindings` leaf, no `set-unavailable` arm and none of the four new roots, which is what every pre-C2 file on a player's disk looks like — was refused at the V13 boundary. §8.3: "the workflow exact-key list and the blocker validator become version-aware — pre-V14 boundaries still REFUSE `bindings` and the `set-unavailable` arm; V14 requires them." REFUSING a bindings leaf is only half the rule: a V13 file that HAS none must still load, or every save on disk is unreadable and there is nothing left for the migrator to migrate. The refusal was: validateSaveV12: state has unknown field "firstTakes"
+   × C2a-M1 · T9 (B) — every held phase × blocker kind migrates and plays true > migrates postProduction/none to V14 without touching one V13-visible byte 7ms
+     → C2a-M1 (§8.3, the widened-leaf boundary rule) contract not met: a GENUINE V13 save — one carrying no `bindings` leaf, no `set-unavailable` arm and none of the four new roots, which is what every pre-C2 file on a player's disk looks like — was refused at the V13 boundary. §8.3: "the workflow exact-key list and the blocker validator become version-aware — pre-V14 boundaries still REFUSE `bindings` and the `set-unavailable` arm; V14 requires them." REFUSING a bindings leaf is only half the rule: a V13 file that HAS none must still load, or every save on disk is unreadable and there is nothing left for the migrator to migrate. The refusal was: validateSaveV12: state has unknown field "firstTakes"
+   × C2a-M1 · T9 (B) — every held phase × blocker kind migrates and plays true > plays postProduction/none byte-identically to its V13 twin for 30 weeks 7ms
+     → C2a-M1 (§8.3, the widened-leaf boundary rule) contract not met: a GENUINE V13 save — one carrying no `bindings` leaf, no `set-unavailable` arm and none of the four new roots, which is what every pre-C2 file on a player's disk looks like — was refused at the V13 boundary. §8.3: "the workflow exact-key list and the blocker validator become version-aware — pre-V14 boundaries still REFUSE `bindings` and the `set-unavailable` arm; V14 requires them." REFUSING a bindings leaf is only half the rule: a V13 file that HAS none must still load, or every save on disk is unreadable and there is nothing left for the migrator to migrate. The refusal was: validateSaveV12: state has unknown field "firstTakes"
+   × C2a-M1 · T9 (C) — the endowed house sets are DERIVED, not invented > gives a managed-mode migrated save exactly the two house sets and nextSetId 2 7ms
+     → C2a-M1 (§8.3, the widened-leaf boundary rule) contract not met: a GENUINE V13 save — one carrying no `bindings` leaf, no `set-unavailable` arm and none of the four new roots, which is what every pre-C2 file on a player's disk looks like — was refused at the V13 boundary. §8.3: "the workflow exact-key list and the blocker validator become version-aware — pre-V14 boundaries still REFUSE `bindings` and the `set-unavailable` arm; V14 requires them." REFUSING a bindings leaf is only half the rule: a V13 file that HAS none must still load, or every save on disk is unreadable and there is nothing left for the migrator to migrate. The refusal was: validateSaveV12: state has unknown field "firstTakes"
+   × C2a-M1 · T9 (C) — the endowed house sets are DERIVED, not invented > gives a legacy migrated save zero sets and nextSetId 0 15ms
+     → C2a-M1 (§8.3, the widened-leaf boundary rule) contract not met: a GENUINE V13 save — one carrying no `bindings` leaf, no `set-unavailable` arm and none of the four new roots, which is what every pre-C2 file on a player's disk looks like — was refused at the V13 boundary. §8.3: "the workflow exact-key list and the blocker validator become version-aware — pre-V14 boundaries still REFUSE `bindings` and the `set-unavailable` arm; V14 requires them." REFUSING a bindings leaf is only half the rule: a V13 file that HAS none must still load, or every save on disk is unreadable and there is nothing left for the migrator to migrate. The refusal was: validateSaveV12: state has unknown field "firstTakes"
+   × C2a-M1 · T9 (C) — the endowed house sets are DERIVED, not invented > leaves the queue and the screenplay root empty for every migrated save (§8.3) 7ms
+     → C2a-M1 (§8.3, the widened-leaf boundary rule) contract not met: a GENUINE V13 save — one carrying no `bindings` leaf, no `set-unavailable` arm and none of the four new roots, which is what every pre-C2 file on a player's disk looks like — was refused at the V13 boundary. §8.3: "the workflow exact-key list and the blocker validator become version-aware — pre-V14 boundaries still REFUSE `bindings` and the `set-unavailable` arm; V14 requires them." REFUSING a bindings leaf is only half the rule: a V13 file that HAS none must still load, or every save on disk is unreadable and there is nothing left for the migrator to migrate. The refusal was: validateSaveV12: state has unknown field "firstTakes"
+   × C2a-M1 · T9 (D) — migrated workflows are grandfathered, by derivation > derives every bindings field exactly as §8.3 states it 7ms
+     → C2a-M1 (§8.3, the widened-leaf boundary rule) contract not met: a GENUINE V13 save — one carrying no `bindings` leaf, no `set-unavailable` arm and none of the four new roots, which is what every pre-C2 file on a player's disk looks like — was refused at the V13 boundary. §8.3: "the workflow exact-key list and the blocker validator become version-aware — pre-V14 boundaries still REFUSE `bindings` and the `set-unavailable` arm; V14 requires them." REFUSING a bindings leaf is only half the rule: a V13 file that HAS none must still load, or every save on disk is unreadable and there is nothing left for the migrator to migrate. The refusal was: validateSaveV12: state has unknown field "firstTakes"
+   × C2a-M1 · T9 (D) — migrated workflows are grandfathered, by derivation > keeps the in-flight scenery reservation byte-for-byte across the boundary 7ms
+     → C2a-M1 (§8.3, the widened-leaf boundary rule) contract not met: a GENUINE V13 save — one carrying no `bindings` leaf, no `set-unavailable` arm and none of the four new roots, which is what every pre-C2 file on a player's disk looks like — was refused at the V13 boundary. §8.3: "the workflow exact-key list and the blocker validator become version-aware — pre-V14 boundaries still REFUSE `bindings` and the `set-unavailable` arm; V14 requires them." REFUSING a bindings leaf is only half the rule: a V13 file that HAS none must still load, or every save on disk is unreadable and there is nothing left for the migrator to migrate. The refusal was: validateSaveV12: state has unknown field "firstTakes"
+ ❯ |core| tests/save.test.ts (10 tests | 2 failed) 293ms
+   × §17 — loud rejection of an unknown saveVersion > throws on an unknown saveVersion (e.g. 18) 17ms
+     → expected [Function] to throw an error
+   × P04A §2.5 — SaveFileV15 identity-bearing queue expiry > rejects an unknown saveVersion 29 with the updated range, and rejects downgrading V15 to V14 5ms
+     → expected [Function] to throw error matching /versions 1 through 28 only/ but got 'validateSaveV29: firstTakes root miss…'
+ ✓ |core| tests/p13b-s5-conservation.test.ts (3 tests) 30934ms
+   ✓ P13B-S5 conservation, determinism, campaign isolation (test 6) > cash conservation across a sound and a lighting adoption: every dollar the ledger charges for the two adoptions is exactly equipmentCost + installationCost, no more, no less, and no negative or duplicate row 8524ms
+   ✓ P13B-S5 conservation, determinism, campaign isolation (test 6) > determinism: the SAME action sequence from the SAME starting state produces byte-identical saves 12779ms
+   ✓ P13B-S5 conservation, determinism, campaign isolation (test 6) > campaign isolation: a rival’s organically-purchased sound adoption is byte-unchanged by the player’s own adoption actions, and reconciles to the catalogue’s per-technology values (no hard-coded 300,000/975,000) 9628ms
+ ❯ |core| tests/bridge-p06-checkpoint-recovery.test.ts (11 tests | 5 failed) 1811ms
+   × AUD-001 — frozen P06 checkpoint recovery > loads 'Ready with no explicit save' through the governed predecessor path 439ms
+     → validateSaveV29: firstTakes root missing
+   × AUD-001 — frozen P06 checkpoint recovery > loads 'Committed with distinct Ready save an…' through the governed predecessor path 334ms
+     → validateSaveV29: firstTakes root missing
+   × AUD-001 — frozen P06 checkpoint recovery > persists 'Ready with no explicit save' once and reopens without remigration 276ms
+     → validateSaveV29: firstTakes root missing
+   × AUD-001 — frozen P06 checkpoint recovery > persists 'Committed with distinct Ready save an…' once and reopens without remigration 304ms
+     → validateSaveV29: firstTakes root missing
+   × AUD-001 — frozen P06 checkpoint recovery > preserves the predecessor if the migration write fails 272ms
+     → expected [Function] to throw error including 'audit migration write refused' but got 'validateSaveV29: firstTakes root miss…'
+ ❯ |core| tests/d17a-adv-migration.test.ts (17 tests | 1 failed) 33ms
+   × D-17A/D — validateSave still guards the version boundary loudly > rejects unknown V22 loudly 13ms
+     → expected [Function] to throw error matching /unknown saveVersion 29/ but got 'validateSaveV29: firstTakes root miss…'
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 36 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/bridge-p06-checkpoint-recovery.test.ts > AUD-001 — frozen P06 checkpoint recovery > loads 'Ready with no explicit save' through the governed predecessor path
+ FAIL |core|  tests/bridge-p06-checkpoint-recovery.test.ts > AUD-001 — frozen P06 checkpoint recovery > loads 'Committed with distinct Ready save an…' through the governed predecessor path
+Error: validateSaveV29: firstTakes root missing
+ ❯ validateSaveV29 src/core/save.ts:8577:48
+    8575|   if (save.saveVersion !== 29) throw new Error('validateSaveV29: expec…
+    8576|   const raw = v14Record(checkEnvelope(save, 'validateSaveV29'), 'state…
+    8577|   if (!Object.hasOwn(raw, 'firstTakes')) throw new Error('validateSave…
+       |                                                ^
+    8578|   if (!Object.hasOwn(raw, 'promises')) throw new Error('validateSaveV2…
+    8579|   validatePromiseRoots(raw);
+ ❯ makeSave src/core/save.ts:6389:16
+ ❯ Module.exportCurrentState src/core/save.ts:6412:26
+ ❯ Module.exportSaveJson ui/src/engine/adapter.ts:3780:10
+ ❯ importPriorSaveViaCanonicalChain bridge/runtime-checkpoint.ts:847:18
+ ❯ migratePriorProtocol4Checkpoint bridge/runtime-checkpoint.ts:981:27
+ ❯ migratePriorCheckpoint bridge/runtime-checkpoint.ts:1032:10
+ ❯ Module.loadBridgeRuntimeCheckpoint bridge/runtime-checkpoint.ts:1268:14
+ ❯ tests/bridge-p06-checkpoint-recovery.test.ts:155:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/36]⎯
+
+ FAIL |core|  tests/bridge-p06-checkpoint-recovery.test.ts > AUD-001 — frozen P06 checkpoint recovery > persists 'Ready with no explicit save' once and reopens without remigration
+ FAIL |core|  tests/bridge-p06-checkpoint-recovery.test.ts > AUD-001 — frozen P06 checkpoint recovery > persists 'Committed with distinct Ready save an…' once and reopens without remigration
+Error: validateSaveV29: firstTakes root missing
+ ❯ validateSaveV29 src/core/save.ts:8577:48
+    8575|   if (save.saveVersion !== 29) throw new Error('validateSaveV29: expec…
+    8576|   const raw = v14Record(checkEnvelope(save, 'validateSaveV29'), 'state…
+    8577|   if (!Object.hasOwn(raw, 'firstTakes')) throw new Error('validateSave…
+       |                                                ^
+    8578|   if (!Object.hasOwn(raw, 'promises')) throw new Error('validateSaveV2…
+    8579|   validatePromiseRoots(raw);
+ ❯ makeSave src/core/save.ts:6389:16
+ ❯ Module.exportCurrentState src/core/save.ts:6412:26
+ ❯ Module.exportSaveJson ui/src/engine/adapter.ts:3780:10
+ ❯ importPriorSaveViaCanonicalChain bridge/runtime-checkpoint.ts:847:18
+ ❯ migratePriorProtocol4Checkpoint bridge/runtime-checkpoint.ts:981:27
+ ❯ migratePriorCheckpoint bridge/runtime-checkpoint.ts:1032:10
+ ❯ Module.loadBridgeRuntimeCheckpoint bridge/runtime-checkpoint.ts:1268:14
+ ❯ Module.createBridgeRuntimeCoordinator bridge/runtime/runtime-coordinator.ts:309:56
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/36]⎯
+
+ FAIL |core|  tests/bridge-p06-checkpoint-recovery.test.ts > AUD-001 — frozen P06 checkpoint recovery > preserves the predecessor if the migration write fails
+AssertionError: expected [Function] to throw error including 'audit migration write refused' but got 'validateSaveV29: firstTakes root miss…'
+
+Expected: "audit migration write refused"
+Received: "validateSaveV29: firstTakes root missing"
+
+ ❯ tests/bridge-p06-checkpoint-recovery.test.ts:241:5
+    239|     store.writeError = new Error('audit migration write refused')
+    240|     const fatals: unknown[] = []
+    241|     await expect(createBridgeRuntimeCoordinator({
+       |     ^
+    242|       store,
+    243|       fatal: (reason) => { fatals.push(reason) },
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/36]⎯
+
+ FAIL |core|  tests/cash-ledger-checkpoint-v11.test.ts > SaveFileV11 cash/ledger checkpoint — historical migration > keeps native and existing reconciled V11 files on the original omitted-field shape
+Error: validateSaveV28: expected version 28
+ ❯ Module.validateSaveV28 src/core/save.ts:8478:38
+    8476|   if (!isRecord(save)) throw new Error('validateSaveV28: object requir…
+    8477|   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'…
+    8478|   if (save.saveVersion !== 28) throw new Error('validateSaveV28: expec…
+       |                                      ^
+    8479|   const raw = v14Record(checkEnvelope(save, 'validateSaveV28'), 'state…
+    8480|   if (!Object.hasOwn(raw, 'talentMarket')) throw new Error('validateSa…
+ ❯ tests/cash-ledger-checkpoint-v11.test.ts:231:12
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/36]⎯
+
+ FAIL |core|  tests/cash-ledger-checkpoint-v11.test.ts > SaveFileV11 cash/ledger checkpoint — historical migration > rejects malformed and redundant checkpoints at the exact V11 boundary
+AssertionError: expected [Function] to throw error matching /checkpoint must encode a genuine hist…/ but got 'validateSaveV28: expected version 28'
+
+- Expected: 
+/checkpoint must encode a genuine historical reconciliation boundary/
+
++ Received: 
+"validateSaveV28: expected version 28"
+
+ ❯ tests/cash-ledger-checkpoint-v11.test.ts:293:46
+    291|       ledgerLength: redundant.state.ledger.length,
+    292|     };
+    293|     expect(() => validateSaveV28(redundant)).toThrow(
+       |                                              ^
+    294|       /checkpoint must encode a genuine historical reconciliation boun…
+    295|     );
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/36]⎯
+
+ FAIL |core|  tests/cash-ledger-checkpoint-v11.test.ts > SaveFileV11 cash/ledger checkpoint — post-migration authority > anchors cash and rejects checkpoint, cash, boundary, and suffix tampering
+AssertionError: expected [Function] to throw error matching /studio cash must equal the historical…/ but got 'validateSaveV28: expected version 28'
+
+- Expected: 
+/studio cash must equal the historical checkpoint plus the ordered post-checkpoint ledger/
+
++ Received: 
+"validateSaveV28: expected version 28"
+
+ ❯ tests/cash-ledger-checkpoint-v11.test.ts:483:50
+    481|     const changedAnchor = clone(valid);
+    482|     changedAnchor.state.cashLedgerCheckpoint!.cash += 1;
+    483|     expect(() => validateSaveV28(changedAnchor)).toThrow(
+       |                                                  ^
+    484|       /studio cash must equal the historical checkpoint plus the order…
+    485|     );
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/36]⎯
+
+ FAIL |core|  tests/d17a-adv-migration.test.ts > D-17A/D — validateSave still guards the version boundary loudly > rejects unknown V22 loudly
+AssertionError: expected [Function] to throw error matching /unknown saveVersion 29/ but got 'validateSaveV29: firstTakes root miss…'
+
+- Expected: 
+/unknown saveVersion 29/
+
++ Received: 
+"validateSaveV29: firstTakes root missing"
+
+ ❯ tests/d17a-adv-migration.test.ts:274:60
+    272|   // bump on.
+    273|   it('rejects unknown V22 loudly', () => {
+    274|     expect(() => validateSave({ ...v6, saveVersion: 29 })).toThrow(/un…
+       |                                                            ^
+    275|   })
+    276| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/36]⎯
+
+ FAIL |core|  tests/save.test.ts > §17 — loud rejection of an unknown saveVersion > throws on an unknown saveVersion (e.g. 18)
+AssertionError: expected [Function] to throw an error
+ ❯ tests/save.test.ts:271:33
+    269|     const save = wellFormedSave();
+    270|     const bad = { ...save, saveVersion: 29 } as unknown as SaveFileV14;
+    271|     expect(() => loadSave(bad)).toThrow();
+       |                                 ^
+    272|   });
+    273| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/36]⎯
+
+ FAIL |core|  tests/save.test.ts > P04A §2.5 — SaveFileV15 identity-bearing queue expiry > rejects an unknown saveVersion 29 with the updated range, and rejects downgrading V15 to V14
+AssertionError: expected [Function] to throw error matching /versions 1 through 28 only/ but got 'validateSaveV29: firstTakes root miss…'
+
+- Expected: 
+/versions 1 through 28 only/
+
++ Received: 
+"validateSaveV29: firstTakes root missing"
+
+ ❯ tests/save.test.ts:427:62
+    425|   it("rejects an unknown saveVersion 29 with the updated range, and re…
+    426|     const save = wellFormedV15Save();
+    427|     expect(() => validateSave({ ...save, saveVersion: 29 })).toThrow(
+       |                                                              ^
+    428|       /versions 1 through 28 only/,
+    429|     );
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/36]⎯
+
+ FAIL |core|  tests/v14-migration.contract.test.ts > C2a-M1 · T9 (A) — the headline matrix covers every phase that holds a reservation > projects a genuine, legal V13 file for every cell
+Error: C2a-M1 (§8.3, the widened-leaf boundary rule) contract not met: a GENUINE V13 save — one carrying no `bindings` leaf, no `set-unavailable` arm and none of the four new roots, which is what every pre-C2 file on a player's disk looks like — was refused at the V13 boundary. §8.3: "the workflow exact-key list and the blocker validator become version-aware — pre-V14 boundaries still REFUSE `bindings` and the `set-unavailable` arm; V14 requires them." REFUSING a bindings leaf is only half the rule: a V13 file that HAS none must still load, or every save on disk is unreadable and there is nothing left for the migrator to migrate. The refusal was: validateSaveV12: state has unknown field "firstTakes"
+ ❯ Module.v13TwinOf tests/contracts/_v14Contract.ts:459:11
+    457|     validateSaveV13(twin)
+    458|   } catch (error) {
+    459|     throw new Error(
+       |           ^
+    460|       'C2a-M1 (§8.3, the widened-leaf boundary rule) contract not met:…
+    461|         'one carrying no `bindings` leaf, no `set-unavailable` arm and…
+ ❯ tests/v14-migration.contract.test.ts:160:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/36]⎯
+
+ FAIL |core|  tests/v14-migration.contract.test.ts > C2a-M1 · T9 (A) — the headline matrix covers every phase that holds a reservation > agrees byte-for-byte with the frozen V13 builder wherever that builder writes
+Error: C2a-M1 (§8.3, the widened-leaf boundary rule) contract not met: a GENUINE V13 save — one carrying no `bindings` leaf, no `set-unavailable` arm and none of the four new roots, which is what every pre-C2 file on a player's disk looks like — was refused at the V13 boundary. §8.3: "the workflow exact-key list and the blocker validator become version-aware — pre-V14 boundaries still REFUSE `bindings` and the `set-unavailable` arm; V14 requires them." REFUSING a bindings leaf is only half the rule: a V13 file that HAS none must still load, or every save on disk is unreadable and there is nothing left for the migrator to migrate. The refusal was: validateSaveV12: state has unknown field "firstTakes"
+ ❯ Module.v13TwinOf tests/contracts/_v14Contract.ts:459:11
+    457|     validateSaveV13(twin)
+    458|   } catch (error) {
+    459|     throw new Error(
+       |           ^
+    460|       'C2a-M1 (§8.3, the widened-leaf boundary rule) contract not met:…
+    461|         'one carrying no `bindings` leaf, no `set-unavailable` arm and…
+ ❯ tests/v14-migration.contract.test.ts:195:25
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/36]⎯
+
+ FAIL |core|  tests/v14-migration.contract.test.ts > C2a-M1 · T9 (B) — every held phase × blocker kind migrates and plays true > migrates development/none to V14 without touching one V13-visible byte
+ FAIL |core|  tests/v14-migration.contract.test.ts > C2a-M1 · T9 (B) — every held phase × blocker kind migrates and plays true > migrates preProduction/none to V14 without touching one V13-visible byte
+ FAIL |core|  tests/v14-migration.contract.test.ts > C2a-M1 · T9 (B) — every held phase × blocker kind migrates and plays true > migrates preProduction/facility-capacity to V14 without touching one V13-visible byte
+ FAIL |core|  tests/v14-migration.contract.test.ts > C2a-M1 · T9 (B) — every held phase × blocker kind migrates and plays true > migrates rehearsal/none to V14 without touching one V13-visible byte
+ FAIL |core|  tests/v14-migration.contract.test.ts > C2a-M1 · T9 (B) — every held phase × blocker kind migrates and plays true > migrates rehearsal/facility-capacity to V14 without touching one V13-visible byte
+ FAIL |core|  tests/v14-migration.contract.test.ts > C2a-M1 · T9 (B) — every held phase × blocker kind migrates and plays true > migrates shooting/none to V14 without touching one V13-visible byte
+ FAIL |core|  tests/v14-migration.contract.test.ts > C2a-M1 · T9 (B) — every held phase × blocker kind migrates and plays true > migrates shooting/scenery-load-in to V14 without touching one V13-visible byte
+ FAIL |core|  tests/v14-migration.contract.test.ts > C2a-M1 · T9 (B) — every held phase × blocker kind migrates and plays true > migrates shooting/facility-capacity to V14 without touching one V13-visible byte
+ FAIL |core|  tests/v14-migration.contract.test.ts > C2a-M1 · T9 (B) — every held phase × blocker kind migrates and plays true > migrates postProduction/none to V14 without touching one V13-visible byte
+Error: C2a-M1 (§8.3, the widened-leaf boundary rule) contract not met: a GENUINE V13 save — one carrying no `bindings` leaf, no `set-unavailable` arm and none of the four new roots, which is what every pre-C2 file on a player's disk looks like — was refused at the V13 boundary. §8.3: "the workflow exact-key list and the blocker validator become version-aware — pre-V14 boundaries still REFUSE `bindings` and the `set-unavailable` arm; V14 requires them." REFUSING a bindings leaf is only half the rule: a V13 file that HAS none must still load, or every save on disk is unreadable and there is nothing left for the migrator to migrate. The refusal was: validateSaveV12: state has unknown field "firstTakes"
+ ❯ Module.v13TwinOf tests/contracts/_v14Contract.ts:459:11
+    457|     validateSaveV13(twin)
+    458|   } catch (error) {
+    459|     throw new Error(
+       |           ^
+    460|       'C2a-M1 (§8.3, the widened-leaf boundary rule) contract not met:…
+    461|         'one carrying no `bindings` leaf, no `set-unavailable` arm and…
+ ❯ tests/v14-migration.contract.test.ts:233:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/36]⎯
+
+ FAIL |core|  tests/v14-migration.contract.test.ts > C2a-M1 · T9 (B) — every held phase × blocker kind migrates and plays true > plays development/none byte-identically to its V13 twin for 30 weeks
+ FAIL |core|  tests/v14-migration.contract.test.ts > C2a-M1 · T9 (B) — every held phase × blocker kind migrates and plays true > plays preProduction/none byte-identically to its V13 twin for 30 weeks
+ FAIL |core|  tests/v14-migration.contract.test.ts > C2a-M1 · T9 (B) — every held phase × blocker kind migrates and plays true > plays preProduction/facility-capacity byte-identically to its V13 twin for 30 weeks
+ FAIL |core|  tests/v14-migration.contract.test.ts > C2a-M1 · T9 (B) — every held phase × blocker kind migrates and plays true > plays rehearsal/none byte-identically to its V13 twin for 30 weeks
+ FAIL |core|  tests/v14-migration.contract.test.ts > C2a-M1 · T9 (B) — every held phase × blocker kind migrates and plays true > plays rehearsal/facility-capacity byte-identically to its V13 twin for 30 weeks
+ FAIL |core|  tests/v14-migration.contract.test.ts > C2a-M1 · T9 (B) — every held phase × blocker kind migrates and plays true > plays shooting/none byte-identically to its V13 twin for 30 weeks
+ FAIL |core|  tests/v14-migration.contract.test.ts > C2a-M1 · T9 (B) — every held phase × blocker kind migrates and plays true > plays shooting/scenery-load-in byte-identically to its V13 twin for 30 weeks
+ FAIL |core|  tests/v14-migration.contract.test.ts > C2a-M1 · T9 (B) — every held phase × blocker kind migrates and plays true > plays shooting/facility-capacity byte-identically to its V13 twin for 30 weeks
+ FAIL |core|  tests/v14-migration.contract.test.ts > C2a-M1 · T9 (B) — every held phase × blocker kind migrates and plays true > plays postProduction/none byte-identically to its V13 twin for 30 weeks
+Error: C2a-M1 (§8.3, the widened-leaf boundary rule) contract not met: a GENUINE V13 save — one carrying no `bindings` leaf, no `set-unavailable` arm and none of the four new roots, which is what every pre-C2 file on a player's disk looks like — was refused at the V13 boundary. §8.3: "the workflow exact-key list and the blocker validator become version-aware — pre-V14 boundaries still REFUSE `bindings` and the `set-unavailable` arm; V14 requires them." REFUSING a bindings leaf is only half the rule: a V13 file that HAS none must still load, or every save on disk is unreadable and there is nothing left for the migrator to migrate. The refusal was: validateSaveV12: state has unknown field "firstTakes"
+ ❯ Module.v13TwinOf tests/contracts/_v14Contract.ts:459:11
+    457|     validateSaveV13(twin)
+    458|   } catch (error) {
+    459|     throw new Error(
+       |           ^
+    460|       'C2a-M1 (§8.3, the widened-leaf boundary rule) contract not met:…
+    461|         'one carrying no `bindings` leaf, no `set-unavailable` arm and…
+ ❯ tests/v14-migration.contract.test.ts:259:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[13/36]⎯
+
+ FAIL |core|  tests/v14-migration.contract.test.ts > C2a-M1 · T9 (C) — the endowed house sets are DERIVED, not invented > gives a managed-mode migrated save exactly the two house sets and nextSetId 2
+Error: C2a-M1 (§8.3, the widened-leaf boundary rule) contract not met: a GENUINE V13 save — one carrying no `bindings` leaf, no `set-unavailable` arm and none of the four new roots, which is what every pre-C2 file on a player's disk looks like — was refused at the V13 boundary. §8.3: "the workflow exact-key list and the blocker validator become version-aware — pre-V14 boundaries still REFUSE `bindings` and the `set-unavailable` arm; V14 requires them." REFUSING a bindings leaf is only half the rule: a V13 file that HAS none must still load, or every save on disk is unreadable and there is nothing left for the migrator to migrate. The refusal was: validateSaveV12: state has unknown field "firstTakes"
+ ❯ Module.v13TwinOf tests/contracts/_v14Contract.ts:459:11
+    457|     validateSaveV13(twin)
+    458|   } catch (error) {
+    459|     throw new Error(
+       |           ^
+    460|       'C2a-M1 (§8.3, the widened-leaf boundary rule) contract not met:…
+    461|         'one carrying no `bindings` leaf, no `set-unavailable` arm and…
+ ❯ tests/v14-migration.contract.test.ts:320:50
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[14/36]⎯
+
+ FAIL |core|  tests/v14-migration.contract.test.ts > C2a-M1 · T9 (C) — the endowed house sets are DERIVED, not invented > gives a legacy migrated save zero sets and nextSetId 0
+Error: C2a-M1 (§8.3, the widened-leaf boundary rule) contract not met: a GENUINE V13 save — one carrying no `bindings` leaf, no `set-unavailable` arm and none of the four new roots, which is what every pre-C2 file on a player's disk looks like — was refused at the V13 boundary. §8.3: "the workflow exact-key list and the blocker validator become version-aware — pre-V14 boundaries still REFUSE `bindings` and the `set-unavailable` arm; V14 requires them." REFUSING a bindings leaf is only half the rule: a V13 file that HAS none must still load, or every save on disk is unreadable and there is nothing left for the migrator to migrate. The refusal was: validateSaveV12: state has unknown field "firstTakes"
+ ❯ Module.v13TwinOf tests/contracts/_v14Contract.ts:459:11
+    457|     validateSaveV13(twin)
+    458|   } catch (error) {
+    459|     throw new Error(
+       |           ^
+    460|       'C2a-M1 (§8.3, the widened-leaf boundary rule) contract not met:…
+    461|         'one carrying no `bindings` leaf, no `set-unavailable` arm and…
+ ❯ tests/v14-migration.contract.test.ts:361:50
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[15/36]⎯
+
+ FAIL |core|  tests/v14-migration.contract.test.ts > C2a-M1 · T9 (C) — the endowed house sets are DERIVED, not invented > leaves the queue and the screenplay root empty for every migrated save (§8.3)
+Error: C2a-M1 (§8.3, the widened-leaf boundary rule) contract not met: a GENUINE V13 save — one carrying no `bindings` leaf, no `set-unavailable` arm and none of the four new roots, which is what every pre-C2 file on a player's disk looks like — was refused at the V13 boundary. §8.3: "the workflow exact-key list and the blocker validator become version-aware — pre-V14 boundaries still REFUSE `bindings` and the `set-unavailable` arm; V14 requires them." REFUSING a bindings leaf is only half the rule: a V13 file that HAS none must still load, or every save on disk is unreadable and there is nothing left for the migrator to migrate. The refusal was: validateSaveV12: state has unknown field "firstTakes"
+ ❯ Module.v13TwinOf tests/contracts/_v14Contract.ts:459:11
+    457|     validateSaveV13(twin)
+    458|   } catch (error) {
+    459|     throw new Error(
+       |           ^
+    460|       'C2a-M1 (§8.3, the widened-leaf boundary rule) contract not met:…
+    461|         'one carrying no `bindings` leaf, no `set-unavailable` arm and…
+ ❯ tests/v14-migration.contract.test.ts:371:60
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[16/36]⎯
+
+ FAIL |core|  tests/v14-migration.contract.test.ts > C2a-M1 · T9 (D) — migrated workflows are grandfathered, by derivation > derives every bindings field exactly as §8.3 states it
+Error: C2a-M1 (§8.3, the widened-leaf boundary rule) contract not met: a GENUINE V13 save — one carrying no `bindings` leaf, no `set-unavailable` arm and none of the four new roots, which is what every pre-C2 file on a player's disk looks like — was refused at the V13 boundary. §8.3: "the workflow exact-key list and the blocker validator become version-aware — pre-V14 boundaries still REFUSE `bindings` and the `set-unavailable` arm; V14 requires them." REFUSING a bindings leaf is only half the rule: a V13 file that HAS none must still load, or every save on disk is unreadable and there is nothing left for the migrator to migrate. The refusal was: validateSaveV12: state has unknown field "firstTakes"
+ ❯ Module.v13TwinOf tests/contracts/_v14Contract.ts:459:11
+    457|     validateSaveV13(twin)
+    458|   } catch (error) {
+    459|     throw new Error(
+       |           ^
+    460|       'C2a-M1 (§8.3, the widened-leaf boundary rule) contract not met:…
+    461|         'one carrying no `bindings` leaf, no `set-unavailable` arm and…
+ ❯ tests/v14-migration.contract.test.ts:390:52
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[17/36]⎯
+
+ FAIL |core|  tests/v14-migration.contract.test.ts > C2a-M1 · T9 (D) — migrated workflows are grandfathered, by derivation > keeps the in-flight scenery reservation byte-for-byte across the boundary
+Error: C2a-M1 (§8.3, the widened-leaf boundary rule) contract not met: a GENUINE V13 save — one carrying no `bindings` leaf, no `set-unavailable` arm and none of the four new roots, which is what every pre-C2 file on a player's disk looks like — was refused at the V13 boundary. §8.3: "the workflow exact-key list and the blocker validator become version-aware — pre-V14 boundaries still REFUSE `bindings` and the `set-unavailable` arm; V14 requires them." REFUSING a bindings leaf is only half the rule: a V13 file that HAS none must still load, or every save on disk is unreadable and there is nothing left for the migrator to migrate. The refusal was: validateSaveV12: state has unknown field "firstTakes"
+ ❯ Module.v13TwinOf tests/contracts/_v14Contract.ts:459:11
+    457|     validateSaveV13(twin)
+    458|   } catch (error) {
+    459|     throw new Error(
+       |           ^
+    460|       'C2a-M1 (§8.3, the widened-leaf boundary rule) contract not met:…
+    461|         'one carrying no `bindings` leaf, no `set-unavailable` arm and…
+ ❯ tests/v14-migration.contract.test.ts:425:52
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[18/36]⎯
+
+ Test Files  5 failed | 2 passed (7)
+      Tests  36 failed | 68 passed (104)
+   Start at  22:26:36
+   Duration  48.67s (transform 2.96s, setup 0ms, collect 6.05s, tests 39.84s, environment 2ms, prepare 719ms)
+
+
+--- re-run after the V13-twin strip + validateSaveV29 / one-past-sentinel(30) sweep ---
+=== npx vitest run --project core --minWorkers=1 --maxWorkers=1 --reporter=dot tests/save.test.ts tests/migration.test.ts tests/v14-migration.contract.test.ts tests/d17a-adv-migration.test.ts tests/p13b-s5-conservation.test.ts tests/cash-ledger-checkpoint-v11.test.ts tests/bridge-p06-checkpoint-recovery.test.ts ===
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/migration.test.ts (23 tests) 1913ms
+   ✓ faithful ability preservation — primary-discipline ACTUAL-SKILL MEAN ≈ old.skill > mean |Δ| between primary actual-skill-mean and old.skill is < ~3 across a large corpus 511ms
+   ✓ faithful ability preservation — primary-discipline ACTUAL-SKILL MEAN ≈ old.skill > the SIGNED mean deviation is ~0 (no systematic upward/downward bias) 517ms
+   ✓ faithful ability preservation — primary-discipline ACTUAL-SKILL MEAN ≈ old.skill > 10–20% of migrated talent have a USABLE secondary discipline (step 4 target) 351ms
+ ✓ |core| tests/cash-ledger-checkpoint-v11.test.ts (10 tests) 4009ms
+   ✓ SaveFileV11 cash/ledger checkpoint — historical migration > migrates an authentic played V2 without fabricating the missing production ledger row 398ms
+   ✓ SaveFileV11 cash/ledger checkpoint — historical migration > preserves validator-accepted non-opening cash through every V1-V10 descendant 326ms
+   ✓ SaveFileV11 cash/ledger checkpoint — post-migration authority > prevents every frozen builder from moving a checkpoint after later gameplay 349ms
+   ✓ SaveFileV11 cash/ledger checkpoint — post-migration authority > retains a nonempty historical checkpoint prefix only through ledger-owning builders 1383ms
+   ✓ SaveFileV11 cash/ledger checkpoint — post-migration authority > preserves exact checkpoint reconciliation through managed payroll and overhead suffixes 642ms
+   ✓ SaveFileV11 cash/ledger checkpoint — post-migration authority > starts and completes the Annex from a mismatched managed V10 with exactly one post-checkpoint capex 387ms
+ ✓ |core| tests/v14-migration.contract.test.ts (30 tests) 12611ms
+   ✓ C2a-M1 · T9 (A) — the headline matrix covers every phase that holds a reservation > agrees byte-for-byte with the frozen V13 builder wherever that builder writes 655ms
+   ✓ C2a-M1 · T9 (B) — every held phase × blocker kind migrates and plays true > plays development/none byte-identically to its V13 twin for 30 weeks 1164ms
+   ✓ C2a-M1 · T9 (B) — every held phase × blocker kind migrates and plays true > plays preProduction/none byte-identically to its V13 twin for 30 weeks 1057ms
+   ✓ C2a-M1 · T9 (B) — every held phase × blocker kind migrates and plays true > plays preProduction/facility-capacity byte-identically to its V13 twin for 30 weeks 1035ms
+   ✓ C2a-M1 · T9 (B) — every held phase × blocker kind migrates and plays true > plays rehearsal/none byte-identically to its V13 twin for 30 weeks 1026ms
+   ✓ C2a-M1 · T9 (B) — every held phase × blocker kind migrates and plays true > plays rehearsal/facility-capacity byte-identically to its V13 twin for 30 weeks 1024ms
+   ✓ C2a-M1 · T9 (B) — every held phase × blocker kind migrates and plays true > plays shooting/none byte-identically to its V13 twin for 30 weeks 1145ms
+   ✓ C2a-M1 · T9 (B) — every held phase × blocker kind migrates and plays true > plays shooting/scenery-load-in byte-identically to its V13 twin for 30 weeks 968ms
+   ✓ C2a-M1 · T9 (B) — every held phase × blocker kind migrates and plays true > plays shooting/facility-capacity byte-identically to its V13 twin for 30 weeks 1086ms
+   ✓ C2a-M1 · T9 (B) — every held phase × blocker kind migrates and plays true > plays postProduction/none byte-identically to its V13 twin for 30 weeks 942ms
+   ✓ C2a-M1 · T9 (C) — the endowed house sets are DERIVED, not invented > leaves the queue and the screenplay root empty for every migrated save (§8.3) 523ms
+   ✓ C2a-M1 · T9 (D) — migrated workflows are grandfathered, by derivation > keeps the in-flight scenery reservation byte-for-byte across the boundary 304ms
+ ✓ |core| tests/save.test.ts (10 tests) 253ms
+ ✓ |core| tests/p13b-s5-conservation.test.ts (3 tests) 28714ms
+   ✓ P13B-S5 conservation, determinism, campaign isolation (test 6) > cash conservation across a sound and a lighting adoption: every dollar the ledger charges for the two adoptions is exactly equipmentCost + installationCost, no more, no less, and no negative or duplicate row 7243ms
+   ✓ P13B-S5 conservation, determinism, campaign isolation (test 6) > determinism: the SAME action sequence from the SAME starting state produces byte-identical saves 11961ms
+   ✓ P13B-S5 conservation, determinism, campaign isolation (test 6) > campaign isolation: a rival’s organically-purchased sound adoption is byte-unchanged by the player’s own adoption actions, and reconciles to the catalogue’s per-technology values (no hard-coded 300,000/975,000) 9509ms
+ ❯ |core| tests/bridge-p06-checkpoint-recovery.test.ts (11 tests | 5 failed) 1726ms
+   × AUD-001 — frozen P06 checkpoint recovery > loads 'Ready with no explicit save' through the governed predecessor path 445ms
+     → validateSaveV29: firstTakes root missing
+   × AUD-001 — frozen P06 checkpoint recovery > loads 'Committed with distinct Ready save an…' through the governed predecessor path 313ms
+     → validateSaveV29: firstTakes root missing
+   × AUD-001 — frozen P06 checkpoint recovery > persists 'Ready with no explicit save' once and reopens without remigration 266ms
+     → validateSaveV29: firstTakes root missing
+   × AUD-001 — frozen P06 checkpoint recovery > persists 'Committed with distinct Ready save an…' once and reopens without remigration 258ms
+     → validateSaveV29: firstTakes root missing
+   × AUD-001 — frozen P06 checkpoint recovery > preserves the predecessor if the migration write fails 260ms
+     → expected [Function] to throw error including 'audit migration write refused' but got 'validateSaveV29: firstTakes root miss…'
+ ✓ |core| tests/d17a-adv-migration.test.ts (17 tests) 19ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 5 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/bridge-p06-checkpoint-recovery.test.ts > AUD-001 — frozen P06 checkpoint recovery > loads 'Ready with no explicit save' through the governed predecessor path
+ FAIL |core|  tests/bridge-p06-checkpoint-recovery.test.ts > AUD-001 — frozen P06 checkpoint recovery > loads 'Committed with distinct Ready save an…' through the governed predecessor path
+Error: validateSaveV29: firstTakes root missing
+ ❯ validateSaveV29 src/core/save.ts:8577:48
+    8575|   if (save.saveVersion !== 29) throw new Error('validateSaveV29: expec…
+    8576|   const raw = v14Record(checkEnvelope(save, 'validateSaveV29'), 'state…
+    8577|   if (!Object.hasOwn(raw, 'firstTakes')) throw new Error('validateSave…
+       |                                                ^
+    8578|   if (!Object.hasOwn(raw, 'promises')) throw new Error('validateSaveV2…
+    8579|   validatePromiseRoots(raw);
+ ❯ makeSave src/core/save.ts:6389:16
+ ❯ Module.exportCurrentState src/core/save.ts:6412:26
+ ❯ Module.exportSaveJson ui/src/engine/adapter.ts:3780:10
+ ❯ importPriorSaveViaCanonicalChain bridge/runtime-checkpoint.ts:847:18
+ ❯ migratePriorProtocol4Checkpoint bridge/runtime-checkpoint.ts:981:27
+ ❯ migratePriorCheckpoint bridge/runtime-checkpoint.ts:1032:10
+ ❯ Module.loadBridgeRuntimeCheckpoint bridge/runtime-checkpoint.ts:1268:14
+ ❯ tests/bridge-p06-checkpoint-recovery.test.ts:155:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/5]⎯
+
+ FAIL |core|  tests/bridge-p06-checkpoint-recovery.test.ts > AUD-001 — frozen P06 checkpoint recovery > persists 'Ready with no explicit save' once and reopens without remigration
+ FAIL |core|  tests/bridge-p06-checkpoint-recovery.test.ts > AUD-001 — frozen P06 checkpoint recovery > persists 'Committed with distinct Ready save an…' once and reopens without remigration
+Error: validateSaveV29: firstTakes root missing
+ ❯ validateSaveV29 src/core/save.ts:8577:48
+    8575|   if (save.saveVersion !== 29) throw new Error('validateSaveV29: expec…
+    8576|   const raw = v14Record(checkEnvelope(save, 'validateSaveV29'), 'state…
+    8577|   if (!Object.hasOwn(raw, 'firstTakes')) throw new Error('validateSave…
+       |                                                ^
+    8578|   if (!Object.hasOwn(raw, 'promises')) throw new Error('validateSaveV2…
+    8579|   validatePromiseRoots(raw);
+ ❯ makeSave src/core/save.ts:6389:16
+ ❯ Module.exportCurrentState src/core/save.ts:6412:26
+ ❯ Module.exportSaveJson ui/src/engine/adapter.ts:3780:10
+ ❯ importPriorSaveViaCanonicalChain bridge/runtime-checkpoint.ts:847:18
+ ❯ migratePriorProtocol4Checkpoint bridge/runtime-checkpoint.ts:981:27
+ ❯ migratePriorCheckpoint bridge/runtime-checkpoint.ts:1032:10
+ ❯ Module.loadBridgeRuntimeCheckpoint bridge/runtime-checkpoint.ts:1268:14
+ ❯ Module.createBridgeRuntimeCoordinator bridge/runtime/runtime-coordinator.ts:309:56
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/5]⎯
+
+ FAIL |core|  tests/bridge-p06-checkpoint-recovery.test.ts > AUD-001 — frozen P06 checkpoint recovery > preserves the predecessor if the migration write fails
+AssertionError: expected [Function] to throw error including 'audit migration write refused' but got 'validateSaveV29: firstTakes root miss…'
+
+Expected: "audit migration write refused"
+Received: "validateSaveV29: firstTakes root missing"
+
+ ❯ tests/bridge-p06-checkpoint-recovery.test.ts:241:5
+    239|     store.writeError = new Error('audit migration write refused')
+    240|     const fatals: unknown[] = []
+    241|     await expect(createBridgeRuntimeCoordinator({
+       |     ^
+    242|       store,
+    243|       fatal: (reason) => { fatals.push(reason) },
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/5]⎯
+
+ Test Files  1 failed | 6 passed (7)
+      Tests  5 failed | 99 passed (104)
+   Start at  22:31:01
+   Duration  57.58s (transform 2.76s, setup 0ms, collect 5.91s, tests 49.24s, environment 2ms, prepare 671ms)
+
+
+=== npx vitest run --project core --minWorkers=1 --maxWorkers=1 --reporter=dot tests/operations.test.ts tests/p13a-production-technology.test.ts tests/p13b-r07-controls.test.ts tests/bridge-p13b-r07-setup.test.ts tests/p13a-rival-adoption.test.ts tests/bridge-p13b-s8-rivals.test.ts ===
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/bridge-p13b-r07-setup.test.ts (13 tests | 3 failed) 18070ms
+   ✓ requirement 2: each production snapshot gains setup: StudioProductionSetup | null > conventional ballroom: null pre-selection; admission at week 12 with 0 credited; a held rehearsal names the setup wait and a weeksRemaining consistent with the forecast; walked week-by-week to Shooting entry 16 4632ms
+   ✓ requirement 3: setup-recipe-<productionId>-<recipeId> rows, offered pre-Shooting with a bound stage whose Set type matches the recipe — PREMISE: published as setupRecipeActions on the same productionOperations row > the eligible ballroom recipe row is enabled, carries productionId/recipeId/planRevision, intent kind productionSetupAction, no rejections 822ms
+   ✓ requirement 3: setup-recipe-<productionId>-<recipeId> rows, offered pre-Shooting with a bound stage whose Set type matches the recipe — PREMISE: published as setupRecipeActions on the same productionOperations row > a wrong-Set-type row (ordinary recipe on a ballroom-bound production) is disabled, names its own refusal, and enabled agrees with the refusal 627ms
+   ✓ requirement 3: setup-recipe-<productionId>-<recipeId> rows, offered pre-Shooting with a bound stage whose Set type matches the recipe — PREMISE: published as setupRecipeActions on the same productionOperations row > rows are absent once the production enters Shooting (legacy path: no recipe ever selected) 664ms
+   × requirement 4: committing a recipe row through the bridge > writes exactly one setup record, advances stateRevision, refuses the same intent at the old revision, and the forecast matches setupForecast once the sweep visit admits it 963ms
+     → checkpoint.currentSaveJson: must be a current V28 save, received V29
+   ✓ requirement 5: ticking through the bridge credits one unit per week and enters Shooting at the forecast week, on all three measured fixtures; the four setup history kinds appear on the history view > conventional ballroom: admission 12 -> Shooting entry 16, history rows setupAdmitted/setupUnitCredited x4/setupCompleted, production-scoped 908ms
+   × requirement 5: ticking through the bridge credits one unit per week and enters Shooting at the forecast week, on all three measured fixtures; the four setup history kinds appear on the history view > lighting ballroom: admission 807 -> Shooting entry 809, route "lighting" 7468ms
+     → $.snapshot.talent.talent.profiles[0].marketCase: matched no allowed type ($.snapshot.talent.talent.profiles[0].marketCase.preferences.priorityOrder[2]: expected one of compensation, term, standing, incumbency; $.snapshot.talent.talent.profiles[0].marketCase: expected null)
+   ✓ requirement 5: ticking through the bridge credits one unit per week and enters Shooting at the forecast week, on all three measured fixtures; the four setup history kinds appear on the history view > ordinary interior: admission 4 -> Shooting entry 5, both routes agree at 1 unit 588ms
+   ✓ requirement 6: player-safe; a legacy production publishes setup: null with its schedule unchanged > every productionOperations row belongs to this studio's own activeProductions — MEASURED: the engine has no rival production model to leak (operations/placement are single, player-scoped roots, the same fact tests/bridge-p13b-s4-office.test.ts case 7 and tests/bridge-p13b-s5-adoption.test.ts requirement 6 both rely on for their own rival-injection idiom) 575ms
+   ✓ requirement 6: player-safe; a legacy production publishes setup: null with its schedule unchanged > legacy timeline byte-identical through the bridge: a production that never selects a recipe publishes setup: null and today's exact (unheld) schedule 689ms
+   × extra pin (parent instruction): the bridge's save/load "converted" report against the CURRENT save version, not a stale literal 23 (bridge/session.ts:123) > RED: a genuine CURRENT (live-version) checkpoint saved and reloaded through the SAME bridge session reports converted: false 126ms
+     → checkpoint.currentSaveJson: must be a current V28 save, received V29
+ ❯ |core| tests/bridge-p13b-s8-rivals.test.ts (17 tests | 8 failed) 2273ms
+   × P13B-S8-T3 item 1: projection version bump 40 -> 41; converted flag > converted: false for a genuine current live-version save, round-tripped through save()/load() on the SAME session (regression guard — matches tests/bridge-p13b-r07-setup.test.ts's own now-fixed case) 188ms
+     → checkpoint.currentSaveJson: must be a current V28 save, received V29
+   × P13B-S8-T3 item 1: projection version bump 40 -> 41; converted flag > converted: true BY CONSTRUCTION for a genuine V26 fixture load (legacy-v26-lighting-restored-795, saveVersion 26 !== LIVE_SAVE_VERSION) — see header for why this cannot be a directly observed wire boolean through the current session API 449ms
+     → validateSaveV29: firstTakes root missing
+   ✓ P13B-S8-T3 item 3: rival finance exposed only through existing public standings > researchCapacity, technologyRestoration and technologyRefund never appear on the industry pulse page, the Laboratory page, or session.snapshot() (week 13: researchCapacity is genuinely nonzero from real rival Lab admission) 419ms
+   × P13B-S8-T3 item 3: rival finance exposed only through existing public standings > the player's own finance researchSpend channel reads $0 in every window even while the rival's real researchSpend is nonzero elsewhere in the same state (week 288) 153ms
+     → $.snapshot.talent.talent.profiles[0].marketCase: matched no allowed type ($.snapshot.talent.talent.profiles[0].marketCase.preferences.priorityOrder[0]: expected one of compensation, term, standing, incumbency; $.snapshot.talent.talent.profiles[0].marketCase: expected null)
+   × P13B-S8-T3 item 5: the bridge accepts a real S8 state on snapshot(); history projections ignore the five kinds > session.snapshot() does not throw on a naturally-reached state carrying all five S8 receipt kinds and genuinely nonzero researchCapacity/researchSpend (week 288) 87ms
+     → expected [Function] to not throw an error but 'BridgeSchemaError: $.snapshot.talent.…' was thrown
+   × P13B-S8-T3 item 5: the bridge accepts a real S8 state on snapshot(); history projections ignore the five kinds > the player's own History (historyProjection, a disjoint root from IndustryReceipt) is untouched: session.snapshot() does not throw and its history section mentions none of the five kinds (week 288) 89ms
+     → expected [Function] to not throw an error but 'BridgeSchemaError: $.snapshot.talent.…' was thrown
+   × P13B-S8-T3 item 6: live-version save round-trip, Save As, genuine V26 fixture loads > a live-version save round-trips through the bridge byte-identically (week 288, real S8 facts: all five receipt kinds, nonzero researchCapacity/researchSpend) 162ms
+     → checkpoint.currentSaveJson: must be a current V28 save, received V29
+   × P13B-S8-T3 item 6: live-version save round-trip, Save As, genuine V26 fixture loads > a Save As world keeps the same rival receipts and publishes identical industry rows (week 13, natural rival Lab facts) 19ms
+     → checkpoint.currentSaveJson: must be a current V28 save, received V29
+   × P13B-S8-T3 item 6: live-version save round-trip, Save As, genuine V26 fixture loads > the three genuine V26 fixtures load through the bridge (sha256 verified) and their industry pulse page carries no S8-kind text anywhere (V26 predates S8; converted true by construction as item 1 documents) 188ms
+     → validateSaveV29: firstTakes root missing
+ ✓ |core| tests/operations.test.ts (13 tests) 831ms
+   ✓ Production Operations V1 > holds only the blocked production while world time and weekly costs continue 553ms
+ ✓ |core| tests/p13b-r07-controls.test.ts (8 tests) 7485ms
+   ✓ P13B-S5-R07 controls (test 4) > a changed pre-Shooting sound choice mid-hold is lawful and leaves the setup record untouched — INTERPRETATION 3 7253ms
+ ✓ |core| tests/p13a-production-technology.test.ts (11 tests) 647ms
+   ✓ P13A first-filming technology and exact production chain > carries the first-filming lock through the complete tick state assembly 409ms
+ ✓ |core| tests/p13a-rival-adoption.test.ts (2 tests) 8964ms
+   ✓ P13A shared commercial adoption and exact rival cash consequence > uses the shared player/rival eligibility function and debits only technology adoption without new plant or RNG draws 468ms
+   ✓ P13A shared commercial adoption and exact rival cash consequence > replays the actual weekly commercial purchase, reconciles its debit and creates one dated operational receipt 1335ms
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 11 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/bridge-p13b-r07-setup.test.ts > requirement 4: committing a recipe row through the bridge > writes exactly one setup record, advances stateRevision, refuses the same intent at the old revision, and the forecast matches setupForecast once the sweep visit admits it
+BridgeRuntimeCheckpointError: checkpoint.currentSaveJson: must be a current V28 save, received V29
+ ❯ fail bridge/runtime-checkpoint.ts:329:9
+    327| 
+    328| function fail(path: string, message: string): never {
+    329|   throw new BridgeRuntimeCheckpointError(path, message)
+       |         ^
+    330| }
+    331| 
+ ❯ validateCanonicalCurrentSave bridge/runtime-checkpoint.ts:452:5
+ ❯ hydrateAndEncodeBridgeRuntimeCheckpoint bridge/runtime-checkpoint.ts:1074:23
+ ❯ Module.createEncodedBridgeRuntimeCheckpoint bridge/runtime-checkpoint.ts:1321:20
+ ❯ BridgeSession.prepareEntry bridge/session.ts:2196:21
+ ❯ BridgeSession.executeCommand bridge/session.ts:1601:24
+ ❯ BridgeSession.command bridge/session.ts:1552:17
+ ❯ tests/bridge-p13b-r07-setup.test.ts:449:30
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/11]⎯
+
+ FAIL |core|  tests/bridge-p13b-r07-setup.test.ts > requirement 5: ticking through the bridge credits one unit per week and enters Shooting at the forecast week, on all three measured fixtures; the four setup history kinds appear on the history view > lighting ballroom: admission 807 -> Shooting entry 809, route "lighting"
+BridgeSchemaError: $.snapshot.talent.talent.profiles[0].marketCase: matched no allowed type ($.snapshot.talent.talent.profiles[0].marketCase.preferences.priorityOrder[2]: expected one of compensation, term, standing, incumbency; $.snapshot.talent.talent.profiles[0].marketCase: expected null)
+ ❯ project bridge/schema/runtime.ts:110:11
+    108|       }
+    109|     }
+    110|     throw new BridgeSchemaError(path, `matched no allowed type (${fail…
+       |           ^
+    111|   }
+    112| 
+ ❯ project bridge/schema/runtime.ts:170:23
+ ❯ bridge/schema/runtime.ts:145:42
+ ❯ project bridge/schema/runtime.ts:145:20
+ ❯ project bridge/schema/runtime.ts:170:23
+ ❯ project bridge/schema/runtime.ts:170:23
+ ❯ section bridge/schema/runtime.ts:202:5
+ ❯ Module.projectStudioProjectionBundle bridge/schema/runtime.ts:222:13
+ ❯ BridgeSession.snapshotFor bridge/session.ts:1501:22
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/11]⎯
+
+ FAIL |core|  tests/bridge-p13b-r07-setup.test.ts > extra pin (parent instruction): the bridge's save/load "converted" report against the CURRENT save version, not a stale literal 23 (bridge/session.ts:123) > RED: a genuine CURRENT (live-version) checkpoint saved and reloaded through the SAME bridge session reports converted: false
+BridgeRuntimeCheckpointError: checkpoint.currentSaveJson: must be a current V28 save, received V29
+ ❯ fail bridge/runtime-checkpoint.ts:329:9
+    327| 
+    328| function fail(path: string, message: string): never {
+    329|   throw new BridgeRuntimeCheckpointError(path, message)
+       |         ^
+    330| }
+    331| 
+ ❯ validateCanonicalCurrentSave bridge/runtime-checkpoint.ts:452:5
+ ❯ hydrateAndEncodeBridgeRuntimeCheckpoint bridge/runtime-checkpoint.ts:1074:23
+ ❯ Module.createEncodedBridgeRuntimeCheckpoint bridge/runtime-checkpoint.ts:1321:20
+ ❯ BridgeSession.prepareEntry bridge/session.ts:2196:21
+ ❯ BridgeSession.executeSave bridge/session.ts:1992:24
+ ❯ BridgeSession.save bridge/session.ts:1968:17
+ ❯ tests/bridge-p13b-r07-setup.test.ts:583:27
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/11]⎯
+
+ FAIL |core|  tests/bridge-p13b-s8-rivals.test.ts > P13B-S8-T3 item 1: projection version bump 40 -> 41; converted flag > converted: false for a genuine current live-version save, round-tripped through save()/load() on the SAME session (regression guard — matches tests/bridge-p13b-r07-setup.test.ts's own now-fixed case)
+BridgeRuntimeCheckpointError: checkpoint.currentSaveJson: must be a current V28 save, received V29
+ ❯ fail bridge/runtime-checkpoint.ts:329:9
+    327| 
+    328| function fail(path: string, message: string): never {
+    329|   throw new BridgeRuntimeCheckpointError(path, message)
+       |         ^
+    330| }
+    331| 
+ ❯ validateCanonicalCurrentSave bridge/runtime-checkpoint.ts:452:5
+ ❯ hydrateAndEncodeBridgeRuntimeCheckpoint bridge/runtime-checkpoint.ts:1074:23
+ ❯ Module.createEncodedBridgeRuntimeCheckpoint bridge/runtime-checkpoint.ts:1321:20
+ ❯ BridgeSession.prepareEntry bridge/session.ts:2196:21
+ ❯ BridgeSession.executeSave bridge/session.ts:1992:24
+ ❯ BridgeSession.save bridge/session.ts:1968:17
+ ❯ tests/bridge-p13b-s8-rivals.test.ts:230:27
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/11]⎯
+
+ FAIL |core|  tests/bridge-p13b-s8-rivals.test.ts > P13B-S8-T3 item 1: projection version bump 40 -> 41; converted flag > converted: true BY CONSTRUCTION for a genuine V26 fixture load (legacy-v26-lighting-restored-795, saveVersion 26 !== LIVE_SAVE_VERSION) — see header for why this cannot be a directly observed wire boolean through the current session API
+Error: validateSaveV29: firstTakes root missing
+ ❯ validateSaveV29 src/core/save.ts:8577:48
+    8575|   if (save.saveVersion !== 29) throw new Error('validateSaveV29: expec…
+    8576|   const raw = v14Record(checkEnvelope(save, 'validateSaveV29'), 'state…
+    8577|   if (!Object.hasOwn(raw, 'firstTakes')) throw new Error('validateSave…
+       |                                                ^
+    8578|   if (!Object.hasOwn(raw, 'promises')) throw new Error('validateSaveV2…
+    8579|   validatePromiseRoots(raw);
+ ❯ makeSave src/core/save.ts:6389:16
+ ❯ Module.exportCurrentState src/core/save.ts:6412:26
+ ❯ Module.exportSaveJson ui/src/engine/adapter.ts:3780:10
+ ❯ bridge/snapshot-build-context.ts:118:12
+ ❯ Object.saveJson bridge/snapshot-build-context.ts:103:15
+ ❯ Function.fromSaveJson bridge/session.ts:1359:47
+ ❯ tests/bridge-p13b-s8-rivals.test.ts:246:35
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/11]⎯
+
+ FAIL |core|  tests/bridge-p13b-s8-rivals.test.ts > P13B-S8-T3 item 3: rival finance exposed only through existing public standings > the player's own finance researchSpend channel reads $0 in every window even while the rival's real researchSpend is nonzero elsewhere in the same state (week 288)
+BridgeSchemaError: $.snapshot.talent.talent.profiles[0].marketCase: matched no allowed type ($.snapshot.talent.talent.profiles[0].marketCase.preferences.priorityOrder[0]: expected one of compensation, term, standing, incumbency; $.snapshot.talent.talent.profiles[0].marketCase: expected null)
+ ❯ project bridge/schema/runtime.ts:110:11
+    108|       }
+    109|     }
+    110|     throw new BridgeSchemaError(path, `matched no allowed type (${fail…
+       |           ^
+    111|   }
+    112| 
+ ❯ project bridge/schema/runtime.ts:170:23
+ ❯ bridge/schema/runtime.ts:145:42
+ ❯ project bridge/schema/runtime.ts:145:20
+ ❯ project bridge/schema/runtime.ts:170:23
+ ❯ project bridge/schema/runtime.ts:170:23
+ ❯ section bridge/schema/runtime.ts:202:5
+ ❯ Module.projectStudioProjectionBundle bridge/schema/runtime.ts:222:13
+ ❯ BridgeSession.snapshotFor bridge/session.ts:1501:22
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/11]⎯
+
+ FAIL |core|  tests/bridge-p13b-s8-rivals.test.ts > P13B-S8-T3 item 5: the bridge accepts a real S8 state on snapshot(); history projections ignore the five kinds > session.snapshot() does not throw on a naturally-reached state carrying all five S8 receipt kinds and genuinely nonzero researchCapacity/researchSpend (week 288)
+AssertionError: expected [Function] to not throw an error but 'BridgeSchemaError: $.snapshot.talent.…' was thrown
+
+- Expected: 
+undefined
+
++ Received: 
+"BridgeSchemaError: $.snapshot.talent.talent.profiles[0].marketCase: matched no allowed type ($.snapshot.talent.talent.profiles[0].marketCase.preferences.priorityOrder[0]: expected one of compensation, term, standing, incumbency; $.snapshot.talent.talent.profiles[0].marketCase: expected null)"
+
+ ❯ tests/bridge-p13b-s8-rivals.test.ts:364:42
+    362|     // Named, not silently skipped.
+    363|     const session = new BridgeSession(WEEK288, 'p13b-s8-snapshot-accep…
+    364|     expect(() => session.snapshot()).not.toThrow()
+       |                                          ^
+    365|   })
+    366| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/11]⎯
+
+ FAIL |core|  tests/bridge-p13b-s8-rivals.test.ts > P13B-S8-T3 item 5: the bridge accepts a real S8 state on snapshot(); history projections ignore the five kinds > the player's own History (historyProjection, a disjoint root from IndustryReceipt) is untouched: session.snapshot() does not throw and its history section mentions none of the five kinds (week 288)
+AssertionError: expected [Function] to not throw an error but 'BridgeSchemaError: $.snapshot.talent.…' was thrown
+
+- Expected: 
+undefined
+
++ Received: 
+"BridgeSchemaError: $.snapshot.talent.talent.profiles[0].marketCase: matched no allowed type ($.snapshot.talent.talent.profiles[0].marketCase.preferences.priorityOrder[0]: expected one of compensation, term, standing, incumbency; $.snapshot.talent.talent.profiles[0].marketCase: expected null)"
+
+ ❯ tests/bridge-p13b-s8-rivals.test.ts:383:53
+    381|     const session = new BridgeSession(WEEK288, 'p13b-s8-player-history…
+    382|     let snap: unknown
+    383|     expect(() => { snap = session.snapshot() }).not.toThrow()
+       |                                                     ^
+    384|     const historyJson = JSON.stringify((snap as { snapshot: { history:…
+    385|     for (const kind of RIVAL_RESEARCH_RECEIPT_KINDS) expect(historyJso…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/11]⎯
+
+ FAIL |core|  tests/bridge-p13b-s8-rivals.test.ts > P13B-S8-T3 item 6: live-version save round-trip, Save As, genuine V26 fixture loads > a live-version save round-trips through the bridge byte-identically (week 288, real S8 facts: all five receipt kinds, nonzero researchCapacity/researchSpend)
+BridgeRuntimeCheckpointError: checkpoint.currentSaveJson: must be a current V28 save, received V29
+ ❯ fail bridge/runtime-checkpoint.ts:329:9
+    327| 
+    328| function fail(path: string, message: string): never {
+    329|   throw new BridgeRuntimeCheckpointError(path, message)
+       |         ^
+    330| }
+    331| 
+ ❯ validateCanonicalCurrentSave bridge/runtime-checkpoint.ts:452:5
+ ❯ hydrateAndEncodeBridgeRuntimeCheckpoint bridge/runtime-checkpoint.ts:1074:23
+ ❯ Module.createEncodedBridgeRuntimeCheckpoint bridge/runtime-checkpoint.ts:1321:20
+ ❯ BridgeSession.prepareEntry bridge/session.ts:2196:21
+ ❯ BridgeSession.executeSave bridge/session.ts:1992:24
+ ❯ BridgeSession.save bridge/session.ts:1968:17
+ ❯ tests/bridge-p13b-s8-rivals.test.ts:401:33
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/11]⎯
+
+ FAIL |core|  tests/bridge-p13b-s8-rivals.test.ts > P13B-S8-T3 item 6: live-version save round-trip, Save As, genuine V26 fixture loads > a Save As world keeps the same rival receipts and publishes identical industry rows (week 13, natural rival Lab facts)
+BridgeRuntimeCheckpointError: checkpoint.currentSaveJson: must be a current V28 save, received V29
+ ❯ fail bridge/runtime-checkpoint.ts:329:9
+    327| 
+    328| function fail(path: string, message: string): never {
+    329|   throw new BridgeRuntimeCheckpointError(path, message)
+       |         ^
+    330| }
+    331| 
+ ❯ validateCanonicalCurrentSave bridge/runtime-checkpoint.ts:452:5
+ ❯ hydrateAndEncodeBridgeRuntimeCheckpoint bridge/runtime-checkpoint.ts:1074:23
+ ❯ Module.createEncodedBridgeRuntimeCheckpoint bridge/runtime-checkpoint.ts:1321:20
+ ❯ BridgeSession.exportRuntimeCheckpointEncoded bridge/session.ts:1414:12
+ ❯ encodeSession bridge/runtime/campaign-library.ts:36:106
+ ❯ Module.initialCampaignLibrary bridge/runtime/campaign-library.ts:64:45
+ ❯ Module.createBridgeRuntimeCoordinator bridge/runtime/runtime-coordinator.ts:311:17
+ ❯ tests/bridge-p13b-s8-rivals.test.ts:441:21
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/11]⎯
+
+ FAIL |core|  tests/bridge-p13b-s8-rivals.test.ts > P13B-S8-T3 item 6: live-version save round-trip, Save As, genuine V26 fixture loads > the three genuine V26 fixtures load through the bridge (sha256 verified) and their industry pulse page carries no S8-kind text anywhere (V26 predates S8; converted true by construction as item 1 documents)
+Error: validateSaveV29: firstTakes root missing
+ ❯ validateSaveV29 src/core/save.ts:8577:48
+    8575|   if (save.saveVersion !== 29) throw new Error('validateSaveV29: expec…
+    8576|   const raw = v14Record(checkEnvelope(save, 'validateSaveV29'), 'state…
+    8577|   if (!Object.hasOwn(raw, 'firstTakes')) throw new Error('validateSave…
+       |                                                ^
+    8578|   if (!Object.hasOwn(raw, 'promises')) throw new Error('validateSaveV2…
+    8579|   validatePromiseRoots(raw);
+ ❯ makeSave src/core/save.ts:6389:16
+ ❯ Module.exportCurrentState src/core/save.ts:6412:26
+ ❯ Module.exportSaveJson ui/src/engine/adapter.ts:3780:10
+ ❯ bridge/snapshot-build-context.ts:118:12
+ ❯ Object.saveJson bridge/snapshot-build-context.ts:103:15
+ ❯ Function.fromSaveJson bridge/session.ts:1359:47
+ ❯ tests/bridge-p13b-s8-rivals.test.ts:478:37
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/11]⎯
+
+ Test Files  2 failed | 4 passed (6)
+      Tests  11 failed | 53 passed (64)
+   Start at  22:32:11
+   Duration  51.72s (transform 2.79s, setup 0ms, collect 11.24s, tests 38.27s, environment 2ms, prepare 614ms)
+
+
+=== npm run typecheck ===
+
+> project-studio-core@0.1.0 typecheck
+> tsc --noEmit && tsc -p ui/tsconfig.json --noEmit
+
+typecheck exit 0
+
+=== npm run typecheck:bridge ===
+
+> project-studio-core@0.1.0 typecheck:bridge
+> tsc -p tsconfig.bridge.json
+
+bridge/people.ts(971,7): error TS2322: Type '("standing" | "compensation" | "term" | "opportunity" | "trust" | "incumbency")[]' is not assignable to type '("standing" | "compensation" | "term" | "incumbency")[]'.
+  Type '"standing" | "compensation" | "term" | "opportunity" | "trust" | "incumbency"' is not assignable to type '"standing" | "compensation" | "term" | "incumbency"'.
+    Type '"opportunity"' is not assignable to type '"standing" | "compensation" | "term" | "incumbency"'.
+bridge/runtime-checkpoint.ts(847,33): error TS2379: Argument of type 'GameStateV28' is not assignable to parameter of type 'GameStateV29' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Type 'GameStateV28' is missing the following properties from type '{ firstTakes: readonly FirstTakeReceipt[]; promises: readonly ProfessionalPromise[]; }': firstTakes, promises
+bridge/runtime/campaign-library.ts(41,77): error TS2379: Argument of type 'GameStateV28' is not assignable to parameter of type 'GameStateV29' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Type 'GameStateV28' is missing the following properties from type '{ firstTakes: readonly FirstTakeReceipt[]; promises: readonly ProfessionalPromise[]; }': firstTakes, promises
+bridge/runtime/campaign-library.ts(66,92): error TS2379: Argument of type 'GameStateV28' is not assignable to parameter of type 'GameStateV29' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Type 'GameStateV28' is missing the following properties from type '{ firstTakes: readonly FirstTakeReceipt[]; promises: readonly ProfessionalPromise[]; }': firstTakes, promises
+bridge/session.ts(136,24): error TS2375: Type 'GameStateV28' is not assignable to type 'GameStateV29' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Type 'GameStateV28' is missing the following properties from type '{ firstTakes: readonly FirstTakeReceipt[]; promises: readonly ProfessionalPromise[]; }': firstTakes, promises
+typecheck:bridge exit 2
+
+--- FINAL re-run of the five T1 files, after every fix above ---
+=== npx vitest run --project core --minWorkers=1 --maxWorkers=1 --reporter=dot tests/p14b1-first-take.test.ts tests/p14b1-promises.test.ts tests/p14b1-trust-chooser.test.ts tests/p14b1-save-v29.test.ts tests/p14b1-leak.test.ts ===
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/p14b1-promises.test.ts (14 tests | 2 failed) 3606ms
+   ✓ P14B.1 test 2: the promise record and the widened digest > attaching a promise changes the digest; a second attach on an already-promised proposal is refused (enforced at most one); revising (re-submit, then attach a different promise) and removing (re-submit with no attach) both change the digest again — removing restores the exact original 1233ms
+   ✓ P14B.1 test 2: the promise record and the widened digest > a window outside the proposed contract is IMPOSSIBLE by construction 609ms
+   ✓ P14B.1 test 2: the promise record and the widened digest > a promise DRIFTED after attachment (its own definition changed through some other channel) drops materialTermsChanged at freeze 789ms
+   ✓ P14B.1 test 4: settlement freeze re-classification > a promise REASONABLY_ACHIEVABLE at submission erodes to FRAGILE by the decision week purely through slack (the 7-week submission-to-decision gap), and the case drops it with a promise-naming sentence 616ms
+   × P14B.1 test 5: outcomes > SATISFIED once the X-th qualifying first take occurs, with evidence refs naming the causing eventId; idempotent on a later tick 96ms
+     → Cannot read properties of null (reading 'playerStudioId')
+   × P14B.1 test 5: outcomes > BROKEN on capacity collapse: cancelling the promised person's ONLY production before its first take, with a due week too close for any other path, makes re-feasibility IMPOSSIBLE and the promise BROKEN 26ms
+     → applyActions: signContract rejected — talent "t-dir-00" is not currently available to sign (D-11.14)
+ ❯ |core| tests/p14b1-trust-chooser.test.ts (12 tests | 1 failed | 2 skipped) 7340ms
+   ✓ P14B.1 test 6: trust, the widened chooser and the priority order > a Distrusted issuer is dropped issuerDistrusted at reservation, and the other (healthy) proposal settles the case 1669ms
+   × P14B.1 test 6: trust, the widened chooser and the priority order > opportunity breaks an otherwise 1-1 tie: a rival ahead on compensation vs the incumbent ahead on incumbency (companion Case 2 shape) — attaching a feasible promise to the incumbent side tips the case to it, with an opportunity-naming reason 870ms
+     → expected false to be true // Object.is equality
+   ✓ P14B.1 test 6: trust, the widened chooser and the priority order > a Reliable issuer beats a Mixed-record issuer on the trust band, in the same otherwise-1-1-tie shape 731ms
+   ✓ P14B.1 test 7: rival symmetry > attachPromise and its feasibility classification work identically when the issuer is a RIVAL (no player-only special-casing) 593ms
+   ✓ P14B.1 test 7: rival symmetry > a rival proposal carries a P1 promise IFF its own feasibility is REASONABLY_ACHIEVABLE — derived from the FIRST rival proposalSubmitted receipt on the natural chain, never assumed 3012ms
+   ✓ P14B.1 test 7: rival symmetry > a rival first take satisfies a promise exactly as a player one does — found by direct search over the natural chain (never a magic week) 362ms
+ ✓ |core| tests/p14b1-save-v29.test.ts (6 tests) 735ms
+ ❯ |core| tests/p14b1-first-take.test.ts (3 tests | 1 failed) 929ms
+   × P14B.1 test 1: the first-take receipt > PLAYER: never at shooting entry (empty at remainingTicks 5, three weeks into Shooting on the genuine fixture); appended exactly once at the 5 -> 4 advance; idempotent on a later tick; byte-stable across save/load 142ms
+     → expected 5 to be 4 // Object.is equality
+   ✓ P14B.1 test 1: the first-take receipt > RIVAL: the same receipt is appended once at the 5 -> 4 advance for a rival production found by direct search over the natural chain (never a magic week) 772ms
+ ✓ |core| tests/p14b1-leak.test.ts (2 tests) 2434ms
+   ✓ P14B.1 test 9: leak — a rival promise never discloses to a non-issuer, and settlement reasons stay ordering-only > a promise attached to the RIVAL's proposal says UNKNOWN on the player's disclosure view and something other than UNKNOWN on the rival's own 1688ms
+   ✓ P14B.1 test 9: leak — a rival promise never discloses to a non-issuer, and settlement reasons stay ordering-only > settlement reasons stay ordering-only (no dollar sign, no bare 3+-digit figure) even when an attached promise is part of the decision 743ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 4 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14b1-first-take.test.ts > P14B.1 test 1: the first-take receipt > PLAYER: never at shooting entry (empty at remainingTicks 5, three weeks into Shooting on the genuine fixture); appended exactly once at the 5 -> 4 advance; idempotent on a later tick; byte-stable across save/load
+AssertionError: expected 5 to be 4 // Object.is equality
+
+- Expected
++ Received
+
+- 4
++ 5
+
+ ❯ tests/p14b1-first-take.test.ts:129:48
+    127|     const afterFirstWeek = tick(migrated.state)
+    128|     const advancedProduction = afterFirstWeek.studio.activeProductions…
+    129|     expect(advancedProduction?.remainingTicks).toBe(4) // the natural …
+       |                                                ^
+    130| 
+    131|     const takes = takesFor(afterFirstWeek, PLAYER_FIXTURE.productionId)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/4]⎯
+
+ FAIL |core|  tests/p14b1-promises.test.ts > P14B.1 test 5: outcomes > SATISFIED once the X-th qualifying first take occurs, with evidence refs naming the causing eventId; idempotent on a later tick
+TypeError: Cannot read properties of null (reading 'playerStudioId')
+ ❯ tests/p14b1-promises.test.ts:435:40
+    433|       promiseId: 'promise-satisfied-0',
+    434|       family: 'APPEARANCE_COUNT',
+    435|       issuerStudioId: state.hollywood!.playerStudioId,
+       |                                        ^
+    436|       beneficiaryPersonId: FIXTURE.lead,
+    437|       predicate: { count: 1 },
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/4]⎯
+
+ FAIL |core|  tests/p14b1-promises.test.ts > P14B.1 test 5: outcomes > BROKEN on capacity collapse: cancelling the promised person's ONLY production before its first take, with a due week too close for any other path, makes re-feasibility IMPOSSIBLE and the promise BROKEN
+Error: applyActions: signContract rejected — talent "t-dir-00" is not currently available to sign (D-11.14)
+ ❯ applySignContract src/core/actions.ts:2675:11
+    2673|   // Operating phase: talent must be currently signable (hiring market…
+    2674|   if (!hiringMarketIds(state).includes(talentId)) {
+    2675|     throw new Error(
+       |           ^
+    2676|       `applyActions: signContract rejected — talent "${talentId}" is n…
+    2677|     )
+ ❯ Module.applyActions src/core/actions.ts:3033:16
+ ❯ signOne tests/p14b1-promises.test.ts:192:18
+ ❯ tests/p14b1-promises.test.ts:534:22
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/4]⎯
+
+ FAIL |core|  tests/p14b1-trust-chooser.test.ts > P14B.1 test 6: trust, the widened chooser and the priority order > opportunity breaks an otherwise 1-1 tie: a rival ahead on compensation vs the incumbent ahead on incumbency (companion Case 2 shape) — attaching a feasible promise to the incumbent side tips the case to it, with an opportunity-naming reason
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ tests/p14b1-trust-chooser.test.ts:251:77
+    249|     expect(settlement.kind).toBe('settled')
+    250|     expect(settlement.studioId).toBe(playerStudioId)
+    251|     expect(settlement.reasons.some((reason) => /opportunit/i.test(reas…
+       |                                                                             ^
+    252|   })
+    253| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/4]⎯
+
+ Test Files  3 failed | 2 passed (5)
+      Tests  4 failed | 31 passed | 2 todo (37)
+   Start at  22:35:25
+   Duration  20.11s (transform 1.42s, setup 0ms, collect 3.09s, tests 15.04s, environment 2ms, prepare 570ms)
+
+
+=== T2 SUMMARY (written by the engine writer; every count above is a raw run) ===
+
+ENGINE (this task's writes)
+  NEW  src/core/promises.ts                 the whole promise law (feasibility, attachment, outcomes, trust, the two root validators)
+       src/core/types.ts                    FirstTakeReceipt, PromiseFamily, PromiseClassification, PromiseFeasibilityReceipt,
+                                            PromiseOutcome, ProfessionalPromise, TalentMarketProposal.promises,
+                                            TalentMarketReceiptKind |= 'promiseOutcome', GameStateV29, GameState = GameStateV29
+       src/core/talentMarket.ts             widened digest, DESCRIPTOR_ORDER + D3/D4 bands, the two archetype orders,
+                                            FreezeDrop promiseNotFeasible / issuerDistrusted + sentences, disclosure `promise`,
+                                            the winner's promise commit
+       src/core/operations.ts               ManagedProductionAdvance.firstTakes at the 5 -> 4 branch (both arms)
+       src/core/tick.ts                     appendFirstTakes + advancePromisesWeek before the terminal market step
+       src/core/hollywoodTick.ts            rival first takes carried out of advanceHollywoodWeek
+       src/core/actions.ts                  BROKEN written synchronously at releaseTalent and at cancel
+       src/core/save.ts                     LIVE_SAVE_VERSION 29, SaveFileV29, validateSaveV29, convertV28ToV29,
+                                            convertV29ToV28, migrateToV29, 13 older-migration downgrade guards
+       src/core/worldgen.ts                 a fresh world opens both roots empty
+       src/core/index.ts                    exports
+       src/harness/roster-wall/historical-control.ts, src/harness/p14/legacy-v28-fixtures.ts (frozen at its V28 writer)
+
+RNG: `rngState` is never read or written by any promise path. promises.ts imports no RNG module at all
+     (its only engine imports are `fnv1a64` and `TUNING`), and tests/p14b1-promises.test.ts test 3
+     asserts `state.rngState` unchanged across two feasibility calls — PASSING above.
+
+FROZEN CHAIN: every V<=28 validator and converter body is untouched. `git diff src/core/save.ts` removes exactly
+     seven lines, all of them the LIVE boundary (the union's last member, the handled-range message,
+     LIVE_SAVE_VERSION, and makeSave's three V28 lines). validateSaveV28 / convertV27ToV28 / convertV28ToV27 and
+     every older validator are byte-identical; V29 hands V28 a state with its two new roots and the per-proposal
+     `promises` leaf STRIPPED, so no older validator is ever taught a newer root.

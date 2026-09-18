@@ -229,7 +229,7 @@ describe('group 1: PROJECTION_VERSION 44 / schema / view market / converted law'
   })
 
   it('LIVE_SAVE_VERSION stays 28 under projection 44 — no persisted fact, the converted law is unchanged', () => {
-    expect(LIVE_SAVE_VERSION).toBe(28)
+    expect(LIVE_SAVE_VERSION).toBe(29)
   })
 })
 
@@ -736,7 +736,7 @@ describe('group 8: disclosure leak check — workspace and pulse JSON', () => {
 
 describe('group 9: save/load', () => {
   it('LIVE_SAVE_VERSION === 28; a genuine V27 fixture converts to an EMPTY workspace (no attention, no cases, no selected)', () => {
-    expect(LIVE_SAVE_VERSION).toBe(28)
+    expect(LIVE_SAVE_VERSION).toBe(29)
     const json = load(V27_RENEWAL_WINDOW.file)
     assertSha256(json, V27_RENEWAL_WINDOW.sha256)
     const session = BridgeSession.fromSaveJson(json, 'p14a2-bridge-v27-load')
@@ -802,7 +802,7 @@ describe('group 9: save/load', () => {
     expect(saved.accepted).toBe(true)
     if (!saved.accepted) throw new Error(`save refused: ${JSON.stringify(saved)}`)
     const parsed = JSON.parse(saved.saveJson) as { saveVersion: number }
-    expect(parsed.saveVersion).toBe(28)
+    expect(parsed.saveVersion).toBe(29)
     const reloaded = BridgeSession.fromSaveJson(saved.saveJson, 'p14a2-bridge-roundtrip-reload')
     expect(reloaded.gameState).toEqual(JSON.parse(JSON.stringify(session.gameState)))
     // NOT YET EXISTING: marketPage — this test's RED cause.

@@ -1,5 +1,5 @@
 import { beforeAll, describe, expect, it } from 'vitest'
-import { exportCurrentState, importSave, makeSave, migrateToV28 } from '../src/core/save.js'
+import { exportCurrentState, importSave, makeSave, migrateToV29 } from '../src/core/save.js'
 import { validateTechnology } from '../src/core/technology.js'
 import type { IndustryFilm } from '../src/core/hollywoodTypes.js'
 import type { GameState } from '../src/core/types.js'
@@ -71,8 +71,8 @@ describe('P13A exact historical technology membership under local indexing', () 
   })
 
   it('does not reuse membership across independent round-tripped copies with the same world and entity IDs', () => {
-    const original = migrateToV28(importSave(sourceJson)).state
-    const branch = migrateToV28(importSave(sourceJson)).state
+    const original = migrateToV29(importSave(sourceJson)).state
+    const branch = migrateToV29(importSave(sourceJson)).state
     expect(branch).not.toBe(original)
     expect(branch.hollywood!.worldId).toBe(original.hollywood!.worldId)
     expect(loadout(branch)).toEqual(loadout(original))

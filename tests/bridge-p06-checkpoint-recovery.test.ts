@@ -67,7 +67,7 @@ function expectPreservedGameplay(beforeJson: string, after: SaveFileV28): void {
   // against `initialTechnology`, whose adoptions are always empty), but
   // `placement.facilities` is compared generically as part of `afterState`
   // below, so the expected object widens that leaf explicitly.
-  // Comparing with migrateToV28's own output would not prove preservation.
+  // Comparing with migrateToV29's own output would not prove preservation.
   const oldIds=new Set(before.state.talent.map(t=>t.id))
   const {hollywood,technology,physicalPlans,talentMarket,...afterState}=after.state
   expect(hollywood).toMatchObject({origin:'migration',originWeek:before.state.market.tick,films:[]})

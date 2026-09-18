@@ -50,7 +50,7 @@ import {
   tick,
   TUNING,
   updateStanding,
-  validateSaveV28,
+  validateSaveV29,
 } from '../src/core/index.js'
 import type {
   CastSlot,
@@ -438,7 +438,7 @@ describe('P08A H8 — the save boundary refuses forged history', () => {
   it('refuses out-of-order ids, pre-boundary rows, lying deltas, and unknown kinds', () => {
     const { after } = releaseOne('p08-h8-forge')
     const legal = makeSave(after)
-    expect(validateSaveV28(clone(legal))).toBeTruthy()
+    expect(validateSaveV29(clone(legal))).toBeTruthy()
 
     const swapped = clone(legal)
     const rows = [...swapped.state.studioHistory.rows]
@@ -447,18 +447,18 @@ describe('P08A H8 — the save boundary refuses forged history', () => {
       rows[0] = b
       rows[1] = a
       ;(swapped.state.studioHistory as unknown as { rows: unknown[] }).rows = rows
-      expect(() => validateSaveV28(swapped)).toThrow(/ascending eventId/)
+      expect(() => validateSaveV29(swapped)).toThrow(/ascending eventId/)
     }
 
     const early = clone(legal)
     ;(early.state.studioHistory as { recordingStartedWeek: number }).recordingStartedWeek = 10_000
-    expect(() => validateSaveV28(early)).toThrow(/recording boundary/)
+    expect(() => validateSaveV29(early)).toThrow(/recording boundary/)
 
     const lying = clone(legal)
     const receipt = lying.state.studioHistory.rows.find((r) => r.kind === 'standingChanged')
     if (receipt !== undefined && receipt.kind === 'standingChanged') {
       ;(receipt.deltas as { audienceAwareness: number }).audienceAwareness += 1
-      expect(() => validateSaveV28(lying)).toThrow(/after − before/)
+      expect(() => validateSaveV29(lying)).toThrow(/after − before/)
     }
 
     const unknown = clone(legal)
@@ -470,6 +470,6 @@ describe('P08A H8 — the save boundary refuses forged history', () => {
       subjects: [{ kind: 'studio' }],
     })
     ;(unknown.state.studioHistory as { nextEventId: number }).nextEventId += 1
-    expect(() => validateSaveV28(unknown)).toThrow(/not a known history kind/)
+    expect(() => validateSaveV29(unknown)).toThrow(/not a known history kind/)
   })
 })

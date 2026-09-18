@@ -207,12 +207,12 @@ describe('P13B-S5 Save V24 (test 4)', () => {
   // AMENDED AGAIN (P13B-S6 live-version sweep, 2026-09-17): `makeSave` moved to
   // the live V26 boundary; this section moved with it a second time.
   it('makeSave writes saveVersion 26', () => {
-    expect(makeSave(p13aLaboratorySlice()).saveVersion).toBe(28)
+    expect(makeSave(p13aLaboratorySlice()).saveVersion).toBe(29)
   })
 
-  it('an unknown saveVersion 29 is refused, naming the handled range "1 through 27"', () => {
-    const forged = { ...makeSave(p13aLaboratorySlice()), saveVersion: 29 }
-    expect(() => validateSave(forged as never)).toThrow(/versions 1 through 28 only/)
+  it('an unknown saveVersion 30 is refused, naming the handled range "1 through 27"', () => {
+    const forged = { ...makeSave(p13aLaboratorySlice()), saveVersion: 30 }
+    expect(() => validateSave(forged as never)).toThrow(/versions 1 through 29 only/)
   })
 
   it('save/reload mid-deployment continues identically (byte for byte): a lighting adoption committed but not yet operational', () => {

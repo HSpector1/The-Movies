@@ -28,11 +28,11 @@ import {
   makeSave,
   makeSaveV15,
   migrateToV15,
-  migrateToV28,
+  migrateToV29,
   mintReleaseCommitmentId,
   stableStringify,
   tick,
-  validateSaveV28,
+  validateSaveV29,
 } from '../src/core/index.js'
 import type { CastSlot, GameState, SegmentId } from '../src/core/index.js'
 
@@ -413,8 +413,8 @@ describe('P06A W1 — save law', () => {
     // P14A.1 live-version sweep: this is the identity lift through whichever
     // version is CURRENTLY live (the variable's own name), not a pinned V25 fact —
     // `tick` below is the live engine and requires every live root.
-    const live = migrateToV28(v15)
-    expect(live.saveVersion).toBe(28)
+    const live = migrateToV29(v15)
+    expect(live.saveVersion).toBe(29)
     expect(live.state.releaseAuthority).toEqual({ commitments: [] })
 
     // The migrated world HOLDS — the legacy auto-release does not survive import.
@@ -427,16 +427,16 @@ describe('P06A W1 — save law', () => {
     const ready = foundedToReleaseReady('p06a-roundtrip')
     const committed = commit(ready, ready.studio.activeProductions[0]!.id)
     const save = makeSave(committed)
-    expect(save.saveVersion).toBe(28)
+    expect(save.saveVersion).toBe(29)
 
-    const reimported = migrateToV28(importSave(exportSave(save)))
+    const reimported = migrateToV29(importSave(exportSave(save)))
     expect(stableStringify(reimported)).toBe(stableStringify(save))
     expect(reimported.state.releaseAuthority.commitments).toHaveLength(1)
 
     expect(() => migrateToV15(save)).toThrow(/cannot downgrade SaveFileV28/)
   })
 
-  it('validateSaveV28 rejects forged authority at the save boundary', () => {
+  it('validateSaveV29 rejects forged authority at the save boundary', () => {
     const ready = foundedToReleaseReady('p06a-save-forge')
     const id = ready.studio.activeProductions[0]!.id
     const good = makeSave(commit(ready, id))
@@ -445,12 +445,12 @@ describe('P06A W1 — save law', () => {
       state: { releaseAuthority: { commitments: { productionId: string }[] } }
     }
     orphan.state.releaseAuthority.commitments[0]!.productionId = 'prod-9999'
-    expect(() => validateSaveV28(orphan)).toThrow(/foreign identity|orphan/)
+    expect(() => validateSaveV29(orphan)).toThrow(/foreign identity|orphan/)
 
     const extraKey = JSON.parse(exportSave(good)) as {
       state: { releaseAuthority: Record<string, unknown> }
     }
     extraKey.state.releaseAuthority.surprise = true
-    expect(() => validateSaveV28(extraKey)).toThrow(/unknown field .surprise./)
+    expect(() => validateSaveV29(extraKey)).toThrow(/unknown field .surprise./)
   })
 })

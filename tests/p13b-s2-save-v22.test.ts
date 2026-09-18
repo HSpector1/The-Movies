@@ -10,7 +10,7 @@ import {
   migrateToV20,
   migrateToV21,
   migrateToV22,
-  migrateToV28,
+  migrateToV29,
   validateSave,
   validateSaveV21,
 } from '../src/core/save.js'
@@ -41,12 +41,12 @@ function assertRootUnchangedExceptTechnology(before: GameStateV21, after: GameSt
  * real migration, before the live round trip. The V21→V22 lift assertions above
  * stay exactly where they were — this file proves the V22 migration, not V26. */
 function live(save: SaveFileV22): GameState {
-  return migrateToV28(save).state
+  return migrateToV29(save).state
 }
 
 function roundTripsByteIdentical(state: GameState): string {
   const direct = exportSave(makeSave(state))
-  const restored = migrateToV28(importSave(direct)).state
+  const restored = migrateToV29(importSave(direct)).state
   expect(exportSave(makeSave(restored))).toBe(direct)
   return direct
 }
@@ -203,19 +203,19 @@ describe('P13B-S2 V21 to V22 migration (test 8)', () => {
 describe('P13B-S2 envelope law at the live writer (test 8)', () => {
   it('makeSave always writes the live saveVersion 26', () => {
     const migrated = migrateToV22(importSave(load('./fixtures/p13b/legacy-v21-staffed-4-seats-263.json.gz')))
-    expect(makeSave(live(migrated)).saveVersion).toBe(28)
+    expect(makeSave(live(migrated)).saveVersion).toBe(29)
   })
 
-  it('refuses an unknown saveVersion 29 with the updated range', () => {
+  it('refuses an unknown saveVersion 30 with the updated range', () => {
     const migrated = migrateToV22(importSave(load('./fixtures/p13b/legacy-v21-staffed-4-seats-263.json.gz')))
     const save = makeSave(live(migrated))
-    expect(() => validateSave({ ...save, saveVersion: 29 })).toThrow(/versions 1 through 28 only/)
+    expect(() => validateSave({ ...save, saveVersion: 30 })).toThrow(/versions 1 through 29 only/)
   })
 
-  it('round-trips a migrated two-Laboratory save through exportSave/importSave/migrateToV28 byte-identically', () => {
+  it('round-trips a migrated two-Laboratory save through exportSave/importSave/migrateToV29 byte-identically', () => {
     const migrated = migrateToV22(importSave(load('./fixtures/p13b/legacy-v21-two-labs-two-briefs-783.json.gz')))
     const direct = exportSave(makeSave(live(migrated)))
-    const restored = migrateToV28(importSave(direct)).state
+    const restored = migrateToV29(importSave(direct)).state
     expect(exportSave(makeSave(restored))).toBe(direct)
   })
 })

@@ -49,7 +49,7 @@ import {
   makeSaveV10,
   migrateToV11,
   migrateToV14,
-  validateSaveV28,
+  validateSaveV29,
   stableStringify,
   validateSaveV1,
   validateSaveV2,
@@ -228,7 +228,7 @@ describe("SaveFileV11 cash/ledger checkpoint — historical migration", () => {
     const nativeWorld = generateWorld("checkpoint-native-omission");
     const native = makeSave(nativeWorld);
     expect("cashLedgerCheckpoint" in native.state).toBe(false);
-    expect(validateSaveV28(native)).toBe(native);
+    expect(validateSaveV29(native)).toBe(native);
     expect(migrateToCurrentControl(native)).toBe(native);
 
     const played = applyActions(
@@ -238,7 +238,7 @@ describe("SaveFileV11 cash/ledger checkpoint — historical migration", () => {
     const reconciled = makeSave(played);
     expect(reconciled.state.ledger).toHaveLength(1);
     expect("cashLedgerCheckpoint" in reconciled.state).toBe(false);
-    expect(validateSaveV28(reconciled)).toBe(reconciled);
+    expect(validateSaveV29(reconciled)).toBe(reconciled);
 
     const json = exportSave(reconciled);
     const imported = importSave(json);
@@ -290,7 +290,7 @@ describe("SaveFileV11 cash/ledger checkpoint — historical migration", () => {
       cash: redundant.state.studio.cash,
       ledgerLength: redundant.state.ledger.length,
     };
-    expect(() => validateSaveV28(redundant)).toThrow(
+    expect(() => validateSaveV29(redundant)).toThrow(
       /checkpoint must encode a genuine historical reconciliation boundary/,
     );
   });
@@ -385,6 +385,9 @@ describe("SaveFileV11 cash/ledger checkpoint — post-migration authority", () =
           physicalPlans: initialPhysicalPlans(),
           // P14A.1 (Save V28): the empty market root a market-free history carries.
           talentMarket: initialTalentMarket(),
+          // P14B.1 (Save V29): a hand-built state films no first take and promises nothing.
+          firstTakes: [],
+          promises: [],
         }),
       ).toThrow(
         /cannot downgrade or repair a semantically invalid V11 cash-ledger checkpoint/,
@@ -477,25 +480,25 @@ describe("SaveFileV11 cash/ledger checkpoint — post-migration authority", () =
 
     const changedAnchor = clone(valid);
     changedAnchor.state.cashLedgerCheckpoint!.cash += 1;
-    expect(() => validateSaveV28(changedAnchor)).toThrow(
+    expect(() => validateSaveV29(changedAnchor)).toThrow(
       /studio cash must equal the historical checkpoint plus the ordered post-checkpoint ledger/,
     );
 
     const changedCash = clone(valid);
     changedCash.state.studio.cash += 1;
-    expect(() => validateSaveV28(changedCash)).toThrow(
+    expect(() => validateSaveV29(changedCash)).toThrow(
       /studio cash must equal the historical checkpoint plus the ordered post-checkpoint ledger/,
     );
 
     const movedBoundary = clone(valid);
     movedBoundary.state.cashLedgerCheckpoint!.ledgerLength += 1;
-    expect(() => validateSaveV28(movedBoundary)).toThrow(
+    expect(() => validateSaveV29(movedBoundary)).toThrow(
       /construction capex cannot predate the V11 cash-ledger checkpoint/,
     );
 
     const changedSuffix = clone(valid);
     changedSuffix.state.ledger[overheadIndex]!.amount -= 1;
-    expect(() => validateSaveV28(changedSuffix)).toThrow(
+    expect(() => validateSaveV29(changedSuffix)).toThrow(
       /studio cash must equal the historical checkpoint plus the ordered post-checkpoint ledger/,
     );
   });

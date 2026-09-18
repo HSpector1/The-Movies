@@ -80,11 +80,11 @@ function assertSha256(json: string, expected: string) {
  * same path every real load takes. S7's own claim is unchanged: the announcement
  * is derived from the campaign clock and persists nowhere.
  */
-const liveState = (json: string): GameState => save.migrateToV28(JSON.parse(json) as never).state as GameState
+const liveState = (json: string): GameState => save.migrateToV29(JSON.parse(json) as never).state as GameState
 
 describe('P13B-S7 announcements persist nowhere: genuine V26 fixture, live load, advance past the announce week (test 3)', () => {
   it('LIVE_SAVE_VERSION is 27 (P13B-S8) — S7 itself changes no save', () => {
-    expect(save.LIVE_SAVE_VERSION).toBe(28)
+    expect(save.LIVE_SAVE_VERSION).toBe(29)
   })
 
   it('genuine V26 fixture at week 795 (before lighting announces at 884): sha256 matches, loads through the live path, no lighting announcement row', () => {
@@ -132,7 +132,7 @@ describe('P13B-S7 announcements persist nowhere: genuine V26 fixture, live load,
     expect(exported).not.toMatch(/"announcement/i)
 
     const reimported = save.importSave(exported)
-    expect(reimported.saveVersion).toBe(28) // S7 added no save root; the live version is S8's
+    expect(reimported.saveVersion).toBe(29) // S7 added no save root; the live version is S8's
   })
 
   it('Save As proxy: two independently-loaded copies of the same genuine save publish byte-identical announcement rows at 884', () => {
