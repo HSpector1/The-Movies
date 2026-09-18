@@ -16,6 +16,7 @@ import {plansPage,type PlanIntent} from './plans.ts'
 import {officePage,type OfficeIntent} from './office.ts'
 import {contractTermLabel} from './contract.ts'
 import {marketPage,MARKET_CLOSED_PAGE_SIZE} from './market.ts'
+import {personWorldRoute} from './world.ts'
 
 type Film=IndustryPage['films'][number]
 type Credit=IndustryPage['credits'][number]
@@ -74,8 +75,12 @@ function indexFor(state:GameState):Index {
   for(const film of films){append(filmsByStudio,film.studioId,film);for(const c of credits.get(film.filmId)??[])append(filmsByPerson,c.talentId,film)}
   const people=new Map<string,Person>(),roster=new Map<string,Person[]>()
   const onLot=new Set(studioPresence(state).people.map(p=>p.talentId))
-  for(const t of state.talent){const owner=employer.get(t.id)??null;const person:Person={talentId:t.id,name:t.name,roleLabel:t.role==='craft'?'Crew':t.role[0]!.toUpperCase()+t.role.slice(1),employerStudioId:owner,employerName:owner?names.get(owner)??null:null,
+  // P14A.3: the PUBLIC world-route case facts join the row — the open-case status line and
+  // the reference that opens that exact case, both null unless a case is open, and neither
+  // carrying a figure of any kind. The presence set is reused, never rebuilt per person.
+  for(const t of state.talent){const owner=employer.get(t.id)??null;const route=personWorldRoute(state,t.id,onLot.has(t.id));const person:Person={talentId:t.id,name:t.name,roleLabel:t.role==='craft'?'Crew':t.role[0]!.toUpperCase()+t.role.slice(1),employerStudioId:owner,employerName:owner?names.get(owner)??null:null,
     employmentLabel:owner?`Studio: ${names.get(owner)}`:'No exclusive studio contract',creditCount:filmsByPerson.get(t.id)?.length??0,onPlayerLot:onLot.has(t.id),
+    caseStatusLine:route.statusLine,caseRef:route.caseRef,
     notice:'Credits establish work on a film. They do not establish historical employment. Current employer is read from the present contract.'};people.set(t.id,person);if(owner)append(roster,owner,person)}
   const current=h.chart??{week:state.market.tick,rows:h.identities.filter(s=>s.enteredWeek!==null).map(s=>({studioId:s.studioId,standing:h.businesses.find(b=>b.studioId===s.studioId)?.standing??state.studio.standing,output:filmsByStudio.get(s.studioId)?.length??0}))},prior=h.previousChart
   const sameCohort=current!==null&&prior!==null&&current.rows.length===prior.rows.length&&current.rows.every(r=>prior.rows.some(p=>p.studioId===r.studioId))

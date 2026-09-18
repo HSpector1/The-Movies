@@ -186,7 +186,29 @@ export const PROTOCOL_VERSION = 4 as const
 //   * The industry request gains `view: 'market'` and an OPTIONAL `historyPage`; every
 //     existing request shape stays valid as minted.
 // Save V28 is live; protocol stays 4; no new persisted fact.
-export const PROJECTION_VERSION = 43 as const
+// PROJECTION 44 (P14A.3): the WORLD ROUTE facts — what a world surface may state about
+// one person, and how it opens that person's case.
+//   * Read models over the landed A.1 case law and the landed A.2 workspace only: no
+//     engine law, no new intent kind, no new page, no Pulse change, and Save V28 is
+//     UNCHANGED — nothing here is persisted.
+//   * `StudioWorldRouteSnapshot` carries three facts: `statusLine` (the restrained OPEN-
+//     case line, "Renewal window open · decides Week N" until `decisionWeek <= week + 1`
+//     and "Decides next week · Week N" from there while the case is still open),
+//     `caseRef` (`StudioWorldCaseRef {view:'market', targetId}` — the existing industry
+//     request convention, opening the exact case with no new page) and `reach`
+//     (`playerLot` iff the Profile's `presence.onLot`, else `industry`).
+//   * `statusLine` and `caseRef` are BOTH null for a closed case and for a person the
+//     engine holds no case for; a settled case stays readable through the Profile's
+//     `marketCase` and the market page's `closed` bucket.
+//   * Carriers: `StudioPersonProfileSnapshot.worldRoute` (required — every profile has a
+//     route), `StudioRosterRowSnapshot.worldStatusLine` (nullable) and, on the PUBLIC
+//     Industry person row, `StudioIndustryPerson.caseStatusLine` / `caseRef` (both
+//     nullable). Public case facts only: a rival's tier, salary and bonus stay behind
+//     A.1's disclosure exactly as before, and no figure is carried by any of them.
+//   * The presence/attention DTOs are UNCHANGED: no capability, marker or meeting concept
+//     is added anywhere, and the presence engagement and credit vocabularies gain nothing.
+// Save V28 is live; protocol stays 4; no new persisted fact.
+export const PROJECTION_VERSION = 44 as const
 
 const nonEmptyText = () => text({ minLength: 1 })
 const nonNegativeInteger = () => integer({ minimum: 0 })
@@ -2339,6 +2361,28 @@ const StudioMarketPage = object('StudioMarketPage', {
   selected: nullable(reference('StudioMarketCaseDetail', StudioMarketCaseDetail)),
 })
 
+// ── P14A.3: the world route facts (projection 44) ──────────────────────────
+// The reference that opens the EXACT case behind a world status line: the existing
+// `view`/`targetId` convention of the industry request, so a client that already speaks
+// `view:'market'` opens the case with no new page and no new intent. `view` is the const
+// `market` because this is the only route a case is opened through.
+const StudioWorldCaseRef = object('StudioWorldCaseRef', {
+  view: literal('market'),
+  targetId: nonEmptyText(),
+})
+// One person's world route. `statusLine` and `caseRef` are BOTH null unless the engine
+// holds an OPEN case for this person — a closed case and a person with no case read the
+// same restrained nothing, and a settled case stays readable through the Profile's own
+// `marketCase` block and the market page's `closed` bucket. `reach` is `playerLot` iff
+// the Profile's `presence.onLot` (the player-only Presence Projection V1 fact) and
+// `industry` otherwise: a rival's person is reached from the Industry roster and the
+// profile, never from a physical rival lot, which does not exist on this wire.
+const StudioWorldRouteSnapshot = object('StudioWorldRouteSnapshot', {
+  statusLine: nullable(nonEmptyText()),
+  caseRef: nullable(reference('StudioWorldCaseRef', StudioWorldCaseRef)),
+  reach: enumeration(['playerLot', 'industry']),
+})
+
 const StudioPersonProfileSnapshot = object('StudioPersonProfileSnapshot', {
   talentId: nonEmptyText(),
   name: nonEmptyText(),
@@ -2368,6 +2412,8 @@ const StudioPersonProfileSnapshot = object('StudioPersonProfileSnapshot', {
   career: reference('StudioPersonCareerSnapshot', StudioPersonCareerSnapshot),
   /** P14A.1: present exactly while the engine holds a case for this person; null otherwise. */
   marketCase: nullable(reference('StudioMarketCaseSnapshot', StudioMarketCaseSnapshot)),
+  /** P14A.3: the world route facts for this person; present on every profile. */
+  worldRoute: reference('StudioWorldRouteSnapshot', StudioWorldRouteSnapshot),
 })
 const StudioRosterOvrSnapshot = object('StudioRosterOvrSnapshot', {
   discipline: disciplineEnum(),
@@ -2397,6 +2443,8 @@ const StudioRosterRowSnapshot = object('StudioRosterRowSnapshot', {
   attentionReason: nullable(text()),
   canLocate: bool(),
   population: enumeration(['employed', 'freelancer', 'known']),
+  /** P14A.3: the world route's own status line, or null when no case is open. */
+  worldStatusLine: nullable(nonEmptyText()),
 })
 const StudioRosterCountsSnapshot = object('StudioRosterCountsSnapshot', {
   employed: nonNegativeInteger(),
@@ -3167,6 +3215,8 @@ const definitions = {
   StudioMarketHistory,
   StudioMarketCaseDetail,
   StudioMarketPage,
+  StudioWorldCaseRef,
+  StudioWorldRouteSnapshot,
   StudioPersonProfileSnapshot,
   StudioRosterOvrSnapshot,
   StudioRosterRowSnapshot,
@@ -3312,6 +3362,8 @@ export type BridgeMarketCases = InferSchema<typeof StudioMarketCases>
 export type BridgeMarketEmployerRow = InferSchema<typeof StudioMarketEmployerRow>
 export type BridgeMarketCaseDetail = InferSchema<typeof StudioMarketCaseDetail>
 export type BridgeMarketPage = InferSchema<typeof StudioMarketPage>
+export type BridgeWorldCaseRef = InferSchema<typeof StudioWorldCaseRef>
+export type BridgeWorldRouteSnapshot = InferSchema<typeof StudioWorldRouteSnapshot>
 export type BridgePersonRenewalTermSnapshot = InferSchema<typeof StudioPersonRenewalTermSnapshot>
 export type BridgePersonContractActionsSnapshot = InferSchema<typeof StudioPersonContractActionsSnapshot>
 export type BridgePlacementQuoteSnapshot = InferSchema<typeof StudioPlacementQuoteSnapshot>

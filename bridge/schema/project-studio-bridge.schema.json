@@ -492,7 +492,7 @@
           "$ref": "#/$defs/StudioProjectionBundle"
         },
         "snapshotVersion": {
-          "const": 43,
+          "const": 44,
           "type": "integer"
         },
         "stateDigest": {
@@ -609,7 +609,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 43,
+          "const": 44,
           "type": "integer"
         },
         "stateDigest": {
@@ -1128,7 +1128,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 43,
+          "const": 44,
           "type": "integer"
         },
         "stateDigest": {
@@ -1207,7 +1207,7 @@
           "$ref": "#/$defs/StudioProjectionBundle"
         },
         "snapshotVersion": {
-          "const": 43,
+          "const": 44,
           "type": "integer"
         },
         "stateDigest": {
@@ -1499,7 +1499,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 43,
+          "const": 44,
           "type": "integer"
         },
         "stateDigest": {
@@ -7423,6 +7423,27 @@
     "StudioIndustryPerson": {
       "additionalProperties": false,
       "properties": {
+        "caseRef": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StudioWorldCaseRef"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "caseStatusLine": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
         "creditCount": {
           "maximum": 2147483647,
           "minimum": 0,
@@ -7475,6 +7496,8 @@
         }
       },
       "required": [
+        "caseRef",
+        "caseStatusLine",
         "creditCount",
         "employerName",
         "employerStudioId",
@@ -10821,6 +10844,9 @@
         "workEthicLabel": {
           "minLength": 1,
           "type": "string"
+        },
+        "worldRoute": {
+          "$ref": "#/$defs/StudioWorldRouteSnapshot"
         }
       },
       "required": [
@@ -10850,7 +10876,8 @@
         "work",
         "workEthic",
         "workEthicEffect",
-        "workEthicLabel"
+        "workEthicLabel",
+        "worldRoute"
       ],
       "type": "object",
       "x-csharp-name": "StudioPersonProfileSnapshot"
@@ -14191,6 +14218,17 @@
         "talentId": {
           "minLength": 1,
           "type": "string"
+        },
+        "worldStatusLine": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
         }
       },
       "required": [
@@ -14215,7 +14253,8 @@
         "specialtyLine",
         "starPower",
         "status",
-        "talentId"
+        "talentId",
+        "worldStatusLine"
       ],
       "type": "object",
       "x-csharp-name": "StudioRosterRowSnapshot"
@@ -15770,6 +15809,65 @@
       "type": "object",
       "x-csharp-name": "StudioWeekTheaterSubjectSnapshot"
     },
+    "StudioWorldCaseRef": {
+      "additionalProperties": false,
+      "properties": {
+        "targetId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "view": {
+          "const": "market",
+          "type": "string"
+        }
+      },
+      "required": [
+        "targetId",
+        "view"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioWorldCaseRef"
+    },
+    "StudioWorldRouteSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "caseRef": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StudioWorldCaseRef"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "reach": {
+          "enum": [
+            "playerLot",
+            "industry"
+          ],
+          "type": "string"
+        },
+        "statusLine": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "caseRef",
+        "reach",
+        "statusLine"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioWorldRouteSnapshot"
+    },
     "StudioWrapReceiptSnapshot": {
       "additionalProperties": false,
       "properties": {
@@ -15806,7 +15904,7 @@
       "x-csharp-name": "StudioWrapReceiptSnapshot"
     }
   },
-  "$id": "urn:project-studio:bridge:protocol-4:projection-43",
+  "$id": "urn:project-studio:bridge:protocol-4:projection-44",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "description": "Canonical wire contract owned by the authoritative TypeScript runtime.",
   "oneOf": [
@@ -15862,7 +15960,7 @@
   "title": "Project Studio TypeScript to Unity Bridge",
   "x-project-studio": {
     "contractId": "project-studio-current-game-unity-bridge",
-    "projectionVersion": 43,
+    "projectionVersion": 44,
     "protocolVersion": 4,
     "routes": {
       "command": "POST /command",

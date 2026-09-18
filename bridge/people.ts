@@ -43,9 +43,10 @@ import {
 } from '../src/core/talentMarket.ts'
 import type { Disclosed, MarketCaseView } from '../src/core/talentMarket.ts'
 import { contractActionDecisions, contractTermLabel } from './contract.ts'
+import { personWorldRoute } from './world.ts'
 import type {
   BridgeMarketAttentionRowSnapshot, BridgeMarketCaseSnapshot, BridgeMarketProposalSnapshot,
-  BridgePersonContractActionsSnapshot,
+  BridgePersonContractActionsSnapshot, BridgeWorldRouteSnapshot,
 } from './schema/bridge-schema.ts'
 import type {
   CreativeRole,
@@ -211,6 +212,10 @@ export type BridgePersonProfileSnapshot = {
   career: BridgePersonCareerSnapshot
   /** P14A.1: the contested-expiry case block, present only while the engine holds a case. */
   marketCase: BridgeMarketCaseSnapshot | null
+  /** P14A.3: the world route facts — the open-case status line, the reference that
+   * opens that exact case, and whether this person is reached on the player's own lot
+   * or from the Industry roster and the profile. */
+  worldRoute: BridgeWorldRouteSnapshot
 }
 
 export type BridgeRosterRowSnapshot = {
@@ -239,6 +244,9 @@ export type BridgeRosterRowSnapshot = {
   canLocate: boolean
   /** employed (contracted) · freelancer (engaged or available) · known (free agent / unavailable) */
   population: 'employed' | 'freelancer' | 'known'
+  /** P14A.3: the world route's own status line for this person, or null when the
+   * engine holds no OPEN case (the profile carries the whole route). */
+  worldStatusLine: string | null
 }
 
 export type BridgeRosterOvrSnapshot = { discipline: Discipline; label: string; ovr: number }
@@ -504,6 +512,9 @@ function buildProfile(
     attention,
     career,
     marketCase,
+    // The world route reuses the presence answer this profile already holds, so the
+    // player-only Presence Projection is built ONCE per projection, not once per person.
+    worldRoute: personWorldRoute(state, talent.id, input.presence !== null),
   }
 }
 
@@ -766,6 +777,7 @@ function buildRoster(profiles: BridgePersonProfileSnapshot[]): BridgeRosterSnaps
       attentionReason: p.attention.reason,
       canLocate: p.presence.canLocate,
       population,
+      worldStatusLine: p.worldRoute.statusLine,
     }
   })
   return {

@@ -4,8 +4,12 @@ import {array,boolean as bool,enumeration,integer,literal,nullable,number,object
 // That module imports THIS one, so the workspace page is referenced here by NAME alone —
 // the import below is type-only and erased at runtime, which keeps the two schema modules
 // acyclic while both definitions land in the one shared `$defs` map.
-import type {BridgeMarketPage} from './bridge-schema.ts'
+import type {BridgeMarketPage,BridgeWorldCaseRef} from './bridge-schema.ts'
 const marketPageRef=()=>reference('StudioMarketPage',{} as JsonSchema<BridgeMarketPage>)
+// P14A.3: `StudioWorldCaseRef` is DEFINED in bridge-schema.ts beside the rest of the world
+// route, and is referenced here by NAME alone for the same acyclic reason as the workspace
+// page above — both definitions still land in the one shared `$defs` map.
+const worldCaseRefRef=()=>reference('StudioWorldCaseRef',{} as JsonSchema<BridgeWorldCaseRef>)
 const id=()=>text({minLength:1}),count=()=>integer({minimum:0}),score=()=>number({minimum:0,maximum:100})
 const TECHNOLOGY_IDS=['synchronized-sound','lighting-control-01'] as const
 const ADOPTION_COMPONENT_KINDS=['access','equipment','site','installation','capture','post'] as const
@@ -122,7 +126,13 @@ const StudioCampaignDate=object('StudioCampaignDate',{policy:literal('campaign-c
 const StudioIndustryLane=object('StudioIndustryLane',{key:enumeration(INDUSTRY_LANES),label:id(),meaning:id(),value:number(),rank:integer({minimum:1}),priorRank:nullable(integer({minimum:1})),movement:enumeration(['new','unavailable','up','down','unchanged']),movementLabel:id(),snapshotWeek:count(),snapshotLabel:id(),priorWeek:nullable(count())})
 const StudioIndustryStudio=object('StudioIndustryStudio',{studioId:id(),name:id(),mark:id(),color:id(),player:bool(),foundingLabel:id(),entryLabel:id(),recordingNotice:id(),filmCount:count(),authoredFilmCount:count(),liveFilmCount:count(),lanes:array(reference('StudioIndustryLane',StudioIndustryLane))})
 const StudioIndustryFilm=object('StudioIndustryFilm',{filmId:id(),studioId:id(),studioName:id(),title:id(),genre:id(),dateLabel:id(),releaseWeek:nullable(count()),historicalYear:nullable(integer({minimum:1800,maximum:1919})),provenance:enumeration(['authored-start/v1','simulation/v1','player-record']),criticScore:score(),audienceScore:score(),openingGross:number({minimum:0}),totalGross:number({minimum:0}),runStatus:enumeration(['settled','inRun','recorded']),businessNotice:id()})
-const StudioIndustryPerson=object('StudioIndustryPerson',{talentId:id(),name:id(),roleLabel:id(),employerStudioId:nullable(id()),employerName:nullable(id()),employmentLabel:id(),creditCount:count(),onPlayerLot:bool(),notice:id()})
+// P14A.3: `caseStatusLine` and `caseRef` carry the PUBLIC world-route case facts of this
+// person — the restrained open-case line and the reference that opens that exact case
+// (`view:'market'`). Both are null unless the engine holds an OPEN case, and both stay
+// figure-free: a rival's tier, salary and bonus remain behind A.1's disclosure and appear
+// on no Industry row. The row's own `onPlayerLot` still states where the person is; a
+// rival's person is never on the player's lot and no rival lot exists on this wire.
+const StudioIndustryPerson=object('StudioIndustryPerson',{talentId:id(),name:id(),roleLabel:id(),employerStudioId:nullable(id()),employerName:nullable(id()),employmentLabel:id(),creditCount:count(),onPlayerLot:bool(),notice:id(),caseStatusLine:nullable(id()),caseRef:nullable(worldCaseRefRef())})
 const StudioIndustryCredit=object('StudioIndustryCredit',{talentId:id(),name:id(),role:id(),employerStudioId:nullable(id()),employerName:nullable(id())})
 // P13B-S7: `studioId` is NULLABLE. Every receipt-derived row still names the studio whose
 // receipt it is; a DERIVED public milestone row (the technology announcement) is minted by
