@@ -1,0 +1,92 @@
+{
+  "authority": {
+    "phase": "qualified B-F2 / exact last-V29 upstream before P2",
+    "testedSourceSha": "89b5ad2cfc6947ea07fb043ef5b23eba38d7dbde",
+    "publishedRecoverySha": "c06db6eae2a1350317c018c6f108d115dcba7b19",
+    "closeoutRelativePath": "docs/engineering/playability-launch-review/evidence/p14bf2-20260919-final/17-attribution.md",
+    "closeoutSha256": "6f6e425314107a7f0050739becb5f97adede58de94d7631a6f5bf25de8abfc81",
+    "schemaId": "sha256:584bdd8565030f049d548b1af4fcbf8c517ca7c9150016736f632f1ef8fcb98c",
+    "projectionVersion": 46,
+    "protocolVersion": 4,
+    "saveVersion": 29,
+    "promiseRulesVersion": 3,
+    "approvalEnvironmentVariable": "STUDIO_MINT_V29_APPROVED_FINAL",
+    "outputRelativePath": "tests/fixtures/p14/genuine-v29-pre-p2"
+  },
+  "observedHeadSha": "c06db6eae2a1350317c018c6f108d115dcba7b19",
+  "sourceFiles": {
+    "src/core/save.ts": "84f5e5310d923823a38638791638bd08a4c34808f0957e6ec6185d73636886c6",
+    "src/core/promises.ts": "de64e957381b1b33bf1d2789d976326fc3f54277035fc2059a2c3d5ea0899a0a",
+    "src/core/talentMarket.ts": "393aeeef2d42b327c2b8209caeb519ebab3c2ee583f333a2d6b1d47af6113052",
+    "src/core/tick.ts": "ad0faa9216093f657cf16ecebe66a6cc65aee4bcc407b7d79d6e48a847465deb",
+    "src/core/actions.ts": "7f4bf8470b4a6b824d58917be0e0ba3f73744516fc862709ea4bcc00cfa994c5",
+    "src/core/types.ts": "a9049586a58e65b1d2db4075b9dfe9dc387b2050a275fff9d62888822efaa866",
+    "src/harness/p13a/fixtures.ts": "f9d07ff10728ef42aa4973e97880e2300b9f29c32db3cc3b4bd6e4cdbd01f6d5",
+    "bridge/contract.ts": "20f5f07d75877836a9fcb3c8a01db929003e053513c3545e9bfe1501c7696b9c",
+    "bridge/session.ts": "4bc3f027c06590bb998eb707e4f8255c502639f04ea858b5d713c6585cb6f6ee",
+    "bridge/schema/bridge-schema.ts": "9e9b6605e52aeac46cb010842ab7813174556b6562ffea2724578c5fceb8e9d6",
+    "generated/unity/StudioBridgeDtos.Generated.cs": "1b5c7e889ffe3454858afa8960b4a4c099d88cfe25a9553212ba67f11a4c3268",
+    "ui/src/engine/adapter.ts": "f6df18258f62767f706fad5b517fc47e72caf4779ff4678a08b3f4358657e2d7",
+    "ui/vite.config.ts": "13f335b521b233f8ea20f0079575f0645e8f4a4051de0151f2b79cb5f19e499b",
+    "ui/tsconfig.json": "294e1c6b2bacc3fefb0aec00c5093c5372b7d3c6e1175279aa551b6023f42d9e",
+    "tsconfig.json": "f855dfc9191a0d63240d447bccac5e029530a74b83e12f467083f1393bbe6d4f",
+    "tsconfig.src.json": "8c3f09111bb20bd51e8611caf00775a9bb78ea20290b765cc82f0ae0663e1dae",
+    "tsconfig.bridge.json": "000b30ca444be7669cac8b43bb1c23730945617801feae27eaa73927b27792ca",
+    "vitest.config.ts": "2939ba611a5c025c2974043c98c06af10aadd3065925103d3f506bd1f1d07faa",
+    "vitest.workspace.ts": "2bb01ef4b7f9f02877e42b425e43f40e3905be769cd6f091cf61a3275563b446",
+    "package.json": "031dadd99741140dae256481de76d98502bfb5855dee6f8eb46d043baa6fac9f",
+    "package-lock.json": "728ee1693d3d4f33d04fc731264e442cb5f00e922fb36943aee9db9bf2e7c5de",
+    "tests/helpers/p14b2-fixtures.ts": "9b2970d6788ea71287c2f55aa662f618541d4a76f6d1ebfaaa0b7c81399a6270",
+    "tests/p14b1-t4-regressions.test.ts": "7ef17d1e15557878ca54677a20dbdbe659a0b620e8a78724a9abe7f18bccf790"
+  },
+  "minterSha256": "dfa940999fd8ee14b892631fce9272a627aa0a1e00f7c2c8918a88ea8d8367fd",
+  "supportSha256": "3695a05ca60f8d87420cd237fbe40cbca0f778ae96b8a45643cc21079976c011",
+  "nodeVersion": "v20.20.2",
+  "startedAt": "2026-09-19T21:12:51.090Z",
+  "endedAt": "2026-09-19T21:13:08.746Z",
+  "campaignSource": "generated test campaigns only; never Owner saves",
+  "command": "node_modules/.bin/vitest run tests/bridge-p14b4-mint-v29.test.ts --minWorkers=1 --maxWorkers=1",
+  "scope": "genuine SaveV29 producer evidence; no forward migration or native/product acceptance claim",
+  "filename": "genuine-v29-current-p1.json.gz",
+  "role": "actual CURRENT unbound P1 attachments",
+  "recipe": {
+    "builder": "tests/helpers/p14b2-fixtures.ts:retentionFixture",
+    "generatedCampaignOnly": true,
+    "economicInput": "explicit fund helper cash delta with matching ledger",
+    "keptPersonId": "t-act-09",
+    "brokenPersonId": "t-act-08",
+    "productionId": "prod-0052"
+  },
+  "seed": "p13a-core-causal-01",
+  "week": 45,
+  "saveVersion": 29,
+  "uncompressedSha256": "03017370f16d9d2cf211f5653650a6d41452f73f0e8b96bb4aa154a6a946f4ca",
+  "compressedSha256": "4947c31baa8cf9b948edd3a75b246df56c6d924e6d624ef1e18591d977f4cca7",
+  "byteLength": 675654,
+  "compressedByteLength": 82610,
+  "rootCounts": {
+    "promises": 2,
+    "firstTakes": 20,
+    "marketReceipts": 4,
+    "currentProposals": 2
+  },
+  "focus": [
+    {
+      "promiseId": "promise-0",
+      "family": "APPEARANCE_COUNT",
+      "version": 3,
+      "contractId": null,
+      "outcome": null,
+      "outcomeEventId": null,
+      "evidenceRefs": [],
+      "originalFeasibilityReceipt": {
+        "classification": "REASONABLY_ACHIEVABLE",
+        "bottleneck": null,
+        "inputsDigest": "049e3acd7af916bc",
+        "rulesVersion": 3,
+        "week": 45
+      }
+    }
+  ],
+  "additionalFacts": null
+}

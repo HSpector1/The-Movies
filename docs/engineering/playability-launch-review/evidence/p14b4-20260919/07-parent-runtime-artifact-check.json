@@ -1,0 +1,60 @@
+{
+  "source": "c06db6eae2a1350317c018c6f108d115dcba7b19",
+  "exit": 0,
+  "start": "2026-09-19T21:20:17.677Z",
+  "end": "2026-09-19T21:20:36.544Z",
+  "fixedSource": false,
+  "qualification": "Broad recorder changed by exactly3 newly generated runtime outputs; original operational/nine-corpus input patch unchanged",
+  "inputPatchSha": "9f77e23ebb3594b131209a3d1f9b92461bdfeabb016d43cba91ebd9b069d504c",
+  "manifestSha": "f18c475922e70602b6dfe6ac86cd6d448484b4b6aa480abf65733061e41c4de8",
+  "provenanceSha": "1bc6d6a2ca7a05ad6fd8fc89d308de42225477c98b33781a428f9690926c1935",
+  "facts": {
+    "filename": "genuine-projection46-runtime.checkpoint.json.gz",
+    "provenanceFilename": "genuine-projection46-runtime.provenance.json",
+    "uncompressedSha256": "e344be06db6794e9d1523c036befb4180595564ef8a3fb6e6062328e477e7699",
+    "compressedSha256": "3db0599c6e183140b79c83880eb967dde37aecc0d178a85d192283893ea0cc34",
+    "byteLength": 3183529,
+    "compressedByteLength": 301302,
+    "schemaId": "sha256:584bdd8565030f049d548b1af4fcbf8c517ca7c9150016736f632f1ef8fcb98c",
+    "protocolVersion": 4,
+    "projectionVersion": 46,
+    "currentSaveVersion": 29,
+    "savedSaveVersion": 29,
+    "currentSaveSha256": "281663eeb15c5da0c63b005e956c6b7392ab05690652e9f52c1636f88a80817e",
+    "savedSaveSha256": "03017370f16d9d2cf211f5653650a6d41452f73f0e8b96bb4aa154a6a946f4ca",
+    "currentWeek": 45,
+    "savedWeek": 45,
+    "stateRevision": 1,
+    "journalEntries": 2,
+    "focusPromiseId": "promise-0",
+    "talentId": "t-act-09"
+  },
+  "authority": {
+    "testedSourceSha": "89b5ad2cfc6947ea07fb043ef5b23eba38d7dbde",
+    "publishedRecoverySha": "c06db6eae2a1350317c018c6f108d115dcba7b19",
+    "closeoutRelativePath": "docs/engineering/playability-launch-review/evidence/p14bf2-20260919-final/17-attribution.md",
+    "closeoutSha256": "6f6e425314107a7f0050739becb5f97adede58de94d7631a6f5bf25de8abfc81",
+    "schemaId": "sha256:584bdd8565030f049d548b1af4fcbf8c517ca7c9150016736f632f1ef8fcb98c",
+    "projectionVersion": 46,
+    "protocolVersion": 4,
+    "saveVersion": 29,
+    "promiseRulesVersion": 3,
+    "approvalEnvironmentVariable": "STUDIO_MINT_PROJECTION46_APPROVED",
+    "outputRelativePath": "tests/fixtures/p14/genuine-projection46-runtime"
+  },
+  "minterSha": "58e3a9554026089616f96c309cc4dc1ad6b909c87936c9c129165fb77c96c5b6",
+  "journal": [
+    {
+      "route": "save",
+      "commandId": "save-current-p1"
+    },
+    {
+      "route": "command",
+      "commandId": "commit-withdraw"
+    }
+  ],
+  "savedRootCount": 2,
+  "currentRootCount": 2,
+  "savedProposalCount": 2,
+  "currentProposalCount": 1
+}

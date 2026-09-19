@@ -1,0 +1,97 @@
+{"sourceSha":"c06db6eae2a1350317c018c6f108d115dcba7b19","testedDiffSha256":"9f77e23ebb3594b131209a3d1f9b92461bdfeabb016d43cba91ebd9b069d504c","untrackedSource":["scripts/v29-mint-support.ts","tests/bridge-p14b4-mint-projection46.test.ts","tests/bridge-p14b4-mint-v29.test.ts","tests/fixtures/p14/genuine-v29-pre-p2/MANIFEST.json","tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-bound-open-p1.json.gz","tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-bound-open-p1.provenance.json","tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-current-p1.json.gz","tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-current-p1.provenance.json","tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-empty.json.gz","tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-empty.provenance.json","tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-kept-and-broken-p1.json.gz","tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-kept-and-broken-p1.provenance.json","tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-refused-p2-count-only-current-draft.json.gz","tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-refused-p2-count-only-current-draft.provenance.json","tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-replaced-p1.json.gz","tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-replaced-p1.provenance.json","tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-rival-current-p1.json.gz","tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-rival-current-p1.provenance.json","tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-rival-shared-take-terminal-p1.json.gz","tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-rival-shared-take-terminal-p1.provenance.json","tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-withdrawn-p1.json.gz","tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-withdrawn-p1.provenance.json"],"command":["./node_modules/.bin/vitest","run","tests/bridge-p14b4-mint-projection46.test.ts","--minWorkers=1","--maxWorkers=1"],"node":"v20.20.2","start":"2026-09-19T21:20:17.677Z","end":null,"exitCode":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+stdout | tests/bridge-p14b4-mint-projection46.test.ts > ONE-SHOT: genuine outgoing projection46 checkpoint before P2, never restamped
+{
+  "authority": {
+    "testedSourceSha": "89b5ad2cfc6947ea07fb043ef5b23eba38d7dbde",
+    "publishedRecoverySha": "c06db6eae2a1350317c018c6f108d115dcba7b19",
+    "closeoutRelativePath": "docs/engineering/playability-launch-review/evidence/p14bf2-20260919-final/17-attribution.md",
+    "closeoutSha256": "6f6e425314107a7f0050739becb5f97adede58de94d7631a6f5bf25de8abfc81",
+    "schemaId": "sha256:584bdd8565030f049d548b1af4fcbf8c517ca7c9150016736f632f1ef8fcb98c",
+    "projectionVersion": 46,
+    "protocolVersion": 4,
+    "saveVersion": 29,
+    "promiseRulesVersion": 3,
+    "approvalEnvironmentVariable": "STUDIO_MINT_PROJECTION46_APPROVED",
+    "outputRelativePath": "tests/fixtures/p14/genuine-projection46-runtime"
+  },
+  "observedHeadSha": "c06db6eae2a1350317c018c6f108d115dcba7b19",
+  "sourceFiles": {
+    "src/core/save.ts": "84f5e5310d923823a38638791638bd08a4c34808f0957e6ec6185d73636886c6",
+    "src/core/promises.ts": "de64e957381b1b33bf1d2789d976326fc3f54277035fc2059a2c3d5ea0899a0a",
+    "src/core/talentMarket.ts": "393aeeef2d42b327c2b8209caeb519ebab3c2ee583f333a2d6b1d47af6113052",
+    "src/core/tick.ts": "ad0faa9216093f657cf16ecebe66a6cc65aee4bcc407b7d79d6e48a847465deb",
+    "src/core/actions.ts": "7f4bf8470b4a6b824d58917be0e0ba3f73744516fc862709ea4bcc00cfa994c5",
+    "src/core/types.ts": "a9049586a58e65b1d2db4075b9dfe9dc387b2050a275fff9d62888822efaa866",
+    "src/harness/p13a/fixtures.ts": "f9d07ff10728ef42aa4973e97880e2300b9f29c32db3cc3b4bd6e4cdbd01f6d5",
+    "bridge/contract.ts": "20f5f07d75877836a9fcb3c8a01db929003e053513c3545e9bfe1501c7696b9c",
+    "bridge/session.ts": "4bc3f027c06590bb998eb707e4f8255c502639f04ea858b5d713c6585cb6f6ee",
+    "bridge/runtime-checkpoint.ts": "f6dcdacdad633717071c4cbc45a3aad8c4b76cefa54fe6284a3b3f24f51a0f80",
+    "bridge/protocol.ts": "71b920d90ce9a54214c7dd82208a168bd71cab9be60efa11d2ae3a81d7e0b7fa",
+    "bridge/schema/bridge-schema.ts": "9e9b6605e52aeac46cb010842ab7813174556b6562ffea2724578c5fceb8e9d6",
+    "generated/unity/StudioBridgeDtos.Generated.cs": "1b5c7e889ffe3454858afa8960b4a4c099d88cfe25a9553212ba67f11a4c3268",
+    "ui/src/engine/adapter.ts": "f6df18258f62767f706fad5b517fc47e72caf4779ff4678a08b3f4358657e2d7",
+    "ui/vite.config.ts": "13f335b521b233f8ea20f0079575f0645e8f4a4051de0151f2b79cb5f19e499b",
+    "ui/tsconfig.json": "294e1c6b2bacc3fefb0aec00c5093c5372b7d3c6e1175279aa551b6023f42d9e",
+    "tsconfig.json": "f855dfc9191a0d63240d447bccac5e029530a74b83e12f467083f1393bbe6d4f",
+    "tsconfig.src.json": "8c3f09111bb20bd51e8611caf00775a9bb78ea20290b765cc82f0ae0663e1dae",
+    "tsconfig.bridge.json": "000b30ca444be7669cac8b43bb1c23730945617801feae27eaa73927b27792ca",
+    "vitest.config.ts": "2939ba611a5c025c2974043c98c06af10aadd3065925103d3f506bd1f1d07faa",
+    "vitest.workspace.ts": "2bb01ef4b7f9f02877e42b425e43f40e3905be769cd6f091cf61a3275563b446",
+    "package.json": "031dadd99741140dae256481de76d98502bfb5855dee6f8eb46d043baa6fac9f",
+    "package-lock.json": "728ee1693d3d4f33d04fc731264e442cb5f00e922fb36943aee9db9bf2e7c5de",
+    "tests/helpers/p14b2-fixtures.ts": "9b2970d6788ea71287c2f55aa662f618541d4a76f6d1ebfaaa0b7c81399a6270",
+    "tests/p14b1-t4-regressions.test.ts": "7ef17d1e15557878ca54677a20dbdbe659a0b620e8a78724a9abe7f18bccf790"
+  },
+  "minterSha256": "58e3a9554026089616f96c309cc4dc1ad6b909c87936c9c129165fb77c96c5b6",
+  "closeoutSha256": "6f6e425314107a7f0050739becb5f97adede58de94d7631a6f5bf25de8abfc81",
+  "nodeVersion": "v20.20.2",
+  "startedAt": "2026-09-19T21:20:24.804Z",
+  "endedAt": "2026-09-19T21:20:34.804Z",
+  "command": "node_modules/.bin/vitest run tests/bridge-p14b4-mint-projection46.test.ts --minWorkers=1 --maxWorkers=1",
+  "campaign": "generated test campaign, never Owner save",
+  "recipe": {
+    "builder": "tests/helpers/p14b2-fixtures.ts:retentionFixture().submitted",
+    "economicInput": "explicit fund helper cash delta with matching ledger",
+    "actions": [
+      "real save with CURRENT P1",
+      "real quote and commit withdrawal; retained unbound promise history"
+    ],
+    "quoteIntentId": "intent-v4-6efe1af9653d0edfcd2e16010520eec90df4eb6d556b1eaad7766cabe176cfa9",
+    "commandId": "commit-withdraw"
+  },
+  "scope": "genuine outgoing runtime46 authority and V29 gameplay slots; no future migration or native acceptance claim",
+  "filename": "genuine-projection46-runtime.checkpoint.json.gz",
+  "provenanceFilename": "genuine-projection46-runtime.provenance.json",
+  "uncompressedSha256": "e344be06db6794e9d1523c036befb4180595564ef8a3fb6e6062328e477e7699",
+  "compressedSha256": "3db0599c6e183140b79c83880eb967dde37aecc0d178a85d192283893ea0cc34",
+  "byteLength": 3183529,
+  "compressedByteLength": 301302,
+  "schemaId": "sha256:584bdd8565030f049d548b1af4fcbf8c517ca7c9150016736f632f1ef8fcb98c",
+  "protocolVersion": 4,
+  "projectionVersion": 46,
+  "currentSaveVersion": 29,
+  "savedSaveVersion": 29,
+  "currentSaveSha256": "281663eeb15c5da0c63b005e956c6b7392ab05690652e9f52c1636f88a80817e",
+  "savedSaveSha256": "03017370f16d9d2cf211f5653650a6d41452f73f0e8b96bb4aa154a6a946f4ca",
+  "currentWeek": 45,
+  "savedWeek": 45,
+  "stateRevision": 1,
+  "journalEntries": 2,
+  "focusPromiseId": "promise-0",
+  "talentId": "t-act-09"
+}
+
+ ✓ |core| tests/bridge-p14b4-mint-projection46.test.ts (1 test) 10371ms
+   ✓ ONE-SHOT: genuine outgoing projection46 checkpoint before P2, never restamped 10369ms
+
+ Test Files  1 passed (1)
+      Tests  1 passed (1)
+   Start at  23:20:18
+   Duration  16.16s (transform 3.83s, setup 0ms, collect 5.18s, tests 10.37s, environment 1ms, prepare 152ms)
+
+
+{"sourceSha":"c06db6eae2a1350317c018c6f108d115dcba7b19","testedDiffSha256":"9f77e23ebb3594b131209a3d1f9b92461bdfeabb016d43cba91ebd9b069d504c","untrackedSource":["scripts/v29-mint-support.ts","tests/bridge-p14b4-mint-projection46.test.ts","tests/bridge-p14b4-mint-v29.test.ts","tests/fixtures/p14/genuine-v29-pre-p2/MANIFEST.json","tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-bound-open-p1.json.gz","tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-bound-open-p1.provenance.json","tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-current-p1.json.gz","tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-current-p1.provenance.json","tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-empty.json.gz","tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-empty.provenance.json","tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-kept-and-broken-p1.json.gz","tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-kept-and-broken-p1.provenance.json","tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-refused-p2-count-only-current-draft.json.gz","tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-refused-p2-count-only-current-draft.provenance.json","tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-replaced-p1.json.gz","tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-replaced-p1.provenance.json","tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-rival-current-p1.json.gz","tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-rival-current-p1.provenance.json","tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-rival-shared-take-terminal-p1.json.gz","tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-rival-shared-take-terminal-p1.provenance.json","tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-withdrawn-p1.json.gz","tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-withdrawn-p1.provenance.json"],"command":["./node_modules/.bin/vitest","run","tests/bridge-p14b4-mint-projection46.test.ts","--minWorkers=1","--maxWorkers=1"],"node":"v20.20.2","start":"2026-09-19T21:20:17.677Z","end":"2026-09-19T21:20:36.544Z","exitCode":0,"signal":null,"error":null,"sourceShaAtEnd":"c06db6eae2a1350317c018c6f108d115dcba7b19","testedDiffSha256AtEnd":"1d2735912cc16e675458aeaaf57822acaf8ebcc81b016178bb3d916626f3cf16","untrackedSourceAtEnd":["scripts/v29-mint-support.ts","tests/bridge-p14b4-mint-projection46.test.ts","tests/bridge-p14b4-mint-v29.test.ts","tests/fixtures/p14/genuine-projection46-runtime/MANIFEST.json","tests/fixtures/p14/genuine-projection46-runtime/genuine-projection46-runtime.checkpoint.json.gz","tests/fixtures/p14/genuine-projection46-runtime/genuine-projection46-runtime.provenance.json","tests/fixtures/p14/genuine-v29-pre-p2/MANIFEST.json","tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-bound-open-p1.json.gz","tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-bound-open-p1.provenance.json","tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-current-p1.json.gz","tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-current-p1.provenance.json","tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-empty.json.gz","tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-empty.provenance.json","tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-kept-and-broken-p1.json.gz","tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-kept-and-broken-p1.provenance.json","tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-refused-p2-count-only-current-draft.json.gz","tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-refused-p2-count-only-current-draft.provenance.json","tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-replaced-p1.json.gz","tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-replaced-p1.provenance.json","tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-rival-current-p1.json.gz","tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-rival-current-p1.provenance.json","tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-rival-shared-take-terminal-p1.json.gz","tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-rival-shared-take-terminal-p1.provenance.json","tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-withdrawn-p1.json.gz","tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-withdrawn-p1.provenance.json"],"fixedSource":false}

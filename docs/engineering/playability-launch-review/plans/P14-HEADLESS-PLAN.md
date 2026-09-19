@@ -5,7 +5,7 @@
 Full tested/published source89b5ad2cfc6947ea07fb043ef5b23eba38d7dbde, after
 independent RED957d2de13cef957cf97ee8e3dd746b51d0e9d200. Whole run
 2026-09-19T19:19:14.237Z–21:00:23.363Z,101.1521minutes,fixedSource:true.
-Session20565 CLOSED; no heavy runtime or production writer remains active.
+Session20565 CLOSED. Current B4 T0 runtime/ownership: evidence/p14b4-20260919/00-start.md.
 
 Core3351PASS/22FAIL/6unchanged TODO(309files); bridge761PASS/12FAIL/2unchanged
 TODO(72files). Overlapping selections, not unique summed tests. Every failure
@@ -22,13 +22,14 @@ Candidate36files404PASS/5unchanged TODO plus checks are preserved separately in
 rival-policy, chooser, save/schema or historical-root/receipt rewrite.
 Save29/protocol4/projection46/schema584bdd… unchanged.
 
-NEXT: publish this qualified records checkpoint and verify exact remote SHA.
-Then serially mint the FINAL nine outgoingV29 snapshots (apply reviewed CURRENT-
-rival focus patch) AND separate outgoing46 runtime checkpoint on the accepted
-published producer. Archive executed code/raw evidence, independently verify
-actual artifacts, remove only temporary operational entries/helpers, checkpoint
-and publish preservation BEFORE P2 RED/source release. Do NOT remint evaluator1.
-Minters/test drafts remain INERT with INVALID future pins; no T0 artifact yet.
+Qualified B-F2 records c06db6eae2a1350317c018c6f108d115dcba7b19 PUSHED and
+EXACT remote SHA verified. Both B4 T0 genuine corpora now completed on that SAME
+producer; independent artifact reviews06/08 KEEP. Exact T0 proof09-t0-closeout.md.
+Failed runtime02 retained; corrected canonical-writer05 passed. Recorder output-
+only fixedSource:false qualifications retained, producing inputs unchanged.
+Temporary operational files removed after exact-byte archival; no heavy runtime
+or production writer. NEXT: commit/push/exact-remote-verify preservation, then
+independent B4 RED before sole sim-core release. Never remint either actual corpus.
 
 Reviewed P2 guidance: P14B4-HEADLESS-PLAN.md SHA382252e23b6353acf602d87f38032ff961e9f7f9740bbfdf2b2ae368c30df4e4.
 Candidate BF2/12–14 record expansion/actual-owner reviews, not implemented solver
@@ -387,12 +388,15 @@ count-only shapes, including arbitrary positive historical version numbers;
 version2/3 alone cannot identify a seat-class predicate. No P2 implementation or
 broader P14 completion is claimed here. Unity/native/Owner acceptance deferred.
 
-## P14B.4 — next bounded expansion, not started
+## P14B.4 — T0 preservation complete; publication next; production not started
 
 Prepared during frozen B-F2 full verification: `P14B4-HEADLESS-PLAN.md`, native
 bounded guidance review KEEP at SHA382252e23b6353acf602d87f38032ff961e9f7f9740bbfdf2b2ae368c30df4e4.
 Exact findings/dispositions: ../evidence/p14bf2-20260919/12-p2-expansion-preparation-review.md.
 This does not certify the unwritten capacity adapter/solver, fixture runtime or
-production release. T0 still requires qualified B-F2 publication and actual final
-outgoingV29 plus runtime46 preservation. Independent compatibility draft remains
-inert with INVALID future provenance pins. Preserve original minters/history.
+production release. Qualified B-F2 publication c06db6e is exact-remote verified;
+T0 actual outgoingV29 plus runtime46 preservation completed with independent
+KEEP in reviews06/08; proof09 and active next actions in
+../evidence/p14b4-20260919/00-start.md. Actual support-seat witness is proven.
+Publication/exact remote verification precedes independent test installation.
+Preserve original minters/history; drafts are not executed future coverage.

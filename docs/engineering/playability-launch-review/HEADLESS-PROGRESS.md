@@ -10,7 +10,7 @@ evidence/p14bf2-20260919-final/17-attribution.md; not all-green or Owner accepta
 Full tested/published source89b5ad2cfc6947ea07fb043ef5b23eba38d7dbde, after
 independent RED957d2de13cef957cf97ee8e3dd746b51d0e9d200. Whole run
 2026-09-19T19:19:14.237Z–21:00:23.363Z,101.1521minutes,fixedSource:true.
-Session20565 CLOSED; no heavy runtime or production writer remains active.
+Session20565 CLOSED. Current B4 T0 runtime/ownership: evidence/p14b4-20260919/00-start.md.
 
 Core3351PASS/22FAIL/6unchanged TODO(309files); bridge761PASS/12FAIL/2unchanged
 TODO(72files). Overlapping selections, not unique summed tests. Every failure
@@ -27,13 +27,18 @@ evidence/p14bf2-20260919/11-candidate-disposition.md. No assignment, candidate-p
 rival-policy, chooser, save/schema or historical-root/receipt rewrite.
 Save29/protocol4/projection46/schema584bdd… unchanged.
 
-NEXT: publish this qualified records checkpoint and verify exact remote SHA.
-Then serially mint the FINAL nine outgoingV29 snapshots (apply reviewed CURRENT-
-rival focus patch) AND separate outgoing46 runtime checkpoint on the accepted
-published producer. Archive executed code/raw evidence, independently verify
-actual artifacts, remove only temporary operational entries/helpers, checkpoint
-and publish preservation BEFORE P2 RED/source release. Do NOT remint evaluator1.
-Minters/test drafts remain INERT with INVALID future pins; no T0 artifact yet.
+Qualified B-F2 records c06db6eae2a1350317c018c6f108d115dcba7b19 PUSHED and
+EXACT remote SHA verified. B4 T0 BOTH preservation obligations completed on that
+same producer: nine genuine outgoingV29 saves AND distinct-slot runtime46.
+Independent artifact reviews06/08 KEEP; exact T0 proof09-t0-closeout.md.
+Failed runtime premise02 retained; canonical-writer correction independently
+reviewed, separate05 PASS. Both broad fixedSource:false results are disclosed
+output-only additions, with unchanged producing inputs independently established.
+Three temporary operational files removed after review; exact archives retained.
+No heavy runtime or production writer. NEXT: publish/exact-remote-verify this
+preservation checkpoint, then independent B4 test installation and behavioral
+RED before sole sim-core release. Never remint or overwrite either actual corpus.
+Future P2 save/outcome/runtime drafts remain inert, not executed coverage.
 
 Reviewed P2 guidance: plans/P14B4-HEADLESS-PLAN.md SHA382252e23b6353acf602d87f38032ff961e9f7f9740bbfdf2b2ae368c30df4e4.
 Candidate BF2/12–14 record expansion/actual-owner reviews, not implemented solver

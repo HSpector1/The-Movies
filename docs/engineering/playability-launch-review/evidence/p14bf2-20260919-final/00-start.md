@@ -21,23 +21,19 @@ Independent RED957d2de and candidate36files404PASS/5unchanged TODO preserved in
 
 ## Exact next actions
 
-1. Commit qualified closeout/records/preparations, push existing branch and verify
-   exact remote publication. Record the published SHA; never infer it from HEAD.
-2. On that accepted producer, install ONLY final nine-save minter+shared helper,
-   apply reviewed current-rival focus patch, and separately install runtime46
-   minter. Fill four invalid acceptance sentinels from actual tested89b5,
-   verified publication, immutable17closeout path/hash. Preserve original drafts.
-3. Run final nine-save and runtime46 minters SERIAL, one worker, under fixed-source
-   recorder; preferably same accepted HEAD. Do not rerun old evaluator1 mint.
-   Existing/partial output must not be deleted or overwritten. ALL artifact/
-   strict-reader/readback/provenance guards remain; investigate real failures.
-4. Independently verify real artifacts, archive exact executed entries/helper and
-   raw checks, remove only temporary operational files via apply_patch, checkpoint/
-   push/exactremote preservation before P2 writer/test release.
-5. Apply reviewed P14B4 plan382252… plus candidate BF2/13–14 owner map/review.
-   Independent save36case/outcome23case drafts remain inert/unexecuted with INVALID
-   pins. Actual support witness and natural branches are not yet proven. Their
-   bounded reviews do not count as T0 or behavioral RED.
+1. DONE: qualified records c06db6eae2a1350317c018c6f108d115dcba7b19 pushed and
+   independently EXACT ls-remote verified. Current B4 T0 ownership/recovery:
+   ../p14b4-20260919/00-start.md. No repeat of this full run is required.
+2. DONE: both actual preservation obligations ran serially on that SAME c06
+   producer. Nine outgoingV29 saves and genuine distinct-slot runtime46 checkpoint;
+   independent artifact reviews06/08 KEEP. Failed02 and corrected05 both retained.
+   Exact archives retained; three temporary operational files removed after review.
+3. Publish/exact-remote-verify preservation checkpoint before independent B4 RED.
+   Full T0 proof: ../p14b4-20260919/09-t0-closeout.md.
+4. Apply reviewed P14B4 plan382252… plus candidate BF2/13–14 owner map/review.
+   Independent save36/outcome23/runtime6 drafts remain inert/unexecuted.
+   Actual shared-take support witness NOW proven; natural future P2 branches still
+   unexecuted. No bounded draft review counts as behavioral RED.
 
 Unity handwritten/rendering/native and Owner acceptance remain deferred.
 Continue P2/rest P14/P15/P16/sufficient later work; no routine permission pause.

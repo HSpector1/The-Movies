@@ -1,0 +1,160 @@
+{
+  "source": "c06db6eae2a1350317c018c6f108d115dcba7b19",
+  "exit": 0,
+  "fixedSource": false,
+  "qualification": "Broad recorder changed by exactly19 newly generated output files; same original operational-input patch hash",
+  "inputPatchSha": "5f79c50200c216c51c827f2f74637fab85d766c6ef2094f6559cc306f9a7189a",
+  "manifestSha": "77fa32dabb635f4fc839328ac47b07a008b8d26953cff61cf10d1a3dbbb8c1d1",
+  "fixtures": [
+    {
+      "filename": "genuine-v29-empty.json.gz",
+      "rawSha": "2ca7733a9e7d60f13c0fc46d3646e6bb4711962d394523684717a5503afaea6a",
+      "gzipSha": "93c925eb5bf5027b963bb8d5222497d7b1325979be0830ea1d4ee41fecf6ab8d",
+      "week": 0,
+      "actualSatisfiedSupport": [],
+      "focusIds": []
+    },
+    {
+      "filename": "genuine-v29-current-p1.json.gz",
+      "rawSha": "03017370f16d9d2cf211f5653650a6d41452f73f0e8b96bb4aa154a6a946f4ca",
+      "gzipSha": "4947c31baa8cf9b948edd3a75b246df56c6d924e6d624ef1e18591d977f4cca7",
+      "week": 45,
+      "actualSatisfiedSupport": [],
+      "focusIds": [
+        "promise-0"
+      ]
+    },
+    {
+      "filename": "genuine-v29-replaced-p1.json.gz",
+      "rawSha": "7d5dba1e1dcf78c361c42ccfe5637578a33e64e943662a6e201d699656eb9950",
+      "gzipSha": "bfd215039345d8ce223283f1f21e8d16f61113bb0a583bae194c6fa7067263ad",
+      "week": 45,
+      "actualSatisfiedSupport": [],
+      "focusIds": [
+        "promise-0",
+        "promise-2"
+      ]
+    },
+    {
+      "filename": "genuine-v29-withdrawn-p1.json.gz",
+      "rawSha": "95a01ac1e86772fc7e0e338fdc167261a244fb09e2b15d8c73e8ba4cd7a0bae7",
+      "gzipSha": "4b0d27c32d231b2815853343fe56e8282f9f0b766e9dc41d871f3652c60206ca",
+      "week": 45,
+      "actualSatisfiedSupport": [],
+      "focusIds": [
+        "promise-0",
+        "promise-2"
+      ]
+    },
+    {
+      "filename": "genuine-v29-bound-open-p1.json.gz",
+      "rawSha": "9d1a1ea177f021477fbd73d401e76bbb4a0448a680253082a100c1e5246862d9",
+      "gzipSha": "48ec1b4474c2d808cae8d689dde74b8695fa5a95f2b51499a384a189e7fb880e",
+      "week": 52,
+      "actualSatisfiedSupport": [],
+      "focusIds": [
+        "promise-0",
+        "promise-1"
+      ]
+    },
+    {
+      "filename": "genuine-v29-kept-and-broken-p1.json.gz",
+      "rawSha": "d4ddc01941f4a814cf992ad101a3a03b0b64aaa0043953d2108fa234a0475c4c",
+      "gzipSha": "5ad270aafe913186d0570c3e876f7d76d0108ec73a600c1e9e6c8036c5851654",
+      "week": 61,
+      "actualSatisfiedSupport": [],
+      "focusIds": [
+        "promise-0",
+        "promise-1"
+      ]
+    },
+    {
+      "filename": "genuine-v29-rival-current-p1.json.gz",
+      "rawSha": "4902a1b2151529336091ffa30c488f2b6f2ecd818add1596eb8f37fbc81cb555",
+      "gzipSha": "560f645e0575a031d8a8e4b4320b968fdc2c25c264c05511f0d7cfe9494570d9",
+      "week": 196,
+      "actualSatisfiedSupport": [],
+      "focusIds": [
+        "promise-0",
+        "promise-1",
+        "promise-2",
+        "promise-3",
+        "promise-4",
+        "promise-5",
+        "promise-6",
+        "promise-7",
+        "promise-8",
+        "promise-9",
+        "promise-10",
+        "promise-11",
+        "promise-12",
+        "promise-13",
+        "promise-14",
+        "promise-15",
+        "promise-16",
+        "promise-17",
+        "promise-18",
+        "promise-19",
+        "promise-20",
+        "promise-21",
+        "promise-22",
+        "promise-23",
+        "promise-24",
+        "promise-25",
+        "promise-26",
+        "promise-27",
+        "promise-28",
+        "promise-29",
+        "promise-30",
+        "promise-31",
+        "promise-32",
+        "promise-33",
+        "promise-34",
+        "promise-35",
+        "promise-36",
+        "promise-37",
+        "promise-38",
+        "promise-39",
+        "promise-40",
+        "promise-41",
+        "promise-42",
+        "promise-43",
+        "promise-44",
+        "promise-45",
+        "promise-46",
+        "promise-47"
+      ]
+    },
+    {
+      "filename": "genuine-v29-rival-shared-take-terminal-p1.json.gz",
+      "rawSha": "51cb83b5a9cbbc8aa08fdd1e66a269d2e57ff77a98e88d08e134f5d6a16d7918",
+      "gzipSha": "c4065d9c150c7741adb0901625fae787fc6fdd2804daad4803e777df9ed0fa46",
+      "week": 213,
+      "actualSatisfiedSupport": [
+        {
+          "promiseId": "promise-16",
+          "person": "person-studio-aca408ec-r02-2",
+          "evidence": [
+            "first-take-event-45"
+          ]
+        }
+      ],
+      "focusIds": [
+        "promise-16",
+        "promise-18",
+        "promise-20"
+      ]
+    },
+    {
+      "filename": "genuine-v29-refused-p2-count-only-current-draft.json.gz",
+      "rawSha": "7f7529cb05ab29d2b27bb2855448d2b72e69b5b222b6b351698da0ec7632a253",
+      "gzipSha": "dedd68ed7a975d362838dbbbc5b32016181052a62d3b82a33dea3d95a63d5497",
+      "week": 45,
+      "actualSatisfiedSupport": [],
+      "focusIds": [
+        "promise-2"
+      ]
+    }
+  ],
+  "observation": "Parent read-only inspection after01 completed and before02 started / before03 runtime-minter correction. Derived report, not extra engine execution."
+}

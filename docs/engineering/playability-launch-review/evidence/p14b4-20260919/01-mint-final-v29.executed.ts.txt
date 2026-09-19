@@ -1,0 +1,240 @@
+// DRAFT / DO NOT RUN before qualified B-F2 / final outgoing-V29 publication.
+// Future ONE-SHOT installation: tests/bridge-p14b4-mint-v29.test.ts.
+// Run only this file, one worker, then archive/remove it from test discovery.
+// Uses existing B2 Vitest-backed fixture builders unchanged; not a vite-node job.
+import assert from 'node:assert/strict'
+import { it } from 'vitest'
+import { BridgeSession } from '../bridge/session.ts'
+import { PROTOCOL_VERSION, SCHEMA_ID } from '../bridge/protocol.ts'
+import type { BridgeMarketProposalDraftPayload } from '../bridge/schema/bridge-schema.ts'
+import { attachPromise } from '../src/core/promises.js'
+import { currentProposals, submitProposal } from '../src/core/talentMarket.js'
+import { tick } from '../src/core/tick.js'
+import type { GameState, ProfessionalPromise } from '../src/core/types.js'
+import { p13aGeneratedStudio, player, retentionFixture, rivalFixture } from './helpers/p14b2-fixtures.js'
+import { mintV29Corpus, type MinterAuthority, type Snapshot } from '../scripts/v29-mint-support.js'
+
+// These invalid sentinels intentionally make the draft non-executable. ONLY the
+// parent fills them after accepted B-F2 (or exact final-V29 upstream) tested
+// source, closeout, push and remote verification, BEFORE P2 changes the writer.
+const APPROVED_FINAL_V29: MinterAuthority = {
+  phase: 'qualified B-F2 / exact last-V29 upstream before P2',
+  testedSourceSha: '89b5ad2cfc6947ea07fb043ef5b23eba38d7dbde',
+  publishedRecoverySha: 'c06db6eae2a1350317c018c6f108d115dcba7b19',
+  closeoutRelativePath: 'docs/engineering/playability-launch-review/evidence/p14bf2-20260919-final/17-attribution.md',
+  closeoutSha256: '6f6e425314107a7f0050739becb5f97adede58de94d7631a6f5bf25de8abfc81',
+  // B3 revision2 and B-F2 revision3 plan no wire/save change. Reconcile any
+  // later authorized upstream change against acceptance, never restamp bytes.
+  schemaId: 'sha256:584bdd8565030f049d548b1af4fcbf8c517ca7c9150016736f632f1ef8fcb98c',
+  projectionVersion: 46,
+  protocolVersion: 4,
+  saveVersion: 29,
+  promiseRulesVersion: 3,
+  approvalEnvironmentVariable: 'STUDIO_MINT_V29_APPROVED_FINAL',
+  outputRelativePath: 'tests/fixtures/p14/genuine-v29-pre-p2',
+}
+function ownPromise(state: GameState, personId: string): ProfessionalPromise {
+  const proposal = currentProposals(state, personId).find((p) => p.issuerStudioId === player(state))
+  assert.ok(proposal)
+  assert.equal(proposal.promises.length, 1)
+  const promise = state.promises.find((p) => p.promiseId === proposal.promises[0])
+  assert.ok(promise)
+  return promise
+}
+function binding(state: GameState, promise: ProfessionalPromise): void {
+  assert.notEqual(promise.contractId, null)
+  const employment = state.hollywood!.employment.find((row) => row.contractId === promise.contractId)
+  assert.ok(employment)
+  assert.equal(employment.studioId, promise.issuerStudioId)
+  assert.equal(employment.terms.talentId, promise.beneficiaryPersonId)
+  assert.equal(employment.terms.startWeek, promise.windowStartWeek)
+  assert.ok(state.talentMarket.receipts.some((r) => r.kind === 'settled' && r.week === employment.terms.startWeek
+    && r.talentId === promise.beneficiaryPersonId && r.studioId === promise.issuerStudioId))
+}
+function outcome(state: GameState, promise: ProfessionalPromise): void {
+  binding(state, promise)
+  assert.notEqual(promise.outcome, null)
+  assert.notEqual(promise.outcomeEventId, null)
+  const refs = state.talentMarket.receipts.filter((r) => r.eventId === promise.outcomeEventId)
+  assert.equal(refs.length, 1)
+  assert.equal(refs[0]!.kind, 'promiseOutcome')
+  assert.equal(refs[0]!.week, promise.outcomeWeek)
+  assert.equal(refs[0]!.talentId, promise.beneficiaryPersonId)
+  assert.equal(refs[0]!.studioId, promise.issuerStudioId)
+}
+function bridgeAction(state: GameState, draft: BridgeMarketProposalDraftPayload, id: string) {
+  const session = new BridgeSession(structuredClone(state), `v29-before-p2-${id}`)
+  const controls = (commandId: string) => ({ protocolVersion: PROTOCOL_VERSION, schemaId: SCHEMA_ID,
+    sessionId: session.sessionId, commandId, expectedStateRevision: session.stateRevision })
+  const quoted = session.quote({ ...controls(`quote-${id}`), type: 'quoteMarketProposal', draft })
+  if (!quoted.accepted) throw new Error(quoted.message)
+  assert.equal(quoted.quote.ok, true)
+  const committed = session.command({ ...controls(`commit-${id}`), type: 'submitIntent', payload: { intentId: quoted.quote.intentId } })
+  assert.ok(committed.accepted, committed.message)
+  assert.equal(session.stateRevision, 1)
+  assert.equal(session.gameState.studio.cash, state.studio.cash)
+  assert.deepEqual(session.gameState.ledger, state.ledger)
+  assert.equal(session.gameState.rngState, state.rngState)
+  return { state: session.gameState, recipe: { source: 'actual BridgeSession quote and commit on accepted final-V29 producer', draft,
+    intentId: quoted.quote.intentId, initialRevision: 0, finalRevision: 1 } }
+}
+
+function snapshots(): Snapshot[] {
+  const empty = p13aGeneratedStudio()
+  assert.deepEqual(empty.promises, [])
+  assert.deepEqual(empty.firstTakes, [])
+  const retained = retentionFixture() // unchanged actual B2 fixture builder
+  const current = retained.submitted
+  const original = ownPromise(current, retained.keptId)
+  assert.equal(original.family, 'APPEARANCE_COUNT')
+  assert.equal(original.contractId, null)
+  assert.equal(original.outcome, null)
+  const replaced = bridgeAction(current, { verb: 'revise', talentId: retained.keptId,
+    termWeeks: 52, premiumTier: 1.25, promise: { family: 'APPEARANCE_COUNT', count: 1,
+      windowStartWeek: original.windowStartWeek, dueWeekExclusive: original.dueWeekExclusive + 1 } }, 'replace')
+  const replacement = ownPromise(replaced.state, retained.keptId)
+  assert.equal(replaced.state.promises.length, current.promises.length + 1)
+  assert.equal(replacement.promiseId, `promise-${current.promises.length}`)
+  assert.equal(replacement.feasibilityReceipt.classification, 'REASONABLY_ACHIEVABLE')
+  assert.deepEqual(replaced.state.promises.slice(0, current.promises.length), current.promises)
+  assert.notEqual(currentProposals(replaced.state, retained.keptId).find((p) => p.issuerStudioId === player(current))!.digest,
+    currentProposals(current, retained.keptId).find((p) => p.issuerStudioId === player(current))!.digest)
+  const withdrawn = bridgeAction(replaced.state, { verb: 'withdraw', talentId: retained.keptId,
+    termWeeks: null, premiumTier: null }, 'withdraw')
+  assert.deepEqual(withdrawn.state.promises, replaced.state.promises)
+  assert.ok(!currentProposals(withdrawn.state, retained.keptId).some((p) => p.issuerStudioId === player(current)))
+  assert.ok(withdrawn.state.promises.filter((p) => [original.promiseId, replacement.promiseId].includes(p.promiseId))
+    .every((p) => p.contractId === null && p.outcome === null && p.outcomeEventId === null))
+  const boundPromises = retained.bound.promises.filter((p) => p.issuerStudioId === player(retained.bound))
+  assert.equal(boundPromises.length, 2)
+  for (const promise of boundPromises) { binding(retained.bound, promise); assert.equal(promise.outcome, null) }
+  const terminals = retained.outcomes.promises.filter((p) => p.issuerStudioId === player(retained.outcomes))
+  assert.deepEqual(terminals.map((p) => p.outcome).sort(), ['BROKEN', 'SATISFIED'])
+  assert.equal(new Set(terminals.map((p) => p.outcomeEventId)).size, terminals.length)
+  for (const promise of terminals) outcome(retained.outcomes, promise)
+
+  const rival = rivalFixture() // unchanged real generated rival chain
+  const rivalOpenBefore = JSON.stringify(rival.open)
+  // The proposal table holds CURRENT offers. Unbound historical roots are not
+  // necessarily current: derive the focus from actual attachment references.
+  const rivalCurrentFocus = rival.open.talentMarket.proposals
+    .filter((proposal) => proposal.issuerStudioId !== player(rival.open) && proposal.promises.length > 0)
+    .map((proposal) => {
+      const issuer = rival.open.hollywood!.identities.filter((s) => s.studioId === proposal.issuerStudioId)
+      assert.equal(issuer.length, 1)
+      assert.equal(issuer[0]!.role, 'rival')
+      assert.notEqual(issuer[0]!.enteredWeek, null)
+      assert.deepEqual(currentProposals(rival.open, proposal.talentId)
+        .filter((p) => p.issuerStudioId === proposal.issuerStudioId), [proposal])
+      const cases = rival.open.talentMarket.cases.filter((c) => c.talentId === proposal.talentId && c.outcome === null)
+      assert.equal(cases.length, 1)
+      assert.equal(proposal.promises.length, 1)
+      const promiseId = proposal.promises[0]!
+      const roots = rival.open.promises.filter((p) => p.promiseId === promiseId)
+      assert.equal(roots.length, 1)
+      const promise = roots[0]!
+      assert.equal(promise.issuerStudioId, proposal.issuerStudioId)
+      assert.equal(promise.beneficiaryPersonId, proposal.talentId)
+      assert.equal(promise.family, 'APPEARANCE_COUNT')
+      assert.deepEqual(promise.predicate, { count: 1 })
+      assert.equal(promise.windowStartWeek, proposal.startWeek)
+      assert.equal(promise.dueWeekExclusive, proposal.startWeek + proposal.termWeeks)
+      assert.equal(promise.contractId, null)
+      assert.equal(promise.outcome, null)
+      assert.equal(promise.outcomeWeek, null)
+      assert.equal(promise.outcomeCause, null)
+      assert.equal(promise.outcomeEventId, null)
+      assert.equal(promise.progress, 0)
+      assert.deepEqual(promise.evidenceRefs, [])
+      assert.equal(promise.feasibilityReceipt.classification, 'REASONABLY_ACHIEVABLE')
+      assert.equal(promise.feasibilityReceipt.bottleneck, null)
+      assert.equal(promise.feasibilityReceipt.week, proposal.submittedWeek)
+      const submitted = rival.open.talentMarket.receipts.filter((r) =>
+        r.kind === 'proposalSubmitted' && r.talentId === proposal.talentId
+        && r.studioId === proposal.issuerStudioId && r.week === proposal.submittedWeek)
+      assert.equal(submitted.length, 1)
+      return { promiseId, originalFeasibilityReceipt: structuredClone(promise.feasibilityReceipt) }
+    })
+  assert.ok(rivalCurrentFocus.length > 0, 'no actual CURRENT rival P1 attachment; refuse mint')
+  assert.equal(new Set(rivalCurrentFocus.map((focus) => focus.promiseId)).size, rivalCurrentFocus.length)
+  let sharedState = rival.terminal
+  let shared: ProfessionalPromise[] | undefined
+  let sharedTakeId: string | undefined
+  // Same bounded, real receipt-group search as T4 sharedTakeOutcomes; start from
+  // B2's already-produced terminal chain rather than rerunning it independently.
+  while (sharedState.market.tick <= 230) {
+    const groups = new Map<string, ProfessionalPromise[]>()
+    for (const promise of sharedState.promises) {
+      if (promise.outcome !== 'SATISFIED') continue
+      for (const id of promise.evidenceRefs) groups.set(id, [...(groups.get(id) ?? []), promise])
+    }
+    const found = [...groups.entries()].find(([, group]) => new Set(group.map((p) => p.beneficiaryPersonId)).size >= 2)
+    if (found !== undefined) { [sharedTakeId, shared] = found; break }
+    sharedState = tick(sharedState)
+  }
+  assert.ok(shared && sharedTakeId, 'no genuine multi-beneficiary shared take by230; refuse mint, never forge it')
+  const take = sharedState.firstTakes.find((entry) => entry.eventId === sharedTakeId)
+  assert.ok(take)
+  assert.equal(new Set(shared.map((p) => p.outcomeEventId)).size, shared.length)
+  for (const promise of shared) {
+    outcome(sharedState, promise)
+    assert.notEqual(promise.issuerStudioId, player(sharedState))
+    assert.equal(promise.issuerStudioId, take.studioId)
+    assert.ok(Object.values(take.cast).includes(promise.beneficiaryPersonId))
+    assert.ok(promise.evidenceRefs.includes(take.eventId))
+  }
+
+  // P2 is not offerable in outgoing V29. attachPromise legally STAGES the record;
+  // its feasibility refuses it. This is a real count-only legacy draft, NEVER a
+  // forged P2 commitment/outcome or a claim that attachPromise threw/refused state.
+  const priorP2 = submitProposal(current, { talentId: retained.keptId, issuerStudioId: player(current), termWeeks: 52, premiumTier: 1.25 })
+  const p2 = attachPromise(priorP2, retained.keptId, player(current), { family: 'LEAD_OR_SIGNIFICANT_ROLE_COUNT',
+    predicate: { count: 1 }, windowStartWeek: original.windowStartWeek, dueWeekExclusive: original.dueWeekExclusive })
+  const refusedP2 = ownPromise(p2, retained.keptId)
+  assert.equal(refusedP2.promiseId, `promise-${priorP2.promises.length}`)
+  assert.equal(refusedP2.family, 'LEAD_OR_SIGNIFICANT_ROLE_COUNT')
+  assert.deepEqual(Object.keys(refusedP2.predicate), ['count'])
+  assert.deepEqual(refusedP2.predicate, { count: 1 })
+  assert.equal(refusedP2.feasibilityReceipt.classification, 'IMPOSSIBLE')
+  assert.equal(refusedP2.feasibilityReceipt.bottleneck, 'a seat-class promise is not offered in this slice')
+  assert.equal(refusedP2.contractId, null)
+  assert.equal(refusedP2.outcome, null)
+  assert.deepEqual(p2.promises.slice(0, priorP2.promises.length), priorP2.promises)
+
+  const retainedRecipe = { builder: 'tests/helpers/p14b2-fixtures.ts:retentionFixture',
+    generatedCampaignOnly: true, economicInput: 'explicit fund helper cash delta with matching ledger',
+    keptPersonId: retained.keptId, brokenPersonId: retained.brokenId, productionId: retained.productionId }
+  // Selection changes only provenance focus, never the saved campaign. Retain
+  // ALL historical roots, including abandoned unbound ones, and their receipts.
+  assert.equal(JSON.stringify(rival.open), rivalOpenBefore, 'rival open snapshot changed while preparing focus')
+  for (const focus of rivalCurrentFocus) {
+    const roots = rival.open.promises.filter((promise) => promise.promiseId === focus.promiseId)
+    assert.equal(roots.length, 1)
+    assert.deepEqual(roots[0]!.feasibilityReceipt, focus.originalFeasibilityReceipt)
+  }
+  return [
+    { name: 'empty', state: empty, role: 'empty V29 roots from generated campaign', recipe: { builder: 'p13aGeneratedStudio()' }, focusPromiseIds: [] },
+    { name: 'current-p1', state: current, role: 'actual CURRENT unbound P1 attachments', recipe: retainedRecipe, focusPromiseIds: [original.promiseId] },
+    { name: 'replaced-p1', state: replaced.state, role: 'abandoned predecessor plus real current replacement; original receipt/digest retained',
+      recipe: { base: retainedRecipe, action: replaced.recipe }, focusPromiseIds: [original.promiseId, replacement.promiseId] },
+    { name: 'withdrawn-p1', state: withdrawn.state, role: 'both old unbound roots preserved, neither referenced by a current target proposal',
+      recipe: { base: retainedRecipe, actions: [replaced.recipe, withdrawn.recipe] }, focusPromiseIds: [original.promiseId, replacement.promiseId] },
+    { name: 'bound-open-p1', state: retained.bound, role: 'two real winning contracts, bound OPEN P1 promises', recipe: retainedRecipe,
+      focusPromiseIds: boundPromises.map((p) => p.promiseId) },
+    { name: 'kept-and-broken-p1', state: retained.outcomes, role: 'real first take SATISFIED plus same-week early termination BROKEN; distinct own outcomes',
+      recipe: retainedRecipe, focusPromiseIds: terminals.map((p) => p.promiseId) },
+    { name: 'rival-current-p1', state: rival.open, role: 'genuine rival-authored current unbound promise before expiry',
+      recipe: { builder: 'tests/helpers/p14b2-fixtures.ts:rivalFixture().open', generatedCampaignOnly: true },
+      focusPromiseIds: rivalCurrentFocus.map((focus) => focus.promiseId) },
+    { name: 'rival-shared-take-terminal-p1', state: sharedState, role: 'multiple real rival SATISFIED beneficiaries share one take, never their outcome receipt',
+      recipe: { builder: 'rivalFixture().terminal + bounded real tick/receipt search through230', generatedCampaignOnly: true },
+      focusPromiseIds: shared.map((p) => p.promiseId), facts: { firstTakeEventId: sharedTakeId, outcomeEventIds: shared.map((p) => p.outcomeEventId) } },
+    { name: 'refused-p2-count-only-current-draft', state: p2, role: 'actual nonofferable P2 staging record; outgoing V29 predicate is exactly count-only',
+      recipe: { base: retainedRecipe, actions: ['real submitProposal replacement', 'real attachPromise LEAD_OR_SIGNIFICANT_ROLE_COUNT count1'] },
+      focusPromiseIds: [refusedP2.promiseId] },
+  ]
+}
+
+it('ONE-SHOT: mint nine genuine outgoing-V29 fixtures only after accepted B-F2 and before P2', () => {
+  mintV29Corpus(APPROVED_FINAL_V29, import.meta.url, 9, snapshots)
+}, 180_000)

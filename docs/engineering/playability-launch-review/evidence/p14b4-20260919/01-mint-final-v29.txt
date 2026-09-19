@@ -1,0 +1,68 @@
+{"sourceSha":"c06db6eae2a1350317c018c6f108d115dcba7b19","testedDiffSha256":"5f79c50200c216c51c827f2f74637fab85d766c6ef2094f6559cc306f9a7189a","untrackedSource":["scripts/v29-mint-support.ts","tests/bridge-p14b4-mint-projection46.test.ts","tests/bridge-p14b4-mint-v29.test.ts"],"command":["./node_modules/.bin/vitest","run","tests/bridge-p14b4-mint-v29.test.ts","--minWorkers=1","--maxWorkers=1"],"node":"v20.20.2","start":"2026-09-19T21:12:44.418Z","end":null,"exitCode":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+stdout | tests/bridge-p14b4-mint-v29.test.ts > ONE-SHOT: mint nine genuine outgoing-V29 fixtures only after accepted B-F2 and before P2
+{
+  "corpus": "tests/fixtures/p14/genuine-v29-pre-p2",
+  "observedHeadSha": "c06db6eae2a1350317c018c6f108d115dcba7b19",
+  "fixtures": [
+    {
+      "filename": "genuine-v29-empty.json.gz",
+      "uncompressedSha256": "2ca7733a9e7d60f13c0fc46d3646e6bb4711962d394523684717a5503afaea6a",
+      "compressedSha256": "93c925eb5bf5027b963bb8d5222497d7b1325979be0830ea1d4ee41fecf6ab8d"
+    },
+    {
+      "filename": "genuine-v29-current-p1.json.gz",
+      "uncompressedSha256": "03017370f16d9d2cf211f5653650a6d41452f73f0e8b96bb4aa154a6a946f4ca",
+      "compressedSha256": "4947c31baa8cf9b948edd3a75b246df56c6d924e6d624ef1e18591d977f4cca7"
+    },
+    {
+      "filename": "genuine-v29-replaced-p1.json.gz",
+      "uncompressedSha256": "7d5dba1e1dcf78c361c42ccfe5637578a33e64e943662a6e201d699656eb9950",
+      "compressedSha256": "bfd215039345d8ce223283f1f21e8d16f61113bb0a583bae194c6fa7067263ad"
+    },
+    {
+      "filename": "genuine-v29-withdrawn-p1.json.gz",
+      "uncompressedSha256": "95a01ac1e86772fc7e0e338fdc167261a244fb09e2b15d8c73e8ba4cd7a0bae7",
+      "compressedSha256": "4b0d27c32d231b2815853343fe56e8282f9f0b766e9dc41d871f3652c60206ca"
+    },
+    {
+      "filename": "genuine-v29-bound-open-p1.json.gz",
+      "uncompressedSha256": "9d1a1ea177f021477fbd73d401e76bbb4a0448a680253082a100c1e5246862d9",
+      "compressedSha256": "48ec1b4474c2d808cae8d689dde74b8695fa5a95f2b51499a384a189e7fb880e"
+    },
+    {
+      "filename": "genuine-v29-kept-and-broken-p1.json.gz",
+      "uncompressedSha256": "d4ddc01941f4a814cf992ad101a3a03b0b64aaa0043953d2108fa234a0475c4c",
+      "compressedSha256": "5ad270aafe913186d0570c3e876f7d76d0108ec73a600c1e9e6c8036c5851654"
+    },
+    {
+      "filename": "genuine-v29-rival-current-p1.json.gz",
+      "uncompressedSha256": "4902a1b2151529336091ffa30c488f2b6f2ecd818add1596eb8f37fbc81cb555",
+      "compressedSha256": "560f645e0575a031d8a8e4b4320b968fdc2c25c264c05511f0d7cfe9494570d9"
+    },
+    {
+      "filename": "genuine-v29-rival-shared-take-terminal-p1.json.gz",
+      "uncompressedSha256": "51cb83b5a9cbbc8aa08fdd1e66a269d2e57ff77a98e88d08e134f5d6a16d7918",
+      "compressedSha256": "c4065d9c150c7741adb0901625fae787fc6fdd2804daad4803e777df9ed0fa46"
+    },
+    {
+      "filename": "genuine-v29-refused-p2-count-only-current-draft.json.gz",
+      "uncompressedSha256": "7f7529cb05ab29d2b27bb2855448d2b72e69b5b222b6b351698da0ec7632a253",
+      "compressedSha256": "dedd68ed7a975d362838dbbbc5b32016181052a62d3b82a33dea3d95a63d5497"
+    }
+  ]
+}
+
+ ✓ |core| tests/bridge-p14b4-mint-v29.test.ts (1 test) 18016ms
+   ✓ ONE-SHOT: mint nine genuine outgoing-V29 fixtures only after accepted B-F2 and before P2 18014ms
+
+ Test Files  1 passed (1)
+      Tests  1 passed (1)
+   Start at  23:12:45
+   Duration  23.33s (transform 3.53s, setup 0ms, collect 4.68s, tests 18.02s, environment 0ms, prepare 145ms)
+
+
+{"sourceSha":"c06db6eae2a1350317c018c6f108d115dcba7b19","testedDiffSha256":"5f79c50200c216c51c827f2f74637fab85d766c6ef2094f6559cc306f9a7189a","untrackedSource":["scripts/v29-mint-support.ts","tests/bridge-p14b4-mint-projection46.test.ts","tests/bridge-p14b4-mint-v29.test.ts"],"command":["./node_modules/.bin/vitest","run","tests/bridge-p14b4-mint-v29.test.ts","--minWorkers=1","--maxWorkers=1"],"node":"v20.20.2","start":"2026-09-19T21:12:44.418Z","end":"2026-09-19T21:13:09.983Z","exitCode":0,"signal":null,"error":null,"sourceShaAtEnd":"c06db6eae2a1350317c018c6f108d115dcba7b19","testedDiffSha256AtEnd":"5248bf52e70e9568c5e75791df210804063b2c0b97645265b37578805209e35b","untrackedSourceAtEnd":["scripts/v29-mint-support.ts","tests/bridge-p14b4-mint-projection46.test.ts","tests/bridge-p14b4-mint-v29.test.ts","tests/fixtures/p14/genuine-v29-pre-p2/MANIFEST.json","tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-bound-open-p1.json.gz","tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-bound-open-p1.provenance.json","tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-current-p1.json.gz","tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-current-p1.provenance.json","tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-empty.json.gz","tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-empty.provenance.json","tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-kept-and-broken-p1.json.gz","tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-kept-and-broken-p1.provenance.json","tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-refused-p2-count-only-current-draft.json.gz","tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-refused-p2-count-only-current-draft.provenance.json","tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-replaced-p1.json.gz","tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-replaced-p1.provenance.json","tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-rival-current-p1.json.gz","tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-rival-current-p1.provenance.json","tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-rival-shared-take-terminal-p1.json.gz","tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-rival-shared-take-terminal-p1.provenance.json","tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-withdrawn-p1.json.gz","tests/fixtures/p14/genuine-v29-pre-p2/genuine-v29-withdrawn-p1.provenance.json"],"fixedSource":false}
