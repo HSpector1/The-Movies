@@ -1,0 +1,26 @@
+{
+  "sourceSha": "65c7502fdba98db0c841b4de363adb66521dbd03",
+  "testedDiffSha256": "339c32ef4fe105661972f63ce7993de97c7b9c3904bf2167b028633978ef0344",
+  "untrackedSource": [
+    "tests/p14b4-capacity-kernel.test.ts"
+  ],
+  "command": [
+    "node_modules/.bin/vitest",
+    "run",
+    "tests/p14b4-capacity-kernel.test.ts",
+    "--minWorkers=1",
+    "--maxWorkers=1"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-19T23:06:36.602Z",
+  "end": "2026-09-19T23:06:38.693Z",
+  "exitCode": 1,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "65c7502fdba98db0c841b4de363adb66521dbd03",
+  "testedDiffSha256AtEnd": "339c32ef4fe105661972f63ce7993de97c7b9c3904bf2167b028633978ef0344",
+  "untrackedSourceAtEnd": [
+    "tests/p14b4-capacity-kernel.test.ts"
+  ],
+  "fixedSource": true
+}

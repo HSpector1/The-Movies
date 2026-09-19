@@ -4,8 +4,8 @@ Current B4 checkpoint60: pure publicPreferredOpportunity implemented through the
 existing archetype;3 new focusedPASS,15 regressionPASS/3unchangedtodos;root+UI PASS.
 Bridge typecheck55 has exactly unused test Envelope + deferred tagged attachment
 type errors; NOT green. Runtime48 bridgeRED12PASS/16FAIL remains qualified51.
-Latest published/exactremote c7ef8c398e0887af4ab63405db17df9925d1c7b0.
-Next publish60 reader/evidence checkpoint, finish independent kernel57RED and
+Latest published/exactremote65c7502fdba98db0c841b4de363adb66521dbd03 (61).
+Next finish independent kernel57RED and
 release sole sim-core implementation. Kernel49 corrects reviewed42/44;56 review.
 Policy fixture diagnostic58 bothPASS;59preserves actual lawful facts for narrow
 independent correction, originalv2/43unchanged. All runtime sessions CLOSED.

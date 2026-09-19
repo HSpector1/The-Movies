@@ -1,4 +1,18 @@
-# P14B.4 — additive data checkpoint in verification
+# P14B.4 — capacity implementation continuation
+
+CURRENT63: independent57kernel41cases installedexact076f5050… .62CLOSEDexit1,
+fixedtrue65c7502+339c32ef…; one missing-moduleFailedSuite/ZERO reachedbodies.
+Disposition63. Publish/exactremote RED now, then ONEsimcorewriter newkernelONLY
+(handback64), independentauthor narrowpolicyfixture/unusedEnvelopecorrection
+(handback65). Kerneltestimmutable; no runtimeuntilbothfreeze. No liveactivation.
+Max2specialists, oneproductionwriter; currentallidle pendingpublication.
+
+CURRENT61: qualified reader checkpoint65c7502fdba98db0c841b4de363adb66521dbd03
+PUSHED/exactremote verified23:00:59Z, cleanworktree; report60/review56KEEP.
+All runtimes CLOSED. Author onlyinert57kerneltests; sim READ-ONLY algorithm prep,
+NOT sourcewriter until parent62missingmoduleRED. Auditoridle/max2specialists.
+Next exact57install/62RED, solekernelimplementation; author then narrowpolicy
+fixturesfromactual58/59 and unusedEnvelopecleanup. Full obligations in61.
 
 CURRENT60: pure accessor qualified checkpoint60 ready,56KEEP complete533b8380…;
 publication/exactremote next.3focused+15regressionPASS/3oldtodos,root/UI PASS;

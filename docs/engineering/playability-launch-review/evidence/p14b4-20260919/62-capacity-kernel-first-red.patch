@@ -1,0 +1,492 @@
+diff --git a/tests/p14b4-capacity-kernel.test.ts b/tests/p14b4-capacity-kernel.test.ts
+new file mode 100644
+index 0000000..99262a9
+--- /dev/null
++++ b/tests/p14b4-capacity-kernel.test.ts
+@@ -0,0 +1,486 @@
++// Installed exact independent first tranche57; mathematical fixtures, not owner or engine evidence. RED62.
++// INERT / UNEXECUTED. Intended tests/p14b4-capacity-kernel.test.ts.
++// Definitive interface49 + examples42/44 + reviewed B4 capacity appendix.
++// These are complete DETACHED FINITE SCHEDULING domains, never engine history,
++// owner admission proofs, real staffing receipts, saves, or beneficiary winners.
++import assert from 'node:assert/strict'
++import { describe, expect, it } from 'vitest'
++import { searchPromiseCapacity } from '../src/core/promiseCapacityKernel.js'
++import type { Boundary, CapacityKernelInput, CapacityKernelResult, DemandKey, FixedHold,
++  Hold, PictureAlternative, PriorClaim, PriorProfile, Slot, Witness } from '../src/core/promiseCapacityKernel.js'
++
++const ANY = ['lead', 'antagonist', 'support'] as const
++const FLEX = ['lead', 'antagonist'] as const
++const LEAD = ['lead'] as const
++const b = (week: number, step = 0): Boundary => ({ week, step })
++const window = (startWeek = 0, dueWeekExclusive = 40) => ({ startWeek, dueWeekExclusive })
++const clone = <T>(value: T): T => structuredClone(value)
++function freeze<T>(value: T): T {
++  if (value !== null && typeof value === 'object') {
++    for (const child of Object.values(value)) freeze(child)
++    Object.freeze(value)
++  }
++  return value
++}
++const compare = (a: Boundary, z: Boundary) => a.week < z.week ? -1 : a.week > z.week ? 1 : a.step < z.step ? -1 : a.step > z.step ? 1 : 0
++const key = (demand: DemandKey) => JSON.stringify(demand)
++const slots: readonly Slot[] = ANY
++function picture(name: string, take: Boundary | null, cast: Record<Slot, string>, options: {
++  path?: string; existing?: boolean; start?: Boundary; release?: Boundary; holds?: readonly Hold[]
++  replacements?: PictureAlternative['holdReplacements']
++} = {}): PictureAlternative {
++  const start = options.start ?? b(take === null ? 0 : Math.max(0, take.week - 1))
++  const release = options.release ?? b(take === null ? 1 : take.week + 1)
++  const pathKey = options.path ?? name
++  return { key: name, pathKey, issuerId: 'local', existingPath: options.existing ?? true,
++    greenlight: start, firstTake: take, personRelease: release, cast,
++    staffingWitnessKey: `detached-fixture-staffing:${name}`, ownerFactRefs: [`detached-finite-domain:${name}`],
++    additionalHolds: options.holds ?? slots.map((slot) => ({ holdId: `${name}:person:${slot}`, ownerKey: name,
++      ownerPathKey: pathKey, subject: { kind: 'person' as const, personId: cast[slot] }, from: start, until: release })),
++    holdReplacements: options.replacements ?? [] }
++}
++function prior(promiseId: string, personId: string, mask: PriorClaim['mask'] = ANY,
++  remaining = 1, start = 0, due = 40): PriorClaim {
++  return { promiseId, issuerId: 'local', personId, membership: 'current', mask, window: window(start, due), remaining }
++}
++function input(alternatives: readonly PictureAlternative[] = [], overrides: Partial<CapacityKernelInput> = {}): CapacityKernelInput {
++  return { now: b(0), horizonEndWeek: 40, issuerId: 'local', target: { promiseId: null, personId: 'T', mask: ANY,
++    window: window(), state: 'unbound', count: 1, actualQualifiedCount: 0 }, priorClaims: [], foreignDebits: [],
++    alternatives, fixedHolds: [], coverage: { claimsAndHolds: 'complete', existingAlternatives: 'complete',
++      allAlternatives: 'complete', omissions: [] }, preparationWork: 0,
++    limits: { claims: 32, units: 64, alternatives: 1024, work: 200000, span: 220 }, ...overrides }
++}
++const target = (source: CapacityKernelInput, patch: Partial<CapacityKernelInput['target']>): CapacityKernelInput =>
++  ({ ...source, target: { ...source.target, ...patch } })
++const profile = (existingUnits: number, entries: readonly (readonly [number, number, number])[]): PriorProfile =>
++  ({ existingUnits, cumulativeByBoundary: entries.map(([week, step, units]) => ({ boundary: b(week, step), units })) })
++function relevantDebits(source: CapacityKernelInput) {
++  // Literal membership clarification to49: original source window selects a
++  // local generic-cast token; it is NOT a foreign fulfillment date or class.
++  return source.foreignDebits.filter((d) => d.issuerId !== source.issuerId && d.personId === source.target.personId
++    && d.promiseId !== source.target.promiseId && d.remaining > 0
++    && d.sourceWindow.dueWeekExclusive > Math.max(source.now.week, source.target.window.startWeek)
++    && d.sourceWindow.startWeek < source.target.window.dueWeekExclusive)
++}
++
++// Independent witness CHECKER, not a search oracle. It verifies one returned
++// assignment against the literal fixture facts and exact hold/credit laws. It
++// never enumerates alternatives, calculates an optimum or calls a solver helper.
++function checkWitness(source: CapacityKernelInput, witness: Witness, targetUnits: number,
++  expectedProtectedProfile?: PriorProfile, achievable = false): void {
++  const selected = witness.selectedAlternativeKeys.map((name) => {
++    const matches = source.alternatives.filter((a) => a.key === name)
++    expect(matches).toHaveLength(1)
++    return matches[0]!
++  })
++  expect(new Set(witness.selectedAlternativeKeys).size).toBe(selected.length)
++  expect(new Set(selected.map((a) => a.pathKey)).size).toBe(selected.length)
++  const replaced = new Set<string>()
++  const effective = source.fixedHolds.map((hold) => ({ ...hold }))
++  for (const alternative of selected) {
++    expect(alternative.issuerId).toBe(source.issuerId)
++    expect(new Set(Object.values(alternative.cast)).size).toBe(3)
++    expect(alternative.staffingWitnessKey.length).toBeGreaterThan(0)
++    expect(alternative.ownerFactRefs.length).toBeGreaterThan(0)
++    for (const replacement of alternative.holdReplacements) {
++      const index = source.fixedHolds.findIndex((h) => h.holdId === replacement.holdId)
++      expect(index).toBeGreaterThanOrEqual(0)
++      const original = source.fixedHolds[index]!
++      assert.ok(original.replaceableFrom)
++      expect(original.ownerPathKey).toBe(alternative.pathKey)
++      expect(replaced.has(original.holdId)).toBe(false)
++      replaced.add(original.holdId)
++      expect(compare(replacement.newUntil, original.replaceableFrom)).toBeGreaterThanOrEqual(0)
++      expect(compare(replacement.newUntil, original.until)).toBeLessThanOrEqual(0)
++      effective[index] = { ...original, until: replacement.newUntil }
++    }
++  }
++  const holds: readonly Hold[] = [...effective, ...selected.flatMap((a) => a.additionalHolds)]
++  expect(new Set(holds.map((h) => h.holdId)).size).toBe(holds.length)
++  const sameSubject = (a: Hold, z: Hold): boolean => a.subject.kind === 'person'
++    ? z.subject.kind === 'person' && a.subject.personId === z.subject.personId
++    : z.subject.kind === 'resource' && a.subject.resourceKey === z.subject.resourceKey && a.subject.slot === z.subject.slot
++  for (let i = 0; i < holds.length; i++) for (let j = i + 1; j < holds.length; j++) {
++    const a = holds[i]!, z = holds[j]!
++    if (compare(a.from, a.until) === 0 || compare(z.from, z.until) === 0 || !sameSubject(a, z)) continue
++    expect(compare(a.from, z.until) < 0 && compare(z.from, a.until) < 0,
++      `conflicting actual intervals ${a.holdId} / ${z.holdId}; owner name is not an overlap waiver`).toBe(false)
++  }
++  type Demand = { demandKey: DemandKey; personId: string; mask: readonly Slot[]; window: CapacityKernelInput['target']['window']; units: number }
++  const demands: Demand[] = [{ demandKey: ['target'], personId: source.target.personId, mask: source.target.mask,
++    window: source.target.window, units: targetUnits },
++  ...source.priorClaims.map((p): Demand => ({ demandKey: ['prior', p.promiseId], personId: p.personId, mask: p.mask, window: p.window, units: p.remaining })),
++  ...relevantDebits(source).map((d): Demand => ({ demandKey: ['foreignDebit', d.promiseId], personId: d.personId,
++    mask: ANY, window: source.target.window, units: d.remaining }))]
++  const paid = new Map(demands.map((d) => [key(d.demandKey), 0]))
++  const personPaths = new Set<string>()
++  const targetEvents: { alternative: PictureAlternative; boundary: Boundary }[] = []
++  const priorEvents: Boundary[] = []
++  for (const credit of witness.credits) {
++    const demand = demands.find((d) => key(d.demandKey) === key(credit.demandKey))
++    assert.ok(demand, 'no invented or concatenation-colliding demand namespace')
++    const alternative = selected.find((a) => a.pathKey === credit.pathKey)
++    assert.ok(alternative)
++    assert.ok(alternative.firstTake, 'zero-event continuation cannot earn credit')
++    expect(alternative.cast[credit.slot]).toBe(demand.personId)
++    expect(demand.mask).toContain(credit.slot)
++    expect(alternative.firstTake.week).toBeGreaterThanOrEqual(demand.window.startWeek)
++    expect(alternative.firstTake.week).toBeLessThan(demand.window.dueWeekExclusive)
++    const personPath = JSON.stringify([demand.personId, credit.pathKey])
++    expect(personPaths.has(personPath), 'one person/event cannot pay two planning counters').toBe(false)
++    personPaths.add(personPath)
++    paid.set(key(demand.demandKey), paid.get(key(demand.demandKey))! + 1)
++    if (credit.demandKey[0] === 'target') targetEvents.push({ alternative, boundary: alternative.firstTake })
++    else if (alternative.existingPath) priorEvents.push(alternative.firstTake)
++  }
++  for (const demand of demands) expect(paid.get(key(demand.demandKey))).toBe(demand.units)
++  targetEvents.sort((a, z) => compare(a.boundary, z.boundary))
++  expect(witness.targetTakeBoundaries).toEqual(targetEvents.map((e) => e.boundary))
++  if (expectedProtectedProfile !== undefined) {
++    const boundaries = source.alternatives.filter((a) => a.existingPath && a.firstTake !== null).map((a) => a.firstTake!)
++      .filter((a, index, list) => list.findIndex((z) => compare(a, z) === 0) === index).sort(compare)
++    expect({ existingUnits: priorEvents.length, cumulativeByBoundary: boundaries.map((boundary) => ({ boundary,
++      units: priorEvents.filter((event) => compare(event, boundary) <= 0).length })) }).toEqual(expectedProtectedProfile)
++  }
++  if (achievable) {
++    const remaining = source.target.state === 'bound' ? Math.max(0, source.target.count - source.target.actualQualifiedCount) : source.target.count
++    expect(targetEvents).toHaveLength(remaining + Math.ceil(remaining / 3))
++    expect(targetEvents.slice(0, remaining).every((e) => e.alternative.existingPath)).toBe(true)
++    expect(source.target.window.dueWeekExclusive - targetEvents[remaining - 1]!.boundary.week).toBeGreaterThanOrEqual(8)
++  }
++}
++function run(source: CapacityKernelInput): CapacityKernelResult {
++  const before = clone(source)
++  const result = searchPromiseCapacity(freeze(source))
++  expect(source).toEqual(before)
++  expect(Number.isSafeInteger(result.workUsed)).toBe(true)
++  expect(result.workUsed).toBeGreaterThanOrEqual(0)
++  expect(result.workUsed).toBeLessThanOrEqual(source.limits.work)
++  if (result.status === 'CERTIFIED_ACHIEVABLE') checkWitness(source, result.witness, result.bufferDemand, result.priorOptimum, true)
++  if (result.status === 'PROVEN_FRAGILE') {
++    const x = source.target.state === 'bound' ? Math.max(0, source.target.count - source.target.actualQualifiedCount) : source.target.count
++    checkWitness(source, result.countWitness, x, result.reason === 'achievableProbeFailed' ? result.priorOptimum : undefined)
++  }
++  return result
++}
++function achievable(source: CapacityKernelInput, expected: PriorProfile) {
++  const result = run(source)
++  expect(result.status).toBe('CERTIFIED_ACHIEVABLE')
++  if (result.status !== 'CERTIFIED_ACHIEVABLE') throw new Error('expected constructive protected certificate')
++  expect(result.priorOptimum).toEqual(expected)
++  return result
++}
++function fragile(source: CapacityKernelInput, reason: 'achievableProbeFailed' | 'priorPathProtection', expected: PriorProfile) {
++  const result = run(source)
++  expect(result.status).toBe('PROVEN_FRAGILE')
++  if (result.status !== 'PROVEN_FRAGILE') throw new Error('expected count witness, not a false impossibility')
++  expect(result.reason).toBe(reason)
++  expect(result.priorOptimum).toEqual(expected)
++  return result
++}
++function impossible(source: CapacityKernelInput) {
++  const result = run(source)
++  expect(result).toMatchObject({ status: 'PROVEN_IMPOSSIBLE', scope: 'jointOfferOnly' })
++  return result
++}
++function permuted(source: CapacityKernelInput): CapacityKernelInput {
++  return { ...source, target: { ...source.target, mask: [...source.target.mask].reverse() },
++    priorClaims: [...source.priorClaims].reverse().map((p) => ({ ...p, mask: [...p.mask].reverse() })),
++    foreignDebits: [...source.foreignDebits].reverse(), fixedHolds: [...source.fixedHolds].reverse(),
++    alternatives: [...source.alternatives].reverse().map((a) => ({ ...a, additionalHolds: [...a.additionalHolds].reverse(),
++      holdReplacements: [...a.holdReplacements].reverse() })),
++    coverage: { ...source.coverage, omissions: [...source.coverage.omissions].reverse() } }
++}
++function shared() {
++  return input([picture('P', b(10), { lead: 'A', antagonist: 'B', support: 'T' }, { start: b(5), release: b(14) }),
++    picture('Q', b(24), { lead: 'q1', antagonist: 'q2', support: 'T' }, { existing: false, start: b(20), release: b(28) })],
++  { priorClaims: [prior('a', 'A', LEAD), prior('b', 'B', FLEX)] })
++}
++
++describe('kernel finite class seats, half-open windows and whole picture identity', () => {
++  it('shares all three actual class seats and a later spare; prior score counts units, not pictures', () => {
++    const source = shared(), result = achievable(source, profile(2, [[10, 0, 2]]))
++    expect(result.remaining).toBe(1); expect(result.bufferDemand).toBe(2)
++    expect(result.witness.credits.filter((c) => c.pathKey === 'P')).toHaveLength(3)
++    expect(run(permuted(source))).toEqual(result)
++    fragile({ ...source, alternatives: source.alternatives.slice(0, 1) }, 'achievableProbeFailed', profile(2, [[10, 0, 2]]))
++  })
++  it.each([{ mask: LEAD }, { mask: FLEX }])('fixed support cannot satisfy mask $mask; no recasting or extra seat', ({ mask }) => {
++    impossible(target(input([picture('P', b(10), { lead: 'A', antagonist: 'B', support: 'T' })]), { mask }))
++  })
++  it('P1 uses fixed support, with no spare only a count witness exists', () => {
++    fragile(input([picture('P', b(10), { lead: 'A', antagonist: 'B', support: 'T' })]), 'achievableProbeFailed', profile(0, [[10, 0, 0]]))
++  })
++  it.each([{ take: 9, legal: false }, { take: 10, legal: true }, { take: 19, legal: true }, { take: 20, legal: false }])(
++    'fixed take $take honors [10,20) without sliding an existing event', ({ take, legal }) => {
++      const source = target(input([picture('P', b(take), { lead: 'T', antagonist: 'A', support: 'B' })]), { mask: LEAD, window: window(10, 20) })
++      if (legal) fragile(source, 'achievableProbeFailed', profile(0, [[take, 0, 0]]))
++      else impossible(source)
++    })
++  it('two unstarted script/queue variants of one path cannot become two productions', () => {
++    const source = target(input([picture('script-P', b(10), { lead: 'T', antagonist: 'A', support: 'B' }, { path: 'P' }),
++      picture('queue-P', b(24), { lead: 'T', antagonist: 'C', support: 'D' }, { path: 'P' })]), { count: 2 })
++    impossible(source)
++  })
++  it('a same-person existing event cannot pay both a prior and the target', () => {
++    const source = input([picture('P', b(10), { lead: 'T', antagonist: 'A', support: 'B' })], { priorClaims: [prior('target', 'T')] })
++    impossible(source)
++    fragile({ ...source, priorClaims: [] }, 'achievableProbeFailed', profile(0, [[10, 0, 0]]))
++  })
++})
++
++describe('kernel protected prior aggregate, earliest profile and equivalent assignments', () => {
++  it('retains an equivalent prior assignment that leaves lead available; opaque ID order gives no beneficiary priority', () => {
++    const source = target(input([
++      picture('a-prior-lead', b(10), { lead: 'A', antagonist: 'U', support: 'T' }, { path: 'P' }),
++      picture('z-target-lead', b(10), { lead: 'T', antagonist: 'A', support: 'U' }, { path: 'P' }),
++      picture('spare', b(24), { lead: 'T', antagonist: 'V', support: 'W' }, { existing: false }),
++    ], { priorClaims: [prior('opaque-late-z', 'A', FLEX)] }), { mask: LEAD })
++    const result = achievable(source, profile(1, [[10, 0, 1]]))
++    expect(result.witness.selectedAlternativeKeys).toContain('z-target-lead')
++    expect(result.witness.selectedAlternativeKeys).not.toContain('a-prior-lead')
++    expect(run(permuted(source))).toEqual(result)
++  })
++  it('protects earliest aggregate profile after equal existing-unit totals; later reallocation is FRAGILE, not impossible', () => {
++    const source = target(input([
++      picture('P-A', b(10), { lead: 'A', antagonist: 'U', support: 'V' }, { path: 'P' }),
++      picture('P-T', b(10), { lead: 'T', antagonist: 'U', support: 'V' }, { path: 'P' }),
++      picture('R-A', b(18), { lead: 'A', antagonist: 'R1', support: 'R2' }),
++    ], { priorClaims: [prior('A', 'A', LEAD)] }), { mask: LEAD, window: window(0, 20) })
++    const result = fragile(source, 'priorPathProtection', profile(1, [[10, 0, 1], [18, 0, 1]]))
++    expect(result.countWitness.credits).toContainEqual({ demandKey: ['prior', 'A'], pathKey: 'R-A', slot: 'lead' })
++    expect(result.countWitness.credits).toContainEqual({ demandKey: ['target'], pathKey: 'P', slot: 'lead' })
++    expect(run(permuted(source))).toEqual(result)
++  })
++  it('does not protect prior existing units by declaring a lawful future reallocation physically impossible', () => {
++    const source = target(input([
++      picture('P-A', b(10), { lead: 'A', antagonist: 'U', support: 'V' }, { path: 'P' }),
++      picture('P-T', b(10), { lead: 'T', antagonist: 'U', support: 'V' }, { path: 'P' }),
++      picture('Q-A', b(25), { lead: 'A', antagonist: 'Q1', support: 'Q2' }, { existing: false }),
++    ], { priorClaims: [prior('A', 'A', LEAD)] }), { mask: LEAD, window: window(0, 20) })
++    const result = fragile(source, 'priorPathProtection', profile(1, [[10, 0, 1]]))
++    expect(result.countWitness.credits).toContainEqual({ demandKey: ['prior', 'A'], pathKey: 'Q-A', slot: 'lead' })
++  })
++})
++
++describe('kernel one protected X/B witness and bound remainder', () => {
++  it('cannot splice an early existing witness with incompatible future-only spare capacity', () => {
++    const source = input([
++      picture('P', b(10), { lead: 'T', antagonist: 'P1', support: 'P2' }, { start: b(0), release: b(35) }),
++      picture('Q', b(20), { lead: 'T', antagonist: 'Q1', support: 'Q2' }, { existing: false, start: b(15), release: b(24) }),
++      picture('R', b(30), { lead: 'T', antagonist: 'R1', support: 'R2' }, { existing: false, start: b(25), release: b(34) }),
++    ])
++    fragile(source, 'achievableProbeFailed', profile(0, [[10, 0, 0]]))
++    achievable({ ...source, alternatives: [...source.alternatives,
++      picture('S', b(38), { lead: 'T', antagonist: 'S1', support: 'S2' }, { existing: false, start: b(36), release: b(39) })] }, profile(0, [[10, 0, 0]]))
++  })
++  it.each([12, 13])('Xth existing take at%i has respectively8 or7 weeks slack', (take) => {
++    const source = target(input([picture('P', b(take), { lead: 'T', antagonist: 'A', support: 'B' }),
++      picture('Q', b(18), { lead: 'T', antagonist: 'C', support: 'D' }, { existing: false })]), { window: window(0, 20) })
++    if (take === 12) achievable(source, profile(0, [[12, 0, 0]]))
++    else fragile(source, 'achievableProbeFailed', profile(0, [[13, 0, 0]]))
++  })
++  it('B=X+ceil(X/3): four remaining events require six residual events in the SAME witness', () => {
++    const paths = [8, 16, 24, 32, 40, 48].map((take, index) => picture(`P${index}`, b(take),
++      { lead: 'T', antagonist: `a${index}`, support: `s${index}` }, { existing: index < 4 }))
++    const source = target(input(paths, { horizonEndWeek: 64 }), { count: 4, window: window(0, 64) })
++    const optimum = profile(0, [[8, 0, 0], [16, 0, 0], [24, 0, 0], [32, 0, 0]])
++    expect(achievable(source, optimum).bufferDemand).toBe(6)
++    fragile({ ...source, alternatives: paths.slice(0, 5) }, 'achievableProbeFailed', optimum)
++  })
++  it('bound remaining reads actual qualified count; unbound demand ignores that evidence and zero means only ALREADY_MET', () => {
++    const source = input([picture('P', b(10), { lead: 'T', antagonist: 'A', support: 'B' }),
++      picture('Q', b(24), { lead: 'T', antagonist: 'C', support: 'D' }, { existing: false })])
++    const bound = target(source, { promiseId: 'bound-T', state: 'bound', count: 4, actualQualifiedCount: 3 })
++    expect(achievable(bound, profile(0, [[10, 0, 0]])).remaining).toBe(1)
++    impossible(target(bound, { state: 'unbound' }))
++    for (const actualQualifiedCount of [4, 5, Number.MAX_SAFE_INTEGER]) {
++      const result = run(target(bound, { actualQualifiedCount }))
++      expect(result).toMatchObject({ status: 'ALREADY_MET', remaining: 0 })
++      expect(result).not.toHaveProperty('outcome')
++      expect(result).not.toHaveProperty('witness')
++    }
++  })
++})
++
++describe('kernel person/resource occupancy, ordered release and exact suffix replacement', () => {
++  it.each([1, 2])('same-week command step%i preserves half-open release ordering', (step) => {
++    const source = input([picture('P', b(10), { lead: 'T', antagonist: 'A', support: 'B' }, { release: b(14, 2) }),
++      picture('Q', b(20), { lead: 'T', antagonist: 'C', support: 'D' }, { existing: false, start: b(14, step) })])
++    if (step === 2) achievable(source, profile(0, [[10, 0, 0]]))
++    else fragile(source, 'achievableProbeFailed', profile(0, [[10, 0, 0]]))
++  })
++  it('exact resource slot blocks a joint offer even with disjoint people; another real slot permits count', () => {
++    const a = picture('A', b(10), { lead: 'A', antagonist: 'A1', support: 'A2' }, { start: b(5), release: b(14) })
++    const t = picture('T', b(10), { lead: 'T', antagonist: 'T1', support: 'T2' }, { start: b(5), release: b(14) })
++    const resource = (name: string, slot: number): Hold => ({ holdId: `${name}:stage`, ownerKey: name, ownerPathKey: name,
++      subject: { kind: 'resource', resourceKey: 'stage', slot }, from: b(5), until: b(14) })
++    const source = input([{ ...a, additionalHolds: [...a.additionalHolds, resource('A', 0)] },
++      { ...t, additionalHolds: [...t.additionalHolds, resource('T', 0)] }], { priorClaims: [prior('A', 'A', LEAD)] })
++    impossible(source)
++    fragile({ ...source, alternatives: [source.alternatives[0]!, { ...t, additionalHolds: [...t.additionalHolds, resource('T', 1)] }] },
++      'achievableProbeFailed', profile(1, [[10, 0, 1]]))
++  })
++  function released() {
++    const hold: FixedHold = { holdId: 'H', ownerKey: 'owner-F', ownerPathKey: 'F', subject: { kind: 'person', personId: 'T' },
++      from: b(8), until: b(30), replaceableFrom: b(10) }
++    const f = picture('F-release', null, { lead: 'T', antagonist: 'F1', support: 'F2' }, { path: 'F', start: b(8), release: b(14),
++      holds: [], replacements: [{ holdId: 'H', newUntil: b(14) }] })
++    const g = picture('G', b(18), { lead: 'T', antagonist: 'G1', support: 'G2' }, { existing: false, start: b(15), release: b(22) })
++    return target(input([f, g], { now: b(10), horizonEndWeek: 30, fixedHolds: [hold] }), { window: window(15, 30) })
++  }
++  it('a no-event continuation releases only its certified future suffix; its old take earns nothing', () => {
++    const source = released(), result = fragile(source, 'achievableProbeFailed', profile(0, []))
++    expect(result.countWitness.selectedAlternativeKeys).toEqual(expect.arrayContaining(['F-release', 'G']))
++    expect(result.countWitness.credits).toEqual([{ demandKey: ['target'], pathKey: 'G', slot: 'lead' }])
++    expect(result.countWitness.targetTakeBoundaries).toEqual([b(18)])
++    impossible({ ...source, alternatives: source.alternatives.slice(1) })
++    impossible({ ...source, alternatives: source.alternatives.slice(0, 1) })
++  })
++  it('another owner hold survives the selected release, even if its owner key resembles the releasing owner', () => {
++    const source = released()
++    for (const ownerKey of ['other', 'owner-F', 'owner-F:suffix']) {
++      const other: FixedHold = { holdId: 'other-H', ownerKey, ownerPathKey: 'other-path',
++        subject: { kind: 'person', personId: 'T' }, from: b(15), until: b(19), replaceableFrom: null }
++      impossible({ ...source, fixedHolds: [...source.fixedHolds, other] })
++    }
++  })
++  it('empty replacement suffix is legal; malformed prefix/ownership/identity changes throw, never gameplay IMPOSSIBLE', () => {
++    const source = released(), f = source.alternatives[0]!
++    fragile({ ...source, alternatives: [{ ...f, personRelease: b(10), holdReplacements: [{ holdId: 'H', newUntil: b(10) }] }, source.alternatives[1]!] },
++      'achievableProbeFailed', profile(0, []))
++    const malformed: CapacityKernelInput[] = [
++      { ...source, alternatives: [{ ...f, holdReplacements: [{ holdId: 'H', newUntil: b(9) }] }] },
++      { ...source, alternatives: [{ ...f, holdReplacements: [{ holdId: 'H', newUntil: b(31) }] }] },
++      { ...source, alternatives: [{ ...f, pathKey: 'different-owner-path' }] },
++      { ...source, fixedHolds: [{ ...source.fixedHolds[0]!, replaceableFrom: null }] },
++      { ...source, fixedHolds: [source.fixedHolds[0]!, source.fixedHolds[0]!] },
++      { ...source, alternatives: [{ ...f, additionalHolds: [source.fixedHolds[0]!] }] },
++    ]
++    for (const invalid of malformed) expect(() => searchPromiseCapacity(freeze(invalid))).toThrow()
++  })
++})
++
++describe('kernel conservative foreign debits preserve local distinct seats and prior protection', () => {
++  function debited() {
++    return input([
++      picture('E10', b(10), { lead: 'A', antagonist: 'T', support: 'U' }),
++      picture('E20', b(20), { lead: 'T', antagonist: 'V', support: 'W' }),
++      picture('Q24', b(24), { lead: 'T', antagonist: 'Q1', support: 'Q2' }, { existing: false }),
++      picture('Q28', b(28), { lead: 'T', antagonist: 'R1', support: 'R2' }, { existing: false }),
++    ], { priorClaims: [prior('local-A', 'A', LEAD)], foreignDebits: [{ promiseId: 'foreign-T', issuerId: 'foreign', personId: 'T',
++      membership: 'current', sourceWindow: window(19, 50), remaining: 1 }] })
++  }
++  it('partial overlap withholds its FULL remainder; one local picture shares another person seat and credits no foreign fulfillment', () => {
++    const source = debited(), result = achievable(source, profile(2, [[10, 0, 2], [20, 0, 2]]))
++    expect(result.witness.credits).toContainEqual({ demandKey: ['foreignDebit', 'foreign-T'], pathKey: 'E10', slot: 'antagonist' })
++    expect(result.witness.credits).toContainEqual({ demandKey: ['prior', 'local-A'], pathKey: 'E10', slot: 'lead' })
++    // Normalization allows withholding an early LOCAL event before source19;
++    // this is explicitly not a foreign film, seat date, receipt or satisfaction.
++    expect(result.witness.credits.filter((c) => c.demandKey[0] === 'target').map((c) => c.pathKey)).toContain('E20')
++    expect(run(permuted(source))).toEqual(result)
++    fragile({ ...source, alternatives: source.alternatives.filter((a) => a.key !== 'E20') },
++      'achievableProbeFailed', profile(2, [[10, 0, 2]]))
++  })
++  it('full remaining2 is not prorated for one-week source overlap', () => {
++    const source = debited()
++    const changed = { ...source, foreignDebits: [{ ...source.foreignDebits[0]!, sourceWindow: window(39, 80), remaining: 2 }] }
++    fragile(changed, 'achievableProbeFailed', profile(3, [[10, 0, 2], [20, 0, 3]]))
++  })
++  it('foreign other-person, same-issuer, self, zero remainder and exact nonoverlap are neutral; source boundaries use max(now,start)', () => {
++    const source = target(input([picture('E', b(20), { lead: 'T', antagonist: 'A', support: 'B' }),
++      picture('Q', b(28), { lead: 'T', antagonist: 'C', support: 'D' }, { existing: false })], { now: b(15) }),
++    { promiseId: 'self', state: 'bound', window: window(10, 40) })
++    const d = { promiseId: 'd', issuerId: 'foreign', personId: 'T', membership: 'current' as const, sourceWindow: window(19, 50), remaining: 1 }
++    const irrelevant = [{ ...d, personId: 'someone-else' }, { ...d, issuerId: 'local' }, { ...d, promiseId: 'self' },
++      { ...d, remaining: 0 }, { ...d, sourceWindow: window(0, 15) }, { ...d, sourceWindow: window(40, 60) }]
++    for (const debit of irrelevant) {
++      const result = achievable({ ...source, foreignDebits: [debit] }, profile(0, [[20, 0, 0]]))
++      expect(result.witness.credits.every((c) => c.demandKey[0] === 'target')).toBe(true)
++    }
++  })
++  it('canonical tuple namespaces do not collide; duplicate source identity across prior/debit collections is invalid', () => {
++    const source = debited()
++    achievable({ ...source, priorClaims: [prior('foreignDebit:foreign-T', 'A', LEAD)] }, profile(2, [[10, 0, 2], [20, 0, 2]]))
++    expect(() => searchPromiseCapacity(freeze({ ...source, priorClaims: [prior('foreign-T', 'A', LEAD)] }))).toThrow()
++  })
++})
++
++describe('kernel proof completeness and deterministic bounded work', () => {
++  it('missing FUTURE alternatives permits a positive witness only with the complete saturated prior profile proof', () => {
++    const source = shared()
++    achievable({ ...source, coverage: { ...source.coverage, allAlternatives: 'incomplete', omissions: ['future commissions not exhausted'] } },
++      profile(2, [[10, 0, 2]]))
++    for (const patch of [{ claimsAndHolds: 'incomplete' as const }, { existingAlternatives: 'incomplete' as const }]) {
++      const result = run({ ...source, coverage: { ...source.coverage, ...patch, allAlternatives: 'incomplete', omissions: ['relevant domain omitted'] } })
++      expect(result).toMatchObject({ status: 'UNCERTIFIED', reason: 'domainIncomplete' })
++    }
++  })
++  it('an observed X witness or partial failed count search proves neither FRAGILE nor IMPOSSIBLE', () => {
++    for (const alternatives of [[], shared().alternatives.slice(0, 1)]) {
++      const source = input(alternatives, { coverage: { claimsAndHolds: 'complete', existingAlternatives: 'incomplete',
++        allAlternatives: 'incomplete', omissions: ['unknown lawful existing paths'] } })
++      expect(run(source)).toMatchObject({ status: 'UNCERTIFIED', reason: 'domainIncomplete' })
++    }
++  })
++  it('even a best-so-far B witness cannot certify an unproved existing prior optimum', () => {
++    const source = shared()
++    expect(run({ ...source, coverage: { ...source.coverage, existingAlternatives: 'incomplete', allAlternatives: 'incomplete',
++      omissions: ['an earlier alternative for the prior people may exist'] } })).toMatchObject({ status: 'UNCERTIFIED', reason: 'domainIncomplete' })
++  })
++  it('large admitted count/window numbers remain bounded uncertainty when the domain supplies no sound upper proof', () => {
++    const source = input([], { coverage: { claimsAndHolds: 'complete', existingAlternatives: 'incomplete',
++      allAlternatives: 'incomplete', omissions: ['unexpanded finite domain'] } })
++    const huge = Number.MAX_SAFE_INTEGER
++    const cases = [target(source, { count: huge }), target({ ...source, horizonEndWeek: huge }, { window: window(0, huge) }),
++      { ...source, priorClaims: [prior('huge-prior', 'A', LEAD, huge)] }]
++    for (const candidate of cases) {
++      const result = run(candidate)
++      expect(result.status).toBe('UNCERTIFIED')
++      if (result.status !== 'UNCERTIFIED') throw new Error('incomplete huge domain cannot prove impossibility')
++      expect(['sizeLimit', 'domainIncomplete']).toContain(result.reason)
++      expect(candidate.target).not.toHaveProperty('outcome')
++    }
++    // No reason precedence is specified when BOTH facts apply. Nor do these
++    // fixtures forbid an optional sound direct bound on a DIFFERENT complete
++    // domain. The isolated lowered-cap cases below pin sizeLimit strictly.
++  })
++  it('large absolute safe weeks with a short span compare as ordered pairs, not unsafe packed arithmetic', () => {
++    const now = Number.MAX_SAFE_INTEGER - 40, due = Number.MAX_SAFE_INTEGER
++    const source = target(input([picture('E', b(now + 10, 2), { lead: 'T', antagonist: 'A', support: 'B' },
++      { start: b(now + 5), release: b(now + 14) }), picture('Q', b(now + 24), { lead: 'T', antagonist: 'C', support: 'D' },
++      { existing: false, start: b(now + 20), release: b(now + 28) })], { now: b(now), horizonEndWeek: due }),
++    { window: window(now, due) })
++    achievable(source, profile(0, [[now + 10, 2, 0]]))
++  })
++  it('size gates include target row and B, not only prior rows or X', () => {
++    const source = shared()
++    for (const limits of [{ ...source.limits, claims: 2 }, { ...source.limits, units: 3 }, { ...source.limits, alternatives: 1 },
++      { ...source.limits, span: 39 }]) {
++      expect(run({ ...source, limits })).toMatchObject({ status: 'UNCERTIFIED', reason: 'sizeLimit' })
++    }
++  })
++  it('preparation, scalar/string inspection and normalization consume the shared budget before search', () => {
++    const source = shared()
++    for (const candidate of [{ ...source, preparationWork: 64, limits: { ...source.limits, work: 64 } },
++      { ...source, limits: { ...source.limits, work: 1 } },
++      { ...source, alternatives: source.alternatives.map((a) => ({ ...a, staffingWitnessKey: 'x'.repeat(4096) })),
++        limits: { ...source.limits, work: 128 } }]) {
++      const result = run(candidate)
++      expect(result).toMatchObject({ status: 'UNCERTIFIED', reason: 'workLimit', workUsed: candidate.limits.work,
++        omissions: ['normalization work limit'] })
++    }
++  })
++  it.each([1, 64, 512, 2048, 200000])('permutations have identical complete result and workUsed at work cap%i', (work) => {
++    const source = shared(), limited = { ...source, limits: { ...source.limits, work },
++      coverage: { ...source.coverage, omissions: ['z note', 'a note'] } }
++    expect(run(permuted(limited))).toEqual(run(limited))
++  })
++  it('larger-than-governed budgets are invalid internal inputs, not a route to raised gameplay caps', () => {
++    const source = shared()
++    for (const limits of [{ ...source.limits, claims: 33 }, { ...source.limits, units: 65 },
++      { ...source.limits, alternatives: 1025 }, { ...source.limits, work: 200001 }, { ...source.limits, span: 221 }]) {
++      expect(() => searchPromiseCapacity(freeze({ ...source, limits }))).toThrow()
++    }
++  })
++})
