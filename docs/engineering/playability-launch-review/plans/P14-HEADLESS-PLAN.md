@@ -3,10 +3,13 @@
 Current B4 pure-owner candidate verified:94PASS/7files, root+UI/bridge PASS,
 same fixed source6d42+d3ab96; source review39KEEP, qualified reportB4/40.
 Only promises.ts material/class-qualified take reads changed; tests unchanged.
-Next publish/exactremote this core checkpoint, then reviewed policy-v2 RED.
+Published/exactremote fbe2d288a35d454e945f4bb3a5fc33f7330d5b56 (41).
+Reviewed policy-v2 installed exactly; RED43 CLOSED,7FAIL/fixedSource:true.
+Qualification45 distinguishes missing API, fixture prerequisites and reached rival-policy RED.
 No full B4, live P2, capacity, bridge47, native or Owner acceptance claim.
 Native author prepares inert bridge tests; sim-core read-only kernel interface42.
-No heavy runtime or production writer; unfinished preparations not publication.
+No production writer/runtime. Publish original policy RED before fixture repair. Kernel42 under review44;
+bridge test preparation remains inert and separate. Continue implementation.
 Active exact ownership/next actions remain B4/00-start.md.
 
 Earlier additive foundation checkpoint: V30 data support implemented and independently

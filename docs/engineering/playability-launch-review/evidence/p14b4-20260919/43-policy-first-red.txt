@@ -1,0 +1,122 @@
+{"sourceSha":"fbe2d288a35d454e945f4bb3a5fc33f7330d5b56","testedDiffSha256":"36f4e457ace28f479fefda0025699eb9712f2c4b8fad4a0114fc75ed5b135ef6","untrackedSource":["tests/p14b4-cast-class-policy.test.ts"],"command":["npx","vitest","run","tests/p14b4-cast-class-policy.test.ts"],"node":"v20.20.2","start":"2026-09-19T22:44:35.760Z","end":null,"exitCode":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/p14b4-cast-class-policy.test.ts (7 tests | 7 failed) 51117ms
+   × P14B4: one shared public archetype; no new personality or priority-position inference > uses the existing age edge at 29 without inventing a career credit 112ms
+     → publicPreferredOpportunity is not a function
+   × P14B4: one shared public archetype; no new personality or priority-position inference > uses the existing age edge at 30 without inventing a career credit 50ms
+     → publicPreferredOpportunity is not a function
+   × P14B4: one shared public archetype; no new personality or priority-position inference > a real under-30 release credit supplies the proven branch independently of the age edge 6435ms
+     → UNEXECUTED witness guard: no real credited usable under-30 person by 220; never fabricate workHistory
+   × P14B4: one shared public archetype; no new personality or priority-position inference > irrelevant cash does not change the public preference or create a root, receipt or RNG draw 31ms
+     → publicPreferredOpportunity is not a function
+   × P14B4: all six D3 class matches through real two-survivor settlements > age 29: mismatch changes only D3, never proposal legality 4679ms
+     → expected false to be true // Object.is equality
+   × P14B4: all six D3 class matches through real two-survivor settlements > age 30: mismatch changes only D3, never proposal legality 4217ms
+     → expected false to be true // Object.is equality
+   × P14B4: natural rival policy uses the real shared service, never staged failed candidates > observes flexible-first, actual P1 fallback, proven P1, and a genuine zero-attachment refusal without extra RNG 35590ms
+     → expected { family: 'APPEARANCE_COUNT', …(7) } to deeply equal { …(8) }
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 7 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14b4-cast-class-policy.test.ts > P14B4: one shared public archetype; no new personality or priority-position inference > uses the existing age edge at 29 without inventing a career credit
+ FAIL |core|  tests/p14b4-cast-class-policy.test.ts > P14B4: one shared public archetype; no new personality or priority-position inference > uses the existing age edge at 30 without inventing a career credit
+TypeError: publicPreferredOpportunity is not a function
+ ❯ expectPreferences tests/p14b4-cast-class-policy.test.ts:45:10
+     43|   const before = clone(state)
+     44|   expect(realProven(state, id)).toBe(proven)
+     45|   expect(publicPreferredOpportunity(state, id)).toBe(proven ? 'anyCast…
+       |          ^
+     46|   expect(publicPriorityOrder(state, id)).toEqual(proven ? PROVEN_ORDER…
+     47|   expect(publicPreferredTerm(state, id)).toBe(proven ? TUNING.CONTRACT…
+ ❯ tests/p14b4-cast-class-policy.test.ts:60:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/7]⎯
+
+ FAIL |core|  tests/p14b4-cast-class-policy.test.ts > P14B4: one shared public archetype; no new personality or priority-position inference > a real under-30 release credit supplies the proven branch independently of the age edge
+Error: UNEXECUTED witness guard: no real credited usable under-30 person by 220; never fabricate workHistory
+ ❯ tests/p14b4-cast-class-policy.test.ts:81:11
+     79|       return
+     80|     }
+     81|     throw new Error('UNEXECUTED witness guard: no real credited usable…
+       |           ^
+     82|   })
+     83| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/7]⎯
+
+ FAIL |core|  tests/p14b4-cast-class-policy.test.ts > P14B4: one shared public archetype; no new personality or priority-position inference > irrelevant cash does not change the public preference or create a root, receipt or RNG draw
+TypeError: publicPreferredOpportunity is not a function
+ ❯ expectPreferences tests/p14b4-cast-class-policy.test.ts:45:10
+     43|   const before = clone(state)
+     44|   expect(realProven(state, id)).toBe(proven)
+     45|   expect(publicPreferredOpportunity(state, id)).toBe(proven ? 'anyCast…
+       |          ^
+     46|   expect(publicPriorityOrder(state, id)).toEqual(proven ? PROVEN_ORDER…
+     47|   expect(publicPreferredTerm(state, id)).toBe(proven ? TUNING.CONTRACT…
+ ❯ tests/p14b4-cast-class-policy.test.ts:90:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/7]⎯
+
+ FAIL |core|  tests/p14b4-cast-class-policy.test.ts > P14B4: all six D3 class matches through real two-survivor settlements > age 29: mismatch changes only D3, never proposal legality
+ FAIL |core|  tests/p14b4-cast-class-policy.test.ts > P14B4: all six D3 class matches through real two-survivor settlements > age 30: mismatch changes only D3, never proposal legality
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ controlledPair tests/p14b4-cast-class-policy.test.ts:126:84
+    124|   expect(state.hollywood!.employment.some((e) => e.studioId === player…
+    125|     && e.terms.endWeekExclusive === 52 && e.endedWeek === 52)).toBe(tr…
+    126|   expect(Object.values(person(state, talentId).workHistory).every((n) …
+       |                                                                                    ^
+    127|   state = { ...state, talent: state.talent.map((t) => t.id === talentI…
+    128|   expectPreferences(state, talentId, age === 30)
+ ❯ tests/p14b4-cast-class-policy.test.ts:225:21
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/7]⎯
+
+ FAIL |core|  tests/p14b4-cast-class-policy.test.ts > P14B4: natural rival policy uses the real shared service, never staged failed candidates > observes flexible-first, actual P1 fallback, proven P1, and a genuine zero-attachment refusal without extra RNG
+AssertionError: expected { family: 'APPEARANCE_COUNT', …(7) } to deeply equal { …(8) }
+
+- Expected
++ Received
+
+  Object {
+    "beneficiaryPersonId": "person-studio-aca408ec-r01-5",
+    "dueWeekExclusive": 416,
+-   "family": "LEAD_OR_SIGNIFICANT_ROLE_COUNT",
++   "family": "APPEARANCE_COUNT",
+    "issuerStudioId": "studio-aca408ec-r01",
+    "predicate": Object {
+      "count": 1,
+-     "kind": "castRoleCount",
+-     "seatClass": "leadOrAntagonist",
+    },
+    "startWeek": 208,
+    "termWeeks": 208,
+    "windowStartWeek": 208,
+  }
+
+ ❯ tests/p14b4-cast-class-policy.test.ts:341:32
+    339|             expect(call.proposal).toEqual(first.proposal)
+    340|             expect(call.submission).toEqual(submission)
+    341|             expect(call.draft).toEqual({ ...candidates[index], issuerS…
+       |                                ^
+    342|               beneficiaryPersonId: first.proposal.talentId, startWeek:…
+    343|               windowStartWeek: first.proposal.startWeek, dueWeekExclus…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/7]⎯
+
+ Test Files  1 failed (1)
+      Tests  7 failed (7)
+   Start at  00:44:38
+   Duration  54.53s (transform 1.96s, setup 0ms, collect 2.64s, tests 51.12s, environment 0ms, prepare 156ms)
+
+
+{"sourceSha":"fbe2d288a35d454e945f4bb3a5fc33f7330d5b56","testedDiffSha256":"36f4e457ace28f479fefda0025699eb9712f2c4b8fad4a0114fc75ed5b135ef6","untrackedSource":["tests/p14b4-cast-class-policy.test.ts"],"command":["npx","vitest","run","tests/p14b4-cast-class-policy.test.ts"],"node":"v20.20.2","start":"2026-09-19T22:44:35.760Z","end":"2026-09-19T22:45:33.966Z","exitCode":1,"signal":null,"error":null,"sourceShaAtEnd":"fbe2d288a35d454e945f4bb3a5fc33f7330d5b56","testedDiffSha256AtEnd":"36f4e457ace28f479fefda0025699eb9712f2c4b8fad4a0114fc75ed5b135ef6","untrackedSourceAtEnd":["tests/p14b4-cast-class-policy.test.ts"],"fixedSource":true}

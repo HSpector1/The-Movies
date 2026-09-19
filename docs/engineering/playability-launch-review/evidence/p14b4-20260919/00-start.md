@@ -1,5 +1,21 @@
 # P14B.4 — additive data checkpoint in verification
 
+CURRENT45: policy43 CLOSED,7FAIL,fixedSource:true onfbe2d28+36f4e457…;
+full disposition45. Three missing accessor, three fixture prerequisites (under30
+credit witness absent; controlled subject has actual credits), one reached natural
+P1-vs-flexibleP2 candidate mismatch. Later D3/fallback bodies unexecuted. Publish
+v2+actualRED before independent fixture correction. No runtime/source writer.
+Kernel42 under review44; author finishing inertbridge, then fixture investigation.
+
+CURRENT43: pure-core checkpoint fbe2d288a35d454e945f4bb3a5fc33f7330d5b56
+PUSHED and separately exactremote verified; publication41, qualified40.
+Reviewed policy-v2 installed exactly (SHA4a671574…), sole serialized RED43
+session91693 ACTIVE. All protected source/tests frozen; no production writer.
+Kernel interface42 complete, independent review44 active; author inertbridge.
+Next inspect full43 diagnostics, distinguish API prerequisite from reached policy,
+then finish independent kernel/bridge tests and implement remaining settled B4.
+Older CURRENT/ACTIVE blocks below are chronological, not current ownership.
+
 CURRENT40: pure material/evidence candidate COMPLETE within narrow scope.
 94PASS/7files; root+UI/bridge PASS; all36/37/38 fixedSource:true on6d42+d3ab96,
 all sessions CLOSED. Source39KEEP; exact qualified report40. Next commit/push/

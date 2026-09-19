@@ -1,0 +1,25 @@
+{
+  "sourceSha": "fbe2d288a35d454e945f4bb3a5fc33f7330d5b56",
+  "testedDiffSha256": "36f4e457ace28f479fefda0025699eb9712f2c4b8fad4a0114fc75ed5b135ef6",
+  "untrackedSource": [
+    "tests/p14b4-cast-class-policy.test.ts"
+  ],
+  "command": [
+    "npx",
+    "vitest",
+    "run",
+    "tests/p14b4-cast-class-policy.test.ts"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-19T22:44:35.760Z",
+  "end": "2026-09-19T22:45:33.966Z",
+  "exitCode": 1,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "fbe2d288a35d454e945f4bb3a5fc33f7330d5b56",
+  "testedDiffSha256AtEnd": "36f4e457ace28f479fefda0025699eb9712f2c4b8fad4a0114fc75ed5b135ef6",
+  "untrackedSourceAtEnd": [
+    "tests/p14b4-cast-class-policy.test.ts"
+  ],
+  "fixedSource": true
+}
