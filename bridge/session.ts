@@ -1670,10 +1670,14 @@ export class BridgeSession {
     }
     // P14A.1: a market proposal that is no longer legal on the live state fails closed at
     // commit the same way — the case may have settled, closed or moved out of reach.
-    if (conversion.kind === 'marketProposalAction' && conversion.refusal !== null) {
+    if (conversion.kind === 'marketProposalAction'
+      && (conversion.refusal !== null || conversion.promise?.ok === false)) {
+      const reason = conversion.refusal !== null
+        ? `This proposal is no longer legal (${conversion.refusal.code}): ${conversion.refusal.reason}`
+        : conversion.promise?.message ?? 'This promise is no longer offerable.'
       return {
         option: { intentId, ...fields },
-        apply: () => ({ ok: false, error: `This proposal is no longer legal (${conversion.refusal!.code}): ${conversion.refusal!.reason}` }),
+        apply: () => ({ ok: false, error: reason }),
       }
     }
     // P09A W5: a Set quote that is no longer legal fails closed at commit the same way.
@@ -1894,27 +1898,25 @@ export class BridgeSession {
       // P14A.1: a refused proposal preview is an ACCEPTED answer (`ok:false`, the engine's
       // own reason + remedy); only a legal one is preflighted and registered for commit.
       // The issuer is ALWAYS the player's own studio — no client authors a rival proposal.
-      const draft = playerProposalDraft(this.state, request.draft)
+      // Quote identity and pending authorization retain the same detached VALUES,
+      // including the nested promise, never a caller-owned mutable payload.
+      const payload = structuredClone(request.draft)
+      const draft = playerProposalDraft(this.state, payload)
       const conversion = marketProposalDraftToEngine(this.state, draft)
       if (!conversion.ok) {
         return this.reject(request.commandId, 'ENGINE_REJECTED', conversion.error, started)
       }
       const stateDigest = authoritativeDigest(this.state)
-      const intentId = opaqueIntentId(stateDigest, { marketProposalDraft: request.draft })
-      if (conversion.refusal !== null) {
-        return this.mintQuoteResponse(
-          request, started, stateDigest,
-          marketProposalQuoteSnapshot(this.state, draft, conversion, intentId),
-        )
-      }
+      const intentId = opaqueIntentId(stateDigest, { marketProposalDraft: payload })
+      const quote = marketProposalQuoteSnapshot(this.state, draft, conversion, intentId)
+      if (!quote.ok) return this.mintQuoteResponse(request, started, stateDigest, quote)
       const preflight = caught(() => conversion.apply(this.state))
       if (!preflight.ok) {
         return this.reject(request.commandId, 'ENGINE_REJECTED', preflight.error, started)
       }
-      const quote = marketProposalQuoteSnapshot(this.state, draft, conversion, intentId)
       this.pendingQuotes.set(intentId, {
         family: 'marketProposal',
-        draft: request.draft,
+        draft: payload,
         stateDigest,
         kind: 'marketProposalAction',
         commitLabel: quote.commitLabel,

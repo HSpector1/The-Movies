@@ -36,9 +36,10 @@ import type {
 
 const CAST_SLOTS: readonly CastSlot[] = ['lead', 'antagonist', 'support'] as const
 
-/** The rules version stamped on every feasibility receipt: a later law change
- * mints a new version rather than silently re-reading an old receipt. */
-export const PROMISE_RULES_VERSION = 1
+/** The evaluator revision stamped on newly evaluated receipts and newly minted
+ * roots. B.3's abandonment correction changes observable evaluations, so uses 2;
+ * stored root versions and old receipts are never rewritten on load. */
+export const PROMISE_RULES_VERSION = 2
 
 // ── the named HYPOTHESES (plan's OPEN section; none of these is settled law) ──
 
@@ -261,17 +262,24 @@ function seatedPreFirstTake(state: GameState, studioId: string, personId: string
 }
 
 /** Companion §4.3.1's "already-active promises … seats those promises reserve
- * inside the same window, subtracted before this promise is classified". */
+ * inside the same window". Bound commitments and CURRENT attached drafts reserve;
+ * abandoned unbound roots remain history without claiming a future seat. Both the
+ * arithmetic and its receipt digest consume this ONE membership rule. Competing
+ * current issuers still count under the existing policy; none is optimized away. */
+function activePromiseReservations(state: GameState, draft: PromiseDraft, from: number): readonly ProfessionalPromise[] {
+  const attached = new Set(state.talentMarket.proposals.flatMap((proposal) => proposal.promises))
+  return state.promises.filter((promise) =>
+    promise.outcome === null
+    && (promise.contractId !== null || attached.has(promise.promiseId))
+    && promise.promiseId !== draft.promiseId
+    && promise.beneficiaryPersonId === draft.beneficiaryPersonId
+    && promise.dueWeekExclusive > from
+    && promise.windowStartWeek < draft.dueWeekExclusive)
+}
+
 function reservedByActivePromises(state: GameState, draft: PromiseDraft, from: number): number {
-  let reserved = 0
-  for (const promise of state.promises) {
-    if (promise.outcome !== null) continue
-    if (promise.promiseId === draft.promiseId) continue
-    if (promise.beneficiaryPersonId !== draft.beneficiaryPersonId) continue
-    if (promise.dueWeekExclusive <= from || promise.windowStartWeek >= draft.dueWeekExclusive) continue
-    reserved += Math.max(0, promise.predicate.count - promise.progress)
-  }
-  return reserved
+  return activePromiseReservations(state, draft, from)
+    .reduce((reserved, promise) => reserved + Math.max(0, promise.predicate.count - promise.progress), 0)
 }
 
 /** The receipt identifies the committed inputs, not just the requested terms.
@@ -307,9 +315,7 @@ function feasibilityInputs(state: GameState, draft: PromiseDraft, week: number):
     state.hollywood?.employment.filter((e) => e.terms.talentId === draft.beneficiaryPersonId
       && e.terms.startWeek < draft.dueWeekExclusive && (e.endedWeek ?? e.terms.endWeekExclusive) > from)
       .map((e) => [e.contractId, e.studioId, e.terms.startWeek, e.terms.endWeekExclusive, e.endedWeek]) ?? [],
-    state.promises.filter((p) => p.outcome === null && p.promiseId !== draft.promiseId
-      && p.beneficiaryPersonId === draft.beneficiaryPersonId
-      && p.dueWeekExclusive > from && p.windowStartWeek < draft.dueWeekExclusive)
+    activePromiseReservations(state, draft, from)
       .map((p) => [p.promiseId, p.family, p.issuerStudioId, p.windowStartWeek, p.dueWeekExclusive, p.predicate.count, p.progress]),
   ]
 }

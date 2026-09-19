@@ -475,31 +475,33 @@ describe('P14B.1 test 3: the feasibility service', () => {
   })
 
   it("Example B shape: an active promise consuming the person's only existing-path seat makes a SECOND, overlapping promise FRAGILE with the 'needs a picture not yet commissioned' bottleneck", () => {
-    const state = p13aGeneratedStudio()
-    const beneficiaryPersonId = state.talent.find((t) => t.role === 'actor')!.id
-    const issuerStudioId = state.hollywood!.playerStudioId
-    const draft = { family: 'APPEARANCE_COUNT' as const, issuerStudioId, beneficiaryPersonId, predicate: { count: 1 }, windowStartWeek: 0, dueWeekExclusive: 104, startWeek: 0, termWeeks: 104 }
-    const first = promiseFeasibility(state, draft, 0)
+    // B3/T2b: the old hand-made OPEN root had no bound contract and no CURRENT
+    // proposal reference. outcome:null alone does not make it a reservation;
+    // treating it as active pinned the same bug as abandoned/withdrawn drafts.
+    // Preserve Example B's capacity claim with a real current attachment. The
+    // reducer owns its root/receipt/material digest; no guessed binding is added.
+    const { state, talentId: beneficiaryPersonId, playerStudioId: issuerStudioId } = openPlayerCase()
+    const proposal = state.talentMarket.proposals.find((p) => p.talentId === beneficiaryPersonId && p.issuerStudioId === issuerStudioId)
+    if (proposal === undefined) throw new Error('Example B premise: no real current retention proposal')
+    expect(proposal.promises).toEqual([])
+    const draft = { family: 'APPEARANCE_COUNT' as const, issuerStudioId, beneficiaryPersonId, predicate: { count: 1 },
+      windowStartWeek: proposal.startWeek, dueWeekExclusive: proposal.startWeek + proposal.termWeeks,
+      startWeek: proposal.startWeek, termWeeks: proposal.termWeeks }
+    const first = promiseFeasibility(state, draft, state.market.tick)
     expect(first.classification).toBe('REASONABLY_ACHIEVABLE') // sanity: achievable before any seat is consumed
 
-    const active: PersistedPromise = {
-      promiseId: 'promise-active-0',
-      family: 'APPEARANCE_COUNT',
-      issuerStudioId,
-      beneficiaryPersonId,
-      predicate: { count: 1 },
-      windowStartWeek: 0,
-      dueWeekExclusive: 104,
-      feasibilityReceipt: first,
-      progress: 0,
-      evidenceRefs: [],
-      outcome: null,
-      outcomeWeek: null,
-      outcomeCause: null,
-      contractId: null,
-    }
-    const withActivePromise = withPromises(state, [active])
-    const second = promiseFeasibility(withActivePromise, draft, 0)
+    const withActivePromise = attachPromise(state, beneficiaryPersonId, issuerStudioId, {
+      family: draft.family, predicate: draft.predicate,
+      windowStartWeek: draft.windowStartWeek, dueWeekExclusive: draft.dueWeekExclusive,
+    })
+    const attachedProposal = proposalOf(withActivePromise, beneficiaryPersonId, issuerStudioId)
+    expect(attachedProposal.promises).toHaveLength(1)
+    expect(withActivePromise.promises).toHaveLength(state.promises.length + 1)
+    const active = withActivePromise.promises.find((p) => p.promiseId === attachedProposal.promises[0])
+    expect(active).toMatchObject({ issuerStudioId, beneficiaryPersonId, contractId: null,
+      outcome: null, predicate: { count: 1 }, feasibilityReceipt: first })
+    save.validateSaveV29(save.makeSave(withActivePromise))
+    const second = promiseFeasibility(withActivePromise, draft, state.market.tick)
     expect(second.classification).toBe('FRAGILE')
     expect(second.bottleneck ?? '').toMatch(/not.*commission/i)
   })

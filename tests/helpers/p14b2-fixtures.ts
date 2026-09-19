@@ -151,8 +151,10 @@ export function poachingFixture() {
   expect(publicPreferredTerm(state, talentId)).toBe(52)
   expect(trustDrivers(state, talentId, player(state), state.market.tick)).toEqual([])
   expect(caseForTalent(state, talentId)!.subjectStudioId).toBe(incumbentId)
-  // The incumbent's earlier draft remains a real reservation after revision.
-  // Commission another existing path rather than erasing that engine record.
+  // Historical B2 construction: inherited accounting counted the incumbent's
+  // abandoned earlier draft after revision; these real commissions supplied
+  // enough paths for that observed fixture. B3 excludes abandoned reservations.
+  // Preserve every commission and historical root/receipt in this same recipe.
   const writer = sign(state, 'writer'); state = writer.state
   const concept = state.concepts[0]!
   state = applyActions(state, [{ kind: 'activateScriptDevelopment' }, { kind: 'commissionScript', project: {
