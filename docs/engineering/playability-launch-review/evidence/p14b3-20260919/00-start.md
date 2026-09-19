@@ -1,5 +1,20 @@
 # P14B.3 — active implementation continuation, 2026-09-19
 
+**LIVE T1 COMPLETE:**03recorded22behavioral failures/12passes,3files/34cases;
+no fixture-prerequisite failure, all three genuine old-envelope casesPASS. Exact
+attribution04. No active runtime. Commit/publish this RED checkpoint, then release
+sole sim-core writer plus narrowly allocated independent neighboring test edits.
+New34tests remain unchanged; all future runtime parent-serialized.
+
+T0 checkpoint `9c605dc437e1c04268753c2a7039d092153e11f1` pushed and
+EXACT remote SHA verified; clean checkout before T1. Test-author installed ONLY
+the three reviewed independent files9+19+6cases (revision draft updated with actual
+T0literal byte/source pins, SHAef9e0c…). All3verbatim/hash verified, scoped checks
+clean. Parent completed03-independent-behavioral-red on frozen source/tests/HEAD.
+Sim-core refreshed current owners read-only, READY/no new blockers, no mutable
+test inspection or production edits. Specialists idle until T2release.
+Do not re-mint T0, install B-F2/P2, or change old neighboring tests yet.
+
 B2 upstream qualified CLOSED, source7f89f75, records publication
 `034065b4f6e4ef0f9f53750a343568e32f54d9ab`; push completed and independent
 `git ls-remote origin refs/heads/wip/headless-program-20260916-ts` returned that

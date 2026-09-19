@@ -236,7 +236,10 @@ T2b's active-attachment ruling govern; no new Owner decision needed for this sli
   Separately preserve genuine old-evaluator current/withdrawn P1 and
   refused non-actor P1 records before revision2, per the amended expansion12.
   Do not fabricate/restamp old fixtures.
-- [ ] T1 independent behavioral RED: abandoned unbound reservations versus
+- [x] T1 independent behavioral RED:03at9c605dc,22failed/12passed across34cases,
+  fixedSource:true; all genuine fixture/hash/load guards pass. No missing-module/
+  fixture substitute. Exact failures/patch in03and04 of `p14b3-20260919`.
+  Covers abandoned unbound reservations versus
   current/bound-open ones; real session promise attachment, whole-quote refusal,
   draft-value retention, atomicity/revision/replay/session isolation and settlement.
 - [ ] T2 sim-core: shared active membership for feasibility and its digest;

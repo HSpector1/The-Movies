@@ -1,6 +1,11 @@
 # CONTINUATION STATE — three-week autonomous window (Owner directive 2026-09-15)
 
-## Current continuation — 2026-09-19: B2 published, B3 T0 complete
+## Current continuation — 2026-09-19: B2 published, B3 T1 starting
+
+T0 checkpoint9c605dc437e1c04268753c2a7039d092153e11f1 pushed and exact remote
+verified. Independent test-author installing ONLY9+19+6 B3files; parent owns next
+actual behavioralRED. Sim-core read-onlysource refresh, no production edits until
+RED/release; auditor idle. No active heavy runtime yet. DetailedliveownershipB3/00.
 
 B2 records `034065b4f6e4ef0f9f53750a343568e32f54d9ab` push COMPLETE and exact
 remote SHA verified. B3 T0 actual evaluator1 mintPASS; three genuine snapshots,

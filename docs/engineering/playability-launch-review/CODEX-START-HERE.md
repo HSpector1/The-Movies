@@ -2,12 +2,16 @@
 
 ## Current engineering checkpoint — 2026-09-19
 
-**LIVE: B3 T0 preservation COMPLETE**, one actual PASS and independent KEEP.
+**LIVE: B3 T1 independent tests being installed** after T0 publication
+`9c605dc437e1c04268753c2a7039d092153e11f1`, pushed/exact remote verified. Parent
+owns next actual behavioral RED runtime; sim-core read-only source refresh, no
+production changes before RED. At most two specialists, one production writer.
+T0 preservation COMPLETE, one actual PASS and independent KEEP.
 B2 records `034065b4f6e4ef0f9f53750a343568e32f54d9ab` pushed and exact remote
 SHA verified. No B3 producer change yet. Three genuine evaluator1 saves/provenance
 verified; operational entry/helper archived exactly and removed from discovery.
-No runtime active. Publish this T0 checkpoint/verify remote, then test-author
-installs reviewed9+19+6cases with actual literal hashes for behavioral RED.
+No runtime active yet. Test-author installs reviewed9+19+6cases with actual
+literal hashes for behavioral RED; all further source/test edits freeze for run.
 Exact state/next actions: `evidence/p14b3-20260919/00-start.md`; T0review02.
 Never duplicate the mint or substitute missing fixtures for RED.
 

@@ -1,0 +1,484 @@
+{"sourceSha":"9c605dc437e1c04268753c2a7039d092153e11f1","testedDiffSha256":"071b0f76982efd8d19e3644f4a26bb6b2515a95c356c82b9d520d936cbfcd66e","untrackedSource":["tests/bridge-p14b3-promise-command.test.ts","tests/p14b3-reservations.test.ts","tests/p14b3-rule-revision.test.ts"],"command":["./node_modules/.bin/vitest","run","tests/p14b3-reservations.test.ts","tests/bridge-p14b3-promise-command.test.ts","tests/p14b3-rule-revision.test.ts","--minWorkers=1","--maxWorkers=1","--reporter=dot"],"node":"v20.20.2","start":"2026-09-19T16:29:03.363Z","end":null,"exitCode":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/bridge-p14b3-promise-command.test.ts (19 tests | 14 failed) 26333ms
+   × P14B.3: quote and atomic command attachment > commits exactly one real attachment at the live ordinal, one revision, no immediate cash movement 4014ms
+     → expected [ { promiseId: 'promise-0', …(15) } ] to have a length of 2 but got 1
+   ✓ P14B.3: quote and atomic command attachment > pure repeated quotes retain exact state/RNG/receipt/cash/slot bytes and one opaque identity 573ms
+   × P14B.3: quote and atomic command attachment > conversion retains canonical values, including nested promise, after the caller changes its object 23ms
+     → expected { verb: 'propose', …(5) } to deeply equal { verb: 'propose', …(5) }
+   × P14B.3: quote and atomic command attachment > the session pending quote retains values rather than its caller-owned mutable draft 1381ms
+     → expected { talentId: 't-act-09', …(10) } to match object { termWeeks: 52, premiumTier: 1.25 }
+(9 matching properties omitted from actual)
+   ✓ P14B.3: quote and atomic command attachment > base proposals without a promise still commit without appending any promise 1388ms
+   × P14B.3: whole-quote refusal and current-state atomicity > 'FRAGILE existing one-path capacity': accepted noncommittable answer retains nested verdict; no registered intent or partial commit 434ms
+     → expected true to be false // Object.is equality
+   × P14B.3: whole-quote refusal and current-state atomicity > 'IMPOSSIBLE count': accepted noncommittable answer retains nested verdict; no registered intent or partial commit 419ms
+     → expected true to be false // Object.is equality
+   × P14B.3: whole-quote refusal and current-state atomicity > 'lower contract-window edge': accepted noncommittable answer retains nested verdict; no registered intent or partial commit 481ms
+     → expected true to be false // Object.is equality
+   × P14B.3: whole-quote refusal and current-state atomicity > 'upper contract-window edge': accepted noncommittable answer retains nested verdict; no registered intent or partial commit 405ms
+     → expected true to be false // Object.is equality
+   × P14B.3: whole-quote refusal and current-state atomicity > direct apply rechecks CURRENT competing reservations, even if its prior quote was offerable 30ms
+     → expected true to be false // Object.is equality
+   ✓ P14B.3: whole-quote refusal and current-state atomicity > malformed wire input and a forged issuer are rejected before any historical fact exists 416ms
+   × P14B.3: revise, remove, withdraw retain abandoned evidence without phantom seats > replacement feasibility uses the real cleared intermediate proposal; removal/withdrawal mint no false outcome 1770ms
+     → expected [] to have a length of 1 but got +0
+   × P14B.3: session/revision/intent identity and isolation > wrong-session/stale envelopes, same-command replay and superseded intents never duplicate attachment 4307ms
+     → expected [] to have a length of 1 but got +0
+   × P14B.3: session/revision/intent identity and isolation > the oldest of exactly 16 distinct offerable quotes remains committable in a fresh session 1556ms
+     → expected [] to have a length of 1 but got +0
+   × P14B.3: session/revision/intent identity and isolation > the 17th distinct quote expires the oldest pending quote, while the newest still attaches once 1504ms
+     → expected [] to have a length of 1 but got +0
+   × P14B.3: session/revision/intent identity and isolation > same-seed/same-person sessions do not share quote authority, mutable drafts or committed state 1635ms
+     → expected [] to have a length of 1 but got +0
+   ✓ P14B.3: session/revision/intent identity and isolation > load and process restart discard pending quote authorization without inventing promises 4121ms
+   × P14B.3: real settlement/outcome, V29 and B2 public/private carriers > quote→commit→real winning expiry binds; due-week BROKEN survives validated reload and exact public receipt join 1600ms
+     → expected [] to have a length of 1 but got +0
+ ❯ |core| tests/p14b3-reservations.test.ts (9 tests | 5 failed) 2935ms
+   ✓ P14B.3 F1: real reservation membership and matching feasibility digest > a CURRENT unbound attachment still consumes the only existing path; only its own recheck excludes itself 1823ms
+   × P14B.3 F1: real reservation membership and matching feasibility digest > revise preserves the old unbound root but removes its reservation AND digest contribution 46ms
+     → expected { classification: 'FRAGILE', …(4) } to deeply equal { …(5) }
+   × P14B.3 F1: real reservation membership and matching feasibility digest > withdraw preserves the old unbound root but removes its reservation AND digest contribution 20ms
+     → expected { classification: 'FRAGILE', …(4) } to deeply equal { …(5) }
+   × P14B.3 F1: real reservation membership and matching feasibility digest > three real replacements preserve every ordinal and original receipt without accumulating phantom capacity 23ms
+     → expected { classification: 'FRAGILE', …(4) } to deeply equal { …(5) }
+   ✓ P14B.3 F1: real reservation membership and matching feasibility digest > a genuinely bound OPEN promise reserves after the winning proposal has left the current table 519ms
+   × P14B.3 F1: real reservation membership and matching feasibility digest > preserves the existing competing CURRENT cross-issuer reservation policy, without choosing a new alternatives policy 31ms
+     → expected { classification: 'FRAGILE', …(4) } to deeply equal { …(5) }
+   × P14B.3 F1: real reservation membership and matching feasibility digest > an actually dropped losing draft stays in evidence after settlement but cannot reserve a later overlapping read 163ms
+     → expected 'IMPOSSIBLE' to be 'REASONABLY_ACHIEVABLE' // Object.is equality
+ ❯ |core| tests/p14b3-rule-revision.test.ts (6 tests | 3 failed) 2063ms
+   × P14B.3 evaluator revision2 and genuine old evaluator1 history > pins the new evaluator generation independently of unchanged Save29/projection46 17ms
+     → expected 1 to be 2 // Object.is equality
+   ✓ P14B.3 evaluator revision2 and genuine old evaluator1 history > preserves genuine evaluator1-current-p1 root/receipt/digest bytes through valid load, not a restamped current fixture 549ms
+   ✓ P14B.3 evaluator revision2 and genuine old evaluator1 history > preserves genuine evaluator1-withdrawn-p1 root/receipt/digest bytes through valid load, not a restamped current fixture 345ms
+   ✓ P14B.3 evaluator revision2 and genuine old evaluator1 history > preserves genuine evaluator1-role-label-refused-p1 root/receipt/digest bytes through valid load, not a restamped current fixture 510ms
+   × P14B.3 evaluator revision2 and genuine old evaluator1 history > new actual attachment uses root.version2 and receipt.rulesVersion2 without rewriting old roots 93ms
+     → expected { promiseId: 'promise-2', …(15) } to match object { promiseId: 'promise-2', …(6) }
+(12 matching properties omitted from actual)
+   × P14B.3 evaluator revision2 and genuine old evaluator1 history > actual later winning freeze keeps old root.version1 but stores genuine new rulesVersion2 receipt and binding 545ms
+     → expected { …(5) } to match object { rulesVersion: 2, week: 52, …(1) }
+(2 matching properties omitted from actual)
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 22 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/bridge-p14b3-promise-command.test.ts > P14B.3: quote and atomic command attachment > commits exactly one real attachment at the live ordinal, one revision, no immediate cash movement
+AssertionError: expected [ { promiseId: 'promise-0', …(15) } ] to have a length of 2 but got 1
+
+- Expected
++ Received
+
+- 2
++ 1
+
+ ❯ tests/bridge-p14b3-promise-command.test.ts:118:40
+    116|     expect(accepted.accepted).toBe(true)
+    117|     expect(session.stateRevision).toBe(1)
+    118|     expect(session.gameState.promises).toHaveLength(ordinal + 1)
+       |                                        ^
+    119|     const promise = attachedOwn(session.gameState, talentId)
+    120|     expect(promise).toMatchObject({ promiseId: `promise-${ordinal}`, f…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/22]⎯
+
+ FAIL |core|  tests/bridge-p14b3-promise-command.test.ts > P14B.3: quote and atomic command attachment > conversion retains canonical values, including nested promise, after the caller changes its object
+AssertionError: expected { verb: 'propose', …(5) } to deeply equal { verb: 'propose', …(5) }
+
+- Expected
++ Received
+
+  Object {
+    "issuerStudioId": "studio-aca408ec-player",
+    "premiumTier": 1.25,
+    "promise": Object {
+-     "count": 1,
+-     "dueWeekExclusive": 92,
++     "count": 999,
++     "dueWeekExclusive": 999,
+      "family": "APPEARANCE_COUNT",
+      "windowStartWeek": 52,
+    },
+    "talentId": "t-act-09",
+    "termWeeks": 52,
+    "verb": "propose",
+  }
+
+ ❯ tests/bridge-p14b3-promise-command.test.ts:174:23
+    172|     wire.promise!.count = 999
+    173|     wire.promise!.dueWeekExclusive = 999
+    174|     expect(canonical).toEqual(values)
+       |                       ^
+    175|     expect(conversion.draft.promise).not.toBe(canonical.promise)
+    176|     canonical.promise!.count = 888
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/22]⎯
+
+ FAIL |core|  tests/bridge-p14b3-promise-command.test.ts > P14B.3: quote and atomic command attachment > the session pending quote retains values rather than its caller-owned mutable draft
+AssertionError: expected { talentId: 't-act-09', …(10) } to match object { termWeeks: 52, premiumTier: 1.25 }
+(9 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  Object {
+-   "premiumTier": 1.25,
+-   "termWeeks": 52,
++   "premiumTier": 1,
++   "termWeeks": 208,
+  }
+
+ ❯ tests/bridge-p14b3-promise-command.test.ts:207:53
+    205|     expect(result.accepted).toBe(true)
+    206|     expect(quoted.quote).toEqual(quotedValues)
+    207|     expect(currentOwn(session.gameState, talentId)).toMatchObject({ te…
+       |                                                     ^
+    208|     expect(attachedOwn(session.gameState, talentId)).toMatchObject({ f…
+    209|       windowStartWeek: 52, dueWeekExclusive: 92 })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/22]⎯
+
+ FAIL |core|  tests/bridge-p14b3-promise-command.test.ts > P14B.3: whole-quote refusal and current-state atomicity > 'FRAGILE existing one-path capacity': accepted noncommittable answer retains nested verdict; no registered intent or partial commit
+ FAIL |core|  tests/bridge-p14b3-promise-command.test.ts > P14B.3: whole-quote refusal and current-state atomicity > 'IMPOSSIBLE count': accepted noncommittable answer retains nested verdict; no registered intent or partial commit
+ FAIL |core|  tests/bridge-p14b3-promise-command.test.ts > P14B.3: whole-quote refusal and current-state atomicity > 'lower contract-window edge': accepted noncommittable answer retains nested verdict; no registered intent or partial commit
+ FAIL |core|  tests/bridge-p14b3-promise-command.test.ts > P14B.3: whole-quote refusal and current-state atomicity > 'upper contract-window edge': accepted noncommittable answer retains nested verdict; no registered intent or partial commit
+AssertionError: expected true to be false // Object.is equality
+
+- Expected
++ Received
+
+- false
++ true
+
+ ❯ tests/bridge-p14b3-promise-command.test.ts:244:31
+    242|     const before = truth(session)
+    243|     const response = quote(session, draft, 'quote-refused')
+    244|     expect(response.quote.ok).toBe(false)
+       |                               ^
+    245|     expect(response.quote.promise).toEqual({ ok: false, classification…
+    246|     // This is promise feasibility, not an invented/unrelated base-ref…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/22]⎯
+
+ FAIL |core|  tests/bridge-p14b3-promise-command.test.ts > P14B.3: whole-quote refusal and current-state atomicity > direct apply rechecks CURRENT competing reservations, even if its prior quote was offerable
+AssertionError: expected true to be false // Object.is equality
+
+- Expected
++ Received
+
+- false
++ true
+
+ ❯ tests/bridge-p14b3-promise-command.test.ts:272:24
+    270|     const bytes = JSON.stringify(changed)
+    271|     const outcome = conversion.apply(changed)
+    272|     expect(outcome.ok).toBe(false)
+       |                        ^
+    273|     expect(outcome).not.toHaveProperty('next')
+    274|     expect(JSON.stringify(changed)).toBe(bytes)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/22]⎯
+
+ FAIL |core|  tests/bridge-p14b3-promise-command.test.ts > P14B.3: revise, remove, withdraw retain abandoned evidence without phantom seats > replacement feasibility uses the real cleared intermediate proposal; removal/withdrawal mint no false outcome
+AssertionError: expected [] to have a length of 1 but got +0
+
+- Expected
++ Received
+
+- 1
++ 0
+
+ ❯ attachedOwn tests/bridge-p14b3-promise-command.test.ts:75:29
+     73| function attachedOwn(state: GameState, talentId: string) {
+     74|   const proposal = currentOwn(state, talentId)
+     75|   expect(proposal.promises).toHaveLength(1)
+       |                             ^
+     76|   const promise = state.promises.find((p) => p.promiseId === proposal.…
+     77|   if (promise === undefined) throw new Error('B3: current proposal mus…
+ ❯ tests/bridge-p14b3-promise-command.test.ts:301:33
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/22]⎯
+
+ FAIL |core|  tests/bridge-p14b3-promise-command.test.ts > P14B.3: session/revision/intent identity and isolation > wrong-session/stale envelopes, same-command replay and superseded intents never duplicate attachment
+AssertionError: expected [] to have a length of 1 but got +0
+
+- Expected
++ Received
+
+- 1
++ 0
+
+ ❯ tests/bridge-p14b3-promise-command.test.ts:366:40
+    364|       .toMatchObject({ accepted: false, reasonCode: 'COMMAND_ID_REUSE'…
+    365|     expect(truth(session)).toEqual(after)
+    366|     expect(session.gameState.promises).toHaveLength(state.promises.len…
+       |                                        ^
+    367|   })
+    368| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/22]⎯
+
+ FAIL |core|  tests/bridge-p14b3-promise-command.test.ts > P14B.3: session/revision/intent identity and isolation > the oldest of exactly 16 distinct offerable quotes remains committable in a fresh session
+AssertionError: expected [] to have a length of 1 but got +0
+
+- Expected
++ Received
+
+- 1
++ 0
+
+ ❯ attachedOwn tests/bridge-p14b3-promise-command.test.ts:75:29
+     73| function attachedOwn(state: GameState, talentId: string) {
+     74|   const proposal = currentOwn(state, talentId)
+     75|   expect(proposal.promises).toHaveLength(1)
+       |                             ^
+     76|   const promise = state.promises.find((p) => p.promiseId === proposal.…
+     77|   if (promise === undefined) throw new Error('B3: current proposal mus…
+ ❯ tests/bridge-p14b3-promise-command.test.ts:383:12
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/22]⎯
+
+ FAIL |core|  tests/bridge-p14b3-promise-command.test.ts > P14B.3: session/revision/intent identity and isolation > the 17th distinct quote expires the oldest pending quote, while the newest still attaches once
+AssertionError: expected [] to have a length of 1 but got +0
+
+- Expected
++ Received
+
+- 1
++ 0
+
+ ❯ attachedOwn tests/bridge-p14b3-promise-command.test.ts:75:29
+     73| function attachedOwn(state: GameState, talentId: string) {
+     74|   const proposal = currentOwn(state, talentId)
+     75|   expect(proposal.promises).toHaveLength(1)
+       |                             ^
+     76|   const promise = state.promises.find((p) => p.promiseId === proposal.…
+     77|   if (promise === undefined) throw new Error('B3: current proposal mus…
+ ❯ tests/bridge-p14b3-promise-command.test.ts:404:12
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/22]⎯
+
+ FAIL |core|  tests/bridge-p14b3-promise-command.test.ts > P14B.3: session/revision/intent identity and isolation > same-seed/same-person sessions do not share quote authority, mutable drafts or committed state
+AssertionError: expected [] to have a length of 1 but got +0
+
+- Expected
++ Received
+
+- 1
++ 0
+
+ ❯ attachedOwn tests/bridge-p14b3-promise-command.test.ts:75:29
+     73| function attachedOwn(state: GameState, talentId: string) {
+     74|   const proposal = currentOwn(state, talentId)
+     75|   expect(proposal.promises).toHaveLength(1)
+       |                             ^
+     76|   const promise = state.promises.find((p) => p.promiseId === proposal.…
+     77|   if (promise === undefined) throw new Error('B3: current proposal mus…
+ ❯ tests/bridge-p14b3-promise-command.test.ts:420:12
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/22]⎯
+
+ FAIL |core|  tests/bridge-p14b3-promise-command.test.ts > P14B.3: real settlement/outcome, V29 and B2 public/private carriers > quote→commit→real winning expiry binds; due-week BROKEN survives validated reload and exact public receipt join
+AssertionError: expected [] to have a length of 1 but got +0
+
+- Expected
++ Received
+
+- 1
++ 0
+
+ ❯ attachedOwn tests/bridge-p14b3-promise-command.test.ts:75:29
+     73| function attachedOwn(state: GameState, talentId: string) {
+     74|   const proposal = currentOwn(state, talentId)
+     75|   expect(proposal.promises).toHaveLength(1)
+       |                             ^
+     76|   const promise = state.promises.find((p) => p.promiseId === proposal.…
+     77|   if (promise === undefined) throw new Error('B3: current proposal mus…
+ ❯ tests/bridge-p14b3-promise-command.test.ts:463:36
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/22]⎯
+
+ FAIL |core|  tests/p14b3-reservations.test.ts > P14B.3 F1: real reservation membership and matching feasibility digest > revise preserves the old unbound root but removes its reservation AND digest contribution
+ FAIL |core|  tests/p14b3-reservations.test.ts > P14B.3 F1: real reservation membership and matching feasibility digest > withdraw preserves the old unbound root but removes its reservation AND digest contribution
+AssertionError: expected { classification: 'FRAGILE', …(4) } to deeply equal { …(5) }
+
+- Expected
++ Received
+
+  Object {
+-   "bottleneck": null,
+-   "classification": "REASONABLY_ACHIEVABLE",
+-   "inputsDigest": "baba4f3cb949b90f",
++   "bottleneck": "needs a picture not yet commissioned",
++   "classification": "FRAGILE",
++   "inputsDigest": "ba80edbec33431f8",
+    "rulesVersion": 1,
+    "week": 45,
+  }
+
+ ❯ tests/p14b3-reservations.test.ts:90:34
+     88|     expect(next.promises.find((p) => p.promiseId === old.promiseId)).t…
+     89|     assertUnchangedHistory(next, attached)
+     90|     expect(read(next, talentId)).toEqual(before) // same relevant fact…
+       |                                  ^
+     91|     expect(trustDrivers(next, talentId, player(next), next.market.tick…
+     92|       .toEqual(trustDrivers(state, talentId, player(state), state.mark…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/22]⎯
+
+ FAIL |core|  tests/p14b3-reservations.test.ts > P14B.3 F1: real reservation membership and matching feasibility digest > three real replacements preserve every ordinal and original receipt without accumulating phantom capacity
+AssertionError: expected { classification: 'FRAGILE', …(4) } to deeply equal { …(5) }
+
+- Expected
++ Received
+
+  Object {
+-   "bottleneck": null,
+-   "classification": "REASONABLY_ACHIEVABLE",
+-   "inputsDigest": "baba4f3cb949b90f",
++   "bottleneck": "needs a picture not yet commissioned",
++   "classification": "FRAGILE",
++   "inputsDigest": "ba80edbec33431f8",
+    "rulesVersion": 1,
+    "week": 45,
+  }
+
+ ❯ tests/p14b3-reservations.test.ts:114:37
+    112|       state = submitProposal(state, { talentId, issuerStudioId: player…
+    113|       assertUnchangedHistory(state, beforeRevision)
+    114|       expect(read(state, talentId)).toEqual(expected)
+       |                                     ^
+    115|     }
+    116|     expect(state.promises.slice(initial.promises.length)).toEqual(auth…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[13/22]⎯
+
+ FAIL |core|  tests/p14b3-reservations.test.ts > P14B.3 F1: real reservation membership and matching feasibility digest > preserves the existing competing CURRENT cross-issuer reservation policy, without choosing a new alternatives policy
+AssertionError: expected { classification: 'FRAGILE', …(4) } to deeply equal { …(5) }
+
+- Expected
++ Received
+
+  Object {
+-   "bottleneck": null,
+-   "classification": "REASONABLY_ACHIEVABLE",
+-   "inputsDigest": "baba4f3cb949b90f",
++   "bottleneck": "needs a picture not yet commissioned",
++   "classification": "FRAGILE",
++   "inputsDigest": "5bcff7cdd3d8fc9e",
+    "rulesVersion": 1,
+    "week": 45,
+  }
+
+ ❯ tests/p14b3-reservations.test.ts:150:39
+    148|     const withdrawn = withdrawProposal(attached, talentId, issuer)
+    149|     expect(withdrawn.promises).toEqual(attached.promises)
+    150|     expect(read(withdrawn, talentId)).toEqual(baseline)
+       |                                       ^
+    151|   })
+    152| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[14/22]⎯
+
+ FAIL |core|  tests/p14b3-reservations.test.ts > P14B.3 F1: real reservation membership and matching feasibility digest > an actually dropped losing draft stays in evidence after settlement but cannot reserve a later overlapping read
+AssertionError: expected 'IMPOSSIBLE' to be 'REASONABLY_ACHIEVABLE' // Object.is equality
+
+Expected: "REASONABLY_ACHIEVABLE"
+Received: "IMPOSSIBLE"
+
+ ❯ tests/p14b3-reservations.test.ts:199:59
+    197|     expect(settled.promises.find((p) => p.promiseId === losing.promise…
+    198|     const later = { windowStartWeek: 100, dueWeekExclusive: 204, start…
+    199|     expect(read(settled, talentId, later).classification).toBe('REASON…
+       |                                                           ^
+    200|     expect(read(settled, talentId, later)).toEqual(read(settled, talen…
+    201|     validateSaveV29(JSON.parse(JSON.stringify(makeSave(settled))))
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[15/22]⎯
+
+ FAIL |core|  tests/p14b3-rule-revision.test.ts > P14B.3 evaluator revision2 and genuine old evaluator1 history > pins the new evaluator generation independently of unchanged Save29/projection46
+AssertionError: expected 1 to be 2 // Object.is equality
+
+- Expected
++ Received
+
+- 2
++ 1
+
+ ❯ tests/p14b3-rule-revision.test.ts:89:35
+     87| describe('P14B.3 evaluator revision2 and genuine old evaluator1 histor…
+     88|   it('pins the new evaluator generation independently of unchanged Sav…
+     89|     expect(PROMISE_RULES_VERSION).toBe(2)
+       |                                   ^
+     90|   })
+     91| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[16/22]⎯
+
+ FAIL |core|  tests/p14b3-rule-revision.test.ts > P14B.3 evaluator revision2 and genuine old evaluator1 history > new actual attachment uses root.version2 and receipt.rulesVersion2 without rewriting old roots
+AssertionError: expected { promiseId: 'promise-2', …(15) } to match object { promiseId: 'promise-2', …(6) }
+(12 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  Object {
+    "beneficiaryPersonId": "t-act-09",
+    "contractId": null,
+    "feasibilityReceipt": Object {
+-     "classification": "REASONABLY_ACHIEVABLE",
+-     "rulesVersion": 2,
++     "classification": "FRAGILE",
++     "rulesVersion": 1,
+      "week": 45,
+    },
+    "issuerStudioId": "studio-aca408ec-player",
+    "outcome": null,
+    "promiseId": "promise-2",
+-   "version": 2,
++   "version": 1,
+  }
+
+ ❯ tests/p14b3-rule-revision.test.ts:135:19
+    133|     expect(attached.promises).toHaveLength(state.promises.length + 1)
+    134|     const fresh = attached.promises[state.promises.length]!
+    135|     expect(fresh).toMatchObject({ promiseId: `promise-${state.promises…
+       |                   ^
+    136|       beneficiaryPersonId: old.beneficiaryPersonId, issuerStudioId: ol…
+    137|       contractId: null, outcome: null,
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[17/22]⎯
+
+ FAIL |core|  tests/p14b3-rule-revision.test.ts > P14B.3 evaluator revision2 and genuine old evaluator1 history > actual later winning freeze keeps old root.version1 but stores genuine new rulesVersion2 receipt and binding
+AssertionError: expected { …(5) } to match object { rulesVersion: 2, week: 52, …(1) }
+(2 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  Object {
+    "classification": "REASONABLY_ACHIEVABLE",
+-   "rulesVersion": 2,
++   "rulesVersion": 1,
+    "week": 52,
+  }
+
+ ❯ tests/p14b3-rule-revision.test.ts:171:38
+    169|     assert.ok(bound)
+    170|     expect(bound.version).toBe(1)
+    171|     expect(bound.feasibilityReceipt).toMatchObject({ rulesVersion: 2, …
+       |                                      ^
+    172|       classification: 'REASONABLY_ACHIEVABLE' })
+    173|     expect(bound.feasibilityReceipt.inputsDigest).not.toBe(old.feasibi…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[18/22]⎯
+
+ Test Files  3 failed (3)
+      Tests  22 failed | 12 passed (34)
+   Start at  18:29:04
+   Duration  38.94s (transform 3.57s, setup 0ms, collect 5.93s, tests 31.33s, environment 1ms, prepare 425ms)
+
+
+{"sourceSha":"9c605dc437e1c04268753c2a7039d092153e11f1","testedDiffSha256":"071b0f76982efd8d19e3644f4a26bb6b2515a95c356c82b9d520d936cbfcd66e","untrackedSource":["tests/bridge-p14b3-promise-command.test.ts","tests/p14b3-reservations.test.ts","tests/p14b3-rule-revision.test.ts"],"command":["./node_modules/.bin/vitest","run","tests/p14b3-reservations.test.ts","tests/bridge-p14b3-promise-command.test.ts","tests/p14b3-rule-revision.test.ts","--minWorkers=1","--maxWorkers=1","--reporter=dot"],"node":"v20.20.2","start":"2026-09-19T16:29:03.363Z","end":"2026-09-19T16:29:44.069Z","exitCode":1,"signal":null,"error":null,"sourceShaAtEnd":"9c605dc437e1c04268753c2a7039d092153e11f1","testedDiffSha256AtEnd":"071b0f76982efd8d19e3644f4a26bb6b2515a95c356c82b9d520d936cbfcd66e","untrackedSourceAtEnd":["tests/bridge-p14b3-promise-command.test.ts","tests/p14b3-reservations.test.ts","tests/p14b3-rule-revision.test.ts"],"fixedSource":true}

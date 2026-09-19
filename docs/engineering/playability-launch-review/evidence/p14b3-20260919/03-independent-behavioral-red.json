@@ -1,0 +1,33 @@
+{
+  "sourceSha": "9c605dc437e1c04268753c2a7039d092153e11f1",
+  "testedDiffSha256": "071b0f76982efd8d19e3644f4a26bb6b2515a95c356c82b9d520d936cbfcd66e",
+  "untrackedSource": [
+    "tests/bridge-p14b3-promise-command.test.ts",
+    "tests/p14b3-reservations.test.ts",
+    "tests/p14b3-rule-revision.test.ts"
+  ],
+  "command": [
+    "./node_modules/.bin/vitest",
+    "run",
+    "tests/p14b3-reservations.test.ts",
+    "tests/bridge-p14b3-promise-command.test.ts",
+    "tests/p14b3-rule-revision.test.ts",
+    "--minWorkers=1",
+    "--maxWorkers=1",
+    "--reporter=dot"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-19T16:29:03.363Z",
+  "end": "2026-09-19T16:29:44.069Z",
+  "exitCode": 1,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "9c605dc437e1c04268753c2a7039d092153e11f1",
+  "testedDiffSha256AtEnd": "071b0f76982efd8d19e3644f4a26bb6b2515a95c356c82b9d520d936cbfcd66e",
+  "untrackedSourceAtEnd": [
+    "tests/bridge-p14b3-promise-command.test.ts",
+    "tests/p14b3-reservations.test.ts",
+    "tests/p14b3-rule-revision.test.ts"
+  ],
+  "fixedSource": true
+}

@@ -1,0 +1,929 @@
+diff --git a/tests/bridge-p14b3-promise-command.test.ts b/tests/bridge-p14b3-promise-command.test.ts
+new file mode 100644
+index 0000000..2c268a2
+--- /dev/null
++++ b/tests/bridge-p14b3-promise-command.test.ts
+@@ -0,0 +1,519 @@
++// DRAFT ONLY: intended tests/bridge-p14b3-promise-command.test.ts; not installed/run.
++// P14B.3 audited expansion: complete the existing P1 quote→commit route atomically.
++// All imports already exist. Expected RED is real missing attachment/refusal or
++// draft-value retention, never an invented missing export. No new promise family,
++// chooser rule, save/projection bump or rival-private disclosure is authorized.
++import { describe, expect, it } from 'vitest'
++import { BridgeSession, authoritativeDigest } from '../bridge/session.ts'
++import { marketProposalDraftToEngine, playerProposalDraft } from '../bridge/contract.ts'
++import { PROTOCOL_VERSION, SCHEMA_ID } from '../bridge/protocol.ts'
++import { BRIDGE_SCHEMA, PROJECTION_VERSION, type BridgeMarketProposalDraftPayload } from '../bridge/schema/bridge-schema.ts'
++import { parseWireValue } from '../bridge/schema/runtime.ts'
++import { marketCaseProjection, peopleProjection } from '../bridge/people.ts'
++import { marketPage } from '../bridge/market.ts'
++import { industryPage } from '../bridge/industry.ts'
++import { promiseRowsForPerson, trustBlockFor } from '../bridge/trust.ts'
++import { applyActions, hiringMarketIds } from '../src/core/index.js'
++import { attachPromise, promiseFeasibility, trustDrivers } from '../src/core/promises.js'
++import { currentProposals, submitProposal, withdrawProposal } from '../src/core/talentMarket.js'
++import { LIVE_SAVE_VERSION, makeSave, validateSaveV29 } from '../src/core/save.js'
++import type { GameState } from '../src/core/types.js'
++import { advanceTo, fund, p13aGeneratedStudio, player } from './helpers/p14b2-fixtures.js'
++
++type Payload = BridgeMarketProposalDraftPayload
++let cached: { state: GameState; talentId: string } | undefined
++function fixture() {
++  if (cached === undefined) {
++    let state = fund(p13aGeneratedStudio())
++    const talentId = hiringMarketIds(state, state.market.tick)
++      .find((id) => state.talent.find((t) => t.id === id)?.role === 'actor')
++    if (talentId === undefined) throw new Error('B3 premise: no real signable actor')
++    state = applyActions(state, [{ kind: 'signContract', talentId, termWeeks: 52 }])
++    state = advanceTo(state, 45)
++    expect(currentProposals(state, talentId).filter((p) => p.issuerStudioId === player(state))).toEqual([])
++    expect(state.promises.filter((p) => p.beneficiaryPersonId === talentId)).toEqual([])
++    validateSaveV29(JSON.parse(JSON.stringify(makeSave(state))))
++    cached = { state, talentId }
++  }
++  return structuredClone(cached)
++}
++function payload(talentId: string): Payload {
++  return { verb: 'propose', talentId, termWeeks: 52, premiumTier: 1.25,
++    promise: { family: 'APPEARANCE_COUNT', count: 1, windowStartWeek: 52, dueWeekExclusive: 92 } }
++}
++function control(session: BridgeSession, commandId: string, expectedStateRevision = session.stateRevision) {
++  return { protocolVersion: PROTOCOL_VERSION, schemaId: SCHEMA_ID, sessionId: session.sessionId,
++    commandId, expectedStateRevision }
++}
++function quoteRequest(session: BridgeSession, draft: Payload, commandId: string) {
++  return { ...control(session, commandId), type: 'quoteMarketProposal' as const, draft }
++}
++function quote(session: BridgeSession, draft: Payload, commandId: string) {
++  const response = session.quote(quoteRequest(session, draft, commandId))
++  expect(response.accepted).toBe(true)
++  if (!response.accepted) throw new Error(response.message)
++  expect(parseWireValue(BRIDGE_SCHEMA.$defs.StudioBridgeQuoteResponse, response)).toEqual(response)
++  expect(response.quote.kind).toBe('marketProposalAction')
++  return response
++}
++function command(session: BridgeSession, intentId: string, commandId: string, revision = session.stateRevision) {
++  return { ...control(session, commandId, revision), type: 'submitIntent' as const, payload: { intentId } }
++}
++function truth(session: BridgeSession) {
++  // Journaled rejection/replay receipts are not campaign mutations. Compare all
++  // authoritative state bytes (includes RNG, ledger, roots/counters) and the slot.
++  return { state: JSON.stringify(session.gameState), digest: authoritativeDigest(session.gameState),
++    revision: session.stateRevision, saved: session.exportRuntimeCheckpoint().savedSaveJson }
++}
++function currentOwn(state: GameState, talentId: string) {
++  const rows = currentProposals(state, talentId).filter((p) => p.issuerStudioId === player(state))
++  expect(rows).toHaveLength(1)
++  return rows[0]!
++}
++function attachedOwn(state: GameState, talentId: string) {
++  const proposal = currentOwn(state, talentId)
++  expect(proposal.promises).toHaveLength(1)
++  const promise = state.promises.find((p) => p.promiseId === proposal.promises[0])
++  if (promise === undefined) throw new Error('B3: current proposal must reference its actual newly appended promise')
++  return promise
++}
++function saveSlot(session: BridgeSession, commandId = 'save-fixture') {
++  const result = session.save(control(session, commandId))
++  if (!result.accepted) throw new Error(result.message)
++  validateSaveV29(JSON.parse(result.saveJson))
++  return result.saveJson
++}
++function feasibilityAfterRealBaseRevision(state: GameState, wire: Payload) {
++  if (wire.promise === undefined || wire.termWeeks === null || wire.premiumTier === null) throw new Error('B3 test needs a priced promised draft')
++  const next = submitProposal(state, { talentId: wire.talentId, issuerStudioId: player(state), termWeeks: wire.termWeeks, premiumTier: wire.premiumTier })
++  const proposal = currentOwn(next, wire.talentId)
++  return promiseFeasibility(next, { family: wire.promise.family, issuerStudioId: player(next), beneficiaryPersonId: wire.talentId,
++    predicate: { count: wire.promise.count }, windowStartWeek: wire.promise.windowStartWeek, dueWeekExclusive: wire.promise.dueWeekExclusive,
++    startWeek: proposal.startWeek, termWeeks: proposal.termWeeks }, next.market.tick)
++}
++
++describe('P14B.3: quote and atomic command attachment', () => {
++  it('commits exactly one real attachment at the live ordinal, one revision, no immediate cash movement', () => {
++    const { state, talentId } = fixture()
++    // Real abandoned output supplies a NONZERO live counter; preserve it. Its
++    // disjoint window keeps this attachment RED independent of the F1 accounting
++    // defect, which has its own test file. No root is deleted before quoting.
++    let prepared = submitProposal(state, { talentId, issuerStudioId: player(state), termWeeks: 52, premiumTier: 1.25 })
++    prepared = attachPromise(prepared, talentId, player(prepared), { family: 'APPEARANCE_COUNT', predicate: { count: 1 }, windowStartWeek: 93, dueWeekExclusive: 104 })
++    prepared = withdrawProposal(prepared, talentId, player(prepared))
++    const session = new BridgeSession(prepared, 'b3-atomic')
++    const slot = saveSlot(session)
++    const before = structuredClone(session.gameState)
++    const ordinal = before.promises.length
++    expect(ordinal).toBeGreaterThan(0)
++    const wire = payload(talentId)
++    expect(feasibilityAfterRealBaseRevision(before, wire).classification).toBe('REASONABLY_ACHIEVABLE')
++    const quoted = quote(session, wire, 'quote-atomic')
++    expect(quoted.quote.ok).toBe(true)
++    expect(quoted.quote.promise).toMatchObject({ ok: true, classification: 'REASONABLY_ACHIEVABLE', message: null })
++    expect(session.gameState).toEqual(before)
++    const accepted = session.command(command(session, quoted.quote.intentId, 'commit-atomic'))
++    expect(accepted.accepted).toBe(true)
++    expect(session.stateRevision).toBe(1)
++    expect(session.gameState.promises).toHaveLength(ordinal + 1)
++    const promise = attachedOwn(session.gameState, talentId)
++    expect(promise).toMatchObject({ promiseId: `promise-${ordinal}`, family: 'APPEARANCE_COUNT', predicate: { count: 1 },
++      issuerStudioId: player(before), beneficiaryPersonId: talentId, windowStartWeek: 52, dueWeekExclusive: 92,
++      contractId: null, outcome: null, outcomeWeek: null, outcomeEventId: null })
++    expect(session.gameState.promises.slice(0, ordinal)).toEqual(before.promises)
++    expect(session.gameState.talentMarket.receipts.slice(0, before.talentMarket.receipts.length)).toEqual(before.talentMarket.receipts)
++    expect(session.gameState.talentMarket.receipts).toHaveLength(before.talentMarket.receipts.length + 1)
++    expect(session.gameState.studio.cash).toBe(before.studio.cash)
++    expect(session.gameState.ledger).toEqual(before.ledger)
++    expect(session.gameState.rngState).toBe(before.rngState)
++    expect(session.gameState.hollywood!.employment).toEqual(before.hollywood!.employment)
++    expect(session.exportRuntimeCheckpoint().savedSaveJson).toBe(slot)
++    const plain = submitProposal(before, { talentId, issuerStudioId: player(before), termWeeks: 52, premiumTier: 1.25 })
++    expect(currentOwn(session.gameState, talentId).digest).not.toBe(currentOwn(plain, talentId).digest)
++    validateSaveV29(JSON.parse(JSON.stringify(makeSave(session.gameState))))
++  })
++
++  it('pure repeated quotes retain exact state/RNG/receipt/cash/slot bytes and one opaque identity', () => {
++    const { state, talentId } = fixture()
++    const session = new BridgeSession(state, 'b3-pure')
++    saveSlot(session)
++    const before = truth(session)
++    const a = quote(session, payload(talentId), 'quote-repeat-a')
++    const b = quote(session, payload(talentId), 'quote-repeat-b')
++    expect(a.quote).toEqual(b.quote)
++    expect(a.quote.ok).toBe(true)
++    expect(a.quote.intentId).not.toContain(talentId)
++    expect(a.quote.intentId).not.toContain('APPEARANCE_COUNT')
++    expect(truth(session)).toEqual(before)
++  })
++
++  it('each material promise field participates in the opaque intent identity, including refused variants', () => {
++    const { state, talentId } = fixture()
++    const session = new BridgeSession(state, 'b3-material-identity')
++    const base = payload(talentId)
++    const variants: Payload[] = [base,
++      { ...base, promise: { ...base.promise!, family: 'LEAD_OR_SIGNIFICANT_ROLE_COUNT' } },
++      { ...base, promise: { ...base.promise!, count: 2 } },
++      { ...base, promise: { ...base.promise!, windowStartWeek: 53 } },
++      { ...base, promise: { ...base.promise!, dueWeekExclusive: 93 } }]
++    const before = truth(session)
++    const ids = variants.map((draft, index) => quote(session, draft, `quote-material-${index}`).quote.intentId)
++    expect(new Set(ids).size).toBe(variants.length)
++    expect(truth(session)).toEqual(before)
++  })
++
++  it('conversion retains canonical values, including nested promise, after the caller changes its object', () => {
++    const { state, talentId } = fixture()
++    const wire = payload(talentId)
++    const canonical = playerProposalDraft(state, wire)
++    const values = structuredClone(canonical)
++    const conversion = marketProposalDraftToEngine(state, canonical)
++    if (!conversion.ok) throw new Error(conversion.error)
++    wire.promise!.count = 999
++    wire.promise!.dueWeekExclusive = 999
++    expect(canonical).toEqual(values)
++    expect(conversion.draft.promise).not.toBe(canonical.promise)
++    canonical.promise!.count = 888
++    canonical.promise!.windowStartWeek = 0
++    canonical.promise!.dueWeekExclusive = 888
++    canonical.verb = 'withdraw'
++    canonical.talentId = 'unknown-person'
++    canonical.issuerStudioId = 'not-the-player'
++    expect(conversion.draft).toEqual(values)
++    expect(conversion.draft).not.toBe(canonical)
++    expect(conversion.draft.promise).not.toBe(wire.promise)
++    const result = conversion.apply(state)
++    expect(result.ok).toBe(true)
++    if (!result.ok) throw new Error(result.error)
++    expect(attachedOwn(result.next, talentId)).toMatchObject({ predicate: { count: 1 }, dueWeekExclusive: 92 })
++  })
++
++  it('the session pending quote retains values rather than its caller-owned mutable draft', () => {
++    const { state, talentId } = fixture()
++    const session = new BridgeSession(state, 'b3-pending-values')
++    const wire = payload(talentId)
++    const quoted = quote(session, wire, 'quote-before-caller-edit')
++    expect(quoted.quote.ok).toBe(true)
++    const quotedValues = structuredClone(quoted.quote)
++    wire.promise!.count = 999
++    wire.promise!.windowStartWeek = 0
++    wire.promise!.dueWeekExclusive = 999
++    wire.promise!.family = 'DIRECTING_COUNT'
++    wire.premiumTier = 1
++    wire.termWeeks = 208
++    const result = session.command(command(session, quoted.quote.intentId, 'commit-original-values'))
++    expect(result.accepted).toBe(true)
++    expect(quoted.quote).toEqual(quotedValues)
++    expect(currentOwn(session.gameState, talentId)).toMatchObject({ termWeeks: 52, premiumTier: 1.25 })
++    expect(attachedOwn(session.gameState, talentId)).toMatchObject({ family: 'APPEARANCE_COUNT', predicate: { count: 1 },
++      windowStartWeek: 52, dueWeekExclusive: 92 })
++  })
++
++  it('base proposals without a promise still commit without appending any promise', () => {
++    const { state, talentId } = fixture()
++    const session = new BridgeSession(state, 'b3-base-proposal')
++    const draft: Payload = { verb: 'propose', talentId, termWeeks: 52, premiumTier: 1.25 }
++    const before = structuredClone(state)
++    const response = quote(session, draft, 'quote-no-promise')
++    expect(response.quote).toMatchObject({ ok: true, promise: null })
++    expect(session.command(command(session, response.quote.intentId, 'commit-no-promise')).accepted).toBe(true)
++    expect(currentOwn(session.gameState, talentId).promises).toEqual([])
++    expect(session.gameState.promises).toEqual(before.promises)
++    expect(session.gameState.studio.cash).toBe(before.studio.cash)
++    expect(session.stateRevision).toBe(1)
++  })
++})
++
++describe('P14B.3: whole-quote refusal and current-state atomicity', () => {
++  const refused = [
++    { name: 'FRAGILE existing one-path capacity', values: { count: 2 }, classification: 'FRAGILE' },
++    { name: 'IMPOSSIBLE count', values: { count: 999 }, classification: 'IMPOSSIBLE' },
++    { name: 'lower contract-window edge', values: { windowStartWeek: 51 }, classification: 'IMPOSSIBLE' },
++    { name: 'upper contract-window edge', values: { dueWeekExclusive: 105 }, classification: 'IMPOSSIBLE' },
++  ] as const
++  it.each(refused)('$name: accepted noncommittable answer retains nested verdict; no registered intent or partial commit', ({ values, classification }) => {
++    const { state, talentId } = fixture()
++    const session = new BridgeSession(state, `b3-refusal-${classification}-${JSON.stringify(values)}`)
++    saveSlot(session)
++    const draft = payload(talentId)
++    draft.promise = { ...draft.promise!, ...values }
++    const expected = feasibilityAfterRealBaseRevision(state, draft)
++    expect(expected.classification).toBe(classification) // independent fixture precondition
++    const before = truth(session)
++    const response = quote(session, draft, 'quote-refused')
++    expect(response.quote.ok).toBe(false)
++    expect(response.quote.promise).toEqual({ ok: false, classification, message: `not offerable: ${expected.bottleneck}` })
++    // This is promise feasibility, not an invented/unrelated base-refusal enum.
++    expect(response.quote.refusal).toBeNull()
++    expect(truth(session)).toEqual(before)
++    const attempted = session.command(command(session, response.quote.intentId, 'attempt-refused-intent'))
++    expect(attempted).toMatchObject({ accepted: false, reasonCode: 'INTENT_NOT_AVAILABLE' })
++    expect(truth(session)).toEqual(before)
++    const conversion = marketProposalDraftToEngine(state, playerProposalDraft(state, draft))
++    if (!conversion.ok) throw new Error(conversion.error)
++    const stateBytes = JSON.stringify(state)
++    const applied = conversion.apply(state)
++    expect(applied.ok).toBe(false)
++    expect(applied).not.toHaveProperty('next')
++    expect(JSON.stringify(state)).toBe(stateBytes)
++  })
++
++  it('direct apply rechecks CURRENT competing reservations, even if its prior quote was offerable', () => {
++    const { state, talentId } = fixture()
++    const conversion = marketProposalDraftToEngine(state, playerProposalDraft(state, payload(talentId)))
++    if (!conversion.ok) throw new Error(conversion.error)
++    expect(conversion.promise?.classification).toBe('REASONABLY_ACHIEVABLE')
++    const rival = state.hollywood!.identities.find((s) => s.role === 'rival' && s.enteredWeek !== null)!.studioId
++    let changed = submitProposal(state, { talentId, issuerStudioId: rival, termWeeks: 52, premiumTier: 1 })
++    changed = attachPromise(changed, talentId, rival, { family: 'APPEARANCE_COUNT', predicate: { count: 1 }, windowStartWeek: 52, dueWeekExclusive: 92 })
++    expect(feasibilityAfterRealBaseRevision(changed, payload(talentId)).classification).toBe('FRAGILE')
++    const bytes = JSON.stringify(changed)
++    const outcome = conversion.apply(changed)
++    expect(outcome.ok).toBe(false)
++    expect(outcome).not.toHaveProperty('next')
++    expect(JSON.stringify(changed)).toBe(bytes)
++  })
++
++  it('malformed wire input and a forged issuer are rejected before any historical fact exists', () => {
++    const { state, talentId } = fixture()
++    const session = new BridgeSession(state, 'b3-malformed')
++    const request = quoteRequest(session, payload(talentId), 'malformed')
++    const before = truth(session)
++    expect(() => parseWireValue(BRIDGE_SCHEMA.$defs.StudioBridgeQuoteRequest,
++      { ...request, draft: { ...request.draft, issuerStudioId: 'rival-injected-by-client' } })).toThrow()
++    expect(() => parseWireValue(BRIDGE_SCHEMA.$defs.StudioBridgeQuoteRequest,
++      { ...request, draft: { ...request.draft, promise: { ...request.draft.promise!, count: 0 } } })).toThrow()
++    expect(truth(session)).toEqual(before)
++    const conversion = marketProposalDraftToEngine(state, { ...playerProposalDraft(state, payload(talentId)), talentId: 'unknown-person' })
++    expect(conversion.ok).toBe(false)
++    expect(truth(session)).toEqual(before)
++  })
++})
++
++describe('P14B.3: revise, remove, withdraw retain abandoned evidence without phantom seats', () => {
++  it('replacement feasibility uses the real cleared intermediate proposal; removal/withdrawal mint no false outcome', () => {
++    const { state, talentId } = fixture()
++    const session = new BridgeSession(state, 'b3-revisions')
++    const beforeMoney = { cash: state.studio.cash, ledger: structuredClone(state.ledger), rng: state.rngState }
++    const originalDrivers = trustDrivers(state, talentId, player(state), state.market.tick)
++    const first = quote(session, payload(talentId), 'quote-first')
++    expect(session.command(command(session, first.quote.intentId, 'commit-first')).accepted).toBe(true)
++    const old = structuredClone(attachedOwn(session.gameState, talentId))
++    const firstDigest = currentOwn(session.gameState, talentId).digest
++    const revised = payload(talentId); revised.verb = 'revise'; revised.promise!.dueWeekExclusive = 93
++    const q = quote(session, revised, 'quote-replacement')
++    expect(q.quote).toMatchObject({ ok: true, promise: { ok: true, classification: 'REASONABLY_ACHIEVABLE' } })
++    expect(session.command(command(session, q.quote.intentId, 'commit-replacement')).accepted).toBe(true)
++    expect(session.stateRevision).toBe(2)
++    const replacement = structuredClone(attachedOwn(session.gameState, talentId))
++    expect(replacement.promiseId).not.toBe(old.promiseId)
++    expect(replacement.dueWeekExclusive).toBe(93)
++    expect(currentOwn(session.gameState, talentId).digest).not.toBe(firstDigest)
++    expect(session.gameState.promises.find((p) => p.promiseId === old.promiseId)).toEqual(old)
++    const roots = structuredClone(session.gameState.promises)
++    const remove: Payload = { verb: 'revise', talentId, termWeeks: 52, premiumTier: 1.25 }
++    const removeQuote = quote(session, remove, 'quote-remove')
++    expect(removeQuote.quote.promise).toBeNull()
++    expect(session.command(command(session, removeQuote.quote.intentId, 'commit-remove')).accepted).toBe(true)
++    expect(currentOwn(session.gameState, talentId).promises).toEqual([])
++    expect(session.gameState.promises).toEqual(roots)
++    const withdrawal = quote(session, { verb: 'withdraw', talentId, termWeeks: null, premiumTier: null }, 'quote-withdraw')
++    expect(session.command(command(session, withdrawal.quote.intentId, 'commit-withdraw')).accepted).toBe(true)
++    expect(session.stateRevision).toBe(4)
++    expect(currentProposals(session.gameState, talentId).some((p) => p.issuerStudioId === player(state))).toBe(false)
++    expect(session.gameState.promises).toEqual(roots)
++    expect(session.gameState.talentMarket.receipts.some((r) => r.talentId === talentId && r.kind === 'promiseOutcome')).toBe(false)
++    expect(trustDrivers(session.gameState, talentId, player(state), state.market.tick)).toEqual(originalDrivers)
++    expect(promiseRowsForPerson(session.gameState, talentId, player(state))).toEqual([])
++    const next = quote(session, payload(talentId), 'quote-after-withdraw')
++    expect(next.quote).toMatchObject({ ok: true, promise: { classification: 'REASONABLY_ACHIEVABLE' } })
++    expect(session.command(command(session, next.quote.intentId, 'commit-after-withdraw')).accepted).toBe(true)
++    expect(session.stateRevision).toBe(5)
++    expect(session.gameState.promises.slice(0, roots.length)).toEqual(roots)
++    expect(session.gameState.studio.cash).toBe(beforeMoney.cash)
++    expect(session.gameState.ledger).toEqual(beforeMoney.ledger)
++    expect(session.gameState.rngState).toBe(beforeMoney.rng)
++    const saved = saveSlot(session, 'save-abandoned-evidence')
++    expect(validateSaveV29(JSON.parse(saved)).state.promises).toEqual(session.gameState.promises)
++  })
++})
++
++describe('P14B.3: session/revision/intent identity and isolation', () => {
++  it('wrong-session/stale envelopes, same-command replay and superseded intents never duplicate attachment', () => {
++    const { state, talentId } = fixture()
++    const session = new BridgeSession(state, 'b3-envelopes')
++    const before = truth(session)
++    const request = quoteRequest(session, payload(talentId), 'quote-envelope')
++    expect(session.quote({ ...request, sessionId: 'other-session' })).toMatchObject({ accepted: false, reasonCode: 'SESSION_MISMATCH' })
++    expect(session.quote({ ...request, commandId: 'quote-stale', expectedStateRevision: 99 })).toMatchObject({ accepted: false, reasonCode: 'STALE_REVISION' })
++    expect(truth(session)).toEqual(before)
++    const quoted = quote(session, payload(talentId), 'quote-current')
++    const submit = command(session, quoted.quote.intentId, 'single-command')
++    expect(session.command({ ...submit, sessionId: 'other-session' })).toMatchObject({ accepted: false, reasonCode: 'SESSION_MISMATCH' })
++    expect(truth(session)).toEqual(before)
++    const accepted = session.command(submit)
++    expect(accepted.accepted).toBe(true)
++    const after = truth(session)
++    expect(session.command(submit)).toEqual(accepted)
++    expect(truth(session)).toEqual(after)
++    expect(session.command(command(session, quoted.quote.intentId, 'fresh-command-stale-revision', 0)))
++      .toMatchObject({ accepted: false, reasonCode: 'STALE_REVISION' })
++    expect(session.command(command(session, quoted.quote.intentId, 'fresh-command-expired-intent')))
++      .toMatchObject({ accepted: false, reasonCode: 'INTENT_NOT_AVAILABLE' })
++    expect(session.command(command(session, 'not-the-original-intent', submit.commandId)))
++      .toMatchObject({ accepted: false, reasonCode: 'COMMAND_ID_REUSE' })
++    expect(truth(session)).toEqual(after)
++    expect(session.gameState.promises).toHaveLength(state.promises.length + 1)
++  })
++
++  it('the oldest of exactly 16 distinct offerable quotes remains committable in a fresh session', () => {
++    const { state, talentId } = fixture()
++    const session = new BridgeSession(state, 'b3-exactly16')
++    const before = truth(session)
++    const ids: string[] = []
++    for (let index = 0; index < 16; index++) {
++      const draft = payload(talentId); draft.promise!.dueWeekExclusive = 80 + index
++      const response = quote(session, draft, `quote-exact16-${index}`)
++      expect(response.quote.ok).toBe(true)
++      ids.push(response.quote.intentId)
++    }
++    expect(new Set(ids).size).toBe(16)
++    expect(truth(session)).toEqual(before)
++    expect(session.command(command(session, ids[0]!, 'commit-oldest-of16')).accepted).toBe(true)
++    expect(attachedOwn(session.gameState, talentId).dueWeekExclusive).toBe(80)
++    expect(session.gameState.promises).toHaveLength(state.promises.length + 1)
++    expect(session.stateRevision).toBe(1)
++  }, 60_000)
++
++  it('the 17th distinct quote expires the oldest pending quote, while the newest still attaches once', () => {
++    const { state, talentId } = fixture()
++    const session = new BridgeSession(state, 'b3-bound16')
++    const before = truth(session)
++    const ids: string[] = []
++    for (let index = 0; index < 17; index++) {
++      const draft = payload(talentId); draft.promise!.dueWeekExclusive = 80 + index
++      const response = quote(session, draft, `quote-cap-${index}`)
++      expect(response.quote.ok).toBe(true)
++      ids.push(response.quote.intentId)
++    }
++    expect(new Set(ids).size).toBe(17)
++    expect(truth(session)).toEqual(before)
++    expect(session.command(command(session, ids[0]!, 'commit-evicted'))).toMatchObject({ accepted: false, reasonCode: 'INTENT_NOT_AVAILABLE' })
++    expect(truth(session)).toEqual(before)
++    expect(session.command(command(session, ids[16]!, 'commit-newest')).accepted).toBe(true)
++    expect(attachedOwn(session.gameState, talentId).dueWeekExclusive).toBe(96)
++    expect(session.stateRevision).toBe(1)
++  }, 60_000)
++
++  it('same-seed/same-person sessions do not share quote authority, mutable drafts or committed state', () => {
++    const { state, talentId } = fixture()
++    const a = new BridgeSession(structuredClone(state), 'b3-session-a')
++    const b = new BridgeSession(structuredClone(state), 'b3-session-b')
++    const aBefore = truth(a), bBefore = truth(b)
++    const draft = payload(talentId)
++    const qa = quote(a, draft, 'quote-only-a')
++    expect(b.command(command(b, qa.quote.intentId, 'borrow-a-intent'))).toMatchObject({ accepted: false, reasonCode: 'INTENT_NOT_AVAILABLE' })
++    expect(truth(a)).toEqual(aBefore)
++    expect(truth(b)).toEqual(bBefore)
++    draft.promise!.count = 999
++    expect(a.command(command(a, qa.quote.intentId, 'commit-a-retained-values')).accepted).toBe(true)
++    expect(attachedOwn(a.gameState, talentId).predicate.count).toBe(1)
++    expect(truth(b)).toEqual(bBefore)
++    const qb = quote(b, payload(talentId), 'quote-b-for-itself')
++    expect(qb.quote.ok).toBe(true)
++    expect(b.command(command(b, qb.quote.intentId, 'commit-b-own-quote')).accepted).toBe(true)
++    expect(b.gameState).toEqual(a.gameState)
++    expect(b.gameState).not.toBe(a.gameState)
++    expect(b.gameState.promises).not.toBe(a.gameState.promises)
++  })
++
++  it('load and process restart discard pending quote authorization without inventing promises', () => {
++    const { state, talentId } = fixture()
++    const session = new BridgeSession(state, 'b3-load-invalidation')
++    const save = saveSlot(session)
++    const pending = quote(session, payload(talentId), 'quote-before-load')
++    const restarted = BridgeSession.fromSaveJson(save, 'b3-restarted')
++    expect(restarted.command(command(restarted, pending.quote.intentId, 'commit-unrestored-quote')))
++      .toMatchObject({ accepted: false, reasonCode: 'INTENT_NOT_AVAILABLE' })
++    expect(restarted.gameState.promises).toEqual(state.promises)
++    expect(session.load(control(session, 'reload-slot')).accepted).toBe(true)
++    expect(session.stateRevision).toBe(1)
++    const afterLoad = truth(session)
++    expect(session.command(command(session, pending.quote.intentId, 'commit-before-load-quote')))
++      .toMatchObject({ accepted: false, reasonCode: 'INTENT_NOT_AVAILABLE' })
++    expect(truth(session)).toEqual(afterLoad)
++    expect(session.gameState.promises).toEqual(state.promises)
++  })
++})
++
++describe('P14B.3: real settlement/outcome, V29 and B2 public/private carriers', () => {
++  it('quote→commit→real winning expiry binds; due-week BROKEN survives validated reload and exact public receipt join', () => {
++    const { state, talentId } = fixture()
++    const rival = state.hollywood!.identities.find((s) => s.role === 'rival' && s.enteredWeek !== null)!.studioId
++    let input = submitProposal(state, { talentId, issuerStudioId: rival, termWeeks: 52, premiumTier: 1 })
++    input = attachPromise(input, talentId, rival, { family: 'APPEARANCE_COUNT', predicate: { count: 999 }, windowStartWeek: 93, dueWeekExclusive: 104 })
++    const rivalRoot = structuredClone(input.promises.at(-1)!)
++    // Explicit staging-only rival fixture; disjoint from own[52,92), never
++    // labelled a naturally offerable rival proposal or a historical fixture.
++    expect(rivalRoot.feasibilityReceipt.classification).toBe('IMPOSSIBLE')
++    const session = new BridgeSession(input, 'b3-outcome')
++    const q = quote(session, payload(talentId), 'quote-to-outcome')
++    expect(q.quote.ok).toBe(true)
++    expect(session.command(command(session, q.quote.intentId, 'commit-to-outcome')).accepted).toBe(true)
++    const minted = structuredClone(attachedOwn(session.gameState, talentId))
++    expect(marketCaseProjection(session.gameState, talentId, player(input))!.proposals.find((p) => p.issuerStudioId === rival)!.promise).toBe('UNKNOWN')
++    const settled = advanceTo(session.gameState, 52)
++    const bound = settled.promises.find((p) => p.promiseId === minted.promiseId)!
++    expect(bound.contractId).not.toBeNull()
++    expect(bound.feasibilityReceipt).toMatchObject({ classification: 'REASONABLY_ACHIEVABLE', week: 52 })
++    expect(settled.hollywood!.employment.find((e) => e.contractId === bound.contractId))
++      .toMatchObject({ studioId: player(settled), terms: { talentId, startWeek: 52 } })
++    expect(settled.talentMarket.receipts.filter((r) => r.talentId === talentId && r.kind === 'settled'))
++      .toEqual([expect.objectContaining({ studioId: player(settled), week: 52 })])
++    expect(currentProposals(settled, talentId)).toEqual([])
++    expect(settled.promises.find((p) => p.promiseId === rivalRoot.promiseId)).toEqual(rivalRoot)
++    const outcome = advanceTo(settled, minted.dueWeekExclusive)
++    const broken = outcome.promises.find((p) => p.promiseId === minted.promiseId)!
++    expect(broken).toMatchObject({ outcome: 'BROKEN', outcomeWeek: 92, progress: 0, evidenceRefs: [], contractId: bound.contractId })
++    const receipt = outcome.talentMarket.receipts.find((r) => r.eventId === broken.outcomeEventId)!
++    expect(receipt).toMatchObject({ kind: 'promiseOutcome', week: 92, talentId, studioId: player(outcome) })
++    const completed = new BridgeSession(outcome, 'b3-outcome-save')
++    const saved = saveSlot(completed)
++    const validated = validateSaveV29(JSON.parse(saved))
++    expect(LIVE_SAVE_VERSION).toBe(29)
++    expect(PROJECTION_VERSION).toBe(46)
++    expect(validated.saveVersion).toBe(29)
++    const reloaded = BridgeSession.fromSaveJson(saved, 'b3-outcome-reloaded')
++    const read = (world: GameState) => ({ trust: trustBlockFor(world, talentId, player(world)),
++      own: promiseRowsForPerson(world, talentId, player(world)), foreign: promiseRowsForPerson(world, talentId, rival),
++      profile: peopleProjection(world).profiles.find((p) => p.talentId === talentId),
++      market: marketPage(world, { view: 'market', targetId: talentId }) })
++    const before = read(outcome), after = read(reloaded.gameState)
++    expect(after).toEqual(before)
++    expect(before.own).toEqual([{ promiseId: broken.promiseId, family: 'APPEARANCE_COUNT', count: 1,
++      windowStartWeek: 52, dueWeekExclusive: 92, contractId: broken.contractId, outcome: 'BROKEN',
++      outcomeWeek: 92, outcomeCause: broken.outcomeCause }])
++    expect(before.foreign).toEqual([]) // rival sees no player-owned private history; its losing draft is unbound
++    // The public trust DTO carries kind/week/reason, not a private promise ID.
++    expect(before.trust.drivers.filter((d) => d.kind === 'promiseBroken'))
++      .toEqual([expect.objectContaining({ week: broken.outcomeWeek, positive: false, reason: 'broke a promise' })])
++    const pulse = (world: GameState) => {
++      const page = (index: number) => industryPage(world, 'b3-pulse', 0, { protocolVersion: PROTOCOL_VERSION, schemaId: SCHEMA_ID,
++        sessionId: 'b3-pulse', requestId: `pulse-${index}`, expectedStateRevision: 0, type: 'industryQuery', view: 'pulse', targetId: null,
++        page: index, pageSize: 50, lane: 'recent', period: 'all' })
++      const first = page(0), rows = [...first.activities]
++      expect(first.pageCount).toBeLessThan(1000)
++      for (let index = 1; index < first.pageCount; index++) rows.push(...page(index).activities)
++      expect(rows).toHaveLength(first.totalRows)
++      return rows
++    }
++    const publicRows = pulse(outcome).filter((r) => r.eventId === receipt.eventId)
++    expect(publicRows).toHaveLength(1)
++    expect(publicRows[0]).toMatchObject({ outcomeKind: 'promiseBroken', week: 92, talentId, studioId: player(outcome), detail: receipt.reasons.join(' ') })
++    for (const field of ['family', 'count', 'predicate', 'windowStartWeek', 'dueWeekExclusive', 'classification', 'feasibilityReceipt']) {
++      expect(publicRows[0]).not.toHaveProperty(field)
++    }
++    expect(pulse(reloaded.gameState)).toEqual(pulse(outcome))
++    expect(reloaded.gameState.promises).toEqual(outcome.promises)
++  }, 60_000)
++})
+diff --git a/tests/p14b3-reservations.test.ts b/tests/p14b3-reservations.test.ts
+new file mode 100644
+index 0000000..5b138d0
+--- /dev/null
++++ b/tests/p14b3-reservations.test.ts
+@@ -0,0 +1,203 @@
++// DRAFT ONLY: intended tests/p14b3-reservations.test.ts. Not installed or run.
++// Authority: P14-HEADLESS-PLAN B3 / evidence/p14b2-20260919/12-b3-expansion-draft.
++// Existing APIs, behavioral RED: OPEN roots reserve iff bound OR referenced by a
++// CURRENT proposal. Abandoned roots remain evidence, not reservations. The same
++// membership must determine the feasibility receipt's inputsDigest. Preserve
++// self-exclusion, overlap and competing CURRENT cross-issuer accounting.
++// Fixtures are candidates until the authorized T1 runner proves every guard.
++import { describe, expect, it } from 'vitest'
++import { applyActions, hiringMarketIds } from '../src/core/index.js'
++import { attachPromise, promiseFeasibility, trustDrivers, type PromiseDraft } from '../src/core/promises.js'
++import { currentProposals, submitProposal, withdrawProposal } from '../src/core/talentMarket.js'
++import { makeSave, validateSaveV29 } from '../src/core/save.js'
++import type { GameState, ProfessionalPromise } from '../src/core/types.js'
++import { advanceTo, fund, p13aGeneratedStudio, player } from './helpers/p14b2-fixtures.js'
++
++let cached: { state: GameState; talentId: string } | undefined
++function fixture() {
++  if (cached === undefined) {
++    let state = fund(p13aGeneratedStudio())
++    const talentId = hiringMarketIds(state, state.market.tick)
++      .find((id) => state.talent.find((t) => t.id === id)?.role === 'actor')
++    if (talentId === undefined) throw new Error('B3 premise: no real signable actor')
++    state = applyActions(state, [{ kind: 'signContract', talentId, termWeeks: 52 }])
++    state = advanceTo(state, 45)
++    state = submitProposal(state, { talentId, issuerStudioId: player(state), termWeeks: 52, premiumTier: 1.25 })
++    expect(state.promises.filter((p) => p.beneficiaryPersonId === talentId)).toEqual([])
++    expect(state.studio.activeProductions).toEqual([])
++    cached = { state, talentId }
++  }
++  return structuredClone(cached)
++}
++function draft(state: GameState, talentId: string): PromiseDraft {
++  return { family: 'APPEARANCE_COUNT', issuerStudioId: player(state), beneficiaryPersonId: talentId,
++    predicate: { count: 1 }, windowStartWeek: 52, dueWeekExclusive: 92, startWeek: 52, termWeeks: 52 }
++}
++function attach(state: GameState, talentId: string, issuer = player(state), windowStartWeek = 52, dueWeekExclusive = 92, count = 1) {
++  return attachPromise(state, talentId, issuer, { family: 'APPEARANCE_COUNT', predicate: { count }, windowStartWeek, dueWeekExclusive })
++}
++function currentPromise(state: GameState, talentId: string, issuer = player(state)): ProfessionalPromise {
++  const proposal = currentProposals(state, talentId).find((p) => p.issuerStudioId === issuer)
++  expect(proposal?.promises).toHaveLength(1)
++  const promise = state.promises.find((p) => p.promiseId === proposal!.promises[0])
++  if (promise === undefined) throw new Error('B3 premise: current attachment must have a genuine root')
++  return promise
++}
++function read(state: GameState, talentId: string, extra: Partial<PromiseDraft> = {}) {
++  return promiseFeasibility(state, { ...draft(state, talentId), ...extra }, state.market.tick)
++}
++function assertUnchangedHistory(state: GameState, prior: GameState): void {
++  expect(state.promises.slice(0, prior.promises.length)).toEqual(prior.promises)
++  expect(state.talentMarket.receipts.slice(0, prior.talentMarket.receipts.length)).toEqual(prior.talentMarket.receipts)
++  expect(state.hollywood!.employment).toEqual(prior.hollywood!.employment)
++  expect(state.hollywood!.receipts).toEqual(prior.hollywood!.receipts)
++  expect(state.ledger).toEqual(prior.ledger)
++  expect(state.rngState).toBe(prior.rngState)
++}
++
++describe('P14B.3 F1: real reservation membership and matching feasibility digest', () => {
++  it('a CURRENT unbound attachment still consumes the only existing path; only its own recheck excludes itself', () => {
++    const { state, talentId } = fixture()
++    const before = read(state, talentId)
++    expect(before.classification).toBe('REASONABLY_ACHIEVABLE')
++    const attached = attach(state, talentId)
++    const promise = currentPromise(attached, talentId)
++    expect(promise.contractId).toBeNull()
++    expect(promise.outcome).toBeNull()
++    expect(promise.feasibilityReceipt.classification).toBe('REASONABLY_ACHIEVABLE')
++    const bytes = JSON.stringify(attached)
++    const another = read(attached, talentId)
++    expect(another.classification).toBe('FRAGILE')
++    expect(another.bottleneck).toMatch(/not.*commission/i)
++    expect(another.inputsDigest).not.toBe(before.inputsDigest)
++    expect(read(attached, talentId, { promiseId: promise.promiseId })).toEqual(before)
++    expect(JSON.stringify(attached)).toBe(bytes)
++  })
++
++  it.each(['revise', 'withdraw'] as const)('%s preserves the old unbound root but removes its reservation AND digest contribution', (operation) => {
++    const { state, talentId } = fixture()
++    const before = read(state, talentId)
++    expect(before.classification).toBe('REASONABLY_ACHIEVABLE')
++    const attached = attach(state, talentId)
++    const old = currentPromise(attached, talentId)
++    expect(read(attached, talentId).classification).toBe('FRAGILE')
++    const next = operation === 'revise'
++      ? submitProposal(attached, { talentId, issuerStudioId: player(attached), termWeeks: 52, premiumTier: 1.25 })
++      : withdrawProposal(attached, talentId, player(attached))
++    expect(currentProposals(next, talentId).some((p) => p.promises.includes(old.promiseId))).toBe(false)
++    expect(next.promises.find((p) => p.promiseId === old.promiseId)).toEqual(old)
++    assertUnchangedHistory(next, attached)
++    expect(read(next, talentId)).toEqual(before) // same relevant facts, same class AND digest
++    expect(trustDrivers(next, talentId, player(next), next.market.tick))
++      .toEqual(trustDrivers(state, talentId, player(state), state.market.tick))
++    expect(next.talentMarket.receipts.some((r) => r.kind === 'promiseOutcome' && r.talentId === talentId)).toBe(false)
++    const reloaded = validateSaveV29(JSON.parse(JSON.stringify(makeSave(next)))).state
++    expect(reloaded.promises).toEqual(next.promises) // loading never recomputes historical receipts
++    expect(read(reloaded, talentId)).toEqual(before)
++  })
++
++  it('three real replacements preserve every ordinal and original receipt without accumulating phantom capacity', () => {
++    const { state: initial, talentId } = fixture()
++    const expected = read(initial, talentId)
++    let state = initial
++    const authored: ProfessionalPromise[] = []
++    for (let index = 0; index < 3; index++) {
++      const ordinal = state.promises.length
++      state = attach(state, talentId)
++      const promise = currentPromise(state, talentId)
++      expect(promise.promiseId).toBe(`promise-${ordinal}`)
++      expect(promise.feasibilityReceipt.classification).toBe('REASONABLY_ACHIEVABLE')
++      authored.push(structuredClone(promise))
++      const beforeRevision = state
++      state = submitProposal(state, { talentId, issuerStudioId: player(state), termWeeks: 52, premiumTier: 1.25 })
++      assertUnchangedHistory(state, beforeRevision)
++      expect(read(state, talentId)).toEqual(expected)
++    }
++    expect(state.promises.slice(initial.promises.length)).toEqual(authored)
++    expect(authored.every((p) => p.contractId === null && p.outcome === null)).toBe(true)
++  })
++
++  it('a genuinely bound OPEN promise reserves after the winning proposal has left the current table', () => {
++    const { state, talentId } = fixture()
++    const attached = attach(state, talentId)
++    const old = currentPromise(attached, talentId)
++    const settled = advanceTo(attached, 52)
++    expect(currentProposals(settled, talentId)).toEqual([])
++    const bound = settled.promises.find((p) => p.promiseId === old.promiseId)!
++    expect(bound.contractId).not.toBeNull()
++    expect(bound.outcome).toBeNull()
++    const employment = settled.hollywood!.employment.find((e) => e.contractId === bound.contractId)
++    expect(employment).toMatchObject({ studioId: player(settled), terms: { talentId, startWeek: 52 } })
++    expect(read(settled, talentId).classification).toBe('FRAGILE')
++    expect(read(settled, talentId).bottleneck).toMatch(/not.*commission/i)
++    expect(read(settled, talentId, { promiseId: bound.promiseId }).classification).toBe('REASONABLY_ACHIEVABLE')
++    validateSaveV29(JSON.parse(JSON.stringify(makeSave(settled))))
++  })
++
++  it('preserves the existing competing CURRENT cross-issuer reservation policy, without choosing a new alternatives policy', () => {
++    const { state, talentId } = fixture()
++    const issuer = state.hollywood!.identities.find((s) => s.role === 'rival' && s.enteredWeek !== null)!.studioId
++    const submitted = submitProposal(state, { talentId, issuerStudioId: issuer, termWeeks: 52, premiumTier: 1 })
++    const baseline = read(submitted, talentId)
++    expect(baseline.classification).toBe('REASONABLY_ACHIEVABLE')
++    const attached = attach(submitted, talentId, issuer)
++    const rival = currentPromise(attached, talentId, issuer)
++    expect(rival.contractId).toBeNull()
++    expect(read(attached, talentId).classification).toBe('FRAGILE')
++    expect(read(attached, talentId).inputsDigest).not.toBe(baseline.inputsDigest)
++    const withdrawn = withdrawProposal(attached, talentId, issuer)
++    expect(withdrawn.promises).toEqual(attached.promises)
++    expect(read(withdrawn, talentId)).toEqual(baseline)
++  })
++
++  it('a real CURRENT non-overlapping attachment is ignored without changing its stored receipt', () => {
++    const { state, talentId } = fixture()
++    const before = read(state, talentId)
++    const attached = attach(state, talentId, player(state), 93, 104)
++    const distant = currentPromise(attached, talentId)
++    expect(distant.windowStartWeek).toBeGreaterThanOrEqual(draft(state, talentId).dueWeekExclusive)
++    expect(read(attached, talentId)).toEqual(before)
++    expect(attached.promises.at(-1)).toEqual(distant)
++  })
++
++  it('a real terminal BROKEN outcome no longer reserves even though its bound contract identity remains', () => {
++    const { state, talentId } = fixture()
++    const attached = attach(state, talentId)
++    const id = currentPromise(attached, talentId).promiseId
++    const settled = advanceTo(attached, 52)
++    expect(settled.promises.find((p) => p.promiseId === id)!.contractId).not.toBeNull()
++    const released = applyActions(settled, [{ kind: 'releaseTalent', talentId }])
++    const broken = released.promises.find((p) => p.promiseId === id)!
++    expect(broken).toMatchObject({ outcome: 'BROKEN', outcomeWeek: 52 })
++    expect(broken.contractId).not.toBeNull()
++    expect(released.talentMarket.receipts.find((r) => r.eventId === broken.outcomeEventId))
++      .toMatchObject({ kind: 'promiseOutcome', week: 52, talentId, studioId: player(released) })
++    expect(read(released, talentId).classification).toBe('REASONABLY_ACHIEVABLE')
++    expect(read(released, talentId)).toEqual(read(released, talentId, { promiseId: id }))
++    validateSaveV29(JSON.parse(JSON.stringify(makeSave(released))))
++  })
++
++  it('an actually dropped losing draft stays in evidence after settlement but cannot reserve a later overlapping read', () => {
++    const { state, talentId } = fixture()
++    const issuer = state.hollywood!.identities.find((s) => s.role === 'rival' && s.enteredWeek !== null)!.studioId
++    let offers = submitProposal(state, { talentId, issuerStudioId: issuer, termWeeks: 52, premiumTier: 1 })
++    offers = attach(offers, talentId, issuer, 93, 104, 999)
++    const losing = structuredClone(currentPromise(offers, talentId, issuer))
++    expect(losing.feasibilityReceipt.classification).toBe('IMPOSSIBLE')
++    offers = attach(offers, talentId)
++    const own = currentPromise(offers, talentId)
++    expect(own.feasibilityReceipt.classification).toBe('REASONABLY_ACHIEVABLE')
++    const settled = advanceTo(offers, 52)
++    expect(settled.promises.find((p) => p.promiseId === own.promiseId)!.contractId).not.toBeNull()
++    expect(currentProposals(settled, talentId)).toEqual([])
++    const receipt = settled.talentMarket.receipts.find((r) => r.talentId === talentId && r.kind === 'settled' && r.week === 52)!
++    const rivalName = settled.hollywood!.identities.find((s) => s.studioId === issuer)!.name
++    expect(receipt).toBeDefined()
++    expect(receipt.dropped.some((reason) => reason.startsWith(rivalName))).toBe(true)
++    expect(settled.promises.find((p) => p.promiseId === losing.promiseId)).toEqual(losing)
++    const later = { windowStartWeek: 100, dueWeekExclusive: 204, startWeek: 52, termWeeks: 208 }
++    expect(read(settled, talentId, later).classification).toBe('REASONABLY_ACHIEVABLE')
++    expect(read(settled, talentId, later)).toEqual(read(settled, talentId, { ...later, promiseId: losing.promiseId }))
++    validateSaveV29(JSON.parse(JSON.stringify(makeSave(settled))))
++  })
++})
+diff --git a/tests/p14b3-rule-revision.test.ts b/tests/p14b3-rule-revision.test.ts
+new file mode 100644
+index 0000000..5617102
+--- /dev/null
++++ b/tests/p14b3-rule-revision.test.ts
+@@ -0,0 +1,189 @@
++// DRAFT ONLY: intended tests/p14b3-rule-revision.test.ts. Not installed or run.
++// B3 T0 must first mint the genuine accepted-B2 evaluator1 corpus. Missing files
++// are a prerequisite failure, NEVER the behavioral RED for evaluator revision2.
++// No fixture bytes, old versions, receipts or hashes are synthesized here.
++import assert from 'node:assert/strict'
++import { createHash } from 'node:crypto'
++import { existsSync, readFileSync } from 'node:fs'
++import { gunzipSync } from 'node:zlib'
++import { beforeAll, describe, expect, it, vi } from 'vitest'
++import * as promiseModule from '../src/core/promises.js'
++import { attachPromise, PROMISE_RULES_VERSION } from '../src/core/promises.js'
++import { currentProposals, submitProposal } from '../src/core/talentMarket.js'
++import { exportSave, importSave, loadSave, makeSave, migrateToV29, validateSaveV29 } from '../src/core/save.js'
++import type { GameState, PromiseFeasibilityReceipt } from '../src/core/types.js'
++import { advanceTo } from '../src/harness/p13a/fixtures.js'
++
++const CORPUS = './fixtures/p14/genuine-v29-pre-b3-evaluator1/'
++const CASES = ['evaluator1-current-p1', 'evaluator1-withdrawn-p1', 'evaluator1-role-label-refused-p1'] as const
++type CorpusCase = typeof CASES[number]
++// Independently hashed actual T0 gzip bytes and decompressed streams, 2026-09-19.
++// Producer publication is pinned separately from the later fixture checkpoint.
++const PRODUCER = {
++  testedSourceSha: '7f89f75bad5a450b50340e3ab074a913c3ef2744',
++  publishedRecoverySha: '034065b4f6e4ef0f9f53750a343568e32f54d9ab',
++} as const
++const ARTIFACT_HASHES: Record<CorpusCase, { compressed: string; raw: string }> = {
++  'evaluator1-current-p1': {
++    compressed: 'cadbbd41271b820a466d5d9114e198f7e44b4ff0c801df68fa0cbe69f677c1d2',
++    raw: '78decd6e96938facc2b9e20e433c44fcae4e998402d78be4122996d3887cdc0b',
++  },
++  'evaluator1-withdrawn-p1': {
++    compressed: 'a34114171c81c37e46ebbc8ccc5bd72995bfad42e6bb8f828eb437a67ef6c5a1',
++    raw: '8ecb96f736ef81795af599e9827fba46fd98415c96a47df4d465e554ffa67586',
++  },
++  'evaluator1-role-label-refused-p1': {
++    compressed: 'febd33112d57128c67a025237add374aeb7925d94a7d941bd4b303b3fedc0367',
++    raw: '0272162ec2746cefb1a7910487d6d30642c8743f9853d61a73ebef469a3df2b3',
++  },
++}
++const hash = (value: string | Uint8Array) => createHash('sha256').update(value).digest('hex')
++const path = (filename: string) => new URL(`${CORPUS}${filename}`, import.meta.url)
++
++beforeAll(() => {
++  for (const filename of ['MANIFEST.json', ...CASES.flatMap((name) => [
++    `genuine-v29-${name}.json.gz`, `genuine-v29-${name}.provenance.json`,
++  ])]) {
++    assert.ok(existsSync(path(filename)), `T0 NOT COMPLETE: missing actual accepted-B2 artifact ${filename}; not behavioral RED`)
++  }
++})
++
++function readFixture(name: CorpusCase) {
++  const filename = `genuine-v29-${name}.json.gz`
++  const compressed = readFileSync(path(filename))
++  const raw = gunzipSync(compressed).toString('utf8')
++  expect(hash(compressed)).toBe(ARTIFACT_HASHES[name].compressed)
++  expect(hash(raw)).toBe(ARTIFACT_HASHES[name].raw)
++  const provenance = JSON.parse(readFileSync(path(`genuine-v29-${name}.provenance.json`), 'utf8'))
++  const manifest = JSON.parse(readFileSync(path('MANIFEST.json'), 'utf8'))
++  expect(provenance.filename).toBe(filename)
++  expect(provenance.authority).toMatchObject({ phase: 'qualified B2 evaluator1 before B3 or B-F2',
++    saveVersion: 29, promiseRulesVersion: 1, projectionVersion: 46, protocolVersion: 4,
++    schemaId: 'sha256:584bdd8565030f049d548b1af4fcbf8c517ca7c9150016736f632f1ef8fcb98c' })
++  expect(provenance.authority.testedSourceSha).toBe(PRODUCER.testedSourceSha)
++  expect(provenance.authority.publishedRecoverySha).toBe(PRODUCER.publishedRecoverySha)
++  expect(provenance.observedHeadSha).toBe(provenance.authority.publishedRecoverySha)
++  expect(provenance.minterSha256).toMatch(/^[a-f0-9]{64}$/)
++  expect(provenance.supportSha256).toMatch(/^[a-f0-9]{64}$/)
++  expect(hash(compressed)).toBe(provenance.compressedSha256)
++  expect(hash(raw)).toBe(provenance.uncompressedSha256)
++  expect(manifest.authority).toEqual(provenance.authority)
++  expect(manifest.fixtures).toHaveLength(3)
++  expect(manifest.fixtures).toContainEqual(expect.objectContaining({ filename,
++    compressedSha256: hash(compressed), uncompressedSha256: hash(raw) }))
++  const save = validateSaveV29(JSON.parse(raw))
++  expect(save.saveVersion).toBe(29)
++  expect(save.state.promises.length).toBeGreaterThan(0)
++  expect(save.state.promises.every((p) => p.version === 1 && p.feasibilityReceipt.rulesVersion === 1)).toBe(true)
++  expect(provenance.focus).toHaveLength(1)
++  const focusedId: unknown = provenance.focus[0]?.promiseId
++  assert.equal(typeof focusedId, 'string')
++  const focused = save.state.promises.find((p) => p.promiseId === focusedId)
++  assert.ok(focused, 'provenance must identify an actual producer-emitted promise')
++  expect(focused.feasibilityReceipt).toEqual(provenance.focus[0].originalFeasibilityReceipt)
++  return { raw, save, focused }
++}
++
++describe('P14B.3 evaluator revision2 and genuine old evaluator1 history', () => {
++  it('pins the new evaluator generation independently of unchanged Save29/projection46', () => {
++    expect(PROMISE_RULES_VERSION).toBe(2)
++  })
++
++  it.each(CASES)('preserves genuine %s root/receipt/digest bytes through valid load, not a restamped current fixture', (name) => {
++    const { raw, save, focused } = readFixture(name)
++    const promiseBytes = JSON.stringify(save.state.promises)
++    const marketBytes = JSON.stringify(save.state.talentMarket)
++    expect(exportSave(loadSave(JSON.parse(raw)))).toBe(raw)
++    expect(exportSave(importSave(raw))).toBe(raw)
++    const reloaded = migrateToV29(importSave(raw))
++    expect(exportSave(reloaded)).toBe(raw)
++    expect(exportSave(makeSave(reloaded.state))).toBe(raw)
++    expect(JSON.stringify(reloaded.state.promises)).toBe(promiseBytes)
++    expect(JSON.stringify(reloaded.state.talentMarket)).toBe(marketBytes)
++    expect(focused.version).toBe(1)
++    expect(focused.feasibilityReceipt.rulesVersion).toBe(1)
++    expect(focused.contractId).toBeNull()
++    expect(focused.outcome).toBeNull()
++    const referrers = reloaded.state.talentMarket.proposals.filter((p) => p.promises.includes(focused.promiseId))
++    expect(referrers).toHaveLength(name === 'evaluator1-withdrawn-p1' ? 0 : 1)
++    if (name === 'evaluator1-role-label-refused-p1') {
++      const person = reloaded.state.talent.find((p) => p.id === focused.beneficiaryPersonId)
++      expect(person?.role).toBe('writer')
++      expect(person?.skills.acting).toBeDefined()
++      expect(focused.feasibilityReceipt).toMatchObject({ classification: 'IMPOSSIBLE',
++        bottleneck: 'this person takes no cast seat under the greenlight law' })
++      // Historical refusal preservation only. B-F2 discipline eligibility is
++      // intentionally outside this B3 test; do not require new writer offers yet.
++    }
++  })
++
++  it('new actual attachment uses root.version2 and receipt.rulesVersion2 without rewriting old roots', () => {
++    const { save, focused: old } = readFixture('evaluator1-current-p1')
++    const state = migrateToV29(save).state
++    const priorRoots = JSON.stringify(state.promises)
++    const proposal = currentProposals(state, old.beneficiaryPersonId).find((p) => p.issuerStudioId === old.issuerStudioId)
++    assert.ok(proposal)
++    expect(proposal.promises).toEqual([old.promiseId])
++    const resubmitted = submitProposal(state, { talentId: proposal.talentId, issuerStudioId: proposal.issuerStudioId,
++      termWeeks: proposal.termWeeks, premiumTier: proposal.premiumTier })
++    const attached = attachPromise(resubmitted, proposal.talentId, proposal.issuerStudioId, {
++      family: 'APPEARANCE_COUNT', predicate: { count: old.predicate.count },
++      windowStartWeek: old.windowStartWeek, dueWeekExclusive: old.dueWeekExclusive,
++    })
++    expect(attached.promises).toHaveLength(state.promises.length + 1)
++    const fresh = attached.promises[state.promises.length]!
++    expect(fresh).toMatchObject({ promiseId: `promise-${state.promises.length}`, version: 2,
++      beneficiaryPersonId: old.beneficiaryPersonId, issuerStudioId: old.issuerStudioId,
++      contractId: null, outcome: null,
++      feasibilityReceipt: { rulesVersion: 2, week: state.market.tick, classification: 'REASONABLY_ACHIEVABLE' } })
++    expect(JSON.stringify(attached.promises.slice(0, state.promises.length))).toBe(priorRoots)
++    expect(currentProposals(attached, proposal.talentId).find((p) => p.issuerStudioId === proposal.issuerStudioId)!.promises)
++      .toEqual([fresh.promiseId])
++    const reloaded = validateSaveV29(importSave(exportSave(makeSave(attached)))).state
++    expect(reloaded.promises).toEqual(attached.promises)
++  })
++
++  it('actual later winning freeze keeps old root.version1 but stores genuine new rulesVersion2 receipt and binding', () => {
++    const { save, focused: old } = readFixture('evaluator1-current-p1')
++    const state = migrateToV29(save).state
++    const priorRoots = JSON.stringify(state.promises)
++    const proposal = currentProposals(state, old.beneficiaryPersonId).find((p) => p.issuerStudioId === old.issuerStudioId)
++    assert.ok(proposal)
++    expect(proposal.promises).toEqual([old.promiseId])
++    expect(state.market.tick).toBeLessThan(proposal.startWeek)
++    expect(old.feasibilityReceipt.week).toBe(state.market.tick)
++    const evaluate = promiseModule.promiseFeasibility
++    const freezes: PromiseFeasibilityReceipt[] = []
++    // Transparent pass-through observes actual PRE-COMMIT freeze, never a fake
++    // receipt or a post-commit recomputation with different employment inputs.
++    const spy = vi.spyOn(promiseModule, 'promiseFeasibility').mockImplementation((world, draft, week) => {
++      const result = evaluate(world, draft, week)
++      const committed = world.hollywood!.employment.some((row) => row.studioId === old.issuerStudioId
++        && row.terms.talentId === old.beneficiaryPersonId && row.terms.startWeek === proposal.startWeek)
++      if (!committed && week === proposal.startWeek && draft.promiseId === old.promiseId) freezes.push(result)
++      return result
++    })
++    let settled: GameState
++    try { settled = advanceTo(state, proposal.startWeek) } finally { spy.mockRestore() }
++    const bound = settled.promises.find((p) => p.promiseId === old.promiseId)
++    assert.ok(bound)
++    expect(bound.version).toBe(1)
++    expect(bound.feasibilityReceipt).toMatchObject({ rulesVersion: 2, week: proposal.startWeek,
++      classification: 'REASONABLY_ACHIEVABLE' })
++    expect(bound.feasibilityReceipt.inputsDigest).not.toBe(old.feasibilityReceipt.inputsDigest)
++    expect(freezes.length).toBeGreaterThan(0)
++    expect(freezes).toContainEqual(bound.feasibilityReceipt)
++    expect(bound.contractId).not.toBeNull()
++    expect(bound.outcome).toBeNull()
++    expect(settled.hollywood!.employment.find((row) => row.contractId === bound.contractId)).toMatchObject({
++      studioId: old.issuerStudioId, terms: { talentId: old.beneficiaryPersonId, startWeek: proposal.startWeek } })
++    expect(settled.talentMarket.receipts).toContainEqual(expect.objectContaining({ kind: 'settled',
++      talentId: old.beneficiaryPersonId, studioId: old.issuerStudioId, week: proposal.startWeek }))
++    expect(currentProposals(settled, old.beneficiaryPersonId)).toEqual([])
++    expect(JSON.stringify(state.promises)).toBe(priorRoots)
++    const reloaded = validateSaveV29(importSave(exportSave(makeSave(settled)))).state
++    expect(reloaded.promises.find((p) => p.promiseId === old.promiseId)).toEqual(bound)
++    expect(old.version).toBe(1)
++    expect(old.feasibilityReceipt.rulesVersion).toBe(1)
++  })
++})
