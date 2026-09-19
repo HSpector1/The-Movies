@@ -1,0 +1,76 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/p14b1-t4-regressions.test.ts (28 tests | 13 failed | 14 skipped) 6415ms
+   ✓ P14B.1 T4: terminal V29 promise reference integrity > round-trips several beneficiaries sharing one real take and distinct own outcome receipts 5366ms
+   × P14B.1 T4: terminal V29 promise reference integrity > rejects missing outcome receipt references 121ms
+     → expected [Function] to throw an error
+   × P14B.1 T4: terminal V29 promise reference integrity > rejects null outcome receipt references 85ms
+     → expected [Function] to throw an error
+   × P14B.1 T4: terminal V29 promise reference integrity > rejects unknown outcome receipt references 77ms
+     → expected [Function] to throw an error
+   × P14B.1 T4: terminal V29 promise reference integrity > rejects wrong receipt kind outcome receipt references 75ms
+     → expected [Function] to throw an error
+   × P14B.1 T4: terminal V29 promise reference integrity > rejects another beneficiary outcome receipt references 81ms
+     → expected [Function] to throw an error
+   × P14B.1 T4: terminal V29 promise reference integrity > rejects missing take qualifying evidence 85ms
+     → expected [Function] to throw an error
+   × P14B.1 T4: terminal V29 promise reference integrity > rejects non-take receipt qualifying evidence 75ms
+     → expected [Function] to throw an error
+   × P14B.1 T4: terminal V29 promise reference integrity > rejects wrong studio or cast qualifying evidence 69ms
+     → expected [Function] to throw an error
+   × P14B.1 T4: terminal V29 promise reference integrity > rejects empty qualifying evidence 93ms
+     → expected [Function] to throw an error
+   × P14B.1 T4: terminal V29 promise reference integrity > rejects duplicate qualifying evidence 69ms
+     → expected [Function] to throw an error
+   × P14B.1 T4: terminal V29 promise reference integrity > rejects outside window qualifying evidence 75ms
+     → expected [Function] to throw an error
+   × P14B.1 T4: terminal V29 promise reference integrity > rejects wrong progress qualifying evidence 71ms
+     → expected [Function] to throw an error
+   × P14B.1 T4: terminal V29 promise reference integrity > rejects unbound outcome qualifying evidence 69ms
+     → expected [Function] to throw an error
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 13 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14b1-t4-regressions.test.ts > P14B.1 T4: terminal V29 promise reference integrity > rejects missing outcome receipt references
+ FAIL |core|  tests/p14b1-t4-regressions.test.ts > P14B.1 T4: terminal V29 promise reference integrity > rejects null outcome receipt references
+ FAIL |core|  tests/p14b1-t4-regressions.test.ts > P14B.1 T4: terminal V29 promise reference integrity > rejects unknown outcome receipt references
+ FAIL |core|  tests/p14b1-t4-regressions.test.ts > P14B.1 T4: terminal V29 promise reference integrity > rejects wrong receipt kind outcome receipt references
+ FAIL |core|  tests/p14b1-t4-regressions.test.ts > P14B.1 T4: terminal V29 promise reference integrity > rejects another beneficiary outcome receipt references
+AssertionError: expected [Function] to throw an error
+ ❯ rejects tests/p14b1-t4-regressions.test.ts:84:40
+     82|   expect(() => validateSaveV29(valid)).not.toThrow()
+     83|   mutate(valid)
+     84|   expect(() => validateSaveV29(valid)).toThrow()
+       |                                        ^
+     85| }
+     86| 
+ ❯ tests/p14b1-t4-regressions.test.ts:234:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/13]⎯
+
+ FAIL |core|  tests/p14b1-t4-regressions.test.ts > P14B.1 T4: terminal V29 promise reference integrity > rejects missing take qualifying evidence
+ FAIL |core|  tests/p14b1-t4-regressions.test.ts > P14B.1 T4: terminal V29 promise reference integrity > rejects non-take receipt qualifying evidence
+ FAIL |core|  tests/p14b1-t4-regressions.test.ts > P14B.1 T4: terminal V29 promise reference integrity > rejects wrong studio or cast qualifying evidence
+ FAIL |core|  tests/p14b1-t4-regressions.test.ts > P14B.1 T4: terminal V29 promise reference integrity > rejects empty qualifying evidence
+ FAIL |core|  tests/p14b1-t4-regressions.test.ts > P14B.1 T4: terminal V29 promise reference integrity > rejects duplicate qualifying evidence
+ FAIL |core|  tests/p14b1-t4-regressions.test.ts > P14B.1 T4: terminal V29 promise reference integrity > rejects outside window qualifying evidence
+ FAIL |core|  tests/p14b1-t4-regressions.test.ts > P14B.1 T4: terminal V29 promise reference integrity > rejects wrong progress qualifying evidence
+ FAIL |core|  tests/p14b1-t4-regressions.test.ts > P14B.1 T4: terminal V29 promise reference integrity > rejects unbound outcome qualifying evidence
+AssertionError: expected [Function] to throw an error
+ ❯ rejects tests/p14b1-t4-regressions.test.ts:84:40
+     82|   expect(() => validateSaveV29(valid)).not.toThrow()
+     83|   mutate(valid)
+     84|   expect(() => validateSaveV29(valid)).toThrow()
+       |                                        ^
+     85| }
+     86| 
+ ❯ tests/p14b1-t4-regressions.test.ts:252:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/13]⎯
+
+ Test Files  1 failed (1)
+      Tests  13 failed | 1 passed | 14 skipped (28)
+   Start at  12:59:02
+   Duration  9.54s (transform 2.01s, setup 0ms, collect 2.56s, tests 6.42s, environment 0ms, prepare 142ms)
+

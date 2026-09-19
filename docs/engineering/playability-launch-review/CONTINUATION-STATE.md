@@ -1,5 +1,40 @@
 # CONTINUATION STATE — three-week autonomous window (Owner directive 2026-09-15)
 
+## Current continuation — 2026-09-19: P14B.1 T4 corrections in progress
+
+This section supersedes the historical NOW/RUNNING statements below. Native Codex
+coordinator accepted the yielded write ownership on the existing headless branch;
+local and remote entry were `d19c45b2d873653b4cd4488608e4e411f15a2c34`, clean.
+No overlapping writer/test run was found. Recovered T3 `e78dbc0` and evidence
+`c5c81c1` remain intact; actual producers are Save V29 / projection 45.
+
+T4 is **IN PROGRESS / UNITY NOT VERIFIED**, not closed by the 46-pass/3-todo
+targeted result. Independent native `contract-auditor` review found four required
+corrections: lower contract-window boundary, committed inputs in feasibility
+digests, retained freeze receipt, and exact V29 proposal/binding/outcome/evidence
+validation. See `evidence/p14b1-20260919-t4/05-review.md`. Preliminary root/UI
+typecheck passed; bridge typecheck was interrupted before full suites to make these
+corrections first. Raw partial evidence is retained, not a completed T4 pass.
+
+Independent REDs and lawful fixture corrections are now recorded (`06`–`08`),
+and the first corrected candidate passed seven targeted files, 80 tests / three
+unchanged todos (`09`). Re-review found one additional exact-binding edge:
+an old terminal promise could reference a later real contract for the same parties.
+Independent RED `10` reproduced it; the final candidate adds contract-start and
+terminal-outcome chronology guards, preserving old V29 window/receipt compatibility.
+
+Final targeted candidate `11` passed seven files / 81 tests / three unchanged
+todos; final bounded re-review KEEP (`12`). Exact next sequence: publish corrected
+source/evidence checkpoint → serialized fixed-source core/bridge, both typechecks
+and both contract checks (`evidence/p14b1-20260919-t4/run-fixed-source.mjs`,
+fresh `p14b1-20260919-t4-final` evidence directory) → failure
+attribution, qualified label/backlog/records, commit/push and remote SHA readback.
+Then P14B.2 in the existing plan; remaining P14 → P15 → P16 → sufficiently
+specified P17/P18 remain authorized. No fresh allowance is implied; prior usage
+and deferred Unity/native/Owner acceptance obligations below carry forward.
+
+## Historical continuation records (preserved)
+
 **Purpose.** The one file a fresh coordinator (or Howard on return) reads first. It is rewritten at every recovery point and pushed on
 `wip/playability-interaction-01-ts` (The-Movies). Everything else it names is pinned by commit. Nothing that matters lives only in a session.
 

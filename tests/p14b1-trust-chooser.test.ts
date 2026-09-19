@@ -349,10 +349,11 @@ describe('P14B.1 test 7: rival symmetry', () => {
   it('attachPromise and its feasibility classification work identically when the issuer is a RIVAL (no player-only special-casing)', () => {
     const { state: opened, talentId, rivalStudioId } = openCaseWithRival(1.05, 1.1)
     const week = opened.market.tick
+    const startWeek = opened.talentMarket.proposals.find((p) => p.talentId === talentId && p.issuerStudioId === rivalStudioId)!.startWeek
     const attached = attachPromise(opened, talentId, rivalStudioId, {
       family: 'APPEARANCE_COUNT',
       predicate: { count: 1 },
-      windowStartWeek: week,
+      windowStartWeek: startWeek,
       dueWeekExclusive: week + 52,
     })
     const proposal = attached.talentMarket.proposals.find((p: { talentId: string; issuerStudioId: string }) => p.talentId === talentId && p.issuerStudioId === rivalStudioId) as unknown as { promises: readonly string[] } | undefined

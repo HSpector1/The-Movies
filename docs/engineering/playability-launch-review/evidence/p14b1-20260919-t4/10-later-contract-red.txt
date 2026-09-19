@@ -1,0 +1,31 @@
+{"sourceSha":"d19c45b2d873653b4cd4488608e4e411f15a2c34","testedDiffSha256":"20d86f50c95809fc964f87b23195b111dee692715751ad420630679e8dd2245d","command":["node_modules/.bin/vitest","run","tests/p14b1-t4-regressions.test.ts","--minWorkers=1","--maxWorkers=1","-t","later actual contract starting after its outcome"],"node":"v20.20.2","start":"2026-09-19T11:13:11.435Z","end":null,"exitCode":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/p14b1-t4-regressions.test.ts (34 tests | 1 failed | 33 skipped) 2161ms
+   × P14B.1 T4: V29 owns every proposal promise leaf > rejects a terminal promise rebound to the same pair's later actual contract starting after its outcome 2159ms
+     → expected [Function] to throw an error
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14b1-t4-regressions.test.ts > P14B.1 T4: V29 owns every proposal promise leaf > rejects a terminal promise rebound to the same pair's later actual contract starting after its outcome
+AssertionError: expected [Function] to throw an error
+ ❯ rejects tests/p14b1-t4-regressions.test.ts:86:40
+     84|   expect(() => validateSaveV29(valid)).not.toThrow()
+     85|   mutate(valid)
+     86|   expect(() => validateSaveV29(valid)).toThrow()
+       |                                        ^
+     87| }
+     88| 
+ ❯ tests/p14b1-t4-regressions.test.ts:257:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 33 skipped (34)
+   Start at  13:13:12
+   Duration  5.41s (transform 2.06s, setup 0ms, collect 2.65s, tests 2.16s, environment 0ms, prepare 168ms)
+
+
+{"sourceSha":"d19c45b2d873653b4cd4488608e4e411f15a2c34","testedDiffSha256":"20d86f50c95809fc964f87b23195b111dee692715751ad420630679e8dd2245d","command":["node_modules/.bin/vitest","run","tests/p14b1-t4-regressions.test.ts","--minWorkers=1","--maxWorkers=1","-t","later actual contract starting after its outcome"],"node":"v20.20.2","start":"2026-09-19T11:13:11.435Z","end":"2026-09-19T11:13:18.584Z","exitCode":1,"signal":null,"testedDiffSha256AtEnd":"20d86f50c95809fc964f87b23195b111dee692715751ad420630679e8dd2245d"}

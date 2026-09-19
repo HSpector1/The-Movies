@@ -1,0 +1,52 @@
+{"sourceSha":"d19c45b2d873653b4cd4488608e4e411f15a2c34","testedDiffSha256":"4f39af257810cb547e6b77ffe4a0706a3b72e161440a592212a873d87ca90dd8","command":["node_modules/.bin/vitest","run","tests/p14b1-t4-regressions.test.ts","tests/p14b1-first-take.test.ts","tests/p14b1-promises.test.ts","tests/p14b1-save-v29.test.ts","tests/p14b1-leak.test.ts","tests/p14b1-trust-chooser.test.ts","tests/bridge-p14b1-promises.test.ts","--minWorkers=1","--maxWorkers=1","--reporter=dot"],"node":"v20.20.2","start":"2026-09-19T11:15:58.565Z","end":null,"exitCode":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p14b1-promises.test.ts (15 tests) 7346ms
+   ✓ P14B.1 test 2: the promise record and the widened digest > attaching a promise changes the digest; a second attach on an already-promised proposal is refused (enforced at most one); revising (re-submit, then attach a different promise) and removing (re-submit with no attach) both change the digest again — removing restores the exact original 1660ms
+   ✓ P14B.1 test 2: the promise record and the widened digest > a window outside the proposed contract is IMPOSSIBLE by construction 844ms
+   ✓ P14B.1 test 2: the promise record and the widened digest > a promise DRIFTED after attachment (its own definition changed through some other channel) drops materialTermsChanged at freeze 895ms
+   ✓ P14B.1 test 4: settlement freeze re-classification > a feasible promise becomes FRAGILE after two lawful greenlights consume the existing stages; freeze drops it with a promise-naming sentence 1187ms
+   ✓ P14B.1 test 5: outcomes > SATISFIED once the X-th qualifying first take occurs, with evidence refs naming the causing eventId; idempotent on a later tick 820ms
+   ✓ P14B.1 test 5: outcomes > BROKEN at dueWeekExclusive when the window passes unsatisfied, through a BOUND promise: on genuine legacy-v28-open-case-45, attach a P1 promise to the player's own proposal, settle at 52 (retained -> bound, contractId set), then walk to dueWeekExclusive with no qualifying first take 938ms
+   ✓ P14B.1 test 5: outcomes > RED (T2b closes this): a promise attached to a proposal that then LOSES stays UNBOUND (contractId null) and is never evaluated — on genuine legacy-v28-open-case-45, withdrawing the player's own proposal leaves the promise attached to a proposal that vanishes at settlement (declined, "all proposals dropped"); past its own dueWeekExclusive the record must keep outcome: null and contractId: null, mint no promiseOutcome receipt, and leave the issuer's trust descriptor without a promiseBroken driver 531ms
+   ✓ P14B.1 test 5: outcomes > BROKEN on capacity collapse: cancelling the promised person's ONLY production before its first take, with a due week too close for any other path, makes re-feasibility IMPOSSIBLE and the promise BROKEN 377ms
+ ✓ |core| tests/bridge-p14b1-promises.test.ts (11 tests) 12322ms
+   ✓ group 2: case block and market page promise rows > the Profile case block's proposal rows carry promise — own row real (family, count, window, classification), competing row the UNKNOWN marker, never the rival's family/count/window 1837ms
+   ✓ group 2: case block and market page promise rows > the Market page comparison row carries the SAME own/UNKNOWN promise facts (bridge/market.ts reuses the case block's own `proposals` array by reference) 900ms
+   ✓ group 3: trust descriptor label and promise history, open then settled with an outcome > open right after settlement, then BROKEN once the window passes unsatisfied — both read through the engine's own trustDescriptor / state.promises as the oracle 2875ms
+   ✓ group 4: the promise draft on marketProposalAction's quote family > refuses a promise window beginning before the proposed contract, although its due week is inside the contract (T4 lower-edge regression) 823ms
+   ✓ group 4: the promise draft on marketProposalAction's quote family > promiseQuoteSnapshot returns the engine's own promiseFeasibility classification, ok true only when REASONABLY_ACHIEVABLE, and the same fact rides the EXISTING quoteMarketProposal session intent (no new intent kind) 1071ms
+   ✓ group 4: the promise draft on marketProposalAction's quote family > a window outside the proposed contract is IMPOSSIBLE, refused "not offerable: <bottleneck>" 743ms
+   ✓ group 4: the promise draft on marketProposalAction's quote family > a non-P1 family is refused with its own typed reason, deterministically, before any pipeline check runs 705ms
+   ✓ group 5: disclosure narrowing — the rival's promise leaks nowhere > a world where the RIVAL proposal carries a real promise: the profile, the market page, a player-requested quote and pulse all serialize with no trace of the rival's family/window 1040ms
+   ✓ group 6: save/load > a genuine V28 fixture (open-case-45) converts to V29 with empty firstTakes/promises, and the bridge reads it with no promise fact anywhere 451ms
+   ✓ group 6: save/load > a live V29 state carrying a real promise round-trips through the bridge save/load path byte-stable, and the promise-row read is identical on both sides 1871ms
+ ✓ |core| tests/p14b1-trust-chooser.test.ts (13 tests | 3 skipped) 12160ms
+   ✓ P14B.1 test 6: trust, the widened chooser and the priority order > a Distrusted issuer is dropped issuerDistrusted at reservation, and the other (healthy) proposal settles the case 1890ms
+   ✓ P14B.1 test 6: trust, the widened chooser and the priority order > a Reliable issuer beats a Mixed-record issuer on the trust band, in the same otherwise-1-1-tie shape 957ms
+   ✓ P14B.1 test 7: rival symmetry > attachPromise and its feasibility classification work identically when the issuer is a RIVAL (no player-only special-casing) 954ms
+   ✓ P14B.1 test 7: rival symmetry > a rival proposal carries a P1 promise IFF its own feasibility is REASONABLY_ACHIEVABLE — derived from the FIRST rival proposalSubmitted receipt on the natural chain, never assumed 3964ms
+   ✓ P14B.1 test 7: rival symmetry > rival promise AUTHORING (ruling ii): the FIRST rival proposalSubmitted receipts on the natural chain are for the rivals' own WRITER subjects — IMPOSSIBLE under the landed M16.2 role gate (a writer takes no cast seat), so that proposal carries NO promise (true both today and after T2b); walking on to the first ACTOR-subject rival proposal, whose own feasibility is REASONABLY_ACHIEVABLE, it must carry exactly one P1 promise naming family APPEARANCE_COUNT — RED today (rivals author no promise yet); T2b makes it green 3952ms
+ ✓ |core| tests/p14b1-t4-regressions.test.ts (34 tests) 11087ms
+   ✓ P14B.1 T4: feasibility evidence and lawful contract windows > stores the actual winning freeze receipt at the decision week, not the submission receipt 585ms
+   ✓ P14B.1 T4: V29 owns every proposal promise leaf > preserves an explicitly synthetic old-writer early window and submission receipt without rewriting real contract/outcome identity 1959ms
+   ✓ P14B.1 T4: V29 owns every proposal promise leaf > rejects a terminal promise rebound to the same pair's later actual contract starting after its outcome 1195ms
+   ✓ P14B.1 T4: terminal V29 promise reference integrity > round-trips several beneficiaries sharing one real take and distinct own outcome receipts 5390ms
+ ✓ |core| tests/p14b1-first-take.test.ts (3 tests) 2608ms
+   ✓ P14B.1 test 1: the first-take receipt > PLAYER: never at shooting entry (empty at remainingTicks 5, shooting task unassigned then scheduled through the real actions, still empty after scheduling); appended exactly once at the 5 -> 4 advance; idempotent on a later tick; byte-stable across save/load 2277ms
+   ✓ P14B.1 test 1: the first-take receipt > RIVAL: the same receipt is appended once at the 5 -> 4 advance for a rival production found by direct search over the natural chain (never a magic week) 309ms
+ ✓ |core| tests/p14b1-save-v29.test.ts (6 tests) 823ms
+   ✓ P14B.1 test 8: Save V29 (genuine V28 fixture, empty new tables, same digests, round trip, downgrade) > genuine V28 open-case-45 fixture: sha256 matches, still validates as V28 through the frozen chain, migrates to V29 with EMPTY firstTakes and promises roots and promises: [] on every existing proposal, otherwise byte-identical 327ms
+ ✓ |core| tests/p14b1-leak.test.ts (2 tests) 2879ms
+   ✓ P14B.1 test 9: leak — a rival promise never discloses to a non-issuer, and settlement reasons stay ordering-only > a promise attached to the RIVAL's proposal says UNKNOWN on the player's disclosure view and something other than UNKNOWN on the rival's own 1833ms
+   ✓ P14B.1 test 9: leak — a rival promise never discloses to a non-issuer, and settlement reasons stay ordering-only > settlement reasons stay ordering-only (no dollar sign, no bare 3+-digit figure) even when an attached promise is part of the decision 1043ms
+
+ Test Files  7 passed (7)
+      Tests  81 passed | 3 todo (84)
+   Start at  13:15:59
+   Duration  60.06s (transform 4.04s, setup 0ms, collect 7.47s, tests 49.22s, environment 3ms, prepare 1.01s)
+
+
+{"sourceSha":"d19c45b2d873653b4cd4488608e4e411f15a2c34","testedDiffSha256":"4f39af257810cb547e6b77ffe4a0706a3b72e161440a592212a873d87ca90dd8","command":["node_modules/.bin/vitest","run","tests/p14b1-t4-regressions.test.ts","tests/p14b1-first-take.test.ts","tests/p14b1-promises.test.ts","tests/p14b1-save-v29.test.ts","tests/p14b1-leak.test.ts","tests/p14b1-trust-chooser.test.ts","tests/bridge-p14b1-promises.test.ts","--minWorkers=1","--maxWorkers=1","--reporter=dot"],"node":"v20.20.2","start":"2026-09-19T11:15:58.565Z","end":"2026-09-19T11:16:59.662Z","exitCode":0,"signal":null,"testedDiffSha256AtEnd":"4f39af257810cb547e6b77ffe4a0706a3b72e161440a592212a873d87ca90dd8"}

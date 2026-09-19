@@ -37,7 +37,7 @@ import { attachPromise, attachedPromiseDigest, promiseFeasibility, proposalDiges
 import { careerIdentity } from './talentSummary.js'
 import { TUNING } from './tuning.js'
 import type { Contract, GameState, LedgerEntry, LegacyTermination, MarketCaseStatus, MarketEligibilityStatus,
-  PromiseClassification, PromiseFamily,
+  PromiseClassification, PromiseFamily, PromiseFeasibilityReceipt,
   Standing, TalentMarketCase, TalentMarketProposal, TalentMarketReceipt, TalentMarketState } from './types.js'
 import type { HollywoodState, IndustryEmployment, IndustryReceipt, RivalBusiness } from './hollywoodTypes.js'
 
@@ -730,9 +730,9 @@ function issuerStanding(state: GameState, issuerStudioId: string): number {
   return business === undefined ? 0 : standingMean(business.standing)
 }
 
-/** The live classification of whatever promise a proposal carries, re-run against
+/** The live receipt of whatever promise a proposal carries, re-run against
  * committed state at `week` — null when it carries none. */
-function attachedClassification(state: GameState, proposal: TalentMarketProposal, week: number): PromiseClassification | null {
+function attachedFeasibility(state: GameState, proposal: TalentMarketProposal, week: number): PromiseFeasibilityReceipt | null {
   const id = proposal.promises[0]
   if (id === undefined) return null
   const promise = state.promises.find((p) => p.promiseId === id)
@@ -747,7 +747,7 @@ function attachedClassification(state: GameState, proposal: TalentMarketProposal
     startWeek: proposal.startWeek,
     termWeeks: proposal.termWeeks,
     promiseId: promise.promiseId,
-  }, week).classification
+  }, week)
 }
 
 function bandsFor(
@@ -776,7 +776,7 @@ function bandsFor(
     // D3 opportunity (P14B.1 (8)): a qualifying promise is attached and still
     // REASONABLY ACHIEVABLE at freeze. The class-preference filter waits for the
     // rest of the catalogue, so the band is binary in B.1.
-    const opportunity = attachedClassification(state, p, week) === 'REASONABLY_ACHIEVABLE' ? 1 : 0
+    const opportunity = attachedFeasibility(state, p, week)?.classification === 'REASONABLY_ACHIEVABLE' ? 1 : 0
     // D4 trust (P14B.1 (8)): `Reliable` > `Mixed record` > `Distrusted`, read for
     // THIS person against THIS issuer — a Distrusted issuer never reaches ranking
     // at all, so the band's floor is only ever seen through the studio aggregate.
@@ -1026,7 +1026,9 @@ function seatsHeldAfter(state: GameState, hollywood: HollywoodState, studioId: s
 /** A proposal is DROPPED at freeze when it fails P10 legality (interval algebra
  * at W), P12 (the issuer has entered; the person is not committed elsewhere),
  * reservation, or affordability. A dropped proposal never cancels a valid one. */
-function survivesFreeze(state: GameState, proposal: TalentMarketProposal, week: number): FreezeDrop | null {
+function survivesFreeze(
+  state: GameState, proposal: TalentMarketProposal, week: number, feasibility: PromiseFeasibilityReceipt | null,
+): FreezeDrop | null {
   const hollywood = state.hollywood!
   if (!enteredStudioIds(hollywood).includes(proposal.issuerStudioId)) return 'issuerNotEntered'
   // Reservation, P14B.1 (8): this person refuses a Distrusted issuer OUTRIGHT —
@@ -1062,7 +1064,7 @@ function survivesFreeze(state: GameState, proposal: TalentMarketProposal, week: 
   // attached promise is re-classified against committed state at W, and a promise
   // no longer REASONABLY ACHIEVABLE invalidates this proposal version BEFORE the
   // chooser runs.
-  if (proposal.promises.length > 0 && attachedClassification(state, proposal, week) !== 'REASONABLY_ACHIEVABLE') {
+  if (proposal.promises.length > 0 && feasibility?.classification !== 'REASONABLY_ACHIEVABLE') {
     return 'promiseNotFeasible'
   }
   return affordabilityRefusal(state, proposal.issuerStudioId, priced.signingBonus, week) === null ? null : 'bonusUnaffordable'
@@ -1072,13 +1074,18 @@ function survivesFreeze(state: GameState, proposal: TalentMarketProposal, week: 
  * employment row it rode in on, so a later reader can see which contract carried
  * it. Losing proposals' promises are left exactly as drafted: nothing accepted
  * them, and B.1 mints no outcome for an offer nobody took. */
-function commitWinningPromise(state: GameState, winner: TalentMarketProposal, week: number): GameState {
+function commitWinningPromise(
+  state: GameState, winner: TalentMarketProposal, week: number, feasibilityReceipt: PromiseFeasibilityReceipt | null,
+): GameState {
   const id = winner.promises[0]
   if (id === undefined) return state
   const row = state.hollywood?.employment.find(
     (e) => e.terms.talentId === winner.talentId && e.studioId === winner.issuerStudioId && e.endedWeek === null && e.terms.startWeek === week)
-  const contractId = row?.contractId ?? null
-  return { ...state, promises: state.promises.map((p) => (p.promiseId === id ? { ...p, contractId } : p)) }
+  if (row === undefined || feasibilityReceipt?.classification !== 'REASONABLY_ACHIEVABLE') {
+    throw new Error('talentMarket: winning promise requires its committed employment and frozen feasibility receipt')
+  }
+  return { ...state, promises: state.promises.map((p) => (p.promiseId === id
+    ? { ...p, contractId: row.contractId, feasibilityReceipt } : p)) }
 }
 
 function settleCase(state: GameState, kase: TalentMarketCase, week: number): GameState {
@@ -1086,7 +1093,12 @@ function settleCase(state: GameState, kase: TalentMarketCase, week: number): Gam
   if (submitted.length === 0) {
     return closeCase(state, kase, 'expired', week, 'no proposal was submitted', null, ['no studio proposed before the decision week'])
   }
-  const frozen = submitted.map((proposal) => ({ proposal, drop: survivesFreeze(state, proposal, week) }))
+  // Retain the receipt from this exact pre-commit state. Binding employment can
+  // change availability inputs; re-running after that commit is different evidence.
+  const frozen = submitted.map((proposal) => {
+    const feasibility = attachedFeasibility(state, proposal, week)
+    return { proposal, feasibility, drop: survivesFreeze(state, proposal, week, feasibility) }
+  })
   const survivors = frozen.filter((f) => f.drop === null).map((f) => f.proposal)
   // The ONE drop list this case produces. It is the decline's own sentences when
   // everything was dropped, and it rides the SETTLED receipt too — a studio whose
@@ -1108,7 +1120,8 @@ function settleCase(state: GameState, kase: TalentMarketCase, week: number): Gam
   const committed = chosen.winner.issuerStudioId === state.hollywood!.playerStudioId
     ? commitPlayerWinner(state, chosen.winner, week)
     : commitRivalWinner(state, chosen.winner, week)
-  return closeCase(commitWinningPromise(committed, chosen.winner, week), kase, 'settled', week, 'settled at the decision week',
+  const feasibility = frozen.find((f) => f.proposal === chosen.winner)!.feasibility
+  return closeCase(commitWinningPromise(committed, chosen.winner, week, feasibility), kase, 'settled', week, 'settled at the decision week',
     chosen.winner.issuerStudioId, chosen.reasons, dropped)
 }
 

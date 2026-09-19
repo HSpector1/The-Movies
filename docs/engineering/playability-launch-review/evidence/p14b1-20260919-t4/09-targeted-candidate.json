@@ -1,0 +1,24 @@
+{
+  "sourceSha": "d19c45b2d873653b4cd4488608e4e411f15a2c34",
+  "testedDiffSha256": "02a40e7b6913d5455f7f9d2eb850c847df151ef417a04f783ac944b324d1953a",
+  "command": [
+    "node_modules/.bin/vitest",
+    "run",
+    "tests/p14b1-t4-regressions.test.ts",
+    "tests/p14b1-first-take.test.ts",
+    "tests/p14b1-promises.test.ts",
+    "tests/p14b1-save-v29.test.ts",
+    "tests/p14b1-leak.test.ts",
+    "tests/p14b1-trust-chooser.test.ts",
+    "tests/bridge-p14b1-promises.test.ts",
+    "--minWorkers=1",
+    "--maxWorkers=1",
+    "--reporter=dot"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-19T11:09:54.624Z",
+  "end": "2026-09-19T11:10:55.911Z",
+  "exitCode": 0,
+  "signal": null,
+  "testedDiffSha256AtEnd": "02a40e7b6913d5455f7f9d2eb850c847df151ef417a04f783ac944b324d1953a"
+}

@@ -2195,8 +2195,8 @@ export type ProfessionalPromise = {
   outcome: PromiseOutcome | null
   outcomeWeek: number | null
   outcomeCause: string | null
-  /** The causing event's own id (a first take, or the market receipt the outcome
-   * was recorded on) — §4.4's "the causing event's receipt". */
+  /** This promise's own `promiseOutcome` market receipt. Qualifying first takes
+   * are referenced separately by `evidenceRefs`, and may serve several people. */
   outcomeEventId: string | null
   /** Set once the proposal it rode in on is committed. */
   contractId: string | null

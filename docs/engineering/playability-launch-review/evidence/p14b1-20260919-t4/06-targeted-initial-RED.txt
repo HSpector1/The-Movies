@@ -1,0 +1,180 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/bridge-p14b1-promises.test.ts (11 tests | 1 failed | 10 skipped) 1772ms
+   × group 4: the promise draft on marketProposalAction's quote family > refuses a promise window beginning before the proposed contract, although its due week is inside the contract (T4 lower-edge regression) 1771ms
+     → expected true to be false // Object.is equality
+ ❯ |core| tests/p14b1-t4-regressions.test.ts (28 tests | 14 failed | 14 skipped) 1899ms
+   × P14B.1 T4: feasibility evidence and lawful contract windows > rejects a window starting before the proposed contract, while the exact start remains offerable 468ms
+     → expected 'REASONABLY_ACHIEVABLE' to be 'IMPOSSIBLE' // Object.is equality
+   × P14B.1 T4: feasibility evidence and lawful contract windows > identifies changed committed reservations at the identical week, without mutation or RNG use 146ms
+     → expected 'fd917e9578f6600a' not to be 'fd917e9578f6600a' // Object.is equality
+   × P14B.1 T4: feasibility evidence and lawful contract windows > stores the actual winning freeze receipt at the decision week, not the submission receipt 660ms
+     → expected 45 to be 52 // Object.is equality
+   × P14B.1 T4: V29 owns every proposal promise leaf > rejects a missing proposal promises leaf before it is stripped for frozen V28 validation 58ms
+     → expected [Function] to throw an error
+   × P14B.1 T4: V29 owns every proposal promise leaf > rejects a null proposal promises leaf before it is stripped for frozen V28 validation 49ms
+     → expected [Function] to throw an error
+   × P14B.1 T4: V29 owns every proposal promise leaf > rejects a string proposal promises leaf before it is stripped for frozen V28 validation 52ms
+     → expected [Function] to throw an error
+   × P14B.1 T4: V29 owns every proposal promise leaf > rejects a object proposal promises leaf before it is stripped for frozen V28 validation 73ms
+     → expected [Function] to throw an error
+   × P14B.1 T4: V29 owns every proposal promise leaf > rejects a non-string member proposal promises leaf before it is stripped for frozen V28 validation 60ms
+     → expected [Function] to throw an error
+   × P14B.1 T4: V29 owns every proposal promise leaf > rejects a unknown reference proposal promises leaf before it is stripped for frozen V28 validation 49ms
+     → expected [Function] to throw an error
+   × P14B.1 T4: V29 owns every proposal promise leaf > rejects a duplicate reference proposal promises leaf before it is stripped for frozen V28 validation 55ms
+     → expected [Function] to throw an error
+   × P14B.1 T4: V29 owns every proposal promise leaf > rejects attaching another issuer's real promise ID to a proposal 52ms
+     → expected [Function] to throw an error
+   × P14B.1 T4: V29 owns every proposal promise leaf > rejects a bound promise whose contract ID is absent 64ms
+     → expected [Function] to throw an error
+   × P14B.1 T4: V29 owns every proposal promise leaf > rejects a real contract ID belonging to a different beneficiary or issuer 55ms
+     → expected [Function] to throw an error
+   × P14B.1 T4: V29 owns every proposal promise leaf > rejects the same pair's previous contract, whose interval cannot carry this window 56ms
+     → expected [Function] to throw an error
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 15 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/bridge-p14b1-promises.test.ts > group 4: the promise draft on marketProposalAction's quote family > refuses a promise window beginning before the proposed contract, although its due week is inside the contract (T4 lower-edge regression)
+AssertionError: expected true to be false // Object.is equality
+
+- Expected
++ Received
+
+- false
++ true
+
+ ❯ tests/bridge-p14b1-promises.test.ts:335:22
+    333|     expect(promiseQuoteSnapshot(state, playerStudioId, talentId, draft…
+    334|     const early = promiseQuoteSnapshot(state, playerStudioId, talentId…
+    335|     expect(early.ok).toBe(false)
+       |                      ^
+    336|     expect(early.classification).toBe('IMPOSSIBLE')
+    337|     expect(early.message).toMatch(/^not offerable: /)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/15]⎯
+
+ FAIL |core|  tests/p14b1-t4-regressions.test.ts > P14B.1 T4: feasibility evidence and lawful contract windows > rejects a window starting before the proposed contract, while the exact start remains offerable
+AssertionError: expected 'REASONABLY_ACHIEVABLE' to be 'IMPOSSIBLE' // Object.is equality
+
+Expected: "IMPOSSIBLE"
+Received: "REASONABLY_ACHIEVABLE"
+
+ ❯ tests/p14b1-t4-regressions.test.ts:92:34
+     90|     expect(promiseFeasibility(state, draft, state.market.tick).classif…
+     91|     const early = promiseFeasibility(state, { ...draft, windowStartWee…
+     92|     expect(early.classification).toBe('IMPOSSIBLE')
+       |                                  ^
+     93|     expect(early.bottleneck).toMatch(/contract|start|window/i)
+     94|   })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/15]⎯
+
+ FAIL |core|  tests/p14b1-t4-regressions.test.ts > P14B.1 T4: feasibility evidence and lawful contract windows > identifies changed committed reservations at the identical week, without mutation or RNG use
+AssertionError: expected 'fd917e9578f6600a' not to be 'fd917e9578f6600a' // Object.is equality
+ ❯ tests/p14b1-t4-regressions.test.ts:107:36
+    105|     expect(before.classification).toBe('REASONABLY_ACHIEVABLE')
+    106|     expect(after.classification).toBe('FRAGILE')
+    107|     expect(after.inputsDigest).not.toBe(before.inputsDigest)
+       |                                    ^
+    108|     expect(promiseFeasibility(reserved, draft, reserved.market.tick)).…
+    109|     expect(reserved.rngState).toEqual(state.rngState)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/15]⎯
+
+ FAIL |core|  tests/p14b1-t4-regressions.test.ts > P14B.1 T4: feasibility evidence and lawful contract windows > stores the actual winning freeze receipt at the decision week, not the submission receipt
+AssertionError: expected 45 to be 52 // Object.is equality
+
+- Expected
++ Received
+
+- 52
++ 45
+
+ ❯ tests/p14b1-t4-regressions.test.ts:119:43
+    117|     const bound = ownPromise(settled)
+    118|     expect(submitted.feasibilityReceipt.week).toBe(45)
+    119|     expect(bound.feasibilityReceipt.week).toBe(settled.market.tick)
+       |                                           ^
+    120|     expect(bound.feasibilityReceipt.classification).toBe('REASONABLY_A…
+    121|     expect(bound.feasibilityReceipt.inputsDigest).not.toBe(submitted.f…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/15]⎯
+
+ FAIL |core|  tests/p14b1-t4-regressions.test.ts > P14B.1 T4: V29 owns every proposal promise leaf > rejects a missing proposal promises leaf before it is stripped for frozen V28 validation
+ FAIL |core|  tests/p14b1-t4-regressions.test.ts > P14B.1 T4: V29 owns every proposal promise leaf > rejects a null proposal promises leaf before it is stripped for frozen V28 validation
+ FAIL |core|  tests/p14b1-t4-regressions.test.ts > P14B.1 T4: V29 owns every proposal promise leaf > rejects a string proposal promises leaf before it is stripped for frozen V28 validation
+ FAIL |core|  tests/p14b1-t4-regressions.test.ts > P14B.1 T4: V29 owns every proposal promise leaf > rejects a object proposal promises leaf before it is stripped for frozen V28 validation
+ FAIL |core|  tests/p14b1-t4-regressions.test.ts > P14B.1 T4: V29 owns every proposal promise leaf > rejects a non-string member proposal promises leaf before it is stripped for frozen V28 validation
+ FAIL |core|  tests/p14b1-t4-regressions.test.ts > P14B.1 T4: V29 owns every proposal promise leaf > rejects a unknown reference proposal promises leaf before it is stripped for frozen V28 validation
+ FAIL |core|  tests/p14b1-t4-regressions.test.ts > P14B.1 T4: V29 owns every proposal promise leaf > rejects a duplicate reference proposal promises leaf before it is stripped for frozen V28 validation
+AssertionError: expected [Function] to throw an error
+ ❯ rejects tests/p14b1-t4-regressions.test.ts:83:40
+     81|   expect(() => validateSaveV29(valid)).not.toThrow()
+     82|   mutate(valid)
+     83|   expect(() => validateSaveV29(valid)).toThrow()
+       |                                        ^
+     84| }
+     85| 
+ ❯ tests/p14b1-t4-regressions.test.ts:136:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/15]⎯
+
+ FAIL |core|  tests/p14b1-t4-regressions.test.ts > P14B.1 T4: V29 owns every proposal promise leaf > rejects attaching another issuer's real promise ID to a proposal
+AssertionError: expected [Function] to throw an error
+ ❯ rejects tests/p14b1-t4-regressions.test.ts:83:40
+     81|   expect(() => validateSaveV29(valid)).not.toThrow()
+     82|   mutate(valid)
+     83|   expect(() => validateSaveV29(valid)).toThrow()
+       |                                        ^
+     84| }
+     85| 
+ ❯ tests/p14b1-t4-regressions.test.ts:146:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/15]⎯
+
+ FAIL |core|  tests/p14b1-t4-regressions.test.ts > P14B.1 T4: V29 owns every proposal promise leaf > rejects a bound promise whose contract ID is absent
+AssertionError: expected [Function] to throw an error
+ ❯ rejects tests/p14b1-t4-regressions.test.ts:83:40
+     81|   expect(() => validateSaveV29(valid)).not.toThrow()
+     82|   mutate(valid)
+     83|   expect(() => validateSaveV29(valid)).toThrow()
+       |                                        ^
+     84| }
+     85| 
+ ❯ tests/p14b1-t4-regressions.test.ts:153:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/15]⎯
+
+ FAIL |core|  tests/p14b1-t4-regressions.test.ts > P14B.1 T4: V29 owns every proposal promise leaf > rejects a real contract ID belonging to a different beneficiary or issuer
+AssertionError: expected [Function] to throw an error
+ ❯ rejects tests/p14b1-t4-regressions.test.ts:83:40
+     81|   expect(() => validateSaveV29(valid)).not.toThrow()
+     82|   mutate(valid)
+     83|   expect(() => validateSaveV29(valid)).toThrow()
+       |                                        ^
+     84| }
+     85| 
+ ❯ tests/p14b1-t4-regressions.test.ts:161:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/15]⎯
+
+ FAIL |core|  tests/p14b1-t4-regressions.test.ts > P14B.1 T4: V29 owns every proposal promise leaf > rejects the same pair's previous contract, whose interval cannot carry this window
+AssertionError: expected [Function] to throw an error
+ ❯ rejects tests/p14b1-t4-regressions.test.ts:83:40
+     81|   expect(() => validateSaveV29(valid)).not.toThrow()
+     82|   mutate(valid)
+     83|   expect(() => validateSaveV29(valid)).toThrow()
+       |                                        ^
+     84| }
+     85| 
+ ❯ tests/p14b1-t4-regressions.test.ts:170:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/15]⎯
+
+ Test Files  2 failed (2)
+      Tests  15 failed | 24 skipped (39)
+   Start at  12:57:18
+   Duration  9.22s (transform 3.06s, setup 0ms, collect 4.55s, tests 3.67s, environment 1ms, prepare 282ms)
+

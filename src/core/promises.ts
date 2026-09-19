@@ -27,6 +27,7 @@
 // both, and `migrateToV28` refuses to discard either.
 
 import { fnv1a64 } from './math.js'
+import { occupiedResourceSlots } from './occupancy.js'
 import { TUNING } from './tuning.js'
 import type {
   CastSlot, FirstTakeReceipt, GameState, ProfessionalPromise, Production, PromiseClassification,
@@ -273,6 +274,46 @@ function reservedByActivePromises(state: GameState, draft: PromiseDraft, from: n
   return reserved
 }
 
+/** The receipt identifies the committed inputs, not just the requested terms.
+ * Keep this bounded to current pipeline/availability facts from their owners:
+ * no account balances, RNG, outcome history or whole-campaign serialization. */
+function feasibilityInputs(state: GameState, draft: PromiseDraft, week: number): readonly unknown[] {
+  const rival = state.hollywood !== null && draft.issuerStudioId !== state.hollywood.playerStudioId
+  const business = rival ? state.hollywood?.businesses.find((b) => b.studioId === draft.issuerStudioId) : undefined
+  const productions = studioProductions(state, draft.issuerStudioId)
+  const productionIds = new Set(productions.map((p) => p.id))
+  const operations = rival ? business?.operations : state.operations
+  const development = rival ? business?.development : state.scriptDevelopment
+  const occupancy = occupiedResourceSlots(rival
+    ? business === undefined ? {} : { operations: business.operations, scriptDevelopment: business.development }
+    : state)
+  const from = Math.max(draft.windowStartWeek, week)
+  const person = state.talent.find((t) => t.id === draft.beneficiaryPersonId)
+  return [
+    draft.family, draft.issuerStudioId, draft.beneficiaryPersonId, draft.predicate.count,
+    draft.windowStartWeek, draft.dueWeekExclusive, draft.startWeek, draft.termWeeks, week,
+    person?.role ?? null,
+    productions.map((p) => [p.id, p.conceptId, p.startTick, p.remainingTicks, p.directorId, p.cast]),
+    operations?.facilities.map((f) => [f.id, f.capability, f.capacity]) ?? [],
+    operations?.workflows ?? [],
+    development?.projects.filter((p) => p.status !== 'produced')
+      .map((p) => [p.id, p.conceptId, p.status, p.writerIds, p.dueWeek, p.reservation, p.productionId]) ?? [],
+    [...occupancy].map(([key, claims]) => [key, claims.map((c) => [c.owner, c.ownerId, c.capability, c.slot])]),
+    rival ? [] : state.productionQueue,
+    rival ? [] : state.placement.facilities.filter((f) => f.status !== 'cancelled')
+      .map((f) => [f.facilityId, f.blueprintId, f.status, f.completesWeek]),
+    rival ? false : stockGreenlightAvailable(state, draft.issuerStudioId),
+    state.firstTakes.filter((t) => productionIds.has(t.productionId)).map((t) => [t.eventId, t.productionId, t.week]),
+    state.hollywood?.employment.filter((e) => e.terms.talentId === draft.beneficiaryPersonId
+      && e.terms.startWeek < draft.dueWeekExclusive && (e.endedWeek ?? e.terms.endWeekExclusive) > from)
+      .map((e) => [e.contractId, e.studioId, e.terms.startWeek, e.terms.endWeekExclusive, e.endedWeek]) ?? [],
+    state.promises.filter((p) => p.outcome === null && p.promiseId !== draft.promiseId
+      && p.beneficiaryPersonId === draft.beneficiaryPersonId
+      && p.dueWeekExclusive > from && p.windowStartWeek < draft.dueWeekExclusive)
+      .map((p) => [p.promiseId, p.family, p.issuerStudioId, p.windowStartWeek, p.dueWeekExclusive, p.predicate.count, p.progress]),
+  ]
+}
+
 /**
  * The expected first-take week of this person's k-th sequential qualifying event
  * (0-based), counting only paths the studio controls. Event 0 may already be
@@ -313,16 +354,14 @@ function expectedFirstTakeWeek(state: GameState, draft: PromiseDraft, from: numb
  */
 export function promiseFeasibility(state: GameState, draft: PromiseDraft, week: number): PromiseFeasibilityReceipt {
   const X = draft.predicate.count
-  const inputs: readonly unknown[] = [
-    draft.family, draft.issuerStudioId, draft.beneficiaryPersonId, X,
-    draft.windowStartWeek, draft.dueWeekExclusive, draft.startWeek, draft.termWeeks, week,
-  ]
+  const inputs = feasibilityInputs(state, draft, week)
   const refuse = (bottleneck: string): PromiseFeasibilityReceipt => receipt('IMPOSSIBLE', bottleneck, inputs, week)
 
   const notOffered = NOT_OFFERED_IN_B1[draft.family]
   if (notOffered !== undefined) return refuse(notOffered)
   if (!Number.isInteger(X) || X < 1) return refuse('the promised count must be a whole picture')
   if (draft.dueWeekExclusive <= draft.windowStartWeek) return refuse('the window closes before it opens')
+  if (draft.windowStartWeek < draft.startWeek) return refuse('the window starts before the proposed contract')
   if (draft.dueWeekExclusive > draft.startWeek + draft.termWeeks) {
     return refuse('the due week falls outside the proposed contract')
   }
@@ -731,9 +770,9 @@ function isRecord(value: unknown): value is Record<string, unknown> {
 /**
  * The two V29 roots, validated where the save boundary can name the real fault:
  * every first take is dated inside the campaign, once per production, with an
- * in-state ordinal id; every promise names an entered studio, carries a bounded
- * predicate and progress, and is terminal at most once. Outcome receipts are
- * IDEMPOTENT BY ID: no promise may name two outcome events.
+ * in-state ordinal id. Proposals, contracts, outcomes and qualifying evidence
+ * resolve to their actual records, including the parties those records name.
+ * A first take may serve several beneficiaries; each outcome has its own receipt.
  */
 export function validatePromiseRoots(state: unknown): void {
   const fail = (message: string): never => {
@@ -745,60 +784,184 @@ export function validatePromiseRoots(state: unknown): void {
   if (!Array.isArray(takes)) return fail('state.firstTakes is not an array')
   if (!Array.isArray(promises)) return fail('state.promises is not an array')
 
+  const record = (value: unknown, at: string): Record<string, unknown> => {
+    if (!isRecord(value)) return fail(`${at} is not a plain object`)
+    return value
+  }
+  const exact = (row: Record<string, unknown>, keys: readonly string[], at: string): void => {
+    for (const key of keys) if (!Object.hasOwn(row, key)) fail(`${at}.${key} is missing`)
+    for (const key of Object.keys(row)) if (!keys.includes(key)) fail(`${at}.${key} is not a field of this record`)
+  }
+  const text = (value: unknown, at: string): string => {
+    if (typeof value !== 'string' || value.trim() === '') return fail(`${at} must be a non-empty string`)
+    return value
+  }
+  const nonnegative = (value: unknown, at: string): number => {
+    if (typeof value !== 'number' || !Number.isSafeInteger(value) || value < 0) return fail(`${at} must be a non-negative integer`)
+    return value
+  }
+  const currentWeek = nonnegative(record(state.market, 'state.market').tick, 'state.market.tick')
+  const boundary = nonnegative(record(state.studioHistory, 'state.studioHistory').recordingStartedWeek,
+    'state.studioHistory.recordingStartedWeek')
+  const recordedWeek = (value: unknown, at: string): number => {
+    const week = nonnegative(value, at)
+    if (week < boundary || week > currentWeek) return fail(`${at} is outside this campaign's recording interval`)
+    return week
+  }
+
   const hollywood = isRecord(state.hollywood) ? state.hollywood : null
   const identities = hollywood !== null && Array.isArray(hollywood.identities) ? hollywood.identities : []
   const entered = new Set(identities
     .filter((s): s is Record<string, unknown> => isRecord(s) && s.enteredWeek !== null)
     .map((s) => String(s.studioId)))
+  const people = new Set((Array.isArray(state.talent) ? state.talent : [])
+    .filter(isRecord).map((person) => person.id))
+  const personId = (value: unknown, at: string): string => {
+    const id = text(value, at)
+    if (!people.has(id)) return fail(`${at} does not name a person of this world`)
+    return id
+  }
+  const studioId = (value: unknown, at: string): string => {
+    const id = text(value, at)
+    if (!entered.has(id)) return fail(`${at} is not an entered studio of this world`)
+    return id
+  }
+  const employment = hollywood !== null && Array.isArray(hollywood.employment)
+    ? hollywood.employment.filter(isRecord) : []
+  const market = record(state.talentMarket, 'state.talentMarket')
+  if (!Array.isArray(market.proposals)) return fail('state.talentMarket.proposals is not an array')
+  if (!Array.isArray(market.receipts)) return fail('state.talentMarket.receipts is not an array')
+  const receiptsById = new Map(market.receipts.filter(isRecord).map((r) => [r.eventId, r]))
 
   const seenProduction = new Set<string>()
+  const takesById = new Map<string, FirstTakeReceipt>()
   for (let i = 0; i < takes.length; i++) {
-    const row = takes[i]
     const at = `state.firstTakes[${String(i)}]`
-    if (!isRecord(row)) return fail(`${at} is not a plain object`)
+    const row = record(takes[i], at)
+    exact(row, ['eventId', 'week', 'productionId', 'studioId', 'directorId', 'cast'], at)
     if (row.eventId !== `first-take-event-${String(i)}`) return fail(`${at}.eventId is not this root's ordinal id`)
-    if (!Number.isInteger(row.week) || (row.week as number) < 0) return fail(`${at}.week is not a campaign week`)
-    const productionId = String(row.productionId)
+    recordedWeek(row.week, `${at}.week`)
+    const productionId = text(row.productionId, `${at}.productionId`)
     if (seenProduction.has(productionId)) return fail(`${at} records a second first take for production "${productionId}"`)
     seenProduction.add(productionId)
-    if (entered.size > 0 && !entered.has(String(row.studioId))) {
-      return fail(`${at}.studioId "${String(row.studioId)}" is not an entered studio of this world`)
-    }
-    if (!isRecord(row.cast)) return fail(`${at}.cast is not a plain object`)
-    for (const slot of CAST_SLOTS) if (typeof row.cast[slot] !== 'string') return fail(`${at}.cast.${slot} is missing`)
+    studioId(row.studioId, `${at}.studioId`)
+    personId(row.directorId, `${at}.directorId`)
+    const cast = record(row.cast, `${at}.cast`)
+    exact(cast, CAST_SLOTS, `${at}.cast`)
+    for (const slot of CAST_SLOTS) personId(cast[slot], `${at}.cast.${slot}`)
+    // A cancellation can remove the production. Its durable take remains valid
+    // without reconstructing a production that no longer exists.
+    takesById.set(row.eventId as string, row as unknown as FirstTakeReceipt)
   }
 
-  const seenPromise = new Set<string>()
+  const promisesById = new Map<string, ProfessionalPromise>()
   const outcomeEvents = new Set<string>()
   for (let i = 0; i < promises.length; i++) {
-    const row = promises[i]
     const at = `state.promises[${String(i)}]`
-    if (!isRecord(row)) return fail(`${at} is not a plain object`)
-    const promiseId = String(row.promiseId)
-    if (seenPromise.has(promiseId)) return fail(`${at}.promiseId "${promiseId}" is recorded twice`)
-    seenPromise.add(promiseId)
-    if (entered.size > 0 && !entered.has(String(row.issuerStudioId))) {
-      return fail(`${at}.issuerStudioId "${String(row.issuerStudioId)}" is not an entered studio of this world`)
+    const row = record(promises[i], at)
+    exact(row, ['promiseId', 'family', 'version', 'issuerStudioId', 'beneficiaryPersonId', 'predicate',
+      'windowStartWeek', 'dueWeekExclusive', 'feasibilityReceipt', 'progress', 'evidenceRefs',
+      'outcome', 'outcomeWeek', 'outcomeCause', 'outcomeEventId', 'contractId'], at)
+    const promiseId = text(row.promiseId, `${at}.promiseId`)
+    if (promisesById.has(promiseId)) return fail(`${at}.promiseId "${promiseId}" is recorded twice`)
+    if (!['APPEARANCE_COUNT', 'LEAD_OR_SIGNIFICANT_ROLE_COUNT', 'DIRECTING_COUNT', 'PREFERRED_GENRE_OPPORTUNITY', 'SPECIFIC_PROJECT']
+      .includes(String(row.family))) return fail(`${at}.family is not in the promise catalogue`)
+    if (nonnegative(row.version, `${at}.version`) < 1) return fail(`${at}.version must be positive`)
+    studioId(row.issuerStudioId, `${at}.issuerStudioId`)
+    personId(row.beneficiaryPersonId, `${at}.beneficiaryPersonId`)
+    const predicate = record(row.predicate, `${at}.predicate`)
+    exact(predicate, ['count'], `${at}.predicate`)
+    const count = nonnegative(predicate.count, `${at}.predicate.count`)
+    if (count < 1) return fail(`${at}.predicate.count must be a whole picture`)
+    const progress = nonnegative(row.progress, `${at}.progress`)
+    if (progress > count) return fail(`${at}.progress is outside its own predicate`)
+    const start = nonnegative(row.windowStartWeek, `${at}.windowStartWeek`)
+    const due = nonnegative(row.dueWeekExclusive, `${at}.dueWeekExclusive`)
+    if (due <= start) return fail(`${at} closes before it opens`)
+
+    const feasibility = record(row.feasibilityReceipt, `${at}.feasibilityReceipt`)
+    exact(feasibility, ['classification', 'bottleneck', 'inputsDigest', 'rulesVersion', 'week'], `${at}.feasibilityReceipt`)
+    if (!['REASONABLY_ACHIEVABLE', 'FRAGILE', 'IMPOSSIBLE'].includes(String(feasibility.classification))) {
+      return fail(`${at}.feasibilityReceipt.classification is not in the catalogue`)
     }
-    if (!isRecord(row.predicate) || !Number.isInteger(row.predicate.count) || (row.predicate.count as number) < 1) {
-      return fail(`${at}.predicate.count must be a whole picture`)
+    if (feasibility.classification === 'REASONABLY_ACHIEVABLE') {
+      if (feasibility.bottleneck !== null) return fail(`${at}.feasibilityReceipt names a bottleneck for an achievable promise`)
+    } else text(feasibility.bottleneck, `${at}.feasibilityReceipt.bottleneck`)
+    if (!/^[0-9a-f]{16}$/.test(text(feasibility.inputsDigest, `${at}.feasibilityReceipt.inputsDigest`))) {
+      return fail(`${at}.feasibilityReceipt.inputsDigest is not a feasibility digest`)
     }
-    if (!Number.isInteger(row.progress) || (row.progress as number) < 0 || (row.progress as number) > (row.predicate.count as number)) {
-      return fail(`${at}.progress is outside its own predicate`)
+    if (nonnegative(feasibility.rulesVersion, `${at}.feasibilityReceipt.rulesVersion`) < 1) {
+      return fail(`${at}.feasibilityReceipt.rulesVersion must be positive`)
     }
-    if ((row.dueWeekExclusive as number) <= (row.windowStartWeek as number)) return fail(`${at} closes before it opens`)
+    recordedWeek(feasibility.week, `${at}.feasibilityReceipt.week`)
+
+    if (row.contractId !== null) {
+      const contractId = text(row.contractId, `${at}.contractId`)
+      const contract = employment.find((e) => e.contractId === contractId)
+      if (contract === undefined || !isRecord(contract.terms)
+        || contract.studioId !== row.issuerStudioId || contract.terms.talentId !== row.beneficiaryPersonId) {
+        return fail(`${at}.contractId does not name this person's employment at the issuing studio`)
+      }
+      if (due > Number(contract.terms.endWeekExclusive)) return fail(`${at}.contractId ends before the promised window`)
+      const contractStart = nonnegative(contract.terms.startWeek, `${at}.contractId start week`)
+      if (contractStart > currentWeek) return fail(`${at}.contractId has not started in this campaign`)
+      if (row.outcome !== null && Number(row.outcomeWeek) < contractStart) {
+        return fail(`${at}.outcomeWeek precedes the contract that carried this promise`)
+      }
+      // Earlier V29 writers retained the submission receipt and admitted a lower
+      // window edge before the contract. Read those facts without inventing a
+      // historical freeze. New quote/freeze paths enforce both interval edges.
+    }
+
+    if (!Array.isArray(row.evidenceRefs)) return fail(`${at}.evidenceRefs is not an array`)
+    const evidence = new Set<string>()
+    for (const ref of row.evidenceRefs) {
+      const id = text(ref, `${at}.evidenceRefs`)
+      if (evidence.has(id)) return fail(`${at}.evidenceRefs repeats a first take`)
+      evidence.add(id)
+      const take = takesById.get(id)
+      if (take === undefined || take.studioId !== row.issuerStudioId
+        || !CAST_SLOTS.some((slot) => take.cast[slot] === row.beneficiaryPersonId)
+        || take.week < start || take.week >= due
+        || (row.outcomeWeek !== null && take.week > Number(row.outcomeWeek))) {
+        return fail(`${at}.evidenceRefs does not name a qualifying first take inside this promise's window`)
+      }
+    }
+    if (evidence.size > progress) return fail(`${at}.evidenceRefs exceeds its recorded progress`)
+    promisesById.set(promiseId, row as unknown as ProfessionalPromise)
     if (row.outcome === null) {
       if (row.outcomeWeek !== null) return fail(`${at} has no outcome but names an outcome week`)
+      if (row.outcomeCause !== null || row.outcomeEventId !== null) return fail(`${at} has outcome evidence but no outcome`)
       continue
     }
     if (!['SATISFIED', 'BROKEN', 'WAIVED', 'VOIDED'].includes(String(row.outcome))) {
       return fail(`${at}.outcome "${String(row.outcome)}" is not an outcome of this catalogue`)
     }
-    if (!Number.isInteger(row.outcomeWeek)) return fail(`${at} is terminal but names no outcome week`)
-    const eventId = row.outcomeEventId
-    if (eventId !== null) {
-      if (outcomeEvents.has(String(eventId))) return fail(`${at}.outcomeEventId "${String(eventId)}" records a second outcome`)
-      outcomeEvents.add(String(eventId))
+    if (row.contractId === null) return fail(`${at} is terminal without a committed contract`)
+    const outcomeWeek = recordedWeek(row.outcomeWeek, `${at}.outcomeWeek`)
+    text(row.outcomeCause, `${at}.outcomeCause`)
+    const eventId = text(row.outcomeEventId, `${at}.outcomeEventId`)
+    if (outcomeEvents.has(eventId)) return fail(`${at}.outcomeEventId "${eventId}" records a second outcome`)
+    outcomeEvents.add(eventId)
+    const outcomeReceipt = receiptsById.get(eventId)
+    if (outcomeReceipt === undefined || outcomeReceipt.kind !== 'promiseOutcome'
+      || outcomeReceipt.talentId !== row.beneficiaryPersonId || outcomeReceipt.studioId !== row.issuerStudioId
+      || outcomeReceipt.week !== outcomeWeek) return fail(`${at}.outcomeEventId does not name this promise's own outcome receipt`)
+    if (row.outcome === 'SATISFIED' && (progress !== count || evidence.size !== count)) {
+      return fail(`${at} is satisfied without the promised number of qualifying first takes`)
+    }
+    if (row.outcome === 'BROKEN' && progress >= count) return fail(`${at} is broken despite a satisfied predicate`)
+  }
+
+  for (let i = 0; i < market.proposals.length; i++) {
+    const at = `state.talentMarket.proposals[${String(i)}]`
+    const row = record(market.proposals[i], at)
+    if (!Array.isArray(row.promises) || row.promises.length > 1) return fail(`${at}.promises must be an array of at most one promise ID`)
+    for (const ref of row.promises) {
+      const promise = promisesById.get(text(ref, `${at}.promises`))
+      if (promise === undefined || promise.issuerStudioId !== row.issuerStudioId
+        || promise.beneficiaryPersonId !== row.talentId) return fail(`${at}.promises does not name this proposal's own promise`)
+      if (promise.contractId !== null || promise.outcome !== null) return fail(`${at}.promises names an already committed promise`)
     }
   }
 }

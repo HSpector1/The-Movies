@@ -1,0 +1,32 @@
+{
+  "task": "P14B.1 T4",
+  "sourceSha": "d19c45b2d873653b4cd4488608e4e411f15a2c34",
+  "start": "2026-09-19T10:49:07.353Z",
+  "end": null,
+  "statusAtStart": "",
+  "testedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "environment": {
+    "node": "v20.20.2",
+    "platform": "darwin",
+    "arch": "x64",
+    "release": "21.6.0",
+    "logicalCpus": 4,
+    "memoryBytes": 8589934592
+  },
+  "qualification": "Same checkout and worker flags as prior Mac passes; timings are observations, not assumed equivalent. No source or test edits permitted during this run.",
+  "commands": [
+    {
+      "command": "npm",
+      "args": [
+        "run",
+        "typecheck"
+      ],
+      "start": "2026-09-19T10:49:07.416Z",
+      "log": "docs/engineering/playability-launch-review/evidence/p14b1-20260919-t4/01-typecheck-d19c45b.txt",
+      "end": "2026-09-19T10:50:50.491Z",
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    }
+  ]
+}

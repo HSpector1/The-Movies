@@ -1,0 +1,19 @@
+{
+  "sourceSha": "d19c45b2d873653b4cd4488608e4e411f15a2c34",
+  "testedDiffSha256": "20d86f50c95809fc964f87b23195b111dee692715751ad420630679e8dd2245d",
+  "command": [
+    "node_modules/.bin/vitest",
+    "run",
+    "tests/p14b1-t4-regressions.test.ts",
+    "--minWorkers=1",
+    "--maxWorkers=1",
+    "-t",
+    "later actual contract starting after its outcome"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-19T11:13:11.435Z",
+  "end": "2026-09-19T11:13:18.584Z",
+  "exitCode": 1,
+  "signal": null,
+  "testedDiffSha256AtEnd": "20d86f50c95809fc964f87b23195b111dee692715751ad420630679e8dd2245d"
+}

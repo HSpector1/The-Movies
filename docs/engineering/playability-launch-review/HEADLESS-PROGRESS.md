@@ -4,6 +4,23 @@ One row per package/slice: exact source, test results, status label, decision cl
 Labels: LOGIC VERIFIED · ENGINE INTEGRATION VERIFIED · UNITY NOT VERIFIED · DESIGN BLOCKED · IN PROGRESS.
 Headless verification never claims package completion or Owner acceptance.
 
+Current update (2026-09-19): **P14B.1 T4 IN PROGRESS / UNITY NOT VERIFIED**.
+The recovered T3 bridge is `e78dbc0`, evidence `c5c81c1`; Save V29 / projection 45
+confirmed at local and published `d19c45b`. Bounded native independent review
+identified four correction gates, recorded in
+`evidence/p14b1-20260919-t4/05-review.md`: the lower contract-window boundary,
+state-sensitive feasibility evidence, the persisted freeze receipt, and V29 exact
+references. Test-author owns RED and test premises; sim-core owns production;
+coordinator owns integration and the serialized full pass. Independent REDs are in
+`06`–`08`; first corrected targeted pass `09` is 80 passed / three unchanged todos.
+Re-review's later-contract identity edge was reproduced RED at `10`, then corrected
+with narrow contract-start/outcome chronology guards. Final targeted `11` passed
+81 tests / three unchanged todos; bounded review KEEP (`12`). Fixed-source full T4
+remains required. Initial root/UI typecheck passed; the partial
+run was stopped before the full suites, so no T4 label is claimed.
+Earlier cumulative usage/forecasts below remain in force;
+the old ≈75-minute full-pass duration is a planning observation, not a new budget.
+
 ## Environment and baseline (2026-09-16 12:37–12:55 CEST)
 
 | Fact | Value |

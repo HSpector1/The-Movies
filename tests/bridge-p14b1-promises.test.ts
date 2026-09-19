@@ -325,6 +325,19 @@ describe('group 3: trust descriptor label and promise history, open then settled
 // ── group 4: marketProposalAction accepts a promise draft, quote returns the classification ──
 
 describe('group 4: the promise draft on marketProposalAction\'s quote family', () => {
+  it('refuses a promise window beginning before the proposed contract, although its due week is inside the contract (T4 lower-edge regression)', () => {
+    const { state, talentId, playerStudioId } = openCaseWithBothProposals('p14b1-bridge-lower-window')
+    const proposal = currentProposals(state, talentId).find((p) => p.issuerStudioId === playerStudioId)!
+    const draft = { family: 'APPEARANCE_COUNT' as const, count: 1, windowStartWeek: proposal.startWeek,
+      dueWeekExclusive: proposal.startWeek + 40, startWeek: proposal.startWeek, termWeeks: proposal.termWeeks }
+    expect(promiseQuoteSnapshot(state, playerStudioId, talentId, draft).ok).toBe(true)
+    const early = promiseQuoteSnapshot(state, playerStudioId, talentId, { ...draft, windowStartWeek: proposal.startWeek - 1 })
+    expect(early.ok).toBe(false)
+    expect(early.classification).toBe('IMPOSSIBLE')
+    expect(early.message).toMatch(/^not offerable: /)
+    expect(early.message).toMatch(/contract|start|window/i)
+  })
+
   it('promiseQuoteSnapshot returns the engine\'s own promiseFeasibility classification, ok true only when REASONABLY_ACHIEVABLE, and the same fact rides the EXISTING quoteMarketProposal session intent (no new intent kind)', () => {
     const { state, talentId, playerStudioId } = openCaseWithBothProposals('p14b1-bridge-quote-classification')
     const proposal = currentProposals(state, talentId).find((p) => p.issuerStudioId === playerStudioId)!

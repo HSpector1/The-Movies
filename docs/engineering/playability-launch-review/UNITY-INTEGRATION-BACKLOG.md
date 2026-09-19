@@ -177,7 +177,33 @@ verified in Unity. Generated C# produced by the TypeScript generator is text, no
 | Migration / integration risks | Build56 (projection 31) and the paused Unity branch (32) are unpaired with 44; Save V28 unchanged, every V28 fixture reads unchanged. The copy strings are hypotheses: a copy change is a test edit plus a projection bump. A future decision to fold the Employment route (A.2 OPEN) or to change the seat law (the A.1 addendum above) does not touch these DTO shapes. |
 | Unresolved product choices | The status-line copy; whether the Profile's `renewal-open` attention text ("Renewal window open — contract ends Week N.") is retired under the market (three-way wording drift with the companion's case-block prose and A.3's line, flagged for the Owner track); the glyph and input design; the three deferred client deliverables. Product consequence recorded at A.3-T1 (see the P14A.1 addendum): rival → player poaching is impossible under the landed seat law at founding roster sizes. |
 
-### P14B.1 — First Kept Promise Core (engine Save V29 — landed `8bb5738`/`6948e31`; bridge projection 45 — PENDING T3; slice NOT closed; the projection rows below are completed at T4 from the landed schema)
+### P14B.1 — First Kept Promise Core (Save V29 / projection 45 landed; T4 corrections IN PROGRESS; UNITY NOT VERIFIED)
+
+Current correction (2026-09-19): T3 landed at `e78dbc0`, evidence `c5c81c1`.
+The historical PENDING T3 cells below are superseded by the actual manifest:
+schema `sha256:5b2a4ca93d930e90a288db55bb5cc3fdc8eea070ef51fa1450a193a325bd755d`,
+generated C# `3517aeaa241bf428f6d8935c757d811a8045e3bbc94218f1abf593b5f1e51907`.
+Actual projection-45 required/nullability contract: case `trustLabel` and
+`promiseHistory` are required/non-null; own proposal `promise` and quote `promise`
+are required/nullable; request draft `promise` is optional but non-null when
+present. History rows require all seven fields (`promiseId`, `family`, `count`,
+`windowStartWeek`, `dueWeekExclusive`, nullable `outcome`, nullable `outcomeWeek`).
+`contractId` and `outcomeCause` are not in projection 45; B.2 explicitly adds
+them at 46 and changes both history carriers to newest-first. F10/F11 sentinel:
+`c69088b3e114fdd6d801d9119a48db798f002ce749504855d031784b50f89222`.
+T4 remains open for `evidence/p14b1-20260919-t4/05-review.md` corrections and its
+full verification. The case carrier exists for terminal latest cases too, not
+only open cases. The quoted promise draft is currently preview-only:
+`applyMarketProposal` submits the base proposal without attaching it. Future
+command integration must preserve quoted promise terms through commit/revision,
+revalidate stale drafts, and test actual attachment/binding before presenting
+the composer as a functioning promise offer. No current UI/native pass is claimed.
+
+V29 compatibility constraint for T4: preserve truthful legacy submission-time
+feasibility receipts and previously exported windows; do not fabricate a historic
+freeze receipt during load. New settlements must retain the real freeze receipt
+and enforce both contract-window edges. Exact identity/reference validation must
+reject nonexistent or wrong-party contracts, outcome receipts and filming evidence.
 
 | Item | Record |
 |---|---|

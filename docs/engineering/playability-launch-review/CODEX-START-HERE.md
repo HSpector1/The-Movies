@@ -1,4 +1,41 @@
-# CODEX handoff — recovered headless bridge state
+# CODEX continuation — Project Studio
+
+## Current engineering checkpoint — 2026-09-19
+
+This section supersedes the transfer-only status below; the older recovery record
+is preserved as provenance. Native Codex accepted write ownership from the clean,
+remotely verified `d19c45b2d873653b4cd4488608e4e411f15a2c34` recovery point on
+`wip/headless-program-20260916-ts`. No reset, recreation, Claude invocation or
+overlapping writer. Recovered T3 `e78dbc0` is retained, not rebuilt.
+
+**P14B.1 T4 IN PROGRESS / UNITY NOT VERIFIED.** Independent test-author REDs
+exposed lower-window, state-sensitive feasibility digest, retained freeze receipt
+and exact V29 reference defects; sim-core corrected their shared owners. A second
+review identified a terminal promise incorrectly accepting a later real contract
+for the same parties; independent RED `10-later-contract-red` reproduced that edge
+before the final chronology guards. All evidence is under
+`evidence/p14b1-20260919-t4/`. The initial corrected candidate passed 80 tests with
+the three existing todos unchanged; the final candidate (`11`) passed **81 tests /
+three unchanged todos**, and the bounded final review is KEEP (`12`). Full T4 is
+still pending.
+
+Next: commit/push corrected source and evidence → fixed-source serialized T4
+runner (both typechecks, both bridge contract
+checks, full core then full bridge) → individual failure attribution and qualified
+closeout → P14B.2 per `plans/P14-HEADLESS-PLAN.md`, then remaining P14/P15/P16 and
+sufficiently specified P17/P18. Do not treat a passing targeted subset as T4.
+Runner preserved at `evidence/p14b1-20260919-t4/run-fixed-source.mjs`; invoke with
+`node <runner-path> p14b1-20260919-t4-final`. Use a fresh evidence directory and
+keep source/tests frozen throughout. Heavy tests are serialized on this Mac.
+
+Save V29 / projection 45 remain unchanged. The bridge promise quote is preview
+only; promise attachment at the consumer submit command remains an explicit
+integration gap. Unity/native rendering/UI verification and Owner acceptance are
+deferred in `UNITY-INTEGRATION-BACKLOG.md`. Max two native specialists, one
+production writer; reuse the Fable role bodies with no Claude invocation.
+The Owner reaffirmed broad project authorization and no routine approval requests.
+
+## Historical recovered handoff (unchanged below)
 
 ## Branch and worktree
 - Repository: HSpector1/The-Movies

@@ -136,7 +136,7 @@ function openPlayerCase(termWeeks = 52): { state: GameState; talentId: string; p
   return { state: submitted, talentId, playerStudioId }
 }
 
-type ProposalWithPromises = { talentId: string; issuerStudioId: string; digest: string; promises: readonly string[] }
+type ProposalWithPromises = { talentId: string; issuerStudioId: string; startWeek: number; digest: string; promises: readonly string[] }
 function proposalOf(state: GameState, talentId: string, issuerStudioId: string): ProposalWithPromises {
   const found = state.talentMarket.proposals.find((p) => p.talentId === talentId && p.issuerStudioId === issuerStudioId)
   if (found === undefined) throw new Error(`test premise failed: no proposal for (${talentId}, ${issuerStudioId})`)
@@ -344,7 +344,7 @@ describe('P14B.1 test 2: the promise record and the widened digest', () => {
     const attached = attachPromise(opened, talentId, playerStudioId, {
       family: 'APPEARANCE_COUNT',
       predicate: { count: 1 },
-      windowStartWeek: week,
+      windowStartWeek: proposalOf(opened, talentId, playerStudioId).startWeek,
       dueWeekExclusive: week + 52,
     })
     const promisedProposal = proposalOf(attached, talentId, playerStudioId)
@@ -356,7 +356,7 @@ describe('P14B.1 test 2: the promise record and the widened digest', () => {
       attachPromise(attached, talentId, playerStudioId, {
         family: 'APPEARANCE_COUNT',
         predicate: { count: 2 },
-        windowStartWeek: week,
+        windowStartWeek: proposalOf(attached, talentId, playerStudioId).startWeek,
         dueWeekExclusive: week + 52,
       }),
     ).toThrow()
@@ -369,7 +369,7 @@ describe('P14B.1 test 2: the promise record and the widened digest', () => {
     const reattached = attachPromise(revised, talentId, playerStudioId, {
       family: 'APPEARANCE_COUNT',
       predicate: { count: 2 },
-      windowStartWeek: week,
+      windowStartWeek: proposalOf(revised, talentId, playerStudioId).startWeek,
       dueWeekExclusive: week + 52,
     })
     const digestE = proposalOf(reattached, talentId, playerStudioId).digest
@@ -386,14 +386,13 @@ describe('P14B.1 test 2: the promise record and the widened digest', () => {
 
   it('a window outside the proposed contract is IMPOSSIBLE by construction', () => {
     const { state: opened, talentId, playerStudioId } = openPlayerCase()
-    const week = opened.market.tick
     proposalOf(opened, talentId, playerStudioId) // sanity: the proposal genuinely exists before attaching
     // termWeeks=52 from week 52 (the case's effective/start week) -> contract
     // ends 104. A due week of 200 is unambiguously outside it.
     const attached = attachPromise(opened, talentId, playerStudioId, {
       family: 'APPEARANCE_COUNT',
       predicate: { count: 1 },
-      windowStartWeek: week,
+      windowStartWeek: proposalOf(opened, talentId, playerStudioId).startWeek,
       dueWeekExclusive: 200,
     })
     const [minted] = promisesOf(attached).filter((p) => p.beneficiaryPersonId === talentId)
@@ -407,7 +406,7 @@ describe('P14B.1 test 2: the promise record and the widened digest', () => {
     const attached = attachPromise(opened, talentId, playerStudioId, {
       family: 'APPEARANCE_COUNT',
       predicate: { count: 1 },
-      windowStartWeek: week,
+      windowStartWeek: proposalOf(opened, talentId, playerStudioId).startWeek,
       dueWeekExclusive: week + 30, // comfortably inside the 52-week contract; feasible at submission
     })
     const before = promisesOf(attached)
@@ -512,29 +511,57 @@ describe('P14B.1 test 4: settlement freeze re-classification', () => {
   // promiseNotFeasible with its sentence; the case falls to the next valid
   // proposal or declines."
 
-  it('a promise REASONABLY_ACHIEVABLE at submission erodes to FRAGILE by the decision week purely through slack (the 7-week submission-to-decision gap), and the case drops it with a promise-naming sentence', () => {
-    const { state: opened, talentId, playerStudioId } = openPlayerCase()
-    const week = opened.market.tick // 45
-    // On schedule the first take completes 5 weeks after greenlight. At week
-    // 45 a due week of 45+14=59 leaves 9 weeks of slack if greenlit NOW
-    // (>= the slack hypothesis of 8) — achievable. At the decision week (52,
-    // 7 weeks later) the SAME fixed due week 59 leaves only 59-(52+5)=2
-    // weeks if greenlit then — below 8 — FRAGILE, with no pipeline action
-    // taken at all: the erosion is pure slack, not a resource being used up.
-    const attached = attachPromise(opened, talentId, playerStudioId, {
+  it('a feasible promise becomes FRAGILE after two lawful greenlights consume the existing stages; freeze drops it with a promise-naming sentence', () => {
+    // T4: the old [45,59) window began before the contract [52,104).
+    // A lawful future window cannot lose seven weeks merely by reaching its
+    // start. Preserve the actual requirement (changed pipeline -> freeze drop)
+    // with real greenlights using other people, not a fabricated capacity row.
+    let state = fundTo(p13aGeneratedStudio(), 30_000_000)
+    const crews: { directorId: string; writerId: string; craftId: string; cast: Record<CastSlot, string> }[] = []
+    for (let picture = 0; picture < 2; picture++) {
+      const director = signOne(state, 'director'); state = director.state
+      const writer = signOne(state, 'writer'); state = writer.state
+      const craft = signOne(state, 'craft'); state = craft.state
+      const lead = signOne(state, 'actor'); state = lead.state
+      const antagonist = signOne(state, 'actor'); state = antagonist.state
+      const support = signOne(state, 'actor'); state = support.state
+      crews.push({ directorId: director.id, writerId: writer.id, craftId: craft.id,
+        cast: { lead: lead.id, antagonist: antagonist.id, support: support.id } })
+    }
+    const subject = signOne(state, 'actor', 52); state = subject.state
+    const talentId = subject.id
+    const contract = state.contracts.find((c) => c.talentId === talentId)!
+    state = advanceTo(state, contract.endWeekExclusive - 7)
+    const playerStudioId = state.hollywood!.playerStudioId
+    state = submitProposal(state, { talentId, issuerStudioId: playerStudioId, termWeeks: 52, premiumTier: 1.1 })
+    const startWeek = proposalOf(state, talentId, playerStudioId).startWeek
+    const attached = attachPromise(state, talentId, playerStudioId, {
       family: 'APPEARANCE_COUNT',
       predicate: { count: 1 },
-      windowStartWeek: week,
-      dueWeekExclusive: week + 14,
+      windowStartWeek: startWeek,
+      dueWeekExclusive: startWeek + 40,
     })
     const [minted] = promisesOf(attached).filter((p) => p.beneficiaryPersonId === talentId)
     if (minted === undefined) throw new Error('test premise failed: attachPromise minted no promise record')
     expect(minted.feasibilityReceipt.classification).toBe('REASONABLY_ACHIEVABLE') // sanity: achievable at submission
 
-    let next = attached
-    while (next.market.tick < 52) next = tick(next)
+    let occupied = attached
+    crews.forEach((crew, index) => {
+      occupied = applyActions(occupied, [{ kind: 'greenlight', production:
+        greenlightPayload(occupied, index, crew.directorId, crew.writerId, crew.craftId, crew.cast) }])
+    })
+    expect(occupied.studio.activeProductions).toHaveLength(2)
+    expect(occupied.operations.facilities.filter((f) => f.capability === 'soundstage')).toHaveLength(2)
+    const crowded = promiseFeasibility(occupied, {
+      family: 'APPEARANCE_COUNT', issuerStudioId: playerStudioId, beneficiaryPersonId: talentId,
+      predicate: { count: 1 }, windowStartWeek: startWeek, dueWeekExclusive: startWeek + 40,
+      startWeek, termWeeks: 52, promiseId: minted.promiseId,
+    }, occupied.market.tick)
+    expect(crowded.classification).toBe('FRAGILE')
+    expect(crowded.inputsDigest).not.toBe(minted.feasibilityReceipt.inputsDigest)
+    const next = advanceTo(occupied, startWeek)
     const settlement = next.talentMarket.receipts.find((r: { talentId: string; kind: string }) => r.talentId === talentId && (r.kind === 'settled' || r.kind === 'declined'))
-    if (settlement === undefined) throw new Error('test premise failed: no settlement receipt was written by week 52')
+    if (settlement === undefined) throw new Error('test premise failed: no settlement receipt at the actual decision week')
     expect(settlement.kind).toBe('declined') // the only proposal on this case was dropped
     expect(settlement.dropped.some((sentence: string) => /promise/i.test(sentence))).toBe(true)
   })
@@ -576,8 +603,11 @@ describe('P14B.1 test 5: outcomes', () => {
       outcome: null,
       outcomeWeek: null,
       outcomeCause: null,
-      contractId: `player:contract:${cast.lead}`,
+      contractId: activeEmploymentContractId(state, cast.lead, state.hollywood!.playerStudioId),
     }
+    const employment = state.hollywood!.employment.find((row) => row.contractId === record.contractId)!
+    expect(employment.terms.talentId).toBe(record.beneficiaryPersonId)
+    expect(employment.studioId).toBe(record.issuerStudioId)
     let next = withPromises(state, [record])
     // Bounded search (<= 3 ticks): the first-take fires on the first tick;
     // outcome evaluation may land in that same tick or the market's own next
@@ -637,7 +667,7 @@ describe('P14B.1 test 5: outcomes', () => {
     const attached = attachPromise(state, talentId, playerStudioId, {
       family: 'APPEARANCE_COUNT',
       predicate: { count: 1 },
-      windowStartWeek: week,
+      windowStartWeek: proposalOf(state, talentId, playerStudioId).startWeek,
       dueWeekExclusive: week + 30,
     })
     const [minted] = promisesOf(attached).filter((p) => p.beneficiaryPersonId === talentId)
@@ -676,7 +706,7 @@ describe('P14B.1 test 5: outcomes', () => {
     const attached = attachPromise(state, talentId, playerStudioId, {
       family: 'APPEARANCE_COUNT',
       predicate: { count: 1 },
-      windowStartWeek: week,
+      windowStartWeek: proposalOf(state, talentId, playerStudioId).startWeek,
       dueWeekExclusive: week + 30,
     })
     const [minted] = promisesOf(attached).filter((p) => p.beneficiaryPersonId === talentId)
