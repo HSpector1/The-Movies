@@ -2,38 +2,39 @@
 
 ## Current engineering checkpoint — 2026-09-19
 
-This section supersedes the transfer-only status below; the older recovery record
-is preserved as provenance. Native Codex accepted write ownership from the clean,
-remotely verified `d19c45b2d873653b4cd4488608e4e411f15a2c34` recovery point on
-`wip/headless-program-20260916-ts`. No reset, recreation, Claude invocation or
-overlapping writer. Recovered T3 `e78dbc0` is retained, not rebuilt.
+**P14B.1 T4 CLOSED — LOGIC VERIFIED · UNITY NOT VERIFIED.**
+Production source `ee91913e41b9baa30bcda8eef8c8195da7bfd1cc`; final test-correction
+source `a93bf7776a41df3702c78ae5225a2e7c303ec9da`. The recovered `d19c45b`
+chain and T3 `e78dbc0` are preserved. Branch `wip/headless-program-20260916-ts`,
+worktree `/Users/zacheryspector/The-Movies-headless-program`. Native coordinator
+owns implementation; no overlapping writer, reset, recreation or Claude invocation.
 
-**P14B.1 T4 IN PROGRESS / UNITY NOT VERIFIED.** Independent test-author REDs
-exposed lower-window, state-sensitive feasibility digest, retained freeze receipt
-and exact V29 reference defects; sim-core corrected their shared owners. A second
-review identified a terminal promise incorrectly accepting a later real contract
-for the same parties; independent RED `10-later-contract-red` reproduced that edge
-before the final chronology guards. All evidence is under
-`evidence/p14b1-20260919-t4/`. The initial corrected candidate passed 80 tests with
-the three existing todos unchanged; the final candidate (`11`) passed **81 tests /
-three unchanged todos**, and the bounded final review is KEEP (`12`). Full T4 is
-still pending.
+Qualified closeout: `evidence/p14b1-20260919-t4-final/16-attribution.md`.
+The full fixed-source run completed 11:22:39Z–12:51:55Z: core **3253 passed /
+29 failed / 7 todo**; bridge **717 passed / 12 failed / 2 todo**. Exact identifier
+AND diagnostic comparisons attribute 22 core and all 12 bridge failures to the
+historical baseline. Seven new core test-compatibility failures and one test-only
+typing error were corrected WITHOUT changing production, validators or fixtures.
+Fresh 13-file verification: **170 passed / three unchanged todos**; root/UI and
+bridge typechecks and both contract checks pass. Independent reviews KEEP.
+This is NOT an all-green full-suite rerun on the later test commit.
 
-Next: commit/push corrected source and evidence → fixed-source serialized T4
-runner (both typechecks, both bridge contract
-checks, full core then full bridge) → individual failure attribution and qualified
-closeout → P14B.2 per `plans/P14-HEADLESS-PLAN.md`, then remaining P14/P15/P16 and
-sufficiently specified P17/P18. Do not treat a passing targeted subset as T4.
-Runner preserved at `evidence/p14b1-20260919-t4/run-fixed-source.mjs`; invoke with
-`node <runner-path> p14b1-20260919-t4-final`. Use a fresh evidence directory and
-keep source/tests frozen throughout. Heavy tests are serialized on this Mac.
+**Next: implement P14B.2**, beginning independent bridge test 11 RED and lawful
+fixture preconditions, per `plans/P14-HEADLESS-PLAN.md`. Preparation:
+`evidence/p14b1-20260919-t4/13-b2-test-preparation.md`. The literal contract-ID
+fixture issue mentioned there is already fixed in T4. Preserve real retention
+`ranToEnd` history; establish an actual poaching winner for independent attention.
+Then projection 46 read models, D3 causal test, bounded review and qualified full
+verification. Save V29 stays; no outgoing fixture mint is required. Continue
+remaining P14 → P15 → P16 → sufficiently specified P17/P18 without routine prompts.
+B3 P1 command-route preparation is `14-b3-preparation.md`; not part of B2.
 
-Save V29 / projection 45 remain unchanged. The bridge promise quote is preview
-only; promise attachment at the consumer submit command remains an explicit
-integration gap. Unity/native rendering/UI verification and Owner acceptance are
-deferred in `UNITY-INTEGRATION-BACKLOG.md`. Max two native specialists, one
-production writer; reuse the Fable role bodies with no Claude invocation.
-The Owner reaffirmed broad project authorization and no routine approval requests.
+Save V29 / projection 45 currently. The B1 quote is preview-only; command attachment
+remains a B3 integration obligation. Unity/rendering/native/Owner acceptance stays
+deferred in `UNITY-INTEGRATION-BACKLOG.md`. Max two native specialists, one production
+writer; test-author independent, contract-auditor read-only. Parent owns the serialized
+heavy-test slot. No test process remains running at T4 close. Existing usage carries
+forward; the full runner took ~89 minutes versus the older ~75-minute forecast.
 
 ## Historical recovered handoff (unchanged below)
 

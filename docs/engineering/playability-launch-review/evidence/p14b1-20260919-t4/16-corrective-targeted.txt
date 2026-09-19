@@ -1,0 +1,77 @@
+{"sourceSha":"ee91913e41b9baa30bcda8eef8c8195da7bfd1cc","testedDiffSha256":"1d9b8130ff35666e67098e2d6dddf440e99766a918f889505896c2ce064d13d4","command":["./node_modules/.bin/vitest","run","tests/p14b1-t4-regressions.test.ts","tests/p14b1-first-take.test.ts","tests/p14b1-promises.test.ts","tests/p14b1-save-v29.test.ts","tests/p14b1-leak.test.ts","tests/p14b1-trust-chooser.test.ts","tests/bridge-p14b1-promises.test.ts","tests/facility-move-demolish.test.ts","tests/p08a-w0-studio-history.test.ts","tests/p13b-s6-save-v26.test.ts","tests/p06a-w1-release-authority.test.ts","tests/p13b-r07-save-v25.test.ts","tests/p13b-s3-save-v23.test.ts","--minWorkers=1","--maxWorkers=1","--reporter=dot"],"node":"v20.20.2","start":"2026-09-19T12:56:11.065Z","end":null,"exitCode":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p14b1-promises.test.ts (15 tests) 7506ms
+   ✓ P14B.1 test 2: the promise record and the widened digest > attaching a promise changes the digest; a second attach on an already-promised proposal is refused (enforced at most one); revising (re-submit, then attach a different promise) and removing (re-submit with no attach) both change the digest again — removing restores the exact original 1812ms
+   ✓ P14B.1 test 2: the promise record and the widened digest > a window outside the proposed contract is IMPOSSIBLE by construction 829ms
+   ✓ P14B.1 test 2: the promise record and the widened digest > a promise DRIFTED after attachment (its own definition changed through some other channel) drops materialTermsChanged at freeze 904ms
+   ✓ P14B.1 test 4: settlement freeze re-classification > a feasible promise becomes FRAGILE after two lawful greenlights consume the existing stages; freeze drops it with a promise-naming sentence 1171ms
+   ✓ P14B.1 test 5: outcomes > SATISFIED once the X-th qualifying first take occurs, with evidence refs naming the causing eventId; idempotent on a later tick 766ms
+   ✓ P14B.1 test 5: outcomes > BROKEN at dueWeekExclusive when the window passes unsatisfied, through a BOUND promise: on genuine legacy-v28-open-case-45, attach a P1 promise to the player's own proposal, settle at 52 (retained -> bound, contractId set), then walk to dueWeekExclusive with no qualifying first take 988ms
+   ✓ P14B.1 test 5: outcomes > RED (T2b closes this): a promise attached to a proposal that then LOSES stays UNBOUND (contractId null) and is never evaluated — on genuine legacy-v28-open-case-45, withdrawing the player's own proposal leaves the promise attached to a proposal that vanishes at settlement (declined, "all proposals dropped"); past its own dueWeekExclusive the record must keep outcome: null and contractId: null, mint no promiseOutcome receipt, and leave the issuer's trust descriptor without a promiseBroken driver 565ms
+   ✓ P14B.1 test 5: outcomes > BROKEN on capacity collapse: cancelling the promised person's ONLY production before its first take, with a due week too close for any other path, makes re-feasibility IMPOSSIBLE and the promise BROKEN 372ms
+ ✓ |core| tests/facility-move-demolish.test.ts (30 tests) 3358ms
+   ✓ C1-M3a (A) — every persisted holder of a facility blocks both verbs > finds a screenplay reservation, on the RESERVATION and not the status 1183ms
+   ✓ C1-M3a (A) — every persisted holder of a facility blocks both verbs > finds a casting-session reservation 368ms
+   ✓ C1-M3a (A) — every persisted holder of a facility blocks both verbs > reports an idle facility as engaged by nothing, and is deterministic 302ms
+   ✓ C1-M3a (F) — saves, boundaries, and determinism > round-trips a history containing both a move and a demolition 316ms
+ ✓ |core| tests/bridge-p14b1-promises.test.ts (11 tests) 13293ms
+   ✓ group 2: case block and market page promise rows > the Profile case block's proposal rows carry promise — own row real (family, count, window, classification), competing row the UNKNOWN marker, never the rival's family/count/window 1764ms
+   ✓ group 2: case block and market page promise rows > the Market page comparison row carries the SAME own/UNKNOWN promise facts (bridge/market.ts reuses the case block's own `proposals` array by reference) 960ms
+   ✓ group 3: trust descriptor label and promise history, open then settled with an outcome > open right after settlement, then BROKEN once the window passes unsatisfied — both read through the engine's own trustDescriptor / state.promises as the oracle 2979ms
+   ✓ group 4: the promise draft on marketProposalAction's quote family > refuses a promise window beginning before the proposed contract, although its due week is inside the contract (T4 lower-edge regression) 766ms
+   ✓ group 4: the promise draft on marketProposalAction's quote family > promiseQuoteSnapshot returns the engine's own promiseFeasibility classification, ok true only when REASONABLY_ACHIEVABLE, and the same fact rides the EXISTING quoteMarketProposal session intent (no new intent kind) 1172ms
+   ✓ group 4: the promise draft on marketProposalAction's quote family > a window outside the proposed contract is IMPOSSIBLE, refused "not offerable: <bottleneck>" 1067ms
+   ✓ group 4: the promise draft on marketProposalAction's quote family > a non-P1 family is refused with its own typed reason, deterministically, before any pipeline check runs 921ms
+   ✓ group 5: disclosure narrowing — the rival's promise leaks nowhere > a world where the RIVAL proposal carries a real promise: the profile, the market page, a player-requested quote and pulse all serialize with no trace of the rival's family/window 1087ms
+   ✓ group 6: save/load > a genuine V28 fixture (open-case-45) converts to V29 with empty firstTakes/promises, and the bridge reads it with no promise fact anywhere 543ms
+   ✓ group 6: save/load > a live V29 state carrying a real promise round-trips through the bridge save/load path byte-stable, and the promise-row read is identical on both sides 2028ms
+ ✓ |core| tests/p14b1-trust-chooser.test.ts (13 tests | 3 skipped) 12131ms
+   ✓ P14B.1 test 6: trust, the widened chooser and the priority order > a Distrusted issuer is dropped issuerDistrusted at reservation, and the other (healthy) proposal settles the case 2000ms
+   ✓ P14B.1 test 6: trust, the widened chooser and the priority order > a Reliable issuer beats a Mixed-record issuer on the trust band, in the same otherwise-1-1-tie shape 1109ms
+   ✓ P14B.1 test 7: rival symmetry > attachPromise and its feasibility classification work identically when the issuer is a RIVAL (no player-only special-casing) 760ms
+   ✓ P14B.1 test 7: rival symmetry > a rival proposal carries a P1 promise IFF its own feasibility is REASONABLY_ACHIEVABLE — derived from the FIRST rival proposalSubmitted receipt on the natural chain, never assumed 4001ms
+   ✓ P14B.1 test 7: rival symmetry > rival promise AUTHORING (ruling ii): the FIRST rival proposalSubmitted receipts on the natural chain are for the rivals' own WRITER subjects — IMPOSSIBLE under the landed M16.2 role gate (a writer takes no cast seat), so that proposal carries NO promise (true both today and after T2b); walking on to the first ACTOR-subject rival proposal, whose own feasibility is REASONABLY_ACHIEVABLE, it must carry exactly one P1 promise naming family APPEARANCE_COUNT — RED today (rivals author no promise yet); T2b makes it green 3832ms
+ ✓ |core| tests/p08a-w0-studio-history.test.ts (13 tests) 8480ms
+   ✓ P08A H3/H4 — the release mutation site records exact receipts and the release fact > freezes before/after/deltas equal to the actual Standing change, with the source id and drivers 741ms
+   ✓ P08A H3/H4 — the release mutation site records exact receipts and the release fact > records filmReleased as a LANDMARK for the first film and MAJOR afterwards, by exact id 680ms
+   ✓ P08A H3/H4 — the release mutation site records exact receipts and the release fact > records theatricalRunCompleted exactly once when the run settles 675ms
+   ✓ P08A H3/H5 — weekly settling receipts are exact, bounded, and folded deterministically > records a routine settling receipt only when awareness actually moves, then folds past the window 3860ms
+   ✓ P08A H7 — save/load mid-run continues with identical history > reloaded branch equals the unbroken branch byte-for-byte after more releases 1326ms
+   ✓ P08A H8 — the save boundary refuses forged history > refuses out-of-order ids, pre-boundary rows, lying deltas, and unknown kinds 398ms
+ ✓ |core| tests/p13b-s6-save-v26.test.ts (11 tests) 2932ms
+   ✓ P13B-S6 Save V26: genuine V25 fixtures, honest lift, chains, validator refusals (test 7) > genuine V25 sound-mid-deployment fixture: sha256 matches, migrates to V26 with cancellation:null / cancelledWeek:null and no constructionRefund rows, otherwise byte-identical 587ms
+   ✓ P13B-S6 Save V26: genuine V25 fixtures, honest lift, chains, validator refusals (test 7) > VALID: a cancelled adoption with a passed original completesWeek is exempt from the v4 "operational receipt differs" clause 824ms
+ ✓ |core| tests/p06a-w1-release-authority.test.ts (14 tests) 2245ms
+   ✓ P06A W1 — save law > imports a pre-P06 Release Ready save as UNCOMMITTED (holds until committed) 535ms
+   ✓ P06A W1 — save law > round-trips a committed live save byte-exactly and refuses downgrades 920ms
+   ✓ P06A W1 — save law > validateSaveV29 rejects forged authority at the save boundary 424ms
+ ✓ |core| tests/p14b1-t4-regressions.test.ts (34 tests) 8802ms
+   ✓ P14B.1 T4: feasibility evidence and lawful contract windows > stores the actual winning freeze receipt at the decision week, not the submission receipt 587ms
+   ✓ P14B.1 T4: V29 owns every proposal promise leaf > preserves an explicitly synthetic old-writer early window and submission receipt without rewriting real contract/outcome identity 1263ms
+   ✓ P14B.1 T4: V29 owns every proposal promise leaf > rejects a terminal promise rebound to the same pair's later actual contract starting after its outcome 895ms
+   ✓ P14B.1 T4: terminal V29 promise reference integrity > round-trips several beneficiaries sharing one real take and distinct own outcome receipts 4403ms
+ ✓ |core| tests/p14b1-first-take.test.ts (3 tests) 2210ms
+   ✓ P14B.1 test 1: the first-take receipt > PLAYER: never at shooting entry (empty at remainingTicks 5, shooting task unassigned then scheduled through the real actions, still empty after scheduling); appended exactly once at the 5 -> 4 advance; idempotent on a later tick; byte-stable across save/load 1899ms
+ ✓ |core| tests/p13b-r07-save-v25.test.ts (8 tests) 1236ms
+   ✓ P13B-S5-R07 Save V25 (test 5) > validates the genuine V24 fixtures directly (sha256-pinned, week-pinned) before migration 303ms
+   ✓ P13B-S5-R07 Save V25 (test 5) > migrates both genuine V24 fixtures to V25: saveVersion 25, technology state byte-identical aside from the version bump, setup: null lift (vacuous — both carry zero workflows) 397ms
+ ✓ |core| tests/p14b1-save-v29.test.ts (6 tests) 824ms
+ ✓ |core| tests/p14b1-leak.test.ts (2 tests) 2835ms
+   ✓ P14B.1 test 9: leak — a rival promise never discloses to a non-issuer, and settlement reasons stay ordering-only > a promise attached to the RIVAL's proposal says UNKNOWN on the player's disclosure view and something other than UNKNOWN on the rival's own 1860ms
+   ✓ P14B.1 test 9: leak — a rival promise never discloses to a non-issuer, and settlement reasons stay ordering-only > settlement reasons stay ordering-only (no dollar sign, no bare 3+-digit figure) even when an attached promise is part of the decision 973ms
+ ✓ |core| tests/p13b-s3-save-v23.test.ts (13 tests) 4977ms
+   ✓ P13B-S3 Save V23 (test 7) > migrates the genuine V22 fixture './fixtures/p13b/legacy-v22-staffed-4-…' to V23 with an empty physicalPlans root, byte-identical otherwise 353ms
+   ✓ P13B-S3 Save V23 (test 7) > migrateToV22 / migrateToV21 / migrateToV20 refuse a live save 1110ms
+   ✓ P13B-S3 Save V23 (test 7) > makeSave writes saveVersion 29 453ms
+   ✓ P13B-S3 Save V23 (test 7) > save/reload mid-queue continues identically (byte for byte) 945ms
+
+ Test Files  13 passed (13)
+      Tests  170 passed | 3 todo (173)
+   Start at  14:56:11
+   Duration  86.23s (transform 4.24s, setup 0ms, collect 9.81s, tests 70.83s, environment 5ms, prepare 1.74s)
+
+
+{"sourceSha":"ee91913e41b9baa30bcda8eef8c8195da7bfd1cc","testedDiffSha256":"1d9b8130ff35666e67098e2d6dddf440e99766a918f889505896c2ce064d13d4","command":["./node_modules/.bin/vitest","run","tests/p14b1-t4-regressions.test.ts","tests/p14b1-first-take.test.ts","tests/p14b1-promises.test.ts","tests/p14b1-save-v29.test.ts","tests/p14b1-leak.test.ts","tests/p14b1-trust-chooser.test.ts","tests/bridge-p14b1-promises.test.ts","tests/facility-move-demolish.test.ts","tests/p08a-w0-studio-history.test.ts","tests/p13b-s6-save-v26.test.ts","tests/p06a-w1-release-authority.test.ts","tests/p13b-r07-save-v25.test.ts","tests/p13b-s3-save-v23.test.ts","--minWorkers=1","--maxWorkers=1","--reporter=dot"],"node":"v20.20.2","start":"2026-09-19T12:56:11.065Z","end":"2026-09-19T12:57:38.340Z","exitCode":0,"signal":null,"testedDiffSha256AtEnd":"1d9b8130ff35666e67098e2d6dddf440e99766a918f889505896c2ce064d13d4"}

@@ -1,0 +1,11 @@
+{"sourceSha":"ee91913e41b9baa30bcda8eef8c8195da7bfd1cc","testedDiffSha256":"1d9b8130ff35666e67098e2d6dddf440e99766a918f889505896c2ce064d13d4","command":["npm","run","check:bridge-contract"],"node":"v20.20.2","start":"2026-09-19T13:00:11.189Z","end":null,"exitCode":null}
+
+
+> project-studio-core@0.1.0 check:bridge-contract
+> vite-node scripts/generate-bridge-contract.ts --check
+
+verified /Users/zacheryspector/The-Movies-headless-program/bridge/schema/project-studio-bridge.schema.json
+verified /Users/zacheryspector/The-Movies-headless-program/generated/unity/StudioBridgeDtos.Generated.cs
+verified /Users/zacheryspector/The-Movies-headless-program/generated/unity/project-studio-bridge.contract-manifest.json
+
+{"sourceSha":"ee91913e41b9baa30bcda8eef8c8195da7bfd1cc","testedDiffSha256":"1d9b8130ff35666e67098e2d6dddf440e99766a918f889505896c2ce064d13d4","command":["npm","run","check:bridge-contract"],"node":"v20.20.2","start":"2026-09-19T13:00:11.189Z","end":"2026-09-19T13:00:13.062Z","exitCode":0,"signal":null,"testedDiffSha256AtEnd":"1d9b8130ff35666e67098e2d6dddf440e99766a918f889505896c2ce064d13d4"}

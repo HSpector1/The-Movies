@@ -1,0 +1,160 @@
+diff --git a/tests/facility-move-demolish.test.ts b/tests/facility-move-demolish.test.ts
+index fff9de2..4bd95e5 100644
+--- a/tests/facility-move-demolish.test.ts
++++ b/tests/facility-move-demolish.test.ts
+@@ -825,6 +825,11 @@ describe('C1-M3a (F) — saves, boundaries, and determinism', () => {
+     delete forgedV11.state.physicalPlans
+     // P14A.1: and the contested-market root (V28), for the same reason.
+     delete forgedV11.state.talentMarket
++    // P14B.1: remove only empty V29 roots; no filming or promise history is discarded.
++    expect(forgedV11.state.firstTakes).toEqual([])
++    expect(forgedV11.state.promises).toEqual([])
++    delete forgedV11.state.firstTakes
++    delete forgedV11.state.promises
+     for (const person of forgedV11.state.talent as Record<string, unknown>[]) {
+       for (const key of ['skills', 'ceilings', 'devRate', 'genreExperience', 'workHistory']) {
+         delete (person[key] as Record<string, unknown>).research
+diff --git a/tests/p06a-w1-release-authority.test.ts b/tests/p06a-w1-release-authority.test.ts
+index 658661e..7b7cf06 100644
+--- a/tests/p06a-w1-release-authority.test.ts
++++ b/tests/p06a-w1-release-authority.test.ts
+@@ -423,7 +423,7 @@ describe('P06A W1 — save law', () => {
+     expect(held.studio.releasedFilms).toEqual([])
+   })
+ 
+-  it('round-trips a committed V16 save byte-exactly and refuses downgrades', () => {
++  it('round-trips a committed live save byte-exactly and refuses downgrades', () => {
+     const ready = foundedToReleaseReady('p06a-roundtrip')
+     const committed = commit(ready, ready.studio.activeProductions[0]!.id)
+     const save = makeSave(committed)
+@@ -433,7 +433,7 @@ describe('P06A W1 — save law', () => {
+     expect(stableStringify(reimported)).toBe(stableStringify(save))
+     expect(reimported.state.releaseAuthority.commitments).toHaveLength(1)
+ 
+-    expect(() => migrateToV15(save)).toThrow(/cannot downgrade SaveFileV28/)
++    expect(() => migrateToV15(save)).toThrow(/cannot downgrade SaveFileV29/)
+   })
+ 
+   it('validateSaveV29 rejects forged authority at the save boundary', () => {
+diff --git a/tests/p08a-w0-studio-history.test.ts b/tests/p08a-w0-studio-history.test.ts
+index 713f063..5c811d1 100644
+--- a/tests/p08a-w0-studio-history.test.ts
++++ b/tests/p08a-w0-studio-history.test.ts
+@@ -451,7 +451,11 @@ describe('P08A H8 — the save boundary refuses forged history', () => {
+     }
+ 
+     const early = clone(legal)
+-    ;(early.state.studioHistory as { recordingStartedWeek: number }).recordingStartedWeek = 10_000
++    expect(early.state.studioHistory.rows.length).toBeGreaterThan(0)
++    const boundary = Math.min(...early.state.studioHistory.rows.map((row) => row.week)) + 1
++    expect(early.state.firstTakes.every((take) => take.week >= boundary)).toBe(true)
++    expect(early.state.promises).toEqual([])
++    ;(early.state.studioHistory as { recordingStartedWeek: number }).recordingStartedWeek = boundary
+     expect(() => validateSaveV29(early)).toThrow(/recording boundary/)
+ 
+     const lying = clone(legal)
+diff --git a/tests/p13b-r07-save-v25.test.ts b/tests/p13b-r07-save-v25.test.ts
+index b1f8698..4ff1be3 100644
+--- a/tests/p13b-r07-save-v25.test.ts
++++ b/tests/p13b-r07-save-v25.test.ts
+@@ -163,6 +163,11 @@ function asV25Envelope(state: GameState): { saveVersion: 25; seed: string; state
+   // P14A.1 sweep: a frozen V25 envelope carries no `talentMarket` root — the
+   // frozen chain's exact-key law refuses a root V25 never had.
+   delete (stripped as unknown as { talentMarket?: unknown }).talentMarket
++  // P14B.1: reconstruct V25 only when no first-take or promise history is lost.
++  expect(stripped.firstTakes).toEqual([])
++  expect(stripped.promises).toEqual([])
++  delete (stripped as unknown as { firstTakes?: unknown }).firstTakes
++  delete (stripped as unknown as { promises?: unknown }).promises
+   return { saveVersion: 25, seed: stripped.seed, state: stripped, broadcastCache: stripped.broadcastItems }
+ }
+ 
+@@ -197,17 +202,17 @@ describe('P13B-S5-R07 Save V25 (test 5)', () => {
+     }
+   })
+ 
+-  it('migrates a genuine V24 envelope WITH a real, non-legacy-shaped rehearsing production: setup: null lift on a NON-empty workflow', () => {
++  it('validates a reconstructed V25 envelope with a real rehearsing production and setup: null on a nonempty workflow', () => {
+     const rehearsing = legacyRehearsingWorld('r07-save-v25-legacy-workflow')
+-    const v24 = asV25Envelope(rehearsing)
+-    expect(v24.saveVersion).toBe(25) // honestly reconstructed V25 envelope (see asV25Envelope) — `makeSave` moved past V25
++    const v25 = asV25Envelope(rehearsing)
++    expect(v25.saveVersion).toBe(25) // live-derived reconstruction, not genuine nonempty V24→V25 migration evidence
+     expect(rehearsing.operations.workflows).toHaveLength(1)
+ 
+-    const migrated = withV25.migrateToV25(v24)
++    const migrated = withV25.migrateToV25(v25)
+     expect(migrated.saveVersion).toBe(25)
+     expect(migrated.state.operations.workflows).toHaveLength(1)
+     expect(workflowOf(migrated.state as unknown as GameState).setup).toBeNull() /* P14A.1: this envelope is deliberately pinned at its own frozen version; the live-typed reader never touches the V28 root. */
+-    // Nothing else about the lifted workflow moved.
++    // Nothing else about the validated workflow moved.
+     expect(migrated.state.operations.workflows[0]!.phase).toBe(rehearsing.operations.workflows[0]!.phase)
+     expect(migrated.state.operations.workflows[0]!.bindings).toEqual(rehearsing.operations.workflows[0]!.bindings)
+   })
+diff --git a/tests/p13b-s3-save-v23.test.ts b/tests/p13b-s3-save-v23.test.ts
+index 645000d..4ff7bde 100644
+--- a/tests/p13b-s3-save-v23.test.ts
++++ b/tests/p13b-s3-save-v23.test.ts
+@@ -96,16 +96,16 @@ describe('P13B-S3 Save V23 (test 7)', () => {
+   })
+ 
+   it('migrateToV22 / migrateToV21 / migrateToV20 refuse a live save', () => {
+-    // P13B-S6: the live writer moved on to V26, so the save these downgrade
+-    // guards see is a V26 envelope now; each still refuses at ITS OWN nearest
++    // P14B.1: the live writer moved on to V29, so the save these downgrade
++    // guards see is a V29 envelope now; each still refuses at ITS OWN nearest
+     // guard, which reports the true incoming version, not V23.
+     const live = makeSave(p13aLaboratorySlice())
+-    expect(() => migrateToV22(live)).toThrow(/cannot downgrade SaveFileV28/)
+-    expect(() => migrateToV21(live)).toThrow(/cannot downgrade SaveFileV28/)
+-    expect(() => migrateToV20(live)).toThrow(/cannot downgrade SaveFileV28/)
++    expect(() => migrateToV22(live)).toThrow(/cannot downgrade SaveFileV29/)
++    expect(() => migrateToV21(live)).toThrow(/cannot downgrade SaveFileV29/)
++    expect(() => migrateToV20(live)).toThrow(/cannot downgrade SaveFileV29/)
+   })
+ 
+-  it('makeSave writes saveVersion 26', () => {
++  it('makeSave writes saveVersion 29', () => {
+     expect(makeSave(p13aLaboratorySlice()).saveVersion).toBe(29)
+   })
+ 
+diff --git a/tests/p13b-s6-save-v26.test.ts b/tests/p13b-s6-save-v26.test.ts
+index ccd3223..3b7c6c3 100644
+--- a/tests/p13b-s6-save-v26.test.ts
++++ b/tests/p13b-s6-save-v26.test.ts
+@@ -122,17 +122,17 @@ function s6ForgeV26(genuineV25State: GameState, mutate: (state: GameState) => Ga
+ }
+ 
+ /**
+- * P13B-S8 sweep (26 -> 27), P14A.1 sweep (27 -> 28): the same forge for a case
++ * P13B-S8 (26 -> 27), P14A.1 (27 -> 28), P14B.1 (28 -> 29): the same forge for a case
+  * whose mutation RUNS THE LIVE ENGINE. A live advance writes at the live save
+- * version, so the state is lifted through the governed V25→…→V28 chain first and
++ * version, so the state is lifted through the governed V25→…→V29 chain first and
+  * the envelope is stamped at the live version. Nothing about the S6 law under test moves: the V26 leaves and
+- * their refusals are validated by the same owners, one version further down.
++ * their refusals are validated by the same owners through the live chain.
+  */
+ function s6ForgeLive(genuineV25State: GameState, mutate: (state: GameState) => GameState) {
+   const v25Envelope = { saveVersion: 25 as const, seed: genuineV25State.seed, state: genuineV25State, broadcastCache: genuineV25State.broadcastItems }
+   const lifted = (save as unknown as { migrateToV29: (envelope: unknown) => { seed: string; state: GameState; broadcastCache: unknown } }).migrateToV29(v25Envelope)
+   const mutated = mutate(lifted.state)
+-  const envelope = { saveVersion: 28 as const, seed: lifted.seed, state: mutated, broadcastCache: lifted.broadcastCache }
++  const envelope = { saveVersion: save.LIVE_SAVE_VERSION, seed: lifted.seed, state: mutated, broadcastCache: lifted.broadcastCache }
+   const json = save.exportSave(envelope as unknown as Parameters<typeof save.exportSave>[0])
+   return save.importSave(json)
+ }
+diff --git a/tests/p14b1-promises.test.ts b/tests/p14b1-promises.test.ts
+index 9da0bf7..cd92231 100644
+--- a/tests/p14b1-promises.test.ts
++++ b/tests/p14b1-promises.test.ts
+@@ -541,7 +541,7 @@ describe('P14B.1 test 4: settlement freeze re-classification', () => {
+       windowStartWeek: startWeek,
+       dueWeekExclusive: startWeek + 40,
+     })
+-    const [minted] = promisesOf(attached).filter((p) => p.beneficiaryPersonId === talentId)
++    const [minted] = attached.promises.filter((p) => p.beneficiaryPersonId === talentId)
+     if (minted === undefined) throw new Error('test premise failed: attachPromise minted no promise record')
+     expect(minted.feasibilityReceipt.classification).toBe('REASONABLY_ACHIEVABLE') // sanity: achievable at submission
+ 

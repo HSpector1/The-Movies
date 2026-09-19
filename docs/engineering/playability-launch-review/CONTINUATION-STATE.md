@@ -1,37 +1,38 @@
 # CONTINUATION STATE — three-week autonomous window (Owner directive 2026-09-15)
 
-## Current continuation — 2026-09-19: P14B.1 T4 corrections in progress
+## Current continuation — 2026-09-19: T4 closed; P14B.2 next
 
-This section supersedes the historical NOW/RUNNING statements below. Native Codex
-coordinator accepted the yielded write ownership on the existing headless branch;
-local and remote entry were `d19c45b2d873653b4cd4488608e4e411f15a2c34`, clean.
-No overlapping writer/test run was found. Recovered T3 `e78dbc0` and evidence
-`c5c81c1` remain intact; actual producers are Save V29 / projection 45.
+**P14B.1 T4 CLOSED — LOGIC VERIFIED · UNITY NOT VERIFIED**, qualified, not Owner
+acceptance. Production `ee91913e41b9baa30bcda8eef8c8195da7bfd1cc`; test-only
+corrections `a93bf7776a41df3702c78ae5225a2e7c303ec9da`. Recovered `d19c45b` and
+T3 `e78dbc0` preserved. Current branch/worktree and ownership: `CODEX-START-HERE.md`.
+Older NOW/RUNNING statements below are historical only.
 
-T4 is **IN PROGRESS / UNITY NOT VERIFIED**, not closed by the 46-pass/3-todo
-targeted result. Independent native `contract-auditor` review found four required
-corrections: lower contract-window boundary, committed inputs in feasibility
-digests, retained freeze receipt, and exact V29 proposal/binding/outcome/evidence
-validation. See `evidence/p14b1-20260919-t4/05-review.md`. Preliminary root/UI
-typecheck passed; bridge typecheck was interrupted before full suites to make these
-corrections first. Raw partial evidence is retained, not a completed T4 pass.
+Full frozen evidence `p14b1-20260919-t4-final/00-run.json`:
+11:22:39Z–12:51:55Z, unchanged source/tests. Core 3253 passed / 29 failed / seven
+todos; bridge 717 passed / 12 failed / two todos. Complete diagnostic comparisons
+`13`/`15` retain all 22 inherited core and 12 inherited bridge signatures.
+Seven new core test-compatibility failures plus a test-only TS2339 were fixed
+without production/config/harness/generated/fixture changes. Corrective records
+`p14b1-20260919-t4/16`–`20`: 13 files / 170 passed / three unchanged todos;
+both typechecks and both contract checks GREEN. Exact tested patch SHA
+`1d9b8130ff35666e67098e2d6dddf440e99766a918f889505896c2ce064d13d4`.
+Final attribution `p14b1-20260919-t4-final/16-attribution.md`; independent reviews
+KEEP. Raw failures retained; no wholly green full rerun claimed.
 
-Independent REDs and lawful fixture corrections are now recorded (`06`–`08`),
-and the first corrected candidate passed seven targeted files, 80 tests / three
-unchanged todos (`09`). Re-review found one additional exact-binding edge:
-an old terminal promise could reference a later real contract for the same parties.
-Independent RED `10` reproduced it; the final candidate adds contract-start and
-terminal-outcome chronology guards, preserving old V29 window/receipt compatibility.
+Next: P14B.2 T1 independent RED and actual kept/broken/poaching fixture proofs,
+then T2 projection 46, T3 D3 causal test, T4 review/full checks/publication.
+Use the existing expansion and `13-b2-test-preparation.md`; its old guessed
+contract-ID issue is already fixed. Save V29 unchanged, no T0 mint. One production
+writer / max two specialists; parent owns serialized heavy tests. No T4 runtime
+remains active. B2 forecast: 2–4 hours fixture/implementation plus ~90 minutes
+full validation, revised from actual results. Prior usage carries forward, no
+new allowance. T4's ~89-minute run exceeded the older observation by ~14 minutes.
 
-Final targeted candidate `11` passed seven files / 81 tests / three unchanged
-todos; final bounded re-review KEEP (`12`). Exact next sequence: publish corrected
-source/evidence checkpoint → serialized fixed-source core/bridge, both typechecks
-and both contract checks (`evidence/p14b1-20260919-t4/run-fixed-source.mjs`,
-fresh `p14b1-20260919-t4-final` evidence directory) → failure
-attribution, qualified label/backlog/records, commit/push and remote SHA readback.
-Then P14B.2 in the existing plan; remaining P14 → P15 → P16 → sufficiently
-specified P17/P18 remain authorized. No fresh allowance is implied; prior usage
-and deferred Unity/native/Owner acceptance obligations below carry forward.
+Then remaining P14 → P15 → P16 → sufficiently specified P17/P18. Unity/rendering/
+native/Owner acceptance remains deferred. B1's preview-only command attachment
+gap and orphan-draft reservation follow-up are isolated in B3 preparation
+`14-b3-preparation.md`, not silently included in B2.
 
 ## Historical continuation records (preserved)
 

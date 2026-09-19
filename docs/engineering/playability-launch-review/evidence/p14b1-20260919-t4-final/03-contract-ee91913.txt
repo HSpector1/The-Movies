@@ -1,0 +1,15 @@
+source ee91913e41b9baa30bcda8eef8c8195da7bfd1cc
+command ["npm","run","check:bridge-contract"]
+start 2026-09-19T11:24:01.130Z
+
+
+> project-studio-core@0.1.0 check:bridge-contract
+> vite-node scripts/generate-bridge-contract.ts --check
+
+verified /Users/zacheryspector/The-Movies-headless-program/bridge/schema/project-studio-bridge.schema.json
+verified /Users/zacheryspector/The-Movies-headless-program/generated/unity/StudioBridgeDtos.Generated.cs
+verified /Users/zacheryspector/The-Movies-headless-program/generated/unity/project-studio-bridge.contract-manifest.json
+
+end 2026-09-19T11:24:03.147Z
+EXIT_CODE=0
+SIGNAL=null

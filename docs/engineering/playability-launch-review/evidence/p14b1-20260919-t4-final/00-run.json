@@ -1,0 +1,106 @@
+{
+  "task": "P14B.1 T4",
+  "sourceSha": "ee91913e41b9baa30bcda8eef8c8195da7bfd1cc",
+  "start": "2026-09-19T11:22:39.535Z",
+  "end": "2026-09-19T12:51:55.553Z",
+  "statusAtStart": "",
+  "testedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "environment": {
+    "node": "v20.20.2",
+    "platform": "darwin",
+    "arch": "x64",
+    "release": "21.6.0",
+    "logicalCpus": 4,
+    "memoryBytes": 8589934592
+  },
+  "qualification": "Same checkout and worker flags as prior Mac passes; timings are observations, not assumed equivalent. No source or test edits permitted during this run.",
+  "commands": [
+    {
+      "command": "npm",
+      "args": [
+        "run",
+        "typecheck"
+      ],
+      "start": "2026-09-19T11:22:39.597Z",
+      "log": "docs/engineering/playability-launch-review/evidence/p14b1-20260919-t4-final/01-typecheck-ee91913.txt",
+      "end": "2026-09-19T11:23:22.102Z",
+      "exitCode": 2,
+      "signal": null,
+      "error": null
+    },
+    {
+      "command": "npm",
+      "args": [
+        "run",
+        "typecheck:bridge"
+      ],
+      "start": "2026-09-19T11:23:22.103Z",
+      "log": "docs/engineering/playability-launch-review/evidence/p14b1-20260919-t4-final/02-typecheck-bridge-ee91913.txt",
+      "end": "2026-09-19T11:24:01.128Z",
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "command": "npm",
+      "args": [
+        "run",
+        "check:bridge-contract"
+      ],
+      "start": "2026-09-19T11:24:01.130Z",
+      "log": "docs/engineering/playability-launch-review/evidence/p14b1-20260919-t4-final/03-contract-ee91913.txt",
+      "end": "2026-09-19T11:24:03.147Z",
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "command": "npm",
+      "args": [
+        "run",
+        "check:bridge-contract:fixtures"
+      ],
+      "start": "2026-09-19T11:24:03.149Z",
+      "log": "docs/engineering/playability-launch-review/evidence/p14b1-20260919-t4-final/04-contract-fixtures-ee91913.txt",
+      "end": "2026-09-19T11:24:04.663Z",
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "command": "./node_modules/.bin/vitest",
+      "args": [
+        "run",
+        "--project",
+        "core",
+        "--minWorkers=1",
+        "--maxWorkers=2",
+        "--reporter=dot"
+      ],
+      "start": "2026-09-19T11:24:04.665Z",
+      "log": "docs/engineering/playability-launch-review/evidence/p14b1-20260919-t4-final/11-test-core-ee91913.txt",
+      "end": "2026-09-19T12:22:13.360Z",
+      "exitCode": 1,
+      "signal": null,
+      "error": null
+    },
+    {
+      "command": "/bin/bash",
+      "args": [
+        "-c",
+        "./node_modules/.bin/vitest run tests/bridge*.test.ts --minWorkers=1 --maxWorkers=2 --reporter=dot"
+      ],
+      "start": "2026-09-19T12:22:13.363Z",
+      "log": "docs/engineering/playability-launch-review/evidence/p14b1-20260919-t4-final/12-test-bridge-ee91913.txt",
+      "end": "2026-09-19T12:51:55.545Z",
+      "exitCode": 1,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "sourceShaAtEnd": "ee91913e41b9baa30bcda8eef8c8195da7bfd1cc",
+  "statusAtEnd": "M docs/engineering/playability-launch-review/CODEX-START-HERE.md\n M docs/engineering/playability-launch-review/CONTINUATION-STATE.md\n M docs/engineering/playability-launch-review/HEADLESS-PROGRESS.md\n?? docs/engineering/playability-launch-review/evidence/p14b1-20260919-t4-final/\n?? docs/engineering/playability-launch-review/evidence/p14b1-20260919-t4/13-b2-test-preparation.md\n?? docs/engineering/playability-launch-review/evidence/p14b1-20260919-t4/14-b3-preparation.md\n?? docs/engineering/playability-launch-review/evidence/p14b1-20260919-t4/15-queued-test-corrections.md\n?? docs/engineering/playability-launch-review/evidence/p14b1-20260919-t4/compare-failures.mjs",
+  "testedDiffSha256AtEnd": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "untrackedSourceAtEnd": "",
+  "fixedSource": true
+}

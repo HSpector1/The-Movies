@@ -1,0 +1,13 @@
+source ee91913e41b9baa30bcda8eef8c8195da7bfd1cc
+command ["npm","run","check:bridge-contract:fixtures"]
+start 2026-09-19T11:24:03.149Z
+
+
+> project-studio-core@0.1.0 check:bridge-contract:fixtures
+> vite-node scripts/generate-bridge-contract-fixtures.ts --check
+
+verified /Users/zacheryspector/The-Movies-headless-program/generated/unity/tests/StudioBridgeUnionFixtures.Generated.cs
+
+end 2026-09-19T11:24:04.663Z
+EXIT_CODE=0
+SIGNAL=null

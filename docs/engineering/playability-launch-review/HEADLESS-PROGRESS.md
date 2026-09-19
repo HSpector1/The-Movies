@@ -4,22 +4,26 @@ One row per package/slice: exact source, test results, status label, decision cl
 Labels: LOGIC VERIFIED · ENGINE INTEGRATION VERIFIED · UNITY NOT VERIFIED · DESIGN BLOCKED · IN PROGRESS.
 Headless verification never claims package completion or Owner acceptance.
 
-Current update (2026-09-19): **P14B.1 T4 IN PROGRESS / UNITY NOT VERIFIED**.
-The recovered T3 bridge is `e78dbc0`, evidence `c5c81c1`; Save V29 / projection 45
-confirmed at local and published `d19c45b`. Bounded native independent review
-identified four correction gates, recorded in
-`evidence/p14b1-20260919-t4/05-review.md`: the lower contract-window boundary,
-state-sensitive feasibility evidence, the persisted freeze receipt, and V29 exact
-references. Test-author owns RED and test premises; sim-core owns production;
-coordinator owns integration and the serialized full pass. Independent REDs are in
-`06`–`08`; first corrected targeted pass `09` is 80 passed / three unchanged todos.
-Re-review's later-contract identity edge was reproduced RED at `10`, then corrected
-with narrow contract-start/outcome chronology guards. Final targeted `11` passed
-81 tests / three unchanged todos; bounded review KEEP (`12`). Fixed-source full T4
-remains required. Initial root/UI typecheck passed; the partial
-run was stopped before the full suites, so no T4 label is claimed.
-Earlier cumulative usage/forecasts below remain in force;
-the old ≈75-minute full-pass duration is a planning observation, not a new budget.
+Current (2026-09-19): **P14B.1 T4 CLOSED — LOGIC VERIFIED · UNITY NOT VERIFIED**.
+Recovered T3 `e78dbc0` preserved. Production `ee91913`, test-only corrections
+`a93bf7776a41df3702c78ae5225a2e7c303ec9da`; Save V29 / projection 45 unchanged.
+Independent REDs led to lower-window, state-sensitive digest, real freeze receipt,
+exact V29 references and later-contract chronology fixes; bounded reviews KEEP.
+
+| Evidence | Observed result / qualification |
+|---|---|
+| Full frozen run, `p14b1-20260919-t4-final/00-run.json` | 11:22:39Z–12:51:55Z, unchanged source/tests; no concurrent heavy suite |
+| Full core | 301 files, 3253 passed / 29 failed / 7 todo; 22 exact historical failures plus seven new test-compatibility failures |
+| Full bridge | 69 files, 717 passed / 12 failed / 2 todo; all failures exactly historical |
+| Corrective target `p14b1-20260919-t4/16` | 13 files / 170 passed / three unchanged todos |
+| Final checks `17`–`20` | Root/UI + bridge typechecks and both contract checks exit 0 |
+| Scope / review | Seven corrective tests only; production/config/harness/generated/historical fixtures unchanged; independent KEEP |
+| Closeout | `p14b1-20260919-t4-final/16-attribution.md`; attributed non-green full suites plus verified corrections, NOT an all-green full rerun |
+
+Next: P14B.2 independent RED/fixture proofs → projection 46 read models → D3
+test → review/full pass/publication. Forecast: 2–4 hours fixture/implementation
+plus ~90 minutes full validation. T4 took ~89 minutes, ~14 over the older
+observation. Earlier cumulative usage remains in force; no fresh allowance.
 
 ## Environment and baseline (2026-09-16 12:37–12:55 CEST)
 
