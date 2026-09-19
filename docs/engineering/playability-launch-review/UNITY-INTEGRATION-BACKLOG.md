@@ -21,15 +21,18 @@ verified in Unity. Generated C# produced by the TypeScript generator is text, no
 
 ## Per-slice entries
 
-### P14B.3 — atomic P1 proposal command (candidate; full verification pending)
+### P14B.3 — atomic P1 proposal command (qualified logic verified; Unity not verified)
 
-Candidate stays Save29 / protocol4 / projection46, existing schema584bdd… and
+Producer stays Save29 / protocol4 / projection46, existing schema584bdd… and
 generated DTOs unchanged. New roots and fresh feasibility receipts use evaluator2;
 historical roots/receipts remain unchanged on load. Three owners: promises.ts,
 bridge/contract.ts, bridge/session.ts. Source425170e; evidence p14b3-20260919:
 27targeted files335passes/3unchanged todos, both typechecks/contracts PASS,
-independent review KEEP; full T4 still owed. This is NOT
-yet the qualified closeout that removes the earlier preview-only caveat.
+independent review KEEP. Full tested359f636 fixedSource:true: core3338PASS/
+22FAIL/6TODO, bridge761PASS/12FAIL/2TODO, all failures exact historical identifiers
+and diagnostics; both typechecks/contracts PASS; independent final KEEP.
+Qualified closeout p14b3-20260919-final/17-attribution.md removes the B1 preview-
+only caveat for the HEADLESS P1 route, not for an unverified native composer.
 
 Future consumer work: make the existing P1 draft composer submit ONLY the emitted
 intent; whole-quote ok:false (including nested FRAGILE/IMPOSSIBLE) disables commit
@@ -259,11 +262,14 @@ verification is complete with exact historical attribution. Seven test-only
 compatibility corrections at `a93bf77` passed the fresh 13-file / 170-test target;
 both typechecks and both contract checks passed. T4 is qualified CLOSED. See
 `evidence/p14b1-20260919-t4-final/16-attribution.md`. The case carrier exists for terminal latest cases too, not
-only open cases. The quoted promise draft is currently preview-only:
+only open cases. Historical B1 limitation (superseded by qualified B3 above):
+the quoted promise draft was preview-only:
 `applyMarketProposal` submits the base proposal without attaching it. Future
 command integration must preserve quoted promise terms through commit/revision,
 revalidate stale drafts, and test actual attachment/binding before presenting
-the composer as a functioning promise offer. No current UI/native pass is claimed.
+the composer as a functioning promise offer. B3 now verifies that command path
+headlessly; these native consumer obligations remain deferred. No current UI/native
+pass is claimed.
 
 V29 compatibility constraint for T4: preserve truthful legacy submission-time
 feasibility receipts and previously exported windows; do not fabricate a historic

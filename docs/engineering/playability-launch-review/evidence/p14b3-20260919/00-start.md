@@ -1,6 +1,23 @@
-# P14B.3 — active implementation continuation, 2026-09-19
+# P14B.3 — qualified CLOSED, 2026-09-19
 
-**LIVE: CANDIDATE COMPLETE, PUBLICATION/FULL T4 NEXT.** Source/test checkpoint
+Full source359f636 completed16:52:49.457Z–18:27:20.807Z, fixedSource:true.
+Core3338PASS/22FAIL/6TODO; bridge761PASS/12FAIL/2TODO, overlapping selections.
+All failures exact historical identifiers/diagnostics, no new/changed/absent;
+both typechecks/contracts PASS, independent reviewsKEEP. Qualified closeout
+../p14b3-20260919-final/17-attribution.md; LOGIC VERIFIED · UNITY NOT VERIFIED.
+Session26407 CLOSED; no runtime/source writer active. Publish records and exact
+remote verification, then B-F2 independent RED per16-bf2-next-execution-brief.md.
+Preservation9c605dc/REDf4e1230/implementation425170e/allraw records stay intact.
+
+## Historical full/candidate handoffs (superseded above)
+
+**LIVE FULL T4:** parent session26407 from16:52:49Z on published/EXACT remote-
+verified359f6361c130e7d0b2808e2d82d328843c9e90a3. Clean start/no overlap. Source/
+tests/HEAD FROZEN until full completion; only docs prep. Controlling live metadata
+and recovery: ../p14b3-20260919-final/00-run.json and00-start.md. Do not duplicate
+the runner or commit HEAD. Exact failure attribution/qualified closeout follow.
+
+**COMPLETED CANDIDATE (runtime state superseded above).** Source/test checkpoint
 425170e069bf294445f1286086f4161793959e4b. Committed protected diff overf4e1230
 independently matches tested patch SHA256
 6129b77df0e3b4c4b1111b2ee226860ee6e3538de95b3c3a3bdf6e3805026ba6.
@@ -81,11 +98,11 @@ is separate evidence. Never relabel that broad recorder as unchanged. Archive
 executed entry/helper/evidence, independently pin output byte/source hashes, then
 remove only temporary operational entry/helper from discovery (copies retained).
 
-## Exact next actions
+## Historical full-run next actions (completed; do not restart)
 
-Publish candidate425170e plus these records; verify exact remote SHA. Run
+Publication359f636 verified; following command already RUNNING session26407:
 `node docs/engineering/playability-launch-review/evidence/p14b3-20260919/run-fixed-source.mjs p14b3-20260919-final`
-with legitimate localhost test capability (normal sandbox escalation if needed).
+with legitimate localhost test capability (normal sandbox escalation approved).
 Do not overlap heavy runtime; no source/test/HEAD change during run. Attribute
 every full failure against canonical P14A.3 exact identifiers/diagnostic traces,
 investigate changes, fix real regressions and reverify without weakening gates.

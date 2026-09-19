@@ -1,0 +1,189 @@
+{
+  "baselinePath": "docs/engineering/playability-launch-review/evidence/p14a3-20260918/11-test-core-f32d56c.txt",
+  "candidatePath": "docs/engineering/playability-launch-review/evidence/p14b3-20260919-final/11-test-core-359f636.txt",
+  "baselineRawSha256": "373844d785abd1d50e3aeb898761542a79da408f09132ff5ed28263b947783f7",
+  "candidateRawSha256": "48e621170b00d1dd5530bc326ca5d19ca033452732203a4d47fba9601bd7f77d",
+  "qualification": "Complete test identifier plus diagnostic/trace comparison; only ANSI and generated exporter temporary suffix normalized. Exact historical signatures are evidence for attribution, not a green suite or Owner acceptance.",
+  "baselineCount": 22,
+  "candidateCount": 22,
+  "rows": [
+    {
+      "test": "tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > keeps the shipped Save route and save-before-load consistent with the named record",
+      "comparison": "EXACT_DIAGNOSTIC_MATCH",
+      "diagnostic": "Error: Test timed out in 5000ms.\nIf this is a long-running test, pass a timeout value as the last argument or configure it globally with \"testTimeout\".",
+      "diagnosticSha256": "e4768c2aa302c3c2241880b813020a007bcefdb6a42d3f5eea71563a08031662",
+      "baselineDiagnostic": "Error: Test timed out in 5000ms.\nIf this is a long-running test, pass a timeout value as the last argument or configure it globally with \"testTimeout\".",
+      "baselineDiagnosticSha256": "e4768c2aa302c3c2241880b813020a007bcefdb6a42d3f5eea71563a08031662"
+    },
+    {
+      "test": "tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > rejects a corrupted cross-world active binding and stops on an uncertain commit",
+      "comparison": "EXACT_DIAGNOSTIC_MATCH",
+      "diagnostic": "Error: Test timed out in 5000ms.\nIf this is a long-running test, pass a timeout value as the last argument or configure it globally with \"testTimeout\".",
+      "diagnosticSha256": "e4768c2aa302c3c2241880b813020a007bcefdb6a42d3f5eea71563a08031662",
+      "baselineDiagnostic": "Error: Test timed out in 5000ms.\nIf this is a long-running test, pass a timeout value as the last argument or configure it globally with \"testTimeout\".",
+      "baselineDiagnosticSha256": "e4768c2aa302c3c2241880b813020a007bcefdb6a42d3f5eea71563a08031662"
+    },
+    {
+      "test": "tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > saves atomically across the bounded replay journal with a new logical session",
+      "comparison": "EXACT_DIAGNOSTIC_MATCH",
+      "diagnostic": "Error: Test timed out in 5000ms.\nIf this is a long-running test, pass a timeout value as the last argument or configure it globally with \"testTimeout\".",
+      "diagnosticSha256": "e4768c2aa302c3c2241880b813020a007bcefdb6a42d3f5eea71563a08031662",
+      "baselineDiagnostic": "Error: Test timed out in 5000ms.\nIf this is a long-running test, pass a timeout value as the last argument or configure it globally with \"testTimeout\".",
+      "baselineDiagnosticSha256": "e4768c2aa302c3c2241880b813020a007bcefdb6a42d3f5eea71563a08031662"
+    },
+    {
+      "test": "tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > branches CURRENT complete state, preserves original records, switches scope and survives restart",
+      "comparison": "EXACT_DIAGNOSTIC_MATCH",
+      "diagnostic": "Error: Test timed out in 5000ms.\nIf this is a long-running test, pass a timeout value as the last argument or configure it globally with \"testTimeout\".",
+      "diagnosticSha256": "e4768c2aa302c3c2241880b813020a007bcefdb6a42d3f5eea71563a08031662",
+      "baselineDiagnostic": "Error: Test timed out in 5000ms.\nIf this is a long-running test, pass a timeout value as the last argument or configure it globally with \"testTimeout\".",
+      "baselineDiagnosticSha256": "e4768c2aa302c3c2241880b813020a007bcefdb6a42d3f5eea71563a08031662"
+    },
+    {
+      "test": "tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > makes failed writes, cancel/unsaved conflicts, stale targets and rename collisions leave authority intact",
+      "comparison": "EXACT_DIAGNOSTIC_MATCH",
+      "diagnostic": "Error: Test timed out in 5000ms.\nIf this is a long-running test, pass a timeout value as the last argument or configure it globally with \"testTimeout\".",
+      "diagnosticSha256": "e4768c2aa302c3c2241880b813020a007bcefdb6a42d3f5eea71563a08031662",
+      "baselineDiagnostic": "Error: Test timed out in 5000ms.\nIf this is a long-running test, pass a timeout value as the last argument or configure it globally with \"testTimeout\".",
+      "baselineDiagnosticSha256": "e4768c2aa302c3c2241880b813020a007bcefdb6a42d3f5eea71563a08031662"
+    },
+    {
+      "test": "tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > requires exact delete/overwrite confirmation and never recreates a deleted active record",
+      "comparison": "EXACT_DIAGNOSTIC_MATCH",
+      "diagnostic": "Error: Test timed out in 5000ms.\nIf this is a long-running test, pass a timeout value as the last argument or configure it globally with \"testTimeout\".",
+      "diagnosticSha256": "e4768c2aa302c3c2241880b813020a007bcefdb6a42d3f5eea71563a08031662",
+      "baselineDiagnostic": "Error: Test timed out in 5000ms.\nIf this is a long-running test, pass a timeout value as the last argument or configure it globally with \"testTimeout\".",
+      "baselineDiagnosticSha256": "e4768c2aa302c3c2241880b813020a007bcefdb6a42d3f5eea71563a08031662"
+    },
+    {
+      "test": "tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > imports real old current/saved checkpoints as independently recoverable records without losing original bytes",
+      "comparison": "EXACT_DIAGNOSTIC_MATCH",
+      "diagnostic": "Error: Test timed out in 5000ms.\nIf this is a long-running test, pass a timeout value as the last argument or configure it globally with \"testTimeout\".",
+      "diagnosticSha256": "e4768c2aa302c3c2241880b813020a007bcefdb6a42d3f5eea71563a08031662",
+      "baselineDiagnostic": "Error: Test timed out in 5000ms.\nIf this is a long-running test, pass a timeout value as the last argument or configure it globally with \"testTimeout\".",
+      "baselineDiagnosticSha256": "e4768c2aa302c3c2241880b813020a007bcefdb6a42d3f5eea71563a08031662"
+    },
+    {
+      "test": "tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > recovers different-world legacy slots and null saved state, preserving exact originals",
+      "comparison": "EXACT_DIAGNOSTIC_MATCH",
+      "diagnostic": "Error: Test timed out in 5000ms.\nIf this is a long-running test, pass a timeout value as the last argument or configure it globally with \"testTimeout\".",
+      "diagnosticSha256": "e4768c2aa302c3c2241880b813020a007bcefdb6a42d3f5eea71563a08031662",
+      "baselineDiagnostic": "Error: Test timed out in 5000ms.\nIf this is a long-running test, pass a timeout value as the last argument or configure it globally with \"testTimeout\".",
+      "baselineDiagnosticSha256": "e4768c2aa302c3c2241880b813020a007bcefdb6a42d3f5eea71563a08031662"
+    },
+    {
+      "test": "tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > branches a full journal without changing source bytes and retries the exact durable copy after restart",
+      "comparison": "EXACT_DIAGNOSTIC_MATCH",
+      "diagnostic": "Error: Test timed out in 5000ms.\nIf this is a long-running test, pass a timeout value as the last argument or configure it globally with \"testTimeout\".",
+      "diagnosticSha256": "e4768c2aa302c3c2241880b813020a007bcefdb6a42d3f5eea71563a08031662",
+      "baselineDiagnostic": "Error: Test timed out in 5000ms.\nIf this is a long-running test, pass a timeout value as the last argument or configure it globally with \"testTimeout\".",
+      "baselineDiagnosticSha256": "e4768c2aa302c3c2241880b813020a007bcefdb6a42d3f5eea71563a08031662"
+    },
+    {
+      "test": "tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > durably save dirty progress while preserving two inactive worlds and failed-write authority",
+      "comparison": "EXACT_DIAGNOSTIC_MATCH",
+      "diagnostic": "Error: Test timed out in 20000ms.\nIf this is a long-running test, pass a timeout value as the last argument or configure it globally with \"testTimeout\".",
+      "diagnosticSha256": "38eac0010f80838ceea50dccc8c7176b09119a0de74496b19efee1ee3cceb00c",
+      "baselineDiagnostic": "Error: Test timed out in 20000ms.\nIf this is a long-running test, pass a timeout value as the last argument or configure it globally with \"testTimeout\".",
+      "baselineDiagnosticSha256": "38eac0010f80838ceea50dccc8c7176b09119a0de74496b19efee1ee3cceb00c"
+    },
+    {
+      "test": "tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > durably discard dirty progress while preserving two inactive worlds and failed-write authority",
+      "comparison": "EXACT_DIAGNOSTIC_MATCH",
+      "diagnostic": "Error: Test timed out in 20000ms.\nIf this is a long-running test, pass a timeout value as the last argument or configure it globally with \"testTimeout\".",
+      "diagnosticSha256": "38eac0010f80838ceea50dccc8c7176b09119a0de74496b19efee1ee3cceb00c",
+      "baselineDiagnostic": "Error: Test timed out in 20000ms.\nIf this is a long-running test, pass a timeout value as the last argument or configure it globally with \"testTimeout\".",
+      "baselineDiagnosticSha256": "38eac0010f80838ceea50dccc8c7176b09119a0de74496b19efee1ee3cceb00c"
+    },
+    {
+      "test": "tests/bridge-p13-campaign-isolation.test.ts > P13A research authority across named campaign operations > Save As branches real research, inactive and renamed campaigns stay frozen, and a new campaign receives none of their authority",
+      "comparison": "EXACT_DIAGNOSTIC_MATCH",
+      "diagnostic": "Error: Test timed out in 60000ms.\nIf this is a long-running test, pass a timeout value as the last argument or configure it globally with \"testTimeout\".",
+      "diagnosticSha256": "3cdf965e538c4115f80f905cfcf7e19c9f90830bc763bccdd088a8e7f8abbe45",
+      "baselineDiagnostic": "Error: Test timed out in 60000ms.\nIf this is a long-running test, pass a timeout value as the last argument or configure it globally with \"testTimeout\".",
+      "baselineDiagnosticSha256": "3cdf965e538c4115f80f905cfcf7e19c9f90830bc763bccdd088a8e7f8abbe45"
+    },
+    {
+      "test": "tests/p13a-scientist-foundation.test.ts > P13A Scientist identity and employment foundation > preserves accepted people, concepts, market, era and RNG for p13a-person-regression-1",
+      "comparison": "EXACT_DIAGNOSTIC_MATCH",
+      "diagnostic": "AssertionError: expected '4a4b2e78a8af26bb7804b4220ba31b2fcb667…' to be '16857a2609206c58bfb34ba3be7b67d95276e…' // Object.is equality\n\nExpected: \"16857a2609206c58bfb34ba3be7b67d95276e5c96048c5674cb5987aa8a94a17\"\nReceived: \"4a4b2e78a8af26bb7804b4220ba31b2fcb667961c5acec6d5e79c4a466859d99\"\n\n ❯ tests/p13a-scientist-foundation.test.ts:32:77",
+      "diagnosticSha256": "6cd4f795a4959405909e1cdb943777d6b440b624380013119d7cb1e40fcce6bd",
+      "baselineDiagnostic": "AssertionError: expected '4a4b2e78a8af26bb7804b4220ba31b2fcb667…' to be '16857a2609206c58bfb34ba3be7b67d95276e…' // Object.is equality\n\nExpected: \"16857a2609206c58bfb34ba3be7b67d95276e5c96048c5674cb5987aa8a94a17\"\nReceived: \"4a4b2e78a8af26bb7804b4220ba31b2fcb667961c5acec6d5e79c4a466859d99\"\n\n ❯ tests/p13a-scientist-foundation.test.ts:32:77",
+      "baselineDiagnosticSha256": "6cd4f795a4959405909e1cdb943777d6b440b624380013119d7cb1e40fcce6bd"
+    },
+    {
+      "test": "tests/p13a-scientist-foundation.test.ts > P13A Scientist identity and employment foundation > preserves accepted people, concepts, market, era and RNG for p13a-person-regression-2",
+      "comparison": "EXACT_DIAGNOSTIC_MATCH",
+      "diagnostic": "AssertionError: expected 'de6e49d8796e1a037e676b5e147c5850680bb…' to be 'd71583f6fc04af2d251e2010ca6725e6bcc01…' // Object.is equality\n\nExpected: \"d71583f6fc04af2d251e2010ca6725e6bcc0104fb727d3735155aa5235df01b8\"\nReceived: \"de6e49d8796e1a037e676b5e147c5850680bb1b198ffdd18d41be8c588d7fcc1\"\n\n ❯ tests/p13a-scientist-foundation.test.ts:32:77",
+      "diagnosticSha256": "e49e5231d34aca4849e4caeefad2b6ee525a0bc52b542ac61ed8a08caabc8091",
+      "baselineDiagnostic": "AssertionError: expected 'de6e49d8796e1a037e676b5e147c5850680bb…' to be 'd71583f6fc04af2d251e2010ca6725e6bcc01…' // Object.is equality\n\nExpected: \"d71583f6fc04af2d251e2010ca6725e6bcc0104fb727d3735155aa5235df01b8\"\nReceived: \"de6e49d8796e1a037e676b5e147c5850680bb1b198ffdd18d41be8c588d7fcc1\"\n\n ❯ tests/p13a-scientist-foundation.test.ts:32:77",
+      "baselineDiagnosticSha256": "e49e5231d34aca4849e4caeefad2b6ee525a0bc52b542ac61ed8a08caabc8091"
+    },
+    {
+      "test": "tests/p13a-scientist-foundation.test.ts > P13A Scientist identity and employment foundation > preserves accepted people, concepts, market, era and RNG for m0a-0001",
+      "comparison": "EXACT_DIAGNOSTIC_MATCH",
+      "diagnostic": "AssertionError: expected '0b8e21842fc4a820413c3416c90bdd9ce2907…' to be '7517c0d01eb928245e2101752932b99ccd344…' // Object.is equality\n\nExpected: \"7517c0d01eb928245e2101752932b99ccd3444f2ca6848a6badf579ef2fb51c4\"\nReceived: \"0b8e21842fc4a820413c3416c90bdd9ce290750d669bc08b66b0be7705e6a2c6\"\n\n ❯ tests/p13a-scientist-foundation.test.ts:32:77",
+      "diagnosticSha256": "0f7725e7f45cab2549d8ae90aea542015cb5fc323cb6ad902faafc815992ee29",
+      "baselineDiagnostic": "AssertionError: expected '0b8e21842fc4a820413c3416c90bdd9ce2907…' to be '7517c0d01eb928245e2101752932b99ccd344…' // Object.is equality\n\nExpected: \"7517c0d01eb928245e2101752932b99ccd3444f2ca6848a6badf579ef2fb51c4\"\nReceived: \"0b8e21842fc4a820413c3416c90bdd9ce290750d669bc08b66b0be7705e6a2c6\"\n\n ❯ tests/p13a-scientist-foundation.test.ts:32:77",
+      "baselineDiagnosticSha256": "0f7725e7f45cab2549d8ae90aea542015cb5fc323cb6ad902faafc815992ee29"
+    },
+    {
+      "test": "tests/r3n1-stale-schedule-take-02.test.ts > R3-N1-DATA-02 — stale production-operation route on r3n1-dense-02: SERVER REFUSAL by the bridge > SERVER REFUSAL — a stale expectedStateRevision on the resolveProductionBlocker intent is rejected (STALE_REVISION / state-stale), with no mutation",
+      "comparison": "EXACT_DIAGNOSTIC_MATCH",
+      "diagnostic": "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/The-Movies-headless-program/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02/generated-r3n1-dense-02.checkpoint.json'\n ❯ loadFixtureState tests/r3n1-stale-schedule-take-02.test.ts:100:15\n     98|     'evidence/Playability-Interaction-01/fixtures/r3n1-dense-02/genera…\n     99|   )\n    100|   const raw = readFileSync(path, 'utf8')\n       |               ^\n    101|   const stored = decodeCampaignStorage(\n    102|     JSON.parse(raw),\n ❯ tests/r3n1-stale-schedule-take-02.test.ts:116:19",
+      "diagnosticSha256": "f913f1641b3de5938dc476dac1cff7feb7bfc9a1ebe9356737abc7b8fbc6407c",
+      "baselineDiagnostic": "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/The-Movies-headless-program/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02/generated-r3n1-dense-02.checkpoint.json'\n ❯ loadFixtureState tests/r3n1-stale-schedule-take-02.test.ts:100:15\n     98|     'evidence/Playability-Interaction-01/fixtures/r3n1-dense-02/genera…\n     99|   )\n    100|   const raw = readFileSync(path, 'utf8')\n       |               ^\n    101|   const stored = decodeCampaignStorage(\n    102|     JSON.parse(raw),\n ❯ tests/r3n1-stale-schedule-take-02.test.ts:116:19",
+      "baselineDiagnosticSha256": "f913f1641b3de5938dc476dac1cff7feb7bfc9a1ebe9356737abc7b8fbc6407c"
+    },
+    {
+      "test": "tests/r3n1-stale-schedule-take-02.test.ts > R3-N1-DATA-02 — stale production-operation route on r3n1-dense-02: SERVER REFUSAL by the bridge > SERVER REFUSAL — the OLD intentId at the CURRENT revision is INTENT_NOT_AVAILABLE once the state has moved on; the fresh resolveProductionBlocker intent for the same production is then accepted exactly once",
+      "comparison": "EXACT_DIAGNOSTIC_MATCH",
+      "diagnostic": "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/The-Movies-headless-program/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02/generated-r3n1-dense-02.checkpoint.json'\n ❯ loadFixtureState tests/r3n1-stale-schedule-take-02.test.ts:100:15\n     98|     'evidence/Playability-Interaction-01/fixtures/r3n1-dense-02/genera…\n     99|   )\n    100|   const raw = readFileSync(path, 'utf8')\n       |               ^\n    101|   const stored = decodeCampaignStorage(\n    102|     JSON.parse(raw),\n ❯ tests/r3n1-stale-schedule-take-02.test.ts:151:19",
+      "diagnosticSha256": "69b5409fa2df5108cde079dde63911d0a5cbe61bd588641c5ab274f90496f45c",
+      "baselineDiagnostic": "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/The-Movies-headless-program/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02/generated-r3n1-dense-02.checkpoint.json'\n ❯ loadFixtureState tests/r3n1-stale-schedule-take-02.test.ts:100:15\n     98|     'evidence/Playability-Interaction-01/fixtures/r3n1-dense-02/genera…\n     99|   )\n    100|   const raw = readFileSync(path, 'utf8')\n       |               ^\n    101|   const stored = decodeCampaignStorage(\n    102|     JSON.parse(raw),\n ❯ tests/r3n1-stale-schedule-take-02.test.ts:151:19",
+      "baselineDiagnosticSha256": "69b5409fa2df5108cde079dde63911d0a5cbe61bd588641c5ab274f90496f45c"
+    },
+    {
+      "test": "tests/r3n1-stale-schedule-take-02p31.test.ts > R3-N4-DATA-03 — stale production-operation route on r3n1-dense-02p31: SERVER REFUSAL by the bridge > SERVER REFUSAL — a stale expectedStateRevision on the resolveProductionBlocker intent is rejected (STALE_REVISION / state-stale), with no mutation",
+      "comparison": "EXACT_DIAGNOSTIC_MATCH",
+      "diagnostic": "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/The-Movies-headless-program/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02p31/generated-r3n1-dense-02p31.checkpoint.json'\n ❯ loadFixtureState tests/r3n1-stale-schedule-take-02p31.test.ts:107:15\n    105|     'evidence/Playability-Interaction-01/fixtures/r3n1-dense-02p31/gen…\n    106|   )\n    107|   const raw = readFileSync(path, 'utf8')\n       |               ^\n    108|   const stored = decodeCampaignStorage(\n    109|     JSON.parse(raw),\n ❯ tests/r3n1-stale-schedule-take-02p31.test.ts:126:19",
+      "diagnosticSha256": "54436dd0568cc6a11a9cac2d7b45641cbd4afbee288b2fbf8829f7ebe760198c",
+      "baselineDiagnostic": "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/The-Movies-headless-program/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02p31/generated-r3n1-dense-02p31.checkpoint.json'\n ❯ loadFixtureState tests/r3n1-stale-schedule-take-02p31.test.ts:107:15\n    105|     'evidence/Playability-Interaction-01/fixtures/r3n1-dense-02p31/gen…\n    106|   )\n    107|   const raw = readFileSync(path, 'utf8')\n       |               ^\n    108|   const stored = decodeCampaignStorage(\n    109|     JSON.parse(raw),\n ❯ tests/r3n1-stale-schedule-take-02p31.test.ts:126:19",
+      "baselineDiagnosticSha256": "54436dd0568cc6a11a9cac2d7b45641cbd4afbee288b2fbf8829f7ebe760198c"
+    },
+    {
+      "test": "tests/r3n1-stale-schedule-take-02p31.test.ts > R3-N4-DATA-03 — stale production-operation route on r3n1-dense-02p31: SERVER REFUSAL by the bridge > SERVER REFUSAL — the OLD intentId at the CURRENT revision is INTENT_NOT_AVAILABLE once the state has moved on; the fresh resolveProductionBlocker intent for the same production is then accepted exactly once",
+      "comparison": "EXACT_DIAGNOSTIC_MATCH",
+      "diagnostic": "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/The-Movies-headless-program/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02p31/generated-r3n1-dense-02p31.checkpoint.json'\n ❯ loadFixtureState tests/r3n1-stale-schedule-take-02p31.test.ts:107:15\n    105|     'evidence/Playability-Interaction-01/fixtures/r3n1-dense-02p31/gen…\n    106|   )\n    107|   const raw = readFileSync(path, 'utf8')\n       |               ^\n    108|   const stored = decodeCampaignStorage(\n    109|     JSON.parse(raw),\n ❯ tests/r3n1-stale-schedule-take-02p31.test.ts:161:19",
+      "diagnosticSha256": "f7cbd177f78bbcc7ca00c36079307f7be4926752f3edd7ee72b7163753aa4ff2",
+      "baselineDiagnostic": "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/The-Movies-headless-program/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02p31/generated-r3n1-dense-02p31.checkpoint.json'\n ❯ loadFixtureState tests/r3n1-stale-schedule-take-02p31.test.ts:107:15\n    105|     'evidence/Playability-Interaction-01/fixtures/r3n1-dense-02p31/gen…\n    106|   )\n    107|   const raw = readFileSync(path, 'utf8')\n       |               ^\n    108|   const stored = decodeCampaignStorage(\n    109|     JSON.parse(raw),\n ❯ tests/r3n1-stale-schedule-take-02p31.test.ts:161:19",
+      "baselineDiagnosticSha256": "f7cbd177f78bbcc7ca00c36079307f7be4926752f3edd7ee72b7163753aa4ff2"
+    },
+    {
+      "test": "tests/r3n1-stale-schedule-take-02p32.test.ts > R3-N4-TEST-25 — stale production-operation route on r3n1-dense-02p32: SERVER REFUSAL by the bridge > SERVER REFUSAL — a stale expectedStateRevision on the resolveProductionBlocker intent is rejected (STALE_REVISION / state-stale), with no mutation",
+      "comparison": "EXACT_DIAGNOSTIC_MATCH",
+      "diagnostic": "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/The-Movies-headless-program/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02p32/generated-r3n1-dense-02p32.checkpoint.json'\n ❯ loadFixtureState tests/r3n1-stale-schedule-take-02p32.test.ts:98:15\n     96|     'evidence/Playability-Interaction-01/fixtures/r3n1-dense-02p32/gen…\n     97|   )\n     98|   const raw = readFileSync(path, 'utf8')\n       |               ^\n     99|   const loaded = loadCampaignLibrary(raw, limits)\n    100|   if (loaded.changed) {\n ❯ tests/r3n1-stale-schedule-take-02p32.test.ts:110:19",
+      "diagnosticSha256": "fa4d4fe5f22ac1f511f684c4da1f9277213dfca595b7c5890841ddac26aa71b2",
+      "baselineDiagnostic": "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/The-Movies-headless-program/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02p32/generated-r3n1-dense-02p32.checkpoint.json'\n ❯ loadFixtureState tests/r3n1-stale-schedule-take-02p32.test.ts:98:15\n     96|     'evidence/Playability-Interaction-01/fixtures/r3n1-dense-02p32/gen…\n     97|   )\n     98|   const raw = readFileSync(path, 'utf8')\n       |               ^\n     99|   const loaded = loadCampaignLibrary(raw, limits)\n    100|   if (loaded.changed) {\n ❯ tests/r3n1-stale-schedule-take-02p32.test.ts:110:19",
+      "baselineDiagnosticSha256": "fa4d4fe5f22ac1f511f684c4da1f9277213dfca595b7c5890841ddac26aa71b2"
+    },
+    {
+      "test": "tests/r3n1-stale-schedule-take-02p32.test.ts > R3-N4-TEST-25 — stale production-operation route on r3n1-dense-02p32: SERVER REFUSAL by the bridge > SERVER REFUSAL — the OLD intentId at the CURRENT revision is INTENT_NOT_AVAILABLE once the state has moved on; the fresh resolveProductionBlocker intent for the same production is then accepted exactly once",
+      "comparison": "EXACT_DIAGNOSTIC_MATCH",
+      "diagnostic": "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/The-Movies-headless-program/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02p32/generated-r3n1-dense-02p32.checkpoint.json'\n ❯ loadFixtureState tests/r3n1-stale-schedule-take-02p32.test.ts:98:15\n     96|     'evidence/Playability-Interaction-01/fixtures/r3n1-dense-02p32/gen…\n     97|   )\n     98|   const raw = readFileSync(path, 'utf8')\n       |               ^\n     99|   const loaded = loadCampaignLibrary(raw, limits)\n    100|   if (loaded.changed) {\n ❯ tests/r3n1-stale-schedule-take-02p32.test.ts:145:19",
+      "diagnosticSha256": "21adcc5e32e2c915ace4072ca5695a00ae3721b591a2829628cf22678fe44bc0",
+      "baselineDiagnostic": "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/The-Movies-headless-program/evidence/Playability-Interaction-01/fixtures/r3n1-dense-02p32/generated-r3n1-dense-02p32.checkpoint.json'\n ❯ loadFixtureState tests/r3n1-stale-schedule-take-02p32.test.ts:98:15\n     96|     'evidence/Playability-Interaction-01/fixtures/r3n1-dense-02p32/gen…\n     97|   )\n     98|   const raw = readFileSync(path, 'utf8')\n       |               ^\n     99|   const loaded = loadCampaignLibrary(raw, limits)\n    100|   if (loaded.changed) {\n ❯ tests/r3n1-stale-schedule-take-02p32.test.ts:145:19",
+      "baselineDiagnosticSha256": "21adcc5e32e2c915ace4072ca5695a00ae3721b591a2829628cf22678fe44bc0"
+    },
+    {
+      "test": "tests/world-first-scenery-load-in-provenance.test.ts > World-First Scenery Load-In V1 — frozen district provenance > replays the clean exporter and pins its deliberately non-runtime manifest",
+      "comparison": "EXACT_DIAGNOSTIC_MATCH",
+      "diagnostic": "Error: Command failed: python3 /Users/zacheryspector/The-Movies-headless-program/tools/hollywood/export_district.py --source /Users/zacheryspector/The-Movies-headless-program/art/hollywood/source/moonshot-studio-chronicle-concept.png --manifest /Users/zacheryspector/The-Movies-headless-program/art/hollywood/district-manifest.source.json --output /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/studio-scenery-export-<temporary>\nTraceback (most recent call last):\n  File \"/Users/zacheryspector/The-Movies-headless-program/tools/hollywood/export_district.py\", line 16, in <module>\n    from PIL import Image, ImageDraw\nModuleNotFoundError: No module named 'PIL'\n\n ❯ tests/world-first-scenery-load-in-provenance.test.ts:85:7\n     83|     const output = mkdtempSync(join(tmpdir(), 'studio-scenery-export-'…\n     84|     try {\n     85|       execFileSync('python3', [\n       |       ^\n     86|         resolve('tools/hollywood/export_district.py'),\n     87|         '--source', resolve('art/hollywood/source/moonshot-studio-chro…",
+      "diagnosticSha256": "0f0a10ab27e63fd499b1ef3d6581c3b9b0f500d9667fbc787a99ab146f33e090",
+      "baselineDiagnostic": "Error: Command failed: python3 /Users/zacheryspector/The-Movies-headless-program/tools/hollywood/export_district.py --source /Users/zacheryspector/The-Movies-headless-program/art/hollywood/source/moonshot-studio-chronicle-concept.png --manifest /Users/zacheryspector/The-Movies-headless-program/art/hollywood/district-manifest.source.json --output /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/studio-scenery-export-<temporary>\nTraceback (most recent call last):\n  File \"/Users/zacheryspector/The-Movies-headless-program/tools/hollywood/export_district.py\", line 16, in <module>\n    from PIL import Image, ImageDraw\nModuleNotFoundError: No module named 'PIL'\n\n ❯ tests/world-first-scenery-load-in-provenance.test.ts:85:7\n     83|     const output = mkdtempSync(join(tmpdir(), 'studio-scenery-export-'…\n     84|     try {\n     85|       execFileSync('python3', [\n       |       ^\n     86|         resolve('tools/hollywood/export_district.py'),\n     87|         '--source', resolve('art/hollywood/source/moonshot-studio-chro…",
+      "baselineDiagnosticSha256": "0f0a10ab27e63fd499b1ef3d6581c3b9b0f500d9667fbc787a99ab146f33e090"
+    }
+  ],
+  "baselineFailuresAbsentNow": []
+}
+

@@ -1,88 +1,46 @@
 # CONTINUATION STATE — three-week autonomous window (Owner directive 2026-09-15)
 
-## Current continuation — 2026-09-19: B3 candidate complete; full boundary next
+## Current continuation — 2026-09-19: B3 qualified CLOSED; B-F2 next
 
-Source/tests committed425170e069bf294445f1286086f4161793959e4b, exact protected
-diff overpublishedf4e1230 independently matched to all06–11records.
-Candidate patch SHA256 6129b77df0e3b4c4b1111b2ee226860ee6e3538de95b3c3a3bdf6e3805026ba6.
-06+09:27files/335passes/3unchanged todos;both typechecks/contracts PASS, all
-fixedSource:true. All34new cases unchanged from RED;reviewsKEEP. No active runtime.
-Next publish records/verify exact remote SHA, then full fixed-source boundary,
-exact failure attribution and qualified closeout/publication. Freeze source/tests/
-HEAD during full run. Live state: evidence/p14b3-20260919/00-start.md;disposition13.
-B-F2 pinning/neighbor test preparation may proceed in docs/tmp ONLY, no runtime.
+**P14B.3 CLOSED — LOGIC VERIFIED · UNITY NOT VERIFIED**, qualified by
+`evidence/p14b3-20260919-final/17-attribution.md`; not Owner acceptance.
+Tested/published full source `359f6361c130e7d0b2808e2d82d328843c9e90a3`;
+implementation `425170e069bf294445f1286086f4161793959e4b`.
+Full run2026-09-19T16:52:49.457Z–18:27:20.807Z,94.5225minutes,
+fixedSource:true. Core3338PASS/22FAIL/6TODO (308files); bridge761PASS/12FAIL/
+2TODO (72files). Overlapping selections, not unique summed tests. All failures
+match canonical historical identifiers AND diagnostics; zero new/changed/absent.
+Both typechecks/contracts PASS; independent core/final reviews14/16 KEEP.
+No all-green/full-performance/native claim. Session26407 CLOSED; no runtime remains.
+Rules2 / Save29 / protocol4 / projection46 / schema584bdd… unchanged.
 
-### Historical B3 T2 handoff (superseded above)
+No active runtime or source writer. Final records publication/exact remote
+verification is pending; only that small publication gate precedes B-F2 T1.
+Branch/worktree and historical recovery identities: CODEX-START-HERE.md.
 
-T0 checkpoint9c605dc pushed/remote verified; actualRED03then22fail/12pass/34cases,
-no fixture failure, exact old-envelope guardsPASS. REDcheckpoint
-f4e1230639552f8a496562ec97b3e5aa3ec5a156 pushed/exact remoteverified. Sole sim-core
-writer now3productionowners; test-author ONLY oldExampleBneighbor/B2poachcomment.
-New34cases unchanged. Auditor idle; no active runtime. Parentserialverification
-after BOTH handbacks; detailedliveownershipB3/00. No B-F2/P2/Unity work yet.
+Next: publish this qualified records checkpoint and independently verify its
+exact remote SHA, then B-F2 independent test installation/RED. No routine Owner
+permission gate. Exact scoped brief:
+`evidence/p14b3-20260919/16-bf2-next-execution-brief.md`.
+Install the reviewed13-case draft plus four live evaluator2→3 pins and the
+corrected two-case chooser patch (default timeouts retained). Verify real fixture
+prerequisites; only then release sim-core for the narrow acting-profile/digest
+correction. No assignment, role-label, candidate-pool or rival-policy change.
+B-F2 needs its own serialized verification/qualified publication. Then preserve
+FINAL outgoingV29 corpus AND outgoing46 runtime before P2's writer moves.
+P2 preparation15 is not an implementation release or adopted product policy.
+Continue remaining P14 → P15 → P16 → sufficiently specified P17/P18.
 
-B2 records `034065b4f6e4ef0f9f53750a343568e32f54d9ab` push COMPLETE and exact
-remote SHA verified. B3 T0 actual evaluator1 mintPASS; three genuine snapshots,
-allreadbacks and independent artifact/producer reviewKEEP. Session54960 CLOSED;
-no active runtime/specialist. No B3 production edit. Controlling live state
-`evidence/p14b3-20260919/00-start.md`, actual qualification/hashes/review02.
-Operational entry/helper archived byte-identically and removed; save bytes intact.
-Publish/verify T0 checkpoint then test-author installs9+19+6cases for behavioral
-RED, only then sole sim-core writer. No duplicate mint or guessed historical pins.
+Max two native specialists, one production writer; parent owns serialized heavy
+checks. Use native Fable roles, no Claude or installation campaign. Unity
+handwritten code/rendering/native UI/UX and Owner acceptance remain deferred.
+Maintain the integration backlog, including the inherited schema32–44 gap.
 
-Source/test candidate `3b978d77c29df2b5de038e3b1b7fc94778257f33`; Save29 /
-projection46. Branch/worktree: `CODEX-START-HERE.md`. Preserve recovered commits/
-newer changes/evidence. Parent owns sole heavy runtime; no source/test edits or
-HEAD commits during a fixed-source pass. Live slot and exact next actions:
-`evidence/p14b2-20260919/00-start.md`.
-
-B2 independent module RED6d23466 pushed/remote verified. Main22/22, genuine45
-checkpoint2/2, F113/13 and fixture5/5 pass. Initial D3 premise failed (five offers
-all survived); corrected controlled real staging keeps exactly two survivors and
-proves compensation→opportunity winner reversal plus actual binding. D3/schema:
-33pass/2unchanged todos, audit KEEP. Neighbours18:148pass/one current-schema hash
-failure/one todo; correction ONLY F10/F11, unchanged generator/fixtures, fresh21:
-31/31. Root/UI15, bridge17 and contract checks19/20 PASS; full pass repeats all on
-committed final source. Exact source hashes/failures/limits:
-`evidence/p14b2-20260919/13-candidate-review.md`. B2 now qualified CLOSED;
-controlling closeout `evidence/p14b2-20260919-final/18-attribution.md`.
-
-Published/remote verified `bee7e22f3e1fa402c920cc6c274152256487387f`. Full runner
-COMPLETE14:35:26.703Z–16:09:14.453Z, fixedSource:true; session34647 CLOSED.
-Normal sandbox escalation enabled actual localhost tests. Both typechecks/
-contracts passed; core3303pass/23fail/6todo (305files), bridge741pass/13fail/2todo
-(71files). Exact22core/12bridge historical signatures, none missing/changed,
-plus one shared genuine45 registry-literal omission. After freeze author added
-ONLY that literal/comment, committed `7f89f75bad5a450b50340e3ab074a913c3ef2744`.
-Corrective24:14files/238passed/two unchanged todos;25–28 both typechecks/contracts
-PASS, all fixedSource:true on exact committed patch. Independent final KEEP16.
-No runtime remains active. Publish records/verify remote next. Full metadata
-`evidence/p14b2-20260919-final/00-run.json`, comparisons13/15. Then preserve
-genuine evaluator1 T0 corpus, execute B3. Do not repeat T4/B1.
-
-F1 CLOSED at `af455ef838b8c2227d784ebdc8bafb89e7a6835b`: independent3fail/10pass
-RED → narrow permanent-wrap setup validation →179 targeted passes/3todos, both
-typechecks/independent KEEP. Bounded logic verified, Unity not verified:
-`evidence/p14b2-20260919/08-f1-closeout.md`. Publication5fdaa46 remote verified.
-
-P14B.1 T4 qualified CLOSED at e37 (remote verified): productionee91913, test-only
-correctionsa93bf77; fullcore3253pass/29fail/7todo, bridge717pass/12fail/2todo.
-Exact historical signatures22core/all12bridge; seven new test failures and one
-typing error corrected;170pass/3todo, both typechecks/contracts PASS. Attribution
-`evidence/p14b1-20260919-t4-final/16-attribution.md`; no all-green full rerun or
-Unity/Owner acceptance. Recovered d19/T3 preserved.
-
-B3 audited, NOT STARTED: P14 plan + `12-b3-expansion-draft.md`, review13. Existing
-P1 atomic attachment/refusal/immutable drafts and abandoned-reservation correction;
-current competing-proposal accounting separately OPEN/unchanged. Three independent
-drafts9+19+6cases and guarded minters are preserved in B2 `b3-preparation/`;
-future B-F2 draft13cases in `bf2-preparation/`. All reviewed, UNEXECUTED. Exact
-hashes/qualified sequencing in B2evidence23. All specialists idle. Max two specialists, one
-production writer; no Claude/installs or routine permission prompts.
-
-Continue remaining P14 → P15 → P16 → sufficiently specified P17/P18. Unity/native/
-rendering/Owner acceptance deferred in backlog. Prior usage carries forward;
-full-run forecast ~90min from actual T4~89min (+14 over older forecast).
+Earlier qualified closures remain preserved: B1/T4e37, B2 final source7f89f75
+and publication034065b, F1af455ef. B3 genuine evaluator1 preservation9c605dc,
+independent REDf4e1230 and implementation425170e are retained. Do not rebuild or
+repeat completed slices/mints. Historical details below are provenance, not active
+worker instructions. All raw failure evidence and genuine fixtures remain intact.
 
 ## Historical continuation records (preserved)
 

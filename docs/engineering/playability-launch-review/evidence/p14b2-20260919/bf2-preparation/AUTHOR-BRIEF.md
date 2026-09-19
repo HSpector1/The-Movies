@@ -154,13 +154,110 @@ lawfully refused. Exact law-preserving correction outline (NOT implemented):
    supplements, never replaces, the persisted/original authoring proof. The
    original pre-attachment input needs no self exclusion at all.
 
-This proves the IFF from the actual authoring-time decision, including the zero
-branch when an observed input is nonofferable, without assuming the writer will
-exercise that branch. If separate natural negative-branch demonstration is
-needed, find and guard a REAL non-achievable authoring observation within the
-bounded chain; report absence, never fabricate it or call a later classification
-the original verdict. Newly eligible writers may legitimately receive promises
-under UNCHANGED policy; automatic writer casting is still not required. Only
-these two neighboring tests/imports/helper need later narrow authorization.
+This proves the IFF from the actual authoring-time decision without assuming the
+writer exercises its zero branch. Before claiming NEGATIVE-BRANCH COVERAGE, the
+planned correction MUST observe at least one actual non-ACHIEVABLE authoring
+result and assert its exact corresponding proposal has zero attachments. Keep
+that as an explicit non-vacuous guard (not a conditional that passes when no
+negative observation exists). Retain the original positive actor snapshot and
+continue the bounded natural search only as needed to obtain this independent
+negative observation. If absent by220, report the missing proof/fixture limitation;
+do not claim negative coverage, fabricate a refusal, weaken the guard or use a
+later changed-input classification as the original verdict. A lawful controlled
+fixture reconstruction would need a separately allocated test window. Newly
+eligible writers may legitimately receive promises under UNCHANGED policy;
+automatic writer casting remains outside scope. Only these two neighboring
+tests/imports/helper need later narrow authorization.
+
+## Dated live-evaluator neighboring pin correction (2026-09-19, NOT applied)
+
+Additional inert artifact: `p14b3-rule-revision-live3.patch.txt`. It is an
+apply_patch-format draft only, never a shell command or installed test. Current
+executable `tests/p14b3-rule-revision.test.ts` was inspected at frozen full-run
+source359f6361c130e7d0b2808e2d82d328843c9e90a3; its SHA256 remains
+`ef9e0caa7933ac9e502849c064f6adcc53f62a44189b190379fbfe7cea65403e`.
+
+The draft changes exactly FOUR live numeric expectations, with dated provenance
+comments and three matching describe/test titles:
+
+- Existing line89: observed PROMISE_RULES_VERSION strictly equals literal3.
+- Line135: newly created root.version strictly equals literal3.
+- Line138: newly evaluated attachment receipt.rulesVersion strictly equals3.
+- Line171: new actual settlement/freeze receipt.rulesVersion strictly equals3,
+  while line170's original bound root.version stays literal1.
+
+Historical authority/root/receipt1 at lines61/77/103–104/186–187 is unchanged.
+Every genuine artifact raw/compressed hash, tested/published source pin, original
+receipt byte assertion, old refusal, exact contract/receipt join, transparent
+pre-commit freeze observer and all six cases remain unchanged. No expected value
+is replaced with PROMISE_RULES_VERSION: that export remains the value UNDER TEST,
+never its own oracle. All new expected values are independently specified literal3.
+
+`tests/bridge-p14b3-promise-command.test.ts:307` has
+`expect(session.stateRevision).toBe(2)`. That is TWO successful session mutations,
+NOT the promise evaluator revision, and MUST remain2. The reservation test has no
+live evaluator2 literal to update. No blanket numeral replacement is authorized.
+
+Preserve B3's original execution history verbatim:
+
+- RED/source: `f4e1230639552f8a496562ec97b3e5aa3ec5a156`.
+- Revision2 implementation/targeted GREEN: `425170e069bf294445f1286086f4161793959e4b`.
+- Full-run handoff: `359f6361c130e7d0b2808e2d82d328843c9e90a3` (full run still active when this preparation was assigned).
+
+These immutable Git objects, original ef9e0c… test bytes and their raw B3 logs/
+metadata remain historical evidence of revision2. Do not edit old records or
+restamp their assertions as revision3, nor claim B3 ran under3. The future B-F2
+test diff and runtime evidence must explicitly attribute the four live changes
+to the separate has-discipline correction. No original B3 evidence was edited.
+
+Next actions: finish/qualify/publish B3 full closeout first; allocate B-F2's test
+window; install its 13-case draft plus ONLY this reviewed current-evaluator patch
+and the separately reviewed chooser correction; preserve real RED before releasing
+the sole production writer. Recheck exact pins, old history, actor-positive and
+actual negative authoring branches under serialized verification. No install,
+patch application, execution or acceptance of this draft is claimed now.
 
 All new draft files now frozen for parent review. No test result is claimed.
+
+## Inert chooser-neighbor patch (2026-09-19, NOT applied / UNEXECUTED)
+
+`p14b1-trust-chooser-live3.patch.txt` is now the concrete apply_patch-format draft
+for ONLY the two neighboring rival-authoring cases at current lines521–634,
+including their local observer/assertion helpers. Patch SHA256:
+`0f85aba2a434bd4578bea7a5f63ac38c7b09e24b45394e4cd33162004126fe5c`.
+The290-line inert patch replaces114 lines with172; no import or unrelated test
+changes are proposed.
+The executable chooser file remains unchanged, SHA256
+`6f5deca04ca8801c57e63cf31a548386cdc53b1987582aa0f59648b4aeeda916`,
+at frozen HEAD `359f6361c130e7d0b2808e2d82d328843c9e90a3`.
+
+The transparent spy invokes the saved actual service and returns its actual
+result unchanged. It snapshots the original input/draft/current empty proposal/
+full receipt, excludes promiseId-bearing freeze/ranking calls, and joins uniquely
+to the actual proposalSubmitted eventId/subject/issuer/submittedWeek. Same-tick
+output checks preserve the full submitted tuple, exactly zero-or-one attachment,
+exact root identity/issuer/beneficiary/P1/count1/window, unbound status and full
+original receipt equality. There is no duplicate attach, later reclassification,
+stubbed verdict or revised rival policy. Restoration is unconditional in finally.
+
+The first actor remains an unconditional positive witness; the first writer
+retains its genuine label/acting profile and original IFF result. A real FRAGILE
+or IMPOSSIBLE authoring observation with EXACTLY zero attachments is additionally
+required. Both searches are bounded220 advances; the second cannot return until
+writer, actor-positive and negative witnesses all exist. Absence throws, not a
+conditional pass. The natural negative under rules3, first-writer-before-actor
+ordering, same-tick live proposals, observation interception and finite runtime
+remain UNEXECUTED constructibility guards. Do not claim negative coverage yet.
+
+No source/test/config/fixture bytes, existing13-case draft, revision3 pin patch,
+genuine corpus pins or historical execution evidence changed in this preparation.
+Only this inert patch and this appended brief section were written; no tests,
+probes, typechecks, patch installation or commits ran. Install/review/behavioral
+execution remains gated on qualified B3 publication and a parent-assigned window.
+
+Parent-review correction: the first draft wrongly added60000ms overrides to
+both rewritten cases. ONLY those two endings are now restored to `})`, retaining
+the original default timeout with no configuration change. Replacement line
+counts remain114→172. No other proposed test semantics changed. Performance and
+bounded-witness runtime remain unexecuted findings to investigate at the actual
+run; missing performance evidence never authorizes a timeout increase.

@@ -1,0 +1,12 @@
+source 359f6361c130e7d0b2808e2d82d328843c9e90a3
+command ["npm","run","typecheck"]
+start 2026-09-19T16:52:49.529Z
+
+
+> project-studio-core@0.1.0 typecheck
+> tsc --noEmit && tsc -p ui/tsconfig.json --noEmit
+
+
+end 2026-09-19T16:54:36.069Z
+EXIT_CODE=0
+SIGNAL=null

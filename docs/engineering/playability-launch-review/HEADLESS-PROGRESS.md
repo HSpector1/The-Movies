@@ -4,17 +4,26 @@ One row per package/slice: exact source, test results, status label, decision cl
 Labels: LOGIC VERIFIED · ENGINE INTEGRATION VERIFIED · UNITY NOT VERIFIED · DESIGN BLOCKED · IN PROGRESS.
 Headless verification never claims package completion or Owner acceptance.
 
-Current (2026-09-19): **P14B.3 candidate verified/committed, full T4 not yet closed**.
-Preservation9c605dc and independent REDf4e1230 both published/remote verified.
-T2 candidate three production owners, rules2, Save29/projection46 unchanged.
-Source/tests425170e;06+09target335PASS/3unchanged todos across27files, both
-typechecks and contracts PASS; all06–11 fixedSource:true on
-patch6129b77df0e3b4c4b1111b2ee226860ee6e3538de95b3c3a3bdf6e3805026ba6.
-Independent production and neighbor reviews KEEP. Committed diff independently
-rehashed to exact tested patch. No runtime/writer active; candidate records
-publication then committed full T4/attribution owed. Freeze source/tests/HEAD
-during full run; exact next actions evidence/p14b3-20260919/00-start.md.
-B-F2 eligibility draft-only prep is independent; no implementation until B3 closes.
+Current (2026-09-19):
+**P14B.3 CLOSED — LOGIC VERIFIED · UNITY NOT VERIFIED**, qualified by
+`evidence/p14b3-20260919-final/17-attribution.md`; not Owner acceptance.
+Tested/published full source `359f6361c130e7d0b2808e2d82d328843c9e90a3`;
+implementation `425170e069bf294445f1286086f4161793959e4b`.
+Full run2026-09-19T16:52:49.457Z–18:27:20.807Z,94.5225minutes,
+fixedSource:true. Core3338PASS/22FAIL/6TODO (308files); bridge761PASS/12FAIL/
+2TODO (72files). Overlapping selections, not unique summed tests. All failures
+match canonical historical identifiers AND diagnostics; zero new/changed/absent.
+Both typechecks/contracts PASS; independent core/final reviews14/16 KEEP.
+No all-green/full-performance/native claim. Session26407 CLOSED; no runtime remains.
+Rules2 / Save29 / protocol4 / projection46 / schema584bdd… unchanged.
+
+Candidate evidence:27targeted files335PASS/3unchanged todos; independent RED34cases
+(22failed/12passed), then all34 passed in fullcore and19command cases in fullbridge.
+Protected implementation patch6129b77d… matched exact committed/tested bytes.
+Source/tests unchanged from425170e through the full run; no corrective rerun needed.
+Qualified records publication/exact remote verification, then B-F2 T1. Operational
+brief evidence/p14b3-20260919/16-bf2-next-execution-brief.md; future drafts are inert.
+Historical entries below retain earlier checkpoints, not current runtime status.
 
 Earlier qualified checkpoint: **P14B.1 T4 CLOSED — LOGIC VERIFIED · UNITY NOT VERIFIED**.
 Recovered T3 `e78dbc0` preserved. Production `ee91913`, test-only corrections

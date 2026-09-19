@@ -1,16 +1,17 @@
 # P14 — Contested Talent Market, Bonds and Promises, Career Lifecycle — headless plan (logic-first)
 
-**Latest checkpoint (2026-09-19):** B2 qualified CLOSED at source7f89f75,
-publication034065b remote verified; controlling closeout
-`../evidence/p14b2-20260919-final/18-attribution.md`. B3 genuine evaluator1 T0
-published9c605dc, independent behavioral RED publishedf4e1230. B3 T2 candidate
-now frozen: three production owners, rules2, Save29/projection46 unchanged.
-Source/test checkpoint425170e;27targeted files335PASS/3unchanged todos, both
-typechecks/contracts PASS, independent source/neighbor reviews KEEP. Exact
-committed patch matched. Candidate publication/full T4 still owed.
-Live evidence/next actions `../evidence/p14b3-20260919/00-start.md`.
+**Latest checkpoint (2026-09-19): B3 qualified CLOSED.** Tested full source359f636,
+implementation425170e, genuine preservation9c605dc and independent REDf4e1230.
+Full16:52:49.457Z–18:27:20.807Z, fixedSource:true,94.5225minutes. Core3338PASS/
+22FAIL/6TODO; bridge761PASS/12FAIL/2TODO. Exact historical IDs+diagnostics only;
+both typechecks/contracts PASS; independent core/final reviewsKEEP. Controlling
+closeout `../evidence/p14b3-20260919-final/17-attribution.md`, LOGIC VERIFIED ·
+UNITY NOT VERIFIED. Not all-green, whole-P14 or Owner acceptance. Rules2/Save29/
+projection46 unchanged. Session26407 CLOSED, no runtime/writer active. Publish
+qualified records/verify exact remote, then B-F2 independent RED per evidenceB3/16.
+B2 qualified source7f89f75/publication034065b and B1/T4 closure remain preserved.
 
-**Current execution (2026-09-19).** P14B.1 T4 CLOSED — LOGIC VERIFIED · UNITY NOT
+**Historical B1 closeout (2026-09-19).** P14B.1 T4 CLOSED — LOGIC VERIFIED · UNITY NOT
 VERIFIED. Recovered T3 `e78dbc0` preserved; corrected production `ee91913`, final
 test corrections `a93bf7776a41df3702c78ae5225a2e7c303ec9da`. Full frozen core:
 3253 passed / 29 failed / 7 todo; bridge: 717 passed / 12 failed / 2 todo. Exact
@@ -224,7 +225,7 @@ The known literal-contractId correction is now part of T4, not deferred to B.2.
 **Audit (contract-auditor, 2026-09-18): ADOPT WITH AMENDMENTS — applied above.** Coverage against the B.1 MOVED line and rulings (vii)/(viii) met one-to-one; disclosure law met (terms UNKNOWN, outcomes public per §4.5); hypotheses correctly isolated as §7.2-class tuning/copy calls, none an Owner question; RED precedent confirmed (`bridge/trust.ts` absent); test constructibility confirmed (the first-take construction is reusable; the line-288 todo is the one that matches). Defect 1 (citation slip: `reasons` on the receipt vs `outcomeCause` on the promise) fixed in the companion-basis paragraph. Defect 2 (the attention mechanism would exclude a poaching winner after its case closed) fixed by the independent-scan requirement in item (4) and the poaching-win pin in tests group (4). Item (6) ruled INCLUDE with the deferral note. Note 5 became a T2 check.
 - [x] **T4 qualified CLOSED — LOGIC VERIFIED · UNITY NOT VERIFIED**, final corrective source `7f89f75bad5a450b50340e3ab074a913c3ef2744`. Fixed-source fullbee7e22:core3303pass/23fail/6todo,bridge741pass/13fail/2todo;22core/12bridge exact historical signatures plus one shared outgoing45 literal omission. Independent assertion-preserving two-line test correction;14files/238pass/two unchanged todos, both typechecks/contracts PASS, bounded KEEP. Closeout `p14b2-20260919-final/18-attribution.md`, backlog projection46 updated. Not all-green full rerun/Owner acceptance. Records publication/exact remote verification required before B3 T0; no production or validator weakening.
 
-## P14B.3 — P1 quote-to-commit integration — audited expansion, T0 complete
+## P14B.3 — P1 quote-to-commit integration — qualified CLOSED
 
 Gate: B2 qualified closeout/publication. Bounded execution contract:
 `../evidence/p14b2-20260919/12-b3-expansion-draft.md`; native read-only audit KEEP
@@ -256,8 +257,13 @@ T2b's active-attachment ruling govern; no new Owner decision needed for this sli
   todos;all34new tests unchanged from RED. Both typechecks07/08 and contracts10/11
   PASS;independent production/neighbor review KEEP. Source/tests425170e committed,
   exact patch6129b77d… overf4e1230 rehashed. Disposition13;no full-boundary result yet.
-- [ ] T4 committed fixed-source serial full pass, exact failure attribution,
-  qualified logic label, backlog/records, commit/push/exact remote verification.
+- [x] T4 qualified CLOSED: full359f63616:52:49.457Z–18:27:20.807Z, fixedSource:true;
+  core3338PASS/22FAIL/6TODO, bridge761PASS/12FAIL/2TODO. All22core/12bridge exact
+  historical IDs+diagnostics, no new/changed/absent; independent14/16KEEP; both
+  typechecks/contracts PASS. No correction/rerun needed. Closeout17 in
+  p14b3-20260919-final; LOGIC VERIFIED · UNITY NOT VERIFIED, not all-green or Owner
+  acceptance. Session26407 closed. Qualified records publication/exact remote
+  verification remains the operational gate before B-F2 T1.
 
 Independent decision boundary: existing accounting sums competing CURRENT
 proposals across issuers although only one may win. Preserve that behavior in

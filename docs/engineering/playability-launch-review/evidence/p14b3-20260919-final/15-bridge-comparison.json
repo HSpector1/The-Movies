@@ -1,0 +1,108 @@
+{
+  "baselinePath": "docs/engineering/playability-launch-review/evidence/p14a3-20260918/12-test-bridge-f32d56c.txt",
+  "candidatePath": "docs/engineering/playability-launch-review/evidence/p14b3-20260919-final/12-test-bridge-359f636.txt",
+  "baselineRawSha256": "07b9f9558d544afbfa26e81473c7944554b28d6de2875e40b033d910e9ba8602",
+  "candidateRawSha256": "08edf4698d893f33ff9254cd36125cb28c76bf505b396f77ba2056efb0e1cc62",
+  "qualification": "Complete test identifier plus diagnostic/trace comparison; only ANSI and generated exporter temporary suffix normalized. Exact historical signatures are evidence for attribution, not a green suite or Owner acceptance.",
+  "baselineCount": 12,
+  "candidateCount": 12,
+  "rows": [
+    {
+      "test": "tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > keeps the shipped Save route and save-before-load consistent with the named record",
+      "comparison": "EXACT_DIAGNOSTIC_MATCH",
+      "diagnostic": "Error: Test timed out in 5000ms.\nIf this is a long-running test, pass a timeout value as the last argument or configure it globally with \"testTimeout\".",
+      "diagnosticSha256": "e4768c2aa302c3c2241880b813020a007bcefdb6a42d3f5eea71563a08031662",
+      "baselineDiagnostic": "Error: Test timed out in 5000ms.\nIf this is a long-running test, pass a timeout value as the last argument or configure it globally with \"testTimeout\".",
+      "baselineDiagnosticSha256": "e4768c2aa302c3c2241880b813020a007bcefdb6a42d3f5eea71563a08031662"
+    },
+    {
+      "test": "tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > rejects a corrupted cross-world active binding and stops on an uncertain commit",
+      "comparison": "EXACT_DIAGNOSTIC_MATCH",
+      "diagnostic": "Error: Test timed out in 5000ms.\nIf this is a long-running test, pass a timeout value as the last argument or configure it globally with \"testTimeout\".",
+      "diagnosticSha256": "e4768c2aa302c3c2241880b813020a007bcefdb6a42d3f5eea71563a08031662",
+      "baselineDiagnostic": "Error: Test timed out in 5000ms.\nIf this is a long-running test, pass a timeout value as the last argument or configure it globally with \"testTimeout\".",
+      "baselineDiagnosticSha256": "e4768c2aa302c3c2241880b813020a007bcefdb6a42d3f5eea71563a08031662"
+    },
+    {
+      "test": "tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > saves atomically across the bounded replay journal with a new logical session",
+      "comparison": "EXACT_DIAGNOSTIC_MATCH",
+      "diagnostic": "Error: Test timed out in 5000ms.\nIf this is a long-running test, pass a timeout value as the last argument or configure it globally with \"testTimeout\".",
+      "diagnosticSha256": "e4768c2aa302c3c2241880b813020a007bcefdb6a42d3f5eea71563a08031662",
+      "baselineDiagnostic": "Error: Test timed out in 5000ms.\nIf this is a long-running test, pass a timeout value as the last argument or configure it globally with \"testTimeout\".",
+      "baselineDiagnosticSha256": "e4768c2aa302c3c2241880b813020a007bcefdb6a42d3f5eea71563a08031662"
+    },
+    {
+      "test": "tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > branches CURRENT complete state, preserves original records, switches scope and survives restart",
+      "comparison": "EXACT_DIAGNOSTIC_MATCH",
+      "diagnostic": "Error: Test timed out in 5000ms.\nIf this is a long-running test, pass a timeout value as the last argument or configure it globally with \"testTimeout\".",
+      "diagnosticSha256": "e4768c2aa302c3c2241880b813020a007bcefdb6a42d3f5eea71563a08031662",
+      "baselineDiagnostic": "Error: Test timed out in 5000ms.\nIf this is a long-running test, pass a timeout value as the last argument or configure it globally with \"testTimeout\".",
+      "baselineDiagnosticSha256": "e4768c2aa302c3c2241880b813020a007bcefdb6a42d3f5eea71563a08031662"
+    },
+    {
+      "test": "tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > makes failed writes, cancel/unsaved conflicts, stale targets and rename collisions leave authority intact",
+      "comparison": "EXACT_DIAGNOSTIC_MATCH",
+      "diagnostic": "Error: Test timed out in 5000ms.\nIf this is a long-running test, pass a timeout value as the last argument or configure it globally with \"testTimeout\".",
+      "diagnosticSha256": "e4768c2aa302c3c2241880b813020a007bcefdb6a42d3f5eea71563a08031662",
+      "baselineDiagnostic": "Error: Test timed out in 5000ms.\nIf this is a long-running test, pass a timeout value as the last argument or configure it globally with \"testTimeout\".",
+      "baselineDiagnosticSha256": "e4768c2aa302c3c2241880b813020a007bcefdb6a42d3f5eea71563a08031662"
+    },
+    {
+      "test": "tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > requires exact delete/overwrite confirmation and never recreates a deleted active record",
+      "comparison": "EXACT_DIAGNOSTIC_MATCH",
+      "diagnostic": "Error: Test timed out in 5000ms.\nIf this is a long-running test, pass a timeout value as the last argument or configure it globally with \"testTimeout\".",
+      "diagnosticSha256": "e4768c2aa302c3c2241880b813020a007bcefdb6a42d3f5eea71563a08031662",
+      "baselineDiagnostic": "Error: Test timed out in 5000ms.\nIf this is a long-running test, pass a timeout value as the last argument or configure it globally with \"testTimeout\".",
+      "baselineDiagnosticSha256": "e4768c2aa302c3c2241880b813020a007bcefdb6a42d3f5eea71563a08031662"
+    },
+    {
+      "test": "tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > imports real old current/saved checkpoints as independently recoverable records without losing original bytes",
+      "comparison": "EXACT_DIAGNOSTIC_MATCH",
+      "diagnostic": "Error: Test timed out in 5000ms.\nIf this is a long-running test, pass a timeout value as the last argument or configure it globally with \"testTimeout\".",
+      "diagnosticSha256": "e4768c2aa302c3c2241880b813020a007bcefdb6a42d3f5eea71563a08031662",
+      "baselineDiagnostic": "Error: Test timed out in 5000ms.\nIf this is a long-running test, pass a timeout value as the last argument or configure it globally with \"testTimeout\".",
+      "baselineDiagnosticSha256": "e4768c2aa302c3c2241880b813020a007bcefdb6a42d3f5eea71563a08031662"
+    },
+    {
+      "test": "tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > recovers different-world legacy slots and null saved state, preserving exact originals",
+      "comparison": "EXACT_DIAGNOSTIC_MATCH",
+      "diagnostic": "Error: Test timed out in 5000ms.\nIf this is a long-running test, pass a timeout value as the last argument or configure it globally with \"testTimeout\".",
+      "diagnosticSha256": "e4768c2aa302c3c2241880b813020a007bcefdb6a42d3f5eea71563a08031662",
+      "baselineDiagnostic": "Error: Test timed out in 5000ms.\nIf this is a long-running test, pass a timeout value as the last argument or configure it globally with \"testTimeout\".",
+      "baselineDiagnosticSha256": "e4768c2aa302c3c2241880b813020a007bcefdb6a42d3f5eea71563a08031662"
+    },
+    {
+      "test": "tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > branches a full journal without changing source bytes and retries the exact durable copy after restart",
+      "comparison": "EXACT_DIAGNOSTIC_MATCH",
+      "diagnostic": "Error: Test timed out in 5000ms.\nIf this is a long-running test, pass a timeout value as the last argument or configure it globally with \"testTimeout\".",
+      "diagnosticSha256": "e4768c2aa302c3c2241880b813020a007bcefdb6a42d3f5eea71563a08031662",
+      "baselineDiagnostic": "Error: Test timed out in 5000ms.\nIf this is a long-running test, pass a timeout value as the last argument or configure it globally with \"testTimeout\".",
+      "baselineDiagnosticSha256": "e4768c2aa302c3c2241880b813020a007bcefdb6a42d3f5eea71563a08031662"
+    },
+    {
+      "test": "tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > durably save dirty progress while preserving two inactive worlds and failed-write authority",
+      "comparison": "EXACT_DIAGNOSTIC_MATCH",
+      "diagnostic": "Error: Test timed out in 20000ms.\nIf this is a long-running test, pass a timeout value as the last argument or configure it globally with \"testTimeout\".",
+      "diagnosticSha256": "38eac0010f80838ceea50dccc8c7176b09119a0de74496b19efee1ee3cceb00c",
+      "baselineDiagnostic": "Error: Test timed out in 20000ms.\nIf this is a long-running test, pass a timeout value as the last argument or configure it globally with \"testTimeout\".",
+      "baselineDiagnosticSha256": "38eac0010f80838ceea50dccc8c7176b09119a0de74496b19efee1ee3cceb00c"
+    },
+    {
+      "test": "tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > durably discard dirty progress while preserving two inactive worlds and failed-write authority",
+      "comparison": "EXACT_DIAGNOSTIC_MATCH",
+      "diagnostic": "Error: Test timed out in 20000ms.\nIf this is a long-running test, pass a timeout value as the last argument or configure it globally with \"testTimeout\".",
+      "diagnosticSha256": "38eac0010f80838ceea50dccc8c7176b09119a0de74496b19efee1ee3cceb00c",
+      "baselineDiagnostic": "Error: Test timed out in 20000ms.\nIf this is a long-running test, pass a timeout value as the last argument or configure it globally with \"testTimeout\".",
+      "baselineDiagnosticSha256": "38eac0010f80838ceea50dccc8c7176b09119a0de74496b19efee1ee3cceb00c"
+    },
+    {
+      "test": "tests/bridge-p13-campaign-isolation.test.ts > P13A research authority across named campaign operations > Save As branches real research, inactive and renamed campaigns stay frozen, and a new campaign receives none of their authority",
+      "comparison": "EXACT_DIAGNOSTIC_MATCH",
+      "diagnostic": "Error: Test timed out in 60000ms.\nIf this is a long-running test, pass a timeout value as the last argument or configure it globally with \"testTimeout\".",
+      "diagnosticSha256": "3cdf965e538c4115f80f905cfcf7e19c9f90830bc763bccdd088a8e7f8abbe45",
+      "baselineDiagnostic": "Error: Test timed out in 60000ms.\nIf this is a long-running test, pass a timeout value as the last argument or configure it globally with \"testTimeout\".",
+      "baselineDiagnosticSha256": "3cdf965e538c4115f80f905cfcf7e19c9f90830bc763bccdd088a8e7f8abbe45"
+    }
+  ],
+  "baselineFailuresAbsentNow": []
+}

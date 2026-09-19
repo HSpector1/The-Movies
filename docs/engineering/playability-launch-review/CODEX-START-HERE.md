@@ -2,85 +2,47 @@
 
 ## Current engineering checkpoint — 2026-09-19
 
-**LIVE: B3 targeted verification complete; publication/full T4 next.**
-Source/test checkpoint425170e069bf294445f1286086f4161793959e4b; its committed
-diff overpublishedf4e1230 independently matches exact tested patch SHA256
-`6129b77df0e3b4c4b1111b2ee226860ee6e3538de95b3c3a3bdf6e3805026ba6`.
-06+09:27files/335PASS/3unchanged todos, all34new regression cases unchanged.
-Both typechecks and both contract checks PASS; all06–11fixedSource:true.
-Independent production/neighbor reviews KEEP. No active runtime/writer.
-Next publish records/exact remote verification, then committed fixed-source full
-boundary, failure attribution and qualified closeout. No B-F2/P2 source work until
-B3 closes. Detailed candidate disposition13 and live next actions:
-`evidence/p14b3-20260919/00-start.md`.
+**P14B.3 CLOSED — LOGIC VERIFIED · UNITY NOT VERIFIED**, qualified by
+`evidence/p14b3-20260919-final/17-attribution.md`; not Owner acceptance.
+Tested/published full source `359f6361c130e7d0b2808e2d82d328843c9e90a3`;
+implementation `425170e069bf294445f1286086f4161793959e4b`.
+Full run2026-09-19T16:52:49.457Z–18:27:20.807Z,94.5225minutes,
+fixedSource:true. Core3338PASS/22FAIL/6TODO (308files); bridge761PASS/12FAIL/
+2TODO (72files). Overlapping selections, not unique summed tests. All failures
+match canonical historical identifiers AND diagnostics; zero new/changed/absent.
+Both typechecks/contracts PASS; independent core/final reviews14/16 KEEP.
+No all-green/full-performance/native claim. Session26407 CLOSED; no runtime remains.
+Rules2 / Save29 / protocol4 / projection46 / schema584bdd… unchanged.
 
-Historical B3 T2 handoff (superseded by verification above): independent RED22fail/12pass,34cases/no fixture
-failure. REDcheckpoint `f4e1230639552f8a496562ec97b3e5aa3ec5a156` pushed/exact
-remote verified. Sole sim-core writer3owners; test-author ONLY old ExampleB
-re-expression/B2poach historicalcomment. New34tests frozen, no runtime active;
-parent verifies after both handbacks. At most two specialists, one production writer.
-T0 preservation COMPLETE, one actual PASS and independent KEEP.
-B2 records `034065b4f6e4ef0f9f53750a343568e32f54d9ab` pushed and exact remote
-SHA verified. No B3 producer change yet. Three genuine evaluator1 saves/provenance
-verified; operational entry/helper archived exactly and removed from discovery.
-T0 fixture checkpoint9c605dc pushed/remote verified before that actual RED.
-Exact state/next actions: `evidence/p14b3-20260919/00-start.md`; T0review02.
-Never duplicate the mint or substitute missing fixtures for RED.
+Branch `wip/headless-program-20260916-ts`, repository HSpector1/The-Movies,
+worktree `/Users/zacheryspector/The-Movies-headless-program`.
+Recovered d19/T3 and all newer work preserved; no reset/recreation.
+Qualified records publication is next; do not confuse tested359f636 publication
+with publication of the later closeout containing these final results.
 
-Branch `wip/headless-program-20260916-ts`, worktree
-`/Users/zacheryspector/The-Movies-headless-program`. Recovered d19/T3/newer work
-preserved; no reset/recreation/Claude invocation. Max two native specialists,
-one production writer; parent owns serialized heavy tests on this Mac.
+Next: publish this qualified records checkpoint and independently verify its
+exact remote SHA, then B-F2 independent test installation/RED. No routine Owner
+permission gate. Exact scoped brief:
+`evidence/p14b3-20260919/16-bf2-next-execution-brief.md`.
+Install the reviewed13-case draft plus four live evaluator2→3 pins and the
+corrected two-case chooser patch (default timeouts retained). Verify real fixture
+prerequisites; only then release sim-core for the narrow acting-profile/digest
+correction. No assignment, role-label, candidate-pool or rival-policy change.
+B-F2 needs its own serialized verification/qualified publication. Then preserve
+FINAL outgoingV29 corpus AND outgoing46 runtime before P2's writer moves.
+P2 preparation15 is not an implementation release or adopted product policy.
+Continue remaining P14 → P15 → P16 → sufficiently specified P17/P18.
 
-**P14B.2 source/test checkpoint `3b978d77c29df2b5de038e3b1b7fc94778257f33`.**
-Save29 / projection46. Independent module RED, read models and causal D3 landed.
-Main22/22 and genuine45 checkpoint2/2 pass. Corrected D3/schema:33pass/2unchanged
-todos. Neighbours148pass/one obsolete whole-schema hash failure/one todo;
-corrected generator31/31. Both typechecks and contract checks PASS; independent
-reviews KEEP. Exact patches/raw failures/limits:
-`evidence/p14b2-20260919/13-candidate-review.md`.
-**P14B.2 CLOSED — LOGIC VERIFIED · UNITY NOT VERIFIED**, qualified in
-`evidence/p14b2-20260919-final/18-attribution.md`. Final test correction
-`7f89f75bad5a450b50340e3ab074a913c3ef2744`, exactly two additions; no production
-change. Full verification COMPLETE on published/remote-verified
-`bee7e22f3e1fa402c920cc6c274152256487387f`, 14:35:26.703Z–16:09:14.453Z,
-fixedSource:true. Session34647 CLOSED. Both typechecks/contracts passed; core
-3303pass/23fail/6todo (305files), bridge741pass/13fail/2todo (71files). Exact
-22core/12bridge historical matches plus one shared genuine45 literal omission.
-Author added ONLY that literal/provenance comment after freeze. Corrective24:
-14files/238pass/two unchanged todos;25–28 both typechecks/contracts PASS, all
-fixedSource:true on the exact committed patch. No runtime remains active. Publish
-these records and verify remote, then B3 T0 genuine evaluator1 preservation.
-Exact full metadata `evidence/p14b2-20260919-final/00-run.json`; comparisons13/15.
-Live runtime/next actions: `evidence/p14b2-20260919/00-start.md`. No source/test
-edits or HEAD commits during a fixed-source run.
+Max two native specialists, one production writer; parent owns serialized heavy
+checks. Use native Fable roles, no Claude or installation campaign. Unity
+handwritten code/rendering/native UI/UX and Owner acceptance remain deferred.
+Maintain the integration backlog, including the inherited schema32–44 gap.
 
-F1 CLOSED at `af455ef838b8c2227d784ebdc8bafb89e7a6835b`: completed setup survives
-wrap via exact permanent evidence, no occupancy change;179 targeted passes/
-3todos, both typechecks, independent KEEP. Bounded qualification:
-`evidence/p14b2-20260919/08-f1-closeout.md`, not a full F1 suite.
-
-**P14B.1 T4 CLOSED — LOGIC VERIFIED · UNITY NOT VERIFIED**, qualified:
-`evidence/p14b1-20260919-t4-final/16-attribution.md`. Full productionee91913:
-core3253pass/29fail/7todo, bridge717pass/12fail/2todo. Exact historical signatures:
-22core/all12bridge. Seven new test failures plus one typing error corrected at
-a93bf77; corrective170pass/3todo, both typechecks/contracts PASS, reviews KEEP.
-Closeoute37 pushed/remote verified; not an all-green full rerun/Owner acceptance.
-
-After B2 exact remote publication: B3 per audited expansion in
-`plans/P14-HEADLESS-PLAN.md` and evidence `12-b3-expansion-draft.md`. P1 command
-attachment is STILL preview-only. Independent B3 drafts were prepared outside
-checkout (`/tmp/studio-b3-tests-jWA61F`), not installed/run. Reviewed draft
-recovery copies and guarded future minters are in B2 `b3-preparation/`; exact
-hashes/sequence in `23-live-findings-and-preparation.md`. New dated B-F2 in the
-plan reconciles the incorrect primary-role gate against existing has-discipline
-law; it follows B3, not a new product choice. Then remaining
-P14 → P15 → P16 → sufficiently specified P17/P18, without routine prompts.
-
-Unity/rendering/native/Owner acceptance deferred; generated C# is not consumer
-verification. Maintain backlog, including inherited missing32–44 runtime-schema
-registry identities; genuine45 compatibility does not prove those older schemas.
-Prior usage carries forward; actual B2 full run93.8min, T4~89min.
+Earlier qualified closures remain preserved: B1/T4e37, B2 final source7f89f75
+and publication034065b, F1af455ef. B3 genuine evaluator1 preservation9c605dc,
+independent REDf4e1230 and implementation425170e are retained. Do not rebuild or
+repeat completed slices/mints. Historical details below are provenance, not active
+worker instructions. All raw failure evidence and genuine fixtures remain intact.
 
 ## Historical recovered handoff (unchanged below)
 
