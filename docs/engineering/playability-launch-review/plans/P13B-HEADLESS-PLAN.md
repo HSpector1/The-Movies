@@ -717,7 +717,13 @@ provenance fixed at setup admission; the lighting route halves the Ballroom-reve
   the explicit conventional route. Live witness: the operations read-model exposes the record verbatim.
 - Save V25 (pattern as before; genuine V24 fixtures minted at the final V24 writer BEFORE any R07 source change; `setup: null` lift for every
   legacy workflow; validator: record ↔ workflow bindings consistent, units bounded, weeks ordered, route provenance re-derivable at admission
-  week, no record on a legacy or post-Shooting workflow, priorWork never recycled into credit).
+  week, no invented record on a legacy workflow and no new selection/admission after Shooting;
+  completed historical setup survives wrap without retaining occupancy, priorWork never recycled into credit).
+- **2026-09-19 inherited-defect reconciliation (P14B.2-F1):** the earlier wording "no record on a legacy or post-Shooting workflow"
+  incorrectly conflated new setup work with retained completed evidence. The shipped stage-release path preserves setup while freeing
+  the stage, but the validator still requires live stage binding and refuses its own lawful Post save. Keep stage release and historical
+  work; validate a completed, released setup against the exact permanent `wrapped` event (production/stage/Set and ordered weeks), without
+  accepting new/unfinished post-Shooting setup. Independent RED and bounded fix precede B2 acceptance; no save shape/version change.
 - Bridge (projection 38, text only): operations/production page publishes `setup` (recipe, route, credited/required, next unit week,
   completion forecast, provenance reference), recipe rows `setup-recipe-<productionId>-<recipeId>` with the `productionSetupAction` intent kind
   and engine-primary refusal + `rejections`; player-safe.

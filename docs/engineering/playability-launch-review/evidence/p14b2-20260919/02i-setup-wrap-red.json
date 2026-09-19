@@ -1,0 +1,40 @@
+{
+  "sourceSha": "e37cd2330be8c9129b0193a2bf8e84258e851307",
+  "command": [
+    "node_modules/.bin/vitest",
+    "run",
+    "tests/p14b2-setup-wrap-regressions.test.ts",
+    "--minWorkers=1",
+    "--maxWorkers=1"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-19T13:40:12.419Z",
+  "end": "2026-09-19T13:40:20.641Z",
+  "exitCode": 1,
+  "before": {
+    "trackedDiff": "",
+    "trackedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "untrackedFiles": {
+      "tests/bridge-p14b2-checkpoint.test.ts": "82222405d05d0624861fb9d1da43dbc1c8617d1cda3f5735c85650aa3919746d",
+      "tests/fixtures/p14/genuine-projection45-runtime.checkpoint.json.gz": "00805fa390cc085a0300984ba094e02e7b1e9e53b0d23e286306d0c82820f9a9",
+      "tests/fixtures/p14/genuine-projection45-runtime.provenance.json": "ccbbb4b25f2d3a6c6b7a8144b7538be5ace954a87e82ee278186059931003147",
+      "tests/helpers/p14b2-fixtures.ts": "8ac303808428fe61a5689a5882560f709e38c07f9d6f353b5362455935107b01",
+      "tests/p14b2-fixture-preconditions.test.ts": "c2817aaff547ca54bdce5a5c5a584bb0d4dd80d02f6393ac6de838f3dca3bbcb",
+      "tests/p14b2-setup-wrap-regressions.test.ts": "438132cddae762dc5d69ec5d2d1d8155d9f657f140e42a0ee8eb697fff02f6d6"
+    }
+  },
+  "signal": null,
+  "after": {
+    "trackedDiff": "",
+    "trackedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "untrackedFiles": {
+      "tests/bridge-p14b2-checkpoint.test.ts": "82222405d05d0624861fb9d1da43dbc1c8617d1cda3f5735c85650aa3919746d",
+      "tests/fixtures/p14/genuine-projection45-runtime.checkpoint.json.gz": "00805fa390cc085a0300984ba094e02e7b1e9e53b0d23e286306d0c82820f9a9",
+      "tests/fixtures/p14/genuine-projection45-runtime.provenance.json": "ccbbb4b25f2d3a6c6b7a8144b7538be5ace954a87e82ee278186059931003147",
+      "tests/helpers/p14b2-fixtures.ts": "8ac303808428fe61a5689a5882560f709e38c07f9d6f353b5362455935107b01",
+      "tests/p14b2-fixture-preconditions.test.ts": "c2817aaff547ca54bdce5a5c5a584bb0d4dd80d02f6393ac6de838f3dca3bbcb",
+      "tests/p14b2-setup-wrap-regressions.test.ts": "438132cddae762dc5d69ec5d2d1d8155d9f657f140e42a0ee8eb697fff02f6d6"
+    }
+  },
+  "fixedSource": true
+}

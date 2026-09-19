@@ -1,0 +1,120 @@
+{"sourceSha":"e37cd2330be8c9129b0193a2bf8e84258e851307","command":["node_modules/.bin/vitest","run","tests/p14b2-fixture-preconditions.test.ts","-t","wins a real rival-owned case","--minWorkers=1","--maxWorkers=1"],"node":"v20.20.2","start":"2026-09-19T13:36:23.711Z","end":null,"exitCode":null,"before":{"trackedDiff":"","trackedDiffSha256":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","untrackedFiles":{"tests/helpers/p14b2-fixtures.ts":"8ac303808428fe61a5689a5882560f709e38c07f9d6f353b5362455935107b01","tests/p14b2-fixture-preconditions.test.ts":"c2817aaff547ca54bdce5a5c5a584bb0d4dd80d02f6393ac6de838f3dca3bbcb"}}}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+stdout | tests/p14b2-fixture-preconditions.test.ts > P14B.2 lawful engine fixture preconditions (not bridge verification) > wins a real rival-owned case and reaches reminder/outcome weeks after proposals are gone
+poaching pipeline premise {"week":197,"promises":[{"promiseId":"promise-20","family":"APPEARANCE_COUNT","version":1,"issuerStudioId":"studio-5a47d054-r01","beneficiaryPersonId":"person-studio-5a47d054-r04-3","predicate":{"count":1},"windowStartWeek":208,"dueWeekExclusive":416,"feasibilityReceipt":{"classification":"REASONABLY_ACHIEVABLE","bottleneck":null,"inputsDigest":"8f2bc4869441292c","rulesVersion":1,"week":196},"progress":0,"evidenceRefs":[],"outcome":null,"outcomeWeek":null,"outcomeCause":null,"outcomeEventId":null,"contractId":null},{"promiseId":"promise-21","family":"APPEARANCE_COUNT","version":1,"issuerStudioId":"studio-5a47d054-r02","beneficiaryPersonId":"person-studio-5a47d054-r04-3","predicate":{"count":1},"windowStartWeek":208,"dueWeekExclusive":416,"feasibilityReceipt":{"classification":"REASONABLY_ACHIEVABLE","bottleneck":null,"inputsDigest":"445ac848f816b6b6","rulesVersion":1,"week":196},"progress":0,"evidenceRefs":[],"outcome":null,"outcomeWeek":null,"outcomeCause":null,"outcomeEventId":null,"contractId":null}],"scripts":{"mode":"managed","projects":[{"id":"script-0000","conceptId":"c-00","writerId":"t-wri-10","writerIds":["t-wri-10"],"shape":{"opening":"slowSetup","midpoint":"revelation","ending":"bittersweet"},"promise":{"genre":"comedy","intendedSegments":["adult"],"ranges":{"intimacy":[-0.5,0.5],"tonalWeight":[-0.5,0.5],"kineticEnergy":[-0.5,0.5]}},"status":"review","rewriteCount":0,"commissionedWeek":196,"dueWeek":null,"assessment":{"actualStrength":68.72650768853818,"perceivedStrength":68.72650768853818},"reservation":null,"productionId":null},{"id":"script-0001","conceptId":"c-01","writerId":"t-wri-10","writerIds":["t-wri-10"],"shape":{"opening":"slowSetup","midpoint":"revelation","ending":"bittersweet"},"promise":{"genre":"romance","intendedSegments":["adult"],"ranges":{"intimacy":[-0.5,0.5],"tonalWeight":[-0.5,0.5],"kineticEnergy":[-0.5,0.5]}},"status":"drafting","rewriteCount":0,"commissionedWeek":197,"dueWeek":198,"assessment":null,"reservation":{"projectId":"script-0001","facilityId":"facility-development-casting","capability":"development-casting","slot":0},"productionId":null}]},"concepts":["c-00","c-01","c-02","c-03","c-04","c-05","c-06","c-07","c-08","c-09","c-10","c-11","c-12","c-13","c-14","c-15","c-16","c-17","c-18","c-19","c-20","c-21","c-22","c-23","c-24","c-25","c-26","c-27","c-28","c-29"],"stages":[{"id":"facility-soundstage-07","name":"Soundstage 7","capability":"soundstage","capacity":1},{"id":"facility-soundstage-12","name":"Soundstage 12","capability":"soundstage","capacity":1}]}
+poaching {
+  talentId: 'person-studio-5a47d054-r04-3',
+  incumbentId: 'studio-5a47d054-r04',
+  promise: {
+    promiseId: 'promise-24',
+    family: 'APPEARANCE_COUNT',
+    version: 1,
+    issuerStudioId: 'studio-5a47d054-player',
+    beneficiaryPersonId: 'person-studio-5a47d054-r04-3',
+    predicate: { count: 1 },
+    windowStartWeek: 208,
+    dueWeekExclusive: 248,
+    feasibilityReceipt: {
+      classification: 'REASONABLY_ACHIEVABLE',
+      bottleneck: null,
+      inputsDigest: '25bf4dfe5164c3a3',
+      rulesVersion: 1,
+      week: 208
+    },
+    progress: 0,
+    evidenceRefs: [],
+    outcome: 'BROKEN',
+    outcomeWeek: 248,
+    outcomeCause: 'the window closed before the promised pictures began filming',
+    outcomeEventId: 'talent-market-event-152',
+    contractId: 'studio-5a47d054-player:contract:person-studio-5a47d054-r04-3:208:player-46'
+  },
+  settlement: [
+    {
+      kind: 'discovered',
+      week: 196,
+      talentId: 'person-studio-5a47d054-r04-3',
+      studioId: 'studio-5a47d054-r04',
+      reasons: [],
+      dropped: [],
+      eventId: 'talent-market-event-21'
+    },
+    {
+      kind: 'proposalSubmitted',
+      week: 196,
+      talentId: 'person-studio-5a47d054-r04-3',
+      studioId: 'studio-5a47d054-r01',
+      reasons: [],
+      dropped: [],
+      eventId: 'talent-market-event-108'
+    },
+    {
+      kind: 'proposalSubmitted',
+      week: 196,
+      talentId: 'person-studio-5a47d054-r04-3',
+      studioId: 'studio-5a47d054-r02',
+      reasons: [],
+      dropped: [],
+      eventId: 'talent-market-event-109'
+    },
+    {
+      kind: 'proposalSubmitted',
+      week: 196,
+      talentId: 'person-studio-5a47d054-r04-3',
+      studioId: 'studio-5a47d054-r03',
+      reasons: [],
+      dropped: [],
+      eventId: 'talent-market-event-110'
+    },
+    {
+      kind: 'proposalSubmitted',
+      week: 196,
+      talentId: 'person-studio-5a47d054-r04-3',
+      studioId: 'studio-5a47d054-r04',
+      reasons: [],
+      dropped: [],
+      eventId: 'talent-market-event-111'
+    },
+    {
+      kind: 'proposalSubmitted',
+      week: 197,
+      talentId: 'person-studio-5a47d054-r04-3',
+      studioId: 'studio-5a47d054-r04',
+      reasons: [],
+      dropped: [],
+      eventId: 'talent-market-event-120'
+    },
+    {
+      kind: 'proposalSubmitted',
+      week: 197,
+      talentId: 'person-studio-5a47d054-r04-3',
+      studioId: 'studio-5a47d054-player',
+      reasons: [],
+      dropped: [],
+      eventId: 'talent-market-event-121'
+    },
+    {
+      kind: 'settled',
+      week: 208,
+      talentId: 'person-studio-5a47d054-r04-3',
+      studioId: 'studio-5a47d054-player',
+      reasons: [Array],
+      dropped: [Array],
+      eventId: 'talent-market-event-143'
+    }
+  ]
+}
+
+ ✓ |core| tests/p14b2-fixture-preconditions.test.ts (5 tests | 4 skipped) 6204ms
+   ✓ P14B.2 lawful engine fixture preconditions (not bridge verification) > wins a real rival-owned case and reaches reminder/outcome weeks after proposals are gone 6202ms
+
+ Test Files  1 passed (1)
+      Tests  1 passed | 4 skipped (5)
+   Start at  15:36:24
+   Duration  9.70s (transform 2.31s, setup 0ms, collect 2.97s, tests 6.20s, environment 0ms, prepare 136ms)
+
+
+{"sourceSha":"e37cd2330be8c9129b0193a2bf8e84258e851307","command":["node_modules/.bin/vitest","run","tests/p14b2-fixture-preconditions.test.ts","-t","wins a real rival-owned case","--minWorkers=1","--maxWorkers=1"],"node":"v20.20.2","start":"2026-09-19T13:36:23.711Z","end":"2026-09-19T13:36:34.543Z","exitCode":0,"before":{"trackedDiff":"","trackedDiffSha256":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","untrackedFiles":{"tests/helpers/p14b2-fixtures.ts":"8ac303808428fe61a5689a5882560f709e38c07f9d6f353b5362455935107b01","tests/p14b2-fixture-preconditions.test.ts":"c2817aaff547ca54bdce5a5c5a584bb0d4dd80d02f6393ac6de838f3dca3bbcb"}},"signal":null,"after":{"trackedDiff":"","trackedDiffSha256":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","untrackedFiles":{"tests/helpers/p14b2-fixtures.ts":"8ac303808428fe61a5689a5882560f709e38c07f9d6f353b5362455935107b01","tests/p14b2-fixture-preconditions.test.ts":"c2817aaff547ca54bdce5a5c5a584bb0d4dd80d02f6393ac6de838f3dca3bbcb"}},"fixedSource":true}

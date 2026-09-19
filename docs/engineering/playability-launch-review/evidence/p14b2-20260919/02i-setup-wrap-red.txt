@@ -1,0 +1,81 @@
+{"sourceSha":"e37cd2330be8c9129b0193a2bf8e84258e851307","command":["node_modules/.bin/vitest","run","tests/p14b2-setup-wrap-regressions.test.ts","--minWorkers=1","--maxWorkers=1"],"node":"v20.20.2","start":"2026-09-19T13:40:12.419Z","end":null,"exitCode":null,"before":{"trackedDiff":"","trackedDiffSha256":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","untrackedFiles":{"tests/bridge-p14b2-checkpoint.test.ts":"82222405d05d0624861fb9d1da43dbc1c8617d1cda3f5735c85650aa3919746d","tests/fixtures/p14/genuine-projection45-runtime.checkpoint.json.gz":"00805fa390cc085a0300984ba094e02e7b1e9e53b0d23e286306d0c82820f9a9","tests/fixtures/p14/genuine-projection45-runtime.provenance.json":"ccbbb4b25f2d3a6c6b7a8144b7538be5ace954a87e82ee278186059931003147","tests/helpers/p14b2-fixtures.ts":"8ac303808428fe61a5689a5882560f709e38c07f9d6f353b5362455935107b01","tests/p14b2-fixture-preconditions.test.ts":"c2817aaff547ca54bdce5a5c5a584bb0d4dd80d02f6393ac6de838f3dca3bbcb","tests/p14b2-setup-wrap-regressions.test.ts":"438132cddae762dc5d69ec5d2d1d8155d9f657f140e42a0ee8eb697fff02f6d6"}}}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/p14b2-setup-wrap-regressions.test.ts (13 tests | 3 failed) 3642ms
+   × P14B.2-F1 completed setup remains historical authority after real wrap > round-trips actual first take → wrap → Post with unchanged setup and released stage 2430ms
+     → expected [ Array(1) ] to deeply equal []
+   × P14B.2-F1 completed setup remains historical authority after real wrap > does not require compacted windowed setup/phase events when the permanent exact wrap survives 416ms
+     → expected [ Array(1) ] to deeply equal []
+   × P14B.2-F1 completed setup remains historical authority after real wrap > accepts a real wrapped picture blocked before Post, with no stage or shooting task restored 40ms
+     → expected [ …(2) ] to deeply equal []
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14b2-setup-wrap-regressions.test.ts > P14B.2-F1 completed setup remains historical authority after real wrap > round-trips actual first take → wrap → Post with unchanged setup and released stage
+AssertionError: expected [ Array(1) ] to deeply equal []
+
+- Expected
++ Received
+
+- Array []
++ Array [
++   "workflows[0].setup: names a stage or Set this production is not bound to",
++ ]
+
+ ❯ tests/p14b2-setup-wrap-regressions.test.ts:32:44
+     30|   it('round-trips actual first take → wrap → Post with unchanged setup…
+     31|     const { state } = wrapped()
+     32|     expect(validateProductionSetup(state)).toEqual([])
+       |                                            ^
+     33|     roundTrip(state)
+     34|   })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL |core|  tests/p14b2-setup-wrap-regressions.test.ts > P14B.2-F1 completed setup remains historical authority after real wrap > does not require compacted windowed setup/phase events when the permanent exact wrap survives
+AssertionError: expected [ Array(1) ] to deeply equal []
+
+- Expected
++ Received
+
+- Array []
++ Array [
++   "workflows[0].setup: names a stage or Set this production is not bound to",
++ ]
+
+ ❯ tests/p14b2-setup-wrap-regressions.test.ts:41:44
+     39|     expect(state.studioEvents.rows).toContainEqual(before.wrap)
+     40|     expect(state.studioEvents.rows.filter((r) => !isTierDStudioEventKi…
+     41|     expect(validateProductionSetup(state)).toEqual([])
+       |                                            ^
+     42|     roundTrip(state)
+     43|   }, 60_000)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+ FAIL |core|  tests/p14b2-setup-wrap-regressions.test.ts > P14B.2-F1 completed setup remains historical authority after real wrap > accepts a real wrapped picture blocked before Post, with no stage or shooting task restored
+AssertionError: expected [ …(2) ] to deeply equal []
+
+- Expected
++ Received
+
+- Array []
++ Array [
++   "workflows[0].setup: names a stage or Set this production is not bound to",
++   "workflows[1].setup: names a stage or Set this production is not bound to",
++ ]
+
+ ❯ tests/p14b2-setup-wrap-regressions.test.ts:65:48
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯
+
+ Test Files  1 failed (1)
+      Tests  3 failed | 10 passed (13)
+   Start at  15:40:13
+   Duration  7.09s (transform 2.27s, setup 0ms, collect 2.96s, tests 3.64s, environment 0ms, prepare 125ms)
+
+
+{"sourceSha":"e37cd2330be8c9129b0193a2bf8e84258e851307","command":["node_modules/.bin/vitest","run","tests/p14b2-setup-wrap-regressions.test.ts","--minWorkers=1","--maxWorkers=1"],"node":"v20.20.2","start":"2026-09-19T13:40:12.419Z","end":"2026-09-19T13:40:20.641Z","exitCode":1,"before":{"trackedDiff":"","trackedDiffSha256":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","untrackedFiles":{"tests/bridge-p14b2-checkpoint.test.ts":"82222405d05d0624861fb9d1da43dbc1c8617d1cda3f5735c85650aa3919746d","tests/fixtures/p14/genuine-projection45-runtime.checkpoint.json.gz":"00805fa390cc085a0300984ba094e02e7b1e9e53b0d23e286306d0c82820f9a9","tests/fixtures/p14/genuine-projection45-runtime.provenance.json":"ccbbb4b25f2d3a6c6b7a8144b7538be5ace954a87e82ee278186059931003147","tests/helpers/p14b2-fixtures.ts":"8ac303808428fe61a5689a5882560f709e38c07f9d6f353b5362455935107b01","tests/p14b2-fixture-preconditions.test.ts":"c2817aaff547ca54bdce5a5c5a584bb0d4dd80d02f6393ac6de838f3dca3bbcb","tests/p14b2-setup-wrap-regressions.test.ts":"438132cddae762dc5d69ec5d2d1d8155d9f657f140e42a0ee8eb697fff02f6d6"}},"signal":null,"after":{"trackedDiff":"","trackedDiffSha256":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","untrackedFiles":{"tests/bridge-p14b2-checkpoint.test.ts":"82222405d05d0624861fb9d1da43dbc1c8617d1cda3f5735c85650aa3919746d","tests/fixtures/p14/genuine-projection45-runtime.checkpoint.json.gz":"00805fa390cc085a0300984ba094e02e7b1e9e53b0d23e286306d0c82820f9a9","tests/fixtures/p14/genuine-projection45-runtime.provenance.json":"ccbbb4b25f2d3a6c6b7a8144b7538be5ace954a87e82ee278186059931003147","tests/helpers/p14b2-fixtures.ts":"8ac303808428fe61a5689a5882560f709e38c07f9d6f353b5362455935107b01","tests/p14b2-fixture-preconditions.test.ts":"c2817aaff547ca54bdce5a5c5a584bb0d4dd80d02f6393ac6de838f3dca3bbcb","tests/p14b2-setup-wrap-regressions.test.ts":"438132cddae762dc5d69ec5d2d1d8155d9f657f140e42a0ee8eb697fff02f6d6"}},"fixedSource":true}

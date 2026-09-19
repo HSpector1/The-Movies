@@ -1,0 +1,96 @@
+{"sourceSha":"e37cd2330be8c9129b0193a2bf8e84258e851307","command":["node_modules/.bin/vitest","run","tests/p14b2-fixture-preconditions.test.ts","--minWorkers=1","--maxWorkers=1"],"node":"v20.20.2","start":"2026-09-19T13:30:57.977Z","end":null,"exitCode":null,"before":{"trackedDiff":"","trackedDiffSha256":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","untrackedFiles":{"tests/helpers/p14b2-fixtures.ts":"bdb18085ce14db3cd0c2e46f2ecbcf1af9ee93ea53cf597695d6977abcc7cfd4","tests/p14b2-fixture-preconditions.test.ts":"9ae3f0650b06bd95be5b62d3bb343fd277009b3213a28c954cc9373212c54675"}}}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+stdout | tests/p14b2-fixture-preconditions.test.ts > P14B.2 lawful engine fixture preconditions (not bridge verification) > produces a rival-only open promise and public kept outcome from the unmodified natural rival chain
+rival {
+  openWeek: 196,
+  outcome: {
+    promiseId: 'promise-6',
+    family: 'APPEARANCE_COUNT',
+    version: 1,
+    issuerStudioId: 'studio-aca408ec-r01',
+    beneficiaryPersonId: 'person-studio-aca408ec-r02-2',
+    predicate: { count: 1 },
+    windowStartWeek: 208,
+    dueWeekExclusive: 416,
+    feasibilityReceipt: {
+      classification: 'REASONABLY_ACHIEVABLE',
+      bottleneck: null,
+      inputsDigest: '964905b899c00c28',
+      rulesVersion: 1,
+      week: 208
+    },
+    progress: 1,
+    evidenceRefs: [ 'first-take-event-45' ],
+    outcome: 'SATISFIED',
+    outcomeWeek: 213,
+    outcomeCause: 'the promised pictures began filming inside the window',
+    outcomeEventId: 'talent-market-event-120',
+    contractId: 'studio-aca408ec-r01:contract:person-studio-aca408ec-r02-2:208'
+  }
+}
+
+ ❯ |core| tests/p14b2-fixture-preconditions.test.ts (4 tests | 3 failed) 11336ms
+   × P14B.2 lawful engine fixture preconditions (not bridge verification) > retains two real winners, films one promise and breaks the other by real early termination 2143ms
+     → validateSaveV29: frozen V28 state is invalid — validateSaveV28: frozen V27 state is invalid — validateSaveV27: frozen V26 state is invalid — validateSaveV26: frozen V25 state is invalid — validateSaveV25: workflows[0].setup: names a stage or Set this production is not bound to
+   × P14B.2 lawful engine fixture preconditions (not bridge verification) > keeps real prior history in the next open case, excludes an actual withdrawal, and binds a second promise 1225ms
+     → validateSaveV29: frozen V28 state is invalid — validateSaveV28: frozen V27 state is invalid — validateSaveV27: frozen V26 state is invalid — validateSaveV26: frozen V25 state is invalid — validateSaveV25: workflows[0].setup: names a stage or Set this production is not bound to
+   × P14B.2 lawful engine fixture preconditions (not bridge verification) > wins a real rival-owned case and reaches reminder/outcome weeks after proposals are gone 3773ms
+     → actual value must be number or bigint, received "undefined"
+   ✓ P14B.2 lawful engine fixture preconditions (not bridge verification) > produces a rival-only open promise and public kept outcome from the unmodified natural rival chain 4193ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14b2-fixture-preconditions.test.ts > P14B.2 lawful engine fixture preconditions (not bridge verification) > retains two real winners, films one promise and breaks the other by real early termination
+Error: validateSaveV29: frozen V28 state is invalid — validateSaveV28: frozen V27 state is invalid — validateSaveV27: frozen V26 state is invalid — validateSaveV26: frozen V25 state is invalid — validateSaveV25: workflows[0].setup: names a stage or Set this production is not bound to
+ ❯ validateSaveV29 src/core/save.ts:8583:11
+    8581|     validateSaveV28({ saveVersion: 28, seed: save.seed, state: stripV2…
+    8582|   } catch (error) {
+    8583|     throw new Error(`validateSaveV29: frozen V28 state is invalid — ${…
+       |           ^
+    8584|   }
+    8585|   return save as SaveFileV29;
+ ❯ Module.makeSave src/core/save.ts:6389:16
+ ❯ Module.retentionFixture tests/helpers/p14b2-fixtures.ts:121:45
+ ❯ tests/p14b2-fixture-preconditions.test.ts:8:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL |core|  tests/p14b2-fixture-preconditions.test.ts > P14B.2 lawful engine fixture preconditions (not bridge verification) > keeps real prior history in the next open case, excludes an actual withdrawal, and binds a second promise
+Error: validateSaveV29: frozen V28 state is invalid — validateSaveV28: frozen V27 state is invalid — validateSaveV27: frozen V26 state is invalid — validateSaveV26: frozen V25 state is invalid — validateSaveV25: workflows[0].setup: names a stage or Set this production is not bound to
+ ❯ validateSaveV29 src/core/save.ts:8583:11
+    8581|     validateSaveV28({ saveVersion: 28, seed: save.seed, state: stripV2…
+    8582|   } catch (error) {
+    8583|     throw new Error(`validateSaveV29: frozen V28 state is invalid — ${…
+       |           ^
+    8584|   }
+    8585|   return save as SaveFileV29;
+ ❯ Module.makeSave src/core/save.ts:6389:16
+ ❯ retentionFixture tests/helpers/p14b2-fixtures.ts:121:45
+ ❯ Module.historyFixture tests/helpers/p14b2-fixtures.ts:129:19
+ ❯ tests/p14b2-fixture-preconditions.test.ts:15:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+ FAIL |core|  tests/p14b2-fixture-preconditions.test.ts > P14B.2 lawful engine fixture preconditions (not bridge verification) > wins a real rival-owned case and reaches reminder/outcome weeks after proposals are gone
+TypeError: actual value must be number or bigint, received "undefined"
+ ❯ Module.poachingFixture tests/helpers/p14b2-fixtures.ts:150:85
+    148|   const incumbentId = 'studio-5a47d054-r04'
+    149|   let state = advanceTo(fund(p13aGeneratedStudio('p13-public-commercia…
+    150|   expect(state.hollywood!.businesses.find((b) => b.studioId === incumb…
+       |                                                                                     ^
+    151|   expect(publicPreferredTerm(state, talentId)).toBe(52)
+    152|   expect(trustDrivers(state, talentId, player(state), state.market.tic…
+ ❯ tests/p14b2-fixture-preconditions.test.ts:20:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯
+
+ Test Files  1 failed (1)
+      Tests  3 failed | 1 passed (4)
+   Start at  15:30:58
+   Duration  15.07s (transform 2.39s, setup 0ms, collect 3.06s, tests 11.34s, environment 1ms, prepare 164ms)
+
+
+{"sourceSha":"e37cd2330be8c9129b0193a2bf8e84258e851307","command":["node_modules/.bin/vitest","run","tests/p14b2-fixture-preconditions.test.ts","--minWorkers=1","--maxWorkers=1"],"node":"v20.20.2","start":"2026-09-19T13:30:57.977Z","end":"2026-09-19T13:31:14.396Z","exitCode":1,"before":{"trackedDiff":"","trackedDiffSha256":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","untrackedFiles":{"tests/helpers/p14b2-fixtures.ts":"bdb18085ce14db3cd0c2e46f2ecbcf1af9ee93ea53cf597695d6977abcc7cfd4","tests/p14b2-fixture-preconditions.test.ts":"9ae3f0650b06bd95be5b62d3bb343fd277009b3213a28c954cc9373212c54675"}},"signal":null,"after":{"trackedDiff":"","trackedDiffSha256":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","untrackedFiles":{"tests/helpers/p14b2-fixtures.ts":"bdb18085ce14db3cd0c2e46f2ecbcf1af9ee93ea53cf597695d6977abcc7cfd4","tests/p14b2-fixture-preconditions.test.ts":"9ae3f0650b06bd95be5b62d3bb343fd277009b3213a28c954cc9373212c54675"}},"fixedSource":true}

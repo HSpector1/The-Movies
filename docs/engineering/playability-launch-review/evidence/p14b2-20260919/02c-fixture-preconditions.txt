@@ -1,0 +1,348 @@
+{"sourceSha":"e37cd2330be8c9129b0193a2bf8e84258e851307","command":["node_modules/.bin/vitest","run","tests/p14b2-fixture-preconditions.test.ts","--minWorkers=1","--maxWorkers=1"],"node":"v20.20.2","start":"2026-09-19T13:33:09.654Z","end":null,"exitCode":null,"before":{"trackedDiff":"","trackedDiffSha256":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","untrackedFiles":{"tests/helpers/p14b2-fixtures.ts":"b5084b9e2585d15444e356918a6126555558e10c4f131901c6af531cc9f7cbe4","tests/p14b2-fixture-preconditions.test.ts":"c2817aaff547ca54bdce5a5c5a584bb0d4dd80d02f6393ac6de838f3dca3bbcb"}}}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+stdout | tests/p14b2-fixture-preconditions.test.ts > P14B.2 lawful engine fixture preconditions (not bridge verification) > retains two real winners, films one promise and breaks the other by real early termination
+retention {
+  kept: {
+    promiseId: 'promise-0',
+    family: 'APPEARANCE_COUNT',
+    version: 1,
+    issuerStudioId: 'studio-aca408ec-player',
+    beneficiaryPersonId: 't-act-09',
+    predicate: { count: 1 },
+    windowStartWeek: 52,
+    dueWeekExclusive: 92,
+    feasibilityReceipt: {
+      classification: 'REASONABLY_ACHIEVABLE',
+      bottleneck: null,
+      inputsDigest: 'c9375561105cf75b',
+      rulesVersion: 1,
+      week: 52
+    },
+    progress: 1,
+    evidenceRefs: [ 'first-take-event-24' ],
+    outcome: 'SATISFIED',
+    outcomeWeek: 61,
+    outcomeCause: 'the promised pictures began filming inside the window',
+    outcomeEventId: 'talent-market-event-6',
+    contractId: 'studio-aca408ec-player:contract:t-act-09:52:player-31'
+  },
+  broken: {
+    promiseId: 'promise-1',
+    family: 'APPEARANCE_COUNT',
+    version: 1,
+    issuerStudioId: 'studio-aca408ec-player',
+    beneficiaryPersonId: 't-act-08',
+    predicate: { count: 1 },
+    windowStartWeek: 52,
+    dueWeekExclusive: 92,
+    feasibilityReceipt: {
+      classification: 'REASONABLY_ACHIEVABLE',
+      bottleneck: null,
+      inputsDigest: 'ac1826ebd7c31b86',
+      rulesVersion: 1,
+      week: 52
+    },
+    progress: 0,
+    evidenceRefs: [],
+    outcome: 'BROKEN',
+    outcomeWeek: 61,
+    outcomeCause: 'the studio terminated this contract early, ending the window',
+    outcomeEventId: 'talent-market-event-7',
+    contractId: 'studio-aca408ec-player:contract:t-act-08:52:player-32'
+  },
+  drivers: [
+    {
+      kind: 'promiseBroken',
+      week: 61,
+      positive: false,
+      reason: 'broke a promise'
+    },
+    {
+      kind: 'promiseKept',
+      week: 61,
+      positive: true,
+      reason: 'kept a promise'
+    },
+    {
+      kind: 'terminatedEarly',
+      week: 61,
+      positive: false,
+      reason: 'ended a contract early'
+    },
+    {
+      kind: 'ranToEnd',
+      week: 52,
+      positive: true,
+      reason: 'ran a contract to its end'
+    },
+    {
+      kind: 'ranToEnd',
+      week: 52,
+      positive: true,
+      reason: 'ran a contract to its end'
+    }
+  ]
+}
+
+stdout | tests/p14b2-fixture-preconditions.test.ts > P14B.2 lawful engine fixture preconditions (not bridge verification) > keeps real prior history in the next open case, excludes an actual withdrawal, and binds a second promise
+history { week: 96, talentId: 't-act-09', withdrawnId: 'promise-2' }
+
+stdout | tests/p14b2-fixture-preconditions.test.ts > P14B.2 lawful engine fixture preconditions (not bridge verification) > wins a real rival-owned case and reaches reminder/outcome weeks after proposals are gone
+unbound fixture diagnostic {
+  promise: {
+    promiseId: 'promise-24',
+    family: 'APPEARANCE_COUNT',
+    version: 1,
+    issuerStudioId: 'studio-5a47d054-player',
+    beneficiaryPersonId: 'person-studio-5a47d054-r04-3',
+    predicate: { count: 1 },
+    windowStartWeek: 208,
+    dueWeekExclusive: 248,
+    feasibilityReceipt: {
+      classification: 'FRAGILE',
+      bottleneck: 'needs a picture not yet commissioned',
+      inputsDigest: '8fe8f8bfc09b7c73',
+      rulesVersion: 1,
+      week: 196
+    },
+    progress: 0,
+    evidenceRefs: [],
+    outcome: null,
+    outcomeWeek: null,
+    outcomeCause: null,
+    outcomeEventId: null,
+    contractId: null
+  },
+  receipts: [
+    {
+      kind: 'discovered',
+      week: 196,
+      talentId: 'person-studio-5a47d054-r04-3',
+      studioId: 'studio-5a47d054-r04',
+      reasons: [],
+      dropped: [],
+      eventId: 'talent-market-event-21'
+    },
+    {
+      kind: 'proposalSubmitted',
+      week: 196,
+      talentId: 'person-studio-5a47d054-r04-3',
+      studioId: 'studio-5a47d054-r01',
+      reasons: [],
+      dropped: [],
+      eventId: 'talent-market-event-108'
+    },
+    {
+      kind: 'proposalSubmitted',
+      week: 196,
+      talentId: 'person-studio-5a47d054-r04-3',
+      studioId: 'studio-5a47d054-r02',
+      reasons: [],
+      dropped: [],
+      eventId: 'talent-market-event-109'
+    },
+    {
+      kind: 'proposalSubmitted',
+      week: 196,
+      talentId: 'person-studio-5a47d054-r04-3',
+      studioId: 'studio-5a47d054-r03',
+      reasons: [],
+      dropped: [],
+      eventId: 'talent-market-event-110'
+    },
+    {
+      kind: 'proposalSubmitted',
+      week: 196,
+      talentId: 'person-studio-5a47d054-r04-3',
+      studioId: 'studio-5a47d054-r04',
+      reasons: [],
+      dropped: [],
+      eventId: 'talent-market-event-111'
+    },
+    {
+      kind: 'proposalSubmitted',
+      week: 196,
+      talentId: 'person-studio-5a47d054-r04-3',
+      studioId: 'studio-5a47d054-r04',
+      reasons: [],
+      dropped: [],
+      eventId: 'talent-market-event-120'
+    },
+    {
+      kind: 'proposalSubmitted',
+      week: 196,
+      talentId: 'person-studio-5a47d054-r04-3',
+      studioId: 'studio-5a47d054-player',
+      reasons: [],
+      dropped: [],
+      eventId: 'talent-market-event-121'
+    },
+    {
+      kind: 'settled',
+      week: 208,
+      talentId: 'person-studio-5a47d054-r04-3',
+      studioId: 'studio-5a47d054-r04',
+      reasons: [Array],
+      dropped: [Array],
+      eventId: 'talent-market-event-143'
+    }
+  ]
+}
+
+stdout | tests/p14b2-fixture-preconditions.test.ts > P14B.2 lawful engine fixture preconditions (not bridge verification) > produces a rival-only open promise and public kept outcome from the unmodified natural rival chain
+rival {
+  openWeek: 196,
+  outcome: {
+    promiseId: 'promise-6',
+    family: 'APPEARANCE_COUNT',
+    version: 1,
+    issuerStudioId: 'studio-aca408ec-r01',
+    beneficiaryPersonId: 'person-studio-aca408ec-r02-2',
+    predicate: { count: 1 },
+    windowStartWeek: 208,
+    dueWeekExclusive: 416,
+    feasibilityReceipt: {
+      classification: 'REASONABLY_ACHIEVABLE',
+      bottleneck: null,
+      inputsDigest: '964905b899c00c28',
+      rulesVersion: 1,
+      week: 208
+    },
+    progress: 1,
+    evidenceRefs: [ 'first-take-event-45' ],
+    outcome: 'SATISFIED',
+    outcomeWeek: 213,
+    outcomeCause: 'the promised pictures began filming inside the window',
+    outcomeEventId: 'talent-market-event-120',
+    contractId: 'studio-aca408ec-r01:contract:person-studio-aca408ec-r02-2:208'
+  }
+}
+
+stdout | tests/p14b2-fixture-preconditions.test.ts > P14B.2 lawful engine fixture preconditions (not bridge verification) > diagnostic: the next real production tick must remain save-valid (inherited source finding, not B2 bridge code)
+setup diagnostic {
+  sourceWeek: 61,
+  nextWeek: 62,
+  before: {
+    productionId: 'prod-0052',
+    phase: 'shooting',
+    reservations: [ [Object], [Object] ],
+    shootingTask: {
+      id: 'shooting:prod-0052',
+      productionId: 'prod-0052',
+      directorId: 't-dir-01',
+      soundstageFacilityId: 'facility-soundstage-07',
+      status: 'completed'
+    },
+    blocker: null,
+    bindings: {
+      requiresSetBinding: true,
+      stageFacilityId: 'facility-soundstage-07',
+      setId: 'set-2',
+      lockedNovelty: 1,
+      lockedUplift: 7.8999999999999995,
+      heldSinceWeek: 54
+    },
+    setup: {
+      recipeId: 'ballroom-reveal-lighting-01',
+      planRevision: 0,
+      admittedWeek: 56,
+      route: 'conventional',
+      adoptionId: null,
+      equipmentAssetId: null,
+      stageFacilityId: 'facility-soundstage-07',
+      setId: 'set-2',
+      requiredUnits: 4,
+      creditedUnits: 4,
+      lastCreditedWeek: 60,
+      completedWeek: 60,
+      priorWork: []
+    },
+    planRevision: 0
+  },
+  after: {
+    productionId: 'prod-0052',
+    phase: 'postProduction',
+    reservations: [ [Object] ],
+    shootingTask: null,
+    blocker: null,
+    bindings: {
+      requiresSetBinding: true,
+      stageFacilityId: null,
+      setId: 'set-2',
+      lockedNovelty: 1,
+      lockedUplift: 7.8999999999999995,
+      heldSinceWeek: null
+    },
+    setup: {
+      recipeId: 'ballroom-reveal-lighting-01',
+      planRevision: 0,
+      admittedWeek: 56,
+      route: 'conventional',
+      adoptionId: null,
+      equipmentAssetId: null,
+      stageFacilityId: 'facility-soundstage-07',
+      setId: 'set-2',
+      requiredUnits: 4,
+      creditedUnits: 4,
+      lastCreditedWeek: 60,
+      completedWeek: 60,
+      priorWork: []
+    },
+    planRevision: 0
+  }
+}
+
+ ❯ |core| tests/p14b2-fixture-preconditions.test.ts (5 tests | 2 failed) 12550ms
+   ✓ P14B.2 lawful engine fixture preconditions (not bridge verification) > retains two real winners, films one promise and breaks the other by real early termination 2249ms
+   ✓ P14B.2 lawful engine fixture preconditions (not bridge verification) > keeps real prior history in the next open case, excludes an actual withdrawal, and binds a second promise 751ms
+   × P14B.2 lawful engine fixture preconditions (not bridge verification) > wins a real rival-owned case and reaches reminder/outcome weeks after proposals are gone 4695ms
+     → expected null not to be null
+   ✓ P14B.2 lawful engine fixture preconditions (not bridge verification) > produces a rival-only open promise and public kept outcome from the unmodified natural rival chain 4796ms
+   × P14B.2 lawful engine fixture preconditions (not bridge verification) > diagnostic: the next real production tick must remain save-valid (inherited source finding, not B2 bridge code) 55ms
+     → expected [Function] to not throw an error but 'Error: validateSaveV29: frozen V28 st…' was thrown
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14b2-fixture-preconditions.test.ts > P14B.2 lawful engine fixture preconditions (not bridge verification) > wins a real rival-owned case and reaches reminder/outcome weeks after proposals are gone
+AssertionError: expected null not to be null
+ ❯ assertBinding tests/helpers/p14b2-fixtures.ts:42:34
+     40|   if (promise.contractId === null) console.log('unbound fixture diagno…
+     41|     receipts: state.talentMarket.receipts.filter((r) => r.talentId ===…
+     42|   expect(promise.contractId).not.toBeNull()
+       |                                  ^
+     43|   const employment = state.hollywood!.employment.find((e) => e.contrac…
+     44|   expect(employment).toBeDefined()
+ ❯ Module.poachingFixture tests/helpers/p14b2-fixtures.ts:158:3
+ ❯ tests/p14b2-fixture-preconditions.test.ts:22:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL |core|  tests/p14b2-fixture-preconditions.test.ts > P14B.2 lawful engine fixture preconditions (not bridge verification) > diagnostic: the next real production tick must remain save-valid (inherited source finding, not B2 bridge code)
+AssertionError: expected [Function] to not throw an error but 'Error: validateSaveV29: frozen V28 st…' was thrown
+
+- Expected: 
+undefined
+
++ Received: 
+"Error: validateSaveV29: frozen V28 state is invalid — validateSaveV28: frozen V27 state is invalid — validateSaveV27: frozen V26 state is invalid — validateSaveV26: frozen V25 state is invalid — validateSaveV25: workflows[0].setup: names a stage or Set this production is not bound to"
+
+ ❯ tests/p14b2-fixture-preconditions.test.ts:37:38
+     35|       before: f.outcomes.operations.workflows.find((w) => w.production…
+     36|       after: next.operations.workflows.find((w) => w.productionId === …
+     37|     expect(() => makeSave(next)).not.toThrow()
+       |                                      ^
+     38|   }, 60_000)
+     39| })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 3 passed (5)
+   Start at  15:33:10
+   Duration  16.06s (transform 2.32s, setup 0ms, collect 2.98s, tests 12.55s, environment 0ms, prepare 131ms)
+
+
+{"sourceSha":"e37cd2330be8c9129b0193a2bf8e84258e851307","command":["node_modules/.bin/vitest","run","tests/p14b2-fixture-preconditions.test.ts","--minWorkers=1","--maxWorkers=1"],"node":"v20.20.2","start":"2026-09-19T13:33:09.654Z","end":"2026-09-19T13:33:26.757Z","exitCode":1,"before":{"trackedDiff":"","trackedDiffSha256":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","untrackedFiles":{"tests/helpers/p14b2-fixtures.ts":"b5084b9e2585d15444e356918a6126555558e10c4f131901c6af531cc9f7cbe4","tests/p14b2-fixture-preconditions.test.ts":"c2817aaff547ca54bdce5a5c5a584bb0d4dd80d02f6393ac6de838f3dca3bbcb"}},"signal":null,"after":{"trackedDiff":"","trackedDiffSha256":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","untrackedFiles":{"tests/helpers/p14b2-fixtures.ts":"b5084b9e2585d15444e356918a6126555558e10c4f131901c6af531cc9f7cbe4","tests/p14b2-fixture-preconditions.test.ts":"c2817aaff547ca54bdce5a5c5a584bb0d4dd80d02f6393ac6de838f3dca3bbcb"}},"fixedSource":true}

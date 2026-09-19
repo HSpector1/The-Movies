@@ -1,0 +1,37 @@
+{"sourceSha":"e37cd2330be8c9129b0193a2bf8e84258e851307","command":["node_modules/.bin/vitest","run","tests/p14b2-fixture-preconditions.test.ts","-t","wins a real rival-owned case","--minWorkers=1","--maxWorkers=1"],"node":"v20.20.2","start":"2026-09-19T13:34:31.932Z","end":null,"exitCode":null,"before":{"trackedDiff":"","trackedDiffSha256":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","untrackedFiles":{"tests/helpers/p14b2-fixtures.ts":"1ed1dec3ee32643fc3460b551dad2f36d3c46458ee5645501893232621be7f6a","tests/p14b2-fixture-preconditions.test.ts":"c2817aaff547ca54bdce5a5c5a584bb0d4dd80d02f6393ac6de838f3dca3bbcb"}}}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/p14b2-fixture-preconditions.test.ts (5 tests | 1 failed | 4 skipped) 4822ms
+   × P14B.2 lawful engine fixture preconditions (not bridge verification) > wins a real rival-owned case and reaches reminder/outcome weeks after proposals are gone 4820ms
+     → script development: commission rejected — screenplay development is not managed
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14b2-fixture-preconditions.test.ts > P14B.2 lawful engine fixture preconditions (not bridge verification) > wins a real rival-owned case and reaches reminder/outcome weeks after proposals are gone
+Error: script development: commission rejected — screenplay development is not managed
+ ❯ requireManaged src/core/scriptDevelopment.ts:221:11
+    219| function requireManaged(development: ScriptDevelopment, action: string…
+    220|   if (development.mode !== 'managed') {
+    221|     throw new Error(`script development: ${action} rejected — screenpl…
+       |           ^
+    222|   }
+    223| }
+ ❯ Module.commissionScriptProject src/core/scriptDevelopment.ts:266:3
+ ❯ src/core/actions.ts:2146:33
+ ❯ admitOrQueue src/core/actions.ts:1788:12
+ ❯ applyCommissionScript src/core/actions.ts:2143:10
+ ❯ Module.applyActions src/core/actions.ts:3060:16
+ ❯ Module.poachingFixture tests/helpers/p14b2-fixtures.ts:158:11
+ ❯ tests/p14b2-fixture-preconditions.test.ts:22:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 4 skipped (5)
+   Start at  15:34:32
+   Duration  8.21s (transform 2.08s, setup 0ms, collect 2.88s, tests 4.82s, environment 0ms, prepare 136ms)
+
+
+{"sourceSha":"e37cd2330be8c9129b0193a2bf8e84258e851307","command":["node_modules/.bin/vitest","run","tests/p14b2-fixture-preconditions.test.ts","-t","wins a real rival-owned case","--minWorkers=1","--maxWorkers=1"],"node":"v20.20.2","start":"2026-09-19T13:34:31.932Z","end":"2026-09-19T13:34:41.340Z","exitCode":1,"before":{"trackedDiff":"","trackedDiffSha256":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","untrackedFiles":{"tests/helpers/p14b2-fixtures.ts":"1ed1dec3ee32643fc3460b551dad2f36d3c46458ee5645501893232621be7f6a","tests/p14b2-fixture-preconditions.test.ts":"c2817aaff547ca54bdce5a5c5a584bb0d4dd80d02f6393ac6de838f3dca3bbcb"}},"signal":null,"after":{"trackedDiff":"","trackedDiffSha256":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","untrackedFiles":{"tests/helpers/p14b2-fixtures.ts":"1ed1dec3ee32643fc3460b551dad2f36d3c46458ee5645501893232621be7f6a","tests/p14b2-fixture-preconditions.test.ts":"c2817aaff547ca54bdce5a5c5a584bb0d4dd80d02f6393ac6de838f3dca3bbcb"}},"fixedSource":true}

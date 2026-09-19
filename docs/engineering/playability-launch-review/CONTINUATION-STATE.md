@@ -1,6 +1,29 @@
 # CONTINUATION STATE — three-week autonomous window (Owner directive 2026-09-15)
 
-## Current continuation — 2026-09-19: T4 closed; P14B.2 next
+## Current continuation — 2026-09-19: T4 closed; P14B.2 T1 active
+
+T4 closeout `e37cd2330be8c9129b0193a2bf8e84258e851307` pushed and remote SHA
+verified. B2 test-author owns independent tests/fixture proofs; parent owns the sole heavy
+runtime slot; sim-core read-only production preparation until T1 RED. Parent
+integration/records; no concurrent tests. Exact ownership/next steps:
+`evidence/p14b2-20260919/00-start.md`.
+
+Active next action: publish F1 checkpoint, install independently authored B2 test
+and record absent-module RED, then release sim-core for projection46. F1 CLOSED
+at `af455ef838b8c2227d784ebdc8bafb89e7a6835b`: 17 files/179 passed/three unchanged
+todos, root/UI and bridge typechecks PASS, independent KEEP. Exact fixed-source
+records/limits: `p14b2-20260919/08-f1-closeout.md`. Test-author's dedicated RED
+and negative guards (`02i`, three fails/ten passes) and genuine45 checkpoint are
+preserved. Checkpoint forward RED (`09`) has its two intended failures at45.
+No active runtime. Main B2 draft is ready outside the checkout at
+`/tmp/studio-b2-main-tests-xLBdsi/bridge-p14b2-trust.test.ts`.
+A real filming→Post advance
+revealed an inherited save-validator/live-occupancy conflict; independent review
+KEEP and technical plan reconciliation recorded at `p14b2-20260919/03-setup-wrap-review.md`.
+F1 verification/publication precedes installing the main B2 test and module RED,
+then the original read models. Auditor is read-only on the independent B2 draft.
+Actual poaching and kept/broken/history/rival fixture preconditions are now proven
+in separate completed probes; no B2 projection code or bridge GREEN claimed yet.
 
 **P14B.1 T4 CLOSED — LOGIC VERIFIED · UNITY NOT VERIFIED**, qualified, not Owner
 acceptance. Production `ee91913e41b9baa30bcda8eef8c8195da7bfd1cc`; test-only

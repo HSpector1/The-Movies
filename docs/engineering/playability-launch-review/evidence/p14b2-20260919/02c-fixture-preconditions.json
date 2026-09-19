@@ -1,0 +1,32 @@
+{
+  "sourceSha": "e37cd2330be8c9129b0193a2bf8e84258e851307",
+  "command": [
+    "node_modules/.bin/vitest",
+    "run",
+    "tests/p14b2-fixture-preconditions.test.ts",
+    "--minWorkers=1",
+    "--maxWorkers=1"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-19T13:33:09.654Z",
+  "end": "2026-09-19T13:33:26.757Z",
+  "exitCode": 1,
+  "before": {
+    "trackedDiff": "",
+    "trackedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "untrackedFiles": {
+      "tests/helpers/p14b2-fixtures.ts": "b5084b9e2585d15444e356918a6126555558e10c4f131901c6af531cc9f7cbe4",
+      "tests/p14b2-fixture-preconditions.test.ts": "c2817aaff547ca54bdce5a5c5a584bb0d4dd80d02f6393ac6de838f3dca3bbcb"
+    }
+  },
+  "signal": null,
+  "after": {
+    "trackedDiff": "",
+    "trackedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "untrackedFiles": {
+      "tests/helpers/p14b2-fixtures.ts": "b5084b9e2585d15444e356918a6126555558e10c4f131901c6af531cc9f7cbe4",
+      "tests/p14b2-fixture-preconditions.test.ts": "c2817aaff547ca54bdce5a5c5a584bb0d4dd80d02f6393ac6de838f3dca3bbcb"
+    }
+  },
+  "fixedSource": true
+}

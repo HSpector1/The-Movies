@@ -20,8 +20,19 @@ exact V29 references and later-contract chronology fixes; bounded reviews KEEP.
 | Scope / review | Seven corrective tests only; production/config/harness/generated/historical fixtures unchanged; independent KEEP |
 | Closeout | `p14b1-20260919-t4-final/16-attribution.md`; attributed non-green full suites plus verified corrections, NOT an all-green full rerun |
 
-Next: P14B.2 independent RED/fixture proofs → projection 46 read models → D3
-test → review/full pass/publication. Forecast: 2–4 hours fixture/implementation
+Now: P14B.2 T1 independent RED/fixture proofs ACTIVE after remote-verified
+`e37cd2330be8c9129b0193a2bf8e84258e851307`; parent owns serialized runtime, sim-core
+read-only preparation. Read models are preceded by the discovered **B2-F1**
+producer repair: real first-take→wrap
+releases occupancy but its retained setup history is refused by the old validator.
+F1 CLOSED at `af455ef838b8c2227d784ebdc8bafb89e7a6835b`: independent RED 3fail/10pass
+then 17 files/179pass/3unchanged todos; root/UI and bridge typechecks PASS;
+bounded final review KEEP. **LOGIC VERIFIED (bounded F1) · UNITY NOT VERIFIED**.
+Exact fixed-source records/limits: `p14b2-20260919/08-f1-closeout.md`; no full F1
+suite claimed. Genuine45 checkpoint minted; two expected migration-forward REDs
+at projection45 (`09`). Actual poaching/kept/broken/history/rival probes recorded.
+After this prerequisite, resume read models → D3 test → review/full pass/publication.
+Forecast: 2–4 hours fixture/implementation
 plus ~90 minutes full validation. T4 took ~89 minutes, ~14 over the older
 observation. Earlier cumulative usage remains in force; no fresh allowance.
 

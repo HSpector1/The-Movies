@@ -1,0 +1,51 @@
+{"sourceSha":"e37cd2330be8c9129b0193a2bf8e84258e851307","testedDiffSha256":"3d73974a593851e0519aaf2615fbb1652dfaee8aa02180189ef1021943e5f6d3","untrackedSource":["tests/bridge-p14b2-checkpoint.test.ts","tests/fixtures/p14/genuine-projection45-runtime.checkpoint.json.gz","tests/fixtures/p14/genuine-projection45-runtime.provenance.json","tests/helpers/p14b2-fixtures.ts","tests/p14b2-fixture-preconditions.test.ts","tests/p14b2-setup-wrap-regressions.test.ts"],"command":["npx","vitest","run","tests/bridge-p14b2-checkpoint.test.ts","--minWorkers=1","--maxWorkers=1","--reporter=dot"],"node":"v20.20.2","start":"2026-09-19T13:54:39.719Z","end":null,"exitCode":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/bridge-p14b2-checkpoint.test.ts (2 tests | 2 failed) 941ms
+   × P14B.2 outgoing projection45 runtime compatibility (Save29 unchanged) > pins actual historical source bytes and the literal outgoing schema registry entry 79ms
+     → expected 'sha256:5b2a4ca93d930e90a288db55bb5cc3…' not to be 'sha256:5b2a4ca93d930e90a288db55bb5cc3…' // Object.is equality
+   × P14B.2 outgoing projection45 runtime compatibility (Save29 unchanged) > opens genuine45 with a new session while preserving both distinct gameplay slots byte-for-byte 861ms
+     → expected null to be 4 // Object.is equality
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/bridge-p14b2-checkpoint.test.ts > P14B.2 outgoing projection45 runtime compatibility (Save29 unchanged) > pins actual historical source bytes and the literal outgoing schema registry entry
+AssertionError: expected 'sha256:5b2a4ca93d930e90a288db55bb5cc3…' not to be 'sha256:5b2a4ca93d930e90a288db55bb5cc3…' // Object.is equality
+ ❯ tests/bridge-p14b2-checkpoint.test.ts:22:27
+     20|     expect(JSON.parse(before.currentSaveJson).state.market.tick).toBe(…
+     21|     expect(JSON.parse(before.savedSaveJson).state.market.tick).toBe(11)
+     22|     expect(SCHEMA_ID).not.toBe(OUTGOING_45)
+       |                           ^
+     23|     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_45)).toB…
+     24|   })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL |core|  tests/bridge-p14b2-checkpoint.test.ts > P14B.2 outgoing projection45 runtime compatibility (Save29 unchanged) > opens genuine45 with a new session while preserving both distinct gameplay slots byte-for-byte
+AssertionError: expected null to be 4 // Object.is equality
+
+- Expected: 
+4
+
++ Received: 
+null
+
+ ❯ tests/bridge-p14b2-checkpoint.test.ts:28:48
+     26|     const before = JSON.parse(bytes)
+     27|     const loaded = loadBridgeRuntimeCheckpoint(bytes, undefined, () =>…
+     28|     expect(loaded.migratedFromProtocolVersion).toBe(4)
+       |                                                ^
+     29|     const after = loaded.hydrated.checkpoint
+     30|     expect(after.schemaId).toBe(SCHEMA_ID)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+ Test Files  1 failed (1)
+      Tests  2 failed (2)
+   Start at  15:54:42
+   Duration  5.85s (transform 3.23s, setup 0ms, collect 4.27s, tests 941ms, environment 0ms, prepare 248ms)
+
+
+{"sourceSha":"e37cd2330be8c9129b0193a2bf8e84258e851307","testedDiffSha256":"3d73974a593851e0519aaf2615fbb1652dfaee8aa02180189ef1021943e5f6d3","untrackedSource":["tests/bridge-p14b2-checkpoint.test.ts","tests/fixtures/p14/genuine-projection45-runtime.checkpoint.json.gz","tests/fixtures/p14/genuine-projection45-runtime.provenance.json","tests/helpers/p14b2-fixtures.ts","tests/p14b2-fixture-preconditions.test.ts","tests/p14b2-setup-wrap-regressions.test.ts"],"command":["npx","vitest","run","tests/bridge-p14b2-checkpoint.test.ts","--minWorkers=1","--maxWorkers=1","--reporter=dot"],"node":"v20.20.2","start":"2026-09-19T13:54:39.719Z","end":"2026-09-19T13:54:49.151Z","exitCode":1,"signal":null,"error":null,"sourceShaAtEnd":"e37cd2330be8c9129b0193a2bf8e84258e851307","testedDiffSha256AtEnd":"3d73974a593851e0519aaf2615fbb1652dfaee8aa02180189ef1021943e5f6d3","untrackedSourceAtEnd":["tests/bridge-p14b2-checkpoint.test.ts","tests/fixtures/p14/genuine-projection45-runtime.checkpoint.json.gz","tests/fixtures/p14/genuine-projection45-runtime.provenance.json","tests/helpers/p14b2-fixtures.ts","tests/p14b2-fixture-preconditions.test.ts","tests/p14b2-setup-wrap-regressions.test.ts"],"fixedSource":true}

@@ -19,21 +19,36 @@ Fresh 13-file verification: **170 passed / three unchanged todos**; root/UI and
 bridge typechecks and both contract checks pass. Independent reviews KEEP.
 This is NOT an all-green full-suite rerun on the later test commit.
 
-**Next: implement P14B.2**, beginning independent bridge test 11 RED and lawful
-fixture preconditions, per `plans/P14-HEADLESS-PLAN.md`. Preparation:
+**P14B.2 T1 IN PROGRESS**, following published/remote-verified T4 closeout
+`e37cd2330be8c9129b0193a2bf8e84258e851307`. Test-author owns tests and the sole
+heavy runtime slot originally; parent now owns serialized verification. Ownership/next actions:
+`evidence/p14b2-20260919/00-start.md`. Independent lawful fixture work exposed
+inherited **B2-F1**: completed setup loses its live stage at
+wrap correctly, but save validation refuses the retained history. Dedicated
+independent RED (three positive failures / ten negative passes) and genuine45
+checkpoint are preserved. F1 CLOSED at `af455ef838b8c2227d784ebdc8bafb89e7a6835b`:
+17 files /179 passed /three unchanged todos, root/UI and bridge typechecks PASS,
+bounded review KEEP. Exact fixed-source records and limits: `evidence/p14b2-20260919/08-f1-closeout.md`.
+Checkpoint forward RED has the two intended failures at projection45 (`09`).
+Main B2 test draft is independently authored outside the checkout; install next
+for absent-module RED. No active runtime. Diagnosis: `evidence/p14b2-20260919/03-setup-wrap-review.md`.
+After this prerequisite, resume B2 bridge test 11 RED and read models per
+`plans/P14-HEADLESS-PLAN.md`. Preparation:
 `evidence/p14b1-20260919-t4/13-b2-test-preparation.md`. The literal contract-ID
 fixture issue mentioned there is already fixed in T4. Preserve real retention
-`ranToEnd` history; establish an actual poaching winner for independent attention.
+`ranToEnd` history; the actual poaching winner has now been proved in probe `02g`.
 Then projection 46 read models, D3 causal test, bounded review and qualified full
-verification. Save V29 stays; no outgoing fixture mint is required. Continue
+verification. Save V29 stays; no outgoing SAVE-version fixture mint is required
+(a genuine projection-45 runtime checkpoint is frozen). Continue
 remaining P14 → P15 → P16 → sufficiently specified P17/P18 without routine prompts.
 B3 P1 command-route preparation is `14-b3-preparation.md`; not part of B2.
 
 Save V29 / projection 45 currently. The B1 quote is preview-only; command attachment
 remains a B3 integration obligation. Unity/rendering/native/Owner acceptance stays
 deferred in `UNITY-INTEGRATION-BACKLOG.md`. Max two native specialists, one production
-writer; test-author independent, contract-auditor read-only. Parent owns the serialized
-heavy-test slot. No test process remains running at T4 close. Existing usage carries
+writer; test-author independent, contract-auditor read-only. Parent coordinates the
+serialized heavy-test slot, currently held by parent. T4 has no remaining
+runtime. Existing usage carries
 forward; the full runner took ~89 minutes versus the older ~75-minute forecast.
 
 ## Historical recovered handoff (unchanged below)

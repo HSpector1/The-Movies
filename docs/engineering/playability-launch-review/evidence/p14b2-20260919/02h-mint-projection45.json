@@ -1,0 +1,31 @@
+{
+  "sourceSha": "e37cd2330be8c9129b0193a2bf8e84258e851307",
+  "command": [
+    "node_modules/.bin/vite-node",
+    "docs/engineering/playability-launch-review/evidence/p14b2-20260919/02-mint-projection45.ts"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-19T13:37:19.591Z",
+  "end": "2026-09-19T13:37:30.847Z",
+  "exitCode": 0,
+  "before": {
+    "trackedDiff": "",
+    "trackedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "untrackedFiles": {
+      "tests/helpers/p14b2-fixtures.ts": "8ac303808428fe61a5689a5882560f709e38c07f9d6f353b5362455935107b01",
+      "tests/p14b2-fixture-preconditions.test.ts": "c2817aaff547ca54bdce5a5c5a584bb0d4dd80d02f6393ac6de838f3dca3bbcb"
+    }
+  },
+  "signal": null,
+  "after": {
+    "trackedDiff": "",
+    "trackedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "untrackedFiles": {
+      "tests/fixtures/p14/genuine-projection45-runtime.checkpoint.json.gz": "00805fa390cc085a0300984ba094e02e7b1e9e53b0d23e286306d0c82820f9a9",
+      "tests/fixtures/p14/genuine-projection45-runtime.provenance.json": "6875f059205e0ca35d910dd6790c4eda6fd8cebfdc9c2da9ed1279ee27071074",
+      "tests/helpers/p14b2-fixtures.ts": "8ac303808428fe61a5689a5882560f709e38c07f9d6f353b5362455935107b01",
+      "tests/p14b2-fixture-preconditions.test.ts": "c2817aaff547ca54bdce5a5c5a584bb0d4dd80d02f6393ac6de838f3dca3bbcb"
+    }
+  },
+  "fixedSource": false
+}

@@ -1,0 +1,163 @@
+{"sourceSha":"e37cd2330be8c9129b0193a2bf8e84258e851307","command":["node_modules/.bin/vitest","run","tests/p14b2-fixture-preconditions.test.ts","--minWorkers=1","--maxWorkers=1"],"node":"v20.20.2","start":"2026-09-19T13:31:58.785Z","end":null,"exitCode":null,"before":{"trackedDiff":"","trackedDiffSha256":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","untrackedFiles":{"tests/helpers/p14b2-fixtures.ts":"63fcaada2c15341e8a948c9ded9c03a21c94477ce1bba0b3f2946df703ff7ffa","tests/p14b2-fixture-preconditions.test.ts":"9ae3f0650b06bd95be5b62d3bb343fd277009b3213a28c954cc9373212c54675"}}}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+stdout | tests/p14b2-fixture-preconditions.test.ts > P14B.2 lawful engine fixture preconditions (not bridge verification) > retains two real winners, films one promise and breaks the other by real early termination
+retention {
+  kept: {
+    promiseId: 'promise-0',
+    family: 'APPEARANCE_COUNT',
+    version: 1,
+    issuerStudioId: 'studio-aca408ec-player',
+    beneficiaryPersonId: 't-act-09',
+    predicate: { count: 1 },
+    windowStartWeek: 52,
+    dueWeekExclusive: 92,
+    feasibilityReceipt: {
+      classification: 'REASONABLY_ACHIEVABLE',
+      bottleneck: null,
+      inputsDigest: 'c9375561105cf75b',
+      rulesVersion: 1,
+      week: 52
+    },
+    progress: 1,
+    evidenceRefs: [ 'first-take-event-24' ],
+    outcome: 'SATISFIED',
+    outcomeWeek: 61,
+    outcomeCause: 'the promised pictures began filming inside the window',
+    outcomeEventId: 'talent-market-event-6',
+    contractId: 'studio-aca408ec-player:contract:t-act-09:52:player-31'
+  },
+  broken: {
+    promiseId: 'promise-1',
+    family: 'APPEARANCE_COUNT',
+    version: 1,
+    issuerStudioId: 'studio-aca408ec-player',
+    beneficiaryPersonId: 't-act-08',
+    predicate: { count: 1 },
+    windowStartWeek: 52,
+    dueWeekExclusive: 92,
+    feasibilityReceipt: {
+      classification: 'REASONABLY_ACHIEVABLE',
+      bottleneck: null,
+      inputsDigest: 'ac1826ebd7c31b86',
+      rulesVersion: 1,
+      week: 52
+    },
+    progress: 0,
+    evidenceRefs: [],
+    outcome: 'BROKEN',
+    outcomeWeek: 61,
+    outcomeCause: 'the studio terminated this contract early, ending the window',
+    outcomeEventId: 'talent-market-event-7',
+    contractId: 'studio-aca408ec-player:contract:t-act-08:52:player-32'
+  },
+  drivers: [
+    {
+      kind: 'promiseBroken',
+      week: 61,
+      positive: false,
+      reason: 'broke a promise'
+    },
+    {
+      kind: 'promiseKept',
+      week: 61,
+      positive: true,
+      reason: 'kept a promise'
+    },
+    {
+      kind: 'terminatedEarly',
+      week: 61,
+      positive: false,
+      reason: 'ended a contract early'
+    },
+    {
+      kind: 'ranToEnd',
+      week: 52,
+      positive: true,
+      reason: 'ran a contract to its end'
+    },
+    {
+      kind: 'ranToEnd',
+      week: 52,
+      positive: true,
+      reason: 'ran a contract to its end'
+    }
+  ]
+}
+
+stdout | tests/p14b2-fixture-preconditions.test.ts > P14B.2 lawful engine fixture preconditions (not bridge verification) > produces a rival-only open promise and public kept outcome from the unmodified natural rival chain
+rival {
+  openWeek: 196,
+  outcome: {
+    promiseId: 'promise-6',
+    family: 'APPEARANCE_COUNT',
+    version: 1,
+    issuerStudioId: 'studio-aca408ec-r01',
+    beneficiaryPersonId: 'person-studio-aca408ec-r02-2',
+    predicate: { count: 1 },
+    windowStartWeek: 208,
+    dueWeekExclusive: 416,
+    feasibilityReceipt: {
+      classification: 'REASONABLY_ACHIEVABLE',
+      bottleneck: null,
+      inputsDigest: '964905b899c00c28',
+      rulesVersion: 1,
+      week: 208
+    },
+    progress: 1,
+    evidenceRefs: [ 'first-take-event-45' ],
+    outcome: 'SATISFIED',
+    outcomeWeek: 213,
+    outcomeCause: 'the promised pictures began filming inside the window',
+    outcomeEventId: 'talent-market-event-120',
+    contractId: 'studio-aca408ec-r01:contract:person-studio-aca408ec-r02-2:208'
+  }
+}
+
+ ❯ |core| tests/p14b2-fixture-preconditions.test.ts (4 tests | 2 failed) 11836ms
+   ✓ P14B.2 lawful engine fixture preconditions (not bridge verification) > retains two real winners, films one promise and breaks the other by real early termination 2308ms
+   × P14B.2 lawful engine fixture preconditions (not bridge verification) > keeps real prior history in the next open case, excludes an actual withdrawal, and binds a second promise 734ms
+     → expected null not to be null
+   × P14B.2 lawful engine fixture preconditions (not bridge verification) > wins a real rival-owned case and reaches reminder/outcome weeks after proposals are gone 4227ms
+     → expected null not to be null
+   ✓ P14B.2 lawful engine fixture preconditions (not bridge verification) > produces a rival-only open promise and public kept outcome from the unmodified natural rival chain 4564ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14b2-fixture-preconditions.test.ts > P14B.2 lawful engine fixture preconditions (not bridge verification) > keeps real prior history in the next open case, excludes an actual withdrawal, and binds a second promise
+AssertionError: expected null not to be null
+ ❯ assertBinding tests/helpers/p14b2-fixtures.ts:40:34
+     38| }
+     39| export function assertBinding(state: GameState, promise: ProfessionalP…
+     40|   expect(promise.contractId).not.toBeNull()
+       |                                  ^
+     41|   const employment = state.hollywood!.employment.find((e) => e.contrac…
+     42|   expect(employment).toBeDefined()
+ ❯ Module.historyFixture tests/helpers/p14b2-fixtures.ts:137:3
+ ❯ tests/p14b2-fixture-preconditions.test.ts:15:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL |core|  tests/p14b2-fixture-preconditions.test.ts > P14B.2 lawful engine fixture preconditions (not bridge verification) > wins a real rival-owned case and reaches reminder/outcome weeks after proposals are gone
+AssertionError: expected null not to be null
+ ❯ assertBinding tests/helpers/p14b2-fixtures.ts:40:34
+     38| }
+     39| export function assertBinding(state: GameState, promise: ProfessionalP…
+     40|   expect(promise.contractId).not.toBeNull()
+       |                                  ^
+     41|   const employment = state.hollywood!.employment.find((e) => e.contrac…
+     42|   expect(employment).toBeDefined()
+ ❯ Module.poachingFixture tests/helpers/p14b2-fixtures.ts:157:3
+ ❯ tests/p14b2-fixture-preconditions.test.ts:20:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 2 passed (4)
+   Start at  15:31:59
+   Duration  15.34s (transform 2.27s, setup 0ms, collect 2.92s, tests 11.84s, environment 0ms, prepare 126ms)
+
+
+{"sourceSha":"e37cd2330be8c9129b0193a2bf8e84258e851307","command":["node_modules/.bin/vitest","run","tests/p14b2-fixture-preconditions.test.ts","--minWorkers=1","--maxWorkers=1"],"node":"v20.20.2","start":"2026-09-19T13:31:58.785Z","end":"2026-09-19T13:32:15.162Z","exitCode":1,"before":{"trackedDiff":"","trackedDiffSha256":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","untrackedFiles":{"tests/helpers/p14b2-fixtures.ts":"63fcaada2c15341e8a948c9ded9c03a21c94477ce1bba0b3f2946df703ff7ffa","tests/p14b2-fixture-preconditions.test.ts":"9ae3f0650b06bd95be5b62d3bb343fd277009b3213a28c954cc9373212c54675"}},"signal":null,"after":{"trackedDiff":"","trackedDiffSha256":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","untrackedFiles":{"tests/helpers/p14b2-fixtures.ts":"63fcaada2c15341e8a948c9ded9c03a21c94477ce1bba0b3f2946df703ff7ffa","tests/p14b2-fixture-preconditions.test.ts":"9ae3f0650b06bd95be5b62d3bb343fd277009b3213a28c954cc9373212c54675"}},"fixedSource":true}
