@@ -1,5 +1,11 @@
 # P14 — Contested Talent Market, Bonds and Promises, Career Lifecycle — headless plan (logic-first)
 
+**B-F2 T1 COMPLETE:** qualifiedB3records58b4c2e pushed/EXACT remote verified.
+Three tests installed/exactly matched; actual01RED11FAIL/19PASS/2TODO,fixedSource:true.
+No missing-fixture substitute; attribution02. Session30104closed; publish RED/
+verify remote then sole one-file writer. Production unchanged. Live evidence/
+next steps ../evidence/p14bf2-20260919/00-start.md.
+
 **Latest checkpoint (2026-09-19): B3 qualified CLOSED.** Tested full source359f636,
 implementation425170e, genuine preservation9c605dc and independent REDf4e1230.
 Full16:52:49.457Z–18:27:20.807Z, fixedSource:true,94.5225minutes. Core3338PASS/
@@ -270,7 +276,15 @@ proposals across issuers although only one may win. Preserve that behavior in
 the narrow abandonment correction; its policy remains separately OPEN. Unity,
 native/rendering and Owner acceptance remain deferred.
 
-## P14B-F2 — has-discipline promise eligibility (reconciled prerequisite, not started)
+## P14B-F2 — has-discipline promise eligibility (T1 RED complete; T2 next)
+
+- [x] T1 installed exact13case draft948936ee… plus corrected chooser/default-
+  timeout patch0f85aba2… and four live revision-pin patch8a1685ae…. Parent independently
+  reconstructed authorized diffs; exact. 01-independent-red on accepted
+  publication58b4c2e:11failed/19passed/2unchanged todos, fixedSource:true;
+  actual eligibility/version RED, no fixture exception. Attribution02 names
+  later renewal/take/missing-profile guards not yet reached. Production unchanged.
+  Publish RED/verify remote, then one-writer T2 release; no runtime remains.
 
 **Authority reconciliation 2026-09-19.** The historical B1 T2 ruling(iii) above
 mistakenly read the CALL `requireRole(actor, 'actor', ...)` as a primary-role gate.

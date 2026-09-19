@@ -84,9 +84,12 @@ function readFixture(name: CorpusCase) {
   return { raw, save, focused }
 }
 
-describe('P14B.3 evaluator revision2 and genuine old evaluator1 history', () => {
+// B-F2 2026-09-19: live evaluation moves2→3 for the acting-discipline fix.
+// B3's revision2 RED/GREEN remains at f4e1230/425170e; do not rewrite that evidence.
+// Only fresh roots/receipts use3. Genuine evaluator1 fixtures and old root.version1 stay1.
+describe('P14B.3 continuity under B-F2 evaluator3 with genuine old evaluator1 history', () => {
   it('pins the new evaluator generation independently of unchanged Save29/projection46', () => {
-    expect(PROMISE_RULES_VERSION).toBe(2)
+    expect(PROMISE_RULES_VERSION).toBe(3)
   })
 
   it.each(CASES)('preserves genuine %s root/receipt/digest bytes through valid load, not a restamped current fixture', (name) => {
@@ -117,7 +120,7 @@ describe('P14B.3 evaluator revision2 and genuine old evaluator1 history', () => 
     }
   })
 
-  it('new actual attachment uses root.version2 and receipt.rulesVersion2 without rewriting old roots', () => {
+  it('new actual attachment uses root.version3 and receipt.rulesVersion3 without rewriting old roots', () => {
     const { save, focused: old } = readFixture('evaluator1-current-p1')
     const state = migrateToV29(save).state
     const priorRoots = JSON.stringify(state.promises)
@@ -132,10 +135,10 @@ describe('P14B.3 evaluator revision2 and genuine old evaluator1 history', () => 
     })
     expect(attached.promises).toHaveLength(state.promises.length + 1)
     const fresh = attached.promises[state.promises.length]!
-    expect(fresh).toMatchObject({ promiseId: `promise-${state.promises.length}`, version: 2,
+    expect(fresh).toMatchObject({ promiseId: `promise-${state.promises.length}`, version: 3,
       beneficiaryPersonId: old.beneficiaryPersonId, issuerStudioId: old.issuerStudioId,
       contractId: null, outcome: null,
-      feasibilityReceipt: { rulesVersion: 2, week: state.market.tick, classification: 'REASONABLY_ACHIEVABLE' } })
+      feasibilityReceipt: { rulesVersion: 3, week: state.market.tick, classification: 'REASONABLY_ACHIEVABLE' } })
     expect(JSON.stringify(attached.promises.slice(0, state.promises.length))).toBe(priorRoots)
     expect(currentProposals(attached, proposal.talentId).find((p) => p.issuerStudioId === proposal.issuerStudioId)!.promises)
       .toEqual([fresh.promiseId])
@@ -143,7 +146,7 @@ describe('P14B.3 evaluator revision2 and genuine old evaluator1 history', () => 
     expect(reloaded.promises).toEqual(attached.promises)
   })
 
-  it('actual later winning freeze keeps old root.version1 but stores genuine new rulesVersion2 receipt and binding', () => {
+  it('actual later winning freeze keeps old root.version1 but stores genuine new rulesVersion3 receipt and binding', () => {
     const { save, focused: old } = readFixture('evaluator1-current-p1')
     const state = migrateToV29(save).state
     const priorRoots = JSON.stringify(state.promises)
@@ -168,7 +171,7 @@ describe('P14B.3 evaluator revision2 and genuine old evaluator1 history', () => 
     const bound = settled.promises.find((p) => p.promiseId === old.promiseId)
     assert.ok(bound)
     expect(bound.version).toBe(1)
-    expect(bound.feasibilityReceipt).toMatchObject({ rulesVersion: 2, week: proposal.startWeek,
+    expect(bound.feasibilityReceipt).toMatchObject({ rulesVersion: 3, week: proposal.startWeek,
       classification: 'REASONABLY_ACHIEVABLE' })
     expect(bound.feasibilityReceipt.inputsDigest).not.toBe(old.feasibilityReceipt.inputsDigest)
     expect(freezes.length).toBeGreaterThan(0)

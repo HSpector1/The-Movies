@@ -1,0 +1,307 @@
+{"sourceSha":"58b4c2ed82898cfd8354b569c97bc6a8e0920d39","testedDiffSha256":"7e6258049d9eb08264b89bde1e5a4beadc80caeba534e3a1e01f2a3467a0d5a9","untrackedSource":["tests/p14bf2-acting-discipline.test.ts"],"command":["./node_modules/.bin/vitest","run","tests/p14bf2-acting-discipline.test.ts","tests/p14b3-rule-revision.test.ts","tests/p14b1-trust-chooser.test.ts","--minWorkers=1","--maxWorkers=1","--reporter=verbose"],"node":"v20.20.2","start":"2026-09-19T18:37:51.326Z","end":null,"exitCode":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p14b1-trust-chooser.test.ts > P14B.1 test 6: trust, the widened chooser and the priority order > publicPriorityOrder is the WIDENED companion order (opportunity and trust inserted, relationships still excluded) for both archetypes, byte-equal
+ ✓ |core| tests/p14b1-trust-chooser.test.ts > P14B.1 test 6: trust, the widened chooser and the priority order > publicPreferredTerm is unchanged by the widening: proven -> longest catalogue term, unproven -> shortest
+ ✓ |core| tests/p14b1-trust-chooser.test.ts > P14B.1 test 6: trust, the widened chooser and the priority order > trustDescriptor: all-positive facts read Reliable; a genuine negative driver (a real early termination) never reads Reliable — the exact Mixed/Distrusted boundary is OPEN and not pinned
+ ✓ |core| tests/p14b1-trust-chooser.test.ts > P14B.1 test 6: trust, the widened chooser and the priority order > a Distrusted issuer is dropped issuerDistrusted at reservation, and the other (healthy) proposal settles the case 2217ms
+ ✓ |core| tests/p14b1-trust-chooser.test.ts > P14B.1 test 6: trust, the widened chooser and the priority order > opportunity changes the winner of an otherwise compensation-versus-incumbency 1-1 tie, with two real surviving proposals 5157ms
+ ✓ |core| tests/p14b1-trust-chooser.test.ts > P14B.1 test 6: trust, the widened chooser and the priority order > a Reliable issuer beats a Mixed-record issuer on the trust band, in the same otherwise-1-1-tie shape 1147ms
+ ✓ |core| tests/p14b1-trust-chooser.test.ts > P14B.1 test 7: rival symmetry > attachPromise and its feasibility classification work identically when the issuer is a RIVAL (no player-only special-casing) 1006ms
+ ✓ |core| tests/p14b1-trust-chooser.test.ts > P14B.1 test 7: rival symmetry > the FIRST natural rival proposal carries exactly one P1 iff its ORIGINAL authoring verdict is REASONABLY_ACHIEVABLE, with exact proposal/root/receipt joins 7267ms
+ ✓ |core| tests/p14b1-trust-chooser.test.ts > P14B.1 test 7: rival symmetry > natural rival authoring preserves the first writer IFF, the first actor positive, and an actual non-achievable zero-attachment witness 6753ms
+ ✓ |core| tests/p14b1-trust-chooser.test.ts > P14B.1 test 7: rival symmetry > a rival first take satisfies a promise exactly as a player one does — found by direct search over the natural chain (never a magic week) 309ms
+ ✓ |core| tests/p14b1-trust-chooser.test.ts > P14B.1 test 7: rival symmetry > a rival Distrusted issuer / Reliable-vs-Mixed comparison reads through the SAME trustDescriptor accessor for a rival studioId as for the player
+ × |core| tests/p14bf2-acting-discipline.test.ts > B-F2: settled has-acting-discipline law, not primary-role eligibility > uses evaluator3 for the eligibility correction
+   → expected 2 to be 3 // Object.is equality
+ ✓ |core| tests/p14bf2-acting-discipline.test.ts > B-F2: settled has-acting-discipline law, not primary-role eligibility > the real generated writer is lawfully cast as lead without relabeling or occupying two roles 2845ms
+ × |core| tests/p14bf2-acting-discipline.test.ts > B-F2: settled has-acting-discipline law, not primary-role eligibility > a lawful non-primary actor receives an achievable P1 and the pure read changes no state or labels
+   → expected { classification: 'IMPOSSIBLE', …(4) } to match object { rulesVersion: 3, week: 71, …(2) }
+(1 matching property omitted from actual)
+ × |core| tests/p14bf2-acting-discipline.test.ts > B-F2: settled has-acting-discipline law, not primary-role eligibility > unknown beneficiary refuses without treating a made-up identity as a cast participant
+   → expected { classification: 'IMPOSSIBLE', …(4) } to match object { rulesVersion: 3, …(2) }
+(2 matching properties omitted from actual)
+ × |core| tests/p14bf2-acting-discipline.test.ts > B-F2: settled has-acting-discipline law, not primary-role eligibility > missing acting profile refuses and changes eligibility digest at identical week (INVALID PURE PROBE ONLY)
+   → expected 'IMPOSSIBLE' to be 'REASONABLY_ACHIEVABLE' // Object.is equality
+ ✓ |core| tests/p14bf2-acting-discipline.test.ts > B-F2: settled has-acting-discipline law, not primary-role eligibility > preserves unrelated nonwhole-count refusal for the newly eligible writer
+ × |core| tests/p14bf2-acting-discipline.test.ts > B-F2: settled has-acting-discipline law, not primary-role eligibility > preserves unrelated capacity refusal for the newly eligible writer
+   → expected 'this person takes no cast seat under …' to match /many pictures/
+ ✓ |core| tests/p14bf2-acting-discipline.test.ts > B-F2: settled has-acting-discipline law, not primary-role eligibility > preserves unrelated early-window refusal for the newly eligible writer
+ ✓ |core| tests/p14bf2-acting-discipline.test.ts > B-F2: settled has-acting-discipline law, not primary-role eligibility > preserves unrelated late-window refusal for the newly eligible writer
+ × |core| tests/p14bf2-acting-discipline.test.ts > B-F2: settled has-acting-discipline law, not primary-role eligibility > existing-path buffer and CURRENT reservations still constrain writer promises; withdrawal releases only the reservation
+   → expected 'IMPOSSIBLE' to be 'REASONABLY_ACHIEVABLE' // Object.is equality
+ × |core| tests/p14bf2-acting-discipline.test.ts > B-F2: settled has-acting-discipline law, not primary-role eligibility > real winning writer P1 binds, then one completed scheduled cast take satisfies it with exact durable references
+   → expected { promiseId: 'promise-0', …(15) } to match object { version: 3, contractId: null, …(2) }
+(16 matching properties omitted from actual)
+ ✓ |core| tests/p14bf2-acting-discipline.test.ts > B-F2: genuine old role-refusal evidence survives, fresh evaluations use3 > valid load preserves the old erroneous receipt/root/digest bytes exactly without repairing history 576ms
+ × |core| tests/p14bf2-acting-discipline.test.ts > B-F2: genuine old role-refusal evidence survives, fresh evaluations use3 > actual resubmit/attach evaluates afresh under3 but keeps the original version1 refusal untouched
+   → expected 2 to be 3 // Object.is equality
+ × |core| tests/p14b3-rule-revision.test.ts > P14B.3 continuity under B-F2 evaluator3 with genuine old evaluator1 history > pins the new evaluator generation independently of unchanged Save29/projection46
+   → expected 2 to be 3 // Object.is equality
+ ✓ |core| tests/p14b3-rule-revision.test.ts > P14B.3 continuity under B-F2 evaluator3 with genuine old evaluator1 history > preserves genuine evaluator1-current-p1 root/receipt/digest bytes through valid load, not a restamped current fixture 613ms
+ ✓ |core| tests/p14b3-rule-revision.test.ts > P14B.3 continuity under B-F2 evaluator3 with genuine old evaluator1 history > preserves genuine evaluator1-withdrawn-p1 root/receipt/digest bytes through valid load, not a restamped current fixture 434ms
+ ✓ |core| tests/p14b3-rule-revision.test.ts > P14B.3 continuity under B-F2 evaluator3 with genuine old evaluator1 history > preserves genuine evaluator1-role-label-refused-p1 root/receipt/digest bytes through valid load, not a restamped current fixture 693ms
+ × |core| tests/p14b3-rule-revision.test.ts > P14B.3 continuity under B-F2 evaluator3 with genuine old evaluator1 history > new actual attachment uses root.version3 and receipt.rulesVersion3 without rewriting old roots
+   → expected { promiseId: 'promise-2', …(15) } to match object { promiseId: 'promise-2', …(6) }
+(12 matching properties omitted from actual)
+ × |core| tests/p14b3-rule-revision.test.ts > P14B.3 continuity under B-F2 evaluator3 with genuine old evaluator1 history > actual later winning freeze keeps old root.version1 but stores genuine new rulesVersion3 receipt and binding 646ms
+   → expected { …(5) } to match object { rulesVersion: 3, week: 52, …(1) }
+(2 matching properties omitted from actual)
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 11 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14b3-rule-revision.test.ts > P14B.3 continuity under B-F2 evaluator3 with genuine old evaluator1 history > pins the new evaluator generation independently of unchanged Save29/projection46
+AssertionError: expected 2 to be 3 // Object.is equality
+
+- Expected
++ Received
+
+- 3
++ 2
+
+ ❯ tests/p14b3-rule-revision.test.ts:92:35
+     90| describe('P14B.3 continuity under B-F2 evaluator3 with genuine old eva…
+     91|   it('pins the new evaluator generation independently of unchanged Sav…
+     92|     expect(PROMISE_RULES_VERSION).toBe(3)
+       |                                   ^
+     93|   })
+     94| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/11]⎯
+
+ FAIL |core|  tests/p14b3-rule-revision.test.ts > P14B.3 continuity under B-F2 evaluator3 with genuine old evaluator1 history > new actual attachment uses root.version3 and receipt.rulesVersion3 without rewriting old roots
+AssertionError: expected { promiseId: 'promise-2', …(15) } to match object { promiseId: 'promise-2', …(6) }
+(12 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  Object {
+    "beneficiaryPersonId": "t-act-09",
+    "contractId": null,
+    "feasibilityReceipt": Object {
+      "classification": "REASONABLY_ACHIEVABLE",
+-     "rulesVersion": 3,
++     "rulesVersion": 2,
+      "week": 45,
+    },
+    "issuerStudioId": "studio-aca408ec-player",
+    "outcome": null,
+    "promiseId": "promise-2",
+-   "version": 3,
++   "version": 2,
+  }
+
+ ❯ tests/p14b3-rule-revision.test.ts:138:19
+    136|     expect(attached.promises).toHaveLength(state.promises.length + 1)
+    137|     const fresh = attached.promises[state.promises.length]!
+    138|     expect(fresh).toMatchObject({ promiseId: `promise-${state.promises…
+       |                   ^
+    139|       beneficiaryPersonId: old.beneficiaryPersonId, issuerStudioId: ol…
+    140|       contractId: null, outcome: null,
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/11]⎯
+
+ FAIL |core|  tests/p14b3-rule-revision.test.ts > P14B.3 continuity under B-F2 evaluator3 with genuine old evaluator1 history > actual later winning freeze keeps old root.version1 but stores genuine new rulesVersion3 receipt and binding
+AssertionError: expected { …(5) } to match object { rulesVersion: 3, week: 52, …(1) }
+(2 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  Object {
+    "classification": "REASONABLY_ACHIEVABLE",
+-   "rulesVersion": 3,
++   "rulesVersion": 2,
+    "week": 52,
+  }
+
+ ❯ tests/p14b3-rule-revision.test.ts:174:38
+    172|     assert.ok(bound)
+    173|     expect(bound.version).toBe(1)
+    174|     expect(bound.feasibilityReceipt).toMatchObject({ rulesVersion: 3, …
+       |                                      ^
+    175|       classification: 'REASONABLY_ACHIEVABLE' })
+    176|     expect(bound.feasibilityReceipt.inputsDigest).not.toBe(old.feasibi…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/11]⎯
+
+ FAIL |core|  tests/p14bf2-acting-discipline.test.ts > B-F2: settled has-acting-discipline law, not primary-role eligibility > uses evaluator3 for the eligibility correction
+AssertionError: expected 2 to be 3 // Object.is equality
+
+- Expected
++ Received
+
+- 3
++ 2
+
+ ❯ tests/p14bf2-acting-discipline.test.ts:91:35
+     89| describe('B-F2: settled has-acting-discipline law, not primary-role el…
+     90|   it('uses evaluator3 for the eligibility correction', () => {
+     91|     expect(PROMISE_RULES_VERSION).toBe(3)
+       |                                   ^
+     92|   })
+     93| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/11]⎯
+
+ FAIL |core|  tests/p14bf2-acting-discipline.test.ts > B-F2: settled has-acting-discipline law, not primary-role eligibility > a lawful non-primary actor receives an achievable P1 and the pure read changes no state or labels
+AssertionError: expected { classification: 'IMPOSSIBLE', …(4) } to match object { rulesVersion: 3, week: 71, …(2) }
+(1 matching property omitted from actual)
+
+- Expected
++ Received
+
+  Object {
+-   "bottleneck": null,
+-   "classification": "REASONABLY_ACHIEVABLE",
+-   "rulesVersion": 3,
++   "bottleneck": "this person takes no cast seat under the greenlight law",
++   "classification": "IMPOSSIBLE",
++   "rulesVersion": 2,
+    "week": 71,
+  }
+
+ ❯ tests/p14bf2-acting-discipline.test.ts:113:21
+    111|     const bytes = JSON.stringify(state)
+    112|     const receipt = promiseFeasibility(state, draft(state, crew.leadId…
+    113|     expect(receipt).toMatchObject({ rulesVersion: 3, week: state.marke…
+       |                     ^
+    114|       classification: 'REASONABLY_ACHIEVABLE', bottleneck: null })
+    115|     expect(promiseFeasibility(state, draft(state, crew.leadId), state.…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/11]⎯
+
+ FAIL |core|  tests/p14bf2-acting-discipline.test.ts > B-F2: settled has-acting-discipline law, not primary-role eligibility > unknown beneficiary refuses without treating a made-up identity as a cast participant
+AssertionError: expected { classification: 'IMPOSSIBLE', …(4) } to match object { rulesVersion: 3, …(2) }
+(2 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  Object {
+    "bottleneck": "this person is not in the world",
+    "classification": "IMPOSSIBLE",
+-   "rulesVersion": 3,
++   "rulesVersion": 2,
+  }
+
+ ❯ tests/p14bf2-acting-discipline.test.ts:126:21
+    124|     const before = JSON.stringify(state)
+    125|     const receipt = promiseFeasibility(state, { ...draft(state, crew.l…
+    126|     expect(receipt).toMatchObject({ rulesVersion: 3, classification: '…
+       |                     ^
+    127|     expect(JSON.stringify(state)).toBe(before)
+    128|   })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/11]⎯
+
+ FAIL |core|  tests/p14bf2-acting-discipline.test.ts > B-F2: settled has-acting-discipline law, not primary-role eligibility > missing acting profile refuses and changes eligibility digest at identical week (INVALID PURE PROBE ONLY)
+AssertionError: expected 'IMPOSSIBLE' to be 'REASONABLY_ACHIEVABLE' // Object.is equality
+
+Expected: "REASONABLY_ACHIEVABLE"
+Received: "IMPOSSIBLE"
+
+ ❯ tests/p14bf2-acting-discipline.test.ts:135:34
+    133|     const legalBytes = JSON.stringify(state)
+    134|     const valid = promiseFeasibility(state, requested, state.market.ti…
+    135|     expect(valid.classification).toBe('REASONABLY_ACHIEVABLE')
+       |                                  ^
+    136|     const invalidProbe = structuredClone(state)
+    137|     const person = invalidProbe.talent.find((p) => p.id === crew.leadI…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/11]⎯
+
+ FAIL |core|  tests/p14bf2-acting-discipline.test.ts > B-F2: settled has-acting-discipline law, not primary-role eligibility > preserves unrelated capacity refusal for the newly eligible writer
+AssertionError: expected 'this person takes no cast seat under …' to match /many pictures/
+
+- Expected: 
+/many pictures/
+
++ Received: 
+"this person takes no cast seat under the greenlight law"
+
+ ❯ tests/p14bf2-acting-discipline.test.ts:162:32
+    160|     const receipt = promiseFeasibility(state, changed, state.market.ti…
+    161|     expect(receipt.classification).toBe('IMPOSSIBLE')
+    162|     expect(receipt.bottleneck).toMatch(control === 'nonwhole-count' ? …
+       |                                ^
+    163|       : control === 'early-window' ? /starts before/ : /outside/)
+    164|   })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/11]⎯
+
+ FAIL |core|  tests/p14bf2-acting-discipline.test.ts > B-F2: settled has-acting-discipline law, not primary-role eligibility > existing-path buffer and CURRENT reservations still constrain writer promises; withdrawal releases only the reservation
+AssertionError: expected 'IMPOSSIBLE' to be 'REASONABLY_ACHIEVABLE' // Object.is equality
+
+Expected: "REASONABLY_ACHIEVABLE"
+Received: "IMPOSSIBLE"
+
+ ❯ tests/p14bf2-acting-discipline.test.ts:170:37
+    168|     const requested = draft(state, crew.leadId)
+    169|     const baseline = promiseFeasibility(state, requested, state.market…
+    170|     expect(baseline.classification).toBe('REASONABLY_ACHIEVABLE')
+       |                                     ^
+    171|     expect(promiseFeasibility(state, { ...requested, predicate: { coun…
+    172|     const attached = attach(state, crew.leadId)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/11]⎯
+
+ FAIL |core|  tests/p14bf2-acting-discipline.test.ts > B-F2: settled has-acting-discipline law, not primary-role eligibility > real winning writer P1 binds, then one completed scheduled cast take satisfies it with exact durable references
+AssertionError: expected { promiseId: 'promise-0', …(15) } to match object { version: 3, contractId: null, …(2) }
+(16 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  Object {
+    "contractId": null,
+    "feasibilityReceipt": Object {
+-     "classification": "REASONABLY_ACHIEVABLE",
+-     "rulesVersion": 3,
++     "classification": "IMPOSSIBLE",
++     "rulesVersion": 2,
+    },
+    "outcome": null,
+-   "version": 3,
++   "version": 2,
+  }
+
+ ❯ tests/p14bf2-acting-discipline.test.ts:186:21
+    184|     let state = attach(opened, crew.leadId)
+    185|     const promise = state.promises[opened.promises.length]!
+    186|     expect(promise).toMatchObject({ version: 3, contractId: null, outc…
+       |                     ^
+    187|       feasibilityReceipt: { rulesVersion: 3, classification: 'REASONAB…
+    188|     state = advanceTo(state, promise.windowStartWeek)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/11]⎯
+
+ FAIL |core|  tests/p14bf2-acting-discipline.test.ts > B-F2: genuine old role-refusal evidence survives, fresh evaluations use3 > actual resubmit/attach evaluates afresh under3 but keeps the original version1 refusal untouched
+AssertionError: expected 2 to be 3 // Object.is equality
+
+- Expected
++ Received
+
+- 3
++ 2
+
+ ❯ tests/p14bf2-acting-discipline.test.ts:318:32
+    316|       startWeek: proposal.startWeek, termWeeks: proposal.termWeeks }
+    317|     const fresh = promiseFeasibility(revised, requested, revised.marke…
+    318|     expect(fresh.rulesVersion).toBe(3)
+       |                                ^
+    319|     expect(fresh.bottleneck).not.toBe(old.feasibilityReceipt.bottlenec…
+    320|     // The natural rival may still be FRAGILE/IMPOSSIBLE for an actual…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/11]⎯
+
+ Test Files  2 failed | 1 passed (3)
+      Tests  11 failed | 19 passed | 2 todo (32)
+   Start at  20:37:52
+   Duration  36.90s (transform 2.97s, setup 0ms, collect 4.74s, tests 30.43s, environment 1ms, prepare 431ms)
+
+
+{"sourceSha":"58b4c2ed82898cfd8354b569c97bc6a8e0920d39","testedDiffSha256":"7e6258049d9eb08264b89bde1e5a4beadc80caeba534e3a1e01f2a3467a0d5a9","untrackedSource":["tests/p14bf2-acting-discipline.test.ts"],"command":["./node_modules/.bin/vitest","run","tests/p14bf2-acting-discipline.test.ts","tests/p14b3-rule-revision.test.ts","tests/p14b1-trust-chooser.test.ts","--minWorkers=1","--maxWorkers=1","--reporter=verbose"],"node":"v20.20.2","start":"2026-09-19T18:37:51.326Z","end":"2026-09-19T18:38:29.890Z","exitCode":1,"signal":null,"error":null,"sourceShaAtEnd":"58b4c2ed82898cfd8354b569c97bc6a8e0920d39","testedDiffSha256AtEnd":"7e6258049d9eb08264b89bde1e5a4beadc80caeba534e3a1e01f2a3467a0d5a9","untrackedSourceAtEnd":["tests/p14bf2-acting-discipline.test.ts"],"fixedSource":true}

@@ -5,6 +5,11 @@ Labels: LOGIC VERIFIED · ENGINE INTEGRATION VERIFIED · UNITY NOT VERIFIED · D
 Headless verification never claims package completion or Owner acceptance.
 
 Current (2026-09-19):
+**B-F2 T1 RED COMPLETE**, session30104closed;11FAIL/19PASS/2TODO,fixedSource:true.
+Three independent reviewed tests installed/exactly matched, production unchanged.
+Tests frozen, no runtime; publish RED/exact remote then sole one-file writer.
+Live state evidence/p14bf2-20260919/00-start.md. B3 publication58b4c2e pushed and
+EXACT remote verified before this release. Accepted upstream result:
 **P14B.3 CLOSED — LOGIC VERIFIED · UNITY NOT VERIFIED**, qualified by
 `evidence/p14b3-20260919-final/17-attribution.md`; not Owner acceptance.
 Tested/published full source `359f6361c130e7d0b2808e2d82d328843c9e90a3`;
@@ -14,15 +19,16 @@ fixedSource:true. Core3338PASS/22FAIL/6TODO (308files); bridge761PASS/12FAIL/
 2TODO (72files). Overlapping selections, not unique summed tests. All failures
 match canonical historical identifiers AND diagnostics; zero new/changed/absent.
 Both typechecks/contracts PASS; independent core/final reviews14/16 KEEP.
-No all-green/full-performance/native claim. Session26407 CLOSED; no runtime remains.
+No all-green/full-performance/native claim. Session26407 CLOSED; no B3 runtime remains.
 Rules2 / Save29 / protocol4 / projection46 / schema584bdd… unchanged.
 
 Candidate evidence:27targeted files335PASS/3unchanged todos; independent RED34cases
 (22failed/12passed), then all34 passed in fullcore and19command cases in fullbridge.
 Protected implementation patch6129b77d… matched exact committed/tested bytes.
 Source/tests unchanged from425170e through the full run; no corrective rerun needed.
-Qualified records publication/exact remote verification, then B-F2 T1. Operational
-brief evidence/p14b3-20260919/16-bf2-next-execution-brief.md; future drafts are inert.
+Qualified records publication/exact remote verification DONE58b4c2e, B-F2 T1 now
+active. Operational brief evidence/p14b3-20260919/16-bf2-next-execution-brief.md;
+the three installed test files are no longer inert drafts. P2 remains preparation.
 Historical entries below retain earlier checkpoints, not current runtime status.
 
 Earlier qualified checkpoint: **P14B.1 T4 CLOSED — LOGIC VERIFIED · UNITY NOT VERIFIED**.

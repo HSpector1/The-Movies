@@ -2,6 +2,16 @@
 
 ## Current engineering checkpoint — 2026-09-19
 
+**B-F2 T1 RED COMPLETE**, parent session30104 CLOSED, evidence
+`evidence/p14bf2-20260919/01-independent-red.*`. Three reviewed tests installed
+and independently byte/diff matched. No production change.11FAIL/19PASS/2TODO,
+fixedSource:true; all failures actual eligibility/version assertions, no missing
+fixture substitute. Publish RED checkpoint/verify remote, then sole sim-core
+eligibility/digest/rules3 correction. Tests frozen; no runtime active.
+Controlling live ownership/next actions: `evidence/p14bf2-20260919/00-start.md`.
+
+### Accepted B3 upstream result
+
 **P14B.3 CLOSED — LOGIC VERIFIED · UNITY NOT VERIFIED**, qualified by
 `evidence/p14b3-20260919-final/17-attribution.md`; not Owner acceptance.
 Tested/published full source `359f6361c130e7d0b2808e2d82d328843c9e90a3`;
@@ -11,20 +21,19 @@ fixedSource:true. Core3338PASS/22FAIL/6TODO (308files); bridge761PASS/12FAIL/
 2TODO (72files). Overlapping selections, not unique summed tests. All failures
 match canonical historical identifiers AND diagnostics; zero new/changed/absent.
 Both typechecks/contracts PASS; independent core/final reviews14/16 KEEP.
-No all-green/full-performance/native claim. Session26407 CLOSED; no runtime remains.
+No all-green/full-performance/native claim. Session26407 CLOSED; no B3 runtime remains.
 Rules2 / Save29 / protocol4 / projection46 / schema584bdd… unchanged.
 
 Branch `wip/headless-program-20260916-ts`, repository HSpector1/The-Movies,
 worktree `/Users/zacheryspector/The-Movies-headless-program`.
 Recovered d19/T3 and all newer work preserved; no reset/recreation.
-Qualified records publication is next; do not confuse tested359f636 publication
-with publication of the later closeout containing these final results.
+Qualified B3 records58b4c2ed82898cfd8354b569c97bc6a8e0920d39 PUSHED and EXACT
+remote SHA verified; the upstream publication gate is satisfied.
 
-Next: publish this qualified records checkpoint and independently verify its
-exact remote SHA, then B-F2 independent test installation/RED. No routine Owner
-permission gate. Exact scoped brief:
+Next: publish actual B-F2 RED and release the scoped one-file production writer.
+No routine Owner permission gate. Exact scoped brief:
 `evidence/p14b3-20260919/16-bf2-next-execution-brief.md`.
-Install the reviewed13-case draft plus four live evaluator2→3 pins and the
+Installed the reviewed13-case draft plus four live evaluator2→3 pins and the
 corrected two-case chooser patch (default timeouts retained). Verify real fixture
 prerequisites; only then release sim-core for the narrow acting-profile/digest
 correction. No assignment, role-label, candidate-pool or rival-policy change.

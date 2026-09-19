@@ -518,119 +518,177 @@ describe('P14B.1 test 7: rival symmetry', () => {
     expect(proposal.promises.length).toBe(1)
   })
 
-  it('a rival proposal carries a P1 promise IFF its own feasibility is REASONABLY_ACHIEVABLE — derived from the FIRST rival proposalSubmitted receipt on the natural chain, never assumed', () => {
-    let state = p13aGeneratedStudio()
-    let rivalSubmission: { talentId: string; studioId: string } | undefined
-    for (let week = 0; week < 220 && rivalSubmission === undefined; week++) {
-      const hit = state.talentMarket.receipts.find(
-        (r) => r.kind === 'proposalSubmitted' && r.studioId !== null && r.studioId !== state.hollywood!.playerStudioId,
-      )
-      if (hit !== undefined) rivalSubmission = { talentId: hit.talentId, studioId: hit.studioId! }
-      else state = tick(state)
+  // B-F2 2026-09-19: has-discipline replaces the erroneous writer-label gate.
+  // Observe the ORIGINAL authoring decision; neither a duplicate attachment nor
+  // a later read with changed reservations can explain that historical decision.
+  type RivalAuthoringObservation = {
+    input: GameState
+    draft: Parameters<typeof promiseFeasibility>[1]
+    week: number
+    proposal: GameState['talentMarket']['proposals'][number]
+    submission: TalentMarketReceipt
+    receipt: ReturnType<typeof promiseFeasibility>
+  }
+
+  function scanNaturalRivalAuthoring(
+    visit: (after: GameState, observed: RivalAuthoringObservation) => boolean,
+  ): void {
+    const evaluate = promiseModule.promiseFeasibility
+    let pending: RivalAuthoringObservation[] = []
+    const observer = vi.spyOn(promiseModule, 'promiseFeasibility').mockImplementation((input, draft, week) => {
+      const receipt = evaluate(input, draft, week) // transparent: real inputs/result, no stub
+      // Freeze/ranking calls supply promiseId. Authoring reads a genuinely
+      // CURRENT, unattached rival proposal before attachPromise creates its root.
+      if (draft.promiseId !== undefined || input.hollywood === null
+        || draft.issuerStudioId === input.hollywood.playerStudioId) return receipt
+      const matches = input.talentMarket.proposals.filter((p) =>
+        p.talentId === draft.beneficiaryPersonId && p.issuerStudioId === draft.issuerStudioId)
+      if (matches.length === 0) return receipt
+      expect(matches).toHaveLength(1)
+      const proposal = matches[0]!
+      if (proposal.promises.length !== 0) return receipt
+      expect(input.hollywood.identities.find((s) => s.studioId === proposal.issuerStudioId)?.role).toBe('rival')
+      expect(input.talentMarket.cases.filter((c) =>
+        c.talentId === proposal.talentId && c.outcome === null)).toHaveLength(1)
+      expect(proposal.submittedWeek).toBe(week)
+      expect(week).toBe(input.market.tick)
+      expect(draft).toEqual({
+        family: 'APPEARANCE_COUNT', predicate: { count: 1 },
+        issuerStudioId: proposal.issuerStudioId, beneficiaryPersonId: proposal.talentId,
+        startWeek: proposal.startWeek, termWeeks: proposal.termWeeks,
+        windowStartWeek: proposal.startWeek, dueWeekExclusive: proposal.startWeek + proposal.termWeeks,
+      })
+      const submissions = input.talentMarket.receipts.filter((r) =>
+        r.kind === 'proposalSubmitted' && r.talentId === proposal.talentId
+        && r.studioId === proposal.issuerStudioId && r.week === proposal.submittedWeek)
+      expect(submissions).toHaveLength(1)
+      const submission = submissions[0]!
+      const observed: RivalAuthoringObservation = structuredClone({
+        input, draft, week, proposal, submission, receipt,
+      })
+      // Retain the first exact call if the same authoring input is evaluated
+      // more than once; a different state/tuple/result is not the same witness.
+      const prior = pending.find((candidate) => candidate.submission.eventId === submission.eventId)
+      if (prior === undefined) pending.push(observed)
+      else expect(observed).toEqual(prior)
+      return receipt
+    })
+    try {
+      let state = p13aGeneratedStudio()
+      expect(state.talentMarket.receipts.filter((r) => r.kind === 'proposalSubmitted'
+        && r.studioId !== null && r.studioId !== state.hollywood!.playerStudioId)).toEqual([])
+      for (let step = 0; step < 220; step++) {
+        pending = []
+        state = tick(state)
+        const submissions = state.talentMarket.receipts.filter((r) =>
+          r.kind === 'proposalSubmitted' && r.studioId !== null
+          && r.studioId !== state.hollywood!.playerStudioId && r.week === state.market.tick)
+        for (const submission of submissions) {
+          const observations = pending.filter((candidate) => candidate.submission.eventId === submission.eventId)
+          expect(observations).toHaveLength(1)
+          const observed = observations[0]!
+          expect(observed.submission).toEqual(submission)
+          if (visit(state, observed)) return
+        }
+      }
+    } finally {
+      observer.mockRestore()
     }
-    if (rivalSubmission === undefined) throw new Error('search premise failed: no rival ever submitted a proposal within 220 weeks on the default seed')
+    throw new Error('search premise failed: required natural authoring witnesses absent within 220 weeks; no negative-branch coverage may be claimed')
+  }
 
-    const proposal = state.talentMarket.proposals.find((p) => p.talentId === rivalSubmission!.talentId && p.issuerStudioId === rivalSubmission!.studioId)
-    if (proposal === undefined) throw new Error('test premise failed: the found proposalSubmitted receipt has no live matching proposal (already settled)')
-    const carries = (proposal as unknown as { promises: readonly string[] }).promises.length > 0
+  function assertOriginalAuthoring(
+    after: GameState,
+    observed: RivalAuthoringObservation,
+  ): GameState['promises'][number] | undefined {
+    expect(after.market.tick).toBe(observed.week)
+    expect(after.talentMarket.receipts.filter((r) => r.eventId === observed.submission.eventId))
+      .toEqual([observed.submission])
+    const matches = after.talentMarket.proposals.filter((p) =>
+      p.talentId === observed.proposal.talentId && p.issuerStudioId === observed.proposal.issuerStudioId)
+    expect(matches).toHaveLength(1)
+    const proposal = matches[0]!
+    // Attachment changes only promise references and their material digest;
+    // the exact submitted material/price tuple and submission week stay joined.
+    expect(proposal).toEqual({ ...observed.proposal, promises: proposal.promises, digest: proposal.digest })
+    if (observed.receipt.classification !== 'REASONABLY_ACHIEVABLE') {
+      expect(['FRAGILE', 'IMPOSSIBLE']).toContain(observed.receipt.classification)
+      expect(proposal.promises).toEqual([])
+      expect(proposal.digest).toBe(observed.proposal.digest)
+      return undefined
+    }
+    expect(proposal.promises).toHaveLength(1)
+    const authoredId = proposal.promises[0]!
+    expect(observed.input.promises.some((p) => p.promiseId === authoredId)).toBe(false)
+    const roots = after.promises.filter((p) => p.promiseId === authoredId)
+    expect(roots).toHaveLength(1)
+    const authored = roots[0]!
+    expect(authored).toMatchObject({
+      promiseId: authoredId, family: 'APPEARANCE_COUNT', predicate: { count: 1 },
+      issuerStudioId: observed.proposal.issuerStudioId, beneficiaryPersonId: observed.proposal.talentId,
+      windowStartWeek: observed.proposal.startWeek,
+      dueWeekExclusive: observed.proposal.startWeek + observed.proposal.termWeeks,
+      contractId: null, outcome: null, progress: 0, evidenceRefs: [],
+    })
+    expect(authored.predicate).toEqual({ count: 1 })
+    expect(authored.feasibilityReceipt).toEqual(observed.receipt)
+    expect(authored.feasibilityReceipt.week).toBe(observed.week)
+    expect(authored.feasibilityReceipt.classification).toBe('REASONABLY_ACHIEVABLE')
+    expect(proposal.digest).not.toBe(observed.proposal.digest)
+    return authored
+  }
 
-    // The independent, this-file-computed classification for the SAME
-    // (issuer, beneficiary) under a whole-contract window — the DEFAULT
-    // shape companion item 9 describes ("X = 1 iff its own feasibility is
-    // REASONABLY ACHIEVABLE"), read here as spanning the full proposed term.
-    const myClassification = attachPromise(
-      state,
-      rivalSubmission.talentId,
-      rivalSubmission.studioId,
-      { family: 'APPEARANCE_COUNT', predicate: { count: 1 }, windowStartWeek: proposal.startWeek, dueWeekExclusive: proposal.startWeek + proposal.termWeeks },
-    )
-    const minted = (myClassification as unknown as { promises: readonly PersistedPromise[] }).promises.find(
-      (p) => p.beneficiaryPersonId === rivalSubmission!.talentId && p.issuerStudioId === rivalSubmission!.studioId,
-    )
-    if (minted === undefined) throw new Error('test premise failed: attachPromise minted no promise record for the rival probe')
-    expect(carries).toBe(minted.feasibilityReceipt.classification === 'REASONABLY_ACHIEVABLE')
+  it('the FIRST natural rival proposal carries exactly one P1 iff its ORIGINAL authoring verdict is REASONABLY_ACHIEVABLE, with exact proposal/root/receipt joins', () => {
+    scanNaturalRivalAuthoring((after, observed) => {
+      const first = after.talentMarket.receipts.find((r) => r.kind === 'proposalSubmitted'
+        && r.studioId !== null && r.studioId !== after.hollywood!.playerStudioId)
+      expect(observed.submission).toEqual(first)
+      assertOriginalAuthoring(after, observed)
+      return true
+    })
   })
 
-  // T2c ADDITION (ruling ii, T2 ruling: "rival promise AUTHORING (item 9)
-  // lands at T2b as planned under S25"): the case above already pins the
-  // GENERAL "carries IFF achievable" shape on whichever proposal the chain
-  // happens to find first — which, on the default seed, is a WRITER subject
-  // (IMPOSSIBLE under the landed M16.2 role gate, `carries` vacuously
-  // false). This case walks PAST that vacuous match to the first
-  // ACTOR-subject rival proposal, whose own feasibility is
-  // REASONABLY_ACHIEVABLE, so the "carries exactly one P1 promise" half of
-  // the claim is genuinely exercised — RED today (no rival authors a
-  // promise yet); T2b makes it green. The writer-subject proposal is kept
-  // as the CONTRAST clause: its own feasibility is IMPOSSIBLE (permanently,
-  // since M16.2's role gate is not time-dependent), so it must carry none —
-  // true both today and after T2b, needing no artificial construction.
-  it("rival promise AUTHORING (ruling ii): the FIRST rival proposalSubmitted receipts on the natural chain are for the rivals' own WRITER subjects — IMPOSSIBLE under the landed M16.2 role gate (a writer takes no cast seat), so that proposal carries NO promise (true both today and after T2b); walking on to the first ACTOR-subject rival proposal, whose own feasibility is REASONABLY_ACHIEVABLE, it must carry exactly one P1 promise naming family APPEARANCE_COUNT — RED today (rivals author no promise yet); T2b makes it green", () => {
-    let state = p13aGeneratedStudio()
-    let firstWriter: { talentId: string; studioId: string } | undefined
-    let firstActor: { talentId: string; studioId: string } | undefined
-    outer: for (let week = 0; week < 220 && firstActor === undefined; week++) {
-      const hits = state.talentMarket.receipts.filter(
-        (r) => r.kind === 'proposalSubmitted' && r.studioId !== null && r.studioId !== state.hollywood!.playerStudioId && r.week === week,
-      )
-      for (const hit of hits) {
-        const person = state.talent.find((t) => t.id === hit.talentId)
-        if (firstWriter === undefined && person?.role === 'writer') firstWriter = { talentId: hit.talentId, studioId: hit.studioId! }
-        if (firstActor === undefined && person?.role === 'actor') { firstActor = { talentId: hit.talentId, studioId: hit.studioId! }; break outer }
+  // The writer label is NOT a permanent refusal under D9 OQ-1. Preserve the
+  // first writer's real IFF decision, the actor's UNCONDITIONAL positive, and
+  // require a separately OBSERVED non-achievable authoring decision with zero
+  // attachments. An absent negative within 220 weeks is a fixture finding,
+  // never a conditional pass or permission to invent a refusal.
+  it('natural rival authoring preserves the first writer IFF, the first actor positive, and an actual non-achievable zero-attachment witness', () => {
+    let firstWriter: RivalAuthoringObservation | undefined
+    let firstActor: RivalAuthoringObservation | undefined
+    let negative: RivalAuthoringObservation | undefined
+    scanNaturalRivalAuthoring((after, observed) => {
+      const person = observed.input.talent.find((t) => t.id === observed.proposal.talentId)
+      if (person === undefined) throw new Error('test premise failed: authoring subject has no real talent row')
+      if (firstWriter === undefined && person.role === 'writer') {
+        firstWriter = observed
+        expect(person.role).toBe('writer')
+        expect(person.skills.acting).toBeDefined()
+        assertOriginalAuthoring(after, observed)
       }
-      state = tick(state)
-    }
-    if (firstWriter === undefined) throw new Error('search premise failed: no rival WRITER-subject proposal found within 220 weeks on the default seed')
-    if (firstActor === undefined) throw new Error('search premise failed: no rival ACTOR-subject proposal found within 220 weeks on the default seed')
-
-    const writerProposal = state.talentMarket.proposals.find((p) => p.talentId === firstWriter!.talentId && p.issuerStudioId === firstWriter!.studioId) as unknown as { startWeek: number; termWeeks: number; promises: readonly string[] } | undefined
-    if (writerProposal === undefined) throw new Error('test premise failed: the writer-subject proposal has already settled (no live proposal to read)')
-    expect(writerProposal.promises.length).toBe(0) // IMPOSSIBLE (role gate) -> carries none
-    // Independent classification confirming WHY: a writer takes no cast seat
-    // (M16.2), so this family is IMPOSSIBLE for it regardless of window.
-    const writerClassification = promiseFeasibility(
-      state,
-      {
-        family: 'APPEARANCE_COUNT',
-        issuerStudioId: firstWriter.studioId,
-        beneficiaryPersonId: firstWriter.talentId,
-        predicate: { count: 1 },
-        windowStartWeek: writerProposal.startWeek,
-        dueWeekExclusive: writerProposal.startWeek + writerProposal.termWeeks,
-        startWeek: writerProposal.startWeek,
-        termWeeks: writerProposal.termWeeks,
-      },
-      state.market.tick,
-    )
-    expect(writerClassification.classification).toBe('IMPOSSIBLE')
-
-    const actorProposal = state.talentMarket.proposals.find((p) => p.talentId === firstActor!.talentId && p.issuerStudioId === firstActor!.studioId) as unknown as { startWeek: number; termWeeks: number; promises: readonly string[] } | undefined
-    if (actorProposal === undefined) throw new Error('test premise failed: the actor-subject proposal has already settled (no live proposal to read)')
-
-    // RULING (ii): the rival ALREADY authored its own promise on this exact
-    // live proposal (authorRivalPromise, talentMarket.ts) at submission time,
-    // so a second attachPromise on it would be refused ("already carries a
-    // promise — at most one"). A FRESH standalone promiseFeasibility probe
-    // is not a substitute sanity check here either: it would count the
-    // rival's own just-authored promise as an ACTIVE reservation against the
-    // SAME beneficiary/issuer (reservedByActivePromises has nothing to
-    // exclude it by, absent a promiseId), so a second hypothetical promise
-    // correctly reads FRAGILE ("needs a picture not yet commissioned") even
-    // though the FIRST one was genuinely REASONABLY_ACHIEVABLE when minted —
-    // exactly companion Example B's shape, self-inflicted by probing twice.
-    // The authored record's OWN persisted feasibilityReceipt (captured at
-    // mint time, before it reserved anything against itself) is read below
-    // instead — the only classification this case can honestly assert.
-    expect(actorProposal.promises.length).toBe(1)
-    const authoredId = actorProposal.promises[0]
-    if (authoredId === undefined) throw new Error('test premise failed: actor-subject proposal carries promises.length === 1 but no promiseId at index 0')
-    const authored = (state as unknown as { promises: readonly PersistedPromise[] }).promises.find((p) => p.promiseId === authoredId)
-    if (authored === undefined) throw new Error(`test premise failed: promiseId "${authoredId}" not found in state.promises`)
-    expect(authored.family).toBe('APPEARANCE_COUNT')
-    expect(authored.predicate.count).toBe(1)
-    expect(authored.windowStartWeek).toBe(actorProposal.startWeek)
-    expect(authored.dueWeekExclusive).toBe(actorProposal.startWeek + actorProposal.termWeeks)
-    expect(authored.feasibilityReceipt.classification).toBe('REASONABLY_ACHIEVABLE')
-    expect(authored.contractId).toBeNull() // unbound while the case is still open (RULING i)
+      if (firstActor === undefined && person.role === 'actor') {
+        if (firstWriter === undefined) throw new Error('search premise failed: first actor arrived before any first writer witness')
+        firstActor = observed
+        expect(person.role).toBe('actor')
+        expect(observed.receipt.classification).toBe('REASONABLY_ACHIEVABLE')
+        const authored = assertOriginalAuthoring(after, observed)
+        if (authored === undefined) throw new Error('test premise failed: first actor has no genuinely authored P1')
+        expect(authored.family).toBe('APPEARANCE_COUNT')
+        expect(authored.predicate).toEqual({ count: 1 })
+        expect(authored.windowStartWeek).toBe(observed.proposal.startWeek)
+        expect(authored.dueWeekExclusive).toBe(observed.proposal.startWeek + observed.proposal.termWeeks)
+        expect(authored.feasibilityReceipt.classification).toBe('REASONABLY_ACHIEVABLE')
+        expect(authored.contractId).toBeNull()
+      }
+      if (negative === undefined && observed.receipt.classification !== 'REASONABLY_ACHIEVABLE') {
+        negative = observed
+        expect(assertOriginalAuthoring(after, observed)).toBeUndefined() // checks EXACTLY zero attachments
+      }
+      return firstWriter !== undefined && firstActor !== undefined && negative !== undefined
+    })
+    expect(firstWriter).toBeDefined()
+    expect(firstActor).toBeDefined()
+    expect(negative).toBeDefined()
   })
 
   it('a rival first take satisfies a promise exactly as a player one does — found by direct search over the natural chain (never a magic week)', () => {
