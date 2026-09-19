@@ -20,9 +20,14 @@ exact V29 references and later-contract chronology fixes; bounded reviews KEEP.
 | Scope / review | Seven corrective tests only; production/config/harness/generated/historical fixtures unchanged; independent KEEP |
 | Closeout | `p14b1-20260919-t4-final/16-attribution.md`; attributed non-green full suites plus verified corrections, NOT an all-green full rerun |
 
-Now: P14B.2 T1 independent RED/fixture proofs ACTIVE after remote-verified
-`e37cd2330be8c9129b0193a2bf8e84258e851307`; parent owns serialized runtime, sim-core
-read-only preparation. Read models are preceded by the discovered **B2-F1**
+Now: P14B.2 T2/T3 LANDED at `3b978d77c29df2b5de038e3b1b7fc94778257f33` after
+independent module RED6d23466. Save29/projection46; main22/22, checkpoint2/2,
+D3/schema33pass/2todos, neighbours148pass/one stale current hash failure/one todo
+then corrected generator31/31; both typechecks/contracts PASS, independent KEEP.
+Exact patches/raw failures/limits: `p14b2-20260919/13-candidate-review.md`.
+Parent publishes checkpoint then committed serial FULL verification/attribution.
+No B2 closeout/full GREEN yet; author drafts B3 only outside checkout meanwhile.
+Read models are preceded by the discovered **B2-F1**
 producer repair: real first-take→wrap
 releases occupancy but its retained setup history is refused by the old validator.
 F1 CLOSED at `af455ef838b8c2227d784ebdc8bafb89e7a6835b`: independent RED 3fail/10pass

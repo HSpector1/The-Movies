@@ -1,0 +1,28 @@
+{"sourceSha":"6d23466bbdefbe0a4061bea31b599e739591a63c","testedDiffSha256":"fa9849e9c86885d59e2915a0ebdc6ba995bf0657a1617363b322c02615b0f7f9","untrackedSource":["bridge/trust.ts"],"command":["npx","vitest","run","tests/p14b1-trust-chooser.test.ts","tests/bridge-schema.test.ts","--minWorkers=1","--maxWorkers=1","--reporter=dot"],"node":"v20.20.2","start":"2026-09-19T14:14:15.501Z","end":null,"exitCode":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p14b1-trust-chooser.test.ts (13 tests | 2 skipped) 16149ms
+   ✓ P14B.1 test 6: trust, the widened chooser and the priority order > a Distrusted issuer is dropped issuerDistrusted at reservation, and the other (healthy) proposal settles the case 1788ms
+   ✓ P14B.1 test 6: trust, the widened chooser and the priority order > opportunity changes the winner of an otherwise compensation-versus-incumbency 1-1 tie, with two real surviving proposals 4519ms
+   ✓ P14B.1 test 6: trust, the widened chooser and the priority order > a Reliable issuer beats a Mixed-record issuer on the trust band, in the same otherwise-1-1-tie shape 940ms
+   ✓ P14B.1 test 7: rival symmetry > attachPromise and its feasibility classification work identically when the issuer is a RIVAL (no player-only special-casing) 860ms
+   ✓ P14B.1 test 7: rival symmetry > a rival proposal carries a P1 promise IFF its own feasibility is REASONABLY_ACHIEVABLE — derived from the FIRST rival proposalSubmitted receipt on the natural chain, never assumed 3770ms
+   ✓ P14B.1 test 7: rival symmetry > rival promise AUTHORING (ruling ii): the FIRST rival proposalSubmitted receipts on the natural chain are for the rivals' own WRITER subjects — IMPOSSIBLE under the landed M16.2 role gate (a writer takes no cast seat), so that proposal carries NO promise (true both today and after T2b); walking on to the first ACTOR-subject rival proposal, whose own feasibility is REASONABLY_ACHIEVABLE, it must carry exactly one P1 promise naming family APPEARANCE_COUNT — RED today (rivals author no promise yet); T2b makes it green 3893ms
+ ✓ |core| tests/bridge-schema.test.ts (22 tests) 45937ms
+   ✓ canonical Unity bridge schema > projects a real authoritative snapshot to the exact Unity DTO and validates the full envelope 5973ms
+   ✓ canonical Unity bridge schema > keeps live location identities in the projection-v4 building namespace 27394ms
+   ✓ canonical Unity bridge schema > rejects missing, additional, wrong-enum, wrong-nullability, and old-projection data 2965ms
+   ✓ canonical Unity bridge schema > preserves required nullable numeric fields through schema projection 2711ms
+   ✓ canonical Unity bridge schema > models accepted load/command responses as one flat projection envelope 2576ms
+   ✓ canonical Unity bridge schema > requires one closed structured rejection with non-empty guidance and a nullable holder 1632ms
+   ✓ canonical Unity bridge schema > validates the session and health handshake envelopes 2518ms
+
+ Test Files  2 passed (2)
+      Tests  33 passed | 2 todo (35)
+   Start at  16:14:18
+   Duration  68.58s (transform 3.59s, setup 0ms, collect 5.37s, tests 62.09s, environment 1ms, prepare 278ms)
+
+
+{"sourceSha":"6d23466bbdefbe0a4061bea31b599e739591a63c","testedDiffSha256":"fa9849e9c86885d59e2915a0ebdc6ba995bf0657a1617363b322c02615b0f7f9","untrackedSource":["bridge/trust.ts"],"command":["npx","vitest","run","tests/p14b1-trust-chooser.test.ts","tests/bridge-schema.test.ts","--minWorkers=1","--maxWorkers=1","--reporter=dot"],"node":"v20.20.2","start":"2026-09-19T14:14:15.501Z","end":"2026-09-19T14:15:27.502Z","exitCode":0,"signal":null,"error":null,"sourceShaAtEnd":"6d23466bbdefbe0a4061bea31b599e739591a63c","testedDiffSha256AtEnd":"fa9849e9c86885d59e2915a0ebdc6ba995bf0657a1617363b322c02615b0f7f9","untrackedSourceAtEnd":["bridge/trust.ts"],"fixedSource":true}

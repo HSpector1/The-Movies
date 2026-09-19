@@ -2,6 +2,45 @@
 
 ## Live next action after fixture findings
 
+**Current publication/full-run gate (14:24Z):** source/tests committed
+`3b978d77c29df2b5de038e3b1b7fc94778257f33`. All targeted checks finished; no active
+runtime. `18` had148pass/one current-schema hash pin failure/one todo; unchanged
+generator/fixtures reviewed, ONLY F10/F11 pins corrected, `21`31/31. Contract19
+and fixture20 checks PASS. Source/full targeted qualifications in13. Parent now
+publishes this records checkpoint and verifies remote, then launches prepared
+`run-fixed-source.mjs p14b2-20260919-final` ONCE with normal sandbox escalation
+(localhost preflight inside sandbox returned EPERM). No source/test edits or
+commits throughout full pass; preserve raw evidence, compare exact inherited
+identifiers/diagnostics and investigate every new/changed failure. Full-run state
+will be in `../p14b2-20260919-final/00-run.json`; do not infer launch from this note.
+Author drafts B3 only `/tmp/studio-b3-tests-jWA61F`, no runtime/install. B3 gate
+is B2 qualified closeout/publication; sim-core/auditor idle. Older records below
+are provenance, not live worker status.
+
+**Current verification (14:16Z):** source and ALL repository tests FROZEN.
+`14`: B2main22/22, genuine45 checkpoint2/2, F113/13, fixtures5/5; initial D3
+premise failed and raw evidence retained. Corrected controlled D3 plus schema
+`16`:33pass/2unchanged todos, independent KEEP. Root/UI `15` and bridge `17`
+typechecks PASS (root before the two narrow test corrections; full run rechecks).
+Parent owns sole runtime, **`18-neighbour-regressions` running**, session20693.
+No source/test edits or commits until it completes. Sim-core and auditor idle;
+test-author drafts B3 tests ONLY outside checkout, no runtime/install. Next:
+finish18, both contract checks, source/evidence checkpoint+push, committed
+fixed-source full runner (prepared here, not yet launched), exact attribution,
+qualified B2 closeout/publication, then B3 per audited expansion.
+
+**Current T2 release (14:00Z):** F1 evidence5fdaa46 pushed, remote exact SHA
+verified (`10-review.md`). Independent T1 committed `6d23466bbdefbe0a4061bea31b599e739591a63c`:
+`11-trust-module-red` failed solely resolving absent `bridge/trust.ts`, zero test
+bodies, fixedSource true. Draft review KEEP. Sim-core now owns the sole production
+write slot for the adopted46 read models and generated contract; test-author owns
+only designated D3 todo plus mechanical LIVE projection pins/two B1 history rows.
+No heavy runtime or commits by specialists. Parent owns serialized verification
+after both hand back frozen edits; auditor idle. Two specialists maximum.
+Next: stable source/tests → new B2/checkpoint/D3 + affected regressions → both
+typechecks/contracts → independent review → committed fixed-source full pass,
+exact inherited-failure attribution → qualified closeout/backlog/push → B3.
+
 **Current 13:56Z checkpoint:** F1 CLOSED at
 `af455ef838b8c2227d784ebdc8bafb89e7a6835b`, bounded LOGIC VERIFIED · UNITY NOT
 VERIFIED. `04`:17files/179pass/3unchanged todos; `05` root/UI and `06` bridge

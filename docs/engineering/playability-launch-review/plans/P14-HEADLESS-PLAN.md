@@ -1,5 +1,11 @@
 # P14 — Contested Talent Market, Bonds and Promises, Career Lifecycle — headless plan (logic-first)
 
+**Latest B2 checkpoint (2026-09-19):** source/tests `3b978d77c29df2b5de038e3b1b7fc94778257f33`,
+Save29/projection46. T1 RED → T2 read models + T3 causal D3 landed, targeted checks/
+typechecks/contracts and independent reviews pass with the exact qualifications
+in `../evidence/p14b2-20260919/13-candidate-review.md`. T4 committed full pass,
+attribution and publication still owed; no B2 closeout. B3 audited below, gated.
+
 **Current execution (2026-09-19).** P14B.1 T4 CLOSED — LOGIC VERIFIED · UNITY NOT
 VERIFIED. Recovered T3 `e78dbc0` preserved; corrected production `ee91913`, final
 test corrections `a93bf7776a41df3702c78ae5225a2e7c303ec9da`. Full frozen core:
@@ -207,9 +213,38 @@ The known literal-contractId correction is now part of T4, not deferred to B.2.
 - [x] **B2-F1 inherited setup/wrap prerequisite CLOSED:** `af455ef838b8c2227d784ebdc8bafb89e7a6835b`, LOGIC VERIFIED (bounded F1) · UNITY NOT VERIFIED. Lawful first-take→Post fixture at unchanged `e37cd23` could not save because completed setup retains its historical stage while current occupancy correctly releases it. Independent RED 3fail/10pass → narrow permanent-wrap validation → 17 files/179pass/3unchanged todos; root/UI and bridge typechecks PASS, final review KEEP. Exact source/evidence/limits `p14b2-20260919/08-f1-closeout.md`; no full F1 suite claimed. Separate from B2 read-model law, no version change, setup deletion or occupancy restoration.
 - [x] **T0 None — no writer move; recorded.**
 - **Runtime-schema carry-forward (2026-09-19 producer reconciliation):** `bridge/runtime-checkpoint.ts` requires registering each outgoing schema on a bump. T1 freezes a genuine generated projection-45 checkpoint before T2; T2 registers literal `sha256:5b2a4ca93d930e90a288db55bb5cc3fdc8eea070ef51fa1450a193a325bd755d`, with independent migration/slot-preservation coverage. This does not move Save V29 or require an outgoing SAVE-version mint. Missing historical registry identities 32–44 are an inherited separate gap, not backfilled or called supported here.
-- [~] **T1 Bridge test 11 RED — IN PROGRESS 2026-09-19**, native test-author after published T4 close `e37cd23`; independent draft ready outside checkout for `tests/bridge-p14b2-trust.test.ts` at absent `bridge/trust.ts`; lawful fixture preconditions GREEN. Parent owns serialized runtime. Evidence `p14b2-20260919/01*`/`02*`; ownership `00-start.md`. Main module RED not yet claimed; genuine45 checkpoint-forward RED has two expected failures (`09`).
-- [ ] **T2 Bridge projection 46** (sim-core bridge writer: `bridge/trust.ts`, the profile block and rows, the Pulse rows and `outcomeKind`, the two attention causes, the workspace rows, the studio row label (audit: INCLUDE; first deferral candidate if T2 overruns), schema/generated through the generator, pins 45→46, the leak pins; first confirm B.1's landed case-block `promiseHistory` is bound-only so the one-DTO-two-carriers factoring holds (audit note 5); evidence `02`).
-- [ ] **T3 Engine test 12 — the D3 synthetic construction** (test-author; the line-288 todo only; evidence `03`; a finding, never a fix).
+- [x] **T1 Bridge test 11 RED — CLOSED 2026-09-19**, native test-author; committed `6d23466`. `11-trust-module-red`: absent `bridge/trust.ts`, zero bodies, fixedSource true; 22 tests/nine groups, both helpers called in each group. Independent draft KEEP (`10-review`), lawful fixtures GREEN. Genuine45 checkpoint-forward RED has two expected failures (`09`). Parent owns serialized runtime; ownership `00-start.md`.
+- [x] **T2 Bridge projection 46 — LANDED `3b978d7`** (sim-core bridge writer: `bridge/trust.ts`, the profile block and rows, the Pulse rows and `outcomeKind`, the two attention causes, the workspace rows, the studio row label (audit: INCLUDE; first deferral candidate if T2 overruns), schema/generated through the generator, pins 45→46, the leak pins; first confirm B.1's landed case-block `promiseHistory` is bound-only so the one-DTO-two-carriers factoring holds (audit note 5); evidence `13`–`21`; full pass still owed).
+- [x] **T3 Engine test 12 — D3 synthetic construction**, landed `3b978d7`. Original five-survivor premise failed (`14`); corrected controlled real staging preserves exact two survivors, equal bands, causal compensation→opportunity winner reversal and actual binding/freeze receipt. `16`: D3/schema33pass/2unchanged todos; independent actual-test KEEP. No chooser fix. Exact provenance/limits `13-candidate-review.md`.
 
 **Audit (contract-auditor, 2026-09-18): ADOPT WITH AMENDMENTS — applied above.** Coverage against the B.1 MOVED line and rulings (vii)/(viii) met one-to-one; disclosure law met (terms UNKNOWN, outcomes public per §4.5); hypotheses correctly isolated as §7.2-class tuning/copy calls, none an Owner question; RED precedent confirmed (`bridge/trust.ts` absent); test constructibility confirmed (the first-take construction is reusable; the line-288 todo is the one that matches). Defect 1 (citation slip: `reasons` on the receipt vs `outcomeCause` on the promise) fixed in the companion-basis paragraph. Defect 2 (the attention mechanism would exclude a poaching winner after its case closed) fixed by the independent-scan requirement in item (4) and the poaching-win pin in tests group (4). Item (6) ruled INCLUDE with the deferral note. Note 5 became a T2 check.
 - [ ] **T4 Matched pass, attribution, label, records, backlog entry (projection-46 DTOs: `trust`, `promises`, `outcomeKind`, the two causes, `trustLabel`), commit, push.**
+
+## P14B.3 — P1 quote-to-commit integration — audited expansion, NOT STARTED
+
+Gate: B2 qualified closeout/publication. Bounded execution contract:
+`../evidence/p14b2-20260919/12-b3-expansion-draft.md`; native read-only audit KEEP
+in `13-candidate-review.md`. This completes the existing preview-only P1 route,
+not P2–P5, waiver, relationships or all of P14B. Companion §§4.1–4.4/R5 and B1
+T2b's active-attachment ruling govern; no new Owner decision needed for this slice.
+
+- [ ] T0 refresh exact B2 identity/owners. Expect Save29/projection46 unchanged
+  with existing wire shapes; no save/runtime mint unless a genuine version move
+  is required. Do not fabricate/restamp old fixtures.
+- [ ] T1 independent behavioral RED: abandoned unbound reservations versus
+  current/bound-open ones; real session promise attachment, whole-quote refusal,
+  draft-value retention, atomicity/revision/replay/session isolation and settlement.
+- [ ] T2 sim-core: shared active membership for feasibility and its digest;
+  immutable shared quote/apply preparation; attach only through the existing
+  reducers; nested feasibility gates outer quote/intent registration. No partial
+  proposals/receipts/promise ordinals/money/revisions on failure. Preserve old
+  receipts and abandoned evidence; do not rewrite loaded history.
+- [ ] T3 targeted neighbours/B1/B2/B3/session/isolation, both typechecks and contract
+  checks, bounded independent source review.
+- [ ] T4 committed fixed-source serial full pass, exact failure attribution,
+  qualified logic label, backlog/records, commit/push/exact remote verification.
+
+Independent decision boundary: existing accounting sums competing CURRENT
+proposals across issuers although only one may win. Preserve that behavior in
+the narrow abandonment correction; its policy remains separately OPEN. Unity,
+native/rendering and Owner acceptance remain deferred.

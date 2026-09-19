@@ -21,6 +21,39 @@ verified in Unity. Generated C# produced by the TypeScript generator is text, no
 
 ## Per-slice entries
 
+### P14B.2 — trust and promise read models (candidate, verification in progress)
+
+Producer: protocol4 / projection46 / unchanged Save29. Candidate schema
+`sha256:584bdd8565030f049d548b1af4fcbf8c517ca7c9150016736f632f1ef8fcb98c`;
+generated C# SHA256 `1b5c7e889ffe3454858afa8960b4a4c099d88cfe25a9553212ba67f11a4c3268`.
+Source `3b978d77c29df2b5de038e3b1b7fc94778257f33`; generator, targeted bridge/
+checkpoint/D3, both typechecks and contract checks passed with qualifications in
+`evidence/p14b2-20260919/13-candidate-review.md`. Full run is next, not B2 closeout
+or compiled consumer/native evidence.
+
+Required bindings: Profile `trust` (label/scope/top-three dated drivers/line) and
+`promises` are required, never omitted. Empty history is `[]`; open outcome/week/
+cause are null. Shared bound-history row now requires real nonnull `contractId`
+and nullable `outcomeCause`, newest first, on Profile, case and workspace history.
+Industry studio `trustLabel` is required; public Pulse `outcomeKind` is optional
+and ABSENT on unrelated activity, not an invented empty/null enum. Add attention
+causes `promiseDue`/`promiseOutcome`; preserve the original five and their actions.
+
+Future integration: regenerate/copy matching DTOs only during authorized Unity
+pairing; compile and round-trip empty/populated trust/history, null open outcomes,
+and absent optional Pulse discriminator. Render long reason/year text and nonempty
+history at 100%/200%, preserve selection/scroll and case navigation. Native real
+journeys: retention→take/kept, release/broken, poaching→closed case→due reminder,
+outcome clears next week, genuine45 checkpoint opens with both distinct save slots
+unchanged and a new session. Test rival terms remain UNKNOWN/absent while public
+rival outcome and aggregate trust remain visible. No new action/view/page/intents.
+
+Projection45 runtime identity is explicitly carried forward; missing historical
+32–44 identities remain the separate inherited recovery obligation below. B1's
+promise quote is STILL PREVIEW ONLY until B3 command integration, not fixed by
+these read models. Copy/reminder8 tuning are existing hypotheses; no new Owner
+decision. Unity/rendering/Owner acceptance remain deferred.
+
 ### P13B-S1 — full named research staffing (engine)
 
 | Item | Record |

@@ -1,0 +1,106 @@
+{"sourceSha":"6d23466bbdefbe0a4061bea31b599e739591a63c","testedDiffSha256":"fa9849e9c86885d59e2915a0ebdc6ba995bf0657a1617363b322c02615b0f7f9","untrackedSource":["bridge/trust.ts"],"command":["npx","vitest","run","tests/bridge-p14a1-market.test.ts","tests/bridge-p14a2-market.test.ts","tests/bridge-p14a3-world.test.ts","tests/bridge-p14b1-promises.test.ts","tests/bridge-contract-generator.test.ts","tests/p14b1-first-take.test.ts","tests/p14b1-promises.test.ts","tests/p14b1-save-v29.test.ts","tests/p14b1-leak.test.ts","tests/p14b1-t4-regressions.test.ts","--minWorkers=1","--maxWorkers=1","--reporter=dot"],"node":"v20.20.2","start":"2026-09-19T14:16:49.571Z","end":null,"exitCode":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/bridge-p14a2-market.test.ts (16 tests) 21161ms
+   ✓ group 2: buckets — one bucket per case, fixed order, paged closed > two open cases sharing a decision week sort renewalWindow by discovery order; a settling case one week before its decision reads under settling, not renewalWindow 4117ms
+   ✓ group 2: buckets — one bucket per case, fixed order, paged closed > every closed case in the settled-208 fixture is bounded by MARKET_CLOSED_PAGE_SIZE and pages deterministically across two reads; no case appears in a live bucket 637ms
+   ✓ group 3: workspace attention rows > deduplicated per (cause, talentId), including termsRevised (a rival revision after the player proposed) and decisionWeekNear (one week before the decision) 1162ms
+   ✓ group 4: selected — candidate rail, offer comparison, settlement reasons/dropped > the rail's case block is byte-equal to marketCaseProjection; the own row equals proposalDraft; every competing figure is UNKNOWN 1077ms
+   ✓ group 4: selected — candidate rail, offer comparison, settlement reasons/dropped > after settlement (settled-208): the receipt's order-only reasons show; no dropped sentence shows for a case where the player never proposed 430ms
+   ✓ group 5: paged employer/career history > employer intervals from the P12 rows, rival salaries private, credits by reference, bounded by MARKET_HISTORY_PAGE_SIZE 636ms
+   ✓ group 6: workspace intents (Review & Submit / Revise / Withdraw) > the same quote -> commit -> STALE_REVISION -> revise -> withdraw -> INTENT_NOT_AVAILABLE sequence as A.1 group 8, from a session whose current page is the market page 8739ms
+   ✓ group 7: Pulse fold on view:"pulse" > one activity row per settlement, naming the person/studio/term length, salary absent, correlated by (talentId, week) against the two P12 receipts — never doubled 408ms
+   ✓ group 8: disclosure leak check — workspace and pulse JSON > the rival's real figures at a non-1.00 tier appear nowhere in the workspace or pulse JSON 1109ms
+   ✓ group 9: save/load > LIVE_SAVE_VERSION === 28; a genuine V27 fixture converts to an EMPTY workspace (no attention, no cases, no selected) 595ms
+   ✓ group 9: save/load > the three genuine V28 T0 fixtures load byte-stable and the market page reads them as T0 pins 1661ms
+   ✓ group 9: save/load > a V28 save round-trips through the bridge save/load path, and the market page reads identically on both sides 475ms
+ ✓ |core| tests/p14b1-promises.test.ts (15 tests) 7502ms
+   ✓ P14B.1 test 2: the promise record and the widened digest > attaching a promise changes the digest; a second attach on an already-promised proposal is refused (enforced at most one); revising (re-submit, then attach a different promise) and removing (re-submit with no attach) both change the digest again — removing restores the exact original 2003ms
+   ✓ P14B.1 test 2: the promise record and the widened digest > a window outside the proposed contract is IMPOSSIBLE by construction 931ms
+   ✓ P14B.1 test 2: the promise record and the widened digest > a promise DRIFTED after attachment (its own definition changed through some other channel) drops materialTermsChanged at freeze 928ms
+   ✓ P14B.1 test 4: settlement freeze re-classification > a feasible promise becomes FRAGILE after two lawful greenlights consume the existing stages; freeze drops it with a promise-naming sentence 1043ms
+   ✓ P14B.1 test 5: outcomes > SATISFIED once the X-th qualifying first take occurs, with evidence refs naming the causing eventId; idempotent on a later tick 884ms
+   ✓ P14B.1 test 5: outcomes > BROKEN at dueWeekExclusive when the window passes unsatisfied, through a BOUND promise: on genuine legacy-v28-open-case-45, attach a P1 promise to the player's own proposal, settle at 52 (retained -> bound, contractId set), then walk to dueWeekExclusive with no qualifying first take 771ms
+   ✓ P14B.1 test 5: outcomes > RED (T2b closes this): a promise attached to a proposal that then LOSES stays UNBOUND (contractId null) and is never evaluated — on genuine legacy-v28-open-case-45, withdrawing the player's own proposal leaves the promise attached to a proposal that vanishes at settlement (declined, "all proposals dropped"); past its own dueWeekExclusive the record must keep outcome: null and contractId: null, mint no promiseOutcome receipt, and leave the issuer's trust descriptor without a promiseBroken driver 531ms
+   ✓ P14B.1 test 5: outcomes > BROKEN on capacity collapse: cancelling the promised person's ONLY production before its first take, with a due week too close for any other path, makes re-feasibility IMPOSSIBLE and the promise BROKEN 329ms
+ ❯ |core| tests/bridge-contract-generator.test.ts (31 tests | 1 failed) 2092ms
+   ✓ CF-08 sound union-to-C# generation > C — closed discriminated object unions > keeps member storage attached and generated bytes identical when anyOf order reverses 982ms
+   ✓ CF-08 sound union-to-C# generation > current accepted contract and future sentinel > F10 emits sound request and response union shapes without changing schema identity 409ms
+   × CF-08 sound union-to-C# generation > current accepted contract and future sentinel > pins exact positive output identities and deterministic rerendering 234ms
+     → F10_CURRENT_QUOTE_UNIONS: expected '9edf6dedf8ac4305a44d3a59ce124e56d5bee…' to be 'c69088b3e114fdd6d801d9119a48db798f002…' // Object.is equality
+ ✓ |core| tests/bridge-p14a3-world.test.ts (16 tests | 1 skipped) 8972ms
+   ✓ group 2: the player's own open case — statusLine exact, caseRef, reach, presence, a person without a case > legacy-v28-open-case-45: statusLine exact, caseRef.targetId, reach playerLot, presence.onLot true; the market page is byte-equal to the Profile; the roster row carries the same line; a person without a case reads null/null 484ms
+   ✓ group 3: the settling line — decisionWeek <= week + 1 while open, null after close > legacy-v28-open-case-45 walked from 45 to 51 (the settling text) and past 52 (null, closed) 687ms
+   ✓ group 4: a rival's person — off the player's lot, reach industry, the Industry row carries the line, no leak > the first week a rival-subject case is open (never a magic week): onLot false, canLocate false, reach industry; the Industry roster row of that studio carries caseStatusLine/caseRef; the rival's tier/salary (non-1.00) appear nowhere 3872ms
+   ✓ group 5: the effective-week law from receipts (settled-208 carries no player contract — never used for a player-lot fact; the stayed/moved-away/won-over sets are built through the engine, never read off an empty fixture) > the retained clause: genuine legacy-v28-open-case-45 (player 1.25 vs rival 1.00, decided 52) stays on the player's lot at 51, 52 and 53; the stayed set is asserted non-empty 696ms
+   ✓ group 5: the effective-week law from receipts (settled-208 carries no player contract — never used for a player-lot fact; the stayed/moved-away/won-over sets are built through the engine, never read off an empty fixture) > the departure clause, re-expressed through the declined outcome: on genuine legacy-v28-open-case-45, WITHDRAWING the player's own proposal leaves only the rival's uncontested 1.00 bid, which the seat law itself drops (noSeatForRole) — onLot stays true through week 51 (no early presence change), the case settles declined/"all proposals dropped" at week 52 exactly, and the person is off the lot at 52 488ms
+   ✓ group 7: save/load — V28 unchanged, the world route converts and round-trips > a genuine V27 fixture converts with statusLine null for every person (no case exists anywhere in a converted state) 372ms
+   ✓ group 7: save/load — V28 unchanged, the world route converts and round-trips > the three genuine V28 T0 fixtures read byte-stable and the world route reads identically across the bridge save/load path 1951ms
+   ✓ group 7: save/load — V28 unchanged, the world route converts and round-trips > a fresh V28 state round-trips through the bridge save/load path and the world route reads identically on both sides 329ms
+ ✓ |core| tests/bridge-p14a1-market.test.ts (16 tests) 17684ms
+   ✓ group 3: marketProposalAction (propose/revise/withdraw) > drafts propose/revise/withdraw through the draft-to-engine conversion, with affordability via canAfford 1656ms
+   ✓ group 3: marketProposalAction (propose/revise/withdraw) > the profile's renew row does not yet surface underMarketCase once a case is open — the gap the case block must close 841ms
+   ✓ group 2: profile Contract case block > publishes status, the DERIVED decision-week label, and one row per proposal — the player's own re-derived at the read week, the rival's premium/salary/bonus an explicit UNKNOWN marker 803ms
+   ✓ group 2: profile Contract case block > no case block outside a case 715ms
+   ✓ group 4: attention rows > a new competing proposal on a case the player has a proposal in 605ms
+   ✓ group 4: attention rows > settlement completed 855ms
+   ✓ group 4: attention rows > a player proposal that would currently fail 891ms
+   ✓ group 4: attention rows > restricted to exactly the five named causes, and nothing else on the profile route (two causes not independently exercised — see header premises) 1060ms
+   ✓ group 5: disclosure narrowing > the case block's disclosed fields never leak the rival's real figures, from every serialization surface — a rival tier that is not otherwise a public figure 1225ms
+   ✓ group 5: disclosure narrowing > bridge/industry.ts's private-contract-terms rows and bridge/people.ts's contract:null for rival-employed people are UNCHANGED for a person outside any case 804ms
+   ✓ group 6: settlement on the wire > after the decision week the case reads settled with order-only reasons; the winner's employer/contract updates; the two industry receipts stay separate rows (no folded row — A.2's Pulse projection, not A.1) 899ms
+   ✓ group 7: save/load > a genuine V27 fixture loads through the bridge converted, with an empty market root and no case block for its in-window subject 416ms
+   ✓ group 7: save/load > a V28 save round-trips through the bridge save/load path, carrying legacyTerminations, at projection 46 364ms
+   ✓ group 8: session-level marketProposalAction > quote -> commit -> stale revision -> revise -> withdraw -> a superseded intent after the state moved -> an unknown quote type, all through BridgeSession 6539ms
+ ✓ |core| tests/bridge-p14b1-promises.test.ts (11 tests) 11735ms
+   ✓ group 2: case block and market page promise rows > the Profile case block's proposal rows carry promise — own row real (family, count, window, classification), competing row the UNKNOWN marker, never the rival's family/count/window 1558ms
+   ✓ group 2: case block and market page promise rows > the Market page comparison row carries the SAME own/UNKNOWN promise facts (bridge/market.ts reuses the case block's own `proposals` array by reference) 900ms
+   ✓ group 3: trust descriptor label and promise history, open then settled with an outcome > open right after settlement, then BROKEN once the window passes unsatisfied — both read through the engine's own trustDescriptor / state.promises as the oracle 2830ms
+   ✓ group 4: the promise draft on marketProposalAction's quote family > refuses a promise window beginning before the proposed contract, although its due week is inside the contract (T4 lower-edge regression) 723ms
+   ✓ group 4: the promise draft on marketProposalAction's quote family > promiseQuoteSnapshot returns the engine's own promiseFeasibility classification, ok true only when REASONABLY_ACHIEVABLE, and the same fact rides the EXISTING quoteMarketProposal session intent (no new intent kind) 983ms
+   ✓ group 4: the promise draft on marketProposalAction's quote family > a window outside the proposed contract is IMPOSSIBLE, refused "not offerable: <bottleneck>" 699ms
+   ✓ group 4: the promise draft on marketProposalAction's quote family > a non-P1 family is refused with its own typed reason, deterministically, before any pipeline check runs 656ms
+   ✓ group 5: disclosure narrowing — the rival's promise leaks nowhere > a world where the RIVAL proposal carries a real promise: the profile, the market page, a player-requested quote and pulse all serialize with no trace of the rival's family/window 1220ms
+   ✓ group 6: save/load > a genuine V28 fixture (open-case-45) converts to V29 with empty firstTakes/promises, and the bridge reads it with no promise fact anywhere 572ms
+   ✓ group 6: save/load > a live V29 state carrying a real promise round-trips through the bridge save/load path byte-stable, and the promise-row read is identical on both sides 1590ms
+ ✓ |core| tests/p14b1-t4-regressions.test.ts (34 tests) 9325ms
+   ✓ P14B.1 T4: feasibility evidence and lawful contract windows > stores the actual winning freeze receipt at the decision week, not the submission receipt 663ms
+   ✓ P14B.1 T4: V29 owns every proposal promise leaf > preserves an explicitly synthetic old-writer early window and submission receipt without rewriting real contract/outcome identity 1590ms
+   ✓ P14B.1 T4: V29 owns every proposal promise leaf > rejects a terminal promise rebound to the same pair's later actual contract starting after its outcome 847ms
+   ✓ P14B.1 T4: terminal V29 promise reference integrity > round-trips several beneficiaries sharing one real take and distinct own outcome receipts 4477ms
+ ✓ |core| tests/p14b1-first-take.test.ts (3 tests) 2198ms
+   ✓ P14B.1 test 1: the first-take receipt > PLAYER: never at shooting entry (empty at remainingTicks 5, shooting task unassigned then scheduled through the real actions, still empty after scheduling); appended exactly once at the 5 -> 4 advance; idempotent on a later tick; byte-stable across save/load 1875ms
+ ✓ |core| tests/p14b1-save-v29.test.ts (6 tests) 1106ms
+   ✓ P14B.1 test 8: Save V29 (genuine V28 fixture, empty new tables, same digests, round trip, downgrade) > genuine V28 open-case-45 fixture: sha256 matches, still validates as V28 through the frozen chain, migrates to V29 with EMPTY firstTakes and promises roots and promises: [] on every existing proposal, otherwise byte-identical 338ms
+   ✓ P14B.1 test 8: Save V29 (genuine V28 fixture, empty new tables, same digests, round trip, downgrade) > a fresh V29 lift (nothing forged) downgrades LOSSLESS through save.migrateToV28, byte-identical to the pre-lift V28 state 351ms
+ ✓ |core| tests/p14b1-leak.test.ts (2 tests) 2907ms
+   ✓ P14B.1 test 9: leak — a rival promise never discloses to a non-issuer, and settlement reasons stay ordering-only > a promise attached to the RIVAL's proposal says UNKNOWN on the player's disclosure view and something other than UNKNOWN on the rival's own 1762ms
+   ✓ P14B.1 test 9: leak — a rival promise never discloses to a non-issuer, and settlement reasons stay ordering-only > settlement reasons stay ordering-only (no dollar sign, no bare 3+-digit figure) even when an attached promise is part of the decision 1144ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/bridge-contract-generator.test.ts > CF-08 sound union-to-C# generation > current accepted contract and future sentinel > pins exact positive output identities and deterministic rerendering
+AssertionError: F10_CURRENT_QUOTE_UNIONS: expected '9edf6dedf8ac4305a44d3a59ce124e56d5bee…' to be 'c69088b3e114fdd6d801d9119a48db798f002…' // Object.is equality
+
+Expected: "c69088b3e114fdd6d801d9119a48db798f002ce749504855d031784b50f89222"
+Received: "9edf6dedf8ac4305a44d3a59ce124e56d5bee4916a9ab63d3d95cf3c9fedb64e"
+
+ ❯ tests/bridge-contract-generator.test.ts:661:37
+    659|         const second = generateCsharpTypeDeclarations(schema)
+    660|         expect(second, name).toBe(first)
+    661|         expect(sha256(first), name).toBe(expectedHash)
+       |                                     ^
+    662|       }
+    663|     })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed | 9 passed (10)
+      Tests  1 failed | 148 passed | 1 todo (150)
+   Start at  16:16:52
+   Duration  98.09s (transform 3.86s, setup 0ms, collect 8.82s, tests 84.68s, environment 5ms, prepare 1.48s)
+
+
+{"sourceSha":"6d23466bbdefbe0a4061bea31b599e739591a63c","testedDiffSha256":"fa9849e9c86885d59e2915a0ebdc6ba995bf0657a1617363b322c02615b0f7f9","untrackedSource":["bridge/trust.ts"],"command":["npx","vitest","run","tests/bridge-p14a1-market.test.ts","tests/bridge-p14a2-market.test.ts","tests/bridge-p14a3-world.test.ts","tests/bridge-p14b1-promises.test.ts","tests/bridge-contract-generator.test.ts","tests/p14b1-first-take.test.ts","tests/p14b1-promises.test.ts","tests/p14b1-save-v29.test.ts","tests/p14b1-leak.test.ts","tests/p14b1-t4-regressions.test.ts","--minWorkers=1","--maxWorkers=1","--reporter=dot"],"node":"v20.20.2","start":"2026-09-19T14:16:49.571Z","end":"2026-09-19T14:18:31.089Z","exitCode":1,"signal":null,"error":null,"sourceShaAtEnd":"6d23466bbdefbe0a4061bea31b599e739591a63c","testedDiffSha256AtEnd":"fa9849e9c86885d59e2915a0ebdc6ba995bf0657a1617363b322c02615b0f7f9","untrackedSourceAtEnd":["bridge/trust.ts"],"fixedSource":true}

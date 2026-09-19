@@ -2,54 +2,44 @@
 
 ## Current engineering checkpoint — 2026-09-19
 
-**P14B.1 T4 CLOSED — LOGIC VERIFIED · UNITY NOT VERIFIED.**
-Production source `ee91913e41b9baa30bcda8eef8c8195da7bfd1cc`; final test-correction
-source `a93bf7776a41df3702c78ae5225a2e7c303ec9da`. The recovered `d19c45b`
-chain and T3 `e78dbc0` are preserved. Branch `wip/headless-program-20260916-ts`,
-worktree `/Users/zacheryspector/The-Movies-headless-program`. Native coordinator
-owns implementation; no overlapping writer, reset, recreation or Claude invocation.
+Branch `wip/headless-program-20260916-ts`, worktree
+`/Users/zacheryspector/The-Movies-headless-program`. Recovered d19/T3/newer work
+preserved; no reset/recreation/Claude invocation. Max two native specialists,
+one production writer; parent owns serialized heavy tests on this Mac.
 
-Qualified closeout: `evidence/p14b1-20260919-t4-final/16-attribution.md`.
-The full fixed-source run completed 11:22:39Z–12:51:55Z: core **3253 passed /
-29 failed / 7 todo**; bridge **717 passed / 12 failed / 2 todo**. Exact identifier
-AND diagnostic comparisons attribute 22 core and all 12 bridge failures to the
-historical baseline. Seven new core test-compatibility failures and one test-only
-typing error were corrected WITHOUT changing production, validators or fixtures.
-Fresh 13-file verification: **170 passed / three unchanged todos**; root/UI and
-bridge typechecks and both contract checks pass. Independent reviews KEEP.
-This is NOT an all-green full-suite rerun on the later test commit.
+**P14B.2 source/test checkpoint `3b978d77c29df2b5de038e3b1b7fc94778257f33`.**
+Save29 / projection46. Independent module RED, read models and causal D3 landed.
+Main22/22 and genuine45 checkpoint2/2 pass. Corrected D3/schema:33pass/2unchanged
+todos. Neighbours148pass/one obsolete whole-schema hash failure/one todo;
+corrected generator31/31. Both typechecks and contract checks PASS; independent
+reviews KEEP. Exact patches/raw failures/limits:
+`evidence/p14b2-20260919/13-candidate-review.md`.
+**B2 NOT CLOSED:** committed fixed-source full verification/attribution is NEXT.
+Live runtime/next actions: `evidence/p14b2-20260919/00-start.md`. No source/test
+edits or HEAD commits during a fixed-source run.
 
-**P14B.2 T1 IN PROGRESS**, following published/remote-verified T4 closeout
-`e37cd2330be8c9129b0193a2bf8e84258e851307`. Test-author owns tests and the sole
-heavy runtime slot originally; parent now owns serialized verification. Ownership/next actions:
-`evidence/p14b2-20260919/00-start.md`. Independent lawful fixture work exposed
-inherited **B2-F1**: completed setup loses its live stage at
-wrap correctly, but save validation refuses the retained history. Dedicated
-independent RED (three positive failures / ten negative passes) and genuine45
-checkpoint are preserved. F1 CLOSED at `af455ef838b8c2227d784ebdc8bafb89e7a6835b`:
-17 files /179 passed /three unchanged todos, root/UI and bridge typechecks PASS,
-bounded review KEEP. Exact fixed-source records and limits: `evidence/p14b2-20260919/08-f1-closeout.md`.
-Checkpoint forward RED has the two intended failures at projection45 (`09`).
-Main B2 test draft is independently authored outside the checkout; install next
-for absent-module RED. No active runtime. Diagnosis: `evidence/p14b2-20260919/03-setup-wrap-review.md`.
-After this prerequisite, resume B2 bridge test 11 RED and read models per
-`plans/P14-HEADLESS-PLAN.md`. Preparation:
-`evidence/p14b1-20260919-t4/13-b2-test-preparation.md`. The literal contract-ID
-fixture issue mentioned there is already fixed in T4. Preserve real retention
-`ranToEnd` history; the actual poaching winner has now been proved in probe `02g`.
-Then projection 46 read models, D3 causal test, bounded review and qualified full
-verification. Save V29 stays; no outgoing SAVE-version fixture mint is required
-(a genuine projection-45 runtime checkpoint is frozen). Continue
-remaining P14 → P15 → P16 → sufficiently specified P17/P18 without routine prompts.
-B3 P1 command-route preparation is `14-b3-preparation.md`; not part of B2.
+F1 CLOSED at `af455ef838b8c2227d784ebdc8bafb89e7a6835b`: completed setup survives
+wrap via exact permanent evidence, no occupancy change;179 targeted passes/
+3todos, both typechecks, independent KEEP. Bounded qualification:
+`evidence/p14b2-20260919/08-f1-closeout.md`, not a full F1 suite.
 
-Save V29 / projection 45 currently. The B1 quote is preview-only; command attachment
-remains a B3 integration obligation. Unity/rendering/native/Owner acceptance stays
-deferred in `UNITY-INTEGRATION-BACKLOG.md`. Max two native specialists, one production
-writer; test-author independent, contract-auditor read-only. Parent coordinates the
-serialized heavy-test slot, currently held by parent. T4 has no remaining
-runtime. Existing usage carries
-forward; the full runner took ~89 minutes versus the older ~75-minute forecast.
+**P14B.1 T4 CLOSED — LOGIC VERIFIED · UNITY NOT VERIFIED**, qualified:
+`evidence/p14b1-20260919-t4-final/16-attribution.md`. Full productionee91913:
+core3253pass/29fail/7todo, bridge717pass/12fail/2todo. Exact historical signatures:
+22core/all12bridge. Seven new test failures plus one typing error corrected at
+a93bf77; corrective170pass/3todo, both typechecks/contracts PASS, reviews KEEP.
+Closeoute37 pushed/remote verified; not an all-green full rerun/Owner acceptance.
+
+After B2 full attribution/publication: B3 per audited expansion in
+`plans/P14-HEADLESS-PLAN.md` and evidence `12-b3-expansion-draft.md`. P1 command
+attachment is STILL preview-only. Test-author may draft B3 only outside checkout
+(`/tmp/studio-b3-tests-jWA61F`) during B2 checks, no runtime/install. Then remaining
+P14 → P15 → P16 → sufficiently specified P17/P18, without routine prompts.
+
+Unity/rendering/native/Owner acceptance deferred; generated C# is not consumer
+verification. Maintain backlog, including inherited missing32–44 runtime-schema
+registry identities; genuine45 compatibility does not prove those older schemas.
+Prior usage carries forward; full-run forecast ~90min from actual T4~89min.
 
 ## Historical recovered handoff (unchanged below)
 

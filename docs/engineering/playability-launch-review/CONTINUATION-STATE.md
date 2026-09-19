@@ -1,61 +1,53 @@
 # CONTINUATION STATE — three-week autonomous window (Owner directive 2026-09-15)
 
-## Current continuation — 2026-09-19: T4 closed; P14B.2 T1 active
+## Current continuation — 2026-09-19: B2 source landed, full verification next
 
-T4 closeout `e37cd2330be8c9129b0193a2bf8e84258e851307` pushed and remote SHA
-verified. B2 test-author owns independent tests/fixture proofs; parent owns the sole heavy
-runtime slot; sim-core read-only production preparation until T1 RED. Parent
-integration/records; no concurrent tests. Exact ownership/next steps:
+Source/test candidate `3b978d77c29df2b5de038e3b1b7fc94778257f33`; Save29 /
+projection46. Branch/worktree: `CODEX-START-HERE.md`. Preserve recovered commits/
+newer changes/evidence. Parent owns sole heavy runtime; no source/test edits or
+HEAD commits during a fixed-source pass. Live slot and exact next actions:
 `evidence/p14b2-20260919/00-start.md`.
 
-Active next action: publish F1 checkpoint, install independently authored B2 test
-and record absent-module RED, then release sim-core for projection46. F1 CLOSED
-at `af455ef838b8c2227d784ebdc8bafb89e7a6835b`: 17 files/179 passed/three unchanged
-todos, root/UI and bridge typechecks PASS, independent KEEP. Exact fixed-source
-records/limits: `p14b2-20260919/08-f1-closeout.md`. Test-author's dedicated RED
-and negative guards (`02i`, three fails/ten passes) and genuine45 checkpoint are
-preserved. Checkpoint forward RED (`09`) has its two intended failures at45.
-No active runtime. Main B2 draft is ready outside the checkout at
-`/tmp/studio-b2-main-tests-xLBdsi/bridge-p14b2-trust.test.ts`.
-A real filming→Post advance
-revealed an inherited save-validator/live-occupancy conflict; independent review
-KEEP and technical plan reconciliation recorded at `p14b2-20260919/03-setup-wrap-review.md`.
-F1 verification/publication precedes installing the main B2 test and module RED,
-then the original read models. Auditor is read-only on the independent B2 draft.
-Actual poaching and kept/broken/history/rival fixture preconditions are now proven
-in separate completed probes; no B2 projection code or bridge GREEN claimed yet.
+B2 independent module RED6d23466 pushed/remote verified. Main22/22, genuine45
+checkpoint2/2, F113/13 and fixture5/5 pass. Initial D3 premise failed (five offers
+all survived); corrected controlled real staging keeps exactly two survivors and
+proves compensation→opportunity winner reversal plus actual binding. D3/schema:
+33pass/2unchanged todos, audit KEEP. Neighbours18:148pass/one current-schema hash
+failure/one todo; correction ONLY F10/F11, unchanged generator/fixtures, fresh21:
+31/31. Root/UI15, bridge17 and contract checks19/20 PASS; full pass repeats all on
+committed final source. Exact source hashes/failures/limits:
+`evidence/p14b2-20260919/13-candidate-review.md`. B2 NOT CLOSED.
 
-**P14B.1 T4 CLOSED — LOGIC VERIFIED · UNITY NOT VERIFIED**, qualified, not Owner
-acceptance. Production `ee91913e41b9baa30bcda8eef8c8195da7bfd1cc`; test-only
-corrections `a93bf7776a41df3702c78ae5225a2e7c303ec9da`. Recovered `d19c45b` and
-T3 `e78dbc0` preserved. Current branch/worktree and ownership: `CODEX-START-HERE.md`.
-Older NOW/RUNNING statements below are historical only.
+Next: publish source/evidence checkpoint, verify remote SHA, then run prepared
+`evidence/p14b2-20260919/run-fixed-source.mjs p14b2-20260919-final` once: serial
+typechecks/contracts/core/bridge with established flags. Disposable localhost
+preflight returned EPERM inside sandbox; full server-inclusive tests require the
+normal explicit sandbox escalation, not altered tests. Preserve source throughout;
+attribute every failure by historical identifier AND diagnostic, fix regressions,
+qualify label/backlog/records, push/remote verify, then B3. Do not repeat T4/B1.
 
-Full frozen evidence `p14b1-20260919-t4-final/00-run.json`:
-11:22:39Z–12:51:55Z, unchanged source/tests. Core 3253 passed / 29 failed / seven
-todos; bridge 717 passed / 12 failed / two todos. Complete diagnostic comparisons
-`13`/`15` retain all 22 inherited core and 12 inherited bridge signatures.
-Seven new core test-compatibility failures plus a test-only TS2339 were fixed
-without production/config/harness/generated/fixture changes. Corrective records
-`p14b1-20260919-t4/16`–`20`: 13 files / 170 passed / three unchanged todos;
-both typechecks and both contract checks GREEN. Exact tested patch SHA
-`1d9b8130ff35666e67098e2d6dddf440e99766a918f889505896c2ce064d13d4`.
-Final attribution `p14b1-20260919-t4-final/16-attribution.md`; independent reviews
-KEEP. Raw failures retained; no wholly green full rerun claimed.
+F1 CLOSED at `af455ef838b8c2227d784ebdc8bafb89e7a6835b`: independent3fail/10pass
+RED → narrow permanent-wrap setup validation →179 targeted passes/3todos, both
+typechecks/independent KEEP. Bounded logic verified, Unity not verified:
+`evidence/p14b2-20260919/08-f1-closeout.md`. Publication5fdaa46 remote verified.
 
-Next: P14B.2 T1 independent RED and actual kept/broken/poaching fixture proofs,
-then T2 projection 46, T3 D3 causal test, T4 review/full checks/publication.
-Use the existing expansion and `13-b2-test-preparation.md`; its old guessed
-contract-ID issue is already fixed. Save V29 unchanged, no T0 mint. One production
-writer / max two specialists; parent owns serialized heavy tests. No T4 runtime
-remains active. B2 forecast: 2–4 hours fixture/implementation plus ~90 minutes
-full validation, revised from actual results. Prior usage carries forward, no
-new allowance. T4's ~89-minute run exceeded the older observation by ~14 minutes.
+P14B.1 T4 qualified CLOSED at e37 (remote verified): productionee91913, test-only
+correctionsa93bf77; fullcore3253pass/29fail/7todo, bridge717pass/12fail/2todo.
+Exact historical signatures22core/all12bridge; seven new test failures and one
+typing error corrected;170pass/3todo, both typechecks/contracts PASS. Attribution
+`evidence/p14b1-20260919-t4-final/16-attribution.md`; no all-green full rerun or
+Unity/Owner acceptance. Recovered d19/T3 preserved.
 
-Then remaining P14 → P15 → P16 → sufficiently specified P17/P18. Unity/rendering/
-native/Owner acceptance remains deferred. B1's preview-only command attachment
-gap and orphan-draft reservation follow-up are isolated in B3 preparation
-`14-b3-preparation.md`, not silently included in B2.
+B3 audited, NOT STARTED: P14 plan + `12-b3-expansion-draft.md`, review13. Existing
+P1 atomic attachment/refusal/immutable drafts and abandoned-reservation correction;
+current competing-proposal accounting separately OPEN/unchanged. Test-author may
+draft two files ONLY under `/tmp/studio-b3-tests-jWA61F` during B2 runtime; no
+install/runtime before B2 gate. Sim-core/auditor idle. Max two specialists, one
+production writer; no Claude/installs or routine permission prompts.
+
+Continue remaining P14 → P15 → P16 → sufficiently specified P17/P18. Unity/native/
+rendering/Owner acceptance deferred in backlog. Prior usage carries forward;
+full-run forecast ~90min from actual T4~89min (+14 over older forecast).
 
 ## Historical continuation records (preserved)
 

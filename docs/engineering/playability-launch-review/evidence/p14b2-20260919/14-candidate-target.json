@@ -1,0 +1,32 @@
+{
+  "sourceSha": "6d23466bbdefbe0a4061bea31b599e739591a63c",
+  "testedDiffSha256": "125cd670b8acdc13b34efb5dc7b9193faa21751c68edb666c42277810064df8c",
+  "untrackedSource": [
+    "bridge/trust.ts"
+  ],
+  "command": [
+    "npx",
+    "vitest",
+    "run",
+    "tests/bridge-p14b2-trust.test.ts",
+    "tests/bridge-p14b2-checkpoint.test.ts",
+    "tests/p14b1-trust-chooser.test.ts",
+    "tests/p14b2-fixture-preconditions.test.ts",
+    "tests/p14b2-setup-wrap-regressions.test.ts",
+    "--minWorkers=1",
+    "--maxWorkers=1",
+    "--reporter=dot"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-19T14:08:13.245Z",
+  "end": "2026-09-19T14:09:27.947Z",
+  "exitCode": 1,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "6d23466bbdefbe0a4061bea31b599e739591a63c",
+  "testedDiffSha256AtEnd": "125cd670b8acdc13b34efb5dc7b9193faa21751c68edb666c42277810064df8c",
+  "untrackedSourceAtEnd": [
+    "bridge/trust.ts"
+  ],
+  "fixedSource": true
+}
