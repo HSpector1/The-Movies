@@ -1,0 +1,26 @@
+{
+  "sourceSha": "7022ade72a3f22ab555e225e36c528563eb6fba7",
+  "testedDiffSha256": "1128925d10580217f2a31e13b0241c3fba1212585c72635c8f7abecca0085b5b",
+  "untrackedSource": [
+    "tests/p14b4-material-evidence-core.test.ts"
+  ],
+  "command": [
+    "./node_modules/.bin/vitest",
+    "run",
+    "tests/p14b4-material-evidence-core.test.ts",
+    "--minWorkers=1",
+    "--maxWorkers=1"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-19T22:27:46.616Z",
+  "end": "2026-09-19T22:28:03.872Z",
+  "exitCode": 1,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "7022ade72a3f22ab555e225e36c528563eb6fba7",
+  "testedDiffSha256AtEnd": "1128925d10580217f2a31e13b0241c3fba1212585c72635c8f7abecca0085b5b",
+  "untrackedSourceAtEnd": [
+    "tests/p14b4-material-evidence-core.test.ts"
+  ],
+  "fixedSource": true
+}

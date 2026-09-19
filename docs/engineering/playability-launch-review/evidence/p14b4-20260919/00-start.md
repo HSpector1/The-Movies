@@ -1,5 +1,28 @@
 # P14B.4 — additive data checkpoint in verification
 
+CURRENT33 CLOSED:17cases12PASS/5reachedFAIL, fixedSource:true. Actual three-seat
+construction succeeded; two material failures and three wrong-class SATISFIED
+failures, qualification34. No heavy process/source writer. Next publish exactRED
+then one sim-core writer promises.ts purehelpers ONLY; protected tests frozen.
+Test-author inert bridge preparation active; policyv2 frozen/unreviewed. FullB4
+live29/rules3/projection46 and remaining independent coverage unchanged.
+
+ACTIVE33: sole parent material/evidence17-case RED, session27685, on published
+7022ade. Exact v2 installation confirmed: draft72ae8b34… plus one provenance
+comment -> installed2adf844f…; independent v2 KEEP a32ff490…. Originalv1+brief
+archives and REFINE review remain. ALL protected files FROZEN; no production
+writer/second runtime. Test-author owns inert bridge draft; policyv2 frozen,
+awaiting separate review. Next inspect33 full diagnostics, publish RED, then one
+sim-core writer for bounded pure material/qualifying-take helpers only.
+
+LATEST PUBLISHED:7022ade72a3f22ab555e225e36c528563eb6fba7, exact remote verified
+2026-09-19T22:19:59Z (32publication). Qualified report29, not full B4 closeout.
+All runtime sessions CLOSED, no production writer. Native author finishes inert
+focused17-case material/evidence draft, then policy-v1 observer refinement (v1
+now recoverably published). Auditor reviews focused draft before installation.
+Next exact install/serialRED on7022, then sole sim-core pure material/evidence
+implementation. No live29/rules3/projection46 cutover. Older notes are chronology.
+
 CURRENT: additive29qualified report COMPLETE; checks24/25/27/28 ALL fixedSource
 true and PASS within declared scope. Root+UI/bridge clean;137save cases and14
 selected schema cases PASS.22schema cases unselected, not waived; earlier22

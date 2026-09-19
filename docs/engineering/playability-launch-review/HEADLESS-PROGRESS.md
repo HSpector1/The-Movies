@@ -16,8 +16,8 @@ sentinels/strict outcome typing review31 KEEP. Earlier failures/evidence retaine
 Capacity22 remains15 prerequisite FAIL, not reached solver proof (qualification23).
 Live29/projection46/rules3 remain until coordinated behavior/wire cutover. B4 is
 IN PROGRESS, not full-suite, live P2, Unity or Owner acceptance.
-Last verified upstream d39a9a04e4eae7767d5a15225de36e86f0440c14; next publish THIS
-additive checkpoint and independently verify exact remote. T0 a762 unchanged.
+Additive implementation7022ade72a3f22ab555e225e36c528563eb6fba7 PUSHED and
+independently exact-remote verified2026-09-19T22:19:59Z (B4/32). T0 a762 unchanged.
 Then review/run directly reached material/evidence RED and release ONE bounded
 sim-core implementation. Test-author prepares inert direct-core coverage; policy
 v1 REFINE preserved before author-time/settlement observer correction. No heavy

@@ -1,0 +1,145 @@
+# B4 direct material/evidence preparation — INERT, UNEXECUTED
+
+Prepared 2026-09-19 UTC / 2026-09-20 Europe/Berlin as native independent
+test-author. Parent owns all runtime. Only this brief and
+`p14b4-material-evidence-core.test.ts.draft.txt` were written for this task.
+No live source/test/configuration/fixture edits, test/probe/typecheck, Git/network
+or descendant. Original policy v1 and its pending REFINE finding are untouched.
+
+Intended later path: `tests/p14b4-material-evidence-core.test.ts`.
+Draft v2: 395 lines, 17 expanded cases.
+SHA256 72ae8b34af99bd547e3c6cf5e3b2ffd9b215b22e07684d1a22084500189b1b92.
+
+## V2 fixture repair and exact v1 preservation
+
+Independent review `MATERIAL-EVIDENCE-CORE-REVIEW.md` (unchanged)
+SHA256 1f1c22e2669365cac8e52152d76976fbdefaa6b40dd59c8bf04926db109b8d1d
+proved a concrete v1 selection defect from actual corpus bytes: bound roots belong
+to09/08 but contract-order complement selection chose12/13, so the shared case
+could never reach its second-bound-beneficiary assertion. This is not a runtime
+observation or merely a hypothetical missing witness.
+
+Before repair, byte-exact inert archives were created and independently rehashed:
+`p14b4-material-evidence-core.test.ts.v1-archive.txt`
+56e9946d63092f5aade1c3ad6457c59d1865273ebe79c6714e03c986fa5cc8e8 and
+`MATERIAL-EVIDENCE-CORE-BRIEF.v1-archive.txt`
+59f28e9ced40ac7db21ba21b4982bc7170874a13110b47b640fc8660dbc2d640.
+
+V2 derives the second beneficiary from the actual second bound root and, ONLY
+for the original lead-case payload, selects it first among complementary actors
+so it occupies antagonist BEFORE real greenlight. It requires its real binding,
+OPEN status, different beneficiary, current actual contract and acting profile.
+Existing actual actor membership, six-distinct-person/crew guard and every
+transition/material/outcome assertion remain. Antagonist/support target payloads
+are unchanged. No source policy, fixture bytes, contract order, later cast/take,
+receipt, root or binding is rewritten. No execution/typecheck was performed.
+
+Authority: reviewed B4 plan SHA256
+382252e23b6353acf602d87f38032ff961e9f7f9740bbfdf2b2ae368c30df4e4,
+parent's accepted actual pre-promise-pass fixture and bounded pure-core staging
+contract. Source read is the additive data candidate based on
+d39a9a04e4eae7767d5a15225de36e86f0440c14 (parent18 protected source diff
+bb0858bc0968dff124f157b47de42095f5aa85e889a180238bdb720e2b03594b).
+The separately recorded13-test correction in evidence30 changes no engine law.
+No claim this draft was executed or independently typechecked.
+
+## Purpose and exact coverage
+
+The existing public `promiseDigest`, `attachedPromiseDigest` and
+`advancePromisesWeek` owners are called directly. Existing additive
+`validateSaveV30` admits every synthetic input and validates every successful
+expected output. There is NO guessed exported class-mask/qualifying helper,
+makeSave/live-writer pin, evaluator4/root-version pin, new attach, quote, capacity
+classification or natural tagged-authoring prerequisite in this focused suite.
+It can expose material/evidence defects before the live writer/alias cutover.
+
+| Cases | Independent requirement |
+| --- | --- |
+| 5 | All legacy count-only families keep EXACT FNV(JSON([family,count,start,due])); attachment is FNV of the ordered material digest list; empty is ''. |
+| 1 | Old classless P2, tagged lead and tagged flexible are three different materials. Parent's routine tagged formula choice is independently computed as FNV(JSON([family,count,start,due,'castRoleCount',selectedClass])). No live digest is its own expected formula. |
+| 1 | Family/count/start/due sensitivity remains exact; old root versions/receipts are not repaired, and inputs remain unchanged. |
+| 6 | Two tagged classes × actual lead/antagonist/support roles. Lead accepts both; antagonist flexible only; support neither. Incompatible but not-due roots remain OPEN with zero progress/evidence and no own outcome receipt. |
+| 2 | A genuine support take continues satisfying P1 and explicitly reader-admitted legacy count-only P2. |
+| 1 | Two already genuinely bound people in lead/antagonist share the same durable take, satisfy lead/flexible variants, and mint exactly two different OWN outcome receipts. |
+| 1 | Actual take at window start is included; the same actual take at due-exclusive is excluded and due evaluation produces BROKEN with its own real outcome receipt. |
+
+All outcome cases preserve the original feasibility receipt/root version and
+exercise exact same-week repeated passes. Each repeat compares the COMPLETE
+promiseOutcome receipt set, including orphan receipts, plus complete state.
+There is no actual later tick in the repeat assertion, so unrelated legitimate
+later outcomes are not incorrectly frozen. The pure owner must not mutate caller,
+first takes, industry, studio, ledger or RNG. Own receipt identity is distinct
+from the shared first-take identity and backed by exact real employment/settlement.
+
+## Actual corpus identity, not mutable metadata agreement
+
+Compressed bytes, decompressed bytes and provenance files were independently
+read/hashed in this preparation; only artifact reads/decompression/hashing ran,
+never an engine import/test/probe. Literal expected hashes are embedded:
+
+| Genuine final-V29 file | gzip SHA256 | raw SHA256 | provenance SHA256 |
+| --- | --- | --- | --- |
+| genuine-v29-current-p1 | 4947c31baa8cf9b948edd3a75b246df56c6d924e6d624ef1e18591d977f4cca7 | 03017370f16d9d2cf211f5653650a6d41452f73f0e8b96bb4aa154a6a946f4ca | 8d971552112afe2c7e02501593b4fca03cd5d72be9d0b021bda20cbb175a0d89 |
+| genuine-v29-bound-open-p1 | 48ec1b4474c2d808cae8d689dde74b8695fa5a95f2b51499a384a189e7fb880e | 9d1a1ea177f021477fbd73d401e76bbb4a0448a680253082a100c1e5246862d9 | 18e72f4320a52739624675ca930348a4e575dafb3f565534fb7e1631de42c781 |
+
+Files live in `tests/fixtures/p14/genuine-v29-pre-p2/`, published preservation
+checkpoint a76242f2f4bdfda98e38ec706e3110ad6a9bb957 (parent publication evidence,
+no new Git operation here). Literal producer pins are tested89b5ad2cfc6947ea07fb043ef5b23eba38d7dbde,
+publishedc06db6eae2a1350317c018c6f108d115dcba7b19, old rules3/Save29/projection46,
+schema584bdd8565030f049d548b1af4fcbf8c517ca7c9150016736f632f1ef8fcb98c.
+Frozen validateSaveV29 and exact export roundtrip run before governed migrateToV30.
+Focused IDs/receipts are joined to genuine provenance after its literal hash check.
+No new fixture bytes, restamping, reminting or Owner campaign is involved.
+
+## Constructive outcome input — every runtime guard still UNEXECUTED
+
+1. Load the actual bound-open week52 state, require two distinct genuine bound
+   OPEN P1 roots and their exact real settlement/employment receipts. Neither
+   root is terminal or reopened; no root/binding/outcome ID is invented.
+2. Preserve the ACTUAL mixed-mode law: operations managed, script development
+   legacy, zero script projects. Use the existing legal direct-stock greenlight,
+   real contracted complementary roster and six distinct cast/crew IDs. Do not
+   force managed screenplay commissioning or bypass a managed Ready gate.
+3. Branch by the actual chosen cast seat BEFORE greenlight, never rewrite a
+   production/take afterward. Walk actual ticks to Rehearsal, select the real
+   ballroom recipe, reach Shooting, assign its real director, wait for actual
+   ready scenery, and schedule the real take. Guards40/6 bound fixture search;
+   no timeout override, countdown edit or manual-clear bypass.
+4. Transparent pass-through observation proves the real operations5→4 transition
+   emitted the selected production. A second transparent observer captures the
+   actual advancePromisesWeek input AFTER durable take append but BEFORE outcomes.
+   The original outcome owner still runs unchanged on its natural branch. The
+   captured input contains the original still-OPEN roots and real first-take row.
+5. Admit this actual phase state with validateSaveV30 using its already governed
+   migrated carrier and current broadcast cache. Only THEN create explicitly
+   labeled in-memory family/predicate/window variants, preserving all real
+   bindings/cast/takes/history/old receipts/root versions. Admission precedes the
+   direct outcome read; expected outputs are strictly revalidated afterward.
+
+The V30 state is structurally accepted by the existing owner signatures; the
+draft uses no type cast or broadened application alias. An actual typecheck is
+still owed. If strict validation rejects the captured phase, or the old bound
+roster cannot lawfully construct a requested cast role, preserve that finding;
+do not relax validators or create fake durable facts.
+
+The shared case specifically guards that the second genuine bound beneficiary
+actually occupies antagonist, has a distinct real contract, remains OPEN, and
+receives the very same emitted take. V2 deliberately selects that person in the
+original legal payload as described above; this repairs the source-proven v1
+omission, but actual admission and lifecycle execution are still owed. The actual
+artifact's two roots do not authorize fabricating a third binding.
+
+## Limits and handoff
+
+This is player-backed pure material/evidence coverage, not the complete B4 slice.
+Existing composite tests stay unchanged, including their original preserved RED.
+Rival natural tagged authoring/settlement, both-issuer lifecycle, actual new rule4
+offer/freeze behavior, capacity, bridge privacy, liveSave30/projection47 cutover,
+distinct-multiple-production counting and first-take-then-cancel remain in their
+separate owner suites. Support compatibility here is a labeled reader-admitted
+variant, not a claim that an old producer authored a tagged or count-only P2 offer.
+
+Next: independent bounded review, then separate parent installation and serial
+recorded RED. Expected relevant old behavior: class-insensitive digest collision
+and generic-cast outcome acceptance. These are hypotheses until actual diagnostics;
+no reached RED or new production release follows from this draft alone.

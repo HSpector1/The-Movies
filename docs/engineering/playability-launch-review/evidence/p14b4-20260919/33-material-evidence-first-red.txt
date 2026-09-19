@@ -1,0 +1,106 @@
+{"sourceSha":"7022ade72a3f22ab555e225e36c528563eb6fba7","testedDiffSha256":"1128925d10580217f2a31e13b0241c3fba1212585c72635c8f7abecca0085b5b","untrackedSource":["tests/p14b4-material-evidence-core.test.ts"],"command":["./node_modules/.bin/vitest","run","tests/p14b4-material-evidence-core.test.ts","--minWorkers=1","--maxWorkers=1"],"node":"v20.20.2","start":"2026-09-19T22:27:46.616Z","end":null,"exitCode":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/p14b4-material-evidence-core.test.ts (17 tests | 5 failed) 12274ms
+   ✓ P14B4 staged material owner, independent old formula and explicit class > retains the exact old count-only APPEARANCE_COUNT formula and attached formula 677ms
+   ✓ P14B4 staged material owner, independent old formula and explicit class > retains the exact old count-only LEAD_OR_SIGNIFICANT_ROLE_COUNT formula and attached formula 440ms
+   ✓ P14B4 staged material owner, independent old formula and explicit class > retains the exact old count-only DIRECTING_COUNT formula and attached formula 372ms
+   ✓ P14B4 staged material owner, independent old formula and explicit class > retains the exact old count-only PREFERRED_GENRE_OPPORTUNITY formula and attached formula 635ms
+   ✓ P14B4 staged material owner, independent old formula and explicit class > retains the exact old count-only SPECIFIC_PROJECT formula and attached formula 376ms
+   × P14B4 staged material owner, independent old formula and explicit class > kind/class are material; old classless P2 never aliases either new class; pure reads retain inputs 651ms
+     → expected '9b4f9de3890c18d5' to be '91e769854124a539' // Object.is equality
+   × P14B4 staged material owner, independent old formula and explicit class > family, count and both window endpoints remain material without receipt/version repair 673ms
+     → expected '9b4f9de3890c18d5' to be '91e769854124a539' // Object.is equality
+   ✓ P14B4 staged outcome owner: real completed take, synthetic MATERIAL only > 'lead' against actual 'lead' 1442ms
+   × P14B4 staged outcome owner: real completed take, synthetic MATERIAL only > 'lead' against actual 'antagonist' 958ms
+     → expected { …(16) } to match object { outcome: null, progress: +0, …(2) }
+(20 matching properties omitted from actual)
+   × P14B4 staged outcome owner: real completed take, synthetic MATERIAL only > 'lead' against actual 'support' 871ms
+     → expected { …(16) } to match object { outcome: null, progress: +0, …(2) }
+(20 matching properties omitted from actual)
+   ✓ P14B4 staged outcome owner: real completed take, synthetic MATERIAL only > 'leadOrAntagonist' against actual 'lead' 477ms
+   ✓ P14B4 staged outcome owner: real completed take, synthetic MATERIAL only > 'leadOrAntagonist' against actual 'antagonist' 625ms
+   × P14B4 staged outcome owner: real completed take, synthetic MATERIAL only > 'leadOrAntagonist' against actual 'support' 243ms
+     → expected { …(16) } to match object { outcome: null, progress: +0, …(2) }
+(20 matching properties omitted from actual)
+   ✓ P14B4 staged outcome owner: real completed take, synthetic MATERIAL only > actual support still qualifies for old count-only 'APPEARANCE_COUNT' 698ms
+   ✓ P14B4 staged outcome owner: real completed take, synthetic MATERIAL only > actual support still qualifies for old count-only 'LEAD_OR_SIGNIFICANT_ROLE_COUNT' 628ms
+   ✓ P14B4 staged outcome owner: real completed take, synthetic MATERIAL only > two genuinely bound people share one take but get exactly two distinct own outcome receipts 911ms
+   ✓ P14B4 staged outcome owner: real completed take, synthetic MATERIAL only > a real take at window start counts; the same real take at due-exclusive does not 1588ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 5 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14b4-material-evidence-core.test.ts > P14B4 staged material owner, independent old formula and explicit class > kind/class are material; old classless P2 never aliases either new class; pure reads retain inputs
+AssertionError: expected '9b4f9de3890c18d5' to be '91e769854124a539' // Object.is equality
+
+Expected: "91e769854124a539"
+Received: "9b4f9de3890c18d5"
+
+ ❯ tests/p14b4-material-evidence-core.test.ts:142:26
+    140|     const materials = [old, lead, flexible].map((s) => promiseDigest(r…
+    141|     expect(materials[0]).toBe(legacyDigest(root(old.state, id)))
+    142|     expect(materials[1]).toBe(taggedDigest(root(lead.state, id), 'lead…
+       |                          ^
+    143|     expect(materials[2]).toBe(taggedDigest(root(flexible.state, id), '…
+    144|     expect(new Set(materials).size).toBe(3)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/5]⎯
+
+ FAIL |core|  tests/p14b4-material-evidence-core.test.ts > P14B4 staged material owner, independent old formula and explicit class > family, count and both window endpoints remain material without receipt/version repair
+AssertionError: expected '9b4f9de3890c18d5' to be '91e769854124a539' // Object.is equality
+
+Expected: "91e769854124a539"
+Received: "9b4f9de3890c18d5"
+
+ ❯ tests/p14b4-material-evidence-core.test.ts:162:38
+    160|     const digests = candidates.map((candidate) => {
+    161|       const promise = root(candidate.state, id)
+    162|       expect(promiseDigest(promise)).toBe(taggedDigest(promise, 'lead'…
+       |                                      ^
+    163|       expect(promise.feasibilityReceipt).toEqual(original.feasibilityR…
+    164|       expect(promise.version).toBe(original.version)
+ ❯ tests/p14b4-material-evidence-core.test.ts:160:32
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/5]⎯
+
+ FAIL |core|  tests/p14b4-material-evidence-core.test.ts > P14B4 staged outcome owner: real completed take, synthetic MATERIAL only > 'lead' against actual 'antagonist'
+ FAIL |core|  tests/p14b4-material-evidence-core.test.ts > P14B4 staged outcome owner: real completed take, synthetic MATERIAL only > 'lead' against actual 'support'
+ FAIL |core|  tests/p14b4-material-evidence-core.test.ts > P14B4 staged outcome owner: real completed take, synthetic MATERIAL only > 'leadOrAntagonist' against actual 'support'
+AssertionError: expected { …(16) } to match object { outcome: null, progress: +0, …(2) }
+(20 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  Object {
+-   "evidenceRefs": Array [],
+-   "outcome": null,
+-   "outcomeEventId": null,
+-   "progress": 0,
++   "evidenceRefs": Array [
++     "first-take-event-24",
++   ],
++   "outcome": "SATISFIED",
++   "outcomeEventId": "talent-market-event-6",
++   "progress": 1,
+  }
+
+ ❯ tests/p14b4-material-evidence-core.test.ts:345:23
+    343|       ownOutcome(after, prepared.id)
+    344|     } else {
+    345|       expect(promise).toMatchObject({ outcome: null, progress: 0, evid…
+       |                       ^
+    346|       expect(outcomes(after).filter((r) => r.talentId === promise.bene…
+    347|         .toEqual(outcomes(input.state).filter((r) => r.talentId === pr…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/5]⎯
+
+ Test Files  1 failed (1)
+      Tests  5 failed | 12 passed (17)
+   Start at  00:27:47
+   Duration  15.82s (transform 2.04s, setup 0ms, collect 2.82s, tests 12.27s, environment 0ms, prepare 155ms)
+
+
+{"sourceSha":"7022ade72a3f22ab555e225e36c528563eb6fba7","testedDiffSha256":"1128925d10580217f2a31e13b0241c3fba1212585c72635c8f7abecca0085b5b","untrackedSource":["tests/p14b4-material-evidence-core.test.ts"],"command":["./node_modules/.bin/vitest","run","tests/p14b4-material-evidence-core.test.ts","--minWorkers=1","--maxWorkers=1"],"node":"v20.20.2","start":"2026-09-19T22:27:46.616Z","end":"2026-09-19T22:28:03.872Z","exitCode":1,"signal":null,"error":null,"sourceShaAtEnd":"7022ade72a3f22ab555e225e36c528563eb6fba7","testedDiffSha256AtEnd":"1128925d10580217f2a31e13b0241c3fba1212585c72635c8f7abecca0085b5b","untrackedSourceAtEnd":["tests/p14b4-material-evidence-core.test.ts"],"fixedSource":true}
