@@ -1,0 +1,94 @@
+{"sourceSha":"17247843921781e3ad873db2e45d1737520a5623","testedDiffSha256":"f9aaf3c555912b5211843aa55c98fd7d293ca8f60191305f9cf52c9d374462e5","untrackedSource":["src/core/promiseCapacityKernel.ts","tests/p14b4-kernel-hold-order-extension.test.ts"],"command":["node_modules/.bin/vitest","run","tests/p14b4-cast-class-policy.test.ts","--minWorkers=1","--maxWorkers=1"],"node":"v20.20.2","start":"2026-09-19T23:25:44.726Z","end":null,"exitCode":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/p14b4-cast-class-policy.test.ts (7 tests | 3 failed) 58387ms
+   ✓ P14B4: one shared public archetype; no new personality or priority-position inference > a real under-30 release credit supplies the proven branch independently of the age edge 1250ms
+   × P14B4: all six D3 class matches through real two-survivor settlements > age 29: mismatch changes only D3, never proposal legality 6432ms
+     → expected 'studio-5a47d054-r04' to be 'studio-5a47d054-player' // Object.is equality
+   × P14B4: all six D3 class matches through real two-survivor settlements > age 30: mismatch changes only D3, never proposal legality 5332ms
+     → expected { count: 1 } to deeply equal { kind: 'castRoleCount', …(2) }
+   × P14B4: natural rival policy uses the real shared service, never staged failed candidates > observes flexible-first, actual P1 fallback, proven P1, and a genuine zero-attachment refusal without extra RNG 44864ms
+     → expected { family: 'APPEARANCE_COUNT', …(7) } to deeply equal { …(8) }
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14b4-cast-class-policy.test.ts > P14B4: all six D3 class matches through real two-survivor settlements > age 29: mismatch changes only D3, never proposal legality
+AssertionError: expected 'studio-5a47d054-r04' to be 'studio-5a47d054-player' // Object.is equality
+
+Expected: "studio-5a47d054-player"
+Received: "studio-5a47d054-r04"
+
+ ❯ tests/p14b4-cast-class-policy.test.ts:320:39
+    318|       expectPreferences(result.frozen, fixture.talentId, age === 30)
+    319|       const match = age === 30 || candidate.family === 'LEAD_OR_SIGNIF…
+    320|       expect(result.receipt.studioId).toBe(match ? fixture.incumbentId…
+       |                                       ^
+    321|       expect(result.receipt.reasons.some((r) => /opportunity/i.test(r)…
+    322|       if (match) assertWonBinding(result, attached.root.promiseId, fix…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL |core|  tests/p14b4-cast-class-policy.test.ts > P14B4: all six D3 class matches through real two-survivor settlements > age 30: mismatch changes only D3, never proposal legality
+AssertionError: expected { count: 1 } to deeply equal { kind: 'castRoleCount', …(2) }
+
+- Expected
++ Received
+
+  Object {
+    "count": 1,
+-   "kind": "castRoleCount",
+-   "seatClass": "lead",
+  }
+
+ ❯ attachCandidate tests/p14b4-cast-class-policy.test.ts:284:26
+    282|   expect(proposal.promises).toHaveLength(1)
+    283|   const root = state.promises.find((p) => p.promiseId === proposal.pro…
+    284|   expect(root.predicate).toEqual(candidate.predicate)
+       |                          ^
+    285|   expect(root.family).toBe(candidate.family)
+    286|   expect(root.feasibilityReceipt.classification).toBe(ACHIEVABLE)
+ ❯ tests/p14b4-cast-class-policy.test.ts:310:24
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+ FAIL |core|  tests/p14b4-cast-class-policy.test.ts > P14B4: natural rival policy uses the real shared service, never staged failed candidates > observes flexible-first, actual P1 fallback, proven P1, and a genuine zero-attachment refusal without extra RNG
+AssertionError: expected { family: 'APPEARANCE_COUNT', …(7) } to deeply equal { …(8) }
+
+- Expected
++ Received
+
+  Object {
+    "beneficiaryPersonId": "person-studio-aca408ec-r01-5",
+    "dueWeekExclusive": 416,
+-   "family": "LEAD_OR_SIGNIFICANT_ROLE_COUNT",
++   "family": "APPEARANCE_COUNT",
+    "issuerStudioId": "studio-aca408ec-r01",
+    "predicate": Object {
+      "count": 1,
+-     "kind": "castRoleCount",
+-     "seatClass": "leadOrAntagonist",
+    },
+    "startWeek": 208,
+    "termWeeks": 208,
+    "windowStartWeek": 208,
+  }
+
+ ❯ tests/p14b4-cast-class-policy.test.ts:421:32
+    419|             expect(call.proposal).toEqual(first.proposal)
+    420|             expect(call.submission).toEqual(submission)
+    421|             expect(call.draft).toEqual({ ...candidates[index], issuerS…
+       |                                ^
+    422|               beneficiaryPersonId: first.proposal.talentId, startWeek:…
+    423|               windowStartWeek: first.proposal.startWeek, dueWeekExclus…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯
+
+ Test Files  1 failed (1)
+      Tests  3 failed | 4 passed (7)
+   Start at  01:25:45
+   Duration  62.29s (transform 2.51s, setup 0ms, collect 3.15s, tests 58.39s, environment 0ms, prepare 169ms)
+
+
+{"sourceSha":"17247843921781e3ad873db2e45d1737520a5623","testedDiffSha256":"f9aaf3c555912b5211843aa55c98fd7d293ca8f60191305f9cf52c9d374462e5","untrackedSource":["src/core/promiseCapacityKernel.ts","tests/p14b4-kernel-hold-order-extension.test.ts"],"command":["node_modules/.bin/vitest","run","tests/p14b4-cast-class-policy.test.ts","--minWorkers=1","--maxWorkers=1"],"node":"v20.20.2","start":"2026-09-19T23:25:44.726Z","end":"2026-09-19T23:26:48.975Z","exitCode":1,"signal":null,"error":null,"sourceShaAtEnd":"17247843921781e3ad873db2e45d1737520a5623","testedDiffSha256AtEnd":"f9aaf3c555912b5211843aa55c98fd7d293ca8f60191305f9cf52c9d374462e5","untrackedSourceAtEnd":["src/core/promiseCapacityKernel.ts","tests/p14b4-kernel-hold-order-extension.test.ts"],"fixedSource":true}

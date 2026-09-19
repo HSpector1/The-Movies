@@ -1,0 +1,197 @@
+// Installed exact independent extension70; parent verification pending, original57 unchanged.
+// INERT / UNEXECUTED. Intended tests/p14b4-kernel-hold-order-extension.test.ts.
+// Independent extension of review69's NONEMPTY hold/replacement permutation gap.
+// Detached finite scheduling facts only; no engine records or owner admission
+// claim. Definitive interface49 + selection clarification56, no solver inspected.
+import assert from 'node:assert/strict'
+import { describe, expect, it } from 'vitest'
+import { searchPromiseCapacity } from '../src/core/promiseCapacityKernel.js'
+import type { Boundary, CapacityKernelInput, CapacityKernelResult, FixedHold, Hold,
+  PictureAlternative } from '../src/core/promiseCapacityKernel.js'
+
+const b = (week: number, step = 0): Boundary => ({ week, step })
+const clone = <T>(value: T): T => structuredClone(value)
+function freeze<T>(value: T): T {
+  if (value !== null && typeof value === 'object') {
+    for (const child of Object.values(value)) freeze(child)
+    Object.freeze(value)
+  }
+  return value
+}
+const compare = (a: Boundary, z: Boundary) => a.week < z.week ? -1 : a.week > z.week ? 1
+  : a.step < z.step ? -1 : a.step > z.step ? 1 : 0
+function fixture(): CapacityKernelInput {
+  const fixedHolds: readonly FixedHold[] = [
+    { holdId: 'fixed-F-person-T', ownerKey: 'owner-F', ownerPathKey: 'F', subject: { kind: 'person', personId: 'T' },
+      from: b(8), until: b(40), replaceableFrom: b(10) },
+    { holdId: 'fixed-F-stage-zero', ownerKey: 'owner-F', ownerPathKey: 'F', subject: { kind: 'resource', resourceKey: 'stage', slot: 0 },
+      from: b(8), until: b(40), replaceableFrom: b(10) },
+    { holdId: 'fixed-F-other-cast-one', ownerKey: 'owner-F', ownerPathKey: 'F', subject: { kind: 'person', personId: 'F1' },
+      from: b(8), until: b(14, 2), replaceableFrom: null },
+    { holdId: 'fixed-F-other-cast-two', ownerKey: 'owner-F', ownerPathKey: 'F', subject: { kind: 'person', personId: 'F2' },
+      from: b(8), until: b(14, 2), replaceableFrom: null },
+    { holdId: 'other-immutable-person', ownerKey: 'other-actual-owner', ownerPathKey: 'other-person-path', subject: { kind: 'person', personId: 'Z' },
+      from: b(14, 2), until: b(40), replaceableFrom: null },
+    { holdId: 'other-immutable-stage-slot', ownerKey: 'other-actual-owner', ownerPathKey: 'other-resource-path',
+      subject: { kind: 'resource', resourceKey: 'stage', slot: 1 }, from: b(12, 2), until: b(40), replaceableFrom: null },
+  ]
+  const f: PictureAlternative = { key: 'F-release', pathKey: 'F', issuerId: 'local', existingPath: true,
+    greenlight: b(8), firstTake: null, personRelease: b(14, 2), cast: { lead: 'T', antagonist: 'F1', support: 'F2' },
+    staffingWitnessKey: 'detached-staffing:F', ownerFactRefs: ['finite-owner:F-release', 'finite-owner:F-stage-post'],
+    additionalHolds: [{ holdId: 'F-continuation-post', ownerKey: 'owner-F', ownerPathKey: 'F',
+      subject: { kind: 'resource', resourceKey: 'post', slot: 0 }, from: b(12, 2), until: b(14, 2) }],
+    holdReplacements: [{ holdId: 'fixed-F-person-T', newUntil: b(14, 2) },
+      { holdId: 'fixed-F-stage-zero', newUntil: b(12, 2) }] }
+  function event(name: string, start: number, take: number, wrap: number, release: number,
+    existingPath: boolean, cast: PictureAlternative['cast']): PictureAlternative {
+    return { key: name, pathKey: name, issuerId: 'local', existingPath, greenlight: b(start), firstTake: b(take),
+      personRelease: b(release, 2), cast, staffingWitnessKey: `detached-staffing:${name}`,
+      ownerFactRefs: [`finite-owner:${name}-cast`, `finite-owner:${name}-calendar`], holdReplacements: [],
+      additionalHolds: [
+        ...(['lead', 'antagonist', 'support'] as const).map((slot): Hold => ({ holdId: `${name}-person-${slot}`,
+          ownerKey: `owner-${name}`, ownerPathKey: name, subject: { kind: 'person', personId: cast[slot] },
+          from: b(start), until: b(release, 2) })),
+        { holdId: `${name}-stage-zero`, ownerKey: `owner-${name}`, ownerPathKey: name,
+          subject: { kind: 'resource', resourceKey: 'stage', slot: 0 }, from: b(start), until: b(wrap, 2) },
+        { holdId: `${name}-post-zero`, ownerKey: `owner-${name}`, ownerPathKey: name,
+          subject: { kind: 'resource', resourceKey: 'post', slot: 0 }, from: b(wrap, 2), until: b(release, 2) },
+      ] }
+  }
+  return { now: b(10), horizonEndWeek: 40, issuerId: 'local', target: { promiseId: null, personId: 'T',
+    mask: ['lead', 'antagonist', 'support'], window: { startWeek: 15, dueWeekExclusive: 40 },
+    state: 'unbound', count: 1, actualQualifiedCount: 0 },
+    priorClaims: [
+      { promiseId: 'prior-A', issuerId: 'local', personId: 'A', membership: 'bound', mask: ['lead', 'antagonist'],
+        window: { startWeek: 15, dueWeekExclusive: 40 }, remaining: 1 },
+      { promiseId: 'prior-B', issuerId: 'local', personId: 'B', membership: 'current', mask: ['lead', 'antagonist', 'support'],
+        window: { startWeek: 15, dueWeekExclusive: 40 }, remaining: 1 },
+    ], foreignDebits: [], fixedHolds, alternatives: [f,
+      event('G', 15, 18, 20, 22, true, { lead: 'T', antagonist: 'A', support: 'B' }),
+      event('Q', 25, 28, 30, 32, false, { lead: 'T', antagonist: 'Q1', support: 'Q2' })],
+    coverage: { claimsAndHolds: 'complete', existingAlternatives: 'complete', allAlternatives: 'complete',
+      omissions: ['z detached-domain annotation', 'a detached-domain annotation'] }, preparationWork: 0,
+    limits: { claims: 32, units: 64, alternatives: 1024, work: 200000, span: 220 } }
+}
+
+function reversed(source: CapacityKernelInput): CapacityKernelInput {
+  return { ...source, target: { ...source.target, mask: [...source.target.mask].reverse() },
+    priorClaims: [...source.priorClaims].reverse().map((p) => ({ ...p, mask: [...p.mask].reverse() })),
+    foreignDebits: [...source.foreignDebits].reverse(), fixedHolds: [...source.fixedHolds].reverse(),
+    alternatives: [...source.alternatives].reverse().map((a) => ({ ...a,
+      additionalHolds: [...a.additionalHolds].reverse(), holdReplacements: [...a.holdReplacements].reverse() })),
+    coverage: { ...source.coverage, omissions: [...source.coverage.omissions].reverse() } }
+}
+
+// A checker for the returned assignment, not a schedule search or optimizer.
+// Exact expected credits/profile are paper-derived from the sole G/Q event pair.
+function checkPositive(source: CapacityKernelInput, result: Extract<CapacityKernelResult, { status: 'CERTIFIED_ACHIEVABLE' }>) {
+  expect(result.remaining).toBe(1)
+  expect(result.bufferDemand).toBe(2)
+  expect(result.priorOptimum).toEqual({ existingUnits: 2, cumulativeByBoundary: [{ boundary: b(18), units: 2 }] })
+  const witness = result.witness
+  expect([...witness.selectedAlternativeKeys].sort()).toEqual(['F-release', 'G', 'Q'])
+  const selected = witness.selectedAlternativeKeys.map((name) => {
+    const matches = source.alternatives.filter((a) => a.key === name)
+    expect(matches).toHaveLength(1)
+    return matches[0]!
+  })
+  expect(new Set(selected.map((a) => a.pathKey)).size).toBe(3)
+  const effective = new Map(source.fixedHolds.map((h) => [h.holdId, { ...h }]))
+  const replaced = new Set<string>()
+  for (const alternative of selected) for (const replacement of alternative.holdReplacements) {
+    const original = source.fixedHolds.find((h) => h.holdId === replacement.holdId)
+    assert.ok(original)
+    assert.ok(original.replaceableFrom)
+    expect(original.ownerPathKey).toBe(alternative.pathKey)
+    expect(replaced.has(original.holdId)).toBe(false)
+    replaced.add(original.holdId)
+    expect(compare(replacement.newUntil, original.replaceableFrom)).toBeGreaterThanOrEqual(0)
+    expect(compare(replacement.newUntil, original.until)).toBeLessThanOrEqual(0)
+    effective.set(original.holdId, { ...original, until: replacement.newUntil })
+    expect({ ...effective.get(original.holdId), until: original.until }).toEqual(original)
+  }
+  expect([...replaced].sort()).toEqual(['fixed-F-person-T', 'fixed-F-stage-zero'])
+  expect(effective.get('fixed-F-person-T')!.until).toEqual(b(14, 2))
+  expect(effective.get('fixed-F-stage-zero')!.until).toEqual(b(12, 2))
+  for (const original of source.fixedHolds.filter((h) => h.replaceableFrom === null)) {
+    expect(effective.get(original.holdId)).toEqual(original) // other owners and whole immutable intervals survive
+  }
+  const holds: readonly Hold[] = [...effective.values(), ...selected.flatMap((a) => a.additionalHolds)]
+  expect(holds).toHaveLength(17)
+  expect(new Set(holds.map((h) => h.holdId)).size).toBe(holds.length)
+  const sameSubject = (a: Hold, z: Hold) => a.subject.kind === 'person'
+    ? z.subject.kind === 'person' && a.subject.personId === z.subject.personId
+    : z.subject.kind === 'resource' && a.subject.resourceKey === z.subject.resourceKey && a.subject.slot === z.subject.slot
+  for (let i = 0; i < holds.length; i++) for (let j = i + 1; j < holds.length; j++) {
+    const a = holds[i]!, z = holds[j]!
+    if (!sameSubject(a, z) || compare(a.from, a.until) === 0 || compare(z.from, z.until) === 0) continue
+    expect(compare(a.from, z.until) < 0 && compare(z.from, a.until) < 0, `${a.holdId} overlaps ${z.holdId}`).toBe(false)
+  }
+  const expectedCredits = [
+    { demandKey: ['prior', 'prior-A'], pathKey: 'G', slot: 'antagonist' },
+    { demandKey: ['prior', 'prior-B'], pathKey: 'G', slot: 'support' },
+    { demandKey: ['target'], pathKey: 'G', slot: 'lead' },
+    { demandKey: ['target'], pathKey: 'Q', slot: 'lead' },
+  ]
+  expect(witness.credits).toHaveLength(4)
+  expect(witness.credits).toEqual(expect.arrayContaining(expectedCredits))
+  const personPaths = new Set<string>()
+  for (const credit of witness.credits) {
+    const alternative = selected.find((a) => a.pathKey === credit.pathKey)
+    assert.ok(alternative)
+    assert.ok(alternative.firstTake, 'no historical/null-event take may be credited')
+    const demand = credit.demandKey[0] === 'target' ? source.target
+      : source.priorClaims.find((p) => credit.demandKey[0] === 'prior' && p.promiseId === credit.demandKey[1])
+    assert.ok(demand)
+    expect(alternative.cast[credit.slot]).toBe(demand.personId)
+    expect(demand.mask).toContain(credit.slot)
+    expect(alternative.firstTake.week).toBeGreaterThanOrEqual(demand.window.startWeek)
+    expect(alternative.firstTake.week).toBeLessThan(demand.window.dueWeekExclusive)
+    const identity = JSON.stringify([demand.personId, credit.pathKey])
+    expect(personPaths.has(identity)).toBe(false)
+    personPaths.add(identity)
+  }
+  expect(witness.targetTakeBoundaries).toEqual([b(18), b(28)])
+  expect(selected.find((a) => a.pathKey === 'G')!.existingPath).toBe(true)
+  expect(source.target.window.dueWeekExclusive - 18).toBeGreaterThanOrEqual(8)
+  expect(selected.find((a) => a.pathKey === 'F')!.firstTake).toBeNull()
+}
+function run(source: CapacityKernelInput) {
+  const before = clone(source)
+  const result = searchPromiseCapacity(freeze(source))
+  expect(source).toEqual(before)
+  expect(Number.isSafeInteger(result.workUsed)).toBe(true)
+  expect(result.workUsed).toBeGreaterThanOrEqual(0)
+  expect(result.workUsed).toBeLessThanOrEqual(source.limits.work)
+  if (result.status === 'CERTIFIED_ACHIEVABLE') checkPositive(source, result)
+  return result
+}
+
+describe('kernel69 extension: nonempty fixed/replacement/additional hold ordering', () => {
+  it('the complete finite domain certifies the literal protected schedule with both selected suffix replacements', () => {
+    const source = fixture()
+    expect(source.fixedHolds).toHaveLength(6)
+    expect(source.fixedHolds.filter((h) => h.replaceableFrom === null)).toHaveLength(4)
+    expect(source.alternatives[0]!.holdReplacements).toHaveLength(2)
+    expect(source.alternatives.every((a) => a.additionalHolds.length > 0)).toBe(true)
+    const result = run(source)
+    expect(result.status).toBe('CERTIFIED_ACHIEVABLE')
+    expect(run(reversed(source))).toEqual(result) // includes witness serialization and workUsed
+  })
+  it.each([1, 64, 256, 2048])('entire result and workUsed survive all collection reversals at budget%i', (work) => {
+    const base = fixture(), source = { ...base, limits: { ...base.limits, work } }
+    // Independent LOWER bound from only a subset of actual string leaves;49
+    // charges every character. No solver work count or generated result oracle.
+    const stringSubset = [...source.fixedHolds.flatMap((h) => [h.holdId, h.ownerKey, h.ownerPathKey ?? '']),
+      ...source.alternatives.flatMap((a) => [a.staffingWitnessKey, ...a.ownerFactRefs])]
+    expect(stringSubset.reduce((sum, value) => sum + value.length, 0)).toBeGreaterThan(256)
+    const result = run(source)
+    expect(run(reversed(source))).toEqual(result)
+    if (work <= 256) {
+      expect(result).toEqual({ status: 'UNCERTIFIED', reason: 'workLimit', workUsed: work,
+        omissions: ['normalization work limit'] })
+    }
+    //2048 is an intermediate cap, not an invented normalization/search threshold.
+    //Its exact disposition is compared across permutations, not prescribed here.
+  })
+})

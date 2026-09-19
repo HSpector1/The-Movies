@@ -1,18 +1,21 @@
-// Installed reviewed policy-v2 unchanged; inert provenance below retained. Runtime evidence: B4 43.
+// Installed reviewed policy-v2; measured fixture-only reconciliation65 follows46/58/59. Original43 retained.
 // INERT, UNEXECUTED requirement-first preparation. Intended path:
 // tests/p14b4-cast-class-policy.test.ts. No installation/runtime authority.
 // Reviewed B4 plan 382252e2, delegated policy hypothesis, not an Owner taste.
 // publicPreferredOpportunity is the ONE proposed public read API in this draft;
 // its literal spelling needs interface review before installation. No new D3,
 // authoring, final-seating, solver or synthetic-settlement export is assumed.
+import assert from 'node:assert/strict'
 import { describe, expect, it, vi } from 'vitest'
 import { applyActions } from '../src/core/actions.js'
-import { hiringMarketIds } from '../src/core/employment.js'
+import { beginFounding, hiringMarketIds } from '../src/core/employment.js'
 import { makeSave } from '../src/core/save.js'
-import { careerIdentity } from '../src/core/talentSummary.js'
+import { flattenParticipants } from '../src/core/starPower.js'
+import { careerIdentity, roleOVR } from '../src/core/talentSummary.js'
 import { tick } from '../src/core/tick.js'
 import { TUNING } from '../src/core/tuning.js'
-import type { GameState, TalentMarketCase, TalentMarketProposal, TalentMarketReceipt } from '../src/core/types.js'
+import { generateWorld } from '../src/core/worldgen.js'
+import type { GameState, Talent, TalentMarketCase, TalentMarketProposal, TalentMarketReceipt } from '../src/core/types.js'
 import { advanceTo, p13aGeneratedStudio } from '../src/harness/p13a/fixtures.js'
 import * as marketModule from '../src/core/talentMarket.js'
 import * as promiseModule from '../src/core/promises.js'
@@ -27,6 +30,9 @@ const FLEX = { family: 'LEAD_OR_SIGNIFICANT_ROLE_COUNT', predicate: { kind: 'cas
 const UNPROVEN_ORDER = ['opportunity', 'compensation', 'term', 'trust', 'standing', 'incumbency']
 const PROVEN_ORDER = ['compensation', 'term', 'trust', 'incumbency', 'standing', 'opportunity']
 type Candidate = typeof P1 | typeof LEAD | typeof FLEX
+const primaryDiscipline = { actor: 'acting', director: 'directing', writer: 'writing', craft: 'craft' } as const
+type Creative = keyof typeof primaryDiscipline
+const creative = (subject: Talent): subject is Talent & { role: Creative } => subject.role !== 'scientist'
 
 function person(state: GameState, id: string) {
   const result = state.talent.find((t) => t.id === id)
@@ -61,24 +67,79 @@ describe('P14B4: one shared public archetype; no new personality or priority-pos
   })
 
   it('a real under-30 release credit supplies the proven branch independently of the age edge', () => {
-    let state = p13aGeneratedStudio()
-    for (let step = 0; step < 220; step++) {
-      state = tick(state)
-      const subject = state.talent.find((t) => t.age < 30 && careerIdentity(t).identityDisciplines.length > 0)
-      if (subject === undefined) continue
-      const events = [...state.careerEvents, ...state.hollywood!.careerEvents].filter((e) =>
-        e.talentId === subject.id && e.workHistoryAfter > e.workHistoryBefore
-        && careerIdentity(subject).identityDisciplines.includes(e.discipline))
-      if (events.length === 0) continue
-      const event = events[0]!
-      expect(event.workHistoryAfter).toBe(event.workHistoryBefore + 1)
-      expect(event.releaseWeek).toBeLessThanOrEqual(state.market.tick)
-      expect(state.hollywood!.receipts.some((r) => r.kind === 'filmReleased' && r.productionId === event.filmId)
-        || state.studio.releasedFilms.some((f) => f.productionId === event.filmId)).toBe(true)
-      expectPreferences(state, subject.id, true)
-      return
+    // Original43's passive rival search supplied no witness by220. Exact lawful
+    // recipe46/58 supplies one through ordinary founding and a real player film.
+    // No age, skill, cash, credit or history edits. Legacy operations/development
+    // are intentional: this is a release-credit test, not a managed first take.
+    let state = beginFounding(generateWorld('p13a-core-causal-01'))
+    assert.ok(state.founding)
+    const applicants = state.founding.applicantIds.map((id) => person(state, id)).filter(creative)
+    const candidates = applicants.filter((t) => t.age < 30 && roleOVR(t, primaryDiscipline[t.role]) >= 60)
+    const subject = candidates[0]
+    assert.ok(subject, 'fixture: real usable under30 founding applicant required')
+    const discipline = primaryDiscipline[subject.role]
+    expect(subject.authored).toBe(false)
+    expect(subject.workHistory[discipline]).toBe(0)
+    expect(careerIdentity(subject).identityDisciplines).toEqual([])
+    expectPreferences(state, subject.id, false)
+    const crew: Record<Creative, string[]> = { actor: [], director: [], writer: [], craft: [] }
+    const need: Record<Creative, number> = { actor: 3, director: 1, writer: 1, craft: 1 }
+    for (const role of ['actor', 'director', 'writer', 'craft'] as const) {
+      const pool = applicants.filter((t) => t.role === role)
+      const selected = role === subject.role ? [subject, ...pool.filter((t) => t.id !== subject.id)] : pool
+      expect(selected.length).toBeGreaterThanOrEqual(need[role])
+      for (const hire of selected.slice(0, need[role])) {
+        state = applyActions(state, [{ kind: 'signContract', talentId: hire.id, termWeeks: 52 }])
+        crew[role].push(hire.id)
+      }
     }
-    throw new Error('UNEXECUTED witness guard: no real credited usable under-30 person by 220; never fabricate workHistory')
+    state = applyActions(state, [{ kind: 'foundStudio' }])
+    expect(state.operations.mode).toBe('legacy')
+    expect(state.scriptDevelopment.mode).toBe('legacy')
+    expect(state.economyEngagedEver).toBe(true)
+    const ids = [...crew.writer, ...crew.director, ...crew.actor, ...crew.craft]
+    expect(new Set(ids).size).toBe(6)
+    expect(ids).toContain(subject.id)
+    expect(state.contracts.filter((c) => ids.includes(c.talentId))).toHaveLength(6)
+    const concept = [...state.concepts].sort((a, b) => a.baseNegativeCost - b.baseNegativeCost || a.id.localeCompare(b.id))[0]!
+    state = applyActions(state, [{ kind: 'greenlight', production: { conceptId: concept.id,
+      shape: { opening: 'slowSetup', midpoint: 'revelation', ending: 'bittersweet' },
+      promise: { genre: concept.genre, intendedSegments: ['adult'], ranges: {
+        intimacy: [-0.5, 0.5], tonalWeight: [-0.5, 0.5], kineticEnergy: [-0.5, 0.5] } },
+      writerId: crew.writer[0]!, directorId: crew.director[0]!,
+      cast: { lead: crew.actor[0]!, antagonist: crew.actor[1]!, support: crew.actor[2]! }, craftIds: [crew.craft[0]!],
+      budget: { negative: concept.baseNegativeCost, marketing: 0 } } }])
+    const production = state.studio.activeProductions.at(-1)!
+    assert.ok(production.participants)
+    expect(flattenParticipants(production.participants).map((p) => p.talentId)).toContain(subject.id)
+    const beforeHistory = clone(person(state, subject.id).workHistory)
+    for (let step = 0; step < 16 && !state.studio.releasedFilms.some((f) => f.productionId === production.id); step++) {
+      const active = state.studio.activeProductions.find((p) => p.id === production.id)
+      assert.ok(active, 'unfinished production may not disappear')
+      expect(state.careerEvents.filter((e) => e.filmId === production.id)).toEqual([])
+      expect(person(state, subject.id).workHistory).toEqual(beforeHistory)
+      if (active.remainingTicks === 1) state = applyActions(state, [{ kind: 'commitPictureToRelease', productionId: production.id }])
+      state = tick(state, { develop: true }) // existing Ruling-A player-play route
+    }
+    const film = state.studio.releasedFilms.find((f) => f.productionId === production.id)
+    assert.ok(film, 'fixture: actual committed legacy release must complete within16 ticks')
+    assert.ok(film.participants)
+    expect(flattenParticipants(film.participants).filter((p) => p.talentId === subject.id)).toHaveLength(1)
+    const after = person(state, subject.id)
+    const events = state.careerEvents.filter((e) => e.filmId === production.id && e.talentId === subject.id)
+    expect(after.age).toBeLessThan(30)
+    expect(events).toHaveLength(1)
+    expect(events[0]).toMatchObject({ discipline, workHistoryBefore: 0, workHistoryAfter: 1, releaseWeek: film.releaseTick })
+    expect(events[0]!.workHistoryAfter).toBe(events[0]!.workHistoryBefore + 1)
+    expect(events[0]!.releaseWeek).toBeLessThanOrEqual(state.market.tick)
+    expect(state.studio.releasedFilms.some((f) => f.productionId === events[0]!.filmId)).toBe(true)
+    expect(after.workHistory[discipline]).toBe(1)
+    expect(careerIdentity(after).identityDisciplines).toContain(discipline)
+    expectPreferences(state, subject.id, true)
+    makeSave(state)
+    const later = tick(state, { develop: true })
+    expect(later.careerEvents.filter((e) => e.filmId === production.id && e.talentId === subject.id)).toEqual(events)
+    expect(person(later, subject.id).workHistory).toEqual(after.workHistory)
   })
 
   it('irrelevant cash does not change the public preference or create a root, receipt or RNG draw', () => {
@@ -123,8 +184,27 @@ function controlledPair(age: 29 | 30) {
   const playerId = state.hollywood!.playerStudioId
   expect(state.hollywood!.employment.some((e) => e.studioId === playerId && e.terms.talentId === hired.id
     && e.terms.endWeekExclusive === 52 && e.endedWeek === 52)).toBe(true)
-  expect(Object.values(person(state, talentId).workHistory).every((n) => n === 0)).toBe(true)
+  // Original43's zero-history premise was false: measured58 retains13 acting
+  // credits at perceived OVR11. The existing archetype requires a USABLE credited
+  // discipline, not merely a nonzero counter. Preserve all real credit/history.
+  const actualSubject = clone(person(state, talentId))
+  const actualIdentity = careerIdentity(actualSubject)
+  const credited = actualIdentity.disciplines.filter((d) => d.workHistory > 0)
+  const historyBeforeAge = clone({ player: state.careerEvents, industry: state.hollywood!.careerEvents, promises: state.promises })
+  expect(credited.length).toBeGreaterThan(0)
+  expect(actualIdentity.identityDisciplines).toEqual([])
+  for (const discipline of credited) {
+    expect(discipline.ovr).toBeLessThan(60)
+    expect(discipline.proven).toBe(false)
+    expect([...state.careerEvents, ...state.hollywood!.careerEvents].some((e) => e.talentId === talentId
+      && e.discipline === discipline.discipline && e.workHistoryAfter > e.workHistoryBefore)).toBe(true)
+  }
   state = { ...state, talent: state.talent.map((t) => t.id === talentId ? { ...t, age } : t) }
+  expect({ ...person(state, talentId), age: actualSubject.age }).toEqual(actualSubject)
+  expect(careerIdentity(person(state, talentId)).identityDisciplines).toEqual([])
+  expect(state.careerEvents).toEqual(historyBeforeAge.player)
+  expect(state.hollywood!.careerEvents).toEqual(historyBeforeAge.industry)
+  expect(state.promises).toEqual(historyBeforeAge.promises)
   expectPreferences(state, talentId, age === 30)
   const employment = state.hollywood!.employment.find((e) => e.studioId === incumbentId && e.terms.talentId === talentId && e.endedWeek === null)
   if (employment === undefined) throw new Error('fixture: actual incumbent row missing')

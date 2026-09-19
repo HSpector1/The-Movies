@@ -1,0 +1,1128 @@
+diff --git a/tests/bridge-p14b4-cast-class.test.ts b/tests/bridge-p14b4-cast-class.test.ts
+index da539f0..2f3cfd5 100644
+--- a/tests/bridge-p14b4-cast-class.test.ts
++++ b/tests/bridge-p14b4-cast-class.test.ts
+@@ -27,7 +27,6 @@ import { advanceTo } from '../src/harness/p13a/fixtures.js'
+ import type { GameStateV30, ProfessionalPromiseV30 } from '../src/core/types.js'
+ 
+ type SeatClass = 'lead' | 'leadOrAntagonist'
+-type Envelope = ReturnType<typeof validateSaveV30>
+ type P2Payload = { verb: 'propose' | 'revise'; talentId: string; termWeeks: number; premiumTier: number;
+   promise: { family: 'LEAD_OR_SIGNIFICANT_ROLE_COUNT'; count: number; windowStartWeek: number; dueWeekExclusive: number; seatClass: SeatClass } }
+ const clone = <T>(value: T): T => structuredClone(value)
+diff --git a/tests/p14b4-cast-class-policy.test.ts b/tests/p14b4-cast-class-policy.test.ts
+index 414b598..e5da0f1 100644
+--- a/tests/p14b4-cast-class-policy.test.ts
++++ b/tests/p14b4-cast-class-policy.test.ts
+@@ -1,18 +1,21 @@
+-// Installed reviewed policy-v2 unchanged; inert provenance below retained. Runtime evidence: B4 43.
++// Installed reviewed policy-v2; measured fixture-only reconciliation65 follows46/58/59. Original43 retained.
+ // INERT, UNEXECUTED requirement-first preparation. Intended path:
+ // tests/p14b4-cast-class-policy.test.ts. No installation/runtime authority.
+ // Reviewed B4 plan 382252e2, delegated policy hypothesis, not an Owner taste.
+ // publicPreferredOpportunity is the ONE proposed public read API in this draft;
+ // its literal spelling needs interface review before installation. No new D3,
+ // authoring, final-seating, solver or synthetic-settlement export is assumed.
++import assert from 'node:assert/strict'
+ import { describe, expect, it, vi } from 'vitest'
+ import { applyActions } from '../src/core/actions.js'
+-import { hiringMarketIds } from '../src/core/employment.js'
++import { beginFounding, hiringMarketIds } from '../src/core/employment.js'
+ import { makeSave } from '../src/core/save.js'
+-import { careerIdentity } from '../src/core/talentSummary.js'
++import { flattenParticipants } from '../src/core/starPower.js'
++import { careerIdentity, roleOVR } from '../src/core/talentSummary.js'
+ import { tick } from '../src/core/tick.js'
+ import { TUNING } from '../src/core/tuning.js'
+-import type { GameState, TalentMarketCase, TalentMarketProposal, TalentMarketReceipt } from '../src/core/types.js'
++import { generateWorld } from '../src/core/worldgen.js'
++import type { GameState, Talent, TalentMarketCase, TalentMarketProposal, TalentMarketReceipt } from '../src/core/types.js'
+ import { advanceTo, p13aGeneratedStudio } from '../src/harness/p13a/fixtures.js'
+ import * as marketModule from '../src/core/talentMarket.js'
+ import * as promiseModule from '../src/core/promises.js'
+@@ -27,6 +30,9 @@ const FLEX = { family: 'LEAD_OR_SIGNIFICANT_ROLE_COUNT', predicate: { kind: 'cas
+ const UNPROVEN_ORDER = ['opportunity', 'compensation', 'term', 'trust', 'standing', 'incumbency']
+ const PROVEN_ORDER = ['compensation', 'term', 'trust', 'incumbency', 'standing', 'opportunity']
+ type Candidate = typeof P1 | typeof LEAD | typeof FLEX
++const primaryDiscipline = { actor: 'acting', director: 'directing', writer: 'writing', craft: 'craft' } as const
++type Creative = keyof typeof primaryDiscipline
++const creative = (subject: Talent): subject is Talent & { role: Creative } => subject.role !== 'scientist'
+ 
+ function person(state: GameState, id: string) {
+   const result = state.talent.find((t) => t.id === id)
+@@ -61,24 +67,79 @@ describe('P14B4: one shared public archetype; no new personality or priority-pos
+   })
+ 
+   it('a real under-30 release credit supplies the proven branch independently of the age edge', () => {
+-    let state = p13aGeneratedStudio()
+-    for (let step = 0; step < 220; step++) {
+-      state = tick(state)
+-      const subject = state.talent.find((t) => t.age < 30 && careerIdentity(t).identityDisciplines.length > 0)
+-      if (subject === undefined) continue
+-      const events = [...state.careerEvents, ...state.hollywood!.careerEvents].filter((e) =>
+-        e.talentId === subject.id && e.workHistoryAfter > e.workHistoryBefore
+-        && careerIdentity(subject).identityDisciplines.includes(e.discipline))
+-      if (events.length === 0) continue
+-      const event = events[0]!
+-      expect(event.workHistoryAfter).toBe(event.workHistoryBefore + 1)
+-      expect(event.releaseWeek).toBeLessThanOrEqual(state.market.tick)
+-      expect(state.hollywood!.receipts.some((r) => r.kind === 'filmReleased' && r.productionId === event.filmId)
+-        || state.studio.releasedFilms.some((f) => f.productionId === event.filmId)).toBe(true)
+-      expectPreferences(state, subject.id, true)
+-      return
++    // Original43's passive rival search supplied no witness by220. Exact lawful
++    // recipe46/58 supplies one through ordinary founding and a real player film.
++    // No age, skill, cash, credit or history edits. Legacy operations/development
++    // are intentional: this is a release-credit test, not a managed first take.
++    let state = beginFounding(generateWorld('p13a-core-causal-01'))
++    assert.ok(state.founding)
++    const applicants = state.founding.applicantIds.map((id) => person(state, id)).filter(creative)
++    const candidates = applicants.filter((t) => t.age < 30 && roleOVR(t, primaryDiscipline[t.role]) >= 60)
++    const subject = candidates[0]
++    assert.ok(subject, 'fixture: real usable under30 founding applicant required')
++    const discipline = primaryDiscipline[subject.role]
++    expect(subject.authored).toBe(false)
++    expect(subject.workHistory[discipline]).toBe(0)
++    expect(careerIdentity(subject).identityDisciplines).toEqual([])
++    expectPreferences(state, subject.id, false)
++    const crew: Record<Creative, string[]> = { actor: [], director: [], writer: [], craft: [] }
++    const need: Record<Creative, number> = { actor: 3, director: 1, writer: 1, craft: 1 }
++    for (const role of ['actor', 'director', 'writer', 'craft'] as const) {
++      const pool = applicants.filter((t) => t.role === role)
++      const selected = role === subject.role ? [subject, ...pool.filter((t) => t.id !== subject.id)] : pool
++      expect(selected.length).toBeGreaterThanOrEqual(need[role])
++      for (const hire of selected.slice(0, need[role])) {
++        state = applyActions(state, [{ kind: 'signContract', talentId: hire.id, termWeeks: 52 }])
++        crew[role].push(hire.id)
++      }
+     }
+-    throw new Error('UNEXECUTED witness guard: no real credited usable under-30 person by 220; never fabricate workHistory')
++    state = applyActions(state, [{ kind: 'foundStudio' }])
++    expect(state.operations.mode).toBe('legacy')
++    expect(state.scriptDevelopment.mode).toBe('legacy')
++    expect(state.economyEngagedEver).toBe(true)
++    const ids = [...crew.writer, ...crew.director, ...crew.actor, ...crew.craft]
++    expect(new Set(ids).size).toBe(6)
++    expect(ids).toContain(subject.id)
++    expect(state.contracts.filter((c) => ids.includes(c.talentId))).toHaveLength(6)
++    const concept = [...state.concepts].sort((a, b) => a.baseNegativeCost - b.baseNegativeCost || a.id.localeCompare(b.id))[0]!
++    state = applyActions(state, [{ kind: 'greenlight', production: { conceptId: concept.id,
++      shape: { opening: 'slowSetup', midpoint: 'revelation', ending: 'bittersweet' },
++      promise: { genre: concept.genre, intendedSegments: ['adult'], ranges: {
++        intimacy: [-0.5, 0.5], tonalWeight: [-0.5, 0.5], kineticEnergy: [-0.5, 0.5] } },
++      writerId: crew.writer[0]!, directorId: crew.director[0]!,
++      cast: { lead: crew.actor[0]!, antagonist: crew.actor[1]!, support: crew.actor[2]! }, craftIds: [crew.craft[0]!],
++      budget: { negative: concept.baseNegativeCost, marketing: 0 } } }])
++    const production = state.studio.activeProductions.at(-1)!
++    assert.ok(production.participants)
++    expect(flattenParticipants(production.participants).map((p) => p.talentId)).toContain(subject.id)
++    const beforeHistory = clone(person(state, subject.id).workHistory)
++    for (let step = 0; step < 16 && !state.studio.releasedFilms.some((f) => f.productionId === production.id); step++) {
++      const active = state.studio.activeProductions.find((p) => p.id === production.id)
++      assert.ok(active, 'unfinished production may not disappear')
++      expect(state.careerEvents.filter((e) => e.filmId === production.id)).toEqual([])
++      expect(person(state, subject.id).workHistory).toEqual(beforeHistory)
++      if (active.remainingTicks === 1) state = applyActions(state, [{ kind: 'commitPictureToRelease', productionId: production.id }])
++      state = tick(state, { develop: true }) // existing Ruling-A player-play route
++    }
++    const film = state.studio.releasedFilms.find((f) => f.productionId === production.id)
++    assert.ok(film, 'fixture: actual committed legacy release must complete within16 ticks')
++    assert.ok(film.participants)
++    expect(flattenParticipants(film.participants).filter((p) => p.talentId === subject.id)).toHaveLength(1)
++    const after = person(state, subject.id)
++    const events = state.careerEvents.filter((e) => e.filmId === production.id && e.talentId === subject.id)
++    expect(after.age).toBeLessThan(30)
++    expect(events).toHaveLength(1)
++    expect(events[0]).toMatchObject({ discipline, workHistoryBefore: 0, workHistoryAfter: 1, releaseWeek: film.releaseTick })
++    expect(events[0]!.workHistoryAfter).toBe(events[0]!.workHistoryBefore + 1)
++    expect(events[0]!.releaseWeek).toBeLessThanOrEqual(state.market.tick)
++    expect(state.studio.releasedFilms.some((f) => f.productionId === events[0]!.filmId)).toBe(true)
++    expect(after.workHistory[discipline]).toBe(1)
++    expect(careerIdentity(after).identityDisciplines).toContain(discipline)
++    expectPreferences(state, subject.id, true)
++    makeSave(state)
++    const later = tick(state, { develop: true })
++    expect(later.careerEvents.filter((e) => e.filmId === production.id && e.talentId === subject.id)).toEqual(events)
++    expect(person(later, subject.id).workHistory).toEqual(after.workHistory)
+   })
+ 
+   it('irrelevant cash does not change the public preference or create a root, receipt or RNG draw', () => {
+@@ -123,8 +184,27 @@ function controlledPair(age: 29 | 30) {
+   const playerId = state.hollywood!.playerStudioId
+   expect(state.hollywood!.employment.some((e) => e.studioId === playerId && e.terms.talentId === hired.id
+     && e.terms.endWeekExclusive === 52 && e.endedWeek === 52)).toBe(true)
+-  expect(Object.values(person(state, talentId).workHistory).every((n) => n === 0)).toBe(true)
++  // Original43's zero-history premise was false: measured58 retains13 acting
++  // credits at perceived OVR11. The existing archetype requires a USABLE credited
++  // discipline, not merely a nonzero counter. Preserve all real credit/history.
++  const actualSubject = clone(person(state, talentId))
++  const actualIdentity = careerIdentity(actualSubject)
++  const credited = actualIdentity.disciplines.filter((d) => d.workHistory > 0)
++  const historyBeforeAge = clone({ player: state.careerEvents, industry: state.hollywood!.careerEvents, promises: state.promises })
++  expect(credited.length).toBeGreaterThan(0)
++  expect(actualIdentity.identityDisciplines).toEqual([])
++  for (const discipline of credited) {
++    expect(discipline.ovr).toBeLessThan(60)
++    expect(discipline.proven).toBe(false)
++    expect([...state.careerEvents, ...state.hollywood!.careerEvents].some((e) => e.talentId === talentId
++      && e.discipline === discipline.discipline && e.workHistoryAfter > e.workHistoryBefore)).toBe(true)
++  }
+   state = { ...state, talent: state.talent.map((t) => t.id === talentId ? { ...t, age } : t) }
++  expect({ ...person(state, talentId), age: actualSubject.age }).toEqual(actualSubject)
++  expect(careerIdentity(person(state, talentId)).identityDisciplines).toEqual([])
++  expect(state.careerEvents).toEqual(historyBeforeAge.player)
++  expect(state.hollywood!.careerEvents).toEqual(historyBeforeAge.industry)
++  expect(state.promises).toEqual(historyBeforeAge.promises)
+   expectPreferences(state, talentId, age === 30)
+   const employment = state.hollywood!.employment.find((e) => e.studioId === incumbentId && e.terms.talentId === talentId && e.endedWeek === null)
+   if (employment === undefined) throw new Error('fixture: actual incumbent row missing')
+diff --git a/src/core/promiseCapacityKernel.ts b/src/core/promiseCapacityKernel.ts
+new file mode 100644
+index 0000000..35e2da3
+--- /dev/null
++++ b/src/core/promiseCapacityKernel.ts
+@@ -0,0 +1,741 @@
++/**
++ * Detached, finite promise-capacity search. Inputs are owner-certified whole
++ * picture alternatives, not forecasts or permission to invent a game action.
++ * A result concerns the joint offer only; it is never causal outcome evidence.
++ */
++type DeepReadonly<T> = T extends object
++  ? { readonly [K in keyof T]: DeepReadonly<T[K]> } : T
++
++export type Slot = 'lead' | 'antagonist' | 'support'
++export type Mask = readonly Slot[]
++export type Boundary = Readonly<{ week: number; step: number }>
++export type Window = Readonly<{ startWeek: number; dueWeekExclusive: number }>
++export type HoldSubject =
++  | Readonly<{ kind: 'person'; personId: string }>
++  | Readonly<{ kind: 'resource'; resourceKey: string; slot: number }>
++export type Hold = DeepReadonly<{
++  holdId: string; ownerKey: string; ownerPathKey: string | null
++  subject: HoldSubject; from: Boundary; until: Boundary
++}>
++export type FixedHold = Hold & Readonly<{ replaceableFrom: Boundary | null }>
++export type HoldReplacement = Readonly<{ holdId: string; newUntil: Boundary }>
++export type PriorClaim = DeepReadonly<{
++  promiseId: string; issuerId: string; personId: string
++  membership: 'bound' | 'current'; mask: Mask; window: Window; remaining: number
++}>
++export type ForeignDebit = DeepReadonly<{
++  promiseId: string; issuerId: string; personId: string
++  membership: 'bound' | 'current'; sourceWindow: Window; remaining: number
++}>
++export type PictureAlternative = DeepReadonly<{
++  key: string; pathKey: string; issuerId: string; existingPath: boolean
++  greenlight: Boundary; firstTake: Boundary | null; personRelease: Boundary
++  cast: Record<Slot, string>; staffingWitnessKey: string
++  additionalHolds: readonly Hold[]; holdReplacements: readonly HoldReplacement[]
++  ownerFactRefs: readonly string[]
++}>
++export type DomainCoverage = DeepReadonly<{
++  claimsAndHolds: 'complete' | 'incomplete'
++  existingAlternatives: 'complete' | 'incomplete'
++  allAlternatives: 'complete' | 'incomplete'; omissions: readonly string[]
++}>
++export type CapacityKernelInput = DeepReadonly<{
++  now: Boundary; horizonEndWeek: number; issuerId: string
++  target: {
++    promiseId: string | null; personId: string; mask: Mask; window: Window
++    state: 'unbound' | 'bound'; count: number; actualQualifiedCount: number
++  }
++  priorClaims: readonly PriorClaim[]; foreignDebits: readonly ForeignDebit[]
++  alternatives: readonly PictureAlternative[]; fixedHolds: readonly FixedHold[]
++  coverage: DomainCoverage; preparationWork: number
++  limits: { claims: number; units: number; alternatives: number; work: number; span: number }
++}>
++export type DemandKey = readonly ['target'] | readonly ['prior', string]
++  | readonly ['foreignDebit', string]
++export type Credit = DeepReadonly<{ demandKey: DemandKey; pathKey: string; slot: Slot }>
++export type Witness = DeepReadonly<{
++  selectedAlternativeKeys: readonly string[]; credits: readonly Credit[]
++  targetTakeBoundaries: readonly Boundary[]
++}>
++export type PriorProfile = DeepReadonly<{
++  existingUnits: number
++  cumulativeByBoundary: readonly { boundary: Boundary; units: number }[]
++}>
++export type CapacityKernelResult = DeepReadonly<(
++  | { status: 'ALREADY_MET'; remaining: 0 }
++  | { status: 'CERTIFIED_ACHIEVABLE'; remaining: number; bufferDemand: number
++      priorOptimum: PriorProfile; witness: Witness }
++  | { status: 'PROVEN_FRAGILE'; reason: 'achievableProbeFailed' | 'priorPathProtection'
++      priorOptimum: PriorProfile; countWitness: Witness }
++  | { status: 'PROVEN_IMPOSSIBLE'; scope: 'jointOfferOnly'
++      reason: 'completeCountFailure' | 'certifiedUpperBound'; upperBound?: number }
++  | { status: 'UNCERTIFIED'; reason: 'domainIncomplete' | 'workLimit' | 'sizeLimit'
++      omissions: readonly string[] }
++) & { workUsed: number }>
++
++const SLOTS: readonly Slot[] = ['lead', 'antagonist', 'support']
++const MAX_LIMITS = { claims: 32, units: 64, alternatives: 1024, work: 200000, span: 220 } as const
++
++function invariant(condition: unknown, message: string): asserts condition {
++  if (!condition) throw new Error(`Promise capacity input: ${message}`)
++}
++function integer(value: unknown, name: string): asserts value is number {
++  invariant(typeof value === 'number' && Number.isSafeInteger(value) && value >= 0,
++    `${name} must be a nonnegative safe integer`)
++}
++function record(value: unknown, name: string): asserts value is Record<string, unknown> {
++  invariant(value !== null && typeof value === 'object' && !Array.isArray(value), `${name} must be an object`)
++}
++function string(value: unknown, name: string): asserts value is string {
++  invariant(typeof value === 'string' && value.length > 0, `${name} must be a nonempty string`)
++}
++function array(value: unknown, name: string): asserts value is readonly unknown[] {
++  invariant(Array.isArray(value), `${name} must be an array`)
++}
++function compareBoundary(a: Boundary, b: Boundary): number {
++  return a.week < b.week ? -1 : a.week > b.week ? 1 : a.step < b.step ? -1 : a.step > b.step ? 1 : 0
++}
++function compareText(a: string, b: string): number { return a < b ? -1 : a > b ? 1 : 0 }
++function boundary(value: unknown): Boundary {
++  record(value, 'boundary')
++  integer(value.week, 'week'); integer(value.step, 'step')
++  return { week: value.week, step: value.step }
++}
++function windowValue(value: unknown): Window {
++  record(value, 'window')
++  integer(value.startWeek, 'window start'); integer(value.dueWeekExclusive, 'window due')
++  invariant(value.startWeek < value.dueWeekExclusive, 'window must be nonempty')
++  return { startWeek: value.startWeek, dueWeekExclusive: value.dueWeekExclusive }
++}
++function maskValue(value: unknown): Mask {
++  array(value, 'mask')
++  invariant(value.length >= 1 && value.length <= 3 && new Set(value).size === value.length,
++    'mask must not repeat slots')
++  const result = SLOTS.filter(slot => value.includes(slot))
++  invariant(result.length === value.length && result.every((slot, index) => slot === SLOTS[index]),
++    'mask must be lead, lead/antagonist, or all three slots')
++  return result
++}
++function membership(value: unknown): asserts value is 'bound' | 'current' {
++  invariant(value === 'bound' || value === 'current', 'claim must be bound or current')
++}
++function overlapWindow(source: Window, now: Boundary, target: Window): boolean {
++  return source.dueWeekExclusive > Math.max(now.week, target.startWeek)
++    && source.startWeek < target.dueWeekExclusive
++}
++
++class WorkLimit extends Error {}
++class Budget {
++  used: number
++  phase: 'normalization' | 'search' = 'normalization'
++  constructor(readonly limit: number, preparation: number) {
++    this.used = Math.min(preparation, limit)
++  }
++  charge(units = 1): void {
++    if (units > this.limit - this.used) { this.used = this.limit; throw new WorkLimit() }
++    this.used += units
++  }
++  sorting(length: number): void {
++    if (length < 2) return
++    const factor = 4 * Math.ceil(Math.log2(length))
++    if (length > Math.floor((this.limit - this.used) / factor)) {
++      this.used = this.limit; throw new WorkLimit()
++    }
++    this.charge(length * factor)
++  }
++}
++
++/** Scan before semantic validation/sorting so truncation is permutation neutral. */
++function scan(value: unknown, budget: Budget, ancestors = new Set<object>()): void {
++  if (value === null || typeof value !== 'object') {
++    budget.charge()
++    if (typeof value === 'string') budget.charge(value.length)
++    return
++  }
++  budget.charge() // Also bound empty containers and nesting, not just scalar leaves.
++  invariant(!ancestors.has(value), 'cyclic input')
++  ancestors.add(value)
++  if (Array.isArray(value)) {
++    budget.charge(value.length)
++    budget.sorting(value.length)
++    for (const element of value) scan(element, budget, ancestors)
++  } else for (const key in value) {
++    if (Object.prototype.hasOwnProperty.call(value, key)) scan((value as Record<string, unknown>)[key], budget, ancestors)
++  }
++  ancestors.delete(value)
++}
++
++/** Bottom-up merge sort: at most n*ceil(log2(n)) comparisons; no engine-sort variability. */
++function sorted<T>(values: readonly T[], compare: (a: T, b: T) => number): T[] {
++  let source = [...values], destination = new Array<T>(values.length)
++  for (let width = 1; width < source.length; width *= 2) {
++    for (let start = 0; start < source.length; start += width * 2) {
++      const middle = Math.min(start + width, source.length), end = Math.min(start + width * 2, source.length)
++      let left = start, right = middle
++      for (let out = start; out < end; out++) {
++        if (left < middle && (right >= end || compare(source[left]!, source[right]!) <= 0)) {
++          destination[out] = source[left++]!
++        } else destination[out] = source[right++]!
++      }
++    }
++    const swap = source; source = destination; destination = swap
++  }
++  return source
++}
++function keyed<T>(values: readonly T[], key: (value: T) => string): T[] {
++  return sorted(values.map(value => ({ value, key: key(value) })), (a, b) => compareText(a.key, b.key)).map(row => row.value)
++}
++function holdValue(value: unknown): Hold {
++  record(value, 'hold')
++  string(value.holdId, 'hold id'); string(value.ownerKey, 'hold owner')
++  invariant(value.ownerPathKey === null || typeof value.ownerPathKey === 'string' && value.ownerPathKey.length > 0,
++    'hold path must be an identity or null')
++  record(value.subject, 'hold subject')
++  let subject: HoldSubject
++  if (value.subject.kind === 'person') {
++    string(value.subject.personId, 'held person')
++    subject = { kind: 'person', personId: value.subject.personId }
++  } else {
++    invariant(value.subject.kind === 'resource', 'unknown hold subject')
++    string(value.subject.resourceKey, 'resource key'); integer(value.subject.slot, 'resource slot')
++    subject = { kind: 'resource', resourceKey: value.subject.resourceKey, slot: value.subject.slot }
++  }
++  const from = boundary(value.from), until = boundary(value.until)
++  invariant(compareBoundary(from, until) <= 0, 'hold interval is reversed')
++  return { holdId: value.holdId, ownerKey: value.ownerKey, ownerPathKey: value.ownerPathKey, subject, from, until }
++}
++function holdKey(hold: Hold): string {
++  return JSON.stringify([hold.subject, hold.from, hold.until, hold.ownerKey, hold.ownerPathKey, hold.holdId])
++}
++function alternativeKey(value: PictureAlternative): string {
++  return JSON.stringify([value.firstTake, value.greenlight, value.personRelease, value.existingPath,
++    value.cast, value.additionalHolds, value.holdReplacements, value.staffingWitnessKey,
++    value.ownerFactRefs, value.issuerId, value.pathKey, value.key])
++}
++
++function normalize(input: CapacityKernelInput): CapacityKernelInput {
++  const now = boundary(input.now)
++  integer(input.horizonEndWeek, 'horizon'); invariant(input.horizonEndWeek >= now.week, 'horizon precedes now')
++  string(input.issuerId, 'issuer'); record(input.target, 'target')
++  const target = input.target
++  invariant(target.promiseId === null || typeof target.promiseId === 'string' && target.promiseId.length > 0,
++    'target identity must be a string or null')
++  string(target.personId, 'target person'); integer(target.count, 'target count')
++  invariant(target.count > 0, 'target count must be positive')
++  integer(target.actualQualifiedCount, 'actual qualified count')
++  invariant(target.state === 'bound' || target.state === 'unbound', 'unknown target binding')
++  const targetWindow = windowValue(target.window), targetMask = maskValue(target.mask)
++  array(input.priorClaims, 'prior claims'); array(input.foreignDebits, 'foreign debits')
++  array(input.fixedHolds, 'fixed holds'); array(input.alternatives, 'alternatives')
++  const sourceIds = new Set<string>()
++  const identity = (value: PriorClaim | ForeignDebit): void => {
++    record(value, 'claim'); string(value.promiseId, 'promise id'); string(value.issuerId, 'claim issuer')
++    string(value.personId, 'claim person'); membership(value.membership); integer(value.remaining, 'remaining count')
++    invariant(!sourceIds.has(value.promiseId), 'duplicate prior/debit source identity'); sourceIds.add(value.promiseId)
++  }
++  const priorClaims = keyed(input.priorClaims.map(value => {
++    identity(value)
++    invariant(value.issuerId === input.issuerId && value.promiseId !== target.promiseId, 'prior must be local and self excluded')
++    const claimWindow = windowValue(value.window)
++    invariant(overlapWindow(claimWindow, now, targetWindow), 'prior must overlap the relevant target interval')
++    return { ...value, mask: maskValue(value.mask), window: claimWindow }
++  }), value => JSON.stringify([value.window, value.mask, value.remaining, value.membership, value.personId, value.issuerId, value.promiseId]))
++  const foreignDebits = keyed(input.foreignDebits.map(value => {
++    identity(value)
++    return { ...value, sourceWindow: windowValue(value.sourceWindow) }
++  }), value => JSON.stringify([value.sourceWindow, value.remaining, value.membership, value.personId, value.issuerId, value.promiseId]))
++  const fixedIds = new Map<string, FixedHold>()
++  const fixedHolds = keyed(input.fixedHolds.map(value => {
++    const hold = holdValue(value)
++    const replaceableFrom = value.replaceableFrom === null ? null : boundary(value.replaceableFrom)
++    if (replaceableFrom !== null) {
++      invariant(compareBoundary(hold.from, replaceableFrom) <= 0 && compareBoundary(replaceableFrom, hold.until) <= 0
++        && compareBoundary(now, replaceableFrom) <= 0, 'replaceable suffix must preserve the past and immutable prefix')
++    }
++    invariant(!fixedIds.has(hold.holdId), 'duplicate fixed hold identity')
++    const result = { ...hold, replaceableFrom }; fixedIds.set(hold.holdId, result)
++    return result
++  }), value => JSON.stringify([holdKey(value), value.replaceableFrom]))
++  const alternativeIds = new Set<string>(), addedHoldPaths = new Map<string, string>()
++  const pathKinds = new Map<string, boolean>()
++  const alternatives = keyed(input.alternatives.map(value => {
++    record(value, 'alternative'); string(value.key, 'alternative key'); string(value.pathKey, 'path key')
++    invariant(!alternativeIds.has(value.key), 'duplicate alternative identity'); alternativeIds.add(value.key)
++    invariant(value.issuerId === input.issuerId, 'alternative must belong to local issuer')
++    invariant(typeof value.existingPath === 'boolean', 'existing path flag must be boolean')
++    invariant(!pathKinds.has(value.pathKey) || pathKinds.get(value.pathKey) === value.existingPath,
++      'one path cannot be both existing and hypothetical')
++    pathKinds.set(value.pathKey, value.existingPath)
++    const greenlight = boundary(value.greenlight), personRelease = boundary(value.personRelease)
++    const firstTake = value.firstTake === null ? null : boundary(value.firstTake)
++    invariant(compareBoundary(greenlight, personRelease) <= 0, 'release precedes greenlight')
++    if (firstTake !== null) invariant(compareBoundary(greenlight, firstTake) <= 0
++      && compareBoundary(firstTake, personRelease) <= 0 && compareBoundary(now, firstTake) <= 0,
++    'take must be a future event inside the actual picture calendar')
++    record(value.cast, 'cast')
++    for (const slot of SLOTS) string(value.cast[slot], 'cast person')
++    invariant(new Set(SLOTS.map(slot => value.cast[slot])).size === 3, 'one person cannot occupy multiple cast seats')
++    string(value.staffingWitnessKey, 'staffing witness'); array(value.ownerFactRefs, 'owner facts')
++    invariant(value.ownerFactRefs.length > 0, 'alternative needs owner facts')
++    for (const ref of value.ownerFactRefs) string(ref, 'owner fact')
++    array(value.additionalHolds, 'additional holds'); array(value.holdReplacements, 'hold replacements')
++    const additionalIds = new Set<string>()
++    const additionalHolds = keyed(value.additionalHolds.map(raw => {
++      const hold = holdValue(raw)
++      invariant(!fixedIds.has(hold.holdId) && !additionalIds.has(hold.holdId), 'duplicate additional hold identity')
++      invariant(!addedHoldPaths.has(hold.holdId) || addedHoldPaths.get(hold.holdId) === value.pathKey,
++        'additional hold identity shared by different paths')
++      additionalIds.add(hold.holdId); addedHoldPaths.set(hold.holdId, value.pathKey)
++      return hold
++    }), holdKey)
++    const replaced = new Set<string>()
++    const holdReplacements = keyed(value.holdReplacements.map(raw => {
++      record(raw, 'hold replacement'); string(raw.holdId, 'replacement identity')
++      invariant(!replaced.has(raw.holdId), 'duplicate replacement'); replaced.add(raw.holdId)
++      const original = fixedIds.get(raw.holdId), newUntil = boundary(raw.newUntil)
++      invariant(original !== undefined && original.replaceableFrom !== null && original.ownerPathKey === value.pathKey,
++        'replacement must name this path\'s replaceable fixed hold')
++      invariant(compareBoundary(original.replaceableFrom, newUntil) <= 0 && compareBoundary(newUntil, original.until) <= 0,
++        'replacement changes immutable prefix or extends original hold')
++      return { holdId: raw.holdId, newUntil }
++    }), value => JSON.stringify([value.newUntil, value.holdId]))
++    return { key: value.key, pathKey: value.pathKey, issuerId: value.issuerId, existingPath: value.existingPath,
++      greenlight, firstTake, personRelease, cast: { lead: value.cast.lead, antagonist: value.cast.antagonist, support: value.cast.support },
++      staffingWitnessKey: value.staffingWitnessKey, ownerFactRefs: sorted(value.ownerFactRefs, compareText), additionalHolds, holdReplacements }
++  }), alternativeKey)
++  record(input.coverage, 'coverage')
++  for (const name of ['claimsAndHolds', 'existingAlternatives', 'allAlternatives'] as const) {
++    invariant(input.coverage[name] === 'complete' || input.coverage[name] === 'incomplete', 'unknown coverage status')
++  }
++  array(input.coverage.omissions, 'coverage omissions')
++  for (const omission of input.coverage.omissions) string(omission, 'omission')
++  return { ...input, now, target: { ...target, mask: targetMask, window: targetWindow }, priorClaims, foreignDebits,
++    fixedHolds, alternatives, coverage: { ...input.coverage, omissions: sorted(input.coverage.omissions, compareText) } }
++}
++
++type Demand = {
++  key: DemandKey; personId: string; mask: Mask; window: Window; units: number
++}
++type Alternative = {
++  value: PictureAlternative; eligible: readonly (readonly number[])[]; profileIndex: number
++}
++type Path = { key: string; alternatives: Alternative[] }
++type Model = {
++  input: CapacityKernelInput; demands: Demand[]; targetIndex: number
++  boundaries: Boundary[]; paths: Path[]; suffixPotential: number[][]
++}
++type AssignedCredit = { demand: number; alternative: Alternative; slot: Slot }
++type Solution = { profile: number[]; witness: Witness }
++type SearchOptions = {
++  targetUnits: number; protectedProfile?: readonly number[]
++  optimize?: boolean; stopProfile?: readonly number[]; achievable?: boolean; remaining: number
++}
++
++function boundaryKey(value: Boundary): string { return JSON.stringify([value.week, value.step]) }
++
++function prepare(input: CapacityKernelInput, debits: readonly ForeignDebit[], budget: Budget): Model {
++  const demands: Demand[] = []
++  for (const claim of input.priorClaims) {
++    budget.charge()
++    demands.push({ key: ['prior', claim.promiseId], personId: claim.personId, mask: claim.mask,
++      window: claim.window, units: claim.remaining })
++  }
++  for (const debit of debits) {
++    budget.charge()
++    demands.push({ key: ['foreignDebit', debit.promiseId], personId: debit.personId, mask: SLOTS,
++      window: input.target.window, units: debit.remaining })
++  }
++  const targetIndex = demands.length
++  demands.push({ key: ['target'], personId: input.target.personId, mask: input.target.mask,
++    window: input.target.window, units: 0 })
++  const distinctBoundaries = new Map<string, Boundary>()
++  for (const alternative of input.alternatives) {
++    budget.charge()
++    if (alternative.existingPath && alternative.firstTake !== null) {
++      distinctBoundaries.set(boundaryKey(alternative.firstTake), alternative.firstTake)
++    }
++  }
++  budget.sorting(distinctBoundaries.size)
++  const boundaries = sorted([...distinctBoundaries.values()], compareBoundary)
++  const boundaryIndices = new Map<string, number>()
++  for (let index = 0; index < boundaries.length; index++) {
++    budget.charge(); boundaryIndices.set(boundaryKey(boundaries[index]!), index)
++  }
++  const byPath = new Map<string, Path>()
++  for (const value of input.alternatives) {
++    budget.charge()
++    const eligible: number[][] = SLOTS.map(() => [])
++    if (value.firstTake !== null) {
++      for (let slotIndex = 0; slotIndex < SLOTS.length; slotIndex++) {
++        const slot = SLOTS[slotIndex]!
++        for (let demandIndex = 0; demandIndex < demands.length; demandIndex++) {
++          budget.charge()
++          const demand = demands[demandIndex]!
++          if (demand.personId === value.cast[slot] && demand.mask.includes(slot)
++            && value.firstTake.week >= demand.window.startWeek && value.firstTake.week < demand.window.dueWeekExclusive) {
++            eligible[slotIndex]!.push(demandIndex)
++          }
++        }
++      }
++    }
++    // An uncredited alternative without a replacement only adds constraints.
++    // Release-only continuations are retained even though their event is null.
++    if (eligible.every(list => list.length === 0) && value.holdReplacements.length === 0) continue
++    const alternative: Alternative = { value, eligible,
++      profileIndex: value.existingPath && value.firstTake !== null ? boundaryIndices.get(boundaryKey(value.firstTake))! : -1 }
++    let path = byPath.get(value.pathKey)
++    if (path === undefined) { path = { key: value.pathKey, alternatives: [] }; byPath.set(value.pathKey, path) }
++    path.alternatives.push(alternative)
++  }
++  budget.sorting(byPath.size)
++  const paths = keyed([...byPath.values()], path => JSON.stringify([alternativeKey(path.alternatives[0]!.value), path.key]))
++  budget.charge((paths.length + 1) * (demands.length + 1))
++  const suffixPotential = Array.from({ length: paths.length + 1 }, () => new Array<number>(demands.length).fill(0))
++  for (let position = paths.length - 1; position >= 0; position--) {
++    const possible = new Set<number>()
++    for (const alternative of paths[position]!.alternatives) for (const seats of alternative.eligible) for (const demand of seats) {
++      budget.charge(); possible.add(demand)
++    }
++    for (let demand = 0; demand < demands.length; demand++) {
++      budget.charge()
++      suffixPotential[position]![demand] = suffixPotential[position + 1]![demand]! + (possible.has(demand) ? 1 : 0)
++    }
++  }
++  return { input, demands, targetIndex, boundaries, paths, suffixPotential }
++}
++
++/** Independent, optimistic per-demand path bounds; attaining ALL entries proves the full profile. */
++function priorUpperProfile(model: Model, budget: Budget): number[] {
++  budget.charge(model.boundaries.length + 1)
++  const upper = new Array<number>(model.boundaries.length + 1).fill(0)
++  for (let demand = 0; demand < model.targetIndex; demand++) {
++    budget.charge(model.boundaries.length + 1)
++    const units = model.demands[demand]!.units, buckets = new Array<number>(model.boundaries.length).fill(0)
++    let paths = 0
++    for (const path of model.paths) {
++      budget.charge()
++      let earliest = -1
++      for (const alternative of path.alternatives) {
++        budget.charge()
++        if (alternative.profileIndex < 0) continue
++        let eligible = false
++        for (const seat of alternative.eligible) for (const candidate of seat) {
++          budget.charge()
++          if (candidate === demand) eligible = true
++        }
++        if (eligible && (earliest < 0 || alternative.profileIndex < earliest)) earliest = alternative.profileIndex
++      }
++      if (earliest >= 0) { buckets[earliest] = buckets[earliest]! + 1; paths++ }
++    }
++    upper[0] = upper[0]! + Math.min(units, paths)
++    let cumulative = 0
++    for (let index = 0; index < buckets.length; index++) {
++      budget.charge(); cumulative += buckets[index]!
++      upper[index + 1] = upper[index + 1]! + Math.min(units, cumulative)
++    }
++  }
++  return upper
++}
++function compareProfile(a: readonly number[], b: readonly number[], budget: Budget): number {
++  for (let index = 0; index < a.length; index++) {
++    budget.charge()
++    if (a[index]! < b[index]!) return -1
++    if (a[index]! > b[index]!) return 1
++  }
++  return 0
++}
++function publicProfile(vector: readonly number[], boundaries: readonly Boundary[], budget: Budget): PriorProfile {
++  budget.charge(boundaries.length + 1)
++  return { existingUnits: vector[0]!, cumulativeByBoundary: boundaries.map((point, index) => ({
++    boundary: { ...point }, units: vector[index + 1]!,
++  })) }
++}
++function sameSubject(a: HoldSubject, b: HoldSubject): boolean {
++  return a.kind === 'person' ? b.kind === 'person' && a.personId === b.personId
++    : b.kind === 'resource' && a.resourceKey === b.resourceKey && a.slot === b.slot
++}
++function conflicts(a: Hold, b: Hold, aUntil: Boundary = a.until, bUntil: Boundary = b.until): boolean {
++  return sameSubject(a.subject, b.subject) && compareBoundary(a.from, aUntil) < 0 && compareBoundary(b.from, bUntil) < 0
++    && compareBoundary(a.from, bUntil) < 0 && compareBoundary(b.from, aUntil) < 0
++}
++
++/**
++ * Enumerate whole path choices and actual-seat credits. Re-running with an
++ * aggregate profile constraint retains equivalent prior assignments; no first
++ * beneficiary or first optimum becomes an implicit permanent allocation.
++ */
++function search(model: Model, options: SearchOptions, budget: Budget): Solution | null {
++  const required = model.demands.map((demand, index) => index === model.targetIndex ? options.targetUnits : demand.units)
++  budget.charge(required.length + model.boundaries.length)
++  const paid = required.map(() => 0), eventBuckets = new Array<number>(model.boundaries.length).fill(0)
++  const selected: Alternative[] = [], additionalHolds: Hold[] = [], credits: AssignedCredit[] = []
++  let best: Solution | null = null, stopped = false, existingUnits = 0
++
++  const profile = (): number[] => {
++    budget.charge(eventBuckets.length + 1)
++    let cumulative = 0
++    return [existingUnits, ...eventBuckets.map(value => { cumulative += value; return cumulative })]
++  }
++  const lawfulAdditionalHolds = (alternative: Alternative): boolean => {
++    const fresh = alternative.value.additionalHolds
++    for (let index = 0; index < fresh.length; index++) {
++      const hold = fresh[index]!
++      for (const previous of additionalHolds) {
++        budget.charge(); if (conflicts(hold, previous)) return false
++      }
++      for (let other = 0; other < index; other++) {
++        budget.charge(); if (conflicts(hold, fresh[other]!)) return false
++      }
++      for (const fixed of model.input.fixedHolds) {
++        budget.charge()
++        // Only the immutable prefix is safe for an early rejection. An as-yet
++        // unselected release-only continuation may still shorten the suffix.
++        if (conflicts(hold, fixed, hold.until, fixed.replaceableFrom ?? fixed.until)) return false
++      }
++    }
++    return true
++  }
++  const lawfulLedger = (): boolean => {
++    const replacements = new Map<string, Boundary>()
++    for (const alternative of selected) for (const replacement of alternative.value.holdReplacements) {
++      budget.charge()
++      invariant(!replacements.has(replacement.holdId), 'a selected set replaced one hold twice')
++      replacements.set(replacement.holdId, replacement.newUntil)
++    }
++    budget.charge(model.input.fixedHolds.length + additionalHolds.length)
++    const ledger = [
++      ...model.input.fixedHolds.map(hold => ({ hold, until: replacements.get(hold.holdId) ?? hold.until })),
++      ...additionalHolds.map(hold => ({ hold, until: hold.until })),
++    ]
++    for (let index = 0; index < ledger.length; index++) for (let other = 0; other < index; other++) {
++      budget.charge()
++      const a = ledger[index]!, b = ledger[other]!
++      if (conflicts(a.hold, b.hold, a.until, b.until)) return false
++    }
++    return true
++  }
++  const orderedTargetCredits = (): AssignedCredit[] => {
++    budget.charge(credits.length)
++    const target = credits.filter(credit => credit.demand === model.targetIndex)
++    budget.sorting(target.length)
++    return sorted(target, (a, b) => compareBoundary(a.alternative.value.firstTake!, b.alternative.value.firstTake!)
++      || Number(b.alternative.value.existingPath) - Number(a.alternative.value.existingPath)
++      || compareText(a.alternative.value.pathKey, b.alternative.value.pathKey))
++  }
++  const achievement = (target: readonly AssignedCredit[]): boolean => {
++    for (let index = 0; index < options.remaining; index++) {
++      budget.charge()
++      if (!target[index]!.alternative.value.existingPath) return false
++    }
++    budget.charge()
++    return model.input.target.window.dueWeekExclusive - target[options.remaining - 1]!.alternative.value.firstTake!.week >= 8
++  }
++  const witness = (target: readonly AssignedCredit[]): Witness => {
++    budget.charge(selected.length + credits.length + target.length)
++    budget.sorting(credits.length)
++    const targetOrder = new Map(target.map((credit, index) => [credit, index]))
++    const ordered = sorted(credits, (a, b) => {
++      if (a.demand === model.targetIndex && b.demand === model.targetIndex) return targetOrder.get(a)! - targetOrder.get(b)!
++      return compareText(JSON.stringify(model.demands[a.demand]!.key), JSON.stringify(model.demands[b.demand]!.key))
++        || compareBoundary(a.alternative.value.firstTake!, b.alternative.value.firstTake!)
++        || compareText(a.alternative.value.pathKey, b.alternative.value.pathKey) || compareText(a.slot, b.slot)
++    })
++    return {
++      selectedAlternativeKeys: selected.map(alternative => alternative.value.key),
++      credits: ordered.map(credit => ({ demandKey: [...model.demands[credit.demand]!.key] as DemandKey,
++        pathKey: credit.alternative.value.pathKey, slot: credit.slot })),
++      targetTakeBoundaries: target.map(credit => ({ ...credit.alternative.value.firstTake! })),
++    }
++  }
++  const enter = (position: number): boolean => {
++    budget.charge()
++    let met = true
++    for (let demand = 0; demand < required.length; demand++) {
++      budget.charge()
++      const remainder = required[demand]! - paid[demand]!
++      if (remainder > model.suffixPotential[position]![demand]!) return false
++      if (remainder !== 0) met = false
++    }
++    if (met) {
++      const candidate = profile()
++      if (options.protectedProfile !== undefined && compareProfile(candidate, options.protectedProfile, budget) !== 0) return false
++      if (options.optimize && best !== null && compareProfile(candidate, best.profile, budget) <= 0) return false
++      const target = orderedTargetCredits()
++      if (options.achievable && !achievement(target)) return false
++      if (lawfulLedger()) {
++        best = { profile: candidate, witness: witness(target) }
++        stopped = !options.optimize || options.stopProfile !== undefined && compareProfile(candidate, options.stopProfile, budget) === 0
++        // Extra uncredited selections cannot improve this profile. If the ledger
++        // failed instead, keep searching: a later continuation may repair it.
++        return false
++      }
++    }
++    return position < model.paths.length
++  }
++  type Branch = { alternative: Alternative; seats: readonly number[] } | null
++  function* branches(position: number): Generator<Branch, void, unknown> {
++    for (const alternative of model.paths[position]!.alternatives) {
++      budget.charge()
++      if (!lawfulAdditionalHolds(alternative)) continue
++      const choices: number[][] = []
++      for (const seat of alternative.eligible) {
++        const available: number[] = []
++        for (const demand of seat) {
++          budget.charge()
++          if (paid[demand]! < required[demand]!) available.push(demand)
++        }
++        available.push(-1) // A real seat need not pay a promise.
++        choices.push(available)
++      }
++      // Distinct cast people imply that a demand can occur in only ONE of
++      // these seat lists. Thus one event cannot pay two same-person counters.
++      for (const lead of choices[0]!) for (const antagonist of choices[1]!) for (const support of choices[2]!) {
++        budget.charge()
++        if (lead < 0 && antagonist < 0 && support < 0 && alternative.value.holdReplacements.length === 0) continue
++        yield { alternative, seats: [lead, antagonist, support] }
++      }
++    }
++    budget.charge()
++    yield null // Choose no alternative for this physical picture path.
++  }
++  type Frame = {
++    position: number; entered: boolean; choices: Generator<Branch, void, unknown> | null
++    applied: Branch; oldHoldCount: number; oldCreditCount: number
++  }
++  const stack: Frame[] = [{ position: 0, entered: false, choices: null, applied: null, oldHoldCount: 0, oldCreditCount: 0 }]
++  const leave = (): void => {
++    const frame = stack.pop()!
++    if (frame.applied === null) return
++    budget.charge()
++    while (credits.length > frame.oldCreditCount) {
++      budget.charge()
++      const credit = credits.pop()!
++      paid[credit.demand] = paid[credit.demand]! - 1
++      if (credit.demand !== model.targetIndex && credit.alternative.profileIndex >= 0) {
++        existingUnits--; eventBuckets[credit.alternative.profileIndex] = eventBuckets[credit.alternative.profileIndex]! - 1
++      }
++    }
++    selected.pop(); additionalHolds.length = frame.oldHoldCount
++  }
++  // Explicit path stack: even an admitted domain of 1024 release alternatives
++  // consumes the same governed work counter, not the JavaScript call stack.
++  while (stack.length > 0 && !stopped) {
++    const frame = stack[stack.length - 1]!
++    if (!frame.entered) {
++      frame.entered = true
++      if (!enter(frame.position)) { if (!stopped) leave(); continue }
++      frame.choices = branches(frame.position)
++    }
++    budget.charge()
++    const next = frame.choices!.next()
++    if (next.done) { leave(); continue }
++    const branch = next.value, oldHoldCount = additionalHolds.length, oldCreditCount = credits.length
++    if (branch !== null) {
++      selected.push(branch.alternative)
++      for (const hold of branch.alternative.value.additionalHolds) { budget.charge(); additionalHolds.push(hold) }
++      for (let index = 0; index < SLOTS.length; index++) {
++        budget.charge()
++        const demand = branch.seats[index]!
++        if (demand < 0) continue
++        paid[demand] = paid[demand]! + 1
++        if (demand !== model.targetIndex && branch.alternative.profileIndex >= 0) {
++          existingUnits++; eventBuckets[branch.alternative.profileIndex] = eventBuckets[branch.alternative.profileIndex]! + 1
++        }
++        credits.push({ demand, alternative: branch.alternative, slot: SLOTS[index]! })
++      }
++    }
++    stack.push({ position: frame.position + 1, entered: false, choices: null, applied: branch, oldHoldCount, oldCreditCount })
++  }
++  return best
++}
++
++/** Pure public entry point. No game identity, root, RNG or allocation is written. */
++export function searchPromiseCapacity(raw: CapacityKernelInput): CapacityKernelResult {
++  record(raw, 'input'); record(raw.limits, 'limits')
++  for (const name of ['claims', 'units', 'alternatives', 'work', 'span'] as const) {
++    integer(raw.limits[name], `${name} limit`)
++    invariant(raw.limits[name] <= MAX_LIMITS[name], `${name} limit exceeds the governed maximum`)
++  }
++  integer(raw.preparationWork, 'preparation work')
++  const budget = new Budget(raw.limits.work, raw.preparationWork)
++  try {
++    if (raw.preparationWork >= raw.limits.work) throw new WorkLimit()
++    scan(raw, budget)
++    const input = normalize(raw)
++    const remaining = input.target.state === 'bound'
++      ? Math.max(0, input.target.count - input.target.actualQualifiedCount) : input.target.count
++    if (remaining === 0) return { status: 'ALREADY_MET', remaining: 0, workUsed: budget.used }
++    const uncertain = (reason: 'domainIncomplete' | 'sizeLimit', fallback: string): CapacityKernelResult => ({
++      status: 'UNCERTIFIED', reason, omissions: input.coverage.omissions.length > 0 ? [...input.coverage.omissions] : [fallback],
++      workUsed: budget.used,
++    })
++    const debits = input.foreignDebits.filter(debit => {
++      budget.charge()
++      return debit.issuerId !== input.issuerId && debit.personId === input.target.personId
++        && debit.promiseId !== input.target.promiseId && debit.remaining > 0
++        && overlapWindow(debit.sourceWindow, input.now, input.target.window)
++    })
++    let horizon = Math.max(input.horizonEndWeek, input.target.window.dueWeekExclusive)
++    for (const prior of input.priorClaims) { budget.charge(); horizon = Math.max(horizon, prior.window.dueWeekExclusive) }
++    budget.charge()
++    if (input.priorClaims.length + debits.length + 1 > input.limits.claims
++      || input.alternatives.length > input.limits.alternatives
++      || horizon - input.now.week > input.limits.span || remaining > input.limits.units) {
++      return uncertain('sizeLimit', 'bounded capacity size limit')
++    }
++    // Only bounded small X reaches arithmetic/expansion. In particular MAX_SAFE
++    // saved counts never overflow B or produce a loop proportional to the count.
++    const bufferDemand = remaining + Math.ceil(remaining / 3)
++    let units = bufferDemand
++    budget.charge()
++    if (units > input.limits.units) return uncertain('sizeLimit', 'bounded capacity unit limit')
++    for (const prior of [...input.priorClaims, ...debits]) {
++      budget.charge()
++      if (prior.remaining > input.limits.units - units) return uncertain('sizeLimit', 'bounded capacity unit limit')
++      units += prior.remaining
++    }
++    if (input.coverage.claimsAndHolds !== 'complete') return uncertain('domainIncomplete', 'relevant claims or holds are incomplete')
++    budget.phase = 'search'
++    const model = prepare(input, debits, budget)
++    const complete = input.coverage.existingAlternatives === 'complete' && input.coverage.allAlternatives === 'complete'
++    const impossible = (): CapacityKernelResult => ({ status: 'PROVEN_IMPOSSIBLE', scope: 'jointOfferOnly',
++      reason: 'completeCountFailure', workUsed: budget.used })
++    const upper = priorUpperProfile(model, budget)
++    let optimum: readonly number[]
++    if (model.demands.slice(0, model.targetIndex).every(demand => demand.units === 0)) {
++      optimum = upper // Identically zero, even if future alternatives are omitted.
++    } else {
++      const prior = search(model, { targetUnits: 0, remaining, optimize: true,
++        ...(input.coverage.existingAlternatives === 'complete' ? { stopProfile: upper } : {}) }, budget)
++      if (prior === null) return complete ? impossible() : uncertain('domainIncomplete', 'prior feasibility is unproved')
++      const saturated = input.coverage.existingAlternatives === 'complete' && compareProfile(prior.profile, upper, budget) === 0
++      if (!complete && !saturated) return uncertain('domainIncomplete', 'full prior optimum is unproved')
++      optimum = prior.profile
++    }
++    const count = search(model, { targetUnits: remaining, remaining, protectedProfile: optimum }, budget)
++    if (count === null) {
++      const joint = search(model, { targetUnits: remaining, remaining }, budget)
++      if (joint === null) return complete ? impossible() : uncertain('domainIncomplete', 'joint count failure has an incomplete domain')
++      // An unoptimized witness is not itself proof that no protected assignment
++      // exists in an omitted domain. Neither condition can become causal BROKEN.
++      if (!complete) return uncertain('domainIncomplete', 'protected count failure has an incomplete domain')
++      const priorOptimum = publicProfile(optimum, model.boundaries, budget)
++      return { status: 'PROVEN_FRAGILE', reason: 'priorPathProtection', priorOptimum,
++        countWitness: joint.witness, workUsed: budget.used }
++    }
++    const achievable = search(model, { targetUnits: bufferDemand, remaining, protectedProfile: optimum, achievable: true }, budget)
++    if (achievable !== null) {
++      const priorOptimum = publicProfile(optimum, model.boundaries, budget)
++      return { status: 'CERTIFIED_ACHIEVABLE', remaining, bufferDemand, priorOptimum,
++        witness: achievable.witness, workUsed: budget.used }
++    }
++    if (!complete) return uncertain('domainIncomplete', 'achievable failure has an incomplete domain')
++    const priorOptimum = publicProfile(optimum, model.boundaries, budget)
++    return { status: 'PROVEN_FRAGILE', reason: 'achievableProbeFailed', priorOptimum,
++      countWitness: count.witness, workUsed: budget.used }
++  } catch (error) {
++    if (!(error instanceof WorkLimit)) throw error
++    return { status: 'UNCERTIFIED', reason: 'workLimit', workUsed: budget.limit,
++      omissions: [`${budget.phase} work limit`] }
++  }
++}
+diff --git a/tests/p14b4-kernel-hold-order-extension.test.ts b/tests/p14b4-kernel-hold-order-extension.test.ts
+new file mode 100644
+index 0000000..80723d2
+--- /dev/null
++++ b/tests/p14b4-kernel-hold-order-extension.test.ts
+@@ -0,0 +1,197 @@
++// Installed exact independent extension70; parent verification pending, original57 unchanged.
++// INERT / UNEXECUTED. Intended tests/p14b4-kernel-hold-order-extension.test.ts.
++// Independent extension of review69's NONEMPTY hold/replacement permutation gap.
++// Detached finite scheduling facts only; no engine records or owner admission
++// claim. Definitive interface49 + selection clarification56, no solver inspected.
++import assert from 'node:assert/strict'
++import { describe, expect, it } from 'vitest'
++import { searchPromiseCapacity } from '../src/core/promiseCapacityKernel.js'
++import type { Boundary, CapacityKernelInput, CapacityKernelResult, FixedHold, Hold,
++  PictureAlternative } from '../src/core/promiseCapacityKernel.js'
++
++const b = (week: number, step = 0): Boundary => ({ week, step })
++const clone = <T>(value: T): T => structuredClone(value)
++function freeze<T>(value: T): T {
++  if (value !== null && typeof value === 'object') {
++    for (const child of Object.values(value)) freeze(child)
++    Object.freeze(value)
++  }
++  return value
++}
++const compare = (a: Boundary, z: Boundary) => a.week < z.week ? -1 : a.week > z.week ? 1
++  : a.step < z.step ? -1 : a.step > z.step ? 1 : 0
++function fixture(): CapacityKernelInput {
++  const fixedHolds: readonly FixedHold[] = [
++    { holdId: 'fixed-F-person-T', ownerKey: 'owner-F', ownerPathKey: 'F', subject: { kind: 'person', personId: 'T' },
++      from: b(8), until: b(40), replaceableFrom: b(10) },
++    { holdId: 'fixed-F-stage-zero', ownerKey: 'owner-F', ownerPathKey: 'F', subject: { kind: 'resource', resourceKey: 'stage', slot: 0 },
++      from: b(8), until: b(40), replaceableFrom: b(10) },
++    { holdId: 'fixed-F-other-cast-one', ownerKey: 'owner-F', ownerPathKey: 'F', subject: { kind: 'person', personId: 'F1' },
++      from: b(8), until: b(14, 2), replaceableFrom: null },
++    { holdId: 'fixed-F-other-cast-two', ownerKey: 'owner-F', ownerPathKey: 'F', subject: { kind: 'person', personId: 'F2' },
++      from: b(8), until: b(14, 2), replaceableFrom: null },
++    { holdId: 'other-immutable-person', ownerKey: 'other-actual-owner', ownerPathKey: 'other-person-path', subject: { kind: 'person', personId: 'Z' },
++      from: b(14, 2), until: b(40), replaceableFrom: null },
++    { holdId: 'other-immutable-stage-slot', ownerKey: 'other-actual-owner', ownerPathKey: 'other-resource-path',
++      subject: { kind: 'resource', resourceKey: 'stage', slot: 1 }, from: b(12, 2), until: b(40), replaceableFrom: null },
++  ]
++  const f: PictureAlternative = { key: 'F-release', pathKey: 'F', issuerId: 'local', existingPath: true,
++    greenlight: b(8), firstTake: null, personRelease: b(14, 2), cast: { lead: 'T', antagonist: 'F1', support: 'F2' },
++    staffingWitnessKey: 'detached-staffing:F', ownerFactRefs: ['finite-owner:F-release', 'finite-owner:F-stage-post'],
++    additionalHolds: [{ holdId: 'F-continuation-post', ownerKey: 'owner-F', ownerPathKey: 'F',
++      subject: { kind: 'resource', resourceKey: 'post', slot: 0 }, from: b(12, 2), until: b(14, 2) }],
++    holdReplacements: [{ holdId: 'fixed-F-person-T', newUntil: b(14, 2) },
++      { holdId: 'fixed-F-stage-zero', newUntil: b(12, 2) }] }
++  function event(name: string, start: number, take: number, wrap: number, release: number,
++    existingPath: boolean, cast: PictureAlternative['cast']): PictureAlternative {
++    return { key: name, pathKey: name, issuerId: 'local', existingPath, greenlight: b(start), firstTake: b(take),
++      personRelease: b(release, 2), cast, staffingWitnessKey: `detached-staffing:${name}`,
++      ownerFactRefs: [`finite-owner:${name}-cast`, `finite-owner:${name}-calendar`], holdReplacements: [],
++      additionalHolds: [
++        ...(['lead', 'antagonist', 'support'] as const).map((slot): Hold => ({ holdId: `${name}-person-${slot}`,
++          ownerKey: `owner-${name}`, ownerPathKey: name, subject: { kind: 'person', personId: cast[slot] },
++          from: b(start), until: b(release, 2) })),
++        { holdId: `${name}-stage-zero`, ownerKey: `owner-${name}`, ownerPathKey: name,
++          subject: { kind: 'resource', resourceKey: 'stage', slot: 0 }, from: b(start), until: b(wrap, 2) },
++        { holdId: `${name}-post-zero`, ownerKey: `owner-${name}`, ownerPathKey: name,
++          subject: { kind: 'resource', resourceKey: 'post', slot: 0 }, from: b(wrap, 2), until: b(release, 2) },
++      ] }
++  }
++  return { now: b(10), horizonEndWeek: 40, issuerId: 'local', target: { promiseId: null, personId: 'T',
++    mask: ['lead', 'antagonist', 'support'], window: { startWeek: 15, dueWeekExclusive: 40 },
++    state: 'unbound', count: 1, actualQualifiedCount: 0 },
++    priorClaims: [
++      { promiseId: 'prior-A', issuerId: 'local', personId: 'A', membership: 'bound', mask: ['lead', 'antagonist'],
++        window: { startWeek: 15, dueWeekExclusive: 40 }, remaining: 1 },
++      { promiseId: 'prior-B', issuerId: 'local', personId: 'B', membership: 'current', mask: ['lead', 'antagonist', 'support'],
++        window: { startWeek: 15, dueWeekExclusive: 40 }, remaining: 1 },
++    ], foreignDebits: [], fixedHolds, alternatives: [f,
++      event('G', 15, 18, 20, 22, true, { lead: 'T', antagonist: 'A', support: 'B' }),
++      event('Q', 25, 28, 30, 32, false, { lead: 'T', antagonist: 'Q1', support: 'Q2' })],
++    coverage: { claimsAndHolds: 'complete', existingAlternatives: 'complete', allAlternatives: 'complete',
++      omissions: ['z detached-domain annotation', 'a detached-domain annotation'] }, preparationWork: 0,
++    limits: { claims: 32, units: 64, alternatives: 1024, work: 200000, span: 220 } }
++}
++
++function reversed(source: CapacityKernelInput): CapacityKernelInput {
++  return { ...source, target: { ...source.target, mask: [...source.target.mask].reverse() },
++    priorClaims: [...source.priorClaims].reverse().map((p) => ({ ...p, mask: [...p.mask].reverse() })),
++    foreignDebits: [...source.foreignDebits].reverse(), fixedHolds: [...source.fixedHolds].reverse(),
++    alternatives: [...source.alternatives].reverse().map((a) => ({ ...a,
++      additionalHolds: [...a.additionalHolds].reverse(), holdReplacements: [...a.holdReplacements].reverse() })),
++    coverage: { ...source.coverage, omissions: [...source.coverage.omissions].reverse() } }
++}
++
++// A checker for the returned assignment, not a schedule search or optimizer.
++// Exact expected credits/profile are paper-derived from the sole G/Q event pair.
++function checkPositive(source: CapacityKernelInput, result: Extract<CapacityKernelResult, { status: 'CERTIFIED_ACHIEVABLE' }>) {
++  expect(result.remaining).toBe(1)
++  expect(result.bufferDemand).toBe(2)
++  expect(result.priorOptimum).toEqual({ existingUnits: 2, cumulativeByBoundary: [{ boundary: b(18), units: 2 }] })
++  const witness = result.witness
++  expect([...witness.selectedAlternativeKeys].sort()).toEqual(['F-release', 'G', 'Q'])
++  const selected = witness.selectedAlternativeKeys.map((name) => {
++    const matches = source.alternatives.filter((a) => a.key === name)
++    expect(matches).toHaveLength(1)
++    return matches[0]!
++  })
++  expect(new Set(selected.map((a) => a.pathKey)).size).toBe(3)
++  const effective = new Map(source.fixedHolds.map((h) => [h.holdId, { ...h }]))
++  const replaced = new Set<string>()
++  for (const alternative of selected) for (const replacement of alternative.holdReplacements) {
++    const original = source.fixedHolds.find((h) => h.holdId === replacement.holdId)
++    assert.ok(original)
++    assert.ok(original.replaceableFrom)
++    expect(original.ownerPathKey).toBe(alternative.pathKey)
++    expect(replaced.has(original.holdId)).toBe(false)
++    replaced.add(original.holdId)
++    expect(compare(replacement.newUntil, original.replaceableFrom)).toBeGreaterThanOrEqual(0)
++    expect(compare(replacement.newUntil, original.until)).toBeLessThanOrEqual(0)
++    effective.set(original.holdId, { ...original, until: replacement.newUntil })
++    expect({ ...effective.get(original.holdId), until: original.until }).toEqual(original)
++  }
++  expect([...replaced].sort()).toEqual(['fixed-F-person-T', 'fixed-F-stage-zero'])
++  expect(effective.get('fixed-F-person-T')!.until).toEqual(b(14, 2))
++  expect(effective.get('fixed-F-stage-zero')!.until).toEqual(b(12, 2))
++  for (const original of source.fixedHolds.filter((h) => h.replaceableFrom === null)) {
++    expect(effective.get(original.holdId)).toEqual(original) // other owners and whole immutable intervals survive
++  }
++  const holds: readonly Hold[] = [...effective.values(), ...selected.flatMap((a) => a.additionalHolds)]
++  expect(holds).toHaveLength(17)
++  expect(new Set(holds.map((h) => h.holdId)).size).toBe(holds.length)
++  const sameSubject = (a: Hold, z: Hold) => a.subject.kind === 'person'
++    ? z.subject.kind === 'person' && a.subject.personId === z.subject.personId
++    : z.subject.kind === 'resource' && a.subject.resourceKey === z.subject.resourceKey && a.subject.slot === z.subject.slot
++  for (let i = 0; i < holds.length; i++) for (let j = i + 1; j < holds.length; j++) {
++    const a = holds[i]!, z = holds[j]!
++    if (!sameSubject(a, z) || compare(a.from, a.until) === 0 || compare(z.from, z.until) === 0) continue
++    expect(compare(a.from, z.until) < 0 && compare(z.from, a.until) < 0, `${a.holdId} overlaps ${z.holdId}`).toBe(false)
++  }
++  const expectedCredits = [
++    { demandKey: ['prior', 'prior-A'], pathKey: 'G', slot: 'antagonist' },
++    { demandKey: ['prior', 'prior-B'], pathKey: 'G', slot: 'support' },
++    { demandKey: ['target'], pathKey: 'G', slot: 'lead' },
++    { demandKey: ['target'], pathKey: 'Q', slot: 'lead' },
++  ]
++  expect(witness.credits).toHaveLength(4)
++  expect(witness.credits).toEqual(expect.arrayContaining(expectedCredits))
++  const personPaths = new Set<string>()
++  for (const credit of witness.credits) {
++    const alternative = selected.find((a) => a.pathKey === credit.pathKey)
++    assert.ok(alternative)
++    assert.ok(alternative.firstTake, 'no historical/null-event take may be credited')
++    const demand = credit.demandKey[0] === 'target' ? source.target
++      : source.priorClaims.find((p) => credit.demandKey[0] === 'prior' && p.promiseId === credit.demandKey[1])
++    assert.ok(demand)
++    expect(alternative.cast[credit.slot]).toBe(demand.personId)
++    expect(demand.mask).toContain(credit.slot)
++    expect(alternative.firstTake.week).toBeGreaterThanOrEqual(demand.window.startWeek)
++    expect(alternative.firstTake.week).toBeLessThan(demand.window.dueWeekExclusive)
++    const identity = JSON.stringify([demand.personId, credit.pathKey])
++    expect(personPaths.has(identity)).toBe(false)
++    personPaths.add(identity)
++  }
++  expect(witness.targetTakeBoundaries).toEqual([b(18), b(28)])
++  expect(selected.find((a) => a.pathKey === 'G')!.existingPath).toBe(true)
++  expect(source.target.window.dueWeekExclusive - 18).toBeGreaterThanOrEqual(8)
++  expect(selected.find((a) => a.pathKey === 'F')!.firstTake).toBeNull()
++}
++function run(source: CapacityKernelInput) {
++  const before = clone(source)
++  const result = searchPromiseCapacity(freeze(source))
++  expect(source).toEqual(before)
++  expect(Number.isSafeInteger(result.workUsed)).toBe(true)
++  expect(result.workUsed).toBeGreaterThanOrEqual(0)
++  expect(result.workUsed).toBeLessThanOrEqual(source.limits.work)
++  if (result.status === 'CERTIFIED_ACHIEVABLE') checkPositive(source, result)
++  return result
++}
++
++describe('kernel69 extension: nonempty fixed/replacement/additional hold ordering', () => {
++  it('the complete finite domain certifies the literal protected schedule with both selected suffix replacements', () => {
++    const source = fixture()
++    expect(source.fixedHolds).toHaveLength(6)
++    expect(source.fixedHolds.filter((h) => h.replaceableFrom === null)).toHaveLength(4)
++    expect(source.alternatives[0]!.holdReplacements).toHaveLength(2)
++    expect(source.alternatives.every((a) => a.additionalHolds.length > 0)).toBe(true)
++    const result = run(source)
++    expect(result.status).toBe('CERTIFIED_ACHIEVABLE')
++    expect(run(reversed(source))).toEqual(result) // includes witness serialization and workUsed
++  })
++  it.each([1, 64, 256, 2048])('entire result and workUsed survive all collection reversals at budget%i', (work) => {
++    const base = fixture(), source = { ...base, limits: { ...base.limits, work } }
++    // Independent LOWER bound from only a subset of actual string leaves;49
++    // charges every character. No solver work count or generated result oracle.
++    const stringSubset = [...source.fixedHolds.flatMap((h) => [h.holdId, h.ownerKey, h.ownerPathKey ?? '']),
++      ...source.alternatives.flatMap((a) => [a.staffingWitnessKey, ...a.ownerFactRefs])]
++    expect(stringSubset.reduce((sum, value) => sum + value.length, 0)).toBeGreaterThan(256)
++    const result = run(source)
++    expect(run(reversed(source))).toEqual(result)
++    if (work <= 256) {
++      expect(result).toEqual({ status: 'UNCERTIFIED', reason: 'workLimit', workUsed: work,
++        omissions: ['normalization work limit'] })
++    }
++    //2048 is an intermediate cap, not an invented normalization/search threshold.
++    //Its exact disposition is compared across permutations, not prescribed here.
++  })
++})

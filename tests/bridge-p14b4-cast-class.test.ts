@@ -27,7 +27,6 @@ import { advanceTo } from '../src/harness/p13a/fixtures.js'
 import type { GameStateV30, ProfessionalPromiseV30 } from '../src/core/types.js'
 
 type SeatClass = 'lead' | 'leadOrAntagonist'
-type Envelope = ReturnType<typeof validateSaveV30>
 type P2Payload = { verb: 'propose' | 'revise'; talentId: string; termWeeks: number; premiumTier: number;
   promise: { family: 'LEAD_OR_SIGNIFICANT_ROLE_COUNT'; count: number; windowStartWeek: number; dueWeekExclusive: number; seatClass: SeatClass } }
 const clone = <T>(value: T): T => structuredClone(value)

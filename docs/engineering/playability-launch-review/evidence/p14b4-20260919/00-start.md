@@ -1,5 +1,22 @@
 # P14B.4 — capacity implementation continuation
 
+CURRENT74: kernel SOURCE FROZEN64.66 CLOSED46PASS/2files (original41 plus
+independent70extension5), fixedSource:true on published1724784 plus patch
+f9aaf3c555912b5211843aa55c98fd7d293ca8f60191305f9cf52c9d374462e5.
+ALL protected source/tests frozen.67 CLOSED4PASS/3reachedFAIL, fixedtrue;
+exact attribution67-policy-reconciliation-disposition.md.68 root/UI CLOSED/PASS,
+fixedSource:true.73 bridge CLOSEDexit2 only deferredtaggedattachmenttype error.
+Qualified74 complete;71 source/extension KEEP fd59d55f… .76 PRE-extraction
+baseline CLOSED57PASS/7files, fixedtrue. ALL runtime sessions CLOSED.
+72 narrow extraction plan frozen. Author ONLY inert77 owner/type tests; auditor
+ONLY78 bounded plan review. Sim-core idle. Max2 specialists; NO production writer.
+Next kernel checkpoint/push/exactremote, independent77 install/actual runtime and
+type RED, sole-writer extraction and matched verification, then actual
+shared-clock extraction and owner adapter/coherent P2 activation. The finite
+46PASS does NOT establish real owner domain completeness or live P2 acceptance.
+Original57 remains076f5050…; exact extension70 installed21be8467… .
+Measured policy65 frozen/reviewed69; full runtime/typing remains to be qualified.
+
 CURRENT63: independent57kernel41cases installedexact076f5050… .62CLOSEDexit1,
 fixedtrue65c7502+339c32ef…; one missing-moduleFailedSuite/ZERO reachedbodies.
 Disposition63. Publish/exactremote RED now, then ONEsimcorewriter newkernelONLY

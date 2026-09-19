@@ -6,18 +6,21 @@ Headless verification never claims package completion or Owner acceptance.
 
 Current (2026-09-19):
 
-Current B4 checkpoint60: pure publicPreferredOpportunity implemented through the
-existing archetype;3 new focusedPASS,15 regressionPASS/3unchangedtodos;root+UI PASS.
-Bridge typecheck55 has exactly unused test Envelope + deferred tagged attachment
-type errors; NOT green. Runtime48 bridgeRED12PASS/16FAIL remains qualified51.
-Latest published/exactremote65c7502fdba98db0c841b4de363adb66521dbd03 (61).
-Next finish independent kernel57RED and
-release sole sim-core implementation. Kernel49 corrects reviewed42/44;56 review.
-Policy fixture diagnostic58 bothPASS;59preserves actual lawful facts for narrow
-independent correction, originalv2/43unchanged. All runtime sessions CLOSED.
-No full B4/liveP2/solver/bridge47/native/Owner acceptance. Live29/rules3/46 remain.
-Earlier material/evidence sourcefbe2d28 verified94PASS+alltypechecks (40/41).
-Exact active ownership/next actions: evidence/p14b4-20260919/00-start.md.
+Current B4 checkpoint74: detached capacity kernel implemented,46 PASS across
+two complete finite-domain files; independent source/extension review71 KEEP.
+All66/67/68/73 fixedSource:true on published17247843921781e3ad873db2e45d1737520a5623
+plus patchf9aaf3c5…; root AND UI typechecks PASS. Bridge73 has exactly the remaining
+future tagged attachment type error, NOT green. No live kernel caller or version
+change: Save29/rules3/projection46 remain.
+Corrected policy67:4 PASS including real under30 release credit;3 reached failures
+for old D3 behavior, dropped P2 tag and old rival P1-first draft. Later P2/fallback
+bodies remain unverified; exact attribution in B4/67-policy-reconciliation-disposition.md.
+Latest published/exactremote is1724784; kernel74 publication/exactremote next.
+Actual ownership/runtime and checkpoint SHA updates: B4/00-start.md.
+Next narrow shared-clock extraction with matched owner regressions, then real
+owner adapter/completeness and coherent P2 authoring/wire/live activation.
+Full B4/T4, natural-chain performance, Unity/native and Owner acceptance remain
+owed. Continue settled implementation; this is not a permission or setup pause.
 
 Earlier additive foundation checkpoint: V30 data support implemented and independently
 KEEP; qualified report evidence/p14b4-20260919/29-additive-checkpoint.md.

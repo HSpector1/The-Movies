@@ -1,0 +1,28 @@
+{
+  "sourceSha": "17247843921781e3ad873db2e45d1737520a5623",
+  "testedDiffSha256": "f9aaf3c555912b5211843aa55c98fd7d293ca8f60191305f9cf52c9d374462e5",
+  "untrackedSource": [
+    "src/core/promiseCapacityKernel.ts",
+    "tests/p14b4-kernel-hold-order-extension.test.ts"
+  ],
+  "command": [
+    "node_modules/.bin/vitest",
+    "run",
+    "tests/p14b4-cast-class-policy.test.ts",
+    "--minWorkers=1",
+    "--maxWorkers=1"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-19T23:25:44.726Z",
+  "end": "2026-09-19T23:26:48.975Z",
+  "exitCode": 1,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "17247843921781e3ad873db2e45d1737520a5623",
+  "testedDiffSha256AtEnd": "f9aaf3c555912b5211843aa55c98fd7d293ca8f60191305f9cf52c9d374462e5",
+  "untrackedSourceAtEnd": [
+    "src/core/promiseCapacityKernel.ts",
+    "tests/p14b4-kernel-hold-order-extension.test.ts"
+  ],
+  "fixedSource": true
+}
