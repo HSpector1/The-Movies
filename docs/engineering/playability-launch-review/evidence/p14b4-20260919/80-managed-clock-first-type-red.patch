@@ -1,0 +1,255 @@
+diff --git a/tests/p14b4-managed-clock-owner.test.ts b/tests/p14b4-managed-clock-owner.test.ts
+new file mode 100644
+index 0000000..473df51
+--- /dev/null
++++ b/tests/p14b4-managed-clock-owner.test.ts
+@@ -0,0 +1,249 @@
++// Installed exact independent77; runtime and type-level proof are recorded separately.
++// INERT / UNEXECUTED. Intended path: tests/p14b4-managed-clock-owner.test.ts.
++// Requirement source: frozen 72-managed-clock-extraction-plan.md, reviewed in 78.
++// This is a paired call to the EXISTING owner, not a forecast implementation.
++import { describe, expect, expectTypeOf, it } from 'vitest'
++import { applyActions } from '../src/core/actions.js'
++import { initializeHollywood } from '../src/core/hollywood.js'
++import { occupiedResourceSlots } from '../src/core/occupancy.js'
++import {
++  advanceManagedProductions, assertStudioOperationsInvariants,
++  assignShootingDirector, clearSceneryLoadIn, productionWaitWeeks,
++  productionsInSweepOrder, scheduleShootingTake,
++  type ProductionAllocationPolicy, type ProductionClockView,
++} from '../src/core/operations.js'
++import { createProductionSetupRouteResolver } from '../src/core/productionSetup.js'
++import { commitStudioEvents, StudioEventSink } from '../src/core/studioEvents.js'
++import { createProductionTechnologyPolicy } from '../src/core/technologyProduction.js'
++import { tick } from '../src/core/tick.js'
++import type { GameState, Production } from '../src/core/types.js'
++import { operationsStudio, productionPayload } from './contracts/_contractFixtures.js'
++
++type Marker = Readonly<{ tag: string; owner: 'clock-extraction-test' }>
++type MarkedProduction = Production & { marker: Marker }
++type MarkedClock = ProductionClockView & { marker: Marker }
++
++function clock(production: ProductionClockView): ProductionClockView {
++  return { id: production.id, startTick: production.startTick,
++    remainingTicks: production.remainingTicks, directorId: production.directorId }
++}
++
++function greenlit(two = false): GameState {
++  // Same real founding/greenlight route as p13a-production-technology.test.ts.
++  // Managed operations, LEGACY development: the stock-script door is lawful.
++  let state = initializeHollywood(operationsStudio('p13a-production-consumer'), 'fresh')
++  expect(state.operations.mode).toBe('managed')
++  expect(state.scriptDevelopment.mode).toBe('legacy')
++  state = applyActions(state, [{ kind: 'greenlight', production: productionPayload(state) }])
++  if (two) state = applyActions(state, [{ kind: 'greenlight', production: productionPayload(state, 1) }])
++  expect(state.studio.activeProductions).toHaveLength(two ? 2 : 1)
++  return state
++}
++
++function atRemaining(remaining: number): GameState {
++  let state = greenlit()
++  for (let attempt = 0; attempt < 16; attempt++) {
++    const production = state.studio.activeProductions[0]!
++    if (production.remainingTicks === remaining) return state
++    if (production.remainingTicks === 5) {
++      let operations = assignShootingDirector(state.operations, production, production.directorId)
++      operations = clearSceneryLoadIn(operations, production.id)
++      operations = scheduleShootingTake(operations, production.id)
++      state = { ...state, operations }
++    }
++    state = tick(state)
++  }
++  throw new Error(`real production did not reach remainingTicks ${remaining}`)
++}
++
++function scheduled(): GameState {
++  const state = atRemaining(5)
++  const production = state.studio.activeProductions[0]!
++  let operations = assignShootingDirector(state.operations, production, production.directorId)
++  operations = clearSceneryLoadIn(operations, production.id)
++  operations = scheduleShootingTake(operations, production.id)
++  const workflow = operations.workflows.find((row) => row.productionId === production.id)!
++  expect(workflow.shootingTask?.status).toBe('scheduled')
++  expect(workflow.blocker).toBeNull()
++  return { ...state, operations }
++}
++
++function paired(state: GameState, extraOccupied: readonly string[] = [], customFull = false) {
++  const original = structuredClone(state)
++  // Each branch receives an independent equivalent context AND collector.
++  const fullContext = structuredClone(state)
++  const narrowContext = structuredClone(state)
++  const full: MarkedProduction[] = fullContext.studio.activeProductions.map((production) => ({
++    ...production, marker: { tag: `clock:${production.id}`, owner: 'clock-extraction-test' },
++  }))
++  const narrow: MarkedClock[] = narrowContext.studio.activeProductions.map((production) => ({
++    ...clock(production), marker: { tag: `clock:${production.id}`, owner: 'clock-extraction-test' },
++  }))
++  const beforeFull = structuredClone(full)
++  const beforeNarrow = structuredClone(narrow)
++  const beforeFullContext = structuredClone(fullContext)
++  const beforeNarrowContext = structuredClone(narrowContext)
++  const fullTechnology = createProductionTechnologyPolicy(fullContext)
++  const narrowTechnology = createProductionTechnologyPolicy(narrowContext)
++  const fullEvents = new StudioEventSink(state.market.tick, true)
++  const narrowEvents = new StudioEventSink(state.market.tick, true)
++  const observed: { id: string; conceptId: string; marker: Marker }[] = []
++  // Full-P clients retain their complete callback type. Calling the original
++  // stock callback preserves its real lock effect; nothing is stubbed.
++  const custom: ProductionAllocationPolicy<MarkedProduction> = {
++    allowsFacility: fullTechnology.policy.allowsFacility,
++    beforePhaseEntered(production, phase, reservations, week) {
++      observed.push({ id: production.id, conceptId: production.conceptId, marker: production.marker })
++      fullTechnology.policy.beforePhaseEntered?.(production, phase, reservations, week)
++    },
++  }
++  const occupied = (context: GameState) => new Set([
++    ...occupiedResourceSlots(context, { owners: ['installation', 'research'] }).keys(),
++    ...extraOccupied,
++  ])
++  const binding = (context: GameState) => ({
++    sets: context.sets,
++    genreOf: (id: string) => {
++      const production = context.studio.activeProductions.find((row) => row.id === id)
++      return context.concepts.find((row) => row.id === production?.conceptId)?.genre ?? null
++    },
++  })
++  const commitments = (context: GameState) => new Set(context.releaseAuthority.commitments.map((row) => row.productionId))
++  const fullResult = advanceManagedProductions(fullContext.operations, full, state.market.tick,
++    commitments(fullContext), occupied(fullContext), fullEvents, binding(fullContext),
++    customFull ? custom : fullTechnology.policy, createProductionSetupRouteResolver(fullContext))
++  const narrowResult = advanceManagedProductions(narrowContext.operations, narrow, state.market.tick,
++    commitments(narrowContext), occupied(narrowContext), narrowEvents, binding(narrowContext),
++    narrowTechnology.policy, createProductionSetupRouteResolver(narrowContext))
++
++  // These are compile-time assertions, not broad type casts. In particular the
++  // stock policy must NOT infer P=Production and erase either marker.
++  expectTypeOf(fullResult.productions[0]!).toEqualTypeOf<MarkedProduction>()
++  expectTypeOf(fullResult.firstTakes[0]!).toEqualTypeOf<MarkedProduction>()
++  expectTypeOf(narrowResult.productions[0]!).toEqualTypeOf<MarkedClock>()
++  expectTypeOf(narrowResult.firstTakes[0]!).toEqualTypeOf<MarkedClock>()
++  const fullOrder = productionsInSweepOrder(full, state.market.tick)
++  const narrowOrder = productionsInSweepOrder(narrow, state.market.tick)
++  expectTypeOf(fullOrder).toEqualTypeOf<readonly MarkedProduction[]>()
++  expectTypeOf(narrowOrder).toEqualTypeOf<readonly MarkedClock[]>()
++  expect(narrowOrder.map((row) => row.id)).toEqual(fullOrder.map((row) => row.id))
++  for (const row of narrowOrder) {
++    expect(row).toBe(narrow.find((originalRow) => originalRow.id === row.id))
++    expect(productionWaitWeeks(row, state.market.tick)).toBe(
++      Math.max(0, state.market.tick - row.startTick - (8 - row.remainingTicks) - 1))
++  }
++  for (const row of fullOrder) expect(row).toBe(full.find((originalRow) => originalRow.id === row.id))
++  expect(fullResult.productions.map((row) => row.id)).toEqual(full.map((row) => row.id))
++  expect(narrowResult.productions.map((row) => row.id)).toEqual(narrow.map((row) => row.id))
++  expect(narrowResult.productions.map(clock)).toEqual(fullResult.productions.map(clock))
++  expect(narrowResult.firstTakes.map(clock)).toEqual(fullResult.firstTakes.map(clock))
++  expect(narrowResult.admittedReleaseIds).toEqual(fullResult.admittedReleaseIds)
++  expect(narrowResult.operations).toEqual(fullResult.operations)
++  expect(narrowResult.sets).toEqual(fullResult.sets)
++  expect(narrowEvents.drain()).toEqual(fullEvents.drain())
++  expect(commitStudioEvents(narrowContext.studioEvents, narrowEvents, state.market.tick + 1))
++    .toEqual(commitStudioEvents(fullContext.studioEvents, fullEvents, state.market.tick + 1))
++  expect(narrowTechnology.technology()).toEqual(fullTechnology.technology())
++  for (const row of fullResult.productions) {
++    expect(row).toEqual({ ...beforeFull.find((prior) => prior.id === row.id)!, remainingTicks: row.remainingTicks })
++  }
++  for (const row of narrowResult.productions) {
++    expect(row).toEqual({ ...beforeNarrow.find((prior) => prior.id === row.id)!, remainingTicks: row.remainingTicks })
++  }
++  for (const row of fullResult.firstTakes) expect(row).toBe(fullResult.productions.find((production) => production.id === row.id))
++  for (const row of narrowResult.firstTakes) expect(row).toBe(narrowResult.productions.find((production) => production.id === row.id))
++  expect(full).toEqual(beforeFull)
++  expect(narrow).toEqual(beforeNarrow)
++  expect(fullContext).toEqual(beforeFullContext)
++  expect(narrowContext).toEqual(beforeNarrowContext)
++  expect(state).toEqual(original)
++  // The sweep also returns ephemeral 0-tick release admissions; as at the tick
++  // boundary, only surviving productions are active workflow owners. Prove the
++  // exact released-ID partition before invoking the unchanged strict validator.
++  expect(fullResult.productions.filter((row) => row.remainingTicks === 0).map((row) => row.id).sort())
++    .toEqual([...fullResult.admittedReleaseIds].sort())
++  assertStudioOperationsInvariants(fullResult.operations,
++    fullResult.productions.filter((row) => row.remainingTicks > 0), { facilityPolicy: 'configured' })
++  return { fullResult, narrowResult, fullEvents, technology: fullTechnology.technology(), observed }
++}
++
++describe('P14B4 behavior-preserving managed clock owner extraction', () => {
++  it('retains complete caller records/order and skips the actual greenlight week', () => {
++    const state = greenlit(true)
++    const result = paired(state)
++    expect(result.fullResult.productions.map((row) => row.remainingTicks)).toEqual([8, 8])
++    expect(result.fullResult.firstTakes).toEqual([])
++    expect(result.fullResult.admittedReleaseIds).toEqual([])
++    expect(result.fullEvents.drain()).toEqual([])
++  })
++
++  it('retains full-P callbacks and technology locks at real shooting entry, not a take', () => {
++    const state = atRemaining(6)
++    const production = state.studio.activeProductions[0]!
++    const result = paired(state, [], true)
++    expect(result.fullResult.productions[0]!.remainingTicks).toBe(5)
++    expect(result.observed).toEqual([{ id: production.id, conceptId: production.conceptId,
++      marker: { tag: `clock:${production.id}`, owner: 'clock-extraction-test' } }])
++    expect(result.technology.productions.find((row) => row.productionId === production.id))
++      .toEqual({ studioId: state.hollywood!.playerStudioId, productionId: production.id,
++        method: 'silent', adoptionId: null, lockedWeek: state.market.tick })
++    expect(result.fullResult.firstTakes).toEqual([])
++    expect(result.fullResult.operations.workflows[0]!.shootingTask?.status).toBe('unassigned')
++  })
++
++  it('holds an unassigned real take, then returns exactly the scheduled 5→4 caller record', () => {
++    const held = paired(atRemaining(5))
++    expect(held.fullResult.productions[0]!.remainingTicks).toBe(5)
++    expect(held.fullResult.firstTakes).toEqual([])
++    const state = scheduled()
++    const result = paired(state)
++    expect(result.fullResult.productions[0]!.remainingTicks).toBe(4)
++    expect(result.fullResult.firstTakes.map((row) => row.id)).toEqual([state.studio.activeProductions[0]!.id])
++    expect(result.fullResult.firstTakes[0]!.marker.tag).toBe(`clock:${state.studio.activeProductions[0]!.id}`)
++    expect(result.fullResult.operations.workflows[0]!.shootingTask?.status).toBe('completed')
++    expect(result.fullResult.admittedReleaseIds).toEqual([])
++  })
++
++  it('releases real wrapped stage/Set holds even when the supplied Post slots are occupied', () => {
++    const state = tick(scheduled())
++    const production = state.studio.activeProductions[0]!
++    expect(production.remainingTicks).toBe(4)
++    const before = state.operations.workflows.find((row) => row.productionId === production.id)!
++    expect(before.bindings.stageFacilityId).not.toBeNull()
++    expect(before.bindings.setId).not.toBeNull()
++    const postSlots = state.operations.facilities.filter((row) => row.capability === 'post')
++      .flatMap((row) => Array.from({ length: row.capacity }, (_, slot) => `${row.id}:${slot}`))
++    expect(postSlots.length).toBeGreaterThan(0)
++    // Explicit detached occupancy input, NOT fabricated persisted reservations.
++    const blocked = paired(state, postSlots)
++    const workflow = blocked.fullResult.operations.workflows.find((row) => row.productionId === production.id)!
++    expect(blocked.fullResult.productions[0]!.remainingTicks).toBe(4)
++    expect(workflow).toMatchObject({ reservations: [], shootingTask: null,
++      blocker: { kind: 'facility-capacity', capability: 'post', targetPhase: 'postProduction' },
++      bindings: { stageFacilityId: null, setId: before.bindings.setId } })
++    expect(blocked.fullEvents.drain().filter((row) => row.draft.kind === 'wrapped')).toEqual([
++      { week: state.market.tick, draft: { kind: 'wrapped', productionId: production.id,
++        stageFacilityId: before.bindings.stageFacilityId, setId: before.bindings.setId } },
++    ])
++    expect(blocked.fullResult.firstTakes).toEqual([])
++    expect(blocked.fullResult.admittedReleaseIds).toEqual([])
++    const free = paired(state)
++    expect(free.fullResult.productions[0]!.remainingTicks).toBe(3)
++    expect(free.fullResult.operations.workflows[0]!.phase).toBe('postProduction')
++  })
++
++  it('holds actual Release Ready until real commitment, then returns its exact admission ID', () => {
++    const ready = atRemaining(1)
++    const id = ready.studio.activeProductions[0]!.id
++    expect(ready.releaseAuthority.commitments).toEqual([])
++    const held = paired(ready)
++    expect(held.fullResult.productions[0]!.remainingTicks).toBe(1)
++    expect(held.fullResult.admittedReleaseIds).toEqual([])
++    const committed = applyActions(ready, [{ kind: 'commitPictureToRelease', productionId: id }])
++    expect(committed.releaseAuthority.commitments.map((row) => row.productionId)).toEqual([id])
++    const released = paired(committed)
++    expect(released.fullResult.productions[0]!.remainingTicks).toBe(0)
++    expect(released.fullResult.admittedReleaseIds).toEqual([id])
++    expect(released.fullResult.firstTakes).toEqual([])
++  })
++})

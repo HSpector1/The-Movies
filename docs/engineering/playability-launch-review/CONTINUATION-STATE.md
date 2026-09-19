@@ -11,7 +11,8 @@ change: Save29/rules3/projection46 remain.
 Corrected policy67:4 PASS including real under30 release credit;3 reached failures
 for old D3 behavior, dropped P2 tag and old rival P1-first draft. Later P2/fallback
 bodies remain unverified; exact attribution in B4/67-policy-reconciliation-disposition.md.
-Latest published/exactremote is1724784; kernel74 publication/exactremote next.
+Kernel74 published a8d277d91ccc323fe976d7cbb74940046ab0f22c; separate EXACT
+remote verified23:33:06Z (75). All runtime sessions CLOSED.
 Actual ownership/runtime and checkpoint SHA updates: B4/00-start.md.
 Next narrow shared-clock extraction with matched owner regressions, then real
 owner adapter/completeness and coherent P2 authoring/wire/live activation.

@@ -1,0 +1,18 @@
+{"sourceSha":"a8d277d91ccc323fe976d7cbb74940046ab0f22c","testedDiffSha256":"fbefa1dcc7b96189a950e9a8ca2f997f183a160efbb1d62d97a6f0cdc9f3ef32","untrackedSource":["tests/p14b4-managed-clock-owner.test.ts"],"command":["node_modules/.bin/vitest","run","tests/p14b4-managed-clock-owner.test.ts","--minWorkers=1","--maxWorkers=1"],"node":"v20.20.2","start":"2026-09-19T23:39:42.456Z","end":null,"exitCode":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p14b4-managed-clock-owner.test.ts (5 tests) 2292ms
+   ✓ P14B4 behavior-preserving managed clock owner extraction > retains full-P callbacks and technology locks at real shooting entry, not a take 426ms
+   ✓ P14B4 behavior-preserving managed clock owner extraction > holds an unassigned real take, then returns exactly the scheduled 5→4 caller record 602ms
+   ✓ P14B4 behavior-preserving managed clock owner extraction > releases real wrapped stage/Set holds even when the supplied Post slots are occupied 470ms
+   ✓ P14B4 behavior-preserving managed clock owner extraction > holds actual Release Ready until real commitment, then returns its exact admission ID 575ms
+
+ Test Files  1 passed (1)
+      Tests  5 passed (5)
+   Start at  01:39:42
+   Duration  5.01s (transform 1.71s, setup 0ms, collect 2.27s, tests 2.29s, environment 0ms, prepare 99ms)
+
+
+{"sourceSha":"a8d277d91ccc323fe976d7cbb74940046ab0f22c","testedDiffSha256":"fbefa1dcc7b96189a950e9a8ca2f997f183a160efbb1d62d97a6f0cdc9f3ef32","untrackedSource":["tests/p14b4-managed-clock-owner.test.ts"],"command":["node_modules/.bin/vitest","run","tests/p14b4-managed-clock-owner.test.ts","--minWorkers=1","--maxWorkers=1"],"node":"v20.20.2","start":"2026-09-19T23:39:42.456Z","end":"2026-09-19T23:39:48.326Z","exitCode":0,"signal":null,"error":null,"sourceShaAtEnd":"a8d277d91ccc323fe976d7cbb74940046ab0f22c","testedDiffSha256AtEnd":"fbefa1dcc7b96189a950e9a8ca2f997f183a160efbb1d62d97a6f0cdc9f3ef32","untrackedSourceAtEnd":["tests/p14b4-managed-clock-owner.test.ts"],"fixedSource":true}
