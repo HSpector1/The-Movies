@@ -2,17 +2,18 @@
 
 ## Current engineering checkpoint — 2026-09-19
 
-Current B4 pure-owner candidate verified:94PASS/7files, root+UI/bridge PASS,
-same fixed source6d42+d3ab96; source review39KEEP, qualified reportB4/40.
-Only promises.ts material/class-qualified take reads changed; tests unchanged.
-Published/exactremote fbe2d288a35d454e945f4bb3a5fc33f7330d5b56 (41).
-Reviewed policy-v2 installed exactly; RED43 CLOSED,7FAIL/fixedSource:true.
-Qualification45 distinguishes missing API, fixture prerequisites and reached rival-policy RED.
-No full B4, live P2, capacity, bridge47, native or Owner acceptance claim.
-Native author prepares inert bridge tests; sim-core read-only kernel interface42.
-No production writer/runtime. Publish original policy RED before fixture repair. Kernel42 under review44;
-bridge test preparation remains inert and separate. Continue implementation.
-Active exact ownership/next actions remain B4/00-start.md.
+Current B4 checkpoint60: pure publicPreferredOpportunity implemented through the
+existing archetype;3 new focusedPASS,15 regressionPASS/3unchangedtodos;root+UI PASS.
+Bridge typecheck55 has exactly unused test Envelope + deferred tagged attachment
+type errors; NOT green. Runtime48 bridgeRED12PASS/16FAIL remains qualified51.
+Latest published/exactremote c7ef8c398e0887af4ab63405db17df9925d1c7b0.
+Next publish60 reader/evidence checkpoint, finish independent kernel57RED and
+release sole sim-core implementation. Kernel49 corrects reviewed42/44;56 review.
+Policy fixture diagnostic58 bothPASS;59preserves actual lawful facts for narrow
+independent correction, originalv2/43unchanged. All runtime sessions CLOSED.
+No full B4/liveP2/solver/bridge47/native/Owner acceptance. Live29/rules3/46 remain.
+Earlier material/evidence sourcefbe2d28 verified94PASS+alltypechecks (40/41).
+Exact active ownership/next actions: evidence/p14b4-20260919/00-start.md.
 
 Earlier additive foundation checkpoint: V30 data support implemented and independently
 KEEP; qualified report evidence/p14b4-20260919/29-additive-checkpoint.md.

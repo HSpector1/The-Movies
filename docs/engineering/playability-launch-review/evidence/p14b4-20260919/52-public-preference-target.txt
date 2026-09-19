@@ -1,0 +1,14 @@
+{"sourceSha":"c7ef8c398e0887af4ab63405db17df9925d1c7b0","testedDiffSha256":"cf4a2787be26ace295cc86b77d2a43c8da6fe15b94f25a97a82c1f35ae3f6b2b","untrackedSource":[],"command":["npx","vitest","run","tests/p14b4-cast-class-policy.test.ts","-t","uses the existing age edge|irrelevant cash"],"node":"v20.20.2","start":"2026-09-19T22:50:05.291Z","end":null,"exitCode":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p14b4-cast-class-policy.test.ts (7 tests | 4 skipped) 435ms
+
+ Test Files  1 passed (1)
+      Tests  3 passed | 4 skipped (7)
+   Start at  00:50:07
+   Duration  3.94s (transform 2.09s, setup 0ms, collect 2.80s, tests 435ms, environment 0ms, prepare 151ms)
+
+
+{"sourceSha":"c7ef8c398e0887af4ab63405db17df9925d1c7b0","testedDiffSha256":"cf4a2787be26ace295cc86b77d2a43c8da6fe15b94f25a97a82c1f35ae3f6b2b","untrackedSource":[],"command":["npx","vitest","run","tests/p14b4-cast-class-policy.test.ts","-t","uses the existing age edge|irrelevant cash"],"node":"v20.20.2","start":"2026-09-19T22:50:05.291Z","end":"2026-09-19T22:50:11.536Z","exitCode":0,"signal":null,"error":null,"sourceShaAtEnd":"c7ef8c398e0887af4ab63405db17df9925d1c7b0","testedDiffSha256AtEnd":"cf4a2787be26ace295cc86b77d2a43c8da6fe15b94f25a97a82c1f35ae3f6b2b","untrackedSourceAtEnd":[],"fixedSource":true}

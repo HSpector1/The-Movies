@@ -1,0 +1,22 @@
+{"sourceSha":"c7ef8c398e0887af4ab63405db17df9925d1c7b0","testedDiffSha256":"cf4a2787be26ace295cc86b77d2a43c8da6fe15b94f25a97a82c1f35ae3f6b2b","untrackedSource":[],"command":["npx","vitest","run","tests/p14a1-f1-priority-order.test.ts","tests/p14b1-trust-chooser.test.ts"],"node":"v20.20.2","start":"2026-09-19T22:50:26.812Z","end":null,"exitCode":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p14a1-f1-priority-order.test.ts (5 tests | 1 skipped) 20ms
+ ✓ |core| tests/p14b1-trust-chooser.test.ts (13 tests | 2 skipped) 24617ms
+   ✓ P14B.1 test 6: trust, the widened chooser and the priority order > a Distrusted issuer is dropped issuerDistrusted at reservation, and the other (healthy) proposal settles the case 2315ms
+   ✓ P14B.1 test 6: trust, the widened chooser and the priority order > opportunity changes the winner of an otherwise compensation-versus-incumbency 1-1 tie, with two real surviving proposals 5214ms
+   ✓ P14B.1 test 6: trust, the widened chooser and the priority order > a Reliable issuer beats a Mixed-record issuer on the trust band, in the same otherwise-1-1-tie shape 1330ms
+   ✓ P14B.1 test 7: rival symmetry > attachPromise and its feasibility classification work identically when the issuer is a RIVAL (no player-only special-casing) 844ms
+   ✓ P14B.1 test 7: rival symmetry > the FIRST natural rival proposal carries exactly one P1 iff its ORIGINAL authoring verdict is REASONABLY_ACHIEVABLE, with exact proposal/root/receipt joins 6837ms
+   ✓ P14B.1 test 7: rival symmetry > natural rival authoring preserves the first writer IFF, the first actor positive, and an actual non-achievable zero-attachment witness 7548ms
+   ✓ P14B.1 test 7: rival symmetry > a rival first take satisfies a promise exactly as a player one does — found by direct search over the natural chain (never a magic week) 319ms
+
+ Test Files  2 passed (2)
+      Tests  15 passed | 3 todo (18)
+   Start at  00:50:28
+   Duration  28.21s (transform 2.18s, setup 0ms, collect 5.33s, tests 24.64s, environment 2ms, prepare 507ms)
+
+
+{"sourceSha":"c7ef8c398e0887af4ab63405db17df9925d1c7b0","testedDiffSha256":"cf4a2787be26ace295cc86b77d2a43c8da6fe15b94f25a97a82c1f35ae3f6b2b","untrackedSource":[],"command":["npx","vitest","run","tests/p14a1-f1-priority-order.test.ts","tests/p14b1-trust-chooser.test.ts"],"node":"v20.20.2","start":"2026-09-19T22:50:26.812Z","end":"2026-09-19T22:50:57.204Z","exitCode":0,"signal":null,"error":null,"sourceShaAtEnd":"c7ef8c398e0887af4ab63405db17df9925d1c7b0","testedDiffSha256AtEnd":"cf4a2787be26ace295cc86b77d2a43c8da6fe15b94f25a97a82c1f35ae3f6b2b","untrackedSourceAtEnd":[],"fixedSource":true}

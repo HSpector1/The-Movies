@@ -1,0 +1,17 @@
+diff --git a/src/core/talentMarket.ts b/src/core/talentMarket.ts
+index 38b1c19..53c23a1 100644
+--- a/src/core/talentMarket.ts
++++ b/src/core/talentMarket.ts
+@@ -717,6 +717,12 @@ export function publicPreferredTerm(state: GameState, talentId: string): number
+   return preferredTerm(state, talentId)
+ }
+ 
++/** B4's public opportunity preference uses the same existing archetype as the
++ * priority and term readers; it creates no personality or promise record. */
++export function publicPreferredOpportunity(state: GameState, talentId: string): 'significantCastRole' | 'anyCastAppearance' {
++  return isProven(state, talentId) ? 'anyCastAppearance' : 'significantCastRole'
++}
++
+ const STANDING_BAND_TOLERANCE = 5 // HYPOTHESIS: standing points inside which two studios are "similar"
+ 
+ function standingMean(s: Standing): number {

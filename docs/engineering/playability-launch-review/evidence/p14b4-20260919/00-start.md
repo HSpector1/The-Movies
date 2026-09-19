@@ -1,5 +1,20 @@
 # P14B.4 — additive data checkpoint in verification
 
+CURRENT60: pure accessor qualified checkpoint60 ready,56KEEP complete533b8380…;
+publication/exactremote next.3focused+15regressionPASS/3oldtodos,root/UI PASS;
+bridge55two testerrors (unusedEnvelope/deferredtaggedattachment), NOTgreen.
+All sessions CLOSED.58diagnostic2PASS actualfacts59; temporaryprobeexactarchived
+andremoved. Source sixlinesFROZEN;49definitivekernelcorrection56reviewnoblocker
+reported. Author onlyinert57kerneltests; auditor/simidle. Nextpublish,
+exact57install/missingmoduleRED, solekernelwriter+independentpolicyfixturerepair.
+
+CURRENT54: bridgeRED/42/44 PUBLISHED c7ef8c398e0887af4ab63405db17df9925d1c7b0,
+exactremote verified. Sole source change six-line publicPreferredOpportunity;
+SOURCE FROZEN patchcf4a2787… .52three targetedPASS/four name-filteredunselected;
+53fifteenregressionPASS/three unchangedtodos; both fixedtrue/CLOSED. Sole runtime54
+root/UI typecheck now running. Simcore ONLY finishes49/50docs; author inert46.
+Next serial bridge typecheck (future RED typing mayremain), diagnostics/kernelRED.
+
 CURRENT51:47was invocation error/no cases; corrected48 CLOSED12PASS/16FAIL,
 fixedSource:true; full qualification51. Three directly reached grammarREDs,
 own nullableclass/publicpreference REDs; integration mostly wire-prerequisite.

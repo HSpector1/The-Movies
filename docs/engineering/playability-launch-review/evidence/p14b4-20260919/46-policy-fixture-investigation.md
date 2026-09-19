@@ -1,0 +1,35 @@
+# Policy43 fixture investigation — bounded, no execution
+
+Status: PARTIAL / diagnostic ready; no live test correction yet. Source authority for the original installed policy-v2 plus complete RED is published `c979f1bc27f1cd4e5525f2b758d62a0bbcfd1089`. Read `43-policy-first-red.txt`, `45-policy-first-red-disposition.md`, the installed policy test, accepted B2 D3 test and relevant existing release fixtures/owners. No engine probe, test, typecheck, Git, network or source/fixture mutation was performed. Only this note and the inert diagnostic draft were authored.
+
+## 1. Controlled r04-3: a zero-credit premise is not the adopted archetype
+
+Observed in original43: both age branches stop at policy line126 because `Object.values(workHistory).every(n => n === 0)` is false. The log proves a nonzero real counter; it does not print exact counters, skill levels or identity disciplines. Do not claim those values have now been measured.
+
+Source law is narrower and decisive: `src/core/talentSummary.ts:543` derives each identity discipline from both a real credit (`workHistory > 0`) and perceived role OVR at least the existing capability threshold60. `src/core/talentMarket.ts:680` uses any such identity OR age>=30. An actual credit below usable OVR is therefore compatible with the unproven branch. The accepted original B2 controlled fixture in `tests/p14b1-trust-chooser.test.ts:295` requires opportunity-first at actual pre-market196; it never requires all-zero history. Its exact person, actual incumbent employment, real player ranToEnd, early case construction and later controlled feasibility drops were carried into policy-v2, but the new zero-history guard was not justified by that source.
+
+Proposed correction, conditional on the diagnostic: retain every real counter, skill, career event, root and receipt. Assert the actual subject's `careerIdentity(...).identityDisciplines` is empty before the age-only29/30 branch; explicitly compare the subject with the original after reversing only that age field, and compare both player and industry career-event roots unchanged. Keep the existing strict expected preference/order/term for both branches, all actual five-offer/two-survivor checks, class match table, changed winners, freeze receipts and actual binding assertions. Do not erase credits, lower capability thresholds, pick an arbitrary implementation result, or change production policy. If the actual subject has a usable credited discipline, this candidate is invalid; select another lawfully backed fixture in a separately authorized step instead.
+
+## 2. Real under30 usable credit: actively produce a release witness
+
+Observed in original43: passive `p13aGeneratedStudio()` ticks found no qualifying under30 usable credited person by220. That proves this seed/recipe did not furnish the witness, not that no such lawful world can exist. The draft did not identify a player film, select a young capable participant, or produce that film itself. Rival release growth always runs (`tick.ts:932`); the absence is not attributable merely to the default player `develop:false` switch.
+
+Existing owner-backed routes: `tests/d14-star-power.test.ts:35–90` uses ordinary founding, actual hires, greenlight, explicit `commitPictureToRelease` at remainingTicks1 and `tick(...,{develop:true})` to create player film/career facts. `tests/_p04a2WriterCreditFixtures.ts:146–230` separately demonstrates managed scheduled-take/release driving. `tests/ruling-a-development-in-play.test.ts:102–126` pins the explicit development-on route. `src/core/releaseCareers.ts:12` derives the real credit and exact frozen career event from that actual release; a fabricated workHistory row is not a substitute.
+
+The minimal proposed diagnostic uses ordinary `beginFounding(generateWorld('p13a-core-causal-01'))`, not the historical-control entry. It selects a real under30 founding applicant with usable primary-discipline OVR and no invented credit; hires the normal six distinct crew through actual commands, including that person in their genuine primary role; founds the studio; greenlights an actual affordable stock concept; explicitly commits release; and runs player development on. Operations and screenplay development stay legacy, as generated. That is an intentional existing legal release/credit route, not a managed first-take claim or a bypass of managed screenplay admission. No cash, age, skills, workHistory, results or employment is hand-authored. It hard-fails if the actual named pool, real affordability or release premises are absent.
+
+Before actual release the chosen person's history and the film's career-event set must remain unchanged. After release the draft requires the actual participant join, exactly one own film/person event, exact0→1 in the performed discipline, age still<30, usable credited identity, existing proven priority/term, save admission and no duplicate event/history change on a later real tick. Once this witness is measured, replace only the failed passive search with the proven lawful recipe and retain the installed `expectPreferences(...,true)` assertions. Do not extend the220 search, fake a credit or weaken its real-release proof.
+
+## Inert diagnostic and requested serialized observations
+
+`46-policy-fixture-probe.test.ts.draft.txt` (171 lines, two cases), intended disposable installed path `tests/p14b4-policy-fixture-probe.test.ts`.
+
+SHA256: `99bfbe5e223f61e59a09c7c840f0fd23070fcad7a4e33a8393bd57b54e40cd0a`.
+
+The diagnostic imports no future accessor or class-aware policy. Case1 reproduces the installed prelude exactly through actual pre-market196, using a transparent observer whose original call still runs and always restoring it. It prints precise real age/history/OVR/identity, actual employment, exact career-event/released-film joins, and existing priority/term; it then tests the identity-not-zero-history hypothesis and both disclosed age-only inputs. It stops before new proposals or D3 settlement. Case2 prints actual young usable applicant candidates and the actual film/person/discipline/event witness described above. Neither case changes timeout/configuration, searches multiple seeds, forges outcomes, hides failed guards or alters the installed policy suite.
+
+Requested parent action after the current runtime owner releases: review/install this exact diagnostic under a bounded lease, capture full source/diff identity and raw output, then run only:
+
+`node_modules/.bin/vitest run tests/p14b4-policy-fixture-probe.test.ts --minWorkers=1 --maxWorkers=1`
+
+All guards and proposed corrections remain UNEXECUTED. If either case fails, preserve its actual diagnostic and distinguish admission/selection premises from policy behavior before any test rewrite. No full suite or timeout increase is requested. Original policy-v2, original43, bridge draft/probe evidence and production files remain untouched by this investigation. Kernel independent RED preparation can proceed separately once parent supplies the corrected interface49 task.
