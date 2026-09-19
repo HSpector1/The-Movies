@@ -1,6 +1,6 @@
 # P14B.3 — existing P1 quote-to-commit integration (bounded expansion draft)
 
-Status: written during B2 T2, NOT executed/audited/closed. B2 qualified closeout
+Status: written during B2 T2, audited KEEP in13; NOT implemented/closed. B2 qualified closeout
 is the implementation gate. This extends the existing B3 preparation, not a new
 feature choice. Refresh exact B2 source identity before RED/writer release.
 
@@ -52,6 +52,16 @@ bound-open promises. Do not make reservations bound-only. No old feasibility
 receipt is recomputed or rewritten on load; the bug correction applies to new
 classification/digest reads, not fabricated historical facts.
 
+**Dated traceability amendment (2026-09-19, bounded independent review):** advance
+the evaluator's rules revision from1 to2 for this observable correction. Criterion:
+increment when newly evaluated receipts can differ for identical lawful inputs,
+including implementation corrections to settled law; output-equivalent refactors
+retain the revision. Only newly minted roots and newly evaluated receipts use2.
+Do not rewrite existing root versions or stored receipts on load. A legitimate
+later freeze may write a fresh revision2 receipt on an original revision1 root.
+This is a delegated traceability decision, not new product policy or a save/wire
+shape change. Positive historical version numbers are not future predicate tags.
+
 Independent regression must reproduce the defect using real submit/attach/revise
 or withdraw calls BEFORE correction, with lawful pipeline constraints. Preserve
 the second-overlapping-active-promise refusal. Re-express only the older synthetic
@@ -84,9 +94,15 @@ issuers. Preserve that behavior here; no new cross-issuer optimization policy.
    one real kept or broken outcome → valid V29 reload and B2 public/private surfaces.
    No forged settlement flag or contract ID. B2 real fixtures may be reused without
    deleting abandoned roots. Rejected/malformed input never mints a historical fact.
+8. Revision continuity: new evaluator/root/receipt revision2 is independently
+   pinned; genuine revision1 roots and receipts load byte-unchanged; a later real
+   settlement/freeze retains root.version1 while recording a fresh revision2
+   receipt and actual employment binding. Historical root versions never have to
+   equal the current evaluator. Mint the genuine input BEFORE changing the writer.
 
 New independent files: `tests/p14b3-reservations.test.ts` and
-`tests/bridge-p14b3-promise-command.test.ts`; any additive helper is separately
+`tests/bridge-p14b3-promise-command.test.ts`, plus the dated traceability amendment's
+`tests/p14b3-rule-revision.test.ts`; any additive helper is separately
 owned by test-author. Because the functions already exist, initial RED may be a
 behavioral assertion; do not create a fake missing export. Main bridge integration
 RED must fail for missing real attachment/refusal, not fixture invalidity.
@@ -94,7 +110,14 @@ RED must fail for missing real attachment/refusal, not fixture invalidity.
 ## Tasks and scope ownership
 
 T0: after B2 closeout, confirm exact source and schema. Expected Save29/projection46
-unchanged if wire shape stays identical; no outgoing fixture mint in that case.
+unchanged if wire shape stays identical; no save/runtime schema migration is
+expected in that case.
+Preserve a small genuine old-evaluator corpus at the qualified B2 writer BEFORE
+B3's evaluator moves: real current/withdrawn P1 and real refused non-actor P1
+staging, including original revision1 receipts/root versions. This additional
+continuity evidence is not a save-version bump. A guarded minter draft is being
+prepared outside checkout; execute only after B2's publication gate. Reuse the
+old non-actor record for the separately reconciled post-B3 eligibility correction.
 If an actual wire change is needed, first allocate the next projection, freeze a
 genuine outgoing runtime checkpoint and record the exact reason; no restamping.
 T1: test-author independent reservation and command-route RED, serialized runtime.
@@ -108,11 +131,19 @@ T4: committed fixed-source serial full core/bridge pass, exact inherited-failure
 attribution and any corrective rechecks; qualified logic label, backlog, records,
 commit/push/exact remote verification. No timeout/validator weakening.
 
+Planning forecast at this amendment: B3 roughly2–3hours including fixture/RED,
+implementation/targeted checks and the observed~90minute serialized full pass;
+unexpected real regressions are additional, not permission to weaken a gate.
+This carries prior programme usage forward, not a fresh allowance. B-F2's separate
+boundary is budgeted in its own expansion; no broad P2 estimate is asserted yet.
+
 Unity obligation: remove B1 preview-only caveat only after engine integration is
 verified; client must honor outer quote `ok`, show nested refusal, submit exactly
 the emitted intent, display bound/outcome history and preserve UNKNOWN rival
 terms. Native/rendering/Owner acceptance remain deferred and never inferred.
 
-Next after B3: separately expand remaining P2–P5/waiver/relationships/P14C under
+Next after B3: the narrow, now-reconciled has-discipline correction B-F2 in the
+P14 plan (existing authority; not a new Owner choice), then separately expand
+remaining P2–P5/waiver/relationships/P14C under
 their accepted requirements and genuine unresolved-decision boundaries. Do not
 silently call this P1 route completion all of P14B or the whole P14 package.

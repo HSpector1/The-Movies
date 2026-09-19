@@ -1,0 +1,13 @@
+diff --git a/tests/bridge-runtime-checkpoint.test.ts b/tests/bridge-runtime-checkpoint.test.ts
+index c747578..13a78a7 100644
+--- a/tests/bridge-runtime-checkpoint.test.ts
++++ b/tests/bridge-runtime-checkpoint.test.ts
+@@ -981,6 +981,8 @@ describe('prior protocol-4 acceptance boundary pins', () => {
+       // Authentic outgoing ready26: d906's generated header and unchanged v3 corpus.
+       'sha256:2b339a6a8b3e5add0726b7eaac9ce8746e235d8b6111a6816f890ff56afdffd1',
+       'sha256:510f08e4a551827a30e0f3d93bbe09fa5ddadbd39366b4dcfa93530500c7979c',
++      // Genuine outgoing projection45: e37cd23 generated header and preserved runtime checkpoint.
++      'sha256:5b2a4ca93d930e90a288db55bb5cc3fdc8eea070ef51fa1450a193a325bd755d',
+       'sha256:625377a2804a681da3be209da02850e221ae33ac5f58b727f6395736ad607ad1',
+       'sha256:6a2c01feaf02c931a8c41bbf2090f8af003b89a492d77135d7aab2b42a8d3dc9',
+       'sha256:71529afdcb8e5cf645ab136efb9685256da0039e86d989bfab97b7b2cc5d9a8b',

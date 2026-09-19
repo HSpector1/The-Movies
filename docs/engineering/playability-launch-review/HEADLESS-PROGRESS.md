@@ -20,13 +20,25 @@ exact V29 references and later-contract chronology fixes; bounded reviews KEEP.
 | Scope / review | Seven corrective tests only; production/config/harness/generated/historical fixtures unchanged; independent KEEP |
 | Closeout | `p14b1-20260919-t4-final/16-attribution.md`; attributed non-green full suites plus verified corrections, NOT an all-green full rerun |
 
-Now: P14B.2 T2/T3 LANDED at `3b978d77c29df2b5de038e3b1b7fc94778257f33` after
+Now: **P14B.2 CLOSED — LOGIC VERIFIED · UNITY NOT VERIFIED**, qualified by
+`p14b2-20260919-final/18-attribution.md`; not Owner acceptance. T2/T3 source
+`3b978d77c29df2b5de038e3b1b7fc94778257f33` after
 independent module RED6d23466. Save29/projection46; main22/22, checkpoint2/2,
 D3/schema33pass/2todos, neighbours148pass/one stale current hash failure/one todo
 then corrected generator31/31; both typechecks/contracts PASS, independent KEEP.
 Exact patches/raw failures/limits: `p14b2-20260919/13-candidate-review.md`.
-Parent publishes checkpoint then committed serial FULL verification/attribution.
-No B2 closeout/full GREEN yet; author drafts B3 only outside checkout meanwhile.
+Published/remote-verified checkpointbee7e22; committed serial FULL verification
+COMPLETE14:35:26.703Z–16:09:14.453Z, fixedSource:true (93.8min). Root/UI+bridge
+typechecks and both contract checks PASS. Core3303pass/23fail/6todo (305files),
+bridge741pass/13fail/2todo (71files), overlapping selections, not unique totals.
+Exact22core/12bridge inherited matches plus one shared outgoing45 test-literal
+omission. Author corrected ONLY that literal/comment AFTER whole-run freeze;
+commit `7f89f75bad5a450b50340e3ab074a913c3ef2744`, exact two-line patch hash
+matches corrective24–28.14files/238pass/two unchanged todos; both typechecks/
+contracts PASS; independent final review KEEP16. No runtime active. Publish this
+qualified closeout, verify remote, then B3 T0. No all-green full rerun claim.
+Raw full metadata and comparison13/15 in `p14b2-20260919-final/`.
+Independent future-slice drafts remain uninstalled; detailsB2evidence23.
 Read models are preceded by the discovered **B2-F1**
 producer repair: real first-take→wrap
 releases occupancy but its retained setup history is refused by the old validator.
@@ -36,7 +48,9 @@ bounded final review KEEP. **LOGIC VERIFIED (bounded F1) · UNITY NOT VERIFIED**
 Exact fixed-source records/limits: `p14b2-20260919/08-f1-closeout.md`; no full F1
 suite claimed. Genuine45 checkpoint minted; two expected migration-forward REDs
 at projection45 (`09`). Actual poaching/kept/broken/history/rival probes recorded.
-After this prerequisite, resume read models → D3 test → review/full pass/publication.
+Read models/D3 are now landed as stated above; finish full pass/attribution,
+qualified publication, genuine evaluator1 preservation, then B3. The dated
+has-discipline reconciliation B-F2 follows B3; final outgoingV29 mint precedes P2.
 Forecast: 2–4 hours fixture/implementation
 plus ~90 minutes full validation. T4 took ~89 minutes, ~14 over the older
 observation. Earlier cumulative usage remains in force; no fresh allowance.

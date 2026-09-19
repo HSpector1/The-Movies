@@ -1,6 +1,30 @@
-# P14B.2 — active execution, 2026-09-19
+# P14B.2 — qualified closeout, 2026-09-19
 
 ## Live next action after fixture findings
+
+**B2 CLOSED — LOGIC VERIFIED · UNITY NOT VERIFIED**, qualified controlling
+record `../p14b2-20260919-final/18-attribution.md`. Final test-correction source
+`7f89f75bad5a450b50340e3ab074a913c3ef2744`: exactly two test additions, actual
+committed protected-source patch hash matches every corrective record24–28.
+Full run COMPLETE16:09:14.451Z: `../p14b2-20260919-final/00-run.json`
+seals fixedSource:true at unchangedbee7e22. Core3303pass/23fail/6todo; bridge
+741pass/13fail/2todo. Exact22core/12bridge historical matches, one shared NEW
+genuine45 completeness-pin omission; no absent/changed baseline diagnostic.
+Author added ONLY the independently established outgoing45literal/provenance
+comment after freeze. Corrective24:14files/238pass/two unchanged todos;25–28 both
+typechecks/contracts PASS, allfixedSource:true. Independent final bridge/diff
+reviewKEEP16. No active runtime or specialist. Publish the records checkpoint and
+verify exact remote SHA, then genuine old-evaluator1 T0 preservation, B3 behavioral
+RED and sole-writer implementation. Neither full suite wholly green, no Unity/
+Owner acceptance. Session34647 and corrective sessions CLOSED. Earlier live
+records below are historical; do not restart any of these runners.
+
+**LIVE FULL RUN:** published/remote-verified `bee7e22f3e1fa402c920cc6c274152256487387f`;
+actual start14:35:26.703Z, session34647. `22-full-run-start.md` and
+`../p14b2-20260919-final/00-run.json` are authoritative. Source/tests/HEAD FROZEN;
+no duplicate suite, edits or commits until completion. Parent sole runtime;
+auditor reads stable B3 drafts outside checkout, other specialists idle. Then
+exact failure attribution/corrections/qualified closeout/publication, then B3.
 
 **Current publication/full-run gate (14:24Z):** source/tests committed
 `3b978d77c29df2b5de038e3b1b7fc94778257f33`. All targeted checks finished; no active

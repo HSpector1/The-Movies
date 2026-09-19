@@ -218,7 +218,7 @@ The known literal-contractId correction is now part of T4, not deferred to B.2.
 - [x] **T3 Engine test 12 — D3 synthetic construction**, landed `3b978d7`. Original five-survivor premise failed (`14`); corrected controlled real staging preserves exact two survivors, equal bands, causal compensation→opportunity winner reversal and actual binding/freeze receipt. `16`: D3/schema33pass/2unchanged todos; independent actual-test KEEP. No chooser fix. Exact provenance/limits `13-candidate-review.md`.
 
 **Audit (contract-auditor, 2026-09-18): ADOPT WITH AMENDMENTS — applied above.** Coverage against the B.1 MOVED line and rulings (vii)/(viii) met one-to-one; disclosure law met (terms UNKNOWN, outcomes public per §4.5); hypotheses correctly isolated as §7.2-class tuning/copy calls, none an Owner question; RED precedent confirmed (`bridge/trust.ts` absent); test constructibility confirmed (the first-take construction is reusable; the line-288 todo is the one that matches). Defect 1 (citation slip: `reasons` on the receipt vs `outcomeCause` on the promise) fixed in the companion-basis paragraph. Defect 2 (the attention mechanism would exclude a poaching winner after its case closed) fixed by the independent-scan requirement in item (4) and the poaching-win pin in tests group (4). Item (6) ruled INCLUDE with the deferral note. Note 5 became a T2 check.
-- [ ] **T4 Matched pass, attribution, label, records, backlog entry (projection-46 DTOs: `trust`, `promises`, `outcomeKind`, the two causes, `trustLabel`), commit, push.**
+- [x] **T4 qualified CLOSED — LOGIC VERIFIED · UNITY NOT VERIFIED**, final corrective source `7f89f75bad5a450b50340e3ab074a913c3ef2744`. Fixed-source fullbee7e22:core3303pass/23fail/6todo,bridge741pass/13fail/2todo;22core/12bridge exact historical signatures plus one shared outgoing45 literal omission. Independent assertion-preserving two-line test correction;14files/238pass/two unchanged todos, both typechecks/contracts PASS, bounded KEEP. Closeout `p14b2-20260919-final/18-attribution.md`, backlog projection46 updated. Not all-green full rerun/Owner acceptance. Records publication/exact remote verification required before B3 T0; no production or validator weakening.
 
 ## P14B.3 — P1 quote-to-commit integration — audited expansion, NOT STARTED
 
@@ -229,8 +229,10 @@ not P2–P5, waiver, relationships or all of P14B. Companion §§4.1–4.4/R5 an
 T2b's active-attachment ruling govern; no new Owner decision needed for this slice.
 
 - [ ] T0 refresh exact B2 identity/owners. Expect Save29/projection46 unchanged
-  with existing wire shapes; no save/runtime mint unless a genuine version move
-  is required. Do not fabricate/restamp old fixtures.
+  with existing wire shapes; no governed save/runtime schema migration expected.
+  Separately preserve genuine old-evaluator current/withdrawn P1 and
+  refused non-actor P1 records before revision2, per the amended expansion12.
+  Do not fabricate/restamp old fixtures.
 - [ ] T1 independent behavioral RED: abandoned unbound reservations versus
   current/bound-open ones; real session promise attachment, whole-quote refusal,
   draft-value retention, atomicity/revision/replay/session isolation and settlement.
@@ -238,7 +240,8 @@ T2b's active-attachment ruling govern; no new Owner decision needed for this sli
   immutable shared quote/apply preparation; attach only through the existing
   reducers; nested feasibility gates outer quote/intent registration. No partial
   proposals/receipts/promise ordinals/money/revisions on failure. Preserve old
-  receipts and abandoned evidence; do not rewrite loaded history.
+  receipts and abandoned evidence; do not rewrite loaded history. New evaluations/
+  new roots use rules revision2 (dated traceability ruling in expansion12).
 - [ ] T3 targeted neighbours/B1/B2/B3/session/isolation, both typechecks and contract
   checks, bounded independent source review.
 - [ ] T4 committed fixed-source serial full pass, exact failure attribution,
@@ -248,3 +251,61 @@ Independent decision boundary: existing accounting sums competing CURRENT
 proposals across issuers although only one may win. Preserve that behavior in
 the narrow abandonment correction; its policy remains separately OPEN. Unity,
 native/rendering and Owner acceptance remain deferred.
+
+## P14B-F2 — has-discipline promise eligibility (reconciled prerequisite, not started)
+
+**Authority reconciliation 2026-09-19.** The historical B1 T2 ruling(iii) above
+mistakenly read the CALL `requireRole(actor, 'actor', ...)` as a primary-role gate.
+The function already checked has-discipline at B1 source8bb5738. D9 OQ-1 is
+explicitly RESOLVED in `docs/rev4-open-questions.md` (PM resolutions1400), and the
+P14 companion4.2 expressly forbids adding a profession-label gate. The actual
+promise code added that gate anyway. Native bounded contract-auditor review and
+parent inspection confirm this factual contradiction; no later Owner exception
+was found in the relevant authority. This paragraph supersedes the historical
+OPEN classification, retaining that mistaken record as provenance. It is a
+correction to existing law, not a new product choice or reopening candidate pools.
+
+Gate: B3 qualified closeout; genuine old refused non-actor P1 evidence preserved
+before its evaluator changes (scheduled at B2's accepted writer). Scope ONLY P1
+feasibility's acting-discipline eligibility and its live input digest. Preserve
+all capacity/window/reservation gates, primary professions, casting read-model
+pools, candidate generation and rival staffing/authoring policy. Shared assignment
+law itself is already correct and need not be broadened.
+
+- Independent RED: a real available non-actor with acting skills can legally be
+  cast and has an appropriately feasible P1; real completed first take satisfies
+  a genuinely bound promise. Unknown person and missing acting profile refuse;
+  a missing-profile probe is deliberately invalid input, not a lawful save.
+  Pin eligibility-input digest sensitivity, unchanged old refused receipt/root
+  through save/load, no fabricated binding/outcome, and unrelated gate controls.
+- Sole production writer: match the existing acting-profile presence predicate;
+  include that actual eligibility fact in the bounded feasibility digest. Use
+  evaluator revision3 if B3 separately landed revision2. Historical roots/receipts
+  remain unchanged on load; a future real quote/freeze can evaluate under3.
+- Re-express the old rival-authoring test's false permanent-writer-impossibility
+  premise without deleting its meaningful actor-authoring and policy assertions.
+  No new writer-specific rival authoring/casting policy is introduced. Source
+  clarification: existing `authorRivalPromise` has no primary-role filter; it
+  authors P1/count1 iff the shared service says achievable. Correcting eligibility
+  may therefore change which natural proposals carry promises under that SAME
+  policy. Do not add a role filter to preserve the erroneous refusal. Also inspect
+  the preceding first-proposal IFF test: its unconditional second `attachPromise`
+  is invalid if that proposal now already carries one. Preserve independent
+  authoring evidence and self-exclusion, not a double-attachment premise. Actual
+  natural classifications and downstream outcomes remain verification work;
+  assignment candidate pools and rival seating policy are not changed here.
+- Targeted/B1–B3/neighbour checks, both typechecks/contracts, independent review,
+  fixed-source boundary verification, exact failure attribution and publication
+  as usual. Expected Save29/projection46 unchanged; verify actual wire impact.
+
+Planning forecast: roughly2hours including independent real-take/continuity
+tests, narrow correction/targeted checks and the observed~90minute full boundary;
+regressions may add time. One production writer, at most two specialists and one
+heavy runtime. Prior usage is carried forward; this is not a new resource grant.
+
+Before P2's writer moves, mint the FINAL outgoingV29 nine-scenario corpus at the
+accepted B-F2 source, not the earlier B3 producer. Its separate execution map is
+in evidence23; drafts are not fixture evidence. New P2 must preserve all prior
+count-only shapes, including arbitrary positive historical version numbers;
+version2/3 alone cannot identify a seat-class predicate. No P2 implementation or
+broader P14 completion is claimed here. Unity/native/Owner acceptance deferred.

@@ -14,7 +14,19 @@ todos. Neighbours148pass/one obsolete whole-schema hash failure/one todo;
 corrected generator31/31. Both typechecks and contract checks PASS; independent
 reviews KEEP. Exact patches/raw failures/limits:
 `evidence/p14b2-20260919/13-candidate-review.md`.
-**B2 NOT CLOSED:** committed fixed-source full verification/attribution is NEXT.
+**P14B.2 CLOSED — LOGIC VERIFIED · UNITY NOT VERIFIED**, qualified in
+`evidence/p14b2-20260919-final/18-attribution.md`. Final test correction
+`7f89f75bad5a450b50340e3ab074a913c3ef2744`, exactly two additions; no production
+change. Full verification COMPLETE on published/remote-verified
+`bee7e22f3e1fa402c920cc6c274152256487387f`, 14:35:26.703Z–16:09:14.453Z,
+fixedSource:true. Session34647 CLOSED. Both typechecks/contracts passed; core
+3303pass/23fail/6todo (305files), bridge741pass/13fail/2todo (71files). Exact
+22core/12bridge historical matches plus one shared genuine45 literal omission.
+Author added ONLY that literal/provenance comment after freeze. Corrective24:
+14files/238pass/two unchanged todos;25–28 both typechecks/contracts PASS, all
+fixedSource:true on the exact committed patch. No runtime remains active. Publish
+these records and verify remote, then B3 T0 genuine evaluator1 preservation.
+Exact full metadata `evidence/p14b2-20260919-final/00-run.json`; comparisons13/15.
 Live runtime/next actions: `evidence/p14b2-20260919/00-start.md`. No source/test
 edits or HEAD commits during a fixed-source run.
 
@@ -30,16 +42,20 @@ core3253pass/29fail/7todo, bridge717pass/12fail/2todo. Exact historical signatur
 a93bf77; corrective170pass/3todo, both typechecks/contracts PASS, reviews KEEP.
 Closeoute37 pushed/remote verified; not an all-green full rerun/Owner acceptance.
 
-After B2 full attribution/publication: B3 per audited expansion in
+After B2 exact remote publication: B3 per audited expansion in
 `plans/P14-HEADLESS-PLAN.md` and evidence `12-b3-expansion-draft.md`. P1 command
-attachment is STILL preview-only. Test-author may draft B3 only outside checkout
-(`/tmp/studio-b3-tests-jWA61F`) during B2 checks, no runtime/install. Then remaining
+attachment is STILL preview-only. Independent B3 drafts were prepared outside
+checkout (`/tmp/studio-b3-tests-jWA61F`), not installed/run. Reviewed draft
+recovery copies and guarded future minters are in B2 `b3-preparation/`; exact
+hashes/sequence in `23-live-findings-and-preparation.md`. New dated B-F2 in the
+plan reconciles the incorrect primary-role gate against existing has-discipline
+law; it follows B3, not a new product choice. Then remaining
 P14 → P15 → P16 → sufficiently specified P17/P18, without routine prompts.
 
 Unity/rendering/native/Owner acceptance deferred; generated C# is not consumer
 verification. Maintain backlog, including inherited missing32–44 runtime-schema
 registry identities; genuine45 compatibility does not prove those older schemas.
-Prior usage carries forward; full-run forecast ~90min from actual T4~89min.
+Prior usage carries forward; actual B2 full run93.8min, T4~89min.
 
 ## Historical recovered handoff (unchanged below)
 

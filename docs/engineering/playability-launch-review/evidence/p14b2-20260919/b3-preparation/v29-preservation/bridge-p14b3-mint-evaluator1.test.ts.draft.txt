@@ -1,0 +1,125 @@
+// DRAFT / DO NOT RUN before qualified B2 publication; MUST precede B3 revision2.
+// Future ONE-SHOT path: tests/bridge-p14b3-mint-evaluator1.test.ts.
+// Archive/remove from test discovery after authorized mint. Never an Owner save.
+import assert from 'node:assert/strict'
+import { it } from 'vitest'
+import { SKILL_ORDER } from '../src/core/index.js'
+import { attachPromise } from '../src/core/promises.js'
+import { currentProposals, submitProposal, withdrawProposal } from '../src/core/talentMarket.js'
+import { player, retentionFixture, rivalFixture } from './helpers/p14b2-fixtures.js'
+import { mintV29Corpus, type MinterAuthority, type Snapshot } from '../scripts/v29-mint-support.js'
+
+// Invalid until the parent records qualified B2 acceptance AND exact remote
+// publication. No accepted-B3 or later producer can stand in for these old bytes.
+const APPROVED_B2: MinterAuthority = {
+  phase: 'qualified B2 evaluator1 before B3 or B-F2',
+  testedSourceSha: 'UNSET_AFTER_QUALIFIED_B2_CLOSEOUT',
+  publishedRecoverySha: 'UNSET_AFTER_EXACT_REMOTE_VERIFICATION',
+  closeoutRelativePath: 'UNSET_ACCEPTED_B2_CLOSEOUT_EVIDENCE',
+  closeoutSha256: 'UNSET_ACCEPTED_B2_CLOSEOUT_SHA256',
+  schemaId: 'sha256:584bdd8565030f049d548b1af4fcbf8c517ca7c9150016736f632f1ef8fcb98c',
+  projectionVersion: 46,
+  protocolVersion: 4,
+  saveVersion: 29,
+  promiseRulesVersion: 1,
+  approvalEnvironmentVariable: 'STUDIO_MINT_V29_APPROVED_B2',
+  outputRelativePath: 'tests/fixtures/p14/genuine-v29-pre-b3-evaluator1',
+}
+
+function oldEvaluatorSnapshots(): Snapshot[] {
+  const fixture = retentionFixture()
+  const current = fixture.submitted
+  const issuer = player(current)
+  const proposal = currentProposals(current, fixture.keptId).find((p) => p.issuerStudioId === issuer)
+  assert.ok(proposal)
+  assert.equal(proposal.promises.length, 1)
+  const original = current.promises.find((p) => p.promiseId === proposal.promises[0])
+  assert.ok(original)
+  assert.equal(original.family, 'APPEARANCE_COUNT')
+  assert.equal(original.version, 1)
+  assert.equal(original.feasibilityReceipt.rulesVersion, 1)
+  assert.equal(original.feasibilityReceipt.classification, 'REASONABLY_ACHIEVABLE')
+  assert.equal(original.contractId, null)
+  assert.equal(original.outcome, null)
+
+  // This is the actual old reducer, not a mutation removing a proposal from JSON.
+  const withdrawn = withdrawProposal(current, fixture.keptId, issuer)
+  assert.equal(withdrawn.market.tick, current.market.tick)
+  assert.deepEqual(withdrawn.promises, current.promises)
+  assert.deepEqual(withdrawn.firstTakes, current.firstTakes)
+  assert.deepEqual(withdrawn.talentMarket.receipts, current.talentMarket.receipts)
+  assert.ok(!currentProposals(withdrawn, fixture.keptId).some((p) => p.issuerStudioId === issuer))
+  assert.ok(!withdrawn.talentMarket.proposals.some((p) => p.promises.includes(original.promiseId)))
+  assert.deepEqual(withdrawn.talentMarket.proposals, current.talentMarket.proposals.filter((p) => p !== proposal))
+
+  // Unexecuted premise: the proven natural rival world must contain a real
+  // current rival writer proposal. Refuse if absent; never relabel an actor,
+  // fabricate an offer/history row, or tick silently to a different recipe.
+  const rival = rivalFixture().open
+  const writerProposal = rival.talentMarket.proposals.find((p) => p.issuerStudioId !== player(rival)
+    && p.promises.length === 0 && rival.talent.find((person) => person.id === p.talentId)?.role === 'writer')
+  assert.ok(writerProposal, 'unexecuted premise failed: no unattached real current rival writer proposal')
+  const writer = rival.talent.find((person) => person.id === writerProposal.talentId)
+  assert.ok(writer)
+  assert.equal(writer.role, 'writer')
+  assert.deepEqual(Object.keys(writer.skills.acting).sort(), [...SKILL_ORDER.acting].sort())
+  for (const skill of SKILL_ORDER.acting) {
+    const pair = writer.skills.acting[skill]
+    assert.ok(pair && Number.isInteger(pair.actual) && pair.actual >= 1 && pair.actual <= 99)
+    assert.ok(Number.isInteger(pair.perceived) && pair.perceived >= 1 && pair.perceived <= 99)
+  }
+  const submit = { talentId: writer.id, issuerStudioId: writerProposal.issuerStudioId,
+    termWeeks: writerProposal.termWeeks, premiumTier: writerProposal.premiumTier }
+  const resubmitted = submitProposal(rival, submit)
+  const fresh = currentProposals(resubmitted, writer.id).find((p) => p.issuerStudioId === writerProposal.issuerStudioId)
+  assert.ok(fresh)
+  assert.equal(fresh.startWeek, writerProposal.startWeek)
+  assert.deepEqual(fresh.promises, [])
+  assert.deepEqual(resubmitted.promises, rival.promises)
+  const attachment = { family: 'APPEARANCE_COUNT' as const, predicate: { count: 1 },
+    windowStartWeek: fresh.startWeek, dueWeekExclusive: fresh.startWeek + fresh.termWeeks }
+  const refused = attachPromise(resubmitted, writer.id, fresh.issuerStudioId, attachment)
+  assert.equal(refused.promises.length, resubmitted.promises.length + 1)
+  assert.deepEqual(refused.promises.slice(0, resubmitted.promises.length), resubmitted.promises)
+  const staged = refused.promises[resubmitted.promises.length]!
+  assert.equal(staged.promiseId, `promise-${resubmitted.promises.length}`)
+  assert.equal(staged.beneficiaryPersonId, writer.id)
+  assert.equal(staged.issuerStudioId, fresh.issuerStudioId)
+  assert.equal(staged.family, 'APPEARANCE_COUNT')
+  assert.equal(staged.version, 1)
+  assert.equal(staged.feasibilityReceipt.rulesVersion, 1)
+  assert.equal(staged.feasibilityReceipt.week, refused.market.tick)
+  assert.equal(staged.feasibilityReceipt.classification, 'IMPOSSIBLE')
+  assert.equal(staged.feasibilityReceipt.bottleneck, 'this person takes no cast seat under the greenlight law')
+  assert.equal(staged.contractId, null)
+  assert.equal(staged.outcome, null)
+  assert.equal(staged.outcomeEventId, null)
+  assert.deepEqual(staged.evidenceRefs, [])
+  assert.deepEqual(currentProposals(refused, writer.id).find((p) => p.issuerStudioId === fresh.issuerStudioId)!.promises,
+    [staged.promiseId])
+  assert.deepEqual(refused.talent.find((person) => person.id === writer.id), writer)
+
+  const currentRecipe = { builder: 'tests/helpers/p14b2-fixtures.ts:retentionFixture().submitted',
+    generatedCampaignOnly: true, economicInput: 'explicit fund helper cash delta with matching ledger',
+    talentId: fixture.keptId, issuerStudioId: issuer }
+  return [
+    { name: 'evaluator1-current-p1', state: current,
+      role: 'genuine old evaluator1 CURRENT P1 with original root version, receipt and proposal digest',
+      recipe: currentRecipe, focusPromiseIds: [original.promiseId] },
+    { name: 'evaluator1-withdrawn-p1', state: withdrawn,
+      role: 'same old producer world after real withdrawal; abandoned root and evaluator1 receipt unchanged',
+      recipe: { base: currentRecipe, action: { kind: 'withdrawProposal', talentId: fixture.keptId, issuerStudioId: issuer } },
+      focusPromiseIds: [original.promiseId] },
+    { name: 'evaluator1-role-label-refused-p1', state: refused,
+      role: 'genuine old IMPOSSIBLE P1 staging receipt caused by primary-role label despite actual acting profile',
+      recipe: { builder: 'tests/helpers/p14b2-fixtures.ts:rivalFixture().open', generatedCampaignOnly: true,
+        priorRealProposal: writerProposal, submitProposal: submit, attachPromise: attachment },
+      focusPromiseIds: [staged.promiseId], facts: { primaryRole: writer.role, personId: writer.id,
+        actualActingProfile: writer.skills.acting, originalReceipt: staged.feasibilityReceipt,
+        qualification: 'old label gate is the producer defect witness, not proof of lawful discipline ineligibility' } },
+  ]
+}
+
+it('ONE-SHOT: preserve three genuine evaluator1 worlds after accepted B2 and before B3', () => {
+  mintV29Corpus(APPROVED_B2, import.meta.url, 3, oldEvaluatorSnapshots)
+}, 180_000)

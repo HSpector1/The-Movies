@@ -1,6 +1,6 @@
 # CONTINUATION STATE — three-week autonomous window (Owner directive 2026-09-15)
 
-## Current continuation — 2026-09-19: B2 source landed, full verification next
+## Current continuation — 2026-09-19: B2 qualified CLOSED, publish then B3 T0
 
 Source/test candidate `3b978d77c29df2b5de038e3b1b7fc94778257f33`; Save29 /
 projection46. Branch/worktree: `CODEX-START-HERE.md`. Preserve recovered commits/
@@ -16,15 +16,21 @@ proves compensation→opportunity winner reversal plus actual binding. D3/schema
 failure/one todo; correction ONLY F10/F11, unchanged generator/fixtures, fresh21:
 31/31. Root/UI15, bridge17 and contract checks19/20 PASS; full pass repeats all on
 committed final source. Exact source hashes/failures/limits:
-`evidence/p14b2-20260919/13-candidate-review.md`. B2 NOT CLOSED.
+`evidence/p14b2-20260919/13-candidate-review.md`. B2 now qualified CLOSED;
+controlling closeout `evidence/p14b2-20260919-final/18-attribution.md`.
 
-Next: publish source/evidence checkpoint, verify remote SHA, then run prepared
-`evidence/p14b2-20260919/run-fixed-source.mjs p14b2-20260919-final` once: serial
-typechecks/contracts/core/bridge with established flags. Disposable localhost
-preflight returned EPERM inside sandbox; full server-inclusive tests require the
-normal explicit sandbox escalation, not altered tests. Preserve source throughout;
-attribute every failure by historical identifier AND diagnostic, fix regressions,
-qualify label/backlog/records, push/remote verify, then B3. Do not repeat T4/B1.
+Published/remote verified `bee7e22f3e1fa402c920cc6c274152256487387f`. Full runner
+COMPLETE14:35:26.703Z–16:09:14.453Z, fixedSource:true; session34647 CLOSED.
+Normal sandbox escalation enabled actual localhost tests. Both typechecks/
+contracts passed; core3303pass/23fail/6todo (305files), bridge741pass/13fail/2todo
+(71files). Exact22core/12bridge historical signatures, none missing/changed,
+plus one shared genuine45 registry-literal omission. After freeze author added
+ONLY that literal/comment, committed `7f89f75bad5a450b50340e3ab074a913c3ef2744`.
+Corrective24:14files/238passed/two unchanged todos;25–28 both typechecks/contracts
+PASS, all fixedSource:true on exact committed patch. Independent final KEEP16.
+No runtime remains active. Publish records/verify remote next. Full metadata
+`evidence/p14b2-20260919-final/00-run.json`, comparisons13/15. Then preserve
+genuine evaluator1 T0 corpus, execute B3. Do not repeat T4/B1.
 
 F1 CLOSED at `af455ef838b8c2227d784ebdc8bafb89e7a6835b`: independent3fail/10pass
 RED → narrow permanent-wrap setup validation →179 targeted passes/3todos, both
@@ -40,9 +46,10 @@ Unity/Owner acceptance. Recovered d19/T3 preserved.
 
 B3 audited, NOT STARTED: P14 plan + `12-b3-expansion-draft.md`, review13. Existing
 P1 atomic attachment/refusal/immutable drafts and abandoned-reservation correction;
-current competing-proposal accounting separately OPEN/unchanged. Test-author may
-draft two files ONLY under `/tmp/studio-b3-tests-jWA61F` during B2 runtime; no
-install/runtime before B2 gate. Sim-core/auditor idle. Max two specialists, one
+current competing-proposal accounting separately OPEN/unchanged. Three independent
+drafts9+19+6cases and guarded minters are preserved in B2 `b3-preparation/`;
+future B-F2 draft13cases in `bf2-preparation/`. All reviewed, UNEXECUTED. Exact
+hashes/qualified sequencing in B2evidence23. All specialists idle. Max two specialists, one
 production writer; no Claude/installs or routine permission prompts.
 
 Continue remaining P14 → P15 → P16 → sufficiently specified P17/P18. Unity/native/
