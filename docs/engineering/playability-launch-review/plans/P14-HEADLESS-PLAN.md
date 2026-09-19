@@ -1,21 +1,22 @@
 # P14 — Contested Talent Market, Bonds and Promises, Career Lifecycle — headless plan (logic-first)
 
-Current B4 checkpoint74: detached capacity kernel implemented,46 PASS across
-two complete finite-domain files; independent source/extension review71 KEEP.
-All66/67/68/73 fixedSource:true on published17247843921781e3ad873db2e45d1737520a5623
-plus patchf9aaf3c5…; root AND UI typechecks PASS. Bridge73 has exactly the remaining
-future tagged attachment type error, NOT green. No live kernel caller or version
-change: Save29/rules3/projection46 remain.
-Corrected policy67:4 PASS including real under30 release credit;3 reached failures
-for old D3 behavior, dropped P2 tag and old rival P1-first draft. Later P2/fallback
-bodies remain unverified; exact attribution in B4/67-policy-reconciliation-disposition.md.
-Kernel74 published a8d277d91ccc323fe976d7cbb74940046ab0f22c; separate EXACT
-remote verified23:33:06Z (75). All runtime sessions CLOSED.
-Actual ownership/runtime and checkpoint SHA updates: B4/00-start.md.
-Next narrow shared-clock extraction with matched owner regressions, then real
-owner adapter/completeness and coherent P2 authoring/wire/live activation.
-Full B4/T4, natural-chain performance, Unity/native and Owner acceptance remain
-owed. Continue settled implementation; this is not a permission or setup pause.
+Current B4 checkpoint87: shared managed-clock extraction implemented in TWO
+owner files, unchanged executable JavaScript independently byte-compared83.
+92 PASS/11 owner files; root AND UI typechecks PASS; bounded source86 KEEP.
+All candidate checks fixedSource:true on0ece527 + patch ed85c692… .
+Bridge85 has exactly unchanged future P2 tagged-attachment TS2353 atline364;
+NOT green. All runtime sessions CLOSED, source/tests frozen; publication87next.
+Latest published/exactremote0ece527bb26c55a60be6abe137708489656f1b70 (81).
+Earlier detached kernel a8d277d:46 PASS, source71KEEP, no livecaller. Policy67
+4PASS/3reachedFAIL remains qualified: old D3/P2 attachment/rival authoring owed.
+Save29/rules3/projection46 unchanged; no fabricated histories or weakened tests.
+Next91 definitive joint-trace interface under89/90, independent trace RED and
+shared-kernel refinement, actual owner trace producer and coherent P2 activation.
+Mandatory background occupancy, sweep priority and GLOBAL prior protection must
+be certified together, not inferred by composing solo calendars.
+Exact active ownership/runtime/publication: evidence/p14b4-20260919/00-start.md.
+Full B4/T4, real natural-chain coverage/performance, Unity/native and Owner
+acceptance remain owed. Continue settled implementation without routine pauses.
 
 Earlier additive foundation checkpoint: V30 data support implemented and independently
 KEEP; qualified report evidence/p14b4-20260919/29-additive-checkpoint.md.

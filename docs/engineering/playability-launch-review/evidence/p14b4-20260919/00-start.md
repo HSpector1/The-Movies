@@ -1,6 +1,20 @@
 # P14B.4 — capacity implementation continuation
 
-CURRENT81: qualified kernel checkpoint a8d277d91ccc323fe976d7cbb74940046ab0f22c
+CURRENT87: independent clockRED0ece527bb26c55a60be6abe137708489656f1b70
+PUSHED/EXACTremote23:42:25Z. Source82 DONE/FROZEN (two owners only).
+Protected patch ed85c69213fe224c86401c60c8263d6bc2d5f0818ba4fdf14444be9b229a9cc6.
+83-executable-identity CLOSED/PASS/fixedtrue: TypeScript5.9.3/ES2022/removeComments
+emits byte-identical JavaScript for BOTH owners versus0ece527.
+83-target CLOSED92PASS/11files, fixedtrue,23:46:40.559Z.
+84 root AND UI CLOSED/PASS, fixedtrue.85 CLOSEDexit2/fixedtrue, only unchanged
+futureP2 taggedattachment TS2353 atbridge test364. ALL runtime sessions CLOSED.
+ALL protected source/tests FROZEN; NO production writer.
+Qualified87 COMPLETE. Next publish/exactremote88.86 source review KEEP complete.
+86 source KEEP COMPLETE05efdedd…; auditor idle. Sim-core ONLY inert91 definitive
+trace interface under89/90; author idle. Max2 specialists.90KEEP complete063d01e…,
+main read full report.89/91 NOT trace code or owner-domain acceptance.
+
+Qualified kernel checkpoint a8d277d91ccc323fe976d7cbb74940046ab0f22c
 PUSHED and separately EXACT remote verified23:33:06Z; report75/qualified74.
 Kernel SOURCE FROZEN64.66 CLOSED46PASS/2files (original41 plus
 independent70extension5), fixedSource:true on published1724784 plus patch
@@ -14,13 +28,12 @@ baseline CLOSED57PASS/7files, fixedtrue. ALL runtime sessions CLOSED.
 77 five owner tests exact-installed04c457f6…;79 CLOSED5PASS/fixedtrue on
 a8d277d + test-only patch (see79 metadata). Runtime PASS is expected for a
 type-only extraction;80 CLOSEDexit2/fixedtrue,11 new-test diagnostics, UIunreached.
-Exact attribution81. ALL protected files frozen; no source writer/runtime.
+Exact attribution81; protected test freeze retained during active82 writer.
 89 bounded cross-path finding COMPLETE: solo calendars do not certify the
 mandatory priority sweep. Proposed explicit joint traces/compulsory occupancy/
 GLOBAL prior optimum is engineering refinement, not yet adopted interface/code.
-Auditor ONLY90 reviews77 +89 separately. Sim-core/author idle. Max2 specialists;
-NO production writer. Next publish actual typeRED/exactremote, sole-writer shared-clock
-extraction and matched verification, then owner adapter/coherent P2 activation. The finite
+Auditor90 reviews77 +89 separately. Max2 specialists, ONE production writer.
+Then owner adapter/coherent P2 activation. The finite
 46PASS does NOT establish real owner domain completeness or live P2 acceptance.
 Original57 remains076f5050…; exact extension70 installed21be8467… .
 Measured policy65 frozen/reviewed69; exact remaining behavior/typing RED in67/73.

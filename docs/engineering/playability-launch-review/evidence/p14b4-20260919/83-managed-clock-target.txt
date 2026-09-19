@@ -1,0 +1,51 @@
+{"sourceSha":"0ece527bb26c55a60be6abe137708489656f1b70","testedDiffSha256":"ed85c69213fe224c86401c60c8263d6bc2d5f0818ba4fdf14444be9b229a9cc6","untrackedSource":[],"command":["node_modules/.bin/vitest","run","tests/p14b4-managed-clock-owner.test.ts","tests/operations.test.ts","tests/c2a-m4-release-law.test.ts","tests/p14b2-setup-wrap-regressions.test.ts","tests/p14b1-first-take.test.ts","tests/p13a-production-technology.test.ts","tests/script-projects-actions.test.ts","tests/p04a3-greenlight-law.test.ts","tests/c2a-m4-contention-property.test.ts","tests/p13b-r07-timeline.test.ts","tests/p14b4-material-evidence-core.test.ts","--minWorkers=1","--maxWorkers=1"],"node":"v20.20.2","start":"2026-09-19T23:46:00.415Z","end":null,"exitCode":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/operations.test.ts (13 tests) 939ms
+   ✓ Production Operations V1 > holds only the blocked production while world time and weekly costs continue 610ms
+ ✓ |core| tests/p14b4-material-evidence-core.test.ts (17 tests) 9897ms
+   ✓ P14B4 staged material owner, independent old formula and explicit class > retains the exact old count-only APPEARANCE_COUNT formula and attached formula 480ms
+   ✓ P14B4 staged material owner, independent old formula and explicit class > retains the exact old count-only LEAD_OR_SIGNIFICANT_ROLE_COUNT formula and attached formula 313ms
+   ✓ P14B4 staged material owner, independent old formula and explicit class > retains the exact old count-only DIRECTING_COUNT formula and attached formula 314ms
+   ✓ P14B4 staged material owner, independent old formula and explicit class > retains the exact old count-only PREFERRED_GENRE_OPPORTUNITY formula and attached formula 309ms
+   ✓ P14B4 staged material owner, independent old formula and explicit class > kind/class are material; old classless P2 never aliases either new class; pure reads retain inputs 501ms
+   ✓ P14B4 staged material owner, independent old formula and explicit class > family, count and both window endpoints remain material without receipt/version repair 797ms
+   ✓ P14B4 staged outcome owner: real completed take, synthetic MATERIAL only > 'lead' against actual 'lead' 1051ms
+   ✓ P14B4 staged outcome owner: real completed take, synthetic MATERIAL only > 'lead' against actual 'antagonist' 893ms
+   ✓ P14B4 staged outcome owner: real completed take, synthetic MATERIAL only > 'lead' against actual 'support' 815ms
+   ✓ P14B4 staged outcome owner: real completed take, synthetic MATERIAL only > 'leadOrAntagonist' against actual 'lead' 695ms
+   ✓ P14B4 staged outcome owner: real completed take, synthetic MATERIAL only > 'leadOrAntagonist' against actual 'antagonist' 525ms
+   ✓ P14B4 staged outcome owner: real completed take, synthetic MATERIAL only > 'leadOrAntagonist' against actual 'support' 387ms
+   ✓ P14B4 staged outcome owner: real completed take, synthetic MATERIAL only > actual support still qualifies for old count-only 'APPEARANCE_COUNT' 405ms
+   ✓ P14B4 staged outcome owner: real completed take, synthetic MATERIAL only > actual support still qualifies for old count-only 'LEAD_OR_SIGNIFICANT_ROLE_COUNT' 445ms
+   ✓ P14B4 staged outcome owner: real completed take, synthetic MATERIAL only > two genuinely bound people share one take but get exactly two distinct own outcome receipts 686ms
+   ✓ P14B4 staged outcome owner: real completed take, synthetic MATERIAL only > a real take at window start counts; the same real take at due-exclusive does not 1005ms
+ ✓ |core| tests/p14b1-first-take.test.ts (3 tests) 1790ms
+   ✓ P14B.1 test 1: the first-take receipt > PLAYER: never at shooting entry (empty at remainingTicks 5, shooting task unassigned then scheduled through the real actions, still empty after scheduling); appended exactly once at the 5 -> 4 advance; idempotent on a later tick; byte-stable across save/load 1520ms
+ ✓ |core| tests/p13b-r07-timeline.test.ts (6 tests) 8353ms
+   ✓ P13B-S5-R07 setup timeline arithmetic (test 2) > walks the lighting ballroom route through real ticks: admission 807, entry 809 8194ms
+ ✓ |core| tests/script-projects-actions.test.ts (4 tests) 285ms
+ ✓ |core| tests/c2a-m4-release-law.test.ts (5 tests) 248ms
+ ✓ |core| tests/p14b4-managed-clock-owner.test.ts (5 tests) 2805ms
+   ✓ P14B4 behavior-preserving managed clock owner extraction > retains complete caller records/order and skips the actual greenlight week 315ms
+   ✓ P14B4 behavior-preserving managed clock owner extraction > retains full-P callbacks and technology locks at real shooting entry, not a take 541ms
+   ✓ P14B4 behavior-preserving managed clock owner extraction > holds an unassigned real take, then returns exactly the scheduled 5→4 caller record 718ms
+   ✓ P14B4 behavior-preserving managed clock owner extraction > releases real wrapped stage/Set holds even when the supplied Post slots are occupied 473ms
+   ✓ P14B4 behavior-preserving managed clock owner extraction > holds actual Release Ready until real commitment, then returns its exact admission ID 755ms
+ ✓ |core| tests/p13a-production-technology.test.ts (11 tests) 710ms
+   ✓ P13A first-filming technology and exact production chain > carries the first-filming lock through the complete tick state assembly 460ms
+ ✓ |core| tests/p04a3-greenlight-law.test.ts (8 tests) 190ms
+ ✓ |core| tests/c2a-m4-contention-property.test.ts (7 tests) 554ms
+ ✓ |core| tests/p14b2-setup-wrap-regressions.test.ts (13 tests) 3226ms
+   ✓ P14B.2-F1 completed setup remains historical authority after real wrap > round-trips actual first take → wrap → Post with unchanged setup and released stage 2212ms
+   ✓ P14B.2-F1 completed setup remains historical authority after real wrap > does not require compacted windowed setup/phase events when the permanent exact wrap survives 419ms
+
+ Test Files  11 passed (11)
+      Tests  92 passed (92)
+   Start at  01:46:01
+   Duration  39.18s (transform 2.24s, setup 0ms, collect 6.56s, tests 29.00s, environment 3ms, prepare 1.11s)
+
+
+{"sourceSha":"0ece527bb26c55a60be6abe137708489656f1b70","testedDiffSha256":"ed85c69213fe224c86401c60c8263d6bc2d5f0818ba4fdf14444be9b229a9cc6","untrackedSource":[],"command":["node_modules/.bin/vitest","run","tests/p14b4-managed-clock-owner.test.ts","tests/operations.test.ts","tests/c2a-m4-release-law.test.ts","tests/p14b2-setup-wrap-regressions.test.ts","tests/p14b1-first-take.test.ts","tests/p13a-production-technology.test.ts","tests/script-projects-actions.test.ts","tests/p04a3-greenlight-law.test.ts","tests/c2a-m4-contention-property.test.ts","tests/p13b-r07-timeline.test.ts","tests/p14b4-material-evidence-core.test.ts","--minWorkers=1","--maxWorkers=1"],"node":"v20.20.2","start":"2026-09-19T23:46:00.415Z","end":"2026-09-19T23:46:40.559Z","exitCode":0,"signal":null,"error":null,"sourceShaAtEnd":"0ece527bb26c55a60be6abe137708489656f1b70","testedDiffSha256AtEnd":"ed85c69213fe224c86401c60c8263d6bc2d5f0818ba4fdf14444be9b229a9cc6","untrackedSourceAtEnd":[],"fixedSource":true}

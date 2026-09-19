@@ -1,6 +1,6 @@
 import { hasOperationalFacilityInstallation } from './facilityEffects.js'
 import { occupiedResourceSlots } from './occupancy.js'
-import { retargetUnfilmedProduction, type ProductionAllocationPolicy } from './operations.js'
+import { retargetUnfilmedProduction, type ProductionAllocationPolicy, type ProductionClockView } from './operations.js'
 import { commitStudioEvents, StudioEventSink } from './studioEvents.js'
 import type { GameState } from './types.js'
 import type { ProductionTechnology, StudioTechnology, TechnologyAdoption } from './technologyTypes.js'
@@ -52,7 +52,7 @@ export function productionTechnologyView(state: GameState, productionId: string,
  * The callback runs at phase entry, before a shooting task can do any work.
  */
 export function createProductionTechnologyPolicy(state: GameState, studioId = playerId(state)): {
-  policy: ProductionAllocationPolicy
+  policy: ProductionAllocationPolicy<ProductionClockView>
   technology: () => StudioTechnology
 } {
   let next = state.technology

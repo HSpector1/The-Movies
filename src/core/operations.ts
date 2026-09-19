@@ -62,11 +62,15 @@ export type SetBindingContext = {
   genreOf: (productionId: string) => Genre | null
 }
 
+/** The production record fields read by the shared allocation/advance owner. */
+export type ProductionClockView = Readonly<Pick<Production,
+  'id' | 'startTick' | 'remainingTicks' | 'directorId'>>
+
 /** Campaign-owned technology may restrict candidates, without owning allocation. */
-export type ProductionAllocationPolicy = {
+export type ProductionAllocationPolicy<P extends ProductionClockView = Production> = {
   allowsFacility: (productionId: string, facility: StudioFacility, targetPhase: ProductionPhase) => boolean
   /** Called at the actual transition, before its event and before shooting work. */
-  beforePhaseEntered?: (production: Production, targetPhase: ProductionPhase, reservations: readonly FacilityReservation[], week: number) => void
+  beforePhaseEntered?: (production: P, targetPhase: ProductionPhase, reservations: readonly FacilityReservation[], week: number) => void
 }
 
 // Deep-frozen because this template is part of the public core surface. The live
@@ -282,7 +286,7 @@ function allocateForPhase(
   targetPhase: ProductionPhase,
   externallyOccupiedSlots: ReadonlySet<string> = new Set<string>(),
   binding?: SetBindingContext,
-  policy?: ProductionAllocationPolicy,
+  policy?: Pick<ProductionAllocationPolicy, 'allowsFacility'>,
 ): AllocationResult {
   const occupied = occupiedSlots(operations, workflow.productionId, externallyOccupiedSlots)
   const reservations: FacilityReservation[] = []
@@ -579,7 +583,7 @@ function replaceWorkflow(
 
 export function addManagedProductionWorkflow(
   operations: StudioOperations,
-  production: Production,
+  production: Pick<ProductionClockView, 'id' | 'startTick' | 'remainingTicks'>,
   externallyOccupiedSlots: ReadonlySet<string> = new Set<string>(),
   events: StudioEventSink = disabledStudioEventSink(),
   // C2a-M2: whether this greenlight requires a set. TRUE at every managed V14+
@@ -675,7 +679,7 @@ function requireManagedWorkflow(
 
 export function assignShootingDirector(
   operations: StudioOperations,
-  production: Production,
+  production: Pick<ProductionClockView, 'id' | 'directorId'>,
   directorId: string,
 ): StudioOperations {
   const workflow = requireManagedWorkflow(operations, production.id, 'assignShootingDirector')
@@ -1276,20 +1280,20 @@ function releaseCompletedPhase(
   }
 }
 
-function enterPhase(
+function enterPhase<P extends ProductionClockView>(
   operations: StudioOperations,
   workflow: ProductionWorkflow,
-  production: Production,
+  production: P,
   targetPhase: ProductionPhase,
   externallyOccupiedSlots: ReadonlySet<string>,
   week: number,
   events: StudioEventSink,
   binding?: SetBindingContext,
   sets: readonly StudioSet[] = [],
-  policy?: ProductionAllocationPolicy,
+  policy?: ProductionAllocationPolicy<NoInfer<P>>,
 ): {
   operations: StudioOperations
-  production: Production
+  production: P
   advanced: boolean
   sets: readonly StudioSet[]
   /** Whether this attempt handed capacity back to the pool (the sweep's progress signal). */
@@ -1441,7 +1445,10 @@ function enterPhase(
  * command. That is deliberate — the question the order asks is "who has been
  * waiting longest", not "whose fault was it".
  */
-export function productionWaitWeeks(production: Production, currentTick: number): number {
+export function productionWaitWeeks(
+  production: Pick<ProductionClockView, 'startTick' | 'remainingTicks'>,
+  currentTick: number,
+): number {
   const elapsed = currentTick - production.startTick
   const consumed = TUNING.PRODUCTION_TICKS - production.remainingTicks
   return Math.max(0, elapsed - consumed - 1)
@@ -1468,10 +1475,10 @@ function productionOrdinalKey(id: string): [number, number, string] {
  * no clock and no insertion race — and it replaces ascending-id-only order,
  * whose one-week unfairness a committed test used to prove.
  */
-export function productionsInSweepOrder(
-  productions: readonly Production[],
+export function productionsInSweepOrder<P extends Pick<ProductionClockView, 'id' | 'startTick' | 'remainingTicks'>>(
+  productions: readonly P[],
   currentTick: number,
-): readonly Production[] {
+): readonly P[] {
   return [...productions].sort((a, b) => {
     const wait = productionWaitWeeks(b, currentTick) - productionWaitWeeks(a, currentTick)
     if (wait !== 0) return wait
@@ -1485,8 +1492,8 @@ export function productionsInSweepOrder(
   })
 }
 
-export type ManagedProductionAdvance = {
-  productions: Production[]
+export type ManagedProductionAdvance<P extends ProductionClockView = Production> = {
+  productions: P[]
   operations: StudioOperations
   /** The sets root after this advance — wear at wrap is the only thing that moves it. */
   sets: readonly StudioSet[]
@@ -1504,7 +1511,7 @@ export type ManagedProductionAdvance = {
    * `admittedReleaseIds`: the caller turns each into the durable
    * `FirstTakeReceipt` its own studio owns, and nothing is serialized here.
    */
-  firstTakes: readonly Production[]
+  firstTakes: readonly P[]
 }
 
 /**
@@ -1557,9 +1564,9 @@ function advanceSetupWeek(
   }
 }
 
-export function advanceManagedProductions(
+export function advanceManagedProductions<P extends ProductionClockView = Production>(
   operations: StudioOperations,
-  productions: readonly Production[],
+  productions: readonly P[],
   currentTick: number,
   /**
    * P06A (charter W1): the exact committed-release id set derived from the
@@ -1572,7 +1579,7 @@ export function advanceManagedProductions(
   externallyOccupiedSlots: ReadonlySet<string> = new Set<string>(),
   events: StudioEventSink = disabledStudioEventSink(),
   binding?: SetBindingContext,
-  policy?: ProductionAllocationPolicy,
+  policy?: ProductionAllocationPolicy<NoInfer<P>>,
   /**
    * P13B-S5-R07: how this caller derives a setup's route and provenance at the
    * admission visit. ABSENT means "this caller cannot see the technology root"
@@ -1580,9 +1587,9 @@ export function advanceManagedProductions(
    * the route its own review derived rather than having one invented here.
    */
   setupRoute?: ProductionSetupRouteResolver,
-): ManagedProductionAdvance {
+): ManagedProductionAdvance<P> {
   const admittedReleaseIds: string[] = []
-  const firstTakes: Production[] = []
+  const firstTakes: P[] = []
   let sets: readonly StudioSet[] = binding?.sets ?? []
   if (operations.mode !== 'managed') {
     return {
@@ -1607,7 +1614,7 @@ export function advanceManagedProductions(
   }
 
   let nextOperations = operations
-  const byId = new Map<string, Production>()
+  const byId = new Map<string, P>()
   for (const production of productions) byId.set(production.id, production)
   // THE QUEUE ORDER (§3.3): longest-waiting-first, ordinal tie-break — computed
   // ONCE, from the state as this advance found it, so the order a week is served

@@ -1,0 +1,21 @@
+{
+  "sourceSha": "0ece527bb26c55a60be6abe137708489656f1b70",
+  "testedDiffSha256": "ed85c69213fe224c86401c60c8263d6bc2d5f0818ba4fdf14444be9b229a9cc6",
+  "untrackedSource": [],
+  "command": [
+    "node",
+    "--input-type=module",
+    "-e",
+    "import fs from \"node:fs\"; import assert from \"node:assert/strict\"; import {execFileSync} from \"node:child_process\"; import {createHash} from \"node:crypto\"; import ts from \"typescript\"; const base=\"0ece527bb26c55a60be6abe137708489656f1b70\"; const options={target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.ES2022,removeComments:true}; const sha=s=>createHash(\"sha256\").update(s).digest(\"hex\"); console.log(\"TypeScript\",ts.version,\"ES2022 module/target, removeComments\"); for(const f of [\"src/core/operations.ts\",\"src/core/technologyProduction.ts\"]){const old=execFileSync(\"git\",[\"show\",base+\":\"+f],{encoding:\"utf8\"});const now=fs.readFileSync(f,\"utf8\");const a=ts.transpileModule(old,{compilerOptions:options,fileName:f}).outputText;const b=ts.transpileModule(now,{compilerOptions:options,fileName:f}).outputText;assert.equal(b,a,f+\" executable output changed\");console.log(f,\"unchanged executable SHA256\",sha(b),\"source SHA256\",sha(now));}"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-19T23:45:17.531Z",
+  "end": "2026-09-19T23:45:19.362Z",
+  "exitCode": 0,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "0ece527bb26c55a60be6abe137708489656f1b70",
+  "testedDiffSha256AtEnd": "ed85c69213fe224c86401c60c8263d6bc2d5f0818ba4fdf14444be9b229a9cc6",
+  "untrackedSourceAtEnd": [],
+  "fixedSource": true
+}
