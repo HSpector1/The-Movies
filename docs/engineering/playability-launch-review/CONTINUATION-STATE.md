@@ -1,8 +1,17 @@
 # CONTINUATION STATE — three-week autonomous window (Owner directive 2026-09-15)
 
-## Current continuation — 2026-09-19: B-F2 closed; P2 additive data verification
+## Current continuation — 2026-09-19: B-F2 closed; P2 pure owners verified, integration continues
 
-Current B4 checkpoint: additive V30 data foundation implemented and independently
+Current B4 pure-owner candidate verified:94PASS/7files, root+UI/bridge PASS,
+same fixed source6d42+d3ab96; source review39KEEP, qualified reportB4/40.
+Only promises.ts material/class-qualified take reads changed; tests unchanged.
+Next publish/exactremote this core checkpoint, then reviewed policy-v2 RED.
+No full B4, live P2, capacity, bridge47, native or Owner acceptance claim.
+Native author prepares inert bridge tests; sim-core read-only kernel interface42.
+No heavy runtime or production writer; unfinished preparations not publication.
+Active exact ownership/next actions remain B4/00-start.md.
+
+Earlier additive foundation checkpoint: V30 data support implemented and independently
 KEEP; qualified report evidence/p14b4-20260919/29-additive-checkpoint.md.
 Corrected candidate bc25e15d…: root+UI and bridge typechecks PASS;137 save tests
 PASS across12 full files;14 selected new schema cases PASS,22 unselected future

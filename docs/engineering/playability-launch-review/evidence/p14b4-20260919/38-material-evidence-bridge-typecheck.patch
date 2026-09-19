@@ -1,0 +1,71 @@
+diff --git a/src/core/promises.ts b/src/core/promises.ts
+index e3d85fd..0302741 100644
+--- a/src/core/promises.ts
++++ b/src/core/promises.ts
+@@ -30,7 +30,7 @@ import { fnv1a64 } from './math.js'
+ import { occupiedResourceSlots } from './occupancy.js'
+ import { TUNING } from './tuning.js'
+ import type {
+-  CastSlot, FirstTakeReceipt, GameState, ProfessionalPromise, ProfessionalPromiseV30, Production, PromiseClassification,
++  CastSlot, FirstTakeReceipt, GameState, GameStateV30, ProfessionalPromise, ProfessionalPromiseV30, Production, PromiseClassification,
+   PromiseFamily, PromiseFeasibilityReceipt, TalentMarketState,
+ } from './types.js'
+ 
+@@ -144,8 +144,13 @@ export function appendFirstTakes(
+ /** One promise's own material definition, digested. A drifted predicate, window
+  * or family mints a different value, which is what makes a drifted promise drop
+  * `materialTermsChanged` at freeze. */
+-export function promiseDigest(promise: ProfessionalPromise): string {
+-  return fnv1a64(JSON.stringify([promise.family, promise.predicate.count, promise.windowStartWeek, promise.dueWeekExclusive]))
++export function promiseDigest(promise: ProfessionalPromiseV30): string {
++  const material: readonly unknown[] = [promise.family, promise.predicate.count, promise.windowStartWeek, promise.dueWeekExclusive]
++  // Preserve the exact historical tuple for every count-only family. The tag
++  // and selected class are additional material, never inferred from a version.
++  return fnv1a64(JSON.stringify('kind' in promise.predicate
++    ? [...material, promise.predicate.kind, promise.predicate.seatClass]
++    : material))
+ }
+ 
+ /** The digest of whatever promises a proposal currently carries, resolved LIVE
+@@ -153,7 +158,7 @@ export function promiseDigest(promise: ProfessionalPromise): string {
+  * is BYTE-PRESERVING: a proposal with no promise digests exactly as it did under
+  * V28, so every migrated proposal re-derives its stored digest unchanged. */
+ export function attachedPromiseDigest(
+-  state: Pick<GameState, 'promises'>,
++  state: Pick<GameStateV30, 'promises'>,
+   promiseIds: readonly string[],
+ ): string {
+   if (promiseIds.length === 0) return ''
+@@ -540,11 +545,27 @@ function evaluable(promise: ProfessionalPromise): boolean {
+   return promise.outcome === null && promise.contractId !== null
+ }
+ 
+-function qualifyingTakes(state: GameState, promise: ProfessionalPromise): readonly FirstTakeReceipt[] {
+-  return state.firstTakes.filter((take) =>
+-    take.studioId === promise.issuerStudioId &&
+-    take.week >= promise.windowStartWeek && take.week < promise.dueWeekExclusive &&
+-    CAST_SLOTS.some((slot) => take.cast[slot] === promise.beneficiaryPersonId))
++function promiseCastSlots(promise: ProfessionalPromiseV30): readonly CastSlot[] {
++  // Legacy count-only records of every family retain generic-cast semantics.
++  // Only the explicit predicate shape selects a restricted seat class.
++  if (!('kind' in promise.predicate)) return CAST_SLOTS
++  return promise.predicate.seatClass === 'lead' ? ['lead'] : ['lead', 'antagonist']
++}
++
++function qualifyingTakes(
++  state: Pick<GameStateV30, 'firstTakes'>,
++  promise: ProfessionalPromiseV30,
++): readonly FirstTakeReceipt[] {
++  const slots = promiseCastSlots(promise)
++  const productions = new Set<string>()
++  return state.firstTakes.filter((take) => {
++    if (productions.has(take.productionId)
++      || take.studioId !== promise.issuerStudioId
++      || take.week < promise.windowStartWeek || take.week >= promise.dueWeekExclusive
++      || !slots.some((slot) => take.cast[slot] === promise.beneficiaryPersonId)) return false
++    productions.add(take.productionId)
++    return true
++  })
+ }
+ 
+ function settle(

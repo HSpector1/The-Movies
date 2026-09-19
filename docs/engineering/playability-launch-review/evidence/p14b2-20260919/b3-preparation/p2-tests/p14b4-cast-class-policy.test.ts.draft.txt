@@ -257,6 +257,8 @@ type ReadObservation = { input: GameState; draft: Parameters<typeof promiseFeasi
   proposal: TalentMarketProposal; submission: TalentMarketReceipt; receipt: ReturnType<typeof promiseFeasibility> }
 type AttachmentObservation = { before: GameState; after: GameState; talentId: string; issuer: string;
   draft: Parameters<typeof attachPromise>[3] }
+type FreezeObservation = { input: GameState; draft: Parameters<typeof promiseFeasibility>[1]; week: number;
+  receipt: ReturnType<typeof promiseFeasibility> }
 
 describe('P14B4: natural rival policy uses the real shared service, never staged failed candidates', () => {
   it('observes flexible-first, actual P1 fallback, proven P1, and a genuine zero-attachment refusal without extra RNG', () => {
@@ -265,9 +267,17 @@ describe('P14B4: natural rival policy uses the real shared service, never staged
     const market = marketModule.advanceTalentMarketWeek
     let reads: ReadObservation[] = []
     let attachments: AttachmentObservation[] = []
+    let freezes: FreezeObservation[] = []
     const seen = new Set<string>()
     const readSpy = vi.spyOn(promiseModule, 'promiseFeasibility').mockImplementation((input, draft, week) => {
-      if (draft.promiseId !== undefined || input.hollywood === null || draft.issuerStudioId === input.hollywood.playerStudioId) return evaluate(input, draft, week)
+      if (draft.promiseId !== undefined) {
+        const receipt = evaluate(input, draft, week)
+        if (input.talentMarket.proposals.some((p) => p.promises.includes(draft.promiseId!))) {
+          freezes.push(clone({ input, draft, week, receipt }))
+        }
+        return receipt
+      }
+      if (input.hollywood === null || draft.issuerStudioId === input.hollywood.playerStudioId) return evaluate(input, draft, week)
       const proposals = input.talentMarket.proposals.filter((p) => p.talentId === draft.beneficiaryPersonId && p.issuerStudioId === draft.issuerStudioId)
       if (proposals.length === 0 || proposals[0]!.promises.length !== 0) return evaluate(input, draft, week)
       const before = clone(input), draftBefore = clone(draft)
@@ -310,7 +320,7 @@ describe('P14B4: natural rival policy uses the real shared service, never staged
     try {
       let state = p13aGeneratedStudio()
       for (let step = 0; step < 220; step++) {
-        reads = []; attachments = []
+        reads = []; attachments = []; freezes = []
         state = tick(state)
         const submissions = state.talentMarket.receipts.filter((r) => r.kind === 'proposalSubmitted'
           && r.studioId !== null && r.studioId !== state.hollywood!.playerStudioId && r.week === state.market.tick)
@@ -334,16 +344,47 @@ describe('P14B4: natural rival policy uses the real shared service, never staged
           const chosen = calls.find((call) => call.receipt.classification === ACHIEVABLE)
           const writes = attachments.filter((a) => a.talentId === first.proposal.talentId && a.issuer === first.proposal.issuerStudioId)
           const current = marketModule.currentProposals(state, first.proposal.talentId).filter((p) => p.issuerStudioId === first.proposal.issuerStudioId)
-          expect(current).toHaveLength(1)
-          const proposal = current[0]!
-          expect(proposal).toEqual({ ...first.proposal, promises: proposal.promises, digest: proposal.digest })
+          const originalCases = first.input.talentMarket.cases.filter((c) => c.talentId === first.proposal.talentId && c.outcome === null)
+          expect(originalCases).toHaveLength(1)
+          const originalCase = originalCases[0]!
+          const finalCases = state.talentMarket.cases.filter((c) => c.talentId === originalCase.talentId
+            && c.contractId === originalCase.contractId && c.openedWeek === originalCase.openedWeek)
+          expect(finalCases).toHaveLength(1)
+          const finalCase = finalCases[0]!
+          let terminal: TalentMarketReceipt | undefined
+          if (finalCase.outcome === null) {
+            expect(finalCase).toEqual(originalCase)
+            expect(current).toHaveLength(1)
+          } else {
+            // Authoring precedes settlement: a genuine decision-week proposal
+            // may lawfully close/bind in THIS SAME market phase. Do not skip it.
+            expect(['settled', 'declined']).toContain(finalCase.outcome)
+            expect(finalCase.closedWeek).toBe(first.week)
+            const decision = first.input.hollywood!.employment.find((e) => e.contractId === originalCase.contractId)
+            expect(decision).toBeDefined()
+            expect(decision!.terms.endWeekExclusive).toBeLessThanOrEqual(first.week)
+            expect(marketModule.currentProposals(state, originalCase.talentId)).toEqual([])
+            const terminals = state.talentMarket.receipts.filter((r) => r.talentId === originalCase.talentId
+              && r.kind === finalCase.outcome && r.week === first.week
+              && !first.input.talentMarket.receipts.some((old) => old.eventId === r.eventId))
+            expect(terminals).toHaveLength(1)
+            terminal = terminals[0]!
+            if (terminal.kind === 'settled') {
+              expect(terminal.studioId).not.toBeNull()
+              const winner = state.hollywood!.employment.filter((e) => e.terms.talentId === originalCase.talentId
+                && e.studioId === terminal!.studioId && e.terms.startWeek === first.week && e.endedWeek === null)
+              expect(winner).toHaveLength(1)
+              expect(first.input.hollywood!.employment.some((e) => e.contractId === winner[0]!.contractId)).toBe(false)
+            }
+          }
           const beforePair = first.input.promises.filter((p) => p.beneficiaryPersonId === first.proposal.talentId && p.issuerStudioId === first.proposal.issuerStudioId)
           const afterPair = state.promises.filter((p) => p.beneficiaryPersonId === first.proposal.talentId && p.issuerStudioId === first.proposal.issuerStudioId)
           if (chosen === undefined) {
             expect(writes).toEqual([])
-            expect(proposal.promises).toEqual([])
-            expect(proposal.digest).toBe(first.proposal.digest)
-            expect(afterPair.map((p) => p.promiseId)).toEqual(beforePair.map((p) => p.promiseId))
+            // The negative path is checked even when its actual case closes.
+            // No attachment means no newly minted pair root or reservation.
+            expect(afterPair).toEqual(beforePair)
+            if (terminal === undefined) expect(current).toEqual([first.proposal])
             if (!proven) seen.add('neither') // requires actual BOTH-candidate refusal
           } else {
             expect(writes).toHaveLength(1)
@@ -354,6 +395,13 @@ describe('P14B4: natural rival policy uses the real shared service, never staged
             expect(write.draft).toEqual({ family: chosen.draft.family, predicate: chosen.draft.predicate,
               windowStartWeek: chosen.draft.windowStartWeek, dueWeekExclusive: chosen.draft.dueWeekExclusive })
             const root = write.after.promises.at(-1)!
+            // Exact author-time facts belong to immediate actual attach output,
+            // before a later same-pass winner receives its freeze receipt.
+            const authored = marketModule.currentProposals(write.after, first.proposal.talentId)
+              .filter((p) => p.issuerStudioId === first.proposal.issuerStudioId)
+            expect(authored).toHaveLength(1)
+            const proposal = authored[0]!
+            expect(proposal).toEqual({ ...first.proposal, promises: proposal.promises, digest: proposal.digest })
             expect(proposal.promises).toEqual([root.promiseId])
             expect(proposal.digest).not.toBe(first.proposal.digest)
             expect(root).toMatchObject({ family: chosen.draft.family, predicate: chosen.draft.predicate,
@@ -362,7 +410,33 @@ describe('P14B4: natural rival policy uses the real shared service, never staged
               contractId: null, outcome: null, progress: 0, evidenceRefs: [] })
             expect(root.feasibilityReceipt).toEqual(chosen.receipt)
             expect(root.feasibilityReceipt.week).toBe(submission.week)
-            expect(afterPair.filter((p) => !beforePair.some((old) => old.promiseId === p.promiseId))).toEqual([root])
+            expect(afterPair.filter((p) => beforePair.some((old) => old.promiseId === p.promiseId))).toEqual(beforePair)
+            const newRoots = afterPair.filter((p) => !beforePair.some((old) => old.promiseId === p.promiseId))
+            expect(newRoots).toHaveLength(1)
+            const finalRoot = newRoots[0]!
+            expect(finalRoot.promiseId).toBe(root.promiseId)
+            if (terminal?.kind === 'settled' && terminal.studioId === root.issuerStudioId) {
+              const employment = state.hollywood!.employment.filter((e) => e.contractId === finalRoot.contractId)
+              expect(employment).toHaveLength(1)
+              expect(employment[0]!).toMatchObject({ studioId: root.issuerStudioId, endedWeek: null,
+                terms: { talentId: root.beneficiaryPersonId, startWeek: first.week, termWeeks: first.proposal.termWeeks } })
+              const matching = freezes.filter((f) => f.draft.promiseId === root.promiseId && f.week === first.week
+                && f.receipt.classification === ACHIEVABLE
+                && f.input.talentMarket.proposals.some((p) => p.talentId === proposal.talentId
+                  && p.issuerStudioId === proposal.issuerStudioId && p.digest === proposal.digest))
+              expect(matching.length).toBeGreaterThan(0)
+              expect(matching.map((f) => f.receipt)).toContainEqual(finalRoot.feasibilityReceipt)
+              for (const frozen of matching) {
+                expect(frozen.input.promises.find((p) => p.promiseId === root.promiseId)).toEqual(root)
+                expect(frozen.input.hollywood!.employment.some((e) => e.contractId === finalRoot.contractId)).toBe(false)
+              }
+              expect(finalRoot).toEqual({ ...root, contractId: employment[0]!.contractId,
+                feasibilityReceipt: finalRoot.feasibilityReceipt })
+              expect(finalRoot.feasibilityReceipt.week).toBe(first.week)
+            } else {
+              expect(finalRoot).toEqual(root) // open, declined or another studio won
+              if (terminal === undefined) expect(current).toEqual([proposal])
+            }
             seen.add(proven ? 'provenP1' : chosen.draft.family === 'LEAD_OR_SIGNIFICANT_ROLE_COUNT' ? 'flexibleP2' : 'P1fallback')
           }
         }

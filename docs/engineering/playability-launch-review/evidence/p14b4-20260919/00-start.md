@@ -1,5 +1,39 @@
 # P14B.4 — additive data checkpoint in verification
 
+CURRENT40: pure material/evidence candidate COMPLETE within narrow scope.
+94PASS/7files; root+UI/bridge PASS; all36/37/38 fixedSource:true on6d42+d3ab96,
+all sessions CLOSED. Source39KEEP; exact qualified report40. Next commit/push/
+exactremote, then install reviewed policyv2 (KEEP80cb560b) and record actualRED.
+No production writer. Sim-core only read-only kernel interface42; test-author
+only inert bridge draft. Do NOT stage either unfinished preparation. All broad
+P2 capacity/authoring/wire/live30/47 and later tasks remain owed; no routine pause.
+
+CURRENT37: root/UI typecheck is the sole active runtime, session69958.36finished
+22:32:58.037Z,94PASS/7files, fixedSource:true on6d42+d3ab96e5…; ALL17focused
+bodies passed, unchanged tests. Source39 independently KEEP566a4adb… (its runtime
+qualification describes assignment-time status). No source writer; ALLprotectedfrozen. Next
+bridge38 after37, then qualified40core checkpoint/push/exactremote. Auditor now
+reviews frozen policyv2; author inertbridge only. Do not stop at this staging
+boundary; continue full B4 owner/capacity/policy/wire and later settled work.
+
+ACTIVE36: sole parent seven-file material/evidence + legacy regression run,
+session85273, on published6d42 plus one-file patchd3ab96e5…. Writer DONE/FROZEN,
+handback35. All tests untouched. No second runtime/protected edits. Auditor owns
+bounded39source review; test-author inert bridge preparation; sim-core idle.
+Next inspect36, serial root/UI37 and bridge38, qualified publication40. Policyv2
+remains frozen awaiting review; full B4 activation/capacity/bridge still owed.
+
+ACTIVE WRITER: direct RED checkpoint6d42bcea485cf45faa07fdb48efc1e8b6b666ed0
+PUSHED and independently exactremote verified.33session27685 CLOSED. Sole native
+sim-core now owns ONLY promises.ts pure material/qualifying-take staging under34;
+no aliases/writer/rules/feasibility/attachment/validator/policy/bridge changes.
+Native test-author owns only inert bridge draft; max2specialists. No heavy process.
+All live tests frozen. Next writer handback35, serial focused+regression36,
+root/UI37, bridge38 and bounded independent source review39; publish qualified
+core checkpoint. Policyv2 frozen awaiting review. Actual future bridgeDTO naming
+selected: shared preferences.preferredOpportunity; own nullable seatClass with
+family context, rivalwholetermsUNKNOWN. Full B4 cutover/solver still owed.
+
 CURRENT33 CLOSED:17cases12PASS/5reachedFAIL, fixedSource:true. Actual three-seat
 construction succeeded; two material failures and three wrong-class SATISFIED
 failures, qualification34. No heavy process/source writer. Next publish exactRED

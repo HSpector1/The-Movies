@@ -14,10 +14,34 @@ d39a9a04e4eae7767d5a15225de36e86f0440c14 plus protected diff
 bb0858bc0968dff124f157b47de42095f5aa85e889a180238bdb720e2b03594b.
 That identifies the additive data candidate, not a tested policy implementation.
 
-Draft: 376 lines, 7 expanded cases; intended later installation path
+Draft v2: 450 lines, 7 expanded cases; intended later installation path
 `tests/p14b4-cast-class-policy.test.ts`.
-SHA256 f422bc0a5f70d6597032b35d9d53f9fc460cbfbb9d8d93140b45ba292d338169.
+SHA256 3d4ce58c83b1193b0e90f79f550332885f1a5e6a0a78ba6052ca57a0ab358ac3.
 No reached RED, GREEN, typecheck or constructibility result is claimed.
+
+## V2 narrow observation correction
+
+The exact v1 draft f422bc0a5f70d6597032b35d9d53f9fc460cbfbb9d8d93140b45ba292d338169,
+v1 brief e6ffc172e9f58d7fa087c3644086d04bb1b5731431ae69e16095eb4ed24acd0b,
+and original independent REFINE report are preserved at published checkpoint
+7022ade72a3f22ab555e225e36c528563eb6fba7 (parent exact remote verification).
+This v2 changes ONLY the natural-authoring observation boundary: the same real
+market pass may author then settle a decision-week proposal. Exact newly authored
+unbound root, original receipt and changed material digest now join to immediate
+actual `write.after`, not universally to end-of-tick CURRENT state.
+
+Every end-of-phase proposal is still accounted for. Open cases retain the exact
+current authored/unattached proposal. A closed case must have actual same-week
+settled/declined case+receipt, reached real decision week and no remaining CURRENT
+proposal. Any actual winner requires a newly committed real employment row.
+A newly authored winning root may change ONLY contractId and its receipt, and
+that receipt must equal an observed actual pre-commit achievable freeze receipt.
+Open/losing/declined new roots stay byte-identical; old pair roots remain exact.
+The negative path requires zero attachment and exact old pair roots even if the
+case closes. No late proposal is skipped, fabricated or treated as a failure.
+All FOUR unconditional policy witnesses, candidate sequence, full input equality,
+default timeouts and other public/D3 cases are unchanged. Same-pass late closure
+is source-supported but remains UNEXECUTED; v2 does not claim a natural witness.
 
 ## Bounded coverage if guards actually execute
 
