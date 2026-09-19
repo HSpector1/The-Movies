@@ -1,0 +1,271 @@
+{"sourceSha":"c979f1bc27f1cd4e5525f2b758d62a0bbcfd1089","testedDiffSha256":"5cab1b97a23c2970403ac8a47b071409667a46bbfe46659466263ae334d02fd9","untrackedSource":["tests/bridge-p14b4-cast-class.test.ts"],"command":["npx","vitest","run","tests/bridge-p14b4-cast-class.test.ts"],"node":"v20.20.2","start":"2026-09-19T22:47:59.034Z","end":null,"exitCode":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/bridge-p14b4-cast-class.test.ts (28 tests | 16 failed) 18136ms
+   × P14B4 exact wire grammar — no P2 offerability prerequisite > accepts explicit lead P2 through the actual closed quote-request validator 815ms
+     → expected false to be true // Object.is equality
+   × P14B4 exact wire grammar — no P2 offerability prerequisite > accepts explicit leadOrAntagonist P2 through the actual closed quote-request validator 597ms
+     → expected false to be true // Object.is equality
+   × P14B4 exact wire grammar — no P2 offerability prerequisite > refuses 'P2 missing class' before session quote/commit authority is reached 635ms
+     → expected { ok: true, quote: { …(7) } } to match object { ok: false, …(2) }
+(8 matching properties omitted from actual)
+   ✓ P14B4 exact wire grammar — no P2 offerability prerequisite > refuses 'bad class null' before session quote/commit authority is reached 659ms
+   ✓ P14B4 exact wire grammar — no P2 offerability prerequisite > refuses 'bad class "support"' before session quote/commit authority is reached 698ms
+   ✓ P14B4 exact wire grammar — no P2 offerability prerequisite > refuses 'bad class "leadOrSupport"' before session quote/commit authority is reached 916ms
+   ✓ P14B4 exact wire grammar — no P2 offerability prerequisite > refuses 'bad class 1' before session quote/commit authority is reached 947ms
+   ✓ P14B4 exact wire grammar — no P2 offerability prerequisite > refuses 'bad class ["lead"]' before session quote/commit authority is reached 954ms
+   ✓ P14B4 exact wire grammar — no P2 offerability prerequisite > refuses 'extra wire kind' before session quote/commit authority is reached 900ms
+   ✓ P14B4 exact wire grammar — no P2 offerability prerequisite > refuses 'extra nested predicate' before session quote/commit authority is reached 949ms
+   ✓ P14B4 exact wire grammar — no P2 offerability prerequisite > refuses 'class inapplicable to APPEARANCE_COUNT' before session quote/commit authority is reached 813ms
+   ✓ P14B4 exact wire grammar — no P2 offerability prerequisite > refuses 'class inapplicable to DIRECTING_COUNT' before session quote/commit authority is reached 1129ms
+   ✓ P14B4 exact wire grammar — no P2 offerability prerequisite > refuses 'class inapplicable to PREFERRED_GENRE…' before session quote/commit authority is reached 914ms
+   ✓ P14B4 exact wire grammar — no P2 offerability prerequisite > refuses 'class inapplicable to SPECIFIC_PROJECT' before session quote/commit authority is reached 585ms
+   × P14B4 real P2 session integration — offerability/commit prerequisites UNEXECUTED > class changes opaque intent identity; quote/conversion/pending values are nested immutable snapshots 505ms
+     → Command envelope is invalid: $: matched no allowed type ($.draft.conceptId: required property is missing; $.draft.budgetMarketing: required property is missing; $.draft.blueprintId: required property is missing; $.draft.blueprintId: required property is missing; $.draft.premiumTier: additional properties are not allowed; $.draft.promise.seatClass: additional properties are not allowed).
+   × P14B4 real P2 session integration — offerability/commit prerequisites UNEXECUTED > whole-quote refusal registers no intent and returns no partial proposal/root/cash/ledger/RNG state 598ms
+     → Command envelope is invalid: $: matched no allowed type ($.draft.conceptId: required property is missing; $.draft.budgetMarketing: required property is missing; $.draft.blueprintId: required property is missing; $.draft.blueprintId: required property is missing; $.draft.premiumTier: additional properties are not allowed; $.draft.promise.seatClass: additional properties are not allowed).
+   × P14B4 real P2 session integration — offerability/commit prerequisites UNEXECUTED > class revision replaces attachment, while remove/withdraw preserve every old root and create no outcome 383ms
+     → Command envelope is invalid: $: matched no allowed type ($.draft.conceptId: required property is missing; $.draft.budgetMarketing: required property is missing; $.draft.blueprintId: required property is missing; $.draft.blueprintId: required property is missing; $.draft.premiumTier: additional properties are not allowed; $.draft.promise.seatClass: additional properties are not allowed).
+   × P14B4 real P2 session integration — offerability/commit prerequisites UNEXECUTED > direct apply revalidates real CURRENT employment, not the earlier offerable conversion 310ms
+     → expected 'IMPOSSIBLE' to be 'REASONABLY_ACHIEVABLE' // Object.is equality
+   × P14B4 real P2 session integration — offerability/commit prerequisites UNEXECUTED > session/revision/replay protections still permit only one class-bearing attachment 1037ms
+     → Command envelope is invalid: $: matched no allowed type ($.draft.conceptId: required property is missing; $.draft.budgetMarketing: required property is missing; $.draft.blueprintId: required property is missing; $.draft.blueprintId: required property is missing; $.draft.premiumTier: additional properties are not allowed; $.draft.promise.seatClass: additional properties are not allowed).
+   × P14B4 real P2 session integration — offerability/commit prerequisites UNEXECUTED > exact cap16: after 16 distinct offerable class-bearing quotes 554ms
+     → Command envelope is invalid: $: matched no allowed type ($.draft.conceptId: required property is missing; $.draft.budgetMarketing: required property is missing; $.draft.blueprintId: required property is missing; $.draft.blueprintId: required property is missing; $.draft.premiumTier: additional properties are not allowed; $.draft.promise.seatClass: additional properties are not allowed).
+   × P14B4 real P2 session integration — offerability/commit prerequisites UNEXECUTED > exact cap16: after 17 distinct offerable class-bearing quotes 545ms
+     → Command envelope is invalid: $: matched no allowed type ($.draft.conceptId: required property is missing; $.draft.budgetMarketing: required property is missing; $.draft.blueprintId: required property is missing; $.draft.blueprintId: required property is missing; $.draft.premiumTier: additional properties are not allowed; $.draft.promise.seatClass: additional properties are not allowed).
+   × P14B4 existing own/private/public carriers > both viewing directions retain whole competing promise UNKNOWN, with no class beside it 308ms
+     → Command envelope is invalid: $: matched no allowed type ($.draft.conceptId: required property is missing; $.draft.budgetMarketing: required property is missing; $.draft.blueprintId: required property is missing; $.draft.blueprintId: required property is missing; $.draft.premiumTier: additional properties are not allowed; $.draft.promise.seatClass: additional properties are not allowed).
+   × P14B4 existing own/private/public carriers > own legacy classless P2 shows null/unknown, never a fabricated lead; P1 remains not-applicable 302ms
+     → expected { disclosure: 'own', …(8) } to match object { Object (disclosure, promise) }
+(11 matching properties omitted from actual)
+   × P14B4 existing own/private/public carriers > shared profile/case/workspace preferences expose the existing age-edge at29 540ms
+     → expected { priorityOrder: [ …(6) ], …(2) } to match object { …(2) }
+(2 matching properties omitted from actual)
+   × P14B4 existing own/private/public carriers > shared profile/case/workspace preferences expose the existing age-edge at30 527ms
+     → expected { priorityOrder: [ …(6) ], …(2) } to match object { …(2) }
+(2 matching properties omitted from actual)
+   × P14B4 existing own/private/public carriers > actual lead quote→binding→termination exposes own class, not public/private leakage 450ms
+     → Command envelope is invalid: $: matched no allowed type ($.draft.conceptId: required property is missing; $.draft.budgetMarketing: required property is missing; $.draft.blueprintId: required property is missing; $.draft.blueprintId: required property is missing; $.draft.premiumTier: additional properties are not allowed; $.draft.promise.seatClass: additional properties are not allowed).
+   × P14B4 existing own/private/public carriers > actual leadOrAntagonist quote→binding→termination exposes own class, not public/private leakage 329ms
+     → Command envelope is invalid: $: matched no allowed type ($.draft.conceptId: required property is missing; $.draft.budgetMarketing: required property is missing; $.draft.blueprintId: required property is missing; $.draft.blueprintId: required property is missing; $.draft.premiumTier: additional properties are not allowed; $.draft.promise.seatClass: additional properties are not allowed).
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 16 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/bridge-p14b4-cast-class.test.ts > P14B4 exact wire grammar — no P2 offerability prerequisite > accepts explicit lead P2 through the actual closed quote-request validator
+ FAIL |core|  tests/bridge-p14b4-cast-class.test.ts > P14B4 exact wire grammar — no P2 offerability prerequisite > accepts explicit leadOrAntagonist P2 through the actual closed quote-request validator
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ tests/bridge-p14b4-cast-class.test.ts:148:23
+    146|     const before = clone(wire), authority = truth(session)
+    147|     const parsed = validateQuote(wire)
+    148|     expect(parsed.ok).toBe(true)
+       |                       ^
+    149|     if (!parsed.ok) throw new Error(parsed.message)
+    150|     expect(parsed.quote).toEqual(wire)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/16]⎯
+
+ FAIL |core|  tests/bridge-p14b4-cast-class.test.ts > P14B4 exact wire grammar — no P2 offerability prerequisite > refuses 'P2 missing class' before session quote/commit authority is reached
+AssertionError: expected { ok: true, quote: { …(7) } } to match object { ok: false, …(2) }
+(8 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  Object {
+-   "commandId": "wire-invalid",
+-   "ok": false,
+-   "reasonCode": "INVALID_COMMAND",
++   "ok": true,
+  }
+
+ ❯ tests/bridge-p14b4-cast-class.test.ts:159:33
+    157|     const wire = request(session, { ...p2(talentId), promise: value },…
+    158|     const before = clone(wire), authority = truth(session)
+    159|     expect(validateQuote(wire)).toMatchObject({ ok: false, reasonCode:…
+       |                                 ^
+    160|     expect(() => parseWireValue(BRIDGE_SCHEMA.$defs.StudioBridgeQuoteR…
+    161|     expect(wire).toEqual(before)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/16]⎯
+
+ FAIL |core|  tests/bridge-p14b4-cast-class.test.ts > P14B4 real P2 session integration — offerability/commit prerequisites UNEXECUTED > class changes opaque intent identity; quote/conversion/pending values are nested immutable snapshots
+Error: Command envelope is invalid: $: matched no allowed type ($.draft.conceptId: required property is missing; $.draft.budgetMarketing: required property is missing; $.draft.blueprintId: required property is missing; $.draft.blueprintId: required property is missing; $.draft.premiumTier: additional properties are not allowed; $.draft.promise.seatClass: additional properties are not allowed).
+ ❯ quote tests/bridge-p14b4-cast-class.test.ts:112:25
+    110| function quote(session: BridgeSession, draft: BridgeMarketProposalDraf…
+    111|   const parsed = validateQuote(request(session, draft, id))
+    112|   if (!parsed.ok) throw new Error(parsed.message)
+       |                         ^
+    113|   const response = session.quote(parsed.quote)
+    114|   expect(response.accepted).toBe(true)
+ ❯ tests/bridge-p14b4-cast-class.test.ts:183:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/16]⎯
+
+ FAIL |core|  tests/bridge-p14b4-cast-class.test.ts > P14B4 real P2 session integration — offerability/commit prerequisites UNEXECUTED > whole-quote refusal registers no intent and returns no partial proposal/root/cash/ledger/RNG state
+Error: Command envelope is invalid: $: matched no allowed type ($.draft.conceptId: required property is missing; $.draft.budgetMarketing: required property is missing; $.draft.blueprintId: required property is missing; $.draft.blueprintId: required property is missing; $.draft.premiumTier: additional properties are not allowed; $.draft.promise.seatClass: additional properties are not allowed).
+ ❯ quote tests/bridge-p14b4-cast-class.test.ts:112:25
+    110| function quote(session: BridgeSession, draft: BridgeMarketProposalDraf…
+    111|   const parsed = validateQuote(request(session, draft, id))
+    112|   if (!parsed.ok) throw new Error(parsed.message)
+       |                         ^
+    113|   const response = session.quote(parsed.quote)
+    114|   expect(response.accepted).toBe(true)
+ ❯ tests/bridge-p14b4-cast-class.test.ts:220:22
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/16]⎯
+
+ FAIL |core|  tests/bridge-p14b4-cast-class.test.ts > P14B4 real P2 session integration — offerability/commit prerequisites UNEXECUTED > class revision replaces attachment, while remove/withdraw preserve every old root and create no outcome
+Error: Command envelope is invalid: $: matched no allowed type ($.draft.conceptId: required property is missing; $.draft.budgetMarketing: required property is missing; $.draft.blueprintId: required property is missing; $.draft.blueprintId: required property is missing; $.draft.premiumTier: additional properties are not allowed; $.draft.promise.seatClass: additional properties are not allowed).
+ ❯ quote tests/bridge-p14b4-cast-class.test.ts:112:25
+    110| function quote(session: BridgeSession, draft: BridgeMarketProposalDraf…
+    111|   const parsed = validateQuote(request(session, draft, id))
+    112|   if (!parsed.ok) throw new Error(parsed.message)
+       |                         ^
+    113|   const response = session.quote(parsed.quote)
+    114|   expect(response.accepted).toBe(true)
+ ❯ tests/bridge-p14b4-cast-class.test.ts:235:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/16]⎯
+
+ FAIL |core|  tests/bridge-p14b4-cast-class.test.ts > P14B4 real P2 session integration — offerability/commit prerequisites UNEXECUTED > direct apply revalidates real CURRENT employment, not the earlier offerable conversion
+AssertionError: expected 'IMPOSSIBLE' to be 'REASONABLY_ACHIEVABLE' // Object.is equality
+
+Expected: "REASONABLY_ACHIEVABLE"
+Received: "IMPOSSIBLE"
+
+ ❯ tests/bridge-p14b4-cast-class.test.ts:267:48
+    265|     const conversion = marketProposalDraftToEngine(state, playerPropos…
+    266|     if (!conversion.ok) throw new Error(conversion.error)
+    267|     expect(conversion.promise?.classification).toBe('REASONABLY_ACHIEV…
+       |                                                ^
+    268|     // Actual legal release ends the case's employment; do not manufac…
+    269|     // changed feasibility receipt, consume an artificial RNG value, o…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/16]⎯
+
+ FAIL |core|  tests/bridge-p14b4-cast-class.test.ts > P14B4 real P2 session integration — offerability/commit prerequisites UNEXECUTED > session/revision/replay protections still permit only one class-bearing attachment
+Error: Command envelope is invalid: $: matched no allowed type ($.draft.conceptId: required property is missing; $.draft.budgetMarketing: required property is missing; $.draft.blueprintId: required property is missing; $.draft.blueprintId: required property is missing; $.draft.premiumTier: additional properties are not allowed; $.draft.promise.seatClass: additional properties are not allowed).
+ ❯ quote tests/bridge-p14b4-cast-class.test.ts:112:25
+    110| function quote(session: BridgeSession, draft: BridgeMarketProposalDraf…
+    111|   const parsed = validateQuote(request(session, draft, id))
+    112|   if (!parsed.ok) throw new Error(parsed.message)
+       |                         ^
+    113|   const response = session.quote(parsed.quote)
+    114|   expect(response.accepted).toBe(true)
+ ❯ tests/bridge-p14b4-cast-class.test.ts:284:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/16]⎯
+
+ FAIL |core|  tests/bridge-p14b4-cast-class.test.ts > P14B4 real P2 session integration — offerability/commit prerequisites UNEXECUTED > exact cap16: after 16 distinct offerable class-bearing quotes
+ FAIL |core|  tests/bridge-p14b4-cast-class.test.ts > P14B4 real P2 session integration — offerability/commit prerequisites UNEXECUTED > exact cap16: after 17 distinct offerable class-bearing quotes
+Error: Command envelope is invalid: $: matched no allowed type ($.draft.conceptId: required property is missing; $.draft.budgetMarketing: required property is missing; $.draft.blueprintId: required property is missing; $.draft.blueprintId: required property is missing; $.draft.premiumTier: additional properties are not allowed; $.draft.promise.seatClass: additional properties are not allowed).
+ ❯ quote tests/bridge-p14b4-cast-class.test.ts:112:25
+    110| function quote(session: BridgeSession, draft: BridgeMarketProposalDraf…
+    111|   const parsed = validateQuote(request(session, draft, id))
+    112|   if (!parsed.ok) throw new Error(parsed.message)
+       |                         ^
+    113|   const response = session.quote(parsed.quote)
+    114|   expect(response.accepted).toBe(true)
+ ❯ tests/bridge-p14b4-cast-class.test.ts:307:24
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/16]⎯
+
+ FAIL |core|  tests/bridge-p14b4-cast-class.test.ts > P14B4 existing own/private/public carriers > both viewing directions retain whole competing promise UNKNOWN, with no class beside it
+Error: Command envelope is invalid: $: matched no allowed type ($.draft.conceptId: required property is missing; $.draft.budgetMarketing: required property is missing; $.draft.blueprintId: required property is missing; $.draft.blueprintId: required property is missing; $.draft.premiumTier: additional properties are not allowed; $.draft.promise.seatClass: additional properties are not allowed).
+ ❯ quote tests/bridge-p14b4-cast-class.test.ts:112:25
+    110| function quote(session: BridgeSession, draft: BridgeMarketProposalDraf…
+    111|   const parsed = validateQuote(request(session, draft, id))
+    112|   if (!parsed.ok) throw new Error(parsed.message)
+       |                         ^
+    113|   const response = session.quote(parsed.quote)
+    114|   expect(response.accepted).toBe(true)
+ ❯ tests/bridge-p14b4-cast-class.test.ts:358:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/16]⎯
+
+ FAIL |core|  tests/bridge-p14b4-cast-class.test.ts > P14B4 existing own/private/public carriers > own legacy classless P2 shows null/unknown, never a fabricated lead; P1 remains not-applicable
+AssertionError: expected { disclosure: 'own', …(8) } to match object { Object (disclosure, promise) }
+(11 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  Object {
+    "disclosure": "own",
+    "promise": Object {
+      "family": "LEAD_OR_SIGNIFICANT_ROLE_COUNT",
+-     "seatClass": null,
+    },
+  }
+
+ ❯ tests/bridge-p14b4-cast-class.test.ts:388:17
+    386|     const own = marketCaseProjection(oldRefused.save.state, oldRefused…
+    387|       .proposals.find((p) => p.issuerStudioId === oldRefused.focus.iss…
+    388|     expect(own).toMatchObject({ disclosure: 'own', promise: { family: …
+       |                 ^
+    389|     const bound = fixture('bound-open-p1')
+    390|     history(bound.save.state, bound.focus, null)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/16]⎯
+
+ FAIL |core|  tests/bridge-p14b4-cast-class.test.ts > P14B4 existing own/private/public carriers > shared profile/case/workspace preferences expose the existing age-edge at29
+ FAIL |core|  tests/bridge-p14b4-cast-class.test.ts > P14B4 existing own/private/public carriers > shared profile/case/workspace preferences expose the existing age-edge at30
+AssertionError: expected { priorityOrder: [ …(6) ], …(2) } to match object { …(2) }
+(2 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  Object {
+-   "preferredOpportunity": "significantCastRole",
+    "priorityOrder": Array [
+      "opportunity",
+      "compensation",
+      "term",
+      "trust",
+      "standing",
+      "incumbency",
+    ],
+  }
+
+ ❯ tests/bridge-p14b4-cast-class.test.ts:410:31
+    408|     const profile = peopleProjection(state).profiles.find((p) => p.tal…
+    409|     const workspace = marketPage(state, { view: 'market', targetId: pe…
+    410|     expect(block.preferences).toMatchObject({ preferredOpportunity: ag…
+       |                               ^
+    411|       priorityOrder: age === 29 ? ['opportunity', 'compensation', 'ter…
+    412|         : ['compensation', 'term', 'trust', 'incumbency', 'standing', …
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/16]⎯
+
+ FAIL |core|  tests/bridge-p14b4-cast-class.test.ts > P14B4 existing own/private/public carriers > actual lead quote→binding→termination exposes own class, not public/private leakage
+ FAIL |core|  tests/bridge-p14b4-cast-class.test.ts > P14B4 existing own/private/public carriers > actual leadOrAntagonist quote→binding→termination exposes own class, not public/private leakage
+Error: Command envelope is invalid: $: matched no allowed type ($.draft.conceptId: required property is missing; $.draft.budgetMarketing: required property is missing; $.draft.blueprintId: required property is missing; $.draft.blueprintId: required property is missing; $.draft.premiumTier: additional properties are not allowed; $.draft.promise.seatClass: additional properties are not allowed).
+ ❯ quote tests/bridge-p14b4-cast-class.test.ts:112:25
+    110| function quote(session: BridgeSession, draft: BridgeMarketProposalDraf…
+    111|   const parsed = validateQuote(request(session, draft, id))
+    112|   if (!parsed.ok) throw new Error(parsed.message)
+       |                         ^
+    113|   const response = session.quote(parsed.quote)
+    114|   expect(response.accepted).toBe(true)
+ ❯ tests/bridge-p14b4-cast-class.test.ts:422:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/16]⎯
+
+ Test Files  1 failed (1)
+      Tests  16 failed | 12 passed (28)
+   Start at  00:48:00
+   Duration  23.78s (transform 3.56s, setup 0ms, collect 4.79s, tests 18.14s, environment 0ms, prepare 150ms)
+
+
+{"sourceSha":"c979f1bc27f1cd4e5525f2b758d62a0bbcfd1089","testedDiffSha256":"5cab1b97a23c2970403ac8a47b071409667a46bbfe46659466263ae334d02fd9","untrackedSource":["tests/bridge-p14b4-cast-class.test.ts"],"command":["npx","vitest","run","tests/bridge-p14b4-cast-class.test.ts"],"node":"v20.20.2","start":"2026-09-19T22:47:59.034Z","end":"2026-09-19T22:48:25.601Z","exitCode":1,"signal":null,"error":null,"sourceShaAtEnd":"c979f1bc27f1cd4e5525f2b758d62a0bbcfd1089","testedDiffSha256AtEnd":"5cab1b97a23c2970403ac8a47b071409667a46bbfe46659466263ae334d02fd9","untrackedSourceAtEnd":["tests/bridge-p14b4-cast-class.test.ts"],"fixedSource":true}

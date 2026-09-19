@@ -1,5 +1,21 @@
 # P14B.4 — additive data checkpoint in verification
 
+CURRENT51:47was invocation error/no cases; corrected48 CLOSED12PASS/16FAIL,
+fixedSource:true; full qualification51. Three directly reached grammarREDs,
+own nullableclass/publicpreference REDs; integration mostly wire-prerequisite.
+No runtime. ONE sim-core writer only pure publicPreferredOpportunity accessor;
+also prepares exact kernel44REFINE correction49 (42original preserved). Author
+only inert46fixture investigation. Publish completed bridgeRED/42/44 separately
+from unfinished source. Next pure accessor check, diagnostics, kernelRED/implementation.
+
+CURRENT47: policyRED PUBLISHED c979f1bc27f1cd4e5525f2b758d62a0bbcfd1089,
+exactremote verified. Parent read complete inert bridge draft/brief, installed
+unchanged plus one provenance comment (SHA b29dcf66…), exact-byte asserted.
+Sole runtime47-bridge-class-first-red ACTIVE session47886; all protected files
+frozen, no production writer. Independent author only investigates policy fixture
+premises in inert46; auditor completes kernel review44. Next inspect47 fullraw,
+refine kernel no-event continuation model, then independent kernelRED/implementation.
+
 CURRENT45: policy43 CLOSED,7FAIL,fixedSource:true onfbe2d28+36f4e457…;
 full disposition45. Three missing accessor, three fixture prerequisites (under30
 credit witness absent; controlled subject has actual credits), one reached natural

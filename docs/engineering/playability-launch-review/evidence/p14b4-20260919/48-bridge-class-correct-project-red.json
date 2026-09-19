@@ -1,0 +1,25 @@
+{
+  "sourceSha": "c979f1bc27f1cd4e5525f2b758d62a0bbcfd1089",
+  "testedDiffSha256": "5cab1b97a23c2970403ac8a47b071409667a46bbfe46659466263ae334d02fd9",
+  "untrackedSource": [
+    "tests/bridge-p14b4-cast-class.test.ts"
+  ],
+  "command": [
+    "npx",
+    "vitest",
+    "run",
+    "tests/bridge-p14b4-cast-class.test.ts"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-19T22:47:59.034Z",
+  "end": "2026-09-19T22:48:25.601Z",
+  "exitCode": 1,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "c979f1bc27f1cd4e5525f2b758d62a0bbcfd1089",
+  "testedDiffSha256AtEnd": "5cab1b97a23c2970403ac8a47b071409667a46bbfe46659466263ae334d02fd9",
+  "untrackedSourceAtEnd": [
+    "tests/bridge-p14b4-cast-class.test.ts"
+  ],
+  "fixedSource": true
+}
