@@ -1,0 +1,18 @@
+{"sourceSha":"d39a9a04e4eae7767d5a15225de36e86f0440c14","testedDiffSha256":"bc25e15d9aeac9d5f2a26c372d156ebf759e374b755cab2818bd2a66a3e1ec98","untrackedSource":["tests/p14b4-cast-class-capacity.test.ts"],"command":["./node_modules/.bin/vitest","run","tests/p14b4-save-v30-compatibility.test.ts","-t","freezes strict V29|tagged P2 V30","--minWorkers=1","--maxWorkers=1"],"node":"v20.20.2","start":"2026-09-19T22:16:38.532Z","end":null,"exitCode":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p14b4-save-v30-compatibility.test.ts (36 tests | 22 skipped) 3979ms
+   ✓ P14B4 freezes strict V29 admission BEFORE migration > refuses class-only in old29 rather than stripping or retrofitting it 424ms
+   ✓ P14B4 tagged P2 V30 shape is not lossy-downgradable > accepts explicit lead P2 shape at30, never at29, and refuses downgrade without stripping 800ms
+   ✓ P14B4 tagged P2 V30 shape is not lossy-downgradable > accepts explicit leadOrAntagonist P2 shape at30, never at29, and refuses downgrade without stripping 517ms
+   ✓ P14B4 tagged P2 V30 shape is not lossy-downgradable > rejects malformed tagged P2 missing-kind rather than defaulting class 585ms
+
+ Test Files  1 passed (1)
+      Tests  14 passed | 22 skipped (36)
+   Start at  00:16:39
+   Duration  7.45s (transform 2.15s, setup 0ms, collect 2.76s, tests 3.98s, environment 3ms, prepare 173ms)
+
+
+{"sourceSha":"d39a9a04e4eae7767d5a15225de36e86f0440c14","testedDiffSha256":"bc25e15d9aeac9d5f2a26c372d156ebf759e374b755cab2818bd2a66a3e1ec98","untrackedSource":["tests/p14b4-cast-class-capacity.test.ts"],"command":["./node_modules/.bin/vitest","run","tests/p14b4-save-v30-compatibility.test.ts","-t","freezes strict V29|tagged P2 V30","--minWorkers=1","--maxWorkers=1"],"node":"v20.20.2","start":"2026-09-19T22:16:38.532Z","end":"2026-09-19T22:16:47.726Z","exitCode":0,"signal":null,"error":null,"sourceShaAtEnd":"d39a9a04e4eae7767d5a15225de36e86f0440c14","testedDiffSha256AtEnd":"bc25e15d9aeac9d5f2a26c372d156ebf759e374b755cab2818bd2a66a3e1ec98","untrackedSourceAtEnd":["tests/p14b4-cast-class-capacity.test.ts"],"fixedSource":true}

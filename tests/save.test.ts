@@ -261,13 +261,12 @@ describe("§17 / §15.7 — export→import→export round-trips byte-identicall
 });
 
 describe("§17 — loud rejection of an unknown saveVersion", () => {
-  it("throws on an unknown saveVersion (e.g. 18)", () => {
-    // Source: §17 "loud rejection of unknown versions". Versions 1–16 are known;
-    // P09 SaveFileV18 moved the unknown boundary from 17 to 18, so the
-    // sentinel this test reaches for one version past the known ceiling moves
-    // with it — 17 to 18.
+  it("throws on an unknown saveVersion (e.g. 31)", () => {
+    // Source: §17 "loud rejection of unknown versions". B4's additive reader
+    // recognizes versions 1–30 before the live writer cutover; the unsupported
+    // sentinel remains one version past that CURRENT dispatch ceiling.
     const save = wellFormedSave();
-    const bad = { ...save, saveVersion: 30 } as unknown as SaveFileV14;
+    const bad = { ...save, saveVersion: 31 } as unknown as SaveFileV14;
     expect(() => loadSave(bad)).toThrow();
   });
 });
@@ -422,10 +421,10 @@ describe("P04A §2.5 — SaveFileV15 identity-bearing queue expiry", () => {
     ).toMatchObject({ subjectId: null });
   });
 
-  it("rejects an unknown saveVersion 30 with the updated range, and rejects downgrading V15 to V14", () => {
+  it("rejects an unknown saveVersion 31 with the updated range, and rejects downgrading V15 to V14", () => {
     const save = wellFormedV15Save();
-    expect(() => validateSave({ ...save, saveVersion: 30 })).toThrow(
-      /versions 1 through 29 only/,
+    expect(() => validateSave({ ...save, saveVersion: 31 })).toThrow(
+      /versions 1 through 30 only/,
     );
     expect(() => migrateToV14(save)).toThrow(/cannot downgrade SaveFileV15/);
   });

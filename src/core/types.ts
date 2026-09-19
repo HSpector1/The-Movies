@@ -2176,7 +2176,7 @@ export type PromiseOutcome = 'SATISFIED' | 'BROKEN' | 'WAIVED' | 'VOIDED'
  * accepted screenplay-promise type. Typed, versioned, attached to a proposal,
  * evaluated by events and by its due week — never polled, never free text, never
  * a salary term. */
-export type ProfessionalPromise = {
+export type ProfessionalPromiseV29 = {
   promiseId: string
   family: PromiseFamily
   version: number
@@ -2206,8 +2206,31 @@ export type GameStateV29 = GameStateV28 & {
   /** P14B.1 (1): append-only, in-state ordinal. The ONE durable first-take fact. */
   firstTakes: readonly FirstTakeReceipt[]
   /** P14B.1 (2): every promise this world has minted, open or terminal. */
-  promises: readonly ProfessionalPromise[]
+  promises: readonly ProfessionalPromiseV29[]
 }
+
+/** V30 adds an explicitly selected P2 seat class. A historical count-only
+ * record, of ANY catalogue family or positive version, is not this shape. */
+export type CastRoleCountPredicate = {
+  kind: 'castRoleCount'
+  count: number
+  seatClass: 'lead' | 'leadOrAntagonist'
+}
+
+export type ProfessionalPromiseV30 = ProfessionalPromiseV29 | (
+  Omit<ProfessionalPromiseV29, 'family' | 'predicate'> & {
+    family: 'LEAD_OR_SIGNIFICANT_ROLE_COUNT'
+    predicate: CastRoleCountPredicate
+  }
+)
+
+export type GameStateV30 = Omit<GameStateV29, 'promises'> & {
+  promises: readonly ProfessionalPromiseV30[]
+}
+
+// The additive V30 persistence API is not the gameplay/wire cutover. Keep live
+// callers count-only until their outcome and projection contracts move together.
+export type ProfessionalPromise = ProfessionalPromiseV29
 export type GameState = GameStateV29
 
 // ── D-14 Talent Career Impact — frozen career-event record (§7) ───────────────

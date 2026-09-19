@@ -210,9 +210,9 @@ describe('P13B-S5 Save V24 (test 4)', () => {
     expect(makeSave(p13aLaboratorySlice()).saveVersion).toBe(29)
   })
 
-  it('an unknown saveVersion 30 is refused, naming the handled range "1 through 27"', () => {
-    const forged = { ...makeSave(p13aLaboratorySlice()), saveVersion: 30 }
-    expect(() => validateSave(forged as never)).toThrow(/versions 1 through 29 only/)
+  it('an unknown saveVersion 31 is refused, naming the handled range "1 through 30 only"', () => {
+    const forged = { ...makeSave(p13aLaboratorySlice()), saveVersion: 31 }
+    expect(() => validateSave(forged as never)).toThrow(/versions 1 through 30 only/)
   })
 
   it('save/reload mid-deployment continues identically (byte for byte): a lighting adoption committed but not yet operational', () => {

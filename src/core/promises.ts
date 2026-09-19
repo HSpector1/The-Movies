@@ -30,7 +30,7 @@ import { fnv1a64 } from './math.js'
 import { occupiedResourceSlots } from './occupancy.js'
 import { TUNING } from './tuning.js'
 import type {
-  CastSlot, FirstTakeReceipt, GameState, ProfessionalPromise, Production, PromiseClassification,
+  CastSlot, FirstTakeReceipt, GameState, ProfessionalPromise, ProfessionalPromiseV30, Production, PromiseClassification,
   PromiseFamily, PromiseFeasibilityReceipt, TalentMarketState,
 } from './types.js'
 
@@ -785,8 +785,18 @@ function isRecord(value: unknown): value is Record<string, unknown> {
  * A first take may serve several beneficiaries; each outcome has its own receipt.
  */
 export function validatePromiseRoots(state: unknown): void {
+  validatePromiseRootsForVersion(state, 29)
+}
+
+/** V30 validates selected P2 seats without reinterpreting legacy count-only
+ * records. V29 still invokes the exact count-only policy and error prefix. */
+export function validatePromiseRootsV30(state: unknown): void {
+  validatePromiseRootsForVersion(state, 30)
+}
+
+function validatePromiseRootsForVersion(state: unknown, saveVersion: 29 | 30): void {
   const fail = (message: string): never => {
-    throw new Error(`validateSaveV29: ${message}`)
+    throw new Error(`validateSaveV${String(saveVersion)}: ${message}`)
   }
   if (!isRecord(state)) return fail('state is not a plain object')
   const takes = state.firstTakes
@@ -864,7 +874,7 @@ export function validatePromiseRoots(state: unknown): void {
     takesById.set(row.eventId as string, row as unknown as FirstTakeReceipt)
   }
 
-  const promisesById = new Map<string, ProfessionalPromise>()
+  const promisesById = new Map<string, ProfessionalPromiseV30>()
   const outcomeEvents = new Set<string>()
   for (let i = 0; i < promises.length; i++) {
     const at = `state.promises[${String(i)}]`
@@ -880,7 +890,22 @@ export function validatePromiseRoots(state: unknown): void {
     studioId(row.issuerStudioId, `${at}.issuerStudioId`)
     personId(row.beneficiaryPersonId, `${at}.beneficiaryPersonId`)
     const predicate = record(row.predicate, `${at}.predicate`)
-    exact(predicate, ['count'], `${at}.predicate`)
+    let qualifyingSlots: readonly CastSlot[] = CAST_SLOTS
+    if (saveVersion === 30 && Object.hasOwn(predicate, 'kind')) {
+      exact(predicate, ['kind', 'count', 'seatClass'], `${at}.predicate`)
+      if (predicate.kind !== 'castRoleCount') return fail(`${at}.predicate.kind is not a supported promise predicate`)
+      if (row.family !== 'LEAD_OR_SIGNIFICANT_ROLE_COUNT') {
+        return fail(`${at}.predicate.castRoleCount is only valid for LEAD_OR_SIGNIFICANT_ROLE_COUNT`)
+      }
+      if (predicate.seatClass !== 'lead' && predicate.seatClass !== 'leadOrAntagonist') {
+        return fail(`${at}.predicate.seatClass is not a selected P2 seat class`)
+      }
+      qualifyingSlots = predicate.seatClass === 'lead' ? ['lead'] : ['lead', 'antagonist']
+    } else {
+      // All legacy catalogue families retain generic-cast evidence. Neither
+      // root.version nor receipt.rulesVersion selects a new predicate shape.
+      exact(predicate, ['count'], `${at}.predicate`)
+    }
     const count = nonnegative(predicate.count, `${at}.predicate.count`)
     if (count < 1) return fail(`${at}.predicate.count must be a whole picture`)
     const progress = nonnegative(row.progress, `${at}.progress`)
@@ -931,14 +956,14 @@ export function validatePromiseRoots(state: unknown): void {
       evidence.add(id)
       const take = takesById.get(id)
       if (take === undefined || take.studioId !== row.issuerStudioId
-        || !CAST_SLOTS.some((slot) => take.cast[slot] === row.beneficiaryPersonId)
+        || !qualifyingSlots.some((slot) => take.cast[slot] === row.beneficiaryPersonId)
         || take.week < start || take.week >= due
         || (row.outcomeWeek !== null && take.week > Number(row.outcomeWeek))) {
         return fail(`${at}.evidenceRefs does not name a qualifying first take inside this promise's window`)
       }
     }
     if (evidence.size > progress) return fail(`${at}.evidenceRefs exceeds its recorded progress`)
-    promisesById.set(promiseId, row as unknown as ProfessionalPromise)
+    promisesById.set(promiseId, row as unknown as ProfessionalPromiseV30)
     if (row.outcome === null) {
       if (row.outcomeWeek !== null) return fail(`${at} has no outcome but names an outcome week`)
       if (row.outcomeCause !== null || row.outcomeEventId !== null) return fail(`${at} has outcome evidence but no outcome`)

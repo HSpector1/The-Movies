@@ -1,0 +1,1090 @@
+diff --git a/src/core/index.ts b/src/core/index.ts
+index ad17d9c..825829c 100644
+--- a/src/core/index.ts
++++ b/src/core/index.ts
+@@ -97,6 +97,11 @@ export type {
+   StudioPhysicalPlans,
+   GameStateV23,
+   GameStateV24,
++  GameStateV29,
++  GameStateV30,
++  ProfessionalPromiseV29,
++  ProfessionalPromiseV30,
++  CastRoleCountPredicate,
+   // ── Blueprint Requirements (C1-M2) ──
+   BlueprintRequirement,
+   BlueprintRequirementKind,
+@@ -1284,6 +1289,11 @@ export {
+   migrateToV29,
+   convertV28ToV29,
+   convertV29ToV28,
++  // P14B.4 additive persistence foundation; live writer stays V29 until cutover.
++  validateSaveV30,
++  migrateToV30,
++  convertV29ToV30,
++  convertV30ToV29,
+   convertV27ToV28,
+   convertV28ToV27,
+   // P13B-S5-R07 — live V24 → NEW V25 + migrateToV25 (the widened production
+@@ -1322,6 +1332,7 @@ export type {
+   SaveFileV27,
+   SaveFileV28,
+   SaveFileV29,
++  SaveFileV30,
+   SaveFile,
+   TalentV1,
+   GameStateV1,
+@@ -1400,6 +1411,7 @@ export {
+   attachedPromiseDigest,
+   projectPromisesPreV29,
+   validatePromiseRoots,
++  validatePromiseRootsV30,
+   PROMISE_RULES_VERSION,
+   PROMISE_SLACK_WEEKS,
+   TRUST_HORIZON_WEEKS,
+diff --git a/src/core/promises.ts b/src/core/promises.ts
+index 2707dac..e3d85fd 100644
+--- a/src/core/promises.ts
++++ b/src/core/promises.ts
+@@ -30,7 +30,7 @@ import { fnv1a64 } from './math.js'
+ import { occupiedResourceSlots } from './occupancy.js'
+ import { TUNING } from './tuning.js'
+ import type {
+-  CastSlot, FirstTakeReceipt, GameState, ProfessionalPromise, Production, PromiseClassification,
++  CastSlot, FirstTakeReceipt, GameState, ProfessionalPromise, ProfessionalPromiseV30, Production, PromiseClassification,
+   PromiseFamily, PromiseFeasibilityReceipt, TalentMarketState,
+ } from './types.js'
+ 
+@@ -785,8 +785,18 @@ function isRecord(value: unknown): value is Record<string, unknown> {
+  * A first take may serve several beneficiaries; each outcome has its own receipt.
+  */
+ export function validatePromiseRoots(state: unknown): void {
++  validatePromiseRootsForVersion(state, 29)
++}
++
++/** V30 validates selected P2 seats without reinterpreting legacy count-only
++ * records. V29 still invokes the exact count-only policy and error prefix. */
++export function validatePromiseRootsV30(state: unknown): void {
++  validatePromiseRootsForVersion(state, 30)
++}
++
++function validatePromiseRootsForVersion(state: unknown, saveVersion: 29 | 30): void {
+   const fail = (message: string): never => {
+-    throw new Error(`validateSaveV29: ${message}`)
++    throw new Error(`validateSaveV${String(saveVersion)}: ${message}`)
+   }
+   if (!isRecord(state)) return fail('state is not a plain object')
+   const takes = state.firstTakes
+@@ -864,7 +874,7 @@ export function validatePromiseRoots(state: unknown): void {
+     takesById.set(row.eventId as string, row as unknown as FirstTakeReceipt)
+   }
+ 
+-  const promisesById = new Map<string, ProfessionalPromise>()
++  const promisesById = new Map<string, ProfessionalPromiseV30>()
+   const outcomeEvents = new Set<string>()
+   for (let i = 0; i < promises.length; i++) {
+     const at = `state.promises[${String(i)}]`
+@@ -880,7 +890,22 @@ export function validatePromiseRoots(state: unknown): void {
+     studioId(row.issuerStudioId, `${at}.issuerStudioId`)
+     personId(row.beneficiaryPersonId, `${at}.beneficiaryPersonId`)
+     const predicate = record(row.predicate, `${at}.predicate`)
+-    exact(predicate, ['count'], `${at}.predicate`)
++    let qualifyingSlots: readonly CastSlot[] = CAST_SLOTS
++    if (saveVersion === 30 && Object.hasOwn(predicate, 'kind')) {
++      exact(predicate, ['kind', 'count', 'seatClass'], `${at}.predicate`)
++      if (predicate.kind !== 'castRoleCount') return fail(`${at}.predicate.kind is not a supported promise predicate`)
++      if (row.family !== 'LEAD_OR_SIGNIFICANT_ROLE_COUNT') {
++        return fail(`${at}.predicate.castRoleCount is only valid for LEAD_OR_SIGNIFICANT_ROLE_COUNT`)
++      }
++      if (predicate.seatClass !== 'lead' && predicate.seatClass !== 'leadOrAntagonist') {
++        return fail(`${at}.predicate.seatClass is not a selected P2 seat class`)
++      }
++      qualifyingSlots = predicate.seatClass === 'lead' ? ['lead'] : ['lead', 'antagonist']
++    } else {
++      // All legacy catalogue families retain generic-cast evidence. Neither
++      // root.version nor receipt.rulesVersion selects a new predicate shape.
++      exact(predicate, ['count'], `${at}.predicate`)
++    }
+     const count = nonnegative(predicate.count, `${at}.predicate.count`)
+     if (count < 1) return fail(`${at}.predicate.count must be a whole picture`)
+     const progress = nonnegative(row.progress, `${at}.progress`)
+@@ -931,14 +956,14 @@ export function validatePromiseRoots(state: unknown): void {
+       evidence.add(id)
+       const take = takesById.get(id)
+       if (take === undefined || take.studioId !== row.issuerStudioId
+-        || !CAST_SLOTS.some((slot) => take.cast[slot] === row.beneficiaryPersonId)
++        || !qualifyingSlots.some((slot) => take.cast[slot] === row.beneficiaryPersonId)
+         || take.week < start || take.week >= due
+         || (row.outcomeWeek !== null && take.week > Number(row.outcomeWeek))) {
+         return fail(`${at}.evidenceRefs does not name a qualifying first take inside this promise's window`)
+       }
+     }
+     if (evidence.size > progress) return fail(`${at}.evidenceRefs exceeds its recorded progress`)
+-    promisesById.set(promiseId, row as unknown as ProfessionalPromise)
++    promisesById.set(promiseId, row as unknown as ProfessionalPromiseV30)
+     if (row.outcome === null) {
+       if (row.outcomeWeek !== null) return fail(`${at} has no outcome but names an outcome week`)
+       if (row.outcomeCause !== null || row.outcomeEventId !== null) return fail(`${at} has outcome evidence but no outcome`)
+diff --git a/src/core/save.ts b/src/core/save.ts
+index 7fd139f..2fba160 100644
+--- a/src/core/save.ts
++++ b/src/core/save.ts
+@@ -52,7 +52,7 @@ import { assertReleaseAuthorityInvariants } from './releaseAuthority.js'
+ import { assertStudioHistoryInvariants, migratedStudioHistory } from './studioHistory.js'
+ import { initialPhysicalPlans, validatePhysicalPlans } from './physicalPlans.js'
+ import { initialTalentMarket, projectLegacyTerminations, projectTalentMarketPreV28, talentMarketTerminationLaw, validateTalentMarketRoot } from './talentMarket.js'
+-import { projectPromisesPreV29, validatePromiseRoots } from './promises.js'
++import { projectPromisesPreV29, validatePromiseRoots, validatePromiseRootsV30 } from './promises.js'
+ import { PRE_V28_TERMINATION_LAW } from './employment.js'
+ import type { TerminationLaw } from './employment.js'
+ import type {
+@@ -85,6 +85,7 @@ import type {
+   GameStateV27,
+   GameStateV28,
+   GameStateV29,
++  GameStateV30,
+   CancellationReceipt,
+   PhysicalPlan,
+   PlacedFacility,
+@@ -493,6 +494,15 @@ export type SaveFileV29 = {
+   broadcastCache: BroadcastItem[];
+ };
+ 
++// P14B.4 additive data boundary. Live gameplay remains V29 until the coordinated
++// outcome/wire cutover; only V30 can carry a tagged P2 seat-class predicate.
++export type SaveFileV30 = {
++  saveVersion: 30;
++  seed: string;
++  state: GameStateV30;
++  broadcastCache: BroadcastItem[];
++};
++
+ // Any envelope (the return of the version-dispatching validateSave/loadSave).
+ export type SaveFile =
+   | SaveFileV1
+@@ -523,7 +533,8 @@ export type SaveFile =
+   | SaveFileV26
+   | SaveFileV27
+   | SaveFileV28
+-  | SaveFileV29;
++  | SaveFileV29
++  | SaveFileV30;
+ 
+ // ── Stable stringify (UNCHANGED) ─────────────────────────────────────────────
+ // Recursively serializes with object keys sorted lexicographically, so the same
+@@ -5268,8 +5279,9 @@ export function validateSave(save: unknown): SaveFile {
+   if (s.saveVersion === 27) return validateSaveV27(save);
+   if (s.saveVersion === 28) return validateSaveV28(save);
+   if (s.saveVersion === 29) return validateSaveV29(save);
++  if (s.saveVersion === 30) return validateSaveV30(save);
+   throw new Error(
+-    `validateSave: unknown saveVersion ${JSON.stringify(s.saveVersion)} (this build handles versions 1 through 29 only)`,
++    `validateSave: unknown saveVersion ${JSON.stringify(s.saveVersion)} (this build handles versions 1 through 30 only)`,
+   );
+ }
+ 
+@@ -7302,6 +7314,7 @@ export function migrateToV7(
+ // V1–V7 migrate deterministically. Newer files are rejected loudly: this function
+ // may never silently discard authoritative screenplay or casting state.
+ export function migrateToV8(save: SaveFile): SaveFileV8 {
++  if (save.saveVersion === 30) throw new Error('migrateToV8: cannot downgrade SaveFileV30 or discard the promise predicate');
+   if (
+     save.saveVersion === 9 ||
+     save.saveVersion === 10 ||
+@@ -7326,6 +7339,7 @@ export function migrateToV8(save: SaveFile): SaveFileV8 {
+ // identity; V1–V8 migrate forward. V10 is rejected rather than silently losing
+ // authoritative casting history.
+ export function migrateToV9(save: SaveFile): SaveFileV9 {
++  if (save.saveVersion === 30) throw new Error('migrateToV9: cannot downgrade SaveFileV30 or discard the promise predicate');
+   if (
+     save.saveVersion === 10 ||
+     save.saveVersion === 11 ||
+@@ -7349,6 +7363,7 @@ export function migrateToV9(save: SaveFile): SaveFileV9 {
+ // identity; V1–V9 cross every frozen boundary and receive exactly legacy-empty
+ // casting state only at the final V9→V10 step. V11 is rejected, never downgraded.
+ export function migrateToV10(save: SaveFile): SaveFileV10 {
++  if (save.saveVersion === 30) throw new Error('migrateToV10: cannot downgrade SaveFileV30 or discard the promise predicate');
+   if (
+     save.saveVersion === 11 ||
+     save.saveVersion === 12 ||
+@@ -7373,6 +7388,7 @@ export function migrateToV10(save: SaveFile): SaveFileV10 {
+ // mode. V12 is rejected, never downgraded: a placed facility, its land, its
+ // debit, and its operating history have no V11 home.
+ export function migrateToV11(save: SaveFile): SaveFileV11 {
++  if (save.saveVersion === 30) throw new Error('migrateToV11: cannot downgrade SaveFileV30 or discard the promise predicate');
+   if (
+     save.saveVersion === 12 ||
+     save.saveVersion === 13 ||
+@@ -7395,6 +7411,7 @@ export function migrateToV11(save: SaveFile): SaveFileV11 {
+ // their own validated construction history implies at the final V11→V12 step.
+ // V13 is rejected, never downgraded: a property that has grown has no V12 home.
+ export function migrateToV12(save: SaveFile): SaveFileV12 {
++  if (save.saveVersion === 30) throw new Error('migrateToV12: cannot downgrade SaveFileV30 or discard the promise predicate');
+   if (save.saveVersion === 13 || save.saveVersion === 14 || save.saveVersion === 15 || save.saveVersion === 16 || save.saveVersion === 17 || save.saveVersion === 18) {
+     throw new Error(
+       `migrateToV12: cannot downgrade SaveFileV${String(save.saveVersion)} or discard property, set, queue, screenplay, and studio-history state`,
+@@ -7420,6 +7437,7 @@ export function migrateToV12(save: SaveFile): SaveFileV12 {
+ // one widened leaf — the honest, un-guessed `subjectId: null` on any
+ // pre-existing `queueIntentExpired` row — at the final V14→V15 step.
+ export function migrateToV15(save: SaveFile): SaveFileV15 {
++  if (save.saveVersion === 30) throw new Error('migrateToV15: cannot downgrade SaveFileV30 or discard the promise predicate');
+   if (save.saveVersion === 29) throw new Error('migrateToV15: cannot downgrade SaveFileV29 or discard the promise record');
+   if (save.saveVersion === 28) throw new Error('migrateToV15: cannot downgrade SaveFileV28 or discard the talent market');
+   if (save.saveVersion === 27) throw new Error("migrateToV15: cannot downgrade SaveFileV27 or discard rival research");
+@@ -7497,6 +7515,7 @@ export function convertV17ToV18(v17: SaveFileV17): SaveFileV18 {
+ // identity (after validation at the call boundary); V1–V17 cross every frozen
+ // boundary, then receive `endowed` at the final V17→V18 step.
+ export function migrateToV18(save: SaveFile): SaveFileV18 {
++  if (save.saveVersion === 30) throw new Error('migrateToV18: cannot downgrade SaveFileV30 or discard the promise predicate');
+   if (save.saveVersion === 29) throw new Error('migrateToV18: cannot downgrade SaveFileV29 or discard the promise record');
+   if (save.saveVersion === 28) throw new Error('migrateToV18: cannot downgrade SaveFileV28 or discard the talent market');
+   if (save.saveVersion === 27) throw new Error("migrateToV18: cannot downgrade SaveFileV27 or discard rival research");
+@@ -7515,6 +7534,7 @@ export function migrateToV18(save: SaveFile): SaveFileV18 {
+ // migrateToV17 — the frozen V17-target migration (P08A). A V18 save can never
+ // be downgraded: discarding the founding regime would erase exact history.
+ export function migrateToV17(save: SaveFile): SaveFileV17 {
++  if (save.saveVersion === 30) throw new Error('migrateToV17: cannot downgrade SaveFileV30 or discard the promise predicate');
+   if (save.saveVersion === 29) throw new Error('migrateToV17: cannot downgrade SaveFileV29 or discard the promise record');
+   if (save.saveVersion === 28) throw new Error('migrateToV17: cannot downgrade SaveFileV28 or discard the talent market');
+   if (save.saveVersion === 27) throw new Error("migrateToV17: cannot downgrade SaveFileV27 or discard rival research");
+@@ -7538,6 +7558,7 @@ export function migrateToV17(save: SaveFile): SaveFileV17 {
+ // migrateToV16 — the frozen V16-target migration (P06A). A V17 save can never
+ // be downgraded: discarding the recorded history would silently erase provenance.
+ export function migrateToV16(save: SaveFile): SaveFileV16 {
++  if (save.saveVersion === 30) throw new Error('migrateToV16: cannot downgrade SaveFileV30 or discard the promise predicate');
+   if (save.saveVersion === 29) throw new Error('migrateToV16: cannot downgrade SaveFileV29 or discard the promise record');
+   if (save.saveVersion === 28) throw new Error('migrateToV16: cannot downgrade SaveFileV28 or discard the talent market');
+   if (save.saveVersion === 27) throw new Error("migrateToV16: cannot downgrade SaveFileV27 or discard rival research");
+@@ -7564,6 +7585,7 @@ export function migrateToV16(save: SaveFile): SaveFileV16 {
+ }
+ 
+ export function migrateToV14(save: SaveFile): SaveFileV14 {
++  if (save.saveVersion === 30) throw new Error('migrateToV14: cannot downgrade SaveFileV30 or discard the promise predicate');
+   if (save.saveVersion === 29) throw new Error('migrateToV14: cannot downgrade SaveFileV29 or discard the promise record');
+   if (save.saveVersion === 28) throw new Error('migrateToV14: cannot downgrade SaveFileV28 or discard the talent market');
+   if (save.saveVersion === 27) throw new Error("migrateToV14: cannot downgrade SaveFileV27 or discard rival research");
+@@ -7600,6 +7622,7 @@ export function migrateToV14(save: SaveFile): SaveFileV14 {
+ }
+ 
+ export function migrateToV13(save: SaveFile): SaveFileV13 {
++  if (save.saveVersion === 30) throw new Error('migrateToV13: cannot downgrade SaveFileV30 or discard the promise predicate');
+   if (save.saveVersion === 29) throw new Error('migrateToV13: cannot downgrade SaveFileV29 or discard the promise record');
+   if (save.saveVersion === 28) throw new Error('migrateToV13: cannot downgrade SaveFileV28 or discard the talent market');
+   if (save.saveVersion === 27) throw new Error("migrateToV13: cannot downgrade SaveFileV27 or discard rival research");
+@@ -7705,6 +7728,7 @@ export function convertV18ToV19(save: SaveFileV18): SaveFileV19 {
+   return validateSaveV19({ saveVersion: 19, seed: save.seed, state, broadcastCache: state.broadcastItems });
+ }
+ export function migrateToV19(save: SaveFile): SaveFileV19 {
++  if (save.saveVersion === 30) throw new Error('migrateToV19: cannot downgrade SaveFileV30 or discard the promise predicate');
+   if (save.saveVersion === 29) throw new Error('migrateToV19: cannot downgrade SaveFileV29 or discard the promise record');
+   if (save.saveVersion === 28) throw new Error('migrateToV19: cannot downgrade SaveFileV28 or discard the talent market');
+   if (save.saveVersion === 27) throw new Error('migrateToV19: cannot downgrade SaveFileV27 or discard rival research');
+@@ -7785,6 +7809,7 @@ export function convertV20ToV21(save: SaveFileV20): SaveFileV21 {
+ }
+ 
+ export function migrateToV21(save: SaveFile): SaveFileV21 {
++  if (save.saveVersion === 30) throw new Error('migrateToV21: cannot downgrade SaveFileV30 or discard the promise predicate');
+   if (save.saveVersion === 29) throw new Error('migrateToV21: cannot downgrade SaveFileV29 or discard the promise record');
+   if (save.saveVersion === 28) throw new Error('migrateToV21: cannot downgrade SaveFileV28 or discard the talent market');
+   if (save.saveVersion === 27) throw new Error('migrateToV21: cannot downgrade SaveFileV27 or discard rival research');
+@@ -7811,6 +7836,7 @@ export function convertV21ToV22(save: SaveFileV21): SaveFileV22 {
+ }
+ 
+ export function migrateToV22(save: SaveFile): SaveFileV22 {
++  if (save.saveVersion === 30) throw new Error('migrateToV22: cannot downgrade SaveFileV30 or discard the promise predicate');
+   if (save.saveVersion === 29) throw new Error('migrateToV22: cannot downgrade SaveFileV29 or discard the promise record');
+   if (save.saveVersion === 28) throw new Error('migrateToV22: cannot downgrade SaveFileV28 or discard the talent market');
+   if (save.saveVersion === 27) throw new Error('migrateToV22: cannot downgrade SaveFileV27 or discard rival research');
+@@ -7862,6 +7888,7 @@ export function convertV22ToV23(save: SaveFileV22): SaveFileV23 {
+  * so nothing here is trusted on the strength of its declared type alone.
+  */
+ export function migrateToV23(save: SaveFile | { saveVersion: number }): SaveFileV23 {
++  if (save.saveVersion === 30) throw new Error('migrateToV23: cannot downgrade SaveFileV30 or discard the promise predicate');
+   if (save.saveVersion === 29) throw new Error('migrateToV23: cannot downgrade SaveFileV29 or discard the promise record');
+   if (save.saveVersion === 28) throw new Error('migrateToV23: cannot downgrade SaveFileV28 or discard the talent market');
+   if (save.saveVersion === 27) throw new Error('migrateToV23: cannot downgrade SaveFileV27 or discard rival research');
+@@ -7923,6 +7950,7 @@ export function convertV23ToV24(save: SaveFileV23): SaveFileV24 {
+  * so nothing here is trusted on the strength of its declared type alone.
+  */
+ export function migrateToV24(save: SaveFile | { saveVersion: number }): SaveFileV24 {
++  if (save.saveVersion === 30) throw new Error('migrateToV24: cannot downgrade SaveFileV30 or discard the promise predicate');
+   if (save.saveVersion === 29) throw new Error('migrateToV24: cannot downgrade SaveFileV29 or discard the promise record');
+   if (save.saveVersion === 28) throw new Error('migrateToV24: cannot downgrade SaveFileV28 or discard the talent market');
+   if (save.saveVersion === 27) throw new Error('migrateToV24: cannot downgrade SaveFileV27 or discard rival research');
+@@ -8145,6 +8173,7 @@ export function convertV24ToV25(save: SaveFileV24): SaveFileV25 {
+  * so nothing here is trusted on the strength of its declared type alone.
+  */
+ export function migrateToV25(save: SaveFile | { saveVersion: number }): SaveFileV25 {
++  if (save.saveVersion === 30) throw new Error('migrateToV25: cannot downgrade SaveFileV30 or discard the promise predicate');
+   if (save.saveVersion === 29) throw new Error('migrateToV25: cannot downgrade SaveFileV29 or discard the promise record');
+   if (save.saveVersion === 28) throw new Error('migrateToV25: cannot downgrade SaveFileV28 or discard the talent market');
+   if (save.saveVersion === 27) throw new Error('migrateToV25: cannot downgrade SaveFileV27 or discard rival research');
+@@ -8308,6 +8337,7 @@ export function convertV25ToV26(save: SaveFileV25): SaveFileV26 {
+  * so nothing here is trusted on the strength of its declared type alone.
+  */
+ export function migrateToV26(save: SaveFile | { saveVersion: number }): SaveFileV26 {
++  if (save.saveVersion === 30) return migrateToV26(convertV30ToV29(save as SaveFileV30));
+   if (save.saveVersion === 29) return convertV27ToV26(convertV28ToV27(convertV29ToV28(save as SaveFileV29)));
+   if (save.saveVersion === 28) return convertV27ToV26(convertV28ToV27(save as SaveFileV28));
+   if (save.saveVersion === 27) return convertV27ToV26(save as SaveFileV27);
+@@ -8458,6 +8488,7 @@ export function convertV27ToV26(save: SaveFileV27): SaveFileV26 {
+  * so nothing here is trusted on the strength of its declared type alone.
+  */
+ export function migrateToV27(save: SaveFile | { saveVersion: number }): SaveFileV27 {
++  if (save.saveVersion === 30) return migrateToV27(convertV30ToV29(save as SaveFileV30));
+   if (save.saveVersion === 29) return convertV28ToV27(convertV29ToV28(save as SaveFileV29));
+   if (save.saveVersion === 28) return convertV28ToV27(save as SaveFileV28);
+   if (save.saveVersion === 27) return validateSaveV27(save);
+@@ -8538,6 +8569,7 @@ export function convertV28ToV27(save: SaveFileV28): SaveFileV27 {
+  * so nothing here is trusted on the strength of its declared type alone.
+  */
+ export function migrateToV28(save: SaveFile | { saveVersion: number }): SaveFileV28 {
++  if (save.saveVersion === 30) return migrateToV28(convertV30ToV29(save as SaveFileV30));
+   if (save.saveVersion === 29) return convertV29ToV28(save as SaveFileV29);
+   if (save.saveVersion === 28) return validateSaveV28(save);
+   return convertV27ToV28(migrateToV27(save as SaveFile));
+@@ -8635,10 +8667,55 @@ export function convertV29ToV28(save: SaveFileV29): SaveFileV28 {
+  * so nothing here is trusted on the strength of its declared type alone.
+  */
+ export function migrateToV29(save: SaveFile | { saveVersion: number }): SaveFileV29 {
++  if (save.saveVersion === 30) return convertV30ToV29(save as SaveFileV30);
+   if (save.saveVersion === 29) return validateSaveV29(save);
+   return convertV28ToV29(migrateToV28(save as SaveFile));
+ }
+ 
++// ── Explicit seat-class predicates — additive SaveFileV30 (P14B.4) ──────────
++
++/** Validate the actual V30 roots, then the genuine shared frozen lower state.
++ * Never erase a tag to make a new promise masquerade as a V29 record. */
++export function validateSaveV30(save: unknown): SaveFileV30 {
++  if (!isRecord(save)) throw new Error('validateSaveV30: object required');
++  v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
++  if (save.saveVersion !== 30) throw new Error('validateSaveV30: expected version 30');
++  const raw = v14Record(checkEnvelope(save, 'validateSaveV30'), 'state');
++  if (!Object.hasOwn(raw, 'firstTakes')) throw new Error('validateSaveV30: firstTakes root missing');
++  if (!Object.hasOwn(raw, 'promises')) throw new Error('validateSaveV30: promises root missing');
++  validatePromiseRootsV30(raw);
++  try {
++    validateSaveV28({ saveVersion: 28, seed: save.seed, state: stripV29Roots(raw), broadcastCache: save.broadcastCache });
++  } catch (error) {
++    throw new Error(`validateSaveV30: frozen V28 state is invalid — ${(error as Error).message}`);
++  }
++  return save as SaveFileV30;
++}
++
++/** No historical promise changes shape or meaning at this boundary. Validate
++ * the frozen source BEFORE cloning; carry every root and receipt unchanged. */
++export function convertV29ToV30(save: SaveFileV29): SaveFileV30 {
++  const validated = validateSaveV29(save);
++  return validateSaveV30({ ...clonePlainJson(validated), saveVersion: 30 });
++}
++
++/** Lossless only: a tagged predicate has no V29 representation. Legacy records
++ * keep their exact shape, versions, evidence and material digests on return. */
++export function convertV30ToV29(save: SaveFileV30): SaveFileV29 {
++  const validated = validateSaveV30(save);
++  if (validated.state.promises.some((promise) => Object.hasOwn(promise.predicate, 'kind'))) {
++    throw new Error('migrateToV29: cannot downgrade SaveFileV30 or discard a tagged promise predicate');
++  }
++  return validateSaveV29({ ...clonePlainJson(validated), saveVersion: 29 });
++}
++
++/** Additive data migration. This is deliberately NOT yet the live load-to-play
++ * route: that cutover must accompany class-aware outcomes and projection47. */
++export function migrateToV30(save: SaveFile | { saveVersion: number }): SaveFileV30 {
++  if (save.saveVersion === 30) return validateSaveV30(save);
++  return convertV29ToV30(migrateToV29(save));
++}
++
+ export function convertV19ToV20(save: SaveFileV19): SaveFileV20 {
+   const validated = validateSaveV19(save);
+   const oldState = JSON.parse(JSON.stringify(validated.state)) as GameStateV19;
+@@ -8657,6 +8734,7 @@ export function convertV19ToV20(save: SaveFileV19): SaveFileV20 {
+ }
+ 
+ export function migrateToV20(save: SaveFile): SaveFileV20 {
++  if (save.saveVersion === 30) throw new Error('migrateToV20: cannot downgrade SaveFileV30 or discard the promise predicate');
+   if (save.saveVersion === 29) throw new Error('migrateToV20: cannot downgrade SaveFileV29 or discard the promise record');
+   if (save.saveVersion === 28) throw new Error('migrateToV20: cannot downgrade SaveFileV28 or discard the talent market');
+   if (save.saveVersion === 27) throw new Error('migrateToV20: cannot downgrade SaveFileV27 or discard rival research');
+diff --git a/src/core/types.ts b/src/core/types.ts
+index 6363b7d..b2b2d96 100644
+--- a/src/core/types.ts
++++ b/src/core/types.ts
+@@ -2176,7 +2176,7 @@ export type PromiseOutcome = 'SATISFIED' | 'BROKEN' | 'WAIVED' | 'VOIDED'
+  * accepted screenplay-promise type. Typed, versioned, attached to a proposal,
+  * evaluated by events and by its due week — never polled, never free text, never
+  * a salary term. */
+-export type ProfessionalPromise = {
++export type ProfessionalPromiseV29 = {
+   promiseId: string
+   family: PromiseFamily
+   version: number
+@@ -2206,8 +2206,31 @@ export type GameStateV29 = GameStateV28 & {
+   /** P14B.1 (1): append-only, in-state ordinal. The ONE durable first-take fact. */
+   firstTakes: readonly FirstTakeReceipt[]
+   /** P14B.1 (2): every promise this world has minted, open or terminal. */
+-  promises: readonly ProfessionalPromise[]
++  promises: readonly ProfessionalPromiseV29[]
+ }
++
++/** V30 adds an explicitly selected P2 seat class. A historical count-only
++ * record, of ANY catalogue family or positive version, is not this shape. */
++export type CastRoleCountPredicate = {
++  kind: 'castRoleCount'
++  count: number
++  seatClass: 'lead' | 'leadOrAntagonist'
++}
++
++export type ProfessionalPromiseV30 = ProfessionalPromiseV29 | (
++  Omit<ProfessionalPromiseV29, 'family' | 'predicate'> & {
++    family: 'LEAD_OR_SIGNIFICANT_ROLE_COUNT'
++    predicate: CastRoleCountPredicate
++  }
++)
++
++export type GameStateV30 = Omit<GameStateV29, 'promises'> & {
++  promises: readonly ProfessionalPromiseV30[]
++}
++
++// The additive V30 persistence API is not the gameplay/wire cutover. Keep live
++// callers count-only until their outcome and projection contracts move together.
++export type ProfessionalPromise = ProfessionalPromiseV29
+ export type GameState = GameStateV29
+ 
+ // ── D-14 Talent Career Impact — frozen career-event record (§7) ───────────────
+diff --git a/tests/construction-save-v11.test.ts b/tests/construction-save-v11.test.ts
+index 3f6c3ae..27b64bc 100644
+--- a/tests/construction-save-v11.test.ts
++++ b/tests/construction-save-v11.test.ts
+@@ -550,8 +550,8 @@ describe("Development & Casting Annex V1 — SaveFileV11", () => {
+     };
+     expect(() => makeSave(withFuture)).toThrow(/unknown field "futureV13"/);
+     const save = makeSave(managedVacant("save-v11-projection"));
+-    expect(() => validateSave({ ...save, saveVersion: 30 })).toThrow(
+-      /unknown saveVersion 30.*versions 1 through 29 only/,
++    expect(() => validateSave({ ...save, saveVersion: 31 })).toThrow(
++      /unknown saveVersion 31.*versions 1 through 30 only/,
+     );
+   });
+ });
+diff --git a/tests/p13b-r07-save-v25.test.ts b/tests/p13b-r07-save-v25.test.ts
+index 4ff1be3..bd9f984 100644
+--- a/tests/p13b-r07-save-v25.test.ts
++++ b/tests/p13b-r07-save-v25.test.ts
+@@ -232,10 +232,10 @@ describe('P13B-S5-R07 Save V25 (test 5)', () => {
+   // the CURRENT total supported range, so this case tracks the live boundary
+   // forward exactly as p13b-s5-save-v24.test.ts's own sentinel case does
+   // (superseded as the canonical proof by tests/p13b-s6-save-v26.test.ts's
+-  // "an unknown saveVersion 30..." case, kept here rather than deleted).
+-  it('an unknown saveVersion 30 is refused, naming the handled range "1 through 27" (mechanical extrapolation of the templated message at save.ts:5147)', () => {
+-    const forged = { ...save.makeSave(legacyRehearsingWorld('r07-save-v25-unknown-version')), saveVersion: 30 }
+-    expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 29 only/)
++  // "an unknown saveVersion 31..." case, kept here rather than deleted).
++  it('an unknown saveVersion 31 is refused, naming the handled range "1 through 30 only" (B4 additive reader boundary)', () => {
++    const forged = { ...save.makeSave(legacyRehearsingWorld('r07-save-v25-unknown-version')), saveVersion: 31 }
++    expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 30 only/)
+   })
+ 
+   it('mid-setup save/reload round-trips byte-identically (export/import codec only) — INTERPRETATION 3: hand-authored setup, no genuine producer exists yet', () => {
+diff --git a/tests/p13b-s2-save-v22.test.ts b/tests/p13b-s2-save-v22.test.ts
+index b49285c..428822e 100644
+--- a/tests/p13b-s2-save-v22.test.ts
++++ b/tests/p13b-s2-save-v22.test.ts
+@@ -206,10 +206,10 @@ describe('P13B-S2 envelope law at the live writer (test 8)', () => {
+     expect(makeSave(live(migrated)).saveVersion).toBe(29)
+   })
+ 
+-  it('refuses an unknown saveVersion 30 with the updated range', () => {
++  it('refuses an unknown saveVersion 31 with the updated range', () => {
+     const migrated = migrateToV22(importSave(load('./fixtures/p13b/legacy-v21-staffed-4-seats-263.json.gz')))
+     const save = makeSave(live(migrated))
+-    expect(() => validateSave({ ...save, saveVersion: 30 })).toThrow(/versions 1 through 29 only/)
++    expect(() => validateSave({ ...save, saveVersion: 31 })).toThrow(/versions 1 through 30 only/)
+   })
+ 
+   it('round-trips a migrated two-Laboratory save through exportSave/importSave/migrateToV29 byte-identically', () => {
+diff --git a/tests/p13b-s3-save-v23.test.ts b/tests/p13b-s3-save-v23.test.ts
+index 4ff7bde..bd3d762 100644
+--- a/tests/p13b-s3-save-v23.test.ts
++++ b/tests/p13b-s3-save-v23.test.ts
+@@ -109,9 +109,9 @@ describe('P13B-S3 Save V23 (test 7)', () => {
+     expect(makeSave(p13aLaboratorySlice()).saveVersion).toBe(29)
+   })
+ 
+-  it('an unknown saveVersion 30 is refused, naming the handled range', () => {
+-    const forged = { ...makeSave(p13aLaboratorySlice()), saveVersion: 30 }
+-    expect(() => validateSave(forged)).toThrow(/versions 1 through 29 only/)
++  it('an unknown saveVersion 31 is refused, naming the handled range', () => {
++    const forged = { ...makeSave(p13aLaboratorySlice()), saveVersion: 31 }
++    expect(() => validateSave(forged)).toThrow(/versions 1 through 30 only/)
+   })
+ 
+   it('save/reload mid-queue continues identically (byte for byte)', () => {
+diff --git a/tests/p13b-s5-save-v24.test.ts b/tests/p13b-s5-save-v24.test.ts
+index 6781bf8..fd565c2 100644
+--- a/tests/p13b-s5-save-v24.test.ts
++++ b/tests/p13b-s5-save-v24.test.ts
+@@ -210,9 +210,9 @@ describe('P13B-S5 Save V24 (test 4)', () => {
+     expect(makeSave(p13aLaboratorySlice()).saveVersion).toBe(29)
+   })
+ 
+-  it('an unknown saveVersion 30 is refused, naming the handled range "1 through 27"', () => {
+-    const forged = { ...makeSave(p13aLaboratorySlice()), saveVersion: 30 }
+-    expect(() => validateSave(forged as never)).toThrow(/versions 1 through 29 only/)
++  it('an unknown saveVersion 31 is refused, naming the handled range "1 through 30 only"', () => {
++    const forged = { ...makeSave(p13aLaboratorySlice()), saveVersion: 31 }
++    expect(() => validateSave(forged as never)).toThrow(/versions 1 through 30 only/)
+   })
+ 
+   it('save/reload mid-deployment continues identically (byte for byte): a lighting adoption committed but not yet operational', () => {
+diff --git a/tests/p13b-s6-save-v26.test.ts b/tests/p13b-s6-save-v26.test.ts
+index 3b7c6c3..aa737c3 100644
+--- a/tests/p13b-s6-save-v26.test.ts
++++ b/tests/p13b-s6-save-v26.test.ts
+@@ -218,11 +218,11 @@ describe('P13B-S6 Save V26: genuine V25 fixtures, honest lift, chains, validator
+     expect(() => save.migrateToV20(v26 as never)).toThrow(/cannot downgrade/i)
+   })
+ 
+-  it('an unknown saveVersion 30 is refused, naming the handled range "1 through 29 only" (mechanical extrapolation of the templated message at save.ts:5162)', () => {
++  it('an unknown saveVersion 31 is refused, naming the handled range "1 through 30 only" (B4 additive reader boundary)', () => {
+     const json = load(V25_FIXTURES.soundMidDeployment.file)
+     const v26 = withV26.migrateToV26(JSON.parse(json))
+-    const forged = { ...v26, saveVersion: 30 }
+-    expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 29 only/)
++    const forged = { ...v26, saveVersion: 31 }
++    expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 30 only/)
+   })
+ 
+   it('VALID: a cancelled adoption with a passed original completesWeek is exempt from the v4 "operational receipt differs" clause', () => {
+diff --git a/tests/p13b-s8-save-v27.test.ts b/tests/p13b-s8-save-v27.test.ts
+index 063240a..2eadf38 100644
+--- a/tests/p13b-s8-save-v27.test.ts
++++ b/tests/p13b-s8-save-v27.test.ts
+@@ -208,11 +208,11 @@ describe('P13B-S8 Save V27: genuine V26 fixtures, honest lift, conditional downg
+     })).toThrow()
+   })
+ 
+-  it('an unknown saveVersion 30 is refused, naming the handled range "1 through 29 only" (mechanical extrapolation of the S6 template one version up; P14A.1 moved the live boundary to V28)', () => {
++  it('an unknown saveVersion 31 is refused, naming the handled range "1 through 30 only" (B4 additive reader boundary)', () => {
+     const json = load(V26_FIXTURES.soundMidDeployment.file)
+     const v27 = withV27.migrateToV27(JSON.parse(json))
+-    const forged = { ...v27, saveVersion: 30 }
+-    expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 29 only/)
++    const forged = { ...v27, saveVersion: 31 }
++    expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 30 only/)
+   })
+ 
+   it('genuine usage of admitRivalPlans (not just an unused import — the same measured-risk guard tests/p13b-s6-save-v26.test.ts names for cancellationQuote): admitting a well-funded rival Laboratory books a real, nonzero researchCapacity movement — the same fact the natural-campaign downgrade-refused cases above observe emerging on their own', () => {
+diff --git a/tests/p14a1-save-v28.test.ts b/tests/p14a1-save-v28.test.ts
+index fc78300..d3bcabf 100644
+--- a/tests/p14a1-save-v28.test.ts
++++ b/tests/p14a1-save-v28.test.ts
+@@ -246,11 +246,11 @@ describe('P14A.1 test 8: Save V28 (genuine V27 fixtures, honest lift, downgrade,
+     expect(() => withV28.validateSaveV28(nonNull as never)).toThrow(/representation/i)
+   })
+ 
+-  it('an unknown saveVersion 30 is refused, naming the handled range "1 through 29 only"', () => {
++  it('an unknown saveVersion 31 is refused, naming the handled range "1 through 30 only"', () => {
+     const json = load(V27_FIXTURES.naturalRivalLabs.file)
+     const lifted = withV28.migrateToV28(JSON.parse(json))
+-    const forged = { ...lifted, saveVersion: 30 }
+-    expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 29 only/)
++    const forged = { ...lifted, saveVersion: 31 }
++    expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 30 only/)
+   })
+ 
+   it('releaseTalent on a migrateToV28-only state throws the named V29-roots-missing message (T2c: pins the fail-loud behaviour that made the R4 case below need migrateToV29 for its live action)', () => {
+diff --git a/tests/p14b1-save-v29.test.ts b/tests/p14b1-save-v29.test.ts
+index 99dc325..bb38b4a 100644
+--- a/tests/p14b1-save-v29.test.ts
++++ b/tests/p14b1-save-v29.test.ts
+@@ -190,10 +190,12 @@ describe('P14B.1 test 8: Save V29 (genuine V28 fixture, empty new tables, same d
+     expect(JSON.stringify(downgraded.state as GameState)).toBe(JSON.stringify(beforeState))
+   })
+ 
+-  it('an unknown saveVersion 30 is refused, naming the handled range "1 through 29 only"', () => {
++  // B4 additive reader recognizes V30 before the live writer cuts over; this is
++  // the CURRENT dispatch sentinel, not a change to frozen V29 fixture law.
++  it('an unknown saveVersion 31 is refused, naming the handled range "1 through 30 only"', () => {
+     const json = load(FIXTURE.file)
+     const lifted = withV29.migrateToV29(JSON.parse(json))
+-    const forged = { ...lifted, saveVersion: 30 }
+-    expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 29 only/)
++    const forged = { ...lifted, saveVersion: 31 }
++    expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 30 only/)
+   })
+ })
+diff --git a/tests/p14b4-cast-class-outcomes.test.ts b/tests/p14b4-cast-class-outcomes.test.ts
+index cd079f1..c6bb4a1 100644
+--- a/tests/p14b4-cast-class-outcomes.test.ts
++++ b/tests/p14b4-cast-class-outcomes.test.ts
+@@ -17,7 +17,7 @@ import { advancePromisesWeek, attachPromise } from '../src/core/promises.js'
+ import * as operationsModule from '../src/core/operations.js'
+ import { productionTechnologyView } from '../src/core/technologyProduction.js'
+ import { currentProposals, submitProposal } from '../src/core/talentMarket.js'
+-import { exportSave, importSave, makeSave, validateSaveV29 } from '../src/core/save.js'
++import { exportSave, importSave, makeSave, validateSaveV29, validateSaveV30 } from '../src/core/save.js'
+ import { TUNING } from '../src/core/tuning.js'
+ import type { Action, CastSlot, GameState, ProfessionalPromise } from '../src/core/types.js'
+ import { advanceTo, fund, p13aGeneratedStudio, player } from './helpers/p14b2-fixtures.js'
+@@ -338,7 +338,8 @@ describe('P14B4 genuine submit/settle/take routes, no synthetic commitments', ()
+     expect(root(prepared.state, bound.promiseId).outcome).toBeNull()
+     const after = complete(prepared)
+     satisfied(after.state, bound.promiseId, [after.take.eventId])
+-    expect(importSave(exportSave(makeSave(after.state))).state.promises).toEqual(after.state.promises)
++    const reloaded = validateSaveV30(importSave(exportSave(makeSave(after.state))))
++    expect(reloaded.state.promises).toEqual(after.state.promises)
+   })
+ 
+   it('RIVAL: a genuinely naturally authored tagged commitment binds and qualifies through the real scheduled owner transition', () => {
+diff --git a/tests/property-state-v13.test.ts b/tests/property-state-v13.test.ts
+index f8aaa1a..3872bfc 100644
+--- a/tests/property-state-v13.test.ts
++++ b/tests/property-state-v13.test.ts
+@@ -882,10 +882,10 @@ describe('C1-M1a (d) — SaveFileV13', () => {
+     }
+   })
+ 
+-  it('rejects unknown V27 beyond the current V26 boundary', () => {
++  it('rejects unknown V31 beyond the current V30 reader boundary', () => {
+     const live = makeSave(managedStudio('c1-m1a-unknown'))
+-    expect(() => validateSave({ ...live, saveVersion: 30 })).toThrow(
+-      /unknown saveVersion 30.*versions 1 through 29 only/,
++    expect(() => validateSave({ ...live, saveVersion: 31 })).toThrow(
++      /unknown saveVersion 31.*versions 1 through 30 only/,
+     )
+   })
+ })
+diff --git a/tests/save.test.ts b/tests/save.test.ts
+index 8f05bd3..5a0c573 100644
+--- a/tests/save.test.ts
++++ b/tests/save.test.ts
+@@ -261,13 +261,12 @@ describe("§17 / §15.7 — export→import→export round-trips byte-identicall
+ });
+ 
+ describe("§17 — loud rejection of an unknown saveVersion", () => {
+-  it("throws on an unknown saveVersion (e.g. 18)", () => {
+-    // Source: §17 "loud rejection of unknown versions". Versions 1–16 are known;
+-    // P09 SaveFileV18 moved the unknown boundary from 17 to 18, so the
+-    // sentinel this test reaches for one version past the known ceiling moves
+-    // with it — 17 to 18.
++  it("throws on an unknown saveVersion (e.g. 31)", () => {
++    // Source: §17 "loud rejection of unknown versions". B4's additive reader
++    // recognizes versions 1–30 before the live writer cutover; the unsupported
++    // sentinel remains one version past that CURRENT dispatch ceiling.
+     const save = wellFormedSave();
+-    const bad = { ...save, saveVersion: 30 } as unknown as SaveFileV14;
++    const bad = { ...save, saveVersion: 31 } as unknown as SaveFileV14;
+     expect(() => loadSave(bad)).toThrow();
+   });
+ });
+@@ -422,10 +421,10 @@ describe("P04A §2.5 — SaveFileV15 identity-bearing queue expiry", () => {
+     ).toMatchObject({ subjectId: null });
+   });
+ 
+-  it("rejects an unknown saveVersion 30 with the updated range, and rejects downgrading V15 to V14", () => {
++  it("rejects an unknown saveVersion 31 with the updated range, and rejects downgrading V15 to V14", () => {
+     const save = wellFormedV15Save();
+-    expect(() => validateSave({ ...save, saveVersion: 30 })).toThrow(
+-      /versions 1 through 29 only/,
++    expect(() => validateSave({ ...save, saveVersion: 31 })).toThrow(
++      /versions 1 through 30 only/,
+     );
+     expect(() => migrateToV14(save)).toThrow(/cannot downgrade SaveFileV15/);
+   });
+diff --git a/tests/script-projects-save-v9.test.ts b/tests/script-projects-save-v9.test.ts
+index 37b0715..aff2598 100644
+--- a/tests/script-projects-save-v9.test.ts
++++ b/tests/script-projects-save-v9.test.ts
+@@ -410,13 +410,13 @@ describe("Script Projects V1 — SaveFileV9", () => {
+     expect(migrateToV9(current)).toBe(current);
+   });
+ 
+-  it("rejects unknown V22 and refuses to downgrade V9 through migrateToV8", () => {
++  it("rejects unknown V31 and refuses to downgrade V9 through migrateToV8", () => {
+     const save = makeSaveV9(generateWorld("save-v9-boundary"));
+-    expect(() => validateSave({ ...save, saveVersion: 30 })).toThrow(
+-      /unknown saveVersion 30/,
++    expect(() => validateSave({ ...save, saveVersion: 31 })).toThrow(
++      /unknown saveVersion 31/,
+     );
+-    expect(() => validateSave({ ...save, saveVersion: 30 })).toThrow(
+-      /versions 1 through 29 only/,
++    expect(() => validateSave({ ...save, saveVersion: 31 })).toThrow(
++      /versions 1 through 30 only/,
+     );
+     expect(() => migrateToV8(save)).toThrow(/cannot downgrade SaveFileV9/);
+   });
+diff --git a/tests/p14b4-cast-class-capacity.test.ts b/tests/p14b4-cast-class-capacity.test.ts
+new file mode 100644
+index 0000000..584042f
+--- /dev/null
++++ b/tests/p14b4-cast-class-capacity.test.ts
+@@ -0,0 +1,366 @@
++// Installed after published T0 and independent partial-draft KEEP ec9e71b6…; actual RED follows.
++// INERT / UNEXECUTED. Intended tests/p14b4-cast-class-capacity.test.ts.
++// Source c06db6eae2a1350317c018c6f108d115dcba7b19; preservation publication
++// a76242f2f4bdfda98e38ec706e3110ad6a9bb957 reported by parent; no runtime here.
++// Authority: B4 plan382252e23b6353acf602d87f38032ff961e9f7f9740bbfdf2b2ae368c30df4e4
++// and p14bf2-20260919/13 owner map /14 review. Existing public feasibility API only.
++// This bounded group has FIXED real cast and ONE imminent event; it does not
++// pretend to prove general unstarted matching, full temporal search or cap exhaustion.
++import assert from 'node:assert/strict'
++import { describe, expect, it } from 'vitest'
++import { applyActions, hiringMarketIds, tick } from '../src/core/index.js'
++import {
++  advancePromisesWeek, attachPromise, attachedPromiseDigest, promiseDigest,
++  promiseFeasibility, type PromiseDraft,
++} from '../src/core/promises.js'
++import { currentProposals, submitProposal, withdrawProposal } from '../src/core/talentMarket.js'
++import { makeSave } from '../src/core/save.js'
++import { TUNING } from '../src/core/tuning.js'
++import type { CastSlot, GameState, ProfessionalPromise } from '../src/core/types.js'
++import { advanceTo, fund, p13aGeneratedStudio, player } from './helpers/p14b2-fixtures.js'
++
++const SLOTS = ['lead', 'antagonist', 'support'] as const
++const CLASSES = ['lead', 'leadOrAntagonist'] as const
++type SeatClass = typeof CLASSES[number]
++const p1 = (count = 1) => ({ family: 'APPEARANCE_COUNT' as const, predicate: { count } })
++const p2 = (seatClass: SeatClass, count = 1) => ({
++  family: 'LEAD_OR_SIGNIFICANT_ROLE_COUNT' as const,
++  predicate: { kind: 'castRoleCount' as const, count, seatClass },
++})
++type Material = ReturnType<typeof p1> | ReturnType<typeof p2>
++type World = {
++  opened: GameState; bound: GameState; ready: GameState
++  actors: Record<CastSlot, string>; ids: Record<CastSlot, string>
++  productionId: string; projects: readonly string[]
++}
++const UNKNOWN_CAP = 'bounded capacity analysis could not certify this schedule'
++
++function live(state: GameState): GameState {
++  // The governed strict live writer admits actual fixture facts before probing.
++  // Save-version pins belong to the separate boundary tests, not fixture setup.
++  return makeSave(state).state
++}
++function root(state: GameState, id: string): ProfessionalPromise {
++  const rows = state.promises.filter((p) => p.promiseId === id)
++  expect(rows).toHaveLength(1)
++  return rows[0]!
++}
++function currentRoot(state: GameState, personId: string): ProfessionalPromise {
++  const proposal = currentProposals(state, personId).find((p) => p.issuerStudioId === player(state))
++  assert.ok(proposal)
++  expect(proposal.promises).toHaveLength(1)
++  return root(state, proposal.promises[0]!)
++}
++function sign(state: GameState, role: 'actor' | 'writer' | 'director' | 'craft', termWeeks: number) {
++  for (let steps = 0; steps < 60; steps++) {
++    const person = hiringMarketIds(state, state.market.tick).map((id) => state.talent.find((p) => p.id === id))
++      .find((p) => p?.role === role)
++    if (person !== undefined) return { state: applyActions(state, [{ kind: 'signContract', talentId: person.id, termWeeks }]), id: person.id }
++    state = tick(state)
++  }
++  throw new Error('UNEXECUTED fixture: no lawful hireable ' + role + ' within60 ticks')
++}
++function readyScript(state: GameState, writerId: string, conceptId: string) {
++  const concept = state.concepts.find((c) => c.id === conceptId)!
++  const oldIds = new Set(state.scriptDevelopment.projects.map((p) => p.id))
++  state = applyActions(state, [{ kind: 'commissionScript', project: {
++    conceptId, writerId, shape: { opening: 'slowSetup', midpoint: 'revelation', ending: 'bittersweet' },
++    promise: { genre: concept.genre, intendedSegments: ['adult'], ranges: {
++      intimacy: [-0.5, 0.5], tonalWeight: [-0.5, 0.5], kineticEnergy: [-0.5, 0.5] } },
++  } }])
++  const minted = state.scriptDevelopment.projects.filter((p) => !oldIds.has(p.id))
++  expect(minted).toHaveLength(1) // actual admission, not a queued request counted as a picture
++  const projectId = minted[0]!.id
++  expect(minted[0]!.status).toBe('drafting')
++  expect(minted[0]!.dueWeek).not.toBeNull()
++  for (let steps = 0; state.scriptDevelopment.projects.find((p) => p.id === projectId)!.status !== 'review'; steps++) {
++    if (steps >= 20) throw new Error('UNEXECUTED fixture: actual screenplay never reached Review within20 ticks')
++    state = tick(state)
++  }
++  state = applyActions(state, [{ kind: 'acceptScript', projectId }])
++  expect(state.scriptDevelopment.projects.find((p) => p.id === projectId)).toMatchObject({
++    status: 'ready', productionId: null, reservation: null,
++  })
++  expect(state.scriptDevelopment.projects.find((p) => p.id === projectId)!.assessment).not.toBeNull()
++  return { state, projectId }
++}
++let cached: World | undefined
++function world(): World {
++  if (cached !== undefined) return structuredClone(cached)
++  let state = fund(p13aGeneratedStudio())
++  const lead = sign(state, 'actor', 52); state = lead.state
++  const antagonist = sign(state, 'actor', 52); state = antagonist.state
++  const support = sign(state, 'actor', 52); state = support.state
++  const writer = sign(state, 'writer', 208); state = writer.state
++  const director = sign(state, 'director', 208); state = director.state
++  const craft = sign(state, 'craft', 208); state = craft.state
++  const actors = { lead: lead.id, antagonist: antagonist.id, support: support.id }
++  expect(new Set([...Object.values(actors), writer.id, director.id, craft.id]).size).toBe(6)
++  for (const id of Object.values(actors)) expect(state.talent.find((p) => p.id === id)!.skills.acting).toBeDefined()
++  const starts = Object.values(actors).map((id) => state.contracts.find((c) => c.talentId === id)!.endWeekExclusive)
++  expect(new Set(starts).size).toBe(1)
++  const start = starts[0]!
++  expect(state.studio.activeProductions).toEqual([])
++  expect(state.operations.mode).toBe('managed')
++  if (state.scriptDevelopment.mode === 'legacy') state = applyActions(state, [{ kind: 'activateScriptDevelopment' }])
++  expect(state.scriptDevelopment.mode).toBe('managed')
++  expect(state.scriptDevelopment.projects).toEqual([])
++  const concepts = state.concepts.slice(0, 2)
++  expect(concepts).toHaveLength(2)
++  const first = readyScript(state, writer.id, concepts[0]!.id); state = first.state
++  const second = readyScript(state, writer.id, concepts[1]!.id); state = second.state
++  const stage = 'facility-soundstage-07'
++  const mounted = state.sets.find((s) => s.mountedOn === stage && s.status !== 'retired')
++  if (mounted !== undefined) state = applyActions(state, [{ kind: 'strikeSet', setId: mounted.id }])
++  state = applyActions(state, [{ kind: 'commissionSet', commission: { blueprintId: 'set-grand-ballroom', stageFacilityId: stage } }])
++  state = advanceTo(state, state.market.tick + TUNING.SET_BUILD_WEEKS_BAND_HIGH)
++  expect(state.market.tick).toBeLessThanOrEqual(start - 7)
++  state = advanceTo(state, start - 7)
++  for (const id of Object.values(actors)) {
++    state = submitProposal(state, { talentId: id, issuerStudioId: player(state), termWeeks: 52, premiumTier: 1.25 })
++  }
++  const opened = structuredClone(state)
++  const ids: Record<CastSlot, string> = { lead: '', antagonist: '', support: '' }
++  for (const slot of SLOTS) {
++    state = attachPromise(state, actors[slot], player(state), {
++      ...p1(), windowStartWeek: start, dueWeekExclusive: start + 52,
++    })
++    const promised = currentRoot(state, actors[slot])
++    expect(promised.feasibilityReceipt.classification).toBe('REASONABLY_ACHIEVABLE')
++    ids[slot] = promised.promiseId
++  }
++  state = advanceTo(state, start)
++  for (const slot of SLOTS) {
++    const promised = root(state, ids[slot])
++    expect(promised).toMatchObject({ outcome: null, progress: 0, evidenceRefs: [] })
++    assert.notEqual(promised.contractId, null)
++    const employment = state.hollywood!.employment.find((e) => e.contractId === promised.contractId)
++    expect(employment).toMatchObject({ studioId: player(state), terms: { talentId: actors[slot], startWeek: start } })
++    expect(state.talentMarket.receipts).toContainEqual(expect.objectContaining({
++      kind: 'settled', week: start, studioId: player(state), talentId: actors[slot],
++    }))
++    expect(currentProposals(state, actors[slot])).toEqual([])
++  }
++  const bound = live(state)
++  state = applyActions(state, [{ kind: 'greenlightScriptProject', production: {
++    projectId: first.projectId, directorId: director.id, craftIds: [craft.id], cast: actors,
++    budget: { negative: concepts[0]!.baseNegativeCost, marketing: 0 },
++  } }])
++  const film = state.studio.activeProductions.at(-1)
++  assert.ok(film, 'UNEXECUTED fixture: greenlight was not actually admitted')
++  expect(state.studio.activeProductions).toHaveLength(1)
++  expect(state.scriptDevelopment.projects.find((p) => p.id === first.projectId)).toMatchObject({
++    status: 'inProduction', productionId: film.id,
++  })
++  state = tick(tick(tick(state)))
++  const rehearsal = state.operations.workflows.find((w) => w.productionId === film.id)
++  assert.ok(rehearsal)
++  expect(rehearsal.phase).toBe('rehearsal')
++  state = applyActions(state, [{ kind: 'setProductionSetupRecipe', productionId: film.id,
++    recipeId: 'ballroom-reveal-lighting-01', expectedPlanRevision: rehearsal.planRevision }])
++  for (let steps = 0; state.studio.activeProductions.find((p) => p.id === film.id)!.remainingTicks !== 5; steps++) {
++    if (steps >= 40) throw new Error('UNEXECUTED fixture: actual managed film never reached first Shooting week within40 ticks')
++    state = tick(state)
++  }
++  state = applyActions(state, [{ kind: 'assignShootingDirector', productionId: film.id, directorId: director.id }])
++  for (let steps = 0; state.operations.workflows.find((w) => w.productionId === film.id)!.shootingTask?.status !== 'ready'; steps++) {
++    if (steps >= 6) throw new Error('UNEXECUTED fixture: physical scenery did not arrive within6 actual ticks; no manual bypass')
++    expect(state.studio.activeProductions.find((p) => p.id === film.id)!.remainingTicks).toBe(5)
++    expect(state.firstTakes.filter((t) => t.productionId === film.id)).toEqual([])
++    state = tick(state)
++  }
++  state = applyActions(state, [{ kind: 'scheduleShootingTake', productionId: film.id }])
++  expect(state.operations.workflows.find((w) => w.productionId === film.id)).toMatchObject({
++    phase: 'shooting', blocker: null, shootingTask: { status: 'scheduled' },
++  })
++  expect(state.firstTakes.filter((t) => t.productionId === film.id)).toEqual([])
++  expect(state.studio.activeProductions.find((p) => p.id === film.id)!.cast).toEqual(actors)
++  expect(state.scriptDevelopment.projects.find((p) => p.id === second.projectId)!.status).toBe('ready')
++  for (const slot of SLOTS) {
++    const promised = root(state, ids[slot])
++    const employment = state.hollywood!.employment.find((e) => e.contractId === promised.contractId)!
++    expect(employment.terms.endWeekExclusive).toBeGreaterThan(state.market.tick + 2)
++    expect(promised.outcome).toBeNull()
++  }
++  cached = { opened: live(opened), bound, ready: live(state), actors, ids,
++    productionId: film.id, projects: [first.projectId, second.projectId] }
++  return structuredClone(cached)
++}
++function offerDraft(state: GameState, personId: string, material: Material = p2('lead')): PromiseDraft {
++  const proposal = currentProposals(state, personId).find((p) => p.issuerStudioId === player(state))
++  assert.ok(proposal)
++  return { ...material, issuerStudioId: player(state), beneficiaryPersonId: personId,
++    startWeek: proposal.startWeek, termWeeks: proposal.termWeeks,
++    windowStartWeek: proposal.startWeek, dueWeekExclusive: proposal.startWeek + 40 }
++}
++function pureRead(state: GameState, draft: PromiseDraft) {
++  const before = structuredClone(state), terms = structuredClone(draft)
++  const result = promiseFeasibility(state, draft, state.market.tick)
++  expect(state).toEqual(before)
++  expect(draft).toEqual(terms)
++  expect(result.rulesVersion).toBe(4)
++  expect(result.week).toBe(state.market.tick)
++  return result
++}
++function shortVariants(w: World, material: Record<CastSlot, Material>): GameState {
++  // LABELED in-memory outcome/capacity-owner probe, not authored commitment history:
++  // only material on three ACTUAL bound OPEN roots changes. No receipt/contract/
++  // production/cast/take is invented. Future strict writer must admit it first.
++  const original = JSON.stringify(w.ready)
++  const changes = new Map(SLOTS.map((slot) => [w.ids[slot], material[slot]]))
++  const state = live({ ...structuredClone(w.ready), promises: w.ready.promises.map((p) => {
++    const chosen = changes.get(p.promiseId)
++    return chosen === undefined ? structuredClone(p) : { ...structuredClone(p), ...chosen,
++      windowStartWeek: w.ready.market.tick, dueWeekExclusive: w.ready.market.tick + 2 }
++  }) })
++  expect(state.hollywood!.employment).toEqual(w.ready.hollywood!.employment)
++  expect(state.talentMarket).toEqual(w.ready.talentMarket)
++  expect(state.firstTakes).toEqual(w.ready.firstTakes)
++  for (const slot of SLOTS) {
++    expect(root(state, w.ids[slot]).feasibilityReceipt).toEqual(root(w.ready, w.ids[slot]).feasibilityReceipt)
++    expect(root(state, w.ids[slot]).contractId).toBe(root(w.ready, w.ids[slot]).contractId)
++  }
++  expect(JSON.stringify(w.ready)).toBe(original)
++  return state
++}
++function shortDraft(w: World, state: GameState, slot: CastSlot): PromiseDraft {
++  const promised = root(state, w.ids[slot])
++  return { family: promised.family, predicate: promised.predicate, issuerStudioId: promised.issuerStudioId,
++    beneficiaryPersonId: promised.beneficiaryPersonId, promiseId: promised.promiseId,
++    startWeek: promised.windowStartWeek, termWeeks: 2,
++    windowStartWeek: promised.windowStartWeek, dueWeekExclusive: promised.dueWeekExclusive }
++}
++
++describe('P14B4 bounded fixed-cast capacity, requirement-based owner probes', () => {
++  const matrix = CLASSES.flatMap((seatClass) => SLOTS.map((slot) => ({ seatClass, slot,
++    eligible: slot === 'lead' || (seatClass === 'leadOrAntagonist' && slot === 'antagonist') })))
++  it.each(matrix)('$seatClass target actually fixed in $slot: eligible=$eligible', ({ seatClass, slot, eligible }) => {
++    const w = world()
++    const material: Record<CastSlot, Material> = { lead: p1(), antagonist: p1(), support: p1() }
++    material[slot] = p2(seatClass)
++    const state = shortVariants(w, material)
++    const read = pureRead(state, shortDraft(w, state, slot))
++    // Exactly one possible event at next week. A fresh film cannot complete before
++    // due in two weeks, and this person's one existing cast assignment is fixed.
++    // Feasible X=1 is FRAGILE (no B=2 spare/slack), not spuriously achievable.
++    expect(read.classification).toBe(eligible ? 'FRAGILE' : 'IMPOSSIBLE')
++    if (eligible) expect(read.bottleneck).not.toBe(UNKNOWN_CAP)
++    const beforeOutcomes = state.talentMarket.receipts.filter((r) => r.kind === 'promiseOutcome')
++    const repeated = advancePromisesWeek(state) // SAME week, before due, no new take
++    expect(repeated.promises).toEqual(state.promises)
++    expect(repeated.talentMarket.receipts.filter((r) => r.kind === 'promiseOutcome')).toEqual(beforeOutcomes)
++  })
++
++  it('one real picture jointly serves lead+flexible+P1, but never splices a later Ready script into its spare witness', () => {
++    const w = world()
++    const state = shortVariants(w, { lead: p2('lead'), antagonist: p2('leadOrAntagonist'), support: p1() })
++    for (const slot of SLOTS) {
++      const result = pureRead(state, shortDraft(w, state, slot))
++      expect(result.classification).toBe('FRAGILE')
++      expect(result.bottleneck).not.toBe(UNKNOWN_CAP)
++    }
++    // The script linked to this production is NOT another event, nor can the
++    // remaining Ready script bypass managed admission, first-take timing or holds.
++    expect(state.scriptDevelopment.projects.filter((p) => p.productionId === w.productionId)).toHaveLength(1)
++    expect(state.scriptDevelopment.projects.find((p) => p.id === w.projects[1])!.status).toBe('ready')
++    const withoutSelfExclusion = { ...shortDraft(w, state, 'support') }
++    delete withoutSelfExclusion.promiseId
++    expect(pureRead(state, withoutSelfExclusion).classification).toBe('IMPOSSIBLE')
++    const actual = tick(state)
++    const takes = actual.firstTakes.filter((t) => t.productionId === w.productionId)
++    expect(takes).toHaveLength(1)
++    expect(takes[0]!).toMatchObject({ week: state.market.tick + 1, studioId: player(state), cast: w.actors })
++    for (const slot of SLOTS) expect(root(actual, w.ids[slot])).toMatchObject({
++      outcome: 'SATISFIED', evidenceRefs: [takes[0]!.eventId],
++    })
++    live(actual)
++  })
++
++  it('a conflicting fixed lead claim makes the joint offer impossible, not a target-specific BROKEN winner choice', () => {
++    const w = world()
++    const state = shortVariants(w, { lead: p2('lead'), antagonist: p2('lead'), support: p1() })
++    expect(pureRead(state, shortDraft(w, state, 'support')).classification).toBe('IMPOSSIBLE')
++    // The support person's own physical predicate still has the actual next take.
++    // Never resolve that joint conflict by marking some bound beneficiary broken.
++    const repeated = advancePromisesWeek(state)
++    expect(repeated.promises).toEqual(state.promises)
++    expect(repeated.talentMarket.receipts).toEqual(state.talentMarket.receipts)
++  })
++
++  it.each(['revise', 'withdraw'] as const)('%s removes a real CURRENT reservation but preserves root/receipt history and digest neutrality', (operation) => {
++    const w = world(), state = w.opened, id = w.actors.lead
++    const draft = offerDraft(state, id)
++    const baseline = pureRead(state, draft)
++    expect(baseline.classification).toBe('REASONABLY_ACHIEVABLE')
++    const attached = attachPromise(state, id, player(state), draft)
++    const old = currentRoot(attached, id)
++    expect(pureRead(attached, { ...draft, promiseId: old.promiseId })).toEqual(baseline)
++    expect(pureRead(attached, draft).inputsDigest).not.toBe(baseline.inputsDigest)
++    const proposal = currentProposals(attached, id).find((p) => p.issuerStudioId === player(attached))!
++    const next = operation === 'withdraw' ? withdrawProposal(attached, id, player(attached))
++      : submitProposal(attached, { talentId: id, issuerStudioId: player(attached),
++        termWeeks: proposal.termWeeks, premiumTier: proposal.premiumTier })
++    expect(root(next, old.promiseId)).toEqual(old)
++    expect(next.promises).toEqual(attached.promises)
++    expect(next.talentMarket.receipts.slice(0, attached.talentMarket.receipts.length)).toEqual(attached.talentMarket.receipts)
++    expect(pureRead(next, draft)).toEqual(baseline)
++    live(next)
++  })
++
++  it('a lawful CURRENT nonoverlapping attachment does not alter the class-aware read or its digest', () => {
++    const w = world(), state = w.opened, id = w.actors.lead
++    const draft = offerDraft(state, id)
++    const baseline = pureRead(state, draft)
++    const attached = attachPromise(state, id, player(state), { ...p2('leadOrAntagonist'),
++      windowStartWeek: draft.dueWeekExclusive, dueWeekExclusive: draft.startWeek + draft.termWeeks })
++    const old = currentRoot(attached, id)
++    expect(old.windowStartWeek).toBe(draft.dueWeekExclusive) // exact half-open edge
++    expect(pureRead(attached, draft)).toEqual(baseline)
++    expect(root(attached, old.promiseId)).toEqual(old)
++    live(attached)
++  })
++
++  it('class changes material and feasibility digests; unrelated cash and valid RNG words change neither read nor history', () => {
++    const w = world(), state = w.opened, id = w.actors.lead
++    const lead = offerDraft(state, id, p2('lead'))
++    const flexible = offerDraft(state, id, p2('leadOrAntagonist'))
++    expect(pureRead(state, lead).inputsDigest).not.toBe(pureRead(state, flexible).inputsDigest)
++    const a = attachPromise(state, id, player(state), lead)
++    const b = attachPromise(state, id, player(state), flexible)
++    const ar = currentRoot(a, id), br = currentRoot(b, id)
++    expect(ar.predicate).toEqual(lead.predicate)
++    expect(br.predicate).toEqual(flexible.predicate)
++    expect(promiseDigest(ar)).not.toBe(promiseDigest(br))
++    expect(attachedPromiseDigest(a, [ar.promiseId])).not.toBe(attachedPromiseDigest(b, [br.promiseId]))
++    expect(currentProposals(a, id).find((p) => p.issuerStudioId === player(a))!.digest)
++      .not.toBe(currentProposals(b, id).find((p) => p.issuerStudioId === player(b))!.digest)
++    const baseline = pureRead(state, lead)
++    const cash = live({ ...structuredClone(state), studio: { ...state.studio, cash: state.studio.cash + 1 },
++      ledger: [...state.ledger, { week: state.market.tick, kind: 'studioRevenue', amount: 1, note: 'disclosed irrelevant cash probe' }] })
++    const rng = live({ ...structuredClone(state), rngState: '1,2,3,4' }) // valid serialized words; no RNG draw
++    expect(rng.rngState).not.toBe(state.rngState)
++    expect(pureRead(cash, lead)).toEqual(baseline)
++    expect(pureRead(rng, lead)).toEqual(baseline)
++  })
++
++  it.each([1, 65, Number.MAX_SAFE_INTEGER])('huge admitted staged window/count=%i preserves history; a real outside-contract refusal is not relabeled cap uncertainty', (count) => {
++    const w = world(), state = w.opened, id = w.actors.lead
++    const draft = { ...offerDraft(state, id, p2('leadOrAntagonist', count)), dueWeekExclusive: Number.MAX_SAFE_INTEGER }
++    // Real staging is allowed to retain nonofferable drafts. This is NOT a legal
++    // catalogue-term offer or a fabricated enormous employment/binding interval.
++    const staged = live(attachPromise(state, id, player(state), draft))
++    const promised = currentRoot(staged, id)
++    expect(promised.predicate.count).toBe(count)
++    expect(promised.dueWeekExclusive).toBe(Number.MAX_SAFE_INTEGER)
++    expect(promised.contractId).toBeNull()
++    const read = pureRead(staged, { ...draft, promiseId: promised.promiseId })
++    expect(read.classification).toBe('IMPOSSIBLE')
++    expect(read.bottleneck).toBe('the due week falls outside the proposed contract')
++    expect(read.bottleneck).not.toBe(UNKNOWN_CAP)
++    const after = advancePromisesWeek(staged)
++    expect(after.promises).toEqual(staged.promises)
++    expect(after.talentMarket.receipts).toEqual(staged.talentMarket.receipts)
++    expect(root(after, promised.promiseId)).toMatchObject({ outcome: null, outcomeEventId: null })
++    live(after)
++  })
++})

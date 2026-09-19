@@ -1,4 +1,65 @@
-# P14B.4 — T0 published; independent T1 RED next
+# P14B.4 — additive data checkpoint in verification
+
+CURRENT: additive29qualified report COMPLETE; checks24/25/27/28 ALL fixedSource
+true and PASS within declared scope. Root+UI/bridge clean;137save cases and14
+selected schema cases PASS.22schema cases unselected, not waived; earlier22
+live-writer failures preserved. All sessions CLOSED. Source21/test31 independent
+KEEP. No production writer/heavy runtime. Next commit/push/exactremote this
+checkpoint, then focused direct material/evidence RED and bounded writer. Native
+test-author inert focused draft active; policy-v1/refinement review preserved
+before edits. Exact next tasks/limits in29; previous runtime notes are historical.
+
+CURRENT25: sole parent twelve-file version tests RUNNING, session68172, on d39
+plus unchanged additive source, corrected13test files and capacity test. Protected
+patchbc25e15d…; ALL protected files frozen, no second runtime. Check24 root+UI
+PASSED fixedSource:true at22:13:13.660Z, session14375 CLOSED. Parent read every
+correction hunk;30handback records hashes. Auditor owns narrow31correction review;
+test-author owns inert direct material/evidence preparation. Sim-core map26 DONE,
+idle. Policy v1 independently REFINE: end-of-phase CURRENT/root persistence is
+not universal because legitimate same-pass settlement may intervene. Preserve
+v1+review before author fix; actual author-time assertions and four hard witnesses
+remain required. Next27bridge,28schema selection, qualified29publication/exact
+remote, then directcore RED and sole bounded class-aware implementation.
+
+CURRENT 2026-09-19T22:08Z: checks18–22 CLOSED; no heavy runtime. Additive
+four-file source unchanged and independently KEEP by21 (145135b0…). Capacity22
+15FAIL is prerequisite RED: eight strict live29 tag refusals, seven rules3vs4;
+actual shared managed fixture construction passed. Exact limits in23.
+Test-author owns only narrow current-dispatch unknown31/typing corrections after
+inert policy handoff. Sim-core owns read-only coordinated-cutover map26, no source
+writes. Next serialize corrected root/UI, bridge and changed current-version
+tests; publish additive data with qualified RED, verify exact remote, then
+continue RED-backed P2 behavior. Live29/projection46/rules3 deliberately remain.
+The chronological notes below are historical; this paragraph controls ownership.
+
+Checks18–20 now COMPLETE, sessions43302/75712/38365 CLOSED; no heavy runtime.
+All fixedSource:true on same four-file additive patchbb0858bc….
+18:5files95tests72PASS/23FAIL. B-F2(13),B1T4(34),B3revision(6) allPASS;
+newsave14PASS/22deferredlivewriterFAIL; oldV29save5PASS/one staleunknown30FAIL.
+All changed diff leaves in FULL8.69MB raw18 are saveVersion30versus29; the
+unknown30 dispatcher assertion separately failed because30 is now supported.
+19 root typecheck ONLY outcome341 unnarrowedSaveFile testerror; UI unreached.
+20 bridge typecheck PASS. Independent source review and test-author narrow
+unsupported-version/typing corrections next; do not claim full P2 or allGREEN.
+
+Additive data implementation16 complete and SOURCE FROZEN. Sole parent runtime
+18-additive-data-target, session43302, started21:53:33.330Z on d39a9a0 plus
+protected patchbb0858bc…. No protected writes/second runtime until it completes.
+Live29/projection46/rules3 retained; composite future assertions remain partlyRED.
+
+Premise correction17: actual old-bound/player generated fixtures use LEGACY
+script development + MANAGED operations. Direct stock can lawfully greenlight
+and emit first takes; earlier broad commissioning concern is withdrawn, not a
+production or test defect. Keep both mode axes distinct. Actual outcome341
+typing defect remains. Original RED and prior concern preserved for attribution.
+
+Latest: first independent RED checkpoint d39a9a04e4eae7767d5a15225de36e86f0440c14
+PUSHED and exact remote SHA independently verified. All RED sessions closed;
+attribution B4/15-first-red-disposition.md. Sole sim-core writer now implementing
+ADDITIVE V30 data APIs in types/save/promises-validation/index ONLY. Live29/
+projection46/rules3 stay unchanged until coordinated behavior+wire cutover.
+No active heavy runtime. Independent test-author owns inert capacity preparation;
+remaining outcome fixture/typing corrections and policy/bridge RED still owed.
 
 First independent RED11–14 COMPLETE on a76242f; exact partial-scope attribution15.
 Three files65cases:63FAIL/2PASS with reached-vs-prerequisite limits recorded.

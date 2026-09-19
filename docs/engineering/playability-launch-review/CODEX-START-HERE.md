@@ -2,6 +2,26 @@
 
 ## Current engineering checkpoint — 2026-09-19
 
+Current B4 checkpoint: additive V30 data foundation implemented and independently
+KEEP; qualified report evidence/p14b4-20260919/29-additive-checkpoint.md.
+Corrected candidate bc25e15d…: root+UI and bridge typechecks PASS;137 save tests
+PASS across12 full files;14 selected new schema cases PASS,22 unselected future
+live-writer cases remain failed at their recorded boundaries. All sessions CLOSED.
+Production-only patchbb0858bc… unchanged, source review21 KEEP; test-only unknown31
+sentinels/strict outcome typing review31 KEEP. Earlier failures/evidence retained.
+Capacity22 remains15 prerequisite FAIL, not reached solver proof (qualification23).
+Live29/projection46/rules3 remain until coordinated behavior/wire cutover. B4 is
+IN PROGRESS, not full-suite, live P2, Unity or Owner acceptance.
+Last verified upstream d39a9a04e4eae7767d5a15225de36e86f0440c14; next publish THIS
+additive checkpoint and independently verify exact remote. T0 a762 unchanged.
+Then review/run directly reached material/evidence RED and release ONE bounded
+sim-core implementation. Test-author prepares inert direct-core coverage; policy
+v1 REFINE preserved before author-time/settlement observer correction. No heavy
+runtime or production writer. Continue capacity/policy/bridge and remaining
+P14/P15/P16/specified P17/P18 without routine permission pauses.
+Active ownership/recovery: evidence/p14b4-20260919/00-start.md. Older notes below
+are historical chronology, not instructions to repeat completed preservation.
+
 B4 T0 preservation publication a76242f2f4bdfda98e38ec706e3110ad6a9bb957
 PUSHED and independently EXACT ls-remote verified on2026-09-19. Initial two
 HTTP400 push failures left remote atc06; temporary per-command HTTP settings

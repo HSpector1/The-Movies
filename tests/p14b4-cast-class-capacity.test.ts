@@ -1,0 +1,366 @@
+// Installed after published T0 and independent partial-draft KEEP ec9e71b6…; actual RED follows.
+// INERT / UNEXECUTED. Intended tests/p14b4-cast-class-capacity.test.ts.
+// Source c06db6eae2a1350317c018c6f108d115dcba7b19; preservation publication
+// a76242f2f4bdfda98e38ec706e3110ad6a9bb957 reported by parent; no runtime here.
+// Authority: B4 plan382252e23b6353acf602d87f38032ff961e9f7f9740bbfdf2b2ae368c30df4e4
+// and p14bf2-20260919/13 owner map /14 review. Existing public feasibility API only.
+// This bounded group has FIXED real cast and ONE imminent event; it does not
+// pretend to prove general unstarted matching, full temporal search or cap exhaustion.
+import assert from 'node:assert/strict'
+import { describe, expect, it } from 'vitest'
+import { applyActions, hiringMarketIds, tick } from '../src/core/index.js'
+import {
+  advancePromisesWeek, attachPromise, attachedPromiseDigest, promiseDigest,
+  promiseFeasibility, type PromiseDraft,
+} from '../src/core/promises.js'
+import { currentProposals, submitProposal, withdrawProposal } from '../src/core/talentMarket.js'
+import { makeSave } from '../src/core/save.js'
+import { TUNING } from '../src/core/tuning.js'
+import type { CastSlot, GameState, ProfessionalPromise } from '../src/core/types.js'
+import { advanceTo, fund, p13aGeneratedStudio, player } from './helpers/p14b2-fixtures.js'
+
+const SLOTS = ['lead', 'antagonist', 'support'] as const
+const CLASSES = ['lead', 'leadOrAntagonist'] as const
+type SeatClass = typeof CLASSES[number]
+const p1 = (count = 1) => ({ family: 'APPEARANCE_COUNT' as const, predicate: { count } })
+const p2 = (seatClass: SeatClass, count = 1) => ({
+  family: 'LEAD_OR_SIGNIFICANT_ROLE_COUNT' as const,
+  predicate: { kind: 'castRoleCount' as const, count, seatClass },
+})
+type Material = ReturnType<typeof p1> | ReturnType<typeof p2>
+type World = {
+  opened: GameState; bound: GameState; ready: GameState
+  actors: Record<CastSlot, string>; ids: Record<CastSlot, string>
+  productionId: string; projects: readonly string[]
+}
+const UNKNOWN_CAP = 'bounded capacity analysis could not certify this schedule'
+
+function live(state: GameState): GameState {
+  // The governed strict live writer admits actual fixture facts before probing.
+  // Save-version pins belong to the separate boundary tests, not fixture setup.
+  return makeSave(state).state
+}
+function root(state: GameState, id: string): ProfessionalPromise {
+  const rows = state.promises.filter((p) => p.promiseId === id)
+  expect(rows).toHaveLength(1)
+  return rows[0]!
+}
+function currentRoot(state: GameState, personId: string): ProfessionalPromise {
+  const proposal = currentProposals(state, personId).find((p) => p.issuerStudioId === player(state))
+  assert.ok(proposal)
+  expect(proposal.promises).toHaveLength(1)
+  return root(state, proposal.promises[0]!)
+}
+function sign(state: GameState, role: 'actor' | 'writer' | 'director' | 'craft', termWeeks: number) {
+  for (let steps = 0; steps < 60; steps++) {
+    const person = hiringMarketIds(state, state.market.tick).map((id) => state.talent.find((p) => p.id === id))
+      .find((p) => p?.role === role)
+    if (person !== undefined) return { state: applyActions(state, [{ kind: 'signContract', talentId: person.id, termWeeks }]), id: person.id }
+    state = tick(state)
+  }
+  throw new Error('UNEXECUTED fixture: no lawful hireable ' + role + ' within60 ticks')
+}
+function readyScript(state: GameState, writerId: string, conceptId: string) {
+  const concept = state.concepts.find((c) => c.id === conceptId)!
+  const oldIds = new Set(state.scriptDevelopment.projects.map((p) => p.id))
+  state = applyActions(state, [{ kind: 'commissionScript', project: {
+    conceptId, writerId, shape: { opening: 'slowSetup', midpoint: 'revelation', ending: 'bittersweet' },
+    promise: { genre: concept.genre, intendedSegments: ['adult'], ranges: {
+      intimacy: [-0.5, 0.5], tonalWeight: [-0.5, 0.5], kineticEnergy: [-0.5, 0.5] } },
+  } }])
+  const minted = state.scriptDevelopment.projects.filter((p) => !oldIds.has(p.id))
+  expect(minted).toHaveLength(1) // actual admission, not a queued request counted as a picture
+  const projectId = minted[0]!.id
+  expect(minted[0]!.status).toBe('drafting')
+  expect(minted[0]!.dueWeek).not.toBeNull()
+  for (let steps = 0; state.scriptDevelopment.projects.find((p) => p.id === projectId)!.status !== 'review'; steps++) {
+    if (steps >= 20) throw new Error('UNEXECUTED fixture: actual screenplay never reached Review within20 ticks')
+    state = tick(state)
+  }
+  state = applyActions(state, [{ kind: 'acceptScript', projectId }])
+  expect(state.scriptDevelopment.projects.find((p) => p.id === projectId)).toMatchObject({
+    status: 'ready', productionId: null, reservation: null,
+  })
+  expect(state.scriptDevelopment.projects.find((p) => p.id === projectId)!.assessment).not.toBeNull()
+  return { state, projectId }
+}
+let cached: World | undefined
+function world(): World {
+  if (cached !== undefined) return structuredClone(cached)
+  let state = fund(p13aGeneratedStudio())
+  const lead = sign(state, 'actor', 52); state = lead.state
+  const antagonist = sign(state, 'actor', 52); state = antagonist.state
+  const support = sign(state, 'actor', 52); state = support.state
+  const writer = sign(state, 'writer', 208); state = writer.state
+  const director = sign(state, 'director', 208); state = director.state
+  const craft = sign(state, 'craft', 208); state = craft.state
+  const actors = { lead: lead.id, antagonist: antagonist.id, support: support.id }
+  expect(new Set([...Object.values(actors), writer.id, director.id, craft.id]).size).toBe(6)
+  for (const id of Object.values(actors)) expect(state.talent.find((p) => p.id === id)!.skills.acting).toBeDefined()
+  const starts = Object.values(actors).map((id) => state.contracts.find((c) => c.talentId === id)!.endWeekExclusive)
+  expect(new Set(starts).size).toBe(1)
+  const start = starts[0]!
+  expect(state.studio.activeProductions).toEqual([])
+  expect(state.operations.mode).toBe('managed')
+  if (state.scriptDevelopment.mode === 'legacy') state = applyActions(state, [{ kind: 'activateScriptDevelopment' }])
+  expect(state.scriptDevelopment.mode).toBe('managed')
+  expect(state.scriptDevelopment.projects).toEqual([])
+  const concepts = state.concepts.slice(0, 2)
+  expect(concepts).toHaveLength(2)
+  const first = readyScript(state, writer.id, concepts[0]!.id); state = first.state
+  const second = readyScript(state, writer.id, concepts[1]!.id); state = second.state
+  const stage = 'facility-soundstage-07'
+  const mounted = state.sets.find((s) => s.mountedOn === stage && s.status !== 'retired')
+  if (mounted !== undefined) state = applyActions(state, [{ kind: 'strikeSet', setId: mounted.id }])
+  state = applyActions(state, [{ kind: 'commissionSet', commission: { blueprintId: 'set-grand-ballroom', stageFacilityId: stage } }])
+  state = advanceTo(state, state.market.tick + TUNING.SET_BUILD_WEEKS_BAND_HIGH)
+  expect(state.market.tick).toBeLessThanOrEqual(start - 7)
+  state = advanceTo(state, start - 7)
+  for (const id of Object.values(actors)) {
+    state = submitProposal(state, { talentId: id, issuerStudioId: player(state), termWeeks: 52, premiumTier: 1.25 })
+  }
+  const opened = structuredClone(state)
+  const ids: Record<CastSlot, string> = { lead: '', antagonist: '', support: '' }
+  for (const slot of SLOTS) {
+    state = attachPromise(state, actors[slot], player(state), {
+      ...p1(), windowStartWeek: start, dueWeekExclusive: start + 52,
+    })
+    const promised = currentRoot(state, actors[slot])
+    expect(promised.feasibilityReceipt.classification).toBe('REASONABLY_ACHIEVABLE')
+    ids[slot] = promised.promiseId
+  }
+  state = advanceTo(state, start)
+  for (const slot of SLOTS) {
+    const promised = root(state, ids[slot])
+    expect(promised).toMatchObject({ outcome: null, progress: 0, evidenceRefs: [] })
+    assert.notEqual(promised.contractId, null)
+    const employment = state.hollywood!.employment.find((e) => e.contractId === promised.contractId)
+    expect(employment).toMatchObject({ studioId: player(state), terms: { talentId: actors[slot], startWeek: start } })
+    expect(state.talentMarket.receipts).toContainEqual(expect.objectContaining({
+      kind: 'settled', week: start, studioId: player(state), talentId: actors[slot],
+    }))
+    expect(currentProposals(state, actors[slot])).toEqual([])
+  }
+  const bound = live(state)
+  state = applyActions(state, [{ kind: 'greenlightScriptProject', production: {
+    projectId: first.projectId, directorId: director.id, craftIds: [craft.id], cast: actors,
+    budget: { negative: concepts[0]!.baseNegativeCost, marketing: 0 },
+  } }])
+  const film = state.studio.activeProductions.at(-1)
+  assert.ok(film, 'UNEXECUTED fixture: greenlight was not actually admitted')
+  expect(state.studio.activeProductions).toHaveLength(1)
+  expect(state.scriptDevelopment.projects.find((p) => p.id === first.projectId)).toMatchObject({
+    status: 'inProduction', productionId: film.id,
+  })
+  state = tick(tick(tick(state)))
+  const rehearsal = state.operations.workflows.find((w) => w.productionId === film.id)
+  assert.ok(rehearsal)
+  expect(rehearsal.phase).toBe('rehearsal')
+  state = applyActions(state, [{ kind: 'setProductionSetupRecipe', productionId: film.id,
+    recipeId: 'ballroom-reveal-lighting-01', expectedPlanRevision: rehearsal.planRevision }])
+  for (let steps = 0; state.studio.activeProductions.find((p) => p.id === film.id)!.remainingTicks !== 5; steps++) {
+    if (steps >= 40) throw new Error('UNEXECUTED fixture: actual managed film never reached first Shooting week within40 ticks')
+    state = tick(state)
+  }
+  state = applyActions(state, [{ kind: 'assignShootingDirector', productionId: film.id, directorId: director.id }])
+  for (let steps = 0; state.operations.workflows.find((w) => w.productionId === film.id)!.shootingTask?.status !== 'ready'; steps++) {
+    if (steps >= 6) throw new Error('UNEXECUTED fixture: physical scenery did not arrive within6 actual ticks; no manual bypass')
+    expect(state.studio.activeProductions.find((p) => p.id === film.id)!.remainingTicks).toBe(5)
+    expect(state.firstTakes.filter((t) => t.productionId === film.id)).toEqual([])
+    state = tick(state)
+  }
+  state = applyActions(state, [{ kind: 'scheduleShootingTake', productionId: film.id }])
+  expect(state.operations.workflows.find((w) => w.productionId === film.id)).toMatchObject({
+    phase: 'shooting', blocker: null, shootingTask: { status: 'scheduled' },
+  })
+  expect(state.firstTakes.filter((t) => t.productionId === film.id)).toEqual([])
+  expect(state.studio.activeProductions.find((p) => p.id === film.id)!.cast).toEqual(actors)
+  expect(state.scriptDevelopment.projects.find((p) => p.id === second.projectId)!.status).toBe('ready')
+  for (const slot of SLOTS) {
+    const promised = root(state, ids[slot])
+    const employment = state.hollywood!.employment.find((e) => e.contractId === promised.contractId)!
+    expect(employment.terms.endWeekExclusive).toBeGreaterThan(state.market.tick + 2)
+    expect(promised.outcome).toBeNull()
+  }
+  cached = { opened: live(opened), bound, ready: live(state), actors, ids,
+    productionId: film.id, projects: [first.projectId, second.projectId] }
+  return structuredClone(cached)
+}
+function offerDraft(state: GameState, personId: string, material: Material = p2('lead')): PromiseDraft {
+  const proposal = currentProposals(state, personId).find((p) => p.issuerStudioId === player(state))
+  assert.ok(proposal)
+  return { ...material, issuerStudioId: player(state), beneficiaryPersonId: personId,
+    startWeek: proposal.startWeek, termWeeks: proposal.termWeeks,
+    windowStartWeek: proposal.startWeek, dueWeekExclusive: proposal.startWeek + 40 }
+}
+function pureRead(state: GameState, draft: PromiseDraft) {
+  const before = structuredClone(state), terms = structuredClone(draft)
+  const result = promiseFeasibility(state, draft, state.market.tick)
+  expect(state).toEqual(before)
+  expect(draft).toEqual(terms)
+  expect(result.rulesVersion).toBe(4)
+  expect(result.week).toBe(state.market.tick)
+  return result
+}
+function shortVariants(w: World, material: Record<CastSlot, Material>): GameState {
+  // LABELED in-memory outcome/capacity-owner probe, not authored commitment history:
+  // only material on three ACTUAL bound OPEN roots changes. No receipt/contract/
+  // production/cast/take is invented. Future strict writer must admit it first.
+  const original = JSON.stringify(w.ready)
+  const changes = new Map(SLOTS.map((slot) => [w.ids[slot], material[slot]]))
+  const state = live({ ...structuredClone(w.ready), promises: w.ready.promises.map((p) => {
+    const chosen = changes.get(p.promiseId)
+    return chosen === undefined ? structuredClone(p) : { ...structuredClone(p), ...chosen,
+      windowStartWeek: w.ready.market.tick, dueWeekExclusive: w.ready.market.tick + 2 }
+  }) })
+  expect(state.hollywood!.employment).toEqual(w.ready.hollywood!.employment)
+  expect(state.talentMarket).toEqual(w.ready.talentMarket)
+  expect(state.firstTakes).toEqual(w.ready.firstTakes)
+  for (const slot of SLOTS) {
+    expect(root(state, w.ids[slot]).feasibilityReceipt).toEqual(root(w.ready, w.ids[slot]).feasibilityReceipt)
+    expect(root(state, w.ids[slot]).contractId).toBe(root(w.ready, w.ids[slot]).contractId)
+  }
+  expect(JSON.stringify(w.ready)).toBe(original)
+  return state
+}
+function shortDraft(w: World, state: GameState, slot: CastSlot): PromiseDraft {
+  const promised = root(state, w.ids[slot])
+  return { family: promised.family, predicate: promised.predicate, issuerStudioId: promised.issuerStudioId,
+    beneficiaryPersonId: promised.beneficiaryPersonId, promiseId: promised.promiseId,
+    startWeek: promised.windowStartWeek, termWeeks: 2,
+    windowStartWeek: promised.windowStartWeek, dueWeekExclusive: promised.dueWeekExclusive }
+}
+
+describe('P14B4 bounded fixed-cast capacity, requirement-based owner probes', () => {
+  const matrix = CLASSES.flatMap((seatClass) => SLOTS.map((slot) => ({ seatClass, slot,
+    eligible: slot === 'lead' || (seatClass === 'leadOrAntagonist' && slot === 'antagonist') })))
+  it.each(matrix)('$seatClass target actually fixed in $slot: eligible=$eligible', ({ seatClass, slot, eligible }) => {
+    const w = world()
+    const material: Record<CastSlot, Material> = { lead: p1(), antagonist: p1(), support: p1() }
+    material[slot] = p2(seatClass)
+    const state = shortVariants(w, material)
+    const read = pureRead(state, shortDraft(w, state, slot))
+    // Exactly one possible event at next week. A fresh film cannot complete before
+    // due in two weeks, and this person's one existing cast assignment is fixed.
+    // Feasible X=1 is FRAGILE (no B=2 spare/slack), not spuriously achievable.
+    expect(read.classification).toBe(eligible ? 'FRAGILE' : 'IMPOSSIBLE')
+    if (eligible) expect(read.bottleneck).not.toBe(UNKNOWN_CAP)
+    const beforeOutcomes = state.talentMarket.receipts.filter((r) => r.kind === 'promiseOutcome')
+    const repeated = advancePromisesWeek(state) // SAME week, before due, no new take
+    expect(repeated.promises).toEqual(state.promises)
+    expect(repeated.talentMarket.receipts.filter((r) => r.kind === 'promiseOutcome')).toEqual(beforeOutcomes)
+  })
+
+  it('one real picture jointly serves lead+flexible+P1, but never splices a later Ready script into its spare witness', () => {
+    const w = world()
+    const state = shortVariants(w, { lead: p2('lead'), antagonist: p2('leadOrAntagonist'), support: p1() })
+    for (const slot of SLOTS) {
+      const result = pureRead(state, shortDraft(w, state, slot))
+      expect(result.classification).toBe('FRAGILE')
+      expect(result.bottleneck).not.toBe(UNKNOWN_CAP)
+    }
+    // The script linked to this production is NOT another event, nor can the
+    // remaining Ready script bypass managed admission, first-take timing or holds.
+    expect(state.scriptDevelopment.projects.filter((p) => p.productionId === w.productionId)).toHaveLength(1)
+    expect(state.scriptDevelopment.projects.find((p) => p.id === w.projects[1])!.status).toBe('ready')
+    const withoutSelfExclusion = { ...shortDraft(w, state, 'support') }
+    delete withoutSelfExclusion.promiseId
+    expect(pureRead(state, withoutSelfExclusion).classification).toBe('IMPOSSIBLE')
+    const actual = tick(state)
+    const takes = actual.firstTakes.filter((t) => t.productionId === w.productionId)
+    expect(takes).toHaveLength(1)
+    expect(takes[0]!).toMatchObject({ week: state.market.tick + 1, studioId: player(state), cast: w.actors })
+    for (const slot of SLOTS) expect(root(actual, w.ids[slot])).toMatchObject({
+      outcome: 'SATISFIED', evidenceRefs: [takes[0]!.eventId],
+    })
+    live(actual)
+  })
+
+  it('a conflicting fixed lead claim makes the joint offer impossible, not a target-specific BROKEN winner choice', () => {
+    const w = world()
+    const state = shortVariants(w, { lead: p2('lead'), antagonist: p2('lead'), support: p1() })
+    expect(pureRead(state, shortDraft(w, state, 'support')).classification).toBe('IMPOSSIBLE')
+    // The support person's own physical predicate still has the actual next take.
+    // Never resolve that joint conflict by marking some bound beneficiary broken.
+    const repeated = advancePromisesWeek(state)
+    expect(repeated.promises).toEqual(state.promises)
+    expect(repeated.talentMarket.receipts).toEqual(state.talentMarket.receipts)
+  })
+
+  it.each(['revise', 'withdraw'] as const)('%s removes a real CURRENT reservation but preserves root/receipt history and digest neutrality', (operation) => {
+    const w = world(), state = w.opened, id = w.actors.lead
+    const draft = offerDraft(state, id)
+    const baseline = pureRead(state, draft)
+    expect(baseline.classification).toBe('REASONABLY_ACHIEVABLE')
+    const attached = attachPromise(state, id, player(state), draft)
+    const old = currentRoot(attached, id)
+    expect(pureRead(attached, { ...draft, promiseId: old.promiseId })).toEqual(baseline)
+    expect(pureRead(attached, draft).inputsDigest).not.toBe(baseline.inputsDigest)
+    const proposal = currentProposals(attached, id).find((p) => p.issuerStudioId === player(attached))!
+    const next = operation === 'withdraw' ? withdrawProposal(attached, id, player(attached))
+      : submitProposal(attached, { talentId: id, issuerStudioId: player(attached),
+        termWeeks: proposal.termWeeks, premiumTier: proposal.premiumTier })
+    expect(root(next, old.promiseId)).toEqual(old)
+    expect(next.promises).toEqual(attached.promises)
+    expect(next.talentMarket.receipts.slice(0, attached.talentMarket.receipts.length)).toEqual(attached.talentMarket.receipts)
+    expect(pureRead(next, draft)).toEqual(baseline)
+    live(next)
+  })
+
+  it('a lawful CURRENT nonoverlapping attachment does not alter the class-aware read or its digest', () => {
+    const w = world(), state = w.opened, id = w.actors.lead
+    const draft = offerDraft(state, id)
+    const baseline = pureRead(state, draft)
+    const attached = attachPromise(state, id, player(state), { ...p2('leadOrAntagonist'),
+      windowStartWeek: draft.dueWeekExclusive, dueWeekExclusive: draft.startWeek + draft.termWeeks })
+    const old = currentRoot(attached, id)
+    expect(old.windowStartWeek).toBe(draft.dueWeekExclusive) // exact half-open edge
+    expect(pureRead(attached, draft)).toEqual(baseline)
+    expect(root(attached, old.promiseId)).toEqual(old)
+    live(attached)
+  })
+
+  it('class changes material and feasibility digests; unrelated cash and valid RNG words change neither read nor history', () => {
+    const w = world(), state = w.opened, id = w.actors.lead
+    const lead = offerDraft(state, id, p2('lead'))
+    const flexible = offerDraft(state, id, p2('leadOrAntagonist'))
+    expect(pureRead(state, lead).inputsDigest).not.toBe(pureRead(state, flexible).inputsDigest)
+    const a = attachPromise(state, id, player(state), lead)
+    const b = attachPromise(state, id, player(state), flexible)
+    const ar = currentRoot(a, id), br = currentRoot(b, id)
+    expect(ar.predicate).toEqual(lead.predicate)
+    expect(br.predicate).toEqual(flexible.predicate)
+    expect(promiseDigest(ar)).not.toBe(promiseDigest(br))
+    expect(attachedPromiseDigest(a, [ar.promiseId])).not.toBe(attachedPromiseDigest(b, [br.promiseId]))
+    expect(currentProposals(a, id).find((p) => p.issuerStudioId === player(a))!.digest)
+      .not.toBe(currentProposals(b, id).find((p) => p.issuerStudioId === player(b))!.digest)
+    const baseline = pureRead(state, lead)
+    const cash = live({ ...structuredClone(state), studio: { ...state.studio, cash: state.studio.cash + 1 },
+      ledger: [...state.ledger, { week: state.market.tick, kind: 'studioRevenue', amount: 1, note: 'disclosed irrelevant cash probe' }] })
+    const rng = live({ ...structuredClone(state), rngState: '1,2,3,4' }) // valid serialized words; no RNG draw
+    expect(rng.rngState).not.toBe(state.rngState)
+    expect(pureRead(cash, lead)).toEqual(baseline)
+    expect(pureRead(rng, lead)).toEqual(baseline)
+  })
+
+  it.each([1, 65, Number.MAX_SAFE_INTEGER])('huge admitted staged window/count=%i preserves history; a real outside-contract refusal is not relabeled cap uncertainty', (count) => {
+    const w = world(), state = w.opened, id = w.actors.lead
+    const draft = { ...offerDraft(state, id, p2('leadOrAntagonist', count)), dueWeekExclusive: Number.MAX_SAFE_INTEGER }
+    // Real staging is allowed to retain nonofferable drafts. This is NOT a legal
+    // catalogue-term offer or a fabricated enormous employment/binding interval.
+    const staged = live(attachPromise(state, id, player(state), draft))
+    const promised = currentRoot(staged, id)
+    expect(promised.predicate.count).toBe(count)
+    expect(promised.dueWeekExclusive).toBe(Number.MAX_SAFE_INTEGER)
+    expect(promised.contractId).toBeNull()
+    const read = pureRead(staged, { ...draft, promiseId: promised.promiseId })
+    expect(read.classification).toBe('IMPOSSIBLE')
+    expect(read.bottleneck).toBe('the due week falls outside the proposed contract')
+    expect(read.bottleneck).not.toBe(UNKNOWN_CAP)
+    const after = advancePromisesWeek(staged)
+    expect(after.promises).toEqual(staged.promises)
+    expect(after.talentMarket.receipts).toEqual(staged.talentMarket.receipts)
+    expect(root(after, promised.promiseId)).toMatchObject({ outcome: null, outcomeEventId: null })
+    live(after)
+  })
+})

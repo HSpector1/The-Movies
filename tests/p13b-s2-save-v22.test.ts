@@ -206,10 +206,10 @@ describe('P13B-S2 envelope law at the live writer (test 8)', () => {
     expect(makeSave(live(migrated)).saveVersion).toBe(29)
   })
 
-  it('refuses an unknown saveVersion 30 with the updated range', () => {
+  it('refuses an unknown saveVersion 31 with the updated range', () => {
     const migrated = migrateToV22(importSave(load('./fixtures/p13b/legacy-v21-staffed-4-seats-263.json.gz')))
     const save = makeSave(live(migrated))
-    expect(() => validateSave({ ...save, saveVersion: 30 })).toThrow(/versions 1 through 29 only/)
+    expect(() => validateSave({ ...save, saveVersion: 31 })).toThrow(/versions 1 through 30 only/)
   })
 
   it('round-trips a migrated two-Laboratory save through exportSave/importSave/migrateToV29 byte-identically', () => {

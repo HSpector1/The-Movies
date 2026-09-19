@@ -190,10 +190,12 @@ describe('P14B.1 test 8: Save V29 (genuine V28 fixture, empty new tables, same d
     expect(JSON.stringify(downgraded.state as GameState)).toBe(JSON.stringify(beforeState))
   })
 
-  it('an unknown saveVersion 30 is refused, naming the handled range "1 through 29 only"', () => {
+  // B4 additive reader recognizes V30 before the live writer cuts over; this is
+  // the CURRENT dispatch sentinel, not a change to frozen V29 fixture law.
+  it('an unknown saveVersion 31 is refused, naming the handled range "1 through 30 only"', () => {
     const json = load(FIXTURE.file)
     const lifted = withV29.migrateToV29(JSON.parse(json))
-    const forged = { ...lifted, saveVersion: 30 }
-    expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 29 only/)
+    const forged = { ...lifted, saveVersion: 31 }
+    expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 30 only/)
   })
 })

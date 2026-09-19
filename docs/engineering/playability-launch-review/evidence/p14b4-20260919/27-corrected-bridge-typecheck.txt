@@ -1,0 +1,8 @@
+{"sourceSha":"d39a9a04e4eae7767d5a15225de36e86f0440c14","testedDiffSha256":"bc25e15d9aeac9d5f2a26c372d156ebf759e374b755cab2818bd2a66a3e1ec98","untrackedSource":["tests/p14b4-cast-class-capacity.test.ts"],"command":["npm","run","typecheck:bridge"],"node":"v20.20.2","start":"2026-09-19T22:15:28.299Z","end":null,"exitCode":null}
+
+
+> project-studio-core@0.1.0 typecheck:bridge
+> tsc -p tsconfig.bridge.json
+
+
+{"sourceSha":"d39a9a04e4eae7767d5a15225de36e86f0440c14","testedDiffSha256":"bc25e15d9aeac9d5f2a26c372d156ebf759e374b755cab2818bd2a66a3e1ec98","untrackedSource":["tests/p14b4-cast-class-capacity.test.ts"],"command":["npm","run","typecheck:bridge"],"node":"v20.20.2","start":"2026-09-19T22:15:28.299Z","end":"2026-09-19T22:16:09.963Z","exitCode":0,"signal":null,"error":null,"sourceShaAtEnd":"d39a9a04e4eae7767d5a15225de36e86f0440c14","testedDiffSha256AtEnd":"bc25e15d9aeac9d5f2a26c372d156ebf759e374b755cab2818bd2a66a3e1ec98","untrackedSourceAtEnd":["tests/p14b4-cast-class-capacity.test.ts"],"fixedSource":true}

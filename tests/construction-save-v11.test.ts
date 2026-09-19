@@ -550,8 +550,8 @@ describe("Development & Casting Annex V1 — SaveFileV11", () => {
     };
     expect(() => makeSave(withFuture)).toThrow(/unknown field "futureV13"/);
     const save = makeSave(managedVacant("save-v11-projection"));
-    expect(() => validateSave({ ...save, saveVersion: 30 })).toThrow(
-      /unknown saveVersion 30.*versions 1 through 29 only/,
+    expect(() => validateSave({ ...save, saveVersion: 31 })).toThrow(
+      /unknown saveVersion 31.*versions 1 through 30 only/,
     );
   });
 });

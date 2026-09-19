@@ -1,0 +1,232 @@
+{"sourceSha":"d39a9a04e4eae7767d5a15225de36e86f0440c14","testedDiffSha256":"b7091e70a3f138e2a8198979b5f0ccaea8a7be45af9c9ea978053223adae2418","untrackedSource":["tests/p14b4-cast-class-capacity.test.ts"],"command":["./node_modules/.bin/vitest","run","tests/p14b4-cast-class-capacity.test.ts","--minWorkers=1","--maxWorkers=1"],"node":"v20.20.2","start":"2026-09-19T22:00:11.212Z","end":null,"exitCode":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/p14b4-cast-class-capacity.test.ts (15 tests | 15 failed) 5005ms
+   × P14B4 bounded fixed-cast capacity, requirement-based owner probes > 'lead' target actually fixed in 'lead': eligible=true 2915ms
+     → validateSaveV29: state.promises[0].predicate.kind is not a field of this record
+   × P14B4 bounded fixed-cast capacity, requirement-based owner probes > 'lead' target actually fixed in 'antagonist': eligible=false 116ms
+     → validateSaveV29: state.promises[1].predicate.kind is not a field of this record
+   × P14B4 bounded fixed-cast capacity, requirement-based owner probes > 'lead' target actually fixed in 'support': eligible=false 175ms
+     → validateSaveV29: state.promises[2].predicate.kind is not a field of this record
+   × P14B4 bounded fixed-cast capacity, requirement-based owner probes > 'leadOrAntagonist' target actually fixed in 'lead': eligible=true 92ms
+     → validateSaveV29: state.promises[0].predicate.kind is not a field of this record
+   × P14B4 bounded fixed-cast capacity, requirement-based owner probes > 'leadOrAntagonist' target actually fixed in 'antagonist': eligible=true 90ms
+     → validateSaveV29: state.promises[1].predicate.kind is not a field of this record
+   × P14B4 bounded fixed-cast capacity, requirement-based owner probes > 'leadOrAntagonist' target actually fixed in 'support': eligible=false 98ms
+     → validateSaveV29: state.promises[2].predicate.kind is not a field of this record
+   × P14B4 bounded fixed-cast capacity, requirement-based owner probes > one real picture jointly serves lead+flexible+P1, but never splices a later Ready script into its spare witness 121ms
+     → validateSaveV29: state.promises[0].predicate.kind is not a field of this record
+   × P14B4 bounded fixed-cast capacity, requirement-based owner probes > a conflicting fixed lead claim makes the joint offer impossible, not a target-specific BROKEN winner choice 108ms
+     → validateSaveV29: state.promises[0].predicate.kind is not a field of this record
+   × P14B4 bounded fixed-cast capacity, requirement-based owner probes > revise removes a real CURRENT reservation but preserves root/receipt history and digest neutrality 176ms
+     → expected 3 to be 4 // Object.is equality
+   × P14B4 bounded fixed-cast capacity, requirement-based owner probes > withdraw removes a real CURRENT reservation but preserves root/receipt history and digest neutrality 123ms
+     → expected 3 to be 4 // Object.is equality
+   × P14B4 bounded fixed-cast capacity, requirement-based owner probes > a lawful CURRENT nonoverlapping attachment does not alter the class-aware read or its digest 116ms
+     → expected 3 to be 4 // Object.is equality
+   × P14B4 bounded fixed-cast capacity, requirement-based owner probes > class changes material and feasibility digests; unrelated cash and valid RNG words change neither read nor history 108ms
+     → expected 3 to be 4 // Object.is equality
+   × P14B4 bounded fixed-cast capacity, requirement-based owner probes > huge admitted staged window/count=1 preserves history; a real outside-contract refusal is not relabeled cap uncertainty 244ms
+     → expected 3 to be 4 // Object.is equality
+   × P14B4 bounded fixed-cast capacity, requirement-based owner probes > huge admitted staged window/count=65 preserves history; a real outside-contract refusal is not relabeled cap uncertainty 288ms
+     → expected 3 to be 4 // Object.is equality
+   × P14B4 bounded fixed-cast capacity, requirement-based owner probes > huge admitted staged window/count=9007199254740991 preserves history; a real outside-contract refusal is not relabeled cap uncertainty 229ms
+     → expected 3 to be 4 // Object.is equality
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 15 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14b4-cast-class-capacity.test.ts > P14B4 bounded fixed-cast capacity, requirement-based owner probes > 'lead' target actually fixed in 'lead': eligible=true
+ FAIL |core|  tests/p14b4-cast-class-capacity.test.ts > P14B4 bounded fixed-cast capacity, requirement-based owner probes > 'leadOrAntagonist' target actually fixed in 'lead': eligible=true
+Error: validateSaveV29: state.promises[0].predicate.kind is not a field of this record
+ ❯ fail src/core/promises.ts:799:11
+    797| function validatePromiseRootsForVersion(state: unknown, saveVersion: 2…
+    798|   const fail = (message: string): never => {
+    799|     throw new Error(`validateSaveV${String(saveVersion)}: ${message}`)
+       |           ^
+    800|   }
+    801|   if (!isRecord(state)) return fail('state is not a plain object')
+ ❯ exact src/core/promises.ts:813:66
+ ❯ validatePromiseRootsForVersion src/core/promises.ts:907:7
+ ❯ Module.validatePromiseRoots src/core/promises.ts:788:3
+ ❯ validateSaveV29 src/core/save.ts:8611:3
+ ❯ Module.makeSave src/core/save.ts:6401:16
+ ❯ live tests/p14b4-cast-class-capacity.test.ts:41:10
+ ❯ shortVariants tests/p14b4-cast-class-capacity.test.ts:211:17
+ ❯ tests/p14b4-cast-class-capacity.test.ts:241:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/15]⎯
+
+ FAIL |core|  tests/p14b4-cast-class-capacity.test.ts > P14B4 bounded fixed-cast capacity, requirement-based owner probes > 'lead' target actually fixed in 'antagonist': eligible=false
+ FAIL |core|  tests/p14b4-cast-class-capacity.test.ts > P14B4 bounded fixed-cast capacity, requirement-based owner probes > 'leadOrAntagonist' target actually fixed in 'antagonist': eligible=true
+Error: validateSaveV29: state.promises[1].predicate.kind is not a field of this record
+ ❯ fail src/core/promises.ts:799:11
+    797| function validatePromiseRootsForVersion(state: unknown, saveVersion: 2…
+    798|   const fail = (message: string): never => {
+    799|     throw new Error(`validateSaveV${String(saveVersion)}: ${message}`)
+       |           ^
+    800|   }
+    801|   if (!isRecord(state)) return fail('state is not a plain object')
+ ❯ exact src/core/promises.ts:813:66
+ ❯ validatePromiseRootsForVersion src/core/promises.ts:907:7
+ ❯ Module.validatePromiseRoots src/core/promises.ts:788:3
+ ❯ validateSaveV29 src/core/save.ts:8611:3
+ ❯ Module.makeSave src/core/save.ts:6401:16
+ ❯ live tests/p14b4-cast-class-capacity.test.ts:41:10
+ ❯ shortVariants tests/p14b4-cast-class-capacity.test.ts:211:17
+ ❯ tests/p14b4-cast-class-capacity.test.ts:241:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/15]⎯
+
+ FAIL |core|  tests/p14b4-cast-class-capacity.test.ts > P14B4 bounded fixed-cast capacity, requirement-based owner probes > 'lead' target actually fixed in 'support': eligible=false
+ FAIL |core|  tests/p14b4-cast-class-capacity.test.ts > P14B4 bounded fixed-cast capacity, requirement-based owner probes > 'leadOrAntagonist' target actually fixed in 'support': eligible=false
+Error: validateSaveV29: state.promises[2].predicate.kind is not a field of this record
+ ❯ fail src/core/promises.ts:799:11
+    797| function validatePromiseRootsForVersion(state: unknown, saveVersion: 2…
+    798|   const fail = (message: string): never => {
+    799|     throw new Error(`validateSaveV${String(saveVersion)}: ${message}`)
+       |           ^
+    800|   }
+    801|   if (!isRecord(state)) return fail('state is not a plain object')
+ ❯ exact src/core/promises.ts:813:66
+ ❯ validatePromiseRootsForVersion src/core/promises.ts:907:7
+ ❯ Module.validatePromiseRoots src/core/promises.ts:788:3
+ ❯ validateSaveV29 src/core/save.ts:8611:3
+ ❯ Module.makeSave src/core/save.ts:6401:16
+ ❯ live tests/p14b4-cast-class-capacity.test.ts:41:10
+ ❯ shortVariants tests/p14b4-cast-class-capacity.test.ts:211:17
+ ❯ tests/p14b4-cast-class-capacity.test.ts:241:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/15]⎯
+
+ FAIL |core|  tests/p14b4-cast-class-capacity.test.ts > P14B4 bounded fixed-cast capacity, requirement-based owner probes > one real picture jointly serves lead+flexible+P1, but never splices a later Ready script into its spare witness
+Error: validateSaveV29: state.promises[0].predicate.kind is not a field of this record
+ ❯ fail src/core/promises.ts:799:11
+    797| function validatePromiseRootsForVersion(state: unknown, saveVersion: 2…
+    798|   const fail = (message: string): never => {
+    799|     throw new Error(`validateSaveV${String(saveVersion)}: ${message}`)
+       |           ^
+    800|   }
+    801|   if (!isRecord(state)) return fail('state is not a plain object')
+ ❯ exact src/core/promises.ts:813:66
+ ❯ validatePromiseRootsForVersion src/core/promises.ts:907:7
+ ❯ Module.validatePromiseRoots src/core/promises.ts:788:3
+ ❯ validateSaveV29 src/core/save.ts:8611:3
+ ❯ Module.makeSave src/core/save.ts:6401:16
+ ❯ live tests/p14b4-cast-class-capacity.test.ts:41:10
+ ❯ shortVariants tests/p14b4-cast-class-capacity.test.ts:211:17
+ ❯ tests/p14b4-cast-class-capacity.test.ts:256:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/15]⎯
+
+ FAIL |core|  tests/p14b4-cast-class-capacity.test.ts > P14B4 bounded fixed-cast capacity, requirement-based owner probes > a conflicting fixed lead claim makes the joint offer impossible, not a target-specific BROKEN winner choice
+Error: validateSaveV29: state.promises[0].predicate.kind is not a field of this record
+ ❯ fail src/core/promises.ts:799:11
+    797| function validatePromiseRootsForVersion(state: unknown, saveVersion: 2…
+    798|   const fail = (message: string): never => {
+    799|     throw new Error(`validateSaveV${String(saveVersion)}: ${message}`)
+       |           ^
+    800|   }
+    801|   if (!isRecord(state)) return fail('state is not a plain object')
+ ❯ exact src/core/promises.ts:813:66
+ ❯ validatePromiseRootsForVersion src/core/promises.ts:907:7
+ ❯ Module.validatePromiseRoots src/core/promises.ts:788:3
+ ❯ validateSaveV29 src/core/save.ts:8611:3
+ ❯ Module.makeSave src/core/save.ts:6401:16
+ ❯ live tests/p14b4-cast-class-capacity.test.ts:41:10
+ ❯ shortVariants tests/p14b4-cast-class-capacity.test.ts:211:17
+ ❯ tests/p14b4-cast-class-capacity.test.ts:281:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/15]⎯
+
+ FAIL |core|  tests/p14b4-cast-class-capacity.test.ts > P14B4 bounded fixed-cast capacity, requirement-based owner probes > revise removes a real CURRENT reservation but preserves root/receipt history and digest neutrality
+ FAIL |core|  tests/p14b4-cast-class-capacity.test.ts > P14B4 bounded fixed-cast capacity, requirement-based owner probes > withdraw removes a real CURRENT reservation but preserves root/receipt history and digest neutrality
+AssertionError: expected 3 to be 4 // Object.is equality
+
+- Expected
++ Received
+
+- 4
++ 3
+
+ ❯ pureRead tests/p14b4-cast-class-capacity.test.ts:201:31
+    199|   expect(state).toEqual(before)
+    200|   expect(draft).toEqual(terms)
+    201|   expect(result.rulesVersion).toBe(4)
+       |                               ^
+    202|   expect(result.week).toBe(state.market.tick)
+    203|   return result
+ ❯ tests/p14b4-cast-class-capacity.test.ts:293:22
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/15]⎯
+
+ FAIL |core|  tests/p14b4-cast-class-capacity.test.ts > P14B4 bounded fixed-cast capacity, requirement-based owner probes > a lawful CURRENT nonoverlapping attachment does not alter the class-aware read or its digest
+AssertionError: expected 3 to be 4 // Object.is equality
+
+- Expected
++ Received
+
+- 4
++ 3
+
+ ❯ pureRead tests/p14b4-cast-class-capacity.test.ts:201:31
+    199|   expect(state).toEqual(before)
+    200|   expect(draft).toEqual(terms)
+    201|   expect(result.rulesVersion).toBe(4)
+       |                               ^
+    202|   expect(result.week).toBe(state.market.tick)
+    203|   return result
+ ❯ tests/p14b4-cast-class-capacity.test.ts:313:22
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/15]⎯
+
+ FAIL |core|  tests/p14b4-cast-class-capacity.test.ts > P14B4 bounded fixed-cast capacity, requirement-based owner probes > class changes material and feasibility digests; unrelated cash and valid RNG words change neither read nor history
+AssertionError: expected 3 to be 4 // Object.is equality
+
+- Expected
++ Received
+
+- 4
++ 3
+
+ ❯ pureRead tests/p14b4-cast-class-capacity.test.ts:201:31
+    199|   expect(state).toEqual(before)
+    200|   expect(draft).toEqual(terms)
+    201|   expect(result.rulesVersion).toBe(4)
+       |                               ^
+    202|   expect(result.week).toBe(state.market.tick)
+    203|   return result
+ ❯ tests/p14b4-cast-class-capacity.test.ts:327:12
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/15]⎯
+
+ FAIL |core|  tests/p14b4-cast-class-capacity.test.ts > P14B4 bounded fixed-cast capacity, requirement-based owner probes > huge admitted staged window/count=1 preserves history; a real outside-contract refusal is not relabeled cap uncertainty
+ FAIL |core|  tests/p14b4-cast-class-capacity.test.ts > P14B4 bounded fixed-cast capacity, requirement-based owner probes > huge admitted staged window/count=65 preserves history; a real outside-contract refusal is not relabeled cap uncertainty
+ FAIL |core|  tests/p14b4-cast-class-capacity.test.ts > P14B4 bounded fixed-cast capacity, requirement-based owner probes > huge admitted staged window/count=9007199254740991 preserves history; a real outside-contract refusal is not relabeled cap uncertainty
+AssertionError: expected 3 to be 4 // Object.is equality
+
+- Expected
++ Received
+
+- 4
++ 3
+
+ ❯ pureRead tests/p14b4-cast-class-capacity.test.ts:201:31
+    199|   expect(state).toEqual(before)
+    200|   expect(draft).toEqual(terms)
+    201|   expect(result.rulesVersion).toBe(4)
+       |                               ^
+    202|   expect(result.week).toBe(state.market.tick)
+    203|   return result
+ ❯ tests/p14b4-cast-class-capacity.test.ts:356:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/15]⎯
+
+ Test Files  1 failed (1)
+      Tests  15 failed (15)
+   Start at  00:00:11
+   Duration  8.86s (transform 2.55s, setup 0ms, collect 3.30s, tests 5.00s, environment 0ms, prepare 135ms)
+
+
+{"sourceSha":"d39a9a04e4eae7767d5a15225de36e86f0440c14","testedDiffSha256":"b7091e70a3f138e2a8198979b5f0ccaea8a7be45af9c9ea978053223adae2418","untrackedSource":["tests/p14b4-cast-class-capacity.test.ts"],"command":["./node_modules/.bin/vitest","run","tests/p14b4-cast-class-capacity.test.ts","--minWorkers=1","--maxWorkers=1"],"node":"v20.20.2","start":"2026-09-19T22:00:11.212Z","end":"2026-09-19T22:00:21.663Z","exitCode":1,"signal":null,"error":null,"sourceShaAtEnd":"d39a9a04e4eae7767d5a15225de36e86f0440c14","testedDiffSha256AtEnd":"b7091e70a3f138e2a8198979b5f0ccaea8a7be45af9c9ea978053223adae2418","untrackedSourceAtEnd":["tests/p14b4-cast-class-capacity.test.ts"],"fixedSource":true}

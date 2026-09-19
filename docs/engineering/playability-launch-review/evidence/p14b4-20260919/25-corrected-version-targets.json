@@ -1,0 +1,37 @@
+{
+  "sourceSha": "d39a9a04e4eae7767d5a15225de36e86f0440c14",
+  "testedDiffSha256": "bc25e15d9aeac9d5f2a26c372d156ebf759e374b755cab2818bd2a66a3e1ec98",
+  "untrackedSource": [
+    "tests/p14b4-cast-class-capacity.test.ts"
+  ],
+  "command": [
+    "./node_modules/.bin/vitest",
+    "run",
+    "tests/p14b1-save-v29.test.ts",
+    "tests/p14a1-save-v28.test.ts",
+    "tests/p13b-s8-save-v27.test.ts",
+    "tests/p13b-s6-save-v26.test.ts",
+    "tests/p13b-r07-save-v25.test.ts",
+    "tests/p13b-s5-save-v24.test.ts",
+    "tests/p13b-s3-save-v23.test.ts",
+    "tests/p13b-s2-save-v22.test.ts",
+    "tests/construction-save-v11.test.ts",
+    "tests/property-state-v13.test.ts",
+    "tests/script-projects-save-v9.test.ts",
+    "tests/save.test.ts",
+    "--minWorkers=1",
+    "--maxWorkers=1"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-19T22:13:36.884Z",
+  "end": "2026-09-19T22:15:00.123Z",
+  "exitCode": 0,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "d39a9a04e4eae7767d5a15225de36e86f0440c14",
+  "testedDiffSha256AtEnd": "bc25e15d9aeac9d5f2a26c372d156ebf759e374b755cab2818bd2a66a3e1ec98",
+  "untrackedSourceAtEnd": [
+    "tests/p14b4-cast-class-capacity.test.ts"
+  ],
+  "fixedSource": true
+}

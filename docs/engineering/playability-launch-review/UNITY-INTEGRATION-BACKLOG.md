@@ -21,6 +21,30 @@ verified in Unity. Generated C# produced by the TypeScript generator is text, no
 
 ## Per-slice entries
 
+### P14B.4 — cast-class promises (implementation active; no native verification)
+
+Preservation checkpoint a76242f retains genuine outgoing Save29 and runtime46;
+independent RED d39a9a0 is published. The current bounded data step adds explicit
+V30 readers/migrations only. Live writer29/protocol4/projection46/rules3 remain
+in place until the coordinated behavior/wire cutover; no paired consumer claim.
+
+Planned consumer obligations at that cutover: explicit lead-only versus
+lead-or-antagonist selection for P2, no silent class default, new quote after
+material edits, whole refusal and emitted-intent-only commit. Own current/history
+rows must show actual class or honest unknown for legacy classless P2; rival
+terms/class remain UNKNOWN while public outcomes/trust remain visible. Display
+the actual derived public opportunity preference, not a private invented taste.
+
+After generator-owned projection47 and Save30 integration actually lands,
+record their exact identities here. Future Unity work: adopt matching generated
+DTOs; compile/round-trip absent or inapplicable class, both valid classes and old
+unknown history; native actual offer→settlement→class-qualified first completed
+take→history journey, class-change intent invalidation/replay/refusal, and genuine
+outgoing46 recovery retaining distinct same-week current/saved gameplay slots.
+Verify both display scales, long refusal/history text and cross-discipline
+casting access. No handwritten Unity, rendering, native UI/UX or Owner acceptance
+is performed by the headless tests; inherited schema32–44 gap remains separate.
+
 ### P14B-F2 — acting-discipline eligibility (qualified logic verified; Unity not verified)
 
 One-file engine correction makes P1 feasibility use the existing casting law's

@@ -1,0 +1,10 @@
+{"sourceSha":"d39a9a04e4eae7767d5a15225de36e86f0440c14","testedDiffSha256":"bb0858bc0968dff124f157b47de42095f5aa85e889a180238bdb720e2b03594b","untrackedSource":[],"command":["npm","run","typecheck"],"node":"v20.20.2","start":"2026-09-19T21:55:57.549Z","end":null,"exitCode":null}
+
+
+> project-studio-core@0.1.0 typecheck
+> tsc --noEmit && tsc -p ui/tsconfig.json --noEmit
+
+tests/p14b4-cast-class-outcomes.test.ts(341,64): error TS2339: Property 'promises' does not exist on type 'GameStateV2 | GameStateV3 | GameStateV4 | GameStateV5 | GameStateV6 | GameStateV7 | GameStateV8 | ... 18 more ... | GameStateV1'.
+  Property 'promises' does not exist on type 'GameStateV2'.
+
+{"sourceSha":"d39a9a04e4eae7767d5a15225de36e86f0440c14","testedDiffSha256":"bb0858bc0968dff124f157b47de42095f5aa85e889a180238bdb720e2b03594b","untrackedSource":[],"command":["npm","run","typecheck"],"node":"v20.20.2","start":"2026-09-19T21:55:57.549Z","end":"2026-09-19T21:56:39.250Z","exitCode":2,"signal":null,"error":null,"sourceShaAtEnd":"d39a9a04e4eae7767d5a15225de36e86f0440c14","testedDiffSha256AtEnd":"bb0858bc0968dff124f157b47de42095f5aa85e889a180238bdb720e2b03594b","untrackedSourceAtEnd":[],"fixedSource":true}

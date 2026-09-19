@@ -17,7 +17,7 @@ import { advancePromisesWeek, attachPromise } from '../src/core/promises.js'
 import * as operationsModule from '../src/core/operations.js'
 import { productionTechnologyView } from '../src/core/technologyProduction.js'
 import { currentProposals, submitProposal } from '../src/core/talentMarket.js'
-import { exportSave, importSave, makeSave, validateSaveV29 } from '../src/core/save.js'
+import { exportSave, importSave, makeSave, validateSaveV29, validateSaveV30 } from '../src/core/save.js'
 import { TUNING } from '../src/core/tuning.js'
 import type { Action, CastSlot, GameState, ProfessionalPromise } from '../src/core/types.js'
 import { advanceTo, fund, p13aGeneratedStudio, player } from './helpers/p14b2-fixtures.js'
@@ -338,7 +338,8 @@ describe('P14B4 genuine submit/settle/take routes, no synthetic commitments', ()
     expect(root(prepared.state, bound.promiseId).outcome).toBeNull()
     const after = complete(prepared)
     satisfied(after.state, bound.promiseId, [after.take.eventId])
-    expect(importSave(exportSave(makeSave(after.state))).state.promises).toEqual(after.state.promises)
+    const reloaded = validateSaveV30(importSave(exportSave(makeSave(after.state))))
+    expect(reloaded.state.promises).toEqual(after.state.promises)
   })
 
   it('RIVAL: a genuinely naturally authored tagged commitment binds and qualifies through the real scheduled owner transition', () => {

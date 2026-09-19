@@ -218,11 +218,11 @@ describe('P13B-S6 Save V26: genuine V25 fixtures, honest lift, chains, validator
     expect(() => save.migrateToV20(v26 as never)).toThrow(/cannot downgrade/i)
   })
 
-  it('an unknown saveVersion 30 is refused, naming the handled range "1 through 29 only" (mechanical extrapolation of the templated message at save.ts:5162)', () => {
+  it('an unknown saveVersion 31 is refused, naming the handled range "1 through 30 only" (B4 additive reader boundary)', () => {
     const json = load(V25_FIXTURES.soundMidDeployment.file)
     const v26 = withV26.migrateToV26(JSON.parse(json))
-    const forged = { ...v26, saveVersion: 30 }
-    expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 29 only/)
+    const forged = { ...v26, saveVersion: 31 }
+    expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 30 only/)
   })
 
   it('VALID: a cancelled adoption with a passed original completesWeek is exempt from the v4 "operational receipt differs" clause', () => {

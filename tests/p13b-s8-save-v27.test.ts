@@ -208,11 +208,11 @@ describe('P13B-S8 Save V27: genuine V26 fixtures, honest lift, conditional downg
     })).toThrow()
   })
 
-  it('an unknown saveVersion 30 is refused, naming the handled range "1 through 29 only" (mechanical extrapolation of the S6 template one version up; P14A.1 moved the live boundary to V28)', () => {
+  it('an unknown saveVersion 31 is refused, naming the handled range "1 through 30 only" (B4 additive reader boundary)', () => {
     const json = load(V26_FIXTURES.soundMidDeployment.file)
     const v27 = withV27.migrateToV27(JSON.parse(json))
-    const forged = { ...v27, saveVersion: 30 }
-    expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 29 only/)
+    const forged = { ...v27, saveVersion: 31 }
+    expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 30 only/)
   })
 
   it('genuine usage of admitRivalPlans (not just an unused import — the same measured-risk guard tests/p13b-s6-save-v26.test.ts names for cancellationQuote): admitting a well-funded rival Laboratory books a real, nonzero researchCapacity movement — the same fact the natural-campaign downgrade-refused cases above observe emerging on their own', () => {

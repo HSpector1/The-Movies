@@ -1,0 +1,28 @@
+{
+  "sourceSha": "d39a9a04e4eae7767d5a15225de36e86f0440c14",
+  "testedDiffSha256": "bc25e15d9aeac9d5f2a26c372d156ebf759e374b755cab2818bd2a66a3e1ec98",
+  "untrackedSource": [
+    "tests/p14b4-cast-class-capacity.test.ts"
+  ],
+  "command": [
+    "./node_modules/.bin/vitest",
+    "run",
+    "tests/p14b4-save-v30-compatibility.test.ts",
+    "-t",
+    "freezes strict V29|tagged P2 V30",
+    "--minWorkers=1",
+    "--maxWorkers=1"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-19T22:16:38.532Z",
+  "end": "2026-09-19T22:16:47.726Z",
+  "exitCode": 0,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "d39a9a04e4eae7767d5a15225de36e86f0440c14",
+  "testedDiffSha256AtEnd": "bc25e15d9aeac9d5f2a26c372d156ebf759e374b755cab2818bd2a66a3e1ec98",
+  "untrackedSourceAtEnd": [
+    "tests/p14b4-cast-class-capacity.test.ts"
+  ],
+  "fixedSource": true
+}

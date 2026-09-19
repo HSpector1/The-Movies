@@ -52,7 +52,7 @@ import { assertReleaseAuthorityInvariants } from './releaseAuthority.js'
 import { assertStudioHistoryInvariants, migratedStudioHistory } from './studioHistory.js'
 import { initialPhysicalPlans, validatePhysicalPlans } from './physicalPlans.js'
 import { initialTalentMarket, projectLegacyTerminations, projectTalentMarketPreV28, talentMarketTerminationLaw, validateTalentMarketRoot } from './talentMarket.js'
-import { projectPromisesPreV29, validatePromiseRoots } from './promises.js'
+import { projectPromisesPreV29, validatePromiseRoots, validatePromiseRootsV30 } from './promises.js'
 import { PRE_V28_TERMINATION_LAW } from './employment.js'
 import type { TerminationLaw } from './employment.js'
 import type {
@@ -85,6 +85,7 @@ import type {
   GameStateV27,
   GameStateV28,
   GameStateV29,
+  GameStateV30,
   CancellationReceipt,
   PhysicalPlan,
   PlacedFacility,
@@ -493,6 +494,15 @@ export type SaveFileV29 = {
   broadcastCache: BroadcastItem[];
 };
 
+// P14B.4 additive data boundary. Live gameplay remains V29 until the coordinated
+// outcome/wire cutover; only V30 can carry a tagged P2 seat-class predicate.
+export type SaveFileV30 = {
+  saveVersion: 30;
+  seed: string;
+  state: GameStateV30;
+  broadcastCache: BroadcastItem[];
+};
+
 // Any envelope (the return of the version-dispatching validateSave/loadSave).
 export type SaveFile =
   | SaveFileV1
@@ -523,7 +533,8 @@ export type SaveFile =
   | SaveFileV26
   | SaveFileV27
   | SaveFileV28
-  | SaveFileV29;
+  | SaveFileV29
+  | SaveFileV30;
 
 // ── Stable stringify (UNCHANGED) ─────────────────────────────────────────────
 // Recursively serializes with object keys sorted lexicographically, so the same
@@ -5268,8 +5279,9 @@ export function validateSave(save: unknown): SaveFile {
   if (s.saveVersion === 27) return validateSaveV27(save);
   if (s.saveVersion === 28) return validateSaveV28(save);
   if (s.saveVersion === 29) return validateSaveV29(save);
+  if (s.saveVersion === 30) return validateSaveV30(save);
   throw new Error(
-    `validateSave: unknown saveVersion ${JSON.stringify(s.saveVersion)} (this build handles versions 1 through 29 only)`,
+    `validateSave: unknown saveVersion ${JSON.stringify(s.saveVersion)} (this build handles versions 1 through 30 only)`,
   );
 }
 
@@ -7302,6 +7314,7 @@ export function migrateToV7(
 // V1–V7 migrate deterministically. Newer files are rejected loudly: this function
 // may never silently discard authoritative screenplay or casting state.
 export function migrateToV8(save: SaveFile): SaveFileV8 {
+  if (save.saveVersion === 30) throw new Error('migrateToV8: cannot downgrade SaveFileV30 or discard the promise predicate');
   if (
     save.saveVersion === 9 ||
     save.saveVersion === 10 ||
@@ -7326,6 +7339,7 @@ export function migrateToV8(save: SaveFile): SaveFileV8 {
 // identity; V1–V8 migrate forward. V10 is rejected rather than silently losing
 // authoritative casting history.
 export function migrateToV9(save: SaveFile): SaveFileV9 {
+  if (save.saveVersion === 30) throw new Error('migrateToV9: cannot downgrade SaveFileV30 or discard the promise predicate');
   if (
     save.saveVersion === 10 ||
     save.saveVersion === 11 ||
@@ -7349,6 +7363,7 @@ export function migrateToV9(save: SaveFile): SaveFileV9 {
 // identity; V1–V9 cross every frozen boundary and receive exactly legacy-empty
 // casting state only at the final V9→V10 step. V11 is rejected, never downgraded.
 export function migrateToV10(save: SaveFile): SaveFileV10 {
+  if (save.saveVersion === 30) throw new Error('migrateToV10: cannot downgrade SaveFileV30 or discard the promise predicate');
   if (
     save.saveVersion === 11 ||
     save.saveVersion === 12 ||
@@ -7373,6 +7388,7 @@ export function migrateToV10(save: SaveFile): SaveFileV10 {
 // mode. V12 is rejected, never downgraded: a placed facility, its land, its
 // debit, and its operating history have no V11 home.
 export function migrateToV11(save: SaveFile): SaveFileV11 {
+  if (save.saveVersion === 30) throw new Error('migrateToV11: cannot downgrade SaveFileV30 or discard the promise predicate');
   if (
     save.saveVersion === 12 ||
     save.saveVersion === 13 ||
@@ -7395,6 +7411,7 @@ export function migrateToV11(save: SaveFile): SaveFileV11 {
 // their own validated construction history implies at the final V11→V12 step.
 // V13 is rejected, never downgraded: a property that has grown has no V12 home.
 export function migrateToV12(save: SaveFile): SaveFileV12 {
+  if (save.saveVersion === 30) throw new Error('migrateToV12: cannot downgrade SaveFileV30 or discard the promise predicate');
   if (save.saveVersion === 13 || save.saveVersion === 14 || save.saveVersion === 15 || save.saveVersion === 16 || save.saveVersion === 17 || save.saveVersion === 18) {
     throw new Error(
       `migrateToV12: cannot downgrade SaveFileV${String(save.saveVersion)} or discard property, set, queue, screenplay, and studio-history state`,
@@ -7420,6 +7437,7 @@ export function migrateToV12(save: SaveFile): SaveFileV12 {
 // one widened leaf — the honest, un-guessed `subjectId: null` on any
 // pre-existing `queueIntentExpired` row — at the final V14→V15 step.
 export function migrateToV15(save: SaveFile): SaveFileV15 {
+  if (save.saveVersion === 30) throw new Error('migrateToV15: cannot downgrade SaveFileV30 or discard the promise predicate');
   if (save.saveVersion === 29) throw new Error('migrateToV15: cannot downgrade SaveFileV29 or discard the promise record');
   if (save.saveVersion === 28) throw new Error('migrateToV15: cannot downgrade SaveFileV28 or discard the talent market');
   if (save.saveVersion === 27) throw new Error("migrateToV15: cannot downgrade SaveFileV27 or discard rival research");
@@ -7497,6 +7515,7 @@ export function convertV17ToV18(v17: SaveFileV17): SaveFileV18 {
 // identity (after validation at the call boundary); V1–V17 cross every frozen
 // boundary, then receive `endowed` at the final V17→V18 step.
 export function migrateToV18(save: SaveFile): SaveFileV18 {
+  if (save.saveVersion === 30) throw new Error('migrateToV18: cannot downgrade SaveFileV30 or discard the promise predicate');
   if (save.saveVersion === 29) throw new Error('migrateToV18: cannot downgrade SaveFileV29 or discard the promise record');
   if (save.saveVersion === 28) throw new Error('migrateToV18: cannot downgrade SaveFileV28 or discard the talent market');
   if (save.saveVersion === 27) throw new Error("migrateToV18: cannot downgrade SaveFileV27 or discard rival research");
@@ -7515,6 +7534,7 @@ export function migrateToV18(save: SaveFile): SaveFileV18 {
 // migrateToV17 — the frozen V17-target migration (P08A). A V18 save can never
 // be downgraded: discarding the founding regime would erase exact history.
 export function migrateToV17(save: SaveFile): SaveFileV17 {
+  if (save.saveVersion === 30) throw new Error('migrateToV17: cannot downgrade SaveFileV30 or discard the promise predicate');
   if (save.saveVersion === 29) throw new Error('migrateToV17: cannot downgrade SaveFileV29 or discard the promise record');
   if (save.saveVersion === 28) throw new Error('migrateToV17: cannot downgrade SaveFileV28 or discard the talent market');
   if (save.saveVersion === 27) throw new Error("migrateToV17: cannot downgrade SaveFileV27 or discard rival research");
@@ -7538,6 +7558,7 @@ export function migrateToV17(save: SaveFile): SaveFileV17 {
 // migrateToV16 — the frozen V16-target migration (P06A). A V17 save can never
 // be downgraded: discarding the recorded history would silently erase provenance.
 export function migrateToV16(save: SaveFile): SaveFileV16 {
+  if (save.saveVersion === 30) throw new Error('migrateToV16: cannot downgrade SaveFileV30 or discard the promise predicate');
   if (save.saveVersion === 29) throw new Error('migrateToV16: cannot downgrade SaveFileV29 or discard the promise record');
   if (save.saveVersion === 28) throw new Error('migrateToV16: cannot downgrade SaveFileV28 or discard the talent market');
   if (save.saveVersion === 27) throw new Error("migrateToV16: cannot downgrade SaveFileV27 or discard rival research");
@@ -7564,6 +7585,7 @@ export function migrateToV16(save: SaveFile): SaveFileV16 {
 }
 
 export function migrateToV14(save: SaveFile): SaveFileV14 {
+  if (save.saveVersion === 30) throw new Error('migrateToV14: cannot downgrade SaveFileV30 or discard the promise predicate');
   if (save.saveVersion === 29) throw new Error('migrateToV14: cannot downgrade SaveFileV29 or discard the promise record');
   if (save.saveVersion === 28) throw new Error('migrateToV14: cannot downgrade SaveFileV28 or discard the talent market');
   if (save.saveVersion === 27) throw new Error("migrateToV14: cannot downgrade SaveFileV27 or discard rival research");
@@ -7600,6 +7622,7 @@ export function migrateToV14(save: SaveFile): SaveFileV14 {
 }
 
 export function migrateToV13(save: SaveFile): SaveFileV13 {
+  if (save.saveVersion === 30) throw new Error('migrateToV13: cannot downgrade SaveFileV30 or discard the promise predicate');
   if (save.saveVersion === 29) throw new Error('migrateToV13: cannot downgrade SaveFileV29 or discard the promise record');
   if (save.saveVersion === 28) throw new Error('migrateToV13: cannot downgrade SaveFileV28 or discard the talent market');
   if (save.saveVersion === 27) throw new Error("migrateToV13: cannot downgrade SaveFileV27 or discard rival research");
@@ -7705,6 +7728,7 @@ export function convertV18ToV19(save: SaveFileV18): SaveFileV19 {
   return validateSaveV19({ saveVersion: 19, seed: save.seed, state, broadcastCache: state.broadcastItems });
 }
 export function migrateToV19(save: SaveFile): SaveFileV19 {
+  if (save.saveVersion === 30) throw new Error('migrateToV19: cannot downgrade SaveFileV30 or discard the promise predicate');
   if (save.saveVersion === 29) throw new Error('migrateToV19: cannot downgrade SaveFileV29 or discard the promise record');
   if (save.saveVersion === 28) throw new Error('migrateToV19: cannot downgrade SaveFileV28 or discard the talent market');
   if (save.saveVersion === 27) throw new Error('migrateToV19: cannot downgrade SaveFileV27 or discard rival research');
@@ -7785,6 +7809,7 @@ export function convertV20ToV21(save: SaveFileV20): SaveFileV21 {
 }
 
 export function migrateToV21(save: SaveFile): SaveFileV21 {
+  if (save.saveVersion === 30) throw new Error('migrateToV21: cannot downgrade SaveFileV30 or discard the promise predicate');
   if (save.saveVersion === 29) throw new Error('migrateToV21: cannot downgrade SaveFileV29 or discard the promise record');
   if (save.saveVersion === 28) throw new Error('migrateToV21: cannot downgrade SaveFileV28 or discard the talent market');
   if (save.saveVersion === 27) throw new Error('migrateToV21: cannot downgrade SaveFileV27 or discard rival research');
@@ -7811,6 +7836,7 @@ export function convertV21ToV22(save: SaveFileV21): SaveFileV22 {
 }
 
 export function migrateToV22(save: SaveFile): SaveFileV22 {
+  if (save.saveVersion === 30) throw new Error('migrateToV22: cannot downgrade SaveFileV30 or discard the promise predicate');
   if (save.saveVersion === 29) throw new Error('migrateToV22: cannot downgrade SaveFileV29 or discard the promise record');
   if (save.saveVersion === 28) throw new Error('migrateToV22: cannot downgrade SaveFileV28 or discard the talent market');
   if (save.saveVersion === 27) throw new Error('migrateToV22: cannot downgrade SaveFileV27 or discard rival research');
@@ -7862,6 +7888,7 @@ export function convertV22ToV23(save: SaveFileV22): SaveFileV23 {
  * so nothing here is trusted on the strength of its declared type alone.
  */
 export function migrateToV23(save: SaveFile | { saveVersion: number }): SaveFileV23 {
+  if (save.saveVersion === 30) throw new Error('migrateToV23: cannot downgrade SaveFileV30 or discard the promise predicate');
   if (save.saveVersion === 29) throw new Error('migrateToV23: cannot downgrade SaveFileV29 or discard the promise record');
   if (save.saveVersion === 28) throw new Error('migrateToV23: cannot downgrade SaveFileV28 or discard the talent market');
   if (save.saveVersion === 27) throw new Error('migrateToV23: cannot downgrade SaveFileV27 or discard rival research');
@@ -7923,6 +7950,7 @@ export function convertV23ToV24(save: SaveFileV23): SaveFileV24 {
  * so nothing here is trusted on the strength of its declared type alone.
  */
 export function migrateToV24(save: SaveFile | { saveVersion: number }): SaveFileV24 {
+  if (save.saveVersion === 30) throw new Error('migrateToV24: cannot downgrade SaveFileV30 or discard the promise predicate');
   if (save.saveVersion === 29) throw new Error('migrateToV24: cannot downgrade SaveFileV29 or discard the promise record');
   if (save.saveVersion === 28) throw new Error('migrateToV24: cannot downgrade SaveFileV28 or discard the talent market');
   if (save.saveVersion === 27) throw new Error('migrateToV24: cannot downgrade SaveFileV27 or discard rival research');
@@ -8145,6 +8173,7 @@ export function convertV24ToV25(save: SaveFileV24): SaveFileV25 {
  * so nothing here is trusted on the strength of its declared type alone.
  */
 export function migrateToV25(save: SaveFile | { saveVersion: number }): SaveFileV25 {
+  if (save.saveVersion === 30) throw new Error('migrateToV25: cannot downgrade SaveFileV30 or discard the promise predicate');
   if (save.saveVersion === 29) throw new Error('migrateToV25: cannot downgrade SaveFileV29 or discard the promise record');
   if (save.saveVersion === 28) throw new Error('migrateToV25: cannot downgrade SaveFileV28 or discard the talent market');
   if (save.saveVersion === 27) throw new Error('migrateToV25: cannot downgrade SaveFileV27 or discard rival research');
@@ -8308,6 +8337,7 @@ export function convertV25ToV26(save: SaveFileV25): SaveFileV26 {
  * so nothing here is trusted on the strength of its declared type alone.
  */
 export function migrateToV26(save: SaveFile | { saveVersion: number }): SaveFileV26 {
+  if (save.saveVersion === 30) return migrateToV26(convertV30ToV29(save as SaveFileV30));
   if (save.saveVersion === 29) return convertV27ToV26(convertV28ToV27(convertV29ToV28(save as SaveFileV29)));
   if (save.saveVersion === 28) return convertV27ToV26(convertV28ToV27(save as SaveFileV28));
   if (save.saveVersion === 27) return convertV27ToV26(save as SaveFileV27);
@@ -8458,6 +8488,7 @@ export function convertV27ToV26(save: SaveFileV27): SaveFileV26 {
  * so nothing here is trusted on the strength of its declared type alone.
  */
 export function migrateToV27(save: SaveFile | { saveVersion: number }): SaveFileV27 {
+  if (save.saveVersion === 30) return migrateToV27(convertV30ToV29(save as SaveFileV30));
   if (save.saveVersion === 29) return convertV28ToV27(convertV29ToV28(save as SaveFileV29));
   if (save.saveVersion === 28) return convertV28ToV27(save as SaveFileV28);
   if (save.saveVersion === 27) return validateSaveV27(save);
@@ -8538,6 +8569,7 @@ export function convertV28ToV27(save: SaveFileV28): SaveFileV27 {
  * so nothing here is trusted on the strength of its declared type alone.
  */
 export function migrateToV28(save: SaveFile | { saveVersion: number }): SaveFileV28 {
+  if (save.saveVersion === 30) return migrateToV28(convertV30ToV29(save as SaveFileV30));
   if (save.saveVersion === 29) return convertV29ToV28(save as SaveFileV29);
   if (save.saveVersion === 28) return validateSaveV28(save);
   return convertV27ToV28(migrateToV27(save as SaveFile));
@@ -8635,8 +8667,53 @@ export function convertV29ToV28(save: SaveFileV29): SaveFileV28 {
  * so nothing here is trusted on the strength of its declared type alone.
  */
 export function migrateToV29(save: SaveFile | { saveVersion: number }): SaveFileV29 {
+  if (save.saveVersion === 30) return convertV30ToV29(save as SaveFileV30);
   if (save.saveVersion === 29) return validateSaveV29(save);
   return convertV28ToV29(migrateToV28(save as SaveFile));
+}
+
+// ── Explicit seat-class predicates — additive SaveFileV30 (P14B.4) ──────────
+
+/** Validate the actual V30 roots, then the genuine shared frozen lower state.
+ * Never erase a tag to make a new promise masquerade as a V29 record. */
+export function validateSaveV30(save: unknown): SaveFileV30 {
+  if (!isRecord(save)) throw new Error('validateSaveV30: object required');
+  v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
+  if (save.saveVersion !== 30) throw new Error('validateSaveV30: expected version 30');
+  const raw = v14Record(checkEnvelope(save, 'validateSaveV30'), 'state');
+  if (!Object.hasOwn(raw, 'firstTakes')) throw new Error('validateSaveV30: firstTakes root missing');
+  if (!Object.hasOwn(raw, 'promises')) throw new Error('validateSaveV30: promises root missing');
+  validatePromiseRootsV30(raw);
+  try {
+    validateSaveV28({ saveVersion: 28, seed: save.seed, state: stripV29Roots(raw), broadcastCache: save.broadcastCache });
+  } catch (error) {
+    throw new Error(`validateSaveV30: frozen V28 state is invalid — ${(error as Error).message}`);
+  }
+  return save as SaveFileV30;
+}
+
+/** No historical promise changes shape or meaning at this boundary. Validate
+ * the frozen source BEFORE cloning; carry every root and receipt unchanged. */
+export function convertV29ToV30(save: SaveFileV29): SaveFileV30 {
+  const validated = validateSaveV29(save);
+  return validateSaveV30({ ...clonePlainJson(validated), saveVersion: 30 });
+}
+
+/** Lossless only: a tagged predicate has no V29 representation. Legacy records
+ * keep their exact shape, versions, evidence and material digests on return. */
+export function convertV30ToV29(save: SaveFileV30): SaveFileV29 {
+  const validated = validateSaveV30(save);
+  if (validated.state.promises.some((promise) => Object.hasOwn(promise.predicate, 'kind'))) {
+    throw new Error('migrateToV29: cannot downgrade SaveFileV30 or discard a tagged promise predicate');
+  }
+  return validateSaveV29({ ...clonePlainJson(validated), saveVersion: 29 });
+}
+
+/** Additive data migration. This is deliberately NOT yet the live load-to-play
+ * route: that cutover must accompany class-aware outcomes and projection47. */
+export function migrateToV30(save: SaveFile | { saveVersion: number }): SaveFileV30 {
+  if (save.saveVersion === 30) return validateSaveV30(save);
+  return convertV29ToV30(migrateToV29(save));
 }
 
 export function convertV19ToV20(save: SaveFileV19): SaveFileV20 {
@@ -8657,6 +8734,7 @@ export function convertV19ToV20(save: SaveFileV19): SaveFileV20 {
 }
 
 export function migrateToV20(save: SaveFile): SaveFileV20 {
+  if (save.saveVersion === 30) throw new Error('migrateToV20: cannot downgrade SaveFileV30 or discard the promise predicate');
   if (save.saveVersion === 29) throw new Error('migrateToV20: cannot downgrade SaveFileV29 or discard the promise record');
   if (save.saveVersion === 28) throw new Error('migrateToV20: cannot downgrade SaveFileV28 or discard the talent market');
   if (save.saveVersion === 27) throw new Error('migrateToV20: cannot downgrade SaveFileV27 or discard rival research');
