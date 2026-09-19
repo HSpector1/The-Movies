@@ -423,7 +423,7 @@ describe('P06A W1 — save law', () => {
     expect(held.studio.releasedFilms).toEqual([])
   })
 
-  it('round-trips a committed V16 save byte-exactly and refuses downgrades', () => {
+  it('round-trips a committed live save byte-exactly and refuses downgrades', () => {
     const ready = foundedToReleaseReady('p06a-roundtrip')
     const committed = commit(ready, ready.studio.activeProductions[0]!.id)
     const save = makeSave(committed)
@@ -433,7 +433,7 @@ describe('P06A W1 — save law', () => {
     expect(stableStringify(reimported)).toBe(stableStringify(save))
     expect(reimported.state.releaseAuthority.commitments).toHaveLength(1)
 
-    expect(() => migrateToV15(save)).toThrow(/cannot downgrade SaveFileV28/)
+    expect(() => migrateToV15(save)).toThrow(/cannot downgrade SaveFileV29/)
   })
 
   it('validateSaveV29 rejects forged authority at the save boundary', () => {

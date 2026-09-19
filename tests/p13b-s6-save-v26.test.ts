@@ -122,17 +122,17 @@ function s6ForgeV26(genuineV25State: GameState, mutate: (state: GameState) => Ga
 }
 
 /**
- * P13B-S8 sweep (26 -> 27), P14A.1 sweep (27 -> 28): the same forge for a case
+ * P13B-S8 (26 -> 27), P14A.1 (27 -> 28), P14B.1 (28 -> 29): the same forge for a case
  * whose mutation RUNS THE LIVE ENGINE. A live advance writes at the live save
- * version, so the state is lifted through the governed V25→…→V28 chain first and
+ * version, so the state is lifted through the governed V25→…→V29 chain first and
  * the envelope is stamped at the live version. Nothing about the S6 law under test moves: the V26 leaves and
- * their refusals are validated by the same owners, one version further down.
+ * their refusals are validated by the same owners through the live chain.
  */
 function s6ForgeLive(genuineV25State: GameState, mutate: (state: GameState) => GameState) {
   const v25Envelope = { saveVersion: 25 as const, seed: genuineV25State.seed, state: genuineV25State, broadcastCache: genuineV25State.broadcastItems }
   const lifted = (save as unknown as { migrateToV29: (envelope: unknown) => { seed: string; state: GameState; broadcastCache: unknown } }).migrateToV29(v25Envelope)
   const mutated = mutate(lifted.state)
-  const envelope = { saveVersion: 28 as const, seed: lifted.seed, state: mutated, broadcastCache: lifted.broadcastCache }
+  const envelope = { saveVersion: save.LIVE_SAVE_VERSION, seed: lifted.seed, state: mutated, broadcastCache: lifted.broadcastCache }
   const json = save.exportSave(envelope as unknown as Parameters<typeof save.exportSave>[0])
   return save.importSave(json)
 }

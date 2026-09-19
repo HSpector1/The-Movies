@@ -825,6 +825,11 @@ describe('C1-M3a (F) — saves, boundaries, and determinism', () => {
     delete forgedV11.state.physicalPlans
     // P14A.1: and the contested-market root (V28), for the same reason.
     delete forgedV11.state.talentMarket
+    // P14B.1: remove only empty V29 roots; no filming or promise history is discarded.
+    expect(forgedV11.state.firstTakes).toEqual([])
+    expect(forgedV11.state.promises).toEqual([])
+    delete forgedV11.state.firstTakes
+    delete forgedV11.state.promises
     for (const person of forgedV11.state.talent as Record<string, unknown>[]) {
       for (const key of ['skills', 'ceilings', 'devRate', 'genreExperience', 'workHistory']) {
         delete (person[key] as Record<string, unknown>).research

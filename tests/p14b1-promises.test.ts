@@ -541,7 +541,7 @@ describe('P14B.1 test 4: settlement freeze re-classification', () => {
       windowStartWeek: startWeek,
       dueWeekExclusive: startWeek + 40,
     })
-    const [minted] = promisesOf(attached).filter((p) => p.beneficiaryPersonId === talentId)
+    const [minted] = attached.promises.filter((p) => p.beneficiaryPersonId === talentId)
     if (minted === undefined) throw new Error('test premise failed: attachPromise minted no promise record')
     expect(minted.feasibilityReceipt.classification).toBe('REASONABLY_ACHIEVABLE') // sanity: achievable at submission
 

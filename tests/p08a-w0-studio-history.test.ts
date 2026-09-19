@@ -451,7 +451,11 @@ describe('P08A H8 — the save boundary refuses forged history', () => {
     }
 
     const early = clone(legal)
-    ;(early.state.studioHistory as { recordingStartedWeek: number }).recordingStartedWeek = 10_000
+    expect(early.state.studioHistory.rows.length).toBeGreaterThan(0)
+    const boundary = Math.min(...early.state.studioHistory.rows.map((row) => row.week)) + 1
+    expect(early.state.firstTakes.every((take) => take.week >= boundary)).toBe(true)
+    expect(early.state.promises).toEqual([])
+    ;(early.state.studioHistory as { recordingStartedWeek: number }).recordingStartedWeek = boundary
     expect(() => validateSaveV29(early)).toThrow(/recording boundary/)
 
     const lying = clone(legal)

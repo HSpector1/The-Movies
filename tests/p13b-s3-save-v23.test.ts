@@ -96,16 +96,16 @@ describe('P13B-S3 Save V23 (test 7)', () => {
   })
 
   it('migrateToV22 / migrateToV21 / migrateToV20 refuse a live save', () => {
-    // P13B-S6: the live writer moved on to V26, so the save these downgrade
-    // guards see is a V26 envelope now; each still refuses at ITS OWN nearest
+    // P14B.1: the live writer moved on to V29, so the save these downgrade
+    // guards see is a V29 envelope now; each still refuses at ITS OWN nearest
     // guard, which reports the true incoming version, not V23.
     const live = makeSave(p13aLaboratorySlice())
-    expect(() => migrateToV22(live)).toThrow(/cannot downgrade SaveFileV28/)
-    expect(() => migrateToV21(live)).toThrow(/cannot downgrade SaveFileV28/)
-    expect(() => migrateToV20(live)).toThrow(/cannot downgrade SaveFileV28/)
+    expect(() => migrateToV22(live)).toThrow(/cannot downgrade SaveFileV29/)
+    expect(() => migrateToV21(live)).toThrow(/cannot downgrade SaveFileV29/)
+    expect(() => migrateToV20(live)).toThrow(/cannot downgrade SaveFileV29/)
   })
 
-  it('makeSave writes saveVersion 26', () => {
+  it('makeSave writes saveVersion 29', () => {
     expect(makeSave(p13aLaboratorySlice()).saveVersion).toBe(29)
   })
 

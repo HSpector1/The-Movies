@@ -163,6 +163,11 @@ function asV25Envelope(state: GameState): { saveVersion: 25; seed: string; state
   // P14A.1 sweep: a frozen V25 envelope carries no `talentMarket` root — the
   // frozen chain's exact-key law refuses a root V25 never had.
   delete (stripped as unknown as { talentMarket?: unknown }).talentMarket
+  // P14B.1: reconstruct V25 only when no first-take or promise history is lost.
+  expect(stripped.firstTakes).toEqual([])
+  expect(stripped.promises).toEqual([])
+  delete (stripped as unknown as { firstTakes?: unknown }).firstTakes
+  delete (stripped as unknown as { promises?: unknown }).promises
   return { saveVersion: 25, seed: stripped.seed, state: stripped, broadcastCache: stripped.broadcastItems }
 }
 
@@ -197,17 +202,17 @@ describe('P13B-S5-R07 Save V25 (test 5)', () => {
     }
   })
 
-  it('migrates a genuine V24 envelope WITH a real, non-legacy-shaped rehearsing production: setup: null lift on a NON-empty workflow', () => {
+  it('validates a reconstructed V25 envelope with a real rehearsing production and setup: null on a nonempty workflow', () => {
     const rehearsing = legacyRehearsingWorld('r07-save-v25-legacy-workflow')
-    const v24 = asV25Envelope(rehearsing)
-    expect(v24.saveVersion).toBe(25) // honestly reconstructed V25 envelope (see asV25Envelope) — `makeSave` moved past V25
+    const v25 = asV25Envelope(rehearsing)
+    expect(v25.saveVersion).toBe(25) // live-derived reconstruction, not genuine nonempty V24→V25 migration evidence
     expect(rehearsing.operations.workflows).toHaveLength(1)
 
-    const migrated = withV25.migrateToV25(v24)
+    const migrated = withV25.migrateToV25(v25)
     expect(migrated.saveVersion).toBe(25)
     expect(migrated.state.operations.workflows).toHaveLength(1)
     expect(workflowOf(migrated.state as unknown as GameState).setup).toBeNull() /* P14A.1: this envelope is deliberately pinned at its own frozen version; the live-typed reader never touches the V28 root. */
-    // Nothing else about the lifted workflow moved.
+    // Nothing else about the validated workflow moved.
     expect(migrated.state.operations.workflows[0]!.phase).toBe(rehearsing.operations.workflows[0]!.phase)
     expect(migrated.state.operations.workflows[0]!.bindings).toEqual(rehearsing.operations.workflows[0]!.bindings)
   })
