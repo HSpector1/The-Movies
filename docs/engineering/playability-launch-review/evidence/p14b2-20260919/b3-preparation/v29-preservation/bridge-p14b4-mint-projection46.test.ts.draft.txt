@@ -1,0 +1,160 @@
+// INERT DRAFT: no installation/run before qualified B-F2 publication.
+// Future temporary path tests/bridge-p14b4-mint-projection46.test.ts.
+// Separate obligation from genuine SaveV29 snapshots: preserve the actual outer
+// runtime schema, retry journal and two distinct inner gameplay slots.
+import assert from 'node:assert/strict'
+import { execFileSync } from 'node:child_process'
+import { createHash } from 'node:crypto'
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
+import { join, resolve } from 'node:path'
+import { fileURLToPath } from 'node:url'
+import { gzipSync, gunzipSync } from 'node:zlib'
+import { it } from 'vitest'
+import { BridgeSession } from '../bridge/session.ts'
+import { PROTOCOL_VERSION, PROJECTION_VERSION, SCHEMA_ID } from '../bridge/protocol.ts'
+import { encodeBridgeRuntimeCheckpoint, loadBridgeRuntimeCheckpoint } from '../bridge/runtime-checkpoint.ts'
+import { exportSave, LIVE_SAVE_VERSION, validateSaveV29 } from '../src/core/save.js'
+import { PROMISE_RULES_VERSION } from '../src/core/promises.js'
+import { currentProposals } from '../src/core/talentMarket.js'
+import { player, retentionFixture } from './helpers/p14b2-fixtures.js'
+
+const APPROVED = {
+  testedSourceSha: 'UNSET_AFTER_QUALIFIED_B_F2_CLOSEOUT',
+  publishedRecoverySha: 'UNSET_AFTER_EXACT_REMOTE_VERIFICATION',
+  closeoutRelativePath: 'UNSET_ACCEPTED_FINAL_V29_CLOSEOUT_EVIDENCE',
+  closeoutSha256: 'UNSET_ACCEPTED_FINAL_V29_CLOSEOUT_SHA256',
+  schemaId: 'sha256:584bdd8565030f049d548b1af4fcbf8c517ca7c9150016736f632f1ef8fcb98c',
+  projectionVersion: 46, protocolVersion: 4, saveVersion: 29, promiseRulesVersion: 3,
+  approvalEnvironmentVariable: 'STUDIO_MINT_PROJECTION46_APPROVED',
+  outputRelativePath: 'tests/fixtures/p14/genuine-projection46-runtime',
+}
+const PRODUCER_PATHS = ['src', 'bridge', 'ui', 'generated', 'package.json', 'package-lock.json',
+  ':(glob)**/tsconfig*.json', 'vitest.config.ts', 'vitest.workspace.ts',
+  'tests/helpers/p14b2-fixtures.ts', 'tests/p14b1-t4-regressions.test.ts']
+const EVIDENCE_FILES = ['src/core/save.ts', 'src/core/promises.ts', 'src/core/talentMarket.ts',
+  'src/core/tick.ts', 'src/core/actions.ts', 'src/core/types.ts', 'src/harness/p13a/fixtures.ts',
+  'bridge/contract.ts', 'bridge/session.ts', 'bridge/runtime-checkpoint.ts', 'bridge/protocol.ts',
+  'bridge/schema/bridge-schema.ts', 'generated/unity/StudioBridgeDtos.Generated.cs',
+  'ui/src/engine/adapter.ts', 'ui/vite.config.ts', 'ui/tsconfig.json',
+  'tsconfig.json', 'tsconfig.src.json', 'tsconfig.bridge.json', 'vitest.config.ts', 'vitest.workspace.ts',
+  'package.json', 'package-lock.json', 'tests/helpers/p14b2-fixtures.ts', 'tests/p14b1-t4-regressions.test.ts']
+const sha = (value: string | Uint8Array): string => createHash('sha256').update(value).digest('hex')
+const git = (...args: string[]): string => execFileSync('git', args, { encoding: 'utf8' }).trim()
+
+function gate() {
+  assert.match(APPROVED.testedSourceSha, /^[a-f0-9]{40}$/)
+  assert.match(APPROVED.publishedRecoverySha, /^[a-f0-9]{40}$/)
+  assert.match(APPROVED.closeoutSha256, /^[a-f0-9]{64}$/)
+  assert.equal(process.env[APPROVED.approvalEnvironmentVariable], APPROVED.publishedRecoverySha)
+  const root = git('rev-parse', '--show-toplevel')
+  assert.equal(resolve(process.cwd()), root)
+  assert.equal(git('branch', '--show-current'), 'wip/headless-program-20260916-ts')
+  assert.equal(git('rev-parse', 'HEAD'), APPROVED.publishedRecoverySha)
+  git('merge-base', '--is-ancestor', APPROVED.testedSourceSha, APPROVED.publishedRecoverySha)
+  git('diff', '--exit-code', APPROVED.testedSourceSha, '--', ...PRODUCER_PATHS)
+  assert.equal(git('ls-files', '--others', '--exclude-standard', '--', ...PRODUCER_PATHS), '')
+  assert.equal(LIVE_SAVE_VERSION, APPROVED.saveVersion)
+  assert.equal(PROTOCOL_VERSION, APPROVED.protocolVersion)
+  assert.equal(PROJECTION_VERSION, APPROVED.projectionVersion)
+  assert.equal(SCHEMA_ID, APPROVED.schemaId)
+  assert.equal(PROMISE_RULES_VERSION, APPROVED.promiseRulesVersion)
+  for (const path of [APPROVED.closeoutRelativePath, APPROVED.outputRelativePath]) {
+    assert.ok(!path.includes('..') && !path.startsWith('/'))
+  }
+  assert.ok(APPROVED.outputRelativePath.startsWith('tests/fixtures/p14/'))
+  const closeoutSha256 = sha(readFileSync(join(root, APPROVED.closeoutRelativePath)))
+  assert.equal(closeoutSha256, APPROVED.closeoutSha256)
+  assert.ok(!existsSync(join(root, APPROVED.outputRelativePath)), 'refuse existing/partial output directory')
+  assert.ok(fileURLToPath(import.meta.url).startsWith(`${root}/tests/`))
+  const sourceFiles = Object.fromEntries(EVIDENCE_FILES.map((path) => [path, sha(readFileSync(join(root, path)))]))
+  return { root, closeoutSha256, sourceFiles, minterSha256: sha(readFileSync(new URL(import.meta.url))) }
+}
+
+it('ONE-SHOT: genuine outgoing projection46 checkpoint before P2, never restamped', () => {
+  const initial = gate()
+  const startedAt = new Date().toISOString()
+  const retained = retentionFixture() // unchanged accepted generated-campaign recipe
+  const state = structuredClone(retained.submitted)
+  assert.equal(state.founding, null)
+  const proposal = currentProposals(state, retained.keptId).find((p) => p.issuerStudioId === player(state))
+  assert.ok(proposal)
+  assert.equal(proposal.promises.length, 1)
+  const root = state.promises.find((p) => p.promiseId === proposal.promises[0])
+  assert.ok(root)
+  assert.equal(root.contractId, null)
+  assert.equal(root.outcome, null)
+  assert.equal(root.family, 'APPEARANCE_COUNT')
+  const session = new BridgeSession(state, 'p14b4-genuine-outgoing46')
+  const control = (commandId: string) => ({ protocolVersion: PROTOCOL_VERSION, schemaId: SCHEMA_ID,
+    sessionId: session.sessionId, commandId, expectedStateRevision: session.stateRevision })
+  const saved = session.save(control('save-current-p1'))
+  assert.ok(saved.accepted, saved.message)
+  const quote = session.quote({ ...control('quote-withdraw'), type: 'quoteMarketProposal', draft: {
+    verb: 'withdraw', talentId: retained.keptId, termWeeks: null, premiumTier: null,
+  } })
+  if (!quote.accepted) throw new Error(quote.message)
+  assert.equal(quote.quote.ok, true)
+  const request = { ...control('commit-withdraw'), type: 'submitIntent' as const, payload: { intentId: quote.quote.intentId } }
+  const committed = session.command(request)
+  assert.ok(committed.accepted, committed.message)
+  assert.equal(session.stateRevision, 1)
+  assert.ok(!currentProposals(session.gameState, retained.keptId).some((p) => p.issuerStudioId === player(state)))
+  assert.deepEqual(session.gameState.promises, state.promises)
+  assert.deepEqual(session.gameState.firstTakes, state.firstTakes)
+  assert.equal(session.gameState.rngState, state.rngState)
+  const checkpoint = session.exportRuntimeCheckpoint()
+  assert.equal(checkpoint.schemaId, APPROVED.schemaId)
+  assert.equal(checkpoint.protocolVersion, 4)
+  assert.equal(checkpoint.stateRevision, 1)
+  assert.equal(checkpoint.journal.length, 2)
+  assert.deepEqual(checkpoint.journal.map((entry) => entry.route), ['save', 'command'])
+  assert.ok(checkpoint.savedSaveJson !== null)
+  assert.notEqual(checkpoint.currentSaveJson, checkpoint.savedSaveJson)
+  const current = validateSaveV29(JSON.parse(checkpoint.currentSaveJson))
+  const prior = validateSaveV29(JSON.parse(checkpoint.savedSaveJson))
+  assert.equal(exportSave(current), checkpoint.currentSaveJson)
+  assert.equal(exportSave(prior), checkpoint.savedSaveJson)
+  assert.deepEqual(prior.state, state)
+  assert.deepEqual(current.state, session.gameState)
+  assert.equal(current.state.market.tick, prior.state.market.tick)
+  assert.deepEqual(current.state.promises, prior.state.promises)
+  const bytes = encodeBridgeRuntimeCheckpoint(checkpoint)
+  const loaded = loadBridgeRuntimeCheckpoint(bytes, undefined, () => { throw new Error('must not migrate current46') })
+  assert.equal(loaded.migratedFromProtocolVersion, null)
+  assert.deepEqual(loaded.hydrated.checkpoint, checkpoint)
+  const reopened = BridgeSession.fromRuntimeCheckpoint(loaded.hydrated)
+  assert.equal(encodeBridgeRuntimeCheckpoint(reopened.exportRuntimeCheckpoint()), bytes)
+  assert.deepEqual(reopened.command(request), committed, 'same-identity retry must replay the actual journal response')
+  assert.equal(encodeBridgeRuntimeCheckpoint(reopened.exportRuntimeCheckpoint()), bytes)
+  const compressed = gzipSync(bytes, { level: 9 })
+  assert.equal(gunzipSync(compressed).toString('utf8'), bytes)
+  assert.deepEqual(gate(), initial, 'producer/recipe/configuration/minter or closeout changed during construction')
+  const minterRelativePath = fileURLToPath(import.meta.url).slice(initial.root.length + 1)
+  const filename = 'genuine-projection46-runtime.checkpoint.json.gz'
+  const provenanceFilename = 'genuine-projection46-runtime.provenance.json'
+  const facts = { filename, provenanceFilename, uncompressedSha256: sha(bytes), compressedSha256: sha(compressed),
+    byteLength: Buffer.byteLength(bytes), compressedByteLength: compressed.length,
+    schemaId: checkpoint.schemaId, protocolVersion: checkpoint.protocolVersion, projectionVersion: PROJECTION_VERSION,
+    currentSaveVersion: current.saveVersion, savedSaveVersion: prior.saveVersion,
+    currentSaveSha256: sha(checkpoint.currentSaveJson), savedSaveSha256: sha(checkpoint.savedSaveJson),
+    currentWeek: current.state.market.tick, savedWeek: prior.state.market.tick,
+    stateRevision: checkpoint.stateRevision, journalEntries: checkpoint.journal.length,
+    focusPromiseId: root.promiseId, talentId: retained.keptId }
+  const provenance = { authority: APPROVED, observedHeadSha: git('rev-parse', 'HEAD'),
+    sourceFiles: initial.sourceFiles, minterSha256: initial.minterSha256, closeoutSha256: initial.closeoutSha256,
+    nodeVersion: process.version, startedAt, endedAt: new Date().toISOString(),
+    command: `node_modules/.bin/vitest run ${minterRelativePath} --minWorkers=1 --maxWorkers=1`,
+    campaign: 'generated test campaign, never Owner save',
+    recipe: { builder: 'tests/helpers/p14b2-fixtures.ts:retentionFixture().submitted',
+      economicInput: 'explicit fund helper cash delta with matching ledger',
+      actions: ['real save with CURRENT P1', 'real quote and commit withdrawal; retained unbound promise history'],
+      quoteIntentId: quote.quote.intentId, commandId: request.commandId },
+    scope: 'genuine outgoing runtime46 authority and V29 gameplay slots; no future migration or native acceptance claim',
+    ...facts }
+  const directory = join(initial.root, APPROVED.outputRelativePath)
+  mkdirSync(directory)
+  writeFileSync(join(directory, filename), compressed, { flag: 'wx' })
+  writeFileSync(join(directory, provenanceFilename), JSON.stringify(provenance, null, 2) + '\n', { flag: 'wx' })
+  writeFileSync(join(directory, 'MANIFEST.json'), JSON.stringify({ authority: APPROVED, fixtures: [facts] }, null, 2) + '\n', { flag: 'wx' })
+  console.log(JSON.stringify(provenance, null, 2))
+}, 180_000)

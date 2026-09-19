@@ -1,4 +1,15 @@
-# P14B-F2 — acting-discipline correction, candidate verification
+# P14B-F2 — acting-discipline correction, qualified closed
+
+**FULL T4 COMPLETE, qualified LOGIC VERIFIED · UNITY NOT VERIFIED.** Tested89b5ad2,
+whole19:19:14.237Z–21:00:23.363Z,fixedSource:true,101.1521minutes;session20565CLOSED.
+Core3351PASS/22FAIL/6TODO,bridge761PASS/12FAIL/2TODO, all failures exact historical
+IDs+diagnostics; both typechecks/contracts PASS; independent14/16KEEP. No new
+correction. Qualified closeout ../p14bf2-20260919-final/17-attribution.md,
+SHA6f6e425314107a7f0050739becb5f97adede58de94d7631a6f5bf25de8abfc81.
+Not all-green/performance-equivalent/native/Owner acceptance. Publish records,
+verify exact remote, then final outgoingV29 + outgoing46 runtime preservation
+before P2. Details ../p14bf2-20260919-final/00-start.md. No runtime/writer active.
+ALL candidate/runtime stage instructions below are historical, not rerun orders.
 
 **CANDIDATE CHECKS COMPLETE; publication/full boundary NEXT.**03+05+06disjoint
 36files404PASS/5unchanged TODO,07root/UI+08bridge+09contract+10fixtures PASS;

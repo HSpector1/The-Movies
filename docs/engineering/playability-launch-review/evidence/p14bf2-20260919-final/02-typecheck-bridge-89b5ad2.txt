@@ -1,0 +1,12 @@
+source 89b5ad2cfc6947ea07fb043ef5b23eba38d7dbde
+command ["npm","run","typecheck:bridge"]
+start 2026-09-19T19:20:58.524Z
+
+
+> project-studio-core@0.1.0 typecheck:bridge
+> tsc -p tsconfig.bridge.json
+
+
+end 2026-09-19T19:21:39.722Z
+EXIT_CODE=0
+SIGNAL=null

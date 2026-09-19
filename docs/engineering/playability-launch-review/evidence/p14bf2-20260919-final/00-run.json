@@ -1,0 +1,106 @@
+{
+  "task": "P14B-F2 T4",
+  "sourceSha": "89b5ad2cfc6947ea07fb043ef5b23eba38d7dbde",
+  "start": "2026-09-19T19:19:14.237Z",
+  "end": "2026-09-19T21:00:23.363Z",
+  "statusAtStart": "",
+  "testedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "environment": {
+    "node": "v20.20.2",
+    "platform": "darwin",
+    "arch": "x64",
+    "release": "21.6.0",
+    "logicalCpus": 4,
+    "memoryBytes": 8589934592
+  },
+  "qualification": "Same checkout and worker flags as prior Mac passes; timings are observations, not assumed equivalent. No source or test edits permitted during this run.",
+  "commands": [
+    {
+      "command": "npm",
+      "args": [
+        "run",
+        "typecheck"
+      ],
+      "start": "2026-09-19T19:19:14.359Z",
+      "log": "docs/engineering/playability-launch-review/evidence/p14bf2-20260919-final/01-typecheck-89b5ad2.txt",
+      "end": "2026-09-19T19:20:58.522Z",
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "command": "npm",
+      "args": [
+        "run",
+        "typecheck:bridge"
+      ],
+      "start": "2026-09-19T19:20:58.524Z",
+      "log": "docs/engineering/playability-launch-review/evidence/p14bf2-20260919-final/02-typecheck-bridge-89b5ad2.txt",
+      "end": "2026-09-19T19:21:39.722Z",
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "command": "npm",
+      "args": [
+        "run",
+        "check:bridge-contract"
+      ],
+      "start": "2026-09-19T19:21:39.722Z",
+      "log": "docs/engineering/playability-launch-review/evidence/p14bf2-20260919-final/03-contract-89b5ad2.txt",
+      "end": "2026-09-19T19:21:41.905Z",
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "command": "npm",
+      "args": [
+        "run",
+        "check:bridge-contract:fixtures"
+      ],
+      "start": "2026-09-19T19:21:41.908Z",
+      "log": "docs/engineering/playability-launch-review/evidence/p14bf2-20260919-final/04-contract-fixtures-89b5ad2.txt",
+      "end": "2026-09-19T19:21:43.622Z",
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "command": "./node_modules/.bin/vitest",
+      "args": [
+        "run",
+        "--project",
+        "core",
+        "--minWorkers=1",
+        "--maxWorkers=2",
+        "--reporter=dot"
+      ],
+      "start": "2026-09-19T19:21:43.624Z",
+      "log": "docs/engineering/playability-launch-review/evidence/p14bf2-20260919-final/11-test-core-89b5ad2.txt",
+      "end": "2026-09-19T20:27:45.924Z",
+      "exitCode": 1,
+      "signal": null,
+      "error": null
+    },
+    {
+      "command": "/bin/bash",
+      "args": [
+        "-c",
+        "./node_modules/.bin/vitest run tests/bridge*.test.ts --minWorkers=1 --maxWorkers=2 --reporter=dot"
+      ],
+      "start": "2026-09-19T20:27:45.932Z",
+      "log": "docs/engineering/playability-launch-review/evidence/p14bf2-20260919-final/12-test-bridge-89b5ad2.txt",
+      "end": "2026-09-19T21:00:23.361Z",
+      "exitCode": 1,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "sourceShaAtEnd": "89b5ad2cfc6947ea07fb043ef5b23eba38d7dbde",
+  "statusAtEnd": "M docs/engineering/playability-launch-review/CODEX-START-HERE.md\n M docs/engineering/playability-launch-review/CONTINUATION-STATE.md\n M docs/engineering/playability-launch-review/HEADLESS-PROGRESS.md\n M docs/engineering/playability-launch-review/evidence/p14bf2-20260919/00-start.md\n M docs/engineering/playability-launch-review/plans/P14-HEADLESS-PLAN.md\n?? docs/engineering/playability-launch-review/evidence/p14b2-20260919/b3-preparation/p2-tests/\n?? docs/engineering/playability-launch-review/evidence/p14b2-20260919/b3-preparation/v29-preservation/FINAL-PRESERVATION-DRAFT-REVIEW.md\n?? docs/engineering/playability-launch-review/evidence/p14b2-20260919/b3-preparation/v29-preservation/PROJECTION46-MINTER-BRIEF.md\n?? docs/engineering/playability-launch-review/evidence/p14b2-20260919/b3-preparation/v29-preservation/RIVAL-CURRENT-FOCUS-REVIEW.md\n?? docs/engineering/playability-launch-review/evidence/p14b2-20260919/b3-preparation/v29-preservation/bridge-p14b4-mint-projection46.test.ts.draft.txt\n?? docs/engineering/playability-launch-review/evidence/p14b2-20260919/b3-preparation/v29-preservation/final-v29-rival-current-focus.patch.txt\n?? docs/engineering/playability-launch-review/evidence/p14bf2-20260919-final/\n?? docs/engineering/playability-launch-review/evidence/p14bf2-20260919/12-p2-expansion-preparation-review.md\n?? docs/engineering/playability-launch-review/evidence/p14bf2-20260919/13-p2-owner-adapter-preparation.md\n?? docs/engineering/playability-launch-review/evidence/p14bf2-20260919/14-p2-owner-adapter-review.md\n?? docs/engineering/playability-launch-review/plans/P14B4-HEADLESS-PLAN.md",
+  "testedDiffSha256AtEnd": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "untrackedSourceAtEnd": "",
+  "fixedSource": true
+}

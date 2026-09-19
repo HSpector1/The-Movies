@@ -1,19 +1,44 @@
 # P14 — Contested Talent Market, Bonds and Promises, Career Lifecycle — headless plan (logic-first)
 
-**B-F2 candidate checks COMPLETE; publication/full boundary NEXT.**
-Independent RED957d2de13cef957cf97ee8e3dd746b51d0e9d200 pushed/EXACT remote
-verified. Sole sim-core changed ONLYpromises.ts eligibility/digest/rules3; tests
-unchanged from independent RED. Exact patch9145160c243937f2eae0abd119a670b60f8a2690dc7f0b42e2c7aef6777c14cc.
-03+05+06disjoint36files404PASS/5unchanged TODO; root/UI+bridge typechecks and both
-contract checks PASS, all fixedSource:true. Independent04KEEP. No runtime/writer
-active. Candidate disposition: ../evidence/p14bf2-20260919/11-candidate-disposition.md.
-Commit exact tested patch/records, rehash committed diff, push/verify exact remote,
-then committed full run in freshp14bf2-20260919-final. Do NOT call B-F2 closed
-from targeted tests alone. Live ownership: ../evidence/p14bf2-20260919/00-start.md.
-Only after full-qualified publication: final outgoingV29 + outgoing46 runtime
-preservation before P2. Future minter focus guard refinement is recorded, not run.
+**P14B-F2 CLOSED — LOGIC VERIFIED · UNITY NOT VERIFIED**, qualified by
+../evidence/p14bf2-20260919-final/17-attribution.md; not all-green or Owner acceptance.
+Full tested/published source89b5ad2cfc6947ea07fb043ef5b23eba38d7dbde, after
+independent RED957d2de13cef957cf97ee8e3dd746b51d0e9d200. Whole run
+2026-09-19T19:19:14.237Z–21:00:23.363Z,101.1521minutes,fixedSource:true.
+Session20565 CLOSED; no heavy runtime or production writer remains active.
 
-**Latest checkpoint (2026-09-19): B3 qualified CLOSED.** Tested full source359f636,
+Core3351PASS/22FAIL/6unchanged TODO(309files); bridge761PASS/12FAIL/2unchanged
+TODO(72files). Overlapping selections, not unique summed tests. Every failure
+matches the full historical identifier AND diagnostic exactly; no new/changed/
+absent failures, Failed Suites or unhandled diagnostics. Both typechecks/contracts
+PASS; independent source04/core14/final16 KEEP. Core took about12% longer than B3;
+matching timeouts do not prove their causes or uncompleted assertions passed.
+Historical missing fixtures/PIL/golden mismatches remain qualified, not repaired.
+
+Production ONLYpromises.ts eligibility/digest/fresh evaluator3, tests unchanged
+after independent RED. Committed/tested patch9145160c243937f2eae0abd119a670b60f8a2690dc7f0b42e2c7aef6777c14cc.
+Candidate36files404PASS/5unchanged TODO plus checks are preserved separately in
+../evidence/p14bf2-20260919/11-candidate-disposition.md. No assignment, candidate-pool,
+rival-policy, chooser, save/schema or historical-root/receipt rewrite.
+Save29/protocol4/projection46/schema584bdd… unchanged.
+
+NEXT: publish this qualified records checkpoint and verify exact remote SHA.
+Then serially mint the FINAL nine outgoingV29 snapshots (apply reviewed CURRENT-
+rival focus patch) AND separate outgoing46 runtime checkpoint on the accepted
+published producer. Archive executed code/raw evidence, independently verify
+actual artifacts, remove only temporary operational entries/helpers, checkpoint
+and publish preservation BEFORE P2 RED/source release. Do NOT remint evaluator1.
+Minters/test drafts remain INERT with INVALID future pins; no T0 artifact yet.
+
+Reviewed P2 guidance: P14B4-HEADLESS-PLAN.md SHA382252e23b6353acf602d87f38032ff961e9f7f9740bbfdf2b2ae368c30df4e4.
+Candidate BF2/12–14 record expansion/actual-owner reviews, not implemented solver
+certification. Independent save/outcome drafts preserve their unexecuted fixture/
+coverage limits. Continue P2/rest P14/P15/P16/sufficient P17/P18, no routine
+permission pause. Max2 native specialists, ONE production writer, serialized heavy
+tests; no Claude/install campaign. Unity/native/rendering/Owner acceptance deferred.
+Earlier checkpoint notes below are historical, not current worker instructions.
+
+**Historical checkpoint (2026-09-19): B3 qualified CLOSED.** Tested full source359f636,
 implementation425170e, genuine preservation9c605dc and independent REDf4e1230.
 Full16:52:49.457Z–18:27:20.807Z, fixedSource:true,94.5225minutes. Core3338PASS/
 22FAIL/6TODO; bridge761PASS/12FAIL/2TODO. Exact historical IDs+diagnostics only;
@@ -283,7 +308,7 @@ proposals across issuers although only one may win. Preserve that behavior in
 the narrow abandonment correction; its policy remains separately OPEN. Unity,
 native/rendering and Owner acceptance remain deferred.
 
-## P14B-F2 — has-discipline promise eligibility (candidate verified; full boundary next)
+## P14B-F2 — has-discipline promise eligibility (qualified logic closed)
 
 - [x] T1 installed exact13case draft948936ee… plus corrected chooser/default-
   timeout patch0f85aba2… and four live revision-pin patch8a1685ae…. Parent independently
@@ -299,8 +324,12 @@ native/rendering and Owner acceptance remain deferred.
 - [x] T3 candidate03+05+06:36disjointfiles404PASS/5unchanged TODO;07root/UI,
   08bridge,09contract,10fixtures all PASS, allfixedSource:true onpatch9145160c…
   over publishedRED957d2de. Alltests unchanged; no fixture correction. Disposition11.
-- [ ] T4 committed fixed-source full boundary, exact failure attribution and
-  independent qualified closeout/publication. Targeted evidence is not this gate.
+- [x] T4 full boundary on published89b5ad2:101.1521minutes,fixedSource:true;
+  core3351PASS/22FAIL/6TODO,bridge761PASS/12FAIL/2TODO, every failure exact
+  historical ID+diagnostic. Both typechecks/contracts PASS, independent14/16KEEP.
+  Qualified closeout ../evidence/p14bf2-20260919-final/17-attribution.md.
+  Core about12% slower than B3; no performance/cause/uncompleted-assertion proof.
+  Not all-green or Owner acceptance. Publish records/verify exact remote before T0.
 
 **Authority reconciliation 2026-09-19.** The historical B1 T2 ruling(iii) above
 mistakenly read the CALL `requireRole(actor, 'actor', ...)` as a primary-role gate.
@@ -357,3 +386,13 @@ in evidence23; drafts are not fixture evidence. New P2 must preserve all prior
 count-only shapes, including arbitrary positive historical version numbers;
 version2/3 alone cannot identify a seat-class predicate. No P2 implementation or
 broader P14 completion is claimed here. Unity/native/Owner acceptance deferred.
+
+## P14B.4 — next bounded expansion, not started
+
+Prepared during frozen B-F2 full verification: `P14B4-HEADLESS-PLAN.md`, native
+bounded guidance review KEEP at SHA382252e23b6353acf602d87f38032ff961e9f7f9740bbfdf2b2ae368c30df4e4.
+Exact findings/dispositions: ../evidence/p14bf2-20260919/12-p2-expansion-preparation-review.md.
+This does not certify the unwritten capacity adapter/solver, fixture runtime or
+production release. T0 still requires qualified B-F2 publication and actual final
+outgoingV29 plus runtime46 preservation. Independent compatibility draft remains
+inert with INVALID future provenance pins. Preserve original minters/history.

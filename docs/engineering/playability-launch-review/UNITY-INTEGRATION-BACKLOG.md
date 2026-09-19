@@ -21,13 +21,17 @@ verified in Unity. Generated C# produced by the TypeScript generator is text, no
 
 ## Per-slice entries
 
-### P14B-F2 — acting-discipline eligibility (candidate; full verification pending)
+### P14B-F2 — acting-discipline eligibility (qualified logic verified; Unity not verified)
 
 One-file engine correction makes P1 feasibility use the existing casting law's
 acting-profile presence, not primary profession. Fresh evaluator/root3; historical
 versions/refusals unchanged. Save29/protocol4/projection46/schema584bdd… and C#
 1b5c7e… unchanged. Candidate evidence p14bf2-20260919/11:36files404PASS/5unchanged
-TODO, both typechecks/contracts PASS, independent04KEEP; full boundary still owed.
+TODO, both typechecks/contracts PASS, independent04KEEP. Full89b5ad2:
+core3351PASS/22FAIL/6TODO,bridge761PASS/12FAIL/2TODO; all failures exact historical
+IDs+diagnostics, both typechecks/contracts PASS, fixedSource:true, independent
+14/16KEEP. Qualified closeout p14bf2-20260919-final/17-attribution.md. Core was
+about12% slower than B3; no performance-equivalence or all-green claim.
 
 Consumer obligations: do not add a profession-label refusal to a P1 proposal
 composer; use the emitted quote/refusal and current intent. A primary writer may
@@ -65,7 +69,8 @@ wrong-session intent, save/restart clearing pending intent, settlement→take or
 due-week outcome, and 100%/200% readable refusal text. No new C# shape or hand edit.
 
 Competing CURRENT cross-issuer reservation accounting remains separately OPEN.
-B-F2 has-discipline correction is the next settled engine task, not delivered here.
+B-F2 has-discipline correction is qualified closed in the entry above; its native
+integration/candidate-pool gap remains deferred, not silently broadened here.
 Unity compilation, rendering, native UI/UX and Owner acceptance all DEFERRED.
 
 ### P14B.2 — trust and promise read models (qualified logic verified, Unity not verified)

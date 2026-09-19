@@ -1,0 +1,68 @@
+*** Begin Patch
+*** Update File: tests/bridge-p14b4-mint-v29.test.ts
+@@
+   const rival = rivalFixture() // unchanged real generated rival chain
+-  assert.ok(rival.open.promises.some((p) => p.issuerStudioId !== player(rival.open) && p.contractId === null))
++  const rivalOpenBefore = JSON.stringify(rival.open)
++  // The proposal table holds CURRENT offers. Unbound historical roots are not
++  // necessarily current: derive the focus from actual attachment references.
++  const rivalCurrentFocus = rival.open.talentMarket.proposals
++    .filter((proposal) => proposal.issuerStudioId !== player(rival.open) && proposal.promises.length > 0)
++    .map((proposal) => {
++      const issuer = rival.open.hollywood!.identities.filter((s) => s.studioId === proposal.issuerStudioId)
++      assert.equal(issuer.length, 1)
++      assert.equal(issuer[0]!.role, 'rival')
++      assert.notEqual(issuer[0]!.enteredWeek, null)
++      assert.deepEqual(currentProposals(rival.open, proposal.talentId)
++        .filter((p) => p.issuerStudioId === proposal.issuerStudioId), [proposal])
++      const cases = rival.open.talentMarket.cases.filter((c) => c.talentId === proposal.talentId && c.outcome === null)
++      assert.equal(cases.length, 1)
++      assert.equal(proposal.promises.length, 1)
++      const promiseId = proposal.promises[0]!
++      const roots = rival.open.promises.filter((p) => p.promiseId === promiseId)
++      assert.equal(roots.length, 1)
++      const promise = roots[0]!
++      assert.equal(promise.issuerStudioId, proposal.issuerStudioId)
++      assert.equal(promise.beneficiaryPersonId, proposal.talentId)
++      assert.equal(promise.family, 'APPEARANCE_COUNT')
++      assert.deepEqual(promise.predicate, { count: 1 })
++      assert.equal(promise.windowStartWeek, proposal.startWeek)
++      assert.equal(promise.dueWeekExclusive, proposal.startWeek + proposal.termWeeks)
++      assert.equal(promise.contractId, null)
++      assert.equal(promise.outcome, null)
++      assert.equal(promise.outcomeWeek, null)
++      assert.equal(promise.outcomeCause, null)
++      assert.equal(promise.outcomeEventId, null)
++      assert.equal(promise.progress, 0)
++      assert.deepEqual(promise.evidenceRefs, [])
++      assert.equal(promise.feasibilityReceipt.classification, 'REASONABLY_ACHIEVABLE')
++      assert.equal(promise.feasibilityReceipt.bottleneck, null)
++      assert.equal(promise.feasibilityReceipt.week, proposal.submittedWeek)
++      const submitted = rival.open.talentMarket.receipts.filter((r) =>
++        r.kind === 'proposalSubmitted' && r.talentId === proposal.talentId
++        && r.studioId === proposal.issuerStudioId && r.week === proposal.submittedWeek)
++      assert.equal(submitted.length, 1)
++      return { promiseId, originalFeasibilityReceipt: structuredClone(promise.feasibilityReceipt) }
++    })
++  assert.ok(rivalCurrentFocus.length > 0, 'no actual CURRENT rival P1 attachment; refuse mint')
++  assert.equal(new Set(rivalCurrentFocus.map((focus) => focus.promiseId)).size, rivalCurrentFocus.length)
+   let sharedState = rival.terminal
+@@
+   const retainedRecipe = { builder: 'tests/helpers/p14b2-fixtures.ts:retentionFixture',
+     generatedCampaignOnly: true, economicInput: 'explicit fund helper cash delta with matching ledger',
+     keptPersonId: retained.keptId, brokenPersonId: retained.brokenId, productionId: retained.productionId }
++  // Selection changes only provenance focus, never the saved campaign. Retain
++  // ALL historical roots, including abandoned unbound ones, and their receipts.
++  assert.equal(JSON.stringify(rival.open), rivalOpenBefore, 'rival open snapshot changed while preparing focus')
++  for (const focus of rivalCurrentFocus) {
++    const roots = rival.open.promises.filter((promise) => promise.promiseId === focus.promiseId)
++    assert.equal(roots.length, 1)
++    assert.deepEqual(roots[0]!.feasibilityReceipt, focus.originalFeasibilityReceipt)
++  }
+   return [
+@@
+     { name: 'rival-current-p1', state: rival.open, role: 'genuine rival-authored current unbound promise before expiry',
+       recipe: { builder: 'tests/helpers/p14b2-fixtures.ts:rivalFixture().open', generatedCampaignOnly: true },
+-      focusPromiseIds: rival.open.promises.filter((p) => p.contractId === null).map((p) => p.promiseId) },
++      focusPromiseIds: rivalCurrentFocus.map((focus) => focus.promiseId) },
+*** End Patch

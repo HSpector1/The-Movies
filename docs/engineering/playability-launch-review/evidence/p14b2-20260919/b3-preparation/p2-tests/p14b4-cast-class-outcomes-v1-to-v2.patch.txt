@@ -1,0 +1,70 @@
+--- a/docs/engineering/playability-launch-review/evidence/p14b2-20260919/b3-preparation/p2-tests/p14b4-cast-class-outcomes.test.ts.draft.txt
++++ b/docs/engineering/playability-launch-review/evidence/p14b2-20260919/b3-preparation/p2-tests/p14b4-cast-class-outcomes.test.ts.draft.txt
+@@ -87,7 +87,11 @@
+ function takes(prepared: Prepared) {
+   return prepared.state.firstTakes.filter((take) => take.productionId === prepared.productionId)
+ }
+-function ownOutcome(state: GameState, promiseId: string) {
++function outcomeReceipts(state: GameState, beneficiaryIds?: readonly string[]) {
++  return state.talentMarket.receipts.filter((receipt) => receipt.kind === 'promiseOutcome'
++    && (beneficiaryIds === undefined || beneficiaryIds.includes(receipt.talentId)))
++}
++function ownOutcome(state: GameState, promiseId: string) {
+   binding(state, promiseId)
+   const promise = root(state, promiseId)
+   assert.notEqual(promise.outcomeEventId, null)
+@@ -435,9 +439,22 @@
+     const left = satisfied(after.state, prepared.promiseId, [after.take.eventId])
+     const right = satisfied(after.state, other.promiseId, [after.take.eventId])
+     expect(left.outcomeEventId).not.toBe(right.outcomeEventId)
+-    const original = [structuredClone(left), structuredClone(right)]
+-    const again = advancePromisesWeek(advancePromisesWeek(tick(after.state)))
+-    expect([root(again, left.promiseId), root(again, right.promiseId)]).toEqual(original)
++    const original = [structuredClone(left), structuredClone(right)]
++    const allAtTake = structuredClone(outcomeReceipts(after.state))
++    const sameWeek = advancePromisesWeek(advancePromisesWeek(after.state))
++    expect(sameWeek.market.tick).toBe(after.state.market.tick)
++    expect(outcomeReceipts(sameWeek)).toEqual(allAtTake)
++    expect([root(sameWeek, left.promiseId), root(sameWeek, right.promiseId)]).toEqual(original)
++    const beneficiaries = [left.beneficiaryPersonId, right.beneficiaryPersonId]
++    const affectedBeforeTick = structuredClone(outcomeReceipts(sameWeek, beneficiaries))
++    const later = tick(sameWeek)
++    // Other people may legitimately settle outcomes on this real later tick.
++    expect(outcomeReceipts(later, beneficiaries)).toEqual(affectedBeforeTick)
++    const allAfterTick = structuredClone(outcomeReceipts(later))
++    const again = advancePromisesWeek(advancePromisesWeek(later))
++    expect(again.market.tick).toBe(later.market.tick)
++    expect(outcomeReceipts(again)).toEqual(allAfterTick)
++    expect([root(again, left.promiseId), root(again, right.promiseId)]).toEqual(original)
+     ownOutcome(again, left.promiseId)
+     ownOutcome(again, right.promiseId)
+     live(again)
+@@ -447,13 +464,20 @@
+     const prepared = variant(playerAtFive('lead'), p2('lead'))
+     const after = complete(prepared)
+     const kept = structuredClone(satisfied(after.state, prepared.promiseId, [after.take.eventId]))
+-    const outcome = structuredClone(ownOutcome(after.state, kept.promiseId))
+-    const cancelled = applyActions(after.state, [{ kind: 'cancel', productionId: prepared.productionId }])
+-    expect(cancelled.studio.activeProductions.some((p) => p.id === prepared.productionId)).toBe(false)
+-    expect(root(cancelled, kept.promiseId)).toEqual(kept)
+-    expect(cancelled.firstTakes.find((take) => take.eventId === after.take.eventId)).toEqual(after.take)
+-    expect(ownOutcome(cancelled, kept.promiseId)).toEqual(outcome)
+-    expect(root(advancePromisesWeek(cancelled), kept.promiseId)).toEqual(kept)
+-    live(cancelled)
++    const outcome = structuredClone(ownOutcome(after.state, kept.promiseId))
++    const affectedBeforeCancel = structuredClone(outcomeReceipts(after.state, [kept.beneficiaryPersonId]))
++    const cancelled = applyActions(after.state, [{ kind: 'cancel', productionId: prepared.productionId }])
++    expect(cancelled.studio.activeProductions.some((p) => p.id === prepared.productionId)).toBe(false)
++    expect(root(cancelled, kept.promiseId)).toEqual(kept)
++    expect(cancelled.firstTakes.find((take) => take.eventId === after.take.eventId)).toEqual(after.take)
++    expect(ownOutcome(cancelled, kept.promiseId)).toEqual(outcome)
++    expect(outcomeReceipts(cancelled, [kept.beneficiaryPersonId])).toEqual(affectedBeforeCancel)
++    const allAfterCancel = structuredClone(outcomeReceipts(cancelled))
++    const sameWeek = advancePromisesWeek(advancePromisesWeek(cancelled))
++    expect(sameWeek.market.tick).toBe(cancelled.market.tick)
++    expect(outcomeReceipts(sameWeek)).toEqual(allAfterCancel)
++    expect(root(sameWeek, kept.promiseId)).toEqual(kept)
++    live(cancelled)
++    live(sameWeek)
+   })
+ })
