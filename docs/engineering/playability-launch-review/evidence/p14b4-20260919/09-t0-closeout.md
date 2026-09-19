@@ -114,4 +114,3 @@ from reached behavioral assertions. Then ONE sim-core production writer, retain
 independent tests, serialized verification, bounded reviews and qualified full
 boundary/publication. No P2 pass, Save30/projection47 implementation, wholeP14 or
 native acceptance is claimed by preservation. Continue remaining authorized work.
-

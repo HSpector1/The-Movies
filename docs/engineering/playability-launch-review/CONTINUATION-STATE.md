@@ -2,6 +2,14 @@
 
 ## Current continuation — 2026-09-19: B-F2 qualified closed; P2 preservation next
 
+B4 T0 preservation publication a76242f2f4bdfda98e38ec706e3110ad6a9bb957
+PUSHED and independently EXACT ls-remote verified on2026-09-19. Initial two
+HTTP400 push failures left remote atc06; temporary per-command HTTP settings
+succeeded, no persistent config change. Three reviewed T1 test files now installed
+with actual pinned bytes; independent installation review then serial RED next.
+No production writer or heavy runtime released yet. This supersedes older NEXT
+publication wording below; c06 remains the actual immutable fixture producer.
+
 **P14B-F2 CLOSED — LOGIC VERIFIED · UNITY NOT VERIFIED**, qualified by
 evidence/p14bf2-20260919-final/17-attribution.md; not all-green or Owner acceptance.
 Full tested/published source89b5ad2cfc6947ea07fb043ef5b23eba38d7dbde, after

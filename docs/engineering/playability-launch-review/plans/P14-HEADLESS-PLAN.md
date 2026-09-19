@@ -1,5 +1,11 @@
 # P14 — Contested Talent Market, Bonds and Promises, Career Lifecycle — headless plan (logic-first)
 
+B4 T0 preservation a76242f2f4bdfda98e38ec706e3110ad6a9bb957 PUSHED and exact
+remote SHA independently verified. Both real corpora reviewed KEEP. Three reviewed
+save/outcome/runtime tests installed with actual pins; bounded install review then
+serialized RED next. No production writer yet. Active recovery: B4/00-start.md.
+This supersedes the older publication-next wording below; c06 remains the producer.
+
 **P14B-F2 CLOSED — LOGIC VERIFIED · UNITY NOT VERIFIED**, qualified by
 ../evidence/p14bf2-20260919-final/17-attribution.md; not all-green or Owner acceptance.
 Full tested/published source89b5ad2cfc6947ea07fb043ef5b23eba38d7dbde, after

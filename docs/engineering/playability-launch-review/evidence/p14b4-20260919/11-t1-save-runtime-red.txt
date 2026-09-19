@@ -1,0 +1,346 @@
+{"sourceSha":"a76242f2f4bdfda98e38ec706e3110ad6a9bb957","testedDiffSha256":"028be545ff6f812d4282b409e875477c515c05104e7db57ebc7b29a9ca274fc9","untrackedSource":["tests/bridge-p14b4-runtime47-compatibility.test.ts","tests/p14b4-cast-class-outcomes.test.ts","tests/p14b4-save-v30-compatibility.test.ts"],"command":["./node_modules/.bin/vitest","run","tests/p14b4-save-v30-compatibility.test.ts","tests/bridge-p14b4-runtime47-compatibility.test.ts","--minWorkers=1","--maxWorkers=1"],"node":"v20.20.2","start":"2026-09-19T21:43:09.458Z","end":null,"exitCode":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/p14b4-save-v30-compatibility.test.ts (36 tests | 36 failed) 6670ms
+   × P14B4 Save30: genuine final V29 corpus, exact old-state preservation > pins LIVE_SAVE_VERSION to literal30 independently of the value under test 29ms
+     → expected 29 to be 30 // Object.is equality
+   × P14B4 Save30: genuine final V29 corpus, exact old-state preservation > migrates genuine empty without rewriting roots, receipts, digests or history and downgrades losslessly 486ms
+     → migrateToV30 is not a function
+   × P14B4 Save30: genuine final V29 corpus, exact old-state preservation > migrates genuine current-p1 without rewriting roots, receipts, digests or history and downgrades losslessly 560ms
+     → migrateToV30 is not a function
+   × P14B4 Save30: genuine final V29 corpus, exact old-state preservation > migrates genuine replaced-p1 without rewriting roots, receipts, digests or history and downgrades losslessly 417ms
+     → migrateToV30 is not a function
+   × P14B4 Save30: genuine final V29 corpus, exact old-state preservation > migrates genuine withdrawn-p1 without rewriting roots, receipts, digests or history and downgrades losslessly 361ms
+     → migrateToV30 is not a function
+   × P14B4 Save30: genuine final V29 corpus, exact old-state preservation > migrates genuine bound-open-p1 without rewriting roots, receipts, digests or history and downgrades losslessly 356ms
+     → migrateToV30 is not a function
+   × P14B4 Save30: genuine final V29 corpus, exact old-state preservation > migrates genuine kept-and-broken-p1 without rewriting roots, receipts, digests or history and downgrades losslessly 475ms
+     → migrateToV30 is not a function
+   × P14B4 Save30: genuine final V29 corpus, exact old-state preservation > migrates genuine rival-current-p1 without rewriting roots, receipts, digests or history and downgrades losslessly 491ms
+     → migrateToV30 is not a function
+   × P14B4 Save30: genuine final V29 corpus, exact old-state preservation > migrates genuine rival-shared-take-terminal-p1 without rewriting roots, receipts, digests or history and downgrades losslessly 675ms
+     → migrateToV30 is not a function
+   × P14B4 Save30: genuine final V29 corpus, exact old-state preservation > migrates genuine refused-p2-count-only-current-draft without rewriting roots, receipts, digests or history and downgrades losslessly 378ms
+     → migrateToV30 is not a function
+   × P14B4 reader-admitted SYNTHETIC legacy variants — never producer fixtures > keeps count-only CURRENT APPEARANCE_COUNT with arbitrary positive root/receipt versions 103ms
+     → migrateToV30 is not a function
+   × P14B4 reader-admitted SYNTHETIC legacy variants — never producer fixtures > keeps count-only CURRENT LEAD_OR_SIGNIFICANT_ROLE_COUNT with arbitrary positive root/receipt versions 116ms
+     → migrateToV30 is not a function
+   × P14B4 reader-admitted SYNTHETIC legacy variants — never producer fixtures > keeps count-only CURRENT DIRECTING_COUNT with arbitrary positive root/receipt versions 119ms
+     → migrateToV30 is not a function
+   × P14B4 reader-admitted SYNTHETIC legacy variants — never producer fixtures > keeps count-only CURRENT PREFERRED_GENRE_OPPORTUNITY with arbitrary positive root/receipt versions 105ms
+     → migrateToV30 is not a function
+   × P14B4 reader-admitted SYNTHETIC legacy variants — never producer fixtures > keeps count-only CURRENT SPECIFIC_PROJECT with arbitrary positive root/receipt versions 108ms
+     → migrateToV30 is not a function
+   × P14B4 reader-admitted SYNTHETIC legacy variants — never producer fixtures > keeps genuinely backed OPEN/SATISFIED/BROKEN count-only APPEARANCE_COUNT variants 140ms
+     → migrateToV30 is not a function
+   × P14B4 reader-admitted SYNTHETIC legacy variants — never producer fixtures > keeps genuinely backed OPEN/SATISFIED/BROKEN count-only LEAD_OR_SIGNIFICANT_ROLE_COUNT variants 137ms
+     → migrateToV30 is not a function
+   × P14B4 reader-admitted SYNTHETIC legacy variants — never producer fixtures > keeps genuinely backed OPEN/SATISFIED/BROKEN count-only DIRECTING_COUNT variants 147ms
+     → migrateToV30 is not a function
+   × P14B4 reader-admitted SYNTHETIC legacy variants — never producer fixtures > keeps genuinely backed OPEN/SATISFIED/BROKEN count-only PREFERRED_GENRE_OPPORTUNITY variants 138ms
+     → migrateToV30 is not a function
+   × P14B4 reader-admitted SYNTHETIC legacy variants — never producer fixtures > keeps genuinely backed OPEN/SATISFIED/BROKEN count-only SPECIFIC_PROJECT variants 131ms
+     → migrateToV30 is not a function
+   × P14B4 reader-admitted SYNTHETIC legacy variants — never producer fixtures > keeps classless P2 terminal variants with an actual shared take and DISTINCT original outcome receipts 179ms
+     → migrateToV30 is not a function
+   × P14B4 reader-admitted SYNTHETIC legacy variants — never producer fixtures > keeps a classless P2 SATISFIED by an ACTUAL support seat, without inventing a role class or take 198ms
+     → migrateToV30 is not a function
+   × P14B4 freezes strict V29 admission BEFORE migration > refuses class-only in old29 rather than stripping or retrofitting it 42ms
+     → expected [Function] to throw error matching /validateSaveV29:.*predicate\.(?:kind|…/ but got 'migrateToV30 is…'
+   × P14B4 freezes strict V29 admission BEFORE migration > refuses tag-and-class in old29 rather than stripping or retrofitting it 37ms
+     → expected [Function] to throw error matching /validateSaveV29:.*predicate\.(?:kind|…/ but got 'migrateToV30 is…'
+   × P14B4 freezes strict V29 admission BEFORE migration > refuses zero-root-version in old29 rather than stripping or retrofitting it 44ms
+     → expected [Function] to throw error matching /validateSaveV29:.*\.version must be p…/ but got 'migrateToV30 is…'
+   × P14B4 freezes strict V29 admission BEFORE migration > refuses zero-receipt-version in old29 rather than stripping or retrofitting it 40ms
+     → expected [Function] to throw error matching /validateSaveV29:.*rulesVersion must b…/ but got 'migrateToV30 is…'
+   × P14B4 tagged P2 V30 shape is not lossy-downgradable > accepts explicit lead P2 shape at30, never at29, and refuses downgrade without stripping 96ms
+     → migrateToV30 is not a function
+   × P14B4 tagged P2 V30 shape is not lossy-downgradable > accepts explicit leadOrAntagonist P2 shape at30, never at29, and refuses downgrade without stripping 59ms
+     → migrateToV30 is not a function
+   × P14B4 tagged P2 V30 shape is not lossy-downgradable > rejects tagged castRoleCount under inapplicable family APPEARANCE_COUNT 56ms
+     → migrateToV30 is not a function
+   × P14B4 tagged P2 V30 shape is not lossy-downgradable > rejects tagged castRoleCount under inapplicable family DIRECTING_COUNT 62ms
+     → migrateToV30 is not a function
+   × P14B4 tagged P2 V30 shape is not lossy-downgradable > rejects tagged castRoleCount under inapplicable family PREFERRED_GENRE_OPPORTUNITY 73ms
+     → migrateToV30 is not a function
+   × P14B4 tagged P2 V30 shape is not lossy-downgradable > rejects tagged castRoleCount under inapplicable family SPECIFIC_PROJECT 59ms
+     → migrateToV30 is not a function
+   × P14B4 tagged P2 V30 shape is not lossy-downgradable > rejects malformed tagged P2 missing-kind rather than defaulting class 76ms
+     → migrateToV30 is not a function
+   × P14B4 tagged P2 V30 shape is not lossy-downgradable > rejects malformed tagged P2 missing-class rather than defaulting class 61ms
+     → migrateToV30 is not a function
+   × P14B4 tagged P2 V30 shape is not lossy-downgradable > rejects malformed tagged P2 support-class rather than defaulting class 56ms
+     → migrateToV30 is not a function
+   × P14B4 tagged P2 V30 shape is not lossy-downgradable > rejects malformed tagged P2 extra-key rather than defaulting class 52ms
+     → migrateToV30 is not a function
+ ❯ |core| tests/bridge-p14b4-runtime47-compatibility.test.ts (6 tests | 4 failed) 1614ms
+   ✓ P14B4 genuine outgoing46 runtime compatibility — future Save30/projection47 > pins genuine original46 artifact, producer authority, and two SAME-week DIFFERENT slots 544ms
+   × P14B4 genuine outgoing46 runtime compatibility — future Save30/projection47 > requires literal projection47/Save30 and exact 35 prior IDs, excluding the running identity 20ms
+     → expected 46 to be 47 // Object.is equality
+   × P14B4 genuine outgoing46 runtime compatibility — future Save30/projection47 > migrates currentSaveJson from its OWN genuine V29 state, preserving exact material/history 109ms
+     → migrateToV30 is not a function
+   × P14B4 genuine outgoing46 runtime compatibility — future Save30/projection47 > migrates savedSaveJson from its OWN genuine V29 state, preserving exact material/history 119ms
+     → migrateToV30 is not a function
+   × P14B4 genuine outgoing46 runtime compatibility — future Save30/projection47 > resets ONLY prior runtime authority, then reopens current47 without a second migration 636ms
+     → expected "spy" to be called 1 times, but got 0 times
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 40 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/bridge-p14b4-runtime47-compatibility.test.ts > P14B4 genuine outgoing46 runtime compatibility — future Save30/projection47 > requires literal projection47/Save30 and exact 35 prior IDs, excluding the running identity
+AssertionError: expected 46 to be 47 // Object.is equality
+
+- Expected
++ Received
+
+- 47
++ 46
+
+ ❯ tests/bridge-p14b4-runtime47-compatibility.test.ts:164:32
+    162|   it('requires literal projection47/Save30 and exact 35 prior IDs, exc…
+    163|     expect(PROTOCOL_VERSION).toBe(4)
+    164|     expect(PROJECTION_VERSION).toBe(47)
+       |                                ^
+    165|     expect(LIVE_SAVE_VERSION).toBe(30)
+    166|     expect(SCHEMA_ID).not.toBe(OUTGOING_46)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/40]⎯
+
+ FAIL |core|  tests/bridge-p14b4-runtime47-compatibility.test.ts > P14B4 genuine outgoing46 runtime compatibility — future Save30/projection47 > migrates currentSaveJson from its OWN genuine V29 state, preserving exact material/history
+ FAIL |core|  tests/bridge-p14b4-runtime47-compatibility.test.ts > P14B4 genuine outgoing46 runtime compatibility — future Save30/projection47 > migrates savedSaveJson from its OWN genuine V29 state, preserving exact material/history
+TypeError: migrateToV30 is not a function
+ ❯ tests/bridge-p14b4-runtime47-compatibility.test.ts:188:22
+    186|     const old = validateSaveV29(JSON.parse(prior[slot]))
+    187|     const oldBytes = exportSave(old)
+    188|     const expected = migrateToV30(importSave(prior[slot]))
+       |                      ^
+    189|     expect(expected.saveVersion).toBe(30)
+    190|     const loaded = loadBridgeRuntimeCheckpoint(raw, undefined, () => '…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/40]⎯
+
+ FAIL |core|  tests/bridge-p14b4-runtime47-compatibility.test.ts > P14B4 genuine outgoing46 runtime compatibility — future Save30/projection47 > resets ONLY prior runtime authority, then reopens current47 without a second migration
+AssertionError: expected "spy" to be called 1 times, but got 0 times
+ ❯ tests/bridge-p14b4-runtime47-compatibility.test.ts:210:27
+    208|     const createSession = vi.fn(() => 'p14b4-current47-session')
+    209|     const loaded = loadBridgeRuntimeCheckpoint(raw, undefined, createS…
+    210|     expect(createSession).toHaveBeenCalledTimes(1)
+       |                           ^
+    211|     expect(loaded.migratedFromProtocolVersion).toBe(4)
+    212|     const current = exportSave(migrateToV30(importSave(prior.currentSa…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/40]⎯
+
+ FAIL |core|  tests/p14b4-save-v30-compatibility.test.ts > P14B4 Save30: genuine final V29 corpus, exact old-state preservation > pins LIVE_SAVE_VERSION to literal30 independently of the value under test
+AssertionError: expected 29 to be 30 // Object.is equality
+
+- Expected
++ Received
+
+- 30
++ 29
+
+ ❯ tests/p14b4-save-v30-compatibility.test.ts:185:31
+    183| describe('P14B4 Save30: genuine final V29 corpus, exact old-state pres…
+    184|   it('pins LIVE_SAVE_VERSION to literal30 independently of the value u…
+    185|     expect(LIVE_SAVE_VERSION).toBe(30)
+       |                               ^
+    186|   })
+    187| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/40]⎯
+
+ FAIL |core|  tests/p14b4-save-v30-compatibility.test.ts > P14B4 Save30: genuine final V29 corpus, exact old-state preservation > migrates genuine empty without rewriting roots, receipts, digests or history and downgrades losslessly
+ FAIL |core|  tests/p14b4-save-v30-compatibility.test.ts > P14B4 Save30: genuine final V29 corpus, exact old-state preservation > migrates genuine current-p1 without rewriting roots, receipts, digests or history and downgrades losslessly
+ FAIL |core|  tests/p14b4-save-v30-compatibility.test.ts > P14B4 Save30: genuine final V29 corpus, exact old-state preservation > migrates genuine replaced-p1 without rewriting roots, receipts, digests or history and downgrades losslessly
+ FAIL |core|  tests/p14b4-save-v30-compatibility.test.ts > P14B4 Save30: genuine final V29 corpus, exact old-state preservation > migrates genuine withdrawn-p1 without rewriting roots, receipts, digests or history and downgrades losslessly
+ FAIL |core|  tests/p14b4-save-v30-compatibility.test.ts > P14B4 Save30: genuine final V29 corpus, exact old-state preservation > migrates genuine bound-open-p1 without rewriting roots, receipts, digests or history and downgrades losslessly
+ FAIL |core|  tests/p14b4-save-v30-compatibility.test.ts > P14B4 Save30: genuine final V29 corpus, exact old-state preservation > migrates genuine kept-and-broken-p1 without rewriting roots, receipts, digests or history and downgrades losslessly
+ FAIL |core|  tests/p14b4-save-v30-compatibility.test.ts > P14B4 Save30: genuine final V29 corpus, exact old-state preservation > migrates genuine rival-current-p1 without rewriting roots, receipts, digests or history and downgrades losslessly
+ FAIL |core|  tests/p14b4-save-v30-compatibility.test.ts > P14B4 Save30: genuine final V29 corpus, exact old-state preservation > migrates genuine rival-shared-take-terminal-p1 without rewriting roots, receipts, digests or history and downgrades losslessly
+ FAIL |core|  tests/p14b4-save-v30-compatibility.test.ts > P14B4 Save30: genuine final V29 corpus, exact old-state preservation > migrates genuine refused-p2-count-only-current-draft without rewriting roots, receipts, digests or history and downgrades losslessly
+TypeError: migrateToV30 is not a function
+ ❯ preservesExactly tests/p14b4-save-v30-compatibility.test.ts:128:20
+    126|   const before = JSON.stringify(admitted)
+    127|   const raw = exportSave(admitted)
+    128|   const migrated = migrateToV30(admitted)
+       |                    ^
+    129|   expect(migrated.saveVersion).toBe(30)
+    130|   expect(migrated).toEqual({ ...admitted, saveVersion: 30 }) // no inv…
+ ❯ tests/p14b4-save-v30-compatibility.test.ts:192:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/40]⎯
+
+ FAIL |core|  tests/p14b4-save-v30-compatibility.test.ts > P14B4 reader-admitted SYNTHETIC legacy variants — never producer fixtures > keeps count-only CURRENT APPEARANCE_COUNT with arbitrary positive root/receipt versions
+ FAIL |core|  tests/p14b4-save-v30-compatibility.test.ts > P14B4 reader-admitted SYNTHETIC legacy variants — never producer fixtures > keeps count-only CURRENT LEAD_OR_SIGNIFICANT_ROLE_COUNT with arbitrary positive root/receipt versions
+ FAIL |core|  tests/p14b4-save-v30-compatibility.test.ts > P14B4 reader-admitted SYNTHETIC legacy variants — never producer fixtures > keeps count-only CURRENT DIRECTING_COUNT with arbitrary positive root/receipt versions
+ FAIL |core|  tests/p14b4-save-v30-compatibility.test.ts > P14B4 reader-admitted SYNTHETIC legacy variants — never producer fixtures > keeps count-only CURRENT PREFERRED_GENRE_OPPORTUNITY with arbitrary positive root/receipt versions
+ FAIL |core|  tests/p14b4-save-v30-compatibility.test.ts > P14B4 reader-admitted SYNTHETIC legacy variants — never producer fixtures > keeps count-only CURRENT SPECIFIC_PROJECT with arbitrary positive root/receipt versions
+TypeError: migrateToV30 is not a function
+ ❯ preservesExactly tests/p14b4-save-v30-compatibility.test.ts:128:20
+    126|   const before = JSON.stringify(admitted)
+    127|   const raw = exportSave(admitted)
+    128|   const migrated = migrateToV30(admitted)
+       |                    ^
+    129|   expect(migrated.saveVersion).toBe(30)
+    130|   expect(migrated).toEqual({ ...admitted, saveVersion: 30 }) // no inv…
+ ❯ tests/p14b4-save-v30-compatibility.test.ts:216:24
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/40]⎯
+
+ FAIL |core|  tests/p14b4-save-v30-compatibility.test.ts > P14B4 reader-admitted SYNTHETIC legacy variants — never producer fixtures > keeps genuinely backed OPEN/SATISFIED/BROKEN count-only APPEARANCE_COUNT variants
+ FAIL |core|  tests/p14b4-save-v30-compatibility.test.ts > P14B4 reader-admitted SYNTHETIC legacy variants — never producer fixtures > keeps genuinely backed OPEN/SATISFIED/BROKEN count-only LEAD_OR_SIGNIFICANT_ROLE_COUNT variants
+ FAIL |core|  tests/p14b4-save-v30-compatibility.test.ts > P14B4 reader-admitted SYNTHETIC legacy variants — never producer fixtures > keeps genuinely backed OPEN/SATISFIED/BROKEN count-only DIRECTING_COUNT variants
+ FAIL |core|  tests/p14b4-save-v30-compatibility.test.ts > P14B4 reader-admitted SYNTHETIC legacy variants — never producer fixtures > keeps genuinely backed OPEN/SATISFIED/BROKEN count-only PREFERRED_GENRE_OPPORTUNITY variants
+ FAIL |core|  tests/p14b4-save-v30-compatibility.test.ts > P14B4 reader-admitted SYNTHETIC legacy variants — never producer fixtures > keeps genuinely backed OPEN/SATISFIED/BROKEN count-only SPECIFIC_PROJECT variants
+TypeError: migrateToV30 is not a function
+ ❯ preservesExactly tests/p14b4-save-v30-compatibility.test.ts:128:20
+    126|   const before = JSON.stringify(admitted)
+    127|   const raw = exportSave(admitted)
+    128|   const migrated = migrateToV30(admitted)
+       |                    ^
+    129|   expect(migrated.saveVersion).toBe(30)
+    130|   expect(migrated).toEqual({ ...admitted, saveVersion: 30 }) // no inv…
+ ❯ tests/p14b4-save-v30-compatibility.test.ts:239:7
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/40]⎯
+
+ FAIL |core|  tests/p14b4-save-v30-compatibility.test.ts > P14B4 reader-admitted SYNTHETIC legacy variants — never producer fixtures > keeps classless P2 terminal variants with an actual shared take and DISTINCT original outcome receipts
+TypeError: migrateToV30 is not a function
+ ❯ preservesExactly tests/p14b4-save-v30-compatibility.test.ts:128:20
+    126|   const before = JSON.stringify(admitted)
+    127|   const raw = exportSave(admitted)
+    128|   const migrated = migrateToV30(admitted)
+       |                    ^
+    129|   expect(migrated.saveVersion).toBe(30)
+    130|   expect(migrated).toEqual({ ...admitted, saveVersion: 30 }) // no inv…
+ ❯ tests/p14b4-save-v30-compatibility.test.ts:261:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/40]⎯
+
+ FAIL |core|  tests/p14b4-save-v30-compatibility.test.ts > P14B4 reader-admitted SYNTHETIC legacy variants — never producer fixtures > keeps a classless P2 SATISFIED by an ACTUAL support seat, without inventing a role class or take
+TypeError: migrateToV30 is not a function
+ ❯ preservesExactly tests/p14b4-save-v30-compatibility.test.ts:128:20
+    126|   const before = JSON.stringify(admitted)
+    127|   const raw = exportSave(admitted)
+    128|   const migrated = migrateToV30(admitted)
+       |                    ^
+    129|   expect(migrated.saveVersion).toBe(30)
+    130|   expect(migrated).toEqual({ ...admitted, saveVersion: 30 }) // no inv…
+ ❯ tests/p14b4-save-v30-compatibility.test.ts:278:22
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/40]⎯
+
+ FAIL |core|  tests/p14b4-save-v30-compatibility.test.ts > P14B4 freezes strict V29 admission BEFORE migration > refuses class-only in old29 rather than stripping or retrofitting it
+ FAIL |core|  tests/p14b4-save-v30-compatibility.test.ts > P14B4 freezes strict V29 admission BEFORE migration > refuses tag-and-class in old29 rather than stripping or retrofitting it
+AssertionError: expected [Function] to throw error matching /validateSaveV29:.*predicate\.(?:kind|…/ but got 'migrateToV30 is…'
+
+- Expected: 
+/validateSaveV29:.*predicate\.(?:kind|seatClass) is not a field/
+
++ Received: 
+"__vite_ssr_import_7__.migrateToV30 is not a function"
+
+ ❯ tests/p14b4-save-v30-compatibility.test.ts:303:38
+    301|     const before = JSON.stringify(save)
+    302|     expect(() => validateSaveV29(save)).toThrow(expected)
+    303|     expect(() => migrateToV30(save)).toThrow(expected)
+       |                                      ^
+    304|     expect(JSON.stringify(save)).toBe(before)
+    305|   })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/40]⎯
+
+ FAIL |core|  tests/p14b4-save-v30-compatibility.test.ts > P14B4 freezes strict V29 admission BEFORE migration > refuses zero-root-version in old29 rather than stripping or retrofitting it
+AssertionError: expected [Function] to throw error matching /validateSaveV29:.*\.version must be p…/ but got 'migrateToV30 is…'
+
+- Expected: 
+/validateSaveV29:.*\.version must be positive/
+
++ Received: 
+"__vite_ssr_import_7__.migrateToV30 is not a function"
+
+ ❯ tests/p14b4-save-v30-compatibility.test.ts:303:38
+    301|     const before = JSON.stringify(save)
+    302|     expect(() => validateSaveV29(save)).toThrow(expected)
+    303|     expect(() => migrateToV30(save)).toThrow(expected)
+       |                                      ^
+    304|     expect(JSON.stringify(save)).toBe(before)
+    305|   })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/40]⎯
+
+ FAIL |core|  tests/p14b4-save-v30-compatibility.test.ts > P14B4 freezes strict V29 admission BEFORE migration > refuses zero-receipt-version in old29 rather than stripping or retrofitting it
+AssertionError: expected [Function] to throw error matching /validateSaveV29:.*rulesVersion must b…/ but got 'migrateToV30 is…'
+
+- Expected: 
+/validateSaveV29:.*rulesVersion must be positive/
+
++ Received: 
+"__vite_ssr_import_7__.migrateToV30 is not a function"
+
+ ❯ tests/p14b4-save-v30-compatibility.test.ts:303:38
+    301|     const before = JSON.stringify(save)
+    302|     expect(() => validateSaveV29(save)).toThrow(expected)
+    303|     expect(() => migrateToV30(save)).toThrow(expected)
+       |                                      ^
+    304|     expect(JSON.stringify(save)).toBe(before)
+    305|   })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/40]⎯
+
+ FAIL |core|  tests/p14b4-save-v30-compatibility.test.ts > P14B4 tagged P2 V30 shape is not lossy-downgradable > accepts explicit lead P2 shape at30, never at29, and refuses downgrade without stripping
+ FAIL |core|  tests/p14b4-save-v30-compatibility.test.ts > P14B4 tagged P2 V30 shape is not lossy-downgradable > accepts explicit leadOrAntagonist P2 shape at30, never at29, and refuses downgrade without stripping
+TypeError: migrateToV30 is not a function
+ ❯ taggedBoundaryProbe tests/p14b4-save-v30-compatibility.test.ts:313:20
+    311|   assertActualBacking(save, old)
+    312|   const admitted = validateSaveV29(save) // genuine old binding/eviden…
+    313|   const migrated = migrateToV30(admitted)
+       |                    ^
+    314|   // Explicit SYNTHETIC V30 schema-boundary probe, NOT a producer-emit…
+    315|   // No employment, outcome or first-take evidence is invented. This s…
+ ❯ tests/p14b4-save-v30-compatibility.test.ts:327:42
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[13/40]⎯
+
+ FAIL |core|  tests/p14b4-save-v30-compatibility.test.ts > P14B4 tagged P2 V30 shape is not lossy-downgradable > rejects tagged castRoleCount under inapplicable family APPEARANCE_COUNT
+ FAIL |core|  tests/p14b4-save-v30-compatibility.test.ts > P14B4 tagged P2 V30 shape is not lossy-downgradable > rejects tagged castRoleCount under inapplicable family DIRECTING_COUNT
+ FAIL |core|  tests/p14b4-save-v30-compatibility.test.ts > P14B4 tagged P2 V30 shape is not lossy-downgradable > rejects tagged castRoleCount under inapplicable family PREFERRED_GENRE_OPPORTUNITY
+ FAIL |core|  tests/p14b4-save-v30-compatibility.test.ts > P14B4 tagged P2 V30 shape is not lossy-downgradable > rejects tagged castRoleCount under inapplicable family SPECIFIC_PROJECT
+TypeError: migrateToV30 is not a function
+ ❯ taggedBoundaryProbe tests/p14b4-save-v30-compatibility.test.ts:313:20
+    311|   assertActualBacking(save, old)
+    312|   const admitted = validateSaveV29(save) // genuine old binding/eviden…
+    313|   const migrated = migrateToV30(admitted)
+       |                    ^
+    314|   // Explicit SYNTHETIC V30 schema-boundary probe, NOT a producer-emit…
+    315|   // No employment, outcome or first-take evidence is invented. This s…
+ ❯ tests/p14b4-save-v30-compatibility.test.ts:343:32
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[14/40]⎯
+
+ FAIL |core|  tests/p14b4-save-v30-compatibility.test.ts > P14B4 tagged P2 V30 shape is not lossy-downgradable > rejects malformed tagged P2 missing-kind rather than defaulting class
+ FAIL |core|  tests/p14b4-save-v30-compatibility.test.ts > P14B4 tagged P2 V30 shape is not lossy-downgradable > rejects malformed tagged P2 missing-class rather than defaulting class
+ FAIL |core|  tests/p14b4-save-v30-compatibility.test.ts > P14B4 tagged P2 V30 shape is not lossy-downgradable > rejects malformed tagged P2 support-class rather than defaulting class
+ FAIL |core|  tests/p14b4-save-v30-compatibility.test.ts > P14B4 tagged P2 V30 shape is not lossy-downgradable > rejects malformed tagged P2 extra-key rather than defaulting class
+TypeError: migrateToV30 is not a function
+ ❯ taggedBoundaryProbe tests/p14b4-save-v30-compatibility.test.ts:313:20
+    311|   assertActualBacking(save, old)
+    312|   const admitted = validateSaveV29(save) // genuine old binding/eviden…
+    313|   const migrated = migrateToV30(admitted)
+       |                    ^
+    314|   // Explicit SYNTHETIC V30 schema-boundary probe, NOT a producer-emit…
+    315|   // No employment, outcome or first-take evidence is invented. This s…
+ ❯ tests/p14b4-save-v30-compatibility.test.ts:351:32
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[15/40]⎯
+
+ Test Files  2 failed (2)
+      Tests  40 failed | 2 passed (42)
+   Start at  23:43:10
+   Duration  15.10s (transform 4.10s, setup 0ms, collect 5.66s, tests 8.28s, environment 1ms, prepare 307ms)
+
+
+{"sourceSha":"a76242f2f4bdfda98e38ec706e3110ad6a9bb957","testedDiffSha256":"028be545ff6f812d4282b409e875477c515c05104e7db57ebc7b29a9ca274fc9","untrackedSource":["tests/bridge-p14b4-runtime47-compatibility.test.ts","tests/p14b4-cast-class-outcomes.test.ts","tests/p14b4-save-v30-compatibility.test.ts"],"command":["./node_modules/.bin/vitest","run","tests/p14b4-save-v30-compatibility.test.ts","tests/bridge-p14b4-runtime47-compatibility.test.ts","--minWorkers=1","--maxWorkers=1"],"node":"v20.20.2","start":"2026-09-19T21:43:09.458Z","end":"2026-09-19T21:43:26.165Z","exitCode":1,"signal":null,"error":null,"sourceShaAtEnd":"a76242f2f4bdfda98e38ec706e3110ad6a9bb957","testedDiffSha256AtEnd":"028be545ff6f812d4282b409e875477c515c05104e7db57ebc7b29a9ca274fc9","untrackedSourceAtEnd":["tests/bridge-p14b4-runtime47-compatibility.test.ts","tests/p14b4-cast-class-outcomes.test.ts","tests/p14b4-save-v30-compatibility.test.ts"],"fixedSource":true}

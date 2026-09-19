@@ -1,0 +1,15 @@
+{"sourceSha":"a76242f2f4bdfda98e38ec706e3110ad6a9bb957","testedDiffSha256":"028be545ff6f812d4282b409e875477c515c05104e7db57ebc7b29a9ca274fc9","untrackedSource":["tests/bridge-p14b4-runtime47-compatibility.test.ts","tests/p14b4-cast-class-outcomes.test.ts","tests/p14b4-save-v30-compatibility.test.ts"],"command":["npm","run","typecheck:bridge"],"node":"v20.20.2","start":"2026-09-19T21:45:50.532Z","end":null,"exitCode":null}
+
+
+> project-studio-core@0.1.0 typecheck:bridge
+> tsc -p tsconfig.bridge.json
+
+tests/bridge-p14b4-runtime47-compatibility.test.ts(21,53): error TS2724: '"../src/core/save.js"' has no exported member named 'migrateToV30'. Did you mean 'migrateToV10'?
+tests/bridge-p14b4-runtime47-compatibility.test.ts(196,9): error TS2367: This comparison appears to be unintentional because the types '4 | 3 | 2 | 1 | 9 | 5 | 13 | 7 | 18 | 20 | 15 | 16 | 12 | 6 | 8 | 10 | 11 | 14 | 22 | 26 | 25 | 28 | 17 | 21 | 29 | 27 | 19 | 23 | 24' and '30' have no overlap.
+tests/bridge-p14b4-runtime47-compatibility.test.ts(197,19): error TS2339: Property 'state' does not exist on type 'never'.
+tests/bridge-p14b4-runtime47-compatibility.test.ts(198,19): error TS2339: Property 'state' does not exist on type 'never'.
+tests/bridge-p14b4-runtime47-compatibility.test.ts(199,19): error TS2339: Property 'state' does not exist on type 'never'.
+tests/bridge-p14b4-runtime47-compatibility.test.ts(200,19): error TS2339: Property 'state' does not exist on type 'never'.
+tests/bridge-p14b4-runtime47-compatibility.test.ts(201,19): error TS2339: Property 'state' does not exist on type 'never'.
+
+{"sourceSha":"a76242f2f4bdfda98e38ec706e3110ad6a9bb957","testedDiffSha256":"028be545ff6f812d4282b409e875477c515c05104e7db57ebc7b29a9ca274fc9","untrackedSource":["tests/bridge-p14b4-runtime47-compatibility.test.ts","tests/p14b4-cast-class-outcomes.test.ts","tests/p14b4-save-v30-compatibility.test.ts"],"command":["npm","run","typecheck:bridge"],"node":"v20.20.2","start":"2026-09-19T21:45:50.532Z","end":"2026-09-19T21:46:29.618Z","exitCode":2,"signal":null,"error":null,"sourceShaAtEnd":"a76242f2f4bdfda98e38ec706e3110ad6a9bb957","testedDiffSha256AtEnd":"028be545ff6f812d4282b409e875477c515c05104e7db57ebc7b29a9ca274fc9","untrackedSourceAtEnd":["tests/bridge-p14b4-runtime47-compatibility.test.ts","tests/p14b4-cast-class-outcomes.test.ts","tests/p14b4-save-v30-compatibility.test.ts"],"fixedSource":true}

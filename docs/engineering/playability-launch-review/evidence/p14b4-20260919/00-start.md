@@ -1,4 +1,20 @@
-# P14B.4 T0 — preservation complete, publication next
+# P14B.4 — T0 published; independent T1 RED next
+
+First independent RED11–14 COMPLETE on a76242f; exact partial-scope attribution15.
+Three files65cases:63FAIL/2PASS with reached-vs-prerequisite limits recorded.
+Root12/bridge7 type diagnostics, one genuine test typing correction owed; UI not
+reached. All four checks fixedSource:true, all runtime sessions CLOSED.
+No production edits. NEXT publish/exactremote this RED, then sole bounded data/
+migration writer while independent capacity/policy/bridge coverage continues.
+Outcome direct-stock premise must be corrected test-side via real script owners.
+
+B4 T0 preservation publication a76242f2f4bdfda98e38ec706e3110ad6a9bb957
+PUSHED and independently EXACT ls-remote verified on2026-09-19. Initial two
+HTTP400 push failures left remote atc06; temporary per-command HTTP settings
+succeeded, no persistent config change. Three reviewed T1 test files now installed
+with actual pinned bytes; independent installation review then serial RED next.
+No production writer or heavy runtime released yet. This supersedes older NEXT
+publication wording below; c06 remains the actual immutable fixture producer.
 
 Both genuine outgoing preservation obligations completed and independently KEEP.
 Accepted published producer c06db6eae2a1350317c018c6f108d115dcba7b19 remained

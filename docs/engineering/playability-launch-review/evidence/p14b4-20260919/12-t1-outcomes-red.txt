@@ -1,0 +1,322 @@
+{"sourceSha":"a76242f2f4bdfda98e38ec706e3110ad6a9bb957","testedDiffSha256":"028be545ff6f812d4282b409e875477c515c05104e7db57ebc7b29a9ca274fc9","untrackedSource":["tests/bridge-p14b4-runtime47-compatibility.test.ts","tests/p14b4-cast-class-outcomes.test.ts","tests/p14b4-save-v30-compatibility.test.ts"],"command":["./node_modules/.bin/vitest","run","tests/p14b4-cast-class-outcomes.test.ts","--minWorkers=1","--maxWorkers=1"],"node":"v20.20.2","start":"2026-09-19T21:43:33.674Z","end":null,"exitCode":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/p14b4-cast-class-outcomes.test.ts (23 tests | 23 failed) 59712ms
+   × P14B4 genuine submit/settle/take routes, no synthetic commitments > PLAYER: actual offered lead P2 settles and the real class-compatible take satisfies it 2133ms
+     → expected { promiseId: 'promise-0', …(15) } to match object { version: 4, contractId: null, …(2) }
+(15 matching properties omitted from actual)
+   × P14B4 genuine submit/settle/take routes, no synthetic commitments > PLAYER: actual offered leadOrAntagonist P2 settles and the real class-compatible take satisfies it 915ms
+     → expected { promiseId: 'promise-0', …(15) } to match object { version: 4, contractId: null, …(2) }
+(15 matching properties omitted from actual)
+   × P14B4 genuine submit/settle/take routes, no synthetic commitments > RIVAL: a genuinely naturally authored tagged commitment binds and qualifies through the real scheduled owner transition 6436ms
+     → UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute
+   × P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'player' 'lead' with actual 'lead' seat: qualification=true 302ms
+     → expected 29 to be 30 // Object.is equality
+   × P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'player' 'lead' with actual 'antagonist' seat: qualification=false 196ms
+     → expected 29 to be 30 // Object.is equality
+   × P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'player' 'lead' with actual 'support' seat: qualification=false 163ms
+     → expected 29 to be 30 // Object.is equality
+   × P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'player' 'leadOrAntagonist' with actual 'lead' seat: qualification=true 167ms
+     → expected 29 to be 30 // Object.is equality
+   × P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'player' 'leadOrAntagonist' with actual 'antagonist' seat: qualification=true 165ms
+     → expected 29 to be 30 // Object.is equality
+   × P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'player' 'leadOrAntagonist' with actual 'support' seat: qualification=false 151ms
+     → expected 29 to be 30 // Object.is equality
+   × P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'rival' 'lead' with actual 'lead' seat: qualification=true 6487ms
+     → UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute
+   × P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'rival' 'lead' with actual 'antagonist' seat: qualification=false 5953ms
+     → UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute
+   × P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'rival' 'lead' with actual 'support' seat: qualification=false 5931ms
+     → UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute
+   × P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'rival' 'leadOrAntagonist' with actual 'lead' seat: qualification=true 5905ms
+     → UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute
+   × P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'rival' 'leadOrAntagonist' with actual 'antagonist' seat: qualification=true 6025ms
+     → UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute
+   × P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'rival' 'leadOrAntagonist' with actual 'support' seat: qualification=false 5944ms
+     → UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute
+   × P14B4 labeled outcome-owner probes on real bound roots and actual casts > player support qualifies for P1 and shape-legacy count-only P2, not tagged P2 167ms
+     → expected 29 to be 30 // Object.is equality
+   × P14B4 labeled outcome-owner probes on real bound roots and actual casts > rival support qualifies for P1 and shape-legacy count-only P2, not tagged P2 5983ms
+     → UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute
+   × P14B4 labeled outcome-owner probes on real bound roots and actual casts > shooting entry/technology lock and an unscheduled tick produce no first take or tagged-P2 outcome 256ms
+     → expected 29 to be 30 // Object.is equality
+   × P14B4 labeled outcome-owner probes on real bound roots and actual casts > player half-open window counts start, excludes before-start and excludes due 182ms
+     → expected 29 to be 30 // Object.is equality
+   × P14B4 labeled outcome-owner probes on real bound roots and actual casts > rival half-open window counts start, excludes before-start and excludes due 5726ms
+     → UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute
+   × P14B4 labeled outcome-owner probes on real bound roots and actual casts > count2 requires TWO real distinct productions; repeated owner passes/ticks on one picture never add another event 200ms
+     → expected 29 to be 30 // Object.is equality
+   × P14B4 labeled outcome-owner probes on real bound roots and actual casts > two genuinely bound beneficiaries share one completed take but receive DISTINCT own outcome receipts exactly once 165ms
+     → expected 29 to be 30 // Object.is equality
+   × P14B4 labeled outcome-owner probes on real bound roots and actual casts > first take THEN real player cancellation never un-satisfies or rewrites the evidence/outcome 152ms
+     → expected 29 to be 30 // Object.is equality
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 23 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14b4-cast-class-outcomes.test.ts > P14B4 genuine submit/settle/take routes, no synthetic commitments > PLAYER: actual offered lead P2 settles and the real class-compatible take satisfies it
+ FAIL |core|  tests/p14b4-cast-class-outcomes.test.ts > P14B4 genuine submit/settle/take routes, no synthetic commitments > PLAYER: actual offered leadOrAntagonist P2 settles and the real class-compatible take satisfies it
+AssertionError: expected { promiseId: 'promise-0', …(15) } to match object { version: 4, contractId: null, …(2) }
+(15 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  Object {
+    "contractId": null,
+    "feasibilityReceipt": Object {
+-     "classification": "REASONABLY_ACHIEVABLE",
+-     "rulesVersion": 4,
++     "classification": "IMPOSSIBLE",
++     "rulesVersion": 3,
+    },
+    "predicate": Object {
+      "count": 1,
+-     "kind": "castRoleCount",
+-     "seatClass": "lead",
+    },
+-   "version": 4,
++   "version": 3,
+  }
+
+ ❯ realPlayerPromise tests/p14b4-cast-class-outcomes.test.ts:324:34
+    322|   expect(proposal.promises).toHaveLength(1)
+    323|   const promiseId = proposal.promises[0]!
+    324|   expect(root(state, promiseId)).toMatchObject({ version: 4, contractI…
+       |                                  ^
+    325|     feasibilityReceipt: { rulesVersion: 4, classification: 'REASONABLY…
+    326|   state = advanceTo(state, start)
+ ❯ tests/p14b4-cast-class-outcomes.test.ts:336:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/23]⎯
+
+ FAIL |core|  tests/p14b4-cast-class-outcomes.test.ts > P14B4 genuine submit/settle/take routes, no synthetic commitments > RIVAL: a genuinely naturally authored tagged commitment binds and qualifies through the real scheduled owner transition
+Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute
+ ❯ rivalWorlds tests/p14b4-cast-class-outcomes.test.ts:233:9
+    231|     if (steps < 350) state = tick(state)
+    232|   }
+    233|   throw new Error('UNEXECUTED natural rival prerequisites absent by350…
+       |         ^
+    234| }
+    235| function atFive(issuer: 'player' | 'rival', slot: CastSlot): Prepared {
+ ❯ tests/p14b4-cast-class-outcomes.test.ts:345:22
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/23]⎯
+
+ FAIL |core|  tests/p14b4-cast-class-outcomes.test.ts > P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'player' 'lead' with actual 'lead' seat: qualification=true
+ FAIL |core|  tests/p14b4-cast-class-outcomes.test.ts > P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'player' 'lead' with actual 'antagonist' seat: qualification=false
+ FAIL |core|  tests/p14b4-cast-class-outcomes.test.ts > P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'player' 'lead' with actual 'support' seat: qualification=false
+ FAIL |core|  tests/p14b4-cast-class-outcomes.test.ts > P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'player' 'leadOrAntagonist' with actual 'lead' seat: qualification=true
+ FAIL |core|  tests/p14b4-cast-class-outcomes.test.ts > P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'player' 'leadOrAntagonist' with actual 'antagonist' seat: qualification=true
+ FAIL |core|  tests/p14b4-cast-class-outcomes.test.ts > P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'player' 'leadOrAntagonist' with actual 'support' seat: qualification=false
+AssertionError: expected 29 to be 30 // Object.is equality
+
+- Expected
++ Received
+
+- 30
++ 29
+
+ ❯ live tests/p14b4-cast-class-outcomes.test.ts:79:33
+     77|   // Do not manually stamp a save version or invent a new outcome-test…
+     78|   const validated = makeSave(state)
+     79|   expect(validated.saveVersion).toBe(30)
+       |                                 ^
+     80|   return validated.state
+     81| }
+ ❯ oldBound tests/p14b4-cast-class-outcomes.test.ts:139:30
+ ❯ playerAtFive tests/p14b4-cast-class-outcomes.test.ts:196:17
+ ❯ atFive tests/p14b4-cast-class-outcomes.test.ts:236:32
+ ❯ tests/p14b4-cast-class-outcomes.test.ts:363:30
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/23]⎯
+
+ FAIL |core|  tests/p14b4-cast-class-outcomes.test.ts > P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'rival' 'lead' with actual 'lead' seat: qualification=true
+ FAIL |core|  tests/p14b4-cast-class-outcomes.test.ts > P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'rival' 'lead' with actual 'antagonist' seat: qualification=false
+ FAIL |core|  tests/p14b4-cast-class-outcomes.test.ts > P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'rival' 'lead' with actual 'support' seat: qualification=false
+ FAIL |core|  tests/p14b4-cast-class-outcomes.test.ts > P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'rival' 'leadOrAntagonist' with actual 'lead' seat: qualification=true
+ FAIL |core|  tests/p14b4-cast-class-outcomes.test.ts > P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'rival' 'leadOrAntagonist' with actual 'antagonist' seat: qualification=true
+ FAIL |core|  tests/p14b4-cast-class-outcomes.test.ts > P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'rival' 'leadOrAntagonist' with actual 'support' seat: qualification=false
+Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute
+ ❯ rivalWorlds tests/p14b4-cast-class-outcomes.test.ts:233:9
+    231|     if (steps < 350) state = tick(state)
+    232|   }
+    233|   throw new Error('UNEXECUTED natural rival prerequisites absent by350…
+       |         ^
+    234| }
+    235| function atFive(issuer: 'player' | 'rival', slot: CastSlot): Prepared {
+ ❯ atFive tests/p14b4-cast-class-outcomes.test.ts:236:53
+ ❯ tests/p14b4-cast-class-outcomes.test.ts:363:30
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/23]⎯
+
+ FAIL |core|  tests/p14b4-cast-class-outcomes.test.ts > P14B4 labeled outcome-owner probes on real bound roots and actual casts > player support qualifies for P1 and shape-legacy count-only P2, not tagged P2
+AssertionError: expected 29 to be 30 // Object.is equality
+
+- Expected
++ Received
+
+- 30
++ 29
+
+ ❯ live tests/p14b4-cast-class-outcomes.test.ts:79:33
+     77|   // Do not manually stamp a save version or invent a new outcome-test…
+     78|   const validated = makeSave(state)
+     79|   expect(validated.saveVersion).toBe(30)
+       |                                 ^
+     80|   return validated.state
+     81| }
+ ❯ oldBound tests/p14b4-cast-class-outcomes.test.ts:139:30
+ ❯ playerAtFive tests/p14b4-cast-class-outcomes.test.ts:196:17
+ ❯ atFive tests/p14b4-cast-class-outcomes.test.ts:236:32
+ ❯ tests/p14b4-cast-class-outcomes.test.ts:373:32
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/23]⎯
+
+ FAIL |core|  tests/p14b4-cast-class-outcomes.test.ts > P14B4 labeled outcome-owner probes on real bound roots and actual casts > rival support qualifies for P1 and shape-legacy count-only P2, not tagged P2
+Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute
+ ❯ rivalWorlds tests/p14b4-cast-class-outcomes.test.ts:233:9
+    231|     if (steps < 350) state = tick(state)
+    232|   }
+    233|   throw new Error('UNEXECUTED natural rival prerequisites absent by350…
+       |         ^
+    234| }
+    235| function atFive(issuer: 'player' | 'rival', slot: CastSlot): Prepared {
+ ❯ atFive tests/p14b4-cast-class-outcomes.test.ts:236:53
+ ❯ tests/p14b4-cast-class-outcomes.test.ts:373:32
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/23]⎯
+
+ FAIL |core|  tests/p14b4-cast-class-outcomes.test.ts > P14B4 labeled outcome-owner probes on real bound roots and actual casts > shooting entry/technology lock and an unscheduled tick produce no first take or tagged-P2 outcome
+AssertionError: expected 29 to be 30 // Object.is equality
+
+- Expected
++ Received
+
+- 30
++ 29
+
+ ❯ live tests/p14b4-cast-class-outcomes.test.ts:79:33
+     77|   // Do not manually stamp a save version or invent a new outcome-test…
+     78|   const validated = makeSave(state)
+     79|   expect(validated.saveVersion).toBe(30)
+       |                                 ^
+     80|   return validated.state
+     81| }
+ ❯ oldBound tests/p14b4-cast-class-outcomes.test.ts:139:30
+ ❯ playerAtFive tests/p14b4-cast-class-outcomes.test.ts:196:17
+ ❯ tests/p14b4-cast-class-outcomes.test.ts:383:30
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/23]⎯
+
+ FAIL |core|  tests/p14b4-cast-class-outcomes.test.ts > P14B4 labeled outcome-owner probes on real bound roots and actual casts > player half-open window counts start, excludes before-start and excludes due
+AssertionError: expected 29 to be 30 // Object.is equality
+
+- Expected
++ Received
+
+- 30
++ 29
+
+ ❯ live tests/p14b4-cast-class-outcomes.test.ts:79:33
+     77|   // Do not manually stamp a save version or invent a new outcome-test…
+     78|   const validated = makeSave(state)
+     79|   expect(validated.saveVersion).toBe(30)
+       |                                 ^
+     80|   return validated.state
+     81| }
+ ❯ oldBound tests/p14b4-cast-class-outcomes.test.ts:139:30
+ ❯ playerAtFive tests/p14b4-cast-class-outcomes.test.ts:196:17
+ ❯ atFive tests/p14b4-cast-class-outcomes.test.ts:236:32
+ ❯ tests/p14b4-cast-class-outcomes.test.ts:394:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/23]⎯
+
+ FAIL |core|  tests/p14b4-cast-class-outcomes.test.ts > P14B4 labeled outcome-owner probes on real bound roots and actual casts > rival half-open window counts start, excludes before-start and excludes due
+Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute
+ ❯ rivalWorlds tests/p14b4-cast-class-outcomes.test.ts:233:9
+    231|     if (steps < 350) state = tick(state)
+    232|   }
+    233|   throw new Error('UNEXECUTED natural rival prerequisites absent by350…
+       |         ^
+    234| }
+    235| function atFive(issuer: 'player' | 'rival', slot: CastSlot): Prepared {
+ ❯ atFive tests/p14b4-cast-class-outcomes.test.ts:236:53
+ ❯ tests/p14b4-cast-class-outcomes.test.ts:394:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/23]⎯
+
+ FAIL |core|  tests/p14b4-cast-class-outcomes.test.ts > P14B4 labeled outcome-owner probes on real bound roots and actual casts > count2 requires TWO real distinct productions; repeated owner passes/ticks on one picture never add another event
+AssertionError: expected 29 to be 30 // Object.is equality
+
+- Expected
++ Received
+
+- 30
++ 29
+
+ ❯ live tests/p14b4-cast-class-outcomes.test.ts:79:33
+     77|   // Do not manually stamp a save version or invent a new outcome-test…
+     78|   const validated = makeSave(state)
+     79|   expect(validated.saveVersion).toBe(30)
+       |                                 ^
+     80|   return validated.state
+     81| }
+ ❯ oldBound tests/p14b4-cast-class-outcomes.test.ts:139:30
+ ❯ playerAtFive tests/p14b4-cast-class-outcomes.test.ts:196:17
+ ❯ tests/p14b4-cast-class-outcomes.test.ts:416:29
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/23]⎯
+
+ FAIL |core|  tests/p14b4-cast-class-outcomes.test.ts > P14B4 labeled outcome-owner probes on real bound roots and actual casts > two genuinely bound beneficiaries share one completed take but receive DISTINCT own outcome receipts exactly once
+AssertionError: expected 29 to be 30 // Object.is equality
+
+- Expected
++ Received
+
+- 30
++ 29
+
+ ❯ live tests/p14b4-cast-class-outcomes.test.ts:79:33
+     77|   // Do not manually stamp a save version or invent a new outcome-test…
+     78|   const validated = makeSave(state)
+     79|   expect(validated.saveVersion).toBe(30)
+       |                                 ^
+     80|   return validated.state
+     81| }
+ ❯ oldBound tests/p14b4-cast-class-outcomes.test.ts:139:30
+ ❯ playerAtFive tests/p14b4-cast-class-outcomes.test.ts:196:17
+ ❯ tests/p14b4-cast-class-outcomes.test.ts:433:28
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/23]⎯
+
+ FAIL |core|  tests/p14b4-cast-class-outcomes.test.ts > P14B4 labeled outcome-owner probes on real bound roots and actual casts > first take THEN real player cancellation never un-satisfies or rewrites the evidence/outcome
+AssertionError: expected 29 to be 30 // Object.is equality
+
+- Expected
++ Received
+
+- 30
++ 29
+
+ ❯ live tests/p14b4-cast-class-outcomes.test.ts:79:33
+     77|   // Do not manually stamp a save version or invent a new outcome-test…
+     78|   const validated = makeSave(state)
+     79|   expect(validated.saveVersion).toBe(30)
+       |                                 ^
+     80|   return validated.state
+     81| }
+ ❯ oldBound tests/p14b4-cast-class-outcomes.test.ts:139:30
+ ❯ playerAtFive tests/p14b4-cast-class-outcomes.test.ts:196:17
+ ❯ tests/p14b4-cast-class-outcomes.test.ts:466:30
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/23]⎯
+
+ Test Files  1 failed (1)
+      Tests  23 failed (23)
+   Start at  23:43:34
+   Duration  63.50s (transform 2.47s, setup 0ms, collect 3.24s, tests 59.71s, environment 0ms, prepare 137ms)
+
+
+{"sourceSha":"a76242f2f4bdfda98e38ec706e3110ad6a9bb957","testedDiffSha256":"028be545ff6f812d4282b409e875477c515c05104e7db57ebc7b29a9ca274fc9","untrackedSource":["tests/bridge-p14b4-runtime47-compatibility.test.ts","tests/p14b4-cast-class-outcomes.test.ts","tests/p14b4-save-v30-compatibility.test.ts"],"command":["./node_modules/.bin/vitest","run","tests/p14b4-cast-class-outcomes.test.ts","--minWorkers=1","--maxWorkers=1"],"node":"v20.20.2","start":"2026-09-19T21:43:33.674Z","end":"2026-09-19T21:44:38.780Z","exitCode":1,"signal":null,"error":null,"sourceShaAtEnd":"a76242f2f4bdfda98e38ec706e3110ad6a9bb957","testedDiffSha256AtEnd":"028be545ff6f812d4282b409e875477c515c05104e7db57ebc7b29a9ca274fc9","untrackedSourceAtEnd":["tests/bridge-p14b4-runtime47-compatibility.test.ts","tests/p14b4-cast-class-outcomes.test.ts","tests/p14b4-save-v30-compatibility.test.ts"],"fixedSource":true}

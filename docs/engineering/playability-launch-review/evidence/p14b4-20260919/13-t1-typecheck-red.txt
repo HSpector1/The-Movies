@@ -1,0 +1,21 @@
+{"sourceSha":"a76242f2f4bdfda98e38ec706e3110ad6a9bb957","testedDiffSha256":"028be545ff6f812d4282b409e875477c515c05104e7db57ebc7b29a9ca274fc9","untrackedSource":["tests/bridge-p14b4-runtime47-compatibility.test.ts","tests/p14b4-cast-class-outcomes.test.ts","tests/p14b4-save-v30-compatibility.test.ts"],"command":["npm","run","typecheck"],"node":"v20.20.2","start":"2026-09-19T21:44:52.633Z","end":null,"exitCode":null}
+
+
+> project-studio-core@0.1.0 typecheck
+> tsc --noEmit && tsc -p ui/tsconfig.json --noEmit
+
+tests/p14b4-cast-class-outcomes.test.ts(341,64): error TS2339: Property 'promises' does not exist on type 'GameStateV2 | GameStateV3 | GameStateV4 | GameStateV5 | GameStateV6 | GameStateV7 | GameStateV8 | ... 17 more ... | GameStateV1'.
+  Property 'promises' does not exist on type 'GameStateV2'.
+tests/p14b4-save-v30-compatibility.test.ts(18,20): error TS2724: '"../src/core/save.js"' has no exported member named 'validateSaveV30'. Did you mean 'validateSaveV3'?
+tests/p14b4-save-v30-compatibility.test.ts(18,37): error TS2724: '"../src/core/save.js"' has no exported member named 'migrateToV30'. Did you mean 'migrateToV10'?
+tests/p14b4-save-v30-compatibility.test.ts(18,51): error TS2724: '"../src/core/save.js"' has no exported member named 'convertV30ToV29'. Did you mean 'convertV1ToV2'?
+tests/p14b4-save-v30-compatibility.test.ts(137,50): error TS7006: Parameter 'p' implicitly has an 'any' type.
+tests/p14b4-save-v30-compatibility.test.ts(143,46): error TS7006: Parameter 'id' implicitly has an 'any' type.
+tests/p14b4-save-v30-compatibility.test.ts(218,44): error TS7006: Parameter 'p' implicitly has an 'any' type.
+tests/p14b4-save-v30-compatibility.test.ts(279,50): error TS7006: Parameter 'p' implicitly has an 'any' type.
+tests/p14b4-save-v30-compatibility.test.ts(321,44): error TS7006: Parameter 'p' implicitly has an 'any' type.
+tests/p14b4-save-v30-compatibility.test.ts(329,48): error TS7006: Parameter 'p' implicitly has an 'any' type.
+tests/p14b4-save-v30-compatibility.test.ts(344,43): error TS7006: Parameter 'p' implicitly has an 'any' type.
+tests/p14b4-save-v30-compatibility.test.ts(352,43): error TS7006: Parameter 'p' implicitly has an 'any' type.
+
+{"sourceSha":"a76242f2f4bdfda98e38ec706e3110ad6a9bb957","testedDiffSha256":"028be545ff6f812d4282b409e875477c515c05104e7db57ebc7b29a9ca274fc9","untrackedSource":["tests/bridge-p14b4-runtime47-compatibility.test.ts","tests/p14b4-cast-class-outcomes.test.ts","tests/p14b4-save-v30-compatibility.test.ts"],"command":["npm","run","typecheck"],"node":"v20.20.2","start":"2026-09-19T21:44:52.633Z","end":"2026-09-19T21:45:31.292Z","exitCode":2,"signal":null,"error":null,"sourceShaAtEnd":"a76242f2f4bdfda98e38ec706e3110ad6a9bb957","testedDiffSha256AtEnd":"028be545ff6f812d4282b409e875477c515c05104e7db57ebc7b29a9ca274fc9","untrackedSourceAtEnd":["tests/bridge-p14b4-runtime47-compatibility.test.ts","tests/p14b4-cast-class-outcomes.test.ts","tests/p14b4-save-v30-compatibility.test.ts"],"fixedSource":true}
