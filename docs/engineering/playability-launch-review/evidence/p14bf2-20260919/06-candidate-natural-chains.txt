@@ -1,0 +1,69 @@
+{"sourceSha":"957d2de13cef957cf97ee8e3dd746b51d0e9d200","testedDiffSha256":"9145160c243937f2eae0abd119a670b60f8a2690dc7f0b42e2c7aef6777c14cc","untrackedSource":[],"command":["./node_modules/.bin/vitest","run","tests/p13a-rival-adoption.test.ts","tests/bridge-p13b-s8-rivals.test.ts","tests/p13b-s5-conservation.test.ts","tests/p13b-s5-equipment.test.ts","tests/bridge-p13-laboratory.test.ts","tests/bridge-p11-ready.test.ts","tests/p14a1-f1-priority-order.test.ts","tests/p14a1-decline-reasons.test.ts","--minWorkers=1","--maxWorkers=2","--reporter=dot"],"node":"v20.20.2","start":"2026-09-19T18:50:27.742Z","end":null,"exitCode":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/bridge-p13b-s8-rivals.test.ts (17 tests) 21640ms
+   ✓ P13B-S8-T3 item 1: projection version bump 40 -> 41; converted flag > converted: false for a genuine current live-version save, round-tripped through save()/load() on the SAME session (regression guard — matches tests/bridge-p13b-r07-setup.test.ts's own now-fixed case) 2103ms
+   ✓ P13B-S8-T3 item 1: projection version bump 40 -> 41; converted flag > converted: true BY CONSTRUCTION for a genuine V26 fixture load (legacy-v26-lighting-restored-795, saveVersion 26 !== LIVE_SAVE_VERSION) — see header for why this cannot be a directly observed wire boolean through the current session API 1125ms
+   ✓ P13B-S8-T3 item 2: Industry page rival technology facts — laboratoryOperational publishes; the other four kinds do not; existing kinds unchanged > laboratoryCommitted, instrumentOperational, researchSeatAssigned and researchCompleted receipts yield NO activity row (regression guard — already true today; natural week 277, all four kinds genuinely present and within the 13-week pulse window) 388ms
+   ✓ P13B-S8-T3 item 2: Industry page rival technology facts — laboratoryOperational publishes; the other four kinds do not; existing kinds unchanged > technologyAdopted rows are unchanged (regression guard; natural week 288, rival r01's real synchronized-sound adoption) 343ms
+   ✓ P13B-S8-T3 item 3: rival finance exposed only through existing public standings > researchCapacity, technologyRestoration and technologyRefund never appear on the industry pulse page, the Laboratory page, or session.snapshot() (week 13: researchCapacity is genuinely nonzero from real rival Lab admission) 678ms
+   ✓ P13B-S8-T3 item 3: rival finance exposed only through existing public standings > the player's own finance researchSpend channel reads $0 in every window even while the rival's real researchSpend is nonzero elsewhere in the same state (week 288) 1041ms
+   ✓ P13B-S8-T3 item 5: the bridge accepts a real S8 state on snapshot(); history projections ignore the five kinds > session.snapshot() does not throw on a naturally-reached state carrying all five S8 receipt kinds and genuinely nonzero researchCapacity/researchSpend (week 288) 1021ms
+   ✓ P13B-S8-T3 item 5: the bridge accepts a real S8 state on snapshot(); history projections ignore the five kinds > the player's own History (historyProjection, a disjoint root from IndustryReceipt) is untouched: session.snapshot() does not throw and its history section mentions none of the five kinds (week 288) 785ms
+   ✓ P13B-S8-T3 item 6: live-version save round-trip, Save As, genuine V26 fixture loads > a live-version save round-trips through the bridge byte-identically (week 288, real S8 facts: all five receipt kinds, nonzero researchCapacity/researchSpend) 6155ms
+   ✓ P13B-S8-T3 item 6: live-version save round-trip, Save As, genuine V26 fixture loads > a Save As world keeps the same rival receipts and publishes identical industry rows (week 13, natural rival Lab facts) 4964ms
+   ✓ P13B-S8-T3 item 6: live-version save round-trip, Save As, genuine V26 fixture loads > the three genuine V26 fixtures load through the bridge (sha256 verified) and their industry pulse page carries no S8-kind text anywhere (V26 predates S8; converted true by construction as item 1 documents) 2871ms
+stdout | tests/bridge-p11-ready.test.ts > P11 recorded trends and full portfolio > bounds a120-year recorded query to13/52 points with exact totals and no calendar-year invention
+{"kind":"p11-long-history-query-measurement","classification":"synthetic query-scale fixture; not played campaign evidence","weeks":6240,"ledgerEntries":6240,"elapsedMilliseconds":1.2494100000039907,"historyJsonBytes":101456,"syntheticStateJsonBytes":769575,"pointCounts":[13,52]}
+
+ ✓ |core| tests/bridge-p11-ready.test.ts (17 tests) 39100ms
+   ✓ P11 ready Upcoming and discarded financial successors > migrates authentic core25 without relabeling its bytes; strict26 includes a nullable Week0 history 2263ms
+   ✓ P11 ready Upcoming and discarded financial successors > keeps completion and first Opex distinct, including the just-completed operational office 835ms
+   ✓ P11 ready Upcoming and discarded financial successors > retains already-open renewal dates; expiry pays its final preceding advance only 5368ms
+   ✓ P11 ready Upcoming and discarded financial successors > publishes only the existing public revenue aggregates and does not serialize locked weekly receipts 867ms
+   ✓ P11 ready Upcoming and discarded financial successors > dates only an actually committed Set repair and adds no completion debit or new recurring cost 1072ms
+   ✓ P11 ready Upcoming and discarded financial successors > release: exact pennies/guarantees and recurring costs agree with the real committed successor 2367ms
+   ✓ P11 ready Upcoming and discarded financial successors > renew: RE-EXPRESSED under the market law — the renew quote is the engine's own underMarketCase refusal, and the same person's renewal is reachable as the incumbent's proposal 4337ms
+   ✓ P11 ready Upcoming and discarded financial successors > a refused renewal has no financial successor and cannot become a commit 851ms
+   ✓ P11 ready Upcoming and discarded financial successors > release remains legal when the actual termination payment takes already-negative Cash further down 1815ms
+   ✓ P11 ready Upcoming and discarded financial successors > immediate Greenlight pays the exact quoted financial amount once and replaces the project row by its real production 3159ms
+   ✓ P11 ready Upcoming and discarded financial successors > hire reads the real successor, including a new seat; preview remains observation/RNG neutral 2868ms
+   ✓ P11 ready Upcoming and discarded financial successors > queued Greenlight pays nothing now and remains one uncommitted canonical screenplay row 2095ms
+   ✓ P11 recorded trends and full portfolio > serves the actual21-film/6240-advance public diagnostic as exact unique rows and52 completed history points 4976ms
+   ✓ P11 recorded trends and full portfolio > covers Development/review, Ready Casting, Production, Post and Release Ready through actual fixture action chains 4772ms
+   ✓ P11 recorded trends and full portfolio > keeps exact film identities, public phases and the accepted per-film economics 645ms
+   ✓ P11 recorded trends and full portfolio > each cost point and period comes from the exact ledger category; missing partial values stay null 691ms
+ ✓ |core| tests/p14a1-decline-reasons.test.ts (2 tests | 1 skipped) 8714ms
+   ✓ P14A.1: typed decline reasons > B. all proposals dropped: a single rival proposal fails affordability at the decision week → reason "all proposals dropped", one sentence naming the studio and the bonus predicate, never "reservation" 8707ms
+ ✓ |core| tests/bridge-p13-laboratory.test.ts (7 tests) 24762ms
+   ✓ P13A Laboratory bridge > publishes one exact Laboratory with named employment and truthful early-release refusal 1966ms
+   ✓ P13A Laboratory bridge > rejects wrong building, stale revision and Save As session while keeping output detached 1029ms
+   ✓ P13A Laboratory bridge > pages decisions without exposing private Laboratory data in public Industry pages 595ms
+   ✓ P13A Laboratory bridge > does not let read-side preflights spend money or invent employment/research history 593ms
+   ✓ P13A Laboratory bridge > commits the exact named hire once, rejects its stale sibling intent, then assigns the employed Scientist 4804ms
+   ✓ P13A Laboratory bridge > acknowledges completed acoustic instruments while the Scientist seat remains unassigned 1121ms
+   ✓ P13A Laboratory bridge > shows rival sound only from the actual operational receipt, without exposing private finances 14651ms
+ ✓ |core| tests/p13a-rival-adoption.test.ts (2 tests) 19457ms
+   ✓ P13A shared commercial adoption and exact rival cash consequence > uses the shared player/rival eligibility function and debits only technology adoption without new plant or RNG draws 995ms
+   ✓ P13A shared commercial adoption and exact rival cash consequence > replays the actual weekly commercial purchase, reconciles its debit and creates one dated operational receipt 3294ms
+ ✓ |core| tests/p13b-s5-conservation.test.ts (3 tests) 67390ms
+   ✓ P13B-S5 conservation, determinism, campaign isolation (test 6) > cash conservation across a sound and a lighting adoption: every dollar the ledger charges for the two adoptions is exactly equipmentCost + installationCost, no more, no less, and no negative or duplicate row 16795ms
+   ✓ P13B-S5 conservation, determinism, campaign isolation (test 6) > determinism: the SAME action sequence from the SAME starting state produces byte-identical saves 27405ms
+   ✓ P13B-S5 conservation, determinism, campaign isolation (test 6) > campaign isolation: a rival’s organically-purchased sound adoption is byte-unchanged by the player’s own adoption actions, and reconciles to the catalogue’s per-technology values (no hard-coded 300,000/975,000) 23185ms
+ ✓ |core| tests/p13b-s5-equipment.test.ts (5 tests) 44395ms
+   ✓ P13B-S5 equipment assets (test 3) > an adoption’s equipment asset is minted exactly once, held by it, and never duplicated by a second adoption 11259ms
+   ✓ P13B-S5 equipment assets (test 3) > an unheld retained asset (holderAdoptionId null, referenced by no adoption) is reused at $0 by a NEW adoption of the SAME technology 8849ms
+   ✓ P13B-S5 equipment assets (test 3) > an unheld retained asset of one technology is NEVER reused by a different technology’s adoption 10608ms
+   ✓ P13B-S5 equipment assets (test 3) > a held asset cannot be reused: two adoptions naming the same equipmentAssetId is refused on reimport 7013ms
+   ✓ P13B-S5 equipment assets (test 3) > exported-save round trip never fabricates an equipment row: makeSave/exportSave/importSave over an unmutated adoption reproduces the same equipment array byte for byte 6661ms
+ ✓ |core| tests/p14a1-f1-priority-order.test.ts (5 tests | 1 skipped) 10ms
+
+ Test Files  8 passed (8)
+      Tests  56 passed | 2 todo (58)
+   Start at  20:50:28
+   Duration  141.92s (transform 5.22s, setup 0ms, collect 24.32s, tests 225.47s, environment 7ms, prepare 1.57s)
+
+
+{"sourceSha":"957d2de13cef957cf97ee8e3dd746b51d0e9d200","testedDiffSha256":"9145160c243937f2eae0abd119a670b60f8a2690dc7f0b42e2c7aef6777c14cc","untrackedSource":[],"command":["./node_modules/.bin/vitest","run","tests/p13a-rival-adoption.test.ts","tests/bridge-p13b-s8-rivals.test.ts","tests/p13b-s5-conservation.test.ts","tests/p13b-s5-equipment.test.ts","tests/bridge-p13-laboratory.test.ts","tests/bridge-p11-ready.test.ts","tests/p14a1-f1-priority-order.test.ts","tests/p14a1-decline-reasons.test.ts","--minWorkers=1","--maxWorkers=2","--reporter=dot"],"node":"v20.20.2","start":"2026-09-19T18:50:27.742Z","end":"2026-09-19T18:52:51.477Z","exitCode":0,"signal":null,"error":null,"sourceShaAtEnd":"957d2de13cef957cf97ee8e3dd746b51d0e9d200","testedDiffSha256AtEnd":"9145160c243937f2eae0abd119a670b60f8a2690dc7f0b42e2c7aef6777c14cc","untrackedSourceAtEnd":[],"fixedSource":true}

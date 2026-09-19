@@ -1,10 +1,17 @@
 # P14 — Contested Talent Market, Bonds and Promises, Career Lifecycle — headless plan (logic-first)
 
-**B-F2 T1 COMPLETE:** qualifiedB3records58b4c2e pushed/EXACT remote verified.
-Three tests installed/exactly matched; actual01RED11FAIL/19PASS/2TODO,fixedSource:true.
-No missing-fixture substitute; attribution02. Session30104closed; publish RED/
-verify remote then sole one-file writer. Production unchanged. Live evidence/
-next steps ../evidence/p14bf2-20260919/00-start.md.
+**B-F2 candidate checks COMPLETE; publication/full boundary NEXT.**
+Independent RED957d2de13cef957cf97ee8e3dd746b51d0e9d200 pushed/EXACT remote
+verified. Sole sim-core changed ONLYpromises.ts eligibility/digest/rules3; tests
+unchanged from independent RED. Exact patch9145160c243937f2eae0abd119a670b60f8a2690dc7f0b42e2c7aef6777c14cc.
+03+05+06disjoint36files404PASS/5unchanged TODO; root/UI+bridge typechecks and both
+contract checks PASS, all fixedSource:true. Independent04KEEP. No runtime/writer
+active. Candidate disposition: ../evidence/p14bf2-20260919/11-candidate-disposition.md.
+Commit exact tested patch/records, rehash committed diff, push/verify exact remote,
+then committed full run in freshp14bf2-20260919-final. Do NOT call B-F2 closed
+from targeted tests alone. Live ownership: ../evidence/p14bf2-20260919/00-start.md.
+Only after full-qualified publication: final outgoingV29 + outgoing46 runtime
+preservation before P2. Future minter focus guard refinement is recorded, not run.
 
 **Latest checkpoint (2026-09-19): B3 qualified CLOSED.** Tested full source359f636,
 implementation425170e, genuine preservation9c605dc and independent REDf4e1230.
@@ -276,7 +283,7 @@ proposals across issuers although only one may win. Preserve that behavior in
 the narrow abandonment correction; its policy remains separately OPEN. Unity,
 native/rendering and Owner acceptance remain deferred.
 
-## P14B-F2 — has-discipline promise eligibility (T1 RED complete; T2 next)
+## P14B-F2 — has-discipline promise eligibility (candidate verified; full boundary next)
 
 - [x] T1 installed exact13case draft948936ee… plus corrected chooser/default-
   timeout patch0f85aba2… and four live revision-pin patch8a1685ae…. Parent independently
@@ -285,6 +292,15 @@ native/rendering and Owner acceptance remain deferred.
   actual eligibility/version RED, no fixture exception. Attribution02 names
   later renewal/take/missing-profile guards not yet reached. Production unchanged.
   Publish RED/verify remote, then one-writer T2 release; no runtime remains.
+
+- [x] T2 minimal candidate: ONLYpromises.ts3hunks/6insertions7deletions, acting-
+  profile presence + matching digest fact + fresh evaluator3. Parent actual-diff
+  review and independent04KEEP; no assignment/rival/chooser/history/shape change.
+- [x] T3 candidate03+05+06:36disjointfiles404PASS/5unchanged TODO;07root/UI,
+  08bridge,09contract,10fixtures all PASS, allfixedSource:true onpatch9145160c…
+  over publishedRED957d2de. Alltests unchanged; no fixture correction. Disposition11.
+- [ ] T4 committed fixed-source full boundary, exact failure attribution and
+  independent qualified closeout/publication. Targeted evidence is not this gate.
 
 **Authority reconciliation 2026-09-19.** The historical B1 T2 ruling(iii) above
 mistakenly read the CALL `requireRole(actor, 'actor', ...)` as a primary-role gate.

@@ -1,14 +1,19 @@
 # CONTINUATION STATE — three-week autonomous window (Owner directive 2026-09-15)
 
-## Current continuation — 2026-09-19: B-F2 T1 RED COMPLETE, T2 next
+## Current continuation — 2026-09-19: B-F2 candidate verified; full boundary next
 
-Parent session30104 CLOSED;01-independent-red in evidence/p14bf2-20260919:
-11FAIL/19PASS/2TODO, fixedSource:true, actual eligibility/version assertions.
-Three reviewed independent tests installed/exactly matched, production unchanged.
-Tests frozen; no runtime active. Publish RED/exact remote then sole sim-core
-one-file production correction. Live ownership and next steps:
-evidence/p14bf2-20260919/00-start.md. Actual fixture prerequisites must pass before
-RED releases sole sim-core writer for eligibility/digest/rules3 only.
+**B-F2 candidate checks COMPLETE; publication/full boundary NEXT.**
+Independent RED957d2de13cef957cf97ee8e3dd746b51d0e9d200 pushed/EXACT remote
+verified. Sole sim-core changed ONLYpromises.ts eligibility/digest/rules3; tests
+unchanged from independent RED. Exact patch9145160c243937f2eae0abd119a670b60f8a2690dc7f0b42e2c7aef6777c14cc.
+03+05+06disjoint36files404PASS/5unchanged TODO; root/UI+bridge typechecks and both
+contract checks PASS, all fixedSource:true. Independent04KEEP. No runtime/writer
+active. Candidate disposition: evidence/p14bf2-20260919/11-candidate-disposition.md.
+Commit exact tested patch/records, rehash committed diff, push/verify exact remote,
+then committed full run in freshp14bf2-20260919-final. Do NOT call B-F2 closed
+from targeted tests alone. Live ownership: evidence/p14bf2-20260919/00-start.md.
+Only after full-qualified publication: final outgoingV29 + outgoing46 runtime
+preservation before P2. Future minter focus guard refinement is recorded, not run.
 
 ### Accepted B3 upstream
 
@@ -28,7 +33,7 @@ Qualified records58b4c2ed82898cfd8354b569c97bc6a8e0920d39 pushed and independent
 EXACT remote verified. B3 publication gate is satisfied; do not repeat its full run.
 Branch/worktree and historical recovery identities: CODEX-START-HERE.md.
 
-Next: publish B-F2 RED then release the scoped production writer. No routine Owner
+Next: finish B-F2 candidate verification/publication, then full boundary. No routine Owner
 permission gate. Exact scoped brief:
 `evidence/p14b3-20260919/16-bf2-next-execution-brief.md`.
 Installed the reviewed13-case draft plus four live evaluator2→3 pins and the

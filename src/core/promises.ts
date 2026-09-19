@@ -37,9 +37,9 @@ import type {
 const CAST_SLOTS: readonly CastSlot[] = ['lead', 'antagonist', 'support'] as const
 
 /** The evaluator revision stamped on newly evaluated receipts and newly minted
- * roots. B.3's abandonment correction changes observable evaluations, so uses 2;
+ * roots. B-F2's has-discipline correction changes observable evaluations, so uses 3;
  * stored root versions and old receipts are never rewritten on load. */
-export const PROMISE_RULES_VERSION = 2
+export const PROMISE_RULES_VERSION = 3
 
 // ── the named HYPOTHESES (plan's OPEN section; none of these is settled law) ──
 
@@ -300,7 +300,7 @@ function feasibilityInputs(state: GameState, draft: PromiseDraft, week: number):
   return [
     draft.family, draft.issuerStudioId, draft.beneficiaryPersonId, draft.predicate.count,
     draft.windowStartWeek, draft.dueWeekExclusive, draft.startWeek, draft.termWeeks, week,
-    person?.role ?? null,
+    person === undefined ? null : person.skills.acting !== undefined,
     productions.map((p) => [p.id, p.conceptId, p.startTick, p.remainingTicks, p.directorId, p.cast]),
     operations?.facilities.map((f) => [f.id, f.capability, f.capacity]) ?? [],
     operations?.workflows ?? [],
@@ -371,12 +371,11 @@ export function promiseFeasibility(state: GameState, draft: PromiseDraft, week: 
   if (draft.dueWeekExclusive > draft.startWeek + draft.termWeeks) {
     return refuse('the due week falls outside the proposed contract')
   }
-  // The engine's OWN seat law, not a P14-invented profession gate: `greenlight`
-  // requires role `actor` for every cast slot (actions.ts M16.2), so a person who
-  // takes no cast seat has no qualifying event this family could ever count.
+  // Match greenlight's has-discipline law (actions.ts `requireRole`): an acting
+  // skill profile permits a cast assignment regardless of primary profession.
   const person = state.talent.find((t) => t.id === draft.beneficiaryPersonId)
   if (person === undefined) return refuse('this person is not in the world')
-  if (person.role !== 'actor') return refuse('this person takes no cast seat under the greenlight law')
+  if (person.skills.acting === undefined) return refuse('this person lacks an acting skill profile')
 
   const from = Math.max(draft.windowStartWeek, week)
   const reserved = reservedByActivePromises(state, draft, from)

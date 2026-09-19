@@ -1,4 +1,59 @@
-# P14B-F2 — acting-discipline correction, active T1
+# P14B-F2 — acting-discipline correction, candidate verification
+
+**CANDIDATE CHECKS COMPLETE; publication/full boundary NEXT.**03+05+06disjoint
+36files404PASS/5unchanged TODO,07root/UI+08bridge+09contract+10fixtures PASS;
+allfixedSource:true on exactpatch9145160c… over957d2de. Independent04KEEP; parent
+verified all metadata/source identity. No runtime/writer active. Disposition11
+contains exacttimes/counts/limits and next gates. Commit exact source/evidence,
+rehash committed protected diff, push/exactremote, then sole committed full runner
+freshp14bf2-20260919-final. No final V29mint or P2 writer until full-qualified
+B-F2 publication. Inert final-minter current-rival focus refinement recorded11.
+
+**07root/UI PASS;08bridge typecheck RUNNING.**07exit0,fixedSource:true,
+18:54:09.906Z–18:56:04.863Z, samepatch9145160c….Session47199CLOSED.
+No TypeScript/test/source correction. Parent sole08 now runs; no overlapping
+runtime or source/test/HEAD change.09contract/10fixtures next, then candidate
+publication/full boundary. Prior stage instructions below are historical.
+
+**06natural chains GREEN;07root/UI typecheck RUNNING.**06eightfiles56PASS/
+2unchanged TODO,18:50:27.742Z–18:52:51.477Z,fixedSource:true,samepatch9145160c….
+Session49558CLOSED.03+05+06 disjoint36files404PASS/5unchanged TODO. No test/source
+correction after original minimal candidate. Parent sole07-typecheck session47199
+now runs;
+source/tests/HEAD stay frozen.08bridge/09contract/10fixtures next, then candidate
+commit/exact remote and committed full boundary. Review04KEEP; all specialists idle.
+
+**05neighbours GREEN;06natural chains RUNNING.** Actual05:25files318PASS/1unchanged
+TODO,18:44:37.297Z–18:50:00.559Z,fixedSource:true,samepatch9145160c….Session77871
+CLOSED.03+05 disjoint28files348PASS/3unchanged TODO; alltests unchanged.
+Parent sole06-candidate-natural-chains session49558 now runs eight existing files
+with1–2workers.
+Source/tests/HEAD stay frozen. Afterward07root/UI typecheck,08bridge,09contract,
+10contract-fixtures, candidate records/commit/push/exact remote and full boundary.
+
+**03target GREEN;05-neighbours RUNNING.** Actual03all30PASS/2unchanged TODO,
+3files,18:43:20.802Z–18:43:59.984Z, fixedSource:true on sourcepatchSHA256
+9145160c243937f2eae0abd119a670b60f8a2690dc7f0b42e2c7aef6777c14cc over957d2de.
+All13new cases and six revision/history cases PASS; real renewal→scheduled5→4
+take→SATISFIED, valid history and invalid-profile digest probes executed. Both
+original-time chooser cases PASS including an actual nonRA zeroattachment witness
+under3. No fixture/test correction required.03session96280 CLOSED.
+Parent now sole05-candidate-neighbours:25files,1–2workers,session77871;
+source/tests/HEAD frozen.
+Independent actual-source review04 KEEP; reviewer also read complete03 evidence.
+No new source/test correction requested. ReviewSHA256
+4c85b2f25ac075e68276dd79238fc0657c6836d8cdfc86335dafe9a2ca65d46c.
+Afterward eight natural-chain files, both typechecks/contracts, review/final
+candidate checkpoint/publication, committed full boundary/qualified closeout owed.
+
+**T2 candidate STABLE;03-target RUNNING.** REDcheckpoint
+957d2de13cef957cf97ee8e3dd746b51d0e9d200 PUSHED and EXACT remote verified;
+committed testdiff independently rehashed to7e625804… matching01. Sim-core changed
+ONLYsrc/core/promises.ts in3hunks: acting-profile eligibility/digest and rules3;
+source SHAde64e957381b1b33bf1d2789d976326fc3f54277035fc2059a2c3d5ea0899a0a.
+Parent inspected actual diff; independent auditor reviewing read-only in04.
+All tests unchanged from RED. Parent sole03-candidate-target runs same3files/one
+worker; no source/test/HEAD edits until completion. No production writer active.
 
 **T1 actual RED COMPLETE**, session30104 CLOSED.01records11FAIL/19PASS/2unchanged
 TODO,3files, fixedSource:true18:37:51.326Z–18:38:29.890Z. No missing module/fixture

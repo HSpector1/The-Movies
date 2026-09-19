@@ -1,0 +1,43 @@
+{"sourceSha":"957d2de13cef957cf97ee8e3dd746b51d0e9d200","testedDiffSha256":"9145160c243937f2eae0abd119a670b60f8a2690dc7f0b42e2c7aef6777c14cc","untrackedSource":[],"command":["./node_modules/.bin/vitest","run","tests/p14bf2-acting-discipline.test.ts","tests/p14b3-rule-revision.test.ts","tests/p14b1-trust-chooser.test.ts","--minWorkers=1","--maxWorkers=1","--reporter=verbose"],"node":"v20.20.2","start":"2026-09-19T18:43:20.802Z","end":null,"exitCode":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p14b1-trust-chooser.test.ts > P14B.1 test 6: trust, the widened chooser and the priority order > publicPriorityOrder is the WIDENED companion order (opportunity and trust inserted, relationships still excluded) for both archetypes, byte-equal
+ ✓ |core| tests/p14b1-trust-chooser.test.ts > P14B.1 test 6: trust, the widened chooser and the priority order > publicPreferredTerm is unchanged by the widening: proven -> longest catalogue term, unproven -> shortest
+ ✓ |core| tests/p14b1-trust-chooser.test.ts > P14B.1 test 6: trust, the widened chooser and the priority order > trustDescriptor: all-positive facts read Reliable; a genuine negative driver (a real early termination) never reads Reliable — the exact Mixed/Distrusted boundary is OPEN and not pinned
+ ✓ |core| tests/p14b1-trust-chooser.test.ts > P14B.1 test 6: trust, the widened chooser and the priority order > a Distrusted issuer is dropped issuerDistrusted at reservation, and the other (healthy) proposal settles the case 2431ms
+ ✓ |core| tests/p14b1-trust-chooser.test.ts > P14B.1 test 6: trust, the widened chooser and the priority order > opportunity changes the winner of an otherwise compensation-versus-incumbency 1-1 tie, with two real surviving proposals 5408ms
+ ✓ |core| tests/p14b1-trust-chooser.test.ts > P14B.1 test 6: trust, the widened chooser and the priority order > a Reliable issuer beats a Mixed-record issuer on the trust band, in the same otherwise-1-1-tie shape 1094ms
+ ✓ |core| tests/p14b1-trust-chooser.test.ts > P14B.1 test 7: rival symmetry > attachPromise and its feasibility classification work identically when the issuer is a RIVAL (no player-only special-casing) 972ms
+ ✓ |core| tests/p14b1-trust-chooser.test.ts > P14B.1 test 7: rival symmetry > the FIRST natural rival proposal carries exactly one P1 iff its ORIGINAL authoring verdict is REASONABLY_ACHIEVABLE, with exact proposal/root/receipt joins 6686ms
+ ✓ |core| tests/p14b1-trust-chooser.test.ts > P14B.1 test 7: rival symmetry > natural rival authoring preserves the first writer IFF, the first actor positive, and an actual non-achievable zero-attachment witness 6609ms
+ ✓ |core| tests/p14b1-trust-chooser.test.ts > P14B.1 test 7: rival symmetry > a rival first take satisfies a promise exactly as a player one does — found by direct search over the natural chain (never a magic week)
+ ✓ |core| tests/p14b1-trust-chooser.test.ts > P14B.1 test 7: rival symmetry > a rival Distrusted issuer / Reliable-vs-Mixed comparison reads through the SAME trustDescriptor accessor for a rival studioId as for the player
+ ✓ |core| tests/p14bf2-acting-discipline.test.ts > B-F2: settled has-acting-discipline law, not primary-role eligibility > uses evaluator3 for the eligibility correction
+ ✓ |core| tests/p14bf2-acting-discipline.test.ts > B-F2: settled has-acting-discipline law, not primary-role eligibility > the real generated writer is lawfully cast as lead without relabeling or occupying two roles 2808ms
+ ✓ |core| tests/p14bf2-acting-discipline.test.ts > B-F2: settled has-acting-discipline law, not primary-role eligibility > a lawful non-primary actor receives an achievable P1 and the pure read changes no state or labels
+ ✓ |core| tests/p14bf2-acting-discipline.test.ts > B-F2: settled has-acting-discipline law, not primary-role eligibility > unknown beneficiary refuses without treating a made-up identity as a cast participant
+ ✓ |core| tests/p14bf2-acting-discipline.test.ts > B-F2: settled has-acting-discipline law, not primary-role eligibility > missing acting profile refuses and changes eligibility digest at identical week (INVALID PURE PROBE ONLY)
+ ✓ |core| tests/p14bf2-acting-discipline.test.ts > B-F2: settled has-acting-discipline law, not primary-role eligibility > preserves unrelated nonwhole-count refusal for the newly eligible writer
+ ✓ |core| tests/p14bf2-acting-discipline.test.ts > B-F2: settled has-acting-discipline law, not primary-role eligibility > preserves unrelated capacity refusal for the newly eligible writer
+ ✓ |core| tests/p14bf2-acting-discipline.test.ts > B-F2: settled has-acting-discipline law, not primary-role eligibility > preserves unrelated early-window refusal for the newly eligible writer
+ ✓ |core| tests/p14bf2-acting-discipline.test.ts > B-F2: settled has-acting-discipline law, not primary-role eligibility > preserves unrelated late-window refusal for the newly eligible writer
+ ✓ |core| tests/p14bf2-acting-discipline.test.ts > B-F2: settled has-acting-discipline law, not primary-role eligibility > existing-path buffer and CURRENT reservations still constrain writer promises; withdrawal releases only the reservation
+ ✓ |core| tests/p14bf2-acting-discipline.test.ts > B-F2: settled has-acting-discipline law, not primary-role eligibility > real winning writer P1 binds, then one completed scheduled cast take satisfies it with exact durable references 913ms
+ ✓ |core| tests/p14bf2-acting-discipline.test.ts > B-F2: genuine old role-refusal evidence survives, fresh evaluations use3 > valid load preserves the old erroneous receipt/root/digest bytes exactly without repairing history 581ms
+ ✓ |core| tests/p14bf2-acting-discipline.test.ts > B-F2: genuine old role-refusal evidence survives, fresh evaluations use3 > actual resubmit/attach evaluates afresh under3 but keeps the original version1 refusal untouched
+ ✓ |core| tests/p14b3-rule-revision.test.ts > P14B.3 continuity under B-F2 evaluator3 with genuine old evaluator1 history > pins the new evaluator generation independently of unchanged Save29/projection46
+ ✓ |core| tests/p14b3-rule-revision.test.ts > P14B.3 continuity under B-F2 evaluator3 with genuine old evaluator1 history > preserves genuine evaluator1-current-p1 root/receipt/digest bytes through valid load, not a restamped current fixture 718ms
+ ✓ |core| tests/p14b3-rule-revision.test.ts > P14B.3 continuity under B-F2 evaluator3 with genuine old evaluator1 history > preserves genuine evaluator1-withdrawn-p1 root/receipt/digest bytes through valid load, not a restamped current fixture 432ms
+ ✓ |core| tests/p14b3-rule-revision.test.ts > P14B.3 continuity under B-F2 evaluator3 with genuine old evaluator1 history > preserves genuine evaluator1-role-label-refused-p1 root/receipt/digest bytes through valid load, not a restamped current fixture 560ms
+ ✓ |core| tests/p14b3-rule-revision.test.ts > P14B.3 continuity under B-F2 evaluator3 with genuine old evaluator1 history > new actual attachment uses root.version3 and receipt.rulesVersion3 without rewriting old roots
+ ✓ |core| tests/p14b3-rule-revision.test.ts > P14B.3 continuity under B-F2 evaluator3 with genuine old evaluator1 history > actual later winning freeze keeps old root.version1 but stores genuine new rulesVersion3 receipt and binding 815ms
+
+ Test Files  3 passed (3)
+      Tests  30 passed | 2 todo (32)
+   Start at  20:43:21
+   Duration  37.83s (transform 2.88s, setup 0ms, collect 4.69s, tests 31.41s, environment 1ms, prepare 572ms)
+
+
+{"sourceSha":"957d2de13cef957cf97ee8e3dd746b51d0e9d200","testedDiffSha256":"9145160c243937f2eae0abd119a670b60f8a2690dc7f0b42e2c7aef6777c14cc","untrackedSource":[],"command":["./node_modules/.bin/vitest","run","tests/p14bf2-acting-discipline.test.ts","tests/p14b3-rule-revision.test.ts","tests/p14b1-trust-chooser.test.ts","--minWorkers=1","--maxWorkers=1","--reporter=verbose"],"node":"v20.20.2","start":"2026-09-19T18:43:20.802Z","end":"2026-09-19T18:43:59.984Z","exitCode":0,"signal":null,"error":null,"sourceShaAtEnd":"957d2de13cef957cf97ee8e3dd746b51d0e9d200","testedDiffSha256AtEnd":"9145160c243937f2eae0abd119a670b60f8a2690dc7f0b42e2c7aef6777c14cc","untrackedSourceAtEnd":[],"fixedSource":true}

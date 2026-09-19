@@ -21,6 +21,24 @@ verified in Unity. Generated C# produced by the TypeScript generator is text, no
 
 ## Per-slice entries
 
+### P14B-F2 — acting-discipline eligibility (candidate; full verification pending)
+
+One-file engine correction makes P1 feasibility use the existing casting law's
+acting-profile presence, not primary profession. Fresh evaluator/root3; historical
+versions/refusals unchanged. Save29/protocol4/projection46/schema584bdd… and C#
+1b5c7e… unchanged. Candidate evidence p14bf2-20260919/11:36files404PASS/5unchanged
+TODO, both typechecks/contracts PASS, independent04KEEP; full boundary still owed.
+
+Consumer obligations: do not add a profession-label refusal to a P1 proposal
+composer; use the emitted quote/refusal and current intent. A primary writer may
+lawfully receive/keep a cast promise without relabeling. Native proof of that
+proposal→renewal→actual cast/take→history journey remains deferred. This correction
+does NOT broaden existing casting read-model/candidate pools or claim the native
+UI already exposes cross-discipline casting. Inventory that integration gap when
+building the real consumer path; no UI/chooser/rival-policy workaround here.
+Show historical refused receipts as history, not silently repaired live verdicts.
+Unity compilation/rendering/native/Owner acceptance remain unverified.
+
 ### P14B.3 — atomic P1 proposal command (qualified logic verified; Unity not verified)
 
 Producer stays Save29 / protocol4 / projection46, existing schema584bdd… and

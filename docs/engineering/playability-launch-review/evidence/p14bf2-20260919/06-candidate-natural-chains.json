@@ -1,0 +1,30 @@
+{
+  "sourceSha": "957d2de13cef957cf97ee8e3dd746b51d0e9d200",
+  "testedDiffSha256": "9145160c243937f2eae0abd119a670b60f8a2690dc7f0b42e2c7aef6777c14cc",
+  "untrackedSource": [],
+  "command": [
+    "./node_modules/.bin/vitest",
+    "run",
+    "tests/p13a-rival-adoption.test.ts",
+    "tests/bridge-p13b-s8-rivals.test.ts",
+    "tests/p13b-s5-conservation.test.ts",
+    "tests/p13b-s5-equipment.test.ts",
+    "tests/bridge-p13-laboratory.test.ts",
+    "tests/bridge-p11-ready.test.ts",
+    "tests/p14a1-f1-priority-order.test.ts",
+    "tests/p14a1-decline-reasons.test.ts",
+    "--minWorkers=1",
+    "--maxWorkers=2",
+    "--reporter=dot"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-19T18:50:27.742Z",
+  "end": "2026-09-19T18:52:51.477Z",
+  "exitCode": 0,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "957d2de13cef957cf97ee8e3dd746b51d0e9d200",
+  "testedDiffSha256AtEnd": "9145160c243937f2eae0abd119a670b60f8a2690dc7f0b42e2c7aef6777c14cc",
+  "untrackedSourceAtEnd": [],
+  "fixedSource": true
+}
