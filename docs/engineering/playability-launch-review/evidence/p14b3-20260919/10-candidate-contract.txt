@@ -1,0 +1,11 @@
+{"sourceSha":"f4e1230639552f8a496562ec97b3e5aa3ec5a156","testedDiffSha256":"6129b77df0e3b4c4b1111b2ee226860ee6e3538de95b3c3a3bdf6e3805026ba6","untrackedSource":[],"command":["npm","run","check:bridge-contract"],"node":"v20.20.2","start":"2026-09-19T16:48:51.522Z","end":null,"exitCode":null}
+
+
+> project-studio-core@0.1.0 check:bridge-contract
+> vite-node scripts/generate-bridge-contract.ts --check
+
+verified /Users/zacheryspector/The-Movies-headless-program/bridge/schema/project-studio-bridge.schema.json
+verified /Users/zacheryspector/The-Movies-headless-program/generated/unity/StudioBridgeDtos.Generated.cs
+verified /Users/zacheryspector/The-Movies-headless-program/generated/unity/project-studio-bridge.contract-manifest.json
+
+{"sourceSha":"f4e1230639552f8a496562ec97b3e5aa3ec5a156","testedDiffSha256":"6129b77df0e3b4c4b1111b2ee226860ee6e3538de95b3c3a3bdf6e3805026ba6","untrackedSource":[],"command":["npm","run","check:bridge-contract"],"node":"v20.20.2","start":"2026-09-19T16:48:51.522Z","end":"2026-09-19T16:48:53.913Z","exitCode":0,"signal":null,"error":null,"sourceShaAtEnd":"f4e1230639552f8a496562ec97b3e5aa3ec5a156","testedDiffSha256AtEnd":"6129b77df0e3b4c4b1111b2ee226860ee6e3538de95b3c3a3bdf6e3805026ba6","untrackedSourceAtEnd":[],"fixedSource":true}

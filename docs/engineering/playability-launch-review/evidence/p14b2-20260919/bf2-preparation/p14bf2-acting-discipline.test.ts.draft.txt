@@ -239,18 +239,37 @@ describe('B-F2: settled has-acting-discipline law, not primary-role eligibility'
 
 const OLD_CORPUS = './fixtures/p14/genuine-v29-pre-b3-evaluator1/'
 const OLD_NAME = 'genuine-v29-evaluator1-role-label-refused-p1'
+// Actual accepted-B2 T0 bytes, independently hashed as gzip and raw streams;
+// compressed bytes also match fixture checkpoint9c605dc's Git object.
+const OLD_PINS = {
+  compressedSha256: 'febd33112d57128c67a025237add374aeb7925d94a7d941bd4b303b3fedc0367',
+  rawSha256: '0272162ec2746cefb1a7910487d6d30642c8743f9853d61a73ebef469a3df2b3',
+  testedSourceSha: '7f89f75bad5a450b50340e3ab074a913c3ef2744',
+  publishedRecoverySha: '034065b4f6e4ef0f9f53750a343568e32f54d9ab',
+} as const
 const oldPath = (suffix: string) => new URL(`${OLD_CORPUS}${OLD_NAME}${suffix}`, import.meta.url)
+const oldManifestPath = new URL(`${OLD_CORPUS}MANIFEST.json`, import.meta.url)
 function oldRefusal() {
   const compressed = readFileSync(oldPath('.json.gz'))
   const raw = gunzipSync(compressed).toString('utf8')
   const provenance = JSON.parse(readFileSync(oldPath('.provenance.json'), 'utf8'))
+  const manifest = JSON.parse(readFileSync(oldManifestPath, 'utf8'))
   const hash = (value: string | Uint8Array) => createHash('sha256').update(value).digest('hex')
+  expect(hash(compressed)).toBe(OLD_PINS.compressedSha256)
+  expect(hash(raw)).toBe(OLD_PINS.rawSha256)
   expect(hash(compressed)).toBe(provenance.compressedSha256)
   expect(hash(raw)).toBe(provenance.uncompressedSha256)
+  expect(provenance.filename).toBe(`${OLD_NAME}.json.gz`)
   expect(provenance.authority).toMatchObject({ phase: 'qualified B2 evaluator1 before B3 or B-F2',
-    saveVersion: 29, promiseRulesVersion: 1, projectionVersion: 46 })
-  expect(provenance.authority.testedSourceSha).toMatch(/^[a-f0-9]{40}$/)
-  expect(provenance.authority.publishedRecoverySha).toBe(provenance.observedHeadSha)
+    saveVersion: 29, promiseRulesVersion: 1, projectionVersion: 46, protocolVersion: 4,
+    schemaId: 'sha256:584bdd8565030f049d548b1af4fcbf8c517ca7c9150016736f632f1ef8fcb98c' })
+  expect(provenance.authority.testedSourceSha).toBe(OLD_PINS.testedSourceSha)
+  expect(provenance.authority.publishedRecoverySha).toBe(OLD_PINS.publishedRecoverySha)
+  expect(provenance.observedHeadSha).toBe(OLD_PINS.publishedRecoverySha)
+  expect(manifest.authority).toEqual(provenance.authority)
+  expect(manifest.fixtures).toHaveLength(3)
+  expect(manifest.fixtures).toContainEqual(expect.objectContaining({ filename: `${OLD_NAME}.json.gz`,
+    compressedSha256: OLD_PINS.compressedSha256, uncompressedSha256: OLD_PINS.rawSha256 }))
   expect(provenance.focus).toHaveLength(1)
   const save = validateSaveV29(JSON.parse(raw))
   const focused = save.state.promises.find((p) => p.promiseId === provenance.focus[0].promiseId)
@@ -266,8 +285,7 @@ describe('B-F2: genuine old role-refusal evidence survives, fresh evaluations us
   beforeAll(() => {
     for (const suffix of ['.json.gz', '.provenance.json']) assert.ok(existsSync(oldPath(suffix)),
       'T0 NOT COMPLETE: actual accepted-B2 role-refusal corpus missing; not a B-F2 behavioral RED')
-    // Before actual T1, parent adds independent literal byte/source pins from
-    // the actually minted T0 artifacts. No guessed historical hashes here.
+    assert.ok(existsSync(oldManifestPath), 'T0 NOT COMPLETE: actual committed corpus manifest missing')
   })
 
   it('valid load preserves the old erroneous receipt/root/digest bytes exactly without repairing history', () => {

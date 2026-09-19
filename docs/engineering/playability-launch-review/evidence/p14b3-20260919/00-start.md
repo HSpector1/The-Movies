@@ -1,9 +1,30 @@
 # P14B.3 — active implementation continuation, 2026-09-19
 
-**LIVE T1 COMPLETE:**03recorded22behavioral failures/12passes,3files/34cases;
+**LIVE: CANDIDATE COMPLETE, PUBLICATION/FULL T4 NEXT.** Source/test checkpoint
+425170e069bf294445f1286086f4161793959e4b. Committed protected diff overf4e1230
+independently matches tested patch SHA256
+6129b77df0e3b4c4b1111b2ee226860ee6e3538de95b3c3a3bdf6e3805026ba6.
+06+09 disjoint27files/335PASS/3unchanged todos;07root/UI,08bridge,10contract,
+11contract-fixtures all PASS, all fixedSource:true. No runtime active. Both
+independent reviews KEEP; parent disposition13. All writers idle. Publish records,
+verify exact remote HEAD, then parent sole full runner with fresh evidence name
+p14b3-20260919-final. Freeze source/tests/HEAD throughout; docs-only prep allowed.
+B-F2 future draft now actual-T0 literal pinned, still uninstalled/unexecuted.
+
+## Historical T2 handoff (superseded above)
+
+REDcheckpoint `f4e1230639552f8a496562ec97b3e5aa3ec5a156`
+pushed and exact remoteSHAverified. Sole sim-core writer owns `src/core/promises.ts`,
+`bridge/contract.ts`, `bridge/session.ts` for the audited B3 law/route only.
+Independent test-author owns ONLY old ExampleB's unlinked-active test premise
+in `tests/p14b1-promises.test.ts` plus historical poach comment in B2helper;
+preserve all fixture actions/scripts/roots. New34cases FROZEN. No specialist
+runtime/commits; parent serialtargeted checks after BOTH freeze/hand back.
+Auditor idle; max two specialists/one production writer. No B-F2/P2/schema move.
+
+T1 COMPLETE:03recorded22behavioral failures/12passes,3files/34cases;
 no fixture-prerequisite failure, all three genuine old-envelope casesPASS. Exact
-attribution04. No active runtime. Commit/publish this RED checkpoint, then release
-sole sim-core writer plus narrowly allocated independent neighboring test edits.
+attribution04. No active runtime. REDcheckpoint now published as above.
 New34tests remain unchanged; all future runtime parent-serialized.
 
 T0 checkpoint `9c605dc437e1c04268753c2a7039d092153e11f1` pushed and
@@ -62,11 +83,14 @@ remove only temporary operational entry/helper from discovery (copies retained).
 
 ## Exact next actions
 
-Publish T0: actual bytes/provenance/no source drift and independent KEEP verified;
-recoverable fixture checkpoint/publication next. Then test-author installs
-reviewed9+19+6 B3 cases, adds independently derived literal corpus/source pins,
-records actual behavioral RED (missing fixtures not RED), then hands back tests.
-Only then release sole sim-core production writer; parent serial verification,
-independent source review, committed fixed-source full pass/attribution/qualified
-closeout/publication. All future B-F2/P2 drafts remain uninstalled/unexecuted.
+Publish candidate425170e plus these records; verify exact remote SHA. Run
+`node docs/engineering/playability-launch-review/evidence/p14b3-20260919/run-fixed-source.mjs p14b3-20260919-final`
+with legitimate localhost test capability (normal sandbox escalation if needed).
+Do not overlap heavy runtime; no source/test/HEAD change during run. Attribute
+every full failure against canonical P14A.3 exact identifiers/diagnostic traces,
+investigate changes, fix real regressions and reverify without weakening gates.
+Then qualified closeout/backlog/records/publication. B-F2 independent13case RED
+and settled eligibility fix/rules3 follow only after B3 qualified publication;
+final outgoingV29 preservation then P2 expansion. Do not repeat T0/T1/candidate
+checks without a reason. All future B-F2/P2 drafts remain uninstalled/unexecuted.
 At most two specialists active, one production writer, no concurrent heavy suite.

@@ -1,0 +1,380 @@
+diff --git a/bridge/contract.ts b/bridge/contract.ts
+index d88dfa8..b4f3694 100644
+--- a/bridge/contract.ts
++++ b/bridge/contract.ts
+@@ -49,6 +49,7 @@ import {
+ } from '../src/core/index.ts'
+ import { financialConsequence } from './finance-consequence.ts'
+ import { promiseQuoteSnapshot } from './promises.ts'
++import { attachPromise } from '../src/core/promises.ts'
+ import type { PromiseFamily } from '../src/core/types.ts'
+ import { TUNING } from '../src/core/tuning.ts'
+ import type { ActionOutcome } from '../ui/src/engine/adapter.ts'
+@@ -348,12 +349,17 @@ export type MarketProposalDraft = {
+   /** Required for propose/revise; ignored by withdraw. */
+   termWeeks?: number | null
+   premiumTier?: number | null
+-  /** Optional, and null when the draft carries none. B.1 PREVIEWS a promise here:
+-   * the verdict rides the quote, and no commit path attaches one (attachment is the
+-   * engine's own entry), so nothing on this route can bind a promise. */
++  /** Optional, and null when the draft carries none. B.3 attaches an offerable
++   * promise atomically with its proposal; winning settlement alone binds it. */
+   promise?: MarketPromiseDraft | null
+ }
+ 
++/** Retain values, never a caller-owned nested promise that can change after quote. */
++function copyMarketProposalDraft(draft: MarketProposalDraft): MarketProposalDraft {
++  if (draft.promise === undefined || draft.promise === null) return { ...draft }
++  return { ...draft, promise: { ...draft.promise } }
++}
++
+ export type MarketProposalRefusal = {
+   code: BridgeMarketProposalRefusalKind
+   reason: string
+@@ -423,6 +429,55 @@ function liveMarketRefusal(state: GameState, draft: MarketProposalDraft, talent:
+   return null
+ }
+ 
++type MarketProposalPreparation = {
++  outcome: ActionOutcome
++  promise: BridgeMarketPromiseQuoteSnapshot | null
++}
++
++/**
++ * ONE pure preparation for quote and commit. A revision first clears its old
++ * attachment through the real proposal reducer; feasibility and attachment read
++ * that exact intermediate state. Only the fully successful result can escape as
++ * `next`. Refusal discards every temporary proposal/receipt/ordinal together.
++ */
++function prepareMarketProposal(state: GameState, draft: MarketProposalDraft): MarketProposalPreparation {
++  let promise: BridgeMarketPromiseQuoteSnapshot | null = null
++  try {
++    const talent = talentById(state, draft.talentId)
++    if (talent === undefined) return { outcome: { ok: false, error: `"${draft.talentId}" is not a person this world knows.` }, promise }
++    const refusal = liveMarketRefusal(state, draft, talent)
++    if (refusal !== null) return { outcome: { ok: false, error: `${refusal.reason} ${refusal.remedy}`.trim() }, promise }
++    if (draft.verb === 'withdraw') {
++      return { outcome: { ok: true, next: withdrawProposal(state, draft.talentId, draft.issuerStudioId) }, promise }
++    }
++    const proposed = submitProposal(state, {
++      talentId: draft.talentId,
++      issuerStudioId: draft.issuerStudioId,
++      termWeeks: draft.termWeeks ?? 0,
++      premiumTier: draft.premiumTier ?? 0,
++    })
++    if (draft.promise === undefined || draft.promise === null) return { outcome: { ok: true, next: proposed }, promise }
++    const proposal = currentProposals(proposed, draft.talentId).find((p) => p.issuerStudioId === draft.issuerStudioId)!
++    promise = promiseQuoteSnapshot(proposed, draft.issuerStudioId, draft.talentId, {
++      ...draft.promise,
++      startWeek: proposal.startWeek,
++      termWeeks: proposal.termWeeks,
++    }, proposed.market.tick)
++    if (!promise.ok) {
++      return { outcome: { ok: false, error: promise.message ?? 'This promise is not offerable.' }, promise }
++    }
++    const next = attachPromise(proposed, draft.talentId, draft.issuerStudioId, {
++      family: draft.promise.family,
++      predicate: { count: draft.promise.count },
++      windowStartWeek: draft.promise.windowStartWeek,
++      dueWeekExclusive: draft.promise.dueWeekExclusive,
++    })
++    return { outcome: { ok: true, next }, promise }
++  } catch (error) {
++    return { outcome: { ok: false, error: (error as Error).message }, promise }
++  }
++}
++
+ /**
+  * ONE module-level `apply`, not a fresh closure per conversion: two conversions of the
+  * same draft on the same state must be INDISTINGUISHABLE (the accepted "a quote mutates
+@@ -430,26 +485,13 @@ function liveMarketRefusal(state: GameState, draft: MarketProposalDraft, talent:
+  * two distinct closures are never deeply equal). The draft it commits is its own `this`.
+  */
+ function applyMarketProposal(this: MarketProposalConversionOk, current: GameState): ActionOutcome {
+-  // Commit revalidates: the same authorities, the live state.
+-  const live = liveMarketRefusal(current, this.draft, this.talent)
+-  if (live !== null) return { ok: false, error: `${live.reason} ${live.remedy}`.trim() }
+-  try {
+-    const next = this.draft.verb === 'withdraw'
+-      ? withdrawProposal(current, this.draft.talentId, this.draft.issuerStudioId)
+-      : submitProposal(current, {
+-          talentId: this.draft.talentId,
+-          issuerStudioId: this.draft.issuerStudioId,
+-          termWeeks: this.termWeeks ?? 0,
+-          premiumTier: this.premiumTier ?? 0,
+-        })
+-    return { ok: true, next }
+-  } catch (e) {
+-    return { ok: false, error: (e as Error).message }
+-  }
++  // Re-run the same preparation on CURRENT state, not a cached quote successor.
++  return prepareMarketProposal(current, this.draft).outcome
+ }
+ 
+ /** The ONLY conversion from a market-proposal draft to the engine. */
+-export function marketProposalDraftToEngine(state: GameState, draft: MarketProposalDraft): MarketProposalConversion {
++export function marketProposalDraftToEngine(state: GameState, input: MarketProposalDraft): MarketProposalConversion {
++  const draft = copyMarketProposalDraft(input)
+   const talent = talentById(state, draft.talentId)
+   if (talent === undefined) {
+     return { ok: false, error: `"${draft.talentId}" is not a person this world knows.` }
+@@ -475,6 +517,12 @@ export function marketProposalDraftToEngine(state: GameState, draft: MarketPropo
+   const commitLabel = draft.verb === 'withdraw'
+     ? `WITHDRAW PROPOSAL — ${talent.name.toUpperCase()}`
+     : `${draft.verb === 'revise' ? 'REVISE' : 'SUBMIT'} PROPOSAL — ${talent.name.toUpperCase()} · ${termLabel} · DECIDES WEEK ${String(view?.decisionWeek ?? week)}`
++  const prepared = refusal === null ? prepareMarketProposal(state, draft) : null
++  // Feasibility refusals remain accepted, noncommittable quote answers carrying
++  // their nested verdict. Other reducer failures remain ordinary conversion errors.
++  if (prepared !== null && !prepared.outcome.ok && prepared.promise?.ok !== false) {
++    return { ok: false, error: prepared.outcome.error }
++  }
+   return {
+     ok: true,
+     kind: 'marketProposalAction',
+@@ -488,18 +536,7 @@ export function marketProposalDraftToEngine(state: GameState, draft: MarketPropo
+     effectiveWeek: quote?.startWeek ?? null,
+     decisionWeek: view?.decisionWeek ?? null,
+     refusal,
+-    // The window is read against the contract THIS draft proposes: the decision week
+-    // the engine itself priced, and the draft's own term. No second interval exists.
+-    promise: draft.promise === undefined || draft.promise === null || quote === null
+-      ? null
+-      : promiseQuoteSnapshot(state, draft.issuerStudioId, talent.id, {
+-          family: draft.promise.family,
+-          count: draft.promise.count,
+-          windowStartWeek: draft.promise.windowStartWeek,
+-          dueWeekExclusive: draft.promise.dueWeekExclusive,
+-          startWeek: quote.startWeek,
+-          termWeeks: quote.termWeeks,
+-        }, week),
++    promise: prepared?.promise ?? null,
+     apply: applyMarketProposal,
+   }
+ }
+@@ -512,12 +549,14 @@ export function marketProposalQuoteSnapshot(
+   intentId: string,
+ ): BridgeMarketProposalQuoteSnapshot {
+   const { talent, refusal, annualSalary, signingBonus, termWeeks, decisionWeek } = conversion
+-  const ok = refusal === null
+-  const consequence = !ok
++  const ok = refusal === null && conversion.promise?.ok !== false
++  const consequence = refusal !== null
+     ? `${refusal.reason} ${refusal.remedy}`.trim()
+-    : draft.verb === 'withdraw'
+-      ? `Withdraws your proposal for ${talent.name}. Nothing is charged, and you may propose again while the case is open.`
+-      : `Stands until Week ${String(decisionWeek ?? state.market.tick)}, when ${talent.name} chooses among every proposal on the table. If they choose yours, the contract runs ${contractTermLabel(termWeeks ?? 0)} at ${dollars(annualSalary ?? 0)} a year and the ${dollars(signingBonus ?? 0)} signing bonus is paid then — nothing is charged now. A competing studio's terms stay UNKNOWN.`
++    : conversion.promise?.ok === false
++      ? conversion.promise.message ?? 'This promise is not offerable.'
++      : draft.verb === 'withdraw'
++        ? `Withdraws your proposal for ${talent.name}. Nothing is charged, and you may propose again while the case is open.`
++        : `Stands until Week ${String(decisionWeek ?? state.market.tick)}, when ${talent.name} chooses among every proposal on the table. If they choose yours, the contract runs ${contractTermLabel(termWeeks ?? 0)} at ${dollars(annualSalary ?? 0)} a year and the ${dollars(signingBonus ?? 0)} signing bonus is paid then — nothing is charged now. A competing studio's terms stay UNKNOWN.`
+   return {
+     intentId,
+     kind: 'marketProposalAction',
+@@ -554,6 +593,6 @@ export function playerProposalDraft(state: GameState, payload: BridgeMarketPropo
+     issuerStudioId: state.hollywood?.playerStudioId ?? '',
+     termWeeks: payload.termWeeks,
+     premiumTier: payload.premiumTier,
+-    promise: payload.promise ?? null,
++    promise: payload.promise === undefined || payload.promise === null ? null : { ...payload.promise },
+   }
+ }
+diff --git a/bridge/session.ts b/bridge/session.ts
+index fdf6989..57e6014 100644
+--- a/bridge/session.ts
++++ b/bridge/session.ts
+@@ -1670,10 +1670,14 @@ export class BridgeSession {
+     }
+     // P14A.1: a market proposal that is no longer legal on the live state fails closed at
+     // commit the same way — the case may have settled, closed or moved out of reach.
+-    if (conversion.kind === 'marketProposalAction' && conversion.refusal !== null) {
++    if (conversion.kind === 'marketProposalAction'
++      && (conversion.refusal !== null || conversion.promise?.ok === false)) {
++      const reason = conversion.refusal !== null
++        ? `This proposal is no longer legal (${conversion.refusal.code}): ${conversion.refusal.reason}`
++        : conversion.promise?.message ?? 'This promise is no longer offerable.'
+       return {
+         option: { intentId, ...fields },
+-        apply: () => ({ ok: false, error: `This proposal is no longer legal (${conversion.refusal!.code}): ${conversion.refusal!.reason}` }),
++        apply: () => ({ ok: false, error: reason }),
+       }
+     }
+     // P09A W5: a Set quote that is no longer legal fails closed at commit the same way.
+@@ -1894,27 +1898,25 @@ export class BridgeSession {
+       // P14A.1: a refused proposal preview is an ACCEPTED answer (`ok:false`, the engine's
+       // own reason + remedy); only a legal one is preflighted and registered for commit.
+       // The issuer is ALWAYS the player's own studio — no client authors a rival proposal.
+-      const draft = playerProposalDraft(this.state, request.draft)
++      // Quote identity and pending authorization retain the same detached VALUES,
++      // including the nested promise, never a caller-owned mutable payload.
++      const payload = structuredClone(request.draft)
++      const draft = playerProposalDraft(this.state, payload)
+       const conversion = marketProposalDraftToEngine(this.state, draft)
+       if (!conversion.ok) {
+         return this.reject(request.commandId, 'ENGINE_REJECTED', conversion.error, started)
+       }
+       const stateDigest = authoritativeDigest(this.state)
+-      const intentId = opaqueIntentId(stateDigest, { marketProposalDraft: request.draft })
+-      if (conversion.refusal !== null) {
+-        return this.mintQuoteResponse(
+-          request, started, stateDigest,
+-          marketProposalQuoteSnapshot(this.state, draft, conversion, intentId),
+-        )
+-      }
++      const intentId = opaqueIntentId(stateDigest, { marketProposalDraft: payload })
++      const quote = marketProposalQuoteSnapshot(this.state, draft, conversion, intentId)
++      if (!quote.ok) return this.mintQuoteResponse(request, started, stateDigest, quote)
+       const preflight = caught(() => conversion.apply(this.state))
+       if (!preflight.ok) {
+         return this.reject(request.commandId, 'ENGINE_REJECTED', preflight.error, started)
+       }
+-      const quote = marketProposalQuoteSnapshot(this.state, draft, conversion, intentId)
+       this.pendingQuotes.set(intentId, {
+         family: 'marketProposal',
+-        draft: request.draft,
++        draft: payload,
+         stateDigest,
+         kind: 'marketProposalAction',
+         commitLabel: quote.commitLabel,
+diff --git a/src/core/promises.ts b/src/core/promises.ts
+index a9f21e2..088a192 100644
+--- a/src/core/promises.ts
++++ b/src/core/promises.ts
+@@ -36,9 +36,10 @@ import type {
+ 
+ const CAST_SLOTS: readonly CastSlot[] = ['lead', 'antagonist', 'support'] as const
+ 
+-/** The rules version stamped on every feasibility receipt: a later law change
+- * mints a new version rather than silently re-reading an old receipt. */
+-export const PROMISE_RULES_VERSION = 1
++/** The evaluator revision stamped on newly evaluated receipts and newly minted
++ * roots. B.3's abandonment correction changes observable evaluations, so uses 2;
++ * stored root versions and old receipts are never rewritten on load. */
++export const PROMISE_RULES_VERSION = 2
+ 
+ // ── the named HYPOTHESES (plan's OPEN section; none of these is settled law) ──
+ 
+@@ -261,17 +262,24 @@ function seatedPreFirstTake(state: GameState, studioId: string, personId: string
+ }
+ 
+ /** Companion §4.3.1's "already-active promises … seats those promises reserve
+- * inside the same window, subtracted before this promise is classified". */
++ * inside the same window". Bound commitments and CURRENT attached drafts reserve;
++ * abandoned unbound roots remain history without claiming a future seat. Both the
++ * arithmetic and its receipt digest consume this ONE membership rule. Competing
++ * current issuers still count under the existing policy; none is optimized away. */
++function activePromiseReservations(state: GameState, draft: PromiseDraft, from: number): readonly ProfessionalPromise[] {
++  const attached = new Set(state.talentMarket.proposals.flatMap((proposal) => proposal.promises))
++  return state.promises.filter((promise) =>
++    promise.outcome === null
++    && (promise.contractId !== null || attached.has(promise.promiseId))
++    && promise.promiseId !== draft.promiseId
++    && promise.beneficiaryPersonId === draft.beneficiaryPersonId
++    && promise.dueWeekExclusive > from
++    && promise.windowStartWeek < draft.dueWeekExclusive)
++}
++
+ function reservedByActivePromises(state: GameState, draft: PromiseDraft, from: number): number {
+-  let reserved = 0
+-  for (const promise of state.promises) {
+-    if (promise.outcome !== null) continue
+-    if (promise.promiseId === draft.promiseId) continue
+-    if (promise.beneficiaryPersonId !== draft.beneficiaryPersonId) continue
+-    if (promise.dueWeekExclusive <= from || promise.windowStartWeek >= draft.dueWeekExclusive) continue
+-    reserved += Math.max(0, promise.predicate.count - promise.progress)
+-  }
+-  return reserved
++  return activePromiseReservations(state, draft, from)
++    .reduce((reserved, promise) => reserved + Math.max(0, promise.predicate.count - promise.progress), 0)
+ }
+ 
+ /** The receipt identifies the committed inputs, not just the requested terms.
+@@ -307,9 +315,7 @@ function feasibilityInputs(state: GameState, draft: PromiseDraft, week: number):
+     state.hollywood?.employment.filter((e) => e.terms.talentId === draft.beneficiaryPersonId
+       && e.terms.startWeek < draft.dueWeekExclusive && (e.endedWeek ?? e.terms.endWeekExclusive) > from)
+       .map((e) => [e.contractId, e.studioId, e.terms.startWeek, e.terms.endWeekExclusive, e.endedWeek]) ?? [],
+-    state.promises.filter((p) => p.outcome === null && p.promiseId !== draft.promiseId
+-      && p.beneficiaryPersonId === draft.beneficiaryPersonId
+-      && p.dueWeekExclusive > from && p.windowStartWeek < draft.dueWeekExclusive)
++    activePromiseReservations(state, draft, from)
+       .map((p) => [p.promiseId, p.family, p.issuerStudioId, p.windowStartWeek, p.dueWeekExclusive, p.predicate.count, p.progress]),
+   ]
+ }
+diff --git a/tests/helpers/p14b2-fixtures.ts b/tests/helpers/p14b2-fixtures.ts
+index 7cff357..8317651 100644
+--- a/tests/helpers/p14b2-fixtures.ts
++++ b/tests/helpers/p14b2-fixtures.ts
+@@ -151,8 +151,10 @@ export function poachingFixture() {
+   expect(publicPreferredTerm(state, talentId)).toBe(52)
+   expect(trustDrivers(state, talentId, player(state), state.market.tick)).toEqual([])
+   expect(caseForTalent(state, talentId)!.subjectStudioId).toBe(incumbentId)
+-  // The incumbent's earlier draft remains a real reservation after revision.
+-  // Commission another existing path rather than erasing that engine record.
++  // Historical B2 construction: inherited accounting counted the incumbent's
++  // abandoned earlier draft after revision; these real commissions supplied
++  // enough paths for that observed fixture. B3 excludes abandoned reservations.
++  // Preserve every commission and historical root/receipt in this same recipe.
+   const writer = sign(state, 'writer'); state = writer.state
+   const concept = state.concepts[0]!
+   state = applyActions(state, [{ kind: 'activateScriptDevelopment' }, { kind: 'commissionScript', project: {
+diff --git a/tests/p14b1-promises.test.ts b/tests/p14b1-promises.test.ts
+index cd92231..adbd91c 100644
+--- a/tests/p14b1-promises.test.ts
++++ b/tests/p14b1-promises.test.ts
+@@ -475,31 +475,33 @@ describe('P14B.1 test 3: the feasibility service', () => {
+   })
+ 
+   it("Example B shape: an active promise consuming the person's only existing-path seat makes a SECOND, overlapping promise FRAGILE with the 'needs a picture not yet commissioned' bottleneck", () => {
+-    const state = p13aGeneratedStudio()
+-    const beneficiaryPersonId = state.talent.find((t) => t.role === 'actor')!.id
+-    const issuerStudioId = state.hollywood!.playerStudioId
+-    const draft = { family: 'APPEARANCE_COUNT' as const, issuerStudioId, beneficiaryPersonId, predicate: { count: 1 }, windowStartWeek: 0, dueWeekExclusive: 104, startWeek: 0, termWeeks: 104 }
+-    const first = promiseFeasibility(state, draft, 0)
++    // B3/T2b: the old hand-made OPEN root had no bound contract and no CURRENT
++    // proposal reference. outcome:null alone does not make it a reservation;
++    // treating it as active pinned the same bug as abandoned/withdrawn drafts.
++    // Preserve Example B's capacity claim with a real current attachment. The
++    // reducer owns its root/receipt/material digest; no guessed binding is added.
++    const { state, talentId: beneficiaryPersonId, playerStudioId: issuerStudioId } = openPlayerCase()
++    const proposal = state.talentMarket.proposals.find((p) => p.talentId === beneficiaryPersonId && p.issuerStudioId === issuerStudioId)
++    if (proposal === undefined) throw new Error('Example B premise: no real current retention proposal')
++    expect(proposal.promises).toEqual([])
++    const draft = { family: 'APPEARANCE_COUNT' as const, issuerStudioId, beneficiaryPersonId, predicate: { count: 1 },
++      windowStartWeek: proposal.startWeek, dueWeekExclusive: proposal.startWeek + proposal.termWeeks,
++      startWeek: proposal.startWeek, termWeeks: proposal.termWeeks }
++    const first = promiseFeasibility(state, draft, state.market.tick)
+     expect(first.classification).toBe('REASONABLY_ACHIEVABLE') // sanity: achievable before any seat is consumed
+ 
+-    const active: PersistedPromise = {
+-      promiseId: 'promise-active-0',
+-      family: 'APPEARANCE_COUNT',
+-      issuerStudioId,
+-      beneficiaryPersonId,
+-      predicate: { count: 1 },
+-      windowStartWeek: 0,
+-      dueWeekExclusive: 104,
+-      feasibilityReceipt: first,
+-      progress: 0,
+-      evidenceRefs: [],
+-      outcome: null,
+-      outcomeWeek: null,
+-      outcomeCause: null,
+-      contractId: null,
+-    }
+-    const withActivePromise = withPromises(state, [active])
+-    const second = promiseFeasibility(withActivePromise, draft, 0)
++    const withActivePromise = attachPromise(state, beneficiaryPersonId, issuerStudioId, {
++      family: draft.family, predicate: draft.predicate,
++      windowStartWeek: draft.windowStartWeek, dueWeekExclusive: draft.dueWeekExclusive,
++    })
++    const attachedProposal = proposalOf(withActivePromise, beneficiaryPersonId, issuerStudioId)
++    expect(attachedProposal.promises).toHaveLength(1)
++    expect(withActivePromise.promises).toHaveLength(state.promises.length + 1)
++    const active = withActivePromise.promises.find((p) => p.promiseId === attachedProposal.promises[0])
++    expect(active).toMatchObject({ issuerStudioId, beneficiaryPersonId, contractId: null,
++      outcome: null, predicate: { count: 1 }, feasibilityReceipt: first })
++    save.validateSaveV29(save.makeSave(withActivePromise))
++    const second = promiseFeasibility(withActivePromise, draft, state.market.tick)
+     expect(second.classification).toBe('FRAGILE')
+     expect(second.bottleneck ?? '').toMatch(/not.*commission/i)
+   })

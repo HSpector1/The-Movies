@@ -1,11 +1,25 @@
 # CONTINUATION STATE — three-week autonomous window (Owner directive 2026-09-15)
 
-## Current continuation — 2026-09-19: B2 published, B3 T1 starting
+## Current continuation — 2026-09-19: B3 candidate complete; full boundary next
 
-T0 checkpoint9c605dc437e1c04268753c2a7039d092153e11f1 pushed and exact remote
-verified. Independent test-author installing ONLY9+19+6 B3files; parent owns next
-actual behavioralRED. Sim-core read-onlysource refresh, no production edits until
-RED/release; auditor idle. No active heavy runtime yet. DetailedliveownershipB3/00.
+Source/tests committed425170e069bf294445f1286086f4161793959e4b, exact protected
+diff overpublishedf4e1230 independently matched to all06–11records.
+Candidate patch SHA256 6129b77df0e3b4c4b1111b2ee226860ee6e3538de95b3c3a3bdf6e3805026ba6.
+06+09:27files/335passes/3unchanged todos;both typechecks/contracts PASS, all
+fixedSource:true. All34new cases unchanged from RED;reviewsKEEP. No active runtime.
+Next publish records/verify exact remote SHA, then full fixed-source boundary,
+exact failure attribution and qualified closeout/publication. Freeze source/tests/
+HEAD during full run. Live state: evidence/p14b3-20260919/00-start.md;disposition13.
+B-F2 pinning/neighbor test preparation may proceed in docs/tmp ONLY, no runtime.
+
+### Historical B3 T2 handoff (superseded above)
+
+T0 checkpoint9c605dc pushed/remote verified; actualRED03then22fail/12pass/34cases,
+no fixture failure, exact old-envelope guardsPASS. REDcheckpoint
+f4e1230639552f8a496562ec97b3e5aa3ec5a156 pushed/exact remoteverified. Sole sim-core
+writer now3productionowners; test-author ONLY oldExampleBneighbor/B2poachcomment.
+New34cases unchanged. Auditor idle; no active runtime. Parentserialverification
+after BOTH handbacks; detailedliveownershipB3/00. No B-F2/P2/Unity work yet.
 
 B2 records `034065b4f6e4ef0f9f53750a343568e32f54d9ab` push COMPLETE and exact
 remote SHA verified. B3 T0 actual evaluator1 mintPASS; three genuine snapshots,

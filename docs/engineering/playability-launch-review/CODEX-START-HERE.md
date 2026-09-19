@@ -2,16 +2,28 @@
 
 ## Current engineering checkpoint — 2026-09-19
 
-**LIVE: B3 T1 independent tests being installed** after T0 publication
-`9c605dc437e1c04268753c2a7039d092153e11f1`, pushed/exact remote verified. Parent
-owns next actual behavioral RED runtime; sim-core read-only source refresh, no
-production changes before RED. At most two specialists, one production writer.
+**LIVE: B3 targeted verification complete; publication/full T4 next.**
+Source/test checkpoint425170e069bf294445f1286086f4161793959e4b; its committed
+diff overpublishedf4e1230 independently matches exact tested patch SHA256
+`6129b77df0e3b4c4b1111b2ee226860ee6e3538de95b3c3a3bdf6e3805026ba6`.
+06+09:27files/335PASS/3unchanged todos, all34new regression cases unchanged.
+Both typechecks and both contract checks PASS; all06–11fixedSource:true.
+Independent production/neighbor reviews KEEP. No active runtime/writer.
+Next publish records/exact remote verification, then committed fixed-source full
+boundary, failure attribution and qualified closeout. No B-F2/P2 source work until
+B3 closes. Detailed candidate disposition13 and live next actions:
+`evidence/p14b3-20260919/00-start.md`.
+
+Historical B3 T2 handoff (superseded by verification above): independent RED22fail/12pass,34cases/no fixture
+failure. REDcheckpoint `f4e1230639552f8a496562ec97b3e5aa3ec5a156` pushed/exact
+remote verified. Sole sim-core writer3owners; test-author ONLY old ExampleB
+re-expression/B2poach historicalcomment. New34tests frozen, no runtime active;
+parent verifies after both handbacks. At most two specialists, one production writer.
 T0 preservation COMPLETE, one actual PASS and independent KEEP.
 B2 records `034065b4f6e4ef0f9f53750a343568e32f54d9ab` pushed and exact remote
 SHA verified. No B3 producer change yet. Three genuine evaluator1 saves/provenance
 verified; operational entry/helper archived exactly and removed from discovery.
-No runtime active yet. Test-author installs reviewed9+19+6cases with actual
-literal hashes for behavioral RED; all further source/test edits freeze for run.
+T0 fixture checkpoint9c605dc pushed/remote verified before that actual RED.
 Exact state/next actions: `evidence/p14b3-20260919/00-start.md`; T0review02.
 Never duplicate the mint or substitute missing fixtures for RED.
 

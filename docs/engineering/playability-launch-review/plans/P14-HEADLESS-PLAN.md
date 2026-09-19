@@ -1,10 +1,14 @@
 # P14 — Contested Talent Market, Bonds and Promises, Career Lifecycle — headless plan (logic-first)
 
-**Latest B2 checkpoint (2026-09-19):** source/tests `3b978d77c29df2b5de038e3b1b7fc94778257f33`,
-Save29/projection46. T1 RED → T2 read models + T3 causal D3 landed, targeted checks/
-typechecks/contracts and independent reviews pass with the exact qualifications
-in `../evidence/p14b2-20260919/13-candidate-review.md`. T4 committed full pass,
-attribution and publication still owed; no B2 closeout. B3 audited below, gated.
+**Latest checkpoint (2026-09-19):** B2 qualified CLOSED at source7f89f75,
+publication034065b remote verified; controlling closeout
+`../evidence/p14b2-20260919-final/18-attribution.md`. B3 genuine evaluator1 T0
+published9c605dc, independent behavioral RED publishedf4e1230. B3 T2 candidate
+now frozen: three production owners, rules2, Save29/projection46 unchanged.
+Source/test checkpoint425170e;27targeted files335PASS/3unchanged todos, both
+typechecks/contracts PASS, independent source/neighbor reviews KEEP. Exact
+committed patch matched. Candidate publication/full T4 still owed.
+Live evidence/next actions `../evidence/p14b3-20260919/00-start.md`.
 
 **Current execution (2026-09-19).** P14B.1 T4 CLOSED — LOGIC VERIFIED · UNITY NOT
 VERIFIED. Recovered T3 `e78dbc0` preserved; corrected production `ee91913`, final
@@ -242,14 +246,16 @@ T2b's active-attachment ruling govern; no new Owner decision needed for this sli
   Covers abandoned unbound reservations versus
   current/bound-open ones; real session promise attachment, whole-quote refusal,
   draft-value retention, atomicity/revision/replay/session isolation and settlement.
-- [ ] T2 sim-core: shared active membership for feasibility and its digest;
+- [x] T2 sim-core candidate complete (2026-09-19; publication/T4 still owed): shared active membership for feasibility and its digest;
   immutable shared quote/apply preparation; attach only through the existing
   reducers; nested feasibility gates outer quote/intent registration. No partial
   proposals/receipts/promise ordinals/money/revisions on failure. Preserve old
   receipts and abandoned evidence; do not rewrite loaded history. New evaluations/
   new roots use rules revision2 (dated traceability ruling in expansion12).
-- [ ] T3 targeted neighbours/B1/B2/B3/session/isolation, both typechecks and contract
-  checks, bounded independent source review.
+- [x] T3 candidate verification complete:06+09 disjoint27files/335PASS/3unchanged
+  todos;all34new tests unchanged from RED. Both typechecks07/08 and contracts10/11
+  PASS;independent production/neighbor review KEEP. Source/tests425170e committed,
+  exact patch6129b77d… overf4e1230 rehashed. Disposition13;no full-boundary result yet.
 - [ ] T4 committed fixed-source serial full pass, exact failure attribution,
   qualified logic label, backlog/records, commit/push/exact remote verification.
 

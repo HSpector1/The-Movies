@@ -1,13 +1,15 @@
 # B-F2 independent test draft — NOT INSTALLED / NOT EXECUTED
 
-Draft: `p14bf2-acting-discipline.test.ts` (313 lines, 13 cases after `it.each`,
+Draft: `p14bf2-acting-discipline.test.ts` (331 lines, 13 cases after `it.each`,
 zero todos), intended future path `tests/p14bf2-acting-discipline.test.ts`.
-SHA256: `afcf89f3886875d6f7b9d4c66f4590e7b1e467d6f4aac3374aac3f66592ac7a5`.
+SHA256: `948936ee941bc5e965adaa0fff66155a3149fca6621e09b9b91cd52b561ff367`.
 
-Only this fresh temporary directory was written. No repository/source/test edit,
-fixture-byte generation, runtime/probe/typecheck/install, network, delegation or
-commit occurred. Parent retains the sole heavy runtime slot while B2's frozen
-full pass continues. This is preparation, not B-F2 implementation or acceptance.
+Initial drafting touched only the temporary directory during B2 verification.
+This later refinement updates that external draft and its inert durable evidence
+copies after the actual T0 corpus mint. No executable source/test/config/fixture
+edit, new fixture bytes, runtime/probe/typecheck/install, network, delegation or
+commit occurred. Parent retains sole heavy runtime during B3 verification. This
+is preparation, not B-F2 implementation or acceptance.
 
 ## Authority and scope
 
@@ -22,8 +24,9 @@ Execution order: qualified B2/rules1 publication → actually mint the small old
 corpus → qualified B3/rules2 closeout → B-F2 RED → narrow correction/rules3.
 Expected Save29/projection46 unchanged. Never substitute missing fixture files
 for behavioral RED. Do not install/run this draft during B2 or B3 implementation.
-Before its T1, refresh source/ownership and add independent literal artifact/source
-pins computed from the actual preserved T0 bytes; none are guessed here.
+Before its T1, refresh qualified B3 source/ownership. Independent literal artifact/
+producer pins are now computed from the ACTUAL committed T0 bytes and installed
+in this draft; none are guessed. B3's targeted green is not its full closeout gate.
 
 No P2 coverage or implementation, primary-profession rewrites, broader casting
 pools, candidate-generation change, rival staffing redesign, or new writer-specific
@@ -84,12 +87,23 @@ window; a40-tick approach bound refuses an indefinitely stalled workflow.
 
 Old fixture input is exactly:
 `tests/fixtures/p14/genuine-v29-pre-b3-evaluator1/genuine-v29-evaluator1-role-label-refused-p1.json.gz`
-plus its `.provenance.json`. These are only the future small minter's filenames;
-no artifact bytes or content hashes are invented. The draft verifies supplied
-metadata/hash consistency and producer/focus facts, but independent literal pins
-from the actual T0 mint remain REQUIRED before runtime. The preserved natural
-writer has an acting profile; its old role-label refusal is the bug witness, not
-proof of actual discipline ineligibility or guaranteed later pipeline feasibility.
+plus its `.provenance.json` and corpus MANIFEST.json. These are now genuine T0
+artifacts committed at `9c605dc437e1c04268753c2a7039d092153e11f1`. The independent
+read-only checks in this refinement hashed the working gzip, its decompressed
+stream, and the gzip Git object at that fixture checkpoint, not just metadata:
+
+- Compressed SHA256: `febd33112d57128c67a025237add374aeb7925d94a7d941bd4b303b3fedc0367` (working bytes = committed object).
+- Raw SHA256: `0272162ec2746cefb1a7910487d6d30642c8743f9853d61a73ebef469a3df2b3`.
+- Tested B2 producer: `7f89f75bad5a450b50340e3ab074a913c3ef2744`.
+- Published B2 producer: `034065b4f6e4ef0f9f53750a343568e32f54d9ab` (distinct from later fixture checkpoint).
+
+These literal hashes guard actual loaded bytes before validation; exact producer
+SHA assertions replace permissive metadata-shape matches. Existing metadata
+agreement checks remain, with filename/manifest/protocol/schema checks added.
+All 13 cases, original law assertions and real-take recipe remain unchanged.
+The preserved natural writer has an acting profile; its old role-label refusal
+is the bug witness, not proof of actual discipline ineligibility or guaranteed
+later pipeline feasibility. Byte hashing is NOT execution of the B-F2 draft.
 
 ## Narrow neighboring correction identified, NOT edited
 
@@ -107,16 +121,46 @@ new writer-exclusion filter to force historical output. Equally, do not demand a
 natural writer be achievable when another actual constraint still blocks it.
 
 The immediately preceding IFF test at525–551 unconditionally calls attachPromise
-on the first natural proposal. If that now already carries P1, a second attach is
-lawfully refused. Re-express using the genuine originally attached receipt and/or
-a pure evaluation excluding its exact promiseId; do not pretend a second same-
-beneficiary promise is the first one. Resolve and assert exact original root/
-proposal identity, family/count/window and positive feasibility. For an unattached
-proposal, evaluate without a self-exclusion. Capture the original submission
-state/receipt so later pipeline/reservation changes are not falsely attributed
-to authoring policy. Preserve both positive-policy and nonofferable-none coverage;
-an independent transparent authoring-time observer is preferable if runtime shows
-the current snapshot no longer shares the original inputs. This is a bounded
-test-side follow-up to authorize after B3, not a production policy fix here.
+on the first natural proposal. If that already carries P1, a second attach is
+lawfully refused. Exact law-preserving correction outline (NOT implemented):
+
+1. Keep both natural searches and their finite220-week guards. Install a scoped
+   transparent `vi.spyOn(promiseModule, 'promiseFeasibility')`; call the saved
+   actual implementation with all original arguments and return its result
+   unchanged. Restore in finally. No stub classification, mutation or new policy.
+2. Capture actual AUTHORING inputs/results only: rival issuer; existing CURRENT
+   proposal for this person/issuer; promises empty; request.promiseId absent;
+   P1/count1; window equals actual proposed full term. The other market caller
+   at talentMarket.ts:740 always supplies promiseId, so is not an authoring call.
+   Retain the first relevant input snapshot per selected subject, original
+   proposal material tuple/submittedWeek and full actual receipt; match uniquely
+   to the exact natural proposalSubmitted receipt. Guard missing/ambiguous joins.
+3. At that SAME tick's returned state, compare the corresponding real proposal's
+   attachment count against the observed ORIGINAL verdict: exactly1 iff
+   REASONABLY_ACHIEVABLE, otherwise exactly0. For an attached row resolve its one
+   exact promiseId and assert issuer/person/P1/count1/full window/unbound plus
+   full persisted feasibilityReceipt equality to the original authoring result.
+   For a real nonofferable authoring result assert no attachment, not merely
+   truthiness. No second attach, resubmit, root deletion or invented binding.
+4. Keep the actor's positive guarantee: the natural first actor MUST have one
+   real P1/count1/full-term, originally ACHIEVABLE, unbound. Do not replace that
+   requirement with a conditional or accept zero actors. For the writer retain
+   actual primary label/acting-profile proof and apply the SAME original IFF
+   authoring law; delete only the false permanent-IMPOSSIBLE/zero assertion.
+5. Do not reclassify the later first-actor snapshot to explain the writer's past
+   choice: reservations/pipeline may have changed even within the original tick.
+   If an additional self-excluding read is used, it must have the exact original
+   captured input snapshot and exclude only the actual attached promiseId; it
+   supplements, never replaces, the persisted/original authoring proof. The
+   original pre-attachment input needs no self exclusion at all.
+
+This proves the IFF from the actual authoring-time decision, including the zero
+branch when an observed input is nonofferable, without assuming the writer will
+exercise that branch. If separate natural negative-branch demonstration is
+needed, find and guard a REAL non-achievable authoring observation within the
+bounded chain; report absence, never fabricate it or call a later classification
+the original verdict. Newly eligible writers may legitimately receive promises
+under UNCHANGED policy; automatic writer casting is still not required. Only
+these two neighboring tests/imports/helper need later narrow authorization.
 
 All new draft files now frozen for parent review. No test result is claimed.

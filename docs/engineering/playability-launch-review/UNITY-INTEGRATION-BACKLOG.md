@@ -21,6 +21,32 @@ verified in Unity. Generated C# produced by the TypeScript generator is text, no
 
 ## Per-slice entries
 
+### P14B.3 — atomic P1 proposal command (candidate; full verification pending)
+
+Candidate stays Save29 / protocol4 / projection46, existing schema584bdd… and
+generated DTOs unchanged. New roots and fresh feasibility receipts use evaluator2;
+historical roots/receipts remain unchanged on load. Three owners: promises.ts,
+bridge/contract.ts, bridge/session.ts. Source425170e; evidence p14b3-20260919:
+27targeted files335passes/3unchanged todos, both typechecks/contracts PASS,
+independent review KEEP; full T4 still owed. This is NOT
+yet the qualified closeout that removes the earlier preview-only caveat.
+
+Future consumer work: make the existing P1 draft composer submit ONLY the emitted
+intent; whole-quote ok:false (including nested FRAGILE/IMPOSSIBLE) disables commit
+and shows the nested refusal verbatim. Caller mutation after quote must not alter
+the pending draft; editing a material term requires a fresh quote. Revise/remove/
+withdraw must invalidate old intents without inventing outcomes for abandoned
+unbound roots. Quote→commit attaches but does not bind or charge money; the later
+winning settlement binds the actual contract. Show public outcome/trust history
+while rival family/count/window remain UNKNOWN. Native tests owed: lawful P1
+submit/revise/remove/withdraw, refusal at both contract edges, expired/replayed/
+wrong-session intent, save/restart clearing pending intent, settlement→take or
+due-week outcome, and 100%/200% readable refusal text. No new C# shape or hand edit.
+
+Competing CURRENT cross-issuer reservation accounting remains separately OPEN.
+B-F2 has-discipline correction is the next settled engine task, not delivered here.
+Unity compilation, rendering, native UI/UX and Owner acceptance all DEFERRED.
+
 ### P14B.2 — trust and promise read models (qualified logic verified, Unity not verified)
 
 Producer: protocol4 / projection46 / unchanged Save29. Candidate schema

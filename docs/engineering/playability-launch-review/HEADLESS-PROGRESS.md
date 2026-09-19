@@ -4,7 +4,19 @@ One row per package/slice: exact source, test results, status label, decision cl
 Labels: LOGIC VERIFIED · ENGINE INTEGRATION VERIFIED · UNITY NOT VERIFIED · DESIGN BLOCKED · IN PROGRESS.
 Headless verification never claims package completion or Owner acceptance.
 
-Current (2026-09-19): **P14B.1 T4 CLOSED — LOGIC VERIFIED · UNITY NOT VERIFIED**.
+Current (2026-09-19): **P14B.3 candidate verified/committed, full T4 not yet closed**.
+Preservation9c605dc and independent REDf4e1230 both published/remote verified.
+T2 candidate three production owners, rules2, Save29/projection46 unchanged.
+Source/tests425170e;06+09target335PASS/3unchanged todos across27files, both
+typechecks and contracts PASS; all06–11 fixedSource:true on
+patch6129b77df0e3b4c4b1111b2ee226860ee6e3538de95b3c3a3bdf6e3805026ba6.
+Independent production and neighbor reviews KEEP. Committed diff independently
+rehashed to exact tested patch. No runtime/writer active; candidate records
+publication then committed full T4/attribution owed. Freeze source/tests/HEAD
+during full run; exact next actions evidence/p14b3-20260919/00-start.md.
+B-F2 eligibility draft-only prep is independent; no implementation until B3 closes.
+
+Earlier qualified checkpoint: **P14B.1 T4 CLOSED — LOGIC VERIFIED · UNITY NOT VERIFIED**.
 Recovered T3 `e78dbc0` preserved. Production `ee91913`, test-only corrections
 `a93bf7776a41df3702c78ae5225a2e7c303ec9da`; Save V29 / projection 45 unchanged.
 Independent REDs led to lower-window, state-sensitive digest, real freeze receipt,
