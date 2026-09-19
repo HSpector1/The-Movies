@@ -1,0 +1,21 @@
+{
+  "sourceSha": "e37cd2330be8c9129b0193a2bf8e84258e851307",
+  "schemaId": "sha256:5b2a4ca93d930e90a288db55bb5cc3fdc8eea070ef51fa1450a193a325bd755d",
+  "projectionVersion": 45,
+  "protocolVersion": 4,
+  "command": "node_modules/.bin/vite-node docs/engineering/playability-launch-review/evidence/p14b2-20260919/02-mint-projection45.ts",
+  "campaign": "generated fixture, never Owner campaign",
+  "actions": [
+    "save at week11",
+    "commissionScreenplay",
+    "advanceWeek"
+  ],
+  "uncompressedSha256": "433629e8aa3f9e6ebbbaf331a63fa307ffe61a03c9a48257b3a8ca3f61a02fc8",
+  "compressedSha256": "00805fa390cc085a0300984ba094e02e7b1e9e53b0d23e286306d0c82820f9a9",
+  "currentSaveVersion": 29,
+  "savedSaveVersion": 29,
+  "currentWeek": 12,
+  "savedWeek": 11,
+  "stateRevision": 2,
+  "journalEntries": 3
+}

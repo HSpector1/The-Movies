@@ -357,7 +357,26 @@ export function validateProductionSetup(state: GameState): string[] {
     if (workflow.phase !== 'rehearsal' && record.completedWeek === null) {
       violations.push(`${label}: an unfinished setup stands on a production that has left rehearsal`)
     }
-    if (record.stageFacilityId !== workflow.bindings.stageFacilityId || record.setId !== workflow.bindings.setId) {
+    const liveBindingMatches =
+      record.stageFacilityId === workflow.bindings.stageFacilityId && record.setId === workflow.bindings.setId
+    // Wrap releases the stage even when Post is full, but retains the Set and
+    // completed setup as history. Its permanent witness replaces only the live
+    // stage binding; a different current stage is never historical release.
+    const completedWeek = record.completedWeek
+    const releasedBindingMatches =
+      workflow.bindings.stageFacilityId === null &&
+      record.setId === workflow.bindings.setId &&
+      completedWeek !== null &&
+      state.studioEvents.rows.some(
+        (event) =>
+          event.kind === 'wrapped' &&
+          event.productionId === workflow.productionId &&
+          event.stageFacilityId === record.stageFacilityId &&
+          event.setId === record.setId &&
+          event.week >= completedWeek &&
+          event.week <= state.market.tick,
+      )
+    if (!liveBindingMatches && !releasedBindingMatches) {
       violations.push(`${label}: names a stage or Set this production is not bound to`)
     }
     if (record.planRevision > workflow.planRevision) {
