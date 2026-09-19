@@ -91,13 +91,15 @@
 //     (talentMarket.ts's own `DESCRIPTOR_REASON` table is not yet widened);
 //     matched loosely by regex, never pinned verbatim.
 
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 import { applyActions } from '../src/core/actions.js'
 import { hiringMarketIds } from '../src/core/employment.js'
 import { tick } from '../src/core/tick.js'
 import { p13aGeneratedStudio, advanceTo } from '../src/harness/p13a/fixtures.js'
 import { careerIdentity } from '../src/core/talentSummary.js'
-import type { GameState } from '../src/core/types.js'
+import type { GameState, TalentMarketCase, TalentMarketReceipt } from '../src/core/types.js'
+import * as marketModule from '../src/core/talentMarket.js'
+import * as promiseModule from '../src/core/promises.js'
 import { publicPriorityOrder, publicPreferredTerm, submitProposal } from '../src/core/talentMarket.js'
 import { TUNING } from '../src/core/tuning.js'
 // RED-by-design: src/core/promises.ts does not exist. All three names below
@@ -288,10 +290,165 @@ describe('P14B.1 test 6: trust, the widened chooser and the priority order', () 
   //     requires the SECOND synchronized churn specifically, where every
   //     surviving pair keeps the incumbent; this case's incumbent cannot
   //     reach that churn with a live bid at all).
-  it.todo(
-    'opportunity breaks an otherwise 1-1 tie: a rival ahead on compensation vs the incumbent ahead on incumbency (companion Case 2 shape), constructed at the week-404 second synchronized churn on seed p13-public-commercial-adoption — ' +
-      'OBSTACLE: the one unproven rival-subject actor case at week 404 (talentId person-studio-5a47d054-r04-3, subject studio-5a47d054-r04) has an INSOLVENT incumbent (closing account balance -8,933,725 at week 404, -10,127,665 by the decision week 416) that submitProposal itself refuses ("under its operating reserve"), so D7 (incumbency) can never be won by the rival side; the natural, unforced settlement of this exact case is declined/"all proposals dropped" with zero survivors at week 416 (r01 and r02\'s own challenger bids both dropped noSeatForRole too) — measured by a direct search over every rival-subject actor case opening at week 404 and by walking that case to its natural decision, both disposable vite-node probes against the real engine, recorded in this task\'s own evidence file.',
-  )
+  // P14B.2 supersedes ONLY the designated D3 todo above. The old week404
+  // insolvency finding remains true; this explicitly synthetic controlled case
+  // uses the first solvent window and actual employment/expiry/history instead.
+  it('opportunity changes the winner of an otherwise compensation-versus-incumbency 1-1 tie, with two real surviving proposals', () => {
+    const talentId = 'person-studio-5a47d054-r04-3'
+    const incumbentId = 'studio-5a47d054-r04'
+    let state = p13aGeneratedStudio('p13-public-commercial-adoption')
+    // Disclosed cash input with matching ledger, never an invented past receipt.
+    const cashDelta = 30_000_000 - state.studio.cash
+    state = { ...state, studio: { ...state.studio, cash: 30_000_000 }, ledger: [...state.ledger,
+      { week: state.market.tick, kind: cashDelta >= 0 ? 'studioRevenue' : 'overhead', amount: cashDelta, note: 'D3 synthetic fixture cash bootstrap' }] }
+    // This genuinely expires at52; its real ranToEnd supplies Reliable studio
+    // fallback for the player. No promise outcome/ended interval is manufactured.
+    const first = signActor(state, 52)
+    state = advanceTo(first.state, 195)
+    const playerStudioId = state.hollywood!.playerStudioId
+    expect(state.hollywood!.employment.some((e) => e.studioId === playerStudioId && e.terms.talentId === first.talentId
+      && e.terms.endWeekExclusive === 52 && e.endedWeek === 52)).toBe(true)
+
+    // Transparently capture the REAL post-expiry/production input to the week196
+    // market phase. The observed natural pass still runs unchanged. We then use
+    // that phase input as an explicit test branch so legal offers precede the
+    // automatic rival authoring of unrelated reservations to this same person.
+    let preMarket196: GameState | undefined
+    const actualMarket = marketModule.advanceTalentMarketWeek
+    const capture = vi.spyOn(marketModule, 'advanceTalentMarketWeek').mockImplementation((input) => {
+      if (input.market.tick === 196) preMarket196 = structuredClone(input)
+      return actualMarket(input)
+    })
+    try { tick(state) } finally { capture.mockRestore() }
+    if (preMarket196 === undefined) throw new Error('D3 premise: no real week196 market input captured')
+    state = preMarket196
+    const row = state.hollywood!.employment.find((e) => e.studioId === incumbentId && e.terms.talentId === talentId && e.endedWeek === null)!
+    expect(row).toBeDefined()
+    expect(row.terms.endWeekExclusive).toBe(208)
+    expect(state.hollywood!.businesses.find((b) => b.studioId === incumbentId)!.account.cash).toBeGreaterThan(0)
+    expect(publicPriorityOrder(state, talentId)[0]).toBe('opportunity')
+    expect(state.talentMarket.cases.some((c) => c.talentId === talentId)).toBe(false)
+    expect(state.promises.filter((p) => p.beneficiaryPersonId === talentId)).toEqual([])
+    const counter = state.talentMarket.receipts.length
+    expect(counter).toBeGreaterThan(0)
+    const kase: TalentMarketCase = { talentId, subjectStudioId: incumbentId, contractId: row.contractId,
+      openedWeek: state.market.tick, outcome: null, closedWeek: null, reason: null }
+    const discovery: TalentMarketReceipt = { eventId: `talent-market-event-${counter}`, kind: 'discovered',
+      week: state.market.tick, talentId, studioId: incumbentId, reasons: [], dropped: [] }
+    state = { ...state, talentMarket: { ...state.talentMarket,
+      cases: [...state.talentMarket.cases, kase], receipts: [...state.talentMarket.receipts, discovery] } }
+    // Append/revise no other case, old employment or existing promise. All five
+    // bids are legal command output. This synthetic case precedes the normal
+    // discovery pass: the first candidate run proved its assumed three seat
+    // drops WRONG, because all five seats are vacant when this case settles
+    // first at208. This is a controlled chooser fixture, not natural gameplay.
+    const entered = state.hollywood!.identities.filter((s) => s.enteredWeek !== null)
+    expect(entered).toHaveLength(5)
+    for (const issuer of entered) state = submitProposal(state, { talentId, issuerStudioId: issuer.studioId,
+      termWeeks: 208, premiumTier: issuer.studioId === playerStudioId ? 1.25 : 1 })
+    state = advanceTo(marketModule.advanceTalentMarketWeek(state), 207)
+    expect(marketModule.currentProposals(state, talentId)).toHaveLength(5)
+    expect(state.promises.filter((p) => p.beneficiaryPersonId === talentId)).toEqual([])
+    // T4's retained staging law allows attaching an IMPOSSIBLE draft, but freeze
+    // must refuse that proposal. Use the real attachment command to exclude the
+    // three nonpair bidders identically in both branches, without forging drops,
+    // withdrawing offers that the weekly rival trigger would simply re-submit,
+    // or reordering unrelated cases. These [415,416) drafts lie inside the real
+    // [208,416) contracts and cannot reserve a seat in treatment's [208,415).
+    const nonpair = entered.filter((s) => ![playerStudioId, incumbentId].includes(s.studioId))
+    expect(nonpair).toHaveLength(3)
+    for (const issuer of nonpair) {
+      const proposal = marketModule.currentProposals(state, talentId).find((p) => p.issuerStudioId === issuer.studioId)!
+      expect(proposal.startWeek).toBe(208)
+      expect(proposal.startWeek + proposal.termWeeks).toBe(416)
+      state = attachPromise(state, talentId, issuer.studioId, { family: 'APPEARANCE_COUNT', predicate: { count: 999 },
+        windowStartWeek: 415, dueWeekExclusive: 416 })
+      const attached = marketModule.currentProposals(state, talentId).find((p) => p.issuerStudioId === issuer.studioId)!
+      expect(attached.promises).toHaveLength(1)
+      const staged = state.promises.find((p) => p.promiseId === attached.promises[0])!
+      expect(staged.feasibilityReceipt.classification).toBe('IMPOSSIBLE')
+      expect(staged.contractId).toBeNull()
+      expect(staged.outcome).toBeNull()
+      expect(staged.windowStartWeek).toBeGreaterThanOrEqual(proposal.startWeek)
+      expect(staged.dueWeekExclusive).toBeLessThanOrEqual(proposal.startWeek + proposal.termWeeks)
+    }
+    expect(state.promises.filter((p) => p.beneficiaryPersonId === talentId)).toHaveLength(3)
+    // Explicit synthetic Standing INPUT, identical in both branches; no claimed
+    // historical standing event. The real freeze observations below must prove
+    // both studios still occupy the same band after the actual final tick.
+    const standing = state.hollywood!.businesses.find((b) => b.studioId === incumbentId)!.standing
+    const common: GameState = { ...state, studio: { ...state.studio, standing: { ...standing } } }
+    const incumbentProposal = marketModule.currentProposals(common, talentId).find((p) => p.issuerStudioId === incumbentId)!
+    const treated = attachPromise(common, talentId, incumbentId, { family: 'APPEARANCE_COUNT', predicate: { count: 1 },
+      windowStartWeek: incumbentProposal.startWeek, dueWeekExclusive: 415 })
+    const promised = treated.promises.find((p) => p.issuerStudioId === incumbentId && p.beneficiaryPersonId === talentId)!
+    expect(promised.windowStartWeek).toBe(208)
+    expect(promised.dueWeekExclusive).toBe(415)
+    for (const staged of common.promises.filter((p) => p.beneficiaryPersonId === talentId)) {
+      expect(staged.windowStartWeek).toBeGreaterThanOrEqual(promised.dueWeekExclusive)
+    }
+    expect(promised.feasibilityReceipt.classification).toBe('REASONABLY_ACHIEVABLE')
+    expect(marketModule.currentProposals(treated, talentId).find((p) => p.issuerStudioId === incumbentId)!.digest).not.toBe(incumbentProposal.digest)
+
+    const settle = (input: GameState) => {
+      let frozen: GameState | undefined
+      const realDescriptor = promiseModule.trustDescriptor
+      const observer = vi.spyOn(promiseModule, 'trustDescriptor').mockImplementation((world, personId, studioId, week) => {
+        if (personId === talentId && week === 208 && [playerStudioId, incumbentId].includes(studioId)
+          && !world.hollywood!.employment.some((e) => e.terms.talentId === talentId && e.terms.startWeek === 208 && e.endedWeek === null)) frozen ??= world
+        return realDescriptor(world, personId, studioId, week)
+      })
+      let after: GameState
+      try { after = tick(input) } finally { observer.mockRestore() }
+      if (frozen === undefined) throw new Error('D3 premise: no real pre-commit freeze observation')
+      const receipt = after.talentMarket.receipts.find((r) => r.talentId === talentId && r.week === 208 && r.kind === 'settled')!
+      expect(receipt).toBeDefined()
+      const offers = marketModule.currentProposals(frozen, talentId)
+      expect(offers).toHaveLength(5)
+      expect(receipt.dropped).toHaveLength(3)
+      const names = new Map(entered.map((s) => [s.studioId, s.name]))
+      for (const id of [playerStudioId, incumbentId]) expect(receipt.dropped.some((reason) => reason.startsWith(names.get(id)!))).toBe(false)
+      for (const issuer of nonpair) {
+        expect(receipt.dropped.some((reason) => reason.startsWith(issuer.name) && /promise.*feasib/i.test(reason))).toBe(true)
+        const proposal = offers.find((p) => p.issuerStudioId === issuer.studioId)!
+        const staged = frozen.promises.find((p) => p.promiseId === proposal.promises[0])!
+        expect(promiseFeasibility(frozen, { ...staged, startWeek: proposal.startWeek, termWeeks: proposal.termWeeks }, 208).classification).toBe('IMPOSSIBLE')
+      }
+      const own = offers.find((p) => p.issuerStudioId === playerStudioId)!, incumbent = offers.find((p) => p.issuerStudioId === incumbentId)!
+      expect(own.premiumTier).toBe(1.25)
+      expect(incumbent.premiumTier).toBe(1)
+      expect(own.termWeeks).toBe(incumbent.termWeeks)
+      expect(publicPriorityOrder(frozen, talentId)[0]).toBe('opportunity')
+      expect(trustDescriptor(frozen, talentId, playerStudioId, 208).label).toBe('Reliable')
+      expect(trustDescriptor(frozen, talentId, incumbentId, 208).label).toBe('Reliable')
+      const mean = (s: GameState['studio']['standing']) => (s.audienceAwareness + s.industryPrestige + s.commercialConfidence) / 3
+      const incumbentStanding = frozen.hollywood!.businesses.find((b) => b.studioId === incumbentId)!.standing
+      expect(Math.abs(mean(frozen.studio.standing) - mean(incumbentStanding))).toBeLessThanOrEqual(5) // existing band tolerance hypothesis
+      expect(receipt.reasons.some((reason) => /only proposal/i.test(reason))).toBe(false)
+      return { after, receipt, frozen, own, incumbent }
+    }
+    const baseline = settle(common)
+    const treatment = settle(treated)
+    expect(treatment.receipt.dropped).toEqual(baseline.receipt.dropped)
+    expect(baseline.own.promises).toEqual([])
+    expect(baseline.incumbent.promises).toEqual([])
+    expect(treatment.own.promises).toEqual([])
+    expect(treatment.incumbent.promises).toEqual([promised.promiseId])
+    expect(baseline.receipt.studioId).toBe(playerStudioId)
+    expect(baseline.receipt.reasons.some((reason) => /compensation/i.test(reason))).toBe(true)
+    expect(treatment.receipt.studioId).toBe(incumbentId)
+    expect(treatment.receipt.reasons.some((reason) => /opportunity/i.test(reason))).toBe(true)
+    expect(treatment.receipt.studioId).not.toBe(baseline.receipt.studioId)
+    const bound = treatment.after.promises.find((p) => p.promiseId === promised.promiseId)!
+    expect(bound.feasibilityReceipt.classification).toBe('REASONABLY_ACHIEVABLE')
+    expect(bound.feasibilityReceipt.week).toBe(208)
+    const employment = treatment.after.hollywood!.employment.find((e) => e.contractId === bound.contractId)!
+    expect(employment).toBeDefined()
+    expect(employment.studioId).toBe(incumbentId)
+    expect(employment.terms.talentId).toBe(talentId)
+    expect(employment.terms.startWeek).toBe(208)
+    expect(baseline.after.promises.some((p) => p.promiseId === promised.promiseId && p.issuerStudioId === incumbentId && p.beneficiaryPersonId === talentId)).toBe(false)
+  }, 60_000)
 
   it('a Reliable issuer beats a Mixed-record issuer on the trust band, in the same otherwise-1-1-tie shape', () => {
     const { state: opened, talentId, playerStudioId, rivalStudioId } = openCaseWithRival(1.0, 1.1)

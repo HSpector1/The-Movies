@@ -492,7 +492,7 @@
           "$ref": "#/$defs/StudioProjectionBundle"
         },
         "snapshotVersion": {
-          "const": 45,
+          "const": 46,
           "type": "integer"
         },
         "stateDigest": {
@@ -609,7 +609,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 45,
+          "const": 46,
           "type": "integer"
         },
         "stateDigest": {
@@ -1128,7 +1128,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 45,
+          "const": 46,
           "type": "integer"
         },
         "stateDigest": {
@@ -1207,7 +1207,7 @@
           "$ref": "#/$defs/StudioProjectionBundle"
         },
         "snapshotVersion": {
-          "const": 45,
+          "const": 46,
           "type": "integer"
         },
         "stateDigest": {
@@ -1499,7 +1499,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 45,
+          "const": 46,
           "type": "integer"
         },
         "stateDigest": {
@@ -7121,6 +7121,13 @@
           "minLength": 1,
           "type": "string"
         },
+        "outcomeKind": {
+          "enum": [
+            "promiseKept",
+            "promiseBroken"
+          ],
+          "type": "string"
+        },
         "settlementKind": {
           "enum": [
             "retained",
@@ -7966,6 +7973,14 @@
         "studioId": {
           "minLength": 1,
           "type": "string"
+        },
+        "trustLabel": {
+          "enum": [
+            "Reliable",
+            "Mixed record",
+            "Distrusted"
+          ],
+          "type": "string"
         }
       },
       "required": [
@@ -7980,7 +7995,8 @@
         "name",
         "player",
         "recordingNotice",
-        "studioId"
+        "studioId",
+        "trustLabel"
       ],
       "type": "object",
       "x-csharp-name": "StudioIndustryStudio"
@@ -8585,7 +8601,9 @@
             "newCompetingProposal",
             "termsRevised",
             "settlementCompleted",
-            "proposalWouldFail"
+            "proposalWouldFail",
+            "promiseDue",
+            "promiseOutcome"
           ],
           "type": "string"
         },
@@ -9098,6 +9116,12 @@
           "minimum": 1,
           "type": "integer"
         },
+        "promises": {
+          "items": {
+            "$ref": "#/$defs/StudioMarketPromiseHistoryRow"
+          },
+          "type": "array"
+        },
         "total": {
           "maximum": 2147483647,
           "minimum": 0,
@@ -9109,6 +9133,7 @@
         "employers",
         "page",
         "pageSize",
+        "promises",
         "total"
       ],
       "type": "object",
@@ -9246,6 +9271,10 @@
     "StudioMarketPromiseHistoryRow": {
       "additionalProperties": false,
       "properties": {
+        "contractId": {
+          "minLength": 1,
+          "type": "string"
+        },
         "count": {
           "maximum": 2147483647,
           "minimum": 1,
@@ -9282,6 +9311,16 @@
             }
           ]
         },
+        "outcomeCause": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
         "outcomeWeek": {
           "anyOf": [
             {
@@ -9305,10 +9344,12 @@
         }
       },
       "required": [
+        "contractId",
         "count",
         "dueWeekExclusive",
         "family",
         "outcome",
+        "outcomeCause",
         "outcomeWeek",
         "promiseId",
         "windowStartWeek"
@@ -11041,6 +11082,12 @@
           "minLength": 1,
           "type": "string"
         },
+        "promises": {
+          "items": {
+            "$ref": "#/$defs/StudioMarketPromiseHistoryRow"
+          },
+          "type": "array"
+        },
         "specialties": {
           "items": {
             "$ref": "#/$defs/StudioPersonSpecialtySnapshot"
@@ -11067,6 +11114,9 @@
         "temperament": {
           "minLength": 1,
           "type": "string"
+        },
+        "trust": {
+          "$ref": "#/$defs/StudioTrustBlock"
         },
         "work": {
           "$ref": "#/$defs/StudioPersonWorkSnapshot"
@@ -11106,12 +11156,14 @@
         "primaryDiscipline",
         "profession",
         "professionLabel",
+        "promises",
         "specialties",
         "specialtyLine",
         "starPower",
         "starPowerDefinition",
         "talentId",
         "temperament",
+        "trust",
         "work",
         "workEthic",
         "workEthicEffect",
@@ -15869,6 +15921,84 @@
       "type": "object",
       "x-csharp-name": "StudioTreasurySnapshot"
     },
+    "StudioTrustBlock": {
+      "additionalProperties": false,
+      "properties": {
+        "drivers": {
+          "items": {
+            "$ref": "#/$defs/StudioTrustDriverRow"
+          },
+          "type": "array"
+        },
+        "label": {
+          "enum": [
+            "Reliable",
+            "Mixed record",
+            "Distrusted"
+          ],
+          "type": "string"
+        },
+        "line": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "scope": {
+          "enum": [
+            "person",
+            "studio"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "drivers",
+        "label",
+        "line",
+        "scope"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioTrustBlock"
+    },
+    "StudioTrustDriverRow": {
+      "additionalProperties": false,
+      "properties": {
+        "dateLabel": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "promiseKept",
+            "promiseBroken",
+            "terminatedEarly",
+            "ranToEnd",
+            "cancelledAfterFirstTake"
+          ],
+          "type": "string"
+        },
+        "positive": {
+          "type": "boolean"
+        },
+        "reason": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "week": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "dateLabel",
+        "kind",
+        "positive",
+        "reason",
+        "week"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioTrustDriverRow"
+    },
     "StudioWeekTheaterSnapshot": {
       "additionalProperties": false,
       "properties": {
@@ -16143,7 +16273,7 @@
       "x-csharp-name": "StudioWrapReceiptSnapshot"
     }
   },
-  "$id": "urn:project-studio:bridge:protocol-4:projection-45",
+  "$id": "urn:project-studio:bridge:protocol-4:projection-46",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "description": "Canonical wire contract owned by the authoritative TypeScript runtime.",
   "oneOf": [
@@ -16199,7 +16329,7 @@
   "title": "Project Studio TypeScript to Unity Bridge",
   "x-project-studio": {
     "contractId": "project-studio-current-game-unity-bridge",
-    "projectionVersion": 45,
+    "projectionVersion": 46,
     "protocolVersion": 4,
     "routes": {
       "command": "POST /command",

@@ -17,6 +17,7 @@ import {officePage,type OfficeIntent} from './office.ts'
 import {contractTermLabel} from './contract.ts'
 import {marketPage,MARKET_CLOSED_PAGE_SIZE} from './market.ts'
 import {personWorldRoute} from './world.ts'
+import {studioTrustDescriptor} from '../src/core/promises.ts'
 
 type Film=IndustryPage['films'][number]
 type Credit=IndustryPage['credits'][number]
@@ -102,6 +103,7 @@ function indexFor(state:GameState):Index {
         snapshotWeek:current?.week??state.market.tick,snapshotLabel:`Comparison: ${campaignDate(current?.week??state.market.tick).label} · ${current.rows.length} studios`,priorWeek:comparable?prior!.week:null} satisfies Studio['lanes'][number]
     })
     return {studioId:s.studioId,name:s.name,mark:s.mark,color:s.color,player:s.role==='player',
+      trustLabel:studioTrustDescriptor(state,s.studioId,state.market.tick).label,
       foundingLabel:s.role==='player'&&state.founding!==null?`Campaign began ${campaignDate(s.enteredWeek!).label} · Studio founding in progress`:s.founding===null?'Founding date not recorded':s.founding.kind==='beforeCampaign'?`Established ${s.founding.year}`:`Founded ${campaignDate(s.founding.week).label}`,
       entryLabel:`Present since ${campaignDate(s.enteredWeek!).label}`,recordingNotice:h.origin==='migration'?`Industry recording begins ${campaignDate(s.recordedFromWeek!).label}. Earlier rival films are not reconstructed.`:s.row>4?'Entered during this campaign; film records come from actual releases.':'Authored earlier films are labelled separately from this campaign’s simulated releases.',filmCount:owned.length,authoredFilmCount:owned.filter(f=>f.provenance==='authored-start/v1').length,liveFilmCount:owned.filter(f=>f.provenance!=='authored-start/v1').length,lanes}
   })
@@ -128,6 +130,22 @@ function indexFor(state:GameState):Index {
     }
     return []
   })
+  // P14B.2: one PUBLIC activity per exact outcome receipt. Terms remain private;
+  // neither reason prose nor a coincident person/week is an outcome identity.
+  const outcomes=new Map(state.promises
+    .filter(p=>p.outcomeEventId!==null&&(p.outcome==='SATISFIED'||p.outcome==='BROKEN'))
+    .map(p=>[p.outcomeEventId,p]))
+  for(const receipt of state.talentMarket.receipts) {
+    if(receipt.kind!=='promiseOutcome')continue
+    const promise=outcomes.get(receipt.eventId)
+    if(!promise)continue
+    const kept=promise.outcome==='SATISFIED'
+    activities.push({eventId:receipt.eventId,week:receipt.week,dateLabel:campaignDate(receipt.week).label,
+      group:'people',studioId:promise.issuerStudioId,filmId:null,talentId:promise.beneficiaryPersonId,
+      outcomeKind:kept?'promiseKept':'promiseBroken',
+      headline:`${names.get(promise.issuerStudioId)??promise.issuerStudioId} ${kept?'kept':'broke'} its promise to ${people.get(promise.beneficiaryPersonId)?.name??promise.beneficiaryPersonId}`,
+      detail:receipt.reasons.join(' ')})
+  }
   // P13B-S7: the public technology announcements. A DERIVED CLOCK FACT — the catalogue's
   // milestone data plus this campaign's week, nothing else: no receipt is minted, read or
   // needed, so a Save As copy, a reloaded save and two campaigns differing only in rival

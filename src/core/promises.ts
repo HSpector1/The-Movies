@@ -757,6 +757,11 @@ function label(drivers: readonly TrustDriver[]): TrustLabel {
 export function trustDescriptor(state: GameState, personId: string, studioId: string, week: number): TrustDescriptor {
   const own = trustDrivers(state, personId, studioId, week)
   if (own.length > 0) return { label: label(own), drivers: own.slice(0, 3), scope: 'person' }
+  return studioTrustDescriptor(state, studioId, week)
+}
+
+/** The public studio aggregate, labelled from ALL drivers before the display cap. */
+export function studioTrustDescriptor(state: GameState, studioId: string, week: number): TrustDescriptor {
   const aggregate = trustDrivers(state, null, studioId, week)
   return { label: label(aggregate), drivers: aggregate.slice(0, 3), scope: 'studio' }
 }

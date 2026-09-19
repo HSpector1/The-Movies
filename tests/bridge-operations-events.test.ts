@@ -320,7 +320,7 @@ describe('R3-N7-SIM-01 — operationsEventsProjection (projection 32)', () => {
       .toEqual(projection.rows.filter((row) => row.tier === 'permanent').map((row) => row.seq))
   })
 
-  it('L6 is pure, mutates nothing, and validates inside the served projection-45 envelope', () => {
+  it('L6 is pure, mutates nothing, and validates inside the served projection-46 envelope', () => {
     const state = studio()
     const before = digest(state)
     expect(stableStringify(operationsEventsProjection(state)))
@@ -330,7 +330,7 @@ describe('R3-N7-SIM-01 — operationsEventsProjection (projection 32)', () => {
     const response = new BridgeSession(state, 'r3n7-operations-events').snapshot()
     expect(() => parseWireValue(BRIDGE_SCHEMA.$defs.StudioBridgeSnapshotResponse, response)).not.toThrow()
     expect(response.snapshotVersion).toBe(PROJECTION_VERSION)
-    expect(PROJECTION_VERSION).toBe(45)
+    expect(PROJECTION_VERSION).toBe(46)
     const served = response.snapshot.operationsEvents.operationsEvents
     // The served section is the projection itself — no re-derivation on the way out.
     expect(stableStringify(served)).toBe(stableStringify(operationsEventsProjection(state)))

@@ -16,16 +16,16 @@
 //     when its proposal is committed; an unbound promise is never evaluated, never
 //     a trust driver, and therefore not a record anyone may read as one).
 //
-// Not here (P14B.2, plan's own MOVED line): the top-three trust driver reasons
-// text, the Pulse promise activities, the `promiseDue`/`promiseOutcome` attention
-// causes, the workspace promise history bucket.
+// P14B.2 reuses this same bound history for the case, Profile and workspace.
+// Trust text and promise attention live in trust.ts; public outcomes in industry.ts.
 
 import { allPromises, promiseFeasibility } from '../src/core/promises.ts'
 import { caseDisclosure, caseForTalent, UNKNOWN } from '../src/core/talentMarket.ts'
 import type { Disclosed, DisclosedPromise } from '../src/core/talentMarket.ts'
 import type {
-  GameState, PromiseClassification, PromiseFamily, PromiseOutcome,
+  GameState, PromiseClassification, PromiseFamily,
 } from '../src/core/types.ts'
+import type { BridgeMarketPromiseHistoryRow } from './schema/bridge-schema.ts'
 
 /** One proposal's promise disclosure, as the viewing studio may lawfully read it:
  * the real draft for its own row, `null` when its own row attached none, and the
@@ -35,15 +35,7 @@ export type MarketPromiseRow = {
   promise: Disclosed<DisclosedPromise | null>
 }
 
-export type MarketPromiseHistoryRow = {
-  promiseId: string
-  family: PromiseFamily
-  count: number
-  windowStartWeek: number
-  dueWeekExclusive: number
-  outcome: PromiseOutcome | null
-  outcomeWeek: number | null
-}
+export type MarketPromiseHistoryRow = BridgeMarketPromiseHistoryRow
 
 /** The quote-time draft. The window is checked against the PROPOSED contract, so
  * the proposal's own `startWeek` and `termWeeks` ride along. */
@@ -84,7 +76,7 @@ export function promiseRowsFor(
 
 /**
  * The VIEWING studio's own promise record for this person: bound rows only, open
- * (`outcome: null`) and settled, in the order the engine minted them. A rival's
+ * (`outcome: null`) and settled, newest mint first. A rival's
  * promise is never a row here — it is `'UNKNOWN'` on the proposal row and absent
  * everywhere else.
  */
@@ -94,19 +86,23 @@ export function promiseHistoryFor(
   viewerStudioId: string,
 ): MarketPromiseHistoryRow[] {
   return allPromises(state)
-    .filter((promise) =>
-      promise.issuerStudioId === viewerStudioId
-      && promise.beneficiaryPersonId === talentId
-      && promise.contractId !== null)
-    .map((promise) => ({
-      promiseId: promise.promiseId,
-      family: promise.family,
-      count: promise.predicate.count,
-      windowStartWeek: promise.windowStartWeek,
-      dueWeekExclusive: promise.dueWeekExclusive,
-      outcome: promise.outcome,
-      outcomeWeek: promise.outcomeWeek,
-    }))
+    .flatMap((promise): MarketPromiseHistoryRow[] => {
+      if (promise.issuerStudioId !== viewerStudioId
+        || promise.beneficiaryPersonId !== talentId
+        || promise.contractId === null) return []
+      return [{
+        promiseId: promise.promiseId,
+        family: promise.family,
+        count: promise.predicate.count,
+        windowStartWeek: promise.windowStartWeek,
+        dueWeekExclusive: promise.dueWeekExclusive,
+        contractId: promise.contractId,
+        outcome: promise.outcome,
+        outcomeWeek: promise.outcomeWeek,
+        outcomeCause: promise.outcomeCause,
+      }]
+    })
+    .reverse()
 }
 
 /**

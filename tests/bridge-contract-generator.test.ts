@@ -551,12 +551,12 @@ describe('CF-08 sound union-to-C# generation', () => {
       expect(response.promotedProperties.map((property) => property.wireName)).not.toContain('title')
       expect(response.promotedProperties.map((property) => property.wireName)).not.toContain('noFeeLine')
 
-      const generated = generateCsharpContract({ schema, protocolVersion: 4, projectionVersion: 45 })
+      const generated = generateCsharpContract({ schema, protocolVersion: 4, projectionVersion: 46 })
       expect(generated).toContain(
-        '// Schema identity: sha256:5b2a4ca93d930e90a288db55bb5cc3fdc8eea070ef51fa1450a193a325bd755d',
+        '// Schema identity: sha256:584bdd8565030f049d548b1af4fcbf8c517ca7c9150016736f632f1ef8fcb98c',
       )
       expect(schemaIdentity(schema)).toBe(
-        'sha256:5b2a4ca93d930e90a288db55bb5cc3fdc8eea070ef51fa1450a193a325bd755d',
+        'sha256:584bdd8565030f049d548b1af4fcbf8c517ca7c9150016736f632f1ef8fcb98c',
       )
       expect(generated).toContain('public sealed partial class StudioQuoteCastingRequest : StudioBridgeQuoteRequest')
       expect(generated).toContain('public StudioCastingDraftPayload draft;')
@@ -649,8 +649,12 @@ describe('CF-08 sound union-to-C# generation', () => {
         // market-proposal draft gains an OPTIONAL `promise` and its quote a nullable
         // `promise` verdict, and `priorityOrder` widens to the six landed descriptors. The
         // quote-request union gained no member; both whole-schema identities move together.
-        F10_CURRENT_QUOTE_UNIONS: 'c69088b3e114fdd6d801d9119a48db798f002ce749504855d031784b50f89222',
-        F11_CURRENT_COMMAND_UNION: 'c69088b3e114fdd6d801d9119a48db798f002ce749504855d031784b50f89222',
+        // P14B.2 (projection 46): trust blocks/drivers, bound promise-history
+        // identity/outcome fields and promise attention/Pulse facts widen the
+        // current schema. F10 and F11 render that WHOLE schema, not frozen union
+        // subsets; both exact declaration-body identities therefore move together.
+        F10_CURRENT_QUOTE_UNIONS: '9edf6dedf8ac4305a44d3a59ce124e56d5bee4916a9ab63d3d95cf3c9fedb64e',
+        F11_CURRENT_COMMAND_UNION: '9edf6dedf8ac4305a44d3a59ce124e56d5bee4916a9ab63d3d95cf3c9fedb64e',
         F12_P05_PRODUCTION_SENTINEL: '78d68a2d7670585946f79ebbfc449c85c8ad98ac381b422a8a9abea66702bde6',
       } as const
       for (const [name, expectedHash] of Object.entries(expected)) {

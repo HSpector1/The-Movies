@@ -219,7 +219,7 @@ export const PROTOCOL_VERSION = 4 as const
 // verdict, and `priorityOrder` widens to the six landed descriptors. No new view,
 // page or intent kind; the trust driver text, the Pulse promise activities, the
 // promise attention causes and the workspace history are P14B.2.
-export const PROJECTION_VERSION = 45 as const
+export const PROJECTION_VERSION = 46 as const
 
 const nonEmptyText = () => text({ minLength: 1 })
 const nonNegativeInteger = () => integer({ minimum: 0 })
@@ -2232,9 +2232,12 @@ const StudioMarketPromiseHistoryRow = object('StudioMarketPromiseHistoryRow', {
   count: integer({ minimum: 1 }),
   windowStartWeek: nonNegativeInteger(),
   dueWeekExclusive: nonNegativeInteger(),
+  /** Bound history always names the actual employment contract. */
+  contractId: nonEmptyText(),
   /** null while the promise is open. */
   outcome: nullable(enumeration(PROMISE_OUTCOMES)),
   outcomeWeek: nullable(nonNegativeInteger()),
+  outcomeCause: nullable(text()),
 })
 const StudioMarketOwnProposalSnapshot = object('StudioMarketOwnProposalSnapshot', {
   disclosure: literal('own'),
@@ -2260,13 +2263,15 @@ const StudioMarketProposalSnapshot = union('StudioMarketProposalSnapshot', [
   reference('StudioMarketOwnProposalSnapshot', StudioMarketOwnProposalSnapshot),
   reference('StudioMarketUndisclosedProposalSnapshot', StudioMarketUndisclosedProposalSnapshot),
 ] as const)
-// The five interrupt causes of companion §2.1.11 and nothing else on this route.
+// The five A.1 case causes plus B.2's independent bound-promise reminders.
 const MARKET_ATTENTION_CAUSES = [
   'decisionWeekNear',
   'newCompetingProposal',
   'termsRevised',
   'settlementCompleted',
   'proposalWouldFail',
+  'promiseDue',
+  'promiseOutcome',
 ] as const
 const StudioMarketAttentionRowSnapshot = object('StudioMarketAttentionRowSnapshot', {
   cause: enumeration(MARKET_ATTENTION_CAUSES),
@@ -2417,6 +2422,8 @@ const StudioMarketCandidateRail = object('StudioMarketCandidateRail', {
 const StudioMarketHistory = object('StudioMarketHistory', {
   employers: array(reference('StudioMarketEmployerRow', StudioMarketEmployerRow)),
   credits: array(reference('StudioPersonCareerRowSnapshot', StudioPersonCareerRowSnapshot)),
+  /** The viewer's own bound promise history, unpaged and newest first. */
+  promises: array(reference('StudioMarketPromiseHistoryRow', StudioMarketPromiseHistoryRow)),
   page: nonNegativeInteger(),
   pageSize: integer({ minimum: 1 }),
   total: nonNegativeInteger(),
@@ -2468,6 +2475,22 @@ const StudioWorldRouteSnapshot = object('StudioWorldRouteSnapshot', {
   reach: enumeration(['playerLot', 'industry']),
 })
 
+// P14B.2: the engine's public descriptor, with at most its three newest drivers.
+// Labels use every eligible driver before this display cap, never just these rows.
+const StudioTrustDriverRow = object('StudioTrustDriverRow', {
+  kind: enumeration(['promiseKept', 'promiseBroken', 'terminatedEarly', 'ranToEnd', 'cancelledAfterFirstTake']),
+  week: nonNegativeInteger(),
+  dateLabel: nonEmptyText(),
+  positive: bool(),
+  reason: nonEmptyText(),
+})
+const StudioTrustBlock = object('StudioTrustBlock', {
+  label: enumeration(TRUST_LABELS),
+  scope: enumeration(['person', 'studio']),
+  drivers: array(reference('StudioTrustDriverRow', StudioTrustDriverRow)),
+  line: nonEmptyText(),
+})
+
 const StudioPersonProfileSnapshot = object('StudioPersonProfileSnapshot', {
   talentId: nonEmptyText(),
   name: nonEmptyText(),
@@ -2495,6 +2518,8 @@ const StudioPersonProfileSnapshot = object('StudioPersonProfileSnapshot', {
   presence: reference('StudioPersonPresenceSnapshot', StudioPersonPresenceSnapshot),
   attention: reference('StudioPersonAttentionSnapshot', StudioPersonAttentionSnapshot),
   career: reference('StudioPersonCareerSnapshot', StudioPersonCareerSnapshot),
+  trust: reference('StudioTrustBlock', StudioTrustBlock),
+  promises: array(reference('StudioMarketPromiseHistoryRow', StudioMarketPromiseHistoryRow)),
   /** P14A.1: present exactly while the engine holds a case for this person; null otherwise. */
   marketCase: nullable(reference('StudioMarketCaseSnapshot', StudioMarketCaseSnapshot)),
   /** P14A.3: the world route facts for this person; present on every profile. */
@@ -3306,6 +3331,8 @@ const definitions = {
   StudioMarketPage,
   StudioWorldCaseRef,
   StudioWorldRouteSnapshot,
+  StudioTrustDriverRow,
+  StudioTrustBlock,
   StudioPersonProfileSnapshot,
   StudioRosterOvrSnapshot,
   StudioRosterRowSnapshot,
@@ -3457,6 +3484,8 @@ export type BridgeMarketCaseDetail = InferSchema<typeof StudioMarketCaseDetail>
 export type BridgeMarketPage = InferSchema<typeof StudioMarketPage>
 export type BridgeWorldCaseRef = InferSchema<typeof StudioWorldCaseRef>
 export type BridgeWorldRouteSnapshot = InferSchema<typeof StudioWorldRouteSnapshot>
+export type BridgeTrustDriverRow = InferSchema<typeof StudioTrustDriverRow>
+export type BridgeTrustBlock = InferSchema<typeof StudioTrustBlock>
 export type BridgePersonRenewalTermSnapshot = InferSchema<typeof StudioPersonRenewalTermSnapshot>
 export type BridgePersonContractActionsSnapshot = InferSchema<typeof StudioPersonContractActionsSnapshot>
 export type BridgePlacementQuoteSnapshot = InferSchema<typeof StudioPlacementQuoteSnapshot>

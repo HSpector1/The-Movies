@@ -44,11 +44,12 @@ import {
 import type { Disclosed, MarketCaseView } from '../src/core/talentMarket.ts'
 import { trustDescriptor } from '../src/core/promises.ts'
 import { promiseHistoryFor, unboxPromise } from './promises.ts'
+import { promiseAttentionRows, promiseRowsForPerson, trustBlockFor } from './trust.ts'
 import { contractActionDecisions, contractTermLabel } from './contract.ts'
 import { personWorldRoute } from './world.ts'
 import type {
   BridgeMarketAttentionRowSnapshot, BridgeMarketCaseSnapshot, BridgeMarketProposalSnapshot,
-  BridgePersonContractActionsSnapshot, BridgeWorldRouteSnapshot,
+  BridgeMarketPromiseHistoryRow, BridgePersonContractActionsSnapshot, BridgeTrustBlock, BridgeWorldRouteSnapshot,
 } from './schema/bridge-schema.ts'
 import type {
   CreativeRole,
@@ -212,6 +213,10 @@ export type BridgePersonProfileSnapshot = {
   presence: BridgePersonPresenceSnapshot
   attention: BridgePersonAttentionSnapshot
   career: BridgePersonCareerSnapshot
+  /** P14B.2: public trust evidence for the player studio, independent of a case. */
+  trust: BridgeTrustBlock
+  /** Only bound promises issued by the player studio, newest first. */
+  promises: BridgeMarketPromiseHistoryRow[]
   /** P14A.1: the contested-expiry case block, present only while the engine holds a case. */
   marketCase: BridgeMarketCaseSnapshot | null
   /** P14A.3: the world route facts — the open-case status line, the reference that
@@ -474,7 +479,8 @@ function buildProfile(
   const career = buildCareer(input)
   const attention = decideAttention(employment, work, presence, input.week)
   const identityLabel = careerIdentityLabel(identity)
-  const marketCase = marketCaseProjection(state, talent.id, state.hollywood?.playerStudioId ?? '', input.week)
+  const viewerStudioId = state.hollywood?.playerStudioId ?? ''
+  const marketCase = marketCaseProjection(state, talent.id, viewerStudioId, input.week)
   return {
     talentId: talent.id,
     name: talent.name,
@@ -513,6 +519,8 @@ function buildProfile(
     presence,
     attention,
     career,
+    trust: trustBlockFor(state, talent.id, viewerStudioId, input.week),
+    promises: promiseRowsForPerson(state, talent.id, viewerStudioId, input.week),
     marketCase,
     // The world route reuses the presence answer this profile already holds, so the
     // player-only Presence Projection is built ONCE per projection, not once per person.
@@ -981,10 +989,13 @@ export function marketCaseProjection(
       line: `Prefers terms of ${contractTermLabel(preferredTermWeeks)} · Weighs ${DESCRIPTOR_LABEL[priorityOrder[0] ?? 'compensation']!} first, then ${DESCRIPTOR_LABEL[priorityOrder[1] ?? 'term']!}`,
     },
     proposals,
-    attentionRows: marketAttentionRows(state, view, viewerStudioId, week),
+    attentionRows: [
+      ...marketAttentionRows(state, view, viewerStudioId, week),
+      ...promiseAttentionRows(state, viewerStudioId, week, talentId),
+    ],
     settlementReasons: [...disclosure.settlementReasons],
     // P14B.1 §4.5: the public descriptor label for THIS viewing studio, derived on
-    // read through the engine's own service. No driver text on this projection.
+    // read through the engine's own service. The Profile carries its driver text.
     trustLabel: trustDescriptor(state, talentId, viewerStudioId, week).label,
     promiseHistory: promiseHistoryFor(state, talentId, viewerStudioId),
   }

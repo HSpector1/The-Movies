@@ -315,11 +315,11 @@ function lightingBallroomAtRehearsal(): GameState {
 
 // ---------------------------------------------------------------------------
 
-describe('P13B-S5-R07-T3 bridge projection bump (37 -> 38; 45 after the P14B.1-T3 bump)', () => {
+describe('P13B-S5-R07-T3 bridge projection bump (37 -> 38; 46 after the P14B.2 bump)', () => {
   it('PROJECTION_VERSION is 40; schema $id and x-project-studio.projectionVersion move with it', () => {
-    expect(PROJECTION_VERSION).toBe(45)
-    expect(BRIDGE_SCHEMA.$id).toContain('projection-45')
-    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(45)
+    expect(PROJECTION_VERSION).toBe(46)
+    expect(BRIDGE_SCHEMA.$id).toContain('projection-46')
+    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(46)
   })
   it('AVAILABLE_INTENT_KINDS gains productionSetupAction, distinct from every existing kind', () => {
     expect((AVAILABLE_INTENT_KINDS as readonly string[])).toContain('productionSetupAction')

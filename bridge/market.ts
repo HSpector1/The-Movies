@@ -18,6 +18,7 @@ import { PERSON_DISCIPLINE_ORDER, ROLE_TO_DISCIPLINE, TUNING } from '../src/core
 import type { GameState, TalentMarketCase } from '../src/core/types.js'
 import { castingDraftToEngine } from './casting.ts'
 import { marketAttentionRows, marketCaseProjection, peopleProjection } from './people.ts'
+import { promiseAttentionRows, promiseRowsForPerson } from './trust.ts'
 import type {
   BridgeMarketAttentionRowSnapshot, BridgeMarketCaseDetail, BridgeMarketCaseRow,
   BridgeMarketEmployerRow, BridgeMarketFreeAgentRow, BridgeMarketPage,
@@ -226,6 +227,7 @@ function selectedDetail(
     history: {
       employers: employers.slice(page * MARKET_HISTORY_PAGE_SIZE, (page + 1) * MARKET_HISTORY_PAGE_SIZE),
       credits: profile?.career.rows ?? [],
+      promises: promiseRowsForPerson(state, talentId, viewerStudioId, week),
       page,
       pageSize: MARKET_HISTORY_PAGE_SIZE,
       total: employers.length,
@@ -281,6 +283,14 @@ export function marketPage(state: GameState, request: MarketPageRequest): Bridge
       seen.add(key)
       attention.push(row)
     }
+  }
+  // Bound promises survive settlement, the former employer's case and even the
+  // absence of a case carrier. Their scan must never depend on caseEntries.
+  for (const row of promiseAttentionRows(state, viewerStudioId, week)) {
+    const key = `${row.cause}:${row.talentId}`
+    if (seen.has(key)) continue
+    seen.add(key)
+    attention.push(row)
   }
 
   const page = Math.max(0, request.page ?? 0)

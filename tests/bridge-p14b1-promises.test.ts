@@ -203,11 +203,11 @@ function containsNumber(value: unknown, target: number): boolean {
 // ── group 1: PROJECTION_VERSION / LIVE_SAVE_VERSION ─────────────────────────
 
 describe('group 1: PROJECTION_VERSION / LIVE_SAVE_VERSION', () => {
-  it('LIVE_SAVE_VERSION is 29 (already landed at T2); PROJECTION_VERSION is a FORWARD PIN to 45 (T3 bumps it 44 -> 45 — never reached this run, the file fails at module resolution first)', () => {
+  it('LIVE_SAVE_VERSION stays 29; the live promise surface carries projection 46 after P14B.2', () => {
     expect(LIVE_SAVE_VERSION).toBe(29)
-    expect(PROJECTION_VERSION).toBe(45)
-    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${String(PROTOCOL_VERSION)}:projection-45`)
-    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(45)
+    expect(PROJECTION_VERSION).toBe(46)
+    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${String(PROTOCOL_VERSION)}:projection-46`)
+    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(46)
   })
 })
 
@@ -292,14 +292,14 @@ describe('group 3: trust descriptor label and promise history, open then settled
     const openLabel = trustDescriptor(state, talentId, playerStudioId, state.market.tick).label
     const openBlock = marketCaseProjection(state, talentId, playerStudioId) as unknown as {
       trustLabel: string
-      promiseHistory: Array<{ promiseId: string; family: string; count: number; windowStartWeek: number; dueWeekExclusive: number; outcome: string | null; outcomeWeek: number | null }>
+      promiseHistory: Array<{ promiseId: string; family: string; count: number; windowStartWeek: number; dueWeekExclusive: number; contractId: string; outcome: string | null; outcomeWeek: number | null; outcomeCause: string | null }>
     } | null
     expect(openBlock).not.toBeNull()
     expect(openBlock!.trustLabel).toBe(openLabel)
     expect(openBlock!.promiseHistory).toEqual([{
       promiseId: openPromise.promiseId, family: openPromise.family, count: openPromise.predicate.count,
       windowStartWeek: openPromise.windowStartWeek, dueWeekExclusive: openPromise.dueWeekExclusive,
-      outcome: null, outcomeWeek: null,
+      contractId: openPromise.contractId, outcome: null, outcomeWeek: null, outcomeCause: null,
     }])
 
     const settled = advanceTo(state, dueWeekExclusive) // past due, no first take ever occurred -> BROKEN
@@ -311,13 +311,14 @@ describe('group 3: trust descriptor label and promise history, open then settled
     const settledLabel = trustDescriptor(settled, talentId, playerStudioId, settled.market.tick).label
     const settledBlock = marketCaseProjection(settled, talentId, playerStudioId) as unknown as {
       trustLabel: string
-      promiseHistory: Array<{ promiseId: string; family: string; count: number; windowStartWeek: number; dueWeekExclusive: number; outcome: string | null; outcomeWeek: number | null }>
+      promiseHistory: Array<{ promiseId: string; family: string; count: number; windowStartWeek: number; dueWeekExclusive: number; contractId: string; outcome: string | null; outcomeWeek: number | null; outcomeCause: string | null }>
     } | null
     expect(settledBlock!.trustLabel).toBe(settledLabel)
     expect(settledBlock!.promiseHistory).toEqual([{
       promiseId: brokenPromise.promiseId, family: brokenPromise.family, count: brokenPromise.predicate.count,
       windowStartWeek: brokenPromise.windowStartWeek, dueWeekExclusive: brokenPromise.dueWeekExclusive,
-      outcome: 'BROKEN', outcomeWeek: dueWeekExclusive,
+      contractId: brokenPromise.contractId, outcome: 'BROKEN', outcomeWeek: dueWeekExclusive,
+      outcomeCause: brokenPromise.outcomeCause,
     }])
   })
 })

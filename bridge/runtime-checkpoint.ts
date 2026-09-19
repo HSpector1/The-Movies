@@ -57,6 +57,9 @@ const R05_NATIVE_FOUNDING_SCHEMA_ID =
 // that window would carry the earlier hash, and this map is keyed on the
 // hash, not the label.
 export const SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS: ReadonlyMap<string, string> = new Map<string, string>([
+  // P14B.2: exact outgoing projection-45 identity; T1 froze a genuine checkpoint
+  // before this bump. Missing older identities are not fabricated by this entry.
+  ['sha256:5b2a4ca93d930e90a288db55bb5cc3fdc8eea070ef51fa1450a193a325bd755d', 'projection-v45'],
   // R3-N7-SIM-01: the OUTGOING projection-31 identity, minted by the N4/N5/N6
   // read-model deltas and carried by every durable checkpoint written before the
   // read-only `operationsEvents` section advanced the running schema to
