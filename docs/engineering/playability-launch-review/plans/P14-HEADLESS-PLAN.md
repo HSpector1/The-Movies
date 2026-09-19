@@ -220,7 +220,7 @@ The known literal-contractId correction is now part of T4, not deferred to B.2.
 **Audit (contract-auditor, 2026-09-18): ADOPT WITH AMENDMENTS — applied above.** Coverage against the B.1 MOVED line and rulings (vii)/(viii) met one-to-one; disclosure law met (terms UNKNOWN, outcomes public per §4.5); hypotheses correctly isolated as §7.2-class tuning/copy calls, none an Owner question; RED precedent confirmed (`bridge/trust.ts` absent); test constructibility confirmed (the first-take construction is reusable; the line-288 todo is the one that matches). Defect 1 (citation slip: `reasons` on the receipt vs `outcomeCause` on the promise) fixed in the companion-basis paragraph. Defect 2 (the attention mechanism would exclude a poaching winner after its case closed) fixed by the independent-scan requirement in item (4) and the poaching-win pin in tests group (4). Item (6) ruled INCLUDE with the deferral note. Note 5 became a T2 check.
 - [x] **T4 qualified CLOSED — LOGIC VERIFIED · UNITY NOT VERIFIED**, final corrective source `7f89f75bad5a450b50340e3ab074a913c3ef2744`. Fixed-source fullbee7e22:core3303pass/23fail/6todo,bridge741pass/13fail/2todo;22core/12bridge exact historical signatures plus one shared outgoing45 literal omission. Independent assertion-preserving two-line test correction;14files/238pass/two unchanged todos, both typechecks/contracts PASS, bounded KEEP. Closeout `p14b2-20260919-final/18-attribution.md`, backlog projection46 updated. Not all-green full rerun/Owner acceptance. Records publication/exact remote verification required before B3 T0; no production or validator weakening.
 
-## P14B.3 — P1 quote-to-commit integration — audited expansion, NOT STARTED
+## P14B.3 — P1 quote-to-commit integration — audited expansion, T0 complete
 
 Gate: B2 qualified closeout/publication. Bounded execution contract:
 `../evidence/p14b2-20260919/12-b3-expansion-draft.md`; native read-only audit KEEP
@@ -228,7 +228,10 @@ in `13-candidate-review.md`. This completes the existing preview-only P1 route,
 not P2–P5, waiver, relationships or all of P14B. Companion §§4.1–4.4/R5 and B1
 T2b's active-attachment ruling govern; no new Owner decision needed for this slice.
 
-- [ ] T0 refresh exact B2 identity/owners. Expect Save29/projection46 unchanged
+- [x] T0 refreshed acceptedB2tested7f89f75/publication034065b (remote verified).
+  Actual three-snapshot evaluator1 mint01PASS, independent byte/provenance/producer
+  KEEP02 in `p14b3-20260919`; operational entry/helper archived and removed.
+  Publish this preservation checkpoint before T1. Expect Save29/projection46 unchanged
   with existing wire shapes; no governed save/runtime schema migration expected.
   Separately preserve genuine old-evaluator current/withdrawn P1 and
   refused non-actor P1 records before revision2, per the amended expansion12.

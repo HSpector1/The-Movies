@@ -55,6 +55,13 @@ Forecast: 2–4 hours fixture/implementation
 plus ~90 minutes full validation. T4 took ~89 minutes, ~14 over the older
 observation. Earlier cumulative usage remains in force; no fresh allowance.
 
+B3 T0 actual preservation COMPLETE at qualified B2 publication034065b (remote
+verified): three genuine evaluator1 saves/current,withdrawn,writer-refused; one
+mint testPASS, all readbacks, independent producer/byte/provenanceKEEP. Evidence
+`p14b3-20260919/01`–`02`; operational scripts archived then removed, fixtures kept.
+No B3 production edit or behavioral verification yet. Publish preservation, then
+independent9+19+6cases RED → sole sim-core writer. No active heavy runtime.
+
 ## Environment and baseline (2026-09-16 12:37–12:55 CEST)
 
 | Fact | Value |

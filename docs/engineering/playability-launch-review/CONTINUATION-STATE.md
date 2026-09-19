@@ -1,6 +1,15 @@
 # CONTINUATION STATE — three-week autonomous window (Owner directive 2026-09-15)
 
-## Current continuation — 2026-09-19: B2 qualified CLOSED, publish then B3 T0
+## Current continuation — 2026-09-19: B2 published, B3 T0 complete
+
+B2 records `034065b4f6e4ef0f9f53750a343568e32f54d9ab` push COMPLETE and exact
+remote SHA verified. B3 T0 actual evaluator1 mintPASS; three genuine snapshots,
+allreadbacks and independent artifact/producer reviewKEEP. Session54960 CLOSED;
+no active runtime/specialist. No B3 production edit. Controlling live state
+`evidence/p14b3-20260919/00-start.md`, actual qualification/hashes/review02.
+Operational entry/helper archived byte-identically and removed; save bytes intact.
+Publish/verify T0 checkpoint then test-author installs9+19+6cases for behavioral
+RED, only then sole sim-core writer. No duplicate mint or guessed historical pins.
 
 Source/test candidate `3b978d77c29df2b5de038e3b1b7fc94778257f33`; Save29 /
 projection46. Branch/worktree: `CODEX-START-HERE.md`. Preserve recovered commits/

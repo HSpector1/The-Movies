@@ -2,6 +2,15 @@
 
 ## Current engineering checkpoint — 2026-09-19
 
+**LIVE: B3 T0 preservation COMPLETE**, one actual PASS and independent KEEP.
+B2 records `034065b4f6e4ef0f9f53750a343568e32f54d9ab` pushed and exact remote
+SHA verified. No B3 producer change yet. Three genuine evaluator1 saves/provenance
+verified; operational entry/helper archived exactly and removed from discovery.
+No runtime active. Publish this T0 checkpoint/verify remote, then test-author
+installs reviewed9+19+6cases with actual literal hashes for behavioral RED.
+Exact state/next actions: `evidence/p14b3-20260919/00-start.md`; T0review02.
+Never duplicate the mint or substitute missing fixtures for RED.
+
 Branch `wip/headless-program-20260916-ts`, worktree
 `/Users/zacheryspector/The-Movies-headless-program`. Recovered d19/T3/newer work
 preserved; no reset/recreation/Claude invocation. Max two native specialists,

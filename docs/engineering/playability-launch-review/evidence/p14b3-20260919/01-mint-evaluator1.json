@@ -1,0 +1,38 @@
+{
+  "sourceSha": "034065b4f6e4ef0f9f53750a343568e32f54d9ab",
+  "testedDiffSha256": "64bfbc90826c66694f15a4f0f4b7b7a57a5e7a10344ba84909de333a1093eedb",
+  "untrackedSource": [
+    "scripts/v29-mint-support.ts",
+    "tests/bridge-p14b3-mint-evaluator1.test.ts"
+  ],
+  "command": [
+    "env",
+    "STUDIO_MINT_V29_APPROVED_B2=034065b4f6e4ef0f9f53750a343568e32f54d9ab",
+    "./node_modules/.bin/vitest",
+    "run",
+    "tests/bridge-p14b3-mint-evaluator1.test.ts",
+    "--minWorkers=1",
+    "--maxWorkers=1",
+    "--reporter=dot"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-19T16:21:42.589Z",
+  "end": "2026-09-19T16:21:58.302Z",
+  "exitCode": 0,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "034065b4f6e4ef0f9f53750a343568e32f54d9ab",
+  "testedDiffSha256AtEnd": "964b04e0116e0a641b1f0569fa3b496467021b81c76c0d79ab0eadd21f679d0e",
+  "untrackedSourceAtEnd": [
+    "scripts/v29-mint-support.ts",
+    "tests/bridge-p14b3-mint-evaluator1.test.ts",
+    "tests/fixtures/p14/genuine-v29-pre-b3-evaluator1/MANIFEST.json",
+    "tests/fixtures/p14/genuine-v29-pre-b3-evaluator1/genuine-v29-evaluator1-current-p1.json.gz",
+    "tests/fixtures/p14/genuine-v29-pre-b3-evaluator1/genuine-v29-evaluator1-current-p1.provenance.json",
+    "tests/fixtures/p14/genuine-v29-pre-b3-evaluator1/genuine-v29-evaluator1-role-label-refused-p1.json.gz",
+    "tests/fixtures/p14/genuine-v29-pre-b3-evaluator1/genuine-v29-evaluator1-role-label-refused-p1.provenance.json",
+    "tests/fixtures/p14/genuine-v29-pre-b3-evaluator1/genuine-v29-evaluator1-withdrawn-p1.json.gz",
+    "tests/fixtures/p14/genuine-v29-pre-b3-evaluator1/genuine-v29-evaluator1-withdrawn-p1.provenance.json"
+  ],
+  "fixedSource": false
+}

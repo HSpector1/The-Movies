@@ -1,0 +1,267 @@
+diff --git a/scripts/v29-mint-support.ts b/scripts/v29-mint-support.ts
+new file mode 100644
+index 0000000..0b6e1e4
+--- /dev/null
++++ b/scripts/v29-mint-support.ts
+@@ -0,0 +1,130 @@
++// DRAFT support; future temporary path scripts/v29-mint-support.ts.
++// No side effects on import. Only explicitly authorized one-shot minters call it.
++import assert from 'node:assert/strict'
++import { execFileSync } from 'node:child_process'
++import { createHash } from 'node:crypto'
++import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
++import { join, resolve } from 'node:path'
++import { fileURLToPath } from 'node:url'
++import { gzipSync, gunzipSync } from 'node:zlib'
++import { BridgeSession } from '../bridge/session.ts'
++import { PROTOCOL_VERSION, SCHEMA_ID } from '../bridge/protocol.ts'
++import { PROJECTION_VERSION } from '../bridge/schema/bridge-schema.ts'
++import { PROMISE_RULES_VERSION } from '../src/core/promises.js'
++import { exportSave, importSave, LIVE_SAVE_VERSION, makeSave, validateSaveV29 } from '../src/core/save.js'
++import type { GameState } from '../src/core/types.js'
++
++export type MinterAuthority = {
++  phase: string; testedSourceSha: string; publishedRecoverySha: string;
++  closeoutRelativePath: string; closeoutSha256: string;
++  schemaId: string; projectionVersion: number; protocolVersion: number;
++  saveVersion: number; promiseRulesVersion: number;
++  approvalEnvironmentVariable: string; outputRelativePath: string;
++}
++export type Snapshot = {
++  name: string; state: GameState; role: string; recipe: unknown;
++  focusPromiseIds: string[]; facts?: unknown;
++}
++const PRODUCER_PATHS = ['src', 'bridge', 'ui', 'generated', 'package.json', 'package-lock.json',
++  ':(glob)**/tsconfig*.json', 'vitest.config.ts', 'vitest.workspace.ts',
++  'tests/helpers/p14b2-fixtures.ts', 'tests/p14b1-t4-regressions.test.ts']
++const EVIDENCE_FILES = ['src/core/save.ts', 'src/core/promises.ts', 'src/core/talentMarket.ts', 'src/core/tick.ts',
++  'src/core/actions.ts', 'src/core/types.ts', 'src/harness/p13a/fixtures.ts', 'bridge/contract.ts', 'bridge/session.ts',
++  'bridge/schema/bridge-schema.ts', 'generated/unity/StudioBridgeDtos.Generated.cs',
++  'ui/src/engine/adapter.ts', 'ui/vite.config.ts', 'ui/tsconfig.json',
++  'tsconfig.json', 'tsconfig.src.json', 'tsconfig.bridge.json', 'vitest.config.ts', 'vitest.workspace.ts',
++  'package.json', 'package-lock.json',
++  'tests/helpers/p14b2-fixtures.ts', 'tests/p14b1-t4-regressions.test.ts']
++const sha = (value: string | Uint8Array): string => createHash('sha256').update(value).digest('hex')
++const git = (...args: string[]): string => execFileSync('git', args, { encoding: 'utf8' }).trim()
++
++function gate(authority: MinterAuthority) {
++  assert.match(authority.testedSourceSha, /^[a-f0-9]{40}$/, `${authority.phase} accepted source is not pinned`)
++  assert.match(authority.publishedRecoverySha, /^[a-f0-9]{40}$/, `${authority.phase} accepted publication is not pinned`)
++  assert.match(authority.closeoutSha256, /^[a-f0-9]{64}$/, 'accepted closeout evidence is not pinned')
++  assert.equal(process.env[authority.approvalEnvironmentVariable], authority.publishedRecoverySha,
++    'explicit one-shot token must match independently accepted publication')
++  const root = git('rev-parse', '--show-toplevel')
++  assert.equal(resolve(process.cwd()), root, 'invoke only at the authorized repository root')
++  assert.equal(git('branch', '--show-current'), 'wip/headless-program-20260916-ts')
++  assert.equal(git('rev-parse', 'HEAD'), authority.publishedRecoverySha, 'producer moved after acceptance')
++  git('merge-base', '--is-ancestor', authority.testedSourceSha, authority.publishedRecoverySha)
++  git('diff', '--exit-code', authority.testedSourceSha, '--', ...PRODUCER_PATHS)
++  assert.equal(git('ls-files', '--others', '--exclude-standard', '--', ...PRODUCER_PATHS), '', 'untracked producer code is forbidden')
++  assert.equal(LIVE_SAVE_VERSION, authority.saveVersion, 'not the required outgoing V29 writer')
++  assert.equal(PROTOCOL_VERSION, authority.protocolVersion)
++  assert.equal(PROJECTION_VERSION, authority.projectionVersion)
++  assert.equal(SCHEMA_ID, authority.schemaId)
++  assert.equal(PROMISE_RULES_VERSION, authority.promiseRulesVersion, 'wrong promise evaluator generation')
++  for (const path of [authority.closeoutRelativePath, authority.outputRelativePath]) {
++    assert.ok(!path.includes('..') && !path.startsWith('/'), 'paths must stay relative inside the authorized repository')
++  }
++  assert.ok(authority.outputRelativePath.startsWith('tests/fixtures/p14/'), 'output must remain the scoped new fixture corpus')
++  const closeoutHash = sha(readFileSync(join(root, authority.closeoutRelativePath)))
++  assert.equal(closeoutHash, authority.closeoutSha256)
++  assert.ok(!existsSync(join(root, authority.outputRelativePath)), 'refusing existing/partial corpus directory')
++  const sourceFiles = Object.fromEntries(EVIDENCE_FILES.map((path) => [path, sha(readFileSync(join(root, path)))]))
++  return { root, sourceFiles, closeoutHash }
++}
++
++export function mintV29Corpus(authority: MinterAuthority, minterUrl: string, count: number, build: () => Snapshot[]): void {
++  const initial = gate(authority)
++  const minterPath = fileURLToPath(minterUrl)
++  assert.ok(minterPath.startsWith(`${initial.root}/tests/`), 'install operational entry only in authorized tests path')
++  const minterRelativePath = minterPath.slice(initial.root.length + 1)
++  const operationalHashes = { minterSha256: sha(readFileSync(new URL(minterUrl))),
++    supportSha256: sha(readFileSync(new URL(import.meta.url))) }
++  const startedAt = new Date().toISOString()
++  // Prepare ALL worlds and readbacks before any output creation. No JSON restamp.
++  const prepared = build().map((item) => {
++    assert.match(item.name, /^[a-z0-9-]+$/)
++    const raw = exportSave(makeSave(item.state))
++    const validated = validateSaveV29(JSON.parse(raw))
++    assert.equal(validated.saveVersion, 29)
++    assert.equal(exportSave(validated), raw)
++    assert.equal(exportSave(validateSaveV29(importSave(raw))), raw)
++    const session = BridgeSession.fromSaveJson(raw, `v29-roundtrip-${item.name}`)
++    assert.equal(exportSave(makeSave(session.gameState)), raw)
++    assert.deepEqual(session.gameState.promises, item.state.promises)
++    assert.deepEqual(session.gameState.firstTakes, item.state.firstTakes)
++    assert.deepEqual(session.gameState.talentMarket, item.state.talentMarket)
++    const compressed = gzipSync(raw, { level: 9 })
++    assert.equal(gunzipSync(compressed).toString('utf8'), raw)
++    return { item, compressed, facts: { seed: item.state.seed, week: item.state.market.tick, saveVersion: 29,
++      uncompressedSha256: sha(raw), compressedSha256: sha(compressed), byteLength: Buffer.byteLength(raw),
++      compressedByteLength: compressed.length,
++      rootCounts: { promises: item.state.promises.length, firstTakes: item.state.firstTakes.length,
++        marketReceipts: item.state.talentMarket.receipts.length, currentProposals: item.state.talentMarket.proposals.length },
++      focus: item.state.promises.filter((p) => item.focusPromiseIds.includes(p.promiseId)).map((p) => ({
++        promiseId: p.promiseId, family: p.family, version: p.version, contractId: p.contractId, outcome: p.outcome,
++        outcomeEventId: p.outcomeEventId, evidenceRefs: p.evidenceRefs, originalFeasibilityReceipt: p.feasibilityReceipt })) } }
++  })
++  assert.equal(prepared.length, count)
++  assert.equal(new Set(prepared.map((p) => p.item.name)).size, count)
++  const final = gate(authority)
++  assert.deepEqual(final.sourceFiles, initial.sourceFiles, 'producer/recipe/configuration bytes moved during generation')
++  assert.equal(final.closeoutHash, initial.closeoutHash)
++  assert.equal(sha(readFileSync(new URL(minterUrl))), operationalHashes.minterSha256, 'executed entry changed during mint')
++  assert.equal(sha(readFileSync(new URL(import.meta.url))), operationalHashes.supportSha256, 'shared helper changed during mint')
++  const common = { authority, observedHeadSha: git('rev-parse', 'HEAD'), sourceFiles: initial.sourceFiles,
++    ...operationalHashes,
++    nodeVersion: process.version, startedAt, endedAt: new Date().toISOString(),
++    campaignSource: 'generated test campaigns only; never Owner saves',
++    command: `node_modules/.bin/vitest run ${minterRelativePath} --minWorkers=1 --maxWorkers=1`,
++    scope: 'genuine SaveV29 producer evidence; no forward migration or native/product acceptance claim' }
++  const directory = join(initial.root, authority.outputRelativePath)
++  mkdirSync(directory) // fresh exact directory; no recursive delete/overwrite
++  const manifest = []
++  for (const { item, compressed, facts } of prepared) {
++    const filename = `genuine-v29-${item.name}.json.gz`
++    const provenanceFilename = `genuine-v29-${item.name}.provenance.json`
++    writeFileSync(join(directory, filename), compressed, { flag: 'wx' })
++    writeFileSync(join(directory, provenanceFilename), JSON.stringify({ ...common, filename,
++      role: item.role, recipe: item.recipe, ...facts, additionalFacts: item.facts ?? null }, null, 2) + '\n', { flag: 'wx' })
++    manifest.push({ filename, provenanceFilename, ...facts })
++  }
++  // LAST: absence means an incomplete batch, not permission to overwrite/remint.
++  writeFileSync(join(directory, 'MANIFEST.json'), JSON.stringify({ ...common, fixtures: manifest }, null, 2) + '\n', { flag: 'wx' })
++  console.log(JSON.stringify({ corpus: authority.outputRelativePath, observedHeadSha: common.observedHeadSha,
++    fixtures: manifest.map(({ filename, uncompressedSha256, compressedSha256 }) => ({ filename, uncompressedSha256, compressedSha256 })) }, null, 2))
++}
+diff --git a/tests/bridge-p14b3-mint-evaluator1.test.ts b/tests/bridge-p14b3-mint-evaluator1.test.ts
+new file mode 100644
+index 0000000..cf9c3bb
+--- /dev/null
++++ b/tests/bridge-p14b3-mint-evaluator1.test.ts
+@@ -0,0 +1,125 @@
++// DRAFT / DO NOT RUN before qualified B2 publication; MUST precede B3 revision2.
++// Future ONE-SHOT path: tests/bridge-p14b3-mint-evaluator1.test.ts.
++// Archive/remove from test discovery after authorized mint. Never an Owner save.
++import assert from 'node:assert/strict'
++import { it } from 'vitest'
++import { SKILL_ORDER } from '../src/core/index.js'
++import { attachPromise } from '../src/core/promises.js'
++import { currentProposals, submitProposal, withdrawProposal } from '../src/core/talentMarket.js'
++import { player, retentionFixture, rivalFixture } from './helpers/p14b2-fixtures.js'
++import { mintV29Corpus, type MinterAuthority, type Snapshot } from '../scripts/v29-mint-support.js'
++
++// Invalid until the parent records qualified B2 acceptance AND exact remote
++// publication. No accepted-B3 or later producer can stand in for these old bytes.
++const APPROVED_B2: MinterAuthority = {
++  phase: 'qualified B2 evaluator1 before B3 or B-F2',
++  testedSourceSha: '7f89f75bad5a450b50340e3ab074a913c3ef2744',
++  publishedRecoverySha: '034065b4f6e4ef0f9f53750a343568e32f54d9ab',
++  closeoutRelativePath: 'docs/engineering/playability-launch-review/evidence/p14b2-20260919-final/18-attribution.md',
++  closeoutSha256: '2a2b684c0a99a91e0a7523994231083d5e47457950cfdd036f174f5457df9355',
++  schemaId: 'sha256:584bdd8565030f049d548b1af4fcbf8c517ca7c9150016736f632f1ef8fcb98c',
++  projectionVersion: 46,
++  protocolVersion: 4,
++  saveVersion: 29,
++  promiseRulesVersion: 1,
++  approvalEnvironmentVariable: 'STUDIO_MINT_V29_APPROVED_B2',
++  outputRelativePath: 'tests/fixtures/p14/genuine-v29-pre-b3-evaluator1',
++}
++
++function oldEvaluatorSnapshots(): Snapshot[] {
++  const fixture = retentionFixture()
++  const current = fixture.submitted
++  const issuer = player(current)
++  const proposal = currentProposals(current, fixture.keptId).find((p) => p.issuerStudioId === issuer)
++  assert.ok(proposal)
++  assert.equal(proposal.promises.length, 1)
++  const original = current.promises.find((p) => p.promiseId === proposal.promises[0])
++  assert.ok(original)
++  assert.equal(original.family, 'APPEARANCE_COUNT')
++  assert.equal(original.version, 1)
++  assert.equal(original.feasibilityReceipt.rulesVersion, 1)
++  assert.equal(original.feasibilityReceipt.classification, 'REASONABLY_ACHIEVABLE')
++  assert.equal(original.contractId, null)
++  assert.equal(original.outcome, null)
++
++  // This is the actual old reducer, not a mutation removing a proposal from JSON.
++  const withdrawn = withdrawProposal(current, fixture.keptId, issuer)
++  assert.equal(withdrawn.market.tick, current.market.tick)
++  assert.deepEqual(withdrawn.promises, current.promises)
++  assert.deepEqual(withdrawn.firstTakes, current.firstTakes)
++  assert.deepEqual(withdrawn.talentMarket.receipts, current.talentMarket.receipts)
++  assert.ok(!currentProposals(withdrawn, fixture.keptId).some((p) => p.issuerStudioId === issuer))
++  assert.ok(!withdrawn.talentMarket.proposals.some((p) => p.promises.includes(original.promiseId)))
++  assert.deepEqual(withdrawn.talentMarket.proposals, current.talentMarket.proposals.filter((p) => p !== proposal))
++
++  // Unexecuted premise: the proven natural rival world must contain a real
++  // current rival writer proposal. Refuse if absent; never relabel an actor,
++  // fabricate an offer/history row, or tick silently to a different recipe.
++  const rival = rivalFixture().open
++  const writerProposal = rival.talentMarket.proposals.find((p) => p.issuerStudioId !== player(rival)
++    && p.promises.length === 0 && rival.talent.find((person) => person.id === p.talentId)?.role === 'writer')
++  assert.ok(writerProposal, 'unexecuted premise failed: no unattached real current rival writer proposal')
++  const writer = rival.talent.find((person) => person.id === writerProposal.talentId)
++  assert.ok(writer)
++  assert.equal(writer.role, 'writer')
++  assert.deepEqual(Object.keys(writer.skills.acting).sort(), [...SKILL_ORDER.acting].sort())
++  for (const skill of SKILL_ORDER.acting) {
++    const pair = writer.skills.acting[skill]
++    assert.ok(pair && Number.isInteger(pair.actual) && pair.actual >= 1 && pair.actual <= 99)
++    assert.ok(Number.isInteger(pair.perceived) && pair.perceived >= 1 && pair.perceived <= 99)
++  }
++  const submit = { talentId: writer.id, issuerStudioId: writerProposal.issuerStudioId,
++    termWeeks: writerProposal.termWeeks, premiumTier: writerProposal.premiumTier }
++  const resubmitted = submitProposal(rival, submit)
++  const fresh = currentProposals(resubmitted, writer.id).find((p) => p.issuerStudioId === writerProposal.issuerStudioId)
++  assert.ok(fresh)
++  assert.equal(fresh.startWeek, writerProposal.startWeek)
++  assert.deepEqual(fresh.promises, [])
++  assert.deepEqual(resubmitted.promises, rival.promises)
++  const attachment = { family: 'APPEARANCE_COUNT' as const, predicate: { count: 1 },
++    windowStartWeek: fresh.startWeek, dueWeekExclusive: fresh.startWeek + fresh.termWeeks }
++  const refused = attachPromise(resubmitted, writer.id, fresh.issuerStudioId, attachment)
++  assert.equal(refused.promises.length, resubmitted.promises.length + 1)
++  assert.deepEqual(refused.promises.slice(0, resubmitted.promises.length), resubmitted.promises)
++  const staged = refused.promises[resubmitted.promises.length]!
++  assert.equal(staged.promiseId, `promise-${resubmitted.promises.length}`)
++  assert.equal(staged.beneficiaryPersonId, writer.id)
++  assert.equal(staged.issuerStudioId, fresh.issuerStudioId)
++  assert.equal(staged.family, 'APPEARANCE_COUNT')
++  assert.equal(staged.version, 1)
++  assert.equal(staged.feasibilityReceipt.rulesVersion, 1)
++  assert.equal(staged.feasibilityReceipt.week, refused.market.tick)
++  assert.equal(staged.feasibilityReceipt.classification, 'IMPOSSIBLE')
++  assert.equal(staged.feasibilityReceipt.bottleneck, 'this person takes no cast seat under the greenlight law')
++  assert.equal(staged.contractId, null)
++  assert.equal(staged.outcome, null)
++  assert.equal(staged.outcomeEventId, null)
++  assert.deepEqual(staged.evidenceRefs, [])
++  assert.deepEqual(currentProposals(refused, writer.id).find((p) => p.issuerStudioId === fresh.issuerStudioId)!.promises,
++    [staged.promiseId])
++  assert.deepEqual(refused.talent.find((person) => person.id === writer.id), writer)
++
++  const currentRecipe = { builder: 'tests/helpers/p14b2-fixtures.ts:retentionFixture().submitted',
++    generatedCampaignOnly: true, economicInput: 'explicit fund helper cash delta with matching ledger',
++    talentId: fixture.keptId, issuerStudioId: issuer }
++  return [
++    { name: 'evaluator1-current-p1', state: current,
++      role: 'genuine old evaluator1 CURRENT P1 with original root version, receipt and proposal digest',
++      recipe: currentRecipe, focusPromiseIds: [original.promiseId] },
++    { name: 'evaluator1-withdrawn-p1', state: withdrawn,
++      role: 'same old producer world after real withdrawal; abandoned root and evaluator1 receipt unchanged',
++      recipe: { base: currentRecipe, action: { kind: 'withdrawProposal', talentId: fixture.keptId, issuerStudioId: issuer } },
++      focusPromiseIds: [original.promiseId] },
++    { name: 'evaluator1-role-label-refused-p1', state: refused,
++      role: 'genuine old IMPOSSIBLE P1 staging receipt caused by primary-role label despite actual acting profile',
++      recipe: { builder: 'tests/helpers/p14b2-fixtures.ts:rivalFixture().open', generatedCampaignOnly: true,
++        priorRealProposal: writerProposal, submitProposal: submit, attachPromise: attachment },
++      focusPromiseIds: [staged.promiseId], facts: { primaryRole: writer.role, personId: writer.id,
++        actualActingProfile: writer.skills.acting, originalReceipt: staged.feasibilityReceipt,
++        qualification: 'old label gate is the producer defect witness, not proof of lawful discipline ineligibility' } },
++  ]
++}
++
++it('ONE-SHOT: preserve three genuine evaluator1 worlds after accepted B2 and before B3', () => {
++  mintV29Corpus(APPROVED_B2, import.meta.url, 3, oldEvaluatorSnapshots)
++}, 180_000)
