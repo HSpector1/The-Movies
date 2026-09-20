@@ -1,0 +1,432 @@
+diff --git a/src/core/promiseCapacityOwnerReplay.ts b/src/core/promiseCapacityOwnerReplay.ts
+index 0445411..226293a 100644
+--- a/src/core/promiseCapacityOwnerReplay.ts
++++ b/src/core/promiseCapacityOwnerReplay.ts
+@@ -156,7 +156,8 @@ const LITERAL = Object.freeze({
+   hold: literalCost('holdId', 'ownerKey', 'ownerPathKey', 'subject', 'from', 'until'),
+   fixedHold: literalCost('holdId', 'ownerKey', 'ownerPathKey', 'subject', 'from', 'until', 'replaceableFrom'),
+   prepared: literalCost('pictures', 'backgrounds', 'mounts', 'plans', 'fixed', 'now', 'end', 'factRef', 'dimensionFacts'),
+-  dimensionCell: literalCost('value'),
++  dimensionCell: literalCost('value', 'records'),
++  dimensionRecord: literalCost('record', 'copy', 'width'),
+   staticDimensions: literalCost('f', 'capacity', 'd', 'adoptions', 'access', 'equipment',
+     'placements', 'structures', 'provides', 'cells'),
+   dimensions: literalCost('n', 'f', 'capacity', 'sets', 'external', 'd', 'dp', 'pCopy',
+@@ -238,7 +239,7 @@ class Work {
+   used: number
+   constructor(readonly limit: number, initial: number) { this.used = Math.min(limit, initial) }
+   pay(units = 1): void {
+-    if (units > this.limit - this.used) { this.used = this.limit; throw new WorkLimit() }
++    if (units > this.limit - this.used) { console.error('P14B4_WORK_LIMIT_378', this.used, units, this.limit, new Error('diagnostic-only').stack); this.used = this.limit; throw new WorkLimit() }
+     this.used += units
+   }
+   /** Evaluate the receiver BEFORE JavaScript evaluates calculator arguments.
+@@ -683,9 +684,9 @@ function prepare<P extends StartedPicture>(input: ReplayInput<P>, work: Work,
+     work.pay(2 + LITERAL.resource)
+     hold(mount.pathKey, { kind: 'resource', resourceKey: work.token('mount', issuer, mount.set.mountedOn), slot: 0 })
+   }
+-  work.pay(LITERAL.prepared + LITERAL.dimensionCell + 2)
++  work.pay(LITERAL.prepared + LITERAL.dimensionCell + 3)
+   return { pictures, backgrounds, mounts, plans, fixed, now, end,
+-    factRef: work.token('source', issuer, now.week), dimensionFacts: { value: null } }
++    factRef: work.token('source', issuer, now.week), dimensionFacts: { value: null, records: [] } }
+ }
+ 
+ function checkForeignRelevance<P extends StartedPicture>(source: StartedOwnerSource<P>, issuer: string,
+@@ -737,9 +738,67 @@ type Dimensions = {
+ }
+ type StaticDimensions = Readonly<Pick<Dimensions, 'f' | 'capacity' | 'd' | 'adoptions' |
+   'access' | 'equipment' | 'placements' | 'structures' | 'provides' | 'cells'>>
+-type DimensionCell = { value: StaticDimensions | null }
++type DimensionRecordFacts = {
++  readonly record: object
++  /** Null means that this mode has not been observed, not a zero footprint. */
++  copy: number | null
++  /** Intrinsic own-string maximum; never seeded by another record's width. */
++  width: number | null
++}
++type DimensionCell = { value: StaticDimensions | null; records: DimensionRecordFacts[] }
++
++/** Only immutable source/owner-return records requested by dimensions enter
++ * this invocation-local table. Mutable replay records never pass this seam. */
++function dimensionRecordFacts<T extends object>(record: T, needCopy: boolean, needStrings: boolean,
++  cell: DimensionCell, work: Work): DimensionRecordFacts {
++  work.pay(8) // table access, local initialization, empty-loop and return controls
++  let previous: DimensionRecordFacts | undefined
++  for (const entry of cell.records) {
++    work.pay(6) // visit/reference, record read, identity comparison, match/break controls
++    if (entry.record === record) { previous = entry; break }
++  }
++  work.pay(12) // two optional previous-field reads/defaults and local bindings
++  let copy = previous?.copy ?? null
++  let width = previous?.width ?? null
++  work.pay(12) // two requested-mode/null checks and boolean result bindings
++  const copyMissing = needCopy && copy === null
++  const stringsMissing = needStrings && width === null
++  work.pay(8) // both missing flags, conjunction, hit reference and return control
++  if (!copyMissing && !stringsMissing) return previous!
++  work.pay(8) // two cold-mode guards/default assignments and scan initialization
++  if (copyMissing) copy = 1
++  if (stringsMissing) width = 0
++  for (const key in record) {
++    // One enumeration/own-key check serves both requested cold modes. The
++    // copy accumulator and each consumed string still pay their own work.
++    work.pay(5 + key.length)
++    if (!Object.prototype.hasOwnProperty.call(record, key)) continue
++    if (copyMissing) copy = work.calc(8).add(copy!, 3 + key.length)
++    if (stringsMissing) {
++      work.pay(2) // value read and type test; copy-only never reads this value
++      const value = record[key]
++      if (typeof value === 'string') {
++        work.pay(2); work.text(value)
++        width = Math.max(width!, value.length)
++      }
++    }
++  }
++  work.pay(3) // complete-scan dispatch and result controls
++  if (previous !== undefined) {
++    // Both facts are complete before either write; no throwing work between
++    // these paid writes can expose a partially completed mode upgrade.
++    work.pay(16) // copy/width keyed writes(5+6), references/values/return(5)
++    previous.copy = copy
++    previous.width = width
++    return previous
++  }
++  work.pay(6 + LITERAL.dimensionRecord + APPEND)
++  const result: DimensionRecordFacts = { record, copy, width }
++  cell.records.push(result)
++  return result
++}
+ 
+-/** Incremental own-string-key discovery, shared by static and dynamic rows. */
++/** Incremental own-string-key discovery for the unchanged static facts. */
+ function dimensionStrings<T extends object>(row: T, maximum: number, work: Work): number {
+   work.pay(4)
+   let result = maximum
+@@ -757,7 +816,7 @@ function dimensionStrings<T extends object>(row: T, maximum: number, work: Work)
+ }
+ 
+ /** Only roots preserved by EVERY permitted owner/command in this invocation.
+- * No caller records or combined/dynamic Dimensions are retained in the cell. */
++ * The value leaf is static-only; record facts have separate exact identities. */
+ function staticDimensionFacts<P extends StartedPicture>(source: StartedOwnerSource<P>,
+   cell: DimensionCell, work: Work): StaticDimensions {
+   work.pay(8) // cell read, guard, call/return controls on every cold/warm access
+@@ -806,23 +865,32 @@ function staticDimensionFacts<P extends StartedPicture>(source: StartedOwnerSour
+ function dimensions<P extends StartedPicture>(source: StartedOwnerSource<P>, productions: readonly P[],
+   operations: StudioOperations, sets: readonly StudioSet[], technology: StudioTechnology,
+   external: number, work: Work, cell: DimensionCell, pictureFacts?: readonly PictureFacts<P>[]): Dimensions {
++  console.error('P14B4_DIMENSIONS_ENTRY_378', work.used, productions.map(row => row.remainingTicks))
+   work.pay(4) // static-fact call arguments/result binding
+   const fixed = staticDimensionFacts(source, cell, work)
++  work.pay(16) // two copy-only fact calls: arguments, result bindings and controls
++  const operationsFacts = dimensionRecordFacts(operations, true, false, cell, work)
++  const technologyFacts = dimensionRecordFacts(technology, true, false, cell, work)
+   // Fresh literal and scalar field reads/composition EVERY time; never return
+-  // the static record as a dynamic branch snapshot. Root copies remain fresh.
++  // cached combined Dimensions. Each root footprint names its CURRENT record.
+   work.pay(64 + LITERAL.dimensions)
+   const d: Dimensions = { n: productions.length, f: fixed.f, capacity: fixed.capacity,
+     sets: sets.length, external, d: fixed.d, dp: 0, pCopy: 0, workflowCopy: 98, taskCopy: 66,
+-    bindingsCopy: 95, operationsCopy: work.copyCost(operations), setCopy: 137, setupCopy: 0,
+-    technologyCopy: work.copyCost(technology), technologyRowCopy: 62,
++    bindingsCopy: 95, operationsCopy: operationsFacts.copy!, setCopy: 137, setupCopy: 0,
++    technologyCopy: technologyFacts.copy!, technologyRowCopy: 62,
+     t: technology.productions.length, adoptions: fixed.adoptions, access: fixed.access,
+     equipment: fixed.equipment, placements: fixed.placements, structures: fixed.structures,
+     provides: fixed.provides, cells: fixed.cells,
+     genreRows: pictureFacts?.length ?? source.studio.activeProductions.length, genreId: 0, allSilent: true }
+   const text = (value: string): void => { work.pay(2); work.text(value); d.d = Math.max(d.d, value.length) }
+-  const strings = <T extends object>(row: T): void => {
+-    work.pay(6)
+-    d.d = dimensionStrings(row, d.d, work)
++  const facts = <T extends object>(row: T, copy: boolean, strings: boolean): DimensionRecordFacts => {
++    work.pay(12) // fact-call arguments/binding, requested-mode guard and return
++    const observed = dimensionRecordFacts(row, copy, strings, cell, work)
++    if (strings) {
++      work.pay(6) // current/result reads, maximum and d-key write; no historical max
++      d.d = Math.max(d.d, observed.width!)
++    }
++    return observed
+   }
+   if (pictureFacts === undefined) {
+     for (const original of source.studio.activeProductions) {
+@@ -838,25 +906,26 @@ function dimensions<P extends StartedPicture>(source: StartedOwnerSource<P>, pro
+   for (const row of productions) {
+     work.pay(4); text(row.id); text(row.directorId)
+     d.dp = Math.max(d.dp, row.id.length)
+-    d.pCopy = Math.max(d.pCopy, work.copyCost(row))
++    d.pCopy = Math.max(d.pCopy, facts(row, true, false).copy!)
+   }
+   for (const row of operations.workflows) {
+-    work.pay(7); strings(row); strings(row.bindings)
+-    d.workflowCopy = Math.max(d.workflowCopy, work.copyCost(row))
+-    d.bindingsCopy = Math.max(d.bindingsCopy, work.copyCost(row.bindings))
+-    for (const reservation of row.reservations) { work.pay(); strings(reservation) }
++    work.pay(7)
++    d.workflowCopy = Math.max(d.workflowCopy, facts(row, true, true).copy!)
++    d.bindingsCopy = Math.max(d.bindingsCopy, facts(row.bindings, true, true).copy!)
++    for (const reservation of row.reservations) { work.pay(3); facts(reservation, false, true) }
+     if (row.shootingTask !== null) {
+-      strings(row.shootingTask); d.taskCopy = Math.max(d.taskCopy, work.copyCost(row.shootingTask))
++      d.taskCopy = Math.max(d.taskCopy, facts(row.shootingTask, true, true).copy!)
+     }
+     if (row.setup !== null && row.setup !== undefined) {
+-      strings(row.setup); d.setupCopy = Math.max(d.setupCopy, work.copyCost(row.setup))
++      d.setupCopy = Math.max(d.setupCopy, facts(row.setup, true, true).copy!)
+     }
+   }
+-  for (const row of sets) { work.pay(3); strings(row); d.setCopy = Math.max(d.setCopy, work.copyCost(row)) }
++  for (const row of sets) { work.pay(3); d.setCopy = Math.max(d.setCopy, facts(row, true, true).copy!) }
+   for (const row of technology.productions) {
+-    work.pay(3); strings(row); d.technologyRowCopy = Math.max(d.technologyRowCopy, work.copyCost(row))
++    work.pay(3); d.technologyRowCopy = Math.max(d.technologyRowCopy, facts(row, true, true).copy!)
+     if (!work.equal(row.method, 'silent')) d.allSilent = false
+   }
++  console.error('P14B4_DIMENSIONS_DONE_378', work.used)
+   return d
+ }
+ function workflowUpdate(d: Dimensions, work: Work): number {
+@@ -1484,6 +1553,7 @@ function executeCommand<P extends StartedPicture>(input: ReplayInput<P>, prepare
+ 
+ function frame<P extends StartedPicture>(input: ReplayInput<P>, prepared: Prepared<P>,
+   plan: ReplayPlan, branch: Branch<P>, work: Work): void {
++  console.error('P14B4_FRAME_ENTRY_378', branch.week, work.used, branch.productions.map(row => row.remainingTicks))
+   work.pay(7)
+   const arrivedWeek = branch.week + 1
+   for (const background of prepared.backgrounds) {
+@@ -1550,6 +1620,7 @@ function frame<P extends StartedPicture>(input: ReplayInput<P>, prepared: Prepar
+   const committed = committedReleaseIds(branch.releaseAuthority)
+   const before = branch.operations
+   const bill = sweepBill(d, branch.productions, branch.operations, branch.week, committed, work)
++  console.error('P14B4_SWEEP_BILL_378', branch.week, work.used, bill, branch.productions.map(row => row.remainingTicks), d)
+   // Reserve observation, sink, binding/callback literals and complete owner work
+   // together: an exhaustion boundary cannot record an unexecuted sweepStarted.
+   work.pay(work.calc(64).plus(bill, 15 + LITERAL.sink + 1 + LITERAL.boundary +
+diff --git a/tests/p14b4-replay-record-facts.test.ts b/tests/p14b4-replay-record-facts.test.ts
+new file mode 100644
+index 0000000..c0a8108
+--- /dev/null
++++ b/tests/p14b4-replay-record-facts.test.ts
+@@ -0,0 +1,221 @@
++// 368: independent public-API controls for adopted365. No private memo oracle.
++import assert from 'node:assert/strict'
++import { describe, expect, expectTypeOf, it } from 'vitest'
++import { applyActions } from '../src/core/actions.js'
++import { initializeHollywood } from '../src/core/hollywood.js'
++import { productionCompanyTalentIds } from '../src/core/productionPeople.js'
++import { replayStartedProductionPlans, type StartedOwnerReplayInput,
++  type StartedPicture } from '../src/core/promiseCapacityOwnerReplay.js'
++import { makeSave } from '../src/core/save.js'
++import { sceneryLoadInDecision } from '../src/core/sceneryLoadIn.js'
++import { scriptProjectWriterIds } from '../src/core/scriptDevelopment.js'
++import { tick } from '../src/core/tick.js'
++import type { GameState, Production } from '../src/core/types.js'
++import { operationsStudio, productionPayload } from './contracts/_contractFixtures.js'
++
++const clone = <T>(value: T): T => structuredClone(value)
++
++function supported(state: GameState) {
++  assert.ok(state.hollywood)
++  const own = state.hollywood.playerStudioId
++  expect(state.founding).toBeNull()
++  expect(state.operations.mode).toBe('managed')
++  expect(state.scriptDevelopment.mode).toBe('legacy')
++  expect(state.productionQueue).toEqual([])
++  expect(state.physicalPlans.plans.filter((row) => row.studioId === own &&
++    ['queued', 'held', 'blocked'].includes(row.status))).toEqual([])
++  expect(state.construction.projects.filter((row) => row.status === 'building')).toEqual([])
++  expect(state.placement.facilities.filter((row) => row.status === 'underConstruction')).toEqual([])
++  expect(state.sets.filter((row) => row.status === 'under-construction')).toEqual([])
++  expect(state.technology.projects.filter((row) => row.studioId === own && row.status === 'active')).toEqual([])
++  expect(state.technology.adoptions.filter((row) => row.studioId === own &&
++    row.cancelledWeek === null && row.operationalWeek === null)).toEqual([])
++  const relevant = productionCompanyTalentIds(state.studio.activeProductions)
++  for (const project of state.scriptDevelopment.projects) {
++    if (project.status === 'drafting' || project.status === 'rewriting') {
++      for (const id of scriptProjectWriterIds(project)) relevant.add(id)
++    }
++  }
++  for (const business of state.hollywood.businesses.filter((row) => row.studioId !== own)) {
++    expect([...productionCompanyTalentIds(business.productions)].filter((id) => relevant.has(id))).toEqual([])
++    for (const ordinal of business.activeScriptOrdinals) {
++      const project = business.development.projects[ordinal], cost = business.projects[ordinal]
++      assert.ok(project && cost)
++      expect(cost.scriptProjectId).toBe(project.id)
++      expect(cost.conceptId).toBe(project.conceptId)
++      expect(state.hollywood.concepts[cost.conceptOrdinal]?.id).toBe(project.conceptId)
++      if (project.status === 'drafting' || project.status === 'rewriting') {
++        expect(scriptProjectWriterIds(project).filter((id) => relevant.has(id))).toEqual([])
++      }
++    }
++  }
++  expect(state.technology.projects.filter((row) => row.studioId !== own && row.status === 'active')
++    .flatMap((row) => row.seats.filter((seat) => seat.releasedWeek === null && relevant.has(seat.talentId)))).toEqual([])
++  makeSave(state)
++}
++
++function scheduled(offset: 0 | 1): GameState {
++  // Genuine historical-control founding, not ordinary/natural founding. Each
++  // branch is constructed afresh; only actual package selection differs.
++  let state = initializeHollywood(operationsStudio('p13a-production-consumer'), 'fresh')
++  state = applyActions(state, [{ kind: 'greenlight', production: productionPayload(state, offset) }])
++  expect(state.studio.activeProductions).toHaveLength(1)
++  const id = state.studio.activeProductions[0]!.id
++  for (let guard = 0; guard < 20 && state.studio.activeProductions[0]!.remainingTicks !== 5; guard++) {
++    state = tick(state)
++  }
++  expect(state.studio.activeProductions[0]!.remainingTicks).toBe(5)
++  state = applyActions(state, [{ kind: 'assignShootingDirector', productionId: id,
++    directorId: state.studio.activeProductions[0]!.directorId }])
++  for (let guard = 0; guard < 8 && state.operations.workflows[0]?.shootingTask?.status !== 'ready'; guard++) {
++    expect(state.studio.activeProductions[0]!.remainingTicks).toBe(5)
++    state = tick(state)
++  }
++  expect(state.operations.workflows[0]?.shootingTask?.status).toBe('ready')
++  state = applyActions(state, [{ kind: 'scheduleShootingTake', productionId: id }])
++  expect(state.operations.workflows).toHaveLength(1)
++  const workflow = state.operations.workflows[0]!
++  expect(workflow.productionId).toBe(id)
++  expect(workflow.phase).toBe('shooting')
++  expect(workflow.shootingTask?.status).toBe('scheduled')
++  expect(workflow.blocker).toBeNull()
++  expect(workflow.bindings.stageFacilityId).not.toBeNull()
++  expect(workflow.bindings.setId).not.toBeNull()
++  expect(sceneryLoadInDecision(state, workflow, state.market.tick).kind).toBe('none')
++  expect(state.firstTakes.filter((row) => row.productionId === id)).toEqual([])
++  expect(productionCompanyTalentIds(state.studio.activeProductions).size).toBe(5)
++  supported(state)
++  return state
++}
++
++function input<P extends StartedPicture>(state: GameState, productions: readonly P[]): StartedOwnerReplayInput<P> {
++  assert.ok(state.hollywood)
++  return { source: {
++    technology: state.technology, market: { tick: state.market.tick },
++    placement: state.placement, property: state.property, hollywood: state.hollywood,
++    operations: state.operations, sets: state.sets, releaseAuthority: state.releaseAuthority,
++    scriptDevelopment: state.scriptDevelopment, castingSessions: state.castingSessions,
++    construction: state.construction, physicalPlans: state.physicalPlans,
++    productionQueue: state.productionQueue, founding: state.founding, firstTakes: state.firstTakes,
++    concepts: state.concepts, studio: { activeProductions: productions },
++  }, issuerId: state.hollywood.playerStudioId,
++  claimPersonIds: state.studio.activeProductions.map((row) => row.cast.lead),
++  plans: [{ traceKey: 'record-facts-two-real-sweeps', commands: [] }],
++  horizonEndWeek: state.market.tick + 2, preparationWork: 0,
++  limits: { work: 200000, span: 220, alternatives: 1024 } }
++}
++
++function reference(state: GameState) {
++  const once = tick(state), twice = tick(once)
++  makeSave(once)
++  makeSave(twice)
++  expect(once.studio.activeProductions.map((row) => row.remainingTicks)).toEqual([4])
++  expect(twice.studio.activeProductions.map((row) => row.remainingTicks)).toEqual([3])
++  expect(twice.operations.workflows[0]?.phase).toBe('postProduction')
++  const takes = once.firstTakes.filter((row) => row.productionId === state.studio.activeProductions[0]!.id)
++  expect(takes).toHaveLength(1)
++  expect(takes[0]!.week).toBe(state.market.tick + 1)
++  return twice
++}
++
++function checked<P extends StartedPicture>(value: StartedOwnerReplayInput<P>, state: GameState,
++  real: GameState, productions: readonly P[]) {
++  const before = clone(value)
++  const result = replayStartedProductionPlans(value)
++  expect(value).toEqual(before)
++  expect(result.attempts).toHaveLength(1)
++  const attempt = result.attempts[0]!
++  if (attempt.kind !== 'complete') throw new Error(`genuine record-facts replay cut: ${attempt.reason}: ${attempt.detail}`)
++  expect(result.omissions).toEqual([])
++  expect(result.preparationWork).toBeGreaterThan(0)
++  expect(result.preparationWork).toBeLessThanOrEqual(200000)
++  const own = value.issuerId
++  expect(real.technology.productions.filter((row) => row.studioId === own).map((row) => row.productionId))
++    .toEqual(state.technology.productions.filter((row) => row.studioId === own).map((row) => row.productionId))
++  const technology = { ...state.technology, productions: state.technology.productions.map((row) => {
++    if (row.studioId !== own) return row // foreign advancement is outside this replay
++    const updated = real.technology.productions.find((candidate) =>
++      candidate.studioId === own && candidate.productionId === row.productionId)
++    assert.ok(updated)
++    return updated
++  }) }
++  expect(attempt.projection).toEqual({ week: real.market.tick, productions,
++    operations: real.operations, sets: real.sets, technology,
++    releaseAuthority: real.releaseAuthority, completedBackgroundPathKeys: [] })
++  expect(attempt.provenance.filter((row) => row.kind === 'sweepStarted').map((row) => row.at.week))
++    .toEqual([state.market.tick, state.market.tick + 1])
++  expect(attempt.provenance.filter((row) => row.kind === 'firstTake')).toEqual([{
++    kind: 'firstTake', at: { week: state.market.tick + 1, step: 0 },
++    productionId: state.studio.activeProductions[0]!.id,
++  }])
++  const events = real.studioEvents.rows.filter((row) => row.seq >= state.studioEvents.nextSeq)
++  expect(attempt.provenance.filter((row) => row.kind === 'ownerEvent')
++    .map((row) => ({ week: row.ownerWeek, draft: row.draft })))
++    .toEqual(events.map(({ seq: _seq, week, ...draft }) => ({ week, draft })))
++  expect(events.filter((row) => row.kind === 'wrapped')).toHaveLength(1)
++  return { result, attempt }
++}
++
++describe('P14B4 paid record facts — public invocation isolation and opaque P fields', () => {
++  it('keeps exact A/B/A/B results and work across genuine same-ID, different-package sources', () => {
++    const a = scheduled(0), b = scheduled(1)
++    const aBefore = clone(a), bBefore = clone(b)
++    const aProduction = a.studio.activeProductions[0]!, bProduction = b.studio.activeProductions[0]!
++    expect(aProduction.id).toBe(bProduction.id)
++    expect(aProduction.conceptId).not.toBe(bProduction.conceptId)
++    expect([...productionCompanyTalentIds([aProduction])]
++      .filter((id) => productionCompanyTalentIds([bProduction]).has(id))).toEqual([])
++    expect(a.operations).not.toBe(b.operations)
++    expect(a.technology).not.toBe(b.technology)
++    const aReal = reference(a), bReal = reference(b)
++    const aInput = input(a, a.studio.activeProductions), bInput = input(b, b.studio.activeProductions)
++    const firstA = checked(aInput, a, aReal, aReal.studio.activeProductions).result
++    const aSnapshot = clone(firstA)
++    const firstB = checked(bInput, b, bReal, bReal.studio.activeProductions).result
++    const bSnapshot = clone(firstB)
++    // EXACT original argument references recur, not fresh clones that would hide
++    // an improperly global exact-reference memo. Distinct facts share the ID.
++    const againA = checked(aInput, a, aReal, aReal.studio.activeProductions).result
++    const againB = checked(bInput, b, bReal, bReal.studio.activeProductions).result
++    expect(againA).toEqual(aSnapshot)
++    expect(againB).toEqual(bSnapshot)
++    expect(againA.preparationWork).toBe(aSnapshot.preparationWork)
++    expect(againB.preparationWork).toBe(bSnapshot.preparationWork)
++    expect(firstA).toEqual(aSnapshot)
++    expect(firstB).toEqual(bSnapshot)
++    expect(a).toEqual(aBefore)
++    expect(b).toEqual(bBefore)
++    // No claim that these package branches differ in static facility counts.
++  })
++
++  it('copies opaque P values untouched while charging changed own-string-key shape', () => {
++    const state = scheduled(0), before = clone(state), real = reference(state)
++    const marker = Object.freeze({ label: 'lower-view-only', nested: Object.freeze(['opaque']) })
++    type Marked = Production & Readonly<{ recordFactsMarker: typeof marker; recordFactsText: string }>
++    const short: readonly Marked[] = state.studio.activeProductions.map((row) => ({ ...row,
++      recordFactsMarker: marker, recordFactsText: 'x' }))
++    const huge: readonly Marked[] = short.map((row) => ({ ...row, recordFactsText: 'x'.repeat(200001) }))
++    const expectedShort: readonly Marked[] = real.studio.activeProductions.map((row) => ({ ...row,
++      recordFactsMarker: marker, recordFactsText: 'x' }))
++    const expectedHuge: readonly Marked[] = expectedShort.map((row) => ({ ...row, recordFactsText: huge[0]!.recordFactsText }))
++    const small = checked(input(state, short), state, real, expectedShort)
++    const large = checked(input(state, huge), state, real, expectedHuge)
++    expectTypeOf(large.attempt.projection.productions).toEqualTypeOf<readonly Marked[]>()
++    expect(large.result.preparationWork).toBe(small.result.preparationWork)
++    expect(large.attempt.projection.productions[0]!.recordFactsMarker).toBe(marker)
++    expect(small.attempt.projection.productions[0]!.recordFactsMarker).toBe(marker)
++    expect(large.attempt.projection.productions[0]!.recordFactsText).toBe(huge[0]!.recordFactsText)
++    const longerKey = short.map(({ recordFactsMarker, ...row }) => ({ ...row,
++      recordFactsMarkerWithALongerOwnStringKeyForCopyAccounting: recordFactsMarker }))
++    const expectedLongerKey = expectedShort.map(({ recordFactsMarker, ...row }) => ({ ...row,
++      recordFactsMarkerWithALongerOwnStringKeyForCopyAccounting: recordFactsMarker }))
++    expect(Object.keys(longerKey[0]!).length).toBe(Object.keys(short[0]!).length)
++    const longer = checked(input(state, longerKey), state, real, expectedLongerKey)
++    expect(longer.result.preparationWork).toBeGreaterThan(small.result.preparationWork)
++    expect(longer.attempt.projection.productions[0]!
++      .recordFactsMarkerWithALongerOwnStringKeyForCopyAccounting).toBe(marker)
++    expect(state).toEqual(before)
++    // Generic full-P extensions are legitimate lower-owner inputs, NOT campaign
++    // fields or save fixtures. Unknown values must not become string dimensions.
++  })
++})

@@ -6,28 +6,29 @@ Headless verification never claims package completion or Owner acceptance.
 
 Current (2026-09-20):
 
-Current B4 checkpoint364 (2026-09-20):354 SOURCEFROZEN, allruntimeCLOSED.
-BaseHEAD/EXACTremote52ba3ab8e552c29ffb7b0963411c555412770c14 (353published).
-355 independent bounded sourceKEEP.356rootUI/357lookup5/358ordinary66/
-360old26/361adjacent137 PASS.359Ready13PASS2workLimitFAIL; freelancer still
-FULLYGREEN.362soleOLD futureP2kindTS2353. Fullraw/metadata/patch/nonoverlap verified.
-Protected356–362patch74995763b7c8b68d76ce9b43e39a2356000ce40b0214dcd0babf29d6430a1fa0.
-Replay393d4dc7f8997183468c84b6b6c6e31ff839c626f765607b5391368a20996486.
+Current B4 checkpoint379 (2026-09-20):367/368 FROZEN, allruntimeCLOSED.
+BaseHEAD/EXACTremote2ccd87cca17388905a85a27dddd3ff5ab9c8bc66 (366published).
+369 independent bounded source/testKEEP.370rootUI/3715/37266/37426/375137/
+377new2(sevencompletecalls)PASS.373Ready13PASS2workLimitFAIL; freelancerFULLYGREEN.
+376soleOLDfutureP2kindTS2353. Fullraw/hash/nonoverlapverified.
+Protected370–377patch1efe725b12d261adcf52a390b888584101436e0bd000c74e97bb126e3c0680cd.
+Replay4166ea6a00b23741bf0e9f4c945520d80d2834a53d400a1133bc23002a8aa6e1;
+test70d710859eb9f83baf5776101f4c30b1f1c4713db9cca50ea14c9a660a307dc9.
 
-363passive logsREMOVED; EXACT354+testedpatch restored. Firsttake now passes
-actualowner/reconciliation/calendar/provenance bookkeeping into frame6 remaining4,
-entry192800/dimensions193021→196678. Wrap calculator cuts199997/request8
-inallocationBill BEFOREcompletedwrapbill/owner/output/trace/kernel. Attribution
-only, not completeReady/B4 acceptance. Stale cut notseparately measured.
+378logsREMOVED/exact367+testedpatch restored. w6entry189347 (saves3453);
+dimensions189568→193247. WrapbillNOWcompletes16951 at199709; then100calc,
+Work.pay199809/request17048 fails BEFOREwrapsweepStarted/actualowner/output/
+trace/kernel. Notallcallscostless; nofit/Ready/B4acceptance. Stalecutnotseparately
+measured.377genuineA/B/A/B repeatresult/work+opaquevalue/keyspan testsFULLPASS.
 
-Sim-core +contract-auditor READONLY bounded next-direction/cost cross-check;
-364authorcoverageDONE/idle, no genuine new blocker. NOwriter/runtime.
-Parentpublishes364qualifiedcheckpoint/exactremote366, then adopts365scope
-before367SOLEsimwriter; freeze/fullread/pins/independentreview/serializedcontrols.
-No tariff/cap/test/validator weakening. ContinueB4/remainingP14/P15/P16/
-specifiedP17/P18. T4/B2/B3/B-F2 qualifiedcloseouts retained; Save29/rules3/
-projection46 live untilcoherentcutover. Unity/native/Owneracceptance deferred/
-integrationbacklog retained.
+Sim-core proposalDONE/idle.380auditorREADONLY math/sourceinventoryreview;
+380author writesONLYindependenthypothesisoracle/brief, no productionwriter/runtime.
+Parentpublishes379checkpoint/exactremote381, thenadopts380before382SOLEsim
+writer onlyadoptedscope+handback; freeze/fullread/pins/source
+review/serialized unchangedgates. Neverdiscounttariffs/raise caps/weaken tests.
+ContinueB4/restP14/P15/P16/specifiedP17/P18. T4/B2/B3/B-F2closeoutsstand;
+Save29/rules3/projection46 liveuntilcoherentcutover. Unity/native/Owneracceptance
+deferred/integrationbacklogretained.
 
 Earlier additive foundation checkpoint: V30 data support implemented and independently
 KEEP; qualified report evidence/p14b4-20260919/29-additive-checkpoint.md.

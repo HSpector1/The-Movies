@@ -156,7 +156,8 @@ const LITERAL = Object.freeze({
   hold: literalCost('holdId', 'ownerKey', 'ownerPathKey', 'subject', 'from', 'until'),
   fixedHold: literalCost('holdId', 'ownerKey', 'ownerPathKey', 'subject', 'from', 'until', 'replaceableFrom'),
   prepared: literalCost('pictures', 'backgrounds', 'mounts', 'plans', 'fixed', 'now', 'end', 'factRef', 'dimensionFacts'),
-  dimensionCell: literalCost('value'),
+  dimensionCell: literalCost('value', 'records'),
+  dimensionRecord: literalCost('record', 'copy', 'width'),
   staticDimensions: literalCost('f', 'capacity', 'd', 'adoptions', 'access', 'equipment',
     'placements', 'structures', 'provides', 'cells'),
   dimensions: literalCost('n', 'f', 'capacity', 'sets', 'external', 'd', 'dp', 'pCopy',
@@ -683,9 +684,9 @@ function prepare<P extends StartedPicture>(input: ReplayInput<P>, work: Work,
     work.pay(2 + LITERAL.resource)
     hold(mount.pathKey, { kind: 'resource', resourceKey: work.token('mount', issuer, mount.set.mountedOn), slot: 0 })
   }
-  work.pay(LITERAL.prepared + LITERAL.dimensionCell + 2)
+  work.pay(LITERAL.prepared + LITERAL.dimensionCell + 3)
   return { pictures, backgrounds, mounts, plans, fixed, now, end,
-    factRef: work.token('source', issuer, now.week), dimensionFacts: { value: null } }
+    factRef: work.token('source', issuer, now.week), dimensionFacts: { value: null, records: [] } }
 }
 
 function checkForeignRelevance<P extends StartedPicture>(source: StartedOwnerSource<P>, issuer: string,
@@ -737,9 +738,67 @@ type Dimensions = {
 }
 type StaticDimensions = Readonly<Pick<Dimensions, 'f' | 'capacity' | 'd' | 'adoptions' |
   'access' | 'equipment' | 'placements' | 'structures' | 'provides' | 'cells'>>
-type DimensionCell = { value: StaticDimensions | null }
+type DimensionRecordFacts = {
+  readonly record: object
+  /** Null means that this mode has not been observed, not a zero footprint. */
+  copy: number | null
+  /** Intrinsic own-string maximum; never seeded by another record's width. */
+  width: number | null
+}
+type DimensionCell = { value: StaticDimensions | null; records: DimensionRecordFacts[] }
 
-/** Incremental own-string-key discovery, shared by static and dynamic rows. */
+/** Only immutable source/owner-return records requested by dimensions enter
+ * this invocation-local table. Mutable replay records never pass this seam. */
+function dimensionRecordFacts<T extends object>(record: T, needCopy: boolean, needStrings: boolean,
+  cell: DimensionCell, work: Work): DimensionRecordFacts {
+  work.pay(8) // table access, local initialization, empty-loop and return controls
+  let previous: DimensionRecordFacts | undefined
+  for (const entry of cell.records) {
+    work.pay(6) // visit/reference, record read, identity comparison, match/break controls
+    if (entry.record === record) { previous = entry; break }
+  }
+  work.pay(12) // two optional previous-field reads/defaults and local bindings
+  let copy = previous?.copy ?? null
+  let width = previous?.width ?? null
+  work.pay(12) // two requested-mode/null checks and boolean result bindings
+  const copyMissing = needCopy && copy === null
+  const stringsMissing = needStrings && width === null
+  work.pay(8) // both missing flags, conjunction, hit reference and return control
+  if (!copyMissing && !stringsMissing) return previous!
+  work.pay(8) // two cold-mode guards/default assignments and scan initialization
+  if (copyMissing) copy = 1
+  if (stringsMissing) width = 0
+  for (const key in record) {
+    // One enumeration/own-key check serves both requested cold modes. The
+    // copy accumulator and each consumed string still pay their own work.
+    work.pay(5 + key.length)
+    if (!Object.prototype.hasOwnProperty.call(record, key)) continue
+    if (copyMissing) copy = work.calc(8).add(copy!, 3 + key.length)
+    if (stringsMissing) {
+      work.pay(2) // value read and type test; copy-only never reads this value
+      const value = record[key]
+      if (typeof value === 'string') {
+        work.pay(2); work.text(value)
+        width = Math.max(width!, value.length)
+      }
+    }
+  }
+  work.pay(3) // complete-scan dispatch and result controls
+  if (previous !== undefined) {
+    // Both facts are complete before either write; no throwing work between
+    // these paid writes can expose a partially completed mode upgrade.
+    work.pay(16) // copy/width keyed writes(5+6), references/values/return(5)
+    previous.copy = copy
+    previous.width = width
+    return previous
+  }
+  work.pay(6 + LITERAL.dimensionRecord + APPEND)
+  const result: DimensionRecordFacts = { record, copy, width }
+  cell.records.push(result)
+  return result
+}
+
+/** Incremental own-string-key discovery for the unchanged static facts. */
 function dimensionStrings<T extends object>(row: T, maximum: number, work: Work): number {
   work.pay(4)
   let result = maximum
@@ -757,7 +816,7 @@ function dimensionStrings<T extends object>(row: T, maximum: number, work: Work)
 }
 
 /** Only roots preserved by EVERY permitted owner/command in this invocation.
- * No caller records or combined/dynamic Dimensions are retained in the cell. */
+ * The value leaf is static-only; record facts have separate exact identities. */
 function staticDimensionFacts<P extends StartedPicture>(source: StartedOwnerSource<P>,
   cell: DimensionCell, work: Work): StaticDimensions {
   work.pay(8) // cell read, guard, call/return controls on every cold/warm access
@@ -808,21 +867,29 @@ function dimensions<P extends StartedPicture>(source: StartedOwnerSource<P>, pro
   external: number, work: Work, cell: DimensionCell, pictureFacts?: readonly PictureFacts<P>[]): Dimensions {
   work.pay(4) // static-fact call arguments/result binding
   const fixed = staticDimensionFacts(source, cell, work)
+  work.pay(16) // two copy-only fact calls: arguments, result bindings and controls
+  const operationsFacts = dimensionRecordFacts(operations, true, false, cell, work)
+  const technologyFacts = dimensionRecordFacts(technology, true, false, cell, work)
   // Fresh literal and scalar field reads/composition EVERY time; never return
-  // the static record as a dynamic branch snapshot. Root copies remain fresh.
+  // cached combined Dimensions. Each root footprint names its CURRENT record.
   work.pay(64 + LITERAL.dimensions)
   const d: Dimensions = { n: productions.length, f: fixed.f, capacity: fixed.capacity,
     sets: sets.length, external, d: fixed.d, dp: 0, pCopy: 0, workflowCopy: 98, taskCopy: 66,
-    bindingsCopy: 95, operationsCopy: work.copyCost(operations), setCopy: 137, setupCopy: 0,
-    technologyCopy: work.copyCost(technology), technologyRowCopy: 62,
+    bindingsCopy: 95, operationsCopy: operationsFacts.copy!, setCopy: 137, setupCopy: 0,
+    technologyCopy: technologyFacts.copy!, technologyRowCopy: 62,
     t: technology.productions.length, adoptions: fixed.adoptions, access: fixed.access,
     equipment: fixed.equipment, placements: fixed.placements, structures: fixed.structures,
     provides: fixed.provides, cells: fixed.cells,
     genreRows: pictureFacts?.length ?? source.studio.activeProductions.length, genreId: 0, allSilent: true }
   const text = (value: string): void => { work.pay(2); work.text(value); d.d = Math.max(d.d, value.length) }
-  const strings = <T extends object>(row: T): void => {
-    work.pay(6)
-    d.d = dimensionStrings(row, d.d, work)
+  const facts = <T extends object>(row: T, copy: boolean, strings: boolean): DimensionRecordFacts => {
+    work.pay(12) // fact-call arguments/binding, requested-mode guard and return
+    const observed = dimensionRecordFacts(row, copy, strings, cell, work)
+    if (strings) {
+      work.pay(6) // current/result reads, maximum and d-key write; no historical max
+      d.d = Math.max(d.d, observed.width!)
+    }
+    return observed
   }
   if (pictureFacts === undefined) {
     for (const original of source.studio.activeProductions) {
@@ -838,23 +905,23 @@ function dimensions<P extends StartedPicture>(source: StartedOwnerSource<P>, pro
   for (const row of productions) {
     work.pay(4); text(row.id); text(row.directorId)
     d.dp = Math.max(d.dp, row.id.length)
-    d.pCopy = Math.max(d.pCopy, work.copyCost(row))
+    d.pCopy = Math.max(d.pCopy, facts(row, true, false).copy!)
   }
   for (const row of operations.workflows) {
-    work.pay(7); strings(row); strings(row.bindings)
-    d.workflowCopy = Math.max(d.workflowCopy, work.copyCost(row))
-    d.bindingsCopy = Math.max(d.bindingsCopy, work.copyCost(row.bindings))
-    for (const reservation of row.reservations) { work.pay(); strings(reservation) }
+    work.pay(7)
+    d.workflowCopy = Math.max(d.workflowCopy, facts(row, true, true).copy!)
+    d.bindingsCopy = Math.max(d.bindingsCopy, facts(row.bindings, true, true).copy!)
+    for (const reservation of row.reservations) { work.pay(3); facts(reservation, false, true) }
     if (row.shootingTask !== null) {
-      strings(row.shootingTask); d.taskCopy = Math.max(d.taskCopy, work.copyCost(row.shootingTask))
+      d.taskCopy = Math.max(d.taskCopy, facts(row.shootingTask, true, true).copy!)
     }
     if (row.setup !== null && row.setup !== undefined) {
-      strings(row.setup); d.setupCopy = Math.max(d.setupCopy, work.copyCost(row.setup))
+      d.setupCopy = Math.max(d.setupCopy, facts(row.setup, true, true).copy!)
     }
   }
-  for (const row of sets) { work.pay(3); strings(row); d.setCopy = Math.max(d.setCopy, work.copyCost(row)) }
+  for (const row of sets) { work.pay(3); d.setCopy = Math.max(d.setCopy, facts(row, true, true).copy!) }
   for (const row of technology.productions) {
-    work.pay(3); strings(row); d.technologyRowCopy = Math.max(d.technologyRowCopy, work.copyCost(row))
+    work.pay(3); d.technologyRowCopy = Math.max(d.technologyRowCopy, facts(row, true, true).copy!)
     if (!work.equal(row.method, 'silent')) d.allSilent = false
   }
   return d

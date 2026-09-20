@@ -1,0 +1,32 @@
+{"sourceSha":"2ccd87cca17388905a85a27dddd3ff5ab9c8bc66","testedDiffSha256":"1efe725b12d261adcf52a390b888584101436e0bd000c74e97bb126e3c0680cd","untrackedSource":["tests/p14b4-replay-record-facts.test.ts"],"command":["node_modules/.bin/vitest","run","--project","core","tests/d11-employment.test.ts","tests/p13a-research-employment.test.ts","tests/p14a1-eligibility.test.ts","tests/casting-package-read-model.test.ts","tests/p14bf2-acting-discipline.test.ts"],"node":"v20.20.2","start":"2026-09-20T08:40:42.167Z","end":null,"exitCode":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/casting-package-read-model.test.ts (11 tests) 1048ms
+ ✓ |core| tests/p14a1-eligibility.test.ts (5 tests) 4010ms
+   ✓ P14A.1 test 1: market eligibility (six states; reserved rivals; in-term refusal) > renewal_window: a 52-week player contract at its window-open week (week 40) opens a case; the incumbent (player) and every ENTERED rival may propose 2649ms
+   ✓ P14A.1 test 1: market eligibility (six states; reserved rivals; in-term refusal) > reserved rivals cannot propose: row 5 (eligibleWeek 520, enteredWeek null at week 40) is excluded from the renewal_window proposer set 1203ms
+ ✓ |core| tests/p14bf2-acting-discipline.test.ts (13 tests) 7544ms
+   ✓ B-F2: settled has-acting-discipline law, not primary-role eligibility > the real generated writer is lawfully cast as lead without relabeling or occupying two roles 4913ms
+   ✓ B-F2: settled has-acting-discipline law, not primary-role eligibility > real winning writer P1 binds, then one completed scheduled cast take satisfies it with exact durable references 995ms
+   ✓ B-F2: genuine old role-refusal evidence survives, fresh evaluations use3 > valid load preserves the old erroneous receipt/root/digest bytes exactly without repairing history 790ms
+   ✓ B-F2: genuine old role-refusal evidence survives, fresh evaluations use3 > actual resubmit/attach evaluates afresh under3 but keeps the original version1 refusal untouched 404ms
+ ✓ |core| tests/d11-employment.test.ts (36 tests) 11490ms
+   ✓ D-11.2 — starting applicant draft > no guaranteed superstar: across many seeds, some drafts have no 90+ OVR actor 872ms
+   ✓ D-11 — contracts & offers > payroll accrues each week; the ledger reconciles after several weeks 1088ms
+   ✓ D-11.8 — expiration > a contract expires at term end and the talent becomes a free agent 3855ms
+   ✓ D-11.7 — renewals > renewing inside the window is refused as underMarketCase and redirected to the proposal path (P14A §2.1.3 / R6) 2624ms
+   ✓ D-11.14 — deterministic markets > the market rotates across epochs (different listings over a full rotation) 421ms
+   ✓ D-11 — determinism & live saves > no duplicate payroll after reload (reload ≡ continuous run) 1012ms
+   ✓ D-11 — determinism & live saves > two same-seed founded+advanced runs are byte-identical (deterministic offers/markets) 637ms
+ ✓ |core| tests/p13a-research-employment.test.ts (1 test) 7236ms
+   ✓ P13A research employment continuity > releasing the actual Scientist pauses work immediately and survives save/reload without losing verified work 7234ms
+
+ Test Files  5 passed (5)
+      Tests  66 passed (66)
+   Start at  10:40:42
+   Duration  18.39s (transform 2.31s, setup 0ms, collect 9.22s, tests 31.33s, environment 3ms, prepare 2.13s)
+
+
+{"sourceSha":"2ccd87cca17388905a85a27dddd3ff5ab9c8bc66","testedDiffSha256":"1efe725b12d261adcf52a390b888584101436e0bd000c74e97bb126e3c0680cd","untrackedSource":["tests/p14b4-replay-record-facts.test.ts"],"command":["node_modules/.bin/vitest","run","--project","core","tests/d11-employment.test.ts","tests/p13a-research-employment.test.ts","tests/p14a1-eligibility.test.ts","tests/casting-package-read-model.test.ts","tests/p14bf2-acting-discipline.test.ts"],"node":"v20.20.2","start":"2026-09-20T08:40:42.167Z","end":"2026-09-20T08:41:01.474Z","exitCode":0,"signal":null,"error":null,"sourceShaAtEnd":"2ccd87cca17388905a85a27dddd3ff5ab9c8bc66","testedDiffSha256AtEnd":"1efe725b12d261adcf52a390b888584101436e0bd000c74e97bb126e3c0680cd","untrackedSourceAtEnd":["tests/p14b4-replay-record-facts.test.ts"],"fixedSource":true}
