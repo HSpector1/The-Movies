@@ -2,37 +2,29 @@
 
 ## Current continuation — 2026-09-20: B-F2 closed; P2 pure owners verified, integration continues
 
-Current B4 checkpoint174 (2026-09-20): shared bounded sorting implemented in
-the THREE actual owner call sites under157 §§1–3;168sourceFROZEN/170independentKEEP.
-17155PASS/7files (14new+41original),172root AND UI typingPASS.
-173bridgeexit2 SOLE exactprior P2kind364TS2353, byte-matched154; NOTbridgegreen.
-All fixedSource:true, basef290536336dd726a15a177c5e36f71b0fcec3cd0 plus
-SOURCEONLYpatchf65c466192c75e2b296a173d5990bb41ed51e24f24a70adc998f1d35f2817793.
-No test/validator/timeout/workcap/version change. AllruntimeCLOSED/NOsourcewriter.
-Publishedd9ebb81090dafc0d18d7c0f3b86e5f92d66ae123/separateEXACTremote (177).
-179 genuine one-/two-picture fixture probe PASS on CLEANd9ebb/EMPTYpatch,
-all6 strict V29 validations PASS; qualified180, not replay/budget certification.
-Real week4 scheduled→week5 takes→week6 Post after actual wrap, Set wear once.
-175KEEP conditionalpaper162 only. Sim-core176 ONLYinertwhole-workcontract;
-181 independentKEEP complete; author182 ONLYinert executable replaytestdraft.
-ALLruntimeCLOSED/protectedFROZEN; sim176+author182/max2; auditoridle.
+Current B4 checkpoint190 (2026-09-20): independent started-replay tests installed.
+182569lines/16cases exact+provenancecomment,187independentKEEP.
+1881FailedSuite/ZERObodies missingreplaymodule;189root38new-testdiagnostics for
+missingreplay/duepredicates/narrowcompany anddependenttypes. UIUNREACHED.
+BothfixedSource:true86def+TESTONLYpatche5d1abb3f7ac2744e269554dae1f810951fb0af29f99793b365c2dfd25b713ce.
+184 originaldueowners26PASS/3files CLEAN86def. AllruntimeCLOSED/NOsourcewriter.
+Nextpublish/exactremote190, thenONEsim-core four-file replay implementation
+under137/176/185/186; testsIMMUTABLE. Completecostcomposition/sourceprepayment
+review AND genuine1/2 H6 traces+unchangedkernel<=200000 remainmandatory.
+No additional prerequisite extraction or invented remainingbudget.
 
-169 endpointcorrectionADOPTED: one sweepw→w+1 yields takeat(H,0) whenH=w+1,
-not credit under half-open deadline. In-window control needs actual second
-4→3wrap/Post sweep/H>=w+2; COUNT is still not B2/eight-weekslack/choicecomplete.
-Do not restamp events, invent holdtails or make finite commandplans complete.
-162962/2436 are PAPER one-owner subtotals excluding sorting/caller/kernel.
-137/148/157 full BEFORE-call repeatedstring/callback/property/ledger accounting
-remains OPEN; old67,904 withdrawn. Freeze honest176/independenttests/actualRED,
-thenONE replay writer incl137 due predicates/companyfact seam. Verify fullbefore-
-call work composition and useful controls WITH code; no invented residual.
+179 genuine1/2 fixturesPASS (sixstrictV29validations),180qualification/181KEEP
+published86def6897ad3c5f8c576d2118f12857a353520f9 exactremote183.
+169endpoint: actualtake5 outsideH5; H6 needsactualwrap/Post. Stage/Setholds end
+atmatchingstage-release186, companythroughH. No B2/slack/choicecompleteclaim.
+Prior sharedsortd9ebb:174qualified/170KEEP/55PASS/rootUIpass/soleoldbridgeP2kind
+364TS2353. No test/validator/timeout/workcap/version changes; sourceunchanged.
 
-Prior recoveredqualifiedwork:155/8ed2646 ownerinterfaces(all6emittedJSidentical,
-107PASS/1PILfailure/rootUIpass),139/6afe staffing145PASS,119/5cae jointkernel86PASS.
-P14B.1 T4/B2/B3/B-F2 qualifiedcloseouts recovered; do not rebuild/rerun.
-Continue useful actual-owner traces/coherentP2/restP14/P15/P16/specifiedP17/P18
-without routine permission. Save29/rules3/projection46 staylive untilcoherentcutover.
-Full B4,Unity/native andOwneracceptance remainowed; Unitybacklogupdated.
+Earlierqualifiedwork:155/8ed2646ownerinterfaces,139/6afestaffing,119/5caejointkernel.
+P14B.1 T4/B2/B3/B-F2 recoveredqualifiedcloseouts; do not rebuild/rerun.
+Continue actualcoding/coherentP2/restP14/P15/P16/specifiedP17/P18 without routine
+permission. Save29/rules3/projection46 staylive untilcoherentcutover.
+FullB4,Unity/native andOwneracceptance remainowed; Unitybacklogmaintained.
 Evidence/p14b4-20260919/00-start.md records exactownership/runtime/publication;
 older CURRENT blocks are chronology.
 

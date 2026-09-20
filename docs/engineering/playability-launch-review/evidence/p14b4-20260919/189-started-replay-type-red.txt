@@ -1,0 +1,47 @@
+{"sourceSha":"86def6897ad3c5f8c576d2118f12857a353520f9","testedDiffSha256":"e5d1abb3f7ac2744e269554dae1f810951fb0af29f99793b365c2dfd25b713ce","untrackedSource":["tests/p14b4-started-owner-replay.test.ts"],"command":["npm","run","typecheck"],"node":"v20.20.2","start":"2026-09-20T02:56:00.323Z","end":null,"exitCode":null}
+
+
+> project-studio-core@0.1.0 typecheck
+> tsc --noEmit && tsc -p ui/tsconfig.json --noEmit
+
+tests/p14b4-started-owner-replay.test.ts(15,85): error TS2307: Cannot find module '../src/core/promiseCapacityOwnerReplay.js' or its corresponding type declarations.
+tests/p14b4-started-owner-replay.test.ts(18,34): error TS2305: Module '"../src/core/scriptDevelopment.js"' has no exported member 'scriptWorkDueAt'.
+tests/p14b4-started-owner-replay.test.ts(19,10): error TS2305: Module '"../src/core/castingSessions.js"' has no exported member 'castingWorkDueAt'.
+tests/p14b4-started-owner-replay.test.ts(183,38): error TS7006: Parameter 'row' implicitly has an 'any' type.
+tests/p14b4-started-owner-replay.test.ts(188,52): error TS7006: Parameter 'row' implicitly has an 'any' type.
+tests/p14b4-started-owner-replay.test.ts(191,52): error TS7006: Parameter 'row' implicitly has an 'any' type.
+tests/p14b4-started-owner-replay.test.ts(208,39): error TS7006: Parameter 'row' implicitly has an 'any' type.
+tests/p14b4-started-owner-replay.test.ts(210,39): error TS7006: Parameter 'row' implicitly has an 'any' type.
+tests/p14b4-started-owner-replay.test.ts(211,39): error TS7006: Parameter 'row' implicitly has an 'any' type.
+tests/p14b4-started-owner-replay.test.ts(233,52): error TS7006: Parameter 'row' implicitly has an 'any' type.
+tests/p14b4-started-owner-replay.test.ts(234,29): error TS7006: Parameter 'row' implicitly has an 'any' type.
+tests/p14b4-started-owner-replay.test.ts(236,31): error TS7006: Parameter 'row' implicitly has an 'any' type.
+tests/p14b4-started-owner-replay.test.ts(250,51): error TS7006: Parameter 'row' implicitly has an 'any' type.
+tests/p14b4-started-owner-replay.test.ts(254,39): error TS7006: Parameter 'row' implicitly has an 'any' type.
+tests/p14b4-started-owner-replay.test.ts(255,39): error TS7006: Parameter 'row' implicitly has an 'any' type.
+tests/p14b4-started-owner-replay.test.ts(272,50): error TS7006: Parameter 'row' implicitly has an 'any' type.
+tests/p14b4-started-owner-replay.test.ts(273,26): error TS7006: Parameter 'row' implicitly has an 'any' type.
+tests/p14b4-started-owner-replay.test.ts(309,34): error TS7006: Parameter 'row' implicitly has an 'any' type.
+tests/p14b4-started-owner-replay.test.ts(326,40): error TS7006: Parameter 'row' implicitly has an 'any' type.
+tests/p14b4-started-owner-replay.test.ts(327,27): error TS7006: Parameter 'row' implicitly has an 'any' type.
+tests/p14b4-started-owner-replay.test.ts(333,36): error TS7006: Parameter 'row' implicitly has an 'any' type.
+tests/p14b4-started-owner-replay.test.ts(358,55): error TS7006: Parameter 'row' implicitly has an 'any' type.
+tests/p14b4-started-owner-replay.test.ts(363,60): error TS7006: Parameter 'row' implicitly has an 'any' type.
+tests/p14b4-started-owner-replay.test.ts(368,36): error TS2339: Property 'replaceableFrom' does not exist on type '{}'.
+tests/p14b4-started-owner-replay.test.ts(371,52): error TS2339: Property 'replaceableFrom' does not exist on type '{}'.
+tests/p14b4-started-owner-replay.test.ts(372,52): error TS2339: Property 'until' does not exist on type '{}'.
+tests/p14b4-started-owner-replay.test.ts(375,37): error TS7006: Parameter 'row' implicitly has an 'any' type.
+tests/p14b4-started-owner-replay.test.ts(377,36): error TS7006: Parameter 'row' implicitly has an 'any' type.
+tests/p14b4-started-owner-replay.test.ts(393,40): error TS7006: Parameter 'row' implicitly has an 'any' type.
+tests/p14b4-started-owner-replay.test.ts(406,76): error TS7006: Parameter 'row' implicitly has an 'any' type.
+tests/p14b4-started-owner-replay.test.ts(410,51): error TS7006: Parameter 'hold' implicitly has an 'any' type.
+tests/p14b4-started-owner-replay.test.ts(443,58): error TS7006: Parameter 'row' implicitly has an 'any' type.
+tests/p14b4-started-owner-replay.test.ts(464,36): error TS7006: Parameter 'row' implicitly has an 'any' type.
+tests/p14b4-started-owner-replay.test.ts(500,53): error TS7006: Parameter 'row' implicitly has an 'any' type.
+tests/p14b4-started-owner-replay.test.ts(500,85): error TS7006: Parameter 'row' implicitly has an 'any' type.
+tests/p14b4-started-owner-replay.test.ts(521,44): error TS7006: Parameter 'row' implicitly has an 'any' type.
+tests/p14b4-started-owner-replay.test.ts(525,45): error TS7006: Parameter 'row' implicitly has an 'any' type.
+tests/p14b4-started-owner-replay.test.ts(562,44): error TS2345: Argument of type 'readonly Readonly<{ directorId: string; cast: Readonly<{ lead: string; antagonist: string; support: string; }>; craftIds: string[]; marker: Readonly<{ id: string; }>; }>[]' is not assignable to parameter of type 'readonly Production[]'.
+  Type 'Readonly<{ directorId: string; cast: Readonly<{ lead: string; antagonist: string; support: string; }>; craftIds: string[]; marker: Readonly<{ id: string; }>; }>' is missing the following properties from type 'Production': id, conceptId, shape, promise, and 5 more.
+
+{"sourceSha":"86def6897ad3c5f8c576d2118f12857a353520f9","testedDiffSha256":"e5d1abb3f7ac2744e269554dae1f810951fb0af29f99793b365c2dfd25b713ce","untrackedSource":["tests/p14b4-started-owner-replay.test.ts"],"command":["npm","run","typecheck"],"node":"v20.20.2","start":"2026-09-20T02:56:00.323Z","end":"2026-09-20T02:56:30.775Z","exitCode":2,"signal":null,"error":null,"sourceShaAtEnd":"86def6897ad3c5f8c576d2118f12857a353520f9","testedDiffSha256AtEnd":"e5d1abb3f7ac2744e269554dae1f810951fb0af29f99793b365c2dfd25b713ce","untrackedSourceAtEnd":["tests/p14b4-started-owner-replay.test.ts"],"fixedSource":true}

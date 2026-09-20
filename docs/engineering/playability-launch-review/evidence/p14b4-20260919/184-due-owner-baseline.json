@@ -1,0 +1,24 @@
+{
+  "sourceSha": "86def6897ad3c5f8c576d2118f12857a353520f9",
+  "testedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "untrackedSource": [],
+  "command": [
+    "node_modules/.bin/vitest",
+    "run",
+    "--project",
+    "core",
+    "tests/script-development.test.ts",
+    "tests/casting-sessions-domain.test.ts",
+    "tests/casting-sessions-actions.test.ts"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-20T02:45:19.839Z",
+  "end": "2026-09-20T02:45:25.990Z",
+  "exitCode": 0,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "86def6897ad3c5f8c576d2118f12857a353520f9",
+  "testedDiffSha256AtEnd": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "untrackedSourceAtEnd": [],
+  "fixedSource": true
+}

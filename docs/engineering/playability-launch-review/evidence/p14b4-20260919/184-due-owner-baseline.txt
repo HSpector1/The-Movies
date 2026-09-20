@@ -1,0 +1,18 @@
+{"sourceSha":"86def6897ad3c5f8c576d2118f12857a353520f9","testedDiffSha256":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/script-development.test.ts","tests/casting-sessions-domain.test.ts","tests/casting-sessions-actions.test.ts"],"node":"v20.20.2","start":"2026-09-20T02:45:19.839Z","end":null,"exitCode":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/casting-sessions-domain.test.ts (8 tests) 284ms
+ ✓ |core| tests/script-development.test.ts (10 tests) 323ms
+ ✓ |core| tests/casting-sessions-actions.test.ts (8 tests) 1558ms
+   ✓ Casting Sessions V1 action, tick, and read-model integration > runs one optional week, persists only observations, stops for review, and never holds talent 448ms
+   ✓ Casting Sessions V1 action, tick, and read-model integration > hands capacity-only casting forward to a queueable Package and closes the exact queued project 319ms
+
+ Test Files  3 passed (3)
+      Tests  26 passed (26)
+   Start at  04:45:20
+   Duration  5.05s (transform 3.14s, setup 0ms, collect 6.69s, tests 2.17s, environment 1ms, prepare 525ms)
+
+
+{"sourceSha":"86def6897ad3c5f8c576d2118f12857a353520f9","testedDiffSha256":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/script-development.test.ts","tests/casting-sessions-domain.test.ts","tests/casting-sessions-actions.test.ts"],"node":"v20.20.2","start":"2026-09-20T02:45:19.839Z","end":"2026-09-20T02:45:25.990Z","exitCode":0,"signal":null,"error":null,"sourceShaAtEnd":"86def6897ad3c5f8c576d2118f12857a353520f9","testedDiffSha256AtEnd":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","untrackedSourceAtEnd":[],"fixedSource":true}
