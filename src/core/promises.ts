@@ -545,14 +545,14 @@ function evaluable(promise: ProfessionalPromise): boolean {
   return promise.outcome === null && promise.contractId !== null
 }
 
-function promiseCastSlots(promise: ProfessionalPromiseV30): readonly CastSlot[] {
+export function promiseCastSlots(promise: Pick<ProfessionalPromiseV30, 'predicate'>): readonly CastSlot[] {
   // Legacy count-only records of every family retain generic-cast semantics.
   // Only the explicit predicate shape selects a restricted seat class.
   if (!('kind' in promise.predicate)) return CAST_SLOTS
   return promise.predicate.seatClass === 'lead' ? ['lead'] : ['lead', 'antagonist']
 }
 
-function qualifyingTakes(
+export function qualifyingTakes(
   state: Pick<GameStateV30, 'firstTakes'>,
   promise: ProfessionalPromiseV30,
 ): readonly FirstTakeReceipt[] {
