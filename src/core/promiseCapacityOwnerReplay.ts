@@ -165,6 +165,8 @@ const LITERAL = Object.freeze({
   dimensionRecord: literalCost('record', 'copy', 'width'),
   staticDimensions: literalCost('f', 'capacity', 'd', 'adoptions', 'access', 'equipment',
     'placements', 'structures', 'provides', 'cells'),
+  commandDimensions: literalCost('n', 'd', 'dp', 'operationsCopy', 'workflowCopy', 'taskCopy',
+    'structures', 'provides', 'placements', 'cells'),
   dimensions: literalCost('n', 'f', 'capacity', 'sets', 'external', 'd', 'dp', 'pCopy',
     'workflowCopy', 'taskCopy', 'bindingsCopy', 'operationsCopy', 'setCopy', 'setupCopy',
     'technologyCopy', 'technologyRowCopy', 't', 'adoptions', 'access', 'equipment',
@@ -845,6 +847,10 @@ type Dimensions = {
 }
 type StaticDimensions = Readonly<Pick<Dimensions, 'f' | 'capacity' | 'd' | 'adoptions' |
   'access' | 'equipment' | 'placements' | 'structures' | 'provides' | 'cells'>>
+type WorkflowUpdateDimensions = Pick<Dimensions, 'n' | 'dp' | 'operationsCopy'>
+type GeometryDimensions = Pick<Dimensions, 'd' | 'structures' | 'provides' | 'placements' | 'cells'>
+type CommandDimensions = Pick<Dimensions, 'n' | 'd' | 'dp' | 'operationsCopy' |
+  'workflowCopy' | 'taskCopy' | 'structures' | 'provides' | 'placements' | 'cells'>
 type DimensionRecordFacts = {
   readonly record: object
   /** Null means that this mode has not been observed, not a zero footprint. */
@@ -1033,11 +1039,62 @@ function dimensions<P extends StartedPicture>(source: StartedOwnerSource<P>, pro
   }
   return d
 }
-function workflowUpdate(d: Dimensions, work: Work): number {
+/** Commands copy operations/workflows/tasks, not P/Set/setup/technology records.
+ * Keep current membership, full required footprints and the shared paid table;
+ * later sweep discovery still owns every omitted observation. */
+function commandDimensions<P extends StartedPicture>(source: StartedOwnerSource<P>, productions: readonly P[],
+  operations: StudioOperations, work: Work, cell: DimensionCell): CommandDimensions {
+  work.pay(12) // six scalar nodes: static-fact callee/arguments/call/result binding
+  const fixed = staticDimensionFacts(source, cell, work)
+  work.pay(16) // eight nodes for this five-argument fact call and result binding
+  const operationsFacts = dimensionRecordFacts(operations, true, false, cell, work)
+  work.pay(40 + LITERAL.commandDimensions) // <=20 scalar value/binding nodes; literal82 separately
+  const d: CommandDimensions = { n: productions.length, d: fixed.d, dp: 0,
+    operationsCopy: operationsFacts.copy!, workflowCopy: 98, taskCopy: 66,
+    structures: fixed.structures, provides: fixed.provides, placements: fixed.placements, cells: fixed.cells }
+  work.pay(4) // production iterator setup and terminal controls, including empty input
+  for (const production of productions) {
+    // Visit/control8, both text-call sites10, d/dp maxima and keyed writes26.
+    work.pay(44)
+    work.text(production.id); work.text(production.directorId)
+    d.d = Math.max(d.d, production.id.length, production.directorId.length)
+    d.dp = Math.max(d.dp, production.id.length)
+  }
+  work.pay(6) // operations/workflows access, iterator setup and terminal controls
+  for (const workflow of operations.workflows) {
+    work.pay(24) // outer visit/control8 plus eight-node fact call16
+    const workflowFacts = dimensionRecordFacts(workflow, true, true, cell, work)
+    work.pay(32) // both maxima: scalar/property/call work plus workflowCopy/d keyed writes
+    d.workflowCopy = Math.max(d.workflowCopy, workflowFacts.copy!)
+    d.d = Math.max(d.d, workflowFacts.width!)
+    work.pay(18) // nine-node call: nested bindings read, modes, table/work, call and binding
+    const bindingsFacts = dimensionRecordFacts(workflow.bindings, true, true, cell, work)
+    work.pay(10) // maximum receiver/operands/call and d keyed write
+    d.d = Math.max(d.d, bindingsFacts.width!)
+    work.pay(6) // reservation-list access, iterator setup and terminal controls
+    for (const reservation of workflow.reservations) {
+      work.pay(24) // inner visit/control8 plus eight-node string-only fact call16
+      const reservationFacts = dimensionRecordFacts(reservation, false, true, cell, work)
+      work.pay(10)
+      d.d = Math.max(d.d, reservationFacts.width!)
+    }
+    work.pay(6) // current task reference/null comparison and branch controls
+    if (workflow.shootingTask !== null) {
+      work.pay(18) // nine-node call including nested current task read
+      const taskFacts = dimensionRecordFacts(workflow.shootingTask, true, true, cell, work)
+      work.pay(28) // both maxima and taskCopy/d keyed writes
+      d.taskCopy = Math.max(d.taskCopy, taskFacts.copy!)
+      d.d = Math.max(d.d, taskFacts.width!)
+    }
+  }
+  work.pay(2) // fresh projection reference/return
+  return d
+}
+function workflowUpdate(d: WorkflowUpdateDimensions, work: Work): number {
   work.pay(8) // scalar/property reads; nested arithmetic pays itself
   return work.calc(64).plus(d.operationsCopy, 11, 2, d.n, work.calc(32).times(d.n, 2 + work.calc(8).equality(d.dp)))
 }
-function geometryBill(d: Dimensions, work: Work): number {
+function geometryBill(d: GeometryDimensions, work: Work): number {
   work.pay(32) // scalar reads/locals; all NINE products and nested sums pay themselves
   // sceneryLoadInFor guards/reservation scan/result + TWO real body queries.
   // Body: structure filter/includes, placement filter, cell validation/sum/mean.
@@ -1045,7 +1102,7 @@ function geometryBill(d: Dimensions, work: Work): number {
     work.calc(32).times(d.placements, 3 + work.calc(8).equality(d.d)), work.calc(8).times(d.cells, 10), d.structures, d.placements)
   return work.calc(64).plus(130, work.calc(32).times(2, work.calc(8).equality(d.d)), work.calc(8).times(2, body))
 }
-function arrivalBill(d: Dimensions, operations: StudioOperations, work: Work): number {
+function arrivalBill(d: CommandDimensions, operations: StudioOperations, work: Work): number {
   let possible = 0
   work.pay(4)
   for (const workflow of operations.workflows) {
@@ -1704,7 +1761,8 @@ function executeCommand<P extends StartedPicture>(input: ReplayInput<P>, prepare
   const production = find(branch.productions, command.productionId, row => row.id, work)
   if (production === undefined) commandRefused(work, 'production already released in this branch')
   work.pay(2) // shared invocation-local cell access
-  const d = dimensions(input.source, branch.productions, branch.operations, branch.sets, branch.technology, 0, work, prepared.dimensionFacts, prepared.pictures)
+  work.pay(24) // twelve projection-call argument/access/invocation/binding nodes
+  const d = commandDimensions(input.source, branch.productions, branch.operations, work, prepared.dimensionFacts)
   const before = branch.operations
   work.pay(5 + LITERAL.sink + 1)
   const sink = new StudioEventSink(branch.week, true)

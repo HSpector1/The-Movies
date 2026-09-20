@@ -1,0 +1,75 @@
+diff --git a/tests/p14b4-started-replay-background-command.test.ts b/tests/p14b4-started-replay-background-command.test.ts
+index 8642ffb..f1eca18 100644
+--- a/tests/p14b4-started-replay-background-command.test.ts
++++ b/tests/p14b4-started-replay-background-command.test.ts
+@@ -6,6 +6,9 @@ import { describe, expect, it, vi } from 'vitest'
+ import { applyActions } from '../src/core/actions.js'
+ import { initializeHollywood } from '../src/core/hollywood.js'
+ import * as operationsModule from '../src/core/operations.js'
++// 504 BEGIN: public commitment owner, independently observed without stubbing.
++import * as releaseModule from '../src/core/releaseAuthority.js'
++// 504 END
+ import { replayStartedProductionPlans, type StartedOwnerReplayInput,
+   type StartedProductionCommand, type StartedReplayProjection } from '../src/core/promiseCapacityOwnerReplay.js'
+ import { makeSave } from '../src/core/save.js'
+@@ -332,6 +335,60 @@ describe('P14B4 started replay — real background and explicit command suppleme
+     expect(state.releaseAuthority.commitments).toEqual([])
+   })
+ 
++  // 504 BEGIN: same-week current-authority refusal, not a private dimension oracle.
++  it('commits once then refuses a second same-week commit against actual current authority before any sweep', () => {
++    const state = readyForRelease(), before = clone(state)
++    const id = state.studio.activeProductions[0]!.id, week = state.market.tick
++    expect(state.releaseAuthority.commitments).toEqual([])
++    expect(releaseModule.commitPictureToReleaseRefusal(state, id)).toBeNull()
++    const committed = applyActions(state, [{ kind: 'commitPictureToRelease', productionId: id }])
++    supported(committed)
++    expect(committed.market.tick).toBe(week)
++    expect(committed.studio.activeProductions).toEqual(state.studio.activeProductions)
++    expect(committed.operations).toEqual(state.operations)
++    expect(committed.releaseAuthority.commitments).toHaveLength(1)
++    const detail = releaseModule.commitPictureToReleaseRefusal(committed, id)
++    assert.ok(detail !== null)
++    expect(detail).toContain('already committed to release')
++    expect(detail).toContain(committed.releaseAuthority.commitments[0]!.commitmentId)
++    const committedBefore = clone(committed)
++    assert.throws(() => applyActions(committed, [{ kind: 'commitPictureToRelease', productionId: id }]),
++      { message: `applyActions: commitPictureToRelease rejected — ${detail}` })
++    expect(committed).toEqual(committedBefore)
++    const first: StartedProductionCommand = { week, ordinal: 0, productionId: id, kind: 'commitRelease' }
++    const second: StartedProductionCommand = { week, ordinal: 1, productionId: id, kind: 'commitRelease' }
++    const value = input(state, 1, [first, second]), beforeInput = clone(value)
++    expect(value.limits.work).toBe(200000)
++    const commitOwner = releaseModule.withReleaseCommitment
++    const writes: GameState['releaseAuthority'][] = []
++    const commitSpy = vi.spyOn(releaseModule, 'withReleaseCommitment').mockImplementation((...args) => {
++      const next = commitOwner(...args)
++      writes.push(next)
++      return next
++    })
++    try {
++      const seen = observed(value), attempt = seen.attempt
++      if (attempt.kind !== 'cut') throw new Error('504 duplicate same-week commit unexpectedly completed')
++      expect(attempt.reason).toBe('commandRefused')
++      expect(attempt.detail).toBe(detail)
++      expect(attempt.through.week).toBe(week)
++      expect(commitSpy.mock.calls).toEqual([[state.releaseAuthority, id, week]])
++      expect(writes).toEqual([committed.releaseAuthority])
++      expect(seen.calls).toEqual([])
++      expect(attempt.provenance.filter((row) => row.kind === 'sweepStarted' || row.kind === 'releaseAdmitted' || row.kind === 'firstTake')).toEqual([])
++      const firstCommands = attempt.provenance.filter((row) => row.kind === 'command' && row.command.ordinal === 0)
++      expect(firstCommands).toHaveLength(1)
++      expect(firstCommands[0]).toMatchObject({ kind: 'command', command: first })
++      expect(attempt).not.toHaveProperty('projection')
++      expect(attempt).not.toHaveProperty('trace')
++      expect(seen.result.omissions.length).toBeGreaterThan(0)
++      expect(value).toEqual(beforeInput)
++      expect(state).toEqual(before)
++      expect(committed).toEqual(committedBefore)
++    } finally { commitSpy.mockRestore() }
++  })
++
++  // 504 END
+   it('resolves a formerly valid ID against CURRENT branch state after real committed release, without resurrection', () => {
+     const state = readyForRelease(), id = state.studio.activeProductions[0]!.id, week = state.market.tick
+     const committed = applyActions(state, [{ kind: 'commitPictureToRelease', productionId: id }]), real = tick(committed)

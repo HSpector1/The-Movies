@@ -17,15 +17,31 @@ kernel assertion now passes. Not an exhaustive choice or certified-offer claim.
 Stale week7 Post3 owner now executes; week8 dimensions finish199381, then
 work199996/request15 cuts BEFORE setup collector/Post-exit bill or owner.
 No stale command/release parity pass is claimed. No active probe or runtime.
-Publication pending: base/exact remote1baf982520248d15731950d5bda48a6e93bba5ea;
-commit501 tested source/test/evidence and independently verify remote in502.
-Then continue bounded executeCommand dimensions dependency review: current
-director/schedule discovery4542/3176; avoid only proven-unused enumeration.
-No command projection, draft-discovery, silent-policy, affine or Map change adopted.
+Published501: HEAD/exact remote80aec8b348f7322da552ef3cd35ae9ba671ba488;
+502 independently records fullSHA verification;53 files preserve source/evidence.
+NOW503 bounded commandDimensions direction: ten actual consumer fields;
+keep current full ops/workflow/task copies, binding/reservation strings and
+static geometry; omit only unused P/Set/setup/technology/genre discovery.
+504 additive genuine duplicate-commit baseline PASS on unchanged492 before
+writer (1PASS/4 unselected,12:52:02.515–12:52:10.672Z,fixedSource:true).
+503 independent design review qualifiedKEEP;505 source FROZEN/yielded:
+5d4851713ff53209b569c813b78a1e22e6b53ab91e27522ceb5a9ee7222a941a;
+protected patchb6bcfff304a93651577fa662b12e42e6a6e5ecb2007f65a4fa125371a540aa07.
+Parent verified21 current pins and unchanged full dimensions/static/fact/frame
+plus workflowUpdate/geometry/arrival executable bodies. RUNTIME TRANSFERRED to
+Claude Code 2026-09-20 (Codex usage exhausted 12:58:41Z; Owner packet
+CLAUDE-RESUME-P14B4, runtime choice only). 506 Codex auditor verdict Qualified
+KEEP RECOVERED verbatim from the local thread log (12:58:35Z; never persisted
+by the dying parent); see506 record. Claude contract-auditor re-review and
+507–512 fixed-source checks NOT YET RUN. Recovery commit is preservation, NOT
+a pass. Gross2221 omitted fact cost is NOT
+net saving: cold discovery can shift into next frame. No route-fit claim.
+Draft-discovery, silent-policy, affine and Map alternatives remain unadopted.
 T4/B2/B3/B-F2 qualified closed; B4/liveP2/Unity/Owner acceptance NOT closed.
 Save29/rules3/projection46 live until coherent cutover; Unity backlog maintained.
 Continue beyond checkpoint; max2 specialists/one writer/heavy checks serial;
-no routine approval pauses/resets/installs/Claude/full-gate redo.
+no routine approval pauses/resets/installs/full-gate redo (older Codex-only/
+no-Claude wording superseded for runtime choice only by Owner transfer 2026-09-20).
 
 CURRENT354:HEAD/EXACTremote52ba3ab8e552c29ffb7b0963411c555412770c14 (353published).
 354sim SOLEwriter ONLYreplay+handback:351paidper-expectedfactcounts inexisting

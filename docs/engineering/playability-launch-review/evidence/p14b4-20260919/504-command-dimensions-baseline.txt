@@ -1,0 +1,15 @@
+{"sourceSha":"80aec8b348f7322da552ef3cd35ae9ba671ba488","testedDiffSha256":"865daf6da13fea7ef8ee6600ceb39820f571f5a4cc2df9d9bfba5eaaff4889e1","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14b4-started-replay-background-command.test.ts","-t","commits once then refuses a second same-week commit"],"node":"v20.20.2","start":"2026-09-20T12:52:02.515Z","end":null,"exitCode":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p14b4-started-replay-background-command.test.ts (5 tests | 4 skipped) 1955ms
+   ✓ P14B4 started replay — real background and explicit command supplement > commits once then refuses a second same-week commit against actual current authority before any sweep 1947ms
+
+ Test Files  1 passed (1)
+      Tests  1 passed | 4 skipped (5)
+   Start at  14:52:03
+   Duration  6.60s (transform 2.99s, setup 0ms, collect 3.91s, tests 1.95s, environment 1ms, prepare 176ms)
+
+
+{"sourceSha":"80aec8b348f7322da552ef3cd35ae9ba671ba488","testedDiffSha256":"865daf6da13fea7ef8ee6600ceb39820f571f5a4cc2df9d9bfba5eaaff4889e1","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14b4-started-replay-background-command.test.ts","-t","commits once then refuses a second same-week commit"],"node":"v20.20.2","start":"2026-09-20T12:52:02.515Z","end":"2026-09-20T12:52:10.672Z","exitCode":0,"signal":null,"error":null,"sourceShaAtEnd":"80aec8b348f7322da552ef3cd35ae9ba671ba488","testedDiffSha256AtEnd":"865daf6da13fea7ef8ee6600ceb39820f571f5a4cc2df9d9bfba5eaaff4889e1","untrackedSourceAtEnd":[],"fixedSource":true}

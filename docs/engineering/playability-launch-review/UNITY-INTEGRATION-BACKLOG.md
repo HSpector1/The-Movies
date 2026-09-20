@@ -23,8 +23,8 @@ verified in Unity. Generated C# produced by the TypeScript generator is text, no
 
 ### P14B.4 — cast-class promises (implementation active; no native verification)
 
-Headless checkpoint501 (2026-09-20), based on published/exactremote
-`1baf982520248d15731950d5bda48a6e93bba5ea`, separates talent-key and diagnostic
+Headless checkpoint501 (2026-09-20), published/exactremote
+`80aec8b348f7322da552ef3cd35ae9ba671ba488`, separates talent-key and diagnostic
 widths without changing owner/comparison tariffs. Original Ready first-take
 test NOW passes completely, including the unchanged shared-budget kernel's
 UNCERTIFIED/domainIncomplete outcome. Producer uses190818, saving5650 measured
@@ -32,7 +32,7 @@ units; actual projection/chronology/wrap/ten holds/purity remain green.
 Fresh494–499:254focusedPASS, sole original stale-release test still FAILS;
 root/UI typesPASS, sole old futureP2 bridge-type error. Stale now advances through
 Post3 but cuts at week8 before Post exit.500probes removed; exact492 tested
-source restored.501publication/exactremote receipt follows in502.
+source restored.502 records independent exact-remote publication verification.
 Genuine rehearsal/unassigned Shooting/no-Set and started Post controls remain
 green. Full Ready/stale-release/live feasibility integration remains OPEN.
 
