@@ -40,9 +40,16 @@ diff hashes b6bcfff…; empty tree patch during runs. 507–512 CLOSED/fixedSour
 true on34a8db7, disjoint intervals (513): Ready17PASS + sole original stale234
 workLimit FAIL, Started28PASS(incl504), rootUI PASS, adjacent203PASS, bridge
 sole OLD TS2353 test364, facts+lookup7PASS =255 passes; first-take+kernel GREEN.
-Stale boundary on505 NOT yet measured. NEXT514 passive probes serial (first-
-take, stale), exact restore, then next evidence-led bounded reduction with
-independent review before any writer. Gross2221 omitted fact cost is NOT
+514 passive probes CLOSED (both fixedSource:true on1f0b968; exact505 restored
+5d4851…, no diagnostic remains): first-take189256 vs190818 = net1562 saved,
+GREEN incl. kernel; stale now cuts INSIDE week8 sweepBill at199994/request10
+(was199996/15 before setup collector): command discovery2825+2290 vs4542+3176
+but week5 dimensions+939 deferred; net1472 at week8 entry. Refusal still
+≥week8 remainder + week9 commit + week9 release frame + week10 stale away.
+Measured targets: preparation+admission66333, Development/Post frames19–26k.
+NOW515 two READ-ONLY analyses (sim-core attribution/lawful candidates;
+instrumentation gap model), then direction + independent review before any
+writer. Gross2221 omitted fact cost is NOT
 net saving: cold discovery can shift into next frame. No route-fit claim.
 Draft-discovery, silent-policy, affine and Map alternatives remain unadopted.
 T4/B2/B3/B-F2 qualified closed; B4/liveP2/Unity/Owner acceptance NOT closed.

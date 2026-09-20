@@ -1,0 +1,79 @@
+{"sourceSha":"1f0b968ca58a52dba417d1b928e1659568321dfc","testedDiffSha256":"9ee9c96e1735bc938bfae64d0507a48fb25104c4ba3a560860a9b9838fb1a887","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14b4-ready-replay-stale-target.test.ts"],"node":"v20.20.2","start":"2026-09-20T14:28:02.590Z","end":null,"exitCode":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+stdout | tests/p14b4-ready-replay-stale-target.test.ts > P14B4 Ready replay — stale Ready target after genuine release > resolves the same source-now Ready target against the released branch, refuses without resurrection, and retains the real first-take/release prefix
+B4_RESULT_514 {"phase":"dimensionsEntry","used":44454,"remaining":[8]}
+B4_RESULT_514 {"phase":"dimensionsDone","used":48008}
+B4_RESULT_514 {"phase":"frameEntry","week":1,"used":66333,"remaining":[8]}
+B4_RESULT_514 {"phase":"dimensionsEntry","used":66506,"remaining":[8]}
+B4_RESULT_514 {"phase":"dimensionsDone","used":68446}
+B4_RESULT_514 {"phase":"sweepBillDone","week":1,"used":70891,"bill":315,"remaining":[8],"dimensions":{"n":1,"f":5,"capacity":8,"sets":2,"external":0,"d":28,"dp":9,"pCopy":101,"workflowCopy":98,"taskCopy":66,"bindingsCopy":95,"operationsCopy":33,"setCopy":137,"setupCopy":0,"technologyCopy":132,"technologyRowCopy":62,"t":0,"adoptions":0,"access":0,"equipment":0,"placements":0,"structures":8,"provides":5,"cells":0,"genreRows":1,"genreId":9,"allSilent":true}}
+B4_RESULT_514 {"phase":"frameEntry","week":2,"used":72350,"remaining":[8]}
+B4_RESULT_514 {"phase":"dimensionsEntry","used":72523,"remaining":[8]}
+B4_RESULT_514 {"phase":"dimensionsDone","used":73593}
+B4_RESULT_514 {"phase":"sweepBillDone","week":2,"used":79239,"bill":11193,"remaining":[8],"dimensions":{"n":1,"f":5,"capacity":8,"sets":2,"external":0,"d":28,"dp":9,"pCopy":101,"workflowCopy":98,"taskCopy":66,"bindingsCopy":95,"operationsCopy":33,"setCopy":137,"setupCopy":0,"technologyCopy":132,"technologyRowCopy":62,"t":0,"adoptions":0,"access":0,"equipment":0,"placements":0,"structures":8,"provides":5,"cells":0,"genreRows":1,"genreId":9,"allSilent":true}}
+B4_RESULT_514 {"phase":"frameEntry","week":3,"used":91740,"remaining":[7]}
+B4_RESULT_514 {"phase":"dimensionsEntry","used":91913,"remaining":[7]}
+B4_RESULT_514 {"phase":"dimensionsDone","used":94314}
+B4_RESULT_514 {"phase":"sweepBillDone","week":3,"used":100715,"bill":9587,"remaining":[7],"dimensions":{"n":1,"f":5,"capacity":8,"sets":2,"external":0,"d":28,"dp":9,"pCopy":101,"workflowCopy":98,"taskCopy":66,"bindingsCopy":95,"operationsCopy":33,"setCopy":137,"setupCopy":0,"technologyCopy":132,"technologyRowCopy":62,"t":0,"adoptions":0,"access":0,"equipment":0,"placements":0,"structures":8,"provides":5,"cells":0,"genreRows":1,"genreId":9,"allSilent":true}}
+B4_RESULT_514 {"phase":"frameEntry","week":4,"used":116734,"remaining":[6]}
+B4_RESULT_514 {"phase":"dimensionsEntry","used":116907,"remaining":[6]}
+B4_RESULT_514 {"phase":"dimensionsDone","used":119468}
+B4_RESULT_514 {"phase":"sweepBillDone","week":4,"used":124758,"bill":8905,"remaining":[6],"dimensions":{"n":1,"f":5,"capacity":8,"sets":2,"external":0,"d":28,"dp":9,"pCopy":101,"workflowCopy":98,"taskCopy":66,"bindingsCopy":95,"operationsCopy":33,"setCopy":137,"setupCopy":0,"technologyCopy":132,"technologyRowCopy":62,"t":0,"adoptions":0,"access":0,"equipment":0,"placements":0,"structures":8,"provides":5,"cells":0,"genreRows":1,"genreId":9,"allSilent":true}}
+B4_RESULT_514 {"phase":"commandEntry","week":5,"kind":"assignLockedDirector","used":138493}
+B4_RESULT_514 {"phase":"commandDimensionsEntry","used":138550,"remaining":[5]}
+B4_RESULT_514 {"phase":"commandDimensionsDone","used":141375,"dimensions":{"n":1,"d":28,"dp":9,"operationsCopy":33,"workflowCopy":98,"taskCopy":66,"structures":8,"provides":5,"placements":0,"cells":0}}
+B4_RESULT_514 {"phase":"commandDone","week":5,"kind":"assignLockedDirector","used":145682}
+B4_RESULT_514 {"phase":"commandEntry","week":5,"kind":"scheduleTake","used":145748}
+B4_RESULT_514 {"phase":"commandDimensionsEntry","used":145805,"remaining":[5]}
+B4_RESULT_514 {"phase":"commandDimensionsDone","used":148095,"dimensions":{"n":1,"d":28,"dp":9,"operationsCopy":33,"workflowCopy":98,"taskCopy":66,"structures":8,"provides":5,"placements":0,"cells":0}}
+B4_RESULT_514 {"phase":"commandDone","week":5,"kind":"scheduleTake","used":149340}
+B4_RESULT_514 {"phase":"frameEntry","week":5,"used":149340,"remaining":[5]}
+B4_RESULT_514 {"phase":"dimensionsEntry","used":149513,"remaining":[5]}
+B4_RESULT_514 {"phase":"dimensionsDone","used":153686}
+B4_RESULT_514 {"phase":"sweepBillDone","week":5,"used":156414,"bill":850,"remaining":[5],"dimensions":{"n":1,"f":5,"capacity":8,"sets":2,"external":0,"d":28,"dp":9,"pCopy":101,"workflowCopy":98,"taskCopy":66,"bindingsCopy":95,"operationsCopy":33,"setCopy":137,"setupCopy":0,"technologyCopy":132,"technologyRowCopy":62,"t":1,"adoptions":0,"access":0,"equipment":0,"placements":0,"structures":8,"provides":5,"cells":0,"genreRows":1,"genreId":9,"allSilent":true}}
+B4_RESULT_514 {"phase":"frameEntry","week":6,"used":159631,"remaining":[4]}
+B4_RESULT_514 {"phase":"dimensionsEntry","used":159804,"remaining":[4]}
+B4_RESULT_514 {"phase":"dimensionsDone","used":163537}
+B4_RESULT_514 {"phase":"sweepBillDone","week":6,"used":170316,"bill":7948,"remaining":[4],"dimensions":{"n":1,"f":5,"capacity":8,"sets":2,"external":0,"d":28,"dp":9,"pCopy":101,"workflowCopy":98,"taskCopy":66,"bindingsCopy":95,"operationsCopy":33,"setCopy":137,"setupCopy":0,"technologyCopy":132,"technologyRowCopy":62,"t":1,"adoptions":0,"access":0,"equipment":0,"placements":0,"structures":8,"provides":5,"cells":0,"genreRows":1,"genreId":9,"allSilent":true}}
+B4_RESULT_514 {"phase":"frameEntry","week":7,"used":185566,"remaining":[3]}
+B4_RESULT_514 {"phase":"dimensionsEntry","used":185739,"remaining":[3]}
+B4_RESULT_514 {"phase":"dimensionsDone","used":190205}
+B4_RESULT_514 {"phase":"sweepBillDone","week":7,"used":192776,"bill":576,"remaining":[3],"dimensions":{"n":1,"f":5,"capacity":8,"sets":2,"external":0,"d":28,"dp":9,"pCopy":101,"workflowCopy":98,"taskCopy":66,"bindingsCopy":95,"operationsCopy":33,"setCopy":137,"setupCopy":0,"technologyCopy":132,"technologyRowCopy":62,"t":1,"adoptions":0,"access":0,"equipment":0,"placements":0,"structures":8,"provides":5,"cells":0,"genreRows":1,"genreId":9,"allSilent":true}}
+B4_RESULT_514 {"phase":"frameEntry","week":8,"used":194713,"remaining":[2]}
+B4_RESULT_514 {"phase":"dimensionsEntry","used":194886,"remaining":[2]}
+B4_RESULT_514 {"phase":"dimensionsDone","used":197999}
+B4_RESULT_514 {"phase":"payFailure","used":199994,"requested":10,"limit":200000,"stack":"Error: \n    at Work.pay (/Users/zacheryspector/The-Movies-headless-program/src/core/promiseCapacityOwnerReplay.ts:252:53)\n    at Work.times (/Users/zacheryspector/The-Movies-headless-program/src/core/promiseCapacityOwnerReplay.ts:299:10)\n    at sweepBill (/Users/zacheryspector/The-Movies-headless-program/src/core/promiseCapacityOwnerReplay.ts:1535:21)\n    at frame (/Users/zacheryspector/The-Movies-headless-program/src/core/promiseCapacityOwnerReplay.ts:1917:16)\n    at replayPlans (/Users/zacheryspector/The-Movies-headless-program/src/core/promiseCapacityOwnerReplay.ts:2718:9)\n    at Module.replayReadyProductionPlans (/Users/zacheryspector/The-Movies-headless-program/src/core/promiseCapacityOwnerReplay.ts:2772:10)\n    at /Users/zacheryspector/The-Movies-headless-program/tests/p14b4-ready-replay-stale-target.test.ts:225:53\n    at watchOwners (/Users/zacheryspector/The-Movies-headless-program/tests/p14b4-ready-replay-stale-target.test.ts:129:25)\n    at /Users/zacheryspector/The-Movies-headless-program/tests/p14b4-ready-replay-stale-target.test.ts:225:21\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14"}
+B4_RESULT_514 {"phase":"result","used":200000,"attempts":[{"kind":"cut","reason":"workLimit","through":{"week":8,"step":0}}]}
+
+ ❯ |core| tests/p14b4-ready-replay-stale-target.test.ts (1 test | 1 failed) 1726ms
+   × P14B4 Ready replay — stale Ready target after genuine release > resolves the same source-now Ready target against the released branch, refuses without resurrection, and retains the real first-take/release prefix 1725ms
+     → expected 'workLimit' to be 'commandRefused' // Object.is equality
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14b4-ready-replay-stale-target.test.ts > P14B4 Ready replay — stale Ready target after genuine release > resolves the same source-now Ready target against the released branch, refuses without resurrection, and retains the real first-take/release prefix
+AssertionError: expected 'workLimit' to be 'commandRefused' // Object.is equality
+
+Expected: "commandRefused"
+Received: "workLimit"
+
+ ❯ tests/p14b4-ready-replay-stale-target.test.ts:234:28
+    232|     const attempt = result.attempts[0]!
+    233|     if (attempt.kind !== 'cut') throw new Error('released Ready target…
+    234|     expect(attempt.reason).toBe('commandRefused') // workLimit is not …
+       |                            ^
+    235|     expect(attempt.through.week).toBe(released.market.tick)
+    236|     expect(attempt.detail.length).toBeGreaterThan(0)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed (1)
+      Tests  1 failed (1)
+   Start at  16:28:03
+   Duration  5.28s (transform 2.08s, setup 0ms, collect 2.80s, tests 1.73s, environment 0ms, prepare 113ms)
+
+
+{"sourceSha":"1f0b968ca58a52dba417d1b928e1659568321dfc","testedDiffSha256":"9ee9c96e1735bc938bfae64d0507a48fb25104c4ba3a560860a9b9838fb1a887","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14b4-ready-replay-stale-target.test.ts"],"node":"v20.20.2","start":"2026-09-20T14:28:02.590Z","end":"2026-09-20T14:28:08.952Z","exitCode":1,"signal":null,"error":null,"sourceShaAtEnd":"1f0b968ca58a52dba417d1b928e1659568321dfc","testedDiffSha256AtEnd":"9ee9c96e1735bc938bfae64d0507a48fb25104c4ba3a560860a9b9838fb1a887","untrackedSourceAtEnd":[],"fixedSource":true}

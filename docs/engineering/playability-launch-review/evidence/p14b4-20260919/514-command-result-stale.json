@@ -1,0 +1,22 @@
+{
+  "sourceSha": "1f0b968ca58a52dba417d1b928e1659568321dfc",
+  "testedDiffSha256": "9ee9c96e1735bc938bfae64d0507a48fb25104c4ba3a560860a9b9838fb1a887",
+  "untrackedSource": [],
+  "command": [
+    "node_modules/.bin/vitest",
+    "run",
+    "--project",
+    "core",
+    "tests/p14b4-ready-replay-stale-target.test.ts"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-20T14:28:02.590Z",
+  "end": "2026-09-20T14:28:08.952Z",
+  "exitCode": 1,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "1f0b968ca58a52dba417d1b928e1659568321dfc",
+  "testedDiffSha256AtEnd": "9ee9c96e1735bc938bfae64d0507a48fb25104c4ba3a560860a9b9838fb1a887",
+  "untrackedSourceAtEnd": [],
+  "fixedSource": true
+}

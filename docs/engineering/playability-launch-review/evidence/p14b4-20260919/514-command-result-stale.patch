@@ -1,0 +1,106 @@
+diff --git a/src/core/promiseCapacityOwnerReplay.ts b/src/core/promiseCapacityOwnerReplay.ts
+index 7cbc711..00a107c 100644
+--- a/src/core/promiseCapacityOwnerReplay.ts
++++ b/src/core/promiseCapacityOwnerReplay.ts
+@@ -246,7 +246,12 @@ class Work {
+   used: number
+   constructor(readonly limit: number, initial: number) { this.used = Math.min(limit, initial) }
+   pay(units = 1): void {
+-    if (units > this.limit - this.used) { this.used = this.limit; throw new WorkLimit() }
++    if (units > this.limit - this.used) {
++      // TEMPORARY 514: UNMETERED diagnostic before original saturation/throw.
++      console.log('B4_RESULT_514', JSON.stringify({ phase: 'payFailure', used: this.used,
++        requested: units, limit: this.limit, stack: new Error().stack }))
++      this.used = this.limit; throw new WorkLimit()
++    }
+     this.used += units
+   }
+   /** Evaluate the receiver BEFORE JavaScript evaluates calculator arguments.
+@@ -978,6 +983,9 @@ function staticDimensionFacts<P extends StartedPicture>(source: StartedOwnerSour
+ function dimensions<P extends StartedPicture>(source: StartedOwnerSource<P>, productions: readonly P[],
+   operations: StudioOperations, sets: readonly StudioSet[], technology: StudioTechnology,
+   external: number, work: Work, cell: DimensionCell, pictureFacts?: readonly PictureFacts<P>[]): Dimensions {
++  // TEMPORARY 514: passive, UNMETERED observation; original payments follow.
++  console.log('B4_RESULT_514', JSON.stringify({ phase: 'dimensionsEntry', used: work.used,
++    remaining: productions.map(row => row.remainingTicks) }))
+   work.pay(4) // static-fact call arguments/result binding
+   const fixed = staticDimensionFacts(source, cell, work)
+   work.pay(16) // two copy-only fact calls: arguments, result bindings and controls
+@@ -1037,6 +1045,8 @@ function dimensions<P extends StartedPicture>(source: StartedOwnerSource<P>, pro
+     work.pay(3); d.technologyRowCopy = Math.max(d.technologyRowCopy, facts(row, true, true).copy!)
+     if (!work.equal(row.method, 'silent')) d.allSilent = false
+   }
++  // TEMPORARY 514: no owner/state/meter mutation.
++  console.log('B4_RESULT_514', JSON.stringify({ phase: 'dimensionsDone', used: work.used }))
+   return d
+ }
+ /** Commands copy operations/workflows/tasks, not P/Set/setup/technology records.
+@@ -1044,6 +1054,9 @@ function dimensions<P extends StartedPicture>(source: StartedOwnerSource<P>, pro
+  * later sweep discovery still owns every omitted observation. */
+ function commandDimensions<P extends StartedPicture>(source: StartedOwnerSource<P>, productions: readonly P[],
+   operations: StudioOperations, work: Work, cell: DimensionCell): CommandDimensions {
++  // TEMPORARY 514: passive, UNMETERED observation of the 505 command projection.
++  console.log('B4_RESULT_514', JSON.stringify({ phase: 'commandDimensionsEntry', used: work.used,
++    remaining: productions.map(row => row.remainingTicks) }))
+   work.pay(12) // six scalar nodes: static-fact callee/arguments/call/result binding
+   const fixed = staticDimensionFacts(source, cell, work)
+   work.pay(16) // eight nodes for this five-argument fact call and result binding
+@@ -1088,6 +1101,8 @@ function commandDimensions<P extends StartedPicture>(source: StartedOwnerSource<
+     }
+   }
+   work.pay(2) // fresh projection reference/return
++  // TEMPORARY 514: no owner/state/meter mutation; complete projected record.
++  console.log('B4_RESULT_514', JSON.stringify({ phase: 'commandDimensionsDone', used: work.used, dimensions: d }))
+   return d
+ }
+ function workflowUpdate(d: WorkflowUpdateDimensions, work: Work): number {
+@@ -1757,6 +1772,8 @@ function completeTrace<P extends StartedPicture>(input: ReplayInput<P>, prepared
+ 
+ function executeCommand<P extends StartedPicture>(input: ReplayInput<P>, prepared: Prepared<P>,
+   plan: ReplayPlan, branch: Branch<P>, command: StartedProductionCommand, work: Work): void {
++  // TEMPORARY 514: passive per-command boundary before the original first payment.
++  console.log('B4_RESULT_514', JSON.stringify({ phase: 'commandEntry', week: branch.week, kind: command.kind, used: work.used }))
+   work.pay(8)
+   const production = find(branch.productions, command.productionId, row => row.id, work)
+   if (production === undefined) commandRefused(work, 'production already released in this branch')
+@@ -1822,10 +1839,15 @@ function executeCommand<P extends StartedPicture>(input: ReplayInput<P>, prepare
+     throw error
+   }
+   drainEvents(input, prepared, plan, branch, sink, before, work)
++  // TEMPORARY 514: reached only after the unchanged owner/drain work.
++  console.log('B4_RESULT_514', JSON.stringify({ phase: 'commandDone', week: branch.week, kind: command.kind, used: work.used }))
+ }
+ 
+ function frame<P extends StartedPicture>(input: ReplayInput<P>, prepared: Prepared<P>,
+   plan: ReplayPlan, branch: Branch<P>, work: Work): void {
++  // TEMPORARY 514: passive whole-slate clock prefix, not a production fact cache.
++  console.log('B4_RESULT_514', JSON.stringify({ phase: 'frameEntry', week: branch.week,
++    used: work.used, remaining: branch.productions.map(row => row.remainingTicks) }))
+   work.pay(7)
+   const arrivedWeek = branch.week + 1
+   for (const background of prepared.backgrounds) {
+@@ -1893,6 +1915,9 @@ function frame<P extends StartedPicture>(input: ReplayInput<P>, prepared: Prepar
+   const before = branch.operations
+   work.pay(6) // current branch Sets read, argument and callee binding
+   const bill = sweepBill(d, branch.productions, branch.operations, branch.week, committed, branch.sets, work)
++  // TEMPORARY 514: reached only after the unchanged complete bill calculation.
++  console.log('B4_RESULT_514', JSON.stringify({ phase: 'sweepBillDone', week: branch.week,
++    used: work.used, bill, remaining: branch.productions.map(row => row.remainingTicks), dimensions: d }))
+   // Reserve observation, sink, binding/callback literals and complete owner work
+   // together: an exhaustion boundary cannot record an unexecuted sweepStarted.
+   work.pay(work.calc(64).plus(bill, 15 + LITERAL.sink + 1 + LITERAL.boundary +
+@@ -2715,6 +2740,14 @@ function replayPlans<P extends StartedPicture, A>(
+       if (reason === 'workLimit') break
+     }
+   }
++  // TEMPORARY 514: report only result discriminants/boundaries, never proof records.
++  console.log('B4_RESULT_514', JSON.stringify({ phase: 'result', used: work.used,
++    attempts: attempts.map(attempt => {
++      if (typeof attempt !== 'object' || attempt === null) return { kind: 'nonobject' }
++      return { kind: 'kind' in attempt ? attempt.kind : undefined,
++        reason: 'reason' in attempt ? attempt.reason : undefined,
++        through: 'through' in attempt ? attempt.through : undefined }
++    }) }))
+   return { fixedHolds: prepared.fixed, attempts, preparationWork: work.used, omissions }
+ }
+ 

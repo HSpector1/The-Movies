@@ -1,0 +1,52 @@
+{"sourceSha":"1f0b968ca58a52dba417d1b928e1659568321dfc","testedDiffSha256":"9ee9c96e1735bc938bfae64d0507a48fb25104c4ba3a560860a9b9838fb1a887","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14b4-ready-replay-first-take.test.ts"],"node":"v20.20.2","start":"2026-09-20T14:27:55.705Z","end":null,"exitCode":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+stdout | tests/p14b4-ready-replay-first-take.test.ts > P14B4 Ready replay — genuine first completed take > executes real Ready-target director/schedule commands, retains the take inside a half-open horizon and matches actual wrap/holds within the shared cap
+B4_RESULT_514 {"phase":"dimensionsEntry","used":44084,"remaining":[8]}
+B4_RESULT_514 {"phase":"dimensionsDone","used":47638}
+B4_RESULT_514 {"phase":"frameEntry","week":1,"used":65795,"remaining":[8]}
+B4_RESULT_514 {"phase":"dimensionsEntry","used":65968,"remaining":[8]}
+B4_RESULT_514 {"phase":"dimensionsDone","used":67908}
+B4_RESULT_514 {"phase":"sweepBillDone","week":1,"used":70353,"bill":315,"remaining":[8],"dimensions":{"n":1,"f":5,"capacity":8,"sets":2,"external":0,"d":28,"dp":9,"pCopy":101,"workflowCopy":98,"taskCopy":66,"bindingsCopy":95,"operationsCopy":33,"setCopy":137,"setupCopy":0,"technologyCopy":132,"technologyRowCopy":62,"t":0,"adoptions":0,"access":0,"equipment":0,"placements":0,"structures":8,"provides":5,"cells":0,"genreRows":1,"genreId":9,"allSilent":true}}
+B4_RESULT_514 {"phase":"frameEntry","week":2,"used":71812,"remaining":[8]}
+B4_RESULT_514 {"phase":"dimensionsEntry","used":71985,"remaining":[8]}
+B4_RESULT_514 {"phase":"dimensionsDone","used":73055}
+B4_RESULT_514 {"phase":"sweepBillDone","week":2,"used":78701,"bill":11193,"remaining":[8],"dimensions":{"n":1,"f":5,"capacity":8,"sets":2,"external":0,"d":28,"dp":9,"pCopy":101,"workflowCopy":98,"taskCopy":66,"bindingsCopy":95,"operationsCopy":33,"setCopy":137,"setupCopy":0,"technologyCopy":132,"technologyRowCopy":62,"t":0,"adoptions":0,"access":0,"equipment":0,"placements":0,"structures":8,"provides":5,"cells":0,"genreRows":1,"genreId":9,"allSilent":true}}
+B4_RESULT_514 {"phase":"frameEntry","week":3,"used":91202,"remaining":[7]}
+B4_RESULT_514 {"phase":"dimensionsEntry","used":91375,"remaining":[7]}
+B4_RESULT_514 {"phase":"dimensionsDone","used":93776}
+B4_RESULT_514 {"phase":"sweepBillDone","week":3,"used":100177,"bill":9587,"remaining":[7],"dimensions":{"n":1,"f":5,"capacity":8,"sets":2,"external":0,"d":28,"dp":9,"pCopy":101,"workflowCopy":98,"taskCopy":66,"bindingsCopy":95,"operationsCopy":33,"setCopy":137,"setupCopy":0,"technologyCopy":132,"technologyRowCopy":62,"t":0,"adoptions":0,"access":0,"equipment":0,"placements":0,"structures":8,"provides":5,"cells":0,"genreRows":1,"genreId":9,"allSilent":true}}
+B4_RESULT_514 {"phase":"frameEntry","week":4,"used":116140,"remaining":[6]}
+B4_RESULT_514 {"phase":"dimensionsEntry","used":116313,"remaining":[6]}
+B4_RESULT_514 {"phase":"dimensionsDone","used":118874}
+B4_RESULT_514 {"phase":"sweepBillDone","week":4,"used":124164,"bill":8905,"remaining":[6],"dimensions":{"n":1,"f":5,"capacity":8,"sets":2,"external":0,"d":28,"dp":9,"pCopy":101,"workflowCopy":98,"taskCopy":66,"bindingsCopy":95,"operationsCopy":33,"setCopy":137,"setupCopy":0,"technologyCopy":132,"technologyRowCopy":62,"t":0,"adoptions":0,"access":0,"equipment":0,"placements":0,"structures":8,"provides":5,"cells":0,"genreRows":1,"genreId":9,"allSilent":true}}
+B4_RESULT_514 {"phase":"commandEntry","week":5,"kind":"assignLockedDirector","used":137871}
+B4_RESULT_514 {"phase":"commandDimensionsEntry","used":137928,"remaining":[5]}
+B4_RESULT_514 {"phase":"commandDimensionsDone","used":140753,"dimensions":{"n":1,"d":28,"dp":9,"operationsCopy":33,"workflowCopy":98,"taskCopy":66,"structures":8,"provides":5,"placements":0,"cells":0}}
+B4_RESULT_514 {"phase":"commandDone","week":5,"kind":"assignLockedDirector","used":145060}
+B4_RESULT_514 {"phase":"commandEntry","week":5,"kind":"scheduleTake","used":145126}
+B4_RESULT_514 {"phase":"commandDimensionsEntry","used":145183,"remaining":[5]}
+B4_RESULT_514 {"phase":"commandDimensionsDone","used":147473,"dimensions":{"n":1,"d":28,"dp":9,"operationsCopy":33,"workflowCopy":98,"taskCopy":66,"structures":8,"provides":5,"placements":0,"cells":0}}
+B4_RESULT_514 {"phase":"commandDone","week":5,"kind":"scheduleTake","used":148718}
+B4_RESULT_514 {"phase":"frameEntry","week":5,"used":148718,"remaining":[5]}
+B4_RESULT_514 {"phase":"dimensionsEntry","used":148891,"remaining":[5]}
+B4_RESULT_514 {"phase":"dimensionsDone","used":153064}
+B4_RESULT_514 {"phase":"sweepBillDone","week":5,"used":155792,"bill":850,"remaining":[5],"dimensions":{"n":1,"f":5,"capacity":8,"sets":2,"external":0,"d":28,"dp":9,"pCopy":101,"workflowCopy":98,"taskCopy":66,"bindingsCopy":95,"operationsCopy":33,"setCopy":137,"setupCopy":0,"technologyCopy":132,"technologyRowCopy":62,"t":1,"adoptions":0,"access":0,"equipment":0,"placements":0,"structures":8,"provides":5,"cells":0,"genreRows":1,"genreId":9,"allSilent":true}}
+B4_RESULT_514 {"phase":"frameEntry","week":6,"used":159009,"remaining":[4]}
+B4_RESULT_514 {"phase":"dimensionsEntry","used":159182,"remaining":[4]}
+B4_RESULT_514 {"phase":"dimensionsDone","used":162915}
+B4_RESULT_514 {"phase":"sweepBillDone","week":6,"used":169694,"bill":7948,"remaining":[4],"dimensions":{"n":1,"f":5,"capacity":8,"sets":2,"external":0,"d":28,"dp":9,"pCopy":101,"workflowCopy":98,"taskCopy":66,"bindingsCopy":95,"operationsCopy":33,"setCopy":137,"setupCopy":0,"technologyCopy":132,"technologyRowCopy":62,"t":1,"adoptions":0,"access":0,"equipment":0,"placements":0,"structures":8,"provides":5,"cells":0,"genreRows":1,"genreId":9,"allSilent":true}}
+B4_RESULT_514 {"phase":"result","used":189256,"attempts":[{"kind":"complete"}]}
+
+ ✓ |core| tests/p14b4-ready-replay-first-take.test.ts (1 test) 1309ms
+   ✓ P14B4 Ready replay — genuine first completed take > executes real Ready-target director/schedule commands, retains the take inside a half-open horizon and matches actual wrap/holds within the shared cap 1307ms
+
+ Test Files  1 passed (1)
+      Tests  1 passed (1)
+   Start at  16:27:56
+   Duration  5.08s (transform 2.24s, setup 0ms, collect 3.07s, tests 1.31s, environment 0ms, prepare 183ms)
+
+
+{"sourceSha":"1f0b968ca58a52dba417d1b928e1659568321dfc","testedDiffSha256":"9ee9c96e1735bc938bfae64d0507a48fb25104c4ba3a560860a9b9838fb1a887","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14b4-ready-replay-first-take.test.ts"],"node":"v20.20.2","start":"2026-09-20T14:27:55.705Z","end":"2026-09-20T14:28:02.295Z","exitCode":0,"signal":null,"error":null,"sourceShaAtEnd":"1f0b968ca58a52dba417d1b928e1659568321dfc","testedDiffSha256AtEnd":"9ee9c96e1735bc938bfae64d0507a48fb25104c4ba3a560860a9b9838fb1a887","untrackedSourceAtEnd":[],"fixedSource":true}
