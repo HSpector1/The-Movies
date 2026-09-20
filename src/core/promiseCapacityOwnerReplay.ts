@@ -1079,7 +1079,8 @@ function restrictedSweepBill<P extends StartedPicture>(d: Dimensions, production
 }
 
 /** Occupancy + actual filter/policy/sort + capacity loops, not a free-slot forecast. */
-function allocationBill(d: Dimensions, wrapOnly: boolean, work: Work, retainedDevelopment = false): number {
+function allocationBill(d: Dimensions, wrapOnly: boolean, work: Work, retainedDevelopment = false,
+  singleWrapSlot = false): number {
   work.pay(192) // at most96 scalar reads/operators, two units each; helpers separate
   // In both narrowed domains own claims are excluded FROM OCCUPANCY. Unlike
   // wrapped Post acquisition, Development still has its original reservation
@@ -1103,7 +1104,9 @@ function allocationBill(d: Dimensions, wrapOnly: boolean, work: Work, retainedDe
   const facilitySort = sortBill(d.f, 6 + 2 * text, work)
   // A certified held Development slot takes the retained arm's continue;
   // neither the generic capacity search nor stage+Set composite is reached.
-  const slots = retainedDevelopment ? 0 : work.calc(32).times(wrapOnly ? d.capacity : 3 * d.capacity,
+  // The single-wrap certificate proves slot0 of the first positive Post is
+  // free. Only this loop bound changes; its complete per-slot price remains.
+  const slots = retainedDevelopment ? 0 : work.calc(32).times(wrapOnly ? (singleWrapSlot ? 1 : d.capacity) : 3 * d.capacity,
     work.calc(64).plus(5, keyConstruction, work.calc(32).times(2, work.calc(8).keyBill(occupied + 2, keyLength))))
   const retention = work.calc(8).add(20, work.calc(32).times(2, work.calc(64).plus(20, work.calc(8).times(2, text), work.calc(32).times(d.f, 2 + text),
     work.calc(8).keyBill(2, 19), keyConstruction, work.calc(8).keyBill(occupied + 2, keyLength))))
@@ -1299,8 +1302,6 @@ function sweepBill<P extends StartedPicture>(d: Dimensions, productions: readonl
   const releasePhase = work.calc(64).plus(80, work.calc(8).times(8, text), d.workflowCopy, d.bindingsCopy, 70)
   const wear = retainedDevelopment ? 0 : work.calc(64).plus(24, work.calc(32).times(d.sets, 5 + 2 * text), d.setCopy, 18)
   const update = workflowUpdate(d, work)
-  const enter = work.calc(64).plus(releasePhase, 65, wear, work.calc(32).times(retainedDevelopment ? 1 : 2, transition), work.calc(32).times(retainedDevelopment ? 1 : 3, update),
-    allocationBill(d, wrapOnly, work, retainedDevelopment), d.workflowCopy, d.bindingsCopy, d.pCopy, 150)
   // The real phase callback is still invoked; preProduction returns at its
   // first phase guard, before selection/locking/copying any technology root.
   const policyLock = retainedDevelopment ? work.calc(8).add(6, text) : wrapOnly ? 0 : work.calc(64).plus(80, work.calc(32).times(d.t + d.n, 6 + 2 * text),
@@ -1315,6 +1316,8 @@ function sweepBill<P extends StartedPicture>(d: Dimensions, productions: readonl
   // resource release/restart. One final all-settled round still visits n rows.
   const rounds = retainedDevelopment ? 2 : 2 * d.n + 1, visits = work.calc(8).times(d.n, rounds)
   let attempts = retainedDevelopment ? retainedMoves : visits
+  work.pay(2)
+  let singleWrapSlot = false
   if (wrapOnly) {
     // Tight source domain: only Post acquisition; no Post can release during
     // this sweep. If all policies are actually silent and enough currently
@@ -1333,9 +1336,31 @@ function sweepBill<P extends StartedPicture>(d: Dimensions, productions: readonl
       }
     }
     // No external slots is a sufficient (not necessary) proof for this branch.
-    if (d.allSilent && d.external === 0 && post - heldPost >= d.n) attempts = d.n
-    else attempts = d.n % 2 === 0 ? work.calc(32).times(d.n / 2, d.n + 3) : work.calc(32).times(d.n, (d.n + 3) / 2)
+    if (d.allSilent && d.external === 0 && post - heldPost >= d.n) {
+      attempts = d.n
+      work.pay(16) // all three count guards and their short-circuit controls
+      if (d.n === 1 && productions.length === 1 && operations.workflows.length === 1) {
+        work.pay(12)
+        const production = productions[0]!, workflow = operations.workflows[0]!
+        work.pay(12)
+        const task = workflow.shootingTask, reservations = workflow.reservations
+        work.pay(16)
+        if (task !== null && reservations.length === 2) {
+          work.pay(8)
+          const first = reservations[0]!, second = reservations[1]!
+          // Every reached comparison additionally pays its actual string spans.
+          work.pay(64)
+          singleWrapSlot = work.equal(workflow.productionId, production.id) &&
+            work.equal(workflow.phase, 'shooting') && work.equal(task.status, 'completed') &&
+            ((work.equal(first.capability, 'soundstage') && work.equal(second.capability, 'set-scenery')) ||
+              (work.equal(first.capability, 'set-scenery') && work.equal(second.capability, 'soundstage')))
+        }
+      }
+    } else attempts = d.n % 2 === 0 ? work.calc(32).times(d.n / 2, d.n + 3) : work.calc(32).times(d.n, (d.n + 3) / 2)
   }
+  work.pay(8) // new flag argument/binding and allocation slot-selector controls
+  const enter = work.calc(64).plus(releasePhase, 65, wear, work.calc(32).times(retainedDevelopment ? 1 : 2, transition), work.calc(32).times(retainedDevelopment ? 1 : 3, update),
+    allocationBill(d, wrapOnly, work, retainedDevelopment, singleWrapSlot), d.workflowCopy, d.bindingsCopy, d.pCopy, 150)
   const common = work.calc(64).plus(orderBill(d, work), 80, work.calc(32).times(d.n, work.calc(8).keyBill(d.n, d.dp)),
     work.calc(32).times(visits, work.calc(64).plus(25, work.calc(32).times(4, work.calc(8).keyBill(d.n, d.dp)), 1 + work.calc(32).times(d.n, 1 + pid),
       2 * text)), work.calc(32).times(d.n, work.calc(64).plus(d.pCopy, 15, update, d.workflowCopy, d.taskCopy, 100)),

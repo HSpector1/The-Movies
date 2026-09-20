@@ -256,6 +256,101 @@ describe('P14B4 genuine already-started owner replay — local first-take parity
     // Now take5 is in a window due6; still not B2/eight-week-slack feasibility.
   })
 
+  it('retains genuine Post at 3→2, then releases its exact slot at 2→1 without another take or wrap', () => {
+    // 410 retained-property control: every clock/reservation comes from the
+    // original scheduled fixture and real ticks, never a rewritten campaign.
+    const shooting = scheduled(1), shootingBefore = clone(shooting)
+    const filmed = tick(shooting), state = tick(filmed), before = clone(state)
+    makeSave(filmed); makeSave(state)
+    assertSupportedFacts(state)
+    assert.ok(state.hollywood)
+    const own = state.hollywood.playerStudioId, week = state.market.tick
+    expect(state.studio.activeProductions).toHaveLength(1)
+    const production = state.studio.activeProductions[0]!, id = production.id
+    expect(production.remainingTicks).toBe(3)
+    expect(production.startTick).toBeLessThan(week)
+    expect(state.operations.workflows).toHaveLength(1)
+    const workflow = state.operations.workflows[0]!
+    expect(workflow.productionId).toBe(id)
+    expect(workflow.phase).toBe('postProduction')
+    expect(workflow.shootingTask).toBeNull()
+    expect(workflow.bindings.stageFacilityId).toBeNull()
+    expect(workflow.reservations).toHaveLength(1)
+    const post = workflow.reservations[0]!
+    expect(post.capability).toBe('post')
+    expect(post.phase).toBe('postProduction')
+    const takes = state.firstTakes.filter((row) => row.productionId === id && row.studioId === own)
+    expect(takes).toHaveLength(1)
+    expect(takes[0]!.week).toBe(shooting.market.tick + 1)
+    expect(filmed.firstTakes.filter((row) => row.productionId === id && row.studioId === own)).toEqual(takes)
+    const once = tick(state), twice = tick(once)
+    makeSave(once); makeSave(twice)
+    expect(once.studio.activeProductions[0]?.remainingTicks).toBe(2)
+    expect(once.operations.workflows[0]?.phase).toBe('postProduction')
+    expect(once.operations.workflows[0]?.reservations).toEqual([post])
+    expect(twice.studio.activeProductions[0]?.remainingTicks).toBe(1)
+    expect(twice.operations.workflows[0]?.phase).toBe('releaseReady')
+    expect(twice.operations.workflows[0]?.reservations).toEqual([])
+    expect(once.studioEvents.rows.filter((row) => row.seq >= state.studioEvents.nextSeq)).toEqual([])
+    for (const [weeks, real] of [[1, once], [2, twice]] as const) {
+      const { attempt, result, calls } = complete(input(state, state.studio.activeProductions, weeks))
+      expect(calls).toEqual([
+        { week, ids: [id], before: [3], after: [2], takes: [] },
+        ...(weeks === 2 ? [{ week: week + 1, ids: [id], before: [2], after: [1], takes: [] }] : []),
+      ])
+      checkProjection(attempt.projection, state, real)
+      const technology = { ...state.technology, productions: state.technology.productions.map((row) => {
+        if (row.studioId !== own) return row
+        const updated = real.technology.productions.find((candidate) =>
+          candidate.studioId === own && candidate.productionId === row.productionId)
+        assert.ok(updated)
+        return updated
+      }) }
+      expect(attempt.projection).toEqual({ week: real.market.tick,
+        productions: real.studio.activeProductions, operations: real.operations,
+        sets: real.sets, technology, releaseAuthority: real.releaseAuthority,
+        completedBackgroundPathKeys: [] })
+      expect(attempt.projection.sets).toEqual(state.sets)
+      expect(real.firstTakes.filter((row) => row.productionId === id && row.studioId === own)).toEqual(takes)
+      expect(attempt.provenance.filter((row) => row.kind === 'firstTake' || row.kind === 'releaseAdmitted')).toEqual([])
+      const picturePath = JSON.stringify(['production', own, id])
+      const pictures = attempt.trace.paths.filter((row) => row.kind === 'jointTracePicture')
+      expect(pictures).toHaveLength(1)
+      expect(pictures[0]).toMatchObject({ pathKey: picturePath, firstTake: null, personRelease: null })
+      // Existing filmed history is retained, not emitted as a future take.
+      const postHolds = result.fixedHolds.filter((hold) => hold.ownerPathKey === picturePath && hold.subject.kind === 'resource')
+      expect(postHolds).toHaveLength(1)
+      const hold = postHolds[0]!
+      expect(hold.subject).toEqual({ kind: 'resource', resourceKey: JSON.stringify(['facility', own, post.facilityId]), slot: post.slot })
+      expect(hold.from).toEqual({ week, step: 0 })
+      expect(hold.until).toEqual({ week: week + weeks, step: 0 })
+      const companyHolds = result.fixedHolds.filter((row) => row.ownerPathKey === picturePath && row.subject.kind === 'person')
+      expect(companyHolds.flatMap((row) => row.subject.kind === 'person' ? [row.subject.personId] : []).sort())
+        .toEqual([...productionCompanyTalentIds([production])].sort())
+      expect(result.fixedHolds).toHaveLength(6 + state.sets.filter((row) => row.status === 'standing').length)
+      expect(attempt.trace.additionalHolds).toEqual([])
+      const events = attempt.provenance.filter((row) => row.kind === 'ownerEvent')
+      const realEvents = real.studioEvents.rows.filter((row) => row.seq >= state.studioEvents.nextSeq)
+      expect(events.map((row) => ({ week: row.ownerWeek, draft: row.draft })))
+        .toEqual(realEvents.map(({ seq: _seq, week: ownerWeek, ...draft }) => ({ week: ownerWeek, draft })))
+      expect(events.map((row) => row.draft.kind)).toEqual(weeks === 1 ? [] : ['reservationReleased', 'phaseEntered'])
+      if (weeks === 1) expect(attempt.trace.fixedHoldReplacements).toEqual([])
+      else {
+        const release = events[0]!
+        expect(release.draft).toEqual({ kind: 'reservationReleased', ownerId: id, resourceKey: `${post.facilityId}:${post.slot}` })
+        expect(release.at.week).toBe(week + 1)
+        const sweep = attempt.provenance.find((row) => row.kind === 'sweepStarted' && row.at.week === week + 1)
+        assert.ok(sweep)
+        expect(release.at.step).toBeGreaterThan(sweep.at.step)
+        expect(events[1]!.at.step).toBeGreaterThan(release.at.step)
+        expect(events[1]!.draft).toEqual({ kind: 'phaseEntered', productionId: id, phase: 'releaseReady' })
+        expect(attempt.trace.fixedHoldReplacements).toEqual([{ holdId: hold.holdId, newUntil: release.at }])
+      }
+      expect(state).toEqual(before)
+    }
+    expect(shooting).toEqual(shootingBefore)
+  })
+
   it('at H==now retains every current path and zero-length holds without owner execution', () => {
     const state = scheduled(2)
     const { attempt, calls, result, external } = complete(input(state, state.studio.activeProductions, 0))

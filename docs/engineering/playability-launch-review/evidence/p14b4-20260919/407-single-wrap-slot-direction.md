@@ -91,11 +91,18 @@ multi-picture fallback, exact releases/grants/wear/projection. Other existing
 controls cover new8, retained8→7, scheduled5→4 and committed1→0. No genuine replay
 blocked-Post fixture identified; capacity-rewritten C2a-M4/F1 is not such evidence.
 Optional genuine Post3→2→1 retained-then-released control remains unexecuted;
-not required as private price oracle and no new fixture campaign authorized.
+not a private price oracle. After409 publication, parent authorized ONE additive
+independent case in the existing started-replay test: scheduled(1), two real ticks
+to genuine Post3 source, then two real reference ticks and whole-slate replay.
+Pin first-frame retention/second-frame release, full projection/event parity,
+exact Post hold endpoint, historical first-take fact, source purity and strict
+saves under unchanged200000. All original lines/assertions/fixtures/timeouts stay.
+This is a retained-property fallback control, not a demonstrated RED regression;
+no private helper, changed capacity, new campaign or synthetic source is permitted.
+Author owns only additive test +410-post-fallback-test-brief.md; sim never edits it.
 
 After409 exact publication,410 SOLEsim writer source+handback ONLY, then freeze,
 parent full diff/pins,411 independent actual review,412–419 serialized original
-gate matrix (no test edits). Preserve remaining failures and instrument only after
+gate matrix plus that one additive case. Preserve remaining failures and instrument only after
 all runtimes close. Continue engineering beyond this checkpoint under logic-first.
 Unity/native/Owner acceptance deferred; integration backlog retained.
-

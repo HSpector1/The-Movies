@@ -1,0 +1,183 @@
+diff --git a/src/core/promiseCapacityOwnerReplay.ts b/src/core/promiseCapacityOwnerReplay.ts
+index a56fb20..5c887ab 100644
+--- a/src/core/promiseCapacityOwnerReplay.ts
++++ b/src/core/promiseCapacityOwnerReplay.ts
+@@ -1079,7 +1079,8 @@ function restrictedSweepBill<P extends StartedPicture>(d: Dimensions, production
+ }
+ 
+ /** Occupancy + actual filter/policy/sort + capacity loops, not a free-slot forecast. */
+-function allocationBill(d: Dimensions, wrapOnly: boolean, work: Work, retainedDevelopment = false): number {
++function allocationBill(d: Dimensions, wrapOnly: boolean, work: Work, retainedDevelopment = false,
++  singleWrapSlot = false): number {
+   work.pay(192) // at most96 scalar reads/operators, two units each; helpers separate
+   // In both narrowed domains own claims are excluded FROM OCCUPANCY. Unlike
+   // wrapped Post acquisition, Development still has its original reservation
+@@ -1103,7 +1104,9 @@ function allocationBill(d: Dimensions, wrapOnly: boolean, work: Work, retainedDe
+   const facilitySort = sortBill(d.f, 6 + 2 * text, work)
+   // A certified held Development slot takes the retained arm's continue;
+   // neither the generic capacity search nor stage+Set composite is reached.
+-  const slots = retainedDevelopment ? 0 : work.calc(32).times(wrapOnly ? d.capacity : 3 * d.capacity,
++  // The single-wrap certificate proves slot0 of the first positive Post is
++  // free. Only this loop bound changes; its complete per-slot price remains.
++  const slots = retainedDevelopment ? 0 : work.calc(32).times(wrapOnly ? (singleWrapSlot ? 1 : d.capacity) : 3 * d.capacity,
+     work.calc(64).plus(5, keyConstruction, work.calc(32).times(2, work.calc(8).keyBill(occupied + 2, keyLength))))
+   const retention = work.calc(8).add(20, work.calc(32).times(2, work.calc(64).plus(20, work.calc(8).times(2, text), work.calc(32).times(d.f, 2 + text),
+     work.calc(8).keyBill(2, 19), keyConstruction, work.calc(8).keyBill(occupied + 2, keyLength))))
+@@ -1299,8 +1302,6 @@ function sweepBill<P extends StartedPicture>(d: Dimensions, productions: readonl
+   const releasePhase = work.calc(64).plus(80, work.calc(8).times(8, text), d.workflowCopy, d.bindingsCopy, 70)
+   const wear = retainedDevelopment ? 0 : work.calc(64).plus(24, work.calc(32).times(d.sets, 5 + 2 * text), d.setCopy, 18)
+   const update = workflowUpdate(d, work)
+-  const enter = work.calc(64).plus(releasePhase, 65, wear, work.calc(32).times(retainedDevelopment ? 1 : 2, transition), work.calc(32).times(retainedDevelopment ? 1 : 3, update),
+-    allocationBill(d, wrapOnly, work, retainedDevelopment), d.workflowCopy, d.bindingsCopy, d.pCopy, 150)
+   // The real phase callback is still invoked; preProduction returns at its
+   // first phase guard, before selection/locking/copying any technology root.
+   const policyLock = retainedDevelopment ? work.calc(8).add(6, text) : wrapOnly ? 0 : work.calc(64).plus(80, work.calc(32).times(d.t + d.n, 6 + 2 * text),
+@@ -1315,6 +1316,8 @@ function sweepBill<P extends StartedPicture>(d: Dimensions, productions: readonl
+   // resource release/restart. One final all-settled round still visits n rows.
+   const rounds = retainedDevelopment ? 2 : 2 * d.n + 1, visits = work.calc(8).times(d.n, rounds)
+   let attempts = retainedDevelopment ? retainedMoves : visits
++  work.pay(2)
++  let singleWrapSlot = false
+   if (wrapOnly) {
+     // Tight source domain: only Post acquisition; no Post can release during
+     // this sweep. If all policies are actually silent and enough currently
+@@ -1333,9 +1336,31 @@ function sweepBill<P extends StartedPicture>(d: Dimensions, productions: readonl
+       }
+     }
+     // No external slots is a sufficient (not necessary) proof for this branch.
+-    if (d.allSilent && d.external === 0 && post - heldPost >= d.n) attempts = d.n
+-    else attempts = d.n % 2 === 0 ? work.calc(32).times(d.n / 2, d.n + 3) : work.calc(32).times(d.n, (d.n + 3) / 2)
++    if (d.allSilent && d.external === 0 && post - heldPost >= d.n) {
++      attempts = d.n
++      work.pay(16) // all three count guards and their short-circuit controls
++      if (d.n === 1 && productions.length === 1 && operations.workflows.length === 1) {
++        work.pay(12)
++        const production = productions[0]!, workflow = operations.workflows[0]!
++        work.pay(12)
++        const task = workflow.shootingTask, reservations = workflow.reservations
++        work.pay(16)
++        if (task !== null && reservations.length === 2) {
++          work.pay(8)
++          const first = reservations[0]!, second = reservations[1]!
++          // Every reached comparison additionally pays its actual string spans.
++          work.pay(64)
++          singleWrapSlot = work.equal(workflow.productionId, production.id) &&
++            work.equal(workflow.phase, 'shooting') && work.equal(task.status, 'completed') &&
++            ((work.equal(first.capability, 'soundstage') && work.equal(second.capability, 'set-scenery')) ||
++              (work.equal(first.capability, 'set-scenery') && work.equal(second.capability, 'soundstage')))
++        }
++      }
++    } else attempts = d.n % 2 === 0 ? work.calc(32).times(d.n / 2, d.n + 3) : work.calc(32).times(d.n, (d.n + 3) / 2)
+   }
++  work.pay(8) // new flag argument/binding and allocation slot-selector controls
++  const enter = work.calc(64).plus(releasePhase, 65, wear, work.calc(32).times(retainedDevelopment ? 1 : 2, transition), work.calc(32).times(retainedDevelopment ? 1 : 3, update),
++    allocationBill(d, wrapOnly, work, retainedDevelopment, singleWrapSlot), d.workflowCopy, d.bindingsCopy, d.pCopy, 150)
+   const common = work.calc(64).plus(orderBill(d, work), 80, work.calc(32).times(d.n, work.calc(8).keyBill(d.n, d.dp)),
+     work.calc(32).times(visits, work.calc(64).plus(25, work.calc(32).times(4, work.calc(8).keyBill(d.n, d.dp)), 1 + work.calc(32).times(d.n, 1 + pid),
+       2 * text)), work.calc(32).times(d.n, work.calc(64).plus(d.pCopy, 15, update, d.workflowCopy, d.taskCopy, 100)),
+diff --git a/tests/p14b4-started-owner-replay.test.ts b/tests/p14b4-started-owner-replay.test.ts
+index 13c76da..d9b4e3f 100644
+--- a/tests/p14b4-started-owner-replay.test.ts
++++ b/tests/p14b4-started-owner-replay.test.ts
+@@ -256,6 +256,101 @@ describe('P14B4 genuine already-started owner replay — local first-take parity
+     // Now take5 is in a window due6; still not B2/eight-week-slack feasibility.
+   })
+ 
++  it('retains genuine Post at 3→2, then releases its exact slot at 2→1 without another take or wrap', () => {
++    // 410 retained-property control: every clock/reservation comes from the
++    // original scheduled fixture and real ticks, never a rewritten campaign.
++    const shooting = scheduled(1), shootingBefore = clone(shooting)
++    const filmed = tick(shooting), state = tick(filmed), before = clone(state)
++    makeSave(filmed); makeSave(state)
++    assertSupportedFacts(state)
++    assert.ok(state.hollywood)
++    const own = state.hollywood.playerStudioId, week = state.market.tick
++    expect(state.studio.activeProductions).toHaveLength(1)
++    const production = state.studio.activeProductions[0]!, id = production.id
++    expect(production.remainingTicks).toBe(3)
++    expect(production.startTick).toBeLessThan(week)
++    expect(state.operations.workflows).toHaveLength(1)
++    const workflow = state.operations.workflows[0]!
++    expect(workflow.productionId).toBe(id)
++    expect(workflow.phase).toBe('postProduction')
++    expect(workflow.shootingTask).toBeNull()
++    expect(workflow.bindings.stageFacilityId).toBeNull()
++    expect(workflow.reservations).toHaveLength(1)
++    const post = workflow.reservations[0]!
++    expect(post.capability).toBe('post')
++    expect(post.phase).toBe('postProduction')
++    const takes = state.firstTakes.filter((row) => row.productionId === id && row.studioId === own)
++    expect(takes).toHaveLength(1)
++    expect(takes[0]!.week).toBe(shooting.market.tick + 1)
++    expect(filmed.firstTakes.filter((row) => row.productionId === id && row.studioId === own)).toEqual(takes)
++    const once = tick(state), twice = tick(once)
++    makeSave(once); makeSave(twice)
++    expect(once.studio.activeProductions[0]?.remainingTicks).toBe(2)
++    expect(once.operations.workflows[0]?.phase).toBe('postProduction')
++    expect(once.operations.workflows[0]?.reservations).toEqual([post])
++    expect(twice.studio.activeProductions[0]?.remainingTicks).toBe(1)
++    expect(twice.operations.workflows[0]?.phase).toBe('releaseReady')
++    expect(twice.operations.workflows[0]?.reservations).toEqual([])
++    expect(once.studioEvents.rows.filter((row) => row.seq >= state.studioEvents.nextSeq)).toEqual([])
++    for (const [weeks, real] of [[1, once], [2, twice]] as const) {
++      const { attempt, result, calls } = complete(input(state, state.studio.activeProductions, weeks))
++      expect(calls).toEqual([
++        { week, ids: [id], before: [3], after: [2], takes: [] },
++        ...(weeks === 2 ? [{ week: week + 1, ids: [id], before: [2], after: [1], takes: [] }] : []),
++      ])
++      checkProjection(attempt.projection, state, real)
++      const technology = { ...state.technology, productions: state.technology.productions.map((row) => {
++        if (row.studioId !== own) return row
++        const updated = real.technology.productions.find((candidate) =>
++          candidate.studioId === own && candidate.productionId === row.productionId)
++        assert.ok(updated)
++        return updated
++      }) }
++      expect(attempt.projection).toEqual({ week: real.market.tick,
++        productions: real.studio.activeProductions, operations: real.operations,
++        sets: real.sets, technology, releaseAuthority: real.releaseAuthority,
++        completedBackgroundPathKeys: [] })
++      expect(attempt.projection.sets).toEqual(state.sets)
++      expect(real.firstTakes.filter((row) => row.productionId === id && row.studioId === own)).toEqual(takes)
++      expect(attempt.provenance.filter((row) => row.kind === 'firstTake' || row.kind === 'releaseAdmitted')).toEqual([])
++      const picturePath = JSON.stringify(['production', own, id])
++      const pictures = attempt.trace.paths.filter((row) => row.kind === 'jointTracePicture')
++      expect(pictures).toHaveLength(1)
++      expect(pictures[0]).toMatchObject({ pathKey: picturePath, firstTake: null, personRelease: null })
++      // Existing filmed history is retained, not emitted as a future take.
++      const postHolds = result.fixedHolds.filter((hold) => hold.ownerPathKey === picturePath && hold.subject.kind === 'resource')
++      expect(postHolds).toHaveLength(1)
++      const hold = postHolds[0]!
++      expect(hold.subject).toEqual({ kind: 'resource', resourceKey: JSON.stringify(['facility', own, post.facilityId]), slot: post.slot })
++      expect(hold.from).toEqual({ week, step: 0 })
++      expect(hold.until).toEqual({ week: week + weeks, step: 0 })
++      const companyHolds = result.fixedHolds.filter((row) => row.ownerPathKey === picturePath && row.subject.kind === 'person')
++      expect(companyHolds.flatMap((row) => row.subject.kind === 'person' ? [row.subject.personId] : []).sort())
++        .toEqual([...productionCompanyTalentIds([production])].sort())
++      expect(result.fixedHolds).toHaveLength(6 + state.sets.filter((row) => row.status === 'standing').length)
++      expect(attempt.trace.additionalHolds).toEqual([])
++      const events = attempt.provenance.filter((row) => row.kind === 'ownerEvent')
++      const realEvents = real.studioEvents.rows.filter((row) => row.seq >= state.studioEvents.nextSeq)
++      expect(events.map((row) => ({ week: row.ownerWeek, draft: row.draft })))
++        .toEqual(realEvents.map(({ seq: _seq, week: ownerWeek, ...draft }) => ({ week: ownerWeek, draft })))
++      expect(events.map((row) => row.draft.kind)).toEqual(weeks === 1 ? [] : ['reservationReleased', 'phaseEntered'])
++      if (weeks === 1) expect(attempt.trace.fixedHoldReplacements).toEqual([])
++      else {
++        const release = events[0]!
++        expect(release.draft).toEqual({ kind: 'reservationReleased', ownerId: id, resourceKey: `${post.facilityId}:${post.slot}` })
++        expect(release.at.week).toBe(week + 1)
++        const sweep = attempt.provenance.find((row) => row.kind === 'sweepStarted' && row.at.week === week + 1)
++        assert.ok(sweep)
++        expect(release.at.step).toBeGreaterThan(sweep.at.step)
++        expect(events[1]!.at.step).toBeGreaterThan(release.at.step)
++        expect(events[1]!.draft).toEqual({ kind: 'phaseEntered', productionId: id, phase: 'releaseReady' })
++        expect(attempt.trace.fixedHoldReplacements).toEqual([{ holdId: hold.holdId, newUntil: release.at }])
++      }
++      expect(state).toEqual(before)
++    }
++    expect(shooting).toEqual(shootingBefore)
++  })
++
+   it('at H==now retains every current path and zero-length holds without owner execution', () => {
+     const state = scheduled(2)
+     const { attempt, calls, result, external } = complete(input(state, state.studio.activeProductions, 0))

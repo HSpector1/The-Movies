@@ -2,22 +2,28 @@
 
 ## Current continuation — 2026-09-20: B-F2 closed; P2 pure owners verified, integration continues
 
-Current B4 checkpoint408 (2026-09-20):396frozen; ALL398–406runtimeCLOSED.
-HEAD/EXACTremote51cfcc6ea3fb8908623f999b5644510c08d6deda (395published).
-Replay6eb19801534c950e91620b4167be07e4285817981d0263e24d660c7d43b4dd9e;
-397actualsource/testKEEP.398rootUI399lookup5/400ordinary66/402started26/
-403adjacent137/405facts2PASS;401Ready13PASS2workLimitFAIL,freelancerGREEN,
-newadditivesiblingpublicfreshnessPASS.404soleOLDfutureP2kind.
+Current B4 checkpoint421 (2026-09-20):410source/test FROZEN; all412–420runtime CLOSED.
+HEAD/EXACTremotee7aa158a04c3dec0b2e04e2a7211545f74fdf485 (409published).
+Replaye7cb5ce0e44b7ef22235c391cdd01498c5b22315bb0edc08adb9ef6618e30621.
+Startedtest e20912644615dc94a4d9e48d47143b4f82a938be150ce022c472b8abbbae7d32:
+one95-line ADDITIVE genuinePost3→2→1 case; all original lines retained.
+411independent actualsource/testKEEP; parent FULLdiffs/handbacks/pinsverified.
+Protectedpatch44b134474ca020566d957319401d63f75b66205b40d24ed01bfdc449b167df57.
 
-406diagnosticREMOVED exactsource/test/protectedpatch68912708a93242655b3fb46d223da753221d6c3ce152920e9fdeeee893a9b30a restored.
-Samewrap184803/request17048 BEFOREactualwrap/output/trace/kernel.
-Saves10422vs392; still1851short payment alone, laterworkowed. No completeReady/B4.
+412root/UI,413lookup5,414ordinary66,417adjacent137,419facts2 PASS.
+415Ready13PASS2budgetFAIL; freelancer/new sibling freshness GREEN.
+416started26PASS1NEW PostbudgetFAIL.418soleOLDfutureP2kindTS2353.
+420passive diagnosis: Ready actualwrap NOW RETURNS, then drainEvents bareKey
+cuts199976/request84. NewPost H+1 COMPLETE; H+2 cuts BEFORE2→1 owner:
+used42630/request161747, ownerbill161650. Genuine reference guards PASS.
+ALL420logs REMOVED; exact410 source/tests/wholeprotectedpatch RESTORED.
+No cap/validator/testweakening. No fit/Ready/B4acceptance.
 
-No writer/runtime. Sim407singlewrap-slot designDONE; auditorREADONLYadoption.
-Parent publishes408checkpoint/409exactremote, thenadopt407/410solewriter,
-411review/412+serialgates. Narrowonlyprovedonewrap slotiterations, neverper-slot
-prices/caps/tests. Paper4599savingminusguards NOTfitclaim. AuthorcoverageDONE.
-ContinueB4/restP14/P15/P16/specifiedP17/P18 beyondcheckpoint.
+Next: publish qualified421 checkpoint, independently verify422 exactremote;
+then adopt bounded423 direction from read-only Post2→1 owner inventory and
+exactsingle-wrap commonvisit review. Neither candidate adopted or written yet.
+Sim/auditor READONLY, authoridle, NOwriter/runtime. One production writer only;
+max2 specialists, heavychecksserial. Continue engineering beyondcheckpoint.
 T4/B2/B3/B-F2closeoutsstand; Save29/rules3/projection46 liveuntilcoherentcutover.
 Unity/native/Owneracceptance deferred/integrationbacklogretained.
 
