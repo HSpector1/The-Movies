@@ -133,6 +133,7 @@ function natural(value: number, name: string): void {
   invariant(Number.isSafeInteger(value) && value >= 0, `${name} must be a nonnegative safe integer`)
 }
 const CEILING = 200001
+const EQUALITY_SATURATION_LENGTH = (CEILING - 1) / 2
 /**
  * Fixed SOURCE schemas, not caller records. Compute their exact literal costs
  * once at module initialization; no input-dependent discovery/caching occurs.
@@ -289,12 +290,16 @@ class Work {
     return a >= CEILING || b >= CEILING || a > Math.floor(CEILING / b) ? CEILING : a * b
   }
   equality(length: number): number {
-    this.pay(4)
-    return this.calc(8).add(1, this.calc(8).times(2, length))
+    this.pay(20)
+    return length >= EQUALITY_SATURATION_LENGTH ? CEILING : 1 + 2 * length
   }
   keyBill(count: number, length: number): number {
-    this.pay(4)
-    return this.calc(8).plus(1, length, this.calc(8).times(count, this.calc(8).equality(length)))
+    this.pay(64)
+    if (length >= CEILING) return CEILING
+    const base = 1 + length
+    const unit = 1 + 2 * length
+    if (count > Math.floor((CEILING - base) / unit)) return CEILING
+    return base + count * unit
   }
   /** Same all-possible-comparisons metric, without substituting an unrelated
    * maximum for every stored key. Repeated rows may overcount distinct keys. */
@@ -352,9 +357,12 @@ function sortBill(n: number, comparator: number, work: Work): number {
     levels++
     runs = work.calc(16).add(runs, Math.ceil(n / (2 * width)))
   }
+  work.pay(4) // two local bindings; argument arithmetic/helpers remain prepaid
+  const merges = work.calc(8).times(n, levels)
+  const coefficient = work.calc(8).add(13, comparator)
   work.pay(22) // scalar additions/reads/dispatch; every sum/product pays itself
   return work.calc(64).plus(10, work.calc(8).times(3, n), work.calc(8).times(8, levels), work.calc(8).times(19, runs),
-    work.calc(32).times(5, work.calc(8).times(n, levels)), work.calc(32).times(8 + comparator, work.calc(8).times(n, levels)))
+    work.calc(32).times(coefficient, merges))
 }
 function sorted<T>(values: readonly T[], keyOf: (value: T) => string, work: Work): T[] {
   work.pay(4) // local setup + empty decoration array

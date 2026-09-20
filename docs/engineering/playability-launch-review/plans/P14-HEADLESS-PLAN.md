@@ -1,28 +1,25 @@
 # P14 — Contested Talent Market, Bonds and Promises, Career Lifecycle — headless plan (logic-first)
 
-Current B4 checkpoint379 (2026-09-20):367/368 FROZEN, allruntimeCLOSED.
-BaseHEAD/EXACTremote2ccd87cca17388905a85a27dddd3ff5ab9c8bc66 (366published).
-369 independent bounded source/testKEEP.370rootUI/3715/37266/37426/375137/
-377new2(sevencompletecalls)PASS.373Ready13PASS2workLimitFAIL; freelancerFULLYGREEN.
-376soleOLDfutureP2kindTS2353. Fullraw/hash/nonoverlapverified.
-Protected370–377patch1efe725b12d261adcf52a390b888584101436e0bd000c74e97bb126e3c0680cd.
-Replay4166ea6a00b23741bf0e9f4c945520d80d2834a53d400a1133bc23002a8aa6e1;
-test70d710859eb9f83baf5776101f4c30b1f1c4713db9cca50ea14c9a660a307dc9.
+Current B4 checkpoint393 (2026-09-20):382 frozen; ALL384–392 runtime CLOSED.
+HEAD/EXACTremote7e0d1b3c607c22e73a9d987e60f6a76468699b92 (381published).
+382replay8941e0d2ecd68fd3914891f662d11a37e10bb72103d6d22ef92ced9f2f9817a8;
+383independent actual-source KEEP.384rootUI/385lookup5/386ordinary66/
+388started26/389adjacent137/391facts2PASS;387Ready13PASS2workLimitFAIL,
+freelancerFULLYGREEN.390soleOLDfutureP2kind. No Ready/B4 completion claim.
 
-378logsREMOVED/exact367+testedpatch restored. w6entry189347 (saves3453);
-dimensions189568→193247. WrapbillNOWcompletes16951 at199709; then100calc,
-Work.pay199809/request17048 fails BEFOREwrapsweepStarted/actualowner/output/
-trace/kernel. Notallcallscostless; nofit/Ready/B4acceptance. Stalecutnotseparately
-measured.377genuineA/B/A/B repeatresult/work+opaquevalue/keyspan testsFULLPASS.
+392diagnosticREMOVED; exact382source+384–391 protectedpatch restored:
+f1bdc10ae2779b75a3d876c05d85168aa7fae3df8c0d4e358bdf699d2f72d5a7.
+Wrapbill16951 completes195125; caller100 then195225/request17048 fails
+BEFOREwrapowner/output/trace/kernel. Saves4584 vs378; still12273 short of
+payment alone. Complete firsttake/stale parityUNREACHED. No cap/test weakening.
 
-Sim-core proposalDONE/idle.380auditorREADONLY math/sourceinventoryreview;
-380author writesONLYindependenthypothesisoracle/brief, no productionwriter/runtime.
-Parentpublishes379checkpoint/exactremote381, thenadopts380before382SOLEsim
-writer onlyadoptedscope+handback; freeze/fullread/pins/source
-review/serialized unchangedgates. Neverdiscounttariffs/raise caps/weaken tests.
-ContinueB4/restP14/P15/P16/specifiedP17/P18. T4/B2/B3/B-F2closeoutsstand;
-Save29/rules3/projection46 liveuntilcoherentcutover. Unity/native/Owneracceptance
-deferred/integrationbacklogretained.
+No writer/runtime. Sim READONLY canonical handles design; auditor READONLY
+bounded identity/payment review. One-slot wrap candidate paper4599 saving NOT
+adopted. Parent preserves393, explicit checkpoint/push/exactremote395, then
+adopt394/release396solewriter/freeze397review/398–405serialized actuals.
+Max2 specialists; continueB4/restP14/P15/P16/specifiedP17/P18 beyondcheckpoint.
+T4/B2/B3/B-F2 closeoutsstand; Save29/rules3/projection46 liveuntilcoherentcutover.
+Unity/native/Owneracceptance deferred/integrationbacklogretained.
 
 Earlier additive foundation checkpoint: V30 data support implemented and independently
 KEEP; qualified report evidence/p14b4-20260919/29-additive-checkpoint.md.

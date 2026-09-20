@@ -1,0 +1,88 @@
+diff --git a/src/core/promiseCapacityOwnerReplay.ts b/src/core/promiseCapacityOwnerReplay.ts
+index 4eb87de..578bc6a 100644
+--- a/src/core/promiseCapacityOwnerReplay.ts
++++ b/src/core/promiseCapacityOwnerReplay.ts
+@@ -133,6 +133,7 @@ function natural(value: number, name: string): void {
+   invariant(Number.isSafeInteger(value) && value >= 0, `${name} must be a nonnegative safe integer`)
+ }
+ const CEILING = 200001
++const EQUALITY_SATURATION_LENGTH = (CEILING - 1) / 2
+ /**
+  * Fixed SOURCE schemas, not caller records. Compute their exact literal costs
+  * once at module initialization; no input-dependent discovery/caching occurs.
+@@ -239,7 +240,7 @@ class Work {
+   used: number
+   constructor(readonly limit: number, initial: number) { this.used = Math.min(limit, initial) }
+   pay(units = 1): void {
+-    if (units > this.limit - this.used) { this.used = this.limit; throw new WorkLimit() }
++    if (units > this.limit - this.used) { console.error('P14B4_WORK_LIMIT_392', this.used, units, this.limit, new Error('diagnostic-only').stack); this.used = this.limit; throw new WorkLimit() }
+     this.used += units
+   }
+   /** Evaluate the receiver BEFORE JavaScript evaluates calculator arguments.
+@@ -289,12 +290,16 @@ class Work {
+     return a >= CEILING || b >= CEILING || a > Math.floor(CEILING / b) ? CEILING : a * b
+   }
+   equality(length: number): number {
+-    this.pay(4)
+-    return this.calc(8).add(1, this.calc(8).times(2, length))
++    this.pay(20)
++    return length >= EQUALITY_SATURATION_LENGTH ? CEILING : 1 + 2 * length
+   }
+   keyBill(count: number, length: number): number {
+-    this.pay(4)
+-    return this.calc(8).plus(1, length, this.calc(8).times(count, this.calc(8).equality(length)))
++    this.pay(64)
++    if (length >= CEILING) return CEILING
++    const base = 1 + length
++    const unit = 1 + 2 * length
++    if (count > Math.floor((CEILING - base) / unit)) return CEILING
++    return base + count * unit
+   }
+   /** Same all-possible-comparisons metric, without substituting an unrelated
+    * maximum for every stored key. Repeated rows may overcount distinct keys. */
+@@ -352,9 +357,12 @@ function sortBill(n: number, comparator: number, work: Work): number {
+     levels++
+     runs = work.calc(16).add(runs, Math.ceil(n / (2 * width)))
+   }
++  work.pay(4) // two local bindings; argument arithmetic/helpers remain prepaid
++  const merges = work.calc(8).times(n, levels)
++  const coefficient = work.calc(8).add(13, comparator)
+   work.pay(22) // scalar additions/reads/dispatch; every sum/product pays itself
+   return work.calc(64).plus(10, work.calc(8).times(3, n), work.calc(8).times(8, levels), work.calc(8).times(19, runs),
+-    work.calc(32).times(5, work.calc(8).times(n, levels)), work.calc(32).times(8 + comparator, work.calc(8).times(n, levels)))
++    work.calc(32).times(coefficient, merges))
+ }
+ function sorted<T>(values: readonly T[], keyOf: (value: T) => string, work: Work): T[] {
+   work.pay(4) // local setup + empty decoration array
+@@ -865,6 +873,7 @@ function staticDimensionFacts<P extends StartedPicture>(source: StartedOwnerSour
+ function dimensions<P extends StartedPicture>(source: StartedOwnerSource<P>, productions: readonly P[],
+   operations: StudioOperations, sets: readonly StudioSet[], technology: StudioTechnology,
+   external: number, work: Work, cell: DimensionCell, pictureFacts?: readonly PictureFacts<P>[]): Dimensions {
++  console.error('P14B4_DIMENSIONS_ENTRY_392', work.used, productions.map(row => row.remainingTicks))
+   work.pay(4) // static-fact call arguments/result binding
+   const fixed = staticDimensionFacts(source, cell, work)
+   work.pay(16) // two copy-only fact calls: arguments, result bindings and controls
+@@ -924,6 +933,7 @@ function dimensions<P extends StartedPicture>(source: StartedOwnerSource<P>, pro
+     work.pay(3); d.technologyRowCopy = Math.max(d.technologyRowCopy, facts(row, true, true).copy!)
+     if (!work.equal(row.method, 'silent')) d.allSilent = false
+   }
++  console.error('P14B4_DIMENSIONS_DONE_392', work.used)
+   return d
+ }
+ function workflowUpdate(d: Dimensions, work: Work): number {
+@@ -1551,6 +1561,7 @@ function executeCommand<P extends StartedPicture>(input: ReplayInput<P>, prepare
+ 
+ function frame<P extends StartedPicture>(input: ReplayInput<P>, prepared: Prepared<P>,
+   plan: ReplayPlan, branch: Branch<P>, work: Work): void {
++  console.error('P14B4_FRAME_ENTRY_392', branch.week, work.used, branch.productions.map(row => row.remainingTicks))
+   work.pay(7)
+   const arrivedWeek = branch.week + 1
+   for (const background of prepared.backgrounds) {
+@@ -1617,6 +1628,7 @@ function frame<P extends StartedPicture>(input: ReplayInput<P>, prepared: Prepar
+   const committed = committedReleaseIds(branch.releaseAuthority)
+   const before = branch.operations
+   const bill = sweepBill(d, branch.productions, branch.operations, branch.week, committed, work)
++  console.error('P14B4_SWEEP_BILL_392', branch.week, work.used, bill, branch.productions.map(row => row.remainingTicks), d)
+   // Reserve observation, sink, binding/callback literals and complete owner work
+   // together: an exhaustion boundary cannot record an unexecuted sweepStarted.
+   work.pay(work.calc(64).plus(bill, 15 + LITERAL.sink + 1 + LITERAL.boundary +
