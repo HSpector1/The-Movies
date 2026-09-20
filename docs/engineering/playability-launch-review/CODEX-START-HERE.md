@@ -2,23 +2,26 @@
 
 ## Current engineering checkpoint — 2026-09-19
 
-Current B4 checkpoint87: shared managed-clock extraction implemented in TWO
-owner files, unchanged executable JavaScript independently byte-compared83.
-92 PASS/11 owner files; root AND UI typechecks PASS; bounded source86 KEEP.
-All candidate checks fixedSource:true on0ece527 + patch ed85c692… .
-Bridge85 has exactly unchanged future P2 tagged-attachment TS2353 atline364;
-NOT green. All runtime sessions CLOSED, source/tests frozen; publication87next.
-Latest published/exactremote0ece527bb26c55a60be6abe137708489656f1b70 (81).
-Earlier detached kernel a8d277d:46 PASS, source71KEEP, no livecaller. Policy67
-4PASS/3reachedFAIL remains qualified: old D3/P2 attachment/rival authoring owed.
-Save29/rules3/projection46 unchanged; no fabricated histories or weakened tests.
-Next91 definitive joint-trace interface under89/90, independent trace RED and
-shared-kernel refinement, actual owner trace producer and coherent P2 activation.
-Mandatory background occupancy, sweep priority and GLOBAL prior protection must
-be certified together, not inferred by composing solo calendars.
-Exact active ownership/runtime/publication: evidence/p14b4-20260919/00-start.md.
-Full B4/T4, real natural-chain coverage/performance, Unity/native and Owner
-acceptance remain owed. Continue settled implementation without routine pauses.
+Current B4 checkpoint110 (2026-09-20): D3 preference correction implemented;
+independent108 KEEP,109 pure matching8PASS.99 both age29/30 firstP1 iterations
+complete, then unchanged P2 attachment284 RED.101 chooser14PASS/one intentionally
+superseded unprovenP1 bonus expectation FAIL/3oldTODO; original test retained.
+102 root AND UI PASS;103 only existing bridge364 futurepredicate TS2353.
+All six runtime checks CLOSED/fixedSource:true; qualified110 has exact reach.
+91+94 trace contract and96 shared-kernel design reviewed. Independent95/100
+installed with ONLY author107's pre-execution order correction; original95 kept.
+104 actual40FAIL:38 missing-entry guards,2 old-mode tag refusals after valid49
+controls. No trace implementation or fullsolver acceptance claimed.
+Latest published/exactremote remains c04f4af500c37c726fc7b292db7fac2050ee04d9 (88);
+commit/push/exactremote of qualified110 is next. No writer/runtime active.
+Then ONE sim-core writer implements trace mode in existing kernel under91/94/96,
+keeps all tests frozen, verifies new40+old46 and types serially, publishes.
+Clock c04f4af and old detached49 kernel a8d277d remain recovered, not rebuilt.
+Actual owner traces/completeness/budget/performance, coherent P2 activation and
+remaining P14/P15/P16/specified P17/P18 work follow without routine pauses.
+Save29/rules3/projection46 unchanged. Full B4/T4, Unity/native and Owner
+acceptance remain owed; existing Unity backlog retained. Exact active ownership,
+runtime and publication: evidence/p14b4-20260919/00-start.md.
 
 Earlier additive foundation checkpoint: V30 data support implemented and independently
 KEEP; qualified report evidence/p14b4-20260919/29-additive-checkpoint.md.

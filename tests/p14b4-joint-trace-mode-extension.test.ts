@@ -1,0 +1,83 @@
+// Installed exact independent100; nonvacuous original49 mode controls.
+// INERT / UNEXECUTED. Intended tests/p14b4-joint-trace-mode-extension.test.ts.
+// Supplemental91 mode discriminants; original95 and optional49 tests unchanged.
+// Detached finite input, not an engine production/admission/history fixture.
+import { describe, expect, it } from 'vitest'
+import { searchPromiseCapacity } from '../src/core/promiseCapacityKernel.js'
+import type { CapacityKernelInput } from '../src/core/promiseCapacityKernel.js'
+
+function freeze<T>(value: T): T {
+  if (value !== null && typeof value === 'object') {
+    for (const child of Object.values(value)) freeze(child)
+    Object.freeze(value)
+  }
+  return value
+}
+
+function ordinary49(): CapacityKernelInput {
+  return {
+    now: { week: 0, step: 0 }, horizonEndWeek: 40, issuerId: 'local',
+    target: { promiseId: null, personId: 'T', mask: ['lead'],
+      window: { startWeek: 0, dueWeekExclusive: 40 }, state: 'unbound', count: 1, actualQualifiedCount: 0 },
+    priorClaims: [], foreignDebits: [], fixedHolds: [],
+    alternatives: [{
+      key: 'P', pathKey: 'P', issuerId: 'local', existingPath: true,
+      greenlight: { week: 5, step: 0 }, firstTake: { week: 10, step: 0 },
+      personRelease: { week: 14, step: 0 },
+      cast: { lead: 'T', antagonist: 'A', support: 'B' },
+      staffingWitnessKey: 'detached-mathematical-staffing:P',
+      ownerFactRefs: ['detached-finite-domain:P'], additionalHolds: [], holdReplacements: [],
+    }],
+    coverage: { claimsAndHolds: 'complete', existingAlternatives: 'complete', allAlternatives: 'complete', omissions: [] },
+    preparationWork: 0,
+    limits: { claims: 32, units: 64, alternatives: 1024, work: 200000, span: 220 },
+  }
+}
+
+// Run before EACH refusal. X1 exists on P, but there is no distinct B2 event;
+// this literal old-mode classification cannot depend on an implementation oracle.
+function proveOrdinaryBaseline(source: CapacityKernelInput): void {
+  expect(typeof searchPromiseCapacity).toBe('function')
+  const before = structuredClone(source)
+  const result = searchPromiseCapacity(freeze(source))
+  expect(result.status).toBe('PROVEN_FRAGILE')
+  if (result.status !== 'PROVEN_FRAGILE') throw new Error('the otherwise valid optional49 control must reach its count witness')
+  expect(result.reason).toBe('achievableProbeFailed')
+  expect(result.priorOptimum).toEqual({ existingUnits: 0,
+    cumulativeByBoundary: [{ boundary: { week: 10, step: 0 }, units: 0 }] })
+  expect(result.countWitness).toEqual({
+    selectedAlternativeKeys: ['P'],
+    credits: [{ demandKey: ['target'], pathKey: 'P', slot: 'lead' }],
+    targetTakeBoundaries: [{ week: 10, step: 0 }],
+  })
+  expect(Number.isSafeInteger(result.workUsed)).toBe(true)
+  expect(result.workUsed).toBeGreaterThanOrEqual(0)
+  expect(result.workUsed).toBeLessThanOrEqual(source.limits.work)
+  expect(source).toEqual(before)
+}
+
+describe('joint trace100: nonvacuous explicit-tag refusal at the existing49 entry', () => {
+  it('refuses the explicit trace mode on an otherwise complete valid optional input', () => {
+    const source = ordinary49()
+    proveOrdinaryBaseline(source)
+    const tagged = { ...source, mode: 'jointOwnerTraces' as const }
+    const before = structuredClone(tagged)
+    expect(tagged.alternatives).toHaveLength(1) // no missing-array shortcut
+    expect(() => searchPromiseCapacity(freeze(tagged))).toThrow()
+    expect(tagged).toEqual(before)
+  })
+
+  it('refuses explicit picture trace tags when every ordinary49 picture field remains valid', () => {
+    const source = ordinary49()
+    proveOrdinaryBaseline(source)
+    const tagged = { ...source, alternatives: source.alternatives.map((picture) => ({
+      ...picture, kind: 'jointTracePicture' as const, jointTraceKey: 'trace-probe',
+    })) }
+    const before = structuredClone(tagged)
+    expect(tagged.alternatives[0]!.personRelease).toEqual({ week: 14, step: 0 })
+    expect(tagged.alternatives[0]!.additionalHolds).toEqual([])
+    expect(tagged.alternatives[0]!.holdReplacements).toEqual([])
+    expect(() => searchPromiseCapacity(freeze(tagged))).toThrow()
+    expect(tagged).toEqual(before)
+  })
+})

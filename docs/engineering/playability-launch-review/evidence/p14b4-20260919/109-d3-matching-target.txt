@@ -1,0 +1,14 @@
+{"sourceSha":"c04f4af500c37c726fc7b292db7fac2050ee04d9","testedDiffSha256":"30308068752a42e41e3f452095eaf62ad66aac2e53ff6df1bcafa3a78227627c","untrackedSource":["tests/p14b4-d3-matching.test.ts","tests/p14b4-joint-trace-mode-extension.test.ts","tests/p14b4-joint-trace.test.ts"],"command":["node_modules/.bin/vitest","run","tests/p14b4-d3-matching.test.ts","--minWorkers=1","--maxWorkers=1"],"node":"v20.20.2","start":"2026-09-20T00:24:02.960Z","end":null,"exitCode":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p14b4-d3-matching.test.ts (8 tests) 792ms
+
+ Test Files  1 passed (1)
+      Tests  8 passed (8)
+   Start at  02:24:03
+   Duration  3.24s (transform 1.51s, setup 0ms, collect 1.97s, tests 792ms, environment 1ms, prepare 127ms)
+
+
+{"sourceSha":"c04f4af500c37c726fc7b292db7fac2050ee04d9","testedDiffSha256":"30308068752a42e41e3f452095eaf62ad66aac2e53ff6df1bcafa3a78227627c","untrackedSource":["tests/p14b4-d3-matching.test.ts","tests/p14b4-joint-trace-mode-extension.test.ts","tests/p14b4-joint-trace.test.ts"],"command":["node_modules/.bin/vitest","run","tests/p14b4-d3-matching.test.ts","--minWorkers=1","--maxWorkers=1"],"node":"v20.20.2","start":"2026-09-20T00:24:02.960Z","end":"2026-09-20T00:24:07.116Z","exitCode":0,"signal":null,"error":null,"sourceShaAtEnd":"c04f4af500c37c726fc7b292db7fac2050ee04d9","testedDiffSha256AtEnd":"30308068752a42e41e3f452095eaf62ad66aac2e53ff6df1bcafa3a78227627c","untrackedSourceAtEnd":["tests/p14b4-d3-matching.test.ts","tests/p14b4-joint-trace-mode-extension.test.ts","tests/p14b4-joint-trace.test.ts"],"fixedSource":true}

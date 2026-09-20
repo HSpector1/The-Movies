@@ -1,0 +1,24 @@
+{
+  "sourceSha": "c04f4af500c37c726fc7b292db7fac2050ee04d9",
+  "testedDiffSha256": "0e3591aa097fc90b3e21f7dc077ea40d06dc45b5d6d23dab938d504afe71d381",
+  "untrackedSource": [],
+  "command": [
+    "node_modules/.bin/vitest",
+    "run",
+    "tests/p14b4-cast-class-policy.test.ts",
+    "--minWorkers=1",
+    "--maxWorkers=1",
+    "-t",
+    "public preference|all six D3"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-20T00:16:47.204Z",
+  "end": "2026-09-20T00:17:00.550Z",
+  "exitCode": 1,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "c04f4af500c37c726fc7b292db7fac2050ee04d9",
+  "testedDiffSha256AtEnd": "0e3591aa097fc90b3e21f7dc077ea40d06dc45b5d6d23dab938d504afe71d381",
+  "untrackedSourceAtEnd": [],
+  "fixedSource": true
+}

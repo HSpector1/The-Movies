@@ -1,0 +1,40 @@
+{"sourceSha":"c04f4af500c37c726fc7b292db7fac2050ee04d9","testedDiffSha256":"0e3591aa097fc90b3e21f7dc077ea40d06dc45b5d6d23dab938d504afe71d381","untrackedSource":[],"command":["node_modules/.bin/vitest","run","tests/p14a1-f1-priority-order.test.ts","tests/p14b1-trust-chooser.test.ts","--minWorkers=1","--maxWorkers=1"],"node":"v20.20.2","start":"2026-09-20T00:17:47.982Z","end":null,"exitCode":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/p14b1-trust-chooser.test.ts (13 tests | 1 failed | 2 skipped) 16490ms
+   ✓ P14B.1 test 6: trust, the widened chooser and the priority order > a Distrusted issuer is dropped issuerDistrusted at reservation, and the other (healthy) proposal settles the case 1510ms
+   × P14B.1 test 6: trust, the widened chooser and the priority order > opportunity changes the winner of an otherwise compensation-versus-incumbency 1-1 tie, with two real surviving proposals 3522ms
+     → expected 'studio-5a47d054-player' to be 'studio-5a47d054-r04' // Object.is equality
+   ✓ P14B.1 test 6: trust, the widened chooser and the priority order > a Reliable issuer beats a Mixed-record issuer on the trust band, in the same otherwise-1-1-tie shape 778ms
+   ✓ P14B.1 test 7: rival symmetry > attachPromise and its feasibility classification work identically when the issuer is a RIVAL (no player-only special-casing) 565ms
+   ✓ P14B.1 test 7: rival symmetry > the FIRST natural rival proposal carries exactly one P1 iff its ORIGINAL authoring verdict is REASONABLY_ACHIEVABLE, with exact proposal/root/receipt joins 4839ms
+   ✓ P14B.1 test 7: rival symmetry > natural rival authoring preserves the first writer IFF, the first actor positive, and an actual non-achievable zero-attachment witness 4955ms
+ ✓ |core| tests/p14a1-f1-priority-order.test.ts (5 tests | 1 skipped) 7ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14b1-trust-chooser.test.ts > P14B.1 test 6: trust, the widened chooser and the priority order > opportunity changes the winner of an otherwise compensation-versus-incumbency 1-1 tie, with two real surviving proposals
+AssertionError: expected 'studio-5a47d054-player' to be 'studio-5a47d054-r04' // Object.is equality
+
+Expected: "studio-5a47d054-r04"
+Received: "studio-5a47d054-player"
+
+ ❯ tests/p14b1-trust-chooser.test.ts:439:40
+    437|     expect(baseline.receipt.studioId).toBe(playerStudioId)
+    438|     expect(baseline.receipt.reasons.some((reason) => /compensation/i.t…
+    439|     expect(treatment.receipt.studioId).toBe(incumbentId)
+       |                                        ^
+    440|     expect(treatment.receipt.reasons.some((reason) => /opportunity/i.t…
+    441|     expect(treatment.receipt.studioId).not.toBe(baseline.receipt.studi…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed | 1 passed (2)
+      Tests  1 failed | 14 passed | 3 todo (18)
+   Start at  02:17:48
+   Duration  19.85s (transform 1.61s, setup 0ms, collect 2.58s, tests 16.50s, environment 1ms, prepare 220ms)
+
+
+{"sourceSha":"c04f4af500c37c726fc7b292db7fac2050ee04d9","testedDiffSha256":"0e3591aa097fc90b3e21f7dc077ea40d06dc45b5d6d23dab938d504afe71d381","untrackedSource":[],"command":["node_modules/.bin/vitest","run","tests/p14a1-f1-priority-order.test.ts","tests/p14b1-trust-chooser.test.ts","--minWorkers=1","--maxWorkers=1"],"node":"v20.20.2","start":"2026-09-20T00:17:47.982Z","end":"2026-09-20T00:18:08.808Z","exitCode":1,"signal":null,"error":null,"sourceShaAtEnd":"c04f4af500c37c726fc7b292db7fac2050ee04d9","testedDiffSha256AtEnd":"0e3591aa097fc90b3e21f7dc077ea40d06dc45b5d6d23dab938d504afe71d381","untrackedSourceAtEnd":[],"fixedSource":true}

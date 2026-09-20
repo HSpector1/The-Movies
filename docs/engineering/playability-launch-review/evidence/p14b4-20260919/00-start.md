@@ -1,6 +1,42 @@
 # P14B.4 — capacity implementation continuation
 
-CURRENT87: independent clockRED0ece527bb26c55a60be6abe137708489656f1b70
+CURRENT110: D3 source97+review108 KEEP complete,1098PASS;99/101 exact partial
+policy progression/intentional oldpin failure retained;102rootUI PASS;103 only
+oldfuturebridge364 TS2353. ALLruntime sessions CLOSED/fixedtrue, no writer.
+95/100/106 exact-installed,107 single pre-execution ordering correction adopted;
+104actual40FAIL (38 missingAPI guards +2 oldtagguard failures AFTERvalid49controls).
+Qualified110 FULLYcomplete. Next commit/push/exactremote, THEN ONE sim-core writer
+only promiseCapacityKernel.ts under91/94/96; all tests frozen. Max2 specialists.
+All agents currently idle; no production or protected-test edit during runtimes.
+Originalkernel49/clock/policytests unchanged; no ownertrace/liveP2/fullB4claim.
+
+CURRENT94: clock extraction c04f4af500c37c726fc7b292db7fac2050ee04d9 PUSHED,
+separate EXACTremote23:51:46Z; publication88/qualified87. ALL sessions CLOSED.
+Frozen91 fully reviewed93: one effective-horizon/unknown-release coverage REFINE,
+adopted in parent94; independent auditor KEEP94 SHA
+cbbd9376ffc6d8975c857e17d3e7f0ceb7114bbb9be9d32e4dc4c9ac7018a025.
+Original91/93 unchanged. Independent92 matrix COMPLETE/frozen3f8a5f7d… .
+Test-author owns ONLY inert95 executable draft/brief. Sim-core design96 FROZEN;
+parent fully read, independent auditor KEEP96 SHA
+d04c21cd04be60aa8414aaad19225ff9451d2a87e1b999384dbb732be0a9c802.
+TRACE source ownership withheld until parent records actual missing-entry RED.
+Sim-core D3-only talentMarket.ts candidate FROZEN, handback97/source dd96a993… .
+99 CLOSED/fixedtrue: 1PASS/2FAIL/4name-filtered unselected; BOTH age29/30 now pass
+firstP1 iteration and reach unchanged taggedP2 attachment RED at284. No fullD3claim.
+101 CLOSED14PASS/1intentionally superseded old unprovenP1 bonus FAIL/3oldTODOs;
+fixedtrue.102 root AND UI CLOSED/PASS/fixedtrue. ALLprotected frozen.
+Sole runtime103 bridge typecheck ACTIVE; no source writer.
+No capacity/version/attachment/freeze-legality/rival-authoring changes in that scope.
+95 independent38-case draft FROZEN b094de96…; main fully read. Auditor owns98
+bounded95/100 test review;100 COMPLETE/parentread SHA135ce653… . Author now ONLY
+inert106 independent pure D3 matching table/purity tests; no fullP2claim.
+Max2 specialists; sim-core idle, no source writer.
+Parent prepares actual owner-adapter seams read-only. Next freeze/review/verify
+the narrow D3 correction, exact95 install/RED/publication,
+one-writer shared-kernel trace extension, then actual owner-trace producer.
+Original49/kernel/tests unchanged. No trace-code/live-P2 acceptance claim.
+
+Independent clockRED0ece527bb26c55a60be6abe137708489656f1b70
 PUSHED/EXACTremote23:42:25Z. Source82 DONE/FROZEN (two owners only).
 Protected patch ed85c69213fe224c86401c60c8263d6bc2d5f0818ba4fdf14444be9b229a9cc6.
 83-executable-identity CLOSED/PASS/fixedtrue: TypeScript5.9.3/ES2022/removeComments
@@ -9,7 +45,7 @@ emits byte-identical JavaScript for BOTH owners versus0ece527.
 84 root AND UI CLOSED/PASS, fixedtrue.85 CLOSEDexit2/fixedtrue, only unchanged
 futureP2 taggedattachment TS2353 atbridge test364. ALL runtime sessions CLOSED.
 ALL protected source/tests FROZEN; NO production writer.
-Qualified87 COMPLETE. Next publish/exactremote88.86 source review KEEP complete.
+Qualified87 and publication88 COMPLETE.86 source review KEEP complete.
 86 source KEEP COMPLETE05efdedd…; auditor idle. Sim-core ONLY inert91 definitive
 trace interface under89/90; author idle. Max2 specialists.90KEEP complete063d01e…,
 main read full report.89/91 NOT trace code or owner-domain acceptance.

@@ -1,0 +1,737 @@
+{"sourceSha":"c04f4af500c37c726fc7b292db7fac2050ee04d9","testedDiffSha256":"30308068752a42e41e3f452095eaf62ad66aac2e53ff6df1bcafa3a78227627c","untrackedSource":["tests/p14b4-d3-matching.test.ts","tests/p14b4-joint-trace-mode-extension.test.ts","tests/p14b4-joint-trace.test.ts"],"command":["node_modules/.bin/vitest","run","tests/p14b4-joint-trace.test.ts","tests/p14b4-joint-trace-mode-extension.test.ts","--minWorkers=1","--maxWorkers=1"],"node":"v20.20.2","start":"2026-09-20T00:23:20.598Z","end":null,"exitCode":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/p14b4-joint-trace.test.ts (38 tests | 38 failed) 105ms
+   × joint traces: exclusive executions and compulsory uncredited context > never splices existing X in one trace with the spare in another 32ms
+     → expected 'undefined' to be 'function' // Object.is equality
+   × joint traces: exclusive executions and compulsory uncredited context > keeps every null/background path and mandatory hold while only G/Q earn four credits 5ms
+     → expected 'undefined' to be 'function' // Object.is equality
+   × joint traces: exclusive executions and compulsory uncredited context > a genuine mathematical non-picture continuation releases its own suffix without a film credit 3ms
+     → expected 'undefined' to be 'function' // Object.is equality
+   × joint traces: exclusive executions and compulsory uncredited context > uncredited other-owner overlap cannot be hidden by a credit subset 2ms
+     → expected 'undefined' to be 'function' // Object.is equality
+   × joint traces: exclusive executions and compulsory uncredited context > trace replacement keeps exact ownership, immutable prefix and single replacement identity 2ms
+     → expected 'undefined' to be 'function' // Object.is equality
+   × joint trace94: known take, unknown release and effective-horizon coverage > retains a known take with path-owned occupancy through H40 despite raw horizon20 3ms
+     → expected 'undefined' to be 'function' // Object.is equality
+   × joint trace94: known take, unknown release and effective-horizon coverage > missing H40 tail is an input error even with no second event or overlapping hold 3ms
+     → expected 'undefined' to be 'function' // Object.is equality
+   × joint trace94: known take, unknown release and effective-horizon coverage > adjacent path-owned segments cover H; an internal gap does not 2ms
+     → expected 'undefined' to be 'function' // Object.is equality
+   × joint trace94: known take, unknown release and effective-horizon coverage > another/null path hold is not this unknown-release picture’s required occupancy 2ms
+     → expected 'undefined' to be 'function' // Object.is equality
+   × joint trace94: known take, unknown release and effective-horizon coverage > full H coverage and ordinary second-owner overlap are separate checks 6ms
+     → expected 'undefined' to be 'function' // Object.is equality
+   × joint trace94: known take, unknown release and effective-horizon coverage > local prior due extends H, while retained foreign source due does not 1ms
+     → expected 'undefined' to be 'function' // Object.is equality
+   × joint trace94: known take, unknown release and effective-horizon coverage > uncertain earlier-release choices do not turn an observed count into proved FRAGILE 1ms
+     → expected 'undefined' to be 'function' // Object.is equality
+   × joint trace94: known take, unknown release and effective-horizon coverage > preparation exhaustion wins before malformed-coverage validation, without repair or unmetered work 1ms
+     → expected 'undefined' to be 'function' // Object.is equality
+   × joint traces: global prior optimum, equivalent traces and common cuts > does not combine per-trace labels: later reallocation is prior-protection FRAGILE 1ms
+     → expected 'undefined' to be 'function' // Object.is equality
+   × joint traces: global prior optimum, equivalent traces and common cuts > keeps equivalent optimal traces searchable and retains cuts from unchosen traces 1ms
+     → expected 'undefined' to be 'function' // Object.is equality
+   × joint traces: exact same-assignment X/B, existing qualification and slack > future-only B cannot borrow the existing X certificate from a different trace 1ms
+     → expected 'undefined' to be 'function' // Object.is equality
+   × joint traces: exact same-assignment X/B, existing qualification and slack > the Xth existing take at22 has exactly eight or seven weeks slack 1ms
+     → expected 'undefined' to be 'function' // Object.is equality
+   × joint traces: exact same-assignment X/B, existing qualification and slack > the Xth existing take at23 has exactly eight or seven weeks slack 1ms
+     → expected 'undefined' to be 'function' // Object.is equality
+   × joint traces: exact same-assignment X/B, existing qualification and slack > bound4 minus actual3 needs X1/B2; unbound4 ignores evidence; fulfilled is not an outcome 2ms
+     → expected 'undefined' to be 'function' // Object.is equality
+   × joint traces: exact same-assignment X/B, existing qualification and slack > four remaining units need six events, not a rounded-down spare from another trace 1ms
+     → expected 'undefined' to be 'function' // Object.is equality
+   × joint traces: foreign tokens remain shared distinct-seat planning obligations > one-week source overlap withholds the full token without consuming the other beneficiary seat 1ms
+     → expected 'undefined' to be 'function' // Object.is equality
+   × joint traces: foreign tokens remain shared distinct-seat planning obligations > irrelevant foreign rows stay neutral under exact49/56 membership filters 1ms
+     → expected 'undefined' to be 'function' // Object.is equality
+   × joint traces: global completeness and proof distinctions > a complete saturated global prior profile permits a known B trace despite unexhausted future choices 1ms
+     → expected 'undefined' to be 'function' // Object.is equality
+   × joint traces: global completeness and proof distinctions > the saturated upper profile deduplicates physical paths across equivalent trace variants 1ms
+     → expected 'undefined' to be 'function' // Object.is equality
+   × joint traces: global completeness and proof distinctions > zero-prior optimum is identically zero even if existing calendars remain unexhausted 4ms
+     → expected 'undefined' to be 'function' // Object.is equality
+   × joint traces: global completeness and proof distinctions > partial failed X/B proves neither complete count impossibility nor FRAGILE 1ms
+     → expected 'undefined' to be 'function' // Object.is equality
+   × joint traces: one global size/preparation/work budget and canonical permutations > counts headers plus occurrences, but counts shared claim rows/units only once 1ms
+     → expected 'undefined' to be 'function' // Object.is equality
+   × joint traces: one global size/preparation/work budget and canonical permutations > empty headers and background rows cannot evade the governed1024-row ceiling 2ms
+     → expected 'undefined' to be 'function' // Object.is equality
+   × joint traces: one global size/preparation/work budget and canonical permutations > an exhausted preparation budget cannot reset at a fresh trace or validation phase 1ms
+     → expected 'undefined' to be 'function' // Object.is equality
+   × joint traces: one global size/preparation/work budget and canonical permutations > all nonempty collection reversals preserve the ENTIRE result at cap1 1ms
+     → expected 'undefined' to be 'function' // Object.is equality
+   × joint traces: one global size/preparation/work budget and canonical permutations > all nonempty collection reversals preserve the ENTIRE result at cap64 1ms
+     → expected 'undefined' to be 'function' // Object.is equality
+   × joint traces: one global size/preparation/work budget and canonical permutations > all nonempty collection reversals preserve the ENTIRE result at cap2048 2ms
+     → expected 'undefined' to be 'function' // Object.is equality
+   × joint traces: one global size/preparation/work budget and canonical permutations > all nonempty collection reversals preserve the ENTIRE result at cap200000 1ms
+     → expected 'undefined' to be 'function' // Object.is equality
+   × joint traces: one global size/preparation/work budget and canonical permutations > a literal4096-character provenance leaf proves normalization exhaustion below2048 1ms
+     → expected 'undefined' to be 'function' // Object.is equality
+   × joint traces: one global size/preparation/work budget and canonical permutations > admitted huge counts/windows cannot trigger unbounded expansion or a guessed negative proof 1ms
+     → expected 'undefined' to be 'function' // Object.is equality
+   × joint traces: exact tags, identities and separation from optional49 mode > rejects mixed modes, per-picture hold fields and impossible background shape 1ms
+     → expected 'undefined' to be 'function' // Object.is equality
+   × joint traces: exact tags, identities and separation from optional49 mode > refuses duplicate and contradictory identities without confusing conditional trace variants 1ms
+     → expected 'undefined' to be 'function' // Object.is equality
+   × joint traces: exact tags, identities and separation from optional49 mode > old entry refuses explicit trace-mode misuse, while a genuine old49 input remains unchanged 7ms
+     → expected 'undefined' to be 'function' // Object.is equality
+ ❯ |core| tests/p14b4-joint-trace-mode-extension.test.ts (2 tests | 2 failed) 26ms
+   × joint trace100: nonvacuous explicit-tag refusal at the existing49 entry > refuses the explicit trace mode on an otherwise complete valid optional input 21ms
+     → expected [Function] to throw an error
+   × joint trace100: nonvacuous explicit-tag refusal at the existing49 entry > refuses explicit picture trace tags when every ordinary49 picture field remains valid 3ms
+     → expected [Function] to throw an error
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 40 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14b4-joint-trace-mode-extension.test.ts > joint trace100: nonvacuous explicit-tag refusal at the existing49 entry > refuses the explicit trace mode on an otherwise complete valid optional input
+AssertionError: expected [Function] to throw an error
+ ❯ tests/p14b4-joint-trace-mode-extension.test.ts:66:57
+     64|     const before = structuredClone(tagged)
+     65|     expect(tagged.alternatives).toHaveLength(1) // no missing-array sh…
+     66|     expect(() => searchPromiseCapacity(freeze(tagged))).toThrow()
+       |                                                         ^
+     67|     expect(tagged).toEqual(before)
+     68|   })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/40]⎯
+
+ FAIL |core|  tests/p14b4-joint-trace-mode-extension.test.ts > joint trace100: nonvacuous explicit-tag refusal at the existing49 entry > refuses explicit picture trace tags when every ordinary49 picture field remains valid
+AssertionError: expected [Function] to throw an error
+ ❯ tests/p14b4-joint-trace-mode-extension.test.ts:80:57
+     78|     expect(tagged.alternatives[0]!.additionalHolds).toEqual([])
+     79|     expect(tagged.alternatives[0]!.holdReplacements).toEqual([])
+     80|     expect(() => searchPromiseCapacity(freeze(tagged))).toThrow()
+       |                                                         ^
+     81|     expect(tagged).toEqual(before)
+     82|   })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/40]⎯
+
+ FAIL |core|  tests/p14b4-joint-trace.test.ts > joint traces: exclusive executions and compulsory uncredited context > never splices existing X in one trace with the spare in another
+AssertionError: expected 'undefined' to be 'function' // Object.is equality
+
+Expected: "function"
+Received: "undefined"
+
+ ❯ run tests/p14b4-joint-trace.test.ts:202:46
+    200| }
+    201| function run(source: JointTraceCapacityInput): JointTraceCapacityResul…
+    202|   expect(typeof searchPromiseCapacityTraces).toBe('function')
+       |                                              ^
+    203|   const before = structuredClone(source)
+    204|   const result = searchPromiseCapacityTraces(freeze(source))
+ ❯ fragile tests/p14b4-joint-trace.test.ts:225:18
+ ❯ tests/p14b4-joint-trace.test.ts:302:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/40]⎯
+
+ FAIL |core|  tests/p14b4-joint-trace.test.ts > joint traces: exclusive executions and compulsory uncredited context > keeps every null/background path and mandatory hold while only G/Q earn four credits
+AssertionError: expected 'undefined' to be 'function' // Object.is equality
+
+Expected: "function"
+Received: "undefined"
+
+ ❯ run tests/p14b4-joint-trace.test.ts:202:46
+    200| }
+    201| function run(source: JointTraceCapacityInput): JointTraceCapacityResul…
+    202|   expect(typeof searchPromiseCapacityTraces).toBe('function')
+       |                                              ^
+    203|   const before = structuredClone(source)
+    204|   const result = searchPromiseCapacityTraces(freeze(source))
+ ❯ certified tests/p14b4-joint-trace.test.ts:218:18
+ ❯ tests/p14b4-joint-trace.test.ts:308:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/40]⎯
+
+ FAIL |core|  tests/p14b4-joint-trace.test.ts > joint traces: exclusive executions and compulsory uncredited context > a genuine mathematical non-picture continuation releases its own suffix without a film credit
+AssertionError: expected 'undefined' to be 'function' // Object.is equality
+
+Expected: "function"
+Received: "undefined"
+
+ ❯ run tests/p14b4-joint-trace.test.ts:202:46
+    200| }
+    201| function run(source: JointTraceCapacityInput): JointTraceCapacityResul…
+    202|   expect(typeof searchPromiseCapacityTraces).toBe('function')
+       |                                              ^
+    203|   const before = structuredClone(source)
+    204|   const result = searchPromiseCapacityTraces(freeze(source))
+ ❯ fragile tests/p14b4-joint-trace.test.ts:225:18
+ ❯ tests/p14b4-joint-trace.test.ts:324:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/40]⎯
+
+ FAIL |core|  tests/p14b4-joint-trace.test.ts > joint traces: exclusive executions and compulsory uncredited context > uncredited other-owner overlap cannot be hidden by a credit subset
+AssertionError: expected 'undefined' to be 'function' // Object.is equality
+
+Expected: "function"
+Received: "undefined"
+
+ ❯ invalid tests/p14b4-joint-trace.test.ts:236:46
+    234| function invalid(source: unknown) {
+    235|   // Missing entry is RED, not a vacuous passing validator-refusal ass…
+    236|   expect(typeof searchPromiseCapacityTraces).toBe('function')
+       |                                              ^
+    237|   const before = structuredClone(source)
+    238|   // Deliberate internal-validator boundary probe, NOT a cast of engin…
+ ❯ tests/p14b4-joint-trace.test.ts:333:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/40]⎯
+
+ FAIL |core|  tests/p14b4-joint-trace.test.ts > joint traces: exclusive executions and compulsory uncredited context > trace replacement keeps exact ownership, immutable prefix and single replacement identity
+AssertionError: expected 'undefined' to be 'function' // Object.is equality
+
+Expected: "function"
+Received: "undefined"
+
+ ❯ invalid tests/p14b4-joint-trace.test.ts:236:46
+    234| function invalid(source: unknown) {
+    235|   // Missing entry is RED, not a vacuous passing validator-refusal ass…
+    236|   expect(typeof searchPromiseCapacityTraces).toBe('function')
+       |                                              ^
+    237|   const before = structuredClone(source)
+    238|   // Deliberate internal-validator boundary probe, NOT a cast of engin…
+ ❯ tests/p14b4-joint-trace.test.ts:346:34
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/40]⎯
+
+ FAIL |core|  tests/p14b4-joint-trace.test.ts > joint trace94: known take, unknown release and effective-horizon coverage > retains a known take with path-owned occupancy through H40 despite raw horizon20
+AssertionError: expected 'undefined' to be 'function' // Object.is equality
+
+Expected: "function"
+Received: "undefined"
+
+ ❯ run tests/p14b4-joint-trace.test.ts:202:46
+    200| }
+    201| function run(source: JointTraceCapacityInput): JointTraceCapacityResul…
+    202|   expect(typeof searchPromiseCapacityTraces).toBe('function')
+       |                                              ^
+    203|   const before = structuredClone(source)
+    204|   const result = searchPromiseCapacityTraces(freeze(source))
+ ❯ fragile tests/p14b4-joint-trace.test.ts:225:18
+ ❯ tests/p14b4-joint-trace.test.ts:353:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/40]⎯
+
+ FAIL |core|  tests/p14b4-joint-trace.test.ts > joint trace94: known take, unknown release and effective-horizon coverage > missing H40 tail is an input error even with no second event or overlapping hold
+AssertionError: expected 'undefined' to be 'function' // Object.is equality
+
+Expected: "function"
+Received: "undefined"
+
+ ❯ invalid tests/p14b4-joint-trace.test.ts:236:46
+    234| function invalid(source: unknown) {
+    235|   // Missing entry is RED, not a vacuous passing validator-refusal ass…
+    236|   expect(typeof searchPromiseCapacityTraces).toBe('function')
+       |                                              ^
+    237|   const before = structuredClone(source)
+    238|   // Deliberate internal-validator boundary probe, NOT a cast of engin…
+ ❯ tests/p14b4-joint-trace.test.ts:361:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/40]⎯
+
+ FAIL |core|  tests/p14b4-joint-trace.test.ts > joint trace94: known take, unknown release and effective-horizon coverage > adjacent path-owned segments cover H; an internal gap does not
+AssertionError: expected 'undefined' to be 'function' // Object.is equality
+
+Expected: "function"
+Received: "undefined"
+
+ ❯ run tests/p14b4-joint-trace.test.ts:202:46
+    200| }
+    201| function run(source: JointTraceCapacityInput): JointTraceCapacityResul…
+    202|   expect(typeof searchPromiseCapacityTraces).toBe('function')
+       |                                              ^
+    203|   const before = structuredClone(source)
+    204|   const result = searchPromiseCapacityTraces(freeze(source))
+ ❯ fragile tests/p14b4-joint-trace.test.ts:225:18
+ ❯ tests/p14b4-joint-trace.test.ts:371:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/40]⎯
+
+ FAIL |core|  tests/p14b4-joint-trace.test.ts > joint trace94: known take, unknown release and effective-horizon coverage > another/null path hold is not this unknown-release picture’s required occupancy
+AssertionError: expected 'undefined' to be 'function' // Object.is equality
+
+Expected: "function"
+Received: "undefined"
+
+ ❯ invalid tests/p14b4-joint-trace.test.ts:236:46
+    234| function invalid(source: unknown) {
+    235|   // Missing entry is RED, not a vacuous passing validator-refusal ass…
+    236|   expect(typeof searchPromiseCapacityTraces).toBe('function')
+       |                                              ^
+    237|   const before = structuredClone(source)
+    238|   // Deliberate internal-validator boundary probe, NOT a cast of engin…
+ ❯ tests/p14b4-joint-trace.test.ts:378:7
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/40]⎯
+
+ FAIL |core|  tests/p14b4-joint-trace.test.ts > joint trace94: known take, unknown release and effective-horizon coverage > full H coverage and ordinary second-owner overlap are separate checks
+AssertionError: expected 'undefined' to be 'function' // Object.is equality
+
+Expected: "function"
+Received: "undefined"
+
+ ❯ invalid tests/p14b4-joint-trace.test.ts:236:46
+    234| function invalid(source: unknown) {
+    235|   // Missing entry is RED, not a vacuous passing validator-refusal ass…
+    236|   expect(typeof searchPromiseCapacityTraces).toBe('function')
+       |                                              ^
+    237|   const before = structuredClone(source)
+    238|   // Deliberate internal-validator boundary probe, NOT a cast of engin…
+ ❯ tests/p14b4-joint-trace.test.ts:385:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/40]⎯
+
+ FAIL |core|  tests/p14b4-joint-trace.test.ts > joint trace94: known take, unknown release and effective-horizon coverage > local prior due extends H, while retained foreign source due does not
+AssertionError: expected 'undefined' to be 'function' // Object.is equality
+
+Expected: "function"
+Received: "undefined"
+
+ ❯ invalid tests/p14b4-joint-trace.test.ts:236:46
+    234| function invalid(source: unknown) {
+    235|   // Missing entry is RED, not a vacuous passing validator-refusal ass…
+    236|   expect(typeof searchPromiseCapacityTraces).toBe('function')
+       |                                              ^
+    237|   const before = structuredClone(source)
+    238|   // Deliberate internal-validator boundary probe, NOT a cast of engin…
+ ❯ tests/p14b4-joint-trace.test.ts:390:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[13/40]⎯
+
+ FAIL |core|  tests/p14b4-joint-trace.test.ts > joint trace94: known take, unknown release and effective-horizon coverage > uncertain earlier-release choices do not turn an observed count into proved FRAGILE
+AssertionError: expected 'undefined' to be 'function' // Object.is equality
+
+Expected: "function"
+Received: "undefined"
+
+ ❯ run tests/p14b4-joint-trace.test.ts:202:46
+    200| }
+    201| function run(source: JointTraceCapacityInput): JointTraceCapacityResul…
+    202|   expect(typeof searchPromiseCapacityTraces).toBe('function')
+       |                                              ^
+    203|   const before = structuredClone(source)
+    204|   const result = searchPromiseCapacityTraces(freeze(source))
+ ❯ tests/p14b4-joint-trace.test.ts:400:12
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[14/40]⎯
+
+ FAIL |core|  tests/p14b4-joint-trace.test.ts > joint trace94: known take, unknown release and effective-horizon coverage > preparation exhaustion wins before malformed-coverage validation, without repair or unmetered work
+AssertionError: expected 'undefined' to be 'function' // Object.is equality
+
+Expected: "function"
+Received: "undefined"
+
+ ❯ run tests/p14b4-joint-trace.test.ts:202:46
+    200| }
+    201| function run(source: JointTraceCapacityInput): JointTraceCapacityResul…
+    202|   expect(typeof searchPromiseCapacityTraces).toBe('function')
+       |                                              ^
+    203|   const before = structuredClone(source)
+    204|   const result = searchPromiseCapacityTraces(freeze(source))
+ ❯ tests/p14b4-joint-trace.test.ts:405:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[15/40]⎯
+
+ FAIL |core|  tests/p14b4-joint-trace.test.ts > joint traces: global prior optimum, equivalent traces and common cuts > does not combine per-trace labels: later reallocation is prior-protection FRAGILE
+AssertionError: expected 'undefined' to be 'function' // Object.is equality
+
+Expected: "function"
+Received: "undefined"
+
+ ❯ run tests/p14b4-joint-trace.test.ts:202:46
+    200| }
+    201| function run(source: JointTraceCapacityInput): JointTraceCapacityResul…
+    202|   expect(typeof searchPromiseCapacityTraces).toBe('function')
+       |                                              ^
+    203|   const before = structuredClone(source)
+    204|   const result = searchPromiseCapacityTraces(freeze(source))
+ ❯ fragile tests/p14b4-joint-trace.test.ts:225:18
+ ❯ tests/p14b4-joint-trace.test.ts:418:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[16/40]⎯
+
+ FAIL |core|  tests/p14b4-joint-trace.test.ts > joint traces: global prior optimum, equivalent traces and common cuts > keeps equivalent optimal traces searchable and retains cuts from unchosen traces
+AssertionError: expected 'undefined' to be 'function' // Object.is equality
+
+Expected: "function"
+Received: "undefined"
+
+ ❯ run tests/p14b4-joint-trace.test.ts:202:46
+    200| }
+    201| function run(source: JointTraceCapacityInput): JointTraceCapacityResul…
+    202|   expect(typeof searchPromiseCapacityTraces).toBe('function')
+       |                                              ^
+    203|   const before = structuredClone(source)
+    204|   const result = searchPromiseCapacityTraces(freeze(source))
+ ❯ certified tests/p14b4-joint-trace.test.ts:218:18
+ ❯ tests/p14b4-joint-trace.test.ts:432:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[17/40]⎯
+
+ FAIL |core|  tests/p14b4-joint-trace.test.ts > joint traces: exact same-assignment X/B, existing qualification and slack > future-only B cannot borrow the existing X certificate from a different trace
+AssertionError: expected 'undefined' to be 'function' // Object.is equality
+
+Expected: "function"
+Received: "undefined"
+
+ ❯ run tests/p14b4-joint-trace.test.ts:202:46
+    200| }
+    201| function run(source: JointTraceCapacityInput): JointTraceCapacityResul…
+    202|   expect(typeof searchPromiseCapacityTraces).toBe('function')
+       |                                              ^
+    203|   const before = structuredClone(source)
+    204|   const result = searchPromiseCapacityTraces(freeze(source))
+ ❯ fragile tests/p14b4-joint-trace.test.ts:225:18
+ ❯ tests/p14b4-joint-trace.test.ts:446:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[18/40]⎯
+
+ FAIL |core|  tests/p14b4-joint-trace.test.ts > joint traces: exact same-assignment X/B, existing qualification and slack > the Xth existing take at22 has exactly eight or seven weeks slack
+AssertionError: expected 'undefined' to be 'function' // Object.is equality
+
+Expected: "function"
+Received: "undefined"
+
+ ❯ run tests/p14b4-joint-trace.test.ts:202:46
+    200| }
+    201| function run(source: JointTraceCapacityInput): JointTraceCapacityResul…
+    202|   expect(typeof searchPromiseCapacityTraces).toBe('function')
+       |                                              ^
+    203|   const before = structuredClone(source)
+    204|   const result = searchPromiseCapacityTraces(freeze(source))
+ ❯ certified tests/p14b4-joint-trace.test.ts:218:18
+ ❯ tests/p14b4-joint-trace.test.ts:451:22
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[19/40]⎯
+
+ FAIL |core|  tests/p14b4-joint-trace.test.ts > joint traces: exact same-assignment X/B, existing qualification and slack > the Xth existing take at23 has exactly eight or seven weeks slack
+AssertionError: expected 'undefined' to be 'function' // Object.is equality
+
+Expected: "function"
+Received: "undefined"
+
+ ❯ run tests/p14b4-joint-trace.test.ts:202:46
+    200| }
+    201| function run(source: JointTraceCapacityInput): JointTraceCapacityResul…
+    202|   expect(typeof searchPromiseCapacityTraces).toBe('function')
+       |                                              ^
+    203|   const before = structuredClone(source)
+    204|   const result = searchPromiseCapacityTraces(freeze(source))
+ ❯ fragile tests/p14b4-joint-trace.test.ts:225:18
+ ❯ tests/p14b4-joint-trace.test.ts:452:10
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[20/40]⎯
+
+ FAIL |core|  tests/p14b4-joint-trace.test.ts > joint traces: exact same-assignment X/B, existing qualification and slack > bound4 minus actual3 needs X1/B2; unbound4 ignores evidence; fulfilled is not an outcome
+AssertionError: expected 'undefined' to be 'function' // Object.is equality
+
+Expected: "function"
+Received: "undefined"
+
+ ❯ run tests/p14b4-joint-trace.test.ts:202:46
+    200| }
+    201| function run(source: JointTraceCapacityInput): JointTraceCapacityResul…
+    202|   expect(typeof searchPromiseCapacityTraces).toBe('function')
+       |                                              ^
+    203|   const before = structuredClone(source)
+    204|   const result = searchPromiseCapacityTraces(freeze(source))
+ ❯ certified tests/p14b4-joint-trace.test.ts:218:18
+ ❯ tests/p14b4-joint-trace.test.ts:457:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[21/40]⎯
+
+ FAIL |core|  tests/p14b4-joint-trace.test.ts > joint traces: exact same-assignment X/B, existing qualification and slack > four remaining units need six events, not a rounded-down spare from another trace
+AssertionError: expected 'undefined' to be 'function' // Object.is equality
+
+Expected: "function"
+Received: "undefined"
+
+ ❯ run tests/p14b4-joint-trace.test.ts:202:46
+    200| }
+    201| function run(source: JointTraceCapacityInput): JointTraceCapacityResul…
+    202|   expect(typeof searchPromiseCapacityTraces).toBe('function')
+       |                                              ^
+    203|   const before = structuredClone(source)
+    204|   const result = searchPromiseCapacityTraces(freeze(source))
+ ❯ certified tests/p14b4-joint-trace.test.ts:218:18
+ ❯ tests/p14b4-joint-trace.test.ts:466:12
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[22/40]⎯
+
+ FAIL |core|  tests/p14b4-joint-trace.test.ts > joint traces: foreign tokens remain shared distinct-seat planning obligations > one-week source overlap withholds the full token without consuming the other beneficiary seat
+AssertionError: expected 'undefined' to be 'function' // Object.is equality
+
+Expected: "function"
+Received: "undefined"
+
+ ❯ run tests/p14b4-joint-trace.test.ts:202:46
+    200| }
+    201| function run(source: JointTraceCapacityInput): JointTraceCapacityResul…
+    202|   expect(typeof searchPromiseCapacityTraces).toBe('function')
+       |                                              ^
+    203|   const before = structuredClone(source)
+    204|   const result = searchPromiseCapacityTraces(freeze(source))
+ ❯ certified tests/p14b4-joint-trace.test.ts:218:18
+ ❯ tests/p14b4-joint-trace.test.ts:473:46
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[23/40]⎯
+
+ FAIL |core|  tests/p14b4-joint-trace.test.ts > joint traces: foreign tokens remain shared distinct-seat planning obligations > irrelevant foreign rows stay neutral under exact49/56 membership filters
+AssertionError: expected 'undefined' to be 'function' // Object.is equality
+
+Expected: "function"
+Received: "undefined"
+
+ ❯ run tests/p14b4-joint-trace.test.ts:202:46
+    200| }
+    201| function run(source: JointTraceCapacityInput): JointTraceCapacityResul…
+    202|   expect(typeof searchPromiseCapacityTraces).toBe('function')
+       |                                              ^
+    203|   const before = structuredClone(source)
+    204|   const result = searchPromiseCapacityTraces(freeze(source))
+ ❯ certified tests/p14b4-joint-trace.test.ts:218:18
+ ❯ tests/p14b4-joint-trace.test.ts:489:22
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[24/40]⎯
+
+ FAIL |core|  tests/p14b4-joint-trace.test.ts > joint traces: global completeness and proof distinctions > a complete saturated global prior profile permits a known B trace despite unexhausted future choices
+AssertionError: expected 'undefined' to be 'function' // Object.is equality
+
+Expected: "function"
+Received: "undefined"
+
+ ❯ run tests/p14b4-joint-trace.test.ts:202:46
+    200| }
+    201| function run(source: JointTraceCapacityInput): JointTraceCapacityResul…
+    202|   expect(typeof searchPromiseCapacityTraces).toBe('function')
+       |                                              ^
+    203|   const before = structuredClone(source)
+    204|   const result = searchPromiseCapacityTraces(freeze(source))
+ ❯ certified tests/p14b4-joint-trace.test.ts:218:18
+ ❯ tests/p14b4-joint-trace.test.ts:500:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[25/40]⎯
+
+ FAIL |core|  tests/p14b4-joint-trace.test.ts > joint traces: global completeness and proof distinctions > the saturated upper profile deduplicates physical paths across equivalent trace variants
+AssertionError: expected 'undefined' to be 'function' // Object.is equality
+
+Expected: "function"
+Received: "undefined"
+
+ ❯ run tests/p14b4-joint-trace.test.ts:202:46
+    200| }
+    201| function run(source: JointTraceCapacityInput): JointTraceCapacityResul…
+    202|   expect(typeof searchPromiseCapacityTraces).toBe('function')
+       |                                              ^
+    203|   const before = structuredClone(source)
+    204|   const result = searchPromiseCapacityTraces(freeze(source))
+ ❯ certified tests/p14b4-joint-trace.test.ts:218:18
+ ❯ tests/p14b4-joint-trace.test.ts:515:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[26/40]⎯
+
+ FAIL |core|  tests/p14b4-joint-trace.test.ts > joint traces: global completeness and proof distinctions > zero-prior optimum is identically zero even if existing calendars remain unexhausted
+AssertionError: expected 'undefined' to be 'function' // Object.is equality
+
+Expected: "function"
+Received: "undefined"
+
+ ❯ run tests/p14b4-joint-trace.test.ts:202:46
+    200| }
+    201| function run(source: JointTraceCapacityInput): JointTraceCapacityResul…
+    202|   expect(typeof searchPromiseCapacityTraces).toBe('function')
+       |                                              ^
+    203|   const before = structuredClone(source)
+    204|   const result = searchPromiseCapacityTraces(freeze(source))
+ ❯ certified tests/p14b4-joint-trace.test.ts:218:18
+ ❯ tests/p14b4-joint-trace.test.ts:525:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[27/40]⎯
+
+ FAIL |core|  tests/p14b4-joint-trace.test.ts > joint traces: global completeness and proof distinctions > partial failed X/B proves neither complete count impossibility nor FRAGILE
+AssertionError: expected 'undefined' to be 'function' // Object.is equality
+
+Expected: "function"
+Received: "undefined"
+
+ ❯ run tests/p14b4-joint-trace.test.ts:202:46
+    200| }
+    201| function run(source: JointTraceCapacityInput): JointTraceCapacityResul…
+    202|   expect(typeof searchPromiseCapacityTraces).toBe('function')
+       |                                              ^
+    203|   const before = structuredClone(source)
+    204|   const result = searchPromiseCapacityTraces(freeze(source))
+ ❯ tests/p14b4-joint-trace.test.ts:531:14
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[28/40]⎯
+
+ FAIL |core|  tests/p14b4-joint-trace.test.ts > joint traces: one global size/preparation/work budget and canonical permutations > counts headers plus occurrences, but counts shared claim rows/units only once
+AssertionError: expected 'undefined' to be 'function' // Object.is equality
+
+Expected: "function"
+Received: "undefined"
+
+ ❯ run tests/p14b4-joint-trace.test.ts:202:46
+    200| }
+    201| function run(source: JointTraceCapacityInput): JointTraceCapacityResul…
+    202|   expect(typeof searchPromiseCapacityTraces).toBe('function')
+       |                                              ^
+    203|   const before = structuredClone(source)
+    204|   const result = searchPromiseCapacityTraces(freeze(source))
+ ❯ fragile tests/p14b4-joint-trace.test.ts:225:18
+ ❯ tests/p14b4-joint-trace.test.ts:544:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[29/40]⎯
+
+ FAIL |core|  tests/p14b4-joint-trace.test.ts > joint traces: one global size/preparation/work budget and canonical permutations > empty headers and background rows cannot evade the governed1024-row ceiling
+AssertionError: expected 'undefined' to be 'function' // Object.is equality
+
+Expected: "function"
+Received: "undefined"
+
+ ❯ run tests/p14b4-joint-trace.test.ts:202:46
+    200| }
+    201| function run(source: JointTraceCapacityInput): JointTraceCapacityResul…
+    202|   expect(typeof searchPromiseCapacityTraces).toBe('function')
+       |                                              ^
+    203|   const before = structuredClone(source)
+    204|   const result = searchPromiseCapacityTraces(freeze(source))
+ ❯ tests/p14b4-joint-trace.test.ts:551:12
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[30/40]⎯
+
+ FAIL |core|  tests/p14b4-joint-trace.test.ts > joint traces: one global size/preparation/work budget and canonical permutations > an exhausted preparation budget cannot reset at a fresh trace or validation phase
+AssertionError: expected 'undefined' to be 'function' // Object.is equality
+
+Expected: "function"
+Received: "undefined"
+
+ ❯ run tests/p14b4-joint-trace.test.ts:202:46
+    200| }
+    201| function run(source: JointTraceCapacityInput): JointTraceCapacityResul…
+    202|   expect(typeof searchPromiseCapacityTraces).toBe('function')
+       |                                              ^
+    203|   const before = structuredClone(source)
+    204|   const result = searchPromiseCapacityTraces(freeze(source))
+ ❯ tests/p14b4-joint-trace.test.ts:562:14
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[31/40]⎯
+
+ FAIL |core|  tests/p14b4-joint-trace.test.ts > joint traces: one global size/preparation/work budget and canonical permutations > all nonempty collection reversals preserve the ENTIRE result at cap1
+ FAIL |core|  tests/p14b4-joint-trace.test.ts > joint traces: one global size/preparation/work budget and canonical permutations > all nonempty collection reversals preserve the ENTIRE result at cap64
+ FAIL |core|  tests/p14b4-joint-trace.test.ts > joint traces: one global size/preparation/work budget and canonical permutations > all nonempty collection reversals preserve the ENTIRE result at cap2048
+ FAIL |core|  tests/p14b4-joint-trace.test.ts > joint traces: one global size/preparation/work budget and canonical permutations > all nonempty collection reversals preserve the ENTIRE result at cap200000
+AssertionError: expected 'undefined' to be 'function' // Object.is equality
+
+Expected: "function"
+Received: "undefined"
+
+ ❯ run tests/p14b4-joint-trace.test.ts:202:46
+    200| }
+    201| function run(source: JointTraceCapacityInput): JointTraceCapacityResul…
+    202|   expect(typeof searchPromiseCapacityTraces).toBe('function')
+       |                                              ^
+    203|   const before = structuredClone(source)
+    204|   const result = searchPromiseCapacityTraces(freeze(source))
+ ❯ tests/p14b4-joint-trace.test.ts:575:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[32/40]⎯
+
+ FAIL |core|  tests/p14b4-joint-trace.test.ts > joint traces: one global size/preparation/work budget and canonical permutations > a literal4096-character provenance leaf proves normalization exhaustion below2048
+AssertionError: expected 'undefined' to be 'function' // Object.is equality
+
+Expected: "function"
+Received: "undefined"
+
+ ❯ run tests/p14b4-joint-trace.test.ts:202:46
+    200| }
+    201| function run(source: JointTraceCapacityInput): JointTraceCapacityResul…
+    202|   expect(typeof searchPromiseCapacityTraces).toBe('function')
+       |                                              ^
+    203|   const before = structuredClone(source)
+    204|   const result = searchPromiseCapacityTraces(freeze(source))
+ ❯ tests/p14b4-joint-trace.test.ts:589:22
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[33/40]⎯
+
+ FAIL |core|  tests/p14b4-joint-trace.test.ts > joint traces: one global size/preparation/work budget and canonical permutations > admitted huge counts/windows cannot trigger unbounded expansion or a guessed negative proof
+AssertionError: expected 'undefined' to be 'function' // Object.is equality
+
+Expected: "function"
+Received: "undefined"
+
+ ❯ run tests/p14b4-joint-trace.test.ts:202:46
+    200| }
+    201| function run(source: JointTraceCapacityInput): JointTraceCapacityResul…
+    202|   expect(typeof searchPromiseCapacityTraces).toBe('function')
+       |                                              ^
+    203|   const before = structuredClone(source)
+    204|   const result = searchPromiseCapacityTraces(freeze(source))
+ ❯ tests/p14b4-joint-trace.test.ts:601:22
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[34/40]⎯
+
+ FAIL |core|  tests/p14b4-joint-trace.test.ts > joint traces: exact tags, identities and separation from optional49 mode > rejects mixed modes, per-picture hold fields and impossible background shape
+AssertionError: expected 'undefined' to be 'function' // Object.is equality
+
+Expected: "function"
+Received: "undefined"
+
+ ❯ invalid tests/p14b4-joint-trace.test.ts:236:46
+    234| function invalid(source: unknown) {
+    235|   // Missing entry is RED, not a vacuous passing validator-refusal ass…
+    236|   expect(typeof searchPromiseCapacityTraces).toBe('function')
+       |                                              ^
+    237|   const before = structuredClone(source)
+    238|   // Deliberate internal-validator boundary probe, NOT a cast of engin…
+ ❯ tests/p14b4-joint-trace.test.ts:628:34
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[35/40]⎯
+
+ FAIL |core|  tests/p14b4-joint-trace.test.ts > joint traces: exact tags, identities and separation from optional49 mode > refuses duplicate and contradictory identities without confusing conditional trace variants
+AssertionError: expected 'undefined' to be 'function' // Object.is equality
+
+Expected: "function"
+Received: "undefined"
+
+ ❯ invalid tests/p14b4-joint-trace.test.ts:236:46
+    234| function invalid(source: unknown) {
+    235|   // Missing entry is RED, not a vacuous passing validator-refusal ass…
+    236|   expect(typeof searchPromiseCapacityTraces).toBe('function')
+       |                                              ^
+    237|   const before = structuredClone(source)
+    238|   // Deliberate internal-validator boundary probe, NOT a cast of engin…
+ ❯ tests/p14b4-joint-trace.test.ts:647:34
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[36/40]⎯
+
+ FAIL |core|  tests/p14b4-joint-trace.test.ts > joint traces: exact tags, identities and separation from optional49 mode > old entry refuses explicit trace-mode misuse, while a genuine old49 input remains unchanged
+AssertionError: expected 'undefined' to be 'function' // Object.is equality
+
+Expected: "function"
+Received: "undefined"
+
+ ❯ invalid tests/p14b4-joint-trace.test.ts:236:46
+    234| function invalid(source: unknown) {
+    235|   // Missing entry is RED, not a vacuous passing validator-refusal ass…
+    236|   expect(typeof searchPromiseCapacityTraces).toBe('function')
+       |                                              ^
+    237|   const before = structuredClone(source)
+    238|   // Deliberate internal-validator boundary probe, NOT a cast of engin…
+ ❯ tests/p14b4-joint-trace.test.ts:659:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[37/40]⎯
+
+ Test Files  2 failed (2)
+      Tests  40 failed (40)
+   Start at  02:23:21
+   Duration  1.35s (transform 267ms, setup 0ms, collect 334ms, tests 131ms, environment 1ms, prepare 249ms)
+
+
+{"sourceSha":"c04f4af500c37c726fc7b292db7fac2050ee04d9","testedDiffSha256":"30308068752a42e41e3f452095eaf62ad66aac2e53ff6df1bcafa3a78227627c","untrackedSource":["tests/p14b4-d3-matching.test.ts","tests/p14b4-joint-trace-mode-extension.test.ts","tests/p14b4-joint-trace.test.ts"],"command":["node_modules/.bin/vitest","run","tests/p14b4-joint-trace.test.ts","tests/p14b4-joint-trace-mode-extension.test.ts","--minWorkers=1","--maxWorkers=1"],"node":"v20.20.2","start":"2026-09-20T00:23:20.598Z","end":"2026-09-20T00:23:23.623Z","exitCode":1,"signal":null,"error":null,"sourceShaAtEnd":"c04f4af500c37c726fc7b292db7fac2050ee04d9","testedDiffSha256AtEnd":"30308068752a42e41e3f452095eaf62ad66aac2e53ff6df1bcafa3a78227627c","untrackedSourceAtEnd":["tests/p14b4-d3-matching.test.ts","tests/p14b4-joint-trace-mode-extension.test.ts","tests/p14b4-joint-trace.test.ts"],"fixedSource":true}

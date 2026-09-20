@@ -1,0 +1,44 @@
+{"sourceSha":"c04f4af500c37c726fc7b292db7fac2050ee04d9","testedDiffSha256":"0e3591aa097fc90b3e21f7dc077ea40d06dc45b5d6d23dab938d504afe71d381","untrackedSource":[],"command":["node_modules/.bin/vitest","run","tests/p14b4-cast-class-policy.test.ts","--minWorkers=1","--maxWorkers=1","-t","public preference|all six D3"],"node":"v20.20.2","start":"2026-09-20T00:16:47.204Z","end":null,"exitCode":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/p14b4-cast-class-policy.test.ts (7 tests | 2 failed | 4 skipped) 9284ms
+   × P14B4: all six D3 class matches through real two-survivor settlements > age 29: mismatch changes only D3, never proposal legality 5089ms
+     → expected { count: 1 } to deeply equal { kind: 'castRoleCount', …(2) }
+   × P14B4: all six D3 class matches through real two-survivor settlements > age 30: mismatch changes only D3, never proposal legality 4009ms
+     → expected { count: 1 } to deeply equal { kind: 'castRoleCount', …(2) }
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14b4-cast-class-policy.test.ts > P14B4: all six D3 class matches through real two-survivor settlements > age 29: mismatch changes only D3, never proposal legality
+ FAIL |core|  tests/p14b4-cast-class-policy.test.ts > P14B4: all six D3 class matches through real two-survivor settlements > age 30: mismatch changes only D3, never proposal legality
+AssertionError: expected { count: 1 } to deeply equal { kind: 'castRoleCount', …(2) }
+
+- Expected
++ Received
+
+  Object {
+    "count": 1,
+-   "kind": "castRoleCount",
+-   "seatClass": "lead",
+  }
+
+ ❯ attachCandidate tests/p14b4-cast-class-policy.test.ts:284:26
+    282|   expect(proposal.promises).toHaveLength(1)
+    283|   const root = state.promises.find((p) => p.promiseId === proposal.pro…
+    284|   expect(root.predicate).toEqual(candidate.predicate)
+       |                          ^
+    285|   expect(root.family).toBe(candidate.family)
+    286|   expect(root.feasibilityReceipt.classification).toBe(ACHIEVABLE)
+ ❯ tests/p14b4-cast-class-policy.test.ts:310:24
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 1 passed | 4 skipped (7)
+   Start at  02:16:48
+   Duration  11.91s (transform 1.68s, setup 0ms, collect 2.18s, tests 9.28s, environment 0ms, prepare 119ms)
+
+
+{"sourceSha":"c04f4af500c37c726fc7b292db7fac2050ee04d9","testedDiffSha256":"0e3591aa097fc90b3e21f7dc077ea40d06dc45b5d6d23dab938d504afe71d381","untrackedSource":[],"command":["node_modules/.bin/vitest","run","tests/p14b4-cast-class-policy.test.ts","--minWorkers=1","--maxWorkers=1","-t","public preference|all six D3"],"node":"v20.20.2","start":"2026-09-20T00:16:47.204Z","end":"2026-09-20T00:17:00.550Z","exitCode":1,"signal":null,"error":null,"sourceShaAtEnd":"c04f4af500c37c726fc7b292db7fac2050ee04d9","testedDiffSha256AtEnd":"0e3591aa097fc90b3e21f7dc077ea40d06dc45b5d6d23dab938d504afe71d381","untrackedSourceAtEnd":[],"fixedSource":true}

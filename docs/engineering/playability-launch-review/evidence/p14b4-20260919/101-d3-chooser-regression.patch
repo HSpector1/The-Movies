@@ -1,0 +1,52 @@
+diff --git a/src/core/talentMarket.ts b/src/core/talentMarket.ts
+index 53c23a1..0b49d7d 100644
+--- a/src/core/talentMarket.ts
++++ b/src/core/talentMarket.ts
+@@ -37,7 +37,7 @@ import { attachPromise, attachedPromiseDigest, promiseFeasibility, proposalDiges
+ import { careerIdentity } from './talentSummary.js'
+ import { TUNING } from './tuning.js'
+ import type { Contract, GameState, LedgerEntry, LegacyTermination, MarketCaseStatus, MarketEligibilityStatus,
+-  PromiseClassification, PromiseFamily, PromiseFeasibilityReceipt,
++  ProfessionalPromiseV30, PromiseClassification, PromiseFamily, PromiseFeasibilityReceipt,
+   Standing, TalentMarketCase, TalentMarketProposal, TalentMarketReceipt, TalentMarketState } from './types.js'
+ import type { HollywoodState, IndustryEmployment, IndustryReceipt, RivalBusiness } from './hollywoodTypes.js'
+ 
+@@ -723,6 +723,21 @@ export function publicPreferredOpportunity(state: GameState, talentId: string):
+   return isProven(state, talentId) ? 'anyCastAppearance' : 'significantCastRole'
+ }
+ 
++/** Preference matching affects D3 only, not attachment legality or settlement.
++ * Historical count-only P2 records do not imply a selected significant class. */
++export function promiseMatchesPreferredOpportunity(
++  state: GameState,
++  talentId: string,
++  promise: Pick<ProfessionalPromiseV30, 'family' | 'predicate'>,
++): boolean {
++  if (promise.family === 'APPEARANCE_COUNT') {
++    return publicPreferredOpportunity(state, talentId) === 'anyCastAppearance'
++  }
++  return promise.family === 'LEAD_OR_SIGNIFICANT_ROLE_COUNT' &&
++    'kind' in promise.predicate && promise.predicate.kind === 'castRoleCount' &&
++    (promise.predicate.seatClass === 'lead' || promise.predicate.seatClass === 'leadOrAntagonist')
++}
++
+ const STANDING_BAND_TOLERANCE = 5 // HYPOTHESIS: standing points inside which two studios are "similar"
+ 
+ function standingMean(s: Standing): number {
+@@ -779,10 +794,12 @@ function bandsFor(
+     const standing = mine >= highest - STANDING_BAND_TOLERANCE ? 2 : mine <= lowest + STANDING_BAND_TOLERANCE ? 0 : 1
+     // D7 incumbency.
+     const incumbency = p.issuerStudioId === kase.subjectStudioId ? 1 : 0
+-    // D3 opportunity (P14B.1 (8)): a qualifying promise is attached and still
+-    // REASONABLY ACHIEVABLE at freeze. The class-preference filter waits for the
+-    // rest of the catalogue, so the band is binary in B.1.
+-    const opportunity = attachedFeasibility(state, p, week)?.classification === 'REASONABLY_ACHIEVABLE' ? 1 : 0
++    // D3 opportunity: the attached promise matches the public preference and is
++    // still REASONABLY ACHIEVABLE at freeze. A mismatch remains a lawful offer.
++    const promise = state.promises.find((candidate) => candidate.promiseId === p.promises[0])
++    const feasibility = attachedFeasibility(state, p, week)
++    const opportunity = promise !== undefined && promiseMatchesPreferredOpportunity(state, kase.talentId, promise) &&
++      feasibility?.classification === 'REASONABLY_ACHIEVABLE' ? 1 : 0
+     // D4 trust (P14B.1 (8)): `Reliable` > `Mixed record` > `Distrusted`, read for
+     // THIS person against THIS issuer — a Distrusted issuer never reaches ranking
+     // at all, so the band's floor is only ever seen through the studio aggregate.

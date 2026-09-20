@@ -114,3 +114,54 @@ fee, unchanged director/cast/craft law and refusal of real out-of-contract writi
 tests/script-projects-actions.test.ts exercises Draft/Rewrite/Ready/Produced,
 cancelled production identity and writer release/expiry through actual actions.
 These are bounded regression selections, not new proofs of adapter completeness.
+
+## Post-clock trace integration facts (2026-09-20, read-only)
+
+Clock extraction is published at c04f4af; this section records the next bounded
+source inspection while independent95 is authored. It does not authorize an
+extra writer or claim a complete producer design.
+
+The existing StudioEventSink already carries ordered reservationReleased and
+reservationGranted rows with exact bare `facilityId:slot` addresses.
+operations.ts recordReservationTransition emits releases before grants and no
+event for retained slots. A new observer in the production sweep is therefore
+not necessary merely to recover within-sweep resource transitions: use a fresh
+real sink and its actual ordered events, with the initial and final authoritative
+reservations as consistency checks. Resource holds cannot be inferred from final
+endpoints alone, since wrap and priority restart may free and acquire a slot in
+one sweep. The adapter still owes one explicit boundary-step convention. Setup
+events sometimes stamp the arrived week, while ordinary reservation events use
+the sink's pre-advance week; firstTake receipts use the arrived week as above.
+
+tick.ts player order is due-scenery arrival at currentTick+1, then production
+sweep, then queued-intent admission. An arrival clears a blocker; it does not
+schedule a take. The actual external-slot union for production is installation,
+active script, casting and Set work, with post-load-in operations used for Set
+occupancy. Read the real genre for each current/planned path and carry the
+returned Set wear state to the next owner step. Rival order is decide, actual
+operateStage assign/clear/schedule, lawful release commitment, technology choice,
+then the same production sweep. Rival scenery remains deliberately abstract;
+player geometry must not be replaced with that policy.
+
+createProductionTechnologyPolicy holds a local `next` technology root and never
+mutates its supplied state. Its callback is ID-only after the published generic
+extraction. It MUST be constructed afresh for each branch/sweep and its returned
+technology carried forward only in that detached branch. Setup derivation reads
+actual access, operational adoption, held equipment and facility installation;
+an ID label or a different stage is not equivalent. Repeated whole-GameState
+cloning/serialization is not a justified preparation-cost shortcut.
+
+releaseCommitmentRefusal is the existing common legality owner (used by both
+player and rival). Its ReleaseOwner currently asks for full Production although
+the inspected refusal reads only id/remainingTicks and conceptId for refusal
+titles. A future narrow typing extraction, if needed, must preserve the actual
+refusal body and full caller compatibility. Never bypass the refusal by treating
+remainingTicks1 as permission to mint a hypothetical committed row.
+
+The91 accounting contract explicitly permits a safe conservatively charged
+owner-step bound. Such a bound must be charged BEFORE invoking a sweep and
+include allocator scans/sorts, fixed-point retries and actual callback input
+sizes; charging one unit after an unbounded real-owner call is insufficient.
+Original input collections, all attempted branches and omitted-choice coverage
+cost work too. Ordinary cases must be measured against the unchanged allowance.
+No concrete bound or owner-trace completeness claim has yet been verified here.
