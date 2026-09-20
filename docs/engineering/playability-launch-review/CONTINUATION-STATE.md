@@ -161,12 +161,26 @@ under every order; only partial pairs fit at now+3/now+4; `limits.work` above th
 is refused by replay and kernel. The parent does NOT open a now+2-only unforced slice
 (one omission on one fixture state, no live consumer). The detached certificate track
 (539→553→555→574→576) is at its lawful bound: every further certificate needs D1
-(537§3), D2 (538-C §2) or an Owner budget/tariff ruling (515§6; C9/C10). NEXT576:
-the parallel track — replay reductions C6/C7 (+C5 scope; 515§3, lawful as written,
-bills byte-identical or lower, every pin unchanged): sim-core READ-ONLY design note →
-contract-auditor review → RED (bill pins) → ONE writer; plus an Owner decision packet
-consolidating D1, D2, 515§6 and the 576 bound. D1 (537§3), D2 (538-C §2), 515§6
-stand; replay C1 remains the last, diffuse item of the parallel track. Gross2221 omitted fact cost is NOT
+(537§3), D2 (538-C §2) or an Owner budget/tariff ruling (515§6; C9/C10). NEXT576 IN PROGRESS → 578 (published 19bc70e0): Owner / Current Ops decision packet
+consolidating D1, D2, 515§6 and the 576 bound (nothing adopted; the parent's only
+recommendation is D1 (a) inside the coordinated cutover). 579 (published e444b224):
+replay bill reductions C6/C7 designed READ-ONLY (579-A) and reviewed KEEP (579-B):
+C6 = the two hold-close sites pay the module literal 61/79 (+4 selector) instead of
+`14 + copyCost(hold)` (−153/−187 per close; discovery scan no longer performed, price
+unchanged); C7 = `uniqueIds` through the existing `sortedOutput` (−2275 at prepare on
+founding-order facilities, −37/−2 at the n=1/n=0 sites; an out-of-order array pays
+the walk prefix + the full sort — the 465/466 accepted class; 576's "byte-identical
+or lower" wording amended in 579 §1; annex lots pay ≈ +543); C5 dropped (≈0.1–0.3k net
+after operand proofs); NO test pins an absolute replay bill; the stale route stays
+RED (≈28k gap); ONE writer release C6+C7 with two commits. NEXT579: 580-T test-author
+RED tests/p14b4-replay-bill-reductions (case 1 facility-swap witness RED→GREEN,
+cases 2–3 protection; no bill literals) → unchanged-source baseline under record-check
+→ ONE sim-core writer on the five ranges of promiseCapacityOwnerReplay.ts (:242/243
+insert, :1630, :1656, :432, doc :390) → serial checks (579 §3) → passive
+re-measurements (538 scenario 1 / prepare-only, the 576 set, the 514 stale and
+first-take routes) with output-derived close counts → independent actual-delta review
+→ checkpoint. D1 (537§3), D2 (538-C §2), 515§6 stand (578); replay C1 remains the
+last, diffuse item of the parallel track. Gross2221 omitted fact cost is NOT
 net saving: cold discovery can shift into next frame. No route-fit claim.
 Draft-discovery, silent-policy, affine and Map alternatives remain unadopted.
 T4/B2/B3/B-F2 qualified closed; B4/liveP2/Unity/Owner acceptance NOT closed.
