@@ -37,7 +37,10 @@ pass with one invalid test fixture before replay,20198adjacentPASS;202 retains
 the sole known futureP2 bridge type error.196 accounting review requires fixes;
 behavioral GREEN does not certify full prepayment or live feasibility. Corrected
 fixtures205 now give22PASS and206rootUIpass;196REFINE drives the same-module207
-accounting correction. No
+accounting correction.207 then214rootUIpasses/21523of24passes with a real
+ordinary writing-background budget failure.213 accepts the construction fixes
+but requires remaining calculator payment corrections. No live capacity or
+consumer readiness follows from partial verification. No
 consumer field/action, generated C#, schema or live version changes
 are authorized in this four-file tranche. Keep capacity explanations tied to the
 future verified evaluator; incomplete bounded analysis must not be presented as

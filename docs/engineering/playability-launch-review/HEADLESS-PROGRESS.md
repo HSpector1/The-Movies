@@ -6,23 +6,23 @@ Headless verification never claims package completion or Owner acceptance.
 
 Current (2026-09-20):
 
-Current B4 replay207 accounting correction ACTIVE (2026-09-20).
-Published191candidatea5eb3cf2b90e68d47430ce59af6a33e39eff0c20 EXACTremote204.
-196independentREFINE (fullreportpersisted/parentadopted): literal/array/construction
-prepayments incomplete; preservebehavior, correctsame-module bills. No blanket
-remainingcostendorsement. ONEsim-core207 productionwriter ONLYreplaymodule+
-handback, SOURCE NOWMUTABLE.209authorONLYinert2commandtests;auditoridle/max2.
-ALLruntimeCLOSED; installed182/199/200 tests IMMUTABLE. Parent no mutableinspection.
+Current B4 checkpoint217 (2026-09-20):207 SOURCEFROZEN, NOT fullacceptance.
+Replaya44871be73b70abc3df994db2deca94e21d09c224e1e299bd7c9bd8f309fdb10.
+214rootANDUItypechecksPASS.21524cases23PASS/1REALbudgetFAIL in lawful200 writing
+new8skip→8→7; fixturesavepasses/replayREACHED (notold198fixtureerror). All18216
+incl1/2H6+unchangedkernel/sharedplan/thresholdPASS;1992+2092+200commands3PASS.
+Bothfixed40d0665+2ec016744473b4d0b76fc8c4f837d82866093ac4389eb1da5573c747c36f827f.
+ALLruntimeCLOSED/NOwriter.213fullREFINE:196/212constructionfixesMET, remaining
+calculatorcallsiteinventory andoldlumpnestedcomposition needONEsame-modulepass.
+216testauthorONLYinert transparent-result diagnostic retainingALL200assertions;
+sim/auditoridle. Next216run/preservecheckpoint thenONE218calculator+SOURCE-
+JUSTIFIEDretainedDevelopment ordinary-caseefficiencyfix, freeze/review/rerun.
+No assertion/validator/timeout/cap/ownerlaw/version loosening; no newprerequisite.
 
-205correctedfixture/casting/replay22PASS/3files;206rootANDUItypingPASS, bothfixed
-a5eb3cf+TESTONLYbba3250c1c8b82515a1504447b72c52eba766ee04b8b26f204f83823530c7a07.
-Realweek0freshinitialization preservesall194assertions, no root/validatorrepair.
-Prior191:197rootUIpass;19819PASS/1fixtureFAIL(beforeReplay) preserved;20198PASS/9;
-202soleOLDbridgeP2kind364TS2353. GREENcounterdoesnotproveconservativeaccounting.
-Next207freeze/read/pin, boundedaccountingreview+serial22cases/types/owners;
-genuine1/2H6+kernel MUSTstillfit200000 aftercorrectedfullprepayment.
-No test/validator/timeout/cap/ownerlaw/version changes or new prerequisitecampaign.
-
+PublishedHEAD/EXACTremote40d0665d99f49d0e35c7bfffabff17968a5c01b6 (211).
+Includes191qualifiedcandidate,199/20022PASS+206types and196review;207+later
+workUNCOMMITTED.209exactdraft+comment installed after210KEEP, nowactual2PASS.
+Prior202soleOLDbridgeP2kind364TS2353; notrerunon207 known-budget-failedcandidate.
 P14B.1 T4/B2/B3/B-F2 recoveredqualifiedcloseouts; do not rebuild/rerun.
 Continue coherentP2/restP14/P15/P16/specifiedP17/P18 without routine permission.
 Save29/rules3/projection46 staylive untilcoherentcutover.

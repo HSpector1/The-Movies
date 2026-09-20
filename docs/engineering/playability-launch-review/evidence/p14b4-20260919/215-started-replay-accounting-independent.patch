@@ -1,0 +1,1051 @@
+diff --git a/src/core/promiseCapacityOwnerReplay.ts b/src/core/promiseCapacityOwnerReplay.ts
+index 6d95ca2..d44fa97 100644
+--- a/src/core/promiseCapacityOwnerReplay.ts
++++ b/src/core/promiseCapacityOwnerReplay.ts
+@@ -97,6 +97,71 @@ function natural(value: number, name: string): void {
+   invariant(Number.isSafeInteger(value) && value >= 0, `${name} must be a nonnegative safe integer`)
+ }
+ const CEILING = 200001
++/**
++ * Fixed SOURCE schemas, not caller records. Compute their exact literal costs
++ * once at module initialization; no input-dependent discovery/caching occurs.
++ * Each use below pays the number BEFORE constructing that record. Nested
++ * records/arrays, callbacks and append writes are additional charges.
++ */
++function literalCost(...keys: readonly string[]): number {
++  let result = 1
++  for (const key of keys) result += 1 + key.length
++  return result
++}
++const LITERAL = Object.freeze({
++  boundary: literalCost('week', 'step'),
++  decoration: literalCost('value', 'key'),
++  person: literalCost('kind', 'personId'),
++  resource: literalCost('kind', 'resourceKey', 'slot'),
++  plan: literalCost('traceKey', 'commands'),
++  pictureFacts: literalCost('production', 'workflow', 'people', 'genre', 'historicallyFilmed', 'pathKey'),
++  backgroundFacts: literalCost('kind', 'row', 'people', 'pathKey'),
++  mount: literalCost('set', 'pathKey'),
++  hold: literalCost('holdId', 'ownerKey', 'ownerPathKey', 'subject', 'from', 'until'),
++  fixedHold: literalCost('holdId', 'ownerKey', 'ownerPathKey', 'subject', 'from', 'until', 'replaceableFrom'),
++  prepared: literalCost('pictures', 'backgrounds', 'mounts', 'plans', 'fixed', 'now', 'end', 'factRef'),
++  dimensions: literalCost('n', 'f', 'capacity', 'sets', 'external', 'd', 'dp', 'pCopy',
++    'workflowCopy', 'taskCopy', 'bindingsCopy', 'operationsCopy', 'setCopy', 'setupCopy',
++    'technologyCopy', 'technologyRowCopy', 't', 'adoptions', 'access', 'equipment',
++    'placements', 'structures', 'provides', 'cells', 'genreRows', 'genreId', 'allSilent'),
++  ledgerRow: literalCost('hold', 'fixed', 'closed'),
++  calendar: literalCost('productionId', 'firstTake', 'personRelease'),
++  replacement: literalCost('holdId', 'newUntil'),
++  wrapped: literalCost('id', 'stage', 'setId'),
++  expected: literalCost('path', 'subject'),
++  picture: literalCost('kind', 'jointTraceKey', 'key', 'pathKey', 'issuerId', 'existingPath',
++    'greenlight', 'firstTake', 'personRelease', 'cast', 'staffingWitnessKey', 'ownerFactRefs',
++    'additionalHolds', 'holdReplacements'),
++  background: literalCost('kind', 'jointTraceKey', 'pathKey', 'issuerId', 'existingPath', 'ownerFactRefs'),
++  trace: literalCost('kind', 'traceKey', 'ownerFactRefs', 'paths', 'fixedHoldReplacements', 'additionalHolds'),
++  command: literalCost('kind', 'at', 'command'),
++  backgroundCompleted: literalCost('kind', 'at', 'pathKey', 'dueWeek', 'owner'),
++  sweepStarted: literalCost('kind', 'at', 'externalSlotKeys'),
++  ownerEvent: literalCost('kind', 'at', 'ownerWeek', 'draft'),
++  pictureEvent: literalCost('kind', 'at', 'productionId'),
++  technologyFacts: literalCost('technology', 'market', 'placement', 'hollywood'),
++  technologyCollector: literalCost('technology', 'policy'),
++  technologyPolicy: literalCost('allowsFacility', 'beforePhaseEntered'),
++  market: literalCost('tick'),
++  binding: literalCost('sets', 'genreOf'),
++  releaseOwner: literalCost('productions', 'concepts', 'operations', 'releaseAuthority'),
++  releaseCommitted: literalCost('kind', 'productionId'),
++  commitments: literalCost('commitments'),
++  commitment: literalCost('productionId', 'commitmentId', 'committedAtWeek'),
++  stampedEvent: literalCost('draft', 'week'),
++  sink: literalCost('baseWeek', 'recording', 'drafts'),
++  branch: literalCost('week', 'step', 'productions', 'operations', 'sets', 'technology',
++    'releaseAuthority', 'completed', 'provenance', 'ledger', 'replacements', 'calendars', 'nextHold'),
++  projection: literalCost('week', 'productions', 'operations', 'sets', 'technology',
++    'releaseAuthority', 'completedBackgroundPathKeys'),
++  complete: literalCost('kind', 'trace', 'projection', 'provenance'),
++  cut: literalCost('kind', 'traceKey', 'through', 'reason', 'detail', 'provenance'),
++  result: literalCost('fixedHolds', 'attempts', 'preparationWork', 'omissions'),
++  contextError: literalCost('reason', 'message'),
++  commandError: literalCost('message'),
++})
++// An appended element reserves capacity(1), invocation(1), reference write(1).
++const APPEND = 3
+ /** Saturate before arithmetic. A saturated bill cannot fit any admitted limit. */
+ function plus(...terms: readonly number[]): number {
+   let result = 0
+@@ -124,17 +189,24 @@ class Work {
+     let cost = 1
+     this.pay()
+     for (const key in value) {
+-      this.pay(3 + key.length)
++      // Discovery/own-key check plus the two-operand saturating sum (including
++      // its argument array, two loop visits and arithmetic) precede inspection.
++      this.pay(3 + key.length + 20)
+       if (Object.prototype.hasOwnProperty.call(value, key)) cost = plus(cost, 3 + key.length)
+     }
+     return cost
+   }
+-  token(parts: readonly (string | number)[]): string {
++  token(first: string, second: string | number, third: string | number, fourth?: string | number): string {
++    const length = fourth === undefined ? 3 : 4
++    // Pay array allocation/capacity AND element writes before the tuple exists.
++    // Fixed positional arguments avoid an unprepaid caller tuple/rest array.
++    this.pay(6 + 1 + 2 * length)
++    const parts = fourth === undefined ? [first, second, third] : [first, second, third, fourth]
+     // JSON escaping can produce six output characters per UTF-16 code unit.
+     let cost = 3 + 2 * parts.length
+-    this.pay(2 + parts.length)
++    this.pay(8)
+     for (const part of parts) {
+-      this.pay()
++      this.pay(36) // dispatch(6), checked product(10), two-term sum/argument array(20)
+       cost = plus(cost, typeof part === 'string' ? 2 + times(7, part.length) : 25)
+     }
+     this.pay(cost)
+@@ -142,26 +214,37 @@ class Work {
+   }
+ }
+ 
++function contextCut(work: Work, reason: ContextCut['reason'], detail: string): never {
++  work.pay(8 + LITERAL.contextError + reason.length + detail.length)
++  throw new ContextCut(reason, detail)
++}
++function commandRefused(work: Work, detail: string): never {
++  work.pay(8 + LITERAL.commandError + detail.length)
++  throw new CommandRefused(detail)
++}
++
+ /** Scalarization of the actual boundedStableSort body; comparator body prepaid. */
+ function sortBill(n: number, comparator: number, work: Work): number {
+   work.pay(10)
+   if (n < 2) return 6 + 2 * n
+   let levels = 0, runs = 0
+   for (let width = 1; width < n; width *= 2) {
+-    work.pay(6)
++    work.pay(26) // six loop/scalar steps + two-term saturating sum(20)
+     levels++
+     runs = plus(runs, Math.ceil(n / (2 * width)))
+   }
+-  work.pay(18)
++  // At most seven-term sum(60), seven products including nested n*levels(70), scalar
++  // additions/reads(18), and the final result dispatch. This is calculator work.
++  work.pay(152)
+   return plus(10, times(3, n), times(8, levels), times(19, runs),
+     times(5, times(n, levels)), times(8 + comparator, times(n, levels)))
+ }
+ function sorted<T>(values: readonly T[], keyOf: (value: T) => string, work: Work): T[] {
+-  work.pay(3 + values.length)
++  work.pay(4) // local setup + empty decoration array
+   let max = 0
+   const rows: { value: T; key: string }[] = []
+   for (const value of values) {
+-    work.pay(6)
++    work.pay(6 + LITERAL.decoration + APPEND)
+     const key = keyOf(value)
+     work.text(key)
+     max = Math.max(max, key.length)
+@@ -206,7 +289,7 @@ function company<P extends StartedPicture>(productions: readonly P[], work: Work
+   let count = 0, chars = 0
+   work.pay(3)
+   for (const row of productions) {
+-    work.pay(8)
++    work.pay(8 + 1 + 2 * 4) // control + four-element literal array/capacity/writes
+     const ids = [row.directorId, row.cast.lead, row.cast.antagonist, row.cast.support]
+     for (const id of ids) { work.text(id); count++; chars = plus(chars, id.length) }
+     for (const id of row.craftIds) { work.text(id); count++; chars = plus(chars, id.length) }
+@@ -238,7 +321,8 @@ function reservationSubject<P extends StartedPicture>(source: StartedOwnerSource
+     'reservation references a foreign facility/capability')
+   natural(row.slot, 'reservation slot')
+   invariant(row.slot < facility.capacity, 'reservation slot exceeds capacity')
+-  return { kind: 'resource', resourceKey: work.token(['facility', issuer, row.facilityId]), slot: row.slot }
++  work.pay(LITERAL.resource)
++  return { kind: 'resource', resourceKey: work.token('facility', issuer, row.facilityId), slot: row.slot }
+ }
+ function prepare<P extends StartedPicture>(input: StartedOwnerReplayInput<P>, work: Work,
+   plansPrepared: (plans: readonly StartedProductionPlan[]) => void): Prepared<P> {
+@@ -246,19 +330,22 @@ function prepare<P extends StartedPicture>(input: StartedOwnerReplayInput<P>, wo
+   work.pay(24)
+   work.text(issuer)
+   invariant(issuer.length > 0, 'issuer identity is empty')
++  work.pay(2 * LITERAL.boundary)
+   const now: Boundary = { week: source.market.tick, step: 0 }
+   const end: Boundary = { week: input.horizonEndWeek, step: 0 }
+   natural(now.week, 'source week'); natural(end.week, 'horizon')
+   invariant(end.week >= now.week, 'horizon precedes source')
+-  if (end.week - now.week > input.limits.span) throw new ContextCut('sizeLimit', 'replay span exceeds limit')
++  if (end.week - now.week > input.limits.span) contextCut(work, 'sizeLimit', 'replay span exceeds limit')
+   if (input.plans.length > input.limits.alternatives ||
+       source.studio.activeProductions.length + 1 > input.limits.alternatives) {
+-    throw new ContextCut('sizeLimit', 'trace/path row limit')
++    contextCut(work, 'sizeLimit', 'trace/path row limit')
+   }
++  work.pay(1)
+   const rawPlans: StartedProductionPlan[] = []
+   for (const plan of input.plans) {
+     work.pay(5); work.text(plan.traceKey)
+     invariant(plan.traceKey.length > 0, 'empty trace identity')
++    work.pay(1)
+     const commands: StartedProductionCommand[] = []
+     for (const command of plan.commands) {
+       work.pay(12); work.text(command.productionId); work.text(command.kind)
+@@ -268,6 +355,7 @@ function prepare<P extends StartedPicture>(input: StartedOwnerReplayInput<P>, wo
+         command.kind === 'scheduleTake' || command.kind === 'commitRelease', 'unknown replay command')
+       invariant(find(source.studio.activeProductions, command.productionId, row => row.id, work) !== undefined,
+         'command references an absent original production')
++      work.pay(APPEND)
+       commands.push(command)
+     }
+     work.pay(sortBill(commands.length, 12, work))
+@@ -277,6 +365,7 @@ function prepare<P extends StartedPicture>(input: StartedOwnerReplayInput<P>, wo
+       invariant(ordered[i - 1]!.week !== ordered[i]!.week || ordered[i - 1]!.ordinal !== ordered[i]!.ordinal,
+         'duplicate command week/ordinal')
+     }
++    work.pay(LITERAL.plan + APPEND)
+     rawPlans.push({ traceKey: plan.traceKey, commands: ordered })
+   }
+   const plans = sorted(rawPlans, plan => plan.traceKey, work)
+@@ -287,40 +376,40 @@ function prepare<P extends StartedPicture>(input: StartedOwnerReplayInput<P>, wo
+   work.pay(9)
+   plansPrepared(plans)
+   if (source.hollywood === null || source.founding !== null || source.operations.mode !== 'managed') {
+-    throw new ContextCut('unsupportedContext', 'founded managed player context required')
++    contextCut(work, 'unsupportedContext', 'founded managed player context required')
+   }
+   if (!work.equal(source.hollywood.playerStudioId, issuer)) {
+-    throw new ContextCut('rivalPolicyUnsupported', 'rival weekly policy is not replayed')
++    contextCut(work, 'rivalPolicyUnsupported', 'rival weekly policy is not replayed')
+   }
+-  if (source.productionQueue.length > 0) throw new ContextCut('unsupportedContext', 'current queue may admit new work')
++  if (source.productionQueue.length > 0) contextCut(work, 'unsupportedContext', 'current queue may admit new work')
+   for (const row of source.physicalPlans.plans) {
+     work.pay(5)
+     if (work.equal(row.studioId, issuer) && (row.status === 'queued' || row.status === 'held' || row.status === 'blocked')) {
+-      throw new ContextCut('unsupportedContext', 'current physical plan may change owner facts')
++      contextCut(work, 'unsupportedContext', 'current physical plan may change owner facts')
+     }
+   }
+   for (const row of source.construction.projects) {
+     work.pay(3)
+-    if (row.status === 'building') throw new ContextCut('unsupportedContext', 'active legacy construction')
++    if (row.status === 'building') contextCut(work, 'unsupportedContext', 'active legacy construction')
+   }
+   for (const row of source.placement.facilities) {
+     work.pay(4)
+-    if (row.status === 'underConstruction') throw new ContextCut('unsupportedContext', 'active placement or installation')
++    if (row.status === 'underConstruction') contextCut(work, 'unsupportedContext', 'active placement or installation')
+   }
+   for (const row of source.sets) {
+     work.pay(4)
+-    if (row.status === 'under-construction') throw new ContextCut('unsupportedContext', 'active Set construction/repair')
++    if (row.status === 'under-construction') contextCut(work, 'unsupportedContext', 'active Set construction/repair')
+   }
+   for (const row of source.technology.projects) {
+     work.pay(4)
+     if (work.equal(row.studioId, issuer) && row.status === 'active') {
+-      throw new ContextCut('unsupportedContext', 'active player research')
++      contextCut(work, 'unsupportedContext', 'active player research')
+     }
+   }
+   for (const row of source.technology.adoptions) {
+     work.pay(5)
+     if (work.equal(row.studioId, issuer) && row.cancelledWeek === null && row.operationalWeek === null) {
+-      throw new ContextCut('unsupportedContext', 'pending player adoption')
++      contextCut(work, 'unsupportedContext', 'pending player adoption')
+     }
+   }
+   uniqueIds(source.operations.facilities, row => row.id, work)
+@@ -332,11 +421,14 @@ function prepare<P extends StartedPicture>(input: StartedOwnerReplayInput<P>, wo
+     'production/workflow cardinality differs')
+   uniqueIds(source.studio.activeProductions, row => row.id, work)
+   uniqueIds(source.operations.workflows, row => row.productionId, work)
++  work.pay(2)
+   const pictures: PictureFacts<P>[] = []
+   const relevant: string[] = []
+   const addRelevant = (id: string): void => {
+     work.pay(3); work.text(id)
+-    if (find(relevant, id, value => value, work) === undefined) relevant.push(id)
++    if (find(relevant, id, value => value, work) === undefined) {
++      work.pay(APPEND); relevant.push(id)
++    }
+   }
+   for (const id of input.claimPersonIds) addRelevant(id)
+   for (const production of source.studio.activeProductions) {
+@@ -350,6 +442,7 @@ function prepare<P extends StartedPicture>(input: StartedOwnerReplayInput<P>, wo
+     invariant(workflow.reservations.length <= 2, 'too many current phase reservations')
+     const concept = find(source.concepts, production.conceptId, row => row.id, work)
+     invariant(concept !== undefined, 'production concept is absent')
++    work.pay(3) // singleton input array + its reference write
+     const people = company([production], work)
+     for (const id of people) addRelevant(id)
+     let historicallyFilmed = production.remainingTicks < 5
+@@ -357,9 +450,11 @@ function prepare<P extends StartedPicture>(input: StartedOwnerReplayInput<P>, wo
+       work.pay(5)
+       if (work.equal(take.productionId, production.id) && work.equal(take.studioId, issuer)) historicallyFilmed = true
+     }
++    work.pay(LITERAL.pictureFacts + APPEND)
+     pictures.push({ production, workflow, people, genre: concept.genre, historicallyFilmed,
+-      pathKey: work.token(['production', issuer, production.id]) })
++      pathKey: work.token('production', issuer, production.id) })
+   }
++  work.pay(1)
+   const backgrounds: Background[] = []
+   for (const project of source.scriptDevelopment.projects) {
+     work.pay(7)
+@@ -368,16 +463,18 @@ function prepare<P extends StartedPicture>(input: StartedOwnerReplayInput<P>, wo
+       'active screenplay lacks managed timing/reservation')
+     const people = writers(project, work)
+     for (const id of people) addRelevant(id)
++    work.pay(LITERAL.backgroundFacts + APPEND)
+     backgrounds.push({ kind: 'screenplay', row: project, people,
+-      pathKey: work.token(['screenplay', issuer, project.id]) })
++      pathKey: work.token('screenplay', issuer, project.id) })
+   }
+   for (const session of source.castingSessions.sessions) {
+     work.pay(7)
+     if (session.status !== 'auditioning') continue
+     invariant(source.castingSessions.mode === 'managed' && session.reservation !== null && session.dueWeek !== null,
+       'active audition lacks managed timing/reservation')
++    work.pay(LITERAL.backgroundFacts + APPEND + 1)
+     backgrounds.push({ kind: 'castingSession', row: session, people: [],
+-      pathKey: work.token(['castingSession', issuer, session.id]) })
++      pathKey: work.token('castingSession', issuer, session.id) })
+   }
+   // Read actual foreign companies and indexed writer pools, not caller flags.
+   for (const business of source.hollywood.businesses) {
+@@ -385,7 +482,7 @@ function prepare<P extends StartedPicture>(input: StartedOwnerReplayInput<P>, wo
+     if (work.equal(business.studioId, issuer)) continue
+     for (const id of company(business.productions, work)) {
+       if (find(relevant, id, value => value, work) !== undefined) {
+-        throw new ContextCut('unsupportedContext', 'relevant current foreign company')
++        contextCut(work, 'unsupportedContext', 'relevant current foreign company')
+       }
+     }
+     for (const ordinal of business.activeScriptOrdinals) {
+@@ -398,7 +495,7 @@ function prepare<P extends StartedPicture>(input: StartedOwnerReplayInput<P>, wo
+       if (project.status !== 'drafting' && project.status !== 'rewriting') continue
+       for (const id of writers(project, work)) {
+         if (find(relevant, id, value => value, work) !== undefined) {
+-          throw new ContextCut('unsupportedContext', 'relevant current foreign screenplay')
++          contextCut(work, 'unsupportedContext', 'relevant current foreign screenplay')
+         }
+       }
+     }
+@@ -409,31 +506,38 @@ function prepare<P extends StartedPicture>(input: StartedOwnerReplayInput<P>, wo
+     for (const seat of project.seats) {
+       work.pay(4)
+       if (seat.releasedWeek === null && find(relevant, seat.talentId, id => id, work) !== undefined) {
+-        throw new ContextCut('unsupportedContext', 'relevant current foreign research seat')
++        contextCut(work, 'unsupportedContext', 'relevant current foreign research seat')
+       }
+     }
+   }
++  work.pay(1)
+   const mounts: { set: StudioSet; pathKey: string }[] = []
+   for (const set of source.sets) {
+     work.pay(3)
+-    if (set.status === 'standing') mounts.push({ set, pathKey: work.token(['setMount', issuer, set.id]) })
++    if (set.status === 'standing') {
++      work.pay(LITERAL.mount + APPEND)
++      mounts.push({ set, pathKey: work.token('setMount', issuer, set.id) })
++    }
+   }
+   work.pay(6)
+   const rowsPerTrace = 1 + pictures.length + backgrounds.length + mounts.length
+   if (rowsPerTrace > input.limits.alternatives || plans.length > Math.floor(input.limits.alternatives / rowsPerTrace)) {
+-    throw new ContextCut('sizeLimit', 'global trace/path occurrence limit')
++    contextCut(work, 'sizeLimit', 'global trace/path occurrence limit')
+   }
++  work.pay(1)
+   const fixed: FixedHold[] = []
+   const hold = (pathKey: string, subject: HoldSubject): void => {
+-    work.pay(20)
++    work.pay(4 + LITERAL.fixedHold + APPEND)
+     const subjectId = subject.kind === 'person' ? subject.personId : subject.resourceKey
+-    fixed.push({ holdId: work.token(['fixed', pathKey, fixed.length]), ownerKey: issuer, ownerPathKey: pathKey,
++    fixed.push({ holdId: work.token('fixed', pathKey, fixed.length), ownerKey: issuer, ownerPathKey: pathKey,
+       subject, from: now, until: end, replaceableFrom: now })
+     work.text(subjectId)
+   }
+   for (const picture of pictures) {
+     work.pay(4)
+-    for (const personId of picture.people) hold(picture.pathKey, { kind: 'person', personId })
++    for (const personId of picture.people) {
++      work.pay(2 + LITERAL.person); hold(picture.pathKey, { kind: 'person', personId })
++    }
+     for (const reservation of picture.workflow.reservations) {
+       invariant(work.equal(reservation.productionId, picture.production.id), 'reservation owner differs')
+       hold(picture.pathKey, reservationSubject(source, issuer, reservation, work))
+@@ -445,19 +549,25 @@ function prepare<P extends StartedPicture>(input: StartedOwnerReplayInput<P>, wo
+       const set = find(source.sets, picture.workflow.bindings.setId, row => row.id, work)
+       invariant(set !== undefined && set.status === 'standing' && work.equal(set.mountedOn, stage.facilityId),
+         'bound Set is not mounted on occupied stage')
+-      hold(picture.pathKey, { kind: 'resource', resourceKey: work.token(['set', issuer, set.id]), slot: 0 })
++      work.pay(LITERAL.resource)
++      hold(picture.pathKey, { kind: 'resource', resourceKey: work.token('set', issuer, set.id), slot: 0 })
+     }
+   }
+   for (const background of backgrounds) {
+     work.pay(3)
+-    for (const personId of background.people) hold(background.pathKey, { kind: 'person', personId })
++    for (const personId of background.people) {
++      work.pay(2 + LITERAL.person); hold(background.pathKey, { kind: 'person', personId })
++    }
+     invariant(background.row.reservation !== null, 'active background has no reservation')
+     hold(background.pathKey, reservationSubject(source, issuer, background.row.reservation, work))
+   }
+-  for (const mount of mounts) hold(mount.pathKey,
+-    { kind: 'resource', resourceKey: work.token(['mount', issuer, mount.set.mountedOn]), slot: 0 })
++  for (const mount of mounts) {
++    work.pay(2 + LITERAL.resource)
++    hold(mount.pathKey, { kind: 'resource', resourceKey: work.token('mount', issuer, mount.set.mountedOn), slot: 0 })
++  }
++  work.pay(LITERAL.prepared)
+   return { pictures, backgrounds, mounts, plans, fixed, now, end,
+-    factRef: work.token(['source', issuer, now.week]) }
++    factRef: work.token('source', issuer, now.week) }
+ }
+ 
+ type Dimensions = {
+@@ -471,7 +581,7 @@ type Dimensions = {
+ function dimensions<P extends StartedPicture>(source: StartedOwnerSource<P>, productions: readonly P[],
+   operations: StudioOperations, sets: readonly StudioSet[], technology: StudioTechnology,
+   external: number, work: Work): Dimensions {
+-  work.pay(36)
++  work.pay(12 + LITERAL.dimensions)
+   const d: Dimensions = { n: productions.length, f: operations.facilities.length, capacity: 0,
+     sets: sets.length, external, d: 22, dp: 0, pCopy: 0, workflowCopy: 98, taskCopy: 66,
+     bindingsCopy: 95, operationsCopy: work.copyCost(operations), setCopy: 137, setupCopy: 0,
+@@ -706,7 +816,7 @@ function sameSubject(a: HoldSubject, b: HoldSubject, work: Work): boolean {
+   return b.kind === 'resource' && a.slot === b.slot && work.equal(a.resourceKey, b.resourceKey)
+ }
+ function boundary(branch: { week: number; step: number }, work: Work): Boundary {
+-  work.pay(5)
++  work.pay(5 + LITERAL.boundary)
+   branch.step++
+   return { week: branch.week, step: branch.step }
+ }
+@@ -726,7 +836,10 @@ function closeHold<P extends StartedPicture>(branch: Branch<P>, pathKey: string,
+   work.pay(14 + work.copyCost(found.hold))
+   found.hold = { ...found.hold, until: at }
+   found.closed = true
+-  if (found.fixed) branch.replacements.push({ holdId: found.hold.holdId, newUntil: at })
++  if (found.fixed) {
++    work.pay(LITERAL.replacement + APPEND)
++    branch.replacements.push({ holdId: found.hold.holdId, newUntil: at })
++  }
+ }
+ function addHold<P extends StartedPicture>(branch: Branch<P>, plan: StartedProductionPlan, issuer: string,
+   pathKey: string, subject: HoldSubject, at: Boundary, end: Boundary, work: Work): void {
+@@ -734,9 +847,9 @@ function addHold<P extends StartedPicture>(branch: Branch<P>, plan: StartedProdu
+     work.pay(3)
+     invariant(row.closed || !sameSubject(row.hold.subject, subject, work), 'owner granted an occupied subject')
+   }
+-  work.pay(23)
++  work.pay(8 + LITERAL.ledgerRow + LITERAL.hold + APPEND)
+   branch.ledger.push({ fixed: false, closed: false, hold: {
+-    holdId: work.token(['grant', plan.traceKey, branch.nextHold++, issuer]), ownerKey: issuer,
++    holdId: work.token('grant', plan.traceKey, branch.nextHold++, issuer), ownerKey: issuer,
+     ownerPathKey: pathKey, subject, from: at, until: end,
+   } })
+ }
+@@ -748,21 +861,25 @@ function closePath<P extends StartedPicture>(branch: Branch<P>, pathKey: string,
+       (peopleOnly && row.hold.subject.kind !== 'person')) continue
+     work.pay(14 + work.copyCost(row.hold))
+     row.hold = { ...row.hold, until: at }; row.closed = true
+-    if (row.fixed) branch.replacements.push({ holdId: row.hold.holdId, newUntil: at })
++    if (row.fixed) {
++      work.pay(LITERAL.replacement + APPEND)
++      branch.replacements.push({ holdId: row.hold.holdId, newUntil: at })
++    }
+   }
+ }
+ function drainEvents<P extends StartedPicture>(input: StartedOwnerReplayInput<P>, prepared: Prepared<P>,
+   plan: StartedProductionPlan, branch: Branch<P>, sink: StudioEventSink,
+   before: StudioOperations, work: Work): void {
+-  work.pay(3)
++  work.pay(4) // drain invocation/setup + empty wrapped-fact array
+   const events = sink.drain()
+   const wrapped: { id: string; stage: string; setId: string | null }[] = []
+   for (const { draft, week } of events) {
+     work.pay(10 + work.copyCost(draft))
+     const at = boundary(branch, work)
++    work.pay(LITERAL.ownerEvent + APPEND)
+     branch.provenance.push({ kind: 'ownerEvent', at, ownerWeek: week, draft })
+     if (draft.kind === 'wrapped') {
+-      work.pay(6)
++      work.pay(2 + LITERAL.wrapped + APPEND)
+       wrapped.push({ id: draft.productionId, stage: draft.stageFacilityId, setId: draft.setId })
+     }
+     if (draft.kind !== 'reservationReleased' && draft.kind !== 'reservationGranted') continue
+@@ -788,14 +905,18 @@ function drainEvents<P extends StartedPicture>(input: StartedOwnerReplayInput<P>
+         const wrap = find(wrapped, draft.ownerId, row => row.id, work)
+         invariant(wrap !== undefined && work.equal(wrap.stage, reservation.facilityId) &&
+           wrap.setId === previous.bindings.setId, 'stage release has no exact wrapped Set witness')
+-        if (wrap.setId !== null) closeHold(branch, picture.pathKey,
+-          { kind: 'resource', resourceKey: work.token(['set', input.issuerId, wrap.setId]), slot: 0 }, at, work)
++        if (wrap.setId !== null) {
++          work.pay(LITERAL.resource)
++          closeHold(branch, picture.pathKey,
++            { kind: 'resource', resourceKey: work.token('set', input.issuerId, wrap.setId), slot: 0 }, at, work)
++        }
+       }
+     } else {
+       addHold(branch, plan, input.issuerId, picture.pathKey, subject, at, prepared.end, work)
+       if (reservation.capability === 'soundstage' && current?.bindings.setId !== null && current !== undefined) {
++        work.pay(LITERAL.resource)
+         addHold(branch, plan, input.issuerId, picture.pathKey,
+-          { kind: 'resource', resourceKey: work.token(['set', input.issuerId, current.bindings.setId]), slot: 0 },
++          { kind: 'resource', resourceKey: work.token('set', input.issuerId, current.bindings.setId), slot: 0 },
+           at, prepared.end, work)
+       }
+     }
+@@ -803,6 +924,7 @@ function drainEvents<P extends StartedPicture>(input: StartedOwnerReplayInput<P>
+ }
+ function reconcile<P extends StartedPicture>(input: StartedOwnerReplayInput<P>, prepared: Prepared<P>,
+   branch: Branch<P>, work: Work): void {
++  work.pay(1)
+   const expected: { path: string; subject: HoldSubject }[] = []
+   work.pay(3)
+   for (const workflow of branch.operations.workflows) {
+@@ -811,15 +933,15 @@ function reconcile<P extends StartedPicture>(input: StartedOwnerReplayInput<P>,
+     invariant(picture !== undefined, 'workflow has no original trajectory')
+     let stage = false
+     for (const reservation of workflow.reservations) {
+-      work.pay(4)
++      work.pay(4 + LITERAL.expected + APPEND)
+       expected.push({ path: picture.pathKey,
+         subject: reservationSubject(input.source, input.issuerId, reservation, work) })
+       if (reservation.capability === 'soundstage') stage = true
+     }
+     if (stage && workflow.bindings.setId !== null) {
+-      work.pay(5)
++      work.pay(5 + LITERAL.expected + LITERAL.resource + APPEND)
+       expected.push({ path: picture.pathKey,
+-        subject: { kind: 'resource', resourceKey: work.token(['set', input.issuerId, workflow.bindings.setId]), slot: 0 } })
++        subject: { kind: 'resource', resourceKey: work.token('set', input.issuerId, workflow.bindings.setId), slot: 0 } })
+     }
+   }
+   for (const row of branch.ledger) {
+@@ -847,38 +969,42 @@ function reconcile<P extends StartedPicture>(input: StartedOwnerReplayInput<P>,
+ 
+ function completeTrace<P extends StartedPicture>(input: StartedOwnerReplayInput<P>, prepared: Prepared<P>,
+   plan: StartedProductionPlan, branch: Branch<P>, work: Work): JointOwnerTrace {
+-  work.pay(8)
++  work.pay(9) // setup + empty paths array
+   const paths: JointTracePath[] = []
+   for (const picture of prepared.pictures) {
+-    work.pay(35)
++    work.pay(5)
+     const calendar = find(branch.calendars, picture.production.id, row => row.productionId, work)
+     invariant(calendar !== undefined, 'picture calendar is missing')
++    // Full picture literal, nested boundary, two-reference facts array, two
++    // empty arrays, and the append are independent of lookup/token charges.
++    work.pay(LITERAL.picture + LITERAL.boundary + 5 + 2 + APPEND)
+     paths.push({ kind: 'jointTracePicture', jointTraceKey: plan.traceKey,
+-      key: work.token(['picture', plan.traceKey, picture.production.id]), pathKey: picture.pathKey,
++      key: work.token('picture', plan.traceKey, picture.production.id), pathKey: picture.pathKey,
+       issuerId: input.issuerId, existingPath: true,
+       greenlight: { week: picture.production.startTick, step: 0 }, firstTake: calendar.firstTake,
+       personRelease: calendar.personRelease, cast: picture.production.cast,
+-      staffingWitnessKey: work.token(['company', input.issuerId, picture.production.id]),
++      staffingWitnessKey: work.token('company', input.issuerId, picture.production.id),
+       ownerFactRefs: [prepared.factRef, picture.pathKey], additionalHolds: [], holdReplacements: [] })
+   }
+   for (const background of prepared.backgrounds) {
+-    work.pay(13)
++    work.pay(3 + LITERAL.background + 5 + APPEND)
+     paths.push({ kind: 'jointTraceBackground', jointTraceKey: plan.traceKey, pathKey: background.pathKey,
+       issuerId: input.issuerId, existingPath: true, ownerFactRefs: [prepared.factRef, background.pathKey] })
+   }
+   for (const mount of prepared.mounts) {
+-    work.pay(13)
++    work.pay(3 + LITERAL.background + 5 + APPEND)
+     paths.push({ kind: 'jointTraceBackground', jointTraceKey: plan.traceKey, pathKey: mount.pathKey,
+       issuerId: input.issuerId, existingPath: true, ownerFactRefs: [prepared.factRef, mount.pathKey] })
+   }
++  work.pay(1)
+   const additionalHolds: Hold[] = []
+   for (const row of branch.ledger) {
+     work.pay(3)
+-    if (!row.fixed) additionalHolds.push(row.hold)
++    if (!row.fixed) { work.pay(APPEND); additionalHolds.push(row.hold) }
+   }
+-  work.pay(20)
++  work.pay(LITERAL.trace + 5)
+   return { kind: 'jointOwnerTrace', traceKey: plan.traceKey,
+-    ownerFactRefs: [prepared.factRef, work.token(['execution', plan.traceKey, prepared.now.week, prepared.end.week])],
++    ownerFactRefs: [prepared.factRef, work.token('execution', plan.traceKey, prepared.now.week, prepared.end.week)],
+     paths: sorted(paths, row => row.pathKey, work),
+     fixedHoldReplacements: sorted(branch.replacements, row => row.holdId, work),
+     additionalHolds: sorted(additionalHolds, row => row.holdId, work) }
+@@ -888,14 +1014,18 @@ function executeCommand<P extends StartedPicture>(input: StartedOwnerReplayInput
+   plan: StartedProductionPlan, branch: Branch<P>, command: StartedProductionCommand, work: Work): void {
+   work.pay(8)
+   const production = find(branch.productions, command.productionId, row => row.id, work)
+-  if (production === undefined) throw new CommandRefused('production already released in this branch')
++  if (production === undefined) commandRefused(work, 'production already released in this branch')
+   const d = dimensions(input.source, branch.productions, branch.operations, branch.sets, branch.technology, 0, work)
+   const before = branch.operations
+-  work.pay(12)
++  work.pay(5 + LITERAL.sink + 1)
+   const sink = new StudioEventSink(branch.week, true)
++  work.pay(LITERAL.command + APPEND)
+   branch.provenance.push({ kind: 'command', at: boundary(branch, work), command })
+   // Lookup, ordered guards/error interpolation, task/blocker/workflow/operations
+   // copies and replacement map. Both refusal and success are included.
++  // Outer seven-term sum(60), two products(20), equality(30), complete
++  // workflowUpdate calculation(84), and scalar setup/reads(30).
++  work.pay(224)
+   const commandBill = plus(150, times(8, d.d), times(d.n, 3 + equality(d.dp)),
+     d.taskCopy, d.workflowCopy, workflowUpdate(d), 90)
+   work.pay(10)
+@@ -911,7 +1041,7 @@ function executeCommand<P extends StartedPicture>(input: StartedOwnerReplayInput
+       invariant(workflow !== undefined, 'command has no workflow')
+       work.pay(geometryBill(d, work))
+       if (sceneryLoadInDecision(input.source, workflow, branch.week).kind !== 'manual-clear') {
+-        throw new CommandRefused('only explicitly grandfathered scenery permits manual clear')
++        commandRefused(work, 'only explicitly grandfathered scenery permits manual clear')
+       }
+       work.pay(commandBill)
+       branch.operations = clearSceneryLoadIn(branch.operations, production.id, sink)
+@@ -925,21 +1055,25 @@ function executeCommand<P extends StartedPicture>(input: StartedOwnerReplayInput
+         work.pay(4); work.text(concept.title); work.text(concept.id)
+         longestTitle = Math.max(longestTitle, concept.title.length, concept.id.length)
+       }
+-      work.pay(plus(240, times(3 * d.n + input.source.concepts.length + branch.releaseAuthority.commitments.length,
++      work.pay(plus(240 + LITERAL.releaseOwner, times(3 * d.n + input.source.concepts.length + branch.releaseAuthority.commitments.length,
+         4 + equality(Math.max(d.d, longestTitle))), times(4, longestTitle + d.d)))
+       const reason = releaseCommitmentRefusal({ productions: branch.productions,
+         concepts: input.source.concepts, operations: branch.operations, releaseAuthority: branch.releaseAuthority }, production.id)
+-      if (reason !== null) throw new CommandRefused(reason)
++      if (reason !== null) commandRefused(work, reason)
+       const count = branch.releaseAuthority.commitments.length + 1
+-      work.pay(plus(110, times(3, count), times(2, production.id.length),
++      work.pay(96) // <=5 sum operands, two products and scalar source-cost setup
++      // withReleaseCommitment: exact row/root literals; appended input array
++      // capacity+writes; mint's prefix/input/output string spans; real sort.
++      work.pay(plus(12 + LITERAL.commitment + LITERAL.commitments, 1 + 2 * count,
++        2 * ('release-commitment'.length + 1 + production.id.length),
+         sortBill(count, 6 + 2 * equality(d.dp), work)))
+       branch.releaseAuthority = withReleaseCommitment(branch.releaseAuthority, production.id, branch.week)
+-      work.pay(25)
++      work.pay(5 + LITERAL.releaseCommitted + LITERAL.stampedEvent + APPEND)
+       sink.append({ kind: 'releaseCommitted', productionId: production.id })
+     }
+   } catch (error) {
+     if (error instanceof WorkLimit || error instanceof ContextCut || error instanceof CommandRefused) throw error
+-    if (error instanceof Error && error.message.startsWith('applyActions:')) throw new CommandRefused(error.message)
++    if (error instanceof Error && error.message.startsWith('applyActions:')) commandRefused(work, error.message)
+     throw error
+   }
+   drainEvents(input, prepared, plan, branch, sink, before, work)
+@@ -959,17 +1093,19 @@ function frame<P extends StartedPicture>(input: StartedOwnerReplayInput<P>, prep
+     invariant(background.row.dueWeek !== null, 'due background has no original date')
+     const at = boundary(branch, work)
+     closePath(branch, background.pathKey, at, false, work)
+-    work.pay(18)
++    work.pay(5 + LITERAL.backgroundCompleted + 2 * APPEND)
+     branch.completed.push(background.pathKey)
+     branch.provenance.push({ kind: 'backgroundCompleted', at, pathKey: background.pathKey,
+       dueWeek: background.row.dueWeek, owner: background.kind })
+   }
++  work.pay(1)
+   const externalKeys: string[] = []
+   for (const background of prepared.backgrounds) {
+     work.pay(4)
+     if (find(branch.completed, background.pathKey, id => id, work) !== undefined) continue
+     const reservation = background.row.reservation
+     invariant(reservation !== null, 'remaining background reservation disappeared')
++    work.pay(APPEND)
+     externalKeys.push(bareKey(reservation.facilityId, reservation.slot, work))
+   }
+   // Active installation/Set work was cut using original roots; completed body
+@@ -981,7 +1117,7 @@ function frame<P extends StartedPicture>(input: StartedOwnerReplayInput<P>, prep
+   const external = new Set(orderedExternal)
+   const d = dimensions(input.source, branch.productions, branch.operations, branch.sets,
+     branch.technology, external.size, work)
+-  work.pay(8)
++  work.pay(5 + LITERAL.sink + 1)
+   const arrivalSink = new StudioEventSink(branch.week, true)
+   const beforeArrival = branch.operations
+   work.pay(arrivalBill(d, branch.operations, work))
+@@ -991,7 +1127,10 @@ function frame<P extends StartedPicture>(input: StartedOwnerReplayInput<P>, prep
+ 
+   // New collectors per branch AND sweep. Full callbacks, actual selected chain,
+   // original geometry and real branch technology; no GameState assertion.
+-  work.pay(60)
++  // Exact caller facts AND the owner's returned outer collector/inner policy.
++  // Twelve scalar/call steps and four closure allocations are separate.
++  work.pay(12 + 4 + LITERAL.technologyCollector + LITERAL.technologyPolicy +
++    LITERAL.technologyFacts + LITERAL.market)
+   const facts: ProductionTechnologyFacts = { technology: branch.technology, market: { tick: branch.week },
+     placement: input.source.placement, hollywood: input.source.hollywood }
+   const technology = createProductionTechnologyPolicy(facts, input.issuerId)
+@@ -1009,7 +1148,8 @@ function frame<P extends StartedPicture>(input: StartedOwnerReplayInput<P>, prep
+   const bill = sweepBill(d, branch.productions, branch.operations, branch.week, committed, work)
+   // Reserve observation, sink, binding/callback literals and complete owner work
+   // together: an exhaustion boundary cannot record an unexecuted sweepStarted.
+-  work.pay(plus(bill, 65, orderedExternal.length))
++  work.pay(plus(bill, 15 + LITERAL.sink + 1 + LITERAL.boundary +
++    LITERAL.sweepStarted + APPEND + LITERAL.binding, orderedExternal.length))
+   const sink = new StudioEventSink(branch.week, true)
+   const at: Boundary = { week: branch.week, step: ++branch.step }
+   branch.provenance.push({ kind: 'sweepStarted', at, externalSlotKeys: orderedExternal })
+@@ -1026,8 +1166,12 @@ function frame<P extends StartedPicture>(input: StartedOwnerReplayInput<P>, prep
+   drainEvents(input, prepared, plan, branch, sink, before, work)
+   reconcile(input, prepared, branch, work)
+ 
++  work.pay(1)
+   const zeros: string[] = []
+-  for (const row of branch.productions) { work.pay(4); if (row.remainingTicks === 0) zeros.push(row.id) }
++  for (const row of branch.productions) {
++    work.pay(4)
++    if (row.remainingTicks === 0) { work.pay(APPEND); zeros.push(row.id) }
++  }
+   work.pay(4)
+   invariant(zeros.length === advanced.admittedReleaseIds.length, 'release admission/countdown mismatch')
+   for (const id of zeros) invariant(find(advanced.admittedReleaseIds, id, value => value, work) !== undefined,
+@@ -1041,8 +1185,8 @@ function frame<P extends StartedPicture>(input: StartedOwnerReplayInput<P>, prep
+     invariant(picture !== undefined && calendar !== undefined && calendar.personRelease === null, 'duplicate or foreign release')
+     const releaseAt = boundary(branch, work)
+     closePath(branch, picture.pathKey, releaseAt, true, work)
++    work.pay(10 + LITERAL.pictureEvent + APPEND)
+     calendar.personRelease = releaseAt
+-    work.pay(10)
+     branch.provenance.push({ kind: 'releaseAdmitted', at: releaseAt, productionId: id })
+     const workflow = find(before.workflows, id, row => row.productionId, work)
+     invariant(workflow !== undefined, 'release has no pre-sweep workflow')
+@@ -1051,7 +1195,12 @@ function frame<P extends StartedPicture>(input: StartedOwnerReplayInput<P>, prep
+   }
+   work.pay(plus(5, times(released.length, keyBill(released.length, d.dp))))
+   const releasedSet = new Set(released)
+-  work.pay(plus(5, times(branch.releaseAuthority.commitments.length, 4 + keyBill(released.length, d.dp))))
++  // Four-term sum(36), product(10), nested keyBill/equality(68), setup(14).
++  work.pay(128)
++  // Root literal(13), filter invocation+array header(2), each callback visit,
++  // projection/predicate and worst-case retained capacity/reference write(5).
++  work.pay(plus(5, LITERAL.commitments, 2, times(branch.releaseAuthority.commitments.length,
++    5 + keyBill(released.length, d.dp))))
+   branch.releaseAuthority = pruneReleasedCommitments(branch.releaseAuthority, releasedSet)
+   if (released.length > 0) {
+     work.pay(plus(2, times(branch.productions.length, 4 + keyBill(released.length, d.dp))))
+@@ -1063,8 +1212,8 @@ function frame<P extends StartedPicture>(input: StartedOwnerReplayInput<P>, prep
+     const calendar = find(branch.calendars, production.id, row => row.productionId, work)
+     invariant(picture !== undefined && calendar !== undefined && !picture.historicallyFilmed && calendar.firstTake === null,
+       'duplicate or historical first take')
++    work.pay(12 + LITERAL.boundary + LITERAL.pictureEvent + APPEND)
+     const takeAt: Boundary = { week: arrivedWeek, step: 0 }
+-    work.pay(12)
+     calendar.firstTake = takeAt
+     branch.provenance.push({ kind: 'firstTake', at: takeAt, productionId: production.id })
+   }
+@@ -1082,6 +1231,13 @@ export function replayStartedProductionPlans<P extends StartedPicture>(
+   invariant(input.limits.work <= 200000 && input.limits.span <= 220 && input.limits.alternatives <= 1024,
+     'limits may only lower the published caps')
+   const work = new Work(input.limits.work, input.preparationWork)
++  // The normal outer result and its three initial arrays are reserved before
++  // construction. Only the fixed administrative work-limit envelope is exempt.
++  try { work.pay(LITERAL.result + 3 + 5) } catch (error) {
++    if (!(error instanceof WorkLimit)) throw error
++    return { fixedHolds: [], attempts: [], preparationWork: work.limit,
++      omissions: ['work limit before replay preparation completed'] }
++  }
+   const attempts: StartedReplayAttempt<P>[] = [], omissions: string[] = []
+   let knownPlans: readonly StartedProductionPlan[] = []
+   let prepared: Prepared<P>
+@@ -1094,11 +1250,12 @@ export function replayStartedProductionPlans<P extends StartedPicture>(
+     if (error instanceof ContextCut) {
+       try {
+         for (const plan of knownPlans) {
+-          work.pay(16)
++          work.pay(5 + LITERAL.cut + LITERAL.boundary + 1 + APPEND)
+           attempts.push({ kind: 'cut', traceKey: plan.traceKey,
+             through: { week: input.source.market.tick, step: 0 }, reason: error.reason,
+             detail: error.message, provenance: [] })
+         }
++        work.pay(1 + 5 + 2) // empty fixedHolds + two-element omissions literal + return control
+       } catch (limit) {
+         if (!(limit instanceof WorkLimit)) throw limit
+         return { fixedHolds: [], attempts, preparationWork: work.limit,
+@@ -1111,7 +1268,9 @@ export function replayStartedProductionPlans<P extends StartedPicture>(
+   for (const plan of prepared.plans) {
+     let branch: Branch<P> | undefined
+     try {
+-      work.pay(30 + prepared.fixed.length * 4 + prepared.pictures.length * 6)
++      work.pay(96) // fixed-arity construction-bill arithmetic, before sums/products
++      work.pay(plus(LITERAL.branch, 3, 2, times(prepared.fixed.length, 3 + LITERAL.ledgerRow),
++        2, times(prepared.pictures.length, 3 + LITERAL.calendar)))
+       branch = { week: prepared.now.week, step: 0,
+         productions: input.source.studio.activeProductions, operations: input.source.operations,
+         sets: input.source.sets, technology: input.source.technology, releaseAuthority: input.source.releaseAuthority,
+@@ -1128,21 +1287,29 @@ export function replayStartedProductionPlans<P extends StartedPicture>(
+         frame(input, prepared, plan, branch, work)
+       }
+       const trace = completeTrace(input, prepared, plan, branch, work)
+-      work.pay(30)
+       const completedBackgroundPathKeys = sorted(branch.completed, id => id, work)
++      work.pay(5 + LITERAL.complete + LITERAL.projection + APPEND)
+       attempts.push({ kind: 'complete', trace, projection: { week: branch.week,
+         productions: branch.productions, operations: branch.operations, sets: branch.sets,
+         technology: branch.technology, releaseAuthority: branch.releaseAuthority, completedBackgroundPathKeys },
+         provenance: branch.provenance })
+     } catch (error) {
+       if (!(error instanceof WorkLimit || error instanceof CommandRefused || error instanceof ContextCut)) throw error
+-      const reason = error instanceof WorkLimit ? 'workLimit' : error instanceof CommandRefused ? 'commandRefused' : error.reason
+-      const detail = error instanceof WorkLimit ? 'shared replay work limit' : error.message
++      let reason = error instanceof WorkLimit ? 'workLimit' as const : error instanceof CommandRefused ? 'commandRefused' as const : error.reason
++      let detail = error instanceof WorkLimit ? 'shared replay work limit' : error.message
++      if (!(error instanceof WorkLimit)) {
++        try {
++          work.pay(5 + LITERAL.cut + LITERAL.boundary + (branch === undefined ? 1 : 0) + 2 * APPEND)
++        } catch (limit) {
++          if (!(limit instanceof WorkLimit)) throw limit
++          reason = 'workLimit'; detail = 'shared replay work limit'
++        }
++      }
+       attempts.push({ kind: 'cut', traceKey: plan.traceKey,
+         through: { week: branch?.week ?? prepared.now.week, step: branch?.step ?? 0 }, reason, detail,
+         provenance: branch?.provenance ?? [] })
+       omissions.push(reason === 'workLimit' ? 'work limit; remaining plan suffixes unexecuted' : detail)
+-      if (error instanceof WorkLimit) break
++      if (reason === 'workLimit') break
+     }
+   }
+   return { fixedHolds: prepared.fixed, attempts, preparationWork: work.used, omissions }
+diff --git a/tests/p14b4-started-replay-director.test.ts b/tests/p14b4-started-replay-director.test.ts
+new file mode 100644
+index 0000000..e5e5d4c
+--- /dev/null
++++ b/tests/p14b4-started-replay-director.test.ts
+@@ -0,0 +1,230 @@
++// Installed from independently frozen209 (210 qualified KEEP); original inert provenance below retained unchanged.
++// INERT / UNEXECUTED. Intended tests/p14b4-started-replay-director.test.ts.
++//209: genuine unassigned Shooting, explicit locked-director/order and non-grandfather refusal.
++import assert from 'node:assert/strict'
++import { describe, expect, it, vi } from 'vitest'
++import { applyActions } from '../src/core/actions.js'
++import { initializeHollywood } from '../src/core/hollywood.js'
++import * as operationsModule from '../src/core/operations.js'
++import { replayStartedProductionPlans, type StartedOwnerReplayInput,
++  type StartedProductionCommand } from '../src/core/promiseCapacityOwnerReplay.js'
++import { makeSave } from '../src/core/save.js'
++import { sceneryLoadInDecision } from '../src/core/sceneryLoadIn.js'
++import { scriptProjectWriterIds } from '../src/core/scriptDevelopment.js'
++import { tick } from '../src/core/tick.js'
++import type { GameState, Production } from '../src/core/types.js'
++import { operationsStudio, productionPayload } from './contracts/_contractFixtures.js'
++
++const clone = <T>(value: T): T => structuredClone(value)
++const company = (rows: readonly Production[]) => new Set(rows.flatMap((row) =>
++  [row.directorId, ...Object.values(row.cast), ...row.craftIds]))
++
++function supported(state: GameState) {
++  assert.ok(state.hollywood)
++  const own = state.hollywood.playerStudioId
++  expect(state.founding).toBeNull()
++  expect(state.operations.mode).toBe('managed')
++  expect(state.productionQueue).toEqual([])
++  expect(state.physicalPlans.plans.filter((row) => row.studioId === own &&
++    (row.status === 'queued' || row.status === 'held' || row.status === 'blocked'))).toEqual([])
++  expect(state.construction.projects.filter((row) => row.status === 'building')).toEqual([])
++  expect(state.placement.facilities.filter((row) => row.status === 'underConstruction')).toEqual([])
++  expect(state.sets.filter((row) => row.status === 'under-construction')).toEqual([])
++  expect(state.technology.projects.filter((row) => row.studioId === own && row.status === 'active')).toEqual([])
++  expect(state.technology.adoptions.filter((row) => row.studioId === own &&
++    row.cancelledWeek === null && row.operationalWeek === null)).toEqual([])
++  const relevant = company(state.studio.activeProductions)
++  for (const project of state.scriptDevelopment.projects) if (project.status === 'drafting' || project.status === 'rewriting') {
++    for (const id of scriptProjectWriterIds(project)) relevant.add(id)
++  }
++  for (const business of state.hollywood.businesses.filter((row) => row.studioId !== own)) {
++    expect([...company(business.productions)].filter((id) => relevant.has(id))).toEqual([])
++    for (const ordinal of business.activeScriptOrdinals) {
++      const project = business.development.projects[ordinal], costs = business.projects[ordinal]
++      assert.ok(project && costs)
++      expect(costs.scriptProjectId).toBe(project.id)
++      expect(costs.conceptId).toBe(project.conceptId)
++      expect(state.hollywood.concepts[costs.conceptOrdinal]?.id).toBe(project.conceptId)
++      if (project.status === 'drafting' || project.status === 'rewriting') {
++        expect(scriptProjectWriterIds(project).filter((id) => relevant.has(id))).toEqual([])
++      }
++    }
++  }
++  expect(state.technology.projects.filter((row) => row.studioId !== own && row.status === 'active')
++    .flatMap((row) => row.seats.filter((seat) => seat.releasedWeek === null && relevant.has(seat.talentId)))).toEqual([])
++  makeSave(state)
++}
++
++
++function unassigned() {
++  //178's historical-control founder. Fresh industry is initialized at REAL week0.
++  let state = operationsStudio('p13a-production-consumer')
++  expect(state.market.tick).toBe(0)
++  state = initializeHollywood(state, 'fresh')
++  expect(state.hollywood).toMatchObject({ origin: 'fresh', originWeek: 0 })
++  expect(state.scriptDevelopment.mode).toBe('legacy')
++  state = applyActions(state, [{ kind: 'greenlight', production: productionPayload(state, 0) }])
++  expect(state.studio.activeProductions).toHaveLength(1)
++  const id = state.studio.activeProductions[0]!.id
++  for (let guard = 0; guard < 20 && state.studio.activeProductions[0]?.remainingTicks !== 5; guard++) state = tick(state)
++  expect(state.studio.activeProductions[0]?.id).toBe(id)
++  expect(state.studio.activeProductions[0]?.remainingTicks).toBe(5)
++  expect(state.operations.workflows).toHaveLength(1)
++  const production = state.studio.activeProductions[0]!, workflow = state.operations.workflows[0]!
++  expect(workflow.productionId).toBe(id)
++  expect(workflow.phase).toBe('shooting')
++  expect(workflow.shootingTask).toMatchObject({ status: 'unassigned', directorId: production.directorId })
++  expect(workflow.blocker).toBeNull()
++  expect(workflow.bindings.requiresSetBinding).toBe(true)
++  expect(workflow.bindings.stageFacilityId).not.toBeNull()
++  expect(workflow.bindings.setId).not.toBeNull()
++  expect(sceneryLoadInDecision(state, workflow, state.market.tick).kind).toBe('none')
++  expect(state.firstTakes.filter((row) => row.productionId === id)).toEqual([])
++  supported(state)
++  return { state, production, workflow, week: state.market.tick }
++}
++
++function input(state: GameState, commands: readonly StartedProductionCommand[]): StartedOwnerReplayInput<Production> {
++  assert.ok(state.hollywood)
++  return { source: { technology: state.technology, market: { tick: state.market.tick },
++    placement: state.placement, property: state.property, hollywood: state.hollywood,
++    operations: state.operations, sets: state.sets, releaseAuthority: state.releaseAuthority,
++    scriptDevelopment: state.scriptDevelopment, castingSessions: state.castingSessions,
++    construction: state.construction, physicalPlans: state.physicalPlans,
++    productionQueue: state.productionQueue, founding: state.founding, firstTakes: state.firstTakes,
++    concepts: state.concepts, studio: { activeProductions: state.studio.activeProductions } },
++  issuerId: state.hollywood.playerStudioId, claimPersonIds: [state.studio.activeProductions[0]!.cast.lead],
++  plans: [{ traceKey: '209-explicit-director', commands }], horizonEndWeek: state.market.tick + 1,
++  preparationWork: 0, limits: { work: 200000, span: 220, alternatives: 1024 } }
++}
++
++function observed(value: StartedOwnerReplayInput<Production>) {
++  const before = clone(value), order: string[] = []
++  const assignments: { id: string; directorId: string }[] = []
++  const schedules: string[] = [], clears: string[] = []
++  const arrivals: { before: (string | undefined)[]; after: (string | undefined)[] }[] = []
++  const sweeps: { week: number; ids: string[]; before: number[]; after: number[] }[] = []
++  const assign = operationsModule.assignShootingDirector, schedule = operationsModule.scheduleShootingTake
++  const clear = operationsModule.clearSceneryLoadIn, arrival = operationsModule.arriveDueScenery
++  const advance = operationsModule.advanceManagedProductions
++  const assignSpy = vi.spyOn(operationsModule, 'assignShootingDirector').mockImplementation((...args) => {
++    order.push('assign'); assignments.push({ id: args[1].id, directorId: args[2] })
++    return assign(...args)
++  })
++  const scheduleSpy = vi.spyOn(operationsModule, 'scheduleShootingTake').mockImplementation((...args) => {
++    order.push('schedule'); schedules.push(args[1])
++    return schedule(...args)
++  })
++  const clearSpy = vi.spyOn(operationsModule, 'clearSceneryLoadIn').mockImplementation((...args) => {
++    order.push('clear'); clears.push(args[1])
++    return clear(...args)
++  })
++  const arrivalSpy = vi.spyOn(operationsModule, 'arriveDueScenery').mockImplementation((...args) => {
++    order.push('arrival')
++    const next = arrival(...args)
++    arrivals.push({ before: args[0].workflows.map((row) => row.shootingTask?.status),
++      after: next.workflows.map((row) => row.shootingTask?.status) })
++    return next
++  })
++  const sweepSpy = vi.spyOn(operationsModule, 'advanceManagedProductions').mockImplementation((...args) => {
++    order.push('sweep')
++    const next = advance(...args)
++    sweeps.push({ week: args[2], ids: args[1].map((row) => row.id),
++      before: args[1].map((row) => row.remainingTicks), after: next.productions.map((row) => row.remainingTicks) })
++    return next
++  })
++  try {
++    const result = replayStartedProductionPlans(value)
++    expect(value).toEqual(before)
++    expect(result.preparationWork).toBeLessThanOrEqual(200000)
++    expect(result.attempts).toHaveLength(1)
++    return { result, attempt: result.attempts[0]!, order, assignments, schedules, clears, arrivals, sweeps }
++  } finally {
++    assignSpy.mockRestore(); scheduleSpy.mockRestore(); clearSpy.mockRestore()
++    arrivalSpy.mockRestore(); sweepSpy.mockRestore()
++  }
++}
++
++describe('P14B4 real locked-director replay commands', () => {
++  it('assigns the actual locked director, settles due-at-call scenery, then schedules by ordinal before the real sweep', () => {
++    const { state, production, week } = unassigned(), before = clone(state)
++    // Non-vacuous ordering: scheduling this actual unassigned task is illegal.
++    expect(() => applyActions(state, [{ kind: 'scheduleShootingTake', productionId: production.id }])).toThrow(/not ready/)
++    const assigned = applyActions(state, [{ kind: 'assignShootingDirector', productionId: production.id,
++      directorId: production.directorId }])
++    // Hard fixture guard: actual geometry is due NOW; do not forge a trip or wait in the replay.
++    expect(assigned.operations.workflows[0]?.shootingTask?.status).toBe('ready')
++    expect(assigned.operations.workflows[0]?.blocker).toBeNull()
++    const chosen = applyActions(assigned, [{ kind: 'scheduleShootingTake', productionId: production.id }])
++    expect(chosen.operations.workflows[0]?.shootingTask?.status).toBe('scheduled')
++    const real = tick(chosen)
++    makeSave(assigned); makeSave(chosen); makeSave(real)
++    const director: StartedProductionCommand = { week, ordinal: 0, productionId: production.id, kind: 'assignLockedDirector' }
++    const schedule: StartedProductionCommand = { week, ordinal: 1, productionId: production.id, kind: 'scheduleTake' }
++    // Reversed caller array must still honor the settled (week,ordinal) command law.
++    const value = input(state, [schedule, director]), seen = observed(value)
++    if (seen.attempt.kind !== 'complete') throw new Error('209 legal real director/schedule plan cut: ' + seen.attempt.reason)
++    expect(seen.result.omissions).toEqual([])
++    expect(seen.assignments).toEqual([{ id: production.id, directorId: production.directorId }])
++    expect(seen.schedules).toEqual([production.id])
++    expect(seen.clears).toEqual([])
++    expect(seen.order).toEqual(['assign', 'arrival', 'schedule', 'arrival', 'sweep'])
++    expect(seen.arrivals).toEqual([
++      { before: ['blocked'], after: ['ready'] },
++      { before: ['scheduled'], after: ['scheduled'] },
++    ])
++    expect(seen.sweeps).toEqual([{ week, ids: [production.id], before: [5], after: [4] }])
++    const projected = seen.attempt.projection
++    expect(projected.week).toBe(real.market.tick)
++    expect(projected.productions).toEqual(real.studio.activeProductions)
++    expect(projected.operations).toEqual(real.operations)
++    expect(projected.sets).toEqual(real.sets)
++    expect(projected.releaseAuthority).toEqual(real.releaseAuthority)
++    expect(projected.completedBackgroundPathKeys).toEqual([])
++    expect(projected.technology.productions.filter((row) => row.studioId === value.issuerId))
++      .toEqual(real.technology.productions.filter((row) => row.studioId === value.issuerId))
++    expect(projected.technology.productions.filter((row) => row.studioId !== value.issuerId))
++      .toEqual(state.technology.productions.filter((row) => row.studioId !== value.issuerId))
++    const commands = seen.attempt.provenance.filter((row) => row.kind === 'command')
++    expect(commands.map((row) => row.command)).toEqual([director, schedule])
++    expect(commands.every((row) => row.at.week === week)).toBe(true)
++    expect(commands[0]!.at.step).toBeLessThan(commands[1]!.at.step)
++    const actualRows = chosen.studioEvents.rows.filter((row) => row.seq >= state.studioEvents.nextSeq)
++    expect(actualRows).toHaveLength(1)
++    expect(actualRows[0]).toMatchObject({ kind: 'sceneryArrived', productionId: production.id, week })
++    const ownerEvents = seen.attempt.provenance.filter((row) => row.kind === 'ownerEvent')
++    expect(ownerEvents.map((row) => ({ week: row.ownerWeek, draft: row.draft })))
++      .toEqual(actualRows.map(({ seq: _seq, week: ownerWeek, ...draft }) => ({ week: ownerWeek, draft })))
++    expect(ownerEvents[0]!.at.week).toBe(week)
++    expect(ownerEvents[0]!.at.step).toBeLessThan(commands[1]!.at.step)
++    expect(seen.attempt.provenance.filter((row) => row.kind === 'firstTake'))
++      .toEqual([{ kind: 'firstTake', at: { week: week + 1, step: 0 }, productionId: production.id }])
++    expect(real.firstTakes.filter((row) => row.productionId === production.id)).toHaveLength(1)
++    expect(seen.attempt.trace.fixedHoldReplacements).toEqual([])
++    expect(seen.attempt.trace.additionalHolds).toEqual([])
++    expect(state).toEqual(before)
++    // Take lies exactly at H; no capacity/count or ACHIEVABLE conclusion follows.
++  })
++
++  it('refuses grandfather-only clear on the genuine current unassigned workflow before lower clear or sweep', () => {
++    const { state, production, workflow, week } = unassigned(), before = clone(state)
++    expect(workflow.bindings.requiresSetBinding).toBe(true)
++    expect(sceneryLoadInDecision(state, workflow, week).kind).toBe('none')
++    expect(() => applyActions(state, [{ kind: 'clearSceneryLoadIn', productionId: production.id }]))
++      .toThrow(/no active scenery-load-in blocker/)
++    const command: StartedProductionCommand = { week, ordinal: 0, productionId: production.id,
++      kind: 'clearGrandfatheredScenery' }
++    const seen = observed(input(state, [command]))
++    if (seen.attempt.kind !== 'cut') throw new Error('209 non-grandfather clear became a complete trace')
++    expect(seen.attempt.reason).toBe('commandRefused')
++    expect(seen.attempt.through.week).toBe(week)
++    expect(seen.attempt.detail.length).toBeGreaterThan(0)
++    expect(seen.order).toEqual([])
++    expect(seen.clears).toEqual([])
++    expect(seen.sweeps).toEqual([])
++    expect(seen.attempt.provenance.filter((row) => row.kind !== 'command')).toEqual([])
++    expect(seen.result.omissions.length).toBeGreaterThan(0)
++    expect(state).toEqual(before)
++    expect(state.operations.workflows[0]?.shootingTask?.status).toBe('unassigned')
++  })
++})

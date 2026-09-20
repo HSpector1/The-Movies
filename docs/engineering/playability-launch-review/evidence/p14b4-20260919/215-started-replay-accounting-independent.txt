@@ -1,0 +1,43 @@
+{"sourceSha":"40d0665d99f49d0e35c7bfffabff17968a5c01b6","testedDiffSha256":"2ec016744473b4d0b76fc8c4f837d82866093ac4389eb1da5573c747c36f827f","untrackedSource":["tests/p14b4-started-replay-director.test.ts"],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14b4-started-owner-replay.test.ts","tests/p14b4-started-replay-background-command.test.ts","tests/p14b4-started-replay-casting.test.ts","tests/p14b4-started-replay-director.test.ts"],"node":"v20.20.2","start":"2026-09-20T04:01:46.035Z","end":null,"exitCode":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p14b4-started-replay-casting.test.ts (2 tests) 2883ms
+   ✓ P14B4 real active auditions in started-owner replay > keeps the exact original audition slot at zero horizon, without candidate or credited-writer person holds 1771ms
+   ✓ P14B4 real active auditions in started-owner replay > closes only the due audition slot before the real sweep; the overlapping candidates remain A company 1109ms
+ ❯ |core| tests/p14b4-started-replay-background-command.test.ts (4 tests | 1 failed) 3775ms
+   × P14B4 started replay — real background and explicit command supplement > releases original due-writing holds BEFORE sweep while new-start A keeps a DIFFERENT slot through later 8→7 1879ms
+     → 193 actual replay cut: workLimit: shared replay work limit
+   ✓ P14B4 started replay — real background and explicit command supplement > executes an explicit scheduleTake only from actual Ready and matches the real action + next tick 1033ms
+   ✓ P14B4 started replay — real background and explicit command supplement > resolves a formerly valid ID against CURRENT branch state after real committed release, without resurrection 791ms
+ ✓ |core| tests/p14b4-started-owner-replay.test.ts (16 tests) 4981ms
+   ✓ P14B4 genuine already-started owner replay — local first-take parity > replays all 1 scheduled picture(s) in ONE real sweep to horizon5 2057ms
+   ✓ P14B4 genuine already-started owner replay — local first-take parity > replays all 2 scheduled picture(s) in ONE real sweep to horizon5 991ms
+   ✓ P14B4 genuine already-started owner replay — local first-take parity > executes the NEXT real wrap/Post sweep for 1 picture(s), not an invented horizon tail 447ms
+   ✓ P14B4 compulsory ledger and shared budget — frozen176 / endpoint186 > uses one canonical cumulative allowance across plans and preserves prior preparation expenditure 319ms
+ ✓ |core| tests/p14b4-started-replay-director.test.ts (2 tests) 1688ms
+   ✓ P14B4 real locked-director replay commands > assigns the actual locked director, settles due-at-call scenery, then schedules by ordinal before the real sweep 1411ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14b4-started-replay-background-command.test.ts > P14B4 started replay — real background and explicit command supplement > releases original due-writing holds BEFORE sweep while new-start A keeps a DIFFERENT slot through later 8→7
+Error: 193 actual replay cut: workLimit: shared replay work limit
+ ❯ complete tests/p14b4-started-replay-background-command.test.ts:171:47
+    169| function complete(value: StartedOwnerReplayInput<Production>) {
+    170|   const seen = observed(value)
+    171|   if (seen.attempt.kind !== 'complete') throw new Error(`193 actual re…
+       |                                               ^
+    172|   expect(seen.result.omissions).toEqual([])
+    173|   return { ...seen, attempt: seen.attempt }
+ ❯ tests/p14b4-started-replay-background-command.test.ts:234:65
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed | 3 passed (4)
+      Tests  1 failed | 23 passed (24)
+   Start at  06:01:46
+   Duration  9.78s (transform 2.80s, setup 0ms, collect 10.32s, tests 13.33s, environment 2ms, prepare 836ms)
+
+
+{"sourceSha":"40d0665d99f49d0e35c7bfffabff17968a5c01b6","testedDiffSha256":"2ec016744473b4d0b76fc8c4f837d82866093ac4389eb1da5573c747c36f827f","untrackedSource":["tests/p14b4-started-replay-director.test.ts"],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14b4-started-owner-replay.test.ts","tests/p14b4-started-replay-background-command.test.ts","tests/p14b4-started-replay-casting.test.ts","tests/p14b4-started-replay-director.test.ts"],"node":"v20.20.2","start":"2026-09-20T04:01:46.035Z","end":"2026-09-20T04:01:57.026Z","exitCode":1,"signal":null,"error":null,"sourceShaAtEnd":"40d0665d99f49d0e35c7bfffabff17968a5c01b6","testedDiffSha256AtEnd":"2ec016744473b4d0b76fc8c4f837d82866093ac4389eb1da5573c747c36f827f","untrackedSourceAtEnd":["tests/p14b4-started-replay-director.test.ts"],"fixedSource":true}

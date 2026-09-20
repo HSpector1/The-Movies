@@ -1,5 +1,55 @@
 # P14B.4 — capacity implementation continuation
 
+CURRENT216-CLOSED:diagnostic3PASS/1sameFAIL fixed40d0665+89062ac8597d382ce3b680f63c7a38566cceccd109b37d1102914bc9cd34646e.
+ACTUALbothsweeps8→8then8→7 execute; cutthrough(3,0) duringfinaltraceoutput, NOT
+beforesecondadvance. Full217qualificationupdated. Exacttempprobecopyarchivedin
+216draft/rawpatch andremovedfromtests only;originaltestsunchanged. ALLruntime/
+agentsIDLE,207FROZEN. Nextpublish207+findings/probe thenONE218fullcalc+efficiencyfix.
+
+CURRENT217:214typePASS/21523PASS1REALbudgetFAIL (200writing8→8→7 case), bothfixed
+40d0665+2ec016744473b4d0b76fc8c4f837d82866093ac4389eb1da5573c747c36f827f.
+ALLruntimeCLOSED/source207FROZEN/NOwriter.213fullREFINE persisted; calculator
+callsiteinventory+oldlumpcompositions needONEpass.216authorONLYinertdiagnostic
+copy preservingALL200assertions tolocateactualcut; sim/auditoridle. Next216run/
+preservecheckpoint thenONE218calculator+sourcejustifiedordinarybudgetfix.
+
+CURRENT215:214root+UItypecheckPASS/fixedSource:true40d0665+patch2ec016744473b4d0b76fc8c4f837d82866093ac4389eb1da5573c747c36f827f.
+21524casesSOLEruntime/source207FROZEN/no writer.213auditoridentifiedremaining
+per-rowcalculatorplusprepaymentgaps, assemblingboundedcallsiteinventory; parent
+willpreservefindings, not infercostacceptancefromGREEN. Next215close/readactual
+budgets,213final thenONEsame-modulecorrection asneeded; tests/limitsunchanged.
+
+CURRENT214:207SOURCEFROZEN/writeryielded. ParentreadFULLdiff+207/pins replaySHA
+a44871be73b70abc3df994db2deca94e21d09c224e1e299bd7c9bd8f309fdb10.
+209installedEXACTdraft+comment after210KEEP.214rootUIcompilerSOLEruntime;
+213auditorREADONLYfrozenaccountingdelta;othersidle/NOwriter. Next214close then
+21524cases/usefulcaps, serialadjacent/bridge checks. IncreasedcostNOTyetverified.
+
+CURRENT212-CLOSED:fullboundedreviewpersisted/REFINE adopted. Preserved191 has
+ownerprune/factoryliteralundercharges; wholevariablewalkinventory reviewed with
+nofoundmissingwholeloop, NOTeverycoefficientcertified.207simreportsfixes SAVED
+inclowner54factory/13prune literals+filterwork; stillMUTABLE/finalstaticinventory.
+OtheragentsIDLE; no runtime/parentinspection. Next207freeze/fullread/hash,
+209installafter210KEEP, serial24cases/types andboundedaccountingdelta review.
+
+CURRENT207-MILESTONE:simsaved exactstatickey-schema literalbilling throughprep,
+sortdecorations/ledger/proof/contexts; fixedpositiontokenargs avoidunpaidtuple.
+StillMUTABLE, finishingframe/branch/resultaccounting+207inventory. No parent
+mutableinspection/NORUNTIME.212auditorREADONLY remainingOWNERtariffs onPRESERVED191
+patch+immutableowners ONLY (not207).210testKEEP complete;209notinstalled.
+Next207freeze/read/pins, reconcile212, install209, serial24cases/types/costreview.
+
+CURRENT210-CLOSED:auditorqualifiedKEEP199/200+205/206 and209forinstall/execution;
+full210persisted/parentadopted.209notinstalled/unexecuted.207SOLEwriter active,
+sourceMUTABLE/noinspection/runtime. OtheragentsIDLE. Next207freeze/read/hash,
+install209 exact+comment, boundedaccountingreview/serial24tests+types.
+
+CURRENT211:TESTONLY208 checkpoint40d0665d99f49d0e35c7bfffabff17968a5c01b6
+PUSHED/separateEXACTremoteverified;211publication/push69476CLOSED.207solewriter
+replayMUTABLE/untested/excludedcommit.209FROZEN2cases/fullparentread,notinstalled;
+210auditorREADONLY199/200/209testreview/no207inspection. Authoridle/max2/NOruntime.
+Next207freeze/hash/read/review/serialchecks; testsimmutable/200000capunchanged.
+
 CURRENT207:196FULLreviewpersisted/REFINE adopted. ONEsim-core207writer NOWACTIVE
 ONLYreplaymodule+accountinghandback; SOURCE MUTABLE/no parentinspection/runtime.
 209authorONLYinert2commandtestdraft;auditorIDLE/max2. Installed182/199/200IMMUTABLE.
