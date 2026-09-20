@@ -6,34 +6,33 @@ Headless verification never claims package completion or Owner acceptance.
 
 Current (2026-09-20):
 
-Current B4 checkpoint166 (2026-09-20): independent bounded shared-sort tests
-installed EXACT160 drafts plus provenance comments; independent165 KEEP.
-157 §§1–3 adopted, independent159 KEEP. No sort source implementation yet.
-161 unchanged-owner baseline41PASS/5files on published8ed2646/EMPTYpatch.
-163 new OLD-owner parity7PASS;164 actual missing-helper RED is ONE failed suite
-with ZERO collected bodies, not seven behavioral failures. Both fixedSource:true,
-base8ed2646a769386a7bace5312c7c0c90a90a7af01 plus TESTONLYpatch
-e6545e084d3e9913bb4a91a0bc637fa73aba4a428cf01f9f410132321e52bd70.
-All runtime CLOSED; protected source/tests frozen, NO production writer.
-Next publish166/exactremote, then sole sim-core three-file bounded-sort helper/
-operations/releaseAuthority implementation; independent review and serial checks.
-162 first-take owner work bill frozen, PAPER ONLY/unreviewed; all specialistsidle.
+Current B4 checkpoint174 (2026-09-20): shared bounded sorting implemented in
+the THREE actual owner call sites under157 §§1–3;168sourceFROZEN/170independentKEEP.
+17155PASS/7files (14new+41original),172root AND UI typingPASS.
+173bridgeexit2 SOLE exactprior P2kind364TS2353, byte-matched154; NOTbridgegreen.
+All fixedSource:true, basef290536336dd726a15a177c5e36f71b0fcec3cd0 plus
+SOURCEONLYpatchf65c466192c75e2b296a173d5990bb41ed51e24f24a70adc998f1d35f2817793.
+No test/validator/timeout/workcap/version change. AllruntimeCLOSED/NOsourcewriter.
+Next qualified174 commit/push/exactremote; THEN actual-owner replay work.
+Auditor175 ONLYpaper162 first-take-bill review; sim-core176 ONLYinert whole
+work-composition addendum; test-authoridle/max2. Protectedsource/testsFROZEN.
 
-Owner fact checkpoint155/8ed2646 remains qualified:151 all6 emittedJSidentical,
-152107PASS/1 exactpriorPIL failure,153rootUIpass,154solepriorP2typeerror.
-Staffing6afe629/139145PASS and joint-trace5cae2da/11986PASS remain recovered.
-Replay137 is design only:148 REFINE/157 §§4–5 whole owner/callback/string/copy
-BEFORE-call cost proof remains OPEN; old67,904 estimate withdrawn. Helper bounds
-alone do not certify complete replay.162 is one proposed source block only.
-No weaker test/validator/timeout/work cap, fake history or inflated coverage.
-132 due-background/sticky-other-slot correction and148 H==now/current-branch
-stale-command refusal conventions stay adopted. Continue full useful actual-owner
-traces, coherentP2/restP14/P15/P16/specifiedP17/P18 without routine permission.
+169 endpointcorrectionADOPTED: one sweepw→w+1 yields takeat(H,0) whenH=w+1,
+not credit under half-open deadline. In-window control needs actual second
+4→3wrap/Post sweep/H>=w+2; COUNT is still not B2/eight-weekslack/choicecomplete.
+Do not restamp events, invent holdtails or make finite commandplans complete.
+162962/2436 are PAPER one-owner subtotals excluding sorting/caller/kernel.
+137/148/157 full BEFORE-call repeatedstring/callback/property/ledger accounting
+remains OPEN; old67,904 withdrawn. Settle176/independenttests/actualRED thenONE
+replay writer incl137 shared due predicates/companyfact seam—notmore setup.
 
-P14B.1 T4/B2/B3/B-F2 qualified closeouts recovered; do not rebuild/rerun.
-Save29/rules3/projection46 remain live until coherent activation. Full B4,
-Unity/native and Owner acceptance remain owed; Unity backlog retained.
-Evidence/p14b4-20260919/00-start.md records exact ownership/runtime/publication;
+Prior recoveredqualifiedwork:155/8ed2646 ownerinterfaces(all6emittedJSidentical,
+107PASS/1PILfailure/rootUIpass),139/6afe staffing145PASS,119/5cae jointkernel86PASS.
+P14B.1 T4/B2/B3/B-F2 qualifiedcloseouts recovered; do not rebuild/rerun.
+Continue useful actual-owner traces/coherentP2/restP14/P15/P16/specifiedP17/P18
+without routine permission. Save29/rules3/projection46 staylive untilcoherentcutover.
+Full B4,Unity/native andOwneracceptance remainowed; Unitybacklogupdated.
+Evidence/p14b4-20260919/00-start.md records exactownership/runtime/publication;
 older CURRENT blocks are chronology.
 
 Earlier additive foundation checkpoint: V30 data support implemented and independently

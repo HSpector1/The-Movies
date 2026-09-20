@@ -1,5 +1,34 @@
 # P14B.4 — capacity implementation continuation
 
+CURRENT174:168sortsourceFROZEN,170independentKEEP.17155PASS/7files;172rootANDUI
+PASS;173soleEXACTpriorbridgeP2kind364TS2353. AllfixedSource:true SAMEf290536+
+SOURCEONLYpatchf65c466192c75e2b296a173d5990bb41ed51e24f24a70adc998f1d35f2817793.
+ALLruntimeCLOSED/NOsourcewriter. Qualified174complete;nextcommit/push/exactremote.
+175auditorONLYpaper162review;176simONLYinertwhole-workbill;test-authoridle/max2.
+169horizon/count-vs-Bslack correctionadopted. Fullreplay/P2 stillOPEN;no fakecredit.
+
+CURRENT171:168SOURCEFROZEN/ownershipyielded; parentreadFULLhandback/newhelper/diff,
+all3sourcehashes+2immutabletesthashes EXACT.171CLOSED55PASS/7files,fixedSource:true
+basef290536 plusSOURCEONLYpatchf65c466192c75e2b296a173d5990bb41ed51e24f24a70adc998f1d35f2817793.
+172rootUI soleactiveruntime;ALLprotectedFROZEN/NOsourcewriter.170auditorREADONLY
+source review;169test-authorONLYinertmatrix. Next172close/173bridge/read170,
+qualified174publication/exactremote; then owner/replaybill+actualproducer.
+
+Replay-boundary ruling while168sort writer active: a sweepw→w+1 stamps takeat
+(w+1,0); ifH=w+1 this is NOTqualifyingcredit under half-open dueWeekExclusive.
+169matrix records correction to157§5 qualifying phrasing. Keepone-sweepreal
+event/ledgerparity; positivecontrolmustactuallyrun next4→3wrap/Postsweep with
+H>=w+2 and composedbill/realholds. No timestamp/window/kernel/validatorchange.
+This does not block the independently authorized sort prerequisite.
+
+CURRENT167:f290536336dd726a15a177c5e36f71b0fcec3cd0 PUSHED/separateEXACTremote.
+Allruntime/GitsessionsCLOSED. SOLEsim-core168productionwriter releasedfor
+boundedStableSort.ts(new)+operations2sortsites+releaseAuthoritycommitments.
+157§§1–3/159controls;testsIMMUTABLE. Test-author169ONLYinertreplaymatrix,
+no mutableownerinspection; auditoridle/max2. Parentnextfrozen168fullreview,
+independentreview/serial14new+41old/rootUI/bridge, qualifiedpublish/exactremote.
+162firsttakebill PAPERONLY/unreviewed; fullreplaybill/integration staysOPEN.
+
 CURRENT166:159contractKEEP/165testKEEP;160 exactinstalled.1637oldownerPASS;
 1641FailedSuite/ZERObodies missinghelperRED. Both fixed8ed+TESTONLYpatch
 e6545e084d3e9913bb4a91a0bc637fa73aba4a428cf01f9f410132321e52bd70.

@@ -1,0 +1,32 @@
+{
+  "sourceSha": "f290536336dd726a15a177c5e36f71b0fcec3cd0",
+  "testedDiffSha256": "f65c466192c75e2b296a173d5990bb41ed51e24f24a70adc998f1d35f2817793",
+  "untrackedSource": [
+    "src/core/boundedStableSort.ts"
+  ],
+  "command": [
+    "node_modules/.bin/vitest",
+    "run",
+    "--project",
+    "core",
+    "tests/p14b4-bounded-stable-sort.test.ts",
+    "tests/p14b4-bounded-sort-owners.test.ts",
+    "tests/operations.test.ts",
+    "tests/contracts/sticky-retention.contract.test.ts",
+    "tests/p06a-w1-release-authority.test.ts",
+    "tests/p14b4-managed-clock-owner.test.ts",
+    "tests/p14b4-owner-fact-views.test.ts"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-20T02:14:52.463Z",
+  "end": "2026-09-20T02:15:07.171Z",
+  "exitCode": 0,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "f290536336dd726a15a177c5e36f71b0fcec3cd0",
+  "testedDiffSha256AtEnd": "f65c466192c75e2b296a173d5990bb41ed51e24f24a70adc998f1d35f2817793",
+  "untrackedSourceAtEnd": [
+    "src/core/boundedStableSort.ts"
+  ],
+  "fixedSource": true
+}

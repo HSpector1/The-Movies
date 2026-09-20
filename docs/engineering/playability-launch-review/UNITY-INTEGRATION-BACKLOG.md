@@ -23,6 +23,13 @@ verified in Unity. Generated C# produced by the TypeScript generator is text, no
 
 ### P14B.4 — cast-class promises (implementation active; no native verification)
 
+Headless foundation update2026-09-20: staffing/fact interfaces, detached joint-trace
+kernel and shared bounded real-owner sorting are implemented in qualified slices.
+Latest sort evidence174:55targetedPASS/rootUItypingPASS; bridge typing retains
+the sole futureP2 class-contract TS2353. No consumer shape/version changed.
+Actual whole-owner replay, full work-budget composition and coherent live-P2
+integration remain OPEN; these foundations do not certify live offers or Unity.
+
 Preservation checkpoint a76242f retains genuine outgoing Save29 and runtime46;
 independent RED d39a9a0 is published. The current bounded data step adds explicit
 V30 readers/migrations only. Live writer29/protocol4/projection46/rules3 remain

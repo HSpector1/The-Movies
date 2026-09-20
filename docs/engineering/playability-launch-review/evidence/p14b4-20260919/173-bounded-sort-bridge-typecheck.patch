@@ -1,0 +1,143 @@
+diff --git a/src/core/operations.ts b/src/core/operations.ts
+index 38ea268..fc29166 100644
+--- a/src/core/operations.ts
++++ b/src/core/operations.ts
+@@ -3,6 +3,7 @@
+ // This module is pure: it consumes no RNG, reads no wall clock, and never mutates
+ // caller-owned state.
+ 
++import { boundedStableSort } from './boundedStableSort.js'
+ import {
+   assertNoDoubleBookedResourceSlots,
+   facilitySlotKey,
+@@ -290,9 +291,12 @@ function allocateForPhase(
+ ): AllocationResult {
+   const occupied = occupiedSlots(operations, workflow.productionId, externallyOccupiedSlots)
+   const reservations: FacilityReservation[] = []
+-  const facilities = [...operations.facilities]
+-    .filter((facility) => policy?.allowsFacility(workflow.productionId, facility, targetPhase) ?? true)
+-    .sort(compareId)
++  const facilities = boundedStableSort(
++    [...operations.facilities].filter(
++      (facility) => policy?.allowsFacility(workflow.productionId, facility, targetPhase) ?? true,
++    ),
++    compareId,
++  )
+ 
+   // ── THE STAGE+SET COMPOSITE (charter §3.2) ────────────────────────────────
+   //
+@@ -1479,17 +1483,22 @@ export function productionsInSweepOrder<P extends Pick<ProductionClockView, 'id'
+   productions: readonly P[],
+   currentTick: number,
+ ): readonly P[] {
+-  return [...productions].sort((a, b) => {
+-    const wait = productionWaitWeeks(b, currentTick) - productionWaitWeeks(a, currentTick)
++  const keyed = productions.map((production) => ({
++    production,
++    wait: productionWaitWeeks(production, currentTick),
++    ordinal: productionOrdinalKey(production.id),
++  }))
++  return boundedStableSort(keyed, (a, b) => {
++    const wait = b.wait - a.wait
+     if (wait !== 0) return wait
+-    const left = productionOrdinalKey(a.id)
+-    const right = productionOrdinalKey(b.id)
++    const left = a.ordinal
++    const right = b.ordinal
+     return (
+       left[0] - right[0] ||
+       left[1] - right[1] ||
+       (left[2] < right[2] ? -1 : left[2] > right[2] ? 1 : 0)
+     )
+-  })
++  }).map((entry) => entry.production)
+ }
+ 
+ export type ManagedProductionAdvance<P extends ProductionClockView = Production> = {
+diff --git a/src/core/releaseAuthority.ts b/src/core/releaseAuthority.ts
+index a4b214a..9b6827e 100644
+--- a/src/core/releaseAuthority.ts
++++ b/src/core/releaseAuthority.ts
+@@ -20,6 +20,7 @@
+ // event sequence, insertion position or click order, so identical worlds
+ // commit to identical identities on every machine and every replay.
+ 
++import { boundedStableSort } from './boundedStableSort.js'
+ import type { GameState, GameStateV16, ReleaseCommitment, StudioReleaseAuthority, Production, StudioOperations, FilmConcept } from './types.js'
+ 
+ export const RELEASE_COMMITMENT_NAMESPACE = 'release-commitment' as const
+@@ -122,7 +123,7 @@ export function withReleaseCommitment(
+     commitmentId: mintReleaseCommitmentId(productionId),
+     committedAtWeek,
+   }
+-  const commitments = [...authority.commitments, row].sort((a, b) =>
++  const commitments = boundedStableSort([...authority.commitments, row], (a, b) =>
+     a.productionId < b.productionId ? -1 : a.productionId > b.productionId ? 1 : 0,
+   )
+   return { commitments }
+diff --git a/src/core/boundedStableSort.ts b/src/core/boundedStableSort.ts
+new file mode 100644
+index 0000000..207328c
+--- /dev/null
++++ b/src/core/boundedStableSort.ts
+@@ -0,0 +1,60 @@
++/**
++ * Source-level bounds for the dense-array merge sort below. These count
++ * comparator calls and element-reference writes, not native allocation cost
++ * or the work performed inside a caller's comparator.
++ */
++export function boundedStableSortCost(length: number): Readonly<{
++  maxComparisons: number
++  maxElementWrites: number
++}> {
++  if (!Number.isInteger(length) || length < 0 || length > 0xffffffff) {
++    throw new RangeError('Bounded stable sort requires a native-array length.')
++  }
++  if (length === 0) return { maxComparisons: 0, maxElementWrites: 0 }
++  let passes = 0
++  for (let width = 1; width < length; width *= 2) passes++
++  return {
++    maxComparisons: length * passes,
++    maxElementWrites: length * (passes + 1),
++  }
++}
++
++/**
++ * Stable ordering of dense ordinary arrays, preserving every element identity.
++ * Each merge pass writes every slot once; the initial shallow copy is the only
++ * other element copy. Returning the final source avoids a trailing copy.
++ */
++export function boundedStableSort<T>(
++  values: readonly T[],
++  compare: (left: T, right: T) => number,
++): T[] {
++  const length = values.length
++  let source = values.slice()
++  if (length < 2) return source
++  let target = new Array<T>(length)
++
++  for (let width = 1; width < length; width *= 2) {
++    for (let start = 0; start < length; start += 2 * width) {
++      const middle = Math.min(start + width, length)
++      const end = Math.min(start + 2 * width, length)
++      let left = start
++      let right = middle
++      let output = start
++      while (left < middle && right < end) {
++        const order = compare(source[left]!, source[right]!)
++        // Native comparator semantics: NaN, like zero, is a stable tie.
++        if (order <= 0 || Number.isNaN(order)) {
++          target[output++] = source[left++]!
++        } else {
++          target[output++] = source[right++]!
++        }
++      }
++      while (left < middle) target[output++] = source[left++]!
++      while (right < end) target[output++] = source[right++]!
++    }
++    const previous = source
++    source = target
++    target = previous
++  }
++  return source
++}

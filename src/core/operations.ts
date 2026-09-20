@@ -3,6 +3,7 @@
 // This module is pure: it consumes no RNG, reads no wall clock, and never mutates
 // caller-owned state.
 
+import { boundedStableSort } from './boundedStableSort.js'
 import {
   assertNoDoubleBookedResourceSlots,
   facilitySlotKey,
@@ -290,9 +291,12 @@ function allocateForPhase(
 ): AllocationResult {
   const occupied = occupiedSlots(operations, workflow.productionId, externallyOccupiedSlots)
   const reservations: FacilityReservation[] = []
-  const facilities = [...operations.facilities]
-    .filter((facility) => policy?.allowsFacility(workflow.productionId, facility, targetPhase) ?? true)
-    .sort(compareId)
+  const facilities = boundedStableSort(
+    [...operations.facilities].filter(
+      (facility) => policy?.allowsFacility(workflow.productionId, facility, targetPhase) ?? true,
+    ),
+    compareId,
+  )
 
   // ── THE STAGE+SET COMPOSITE (charter §3.2) ────────────────────────────────
   //
@@ -1479,17 +1483,22 @@ export function productionsInSweepOrder<P extends Pick<ProductionClockView, 'id'
   productions: readonly P[],
   currentTick: number,
 ): readonly P[] {
-  return [...productions].sort((a, b) => {
-    const wait = productionWaitWeeks(b, currentTick) - productionWaitWeeks(a, currentTick)
+  const keyed = productions.map((production) => ({
+    production,
+    wait: productionWaitWeeks(production, currentTick),
+    ordinal: productionOrdinalKey(production.id),
+  }))
+  return boundedStableSort(keyed, (a, b) => {
+    const wait = b.wait - a.wait
     if (wait !== 0) return wait
-    const left = productionOrdinalKey(a.id)
-    const right = productionOrdinalKey(b.id)
+    const left = a.ordinal
+    const right = b.ordinal
     return (
       left[0] - right[0] ||
       left[1] - right[1] ||
       (left[2] < right[2] ? -1 : left[2] > right[2] ? 1 : 0)
     )
-  })
+  }).map((entry) => entry.production)
 }
 
 export type ManagedProductionAdvance<P extends ProductionClockView = Production> = {

@@ -1,0 +1,36 @@
+{"sourceSha":"f290536336dd726a15a177c5e36f71b0fcec3cd0","testedDiffSha256":"f65c466192c75e2b296a173d5990bb41ed51e24f24a70adc998f1d35f2817793","untrackedSource":["src/core/boundedStableSort.ts"],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14b4-bounded-stable-sort.test.ts","tests/p14b4-bounded-sort-owners.test.ts","tests/operations.test.ts","tests/contracts/sticky-retention.contract.test.ts","tests/p06a-w1-release-authority.test.ts","tests/p14b4-managed-clock-owner.test.ts","tests/p14b4-owner-fact-views.test.ts"],"node":"v20.20.2","start":"2026-09-20T02:14:52.463Z","end":null,"exitCode":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/operations.test.ts (13 tests) 2591ms
+   ✓ Production Operations V1 > grants capacity freed mid-week in the SAME week, longest-waiting-first with an ordinal tie-break 351ms
+   ✓ Production Operations V1 > holds only the blocked production while world time and weekly costs continue 1502ms
+ ✓ |core| tests/p14b4-owner-fact-views.test.ts (7 tests) 4758ms
+   ✓ P14B4 existing owner fact views — behavior-preserving narrowing > uses a genuine shooting-entry clock with nullable/default player identity (true) 1152ms
+   ✓ P14B4 existing owner fact views — behavior-preserving narrowing > reads only actual property/placement facts for centres and the pre-arrival scenery owner result 844ms
+   ✓ P14B4 existing owner fact views — behavior-preserving narrowing > keeps controlled far-body transit and missing-body withholding distinct from arrival 621ms
+   ✓ P14B4 existing owner fact views — behavior-preserving narrowing > uses narrow real production/concept records for early, missing, legal and committed release 1453ms
+ ✓ |core| tests/p14b4-bounded-sort-owners.test.ts (7 tests) 764ms
+   ✓ P14B4 real sort-owner parity, independently runnable before new helper > calls the actual allocator policy in input order but selects first-fit identically 443ms
+ ✓ |core| tests/p06a-w1-release-authority.test.ts (14 tests) 5245ms
+   ✓ P06A W1 — save law > imports a pre-P06 Release Ready save as UNCOMMITTED (holds until committed) 1799ms
+   ✓ P06A W1 — save law > round-trips a committed live save byte-exactly and refuses downgrades 1693ms
+   ✓ P06A W1 — save law > validateSaveV29 rejects forged authority at the save boundary 810ms
+ ✓ |core| tests/p14b4-bounded-stable-sort.test.ts (7 tests) 287ms
+ ✓ |core| tests/contracts/sticky-retention.contract.test.ts (2 tests) 609ms
+   ✓ C2a-M0 · §3.2 / R-1 — a Development & Casting reservation never migrates > keeps a picture on the Annex when a lower-id base slot frees under it 374ms
+ ✓ |core| tests/p14b4-managed-clock-owner.test.ts (5 tests) 3478ms
+   ✓ P14B4 behavior-preserving managed clock owner extraction > retains complete caller records/order and skips the actual greenlight week 694ms
+   ✓ P14B4 behavior-preserving managed clock owner extraction > retains full-P callbacks and technology locks at real shooting entry, not a take 644ms
+   ✓ P14B4 behavior-preserving managed clock owner extraction > holds an unassigned real take, then returns exactly the scheduled 5→4 caller record 753ms
+   ✓ P14B4 behavior-preserving managed clock owner extraction > releases real wrapped stage/Set holds even when the supplied Post slots are occupied 636ms
+   ✓ P14B4 behavior-preserving managed clock owner extraction > holds actual Release Ready until real commitment, then returns its exact admission ID 749ms
+
+ Test Files  7 passed (7)
+      Tests  55 passed (55)
+   Start at  04:14:53
+   Duration  13.68s (transform 4.71s, setup 0ms, collect 11.95s, tests 17.73s, environment 4ms, prepare 2.18s)
+
+
+{"sourceSha":"f290536336dd726a15a177c5e36f71b0fcec3cd0","testedDiffSha256":"f65c466192c75e2b296a173d5990bb41ed51e24f24a70adc998f1d35f2817793","untrackedSource":["src/core/boundedStableSort.ts"],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14b4-bounded-stable-sort.test.ts","tests/p14b4-bounded-sort-owners.test.ts","tests/operations.test.ts","tests/contracts/sticky-retention.contract.test.ts","tests/p06a-w1-release-authority.test.ts","tests/p14b4-managed-clock-owner.test.ts","tests/p14b4-owner-fact-views.test.ts"],"node":"v20.20.2","start":"2026-09-20T02:14:52.463Z","end":"2026-09-20T02:15:07.171Z","exitCode":0,"signal":null,"error":null,"sourceShaAtEnd":"f290536336dd726a15a177c5e36f71b0fcec3cd0","testedDiffSha256AtEnd":"f65c466192c75e2b296a173d5990bb41ed51e24f24a70adc998f1d35f2817793","untrackedSourceAtEnd":["src/core/boundedStableSort.ts"],"fixedSource":true}

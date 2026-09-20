@@ -20,6 +20,7 @@
 // event sequence, insertion position or click order, so identical worlds
 // commit to identical identities on every machine and every replay.
 
+import { boundedStableSort } from './boundedStableSort.js'
 import type { GameState, GameStateV16, ReleaseCommitment, StudioReleaseAuthority, Production, StudioOperations, FilmConcept } from './types.js'
 
 export const RELEASE_COMMITMENT_NAMESPACE = 'release-commitment' as const
@@ -122,7 +123,7 @@ export function withReleaseCommitment(
     commitmentId: mintReleaseCommitmentId(productionId),
     committedAtWeek,
   }
-  const commitments = [...authority.commitments, row].sort((a, b) =>
+  const commitments = boundedStableSort([...authority.commitments, row], (a, b) =>
     a.productionId < b.productionId ? -1 : a.productionId > b.productionId ? 1 : 0,
   )
   return { commitments }
