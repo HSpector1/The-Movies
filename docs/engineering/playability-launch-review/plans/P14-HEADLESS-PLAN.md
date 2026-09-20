@@ -149,12 +149,22 @@ EnumerationCoverage; (b) needs no r===5; workflowById last-wins; controlling pla
 text is P14B4-HEADLESS-PLAN). The 13 fixed-cast cells and the conflicting-claim case
 now reach PROVEN_FRAGILE/PROVEN_IMPOSSIBLE through the adapter without the Ready
 producer; windows beyond now+5 stay UNCERTIFIED with the fresh-admission omission.
-NO receipt/rulesVersion/save/projection/kernel/producer change. NEXT574: every
-further certificate needs D1 or D2 except the named omission for an UNFORCED started
-picture (plan :241-242): a READ-ONLY / in-memory measurement of a second Started
-attempt's bill on the 538 fixtures (no source or fixture change) decides whether that
-slice fits 200000 without D2; a design note only if the numbers fit. D1 (537§3), D2
-(538-C §2), 515§6 stand; replay C1/C5–C7 remain the parallel track. Gross2221 omitted fact cost is NOT
+NO receipt/rulesVersion/save/projection/kernel/producer change. NEXT574 DONE → 576 MEASURED (published with this header): the Started-alternative
+bill for an UNFORCED started picture (test-author probe 576-M, archived in the 577
+record-check patch and deleted; 65 deterministic B4_BUDGET_576 lines): the complete
+command-timing set fits 200000 ONLY for windows ending at now+2 (k=2 145876; with
+the never-schedule trace 172492; kernel total ≤151479, assumed-complete →
+PROVEN_FRAGILE); now+3 (≈253k), now+4 (≈444k) and now+5 are CUT at the second plan
+under every order; only partial pairs fit at now+3/now+4; `limits.work` above the cap
+is refused by replay and kernel. The parent does NOT open a now+2-only unforced slice
+(one omission on one fixture state, no live consumer). The detached certificate track
+(539→553→555→574→576) is at its lawful bound: every further certificate needs D1
+(537§3), D2 (538-C §2) or an Owner budget/tariff ruling (515§6; C9/C10). NEXT576:
+the parallel track — replay reductions C6/C7 (+C5 scope; 515§3, lawful as written,
+bills byte-identical or lower, every pin unchanged): sim-core READ-ONLY design note →
+contract-auditor review → RED (bill pins) → ONE writer; plus an Owner decision packet
+consolidating D1, D2, 515§6 and the 576 bound. D1 (537§3), D2 (538-C §2), 515§6
+stand; replay C1 remains the last, diffuse item of the parallel track. Gross2221 omitted fact cost is NOT
 net saving: cold discovery can shift into next frame. No route-fit claim.
 Draft-discovery, silent-policy, affine and Map alternatives remain unadopted.
 T4/B2/B3/B-F2 qualified closed; B4/liveP2/Unity/Owner acceptance NOT closed.

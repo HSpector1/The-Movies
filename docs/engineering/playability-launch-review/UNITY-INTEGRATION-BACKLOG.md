@@ -114,6 +114,15 @@ receipt, no version stamp. Consumer impact: none; projection46/Save29/
 protocol4 unchanged; projection47/Save30 still wait on D1; long-window
 certificates still wait on D2.
 
+Headless measurement576 (2026-09-21): the Started-alternative bill for an
+unforced started picture was measured in memory (probe archived in the 577
+capture, then deleted): the full command-timing alternative set fits the
+200000 cap only for windows ending at now+2; now+3 and beyond are cut at the
+second plan. The detached certificate track is at its lawful bound; further
+certificates wait on D1/D2 or an Owner budget ruling. The parallel track
+(replay bill reductions C6/C7, then C5) starts next; an Owner decision packet
+follows. Consumer impact: none; nothing in source changed.
+
 These are private logic/work-accounting changes only. No consumer field/action,
 protocol4, projection46, live Save29, evaluator3, schema or generated C# changed.
 Do not expose partial traces as certified offers, impossible schedules or broken
