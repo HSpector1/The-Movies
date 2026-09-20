@@ -1,0 +1,272 @@
+diff --git a/src/core/promiseCapacityOwnerReplay.ts b/src/core/promiseCapacityOwnerReplay.ts
+index 7cbc711..ec28226 100644
+--- a/src/core/promiseCapacityOwnerReplay.ts
++++ b/src/core/promiseCapacityOwnerReplay.ts
+@@ -246,7 +246,12 @@ class Work {
+   used: number
+   constructor(readonly limit: number, initial: number) { this.used = Math.min(limit, initial) }
+   pay(units = 1): void {
+-    if (units > this.limit - this.used) { this.used = this.limit; throw new WorkLimit() }
++    if (units > this.limit - this.used) {
++      // TEMPORARY 534: UNMETERED diagnostic before original saturation/throw.
++      console.log('B4_RESULT_534', JSON.stringify({ phase: 'payFailure', used: this.used,
++        requested: units, limit: this.limit, stack: new Error().stack }))
++      this.used = this.limit; throw new WorkLimit()
++    }
+     this.used += units
+   }
+   /** Evaluate the receiver BEFORE JavaScript evaluates calculator arguments.
+@@ -978,6 +983,9 @@ function staticDimensionFacts<P extends StartedPicture>(source: StartedOwnerSour
+ function dimensions<P extends StartedPicture>(source: StartedOwnerSource<P>, productions: readonly P[],
+   operations: StudioOperations, sets: readonly StudioSet[], technology: StudioTechnology,
+   external: number, work: Work, cell: DimensionCell, pictureFacts?: readonly PictureFacts<P>[]): Dimensions {
++  // TEMPORARY 534: passive, UNMETERED observation; original payments follow.
++  console.log('B4_RESULT_534', JSON.stringify({ phase: 'dimensionsEntry', used: work.used,
++    remaining: productions.map(row => row.remainingTicks) }))
+   work.pay(4) // static-fact call arguments/result binding
+   const fixed = staticDimensionFacts(source, cell, work)
+   work.pay(16) // two copy-only fact calls: arguments, result bindings and controls
+@@ -1037,6 +1045,8 @@ function dimensions<P extends StartedPicture>(source: StartedOwnerSource<P>, pro
+     work.pay(3); d.technologyRowCopy = Math.max(d.technologyRowCopy, facts(row, true, true).copy!)
+     if (!work.equal(row.method, 'silent')) d.allSilent = false
+   }
++  // TEMPORARY 534: no owner/state/meter mutation.
++  console.log('B4_RESULT_534', JSON.stringify({ phase: 'dimensionsDone', used: work.used }))
+   return d
+ }
+ /** Commands copy operations/workflows/tasks, not P/Set/setup/technology records.
+@@ -1044,6 +1054,9 @@ function dimensions<P extends StartedPicture>(source: StartedOwnerSource<P>, pro
+  * later sweep discovery still owns every omitted observation. */
+ function commandDimensions<P extends StartedPicture>(source: StartedOwnerSource<P>, productions: readonly P[],
+   operations: StudioOperations, work: Work, cell: DimensionCell): CommandDimensions {
++  // TEMPORARY 534: passive, UNMETERED observation of the 505 command projection.
++  console.log('B4_RESULT_534', JSON.stringify({ phase: 'commandDimensionsEntry', used: work.used,
++    remaining: productions.map(row => row.remainingTicks) }))
+   work.pay(12) // six scalar nodes: static-fact callee/arguments/call/result binding
+   const fixed = staticDimensionFacts(source, cell, work)
+   work.pay(16) // eight nodes for this five-argument fact call and result binding
+@@ -1088,6 +1101,8 @@ function commandDimensions<P extends StartedPicture>(source: StartedOwnerSource<
+     }
+   }
+   work.pay(2) // fresh projection reference/return
++  // TEMPORARY 534: no owner/state/meter mutation; complete projected record.
++  console.log('B4_RESULT_534', JSON.stringify({ phase: 'commandDimensionsDone', used: work.used, dimensions: d }))
+   return d
+ }
+ function workflowUpdate(d: WorkflowUpdateDimensions, work: Work): number {
+@@ -1170,15 +1185,19 @@ function restrictedSweepBill<P extends StartedPicture>(d: Dimensions, production
+ 
+ /** Occupancy + actual filter/policy/sort + capacity loops, not a free-slot forecast. */
+ function allocationBill(d: Dimensions, wrapOnly: boolean, work: Work, retainedDevelopment = false,
+-  singleWrapSlot = false, singlePostExit = false): number {
++  singleWrapSlot = false, singlePostExit = false, retainedClaims = 0, retainedOccupied = 0): number {
+   work.pay(32) // added Post-exit flag reads, selectors and control; helpers separate
+   work.pay(192) // at most96 scalar reads/operators, two units each; helpers separate
+   // In these narrowed domains own claims are excluded FROM OCCUPANCY. Unlike
+   // wrapped Post acquisition, Development still has its original reservation
+   // when the eager raw producer runs, so raw claims must include its owner too.
++  // A certified retained-Development slate supplies its exact eager row count
++  // and one retained picture's exact occupied union, both read and paid by the
++  // caller before this bill; every other arm keeps the four/three-row bounds.
+   const other = wrapOnly || retainedDevelopment || singlePostExit ? Math.max(0, d.n - 1) : d.n
+   const rawOwners = retainedDevelopment ? d.n : other
+-  const claims = work.calc(8).times(4, rawOwners), occupied = work.calc(8).add(d.external, work.calc(8).times(3, other))
++  const claims = retainedDevelopment ? retainedClaims : work.calc(8).times(4, rawOwners)
++  const occupied = retainedDevelopment ? retainedOccupied : work.calc(8).add(d.external, work.calc(8).times(3, other))
+   const text = work.calc(8).equality(d.d), keyLength = work.calc(8).add(d.d, 26), keyConstruction = work.calc(8).add(50, work.calc(8).times(2, d.d))
+   // Full raw claim producer including excluded rows, empty research sort and
+   // second bound-Set pass. Every two generated key strings is paid per claim.
+@@ -1202,14 +1221,22 @@ function allocationBill(d: Dimensions, wrapOnly: boolean, work: Work, retainedDe
+   const slots = retainedDevelopment || singlePostExit ? 0 : work.calc(32).times(wrapOnly ? (singleWrapSlot ? 1 : d.capacity) : 3 * d.capacity,
+     work.calc(64).plus(5, keyConstruction, work.calc(32).times(2, work.calc(8).keyBill(occupied + 2, keyLength))))
+   work.pay(8) // additional certified-wrap flag/selector; helper work stays paid
++  // The retained-Development arm meets ONE static preProduction requirement
++  // and its occupied.add is the first insertion, so that Set holds exactly the
++  // supplied union. The general arm keeps two requirements and two prior keys.
+   const retention = singlePostExit ? 20 : singleWrapSlot
+     ? work.calc(16).plus(20, 20, work.calc(8).keyBill(2, 19))
++    : retainedDevelopment
++    ? work.calc(8).add(20, work.calc(64).plus(20, work.calc(8).times(2, text), work.calc(32).times(d.f, 2 + text),
++      work.calc(8).keyBill(2, 19), keyConstruction, work.calc(8).keyBill(occupied, keyLength)))
+     : work.calc(8).add(20, work.calc(32).times(2, work.calc(64).plus(20, work.calc(8).times(2, text), work.calc(32).times(d.f, 2 + text),
+       work.calc(8).keyBill(2, 19), keyConstruction, work.calc(8).keyBill(occupied + 2, keyLength))))
+   const composite = wrapOnly || retainedDevelopment || singlePostExit ? 0 : work.calc(64).plus(20, work.calc(32).times(d.n, work.calc(64).plus(9, text, work.calc(8).times(2, text), work.calc(8).keyBill(d.n, d.d))),
+     work.calc(32).times(d.f, work.calc(64).plus(5, text, work.calc(32).times(d.sets, work.calc(64).plus(14, work.calc(8).times(3, text), work.calc(8).keyBill(d.n, d.d))))))
++  // One requirement means at most one facility walk; the retained arm's
++  // continue precedes it, so a single walk is already conservative there.
+   return work.calc(64).plus(occupancy, 3 + 3 * d.f, work.calc(8).times(d.f, callback), facilitySort, retention,
+-    singlePostExit ? 0 : work.calc(32).times(wrapOnly ? 1 : 2, work.calc(32).times(d.f, 2 + text)), slots, composite, 140)
++    singlePostExit ? 0 : work.calc(32).times(wrapOnly || retainedDevelopment ? 1 : 2, work.calc(32).times(d.f, 2 + text)), slots, composite, 140)
+ }
+ 
+ /** The real transition maps/`includes` and sink appends, for known row counts. */
+@@ -1298,7 +1325,10 @@ function singleEarlySweepBill<P extends StartedPicture>(d: Dimensions, productio
+   const capabilityKey = work.calc(8).keyBill(1, 19)
+   const keyLength = work.calc(8).add(d.d, 26)
+   const keyConstruction = work.calc(16).add(50, work.calc(8).times(2, d.d))
+-  const occupiedKey = work.calc(16).keyBill(d.external + 2, keyLength)
++  // The sole workflow's own claims are excluded and 7 released its Development
++  // slot first, so every membership test there sees exactly the external union;
++  // 6 adds its retained stage key first (operations.ts 389) before any test.
++  const occupiedKey = work.calc(16).keyBill(d.external + (shooting ? 1 : 0), keyLength)
+   work.pay(8)
+   const update = workflowUpdate(d, work)
+   const idKey = work.calc(8).keyBill(1, d.dp)
+@@ -1336,10 +1366,13 @@ function singleEarlySweepBill<P extends StartedPicture>(d: Dimensions, productio
+   }
+   const slotSearch = work.calc(16).times(slots,
+     work.calc(32).plus(5, keyConstruction, work.calc(8).times(2, occupiedKey)))
+-  // The two requirement walks include all nonmatching facilities too. Sticky
+-  // retention also does the exact facilities.some check and copies its row.
++  // The two requirement walks include all nonmatching facilities too. At 7 the
++  // operands are phase-table capabilities, and the mounted-stage id compares on
++  // the two stages fit the second, unexecuted walk's allowance. At 6 sticky
++  // retention's exact facilities.some compares facility IDS of width up to d
++  // and copies its row, so that frame's walk is priced at text, not capabilityText.
+   const requirements = work.calc(64).plus(30, work.calc(16).times(3, capabilityKey),
+-    work.calc(16).times(2 * d.f, 2 + text), 2 * capabilityText,
++    work.calc(32).times(2 * d.f, 2 + (shooting ? text : capabilityText)), 2 * capabilityText,
+     reservationCopy, shooting ? 6 + keyConstruction + occupiedKey : 0)
+   // heldSetIds visits the sole workflow and excludes it by ID. bindableSetsOn
+   // remains a FULL, state-order filter for each potentially free stage.
+@@ -1454,7 +1487,14 @@ function sweepBill<P extends StartedPicture>(d: Dimensions, productions: readonl
+   // Max two reservations per phase. Both transition maps and both includes
+   // passes (2x2 each) are billed, with every emitted key and sink wrapper.
+   const transition = work.calc(64).plus(30, work.calc(8).times(4, keyConstruction), work.calc(32).times(8, work.calc(8).equality(keyLength)), 160)
+-  const releasePhase = work.calc(64).plus(80, work.calc(8).times(8, text), d.workflowCopy, d.bindingsCopy, 70)
++  // A retained Development slot releases nothing: table/filter, one reservation
++  // visit with two capability includes and two claimed-Set operations, and the
++  // SAME workflow returned (operations.ts 1264), so no release copies. The Post
++  // exit keeps its release copies but its retained table is empty: zero
++  // capability compares. Every other slate keeps the eight-compare bound.
++  const releasePhase = retainedDevelopment
++    ? work.calc(32).plus(40, 4 * work.calc(8).equality(19), 2 * work.calc(8).keyBill(1, 19), LITERAL.phaseRelease, 6)
++    : work.calc(64).plus(80, singlePostExit ? 0 : work.calc(8).times(8, text), d.workflowCopy, d.bindingsCopy, 70)
+   const wear = retainedDevelopment || singlePostExit ? 0 : work.calc(64).plus(24, work.calc(32).times(d.sets, 5 + 2 * text), d.setCopy, 18)
+   const update = workflowUpdate(d, work)
+   // The real phase callback is still invoked; preProduction and Release Ready
+@@ -1469,8 +1509,27 @@ function sweepBill<P extends StartedPicture>(d: Dimensions, productions: readonl
+     work.calc(32).times(d.genreRows, 3 + work.calc(8).equality(Math.max(d.dp, d.genreId))))
+   // Every active8 retains its own legal slot and succeeds once, with no
+   // resource release/restart. One final all-settled round still visits n rows.
+-  const rounds = retainedDevelopment ? 2 : 2 * d.n + 1, visits = work.calc(8).times(d.n, rounds)
++  // The sole Post exit advances and releases on its first visit (break), then
++  // one settled visit ends the sweep: exactly two visits (operations.ts 1654).
++  const rounds = retainedDevelopment || singlePostExit ? 2 : 2 * d.n + 1, visits = work.calc(8).times(d.n, rounds)
+   let attempts = singlePostExit ? 1 : retainedDevelopment ? retainedMoves : visits
++  // Exact eager rows for the certified retained-Development slate, read and
++  // paid only after every guard above held. Each workflow's reservations, task
++  // and bound Set are the producer's rows; production-owned rows index occupied
++  // keys, and a retained picture's own sole key leaves its occupied union.
++  let retainedClaims = 0, retainedOccupied = 0
++  if (retainedDevelopment) {
++    work.pay(16) // guard, both locals, workflow-root reads, iterator setup/terminal
++    let slateKeys = 0
++    for (const row of operations.workflows) {
++      work.pay(24) // visit/control, five property reads, null test, selection and sum
++      const keys = row.reservations.length + (row.bindings.setId === null ? 0 : 1)
++      slateKeys = work.calc(8).add(slateKeys, keys)
++      retainedClaims = work.calc(16).add(retainedClaims, keys + (row.shootingTask === null ? 0 : 1))
++    }
++    work.pay(4) // the subtraction operand pair and its keyed local write
++    retainedOccupied = work.calc(8).add(d.external, slateKeys - 1)
++  }
+   work.pay(2)
+   let singleWrapSlot = false
+   if (wrapOnly) {
+@@ -1514,13 +1573,21 @@ function sweepBill<P extends StartedPicture>(d: Dimensions, productions: readonl
+     } else attempts = d.n % 2 === 0 ? work.calc(32).times(d.n / 2, d.n + 3) : work.calc(32).times(d.n, (d.n + 3) / 2)
+   }
+   work.pay(40) // selector/local and both five-argument transition-helper calls
++  // A retained Development slot records one transition with its single key on
++  // both sides and no event. The Post exit records the release of its single
++  // key, then an empty-to-empty transition; its failure arm is unreachable, so
++  // exactly two workflow replacements occur.
+   const phaseTransitions = singleWrapSlot
+     ? work.calc(8).add(smallTransitionBill(d, 2, 0, 2, work),
+       smallTransitionBill(d, 0, 1, 1, work))
+-    : work.calc(32).times(retainedDevelopment ? 1 : 2, transition)
++    : retainedDevelopment ? smallTransitionBill(d, 1, 1, 0, work)
++    : singlePostExit ? work.calc(16).add(smallTransitionBill(d, 1, 0, 1, work),
++      smallTransitionBill(d, 0, 0, 0, work))
++    : work.calc(32).times(2, transition)
+   work.pay(16) // both private flag argument/binding and allocation-selector groups
+-  const enter = work.calc(64).plus(releasePhase, 65, wear, phaseTransitions, work.calc(32).times(retainedDevelopment ? 1 : 3, update),
+-    allocationBill(d, wrapOnly, work, retainedDevelopment, singleWrapSlot, singlePostExit), d.workflowCopy, d.bindingsCopy, d.pCopy, 150)
++  const enter = work.calc(64).plus(releasePhase, 65, wear, phaseTransitions, work.calc(32).times(retainedDevelopment ? 1 : singlePostExit ? 2 : 3, update),
++    allocationBill(d, wrapOnly, work, retainedDevelopment, singleWrapSlot, singlePostExit, retainedClaims, retainedOccupied),
++    d.workflowCopy, d.bindingsCopy, d.pCopy, 150)
+   work.pay(8) // certified wrap's common-visit selection and local binding
+   const commonVisits = singleWrapSlot ? 2 : visits
+   const common = work.calc(64).plus(orderBill(d, work), 80, work.calc(32).times(d.n, work.calc(8).keyBill(d.n, d.dp)),
+@@ -1757,6 +1824,8 @@ function completeTrace<P extends StartedPicture>(input: ReplayInput<P>, prepared
+ 
+ function executeCommand<P extends StartedPicture>(input: ReplayInput<P>, prepared: Prepared<P>,
+   plan: ReplayPlan, branch: Branch<P>, command: StartedProductionCommand, work: Work): void {
++  // TEMPORARY 534: passive per-command boundary before the original first payment.
++  console.log('B4_RESULT_534', JSON.stringify({ phase: 'commandEntry', week: branch.week, kind: command.kind, used: work.used }))
+   work.pay(8)
+   const production = find(branch.productions, command.productionId, row => row.id, work)
+   if (production === undefined) commandRefused(work, 'production already released in this branch')
+@@ -1822,10 +1891,15 @@ function executeCommand<P extends StartedPicture>(input: ReplayInput<P>, prepare
+     throw error
+   }
+   drainEvents(input, prepared, plan, branch, sink, before, work)
++  // TEMPORARY 534: reached only after the unchanged owner/drain work.
++  console.log('B4_RESULT_534', JSON.stringify({ phase: 'commandDone', week: branch.week, kind: command.kind, used: work.used }))
+ }
+ 
+ function frame<P extends StartedPicture>(input: ReplayInput<P>, prepared: Prepared<P>,
+   plan: ReplayPlan, branch: Branch<P>, work: Work): void {
++  // TEMPORARY 534: passive whole-slate clock prefix, not a production fact cache.
++  console.log('B4_RESULT_534', JSON.stringify({ phase: 'frameEntry', week: branch.week,
++    used: work.used, remaining: branch.productions.map(row => row.remainingTicks) }))
+   work.pay(7)
+   const arrivedWeek = branch.week + 1
+   for (const background of prepared.backgrounds) {
+@@ -1893,6 +1967,9 @@ function frame<P extends StartedPicture>(input: ReplayInput<P>, prepared: Prepar
+   const before = branch.operations
+   work.pay(6) // current branch Sets read, argument and callee binding
+   const bill = sweepBill(d, branch.productions, branch.operations, branch.week, committed, branch.sets, work)
++  // TEMPORARY 534: reached only after the unchanged complete bill calculation.
++  console.log('B4_RESULT_534', JSON.stringify({ phase: 'sweepBillDone', week: branch.week,
++    used: work.used, bill, remaining: branch.productions.map(row => row.remainingTicks), dimensions: d }))
+   // Reserve observation, sink, binding/callback literals and complete owner work
+   // together: an exhaustion boundary cannot record an unexecuted sweepStarted.
+   work.pay(work.calc(64).plus(bill, 15 + LITERAL.sink + 1 + LITERAL.boundary +
+@@ -2368,6 +2445,11 @@ function initialAdmissionBill(d: Dimensions, operations: StudioOperations, work:
+   const occupied = work.calc(8).add(indexedClaims, d.external)
+   const eq = work.calc(8).equality(d.d), keyLength = work.calc(8).add(d.d, 26)
+   const key = work.calc(8).keyBill(occupied + 1, keyLength)
++  // An empty occupied union makes the first examined Development slot free:
++  // the allocator tests and then adds exactly one key on an empty Set. Any
++  // occupied key keeps the full capacity bound (a casting row can hold slot 0).
++  const examined = occupied === 0 ? 1 : developmentCapacity
++  const slotKey = occupied === 0 ? work.calc(8).keyBill(0, keyLength) : key
+   const raw = work.calc(64).plus(40, work.calc(32).times(d.n, 20 + 2 * eq),
+     work.calc(8).times(reservationVisits, 5),
+     work.calc(32).times(rawClaims, work.calc(64).plus(LITERAL.claim, APPEND, 20, work.calc(32).times(2, 50 + 2 * d.d))))
+@@ -2377,7 +2459,7 @@ function initialAdmissionBill(d: Dimensions, operations: StudioOperations, work:
+     work.calc(32).times(d.external, work.calc(8).add(4, key)))
+   const allocation = work.calc(64).plus(occupancy, 60, work.calc(8).times(d.f, 14),
+     sortBill(d.f, 6 + 2 * eq, work),
+-    work.calc(32).times(developmentCapacity, work.calc(64).plus(14, 50 + 2 * d.d, key, key)),
++    work.calc(32).times(examined, work.calc(64).plus(14, 50 + 2 * d.d, slotKey, slotKey)),
+     LITERAL.reservation, LITERAL.allocation, 4)
+   // Draft+replacement workflow, initial+derived binding, TWO operations copies,
+   // both append/map arrays, duplicate lookup, transition key and TWO event rows.
+@@ -2715,6 +2797,14 @@ function replayPlans<P extends StartedPicture, A>(
+       if (reason === 'workLimit') break
+     }
+   }
++  // TEMPORARY 534: report only result discriminants/boundaries, never proof records.
++  console.log('B4_RESULT_534', JSON.stringify({ phase: 'result', used: work.used,
++    attempts: attempts.map(attempt => {
++      if (typeof attempt !== 'object' || attempt === null) return { kind: 'nonobject' }
++      return { kind: 'kind' in attempt ? attempt.kind : undefined,
++        reason: 'reason' in attempt ? attempt.reason : undefined,
++        through: 'through' in attempt ? attempt.through : undefined }
++    }) }))
+   return { fixedHolds: prepared.fixed, attempts, preparationWork: work.used, omissions }
+ }
+ 

@@ -46,6 +46,13 @@ now cuts inside the week8 sweep bill (Post2→1) at199994; the refusal remains
 the week8 remainder, week9 commit, week9 release frame and week10 stale command
 away. 514 probes removed; exact505 source restored and hash-verified.
 
+Headless checkpoint535 (2026-09-20): exact pre-call bills (517+526, reviews
+518/527 KEEP) on replay source d5f8cb71…; 528–533 fixed-source: 255 focused
+PASS, sole old futureP2 bridge-type error unchanged, sole original stale-
+release test still FAILS (now at the week8 owner reservation). First-take
+producer182925, kernel GREEN. Owner decision item (515§6) recorded: the stale
+route is not shown to fit200000 under the work contract as written.
+
 These are private logic/work-accounting changes only. No consumer field/action,
 protocol4, projection46, live Save29, evaluator3, schema or generated C# changed.
 Do not expose partial traces as certified offers, impossible schedules or broken

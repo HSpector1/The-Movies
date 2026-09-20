@@ -60,14 +60,21 @@ shown to fit200000 under176 as written; options a) authorize C9/C10, b) rule
 on the control, c) keep RED as exact boundary. ADOPTED next slice C2+C3+C4
 exact pre-call bills (retained Development, single Post exit, single-early
 occupancy/slot; ≈11.2k gross, no discovery change; stale stays RED after it).
-516 independent direction review REFINE→adopted with refinements (1362-shape
-release term, whole-slate claim/occupied counts with paid reads after existing
-guards, occupied-key exactness first, admission one-slot arm, byte-identical
-non-selected arms, predicted bills315/≈6946/≈8100–8280/≈8578/850/7948/576).
-No new test: started-owner259 weeks=2 already covers single Post exit; 507/508
-on identical source ARE the baselines. NOW517 ONE sim-core writer (replay
-module + handback only), then freeze/hash/pins, 518 delta review, serial
-checks, 514-pattern measurement. Gross2221 omitted fact cost is NOT
+516 independent direction review REFINE→adopted; no new test (started-owner259
+weeks=2 covers single Post exit; 507/508 are the baselines). 517 ONE sim-core
+writer implemented exact pre-call bills; 518 delta review REFINE (one rT6 walk-
+width correction); 526 correction; 527 KEEP. Corrected candidate
+d5f8cb7171f602df76b2115819e7e63320b84b4f7e602fb5811ad57984b1eb22 (2797 lines),
+protected patchadd13897e0d5346b5e3b81bbc10c840d0114462f1fff521cc0335f6e4e8b51b5,
+40 pins unchanged. 528–533 CLOSED/fixedSource:true (535): Ready17PASS + sole
+original stale234 workLimit FAIL, Started28PASS, rootUI PASS, adjacent203PASS,
+bridge sole OLD TS2353, facts7PASS =255 passes. 534 probes: bills EXACT
+315/6861/8099/8578/850/7948/576 + Post-exit5668 (predicted); first-take182925
+(505:189256) GREEN incl. kernel; stale now cuts at the week8 owner reservation
+197631/request5765 (2369 left), refusal ≈22k LIKELY away; RED preserved.
+NEXT536: next bounded lawful reduction under 515 §3 (C1 calculator structure
+runner-up, C5/C6/C7) with review before any writer; Owner decision item on
+C9/C10 and the 302 control stands. Gross2221 omitted fact cost is NOT
 net saving: cold discovery can shift into next frame. No route-fit claim.
 Draft-discovery, silent-policy, affine and Map alternatives remain unadopted.
 T4/B2/B3/B-F2 qualified closed; B4/liveP2/Unity/Owner acceptance NOT closed.

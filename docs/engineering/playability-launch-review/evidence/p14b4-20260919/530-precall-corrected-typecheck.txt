@@ -1,0 +1,8 @@
+{"sourceSha":"df0533c6fac18ec5027231500d80050d800fd3b5","testedDiffSha256":"add13897e0d5346b5e3b81bbc10c840d0114462f1fff521cc0335f6e4e8b51b5","untrackedSource":[],"command":["npm","run","typecheck"],"node":"v20.20.2","start":"2026-09-20T16:29:07.638Z","end":null,"exitCode":null}
+
+
+> project-studio-core@0.1.0 typecheck
+> tsc --noEmit && tsc -p ui/tsconfig.json --noEmit
+
+
+{"sourceSha":"df0533c6fac18ec5027231500d80050d800fd3b5","testedDiffSha256":"add13897e0d5346b5e3b81bbc10c840d0114462f1fff521cc0335f6e4e8b51b5","untrackedSource":[],"command":["npm","run","typecheck"],"node":"v20.20.2","start":"2026-09-20T16:29:07.638Z","end":"2026-09-20T16:30:35.439Z","exitCode":0,"signal":null,"error":null,"sourceShaAtEnd":"df0533c6fac18ec5027231500d80050d800fd3b5","testedDiffSha256AtEnd":"add13897e0d5346b5e3b81bbc10c840d0114462f1fff521cc0335f6e4e8b51b5","untrackedSourceAtEnd":[],"fixedSource":true}
