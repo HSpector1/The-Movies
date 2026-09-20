@@ -240,6 +240,18 @@ const LITERAL = Object.freeze({
   contextError: literalCost('reason', 'message'),
   commandError: literalCost('message'),
 })
+/** Shallow-copy price of a fixed MODULE schema: 1 + Σ(3 + |key|), the exact
+ * number copyCost discovers, computed once because every ledger hold is
+ * constructed by this module with exactly these keys (addHold; prepare hold();
+ * the two `{ ...hold, until }` spreads keep the key set). Caller records
+ * (production, reservation, drafts) keep incremental discovery. */
+function copyLiteral(...keys: readonly string[]): number {
+  let result = 1
+  for (const key of keys) result += 3 + key.length
+  return result
+}
+const HOLD_COPY = copyLiteral('holdId', 'ownerKey', 'ownerPathKey', 'subject', 'from', 'until')                        // 61
+const FIXED_HOLD_COPY = copyLiteral('holdId', 'ownerKey', 'ownerPathKey', 'subject', 'from', 'until', 'replaceableFrom') // 79
 // An appended element reserves capacity(1), invocation(1), reference write(1).
 const APPEND = 3
 class Work {
@@ -1627,7 +1639,7 @@ function closeHold<P extends StartedPicture>(branch: Branch<P>, path: Identity, 
     }
   }
   invariant(found !== undefined, 'owner released a subject it does not hold')
-  work.pay(14 + work.copyCost(found.hold))
+  work.pay(18 + (found.fixed ? FIXED_HOLD_COPY : HOLD_COPY)) // 14 as before + 4: fixed-flag read and price selector
   found.hold = { ...found.hold, until: at }
   found.closed = true
   if (found.fixed) {
@@ -1653,7 +1665,7 @@ function closePath<P extends StartedPicture>(branch: Branch<P>, pathKey: string,
     work.pay(4)
     if (row.closed || row.hold.ownerPathKey === null || !work.equal(row.hold.ownerPathKey, pathKey) ||
       (peopleOnly && row.hold.subject.kind !== 'person')) continue
-    work.pay(14 + work.copyCost(row.hold))
+    work.pay(18 + (row.fixed ? FIXED_HOLD_COPY : HOLD_COPY))
     row.hold = { ...row.hold, until: at }; row.closed = true
     if (row.fixed) {
       work.pay(LITERAL.replacement + APPEND)
