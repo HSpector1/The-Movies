@@ -956,10 +956,10 @@ function singleEarlySweepBill<P extends StartedPicture>(d: Dimensions, productio
   let stageCapacity = 0, sceneryCapacity = 0, stages = 0
   for (const facility of operations.facilities) {
     work.pay(14)
-    if (facility.capability === 'soundstage') {
+    if (work.equal(facility.capability, 'soundstage')) {
       stages++
       stageCapacity = work.calc(8).add(stageCapacity, facility.capacity)
-    } else if (facility.capability === 'set-scenery') {
+    } else if (work.equal(facility.capability, 'set-scenery')) {
       sceneryCapacity = work.calc(8).add(sceneryCapacity, facility.capacity)
     }
   }
@@ -1653,11 +1653,12 @@ function searchBill<T>(rows: readonly T[], key: (row: T) => string, needle: stri
 
 /** Cold-cache bound for the REAL freelancer owner; never substitutes a market. */
 function freelancerBill(source: GameState, work: Work): number {
-  work.pay(48) // scalar locals, four empty arrays/initial prefix and closures
+  work.pay(56) // scalar locals, three arrays/initial prefix and closures
   let writerRows = 0, writerBill = 0, companyRows = 0, indexedRows = 0
   let busyChars = 0, conceptChars = 0, titleWidth = 0, conceptMapBill = 0, writerLookupBill = 0, conceptMapCount = 0
-  let contractBill = 0, researchSeats = 0
-  const busyPeople: string[] = [], contractChars = [0], activeContracts: boolean[] = [], queries: string[] = []
+  let contractBill = 0, researchSeats = 0, statusBill = 0
+  let talentChars = 0, queryCount = 0, queryChars = 0
+  const busyPeople: string[] = [], contractChars = [0], activeContracts: boolean[] = []
   // This local bill calculator does not admit anyone. It counts the exact
   // source-now short-circuit calls which the unchanged market owner will make.
   // Prefix spans pay every stored/query comparison, including inactive rows
@@ -1708,7 +1709,10 @@ function freelancerBill(source: GameState, work: Work): number {
   }
   const countWriters = (row: ScriptProject, own: boolean): void => {
     work.pay(6)
-    if (row.status !== 'drafting' && row.status !== 'rewriting') return
+    // Reserve BOTH actual owner status comparisons even when its first one
+    // short-circuits; the calculator separately pays its own comparisons now.
+    statusBill = work.calc(32).add(statusBill, 19 + 2 * row.status.length)
+    if (!work.equal(row.status, 'drafting') && !work.equal(row.status, 'rewriting')) return
     work.text(row.writerId)
     writerBill = work.calc(8).add(writerBill, 12)
     for (const person of row.writerIds) {
@@ -1718,6 +1722,8 @@ function freelancerBill(source: GameState, work: Work): number {
     }
     work.pay(4)
     if (own) {
+      // activeScriptWriterAssignments also selects its label verb by status.
+      statusBill = work.calc(16).add(statusBill, 9 + row.status.length)
       work.text(row.conceptId)
       writerLookupBill = work.calc(32).add(writerLookupBill,
         work.calc(16).keySpanBill(source.concepts.length, conceptChars, row.conceptId.length))
@@ -1739,27 +1745,17 @@ function freelancerBill(source: GameState, work: Work): number {
   }
   for (const project of source.technology.projects) {
     work.pay(4)
-    if (project.status !== 'active') continue
+    statusBill = work.calc(16).add(statusBill, 7 + project.status.length)
+    if (!work.equal(project.status, 'active')) continue
     for (const seat of project.seats) {
       work.pay(6)
       researchSeats = work.calc(8).add(researchSeats, 1)
       if (seat.releasedWeek === null && contracted(seat.talentId)) addBusy(seat.talentId)
     }
   }
-  work.pay(8)
-  let busySetBill = 0, filterBill = 0
-  for (const person of busyPeople) {
-    work.pay(3)
-    // Three is the maximum actual Set layers (foreign company -> industry ->
-    // busy). Global occurrence count/span overcounts each layer, including
-    // duplicate IDs, and therefore also covers local companies and writers.
-    busySetBill = work.calc(32).add(busySetBill, work.calc(32).plus(14,
-      work.calc(16).times(3, work.calc(16).keySpanBill(busyPeople.length, busyChars, person.length))))
-  }
   for (const person of source.talent) {
     work.pay(6); work.text(person.id)
-    filterBill = work.calc(32).add(filterBill, work.calc(16).add(24,
-      work.calc(16).keySpanBill(busyPeople.length, busyChars, person.id.length)))
+    talentChars = work.calc(8).add(talentChars, person.id.length)
     work.pay(2)
     let busy = false
     for (const id of busyPeople) {
@@ -1768,34 +1764,73 @@ function freelancerBill(source: GameState, work: Work): number {
     }
     work.pay(3)
     if (busy || contracted(person.id)) continue
-    work.pay(APPEND); queries.push(person.id)
+    work.pay(2)
+    queryCount++
+    queryChars = work.calc(8).add(queryChars, person.id.length)
   }
-  // Always cover a COLD index if a lookup is reachable. Two map operations per
-  // row (get/set), each against its PRE-insert prefix; repeated keys merely
-  // overcount that prefix. Employer strings are NOT employment-index keys.
-  work.pay(10)
-  let rival = 20, employmentCount = 0, employmentChars = 0
-  if (h !== null && queries.length > 0) {
+  work.pay(8)
+  const t = source.talent.length, b = busyPeople.length
+  // K(n,S,L)=1+L+n*(1+L)+S. Summing it over query lengths is
+  // q*(1+n+S)+(1+n)*sum(L): EXACTLY the previous owner reservation,
+  // without a separate calculator expression tree for every Set operation.
+  // Three covers foreign company -> industry -> busy; duplicate occurrences
+  // still overcount each actual layer and are deliberately NOT deduplicated.
+  const busyKeys = work.calc(32).add(work.calc(16).times(b, work.calc(16).plus(1, b, busyChars)),
+    work.calc(16).times(work.calc(8).add(1, b), busyChars))
+  const busySetBill = work.calc(32).add(work.calc(8).times(14, b), work.calc(8).times(3, busyKeys))
+  const filterBill = work.calc(32).add(work.calc(16).times(t, work.calc(16).plus(25, b, busyChars)),
+    work.calc(16).times(work.calc(8).add(1, b), talentChars))
+  // The REAL shared owner now cold-sorts ALL original employment references,
+  // lower-bounds each ID and scans its stable equal-ID run. Always reserve the
+  // cold sort, even when some unrelated earlier caller warmed its WeakMap.
+  work.pay(14)
+  let rival = work.calc(16).add(20, work.calc(8).times(32, queryCount))
+  let employmentCount = 0, employmentChars = 0, employmentWidth = 0, studioChars = 0
+  if (h !== null && queryCount > 0) {
+    work.pay(8) // player-ID argument, employment-loop setup and termination
     work.text(h.playerStudioId)
     for (const row of h.employment) {
-      work.pay(10); work.text(row.terms.talentId); work.text(row.studioId)
-      rival = work.calc(32).add(rival, work.calc(32).plus(24,
-        work.calc(16).times(2, work.calc(16).keySpanBill(employmentCount, employmentChars, row.terms.talentId.length)),
-        12 + row.studioId.length + h.playerStudioId.length))
+      work.pay(18); work.text(row.terms.talentId); work.text(row.studioId)
       employmentCount++
+      employmentWidth = Math.max(employmentWidth, row.terms.talentId.length)
       employmentChars = work.calc(8).add(employmentChars, row.terms.talentId.length)
+      studioChars = work.calc(8).add(studioChars, row.studioId.length)
     }
-    for (const person of queries) {
-      work.pay(3)
-      rival = work.calc(32).add(rival, work.calc(16).add(6,
-        work.calc(16).keySpanBill(employmentCount, employmentChars, person.length)))
+    work.pay(4)
+    let levels = 0
+    // floor(log2(m))+1 for m>0; no bitwise truncation for native-array sizes.
+    for (let remaining = employmentCount; remaining > 0; remaining = Math.floor(remaining / 2)) {
+      work.pay(8)
+      levels++
     }
+    // Comparator: both complete lexical operands on BOTH < and >, plus24
+    // scalar/property/branch operations. sortBill owns all array copies,
+    // merge visits, callbacks, writes and pass/run termination.
+    const comparator = work.calc(16).add(24, work.calc(16).times(2, work.calc(8).equality(employmentWidth)))
+    const coldSort = work.calc(16).add(12, sortBill(employmentCount, comparator, work))
+    // Each binary iteration:32 scalar/index/Math.floor/control operations
+    // and one complete stored/query comparison (1+storedWidth+queryLength).
+    const binary = work.calc(32).times(levels, work.calc(32).add(
+      work.calc(16).times(queryCount, work.calc(8).add(33, employmentWidth)), queryChars))
+    // At most one NONmatching run-boundary comparison per query. Matching
+    // visits total <=m across the whole market: validated talent IDs are
+    // unique, so each queried equal-ID run is disjoint, even with historical
+    // duplicate employment IDs. Pay every row as visited, not just winners.
+    const boundary = work.calc(32).add(work.calc(16).times(queryCount,
+      work.calc(8).add(21, employmentWidth)), queryChars)
+    const matches = work.calc(32).plus(work.calc(8).times(66, employmentCount),
+      work.calc(8).times(2, employmentChars), studioChars,
+      work.calc(16).times(employmentCount, h.playerStudioId.length))
+    //32/query includes source/root/cache lookup, lo/hi initialization, final
+    // tests/return. Boundary reserves20 scalar/property/short-circuit steps;
+    // matches:24 run controls+40 exact-predicate controls,
+    // plus (1+2*idLength) and (1+studioLength+playerStudioLength).
+    rival = work.calc(64).plus(rival, coldSort, binary, boundary, matches)
   }
   work.pay(64)
-  const t = source.talent.length
   // Concept map/tuple construction, active writer lookup+label+literal, flatMap
   // and Set layers; industry indexed writers do not construct player labels.
-  const busy = work.calc(64).plus(60, writerBill, conceptMapBill, writerLookupBill,
+  const busy = work.calc(64).plus(60, writerBill, conceptMapBill, writerLookupBill, statusBill,
     work.calc(32).times(writerRows, 30 + LITERAL.writerAssignment + titleWidth * 2),
     work.calc(8).times(source.scriptDevelopment.projects.length, 12),
     work.calc(32).times(companyRows, 12), busySetBill, work.calc(8).times(researchSeats, 12),

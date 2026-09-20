@@ -1,0 +1,34 @@
+{"sourceSha":"e34af4777a12607d90435048e2703297403eecaf","testedDiffSha256":"fc6698bcaa4c1cd1fc7c8157eb657e946a87f5353c3bee51c9485f64d2c7f4a5","untrackedSource":["tests/p14b4-ready-replay-stale-target.test.ts"],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14b4-ready-replay-stale-target.test.ts"],"node":"v20.20.2","start":"2026-09-20T07:22:16.437Z","end":null,"exitCode":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/p14b4-ready-replay-stale-target.test.ts (1 test | 1 failed) 1709ms
+   × P14B4 Ready replay — stale Ready target after genuine release > resolves the same source-now Ready target against the released branch, refuses without resurrection, and retains the real first-take/release prefix 1706ms
+     → expected 'workLimit' to be 'commandRefused' // Object.is equality
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14b4-ready-replay-stale-target.test.ts > P14B4 Ready replay — stale Ready target after genuine release > resolves the same source-now Ready target against the released branch, refuses without resurrection, and retains the real first-take/release prefix
+AssertionError: expected 'workLimit' to be 'commandRefused' // Object.is equality
+
+Expected: "commandRefused"
+Received: "workLimit"
+
+ ❯ tests/p14b4-ready-replay-stale-target.test.ts:234:28
+    232|     const attempt = result.attempts[0]!
+    233|     if (attempt.kind !== 'cut') throw new Error('released Ready target…
+    234|     expect(attempt.reason).toBe('commandRefused') // workLimit is not …
+       |                            ^
+    235|     expect(attempt.through.week).toBe(released.market.tick)
+    236|     expect(attempt.detail.length).toBeGreaterThan(0)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed (1)
+      Tests  1 failed (1)
+   Start at  09:22:16
+   Duration  4.70s (transform 1.89s, setup 0ms, collect 2.46s, tests 1.71s, environment 0ms, prepare 142ms)
+
+
+{"sourceSha":"e34af4777a12607d90435048e2703297403eecaf","testedDiffSha256":"fc6698bcaa4c1cd1fc7c8157eb657e946a87f5353c3bee51c9485f64d2c7f4a5","untrackedSource":["tests/p14b4-ready-replay-stale-target.test.ts"],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14b4-ready-replay-stale-target.test.ts"],"node":"v20.20.2","start":"2026-09-20T07:22:16.437Z","end":"2026-09-20T07:22:22.157Z","exitCode":1,"signal":null,"error":null,"sourceShaAtEnd":"e34af4777a12607d90435048e2703297403eecaf","testedDiffSha256AtEnd":"fc6698bcaa4c1cd1fc7c8157eb657e946a87f5353c3bee51c9485f64d2c7f4a5","untrackedSourceAtEnd":["tests/p14b4-ready-replay-stale-target.test.ts"],"fixedSource":true}

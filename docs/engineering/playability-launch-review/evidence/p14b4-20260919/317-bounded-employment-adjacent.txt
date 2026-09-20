@@ -1,0 +1,44 @@
+{"sourceSha":"e34af4777a12607d90435048e2703297403eecaf","testedDiffSha256":"fc6698bcaa4c1cd1fc7c8157eb657e946a87f5353c3bee51c9485f64d2c7f4a5","untrackedSource":["tests/p14b4-ready-replay-stale-target.test.ts"],"command":["node_modules/.bin/vitest","run","--project","core","tests/script-development.test.ts","tests/script-projects-actions.test.ts","tests/casting-sessions-domain.test.ts","tests/casting-sessions-actions.test.ts","tests/operations.test.ts","tests/p14b4-production-admission.test.ts","tests/p14b4-bounded-sort-owners.test.ts","tests/p14b4-owner-fact-views.test.ts","tests/p14b4-managed-clock-owner.test.ts","tests/p14b4-joint-trace.test.ts","tests/p14b4-joint-trace-mode-extension.test.ts","tests/p12-starting-world.test.ts"],"node":"v20.20.2","start":"2026-09-20T07:20:53.091Z","end":null,"exitCode":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p14b4-joint-trace.test.ts (38 tests) 595ms
+ ✓ |core| tests/operations.test.ts (13 tests) 2046ms
+   ✓ Production Operations V1 > holds only the blocked production while world time and weekly costs continue 1201ms
+ ✓ |core| tests/p14b4-production-admission.test.ts (32 tests) 2593ms
+   ✓ P14B4 shared admission — real credit versus engaged work > keeps a genuinely busy credited writer out of engaged seats and labour 354ms
+ ✓ |core| tests/script-development.test.ts (10 tests) 271ms
+ ✓ |core| tests/p14b4-owner-fact-views.test.ts (7 tests) 3662ms
+   ✓ P14B4 existing owner fact views — behavior-preserving narrowing > uses a genuine shooting-entry clock with nullable/default player identity (true) 824ms
+   ✓ P14B4 existing owner fact views — behavior-preserving narrowing > reads only actual property/placement facts for centres and the pre-arrival scenery owner result 755ms
+   ✓ P14B4 existing owner fact views — behavior-preserving narrowing > keeps controlled far-body transit and missing-body withholding distinct from arrival 440ms
+   ✓ P14B4 existing owner fact views — behavior-preserving narrowing > uses narrow real production/concept records for early, missing, legal and committed release 1067ms
+ ✓ |core| tests/p14b4-bounded-sort-owners.test.ts (7 tests) 876ms
+   ✓ P14B4 real sort-owner parity, independently runnable before new helper > calls the actual allocator policy in input order but selects first-fit identically 369ms
+   ✓ P14B4 real sort-owner parity, independently runnable before new helper > retains the real Annex slot after lower-ID base capacity becomes free 355ms
+ ✓ |core| tests/script-projects-actions.test.ts (4 tests) 760ms
+   ✓ Script Projects V1 action and tick integration > runs Draft, one Rewrite, Ready, linked production, cancellation, and Produced history 416ms
+ ✓ |core| tests/casting-sessions-actions.test.ts (8 tests) 2609ms
+   ✓ Casting Sessions V1 action, tick, and read-model integration > runs one optional week, persists only observations, stops for review, and never holds talent 585ms
+   ✓ Casting Sessions V1 action, tick, and read-model integration > hands capacity-only casting forward to a queueable Package and closes the exact queued project 486ms
+   ✓ Casting Sessions V1 action, tick, and read-model integration > shares both slots with scripts in both directions and reports one combined occupancy 584ms
+ ✓ |core| tests/casting-sessions-domain.test.ts (8 tests) 205ms
+ ✓ |core| tests/p14b4-joint-trace-mode-extension.test.ts (2 tests) 28ms
+ ✓ |core| tests/p14b4-managed-clock-owner.test.ts (5 tests) 3594ms
+   ✓ P14B4 behavior-preserving managed clock owner extraction > retains complete caller records/order and skips the actual greenlight week 416ms
+   ✓ P14B4 behavior-preserving managed clock owner extraction > retains full-P callbacks and technology locks at real shooting entry, not a take 811ms
+   ✓ P14B4 behavior-preserving managed clock owner extraction > holds an unassigned real take, then returns exactly the scheduled 5→4 caller record 1009ms
+   ✓ P14B4 behavior-preserving managed clock owner extraction > releases real wrapped stage/Set holds even when the supplied Post slots are occupied 580ms
+   ✓ P14B4 behavior-preserving managed clock owner extraction > holds actual Release Ready until real commitment, then returns its exact admission ID 773ms
+ ✓ |core| tests/p12-starting-world.test.ts (3 tests) 3198ms
+   ✓ R05 canonical starting history and genuine migration > opens four established distinct businesses with settled canonical history and protected applicants 559ms
+   ✓ R05 canonical starting history and genuine migration > migrates at each old state own week with empty company histories and exact player state 2406ms
+
+ Test Files  12 passed (12)
+      Tests  137 passed (137)
+   Start at  09:20:53
+   Duration  14.67s (transform 3.50s, setup 0ms, collect 11.74s, tests 20.44s, environment 16ms, prepare 2.44s)
+
+
+{"sourceSha":"e34af4777a12607d90435048e2703297403eecaf","testedDiffSha256":"fc6698bcaa4c1cd1fc7c8157eb657e946a87f5353c3bee51c9485f64d2c7f4a5","untrackedSource":["tests/p14b4-ready-replay-stale-target.test.ts"],"command":["node_modules/.bin/vitest","run","--project","core","tests/script-development.test.ts","tests/script-projects-actions.test.ts","tests/casting-sessions-domain.test.ts","tests/casting-sessions-actions.test.ts","tests/operations.test.ts","tests/p14b4-production-admission.test.ts","tests/p14b4-bounded-sort-owners.test.ts","tests/p14b4-owner-fact-views.test.ts","tests/p14b4-managed-clock-owner.test.ts","tests/p14b4-joint-trace.test.ts","tests/p14b4-joint-trace-mode-extension.test.ts","tests/p12-starting-world.test.ts"],"node":"v20.20.2","start":"2026-09-20T07:20:53.091Z","end":"2026-09-20T07:21:08.710Z","exitCode":0,"signal":null,"error":null,"sourceShaAtEnd":"e34af4777a12607d90435048e2703297403eecaf","testedDiffSha256AtEnd":"fc6698bcaa4c1cd1fc7c8157eb657e946a87f5353c3bee51c9485f64d2c7f4a5","untrackedSourceAtEnd":["tests/p14b4-ready-replay-stale-target.test.ts"],"fixedSource":true}

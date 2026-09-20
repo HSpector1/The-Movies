@@ -1,0 +1,15 @@
+{"sourceSha":"e34af4777a12607d90435048e2703297403eecaf","testedDiffSha256":"fc6698bcaa4c1cd1fc7c8157eb657e946a87f5353c3bee51c9485f64d2c7f4a5","untrackedSource":["tests/p14b4-ready-replay-stale-target.test.ts"],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14b4-bounded-employment-lookup.test.ts"],"node":"v20.20.2","start":"2026-09-20T07:18:15.354Z","end":null,"exitCode":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p14b4-bounded-employment-lookup.test.ts (5 tests) 1259ms
+   ✓ P14B4 rivalEmployment — ordinary owner semantics > returns genuine original rival rows and preserves ordinary employment/freelancer callers 1042ms
+
+ Test Files  1 passed (1)
+      Tests  5 passed (5)
+   Start at  09:18:16
+   Duration  4.22s (transform 1.87s, setup 0ms, collect 2.47s, tests 1.26s, environment 0ms, prepare 130ms)
+
+
+{"sourceSha":"e34af4777a12607d90435048e2703297403eecaf","testedDiffSha256":"fc6698bcaa4c1cd1fc7c8157eb657e946a87f5353c3bee51c9485f64d2c7f4a5","untrackedSource":["tests/p14b4-ready-replay-stale-target.test.ts"],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14b4-bounded-employment-lookup.test.ts"],"node":"v20.20.2","start":"2026-09-20T07:18:15.354Z","end":"2026-09-20T07:18:20.667Z","exitCode":0,"signal":null,"error":null,"sourceShaAtEnd":"e34af4777a12607d90435048e2703297403eecaf","testedDiffSha256AtEnd":"fc6698bcaa4c1cd1fc7c8157eb657e946a87f5353c3bee51c9485f64d2c7f4a5","untrackedSourceAtEnd":["tests/p14b4-ready-replay-stale-target.test.ts"],"fixedSource":true}

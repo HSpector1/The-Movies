@@ -1,4 +1,5 @@
 import { productionCompanyTalentIds } from './productionPeople.js'
+import { boundedStableSort } from './boundedStableSort.js'
 import { recordPlayerEmployment } from './industryEmployment.js'
 import { CAMPAIGN_CALENDAR_POLICY, historicalDate, RIVAL_ARRIVAL_WEEKS } from './calendar.js'
 import { HOLLYWOOD_STARTING_MANIFEST, RIVAL_CREDIT_ROLES, RIVAL_TEAM_ROLES, startingStanding } from './hollywoodStartingData.js'
@@ -47,16 +48,31 @@ export function moveRivalMoney(account: RivalAccount, kind: RivalMoneyKind, amou
   period.throughWeek = week
 }
 
-const employmentByPerson=new WeakMap<HollywoodState['employment'],Map<string,HollywoodState['employment']>>()
+const employmentByPerson=new WeakMap<HollywoodState['employment'],HollywoodState['employment']>()
 export function rivalEmployment(state: Pick<GameState, 'hollywood'>, talentId: string, week: number) {
   const rows=state.hollywood?.employment
   if(!rows)return null
   let index=employmentByPerson.get(rows)
-  if(!index){index=new Map();for(const row of rows){const own=index.get(row.terms.talentId)??[];own.push(row);index.set(row.terms.talentId,own)}employmentByPerson.set(rows,index)}
-  return index.get(talentId)?.find(row =>
-    row.studioId !== state.hollywood?.playerStudioId &&
-    row.terms.startWeek <= week && week < row.terms.endWeekExclusive &&
-    (row.endedWeek === null || week < row.endedWeek)) ?? null
+  if(!index){
+    // Every row remains an original reference. Stability retains the original
+    // first-eligible order within a person's history; eligibility is NOT cached.
+    index=boundedStableSort(rows,(left,right)=>
+      left.terms.talentId<right.terms.talentId ? -1 : left.terms.talentId>right.terms.talentId ? 1 : 0)
+    employmentByPerson.set(rows,index)
+  }
+  let low=0,high=index.length
+  while(low<high){
+    const middle=low+Math.floor((high-low)/2)
+    if(index[middle]!.terms.talentId<talentId)low=middle+1
+    else high=middle
+  }
+  for(let i=low;i<index.length && index[i]!.terms.talentId===talentId;i++){
+    const row=index[i]!
+    if(row.studioId !== state.hollywood?.playerStudioId &&
+      row.terms.startWeek <= week && week < row.terms.endWeekExclusive &&
+      (row.endedWeek === null || week < row.endedWeek))return row
+  }
+  return null
 }
 
 export function rivalBusiness(state: Pick<GameState, 'hollywood'>, studioId: string): RivalBusiness | null {

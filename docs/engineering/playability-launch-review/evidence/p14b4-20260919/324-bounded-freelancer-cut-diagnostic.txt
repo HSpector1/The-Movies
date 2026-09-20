@@ -1,0 +1,66 @@
+{"sourceSha":"e34af4777a12607d90435048e2703297403eecaf","testedDiffSha256":"4784052bc228bfc4af7abc8ef7b2eae1219061f3fe53ceeef8bc7d243e4b3588","untrackedSource":["tests/p14b4-ready-replay-stale-target.test.ts"],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14b4-ready-owner-replay.test.ts","-t","uses actual source-now employment"],"node":"v20.20.2","start":"2026-09-20T07:22:51.953Z","end":null,"exitCode":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+stderr | tests/p14b4-ready-owner-replay.test.ts > P14B4 source-now Ready operational admission > uses actual source-now employment and freelancer-market facts instead of treating every idle uncontracted actor as available
+P14B4_FREELANCER_ENTRY_324 35357
+P14B4_FREELANCER_PARTS_324 97958 {
+  busy: 4530,
+  rival: 78004,
+  random: 1968,
+  filterBill: 3252,
+  contractBill: 28378,
+  queryCount: 73,
+  queryChars: 1064,
+  employmentCount: 35,
+  employmentChars: 760,
+  employmentWidth: 28,
+  studioChars: 698,
+  busyRows: 0,
+  busyChars: 0,
+  talent: 84,
+  contracts: 11
+}
+P14B4_WORK_LIMIT_324 98074 116132 200000 Error: diagnostic-only
+    at Work.pay (/Users/zacheryspector/The-Movies-headless-program/src/core/promiseCapacityOwnerReplay.ts:237:111)
+    at admitReady (/Users/zacheryspector/The-Movies-headless-program/src/core/promiseCapacityOwnerReplay.ts:2045:40)
+    at replayPlans (/Users/zacheryspector/The-Movies-headless-program/src/core/promiseCapacityOwnerReplay.ts:2208:11)
+    at Module.replayReadyProductionPlans (/Users/zacheryspector/The-Movies-headless-program/src/core/promiseCapacityOwnerReplay.ts:2272:10)
+    at observed (/Users/zacheryspector/The-Movies-headless-program/tests/p14b4-ready-owner-replay.test.ts:148:20)
+    at refusal (/Users/zacheryspector/The-Movies-headless-program/tests/p14b4-ready-owner-replay.test.ts:213:16)
+    at /Users/zacheryspector/The-Movies-headless-program/tests/p14b4-ready-owner-replay.test.ts:411:5
+    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14
+    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11
+    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)
+
+ ❯ |core| tests/p14b4-ready-owner-replay.test.ts (7 tests | 1 failed | 6 skipped) 350ms
+   × P14B4 source-now Ready operational admission > uses actual source-now employment and freelancer-market facts instead of treating every idle uncontracted actor as available 348ms
+     → expected 'workLimit' to be 'commandRefused' // Object.is equality
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14b4-ready-owner-replay.test.ts > P14B4 source-now Ready operational admission > uses actual source-now employment and freelancer-market facts instead of treating every idle uncontracted actor as available
+AssertionError: expected 'workLimit' to be 'commandRefused' // Object.is equality
+
+Expected: "commandRefused"
+Received: "workLimit"
+
+ ❯ refusal tests/p14b4-ready-owner-replay.test.ts:217:26
+    215|   const attempt = seen.result.attempts[0]!
+    216|   if (attempt.kind !== 'cut') throw new Error('242 refused Ready choic…
+    217|   expect(attempt.reason).toBe('commandRefused')
+       |                          ^
+    218|   expect(attempt.detail).toContain(detail)
+    219|   expect(attempt.provenance.some((row) => row.kind === 'readyAdmitted'…
+ ❯ tests/p14b4-ready-owner-replay.test.ts:411:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 6 skipped (7)
+   Start at  09:22:52
+   Duration  3.45s (transform 1.97s, setup 0ms, collect 2.61s, tests 350ms, environment 0ms, prepare 107ms)
+
+
+{"sourceSha":"e34af4777a12607d90435048e2703297403eecaf","testedDiffSha256":"4784052bc228bfc4af7abc8ef7b2eae1219061f3fe53ceeef8bc7d243e4b3588","untrackedSource":["tests/p14b4-ready-replay-stale-target.test.ts"],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14b4-ready-owner-replay.test.ts","-t","uses actual source-now employment"],"node":"v20.20.2","start":"2026-09-20T07:22:51.953Z","end":"2026-09-20T07:22:56.348Z","exitCode":1,"signal":null,"error":null,"sourceShaAtEnd":"e34af4777a12607d90435048e2703297403eecaf","testedDiffSha256AtEnd":"4784052bc228bfc4af7abc8ef7b2eae1219061f3fe53ceeef8bc7d243e4b3588","untrackedSourceAtEnd":["tests/p14b4-ready-replay-stale-target.test.ts"],"fixedSource":true}

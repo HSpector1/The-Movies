@@ -1,0 +1,25 @@
+{
+  "sourceSha": "e34af4777a12607d90435048e2703297403eecaf",
+  "testedDiffSha256": "fc6698bcaa4c1cd1fc7c8157eb657e946a87f5353c3bee51c9485f64d2c7f4a5",
+  "untrackedSource": [
+    "tests/p14b4-ready-replay-stale-target.test.ts"
+  ],
+  "command": [
+    "node_modules/.bin/tsc",
+    "-p",
+    "tsconfig.bridge.json",
+    "--noEmit"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-20T07:21:24.343Z",
+  "end": "2026-09-20T07:21:50.727Z",
+  "exitCode": 2,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "e34af4777a12607d90435048e2703297403eecaf",
+  "testedDiffSha256AtEnd": "fc6698bcaa4c1cd1fc7c8157eb657e946a87f5353c3bee51c9485f64d2c7f4a5",
+  "untrackedSourceAtEnd": [
+    "tests/p14b4-ready-replay-stale-target.test.ts"
+  ],
+  "fixedSource": true
+}
