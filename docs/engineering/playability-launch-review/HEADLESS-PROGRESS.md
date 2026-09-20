@@ -72,9 +72,24 @@ bridge sole OLD TS2353, facts7PASS =255 passes. 534 probes: bills EXACT
 315/6861/8099/8578/850/7948/576 + Post-exit5668 (predicted); first-take182925
 (505:189256) GREEN incl. kernel; stale now cuts at the week8 owner reservation
 197631/request5765 (2369 left), refusal ≈22k LIKELY away; RED preserved.
-NEXT536: next bounded lawful reduction under 515 §3 (C1 calculator structure
-runner-up, C5/C6/C7) with review before any writer; Owner decision item on
-C9/C10 and the 302 control stands. Gross2221 omitted fact cost is NOT
+536 CLOSED/fixedSource:true on69d16f8 (published7680d60): eleven non-replay B4
+groups 110PASS/83FAIL (kernel41, material17, D3 8, hold5, sort7 GREEN; live-P2
+files RED at the Save29/rules3/grammar46 boundaries). 537 (published73c28e2):
+three READ-ONLY reports (sim-core map, test-author classification, contract-
+auditor review): 26§1 pure steps already landed (fbe2d28); NO installed RED
+stops at a pure boundary; A1 (scalar class+residual evaluator stamped rules4)
+NOT LAWFUL as proposed: the plan defines evaluator4 as residual + bounded joint
+certificate, and any 3→4 move breaks the B-F2/B3 rules3 pins (test change, not
+writer-only). OWNER/Current Ops DECISION ITEMS (537§3, non-blocking): D1
+evaluator4 definition/sequencing (a: scalar now, kernel as evaluator5, pins
+reconciled inside the coordinated cutover — parent recommends; b: hold 4 for
+the kernel service; c: revisit cap/tariffs); D2 kernel budget finding (one Ready
+plan =182925 of200000; the achievable probe needs two traces). NO writer.
+NEXT538: evidence-only kernel budget measurement on the real capacity fixtures
+(test-author file, parent record-check run), then bounded review of a detached
+owner-adapter first slice (claims/trace assembly/result mapping over explicit
+plans; enumerator separate): lawful under every D1 option, no live wiring, no
+version stamp. Replay C1/C5–C7 remain the parallel track; 515§6 stands. Gross2221 omitted fact cost is NOT
 net saving: cold discovery can shift into next frame. No route-fit claim.
 Draft-discovery, silent-policy, affine and Map alternatives remain unadopted.
 T4/B2/B3/B-F2 qualified closed; B4/liveP2/Unity/Owner acceptance NOT closed.

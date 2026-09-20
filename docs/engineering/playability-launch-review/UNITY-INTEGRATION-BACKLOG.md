@@ -53,6 +53,20 @@ release test still FAILS (now at the week8 owner reservation). First-take
 producer182925, kernel GREEN. Owner decision item (515§6) recorded: the stale
 route is not shown to fit200000 under the work contract as written.
 
+Headless checkpoint536/537 (2026-09-20), published/exact remote
+`73c28e2d7385d5b9dc24040a1bb8152340761cf6`: fixed-source run of the eleven
+non-replay B4 groups on the qualified checkpoint (110 PASS / 83 FAIL; kernel,
+material-evidence, D3, hold-order and stable-sort GREEN; the live-P2 files stop
+at the recorded Save29 / rules3 / projection46 / draft-grammar boundaries).
+Three READ-ONLY reports classify every failure by true stop point and review the
+proposed pre-cutover core slice: NOT lawful as proposed (a rules-4 stamp on a
+scalar evaluator is a law the plan does not define, and it breaks the B-F2/B3
+rules-3 pins). Two OWNER / Current Ops decision items recorded (537 §3):
+D1 evaluator-4 definition and sequencing; D2 the kernel budget finding (one
+Ready plan costs 182925 of 200000). No writer released. Consumer impact: the
+projection47 / Save30 / class-selection wire contract stays future; its timing
+now depends on D1.
+
 These are private logic/work-accounting changes only. No consumer field/action,
 protocol4, projection46, live Save29, evaluator3, schema or generated C# changed.
 Do not expose partial traces as certified offers, impossible schedules or broken
