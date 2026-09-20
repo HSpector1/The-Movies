@@ -110,12 +110,30 @@ fixture unbound) are PRE-EXISTING on clean HEAD, not caused by the slice.
 553-R contract-auditor KEEP, six record-only items (limits key order; rival
 gate before the adapter; named-root tolerance; negative edges; rival tariff
 P+A; dangling promiseId). NO receipt/rulesVersion/save/projection/kernel/
-producer change; D1 (537§3), D2 (538-C §2), 515§6 stand. NEXT554: attribute
-the pre-existing B1/B2 control drift by a bounded bisect over the two files in
-a temporary linked worktree (this worktree's HEAD untouched), then test-author
-reconciliation or defect record; then the enumerator slice design (13 second
-clause; PROVEN_* reach gated by D2 on history-bearing fixtures). Replay
-C1/C5–C7 remain the parallel track. Gross2221 omitted fact cost is NOT
+producer change; D1 (537§3), D2 (538-C §2), 515§6 stand. 554 (published6d7d75a): the two pre-existing B1/B2 control failures were
+ATTRIBUTED by bisect (temporary linked worktree; this HEAD untouched) to the
+accepted D3 preference law 956a17f: p14b1-trust-chooser test6 is the DESIGNATED
+moved premise of record110 (migrate to real tagged P2 at coordinated
+activation; stays FAILING by design — now named in the expected failing set);
+the p14b2 poaching fixture went unnoticed at the D3 checkpoint (101 ran two
+files) and also broke three bridge-p14b2-trust group5 cases. 556 (published
+e33022f): test-author reconciliation under plan T2 — one real 52-week actor
+contract gives the player a Reliable record, route pinned by receipt reasons;
+557 fixedSource:true: controls 133PASS/1FAIL(test6)/2todo, bridge-p14b2-trust
+22PASS, capacity/outcomes failing sets identical to 549. 555 (published
+267b7dc): enumerator slice designed (555-A) and reviewed REFINE→adopted
+(555-B): a derived fresh-take floor (no unstarted picture can record a first
+take before now+5; owner fact of actions/operations/tick) plus the forced-take
+condition make the Started-only domain COMPLETE for windows ≤ now+5, so the
+13 fixed-cast cells and the conflicting-claim case reach PROVEN_FRAGILE /
+PROVEN_IMPOSSIBLE through the adapter without running the Ready producer
+(D2 side-stepped for short windows); both certificate flags gated by the
+floor; option β (no Ready run; long windows truthfully UNCERTIFIED). NEXT558:
+test-author RED tests/p14b4-owner-enumerator-slice (in progress) → ONE
+sim-core writer (new src/core/promiseCapacityEnumerator.ts + one hunk in the
+adapter: 5th parameter, limits re-literal) → serial fixed-source checks →
+independent review. D1 (537§3), D2 (538-C §2), 515§6 stand; replay C1/C5–C7
+remain the parallel track. Gross2221 omitted fact cost is NOT
 net saving: cold discovery can shift into next frame. No route-fit claim.
 Draft-discovery, silent-policy, affine and Map alternatives remain unadopted.
 T4/B2/B3/B-F2 qualified closed; B4/liveP2/Unity/Owner acceptance NOT closed.

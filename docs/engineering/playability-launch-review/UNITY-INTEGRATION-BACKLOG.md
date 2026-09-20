@@ -90,6 +90,15 @@ B1/B2 natural-chain control failures attributed to clean HEAD (not this slice).
 No live importer, no receipt, no version stamp. Consumer impact: none;
 projection46/Save29/protocol4 unchanged; projection47/Save30 still wait on D1.
 
+Headless checkpoint554–556 (2026-09-20), published/exact remote
+`e33022fb83f071b25a02e4ae73bc8152299acc66`: the two pre-existing control
+failures were attributed by bisect to the accepted D3 preference law; the B2
+poaching fixture was reconciled under that law (test-author, plan T2) and the
+bridge B2 trust suite is green again on HEAD; the trust-chooser tie case stays
+failing by design until the coordinated tagged-P2 activation. Record 555
+adopts the enumerator slice (fresh-take floor certificate, no Ready-producer
+run). Consumer impact: none; projection46/Save29/protocol4 unchanged.
+
 These are private logic/work-accounting changes only. No consumer field/action,
 protocol4, projection46, live Save29, evaluator3, schema or generated C# changed.
 Do not expose partial traces as certified offers, impossible schedules or broken
