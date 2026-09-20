@@ -18,16 +18,22 @@
 
 import { setById, setIsUsable } from './sets.js'
 import { adoptionChainOperational } from './technologyAdoption.js'
-import type { TechnologyAdoption, TechnologyId } from './technologyTypes.js'
+import type { AdoptionChainFacts } from './technologyAdoption.js'
+import type { StudioTechnology, TechnologyAdoption, TechnologyId } from './technologyTypes.js'
 import type {
   Action,
   GameState,
   ProductionSetupProvenance,
   ProductionSetupRecipeId,
   ProductionSetupRecord,
+  ProductionSetupRouteResolver,
   ProductionWorkflow,
   SetTypeId,
 } from './types.js'
+
+export type ProductionSetupFacts = AdoptionChainFacts & Readonly<{
+  technology: StudioTechnology
+}>
 
 export type ProductionSetupRecipe = {
   id: ProductionSetupRecipeId
@@ -78,7 +84,7 @@ export function setupForecast(admittedWeek: number, requiredUnits: number): numb
   return admittedWeek + requiredUnits
 }
 
-function playerStudioId(state: GameState): string | null {
+function playerStudioId(state: Pick<AdoptionChainFacts, 'hollywood'>): string | null {
   return state.hollywood?.playerStudioId ?? null
 }
 
@@ -95,7 +101,7 @@ function workflowOf(state: GameState, productionId: string): ProductionWorkflow 
  * equipment asset still HELD by that adoption.
  */
 function lightingAdoption(
-  state: GameState,
+  state: ProductionSetupFacts,
   studioId: string | null,
   technologyId: TechnologyId,
   stageFacilityId: string,
@@ -136,7 +142,7 @@ function lightingAdoption(
 
 /** Route, provenance and unit count for one recipe on one stage, as of `week`. */
 export function deriveSetupProvenance(
-  state: GameState,
+  state: ProductionSetupFacts,
   recipe: ProductionSetupRecipe,
   stageFacilityId: string,
   week: number,
@@ -161,7 +167,7 @@ export function deriveSetupProvenance(
  * The resolver the weekly advance consults at setup admission. Bound to the
  * state the advance began from, exactly like the technology policy beside it.
  */
-export function createProductionSetupRouteResolver(state: GameState) {
+export function createProductionSetupRouteResolver(state: ProductionSetupFacts): ProductionSetupRouteResolver {
   return (input: { stageFacilityId: string; recipeId: ProductionSetupRecipeId; week: number }): ProductionSetupProvenance => {
     const recipe = setupRecipeById(input.recipeId)
     if (recipe === null) {

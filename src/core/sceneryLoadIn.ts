@@ -44,7 +44,12 @@
 
 import { propertyOf } from './lot.js'
 import { TUNING } from './tuning.js'
-import type { GameState, LotCell, ProductionWorkflow } from './types.js'
+import type { FacilityInstallationFacts } from './facilityEffects.js'
+import type { LotCell, ProductionWorkflow, PropertyState } from './types.js'
+
+export type SceneryLoadInFacts = FacilityInstallationFacts & Readonly<{
+  property?: PropertyState
+}>
 
 /** Why a load-in duration could not be derived. Withheld, never guessed (law 17/21). */
 export type SceneryLoadInWithholding =
@@ -97,7 +102,7 @@ function isFiniteInteger(value: unknown): value is number {
  * Contradictory truth is withheld too: two bodies claiming one facility name
  * neither.
  */
-export function facilityBodyCentre(state: GameState, facilityId: string): LotCell | null {
+export function facilityBodyCentre(state: SceneryLoadInFacts, facilityId: string): LotCell | null {
   if (typeof facilityId !== 'string' || facilityId.length === 0) return null
   const property = propertyOf(state)
   const structures = Array.isArray(property.structures) ? property.structures : []
@@ -181,7 +186,7 @@ export function sceneryLoadInWeeksForDistance(distance: number): number {
  * are talking about.
  */
 export function sceneryLoadInFor(
-  state: GameState,
+  state: SceneryLoadInFacts,
   workflow: ProductionWorkflow,
   week: number,
 ): SceneryLoadIn | SceneryLoadInWithholding {
@@ -273,7 +278,7 @@ export type SceneryLoadInDecision =
   | { kind: 'withheld'; reason: SceneryLoadInWithheldReason }
 
 export function sceneryLoadInDecision(
-  state: GameState,
+  state: SceneryLoadInFacts,
   workflow: ProductionWorkflow,
   week: number,
 ): SceneryLoadInDecision {

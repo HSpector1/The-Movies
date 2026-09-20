@@ -1,0 +1,68 @@
+{"sourceSha":"41bfeebc69b5255be40e9169b76097c82c08c60c","testedDiffSha256":"97b49c904009d6f61fd753cf4360c92beeb3d1a48b5888eb7ccfe3479bf781c0","untrackedSource":[],"command":["node_modules/.bin/vitest","run","tests/p14b4-owner-fact-views.test.ts","tests/p14b4-managed-clock-owner.test.ts","tests/p13a-production-technology.test.ts","tests/p13b-s5-operational.test.ts","tests/p13b-r07-timeline.test.ts","tests/p13b-s8-setup-symmetry.test.ts","tests/p14b2-setup-wrap-regressions.test.ts","tests/c2a-m5-scenery-load-in-layout.test.ts","tests/p05a-w1-scenery-truth.test.ts","tests/world-first-scenery-load-in-provenance.test.ts","tests/p06a-w1-release-authority.test.ts","--minWorkers=1","--maxWorkers=1"],"node":"v20.20.2","start":"2026-09-20T01:44:25.168Z","end":null,"exitCode":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p14b4-owner-fact-views.test.ts (7 tests) 1639ms
+   ✓ P14B4 existing owner fact views — behavior-preserving narrowing > uses a genuine shooting-entry clock with nullable/default player identity (true) 372ms
+   ✓ P14B4 existing owner fact views — behavior-preserving narrowing > reads only actual property/placement facts for centres and the pre-arrival scenery owner result 311ms
+   ✓ P14B4 existing owner fact views — behavior-preserving narrowing > uses narrow real production/concept records for early, missing, legal and committed release 552ms
+ ✓ |core| tests/p05a-w1-scenery-truth.test.ts (21 tests) 658ms
+ ✓ |core| tests/c2a-m5-scenery-load-in-layout.test.ts (20 tests) 370ms
+ ✓ |core| tests/p06a-w1-release-authority.test.ts (14 tests) 1745ms
+   ✓ P06A W1 — save law > imports a pre-P06 Release Ready save as UNCOMMITTED (holds until committed) 402ms
+   ✓ P06A W1 — save law > round-trips a committed live save byte-exactly and refuses downgrades 653ms
+   ✓ P06A W1 — save law > validateSaveV29 rejects forged authority at the save boundary 405ms
+ ✓ |core| tests/p13b-r07-timeline.test.ts (6 tests) 8221ms
+   ✓ P13B-S5-R07 setup timeline arithmetic (test 2) > walks the lighting ballroom route through real ticks: admission 807, entry 809 8089ms
+ ✓ |core| tests/p14b4-managed-clock-owner.test.ts (5 tests) 2347ms
+   ✓ P14B4 behavior-preserving managed clock owner extraction > retains full-P callbacks and technology locks at real shooting entry, not a take 429ms
+   ✓ P14B4 behavior-preserving managed clock owner extraction > holds an unassigned real take, then returns exactly the scheduled 5→4 caller record 614ms
+   ✓ P14B4 behavior-preserving managed clock owner extraction > releases real wrapped stage/Set holds even when the supplied Post slots are occupied 505ms
+   ✓ P14B4 behavior-preserving managed clock owner extraction > holds actual Release Ready until real commitment, then returns its exact admission ID 584ms
+ ✓ |core| tests/p13a-production-technology.test.ts (11 tests) 680ms
+   ✓ P13A first-filming technology and exact production chain > carries the first-filming lock through the complete tick state assembly 443ms
+ ✓ |core| tests/p13b-s5-operational.test.ts (4 tests) 26438ms
+   ✓ P13B-S5 operational law and charges (test 2) > lighting is operational at exactly committedWeek + 4 (deploymentWeeks), postFacilityId is null, and its +$1,000/week joins the ledger with no lag from the operational week onward 7680ms
+   ✓ P13B-S5 operational law and charges (test 2) > sound with no postFacilityId and no existing operational Post anywhere in the studio is refused 4341ms
+   ✓ P13B-S5 operational law and charges (test 2) > a second sound adoption reuses the existing operational Post: no new Post placement, no re-bill, and only the second stage’s own weekly cost joins the ledger 4357ms
+   ✓ P13B-S5 operational law and charges (test 2) > the sound-only production lock discriminator: a lighting adoption’s stage never carries the synchronized-sound-stage installation a sound adoption’s stage does 10059ms
+ ✓ |core| tests/p13b-s8-setup-symmetry.test.ts (4 tests) 80ms
+ ✓ |core| tests/p14b2-setup-wrap-regressions.test.ts (13 tests) 2915ms
+   ✓ P14B.2-F1 completed setup remains historical authority after real wrap > round-trips actual first take → wrap → Post with unchanged setup and released stage 1924ms
+   ✓ P14B.2-F1 completed setup remains historical authority after real wrap > does not require compacted windowed setup/phase events when the permanent exact wrap survives 423ms
+ ❯ |core| tests/world-first-scenery-load-in-provenance.test.ts (3 tests | 1 failed) 478ms
+   × World-First Scenery Load-In V1 — frozen district provenance > replays the clean exporter and pins its deliberately non-runtime manifest 421ms
+     → Command failed: python3 /Users/zacheryspector/The-Movies-headless-program/tools/hollywood/export_district.py --source /Users/zacheryspector/The-Movies-headless-program/art/hollywood/source/moonshot-studio-chronicle-concept.png --manifest /Users/zacheryspector/The-Movies-headless-program/art/hollywood/district-manifest.source.json --output /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/studio-scenery-export-pANFnX
+Traceback (most recent call last):
+  File "/Users/zacheryspector/The-Movies-headless-program/tools/hollywood/export_district.py", line 16, in <module>
+    from PIL import Image, ImageDraw
+ModuleNotFoundError: No module named 'PIL'
+
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/world-first-scenery-load-in-provenance.test.ts > World-First Scenery Load-In V1 — frozen district provenance > replays the clean exporter and pins its deliberately non-runtime manifest
+Error: Command failed: python3 /Users/zacheryspector/The-Movies-headless-program/tools/hollywood/export_district.py --source /Users/zacheryspector/The-Movies-headless-program/art/hollywood/source/moonshot-studio-chronicle-concept.png --manifest /Users/zacheryspector/The-Movies-headless-program/art/hollywood/district-manifest.source.json --output /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/studio-scenery-export-pANFnX
+Traceback (most recent call last):
+  File "/Users/zacheryspector/The-Movies-headless-program/tools/hollywood/export_district.py", line 16, in <module>
+    from PIL import Image, ImageDraw
+ModuleNotFoundError: No module named 'PIL'
+
+ ❯ tests/world-first-scenery-load-in-provenance.test.ts:85:7
+     83|     const output = mkdtempSync(join(tmpdir(), 'studio-scenery-export-'…
+     84|     try {
+     85|       execFileSync('python3', [
+       |       ^
+     86|         resolve('tools/hollywood/export_district.py'),
+     87|         '--source', resolve('art/hollywood/source/moonshot-studio-chro…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed | 10 passed (11)
+      Tests  1 failed | 107 passed (108)
+   Start at  03:44:25
+   Duration  55.32s (transform 2.18s, setup 0ms, collect 5.69s, tests 45.57s, environment 3ms, prepare 1.16s)
+
+
+{"sourceSha":"41bfeebc69b5255be40e9169b76097c82c08c60c","testedDiffSha256":"97b49c904009d6f61fd753cf4360c92beeb3d1a48b5888eb7ccfe3479bf781c0","untrackedSource":[],"command":["node_modules/.bin/vitest","run","tests/p14b4-owner-fact-views.test.ts","tests/p14b4-managed-clock-owner.test.ts","tests/p13a-production-technology.test.ts","tests/p13b-s5-operational.test.ts","tests/p13b-r07-timeline.test.ts","tests/p13b-s8-setup-symmetry.test.ts","tests/p14b2-setup-wrap-regressions.test.ts","tests/c2a-m5-scenery-load-in-layout.test.ts","tests/p05a-w1-scenery-truth.test.ts","tests/world-first-scenery-load-in-provenance.test.ts","tests/p06a-w1-release-authority.test.ts","--minWorkers=1","--maxWorkers=1"],"node":"v20.20.2","start":"2026-09-20T01:44:25.168Z","end":"2026-09-20T01:45:21.550Z","exitCode":1,"signal":null,"error":null,"sourceShaAtEnd":"41bfeebc69b5255be40e9169b76097c82c08c60c","testedDiffSha256AtEnd":"97b49c904009d6f61fd753cf4360c92beeb3d1a48b5888eb7ccfe3479bf781c0","untrackedSourceAtEnd":[],"fixedSource":true}

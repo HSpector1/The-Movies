@@ -46,8 +46,12 @@ export function committedReleaseIds(authority: StudioReleaseAuthority): Readonly
   return new Set(authority.commitments.map((row) => row.productionId))
 }
 
-export type ReleaseOwner = { productions: readonly Production[]; concepts: readonly FilmConcept[];
-  operations: StudioOperations; releaseAuthority: StudioReleaseAuthority }
+export type ReleaseOwner = {
+  productions: readonly Pick<Production, 'id' | 'conceptId' | 'remainingTicks'>[]
+  concepts: readonly Pick<FilmConcept, 'id' | 'title'>[]
+  operations: StudioOperations
+  releaseAuthority: StudioReleaseAuthority
+}
 
 function titleFor(owner: ReleaseOwner, productionId: string): string {
   const production = owner.productions.find((p) => p.id === productionId)

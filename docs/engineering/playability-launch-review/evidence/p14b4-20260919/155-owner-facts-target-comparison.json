@@ -1,0 +1,14 @@
+{
+  "candidateRawPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/152-owner-facts-target.txt",
+  "candidateRawSha256": "fd298349c1ec149a39d20d226d07e6f288279d3b608cbca065f356f866665b70",
+  "priorComparisonPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/142-owner-facts-baseline-comparison.json",
+  "priorComparisonSha256": "47fef942bd468eac9c21e2009d77e06c946874eb4eb511e5bdd7b2f406bd4c7f",
+  "test": "tests/world-first-scenery-load-in-provenance.test.ts > World-First Scenery Load-In V1 — frozen district provenance > replays the clean exporter and pins its deliberately non-runtime manifest",
+  "diagnostic": "Error: Command failed: python3 /Users/zacheryspector/The-Movies-headless-program/tools/hollywood/export_district.py --source /Users/zacheryspector/The-Movies-headless-program/art/hollywood/source/moonshot-studio-chronicle-concept.png --manifest /Users/zacheryspector/The-Movies-headless-program/art/hollywood/district-manifest.source.json --output /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/studio-scenery-export-<temporary>\nTraceback (most recent call last):\n  File \"/Users/zacheryspector/The-Movies-headless-program/tools/hollywood/export_district.py\", line 16, in <module>\n    from PIL import Image, ImageDraw\nModuleNotFoundError: No module named 'PIL'\n\n ❯ tests/world-first-scenery-load-in-provenance.test.ts:85:7\n     83|     const output = mkdtempSync(join(tmpdir(), 'studio-scenery-export-'…\n     84|     try {\n     85|       execFileSync('python3', [\n       |       ^\n     86|         resolve('tools/hollywood/export_district.py'),\n     87|         '--source', resolve('art/hollywood/source/moonshot-studio-chro…",
+  "exactPreExtractionAndHistoricalMatch": true,
+  "normalization": "generated scenery temporary-directory suffix only",
+  "candidate": "41bfeebc69b5255be40e9169b76097c82c08c60c",
+  "protectedPatch": "97b49c904009d6f61fd753cf4360c92beeb3d1a48b5888eb7ccfe3479bf781c0",
+  "result": "107 PASS /1 unchanged missing-PIL FAIL",
+  "qualification": "Full signature attribution, not completed exporter behavior or all-green suite"
+}

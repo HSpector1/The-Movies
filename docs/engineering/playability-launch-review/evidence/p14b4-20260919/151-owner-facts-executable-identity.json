@@ -1,0 +1,21 @@
+{
+  "sourceSha": "41bfeebc69b5255be40e9169b76097c82c08c60c",
+  "testedDiffSha256": "97b49c904009d6f61fd753cf4360c92beeb3d1a48b5888eb7ccfe3479bf781c0",
+  "untrackedSource": [],
+  "command": [
+    "node",
+    "--input-type=module",
+    "-e",
+    "import fs from \"node:fs\"; import assert from \"node:assert/strict\"; import {execFileSync} from \"node:child_process\"; import {createHash} from \"node:crypto\"; import ts from \"typescript\"; const base=\"41bfeebc69b5255be40e9169b76097c82c08c60c\"; const options={target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.ES2022,removeComments:true}; const sha=s=>createHash(\"sha256\").update(s).digest(\"hex\"); console.log(\"TypeScript\",ts.version,\"ES2022 module/target, removeComments\"); for(const f of [\"src/core/facilityEffects.ts\",\"src/core/technologyAdoption.ts\",\"src/core/technologyProduction.ts\",\"src/core/productionSetup.ts\",\"src/core/sceneryLoadIn.ts\",\"src/core/releaseAuthority.ts\"]){const old=execFileSync(\"git\",[\"show\",base+\":\"+f],{encoding:\"utf8\"});const now=fs.readFileSync(f,\"utf8\");const a=ts.transpileModule(old,{compilerOptions:options,fileName:f}).outputText;const b=ts.transpileModule(now,{compilerOptions:options,fileName:f}).outputText;assert.equal(b,a,f+\" executable output changed\");console.log(f,\"unchanged executable SHA256\",sha(b),\"source SHA256\",sha(now));}"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-20T01:43:21.496Z",
+  "end": "2026-09-20T01:43:23.590Z",
+  "exitCode": 0,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "41bfeebc69b5255be40e9169b76097c82c08c60c",
+  "testedDiffSha256AtEnd": "97b49c904009d6f61fd753cf4360c92beeb3d1a48b5888eb7ccfe3479bf781c0",
+  "untrackedSourceAtEnd": [],
+  "fixedSource": true
+}

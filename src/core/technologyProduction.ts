@@ -3,18 +3,24 @@ import { occupiedResourceSlots } from './occupancy.js'
 import { retargetUnfilmedProduction, type ProductionAllocationPolicy, type ProductionClockView } from './operations.js'
 import { commitStudioEvents, StudioEventSink } from './studioEvents.js'
 import type { GameState } from './types.js'
+import type { AdoptionChainFacts } from './technologyAdoption.js'
 import type { ProductionTechnology, StudioTechnology, TechnologyAdoption } from './technologyTypes.js'
 
-function playerId(state: GameState): string | undefined {
+export type ProductionTechnologyFacts = AdoptionChainFacts & Readonly<{
+  technology: StudioTechnology
+  market: Readonly<Pick<GameState['market'], 'tick'>>
+}>
+
+function playerId(state: Pick<AdoptionChainFacts, 'hollywood'>): string | undefined {
   return state.hollywood?.playerStudioId
 }
 
 /** The absence of a row is the lawful silent default, including migrated films. */
-function selectedTechnology(state: GameState, studioId: string | undefined, productionId: string): ProductionTechnology | undefined {
+function selectedTechnology(state: Pick<ProductionTechnologyFacts, 'technology'>, studioId: string | undefined, productionId: string): ProductionTechnology | undefined {
   return state.technology.productions.find((row) => row.studioId === studioId && row.productionId === productionId)
 }
 
-function operationalAdoption(state: GameState, studioId: string, adoptionId: string | null): TechnologyAdoption | null {
+function operationalAdoption(state: ProductionTechnologyFacts, studioId: string, adoptionId: string | null): TechnologyAdoption | null {
   const adoption = state.technology.adoptions.find((row) => row.id === adoptionId && row.studioId === studioId &&
     row.operationalWeek !== null && row.operationalWeek <= state.market.tick)
   if (adoption === undefined) return null
@@ -51,7 +57,7 @@ export function productionTechnologyView(state: GameState, productionId: string,
  * its input. Read technology() after the allocation pass and persist that root.
  * The callback runs at phase entry, before a shooting task can do any work.
  */
-export function createProductionTechnologyPolicy(state: GameState, studioId = playerId(state)): {
+export function createProductionTechnologyPolicy(state: ProductionTechnologyFacts, studioId = playerId(state)): {
   policy: ProductionAllocationPolicy<ProductionClockView>
   technology: () => StudioTechnology
 } {

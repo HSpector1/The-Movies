@@ -1,0 +1,5 @@
+{"sourceSha":"41bfeebc69b5255be40e9169b76097c82c08c60c","testedDiffSha256":"97b49c904009d6f61fd753cf4360c92beeb3d1a48b5888eb7ccfe3479bf781c0","untrackedSource":[],"command":["node_modules/.bin/tsc","--noEmit","-p","tsconfig.bridge.json"],"node":"v20.20.2","start":"2026-09-20T01:47:57.610Z","end":null,"exitCode":null}
+
+tests/bridge-p14b4-cast-class.test.ts(364,20): error TS2353: Object literal may only specify known properties, and 'kind' does not exist in type '{ count: number; }'.
+
+{"sourceSha":"41bfeebc69b5255be40e9169b76097c82c08c60c","testedDiffSha256":"97b49c904009d6f61fd753cf4360c92beeb3d1a48b5888eb7ccfe3479bf781c0","untrackedSource":[],"command":["node_modules/.bin/tsc","--noEmit","-p","tsconfig.bridge.json"],"node":"v20.20.2","start":"2026-09-20T01:47:57.610Z","end":"2026-09-20T01:48:23.965Z","exitCode":2,"signal":null,"error":null,"sourceShaAtEnd":"41bfeebc69b5255be40e9169b76097c82c08c60c","testedDiffSha256AtEnd":"97b49c904009d6f61fd753cf4360c92beeb3d1a48b5888eb7ccfe3479bf781c0","untrackedSourceAtEnd":[],"fixedSource":true}

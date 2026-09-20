@@ -1,0 +1,228 @@
+diff --git a/src/core/facilityEffects.ts b/src/core/facilityEffects.ts
+index c2725cd..f3c7f2e 100644
+--- a/src/core/facilityEffects.ts
++++ b/src/core/facilityEffects.ts
+@@ -32,7 +32,11 @@ import {
+   SCRIPT_DEVELOPMENT_OFFICE_TIER_2_EST_UPLIFT,
+   SCRIPT_DEVELOPMENT_OFFICE_TIER_3_EST_UPLIFT,
+ } from './tuning.js'
+-import type { GameState } from './types.js'
++import type { GameState, PlacedFacility } from './types.js'
++
++export type FacilityInstallationFacts = Readonly<{
++  placement: Readonly<{ facilities: readonly PlacedFacility[] }>
++}>
+ 
+ /**
+  * How many OPERATIONAL placements of a blueprint the studio has.
+@@ -59,7 +63,7 @@ export function hasOperationalBlueprint(state: GameState, blueprintId: string):
+  * qualify. A null target names NO body (P13B-S5: a technology with no Post
+  * component), so it never matches an installation.
+  */
+-export function hasOperationalFacilityInstallation(state: GameState, targetFacilityId: string | null, blueprintId: string): boolean {
++export function hasOperationalFacilityInstallation(state: FacilityInstallationFacts, targetFacilityId: string | null, blueprintId: string): boolean {
+   if (targetFacilityId === null) return false
+   return state.placement.facilities.some((placed) => placed.status === 'operational' &&
+     placed.blueprintId === blueprintId && placed.installation?.targetFacilityId === targetFacilityId)
+diff --git a/src/core/productionSetup.ts b/src/core/productionSetup.ts
+index 2db3891..d90da3a 100644
+--- a/src/core/productionSetup.ts
++++ b/src/core/productionSetup.ts
+@@ -18,17 +18,23 @@
+ 
+ import { setById, setIsUsable } from './sets.js'
+ import { adoptionChainOperational } from './technologyAdoption.js'
+-import type { TechnologyAdoption, TechnologyId } from './technologyTypes.js'
++import type { AdoptionChainFacts } from './technologyAdoption.js'
++import type { StudioTechnology, TechnologyAdoption, TechnologyId } from './technologyTypes.js'
+ import type {
+   Action,
+   GameState,
+   ProductionSetupProvenance,
+   ProductionSetupRecipeId,
+   ProductionSetupRecord,
++  ProductionSetupRouteResolver,
+   ProductionWorkflow,
+   SetTypeId,
+ } from './types.js'
+ 
++export type ProductionSetupFacts = AdoptionChainFacts & Readonly<{
++  technology: StudioTechnology
++}>
++
+ export type ProductionSetupRecipe = {
+   id: ProductionSetupRecipeId
+   name: string
+@@ -78,7 +84,7 @@ export function setupForecast(admittedWeek: number, requiredUnits: number): numb
+   return admittedWeek + requiredUnits
+ }
+ 
+-function playerStudioId(state: GameState): string | null {
++function playerStudioId(state: Pick<AdoptionChainFacts, 'hollywood'>): string | null {
+   return state.hollywood?.playerStudioId ?? null
+ }
+ 
+@@ -95,7 +101,7 @@ function workflowOf(state: GameState, productionId: string): ProductionWorkflow
+  * equipment asset still HELD by that adoption.
+  */
+ function lightingAdoption(
+-  state: GameState,
++  state: ProductionSetupFacts,
+   studioId: string | null,
+   technologyId: TechnologyId,
+   stageFacilityId: string,
+@@ -136,7 +142,7 @@ function lightingAdoption(
+ 
+ /** Route, provenance and unit count for one recipe on one stage, as of `week`. */
+ export function deriveSetupProvenance(
+-  state: GameState,
++  state: ProductionSetupFacts,
+   recipe: ProductionSetupRecipe,
+   stageFacilityId: string,
+   week: number,
+@@ -161,7 +167,7 @@ export function deriveSetupProvenance(
+  * The resolver the weekly advance consults at setup admission. Bound to the
+  * state the advance began from, exactly like the technology policy beside it.
+  */
+-export function createProductionSetupRouteResolver(state: GameState) {
++export function createProductionSetupRouteResolver(state: ProductionSetupFacts): ProductionSetupRouteResolver {
+   return (input: { stageFacilityId: string; recipeId: ProductionSetupRecipeId; week: number }): ProductionSetupProvenance => {
+     const recipe = setupRecipeById(input.recipeId)
+     if (recipe === null) {
+diff --git a/src/core/releaseAuthority.ts b/src/core/releaseAuthority.ts
+index 87812cb..a4b214a 100644
+--- a/src/core/releaseAuthority.ts
++++ b/src/core/releaseAuthority.ts
+@@ -46,8 +46,12 @@ export function committedReleaseIds(authority: StudioReleaseAuthority): Readonly
+   return new Set(authority.commitments.map((row) => row.productionId))
+ }
+ 
+-export type ReleaseOwner = { productions: readonly Production[]; concepts: readonly FilmConcept[];
+-  operations: StudioOperations; releaseAuthority: StudioReleaseAuthority }
++export type ReleaseOwner = {
++  productions: readonly Pick<Production, 'id' | 'conceptId' | 'remainingTicks'>[]
++  concepts: readonly Pick<FilmConcept, 'id' | 'title'>[]
++  operations: StudioOperations
++  releaseAuthority: StudioReleaseAuthority
++}
+ 
+ function titleFor(owner: ReleaseOwner, productionId: string): string {
+   const production = owner.productions.find((p) => p.id === productionId)
+diff --git a/src/core/sceneryLoadIn.ts b/src/core/sceneryLoadIn.ts
+index e064910..28f4941 100644
+--- a/src/core/sceneryLoadIn.ts
++++ b/src/core/sceneryLoadIn.ts
+@@ -44,7 +44,12 @@
+ 
+ import { propertyOf } from './lot.js'
+ import { TUNING } from './tuning.js'
+-import type { GameState, LotCell, ProductionWorkflow } from './types.js'
++import type { FacilityInstallationFacts } from './facilityEffects.js'
++import type { LotCell, ProductionWorkflow, PropertyState } from './types.js'
++
++export type SceneryLoadInFacts = FacilityInstallationFacts & Readonly<{
++  property?: PropertyState
++}>
+ 
+ /** Why a load-in duration could not be derived. Withheld, never guessed (law 17/21). */
+ export type SceneryLoadInWithholding =
+@@ -97,7 +102,7 @@ function isFiniteInteger(value: unknown): value is number {
+  * Contradictory truth is withheld too: two bodies claiming one facility name
+  * neither.
+  */
+-export function facilityBodyCentre(state: GameState, facilityId: string): LotCell | null {
++export function facilityBodyCentre(state: SceneryLoadInFacts, facilityId: string): LotCell | null {
+   if (typeof facilityId !== 'string' || facilityId.length === 0) return null
+   const property = propertyOf(state)
+   const structures = Array.isArray(property.structures) ? property.structures : []
+@@ -181,7 +186,7 @@ export function sceneryLoadInWeeksForDistance(distance: number): number {
+  * are talking about.
+  */
+ export function sceneryLoadInFor(
+-  state: GameState,
++  state: SceneryLoadInFacts,
+   workflow: ProductionWorkflow,
+   week: number,
+ ): SceneryLoadIn | SceneryLoadInWithholding {
+@@ -273,7 +278,7 @@ export type SceneryLoadInDecision =
+   | { kind: 'withheld'; reason: SceneryLoadInWithheldReason }
+ 
+ export function sceneryLoadInDecision(
+-  state: GameState,
++  state: SceneryLoadInFacts,
+   workflow: ProductionWorkflow,
+   week: number,
+ ): SceneryLoadInDecision {
+diff --git a/src/core/technologyAdoption.ts b/src/core/technologyAdoption.ts
+index 10628b9..6db5c59 100644
+--- a/src/core/technologyAdoption.ts
++++ b/src/core/technologyAdoption.ts
+@@ -17,12 +17,18 @@
+ 
+ import { canAfford } from './employment.js'
+ import { hasOperationalFacilityInstallation } from './facilityEffects.js'
++import type { FacilityInstallationFacts } from './facilityEffects.js'
+ import { queryFacilityInstallation, type FacilityInstallationQuote } from './placement.js'
+ import { technologyEntry, type TechnologyCatalogueEntry } from './technologyCatalogue.js'
+ import { FACILITY_BLUEPRINTS } from './tuning.js'
+ import type { GameState, StudioOperations } from './types.js'
++import type { HollywoodState } from './hollywoodTypes.js'
+ import type { TechnologyAdoption, TechnologyAdoptionComponent, TechnologyEquipmentAsset, TechnologyId } from './technologyTypes.js'
+ 
++export type AdoptionChainFacts = FacilityInstallationFacts & Readonly<{
++  hollywood: Readonly<Pick<HollywoodState, 'playerStudioId'>> | null
++}>
++
+ export type AdoptionRequest = {
+   technologyId: TechnologyId
+   stageFacilityId: string
+@@ -278,7 +284,7 @@ export function adoptionPhysicalComplete(state: GameState, adoption: TechnologyA
+ }
+ 
+ /** Whether this adoption's installed chain is operational on its own exact bodies. */
+-export function adoptionChainOperational(state: GameState, adoption: TechnologyAdoption): boolean {
++export function adoptionChainOperational(state: AdoptionChainFacts, adoption: TechnologyAdoption): boolean {
+   const entry = technologyEntry(adoption.technologyId)
+   // P13B-S6: a cancelled adoption never has an operational chain, whatever else
+   // stands on its bodies — its own work stopped. `?? null`: see above.
+diff --git a/src/core/technologyProduction.ts b/src/core/technologyProduction.ts
+index 01846f2..87052b7 100644
+--- a/src/core/technologyProduction.ts
++++ b/src/core/technologyProduction.ts
+@@ -3,18 +3,24 @@ import { occupiedResourceSlots } from './occupancy.js'
+ import { retargetUnfilmedProduction, type ProductionAllocationPolicy, type ProductionClockView } from './operations.js'
+ import { commitStudioEvents, StudioEventSink } from './studioEvents.js'
+ import type { GameState } from './types.js'
++import type { AdoptionChainFacts } from './technologyAdoption.js'
+ import type { ProductionTechnology, StudioTechnology, TechnologyAdoption } from './technologyTypes.js'
+ 
+-function playerId(state: GameState): string | undefined {
++export type ProductionTechnologyFacts = AdoptionChainFacts & Readonly<{
++  technology: StudioTechnology
++  market: Readonly<Pick<GameState['market'], 'tick'>>
++}>
++
++function playerId(state: Pick<AdoptionChainFacts, 'hollywood'>): string | undefined {
+   return state.hollywood?.playerStudioId
+ }
+ 
+ /** The absence of a row is the lawful silent default, including migrated films. */
+-function selectedTechnology(state: GameState, studioId: string | undefined, productionId: string): ProductionTechnology | undefined {
++function selectedTechnology(state: Pick<ProductionTechnologyFacts, 'technology'>, studioId: string | undefined, productionId: string): ProductionTechnology | undefined {
+   return state.technology.productions.find((row) => row.studioId === studioId && row.productionId === productionId)
+ }
+ 
+-function operationalAdoption(state: GameState, studioId: string, adoptionId: string | null): TechnologyAdoption | null {
++function operationalAdoption(state: ProductionTechnologyFacts, studioId: string, adoptionId: string | null): TechnologyAdoption | null {
+   const adoption = state.technology.adoptions.find((row) => row.id === adoptionId && row.studioId === studioId &&
+     row.operationalWeek !== null && row.operationalWeek <= state.market.tick)
+   if (adoption === undefined) return null
+@@ -51,7 +57,7 @@ export function productionTechnologyView(state: GameState, productionId: string,
+  * its input. Read technology() after the allocation pass and persist that root.
+  * The callback runs at phase entry, before a shooting task can do any work.
+  */
+-export function createProductionTechnologyPolicy(state: GameState, studioId = playerId(state)): {
++export function createProductionTechnologyPolicy(state: ProductionTechnologyFacts, studioId = playerId(state)): {
+   policy: ProductionAllocationPolicy<ProductionClockView>
+   technology: () => StudioTechnology
+ } {

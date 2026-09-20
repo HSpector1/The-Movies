@@ -17,11 +17,17 @@
 
 import { canAfford } from './employment.js'
 import { hasOperationalFacilityInstallation } from './facilityEffects.js'
+import type { FacilityInstallationFacts } from './facilityEffects.js'
 import { queryFacilityInstallation, type FacilityInstallationQuote } from './placement.js'
 import { technologyEntry, type TechnologyCatalogueEntry } from './technologyCatalogue.js'
 import { FACILITY_BLUEPRINTS } from './tuning.js'
 import type { GameState, StudioOperations } from './types.js'
+import type { HollywoodState } from './hollywoodTypes.js'
 import type { TechnologyAdoption, TechnologyAdoptionComponent, TechnologyEquipmentAsset, TechnologyId } from './technologyTypes.js'
+
+export type AdoptionChainFacts = FacilityInstallationFacts & Readonly<{
+  hollywood: Readonly<Pick<HollywoodState, 'playerStudioId'>> | null
+}>
 
 export type AdoptionRequest = {
   technologyId: TechnologyId
@@ -278,7 +284,7 @@ export function adoptionPhysicalComplete(state: GameState, adoption: TechnologyA
 }
 
 /** Whether this adoption's installed chain is operational on its own exact bodies. */
-export function adoptionChainOperational(state: GameState, adoption: TechnologyAdoption): boolean {
+export function adoptionChainOperational(state: AdoptionChainFacts, adoption: TechnologyAdoption): boolean {
   const entry = technologyEntry(adoption.technologyId)
   // P13B-S6: a cancelled adoption never has an operational chain, whatever else
   // stands on its bodies — its own work stopped. `?? null`: see above.

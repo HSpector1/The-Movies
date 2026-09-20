@@ -32,7 +32,11 @@ import {
   SCRIPT_DEVELOPMENT_OFFICE_TIER_2_EST_UPLIFT,
   SCRIPT_DEVELOPMENT_OFFICE_TIER_3_EST_UPLIFT,
 } from './tuning.js'
-import type { GameState } from './types.js'
+import type { GameState, PlacedFacility } from './types.js'
+
+export type FacilityInstallationFacts = Readonly<{
+  placement: Readonly<{ facilities: readonly PlacedFacility[] }>
+}>
 
 /**
  * How many OPERATIONAL placements of a blueprint the studio has.
@@ -59,7 +63,7 @@ export function hasOperationalBlueprint(state: GameState, blueprintId: string): 
  * qualify. A null target names NO body (P13B-S5: a technology with no Post
  * component), so it never matches an installation.
  */
-export function hasOperationalFacilityInstallation(state: GameState, targetFacilityId: string | null, blueprintId: string): boolean {
+export function hasOperationalFacilityInstallation(state: FacilityInstallationFacts, targetFacilityId: string | null, blueprintId: string): boolean {
   if (targetFacilityId === null) return false
   return state.placement.facilities.some((placed) => placed.status === 'operational' &&
     placed.blueprintId === blueprintId && placed.installation?.targetFacilityId === targetFacilityId)
