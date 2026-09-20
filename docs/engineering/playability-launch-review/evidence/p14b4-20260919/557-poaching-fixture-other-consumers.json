@@ -1,0 +1,25 @@
+{
+  "sourceSha": "6d7d75a3a81f7824bdf5622f6706bdb3460cd309",
+  "testedDiffSha256": "595fbbadf1e5cb8183afb999ca8cbab1df6d42cf0bbc8c39146404b49a053ca3",
+  "untrackedSource": [],
+  "command": [
+    "node_modules/.bin/vitest",
+    "run",
+    "--project",
+    "core",
+    "tests/p14b4-cast-class-capacity.test.ts",
+    "tests/p14b4-cast-class-outcomes.test.ts",
+    "tests/p14b4-owner-adapter-first-slice.test.ts",
+    "tests/p14bf2-acting-discipline.test.ts"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-20T20:36:58.843Z",
+  "end": "2026-09-20T20:37:52.798Z",
+  "exitCode": 1,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "6d7d75a3a81f7824bdf5622f6706bdb3460cd309",
+  "testedDiffSha256AtEnd": "595fbbadf1e5cb8183afb999ca8cbab1df6d42cf0bbc8c39146404b49a053ca3",
+  "untrackedSourceAtEnd": [],
+  "fixedSource": true
+}

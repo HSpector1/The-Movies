@@ -1,0 +1,48 @@
+diff --git a/tests/helpers/p14b2-fixtures.ts b/tests/helpers/p14b2-fixtures.ts
+index 8317651..29805c1 100644
+--- a/tests/helpers/p14b2-fixtures.ts
++++ b/tests/helpers/p14b2-fixtures.ts
+@@ -2,7 +2,7 @@
+ // The sole economic bootstrap is explicit cash with an equal ledger entry.
+ import { expect } from 'vitest'
+ import { applyActions, hiringMarketIds, tick } from '../../src/core/index.js'
+-import { attachPromise, trustDrivers } from '../../src/core/promises.js'
++import { attachPromise, trustDescriptor, trustDrivers } from '../../src/core/promises.js'
+ import { caseForTalent, currentProposals, publicPreferredTerm, submitProposal, withdrawProposal } from '../../src/core/talentMarket.js'
+ import { makeSave, validateSaveV29 } from '../../src/core/save.js'
+ import { TUNING } from '../../src/core/tuning.js'
+@@ -146,7 +146,20 @@ export function poachingFixture() {
+   if (poachCache !== undefined) return poachCache
+   const talentId = 'person-studio-5a47d054-r04-3'
+   const incumbentId = 'studio-5a47d054-r04'
+-  let state = advanceTo(fund(p13aGeneratedStudio('p13-public-commercial-adoption')), 196)
++  let state = fund(p13aGeneratedStudio('p13-public-commercial-adoption'))
++  // D3 (956a17f): a P1 scores no opportunity for a publicly unproven person, so
++  // the player's compensation + term (2 bands) no longer outrank the incumbent's
++  // trust + standing + incumbency (3) at the 208 freeze. The lawful lever is the
++  // player's own record: this real 52-week contract runs to its end at 52, a
++  // ranToEnd driver inside TRUST_HORIZON_WEEKS at 208, so the player's studio
++  // fallback reads Reliable, trust ties, and the unproven tie order (opportunity
++  // 0 = 0, then compensation 2 > 0) picks the player. Same lever as
++  // p14b1-trust-chooser test 6; no synthetic standing, receipt or binding.
++  const reliable = sign(state, 'actor', 52); state = reliable.state
++  state = advanceTo(state, 196)
++  expect(state.hollywood!.employment.some((e) => e.studioId === player(state) && e.terms.talentId === reliable.id
++    && e.terms.endWeekExclusive === 52 && e.endedWeek === 52)).toBe(true)
++  expect(trustDescriptor(state, talentId, player(state), state.market.tick)).toMatchObject({ label: 'Reliable', scope: 'studio' })
+   expect(state.hollywood!.businesses.find((b) => b.studioId === incumbentId)!.account.cash).toBeGreaterThan(0)
+   expect(publicPreferredTerm(state, talentId)).toBe(52)
+   expect(trustDrivers(state, talentId, player(state), state.market.tick)).toEqual([])
+@@ -180,6 +193,12 @@ export function poachingFixture() {
+   const bound = advanceTo(submitted, 208)
+   const promise = promiseFor(bound, talentId)
+   assertBinding(bound, promise)
++  // Route pin under D3: the player wins on compensation and term only. The P1 is
++  // a preference mismatch for this unproven person (opportunity 0, never a
++  // reason) and trust ties on two Reliable records; a different route is a
++  // moved premise, not a pass.
++  expect(bound.talentMarket.receipts.find((r) => r.kind === 'settled' && r.talentId === talentId && r.week === 208)!.reasons)
++    .toEqual(['their compensation band ranked above the others', 'their term matched what this person prefers'])
+   expect(caseForTalent(bound, talentId)!.subjectStudioId).not.toBe(player(bound))
+   expect(caseForTalent(bound, talentId)!.status).toBe('settled')
+   expect(bound.hollywood!.employment.some((e) => e.studioId === incumbentId && e.terms.talentId === talentId && e.endedWeek === 208)).toBe(true)
