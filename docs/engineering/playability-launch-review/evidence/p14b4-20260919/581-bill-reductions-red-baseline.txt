@@ -1,0 +1,40 @@
+{"sourceSha":"20f6b8eff47e8f5a31837e0a349c623d3b28184e","testedDiffSha256":"886be9dbce6e40b8a6edd9a05dcaa2a65d2db93f3885c7e9f1081d75433832c1","untrackedSource":["tests/p14b4-replay-bill-reductions.test.ts"],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14b4-replay-bill-reductions.test.ts"],"node":"v20.20.2","start":"2026-09-20T23:12:27.841Z","end":null,"exitCode":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+stdout | tests/p14b4-replay-bill-reductions.test.ts > 580 case 1 — C7 witness: facility array order moves the prepare bill (RED on unchanged source) > a [0]<->[1] facility swap keeps every result field (facilities normalised) and, after C7, costs strictly more
+B4_BILL_580 {"fixture":"enumerator world().unscheduled (558/576 copy)","now":60,"horizon":61,"plan":"one plan, no commands","swap":["facility-development-casting","facility-post-building"],"original":59177,"swapped":59177,"delta":0,"equalToday":true}
+
+stdout | tests/p14b4-replay-bill-reductions.test.ts > 580 case 3 — C6 protection: fixed-schema key sets on routes with fixed and non-fixed closes (GREEN both sides) > world().ready at now+2 (the 538 two-week wrap): every schema exact; the route closes >= 1 FIXED hold
+B4_CLOSES_580 {"route":"world().ready now+2 (538 wrap)","now":60,"horizon":62,"fixedCloses":3,"nonFixedCloses":0,"preparationWork":107889}
+
+stdout | tests/p14b4-replay-bill-reductions.test.ts > 580 case 3 — C6 protection: fixed-schema key sets on routes with fixed and non-fixed closes (GREEN both sides) > world().ready at now+5 (wrap, Post grant and Post exit inside the window): every schema exact; >= 1 NON-FIXED close
+B4_CLOSES_580 {"route":"world().ready now+5 (Post exit)","now":60,"horizon":65,"fixedCloses":3,"nonFixedCloses":1,"preparationWork":172434}
+
+ ❯ |core| tests/p14b4-replay-bill-reductions.test.ts (5 tests | 1 failed) 3248ms
+   × 580 case 1 — C7 witness: facility array order moves the prepare bill (RED on unchanged source) > a [0]<->[1] facility swap keeps every result field (facilities normalised) and, after C7, costs strictly more 2507ms
+     → expected 59177 to be greater than 59177
+   ✓ 580 case 2 — C7 protection: duplicate consumed identity refused in-order and out-of-order (GREEN both sides) > studio.activeProductions and operations.workflows: in-order and out-of-order duplicates each throw 337ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14b4-replay-bill-reductions.test.ts > 580 case 1 — C7 witness: facility array order moves the prepare bill (RED on unchanged source) > a [0]<->[1] facility swap keeps every result field (facilities normalised) and, after C7, costs strictly more
+AssertionError: expected 59177 to be greater than 59177
+ ❯ tests/p14b4-replay-bill-reductions.test.ts:287:37
+    285|     // RED on unchanged source (both bills equal, printed above); GREE…
+    286|     // the swapped array inverts at index 1, so it pays the walk prefi…
+    287|     expect(swapped.preparationWork).toBeGreaterThan(original.preparati…
+       |                                     ^
+    288|   })
+    289| })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 4 passed (5)
+   Start at  01:12:28
+   Duration  7.07s (transform 2.41s, setup 0ms, collect 3.12s, tests 3.25s, environment 0ms, prepare 187ms)
+
+
+{"sourceSha":"20f6b8eff47e8f5a31837e0a349c623d3b28184e","testedDiffSha256":"886be9dbce6e40b8a6edd9a05dcaa2a65d2db93f3885c7e9f1081d75433832c1","untrackedSource":["tests/p14b4-replay-bill-reductions.test.ts"],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14b4-replay-bill-reductions.test.ts"],"node":"v20.20.2","start":"2026-09-20T23:12:27.841Z","end":"2026-09-20T23:12:36.174Z","exitCode":1,"signal":null,"error":null,"sourceShaAtEnd":"20f6b8eff47e8f5a31837e0a349c623d3b28184e","testedDiffSha256AtEnd":"886be9dbce6e40b8a6edd9a05dcaa2a65d2db93f3885c7e9f1081d75433832c1","untrackedSourceAtEnd":["tests/p14b4-replay-bill-reductions.test.ts"],"fixedSource":true}

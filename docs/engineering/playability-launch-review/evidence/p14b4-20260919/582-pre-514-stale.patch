@@ -1,0 +1,484 @@
+diff --git a/src/core/promiseCapacityOwnerReplay.ts b/src/core/promiseCapacityOwnerReplay.ts
+index 8075504..ce2af65 100644
+--- a/src/core/promiseCapacityOwnerReplay.ts
++++ b/src/core/promiseCapacityOwnerReplay.ts
+@@ -246,7 +246,12 @@ class Work {
+   used: number
+   constructor(readonly limit: number, initial: number) { this.used = Math.min(limit, initial) }
+   pay(units = 1): void {
+-    if (units > this.limit - this.used) { this.used = this.limit; throw new WorkLimit() }
++    if (units > this.limit - this.used) {
++      // TEMPORARY 514: UNMETERED diagnostic before original saturation/throw.
++      console.log('B4_RESULT_514', JSON.stringify({ phase: 'payFailure', used: this.used,
++        requested: units, limit: this.limit, stack: new Error().stack }))
++      this.used = this.limit; throw new WorkLimit()
++    }
+     this.used += units
+   }
+   /** Evaluate the receiver BEFORE JavaScript evaluates calculator arguments.
+@@ -978,6 +983,9 @@ function staticDimensionFacts<P extends StartedPicture>(source: StartedOwnerSour
+ function dimensions<P extends StartedPicture>(source: StartedOwnerSource<P>, productions: readonly P[],
+   operations: StudioOperations, sets: readonly StudioSet[], technology: StudioTechnology,
+   external: number, work: Work, cell: DimensionCell, pictureFacts?: readonly PictureFacts<P>[]): Dimensions {
++  // TEMPORARY 514: passive, UNMETERED observation; original payments follow.
++  console.log('B4_RESULT_514', JSON.stringify({ phase: 'dimensionsEntry', used: work.used,
++    remaining: productions.map(row => row.remainingTicks) }))
+   work.pay(4) // static-fact call arguments/result binding
+   const fixed = staticDimensionFacts(source, cell, work)
+   work.pay(16) // two copy-only fact calls: arguments, result bindings and controls
+@@ -1037,6 +1045,8 @@ function dimensions<P extends StartedPicture>(source: StartedOwnerSource<P>, pro
+     work.pay(3); d.technologyRowCopy = Math.max(d.technologyRowCopy, facts(row, true, true).copy!)
+     if (!work.equal(row.method, 'silent')) d.allSilent = false
+   }
++  // TEMPORARY 514: no owner/state/meter mutation.
++  console.log('B4_RESULT_514', JSON.stringify({ phase: 'dimensionsDone', used: work.used }))
+   return d
+ }
+ /** Commands copy operations/workflows/tasks, not P/Set/setup/technology records.
+@@ -1044,6 +1054,9 @@ function dimensions<P extends StartedPicture>(source: StartedOwnerSource<P>, pro
+  * later sweep discovery still owns every omitted observation. */
+ function commandDimensions<P extends StartedPicture>(source: StartedOwnerSource<P>, productions: readonly P[],
+   operations: StudioOperations, work: Work, cell: DimensionCell): CommandDimensions {
++  // TEMPORARY 514: passive, UNMETERED observation of the 505 command projection.
++  console.log('B4_RESULT_514', JSON.stringify({ phase: 'commandDimensionsEntry', used: work.used,
++    remaining: productions.map(row => row.remainingTicks) }))
+   work.pay(12) // six scalar nodes: static-fact callee/arguments/call/result binding
+   const fixed = staticDimensionFacts(source, cell, work)
+   work.pay(16) // eight nodes for this five-argument fact call and result binding
+@@ -1088,6 +1101,8 @@ function commandDimensions<P extends StartedPicture>(source: StartedOwnerSource<
+     }
+   }
+   work.pay(2) // fresh projection reference/return
++  // TEMPORARY 514: no owner/state/meter mutation; complete projected record.
++  console.log('B4_RESULT_514', JSON.stringify({ phase: 'commandDimensionsDone', used: work.used, dimensions: d }))
+   return d
+ }
+ function workflowUpdate(d: WorkflowUpdateDimensions, work: Work): number {
+@@ -1809,6 +1824,8 @@ function completeTrace<P extends StartedPicture>(input: ReplayInput<P>, prepared
+ 
+ function executeCommand<P extends StartedPicture>(input: ReplayInput<P>, prepared: Prepared<P>,
+   plan: ReplayPlan, branch: Branch<P>, command: StartedProductionCommand, work: Work): void {
++  // TEMPORARY 514: passive per-command boundary before the original first payment.
++  console.log('B4_RESULT_514', JSON.stringify({ phase: 'commandEntry', week: branch.week, kind: command.kind, used: work.used }))
+   work.pay(8)
+   const production = find(branch.productions, command.productionId, row => row.id, work)
+   if (production === undefined) commandRefused(work, 'production already released in this branch')
+@@ -1874,10 +1891,15 @@ function executeCommand<P extends StartedPicture>(input: ReplayInput<P>, prepare
+     throw error
+   }
+   drainEvents(input, prepared, plan, branch, sink, before, work)
++  // TEMPORARY 514: reached only after the unchanged owner/drain work.
++  console.log('B4_RESULT_514', JSON.stringify({ phase: 'commandDone', week: branch.week, kind: command.kind, used: work.used }))
+ }
+ 
+ function frame<P extends StartedPicture>(input: ReplayInput<P>, prepared: Prepared<P>,
+   plan: ReplayPlan, branch: Branch<P>, work: Work): void {
++  // TEMPORARY 514: passive whole-slate clock prefix, not a production fact cache.
++  console.log('B4_RESULT_514', JSON.stringify({ phase: 'frameEntry', week: branch.week,
++    used: work.used, remaining: branch.productions.map(row => row.remainingTicks) }))
+   work.pay(7)
+   const arrivedWeek = branch.week + 1
+   for (const background of prepared.backgrounds) {
+@@ -1945,6 +1967,9 @@ function frame<P extends StartedPicture>(input: ReplayInput<P>, prepared: Prepar
+   const before = branch.operations
+   work.pay(6) // current branch Sets read, argument and callee binding
+   const bill = sweepBill(d, branch.productions, branch.operations, branch.week, committed, branch.sets, work)
++  // TEMPORARY 514: reached only after the unchanged complete bill calculation.
++  console.log('B4_RESULT_514', JSON.stringify({ phase: 'sweepBillDone', week: branch.week,
++    used: work.used, bill, remaining: branch.productions.map(row => row.remainingTicks), dimensions: d }))
+   // Reserve observation, sink, binding/callback literals and complete owner work
+   // together: an exhaustion boundary cannot record an unexecuted sweepStarted.
+   work.pay(work.calc(64).plus(bill, 15 + LITERAL.sink + 1 + LITERAL.boundary +
+@@ -2772,6 +2797,14 @@ function replayPlans<P extends StartedPicture, A>(
+       if (reason === 'workLimit') break
+     }
+   }
++  // TEMPORARY 514: report only result discriminants/boundaries, never proof records.
++  console.log('B4_RESULT_514', JSON.stringify({ phase: 'result', used: work.used,
++    attempts: attempts.map(attempt => {
++      if (typeof attempt !== 'object' || attempt === null) return { kind: 'nonobject' }
++      return { kind: 'kind' in attempt ? attempt.kind : undefined,
++        reason: 'reason' in attempt ? attempt.reason : undefined,
++        through: 'through' in attempt ? attempt.through : undefined }
++    }) }))
+   return { fixedHolds: prepared.fixed, attempts, preparationWork: work.used, omissions }
+ }
+ 
+diff --git a/tests/p14b4-replay-bill-reductions.test.ts b/tests/p14b4-replay-bill-reductions.test.ts
+new file mode 100644
+index 0000000..c9ba9e0
+--- /dev/null
++++ b/tests/p14b4-replay-bill-reductions.test.ts
+@@ -0,0 +1,372 @@
++// P14B.4 record 580-T (T1): requirement-based RED for the replay bill reductions C6 (hold-close literal price)
++// and C7 (`uniqueIds` through `sortedOutput`) adopted in record 579 §1, implementing the RED brief 579 §2 with
++// 579-B Q7's case-1 refinements. Authored on UNCHANGED source: `src/core/promiseCapacityOwnerReplay.ts`
++// 2797 lines, SHA256 d5f8cb7171f602df76b2115819e7e63320b84b4f7e602fb5811ad57984b1eb22 (HEAD e444b224).
++// Expected on that source: case 1's FINAL `>` assertion FAILS (RED); cases 2 and 3 PASS. After the C6+C7
++// writer release every case is GREEN. No vitest literal pins any bill or delta (176 §8 item 4: a hand-derived
++// 153/187/2275 would be private-tariff self-equality). Case 1 PRINTS both bills on one `B4_BILL_580` line and
++// case 3 prints output-derived close counts on `B4_CLOSES_580` lines (579-B Q6: close counts come from outputs,
++// fixed = fixedHoldReplacements.length, non-fixed = additionalHolds closed before the prepared end).
++// Source facts pinned (line cites to the replay at the SHA above unless another path is given):
++//   :127-134 invariant prefix `Started owner replay: ` + :436 message `duplicate consumed identity`
++//   :161-162 LITERAL.hold / LITERAL.fixedHold key lists; addHold :1645-1648; prepare hold() :754-755;
++//   promiseCapacityKernel.ts :16-20 Hold / FixedHold; :1635 / :1660 replacement literal { holdId, newUntil };
++//   :1797-1800 additionalHolds are the ledger's own hold rows; :2775 fixedHolds = prepared.fixed
++//   :542 prepared end = { week: horizonEndWeek, step: 0 }; :755 / :1647 every hold runs to `end` until closed
++//   :655 / :660 / :662 / :663 the three uniqueIds calls behind the production/workflow cardinality check
++//   :526 reservationSubject's linear `find` over operations.facilities (symmetric under a [0]<->[1] swap only
++//        when every reservation sits at index >= 2); :2723 / :2782 the projection carries the source array
++//   promiseCapacityKernel.ts :117 MAX_LIMITS { work: 200000, span: 220, alternatives: 1024 } (caps, not bills)
++//   operations.ts :85-116 INITIAL_STUDIO_FACILITIES in ascending founding order
++// Builders COPIED, not imported: world() and its helpers from tests/p14b4-owner-enumerator-slice.test.ts :66-183;
++// startedSource from the same file :243-251; the input shape from tests/p14b4-started-owner-replay.test.ts
++// :121-127. trio() adapts started-owner-replay :66-75 (real hires, fresh industry, real greenlights) to a deeper
++// roster because an OUT-OF-ORDER workflow duplicate needs three distinct real productions: :660 requires equal
++// cardinality and :662 refuses duplicate productions before :663 ever runs.
++import assert from 'node:assert/strict'
++import { describe, expect, it } from 'vitest'
++import { applyActions, hiringMarketIds, tick } from '../src/core/index.js'
++import { initializeHollywood } from '../src/core/hollywood.js'
++import { replayStartedProductionPlans, type StartedOwnerReplayInput, type StartedOwnerReplayResult,
++  type StartedOwnerSource, type StartedReplayAttempt } from '../src/core/promiseCapacityOwnerReplay.js'
++import { attachPromise } from '../src/core/promises.js'
++import { makeSave } from '../src/core/save.js'
++import { currentProposals, submitProposal } from '../src/core/talentMarket.js'
++import { TUNING } from '../src/core/tuning.js'
++import type { CastSlot, GameState, ProfessionalPromise, Production } from '../src/core/types.js'
++import { contractedByRole, productionPayload, richFoundedStudio } from './contracts/_contractFixtures.js'
++import { advanceTo, fund, p13aGeneratedStudio, player } from './helpers/p14b2-fixtures.js'
++
++type Result = StartedOwnerReplayResult<Production>
++type Complete = Extract<StartedReplayAttempt<Production>, { kind: 'complete' }>
++/** Kernel MAX_LIMITS (promiseCapacityKernel.ts :117): the governed caps this file passes through, never a bill. */
++const LIMITS = { work: 200000, span: 220, alternatives: 1024 } as const
++/** replay :130 prefix + :436 message, anchored so a different refusal cannot satisfy the pin. */
++const DUPLICATE = /^Started owner replay: duplicate consumed identity$/
++/** LITERAL.hold :161 / addHold :1645-1648 / kernel Hold :16-19: the module-built six-key schema, in this order. */
++const HOLD_KEYS = ['holdId', 'ownerKey', 'ownerPathKey', 'subject', 'from', 'until'] as const
++/** LITERAL.fixedHold :162 / prepare hold() :754-755 / kernel FixedHold :20: seven keys, replaceableFrom last. */
++const FIXED_HOLD_KEYS = [...HOLD_KEYS, 'replaceableFrom'] as const
++/** replay :1635 / :1660 (closeHold / closePath) and kernel HoldReplacement :21. */
++const REPLACEMENT_KEYS = ['holdId', 'newUntil'] as const
++
++const SLOTS = ['lead', 'antagonist', 'support'] as const
++const p1 = (count = 1) => ({ family: 'APPEARANCE_COUNT' as const, predicate: { count } })
++const sortBy = <T>(rows: readonly T[], keyOf: (row: T) => string): T[] =>
++  [...rows].sort((a, b) => keyOf(a) < keyOf(b) ? -1 : keyOf(a) > keyOf(b) ? 1 : 0)
++
++// ── world(): enumerator-slice :66-183 copy (itself the first-slice :66-183 copy + `unscheduled`/`writerId`) ──
++type World = { opened: GameState; unscheduled: GameState; ready: GameState; actors: Record<CastSlot, string>
++  ids: Record<CastSlot, string>; productionId: string; projects: readonly string[]; directorId: string; craftId: string
++  writerId: string; start: number }
++const live = (state: GameState): GameState => makeSave(state).state
++function root(state: GameState, id: string): ProfessionalPromise {
++  const rows = state.promises.filter((p) => p.promiseId === id)
++  expect(rows).toHaveLength(1)
++  return rows[0]!
++}
++function currentRoot(state: GameState, personId: string): ProfessionalPromise {
++  const proposal = currentProposals(state, personId).find((p) => p.issuerStudioId === player(state))
++  assert.ok(proposal)
++  expect(proposal.promises).toHaveLength(1)
++  return root(state, proposal.promises[0]!)
++}
++function sign(state: GameState, role: 'actor' | 'writer' | 'director' | 'craft', termWeeks: number) {
++  for (let steps = 0; steps < 60; steps++) {
++    const person = hiringMarketIds(state, state.market.tick).map((id) => state.talent.find((p) => p.id === id))
++      .find((p) => p?.role === role)
++    if (person !== undefined) return { state: applyActions(state, [{ kind: 'signContract', talentId: person.id, termWeeks }]), id: person.id }
++    state = tick(state)
++  }
++  throw new Error('UNEXECUTED fixture: no lawful hireable ' + role + ' within60 ticks')
++}
++const commissionPayload = (state: GameState, writerId: string, conceptId: string) => {
++  const concept = state.concepts.find((c) => c.id === conceptId)!
++  return { conceptId, writerId, shape: { opening: 'slowSetup' as const, midpoint: 'revelation' as const, ending: 'bittersweet' as const },
++    promise: { genre: concept.genre, intendedSegments: ['adult' as const], ranges: {
++      intimacy: [-0.5, 0.5] as [number, number], tonalWeight: [-0.5, 0.5] as [number, number], kineticEnergy: [-0.5, 0.5] as [number, number] } } }
++}
++function readyScript(state: GameState, writerId: string, conceptId: string) {
++  const oldIds = new Set(state.scriptDevelopment.projects.map((p) => p.id))
++  state = applyActions(state, [{ kind: 'commissionScript', project: commissionPayload(state, writerId, conceptId) }])
++  const minted = state.scriptDevelopment.projects.filter((p) => !oldIds.has(p.id))
++  expect(minted).toHaveLength(1)
++  const projectId = minted[0]!.id
++  for (let steps = 0; state.scriptDevelopment.projects.find((p) => p.id === projectId)!.status !== 'review'; steps++) {
++    if (steps >= 20) throw new Error('UNEXECUTED fixture: actual screenplay never reached Review within20 ticks')
++    state = tick(state)
++  }
++  state = applyActions(state, [{ kind: 'acceptScript', projectId }])
++  expect(state.scriptDevelopment.projects.find((p) => p.id === projectId)).toMatchObject({ status: 'ready', productionId: null })
++  return { state, projectId }
++}
++let cached: World | undefined
++function world(): World {
++  if (cached !== undefined) return structuredClone(cached)
++  let state = fund(p13aGeneratedStudio())
++  const lead = sign(state, 'actor', 52); state = lead.state
++  const antagonist = sign(state, 'actor', 52); state = antagonist.state
++  const support = sign(state, 'actor', 52); state = support.state
++  const writer = sign(state, 'writer', 208); state = writer.state
++  const director = sign(state, 'director', 208); state = director.state
++  const craft = sign(state, 'craft', 208); state = craft.state
++  const actors = { lead: lead.id, antagonist: antagonist.id, support: support.id }
++  const starts = Object.values(actors).map((id) => state.contracts.find((c) => c.talentId === id)!.endWeekExclusive)
++  expect(new Set(starts).size).toBe(1)
++  const start = starts[0]!
++  expect(state.studio.activeProductions).toEqual([])
++  expect(state.operations.mode).toBe('managed')
++  if (state.scriptDevelopment.mode === 'legacy') state = applyActions(state, [{ kind: 'activateScriptDevelopment' }])
++  expect(state.scriptDevelopment.projects).toEqual([])
++  const concepts = state.concepts.slice(0, 2)
++  const first = readyScript(state, writer.id, concepts[0]!.id); state = first.state
++  const second = readyScript(state, writer.id, concepts[1]!.id); state = second.state
++  const stage = 'facility-soundstage-07'
++  const mounted = state.sets.find((s) => s.mountedOn === stage && s.status !== 'retired')
++  if (mounted !== undefined) state = applyActions(state, [{ kind: 'strikeSet', setId: mounted.id }])
++  state = applyActions(state, [{ kind: 'commissionSet', commission: { blueprintId: 'set-grand-ballroom', stageFacilityId: stage } }])
++  state = advanceTo(state, state.market.tick + TUNING.SET_BUILD_WEEKS_BAND_HIGH)
++  expect(state.market.tick).toBeLessThanOrEqual(start - 7)
++  state = advanceTo(state, start - 7)
++  for (const id of Object.values(actors)) {
++    state = submitProposal(state, { talentId: id, issuerStudioId: player(state), termWeeks: 52, premiumTier: 1.25 })
++  }
++  const opened = structuredClone(state)
++  const ids: Record<CastSlot, string> = { lead: '', antagonist: '', support: '' }
++  for (const slot of SLOTS) {
++    state = attachPromise(state, actors[slot], player(state), { ...p1(), windowStartWeek: start, dueWeekExclusive: start + 52 })
++    const promised = currentRoot(state, actors[slot])
++    expect(promised.feasibilityReceipt.classification).toBe('REASONABLY_ACHIEVABLE')
++    ids[slot] = promised.promiseId
++  }
++  state = advanceTo(state, start)
++  for (const slot of SLOTS) {
++    const promised = root(state, ids[slot])
++    expect(promised).toMatchObject({ outcome: null, progress: 0, evidenceRefs: [] })
++    assert.notEqual(promised.contractId, null)
++    expect(currentProposals(state, actors[slot])).toEqual([])
++  }
++  state = applyActions(state, [{ kind: 'greenlightScriptProject', production: {
++    projectId: first.projectId, directorId: director.id, craftIds: [craft.id], cast: actors,
++    budget: { negative: concepts[0]!.baseNegativeCost, marketing: 0 },
++  } }])
++  const film = state.studio.activeProductions.at(-1)
++  assert.ok(film, 'UNEXECUTED fixture: greenlight was not actually admitted')
++  state = tick(tick(tick(state)))
++  const rehearsal = state.operations.workflows.find((w) => w.productionId === film.id)
++  assert.ok(rehearsal)
++  expect(rehearsal.phase).toBe('rehearsal')
++  state = applyActions(state, [{ kind: 'setProductionSetupRecipe', productionId: film.id,
++    recipeId: 'ballroom-reveal-lighting-01', expectedPlanRevision: rehearsal.planRevision }])
++  for (let steps = 0; state.studio.activeProductions.find((p) => p.id === film.id)!.remainingTicks !== 5; steps++) {
++    if (steps >= 40) throw new Error('UNEXECUTED fixture: actual managed film never reached first Shooting week within40 ticks')
++    state = tick(state)
++  }
++  state = applyActions(state, [{ kind: 'assignShootingDirector', productionId: film.id, directorId: director.id }])
++  for (let steps = 0; state.operations.workflows.find((w) => w.productionId === film.id)!.shootingTask?.status !== 'ready'; steps++) {
++    if (steps >= 6) throw new Error('UNEXECUTED fixture: physical scenery did not arrive within6 actual ticks; no manual bypass')
++    state = tick(state)
++  }
++  // E5: the REAL state immediately before scheduleShootingTake (capacity test :172); status 'ready' fails condition (b).
++  const unscheduled = structuredClone(state)
++  expect(unscheduled.operations.workflows.find((w) => w.productionId === film.id)).toMatchObject({
++    phase: 'shooting', blocker: null, shootingTask: { status: 'ready' } })
++  state = applyActions(state, [{ kind: 'scheduleShootingTake', productionId: film.id }])
++  expect(state.operations.workflows.find((w) => w.productionId === film.id)).toMatchObject({
++    phase: 'shooting', blocker: null, shootingTask: { status: 'scheduled' } })
++  expect(state.firstTakes.filter((t) => t.productionId === film.id)).toEqual([])
++  cached = { opened: live(opened), unscheduled: live(unscheduled), ready: live(state), actors, ids, productionId: film.id,
++    projects: [first.projectId, second.projectId], directorId: director.id, craftId: craft.id, writerId: writer.id, start }
++  return structuredClone(cached)
++}
++
++// ── trio(): three distinct real productions (case 2's workflow rows), started-owner-replay :66-75 pattern ──
++let trioCache: GameState | undefined
++function trio(): GameState {
++  if (trioCache !== undefined) return structuredClone(trioCache)
++  // richFoundedStudio depth widens the founding roster (contract fixtures :174-195); operations managed, legacy scripts;
++  // fresh industry initialised at ACTUAL week 0 before any greenlight (started-owner-replay :69-70).
++  let state = initializeHollywood(applyActions(richFoundedStudio('p13a-production-consumer',
++    { actor: 9, director: 3, writer: 3, craft: 3 }), [{ kind: 'activateStudioOperations' }]), 'fresh')
++  for (const role of ['actor', 'director', 'writer', 'craft'] as const) {
++    const needed = role === 'actor' ? 9 : 3
++    assert.ok(contractedByRole(state, role).length >= needed,
++      `UNCONSTRUCTIBLE: trio needs ${needed} contracted ${role}s, founding signed ${contractedByRole(state, role).length}`)
++  }
++  for (let offset = 0; offset < 2; offset++) state = applyActions(state, [{ kind: 'greenlight', production: productionPayload(state, offset) }])
++  // Development & Casting has two founding slots (tuning :632) held through Development AND preProduction (contract
++  // fixtures :58-66): tick until neither picture holds a development-casting reservation, then greenlight the third.
++  const holdsDevelopment = (): boolean => state.operations.workflows.some((row) =>
++    row.reservations.some((reservation) => reservation.capability === 'development-casting'))
++  for (let guard = 0; guard < 8 && holdsDevelopment(); guard++) state = tick(state)
++  assert.ok(!holdsDevelopment(), 'UNCONSTRUCTIBLE: the first two trio pictures never released Development & Casting within 8 real ticks')
++  state = applyActions(state, [{ kind: 'greenlight', production: productionPayload(state, 2) }])
++  assert.equal(state.studio.activeProductions.length, 3, 'UNCONSTRUCTIBLE: the third trio greenlight was not admitted')
++  assert.deepEqual(state.productionQueue, [], 'UNCONSTRUCTIBLE: trio left a production queued (replay :629 would context-cut first)')
++  assert.equal(new Set(state.studio.activeProductions.map((row) => row.id)).size, 3, 'UNCONSTRUCTIBLE: trio production ids are not distinct')
++  assert.deepEqual(sortBy(state.operations.workflows.map((row) => row.productionId), (id) => id),
++    sortBy(state.studio.activeProductions.map((row) => row.id), (id) => id), 'UNCONSTRUCTIBLE: trio workflows do not join its productions 1:1')
++  makeSave(state)
++  trioCache = structuredClone(state)
++  return structuredClone(trioCache)
++}
++
++// ── the Started producer input: enumerator-slice :243-251 source, started-owner-replay :121-127 shape ──
++function startedSource(state: GameState): StartedOwnerSource<Production> {
++  return { technology: state.technology, market: { tick: state.market.tick },
++    placement: state.placement, property: state.property, hollywood: state.hollywood,
++    operations: state.operations, sets: state.sets, releaseAuthority: state.releaseAuthority,
++    scriptDevelopment: state.scriptDevelopment, castingSessions: state.castingSessions,
++    construction: state.construction, physicalPlans: state.physicalPlans,
++    productionQueue: state.productionQueue, founding: state.founding, firstTakes: state.firstTakes,
++    concepts: state.concepts, studio: { activeProductions: state.studio.activeProductions } }
++}
++/** ONE plan with no commands (the enumerator's own Started run shape, enumerator-slice :253-258). */
++function startedInput(state: GameState, horizonEndWeek: number, traceKey: string): StartedOwnerReplayInput<Production> {
++  return { source: startedSource(state), issuerId: player(state),
++    claimPersonIds: state.studio.activeProductions.map((row) => row.cast.lead),
++    plans: [{ traceKey, commands: [] }], horizonEndWeek, preparationWork: 0,
++    limits: { work: LIMITS.work, span: LIMITS.span, alternatives: LIMITS.alternatives } }
++}
++function completeAttempts(result: Result, label: string): Complete[] {
++  assert.ok(result.attempts.length >= 1, `UNCONSTRUCTIBLE: ${label} produced no attempt; omissions ${JSON.stringify(result.omissions)}`)
++  return result.attempts.map((attempt) => {
++    assert.ok(attempt.kind === 'complete', `UNCONSTRUCTIBLE: ${label} was cut ` +
++      `(${attempt.kind === 'cut' ? `${attempt.reason}: ${attempt.detail}` : attempt.kind}); omissions ${JSON.stringify(result.omissions)}`)
++    return attempt
++  })
++}
++/** Every result field except preparationWork, with projection.operations.facilities sorted by id (579-B Q7: the
++ * projection carries the source array by construction, replay :2723 / :2782). */
++function normalised(result: Result) {
++  const { preparationWork: _bill, ...rest } = result
++  return { ...rest, attempts: result.attempts.map((attempt) => attempt.kind !== 'complete' ? attempt : { ...attempt,
++    projection: { ...attempt.projection, operations: { ...attempt.projection.operations,
++      facilities: sortBy(attempt.projection.operations.facilities, (row) => row.id) } } }) }
++}
++
++describe('580 case 1 — C7 witness: facility array order moves the prepare bill (RED on unchanged source)', () => {
++  it('a [0]<->[1] facility swap keeps every result field (facilities normalised) and, after C7, costs strictly more', () => {
++    const base = world().unscheduled
++    const facilities = base.operations.facilities
++    assert.ok(facilities.length >= 3, `UNCONSTRUCTIBLE: ${facilities.length} facilities; the swap needs a target at index >= 2`)
++    assert.notEqual(facilities[0]!.id, facilities[1]!.id, 'UNCONSTRUCTIBLE: facilities [0] and [1] share an id')
++    // 579-B Q7 fixture pin: every reservation sits at facility index >= 2, so the linear `find` (replay :526) visits
++    // BOTH [0] and [1] in either order and its `equal` charges (:319) sum identically today.
++    const reserved = base.operations.workflows.flatMap((row) => row.reservations.map((reservation) => reservation.facilityId))
++    assert.ok(reserved.length >= 1, 'UNCONSTRUCTIBLE: world().unscheduled holds no facility reservation')
++    for (const id of reserved) {
++      const index = facilities.findIndex((row) => row.id === id)
++      assert.ok(index >= 2, `UNCONSTRUCTIBLE: reservation on ${id} sits at facility index ${index}; the swap must not reach it`)
++    }
++    const swappedState: GameState = { ...base, operations: { ...base.operations,
++      facilities: [facilities[1]!, facilities[0]!, ...facilities.slice(2)] } }
++    // Horizon now+1, no commands: no owner-granted hold and no release inside one frame on this fixture (the wrap is
++    // the SECOND frame, 538 "2-week wrap"), so no grant/release-time `find` can reach index 0/1; asserted below.
++    const now = base.market.tick, horizon = now + 1
++    const original = replayStartedProductionPlans(startedInput(base, horizon, '580-c7-facility-order'))
++    const swapped = replayStartedProductionPlans(startedInput(swappedState, horizon, '580-c7-facility-order'))
++    console.log(`B4_BILL_580 ${JSON.stringify({ fixture: 'enumerator world().unscheduled (558/576 copy)', now, horizon,
++      plan: 'one plan, no commands', swap: [facilities[0]!.id, facilities[1]!.id],
++      original: original.preparationWork, swapped: swapped.preparationWork,
++      delta: swapped.preparationWork - original.preparationWork,
++      equalToday: swapped.preparationWork === original.preparationWork })}`)
++    const originalComplete = completeAttempts(original, 'original now+1')
++    const swappedComplete = completeAttempts(swapped, 'swapped now+1')
++    for (const attempt of originalComplete) {
++      const events = attempt.provenance.filter((row) => row.kind === 'ownerEvent' &&
++        (row.draft.kind === 'reservationGranted' || row.draft.kind === 'reservationReleased'))
++      assert.equal(events.length, 0, `UNCONSTRUCTIBLE: the now+1 route grants/releases a reservation ${JSON.stringify(events)}`)
++    }
++    // The projection carries the source facilities array by construction; pin that, then compare normalised.
++    expect(originalComplete.map((attempt) => attempt.projection.operations.facilities)).toStrictEqual([facilities])
++    expect(swappedComplete.map((attempt) => attempt.projection.operations.facilities)).toStrictEqual([swappedState.operations.facilities])
++    expect(normalised(swapped)).toStrictEqual(normalised(original))
++    // RED on unchanged source (both bills equal, printed above); GREEN once uniqueIds walks through sortedOutput:
++    // the swapped array inverts at index 1, so it pays the walk prefix PLUS the entire unchanged sort (579 §1).
++    expect(swapped.preparationWork).toBeGreaterThan(original.preparationWork)
++  })
++})
++
++describe('580 case 2 — C7 protection: duplicate consumed identity refused in-order and out-of-order (GREEN both sides)', () => {
++  it('operations.facilities: an appended (in-order) and a prepended (out-of-order) duplicate both throw', () => {
++    const base = world().unscheduled
++    const facilities = base.operations.facilities
++    assert.ok(facilities.length >= 2, 'UNCONSTRUCTIBLE: fewer than two facilities')
++    for (let index = 1; index < facilities.length; index++) {
++      assert.ok(facilities[index - 1]!.id < facilities[index]!.id,
++        `UNCONSTRUCTIBLE: facilities not in ascending id order at ${index} (founding order, operations.ts :85-116)`)
++    }
++    const control = replayStartedProductionPlans(startedInput(base, base.market.tick, '580-c7-dup-control'))
++    completeAttempts(control, 'facilities control (zero span)')
++    const top = facilities[facilities.length - 1]!
++    const withFacilities = (rows: GameState['operations']['facilities']): GameState =>
++      ({ ...base, operations: { ...base.operations, facilities: rows } })
++    const run = (state: GameState): void => { replayStartedProductionPlans(startedInput(state, state.market.tick, '580-c7-dup')) }
++    expect(() => run(withFacilities([...facilities, top]))).toThrow(DUPLICATE) // in order: adjacent equal pair
++    expect(() => run(withFacilities([top, ...facilities]))).toThrow(DUPLICATE) // out of order: inversion at index 1
++  })
++  it('studio.activeProductions and operations.workflows: in-order and out-of-order duplicates each throw', () => {
++    const base = trio()
++    const control = replayStartedProductionPlans(startedInput(base, base.market.tick, '580-c7-dup-control'))
++    completeAttempts(control, 'trio control (zero span)')
++    const [p0, p1, p2] = sortBy(base.studio.activeProductions, (row) => row.id)
++    const [w0, w1, w2] = sortBy(base.operations.workflows, (row) => row.productionId)
++    assert.ok(p0 && p1 && p2 && w0 && w1 && w2, 'UNCONSTRUCTIBLE: trio lacks three productions/workflows')
++    assert.ok(p0.id < p1.id && p1.id < p2.id, 'UNCONSTRUCTIBLE: trio production ids are not strictly ascending after sort')
++    const withRows = (productions: GameState['studio']['activeProductions'], workflows: GameState['operations']['workflows']): GameState =>
++      ({ ...base, studio: { ...base.studio, activeProductions: productions }, operations: { ...base.operations, workflows } })
++    const run = (state: GameState): void => { replayStartedProductionPlans(startedInput(state, state.market.tick, '580-c7-dup')) }
++    // Productions: equal cardinality (replay :660) against the REAL unique workflows; :662 refuses before :663.
++    expect(() => run(withRows([p0, p1, p1], [w0, w1, w2]))).toThrow(DUPLICATE) // in order
++    expect(() => run(withRows([p1, p0, p1], [w0, w1, w2]))).toThrow(DUPLICATE) // out of order
++    // Workflows: the REAL unique productions pass :662; :663 refuses the duplicate productionId.
++    expect(() => run(withRows([p0, p1, p2], [w0, w1, w1]))).toThrow(DUPLICATE) // in order
++    expect(() => run(withRows([p0, p1, p2], [w1, w0, w1]))).toThrow(DUPLICATE) // out of order
++  })
++})
++
++/** Pins the three module-built schemas on every complete attempt and derives close counts from the outputs
++ * (579-B Q6): fixed closes = fixedHoldReplacements.length; non-fixed closes = additionalHolds whose `until` is
++ * no longer the prepared end { week: horizonEndWeek, step: 0 } (replay :542; :755 / :1647 run every hold to it). */
++function keySetsAndCloses(result: Result, horizonEndWeek: number, label: string): { fixedCloses: number; nonFixedCloses: number } {
++  const isEnd = (boundary: Readonly<{ week: number; step: number }>): boolean => boundary.week === horizonEndWeek && boundary.step === 0
++  for (const hold of result.fixedHolds) {
++    expect(Object.keys(hold)).toEqual([...FIXED_HOLD_KEYS])
++    assert.ok(isEnd(hold.until), `UNCONSTRUCTIBLE: ${label} fixed hold ${hold.holdId} does not run to the prepared end ${JSON.stringify(hold.until)}`)
++  }
++  let fixedCloses = 0, nonFixedCloses = 0
++  for (const attempt of completeAttempts(result, label)) {
++    for (const hold of attempt.trace.additionalHolds) {
++      expect(Object.keys(hold)).toEqual([...HOLD_KEYS])
++      if (!isEnd(hold.until)) nonFixedCloses++
++    }
++    for (const row of attempt.trace.fixedHoldReplacements) expect(Object.keys(row)).toEqual([...REPLACEMENT_KEYS])
++    fixedCloses += attempt.trace.fixedHoldReplacements.length
++  }
++  return { fixedCloses, nonFixedCloses }
++}
++
++describe('580 case 3 — C6 protection: fixed-schema key sets on routes with fixed and non-fixed closes (GREEN both sides)', () => {
++  it('world().ready at now+2 (the 538 two-week wrap): every schema exact; the route closes >= 1 FIXED hold', () => {
++    const base = world().ready
++    const now = base.market.tick, horizon = now + 2
++    const result = replayStartedProductionPlans(startedInput(base, horizon, '580-c6-wrap'))
++    const closes = keySetsAndCloses(result, horizon, 'world().ready now+2')
++    console.log(`B4_CLOSES_580 ${JSON.stringify({ route: 'world().ready now+2 (538 wrap)', now, horizon, ...closes,
++      preparationWork: result.preparationWork })}`)
++    assert.ok(closes.fixedCloses >= 1, `UNCONSTRUCTIBLE: the wrap route closed no fixed hold ${JSON.stringify(closes)}`)
++  })
++  it('world().ready at now+5 (wrap, Post grant and Post exit inside the window): every schema exact; >= 1 NON-FIXED close', () => {
++    // The only owner-granted (non-fixed) holds on a Started route are reservations granted inside the window (addHold,
++    // replay :1706 / :1710 on reservationGranted); the Post reservation granted at the wrap and released at the Post
++    // exit (closeHold :1698 on reservationReleased) is the non-fixed close 579-A §3 counts on this fixture at now+5.
++    const base = world().ready
++    const now = base.market.tick, horizon = now + 5
++    const result = replayStartedProductionPlans(startedInput(base, horizon, '580-c6-post-exit'))
++    const closes = keySetsAndCloses(result, horizon, 'world().ready now+5')
++    console.log(`B4_CLOSES_580 ${JSON.stringify({ route: 'world().ready now+5 (Post exit)', now, horizon, ...closes,
++      preparationWork: result.preparationWork })}`)
++    assert.ok(closes.nonFixedCloses >= 1, `UNCONSTRUCTIBLE: the now+5 route closed no owner-granted hold ${JSON.stringify(closes)}`)
++  })
++})

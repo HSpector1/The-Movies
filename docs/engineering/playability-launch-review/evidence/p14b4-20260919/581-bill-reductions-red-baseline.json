@@ -1,0 +1,26 @@
+{
+  "sourceSha": "20f6b8eff47e8f5a31837e0a349c623d3b28184e",
+  "testedDiffSha256": "886be9dbce6e40b8a6edd9a05dcaa2a65d2db93f3885c7e9f1081d75433832c1",
+  "untrackedSource": [
+    "tests/p14b4-replay-bill-reductions.test.ts"
+  ],
+  "command": [
+    "node_modules/.bin/vitest",
+    "run",
+    "--project",
+    "core",
+    "tests/p14b4-replay-bill-reductions.test.ts"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-20T23:12:27.841Z",
+  "end": "2026-09-20T23:12:36.174Z",
+  "exitCode": 1,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "20f6b8eff47e8f5a31837e0a349c623d3b28184e",
+  "testedDiffSha256AtEnd": "886be9dbce6e40b8a6edd9a05dcaa2a65d2db93f3885c7e9f1081d75433832c1",
+  "untrackedSourceAtEnd": [
+    "tests/p14b4-replay-bill-reductions.test.ts"
+  ],
+  "fixedSource": true
+}
