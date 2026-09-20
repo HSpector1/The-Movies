@@ -1,4 +1,3 @@
-// Installed from independently frozen200 (lawful week-zero fixture correction); original inert provenance below retained unchanged.
 // INERT / UNEXECUTED. Intended tests/p14b4-started-replay-background-command.test.ts.
 // Independent193 supplement to FIXED182; contracts137/132/169/176/186.
 import assert from 'node:assert/strict'

@@ -1,0 +1,8 @@
+{"sourceSha":"a5eb3cf2b90e68d47430ce59af6a33e39eff0c20","testedDiffSha256":"bba3250c1c8b82515a1504447b72c52eba766ee04b8b26f204f83823530c7a07","untrackedSource":["tests/p14b4-started-replay-casting.test.ts"],"command":["npm","run","typecheck"],"node":"v20.20.2","start":"2026-09-20T03:40:04.939Z","end":null,"exitCode":null}
+
+
+> project-studio-core@0.1.0 typecheck
+> tsc --noEmit && tsc -p ui/tsconfig.json --noEmit
+
+
+{"sourceSha":"a5eb3cf2b90e68d47430ce59af6a33e39eff0c20","testedDiffSha256":"bba3250c1c8b82515a1504447b72c52eba766ee04b8b26f204f83823530c7a07","untrackedSource":["tests/p14b4-started-replay-casting.test.ts"],"command":["npm","run","typecheck"],"node":"v20.20.2","start":"2026-09-20T03:40:04.939Z","end":"2026-09-20T03:41:26.386Z","exitCode":0,"signal":null,"error":null,"sourceShaAtEnd":"a5eb3cf2b90e68d47430ce59af6a33e39eff0c20","testedDiffSha256AtEnd":"bba3250c1c8b82515a1504447b72c52eba766ee04b8b26f204f83823530c7a07","untrackedSourceAtEnd":["tests/p14b4-started-replay-casting.test.ts"],"fixedSource":true}

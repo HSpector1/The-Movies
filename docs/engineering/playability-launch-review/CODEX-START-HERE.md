@@ -2,22 +2,23 @@
 
 ## Current engineering checkpoint — 2026-09-20
 
-Current B4 replay candidate203 (2026-09-20), NOT full acceptance:
-191 four-file sourceFROZEN; exact194 supplement installed,182unchanged.
-197root+UItypecheckPASS;19819PASS/1fixtureFAIL of20 (beforeReplay: freshHollywood
-initializedweek>0; strictsavecorrectlyrefuses). All18216PASS incl1/2H6+kernelcap;
-194commands3PASS.201adjacentowners98PASS/9files;202soleOLDbridgeP2kind364TS2353.
-AllfixedSource:true on0bc+40b27b819d98693c90b53157db2f6402a90298dee0523b2fca0e68ee0cb3d2ed.
-ALLruntimeCLOSED;NOproductionwriter.196audit finishing with concrete literal-cost
-undercharges; GREENbehavior doesnotprovebudgetconservatism.199/200authorONLYinert
-casting/lawfulweek0fixturepreparations, notinstalled/executed. Simidle/max2.
-Next finish196/preservecheckpoint, independentfixturecheck, ONEsimcostcorrection,
-rerun exactusefulcaps+types+adjacentchecks; do not weaken tests/validators/limits.
+Current B4 replay207 accounting correction ACTIVE (2026-09-20).
+Published191candidatea5eb3cf2b90e68d47430ce59af6a33e39eff0c20 EXACTremote204.
+196independentREFINE (fullreportpersisted/parentadopted): literal/array/construction
+prepayments incomplete; preservebehavior, correctsame-module bills. No blanket
+remainingcostendorsement. ONEsim-core207 productionwriter ONLYreplaymodule+
+handback, SOURCE NOWMUTABLE.209authorONLYinert2commandtests;auditoridle/max2.
+ALLruntimeCLOSED; installed182/199/200 tests IMMUTABLE. Parent no mutableinspection.
 
-HEAD/EXACTremote0bc641a10f995a418a180b1d4fe4e6018aa4a14a (192).
-191 candidate and evidence through203 currently uncommitted.
-179 genuinecontrols/174sharedsort remain qualified, not whole replay acceptance.
-169half-open and186Set-stage endpoints remain binding. No versions/callers changed.
+205correctedfixture/casting/replay22PASS/3files;206rootANDUItypingPASS, bothfixed
+a5eb3cf+TESTONLYbba3250c1c8b82515a1504447b72c52eba766ee04b8b26f204f83823530c7a07.
+Realweek0freshinitialization preservesall194assertions, no root/validatorrepair.
+Prior191:197rootUIpass;19819PASS/1fixtureFAIL(beforeReplay) preserved;20198PASS/9;
+202soleOLDbridgeP2kind364TS2353. GREENcounterdoesnotproveconservativeaccounting.
+Next207freeze/read/pin, boundedaccountingreview+serial22cases/types/owners;
+genuine1/2H6+kernel MUSTstillfit200000 aftercorrectedfullprepayment.
+No test/validator/timeout/cap/ownerlaw/version changes or new prerequisitecampaign.
+
 P14B.1 T4/B2/B3/B-F2 recoveredqualifiedcloseouts; do not rebuild/rerun.
 Continue coherentP2/restP14/P15/P16/specifiedP17/P18 without routine permission.
 Save29/rules3/projection46 staylive untilcoherentcutover.

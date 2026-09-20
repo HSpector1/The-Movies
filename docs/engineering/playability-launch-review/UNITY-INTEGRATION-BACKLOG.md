@@ -35,7 +35,9 @@ test-only checkpoint0bc641a publishes16 independent cases and exact188/189 RED.
 Internal replay191 is implemented and partially verified:197rootUIpass,19819/20
 pass with one invalid test fixture before replay,20198adjacentPASS;202 retains
 the sole known futureP2 bridge type error.196 accounting review requires fixes;
-behavioral GREEN does not certify full prepayment or live feasibility. No
+behavioral GREEN does not certify full prepayment or live feasibility. Corrected
+fixtures205 now give22PASS and206rootUIpass;196REFINE drives the same-module207
+accounting correction. No
 consumer field/action, generated C#, schema or live version changes
 are authorized in this four-file tranche. Keep capacity explanations tied to the
 future verified evaluator; incomplete bounded analysis must not be presented as

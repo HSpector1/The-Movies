@@ -1,0 +1,24 @@
+{"sourceSha":"a5eb3cf2b90e68d47430ce59af6a33e39eff0c20","testedDiffSha256":"bba3250c1c8b82515a1504447b72c52eba766ee04b8b26f204f83823530c7a07","untrackedSource":["tests/p14b4-started-replay-casting.test.ts"],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14b4-started-owner-replay.test.ts","tests/p14b4-started-replay-background-command.test.ts","tests/p14b4-started-replay-casting.test.ts"],"node":"v20.20.2","start":"2026-09-20T03:39:00.182Z","end":null,"exitCode":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p14b4-started-replay-casting.test.ts (2 tests) 2901ms
+   ✓ P14B4 real active auditions in started-owner replay > keeps the exact original audition slot at zero horizon, without candidate or credited-writer person holds 1709ms
+   ✓ P14B4 real active auditions in started-owner replay > closes only the due audition slot before the real sweep; the overlapping candidates remain A company 1189ms
+ ✓ |core| tests/p14b4-started-replay-background-command.test.ts (4 tests) 3976ms
+   ✓ P14B4 started replay — real background and explicit command supplement > releases original due-writing holds BEFORE sweep while new-start A keeps a DIFFERENT slot through later 8→7 1966ms
+   ✓ P14B4 started replay — real background and explicit command supplement > executes an explicit scheduleTake only from actual Ready and matches the real action + next tick 1116ms
+   ✓ P14B4 started replay — real background and explicit command supplement > resolves a formerly valid ID against CURRENT branch state after real committed release, without resurrection 860ms
+ ✓ |core| tests/p14b4-started-owner-replay.test.ts (16 tests) 4686ms
+   ✓ P14B4 genuine already-started owner replay — local first-take parity > replays all 1 scheduled picture(s) in ONE real sweep to horizon5 2140ms
+   ✓ P14B4 genuine already-started owner replay — local first-take parity > replays all 2 scheduled picture(s) in ONE real sweep to horizon5 1047ms
+   ✓ P14B4 genuine already-started owner replay — local first-take parity > executes the NEXT real wrap/Post sweep for 1 picture(s), not an invented horizon tail 566ms
+
+ Test Files  3 passed (3)
+      Tests  22 passed (22)
+   Start at  05:39:00
+   Duration  7.99s (transform 2.49s, setup 0ms, collect 8.05s, tests 11.56s, environment 2ms, prepare 578ms)
+
+
+{"sourceSha":"a5eb3cf2b90e68d47430ce59af6a33e39eff0c20","testedDiffSha256":"bba3250c1c8b82515a1504447b72c52eba766ee04b8b26f204f83823530c7a07","untrackedSource":["tests/p14b4-started-replay-casting.test.ts"],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14b4-started-owner-replay.test.ts","tests/p14b4-started-replay-background-command.test.ts","tests/p14b4-started-replay-casting.test.ts"],"node":"v20.20.2","start":"2026-09-20T03:39:00.182Z","end":"2026-09-20T03:39:09.153Z","exitCode":0,"signal":null,"error":null,"sourceShaAtEnd":"a5eb3cf2b90e68d47430ce59af6a33e39eff0c20","testedDiffSha256AtEnd":"bba3250c1c8b82515a1504447b72c52eba766ee04b8b26f204f83823530c7a07","untrackedSourceAtEnd":["tests/p14b4-started-replay-casting.test.ts"],"fixedSource":true}
