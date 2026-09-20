@@ -1,0 +1,15 @@
+{"sourceSha":"78796c185c8fa7b3a8e716796760e4f11a4c905f","testedDiffSha256":"568d14c6cef4859968e58c55101de25e2637aaebaa374ab7aaa760908e3480bd","untrackedSource":["tests/p14b4-ready-replay-command.test.ts","tests/p14b4-ready-replay-identity.test.ts"],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14b4-ready-replay-identity.test.ts"],"node":"v20.20.2","start":"2026-09-20T05:39:15.692Z","end":null,"exitCode":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p14b4-ready-replay-identity.test.ts (1 test) 777ms
+   ✓ P14B4 Ready replay — cancelled identity remains reserved > uses retained sunk-cost identity after same-week real cancel, without resurrecting a calendar or rewriting history 776ms
+
+ Test Files  1 passed (1)
+      Tests  1 passed (1)
+   Start at  07:39:16
+   Duration  3.80s (transform 1.80s, setup 0ms, collect 2.44s, tests 777ms, environment 0ms, prepare 154ms)
+
+
+{"sourceSha":"78796c185c8fa7b3a8e716796760e4f11a4c905f","testedDiffSha256":"568d14c6cef4859968e58c55101de25e2637aaebaa374ab7aaa760908e3480bd","untrackedSource":["tests/p14b4-ready-replay-command.test.ts","tests/p14b4-ready-replay-identity.test.ts"],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14b4-ready-replay-identity.test.ts"],"node":"v20.20.2","start":"2026-09-20T05:39:15.692Z","end":"2026-09-20T05:39:20.383Z","exitCode":0,"signal":null,"error":null,"sourceShaAtEnd":"78796c185c8fa7b3a8e716796760e4f11a4c905f","testedDiffSha256AtEnd":"568d14c6cef4859968e58c55101de25e2637aaebaa374ab7aaa760908e3480bd","untrackedSourceAtEnd":["tests/p14b4-ready-replay-command.test.ts","tests/p14b4-ready-replay-identity.test.ts"],"fixedSource":true}

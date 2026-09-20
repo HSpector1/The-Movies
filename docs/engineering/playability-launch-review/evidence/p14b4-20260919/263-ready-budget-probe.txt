@@ -1,0 +1,82 @@
+{"sourceSha":"78796c185c8fa7b3a8e716796760e4f11a4c905f","testedDiffSha256":"09e0981df3f4f160c2e84a8ac474068709d8c9d32f43b8e091e0af90a656c91a","untrackedSource":["tests/p14b4-ready-budget-probe.test.ts","tests/p14b4-ready-replay-command.test.ts","tests/p14b4-ready-replay-identity.test.ts"],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14b4-ready-budget-probe.test.ts","-t","admits a genuine Ready|allows independent sibling|actual source-now employment"],"node":"v20.20.2","start":"2026-09-20T05:44:21.600Z","end":null,"exitCode":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+stdout | tests/p14b4-ready-budget-probe.test.ts > P14B4 source-now Ready operational admission > admits a genuine Ready beside the whole original slate, preserves opaque original fields, and feeds the same capped kernel
+263_READY_BUDGET_DIAGNOSTIC {"plans":["242-ready"],"preparationWork":200000,"omissions":["work limit; remaining plan suffixes unexecuted"],"attempts":[{"kind":"cut","reason":"workLimit","through":{"week":2,"step":5},"provenance":[{"kind":"readyAdmitted","at":{"week":2,"step":1},"projectId":"script-0001","productionId":"prod-0002"},{"kind":"ownerEvent","at":{"week":2,"step":2},"ownerWeek":2,"draft":{"kind":"reservationGranted","ownerId":"prod-0002","resourceKey":"facility-development-casting:0"}},{"kind":"ownerEvent","at":{"week":2,"step":3},"ownerWeek":2,"draft":{"kind":"phaseEntered","productionId":"prod-0002","phase":"development"}},{"kind":"sweepStarted","at":{"week":2,"step":4},"externalSlotKeys":[]},{"kind":"ownerEvent","at":{"week":2,"step":5},"ownerWeek":2,"draft":{"kind":"phaseEntered","productionId":"prod-0001","phase":"preProduction"}}]}],"calls":[{"week":2,"ids":["prod-0001","prod-0002"],"before":[8,8],"after":[7,8]}],"ownerCalls":{"header":1,"staffing":1,"add":1,"link":1},"sourceDimensions":{"now":2,"originals":1,"facilities":[{"id":"facility-development-casting","capability":"development-casting","capacity":2},{"id":"facility-post-building","capability":"post","capacity":2},{"id":"facility-scenery-shop","capability":"set-scenery","capacity":2},{"id":"facility-soundstage-07","capability":"soundstage","capacity":1},{"id":"facility-soundstage-12","capability":"soundstage","capacity":1}],"workflows":[{"id":"prod-0001","phase":"development","reservations":1,"task":false,"boundSet":false}],"talent":84,"contracts":11,"concepts":30,"employment":35,"talentIdWidth":28,"contractIdWidth":8,"conceptIdWidth":4,"employmentPersonWidth":28,"employmentStudioWidth":22}}
+
+stdout | tests/p14b4-ready-budget-probe.test.ts > P14B4 source-now Ready operational admission > allows independent sibling staffings of the SAME Ready project and SAME would-be identity without cross-branch consumption
+263_READY_BUDGET_DIAGNOSTIC {"plans":["242-sibling-b","242-sibling-a"],"preparationWork":200000,"omissions":["work limit; remaining plan suffixes unexecuted"],"attempts":[{"kind":"complete","traceKey":"242-sibling-a","paths":3,"provenance":[{"kind":"readyAdmitted","at":{"week":1,"step":1},"projectId":"script-0000","productionId":"prod-0001"},{"kind":"ownerEvent","at":{"week":1,"step":2},"ownerWeek":1,"draft":{"kind":"reservationGranted","ownerId":"prod-0001","resourceKey":"facility-development-casting:0"}},{"kind":"ownerEvent","at":{"week":1,"step":3},"ownerWeek":1,"draft":{"kind":"phaseEntered","productionId":"prod-0001","phase":"development"}},{"kind":"sweepStarted","at":{"week":1,"step":4},"externalSlotKeys":[]}]},{"kind":"cut","reason":"workLimit","through":{"week":1,"step":0},"provenance":[]}],"calls":[{"week":1,"ids":["prod-0001"],"before":[8],"after":[8]}],"ownerCalls":{"header":2,"staffing":2,"add":1,"link":1},"sourceDimensions":{"now":1,"originals":0,"facilities":[{"id":"facility-development-casting","capability":"development-casting","capacity":2},{"id":"facility-post-building","capability":"post","capacity":2},{"id":"facility-scenery-shop","capability":"set-scenery","capacity":2},{"id":"facility-soundstage-07","capability":"soundstage","capacity":1},{"id":"facility-soundstage-12","capability":"soundstage","capacity":1}],"workflows":[],"talent":84,"contracts":11,"concepts":30,"employment":35,"talentIdWidth":28,"contractIdWidth":8,"conceptIdWidth":4,"employmentPersonWidth":28,"employmentStudioWidth":22}}
+
+stdout | tests/p14b4-ready-budget-probe.test.ts > P14B4 source-now Ready operational admission > uses actual source-now employment and freelancer-market facts instead of treating every idle uncontracted actor as available
+263_READY_BUDGET_DIAGNOSTIC {"plans":["242-ready"],"preparationWork":200000,"omissions":["work limit; remaining plan suffixes unexecuted"],"attempts":[{"kind":"cut","reason":"workLimit","through":{"week":1,"step":0},"provenance":[]}],"calls":[],"ownerCalls":{"header":1,"staffing":1,"add":0,"link":0},"sourceDimensions":{"now":1,"originals":0,"facilities":[{"id":"facility-development-casting","capability":"development-casting","capacity":2},{"id":"facility-post-building","capability":"post","capacity":2},{"id":"facility-scenery-shop","capability":"set-scenery","capacity":2},{"id":"facility-soundstage-07","capability":"soundstage","capacity":1},{"id":"facility-soundstage-12","capability":"soundstage","capacity":1}],"workflows":[],"talent":84,"contracts":11,"concepts":30,"employment":35,"talentIdWidth":28,"contractIdWidth":8,"conceptIdWidth":4,"employmentPersonWidth":28,"employmentStudioWidth":22}}
+
+ ❯ |core| tests/p14b4-ready-budget-probe.test.ts (7 tests | 3 failed | 4 skipped) 1152ms
+   × P14B4 source-now Ready operational admission > admits a genuine Ready beside the whole original slate, preserves opaque original fields, and feeds the same capped kernel 801ms
+     → 242 genuine Ready replay cut: workLimit: shared replay work limit
+   × P14B4 source-now Ready operational admission > allows independent sibling staffings of the SAME Ready project and SAME would-be identity without cross-branch consumption 200ms
+     → expected [ Array(1) ] to deeply equal []
+   × P14B4 source-now Ready operational admission > uses actual source-now employment and freelancer-market facts instead of treating every idle uncontracted actor as available 149ms
+     → expected 'workLimit' to be 'commandRefused' // Object.is equality
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14b4-ready-budget-probe.test.ts > P14B4 source-now Ready operational admission > admits a genuine Ready beside the whole original slate, preserves opaque original fields, and feeds the same capped kernel
+Error: 242 genuine Ready replay cut: workLimit: shared replay work limit
+ ❯ completed tests/p14b4-ready-budget-probe.test.ts:181:42
+    179|   expect(seen.result.attempts).toHaveLength(1)
+    180|   const attempt = seen.result.attempts[0]!
+    181|   if (attempt.kind !== 'complete') throw new Error(`242 genuine Ready …
+       |                                          ^
+    182|   expect(seen.result.omissions).toEqual([])
+    183|   expect(seen.addCalls).toBe(1)
+ ❯ tests/p14b4-ready-budget-probe.test.ts:252:70
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL |core|  tests/p14b4-ready-budget-probe.test.ts > P14B4 source-now Ready operational admission > allows independent sibling staffings of the SAME Ready project and SAME would-be identity without cross-branch consumption
+AssertionError: expected [ Array(1) ] to deeply equal []
+
+- Expected
++ Received
+
+- Array []
++ Array [
++   "work limit; remaining plan suffixes unexecuted",
++ ]
+
+ ❯ tests/p14b4-ready-budget-probe.test.ts:352:35
+    350|     ] }
+    351|     const seen = observed(value)
+    352|     expect(seen.result.omissions).toEqual([])
+       |                                   ^
+    353|     expect(seen.result.attempts).toHaveLength(2)
+    354|     expect(seen.addCalls).toBe(2)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+ FAIL |core|  tests/p14b4-ready-budget-probe.test.ts > P14B4 source-now Ready operational admission > uses actual source-now employment and freelancer-market facts instead of treating every idle uncontracted actor as available
+AssertionError: expected 'workLimit' to be 'commandRefused' // Object.is equality
+
+Expected: "commandRefused"
+Received: "workLimit"
+
+ ❯ refusal tests/p14b4-ready-budget-probe.test.ts:236:26
+    234|   const attempt = seen.result.attempts[0]!
+    235|   if (attempt.kind !== 'cut') throw new Error('242 refused Ready choic…
+    236|   expect(attempt.reason).toBe('commandRefused')
+       |                          ^
+    237|   expect(attempt.detail).toContain(detail)
+    238|   expect(attempt.provenance.some((row) => row.kind === 'readyAdmitted'…
+ ❯ tests/p14b4-ready-budget-probe.test.ts:430:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯
+
+ Test Files  1 failed (1)
+      Tests  3 failed | 4 skipped (7)
+   Start at  07:44:22
+   Duration  4.20s (transform 1.98s, setup 0ms, collect 2.57s, tests 1.15s, environment 1ms, prepare 106ms)
+
+
+{"sourceSha":"78796c185c8fa7b3a8e716796760e4f11a4c905f","testedDiffSha256":"09e0981df3f4f160c2e84a8ac474068709d8c9d32f43b8e091e0af90a656c91a","untrackedSource":["tests/p14b4-ready-budget-probe.test.ts","tests/p14b4-ready-replay-command.test.ts","tests/p14b4-ready-replay-identity.test.ts"],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14b4-ready-budget-probe.test.ts","-t","admits a genuine Ready|allows independent sibling|actual source-now employment"],"node":"v20.20.2","start":"2026-09-20T05:44:21.600Z","end":"2026-09-20T05:44:27.071Z","exitCode":1,"signal":null,"error":null,"sourceShaAtEnd":"78796c185c8fa7b3a8e716796760e4f11a4c905f","testedDiffSha256AtEnd":"09e0981df3f4f160c2e84a8ac474068709d8c9d32f43b8e091e0af90a656c91a","untrackedSourceAtEnd":["tests/p14b4-ready-budget-probe.test.ts","tests/p14b4-ready-replay-command.test.ts","tests/p14b4-ready-replay-identity.test.ts"],"fixedSource":true}

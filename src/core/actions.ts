@@ -137,7 +137,7 @@ import {
   disabledStudioEventSink,
   StudioEventSink,
 } from './studioEvents.js'
-import { persistedProductionIds } from './productionIdentity.js'
+import { allocateProductionId, persistedProductionIds } from './productionIdentity.js'
 import {
   assertGreenlightCraftLead,
   assertGreenlightStaffingIdle,
@@ -252,13 +252,6 @@ const CREATIVE_ROLES: readonly CreativeRole[] = ['writer', 'director', 'actor', 
 // produced two `prod-0000` ids — the root cause of the duplicated-autopsy bug. So when
 // the base is already taken, append the smallest free `-k` suffix. Deterministic; base
 // id unchanged whenever it is free (i.e. always, in M0A).
-function productionId(startTick: number, taken: ReadonlySet<string>): string {
-  const base = `prod-${String(startTick).padStart(4, '0')}`
-  if (!taken.has(base)) return base
-  let k = 1
-  while (taken.has(`${base}-${k}`)) k++
-  return `${base}-${k}`
-}
 
 // The production id the NEXT greenlight at the current tick WILL allocate — the SAME
 // collision-safe allocation applyGreenlight uses (currentTick + every persisted id).
@@ -268,7 +261,7 @@ function productionId(startTick: number, taken: ReadonlySet<string>): string {
 // → the two diverge (D-12 beta P1). Pure; draws from no stream. Identical to the base id in
 // M0A (≤1 greenlight/tick → no collision) so no headless behavior changes.
 export function predictProductionId(state: GameState): string {
-  return productionId(state.market.tick, persistedProductionIds(state))
+  return allocateProductionId(state.market.tick, persistedProductionIds(state))
 }
 
 // Authored-talent id scheme (§10). Worldgen ids are `t-<role3>-NN` and `c-NN`;

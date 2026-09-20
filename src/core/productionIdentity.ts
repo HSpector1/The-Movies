@@ -1,6 +1,15 @@
 import { studioEventProductionIds } from './studioEvents.js'
 import type { GameState, ProductionQueueEntry } from './types.js'
 
+/** Pure would-be identity; callers retain ownership of the persisted union. */
+export function allocateProductionId(startTick: number, taken: ReadonlySet<string>): string {
+  const base = `prod-${String(startTick).padStart(4, '0')}`
+  if (!taken.has(base)) return base
+  let k = 1
+  while (taken.has(`${base}-${k}`)) k++
+  return `${base}-${k}`
+}
+
 // A production identity remains authoritative after the live Production
 // disappears. Cancellation deliberately keeps sunk greenlight entries in the
 // ledger, and released-film consumers retain the same identity indefinitely.

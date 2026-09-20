@@ -1,0 +1,32 @@
+{
+  "sourceSha": "78796c185c8fa7b3a8e716796760e4f11a4c905f",
+  "testedDiffSha256": "09e0981df3f4f160c2e84a8ac474068709d8c9d32f43b8e091e0af90a656c91a",
+  "untrackedSource": [
+    "tests/p14b4-ready-budget-probe.test.ts",
+    "tests/p14b4-ready-replay-command.test.ts",
+    "tests/p14b4-ready-replay-identity.test.ts"
+  ],
+  "command": [
+    "node_modules/.bin/vitest",
+    "run",
+    "--project",
+    "core",
+    "tests/p14b4-ready-budget-probe.test.ts",
+    "-t",
+    "admits a genuine Ready|allows independent sibling|actual source-now employment"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-20T05:44:21.600Z",
+  "end": "2026-09-20T05:44:27.071Z",
+  "exitCode": 1,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "78796c185c8fa7b3a8e716796760e4f11a4c905f",
+  "testedDiffSha256AtEnd": "09e0981df3f4f160c2e84a8ac474068709d8c9d32f43b8e091e0af90a656c91a",
+  "untrackedSourceAtEnd": [
+    "tests/p14b4-ready-budget-probe.test.ts",
+    "tests/p14b4-ready-replay-command.test.ts",
+    "tests/p14b4-ready-replay-identity.test.ts"
+  ],
+  "fixedSource": true
+}

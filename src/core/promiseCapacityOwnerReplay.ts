@@ -5,21 +5,28 @@
  * opaque generic production fields are copied by reference, never traversed).
  */
 import { boundedStableSort } from './boundedStableSort.js'
-import { castingWorkDueAt } from './castingSessions.js'
+import { castingOccupiedFacilitySlots, castingWorkDueAt } from './castingSessions.js'
+import { economyEngaged, freelancerMarketIds, isContracted } from './employment.js'
 import { propertyOf } from './lot.js'
 import {
-  advanceManagedProductions, arriveDueScenery, assignShootingDirector,
+  addManagedProductionWorkflow, advanceManagedProductions, arriveDueScenery, assignShootingDirector,
   clearSceneryLoadIn, productionPhaseForRemainingTicks, scheduleShootingTake,
   type ProductionClockView,
 } from './operations.js'
 import { productionCompanyTalentIds } from './productionPeople.js'
+import { allocateProductionId, persistedProductionIds } from './productionIdentity.js'
+import { assertGreenlightCraftLead, assertGreenlightStaffingIdle, greenlightFreelancers,
+  requireGreenlightHeader, resolveGreenlightStaffing } from './productionAdmission.js'
+import { setOccupiedFacilitySlots } from './occupancy.js'
 import { createProductionSetupRouteResolver } from './productionSetup.js'
 import {
   committedReleaseIds, pruneReleasedCommitments, releaseCommitmentRefusal,
   withReleaseCommitment,
 } from './releaseAuthority.js'
 import { sceneryLoadInDecision, type SceneryLoadInFacts } from './sceneryLoadIn.js'
-import { scriptProjectWriterIds, scriptWorkDueAt } from './scriptDevelopment.js'
+import { linkScriptProjectToProduction, scriptOccupiedFacilitySlots, scriptProjectWriterIds,
+  scriptWorkDueAt } from './scriptDevelopment.js'
+import { TUNING } from './tuning.js'
 import { depleteSetNoveltyForRelease } from './sets.js'
 import { StudioEventSink, type StudioEventDraft } from './studioEvents.js'
 import {
@@ -31,7 +38,7 @@ import type {
 } from './promiseCapacityKernel.js'
 import type {
   CastingSession, FacilityReservation, FilmConcept, GameState, Genre, Production,
-  ProductionWorkflow, ScriptProject, StudioOperations, StudioReleaseAuthority,
+  ProductionWorkflow, ScriptDevelopment, ScriptProject, StudioOperations, StudioReleaseAuthority,
   StudioSet,
 } from './types.js'
 import type { StudioTechnology } from './technologyTypes.js'
@@ -59,6 +66,19 @@ export type StartedOwnerReplayInput<P extends StartedPicture> = Readonly<{
   plans: readonly StartedProductionPlan[]; horizonEndWeek: number; preparationWork: number
   limits: Readonly<{ work: number; span: number; alternatives: number }>
 }>
+export type ReadyPlanCommand = Readonly<Omit<StartedProductionCommand, 'productionId'> & (
+  { productionId: string; readyProjectId?: never } | { readyProjectId: string; productionId?: never }
+)>
+export type ReadyProductionPlan = Readonly<{
+  traceKey: string
+  readyChoice: Readonly<{ projectId: string; directorId: string; cast: Readonly<Production['cast']>;
+    craftIds: readonly string[] }>
+  commands: readonly ReadyPlanCommand[]
+}>
+export type ReadyOwnerReplayInput = Readonly<Omit<StartedOwnerReplayInput<Production>, 'source' | 'plans'> & {
+  source: GameState; plans: readonly ReadyProductionPlan[]
+}>
+export type PlannedReadyProduction = StartedPicture & Readonly<{ projectId: string }>
 export type ReplayObservation =
   | Readonly<{ kind: 'command'; at: Boundary; command: StartedProductionCommand }>
   | Readonly<{ kind: 'backgroundCompleted'; at: Boundary; pathKey: string; dueWeek: number;
@@ -67,6 +87,7 @@ export type ReplayObservation =
   | Readonly<{ kind: 'ownerEvent'; at: Boundary; ownerWeek: number; draft: StudioEventDraft }>
   | Readonly<{ kind: 'firstTake'; at: Boundary; productionId: string }>
   | Readonly<{ kind: 'releaseAdmitted'; at: Boundary; productionId: string }>
+  | Readonly<{ kind: 'readyAdmitted'; at: Boundary; projectId: string; productionId: string }>
 export type StartedReplayProjection<P extends StartedPicture> = Readonly<{
   week: number; productions: readonly P[]; operations: StudioOperations
   sets: readonly StudioSet[]; technology: StudioTechnology
@@ -81,6 +102,21 @@ export type StartedReplayAttempt<P extends StartedPicture> =
 export type StartedOwnerReplayResult<P extends StartedPicture> = Readonly<{
   fixedHolds: readonly FixedHold[]; attempts: readonly StartedReplayAttempt<P>[]
   preparationWork: number; omissions: readonly string[]
+}>
+export type ReadyReplayProjection = StartedReplayProjection<Production> & Readonly<{
+  plannedProductions: readonly PlannedReadyProduction[]
+  admissionScriptDevelopment: ScriptDevelopment
+}>
+type ReplayCut = Extract<StartedReplayAttempt<StartedPicture>, { kind: 'cut' }>
+type ReadyComplete = Readonly<{ kind: 'complete'; trace: JointOwnerTrace; projection: ReadyReplayProjection;
+  provenance: readonly ReplayObservation[] }>
+export type ReadyOwnerReplayResult = Readonly<{
+  fixedHolds: readonly FixedHold[]; attempts: readonly (ReadyComplete | ReplayCut)[]
+  preparationWork: number; omissions: readonly string[]
+}>
+type ReplayPlan = StartedProductionPlan | ReadyProductionPlan
+type ReplayInput<P extends StartedPicture> = Readonly<Omit<StartedOwnerReplayInput<P>, 'plans'> & {
+  plans: readonly ReplayPlan[]
 }>
 
 class WorkLimit extends Error {}
@@ -157,6 +193,29 @@ const LITERAL = Object.freeze({
   complete: literalCost('kind', 'trace', 'projection', 'provenance'),
   cut: literalCost('kind', 'traceKey', 'through', 'reason', 'detail', 'provenance'),
   result: literalCost('fixedHolds', 'attempts', 'preparationWork', 'omissions'),
+  readyPlan: literalCost('traceKey', 'commands', 'readyChoice'),
+  readyClock: literalCost('id', 'projectId', 'conceptId', 'writerId', 'directorId', 'cast',
+    'craftIds', 'startTick', 'remainingTicks'),
+  readyEvent: literalCost('kind', 'at', 'projectId', 'productionId'),
+  readyAdmission: literalCost('productionId', 'projectId', 'development'),
+  headerFacts: literalCost('foundingOpen', 'concepts', 'development', 'casting'),
+  screenplayChoice: literalCost('conceptId', 'writerId', 'shape', 'promise'),
+  staffingChoice: literalCost('writerId', 'directorId', 'cast', 'craftIds'),
+  employmentFacts: literalCost('contractedIds', 'freelancerIds'),
+  cast: literalCost('lead', 'antagonist', 'support'),
+  readyProjection: literalCost('week', 'productions', 'plannedProductions', 'operations', 'sets',
+    'technology', 'releaseAuthority', 'completedBackgroundPathKeys', 'admissionScriptDevelopment'),
+  resolvedCommand: literalCost('week', 'ordinal', 'kind', 'productionId'),
+  headerResult: literalCost('concept', 'scriptProject'),
+  staffingResult: literalCost('writer', 'director', 'cast', 'craftHires', 'engaged', 'engagedIds'),
+  roleAssignment: literalCost('id', 'role'),
+  writerAssignment: literalCost('talentId', 'projectId', 'status', 'title', 'label'),
+  claim: literalCost('key', 'facilitySlotKey', 'kind', 'facilityId', 'slot', 'capability', 'owner', 'ownerId', 'phase', 'reservation', 'task', 'set'),
+  workflow: literalCost('productionId', 'phase', 'reservations', 'shootingTask', 'blocker', 'bindings', 'setup', 'planRevision'),
+  reservation: literalCost('productionId', 'facilityId', 'capability', 'slot', 'phase'),
+  allocation: literalCost('ok', 'reservations', 'boundSet'),
+  phaseEvent: literalCost('kind', 'productionId', 'phase'),
+  reservationEvent: literalCost('kind', 'owner', 'ownerId', 'resourceKey'),
   contextError: literalCost('reason', 'message'),
   commandError: literalCost('message'),
 })
@@ -315,11 +374,12 @@ type Background = {
 type PictureFacts<P extends StartedPicture> = {
   production: P; workflow: ProductionWorkflow; pathKey: string; people: readonly string[]
   genre: Genre; historicallyFilmed: boolean
+  greenlight?: Boundary
 }
 type Prepared<P extends StartedPicture> = {
   pictures: readonly PictureFacts<P>[]; backgrounds: readonly Background[]
   mounts: readonly { set: StudioSet; pathKey: string }[]
-  plans: readonly StartedProductionPlan[]; fixed: readonly FixedHold[]
+  plans: readonly ReplayPlan[]; fixed: readonly FixedHold[]
   now: Boundary; end: Boundary; factRef: string
 }
 function company<P extends StartedPicture>(productions: readonly P[], work: Work): readonly string[] {
@@ -362,8 +422,8 @@ function reservationSubject<P extends StartedPicture>(source: StartedOwnerSource
   work.pay(LITERAL.resource)
   return { kind: 'resource', resourceKey: work.token('facility', issuer, row.facilityId), slot: row.slot }
 }
-function prepare<P extends StartedPicture>(input: StartedOwnerReplayInput<P>, work: Work,
-  plansPrepared: (plans: readonly StartedProductionPlan[]) => void): Prepared<P> {
+function prepare<P extends StartedPicture>(input: ReplayInput<P>, work: Work,
+  plansPrepared: (plans: readonly ReplayPlan[]) => void, ready = false): Prepared<P> {
   const { source, issuerId: issuer } = input
   work.pay(24)
   work.text(issuer)
@@ -373,26 +433,46 @@ function prepare<P extends StartedPicture>(input: StartedOwnerReplayInput<P>, wo
   const end: Boundary = { week: input.horizonEndWeek, step: 0 }
   natural(now.week, 'source week'); natural(end.week, 'horizon')
   invariant(end.week >= now.week, 'horizon precedes source')
+  if (ready && input.plans.length > 0) {
+    work.pay(4)
+    invariant(end.week > now.week, 'Ready admission requires a positive horizon')
+  }
   if (end.week - now.week > input.limits.span) contextCut(work, 'sizeLimit', 'replay span exceeds limit')
   if (input.plans.length > input.limits.alternatives ||
       source.studio.activeProductions.length + 1 > input.limits.alternatives) {
     contextCut(work, 'sizeLimit', 'trace/path row limit')
   }
   work.pay(1)
-  const rawPlans: StartedProductionPlan[] = []
+  const rawPlans: ReplayPlan[] = []
   for (const plan of input.plans) {
     work.pay(5); work.text(plan.traceKey)
     invariant(plan.traceKey.length > 0, 'empty trace identity')
     work.pay(1)
-    const commands: StartedProductionCommand[] = []
+    const commands: ReadyPlanCommand[] = []
+    const readyPlan = 'readyChoice' in plan
+    work.pay(3)
+    invariant(readyPlan === ready, 'mixed replay plan modes')
     for (const command of plan.commands) {
-      work.pay(12); work.text(command.productionId); work.text(command.kind)
+      work.pay(12); work.text(command.kind)
       natural(command.week, 'command week'); natural(command.ordinal, 'command ordinal')
       invariant(command.week >= now.week && command.week < end.week, 'command outside replay window')
       invariant(command.kind === 'assignLockedDirector' || command.kind === 'clearGrandfatheredScenery' ||
         command.kind === 'scheduleTake' || command.kind === 'commitRelease', 'unknown replay command')
-      invariant(find(source.studio.activeProductions, command.productionId, row => row.id, work) !== undefined,
-        'command references an absent original production')
+      if (command.productionId !== undefined) {
+        work.text(command.productionId)
+        invariant(!('readyProjectId' in command), 'command has two targets')
+        invariant(find(source.studio.activeProductions, command.productionId, row => row.id, work) !== undefined,
+          'command references an absent original production')
+      } else {
+        work.pay(5)
+        invariant(readyPlan && 'readyProjectId' in command && typeof command.readyProjectId === 'string',
+          'command has no exact target')
+        invariant(work.equal(command.readyProjectId, plan.readyChoice.projectId), 'command references another Ready project')
+      }
+      if (readyPlan) {
+        work.pay(3)
+        invariant(command.week !== now.week || command.ordinal >= 1, 'source-now ordinal zero is reserved for admission')
+      }
       work.pay(APPEND)
       commands.push(command)
     }
@@ -403,8 +483,21 @@ function prepare<P extends StartedPicture>(input: StartedOwnerReplayInput<P>, wo
       invariant(ordered[i - 1]!.week !== ordered[i]!.week || ordered[i - 1]!.ordinal !== ordered[i]!.ordinal,
         'duplicate command week/ordinal')
     }
-    work.pay(LITERAL.plan + APPEND)
-    rawPlans.push({ traceKey: plan.traceKey, commands: ordered })
+    if (readyPlan) {
+      work.pay(LITERAL.readyPlan + APPEND)
+      rawPlans.push({ traceKey: plan.traceKey, commands: ordered, readyChoice: plan.readyChoice })
+    } else {
+      // The preceding guards establish original-only targets without asserting
+      // a Ready union back to the old command type.
+      work.pay(LITERAL.plan + APPEND + 1)
+      const originalCommands: StartedProductionCommand[] = []
+      for (const command of ordered) {
+        work.pay(3)
+        invariant(command.productionId !== undefined, 'original command lost its target')
+        work.pay(APPEND); originalCommands.push(command)
+      }
+      rawPlans.push({ traceKey: plan.traceKey, commands: originalCommands })
+    }
   }
   const plans = sorted(rawPlans, plan => plan.traceKey, work)
   for (let i = 1; i < plans.length; i++) {
@@ -514,40 +607,7 @@ function prepare<P extends StartedPicture>(input: StartedOwnerReplayInput<P>, wo
     backgrounds.push({ kind: 'castingSession', row: session, people: [],
       pathKey: work.token('castingSession', issuer, session.id) })
   }
-  // Read actual foreign companies and indexed writer pools, not caller flags.
-  for (const business of source.hollywood.businesses) {
-    work.pay(4)
-    if (work.equal(business.studioId, issuer)) continue
-    for (const id of company(business.productions, work)) {
-      if (find(relevant, id, value => value, work) !== undefined) {
-        contextCut(work, 'unsupportedContext', 'relevant current foreign company')
-      }
-    }
-    for (const ordinal of business.activeScriptOrdinals) {
-      work.pay(12)
-      const project = business.development.projects[ordinal], costs = business.projects[ordinal]
-      invariant(project !== undefined && costs !== undefined, 'missing indexed foreign screenplay')
-      const indexedConcept = source.hollywood.concepts[costs.conceptOrdinal]
-      invariant(work.equal(costs.scriptProjectId, project.id) && work.equal(costs.conceptId, project.conceptId) &&
-        indexedConcept !== undefined && work.equal(indexedConcept.id, project.conceptId), 'foreign screenplay join mismatch')
-      if (project.status !== 'drafting' && project.status !== 'rewriting') continue
-      for (const id of writers(project, work)) {
-        if (find(relevant, id, value => value, work) !== undefined) {
-          contextCut(work, 'unsupportedContext', 'relevant current foreign screenplay')
-        }
-      }
-    }
-  }
-  for (const project of source.technology.projects) {
-    work.pay(5)
-    if (work.equal(project.studioId, issuer) || project.status !== 'active') continue
-    for (const seat of project.seats) {
-      work.pay(4)
-      if (seat.releasedWeek === null && find(relevant, seat.talentId, id => id, work) !== undefined) {
-        contextCut(work, 'unsupportedContext', 'relevant current foreign research seat')
-      }
-    }
-  }
+  checkForeignRelevance(source, issuer, relevant, work)
   work.pay(1)
   const mounts: { set: StudioSet; pathKey: string }[] = []
   for (const set of source.sets) {
@@ -558,7 +618,7 @@ function prepare<P extends StartedPicture>(input: StartedOwnerReplayInput<P>, wo
     }
   }
   work.pay(6)
-  const rowsPerTrace = 1 + pictures.length + backgrounds.length + mounts.length
+  const rowsPerTrace = 1 + pictures.length + backgrounds.length + mounts.length + (ready ? 1 : 0)
   if (rowsPerTrace > input.limits.alternatives || plans.length > Math.floor(input.limits.alternatives / rowsPerTrace)) {
     contextCut(work, 'sizeLimit', 'global trace/path occurrence limit')
   }
@@ -608,6 +668,45 @@ function prepare<P extends StartedPicture>(input: StartedOwnerReplayInput<P>, wo
     factRef: work.token('source', issuer, now.week) }
 }
 
+function checkForeignRelevance<P extends StartedPicture>(source: StartedOwnerSource<P>, issuer: string,
+  relevant: readonly string[], work: Work): void {
+  work.pay(3)
+  invariant(source.hollywood !== null, 'foreign guard requires industry facts')
+  for (const business of source.hollywood.businesses) {
+    work.pay(4)
+    if (work.equal(business.studioId, issuer)) continue
+    for (const id of company(business.productions, work)) {
+      if (find(relevant, id, value => value, work) !== undefined) {
+        contextCut(work, 'unsupportedContext', 'relevant current foreign company')
+      }
+    }
+    for (const ordinal of business.activeScriptOrdinals) {
+      work.pay(12)
+      const project = business.development.projects[ordinal], costs = business.projects[ordinal]
+      invariant(project !== undefined && costs !== undefined, 'missing indexed foreign screenplay')
+      const indexedConcept = source.hollywood.concepts[costs.conceptOrdinal]
+      invariant(work.equal(costs.scriptProjectId, project.id) && work.equal(costs.conceptId, project.conceptId) &&
+        indexedConcept !== undefined && work.equal(indexedConcept.id, project.conceptId), 'foreign screenplay join mismatch')
+      if (project.status !== 'drafting' && project.status !== 'rewriting') continue
+      for (const id of writers(project, work)) {
+        if (find(relevant, id, value => value, work) !== undefined) {
+          contextCut(work, 'unsupportedContext', 'relevant current foreign screenplay')
+        }
+      }
+    }
+  }
+  for (const project of source.technology.projects) {
+    work.pay(5)
+    if (work.equal(project.studioId, issuer) || project.status !== 'active') continue
+    for (const seat of project.seats) {
+      work.pay(4)
+      if (seat.releasedWeek === null && find(relevant, seat.talentId, id => id, work) !== undefined) {
+        contextCut(work, 'unsupportedContext', 'relevant current foreign research seat')
+      }
+    }
+  }
+}
+
 type Dimensions = {
   n: number; f: number; capacity: number; sets: number; external: number
   d: number; dp: number; pCopy: number; workflowCopy: number; taskCopy: number
@@ -618,8 +717,8 @@ type Dimensions = {
 }
 function dimensions<P extends StartedPicture>(source: StartedOwnerSource<P>, productions: readonly P[],
   operations: StudioOperations, sets: readonly StudioSet[], technology: StudioTechnology,
-  external: number, work: Work): Dimensions {
-  work.pay(12 + LITERAL.dimensions)
+  external: number, work: Work, pictureFacts?: readonly PictureFacts<P>[]): Dimensions {
+  work.pay(16 + LITERAL.dimensions)
   const d: Dimensions = { n: productions.length, f: operations.facilities.length, capacity: 0,
     sets: sets.length, external, d: 22, dp: 0, pCopy: 0, workflowCopy: 98, taskCopy: 66,
     bindingsCopy: 95, operationsCopy: work.copyCost(operations), setCopy: 137, setupCopy: 0,
@@ -627,7 +726,7 @@ function dimensions<P extends StartedPicture>(source: StartedOwnerSource<P>, pro
     t: technology.productions.length, adoptions: technology.adoptions.length,
     access: technology.access.length, equipment: technology.equipment.length,
     placements: source.placement.facilities.length, structures: 0, provides: 0,
-    cells: 0, genreRows: source.studio.activeProductions.length, genreId: 0, allSilent: true }
+    cells: 0, genreRows: pictureFacts?.length ?? source.studio.activeProductions.length, genreId: 0, allSilent: true }
   const text = (value: string): void => { work.pay(2); work.text(value); d.d = Math.max(d.d, value.length) }
   const strings = <T extends object>(row: T): void => {
     for (const key in row) {
@@ -639,9 +738,16 @@ function dimensions<P extends StartedPicture>(source: StartedOwnerSource<P>, pro
     }
   }
   if (source.hollywood !== null) text(source.hollywood.playerStudioId)
-  for (const original of source.studio.activeProductions) {
-    work.pay(3); work.text(original.id)
-    d.genreId = Math.max(d.genreId, original.id.length)
+  if (pictureFacts === undefined) {
+    for (const original of source.studio.activeProductions) {
+      work.pay(3); work.text(original.id)
+      d.genreId = Math.max(d.genreId, original.id.length)
+    }
+  } else {
+    for (const picture of pictureFacts) {
+      work.pay(5); work.text(picture.production.id)
+      d.genreId = Math.max(d.genreId, picture.production.id.length)
+    }
   }
   for (const row of productions) {
     work.pay(4); text(row.id); text(row.directorId)
@@ -875,6 +981,7 @@ type Branch<P extends StartedPicture> = {
   sets: readonly StudioSet[]; technology: StudioTechnology; releaseAuthority: StudioReleaseAuthority
   completed: string[]; provenance: ReplayObservation[]; ledger: LedgerRow[]
   replacements: HoldReplacement[]; calendars: Calendar[]; nextHold: number
+  admission?: { productionId: string; projectId: string; development: ScriptDevelopment }
 }
 function sameSubject(a: HoldSubject, b: HoldSubject, work: Work): boolean {
   work.pay(3)
@@ -907,7 +1014,7 @@ function closeHold<P extends StartedPicture>(branch: Branch<P>, pathKey: string,
     branch.replacements.push({ holdId: found.hold.holdId, newUntil: at })
   }
 }
-function addHold<P extends StartedPicture>(branch: Branch<P>, plan: StartedProductionPlan, issuer: string,
+function addHold<P extends StartedPicture>(branch: Branch<P>, plan: ReplayPlan, issuer: string,
   pathKey: string, subject: HoldSubject, at: Boundary, end: Boundary, work: Work): void {
   for (const row of branch.ledger) {
     work.pay(3)
@@ -933,8 +1040,8 @@ function closePath<P extends StartedPicture>(branch: Branch<P>, pathKey: string,
     }
   }
 }
-function drainEvents<P extends StartedPicture>(input: StartedOwnerReplayInput<P>, prepared: Prepared<P>,
-  plan: StartedProductionPlan, branch: Branch<P>, sink: StudioEventSink,
+function drainEvents<P extends StartedPicture>(input: ReplayInput<P>, prepared: Prepared<P>,
+  plan: ReplayPlan, branch: Branch<P>, sink: StudioEventSink,
   before: StudioOperations, work: Work): void {
   work.pay(4) // drain invocation/setup + empty wrapped-fact array
   const events = sink.drain()
@@ -988,7 +1095,7 @@ function drainEvents<P extends StartedPicture>(input: StartedOwnerReplayInput<P>
     }
   }
 }
-function reconcile<P extends StartedPicture>(input: StartedOwnerReplayInput<P>, prepared: Prepared<P>,
+function reconcile<P extends StartedPicture>(input: ReplayInput<P>, prepared: Prepared<P>,
   branch: Branch<P>, work: Work): void {
   work.pay(1)
   const expected: { path: string; subject: HoldSubject }[] = []
@@ -1033,8 +1140,8 @@ function reconcile<P extends StartedPicture>(input: StartedOwnerReplayInput<P>, 
   }
 }
 
-function completeTrace<P extends StartedPicture>(input: StartedOwnerReplayInput<P>, prepared: Prepared<P>,
-  plan: StartedProductionPlan, branch: Branch<P>, work: Work): JointOwnerTrace {
+function completeTrace<P extends StartedPicture>(input: ReplayInput<P>, prepared: Prepared<P>,
+  plan: ReplayPlan, branch: Branch<P>, work: Work): JointOwnerTrace {
   work.pay(9) // setup + empty paths array
   const paths: JointTracePath[] = []
   for (const picture of prepared.pictures) {
@@ -1047,7 +1154,7 @@ function completeTrace<P extends StartedPicture>(input: StartedOwnerReplayInput<
     paths.push({ kind: 'jointTracePicture', jointTraceKey: plan.traceKey,
       key: work.token('picture', plan.traceKey, picture.production.id), pathKey: picture.pathKey,
       issuerId: input.issuerId, existingPath: true,
-      greenlight: { week: picture.production.startTick, step: 0 }, firstTake: calendar.firstTake,
+      greenlight: picture.greenlight ?? { week: picture.production.startTick, step: 0 }, firstTake: calendar.firstTake,
       personRelease: calendar.personRelease, cast: picture.production.cast,
       staffingWitnessKey: work.token('company', input.issuerId, picture.production.id),
       ownerFactRefs: [prepared.factRef, picture.pathKey], additionalHolds: [], holdReplacements: [] })
@@ -1076,12 +1183,12 @@ function completeTrace<P extends StartedPicture>(input: StartedOwnerReplayInput<
     additionalHolds: sorted(additionalHolds, row => row.holdId, work) }
 }
 
-function executeCommand<P extends StartedPicture>(input: StartedOwnerReplayInput<P>, prepared: Prepared<P>,
-  plan: StartedProductionPlan, branch: Branch<P>, command: StartedProductionCommand, work: Work): void {
+function executeCommand<P extends StartedPicture>(input: ReplayInput<P>, prepared: Prepared<P>,
+  plan: ReplayPlan, branch: Branch<P>, command: StartedProductionCommand, work: Work): void {
   work.pay(8)
   const production = find(branch.productions, command.productionId, row => row.id, work)
   if (production === undefined) commandRefused(work, 'production already released in this branch')
-  const d = dimensions(input.source, branch.productions, branch.operations, branch.sets, branch.technology, 0, work)
+  const d = dimensions(input.source, branch.productions, branch.operations, branch.sets, branch.technology, 0, work, prepared.pictures)
   const before = branch.operations
   work.pay(5 + LITERAL.sink + 1)
   const sink = new StudioEventSink(branch.week, true)
@@ -1143,8 +1250,8 @@ function executeCommand<P extends StartedPicture>(input: StartedOwnerReplayInput
   drainEvents(input, prepared, plan, branch, sink, before, work)
 }
 
-function frame<P extends StartedPicture>(input: StartedOwnerReplayInput<P>, prepared: Prepared<P>,
-  plan: StartedProductionPlan, branch: Branch<P>, work: Work): void {
+function frame<P extends StartedPicture>(input: ReplayInput<P>, prepared: Prepared<P>,
+  plan: ReplayPlan, branch: Branch<P>, work: Work): void {
   work.pay(7)
   const arrivedWeek = branch.week + 1
   for (const background of prepared.backgrounds) {
@@ -1180,7 +1287,7 @@ function frame<P extends StartedPicture>(input: StartedOwnerReplayInput<P>, prep
   work.pay(work.calc(8).add(3, work.calc(32).times(orderedExternal.length, work.calc(8).keyBill(orderedExternal.length, externalKeyLength))))
   const external = new Set(orderedExternal)
   const d = dimensions(input.source, branch.productions, branch.operations, branch.sets,
-    branch.technology, external.size, work)
+    branch.technology, external.size, work, prepared.pictures)
   work.pay(5 + LITERAL.sink + 1)
   const arrivalSink = new StudioEventSink(branch.week, true)
   const beforeArrival = branch.operations
@@ -1284,10 +1391,459 @@ function frame<P extends StartedPicture>(input: StartedOwnerReplayInput<P>, prep
   branch.week = arrivedWeek; branch.step = 0
 }
 
-/** Never calls tick/actions and never supplies complete choice-domain coverage. */
-export function replayStartedProductionPlans<P extends StartedPicture>(
-  input: StartedOwnerReplayInput<P>,
-): StartedOwnerReplayResult<P> {
+/** Prepaid finite identity-owner walk. This reads identity lengths/counts only;
+ * no event or historical outcome is used as scheduling evidence. */
+function readyProductionId(source: GameState, work: Work): string {
+  work.pay(16) // locals and the three billing closures
+  let visits = 0, additions = 0, width = 22
+  const id = (value: string | null | undefined): void => {
+    work.pay(7)
+    if (value == null) return
+    work.text(value); width = Math.max(width, value.length)
+    additions = work.calc(8).add(additions, 1)
+  }
+  const rows = <T>(values: readonly T[], inspect: (row: T) => void): void => {
+    work.pay(5)
+    for (const row of values) {
+      work.pay(6); visits = work.calc(8).add(visits, 1); inspect(row)
+    }
+  }
+  // These are exactly persistedProductionIds' consumed roots, not a recursive
+  // GameState walk. Nested lists and nullable identities remain charged.
+  work.pay(96) // 24 owner-list/callback argument constructions, <=4 scalar nodes each
+  rows(source.studio.activeProductions, row => id(row.id))
+  rows(source.technology.productions, row => id(row.productionId))
+  rows(source.studio.releasedFilms, row => id(row.productionId))
+  rows(source.theatricalRuns, row => id(row.productionId))
+  rows(source.ledger, row => id(row.productionId))
+  rows(source.careerEvents, row => id(row.filmId))
+  rows(source.broadcastItems, row => {
+    work.pay(8); id(row.facts.filmId)
+    if (row.topic === 'release') { id(row.subjectId); id(row.facts.subjectId) }
+  })
+  rows(source.coverageContexts, row => id(row.subjectId))
+  const workflow = (row: ProductionWorkflow): void => {
+    work.pay(8); id(row.productionId); id(row.shootingTask?.productionId)
+    rows(row.reservations, reservation => id(reservation.productionId))
+  }
+  rows(source.operations.workflows, workflow)
+  rows(source.scriptDevelopment.projects, row => id(row.productionId))
+  rows(source.releaseAuthority.commitments, row => id(row.productionId))
+  rows(source.studioEvents.rows, row => {
+    work.pay(6)
+    if (row.kind === 'wrapped') id(row.productionId)
+    else if (row.kind === 'premiere') id(row.filmId)
+  })
+  rows(source.productionQueue, () => { work.pay(1) })
+  rows(source.studioHistory.rows, row => {
+    work.pay(12)
+    rows(row.subjects, subject => { work.pay(3); if (subject.kind === 'film') id(subject.productionId) })
+    switch (row.kind) {
+      case 'filmReleased': case 'theatricalRunCompleted': id(row.productionId); break
+      case 'careerMilestone': id(row.filmId); break
+      case 'standingChanged': if (row.source.kind === 'releaseResult') id(row.source.productionId); break
+    }
+  })
+  const h = source.hollywood
+  if (h !== null) {
+    rows(h.films, row => { work.pay(4); id(row.filmId); if (row.provenance === 'simulation/v1') id(row.result.productionId) })
+    rows(h.careerEvents, row => id(row.filmId))
+    rows(h.businesses, business => {
+      work.pay(32)
+      rows(business.productions, row => id(row.id))
+      rows(business.projects, row => id(row.productionId))
+      rows(business.development.projects, row => id(row.productionId))
+      rows(business.runs, row => id(row.productionId))
+      rows(business.releaseAuthority.commitments, row => id(row.productionId))
+      rows(business.operations.workflows, workflow)
+    })
+    rows(h.receipts, row => {
+      work.pay(6)
+      if (row.kind === 'filmAnnounced' || row.kind === 'filmReleased' || row.kind === 'filmSettled') id(row.productionId)
+    })
+  }
+  // Forty scalar/branch/callback steps per visited row covers the longest
+  // History switch, including the separate event-id array append. Nested visits
+  // are counted separately. All Set inserts additionally pay collision spans.
+  work.pay(work.calc(64).plus(64, work.calc(8).times(visits, 40),
+    work.calc(32).times(additions, work.calc(8).add(8, work.calc(8).keyBill(additions, width)))))
+  const taken = persistedProductionIds(source)
+  // At most size+1 suffix candidates; number conversion <=22 characters for
+  // safe-integer cardinalities, with both template constructions and Set reads.
+  work.pay(work.calc(64).plus(100, work.calc(32).times(taken.size + 1,
+    work.calc(8).add(100, work.calc(16).keyBill(taken.size, Math.max(width, 50))))))
+  return allocateProductionId(source.market.tick, taken)
+}
+
+function searchBill<T>(rows: readonly T[], key: (row: T) => string, needle: string, work: Work): number {
+  work.pay(6)
+  let bill = 4
+  for (const row of rows) {
+    work.pay(8)
+    const value = key(row)
+    work.text(value)
+    bill = work.calc(16).add(bill, 5 + value.length + needle.length)
+    if (work.equal(value, needle)) break
+  }
+  return bill
+}
+
+/** Cold-cache bound for the REAL freelancer owner; never substitutes a market. */
+function freelancerBill(source: GameState, work: Work): number {
+  work.pay(24)
+  let width = 22, seats = 0, writerRows = 0, writerBill = 0, companyRows = 0, indexedRows = 0
+  const text = (value: string): void => { work.pay(3); work.text(value); width = Math.max(width, value.length) }
+  const countCompany = (rows: readonly StartedPicture[]): void => {
+    work.pay(3)
+    for (const row of rows) {
+      work.pay(12)
+      text(row.directorId); text(row.cast.lead); text(row.cast.antagonist); text(row.cast.support)
+      for (const person of row.craftIds) { work.pay(2); text(person) }
+      seats = work.calc(16).add(seats, 4 + row.craftIds.length)
+      companyRows = work.calc(8).add(companyRows, 1)
+    }
+  }
+  const countWriters = (row: ScriptProject): void => {
+    work.pay(6)
+    if (row.status !== 'drafting' && row.status !== 'rewriting') return
+    text(row.writerId)
+    for (const person of row.writerIds) { work.pay(2); text(person) }
+    // Actual owner returns the existing pool on strict source records. Includes
+    // still checks its writer identity; charge even if the first entry matches.
+    writerBill = work.calc(64).plus(writerBill, 12,
+      work.calc(32).times(row.writerIds.length, 2 + work.calc(8).equality(width)))
+    seats = work.calc(8).add(seats, row.writerIds.length)
+    writerRows = work.calc(8).add(writerRows, row.writerIds.length)
+  }
+  for (const row of source.talent) { work.pay(2); text(row.id) }
+  for (const row of source.contracts) { work.pay(2); text(row.talentId) }
+  countCompany(source.studio.activeProductions)
+  for (const row of source.scriptDevelopment.projects) { work.pay(2); countWriters(row) }
+  const h = source.hollywood
+  work.pay(6)
+  const employment = h?.employment.length ?? 0
+  if (h !== null) {
+    for (const row of h.employment) { work.pay(3); text(row.terms.talentId); text(row.studioId) }
+    for (const business of h.businesses) {
+      work.pay(4); countCompany(business.productions)
+      for (const ordinal of business.activeScriptOrdinals) {
+        work.pay(5); indexedRows = work.calc(8).add(indexedRows, 1)
+        countWriters(business.development.projects[ordinal]!)
+      }
+    }
+  }
+  let researchSeats = 0
+  for (const project of source.technology.projects) {
+    work.pay(4)
+    if (project.status !== 'active') continue
+    for (const seat of project.seats) {
+      work.pay(4); text(seat.talentId)
+      researchSeats = work.calc(8).add(researchSeats, 1)
+      seats = work.calc(8).add(seats, 1)
+    }
+  }
+  let titleWidth = 0
+  for (const concept of source.concepts) {
+    work.pay(4); text(concept.id); work.text(concept.title); titleWidth = Math.max(titleWidth, concept.title.length)
+  }
+  work.pay(64)
+  const t = source.talent.length, c = source.contracts.length, g = source.concepts.length
+  const key = work.calc(8).keyBill(seats, width), eq = work.calc(8).equality(width)
+  const contracts = work.calc(32).times(c, 10 + eq)
+  // Concept map/tuple construction, active writer lookup+label+literal, flatMap
+  // and both Set layers; also original/current-industry companies and research.
+  const busy = work.calc(64).plus(60, writerBill,
+    work.calc(32).times(g, work.calc(64).plus(10, titleWidth, work.calc(8).keyBill(g, width))),
+    work.calc(32).times(writerRows, work.calc(64).plus(30, LITERAL.writerAssignment, titleWidth * 2,
+      work.calc(8).keyBill(g, width))),
+    work.calc(8).times(source.scriptDevelopment.projects.length, 12),
+    work.calc(32).times(companyRows, 12), work.calc(32).times(seats, work.calc(64).plus(14, key, key, key)),
+    work.calc(32).times(researchSeats, work.calc(8).add(12, contracts)),
+    work.calc(32).times(source.technology.projects.length, 6),
+    work.calc(32).times(indexedRows, 6), work.calc(32).times(h?.businesses.length ?? 0, 16))
+  // WeakMap is allowed to be COLD: allocate/populate its entire employment
+  // index, then all eligible per-person lookups. Distinct source talent IDs mean
+  // each indexed row is tested at most once in the filtered talent walk.
+  const rival = work.calc(64).plus(20,
+    work.calc(32).times(employment, work.calc(64).plus(24, work.calc(8).times(3, work.calc(8).keyBill(employment, width)), eq)),
+    work.calc(32).times(t, work.calc(8).add(6, work.calc(8).keyBill(employment, width))))
+  // Derived stream: four splitmix steps, one seed hash, four-word state; at
+  // most configured sample-size sfc32 draws/swaps. No Gaussian/rejection loop.
+  work.text(source.seed)
+  const random = work.calc(64).plus(240, work.calc(32).times(source.seed.length + 50, 8),
+    work.calc(32).times(Math.min(t, TUNING.HIRING_FREELANCER_MARKET_SIZE), 100), work.calc(8).times(t, 6))
+  return work.calc(64).plus(busy, rival, random,
+    work.calc(32).times(t, work.calc(64).plus(24, key, contracts)))
+}
+
+/** Three actual occupied-slot views. All Sets-under-work were cut by prepare;
+ * the eager Set view STILL emits production, screenplay, casting and mount rows. */
+function readyOccupancyBill(source: GameState, d: Dimensions, work: Work): number {
+  work.pay(24)
+  let scriptClaims = 0, castingClaims = 0, productionClaims = 0, mounts = 0
+  for (const row of source.scriptDevelopment.projects) {
+    work.pay(4)
+    if (row.reservation !== null) scriptClaims++
+  }
+  for (const row of source.castingSessions.sessions) {
+    work.pay(4)
+    if (row.reservation !== null) castingClaims++
+  }
+  for (const row of source.operations.workflows) {
+    work.pay(10)
+    productionClaims = work.calc(16).add(productionClaims, row.reservations.length +
+      (row.shootingTask === null ? 0 : 1) + (row.bindings.setId === null ? 0 : 1))
+  }
+  for (const row of source.sets) { work.pay(3); if (row.status !== 'retired') mounts++ }
+  work.pay(24)
+  const slotClaims = work.calc(8).add(scriptClaims, castingClaims)
+  const allClaims = work.calc(64).plus(slotClaims, productionClaims, mounts)
+  const keyLength = work.calc(8).add(d.d, 26)
+  const rawClaim = work.calc(64).plus(LITERAL.claim, APPEND, 20, work.calc(32).times(2, 50 + 2 * d.d))
+  // Three resourceClaims calls (two narrow, one broad), three empty research
+  // collections, all root walks and Set filters, then actual Map/Set writes.
+  return work.calc(64).plus(160,
+    work.calc(32).times(source.scriptDevelopment.projects.length + source.castingSessions.sessions.length, 16),
+    work.calc(32).times(source.operations.workflows.length, 20), work.calc(8).times(source.sets.length, 14),
+    work.calc(32).times(slotClaims + allClaims, rawClaim),
+    work.calc(32).times(slotClaims, work.calc(64).plus(24, work.calc(8).times(4, work.calc(8).keyBill(slotClaims, keyLength)))),
+    work.calc(8).times(allClaims, 8), work.calc(32).times(slotClaims, 4 + work.calc(8).keyBill(slotClaims, keyLength)))
+}
+
+/** Initial Development only: no policy callback, composite Set or retention.
+ * Still execute the unchanged allocator with its full eager production claims. */
+function initialAdmissionBill(d: Dimensions, work: Work): number {
+  work.pay(64)
+  const claims = work.calc(8).times(d.n, 4), occupied = work.calc(8).add(claims, d.external)
+  const eq = work.calc(8).equality(d.d), keyLength = work.calc(8).add(d.d, 26)
+  const key = work.calc(8).keyBill(occupied + 1, keyLength)
+  const raw = work.calc(64).plus(40, work.calc(32).times(d.n, 20 + 2 * eq),
+    work.calc(32).times(claims, work.calc(64).plus(LITERAL.claim, APPEND, 20, work.calc(32).times(2, 50 + 2 * d.d))))
+  const occupancy = work.calc(64).plus(raw, 40,
+    work.calc(32).times(claims, work.calc(64).plus(16, eq, eq, work.calc(8).times(3, key))),
+    work.calc(32).times(d.external, work.calc(8).add(4, key)))
+  const allocation = work.calc(64).plus(occupancy, 60, work.calc(8).times(d.f, 14),
+    sortBill(d.f, 6 + 2 * eq, work),
+    work.calc(32).times(d.capacity, work.calc(64).plus(14, 50 + 2 * d.d, key, key)),
+    LITERAL.reservation, LITERAL.allocation, 4)
+  // Draft+replacement workflow, initial+derived binding, TWO operations copies,
+  // both append/map arrays, duplicate lookup, transition key and TWO event rows.
+  return work.calc(64).plus(allocation, 80, LITERAL.workflow, d.workflowCopy,
+    work.calc(8).times(2, d.bindingsCopy), 34, work.calc(8).times(2, d.operationsCopy),
+    work.calc(32).times(d.n, 10 + 2 * eq), 70 + 2 * d.d,
+    LITERAL.reservationEvent, LITERAL.phaseEvent, work.calc(32).times(2, LITERAL.stampedEvent + APPEND),
+    180 + d.dp + d.d)
+}
+
+function admissionCall<T>(work: Work, call: () => T): T {
+  work.pay(6)
+  try { return call() } catch (error) {
+    if (!(error instanceof Error) || error instanceof WorkLimit || error instanceof ContextCut || error instanceof CommandRefused) throw error
+    commandRefused(work, error.message)
+  }
+}
+
+type ReadyPicture = Production | PlannedReadyProduction
+function admitReady(source: GameState, input: ReplayInput<ReadyPicture>, prepared: Prepared<ReadyPicture>,
+  plan: ReplayPlan, branch: Branch<ReadyPicture>, work: Work): Prepared<ReadyPicture> {
+  work.pay(12)
+  invariant('readyChoice' in plan, 'Ready entry lacks an admission choice')
+  const choice = plan.readyChoice
+  work.text(choice.projectId)
+  const project = find(source.scriptDevelopment.projects, choice.projectId, row => row.id, work)
+  if (project === undefined) commandRefused(work, 'applyActions: greenlightScriptProject references unknown project')
+  work.pay(24)
+  let headerBill = work.calc(64).plus(120, LITERAL.headerResult,
+    searchBill(source.scriptDevelopment.projects, row => row.id, project.id, work),
+    searchBill(source.castingSessions.sessions, row => row.projectId, project.id, work),
+    searchBill(source.concepts, row => row.id, project.conceptId, work))
+  work.pay(30)
+  const headerStrings = [project.conceptId, project.writerId, project.shape.opening,
+    project.shape.midpoint, project.shape.ending, project.promise.genre]
+  for (const value of headerStrings) {
+    work.pay(3); work.text(value); headerBill = work.calc(16).add(headerBill, 1 + 2 * value.length)
+  }
+  for (const value of project.promise.intendedSegments) {
+    work.pay(3); work.text(value); headerBill = work.calc(16).add(headerBill, 6 + 2 * value.length)
+  }
+  let sessionWidth = 0
+  work.pay(2)
+  for (const session of source.castingSessions.sessions) {
+    work.pay(4); work.text(session.id); sessionWidth = Math.max(sessionWidth, session.id.length)
+  }
+  // Error construction is also prepaid: longest header sentence plus both IDs
+  // and both genres. Strict record data bounds enumeration, not human text.
+  work.pay(work.calc(64).plus(headerBill, 220, sessionWidth, project.id.length * 2, project.conceptId.length * 2,
+    LITERAL.headerFacts, LITERAL.screenplayChoice, 4))
+  const header = admissionCall(work, () => requireGreenlightHeader({ foundingOpen: source.founding !== null,
+    concepts: source.concepts, development: source.scriptDevelopment, casting: source.castingSessions },
+  { conceptId: project.conceptId, writerId: project.writerId, shape: project.shape, promise: project.promise }, project.id))
+  work.pay(16 + 13)
+  const seatIds = [project.writerId, choice.directorId, choice.cast.lead, choice.cast.antagonist, choice.cast.support]
+  let staffingBill = work.calc(64).plus(LITERAL.staffingResult, LITERAL.cast, 70), idWidth = 22
+  for (const id of seatIds) {
+    work.pay(3); work.text(id); idWidth = Math.max(idWidth, id.length)
+    staffingBill = work.calc(64).plus(staffingBill, searchBill(source.talent, row => row.id, id, work), 26)
+  }
+  for (const id of choice.craftIds) {
+    work.pay(3); work.text(id); idWidth = Math.max(idWidth, id.length)
+    staffingBill = work.calc(64).plus(staffingBill, searchBill(source.talent, row => row.id, id, work), 64)
+  }
+  work.pay(16)
+  const assignments = 5 + choice.craftIds.length
+  // Fixed diagnostic orders and full resulting reference arrays/role rows.
+  work.pay(work.calc(64).plus(staffingBill, 320, idWidth * 4, LITERAL.staffingChoice, 4,
+    work.calc(32).times(assignments, work.calc(64).plus(LITERAL.roleAssignment, 40,
+      work.calc(8).times(2, work.calc(8).keyBill(assignments, idWidth)))),
+    work.calc(32).times(3, work.calc(8).keyBill(3, idWidth))))
+  const staffing = admissionCall(work, () => resolveGreenlightStaffing(source.talent,
+    { writerId: project.writerId, directorId: choice.directorId, cast: choice.cast, craftIds: choice.craftIds }))
+  // Prepared company/pool facts were produced by the SAME real lower owners.
+  // This is exactly activeProductionCompanyTalentIds + activeWritingAssignmentIds
+  // on strict source data, without constructing unused titleMap/label records.
+  work.pay(2)
+  const busyRows: string[] = []
+  for (const picture of prepared.pictures) for (const person of picture.people) {
+    work.pay(3 + APPEND); busyRows.push(person)
+  }
+  for (const background of prepared.backgrounds) for (const person of background.people) {
+    work.pay(3 + APPEND); busyRows.push(person)
+  }
+  for (const person of busyRows) { work.pay(2); work.text(person); idWidth = Math.max(idWidth, person.length) }
+  work.pay(work.calc(64).plus(3, work.calc(32).times(busyRows.length, work.calc(8).keyBill(busyRows.length, idWidth))))
+  const busy = new Set(busyRows)
+  work.pay(work.calc(64).plus(160, idWidth, work.calc(32).times(staffing.engagedIds.length,
+    5 + work.calc(8).keyBill(busy.size, idWidth)), 4))
+  admissionCall(work, () => assertGreenlightStaffingIdle(staffing.engagedIds, busy))
+  work.pay(4)
+  if (economyEngaged(source)) {
+    work.pay(150 + 4)
+    admissionCall(work, () => assertGreenlightCraftLead(choice.craftIds.length))
+    work.pay(4)
+    const contracted = new Set<string>()
+    let allContracted = true, contractWidth = idWidth
+    for (const row of source.contracts) {
+      work.pay(3); work.text(row.talentId); contractWidth = Math.max(contractWidth, row.talentId.length)
+    }
+    for (const person of staffing.engagedIds) {
+      work.pay(4)
+      work.pay(work.calc(64).plus(8, work.calc(32).times(source.contracts.length,
+        10 + work.calc(8).equality(contractWidth)), work.calc(8).keyBill(staffing.engagedIds.length, contractWidth)))
+      if (isContracted(source, person)) contracted.add(person)
+      else allContracted = false
+    }
+    work.pay(2)
+    let market: readonly string[] = []
+    if (!allContracted) { work.calc(8).pay(freelancerBill(source, work)); market = freelancerMarketIds(source) }
+    for (const id of market) { work.pay(3); work.text(id); contractWidth = Math.max(contractWidth, id.length) }
+    work.pay(work.calc(64).plus(3, work.calc(32).times(market.length, work.calc(8).keyBill(market.length, contractWidth))))
+    const freelancerIds = new Set(market)
+    work.pay(work.calc(64).plus(LITERAL.employmentFacts, 180, idWidth, 4,
+      work.calc(32).times(staffing.engagedIds.length, work.calc(64).plus(10,
+        work.calc(8).keyBill(contracted.size, contractWidth), work.calc(8).keyBill(freelancerIds.size, contractWidth)))))
+    admissionCall(work, () => greenlightFreelancers(staffing.engaged,
+      { contractedIds: contracted, freelancerIds }))
+  }
+  checkForeignRelevance(source, input.issuerId, staffing.engagedIds, work)
+  const id = readyProductionId(source, work)
+  work.calc(32).pay(LITERAL.readyClock + LITERAL.cast + 1 + 2 * choice.craftIds.length + 8)
+  const planned: PlannedReadyProduction = { id, projectId: project.id, conceptId: project.conceptId,
+    writerId: project.writerId, directorId: choice.directorId,
+    cast: { lead: choice.cast.lead, antagonist: choice.cast.antagonist, support: choice.cast.support },
+    craftIds: [...choice.craftIds], startTick: prepared.now.week, remainingTicks: TUNING.PRODUCTION_TICKS }
+  work.calc(16).pay(3 + 2 * branch.productions.length)
+  const productions = [...branch.productions, planned]
+  const d = dimensions(source, productions, branch.operations, branch.sets, branch.technology, 0, work)
+  work.calc(8).pay(readyOccupancyBill(source, d, work))
+  const scriptSlots = scriptOccupiedFacilitySlots(source.scriptDevelopment)
+  const castingSlots = castingOccupiedFacilitySlots(source.castingSessions)
+  const setSlots = setOccupiedFacilitySlots(source.sets, source.operations, source.scriptDevelopment, source.castingSessions)
+  work.pay(8)
+  const slotCount = scriptSlots.size + castingSlots.size + setSlots.size
+  work.pay(work.calc(64).plus(16, work.calc(8).times(slotCount, 2),
+    work.calc(32).times(slotCount, work.calc(8).keyBill(slotCount, d.d + 26))))
+  const external = new Set([...scriptSlots, ...castingSlots, ...setSlots])
+  work.pay(3)
+  d.external = external.size
+  work.pay(5 + LITERAL.sink + 1)
+  const sink = new StudioEventSink(branch.week, true), before = branch.operations
+  work.calc(8).pay(initialAdmissionBill(d, work))
+  work.pay(4)
+  const operations = admissionCall(work, () => addManagedProductionWorkflow(branch.operations,
+    planned, external, sink, source.nextSetId > 0))
+  // Exact linker root/row copies, requireProject + duplicate check + map. Never
+  // present this immediate snapshot as an assessed/horizon script root.
+  work.pay(24)
+  let linkWidth = Math.max(project.id.length, id.length)
+  for (const row of source.scriptDevelopment.projects) {
+    work.pay(5); work.text(row.id); linkWidth = Math.max(linkWidth, row.id.length, row.productionId?.length ?? 0)
+  }
+  work.pay(work.calc(64).plus(190, linkWidth * 2, work.copyCost(source.scriptDevelopment), work.copyCost(project), 40,
+    work.calc(32).times(source.scriptDevelopment.projects.length, 16 + 4 * work.calc(8).equality(linkWidth)), 4))
+  const development = admissionCall(work, () => linkScriptProjectToProduction(source.scriptDevelopment, project.id, id))
+  const workflow = find(operations.workflows, id, row => row.productionId, work)
+  invariant(workflow !== undefined, 'admitted Ready clock has no workflow')
+  const at = boundary(branch, work)
+  work.pay(6 + LITERAL.readyEvent + APPEND + LITERAL.readyAdmission + 10)
+  branch.admission = { productionId: id, projectId: project.id, development }
+  branch.provenance.push({ kind: 'readyAdmitted', at, projectId: project.id, productionId: id })
+  branch.operations = operations; branch.productions = productions
+  work.pay(12 + LITERAL.pictureFacts + 11)
+  const picture: PictureFacts<ReadyPicture> = { production: planned, workflow, people: staffing.engagedIds,
+    genre: header.concept.genre, historicallyFilmed: false,
+    pathKey: work.token('screenplay', input.issuerId, project.id), greenlight: at }
+  work.calc(32).pay(24 + LITERAL.prepared + 3 + 2 * prepared.pictures.length)
+  const branchPrepared: Prepared<ReadyPicture> = { pictures: [...prepared.pictures, picture],
+    backgrounds: prepared.backgrounds, mounts: prepared.mounts, plans: prepared.plans, fixed: prepared.fixed,
+    now: prepared.now, end: prepared.end, factRef: prepared.factRef }
+  work.pay(LITERAL.calendar + APPEND)
+  branch.calendars.push({ productionId: id, firstTake: null, personRelease: null })
+  for (const personId of staffing.engagedIds) {
+    work.pay(2 + LITERAL.person)
+    addHold(branch, plan, input.issuerId, picture.pathKey, { kind: 'person', personId }, at, prepared.end, work)
+  }
+  drainEvents(input, branchPrepared, plan, branch, sink, before, work)
+  reconcile(input, branchPrepared, branch, work)
+  return branchPrepared
+}
+
+function finishReady(_input: ReplayInput<ReadyPicture>, branch: Branch<ReadyPicture>, trace: JointOwnerTrace,
+  completedBackgroundPathKeys: readonly string[], work: Work): ReadyComplete {
+  work.pay(5)
+  invariant(branch.admission !== undefined, 'Ready completion lacks admission')
+  const plannedId = branch.admission.productionId
+  work.pay(2)
+  const productions: Production[] = [], plannedProductions: PlannedReadyProduction[] = []
+  // Identity, not optional user-extension property names, discriminates the
+  // union. Original complete records retain every opaque own field/reference.
+  const isPlanned = (row: ReadyPicture): row is PlannedReadyProduction => work.equal(row.id, plannedId)
+  for (const row of branch.productions) {
+    work.pay(3 + APPEND)
+    if (isPlanned(row)) plannedProductions.push(row)
+    else {
+      // A Ready clock cannot have another identity; all remaining records came
+      // from the genuine complete source and the generic owner preserves them.
+      invariant('forecastSnapshot' in row, 'original complete record lost its shape')
+      productions.push(row)
+    }
+  }
+  work.pay(22 + LITERAL.complete + LITERAL.readyProjection)
+  return { kind: 'complete', trace, projection: { week: branch.week, productions, plannedProductions,
+    operations: branch.operations, sets: branch.sets, technology: branch.technology,
+    releaseAuthority: branch.releaseAuthority, completedBackgroundPathKeys,
+    admissionScriptDevelopment: branch.admission.development }, provenance: branch.provenance }
+}
+
+/** One driver, allowance, source preparation and whole-slate owner pipeline. */
+function replayPlans<P extends StartedPicture, A>(
+  input: ReplayInput<P>,
+  finish: (input: ReplayInput<P>, branch: Branch<P>, trace: JointOwnerTrace,
+    completed: readonly string[], work: Work) => A,
+  admit?: (source: GameState, input: ReplayInput<P>, prepared: Prepared<P>,
+    plan: ReplayPlan, branch: Branch<P>, work: Work) => Prepared<P>,
+  readySource?: GameState,
+): Readonly<{ fixedHolds: readonly FixedHold[]; attempts: readonly (A | ReplayCut)[];
+  preparationWork: number; omissions: readonly string[] }> {
   natural(input.preparationWork, 'preparation work')
   natural(input.limits.work, 'work limit'); natural(input.limits.span, 'span limit')
   natural(input.limits.alternatives, 'trace/path limit')
@@ -1296,17 +1852,17 @@ export function replayStartedProductionPlans<P extends StartedPicture>(
   const work = new Work(input.limits.work, input.preparationWork)
   // The normal outer result and its three initial arrays are reserved before
   // construction. Only the fixed administrative work-limit envelope is exempt.
-  try { work.pay(LITERAL.result + 3 + 5) } catch (error) {
+  try { work.pay(LITERAL.result + 3 + 5 + 12) } catch (error) {
     if (!(error instanceof WorkLimit)) throw error
     return { fixedHolds: [], attempts: [], preparationWork: work.limit,
       omissions: ['work limit before replay preparation completed'] }
   }
-  const attempts: StartedReplayAttempt<P>[] = [], omissions: string[] = []
-  let knownPlans: readonly StartedProductionPlan[] = []
+  const attempts: (A | ReplayCut)[] = [], omissions: string[] = []
+  let knownPlans: readonly ReplayPlan[] = []
   let prepared: Prepared<P>
   try {
     if (input.preparationWork > input.limits.work) throw new WorkLimit()
-    prepared = prepare(input, work, plans => { knownPlans = plans })
+    prepared = prepare(input, work, plans => { knownPlans = plans }, readySource !== undefined)
   } catch (error) {
     if (error instanceof WorkLimit) return { fixedHolds: [], attempts: [], preparationWork: work.limit,
       omissions: ['work limit before replay preparation completed'] }
@@ -1340,22 +1896,31 @@ export function replayStartedProductionPlans<P extends StartedPicture>(
         completed: [], provenance: [], ledger: prepared.fixed.map(hold => ({ hold, fixed: true, closed: false })),
         replacements: [], calendars: prepared.pictures.map(row => ({ productionId: row.production.id,
           firstTake: null, personRelease: null })), nextHold: 0 }
+      const branchPrepared = admit !== undefined && readySource !== undefined
+        ? admit(readySource, input, prepared, plan, branch, work) : prepared
       let commandIndex = 0
-      while (branch.week < prepared.end.week) {
+      while (branch.week < branchPrepared.end.week) {
         work.pay(4)
         while (commandIndex < plan.commands.length && plan.commands[commandIndex]!.week === branch.week) {
           work.pay(3)
-          executeCommand(input, prepared, plan, branch, plan.commands[commandIndex++]!, work)
+          const command = plan.commands[commandIndex++]!
+          if (command.productionId !== undefined) {
+            executeCommand(input, branchPrepared, plan, branch, command, work)
+          } else {
+            work.pay(8)
+            invariant(branch.admission !== undefined && 'readyProjectId' in command &&
+              work.equal(branch.admission.projectId, command.readyProjectId), 'Ready command lacks its admission')
+            work.pay(LITERAL.resolvedCommand)
+            executeCommand(input, branchPrepared, plan, branch, { week: command.week, ordinal: command.ordinal,
+              kind: command.kind, productionId: branch.admission.productionId }, work)
+          }
         }
-        frame(input, prepared, plan, branch, work)
+        frame(input, branchPrepared, plan, branch, work)
       }
-      const trace = completeTrace(input, prepared, plan, branch, work)
+      const trace = completeTrace(input, branchPrepared, plan, branch, work)
       const completedBackgroundPathKeys = sorted(branch.completed, id => id, work)
-      work.pay(5 + LITERAL.complete + LITERAL.projection + APPEND)
-      attempts.push({ kind: 'complete', trace, projection: { week: branch.week,
-        productions: branch.productions, operations: branch.operations, sets: branch.sets,
-        technology: branch.technology, releaseAuthority: branch.releaseAuthority, completedBackgroundPathKeys },
-        provenance: branch.provenance })
+      const complete = finish(input, branch, trace, completedBackgroundPathKeys, work)
+      work.pay(APPEND); attempts.push(complete)
     } catch (error) {
       if (!(error instanceof WorkLimit || error instanceof CommandRefused || error instanceof ContextCut)) throw error
       let reason = error instanceof WorkLimit ? 'workLimit' as const : error instanceof CommandRefused ? 'commandRefused' as const : error.reason
@@ -1376,4 +1941,25 @@ export function replayStartedProductionPlans<P extends StartedPicture>(
     }
   }
   return { fixedHolds: prepared.fixed, attempts, preparationWork: work.used, omissions }
+}
+
+function finishStarted<P extends StartedPicture>(_input: ReplayInput<P>, branch: Branch<P>, trace: JointOwnerTrace,
+  completedBackgroundPathKeys: readonly string[], work: Work): Extract<StartedReplayAttempt<P>, { kind: 'complete' }> {
+  work.pay(5 + LITERAL.complete + LITERAL.projection)
+  return { kind: 'complete', trace, projection: { week: branch.week,
+    productions: branch.productions, operations: branch.operations, sets: branch.sets,
+    technology: branch.technology, releaseAuthority: branch.releaseAuthority, completedBackgroundPathKeys },
+    provenance: branch.provenance }
+}
+
+/** Never calls tick/actions and never supplies complete choice-domain coverage. */
+export function replayStartedProductionPlans<P extends StartedPicture>(
+  input: StartedOwnerReplayInput<P>,
+): StartedOwnerReplayResult<P> {
+  return replayPlans<P, Extract<StartedReplayAttempt<P>, { kind: 'complete' }>>(input, finishStarted)
+}
+
+/** Operational admission only: no forecast, affordability or committed film. */
+export function replayReadyProductionPlans(input: ReadyOwnerReplayInput): ReadyOwnerReplayResult {
+  return replayPlans<Production | PlannedReadyProduction, ReadyComplete>(input, finishReady, admitReady, input.source)
 }

@@ -1,5 +1,65 @@
 # P14B.4 — capacity implementation continuation
 
+CURRENT265:249 candidate FROZEN/ALL256–264 CLOSED.256rootUI PASS;2574PASS3actual
+budgetFAIL;258identity1/259commands3/260original26/261adjacent137 PASS.262soleold
+future-P2 kind TS2353.255REFINE2sourcefindings plus usefulness.263/264actualowner
+stage diagnostics retained; temp removed after exact archive comparison. NOwriter.
+268author ONLYinert independent diagnostic/background draft. Parentpublishes265
+qualified candidate then266exactremote; release267SOLEsimwriter afterward for
+255fixes/source-proven bill tightening. Originaltests/cap/owners IMMUTABLE.
+Full265 checkpoint carries pins, observed stages and exact limitations.
+
+CURRENT256:249 SOURCEFROZEN/writeryielded. Parent FULL3filediff+handback read,
+pins match: replay21d5827cb5bca77b063b4cd768c2643283322e897e89ff631f600d95f62b0b24;
+identity34a9ca45c58bf87f3af24c4d0717d6efd64a8cc3eae1b85b19761ae6ed023eb5;
+actions6a4b3c19265367c5d59b76e87806e1e0cc672cf8d1a89b5eea1f66b8134bb6a5;
+handback52576a89baf8e40b5b70fb32f58a8d9a5fa44c0a42124ad30329cadd2f98024a.
+250+253 installedEXACTdraft+onecomment after251/254KEEP; installedSHAs
+dbe98b0e27d7ca8d7479e9101b07728bd2845e701f04f8dd161fb30b0f47b69b and
+3029e0d49ecd1d6403ea92aca42534bcba127e4e2d325b0814fe7cfa1dd4f0dd.
+255auditor READONLYboundedsource/costreview; sim/authoridle/NOwriter.256rootUI
+compiler50356 SOLEruntime; next257Ready7/258identity1/259commands3/260old26/
+261adjacent/262bridge SERIAL. No source/HEAD changes whilechecks active.
+
+CURRENT254-CLOSED: FULL254 qualifiedKEEP persisted.250/251 and253/254 reviewed,
+exactdraftbytes stored/pinned; combined4 supplemental cases remainUNEXECUTED.
+249sim SOLEwriter finishing staticcost/typing+handback, core implementation saved
+but STILLMUTABLE/notinspected/notaccepted. Author/auditoridle,NOruntime.
+Next249explicitfreeze/yield; FULLparentdiff+handback/pins; install250+253exact
+withonecomment;255boundedsourcecostreview;256–262 serializedchecks. No routine
+permission/newaudit; original26+244 immutable. HEAD/EXACTremote78796c185c8fa7b3a8e716796760e4f11a4c905f.
+
+CURRENT254: 253 three-case command draft FROZEN981a54182ba5986e7c440e75b6e65e0baa993986a7cb783dc23ff9bb61c68628,
+brief7fb3cd8c512befd0a66b01d065a4c2453bc5db0856ea476f3811b95546c49342;
+parent fullread/pins done.254auditor READONLYboundedtestreview;authoridle/max2.
+249sim SOLEproductionwriter continues/NOruntime/NOmutableinspection.250KEEP
+and253pendingreview remain inert untilwriterfreeze. Prepared verification256–262
+reserved (types/7/identity1/commands3/original26/adjacent/bridge), NOT executed.
+
+CURRENT253: 249sim SOLEwriter continues sharedReadyadmission/accounting; no
+blocker reported, sourceMUTABLE/NOruntime.252 immutable-owner costprep READY/full
+checklist persisted, auditoridle.253testauthor ONLYinert shortReady-command/
+ordinal/horizon cases; max2, no implementation inspection.250/251 frozenKEEP
+await exactinstallation afterwriterfreeze. Parent owns verification/publication.
+
+CURRENT251-CLOSED: qualifiedKEEP for exact250 installation/execution, FULL251
+review persisted; no concrete defect, allcombinedfixtureguards UNEXECUTED.
+249sim SOLEwriter sourceMUTABLE; author/auditoridle,NO runtime. Parent full250
+read/pins done; install onlyafterwriterfreeze thenserialtypes/new8/original26.
+
+CURRENT251: 250 cancelled-ID independent draft FROZEN41329acc809449b1122ac10940b73ccd241627d04314dc92d760c70bc8f7e9e3;
+brief35294321bfa93315b0b1b9583c9fa353a335a1475ec1a0644319f27a8c0450b5.
+Parent read both FULL;251auditor bounded READONLYtestreview using publishedowners,
+NOmutable production inspection.249sim SOLEwriter continues;authoridle/max2.
+No runtime/installation untilsourcefreeze.250fixture remainsUNEXECUTED.
+
+CURRENT248: HEAD/EXACTremote78796c185c8fa7b3a8e716796760e4f11a4c905f.
+Publication248/push5460 CLOSED.249 sim NOWSOLEwriter replay+exactidentity/actions
+move, sourceMUTABLE/NOinspection/runtime untilFROZEN handback.250author ONLYinert
+cancelled-ID regression; auditoridle/max2. Testsoriginal26+244new7 IMMUTABLE.
+Nextfreeze/read/pins/boundedcostreview/serialtypes+7+26+adjacent+bridge, repairreal
+regressions/publish.247 qualifiedRED is not implementation acceptance.
+
 CURRENT247: initialReady RED recorded:245 seven bodies reach missingfunction,
 246 root30diagnostics(two missingexports+28downstream),UI NOTreached. Bothfixed
 c643178+a3ba5f3b0d8ac8c92d718c9127967d752192ebd78ab34c47f23e90c3cc40aaae.

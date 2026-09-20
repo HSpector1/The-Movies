@@ -2,34 +2,35 @@
 
 ## Current continuation — 2026-09-20: B-F2 closed; P2 pure owners verified, integration continues
 
-Current B4 checkpoint247 (2026-09-20): Ready-admission independent RED recorded.
-244 seven-case installation EXACT reviewed corrections plus provenance comment;
-SHA431a380965938c614364a382a17bfd33607c85bf0bce630f206629ae6dafe692.
-245 seven bodies reach missingfunction; genuine pre-call fixture/action guards
-PASS, replay/ledger/kernel assertions NOT reached.246 root30diagnostics:two
-missingexports+28downstream implicittypes; UI NOTreached. Bothfixedc643178+
-a3ba5f3b0d8ac8c92d718c9127967d752192ebd78ab34c47f23e90c3cc40aaae.
-AllruntimeCLOSED/sourceFROZEN/no writer.240 FINAL contract/241KEEP,243three
-test-oracle corrections applied in244; original242 preserved.250 author ONLY
-inert cancelled-ID test; sim/auditoridle. Nextpublish247/exactremote then249
-SOLEsimwriter for240 replay+exactidentity/actionsallocator move. No test/validator/
-cap/timeout weakening. Afterfreeze fullread/boundedreview/serial verification.
+Current B4 checkpoint265 (2026-09-20):249 implementation SOURCE FROZEN.
+HEAD/verified remote before candidate publication:
+78796c185c8fa7b3a8e716796760e4f11a4c905f. ALL256–264 runtime sessions CLOSED.
+256 root/UI types PASS;257 Ready7 =4 PASS/3 actual work-limit FAIL;258 identity1
+and259 commands3 PASS;260 original26 PASS;261 adjacent137 PASS;262 bridge only
+prior future-P2 kind TS2353. Candidate NOT accepted.255 bounded review REFINE:
+prepay empty-person outer background visits and preserve unknown project ID.
+Original tests/owners/cap200000 unchanged. Full raw failures remain preserved.
 
-Prior238 replay-efficiency qualifiedGREEN preserved:232rootUI PASS,23325PASS,
-234genuinegrandfather1PASS,235adjacent98PASS.236SOLEOLD futureP2 bridgekindTS2353.
-Original26tests/owners unchanged;225 H6 failures resolved with real sharedkernel
-under SAME200000.231sourceKEEP/237evidenceKEEP; specific213 findingsCLOSED.
-No universal mixed-phase/choice-completeness certificate. Moderntransit coverage
-and fuller240Ready/command/domain integration remain owed. FutureP2/fullB4 unfinished.
+263/264 transparent diagnostic copies are archived, not acceptance. Whole
+original+Ready actually sweeps [8,8] to [7,8] before later cut; kernel unreached.
+Sibling second reaches persisted-ID and allocator owners, cuts before initial
+workflow admission. Unavailable freelancer cuts before actual market owner.
+No exact exhausting statement inferred. Temporary probe removed after exact
+archive comparison; both complete archived drafts/logs/patches remain recoverable.
 
-PublishedHEAD/EXACTremotec64317827ef740a550322cc51f3c782ff47dad58 (239);
-247 test/RED checkpoint pending publication. No sourceimplementation change yet.
-P14B.1 T4/B2/B3/B-F2 recovered qualified closeouts; do not rebuild/rerun.
-Continue coherentP2/restP14/P15/P16/specifiedP17/P18 under logic-first directive.
-Save29/rules3/projection46 staylive until coherentcutover.
-Unity/native/Owner acceptance deferred; Unity integration backlog maintained.
-Evidence/p14b4-20260919/00-start.md records exactownership/runtime/publication;
-older CURRENT blocks are chronology.
+Next publish265 qualified candidate with exact tested protected patch568d14c6…,
+verify exact remote in266, then release267 sole sim writer for255 corrections and
+source-proven tighter initial-allocation/freelancer bills. No work refunds, cap
+change or changed comparison metric.268 independent author ONLY inert diagnostic/
+background regression draft. Parent owns serialized checks after source freeze.
+No routine permission; at most two specialists and one production writer.
+
+Prior238 qualified GREEN and T4/B2/B3/B-F2 qualified closeouts are preserved.
+Finite explicit plans do not establish complete choice coverage; fuller Ready
+commands, future/rival capacity and coherent liveP2/B4 remain unfinished.
+Save29/rules3/projection46 stay live until coherent cutover. Continue remaining
+P14/P15/P16/sufficient P17/P18 logic-first work; Unity/native/Owner deferred.
+Evidence/p14b4-20260919/00-start.md records exact ownership and chronology.
 
 Earlier additive foundation checkpoint: V30 data support implemented and independently
 KEEP; qualified report evidence/p14b4-20260919/29-additive-checkpoint.md.
