@@ -6,32 +6,28 @@ Headless verification never claims package completion or Owner acceptance.
 
 Current (2026-09-20):
 
-Current B4 checkpoint352 (2026-09-20):339 SOURCE FROZEN, allruntimeCLOSED.
-BaseHEAD/EXACTremote3e6836abe84d274ca9aff85d6d54b583b64f0f0b (340published).
-341 independentboundedsourceKEEP.342rootUI343new5/344ordinary66/346old26/
-347adjacent137PASS.345Ready13PASS2workLimitFAIL: FREELANCER NOWFULLY GREEN.
-348soleOLDfutureP2kindTS2353. Fullraw/metadata/patchhash/nonoverlap verified.
-Protected342–348patch8ecc04ef7ae5ac0cc86d015094887607511764936f42a8c560068e659e691a28.
-Source28e7e010c9887709ade1f3010018487931b710fdad1e14282fa5604e0681bc37.
+Current B4 checkpoint364 (2026-09-20):354 SOURCEFROZEN, allruntimeCLOSED.
+BaseHEAD/EXACTremote52ba3ab8e552c29ffb7b0963411c555412770c14 (353published).
+355 independent bounded sourceKEEP.356rootUI/357lookup5/358ordinary66/
+360old26/361adjacent137 PASS.359Ready13PASS2workLimitFAIL; freelancer still
+FULLYGREEN.362soleOLD futureP2kindTS2353. Fullraw/metadata/patch/nonoverlap verified.
+Protected356–362patch74995763b7c8b68d76ce9b43e39a2356000ce40b0214dcd0babf29d6430a1fa0.
+Replay393d4dc7f8997183468c84b6b6c6e31ff839c626f765607b5391368a20996486.
 
-350passive logsREMOVED; EXACT339source+testedpatch restored. w5ownerbill850
-prepaid at195958; actualscheduledtakeowner RETURNS andbranchstate updated,
-thenreconcile cuts199945/request103 in sameSubject. BEFOREfirstTakeprovenance/
-calendar/framecompletion/wrap/output/kernel. No complete replay trace orB4claim.
+363passive logsREMOVED; EXACT354+testedpatch restored. Firsttake now passes
+actualowner/reconciliation/calendar/provenance bookkeeping into frame6 remaining4,
+entry192800/dimensions193021→196678. Wrap calculator cuts199997/request8
+inallocationBill BEFOREcompletedwrapbill/owner/output/trace/kernel. Attribution
+only, not completeReady/B4 acceptance. Stale cut notseparately measured.
 
-351auditorqualifiedKEEP minimalnext: prepaid per-expectedfactmatchcount; existing
-firstlive-resource pairpass incrementsBOTHcounts, retains immediate rowmatches1;
-replace secondquadraticscan with original-order expectedcount1 checks. Preserve
-ALLduplicate/missing/stale/membershipdiagnostics andordering; noearlycount>1check.
-SimREADONLYcrosscheckpending; no354writerrelease/runtime. No newindex/globalcache,
-noeventdrain/ledgerownerchanges ormetric/capdiscount.349coverage limitsretained.
-
-Nextadoptfull351/publish352qualifiedcheckpoint/exactremote353, then354SOLEsim
-writerONLYreplay+handback foracceptedboundedjoinchange. AfterfreezeFULLread/pins/
-355review/serializedunchangedcontrols. Preservefailures/diagnoseactualcuts.
-T4/B2/B3/B-F2 qualifiedcloseouts retained; continueB4/remainingP14/P15/P16/
-specifiedP17/P18. Save29/rules3/projection46 live untilcoherentcutover.
-Unity/native/Owneracceptance deferred; integrationbacklog retained.
+Sim-core +contract-auditor READONLY bounded next-direction/cost cross-check;
+364authorcoverageDONE/idle, no genuine new blocker. NOwriter/runtime.
+Parentpublishes364qualifiedcheckpoint/exactremote366, then adopts365scope
+before367SOLEsimwriter; freeze/fullread/pins/independentreview/serializedcontrols.
+No tariff/cap/test/validator weakening. ContinueB4/remainingP14/P15/P16/
+specifiedP17/P18. T4/B2/B3/B-F2 qualifiedcloseouts retained; Save29/rules3/
+projection46 live untilcoherentcutover. Unity/native/Owneracceptance deferred/
+integrationbacklog retained.
 
 Earlier additive foundation checkpoint: V30 data support implemented and independently
 KEEP; qualified report evidence/p14b4-20260919/29-additive-checkpoint.md.

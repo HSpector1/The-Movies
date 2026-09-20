@@ -1,0 +1,33 @@
+{
+  "sourceSha": "52ba3ab8e552c29ffb7b0963411c555412770c14",
+  "testedDiffSha256": "74995763b7c8b68d76ce9b43e39a2356000ce40b0214dcd0babf29d6430a1fa0",
+  "untrackedSource": [],
+  "command": [
+    "node_modules/.bin/vitest",
+    "run",
+    "--project",
+    "core",
+    "tests/script-development.test.ts",
+    "tests/script-projects-actions.test.ts",
+    "tests/casting-sessions-domain.test.ts",
+    "tests/casting-sessions-actions.test.ts",
+    "tests/operations.test.ts",
+    "tests/p14b4-production-admission.test.ts",
+    "tests/p14b4-bounded-sort-owners.test.ts",
+    "tests/p14b4-owner-fact-views.test.ts",
+    "tests/p14b4-managed-clock-owner.test.ts",
+    "tests/p14b4-joint-trace.test.ts",
+    "tests/p14b4-joint-trace-mode-extension.test.ts",
+    "tests/p12-starting-world.test.ts"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-20T08:23:20.422Z",
+  "end": "2026-09-20T08:23:36.031Z",
+  "exitCode": 0,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "52ba3ab8e552c29ffb7b0963411c555412770c14",
+  "testedDiffSha256AtEnd": "74995763b7c8b68d76ce9b43e39a2356000ce40b0214dcd0babf29d6430a1fa0",
+  "untrackedSourceAtEnd": [],
+  "fixedSource": true
+}

@@ -1,5 +1,35 @@
 # P14B.4 — capacity implementation continuation
 
+Current B4 checkpoint364 (2026-09-20):354 SOURCEFROZEN, allruntimeCLOSED.
+BaseHEAD/EXACTremote52ba3ab8e552c29ffb7b0963411c555412770c14 (353published).
+355 independent bounded sourceKEEP.356rootUI/357lookup5/358ordinary66/
+360old26/361adjacent137 PASS.359Ready13PASS2workLimitFAIL; freelancer still
+FULLYGREEN.362soleOLD futureP2kindTS2353. Fullraw/metadata/patch/nonoverlap verified.
+Protected356–362patch74995763b7c8b68d76ce9b43e39a2356000ce40b0214dcd0babf29d6430a1fa0.
+Replay393d4dc7f8997183468c84b6b6c6e31ff839c626f765607b5391368a20996486.
+
+363passive logsREMOVED; EXACT354+testedpatch restored. Firsttake now passes
+actualowner/reconciliation/calendar/provenance bookkeeping into frame6 remaining4,
+entry192800/dimensions193021→196678. Wrap calculator cuts199997/request8
+inallocationBill BEFOREcompletedwrapbill/owner/output/trace/kernel. Attribution
+only, not completeReady/B4 acceptance. Stale cut notseparately measured.
+
+Sim-core +contract-auditor READONLY bounded next-direction/cost cross-check;
+364authorcoverageDONE/idle, no genuine new blocker. NOwriter/runtime.
+Parentpublishes364qualifiedcheckpoint/exactremote366, then adopts365scope
+before367SOLEsimwriter; freeze/fullread/pins/independentreview/serializedcontrols.
+No tariff/cap/test/validator weakening. ContinueB4/remainingP14/P15/P16/
+specifiedP17/P18. T4/B2/B3/B-F2 qualifiedcloseouts retained; Save29/rules3/
+projection46 live untilcoherentcutover. Unity/native/Owneracceptance deferred/
+integrationbacklog retained.
+
+CURRENT354:HEAD/EXACTremote52ba3ab8e552c29ffb7b0963411c555412770c14 (353published).
+354sim SOLEwriter ONLYreplay+handback:351paidper-expectedfactcounts inexisting
+firstpass, original-orderfinalcount1 guards. No otherjoins/drain/owner/test/cap
+changes. SourceMUTABLE:NOinspection/runtime/Gituntilfreeze. Simcrosscheckagrees,
+othersidle/allruntimeclosed. NextFULLread/pins/355review; SERIAL356types357new5/
+358ordinary66/359Ready15/360old26/361adjacent137/362bridge.352qualificationsstand.
+
 Current B4 checkpoint352 (2026-09-20):339 SOURCE FROZEN, allruntimeCLOSED.
 BaseHEAD/EXACTremote3e6836abe84d274ca9aff85d6d54b583b64f0f0b (340published).
 341 independentboundedsourceKEEP.342rootUI343new5/344ordinary66/346old26/

@@ -1,0 +1,112 @@
+diff --git a/src/core/promiseCapacityOwnerReplay.ts b/src/core/promiseCapacityOwnerReplay.ts
+index 941848c..8e30a7e 100644
+--- a/src/core/promiseCapacityOwnerReplay.ts
++++ b/src/core/promiseCapacityOwnerReplay.ts
+@@ -167,7 +167,7 @@ const LITERAL = Object.freeze({
+   calendar: literalCost('productionId', 'firstTake', 'personRelease'),
+   replacement: literalCost('holdId', 'newUntil'),
+   wrapped: literalCost('id', 'stage', 'setId'),
+-  expected: literalCost('path', 'subject'),
++  expected: literalCost('path', 'subject', 'matches'),
+   picture: literalCost('kind', 'jointTraceKey', 'key', 'pathKey', 'issuerId', 'existingPath',
+     'greenlight', 'firstTake', 'personRelease', 'cast', 'staffingWitnessKey', 'ownerFactRefs',
+     'additionalHolds', 'holdReplacements'),
+@@ -238,7 +238,7 @@ class Work {
+   used: number
+   constructor(readonly limit: number, initial: number) { this.used = Math.min(limit, initial) }
+   pay(units = 1): void {
+-    if (units > this.limit - this.used) { this.used = this.limit; throw new WorkLimit() }
++    if (units > this.limit - this.used) { console.error('P14B4_WORK_LIMIT_363', this.used, units, this.limit, new Error('diagnostic-only').stack); this.used = this.limit; throw new WorkLimit() }
+     this.used += units
+   }
+   /** Evaluate the receiver BEFORE JavaScript evaluates calculator arguments.
+@@ -806,6 +806,7 @@ function staticDimensionFacts<P extends StartedPicture>(source: StartedOwnerSour
+ function dimensions<P extends StartedPicture>(source: StartedOwnerSource<P>, productions: readonly P[],
+   operations: StudioOperations, sets: readonly StudioSet[], technology: StudioTechnology,
+   external: number, work: Work, cell: DimensionCell, pictureFacts?: readonly PictureFacts<P>[]): Dimensions {
++  console.error('P14B4_DIMENSIONS_ENTRY_363', work.used, productions.map(row => row.remainingTicks))
+   work.pay(4) // static-fact call arguments/result binding
+   const fixed = staticDimensionFacts(source, cell, work)
+   // Fresh literal and scalar field reads/composition EVERY time; never return
+@@ -857,6 +858,7 @@ function dimensions<P extends StartedPicture>(source: StartedOwnerSource<P>, pro
+     work.pay(3); strings(row); d.technologyRowCopy = Math.max(d.technologyRowCopy, work.copyCost(row))
+     if (!work.equal(row.method, 'silent')) d.allSilent = false
+   }
++  console.error('P14B4_DIMENSIONS_DONE_363', work.used)
+   return d
+ }
+ function workflowUpdate(d: Dimensions, work: Work): number {
+@@ -1327,7 +1329,7 @@ function drainEvents<P extends StartedPicture>(input: ReplayInput<P>, prepared:
+ function reconcile<P extends StartedPicture>(input: ReplayInput<P>, prepared: Prepared<P>,
+   branch: Branch<P>, work: Work): void {
+   work.pay(1)
+-  const expected: { path: string; subject: HoldSubject }[] = []
++  const expected: { path: string; subject: HoldSubject; matches: number }[] = []
+   work.pay(3)
+   for (const workflow of branch.operations.workflows) {
+     work.pay(4)
+@@ -1335,15 +1337,16 @@ function reconcile<P extends StartedPicture>(input: ReplayInput<P>, prepared: Pr
+     invariant(picture !== undefined, 'workflow has no original trajectory')
+     let stage = false
+     for (const reservation of workflow.reservations) {
+-      work.pay(4 + LITERAL.expected + APPEND)
++      work.pay(5 + LITERAL.expected + APPEND)
+       expected.push({ path: picture.pathKey,
+-        subject: reservationSubject(input.source, input.issuerId, reservation, work) })
++        subject: reservationSubject(input.source, input.issuerId, reservation, work), matches: 0 })
+       if (reservation.capability === 'soundstage') stage = true
+     }
+     if (stage && workflow.bindings.setId !== null) {
+-      work.pay(5 + LITERAL.expected + LITERAL.resource + APPEND)
++      work.pay(6 + LITERAL.expected + LITERAL.resource + APPEND)
+       expected.push({ path: picture.pathKey,
+-        subject: { kind: 'resource', resourceKey: work.token('set', input.issuerId, workflow.bindings.setId), slot: 0 } })
++        subject: { kind: 'resource', resourceKey: work.token('set', input.issuerId, workflow.bindings.setId), slot: 0 },
++        matches: 0 })
+     }
+   }
+   for (const row of branch.ledger) {
+@@ -1354,18 +1357,19 @@ function reconcile<P extends StartedPicture>(input: ReplayInput<P>, prepared: Pr
+     let matches = 0
+     for (const fact of expected) {
+       work.pay(3)
+-      if (work.equal(fact.path, row.hold.ownerPathKey) && sameSubject(fact.subject, row.hold.subject, work)) matches++
++      if (work.equal(fact.path, row.hold.ownerPathKey) && sameSubject(fact.subject, row.hold.subject, work)) {
++        // Local increment(3), fact/field reads(2), addition(1), keyed write(8), control(2).
++        work.pay(16)
++        matches++
++        fact.matches++
++      }
+     }
+     invariant(matches === 1, 'live production resource ledger differs from owner output')
+   }
+   for (const fact of expected) {
+-    let matches = 0
+-    for (const row of branch.ledger) {
+-      work.pay(4)
+-      if (!row.closed && row.hold.ownerPathKey !== null && work.equal(row.hold.ownerPathKey, fact.path) &&
+-        sameSubject(row.hold.subject, fact.subject, work)) matches++
+-    }
+-    invariant(matches === 1, 'owner output has an uncertified reservation')
++    // Visit/reference(3), field read(1), comparison(1), invariant(4), loop control(3).
++    work.pay(12)
++    invariant(fact.matches === 1, 'owner output has an uncertified reservation')
+   }
+ }
+ 
+@@ -1482,6 +1486,7 @@ function executeCommand<P extends StartedPicture>(input: ReplayInput<P>, prepare
+ 
+ function frame<P extends StartedPicture>(input: ReplayInput<P>, prepared: Prepared<P>,
+   plan: ReplayPlan, branch: Branch<P>, work: Work): void {
++  console.error('P14B4_FRAME_ENTRY_363', branch.week, work.used, branch.productions.map(row => row.remainingTicks))
+   work.pay(7)
+   const arrivedWeek = branch.week + 1
+   for (const background of prepared.backgrounds) {
+@@ -1548,6 +1553,7 @@ function frame<P extends StartedPicture>(input: ReplayInput<P>, prepared: Prepar
+   const committed = committedReleaseIds(branch.releaseAuthority)
+   const before = branch.operations
+   const bill = sweepBill(d, branch.productions, branch.operations, branch.week, committed, work)
++  console.error('P14B4_SWEEP_BILL_363', branch.week, work.used, bill, branch.productions.map(row => row.remainingTicks), d)
+   // Reserve observation, sink, binding/callback literals and complete owner work
+   // together: an exhaustion boundary cannot record an unexecuted sweepStarted.
+   work.pay(work.calc(64).plus(bill, 15 + LITERAL.sink + 1 + LITERAL.boundary +

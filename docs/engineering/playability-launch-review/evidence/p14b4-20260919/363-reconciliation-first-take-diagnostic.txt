@@ -1,0 +1,212 @@
+{"sourceSha":"52ba3ab8e552c29ffb7b0963411c555412770c14","testedDiffSha256":"8b8cb192fcb20485dbd7b503dc898404eae56c88c4164d0232496c1822c0c29d","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14b4-ready-replay-first-take.test.ts"],"node":"v20.20.2","start":"2026-09-20T08:24:37.860Z","end":null,"exitCode":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+stderr | tests/p14b4-ready-replay-first-take.test.ts > P14B4 Ready replay — genuine first completed take > executes real Ready-target director/schedule commands, retains the take inside a half-open horizon and matches actual wrap/holds within the shared cap
+P14B4_DIMENSIONS_ENTRY_363 50016 [ 8 ]
+P14B4_DIMENSIONS_DONE_363 53210
+P14B4_FRAME_ENTRY_363 1 71537 [ 8 ]
+P14B4_DIMENSIONS_ENTRY_363 71758 [ 8 ]
+P14B4_DIMENSIONS_DONE_363 74698
+P14B4_SWEEP_BILL_363 1 77371 315 [ 8 ] {
+  n: 1,
+  f: 5,
+  capacity: 8,
+  sets: 2,
+  external: 0,
+  d: 28,
+  dp: 9,
+  pCopy: 101,
+  workflowCopy: 98,
+  taskCopy: 66,
+  bindingsCopy: 95,
+  operationsCopy: 33,
+  setCopy: 137,
+  setupCopy: 0,
+  technologyCopy: 132,
+  technologyRowCopy: 62,
+  t: 0,
+  adoptions: 0,
+  access: 0,
+  equipment: 0,
+  placements: 0,
+  structures: 8,
+  provides: 5,
+  cells: 0,
+  genreRows: 1,
+  genreId: 9,
+  allSilent: true
+}
+P14B4_FRAME_ENTRY_363 2 79822 [ 8 ]
+P14B4_DIMENSIONS_ENTRY_363 80043 [ 8 ]
+P14B4_DIMENSIONS_DONE_363 82983
+P14B4_SWEEP_BILL_363 2 88931 11193 [ 8 ] {
+  n: 1,
+  f: 5,
+  capacity: 8,
+  sets: 2,
+  external: 0,
+  d: 28,
+  dp: 9,
+  pCopy: 101,
+  workflowCopy: 98,
+  taskCopy: 66,
+  bindingsCopy: 95,
+  operationsCopy: 33,
+  setCopy: 137,
+  setupCopy: 0,
+  technologyCopy: 132,
+  technologyRowCopy: 62,
+  t: 0,
+  adoptions: 0,
+  access: 0,
+  equipment: 0,
+  placements: 0,
+  structures: 8,
+  provides: 5,
+  cells: 0,
+  genreRows: 1,
+  genreId: 9,
+  allSilent: true
+}
+P14B4_FRAME_ENTRY_363 3 102424 [ 7 ]
+P14B4_DIMENSIONS_ENTRY_363 102645 [ 7 ]
+P14B4_DIMENSIONS_DONE_363 105589
+P14B4_SWEEP_BILL_363 3 111998 18412 [ 7 ] {
+  n: 1,
+  f: 5,
+  capacity: 8,
+  sets: 2,
+  external: 0,
+  d: 28,
+  dp: 9,
+  pCopy: 101,
+  workflowCopy: 98,
+  taskCopy: 66,
+  bindingsCopy: 95,
+  operationsCopy: 33,
+  setCopy: 137,
+  setupCopy: 0,
+  technologyCopy: 132,
+  technologyRowCopy: 62,
+  t: 0,
+  adoptions: 0,
+  access: 0,
+  equipment: 0,
+  placements: 0,
+  structures: 8,
+  provides: 5,
+  cells: 0,
+  genreRows: 1,
+  genreId: 9,
+  allSilent: true
+}
+P14B4_FRAME_ENTRY_363 4 139899 [ 6 ]
+P14B4_DIMENSIONS_ENTRY_363 140120 [ 6 ]
+P14B4_DIMENSIONS_DONE_363 143074
+P14B4_SWEEP_BILL_363 4 148714 9562 [ 6 ] {
+  n: 1,
+  f: 5,
+  capacity: 8,
+  sets: 2,
+  external: 0,
+  d: 28,
+  dp: 9,
+  pCopy: 101,
+  workflowCopy: 98,
+  taskCopy: 66,
+  bindingsCopy: 95,
+  operationsCopy: 33,
+  setCopy: 137,
+  setupCopy: 0,
+  technologyCopy: 132,
+  technologyRowCopy: 62,
+  t: 0,
+  adoptions: 0,
+  access: 0,
+  equipment: 0,
+  placements: 0,
+  structures: 8,
+  provides: 5,
+  cells: 0,
+  genreRows: 1,
+  genreId: 9,
+  allSilent: true
+}
+P14B4_DIMENSIONS_ENTRY_363 166416 [ 5 ]
+P14B4_DIMENSIONS_DONE_363 170074
+P14B4_DIMENSIONS_ENTRY_363 174624 [ 5 ]
+P14B4_DIMENSIONS_DONE_363 178277
+P14B4_FRAME_ENTRY_363 5 179558 [ 5 ]
+P14B4_DIMENSIONS_ENTRY_363 179779 [ 5 ]
+P14B4_DIMENSIONS_DONE_363 183436
+P14B4_SWEEP_BILL_363 5 186392 850 [ 5 ] {
+  n: 1,
+  f: 5,
+  capacity: 8,
+  sets: 2,
+  external: 0,
+  d: 28,
+  dp: 9,
+  pCopy: 101,
+  workflowCopy: 98,
+  taskCopy: 66,
+  bindingsCopy: 95,
+  operationsCopy: 33,
+  setCopy: 137,
+  setupCopy: 0,
+  technologyCopy: 132,
+  technologyRowCopy: 62,
+  t: 1,
+  adoptions: 0,
+  access: 0,
+  equipment: 0,
+  placements: 0,
+  structures: 8,
+  provides: 5,
+  cells: 0,
+  genreRows: 1,
+  genreId: 9,
+  allSilent: true
+}
+P14B4_FRAME_ENTRY_363 6 192800 [ 4 ]
+P14B4_DIMENSIONS_ENTRY_363 193021 [ 4 ]
+P14B4_DIMENSIONS_DONE_363 196678
+P14B4_WORK_LIMIT_363 199997 8 200000 Error: diagnostic-only
+    at Work.pay (/Users/zacheryspector/The-Movies-headless-program/src/core/promiseCapacityOwnerReplay.ts:241:111)
+    at Work.add (/Users/zacheryspector/The-Movies-headless-program/src/core/promiseCapacityOwnerReplay.ts:282:10)
+    at Work.plus (/Users/zacheryspector/The-Movies-headless-program/src/core/promiseCapacityOwnerReplay.ts:261:23)
+    at allocationBill (/Users/zacheryspector/The-Movies-headless-program/src/core/promiseCapacityOwnerReplay.ts:962:34)
+    at sweepBill (/Users/zacheryspector/The-Movies-headless-program/src/core/promiseCapacityOwnerReplay.ts:1164:5)
+    at frame (/Users/zacheryspector/The-Movies-headless-program/src/core/promiseCapacityOwnerReplay.ts:1555:16)
+    at replayPlans (/Users/zacheryspector/The-Movies-headless-program/src/core/promiseCapacityOwnerReplay.ts:2343:9)
+    at Module.replayReadyProductionPlans (/Users/zacheryspector/The-Movies-headless-program/src/core/promiseCapacityOwnerReplay.ts:2389:10)
+    at /Users/zacheryspector/The-Movies-headless-program/tests/p14b4-ready-replay-first-take.test.ts:205:81
+    at watchOwners (/Users/zacheryspector/The-Movies-headless-program/tests/p14b4-ready-replay-first-take.test.ts:114:25)
+
+ ❯ |core| tests/p14b4-ready-replay-first-take.test.ts (1 test | 1 failed) 1449ms
+   × P14B4 Ready replay — genuine first completed take > executes real Ready-target director/schedule commands, retains the take inside a half-open horizon and matches actual wrap/holds within the shared cap 1448ms
+     → 276 real first-take Ready replay cut: workLimit: shared replay work limit
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14b4-ready-replay-first-take.test.ts > P14B4 Ready replay — genuine first completed take > executes real Ready-target director/schedule commands, retains the take inside a half-open horizon and matches actual wrap/holds within the shared cap
+Error: 276 real first-take Ready replay cut: workLimit: shared replay work limit
+ ❯ tests/p14b4-ready-replay-first-take.test.ts:213:44
+    211|     expect(result.attempts).toHaveLength(1)
+    212|     const attempt = result.attempts[0]!
+    213|     if (attempt.kind !== 'complete') throw new Error(`276 real first-t…
+       |                                            ^
+    214|     expect(result.omissions).toEqual([])
+    215|     expect(checked.calls).toEqual(reference.calls)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed (1)
+      Tests  1 failed (1)
+   Start at  10:24:38
+   Duration  4.56s (transform 1.98s, setup 0ms, collect 2.60s, tests 1.45s, environment 0ms, prepare 106ms)
+
+
+{"sourceSha":"52ba3ab8e552c29ffb7b0963411c555412770c14","testedDiffSha256":"8b8cb192fcb20485dbd7b503dc898404eae56c88c4164d0232496c1822c0c29d","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14b4-ready-replay-first-take.test.ts"],"node":"v20.20.2","start":"2026-09-20T08:24:37.860Z","end":"2026-09-20T08:24:43.450Z","exitCode":1,"signal":null,"error":null,"sourceShaAtEnd":"52ba3ab8e552c29ffb7b0963411c555412770c14","testedDiffSha256AtEnd":"8b8cb192fcb20485dbd7b503dc898404eae56c88c4164d0232496c1822c0c29d","untrackedSourceAtEnd":[],"fixedSource":true}

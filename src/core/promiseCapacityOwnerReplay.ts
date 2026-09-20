@@ -167,7 +167,7 @@ const LITERAL = Object.freeze({
   calendar: literalCost('productionId', 'firstTake', 'personRelease'),
   replacement: literalCost('holdId', 'newUntil'),
   wrapped: literalCost('id', 'stage', 'setId'),
-  expected: literalCost('path', 'subject'),
+  expected: literalCost('path', 'subject', 'matches'),
   picture: literalCost('kind', 'jointTraceKey', 'key', 'pathKey', 'issuerId', 'existingPath',
     'greenlight', 'firstTake', 'personRelease', 'cast', 'staffingWitnessKey', 'ownerFactRefs',
     'additionalHolds', 'holdReplacements'),
@@ -1327,7 +1327,7 @@ function drainEvents<P extends StartedPicture>(input: ReplayInput<P>, prepared: 
 function reconcile<P extends StartedPicture>(input: ReplayInput<P>, prepared: Prepared<P>,
   branch: Branch<P>, work: Work): void {
   work.pay(1)
-  const expected: { path: string; subject: HoldSubject }[] = []
+  const expected: { path: string; subject: HoldSubject; matches: number }[] = []
   work.pay(3)
   for (const workflow of branch.operations.workflows) {
     work.pay(4)
@@ -1335,15 +1335,16 @@ function reconcile<P extends StartedPicture>(input: ReplayInput<P>, prepared: Pr
     invariant(picture !== undefined, 'workflow has no original trajectory')
     let stage = false
     for (const reservation of workflow.reservations) {
-      work.pay(4 + LITERAL.expected + APPEND)
+      work.pay(5 + LITERAL.expected + APPEND)
       expected.push({ path: picture.pathKey,
-        subject: reservationSubject(input.source, input.issuerId, reservation, work) })
+        subject: reservationSubject(input.source, input.issuerId, reservation, work), matches: 0 })
       if (reservation.capability === 'soundstage') stage = true
     }
     if (stage && workflow.bindings.setId !== null) {
-      work.pay(5 + LITERAL.expected + LITERAL.resource + APPEND)
+      work.pay(6 + LITERAL.expected + LITERAL.resource + APPEND)
       expected.push({ path: picture.pathKey,
-        subject: { kind: 'resource', resourceKey: work.token('set', input.issuerId, workflow.bindings.setId), slot: 0 } })
+        subject: { kind: 'resource', resourceKey: work.token('set', input.issuerId, workflow.bindings.setId), slot: 0 },
+        matches: 0 })
     }
   }
   for (const row of branch.ledger) {
@@ -1354,18 +1355,19 @@ function reconcile<P extends StartedPicture>(input: ReplayInput<P>, prepared: Pr
     let matches = 0
     for (const fact of expected) {
       work.pay(3)
-      if (work.equal(fact.path, row.hold.ownerPathKey) && sameSubject(fact.subject, row.hold.subject, work)) matches++
+      if (work.equal(fact.path, row.hold.ownerPathKey) && sameSubject(fact.subject, row.hold.subject, work)) {
+        // Local increment(3), fact/field reads(2), addition(1), keyed write(8), control(2).
+        work.pay(16)
+        matches++
+        fact.matches++
+      }
     }
     invariant(matches === 1, 'live production resource ledger differs from owner output')
   }
   for (const fact of expected) {
-    let matches = 0
-    for (const row of branch.ledger) {
-      work.pay(4)
-      if (!row.closed && row.hold.ownerPathKey !== null && work.equal(row.hold.ownerPathKey, fact.path) &&
-        sameSubject(row.hold.subject, fact.subject, work)) matches++
-    }
-    invariant(matches === 1, 'owner output has an uncertified reservation')
+    // Visit/reference(3), field read(1), comparison(1), invariant(4), loop control(3).
+    work.pay(12)
+    invariant(fact.matches === 1, 'owner output has an uncertified reservation')
   }
 }
 
