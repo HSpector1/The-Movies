@@ -1,0 +1,31 @@
+{
+  "sourceSha": "41bc14db9efb2bf52ab263a7d5ea3db4a91b65ad",
+  "testedDiffSha256": "afa9d910f86a63112699810232db3b8beaf569cecea1a317fff94386a4cf07d6",
+  "untrackedSource": [
+    "tests/p14b4-ready-replay-background.test.ts",
+    "tests/p14b4-ready-replay-first-take.test.ts"
+  ],
+  "command": [
+    "node_modules/.bin/vitest",
+    "run",
+    "--project",
+    "core",
+    "tests/p14b4-ready-owner-replay.test.ts",
+    "tests/p14b4-ready-replay-first-take.test.ts",
+    "-t",
+    "uses actual source-now employment|executes real Ready-target"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-20T06:23:35.745Z",
+  "end": "2026-09-20T06:23:41.682Z",
+  "exitCode": 1,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "41bc14db9efb2bf52ab263a7d5ea3db4a91b65ad",
+  "testedDiffSha256AtEnd": "afa9d910f86a63112699810232db3b8beaf569cecea1a317fff94386a4cf07d6",
+  "untrackedSourceAtEnd": [
+    "tests/p14b4-ready-replay-background.test.ts",
+    "tests/p14b4-ready-replay-first-take.test.ts"
+  ],
+  "fixedSource": true
+}

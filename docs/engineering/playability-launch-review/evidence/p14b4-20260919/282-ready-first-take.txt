@@ -1,0 +1,30 @@
+{"sourceSha":"41bc14db9efb2bf52ab263a7d5ea3db4a91b65ad","testedDiffSha256":"1b911681ce638998b1f86c127f15f536e5e97aff3ad2ed63ad31b9e18b7e03a3","untrackedSource":["tests/p14b4-ready-replay-background.test.ts","tests/p14b4-ready-replay-first-take.test.ts"],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14b4-ready-replay-first-take.test.ts"],"node":"v20.20.2","start":"2026-09-20T06:22:56.226Z","end":null,"exitCode":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/p14b4-ready-replay-first-take.test.ts (1 test | 1 failed) 1188ms
+   × P14B4 Ready replay — genuine first completed take > executes real Ready-target director/schedule commands, retains the take inside a half-open horizon and matches actual wrap/holds within the shared cap 1187ms
+     → 276 real first-take Ready replay cut: workLimit: shared replay work limit
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14b4-ready-replay-first-take.test.ts > P14B4 Ready replay — genuine first completed take > executes real Ready-target director/schedule commands, retains the take inside a half-open horizon and matches actual wrap/holds within the shared cap
+Error: 276 real first-take Ready replay cut: workLimit: shared replay work limit
+ ❯ tests/p14b4-ready-replay-first-take.test.ts:213:44
+    211|     expect(result.attempts).toHaveLength(1)
+    212|     const attempt = result.attempts[0]!
+    213|     if (attempt.kind !== 'complete') throw new Error(`276 real first-t…
+       |                                            ^
+    214|     expect(result.omissions).toEqual([])
+    215|     expect(checked.calls).toEqual(reference.calls)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed (1)
+      Tests  1 failed (1)
+   Start at  08:22:56
+   Duration  4.38s (transform 1.98s, setup 0ms, collect 2.59s, tests 1.19s, environment 1ms, prepare 137ms)
+
+
+{"sourceSha":"41bc14db9efb2bf52ab263a7d5ea3db4a91b65ad","testedDiffSha256":"1b911681ce638998b1f86c127f15f536e5e97aff3ad2ed63ad31b9e18b7e03a3","untrackedSource":["tests/p14b4-ready-replay-background.test.ts","tests/p14b4-ready-replay-first-take.test.ts"],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14b4-ready-replay-first-take.test.ts"],"node":"v20.20.2","start":"2026-09-20T06:22:56.226Z","end":"2026-09-20T06:23:01.588Z","exitCode":1,"signal":null,"error":null,"sourceShaAtEnd":"41bc14db9efb2bf52ab263a7d5ea3db4a91b65ad","testedDiffSha256AtEnd":"1b911681ce638998b1f86c127f15f536e5e97aff3ad2ed63ad31b9e18b7e03a3","untrackedSourceAtEnd":["tests/p14b4-ready-replay-background.test.ts","tests/p14b4-ready-replay-first-take.test.ts"],"fixedSource":true}

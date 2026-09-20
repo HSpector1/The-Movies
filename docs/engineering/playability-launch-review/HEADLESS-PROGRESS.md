@@ -6,35 +6,35 @@ Headless verification never claims package completion or Owner acceptance.
 
 Current (2026-09-20):
 
-Current B4 checkpoint265 (2026-09-20):249 implementation SOURCE FROZEN.
-HEAD/verified remote before candidate publication:
-78796c185c8fa7b3a8e716796760e4f11a4c905f. ALL256–264 runtime sessions CLOSED.
-256 root/UI types PASS;257 Ready7 =4 PASS/3 actual work-limit FAIL;258 identity1
-and259 commands3 PASS;260 original26 PASS;261 adjacent137 PASS;262 bridge only
-prior future-P2 kind TS2353. Candidate NOT accepted.255 bounded review REFINE:
-prepay empty-person outer background visits and preserve unknown project ID.
-Original tests/owners/cap200000 unchanged. Full raw failures remain preserved.
+Current B4 checkpoint285 (2026-09-20):267 SOURCE FROZEN/NOwriter.
+HEAD/EXACTremote41bc14db9efb2bf52ab263a7d5ea3db4a91b65ad before285publication.
+ALL271–284 runtime CLOSED; FULLraw/metadata/patches read/verified by parent.
+Source267 exact2e8feba725d9e949762017859bf572a00887d970e25b58ad133c770a1b7ed6fa.
+Temporary283/284 diagnostics REMOVED, exactsource+280–282patch1b911681ce638998b1f86c127f15f536e5e97aff3ad2ed63ad31b9e18b7e03a3 restored.
 
-263/264 transparent diagnostic copies are archived, not acceptance. Whole
-original+Ready actually sweeps [8,8] to [7,8] before later cut; kernel unreached.
-Sibling second reaches persisted-ID and allocator owners, cuts before initial
-workflow admission. Unavailable freelancer cuts before actual market owner.
-No exact exhausting statement inferred. Temporary probe removed after exact
-archive comparison; both complete archived drafts/logs/patches remain recoverable.
+270 bounded sourceKEEP;255 twofindingsclosed.280root/UItypesPASS after278/279
+type-only CastingSlate correction;281Ready12PASS1freelancerbudgetFAIL.
+273original26/274adjacent137 PASS;275soleoldfutureP2bridgekindTS2353.
+Wholeoriginal+Ready ANDactualsharedkernel plus siblingplansNOWPASSsame200000.
+276/277longReadyfirsttake installed;282genuineactualtake/wrapfixturepassed but
+replayworkLimit beforecompleteassertions/downstreamkernel. NOTReadyacceptance.
 
-Next publish265 qualified candidate with exact tested protected patch568d14c6…,
-verify exact remote in266, then release267 sole sim writer for255 corrections and
-source-proven tighter initial-allocation/freelancer bills. No work refunds, cap
-change or changed comparison metric.268 independent author ONLY inert diagnostic/
-background regression draft. Parent owns serialized checks after source freeze.
-No routine permission; at most two specialists and one production writer.
+283/284 pinpoint BOTH remaining failures. Freelancer used119979/request192157 at
+outerownerpayment; billentry35357, so227514 alreadyexceedscap evenbeforecalculator.
+Longroute week1new8bill315,week2old8bill11193,week3remaining7bill159363:
+cut pre-sweepused131259/request159460. No third7→6/replaytake/kernel reached.
+Allactualcomponents/dimensions/exactdiagnosticpatches retained in285/raw284.
 
-Prior238 qualified GREEN and T4/B2/B3/B-F2 qualified closeouts are preserved.
-Finite explicit plans do not establish complete choice coverage; fuller Ready
-commands, future/rival capacity and coherent liveP2/B4 remain unfinished.
-Save29/rules3/projection46 stay live until coherent cutover. Continue remaining
-P14/P15/P16/sufficient P17/P18 logic-first work; Unity/native/Owner deferred.
-Evidence/p14b4-20260919/00-start.md records exact ownership and chronology.
+Next publish285 and verifyEXACTremote286. SimREADONLYspecificsweep/freelancer
+RCA, auditorREADONLYminimal semantics-preserving lookup constraintreview;
+max2/NOsourcewriter. Then boundedwriterrelease fixesrealcauses/testsunchanged.
+No metric/cap/refund/warmcache/owner-policy change; scalaraggregationalone
+cannotresolve observedfreelancerfloor. Tests/types/sourcecorrectionevidence
+qualified, never relabel remainingfailuresgreen. Original26+Ready14immutable.
+
+T4/B2/B3/B-F2 qualified closeouts preserved; continueB4 then remainingP14/P15/
+P16/specifiedP17/P18. Save29/rules3/projection46 stilllive untilcoherentcutover.
+Unity/native/Owneracceptance deferred; backlogretained. Evidence00 chronology.
 
 Earlier additive foundation checkpoint: V30 data support implemented and independently
 KEEP; qualified report evidence/p14b4-20260919/29-additive-checkpoint.md.

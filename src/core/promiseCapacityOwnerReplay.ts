@@ -282,6 +282,12 @@ class Work {
     this.pay(4)
     return this.calc(8).plus(1, length, this.calc(8).times(count, this.calc(8).equality(length)))
   }
+  /** Same all-possible-comparisons metric, without substituting an unrelated
+   * maximum for every stored key. Repeated rows may overcount distinct keys. */
+  keySpanBill(count: number, storedChars: number, queryLength: number): number {
+    this.pay(20) // receiver/arguments, two 1+length expressions and return
+    return this.add(1 + queryLength, this.add(this.times(count, 1 + queryLength), storedChars))
+  }
   text(value: string): string { this.pay(1 + value.length); return value }
   equal(a: string, b: string): boolean { this.pay(1 + a.length + b.length); return a === b }
   /** No Object.keys allocation before payment, and no traversal of opaque values. */
@@ -1490,90 +1496,160 @@ function searchBill<T>(rows: readonly T[], key: (row: T) => string, needle: stri
 
 /** Cold-cache bound for the REAL freelancer owner; never substitutes a market. */
 function freelancerBill(source: GameState, work: Work): number {
-  work.pay(24)
-  let width = 22, seats = 0, writerRows = 0, writerBill = 0, companyRows = 0, indexedRows = 0
-  const text = (value: string): void => { work.pay(3); work.text(value); width = Math.max(width, value.length) }
+  work.pay(48) // scalar locals, four empty arrays/initial prefix and closures
+  let writerRows = 0, writerBill = 0, companyRows = 0, indexedRows = 0
+  let busyChars = 0, conceptChars = 0, titleWidth = 0, conceptMapBill = 0, writerLookupBill = 0, conceptMapCount = 0
+  let contractBill = 0, researchSeats = 0
+  const busyPeople: string[] = [], contractChars = [0], activeContracts: boolean[] = [], queries: string[] = []
+  // This local bill calculator does not admit anyone. It counts the exact
+  // source-now short-circuit calls which the unchanged market owner will make.
+  // Prefix spans pay every stored/query comparison, including inactive rows
+  // traversed by activeContract.find. The calculator's own reads are separate.
+  for (const row of source.contracts) {
+    work.pay(12 + 2 * APPEND)
+    work.text(row.talentId)
+    contractChars.push(work.calc(16).add(contractChars[contractChars.length - 1]!, row.talentId.length))
+    activeContracts.push(row.startWeek <= source.market.tick && source.market.tick < row.endWeekExclusive)
+  }
+  const contracted = (person: string): boolean => {
+    work.pay(8)
+    let visited = 0, active = false
+    for (const row of source.contracts) {
+      work.pay(16) // visit, prefix index, active flag, comparison arguments/branch
+      const current = activeContracts[visited]!
+      visited++
+      if (current && work.equal(row.talentId, person)) { active = true; break }
+    }
+    contractBill = work.calc(32).add(contractBill, work.calc(32).plus(6,
+      work.calc(16).times(visited, 10 + person.length), contractChars[visited]!))
+    return active
+  }
+  const addBusy = (person: string): void => {
+    work.pay(4 + APPEND); work.text(person)
+    busyChars = work.calc(8).add(busyChars, person.length)
+    busyPeople.push(person)
+  }
+  // Map keys are concept IDs, not talent IDs or employer IDs. Titles are
+  // references in this map and copied text only in the writer labels below.
+  for (const concept of source.concepts) {
+    work.pay(16) // visit, text-call arguments, max-title update and prefix count
+    work.text(concept.id); work.text(concept.title)
+    conceptMapBill = work.calc(32).add(conceptMapBill,
+      work.calc(16).add(10, work.calc(16).keySpanBill(conceptMapCount, conceptChars, concept.id.length)))
+    conceptChars = work.calc(8).add(conceptChars, concept.id.length)
+    titleWidth = Math.max(titleWidth, concept.title.length)
+    conceptMapCount++
+  }
   const countCompany = (rows: readonly StartedPicture[]): void => {
     work.pay(3)
     for (const row of rows) {
       work.pay(12)
-      text(row.directorId); text(row.cast.lead); text(row.cast.antagonist); text(row.cast.support)
-      for (const person of row.craftIds) { work.pay(2); text(person) }
-      seats = work.calc(16).add(seats, 4 + row.craftIds.length)
+      addBusy(row.directorId); addBusy(row.cast.lead); addBusy(row.cast.antagonist); addBusy(row.cast.support)
+      for (const person of row.craftIds) { work.pay(2); addBusy(person) }
       companyRows = work.calc(8).add(companyRows, 1)
     }
   }
-  const countWriters = (row: ScriptProject): void => {
+  const countWriters = (row: ScriptProject, own: boolean): void => {
     work.pay(6)
     if (row.status !== 'drafting' && row.status !== 'rewriting') return
-    text(row.writerId)
-    for (const person of row.writerIds) { work.pay(2); text(person) }
-    // Actual owner returns the existing pool on strict source records. Includes
-    // still checks its writer identity; charge even if the first entry matches.
-    writerBill = work.calc(64).plus(writerBill, 12,
-      work.calc(32).times(row.writerIds.length, 2 + work.calc(8).equality(width)))
-    seats = work.calc(8).add(seats, row.writerIds.length)
-    writerRows = work.calc(8).add(writerRows, row.writerIds.length)
+    work.text(row.writerId)
+    writerBill = work.calc(8).add(writerBill, 12)
+    for (const person of row.writerIds) {
+      work.pay(3); addBusy(person)
+      // Includes may stop at the first entry; this covers its full pool.
+      writerBill = work.calc(16).add(writerBill, 3 + person.length + row.writerId.length)
+    }
+    work.pay(4)
+    if (own) {
+      work.text(row.conceptId)
+      writerLookupBill = work.calc(32).add(writerLookupBill,
+        work.calc(16).keySpanBill(source.concepts.length, conceptChars, row.conceptId.length))
+      writerRows = work.calc(8).add(writerRows, row.writerIds.length)
+    }
   }
-  for (const row of source.talent) { work.pay(2); text(row.id) }
-  for (const row of source.contracts) { work.pay(2); text(row.talentId) }
   countCompany(source.studio.activeProductions)
-  for (const row of source.scriptDevelopment.projects) { work.pay(2); countWriters(row) }
+  for (const row of source.scriptDevelopment.projects) { work.pay(3); countWriters(row, true) }
+  work.pay(4)
   const h = source.hollywood
-  work.pay(6)
-  const employment = h?.employment.length ?? 0
   if (h !== null) {
-    for (const row of h.employment) { work.pay(3); text(row.terms.talentId); text(row.studioId) }
     for (const business of h.businesses) {
       work.pay(4); countCompany(business.productions)
       for (const ordinal of business.activeScriptOrdinals) {
         work.pay(5); indexedRows = work.calc(8).add(indexedRows, 1)
-        countWriters(business.development.projects[ordinal]!)
+        countWriters(business.development.projects[ordinal]!, false)
       }
     }
   }
-  let researchSeats = 0
   for (const project of source.technology.projects) {
     work.pay(4)
     if (project.status !== 'active') continue
     for (const seat of project.seats) {
-      work.pay(4); text(seat.talentId)
+      work.pay(6)
       researchSeats = work.calc(8).add(researchSeats, 1)
-      seats = work.calc(8).add(seats, 1)
+      if (seat.releasedWeek === null && contracted(seat.talentId)) addBusy(seat.talentId)
     }
   }
-  let titleWidth = 0
-  for (const concept of source.concepts) {
-    work.pay(4); text(concept.id); work.text(concept.title); titleWidth = Math.max(titleWidth, concept.title.length)
+  work.pay(8)
+  let busySetBill = 0, filterBill = 0
+  for (const person of busyPeople) {
+    work.pay(3)
+    // Three is the maximum actual Set layers (foreign company -> industry ->
+    // busy). Global occurrence count/span overcounts each layer, including
+    // duplicate IDs, and therefore also covers local companies and writers.
+    busySetBill = work.calc(32).add(busySetBill, work.calc(32).plus(14,
+      work.calc(16).times(3, work.calc(16).keySpanBill(busyPeople.length, busyChars, person.length))))
+  }
+  for (const person of source.talent) {
+    work.pay(6); work.text(person.id)
+    filterBill = work.calc(32).add(filterBill, work.calc(16).add(24,
+      work.calc(16).keySpanBill(busyPeople.length, busyChars, person.id.length)))
+    work.pay(2)
+    let busy = false
+    for (const id of busyPeople) {
+      work.pay(3)
+      if (work.equal(id, person.id)) { busy = true; break }
+    }
+    work.pay(3)
+    if (busy || contracted(person.id)) continue
+    work.pay(APPEND); queries.push(person.id)
+  }
+  // Always cover a COLD index if a lookup is reachable. Two map operations per
+  // row (get/set), each against its PRE-insert prefix; repeated keys merely
+  // overcount that prefix. Employer strings are NOT employment-index keys.
+  work.pay(10)
+  let rival = 20, employmentCount = 0, employmentChars = 0
+  if (h !== null && queries.length > 0) {
+    work.text(h.playerStudioId)
+    for (const row of h.employment) {
+      work.pay(10); work.text(row.terms.talentId); work.text(row.studioId)
+      rival = work.calc(32).add(rival, work.calc(32).plus(24,
+        work.calc(16).times(2, work.calc(16).keySpanBill(employmentCount, employmentChars, row.terms.talentId.length)),
+        12 + row.studioId.length + h.playerStudioId.length))
+      employmentCount++
+      employmentChars = work.calc(8).add(employmentChars, row.terms.talentId.length)
+    }
+    for (const person of queries) {
+      work.pay(3)
+      rival = work.calc(32).add(rival, work.calc(16).add(6,
+        work.calc(16).keySpanBill(employmentCount, employmentChars, person.length)))
+    }
   }
   work.pay(64)
-  const t = source.talent.length, c = source.contracts.length, g = source.concepts.length
-  const key = work.calc(8).keyBill(seats, width), eq = work.calc(8).equality(width)
-  const contracts = work.calc(32).times(c, 10 + eq)
+  const t = source.talent.length
   // Concept map/tuple construction, active writer lookup+label+literal, flatMap
-  // and both Set layers; also original/current-industry companies and research.
-  const busy = work.calc(64).plus(60, writerBill,
-    work.calc(32).times(g, work.calc(64).plus(10, titleWidth, work.calc(8).keyBill(g, width))),
-    work.calc(32).times(writerRows, work.calc(64).plus(30, LITERAL.writerAssignment, titleWidth * 2,
-      work.calc(8).keyBill(g, width))),
+  // and Set layers; industry indexed writers do not construct player labels.
+  const busy = work.calc(64).plus(60, writerBill, conceptMapBill, writerLookupBill,
+    work.calc(32).times(writerRows, 30 + LITERAL.writerAssignment + titleWidth * 2),
     work.calc(8).times(source.scriptDevelopment.projects.length, 12),
-    work.calc(32).times(companyRows, 12), work.calc(32).times(seats, work.calc(64).plus(14, key, key, key)),
-    work.calc(32).times(researchSeats, work.calc(8).add(12, contracts)),
+    work.calc(32).times(companyRows, 12), busySetBill, work.calc(8).times(researchSeats, 12),
     work.calc(32).times(source.technology.projects.length, 6),
     work.calc(32).times(indexedRows, 6), work.calc(32).times(h?.businesses.length ?? 0, 16))
-  // WeakMap is allowed to be COLD: allocate/populate its entire employment
-  // index, then all eligible per-person lookups. Distinct source talent IDs mean
-  // each indexed row is tested at most once in the filtered talent walk.
-  const rival = work.calc(64).plus(20,
-    work.calc(32).times(employment, work.calc(64).plus(24, work.calc(8).times(3, work.calc(8).keyBill(employment, width)), eq)),
-    work.calc(32).times(t, work.calc(8).add(6, work.calc(8).keyBill(employment, width))))
   // Derived stream: four splitmix steps, one seed hash, four-word state; at
   // most configured sample-size sfc32 draws/swaps. No Gaussian/rejection loop.
   work.text(source.seed)
   const random = work.calc(64).plus(240, work.calc(32).times(source.seed.length + 50, 8),
     work.calc(32).times(Math.min(t, TUNING.HIRING_FREELANCER_MARKET_SIZE), 100), work.calc(8).times(t, 6))
-  return work.calc(64).plus(busy, rival, random,
-    work.calc(32).times(t, work.calc(64).plus(24, key, contracts)))
+  return work.calc(64).plus(busy, rival, random, filterBill, contractBill)
 }
 
 /** Three actual occupied-slot views. All Sets-under-work were cut by prepare;
@@ -1612,19 +1688,47 @@ function readyOccupancyBill(source: GameState, d: Dimensions, work: Work): numbe
 
 /** Initial Development only: no policy callback, composite Set or retention.
  * Still execute the unchanged allocator with its full eager production claims. */
-function initialAdmissionBill(d: Dimensions, work: Work): number {
+function initialAdmissionBill(d: Dimensions, operations: StudioOperations, work: Work): number {
+  work.pay(20)
+  let rawClaims = 0, indexedClaims = 0, developmentCapacity = 0, reservationVisits = 0
+  // The appended draft has no reservation, task or bound Set. Still count its
+  // workflow visits below, but do not manufacture four claims for it. Eager
+  // shooting-task rows are paid even though the production-owner filter drops
+  // them BEFORE building the occupancy index.
+  for (const row of operations.workflows) {
+    work.pay(16)
+    rawClaims = work.calc(16).add(rawClaims, row.reservations.length + (row.shootingTask === null ? 0 : 1))
+    indexedClaims = work.calc(8).add(indexedClaims, row.reservations.length)
+    if (row.bindings.setId === null) continue
+    for (const reservation of row.reservations) {
+      work.pay(5)
+      reservationVisits = work.calc(8).add(reservationVisits, 1)
+      if (reservation.capability !== 'soundstage') continue
+      rawClaims = work.calc(8).add(rawClaims, 1)
+      indexedClaims = work.calc(8).add(indexedClaims, 1)
+      break
+    }
+  }
+  for (const facility of operations.facilities) {
+    work.pay(5)
+    if (facility.capability === 'development-casting') {
+      developmentCapacity = work.calc(8).add(developmentCapacity, facility.capacity)
+    }
+  }
   work.pay(64)
-  const claims = work.calc(8).times(d.n, 4), occupied = work.calc(8).add(claims, d.external)
+  const occupied = work.calc(8).add(indexedClaims, d.external)
   const eq = work.calc(8).equality(d.d), keyLength = work.calc(8).add(d.d, 26)
   const key = work.calc(8).keyBill(occupied + 1, keyLength)
   const raw = work.calc(64).plus(40, work.calc(32).times(d.n, 20 + 2 * eq),
-    work.calc(32).times(claims, work.calc(64).plus(LITERAL.claim, APPEND, 20, work.calc(32).times(2, 50 + 2 * d.d))))
+    work.calc(8).times(reservationVisits, 5),
+    work.calc(32).times(rawClaims, work.calc(64).plus(LITERAL.claim, APPEND, 20, work.calc(32).times(2, 50 + 2 * d.d))))
   const occupancy = work.calc(64).plus(raw, 40,
-    work.calc(32).times(claims, work.calc(64).plus(16, eq, eq, work.calc(8).times(3, key))),
+    work.calc(32).times(rawClaims, 16 + 2 * eq),
+    work.calc(32).times(indexedClaims, work.calc(8).times(3, key)),
     work.calc(32).times(d.external, work.calc(8).add(4, key)))
   const allocation = work.calc(64).plus(occupancy, 60, work.calc(8).times(d.f, 14),
     sortBill(d.f, 6 + 2 * eq, work),
-    work.calc(32).times(d.capacity, work.calc(64).plus(14, 50 + 2 * d.d, key, key)),
+    work.calc(32).times(developmentCapacity, work.calc(64).plus(14, 50 + 2 * d.d, key, key)),
     LITERAL.reservation, LITERAL.allocation, 4)
   // Draft+replacement workflow, initial+derived binding, TWO operations copies,
   // both append/map arrays, duplicate lookup, transition key and TWO event rows.
@@ -1651,7 +1755,11 @@ function admitReady(source: GameState, input: ReplayInput<ReadyPicture>, prepare
   const choice = plan.readyChoice
   work.text(choice.projectId)
   const project = find(source.scriptDevelopment.projects, choice.projectId, row => row.id, work)
-  if (project === undefined) commandRefused(work, 'applyActions: greenlightScriptProject references unknown project')
+  if (project === undefined) {
+    // Template construction precedes commandRefused's own Error construction.
+    work.calc(16).pay(69 + choice.projectId.length)
+    commandRefused(work, `applyActions: greenlightScriptProject references unknown project "${choice.projectId}"`)
+  }
   work.pay(24)
   let headerBill = work.calc(64).plus(120, LITERAL.headerResult,
     searchBill(source.scriptDevelopment.projects, row => row.id, project.id, work),
@@ -1703,11 +1811,17 @@ function admitReady(source: GameState, input: ReplayInput<ReadyPicture>, prepare
   // on strict source data, without constructing unused titleMap/label records.
   work.pay(2)
   const busyRows: string[] = []
-  for (const picture of prepared.pictures) for (const person of picture.people) {
-    work.pay(3 + APPEND); busyRows.push(person)
+  for (const picture of prepared.pictures) {
+    work.pay(4)
+    for (const person of picture.people) {
+      work.pay(3 + APPEND); busyRows.push(person)
+    }
   }
-  for (const background of prepared.backgrounds) for (const person of background.people) {
-    work.pay(3 + APPEND); busyRows.push(person)
+  for (const background of prepared.backgrounds) {
+    work.pay(4)
+    for (const person of background.people) {
+      work.pay(3 + APPEND); busyRows.push(person)
+    }
   }
   for (const person of busyRows) { work.pay(2); work.text(person); idWidth = Math.max(idWidth, person.length) }
   work.pay(work.calc(64).plus(3, work.calc(32).times(busyRows.length, work.calc(8).keyBill(busyRows.length, idWidth))))
@@ -1767,7 +1881,7 @@ function admitReady(source: GameState, input: ReplayInput<ReadyPicture>, prepare
   d.external = external.size
   work.pay(5 + LITERAL.sink + 1)
   const sink = new StudioEventSink(branch.week, true), before = branch.operations
-  work.calc(8).pay(initialAdmissionBill(d, work))
+  work.calc(16).pay(initialAdmissionBill(d, branch.operations, work))
   work.pay(4)
   const operations = admissionCall(work, () => addManagedProductionWorkflow(branch.operations,
     planned, external, sink, source.nextSetId > 0))

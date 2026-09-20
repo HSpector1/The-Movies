@@ -1,0 +1,76 @@
+{"sourceSha":"41bc14db9efb2bf52ab263a7d5ea3db4a91b65ad","testedDiffSha256":"afa9d910f86a63112699810232db3b8beaf569cecea1a317fff94386a4cf07d6","untrackedSource":["tests/p14b4-ready-replay-background.test.ts","tests/p14b4-ready-replay-first-take.test.ts"],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14b4-ready-owner-replay.test.ts","tests/p14b4-ready-replay-first-take.test.ts","-t","uses actual source-now employment|executes real Ready-target"],"node":"v20.20.2","start":"2026-09-20T06:23:35.745Z","end":null,"exitCode":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+stderr | tests/p14b4-ready-owner-replay.test.ts > P14B4 source-now Ready operational admission > uses actual source-now employment and freelancer-market facts instead of treating every idle uncontracted actor as available
+P14B4_WORK_LIMIT_283 119979 192157 200000 Error: diagnostic-only
+    at Work.pay (/Users/zacheryspector/The-Movies-headless-program/src/core/promiseCapacityOwnerReplay.ts:228:111)
+    at admitReady (/Users/zacheryspector/The-Movies-headless-program/src/core/promiseCapacityOwnerReplay.ts:1851:40)
+    at replayPlans (/Users/zacheryspector/The-Movies-headless-program/src/core/promiseCapacityOwnerReplay.ts:2014:11)
+    at Module.replayReadyProductionPlans (/Users/zacheryspector/The-Movies-headless-program/src/core/promiseCapacityOwnerReplay.ts:2078:10)
+    at observed (/Users/zacheryspector/The-Movies-headless-program/tests/p14b4-ready-owner-replay.test.ts:148:20)
+    at refusal (/Users/zacheryspector/The-Movies-headless-program/tests/p14b4-ready-owner-replay.test.ts:213:16)
+    at /Users/zacheryspector/The-Movies-headless-program/tests/p14b4-ready-owner-replay.test.ts:411:5
+    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14
+    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11
+    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)
+
+ ❯ |core| tests/p14b4-ready-owner-replay.test.ts (7 tests | 1 failed | 6 skipped) 582ms
+   × P14B4 source-now Ready operational admission > uses actual source-now employment and freelancer-market facts instead of treating every idle uncontracted actor as available 580ms
+     → expected 'workLimit' to be 'commandRefused' // Object.is equality
+stderr | tests/p14b4-ready-replay-first-take.test.ts > P14B4 Ready replay — genuine first completed take > executes real Ready-target director/schedule commands, retains the take inside a half-open horizon and matches actual wrap/holds within the shared cap
+P14B4_WORK_LIMIT_283 131259 159460 200000 Error: diagnostic-only
+    at Work.pay (/Users/zacheryspector/The-Movies-headless-program/src/core/promiseCapacityOwnerReplay.ts:228:111)
+    at frame (/Users/zacheryspector/The-Movies-headless-program/src/core/promiseCapacityOwnerReplay.ts:1328:8)
+    at replayPlans (/Users/zacheryspector/The-Movies-headless-program/src/core/promiseCapacityOwnerReplay.ts:2032:9)
+    at Module.replayReadyProductionPlans (/Users/zacheryspector/The-Movies-headless-program/src/core/promiseCapacityOwnerReplay.ts:2078:10)
+    at /Users/zacheryspector/The-Movies-headless-program/tests/p14b4-ready-replay-first-take.test.ts:205:81
+    at watchOwners (/Users/zacheryspector/The-Movies-headless-program/tests/p14b4-ready-replay-first-take.test.ts:114:25)
+    at /Users/zacheryspector/The-Movies-headless-program/tests/p14b4-ready-replay-first-take.test.ts:205:49
+    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14
+    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11
+    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)
+
+ ❯ |core| tests/p14b4-ready-replay-first-take.test.ts (1 test | 1 failed) 1757ms
+   × P14B4 Ready replay — genuine first completed take > executes real Ready-target director/schedule commands, retains the take inside a half-open horizon and matches actual wrap/holds within the shared cap 1754ms
+     → 276 real first-take Ready replay cut: workLimit: shared replay work limit
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14b4-ready-owner-replay.test.ts > P14B4 source-now Ready operational admission > uses actual source-now employment and freelancer-market facts instead of treating every idle uncontracted actor as available
+AssertionError: expected 'workLimit' to be 'commandRefused' // Object.is equality
+
+Expected: "commandRefused"
+Received: "workLimit"
+
+ ❯ refusal tests/p14b4-ready-owner-replay.test.ts:217:26
+    215|   const attempt = seen.result.attempts[0]!
+    216|   if (attempt.kind !== 'cut') throw new Error('242 refused Ready choic…
+    217|   expect(attempt.reason).toBe('commandRefused')
+       |                          ^
+    218|   expect(attempt.detail).toContain(detail)
+    219|   expect(attempt.provenance.some((row) => row.kind === 'readyAdmitted'…
+ ❯ tests/p14b4-ready-owner-replay.test.ts:411:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL |core|  tests/p14b4-ready-replay-first-take.test.ts > P14B4 Ready replay — genuine first completed take > executes real Ready-target director/schedule commands, retains the take inside a half-open horizon and matches actual wrap/holds within the shared cap
+Error: 276 real first-take Ready replay cut: workLimit: shared replay work limit
+ ❯ tests/p14b4-ready-replay-first-take.test.ts:213:44
+    211|     expect(result.attempts).toHaveLength(1)
+    212|     const attempt = result.attempts[0]!
+    213|     if (attempt.kind !== 'complete') throw new Error(`276 real first-t…
+       |                                            ^
+    214|     expect(result.omissions).toEqual([])
+    215|     expect(checked.calls).toEqual(reference.calls)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+ Test Files  2 failed (2)
+      Tests  2 failed | 6 skipped (8)
+   Start at  08:23:36
+   Duration  4.86s (transform 2.06s, setup 0ms, collect 5.21s, tests 2.34s, environment 1ms, prepare 239ms)
+
+
+{"sourceSha":"41bc14db9efb2bf52ab263a7d5ea3db4a91b65ad","testedDiffSha256":"afa9d910f86a63112699810232db3b8beaf569cecea1a317fff94386a4cf07d6","untrackedSource":["tests/p14b4-ready-replay-background.test.ts","tests/p14b4-ready-replay-first-take.test.ts"],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14b4-ready-owner-replay.test.ts","tests/p14b4-ready-replay-first-take.test.ts","-t","uses actual source-now employment|executes real Ready-target"],"node":"v20.20.2","start":"2026-09-20T06:23:35.745Z","end":"2026-09-20T06:23:41.682Z","exitCode":1,"signal":null,"error":null,"sourceShaAtEnd":"41bc14db9efb2bf52ab263a7d5ea3db4a91b65ad","testedDiffSha256AtEnd":"afa9d910f86a63112699810232db3b8beaf569cecea1a317fff94386a4cf07d6","untrackedSourceAtEnd":["tests/p14b4-ready-replay-background.test.ts","tests/p14b4-ready-replay-first-take.test.ts"],"fixedSource":true}

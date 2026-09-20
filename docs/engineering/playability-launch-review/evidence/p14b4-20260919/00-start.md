@@ -1,5 +1,54 @@
 # P14B.4 — capacity implementation continuation
 
+CURRENT285:ALL271–284CLOSED;267FROZEN/no writer. FULL285 qualifiedcheckpoint
+records280typesPASS/28112PASS1freelancerFAIL/282newlongroutebudgetFAIL;273old26/
+274adjacent137PASS/275soleoldbridgekindTS2353. Allraw/patchesread+rehashverified.
+283/284passivelogsREMOVED, EXACT267source2e8feba7…and280–282patch1b911681…restored.
+Freelancerentry35357+ownerbill192157already>200000beforecalculator; actualcut
+outerpay119979/192157. Longroute cutsw3remaining7beforethirdsweep (131259/159460).
+SimREADONLYRCA/auditorREADONLYlookupconstraintreview,max2/no writer. Nextpublish
+285/exactremote286, thenboundedfixrelease. No cap/metric/refund/testweakening.
+
+CURRENT280:271–275CLOSED/fullrawread/mechanicalfixedpatch410620a2…verified.
+271testtupleTS2322only/UIunreached;27212PASS1freelancerbudgetFAIL;273old26PASS;
+274adjacent137PASS;275soleoldbridgekindTS2353.270sourceKEEPqualified.
+278/279 type-only correction installedEXACT+commenta4b409f9072ba1ed96c2a53bab47cb109024e91c55d1f56fc76d000bd277e960;
+276/277firsttake installedEXACT+comment031c33c7686b255c6ef02f40930d1f05bcf780dc7144abf2528e0c7d9164a875.
+267sourceSTILL2e8feba7…FROZEN;280rootUI36490SOLEruntime; next281Ready13/
+282longfirsttake then283explicitdiagnosticifneeded. SimONLYREADONLYRCA;
+author/auditoridle/NOwriter. No source/HEAD editswhilechecks. Preserveallfailures.
+
+CURRENT271:267 SOURCEFROZEN/writeryielded; parent FULL230line delta+handback read,
+source2e8feba725d9e949762017859bf572a00887d970e25b58ad133c770a1b7ed6fa,
+handback9fe5d4a4211f91e07f854b92b08f0ffc92c7424155df01ef0a9c97d00ff214c8.
+17immutablepins unchanged.268installedEXACT+comment5609beda322ec63c65a8f57e640efa5991e037a12242d44380002decf58918be.
+270auditor READONLY sourcecostreview; sim/authoridle/NOwriter.271rootUI1540SOLE
+runtime; SERIAL272Ready13/273old26/274adjacent137/275bridge next. NOsource/HEAD
+change.276frozen/277KEEP/fullparentread butINERT(notcurrentchecks); separate278+
+after271–275. No numericalacceptance yet; preservepredecessor265failures.
+
+CURRENT277:276 one-case Ready→firsttake draft FROZEN92149a8c5822eb1c246b111f700a2d82edb46fcb902c2f0c29c10cbc127cb8f3,
+briefe6e668db6ed11a16d88ac9742cdb017eb9765202598a540dea8d893f44d86fe5.
+ParentFULLread/pins;277auditor READONLYboundedtestreview, authoridle/max2.
+267sim stillSOLEwriter: corrections/tighterbills saved, finalstaticpass; NOsource
+inspection/runtime untilexplicitfreeze. No usefulnessclaim; freelancerbudgetmay
+remainexpensive—actual271–275willdecide,metric/capunchanged.276laternotinthatset.
+
+CURRENT269/276:268 independent2-case draft FROZENac14a1899e3172cf8d733fb9656784936a6192fe662d033e2bb0940ce6ed20b3,
+brief64d53a402bff8926d0e9c91839536d1424aa15b707efcc74df1fa1a1fe6f9a90;
+parent FULLread/pins,269 qualified KEEP. Installation waits267 sourcefreeze.
+270 immutableowner accountingprep complete/auditoridle; NO267inspection/runtime.
+276author ONLYinert genuine Ready→firstactualtake command draft nextcoverage,
+267sim stillSOLEwriter; max2. Prepared(notrun)271rootUI/272Ready13/273old26/
+274adjacent137/275bridge.276notinthisset. Preserve255findings/265actualfailures.
+
+CURRENT267:265 candidate published in41bc14db9efb2bf52ab263a7d5ea3db4a91b65ad,
+independent EXACTremote266, push85951 CLOSED.267sim NOWSOLEproductionwriter
+ONLYreplay+handback for255fixes/source-proven tighter bills; sourceMUTABLE.
+268author ONLYinert tests; auditoridle/max2. ParentNOmutableinspection/runtime.
+Nextfreeze/FULLread/pins/boundedreview and SERIAL unchanged tests; no cap/refund/
+metric/owner-policy/validator changes.265 failures remain preserved/not accepted.
+
 CURRENT265:249 candidate FROZEN/ALL256–264 CLOSED.256rootUI PASS;2574PASS3actual
 budgetFAIL;258identity1/259commands3/260original26/261adjacent137 PASS.262soleold
 future-P2 kind TS2353.255REFINE2sourcefindings plus usefulness.263/264actualowner

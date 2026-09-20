@@ -1,0 +1,24 @@
+{
+  "sourceSha": "41bc14db9efb2bf52ab263a7d5ea3db4a91b65ad",
+  "testedDiffSha256": "410620a24d7c522f2d54fb12cbc14ba0a9365aad8197e5536f32651797853873",
+  "untrackedSource": [
+    "tests/p14b4-ready-replay-background.test.ts"
+  ],
+  "command": [
+    "npm",
+    "run",
+    "typecheck"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-20T06:15:05.596Z",
+  "end": "2026-09-20T06:15:36.785Z",
+  "exitCode": 2,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "41bc14db9efb2bf52ab263a7d5ea3db4a91b65ad",
+  "testedDiffSha256AtEnd": "410620a24d7c522f2d54fb12cbc14ba0a9365aad8197e5536f32651797853873",
+  "untrackedSourceAtEnd": [
+    "tests/p14b4-ready-replay-background.test.ts"
+  ],
+  "fixedSource": true
+}

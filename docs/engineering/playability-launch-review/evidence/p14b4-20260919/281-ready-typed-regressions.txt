@@ -1,0 +1,46 @@
+{"sourceSha":"41bc14db9efb2bf52ab263a7d5ea3db4a91b65ad","testedDiffSha256":"1b911681ce638998b1f86c127f15f536e5e97aff3ad2ed63ad31b9e18b7e03a3","untrackedSource":["tests/p14b4-ready-replay-background.test.ts","tests/p14b4-ready-replay-first-take.test.ts"],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14b4-ready-owner-replay.test.ts","tests/p14b4-ready-replay-identity.test.ts","tests/p14b4-ready-replay-command.test.ts","tests/p14b4-ready-replay-background.test.ts"],"node":"v20.20.2","start":"2026-09-20T06:22:21.921Z","end":null,"exitCode":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p14b4-ready-replay-identity.test.ts (1 test) 1867ms
+   ✓ P14B4 Ready replay — cancelled identity remains reserved > uses retained sunk-cost identity after same-week real cancel, without resurrecting a calendar or rewriting history 1864ms
+ ✓ |core| tests/p14b4-ready-replay-background.test.ts (2 tests) 2067ms
+   ✓ P14B4 Ready replay — exact diagnostics and independent audition work > preserves the actual unknown-project diagnostic including the supplied identity before admission owners 577ms
+   ✓ P14B4 Ready replay — exact diagnostics and independent audition work > admits Ready A beside B’s genuine active audition, closes its resource-only background before sweep, and never engages audition candidates twice 1487ms
+ ✓ |core| tests/p14b4-ready-replay-command.test.ts (3 tests) 1054ms
+   ✓ P14B4 Ready replay — explicit command boundary > admits first, resolves the Ready-project target to its real new clock, then preserves the actual Development schedule refusal without sweeping 804ms
+ ❯ |core| tests/p14b4-ready-owner-replay.test.ts (7 tests | 1 failed) 4260ms
+   ✓ P14B4 source-now Ready operational admission > admits a genuine Ready beside the whole original slate, preserves opaque original fields, and feeds the same capped kernel 1657ms
+   ✓ P14B4 source-now Ready operational admission > allows independent sibling staffings of the SAME Ready project and SAME would-be identity without cross-branch consumption 1081ms
+   ✓ P14B4 source-now Ready operational admission > refuses occupied source-now Development rather than inventing a queued or later admission; credited writer work is not company occupancy 379ms
+   ✓ P14B4 source-now Ready operational admission > refuses a genuine unfinished audition before allocation and preserves its actual reserved slot 531ms
+   × P14B4 source-now Ready operational admission > uses actual source-now employment and freelancer-market facts instead of treating every idle uncontracted actor as available 159ms
+     → expected 'workLimit' to be 'commandRefused' // Object.is equality
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14b4-ready-owner-replay.test.ts > P14B4 source-now Ready operational admission > uses actual source-now employment and freelancer-market facts instead of treating every idle uncontracted actor as available
+AssertionError: expected 'workLimit' to be 'commandRefused' // Object.is equality
+
+Expected: "commandRefused"
+Received: "workLimit"
+
+ ❯ refusal tests/p14b4-ready-owner-replay.test.ts:217:26
+    215|   const attempt = seen.result.attempts[0]!
+    216|   if (attempt.kind !== 'cut') throw new Error('242 refused Ready choic…
+    217|   expect(attempt.reason).toBe('commandRefused')
+       |                          ^
+    218|   expect(attempt.detail).toContain(detail)
+    219|   expect(attempt.provenance.some((row) => row.kind === 'readyAdmitted'…
+ ❯ tests/p14b4-ready-owner-replay.test.ts:411:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed | 3 passed (4)
+      Tests  1 failed | 12 passed (13)
+   Start at  08:22:22
+   Duration  7.78s (transform 2.52s, setup 0ms, collect 9.30s, tests 9.25s, environment 2ms, prepare 702ms)
+
+
+{"sourceSha":"41bc14db9efb2bf52ab263a7d5ea3db4a91b65ad","testedDiffSha256":"1b911681ce638998b1f86c127f15f536e5e97aff3ad2ed63ad31b9e18b7e03a3","untrackedSource":["tests/p14b4-ready-replay-background.test.ts","tests/p14b4-ready-replay-first-take.test.ts"],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14b4-ready-owner-replay.test.ts","tests/p14b4-ready-replay-identity.test.ts","tests/p14b4-ready-replay-command.test.ts","tests/p14b4-ready-replay-background.test.ts"],"node":"v20.20.2","start":"2026-09-20T06:22:21.921Z","end":"2026-09-20T06:22:31.000Z","exitCode":1,"signal":null,"error":null,"sourceShaAtEnd":"41bc14db9efb2bf52ab263a7d5ea3db4a91b65ad","testedDiffSha256AtEnd":"1b911681ce638998b1f86c127f15f536e5e97aff3ad2ed63ad31b9e18b7e03a3","untrackedSourceAtEnd":["tests/p14b4-ready-replay-background.test.ts","tests/p14b4-ready-replay-first-take.test.ts"],"fixedSource":true}
