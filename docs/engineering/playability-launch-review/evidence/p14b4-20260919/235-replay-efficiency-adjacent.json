@@ -1,0 +1,34 @@
+{
+  "sourceSha": "779e65b6c3710e4fa530d9fbce2aa9a9e245a63a",
+  "testedDiffSha256": "9ab6f00afaf2c9b45454a7d63cd98a18f20c1084109b8f2f1bc55305defc70e4",
+  "untrackedSource": [
+    "tests/p14b4-started-replay-scenery-commands.test.ts"
+  ],
+  "command": [
+    "node_modules/.bin/vitest",
+    "run",
+    "--project",
+    "core",
+    "tests/script-development.test.ts",
+    "tests/casting-sessions-domain.test.ts",
+    "tests/casting-sessions-actions.test.ts",
+    "tests/operations.test.ts",
+    "tests/p14b4-bounded-sort-owners.test.ts",
+    "tests/p14b4-owner-fact-views.test.ts",
+    "tests/p14b4-managed-clock-owner.test.ts",
+    "tests/p14b4-joint-trace.test.ts",
+    "tests/p14b4-joint-trace-mode-extension.test.ts"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-20T04:38:39.640Z",
+  "end": "2026-09-20T04:38:51.914Z",
+  "exitCode": 0,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "779e65b6c3710e4fa530d9fbce2aa9a9e245a63a",
+  "testedDiffSha256AtEnd": "9ab6f00afaf2c9b45454a7d63cd98a18f20c1084109b8f2f1bc55305defc70e4",
+  "untrackedSourceAtEnd": [
+    "tests/p14b4-started-replay-scenery-commands.test.ts"
+  ],
+  "fixedSource": true
+}

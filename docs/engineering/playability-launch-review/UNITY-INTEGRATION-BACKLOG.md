@@ -45,7 +45,11 @@ exhaustion.218 same-module payment/retained-Development correction is underway;
 220 independent two-picture regression is now actualPASS on218, as is the prior
 writing failure.224typingPASS/22523of25PASS; two existing two-pictureH6 replay
 cases now exhaust before kernel.226 proves both real wrap sweeps finish before
-the cut; calculator efficiency correction remains owed. No live capacity or
+the cut.227 calculator efficiency correction is now verified:232rootUItypingPASS,
+233all25PASS including both repaired two-pictureH6/shared-kernel cases under
+unchanged200000;234genuine migrated grandfathercommandPASS;235adjacent98PASS.
+231source/237qualifiedevidenceKEEP.236bridge retains sole known futureP2 kind
+type error. Next Ready/unstarted/livecapacity integration remains. No live capacity or
 consumer readiness follows from partial verification. No
 consumer field/action, generated C#, schema or live version changes
 are authorized in this four-file tranche. Keep capacity explanations tied to the

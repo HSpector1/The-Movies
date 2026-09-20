@@ -1,31 +1,30 @@
 # P14 — Contested Talent Market, Bonds and Promises, Career Lifecycle — headless plan (logic-first)
 
-Current B4 checkpoint228 (2026-09-20):218 SOURCEFROZEN, partial verification.
-Replay41f200bec1eb019e8dce080e5d105bb1cef6cb485faba162496110dbe365031f.
-224 root AND UI typechecks PASS;225 25 cases:23PASS/2 real budget failures.
-Original200 writing8→8→7 and reviewed220 genuine TWO-picture8→8→7 now PASS.
-182 two-pictureH6 parity and kernel-wrapper cases now fail during replay before
-kernel; one-pictureH6 and all other14 original cases PASS. Same200000 cap.
-Bothfixed16119d9+209fdb153310595e748a67c284ea142504043abd5abd5a3a72eefce67350ee61.
-226 transparent diagnostic proves BOTH real2-picture sweeps finish5→4 then4→3,
-with all10 owner events before cut(5,11). Exact unpaid line unobserved. Temporary
-copy removed after byte archive; original five suites untouched. ALLruntimeCLOSED.
-223 KEEP accounting/retention delta; specific213 findings closed/no new concrete
-undercharge identified. Required usefulness remains REFINE.227 fixed-binary
-calculator correction scoped READONLY; ALL specialists IDLE/no writer.
-222 grandfather candidate FROZEN/inert/full parent read; modern transit/pending
-gaps explicit, not a new gate. Next publish review/checkpoint; ONE227 correction,
-freeze/review/rerun unchanged25 cases, compiler and adjacent checks. No cap,
-validator, assertion, timeout, owner or version loosening; no new prerequisites.
+Current B4 checkpoint238 (2026-09-20):227 arithmetic efficiency VERIFIED in
+qualified scope. Replay376eb23874fb9d1a142f58c29ce2f3832c7b7a021f3d2698cf6bbbc349dcfe79.
+232 rootANDUItypingPASS;233 original25PASS;234 genuine migrated-grandfather1PASS;
+235 adjacent98PASS/9files.236 bridge exit2 SOLEunchanged futureP2 kind TS2353.
+ALLfixed779e65b+9ab6f00afaf2c9b45454a7d63cd98a18f20c1084109b8f2f1bc55305defc70e4.
+225 two-pictureH6 failures resolved with unchangedtests/actual sharedkernel and
+200000 cap.200writing/220twoDevelopment remainPASS. Historicalfailed evidence
+preserved.231 source deltaKEEP/237 qualifiedevidenceKEEP; specific213 findings
+CLOSED, not universal mixed-phase coefficient/performance or choice-completeness.
+222 grandfather strict reader/migration/current-save/owner/ledger assertions now
+ACTUALLY reached in234. Modern transit/arrived-pending coverage remains owed.
 
-PublishedHEAD/EXACTremote16119d97426e2fdfb5b19c4d07ba421379be9bdd (219).
-218+later changes uncommitted; raw224/225/226 retain exact protected snapshots.
+ALLruntime/GitCLOSED/sourceFROZEN/NOwriter. SimREADONLY preparing concrete next
+Ready-script whole-slate admission seam; otheragentsidle. Next publish qualified
+checkpoint/verifyremote, independent nexttests then ONEbounded implementation.
+No additional installation/wholeaudit/routinepermission, no test/validator/cap/
+timeout loosening. Futurechoices/liveP2/coherentcutover/fullB4 remainunfinished.
+
+PublishedHEAD/EXACTremote779e65b6c3710e4fa530d9fbce2aa9a9e245a63a (229).
+227+230–238 changes uncommitted; all raw protected source snapshots preserved.
 P14B.1 T4/B2/B3/B-F2 recovered qualified closeouts; do not rebuild/rerun.
-Continue coherentP2/restP14/P15/P16/specifiedP17/P18 without routine permission.
-Save29/rules3/projection46 stay live until coherent cutover. Prior202 bridge
-typing retains sole OLD futureP2 kind TS2353; no full B4/live capacity acceptance.
-Unity/native and Owner acceptance remain deferred; backlog maintained.
-Evidence/p14b4-20260919/00-start.md records ownership/runtime/publication;
+Continue coherentP2/restP14/P15/P16/specifiedP17/P18 under logic-first directive.
+Save29/rules3/projection46 staylive until coherentcutover.
+Unity/native/Owner acceptance deferred; Unity integration backlog maintained.
+Evidence/p14b4-20260919/00-start.md records exactownership/runtime/publication;
 older CURRENT blocks are chronology.
 
 Earlier additive foundation checkpoint: V30 data support implemented and independently

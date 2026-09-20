@@ -1,5 +1,43 @@
 # P14B.4 — capacity implementation continuation
 
+CURRENT238:232rootUItypingPASS/23325PASS/234grandfather1PASS/235adjacent98PASS;
+236SOLEOLDbridgekindTS2353. ALLfixed779e65b+9ab6f00afaf2c9b45454a7d63cd98a18f20c1084109b8f2f1bc55305defc70e4.
+231sourceKEEP/237qualifiedevidenceKEEP;228failuresresolved, same200000+realKernel.
+ALLruntimeCLOSED/227FROZEN/no writer. SimREADONLYnextReadyseam;othersidle.
+Nextpublish238qualifiedcheckpoint/exactremote thenindependentnexttests+ONEwriter.
+No fullB4/liveP2/nativeacceptance; genuinegrandfathercaseactuallypassed.
+
+CURRENT235:233original25PASS;234grandfather1PASS reachesstrictV13/migration/
+currentsave/supportedroots/realcommands/replay.232rootUItypesPASS, allfixed779e65b
++9ab6f00afaf2c9b45454a7d63cd98a18f20c1084109b8f2f1bc55305defc70e4.
+23326974/23439928 CLOSED.235adjacentownersSOLEruntime;227FROZEN/no writer.
+231arithmeticdeltaKEEP. Next235close/236bridge,qualifiedcheckpoint/publication;
+simREADONLYnextReadyseam prep, otheragentsidle. No fullB4/liveP2/native claim.
+
+CURRENT233:232rootANDUItypesPASS/fixedSource:true779e65b+9ab6f00afaf2c9b45454a7d63cd98a18f20c1084109b8f2f1bc55305defc70e4.
+Compiler77217CLOSED;233original25casesSOLEruntime.231arithmeticdeltaKEEP/full
+reviewpersisted. Source227FROZEN/NOwriter;simREADONLYnextReady-admissionprep,
+othersidle. Next233close,234grandfatherseparate,235adjacent/236bridge serial.
+
+CURRENT232:227 SOURCEFROZEN/writeryielded; parentFULLdiff+handbackread/pins.
+Replay376eb23874fb9d1a142f58c29ce2f3832c7b7a021f3d2698cf6bbbc349dcfe79.
+222 installedEXACTdraft+onecomment after230KEEP;original25testsIMMUTABLE.
+231auditorREADONLYboundedcalculator delta;othersidle/NOwriter.232rootUIcompiler
+SOLEruntime, then233original25 and234grandfatherseparate, adjacent/bridgechecks.
+
+CURRENT230-CLOSED: full222 grandfather TESTreviewqualifiedKEEP persisted; parent
+readcomplete211lines/brief, artifact+manifestpins verifiedbyauditor. UNEXECUTED.
+227SOLEwriter stillMUTABLE; otheragentsidle/NOruntime. Nextfreeze/read/pins,
+install222exact+comment andverify original25 +separategrandfathercase serially;
+fixture/admissionfailuresremainexplicit, not a newgate to existingusefulnessfix.
+
+CURRENT229: HEAD/EXACTremote779e65b6c3710e4fa530d9fbce2aa9a9e245a63a published.
+227 SOLEwriter ONLYreplaymodule+handback, MUTABLE/noinspection/runtime.
+230auditorONLYfrozen222grandfather-testreview/immutableowners;authoridle/max2.
+ALLruntime/Gitclosed.223deltaKEEP/22523PASS2realH6budgetFAIL qualified228.
+Next227freeze/fullread/pins, serialtypes/25cases +boundedcostdeltareview, then
+adjacent checks. All218ownerbills/testassertions/200000cap MUSTremain unchanged.
+
 CURRENT223-CLOSED: fullreviewpersisted/KEEP accounting-retentiondelta; specific213
 findingsclosed/no new concreteundercharge. UsefulnessREFINE2252budgetFAIL.227
 READONLY proposalcomplete/fixedbinary arithmetic+tight simpleargument bounds;
