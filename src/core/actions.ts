@@ -139,6 +139,15 @@ import {
 } from './studioEvents.js'
 import { persistedProductionIds } from './productionIdentity.js'
 import {
+  assertGreenlightCraftLead,
+  assertGreenlightStaffingIdle,
+  greenlightFreelancers,
+  requireCommissionableWriter as requireCommissionableWriterFromFacts,
+  requireGreenlightHeader,
+  requireTalent,
+  resolveGreenlightStaffing,
+} from './productionAdmission.js'
+import {
   QueueableCapacityRefusal,
   gateSlotAvailable,
   hasQueuedCastingSession,
@@ -163,7 +172,6 @@ import {
   nextScriptProjectId,
   requestScriptRewrite,
   returnScriptProjectToReady,
-  screenplayFactsMatch,
   scriptOccupiedFacilitySlots,
   scriptProjectWriterIds,
 } from './scriptDevelopment.js'
@@ -232,8 +240,7 @@ import type {
 } from './types.js'
 import { salaryCurve } from './worldgen.js'
 
-// Fixed cast-slot iteration order (determinism: role matching, salary summation,
-// exclusivity checks, and ReceptionInputs.cast assembly all walk this order).
+// Fixed cast-slot iteration order for legacy salary summation.
 const CAST_SLOTS: readonly CastSlot[] = ['lead', 'antagonist', 'support'] as const
 
 // The valid §2 CreativeRole values (createTalent role validation).
@@ -279,41 +286,6 @@ function authoredTalentId(existing: readonly Talent[]): string {
   return id
 }
 
-// Resolve a talent id to its Talent, or throw the loud M16 abort if absent.
-function requireTalent(talent: readonly Talent[], id: string, label: string): Talent {
-  const found = talent.find((t) => t.id === id)
-  if (found === undefined) {
-    throw new Error(`applyActions: ${label} references unknown talent id "${id}"`)
-  }
-  return found
-}
-
-// D-9 / OQ-1 — cross-discipline eligibility. The owner requires cross-discipline
-// careers, so M16's role-TYPE check is RELAXED to a HAS-DISCIPLINE check: a talent
-// is legal for any assignment because every D-9 talent carries all four skill sets
-// (24 skills). This check therefore always passes (it exists as the legality point
-// and a defensive guard that the talent's skills record is well-formed). The M0A
-// candidate generator stays role-partitioned (candidates.ts), so the frozen
-// D-2/economics corpus is unchanged; cross-discipline is exercised via tests +
-// human play only. `role` names the discipline the assignment expects.
-const ROLE_DISCIPLINE: Record<CreativeRole, Discipline> = {
-  writer: 'writing',
-  director: 'directing',
-  actor: 'acting',
-  craft: 'craft',
-  scientist: 'research',
-}
-
-function requireRole(t: Talent, role: CreativeRole, label: string): void {
-  const discipline = ROLE_DISCIPLINE[role]
-  // Has-discipline check: every talent has all four skill sets, so this passes.
-  if (t.skills[discipline] === undefined) {
-    throw new Error(
-      `applyActions: ${label} talent "${t.id}" lacks a "${discipline}" skill profile (has-discipline check)`,
-    )
-  }
-}
-
 // ── greenlight ───────────────────────────────────────────────────────────────
 // Validate (throw on any failure per M16 + B3), then apply. `state` is the
 // evolving state (may already reflect earlier actions in this call). Returns the
@@ -332,43 +304,12 @@ function applyGreenlight(
   const p = prod.production
   const currentTick = state.market.tick
 
-  const scriptProject =
-    scriptProjectId === undefined
-      ? undefined
-      : state.scriptDevelopment.projects.find((project) => project.id === scriptProjectId)
-  if (state.scriptDevelopment.mode === 'managed') {
-    if (scriptProject === undefined || scriptProject.status !== 'ready' || scriptProject.assessment === null) {
-      throw new Error(
-        'applyActions: greenlight rejected — managed studios must greenlight an authoritative Ready script project',
-      )
-    }
-    if (!screenplayFactsMatch(scriptProject, p)) {
-      throw new Error(
-        `applyActions: greenlight rejected — package facts disagree with Ready script project "${scriptProject.id}"`,
-      )
-    }
-    const castingSession = state.castingSessions.sessions.find(
-      (session) => session.projectId === scriptProject.id,
-    )
-    if (
-      state.castingSessions.mode === 'managed' &&
-      castingSession !== undefined &&
-      castingSession.status !== 'complete'
-    ) {
-      throw new Error(
-        `applyActions: greenlightScriptProject rejected — casting session "${castingSession.id}" must be reviewed and acknowledged first`,
-      )
-    }
-  } else if (scriptProjectId !== undefined) {
-    throw new Error(
-      'applyActions: greenlightScriptProject rejected — screenplay development is not managed',
-    )
-  }
-
-  // D-11.2 — no greenlight during the founding draft (assemble a roster first).
-  if (state.founding !== null) {
-    throw new Error('applyActions: greenlight rejected — the studio is still in its founding draft (D-11)')
-  }
+  const { concept, scriptProject } = requireGreenlightHeader({
+    foundingOpen: state.founding !== null,
+    concepts: state.concepts,
+    development: state.scriptDevelopment,
+    casting: state.castingSessions,
+  }, p, scriptProjectId)
 
   // M16.6 / B3 — THE CONCURRENCY CAP IS GONE (C2a-M4, owner law 1). What limits
   // a studio's slate is the rooms it has: this greenlight still has to acquire a
@@ -376,74 +317,11 @@ function applyGreenlight(
   // to the queue instead of throwing it away (§3.3). There is no global counter
   // left to consult.
 
-  // M16.1 — conceptId refers to an existing concept.
-  const concept = state.concepts.find((c) => c.id === p.conceptId)
-  if (concept === undefined) {
-    throw new Error(`applyActions: greenlight references unknown conceptId "${p.conceptId}"`)
-  }
-
-  // M16.4 / M4 — promise.genre must equal concept.genre.
-  if (p.promise.genre !== concept.genre) {
-    throw new Error(
-      `applyActions: greenlight promise.genre "${p.promise.genre}" ≠ concept.genre "${concept.genre}"`,
-    )
-  }
-
-  // M16.2 — role matching. Every referenced id must exist AND have the right role.
-  const writer = requireTalent(state.talent, p.writerId, 'greenlight writerId')
-  requireRole(writer, 'writer', 'greenlight writerId')
-
-  const director = requireTalent(state.talent, p.directorId, 'greenlight directorId')
-  requireRole(director, 'director', 'greenlight directorId')
-
-  const cast = {} as Record<CastSlot, Talent>
-  for (const slot of CAST_SLOTS) {
-    const id = p.cast[slot]
-    const actor = requireTalent(state.talent, id, `greenlight cast.${slot}`)
-    requireRole(actor, 'actor', `greenlight cast.${slot}`)
-    cast[slot] = actor
-  }
-
-  const craftHires: Talent[] = p.craftIds.map((id, i) => {
-    const c = requireTalent(state.talent, id, `greenlight craftIds[${i}]`)
-    requireRole(c, 'craft', `greenlight craftIds[${i}]`)
-    return c
-  })
-
-  // M16.3 — no actor in two slots of the same film (the three cast ids distinct).
-  const castIds = CAST_SLOTS.map((slot) => p.cast[slot])
-  if (new Set(castIds).size !== castIds.length) {
-    throw new Error(
-      `applyActions: greenlight assigns the same actor to more than one cast slot (${castIds.join(', ')})`,
-    )
-  }
-
-  // M16.7 — within-production single-role uniqueness (SETTLED OWNER RULING: "a
-  // talent fills exactly one role in one production" / no simultaneous multi-role
-  // credits this milestone). Cross-discipline eligibility (OQ-1) makes any talent
-  // legal for any assignment, so nothing else stops the SAME id filling two roles
-  // in ONE production (e.g. writerId === cast.lead), which would develop, salary,
-  // and exclusivity-double-count them. Collect every assigned id for this
-  // production in a FIXED order — writerId, directorId, each craftId (array order),
-  // then each cast slot (lead → antagonist → support) — and reject loudly if any
-  // id appears more than once.
-  const roleAssignments: { id: string; role: string }[] = [
-    { id: p.writerId, role: 'writerId' },
-    { id: p.directorId, role: 'directorId' },
-    ...p.craftIds.map((id, i) => ({ id, role: `craftIds[${i}]` })),
-    ...CAST_SLOTS.map((slot) => ({ id: p.cast[slot], role: `cast.${slot}` })),
-  ]
-  const seenRoleById = new Map<string, string>()
-  for (const { id, role } of roleAssignments) {
-    const priorRole = seenRoleById.get(id)
-    if (priorRole !== undefined) {
-      throw new Error(
-        `applyActions: greenlight assigns talent "${id}" to more than one role in the same production ` +
-          `(${priorRole} and ${role}) — a talent fills exactly one role in one production (M16)`,
-      )
-    }
-    seenRoleById.set(id, role)
-  }
+  const staffing = resolveGreenlightStaffing(state.talent, p)
+  const { writer, director, cast } = staffing
+  // ReceptionInputs owns a mutable array type; never cast away the helper's
+  // readonly contract or hand it a caller-owned craft array.
+  const craftHires = [...staffing.craftHires]
 
   // M16.5 — talent exclusivity: none of the ids this greenlight ENGAGES (the
   // director, the three cast, all craft) may already be doing real work — a seat
@@ -456,26 +334,15 @@ function applyGreenlight(
   // screenplay could not be greenlit while its own author wrote the next one,
   // and no legal action could free them. The writer keeps their credit below
   // (`participants`, `production.writerId`) and stays free to draft.
-  // `roleAssignments` above still refuses writerId doubling as a cast/craft seat
+  // Shared staffing validation still refuses writerId doubling as a cast/craft seat
   // IN THIS SAME production (M16.7), so nothing here lets one person hold two
   // jobs on one picture. Writing exclusivity is unchanged: a writer already
   // drafting cannot be commissioned again (`requireCommissionableWriter`).
-  const engagedIds: string[] = [
-    p.directorId,
-    ...castIds,
-    ...p.craftIds,
-  ]
-  // ONE union, from the two shared producers, so this gate and `busyTalentIds`
-  // can never drift apart again.
+  // Share the production/writing owners with `busyTalentIds`, but retain this
+  // gate's narrower scope: no additional industry/research busy categories.
   const busy = activeProductionCompanyTalentIds(state)
   for (const id of activeWritingAssignmentIds(state)) busy.add(id)
-  for (const id of engagedIds) {
-    if (busy.has(id)) {
-      throw new Error(
-        `applyActions: greenlight talent "${id}" is already engaged in an active production (exclusivity, M16)`,
-      )
-    }
-  }
+  assertGreenlightStaffingIdle(staffing.engagedIds, busy)
 
   // ── Apply ──────────────────────────────────────────────────────────────────
   // One allocator serves both preview and apply. Historical persisted ids stay reserved
@@ -539,31 +406,24 @@ function applyGreenlight(
 
   if (economyEngaged(state)) {
     // D-11.13 — every film requires exactly ONE Production/Craft Lead.
-    if (p.craftIds.length !== 1) {
-      throw new Error(
-        `applyActions: greenlight rejected — a film requires exactly one Production/Craft Lead (got ${p.craftIds.length}) (D-11.13)`,
-      )
-    }
+    assertGreenlightCraftLead(p.craftIds.length)
     // D-11.12 — each assigned talent must be Studio-Contracted OR an Available
     // Freelancer. Contracted talent cost nothing at greenlight (payroll covers
     // them, D-11.5); each freelancer costs a one-film fee (a direct project cost,
     // D-11.10), debited and logged separately from payroll.
     const freelancerMarket = new Set(freelancerMarketIds(state))
     // P04A.3 (Owner ruling) — `writer` is deliberately NOT in this list, mirroring
-    // `engagedIds` above (which already excludes `p.writerId` for the same reason,
+    // `staffing.engagedIds` above (which excludes `p.writerId` for the same reason,
     // M16.5/P04A.2). The credited writer of a finished screenplay is not newly
     // staffed labour at greenlight — the credit is permanent and reserves nobody's
     // time — so it is neither gated on D-11.12 contract/freelancer status nor
     // charged the D-11.10 one-film freelancer fee here.
-    const assigned: Talent[] = [director, cast.lead, cast.antagonist, cast.support, ...craftHires]
+    const freelancers = greenlightFreelancers(staffing.engaged, {
+      contractedIds: new Set(staffing.engagedIds.filter((talentId) => isContracted(state, talentId))),
+      freelancerIds: freelancerMarket,
+    })
     let freelancerFees = 0
-    for (const t of assigned) {
-      if (isContracted(state, t.id)) continue // payroll covers contracted talent
-      if (!freelancerMarket.has(t.id)) {
-        throw new Error(
-          `applyActions: greenlight rejected — talent "${t.id}" is neither studio-contracted nor an available freelancer (D-11.12)`,
-        )
-      }
+    for (const t of freelancers) {
       const fee = freelancerFee(state, t)
       freelancerFees += fee
       ledgerAdds.push({
@@ -2071,22 +1931,12 @@ function requireCommissionableWriter(
   writerId: string,
   verb: string,
 ): Talent {
-  if (state.founding !== null) {
-    throw new Error(`applyActions: ${verb} rejected — the studio is still in its founding draft`)
-  }
-  const writer = requireTalent(state.talent, writerId, `${verb} writerId`)
-  requireRole(writer, 'writer', `${verb} writerId`)
-  if (!isContracted(state, writer.id)) {
-    throw new Error(
-      `applyActions: ${verb} rejected — writer "${writer.id}" is not currently studio-contracted`,
-    )
-  }
-  if (busyTalentIds(state).has(writer.id)) {
-    throw new Error(
-      `applyActions: ${verb} rejected — writer "${writer.id}" already has an active assignment`,
-    )
-  }
-  return writer
+  return requireCommissionableWriterFromFacts({
+    foundingOpen: state.founding !== null,
+    talent: state.talent,
+    isCurrentlyContracted: (personId) => isContracted(state, personId),
+    busyIds: () => busyTalentIds(state),
+  }, writerId, verb)
 }
 
 /**

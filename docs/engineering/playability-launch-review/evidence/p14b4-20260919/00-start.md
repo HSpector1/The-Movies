@@ -1,5 +1,38 @@
 # P14B.4 — capacity implementation continuation
 
+CURRENT139: Staffing130 FROZEN/parentreviewed; independent133 KEEP persisted.
+134145PASS/8files;135 root/UI PASS;136 only prior futureP2 kind364TS2353 RED.
+Allfixedtrue5485241+4232e495…; ALLsessions CLOSED, NOproductionwriter.
+Qualified139 complete. Next publish/reverify EXACTremote before any further
+source changes. Tests/source frozen. Sim-core ONLY inert exact replay137;
+test-author ONLY inert skinny-owner-fact tests138; auditoridle/max2specialists.
+Adopted132 scope correction does NOT change126 chronology. No producer code
+authority until exact137 settled; narrowfact RED/extraction is next bounded seam.
+Latestpublished/exactremote5485241 (131). Continue realowner/coherentP2 work.
+
+CURRENT135: Source130 FROZEN; parent read full module/diff/132 and134 full raw.
+134 CLOSED145PASS/8files (new32+old113),13.32s/5.51s bodies, fixedtrue5485241
++ protectedpatch4232e49529bef9878b80b4f690f9900742010297bcd6e3013bf5c6527d798ab8.
+No source/test changes or weakening. SOLE runtime135 root/UI typing session56253;
+all protected files frozen, NO production writer. Auditor133 READ-ONLY source
+review; sim-core ONLY inert exact replay contract137, authoridle/max2specialists.
+132 fullread/adopted: dueDEVslot handoff DURING started-only sweep impossible;
+126 pre-sweep chronology remains law. Use real due-release/sticky other-slot
+control; actual queued same-slot handoff later/outside125. No invented events.
+Next finish135/serial136bridge, independent133, qualified staffing publication
+and exactremote. Then exact137/tests/actualownerproducer, continue coherentP2.
+Latestpublished/exactremote5485241 (131). Older CURRENT blocks are chronology.
+
+CURRENT131:5485241da3326440d68b156bc207fff3c6de3128 PUSHED and separately
+EXACT remote verified01:09:23Z;131publication/129qualified/128KEEP.
+ONE sim-core writer ONLY productionAdmission.ts/actions.ts under118/121,
+handback130 pending. ALLlive tests/other source frozen; NO runtime/sessions.
+Author ONLY inert132 due-background same-slot case constructibility; auditoridle,
+max2. Do not inspect mutable implementation. On130freeze review/serialnew32+
+baseline113/typechecks/boundedsourceaudit thenqualifiedpublication.125/126 owner
+replay not yetready forimplementation: exactAPI/costbound stillowed; preserve
+adoptedchronologycorrection but checkrequestedfixtureagainstactualphasegraph.
+
 CURRENT129:124 exactinstalled8ad6f2bd… (original572lines+onecomment), parent
 fullread/exactbyteasserted.127 CLOSEDexit1/fixedtrue, ONE missingmodule FailedSuite,
 ZERO reachedbodies; NOT32behavioralFAIL.129 disposition preserves exact qualification.

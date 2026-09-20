@@ -1,0 +1,25 @@
+{
+  "sourceSha": "5485241da3326440d68b156bc207fff3c6de3128",
+  "testedDiffSha256": "4232e49529bef9878b80b4f690f9900742010297bcd6e3013bf5c6527d798ab8",
+  "untrackedSource": [
+    "src/core/productionAdmission.ts"
+  ],
+  "command": [
+    "node_modules/.bin/tsc",
+    "--noEmit",
+    "-p",
+    "tsconfig.bridge.json"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-20T01:21:33.967Z",
+  "end": "2026-09-20T01:22:00.594Z",
+  "exitCode": 2,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "5485241da3326440d68b156bc207fff3c6de3128",
+  "testedDiffSha256AtEnd": "4232e49529bef9878b80b4f690f9900742010297bcd6e3013bf5c6527d798ab8",
+  "untrackedSourceAtEnd": [
+    "src/core/productionAdmission.ts"
+  ],
+  "fixedSource": true
+}
