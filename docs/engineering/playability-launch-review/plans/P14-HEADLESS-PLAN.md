@@ -1,31 +1,30 @@
 # P14 — Contested Talent Market, Bonds and Promises, Career Lifecycle — headless plan (logic-first)
 
-Current B4 checkpoint337 (2026-09-20):321 SOURCE FROZEN, all runtime CLOSED.
-BaseHEAD/EXACTremote2d30b768bfd19174ef967f69f70f7ac814600142 (323published).
-326 independent bounded sourceKEEP.327rootUI PASS328lookup5 PASS329ordinary66
-PASS330Ready12PASS3workLimitFAIL331old26 PASS332adjacent137 PASS333sole OLD
-bridgefutureP2kindTS2353. Fullraw/metadata/patchhash/nonoverlap verified.
-Protected327–333patch eeb34ae97490871599a20a7992820864a9b74b329245ca60d04b4c539492c6ac.
-No Ready/B4 acceptance; actual-action fixtures don't substitute for replay.
+Current B4 checkpoint352 (2026-09-20):339 SOURCE FROZEN, allruntimeCLOSED.
+BaseHEAD/EXACTremote3e6836abe84d274ca9aff85d6d54b583b64f0f0b (340published).
+341 independentboundedsourceKEEP.342rootUI343new5/344ordinary66/346old26/
+347adjacent137PASS.345Ready13PASS2workLimitFAIL: FREELANCER NOWFULLY GREEN.
+348soleOLDfutureP2kindTS2353. Fullraw/metadata/patchhash/nonoverlap verified.
+Protected342–348patch8ecc04ef7ae5ac0cc86d015094887607511764936f42a8c560068e659e691a28.
+Source28e7e010c9887709ade1f3010018487931b710fdad1e14282fa5604e0681bc37.
 
-335/336passive logsREMOVED, EXACT321source restored:
-1f5ea6e7a7def99e43fef0649d74744d4e49604bc4dba5f7857fbdd9cf820242.
-Freelancer actualmarket NOWRUNS at197631; unchangedowner116132; calculator
-saves16575 vs324. Latercut199998/request8 beforeactualrefusal.
-Longroute actualdirector/schedule NOWEXECUTE; frame5entry193383,
-dimensiondiscovery193602→197994, thenordercalculator199992/request16 beforetake.
-No replaytake/wrap/output/kernel. Diagnosticdata ONLY attribution, notacceptance.
+350passive logsREMOVED; EXACT339source+testedpatch restored. w5ownerbill850
+prepaid at195958; actualscheduledtakeowner RETURNS andbranchstate updated,
+thenreconcile cuts199945/request103 in sameSubject. BEFOREfirstTakeprovenance/
+calendar/framecompletion/wrap/output/kernel. No complete replay trace orB4claim.
 
-338sim/auditor qualifiedKEEP/adopted nextscope: exactconceptMapaggregate SAMEownerbill;
-320A lazypaidinvocation-local staticdimensions, fullyfreshdynamiccompositions/
-preparedReadygenre/opaquePcopies/methodcomparison. PaidPreparedcell sharedONLY
-staticfacts acrossReady siblings. No339writerrelease yet; allspecialistsidle.
-Allowners/Hollywood/tests/caps/validatorsimmutable. No fitclaim.
-Nextpublish337qualifiedcheckpoint/exactremote340, then339solewriterONLYreplay+
-handback withinadopted338. Afterfreeze fullread/pins/independentreview/serialized
-types/new5/ordinary66/Ready15/old26/adjacent137/bridge, diagnoseactualfailures.
+351auditorqualifiedKEEP minimalnext: prepaid per-expectedfactmatchcount; existing
+firstlive-resource pairpass incrementsBOTHcounts, retains immediate rowmatches1;
+replace secondquadraticscan with original-order expectedcount1 checks. Preserve
+ALLduplicate/missing/stale/membershipdiagnostics andordering; noearlycount>1check.
+SimREADONLYcrosscheckpending; no354writerrelease/runtime. No newindex/globalcache,
+noeventdrain/ledgerownerchanges ormetric/capdiscount.349coverage limitsretained.
+
+Nextadoptfull351/publish352qualifiedcheckpoint/exactremote353, then354SOLEsim
+writerONLYreplay+handback foracceptedboundedjoinchange. AfterfreezeFULLread/pins/
+355review/serializedunchangedcontrols. Preservefailures/diagnoseactualcuts.
 T4/B2/B3/B-F2 qualifiedcloseouts retained; continueB4/remainingP14/P15/P16/
-specifiedP17/P18. Save29/rules3/projection46 remain live untilcoherentcutover.
+specifiedP17/P18. Save29/rules3/projection46 live untilcoherentcutover.
 Unity/native/Owneracceptance deferred; integrationbacklog retained.
 
 Earlier additive foundation checkpoint: V30 data support implemented and independently

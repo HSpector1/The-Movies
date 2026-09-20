@@ -1,0 +1,260 @@
+diff --git a/src/core/promiseCapacityOwnerReplay.ts b/src/core/promiseCapacityOwnerReplay.ts
+index 06c9bf3..941848c 100644
+--- a/src/core/promiseCapacityOwnerReplay.ts
++++ b/src/core/promiseCapacityOwnerReplay.ts
+@@ -155,7 +155,10 @@ const LITERAL = Object.freeze({
+   mount: literalCost('set', 'pathKey'),
+   hold: literalCost('holdId', 'ownerKey', 'ownerPathKey', 'subject', 'from', 'until'),
+   fixedHold: literalCost('holdId', 'ownerKey', 'ownerPathKey', 'subject', 'from', 'until', 'replaceableFrom'),
+-  prepared: literalCost('pictures', 'backgrounds', 'mounts', 'plans', 'fixed', 'now', 'end', 'factRef'),
++  prepared: literalCost('pictures', 'backgrounds', 'mounts', 'plans', 'fixed', 'now', 'end', 'factRef', 'dimensionFacts'),
++  dimensionCell: literalCost('value'),
++  staticDimensions: literalCost('f', 'capacity', 'd', 'adoptions', 'access', 'equipment',
++    'placements', 'structures', 'provides', 'cells'),
+   dimensions: literalCost('n', 'f', 'capacity', 'sets', 'external', 'd', 'dp', 'pCopy',
+     'workflowCopy', 'taskCopy', 'bindingsCopy', 'operationsCopy', 'setCopy', 'setupCopy',
+     'technologyCopy', 'technologyRowCopy', 't', 'adoptions', 'access', 'equipment',
+@@ -397,7 +400,7 @@ type Prepared<P extends StartedPicture> = {
+   pictures: readonly PictureFacts<P>[]; backgrounds: readonly Background[]
+   mounts: readonly { set: StudioSet; pathKey: string }[]
+   plans: readonly ReplayPlan[]; fixed: readonly FixedHold[]
+-  now: Boundary; end: Boundary; factRef: string
++  now: Boundary; end: Boundary; factRef: string; dimensionFacts: DimensionCell
+ }
+ function company<P extends StartedPicture>(productions: readonly P[], work: Work): readonly string[] {
+   // Native Set calls: invocation, string span, all possible equal-key operands.
+@@ -680,9 +683,9 @@ function prepare<P extends StartedPicture>(input: ReplayInput<P>, work: Work,
+     work.pay(2 + LITERAL.resource)
+     hold(mount.pathKey, { kind: 'resource', resourceKey: work.token('mount', issuer, mount.set.mountedOn), slot: 0 })
+   }
+-  work.pay(LITERAL.prepared)
++  work.pay(LITERAL.prepared + LITERAL.dimensionCell + 2)
+   return { pictures, backgrounds, mounts, plans, fixed, now, end,
+-    factRef: work.token('source', issuer, now.week) }
++    factRef: work.token('source', issuer, now.week), dimensionFacts: { value: null } }
+ }
+ 
+ function checkForeignRelevance<P extends StartedPicture>(source: StartedOwnerSource<P>, issuer: string,
+@@ -732,29 +735,95 @@ type Dimensions = {
+   access: number; equipment: number; placements: number; structures: number
+   provides: number; cells: number; genreRows: number; genreId: number; allSilent: boolean
+ }
++type StaticDimensions = Readonly<Pick<Dimensions, 'f' | 'capacity' | 'd' | 'adoptions' |
++  'access' | 'equipment' | 'placements' | 'structures' | 'provides' | 'cells'>>
++type DimensionCell = { value: StaticDimensions | null }
++
++/** Incremental own-string-key discovery, shared by static and dynamic rows. */
++function dimensionStrings<T extends object>(row: T, maximum: number, work: Work): number {
++  work.pay(4)
++  let result = maximum
++  for (const key in row) {
++    work.pay(3 + key.length)
++    if (Object.prototype.hasOwnProperty.call(row, key)) {
++      const value = row[key]
++      if (typeof value === 'string') {
++        work.pay(2); work.text(value)
++        result = Math.max(result, value.length)
++      }
++    }
++  }
++  return result
++}
++
++/** Only roots preserved by EVERY permitted owner/command in this invocation.
++ * No caller records or combined/dynamic Dimensions are retained in the cell. */
++function staticDimensionFacts<P extends StartedPicture>(source: StartedOwnerSource<P>,
++  cell: DimensionCell, work: Work): StaticDimensions {
++  work.pay(8) // cell read, guard, call/return controls on every cold/warm access
++  if (cell.value !== null) return cell.value
++  work.pay(32) // local scalar/reference setup, closure and initial guards
++  let width = 22, capacity = 0, provides = 0, cells = 0
++  const operations = source.operations, technology = source.technology
++  const text = (value: string): void => { work.pay(4); work.text(value); width = Math.max(width, value.length) }
++  if (source.hollywood !== null) text(source.hollywood.playerStudioId)
++  for (const row of operations.facilities) {
++    work.pay(6)
++    width = dimensionStrings(row, width, work)
++    natural(row.capacity, 'facility capacity')
++    capacity = work.calc(8).add(capacity, row.capacity)
++  }
++  for (const row of technology.adoptions) { work.pay(5); width = dimensionStrings(row, width, work) }
++  for (const row of technology.access) { work.pay(5); width = dimensionStrings(row, width, work) }
++  for (const row of technology.equipment) { work.pay(5); width = dimensionStrings(row, width, work) }
++  work.pay(3)
++  const property = propertyOf(source)
++  for (const row of property.structures) {
++    work.pay(4)
++    provides = work.calc(8).add(provides, row.providesFacilityIds.length)
++    for (const id of row.providesFacilityIds) text(id)
++  }
++  for (const row of source.placement.facilities) {
++    work.pay(12)
++    width = dimensionStrings(row, width, work)
++    cells = work.calc(8).add(cells, row.cells.length)
++    if (row.installation !== null && row.installation !== undefined) {
++      work.pay(4)
++      width = dimensionStrings(row.installation, width, work)
++    }
++  }
++  // Publish only AFTER complete paid discovery AND literal construction.
++  work.pay(32 + LITERAL.staticDimensions)
++  const value: StaticDimensions = { f: operations.facilities.length, capacity, d: width,
++    adoptions: technology.adoptions.length, access: technology.access.length,
++    equipment: technology.equipment.length, placements: source.placement.facilities.length,
++    structures: property.structures.length, provides, cells }
++  work.pay(9) // value-key write(6), cell/value references and return
++  cell.value = value
++  return value
++}
++
+ function dimensions<P extends StartedPicture>(source: StartedOwnerSource<P>, productions: readonly P[],
+   operations: StudioOperations, sets: readonly StudioSet[], technology: StudioTechnology,
+-  external: number, work: Work, pictureFacts?: readonly PictureFacts<P>[]): Dimensions {
+-  work.pay(16 + LITERAL.dimensions)
+-  const d: Dimensions = { n: productions.length, f: operations.facilities.length, capacity: 0,
+-    sets: sets.length, external, d: 22, dp: 0, pCopy: 0, workflowCopy: 98, taskCopy: 66,
++  external: number, work: Work, cell: DimensionCell, pictureFacts?: readonly PictureFacts<P>[]): Dimensions {
++  work.pay(4) // static-fact call arguments/result binding
++  const fixed = staticDimensionFacts(source, cell, work)
++  // Fresh literal and scalar field reads/composition EVERY time; never return
++  // the static record as a dynamic branch snapshot. Root copies remain fresh.
++  work.pay(64 + LITERAL.dimensions)
++  const d: Dimensions = { n: productions.length, f: fixed.f, capacity: fixed.capacity,
++    sets: sets.length, external, d: fixed.d, dp: 0, pCopy: 0, workflowCopy: 98, taskCopy: 66,
+     bindingsCopy: 95, operationsCopy: work.copyCost(operations), setCopy: 137, setupCopy: 0,
+     technologyCopy: work.copyCost(technology), technologyRowCopy: 62,
+-    t: technology.productions.length, adoptions: technology.adoptions.length,
+-    access: technology.access.length, equipment: technology.equipment.length,
+-    placements: source.placement.facilities.length, structures: 0, provides: 0,
+-    cells: 0, genreRows: pictureFacts?.length ?? source.studio.activeProductions.length, genreId: 0, allSilent: true }
++    t: technology.productions.length, adoptions: fixed.adoptions, access: fixed.access,
++    equipment: fixed.equipment, placements: fixed.placements, structures: fixed.structures,
++    provides: fixed.provides, cells: fixed.cells,
++    genreRows: pictureFacts?.length ?? source.studio.activeProductions.length, genreId: 0, allSilent: true }
+   const text = (value: string): void => { work.pay(2); work.text(value); d.d = Math.max(d.d, value.length) }
+   const strings = <T extends object>(row: T): void => {
+-    for (const key in row) {
+-      work.pay(3 + key.length)
+-      if (Object.prototype.hasOwnProperty.call(row, key)) {
+-        const value = row[key]
+-        if (typeof value === 'string') text(value)
+-      }
+-    }
++    work.pay(6)
++    d.d = dimensionStrings(row, d.d, work)
+   }
+-  if (source.hollywood !== null) text(source.hollywood.playerStudioId)
+   if (pictureFacts === undefined) {
+     for (const original of source.studio.activeProductions) {
+       work.pay(3); work.text(original.id)
+@@ -771,10 +840,6 @@ function dimensions<P extends StartedPicture>(source: StartedOwnerSource<P>, pro
+     d.dp = Math.max(d.dp, row.id.length)
+     d.pCopy = Math.max(d.pCopy, work.copyCost(row))
+   }
+-  for (const row of operations.facilities) {
+-    work.pay(5); strings(row); natural(row.capacity, 'facility capacity')
+-    d.capacity = work.calc(8).add(d.capacity, row.capacity)
+-  }
+   for (const row of operations.workflows) {
+     work.pay(7); strings(row); strings(row.bindings)
+     d.workflowCopy = Math.max(d.workflowCopy, work.copyCost(row))
+@@ -790,23 +855,7 @@ function dimensions<P extends StartedPicture>(source: StartedOwnerSource<P>, pro
+   for (const row of sets) { work.pay(3); strings(row); d.setCopy = Math.max(d.setCopy, work.copyCost(row)) }
+   for (const row of technology.productions) {
+     work.pay(3); strings(row); d.technologyRowCopy = Math.max(d.technologyRowCopy, work.copyCost(row))
+-    if (row.method !== 'silent') d.allSilent = false
+-  }
+-  for (const row of technology.adoptions) { work.pay(); strings(row) }
+-  for (const row of technology.access) { work.pay(); strings(row) }
+-  for (const row of technology.equipment) { work.pay(); strings(row) }
+-  work.pay(3)
+-  const property = propertyOf(source)
+-  d.structures = property.structures.length
+-  for (const row of property.structures) {
+-    work.pay(4)
+-    d.provides = work.calc(8).add(d.provides, row.providesFacilityIds.length)
+-    for (const id of row.providesFacilityIds) text(id)
+-  }
+-  for (const row of source.placement.facilities) {
+-    work.pay(5); strings(row)
+-    d.cells = work.calc(8).add(d.cells, row.cells.length)
+-    if (row.installation !== null && row.installation !== undefined) strings(row.installation)
++    if (!work.equal(row.method, 'silent')) d.allSilent = false
+   }
+   return d
+ }
+@@ -1368,7 +1417,8 @@ function executeCommand<P extends StartedPicture>(input: ReplayInput<P>, prepare
+   work.pay(8)
+   const production = find(branch.productions, command.productionId, row => row.id, work)
+   if (production === undefined) commandRefused(work, 'production already released in this branch')
+-  const d = dimensions(input.source, branch.productions, branch.operations, branch.sets, branch.technology, 0, work, prepared.pictures)
++  work.pay(2) // shared invocation-local cell access
++  const d = dimensions(input.source, branch.productions, branch.operations, branch.sets, branch.technology, 0, work, prepared.dimensionFacts, prepared.pictures)
+   const before = branch.operations
+   work.pay(5 + LITERAL.sink + 1)
+   const sink = new StudioEventSink(branch.week, true)
+@@ -1466,8 +1516,9 @@ function frame<P extends StartedPicture>(input: ReplayInput<P>, prepared: Prepar
+   for (const key of orderedExternal) { work.pay(2); externalKeyLength = Math.max(externalKeyLength, key.length) }
+   work.pay(work.calc(8).add(3, work.calc(32).times(orderedExternal.length, work.calc(8).keyBill(orderedExternal.length, externalKeyLength))))
+   const external = new Set(orderedExternal)
++  work.pay(2) // shared invocation-local cell access
+   const d = dimensions(input.source, branch.productions, branch.operations, branch.sets,
+-    branch.technology, external.size, work, prepared.pictures)
++    branch.technology, external.size, work, prepared.dimensionFacts, prepared.pictures)
+   work.pay(5 + LITERAL.sink + 1)
+   const arrivalSink = new StudioEventSink(branch.week, true)
+   const beforeArrival = branch.operations
+@@ -1692,7 +1743,7 @@ function searchBill<T>(rows: readonly T[], key: (row: T) => string, needle: stri
+ function freelancerBill(source: GameState, work: Work): number {
+   work.pay(56) // scalar locals, three arrays/initial prefix and closures
+   let writerRows = 0, writerBill = 0, companyRows = 0, indexedRows = 0
+-  let busyChars = 0, conceptChars = 0, titleWidth = 0, conceptMapBill = 0, writerLookupBill = 0, conceptMapCount = 0
++  let busyChars = 0, conceptChars = 0, titleWidth = 0, writerLookupBill = 0, conceptMapCount = 0
+   let contractBill = 0, researchSeats = 0, statusBill = 0
+   let talentChars = 0, queryCount = 0, queryChars = 0
+   const busyPeople: string[] = [], contractPrefix = [6]
+@@ -1746,12 +1797,19 @@ function freelancerBill(source: GameState, work: Work): number {
+   for (const concept of source.concepts) {
+     work.pay(16) // visit, text-call arguments, max-title update and prefix count
+     work.text(concept.id); work.text(concept.title)
+-    conceptMapBill = work.calc(32).add(conceptMapBill,
+-      work.calc(16).add(10, work.calc(16).keySpanBill(conceptMapCount, conceptChars, concept.id.length)))
+     conceptChars = work.calc(8).add(conceptChars, concept.id.length)
+     titleWidth = Math.max(titleWidth, concept.title.length)
+     conceptMapCount++
+   }
++  // EXACT sum of the previous growing-prefix Map insertion prices:
++  // sum(10+K(i,priorChars,idLength)) =10N+N(N+1)/2+N*totalChars.
++  // Count EVERY original row. Halve the even factor before saturation.
++  work.pay(16)
++  const conceptPairs = conceptMapCount % 2 === 0
++    ? work.calc(16).times(conceptMapCount / 2, conceptMapCount + 1)
++    : work.calc(16).times(conceptMapCount, (conceptMapCount + 1) / 2)
++  const conceptMapBill = work.calc(32).plus(work.calc(8).times(10, conceptMapCount),
++    conceptPairs, work.calc(8).times(conceptMapCount, conceptChars))
+   const countCompany = (rows: readonly StartedPicture[]): void => {
+     work.pay(3)
+     for (const row of rows) {
+@@ -2113,7 +2171,8 @@ function admitReady(source: GameState, input: ReplayInput<ReadyPicture>, prepare
+     craftIds: [...choice.craftIds], startTick: prepared.now.week, remainingTicks: TUNING.PRODUCTION_TICKS }
+   work.calc(16).pay(3 + 2 * branch.productions.length)
+   const productions = [...branch.productions, planned]
+-  const d = dimensions(source, productions, branch.operations, branch.sets, branch.technology, 0, work)
++  work.pay(2) // shared invocation-local cell access; no discovery before admission
++  const d = dimensions(source, productions, branch.operations, branch.sets, branch.technology, 0, work, prepared.dimensionFacts)
+   work.calc(8).pay(readyOccupancyBill(source, d, work))
+   const scriptSlots = scriptOccupiedFacilitySlots(source.scriptDevelopment)
+   const castingSlots = castingOccupiedFacilitySlots(source.castingSessions)
+@@ -2152,10 +2211,10 @@ function admitReady(source: GameState, input: ReplayInput<ReadyPicture>, prepare
+   const picture: PictureFacts<ReadyPicture> = { production: planned, workflow, people: staffing.engagedIds,
+     genre: header.concept.genre, historicallyFilmed: false,
+     pathKey: work.token('screenplay', input.issuerId, project.id), greenlight: at }
+-  work.calc(32).pay(24 + LITERAL.prepared + 3 + 2 * prepared.pictures.length)
++  work.calc(32).pay(26 + LITERAL.prepared + 3 + 2 * prepared.pictures.length)
+   const branchPrepared: Prepared<ReadyPicture> = { pictures: [...prepared.pictures, picture],
+     backgrounds: prepared.backgrounds, mounts: prepared.mounts, plans: prepared.plans, fixed: prepared.fixed,
+-    now: prepared.now, end: prepared.end, factRef: prepared.factRef }
++    now: prepared.now, end: prepared.end, factRef: prepared.factRef, dimensionFacts: prepared.dimensionFacts }
+   work.pay(LITERAL.calendar + APPEND)
+   branch.calendars.push({ productionId: id, firstTake: null, personRelease: null })
+   for (const personId of staffing.engagedIds) {
