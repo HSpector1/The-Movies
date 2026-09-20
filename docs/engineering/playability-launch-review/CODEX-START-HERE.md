@@ -2,37 +2,38 @@
 
 ## Current engineering checkpoint — 2026-09-20
 
-Current B4 checkpoint449 (2026-09-20):438source/test FROZEN; NOwriter/runtime.
-Base/last verified remote94a7d09e350fab3789d1a26b366baaf806b2be3a.
-Publish438+437/evidence next,450 independent exactremote receipt; thenCONTINUE.
-Replay083e96b220dc582f75385532718e36fd6494a6b7e570e810854de46fef5a197b.
-Ready437test5e2f28239e675f62d4f057eef609162ef6292cc86fc87d449d406840fd54e057
-(one131-lineadditivecase, alloriginallines/caps/validators unchanged).
-Testedprotectedpatch405760fce635d79631abfd12dfbf1053c4968398575edd290f727c64db6e8d02.
-437design/439actualsource qualifiedKEEP. Full438implementationhandback retained.
-437baseline8PASS onunchanged424;443newH3/H4fullparity alsoPASS on438.
+Current B4 checkpoint463 (2026-09-20):452SOURCE+451test FROZEN; NOwriter/runtime.
+Base/lastverifiedremote ba1a0ba1f0164dfd8a1c86312c6daf6ae5856e06.
+Publish452+451/evidence/Unitybacklog then464exactremote receipt; CONTINUE.
+Replaya1761d8e14d744f28f6a4b3dd66c26fbf9f6db30183f31edcdd8c5abb2caa7e8.
+Handback5a987c5d6013c067c3d0273758d04f70d7dfc5aae81501f73c2611a1501ee8a9.
+Readytest0e1a25ed6e9b5c1c88d8e4459845636ca7caef6e131f78ff823c5d3cc542f864.
+451one111-lineadditiveblockedSetcase over608-line437; alloriginallinespreserved.
+Protectedpatchdf292325266a0c7cd168de6af4dbe2b63f557f19ee01ba7d81759ed3b182e1bb.
+451design/actualtestKEEP; unchanged438baseline9PASS;453actual452sourceKEEP.
 
-440root/UI,441lookup5,442ordinary66,444started27,445adjacent137,447facts2PASS.
-443Ready14PASS2originalworkLimitFAIL;446soleOLDfutureP2kindTS2353test364.
-All440–447 CLOSED/fixedSource:true/exactbase+patch/nonoverlapchecked; FULLrawread.
-Post3→2→1 and freelancer/siblingfreshness remainGREEN. No fullReady/B4acceptance.
-448fivepassiveprobes REMOVED; exact438+437+wholeprotectedpatchRESTORED/pinsverified.
-448firsttake nowreaches completeTrace, cuts199967/request281 Work.token.
-Stale reachesweek7/rem3entry199771, cutsdimensions199998/request6 BEFOREPostowner.
-Bothwrapowners/drain/reconcile complete; laterrequiredproofsUNREACHED.
-Bills7/6/wrap17098/8905/7948 (prior18412/9562/12076); extra controls/calcs PAID.
-No numericalfit claim. Allactualfailures/evidence preserved.
+454root/UI,455lookup5,456ordinary66,458started27,459adjacent137,461facts2PASS.
+457Ready15PASS2originalbudgetFAIL;460soleOLDfutureP2kindTS2353test364.
+All454–461CLOSED/fixedSource:true/exactbase+patch/nonoverlapchecked/FULLrawread.
+No-Set/earlyReady/Post/freelancer/siblingcontrols GREEN, no fullReady/B4acceptance.
+462fivepassivelogsREMOVED; EXACT452+451+protectedpatch restored/17pinsverified.
+Remaining7bill17098→9587; allproof/forwardingchargespaid. Specificstaleweek7entry
+199771→192778 saves6993 measuredprefixunits, notwholefit/universalclaim.
+Firsttakecut197387/request11361 inadditionalHolds bounded-sort reserve.
+Stalew7Post3bill576at199898; complete-sweepreserve cuts199998/request673 BEFOREowner.
+Latertrace/projection/kernel orPostexit/commit/release/stalerefusal proofsUNREACHED.
 
-Next450publication,451bounded7-success direction/adoption and additivegenuine
-no-Setcontrol (actualstrikeSet beforeadmission; retiredmountedOn mustnotcertify).
-AuthorREADONLY proposalavailable, noedit/runtime. Independentbaselinebeforewriter.
-OptionalSetproof currentbranch.sets+actualsetIsUsable, onlybool/nochosenidentity,
-failedproof2attempts, successful7oneattempt, allfullownersearches/reserves retained.
-Sim+auditorread-onlydesignKEEP; NOTadopted/implemented yet. Exactpayments451,
-ONE452sourcewriter onlyaftertestbaseline/adoption,453review,454+freshserialgates.
-Output-onlypaidmonotonicity/freshcopy/fallback alsoREADONLY/NOTadopted;
-inputcanonicalization unchanged. GeneralkeyBilllastcacheREJECTED434.
-No writer/runtime; max2specialists. Continueengineering beyondcheckpoint.
+Next464publication then465output-onlypaidmonotonicity/freshcopy/fullsortfallback
+direction/testbaseline. Sim+auditorprospectiveKEEP, NOTyetadopted/implemented.
+FouroutputsitesONLY, preserveinputcanonicalization/oldsorted/allprices,
+pureexistingcallbacks/actualstringspan/fresharray0/1; inversionfullfallbackand
+precheckpaid/no refund, so unsortedmoreexpensive. Cannotaloneresolvestaleprefix.
+AuthorREADONLYaddonlyorder/freshnessassertions inexistingReadybackground,
+startedbackground andReadySAMEsiblings/zeroOffset; no newfixture/replay.
+Multi-keycompletedbackground ordering stilluncovered; don'tclaimotherwise.
+Onlyafter465writtenreview/adoption/independentbaseline releaseONE466writer,
+467actualreview,468+freshSERIALmatrix. No probes/cache/caprelaxation.
+Unitybacklogupdated; no consumer/versionchange. Continuebeyondcheckpoint.
 T4/B2/B3/B-F2closeoutsstand; Save29/rules3/projection46 liveuntilcoherentcutover.
 Unity/native/Owneracceptance deferred/integrationbacklogretained.
 

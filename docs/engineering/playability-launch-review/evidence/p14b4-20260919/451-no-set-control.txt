@@ -1,0 +1,21 @@
+{"sourceSha":"ba1a0ba1f0164dfd8a1c86312c6daf6ae5856e06","testedDiffSha256":"58addbbc740124e2e439fc8fde5d646eea43a1e740ff1280ed50a1793a69cc0e","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14b4-ready-owner-replay.test.ts"],"node":"v20.20.2","start":"2026-09-20T10:57:22.560Z","end":null,"exitCode":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p14b4-ready-owner-replay.test.ts (9 tests) 5661ms
+   ✓ P14B4 source-now Ready operational admission > admits a genuine Ready beside the whole original slate, preserves opaque original fields, and feeds the same capped kernel 1263ms
+   ✓ P14B4 source-now Ready operational admission > returns complete Ready rehearsal and unassigned Shooting projections before any take command 1459ms
+   ✓ P14B4 source-now Ready operational admission > returns the genuine no-Set rehearsal blocker after real strikes without treating retired mounting history as usable 838ms
+   ✓ P14B4 source-now Ready operational admission > allows independent sibling staffings of the SAME Ready project and SAME would-be identity without cross-branch consumption 671ms
+   ✓ P14B4 source-now Ready operational admission > refuses occupied source-now Development rather than inventing a queued or later admission; credited writer work is not company occupancy 314ms
+   ✓ P14B4 source-now Ready operational admission > refuses a genuine unfinished audition before allocation and preserves its actual reserved slot 456ms
+   ✓ P14B4 source-now Ready operational admission > refuses a genuinely already-linked project, not legal reuse across independent sibling plans 357ms
+
+ Test Files  1 passed (1)
+      Tests  9 passed (9)
+   Start at  12:57:23
+   Duration  10.59s (transform 3.07s, setup 0ms, collect 4.10s, tests 5.66s, environment 0ms, prepare 145ms)
+
+
+{"sourceSha":"ba1a0ba1f0164dfd8a1c86312c6daf6ae5856e06","testedDiffSha256":"58addbbc740124e2e439fc8fde5d646eea43a1e740ff1280ed50a1793a69cc0e","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14b4-ready-owner-replay.test.ts"],"node":"v20.20.2","start":"2026-09-20T10:57:22.560Z","end":"2026-09-20T10:57:34.515Z","exitCode":0,"signal":null,"error":null,"sourceShaAtEnd":"ba1a0ba1f0164dfd8a1c86312c6daf6ae5856e06","testedDiffSha256AtEnd":"58addbbc740124e2e439fc8fde5d646eea43a1e740ff1280ed50a1793a69cc0e","untrackedSourceAtEnd":[],"fixedSource":true}

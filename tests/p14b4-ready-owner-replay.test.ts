@@ -452,6 +452,117 @@ describe('P14B4 source-now Ready operational admission', () => {
     }
   })
 
+  it('returns the genuine no-Set rehearsal blocker after real strikes without treating retired mounting history as usable', () => {
+    // 451 retained-property control: public actions retire the real Sets; their
+    // historical mountedOn fields are deliberately NOT erased or rewritten.
+    const { state, payload, writerId } = baseReady(), originalBefore = clone(state)
+    const choice = choiceOf(payload), standing = state.sets.filter((row) => row.status === 'standing')
+    expect(standing).toHaveLength(2)
+    for (const set of standing) {
+      expect(set.condition).toBeGreaterThan(0)
+      expect(state.operations.facilities.some((row) => row.id === set.mountedOn &&
+        row.capability === 'soundstage' && row.capacity > 0)).toBe(true)
+    }
+    const source = applyActions(state, standing.map((set) => ({ kind: 'strikeSet' as const, setId: set.id })))
+    supported(source, choice)
+    expect(source.sets).toHaveLength(state.sets.length)
+    expect(source.sets.filter((row) => row.status === 'standing' || row.status === 'under-construction')).toEqual([])
+    for (const set of standing) {
+      const retired = source.sets.find((row) => row.id === set.id)
+      expect(retired).toEqual({ ...set, status: 'retired', completesWeek: null })
+      expect(retired?.mountedOn).toBe(set.mountedOn)
+      expect(retired?.mountedOn).not.toBeNull()
+    }
+    const sourceBefore = clone(source), base = input(source, choice, '451-no-usable-set')
+    const own = base.issuerId, now = source.market.tick, horizon = now + 3
+    const immediate = applyActions(source, [{ kind: 'greenlightScriptProject', production: payload }])
+    supported(immediate, choice)
+    expect(immediate.studio.activeProductions).toHaveLength(1)
+    const production = immediate.studio.activeProductions[0]!, productionId = production.id
+    expect(production).toMatchObject({ startTick: now, remainingTicks: 8 })
+    expect(ids(production)).toHaveLength(5)
+    expect(new Set(ids(production)).size).toBe(5)
+    expect(ids(production)).not.toContain(writerId)
+    const initialWorkflow = immediate.operations.workflows.find((row) => row.productionId === productionId)
+    assert.ok(initialWorkflow)
+    expect(initialWorkflow.reservations).toHaveLength(1)
+    const development = initialWorkflow.reservations[0]!
+    expect(development.capability).toBe('development-casting')
+    const frames: GameState[] = []
+    let real = immediate
+    for (let index = 0; index < 3; index++) {
+      real = tick(real)
+      supported(real, choice) // strict save plus every original root/foreign guard
+      frames.push(real)
+    }
+    expect(frames.map((row) => row.studio.activeProductions.map((p) => p.remainingTicks))).toEqual([[8], [7], [7]])
+    expect(frames[1]!.operations.workflows[0]?.reservations).toEqual([{ ...development, phase: 'preProduction' }])
+    const blocked = real.operations.workflows.find((row) => row.productionId === productionId)
+    assert.ok(blocked)
+    expect(blocked).toMatchObject({ phase: 'preProduction', reservations: [], shootingTask: null,
+      blocker: { kind: 'set-unavailable', targetPhase: 'rehearsal' },
+      bindings: { stageFacilityId: null, setId: null } })
+    expect(real.market.tick).toBe(horizon)
+    expect(real.firstTakes.filter((row) => row.studioId === own && row.productionId === productionId)).toEqual([])
+    const referencesBefore = clone([immediate, ...frames])
+    const { result, attempt, calls } = completed({ ...base, horizonEndWeek: horizon })
+    parity(attempt, source, immediate, real, payload.projectId)
+    const { productions: _sourceRows, ...sourceTechnology } = source.technology
+    const { productions: _projectedRows, ...projectedTechnology } = attempt.projection.technology
+    expect(projectedTechnology).toEqual(sourceTechnology)
+    expect(attempt.projection.sets).toEqual(source.sets)
+    expect(calls).toEqual(frames.map((frame, index) => ({ week: now + index, ids: [productionId],
+      before: (index === 0 ? immediate : frames[index - 1]!).studio.activeProductions.map((row) => row.remainingTicks),
+      after: frame.studio.activeProductions.map((row) => row.remainingTicks),
+    })))
+    const events = attempt.provenance.filter((row) => row.kind === 'ownerEvent')
+    const realEvents = real.studioEvents.rows.filter((row) => row.seq >= source.studioEvents.nextSeq)
+    expect(events.map((row) => ({ week: row.ownerWeek, draft: row.draft })))
+      .toEqual(realEvents.map(({ seq: _seq, week, ...draft }) => ({ week, draft })))
+    expect(events.flatMap((row) => row.draft.kind === 'phaseEntered' ? [row.draft.phase] : []))
+      .toEqual(['development', 'preProduction'])
+    expect(events.filter((row) => row.draft.kind === 'wrapped')).toEqual([])
+    expect(attempt.provenance.filter((row) => row.kind === 'command' || row.kind === 'firstTake' || row.kind === 'releaseAdmitted')).toEqual([])
+    const picturePath = path('screenplay', own, payload.projectId)
+    expect(attempt.trace.paths).toHaveLength(1)
+    expect(attempt.trace.paths[0]).toMatchObject({ kind: 'jointTracePicture', pathKey: picturePath,
+      existingPath: true, cast: choice.cast, greenlight: { week: now, step: 1 },
+      firstTake: null, personRelease: null, additionalHolds: [], holdReplacements: [] })
+    expect(result.fixedHolds).toEqual([]) // retired mounts are history, not occupancy
+    expect(attempt.trace.fixedHoldReplacements).toEqual([])
+    const holds = attempt.trace.additionalHolds
+    expect(holds).toHaveLength(ids(production).length + 1)
+    expect(holds.every((row) => row.ownerPathKey === picturePath)).toBe(true)
+    expect(new Set(holds.map((row) => row.holdId)).size).toBe(holds.length)
+    const people = holds.filter((row) => row.subject.kind === 'person')
+    expect(people.flatMap((row) => row.subject.kind === 'person' ? [row.subject.personId] : []).sort()).toEqual(ids(production).sort())
+    for (const hold of people) {
+      expect(hold.from).toEqual({ week: now, step: 1 })
+      expect(hold.until).toEqual({ week: horizon, step: 0 })
+    }
+    const resources = holds.filter((row) => row.subject.kind === 'resource')
+    expect(resources).toHaveLength(1) // no phantom stage, Set or mount acquisition
+    expect(resources[0]!.subject).toEqual({ kind: 'resource',
+      resourceKey: path('facility', own, development.facilityId), slot: development.slot })
+    const grants = events.filter((row) => row.draft.kind === 'reservationGranted')
+    const releases = events.filter((row) => row.draft.kind === 'reservationReleased')
+    expect(grants).toHaveLength(1)
+    expect(releases).toHaveLength(1)
+    expect(grants[0]!.draft).toEqual({ kind: 'reservationGranted', ownerId: productionId,
+      resourceKey: `${development.facilityId}:${development.slot}` })
+    expect(releases[0]!.draft).toEqual({ kind: 'reservationReleased', ownerId: productionId,
+      resourceKey: `${development.facilityId}:${development.slot}` })
+    expect(releases[0]!.at.week).toBe(now + 2)
+    const finalSweep = attempt.provenance.find((row) => row.kind === 'sweepStarted' && row.at.week === now + 2)
+    assert.ok(finalSweep)
+    expect(releases[0]!.at.step).toBeGreaterThan(finalSweep.at.step)
+    expect(resources[0]!.from).toEqual(grants[0]!.at)
+    expect(resources[0]!.until).toEqual(releases[0]!.at)
+    expect([immediate, ...frames]).toEqual(referencesBefore)
+    expect(source).toEqual(sourceBefore)
+    expect(state).toEqual(originalBefore)
+  })
+
   it('allows independent sibling staffings of the SAME Ready project and SAME would-be identity without cross-branch consumption', () => {
     const { state, payload } = baseReady(), first = choiceOf(payload)
     const second: Choice = { ...first, cast: { ...first.cast, lead: first.cast.antagonist, antagonist: first.cast.lead } }

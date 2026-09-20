@@ -1,0 +1,22 @@
+{
+  "sourceSha": "ba1a0ba1f0164dfd8a1c86312c6daf6ae5856e06",
+  "testedDiffSha256": "df292325266a0c7cd168de6af4dbe2b63f557f19ee01ba7d81759ed3b182e1bb",
+  "untrackedSource": [],
+  "command": [
+    "node_modules/.bin/vitest",
+    "run",
+    "--project",
+    "core",
+    "tests/p14b4-bounded-employment-lookup.test.ts"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-20T11:04:22.262Z",
+  "end": "2026-09-20T11:04:29.877Z",
+  "exitCode": 0,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "ba1a0ba1f0164dfd8a1c86312c6daf6ae5856e06",
+  "testedDiffSha256AtEnd": "df292325266a0c7cd168de6af4dbe2b63f557f19ee01ba7d81759ed3b182e1bb",
+  "untrackedSourceAtEnd": [],
+  "fixedSource": true
+}

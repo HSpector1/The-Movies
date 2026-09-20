@@ -23,6 +23,23 @@ verified in Unity. Generated C# produced by the TypeScript generator is text, no
 
 ### P14B.4 — cast-class promises (implementation active; no native verification)
 
+Latest headless checkpoint2026-09-20: `ba1a0ba1f0164dfd8a1c86312c6daf6ae5856e06`
+is published/exactremote verified (evidence449/450). Detached Ready replay now
+has genuine complete rehearsal/unassigned Shooting controls; genuine started
+Post retention/release also passes. Focused gates440–447:251PASS, two unchanged
+longReady work-limit failures; root/UI typesPASS, sole futureP2 bridge-type error.
+Whole Ready first-take/stale-route completion and live feasibility integration
+remain OPEN. Evidence448 locates firsttake at output construction and stale at
+next Post-frame dimensions; neither cut certifies the unreturned projection.
+
+These are private logic/work-accounting changes only. No consumer field/action,
+protocol4, projection46, live Save29, evaluator3, schema or generated C# changed.
+Do not expose partial traces as certified offers, impossible schedules or broken
+promises. Existing future projection47/Save30/class-selection/refusal/intent and
+native integration obligations below remain unchanged. Handwritten Unity,
+compilation/rendering/native UI/UX and Owner acceptance remain deferred.
+
+
 Headless foundation update2026-09-20: staffing/fact interfaces, detached joint-trace
 kernel and shared bounded real-owner sorting are implemented in qualified slices.
 Latest sort evidence174:55targetedPASS/rootUItypingPASS; bridge typing retains

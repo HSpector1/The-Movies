@@ -27,7 +27,7 @@ import { sceneryLoadInDecision, type SceneryLoadInFacts } from './sceneryLoadIn.
 import { linkScriptProjectToProduction, scriptOccupiedFacilitySlots, scriptProjectWriterIds,
   scriptWorkDueAt } from './scriptDevelopment.js'
 import { TUNING } from './tuning.js'
-import { depleteSetNoveltyForRelease } from './sets.js'
+import { depleteSetNoveltyForRelease, setIsUsable } from './sets.js'
 import { StudioEventSink, type StudioEventDraft } from './studioEvents.js'
 import {
   createProductionTechnologyPolicy, type ProductionTechnologyFacts,
@@ -1136,10 +1136,30 @@ function smallTransitionBill(d: Dimensions, before: number, after: number, emitt
     work.calc(16).times(emitted, LITERAL.reservationEvent + LITERAL.stampedEvent + APPEND + 5))
 }
 
+/** Boolean-only fact proof under the caller's sole-workflow/silent/empty-external
+ * guards. The actual allocator still chooses and binds its own stage and Set. */
+function hasUsableRehearsalSet(operations: StudioOperations, sets: readonly StudioSet[], work: Work): boolean {
+  work.pay(8)
+  for (const facility of operations.facilities) {
+    work.pay(32)
+    if (!work.equal(facility.capability, 'soundstage') || facility.capacity <= 0) continue
+    work.pay(4)
+    for (const set of sets) {
+      work.pay(32)
+      if (set.mountedOn === null || !work.equal(set.mountedOn, facility.id)) continue
+      work.pay(16)
+      work.pay(work.calc(16).add(20, work.calc(8).add(9, set.status.length)))
+      if (setIsUsable(set)) return true
+    }
+  }
+  work.pay(2)
+  return false
+}
+
 /** A price for the unchanged ONE-picture owner, not a forecast or a new gate.
  * Other slates, sound choices and live setup work keep the general bound. */
 function singleEarlySweepBill<P extends StartedPicture>(d: Dimensions, productions: readonly P[],
-  operations: StudioOperations, week: number, work: Work): number | null {
+  operations: StudioOperations, week: number, sets: readonly StudioSet[], work: Work): number | null {
   work.pay(20)
   if (d.n !== 1 || operations.workflows.length !== 1 || !d.allSilent) return null
   work.pay(40)
@@ -1175,6 +1195,12 @@ function singleEarlySweepBill<P extends StartedPicture>(d: Dimensions, productio
     } else if (work.equal(facility.capability, 'set-scenery')) {
       sceneryCapacity = work.calc(8).add(sceneryCapacity, facility.capacity)
     }
+  }
+  work.pay(20)
+  let rehearsalSuccess = false
+  if (!shooting && d.external === 0) {
+    work.pay(12)
+    rehearsalSuccess = hasUsableRehearsalSet(operations, sets, work)
   }
   work.pay(40)
   const text = work.calc(8).equality(d.d), pid = work.calc(8).equality(d.dp)
@@ -1244,8 +1270,9 @@ function singleEarlySweepBill<P extends StartedPicture>(d: Dimensions, productio
   // a failed first attempt cannot become a success on that retry. At 6 no
   // resource is ever released. Thus both cases have at most TWO outer visits.
   const release = work.calc(32).plus(40, 4 * capabilityText, 2 * capabilityKey, LITERAL.phaseRelease, 6)
+  work.pay(8) // additional boolean selection; the original selector stays paid
   work.pay(8)
-  const attempts = shooting ? 1 : 2
+  const attempts = shooting || rehearsalSuccess ? 1 : 2
   const entries = work.calc(16).times(attempts, work.calc(64).plus(release, allocation, 60,
     LITERAL.phaseEntry, d.workflowCopy, LITERAL.phaseWorkflowOverrides, update))
   work.pay(6)
@@ -1296,7 +1323,7 @@ function singlePostExitProof<P extends StartedPicture>(d: Dimensions, production
 }
 
 function sweepBill<P extends StartedPicture>(d: Dimensions, productions: readonly P[],
-  operations: StudioOperations, week: number, commitments: ReadonlySet<string>, work: Work): number {
+  operations: StudioOperations, week: number, commitments: ReadonlySet<string>, sets: readonly StudioSet[], work: Work): number {
   work.pay(6)
   let restricted = true, wrapOnly = productions.length > 0
   for (const production of productions) {
@@ -1306,7 +1333,8 @@ function sweepBill<P extends StartedPicture>(d: Dimensions, productions: readonl
   }
   if (restricted) return restrictedSweepBill(d, productions, operations, week, commitments, work)
   work.pay(20)
-  const singleEarly = singleEarlySweepBill(d, productions, operations, week, work)
+  work.pay(4) // current Sets reference argument/binding, additional to caller20
+  const singleEarly = singleEarlySweepBill(d, productions, operations, week, sets, work)
   if (singleEarly !== null) return singleEarly
   work.pay(8) // proof arguments, invocation and local result binding
   const singlePostExit = singlePostExitProof(d, productions, operations, week, work)
@@ -1772,7 +1800,8 @@ function frame<P extends StartedPicture>(input: ReplayInput<P>, prepared: Prepar
     3 + work.calc(8).keyBill(branch.releaseAuthority.commitments.length, committedLength))))
   const committed = committedReleaseIds(branch.releaseAuthority)
   const before = branch.operations
-  const bill = sweepBill(d, branch.productions, branch.operations, branch.week, committed, work)
+  work.pay(6) // current branch Sets read, argument and callee binding
+  const bill = sweepBill(d, branch.productions, branch.operations, branch.week, committed, branch.sets, work)
   // Reserve observation, sink, binding/callback literals and complete owner work
   // together: an exhaustion boundary cannot record an unexecuted sweepStarted.
   work.pay(work.calc(64).plus(bill, 15 + LITERAL.sink + 1 + LITERAL.boundary +

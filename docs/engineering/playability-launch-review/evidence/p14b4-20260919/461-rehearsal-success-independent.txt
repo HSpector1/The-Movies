@@ -1,0 +1,16 @@
+{"sourceSha":"ba1a0ba1f0164dfd8a1c86312c6daf6ae5856e06","testedDiffSha256":"df292325266a0c7cd168de6af4dbe2b63f557f19ee01ba7d81759ed3b182e1bb","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14b4-replay-record-facts.test.ts"],"node":"v20.20.2","start":"2026-09-20T11:06:41.298Z","end":null,"exitCode":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p14b4-replay-record-facts.test.ts (2 tests) 2879ms
+   ✓ P14B4 paid record facts — public invocation isolation and opaque P fields > keeps exact A/B/A/B results and work across genuine same-ID, different-package sources 2133ms
+   ✓ P14B4 paid record facts — public invocation isolation and opaque P fields > copies opaque P values untouched while charging changed own-string-key shape 744ms
+
+ Test Files  1 passed (1)
+      Tests  2 passed (2)
+   Start at  13:06:42
+   Duration  8.21s (transform 3.35s, setup 0ms, collect 4.43s, tests 2.88s, environment 0ms, prepare 235ms)
+
+
+{"sourceSha":"ba1a0ba1f0164dfd8a1c86312c6daf6ae5856e06","testedDiffSha256":"df292325266a0c7cd168de6af4dbe2b63f557f19ee01ba7d81759ed3b182e1bb","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14b4-replay-record-facts.test.ts"],"node":"v20.20.2","start":"2026-09-20T11:06:41.298Z","end":"2026-09-20T11:06:51.159Z","exitCode":0,"signal":null,"error":null,"sourceShaAtEnd":"ba1a0ba1f0164dfd8a1c86312c6daf6ae5856e06","testedDiffSha256AtEnd":"df292325266a0c7cd168de6af4dbe2b63f557f19ee01ba7d81759ed3b182e1bb","untrackedSourceAtEnd":[],"fixedSource":true}

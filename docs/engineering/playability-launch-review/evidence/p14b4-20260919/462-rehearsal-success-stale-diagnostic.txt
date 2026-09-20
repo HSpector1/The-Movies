@@ -1,0 +1,277 @@
+{"sourceSha":"ba1a0ba1f0164dfd8a1c86312c6daf6ae5856e06","testedDiffSha256":"b5d77ee5f62253210ae920eaee0a5967c4f588fae4c26cb3d2e8a676f2f7d912","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14b4-ready-replay-stale-target.test.ts"],"node":"v20.20.2","start":"2026-09-20T11:07:32.252Z","end":null,"exitCode":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+stderr | tests/p14b4-ready-replay-stale-target.test.ts > P14B4 Ready replay — stale Ready target after genuine release > resolves the same source-now Ready target against the released branch, refuses without resurrection, and retains the real first-take/release prefix
+P14B4_DIMENSIONS_ENTRY_462 50104 [ 8 ]
+P14B4_DIMENSIONS_DONE_462 53658
+P14B4_FRAME_ENTRY_462 1 71983 [ 8 ]
+P14B4_DIMENSIONS_ENTRY_462 72156 [ 8 ]
+P14B4_DIMENSIONS_DONE_462 74096
+P14B4_SWEEP_BILL_462 1 76541 315 [ 8 ] {
+  n: 1,
+  f: 5,
+  capacity: 8,
+  sets: 2,
+  external: 0,
+  d: 28,
+  dp: 9,
+  pCopy: 101,
+  workflowCopy: 98,
+  taskCopy: 66,
+  bindingsCopy: 95,
+  operationsCopy: 33,
+  setCopy: 137,
+  setupCopy: 0,
+  technologyCopy: 132,
+  technologyRowCopy: 62,
+  t: 0,
+  adoptions: 0,
+  access: 0,
+  equipment: 0,
+  placements: 0,
+  structures: 8,
+  provides: 5,
+  cells: 0,
+  genreRows: 1,
+  genreId: 9,
+  allSilent: true
+}
+P14B4_FRAME_ENTRY_462 2 78000 [ 8 ]
+P14B4_DIMENSIONS_ENTRY_462 78173 [ 8 ]
+P14B4_DIMENSIONS_DONE_462 79243
+P14B4_SWEEP_BILL_462 2 84889 11193 [ 8 ] {
+  n: 1,
+  f: 5,
+  capacity: 8,
+  sets: 2,
+  external: 0,
+  d: 28,
+  dp: 9,
+  pCopy: 101,
+  workflowCopy: 98,
+  taskCopy: 66,
+  bindingsCopy: 95,
+  operationsCopy: 33,
+  setCopy: 137,
+  setupCopy: 0,
+  technologyCopy: 132,
+  technologyRowCopy: 62,
+  t: 0,
+  adoptions: 0,
+  access: 0,
+  equipment: 0,
+  placements: 0,
+  structures: 8,
+  provides: 5,
+  cells: 0,
+  genreRows: 1,
+  genreId: 9,
+  allSilent: true
+}
+P14B4_FRAME_ENTRY_462 3 97390 [ 7 ]
+P14B4_DIMENSIONS_ENTRY_462 97563 [ 7 ]
+P14B4_DIMENSIONS_DONE_462 99964
+P14B4_SWEEP_BILL_462 3 106365 9587 [ 7 ] {
+  n: 1,
+  f: 5,
+  capacity: 8,
+  sets: 2,
+  external: 0,
+  d: 28,
+  dp: 9,
+  pCopy: 101,
+  workflowCopy: 98,
+  taskCopy: 66,
+  bindingsCopy: 95,
+  operationsCopy: 33,
+  setCopy: 137,
+  setupCopy: 0,
+  technologyCopy: 132,
+  technologyRowCopy: 62,
+  t: 0,
+  adoptions: 0,
+  access: 0,
+  equipment: 0,
+  placements: 0,
+  structures: 8,
+  provides: 5,
+  cells: 0,
+  genreRows: 1,
+  genreId: 9,
+  allSilent: true
+}
+P14B4_FRAME_ENTRY_462 4 122384 [ 6 ]
+P14B4_DIMENSIONS_ENTRY_462 122557 [ 6 ]
+P14B4_DIMENSIONS_DONE_462 125118
+P14B4_SWEEP_BILL_462 4 130408 8905 [ 6 ] {
+  n: 1,
+  f: 5,
+  capacity: 8,
+  sets: 2,
+  external: 0,
+  d: 28,
+  dp: 9,
+  pCopy: 101,
+  workflowCopy: 98,
+  taskCopy: 66,
+  bindingsCopy: 95,
+  operationsCopy: 33,
+  setCopy: 137,
+  setupCopy: 0,
+  technologyCopy: 132,
+  technologyRowCopy: 62,
+  t: 0,
+  adoptions: 0,
+  access: 0,
+  equipment: 0,
+  placements: 0,
+  structures: 8,
+  provides: 5,
+  cells: 0,
+  genreRows: 1,
+  genreId: 9,
+  allSilent: true
+}
+P14B4_DIMENSIONS_ENTRY_462 144176 [ 5 ]
+P14B4_DIMENSIONS_DONE_462 148718
+P14B4_DIMENSIONS_ENTRY_462 153124 [ 5 ]
+P14B4_DIMENSIONS_DONE_462 156300
+P14B4_FRAME_ENTRY_462 5 157545 [ 5 ]
+P14B4_DIMENSIONS_ENTRY_462 157718 [ 5 ]
+P14B4_DIMENSIONS_DONE_462 160952
+P14B4_SWEEP_BILL_462 5 163680 850 [ 5 ] {
+  n: 1,
+  f: 5,
+  capacity: 8,
+  sets: 2,
+  external: 0,
+  d: 28,
+  dp: 9,
+  pCopy: 101,
+  workflowCopy: 98,
+  taskCopy: 66,
+  bindingsCopy: 95,
+  operationsCopy: 33,
+  setCopy: 137,
+  setupCopy: 0,
+  technologyCopy: 132,
+  technologyRowCopy: 62,
+  t: 1,
+  adoptions: 0,
+  access: 0,
+  equipment: 0,
+  placements: 0,
+  structures: 8,
+  provides: 5,
+  cells: 0,
+  genreRows: 1,
+  genreId: 9,
+  allSilent: true
+}
+P14B4_FRAME_ENTRY_462 6 166897 [ 4 ]
+P14B4_DIMENSIONS_ENTRY_462 167070 [ 4 ]
+P14B4_DIMENSIONS_DONE_462 170749
+P14B4_SWEEP_BILL_462 6 177528 7948 [ 4 ] {
+  n: 1,
+  f: 5,
+  capacity: 8,
+  sets: 2,
+  external: 0,
+  d: 28,
+  dp: 9,
+  pCopy: 101,
+  workflowCopy: 98,
+  taskCopy: 66,
+  bindingsCopy: 95,
+  operationsCopy: 33,
+  setCopy: 137,
+  setupCopy: 0,
+  technologyCopy: 132,
+  technologyRowCopy: 62,
+  t: 1,
+  adoptions: 0,
+  access: 0,
+  equipment: 0,
+  placements: 0,
+  structures: 8,
+  provides: 5,
+  cells: 0,
+  genreRows: 1,
+  genreId: 9,
+  allSilent: true
+}
+P14B4_FRAME_ENTRY_462 7 192778 [ 3 ]
+P14B4_DIMENSIONS_ENTRY_462 192951 [ 3 ]
+P14B4_DIMENSIONS_DONE_462 197327
+P14B4_SWEEP_BILL_462 7 199898 576 [ 3 ] {
+  n: 1,
+  f: 5,
+  capacity: 8,
+  sets: 2,
+  external: 0,
+  d: 28,
+  dp: 9,
+  pCopy: 101,
+  workflowCopy: 98,
+  taskCopy: 66,
+  bindingsCopy: 95,
+  operationsCopy: 33,
+  setCopy: 137,
+  setupCopy: 0,
+  technologyCopy: 132,
+  technologyRowCopy: 62,
+  t: 1,
+  adoptions: 0,
+  access: 0,
+  equipment: 0,
+  placements: 0,
+  structures: 8,
+  provides: 5,
+  cells: 0,
+  genreRows: 1,
+  genreId: 9,
+  allSilent: true
+}
+P14B4_WORK_LIMIT_462 199998 673 200000 Error: diagnostic-only
+    at Work.pay (/Users/zacheryspector/The-Movies-headless-program/src/core/promiseCapacityOwnerReplay.ts:247:111)
+    at frame (/Users/zacheryspector/The-Movies-headless-program/src/core/promiseCapacityOwnerReplay.ts:1811:8)
+    at replayPlans (/Users/zacheryspector/The-Movies-headless-program/src/core/promiseCapacityOwnerReplay.ts:2602:9)
+    at Module.replayReadyProductionPlans (/Users/zacheryspector/The-Movies-headless-program/src/core/promiseCapacityOwnerReplay.ts:2648:10)
+    at /Users/zacheryspector/The-Movies-headless-program/tests/p14b4-ready-replay-stale-target.test.ts:225:53
+    at watchOwners (/Users/zacheryspector/The-Movies-headless-program/tests/p14b4-ready-replay-stale-target.test.ts:129:25)
+    at /Users/zacheryspector/The-Movies-headless-program/tests/p14b4-ready-replay-stale-target.test.ts:225:21
+    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14
+    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11
+    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)
+
+ ❯ |core| tests/p14b4-ready-replay-stale-target.test.ts (1 test | 1 failed) 2107ms
+   × P14B4 Ready replay — stale Ready target after genuine release > resolves the same source-now Ready target against the released branch, refuses without resurrection, and retains the real first-take/release prefix 2106ms
+     → expected 'workLimit' to be 'commandRefused' // Object.is equality
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14b4-ready-replay-stale-target.test.ts > P14B4 Ready replay — stale Ready target after genuine release > resolves the same source-now Ready target against the released branch, refuses without resurrection, and retains the real first-take/release prefix
+AssertionError: expected 'workLimit' to be 'commandRefused' // Object.is equality
+
+Expected: "commandRefused"
+Received: "workLimit"
+
+ ❯ tests/p14b4-ready-replay-stale-target.test.ts:234:28
+    232|     const attempt = result.attempts[0]!
+    233|     if (attempt.kind !== 'cut') throw new Error('released Ready target…
+    234|     expect(attempt.reason).toBe('commandRefused') // workLimit is not …
+       |                            ^
+    235|     expect(attempt.through.week).toBe(released.market.tick)
+    236|     expect(attempt.detail.length).toBeGreaterThan(0)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed (1)
+      Tests  1 failed (1)
+   Start at  13:07:33
+   Duration  6.27s (transform 2.71s, setup 0ms, collect 3.48s, tests 2.11s, environment 1ms, prepare 167ms)
+
+
+{"sourceSha":"ba1a0ba1f0164dfd8a1c86312c6daf6ae5856e06","testedDiffSha256":"b5d77ee5f62253210ae920eaee0a5967c4f588fae4c26cb3d2e8a676f2f7d912","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14b4-ready-replay-stale-target.test.ts"],"node":"v20.20.2","start":"2026-09-20T11:07:32.252Z","end":"2026-09-20T11:07:40.075Z","exitCode":1,"signal":null,"error":null,"sourceShaAtEnd":"ba1a0ba1f0164dfd8a1c86312c6daf6ae5856e06","testedDiffSha256AtEnd":"b5d77ee5f62253210ae920eaee0a5967c4f588fae4c26cb3d2e8a676f2f7d912","untrackedSourceAtEnd":[],"fixedSource":true}
