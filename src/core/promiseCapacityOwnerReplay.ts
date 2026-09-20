@@ -162,25 +162,64 @@ const LITERAL = Object.freeze({
 })
 // An appended element reserves capacity(1), invocation(1), reference write(1).
 const APPEND = 3
-/** Saturate before arithmetic. A saturated bill cannot fit any admitted limit. */
-function plus(...terms: readonly number[]): number {
-  let result = 0
-  for (const term of terms) {
-    if (term >= CEILING - result) return CEILING
-    result += term
-  }
-  return result
-}
-function times(a: number, b: number): number {
-  if (a === 0 || b === 0) return 0
-  return a >= CEILING || b >= CEILING || a > Math.floor(CEILING / b) ? CEILING : a * b
-}
 class Work {
   used: number
   constructor(readonly limit: number, initial: number) { this.used = Math.min(limit, initial) }
   pay(units = 1): void {
     if (units > this.limit - this.used) { this.used = this.limit; throw new WorkLimit() }
     this.used += units
+  }
+  /** Evaluate the receiver BEFORE JavaScript evaluates calculator arguments.
+   * Each source call reserves two units per scalar operand-read/operator:
+   * 8/16/32/64 cover <=4/8/16/32 nodes respectively. Nested paid calls own
+   * their own trees, not this allowance. No callbacks/rest arrays are hidden.
+   */
+  calc(units: 8 | 16 | 32 | 64): this { this.pay(units); return this }
+  /** No rest/temporary array is allocated before payment. All call sites have
+   * at most18 operands. Entry/optional-argument guards cost20; each actual
+   * saturating add costs8 BEFORE its subtraction/check/add. No early return
+   * evades charges for argument expressions (which execute before this call).
+   */
+  plus(a: number, b: number, c?: number, d?: number, e?: number, f?: number,
+    g?: number, h?: number, i?: number, j?: number, k?: number, l?: number,
+    m?: number, n?: number, o?: number, p?: number, q?: number, r?: number): number {
+    this.pay(20)
+    let result = this.add(0, a)
+    result = this.add(result, b)
+    if (c !== undefined) result = this.add(result, c)
+    if (d !== undefined) result = this.add(result, d)
+    if (e !== undefined) result = this.add(result, e)
+    if (f !== undefined) result = this.add(result, f)
+    if (g !== undefined) result = this.add(result, g)
+    if (h !== undefined) result = this.add(result, h)
+    if (i !== undefined) result = this.add(result, i)
+    if (j !== undefined) result = this.add(result, j)
+    if (k !== undefined) result = this.add(result, k)
+    if (l !== undefined) result = this.add(result, l)
+    if (m !== undefined) result = this.add(result, m)
+    if (n !== undefined) result = this.add(result, n)
+    if (o !== undefined) result = this.add(result, o)
+    if (p !== undefined) result = this.add(result, p)
+    if (q !== undefined) result = this.add(result, q)
+    if (r !== undefined) result = this.add(result, r)
+    return result
+  }
+  private add(a: number, b: number): number {
+    this.pay(8)
+    return b >= CEILING - a ? CEILING : a + b
+  }
+  times(a: number, b: number): number {
+    this.pay(10)
+    if (a === 0 || b === 0) return 0
+    return a >= CEILING || b >= CEILING || a > Math.floor(CEILING / b) ? CEILING : a * b
+  }
+  equality(length: number): number {
+    this.pay(4)
+    return this.calc(8).plus(1, this.calc(8).times(2, length))
+  }
+  keyBill(count: number, length: number): number {
+    this.pay(4)
+    return this.calc(8).plus(1, length, this.calc(8).times(count, this.calc(8).equality(length)))
   }
   text(value: string): string { this.pay(1 + value.length); return value }
   equal(a: string, b: string): boolean { this.pay(1 + a.length + b.length); return a === b }
@@ -189,10 +228,8 @@ class Work {
     let cost = 1
     this.pay()
     for (const key in value) {
-      // Discovery/own-key check plus the two-operand saturating sum (including
-      // its argument array, two loop visits and arithmetic) precede inspection.
-      this.pay(3 + key.length + 20)
-      if (Object.prototype.hasOwnProperty.call(value, key)) cost = plus(cost, 3 + key.length)
+      this.pay(3 + key.length)
+      if (Object.prototype.hasOwnProperty.call(value, key)) cost = this.calc(8).plus(cost, 3 + key.length)
     }
     return cost
   }
@@ -203,11 +240,11 @@ class Work {
     this.pay(6 + 1 + 2 * length)
     const parts = fourth === undefined ? [first, second, third] : [first, second, third, fourth]
     // JSON escaping can produce six output characters per UTF-16 code unit.
-    let cost = 3 + 2 * parts.length
     this.pay(8)
+    let cost = 3 + 2 * parts.length
     for (const part of parts) {
-      this.pay(36) // dispatch(6), checked product(10), two-term sum/argument array(20)
-      cost = plus(cost, typeof part === 'string' ? 2 + times(7, part.length) : 25)
+      this.pay(6) // loop/type dispatch; arithmetic helpers pay their own calls
+      cost = this.calc(16).plus(cost, typeof part === 'string' ? 2 + this.calc(8).times(7, part.length) : 25)
     }
     this.pay(cost)
     return JSON.stringify(parts)
@@ -229,15 +266,13 @@ function sortBill(n: number, comparator: number, work: Work): number {
   if (n < 2) return 6 + 2 * n
   let levels = 0, runs = 0
   for (let width = 1; width < n; width *= 2) {
-    work.pay(26) // six loop/scalar steps + two-term saturating sum(20)
+    work.pay(6) // loop/scalar steps; sum pays itself
     levels++
-    runs = plus(runs, Math.ceil(n / (2 * width)))
+    runs = work.calc(64).plus(runs, Math.ceil(n / (2 * width)))
   }
-  // At most seven-term sum(60), seven products including nested n*levels(70), scalar
-  // additions/reads(18), and the final result dispatch. This is calculator work.
-  work.pay(152)
-  return plus(10, times(3, n), times(8, levels), times(19, runs),
-    times(5, times(n, levels)), times(8 + comparator, times(n, levels)))
+  work.pay(22) // scalar additions/reads/dispatch; every sum/product pays itself
+  return work.calc(64).plus(10, work.calc(32).times(3, n), work.calc(32).times(8, levels), work.calc(32).times(19, runs),
+    work.calc(32).times(5, work.calc(32).times(n, levels)), work.calc(32).times(8 + comparator, work.calc(32).times(n, levels)))
 }
 function sorted<T>(values: readonly T[], keyOf: (value: T) => string, work: Work): T[] {
   work.pay(4) // local setup + empty decoration array
@@ -250,6 +285,7 @@ function sorted<T>(values: readonly T[], keyOf: (value: T) => string, work: Work
     max = Math.max(max, key.length)
     rows.push({ value, key })
   }
+  work.pay(8) // comparator-bound argument reads/arithmetic before sortBill
   work.pay(sortBill(rows.length, 6 + 2 * (1 + 2 * max), work))
   const ordered = boundedStableSort(rows, (a, b) => a.key < b.key ? -1 : a.key > b.key ? 1 : 0)
   work.pay(2 + 3 * ordered.length)
@@ -291,11 +327,11 @@ function company<P extends StartedPicture>(productions: readonly P[], work: Work
   for (const row of productions) {
     work.pay(8 + 1 + 2 * 4) // control + four-element literal array/capacity/writes
     const ids = [row.directorId, row.cast.lead, row.cast.antagonist, row.cast.support]
-    for (const id of ids) { work.text(id); count++; chars = plus(chars, id.length) }
-    for (const id of row.craftIds) { work.text(id); count++; chars = plus(chars, id.length) }
+    for (const id of ids) { work.text(id); count++; chars = work.calc(64).plus(chars, id.length) }
+    for (const id of row.craftIds) { work.text(id); count++; chars = work.calc(64).plus(chars, id.length) }
   }
-  work.pay(plus(5, times(6, productions.length), times(4, count), chars,
-    times(count, count + times(2, chars))))
+  work.pay(work.calc(64).plus(5, work.calc(32).times(6, productions.length), work.calc(32).times(4, count), chars,
+    work.calc(32).times(count, count + work.calc(32).times(2, chars))))
   const result = productionCompanyTalentIds(productions)
   work.pay(2 + 2 * result.size)
   return [...result]
@@ -304,8 +340,8 @@ function writers(project: ScriptProject, work: Work): readonly string[] {
   work.pay(8)
   work.text(project.writerId)
   let chars = 0
-  for (const id of project.writerIds) { work.pay(2); work.text(id); chars = plus(chars, id.length) }
-  work.pay(plus(10, project.writerIds.length, times(project.writerIds.length, 2 + project.writerId.length),
+  for (const id of project.writerIds) { work.pay(2); work.text(id); chars = work.calc(64).plus(chars, id.length) }
+  work.pay(work.calc(64).plus(10, project.writerIds.length, work.calc(32).times(project.writerIds.length, 2 + project.writerId.length),
     chars))
   return scriptProjectWriterIds(project)
 }
@@ -542,7 +578,7 @@ function prepare<P extends StartedPicture>(input: StartedOwnerReplayInput<P>, wo
       invariant(work.equal(reservation.productionId, picture.production.id), 'reservation owner differs')
       hold(picture.pathKey, reservationSubject(source, issuer, reservation, work))
     }
-    work.pay(3 + times(picture.workflow.reservations.length, 42))
+    work.pay(3 + work.calc(32).times(picture.workflow.reservations.length, 42))
     const stage = picture.workflow.reservations.find(row => row.capability === 'soundstage')
     invariant(picture.workflow.bindings.stageFacilityId === (stage?.facilityId ?? null), 'stage binding differs')
     if (stage !== undefined && picture.workflow.bindings.setId !== null) {
@@ -612,7 +648,7 @@ function dimensions<P extends StartedPicture>(source: StartedOwnerSource<P>, pro
   }
   for (const row of operations.facilities) {
     work.pay(5); strings(row); natural(row.capacity, 'facility capacity')
-    d.capacity = plus(d.capacity, row.capacity)
+    d.capacity = work.calc(64).plus(d.capacity, row.capacity)
   }
   for (const row of operations.workflows) {
     work.pay(7); strings(row); strings(row.bindings)
@@ -639,28 +675,27 @@ function dimensions<P extends StartedPicture>(source: StartedOwnerSource<P>, pro
   d.structures = property.structures.length
   for (const row of property.structures) {
     work.pay(4)
-    d.provides = plus(d.provides, row.providesFacilityIds.length)
+    d.provides = work.calc(64).plus(d.provides, row.providesFacilityIds.length)
     for (const id of row.providesFacilityIds) text(id)
   }
   for (const row of source.placement.facilities) {
     work.pay(5); strings(row)
-    d.cells = plus(d.cells, row.cells.length)
+    d.cells = work.calc(64).plus(d.cells, row.cells.length)
     if (row.installation !== null && row.installation !== undefined) strings(row.installation)
   }
   return d
 }
-const equality = (d: number): number => plus(1, times(2, d))
-const keyBill = (count: number, length: number): number => plus(1, length, times(count, equality(length)))
-function workflowUpdate(d: Dimensions): number {
-  return plus(d.operationsCopy, 11, 2, d.n, times(d.n, 2 + equality(d.dp)))
+function workflowUpdate(d: Dimensions, work: Work): number {
+  work.pay(8) // scalar/property reads; nested arithmetic pays itself
+  return work.calc(64).plus(d.operationsCopy, 11, 2, d.n, work.calc(32).times(d.n, 2 + work.calc(8).equality(d.dp)))
 }
 function geometryBill(d: Dimensions, work: Work): number {
-  work.pay(192) // finite calculator: <=16 sum terms, 8 products, scalar locals
+  work.pay(32) // scalar reads/locals; all NINE products and nested sums pay themselves
   // sceneryLoadInFor guards/reservation scan/result + TWO real body queries.
   // Body: structure filter/includes, placement filter, cell validation/sum/mean.
-  const body = plus(50, times(d.structures, 8), times(d.provides, 2 + equality(d.d)),
-    times(d.placements, 3 + equality(d.d)), times(d.cells, 10), d.structures, d.placements)
-  return plus(130, times(2, equality(d.d)), times(2, body))
+  const body = work.calc(64).plus(50, work.calc(32).times(d.structures, 8), work.calc(32).times(d.provides, 2 + work.calc(8).equality(d.d)),
+    work.calc(32).times(d.placements, 3 + work.calc(8).equality(d.d)), work.calc(32).times(d.cells, 10), d.structures, d.placements)
+  return work.calc(64).plus(130, work.calc(32).times(2, work.calc(8).equality(d.d)), work.calc(32).times(2, body))
 }
 function arrivalBill(d: Dimensions, operations: StudioOperations, work: Work): number {
   let possible = 0
@@ -670,14 +705,14 @@ function arrivalBill(d: Dimensions, operations: StudioOperations, work: Work): n
     if (workflow.phase === 'shooting' && workflow.shootingTask?.status === 'blocked' &&
       workflow.blocker?.kind === 'scenery-load-in') possible++
   }
-  work.pay(128) // calculator terms/products, not geometry execution
-  return plus(18, times(d.n, 14 + times(4, equality(d.d))),
-    times(possible, plus(geometryBill(d, work), 70, d.workflowCopy, d.taskCopy, workflowUpdate(d))))
+  work.pay(16) // scalar formula reads; nested calculators each charge themselves
+  return work.calc(64).plus(18, work.calc(32).times(d.n, 14 + work.calc(32).times(4, work.calc(8).equality(d.d))),
+    work.calc(32).times(possible, work.calc(64).plus(geometryBill(d, work), 70, d.workflowCopy, d.taskCopy, workflowUpdate(d, work))))
 }
 function orderBill(d: Dimensions, work: Work): number {
-  work.pay(80) // decoration arithmetic and comparator-footprint construction
-  return plus(4, times(2, d.n), times(d.n, 67 + 2 * d.dp),
-    sortBill(d.n, 28 + 2 * equality(d.dp), work))
+  work.pay(16) // scalar decoration/comparator arithmetic, excluding paid helpers
+  return work.calc(64).plus(4, work.calc(32).times(2, d.n), work.calc(32).times(d.n, 67 + 2 * d.dp),
+    sortBill(d.n, 28 + 2 * work.calc(8).equality(d.dp), work))
 }
 /** 162 exact restricted branch inventory, with measured generic copy footprints. */
 function restrictedSweepBill<P extends StartedPicture>(d: Dimensions, productions: readonly P[],
@@ -685,64 +720,70 @@ function restrictedSweepBill<P extends StartedPicture>(d: Dimensions, production
   let active = 0, q = 0, t = 0, c = 0, o = 0, r = 0, copies = 0, takeCopies = 0, taskText = 0
   work.pay(18)
   for (const production of productions) {
-    work.pay(96) // branch tests plus at most three bounded copy-bill sums
+    work.pay(32) // branch/property/scalar work; copy-bill sums pay themselves
     if (production.startTick >= week) continue
     active++
     const workflow = find(operations.workflows, production.id, row => row.productionId, work)
     invariant(workflow !== undefined, 'workflow disappeared before billing')
     if (production.remainingTicks === 5) {
       q++
-      if (workflow.shootingTask !== null) taskText = plus(taskText, 1 + workflow.shootingTask.status.length + 9)
+      if (workflow.shootingTask !== null) taskText = work.calc(64).plus(taskText, 1 + workflow.shootingTask.status.length + 9)
       if (workflow.shootingTask?.status === 'scheduled' && workflow.blocker === null) {
-        t++; copies = plus(copies, d.pCopy, 15)
-        takeCopies = plus(takeCopies, d.workflowCopy, 13, d.taskCopy, 7)
+        t++; copies = work.calc(64).plus(copies, d.pCopy, 15)
+        takeCopies = work.calc(64).plus(takeCopies, d.workflowCopy, 13, d.taskCopy, 7)
       }
     } else if (production.remainingTicks === 3) {
-      c++; copies = plus(copies, d.pCopy, 15)
+      c++; copies = work.calc(64).plus(copies, d.pCopy, 15)
     } else {
-      o++; work.pay(keyBill(commitments.size, d.dp))
-      if (commitments.has(production.id)) { r++; copies = plus(copies, d.pCopy, 15) }
+      o++; work.pay(work.calc(8).keyBill(commitments.size, d.dp))
+      if (commitments.has(production.id)) { r++; copies = work.calc(64).plus(copies, d.pCopy, 15) }
     }
   }
-  work.pay(768) // explicit ASSOC/CONTROL/output formula construction
-  const delta = r > 0 ? 1 : 0, visits = times(d.n, 1 + delta)
-  const assoc = plus(times((4 + delta) * d.n + active + t + c + r + t, keyBill(d.n, d.dp)),
-    times(o, keyBill(commitments.size, d.dp)))
-  const control = plus(5, d.n, 3 * (1 + delta) + 1, visits, d.n, 4 * active,
+  work.pay(192) // at most96 scalar reads/operators, two units each; helpers separate
+  const delta = r > 0 ? 1 : 0, visits = work.calc(32).times(d.n, 1 + delta)
+  const assoc = work.calc(64).plus(work.calc(32).times((4 + delta) * d.n + active + t + c + r + t, work.calc(8).keyBill(d.n, d.dp)),
+    work.calc(32).times(o, work.calc(8).keyBill(commitments.size, d.dp)))
+  const control = work.calc(64).plus(5, d.n, 3 * (1 + delta) + 1, visits, d.n, 4 * active,
     d.n - active, 3 * q, t, 3 * (c + o), 2 * c, 2 * o, 3 * r, 1)
-  return plus(orderBill(d, work), assoc, times(active, 1 + times(d.n, 1 + equality(d.dp))),
-    times(t + r, workflowUpdate(d)), copies, takeCopies,
-    times(active + c, equality(14)), taskText, times(1 + r, 15),
-    65, times(6, d.n), times(4, t), times(2, r), control, times(11, r))
+  return work.calc(64).plus(orderBill(d, work), assoc, work.calc(32).times(active, 1 + work.calc(32).times(d.n, 1 + work.calc(8).equality(d.dp))),
+    work.calc(32).times(t + r, workflowUpdate(d, work)), copies, takeCopies,
+    work.calc(32).times(active + c, work.calc(8).equality(14)), taskText, work.calc(32).times(1 + r, 15),
+    65, work.calc(32).times(6, d.n), work.calc(32).times(4, t), work.calc(32).times(2, r), control, work.calc(32).times(11, r))
 }
 
 /** Occupancy + actual filter/policy/sort + capacity loops, not a free-slot forecast. */
-function allocationBill(d: Dimensions, wrapOnly: boolean, work: Work): number {
-  work.pay(1280) // <=80 sum operands, 40 products, finite scalar setup
-  const other = wrapOnly ? Math.max(0, d.n - 1) : d.n
-  const claims = times(4, other), occupied = plus(d.external, times(3, other))
-  const text = equality(d.d), keyLength = plus(d.d, 26), keyConstruction = plus(50, times(2, d.d))
+function allocationBill(d: Dimensions, wrapOnly: boolean, work: Work, retainedDevelopment = false): number {
+  work.pay(192) // at most96 scalar reads/operators, two units each; helpers separate
+  // In both narrowed domains own claims are excluded FROM OCCUPANCY. Unlike
+  // wrapped Post acquisition, Development still has its original reservation
+  // when the eager raw producer runs, so raw claims must include its owner too.
+  const other = wrapOnly || retainedDevelopment ? Math.max(0, d.n - 1) : d.n
+  const rawOwners = retainedDevelopment ? d.n : other
+  const claims = work.calc(32).times(4, rawOwners), occupied = work.calc(64).plus(d.external, work.calc(32).times(3, other))
+  const text = work.calc(8).equality(d.d), keyLength = work.calc(64).plus(d.d, 26), keyConstruction = work.calc(64).plus(50, work.calc(32).times(2, d.d))
   // Full raw claim producer including excluded rows, empty research sort and
   // second bound-Set pass. Every two generated key strings is paid per claim.
-  const raw = plus(40, 1 + claims, 2 * d.n, times(2 * other, text),
-    times(claims, plus(89, times(2, keyConstruction))))
-  const occupancy = plus(raw, 4, d.external, times(claims, 6 + 3 * text),
-    times(occupied, plus(5, times(3, keyBill(occupied, keyLength)))))
+  const raw = work.calc(64).plus(40, 1 + claims, 2 * d.n, work.calc(32).times(2 * rawOwners, text),
+    work.calc(32).times(claims, work.calc(64).plus(89, work.calc(32).times(2, keyConstruction))))
+  const occupancy = work.calc(64).plus(raw, 4, d.external, work.calc(32).times(claims, 6 + 3 * text),
+    work.calc(32).times(occupied, work.calc(64).plus(5, work.calc(32).times(3, work.calc(8).keyBill(occupied, keyLength)))))
   // Every facility invokes selection. Sound paths may additionally scan the
   // entire adoption/installation roots. These rows are branch-local, unchanged
   // in cardinality except at most N actual shooting locks during this sweep.
-  const selection = plus(17, times(d.t + (wrapOnly ? 0 : d.n), 1 + 2 * text))
-  const adoption = plus(30, times(d.adoptions, 8 + 3 * text), times(2 * d.placements, 8 + 4 * text))
-  const callback = plus(selection, adoption)
+  const selection = work.calc(64).plus(17, work.calc(32).times(d.t + (wrapOnly || retainedDevelopment ? 0 : d.n), 1 + 2 * text))
+  const adoption = work.calc(64).plus(30, work.calc(32).times(d.adoptions, 8 + 3 * text), work.calc(32).times(2 * d.placements, 8 + 4 * text))
+  const callback = work.calc(64).plus(selection, adoption)
   const facilitySort = sortBill(d.f, 6 + 2 * text, work)
-  const slots = times(wrapOnly ? d.capacity : 3 * d.capacity,
-    plus(5, keyConstruction, times(2, keyBill(occupied + 2, keyLength))))
-  const retention = plus(20, times(2, plus(20, times(2, text), times(d.f, 2 + text),
-    keyBill(2, 19), keyConstruction, keyBill(occupied + 2, keyLength))))
-  const composite = wrapOnly ? 0 : plus(20, times(d.n, plus(9, text, times(2, text), keyBill(d.n, d.d))),
-    times(d.f, plus(5, text, times(d.sets, plus(14, times(3, text), keyBill(d.n, d.d))))))
-  return plus(occupancy, 3 + 3 * d.f, times(d.f, callback), facilitySort, retention,
-    times(wrapOnly ? 1 : 2, times(d.f, 2 + text)), slots, composite, 140)
+  // A certified held Development slot takes the retained arm's continue;
+  // neither the generic capacity search nor stage+Set composite is reached.
+  const slots = retainedDevelopment ? 0 : work.calc(32).times(wrapOnly ? d.capacity : 3 * d.capacity,
+    work.calc(64).plus(5, keyConstruction, work.calc(32).times(2, work.calc(8).keyBill(occupied + 2, keyLength))))
+  const retention = work.calc(64).plus(20, work.calc(32).times(2, work.calc(64).plus(20, work.calc(32).times(2, text), work.calc(32).times(d.f, 2 + text),
+    work.calc(8).keyBill(2, 19), keyConstruction, work.calc(8).keyBill(occupied + 2, keyLength))))
+  const composite = wrapOnly || retainedDevelopment ? 0 : work.calc(64).plus(20, work.calc(32).times(d.n, work.calc(64).plus(9, text, work.calc(32).times(2, text), work.calc(8).keyBill(d.n, d.d))),
+    work.calc(32).times(d.f, work.calc(64).plus(5, text, work.calc(32).times(d.sets, work.calc(64).plus(14, work.calc(32).times(3, text), work.calc(8).keyBill(d.n, d.d))))))
+  return work.calc(64).plus(occupancy, 3 + 3 * d.f, work.calc(32).times(d.f, callback), facilitySort, retention,
+    work.calc(32).times(wrapOnly ? 1 : 2, work.calc(32).times(d.f, 2 + text)), slots, composite, 140)
 }
 
 function sweepBill<P extends StartedPicture>(d: Dimensions, productions: readonly P[],
@@ -755,27 +796,50 @@ function sweepBill<P extends StartedPicture>(d: Dimensions, productions: readonl
     if (production.startTick >= week || production.remainingTicks !== 4) wrapOnly = false
   }
   if (restricted) return restrictedSweepBill(d, productions, operations, week, commitments, work)
-  work.pay(1536) // finite phase/common/setup/lock formula construction
-  const text = equality(d.d), pid = equality(d.dp)
-  const keyLength = plus(d.d, 26), keyConstruction = plus(50, times(2, d.d))
+  // A BOUND, not an alternate simulation. Inspect actual input facts before
+  // selecting it, and still execute the unchanged whole-slate owner below.
+  let retainedDevelopment = true, retainedMoves = 0
+  work.pay(4)
+  for (const production of productions) {
+    work.pay(6)
+    if (production.startTick >= week) continue
+    if (production.remainingTicks !== 8) { retainedDevelopment = false; break }
+    const workflow = find(operations.workflows, production.id, row => row.productionId, work)
+    invariant(workflow !== undefined, 'workflow disappeared before retained-Development billing')
+    work.pay(20)
+    const reservation = workflow.reservations[0]
+    if (!work.equal(workflow.phase, 'development') || workflow.reservations.length !== 1 ||
+        reservation === undefined || !work.equal(reservation.capability, 'development-casting') ||
+        workflow.shootingTask !== null || workflow.blocker !== null || workflow.setup != null) {
+      retainedDevelopment = false; break
+    }
+    retainedMoves++
+  }
+  work.pay(192) // at most96 scalar reads/operators, two units each; helpers separate
+  const text = work.calc(8).equality(d.d), pid = work.calc(8).equality(d.dp)
+  const keyLength = work.calc(64).plus(d.d, 26), keyConstruction = work.calc(64).plus(50, work.calc(32).times(2, d.d))
   // Max two reservations per phase. Both transition maps and both includes
   // passes (2x2 each) are billed, with every emitted key and sink wrapper.
-  const transition = plus(30, times(4, keyConstruction), times(8, equality(keyLength)), 160)
-  const releasePhase = plus(80, times(8, text), d.workflowCopy, d.bindingsCopy, 70)
-  const wear = plus(24, times(d.sets, 5 + 2 * text), d.setCopy, 18)
-  const update = workflowUpdate(d)
-  const enter = plus(releasePhase, 65, wear, times(2, transition), times(3, update),
-    allocationBill(d, wrapOnly, work), d.workflowCopy, d.bindingsCopy, d.pCopy, 150)
-  const policyLock = wrapOnly ? 0 : plus(80, times(d.t + d.n, 6 + 2 * text),
-    times(d.adoptions, 8 + 3 * text), times(2 * d.placements, 8 + 4 * text),
+  const transition = work.calc(64).plus(30, work.calc(32).times(4, keyConstruction), work.calc(32).times(8, work.calc(8).equality(keyLength)), 160)
+  const releasePhase = work.calc(64).plus(80, work.calc(32).times(8, text), d.workflowCopy, d.bindingsCopy, 70)
+  const wear = retainedDevelopment ? 0 : work.calc(64).plus(24, work.calc(32).times(d.sets, 5 + 2 * text), d.setCopy, 18)
+  const update = workflowUpdate(d, work)
+  const enter = work.calc(64).plus(releasePhase, 65, wear, work.calc(32).times(retainedDevelopment ? 1 : 2, transition), work.calc(32).times(retainedDevelopment ? 1 : 3, update),
+    allocationBill(d, wrapOnly, work, retainedDevelopment), d.workflowCopy, d.bindingsCopy, d.pCopy, 150)
+  // The real phase callback is still invoked; preProduction returns at its
+  // first phase guard, before selection/locking/copying any technology root.
+  const policyLock = retainedDevelopment ? work.calc(64).plus(6, text) : wrapOnly ? 0 : work.calc(64).plus(80, work.calc(32).times(d.t + d.n, 6 + 2 * text),
+    work.calc(32).times(d.adoptions, 8 + 3 * text), work.calc(32).times(2 * d.placements, 8 + 4 * text),
     d.technologyCopy, d.technologyRowCopy, 25, 2 * (d.t + d.n))
-  const setup = wrapOnly ? 0 : plus(160, d.setupCopy, d.workflowCopy, update,
-    times(d.access, 8 + 2 * text), times(d.adoptions, 12 + 3 * text),
-    times(d.equipment, 8 + 3 * text), times(2 * d.placements, 8 + 4 * text), 140)
-  const binding = wrapOnly ? 0 : plus(d.taskCopy, d.bindingsCopy, 150,
-    times(d.genreRows, 3 + equality(Math.max(d.dp, d.genreId))))
-  const rounds = 2 * d.n + 1, visits = times(d.n, rounds)
-  let attempts = visits
+  const setup = wrapOnly || retainedDevelopment ? 0 : work.calc(64).plus(160, d.setupCopy, d.workflowCopy, update,
+    work.calc(32).times(d.access, 8 + 2 * text), work.calc(32).times(d.adoptions, 12 + 3 * text),
+    work.calc(32).times(d.equipment, 8 + 3 * text), work.calc(32).times(2 * d.placements, 8 + 4 * text), 140)
+  const binding = wrapOnly || retainedDevelopment ? 0 : work.calc(64).plus(d.taskCopy, d.bindingsCopy, 150,
+    work.calc(32).times(d.genreRows, 3 + work.calc(8).equality(Math.max(d.dp, d.genreId))))
+  // Every active8 retains its own legal slot and succeeds once, with no
+  // resource release/restart. One final all-settled round still visits n rows.
+  const rounds = retainedDevelopment ? 2 : 2 * d.n + 1, visits = work.calc(32).times(d.n, rounds)
+  let attempts = retainedDevelopment ? retainedMoves : visits
   if (wrapOnly) {
     // Tight source domain: only Post acquisition; no Post can release during
     // this sweep. If all policies are actually silent and enough currently
@@ -784,7 +848,7 @@ function sweepBill<P extends StartedPicture>(d: Dimensions, productions: readonl
     work.pay(5)
     for (const facility of operations.facilities) {
       work.pay(4)
-      if (facility.capability === 'post') post = plus(post, facility.capacity)
+      if (facility.capability === 'post') post = work.calc(64).plus(post, facility.capacity)
     }
     for (const row of operations.workflows) for (const reservation of row.reservations) {
       work.pay(3)
@@ -792,14 +856,14 @@ function sweepBill<P extends StartedPicture>(d: Dimensions, productions: readonl
     }
     // No external slots is a sufficient (not necessary) proof for this branch.
     if (d.allSilent && d.external === 0 && post - heldPost >= d.n) attempts = d.n
-    else attempts = d.n % 2 === 0 ? times(d.n / 2, d.n + 3) : times(d.n, (d.n + 3) / 2)
+    else attempts = d.n % 2 === 0 ? work.calc(32).times(d.n / 2, d.n + 3) : work.calc(32).times(d.n, (d.n + 3) / 2)
   }
-  const common = plus(orderBill(d, work), 80, times(d.n, keyBill(d.n, d.dp)),
-    times(visits, plus(25, times(4, keyBill(d.n, d.dp)), 1 + times(d.n, 1 + pid),
-      2 * text)), times(d.n, plus(d.pCopy, 15, update, d.workflowCopy, d.taskCopy, 100)),
-    times(d.n, keyBill(commitments.size, d.dp)))
+  const common = work.calc(64).plus(orderBill(d, work), 80, work.calc(32).times(d.n, work.calc(8).keyBill(d.n, d.dp)),
+    work.calc(32).times(visits, work.calc(64).plus(25, work.calc(32).times(4, work.calc(8).keyBill(d.n, d.dp)), 1 + work.calc(32).times(d.n, 1 + pid),
+      2 * text)), work.calc(32).times(d.n, work.calc(64).plus(d.pCopy, 15, update, d.workflowCopy, d.taskCopy, 100)),
+    work.calc(32).times(d.n, work.calc(8).keyBill(commitments.size, d.dp)))
   work.pay(10)
-  return plus(common, times(attempts, plus(enter, policyLock, setup, binding)))
+  return work.calc(64).plus(common, work.calc(32).times(attempts, work.calc(64).plus(enter, policyLock, setup, binding)))
 }
 
 type LedgerRow = { hold: Hold; fixed: boolean; closed: boolean }
@@ -1023,17 +1087,15 @@ function executeCommand<P extends StartedPicture>(input: StartedOwnerReplayInput
   branch.provenance.push({ kind: 'command', at: boundary(branch, work), command })
   // Lookup, ordered guards/error interpolation, task/blocker/workflow/operations
   // copies and replacement map. Both refusal and success are included.
-  // Outer seven-term sum(60), two products(20), equality(30), complete
-  // workflowUpdate calculation(84), and scalar setup/reads(30).
-  work.pay(224)
-  const commandBill = plus(150, times(8, d.d), times(d.n, 3 + equality(d.dp)),
-    d.taskCopy, d.workflowCopy, workflowUpdate(d), 90)
+  work.pay(30) // scalar setup/reads; full nested helper call tree pays itself
+  const commandBill = work.calc(64).plus(150, work.calc(32).times(8, d.d), work.calc(32).times(d.n, 3 + work.calc(8).equality(d.dp)),
+    d.taskCopy, d.workflowCopy, workflowUpdate(d, work), 90)
   work.pay(10)
   try {
     if (command.kind === 'assignLockedDirector') {
       work.pay(commandBill)
       branch.operations = assignShootingDirector(branch.operations, production, production.directorId)
-      work.pay(plus(arrivalBill(d, branch.operations, work), times(d.n, equality(d.dp))))
+      work.pay(work.calc(64).plus(arrivalBill(d, branch.operations, work), work.calc(32).times(d.n, work.calc(8).equality(d.dp))))
       branch.operations = arriveDueScenery(branch.operations, workflow => workflow.productionId === production.id &&
         sceneryLoadInDecision(input.source, workflow, branch.week).kind === 'arrived-pending', sink)
     } else if (command.kind === 'clearGrandfatheredScenery') {
@@ -1055,18 +1117,18 @@ function executeCommand<P extends StartedPicture>(input: StartedOwnerReplayInput
         work.pay(4); work.text(concept.title); work.text(concept.id)
         longestTitle = Math.max(longestTitle, concept.title.length, concept.id.length)
       }
-      work.pay(plus(240 + LITERAL.releaseOwner, times(3 * d.n + input.source.concepts.length + branch.releaseAuthority.commitments.length,
-        4 + equality(Math.max(d.d, longestTitle))), times(4, longestTitle + d.d)))
+      work.pay(work.calc(64).plus(240 + LITERAL.releaseOwner, work.calc(32).times(3 * d.n + input.source.concepts.length + branch.releaseAuthority.commitments.length,
+        4 + work.calc(8).equality(Math.max(d.d, longestTitle))), work.calc(32).times(4, longestTitle + d.d)))
       const reason = releaseCommitmentRefusal({ productions: branch.productions,
         concepts: input.source.concepts, operations: branch.operations, releaseAuthority: branch.releaseAuthority }, production.id)
       if (reason !== null) commandRefused(work, reason)
       const count = branch.releaseAuthority.commitments.length + 1
-      work.pay(96) // <=5 sum operands, two products and scalar source-cost setup
+      work.pay(16) // scalar source-cost setup; nested helpers pay themselves
       // withReleaseCommitment: exact row/root literals; appended input array
       // capacity+writes; mint's prefix/input/output string spans; real sort.
-      work.pay(plus(12 + LITERAL.commitment + LITERAL.commitments, 1 + 2 * count,
+      work.pay(work.calc(64).plus(12 + LITERAL.commitment + LITERAL.commitments, 1 + 2 * count,
         2 * ('release-commitment'.length + 1 + production.id.length),
-        sortBill(count, 6 + 2 * equality(d.dp), work)))
+        sortBill(count, 6 + 2 * work.calc(8).equality(d.dp), work)))
       branch.releaseAuthority = withReleaseCommitment(branch.releaseAuthority, production.id, branch.week)
       work.pay(5 + LITERAL.releaseCommitted + LITERAL.stampedEvent + APPEND)
       sink.append({ kind: 'releaseCommitted', productionId: production.id })
@@ -1113,7 +1175,7 @@ function frame<P extends StartedPicture>(input: StartedOwnerReplayInput<P>, prep
   const orderedExternal = sorted(externalKeys, id => id, work)
   let externalKeyLength = 0
   for (const key of orderedExternal) { work.pay(2); externalKeyLength = Math.max(externalKeyLength, key.length) }
-  work.pay(plus(3, times(orderedExternal.length, keyBill(orderedExternal.length, externalKeyLength))))
+  work.pay(work.calc(64).plus(3, work.calc(32).times(orderedExternal.length, work.calc(8).keyBill(orderedExternal.length, externalKeyLength))))
   const external = new Set(orderedExternal)
   const d = dimensions(input.source, branch.productions, branch.operations, branch.sets,
     branch.technology, external.size, work)
@@ -1141,14 +1203,14 @@ function frame<P extends StartedPicture>(input: StartedOwnerReplayInput<P>, prep
     work.pay(3); work.text(row.productionId)
     committedLength = Math.max(committedLength, row.productionId.length)
   }
-  work.pay(plus(4, times(branch.releaseAuthority.commitments.length,
-    3 + keyBill(branch.releaseAuthority.commitments.length, committedLength))))
+  work.pay(work.calc(64).plus(4, work.calc(32).times(branch.releaseAuthority.commitments.length,
+    3 + work.calc(8).keyBill(branch.releaseAuthority.commitments.length, committedLength))))
   const committed = committedReleaseIds(branch.releaseAuthority)
   const before = branch.operations
   const bill = sweepBill(d, branch.productions, branch.operations, branch.week, committed, work)
   // Reserve observation, sink, binding/callback literals and complete owner work
   // together: an exhaustion boundary cannot record an unexecuted sweepStarted.
-  work.pay(plus(bill, 15 + LITERAL.sink + 1 + LITERAL.boundary +
+  work.pay(work.calc(64).plus(bill, 15 + LITERAL.sink + 1 + LITERAL.boundary +
     LITERAL.sweepStarted + APPEND + LITERAL.binding, orderedExternal.length))
   const sink = new StudioEventSink(branch.week, true)
   const at: Boundary = { week: branch.week, step: ++branch.step }
@@ -1190,20 +1252,19 @@ function frame<P extends StartedPicture>(input: StartedOwnerReplayInput<P>, prep
     branch.provenance.push({ kind: 'releaseAdmitted', at: releaseAt, productionId: id })
     const workflow = find(before.workflows, id, row => row.productionId, work)
     invariant(workflow !== undefined, 'release has no pre-sweep workflow')
-    work.pay(plus(24, times(branch.sets.length, 5 + 2 * equality(d.d)), d.setCopy, 18))
+    work.pay(work.calc(64).plus(24, work.calc(32).times(branch.sets.length, 5 + 2 * work.calc(8).equality(d.d)), d.setCopy, 18))
     branch.sets = depleteSetNoveltyForRelease(branch.sets, workflow.bindings.setId)
   }
-  work.pay(plus(5, times(released.length, keyBill(released.length, d.dp))))
+  work.pay(work.calc(64).plus(5, work.calc(32).times(released.length, work.calc(8).keyBill(released.length, d.dp))))
   const releasedSet = new Set(released)
-  // Four-term sum(36), product(10), nested keyBill/equality(68), setup(14).
-  work.pay(128)
+  work.pay(14) // scalar setup; full sum/product/keyBill/equality tree pays itself
   // Root literal(13), filter invocation+array header(2), each callback visit,
   // projection/predicate and worst-case retained capacity/reference write(5).
-  work.pay(plus(5, LITERAL.commitments, 2, times(branch.releaseAuthority.commitments.length,
-    5 + keyBill(released.length, d.dp))))
+  work.pay(work.calc(64).plus(5, LITERAL.commitments, 2, work.calc(32).times(branch.releaseAuthority.commitments.length,
+    5 + work.calc(8).keyBill(released.length, d.dp))))
   branch.releaseAuthority = pruneReleasedCommitments(branch.releaseAuthority, releasedSet)
   if (released.length > 0) {
-    work.pay(plus(2, times(branch.productions.length, 4 + keyBill(released.length, d.dp))))
+    work.pay(work.calc(64).plus(2, work.calc(32).times(branch.productions.length, 4 + work.calc(8).keyBill(released.length, d.dp))))
     branch.productions = branch.productions.filter(row => !releasedSet.has(row.id))
   }
   for (const production of advanced.firstTakes) {
@@ -1268,9 +1329,9 @@ export function replayStartedProductionPlans<P extends StartedPicture>(
   for (const plan of prepared.plans) {
     let branch: Branch<P> | undefined
     try {
-      work.pay(96) // fixed-arity construction-bill arithmetic, before sums/products
-      work.pay(plus(LITERAL.branch, 3, 2, times(prepared.fixed.length, 3 + LITERAL.ledgerRow),
-        2, times(prepared.pictures.length, 3 + LITERAL.calendar)))
+      work.pay(12) // scalar construction-bill reads; sums/products pay themselves
+      work.pay(work.calc(64).plus(LITERAL.branch, 3, 2, work.calc(32).times(prepared.fixed.length, 3 + LITERAL.ledgerRow),
+        2, work.calc(32).times(prepared.pictures.length, 3 + LITERAL.calendar)))
       branch = { week: prepared.now.week, step: 0,
         productions: input.source.studio.activeProductions, operations: input.source.operations,
         sets: input.source.sets, technology: input.source.technology, releaseAuthority: input.source.releaseAuthority,

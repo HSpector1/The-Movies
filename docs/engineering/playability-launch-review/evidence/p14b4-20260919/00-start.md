@@ -1,5 +1,45 @@
 # P14B.4 — capacity implementation continuation
 
+CURRENT223-CLOSED: fullreviewpersisted/KEEP accounting-retentiondelta; specific213
+findingsclosed/no new concreteundercharge. UsefulnessREFINE2252budgetFAIL.227
+READONLY proposalcomplete/fixedbinary arithmetic+tight simpleargument bounds;
+NOwriter/ALLspecialistsidle/runtimeCLOSED. Nextpublish218+findings thenONE227fix.
+
+CURRENT228:224typesPASS/22523PASS2budgetFAIL fixed16119d9+209fdb153310595e748a67c284ea142504043abd5abd5a3a72eefce67350ee61.
+200writing AND220twoDevelopmentPASS.182twoH6 parity/kernelwrapperFAILbeforekernel;
+226bothactualsweeps+all10events execute then cut(5,11), exactunpaidlineunknown.
+Probe copyremovedONLYafterarchive; allruntimeCLOSED/source218FROZEN/NOwriter.
+223auditorREADONLYcostreview;227simREADONLYminimalcalc-efficiencyprep/max2.
+222grandfathercandidateinert/fullparentread,modernnegativegapsexplicit. Next223/
+publishcheckpoint,ONEsourcefix thenunchanged25cases/types/adjacent serialized.
+
+CURRENT225:224rootANDUItypechecksPASS/fixedSource:true16119d9+209fdb153310595e748a67c284ea142504043abd5abd5a3a72eefce67350ee61.
+Compiler50866 CLOSED;225all25independentcases SOLEruntime.218SOURCEFROZEN/no
+writer;223auditorREADONLY/222authorinertprep/max2. Next225close/fullresults,
+serialadjacent/bridge checks and223review; retainrealregressions/unchangedcap.
+
+CURRENT224:218 SOURCEFROZEN/writeryielded; parentFULL218+complete diff read,
+replaySHA41f200bec1eb019e8dce080e5d105bb1cef6cb485faba162496110dbe365031f.
+220 installedEXACTfrozendraft+onecomment after221KEEP.223auditorREADONLY bounded
+accounting/retentiondelta;222authorinertcommandprep/max2/NOproductionwriter.
+Next224rootUIcompilerSOLEruntime then225all25cases, serialadjacent/bridgechecks.
+Original24assertions/200000cap unchanged; resultsNOTyetknown.
+
+CURRENT221-CLOSED: independent220 TESTKEEP forinstall/execution; fullreview221
+persisted, unexecutedfixture/budgetlimits explicit.218 SOLEproductionwriter still
+MUTABLE.222authorONLYinertscenerycommandcoverage preparation/constructibility;
+auditoridle/max2/ALLruntimeCLOSED. This preparation is NOTa prerequisite to218
+verification. Next218freeze/fullread/pins, install220 exact+comment, SERIALchecks.
+
+CURRENT219: HEAD/EXACTremote16119d97426e2fdfb5b19c4d07ba421379be9bdd published.
+218 SOLEproductionwriter ONLYreplaymodule+handback, MUTABLE/noinspection/runtime.
+220 inert two-picture retained-Development draft FROZEN/fullparentread;221 auditor
+reviews TESTONLY/immutableowners. Authoridle/max2; ALLruntime/Git sessionsCLOSED.
+Next218freeze/read/pins,220review/install, boundedsourcecostreview thenSERIAL
+types/25cases/adjacent checks.21523PASS1realbudgetFAIL and216bothactualsweeps/
+finaltracecut preserved.213calculator findingsOPEN; cap200000/tests unchanged.
+219publication/217qualification govern; earlier CURRENT blocks are chronology.
+
 CURRENT216-CLOSED:diagnostic3PASS/1sameFAIL fixed40d0665+89062ac8597d382ce3b680f63c7a38566cceccd109b37d1102914bc9cd34646e.
 ACTUALbothsweeps8→8then8→7 execute; cutthrough(3,0) duringfinaltraceoutput, NOT
 beforesecondadvance. Full217qualificationupdated. Exacttempprobecopyarchivedin

@@ -39,7 +39,13 @@ behavioral GREEN does not certify full prepayment or live feasibility. Corrected
 fixtures205 now give22PASS and206rootUIpass;196REFINE drives the same-module207
 accounting correction.207 then214rootUIpasses/21523of24passes with a real
 ordinary writing-background budget failure.213 accepts the construction fixes
-but requires remaining calculator payment corrections. No live capacity or
+but requires remaining calculator payment corrections. Published16119d9 retains
+the failure;216 diagnostic shows both real sweeps finish before final-trace
+exhaustion.218 same-module payment/retained-Development correction is underway;
+220 independent two-picture regression is now actualPASS on218, as is the prior
+writing failure.224typingPASS/22523of25PASS; two existing two-pictureH6 replay
+cases now exhaust before kernel.226 proves both real wrap sweeps finish before
+the cut; calculator efficiency correction remains owed. No live capacity or
 consumer readiness follows from partial verification. No
 consumer field/action, generated C#, schema or live version changes
 are authorized in this four-file tranche. Keep capacity explanations tied to the

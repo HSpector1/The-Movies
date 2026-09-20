@@ -1,0 +1,30 @@
+{
+  "sourceSha": "16119d97426e2fdfb5b19c4d07ba421379be9bdd",
+  "testedDiffSha256": "bf86cdda926b3b88844835f9040ec8dd4f889d6028567bd172d4d473f11e78a0",
+  "untrackedSource": [
+    "tests/p14b4-started-replay-retained-development.test.ts",
+    "tests/p14b4-wrap-budget-probe.test.ts"
+  ],
+  "command": [
+    "node_modules/.bin/vitest",
+    "run",
+    "--project",
+    "core",
+    "tests/p14b4-wrap-budget-probe.test.ts",
+    "-t",
+    "executes the NEXT real wrap/Post sweep for 2"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-20T04:26:26.111Z",
+  "end": "2026-09-20T04:26:32.073Z",
+  "exitCode": 1,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "16119d97426e2fdfb5b19c4d07ba421379be9bdd",
+  "testedDiffSha256AtEnd": "bf86cdda926b3b88844835f9040ec8dd4f889d6028567bd172d4d473f11e78a0",
+  "untrackedSourceAtEnd": [
+    "tests/p14b4-started-replay-retained-development.test.ts",
+    "tests/p14b4-wrap-budget-probe.test.ts"
+  ],
+  "fixedSource": true
+}

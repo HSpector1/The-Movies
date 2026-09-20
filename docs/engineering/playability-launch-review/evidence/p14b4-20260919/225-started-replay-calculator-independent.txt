@@ -1,0 +1,62 @@
+{"sourceSha":"16119d97426e2fdfb5b19c4d07ba421379be9bdd","testedDiffSha256":"209fdb153310595e748a67c284ea142504043abd5abd5a3a72eefce67350ee61","untrackedSource":["tests/p14b4-started-replay-retained-development.test.ts"],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14b4-started-owner-replay.test.ts","tests/p14b4-started-replay-background-command.test.ts","tests/p14b4-started-replay-casting.test.ts","tests/p14b4-started-replay-director.test.ts","tests/p14b4-started-replay-retained-development.test.ts"],"node":"v20.20.2","start":"2026-09-20T04:24:53.895Z","end":null,"exitCode":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p14b4-started-replay-retained-development.test.ts (1 test) 2032ms
+   ✓ P14B4 two genuine retained-Development pictures > replays both new8 skips then both sticky8→7 in one whole-slate call each week with exact unchanged occupancy 2029ms
+ ✓ |core| tests/p14b4-started-replay-background-command.test.ts (4 tests) 3926ms
+   ✓ P14B4 started replay — real background and explicit command supplement > releases original due-writing holds BEFORE sweep while new-start A keeps a DIFFERENT slot through later 8→7 2027ms
+   ✓ P14B4 started replay — real background and explicit command supplement > executes an explicit scheduleTake only from actual Ready and matches the real action + next tick 1064ms
+   ✓ P14B4 started replay — real background and explicit command supplement > resolves a formerly valid ID against CURRENT branch state after real committed release, without resurrection 798ms
+ ❯ |core| tests/p14b4-started-owner-replay.test.ts (16 tests | 2 failed) 5506ms
+   ✓ P14B4 genuine already-started owner replay — local first-take parity > replays all 1 scheduled picture(s) in ONE real sweep to horizon5 2115ms
+   ✓ P14B4 genuine already-started owner replay — local first-take parity > replays all 2 scheduled picture(s) in ONE real sweep to horizon5 1082ms
+   ✓ P14B4 genuine already-started owner replay — local first-take parity > executes the NEXT real wrap/Post sweep for 1 picture(s), not an invented horizon tail 450ms
+   × P14B4 genuine already-started owner replay — local first-take parity > executes the NEXT real wrap/Post sweep for 2 picture(s), not an invented horizon tail 269ms
+     → genuine fixture replay cut: workLimit: shared replay work limit
+   × P14B4 compulsory ledger and shared budget — frozen176 / endpoint186 > keeps all 2 picture(s)/mounts and passes the REAL kernel within the SAME allowance 59ms
+     → genuine fixture replay cut: workLimit: shared replay work limit
+   ✓ P14B4 compulsory ledger and shared budget — frozen176 / endpoint186 > uses one canonical cumulative allowance across plans and preserves prior preparation expenditure 339ms
+ ✓ |core| tests/p14b4-started-replay-casting.test.ts (2 tests) 2113ms
+   ✓ P14B4 real active auditions in started-owner replay > keeps the exact original audition slot at zero horizon, without candidate or credited-writer person holds 1216ms
+   ✓ P14B4 real active auditions in started-owner replay > closes only the due audition slot before the real sweep; the overlapping candidates remain A company 894ms
+ ✓ |core| tests/p14b4-started-replay-director.test.ts (2 tests) 1613ms
+   ✓ P14B4 real locked-director replay commands > assigns the actual locked director, settles due-at-call scenery, then schedules by ordinal before the real sweep 1308ms
+   ✓ P14B4 real locked-director replay commands > refuses grandfather-only clear on the genuine current unassigned workflow before lower clear or sweep 302ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14b4-started-owner-replay.test.ts > P14B4 genuine already-started owner replay — local first-take parity > executes the NEXT real wrap/Post sweep for 2 picture(s), not an invented horizon tail
+Error: genuine fixture replay cut: workLimit: shared replay work limit
+ ❯ complete tests/p14b4-started-owner-replay.test.ts:170:42
+    168|   expect(observedResult.result.attempts).toHaveLength(1)
+    169|   const attempt = observedResult.result.attempts[0]!
+    170|   if (attempt.kind !== 'complete') throw new Error(`genuine fixture re…
+       |                                          ^
+    171|   expect(observedResult.result.omissions).toEqual([])
+    172|   expect(attempt.trace.traceKey).toBe(value.plans[0]!.traceKey)
+ ❯ tests/p14b4-started-owner-replay.test.ts:224:32
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL |core|  tests/p14b4-started-owner-replay.test.ts > P14B4 compulsory ledger and shared budget — frozen176 / endpoint186 > keeps all 2 picture(s)/mounts and passes the REAL kernel within the SAME allowance
+Error: genuine fixture replay cut: workLimit: shared replay work limit
+ ❯ complete tests/p14b4-started-owner-replay.test.ts:170:42
+    168|   expect(observedResult.result.attempts).toHaveLength(1)
+    169|   const attempt = observedResult.result.attempts[0]!
+    170|   if (attempt.kind !== 'complete') throw new Error(`genuine fixture re…
+       |                                          ^
+    171|   expect(observedResult.result.omissions).toEqual([])
+    172|   expect(attempt.trace.traceKey).toBe(value.plans[0]!.traceKey)
+ ❯ tests/p14b4-started-owner-replay.test.ts:428:21
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+ Test Files  1 failed | 4 passed (5)
+      Tests  2 failed | 23 passed (25)
+   Start at  06:24:54
+   Duration  10.40s (transform 2.46s, setup 0ms, collect 9.80s, tests 15.19s, environment 3ms, prepare 1.14s)
+
+
+{"sourceSha":"16119d97426e2fdfb5b19c4d07ba421379be9bdd","testedDiffSha256":"209fdb153310595e748a67c284ea142504043abd5abd5a3a72eefce67350ee61","untrackedSource":["tests/p14b4-started-replay-retained-development.test.ts"],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14b4-started-owner-replay.test.ts","tests/p14b4-started-replay-background-command.test.ts","tests/p14b4-started-replay-casting.test.ts","tests/p14b4-started-replay-director.test.ts","tests/p14b4-started-replay-retained-development.test.ts"],"node":"v20.20.2","start":"2026-09-20T04:24:53.895Z","end":"2026-09-20T04:25:05.625Z","exitCode":1,"signal":null,"error":null,"sourceShaAtEnd":"16119d97426e2fdfb5b19c4d07ba421379be9bdd","testedDiffSha256AtEnd":"209fdb153310595e748a67c284ea142504043abd5abd5a3a72eefce67350ee61","untrackedSourceAtEnd":["tests/p14b4-started-replay-retained-development.test.ts"],"fixedSource":true}

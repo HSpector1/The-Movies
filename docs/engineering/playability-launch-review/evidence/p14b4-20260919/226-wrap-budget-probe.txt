@@ -1,0 +1,34 @@
+{"sourceSha":"16119d97426e2fdfb5b19c4d07ba421379be9bdd","testedDiffSha256":"bf86cdda926b3b88844835f9040ec8dd4f889d6028567bd172d4d473f11e78a0","untrackedSource":["tests/p14b4-started-replay-retained-development.test.ts","tests/p14b4-wrap-budget-probe.test.ts"],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14b4-wrap-budget-probe.test.ts","-t","executes the NEXT real wrap/Post sweep for 2"],"node":"v20.20.2","start":"2026-09-20T04:26:26.111Z","end":null,"exitCode":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+stdout | tests/p14b4-wrap-budget-probe.test.ts > P14B4 genuine already-started owner replay — local first-take parity > executes the NEXT real wrap/Post sweep for 2 picture(s), not an invented horizon tail
+226-REPLAY-DIAGNOSTIC {"sourceWeek":4,"horizon":6,"work":200000,"calls":[{"week":4,"ids":["prod-0000","prod-0000-1"],"before":[5,5],"after":[4,4],"takes":["prod-0000","prod-0000-1"]},{"week":5,"ids":["prod-0000","prod-0000-1"],"before":[4,4],"after":[3,3],"takes":[]}],"external":{"arrival":2,"technology":2,"setup":2},"fixedHolds":18,"omissions":["work limit; remaining plan suffixes unexecuted"],"attempts":[{"kind":"cut","traceKey":"empty-command-plan","through":{"week":5,"step":11},"reason":"workLimit","detail":"shared replay work limit","provenance":[{"kind":"sweepStarted","at":{"week":4,"step":1},"externalSlotKeys":[]},{"kind":"firstTake","at":{"week":5,"step":0},"productionId":"prod-0000"},{"kind":"firstTake","at":{"week":5,"step":0},"productionId":"prod-0000-1"},{"kind":"sweepStarted","at":{"week":5,"step":1},"externalSlotKeys":[]},{"kind":"ownerEvent","at":{"week":5,"step":2},"ownerWeek":5,"draft":{"kind":"wrapped","productionId":"prod-0000","stageFacilityId":"facility-soundstage-07","setId":"set-0"}},{"kind":"ownerEvent","at":{"week":5,"step":3},"ownerWeek":5,"draft":{"kind":"reservationReleased","ownerId":"prod-0000","resourceKey":"facility-soundstage-07:0"}},{"kind":"ownerEvent","at":{"week":5,"step":4},"ownerWeek":5,"draft":{"kind":"reservationReleased","ownerId":"prod-0000","resourceKey":"facility-scenery-shop:0"}},{"kind":"ownerEvent","at":{"week":5,"step":5},"ownerWeek":5,"draft":{"kind":"reservationGranted","ownerId":"prod-0000","resourceKey":"facility-post-building:0"}},{"kind":"ownerEvent","at":{"week":5,"step":6},"ownerWeek":5,"draft":{"kind":"phaseEntered","productionId":"prod-0000","phase":"postProduction"}},{"kind":"ownerEvent","at":{"week":5,"step":7},"ownerWeek":5,"draft":{"kind":"wrapped","productionId":"prod-0000-1","stageFacilityId":"facility-soundstage-12","setId":"set-1"}},{"kind":"ownerEvent","at":{"week":5,"step":8},"ownerWeek":5,"draft":{"kind":"reservationReleased","ownerId":"prod-0000-1","resourceKey":"facility-soundstage-12:0"}},{"kind":"ownerEvent","at":{"week":5,"step":9},"ownerWeek":5,"draft":{"kind":"reservationReleased","ownerId":"prod-0000-1","resourceKey":"facility-scenery-shop:1"}},{"kind":"ownerEvent","at":{"week":5,"step":10},"ownerWeek":5,"draft":{"kind":"reservationGranted","ownerId":"prod-0000-1","resourceKey":"facility-post-building:1"}},{"kind":"ownerEvent","at":{"week":5,"step":11},"ownerWeek":5,"draft":{"kind":"phaseEntered","productionId":"prod-0000-1","phase":"postProduction"}}]}]}
+
+ ❯ |core| tests/p14b4-wrap-budget-probe.test.ts (16 tests | 1 failed | 15 skipped) 1002ms
+   × P14B4 genuine already-started owner replay — local first-take parity > executes the NEXT real wrap/Post sweep for 2 picture(s), not an invented horizon tail 1000ms
+     → genuine fixture replay cut: workLimit: shared replay work limit
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14b4-wrap-budget-probe.test.ts > P14B4 genuine already-started owner replay — local first-take parity > executes the NEXT real wrap/Post sweep for 2 picture(s), not an invented horizon tail
+Error: genuine fixture replay cut: workLimit: shared replay work limit
+ ❯ complete tests/p14b4-wrap-budget-probe.test.ts:175:42
+    173|   expect(observedResult.result.attempts).toHaveLength(1)
+    174|   const attempt = observedResult.result.attempts[0]!
+    175|   if (attempt.kind !== 'complete') throw new Error(`genuine fixture re…
+       |                                          ^
+    176|   expect(observedResult.result.omissions).toEqual([])
+    177|   expect(attempt.trace.traceKey).toBe(value.plans[0]!.traceKey)
+ ❯ tests/p14b4-wrap-budget-probe.test.ts:229:32
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 15 skipped (16)
+   Start at  06:26:27
+   Duration  4.38s (transform 2.22s, setup 0ms, collect 2.85s, tests 1.00s, environment 0ms, prepare 111ms)
+
+
+{"sourceSha":"16119d97426e2fdfb5b19c4d07ba421379be9bdd","testedDiffSha256":"bf86cdda926b3b88844835f9040ec8dd4f889d6028567bd172d4d473f11e78a0","untrackedSource":["tests/p14b4-started-replay-retained-development.test.ts","tests/p14b4-wrap-budget-probe.test.ts"],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14b4-wrap-budget-probe.test.ts","-t","executes the NEXT real wrap/Post sweep for 2"],"node":"v20.20.2","start":"2026-09-20T04:26:26.111Z","end":"2026-09-20T04:26:32.073Z","exitCode":1,"signal":null,"error":null,"sourceShaAtEnd":"16119d97426e2fdfb5b19c4d07ba421379be9bdd","testedDiffSha256AtEnd":"bf86cdda926b3b88844835f9040ec8dd4f889d6028567bd172d4d473f11e78a0","untrackedSourceAtEnd":["tests/p14b4-started-replay-retained-development.test.ts","tests/p14b4-wrap-budget-probe.test.ts"],"fixedSource":true}
