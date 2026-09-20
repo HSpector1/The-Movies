@@ -1,0 +1,126 @@
+{"sourceSha":"c64317827ef740a550322cc51f3c782ff47dad58","testedDiffSha256":"a3ba5f3b0d8ac8c92d718c9127967d752192ebd78ab34c47f23e90c3cc40aaae","untrackedSource":["tests/p14b4-ready-owner-replay.test.ts"],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14b4-ready-owner-replay.test.ts"],"node":"v20.20.2","start":"2026-09-20T05:07:45.660Z","end":null,"exitCode":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/p14b4-ready-owner-replay.test.ts (7 tests | 7 failed) 2308ms
+   × P14B4 source-now Ready operational admission > admits a genuine Ready beside the whole original slate, preserves opaque original fields, and feeds the same capped kernel 946ms
+     → replayReadyProductionPlans is not a function
+   × P14B4 source-now Ready operational admission > allows independent sibling staffings of the SAME Ready project and SAME would-be identity without cross-branch consumption 186ms
+     → replayReadyProductionPlans is not a function
+   × P14B4 source-now Ready operational admission > refuses occupied source-now Development rather than inventing a queued or later admission; credited writer work is not company occupancy 426ms
+     → replayReadyProductionPlans is not a function
+   × P14B4 source-now Ready operational admission > refuses a genuine unfinished audition before allocation and preserves its actual reserved slot 339ms
+     → replayReadyProductionPlans is not a function
+   × P14B4 source-now Ready operational admission > uses actual source-now employment and freelancer-market facts instead of treating every idle uncontracted actor as available 113ms
+     → replayReadyProductionPlans is not a function
+   × P14B4 source-now Ready operational admission > refuses a genuinely already-linked project, not legal reuse across independent sibling plans 221ms
+     → replayReadyProductionPlans is not a function
+   × P14B4 source-now Ready operational admission > cuts zero and tiny shared budgets before invoking admission, linking or sweep owners 74ms
+     → replayReadyProductionPlans is not a function
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 7 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14b4-ready-owner-replay.test.ts > P14B4 source-now Ready operational admission > admits a genuine Ready beside the whole original slate, preserves opaque original fields, and feeds the same capped kernel
+TypeError: replayReadyProductionPlans is not a function
+ ❯ observed tests/p14b4-ready-owner-replay.test.ts:148:20
+    146|   const link = vi.spyOn(scriptsModule, 'linkScriptProjectToProduction')
+    147|   try {
+    148|     const result = replayReadyProductionPlans(value)
+       |                    ^
+    149|     expect(result.preparationWork).toBeLessThanOrEqual(value.limits.wo…
+    150|     return { result, calls, headerCalls: header.mock.calls.length, sta…
+ ❯ completed tests/p14b4-ready-owner-replay.test.ts:159:16
+ ❯ tests/p14b4-ready-owner-replay.test.ts:233:70
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/7]⎯
+
+ FAIL |core|  tests/p14b4-ready-owner-replay.test.ts > P14B4 source-now Ready operational admission > allows independent sibling staffings of the SAME Ready project and SAME would-be identity without cross-branch consumption
+TypeError: replayReadyProductionPlans is not a function
+ ❯ observed tests/p14b4-ready-owner-replay.test.ts:148:20
+    146|   const link = vi.spyOn(scriptsModule, 'linkScriptProjectToProduction')
+    147|   try {
+    148|     const result = replayReadyProductionPlans(value)
+       |                    ^
+    149|     expect(result.preparationWork).toBeLessThanOrEqual(value.limits.wo…
+    150|     return { result, calls, headerCalls: header.mock.calls.length, sta…
+ ❯ tests/p14b4-ready-owner-replay.test.ts:332:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/7]⎯
+
+ FAIL |core|  tests/p14b4-ready-owner-replay.test.ts > P14B4 source-now Ready operational admission > refuses occupied source-now Development rather than inventing a queued or later admission; credited writer work is not company occupancy
+TypeError: replayReadyProductionPlans is not a function
+ ❯ observed tests/p14b4-ready-owner-replay.test.ts:148:20
+    146|   const link = vi.spyOn(scriptsModule, 'linkScriptProjectToProduction')
+    147|   try {
+    148|     const result = replayReadyProductionPlans(value)
+       |                    ^
+    149|     expect(result.preparationWork).toBeLessThanOrEqual(value.limits.wo…
+    150|     return { result, calls, headerCalls: header.mock.calls.length, sta…
+ ❯ refusal tests/p14b4-ready-owner-replay.test.ts:213:16
+ ❯ tests/p14b4-ready-owner-replay.test.ts:382:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/7]⎯
+
+ FAIL |core|  tests/p14b4-ready-owner-replay.test.ts > P14B4 source-now Ready operational admission > refuses a genuine unfinished audition before allocation and preserves its actual reserved slot
+TypeError: replayReadyProductionPlans is not a function
+ ❯ observed tests/p14b4-ready-owner-replay.test.ts:148:20
+    146|   const link = vi.spyOn(scriptsModule, 'linkScriptProjectToProduction')
+    147|   try {
+    148|     const result = replayReadyProductionPlans(value)
+       |                    ^
+    149|     expect(result.preparationWork).toBeLessThanOrEqual(value.limits.wo…
+    150|     return { result, calls, headerCalls: header.mock.calls.length, sta…
+ ❯ refusal tests/p14b4-ready-owner-replay.test.ts:213:16
+ ❯ tests/p14b4-ready-owner-replay.test.ts:398:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/7]⎯
+
+ FAIL |core|  tests/p14b4-ready-owner-replay.test.ts > P14B4 source-now Ready operational admission > uses actual source-now employment and freelancer-market facts instead of treating every idle uncontracted actor as available
+TypeError: replayReadyProductionPlans is not a function
+ ❯ observed tests/p14b4-ready-owner-replay.test.ts:148:20
+    146|   const link = vi.spyOn(scriptsModule, 'linkScriptProjectToProduction')
+    147|   try {
+    148|     const result = replayReadyProductionPlans(value)
+       |                    ^
+    149|     expect(result.preparationWork).toBeLessThanOrEqual(value.limits.wo…
+    150|     return { result, calls, headerCalls: header.mock.calls.length, sta…
+ ❯ refusal tests/p14b4-ready-owner-replay.test.ts:213:16
+ ❯ tests/p14b4-ready-owner-replay.test.ts:411:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/7]⎯
+
+ FAIL |core|  tests/p14b4-ready-owner-replay.test.ts > P14B4 source-now Ready operational admission > refuses a genuinely already-linked project, not legal reuse across independent sibling plans
+TypeError: replayReadyProductionPlans is not a function
+ ❯ observed tests/p14b4-ready-owner-replay.test.ts:148:20
+    146|   const link = vi.spyOn(scriptsModule, 'linkScriptProjectToProduction')
+    147|   try {
+    148|     const result = replayReadyProductionPlans(value)
+       |                    ^
+    149|     expect(result.preparationWork).toBeLessThanOrEqual(value.limits.wo…
+    150|     return { result, calls, headerCalls: header.mock.calls.length, sta…
+ ❯ refusal tests/p14b4-ready-owner-replay.test.ts:213:16
+ ❯ tests/p14b4-ready-owner-replay.test.ts:420:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/7]⎯
+
+ FAIL |core|  tests/p14b4-ready-owner-replay.test.ts > P14B4 source-now Ready operational admission > cuts zero and tiny shared budgets before invoking admission, linking or sweep owners
+TypeError: replayReadyProductionPlans is not a function
+ ❯ observed tests/p14b4-ready-owner-replay.test.ts:148:20
+    146|   const link = vi.spyOn(scriptsModule, 'linkScriptProjectToProduction')
+    147|   try {
+    148|     const result = replayReadyProductionPlans(value)
+       |                    ^
+    149|     expect(result.preparationWork).toBeLessThanOrEqual(value.limits.wo…
+    150|     return { result, calls, headerCalls: header.mock.calls.length, sta…
+ ❯ tests/p14b4-ready-owner-replay.test.ts:426:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/7]⎯
+
+ Test Files  1 failed (1)
+      Tests  7 failed (7)
+   Start at  07:07:46
+   Duration  5.77s (transform 2.17s, setup 0ms, collect 2.86s, tests 2.31s, environment 0ms, prepare 142ms)
+
+
+{"sourceSha":"c64317827ef740a550322cc51f3c782ff47dad58","testedDiffSha256":"a3ba5f3b0d8ac8c92d718c9127967d752192ebd78ab34c47f23e90c3cc40aaae","untrackedSource":["tests/p14b4-ready-owner-replay.test.ts"],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14b4-ready-owner-replay.test.ts"],"node":"v20.20.2","start":"2026-09-20T05:07:45.660Z","end":"2026-09-20T05:07:53.161Z","exitCode":1,"signal":null,"error":null,"sourceShaAtEnd":"c64317827ef740a550322cc51f3c782ff47dad58","testedDiffSha256AtEnd":"a3ba5f3b0d8ac8c92d718c9127967d752192ebd78ab34c47f23e90c3cc40aaae","untrackedSourceAtEnd":["tests/p14b4-ready-owner-replay.test.ts"],"fixedSource":true}

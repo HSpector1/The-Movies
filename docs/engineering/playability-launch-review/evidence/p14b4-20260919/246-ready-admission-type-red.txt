@@ -1,0 +1,38 @@
+{"sourceSha":"c64317827ef740a550322cc51f3c782ff47dad58","testedDiffSha256":"a3ba5f3b0d8ac8c92d718c9127967d752192ebd78ab34c47f23e90c3cc40aaae","untrackedSource":["tests/p14b4-ready-owner-replay.test.ts"],"command":["npm","run","typecheck"],"node":"v20.20.2","start":"2026-09-20T05:08:02.921Z","end":null,"exitCode":null}
+
+
+> project-studio-core@0.1.0 typecheck
+> tsc --noEmit && tsc -p ui/tsconfig.json --noEmit
+
+tests/p14b4-ready-owner-replay.test.ts(12,10): error TS2724: '"../src/core/promiseCapacityOwnerReplay.js"' has no exported member named 'replayReadyProductionPlans'. Did you mean 'replayStartedProductionPlans'?
+tests/p14b4-ready-owner-replay.test.ts(12,43): error TS2724: '"../src/core/promiseCapacityOwnerReplay.js"' has no exported member named 'ReadyOwnerReplayInput'. Did you mean 'StartedOwnerReplayInput'?
+tests/p14b4-ready-owner-replay.test.ts(180,60): error TS7006: Parameter 'row' implicitly has an 'any' type.
+tests/p14b4-ready-owner-replay.test.ts(193,71): error TS7006: Parameter 'row' implicitly has an 'any' type.
+tests/p14b4-ready-owner-replay.test.ts(199,60): error TS7006: Parameter 'row' implicitly has an 'any' type.
+tests/p14b4-ready-owner-replay.test.ts(201,60): error TS7006: Parameter 'row' implicitly has an 'any' type.
+tests/p14b4-ready-owner-replay.test.ts(206,37): error TS7006: Parameter 'row' implicitly has an 'any' type.
+tests/p14b4-ready-owner-replay.test.ts(219,35): error TS7006: Parameter 'row' implicitly has an 'any' type.
+tests/p14b4-ready-owner-replay.test.ts(239,39): error TS7006: Parameter 'row' implicitly has an 'any' type.
+tests/p14b4-ready-owner-replay.test.ts(240,13): error TS7006: Parameter 'row' implicitly has an 'any' type.
+tests/p14b4-ready-owner-replay.test.ts(247,37): error TS7006: Parameter 'row' implicitly has an 'any' type.
+tests/p14b4-ready-owner-replay.test.ts(250,50): error TS7006: Parameter 'row' implicitly has an 'any' type.
+tests/p14b4-ready-owner-replay.test.ts(260,27): error TS7006: Parameter 'row' implicitly has an 'any' type.
+tests/p14b4-ready-owner-replay.test.ts(261,27): error TS7006: Parameter 'row' implicitly has an 'any' type.
+tests/p14b4-ready-owner-replay.test.ts(263,36): error TS7006: Parameter 'row' implicitly has an 'any' type.
+tests/p14b4-ready-owner-replay.test.ts(264,48): error TS7006: Parameter 'row' implicitly has an 'any' type.
+tests/p14b4-ready-owner-replay.test.ts(265,29): error TS7006: Parameter 'row' implicitly has an 'any' type.
+tests/p14b4-ready-owner-replay.test.ts(265,73): error TS7006: Parameter 'row' implicitly has an 'any' type.
+tests/p14b4-ready-owner-replay.test.ts(268,29): error TS7006: Parameter 'row' implicitly has an 'any' type.
+tests/p14b4-ready-owner-replay.test.ts(268,75): error TS7006: Parameter 'row' implicitly has an 'any' type.
+tests/p14b4-ready-owner-replay.test.ts(272,47): error TS7006: Parameter 'row' implicitly has an 'any' type.
+tests/p14b4-ready-owner-replay.test.ts(282,49): error TS7006: Parameter 'row' implicitly has an 'any' type.
+tests/p14b4-ready-owner-replay.test.ts(283,63): error TS7006: Parameter 'row' implicitly has an 'any' type.
+tests/p14b4-ready-owner-replay.test.ts(284,29): error TS7006: Parameter 'row' implicitly has an 'any' type.
+tests/p14b4-ready-owner-replay.test.ts(289,44): error TS7006: Parameter 'row' implicitly has an 'any' type.
+tests/p14b4-ready-owner-replay.test.ts(292,65): error TS7006: Parameter 'row' implicitly has an 'any' type.
+tests/p14b4-ready-owner-replay.test.ts(293,31): error TS7006: Parameter 'row' implicitly has an 'any' type.
+tests/p14b4-ready-owner-replay.test.ts(301,44): error TS7006: Parameter 'row' implicitly has an 'any' type.
+tests/p14b4-ready-owner-replay.test.ts(357,42): error TS7006: Parameter 'row' implicitly has an 'any' type.
+tests/p14b4-ready-owner-replay.test.ts(428,41): error TS7006: Parameter 'row' implicitly has an 'any' type.
+
+{"sourceSha":"c64317827ef740a550322cc51f3c782ff47dad58","testedDiffSha256":"a3ba5f3b0d8ac8c92d718c9127967d752192ebd78ab34c47f23e90c3cc40aaae","untrackedSource":["tests/p14b4-ready-owner-replay.test.ts"],"command":["npm","run","typecheck"],"node":"v20.20.2","start":"2026-09-20T05:08:02.921Z","end":"2026-09-20T05:08:34.459Z","exitCode":2,"signal":null,"error":null,"sourceShaAtEnd":"c64317827ef740a550322cc51f3c782ff47dad58","testedDiffSha256AtEnd":"a3ba5f3b0d8ac8c92d718c9127967d752192ebd78ab34c47f23e90c3cc40aaae","untrackedSourceAtEnd":["tests/p14b4-ready-owner-replay.test.ts"],"fixedSource":true}

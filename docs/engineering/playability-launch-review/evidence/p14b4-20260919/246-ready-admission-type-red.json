@@ -1,0 +1,24 @@
+{
+  "sourceSha": "c64317827ef740a550322cc51f3c782ff47dad58",
+  "testedDiffSha256": "a3ba5f3b0d8ac8c92d718c9127967d752192ebd78ab34c47f23e90c3cc40aaae",
+  "untrackedSource": [
+    "tests/p14b4-ready-owner-replay.test.ts"
+  ],
+  "command": [
+    "npm",
+    "run",
+    "typecheck"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-20T05:08:02.921Z",
+  "end": "2026-09-20T05:08:34.459Z",
+  "exitCode": 2,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "c64317827ef740a550322cc51f3c782ff47dad58",
+  "testedDiffSha256AtEnd": "a3ba5f3b0d8ac8c92d718c9127967d752192ebd78ab34c47f23e90c3cc40aaae",
+  "untrackedSourceAtEnd": [
+    "tests/p14b4-ready-owner-replay.test.ts"
+  ],
+  "fixedSource": true
+}

@@ -1,5 +1,46 @@
 # P14B.4 — capacity implementation continuation
 
+CURRENT247: initialReady RED recorded:245 seven bodies reach missingfunction,
+246 root30diagnostics(two missingexports+28downstream),UI NOTreached. Bothfixed
+c643178+a3ba5f3b0d8ac8c92d718c9127967d752192ebd78ab34c47f23e90c3cc40aaae.
+45563/43158 CLOSED; sourceFROZEN/no writer. Installed244 exact+comment431a3809.
+247 qualifies reached fixtures vs unreached replay/kernel.250 author ONLYinert
+cancelled-ID case; sim/auditoridle. Nextpublish/exactremote, then249SOLEwriter
+240scope; parent serialized verification afterfreeze. No routinepermission.
+
+CURRENT243: 242 independent seven-case draft/brief FROZEN and parent fully read;
+draft ade2d742bb935d0d84e43ff42590a9837bb1040e9505d94271b485af5273e71c,
+brief73207f745de64a058752dc0ece558646e507ca79e3ee6b98a43db217439719ae.
+243 auditor READONLY bounded test/contract review; sim/author idle, no writer or
+runtime. Source remains publishedc643178. Resolve only concrete test defects,
+then freeze exact installation, serialized RED and recoverable publication before
+sole240 implementation writer. All fixture conjunctions remain UNEXECUTED.
+
+CURRENT242-PREP: simREADONLYpreparationcomplete/no newblocker, NOedits/runtime;
+240/241 sharedbranch/counter/dynamicledger/realidentity-employment calltree ready.
+242authorcontinuesONLYinerttests. Sim/auditoridle,sourceFROZEN. Next242freeze/
+fullread/testreview/install/serialRED, thenONEsourcewriter without routinepermission.
+
+CURRENT242: 242authorONLYinertindependentReadytests;simREADONLYimplementation/
+source-costpreparation afterFINAL240/241, NOeditsuntilparentpostREDrelease.
+Auditoridle/max2. Source227FROZEN/ALLruntimeCLOSED/EXACTremotec643178. Next242
+freeze/fullread/hash/review/install, serializeRED, publishthenONEcodewriter.
+
+CURRENT241-CLOSED: bounded240 interfaceKEEP afterconcreteclarifications; FULL241
+persisted.240finalSHAe81667c030bd0ed4c0eccb37fc96f4ec1e860a216e33c838cabd9f2cde9c160a.
+SameReadyprojectsiblingsLEGAL; projection admissionScriptDevelopment is immediate
+link snapshot, NOThorizonReview/Produced root. readyAdmitted/commandRefused exact.
+242testauthorONLYinertindependentdrafting;sim/auditoridle/NOruntime/NOwriter.
+Next242freeze/read/review/install, serialRED, ONEsimimplementation of240scope.
+
+CURRENT240: HEAD/EXACTremote c64317827ef740a550322cc51f3c782ff47dad58 published;
+239publication/push54463CLOSED. 227/sourceFROZEN/ALLruntimeCLOSED/NOwriter.
+240concrete source-nowReady whole-slate admission seam persisted;241bounded
+contractreview +242independent inerttestdrafting active/max2; simidle.
+Nextresolve engineeringAPI/testbytes, serialmissing-exportRED, ONEsimwriter
+replay+exactidentity/actionsallocator move. No fullfutureenumeration/finance
+certificate/wholeB4/nativeclaim. Original26replaytests+allprotected work retained.
+
 CURRENT238:232rootUItypingPASS/23325PASS/234grandfather1PASS/235adjacent98PASS;
 236SOLEOLDbridgekindTS2353. ALLfixed779e65b+9ab6f00afaf2c9b45454a7d63cd98a18f20c1084109b8f2f1bc55305defc70e4.
 231sourceKEEP/237qualifiedevidenceKEEP;228failuresresolved, same200000+realKernel.

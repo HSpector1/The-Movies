@@ -6,26 +6,28 @@ Headless verification never claims package completion or Owner acceptance.
 
 Current (2026-09-20):
 
-Current B4 checkpoint238 (2026-09-20):227 arithmetic efficiency VERIFIED in
-qualified scope. Replay376eb23874fb9d1a142f58c29ce2f3832c7b7a021f3d2698cf6bbbc349dcfe79.
-232 rootANDUItypingPASS;233 original25PASS;234 genuine migrated-grandfather1PASS;
-235 adjacent98PASS/9files.236 bridge exit2 SOLEunchanged futureP2 kind TS2353.
-ALLfixed779e65b+9ab6f00afaf2c9b45454a7d63cd98a18f20c1084109b8f2f1bc55305defc70e4.
-225 two-pictureH6 failures resolved with unchangedtests/actual sharedkernel and
-200000 cap.200writing/220twoDevelopment remainPASS. Historicalfailed evidence
-preserved.231 source deltaKEEP/237 qualifiedevidenceKEEP; specific213 findings
-CLOSED, not universal mixed-phase coefficient/performance or choice-completeness.
-222 grandfather strict reader/migration/current-save/owner/ledger assertions now
-ACTUALLY reached in234. Modern transit/arrived-pending coverage remains owed.
+Current B4 checkpoint247 (2026-09-20): Ready-admission independent RED recorded.
+244 seven-case installation EXACT reviewed corrections plus provenance comment;
+SHA431a380965938c614364a382a17bfd33607c85bf0bce630f206629ae6dafe692.
+245 seven bodies reach missingfunction; genuine pre-call fixture/action guards
+PASS, replay/ledger/kernel assertions NOT reached.246 root30diagnostics:two
+missingexports+28downstream implicittypes; UI NOTreached. Bothfixedc643178+
+a3ba5f3b0d8ac8c92d718c9127967d752192ebd78ab34c47f23e90c3cc40aaae.
+AllruntimeCLOSED/sourceFROZEN/no writer.240 FINAL contract/241KEEP,243three
+test-oracle corrections applied in244; original242 preserved.250 author ONLY
+inert cancelled-ID test; sim/auditoridle. Nextpublish247/exactremote then249
+SOLEsimwriter for240 replay+exactidentity/actionsallocator move. No test/validator/
+cap/timeout weakening. Afterfreeze fullread/boundedreview/serial verification.
 
-ALLruntime/GitCLOSED/sourceFROZEN/NOwriter. SimREADONLY preparing concrete next
-Ready-script whole-slate admission seam; otheragentsidle. Next publish qualified
-checkpoint/verifyremote, independent nexttests then ONEbounded implementation.
-No additional installation/wholeaudit/routinepermission, no test/validator/cap/
-timeout loosening. Futurechoices/liveP2/coherentcutover/fullB4 remainunfinished.
+Prior238 replay-efficiency qualifiedGREEN preserved:232rootUI PASS,23325PASS,
+234genuinegrandfather1PASS,235adjacent98PASS.236SOLEOLD futureP2 bridgekindTS2353.
+Original26tests/owners unchanged;225 H6 failures resolved with real sharedkernel
+under SAME200000.231sourceKEEP/237evidenceKEEP; specific213 findingsCLOSED.
+No universal mixed-phase/choice-completeness certificate. Moderntransit coverage
+and fuller240Ready/command/domain integration remain owed. FutureP2/fullB4 unfinished.
 
-PublishedHEAD/EXACTremote779e65b6c3710e4fa530d9fbce2aa9a9e245a63a (229).
-227+230–238 changes uncommitted; all raw protected source snapshots preserved.
+PublishedHEAD/EXACTremotec64317827ef740a550322cc51f3c782ff47dad58 (239);
+247 test/RED checkpoint pending publication. No sourceimplementation change yet.
 P14B.1 T4/B2/B3/B-F2 recovered qualified closeouts; do not rebuild/rerun.
 Continue coherentP2/restP14/P15/P16/specifiedP17/P18 under logic-first directive.
 Save29/rules3/projection46 staylive until coherentcutover.
