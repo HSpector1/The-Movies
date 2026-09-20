@@ -73,6 +73,46 @@ export type CapacityKernelResult = DeepReadonly<(
       omissions: readonly string[] }
 ) & { workUsed: number }>
 
+export type JointTracePicture = DeepReadonly<Omit<PictureAlternative, 'personRelease'> & {
+  kind: 'jointTracePicture'; jointTraceKey: string; personRelease: Boundary | null
+  additionalHolds: readonly []; holdReplacements: readonly []
+}>
+export type JointTraceBackgroundPath = DeepReadonly<{
+  kind: 'jointTraceBackground'; jointTraceKey: string; pathKey: string
+  issuerId: string; existingPath: boolean; ownerFactRefs: readonly string[]
+}>
+export type JointTracePath = JointTracePicture | JointTraceBackgroundPath
+export type JointOwnerTrace = DeepReadonly<{
+  kind: 'jointOwnerTrace'; traceKey: string; ownerFactRefs: readonly string[]
+  paths: readonly JointTracePath[]; fixedHoldReplacements: readonly HoldReplacement[]
+  additionalHolds: readonly Hold[]
+}>
+export type JointTraceCoverage = DeepReadonly<{
+  claimsAndHolds: 'complete' | 'incomplete'; existingCalendars: 'complete' | 'incomplete'
+  allOwnerTraces: 'complete' | 'incomplete'; omissions: readonly string[]
+}>
+export type JointTraceCapacityInput = DeepReadonly<Omit<CapacityKernelInput, 'alternatives' | 'coverage'> & {
+  mode: 'jointOwnerTraces'; traces: readonly JointOwnerTrace[]; coverage: JointTraceCoverage
+}>
+export type JointTraceWitness = DeepReadonly<{
+  traceKey: string; ownerFactRefs: readonly string[]; executedPathKeys: readonly string[]
+  effectiveHoldIds: readonly string[]; creditedPictureKeys: readonly string[]
+  credits: readonly Credit[]; targetTakeBoundaries: readonly Boundary[]
+}>
+type ResultWithWitness<W> =
+  | Extract<CapacityKernelResult, { status: 'ALREADY_MET' | 'PROVEN_IMPOSSIBLE' | 'UNCERTIFIED' }>
+  | (Omit<Extract<CapacityKernelResult, { status: 'CERTIFIED_ACHIEVABLE' }>, 'witness'> & Readonly<{ witness: W }>)
+  | (Omit<Extract<CapacityKernelResult, { status: 'PROVEN_FRAGILE' }>, 'countWitness'> & Readonly<{ countWitness: W }>)
+export type JointTraceCapacityResult = ResultWithWitness<JointTraceWitness>
+
+type BaseInput = Omit<CapacityKernelInput, 'alternatives' | 'coverage'>
+type Picture = Omit<PictureAlternative, 'personRelease'> & Readonly<{ personRelease: Boundary | null }>
+type NormalizedInput = BaseInput & {
+  domain: { kind: 'optional'; alternatives: readonly PictureAlternative[] }
+    | { kind: 'traces'; traces: readonly JointOwnerTrace[] }
+  coverage: DomainCoverage
+}
+
 const SLOTS: readonly Slot[] = ['lead', 'antagonist', 'support']
 const MAX_LIMITS = { claims: 32, units: 64, alternatives: 1024, work: 200000, span: 220 } as const
 
@@ -207,13 +247,13 @@ function holdValue(value: unknown): Hold {
 function holdKey(hold: Hold): string {
   return JSON.stringify([hold.subject, hold.from, hold.until, hold.ownerKey, hold.ownerPathKey, hold.holdId])
 }
-function alternativeKey(value: PictureAlternative): string {
+function alternativeKey(value: Picture): string {
   return JSON.stringify([value.firstTake, value.greenlight, value.personRelease, value.existingPath,
     value.cast, value.additionalHolds, value.holdReplacements, value.staffingWitnessKey,
     value.ownerFactRefs, value.issuerId, value.pathKey, value.key])
 }
 
-function normalize(input: CapacityKernelInput): CapacityKernelInput {
+function normalizeBase(input: BaseInput): BaseInput {
   const now = boundary(input.now)
   integer(input.horizonEndWeek, 'horizon'); invariant(input.horizonEndWeek >= now.week, 'horizon precedes now')
   string(input.issuerId, 'issuer'); record(input.target, 'target')
@@ -226,7 +266,7 @@ function normalize(input: CapacityKernelInput): CapacityKernelInput {
   invariant(target.state === 'bound' || target.state === 'unbound', 'unknown target binding')
   const targetWindow = windowValue(target.window), targetMask = maskValue(target.mask)
   array(input.priorClaims, 'prior claims'); array(input.foreignDebits, 'foreign debits')
-  array(input.fixedHolds, 'fixed holds'); array(input.alternatives, 'alternatives')
+  array(input.fixedHolds, 'fixed holds')
   const sourceIds = new Set<string>()
   const identity = (value: PriorClaim | ForeignDebit): void => {
     record(value, 'claim'); string(value.promiseId, 'promise id'); string(value.issuerId, 'claim issuer')
@@ -256,28 +296,55 @@ function normalize(input: CapacityKernelInput): CapacityKernelInput {
     const result = { ...hold, replaceableFrom }; fixedIds.set(hold.holdId, result)
     return result
   }), value => JSON.stringify([holdKey(value), value.replaceableFrom]))
+  return { ...input, now, target: { ...target, mask: targetMask, window: targetWindow }, priorClaims, foreignDebits, fixedHolds }
+}
+
+function pictureValue(value: PictureAlternative, now: Boundary, nullable: false): PictureAlternative
+function pictureValue(value: Picture, now: Boundary, nullable: true): Picture
+function pictureValue(value: Picture, now: Boundary, nullable: boolean): Picture {
+  const greenlight = boundary(value.greenlight)
+  invariant(nullable || value.personRelease !== null, 'optional picture requires its actual release')
+  const personRelease = value.personRelease === null ? null : boundary(value.personRelease)
+  const firstTake = value.firstTake === null ? null : boundary(value.firstTake)
+  if (personRelease !== null) invariant(compareBoundary(greenlight, personRelease) <= 0, 'release precedes greenlight')
+  if (firstTake !== null) invariant(compareBoundary(greenlight, firstTake) <= 0
+    && (personRelease === null || compareBoundary(firstTake, personRelease) <= 0) && compareBoundary(now, firstTake) <= 0,
+  'take must be a future event inside the actual picture calendar')
+  record(value.cast, 'cast')
+  for (const slot of SLOTS) string(value.cast[slot], 'cast person')
+  invariant(new Set(SLOTS.map(slot => value.cast[slot])).size === 3, 'one person cannot occupy multiple cast seats')
+  string(value.staffingWitnessKey, 'staffing witness')
+  const ownerFactRefs = factRefs(value.ownerFactRefs)
+  return { ...value, greenlight, firstTake, personRelease,
+    cast: { lead: value.cast.lead, antagonist: value.cast.antagonist, support: value.cast.support }, ownerFactRefs }
+}
+function factRefs(value: readonly string[]): readonly string[] {
+  array(value, 'owner facts'); invariant(value.length > 0, 'trajectory needs owner facts')
+  for (const ref of value) string(ref, 'owner fact')
+  return sorted(value, compareText)
+}
+
+function normalize(input: CapacityKernelInput): NormalizedInput {
+  invariant(!('mode' in input && input.mode === 'jointOwnerTraces') && !('traces' in input)
+    && !('kind' in input && (input.kind === 'jointOwnerTrace' || input.kind === 'jointTracePicture' || input.kind === 'jointTraceBackground')),
+    'joint traces require the trace entry')
+  const base = normalizeBase(input)
+  array(input.alternatives, 'alternatives')
+  const fixedIds = new Map(base.fixedHolds.map(hold => [hold.holdId, hold]))
   const alternativeIds = new Set<string>(), addedHoldPaths = new Map<string, string>()
   const pathKinds = new Map<string, boolean>()
   const alternatives = keyed(input.alternatives.map(value => {
     record(value, 'alternative'); string(value.key, 'alternative key'); string(value.pathKey, 'path key')
+    invariant(!('jointTraceKey' in value) && !('kind' in value &&
+      (value.kind === 'jointTracePicture' || value.kind === 'jointTraceBackground' || value.kind === 'jointOwnerTrace')),
+    'joint trace paths require the trace entry')
     invariant(!alternativeIds.has(value.key), 'duplicate alternative identity'); alternativeIds.add(value.key)
     invariant(value.issuerId === input.issuerId, 'alternative must belong to local issuer')
     invariant(typeof value.existingPath === 'boolean', 'existing path flag must be boolean')
     invariant(!pathKinds.has(value.pathKey) || pathKinds.get(value.pathKey) === value.existingPath,
       'one path cannot be both existing and hypothetical')
     pathKinds.set(value.pathKey, value.existingPath)
-    const greenlight = boundary(value.greenlight), personRelease = boundary(value.personRelease)
-    const firstTake = value.firstTake === null ? null : boundary(value.firstTake)
-    invariant(compareBoundary(greenlight, personRelease) <= 0, 'release precedes greenlight')
-    if (firstTake !== null) invariant(compareBoundary(greenlight, firstTake) <= 0
-      && compareBoundary(firstTake, personRelease) <= 0 && compareBoundary(now, firstTake) <= 0,
-    'take must be a future event inside the actual picture calendar')
-    record(value.cast, 'cast')
-    for (const slot of SLOTS) string(value.cast[slot], 'cast person')
-    invariant(new Set(SLOTS.map(slot => value.cast[slot])).size === 3, 'one person cannot occupy multiple cast seats')
-    string(value.staffingWitnessKey, 'staffing witness'); array(value.ownerFactRefs, 'owner facts')
-    invariant(value.ownerFactRefs.length > 0, 'alternative needs owner facts')
-    for (const ref of value.ownerFactRefs) string(ref, 'owner fact')
+    const picture = pictureValue(value, base.now, false)
     array(value.additionalHolds, 'additional holds'); array(value.holdReplacements, 'hold replacements')
     const additionalIds = new Set<string>()
     const additionalHolds = keyed(value.additionalHolds.map(raw => {
@@ -300,8 +367,8 @@ function normalize(input: CapacityKernelInput): CapacityKernelInput {
       return { holdId: raw.holdId, newUntil }
     }), value => JSON.stringify([value.newUntil, value.holdId]))
     return { key: value.key, pathKey: value.pathKey, issuerId: value.issuerId, existingPath: value.existingPath,
-      greenlight, firstTake, personRelease, cast: { lead: value.cast.lead, antagonist: value.cast.antagonist, support: value.cast.support },
-      staffingWitnessKey: value.staffingWitnessKey, ownerFactRefs: sorted(value.ownerFactRefs, compareText), additionalHolds, holdReplacements }
+      greenlight: picture.greenlight, firstTake: picture.firstTake, personRelease: picture.personRelease, cast: picture.cast,
+      staffingWitnessKey: value.staffingWitnessKey, ownerFactRefs: picture.ownerFactRefs, additionalHolds, holdReplacements }
   }), alternativeKey)
   record(input.coverage, 'coverage')
   for (const name of ['claimsAndHolds', 'existingAlternatives', 'allAlternatives'] as const) {
@@ -309,23 +376,164 @@ function normalize(input: CapacityKernelInput): CapacityKernelInput {
   }
   array(input.coverage.omissions, 'coverage omissions')
   for (const omission of input.coverage.omissions) string(omission, 'omission')
-  return { ...input, now, target: { ...target, mask: targetMask, window: targetWindow }, priorClaims, foreignDebits,
-    fixedHolds, alternatives, coverage: { ...input.coverage, omissions: sorted(input.coverage.omissions, compareText) } }
+  return { ...base, domain: { kind: 'optional', alternatives },
+    coverage: { ...input.coverage, omissions: sorted(input.coverage.omissions, compareText) } }
+}
+
+function tracePathKey(value: JointTracePath): string {
+  return value.kind === 'jointTracePicture' ? JSON.stringify([value.kind, alternativeKey(value)])
+    : JSON.stringify([value.kind, value.existingPath, value.ownerFactRefs, value.issuerId, value.pathKey])
+}
+function normalizeTraces(input: JointTraceCapacityInput): NormalizedInput {
+  invariant(input.mode === 'jointOwnerTraces' && !('alternatives' in input), 'trace entry requires its exclusive mode')
+  const base = normalizeBase(input)
+  array(input.traces, 'traces')
+  const fixedIds = new Map(base.fixedHolds.map(hold => [hold.holdId, hold]))
+  const traceIds = new Set<string>(), pictureIds = new Set<string>(), pathKinds = new Map<string, boolean>()
+  const traces = keyed(input.traces.map(value => {
+    record(value, 'trace'); invariant(value.kind === 'jointOwnerTrace', 'unknown trace kind')
+    string(value.traceKey, 'trace key')
+    invariant(!traceIds.has(value.traceKey), 'duplicate trace identity'); traceIds.add(value.traceKey)
+    const ownerFactRefs = factRefs(value.ownerFactRefs)
+    array(value.paths, 'trace paths'); array(value.additionalHolds, 'trace holds')
+    array(value.fixedHoldReplacements, 'trace replacements')
+    const pathIds = new Set<string>()
+    const paths = keyed(value.paths.map((path): JointTracePath => {
+      record(path, 'trace path'); string(path.pathKey, 'path key')
+      invariant(path.kind === 'jointTracePicture' || path.kind === 'jointTraceBackground', 'unknown trace path kind')
+      invariant(path.jointTraceKey === value.traceKey, 'path must belong to its containing trace')
+      invariant(path.issuerId === base.issuerId, 'trace path must belong to local issuer')
+      invariant(typeof path.existingPath === 'boolean', 'existing path flag must be boolean')
+      invariant(!pathIds.has(path.pathKey), 'one physical path may occur only once per trace'); pathIds.add(path.pathKey)
+      invariant(!pathKinds.has(path.pathKey) || pathKinds.get(path.pathKey) === path.existingPath,
+        'one path cannot be both existing and hypothetical')
+      pathKinds.set(path.pathKey, path.existingPath)
+      if (path.kind === 'jointTraceBackground') {
+        for (const field of ['key', 'cast', 'staffingWitnessKey', 'greenlight', 'firstTake', 'personRelease',
+          'additionalHolds', 'holdReplacements']) invariant(!(field in path), 'background path cannot carry picture fields')
+        return { kind: path.kind, jointTraceKey: value.traceKey, pathKey: path.pathKey,
+          issuerId: path.issuerId, existingPath: path.existingPath, ownerFactRefs: factRefs(path.ownerFactRefs) }
+      }
+      string(path.key, 'picture occurrence key')
+      invariant(!pictureIds.has(path.key), 'duplicate picture occurrence identity'); pictureIds.add(path.key)
+      array(path.additionalHolds, 'picture holds'); array(path.holdReplacements, 'picture replacements')
+      invariant(path.additionalHolds.length === 0 && path.holdReplacements.length === 0,
+        'trace picture cannot own optional holds or replacements')
+      const picture = pictureValue(path, base.now, true)
+      return { kind: path.kind, jointTraceKey: value.traceKey, key: picture.key, pathKey: picture.pathKey,
+        issuerId: picture.issuerId, existingPath: picture.existingPath, greenlight: picture.greenlight,
+        firstTake: picture.firstTake, personRelease: picture.personRelease, cast: picture.cast,
+        staffingWitnessKey: picture.staffingWitnessKey, ownerFactRefs: picture.ownerFactRefs,
+        additionalHolds: [], holdReplacements: [] }
+    }), tracePathKey)
+    const addedIds = new Set<string>()
+    const additionalHolds = keyed(value.additionalHolds.map(raw => {
+      const hold = holdValue(raw)
+      invariant(!fixedIds.has(hold.holdId) && !addedIds.has(hold.holdId), 'duplicate trace hold identity')
+      invariant(hold.ownerPathKey === null || pathIds.has(hold.ownerPathKey), 'trace hold path must join a certified trajectory')
+      addedIds.add(hold.holdId)
+      return hold
+    }), holdKey)
+    const replaced = new Set<string>()
+    const fixedHoldReplacements = keyed(value.fixedHoldReplacements.map(raw => {
+      record(raw, 'trace replacement'); string(raw.holdId, 'replacement identity')
+      invariant(!replaced.has(raw.holdId), 'duplicate trace replacement'); replaced.add(raw.holdId)
+      const original = fixedIds.get(raw.holdId), newUntil = boundary(raw.newUntil)
+      invariant(original !== undefined && original.replaceableFrom !== null && original.ownerPathKey !== null
+        && pathIds.has(original.ownerPathKey), 'trace replacement must join its own certified replaceable trajectory')
+      invariant(compareBoundary(original.replaceableFrom, newUntil) <= 0 && compareBoundary(newUntil, original.until) <= 0,
+        'replacement changes immutable prefix or extends original hold')
+      return { holdId: raw.holdId, newUntil }
+    }), replacement => JSON.stringify([replacement.newUntil, replacement.holdId]))
+    return { kind: 'jointOwnerTrace' as const, traceKey: value.traceKey, ownerFactRefs, paths,
+      additionalHolds, fixedHoldReplacements }
+  }), trace => JSON.stringify([trace.paths.map(tracePathKey), trace.fixedHoldReplacements,
+    trace.additionalHolds, trace.ownerFactRefs, trace.traceKey]))
+  record(input.coverage, 'trace coverage')
+  for (const name of ['claimsAndHolds', 'existingCalendars', 'allOwnerTraces'] as const) {
+    invariant(input.coverage[name] === 'complete' || input.coverage[name] === 'incomplete', 'unknown trace coverage status')
+  }
+  invariant(!('existingAlternatives' in input.coverage) && !('allAlternatives' in input.coverage), 'mixed coverage modes')
+  array(input.coverage.omissions, 'coverage omissions')
+  for (const omission of input.coverage.omissions) string(omission, 'omission')
+  return { ...base, domain: { kind: 'traces', traces }, coverage: {
+    claimsAndHolds: input.coverage.claimsAndHolds, existingAlternatives: input.coverage.existingCalendars,
+    allAlternatives: input.coverage.allOwnerTraces, omissions: sorted(input.coverage.omissions, compareText),
+  } }
+}
+
+type TraceProof = Pick<JointTraceWitness, 'traceKey' | 'ownerFactRefs' | 'executedPathKeys' | 'effectiveHoldIds'>
+type ValidatedTrace = { value: JointOwnerTrace; proof: TraceProof }
+
+/** The whole compulsory ledger is checked once, before any credit probe. */
+function validateTraces(input: BaseInput, traces: readonly JointOwnerTrace[], horizon: number, budget: Budget): ValidatedTrace[] {
+  const result: ValidatedTrace[] = []
+  for (const trace of traces) {
+    budget.charge()
+    const replacements = new Map<string, Boundary>()
+    for (const replacement of trace.fixedHoldReplacements) {
+      budget.charge(); replacements.set(replacement.holdId, replacement.newUntil)
+    }
+    budget.charge(input.fixedHolds.length + trace.additionalHolds.length)
+    const ledger: Hold[] = [
+      ...input.fixedHolds.map(hold => ({ ...hold, until: replacements.get(hold.holdId) ?? hold.until })),
+      ...trace.additionalHolds,
+    ]
+    for (let index = 0; index < ledger.length; index++) for (let other = 0; other < index; other++) {
+      budget.charge(); invariant(!conflicts(ledger[index]!, ledger[other]!), 'compulsory trace ledger conflicts')
+    }
+    const end: Boundary = { week: horizon, step: 0 }
+    for (const path of trace.paths) {
+      budget.charge()
+      if (path.kind !== 'jointTracePicture' || path.personRelease !== null) continue
+      const start = compareBoundary(input.now, path.greenlight) > 0 ? input.now : path.greenlight
+      if (compareBoundary(start, end) >= 0) continue
+      for (const slot of SLOTS) {
+        budget.charge()
+        const segments: Hold[] = []
+        for (const hold of ledger) {
+          budget.charge()
+          if (hold.ownerPathKey === path.pathKey && hold.subject.kind === 'person' && hold.subject.personId === path.cast[slot]) {
+            segments.push(hold)
+          }
+        }
+        budget.sorting(segments.length)
+        const ordered = sorted(segments, (a, b) => compareBoundary(a.from, b.from)
+          || compareBoundary(a.until, b.until) || compareText(a.holdId, b.holdId))
+        let cursor = start
+        for (const hold of ordered) {
+          budget.charge()
+          if (compareBoundary(cursor, end) >= 0) break
+          if (compareBoundary(hold.until, cursor) <= 0) continue
+          invariant(compareBoundary(hold.from, cursor) <= 0, 'unknown release occupancy has a gap')
+          cursor = hold.until
+        }
+        invariant(compareBoundary(cursor, end) >= 0, 'unknown release occupancy must cover the effective horizon')
+      }
+    }
+    budget.charge(trace.paths.length + ledger.length + trace.ownerFactRefs.length)
+    budget.sorting(ledger.length)
+    result.push({ value: trace, proof: { traceKey: trace.traceKey, ownerFactRefs: [...trace.ownerFactRefs],
+      executedPathKeys: trace.paths.map(path => path.pathKey), effectiveHoldIds: sorted(ledger.map(hold => hold.holdId), compareText) } })
+  }
+  return result
 }
 
 type Demand = {
   key: DemandKey; personId: string; mask: Mask; window: Window; units: number
 }
 type Alternative = {
-  value: PictureAlternative; eligible: readonly (readonly number[])[]; profileIndex: number
+  value: Picture; eligible: readonly (readonly number[])[]; profileIndex: number
 }
 type Path = { key: string; alternatives: Alternative[] }
-type Model = {
-  input: CapacityKernelInput; demands: Demand[]; targetIndex: number
-  boundaries: Boundary[]; paths: Path[]; suffixPotential: number[][]
+type CommonModel = {
+  input: NormalizedInput; demands: Demand[]; targetIndex: number
+  boundaries: Boundary[]; boundaryIndices: ReadonlyMap<string, number>
 }
+type Model = CommonModel & { paths: Path[]; suffixPotential: number[][]; traceProof?: TraceProof }
+type Domain = { common: CommonModel; models: Model[]; upperPaths: Path[] }
 type AssignedCredit = { demand: number; alternative: Alternative; slot: Slot }
-type Solution = { profile: number[]; witness: Witness }
+type Solution = { profile: number[]; witness: Witness; traceProof?: TraceProof }
 type SearchOptions = {
   targetUnits: number; protectedProfile?: readonly number[]
   optimize?: boolean; stopProfile?: readonly number[]; achievable?: boolean; remaining: number
@@ -333,7 +541,7 @@ type SearchOptions = {
 
 function boundaryKey(value: Boundary): string { return JSON.stringify([value.week, value.step]) }
 
-function prepare(input: CapacityKernelInput, debits: readonly ForeignDebit[], budget: Budget): Model {
+function prepareCommon(input: NormalizedInput, debits: readonly ForeignDebit[], values: readonly Picture[], budget: Budget): CommonModel {
   const demands: Demand[] = []
   for (const claim of input.priorClaims) {
     budget.charge()
@@ -349,7 +557,7 @@ function prepare(input: CapacityKernelInput, debits: readonly ForeignDebit[], bu
   demands.push({ key: ['target'], personId: input.target.personId, mask: input.target.mask,
     window: input.target.window, units: 0 })
   const distinctBoundaries = new Map<string, Boundary>()
-  for (const alternative of input.alternatives) {
+  for (const alternative of values) {
     budget.charge()
     if (alternative.existingPath && alternative.firstTake !== null) {
       distinctBoundaries.set(boundaryKey(alternative.firstTake), alternative.firstTake)
@@ -361,8 +569,13 @@ function prepare(input: CapacityKernelInput, debits: readonly ForeignDebit[], bu
   for (let index = 0; index < boundaries.length; index++) {
     budget.charge(); boundaryIndices.set(boundaryKey(boundaries[index]!), index)
   }
+  return { input, demands, targetIndex, boundaries, boundaryIndices }
+}
+
+function prepareModel(common: CommonModel, values: readonly Picture[], budget: Budget, traceProof?: TraceProof): Model {
+  const { demands, boundaryIndices } = common
   const byPath = new Map<string, Path>()
-  for (const value of input.alternatives) {
+  for (const value of values) {
     budget.charge()
     const eligible: number[][] = SLOTS.map(() => [])
     if (value.firstTake !== null) {
@@ -378,8 +591,9 @@ function prepare(input: CapacityKernelInput, debits: readonly ForeignDebit[], bu
         }
       }
     }
-    // An uncredited alternative without a replacement only adds constraints.
-    // Release-only continuations are retained even though their event is null.
+    // Optional uncredited alternatives only add constraints, unless they release
+    // a suffix. Trace rows omitted from credit search remain in the full proof
+    // and their compulsory ledger has already been validated independently.
     if (eligible.every(list => list.length === 0) && value.holdReplacements.length === 0) continue
     const alternative: Alternative = { value, eligible,
       profileIndex: value.existingPath && value.firstTake !== null ? boundaryIndices.get(boundaryKey(value.firstTake))! : -1 }
@@ -401,18 +615,52 @@ function prepare(input: CapacityKernelInput, debits: readonly ForeignDebit[], bu
       suffixPotential[position]![demand] = suffixPotential[position + 1]![demand]! + (possible.has(demand) ? 1 : 0)
     }
   }
-  return { input, demands, targetIndex, boundaries, paths, suffixPotential }
+  return { ...common, paths, suffixPotential, ...(traceProof === undefined ? {} : { traceProof }) }
+}
+
+function prepareDomain(input: NormalizedInput, debits: readonly ForeignDebit[], traces: readonly ValidatedTrace[], budget: Budget): Domain {
+  if (input.domain.kind === 'optional') {
+    const common = prepareCommon(input, debits, input.domain.alternatives, budget)
+    const model = prepareModel(common, input.domain.alternatives, budget)
+    return { common, models: [model], upperPaths: model.paths }
+  }
+  const pictures: Picture[] = [], branchPictures: Picture[][] = []
+  for (const trace of traces) {
+    budget.charge()
+    const branch: Picture[] = []
+    for (const path of trace.value.paths) {
+      budget.charge()
+      if (path.kind === 'jointTracePicture') { branch.push(path); pictures.push(path) }
+    }
+    branchPictures.push(branch)
+  }
+  const common = prepareCommon(input, debits, pictures, budget)
+  const models = traces.map((trace, index) => {
+    budget.charge(); return prepareModel(common, branchPictures[index]!, budget, trace.proof)
+  })
+  // A repeated physical path in exclusive traces supplies at most one optimistic
+  // event per demand. Its variants remain available for earliest-profile bounds.
+  const byPath = new Map<string, Path>()
+  for (const model of models) for (const path of model.paths) {
+    budget.charge()
+    let combined = byPath.get(path.key)
+    if (combined === undefined) { combined = { key: path.key, alternatives: [] }; byPath.set(path.key, combined) }
+    for (const alternative of path.alternatives) { budget.charge(); combined.alternatives.push(alternative) }
+  }
+  budget.sorting(byPath.size)
+  const upperPaths = keyed([...byPath.values()], path => path.key)
+  return { common, models, upperPaths }
 }
 
 /** Independent, optimistic per-demand path bounds; attaining ALL entries proves the full profile. */
-function priorUpperProfile(model: Model, budget: Budget): number[] {
+function priorUpperProfile(model: CommonModel, pathsToBound: readonly Path[], budget: Budget): number[] {
   budget.charge(model.boundaries.length + 1)
   const upper = new Array<number>(model.boundaries.length + 1).fill(0)
   for (let demand = 0; demand < model.targetIndex; demand++) {
     budget.charge(model.boundaries.length + 1)
     const units = model.demands[demand]!.units, buckets = new Array<number>(model.boundaries.length).fill(0)
     let paths = 0
-    for (const path of model.paths) {
+    for (const path of pathsToBound) {
       budget.charge()
       let earliest = -1
       for (const alternative of path.alternatives) {
@@ -477,6 +725,7 @@ function search(model: Model, options: SearchOptions, budget: Budget): Solution 
     return [existingUnits, ...eventBuckets.map(value => { cumulative += value; return cumulative })]
   }
   const lawfulAdditionalHolds = (alternative: Alternative): boolean => {
+    if (model.traceProof !== undefined) return true // Complete compulsory ledger already validated.
     const fresh = alternative.value.additionalHolds
     for (let index = 0; index < fresh.length; index++) {
       const hold = fresh[index]!
@@ -496,6 +745,7 @@ function search(model: Model, options: SearchOptions, budget: Budget): Solution 
     return true
   }
   const lawfulLedger = (): boolean => {
+    if (model.traceProof !== undefined) return true // Credit omission never edits this ledger.
     const replacements = new Map<string, Boundary>()
     for (const alternative of selected) for (const replacement of alternative.value.holdReplacements) {
       budget.charge()
@@ -563,7 +813,8 @@ function search(model: Model, options: SearchOptions, budget: Budget): Solution 
       const target = orderedTargetCredits()
       if (options.achievable && !achievement(target)) return false
       if (lawfulLedger()) {
-        best = { profile: candidate, witness: witness(target) }
+        best = { profile: candidate, witness: witness(target),
+          ...(model.traceProof === undefined ? {} : { traceProof: model.traceProof }) }
         stopped = !options.optimize || options.stopProfile !== undefined && compareProfile(candidate, options.stopProfile, budget) === 0
         // Extra uncredited selections cannot improve this profile. If the ledger
         // failed instead, keep searching: a later continuation may repair it.
@@ -649,8 +900,77 @@ function search(model: Model, options: SearchOptions, budget: Budget): Solution 
   return best
 }
 
-/** Pure public entry point. No game identity, root, RNG or allocation is written. */
-export function searchPromiseCapacity(raw: CapacityKernelInput): CapacityKernelResult {
+/** Search all exclusive branches with the same demands, cuts, profile and budget. */
+function searchDomain(domain: Domain, options: SearchOptions, budget: Budget): Solution | null {
+  if (domain.common.input.domain.kind === 'optional') return search(domain.models[0]!, options, budget)
+  let best: Solution | null = null
+  for (const model of domain.models) {
+    budget.charge()
+    const candidate = search(model, options, budget)
+    if (candidate === null) continue
+    if (!options.optimize) return candidate
+    if (best === null || compareProfile(candidate.profile, best.profile, budget) > 0) best = candidate
+    if (options.stopProfile !== undefined && compareProfile(candidate.profile, options.stopProfile, budget) === 0) break
+  }
+  return best
+}
+
+function traceWitness(solution: Solution, budget: Budget): JointTraceWitness {
+  const proof = solution.traceProof
+  invariant(proof !== undefined, 'trace solution lacks its complete execution proof')
+  budget.charge(proof.ownerFactRefs.length + proof.executedPathKeys.length + proof.effectiveHoldIds.length
+    + solution.witness.selectedAlternativeKeys.length + solution.witness.credits.length + solution.witness.targetTakeBoundaries.length + 1)
+  return { traceKey: proof.traceKey, ownerFactRefs: [...proof.ownerFactRefs], executedPathKeys: [...proof.executedPathKeys],
+    effectiveHoldIds: [...proof.effectiveHoldIds], creditedPictureKeys: [...solution.witness.selectedAlternativeKeys],
+    credits: solution.witness.credits, targetTakeBoundaries: solution.witness.targetTakeBoundaries }
+}
+
+/** Both entries share this single prior/X/B/unoptimized proof orchestration. */
+function classifyDomain<W>(domain: Domain, remaining: number, bufferDemand: number, budget: Budget,
+  formatWitness: (solution: Solution, budget: Budget) => W): ResultWithWitness<W> {
+  const model = domain.common, input = model.input
+  const uncertain = (fallback: string): ResultWithWitness<W> => ({ status: 'UNCERTIFIED', reason: 'domainIncomplete',
+    omissions: input.coverage.omissions.length > 0 ? [...input.coverage.omissions] : [fallback], workUsed: budget.used })
+  const complete = input.coverage.existingAlternatives === 'complete' && input.coverage.allAlternatives === 'complete'
+  const impossible = (): ResultWithWitness<W> => ({ status: 'PROVEN_IMPOSSIBLE', scope: 'jointOfferOnly',
+    reason: 'completeCountFailure', workUsed: budget.used })
+  const upper = priorUpperProfile(model, domain.upperPaths, budget)
+  let optimum: readonly number[]
+  if (model.demands.slice(0, model.targetIndex).every(demand => demand.units === 0)) {
+    optimum = upper // Identically zero, including cuts not observed in an incomplete domain.
+  } else {
+    const prior = searchDomain(domain, { targetUnits: 0, remaining, optimize: true,
+      ...(input.coverage.existingAlternatives === 'complete' ? { stopProfile: upper } : {}) }, budget)
+    if (prior === null) return complete ? impossible() : uncertain('prior feasibility is unproved')
+    const saturated = input.coverage.existingAlternatives === 'complete' && compareProfile(prior.profile, upper, budget) === 0
+    if (!complete && !saturated) return uncertain('full prior optimum is unproved')
+    optimum = prior.profile
+  }
+  const count = searchDomain(domain, { targetUnits: remaining, remaining, protectedProfile: optimum }, budget)
+  if (count === null) {
+    const joint = searchDomain(domain, { targetUnits: remaining, remaining }, budget)
+    if (joint === null) return complete ? impossible() : uncertain('joint count failure has an incomplete domain')
+    // A joint witness is not a proof of failed protection in an omitted domain.
+    // Neither result may be used as target-specific causal BROKEN evidence.
+    if (!complete) return uncertain('protected count failure has an incomplete domain')
+    const priorOptimum = publicProfile(optimum, model.boundaries, budget)
+    const countWitness = formatWitness(joint, budget)
+    return { status: 'PROVEN_FRAGILE', reason: 'priorPathProtection', priorOptimum, countWitness, workUsed: budget.used }
+  }
+  const achievable = searchDomain(domain, { targetUnits: bufferDemand, remaining, protectedProfile: optimum, achievable: true }, budget)
+  if (achievable !== null) {
+    const priorOptimum = publicProfile(optimum, model.boundaries, budget)
+    const witness = formatWitness(achievable, budget)
+    return { status: 'CERTIFIED_ACHIEVABLE', remaining, bufferDemand, priorOptimum, witness, workUsed: budget.used }
+  }
+  if (!complete) return uncertain('achievable failure has an incomplete domain')
+  const priorOptimum = publicProfile(optimum, model.boundaries, budget)
+  const countWitness = formatWitness(count, budget)
+  return { status: 'PROVEN_FRAGILE', reason: 'achievableProbeFailed', priorOptimum, countWitness, workUsed: budget.used }
+}
+
+function runCapacity<I extends BaseInput, W>(raw: I, normalizeInput: (input: I) => NormalizedInput,
+  formatWitness: (solution: Solution, budget: Budget) => W): ResultWithWitness<W> {
   record(raw, 'input'); record(raw.limits, 'limits')
   for (const name of ['claims', 'units', 'alternatives', 'work', 'span'] as const) {
     integer(raw.limits[name], `${name} limit`)
@@ -661,11 +981,11 @@ export function searchPromiseCapacity(raw: CapacityKernelInput): CapacityKernelR
   try {
     if (raw.preparationWork >= raw.limits.work) throw new WorkLimit()
     scan(raw, budget)
-    const input = normalize(raw)
+    const input = normalizeInput(raw)
     const remaining = input.target.state === 'bound'
       ? Math.max(0, input.target.count - input.target.actualQualifiedCount) : input.target.count
-    if (remaining === 0) return { status: 'ALREADY_MET', remaining: 0, workUsed: budget.used }
-    const uncertain = (reason: 'domainIncomplete' | 'sizeLimit', fallback: string): CapacityKernelResult => ({
+    if (remaining === 0 && input.domain.kind === 'optional') return { status: 'ALREADY_MET', remaining: 0, workUsed: budget.used }
+    const uncertain = (reason: 'domainIncomplete' | 'sizeLimit', fallback: string): ResultWithWitness<W> => ({
       status: 'UNCERTIFIED', reason, omissions: input.coverage.omissions.length > 0 ? [...input.coverage.omissions] : [fallback],
       workUsed: budget.used,
     })
@@ -677,9 +997,19 @@ export function searchPromiseCapacity(raw: CapacityKernelInput): CapacityKernelR
     })
     let horizon = Math.max(input.horizonEndWeek, input.target.window.dueWeekExclusive)
     for (const prior of input.priorClaims) { budget.charge(); horizon = Math.max(horizon, prior.window.dueWeekExclusive) }
+    let rows: number
+    if (input.domain.kind === 'optional') rows = input.domain.alternatives.length
+    else {
+      rows = input.domain.traces.length
+      for (const trace of input.domain.traces) {
+        budget.charge()
+        if (trace.paths.length > input.limits.alternatives - rows) { rows = input.limits.alternatives + 1; break }
+        rows += trace.paths.length
+      }
+    }
     budget.charge()
     if (input.priorClaims.length + debits.length + 1 > input.limits.claims
-      || input.alternatives.length > input.limits.alternatives
+      || rows > input.limits.alternatives
       || horizon - input.now.week > input.limits.span || remaining > input.limits.units) {
       return uncertain('sizeLimit', 'bounded capacity size limit')
     }
@@ -694,48 +1024,24 @@ export function searchPromiseCapacity(raw: CapacityKernelInput): CapacityKernelR
       if (prior.remaining > input.limits.units - units) return uncertain('sizeLimit', 'bounded capacity unit limit')
       units += prior.remaining
     }
+    const traces = input.domain.kind === 'traces' ? validateTraces(input, input.domain.traces, horizon, budget) : []
+    if (remaining === 0) return { status: 'ALREADY_MET', remaining: 0, workUsed: budget.used }
     if (input.coverage.claimsAndHolds !== 'complete') return uncertain('domainIncomplete', 'relevant claims or holds are incomplete')
     budget.phase = 'search'
-    const model = prepare(input, debits, budget)
-    const complete = input.coverage.existingAlternatives === 'complete' && input.coverage.allAlternatives === 'complete'
-    const impossible = (): CapacityKernelResult => ({ status: 'PROVEN_IMPOSSIBLE', scope: 'jointOfferOnly',
-      reason: 'completeCountFailure', workUsed: budget.used })
-    const upper = priorUpperProfile(model, budget)
-    let optimum: readonly number[]
-    if (model.demands.slice(0, model.targetIndex).every(demand => demand.units === 0)) {
-      optimum = upper // Identically zero, even if future alternatives are omitted.
-    } else {
-      const prior = search(model, { targetUnits: 0, remaining, optimize: true,
-        ...(input.coverage.existingAlternatives === 'complete' ? { stopProfile: upper } : {}) }, budget)
-      if (prior === null) return complete ? impossible() : uncertain('domainIncomplete', 'prior feasibility is unproved')
-      const saturated = input.coverage.existingAlternatives === 'complete' && compareProfile(prior.profile, upper, budget) === 0
-      if (!complete && !saturated) return uncertain('domainIncomplete', 'full prior optimum is unproved')
-      optimum = prior.profile
-    }
-    const count = search(model, { targetUnits: remaining, remaining, protectedProfile: optimum }, budget)
-    if (count === null) {
-      const joint = search(model, { targetUnits: remaining, remaining }, budget)
-      if (joint === null) return complete ? impossible() : uncertain('domainIncomplete', 'joint count failure has an incomplete domain')
-      // An unoptimized witness is not itself proof that no protected assignment
-      // exists in an omitted domain. Neither condition can become causal BROKEN.
-      if (!complete) return uncertain('domainIncomplete', 'protected count failure has an incomplete domain')
-      const priorOptimum = publicProfile(optimum, model.boundaries, budget)
-      return { status: 'PROVEN_FRAGILE', reason: 'priorPathProtection', priorOptimum,
-        countWitness: joint.witness, workUsed: budget.used }
-    }
-    const achievable = search(model, { targetUnits: bufferDemand, remaining, protectedProfile: optimum, achievable: true }, budget)
-    if (achievable !== null) {
-      const priorOptimum = publicProfile(optimum, model.boundaries, budget)
-      return { status: 'CERTIFIED_ACHIEVABLE', remaining, bufferDemand, priorOptimum,
-        witness: achievable.witness, workUsed: budget.used }
-    }
-    if (!complete) return uncertain('domainIncomplete', 'achievable failure has an incomplete domain')
-    const priorOptimum = publicProfile(optimum, model.boundaries, budget)
-    return { status: 'PROVEN_FRAGILE', reason: 'achievableProbeFailed', priorOptimum,
-      countWitness: count.witness, workUsed: budget.used }
+    return classifyDomain(prepareDomain(input, debits, traces, budget), remaining, bufferDemand, budget, formatWitness)
   } catch (error) {
     if (!(error instanceof WorkLimit)) throw error
     return { status: 'UNCERTIFIED', reason: 'workLimit', workUsed: budget.limit,
       omissions: [`${budget.phase} work limit`] }
   }
+}
+
+/** Optional49 entry. No game identity, root, RNG or allocation is written. */
+export function searchPromiseCapacity(raw: CapacityKernelInput): CapacityKernelResult {
+  return runCapacity(raw, normalize, solution => solution.witness)
+}
+
+/** Complete compulsory owner traces, globally protected by the same finite solver. */
+export function searchPromiseCapacityTraces(raw: JointTraceCapacityInput): JointTraceCapacityResult {
+  return runCapacity(raw, normalizeTraces, traceWitness)
 }

@@ -4,28 +4,30 @@ One row per package/slice: exact source, test results, status label, decision cl
 Labels: LOGIC VERIFIED · ENGINE INTEGRATION VERIFIED · UNITY NOT VERIFIED · DESIGN BLOCKED · IN PROGRESS.
 Headless verification never claims package completion or Owner acceptance.
 
-Current (2026-09-19):
+Current (2026-09-20):
 
-Current B4 checkpoint110 (2026-09-20): D3 preference correction implemented;
-independent108 KEEP,109 pure matching8PASS.99 both age29/30 firstP1 iterations
-complete, then unchanged P2 attachment284 RED.101 chooser14PASS/one intentionally
-superseded unprovenP1 bonus expectation FAIL/3oldTODO; original test retained.
-102 root AND UI PASS;103 only existing bridge364 futurepredicate TS2353.
-All six runtime checks CLOSED/fixedSource:true; qualified110 has exact reach.
-91+94 trace contract and96 shared-kernel design reviewed. Independent95/100
-installed with ONLY author107's pre-execution order correction; original95 kept.
-104 actual40FAIL:38 missing-entry guards,2 old-mode tag refusals after valid49
-controls. No trace implementation or fullsolver acceptance claimed.
-Latest published/exactremote remains c04f4af500c37c726fc7b292db7fac2050ee04d9 (88);
-commit/push/exactremote of qualified110 is next. No writer/runtime active.
-Then ONE sim-core writer implements trace mode in existing kernel under91/94/96,
-keeps all tests frozen, verifies new40+old46 and types serially, publishes.
-Clock c04f4af and old detached49 kernel a8d277d remain recovered, not rebuilt.
-Actual owner traces/completeness/budget/performance, coherent P2 activation and
-remaining P14/P15/P16/specified P17/P18 work follow without routine pauses.
-Save29/rules3/projection46 unchanged. Full B4/T4, Unity/native and Owner
-acceptance remain owed; existing Unity backlog retained. Exact active ownership,
-runtime and publication: evidence/p14b4-20260919/00-start.md.
+Current B4 checkpoint119 (2026-09-20): shared joint-trace kernel implemented
+under91/94/96, source112 SHA1faa6fca…; independent114 KEEP.115 CLOSED86PASS
+(new40 trace + unchanged46 optional),116 root AND UI PASS.117 bridge exit2 ONLY
+unchanged futureP2 attachment364 TS2353. All fixedSource:true, same956a17f base
+plus protectedpatch5a6b74901273485dadf7eb3d711280eeaf7e014d81d4f972f0b90180d2a3df50.
+No test/validator/limit weakening; actual104 RED retained. ALLsessions CLOSED;
+NO production writer. Qualified119 ready for commit/push/exactremote.
+Latest published/exactremote956a17fe391892d65a8ae10bf9ce1403750bbd34 (111).
+Sim-core ONLY inert118 minimal shared staffing-owner plan; test-author ONLY
+inert120 staffing case matrix; auditor idle. Max2 specialists, source frozen.
+Next publish kernel checkpoint, then independent staffing-owner tests and sole
+implementation, real joint owner producer/before-work metering/coverage and
+ordinary performance.113 distinguishes real-action and controlled fixture routes.
+This is detached proof only, not owner execution or live P2/fullB4 acceptance.
+D3 correction remains published956:109 pure8PASS;99 both firstP1 iterations pass
+before P2 attachmentRED;101 intentional older unprovenP1-bonus pin still fails
+pending real tagged-P2 migration. No historical evidence or tests discarded.
+Clock c04f4af and optional kernel a8d277d remain recovered, not rebuilt.
+Continue coherent P2 and remaining settled P14/P15/P16/specified P17/P18 without
+routine permission pauses. Save29/rules3/projection46 unchanged. Full B4/T4,
+Unity/native and Owner acceptance remain owed; existing Unity backlog retained.
+Exact active ownership/runtime/publication: evidence/p14b4-20260919/00-start.md.
 
 Earlier additive foundation checkpoint: V30 data support implemented and independently
 KEEP; qualified report evidence/p14b4-20260919/29-additive-checkpoint.md.

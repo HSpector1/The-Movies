@@ -1,5 +1,34 @@
 # P14B.4 — capacity implementation continuation
 
+CURRENT119:114 independent KEEP complete, parent persisted read-only handback.
+Qualified119 complete;11586PASS/116rootUI PASS/117only priorfutureP2type RED,
+allfixedtrue. ALLsessions CLOSED, ALLprotected frozen, NOproductionwriter.
+Next commit/push/exactremote this kernel checkpoint, then settled118 extraction/
+independent tests, realownertraceproducer/coherentP2. Sim-core ONLY inert118,
+author ONLY inert120 staffing-case matrix; auditoridle/max2specialists.
+Latestpublished956a17f; no fullB4/ownertrace/liveP2 claim.
+
+CURRENT117: frozen joint-trace source112 SHA1faa6fcac443dac046bd97fa3e27c61bada80c7297f8e69ea4ebcff76d899332.
+115 CLOSED86PASS/4files (new40+old46),116 root AND UI CLOSED/PASS;
+both fixedSource956a17f + protectedpatch5a6b74901273485dadf7eb3d711280eeaf7e014d81d4f972f0b90180d2a3df50.
+117 CLOSEDexit2/fixedtrue, ONLY unchanged futureP2 bridge364TS2353. ALLsessions
+CLOSED; ALLprotected files frozen; NO production writer. Qualified119 drafted,
+awaiting independent114 publication gate. Auditor114 read-only source review;
+sim-core ONLY inert118
+minimal actual staffing-owner extraction plan. Author113 matrix COMPLETE/frozen.
+Max2 specialists. Parent has read ALL1047 kernel lines and112/113.
+Next inspect117/114, qualified kernel checkpoint/publication/exactremote; then
+shared staffing owner and actual trace producer/coherentP2. No liveP2/ownertrace
+or fullB4 claim. Latest exactremote remains956a17f (111).
+
+CURRENT111:956a17fe391892d65a8ae10bf9ce1403750bbd34 PUSHED and separately
+EXACT remoteverified00:28:45Z;111publication/110qualified. ALLsessionsCLOSED.
+ONE sim-core productionwriter active ONLYpromiseCapacityKernel.ts under91/94/96,
+handback112; actual104RED40published. ALLlive tests/othersource frozen. No runtime.
+Second specialist test-author ONLY inert113 actual-owner test-case matrix;
+auditoridle/max2. Next frozen112fullreview, new40+old46 serialchecks/typechecks,
+boundedsourceaudit/qualifiedpublication, then realownerproducer/coherentP2.
+
 CURRENT110: D3 source97+review108 KEEP complete,1098PASS;99/101 exact partial
 policy progression/intentional oldpin failure retained;102rootUI PASS;103 only
 oldfuturebridge364 TS2353. ALLruntime sessions CLOSED/fixedtrue, no writer.

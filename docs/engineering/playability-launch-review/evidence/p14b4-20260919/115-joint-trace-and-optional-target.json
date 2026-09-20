@@ -1,0 +1,25 @@
+{
+  "sourceSha": "956a17fe391892d65a8ae10bf9ce1403750bbd34",
+  "testedDiffSha256": "5a6b74901273485dadf7eb3d711280eeaf7e014d81d4f972f0b90180d2a3df50",
+  "untrackedSource": [],
+  "command": [
+    "node_modules/.bin/vitest",
+    "run",
+    "tests/p14b4-joint-trace.test.ts",
+    "tests/p14b4-joint-trace-mode-extension.test.ts",
+    "tests/p14b4-capacity-kernel.test.ts",
+    "tests/p14b4-kernel-hold-order-extension.test.ts",
+    "--minWorkers=1",
+    "--maxWorkers=1"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-20T00:41:00.604Z",
+  "end": "2026-09-20T00:41:04.281Z",
+  "exitCode": 0,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "956a17fe391892d65a8ae10bf9ce1403750bbd34",
+  "testedDiffSha256AtEnd": "5a6b74901273485dadf7eb3d711280eeaf7e014d81d4f972f0b90180d2a3df50",
+  "untrackedSourceAtEnd": [],
+  "fixedSource": true
+}
