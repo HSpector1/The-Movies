@@ -1,0 +1,50 @@
+{"sourceSha":"34a8db7b2a82eb9e9a495bb41f8089dcdbffc6d1","testedDiffSha256":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14b4-ready-owner-replay.test.ts","tests/p14b4-ready-replay-identity.test.ts","tests/p14b4-ready-replay-command.test.ts","tests/p14b4-ready-replay-background.test.ts","tests/p14b4-ready-replay-first-take.test.ts","tests/p14b4-ready-replay-stale-target.test.ts"],"node":"v20.20.2","start":"2026-09-20T14:15:40.815Z","end":null,"exitCode":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p14b4-ready-replay-first-take.test.ts (1 test) 3948ms
+   ✓ P14B4 Ready replay — genuine first completed take > executes real Ready-target director/schedule commands, retains the take inside a half-open horizon and matches actual wrap/holds within the shared cap 3947ms
+ ❯ |core| tests/p14b4-ready-replay-stale-target.test.ts (1 test | 1 failed) 5013ms
+   × P14B4 Ready replay — stale Ready target after genuine release > resolves the same source-now Ready target against the released branch, refuses without resurrection, and retains the real first-take/release prefix 5011ms
+     → expected 'workLimit' to be 'commandRefused' // Object.is equality
+ ✓ |core| tests/p14b4-ready-replay-background.test.ts (2 tests) 2324ms
+   ✓ P14B4 Ready replay — exact diagnostics and independent audition work > preserves the actual unknown-project diagnostic including the supplied identity before admission owners 637ms
+   ✓ P14B4 Ready replay — exact diagnostics and independent audition work > admits Ready A beside B’s genuine active audition, closes its resource-only background before sweep, and never engages audition candidates twice 1685ms
+ ✓ |core| tests/p14b4-ready-replay-identity.test.ts (1 test) 2248ms
+   ✓ P14B4 Ready replay — cancelled identity remains reserved > uses retained sunk-cost identity after same-week real cancel, without resurrecting a calendar or rewriting history 2246ms
+ ✓ |core| tests/p14b4-ready-owner-replay.test.ts (10 tests) 10226ms
+   ✓ P14B4 source-now Ready operational admission > admits a genuine Ready beside the whole original slate, preserves opaque original fields, and feeds the same capped kernel 2048ms
+   ✓ P14B4 source-now Ready operational admission > returns complete Ready rehearsal and unassigned Shooting projections before any take command 2902ms
+   ✓ P14B4 source-now Ready operational admission > returns the genuine no-Set rehearsal blocker after real strikes without treating retired mounting history as usable 1266ms
+   ✓ P14B4 source-now Ready operational admission > allows independent sibling staffings of the SAME Ready project and SAME would-be identity without cross-branch consumption 1621ms
+   ✓ P14B4 source-now Ready operational admission > refuses occupied source-now Development rather than inventing a queued or later admission; credited writer work is not company occupancy 884ms
+   ✓ P14B4 source-now Ready operational admission > refuses a genuine unfinished audition before allocation and preserves its actual reserved slot 692ms
+ ✓ |core| tests/p14b4-ready-replay-command.test.ts (3 tests) 822ms
+   ✓ P14B4 Ready replay — explicit command boundary > admits first, resolves the Ready-project target to its real new clock, then preserves the actual Development schedule refusal without sweeping 495ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14b4-ready-replay-stale-target.test.ts > P14B4 Ready replay — stale Ready target after genuine release > resolves the same source-now Ready target against the released branch, refuses without resurrection, and retains the real first-take/release prefix
+AssertionError: expected 'workLimit' to be 'commandRefused' // Object.is equality
+
+Expected: "commandRefused"
+Received: "workLimit"
+
+ ❯ tests/p14b4-ready-replay-stale-target.test.ts:234:28
+    232|     const attempt = result.attempts[0]!
+    233|     if (attempt.kind !== 'cut') throw new Error('released Ready target…
+    234|     expect(attempt.reason).toBe('commandRefused') // workLimit is not …
+       |                            ^
+    235|     expect(attempt.through.week).toBe(released.market.tick)
+    236|     expect(attempt.detail.length).toBeGreaterThan(0)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed | 5 passed (6)
+      Tests  1 failed | 17 passed (18)
+   Start at  16:15:41
+   Duration  14.86s (transform 3.09s, setup 0ms, collect 13.08s, tests 24.58s, environment 2ms, prepare 1.69s)
+
+
+{"sourceSha":"34a8db7b2a82eb9e9a495bb41f8089dcdbffc6d1","testedDiffSha256":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14b4-ready-owner-replay.test.ts","tests/p14b4-ready-replay-identity.test.ts","tests/p14b4-ready-replay-command.test.ts","tests/p14b4-ready-replay-background.test.ts","tests/p14b4-ready-replay-first-take.test.ts","tests/p14b4-ready-replay-stale-target.test.ts"],"node":"v20.20.2","start":"2026-09-20T14:15:40.815Z","end":"2026-09-20T14:15:57.113Z","exitCode":1,"signal":null,"error":null,"sourceShaAtEnd":"34a8db7b2a82eb9e9a495bb41f8089dcdbffc6d1","testedDiffSha256AtEnd":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","untrackedSourceAtEnd":[],"fixedSource":true}

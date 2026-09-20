@@ -36,11 +36,17 @@ protected patchb6bcfff304a93651577fa662b12e42e6a6e5ecb2007f65a4fa125371a540aa07.
 Parent verified21 current pins and unchanged full dimensions/static/fact/frame
 plus workflowUpdate/geometry/arrival executable bodies. RUNTIME TRANSFERRED to
 Claude Code 2026-09-20 (Codex usage exhausted 12:58:41Z; Owner packet
-CLAUDE-RESUME-P14B4, runtime choice only). 506 Codex auditor verdict Qualified
-KEEP RECOVERED verbatim from the local thread log (12:58:35Z; never persisted
-by the dying parent); see506 record. Claude contract-auditor re-review and
-507–512 fixed-source checks NOT YET RUN. Recovery commit is preservation, NOT
-a pass. Gross2221 omitted fact cost is NOT
+CLAUDE-RESUME-P14B4, runtime choice only). 506 Codex auditor Qualified KEEP
+RECOVERED verbatim from the local thread log; independent Claude contract-
+auditor KEEP, no demonstrated defect (506). Recovery commit
+34a8db7b2a82eb9e9a495bb41f8089dcdbffc6d1 = exact505: 80aec8b..34a8db7 source
+diff hashes b6bcfff…; empty tree patch during runs. 507–512 CLOSED/fixedSource:
+true on34a8db7, disjoint intervals (513): Ready17PASS + sole original stale234
+workLimit FAIL, Started28PASS(incl504), rootUI PASS, adjacent203PASS, bridge
+sole OLD TS2353 test364, facts+lookup7PASS =255 passes; first-take+kernel GREEN.
+Stale boundary on505 NOT yet measured. NEXT514 passive probes serial (first-
+take, stale), exact restore, then next evidence-led bounded reduction with
+independent review before any writer. Gross2221 omitted fact cost is NOT
 net saving: cold discovery can shift into next frame. No route-fit claim.
 Draft-discovery, silent-policy, affine and Map alternatives remain unadopted.
 T4/B2/B3/B-F2 qualified closed; B4/liveP2/Unity/Owner acceptance NOT closed.
