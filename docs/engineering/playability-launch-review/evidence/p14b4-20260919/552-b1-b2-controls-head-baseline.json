@@ -1,0 +1,23 @@
+{
+  "sourceSha": "e790b5c7df2eabc90e54486b5bcf25dafbd6e14b",
+  "testedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "untrackedSource": [],
+  "command": [
+    "node_modules/.bin/vitest",
+    "run",
+    "--project",
+    "core",
+    "tests/p14b1-trust-chooser.test.ts",
+    "tests/p14b2-fixture-preconditions.test.ts"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-20T20:00:42.482Z",
+  "end": "2026-09-20T20:01:08.376Z",
+  "exitCode": 1,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "e790b5c7df2eabc90e54486b5bcf25dafbd6e14b",
+  "testedDiffSha256AtEnd": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "untrackedSourceAtEnd": [],
+  "fixedSource": true
+}
