@@ -13,9 +13,13 @@ the THREE actual owner call sites under157 §§1–3;168sourceFROZEN/170independ
 All fixedSource:true, basef290536336dd726a15a177c5e36f71b0fcec3cd0 plus
 SOURCEONLYpatchf65c466192c75e2b296a173d5990bb41ed51e24f24a70adc998f1d35f2817793.
 No test/validator/timeout/workcap/version change. AllruntimeCLOSED/NOsourcewriter.
-Next qualified174 commit/push/exactremote; THEN actual-owner replay work.
-Auditor175 ONLYpaper162 first-take-bill review; sim-core176 ONLYinert whole
-work-composition addendum; test-authoridle/max2. Protectedsource/testsFROZEN.
+Publishedd9ebb81090dafc0d18d7c0f3b86e5f92d66ae123/separateEXACTremote (177).
+179 genuine one-/two-picture fixture probe PASS on CLEANd9ebb/EMPTYpatch,
+all6 strict V29 validations PASS; qualified180, not replay/budget certification.
+Real week4 scheduled→week5 takes→week6 Post after actual wrap, Set wear once.
+175KEEP conditionalpaper162 only. Sim-core176 ONLYinertwhole-workcontract;
+181 independentKEEP complete; author182 ONLYinert executable replaytestdraft.
+ALLruntimeCLOSED/protectedFROZEN; sim176+author182/max2; auditoridle.
 
 169 endpointcorrectionADOPTED: one sweepw→w+1 yields takeat(H,0) whenH=w+1,
 not credit under half-open deadline. In-window control needs actual second
@@ -23,8 +27,9 @@ not credit under half-open deadline. In-window control needs actual second
 Do not restamp events, invent holdtails or make finite commandplans complete.
 162962/2436 are PAPER one-owner subtotals excluding sorting/caller/kernel.
 137/148/157 full BEFORE-call repeatedstring/callback/property/ledger accounting
-remains OPEN; old67,904 withdrawn. Settle176/independenttests/actualRED thenONE
-replay writer incl137 shared due predicates/companyfact seam—notmore setup.
+remains OPEN; old67,904 withdrawn. Freeze honest176/independenttests/actualRED,
+thenONE replay writer incl137 due predicates/companyfact seam. Verify fullbefore-
+call work composition and useful controls WITH code; no invented residual.
 
 Prior recoveredqualifiedwork:155/8ed2646 ownerinterfaces(all6emittedJSidentical,
 107PASS/1PILfailure/rootUIpass),139/6afe staffing145PASS,119/5cae jointkernel86PASS.
