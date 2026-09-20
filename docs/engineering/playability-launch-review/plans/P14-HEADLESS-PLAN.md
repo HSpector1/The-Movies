@@ -45,9 +45,18 @@ GREEN incl. kernel; stale now cuts INSIDE week8 sweepBill at199994/request10
 but week5 dimensions+939 deferred; net1472 at week8 entry. Refusal still
 ≥week8 remainder + week9 commit + week9 release frame + week10 stale away.
 Measured targets: preparation+admission66333, Development/Post frames19–26k.
-NOW515 two READ-ONLY analyses (sim-core attribution/lawful candidates;
-instrumentation gap model), then direction + independent review before any
-writer. Gross2221 omitted fact cost is NOT
+515 CLOSED: two independent READ-ONLY mirrors (sim-core, instrumentation)
+reproduce all seven measured bills/calculator costs; remaining gap LOW31.2k/
+LIKELY32.5k/HIGH35k (route≈232k, cut at86%). Lawful-as-written candidates
+C1–C7 sum≈23–26k gross < gap; tariff clarifications C9/C10 (+≈9k) marginal.
+OWNER/Current Ops DECISION ITEM (non-blocking, 515§6): stale302 route not
+shown to fit200000 under176 as written; options a) authorize C9/C10, b) rule
+on the control, c) keep RED as exact boundary. ADOPTED next slice C2+C3+C4
+exact pre-call bills (retained Development, single Post exit, single-early
+occupancy/slot; ≈11.2k gross, no discovery change; stale stays RED after it).
+NOW516 auditor direction review + 517 test-author Post-exit control baseline,
+then ONE518 sim-core writer, 519 delta review, serial checks, 514-pattern
+measurement. Gross2221 omitted fact cost is NOT
 net saving: cold discovery can shift into next frame. No route-fit claim.
 Draft-discovery, silent-policy, affine and Map alternatives remain unadopted.
 T4/B2/B3/B-F2 qualified closed; B4/liveP2/Unity/Owner acceptance NOT closed.
