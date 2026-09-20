@@ -1,0 +1,26 @@
+{
+  "sourceSha": "f65758311c93fac3b126ba88629ee0647461e3c1",
+  "testedDiffSha256": "fdd897aa7779bca5024e8d2c767bb2b15ee51bf045f36f9eca5a4660204df472",
+  "untrackedSource": [
+    "tests/p14b4-started-alternative-bill.probe.test.ts"
+  ],
+  "command": [
+    "node_modules/.bin/vitest",
+    "run",
+    "--project",
+    "core",
+    "tests/p14b4-started-alternative-bill.probe.test.ts"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-20T23:31:58.930Z",
+  "end": "2026-09-20T23:32:05.911Z",
+  "exitCode": 0,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "f65758311c93fac3b126ba88629ee0647461e3c1",
+  "testedDiffSha256AtEnd": "fdd897aa7779bca5024e8d2c767bb2b15ee51bf045f36f9eca5a4660204df472",
+  "untrackedSourceAtEnd": [
+    "tests/p14b4-started-alternative-bill.probe.test.ts"
+  ],
+  "fixedSource": true
+}

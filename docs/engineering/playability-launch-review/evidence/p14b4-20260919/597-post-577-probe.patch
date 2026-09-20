@@ -1,0 +1,429 @@
+diff --git a/src/core/promiseCapacityOwnerReplay.ts b/src/core/promiseCapacityOwnerReplay.ts
+index 8075504..943c088 100644
+--- a/src/core/promiseCapacityOwnerReplay.ts
++++ b/src/core/promiseCapacityOwnerReplay.ts
+@@ -240,6 +240,18 @@ const LITERAL = Object.freeze({
+   contextError: literalCost('reason', 'message'),
+   commandError: literalCost('message'),
+ })
++/** Shallow-copy price of a fixed MODULE schema: 1 + Σ(3 + |key|), the exact
++ * number copyCost discovers, computed once because every ledger hold is
++ * constructed by this module with exactly these keys (addHold; prepare hold();
++ * the two `{ ...hold, until }` spreads keep the key set). Caller records
++ * (production, reservation, drafts) keep incremental discovery. */
++function copyLiteral(...keys: readonly string[]): number {
++  let result = 1
++  for (const key of keys) result += 3 + key.length
++  return result
++}
++const HOLD_COPY = copyLiteral('holdId', 'ownerKey', 'ownerPathKey', 'subject', 'from', 'until')                        // 61
++const FIXED_HOLD_COPY = copyLiteral('holdId', 'ownerKey', 'ownerPathKey', 'subject', 'from', 'until', 'replaceableFrom') // 79
+ // An appended element reserves capacity(1), invocation(1), reference write(1).
+ const APPEND = 3
+ class Work {
+@@ -387,7 +399,7 @@ function sorted<T>(values: readonly T[], keyOf: (value: T) => string, work: Work
+   work.pay(2 + 3 * ordered.length)
+   return ordered.map(row => row.value)
+ }
+-/** Only the four dense output arrays with pure key projections use this path.
++/** The four dense output arrays and the duplicate-identity check use this path.
+  * An inversion pays the entire unchanged sort; every return is a fresh array. */
+ function sortedOutput<T>(
+   values: readonly T[],
+@@ -429,7 +441,7 @@ function find<T>(rows: readonly T[], id: string, keyOf: (row: T) => string, work
+   return undefined
+ }
+ function uniqueIds<T>(rows: readonly T[], keyOf: (row: T) => string, work: Work): void {
+-  const ordered = sorted(rows, keyOf, work)
++  const ordered = sortedOutput(rows, keyOf, work)
+   for (let i = 1; i < ordered.length; i++) {
+     work.pay(3)
+     invariant(!work.equal(keyOf(ordered[i - 1]!), keyOf(ordered[i]!)), 'duplicate consumed identity')
+@@ -1627,7 +1639,7 @@ function closeHold<P extends StartedPicture>(branch: Branch<P>, path: Identity,
+     }
+   }
+   invariant(found !== undefined, 'owner released a subject it does not hold')
+-  work.pay(14 + work.copyCost(found.hold))
++  work.pay(18 + (found.fixed ? FIXED_HOLD_COPY : HOLD_COPY)) // 14 as before + 4: fixed-flag read and price selector
+   found.hold = { ...found.hold, until: at }
+   found.closed = true
+   if (found.fixed) {
+@@ -1653,7 +1665,7 @@ function closePath<P extends StartedPicture>(branch: Branch<P>, pathKey: string,
+     work.pay(4)
+     if (row.closed || row.hold.ownerPathKey === null || !work.equal(row.hold.ownerPathKey, pathKey) ||
+       (peopleOnly && row.hold.subject.kind !== 'person')) continue
+-    work.pay(14 + work.copyCost(row.hold))
++    work.pay(18 + (row.fixed ? FIXED_HOLD_COPY : HOLD_COPY))
+     row.hold = { ...row.hold, until: at }; row.closed = true
+     if (row.fixed) {
+       work.pay(LITERAL.replacement + APPEND)
+diff --git a/tests/p14b4-started-alternative-bill.probe.test.ts b/tests/p14b4-started-alternative-bill.probe.test.ts
+new file mode 100644
+index 0000000..9b19904
+--- /dev/null
++++ b/tests/p14b4-started-alternative-bill.probe.test.ts
+@@ -0,0 +1,364 @@
++// P14B.4 record 576-M: bounded in-memory MEASUREMENT of the Started-alternative bill
++// (574 "Next (bounded)"; 555 §1/§2 named omission "command timings ... not enumerated" for
++// an UNFORCED started picture, plan :241-242; 538 precedent `B4_BUDGET_538`). Evidence-only
++// probe: NOT installed, NOT committed; the parent archives it under record-check and deletes
++// it. Assertions are fixture preconditions only (loud `UNCONSTRUCTIBLE:`); the numbers are
++// the deliverable and are never asserted. No source, fixture, helper, config or doc edited.
++// Builders COPIED, not imported (540/558 precedent):
++//   world()+helpers            tests/p14b4-owner-enumerator-slice.test.ts:66-198 (verbatim)
++//   rootDraft/variantsOn/twoWeekOn  same file :200-225 (twoWeekOn generalised to `weeks`)
++// Source facts this probe relies on (read, not asserted):
++//   producer refuses limits above the published caps: promiseCapacityOwnerReplay.ts:2678-2679
++//   command week must satisfy now <= week < horizon: promiseCapacityOwnerReplay.ts:568 (plain invariant, not a cut)
++//   an unscheduled first Shooting week holds at remainingTicks 5: operations.ts:1680-1683
++//   kernel MAX_LIMITS = { claims 32, units 64, alternatives 1024, work 200000, span 220 }: promiseCapacityKernel.ts:117
++import assert from 'node:assert/strict'
++import { describe, expect, it } from 'vitest'
++import { applyActions, hiringMarketIds, tick } from '../src/core/index.js'
++import { enumerateOwnerTraces } from '../src/core/promiseCapacityEnumerator.js'
++import { searchPromiseCapacityTraces, type JointTraceCapacityResult } from '../src/core/promiseCapacityKernel.js'
++import { replayStartedProductionPlans, type StartedOwnerReplayInput, type StartedOwnerReplayResult,
++  type StartedProductionPlan } from '../src/core/promiseCapacityOwnerReplay.js'
++import { assembleCapacityInput, collectPromiseClaims, type CapacityLimits,
++  type EnumerationCoverage } from '../src/core/promiseCapacityOwners.js'
++import { attachPromise, type PromiseDraft } from '../src/core/promises.js'
++import { makeSave } from '../src/core/save.js'
++import { currentProposals, submitProposal } from '../src/core/talentMarket.js'
++import { TUNING } from '../src/core/tuning.js'
++import type { CastSlot, GameState, ProfessionalPromise, Production } from '../src/core/types.js'
++import { advanceTo, fund, p13aGeneratedStudio, player } from './helpers/p14b2-fixtures.js'
++
++const SLOTS = ['lead', 'antagonist', 'support'] as const
++/** Kernel MAX_LIMITS verbatim (promiseCapacityKernel.ts:117); the producer's limits are picked from these keys. */
++const LIMITS: CapacityLimits = { claims: 32, units: 64, alternatives: 1024, work: 200000, span: 220 }
++const CAP = LIMITS.work
++const COMPLETE: EnumerationCoverage = { existingCalendars: 'complete', allOwnerTraces: 'complete', omissions: [] }
++const FIXTURE = 'enumerator world().unscheduled: one started picture at remainingTicks 5, phase shooting, blocker null, '
++  + 'shootingTask ready (take NOT scheduled), 2 Ready scripts, 3 bound P1 roots'
++const p1 = (count = 1) => ({ family: 'APPEARANCE_COUNT' as const, predicate: { count } })
++const p2 = (seatClass: 'lead' | 'leadOrAntagonist', count = 1) => ({
++  family: 'LEAD_OR_SIGNIFICANT_ROLE_COUNT' as const, predicate: { kind: 'castRoleCount' as const, count, seatClass } })
++type Material = ReturnType<typeof p1> | ReturnType<typeof p2>
++type Patch = Partial<Material> & Partial<Pick<ProfessionalPromise, 'windowStartWeek' | 'dueWeekExclusive'>>
++const clone = <T>(value: T): T => structuredClone(value)
++const LEAD_CELL: Record<CastSlot, Material> = { lead: p2('lead'), antagonist: p1(), support: p1() }
++
++// ── world(): enumerator test :66-198 verbatim copy ──────────────────────────────────────────
++type World = { opened: GameState; unscheduled: GameState; ready: GameState; actors: Record<CastSlot, string>
++  ids: Record<CastSlot, string>; productionId: string; projects: readonly string[]; directorId: string; craftId: string
++  writerId: string; start: number }
++const live = (state: GameState): GameState => makeSave(state).state
++function root(state: GameState, id: string): ProfessionalPromise {
++  const rows = state.promises.filter((p) => p.promiseId === id)
++  expect(rows).toHaveLength(1)
++  return rows[0]!
++}
++function currentRoot(state: GameState, personId: string): ProfessionalPromise {
++  const proposal = currentProposals(state, personId).find((p) => p.issuerStudioId === player(state))
++  assert.ok(proposal)
++  expect(proposal.promises).toHaveLength(1)
++  return root(state, proposal.promises[0]!)
++}
++function sign(state: GameState, role: 'actor' | 'writer' | 'director' | 'craft', termWeeks: number) {
++  for (let steps = 0; steps < 60; steps++) {
++    const person = hiringMarketIds(state, state.market.tick).map((id) => state.talent.find((p) => p.id === id))
++      .find((p) => p?.role === role)
++    if (person !== undefined) return { state: applyActions(state, [{ kind: 'signContract', talentId: person.id, termWeeks }]), id: person.id }
++    state = tick(state)
++  }
++  throw new Error('UNEXECUTED fixture: no lawful hireable ' + role + ' within60 ticks')
++}
++const commissionPayload = (state: GameState, writerId: string, conceptId: string) => {
++  const concept = state.concepts.find((c) => c.id === conceptId)!
++  return { conceptId, writerId, shape: { opening: 'slowSetup' as const, midpoint: 'revelation' as const, ending: 'bittersweet' as const },
++    promise: { genre: concept.genre, intendedSegments: ['adult' as const], ranges: {
++      intimacy: [-0.5, 0.5] as [number, number], tonalWeight: [-0.5, 0.5] as [number, number], kineticEnergy: [-0.5, 0.5] as [number, number] } } }
++}
++function readyScript(state: GameState, writerId: string, conceptId: string) {
++  const oldIds = new Set(state.scriptDevelopment.projects.map((p) => p.id))
++  state = applyActions(state, [{ kind: 'commissionScript', project: commissionPayload(state, writerId, conceptId) }])
++  const minted = state.scriptDevelopment.projects.filter((p) => !oldIds.has(p.id))
++  expect(minted).toHaveLength(1)
++  const projectId = minted[0]!.id
++  for (let steps = 0; state.scriptDevelopment.projects.find((p) => p.id === projectId)!.status !== 'review'; steps++) {
++    if (steps >= 20) throw new Error('UNEXECUTED fixture: actual screenplay never reached Review within20 ticks')
++    state = tick(state)
++  }
++  state = applyActions(state, [{ kind: 'acceptScript', projectId }])
++  expect(state.scriptDevelopment.projects.find((p) => p.id === projectId)).toMatchObject({ status: 'ready', productionId: null })
++  return { state, projectId }
++}
++let cached: World | undefined
++function world(): World {
++  if (cached !== undefined) return structuredClone(cached)
++  let state = fund(p13aGeneratedStudio())
++  const lead = sign(state, 'actor', 52); state = lead.state
++  const antagonist = sign(state, 'actor', 52); state = antagonist.state
++  const support = sign(state, 'actor', 52); state = support.state
++  const writer = sign(state, 'writer', 208); state = writer.state
++  const director = sign(state, 'director', 208); state = director.state
++  const craft = sign(state, 'craft', 208); state = craft.state
++  const actors = { lead: lead.id, antagonist: antagonist.id, support: support.id }
++  const starts = Object.values(actors).map((id) => state.contracts.find((c) => c.talentId === id)!.endWeekExclusive)
++  expect(new Set(starts).size).toBe(1)
++  const start = starts[0]!
++  expect(state.studio.activeProductions).toEqual([])
++  expect(state.operations.mode).toBe('managed')
++  if (state.scriptDevelopment.mode === 'legacy') state = applyActions(state, [{ kind: 'activateScriptDevelopment' }])
++  expect(state.scriptDevelopment.projects).toEqual([])
++  const concepts = state.concepts.slice(0, 2)
++  const first = readyScript(state, writer.id, concepts[0]!.id); state = first.state
++  const second = readyScript(state, writer.id, concepts[1]!.id); state = second.state
++  const stage = 'facility-soundstage-07'
++  const mounted = state.sets.find((s) => s.mountedOn === stage && s.status !== 'retired')
++  if (mounted !== undefined) state = applyActions(state, [{ kind: 'strikeSet', setId: mounted.id }])
++  state = applyActions(state, [{ kind: 'commissionSet', commission: { blueprintId: 'set-grand-ballroom', stageFacilityId: stage } }])
++  state = advanceTo(state, state.market.tick + TUNING.SET_BUILD_WEEKS_BAND_HIGH)
++  expect(state.market.tick).toBeLessThanOrEqual(start - 7)
++  state = advanceTo(state, start - 7)
++  for (const id of Object.values(actors)) {
++    state = submitProposal(state, { talentId: id, issuerStudioId: player(state), termWeeks: 52, premiumTier: 1.25 })
++  }
++  const opened = structuredClone(state)
++  const ids: Record<CastSlot, string> = { lead: '', antagonist: '', support: '' }
++  for (const slot of SLOTS) {
++    state = attachPromise(state, actors[slot], player(state), { ...p1(), windowStartWeek: start, dueWeekExclusive: start + 52 })
++    const promised = currentRoot(state, actors[slot])
++    expect(promised.feasibilityReceipt.classification).toBe('REASONABLY_ACHIEVABLE')
++    ids[slot] = promised.promiseId
++  }
++  state = advanceTo(state, start)
++  for (const slot of SLOTS) {
++    const promised = root(state, ids[slot])
++    expect(promised).toMatchObject({ outcome: null, progress: 0, evidenceRefs: [] })
++    assert.notEqual(promised.contractId, null)
++    expect(currentProposals(state, actors[slot])).toEqual([])
++  }
++  state = applyActions(state, [{ kind: 'greenlightScriptProject', production: {
++    projectId: first.projectId, directorId: director.id, craftIds: [craft.id], cast: actors,
++    budget: { negative: concepts[0]!.baseNegativeCost, marketing: 0 },
++  } }])
++  const film = state.studio.activeProductions.at(-1)
++  assert.ok(film, 'UNEXECUTED fixture: greenlight was not actually admitted')
++  state = tick(tick(tick(state)))
++  const rehearsal = state.operations.workflows.find((w) => w.productionId === film.id)
++  assert.ok(rehearsal)
++  expect(rehearsal.phase).toBe('rehearsal')
++  state = applyActions(state, [{ kind: 'setProductionSetupRecipe', productionId: film.id,
++    recipeId: 'ballroom-reveal-lighting-01', expectedPlanRevision: rehearsal.planRevision }])
++  for (let steps = 0; state.studio.activeProductions.find((p) => p.id === film.id)!.remainingTicks !== 5; steps++) {
++    if (steps >= 40) throw new Error('UNEXECUTED fixture: actual managed film never reached first Shooting week within40 ticks')
++    state = tick(state)
++  }
++  state = applyActions(state, [{ kind: 'assignShootingDirector', productionId: film.id, directorId: director.id }])
++  for (let steps = 0; state.operations.workflows.find((w) => w.productionId === film.id)!.shootingTask?.status !== 'ready'; steps++) {
++    if (steps >= 6) throw new Error('UNEXECUTED fixture: physical scenery did not arrive within6 actual ticks; no manual bypass')
++    state = tick(state)
++  }
++  // E5: the REAL state immediately before scheduleShootingTake (capacity test :172); status 'ready' fails condition (b).
++  const unscheduled = structuredClone(state)
++  expect(unscheduled.operations.workflows.find((w) => w.productionId === film.id)).toMatchObject({
++    phase: 'shooting', blocker: null, shootingTask: { status: 'ready' } })
++  state = applyActions(state, [{ kind: 'scheduleShootingTake', productionId: film.id }])
++  expect(state.operations.workflows.find((w) => w.productionId === film.id)).toMatchObject({
++    phase: 'shooting', blocker: null, shootingTask: { status: 'scheduled' } })
++  expect(state.firstTakes.filter((t) => t.productionId === film.id)).toEqual([])
++  cached = { opened: live(opened), unscheduled: live(unscheduled), ready: live(state), actors, ids, productionId: film.id,
++    projects: [first.projectId, second.projectId], directorId: director.id, craftId: craft.id, writerId: writer.id, start }
++  return structuredClone(cached)
++}
++// ── drafts and in-memory window variants: enumerator test :200-225 (twoWeekOn generalised to `weeks`) ──
++function rootDraft(state: GameState, id: string): PromiseDraft {
++  const promised = root(state, id)
++  return { family: promised.family, predicate: promised.predicate, issuerStudioId: promised.issuerStudioId,
++    beneficiaryPersonId: promised.beneficiaryPersonId, promiseId: promised.promiseId,
++    startWeek: promised.windowStartWeek, termWeeks: promised.dueWeekExclusive - promised.windowStartWeek,
++    windowStartWeek: promised.windowStartWeek, dueWeekExclusive: promised.dueWeekExclusive }
++}
++function variantsOn(base: GameState, w: World, patches: Partial<Record<CastSlot, Patch>>): GameState {
++  const changes = new Map<string, Patch>(SLOTS.flatMap((slot) => patches[slot] === undefined ? [] : [[w.ids[slot], patches[slot]!]]))
++  return { ...clone(base), promises: base.promises.map((p) => {
++    const chosen = changes.get(p.promiseId)
++    return chosen === undefined ? clone(p) : { ...clone(p), ...chosen }
++  }) }
++}
++function windowOn(w: World, base: GameState, material: Record<CastSlot, Material>, weeks: number): GameState {
++  const now = base.market.tick
++  return variantsOn(base, w, { lead: { ...material.lead, windowStartWeek: now, dueWeekExclusive: now + weeks },
++    antagonist: { ...material.antagonist, windowStartWeek: now, dueWeekExclusive: now + weeks },
++    support: { ...material.support, windowStartWeek: now, dueWeekExclusive: now + weeks } })
++}
++
++// ── the probe ───────────────────────────────────────────────────────────────────────────────
++const actorIds = (w: World): string[] => [...Object.values(w.actors)].sort()
++type Attempt = StartedOwnerReplayResult<Production>['attempts'][number]
++function summarize(attempt: Attempt) {
++  const provenanceTakeWeeks = attempt.provenance.filter((o) => o.kind === 'firstTake').map((o) => o.at.week)
++  if (attempt.kind === 'complete') {
++    const pictures = attempt.trace.paths.flatMap((p) => p.kind === 'jointTracePicture' ? [p] : [])
++    return { kind: 'complete' as const, traceKey: attempt.trace.traceKey,
++      firstTakeWeeks: pictures.map((p) => p.firstTake?.week ?? null), provenanceTakeWeeks,
++      projectionWeek: attempt.projection.week, additionalHolds: attempt.trace.additionalHolds.length,
++      provenanceRows: attempt.provenance.length, reason: null, detail: null, through: null }
++  }
++  return { kind: 'cut' as const, traceKey: attempt.traceKey, firstTakeWeeks: null, provenanceTakeWeeks,
++    projectionWeek: null, additionalHolds: null, provenanceRows: attempt.provenance.length,
++    reason: attempt.reason, detail: attempt.detail, through: attempt.through }
++}
++const plansAt = (productionId: string, weeks: readonly number[]): StartedProductionPlan[] => weeks.map((week) => ({
++  traceKey: `probe:w${week}`, commands: [{ week, ordinal: 0, productionId, kind: 'scheduleTake' as const }] }))
++const NONE: StartedProductionPlan = { traceKey: 'probe:none', commands: [] }
++function runStarted(w: World, state: GameState, plans: readonly StartedProductionPlan[], horizonEndWeek: number, work = CAP) {
++  const input: StartedOwnerReplayInput<Production> = { source: state, issuerId: player(state), claimPersonIds: actorIds(w),
++    plans, horizonEndWeek, preparationWork: 0, limits: { work, span: LIMITS.span, alternatives: LIMITS.alternatives } }
++  return replayStartedProductionPlans(input)
++}
++const emit = (row: Record<string, unknown>): void => { console.log('B4_BUDGET_576 ' + JSON.stringify(row)) }
++const work: Record<string, number> = {}
++function measure(w: World, scenario: string, state: GameState, plans: readonly StartedProductionPlan[], horizonEndWeek: number,
++  extra: Record<string, unknown> = {}): StartedOwnerReplayResult<Production> {
++  const now = state.market.tick
++  const result = runStarted(w, state, plans, horizonEndWeek)
++  work[scenario] = result.preparationWork
++  const complete = result.attempts.length === plans.length && result.attempts.every((a) => a.kind === 'complete')
++  emit({ scenario, fixture: FIXTURE, productionId: w.productionId, now, horizonEndWeek, k: plans.length,
++    planWeeks: plans.map((p) => p.commands.map((c) => c.week)).flat(), producerWork: result.preparationWork,
++    fitsCap: complete && result.omissions.length === 0, attempts: result.attempts.map(summarize),
++    producerOmissions: result.omissions, fixedHolds: result.fixedHolds.length, capRaised: null, ...extra })
++  return result
++}
++function capRaised(w: World, scenario: string, state: GameState, plans: readonly StartedProductionPlan[], horizonEndWeek: number, cap: number): void {
++  const base = { scenario, fixture: FIXTURE, productionId: w.productionId, now: state.market.tick, horizonEndWeek, k: plans.length,
++    planWeeks: plans.map((p) => p.commands.map((c) => c.week)).flat(), capRaised: cap }
++  try {
++    const result = runStarted(w, state, plans, horizonEndWeek, cap)
++    emit({ ...base, producerWork: result.preparationWork, attempts: result.attempts.map(summarize),
++      producerOmissions: result.omissions, fixedHolds: result.fixedHolds.length })
++  } catch (error) {
++    emit({ ...base, producerWork: null, attempts: null, producerOmissions: null, fixedHolds: null,
++      refused: error instanceof Error ? error.message : String(error) })
++  }
++}
++/** `complete` = every lawful scheduling week inside [now, now+weeks) has a plan (k === weeks); a pair is a partial set. */
++const fits: { weeks: number; k: number; planWeeks: number[]; complete: boolean }[] = []
++
++describe('576-M Started-alternative bill on world().unscheduled (measurement; numbers never asserted)', () => {
++  const w = world()
++  const state = w.unscheduled
++  const now = state.market.tick
++  it('fixture preconditions (the only assertions in this file)', () => {
++    assert.ok(Number.isSafeInteger(now) && now === w.ready.market.tick, 'UNCONSTRUCTIBLE: unscheduled/ready are not the same week')
++    assert.ok(state.hollywood !== null && player(state) === state.hollywood.playerStudioId, 'UNCONSTRUCTIBLE: no player studio')
++    const pictures = state.studio.activeProductions
++    assert.ok(pictures.length === 1 && pictures[0]!.id === w.productionId, 'UNCONSTRUCTIBLE: expected exactly the one started picture')
++    assert.ok(pictures[0]!.remainingTicks === 5 && pictures[0]!.startTick < now, 'UNCONSTRUCTIBLE: picture is not at its first Shooting week')
++    const workflow = state.operations.workflows.find((row) => row.productionId === w.productionId)
++    assert.ok(workflow !== undefined && workflow.phase === 'shooting' && workflow.blocker === null
++      && workflow.shootingTask?.status === 'ready', 'UNCONSTRUCTIBLE: workflow is not shooting/ready/blocker null')
++    assert.ok(state.firstTakes.every((t) => t.productionId !== w.productionId), 'UNCONSTRUCTIBLE: a first take is already recorded')
++    assert.ok(actorIds(w).length === 3, 'UNCONSTRUCTIBLE: three fixture actors expected')
++    emit({ scenario: 'S0-identity', fixture: FIXTURE, now, start: w.start, productionId: w.productionId, issuerId: player(state),
++      claimPersonIds: actorIds(w), startTick: pictures[0]!.startTick, remainingTicks: pictures[0]!.remainingTicks,
++      activeProductions: pictures.length, workflows: state.operations.workflows.length, firstTakes: state.firstTakes.length,
++      producerLimits: { work: CAP, span: LIMITS.span, alternatives: LIMITS.alternatives }, kernelLimits: LIMITS, preparationWork: 0 })
++  })
++  it('S1 prepare-only (plans: []) at horizons now+2 and now+5', () => {
++    measure(w, 'S1-prepare-h2', state, [], now + 2)
++    measure(w, 'S1-prepare-h5', state, [], now + 5)
++  })
++  it('S2 the no-command plan on the UNSCHEDULED picture at now+2 and now+5', () => {
++    measure(w, 'S2-none-h2', state, [NONE], now + 2)
++    measure(w, 'S2-none-h5', state, [NONE], now + 5)
++  })
++  it('S3 k=1: scheduleTake at now, horizons now+2 and now+5', () => {
++    measure(w, 'S3-k1-h2', state, plansAt(w.productionId, [now]), now + 2)
++    measure(w, 'S3-k1-h5', state, plansAt(w.productionId, [now]), now + 5)
++  })
++  /** k = 2..maxK plans scheduling at now..now+k-1 under horizon now+h; marginal per added plan; raised caps attempted ONCE at the
++   * first workLimit cut (source refuses them; the refusal is the evidence); then each alternative alone (its own bill, lawful cap). */
++  function sweep(h: number, maxK: number): void {
++    const horizon = now + h
++    let previous = work[`S3-k1-h${h}`] ?? measure(w, `S3-k1-h${h}`, state, plansAt(w.productionId, [now]), horizon).preparationWork
++    let raisedTried = false
++    for (let k = 2; k <= maxK; k++) {
++      const weeks = Array.from({ length: k }, (_, j) => now + j)
++      const plans = plansAt(w.productionId, weeks)
++      const result = measure(w, `S4-k${k}-h${h}`, state, plans, horizon)
++      emit({ scenario: `S4-k${k}-h${h}-marginal`, k, previousK: k - 1, previousWork: previous, producerWork: result.preparationWork,
++        marginal: result.preparationWork - previous, cutAtThisK: result.attempts.some((a) => a.kind === 'cut') })
++      previous = result.preparationWork
++      const complete = result.attempts.length === k && result.attempts.every((a) => a.kind === 'complete') && result.omissions.length === 0
++      if (complete) fits.push({ weeks: h, k, planWeeks: weeks, complete: k === h })
++      if (!raisedTried && result.attempts.some((a) => a.kind === 'cut' && a.reason === 'workLimit')) {
++        raisedTried = true
++        for (const cap of [400000, 800000]) capRaised(w, `S4-k${k}-h${h}-capRaised`, state, plans, horizon, cap)
++      }
++    }
++    for (let j = 1; j < maxK; j++) measure(w, `S4-single-w${j}-h${h}`, state, plansAt(w.productionId, [now + j]), horizon)
++  }
++  it('S4 k=2,3,4 at horizon now+5 (schedule at now..now+3), then the cheapest pair (now+2, now+3)', () => {
++    sweep(5, 4)
++    pair(5, [now + 2, now + 3])
++  })
++  /** A PARTIAL alternative set (cheapest pairs by the standalone rows); a certificate would need the complete lawful set. */
++  function pair(h: number, weeks: number[]): void {
++    const result = measure(w, `S4-pair-w${weeks.map((x) => x - now).join('w')}-h${h}`, state, plansAt(w.productionId, weeks), now + h)
++    if (result.attempts.length === weeks.length && result.attempts.every((a) => a.kind === 'complete') && result.omissions.length === 0) {
++      fits.push({ weeks: h, k: weeks.length, planWeeks: weeks, complete: false })
++    }
++  }
++  it('S4b (added, same question) horizons now+3 and now+4: every lawful k inside the window, then the cheapest pairs', () => {
++    sweep(3, 3)
++    sweep(4, 4)
++    pair(3, [now, now + 2]); pair(3, [now + 1, now + 2])
++    pair(4, [now + 1, now + 3]); pair(4, [now + 2, now + 3])
++  })
++  it('S5 horizon now+2: k=1 at now; the now+1 plan alone (take would land at now+2 = horizon); both together', () => {
++    const horizon = now + 2
++    measure(w, 'S5-k1-h2', state, plansAt(w.productionId, [now]), horizon)
++    measure(w, 'S5-single-w1-h2', state, plansAt(w.productionId, [now + 1]), horizon)
++    const result = measure(w, 'S5-k2-h2', state, plansAt(w.productionId, [now, now + 1]), horizon)
++    emit({ scenario: 'S5-k2-h2-marginal', k: 2, previousWork: work['S5-k1-h2'], producerWork: result.preparationWork,
++      marginal: result.preparationWork - work['S5-k1-h2']! })
++    if (result.attempts.length === 2 && result.attempts.every((a) => a.kind === 'complete') && result.omissions.length === 0) {
++      fits.push({ weeks: 2, k: 2, planWeeks: [now, now + 1], complete: true })
++    }
++    // The never-schedule trace is a lawful owner choice too; the complete set for [now, now+2) may need it.
++    const withNone = measure(w, 'S5-k3-h2-withNone', state, [...plansAt(w.productionId, [now, now + 1]), NONE], horizon)
++    emit({ scenario: 'S5-k3-h2-withNone-marginal', k: 3, previousWork: result.preparationWork, producerWork: withNone.preparationWork,
++      marginal: withNone.preparationWork - result.preparationWork })
++  })
++  it('S6 kernel step (only for k >= 2 that fit): supplied enumerator coverage vs author-ASSUMED complete coverage', () => {
++    if (fits.length === 0) {
++      emit({ scenario: 'S6-kernel-skipped', reason: 'no k >= 2 produced only complete attempts with no omission under the 200000 cap' })
++      return
++    }
++    for (const fit of fits) {
++      const variant = windowOn(w, state, LEAD_CELL, fit.weeks)
++      const claims = collectPromiseClaims(variant, rootDraft(variant, w.ids.lead))
++      assert.ok(claims.now.week === now && claims.horizonEndWeek === now + fit.weeks, 'UNCONSTRUCTIBLE: claims window is not [now, now+weeks)')
++      assert.ok(claims.coverage.claimsAndHolds === 'complete', 'UNCONSTRUCTIBLE: claims are not complete for the player issuer')
++      assert.deepEqual(claims.claimPersonIds, actorIds(w), 'UNCONSTRUCTIBLE: claim persons are not the three fixture actors')
++      // Control: the enumerator's own ONE-plan run and the SUPPLIED coverage shape it reports for an unforced picture.
++      const domain = enumerateOwnerTraces(variant, claims, LIMITS)
++      emit({ scenario: `S6-enumerator-control-h${fit.weeks}`, now, horizonEndWeek: claims.horizonEndWeek, claimsWork: claims.work,
++        enumeratorWork: domain.work, producerWork: domain.producer.preparationWork, attempts: domain.producer.attempts.map(summarize),
++        producerOmissions: domain.producer.omissions, enumeration: domain.enumeration, floors: domain.floors })
++      const producer = runStarted(w, variant, plansAt(w.productionId, fit.planWeeks), claims.horizonEndWeek)
++      for (const coverage of ['supplied', 'assumed'] as const) {
++        const input = assembleCapacityInput(claims, producer, claims.horizonEndWeek, LIMITS, coverage === 'supplied' ? domain.enumeration : COMPLETE)
++        const result: JointTraceCapacityResult = searchPromiseCapacityTraces(input)
++        const witness = 'witness' in result ? result.witness : 'countWitness' in result ? result.countWitness : null
++        emit({ scenario: `S6-kernel-k${fit.k}-h${fit.weeks}-w${fit.planWeeks.map((x) => x - now).join('w')}`, coverage, note: coverage === 'assumed'
++          ? 'author-ASSUMED complete coverage; NOT an enumerator certificate' : 'enumerator-reported coverage for an unforced started picture',
++          alternativeSet: fit.complete ? 'every lawful scheduling week inside the window' : 'PARTIAL pair (cheapest by standalone rows)',
++          now, horizonEndWeek: claims.horizonEndWeek, k: fit.k, planWeeks: fit.planWeeks, producerWork: producer.preparationWork,
++          attempts: producer.attempts.map(summarize), producerOmissions: producer.omissions, fixedHolds: producer.fixedHolds.length,
++          inputCoverage: input.coverage, inputPreparationWork: input.preparationWork, capRaised: null,
++          kernel: { status: result.status, reason: 'reason' in result ? result.reason : null, workUsed: result.workUsed,
++            ownWork: result.workUsed - input.preparationWork, omissions: 'omissions' in result ? result.omissions : null,
++            targetTakes: witness === null ? null : witness.targetTakeBoundaries, traceKey: witness === null ? null : witness.traceKey } })
++      }
++    }
++  })
++})

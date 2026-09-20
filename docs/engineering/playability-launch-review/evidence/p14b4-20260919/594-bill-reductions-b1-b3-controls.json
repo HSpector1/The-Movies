@@ -1,0 +1,33 @@
+{
+  "sourceSha": "f65758311c93fac3b126ba88629ee0647461e3c1",
+  "testedDiffSha256": "03338b48d17d727b4bf9c7374e91a5ba66897ecad30b134c066837e222615b11",
+  "untrackedSource": [],
+  "command": [
+    "node_modules/.bin/vitest",
+    "run",
+    "--project",
+    "core",
+    "tests/p14b1-first-take.test.ts",
+    "tests/p14b1-leak.test.ts",
+    "tests/p14b1-promises.test.ts",
+    "tests/p14b1-save-v29.test.ts",
+    "tests/p14b1-t4-regressions.test.ts",
+    "tests/p14b1-trust-chooser.test.ts",
+    "tests/p14b2-fixture-preconditions.test.ts",
+    "tests/p14b2-setup-wrap-regressions.test.ts",
+    "tests/p14b3-reservations.test.ts",
+    "tests/p14b3-rule-revision.test.ts",
+    "tests/bridge-p14b1-promises.test.ts",
+    "tests/bridge-p14b3-promise-command.test.ts"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-20T23:28:57.657Z",
+  "end": "2026-09-20T23:30:06.868Z",
+  "exitCode": 1,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "f65758311c93fac3b126ba88629ee0647461e3c1",
+  "testedDiffSha256AtEnd": "03338b48d17d727b4bf9c7374e91a5ba66897ecad30b134c066837e222615b11",
+  "untrackedSourceAtEnd": [],
+  "fixedSource": true
+}

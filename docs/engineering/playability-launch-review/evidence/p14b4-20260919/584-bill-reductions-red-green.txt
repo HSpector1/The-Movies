@@ -1,0 +1,24 @@
+{"sourceSha":"f65758311c93fac3b126ba88629ee0647461e3c1","testedDiffSha256":"03338b48d17d727b4bf9c7374e91a5ba66897ecad30b134c066837e222615b11","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14b4-replay-bill-reductions.test.ts"],"node":"v20.20.2","start":"2026-09-20T23:23:57.713Z","end":null,"exitCode":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+stdout | tests/p14b4-replay-bill-reductions.test.ts > 580 case 1 — C7 witness: facility array order moves the prepare bill (RED on unchanged source) > a [0]<->[1] facility swap keeps every result field (facilities normalised) and, after C7, costs strictly more
+B4_BILL_580 {"fixture":"enumerator world().unscheduled (558/576 copy)","now":60,"horizon":61,"plan":"one plan, no commands","swap":["facility-development-casting","facility-post-building"],"original":56826,"swapped":59246,"delta":2420,"equalToday":false}
+
+stdout | tests/p14b4-replay-bill-reductions.test.ts > 580 case 3 — C6 protection: fixed-schema key sets on routes with fixed and non-fixed closes (GREEN both sides) > world().ready at now+2 (the 538 two-week wrap): every schema exact; the route closes >= 1 FIXED hold
+B4_CLOSES_580 {"route":"world().ready now+2 (538 wrap)","now":60,"horizon":62,"fixedCloses":3,"nonFixedCloses":0,"preparationWork":104975}
+
+stdout | tests/p14b4-replay-bill-reductions.test.ts > 580 case 3 — C6 protection: fixed-schema key sets on routes with fixed and non-fixed closes (GREEN both sides) > world().ready at now+5 (wrap, Post grant and Post exit inside the window): every schema exact; >= 1 NON-FIXED close
+B4_CLOSES_580 {"route":"world().ready now+5 (Post exit)","now":60,"horizon":65,"fixedCloses":3,"nonFixedCloses":1,"preparationWork":169361}
+
+ ✓ |core| tests/p14b4-replay-bill-reductions.test.ts (5 tests) 2612ms
+   ✓ 580 case 1 — C7 witness: facility array order moves the prepare bill (RED on unchanged source) > a [0]<->[1] facility swap keeps every result field (facilities normalised) and, after C7, costs strictly more 2148ms
+
+ Test Files  1 passed (1)
+      Tests  5 passed (5)
+   Start at  01:23:58
+   Duration  5.83s (transform 1.96s, setup 0ms, collect 2.57s, tests 2.61s, environment 0ms, prepare 141ms)
+
+
+{"sourceSha":"f65758311c93fac3b126ba88629ee0647461e3c1","testedDiffSha256":"03338b48d17d727b4bf9c7374e91a5ba66897ecad30b134c066837e222615b11","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14b4-replay-bill-reductions.test.ts"],"node":"v20.20.2","start":"2026-09-20T23:23:57.713Z","end":"2026-09-20T23:24:04.609Z","exitCode":0,"signal":null,"error":null,"sourceShaAtEnd":"f65758311c93fac3b126ba88629ee0647461e3c1","testedDiffSha256AtEnd":"03338b48d17d727b4bf9c7374e91a5ba66897ecad30b134c066837e222615b11","untrackedSourceAtEnd":[],"fixedSource":true}

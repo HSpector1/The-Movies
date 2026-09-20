@@ -1,0 +1,55 @@
+{"sourceSha":"f65758311c93fac3b126ba88629ee0647461e3c1","testedDiffSha256":"03338b48d17d727b4bf9c7374e91a5ba66897ecad30b134c066837e222615b11","untrackedSource":[],"command":["./node_modules/.bin/vitest","run","tests/p14b1-save-v29.test.ts","tests/p14a1-save-v28.test.ts","tests/p13b-s8-save-v27.test.ts","tests/p13b-s6-save-v26.test.ts","tests/p13b-r07-save-v25.test.ts","tests/p13b-s5-save-v24.test.ts","tests/p13b-s3-save-v23.test.ts","tests/p13b-s2-save-v22.test.ts","tests/construction-save-v11.test.ts","tests/property-state-v13.test.ts","tests/script-projects-save-v9.test.ts","tests/save.test.ts","--minWorkers=1","--maxWorkers=1"],"node":"v20.20.2","start":"2026-09-20T23:30:25.132Z","end":null,"exitCode":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/property-state-v13.test.ts (24 tests) 4981ms
+   ✓ C1-M1a (a) — the property IS the constants, in a new representation > decides every query verdict from state exactly as the constants decided it 643ms
+   ✓ C1-M1a (a) — the property IS the constants, in a new representation > keeps the severance walk verdict-identical with structures in the obstacle set 920ms
+   ✓ C1-M1a (a) — the property IS the constants, in a new representation > plays a migrated V12 world byte-identically to a native V13 world for 30+ weeks 311ms
+   ✓ C1-M1a (b) — nothing assumes eight structures or a small placement count > carries twelve-plus placed facilities through invariants, completion, opex, and save 577ms
+   ✓ C1-M1a (b) — nothing assumes eight structures or a small placement count > carries far more than twelve when the property has room for them 1387ms
+   ✓ C1-M1a (d) — SaveFileV13 > writes V13 by default and round-trips every lifecycle state byte-identically 427ms
+ ✓ |core| tests/p13b-s6-save-v26.test.ts (11 tests) 1906ms
+   ✓ P13B-S6 Save V26: genuine V25 fixtures, honest lift, chains, validator refusals (test 7) > VALID: a cancelled adoption with a passed original completesWeek is exempt from the v4 "operational receipt differs" clause 577ms
+ ✓ |core| tests/script-projects-save-v9.test.ts (8 tests) 1272ms
+   ✓ Script Projects V1 — SaveFileV9 > makes V9 by default and round-trips legacy and every managed lifecycle class byte-identically 668ms
+ ✓ |core| tests/p14a1-save-v28.test.ts (10 tests) 871ms
+ ✓ |core| tests/construction-save-v11.test.ts (12 tests) 1718ms
+   ✓ Development & Casting Annex V1 — SaveFileV11 > writes V12 by default and round-trips legacy, vacant, building, and completed lifecycle states 375ms
+   ✓ Development & Casting Annex V1 — SaveFileV11 > round-trips and continues byte-identically at start, S+12, and S+13 357ms
+ ✓ |core| tests/p13b-r07-save-v25.test.ts (8 tests) 845ms
+ ✓ |core| tests/save.test.ts (10 tests) 247ms
+ ✓ |core| tests/p13b-s5-save-v24.test.ts (15 tests) 11043ms
+   ✓ P13B-S5 Save V24 (test 4) > migrates legacy-v23-sound-operational-315 and its identical V20 ancestor to V24 with an honest first-prototype lift, byte-identical otherwise 452ms
+   ✓ P13B-S5 Save V24 (test 4) > migrateToV23 / migrateToV22 / migrateToV21 / migrateToV20 refuse a V24 save 728ms
+   ✓ P13B-S5 Save V24 (test 4) > makeSave writes saveVersion 26 394ms
+   ✓ P13B-S5 Save V24 (test 4) > save/reload mid-deployment continues identically (byte for byte): a lighting adoption committed but not yet operational 7152ms
+ ✓ |core| tests/p13b-s8-save-v27.test.ts (8 tests) 2612ms
+   ✓ P13B-S8 Save V27: genuine V26 fixtures, honest lift, conditional downgrade, validator refusals, sentinel 28 (test 7) > downgrade REFUSED: a NATURAL campaign whose rival genuinely admitted a Laboratory carries a nonzero researchCapacity movement, and save.migrateToV26 refuses it 1099ms
+   ✓ P13B-S8 Save V27: genuine V26 fixtures, honest lift, conditional downgrade, validator refusals, sentinel 28 (test 7) > downgrade REFUSED: the same natural campaign also carries a new receipt kind (laboratoryCommitted/laboratoryOperational), independently sufficient to refuse V27->V26 450ms
+ ✓ |core| tests/p13b-s2-save-v22.test.ts (12 tests) 10909ms
+   ✓ P13B-S2 V21 to V22 migration (test 8) > lifts ./fixtures/p13b/legacy-v21-staffed-4-seats-263.json.gz: every receipt ×8, per-Laboratory rows derived honestly, cooperationFromWeek stamped at the fixture's own week 1093ms
+   ✓ P13B-S2 V21 to V22 migration (test 8) > lifts ./fixtures/p13b/legacy-v21-released-paused-266.json.gz: every receipt ×8, per-Laboratory rows derived honestly, cooperationFromWeek stamped at the fixture's own week 867ms
+   ✓ P13B-S2 V21 to V22 migration (test 8) > lifts ./fixtures/p13b/legacy-v21-two-labs-two-briefs-783.json.gz: every receipt ×8, per-Laboratory rows derived honestly, cooperationFromWeek stamped at the fixture's own week 1106ms
+   ✓ P13B-S2 V21 to V22 migration (test 8) > continues the migrated active staffed-4-seats-263 project for one more funded week (now carrying its own labs row) and re-saves byte-identically 847ms
+   ✓ P13B-S2 V21 to V22 migration (test 8) > chains V20→V21→V22 for ./fixtures/p13b/legacy-v20-research-active-280.json.gz: the S1 legacy prefix survives intact, weeks stays empty 1037ms
+   ✓ P13B-S2 V21 to V22 migration (test 8) > chains V20→V21→V22 for ./fixtures/p13b/legacy-v20-research-paused-expired-468.json.gz: the S1 legacy prefix survives intact, weeks stays empty 1118ms
+   ✓ P13B-S2 V21 to V22 migration (test 8) > chains V20→V21→V22 for ./fixtures/p13b/legacy-v20-research-complete-operational-315.json.gz: the S1 legacy prefix survives intact, weeks stays empty 967ms
+   ✓ P13B-S2 envelope law at the live writer (test 8) > makeSave always writes the live saveVersion 26 542ms
+   ✓ P13B-S2 envelope law at the live writer (test 8) > refuses an unknown saveVersion 31 with the updated range 643ms
+   ✓ P13B-S2 envelope law at the live writer (test 8) > round-trips a migrated two-Laboratory save through exportSave/importSave/migrateToV29 byte-identically 1032ms
+   ✓ P13B-S2 campaign isolation across the migrated copies (mirrors the S1 case) > produces independent migrated copies from the same V21 fixture; advancing one never touches the other 1537ms
+ ✓ |core| tests/p14b1-save-v29.test.ts (6 tests) 614ms
+ ✓ |core| tests/p13b-s3-save-v23.test.ts (13 tests) 3756ms
+   ✓ P13B-S3 Save V23 (test 7) > migrateToV22 / migrateToV21 / migrateToV20 refuse a live save 802ms
+   ✓ P13B-S3 Save V23 (test 7) > makeSave writes saveVersion 29 334ms
+   ✓ P13B-S3 Save V23 (test 7) > save/reload mid-queue continues identically (byte for byte) 695ms
+
+ Test Files  12 passed (12)
+      Tests  137 passed (137)
+   Start at  01:30:25
+   Duration  50.19s (transform 1.77s, setup 0ms, collect 5.42s, tests 40.77s, environment 4ms, prepare 1.10s)
+
+
+{"sourceSha":"f65758311c93fac3b126ba88629ee0647461e3c1","testedDiffSha256":"03338b48d17d727b4bf9c7374e91a5ba66897ecad30b134c066837e222615b11","untrackedSource":[],"command":["./node_modules/.bin/vitest","run","tests/p14b1-save-v29.test.ts","tests/p14a1-save-v28.test.ts","tests/p13b-s8-save-v27.test.ts","tests/p13b-s6-save-v26.test.ts","tests/p13b-r07-save-v25.test.ts","tests/p13b-s5-save-v24.test.ts","tests/p13b-s3-save-v23.test.ts","tests/p13b-s2-save-v22.test.ts","tests/construction-save-v11.test.ts","tests/property-state-v13.test.ts","tests/script-projects-save-v9.test.ts","tests/save.test.ts","--minWorkers=1","--maxWorkers=1"],"node":"v20.20.2","start":"2026-09-20T23:30:25.132Z","end":"2026-09-20T23:31:16.140Z","exitCode":0,"signal":null,"error":null,"sourceShaAtEnd":"f65758311c93fac3b126ba88629ee0647461e3c1","testedDiffSha256AtEnd":"03338b48d17d727b4bf9c7374e91a5ba66897ecad30b134c066837e222615b11","untrackedSourceAtEnd":[],"fixedSource":true}

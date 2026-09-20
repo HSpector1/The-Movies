@@ -1,0 +1,18 @@
+{"sourceSha":"f65758311c93fac3b126ba88629ee0647461e3c1","testedDiffSha256":"03338b48d17d727b4bf9c7374e91a5ba66897ecad30b134c066837e222615b11","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14b4-replay-record-facts.test.ts","tests/p14b4-bounded-employment-lookup.test.ts"],"node":"v20.20.2","start":"2026-09-20T23:26:57.342Z","end":null,"exitCode":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p14b4-bounded-employment-lookup.test.ts (5 tests) 2096ms
+   ✓ P14B4 rivalEmployment — ordinary owner semantics > returns genuine original rival rows and preserves ordinary employment/freelancer callers 1682ms
+ ✓ |core| tests/p14b4-replay-record-facts.test.ts (2 tests) 2339ms
+   ✓ P14B4 paid record facts — public invocation isolation and opaque P fields > keeps exact A/B/A/B results and work across genuine same-ID, different-package sources 1692ms
+   ✓ P14B4 paid record facts — public invocation isolation and opaque P fields > copies opaque P values untouched while charging changed own-string-key shape 645ms
+
+ Test Files  2 passed (2)
+      Tests  7 passed (7)
+   Start at  01:26:57
+   Duration  4.98s (transform 2.27s, setup 0ms, collect 4.08s, tests 4.44s, environment 1ms, prepare 332ms)
+
+
+{"sourceSha":"f65758311c93fac3b126ba88629ee0647461e3c1","testedDiffSha256":"03338b48d17d727b4bf9c7374e91a5ba66897ecad30b134c066837e222615b11","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14b4-replay-record-facts.test.ts","tests/p14b4-bounded-employment-lookup.test.ts"],"node":"v20.20.2","start":"2026-09-20T23:26:57.342Z","end":"2026-09-20T23:27:03.117Z","exitCode":0,"signal":null,"error":null,"sourceShaAtEnd":"f65758311c93fac3b126ba88629ee0647461e3c1","testedDiffSha256AtEnd":"03338b48d17d727b4bf9c7374e91a5ba66897ecad30b134c066837e222615b11","untrackedSourceAtEnd":[],"fixedSource":true}
