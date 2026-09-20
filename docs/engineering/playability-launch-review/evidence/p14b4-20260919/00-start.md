@@ -1,5 +1,39 @@
 # P14B.4 — capacity implementation continuation
 
+CURRENT129:124 exactinstalled8ad6f2bd… (original572lines+onecomment), parent
+fullread/exactbyteasserted.127 CLOSEDexit1/fixedtrue, ONE missingmodule FailedSuite,
+ZERO reachedbodies; NOT32behavioralFAIL.129 disposition preserves exact qualification.
+123 baseline113PASS/7files. ALLsessions CLOSED, NOproductionwriter, testsfrozen.
+Auditor128 boundedtestreview KEEP COMPLETE/parentpersisted; sim-core READ-ONLY
+implementationprep only, NOwriteownership yet; testauthoridle.126producerreview COMPLETE,
+parentadopted chronologycorrection; numericalbudget/interface stillunsettled.
+Next publishRED/exactremote, ONEsimwriter productionAdmission/actions
+under118/121 ONLY, handback130; immutable32new+113baseline thenstrictchecks/review.
+125/126 doNOTauthorizeproducerimplementationyet. Latestremote5cae2da (122).
+
+CURRENT124: parent adopted118 PLUS independent121 KEEP precisions: fresh craft
+array at action boundary, three distinct diagnostic/engaged orders, no incidental
+malformed-deep-data/getter read-order identity claim for freelancer precollection.
+120 independentcase matrix COMPLETE/parentread. Author ONLY inert124 executable
+admission tests+brief.125 current-owner replay plan FROZEN b5ca23eb…/parentread;
+auditor126 bounded read-only review, sim-coreidle. Numericalcostbound and exact
+execution contract not yet settled by125; not source authorization/completeness.
+Max2; NOproductionwriter/runtime.123baseline113PASS preserved.
+Next review/exactinstall124, actualmissinghelperRED, publish recoverabletests,
+ONEsimcorewriter productionAdmission.ts/actions.ts, serializedchecks/review.
+Latestpublished/exactremote5cae2da (122); all existing source/tests frozen.
+
+CURRENT122:5cae2da841d6d50d2c460dc87aba3b603435d00e PUSHED and separate
+EXACT remote verified by00:47:42Z;122publication/119qualified/114KEEP.
+ALLsessions CLOSED, NOproductionwriter. Kernel/tests frozen and recoverable.
+123 pre-extraction baseline CLOSED113PASS/7files,11.31s/4.13sbodies;
+fixedSource5cae2da + EMPTYprotectedpatch. Actual existing actions/writer-credit/
+greenlight/script/pooling/casting/queue regressions, no new helper coverage yet.
+118 staffing plan FROZEN/parentread; auditor121 read-only review; author ONLY
+inert120 staffing cases. Max2 specialists, sim-coreidle. Next settle121/118,
+independent executable tests+actualRED, ONEwriter productionAdmission/actions,
+serialverification/publication, actualownertraceproducer/coherentP2. No fullB4claim.
+
 CURRENT119:114 independent KEEP complete, parent persisted read-only handback.
 Qualified119 complete;11586PASS/116rootUI PASS/117only priorfutureP2type RED,
 allfixedtrue. ALLsessions CLOSED, ALLprotected frozen, NOproductionwriter.

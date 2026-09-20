@@ -1,0 +1,26 @@
+{
+  "sourceSha": "5cae2da841d6d50d2c460dc87aba3b603435d00e",
+  "testedDiffSha256": "d2545f894ceca98429f93100b89934cf21688cc4f88d91915ccbd177429dd742",
+  "untrackedSource": [
+    "tests/p14b4-production-admission.test.ts"
+  ],
+  "command": [
+    "node_modules/.bin/vitest",
+    "run",
+    "tests/p14b4-production-admission.test.ts",
+    "--minWorkers=1",
+    "--maxWorkers=1"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-20T01:02:42.983Z",
+  "end": "2026-09-20T01:02:44.803Z",
+  "exitCode": 1,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "5cae2da841d6d50d2c460dc87aba3b603435d00e",
+  "testedDiffSha256AtEnd": "d2545f894ceca98429f93100b89934cf21688cc4f88d91915ccbd177429dd742",
+  "untrackedSourceAtEnd": [
+    "tests/p14b4-production-admission.test.ts"
+  ],
+  "fixedSource": true
+}

@@ -165,3 +165,24 @@ sizes; charging one unit after an unbounded real-owner call is insufficient.
 Original input collections, all attempted branches and omitted-choice coverage
 cost work too. Ordinary cases must be measured against the unchanged allowance.
 No concrete bound or owner-trace completeness claim has yet been verified here.
+
+## Post-kernel read-only clarifications (2026-09-20)
+
+The shared optional/joint-trace kernel is now published5cae2da; this does not
+provide its actual owner traces. Main re-read the exact transition bodies while
+independent124 staffing tests and inert125 replay plan were prepared.
+
+operations.ts releaseCompletedPhase intentionally retains bindings.setId,
+lockedNovelty and lockedUplift after wrap as release-history facts. deriveBindings
+clears stageFacilityId and heldSinceWeek when no stage reservation remains.
+Therefore nonnull setId alone is NOT an occupied Set. Actual wrapped carries the
+Set ID before ordered reservation releases; stage occupancy and these real owner
+facts must delimit the Set hold. Same-sweep restart sees the returned Set wear.
+
+Generic production clocks already work, but technology policy, setup provenance,
+scenery geometry and release refusal still require broader static types than the
+facts their inspected bodies consume. Any further narrowing must preserve those
+actual bodies and current caller compatibility; do not cast an ephemeral branch
+to GameState or construct pretend financial/forecast/history leaves. Inert125
+will specify the concrete next replay seam and conservative before-call charging.
+No such additional type extraction or producer is implemented by this note.
