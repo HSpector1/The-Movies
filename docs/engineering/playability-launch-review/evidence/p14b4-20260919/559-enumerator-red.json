@@ -1,0 +1,26 @@
+{
+  "sourceSha": "5e0e90bdb462987734f6a58caec05ca6b20a8dd1",
+  "testedDiffSha256": "e2293b46697826904156bdd7871d0bfa53669ea786c563517adb68014d9a7098",
+  "untrackedSource": [
+    "tests/p14b4-owner-enumerator-slice.test.ts"
+  ],
+  "command": [
+    "node_modules/.bin/vitest",
+    "run",
+    "--project",
+    "core",
+    "tests/p14b4-owner-enumerator-slice.test.ts"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-20T21:13:00.828Z",
+  "end": "2026-09-20T21:13:05.619Z",
+  "exitCode": 1,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "5e0e90bdb462987734f6a58caec05ca6b20a8dd1",
+  "testedDiffSha256AtEnd": "e2293b46697826904156bdd7871d0bfa53669ea786c563517adb68014d9a7098",
+  "untrackedSourceAtEnd": [
+    "tests/p14b4-owner-enumerator-slice.test.ts"
+  ],
+  "fixedSource": true
+}
