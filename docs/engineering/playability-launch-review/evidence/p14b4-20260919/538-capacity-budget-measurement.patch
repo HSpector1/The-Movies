@@ -1,0 +1,489 @@
+diff --git a/tests/p14b4-capacity-budget-measurement.test.ts b/tests/p14b4-capacity-budget-measurement.test.ts
+new file mode 100644
+index 0000000..110f63c
+--- /dev/null
++++ b/tests/p14b4-capacity-budget-measurement.test.ts
+@@ -0,0 +1,483 @@
++// P14B.4 record 538-M: EVIDENCE-ONLY budget measurement of the detached replay
++// producers plus the detached capacity kernel on the REAL capacity fixtures.
++// Every `it` prints one `B4_BUDGET_538` JSON line. Assertions pin only cheap
++// present-day facts (numbers exist, the 200000 cap holds). No classification,
++// rulesVersion, Save30 literal or expected budget is asserted; nothing activates
++// a package or mints a receipt/root. The V29 writer refuses tagged roots, so the
++// class mask lives in the kernel target/claim records, never in state.promises.
++// Copied construction (verbatim where possible):
++//   world()            tests/p14b4-cast-class-capacity.test.ts:54-188
++//   started source     tests/p14b4-started-owner-replay.test.ts:127-136
++//   Ready reference    tests/p14b4-ready-replay-stale-target.test.ts:150-186
++//   kernel assembly    tests/p14b4-ready-replay-first-take.test.ts:314-321
++import assert from 'node:assert/strict'
++import { describe, expect, it, vi } from 'vitest'
++import { applyActions, hiringMarketIds, tick } from '../src/core/index.js'
++import * as employmentModule from '../src/core/employment.js'
++import * as operationsModule from '../src/core/operations.js'
++import * as admissionModule from '../src/core/productionAdmission.js'
++import * as identityModule from '../src/core/productionIdentity.js'
++import * as scriptModule from '../src/core/scriptDevelopment.js'
++import { attachPromise } from '../src/core/promises.js'
++import { searchPromiseCapacityTraces, type FixedHold, type JointOwnerTrace, type JointTraceCapacityInput,
++  type JointTraceCapacityResult, type Mask, type PriorClaim } from '../src/core/promiseCapacityKernel.js'
++import { replayReadyProductionPlans, replayStartedProductionPlans, type ReadyOwnerReplayInput,
++  type ReadyOwnerReplayResult, type StartedOwnerReplayInput, type StartedOwnerReplayResult,
++  type StartedOwnerSource } from '../src/core/promiseCapacityOwnerReplay.js'
++import { makeSave } from '../src/core/save.js'
++import { currentProposals, submitProposal } from '../src/core/talentMarket.js'
++import { TUNING } from '../src/core/tuning.js'
++import type { CastSlot, GameState, ProfessionalPromise, Production } from '../src/core/types.js'
++import { advanceTo, fund, p13aGeneratedStudio, player } from './helpers/p14b2-fixtures.js'
++
++const SLOTS = ['lead', 'antagonist', 'support'] as const
++type MaskName = 'lead' | 'leadOrAntagonist' | 'any'
++const MASKS: Record<MaskName, Mask> = { lead: ['lead'], leadOrAntagonist: ['lead', 'antagonist'], any: ['lead', 'antagonist', 'support'] }
++const LIMITS = { claims: 32, units: 64, alternatives: 1024, work: 200000, span: 220 } as const
++const PRODUCER_LIMITS = { work: LIMITS.work, span: LIMITS.span, alternatives: LIMITS.alternatives }
++const p1 = () => ({ family: 'APPEARANCE_COUNT' as const, predicate: { count: 1 } })
++const log = (row: Record<string, unknown>) => console.log('B4_BUDGET_538', JSON.stringify(row))
++const message = (error: unknown) => error instanceof Error ? error.message : String(error)
++
++// ── world(): capacity test lines 38-188, extended with director/craft/start ──
++type World = { opened: GameState; ready: GameState; actors: Record<CastSlot, string>; ids: Record<CastSlot, string>
++  productionId: string; projects: readonly string[]; directorId: string; craftId: string; start: number }
++const live = (state: GameState): GameState => makeSave(state).state
++function root(state: GameState, id: string): ProfessionalPromise {
++  const rows = state.promises.filter((p) => p.promiseId === id)
++  expect(rows).toHaveLength(1)
++  return rows[0]!
++}
++function currentRoot(state: GameState, personId: string): ProfessionalPromise {
++  const proposal = currentProposals(state, personId).find((p) => p.issuerStudioId === player(state))
++  assert.ok(proposal)
++  expect(proposal.promises).toHaveLength(1)
++  return root(state, proposal.promises[0]!)
++}
++function sign(state: GameState, role: 'actor' | 'writer' | 'director' | 'craft', termWeeks: number) {
++  for (let steps = 0; steps < 60; steps++) {
++    const person = hiringMarketIds(state, state.market.tick).map((id) => state.talent.find((p) => p.id === id))
++      .find((p) => p?.role === role)
++    if (person !== undefined) return { state: applyActions(state, [{ kind: 'signContract', talentId: person.id, termWeeks }]), id: person.id }
++    state = tick(state)
++  }
++  throw new Error('UNEXECUTED fixture: no lawful hireable ' + role + ' within60 ticks')
++}
++function readyScript(state: GameState, writerId: string, conceptId: string) {
++  const concept = state.concepts.find((c) => c.id === conceptId)!
++  const oldIds = new Set(state.scriptDevelopment.projects.map((p) => p.id))
++  state = applyActions(state, [{ kind: 'commissionScript', project: {
++    conceptId, writerId, shape: { opening: 'slowSetup', midpoint: 'revelation', ending: 'bittersweet' },
++    promise: { genre: concept.genre, intendedSegments: ['adult'], ranges: {
++      intimacy: [-0.5, 0.5], tonalWeight: [-0.5, 0.5], kineticEnergy: [-0.5, 0.5] } },
++  } }])
++  const minted = state.scriptDevelopment.projects.filter((p) => !oldIds.has(p.id))
++  expect(minted).toHaveLength(1)
++  const projectId = minted[0]!.id
++  for (let steps = 0; state.scriptDevelopment.projects.find((p) => p.id === projectId)!.status !== 'review'; steps++) {
++    if (steps >= 20) throw new Error('UNEXECUTED fixture: actual screenplay never reached Review within20 ticks')
++    state = tick(state)
++  }
++  state = applyActions(state, [{ kind: 'acceptScript', projectId }])
++  expect(state.scriptDevelopment.projects.find((p) => p.id === projectId)).toMatchObject({ status: 'ready', productionId: null })
++  return { state, projectId }
++}
++let cached: World | undefined
++function world(): World {
++  if (cached !== undefined) return structuredClone(cached)
++  let state = fund(p13aGeneratedStudio())
++  const lead = sign(state, 'actor', 52); state = lead.state
++  const antagonist = sign(state, 'actor', 52); state = antagonist.state
++  const support = sign(state, 'actor', 52); state = support.state
++  const writer = sign(state, 'writer', 208); state = writer.state
++  const director = sign(state, 'director', 208); state = director.state
++  const craft = sign(state, 'craft', 208); state = craft.state
++  const actors = { lead: lead.id, antagonist: antagonist.id, support: support.id }
++  const starts = Object.values(actors).map((id) => state.contracts.find((c) => c.talentId === id)!.endWeekExclusive)
++  expect(new Set(starts).size).toBe(1)
++  const start = starts[0]!
++  expect(state.studio.activeProductions).toEqual([])
++  expect(state.operations.mode).toBe('managed')
++  if (state.scriptDevelopment.mode === 'legacy') state = applyActions(state, [{ kind: 'activateScriptDevelopment' }])
++  expect(state.scriptDevelopment.projects).toEqual([])
++  const concepts = state.concepts.slice(0, 2)
++  const first = readyScript(state, writer.id, concepts[0]!.id); state = first.state
++  const second = readyScript(state, writer.id, concepts[1]!.id); state = second.state
++  const stage = 'facility-soundstage-07'
++  const mounted = state.sets.find((s) => s.mountedOn === stage && s.status !== 'retired')
++  if (mounted !== undefined) state = applyActions(state, [{ kind: 'strikeSet', setId: mounted.id }])
++  state = applyActions(state, [{ kind: 'commissionSet', commission: { blueprintId: 'set-grand-ballroom', stageFacilityId: stage } }])
++  state = advanceTo(state, state.market.tick + TUNING.SET_BUILD_WEEKS_BAND_HIGH)
++  expect(state.market.tick).toBeLessThanOrEqual(start - 7)
++  state = advanceTo(state, start - 7)
++  for (const id of Object.values(actors)) {
++    state = submitProposal(state, { talentId: id, issuerStudioId: player(state), termWeeks: 52, premiumTier: 1.25 })
++  }
++  const opened = structuredClone(state)
++  const ids: Record<CastSlot, string> = { lead: '', antagonist: '', support: '' }
++  for (const slot of SLOTS) {
++    state = attachPromise(state, actors[slot], player(state), { ...p1(), windowStartWeek: start, dueWeekExclusive: start + 52 })
++    const promised = currentRoot(state, actors[slot])
++    expect(promised.feasibilityReceipt.classification).toBe('REASONABLY_ACHIEVABLE')
++    ids[slot] = promised.promiseId
++  }
++  state = advanceTo(state, start)
++  for (const slot of SLOTS) {
++    const promised = root(state, ids[slot])
++    expect(promised).toMatchObject({ outcome: null, progress: 0, evidenceRefs: [] })
++    assert.notEqual(promised.contractId, null)
++    expect(currentProposals(state, actors[slot])).toEqual([])
++  }
++  state = applyActions(state, [{ kind: 'greenlightScriptProject', production: {
++    projectId: first.projectId, directorId: director.id, craftIds: [craft.id], cast: actors,
++    budget: { negative: concepts[0]!.baseNegativeCost, marketing: 0 },
++  } }])
++  const film = state.studio.activeProductions.at(-1)
++  assert.ok(film, 'UNEXECUTED fixture: greenlight was not actually admitted')
++  state = tick(tick(tick(state)))
++  const rehearsal = state.operations.workflows.find((w) => w.productionId === film.id)
++  assert.ok(rehearsal)
++  expect(rehearsal.phase).toBe('rehearsal')
++  state = applyActions(state, [{ kind: 'setProductionSetupRecipe', productionId: film.id,
++    recipeId: 'ballroom-reveal-lighting-01', expectedPlanRevision: rehearsal.planRevision }])
++  for (let steps = 0; state.studio.activeProductions.find((p) => p.id === film.id)!.remainingTicks !== 5; steps++) {
++    if (steps >= 40) throw new Error('UNEXECUTED fixture: actual managed film never reached first Shooting week within40 ticks')
++    state = tick(state)
++  }
++  state = applyActions(state, [{ kind: 'assignShootingDirector', productionId: film.id, directorId: director.id }])
++  for (let steps = 0; state.operations.workflows.find((w) => w.productionId === film.id)!.shootingTask?.status !== 'ready'; steps++) {
++    if (steps >= 6) throw new Error('UNEXECUTED fixture: physical scenery did not arrive within6 actual ticks; no manual bypass')
++    state = tick(state)
++  }
++  state = applyActions(state, [{ kind: 'scheduleShootingTake', productionId: film.id }])
++  expect(state.operations.workflows.find((w) => w.productionId === film.id)).toMatchObject({
++    phase: 'shooting', blocker: null, shootingTask: { status: 'scheduled' } })
++  expect(state.firstTakes.filter((t) => t.productionId === film.id)).toEqual([])
++  cached = { opened: live(opened), ready: live(state), actors, ids, productionId: film.id,
++    projects: [first.projectId, second.projectId], directorId: director.id, craftId: craft.id, start }
++  return structuredClone(cached)
++}
++
++// ── shared summaries and kernel assembly ─────────────────────────────────────
++type Attempt = StartedOwnerReplayResult<Production>['attempts'][number] | ReadyOwnerReplayResult['attempts'][number]
++function attemptSummary(a: Attempt) {
++  if (a.kind === 'cut') return { kind: 'cut', traceKey: a.traceKey, through: a.through, reason: a.reason, detail: a.detail,
++    provenanceRows: a.provenance.length, lastProvenanceAt: a.provenance.at(-1)?.at ?? null }
++  return { kind: 'complete', traceKey: a.trace.traceKey, projectionWeek: a.projection.week,
++    pictures: a.trace.paths.flatMap((p) => p.kind === 'jointTracePicture'
++      ? [{ pathKey: p.pathKey, existingPath: p.existingPath, firstTake: p.firstTake, personRelease: p.personRelease }] : []),
++    firstTakeWeeks: a.provenance.flatMap((r) => r.kind === 'firstTake' ? [r.at.week] : []),
++    releaseAdmittedWeeks: a.provenance.flatMap((r) => r.kind === 'releaseAdmitted' ? [r.at.week] : []),
++    additionalHolds: a.trace.additionalHolds.length, provenanceRows: a.provenance.length }
++}
++function kernelSummary(r: JointTraceCapacityResult, preparationWork: number) {
++  return { status: r.status, reason: 'reason' in r ? r.reason : null, workUsed: r.workUsed, ownWork: r.workUsed - preparationWork,
++    omissions: 'omissions' in r ? r.omissions : null,
++    targetTakes: 'witness' in r ? r.witness.targetTakeBoundaries : 'countWitness' in r ? r.countWitness.targetTakeBoundaries : null }
++}
++type Coverage = JointTraceCapacityInput['coverage']
++// SUPPLIED mirrors first-take test:319-320. ASSUMED is a test-author label only: it
++// shows what the kernel would classify and cost IF an enumerator certified the domain.
++const SUPPLIED: Coverage = { claimsAndHolds: 'complete', existingCalendars: 'incomplete', allOwnerTraces: 'incomplete',
++  omissions: ['one supplied plan per picture and finite commands, not an exhaustive domain'] }
++const ASSUMED: Coverage = { claimsAndHolds: 'complete', existingCalendars: 'complete', allOwnerTraces: 'complete', omissions: [] }
++function runKernel(args: { now: number; horizon: number; issuerId: string; target: JointTraceCapacityInput['target']
++  priorClaims: readonly PriorClaim[]; traces: readonly JointOwnerTrace[]; fixedHolds: readonly FixedHold[]
++  preparationWork: number; coverage: Coverage }) {
++  const input: JointTraceCapacityInput = { mode: 'jointOwnerTraces', now: { week: args.now, step: 0 },
++    horizonEndWeek: args.horizon, issuerId: args.issuerId, target: args.target, priorClaims: args.priorClaims,
++    foreignDebits: [], traces: args.traces, fixedHolds: args.fixedHolds, coverage: args.coverage,
++    preparationWork: args.preparationWork, limits: LIMITS }
++  try {
++    const result = searchPromiseCapacityTraces(input)
++    expect(result.workUsed).toBeLessThanOrEqual(LIMITS.work)
++    return kernelSummary(result, args.preparationWork)
++  } catch (error) {
++    return { thrown: message(error) } // an invariant refusal is evidence, not a fake class
++  }
++}
++const traces = (result: { attempts: readonly Attempt[] }) => result.attempts.flatMap((a) => a.kind === 'complete' ? [a.trace] : [])
++
++// ── Scenario 1: fixed-cast 2-week window at shooting-5 (world().ready) ───────
++function startedSource(state: GameState): StartedOwnerSource<Production> {
++  return { technology: state.technology, market: { tick: state.market.tick },
++    placement: state.placement, property: state.property, hollywood: state.hollywood,
++    operations: state.operations, sets: state.sets, releaseAuthority: state.releaseAuthority,
++    scriptDevelopment: state.scriptDevelopment, castingSessions: state.castingSessions,
++    construction: state.construction, physicalPlans: state.physicalPlans,
++    productionQueue: state.productionQueue, founding: state.founding, firstTakes: state.firstTakes,
++    concepts: state.concepts, studio: { activeProductions: state.studio.activeProductions } }
++}
++let startedCache: { result: StartedOwnerReplayResult<Production>; now: number; horizon: number } | undefined
++function startedReplay(w: World) {
++  if (startedCache !== undefined) return startedCache
++  const state = w.ready, now = state.market.tick, horizon = now + 2
++  // The fixture's take is already scheduled (shootingTask 'scheduled'), so the one
++  // explicit plan the started producer accepts is the empty command list, exactly
++  // as the started test replays its `scheduled` fixture (started test:198-205).
++  const input: StartedOwnerReplayInput<Production> = { source: startedSource(state), issuerId: player(state),
++    claimPersonIds: SLOTS.map((slot) => w.actors[slot]), plans: [{ traceKey: '538-started-shooting-5', commands: [] }],
++    horizonEndWeek: horizon, preparationWork: 0, limits: PRODUCER_LIMITS }
++  const result = replayStartedProductionPlans(input)
++  expect(typeof result.preparationWork).toBe('number')
++  expect(result.preparationWork).toBeLessThanOrEqual(LIMITS.work)
++  return startedCache = { result, now, horizon }
++}
++type Cell = { name: string; target: CastSlot; mask: MaskName; priors: Partial<Record<CastSlot, MaskName>> }
++const CELLS: readonly Cell[] = [
++  ...SLOTS.flatMap((slot) => (['lead', 'leadOrAntagonist', 'any'] as const)
++    .map((mask): Cell => ({ name: `matrix ${mask} target fixed in ${slot}, other two P1`, target: slot, mask, priors: {} }))),
++  { name: 'joint lead+flexible+P1, target lead', target: 'lead', mask: 'lead', priors: { antagonist: 'leadOrAntagonist', support: 'any' } },
++  { name: 'joint lead+flexible+P1, target antagonist', target: 'antagonist', mask: 'leadOrAntagonist', priors: { lead: 'lead', support: 'any' } },
++  { name: 'joint lead+flexible+P1, target support', target: 'support', mask: 'any', priors: { lead: 'lead', antagonist: 'leadOrAntagonist' } },
++  { name: 'conflicting fixed lead claims, target support', target: 'support', mask: 'any', priors: { lead: 'lead', antagonist: 'lead' } },
++]
++describe('538-M scenario 1: fixed-cast 2-week window at shooting-5 (capacity world().ready)', () => {
++  it.each(CELLS.flatMap((cell) => [{ ...cell, coverage: 'supplied' as const }, { ...cell, coverage: 'assumed' as const }]))(
++    '$name [$coverage coverage]', (cell) => {
++      const w = world(), s = startedReplay(w), own = player(w.ready)
++      const window = { startWeek: s.now, dueWeekExclusive: s.horizon }
++      const priorClaims: PriorClaim[] = SLOTS.filter((slot) => slot !== cell.target).map((slot) => ({
++        promiseId: w.ids[slot], issuerId: own, personId: w.actors[slot], membership: 'bound',
++        mask: MASKS[cell.priors[slot] ?? 'any'], window, remaining: 1 }))
++      const kernel = runKernel({ now: s.now, horizon: s.horizon, issuerId: own, priorClaims, traces: traces(s.result),
++        fixedHolds: s.result.fixedHolds, preparationWork: s.result.preparationWork,
++        coverage: cell.coverage === 'supplied' ? SUPPLIED : ASSUMED,
++        target: { promiseId: w.ids[cell.target], personId: w.actors[cell.target], mask: MASKS[cell.mask], window,
++          state: 'bound', count: 1, actualQualifiedCount: 0 } })
++      log({ scenario: 1, name: cell.name, coverage: cell.coverage,
++        route: 'replayStartedProductionPlans -> searchPromiseCapacityTraces',
++        fixture: 'capacity world().ready: one started picture at remainingTicks 5 with the take scheduled, 2 Ready scripts, 3 bound P1 roots',
++        now: s.now, horizonEndWeek: s.horizon, horizonWeeks: s.horizon - s.now, planCount: 1, commands: [],
++        target: { slot: cell.target, mask: MASKS[cell.mask] },
++        priorClaims: priorClaims.map((p) => ({ personSlot: SLOTS.find((slot) => w.actors[slot] === p.personId), mask: p.mask })),
++        producerWork: s.result.preparationWork, producerAttempts: s.result.attempts.map(attemptSummary),
++        producerOmissions: s.result.omissions, fixedHolds: s.result.fixedHolds.length, kernel })
++    })
++})
++
++// ── Scenarios 2/3: Ready plans on world().opened ─────────────────────────────
++type Command = ReadyOwnerReplayInput['plans'][number]['commands'][number]
++type Reference = { choice: ReadyOwnerReplayInput['plans'][number]['readyChoice']; commands: Command[]
++  productionId: string | null; takeWeek: number | null; releaseReadyWeek: number | null; commitWeek: number | null
++  releasedWeek: number | null; refusal: string | null; referenceTicks: number }
++const referenceCache = new Map<0 | 1, Reference>()
++function readyReference(w: World, index: 0 | 1): Reference {
++  const hit = referenceCache.get(index)
++  if (hit !== undefined) return hit
++  const source = w.opened, now = source.market.tick, projectId = w.projects[index]!
++  const project = source.scriptDevelopment.projects.find((p) => p.id === projectId)!
++  const concept = source.concepts.find((c) => c.id === project.conceptId)!
++  const choice = { projectId, directorId: w.directorId, cast: w.actors, craftIds: [w.craftId] }
++  const facts: Reference = { choice, commands: [], productionId: null, takeWeek: null, releaseReadyWeek: null,
++    commitWeek: null, releasedWeek: null, refusal: null, referenceTicks: 0 }
++  let state: GameState
++  try {
++    state = applyActions(source, [{ kind: 'greenlightScriptProject', production: { ...choice,
++      budget: { negative: concept.baseNegativeCost, marketing: 0 } } }])
++  } catch (error) { facts.refusal = message(error); referenceCache.set(index, facts); return facts }
++  const productionId = state.studio.activeProductions.at(-1)!.id
++  facts.productionId = productionId
++  const nextOrdinal = (week: number) => facts.commands.filter((row) => row.week === week).length + (week === now ? 1 : 0)
++  for (let guard = 0; guard < 24; guard++) {
++    const production = state.studio.activeProductions.find((row) => row.id === productionId)
++    const workflow = state.operations.workflows.find((row) => row.productionId === productionId)
++    if (production === undefined || workflow === undefined) break
++    if (production.remainingTicks === 1) { facts.releaseReadyWeek = state.market.tick; break }
++    if (workflow.phase === 'shooting' && !state.firstTakes.some((row) => row.productionId === productionId)) {
++      if (workflow.shootingTask?.status === 'unassigned') {
++        facts.commands.push({ kind: 'assignLockedDirector', readyProjectId: projectId, week: state.market.tick, ordinal: nextOrdinal(state.market.tick) })
++        state = applyActions(state, [{ kind: 'assignShootingDirector', productionId, directorId: production.directorId }])
++      }
++      if (state.operations.workflows.find((row) => row.productionId === productionId)?.shootingTask?.status === 'ready') {
++        facts.commands.push({ kind: 'scheduleTake', readyProjectId: projectId, week: state.market.tick, ordinal: nextOrdinal(state.market.tick) })
++        state = applyActions(state, [{ kind: 'scheduleShootingTake', productionId }])
++      }
++    }
++    state = tick(state); facts.referenceTicks++
++    const take = state.firstTakes.find((row) => row.productionId === productionId)
++    if (take !== undefined && facts.takeWeek === null) facts.takeWeek = take.week
++  }
++  if (facts.releaseReadyWeek !== null) {
++    try {
++      const committed = applyActions(state, [{ kind: 'commitPictureToRelease', productionId }])
++      facts.commitWeek = facts.releaseReadyWeek
++      facts.commands.push({ kind: 'commitRelease', readyProjectId: projectId, week: facts.commitWeek, ordinal: nextOrdinal(facts.commitWeek) })
++      const released = tick(committed); facts.referenceTicks++
++      if (released.studio.releasedFilms.some((row) => row.productionId === productionId)) facts.releasedWeek = released.market.tick
++    } catch (error) { facts.refusal = `commitPictureToRelease: ${message(error)}` }
++  }
++  referenceCache.set(index, facts)
++  return facts
++}
++function readyReplay(w: World, plans: readonly { traceKey: string; facts: Reference; commit: boolean }[], horizon: number) {
++  const source = w.opened
++  const input: ReadyOwnerReplayInput = { source, issuerId: player(source), claimPersonIds: [w.actors.lead],
++    plans: plans.map((p) => ({ traceKey: p.traceKey, readyChoice: p.facts.choice,
++      commands: [...p.facts.commands.filter((c) => c.week < horizon && (p.commit || c.kind !== 'commitRelease'))].reverse() })),
++    horizonEndWeek: horizon, preparationWork: 0, limits: PRODUCER_LIMITS }
++  try {
++    const result = replayReadyProductionPlans(input)
++    expect(typeof result.preparationWork).toBe('number')
++    expect(result.preparationWork).toBeLessThanOrEqual(LIMITS.work)
++    return { result, commands: input.plans.map((p) => p.commands.map((c) => `${c.kind}@${c.week}`)) }
++  } catch (error) { return { thrown: message(error), commands: input.plans.map((p) => p.commands.map((c) => `${c.kind}@${c.week}`)) } }
++}
++const referenceSummary = (r: Reference) => ({ refusal: r.refusal, takeWeek: r.takeWeek, releaseReadyWeek: r.releaseReadyWeek,
++  commitWeek: r.commitWeek, releasedWeek: r.releasedWeek, referenceTicks: r.referenceTicks })
++const FIXTURE_OPENED = 'capacity world().opened: 0 productions, 2 Ready scripts, 3 open renewal proposals, no player promise roots'
++// Lower owners the producer calls during Ready admission and frames, in source order
++// (promiseCapacityOwnerReplay.ts admitReady 2457-2637, frame 1879+). Recording which
++// were reached brackets a cut without editing source; the same vi.spyOn pattern as
++// first-take test:93-116.
++function watchAdmission<T>(run: () => T) {
++  const reached: string[] = []
++  const watch = <M extends object, K extends keyof M & string>(module: M, name: K) => {
++    const original = module[name] as unknown as (...args: unknown[]) => unknown
++    return vi.spyOn(module, name as never).mockImplementation(((...args: unknown[]) => { reached.push(name); return original(...args) }) as never)
++  }
++  const spies = [watch(admissionModule, 'requireGreenlightHeader'), watch(admissionModule, 'resolveGreenlightStaffing'),
++    watch(admissionModule, 'assertGreenlightStaffingIdle'), watch(admissionModule, 'assertGreenlightCraftLead'),
++    watch(employmentModule, 'freelancerMarketIds'), watch(admissionModule, 'greenlightFreelancers'),
++    watch(identityModule, 'persistedProductionIds'), watch(identityModule, 'allocateProductionId'),
++    watch(operationsModule, 'addManagedProductionWorkflow'), watch(scriptModule, 'linkScriptProjectToProduction'),
++    watch(operationsModule, 'advanceManagedProductions')]
++  try {
++    const value = run()
++    const counts: Record<string, number> = {}
++    for (const name of reached) counts[name] = (counts[name] ?? 0) + 1
++    return { value, reached: counts }
++  } finally { for (const spy of spies) spy.mockRestore() }
++}
++// Row counts of every collection readyProductionId (producer 2024-2092) bills per row,
++// plus the admission/staffing inputs, so the bill can be attributed on paper.
++const dimensions = (state: GameState) => {
++  const h = state.hollywood, sum = (values: readonly number[]) => values.reduce((a, b) => a + b, 0)
++  // Paper lower bound of readyProductionId's closing bill (producer 2096-2103):
++  // pairs = additions(additions-1)/2 over ALL id occurrences (duplicates included, so
++  // distinct persisted ids are a lower bound), times equality(width) = 1 + 2*width,
++  // width >= 22; saturates at CEILING 200001 (producer 135) and then WorkLimit.
++  const persisted = [...identityModule.persistedProductionIds(state)]
++  const distinct = persisted.length, width = Math.max(22, ...persisted.map((id) => id.length))
++  const pairs = distinct * (distinct - 1) / 2
++  // Occurrence lower bound from walked rows whose id field is non-null by type:
++  // technology.productions, hollywood.films (filmId), hollywood.careerEvents (filmId),
++  // foreign productions (id) and foreign workflows (productionId).
++  const occurrences = state.technology.productions.length + (h?.films.length ?? 0) + (h?.careerEvents.length ?? 0)
++    + (h ? sum(h.businesses.map((b) => b.productions.length + b.operations.workflows.length)) : 0)
++  const occurrencePairs = occurrences * (occurrences - 1) / 2
++  const persistedIds = { distinct, width, pairsLowerBound: pairs, pairsBillLowerBound: pairs * (1 + 2 * width),
++    occurrencesLowerBound: occurrences, occurrencePairsLowerBound: occurrencePairs,
++    occurrenceBillLowerBound: occurrencePairs * (1 + 2 * width), ceiling: 200001 }
++  return { persistedIds, talent: state.talent.length, contracts: state.contracts.length, employment: h?.employment.length ?? null,
++    businesses: h?.businesses.length ?? null, concepts: state.concepts.length, scriptProjects: state.scriptDevelopment.projects.length,
++    facilities: state.operations.facilities.length, sets: state.sets.length, standingSets: state.sets.filter((s) => s.status === 'standing').length,
++    castingSessions: state.castingSessions.sessions.length, firstTakes: state.firstTakes.length, promises: state.promises.length,
++    activeProductions: state.studio.activeProductions.length, walked: { technologyProductions: state.technology.productions.length,
++      releasedFilms: state.studio.releasedFilms.length, theatricalRuns: state.theatricalRuns.length, ledger: state.ledger.length,
++      careerEvents: state.careerEvents.length, broadcastItems: state.broadcastItems.length, coverageContexts: state.coverageContexts.length,
++      workflows: state.operations.workflows.length, releaseCommitments: state.releaseAuthority.commitments.length,
++      studioEvents: state.studioEvents.rows.length, productionQueue: state.productionQueue.length, studioHistory: state.studioHistory.rows.length,
++      hollywoodFilms: h?.films.length ?? null, hollywoodCareerEvents: h?.careerEvents.length ?? null, hollywoodReceipts: h?.receipts.length ?? null,
++      foreignProductions: h ? sum(h.businesses.map((b) => b.productions.length)) : null,
++      foreignProjects: h ? sum(h.businesses.map((b) => b.projects.length)) : null,
++      foreignDevelopmentProjects: h ? sum(h.businesses.map((b) => b.development.projects.length)) : null,
++      foreignRuns: h ? sum(h.businesses.map((b) => b.runs.length)) : null,
++      foreignWorkflows: h ? sum(h.businesses.map((b) => b.operations.workflows.length)) : null } }
++}
++type Replay = ReturnType<typeof readyReplay>
++const producerSummary = (replay: Replay) => 'result' in replay
++  ? { producerWork: replay.result.preparationWork, producerAttempts: replay.result.attempts.map(attemptSummary),
++    producerOmissions: replay.result.omissions, fixedHolds: replay.result.fixedHolds.length, producerThrown: null }
++  : { producerWork: null, producerAttempts: null, producerOmissions: null, fixedHolds: null, producerThrown: replay.thrown }
++
++describe('538-M scenario 0: context-preparation cost alone and minimal Ready admission reach', () => {
++  it('started producer, plans: [] on world().ready (prepare only)', () => {
++    const w = world(), state = w.ready
++    const input: StartedOwnerReplayInput<Production> = { source: startedSource(state), issuerId: player(state),
++      claimPersonIds: SLOTS.map((slot) => w.actors[slot]), plans: [], horizonEndWeek: state.market.tick + 2,
++      preparationWork: 0, limits: PRODUCER_LIMITS }
++    const result = replayStartedProductionPlans(input)
++    expect(result.preparationWork).toBeLessThanOrEqual(LIMITS.work)
++    log({ scenario: 0, name: 'started prepare only (plans: [])', route: 'replayStartedProductionPlans', fixture: 'capacity world().ready',
++      now: state.market.tick, horizonEndWeek: state.market.tick + 2, planCount: 0, producerWork: result.preparationWork,
++      attempts: result.attempts.length, omissions: result.omissions, fixedHolds: result.fixedHolds.length, dimensions: dimensions(state) })
++  })
++  it('Ready producer, plans: [] on world().opened (prepare only)', () => {
++    const w = world(), source = w.opened
++    const input: ReadyOwnerReplayInput = { source, issuerId: player(source), claimPersonIds: [w.actors.lead], plans: [],
++      horizonEndWeek: source.market.tick + 1, preparationWork: 0, limits: PRODUCER_LIMITS }
++    const result = replayReadyProductionPlans(input)
++    expect(result.preparationWork).toBeLessThanOrEqual(LIMITS.work)
++    log({ scenario: 0, name: 'Ready prepare only (plans: [])', route: 'replayReadyProductionPlans', fixture: FIXTURE_OPENED,
++      now: source.market.tick, horizonEndWeek: source.market.tick + 1, planCount: 0, producerWork: result.preparationWork,
++      attempts: result.attempts.length, omissions: result.omissions, fixedHolds: result.fixedHolds.length, dimensions: dimensions(source) })
++  })
++  it('Ready producer, one plan with no commands, horizon now+1 (admission + one frame), owners reached', () => {
++    const w = world(), source = w.opened, now = source.market.tick, ref = readyReference(w, 0)
++    const empty: Reference = { ...ref, commands: [] }
++    const watched = watchAdmission(() => readyReplay(w, [{ traceKey: '538-ready-admit-only', facts: empty, commit: false }], now + 1))
++    const replay = watched.value
++    log({ scenario: 0, name: 'Ready admission + one frame, no commands', route: 'replayReadyProductionPlans', fixture: FIXTURE_OPENED,
++      now, horizonEndWeek: now + 1, horizonWeeks: 1, planCount: 1, commands: replay.commands, ownersReached: watched.reached,
++      ...producerSummary(replay) })
++  })
++})
++
++describe('538-M scenario 3: single Ready plan on world().opened, first-take horizon (control vs 534 = 182925)', () => {
++  it('one Ready plan to takeWeek+1, kernel target lead/any/unbound as first-take test:316-317', () => {
++    const w = world(), source = w.opened, now = source.market.tick, ref = readyReference(w, 0)
++    const horizon = ref.takeWeek === null ? now + 1 : ref.takeWeek + 1
++    const watched = watchAdmission(() => readyReplay(w, [{ traceKey: '538-ready-first-take', facts: ref, commit: false }], horizon))
++    const replay = watched.value
++    const window = { startWeek: now, dueWeekExclusive: horizon }
++    const kernel = 'result' in replay ? runKernel({ now, horizon, issuerId: player(source), priorClaims: [], traces: traces(replay.result),
++      fixedHolds: replay.result.fixedHolds, preparationWork: replay.result.preparationWork, coverage: SUPPLIED,
++      target: { promiseId: null, personId: w.actors.lead, mask: MASKS.any, window, state: 'unbound', count: 1, actualQualifiedCount: 0 } }) : null
++    log({ scenario: 3, name: 'control: first-take horizon', route: 'replayReadyProductionPlans -> searchPromiseCapacityTraces',
++      fixture: FIXTURE_OPENED, now, start: w.start, horizonEndWeek: horizon, horizonWeeks: horizon - now, planCount: 1,
++      reference: referenceSummary(ref), commands: replay.commands, target: { slot: 'lead', mask: MASKS.any, window },
++      ownersReached: watched.reached, ...producerSummary(replay), kernel })
++  })
++})
++
++describe('538-M scenario 2: achievable probe on world().opened over the 40-week window (B = 2)', () => {
++  const horizons = (w: World) => [
++    { label: 'now+20', horizon: w.opened.market.tick + 20 }, { label: 'now+40', horizon: w.opened.market.tick + 40 },
++    { label: 'due = start+40', horizon: w.start + 40 } ]
++  const variants = [{ label: 'retained (no commitRelease)', commit: false }, { label: 'committed at releaseReady', commit: true }]
++  it.each(variants.flatMap((v) => [0, 1, 2].map((h) => ({ ...v, h }))))('single plan, $label, horizon index $h', ({ label, commit, h }) => {
++    const w = world(), source = w.opened, now = source.market.tick, own = player(source), ref = readyReference(w, 0)
++    const { label: horizonLabel, horizon } = horizons(w)[h]!
++    const replay = readyReplay(w, [{ traceKey: '538-ready-probe-A', facts: ref, commit }], horizon)
++    // Kernel effective horizon is max(horizon, window due); a window past the producer
++    // horizon trips 'unknown release occupancy must cover the effective horizon', so the
++    // target window is clipped to the producer horizon and the clip is recorded.
++    const window = { startWeek: w.start, dueWeekExclusive: Math.min(w.start + 40, horizon) }
++    const kernel = 'result' in replay && window.startWeek < window.dueWeekExclusive ? runKernel({ now, horizon, issuerId: own, priorClaims: [],
++      traces: traces(replay.result), fixedHolds: replay.result.fixedHolds, preparationWork: replay.result.preparationWork, coverage: SUPPLIED,
++      target: { promiseId: null, personId: w.actors.lead, mask: MASKS.lead, window, state: 'unbound', count: 1, actualQualifiedCount: 0 } }) : null
++    log({ scenario: 2, name: `single plan, ${label}, horizon ${horizonLabel}`, route: 'replayReadyProductionPlans -> searchPromiseCapacityTraces',
++      fixture: FIXTURE_OPENED, now, start: w.start, horizonEndWeek: horizon, horizonWeeks: horizon - now, planCount: 1,
++      reference: referenceSummary(ref), commands: replay.commands,
++      target: { slot: 'lead', mask: MASKS.lead, window, windowClipped: window.dueWeekExclusive !== w.start + 40, bufferDemand: 2 },
++      ...producerSummary(replay), kernel })
++  })
++  it.each(variants)('two Ready plans (one per Ready script), $label, horizon due = start+40', ({ label, commit }) => {
++    const w = world(), source = w.opened, now = source.market.tick, own = player(source), horizon = w.start + 40
++    const refs = [readyReference(w, 0), readyReference(w, 1)]
++    const replay = readyReplay(w, [{ traceKey: '538-ready-probe-A', facts: refs[0]!, commit },
++      { traceKey: '538-ready-probe-B', facts: refs[1]!, commit }], horizon)
++    const window = { startWeek: w.start, dueWeekExclusive: horizon }
++    const kernel = 'result' in replay ? runKernel({ now, horizon, issuerId: own, priorClaims: [], traces: traces(replay.result),
++      fixedHolds: replay.result.fixedHolds, preparationWork: replay.result.preparationWork, coverage: SUPPLIED,
++      target: { promiseId: null, personId: w.actors.lead, mask: MASKS.lead, window, state: 'unbound', count: 1, actualQualifiedCount: 0 } }) : null
++    // Source fact: ReadyProductionPlan carries ONE readyChoice and admitReady runs once
++    // per plan at source-now, so each trace holds at most one fresh picture; two plans
++    // are two alternative traces, not one joint two-picture calendar.
++    log({ scenario: 2, name: `two plans, ${label}, horizon due = start+40`, route: 'replayReadyProductionPlans -> searchPromiseCapacityTraces',
++      fixture: FIXTURE_OPENED, now, start: w.start, horizonEndWeek: horizon, horizonWeeks: horizon - now, planCount: 2,
++      reference: refs.map(referenceSummary), commands: replay.commands,
++      target: { slot: 'lead', mask: MASKS.lead, window, bufferDemand: 2 }, ...producerSummary(replay), kernel })
++  })
++})

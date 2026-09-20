@@ -1,0 +1,26 @@
+{
+  "sourceSha": "79b7a738d6e229e6e9b26a1c431f6fcb1240a6ad",
+  "testedDiffSha256": "53b7b3292bb3bbef03c7e5f542bbf683587c1e1b3b5ba0f372065220e3af6905",
+  "untrackedSource": [
+    "tests/p14b4-capacity-budget-measurement.test.ts"
+  ],
+  "command": [
+    "node_modules/.bin/vitest",
+    "run",
+    "--project",
+    "core",
+    "tests/p14b4-capacity-budget-measurement.test.ts"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-20T17:32:18.324Z",
+  "end": "2026-09-20T17:32:29.059Z",
+  "exitCode": 0,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "79b7a738d6e229e6e9b26a1c431f6fcb1240a6ad",
+  "testedDiffSha256AtEnd": "53b7b3292bb3bbef03c7e5f542bbf683587c1e1b3b5ba0f372065220e3af6905",
+  "untrackedSourceAtEnd": [
+    "tests/p14b4-capacity-budget-measurement.test.ts"
+  ],
+  "fixedSource": true
+}
