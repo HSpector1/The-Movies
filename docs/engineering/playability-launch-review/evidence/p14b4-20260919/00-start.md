@@ -1,5 +1,65 @@
 # P14B.4 — capacity implementation continuation
 
+Current B4 checkpoint337 (2026-09-20):321 SOURCE FROZEN, all runtime CLOSED.
+BaseHEAD/EXACTremote2d30b768bfd19174ef967f69f70f7ac814600142 (323published).
+326 independent bounded sourceKEEP.327rootUI PASS328lookup5 PASS329ordinary66
+PASS330Ready12PASS3workLimitFAIL331old26 PASS332adjacent137 PASS333sole OLD
+bridgefutureP2kindTS2353. Fullraw/metadata/patchhash/nonoverlap verified.
+Protected327–333patch eeb34ae97490871599a20a7992820864a9b74b329245ca60d04b4c539492c6ac.
+No Ready/B4 acceptance; actual-action fixtures don't substitute for replay.
+
+335/336passive logsREMOVED, EXACT321source restored:
+1f5ea6e7a7def99e43fef0649d74744d4e49604bc4dba5f7857fbdd9cf820242.
+Freelancer actualmarket NOWRUNS at197631; unchangedowner116132; calculator
+saves16575 vs324. Latercut199998/request8 beforeactualrefusal.
+Longroute actualdirector/schedule NOWEXECUTE; frame5entry193383,
+dimensiondiscovery193602→197994, thenordercalculator199992/request16 beforetake.
+No replaytake/wrap/output/kernel. Diagnosticdata ONLY attribution, notacceptance.
+
+338sim/auditor qualifiedKEEP/adopted nextscope: exactconceptMapaggregate SAMEownerbill;
+320A lazypaidinvocation-local staticdimensions, fullyfreshdynamiccompositions/
+preparedReadygenre/opaquePcopies/methodcomparison. PaidPreparedcell sharedONLY
+staticfacts acrossReady siblings. No339writerrelease yet; allspecialistsidle.
+Allowners/Hollywood/tests/caps/validatorsimmutable. No fitclaim.
+Nextpublish337qualifiedcheckpoint/exactremote340, then339solewriterONLYreplay+
+handback withinadopted338. Afterfreeze fullread/pins/independentreview/serialized
+types/new5/ordinary66/Ready15/old26/adjacent137/bridge, diagnoseactualfailures.
+T4/B2/B3/B-F2 qualifiedcloseouts retained; continueB4/remainingP14/P15/P16/
+specifiedP17/P18. Save29/rules3/projection46 remain live untilcoherentcutover.
+Unity/native/Owneracceptance deferred; integrationbacklog retained.
+
+Current B4 verification327 (2026-09-20):321 SOURCE FROZEN; no writer.
+HEAD/EXACTremote2d30b768bfd19174ef967f69f70f7ac814600142 (323publication).
+321 accepted320C+B and325 implemented ONLYreplay + handback; parent FULLdelta/
+handback read, source/handback and immutable17+Ready3+Hollywood hashes verified.
+Replay1f5ea6e7a7def99e43fef0649d74744d4e49604bc4dba5f7857fbdd9cf820242;
+handbackb11851adb316b9b871a5fc33803ce9c11f15d51ceb327643a68dee1a34b60868.
+No A dimensionmemo, actualowner/test/cap/validator changes.
+
+326 auditor READONLY actual321source/costreview. Sim/authoridle; no writer.
+Parent SERIAL327root/UI then328employment5/329ordinary66/330Ready15/
+331old26/332adjacent137/333bridge. NOsource/HEAD change until allchecks CLOSED.
+Actual outcomes PENDING.334 independentauthor preserves public-test sensitivity
+limits; generic prefix/saturation/repeatedresearch payments require source proof.
+
+322 published qualifications:312rootUI PASS313new5PASS314ordinary66PASS;
+315Ready12PASS2budgetFAIL;316old26PASS317adjacent137PASS318sole OLDbridgeP2kind;
+319newstaleReady genuine real-action fixturePASS/replayworkLimitFAIL.
+324logsREMOVED EXACT301restored beforepublication. Owner reserve116132/
+used98074 total214206; new321fit must be measured, not inferred.
+Prior T4/B2/B3/B-F2 closeouts retained; B4 still ACTIVE.
+Afteractuals retain all failures, bounded RCA/fixes/publication, then continue
+B4/remainingP14/P15/P16/specifiedP17/P18. Save29/rules3/projection46 remain live
+until coherent cutover. Unity/native/Owner acceptance deferred/backlog retained.
+
+CURRENT321: HEAD/EXACTremote2d30b768bfd19174ef967f69f70f7ac814600142,323published.
+321sim SOLEwriter ONLYreplay+handback:320C+B/localpayments and325paidactivecontract
+index/foldedORIGINALprefix. SourceMUTABLE: NOinspection/runtime/Gituntilfreeze.
+Actualowners/Hollywood/tests/capsIMMUTABLE; noAmemo. Authorread-only genuine
+contractcasecoverage; auditoridle/max2. Allruntimeclosed; full322qualifications.
+Nextfreeze/fullread/pins/326auditor andSERIALtypes/new5/ordinary66/Ready15/old26/
+adjacent137/bridge. NoReady/B4acceptance orfitclaim; preserveallactualfailures.
+
 Current B4 checkpoint322 (2026-09-20):301 SOURCE FROZEN; all runtime CLOSED.
 Base HEAD/EXACTremote e34af4777a12607d90435048e2703297403eecaf (300published).
 311 bounded source review qualified KEEP.312root/UI PASS;313employment5 PASS;

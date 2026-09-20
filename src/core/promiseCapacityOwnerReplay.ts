@@ -210,6 +210,7 @@ const LITERAL = Object.freeze({
   staffingResult: literalCost('writer', 'director', 'cast', 'craftHires', 'engaged', 'engagedIds'),
   roleAssignment: literalCost('id', 'role'),
   writerAssignment: literalCost('talentId', 'projectId', 'status', 'title', 'label'),
+  contractPosition: literalCost('id', 'visited'),
   claim: literalCost('key', 'facilitySlotKey', 'kind', 'facilityId', 'slot', 'capability', 'owner', 'ownerId', 'phase', 'reservation', 'task', 'set'),
   workflow: literalCost('productionId', 'phase', 'reservations', 'shootingTask', 'blocker', 'bindings', 'setup', 'planRevision'),
   reservation: literalCost('productionId', 'facilityId', 'capability', 'slot', 'phase'),
@@ -299,6 +300,7 @@ class Work {
   }
   text(value: string): string { this.pay(1 + value.length); return value }
   equal(a: string, b: string): boolean { this.pay(1 + a.length + b.length); return a === b }
+  less(a: string, b: string): boolean { this.pay(1 + a.length + b.length); return a < b }
   /** No Object.keys allocation before payment, and no traversal of opaque values. */
   copyCost(value: object): number {
     let cost = 1
@@ -825,11 +827,23 @@ function arrivalBill(d: Dimensions, operations: StudioOperations, work: Work): n
   work.pay(4)
   for (const workflow of operations.workflows) {
     work.pay(5)
-    if (workflow.phase === 'shooting' && workflow.shootingTask?.status === 'blocked' &&
-      workflow.blocker?.kind === 'scenery-load-in') possible++
+    if (!work.equal(workflow.phase, 'shooting')) continue
+    work.pay(6)
+    const status = workflow.shootingTask?.status
+    if (status === undefined || !work.equal(status, 'blocked')) continue
+    work.pay(6)
+    const kind = workflow.blocker?.kind
+    if (kind === undefined || !work.equal(kind, 'scenery-load-in')) continue
+    work.pay(2)
+    possible++
   }
   work.pay(16) // scalar formula reads; nested calculators each charge themselves
-  return work.calc(64).plus(18, work.calc(32).times(d.n, 14 + work.calc(32).times(4, work.calc(8).equality(d.d))),
+  const common = work.calc(32).add(18, work.calc(32).times(d.n, 14 + work.calc(32).times(4, work.calc(8).equality(d.d))))
+  work.pay(3)
+  // The unchanged owner reservation's final term is zero. Do not execute
+  // geometry/update CALCULATORS for it; the actual arrival owner still runs.
+  if (possible === 0) return common
+  return work.calc(32).add(common,
     work.calc(32).times(possible, work.calc(64).plus(geometryBill(d, work), 70, d.workflowCopy, d.taskCopy, workflowUpdate(d, work))))
 }
 function orderBill(d: Dimensions, work: Work): number {
@@ -1119,11 +1133,14 @@ function sweepBill<P extends StartedPicture>(d: Dimensions, productions: readonl
     work.pay(5)
     for (const facility of operations.facilities) {
       work.pay(4)
-      if (facility.capability === 'post') post = work.calc(8).add(post, facility.capacity)
+      if (work.equal(facility.capability, 'post')) post = work.calc(8).add(post, facility.capacity)
     }
-    for (const row of operations.workflows) for (const reservation of row.reservations) {
-      work.pay(3)
-      if (reservation.capability === 'post') heldPost++
+    for (const row of operations.workflows) {
+      work.pay(4) // outer visit/access/inner setup, including an empty list
+      for (const reservation of row.reservations) {
+        work.pay(3)
+        if (work.equal(reservation.capability, 'post')) heldPost++
+      }
     }
     // No external slots is a sufficient (not necessary) proof for this branch.
     if (d.allSilent && d.external === 0 && post - heldPost >= d.n) attempts = d.n
@@ -1627,10 +1644,30 @@ function readyProductionId(source: GameState, work: Work): string {
   }
   // Forty scalar/branch/callback steps per visited row covers the longest
   // History switch, including the separate event-id array append. Nested visits
-  // are counted separately. All Set inserts additionally pay collision spans.
+  // are counted separately. Before insertion occurrence i at most i keys exist;
+  // duplicates only reduce this prefix. Halve BEFORE saturating multiplication.
+  work.pay(12)
+  let pairs = 0
+  if (additions > 1) {
+    work.pay(16)
+    pairs = additions % 2 === 0
+      ? work.calc(16).times(additions / 2, additions - 1)
+      : work.calc(16).times(additions, (additions - 1) / 2)
+  }
   work.pay(work.calc(64).plus(64, work.calc(8).times(visits, 40),
-    work.calc(32).times(additions, work.calc(8).add(8, work.calc(8).keyBill(additions, width)))))
+    work.calc(16).times(additions, work.calc(8).add(9, width)),
+    work.calc(16).times(pairs, work.calc(8).equality(width))))
   const taken = persistedProductionIds(source)
+  // Separately paid proof, AFTER the actual full persisted union.100 covers
+  // String(safeInteger)<=22, padding, template output and scalar/call controls.
+  // This lookup is not payment for the allocator's own construction or lookup.
+  work.pay(100)
+  const base = `prod-${String(source.market.tick).padStart(4, '0')}`
+  work.pay(work.calc(32).keyBill(taken.size, Math.max(width, base.length)))
+  if (!taken.has(base)) {
+    work.pay(work.calc(32).add(100, work.calc(32).keyBill(taken.size, Math.max(width, base.length))))
+    return allocateProductionId(source.market.tick, taken)
+  }
   // At most size+1 suffix candidates; number conversion <=22 characters for
   // safe-integer cardinalities, with both template constructions and Set reads.
   work.pay(work.calc(64).plus(100, work.calc(32).times(taken.size + 1,
@@ -1658,28 +1695,45 @@ function freelancerBill(source: GameState, work: Work): number {
   let busyChars = 0, conceptChars = 0, titleWidth = 0, conceptMapBill = 0, writerLookupBill = 0, conceptMapCount = 0
   let contractBill = 0, researchSeats = 0, statusBill = 0
   let talentChars = 0, queryCount = 0, queryChars = 0
-  const busyPeople: string[] = [], contractChars = [0], activeContracts: boolean[] = []
+  const busyPeople: string[] = [], contractPrefix = [6]
+  const activeContracts: { id: string; visited: number }[] = []
   // This local bill calculator does not admit anyone. It counts the exact
   // source-now short-circuit calls which the unchanged market owner will make.
-  // Prefix spans pay every stored/query comparison, including inactive rows
-  // traversed by activeContract.find. The calculator's own reads are separate.
+  // P[i]=6+10*i+sum(original ID lengths through i), including INACTIVE rows.
+  // Active rows keep their ORIGINAL prefix length, never a sorted position.
+  // This folds the same owner bill; the calculator's own work is separate.
   for (const row of source.contracts) {
-    work.pay(12 + 2 * APPEND)
+    work.pay(20 + APPEND) // visit/date guards/text arguments and prefix write
     work.text(row.talentId)
-    contractChars.push(work.calc(16).add(contractChars[contractChars.length - 1]!, row.talentId.length))
-    activeContracts.push(row.startWeek <= source.market.tick && source.market.tick < row.endWeekExclusive)
-  }
-  const contracted = (person: string): boolean => {
-    work.pay(8)
-    let visited = 0, active = false
-    for (const row of source.contracts) {
-      work.pay(16) // visit, prefix index, active flag, comparison arguments/branch
-      const current = activeContracts[visited]!
-      visited++
-      if (current && work.equal(row.talentId, person)) { active = true; break }
+    contractPrefix.push(work.calc(32).add(contractPrefix[contractPrefix.length - 1]!, 10 + row.talentId.length))
+    if (row.startWeek <= source.market.tick && source.market.tick < row.endWeekExclusive) {
+      work.pay(LITERAL.contractPosition + APPEND + 8)
+      activeContracts.push({ id: row.talentId, visited: contractPrefix.length - 1 })
     }
-    contractBill = work.calc(32).add(contractBill, work.calc(32).plus(6,
-      work.calc(16).times(visited, 10 + person.length), contractChars[visited]!))
+  }
+  work.pay(4) // local callback construction, call arguments and result binding
+  const orderedContracts = sorted(activeContracts, row => row.id, work)
+  const contracted = (person: string): boolean => {
+    work.pay(10)
+    let low = 0, high = orderedContracts.length
+    while (low < high) {
+      work.pay(24) // guard, midpoint arithmetic, row/key access and branch/update
+      const middle = low + Math.floor((high - low) / 2)
+      if (work.less(orderedContracts[middle]!.id, person)) low = middle + 1
+      else high = middle
+    }
+    work.pay(14) // final guard, index/local reads, exact-hit branch and assignments
+    const match = orderedContracts[low]
+    let visited = source.contracts.length, active = false
+    if (match !== undefined && work.equal(match.id, person)) {
+      active = true
+      visited = match.visited
+    }
+    // Stable ordering selects the earliest active ORIGINAL row. Misses retain
+    // the entire original prefix. Every call, including repeated research
+    // seats, pays BOTH this lookup and the full unchanged owner reservation.
+    contractBill = work.calc(32).add(contractBill, work.calc(16).add(contractPrefix[visited]!,
+      work.calc(8).times(visited, person.length)))
     return active
   }
   const addBusy = (person: string): void => {

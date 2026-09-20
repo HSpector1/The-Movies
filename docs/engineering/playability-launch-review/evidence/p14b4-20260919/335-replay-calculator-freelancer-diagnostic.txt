@@ -1,0 +1,67 @@
+{"sourceSha":"2d30b768bfd19174ef967f69f70f7ac814600142","testedDiffSha256":"52deaa1f152b409d6ec9cf8a7d7eddbe3a69b8a435d01e0fba51f2091a221fb2","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14b4-ready-owner-replay.test.ts","-t","uses actual source-now employment"],"node":"v20.20.2","start":"2026-09-20T07:47:33.511Z","end":null,"exitCode":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+stderr | tests/p14b4-ready-owner-replay.test.ts > P14B4 source-now Ready operational admission > uses actual source-now employment and freelancer-market facts instead of treating every idle uncontracted actor as available
+P14B4_FREELANCER_ENTRY_335 35357
+P14B4_FREELANCER_PARTS_335 81383 {
+  busy: 4530,
+  rival: 78004,
+  random: 1968,
+  filterBill: 3252,
+  contractBill: 28378,
+  queryCount: 73,
+  queryChars: 1064,
+  employmentCount: 35,
+  employmentChars: 760,
+  employmentWidth: 28,
+  studioChars: 698,
+  busyRows: 0,
+  busyChars: 0,
+  talent: 84,
+  contracts: 11
+}
+P14B4_ACTUAL_MARKET_RETURN_335 197631
+P14B4_WORK_LIMIT_335 199998 8 200000 Error: diagnostic-only
+    at Work.pay (/Users/zacheryspector/The-Movies-headless-program/src/core/promiseCapacityOwnerReplay.ts:238:111)
+    at Work.calc (/Users/zacheryspector/The-Movies-headless-program/src/core/promiseCapacityOwnerReplay.ts:246:46)
+    at admitReady (/Users/zacheryspector/The-Movies-headless-program/src/core/promiseCapacityOwnerReplay.ts:2109:68)
+    at replayPlans (/Users/zacheryspector/The-Movies-headless-program/src/core/promiseCapacityOwnerReplay.ts:2266:11)
+    at Module.replayReadyProductionPlans (/Users/zacheryspector/The-Movies-headless-program/src/core/promiseCapacityOwnerReplay.ts:2330:10)
+    at observed (/Users/zacheryspector/The-Movies-headless-program/tests/p14b4-ready-owner-replay.test.ts:148:20)
+    at refusal (/Users/zacheryspector/The-Movies-headless-program/tests/p14b4-ready-owner-replay.test.ts:213:16)
+    at /Users/zacheryspector/The-Movies-headless-program/tests/p14b4-ready-owner-replay.test.ts:411:5
+    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14
+    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11
+
+ ❯ |core| tests/p14b4-ready-owner-replay.test.ts (7 tests | 1 failed | 6 skipped) 302ms
+   × P14B4 source-now Ready operational admission > uses actual source-now employment and freelancer-market facts instead of treating every idle uncontracted actor as available 300ms
+     → expected 'workLimit' to be 'commandRefused' // Object.is equality
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14b4-ready-owner-replay.test.ts > P14B4 source-now Ready operational admission > uses actual source-now employment and freelancer-market facts instead of treating every idle uncontracted actor as available
+AssertionError: expected 'workLimit' to be 'commandRefused' // Object.is equality
+
+Expected: "commandRefused"
+Received: "workLimit"
+
+ ❯ refusal tests/p14b4-ready-owner-replay.test.ts:217:26
+    215|   const attempt = seen.result.attempts[0]!
+    216|   if (attempt.kind !== 'cut') throw new Error('242 refused Ready choic…
+    217|   expect(attempt.reason).toBe('commandRefused')
+       |                          ^
+    218|   expect(attempt.detail).toContain(detail)
+    219|   expect(attempt.provenance.some((row) => row.kind === 'readyAdmitted'…
+ ❯ tests/p14b4-ready-owner-replay.test.ts:411:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 6 skipped (7)
+   Start at  09:47:34
+   Duration  3.36s (transform 1.95s, setup 0ms, collect 2.58s, tests 302ms, environment 0ms, prepare 99ms)
+
+
+{"sourceSha":"2d30b768bfd19174ef967f69f70f7ac814600142","testedDiffSha256":"52deaa1f152b409d6ec9cf8a7d7eddbe3a69b8a435d01e0fba51f2091a221fb2","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14b4-ready-owner-replay.test.ts","-t","uses actual source-now employment"],"node":"v20.20.2","start":"2026-09-20T07:47:33.511Z","end":"2026-09-20T07:47:37.797Z","exitCode":1,"signal":null,"error":null,"sourceShaAtEnd":"2d30b768bfd19174ef967f69f70f7ac814600142","testedDiffSha256AtEnd":"52deaa1f152b409d6ec9cf8a7d7eddbe3a69b8a435d01e0fba51f2091a221fb2","untrackedSourceAtEnd":[],"fixedSource":true}

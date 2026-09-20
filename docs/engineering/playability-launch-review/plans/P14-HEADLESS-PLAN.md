@@ -1,37 +1,32 @@
 # P14 — Contested Talent Market, Bonds and Promises, Career Lifecycle — headless plan (logic-first)
 
-Current B4 checkpoint322 (2026-09-20):301 SOURCE FROZEN; all runtime CLOSED.
-Base HEAD/EXACTremote e34af4777a12607d90435048e2703297403eecaf (300published).
-311 bounded source review qualified KEEP.312root/UI PASS;313employment5 PASS;
-314ordinary66 PASS;315Ready14=12PASS2workLimitFAIL;316old26 PASS;
-317adjacent137 PASS;318sole OLD bridgeP2kindTS2353;319newstaleReady workLimitFAIL.
-319genuine real-action fixture/guards PASS, post-release replay assertions
-UNREACHED. Protected312–319patch fc6698bcaa4c1cd1fc7c8157eb657e946a87f5353c3bee51c9485f64d2c7f4a5.
-No Ready/B4 acceptance. All raw/metadata/hash/nonoverlap checked.
+Current B4 checkpoint337 (2026-09-20):321 SOURCE FROZEN, all runtime CLOSED.
+BaseHEAD/EXACTremote2d30b768bfd19174ef967f69f70f7ac814600142 (323published).
+326 independent bounded sourceKEEP.327rootUI PASS328lookup5 PASS329ordinary66
+PASS330Ready12PASS3workLimitFAIL331old26 PASS332adjacent137 PASS333sole OLD
+bridgefutureP2kindTS2353. Fullraw/metadata/patchhash/nonoverlap verified.
+Protected327–333patch eeb34ae97490871599a20a7992820864a9b74b329245ca60d04b4c539492c6ac.
+No Ready/B4 acceptance; actual-action fixtures don't substitute for replay.
 
-324passive diagnostic REMOVED; EXACT301source restored:
-Hollywood49854f77a0ab33558556e047eafc65f92e4a35ec95c93afb119c7df589748359;
-replay801c3d6a1721df21780248da7f4ca7f20ccf85cb0a8872afdd6758c2e93be407.
-Freelancer owner reserve192157→116132; entry35357/prepay98074 = total214206,
-still over200000. Calculator62717 is next measured opportunity, no owner discount.
+335/336passive logsREMOVED, EXACT321source restored:
+1f5ea6e7a7def99e43fef0649d74744d4e49604bc4dba5f7857fbdd9cf820242.
+Freelancer actualmarket NOWRUNS at197631; unchangedowner116132; calculator
+saves16575 vs324. Latercut199998/request8 beforeactualrefusal.
+Longroute actualdirector/schedule NOWEXECUTE; frame5entry193383,
+dimensiondiscovery193602→197994, thenordercalculator199992/request16 beforetake.
+No replaytake/wrap/output/kernel. Diagnosticdata ONLY attribution, notacceptance.
 
-325 sim/auditor qualified KEEP adopted: paid local stable ACTIVE contract index
-with ORIGINAL prefix length; folded P[0]=6, P[i]=P[i-1]+10+originalIdLength;
-per-query owner reserve P[visited]+visited*queryLength, full original count on
-miss, repeated research queries separately paid. Actual market/contract unchanged.
-320 C+B also adopted: skip unused zero-arrival calculator/SAMEownerbill;
-paid base-ID absence proof/separately paid actual allocator/collision fallback;
-safe identity Set preinsert prefix bound; local arrival/Post string+visit fixes.
-A static dimension memo remains LATER ONLY IF actual evidence requires it.
-
-Next publish322 qualified checkpoint/exactremote323, then321 sole sim writer
-ONLY replay + handback for accepted320 C+B and325. Hollywood, owners, tests,
-limits/validators immutable. No current writer/runtime. Afterfreeze fullread/
-pins/independent source review then serialized types/employment5/ordinary66/
-Ready15/old26/adjacent137/bridge. Preserve failures, diagnose actual cuts.
-T4/B2/B3/B-F2 qualified closeouts retained; continueB4 then remainingP14/P15/P16/
-specifiedP17/P18. Save29/rules3/projection46 live until coherent cutover.
-Unity/native/Owner acceptance deferred; integration backlog retained.
+338sim/auditor qualifiedKEEP/adopted nextscope: exactconceptMapaggregate SAMEownerbill;
+320A lazypaidinvocation-local staticdimensions, fullyfreshdynamiccompositions/
+preparedReadygenre/opaquePcopies/methodcomparison. PaidPreparedcell sharedONLY
+staticfacts acrossReady siblings. No339writerrelease yet; allspecialistsidle.
+Allowners/Hollywood/tests/caps/validatorsimmutable. No fitclaim.
+Nextpublish337qualifiedcheckpoint/exactremote340, then339solewriterONLYreplay+
+handback withinadopted338. Afterfreeze fullread/pins/independentreview/serialized
+types/new5/ordinary66/Ready15/old26/adjacent137/bridge, diagnoseactualfailures.
+T4/B2/B3/B-F2 qualifiedcloseouts retained; continueB4/remainingP14/P15/P16/
+specifiedP17/P18. Save29/rules3/projection46 remain live untilcoherentcutover.
+Unity/native/Owneracceptance deferred; integrationbacklog retained.
 
 Earlier additive foundation checkpoint: V30 data support implemented and independently
 KEEP; qualified report evidence/p14b4-20260919/29-additive-checkpoint.md.
