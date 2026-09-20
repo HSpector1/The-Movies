@@ -1,0 +1,51 @@
+{"sourceSha":"1baf982520248d15731950d5bda48a6e93bba5ea","testedDiffSha256":"cb94a19c1ffbf238fa350459dd10c2b962bcde612e1052fe581949d01480191f","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14b4-ready-owner-replay.test.ts","-t","exact long unknown-director refusal"],"node":"v20.20.2","start":"2026-09-20T12:18:28.399Z","end":null,"exitCode":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/p14b4-ready-owner-replay.test.ts (10 tests | 1 failed | 9 skipped) 502ms
+   × P14B4 source-now Ready operational admission > preserves the exact long unknown-director refusal before any Ready allocation or sweep 499ms
+     → Expected values to be strictly deep-equal:
++ actual - expected
+
+  Comparison {
++   message: 'applyActions: greenlight directorId references unknown talent id "491-missing-director-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"'
+-   message: 'greenlight directorId references unknown talent id "491-missing-director-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"'
+  }
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14b4-ready-owner-replay.test.ts > P14B4 source-now Ready operational admission > preserves the exact long unknown-director refusal before any Ready allocation or sweep
+AssertionError: Expected values to be strictly deep-equal:
++ actual - expected
+
+  Comparison {
++   message: 'applyActions: greenlight directorId references unknown talent id "491-missing-director-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"'
+-   message: 'greenlight directorId references unknown talent id "491-missing-director-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"'
+  }
+
+- Expected
++ Received
+
+- Object {
+-   "message": "greenlight directorId references unknown talent id \"491-missing-director-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\"",
+- }
++ [Error: applyActions: greenlight directorId references unknown talent id "491-missing-director-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"]
+
+ ❯ tests/p14b4-ready-owner-replay.test.ts:714:12
+    712|     supported(state, choice) // unchanged genuine source; only the com…
+    713|     const message = `greenlight directorId references unknown talent i…
+    714|     assert.throws(() => applyActions(state, [{ kind: 'greenlightScript…
+       |            ^
+    715|       { message })
+    716|     expect(state).toEqual(before)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 9 skipped (10)
+   Start at  14:18:29
+   Duration  5.33s (transform 3.01s, setup 0ms, collect 3.99s, tests 502ms, environment 4ms, prepare 333ms)
+
+
+{"sourceSha":"1baf982520248d15731950d5bda48a6e93bba5ea","testedDiffSha256":"cb94a19c1ffbf238fa350459dd10c2b962bcde612e1052fe581949d01480191f","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14b4-ready-owner-replay.test.ts","-t","exact long unknown-director refusal"],"node":"v20.20.2","start":"2026-09-20T12:18:28.399Z","end":"2026-09-20T12:18:35.144Z","exitCode":1,"signal":null,"error":null,"sourceShaAtEnd":"1baf982520248d15731950d5bda48a6e93bba5ea","testedDiffSha256AtEnd":"cb94a19c1ffbf238fa350459dd10c2b962bcde612e1052fe581949d01480191f","untrackedSourceAtEnd":[],"fixedSource":true}

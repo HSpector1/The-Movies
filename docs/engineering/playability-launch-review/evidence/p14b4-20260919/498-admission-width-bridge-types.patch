@@ -1,0 +1,83 @@
+diff --git a/src/core/promiseCapacityOwnerReplay.ts b/src/core/promiseCapacityOwnerReplay.ts
+index f591d7e..1799895 100644
+--- a/src/core/promiseCapacityOwnerReplay.ts
++++ b/src/core/promiseCapacityOwnerReplay.ts
+@@ -2379,7 +2379,8 @@ function admitReady(source: GameState, input: ReplayInput<ReadyPicture>, prepare
+   { conceptId: project.conceptId, writerId: project.writerId, shape: project.shape, promise: project.promise }, project.id))
+   work.pay(16 + 13)
+   const seatIds = [project.writerId, choice.directorId, choice.cast.lead, choice.cast.antagonist, choice.cast.support]
+-  let staffingBill = work.calc(64).plus(LITERAL.staffingResult, LITERAL.cast, 70), idWidth = 22
++  // Key reserves use actual talent-ID widths; diagnostic spans retain their floor.
++  let staffingBill = work.calc(64).plus(LITERAL.staffingResult, LITERAL.cast, 70), idWidth = 0
+   for (const id of seatIds) {
+     work.pay(3); work.text(id); idWidth = Math.max(idWidth, id.length)
+     staffingBill = work.calc(64).plus(staffingBill, searchBill(source.talent, row => row.id, id, work), 26)
+@@ -2391,7 +2392,8 @@ function admitReady(source: GameState, input: ReplayInput<ReadyPicture>, prepare
+   work.pay(16)
+   const assignments = 5 + choice.craftIds.length
+   // Fixed diagnostic orders and full resulting reference arrays/role rows.
+-  work.pay(work.calc(64).plus(staffingBill, 320, idWidth * 4, LITERAL.staffingChoice, 4,
++  work.pay(16) // <=8 added scalar nodes for the diagnostic-only Math.max.
++  work.pay(work.calc(64).plus(staffingBill, 320, Math.max(22, idWidth) * 4, LITERAL.staffingChoice, 4,
+     work.calc(32).times(assignments, work.calc(64).plus(LITERAL.roleAssignment, 40,
+       work.calc(8).times(2, work.calc(8).keyBill(assignments, idWidth)))),
+     work.calc(32).times(3, work.calc(8).keyBill(3, idWidth))))
+@@ -2417,7 +2419,8 @@ function admitReady(source: GameState, input: ReplayInput<ReadyPicture>, prepare
+   for (const person of busyRows) { work.pay(2); work.text(person); idWidth = Math.max(idWidth, person.length) }
+   work.pay(work.calc(64).plus(3, work.calc(32).times(busyRows.length, work.calc(8).keyBill(busyRows.length, idWidth))))
+   const busy = new Set(busyRows)
+-  work.pay(work.calc(64).plus(160, idWidth, work.calc(32).times(staffing.engagedIds.length,
++  work.pay(16) // <=8 added scalar nodes for the diagnostic-only Math.max.
++  work.pay(work.calc(64).plus(160, Math.max(22, idWidth), work.calc(32).times(staffing.engagedIds.length,
+     5 + work.calc(8).keyBill(busy.size, idWidth)), 4))
+   admissionCall(work, () => assertGreenlightStaffingIdle(staffing.engagedIds, busy))
+   work.pay(4)
+@@ -2443,7 +2446,8 @@ function admitReady(source: GameState, input: ReplayInput<ReadyPicture>, prepare
+     for (const id of market) { work.pay(3); work.text(id); contractWidth = Math.max(contractWidth, id.length) }
+     work.pay(work.calc(64).plus(3, work.calc(32).times(market.length, work.calc(8).keyBill(market.length, contractWidth))))
+     const freelancerIds = new Set(market)
+-    work.pay(work.calc(64).plus(LITERAL.employmentFacts, 180, idWidth, 4,
++    work.pay(16) // <=8 added scalar nodes for the diagnostic-only Math.max.
++    work.pay(work.calc(64).plus(LITERAL.employmentFacts, 180, Math.max(22, idWidth), 4,
+       work.calc(32).times(staffing.engagedIds.length, work.calc(64).plus(10,
+         work.calc(8).keyBill(contracted.size, contractWidth), work.calc(8).keyBill(freelancerIds.size, contractWidth)))))
+     admissionCall(work, () => greenlightFreelancers(staffing.engaged,
+diff --git a/tests/p14b4-ready-owner-replay.test.ts b/tests/p14b4-ready-owner-replay.test.ts
+index 0919160..53afba1 100644
+--- a/tests/p14b4-ready-owner-replay.test.ts
++++ b/tests/p14b4-ready-owner-replay.test.ts
+@@ -702,6 +702,34 @@ describe('P14B4 source-now Ready operational admission', () => {
+     refusal(input(state, choiceOf(setup.payload)), message)
+   })
+ 
++  // 491 BEGIN: retained public refusal control, not a private payment oracle.
++  it('preserves the exact long unknown-director refusal before any Ready allocation or sweep', () => {
++    const { state, payload } = baseReady(), before = clone(state)
++    const directorId = `491-missing-director-${'x'.repeat(48)}`
++    expect(directorId.length).toBeGreaterThan(22)
++    expect(state.talent.some((row) => row.id === directorId)).toBe(false)
++    const illegal = { ...payload, directorId }, choice = choiceOf(illegal)
++    supported(state, choice) // unchanged genuine source; only the command is invalid
++    const message = `applyActions: greenlight directorId references unknown talent id "${directorId}"`
++    assert.throws(() => applyActions(state, [{ kind: 'greenlightScriptProject', production: illegal }]),
++      { message })
++    expect(state).toEqual(before)
++    const value = input(state, choice, '491-long-unknown-director')
++    expect(value.limits.work).toBe(200000)
++    const seen = refusal(value, message), attempt = seen.result.attempts[0]!
++    if (attempt.kind !== 'cut') throw new Error('491 unknown director unexpectedly admitted')
++    expect(attempt.reason).toBe('commandRefused')
++    expect(attempt.detail).toBe(message)
++    expect(seen.headerCalls).toBeGreaterThan(0)
++    expect(seen.staffingCalls).toBeGreaterThan(0)
++    expect(seen.addCalls).toBe(0)
++    expect(seen.linkCalls).toBe(0)
++    expect(seen.calls).toEqual([])
++    expect(attempt.provenance.filter((row) => row.kind === 'readyAdmitted' || row.kind === 'sweepStarted')).toEqual([])
++    expect(state).toEqual(before)
++  })
++
++  // 491 END
+   it('uses actual source-now employment and freelancer-market facts instead of treating every idle uncontracted actor as available', () => {
+     const { state, payload } = baseReady(), market = freelancerMarketIds(state), busy = busyTalentIds(state)
+     const outsider = state.talent.find((row) => row.role === 'actor' && !isContracted(state, row.id) &&

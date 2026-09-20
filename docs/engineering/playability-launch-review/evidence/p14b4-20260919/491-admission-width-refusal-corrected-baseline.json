@@ -1,0 +1,24 @@
+{
+  "sourceSha": "1baf982520248d15731950d5bda48a6e93bba5ea",
+  "testedDiffSha256": "9dc514787545798ecfb0d8c6e4525a2e33916e646b0f0ec1e02410f410f82d06",
+  "untrackedSource": [],
+  "command": [
+    "node_modules/.bin/vitest",
+    "run",
+    "--project",
+    "core",
+    "tests/p14b4-ready-owner-replay.test.ts",
+    "-t",
+    "exact long unknown-director refusal"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-20T12:20:22.789Z",
+  "end": "2026-09-20T12:20:29.433Z",
+  "exitCode": 0,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "1baf982520248d15731950d5bda48a6e93bba5ea",
+  "testedDiffSha256AtEnd": "9dc514787545798ecfb0d8c6e4525a2e33916e646b0f0ec1e02410f410f82d06",
+  "untrackedSourceAtEnd": [],
+  "fixedSource": true
+}

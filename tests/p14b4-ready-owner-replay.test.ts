@@ -702,6 +702,34 @@ describe('P14B4 source-now Ready operational admission', () => {
     refusal(input(state, choiceOf(setup.payload)), message)
   })
 
+  // 491 BEGIN: retained public refusal control, not a private payment oracle.
+  it('preserves the exact long unknown-director refusal before any Ready allocation or sweep', () => {
+    const { state, payload } = baseReady(), before = clone(state)
+    const directorId = `491-missing-director-${'x'.repeat(48)}`
+    expect(directorId.length).toBeGreaterThan(22)
+    expect(state.talent.some((row) => row.id === directorId)).toBe(false)
+    const illegal = { ...payload, directorId }, choice = choiceOf(illegal)
+    supported(state, choice) // unchanged genuine source; only the command is invalid
+    const message = `applyActions: greenlight directorId references unknown talent id "${directorId}"`
+    assert.throws(() => applyActions(state, [{ kind: 'greenlightScriptProject', production: illegal }]),
+      { message })
+    expect(state).toEqual(before)
+    const value = input(state, choice, '491-long-unknown-director')
+    expect(value.limits.work).toBe(200000)
+    const seen = refusal(value, message), attempt = seen.result.attempts[0]!
+    if (attempt.kind !== 'cut') throw new Error('491 unknown director unexpectedly admitted')
+    expect(attempt.reason).toBe('commandRefused')
+    expect(attempt.detail).toBe(message)
+    expect(seen.headerCalls).toBeGreaterThan(0)
+    expect(seen.staffingCalls).toBeGreaterThan(0)
+    expect(seen.addCalls).toBe(0)
+    expect(seen.linkCalls).toBe(0)
+    expect(seen.calls).toEqual([])
+    expect(attempt.provenance.filter((row) => row.kind === 'readyAdmitted' || row.kind === 'sweepStarted')).toEqual([])
+    expect(state).toEqual(before)
+  })
+
+  // 491 END
   it('uses actual source-now employment and freelancer-market facts instead of treating every idle uncontracted actor as available', () => {
     const { state, payload } = baseReady(), market = freelancerMarketIds(state), busy = busyTalentIds(state)
     const outsider = state.talent.find((row) => row.role === 'actor' && !isContracted(state, row.id) &&

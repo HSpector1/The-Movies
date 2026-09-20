@@ -2379,7 +2379,8 @@ function admitReady(source: GameState, input: ReplayInput<ReadyPicture>, prepare
   { conceptId: project.conceptId, writerId: project.writerId, shape: project.shape, promise: project.promise }, project.id))
   work.pay(16 + 13)
   const seatIds = [project.writerId, choice.directorId, choice.cast.lead, choice.cast.antagonist, choice.cast.support]
-  let staffingBill = work.calc(64).plus(LITERAL.staffingResult, LITERAL.cast, 70), idWidth = 22
+  // Key reserves use actual talent-ID widths; diagnostic spans retain their floor.
+  let staffingBill = work.calc(64).plus(LITERAL.staffingResult, LITERAL.cast, 70), idWidth = 0
   for (const id of seatIds) {
     work.pay(3); work.text(id); idWidth = Math.max(idWidth, id.length)
     staffingBill = work.calc(64).plus(staffingBill, searchBill(source.talent, row => row.id, id, work), 26)
@@ -2391,7 +2392,8 @@ function admitReady(source: GameState, input: ReplayInput<ReadyPicture>, prepare
   work.pay(16)
   const assignments = 5 + choice.craftIds.length
   // Fixed diagnostic orders and full resulting reference arrays/role rows.
-  work.pay(work.calc(64).plus(staffingBill, 320, idWidth * 4, LITERAL.staffingChoice, 4,
+  work.pay(16) // <=8 added scalar nodes for the diagnostic-only Math.max.
+  work.pay(work.calc(64).plus(staffingBill, 320, Math.max(22, idWidth) * 4, LITERAL.staffingChoice, 4,
     work.calc(32).times(assignments, work.calc(64).plus(LITERAL.roleAssignment, 40,
       work.calc(8).times(2, work.calc(8).keyBill(assignments, idWidth)))),
     work.calc(32).times(3, work.calc(8).keyBill(3, idWidth))))
@@ -2417,7 +2419,8 @@ function admitReady(source: GameState, input: ReplayInput<ReadyPicture>, prepare
   for (const person of busyRows) { work.pay(2); work.text(person); idWidth = Math.max(idWidth, person.length) }
   work.pay(work.calc(64).plus(3, work.calc(32).times(busyRows.length, work.calc(8).keyBill(busyRows.length, idWidth))))
   const busy = new Set(busyRows)
-  work.pay(work.calc(64).plus(160, idWidth, work.calc(32).times(staffing.engagedIds.length,
+  work.pay(16) // <=8 added scalar nodes for the diagnostic-only Math.max.
+  work.pay(work.calc(64).plus(160, Math.max(22, idWidth), work.calc(32).times(staffing.engagedIds.length,
     5 + work.calc(8).keyBill(busy.size, idWidth)), 4))
   admissionCall(work, () => assertGreenlightStaffingIdle(staffing.engagedIds, busy))
   work.pay(4)
@@ -2443,7 +2446,8 @@ function admitReady(source: GameState, input: ReplayInput<ReadyPicture>, prepare
     for (const id of market) { work.pay(3); work.text(id); contractWidth = Math.max(contractWidth, id.length) }
     work.pay(work.calc(64).plus(3, work.calc(32).times(market.length, work.calc(8).keyBill(market.length, contractWidth))))
     const freelancerIds = new Set(market)
-    work.pay(work.calc(64).plus(LITERAL.employmentFacts, 180, idWidth, 4,
+    work.pay(16) // <=8 added scalar nodes for the diagnostic-only Math.max.
+    work.pay(work.calc(64).plus(LITERAL.employmentFacts, 180, Math.max(22, idWidth), 4,
       work.calc(32).times(staffing.engagedIds.length, work.calc(64).plus(10,
         work.calc(8).keyBill(contracted.size, contractWidth), work.calc(8).keyBill(freelancerIds.size, contractWidth)))))
     admissionCall(work, () => greenlightFreelancers(staffing.engaged,

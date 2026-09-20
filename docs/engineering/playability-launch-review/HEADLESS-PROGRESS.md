@@ -6,29 +6,32 @@ Headless verification never claims package completion or Owner acceptance.
 
 Current (2026-09-20):
 
-Current B4 measurement conclusion484 (2026-09-20):480 probes REMOVED;
-entire protected tree EXACT published32d04de361ae41534bf7e69345a8e061f8cbad4c.
-466replay956a0245872f02e625c93a41cc2cc2033c4279129b85e100f315045d4d4f8ca4.
-No active runtime/production writer. Two bounded READ-ONLY native specialists.
-482/483 CLOSED/fixedSource:true; exact neutral outcomes, complete raw/JSON read,
-nonoverlap/hash/reconciliation verified. Successful196468/199998, gap0/2;
-zero observer consistency failures. Original firsttake325 kernel workLimit;
-stale234 workLimit, week7 request673 at199998 BEFORE Post3 owner.
-Ten-role hint candidate REJECTED: prospective model ADDS3211/3479 units.
-All diagnostic source reverted; preserved patches/raw/handback/481 review remain.
-484 next: attribute admission direct20283/400calls and inspect calculator
-structure (50290/52456 units), not arbitrary prices or speculative cache churn.
-Sim-core admission analysis + contract-auditor calculator review; no implementation
-adopted. Use measured source-counted hypothesis before sole writer release.
-477/478 publication exact32d04de verified11:39:17Z;252 focused passes,
-Ready15PASS/two original failures, bridge sole OLD futureP2kind TS2353test364.
-Firsttake producer COMPLETE/all preceding actual chronology/projection/10holds/
-firsttake/wrap/purity PASS; combined kernel and stale after-release NOT accepted.
-Owner/input sort/prices/caps/validators unchanged. Tests465 additive controls kept.
+Current B4 checkpoint501 qualified (2026-09-20): original first-take + shared
+kernel test NOW GREEN495/500; ONE original stale-after-release234 workLimit remains.
+494–499 CLOSED/fixedSource:true; full raw/JSON/hash/nonoverlap verified: rootUI PASS;
+Ready17PASS1FAIL, Started27PASS, adjacent+callers203PASS, facts+lookup7PASS=254 passes.
+498 bridge sole OLD futureP2kind TS2353 test364; no new compiler error.
+492 source5267ff51ba638229306c6861fd965ae2f214529808b145ba9c52cd21ccf71bcb;
+tested patch64057c6b7058678d9c0cfc8a711bc5317bc6d1897860cec97b279ac1020a763f.
+493 actual-source qualified KEEP. Admission comparison width starts0; three
+diagnostic floors retain22 and each new expression is prepaid16. Owners/prices/
+caps/identity width22 unchanged. 491 additive refusal control c012c1c6…284733;
+corrected baseline passed BEFORE492; original test bytes and21 pins preserved.
+500 passive diagnostics CLOSED/removed; EXACT492 source + tested patch restored.
+First-take producer190818 versus196468: measured saving5650; original combined
+kernel assertion now passes. Not an exhaustive choice or certified-offer claim.
+Stale week7 Post3 owner now executes; week8 dimensions finish199381, then
+work199996/request15 cuts BEFORE setup collector/Post-exit bill or owner.
+No stale command/release parity pass is claimed. No active probe or runtime.
+Publication pending: base/exact remote1baf982520248d15731950d5bda48a6e93bba5ea;
+commit501 tested source/test/evidence and independently verify remote in502.
+Then continue bounded executeCommand dimensions dependency review: current
+director/schedule discovery4542/3176; avoid only proven-unused enumeration.
+No command projection, draft-discovery, silent-policy, affine or Map change adopted.
 T4/B2/B3/B-F2 qualified closed; B4/liveP2/Unity/Owner acceptance NOT closed.
 Save29/rules3/projection46 live until coherent cutover; Unity backlog maintained.
-Continue beyond checkpoint; max2 specialists/one production writer/serial heavy
-checks. No routine permission pauses, resets, installs, Claude or full-gate redo.
+Continue beyond checkpoint; max2 specialists/one writer/heavy checks serial;
+no routine approval pauses/resets/installs/Claude/full-gate redo.
 
 Earlier additive foundation checkpoint: V30 data support implemented and independently
 KEEP; qualified report evidence/p14b4-20260919/29-additive-checkpoint.md.

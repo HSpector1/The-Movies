@@ -1,0 +1,151 @@
+diff --git a/src/core/promiseCapacityOwnerReplay.ts b/src/core/promiseCapacityOwnerReplay.ts
+index f591d7e..fabe802 100644
+--- a/src/core/promiseCapacityOwnerReplay.ts
++++ b/src/core/promiseCapacityOwnerReplay.ts
+@@ -244,7 +244,12 @@ class Work {
+   used: number
+   constructor(readonly limit: number, initial: number) { this.used = Math.min(limit, initial) }
+   pay(units = 1): void {
+-    if (units > this.limit - this.used) { this.used = this.limit; throw new WorkLimit() }
++    if (units > this.limit - this.used) {
++      // TEMPORARY 500: UNMETERED diagnostic before original saturation/throw.
++      console.log('B4_RESULT_500', JSON.stringify({ phase: 'payFailure', used: this.used,
++        requested: units, limit: this.limit, stack: new Error().stack }))
++      this.used = this.limit; throw new WorkLimit()
++    }
+     this.used += units
+   }
+   /** Evaluate the receiver BEFORE JavaScript evaluates calculator arguments.
+@@ -972,6 +977,9 @@ function staticDimensionFacts<P extends StartedPicture>(source: StartedOwnerSour
+ function dimensions<P extends StartedPicture>(source: StartedOwnerSource<P>, productions: readonly P[],
+   operations: StudioOperations, sets: readonly StudioSet[], technology: StudioTechnology,
+   external: number, work: Work, cell: DimensionCell, pictureFacts?: readonly PictureFacts<P>[]): Dimensions {
++  // TEMPORARY 500: passive, UNMETERED observation; original payments follow.
++  console.log('B4_RESULT_500', JSON.stringify({ phase: 'dimensionsEntry', used: work.used,
++    remaining: productions.map(row => row.remainingTicks) }))
+   work.pay(4) // static-fact call arguments/result binding
+   const fixed = staticDimensionFacts(source, cell, work)
+   work.pay(16) // two copy-only fact calls: arguments, result bindings and controls
+@@ -1031,6 +1039,8 @@ function dimensions<P extends StartedPicture>(source: StartedOwnerSource<P>, pro
+     work.pay(3); d.technologyRowCopy = Math.max(d.technologyRowCopy, facts(row, true, true).copy!)
+     if (!work.equal(row.method, 'silent')) d.allSilent = false
+   }
++  // TEMPORARY 500: no owner/state/meter mutation.
++  console.log('B4_RESULT_500', JSON.stringify({ phase: 'dimensionsDone', used: work.used }))
+   return d
+ }
+ function workflowUpdate(d: Dimensions, work: Work): number {
+@@ -1768,6 +1778,9 @@ function executeCommand<P extends StartedPicture>(input: ReplayInput<P>, prepare
+ 
+ function frame<P extends StartedPicture>(input: ReplayInput<P>, prepared: Prepared<P>,
+   plan: ReplayPlan, branch: Branch<P>, work: Work): void {
++  // TEMPORARY 500: passive whole-slate clock prefix, not a production fact cache.
++  console.log('B4_RESULT_500', JSON.stringify({ phase: 'frameEntry', week: branch.week,
++    used: work.used, remaining: branch.productions.map(row => row.remainingTicks) }))
+   work.pay(7)
+   const arrivedWeek = branch.week + 1
+   for (const background of prepared.backgrounds) {
+@@ -1835,6 +1848,9 @@ function frame<P extends StartedPicture>(input: ReplayInput<P>, prepared: Prepar
+   const before = branch.operations
+   work.pay(6) // current branch Sets read, argument and callee binding
+   const bill = sweepBill(d, branch.productions, branch.operations, branch.week, committed, branch.sets, work)
++  // TEMPORARY 500: reached only after the unchanged complete bill calculation.
++  console.log('B4_RESULT_500', JSON.stringify({ phase: 'sweepBillDone', week: branch.week,
++    used: work.used, bill, remaining: branch.productions.map(row => row.remainingTicks), dimensions: d }))
+   // Reserve observation, sink, binding/callback literals and complete owner work
+   // together: an exhaustion boundary cannot record an unexecuted sweepStarted.
+   work.pay(work.calc(64).plus(bill, 15 + LITERAL.sink + 1 + LITERAL.boundary +
+@@ -2379,7 +2395,8 @@ function admitReady(source: GameState, input: ReplayInput<ReadyPicture>, prepare
+   { conceptId: project.conceptId, writerId: project.writerId, shape: project.shape, promise: project.promise }, project.id))
+   work.pay(16 + 13)
+   const seatIds = [project.writerId, choice.directorId, choice.cast.lead, choice.cast.antagonist, choice.cast.support]
+-  let staffingBill = work.calc(64).plus(LITERAL.staffingResult, LITERAL.cast, 70), idWidth = 22
++  // Key reserves use actual talent-ID widths; diagnostic spans retain their floor.
++  let staffingBill = work.calc(64).plus(LITERAL.staffingResult, LITERAL.cast, 70), idWidth = 0
+   for (const id of seatIds) {
+     work.pay(3); work.text(id); idWidth = Math.max(idWidth, id.length)
+     staffingBill = work.calc(64).plus(staffingBill, searchBill(source.talent, row => row.id, id, work), 26)
+@@ -2391,7 +2408,8 @@ function admitReady(source: GameState, input: ReplayInput<ReadyPicture>, prepare
+   work.pay(16)
+   const assignments = 5 + choice.craftIds.length
+   // Fixed diagnostic orders and full resulting reference arrays/role rows.
+-  work.pay(work.calc(64).plus(staffingBill, 320, idWidth * 4, LITERAL.staffingChoice, 4,
++  work.pay(16) // <=8 added scalar nodes for the diagnostic-only Math.max.
++  work.pay(work.calc(64).plus(staffingBill, 320, Math.max(22, idWidth) * 4, LITERAL.staffingChoice, 4,
+     work.calc(32).times(assignments, work.calc(64).plus(LITERAL.roleAssignment, 40,
+       work.calc(8).times(2, work.calc(8).keyBill(assignments, idWidth)))),
+     work.calc(32).times(3, work.calc(8).keyBill(3, idWidth))))
+@@ -2417,7 +2435,8 @@ function admitReady(source: GameState, input: ReplayInput<ReadyPicture>, prepare
+   for (const person of busyRows) { work.pay(2); work.text(person); idWidth = Math.max(idWidth, person.length) }
+   work.pay(work.calc(64).plus(3, work.calc(32).times(busyRows.length, work.calc(8).keyBill(busyRows.length, idWidth))))
+   const busy = new Set(busyRows)
+-  work.pay(work.calc(64).plus(160, idWidth, work.calc(32).times(staffing.engagedIds.length,
++  work.pay(16) // <=8 added scalar nodes for the diagnostic-only Math.max.
++  work.pay(work.calc(64).plus(160, Math.max(22, idWidth), work.calc(32).times(staffing.engagedIds.length,
+     5 + work.calc(8).keyBill(busy.size, idWidth)), 4))
+   admissionCall(work, () => assertGreenlightStaffingIdle(staffing.engagedIds, busy))
+   work.pay(4)
+@@ -2443,7 +2462,8 @@ function admitReady(source: GameState, input: ReplayInput<ReadyPicture>, prepare
+     for (const id of market) { work.pay(3); work.text(id); contractWidth = Math.max(contractWidth, id.length) }
+     work.pay(work.calc(64).plus(3, work.calc(32).times(market.length, work.calc(8).keyBill(market.length, contractWidth))))
+     const freelancerIds = new Set(market)
+-    work.pay(work.calc(64).plus(LITERAL.employmentFacts, 180, idWidth, 4,
++    work.pay(16) // <=8 added scalar nodes for the diagnostic-only Math.max.
++    work.pay(work.calc(64).plus(LITERAL.employmentFacts, 180, Math.max(22, idWidth), 4,
+       work.calc(32).times(staffing.engagedIds.length, work.calc(64).plus(10,
+         work.calc(8).keyBill(contracted.size, contractWidth), work.calc(8).keyBill(freelancerIds.size, contractWidth)))))
+     admissionCall(work, () => greenlightFreelancers(staffing.engaged,
+@@ -2653,6 +2673,14 @@ function replayPlans<P extends StartedPicture, A>(
+       if (reason === 'workLimit') break
+     }
+   }
++  // TEMPORARY 500: report only result discriminants/boundaries, never proof records.
++  console.log('B4_RESULT_500', JSON.stringify({ phase: 'result', used: work.used,
++    attempts: attempts.map(attempt => {
++      if (typeof attempt !== 'object' || attempt === null) return { kind: 'nonobject' }
++      return { kind: 'kind' in attempt ? attempt.kind : undefined,
++        reason: 'reason' in attempt ? attempt.reason : undefined,
++        through: 'through' in attempt ? attempt.through : undefined }
++    }) }))
+   return { fixedHolds: prepared.fixed, attempts, preparationWork: work.used, omissions }
+ }
+ 
+diff --git a/tests/p14b4-ready-owner-replay.test.ts b/tests/p14b4-ready-owner-replay.test.ts
+index 0919160..53afba1 100644
+--- a/tests/p14b4-ready-owner-replay.test.ts
++++ b/tests/p14b4-ready-owner-replay.test.ts
+@@ -702,6 +702,34 @@ describe('P14B4 source-now Ready operational admission', () => {
+     refusal(input(state, choiceOf(setup.payload)), message)
+   })
+ 
++  // 491 BEGIN: retained public refusal control, not a private payment oracle.
++  it('preserves the exact long unknown-director refusal before any Ready allocation or sweep', () => {
++    const { state, payload } = baseReady(), before = clone(state)
++    const directorId = `491-missing-director-${'x'.repeat(48)}`
++    expect(directorId.length).toBeGreaterThan(22)
++    expect(state.talent.some((row) => row.id === directorId)).toBe(false)
++    const illegal = { ...payload, directorId }, choice = choiceOf(illegal)
++    supported(state, choice) // unchanged genuine source; only the command is invalid
++    const message = `applyActions: greenlight directorId references unknown talent id "${directorId}"`
++    assert.throws(() => applyActions(state, [{ kind: 'greenlightScriptProject', production: illegal }]),
++      { message })
++    expect(state).toEqual(before)
++    const value = input(state, choice, '491-long-unknown-director')
++    expect(value.limits.work).toBe(200000)
++    const seen = refusal(value, message), attempt = seen.result.attempts[0]!
++    if (attempt.kind !== 'cut') throw new Error('491 unknown director unexpectedly admitted')
++    expect(attempt.reason).toBe('commandRefused')
++    expect(attempt.detail).toBe(message)
++    expect(seen.headerCalls).toBeGreaterThan(0)
++    expect(seen.staffingCalls).toBeGreaterThan(0)
++    expect(seen.addCalls).toBe(0)
++    expect(seen.linkCalls).toBe(0)
++    expect(seen.calls).toEqual([])
++    expect(attempt.provenance.filter((row) => row.kind === 'readyAdmitted' || row.kind === 'sweepStarted')).toEqual([])
++    expect(state).toEqual(before)
++  })
++
++  // 491 END
+   it('uses actual source-now employment and freelancer-market facts instead of treating every idle uncontracted actor as available', () => {
+     const { state, payload } = baseReady(), market = freelancerMarketIds(state), busy = busyTalentIds(state)
+     const outsider = state.talent.find((row) => row.role === 'actor' && !isContracted(state, row.id) &&

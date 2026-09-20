@@ -1,0 +1,15 @@
+{"sourceSha":"1baf982520248d15731950d5bda48a6e93bba5ea","testedDiffSha256":"9dc514787545798ecfb0d8c6e4525a2e33916e646b0f0ec1e02410f410f82d06","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14b4-ready-owner-replay.test.ts","-t","exact long unknown-director refusal"],"node":"v20.20.2","start":"2026-09-20T12:20:22.789Z","end":null,"exitCode":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p14b4-ready-owner-replay.test.ts (10 tests | 9 skipped) 527ms
+   ✓ P14B4 source-now Ready operational admission > preserves the exact long unknown-director refusal before any Ready allocation or sweep 525ms
+
+ Test Files  1 passed (1)
+      Tests  1 passed | 9 skipped (10)
+   Start at  14:20:23
+   Duration  5.00s (transform 2.84s, setup 0ms, collect 3.80s, tests 527ms, environment 0ms, prepare 156ms)
+
+
+{"sourceSha":"1baf982520248d15731950d5bda48a6e93bba5ea","testedDiffSha256":"9dc514787545798ecfb0d8c6e4525a2e33916e646b0f0ec1e02410f410f82d06","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14b4-ready-owner-replay.test.ts","-t","exact long unknown-director refusal"],"node":"v20.20.2","start":"2026-09-20T12:20:22.789Z","end":"2026-09-20T12:20:29.433Z","exitCode":0,"signal":null,"error":null,"sourceShaAtEnd":"1baf982520248d15731950d5bda48a6e93bba5ea","testedDiffSha256AtEnd":"9dc514787545798ecfb0d8c6e4525a2e33916e646b0f0ec1e02410f410f82d06","untrackedSourceAtEnd":[],"fixedSource":true}

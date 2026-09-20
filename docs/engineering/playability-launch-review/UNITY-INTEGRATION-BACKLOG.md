@@ -23,17 +23,18 @@ verified in Unity. Generated C# produced by the TypeScript generator is text, no
 
 ### P14B.4 — cast-class promises (implementation active; no native verification)
 
-Headless checkpoint477 (2026-09-20), based on published/exactremote
-`0bbf2843e8fc4e658a22e1d140fe8bb1c609983f`, adds paid canonical-output copying.
-Detached Ready first-take replay now returns COMPLETE; actual projection,
-chronology, wrap and all ten additional holds pass their unchanged assertions.
-The combined kernel still exhausts the shared budget during initial scanning.
-Stale-release replay remains cut before the Post3 owner; no whole-route claim.
-Fresh468–475:252focusedPASS, two original longReady tests still FAIL;
-root/UI typesPASS, sole old futureP2 bridge-type error.476probes removed and
-exact source restored.477publication/exactremote receipt follows in478.
+Headless checkpoint501 (2026-09-20), based on published/exactremote
+`1baf982520248d15731950d5bda48a6e93bba5ea`, separates talent-key and diagnostic
+widths without changing owner/comparison tariffs. Original Ready first-take
+test NOW passes completely, including the unchanged shared-budget kernel's
+UNCERTIFIED/domainIncomplete outcome. Producer uses190818, saving5650 measured
+units; actual projection/chronology/wrap/ten holds/purity remain green.
+Fresh494–499:254focusedPASS, sole original stale-release test still FAILS;
+root/UI typesPASS, sole old futureP2 bridge-type error. Stale now advances through
+Post3 but cuts at week8 before Post exit.500probes removed; exact492 tested
+source restored.501publication/exactremote receipt follows in502.
 Genuine rehearsal/unassigned Shooting/no-Set and started Post controls remain
-green. Full Ready/shared-budget/live feasibility integration remains OPEN.
+green. Full Ready/stale-release/live feasibility integration remains OPEN.
 
 These are private logic/work-accounting changes only. No consumer field/action,
 protocol4, projection46, live Save29, evaluator3, schema or generated C# changed.

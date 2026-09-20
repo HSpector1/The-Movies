@@ -1,0 +1,41 @@
+diff --git a/src/core/promiseCapacityOwnerReplay.ts b/src/core/promiseCapacityOwnerReplay.ts
+index f591d7e..b100a44 100644
+--- a/src/core/promiseCapacityOwnerReplay.ts
++++ b/src/core/promiseCapacityOwnerReplay.ts
+@@ -2390,6 +2390,10 @@ function admitReady(source: GameState, input: ReplayInput<ReadyPicture>, prepare
+   }
+   work.pay(16)
+   const assignments = 5 + choice.craftIds.length
++  // TEMPORARY 487: passive, UNMETERED observation; no production width change.
++  console.log('B4_WIDTH_487', JSON.stringify({ phase: 'package', plan: plan.traceKey,
++    used: work.used, idWidth, assignments, contractCount: source.contracts.length,
++    seatKeyLengths: seatIds.map(id => id.length), craftKeyLengths: choice.craftIds.map(id => id.length) }))
+   // Fixed diagnostic orders and full resulting reference arrays/role rows.
+   work.pay(work.calc(64).plus(staffingBill, 320, idWidth * 4, LITERAL.staffingChoice, 4,
+     work.calc(32).times(assignments, work.calc(64).plus(LITERAL.roleAssignment, 40,
+@@ -2430,6 +2434,12 @@ function admitReady(source: GameState, input: ReplayInput<ReadyPicture>, prepare
+     for (const row of source.contracts) {
+       work.pay(3); work.text(row.talentId); contractWidth = Math.max(contractWidth, row.talentId.length)
+     }
++    // TEMPORARY 487: original package/busy/contract maxima after their paid loops.
++    console.log('B4_WIDTH_487', JSON.stringify({ phase: 'contracts', plan: plan.traceKey,
++      used: work.used, idWidth, contractWidth, assignments, engagedCount: staffing.engagedIds.length,
++      engagedKeyLengths: staffing.engagedIds.map(id => id.length), contractCount: source.contracts.length,
++      contractKeyLengths: source.contracts.map(row => row.talentId.length),
++      busyRowCount: busyRows.length, busySize: busy.size, busyKeyLengths: busyRows.map(id => id.length) }))
+     for (const person of staffing.engagedIds) {
+       work.pay(4)
+       work.pay(work.calc(64).plus(8, work.calc(32).times(source.contracts.length,
+@@ -2441,6 +2451,12 @@ function admitReady(source: GameState, input: ReplayInput<ReadyPicture>, prepare
+     let market: readonly string[] = []
+     if (!allContracted) { work.calc(8).pay(freelancerBill(source, work)); market = freelancerMarketIds(source) }
+     for (const id of market) { work.pay(3); work.text(id); contractWidth = Math.max(contractWidth, id.length) }
++    // TEMPORARY 487: after the original market branch and paid widening loop.
++    console.log('B4_WIDTH_487', JSON.stringify({ phase: 'market', plan: plan.traceKey,
++      used: work.used, idWidth, contractWidth, assignments, engagedCount: staffing.engagedIds.length,
++      contractCount: source.contracts.length, contractedSize: contracted.size, allContracted,
++      busyRowCount: busyRows.length, busySize: busy.size,
++      marketSize: market.length, marketKeyLengths: market.map(id => id.length) }))
+     work.pay(work.calc(64).plus(3, work.calc(32).times(market.length, work.calc(8).keyBill(market.length, contractWidth))))
+     const freelancerIds = new Set(market)
+     work.pay(work.calc(64).plus(LITERAL.employmentFacts, 180, idWidth, 4,

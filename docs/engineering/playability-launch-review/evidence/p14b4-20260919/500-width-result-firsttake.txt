@@ -1,0 +1,48 @@
+{"sourceSha":"1baf982520248d15731950d5bda48a6e93bba5ea","testedDiffSha256":"aaa6966b59172919cf4ea38f84911867ce082f2958097dc86552cf373e449469","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14b4-ready-replay-first-take.test.ts"],"node":"v20.20.2","start":"2026-09-20T12:35:54.470Z","end":null,"exitCode":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+stdout | tests/p14b4-ready-replay-first-take.test.ts > P14B4 Ready replay — genuine first completed take > executes real Ready-target director/schedule commands, retains the take inside a half-open horizon and matches actual wrap/holds within the shared cap
+B4_RESULT_500 {"phase":"dimensionsEntry","used":44084,"remaining":[8]}
+B4_RESULT_500 {"phase":"dimensionsDone","used":47638}
+B4_RESULT_500 {"phase":"frameEntry","week":1,"used":65795,"remaining":[8]}
+B4_RESULT_500 {"phase":"dimensionsEntry","used":65968,"remaining":[8]}
+B4_RESULT_500 {"phase":"dimensionsDone","used":67908}
+B4_RESULT_500 {"phase":"sweepBillDone","week":1,"used":70353,"bill":315,"remaining":[8],"dimensions":{"n":1,"f":5,"capacity":8,"sets":2,"external":0,"d":28,"dp":9,"pCopy":101,"workflowCopy":98,"taskCopy":66,"bindingsCopy":95,"operationsCopy":33,"setCopy":137,"setupCopy":0,"technologyCopy":132,"technologyRowCopy":62,"t":0,"adoptions":0,"access":0,"equipment":0,"placements":0,"structures":8,"provides":5,"cells":0,"genreRows":1,"genreId":9,"allSilent":true}}
+B4_RESULT_500 {"phase":"frameEntry","week":2,"used":71812,"remaining":[8]}
+B4_RESULT_500 {"phase":"dimensionsEntry","used":71985,"remaining":[8]}
+B4_RESULT_500 {"phase":"dimensionsDone","used":73055}
+B4_RESULT_500 {"phase":"sweepBillDone","week":2,"used":78701,"bill":11193,"remaining":[8],"dimensions":{"n":1,"f":5,"capacity":8,"sets":2,"external":0,"d":28,"dp":9,"pCopy":101,"workflowCopy":98,"taskCopy":66,"bindingsCopy":95,"operationsCopy":33,"setCopy":137,"setupCopy":0,"technologyCopy":132,"technologyRowCopy":62,"t":0,"adoptions":0,"access":0,"equipment":0,"placements":0,"structures":8,"provides":5,"cells":0,"genreRows":1,"genreId":9,"allSilent":true}}
+B4_RESULT_500 {"phase":"frameEntry","week":3,"used":91202,"remaining":[7]}
+B4_RESULT_500 {"phase":"dimensionsEntry","used":91375,"remaining":[7]}
+B4_RESULT_500 {"phase":"dimensionsDone","used":93776}
+B4_RESULT_500 {"phase":"sweepBillDone","week":3,"used":100177,"bill":9587,"remaining":[7],"dimensions":{"n":1,"f":5,"capacity":8,"sets":2,"external":0,"d":28,"dp":9,"pCopy":101,"workflowCopy":98,"taskCopy":66,"bindingsCopy":95,"operationsCopy":33,"setCopy":137,"setupCopy":0,"technologyCopy":132,"technologyRowCopy":62,"t":0,"adoptions":0,"access":0,"equipment":0,"placements":0,"structures":8,"provides":5,"cells":0,"genreRows":1,"genreId":9,"allSilent":true}}
+B4_RESULT_500 {"phase":"frameEntry","week":4,"used":116140,"remaining":[6]}
+B4_RESULT_500 {"phase":"dimensionsEntry","used":116313,"remaining":[6]}
+B4_RESULT_500 {"phase":"dimensionsDone","used":118874}
+B4_RESULT_500 {"phase":"sweepBillDone","week":4,"used":124164,"bill":8905,"remaining":[6],"dimensions":{"n":1,"f":5,"capacity":8,"sets":2,"external":0,"d":28,"dp":9,"pCopy":101,"workflowCopy":98,"taskCopy":66,"bindingsCopy":95,"operationsCopy":33,"setCopy":137,"setupCopy":0,"technologyCopy":132,"technologyRowCopy":62,"t":0,"adoptions":0,"access":0,"equipment":0,"placements":0,"structures":8,"provides":5,"cells":0,"genreRows":1,"genreId":9,"allSilent":true}}
+B4_RESULT_500 {"phase":"dimensionsEntry","used":137904,"remaining":[5]}
+B4_RESULT_500 {"phase":"dimensionsDone","used":142446}
+B4_RESULT_500 {"phase":"dimensionsEntry","used":146852,"remaining":[5]}
+B4_RESULT_500 {"phase":"dimensionsDone","used":150028}
+B4_RESULT_500 {"phase":"frameEntry","week":5,"used":151273,"remaining":[5]}
+B4_RESULT_500 {"phase":"dimensionsEntry","used":151446,"remaining":[5]}
+B4_RESULT_500 {"phase":"dimensionsDone","used":154680}
+B4_RESULT_500 {"phase":"sweepBillDone","week":5,"used":157408,"bill":850,"remaining":[5],"dimensions":{"n":1,"f":5,"capacity":8,"sets":2,"external":0,"d":28,"dp":9,"pCopy":101,"workflowCopy":98,"taskCopy":66,"bindingsCopy":95,"operationsCopy":33,"setCopy":137,"setupCopy":0,"technologyCopy":132,"technologyRowCopy":62,"t":1,"adoptions":0,"access":0,"equipment":0,"placements":0,"structures":8,"provides":5,"cells":0,"genreRows":1,"genreId":9,"allSilent":true}}
+B4_RESULT_500 {"phase":"frameEntry","week":6,"used":160625,"remaining":[4]}
+B4_RESULT_500 {"phase":"dimensionsEntry","used":160798,"remaining":[4]}
+B4_RESULT_500 {"phase":"dimensionsDone","used":164477}
+B4_RESULT_500 {"phase":"sweepBillDone","week":6,"used":171256,"bill":7948,"remaining":[4],"dimensions":{"n":1,"f":5,"capacity":8,"sets":2,"external":0,"d":28,"dp":9,"pCopy":101,"workflowCopy":98,"taskCopy":66,"bindingsCopy":95,"operationsCopy":33,"setCopy":137,"setupCopy":0,"technologyCopy":132,"technologyRowCopy":62,"t":1,"adoptions":0,"access":0,"equipment":0,"placements":0,"structures":8,"provides":5,"cells":0,"genreRows":1,"genreId":9,"allSilent":true}}
+B4_RESULT_500 {"phase":"result","used":190818,"attempts":[{"kind":"complete"}]}
+
+ ✓ |core| tests/p14b4-ready-replay-first-take.test.ts (1 test) 1600ms
+   ✓ P14B4 Ready replay — genuine first completed take > executes real Ready-target director/schedule commands, retains the take inside a half-open horizon and matches actual wrap/holds within the shared cap 1598ms
+
+ Test Files  1 passed (1)
+      Tests  1 passed (1)
+   Start at  14:35:55
+   Duration  5.68s (transform 2.60s, setup 0ms, collect 3.37s, tests 1.60s, environment 0ms, prepare 175ms)
+
+
+{"sourceSha":"1baf982520248d15731950d5bda48a6e93bba5ea","testedDiffSha256":"aaa6966b59172919cf4ea38f84911867ce082f2958097dc86552cf373e449469","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14b4-ready-replay-first-take.test.ts"],"node":"v20.20.2","start":"2026-09-20T12:35:54.470Z","end":"2026-09-20T12:36:01.442Z","exitCode":0,"signal":null,"error":null,"sourceShaAtEnd":"1baf982520248d15731950d5bda48a6e93bba5ea","testedDiffSha256AtEnd":"aaa6966b59172919cf4ea38f84911867ce082f2958097dc86552cf373e449469","untrackedSourceAtEnd":[],"fixedSource":true}
