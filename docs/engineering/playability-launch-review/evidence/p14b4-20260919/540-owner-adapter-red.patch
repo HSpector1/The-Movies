@@ -1,0 +1,787 @@
+diff --git a/tests/p14b4-owner-adapter-first-slice.test.ts b/tests/p14b4-owner-adapter-first-slice.test.ts
+new file mode 100644
+index 0000000..e430c9e
+--- /dev/null
++++ b/tests/p14b4-owner-adapter-first-slice.test.ts
+@@ -0,0 +1,781 @@
++// P14B.4 record 540-T (T1): requirement-based RED for the detached owner-adapter
++// FIRST slice adopted in record 539 (§1 adopted law, §3 RED brief, 539-A §3 RED
++// 1-15, 539-B Q8 refinements 1-5 and additions (i)-(v)).
++// THE MODULE UNDER TEST `src/core/promiseCapacityOwners.ts` DOES NOT EXIST at
++// HEAD 3c870039 (source identical to 69d16f8): this file is RED because the
++// import below cannot resolve. Once a module lands, the FIRST case reports every
++// missing export BY NAME (vite binds a missing named export of an EXISTING module
++// to `undefined`; the typeof pin turns that into a named failure, never a
++// spurious pass). Every later case actually calls the functions.
++// Law pinned: 539 §1 — digest EXCLUDES preparationWork; CURRENT members and
++// foreign debits `remaining = count`, bound LOCAL members `count − qualifyingTakes`;
++// malformed target → named throw; rival issuer → incomplete + named omission, never
++// a throw; horizon guard → named throw; UNCERTIFIED → FRAGILE with EXACTLY the plan
++// :125-126 string; CERTIFIED/ALREADY_MET → REASONABLY_ACHIEVABLE with null.
++// NOT pinned: rulesVersion, Save30, PROVEN_* under assumed coverage, or
++// REASONABLY_ACHIEVABLE for the 40-week baseline on `opened` (538 facts 1-2).
++// In-memory tagged variants only: the strict V29 writer refuses `predicate.kind`,
++// so no tagged state ever passes through `live()`/`makeSave` (23, 537-B G4).
++// Copied construction (verbatim where possible; source file:lines named inline):
++//   world()          538 patch form of tests/p14b4-cast-class-capacity.test.ts:38-188
++//   started source   tests/p14b4-started-owner-replay.test.ts:112-119
++//   kernel fixtures  tests/p14b4-capacity-kernel.test.ts:12-52, 194-197, 209, 245-250, 292-299, 414-416, 458-460, 465-470
++//   hand assembly    tests/p14b4-ready-replay-first-take.test.ts:314-321
++//   cash/RNG shapes  tests/p14b4-cast-class-capacity.test.ts:338-340
++import assert from 'node:assert/strict'
++import { describe, expect, it } from 'vitest'
++import { applyActions, hiringMarketIds, tick } from '../src/core/index.js'
++import * as ownersModule from '../src/core/promiseCapacityOwners.js'
++import {
++  NO_ENUMERATOR_OMISSION, UNCERTIFIED_BOTTLENECK, assembleCapacityInput, capacityInputsDigest,
++  classifyDetachedOffer, collectPromiseClaims, mapCapacityResult,
++  type CapacityLimits, type ClaimSource, type CollectedClaims, type DetachedOfferClassification, type ProducerResult,
++} from '../src/core/promiseCapacityOwners.js'
++import { attachPromise, promiseCastSlots, qualifyingTakes, type PromiseDraft } from '../src/core/promises.js'
++import { searchPromiseCapacity, type Boundary, type CapacityKernelInput, type CapacityKernelResult, type Hold,
++  type JointTraceCapacityInput, type PictureAlternative, type PriorClaim, type Slot } from '../src/core/promiseCapacityKernel.js'
++import { replayReadyProductionPlans, replayStartedProductionPlans, type ReadyOwnerReplayInput,
++  type StartedOwnerReplayInput, type StartedOwnerReplayResult, type StartedOwnerSource } from '../src/core/promiseCapacityOwnerReplay.js'
++import { makeSave } from '../src/core/save.js'
++import { currentProposals, submitProposal, withdrawProposal } from '../src/core/talentMarket.js'
++import { TUNING } from '../src/core/tuning.js'
++import type { CastSlot, GameState, ProfessionalPromise, Production } from '../src/core/types.js'
++import { advanceTo, fund, p13aGeneratedStudio, player } from './helpers/p14b2-fixtures.js'
++
++const SLOTS = ['lead', 'antagonist', 'support'] as const
++const ANY = ['lead', 'antagonist', 'support'] as const
++const FLEX = ['lead', 'antagonist'] as const
++const LEAD = ['lead'] as const
++const PLAN_UNCERTIFIED = 'bounded capacity analysis could not certify this schedule' // plan :125-126, exact
++const RIVAL_OMISSION = 'claims are collected for the player studio only; rival policy is not replayed' // 539-A 1.1, KEEP 539-B Q7
++const LIMITS: CapacityLimits = { claims: 32, units: 64, alternatives: 1024, work: 200000, span: 220 }
++const PRODUCER_LIMITS = { work: 200000, span: 220, alternatives: 1024 }
++const TRACE_KEY = '540-started-shooting-5'
++/** A producer RESULT with nothing in it: the adapter consumes results, it never runs a producer (539 §1). */
++const EMPTY_PRODUCER: ProducerResult = { fixedHolds: [], attempts: [], preparationWork: 0, omissions: [] }
++const p1 = (count = 1) => ({ family: 'APPEARANCE_COUNT' as const, predicate: { count } })
++const p2 = (seatClass: 'lead' | 'leadOrAntagonist', count = 1) => ({
++  family: 'LEAD_OR_SIGNIFICANT_ROLE_COUNT' as const, predicate: { kind: 'castRoleCount' as const, count, seatClass } })
++const legacyP2 = { family: 'LEAD_OR_SIGNIFICANT_ROLE_COUNT', predicate: { count: 1 } } as const
++type Material = ReturnType<typeof p1> | ReturnType<typeof p2> | typeof legacyP2
++type Patch = Partial<Material> & Partial<Pick<ProfessionalPromise, 'windowStartWeek' | 'dueWeekExclusive'>>
++const clone = <T>(value: T): T => structuredClone(value)
++const byId = <T extends { promiseId: string }>(rows: readonly T[]): T[] =>
++  [...rows].sort((a, b) => a.promiseId < b.promiseId ? -1 : a.promiseId > b.promiseId ? 1 : 0)
++
++// ── world(): 538 patch copy of capacity test 38-188, extended with director/craft/start ──
++type World = { opened: GameState; ready: GameState; actors: Record<CastSlot, string>; ids: Record<CastSlot, string>
++  productionId: string; projects: readonly string[]; directorId: string; craftId: string; start: number }
++const live = (state: GameState): GameState => makeSave(state).state
++function root(state: GameState, id: string): ProfessionalPromise {
++  const rows = state.promises.filter((p) => p.promiseId === id)
++  expect(rows).toHaveLength(1)
++  return rows[0]!
++}
++function currentRoot(state: GameState, personId: string): ProfessionalPromise {
++  const proposal = currentProposals(state, personId).find((p) => p.issuerStudioId === player(state))
++  assert.ok(proposal)
++  expect(proposal.promises).toHaveLength(1)
++  return root(state, proposal.promises[0]!)
++}
++function sign(state: GameState, role: 'actor' | 'writer' | 'director' | 'craft', termWeeks: number) {
++  for (let steps = 0; steps < 60; steps++) {
++    const person = hiringMarketIds(state, state.market.tick).map((id) => state.talent.find((p) => p.id === id))
++      .find((p) => p?.role === role)
++    if (person !== undefined) return { state: applyActions(state, [{ kind: 'signContract', talentId: person.id, termWeeks }]), id: person.id }
++    state = tick(state)
++  }
++  throw new Error('UNEXECUTED fixture: no lawful hireable ' + role + ' within60 ticks')
++}
++function readyScript(state: GameState, writerId: string, conceptId: string) {
++  const concept = state.concepts.find((c) => c.id === conceptId)!
++  const oldIds = new Set(state.scriptDevelopment.projects.map((p) => p.id))
++  state = applyActions(state, [{ kind: 'commissionScript', project: {
++    conceptId, writerId, shape: { opening: 'slowSetup', midpoint: 'revelation', ending: 'bittersweet' },
++    promise: { genre: concept.genre, intendedSegments: ['adult'], ranges: {
++      intimacy: [-0.5, 0.5], tonalWeight: [-0.5, 0.5], kineticEnergy: [-0.5, 0.5] } },
++  } }])
++  const minted = state.scriptDevelopment.projects.filter((p) => !oldIds.has(p.id))
++  expect(minted).toHaveLength(1)
++  const projectId = minted[0]!.id
++  for (let steps = 0; state.scriptDevelopment.projects.find((p) => p.id === projectId)!.status !== 'review'; steps++) {
++    if (steps >= 20) throw new Error('UNEXECUTED fixture: actual screenplay never reached Review within20 ticks')
++    state = tick(state)
++  }
++  state = applyActions(state, [{ kind: 'acceptScript', projectId }])
++  expect(state.scriptDevelopment.projects.find((p) => p.id === projectId)).toMatchObject({ status: 'ready', productionId: null })
++  return { state, projectId }
++}
++let cached: World | undefined
++function world(): World {
++  if (cached !== undefined) return structuredClone(cached)
++  let state = fund(p13aGeneratedStudio())
++  const lead = sign(state, 'actor', 52); state = lead.state
++  const antagonist = sign(state, 'actor', 52); state = antagonist.state
++  const support = sign(state, 'actor', 52); state = support.state
++  const writer = sign(state, 'writer', 208); state = writer.state
++  const director = sign(state, 'director', 208); state = director.state
++  const craft = sign(state, 'craft', 208); state = craft.state
++  const actors = { lead: lead.id, antagonist: antagonist.id, support: support.id }
++  const starts = Object.values(actors).map((id) => state.contracts.find((c) => c.talentId === id)!.endWeekExclusive)
++  expect(new Set(starts).size).toBe(1)
++  const start = starts[0]!
++  expect(state.studio.activeProductions).toEqual([])
++  expect(state.operations.mode).toBe('managed')
++  if (state.scriptDevelopment.mode === 'legacy') state = applyActions(state, [{ kind: 'activateScriptDevelopment' }])
++  expect(state.scriptDevelopment.projects).toEqual([])
++  const concepts = state.concepts.slice(0, 2)
++  const first = readyScript(state, writer.id, concepts[0]!.id); state = first.state
++  const second = readyScript(state, writer.id, concepts[1]!.id); state = second.state
++  const stage = 'facility-soundstage-07'
++  const mounted = state.sets.find((s) => s.mountedOn === stage && s.status !== 'retired')
++  if (mounted !== undefined) state = applyActions(state, [{ kind: 'strikeSet', setId: mounted.id }])
++  state = applyActions(state, [{ kind: 'commissionSet', commission: { blueprintId: 'set-grand-ballroom', stageFacilityId: stage } }])
++  state = advanceTo(state, state.market.tick + TUNING.SET_BUILD_WEEKS_BAND_HIGH)
++  expect(state.market.tick).toBeLessThanOrEqual(start - 7)
++  state = advanceTo(state, start - 7)
++  for (const id of Object.values(actors)) {
++    state = submitProposal(state, { talentId: id, issuerStudioId: player(state), termWeeks: 52, premiumTier: 1.25 })
++  }
++  const opened = structuredClone(state)
++  const ids: Record<CastSlot, string> = { lead: '', antagonist: '', support: '' }
++  for (const slot of SLOTS) {
++    state = attachPromise(state, actors[slot], player(state), { ...p1(), windowStartWeek: start, dueWeekExclusive: start + 52 })
++    const promised = currentRoot(state, actors[slot])
++    expect(promised.feasibilityReceipt.classification).toBe('REASONABLY_ACHIEVABLE')
++    ids[slot] = promised.promiseId
++  }
++  state = advanceTo(state, start)
++  for (const slot of SLOTS) {
++    const promised = root(state, ids[slot])
++    expect(promised).toMatchObject({ outcome: null, progress: 0, evidenceRefs: [] })
++    assert.notEqual(promised.contractId, null)
++    expect(currentProposals(state, actors[slot])).toEqual([])
++  }
++  state = applyActions(state, [{ kind: 'greenlightScriptProject', production: {
++    projectId: first.projectId, directorId: director.id, craftIds: [craft.id], cast: actors,
++    budget: { negative: concepts[0]!.baseNegativeCost, marketing: 0 },
++  } }])
++  const film = state.studio.activeProductions.at(-1)
++  assert.ok(film, 'UNEXECUTED fixture: greenlight was not actually admitted')
++  state = tick(tick(tick(state)))
++  const rehearsal = state.operations.workflows.find((w) => w.productionId === film.id)
++  assert.ok(rehearsal)
++  expect(rehearsal.phase).toBe('rehearsal')
++  state = applyActions(state, [{ kind: 'setProductionSetupRecipe', productionId: film.id,
++    recipeId: 'ballroom-reveal-lighting-01', expectedPlanRevision: rehearsal.planRevision }])
++  for (let steps = 0; state.studio.activeProductions.find((p) => p.id === film.id)!.remainingTicks !== 5; steps++) {
++    if (steps >= 40) throw new Error('UNEXECUTED fixture: actual managed film never reached first Shooting week within40 ticks')
++    state = tick(state)
++  }
++  state = applyActions(state, [{ kind: 'assignShootingDirector', productionId: film.id, directorId: director.id }])
++  for (let steps = 0; state.operations.workflows.find((w) => w.productionId === film.id)!.shootingTask?.status !== 'ready'; steps++) {
++    if (steps >= 6) throw new Error('UNEXECUTED fixture: physical scenery did not arrive within6 actual ticks; no manual bypass')
++    state = tick(state)
++  }
++  state = applyActions(state, [{ kind: 'scheduleShootingTake', productionId: film.id }])
++  expect(state.operations.workflows.find((w) => w.productionId === film.id)).toMatchObject({
++    phase: 'shooting', blocker: null, shootingTask: { status: 'scheduled' } })
++  expect(state.firstTakes.filter((t) => t.productionId === film.id)).toEqual([])
++  cached = { opened: live(opened), ready: live(state), actors, ids, productionId: film.id,
++    projects: [first.projectId, second.projectId], directorId: director.id, craftId: craft.id, start }
++  return structuredClone(cached)
++}
++
++// ── drafts, in-memory variants, expected claims, the Started producer ─────────
++/** A draft naming an existing root with the root's REAL window (capacity test shortDraft :226-232 shape). */
++function rootDraft(state: GameState, id: string): PromiseDraft {
++  const promised = root(state, id)
++  return { family: promised.family, predicate: promised.predicate, issuerStudioId: promised.issuerStudioId,
++    beneficiaryPersonId: promised.beneficiaryPersonId, promiseId: promised.promiseId,
++    startWeek: promised.windowStartWeek, termWeeks: promised.dueWeekExclusive - promised.windowStartWeek,
++    windowStartWeek: promised.windowStartWeek, dueWeekExclusive: promised.dueWeekExclusive }
++}
++const unbound = (draft: PromiseDraft): PromiseDraft => { const { promiseId: _self, ...rest } = draft; return rest }
++/** capacity test offerDraft :189-195 with P1 material: a fresh unbound offer on the person's open proposal. */
++function offer(state: GameState, personId: string): PromiseDraft {
++  const proposal = currentProposals(state, personId).find((p) => p.issuerStudioId === player(state))
++  assert.ok(proposal)
++  return { ...p1(), issuerStudioId: player(state), beneficiaryPersonId: personId, startWeek: proposal.startWeek,
++    termWeeks: proposal.termWeeks, windowStartWeek: proposal.startWeek, dueWeekExclusive: proposal.startWeek + 40 }
++}
++/** LABELED in-memory variant (capacity test shortVariants :205-225 WITHOUT live()): only material and
++ * window on the three ACTUAL bound OPEN roots of w.ready change; nothing is minted or admitted. */
++function variants(w: World, patches: Partial<Record<CastSlot, Patch>>): GameState {
++  const changes = new Map<string, Patch>(SLOTS.flatMap((slot) => patches[slot] === undefined ? [] : [[w.ids[slot], patches[slot]!]]))
++  return { ...clone(w.ready), promises: w.ready.promises.map((p) => {
++    const chosen = changes.get(p.promiseId)
++    return chosen === undefined ? clone(p) : { ...clone(p), ...chosen }
++  }) }
++}
++function twoWeek(w: World, material: Record<CastSlot, Material>): GameState {
++  const now = w.ready.market.tick
++  return variants(w, { lead: { ...material.lead, windowStartWeek: now, dueWeekExclusive: now + 2 },
++    antagonist: { ...material.antagonist, windowStartWeek: now, dueWeekExclusive: now + 2 },
++    support: { ...material.support, windowStartWeek: now, dueWeekExclusive: now + 2 } })
++}
++function priorOf(w: World, state: GameState, slot: CastSlot, mask: PriorClaim['mask'], remaining = 1): PriorClaim {
++  const r = root(state, w.ids[slot])
++  return { promiseId: r.promiseId, issuerId: r.issuerStudioId, personId: r.beneficiaryPersonId,
++    membership: r.contractId === null ? 'current' : 'bound', mask,
++    window: { startWeek: r.windowStartWeek, dueWeekExclusive: r.dueWeekExclusive }, remaining }
++}
++/** The collection tariff this file fixes: 539 §1 `work = 1 + P + A + M×T` where P = promises rows, A = attached ids over
++ * all proposals, T = firstTakes rows and M = the members whose takes are scanned, which under refinement 3 are the LOCAL
++ * bound members only (bound prior claims plus the target when bound); current members and foreign debits read `count`. */
++function expectedWork(state: ClaimSource, claims: CollectedClaims): number {
++  const P = state.promises.length
++  const A = state.talentMarket.proposals.reduce((n, p) => n + p.promises.length, 0)
++  const M = claims.priorClaims.filter((c) => c.membership === 'bound').length + (claims.target.state === 'bound' ? 1 : 0)
++  return 1 + P + A + M * state.firstTakes.length
++}
++// started test :112-119, verbatim
++function startedSource(state: GameState): StartedOwnerSource<Production> {
++  return { technology: state.technology, market: { tick: state.market.tick },
++    placement: state.placement, property: state.property, hollywood: state.hollywood,
++    operations: state.operations, sets: state.sets, releaseAuthority: state.releaseAuthority,
++    scriptDevelopment: state.scriptDevelopment, castingSessions: state.castingSessions,
++    construction: state.construction, physicalPlans: state.physicalPlans,
++    productionQueue: state.productionQueue, founding: state.founding, firstTakes: state.firstTakes,
++    concepts: state.concepts, studio: { activeProductions: state.studio.activeProductions } }
++}
++/** The one explicit plan the Started producer accepts on w.ready: the take is already scheduled, so the
++ * command list is empty (started test :198-205; 538 scenario 1). */
++function startedRun(state: GameState, claimPersonIds: readonly string[], horizonEndWeek: number,
++  issuerId = player(state)): StartedOwnerReplayResult<Production> {
++  const input: StartedOwnerReplayInput<Production> = { source: startedSource(state), issuerId, claimPersonIds,
++    plans: [{ traceKey: TRACE_KEY, commands: [] }], horizonEndWeek, preparationWork: 0, limits: PRODUCER_LIMITS }
++  return replayStartedProductionPlans(input)
++}
++let startedCache: StartedOwnerReplayResult<Production> | undefined
++/** ONE Started run on w.ready to now+2. The producer's source (started test :112-119) carries no `promises`, cash,
++ * ledger or rngState, so this result is the producer's answer for every in-memory root variant of w.ready. */
++function started(w: World): StartedOwnerReplayResult<Production> {
++  if (startedCache === undefined) {
++    const claims = collectPromiseClaims(w.ready, rootDraft(w.ready, w.ids.lead))
++    const result = startedRun(w.ready, claims.claimPersonIds, w.ready.market.tick + 2)
++    expect(result.attempts.map((a) => a.kind)).toEqual(['complete'])
++    expect(result.omissions).toEqual([])
++    expect(result.preparationWork).toBeLessThanOrEqual(200000)
++    startedCache = result
++  }
++  return startedCache
++}
++
++// ── detached finite kernel fixtures: kernel test :12-52, 194-197 (copied, not imported) ──
++const b = (week: number, step = 0): Boundary => ({ week, step })
++const window = (startWeek = 0, dueWeekExclusive = 40) => ({ startWeek, dueWeekExclusive })
++const slots: readonly Slot[] = ANY
++function picture(name: string, take: Boundary | null, cast: Record<Slot, string>, options: {
++  path?: string; existing?: boolean; start?: Boundary; release?: Boundary; holds?: readonly Hold[]
++  replacements?: PictureAlternative['holdReplacements']
++} = {}): PictureAlternative {
++  const start = options.start ?? b(take === null ? 0 : Math.max(0, take.week - 1))
++  const release = options.release ?? b(take === null ? 1 : take.week + 1)
++  const pathKey = options.path ?? name
++  return { key: name, pathKey, issuerId: 'local', existingPath: options.existing ?? true,
++    greenlight: start, firstTake: take, personRelease: release, cast,
++    staffingWitnessKey: `detached-fixture-staffing:${name}`, ownerFactRefs: [`detached-finite-domain:${name}`],
++    additionalHolds: options.holds ?? slots.map((slot) => ({ holdId: `${name}:person:${slot}`, ownerKey: name,
++      ownerPathKey: pathKey, subject: { kind: 'person' as const, personId: cast[slot] }, from: start, until: release })),
++    holdReplacements: options.replacements ?? [] }
++}
++function prior(promiseId: string, personId: string, mask: PriorClaim['mask'] = ANY,
++  remaining = 1, start = 0, due = 40): PriorClaim {
++  return { promiseId, issuerId: 'local', personId, membership: 'current', mask, window: window(start, due), remaining }
++}
++function input(alternatives: readonly PictureAlternative[] = [], overrides: Partial<CapacityKernelInput> = {}): CapacityKernelInput {
++  return { now: b(0), horizonEndWeek: 40, issuerId: 'local', target: { promiseId: null, personId: 'T', mask: ANY,
++    window: window(), state: 'unbound', count: 1, actualQualifiedCount: 0 }, priorClaims: [], foreignDebits: [],
++    alternatives, fixedHolds: [], coverage: { claimsAndHolds: 'complete', existingAlternatives: 'complete',
++      allAlternatives: 'complete', omissions: [] }, preparationWork: 0,
++    limits: { claims: 32, units: 64, alternatives: 1024, work: 200000, span: 220 }, ...overrides }
++}
++const target = (source: CapacityKernelInput, patch: Partial<CapacityKernelInput['target']>): CapacityKernelInput =>
++  ({ ...source, target: { ...source.target, ...patch } })
++function shared() {
++  return input([picture('P', b(10), { lead: 'A', antagonist: 'B', support: 'T' }, { start: b(5), release: b(14) }),
++    picture('Q', b(24), { lead: 'q1', antagonist: 'q2', support: 'T' }, { existing: false, start: b(20), release: b(28) })],
++  { priorClaims: [prior('a', 'A', LEAD), prior('b', 'B', FLEX)] })
++}
++/** The five statuses, each from the kernel test's own detached fixture (its status is proven GREEN there). */
++function kernelResults() {
++  const base = shared()
++  const results = {
++    certified: searchPromiseCapacity(shared()), // :202
++    probeFailed: searchPromiseCapacity({ ...base, alternatives: base.alternatives.slice(0, 1) }), // :206
++    protection: searchPromiseCapacity(target(input([ // :245-250
++      picture('P-A', b(10), { lead: 'A', antagonist: 'U', support: 'V' }, { path: 'P' }),
++      picture('P-T', b(10), { lead: 'T', antagonist: 'U', support: 'V' }, { path: 'P' }),
++      picture('R-A', b(18), { lead: 'A', antagonist: 'R1', support: 'R2' }),
++    ], { priorClaims: [prior('A', 'A', LEAD)] }), { mask: LEAD, window: window(0, 20) })),
++    impossible: searchPromiseCapacity(target(input([picture('P', b(10), { lead: 'A', antagonist: 'B', support: 'T' })]), { mask: LEAD })), // :209
++    met: searchPromiseCapacity(target(input([picture('P', b(10), { lead: 'T', antagonist: 'A', support: 'B' }), // :292-299
++      picture('Q', b(24), { lead: 'T', antagonist: 'C', support: 'D' }, { existing: false })]),
++    { promiseId: 'bound-T', state: 'bound', count: 4, actualQualifiedCount: 4 })),
++    domainIncomplete: searchPromiseCapacity({ ...base, coverage: { ...base.coverage, claimsAndHolds: 'incomplete', // :414-416
++      allAlternatives: 'incomplete', omissions: ['relevant domain omitted'] } }),
++    sizeLimit: searchPromiseCapacity({ ...base, limits: { ...base.limits, claims: 2 } }), // :458-460
++    workLimit: searchPromiseCapacity({ ...base, limits: { ...base.limits, work: 1 } }), // :465-470
++  }
++  expect(results.certified.status).toBe('CERTIFIED_ACHIEVABLE')
++  expect(results.probeFailed).toMatchObject({ status: 'PROVEN_FRAGILE', reason: 'achievableProbeFailed' })
++  expect(results.protection).toMatchObject({ status: 'PROVEN_FRAGILE', reason: 'priorPathProtection' })
++  expect(results.impossible).toMatchObject({ status: 'PROVEN_IMPOSSIBLE', scope: 'jointOfferOnly' })
++  expect(results.met).toMatchObject({ status: 'ALREADY_MET', remaining: 0 })
++  expect(results.domainIncomplete).toMatchObject({ status: 'UNCERTIFIED', reason: 'domainIncomplete' })
++  expect(results.sizeLimit).toMatchObject({ status: 'UNCERTIFIED', reason: 'sizeLimit' })
++  expect(results.workLimit).toMatchObject({ status: 'UNCERTIFIED', reason: 'workLimit', workUsed: 1 })
++  return results
++}
++const reasonOf = (r: CapacityKernelResult) => 'reason' in r ? r.reason : null
++const omissionsOf = (r: CapacityKernelResult) => 'omissions' in r ? r.omissions : []
++
++describe('540-T module surface (RED law: a missing module or export is named, never a spurious pass)', () => {
++  it('surface: every adopted export of promiseCapacityOwners.js and the two promises.js helpers exists with its runtime type', () => {
++    const expected: readonly (readonly [string, unknown, 'function' | 'string'])[] = [
++      ['promiseCapacityOwners.UNCERTIFIED_BOTTLENECK', UNCERTIFIED_BOTTLENECK, 'string'],
++      ['promiseCapacityOwners.NO_ENUMERATOR_OMISSION', NO_ENUMERATOR_OMISSION, 'string'],
++      ['promiseCapacityOwners.collectPromiseClaims', collectPromiseClaims, 'function'],
++      ['promiseCapacityOwners.assembleCapacityInput', assembleCapacityInput, 'function'],
++      ['promiseCapacityOwners.capacityInputsDigest', capacityInputsDigest, 'function'],
++      ['promiseCapacityOwners.mapCapacityResult', mapCapacityResult, 'function'],
++      ['promiseCapacityOwners.classifyDetachedOffer', classifyDetachedOffer, 'function'],
++      ['promises.promiseCastSlots', promiseCastSlots, 'function'],
++      ['promises.qualifyingTakes', qualifyingTakes, 'function'],
++    ]
++    const missing = expected.filter(([, value, type]) => typeof value !== type).map(([name]) => `MISSING EXPORT: ${name}`)
++    expect(missing).toEqual([])
++    expect(UNCERTIFIED_BOTTLENECK).toBe(PLAN_UNCERTIFIED)
++    expect(NO_ENUMERATOR_OMISSION.length).toBeGreaterThan(0)
++  })
++})
++
++describe('540-T claims: collectPromiseClaims membership, mask, remaining, target, guards', () => {
++  it('RED 1: collects bound-open P1 roots on world().ready as generic-mask prior claims', () => {
++    const w = world(), state = w.ready, own = player(state), now = state.market.tick
++    expect(state.firstTakes.filter((t) => t.studioId === own)).toEqual([]) // the recorded takes are rivals' (538: 24 rows)
++    const claims = collectPromiseClaims(state, rootDraft(state, w.ids.lead))
++    expect(claims.issuerId).toBe(own)
++    expect(claims.now).toEqual({ week: now, step: 0 })
++    expect(claims.target).toEqual({ promiseId: w.ids.lead, personId: w.actors.lead, mask: ANY,
++      window: { startWeek: w.start, dueWeekExclusive: w.start + 52 }, state: 'bound', count: 1, actualQualifiedCount: 0 })
++    expect(claims.priorClaims).toEqual(byId([priorOf(w, state, 'antagonist', ANY), priorOf(w, state, 'support', ANY)]))
++    for (const prior of claims.priorClaims) expect(prior).toMatchObject({ membership: 'bound', remaining: 1,
++      window: { startWeek: w.start, dueWeekExclusive: w.start + 52 } })
++    expect(claims.foreignDebits).toEqual([])
++    expect(claims.claimPersonIds).toEqual([...Object.values(w.actors)].sort())
++    expect(claims.horizonEndWeek).toBe(w.start + 52)
++    expect(claims.coverage).toEqual({ claimsAndHolds: 'complete', omissions: [] })
++    expect(claims.work).toBe(expectedWork(state, claims))
++  })
++
++  it('RED 2: self-exclusion drops only the named root; abandoned (withdrawn) and terminal roots never appear', () => {
++    const w = world(), state = w.ready
++    const claims = collectPromiseClaims(state, unbound(rootDraft(state, w.ids.lead)))
++    expect(claims.target).toMatchObject({ promiseId: null, personId: w.actors.lead, state: 'unbound', actualQualifiedCount: 0 })
++    expect(claims.priorClaims).toEqual(byId(SLOTS.map((slot) => priorOf(w, state, slot, ANY))))
++    // abandoned: capacity test :290-308 shape — attach on w.opened, then withdraw the carrying proposal
++    const opened = w.opened, id = w.actors.lead, own = player(opened)
++    const attached = attachPromise(opened, id, own, { ...p1(), windowStartWeek: w.start, dueWeekExclusive: w.start + 40 })
++    const old = currentRoot(attached, id)
++    const withdrawn = withdrawProposal(attached, id, own)
++    expect(root(withdrawn, old.promiseId)).toEqual(old)
++    expect(root(withdrawn, old.promiseId)).toMatchObject({ contractId: null, outcome: null })
++    const other = offer(opened, w.actors.antagonist)
++    expect(collectPromiseClaims(attached, other).priorClaims).toEqual([{ promiseId: old.promiseId, issuerId: own,
++      personId: id, membership: 'current', mask: ANY, window: { startWeek: w.start, dueWeekExclusive: w.start + 40 }, remaining: 1 }])
++    expect(collectPromiseClaims(withdrawn, other).priorClaims).toEqual([])
++    // terminal: tick(w.ready) settles all three P1 roots SATISFIED (capacity test :269-275)
++    const settled = tick(state)
++    for (const slot of SLOTS) expect(root(settled, w.ids[slot]).outcome).toBe('SATISFIED')
++    const later = collectPromiseClaims(settled, unbound(rootDraft(settled, w.ids.support)))
++    expect(later.priorClaims).toEqual([])
++    expect(later.claimPersonIds).toEqual([w.actors.support])
++    expect(later.coverage).toEqual({ claimsAndHolds: 'complete', omissions: [] })
++  })
++
++  it('RED 3 (539-B refined): a CURRENT P1 attachment on another beneficiary is a current claim; foreign debits come from a detached ClaimSource fixture, other-person rival roots are dropped, current and foreign remaining read count', () => {
++    const w = world(), opened = w.opened, own = player(opened)
++    // (a) V29-lawful current attachment to the ANTAGONIST, collected for the LEAD person's offer (plan :258-259 widening)
++    const attached = attachPromise(opened, w.actors.antagonist, own, { ...p1(2), windowStartWeek: w.start, dueWeekExclusive: w.start + 30 })
++    const current = currentRoot(attached, w.actors.antagonist)
++    const draft = offer(opened, w.actors.lead)
++    const claims = collectPromiseClaims(attached, draft)
++    expect(claims.priorClaims).toEqual([{ promiseId: current.promiseId, issuerId: own, personId: w.actors.antagonist,
++      membership: 'current', mask: ANY, window: { startWeek: w.start, dueWeekExclusive: w.start + 30 }, remaining: 2 }])
++    expect(claims.target).toMatchObject({ promiseId: null, personId: w.actors.lead, state: 'unbound', count: 1, actualQualifiedCount: 0 })
++    expect(claims.claimPersonIds).toEqual([w.actors.lead, w.actors.antagonist].sort())
++    expect(claims.horizonEndWeek).toBe(w.start + 40)
++    expect(claims.work).toBe(expectedWork(attached, claims))
++    // (b) LABELED detached in-memory ClaimSource, never saved: rival roots on the target person (one bound, one
++    // current carried by a rival proposal), a rival root on ANOTHER person, a player current root on the antagonist,
++    // and one recorded take per studio inside the windows (refinement 3: takes are NOT debited for current/foreign).
++    const rivalId = opened.hollywood!.businesses[0]!.studioId
++    expect(rivalId).not.toBe(own)
++    const template = root(w.ready, w.ids.lead), carrier = currentProposals(opened, w.actors.lead).find((p) => p.issuerStudioId === own)!
++    const takeTemplate = w.ready.firstTakes[0]!
++    const rootOf = (promiseId: string, issuer: string, person: string, contractId: string | null, count: number, win: [number, number]): ProfessionalPromise =>
++      ({ ...clone(template), promiseId, issuerStudioId: issuer, beneficiaryPersonId: person, predicate: { count }, contractId,
++        outcome: null, outcomeWeek: null, outcomeCause: null, outcomeEventId: null, progress: 0, evidenceRefs: [],
++        windowStartWeek: win[0], dueWeekExclusive: win[1] })
++    const source: ClaimSource = {
++      promises: [rootOf('rival-a-bound-target', rivalId, w.actors.lead, 'labelled-rival-contract-a', 2, [w.start, w.start + 20]),
++        rootOf('rival-b-current-target', rivalId, w.actors.lead, null, 1, [w.start + 5, w.start + 45]),
++        rootOf('rival-c-current-other', rivalId, w.actors.support, null, 1, [w.start, w.start + 40]),
++        rootOf('player-d-current-antagonist', own, w.actors.antagonist, null, 2, [w.start, w.start + 30])],
++      firstTakes: [
++        { ...clone(takeTemplate), eventId: 'labelled-rival-take', week: w.start + 1, productionId: 'labelled-rival-picture', studioId: rivalId,
++          cast: { lead: w.actors.lead, antagonist: 'labelled-x1', support: 'labelled-x2' } },
++        { ...clone(takeTemplate), eventId: 'labelled-player-take', week: w.start + 2, productionId: 'labelled-player-picture', studioId: own,
++          cast: { lead: 'labelled-x3', antagonist: w.actors.antagonist, support: 'labelled-x4' } }],
++      talentMarket: { ...opened.talentMarket, proposals: [
++        { ...clone(carrier), issuerStudioId: rivalId, talentId: w.actors.lead, promises: ['rival-b-current-target'] },
++        { ...clone(carrier), issuerStudioId: rivalId, talentId: w.actors.support, promises: ['rival-c-current-other'] },
++        { ...clone(carrier), talentId: w.actors.antagonist, promises: ['player-d-current-antagonist'] }] },
++      market: opened.market, hollywood: opened.hollywood,
++    }
++    expect(qualifyingTakes(source, source.promises[0]!)).toHaveLength(1)
++    expect(qualifyingTakes(source, source.promises[3]!)).toHaveLength(1)
++    const foreign = collectPromiseClaims(source, draft)
++    expect(foreign.priorClaims).toEqual([{ promiseId: 'player-d-current-antagonist', issuerId: own, personId: w.actors.antagonist,
++      membership: 'current', mask: ANY, window: { startWeek: w.start, dueWeekExclusive: w.start + 30 }, remaining: 2 }])
++    expect(foreign.foreignDebits).toEqual([
++      { promiseId: 'rival-a-bound-target', issuerId: rivalId, personId: w.actors.lead, membership: 'bound',
++        sourceWindow: { startWeek: w.start, dueWeekExclusive: w.start + 20 }, remaining: 2 },
++      { promiseId: 'rival-b-current-target', issuerId: rivalId, personId: w.actors.lead, membership: 'current',
++        sourceWindow: { startWeek: w.start + 5, dueWeekExclusive: w.start + 45 }, remaining: 1 }])
++    expect(foreign.claimPersonIds).toEqual([w.actors.lead, w.actors.antagonist].sort())
++    expect(foreign.horizonEndWeek).toBe(w.start + 40) // foreign windows never extend the horizon (539-B Q4 clarification 2)
++    expect(foreign.coverage).toEqual({ claimsAndHolds: 'complete', omissions: [] })
++    expect(foreign.work).toBe(expectedWork(source, foreign))
++  })
++
++  it("RED 4 (539-B refined, mirrors capacity test :279-288): conflicting tagged lead claims on BOTH lead and antagonist are ['lead'] prior claims for the support target", () => {
++    const w = world(), state = twoWeek(w, { lead: p2('lead'), antagonist: p2('lead'), support: p1() }), now = state.market.tick
++    const claims = collectPromiseClaims(state, rootDraft(state, w.ids.support))
++    expect(claims.target).toEqual({ promiseId: w.ids.support, personId: w.actors.support, mask: ANY,
++      window: { startWeek: now, dueWeekExclusive: now + 2 }, state: 'bound', count: 1, actualQualifiedCount: 0 })
++    expect(claims.priorClaims).toEqual(byId([priorOf(w, state, 'lead', LEAD), priorOf(w, state, 'antagonist', LEAD)]))
++    expect(claims.horizonEndWeek).toBe(now + 2)
++    const asLead = collectPromiseClaims(state, rootDraft(state, w.ids.lead))
++    expect(asLead.target.mask).toEqual(LEAD)
++    // the exported shape helper itself (26 §1: shape, never version, selects the mask)
++    expect(promiseCastSlots({ predicate: { count: 1 } })).toEqual(ANY)
++    expect(promiseCastSlots({ predicate: { kind: 'castRoleCount', count: 1, seatClass: 'lead' } })).toEqual(LEAD)
++    expect(promiseCastSlots({ predicate: { kind: 'castRoleCount', count: 1, seatClass: 'leadOrAntagonist' } })).toEqual(FLEX)
++  })
++
++  it('addition (i): a count-only LEAD_OR_SIGNIFICANT_ROLE_COUNT root masks all three seats as prior and as target', () => {
++    const w = world(), state = twoWeek(w, { lead: p2('lead'), antagonist: legacyP2, support: p1() })
++    expect(root(state, w.ids.antagonist).predicate).toEqual({ count: 1 })
++    const claims = collectPromiseClaims(state, rootDraft(state, w.ids.support))
++    expect(claims.priorClaims).toEqual(byId([priorOf(w, state, 'lead', LEAD), priorOf(w, state, 'antagonist', ANY)]))
++    expect(collectPromiseClaims(state, rootDraft(state, w.ids.antagonist)).target.mask).toEqual(ANY)
++  })
++
++  it('RED 5: remaining reads actual class-qualified distinct takes and clips at zero (second half is a non-live arithmetic pin)', () => {
++    const w = world(), before = w.ready, now = before.market.tick
++    // count 2 in memory, then the real tick (material test :236-251 pattern: tick runs no validator)
++    const after = tick(variants(w, { lead: p1(2) }))
++    const takes = after.firstTakes.filter((t) => t.productionId === w.productionId)
++    expect(takes).toHaveLength(1)
++    expect(takes[0]).toMatchObject({ week: now + 1, studioId: player(before), cast: w.actors })
++    expect(root(after, w.ids.lead)).toMatchObject({ outcome: null, progress: 1, predicate: { count: 2 } })
++    expect(root(after, w.ids.lead).contractId).not.toBeNull()
++    expect(root(after, w.ids.antagonist).outcome).toBe('SATISFIED')
++    expect(root(after, w.ids.support).outcome).toBe('SATISFIED')
++    expect(qualifyingTakes(after, root(after, w.ids.lead))).toEqual(takes)
++    const asPrior = collectPromiseClaims(after, unbound(rootDraft(after, w.ids.support)))
++    expect(asPrior.priorClaims).toEqual([priorOf(w, after, 'lead', ANY, 1)]) // 2 − 1 qualifying take
++    expect(asPrior.target).toMatchObject({ state: 'unbound', actualQualifiedCount: 0 })
++    const asTarget = collectPromiseClaims(after, rootDraft(after, w.ids.lead))
++    expect(asTarget.target).toMatchObject({ promiseId: w.ids.lead, state: 'bound', count: 2, actualQualifiedCount: 1 })
++    expect(asTarget.work).toBe(expectedWork(after, asTarget))
++    // ARITHMETIC PIN ONLY, NOT A LIVE STATE (539-B Q8.5): count 1, the real take, outcome forced null is unreachable in
++    // play (same-tick settlement); it pins that remaining 0 is EMITTED, not dropped.
++    const settled = tick(before)
++    const probe: GameState = { ...settled, promises: settled.promises.map((p) => p.promiseId === w.ids.lead
++      ? { ...p, outcome: null, outcomeWeek: null, outcomeCause: null, outcomeEventId: null } : p) }
++    const zero = collectPromiseClaims(probe, unbound(rootDraft(probe, w.ids.support)))
++    expect(zero.priorClaims).toEqual([priorOf(w, probe, 'lead', ANY, 0)])
++  })
++
++  it('RED 6: empty-window and zero-count attached drafts demand nothing: excluded exactly, no omission, coverage complete', () => {
++    const w = world(), opened = w.opened, own = player(opened)
++    const empty = attachPromise(opened, w.actors.antagonist, own, { ...p1(), windowStartWeek: w.start + 5, dueWeekExclusive: w.start + 5 })
++    const both = attachPromise(empty, w.actors.support, own, { ...p1(0), windowStartWeek: w.start, dueWeekExclusive: w.start + 40 })
++    expect(currentRoot(both, w.actors.antagonist)).toMatchObject({ windowStartWeek: w.start + 5, dueWeekExclusive: w.start + 5, contractId: null })
++    expect(currentRoot(both, w.actors.support).predicate.count).toBe(0)
++    const claims = collectPromiseClaims(both, offer(opened, w.actors.lead))
++    expect(claims.priorClaims).toEqual([])
++    expect(claims.foreignDebits).toEqual([])
++    expect(claims.claimPersonIds).toEqual([w.actors.lead])
++    expect(claims.coverage).toEqual({ claimsAndHolds: 'complete', omissions: [] })
++  })
++
++  it('addition (iv): exact half-open edges are excluded (start === target due; due === max(now, target start)); one week inside is included', () => {
++    const w = world(), now = w.ready.market.tick, due = w.start + 52
++    expect(now).toBeGreaterThan(w.start) // max(now, target.start) === now on w.ready
++    const at = (antagonist: [number, number], support: [number, number]) => variants(w, {
++      antagonist: { windowStartWeek: antagonist[0], dueWeekExclusive: antagonist[1] },
++      support: { windowStartWeek: support[0], dueWeekExclusive: support[1] } })
++    const edge = at([due, due + 10], [w.start - 5, now])
++    const excluded = collectPromiseClaims(edge, rootDraft(edge, w.ids.lead))
++    expect(excluded.priorClaims).toEqual([])
++    expect(excluded.claimPersonIds).toEqual([w.actors.lead])
++    expect(excluded.horizonEndWeek).toBe(due)
++    const inside = at([due - 1, due + 10], [w.start - 5, now + 1])
++    const included = collectPromiseClaims(inside, rootDraft(inside, w.ids.lead))
++    expect(included.priorClaims).toEqual(byId([priorOf(w, inside, 'antagonist', ANY), priorOf(w, inside, 'support', ANY)]))
++    expect(included.horizonEndWeek).toBe(due + 10)
++  })
++})
++
++describe('540-T assembly: assembleCapacityInput derives coverage and carries cuts', () => {
++  it('RED 7 (539-B Q8.7 Started alternative): assembly is byte-identical to the first-take hand assembly (:314-321) with coverage derived', () => {
++    const w = world(), state = twoWeek(w, { lead: p2('lead'), antagonist: p1(), support: p1() }), now = state.market.tick
++    const claims = collectPromiseClaims(state, rootDraft(state, w.ids.lead))
++    const result = started(w), attempt = result.attempts[0]!
++    if (attempt.kind !== 'complete') throw new Error('540: the Started plan on w.ready must complete (538 scenario 1)')
++    const hand: JointTraceCapacityInput = { mode: 'jointOwnerTraces', now: { week: now, step: 0 },
++      horizonEndWeek: now + 2, issuerId: player(state),
++      target: claims.target, priorClaims: claims.priorClaims, foreignDebits: [], traces: [attempt.trace], fixedHolds: result.fixedHolds,
++      coverage: { claimsAndHolds: 'complete', existingCalendars: 'incomplete', allOwnerTraces: 'incomplete',
++        omissions: [NO_ENUMERATOR_OMISSION] },
++      preparationWork: result.preparationWork + claims.work, limits: LIMITS }
++    const assembled = assembleCapacityInput(claims, result, now + 2, LIMITS)
++    expect(assembled).toEqual(hand)
++    expect(Object.keys(assembled).sort()).toEqual(Object.keys(hand).sort())
++    expect(assembled.priorClaims).toHaveLength(2)
++    expect(assembled.fixedHolds.map((h) => h.until)).toEqual(result.fixedHolds.map((h) => h.until)) // no hold clipping (plan :313-315)
++  })
++
++  it('RED 8: cut attempts and producer omissions make claimsAndHolds incomplete and are carried; a Ready plan on world().opened cuts workLimit (538 fact 2) and maps UNCERTIFIED/workLimit at workUsed 200000', () => {
++    const w = world(), source = w.opened, now = source.market.tick
++    const claims = collectPromiseClaims(source, offer(source, w.actors.lead))
++    expect(claims.priorClaims).toEqual([]) // 538: no player promise roots on opened
++    const plan: ReadyOwnerReplayInput = { source, issuerId: player(source), claimPersonIds: claims.claimPersonIds,
++      plans: [{ traceKey: '540-ready-admit-only', commands: [],
++        readyChoice: { projectId: w.projects[0]!, directorId: w.directorId, cast: w.actors, craftIds: [w.craftId] } }],
++      horizonEndWeek: now + 1, preparationWork: 0, limits: PRODUCER_LIMITS }
++    const producer = replayReadyProductionPlans(plan)
++    expect(producer.attempts.map((a) => a.kind === 'cut' ? [a.reason, a.detail] : ['complete'])).toEqual([['workLimit', 'shared replay work limit']])
++    expect(producer.preparationWork).toBe(200000)
++    expect(producer.omissions).toEqual(['work limit; remaining plan suffixes unexecuted'])
++    expect(now + 1).toBeLessThan(claims.horizonEndWeek) // no complete trace, so the horizon guard is exempt
++    const assembled = assembleCapacityInput(claims, producer, now + 1, LIMITS)
++    expect(assembled.traces).toEqual([])
++    expect(assembled.fixedHolds).toEqual(producer.fixedHolds)
++    expect(assembled.coverage).toMatchObject({ claimsAndHolds: 'incomplete', existingCalendars: 'incomplete', allOwnerTraces: 'incomplete' })
++    expect(assembled.coverage.omissions).toEqual(expect.arrayContaining([
++      'workLimit: shared replay work limit', 'work limit; remaining plan suffixes unexecuted', NO_ENUMERATOR_OMISSION]))
++    expect(assembled.coverage.omissions).toEqual([...assembled.coverage.omissions].sort())
++    expect(new Set(assembled.coverage.omissions).size).toBe(assembled.coverage.omissions.length)
++    expect(assembled.preparationWork).toBe(200000 + claims.work)
++    const result = classifyDetachedOffer(claims, producer, now + 1, LIMITS)
++    expect(result).toMatchObject({ classification: 'FRAGILE', bottleneck: UNCERTIFIED_BOTTLENECK,
++      kernel: { status: 'UNCERTIFIED', reason: 'workLimit', workUsed: 200000 } })
++    expect(result.inputsDigest).toBe(capacityInputsDigest(assembled))
++    // NOT asserted: REASONABLY_ACHIEVABLE for the 40-week baseline on `opened` (538 facts 2; one fresh picture per trace).
++  })
++})
++
++describe('540-T digest: capacityInputsDigest identity', () => {
++  it('RED 12 (539-B refined): the digest changes with class and claims, is independent of preparationWork, keeps limits, and is unchanged by cash or RNG through the STARTED producer on w.ready', () => {
++    const w = world(), now = w.ready.market.tick, result = started(w)
++    const lead = twoWeek(w, { lead: p2('lead'), antagonist: p1(), support: p1() })
++    const flexible = twoWeek(w, { lead: p2('leadOrAntagonist'), antagonist: p1(), support: p1() })
++    const more = twoWeek(w, { lead: p2('lead'), antagonist: p2('lead'), support: p1() })
++    const a = classifyDetachedOffer(collectPromiseClaims(lead, rootDraft(lead, w.ids.lead)), result, now + 2, LIMITS)
++    const b2 = classifyDetachedOffer(collectPromiseClaims(flexible, rootDraft(flexible, w.ids.lead)), result, now + 2, LIMITS)
++    const c = classifyDetachedOffer(collectPromiseClaims(more, rootDraft(more, w.ids.lead)), result, now + 2, LIMITS)
++    expect(a.inputsDigest).not.toBe(b2.inputsDigest) // target mask ['lead'] vs ['lead','antagonist']
++    expect(a.inputsDigest).not.toBe(c.inputsDigest) // a prior claim's mask changed
++    const claims = collectPromiseClaims(lead, rootDraft(lead, w.ids.lead))
++    const assembled = assembleCapacityInput(claims, result, now + 2, LIMITS)
++    expect(a.inputsDigest).toBe(capacityInputsDigest(assembled))
++    expect(capacityInputsDigest({ ...assembled, preparationWork: assembled.preparationWork + 1 })).toBe(a.inputsDigest) // 539-B Q6
++    expect(capacityInputsDigest({ ...assembled, limits: { ...LIMITS, work: 1 } })).not.toBe(a.inputsDigest)
++    expect(capacityInputsDigest({ ...assembled, coverage: { ...assembled.coverage, claimsAndHolds: 'incomplete' } })).not.toBe(a.inputsDigest)
++    expect(a.inputsDigest).toMatch(/^[0-9a-f]{16}$/) // fnv1a64 (math.ts:91-97)
++    // cash / RNG (capacity test :338-340 shapes, in memory), each through its OWN Started run
++    const cash: GameState = { ...clone(lead), studio: { ...lead.studio, cash: lead.studio.cash + 1 },
++      ledger: [...lead.ledger, { week: now, kind: 'studioRevenue', amount: 1, note: 'disclosed irrelevant cash probe' }] }
++    const rng: GameState = { ...clone(lead), rngState: '1,2,3,4' } // valid serialized words; no RNG draw
++    expect(rng.rngState).not.toBe(lead.rngState)
++    for (const variant of [cash, rng]) {
++      const vc = collectPromiseClaims(variant, rootDraft(variant, w.ids.lead))
++      expect(vc).toEqual(claims)
++      const vr = startedRun(variant, vc.claimPersonIds, now + 2)
++      expect(vr).toEqual(result) // the producer's source (:112-119) carries no cash, ledger or rngState
++      expect(classifyDetachedOffer(vc, vr, now + 2, LIMITS)).toEqual(a)
++    }
++  })
++
++  it('RED 14: no state mutation, determinism and permutation invariance; work === 1 + P + A + M×T', () => {
++    const w = world(), now = w.ready.market.tick, result = started(w)
++    const state = twoWeek(w, { lead: p2('lead'), antagonist: p2('leadOrAntagonist'), support: p1() })
++    const draft = rootDraft(state, w.ids.support)
++    const before = { state: clone(state), draft: clone(draft), result: clone(result), limits: clone(LIMITS) }
++    const claims = collectPromiseClaims(state, draft)
++    const assembled = assembleCapacityInput(claims, result, now + 2, LIMITS)
++    const assembledBefore = clone(assembled), claimsBefore = clone(claims)
++    const digest = capacityInputsDigest(assembled)
++    const classified = classifyDetachedOffer(claims, result, now + 2, LIMITS)
++    const kernel = kernelResults().certified, kernelBefore = clone(kernel)
++    mapCapacityResult(kernel, digest)
++    expect(kernel).toEqual(kernelBefore)
++    expect(state).toEqual(before.state)
++    expect(draft).toEqual(before.draft)
++    expect(result).toEqual(before.result)
++    expect(LIMITS).toEqual(before.limits)
++    expect(assembled).toEqual(assembledBefore)
++    expect(claims).toEqual(claimsBefore)
++    expect(collectPromiseClaims(state, draft)).toEqual(claims)
++    expect(classifyDetachedOffer(claims, result, now + 2, LIMITS)).toEqual(classified)
++    expect(classified.inputsDigest).toBe(digest)
++    const shuffled: GameState = { ...state, promises: [...state.promises].reverse(), firstTakes: [...state.firstTakes].reverse(),
++      talentMarket: { ...state.talentMarket, proposals: [...state.talentMarket.proposals].reverse() } }
++    const permuted = collectPromiseClaims(shuffled, draft)
++    expect(permuted).toEqual(claims)
++    expect(permuted.priorClaims.map((p) => p.promiseId)).toEqual(byId(claims.priorClaims).map((p) => p.promiseId))
++    expect(assembleCapacityInput(permuted, result, now + 2, LIMITS)).toEqual(assembled)
++    expect(classifyDetachedOffer(permuted, result, now + 2, LIMITS)).toEqual(classified)
++    expect(claims.work).toBe(expectedWork(state, claims))
++    expect(claims.work).toBe(1 + state.promises.length + state.talentMarket.proposals.reduce((n, p) => n + p.promises.length, 0)
++      + 3 * state.firstTakes.length) // three local bound members on w.ready: two prior claims and the bound target
++  })
++})
++
++describe('540-T mapping: mapCapacityResult and classifyDetachedOffer', () => {
++  const CELLS: readonly { name: string; target: CastSlot; material: Record<CastSlot, Material> }[] = [
++    ...SLOTS.flatMap((slot) => (['lead', 'leadOrAntagonist', 'any'] as const).map((mask) => ({
++      name: `matrix ${mask} target fixed in ${slot}, other two P1`, target: slot,
++      material: { lead: p1(), antagonist: p1(), support: p1(), [slot]: mask === 'any' ? p1() : p2(mask) } as Record<CastSlot, Material> }))),
++    { name: 'joint lead+flexible+P1, target lead', target: 'lead', material: { lead: p2('lead'), antagonist: p2('leadOrAntagonist'), support: p1() } },
++    { name: 'joint lead+flexible+P1, target antagonist', target: 'antagonist', material: { lead: p2('lead'), antagonist: p2('leadOrAntagonist'), support: p1() } },
++    { name: 'joint lead+flexible+P1, target support', target: 'support', material: { lead: p2('lead'), antagonist: p2('leadOrAntagonist'), support: p1() } },
++    { name: 'conflicting fixed lead claims (RED 4), target support', target: 'support', material: { lead: p2('lead'), antagonist: p2('lead'), support: p1() } },
++  ]
++  it.each(CELLS)('RED 9: 2-week cell $name reaches the kernel within budget and maps UNCERTIFIED/domainIncomplete to FRAGILE with the exact bottleneck', (cell) => {
++    const w = world(), state = twoWeek(w, cell.material), now = state.market.tick, result = started(w)
++    const claims = collectPromiseClaims(state, rootDraft(state, w.ids[cell.target]))
++    expect(claims.priorClaims).toHaveLength(2)
++    expect(claims.horizonEndWeek).toBe(now + 2)
++    const classified = classifyDetachedOffer(claims, result, now + 2, LIMITS)
++    expect(classified).toMatchObject({ classification: 'FRAGILE', bottleneck: UNCERTIFIED_BOTTLENECK,
++      kernel: { status: 'UNCERTIFIED', reason: 'domainIncomplete', omissions: [NO_ENUMERATOR_OMISSION] } })
++    expect(classified.kernel.workUsed).toBeGreaterThan(result.preparationWork)
++    expect(classified.kernel.workUsed).toBeLessThanOrEqual(200000)
++    // NOT asserted: the installed capacity RED's IMPOSSIBLE / FRAGILE-with-named-bottleneck for these cells; that needs the
++    // enumerator's complete coverage (538: assumed-complete coverage is an observation, not a certificate).
++  })
++
++  it('RED 10: mapCapacityResult covers all five kernel statuses from the kernel test\'s detached finite fixtures', () => {
++    const r = kernelResults()
++    const check = (result: CapacityKernelResult, classification: DetachedOfferClassification['classification'],
++      bottleneck: null | 'named' | typeof UNCERTIFIED_BOTTLENECK): DetachedOfferClassification => {
++      const mapped = mapCapacityResult(result, 'digest-540')
++      expect(mapped.classification).toBe(classification)
++      if (bottleneck === null) expect(mapped.bottleneck).toBeNull()
++      else if (bottleneck === 'named') {
++        expect(typeof mapped.bottleneck).toBe('string')
++        expect(mapped.bottleneck!.length).toBeGreaterThan(0)
++        expect(mapped.bottleneck).not.toBe(UNCERTIFIED_BOTTLENECK)
++      } else expect(mapped.bottleneck).toBe(UNCERTIFIED_BOTTLENECK)
++      expect(mapped.bottleneck === null).toBe(mapped.classification === 'REASONABLY_ACHIEVABLE') // types.ts:2158-2159
++      expect(mapped.inputsDigest).toBe('digest-540')
++      expect(mapped.kernel).toMatchObject({ status: result.status, reason: reasonOf(result), workUsed: result.workUsed, omissions: omissionsOf(result) })
++      expect(mapped).not.toHaveProperty('rulesVersion')
++      expect(mapped).not.toHaveProperty('week')
++      return mapped
++    }
++    check(r.certified, 'REASONABLY_ACHIEVABLE', null)
++    check(r.met, 'REASONABLY_ACHIEVABLE', null) // plan :276-277: met, not a failed probe; kernel.status keeps the distinction
++    const probeFailed = check(r.probeFailed, 'FRAGILE', 'named')
++    const protection = check(r.protection, 'FRAGILE', 'named')
++    expect(protection.bottleneck).not.toBe(probeFailed.bottleneck) // plan :300-302: an explicit prior-path-protection bottleneck
++    check(r.impossible, 'IMPOSSIBLE', 'named')
++    for (const uncertified of [r.domainIncomplete, r.sizeLimit, r.workLimit]) {
++      check(uncertified, 'FRAGILE', UNCERTIFIED_BOTTLENECK)
++      for (const omission of omissionsOf(uncertified)) expect(UNCERTIFIED_BOTTLENECK.includes(omission)).toBe(false)
++    }
++  })
++
++  it('RED 11: IMPOSSIBLE is offer-scoped (kernel.status and scope retained); the module exports exactly the adopted surface, nothing taking a Production or cancel context', () => {
++    const r = kernelResults()
++    const mapped = mapCapacityResult(r.impossible, 'digest-540')
++    expect(mapped.classification).toBe('IMPOSSIBLE')
++    expect(mapped.kernel).toMatchObject({ status: 'PROVEN_IMPOSSIBLE', reason: reasonOf(r.impossible), scope: 'jointOfferOnly' })
++    expect(Object.keys(ownersModule).sort()).toEqual(['NO_ENUMERATOR_OMISSION', 'UNCERTIFIED_BOTTLENECK', 'assembleCapacityInput',
++      'capacityInputsDigest', 'classifyDetachedOffer', 'collectPromiseClaims', 'mapCapacityResult'])
++  })
++
++  it('addition (ii): a bound target with a real take is ALREADY_MET through the trace route and maps REASONABLY_ACHIEVABLE with a null bottleneck', () => {
++    const w = world(), settled = tick(w.ready)
++    const takes = settled.firstTakes.filter((t) => t.productionId === w.productionId)
++    expect(takes).toHaveLength(1)
++    const lead = root(settled, w.ids.lead)
++    expect(lead).toMatchObject({ outcome: 'SATISFIED', evidenceRefs: [takes[0]!.eventId] })
++    expect(qualifyingTakes(settled, lead)).toEqual(takes)
++    const claims = collectPromiseClaims(settled, rootDraft(settled, w.ids.lead))
++    expect(claims.target).toMatchObject({ promiseId: w.ids.lead, state: 'bound', count: 1, actualQualifiedCount: 1 })
++    expect(claims.priorClaims).toEqual([]) // the other two roots are terminal
++    expect(claims.coverage).toEqual({ claimsAndHolds: 'complete', omissions: [] })
++    const result = classifyDetachedOffer(claims, EMPTY_PRODUCER, claims.horizonEndWeek, LIMITS)
++    expect(result).toMatchObject({ classification: 'REASONABLY_ACHIEVABLE', bottleneck: null, kernel: { status: 'ALREADY_MET', reason: null } })
++    expect(result.kernel.workUsed).toBeGreaterThanOrEqual(claims.work)
++  })
++})
++
++describe('540-T guards: rival issuer, horizon, governed limits, malformed target', () => {
++  it('RED 13: a rival issuer or an absent industry is nonofferable, never thrown: empty claims, incomplete with the named omission; a rival producer result maps FRAGILE with the exact string', () => {
++    const w = world(), state = twoWeek(w, { lead: p2('lead'), antagonist: p1(), support: p1() }), now = state.market.tick
++    const rivalId = state.hollywood!.businesses[0]!.studioId
++    const claims = collectPromiseClaims(state, { ...rootDraft(state, w.ids.lead), issuerStudioId: rivalId })
++    expect(claims).toMatchObject({ issuerId: rivalId, priorClaims: [], foreignDebits: [],
++      coverage: { claimsAndHolds: 'incomplete', omissions: [RIVAL_OMISSION] } })
++    const noIndustry = collectPromiseClaims({ ...state, hollywood: null }, rootDraft(state, w.ids.lead))
++    expect(noIndustry).toMatchObject({ priorClaims: [], foreignDebits: [], coverage: { claimsAndHolds: 'incomplete', omissions: [RIVAL_OMISSION] } })
++    const producer = startedRun(state, [w.actors.lead], now + 2, rivalId) // every plan cut rivalPolicyUnsupported (replay :621-622)
++    expect(producer.attempts.map((a) => a.kind === 'cut' ? a.reason : 'complete')).toEqual(['rivalPolicyUnsupported'])
++    expect(producer.omissions).toEqual(['rivalPolicyUnsupported', 'rival weekly policy is not replayed'])
++    let result: DetachedOfferClassification | undefined
++    expect(() => { result = classifyDetachedOffer(claims, producer, now + 2, LIMITS) }).not.toThrow()
++    expect(result).toMatchObject({ classification: 'FRAGILE', bottleneck: UNCERTIFIED_BOTTLENECK, kernel: { status: 'UNCERTIFIED', reason: 'domainIncomplete' } })
++    expect(result!.kernel.omissions).toEqual(expect.arrayContaining([RIVAL_OMISSION, NO_ENUMERATOR_OMISSION]))
++  })
++
++  it('RED 15: horizon guard — a complete unknown-release trace below claims.horizonEndWeek is a named throw; a due of now+221 with no complete trace is UNCERTIFIED/sizeLimit, never a throw', () => {
++    const w = world(), ready = w.ready, now = ready.market.tick, result = started(w)
++    const long = collectPromiseClaims(ready, rootDraft(ready, w.ids.lead)) // due start+52 > now+2
++    expect(long.horizonEndWeek).toBeGreaterThan(now + 2)
++    expect(() => assembleCapacityInput(long, result, now + 2, LIMITS)).toThrow(/producer horizon precedes the latest relevant due week/)
++    expect(() => classifyDetachedOffer(long, result, now + 2, LIMITS)).toThrow(/producer horizon precedes the latest relevant due week/)
++    const far = collectPromiseClaims(ready, { ...unbound(rootDraft(ready, w.ids.lead)), dueWeekExclusive: now + 221 })
++    expect(far.horizonEndWeek).toBe(now + 221)
++    const producer = startedRun(ready, far.claimPersonIds, now + 221) // prepare cuts sizeLimit (replay :549) before any plan
++    expect(producer.attempts).toEqual([])
++    expect(producer.omissions).toEqual(['sizeLimit', 'replay span exceeds limit'])
++    let classified: DetachedOfferClassification | undefined
++    expect(() => { classified = classifyDetachedOffer(far, producer, now + 221, LIMITS) }).not.toThrow()
++    expect(classified).toMatchObject({ classification: 'FRAGILE', bottleneck: UNCERTIFIED_BOTTLENECK, kernel: { status: 'UNCERTIFIED', reason: 'sizeLimit' } })
++  })
++
++  it('addition (iii): limits.work 200001 is refused by the kernel through the adapter (work limit exceeds the governed maximum), never relabelled', () => {
++    const w = world(), claims = collectPromiseClaims(w.ready, rootDraft(w.ready, w.ids.lead))
++    expect(() => classifyDetachedOffer(claims, EMPTY_PRODUCER, claims.horizonEndWeek, { ...LIMITS, work: 200001 }))
++      .toThrow(/work limit exceeds the governed maximum/)
++    expect(() => classifyDetachedOffer(claims, EMPTY_PRODUCER, claims.horizonEndWeek, LIMITS)).not.toThrow()
++  })
++
++  it('addition (v): a malformed target (empty window, count < 1, non-integer count) is a named precondition throw, never relabelled as cap uncertainty', () => {
++    const w = world(), state = w.ready, draft = unbound(rootDraft(state, w.ids.lead))
++    for (const bad of [{ ...draft, dueWeekExclusive: draft.windowStartWeek }, { ...draft, dueWeekExclusive: draft.windowStartWeek - 1 },
++      { ...draft, predicate: { count: 0 } }, { ...draft, predicate: { count: 1.5 } }]) {
++      expect(() => collectPromiseClaims(state, bad)).toThrow(/target/)
++    }
++    expect(() => collectPromiseClaims(state, draft)).not.toThrow()
++  })
++})

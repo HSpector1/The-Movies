@@ -1,0 +1,26 @@
+{
+  "sourceSha": "3c870039bb779a88640b77e47ba085694e50b15d",
+  "testedDiffSha256": "54068e05e39fc6d0397f91149c2b72852b96ae60ed0ad71a1a6459bdbff2c690",
+  "untrackedSource": [
+    "tests/p14b4-owner-adapter-first-slice.test.ts"
+  ],
+  "command": [
+    "node_modules/.bin/vitest",
+    "run",
+    "--project",
+    "core",
+    "tests/p14b4-owner-adapter-first-slice.test.ts"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-20T19:38:43.298Z",
+  "end": "2026-09-20T19:38:47.708Z",
+  "exitCode": 1,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "3c870039bb779a88640b77e47ba085694e50b15d",
+  "testedDiffSha256AtEnd": "54068e05e39fc6d0397f91149c2b72852b96ae60ed0ad71a1a6459bdbff2c690",
+  "untrackedSourceAtEnd": [
+    "tests/p14b4-owner-adapter-first-slice.test.ts"
+  ],
+  "fixedSource": true
+}

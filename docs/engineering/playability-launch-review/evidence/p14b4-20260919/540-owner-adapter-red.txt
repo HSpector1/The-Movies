@@ -1,0 +1,22 @@
+{"sourceSha":"3c870039bb779a88640b77e47ba085694e50b15d","testedDiffSha256":"54068e05e39fc6d0397f91149c2b72852b96ae60ed0ad71a1a6459bdbff2c690","untrackedSource":["tests/p14b4-owner-adapter-first-slice.test.ts"],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14b4-owner-adapter-first-slice.test.ts"],"node":"v20.20.2","start":"2026-09-20T19:38:43.298Z","end":null,"exitCode":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/p14b4-owner-adapter-first-slice.test.ts (0 test)
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14b4-owner-adapter-first-slice.test.ts [ tests/p14b4-owner-adapter-first-slice.test.ts ]
+Error: Failed to load url ../src/core/promiseCapacityOwners.js (resolved id: ../src/core/promiseCapacityOwners.js) in /Users/zacheryspector/The-Movies-headless-program/tests/p14b4-owner-adapter-first-slice.test.ts. Does the file exist?
+ ❯ loadAndTransform node_modules/vitest/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:51969:17
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed (1)
+      Tests  no tests
+   Start at  21:38:44
+   Duration  3.22s (transform 1.97s, setup 0ms, collect 0ms, tests 0ms, environment 0ms, prepare 107ms)
+
+
+{"sourceSha":"3c870039bb779a88640b77e47ba085694e50b15d","testedDiffSha256":"54068e05e39fc6d0397f91149c2b72852b96ae60ed0ad71a1a6459bdbff2c690","untrackedSource":["tests/p14b4-owner-adapter-first-slice.test.ts"],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14b4-owner-adapter-first-slice.test.ts"],"node":"v20.20.2","start":"2026-09-20T19:38:43.298Z","end":"2026-09-20T19:38:47.708Z","exitCode":1,"signal":null,"error":null,"sourceShaAtEnd":"3c870039bb779a88640b77e47ba085694e50b15d","testedDiffSha256AtEnd":"54068e05e39fc6d0397f91149c2b72852b96ae60ed0ad71a1a6459bdbff2c690","untrackedSourceAtEnd":["tests/p14b4-owner-adapter-first-slice.test.ts"],"fixedSource":true}
