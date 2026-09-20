@@ -1,0 +1,33 @@
+{"sourceSha":"8ed2646a769386a7bace5312c7c0c90a90a7af01","testedDiffSha256":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/operations.test.ts","tests/contracts/sticky-retention.contract.test.ts","tests/p06a-w1-release-authority.test.ts","tests/p14b4-managed-clock-owner.test.ts","tests/p14b4-owner-fact-views.test.ts"],"node":"v20.20.2","start":"2026-09-20T02:00:12.563Z","end":null,"exitCode":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/operations.test.ts (13 tests) 2173ms
+   ✓ Production Operations V1 > grants capacity freed mid-week in the SAME week, longest-waiting-first with an ordinal tie-break 306ms
+   ✓ Production Operations V1 > holds only the blocked production while world time and weekly costs continue 1214ms
+ ✓ |core| tests/p14b4-owner-fact-views.test.ts (7 tests) 4125ms
+   ✓ P14B4 existing owner fact views — behavior-preserving narrowing > uses a genuine shooting-entry clock with nullable/default player identity (true) 943ms
+   ✓ P14B4 existing owner fact views — behavior-preserving narrowing > reads only actual property/placement facts for centres and the pre-arrival scenery owner result 769ms
+   ✓ P14B4 existing owner fact views — behavior-preserving narrowing > keeps controlled far-body transit and missing-body withholding distinct from arrival 593ms
+   ✓ P14B4 existing owner fact views — behavior-preserving narrowing > uses narrow real production/concept records for early, missing, legal and committed release 1245ms
+ ✓ |core| tests/p06a-w1-release-authority.test.ts (14 tests) 4952ms
+   ✓ P06A W1 — save law > imports a pre-P06 Release Ready save as UNCOMMITTED (holds until committed) 1494ms
+   ✓ P06A W1 — save law > round-trips a committed live save byte-exactly and refuses downgrades 1536ms
+   ✓ P06A W1 — save law > validateSaveV29 rejects forged authority at the save boundary 1057ms
+ ✓ |core| tests/contracts/sticky-retention.contract.test.ts (2 tests) 421ms
+   ✓ C2a-M0 · §3.2 / R-1 — a Development & Casting reservation never migrates > keeps a picture on the Annex when a lower-id base slot frees under it 306ms
+ ✓ |core| tests/p14b4-managed-clock-owner.test.ts (5 tests) 3998ms
+   ✓ P14B4 behavior-preserving managed clock owner extraction > retains complete caller records/order and skips the actual greenlight week 574ms
+   ✓ P14B4 behavior-preserving managed clock owner extraction > retains full-P callbacks and technology locks at real shooting entry, not a take 968ms
+   ✓ P14B4 behavior-preserving managed clock owner extraction > holds an unassigned real take, then returns exactly the scheduled 5→4 caller record 1076ms
+   ✓ P14B4 behavior-preserving managed clock owner extraction > releases real wrapped stage/Set holds even when the supplied Post slots are occupied 584ms
+   ✓ P14B4 behavior-preserving managed clock owner extraction > holds actual Release Ready until real commitment, then returns its exact admission ID 793ms
+
+ Test Files  5 passed (5)
+      Tests  41 passed (41)
+   Start at  04:00:13
+   Duration  11.27s (transform 3.78s, setup 0ms, collect 9.88s, tests 15.67s, environment 3ms, prepare 1.31s)
+
+
+{"sourceSha":"8ed2646a769386a7bace5312c7c0c90a90a7af01","testedDiffSha256":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/operations.test.ts","tests/contracts/sticky-retention.contract.test.ts","tests/p06a-w1-release-authority.test.ts","tests/p14b4-managed-clock-owner.test.ts","tests/p14b4-owner-fact-views.test.ts"],"node":"v20.20.2","start":"2026-09-20T02:00:12.563Z","end":"2026-09-20T02:00:25.046Z","exitCode":0,"signal":null,"error":null,"sourceShaAtEnd":"8ed2646a769386a7bace5312c7c0c90a90a7af01","testedDiffSha256AtEnd":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","untrackedSourceAtEnd":[],"fixedSource":true}

@@ -1,0 +1,133 @@
+// Installed verbatim from frozen160 after parent review; original inert provenance follows.
+// INERT / UNEXECUTED. Intended path: tests/p14b4-bounded-stable-sort.test.ts.
+// Independent contract: frozen157 §§1–3; paper cases158. No engine RNG/history.
+import { describe, expect, expectTypeOf, it } from 'vitest'
+import { boundedStableSort, boundedStableSortCost } from '../src/core/boundedStableSort.js'
+
+type Row = Readonly<{ rank: number; id: string; marker: Readonly<{ label: string }> }>
+const row = (rank: number, id: string): Row => Object.freeze({
+  rank, id, marker: Object.freeze({ label: `marker:${id}` }),
+})
+
+// Independent size arithmetic, not the helper under test. Small tests only;
+// maximum-domain expectations below are literal safe-integer calculations.
+function paperCost(n: number) {
+  const passes = n <= 1 ? 0 : Math.ceil(Math.log2(n))
+  return { maxComparisons: n * passes, maxElementWrites: n * (passes + 1) }
+}
+
+function check(input: readonly Row[], compare: (a: Row, b: Row) => number) {
+  const before = structuredClone(input)
+  const expected = [...input].sort(compare) // independent OLD/native oracle
+  let calls = 0
+  const result = boundedStableSort(input, (a, b) => {
+    calls++
+    return compare(a, b)
+  })
+  expectTypeOf(result).toEqualTypeOf<Row[]>()
+  expect(result).not.toBe(input)
+  expect(result).toEqual(expected)
+  expect(result).toHaveLength(input.length)
+  result.forEach((value, index) => {
+    expect(value).toBe(expected[index])
+    expect(value.marker).toBe(expected[index]!.marker)
+  })
+  expect(input).toEqual(before)
+  expect(calls).toBeLessThanOrEqual(paperCost(input.length).maxComparisons)
+  expect(boundedStableSortCost(input.length)).toEqual(paperCost(input.length))
+  return { result, calls }
+}
+
+describe('P14B4 shared bounded stable sort — independent157 contract', () => {
+  it('returns fresh empty/singleton arrays without a comparison', () => {
+    const empty: readonly Row[] = Object.freeze([])
+    const single = Object.freeze([row(1, 'only')])
+    for (const input of [empty, single]) {
+      const { result, calls } = check(input, () => { throw new Error('unexpected comparison') })
+      expect(calls).toBe(0)
+      expect(result).toEqual(input)
+    }
+  })
+
+  it('preserves full generic record types, nested markers and duplicate references', () => {
+    const high = Object.freeze({ rank: 2, marker: Object.freeze({ tag: 'high' as const }), extra: 71 })
+    const low = Object.freeze({ rank: 1, marker: Object.freeze({ tag: 'low' as const }), extra: 19 })
+    const input = Object.freeze([high, low, high])
+    const result = boundedStableSort(input, (a, b) => a.rank - b.rank)
+    expectTypeOf(result).toEqualTypeOf<Array<(typeof input)[number]>>()
+    expect(result).not.toBe(input)
+    expect(result).toEqual([low, high, high])
+    expect(result[0]).toBe(low)
+    expect(result[1]).toBe(high)
+    expect(result[2]).toBe(high)
+    expect(result[1]!.marker).toBe(high.marker)
+    expect(input).toEqual([high, low, high])
+  })
+
+  it('preserves each input tie order for zero, signed zero and lawful NaN ties', () => {
+    const input = Object.freeze([row(2, 'b'), row(1, 'a'), row(2, 'c'), row(1, 'd')])
+    for (const tie of [0, -0, Number.NaN]) {
+      const compare = (a: Row, b: Row) => a.rank === b.rank ? tie : a.rank - b.rank
+      expect(check(input, compare).result.map((value) => value.id)).toEqual(['a', 'd', 'b', 'c'])
+      expect(check(Object.freeze([...input].reverse()), compare).result.map((value) => value.id))
+        .toEqual(['d', 'a', 'c', 'b'])
+    }
+    expect(check(input, () => Number.NaN).result).toEqual(input)
+  })
+
+  it('interprets infinity by sign and orders ascending, descending and equal records', () => {
+    const input = Object.freeze([row(3, 'c'), row(1, 'a'), row(2, 'b')])
+    const signed = (a: Row, b: Row) => a.rank < b.rank ? -Infinity : a.rank > b.rank ? Infinity : 0
+    expect(check(input, signed).result.map((value) => value.id)).toEqual(['a', 'b', 'c'])
+    expect(check(input, (a, b) => signed(b, a)).result.map((value) => value.id)).toEqual(['c', 'b', 'a'])
+    expect(check(input, () => 0).result).toEqual(input)
+  })
+
+  it('pins exact small costs and maximum native-array-length costs without allocation', () => {
+    for (const [n, comparisons, writes] of [
+      [0, 0, 0], [1, 0, 1], [2, 2, 4], [3, 6, 9], [5, 15, 20],
+      [8, 24, 32], [9, 36, 45], [17, 85, 102],
+      [2_147_483_648, 66_571_993_088, 68_719_476_736],
+      [4_294_967_295, 137_438_953_440, 141_733_920_735],
+    ]) {
+      const result = boundedStableSortCost(n!)
+      expect(result).toEqual({ maxComparisons: comparisons, maxElementWrites: writes })
+      expect(Number.isSafeInteger(result.maxComparisons)).toBe(true)
+      expect(Number.isSafeInteger(result.maxElementWrites)).toBe(true)
+    }
+  })
+
+  it('rejects non-array-domain lengths with RangeError, not a giant sparse array', () => {
+    for (const n of [-1, -0.5, 0.5, 1.5, 4_294_967_296, Number.MAX_SAFE_INTEGER,
+      Number.NaN, Infinity, -Infinity]) {
+      expect(() => boundedStableSortCost(n)).toThrow(RangeError)
+    }
+  })
+
+  it('measures real comparator calls across tiny, odd and power-of-two boundaries', () => {
+    // Deterministic test-only permutation; never reads/writes campaign RNG.
+    const shuffled = (values: readonly Row[]) => {
+      const out = [...values]
+      let seed = 173
+      for (let index = out.length - 1; index > 0; index--) {
+        seed = (seed * 73 + 41) % 997
+        const other = seed % (index + 1)
+        const held = out[index]!
+        out[index] = out[other]!
+        out[other] = held
+      }
+      return out
+    }
+    for (const n of [0, 1, 2, 3, 5, 7, 8, 9, 15, 16, 17, 31, 32, 33]) {
+      const ascending = Array.from({ length: n }, (_, index) => row(index, `row-${index}`))
+      const zigzag = ascending.filter((_, index) => index % 2 === 0)
+        .concat(ascending.filter((_, index) => index % 2 === 1).reverse())
+      for (const input of [ascending, [...ascending].reverse(), zigzag, shuffled(ascending)]) {
+        const { result, calls } = check(Object.freeze(input), (a, b) => a.rank - b.rank)
+        expect(result).toEqual(ascending)
+        if (n > 1) expect(calls).toBeGreaterThan(0)
+      }
+      check(Object.freeze(ascending.map((value) => row(0, value.id))), (a, b) => a.rank - b.rank)
+    }
+  })
+})

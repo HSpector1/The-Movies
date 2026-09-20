@@ -1,0 +1,14 @@
+{"sourceSha":"8ed2646a769386a7bace5312c7c0c90a90a7af01","testedDiffSha256":"e6545e084d3e9913bb4a91a0bc637fa73aba4a428cf01f9f410132321e52bd70","untrackedSource":["tests/p14b4-bounded-sort-owners.test.ts","tests/p14b4-bounded-stable-sort.test.ts"],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14b4-bounded-sort-owners.test.ts"],"node":"v20.20.2","start":"2026-09-20T02:07:04.352Z","end":null,"exitCode":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p14b4-bounded-sort-owners.test.ts (7 tests) 349ms
+
+ Test Files  1 passed (1)
+      Tests  7 passed (7)
+   Start at  04:07:04
+   Duration  3.27s (transform 1.77s, setup 0ms, collect 2.38s, tests 349ms, environment 0ms, prepare 122ms)
+
+
+{"sourceSha":"8ed2646a769386a7bace5312c7c0c90a90a7af01","testedDiffSha256":"e6545e084d3e9913bb4a91a0bc637fa73aba4a428cf01f9f410132321e52bd70","untrackedSource":["tests/p14b4-bounded-sort-owners.test.ts","tests/p14b4-bounded-stable-sort.test.ts"],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14b4-bounded-sort-owners.test.ts"],"node":"v20.20.2","start":"2026-09-20T02:07:04.352Z","end":"2026-09-20T02:07:08.513Z","exitCode":0,"signal":null,"error":null,"sourceShaAtEnd":"8ed2646a769386a7bace5312c7c0c90a90a7af01","testedDiffSha256AtEnd":"e6545e084d3e9913bb4a91a0bc637fa73aba4a428cf01f9f410132321e52bd70","untrackedSourceAtEnd":["tests/p14b4-bounded-sort-owners.test.ts","tests/p14b4-bounded-stable-sort.test.ts"],"fixedSource":true}

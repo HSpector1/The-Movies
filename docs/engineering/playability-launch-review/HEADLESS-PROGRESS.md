@@ -6,38 +6,35 @@ Headless verification never claims package completion or Owner acceptance.
 
 Current (2026-09-20):
 
-Current B4 checkpoint155 (2026-09-20): six genuine owner fact interfaces
-implemented TYPE-ONLY under146/137§2; source147 frozen, independent150 KEEP.
-151 proves emitted ES2022 JavaScript BYTE-IDENTICAL for all six modules.
-152 CLOSED107PASS/1 unchanged missing-PIL exporter FAIL across11files; exact
-full-signature comparison155 preserves the unverified exporter limitation.
-153 root AND UI PASS, resolving all49 independent145 narrow-argument type errors.
-154 bridge exit2 SOLE unchanged futureP2 kind364TS2353. All fixedSource:true,
-base41bfeebc69b5255be40e9169b76097c82c08c60c plus protectedpatch
-97b49c904009d6f61fd753cf4360c92beeb3d1a48b5888eb7ccfe3479bf781c0.
-ALLsessions CLOSED; ALLprotected source/tests frozen; NO production writer.
-Next publish qualified155 and verify EXACTremote. Latestpublished41bfeeb,
-separate exactremote01:39:54Z (149). Staffing6afe629/139:145PASS/rootUIpass/
-independent133 KEEP remains recovered; joint-trace kernel5cae2da/119:86PASS and
-114KEEP, D3 correction956, genericclockc04 and optionalkernela8d277d unchanged.
+Current B4 checkpoint166 (2026-09-20): independent bounded shared-sort tests
+installed EXACT160 drafts plus provenance comments; independent165 KEEP.
+157 §§1–3 adopted, independent159 KEEP. No sort source implementation yet.
+161 unchanged-owner baseline41PASS/5files on published8ed2646/EMPTYpatch.
+163 new OLD-owner parity7PASS;164 actual missing-helper RED is ONE failed suite
+with ZERO collected bodies, not seven behavioral failures. Both fixedSource:true,
+base8ed2646a769386a7bace5312c7c0c90a90a7af01 plus TESTONLYpatch
+e6545e084d3e9913bb4a91a0bc637fa73aba4a428cf01f9f410132321e52bd70.
+All runtime CLOSED; protected source/tests frozen, NO production writer.
+Next publish166/exactremote, then sole sim-core three-file bounded-sort helper/
+operations/releaseAuthority implementation; independent review and serial checks.
+162 first-take owner work bill frozen, PAPER ONLY/unreviewed; all specialistsidle.
 
-Replay137 is design only:148 REFINE adopted. Actual sorting/repeated ID and
-copy/string work needs a source-proven BEFORE-call bound, not declared tariffs.
-Sim-core ONLY inert157 bounded-sort/work addendum; test-author ONLY inert158
-independent cases until exactAPI settled; auditoridle/max2specialists.
-126 pre-sweep chronology remains;132 proves same-dev-slot grant DURING a lawful
-started-only sweep impossible. Use real due release/sticky-other-slot control,
-later queued after-sweep handoff separately.148's H==now empty holds/current
-paths and current-branch command-after-release refusal conventions adopted.
-No replay/sort/predicate source release before settled contracts/independent RED.
-No weaker test/validator/timeout/work cap; no fake GameState/history/claim coverage.
+Owner fact checkpoint155/8ed2646 remains qualified:151 all6 emittedJSidentical,
+152107PASS/1 exactpriorPIL failure,153rootUIpass,154solepriorP2typeerror.
+Staffing6afe629/139145PASS and joint-trace5cae2da/11986PASS remain recovered.
+Replay137 is design only:148 REFINE/157 §§4–5 whole owner/callback/string/copy
+BEFORE-call cost proof remains OPEN; old67,904 estimate withdrawn. Helper bounds
+alone do not certify complete replay.162 is one proposed source block only.
+No weaker test/validator/timeout/work cap, fake history or inflated coverage.
+132 due-background/sticky-other-slot correction and148 H==now/current-branch
+stale-command refusal conventions stay adopted. Continue full useful actual-owner
+traces, coherentP2/restP14/P15/P16/specifiedP17/P18 without routine permission.
 
-Continue useful actual-owner whole traces/coherent P2, remaining P14/P15/P16 and
-specified P17/P18 without routine approval pauses. P14B.1 T4/B2/B3/B-F2 qualified
-closeouts are recovered; do not rebuild or rerun them. Save29/rules3/projection46
-remain live until coherent activation. Full B4, Unity/native and Owner acceptance
-remain owed; maintain Unity backlog. Evidence/p14b4-20260919/00-start.md records
-exact active ownership/runtime/publication; older CURRENT blocks are chronology.
+P14B.1 T4/B2/B3/B-F2 qualified closeouts recovered; do not rebuild/rerun.
+Save29/rules3/projection46 remain live until coherent activation. Full B4,
+Unity/native and Owner acceptance remain owed; Unity backlog retained.
+Evidence/p14b4-20260919/00-start.md records exact ownership/runtime/publication;
+older CURRENT blocks are chronology.
 
 Earlier additive foundation checkpoint: V30 data support implemented and independently
 KEEP; qualified report evidence/p14b4-20260919/29-additive-checkpoint.md.

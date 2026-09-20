@@ -1,5 +1,30 @@
 # P14B.4 — capacity implementation continuation
 
+CURRENT166:159contractKEEP/165testKEEP;160 exactinstalled.1637oldownerPASS;
+1641FailedSuite/ZERObodies missinghelperRED. Both fixed8ed+TESTONLYpatch
+e6545e084d3e9913bb4a91a0bc637fa73aba4a428cf01f9f410132321e52bd70.
+Allruntime CLOSED; NOproductionwriter. Next166commit/push/exactremote thenONE
+sim-core helper+operations+releaseAuthority sort implementation under157§§1–3.
+162firsttakebill FROZEN/PAPERONLY/unreviewed; ALLagentsidle. Fullreplaybill stillOPEN.
+
+CURRENT161: parent adopted frozen157 §§1–3 bounded-sort prerequisite only;
+157 §§4–5 full replay work composition stays OPEN. 158 paper matrix frozen.
+161 owner baseline CLOSED:41PASS/5files, fixedSource:true on published8ed2646,
+EMPTY protected patch,02:00:12.563Z–02:00:25.046Z. No runtime/source writer.
+Auditor READ-ONLY159 contract review; test-author ONLY inert160 executable drafts
+and brief; sim-coreidle. Max2specialists. Parent next fully reads frozen160,
+installs exact independent tests, runs old-owner parity and missing-helper RED,
+publishes/reverifies, then releases ONE three-file production sort writer.
+No complete replay certification, P2/live-version activation or whole-B4 closeout.
+
+CURRENT156:8ed2646a769386a7bace5312c7c0c90a90a7af01 PUSHED; separate
+EXACTremote01:51:57Z.155qualified/150KEEP preserved; ALLsessionsCLOSED,
+NOproductionwriter/allprotectedfrozen. Sim157 ONLYinert exactbounded-sort/work
+addendum; author158 ONLYinertcases pendingadoptedAPI; auditoridle/max2.
+Next157freeze/fullreview then158executableparity/costtests/actualRED, onesource
+writer realsharedsortsites, serialchecks/publication. Full replaybound stillowed;
+13767,904 notanexecutionbound,148REFINE retained. Continue actualcoding/coherentP2.
+
 CURRENT155:147 sixTYPEONLY source FROZEN;150 independentKEEP; qualified155.
 151all6emittedJSidentityPASS;152107PASS/onlyunchangedPILFAIL (155comparison
 exactfullsignature);153 root/UI PASS;154 only unchangedfutureP2kind364TS2353.

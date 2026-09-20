@@ -1,0 +1,26 @@
+{
+  "sourceSha": "8ed2646a769386a7bace5312c7c0c90a90a7af01",
+  "testedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "untrackedSource": [],
+  "command": [
+    "node_modules/.bin/vitest",
+    "run",
+    "--project",
+    "core",
+    "tests/operations.test.ts",
+    "tests/contracts/sticky-retention.contract.test.ts",
+    "tests/p06a-w1-release-authority.test.ts",
+    "tests/p14b4-managed-clock-owner.test.ts",
+    "tests/p14b4-owner-fact-views.test.ts"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-20T02:00:12.563Z",
+  "end": "2026-09-20T02:00:25.046Z",
+  "exitCode": 0,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "8ed2646a769386a7bace5312c7c0c90a90a7af01",
+  "testedDiffSha256AtEnd": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "untrackedSourceAtEnd": [],
+  "fixedSource": true
+}

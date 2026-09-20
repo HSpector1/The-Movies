@@ -1,0 +1,22 @@
+{"sourceSha":"8ed2646a769386a7bace5312c7c0c90a90a7af01","testedDiffSha256":"e6545e084d3e9913bb4a91a0bc637fa73aba4a428cf01f9f410132321e52bd70","untrackedSource":["tests/p14b4-bounded-sort-owners.test.ts","tests/p14b4-bounded-stable-sort.test.ts"],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14b4-bounded-stable-sort.test.ts"],"node":"v20.20.2","start":"2026-09-20T02:07:34.025Z","end":null,"exitCode":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/p14b4-bounded-stable-sort.test.ts (0 test)
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14b4-bounded-stable-sort.test.ts [ tests/p14b4-bounded-stable-sort.test.ts ]
+Error: Failed to load url ../src/core/boundedStableSort.js (resolved id: ../src/core/boundedStableSort.js) in /Users/zacheryspector/The-Movies-headless-program/tests/p14b4-bounded-stable-sort.test.ts. Does the file exist?
+ ❯ loadAndTransform node_modules/vitest/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:51969:17
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed (1)
+      Tests  no tests
+   Start at  04:07:34
+   Duration  560ms (transform 59ms, setup 0ms, collect 0ms, tests 0ms, environment 2ms, prepare 131ms)
+
+
+{"sourceSha":"8ed2646a769386a7bace5312c7c0c90a90a7af01","testedDiffSha256":"e6545e084d3e9913bb4a91a0bc637fa73aba4a428cf01f9f410132321e52bd70","untrackedSource":["tests/p14b4-bounded-sort-owners.test.ts","tests/p14b4-bounded-stable-sort.test.ts"],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14b4-bounded-stable-sort.test.ts"],"node":"v20.20.2","start":"2026-09-20T02:07:34.025Z","end":"2026-09-20T02:07:35.535Z","exitCode":1,"signal":null,"error":null,"sourceShaAtEnd":"8ed2646a769386a7bace5312c7c0c90a90a7af01","testedDiffSha256AtEnd":"e6545e084d3e9913bb4a91a0bc637fa73aba4a428cf01f9f410132321e52bd70","untrackedSourceAtEnd":["tests/p14b4-bounded-sort-owners.test.ts","tests/p14b4-bounded-stable-sort.test.ts"],"fixedSource":true}
