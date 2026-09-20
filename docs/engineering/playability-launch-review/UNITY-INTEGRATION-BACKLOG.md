@@ -67,6 +67,18 @@ Ready plan costs 182925 of 200000). No writer released. Consumer impact: the
 projection47 / Save30 / class-selection wire contract stays future; its timing
 now depends on D1.
 
+Headless checkpoint538/539 (2026-09-20), published/exact remote
+`1b5ba084e271e73ecf4cd76b8bb0caa5c26ff2c0`: kernel budget measured on the real
+capacity fixtures (538): short fixed-cast windows fit the 200000 hypothesis;
+Ready admission on a history-bearing world saturates it under the adopted
+native-collection work metric (538-C: a tariff item for the Owner, not a code
+fix), and one admission per trace makes the plan's achievable probe
+structurally unreachable. Decision item D2 is now concrete. Record 539 adopts a
+detached owner-adapter first slice (pure module, no live importer, no version
+stamp) with its RED brief; a test-author RED and one writer follow. Consumer
+impact: none; projection46/Save29/protocol4 unchanged; the projection47/Save30
+wire contract still waits on D1.
+
 These are private logic/work-accounting changes only. No consumer field/action,
 protocol4, projection46, live Save29, evaluator3, schema or generated C# changed.
 Do not expose partial traces as certified offers, impossible schedules or broken

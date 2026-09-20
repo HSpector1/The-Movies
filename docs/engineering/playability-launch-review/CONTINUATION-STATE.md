@@ -81,11 +81,29 @@ evaluator4 definition/sequencing (a: scalar now, kernel as evaluator5, pins
 reconciled inside the coordinated cutover — parent recommends; b: hold 4 for
 the kernel service; c: revisit cap/tariffs); D2 kernel budget finding (one Ready
 plan =182925 of200000; the achievable probe needs two traces). NO writer.
-NEXT538: evidence-only kernel budget measurement on the real capacity fixtures
-(test-author file, parent record-check run), then bounded review of a detached
-owner-adapter first slice (claims/trace assembly/result mapping over explicit
-plans; enumerator separate): lawful under every D1 option, no live wiring, no
-version stamp. Replay C1/C5–C7 remain the parallel track; 515§6 stands. Gross2221 omitted fact cost is NOT
+538 CLOSED/fixedSource:true on79b7a738 (published e3c6dd2): evidence-only
+kernel budget measurement on the real capacity fixtures (test-author file,
+archived in the 538 patch, not installed): fixed-cast 2-week cells at shooting-5
+FIT (started producer108265 + kernel4.2–4.5k ≤112722); every Ready plan on the
+history-bearing `opened` fixture cuts workLimit at admission (quadratic ID-
+occurrence bill in readyProductionId, ≥148 occurrences at width37); a Ready
+trace admits ONE fresh picture, so the B=2 achievable probe is structurally
+unreachable. 538-C contract review (published2e908da): the bill is the adopted
+162§2 native Map/Set metric (176§1, 320 B-addendum, 285) — a TARIFF item, not a
+writer fix; one-admission/source-now is the adopted 240/241 design. D2 made
+concrete (538-C §2): options a–d for the metric/cap, direction record for
+multi-admission; non-blocking alongside 515§6 and D1. 539 (published1b5ba08):
+detached owner-adapter FIRST slice designed (539-A) and reviewed KEEP WITH
+REFINEMENTS (539-B): new pure module src/core/promiseCapacityOwners.ts (claims
+by the B3 law widened to every same-studio beneficiary, assembly over EXISTING
+producer results with derived coverage, digest without preparationWork, kernel
+class → offer vocabulary with the exact UNCERTIFIED string, no receipt fields),
+plus `export` on promiseCastSlots/qualifyingTakes only; lawful under every D1
+option. NEXT540: test-author RED file tests/p14b4-owner-adapter-first-slice
+(in progress) → ONE sim-core writer (module + two export lines) → serial fixed-
+source checks (new GREEN; kernel/replay/material/B1–B3/B-F2/bridge/save sets
+identical; six live-P2 groups byte-identical to536) → independent review.
+Replay C1/C5–C7 remain the parallel track; 515§6 stands. Gross2221 omitted fact cost is NOT
 net saving: cold discovery can shift into next frame. No route-fit claim.
 Draft-discovery, silent-policy, affine and Map alternatives remain unadopted.
 T4/B2/B3/B-F2 qualified closed; B4/liveP2/Unity/Owner acceptance NOT closed.
