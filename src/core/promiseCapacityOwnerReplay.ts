@@ -399,7 +399,7 @@ function sorted<T>(values: readonly T[], keyOf: (value: T) => string, work: Work
   work.pay(2 + 3 * ordered.length)
   return ordered.map(row => row.value)
 }
-/** Only the four dense output arrays with pure key projections use this path.
+/** The four dense output arrays and the duplicate-identity check use this path.
  * An inversion pays the entire unchanged sort; every return is a fresh array. */
 function sortedOutput<T>(
   values: readonly T[],
@@ -441,7 +441,7 @@ function find<T>(rows: readonly T[], id: string, keyOf: (row: T) => string, work
   return undefined
 }
 function uniqueIds<T>(rows: readonly T[], keyOf: (row: T) => string, work: Work): void {
-  const ordered = sorted(rows, keyOf, work)
+  const ordered = sortedOutput(rows, keyOf, work)
   for (let i = 1; i < ordered.length; i++) {
     work.pay(3)
     invariant(!work.equal(keyOf(ordered[i - 1]!), keyOf(ordered[i]!)), 'duplicate consumed identity')
