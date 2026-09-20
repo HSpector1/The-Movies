@@ -1,0 +1,311 @@
+{"sourceSha":"812d50d8b6e83677c752a4188d1180b23e394c3e","testedDiffSha256":"0e7fe957f6ff9a7fecb701e668c855d3bd84af5bf01cfc2d13e88e2fc81af5e9","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14b4-ready-replay-stale-target.test.ts"],"node":"v20.20.2","start":"2026-09-20T10:15:05.889Z","end":null,"exitCode":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+stderr | tests/p14b4-ready-replay-stale-target.test.ts > P14B4 Ready replay — stale Ready target after genuine release > resolves the same source-now Ready target against the released branch, refuses without resurrection, and retains the real first-take/release prefix
+P14B4_KEYBILL_434 6 22 21753
+P14B4_KEYBILL_434 3 22 21913
+P14B4_KEYBILL_434 0 22 30455
+P14B4_KEYBILL_434 0 22 30664
+P14B4_KEYBILL_434 5 22 31560
+P14B4_KEYBILL_434 5 22 32667
+P14B4_KEYBILL_434 5 22 33774
+P14B4_KEYBILL_434 5 22 34881
+P14B4_KEYBILL_434 5 22 35988
+P14B4_KEYBILL_434 0 22 37055
+P14B4_KEYBILL_434 5 22 37328
+P14B4_KEYBILL_434 0 22 37400
+P14B4_KEYBILL_434 8 37 48356
+P14B4_KEYBILL_434 8 37 49122
+P14B4_DIMENSIONS_ENTRY_434 50104 [ 8 ]
+P14B4_DIMENSIONS_DONE_434 53658
+P14B4_KEYBILL_434 0 54 54326
+P14B4_KEYBILL_434 0 54 54496
+P14B4_KEYBILL_434 0 54 55654
+P14B4_KEYBILL_434 1 54 56025
+P14B4_FRAME_ENTRY_434 1 71983 [ 8 ]
+P14B4_KEYBILL_434 0 0 72069
+P14B4_DIMENSIONS_ENTRY_434 72156 [ 8 ]
+P14B4_DIMENSIONS_DONE_434 74096
+P14B4_KEYBILL_434 0 0 74771
+P14B4_KEYBILL_434 1 9 75201
+P14B4_KEYBILL_434 0 9 75315
+P14B4_SWEEP_BILL_434 1 76535 315 [ 8 ] {
+  n: 1,
+  f: 5,
+  capacity: 8,
+  sets: 2,
+  external: 0,
+  d: 28,
+  dp: 9,
+  pCopy: 101,
+  workflowCopy: 98,
+  taskCopy: 66,
+  bindingsCopy: 95,
+  operationsCopy: 33,
+  setCopy: 137,
+  setupCopy: 0,
+  technologyCopy: 132,
+  technologyRowCopy: 62,
+  t: 0,
+  adoptions: 0,
+  access: 0,
+  equipment: 0,
+  placements: 0,
+  structures: 8,
+  provides: 5,
+  cells: 0,
+  genreRows: 1,
+  genreId: 9,
+  allSilent: true
+}
+P14B4_KEYBILL_434 0 9 77644
+P14B4_KEYBILL_434 0 9 77849
+P14B4_FRAME_ENTRY_434 2 77994 [ 8 ]
+P14B4_KEYBILL_434 0 0 78080
+P14B4_DIMENSIONS_ENTRY_434 78167 [ 8 ]
+P14B4_DIMENSIONS_DONE_434 79237
+P14B4_KEYBILL_434 0 0 79912
+P14B4_KEYBILL_434 0 54 82093
+P14B4_KEYBILL_434 2 19 83039
+P14B4_KEYBILL_434 2 54 83111
+P14B4_KEYBILL_434 1 9 83929
+P14B4_KEYBILL_434 1 9 84139
+P14B4_KEYBILL_434 0 9 84515
+P14B4_SWEEP_BILL_434 2 84825 11193 [ 8 ] {
+  n: 1,
+  f: 5,
+  capacity: 8,
+  sets: 2,
+  external: 0,
+  d: 28,
+  dp: 9,
+  pCopy: 101,
+  workflowCopy: 98,
+  taskCopy: 66,
+  bindingsCopy: 95,
+  operationsCopy: 33,
+  setCopy: 137,
+  setupCopy: 0,
+  technologyCopy: 132,
+  technologyRowCopy: 62,
+  t: 0,
+  adoptions: 0,
+  access: 0,
+  equipment: 0,
+  placements: 0,
+  structures: 8,
+  provides: 5,
+  cells: 0,
+  genreRows: 1,
+  genreId: 9,
+  allSilent: true
+}
+P14B4_KEYBILL_434 0 9 96976
+P14B4_KEYBILL_434 0 9 97181
+P14B4_FRAME_ENTRY_434 3 97326 [ 7 ]
+P14B4_KEYBILL_434 0 0 97412
+P14B4_DIMENSIONS_ENTRY_434 97499 [ 7 ]
+P14B4_DIMENSIONS_DONE_434 99900
+P14B4_KEYBILL_434 0 0 100577
+P14B4_KEYBILL_434 1 19 101393
+P14B4_KEYBILL_434 2 54 101531
+P14B4_KEYBILL_434 1 9 101805
+P14B4_KEYBILL_434 0 54 102147
+P14B4_KEYBILL_434 0 28 103375
+P14B4_SWEEP_BILL_434 3 105793 18412 [ 7 ] {
+  n: 1,
+  f: 5,
+  capacity: 8,
+  sets: 2,
+  external: 0,
+  d: 28,
+  dp: 9,
+  pCopy: 101,
+  workflowCopy: 98,
+  taskCopy: 66,
+  bindingsCopy: 95,
+  operationsCopy: 33,
+  setCopy: 137,
+  setupCopy: 0,
+  technologyCopy: 132,
+  technologyRowCopy: 62,
+  t: 0,
+  adoptions: 0,
+  access: 0,
+  equipment: 0,
+  placements: 0,
+  structures: 8,
+  provides: 5,
+  cells: 0,
+  genreRows: 1,
+  genreId: 9,
+  allSilent: true
+}
+P14B4_KEYBILL_434 0 9 130287
+P14B4_KEYBILL_434 0 9 130492
+P14B4_FRAME_ENTRY_434 4 130637 [ 6 ]
+P14B4_KEYBILL_434 0 0 130723
+P14B4_DIMENSIONS_ENTRY_434 130810 [ 6 ]
+P14B4_DIMENSIONS_DONE_434 133371
+P14B4_KEYBILL_434 0 0 134044
+P14B4_KEYBILL_434 1 19 134842
+P14B4_KEYBILL_434 2 54 134980
+P14B4_KEYBILL_434 1 9 135254
+P14B4_KEYBILL_434 0 54 135733
+P14B4_SWEEP_BILL_434 4 138579 9562 [ 6 ] {
+  n: 1,
+  f: 5,
+  capacity: 8,
+  sets: 2,
+  external: 0,
+  d: 28,
+  dp: 9,
+  pCopy: 101,
+  workflowCopy: 98,
+  taskCopy: 66,
+  bindingsCopy: 95,
+  operationsCopy: 33,
+  setCopy: 137,
+  setupCopy: 0,
+  technologyCopy: 132,
+  technologyRowCopy: 62,
+  t: 0,
+  adoptions: 0,
+  access: 0,
+  equipment: 0,
+  placements: 0,
+  structures: 8,
+  provides: 5,
+  cells: 0,
+  genreRows: 1,
+  genreId: 9,
+  allSilent: true
+}
+P14B4_KEYBILL_434 0 9 152555
+P14B4_KEYBILL_434 0 9 152760
+P14B4_DIMENSIONS_ENTRY_434 153004 [ 5 ]
+P14B4_DIMENSIONS_DONE_434 157546
+P14B4_DIMENSIONS_ENTRY_434 161952 [ 5 ]
+P14B4_DIMENSIONS_DONE_434 165128
+P14B4_FRAME_ENTRY_434 5 166373 [ 5 ]
+P14B4_KEYBILL_434 0 0 166459
+P14B4_DIMENSIONS_ENTRY_434 166546 [ 5 ]
+P14B4_DIMENSIONS_DONE_434 169780
+P14B4_KEYBILL_434 0 0 170475
+P14B4_KEYBILL_434 1 9 171168
+P14B4_KEYBILL_434 0 9 171282
+P14B4_SWEEP_BILL_434 5 172502 850 [ 5 ] {
+  n: 1,
+  f: 5,
+  capacity: 8,
+  sets: 2,
+  external: 0,
+  d: 28,
+  dp: 9,
+  pCopy: 101,
+  workflowCopy: 98,
+  taskCopy: 66,
+  bindingsCopy: 95,
+  operationsCopy: 33,
+  setCopy: 137,
+  setupCopy: 0,
+  technologyCopy: 132,
+  technologyRowCopy: 62,
+  t: 1,
+  adoptions: 0,
+  access: 0,
+  equipment: 0,
+  placements: 0,
+  structures: 8,
+  provides: 5,
+  cells: 0,
+  genreRows: 1,
+  genreId: 9,
+  allSilent: true
+}
+P14B4_KEYBILL_434 0 9 175268
+P14B4_KEYBILL_434 0 9 175473
+P14B4_FRAME_ENTRY_434 6 175719 [ 4 ]
+P14B4_KEYBILL_434 0 0 175805
+P14B4_DIMENSIONS_ENTRY_434 175892 [ 4 ]
+P14B4_DIMENSIONS_DONE_434 179571
+P14B4_KEYBILL_434 0 0 180266
+P14B4_KEYBILL_434 0 54 182864
+P14B4_KEYBILL_434 2 54 183774
+P14B4_KEYBILL_434 2 19 184066
+P14B4_KEYBILL_434 2 54 184138
+P14B4_KEYBILL_434 1 9 184956
+P14B4_KEYBILL_434 1 9 185166
+P14B4_KEYBILL_434 0 9 185542
+P14B4_SWEEP_BILL_434 6 185852 12076 [ 4 ] {
+  n: 1,
+  f: 5,
+  capacity: 8,
+  sets: 2,
+  external: 0,
+  d: 28,
+  dp: 9,
+  pCopy: 101,
+  workflowCopy: 98,
+  taskCopy: 66,
+  bindingsCopy: 95,
+  operationsCopy: 33,
+  setCopy: 137,
+  setupCopy: 0,
+  technologyCopy: 132,
+  technologyRowCopy: 62,
+  t: 1,
+  adoptions: 0,
+  access: 0,
+  equipment: 0,
+  placements: 0,
+  structures: 8,
+  provides: 5,
+  cells: 0,
+  genreRows: 1,
+  genreId: 9,
+  allSilent: true
+}
+P14B4_WORK_LIMIT_434 200000 4 200000 Error: diagnostic-only
+    at Work.pay (/Users/zacheryspector/The-Movies-headless-program/src/core/promiseCapacityOwnerReplay.ts:247:111)
+    at samePath (/Users/zacheryspector/The-Movies-headless-program/src/core/promiseCapacityOwnerReplay.ts:1410:8)
+    at closeHold (/Users/zacheryspector/The-Movies-headless-program/src/core/promiseCapacityOwnerReplay.ts:1437:58)
+    at drainEvents (/Users/zacheryspector/The-Movies-headless-program/src/core/promiseCapacityOwnerReplay.ts:1519:11)
+    at frame (/Users/zacheryspector/The-Movies-headless-program/src/core/promiseCapacityOwnerReplay.ts:1779:3)
+    at replayPlans (/Users/zacheryspector/The-Movies-headless-program/src/core/promiseCapacityOwnerReplay.ts:2555:9)
+    at Module.replayReadyProductionPlans (/Users/zacheryspector/The-Movies-headless-program/src/core/promiseCapacityOwnerReplay.ts:2601:10)
+    at /Users/zacheryspector/The-Movies-headless-program/tests/p14b4-ready-replay-stale-target.test.ts:225:53
+    at watchOwners (/Users/zacheryspector/The-Movies-headless-program/tests/p14b4-ready-replay-stale-target.test.ts:129:25)
+    at /Users/zacheryspector/The-Movies-headless-program/tests/p14b4-ready-replay-stale-target.test.ts:225:21
+
+ ❯ |core| tests/p14b4-ready-replay-stale-target.test.ts (1 test | 1 failed) 2169ms
+   × P14B4 Ready replay — stale Ready target after genuine release > resolves the same source-now Ready target against the released branch, refuses without resurrection, and retains the real first-take/release prefix 2168ms
+     → expected 'workLimit' to be 'commandRefused' // Object.is equality
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14b4-ready-replay-stale-target.test.ts > P14B4 Ready replay — stale Ready target after genuine release > resolves the same source-now Ready target against the released branch, refuses without resurrection, and retains the real first-take/release prefix
+AssertionError: expected 'workLimit' to be 'commandRefused' // Object.is equality
+
+Expected: "commandRefused"
+Received: "workLimit"
+
+ ❯ tests/p14b4-ready-replay-stale-target.test.ts:234:28
+    232|     const attempt = result.attempts[0]!
+    233|     if (attempt.kind !== 'cut') throw new Error('released Ready target…
+    234|     expect(attempt.reason).toBe('commandRefused') // workLimit is not …
+       |                            ^
+    235|     expect(attempt.through.week).toBe(released.market.tick)
+    236|     expect(attempt.detail.length).toBeGreaterThan(0)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed (1)
+      Tests  1 failed (1)
+   Start at  12:15:06
+   Duration  6.30s (transform 2.63s, setup 0ms, collect 3.40s, tests 2.17s, environment 0ms, prepare 180ms)
+
+
+{"sourceSha":"812d50d8b6e83677c752a4188d1180b23e394c3e","testedDiffSha256":"0e7fe957f6ff9a7fecb701e668c855d3bd84af5bf01cfc2d13e88e2fc81af5e9","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14b4-ready-replay-stale-target.test.ts"],"node":"v20.20.2","start":"2026-09-20T10:15:05.889Z","end":"2026-09-20T10:15:13.663Z","exitCode":1,"signal":null,"error":null,"sourceShaAtEnd":"812d50d8b6e83677c752a4188d1180b23e394c3e","testedDiffSha256AtEnd":"0e7fe957f6ff9a7fecb701e668c855d3bd84af5bf01cfc2d13e88e2fc81af5e9","untrackedSourceAtEnd":[],"fixedSource":true}

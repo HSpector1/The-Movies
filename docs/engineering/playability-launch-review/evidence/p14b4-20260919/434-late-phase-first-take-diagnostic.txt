@@ -1,0 +1,307 @@
+{"sourceSha":"812d50d8b6e83677c752a4188d1180b23e394c3e","testedDiffSha256":"0e7fe957f6ff9a7fecb701e668c855d3bd84af5bf01cfc2d13e88e2fc81af5e9","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14b4-ready-replay-first-take.test.ts"],"node":"v20.20.2","start":"2026-09-20T10:14:45.779Z","end":null,"exitCode":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+stderr | tests/p14b4-ready-replay-first-take.test.ts > P14B4 Ready replay — genuine first completed take > executes real Ready-target director/schedule commands, retains the take inside a half-open horizon and matches actual wrap/holds within the shared cap
+P14B4_KEYBILL_434 6 22 21383
+P14B4_KEYBILL_434 3 22 21543
+P14B4_KEYBILL_434 0 22 30085
+P14B4_KEYBILL_434 0 22 30294
+P14B4_KEYBILL_434 5 22 31190
+P14B4_KEYBILL_434 5 22 32297
+P14B4_KEYBILL_434 5 22 33404
+P14B4_KEYBILL_434 5 22 34511
+P14B4_KEYBILL_434 5 22 35618
+P14B4_KEYBILL_434 0 22 36685
+P14B4_KEYBILL_434 5 22 36958
+P14B4_KEYBILL_434 0 22 37030
+P14B4_KEYBILL_434 8 37 47986
+P14B4_KEYBILL_434 8 37 48752
+P14B4_DIMENSIONS_ENTRY_434 49734 [ 8 ]
+P14B4_DIMENSIONS_DONE_434 53288
+P14B4_KEYBILL_434 0 54 53956
+P14B4_KEYBILL_434 0 54 54126
+P14B4_KEYBILL_434 0 54 55284
+P14B4_KEYBILL_434 1 54 55655
+P14B4_FRAME_ENTRY_434 1 71445 [ 8 ]
+P14B4_KEYBILL_434 0 0 71531
+P14B4_DIMENSIONS_ENTRY_434 71618 [ 8 ]
+P14B4_DIMENSIONS_DONE_434 73558
+P14B4_KEYBILL_434 0 0 74233
+P14B4_KEYBILL_434 1 9 74663
+P14B4_KEYBILL_434 0 9 74777
+P14B4_SWEEP_BILL_434 1 75997 315 [ 8 ] {
+  n: 1,
+  f: 5,
+  capacity: 8,
+  sets: 2,
+  external: 0,
+  d: 28,
+  dp: 9,
+  pCopy: 101,
+  workflowCopy: 98,
+  taskCopy: 66,
+  bindingsCopy: 95,
+  operationsCopy: 33,
+  setCopy: 137,
+  setupCopy: 0,
+  technologyCopy: 132,
+  technologyRowCopy: 62,
+  t: 0,
+  adoptions: 0,
+  access: 0,
+  equipment: 0,
+  placements: 0,
+  structures: 8,
+  provides: 5,
+  cells: 0,
+  genreRows: 1,
+  genreId: 9,
+  allSilent: true
+}
+P14B4_KEYBILL_434 0 9 77106
+P14B4_KEYBILL_434 0 9 77311
+P14B4_FRAME_ENTRY_434 2 77456 [ 8 ]
+P14B4_KEYBILL_434 0 0 77542
+P14B4_DIMENSIONS_ENTRY_434 77629 [ 8 ]
+P14B4_DIMENSIONS_DONE_434 78699
+P14B4_KEYBILL_434 0 0 79374
+P14B4_KEYBILL_434 0 54 81555
+P14B4_KEYBILL_434 2 19 82501
+P14B4_KEYBILL_434 2 54 82573
+P14B4_KEYBILL_434 1 9 83391
+P14B4_KEYBILL_434 1 9 83601
+P14B4_KEYBILL_434 0 9 83977
+P14B4_SWEEP_BILL_434 2 84287 11193 [ 8 ] {
+  n: 1,
+  f: 5,
+  capacity: 8,
+  sets: 2,
+  external: 0,
+  d: 28,
+  dp: 9,
+  pCopy: 101,
+  workflowCopy: 98,
+  taskCopy: 66,
+  bindingsCopy: 95,
+  operationsCopy: 33,
+  setCopy: 137,
+  setupCopy: 0,
+  technologyCopy: 132,
+  technologyRowCopy: 62,
+  t: 0,
+  adoptions: 0,
+  access: 0,
+  equipment: 0,
+  placements: 0,
+  structures: 8,
+  provides: 5,
+  cells: 0,
+  genreRows: 1,
+  genreId: 9,
+  allSilent: true
+}
+P14B4_KEYBILL_434 0 9 96438
+P14B4_KEYBILL_434 0 9 96643
+P14B4_FRAME_ENTRY_434 3 96788 [ 7 ]
+P14B4_KEYBILL_434 0 0 96874
+P14B4_DIMENSIONS_ENTRY_434 96961 [ 7 ]
+P14B4_DIMENSIONS_DONE_434 99362
+P14B4_KEYBILL_434 0 0 100039
+P14B4_KEYBILL_434 1 19 100855
+P14B4_KEYBILL_434 2 54 100993
+P14B4_KEYBILL_434 1 9 101267
+P14B4_KEYBILL_434 0 54 101609
+P14B4_KEYBILL_434 0 28 102837
+P14B4_SWEEP_BILL_434 3 105255 18412 [ 7 ] {
+  n: 1,
+  f: 5,
+  capacity: 8,
+  sets: 2,
+  external: 0,
+  d: 28,
+  dp: 9,
+  pCopy: 101,
+  workflowCopy: 98,
+  taskCopy: 66,
+  bindingsCopy: 95,
+  operationsCopy: 33,
+  setCopy: 137,
+  setupCopy: 0,
+  technologyCopy: 132,
+  technologyRowCopy: 62,
+  t: 0,
+  adoptions: 0,
+  access: 0,
+  equipment: 0,
+  placements: 0,
+  structures: 8,
+  provides: 5,
+  cells: 0,
+  genreRows: 1,
+  genreId: 9,
+  allSilent: true
+}
+P14B4_KEYBILL_434 0 9 129693
+P14B4_KEYBILL_434 0 9 129898
+P14B4_FRAME_ENTRY_434 4 130043 [ 6 ]
+P14B4_KEYBILL_434 0 0 130129
+P14B4_DIMENSIONS_ENTRY_434 130216 [ 6 ]
+P14B4_DIMENSIONS_DONE_434 132777
+P14B4_KEYBILL_434 0 0 133450
+P14B4_KEYBILL_434 1 19 134248
+P14B4_KEYBILL_434 2 54 134386
+P14B4_KEYBILL_434 1 9 134660
+P14B4_KEYBILL_434 0 54 135139
+P14B4_SWEEP_BILL_434 4 137985 9562 [ 6 ] {
+  n: 1,
+  f: 5,
+  capacity: 8,
+  sets: 2,
+  external: 0,
+  d: 28,
+  dp: 9,
+  pCopy: 101,
+  workflowCopy: 98,
+  taskCopy: 66,
+  bindingsCopy: 95,
+  operationsCopy: 33,
+  setCopy: 137,
+  setupCopy: 0,
+  technologyCopy: 132,
+  technologyRowCopy: 62,
+  t: 0,
+  adoptions: 0,
+  access: 0,
+  equipment: 0,
+  placements: 0,
+  structures: 8,
+  provides: 5,
+  cells: 0,
+  genreRows: 1,
+  genreId: 9,
+  allSilent: true
+}
+P14B4_KEYBILL_434 0 9 151933
+P14B4_KEYBILL_434 0 9 152138
+P14B4_DIMENSIONS_ENTRY_434 152382 [ 5 ]
+P14B4_DIMENSIONS_DONE_434 156924
+P14B4_DIMENSIONS_ENTRY_434 161330 [ 5 ]
+P14B4_DIMENSIONS_DONE_434 164506
+P14B4_FRAME_ENTRY_434 5 165751 [ 5 ]
+P14B4_KEYBILL_434 0 0 165837
+P14B4_DIMENSIONS_ENTRY_434 165924 [ 5 ]
+P14B4_DIMENSIONS_DONE_434 169158
+P14B4_KEYBILL_434 0 0 169853
+P14B4_KEYBILL_434 1 9 170546
+P14B4_KEYBILL_434 0 9 170660
+P14B4_SWEEP_BILL_434 5 171880 850 [ 5 ] {
+  n: 1,
+  f: 5,
+  capacity: 8,
+  sets: 2,
+  external: 0,
+  d: 28,
+  dp: 9,
+  pCopy: 101,
+  workflowCopy: 98,
+  taskCopy: 66,
+  bindingsCopy: 95,
+  operationsCopy: 33,
+  setCopy: 137,
+  setupCopy: 0,
+  technologyCopy: 132,
+  technologyRowCopy: 62,
+  t: 1,
+  adoptions: 0,
+  access: 0,
+  equipment: 0,
+  placements: 0,
+  structures: 8,
+  provides: 5,
+  cells: 0,
+  genreRows: 1,
+  genreId: 9,
+  allSilent: true
+}
+P14B4_KEYBILL_434 0 9 174646
+P14B4_KEYBILL_434 0 9 174851
+P14B4_FRAME_ENTRY_434 6 175097 [ 4 ]
+P14B4_KEYBILL_434 0 0 175183
+P14B4_DIMENSIONS_ENTRY_434 175270 [ 4 ]
+P14B4_DIMENSIONS_DONE_434 178949
+P14B4_KEYBILL_434 0 0 179644
+P14B4_KEYBILL_434 0 54 182242
+P14B4_KEYBILL_434 2 54 183152
+P14B4_KEYBILL_434 2 19 183444
+P14B4_KEYBILL_434 2 54 183516
+P14B4_KEYBILL_434 1 9 184334
+P14B4_KEYBILL_434 1 9 184544
+P14B4_KEYBILL_434 0 9 184920
+P14B4_SWEEP_BILL_434 6 185230 12076 [ 4 ] {
+  n: 1,
+  f: 5,
+  capacity: 8,
+  sets: 2,
+  external: 0,
+  d: 28,
+  dp: 9,
+  pCopy: 101,
+  workflowCopy: 98,
+  taskCopy: 66,
+  bindingsCopy: 95,
+  operationsCopy: 33,
+  setCopy: 137,
+  setupCopy: 0,
+  technologyCopy: 132,
+  technologyRowCopy: 62,
+  t: 1,
+  adoptions: 0,
+  access: 0,
+  equipment: 0,
+  placements: 0,
+  structures: 8,
+  provides: 5,
+  cells: 0,
+  genreRows: 1,
+  genreId: 9,
+  allSilent: true
+}
+P14B4_WORK_LIMIT_434 199980 84 200000 Error: diagnostic-only
+    at Work.pay (/Users/zacheryspector/The-Movies-headless-program/src/core/promiseCapacityOwnerReplay.ts:247:111)
+    at bareKey (/Users/zacheryspector/The-Movies-headless-program/src/core/promiseCapacityOwnerReplay.ts:486:8)
+    at drainEvents (/Users/zacheryspector/The-Movies-headless-program/src/core/promiseCapacityOwnerReplay.ts:1503:22)
+    at frame (/Users/zacheryspector/The-Movies-headless-program/src/core/promiseCapacityOwnerReplay.ts:1779:3)
+    at replayPlans (/Users/zacheryspector/The-Movies-headless-program/src/core/promiseCapacityOwnerReplay.ts:2555:9)
+    at Module.replayReadyProductionPlans (/Users/zacheryspector/The-Movies-headless-program/src/core/promiseCapacityOwnerReplay.ts:2601:10)
+    at /Users/zacheryspector/The-Movies-headless-program/tests/p14b4-ready-replay-first-take.test.ts:205:81
+    at watchOwners (/Users/zacheryspector/The-Movies-headless-program/tests/p14b4-ready-replay-first-take.test.ts:114:25)
+    at /Users/zacheryspector/The-Movies-headless-program/tests/p14b4-ready-replay-first-take.test.ts:205:49
+    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14
+
+ ❯ |core| tests/p14b4-ready-replay-first-take.test.ts (1 test | 1 failed) 2199ms
+   × P14B4 Ready replay — genuine first completed take > executes real Ready-target director/schedule commands, retains the take inside a half-open horizon and matches actual wrap/holds within the shared cap 2195ms
+     → 276 real first-take Ready replay cut: workLimit: shared replay work limit
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14b4-ready-replay-first-take.test.ts > P14B4 Ready replay — genuine first completed take > executes real Ready-target director/schedule commands, retains the take inside a half-open horizon and matches actual wrap/holds within the shared cap
+Error: 276 real first-take Ready replay cut: workLimit: shared replay work limit
+ ❯ tests/p14b4-ready-replay-first-take.test.ts:213:44
+    211|     expect(result.attempts).toHaveLength(1)
+    212|     const attempt = result.attempts[0]!
+    213|     if (attempt.kind !== 'complete') throw new Error(`276 real first-t…
+       |                                            ^
+    214|     expect(result.omissions).toEqual([])
+    215|     expect(checked.calls).toEqual(reference.calls)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed (1)
+      Tests  1 failed (1)
+   Start at  12:14:46
+   Duration  6.32s (transform 2.63s, setup 0ms, collect 3.43s, tests 2.20s, environment 0ms, prepare 143ms)
+
+
+{"sourceSha":"812d50d8b6e83677c752a4188d1180b23e394c3e","testedDiffSha256":"0e7fe957f6ff9a7fecb701e668c855d3bd84af5bf01cfc2d13e88e2fc81af5e9","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14b4-ready-replay-first-take.test.ts"],"node":"v20.20.2","start":"2026-09-20T10:14:45.779Z","end":"2026-09-20T10:14:53.521Z","exitCode":1,"signal":null,"error":null,"sourceShaAtEnd":"812d50d8b6e83677c752a4188d1180b23e394c3e","testedDiffSha256AtEnd":"0e7fe957f6ff9a7fecb701e668c855d3bd84af5bf01cfc2d13e88e2fc81af5e9","untrackedSourceAtEnd":[],"fixedSource":true}

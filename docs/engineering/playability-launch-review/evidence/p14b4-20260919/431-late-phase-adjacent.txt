@@ -1,0 +1,48 @@
+{"sourceSha":"812d50d8b6e83677c752a4188d1180b23e394c3e","testedDiffSha256":"ccaeaf9708a5c8b1ce350eae5eec9da140ef4eb62e3f3068fb57909291bf59e0","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/script-development.test.ts","tests/script-projects-actions.test.ts","tests/casting-sessions-domain.test.ts","tests/casting-sessions-actions.test.ts","tests/operations.test.ts","tests/p14b4-production-admission.test.ts","tests/p14b4-bounded-sort-owners.test.ts","tests/p14b4-owner-fact-views.test.ts","tests/p14b4-managed-clock-owner.test.ts","tests/p14b4-joint-trace.test.ts","tests/p14b4-joint-trace-mode-extension.test.ts","tests/p12-starting-world.test.ts"],"node":"v20.20.2","start":"2026-09-20T10:11:46.494Z","end":null,"exitCode":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p14b4-joint-trace.test.ts (38 tests) 866ms
+ ✓ |core| tests/operations.test.ts (13 tests) 2429ms
+   ✓ Production Operations V1 > holds only the blocked production while world time and weekly costs continue 1414ms
+ ✓ |core| tests/p14b4-production-admission.test.ts (32 tests) 3113ms
+   ✓ P14B4 shared admission — real credit versus engaged work > keeps a genuinely busy credited writer out of engaged seats and labour 441ms
+ ✓ |core| tests/script-development.test.ts (10 tests) 363ms
+ ✓ |core| tests/p14b4-owner-fact-views.test.ts (7 tests) 4695ms
+   ✓ P14B4 existing owner fact views — behavior-preserving narrowing > uses a genuine shooting-entry clock with nullable/default player identity (true) 957ms
+   ✓ P14B4 existing owner fact views — behavior-preserving narrowing > reads only actual property/placement facts for centres and the pre-arrival scenery owner result 934ms
+   ✓ P14B4 existing owner fact views — behavior-preserving narrowing > keeps controlled far-body transit and missing-body withholding distinct from arrival 531ms
+   ✓ P14B4 existing owner fact views — behavior-preserving narrowing > uses narrow real production/concept records for early, missing, legal and committed release 1622ms
+ ✓ |core| tests/p14b4-bounded-sort-owners.test.ts (7 tests) 1171ms
+   ✓ P14B4 real sort-owner parity, independently runnable before new helper > calls the actual allocator policy in input order but selects first-fit identically 601ms
+   ✓ P14B4 real sort-owner parity, independently runnable before new helper > retains the real Annex slot after lower-ID base capacity becomes free 352ms
+ ✓ |core| tests/script-projects-actions.test.ts (4 tests) 927ms
+   ✓ Script Projects V1 action and tick integration > runs Draft, one Rewrite, Ready, linked production, cancellation, and Produced history 502ms
+ ✓ |core| tests/casting-sessions-actions.test.ts (8 tests) 3895ms
+   ✓ Casting Sessions V1 action, tick, and read-model integration > activates only after managed operations/scripts and consumes no behavior state 350ms
+   ✓ Casting Sessions V1 action, tick, and read-model integration > runs one optional week, persists only observations, stops for review, and never holds talent 1033ms
+   ✓ Casting Sessions V1 action, tick, and read-model integration > blocks core greenlight through Review, then opens blank advisory package authority 488ms
+   ✓ Casting Sessions V1 action, tick, and read-model integration > hands capacity-only casting forward to a queueable Package and closes the exact queued project 534ms
+   ✓ Casting Sessions V1 action, tick, and read-model integration > shares both slots with scripts in both directions and reports one combined occupancy 644ms
+   ✓ Casting Sessions V1 action, tick, and read-model integration > orders casting review cards and the player decision by session ID, not project ID 314ms
+   ✓ Casting Sessions V1 action, tick, and read-model integration > keeps direct package available before opting into auditions and preserves evidence when availability changes 305ms
+ ✓ |core| tests/casting-sessions-domain.test.ts (8 tests) 252ms
+ ✓ |core| tests/p14b4-joint-trace-mode-extension.test.ts (2 tests) 53ms
+ ✓ |core| tests/p14b4-managed-clock-owner.test.ts (5 tests) 5381ms
+   ✓ P14B4 behavior-preserving managed clock owner extraction > retains complete caller records/order and skips the actual greenlight week 755ms
+   ✓ P14B4 behavior-preserving managed clock owner extraction > retains full-P callbacks and technology locks at real shooting entry, not a take 936ms
+   ✓ P14B4 behavior-preserving managed clock owner extraction > holds an unassigned real take, then returns exactly the scheduled 5→4 caller record 1229ms
+   ✓ P14B4 behavior-preserving managed clock owner extraction > releases real wrapped stage/Set holds even when the supplied Post slots are occupied 903ms
+   ✓ P14B4 behavior-preserving managed clock owner extraction > holds actual Release Ready until real commitment, then returns its exact admission ID 1548ms
+ ✓ |core| tests/p12-starting-world.test.ts (3 tests) 4871ms
+   ✓ R05 canonical starting history and genuine migration > opens four established distinct businesses with settled canonical history and protected applicants 672ms
+   ✓ R05 canonical starting history and genuine migration > migrates at each old state own week with empty company histories and exact player state 3944ms
+
+ Test Files  12 passed (12)
+      Tests  137 passed (137)
+   Start at  12:11:47
+   Duration  20.68s (transform 4.53s, setup 0ms, collect 17.33s, tests 28.02s, environment 14ms, prepare 3.13s)
+
+
+{"sourceSha":"812d50d8b6e83677c752a4188d1180b23e394c3e","testedDiffSha256":"ccaeaf9708a5c8b1ce350eae5eec9da140ef4eb62e3f3068fb57909291bf59e0","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/script-development.test.ts","tests/script-projects-actions.test.ts","tests/casting-sessions-domain.test.ts","tests/casting-sessions-actions.test.ts","tests/operations.test.ts","tests/p14b4-production-admission.test.ts","tests/p14b4-bounded-sort-owners.test.ts","tests/p14b4-owner-fact-views.test.ts","tests/p14b4-managed-clock-owner.test.ts","tests/p14b4-joint-trace.test.ts","tests/p14b4-joint-trace-mode-extension.test.ts","tests/p12-starting-world.test.ts"],"node":"v20.20.2","start":"2026-09-20T10:11:46.494Z","end":"2026-09-20T10:12:08.393Z","exitCode":0,"signal":null,"error":null,"sourceShaAtEnd":"812d50d8b6e83677c752a4188d1180b23e394c3e","testedDiffSha256AtEnd":"ccaeaf9708a5c8b1ce350eae5eec9da140ef4eb62e3f3068fb57909291bf59e0","untrackedSourceAtEnd":[],"fixedSource":true}
