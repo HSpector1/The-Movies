@@ -321,6 +321,137 @@ describe('P14B4 source-now Ready operational admission', () => {
     expect(capacity.workUsed).toBeLessThanOrEqual(200000)
   })
 
+  it('returns complete Ready rehearsal and unassigned Shooting projections before any take command', () => {
+    // 437: short genuine owner references, independent of the longer route's
+    // eventual budget cut. No clock, capacity, campaign or work-price edits.
+    const { state, payload, writerId } = baseReady(), before = clone(state)
+    const choice = choiceOf(payload), base = input(state, choice, '437-early-ready')
+    const own = base.issuerId, now = state.market.tick
+    const immediate = applyActions(state, [{ kind: 'greenlightScriptProject', production: payload }])
+    supported(immediate, choice)
+    expect(immediate.studio.activeProductions).toHaveLength(1)
+    const production = immediate.studio.activeProductions[0]!, productionId = production.id
+    expect(production).toMatchObject({ startTick: now, remainingTicks: 8 })
+    expect(ids(production)).toHaveLength(5)
+    expect(new Set(ids(production)).size).toBe(5)
+    expect(ids(production)).not.toContain(writerId)
+    const frames: GameState[] = []
+    let next = immediate
+    for (let index = 0; index < 4; index++) {
+      next = tick(next)
+      supported(next, choice) // includes strict save and all foreign/root guards
+      frames.push(next)
+    }
+    expect(frames.map((row) => row.studio.activeProductions.map((p) => p.remainingTicks)))
+      .toEqual([[8], [7], [6], [5]])
+    expect(frames.map((row) => row.operations.workflows.find((w) => w.productionId === productionId)?.phase))
+      .toEqual(['development', 'preProduction', 'rehearsal', 'shooting'])
+    const referenceBefore = clone([immediate, ...frames])
+    type Reservation = GameState['operations']['workflows'][number]['reservations'][number]
+    for (const weeks of [3, 4] as const) {
+      const real = frames[weeks - 1]!, horizon = now + weeks
+      const workflow = real.operations.workflows.find((row) => row.productionId === productionId)
+      assert.ok(workflow && workflow.bindings.stageFacilityId && workflow.bindings.setId)
+      expect(real.market.tick).toBe(horizon)
+      if (weeks === 3) expect(workflow.shootingTask).toBeNull()
+      else expect(workflow.shootingTask?.status).toBe('unassigned')
+      expect(real.firstTakes.filter((row) => row.studioId === own && row.productionId === productionId)).toEqual([])
+      const references = [immediate, ...frames.slice(0, weeks)]
+      const reservations = new Map<string, Pick<Reservation, 'facilityId' | 'slot' | 'capability'>>()
+      for (const reference of references) {
+        const row = reference.operations.workflows.find((candidate) => candidate.productionId === productionId)
+        assert.ok(row)
+        for (const reservation of row.reservations) {
+          const bare = `${reservation.facilityId}:${reservation.slot}`
+          const fact = { facilityId: reservation.facilityId, slot: reservation.slot, capability: reservation.capability }
+          if (reservations.has(bare)) expect(reservations.get(bare)).toEqual(fact)
+          reservations.set(bare, fact)
+        }
+      }
+      expect([...reservations.values()].map((row) => row.capability).sort()).toEqual(weeks === 3
+        ? ['development-casting', 'soundstage'] : ['development-casting', 'set-scenery', 'soundstage'])
+      const { result, attempt, calls } = completed({ ...base, horizonEndWeek: horizon })
+      parity(attempt, state, immediate, real, payload.projectId)
+      const { productions: _sourceRows, ...sourceTechnology } = state.technology
+      const { productions: _projectedRows, ...projectedTechnology } = attempt.projection.technology
+      expect(projectedTechnology).toEqual(sourceTechnology)
+      expect(attempt.projection.sets).toEqual(state.sets)
+      expect(calls).toEqual(frames.slice(0, weeks).map((frame, index) => ({
+        week: now + index, ids: [productionId],
+        before: (index === 0 ? immediate : frames[index - 1]!).studio.activeProductions.map((row) => row.remainingTicks),
+        after: frame.studio.activeProductions.map((row) => row.remainingTicks),
+      })))
+      const events = attempt.provenance.filter((row) => row.kind === 'ownerEvent')
+      const realEvents = real.studioEvents.rows.filter((row) => row.seq >= state.studioEvents.nextSeq)
+      expect(events.map((row) => ({ week: row.ownerWeek, draft: row.draft })))
+        .toEqual(realEvents.map(({ seq: _seq, week, ...draft }) => ({ week, draft })))
+      for (let index = 1; index < attempt.provenance.length; index++) {
+        const left = attempt.provenance[index - 1]!.at, right = attempt.provenance[index]!.at
+        expect(right.week > left.week || (right.week === left.week && right.step > left.step)).toBe(true)
+      }
+      expect(attempt.provenance.filter((row) => row.kind === 'command' || row.kind === 'firstTake' || row.kind === 'releaseAdmitted')).toEqual([])
+      expect(events.filter((row) => row.draft.kind === 'wrapped')).toEqual([])
+      const picturePath = path('screenplay', own, payload.projectId)
+      const mounts = state.sets.filter((row) => row.status === 'standing')
+      expect(attempt.trace.paths.map((row) => row.pathKey).sort()).toEqual([
+        picturePath, ...mounts.map((row) => path('setMount', own, row.id)),
+      ].sort())
+      const pictures = attempt.trace.paths.filter((row) => row.kind === 'jointTracePicture')
+      expect(pictures).toHaveLength(1)
+      expect(pictures[0]).toMatchObject({ pathKey: picturePath, existingPath: true,
+        cast: choice.cast, greenlight: { week: now, step: 1 }, firstTake: null,
+        personRelease: null, additionalHolds: [], holdReplacements: [] })
+      expect(result.fixedHolds).toHaveLength(mounts.length)
+      for (const mount of mounts) {
+        const matches = result.fixedHolds.filter((row) => row.ownerPathKey === path('setMount', own, mount.id))
+        expect(matches).toHaveLength(1)
+        expect(matches[0]!.subject).toEqual({ kind: 'resource', resourceKey: path('mount', own, mount.mountedOn!), slot: 0 })
+        expect(matches[0]!.from).toEqual({ week: now, step: 0 })
+        expect(matches[0]!.until).toEqual({ week: horizon, step: 0 })
+      }
+      expect(attempt.trace.fixedHoldReplacements).toEqual([])
+      const holds = attempt.trace.additionalHolds
+      // Count follows the real five-person company, every actual facility grant
+      // captured above, and the one genuinely bound composite Set.
+      expect(holds).toHaveLength(ids(production).length + reservations.size + 1)
+      expect(holds.every((row) => row.ownerPathKey === picturePath)).toBe(true)
+      const people = holds.filter((row) => row.subject.kind === 'person')
+      expect(people.flatMap((row) => row.subject.kind === 'person' ? [row.subject.personId] : []).sort()).toEqual(ids(production).sort())
+      for (const hold of people) {
+        expect(hold.from).toEqual({ week: now, step: 1 })
+        expect(hold.until).toEqual({ week: horizon, step: 0 })
+      }
+      const grants = events.filter((row) => row.draft.kind === 'reservationGranted')
+      expect(grants).toHaveLength(reservations.size)
+      for (const [bare, fact] of reservations) {
+        const matches = holds.filter((row) => row.subject.kind === 'resource' &&
+          row.subject.resourceKey === path('facility', own, fact.facilityId) && row.subject.slot === fact.slot)
+        expect(matches).toHaveLength(1)
+        const grant = grants.filter((row) => row.draft.kind === 'reservationGranted' &&
+          row.draft.ownerId === productionId && row.draft.resourceKey === bare)
+        expect(grant).toHaveLength(1)
+        const release = events.filter((row) => row.draft.kind === 'reservationReleased' &&
+          row.draft.ownerId === productionId && row.draft.resourceKey === bare)
+        expect(release).toHaveLength(fact.capability === 'development-casting' ? 1 : 0)
+        expect(matches[0]!.from).toEqual(grant[0]!.at)
+        expect(matches[0]!.until).toEqual(release[0]?.at ?? { week: horizon, step: 0 })
+      }
+      const stage = holds.filter((row) => row.subject.kind === 'resource' &&
+        row.subject.resourceKey === path('facility', own, workflow.bindings.stageFacilityId!))
+      const set = holds.filter((row) => row.subject.kind === 'resource' &&
+        row.subject.resourceKey === path('set', own, workflow.bindings.setId!))
+      expect(stage).toHaveLength(1)
+      expect(set).toHaveLength(1)
+      expect(real.sets.find((row) => row.id === workflow.bindings.setId)?.mountedOn).toBe(workflow.bindings.stageFacilityId)
+      expect(set[0]!.subject).toEqual({ kind: 'resource', resourceKey: path('set', own, workflow.bindings.setId), slot: 0 })
+      expect(set[0]!.from).toEqual(stage[0]!.from)
+      expect(set[0]!.until).toEqual(stage[0]!.until)
+      expect(new Set([...result.fixedHolds, ...holds].map((row) => row.holdId)).size).toBe(result.fixedHolds.length + holds.length)
+      expect([immediate, ...frames]).toEqual(referenceBefore)
+      expect(state).toEqual(before)
+    }
+  })
+
   it('allows independent sibling staffings of the SAME Ready project and SAME would-be identity without cross-branch consumption', () => {
     const { state, payload } = baseReady(), first = choiceOf(payload)
     const second: Choice = { ...first, cast: { ...first.cast, lead: first.cast.antagonist, antagonist: first.cast.lead } }

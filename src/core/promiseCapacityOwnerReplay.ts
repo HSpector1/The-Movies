@@ -1111,8 +1111,11 @@ function allocationBill(d: Dimensions, wrapOnly: boolean, work: Work, retainedDe
   // but occupancy, full facility filtering/policy/sort and allocator setup do.
   const slots = retainedDevelopment || singlePostExit ? 0 : work.calc(32).times(wrapOnly ? (singleWrapSlot ? 1 : d.capacity) : 3 * d.capacity,
     work.calc(64).plus(5, keyConstruction, work.calc(32).times(2, work.calc(8).keyBill(occupied + 2, keyLength))))
-  const retention = singlePostExit ? 20 : work.calc(8).add(20, work.calc(32).times(2, work.calc(64).plus(20, work.calc(8).times(2, text), work.calc(32).times(d.f, 2 + text),
-    work.calc(8).keyBill(2, 19), keyConstruction, work.calc(8).keyBill(occupied + 2, keyLength))))
+  work.pay(8) // additional certified-wrap flag/selector; helper work stays paid
+  const retention = singlePostExit ? 20 : singleWrapSlot
+    ? work.calc(16).plus(20, 20, work.calc(8).keyBill(2, 19))
+    : work.calc(8).add(20, work.calc(32).times(2, work.calc(64).plus(20, work.calc(8).times(2, text), work.calc(32).times(d.f, 2 + text),
+      work.calc(8).keyBill(2, 19), keyConstruction, work.calc(8).keyBill(occupied + 2, keyLength))))
   const composite = wrapOnly || retainedDevelopment || singlePostExit ? 0 : work.calc(64).plus(20, work.calc(32).times(d.n, work.calc(64).plus(9, text, work.calc(8).times(2, text), work.calc(8).keyBill(d.n, d.d))),
     work.calc(32).times(d.f, work.calc(64).plus(5, text, work.calc(32).times(d.sets, work.calc(64).plus(14, work.calc(8).times(3, text), work.calc(8).keyBill(d.n, d.d))))))
   return work.calc(64).plus(occupancy, 3 + 3 * d.f, work.calc(8).times(d.f, callback), facilitySort, retention,
@@ -1200,10 +1203,21 @@ function singleEarlySweepBill<P extends StartedPicture>(d: Dimensions, productio
   const callback = work.calc(32).plus(12, phaseText, work.calc(16).times(d.t, 8 + 2 * text))
   const facilities = work.calc(64).plus(3, work.calc(16).times(d.f, 3 + callback),
     sortBill(d.f, 6 + 2 * text, work))
-  // At 7 composite and general allocation can each inspect every stage slot.
-  // At 6 the stage is sticky; only Scenery slots have a capacity loop.
+  // With no external occupancy, 7's composite checks at most one slot per
+  // stage and its general search only the chosen Set's stage. At 6 the held
+  // stage cannot occupy a Scenery facility, so its first positive slot is free.
+  // Keep the old capacity bound when external claims exist, and the smaller
+  // bound for zero-capacity facilities without assuming a usable Set exists.
   work.pay(12)
-  const slots = shooting ? sceneryCapacity : work.calc(8).times(2, stageCapacity)
+  const capacitySlots = shooting ? sceneryCapacity : work.calc(8).times(2, stageCapacity)
+  work.pay(16)
+  let slots = capacitySlots
+  if (d.external === 0) {
+    work.pay(16)
+    const freeSlots = shooting ? 1 : work.calc(8).add(stages, 1)
+    work.pay(12)
+    slots = Math.min(capacitySlots, freeSlots)
+  }
   const slotSearch = work.calc(16).times(slots,
     work.calc(32).plus(5, keyConstruction, work.calc(8).times(2, occupiedKey)))
   // The two requirement walks include all nonmatching facilities too. Sticky
@@ -1381,8 +1395,13 @@ function sweepBill<P extends StartedPicture>(d: Dimensions, productions: readonl
       }
     } else attempts = d.n % 2 === 0 ? work.calc(32).times(d.n / 2, d.n + 3) : work.calc(32).times(d.n, (d.n + 3) / 2)
   }
+  work.pay(40) // selector/local and both five-argument transition-helper calls
+  const phaseTransitions = singleWrapSlot
+    ? work.calc(8).add(smallTransitionBill(d, 2, 0, 2, work),
+      smallTransitionBill(d, 0, 1, 1, work))
+    : work.calc(32).times(retainedDevelopment ? 1 : 2, transition)
   work.pay(16) // both private flag argument/binding and allocation-selector groups
-  const enter = work.calc(64).plus(releasePhase, 65, wear, work.calc(32).times(retainedDevelopment ? 1 : 2, transition), work.calc(32).times(retainedDevelopment ? 1 : 3, update),
+  const enter = work.calc(64).plus(releasePhase, 65, wear, phaseTransitions, work.calc(32).times(retainedDevelopment ? 1 : 3, update),
     allocationBill(d, wrapOnly, work, retainedDevelopment, singleWrapSlot, singlePostExit), d.workflowCopy, d.bindingsCopy, d.pCopy, 150)
   work.pay(8) // certified wrap's common-visit selection and local binding
   const commonVisits = singleWrapSlot ? 2 : visits

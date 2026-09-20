@@ -1,0 +1,18 @@
+{"sourceSha":"94a7d09e350fab3789d1a26b366baaf806b2be3a","testedDiffSha256":"275977e64747638bfa284b90af989257774267d1aabbf990dded829eaa1821f7","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14b4-ready-owner-replay.test.ts"],"node":"v20.20.2","start":"2026-09-20T10:26:00.412Z","end":null,"exitCode":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p14b4-ready-owner-replay.test.ts (8 tests) 4100ms
+   ✓ P14B4 source-now Ready operational admission > admits a genuine Ready beside the whole original slate, preserves opaque original fields, and feeds the same capped kernel 930ms
+   ✓ P14B4 source-now Ready operational admission > returns complete Ready rehearsal and unassigned Shooting projections before any take command 1212ms
+   ✓ P14B4 source-now Ready operational admission > allows independent sibling staffings of the SAME Ready project and SAME would-be identity without cross-branch consumption 700ms
+   ✓ P14B4 source-now Ready operational admission > refuses a genuinely already-linked project, not legal reuse across independent sibling plans 375ms
+
+ Test Files  1 passed (1)
+      Tests  8 passed (8)
+   Start at  12:26:01
+   Duration  8.97s (transform 3.11s, setup 0ms, collect 4.15s, tests 4.10s, environment 0ms, prepare 190ms)
+
+
+{"sourceSha":"94a7d09e350fab3789d1a26b366baaf806b2be3a","testedDiffSha256":"275977e64747638bfa284b90af989257774267d1aabbf990dded829eaa1821f7","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14b4-ready-owner-replay.test.ts"],"node":"v20.20.2","start":"2026-09-20T10:26:00.412Z","end":"2026-09-20T10:26:10.838Z","exitCode":0,"signal":null,"error":null,"sourceShaAtEnd":"94a7d09e350fab3789d1a26b366baaf806b2be3a","testedDiffSha256AtEnd":"275977e64747638bfa284b90af989257774267d1aabbf990dded829eaa1821f7","untrackedSourceAtEnd":[],"fixedSource":true}

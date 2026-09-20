@@ -2,28 +2,37 @@
 
 ## Current continuation — 2026-09-20: B-F2 closed; P2 pure owners verified, integration continues
 
-Current B4 checkpoint435 (2026-09-20):424source FROZEN; all426–434 CLOSED.
-HEAD/EXACTremote812d50d8b6e83677c752a4188d1180b23e394c3e (422published).
-Replay17a25fef81d54df073471843651666770ebb9024b2c0339b3d11f62824cb4c00.
-Tests/owners/caps/validators unchanged;425independent actualsourceKEEP.
-Protectedpatchccaeaf9708a5c8b1ce350eae5eec9da140ef4eb62e3f3068fb57909291bf59e0.
+Current B4 checkpoint449 (2026-09-20):438source/test FROZEN; NOwriter/runtime.
+Base/last verified remote94a7d09e350fab3789d1a26b366baaf806b2be3a.
+Publish438+437/evidence next,450 independent exactremote receipt; thenCONTINUE.
+Replay083e96b220dc582f75385532718e36fd6494a6b7e570e810854de46fef5a197b.
+Ready437test5e2f28239e675f62d4f057eef609162ef6292cc86fc87d449d406840fd54e057
+(one131-lineadditivecase, alloriginallines/caps/validators unchanged).
+Testedprotectedpatch405760fce635d79631abfd12dfbf1053c4968398575edd290f727c64db6e8d02.
+437design/439actualsource qualifiedKEEP. Full438implementationhandback retained.
+437baseline8PASS onunchanged424;443newH3/H4fullparity alsoPASS on438.
 
-426root/UI,427lookup5,428ordinary66,430started27,431adjacent137,433facts2 PASS.
-NEWgenuinePost3→2→1 NOWFULLGREEN atunchanged200000, fullprojection/holds/events/
-history/purity. All26originalstarted PASS.429Ready13PASS2budgetFAIL;
-freelancer/siblingfreshnessGREEN;432soleOLDfutureP2kindTS2353.
-434both actualwrapownersreturn; firsttakecut199980/request84 drainbareKey;
-stalecut200000/request4 draincloseHold/samePath. LaterassertionsUNREACHED.
-Firsttakeprefix4MOREexpensivevs420 (wrapbill-276,newcontrol+280); noReadyfitclaim.
-SIX434logsREMOVED; exact424source/tests/wholeprotectedpatchRESTORED.
-BothkeyBillsequences66calls/24hits42misses; hypothesizedlastcache WORSE2664,
-REJECTED. No cache or primitivepricing changes adopted.
+440root/UI,441lookup5,442ordinary66,444started27,445adjacent137,447facts2PASS.
+443Ready14PASS2originalworkLimitFAIL;446soleOLDfutureP2kindTS2353test364.
+All440–447 CLOSED/fixedSource:true/exactbase+patch/nonoverlapchecked; FULLrawread.
+Post3→2→1 and freelancer/siblingfreshness remainGREEN. No fullReady/B4acceptance.
+448fivepassiveprobes REMOVED; exact438+437+wholeprotectedpatchRESTORED/pinsverified.
+448firsttake nowreaches completeTrace, cuts199967/request281 Work.token.
+Stale reachesweek7/rem3entry199771, cutsdimensions199998/request6 BEFOREPostowner.
+Bothwrapowners/drain/reconcile complete; laterrequiredproofsUNREACHED.
+Bills7/6/wrap17098/8905/7948 (prior18412/9562/12076); extra controls/calcs PAID.
+No numericalfit claim. Allactualfailures/evidence preserved.
 
-Nextpublish435/verify436exactremote, then choose437bounded direction from
-simREADONLY early7/6 slot bounds and auditorREADONLY exactwraptransition/
-emptyretention inventories. Neitherproposaladopted/written. Authoridle.
-ONE438productionwriter only afteradoption,439actualreview,440+freshserialgates.
-NOwriter/runtime now; max2specialists. Continueengineering beyondcheckpoint.
+Next450publication,451bounded7-success direction/adoption and additivegenuine
+no-Setcontrol (actualstrikeSet beforeadmission; retiredmountedOn mustnotcertify).
+AuthorREADONLY proposalavailable, noedit/runtime. Independentbaselinebeforewriter.
+OptionalSetproof currentbranch.sets+actualsetIsUsable, onlybool/nochosenidentity,
+failedproof2attempts, successful7oneattempt, allfullownersearches/reserves retained.
+Sim+auditorread-onlydesignKEEP; NOTadopted/implemented yet. Exactpayments451,
+ONE452sourcewriter onlyaftertestbaseline/adoption,453review,454+freshserialgates.
+Output-onlypaidmonotonicity/freshcopy/fallback alsoREADONLY/NOTadopted;
+inputcanonicalization unchanged. GeneralkeyBilllastcacheREJECTED434.
+No writer/runtime; max2specialists. Continueengineering beyondcheckpoint.
 T4/B2/B3/B-F2closeoutsstand; Save29/rules3/projection46 liveuntilcoherentcutover.
 Unity/native/Owneracceptance deferred/integrationbacklogretained.
 
