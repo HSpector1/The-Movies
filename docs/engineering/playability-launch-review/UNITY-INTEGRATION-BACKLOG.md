@@ -99,6 +99,21 @@ failing by design until the coordinated tagged-P2 activation. Record 555
 adopts the enumerator slice (fresh-take floor certificate, no Ready-producer
 run). Consumer impact: none; projection46/Save29/protocol4 unchanged.
 
+Headless checkpoint560–575 (2026-09-20), published/exact remote
+`00fd237cc8bbc195e5f708a7b7fbc5ea87e21fba`: the detached enumerator slice is
+landed and qualified (new pure module `promiseCapacityEnumerator.ts`: the
+fresh-take floor derived from the phase owner, the (a′)/(b)/(c) started-picture
+scan, one Started-producer run, both coverage flags certified only for windows
+within now+5; the adapter gains a fifth `enumeration` parameter with a
+fixed-coverage default and a canonical `limits` literal). The RED was amended
+by the test-author only (typecheck annotations; the queue case built by real
+commands). Fixed-source: 625 focused passes; the live-P2 groups byte-identical
+to 549/536; the designated trust-chooser tie case still failing by design.
+Contract-auditor KEEP with nine record-only items. No live importer, no
+receipt, no version stamp. Consumer impact: none; projection46/Save29/
+protocol4 unchanged; projection47/Save30 still wait on D1; long-window
+certificates still wait on D2.
+
 These are private logic/work-accounting changes only. No consumer field/action,
 protocol4, projection46, live Save29, evaluator3, schema or generated C# changed.
 Do not expose partial traces as certified offers, impossible schedules or broken

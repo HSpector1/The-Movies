@@ -130,12 +130,33 @@ condition make the Started-only domain COMPLETE for windows ≤ now+5, so the
 13 fixed-cast cells and the conflicting-claim case reach PROVEN_FRAGILE /
 PROVEN_IMPOSSIBLE through the adapter without running the Ready producer
 (D2 side-stepped for short windows); both certificate flags gated by the
-floor; option β (no Ready run; long windows truthfully UNCERTIFIED). NEXT558:
-test-author RED tests/p14b4-owner-enumerator-slice (in progress) → ONE
-sim-core writer (new src/core/promiseCapacityEnumerator.ts + one hunk in the
-adapter: 5th parameter, limits re-literal) → serial fixed-source checks →
-independent review. D1 (537§3), D2 (538-C §2), 515§6 stand; replay C1/C5–C7
-remain the parallel track. Gross2221 omitted fact cost is NOT
+floor; option β (no Ready run; long windows truthfully UNCERTIFIED). NEXT558 DONE → 574 QUALIFIED (published 00fd237c): detached enumerator slice landed.
+558-T RED installed (missing-module RED, 775 lines); 560-W ONE sim-core writer: new
+src/core/promiseCapacityEnumerator.ts (127 lines, SHAc0be83a9…; FRESH_TAKE_OFFSET 5
+derived from the phase owner, FRESH_ADMISSION_OMISSION, earliestStartedTakeWeek,
+enumerateOwnerTraces, classifyEnumeratedOffer; not index-exported) + one hunk in the
+adapter (5th `enumeration` parameter with the unexported fixed-coverage default,
+canonical limits re-literal; SHA5514d847…); 561-T test-author amended the RED only
+(two TS7022 annotations; addition (iii) queue built by three real commands, pinned
+block unchanged; SHAb9da9b76…); protected patch16e522ed…; 562–573 serial
+fixedSource:true: enumerator RED45PASS, first-slice33PASS, Ready17PASS+sole stale234
+FAIL, Started28, rootUI typecheck PASS, adjacent203, bridge sole OLD TS2353, facts7,
+live-P2 110/83 byte-identical to549/536, B1–B3+bridge consumers 133PASS/1FAIL(test6)/
+2todo, bridge-p14b2-trust22, historical saves137; 575 the candidate on the UNAMENDED
+RED 44/45 (sole self-declared UNCONSTRUCTIBLE). 574-R contract-auditor KEEP, nine
+record-only items (owners header :8-9 stale — doc fix deferred to the next writer
+release; insertion range :145-169; saturation boundary label; phase-table vs :1680
+literal tie; NOT_ENUMERATED by reference; live-wiring rule never hand-supply an
+EnumerationCoverage; (b) needs no r===5; workflowById last-wins; controlling plan
+text is P14B4-HEADLESS-PLAN). The 13 fixed-cast cells and the conflicting-claim case
+now reach PROVEN_FRAGILE/PROVEN_IMPOSSIBLE through the adapter without the Ready
+producer; windows beyond now+5 stay UNCERTIFIED with the fresh-admission omission.
+NO receipt/rulesVersion/save/projection/kernel/producer change. NEXT574: every
+further certificate needs D1 or D2 except the named omission for an UNFORCED started
+picture (plan :241-242): a READ-ONLY / in-memory measurement of a second Started
+attempt's bill on the 538 fixtures (no source or fixture change) decides whether that
+slice fits 200000 without D2; a design note only if the numbers fit. D1 (537§3), D2
+(538-C §2), 515§6 stand; replay C1/C5–C7 remain the parallel track. Gross2221 omitted fact cost is NOT
 net saving: cold discovery can shift into next frame. No route-fit claim.
 Draft-discovery, silent-policy, affine and Map alternatives remain unadopted.
 T4/B2/B3/B-F2 qualified closed; B4/liveP2/Unity/Owner acceptance NOT closed.
