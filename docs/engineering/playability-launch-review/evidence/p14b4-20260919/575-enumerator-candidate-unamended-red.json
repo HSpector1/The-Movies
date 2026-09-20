@@ -1,0 +1,26 @@
+{
+  "sourceSha": "036ad231291cb65848f20f11b686858fe0d8da56",
+  "testedDiffSha256": "81d5d7cd61a2fd31e1888a6d8f790bbe7380901cbdb487d86d26a0ebd3c9cc70",
+  "untrackedSource": [
+    "src/core/promiseCapacityEnumerator.ts"
+  ],
+  "command": [
+    "node_modules/.bin/vitest",
+    "run",
+    "--project",
+    "core",
+    "tests/p14b4-owner-enumerator-slice.test.ts"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-20T21:51:52.672Z",
+  "end": "2026-09-20T21:52:03.267Z",
+  "exitCode": 1,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "036ad231291cb65848f20f11b686858fe0d8da56",
+  "testedDiffSha256AtEnd": "81d5d7cd61a2fd31e1888a6d8f790bbe7380901cbdb487d86d26a0ebd3c9cc70",
+  "untrackedSourceAtEnd": [
+    "src/core/promiseCapacityEnumerator.ts"
+  ],
+  "fixedSource": true
+}

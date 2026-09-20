@@ -44,7 +44,7 @@ import { attachPromise, type PromiseDraft } from '../src/core/promises.js'
 import { makeSave } from '../src/core/save.js'
 import { currentProposals, submitProposal } from '../src/core/talentMarket.js'
 import { TUNING } from '../src/core/tuning.js'
-import type { CastSlot, GameState, ProfessionalPromise, Production } from '../src/core/types.js'
+import type { CastSlot, GameState, ProfessionalPromise, Production, ProductionWorkflow } from '../src/core/types.js'
 import { advanceTo, fund, p13aGeneratedStudio, player } from './helpers/p14b2-fixtures.js'
 
 const SLOTS = ['lead', 'antagonist', 'support'] as const
@@ -302,8 +302,8 @@ function naturalChain(w: World): Chain {
   expect(film).toMatchObject({ startTick: now, remainingTicks: TUNING.PRODUCTION_TICKS }) // actions :344-345
   let state = immediate
   for (let guard = 0; guard < 16 && !state.firstTakes.some((t) => t.productionId === film.id); guard++) {
-    const production = state.studio.activeProductions.find((p) => p.id === film.id)
-    const workflow = state.operations.workflows.find((row) => row.productionId === film.id)
+    const production: Production | undefined = state.studio.activeProductions.find((p) => p.id === film.id)
+    const workflow: ProductionWorkflow | undefined = state.operations.workflows.find((row) => row.productionId === film.id)
     assert.ok(production && workflow)
     if (workflow.phase === 'shooting') {
       expect(production.remainingTicks).toBe(5)
@@ -600,19 +600,27 @@ describe('558-T honesty: the floor edge, the unforced started picture, the queue
     expect(classified.kernel.omissions).not.toContain(NO_ENUMERATOR_OMISSION)
   })
 
-  it('addition (iii) (555-B Q7): a non-empty production queue is the producer\'s context cut (replay :624) → both flags incomplete → UNCERTIFIED/domainIncomplete; built by queueing a commission behind the admitted-this-week picture, else reported UNCONSTRUCTIBLE', () => {
+  it('addition (iii) (555-B Q7): a non-empty production queue is the producer\'s context cut (replay :624) → both flags incomplete → UNCERTIFIED/domainIncomplete; built by three real commands at now on the admitted-this-week state — the fixture writer\'s commission fills the last Development & Casting slot, a market writer is signed, and that writer\'s commission is the one queueable refusal (scriptDevelopment :311) the front door admits to the queue (actions :1634-1645)', () => {
     const w = world(), { immediate, now } = naturalChain(w)
-    const concept = immediate.concepts.find((c) => !immediate.scriptDevelopment.projects.some((p) => p.conceptId === c.id))
-    if (concept === undefined) throw new Error('UNCONSTRUCTIBLE: the fixture has no uncommissioned concept to queue')
-    let queued: GameState
-    try {
-      queued = applyActions(immediate, [{ kind: 'commissionScript', project: commissionPayload(immediate, w.writerId, concept.id) }])
-    } catch (error) {
-      throw new Error(`UNCONSTRUCTIBLE: the commission behind the admitted picture threw at the door instead of queueing: ${(error as Error).message}`)
-    }
-    if (queued.productionQueue.length === 0) {
-      throw new Error('UNCONSTRUCTIBLE: the commission was admitted at once (a second Development & Casting slot is free); the queue stays empty')
-    }
+    // 561-T observed on this fixture (option (a) of the 560-W hand-back): FOUNDING_DEVELOPMENT_CASTING_CAPACITY is 2 (tuning :632,
+    // operations :90); on `immediate` the admitted picture's development workflow holds slot 0 (occupancy :409-421) and both Ready
+    // scripts hold no reservation (occupancy :441), so ONE commission is admitted at once and the queue stays empty — the RED's
+    // single-commission construction was UNCONSTRUCTIBLE. The fixture writer's commission takes slot 1; a second commission needs
+    // an idle writer (scriptDevelopment :289-298), signed from the hiring market at the SAME tick (no advance: the picture is
+    // still admitted THIS week); its commission is refused at the slot (scriptDevelopment :311) and queued whole with nothing
+    // minted or held (productionQueue :12-16).
+    const concepts = immediate.concepts.filter((c) => !immediate.scriptDevelopment.projects.some((p) => p.conceptId === c.id))
+    assert.ok(concepts.length >= 2, 'UNCONSTRUCTIBLE: the fixture has fewer than two uncommissioned concepts to commission')
+    const filled = applyActions(immediate, [{ kind: 'commissionScript', project: commissionPayload(immediate, w.writerId, concepts[0]!.id) }])
+    expect(filled.productionQueue).toEqual([]) // slot 1 was free: admitted at once, not queued
+    expect(filled.scriptDevelopment.projects).toHaveLength(immediate.scriptDevelopment.projects.length + 1)
+    const writer = hiringMarketIds(filled, filled.market.tick).map((id) => filled.talent.find((p) => p.id === id)).find((p) => p?.role === 'writer')
+    assert.ok(writer, 'UNCONSTRUCTIBLE: no second writer in the hiring market at now (a second commission needs an idle writer)')
+    const signed = applyActions(filled, [{ kind: 'signContract', talentId: writer.id, termWeeks: 52 }])
+    expect(signed.market.tick).toBe(now)
+    const queued = applyActions(signed, [{ kind: 'commissionScript', project: commissionPayload(signed, writer.id, concepts[1]!.id) }])
+    expect(queued.productionQueue).toMatchObject([{ kind: 'commissionScript', queuedWeek: now }])
+    expect(queued.scriptDevelopment.projects).toHaveLength(filled.scriptDevelopment.projects.length) // nothing minted while queued
     expect(queued.productionQueue).toHaveLength(1)
     expect(queued.studio.activeProductions).toEqual(immediate.studio.activeProductions)
     const draft = { ...offer(queued, w.actors.lead), windowStartWeek: now, dueWeekExclusive: now + 2 }

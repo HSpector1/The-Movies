@@ -1,0 +1,32 @@
+{"sourceSha":"036ad231291cb65848f20f11b686858fe0d8da56","testedDiffSha256":"81d5d7cd61a2fd31e1888a6d8f790bbe7380901cbdb487d86d26a0ebd3c9cc70","untrackedSource":["src/core/promiseCapacityEnumerator.ts"],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14b4-owner-enumerator-slice.test.ts"],"node":"v20.20.2","start":"2026-09-20T21:51:52.672Z","end":null,"exitCode":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/p14b4-owner-enumerator-slice.test.ts (45 tests | 1 failed) 5926ms
+   ✓ 558-T surface (RED law: a missing module or export is named, never a spurious pass) > surface (E10): every adopted export of promiseCapacityEnumerator.js exists with its runtime type; the adapter honours a 5th argument; NO_ENUMERATION is not exported; RED 11 key list unchanged 2162ms
+   ✓ 558-T floor: FRESH_TAKE_OFFSET and earliestStartedTakeWeek > E1 (555-B Q7) natural chain LAW: a real greenlight on w.opened at now, assign/schedule at the earliest lawful boundaries, records its first take no earlier than now + FRESH_TAKE_OFFSET 347ms
+   × 558-T honesty: the floor edge, the unforced started picture, the queue > addition (iii) (555-B Q7): a non-empty production queue is the producer's context cut (replay :624) → both flags incomplete → UNCERTIFIED/domainIncomplete; built by queueing a commission behind the admitted-this-week picture, else reported UNCONSTRUCTIBLE 83ms
+     → UNCONSTRUCTIBLE: the commission was admitted at once (a second Development & Casting slot is free); the queue stays empty
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14b4-owner-enumerator-slice.test.ts > 558-T honesty: the floor edge, the unforced started picture, the queue > addition (iii) (555-B Q7): a non-empty production queue is the producer's context cut (replay :624) → both flags incomplete → UNCERTIFIED/domainIncomplete; built by queueing a commission behind the admitted-this-week picture, else reported UNCONSTRUCTIBLE
+Error: UNCONSTRUCTIBLE: the commission was admitted at once (a second Development & Casting slot is free); the queue stays empty
+ ❯ tests/p14b4-owner-enumerator-slice.test.ts:614:13
+    612|     }
+    613|     if (queued.productionQueue.length === 0) {
+    614|       throw new Error('UNCONSTRUCTIBLE: the commission was admitted at…
+       |             ^
+    615|     }
+    616|     expect(queued.productionQueue).toHaveLength(1)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 44 passed (45)
+   Start at  23:51:53
+   Duration  9.36s (transform 2.10s, setup 0ms, collect 2.81s, tests 5.93s, environment 0ms, prepare 133ms)
+
+
+{"sourceSha":"036ad231291cb65848f20f11b686858fe0d8da56","testedDiffSha256":"81d5d7cd61a2fd31e1888a6d8f790bbe7380901cbdb487d86d26a0ebd3c9cc70","untrackedSource":["src/core/promiseCapacityEnumerator.ts"],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14b4-owner-enumerator-slice.test.ts"],"node":"v20.20.2","start":"2026-09-20T21:51:52.672Z","end":"2026-09-20T21:52:03.267Z","exitCode":1,"signal":null,"error":null,"sourceShaAtEnd":"036ad231291cb65848f20f11b686858fe0d8da56","testedDiffSha256AtEnd":"81d5d7cd61a2fd31e1888a6d8f790bbe7380901cbdb487d86d26a0ebd3c9cc70","untrackedSourceAtEnd":["src/core/promiseCapacityEnumerator.ts"],"fixedSource":true}

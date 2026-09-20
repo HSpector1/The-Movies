@@ -1,0 +1,245 @@
+diff --git a/src/core/promiseCapacityOwners.ts b/src/core/promiseCapacityOwners.ts
+index daa46bf..28b8e01 100644
+--- a/src/core/promiseCapacityOwners.ts
++++ b/src/core/promiseCapacityOwners.ts
+@@ -142,14 +142,22 @@ export function collectPromiseClaims(state: ClaimSource, draft: PromiseDraft): C
+     work: 1 + state.promises.length + attachedCount + scans * takes }
+ }
+ 
++/** The enumerator's certificate over calendars and traces (record 555 §1); the kernel's own flag and omission shape. */
++export type EnumerationCoverage = Pick<JointTraceCapacityInput['coverage'], 'existingCalendars' | 'allOwnerTraces' | 'omissions'>
++/** No enumerator ran: today's coverage byte-for-byte. Deliberately not exported (555 §1). */
++const NO_ENUMERATION: EnumerationCoverage = { existingCalendars: 'incomplete', allOwnerTraces: 'incomplete', omissions: [NO_ENUMERATOR_OMISSION] }
++
+ /**
+  * The first-take test's hand assembly with coverage DERIVED: `claimsAndHolds`
+  * complete iff claims complete, every attempt complete and no producer
+- * omission; calendars and traces always incomplete (no enumerator). Holds and
+- * traces are copied by reference; the producers already clip to the interval.
++ * omission; calendars and traces carry the supplied certificate (by default
++ * incomplete with the fixed omission). Holds and traces are copied by
++ * reference; the producers already clip to the interval. `limits` is
++ * re-literalled in the kernel's MAX_LIMITS key order (553-R item 1) so the
++ * digest never depends on a caller's literal order.
+  */
+ export function assembleCapacityInput(claims: CollectedClaims, producer: ProducerResult,
+-  horizonEndWeek: number, limits: CapacityLimits): JointTraceCapacityInput {
++  horizonEndWeek: number, limits: CapacityLimits, enumeration: EnumerationCoverage = NO_ENUMERATION): JointTraceCapacityInput {
+   const traces: JointOwnerTrace[] = [], cuts: string[] = []
+   for (const attempt of producer.attempts) {
+     if (attempt.kind === 'complete') traces.push(attempt.trace)
+@@ -159,12 +167,14 @@ export function assembleCapacityInput(claims: CollectedClaims, producer: Produce
+   // trace must cover the effective horizon, and the target window is never clipped to make it so.
+   invariant(traces.length === 0 || horizonEndWeek >= claims.horizonEndWeek, HORIZON_GUARD)
+   const complete = claims.coverage.claimsAndHolds === 'complete' && cuts.length === 0 && producer.omissions.length === 0
+-  const omissions = [...new Set([...claims.coverage.omissions, ...producer.omissions, ...cuts, NO_ENUMERATOR_OMISSION])].sort(compareText)
++  const omissions = [...new Set([...claims.coverage.omissions, ...producer.omissions, ...cuts, ...enumeration.omissions])].sort(compareText)
+   return {
+     mode: 'jointOwnerTraces', now: claims.now, horizonEndWeek, issuerId: claims.issuerId, target: claims.target,
+     priorClaims: claims.priorClaims, foreignDebits: claims.foreignDebits, traces, fixedHolds: producer.fixedHolds,
+-    coverage: { claimsAndHolds: complete ? 'complete' : 'incomplete', existingCalendars: 'incomplete', allOwnerTraces: 'incomplete', omissions },
+-    preparationWork: producer.preparationWork + claims.work, limits,
++    coverage: { claimsAndHolds: complete ? 'complete' : 'incomplete', existingCalendars: enumeration.existingCalendars,
++      allOwnerTraces: enumeration.allOwnerTraces, omissions },
++    preparationWork: producer.preparationWork + claims.work,
++    limits: { claims: limits.claims, units: limits.units, alternatives: limits.alternatives, work: limits.work, span: limits.span },
+   }
+ }
+ 
+diff --git a/tests/p14b4-owner-enumerator-slice.test.ts b/tests/p14b4-owner-enumerator-slice.test.ts
+index 8328e64..7f6374c 100644
+--- a/tests/p14b4-owner-enumerator-slice.test.ts
++++ b/tests/p14b4-owner-enumerator-slice.test.ts
+@@ -44,7 +44,7 @@ import { attachPromise, type PromiseDraft } from '../src/core/promises.js'
+ import { makeSave } from '../src/core/save.js'
+ import { currentProposals, submitProposal } from '../src/core/talentMarket.js'
+ import { TUNING } from '../src/core/tuning.js'
+-import type { CastSlot, GameState, ProfessionalPromise, Production } from '../src/core/types.js'
++import type { CastSlot, GameState, ProfessionalPromise, Production, ProductionWorkflow } from '../src/core/types.js'
+ import { advanceTo, fund, p13aGeneratedStudio, player } from './helpers/p14b2-fixtures.js'
+ 
+ const SLOTS = ['lead', 'antagonist', 'support'] as const
+@@ -302,8 +302,8 @@ function naturalChain(w: World): Chain {
+   expect(film).toMatchObject({ startTick: now, remainingTicks: TUNING.PRODUCTION_TICKS }) // actions :344-345
+   let state = immediate
+   for (let guard = 0; guard < 16 && !state.firstTakes.some((t) => t.productionId === film.id); guard++) {
+-    const production = state.studio.activeProductions.find((p) => p.id === film.id)
+-    const workflow = state.operations.workflows.find((row) => row.productionId === film.id)
++    const production: Production | undefined = state.studio.activeProductions.find((p) => p.id === film.id)
++    const workflow: ProductionWorkflow | undefined = state.operations.workflows.find((row) => row.productionId === film.id)
+     assert.ok(production && workflow)
+     if (workflow.phase === 'shooting') {
+       expect(production.remainingTicks).toBe(5)
+@@ -600,19 +600,27 @@ describe('558-T honesty: the floor edge, the unforced started picture, the queue
+     expect(classified.kernel.omissions).not.toContain(NO_ENUMERATOR_OMISSION)
+   })
+ 
+-  it('addition (iii) (555-B Q7): a non-empty production queue is the producer\'s context cut (replay :624) → both flags incomplete → UNCERTIFIED/domainIncomplete; built by queueing a commission behind the admitted-this-week picture, else reported UNCONSTRUCTIBLE', () => {
++  it('addition (iii) (555-B Q7): a non-empty production queue is the producer\'s context cut (replay :624) → both flags incomplete → UNCERTIFIED/domainIncomplete; built by three real commands at now on the admitted-this-week state — the fixture writer\'s commission fills the last Development & Casting slot, a market writer is signed, and that writer\'s commission is the one queueable refusal (scriptDevelopment :311) the front door admits to the queue (actions :1634-1645)', () => {
+     const w = world(), { immediate, now } = naturalChain(w)
+-    const concept = immediate.concepts.find((c) => !immediate.scriptDevelopment.projects.some((p) => p.conceptId === c.id))
+-    if (concept === undefined) throw new Error('UNCONSTRUCTIBLE: the fixture has no uncommissioned concept to queue')
+-    let queued: GameState
+-    try {
+-      queued = applyActions(immediate, [{ kind: 'commissionScript', project: commissionPayload(immediate, w.writerId, concept.id) }])
+-    } catch (error) {
+-      throw new Error(`UNCONSTRUCTIBLE: the commission behind the admitted picture threw at the door instead of queueing: ${(error as Error).message}`)
+-    }
+-    if (queued.productionQueue.length === 0) {
+-      throw new Error('UNCONSTRUCTIBLE: the commission was admitted at once (a second Development & Casting slot is free); the queue stays empty')
+-    }
++    // 561-T observed on this fixture (option (a) of the 560-W hand-back): FOUNDING_DEVELOPMENT_CASTING_CAPACITY is 2 (tuning :632,
++    // operations :90); on `immediate` the admitted picture's development workflow holds slot 0 (occupancy :409-421) and both Ready
++    // scripts hold no reservation (occupancy :441), so ONE commission is admitted at once and the queue stays empty — the RED's
++    // single-commission construction was UNCONSTRUCTIBLE. The fixture writer's commission takes slot 1; a second commission needs
++    // an idle writer (scriptDevelopment :289-298), signed from the hiring market at the SAME tick (no advance: the picture is
++    // still admitted THIS week); its commission is refused at the slot (scriptDevelopment :311) and queued whole with nothing
++    // minted or held (productionQueue :12-16).
++    const concepts = immediate.concepts.filter((c) => !immediate.scriptDevelopment.projects.some((p) => p.conceptId === c.id))
++    assert.ok(concepts.length >= 2, 'UNCONSTRUCTIBLE: the fixture has fewer than two uncommissioned concepts to commission')
++    const filled = applyActions(immediate, [{ kind: 'commissionScript', project: commissionPayload(immediate, w.writerId, concepts[0]!.id) }])
++    expect(filled.productionQueue).toEqual([]) // slot 1 was free: admitted at once, not queued
++    expect(filled.scriptDevelopment.projects).toHaveLength(immediate.scriptDevelopment.projects.length + 1)
++    const writer = hiringMarketIds(filled, filled.market.tick).map((id) => filled.talent.find((p) => p.id === id)).find((p) => p?.role === 'writer')
++    assert.ok(writer, 'UNCONSTRUCTIBLE: no second writer in the hiring market at now (a second commission needs an idle writer)')
++    const signed = applyActions(filled, [{ kind: 'signContract', talentId: writer.id, termWeeks: 52 }])
++    expect(signed.market.tick).toBe(now)
++    const queued = applyActions(signed, [{ kind: 'commissionScript', project: commissionPayload(signed, writer.id, concepts[1]!.id) }])
++    expect(queued.productionQueue).toMatchObject([{ kind: 'commissionScript', queuedWeek: now }])
++    expect(queued.scriptDevelopment.projects).toHaveLength(filled.scriptDevelopment.projects.length) // nothing minted while queued
+     expect(queued.productionQueue).toHaveLength(1)
+     expect(queued.studio.activeProductions).toEqual(immediate.studio.activeProductions)
+     const draft = { ...offer(queued, w.actors.lead), windowStartWeek: now, dueWeekExclusive: now + 2 }
+diff --git a/src/core/promiseCapacityEnumerator.ts b/src/core/promiseCapacityEnumerator.ts
+new file mode 100644
+index 0000000..eceb3a0
+--- /dev/null
++++ b/src/core/promiseCapacityEnumerator.ts
+@@ -0,0 +1,127 @@
++/**
++ * P14B.4 detached owner adapter, ENUMERATOR slice (record 555 §1 adopted law as
++ * refined by 555-B; record 558 RED). Pure and detached: it charges its own
++ * tariff, runs ONE Started plan (`commands: []`) to `claims.horizonEndWeek`,
++ * and certifies the joint-trace domain from two owner facts:
++ *
++ *  - the fresh-take floor: no picture the issuer has not started at source-now
++ *    can record a first take before `now + FRESH_TAKE_OFFSET` (admission sets
++ *    `remainingTicks = PRODUCTION_TICKS`, the admission-week sweep skips, one
++ *    decrement per week, the take fires only in the first Shooting week and is
++ *    stamped with the produced week; queue admissions land a week later);
++ *  - the started-domain conditions, per issuer picture: (a′) an issuer-matched
++ *    first take is recorded or the countdown is past the first Shooting week;
++ *    (b) the take is scheduled with no blocker (the next sweep fires it and no
++ *    lawful command reverts it); (c) its floor is at or beyond the horizon.
++ *
++ * NOT in this slice (555 §2): no Ready-producer run (option β), no enumerator
++ * of staffing, commissions or the stock door, no command-timing alternatives
++ * for an unforced started picture (named omission instead), no live importer
++ * (not index-exported), no version stamp or receipt fields, no Save/projection,
++ * kernel, producer, cap or tariff change.
++ */
++import { searchPromiseCapacityTraces } from './promiseCapacityKernel.js'
++import { replayStartedProductionPlans } from './promiseCapacityOwnerReplay.js'
++import {
++  assembleCapacityInput, capacityInputsDigest, collectPromiseClaims, mapCapacityResult,
++  type CapacityLimits, type CollectedClaims, type DetachedOfferClassification, type EnumerationCoverage, type ProducerResult,
++} from './promiseCapacityOwners.js'
++import type { PromiseDraft } from './promises.js'
++import { productionPhaseForRemainingTicksOrNull } from './productionPhases.js'
++import { TUNING } from './tuning.js'
++import type { GameState, Production } from './types.js'
++
++function invariant(condition: unknown, message: string): asserts condition {
++  if (!condition) throw new Error(`Promise capacity enumerator: ${message}`)
++}
++
++/** The first Shooting count: the highest countdown the phase owner puts in 'shooting' (productionPhases :36-45).
++ * The take branch itself is operations :1680's `remainingTicks === 5`; the RED's natural-chain case is the link. */
++const FIRST_SHOOTING_TICKS = ((): number => {
++  for (let remaining = TUNING.PRODUCTION_TICKS; remaining >= 1; remaining--) {
++    if (productionPhaseForRemainingTicksOrNull(remaining) === 'shooting') return remaining
++  }
++  throw new Error('Promise capacity enumerator: the phase owner has no shooting week')
++})()
++/** Skip at the admission week (1) + decrements down to the first Shooting count + the take sweep (1). */
++export const FRESH_TAKE_OFFSET: number = 1 + (TUNING.PRODUCTION_TICKS - FIRST_SHOOTING_TICKS) + 1
++/** 555 §1 exact wording. Drafting/review scripts and the stock door are fresh admissions too (555-B Q2/Q3). */
++export const FRESH_ADMISSION_OMISSION =
++  'any picture not started at source-now (Ready staffing alternatives, scripts in drafting/review, stock door, commissions) is not enumerated beyond the fresh-take floor'
++/** The replay's own cut label (replay :2686-2687), applied to the enumerator's tariff. */
++const ENUMERATOR_WORK_CUT = 'work limit before enumeration completed'
++const STARTED_TRACE_KEY = 'enumerator:started'
++const NOT_ENUMERATED: EnumerationCoverage = { existingCalendars: 'incomplete', allOwnerTraces: 'incomplete', omissions: [] }
++const startedOmission = (productionId: string): string =>
++  `started picture ${productionId}: lawful command timings and facility acquisition are not enumerated`
++
++export type EnumeratedDomain = Readonly<{
++  /** The ONE Started run: traces, fixed holds, cumulative bill (the tariff transferred in), producer omissions. */
++  producer: ProducerResult
++  /** The certificate over that run; both flags gated by the floor (555-B Q4). */
++  enumeration: EnumerationCoverage
++  floors: Readonly<{ freshTakeWeek: number }>
++  /** The enumerator's own tariff `1 + N + W + N×T` (558), already inside `producer.preparationWork`. */
++  work: number
++}>
++
++/**
++ * Earliest week a started picture can record its first take, from the owners:
++ * `now + (startTick >= now ? 1 : 0) + (remainingTicks − first Shooting count) + 1`.
++ * Past the first Shooting week no NEW first take can be recorded (operations
++ * :1680 is the sole take branch; replay :690), so the minimum over that empty
++ * set is +Infinity, which makes condition (c) hold for every horizon.
++ */
++export function earliestStartedTakeWeek(now: number, picture: Pick<Production, 'startTick' | 'remainingTicks'>): number {
++  invariant(Number.isSafeInteger(now) && Number.isSafeInteger(picture.startTick) && Number.isSafeInteger(picture.remainingTicks),
++    'week and countdown must be safe integers')
++  if (picture.remainingTicks < FIRST_SHOOTING_TICKS) return Number.POSITIVE_INFINITY
++  return now + (picture.startTick >= now ? 1 : 0) + (picture.remainingTicks - FIRST_SHOOTING_TICKS) + 1
++}
++
++export function enumerateOwnerTraces(state: GameState, claims: CollectedClaims, limits: CapacityLimits): EnumeratedDomain {
++  const now = state.market.tick
++  invariant(claims.now.week === now && claims.now.step === 0, 'claims were collected on another calendar week')
++  const floors = { freshTakeWeek: now + FRESH_TAKE_OFFSET }
++  // (1) Rival issuer or absent industry: the rival omission is already on the claims; nothing is scanned, no producer runs.
++  if (claims.coverage.claimsAndHolds !== 'complete') {
++    return { producer: { fixedHolds: [], attempts: [], preparationWork: 1, omissions: [] }, enumeration: NOT_ENUMERATED, floors, work: 1 }
++  }
++  const pictures = state.studio.activeProductions, workflows = state.operations.workflows, takes = state.firstTakes
++  // (2) The tariff, charged and saturated BEFORE any run (plan :316-318): the workflow index, then per picture one take scan.
++  const work = 1 + pictures.length + workflows.length + pictures.length * takes.length
++  if (work > limits.work) {
++    return { producer: { fixedHolds: [], attempts: [], preparationWork: limits.work, omissions: [ENUMERATOR_WORK_CUT] },
++      enumeration: NOT_ENUMERATED, floors, work }
++  }
++  const workflowById = new Map(workflows.map((row) => [row.productionId, row] as const))
++  const omissions: string[] = []
++  for (const picture of pictures) {
++    const filmed = picture.remainingTicks < FIRST_SHOOTING_TICKS
++      || takes.some((take) => take.productionId === picture.id && take.studioId === claims.issuerId)
++    const workflow = workflowById.get(picture.id)
++    const forced = workflow !== undefined && workflow.blocker === null && workflow.shootingTask?.status === 'scheduled'
++    const bounded = earliestStartedTakeWeek(now, picture) >= claims.horizonEndWeek
++    if (!(filmed || forced || bounded)) omissions.push(startedOmission(picture.id))
++  }
++  if (claims.horizonEndWeek > floors.freshTakeWeek) omissions.push(FRESH_ADMISSION_OMISSION)
++  // (3) ONE Started run, always to claims.horizonEndWeek, seeded with the tariff; producer limits picked from the caller's.
++  const producer = replayStartedProductionPlans<Production>({
++    source: state, issuerId: claims.issuerId, claimPersonIds: claims.claimPersonIds,
++    plans: [{ traceKey: STARTED_TRACE_KEY, commands: [] }], horizonEndWeek: claims.horizonEndWeek, preparationWork: work,
++    limits: { work: limits.work, span: limits.span, alternatives: limits.alternatives },
++  })
++  // (4) The certificate. Never complete on a cut, a producer omission, an unforced started picture or a horizon past the floor.
++  const complete = producer.attempts.length > 0 && producer.attempts.every((attempt) => attempt.kind === 'complete')
++    && producer.omissions.length === 0 && omissions.length === 0
++  const flag = complete ? 'complete' : 'incomplete'
++  return { producer, enumeration: { existingCalendars: flag, allOwnerTraces: flag, omissions: [...new Set(omissions)].sort() }, floors, work }
++}
++
++/** collect → enumerate → assemble (5 args; `claims.work` added once there) → search → map. */
++export function classifyEnumeratedOffer(state: GameState, draft: PromiseDraft, limits: CapacityLimits): DetachedOfferClassification {
++  const claims = collectPromiseClaims(state, draft)
++  const domain = enumerateOwnerTraces(state, claims, limits)
++  const input = assembleCapacityInput(claims, domain.producer, claims.horizonEndWeek, limits, domain.enumeration)
++  return mapCapacityResult(searchPromiseCapacityTraces(input), capacityInputsDigest(input))
++}

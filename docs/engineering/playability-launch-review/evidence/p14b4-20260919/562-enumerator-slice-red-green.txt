@@ -1,0 +1,15 @@
+{"sourceSha":"036ad231291cb65848f20f11b686858fe0d8da56","testedDiffSha256":"16e522edda08ee334501e8129eee51e9e556255986e285c967efc1c7194fa36a","untrackedSource":["src/core/promiseCapacityEnumerator.ts"],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14b4-owner-enumerator-slice.test.ts"],"node":"v20.20.2","start":"2026-09-20T21:36:32.968Z","end":null,"exitCode":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p14b4-owner-enumerator-slice.test.ts (45 tests) 6096ms
+   ✓ 558-T surface (RED law: a missing module or export is named, never a spurious pass) > surface (E10): every adopted export of promiseCapacityEnumerator.js exists with its runtime type; the adapter honours a 5th argument; NO_ENUMERATION is not exported; RED 11 key list unchanged 2144ms
+
+ Test Files  1 passed (1)
+      Tests  45 passed (45)
+   Start at  23:36:33
+   Duration  9.67s (transform 2.25s, setup 0ms, collect 2.88s, tests 6.10s, environment 0ms, prepare 113ms)
+
+
+{"sourceSha":"036ad231291cb65848f20f11b686858fe0d8da56","testedDiffSha256":"16e522edda08ee334501e8129eee51e9e556255986e285c967efc1c7194fa36a","untrackedSource":["src/core/promiseCapacityEnumerator.ts"],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14b4-owner-enumerator-slice.test.ts"],"node":"v20.20.2","start":"2026-09-20T21:36:32.968Z","end":"2026-09-20T21:36:43.898Z","exitCode":0,"signal":null,"error":null,"sourceShaAtEnd":"036ad231291cb65848f20f11b686858fe0d8da56","testedDiffSha256AtEnd":"16e522edda08ee334501e8129eee51e9e556255986e285c967efc1c7194fa36a","untrackedSourceAtEnd":["src/core/promiseCapacityEnumerator.ts"],"fixedSource":true}

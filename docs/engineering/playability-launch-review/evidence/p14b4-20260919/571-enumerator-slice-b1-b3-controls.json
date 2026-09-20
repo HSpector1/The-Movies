@@ -1,0 +1,37 @@
+{
+  "sourceSha": "036ad231291cb65848f20f11b686858fe0d8da56",
+  "testedDiffSha256": "16e522edda08ee334501e8129eee51e9e556255986e285c967efc1c7194fa36a",
+  "untrackedSource": [
+    "src/core/promiseCapacityEnumerator.ts"
+  ],
+  "command": [
+    "node_modules/.bin/vitest",
+    "run",
+    "--project",
+    "core",
+    "tests/p14b1-first-take.test.ts",
+    "tests/p14b1-leak.test.ts",
+    "tests/p14b1-promises.test.ts",
+    "tests/p14b1-save-v29.test.ts",
+    "tests/p14b1-t4-regressions.test.ts",
+    "tests/p14b1-trust-chooser.test.ts",
+    "tests/p14b2-fixture-preconditions.test.ts",
+    "tests/p14b2-setup-wrap-regressions.test.ts",
+    "tests/p14b3-reservations.test.ts",
+    "tests/p14b3-rule-revision.test.ts",
+    "tests/bridge-p14b1-promises.test.ts",
+    "tests/bridge-p14b3-promise-command.test.ts"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-20T21:42:10.349Z",
+  "end": "2026-09-20T21:43:32.108Z",
+  "exitCode": 1,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "036ad231291cb65848f20f11b686858fe0d8da56",
+  "testedDiffSha256AtEnd": "16e522edda08ee334501e8129eee51e9e556255986e285c967efc1c7194fa36a",
+  "untrackedSourceAtEnd": [
+    "src/core/promiseCapacityEnumerator.ts"
+  ],
+  "fixedSource": true
+}

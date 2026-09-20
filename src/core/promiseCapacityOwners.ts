@@ -142,14 +142,22 @@ export function collectPromiseClaims(state: ClaimSource, draft: PromiseDraft): C
     work: 1 + state.promises.length + attachedCount + scans * takes }
 }
 
+/** The enumerator's certificate over calendars and traces (record 555 §1); the kernel's own flag and omission shape. */
+export type EnumerationCoverage = Pick<JointTraceCapacityInput['coverage'], 'existingCalendars' | 'allOwnerTraces' | 'omissions'>
+/** No enumerator ran: today's coverage byte-for-byte. Deliberately not exported (555 §1). */
+const NO_ENUMERATION: EnumerationCoverage = { existingCalendars: 'incomplete', allOwnerTraces: 'incomplete', omissions: [NO_ENUMERATOR_OMISSION] }
+
 /**
  * The first-take test's hand assembly with coverage DERIVED: `claimsAndHolds`
  * complete iff claims complete, every attempt complete and no producer
- * omission; calendars and traces always incomplete (no enumerator). Holds and
- * traces are copied by reference; the producers already clip to the interval.
+ * omission; calendars and traces carry the supplied certificate (by default
+ * incomplete with the fixed omission). Holds and traces are copied by
+ * reference; the producers already clip to the interval. `limits` is
+ * re-literalled in the kernel's MAX_LIMITS key order (553-R item 1) so the
+ * digest never depends on a caller's literal order.
  */
 export function assembleCapacityInput(claims: CollectedClaims, producer: ProducerResult,
-  horizonEndWeek: number, limits: CapacityLimits): JointTraceCapacityInput {
+  horizonEndWeek: number, limits: CapacityLimits, enumeration: EnumerationCoverage = NO_ENUMERATION): JointTraceCapacityInput {
   const traces: JointOwnerTrace[] = [], cuts: string[] = []
   for (const attempt of producer.attempts) {
     if (attempt.kind === 'complete') traces.push(attempt.trace)
@@ -159,12 +167,14 @@ export function assembleCapacityInput(claims: CollectedClaims, producer: Produce
   // trace must cover the effective horizon, and the target window is never clipped to make it so.
   invariant(traces.length === 0 || horizonEndWeek >= claims.horizonEndWeek, HORIZON_GUARD)
   const complete = claims.coverage.claimsAndHolds === 'complete' && cuts.length === 0 && producer.omissions.length === 0
-  const omissions = [...new Set([...claims.coverage.omissions, ...producer.omissions, ...cuts, NO_ENUMERATOR_OMISSION])].sort(compareText)
+  const omissions = [...new Set([...claims.coverage.omissions, ...producer.omissions, ...cuts, ...enumeration.omissions])].sort(compareText)
   return {
     mode: 'jointOwnerTraces', now: claims.now, horizonEndWeek, issuerId: claims.issuerId, target: claims.target,
     priorClaims: claims.priorClaims, foreignDebits: claims.foreignDebits, traces, fixedHolds: producer.fixedHolds,
-    coverage: { claimsAndHolds: complete ? 'complete' : 'incomplete', existingCalendars: 'incomplete', allOwnerTraces: 'incomplete', omissions },
-    preparationWork: producer.preparationWork + claims.work, limits,
+    coverage: { claimsAndHolds: complete ? 'complete' : 'incomplete', existingCalendars: enumeration.existingCalendars,
+      allOwnerTraces: enumeration.allOwnerTraces, omissions },
+    preparationWork: producer.preparationWork + claims.work,
+    limits: { claims: limits.claims, units: limits.units, alternatives: limits.alternatives, work: limits.work, span: limits.span },
   }
 }
 

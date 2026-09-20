@@ -1,0 +1,42 @@
+{
+  "sourceSha": "036ad231291cb65848f20f11b686858fe0d8da56",
+  "testedDiffSha256": "16e522edda08ee334501e8129eee51e9e556255986e285c967efc1c7194fa36a",
+  "untrackedSource": [
+    "src/core/promiseCapacityEnumerator.ts"
+  ],
+  "command": [
+    "node_modules/.bin/vitest",
+    "run",
+    "--project",
+    "core",
+    "tests/script-development.test.ts",
+    "tests/script-projects-actions.test.ts",
+    "tests/casting-sessions-domain.test.ts",
+    "tests/casting-sessions-actions.test.ts",
+    "tests/operations.test.ts",
+    "tests/p14b4-production-admission.test.ts",
+    "tests/p14b4-bounded-sort-owners.test.ts",
+    "tests/p14b4-owner-fact-views.test.ts",
+    "tests/p14b4-managed-clock-owner.test.ts",
+    "tests/p14b4-joint-trace.test.ts",
+    "tests/p14b4-joint-trace-mode-extension.test.ts",
+    "tests/p12-starting-world.test.ts",
+    "tests/d11-employment.test.ts",
+    "tests/p13a-research-employment.test.ts",
+    "tests/p14a1-eligibility.test.ts",
+    "tests/casting-package-read-model.test.ts",
+    "tests/p14bf2-acting-discipline.test.ts"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-20T21:38:41.706Z",
+  "end": "2026-09-20T21:39:20.109Z",
+  "exitCode": 0,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "036ad231291cb65848f20f11b686858fe0d8da56",
+  "testedDiffSha256AtEnd": "16e522edda08ee334501e8129eee51e9e556255986e285c967efc1c7194fa36a",
+  "untrackedSourceAtEnd": [
+    "src/core/promiseCapacityEnumerator.ts"
+  ],
+  "fixedSource": true
+}
