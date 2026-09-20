@@ -99,11 +99,25 @@ by the B3 law widened to every same-studio beneficiary, assembly over EXISTING
 producer results with derived coverage, digest without preparationWork, kernel
 class → offer vocabulary with the exact UNCERTIFIED string, no receipt fields),
 plus `export` on promiseCastSlots/qualifyingTakes only; lawful under every D1
-option. NEXT540: test-author RED file tests/p14b4-owner-adapter-first-slice
-(in progress) → ONE sim-core writer (module + two export lines) → serial fixed-
-source checks (new GREEN; kernel/replay/material/B1–B3/B-F2/bridge/save sets
-identical; six live-P2 groups byte-identical to536) → independent review.
-Replay C1/C5–C7 remain the parallel track; 515§6 stands. Gross2221 omitted fact cost is NOT
+option. NEXT540 DONE → 553 QUALIFIED (published e753da2): detached owner-adapter FIRST
+slice landed. 540-T RED installed (missing-module RED, 781 lines); 541-W ONE
+sim-core writer: new src/core/promiseCapacityOwners.ts (198 lines, SHA2f6af5c7…)
++ `export` on promiseCastSlots/qualifyingTakes (zero body change); protected
+patch8910c274…; 542–552 serial fixedSource:true: RED33PASS, Ready17PASS+sole
+stale234 FAIL, Started28, rootUI typecheck PASS, adjacent203, bridge sole OLD
+TS2353, facts7, live-P2 110/83 byte-identical to536, B1–B3+bridge consumers
+132PASS/2FAIL/2todo, historical saves137; 552 proves the two B1/B2 failures
+(p14b1-trust-chooser test6 tie winner; p14b2-fixture-preconditions poaching
+fixture unbound) are PRE-EXISTING on clean HEAD, not caused by the slice.
+553-R contract-auditor KEEP, six record-only items (limits key order; rival
+gate before the adapter; named-root tolerance; negative edges; rival tariff
+P+A; dangling promiseId). NO receipt/rulesVersion/save/projection/kernel/
+producer change; D1 (537§3), D2 (538-C §2), 515§6 stand. NEXT554: attribute
+the pre-existing B1/B2 control drift by a bounded bisect over the two files in
+a temporary linked worktree (this worktree's HEAD untouched), then test-author
+reconciliation or defect record; then the enumerator slice design (13 second
+clause; PROVEN_* reach gated by D2 on history-bearing fixtures). Replay
+C1/C5–C7 remain the parallel track. Gross2221 omitted fact cost is NOT
 net saving: cold discovery can shift into next frame. No route-fit claim.
 Draft-discovery, silent-policy, affine and Map alternatives remain unadopted.
 T4/B2/B3/B-F2 qualified closed; B4/liveP2/Unity/Owner acceptance NOT closed.

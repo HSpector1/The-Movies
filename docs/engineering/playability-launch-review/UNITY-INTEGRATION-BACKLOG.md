@@ -79,6 +79,17 @@ stamp) with its RED brief; a test-author RED and one writer follow. Consumer
 impact: none; projection46/Save29/protocol4 unchanged; the projection47/Save30
 wire contract still waits on D1.
 
+Headless checkpoint553 (2026-09-20), published/exact remote
+`e753da2223e05c3d974fadf801ba475829e3deb4`: the detached owner-adapter first
+slice is landed and qualified (new pure module `promiseCapacityOwners.ts`:
+claim collection, capacity-input assembly over existing producer results,
+digest, kernel-class → offer vocabulary with the exact UNCERTIFIED string; two
+helpers exported from `promises.ts`, zero body change). Fixed-source: 636
+focused passes; the six live-P2 groups byte-identical to 536; two pre-existing
+B1/B2 natural-chain control failures attributed to clean HEAD (not this slice).
+No live importer, no receipt, no version stamp. Consumer impact: none;
+projection46/Save29/protocol4 unchanged; projection47/Save30 still wait on D1.
+
 These are private logic/work-accounting changes only. No consumer field/action,
 protocol4, projection46, live Save29, evaluator3, schema or generated C# changed.
 Do not expose partial traces as certified offers, impossible schedules or broken
