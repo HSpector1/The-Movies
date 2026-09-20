@@ -1,0 +1,18 @@
+{"sourceSha":"b1ad9f6bdacb34fb6ae04508e5633ae0de4c444b","testedDiffSha256":"65721abbf1c58b038b78531bb93f3f2a4bc62b2f04a88fe2288184678dd56a29","untrackedSource":["tests/p14b4-bounded-employment-lookup.test.ts"],"command":["npm","run","typecheck"],"node":"v20.20.2","start":"2026-09-20T06:53:12.212Z","end":null,"exitCode":null}
+
+
+> project-studio-core@0.1.0 typecheck
+> tsc --noEmit && tsc -p ui/tsconfig.json --noEmit
+
+tests/p14b4-bounded-employment-lookup.test.ts(124,7): error TS1005: ')' expected.
+tests/p14b4-bounded-employment-lookup.test.ts(124,59): error TS1005: ';' expected.
+tests/p14b4-bounded-employment-lookup.test.ts(124,61): error TS1005: ';' expected.
+tests/p14b4-bounded-employment-lookup.test.ts(126,7): error TS1005: ')' expected.
+tests/p14b4-bounded-employment-lookup.test.ts(126,59): error TS1005: ';' expected.
+tests/p14b4-bounded-employment-lookup.test.ts(126,61): error TS1005: ';' expected.
+tests/p14b4-bounded-employment-lookup.test.ts(127,3): error TS1128: Declaration or statement expected.
+tests/p14b4-bounded-employment-lookup.test.ts(127,4): error TS1128: Declaration or statement expected.
+tests/p14b4-bounded-employment-lookup.test.ts(128,1): error TS1128: Declaration or statement expected.
+tests/p14b4-bounded-employment-lookup.test.ts(128,2): error TS1128: Declaration or statement expected.
+
+{"sourceSha":"b1ad9f6bdacb34fb6ae04508e5633ae0de4c444b","testedDiffSha256":"65721abbf1c58b038b78531bb93f3f2a4bc62b2f04a88fe2288184678dd56a29","untrackedSource":["tests/p14b4-bounded-employment-lookup.test.ts"],"command":["npm","run","typecheck"],"node":"v20.20.2","start":"2026-09-20T06:53:12.212Z","end":"2026-09-20T06:53:19.552Z","exitCode":2,"signal":null,"error":null,"sourceShaAtEnd":"b1ad9f6bdacb34fb6ae04508e5633ae0de4c444b","testedDiffSha256AtEnd":"65721abbf1c58b038b78531bb93f3f2a4bc62b2f04a88fe2288184678dd56a29","untrackedSourceAtEnd":["tests/p14b4-bounded-employment-lookup.test.ts"],"fixedSource":true}

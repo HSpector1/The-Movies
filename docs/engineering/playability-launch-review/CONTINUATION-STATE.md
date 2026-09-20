@@ -2,35 +2,35 @@
 
 ## Current continuation — 2026-09-20: B-F2 closed; P2 pure owners verified, integration continues
 
-Current B4 checkpoint285 (2026-09-20):267 SOURCE FROZEN/NOwriter.
-HEAD/EXACTremote41bc14db9efb2bf52ab263a7d5ea3db4a91b65ad before285publication.
-ALL271–284 runtime CLOSED; FULLraw/metadata/patches read/verified by parent.
-Source267 exact2e8feba725d9e949762017859bf572a00887d970e25b58ad133c770a1b7ed6fa.
-Temporary283/284 diagnostics REMOVED, exactsource+280–282patch1b911681ce638998b1f86c127f15f536e5e97aff3ad2ed63ad31b9e18b7e03a3 restored.
+Current B4 checkpoint299 (2026-09-20):287 SOURCE FROZEN, no production writer.
+HEAD/EXACTremote b1ad9f6bdacb34fb6ae04508e5633ae0de4c444b pending299publication.
+Source290dc598921abdcef7a04093496d05274bd03ae8e7fa110fdbc362565392d955.
+ALL292–298/304/305/307 CLOSED; FULLraw/metadata/patches read and hashes verified.
+290 sourceREFINE: capacity-loop rawstring comparisons underpay14vs>=31; nextfix.
+293Ready14=12PASS2workLimitFAIL.294old26/295adjacent137/298ordinary66 PASS.
+296 soleold futureP2bridgekindTS2353.292compiler/297collection newtestsyntaxFAIL,
+preserved;303/306correctEXACT2linejoins, installednoassertionchange.
+304root AND UI PASS;305newemployment5=4semanticPASS1structuralcoldsortRED.
+OldHollywood unchanged; nofalsebehavioralREDclaim.
 
-270 bounded sourceKEEP;255 twofindingsclosed.280root/UItypesPASS after278/279
-type-only CastingSlate correction;281Ready12PASS1freelancerbudgetFAIL.
-273original26/274adjacent137 PASS;275soleoldfutureP2bridgekindTS2353.
-Wholeoriginal+Ready ANDactualsharedkernel plus siblingplansNOWPASSsame200000.
-276/277longReadyfirsttake installed;282genuineactualtake/wrapfixturepassed but
-replayworkLimit beforecompleteassertions/downstreamkernel. NOTReadyacceptance.
+307 passive diagnosticREMOVED; EXACT287source and304/305protectedpatch
+c55103860bfccfd0a2d08a279b01e8a77d5777aa6c64ab0c4928d8785bc17989 restored.
+Longroute now executes7→6 and6→5 (bills18412/9562), but cuts next actualdirector
+assignment reservation at used199267/request1659, beforeowner. No replaytake/
+wrap/output/kernel reached. Full entry/frame numbers in299 andraw307.
+Freelancerpriorentry35357+ownerbill192157>200000 unchanged;288realsharedlookup
+direction adopted, notimplemented. No cap/metric/refund/validator/test weakening.
 
-283/284 pinpoint BOTH remaining failures. Freelancer used119979/request192157 at
-outerownerpayment; billentry35357, so227514 alreadyexceedscap evenbeforecalculator.
-Longroute week1new8bill315,week2old8bill11193,week3remaining7bill159363:
-cut pre-sweepused131259/request159460. No third7→6/replaytake/kernel reached.
-Allactualcomponents/dimensions/exactdiagnosticpatches retained in285/raw284.
-
-Next publish285 and verifyEXACTremote286. SimREADONLYspecificsweep/freelancer
-RCA, auditorREADONLYminimal semantics-preserving lookup constraintreview;
-max2/NOsourcewriter. Then boundedwriterrelease fixesrealcauses/testsunchanged.
-No metric/cap/refund/warmcache/owner-policy change; scalaraggregationalone
-cannotresolve observedfreelancerfloor. Tests/types/sourcecorrectionevidence
-qualified, never relabel remainingfailuresgreen. Original26+Ready14immutable.
-
-T4/B2/B3/B-F2 qualified closeouts preserved; continueB4 then remainingP14/P15/
-P16/specifiedP17/P18. Save29/rules3/projection46 stilllive untilcoherentcutover.
-Unity/native/Owneracceptance deferred; backlogretained. Evidence00 chronology.
+Sim READONLY firsttakeRCA/301lookup prep;308 REFINE two302oracle mismatches.
+Author309 INERT boundedcorrection; auditoridle/max2.302preserved, notinstalled.
+Nextpublish299/exactremote300, then301SOLEwriter ONLYhollywoodsharedboundedlookup+
+cold replaybill/calculator+290comparison fix. Subsequentfullsource review and
+serialized root/UI/new5/ordinary66/Ready14/old26/adjacent137/bridge checks.
+Longroute mayneed independentnextsourcecorrection after actualattribution.
+Original26+Ready14immutable. All prior recovery/evidence preserved.
+T4/B2/B3/B-F2 qualifiedcloseouts retained; continueB4 then remainingP14/P15/P16/
+specifiedP17/P18. Save29/rules3/projection46 remainlive untilcoherentcutover.
+Unity/native/Owneracceptance deferred; integrationbacklog retained.
 
 Earlier additive foundation checkpoint: V30 data support implemented and independently
 KEEP; qualified report evidence/p14b4-20260919/29-additive-checkpoint.md.

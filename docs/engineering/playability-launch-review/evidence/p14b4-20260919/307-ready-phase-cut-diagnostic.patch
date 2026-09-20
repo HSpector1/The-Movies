@@ -1,0 +1,385 @@
+diff --git a/src/core/promiseCapacityOwnerReplay.ts b/src/core/promiseCapacityOwnerReplay.ts
+index fd38383..964244d 100644
+--- a/src/core/promiseCapacityOwnerReplay.ts
++++ b/src/core/promiseCapacityOwnerReplay.ts
+@@ -216,6 +216,15 @@ const LITERAL = Object.freeze({
+   allocation: literalCost('ok', 'reservations', 'boundSet'),
+   phaseEvent: literalCost('kind', 'productionId', 'phase'),
+   reservationEvent: literalCost('kind', 'owner', 'ownerId', 'resourceKey'),
++  phaseRelease: literalCost('workflow', 'released'),
++  phaseEntry: literalCost('operations', 'production', 'advanced', 'sets', 'released'),
++  advanceResult: literalCost('productions', 'operations', 'sets', 'admittedReleaseIds', 'firstTakes'),
++  phaseWorkflowOverrides: literalCost('phase', 'reservations', 'shootingTask', 'blocker', 'bindings'),
++  releaseWorkflowOverrides: literalCost('reservations', 'shootingTask', 'bindings'),
++  derivedBindingOverrides: literalCost('stageFacilityId', 'heldSinceWeek'),
++  boundSetOverrides: literalCost('setId', 'lockedNovelty', 'lockedUplift'),
++  shootingTask: literalCost('id', 'productionId', 'directorId', 'soundstageFacilityId', 'status'),
++  capacityBlocker: literalCost('kind', 'capability', 'targetPhase'),
+   contextError: literalCost('reason', 'message'),
+   commandError: literalCost('message'),
+ })
+@@ -225,7 +234,7 @@ class Work {
+   used: number
+   constructor(readonly limit: number, initial: number) { this.used = Math.min(limit, initial) }
+   pay(units = 1): void {
+-    if (units > this.limit - this.used) { this.used = this.limit; throw new WorkLimit() }
++    if (units > this.limit - this.used) { console.error('P14B4_WORK_LIMIT_307', this.used, units, this.limit, new Error('diagnostic-only').stack); this.used = this.limit; throw new WorkLimit() }
+     this.used += units
+   }
+   /** Evaluate the receiver BEFORE JavaScript evaluates calculator arguments.
+@@ -900,6 +909,151 @@ function allocationBill(d: Dimensions, wrapOnly: boolean, work: Work, retainedDe
+     work.calc(32).times(wrapOnly ? 1 : 2, work.calc(32).times(d.f, 2 + text)), slots, composite, 140)
+ }
+ 
++/** The real transition maps/`includes` and sink appends, for known row counts. */
++function smallTransitionBill(d: Dimensions, before: number, after: number, emitted: number, work: Work): number {
++  work.pay(24)
++  const keys = work.calc(8).add(before, after)
++  const keyLength = work.calc(8).add(d.d, 26)
++  const construction = work.calc(16).add(50, work.calc(8).times(2, d.d))
++  // Two map-result arrays; per-key callback/capacity/write and both outer
++  // loops. The two opposite includes walks each compare at most before*after.
++  return work.calc(64).plus(20, work.calc(16).times(keys, 8 + construction),
++    work.calc(16).times(work.calc(8).times(2, work.calc(8).times(before, after)),
++      work.calc(8).add(2, work.calc(8).equality(keyLength))),
++    work.calc(16).times(emitted, LITERAL.reservationEvent + LITERAL.stampedEvent + APPEND + 5))
++}
++
++/** A price for the unchanged ONE-picture owner, not a forecast or a new gate.
++ * Other slates, sound choices and live setup work keep the general bound. */
++function singleEarlySweepBill<P extends StartedPicture>(d: Dimensions, productions: readonly P[],
++  operations: StudioOperations, week: number, work: Work): number | null {
++  work.pay(20)
++  if (d.n !== 1 || operations.workflows.length !== 1 || !d.allSilent) return null
++  work.pay(40)
++  const production = productions[0]!, workflow = operations.workflows[0]!
++  if (production.startTick >= week || (production.remainingTicks !== 7 && production.remainingTicks !== 6)) return null
++  const shooting = production.remainingTicks === 6
++  work.pay(12)
++  if (!work.equal(workflow.productionId, production.id)) return null
++  work.pay(12)
++  if (!work.equal(workflow.phase, shooting ? 'rehearsal' : 'preProduction')) return null
++  work.pay(22)
++  if (workflow.reservations.length !== 1 || workflow.shootingTask !== null ||
++      workflow.bindings.requiresSetBinding !== true) return null
++  work.pay(8)
++  const reservation = workflow.reservations[0]!
++  work.pay(12)
++  if (!work.equal(reservation.capability, shooting ? 'soundstage' : 'development-casting')) return null
++  work.pay(2)
++  if (shooting) {
++    work.pay(28)
++    if (workflow.bindings.setId === null || (workflow.setup != null && workflow.setup.completedWeek === null)) return null
++  } else {
++    work.pay(20)
++    if (workflow.bindings.setId !== null || workflow.bindings.stageFacilityId !== null) return null
++  }
++  work.pay(8)
++  let stageCapacity = 0, sceneryCapacity = 0, stages = 0
++  for (const facility of operations.facilities) {
++    work.pay(14)
++    if (facility.capability === 'soundstage') {
++      stages++
++      stageCapacity = work.calc(8).add(stageCapacity, facility.capacity)
++    } else if (facility.capability === 'set-scenery') {
++      sceneryCapacity = work.calc(8).add(sceneryCapacity, facility.capacity)
++    }
++  }
++  work.pay(40)
++  const text = work.calc(8).equality(d.d), pid = work.calc(8).equality(d.dp)
++  const capabilityText = work.calc(8).equality(19), phaseText = work.calc(8).equality(14)
++  const capabilityKey = work.calc(8).keyBill(1, 19)
++  const keyLength = work.calc(8).add(d.d, 26)
++  const keyConstruction = work.calc(16).add(50, work.calc(8).times(2, d.d))
++  const occupiedKey = work.calc(16).keyBill(d.external + 2, keyLength)
++  work.pay(8)
++  const update = workflowUpdate(d, work)
++  const idKey = work.calc(8).keyBill(1, d.dp)
++  work.pay(8)
++  const reservationCopy = shooting ? work.copyCost(reservation) : 0
++
++  // After 7's Development release there are no raw claims. At 6 the eager
++  // producer emits the retained stage AND its occupied Set, and BOTH are
++  // filtered as this exact owner before any occupancy-map insertion. Neither
++  // case has a task. External rows still populate the complete occupied Set.
++  work.pay(16)
++  const rawClaims = shooting ? 2 : 0
++  const occupancy = work.calc(64).plus(60, 2 * text, capabilityText,
++    work.calc(32).times(rawClaims, work.calc(64).plus(LITERAL.claim, APPEND, 36, 2 * keyConstruction, 2 * text)),
++    work.calc(16).times(d.external, work.calc(8).add(4, work.calc(8).keyBill(d.external, keyLength))))
++  // All facilities are copied/filtered/sorted. Silent selection may scan the
++  // full existing technology row root, but never adoption/installation roots.
++  const callback = work.calc(32).plus(12, phaseText, work.calc(16).times(d.t, 8 + 2 * text))
++  const facilities = work.calc(64).plus(3, work.calc(16).times(d.f, 3 + callback),
++    sortBill(d.f, 6 + 2 * text, work))
++  // At 7 composite and general allocation can each inspect every stage slot.
++  // At 6 the stage is sticky; only Scenery slots have a capacity loop.
++  work.pay(12)
++  const slots = shooting ? sceneryCapacity : work.calc(8).times(2, stageCapacity)
++  const slotSearch = work.calc(16).times(slots,
++    work.calc(32).plus(5, keyConstruction, work.calc(8).times(2, occupiedKey)))
++  // The two requirement walks include all nonmatching facilities too. Sticky
++  // retention also does the exact facilities.some check and copies its row.
++  const requirements = work.calc(64).plus(30, work.calc(16).times(3, capabilityKey),
++    work.calc(16).times(2 * d.f, 2 + text), 2 * capabilityText,
++    reservationCopy, shooting ? 6 + keyConstruction + occupiedKey : 0)
++  // heldSetIds visits the sole workflow and excludes it by ID. bindableSetsOn
++  // remains a FULL, state-order filter for each potentially free stage.
++  work.pay(6)
++  const composite = shooting ? 0 : work.calc(64).plus(20, pid,
++    work.calc(16).times(d.f, 5 + capabilityText),
++    work.calc(16).times(stages, work.calc(16).add(2,
++      work.calc(16).times(d.sets, work.calc(32).plus(21, 3 * text, work.calc(8).keyBill(0, d.d))))))
++  const allocation = work.calc(64).plus(occupancy, facilities, requirements, slotSearch, composite,
++    80, 2 * capabilityText, work.calc(16).times(shooting ? 2 : 1, LITERAL.reservation + APPEND),
++    LITERAL.allocation, LITERAL.capacityBlocker)
++
++  // releaseCompletedPhase: table/filter, two arrays, claimed-capability Set,
++  // one original reservation at most, and the full returned record. At 7 a
++  // blocked first attempt can retry once because it released Development; its
++  // retry has no reservation to release. Both allocations see the same stage,
++  // Set, external and technology facts (only the ignored blocker changed), so
++  // a failed first attempt cannot become a success on that retry. At 6 no
++  // resource is ever released. Thus both cases have at most TWO outer visits.
++  const release = work.calc(32).plus(40, 4 * capabilityText, 2 * capabilityKey, LITERAL.phaseRelease, 6)
++  work.pay(8)
++  const attempts = shooting ? 1 : 2
++  const entries = work.calc(16).times(attempts, work.calc(64).plus(release, allocation, 60,
++    LITERAL.phaseEntry, d.workflowCopy, LITERAL.phaseWorkflowOverrides, update))
++  work.pay(6)
++  const releaseCopy = shooting ? 0 : work.calc(64).plus(d.workflowCopy, LITERAL.releaseWorkflowOverrides,
++    d.bindingsCopy, LITERAL.derivedBindingOverrides, 16, update,
++    smallTransitionBill(d, 1, 0, 1, work))
++  // At most ONE entry succeeds. 7 gains a stage and binds/locks that Set's
++  // actual quality/genre uplift; 6 retains it, gains Scenery and creates a task.
++  work.pay(20)
++  const transition = smallTransitionBill(d, shooting ? 1 : 0, shooting ? 2 : 1, 1, work)
++  const binding = work.calc(64).plus(d.bindingsCopy, LITERAL.derivedBindingOverrides, 20, 2 * text,
++    shooting ? 0 : work.calc(64).plus(d.bindingsCopy, LITERAL.boundSetOverrides, 60,
++      work.calc(16).times(d.genreRows, 3 + work.calc(8).equality(Math.max(d.dp, d.genreId)))))
++  // Rehearsal's callback returns at the phase guard. Shooting's silent lock
++  // still runs its real selection and new-row/old-row immutable update. Only
++  // this one picture can lock during the sweep, AFTER its allocation callbacks.
++  work.pay(6)
++  const lock = shooting ? work.calc(64).plus(40, phaseText, work.calc(16).times(d.t, 8 + 2 * text),
++    d.technologyRowCopy, 12, d.technologyCopy, 12, 4 + 8 * d.t) : work.calc(8).add(6, phaseText)
++  work.pay(6)
++  const task = shooting ? work.calc(32).plus(LITERAL.shootingTask, 30, 2 * d.dp, 2 * capabilityText) : 0
++  const success = work.calc(64).plus(transition, binding, lock, task,
++    LITERAL.phaseEvent, LITERAL.stampedEvent, APPEND, 8)
++  // Two outer visits at most, eight Map/Set operations including original map
++  // construction and final output, two workflow searches, phase/countdown
++  // guards, ordering, one complete generic production copy and result arrays.
++  const common = work.calc(64).plus(orderBill(d, work), 80, work.calc(8).times(8, idKey),
++    work.calc(16).times(2, 25 + 2 + pid + 2 * phaseText),
++    d.pCopy, 15, LITERAL.advanceResult, 12)
++  return work.calc(32).plus(common, entries, releaseCopy, success)
++}
++
+ function sweepBill<P extends StartedPicture>(d: Dimensions, productions: readonly P[],
+   operations: StudioOperations, week: number, commitments: ReadonlySet<string>, work: Work): number {
+   work.pay(6)
+@@ -910,6 +1064,9 @@ function sweepBill<P extends StartedPicture>(d: Dimensions, productions: readonl
+     if (production.startTick >= week || production.remainingTicks !== 4) wrapOnly = false
+   }
+   if (restricted) return restrictedSweepBill(d, productions, operations, week, commitments, work)
++  work.pay(20)
++  const singleEarly = singleEarlySweepBill(d, productions, operations, week, work)
++  if (singleEarly !== null) return singleEarly
+   // A BOUND, not an alternate simulation. Inspect actual input facts before
+   // selecting it, and still execute the unchanged whole-slate owner below.
+   let retainedDevelopment = true, retainedMoves = 0
+@@ -1258,6 +1415,7 @@ function executeCommand<P extends StartedPicture>(input: ReplayInput<P>, prepare
+ 
+ function frame<P extends StartedPicture>(input: ReplayInput<P>, prepared: Prepared<P>,
+   plan: ReplayPlan, branch: Branch<P>, work: Work): void {
++  console.error('P14B4_FRAME_ENTRY_307', branch.week, work.used, branch.productions.map(row => row.remainingTicks))
+   work.pay(7)
+   const arrivedWeek = branch.week + 1
+   for (const background of prepared.backgrounds) {
+@@ -1323,6 +1481,7 @@ function frame<P extends StartedPicture>(input: ReplayInput<P>, prepared: Prepar
+   const committed = committedReleaseIds(branch.releaseAuthority)
+   const before = branch.operations
+   const bill = sweepBill(d, branch.productions, branch.operations, branch.week, committed, work)
++  console.error('P14B4_SWEEP_BILL_307', branch.week, work.used, bill, branch.productions.map(row => row.remainingTicks), d)
+   // Reserve observation, sink, binding/callback literals and complete owner work
+   // together: an exhaustion boundary cannot record an unexecuted sweepStarted.
+   work.pay(work.calc(64).plus(bill, 15 + LITERAL.sink + 1 + LITERAL.boundary +
+diff --git a/tests/p14b4-bounded-employment-lookup.test.ts b/tests/p14b4-bounded-employment-lookup.test.ts
+new file mode 100644
+index 0000000..d770d2b
+--- /dev/null
++++ b/tests/p14b4-bounded-employment-lookup.test.ts
+@@ -0,0 +1,172 @@
++// Independent289 employment lookup regressions; installed after291 qualified KEEP.
++//289: adopted288 shared-owner law; no replay implementation or private bill oracle.
++import assert from 'node:assert/strict'
++import { describe, expect, it, vi } from 'vitest'
++import * as sortModule from '../src/core/boundedStableSort.js'
++import { employmentStatus, freelancerMarketIds } from '../src/core/employment.js'
++import { initializeHollywood, rivalEmployment, studioEmployerId } from '../src/core/hollywood.js'
++import type { HollywoodState, IndustryEmployment } from '../src/core/hollywoodTypes.js'
++import { makeSave } from '../src/core/save.js'
++import type { GameState } from '../src/core/types.js'
++import { foundedStudio, SEED } from './_p04a2WriterCreditFixtures.js'
++
++type OwnerInput = Pick<GameState, 'hollywood'>
++const clone = <T>(value: T): T => structuredClone(value)
++
++function genuine() {
++  // Disclosed historical-control founding with REAL hire/found actions, then
++  // genuine fresh industry at week0. No employment/history field is stamped.
++  const state = initializeHollywood(foundedStudio(SEED), 'fresh')
++  expect(state.market.tick).toBe(0)
++  assert.ok(state.hollywood)
++  expect(state.hollywood.employment.length).toBeGreaterThan(0)
++  makeSave(state)
++  return { state, hollywood: state.hollywood }
++}
++
++// Independent original-array-order oracle, not an index or a solver copy.
++function firstEligible(input: OwnerInput, personId: string, week: number): IndustryEmployment | null {
++  const h = input.hollywood
++  if (h === null) return null
++  return h.employment.find((row) => row.terms.talentId === personId && row.studioId !== h.playerStudioId &&
++    row.terms.startWeek <= week && week < row.terms.endWeekExclusive &&
++    (row.endedWeek === null || week < row.endedWeek)) ?? null
++}
++
++function check(input: OwnerInput, personId: string, week: number, expected: IndustryEmployment | null) {
++  const before = clone(input), refs = input.hollywood?.employment.slice() ?? []
++  expect(firstEligible(input, personId, week)).toBe(expected)
++  expect(rivalEmployment(input, personId, week)).toBe(expected)
++  expect(input).toEqual(before)
++  input.hollywood?.employment.forEach((row, index) => expect(row).toBe(refs[index]))
++}
++
++function detached(hollywood: HollywoodState, rows: IndustryEmployment[], playerStudioId = hollywood.playerStudioId): OwnerInput {
++  // Explicit SYNTHETIC lower-owner probe. This is NOT a valid campaign/history
++  // and is never cast to GameState, saved, ticked or passed to a gameplay action.
++  return { hollywood: { ...hollywood, employment: rows, playerStudioId } }
++}
++
++function probe() {
++  const { hollywood } = genuine(), template = hollywood.employment[0]!
++  const own = hollywood.playerStudioId, rivalIds = hollywood.identities
++    .filter((row) => row.role === 'rival' && row.enteredWeek !== null).map((row) => row.studioId)
++  expect(rivalIds.length).toBeGreaterThanOrEqual(2)
++  const a = rivalIds[0]!, b = rivalIds[1]!
++  const row = (name: string, person: string, studioId: string, startWeek: number,
++    endWeekExclusive: number, endedWeek: number | null = null): IndustryEmployment => ({
++    ...template, contractId: `probe-${name}`, studioId, endedWeek,
++    terms: { ...template.terms, talentId: person, startWeek, endWeekExclusive, termWeeks: endWeekExclusive - startWeek },
++  })
++  const z = row('z', 'probe-z', a, 0, 104)
++  const player = row('player-m', 'probe-m', own, 0, 104)
++  const upper = row('upper', 'probe-A', a, 0, 104)
++  const future = row('future-m', 'probe-m', a, 20, 124)
++  const middle = row('middle', 'probe-h', b, 0, 104)
++  const ended = row('ended-m', 'probe-m', a, 10, 114, 30)
++  const later = row('later-m', 'probe-m', b, 10, 114)
++  const old = row('old-m', 'probe-m', a, 0, 52, 10)
++  const prefix = row('prefix', 'probe-m0', a, 0, 104)
++  const competitor = row('competitor-m', 'probe-m', a, 10, 114)
++  const expiry = row('expiry', 'probe-boundary', a, 10, 62)
++  const earlyEnd = row('early-end', 'probe-ended', a, 10, 114, 30)
++  const rows = [z, player, upper, future, middle, ended, later, old, prefix, competitor, expiry, earlyEnd]
++  return { hollywood, own, a, b, rows, player, future, ended, later, old, competitor, expiry, earlyEnd }
++}
++
++describe('P14B4 rivalEmployment — ordinary owner semantics', () => {
++  it('returns genuine original rival rows and preserves ordinary employment/freelancer callers', () => {
++    const { state, hollywood } = genuine(), before = clone(state)
++    const rivals = hollywood.employment.filter((row) => row.studioId !== hollywood.playerStudioId &&
++      row.terms.startWeek <= state.market.tick && state.market.tick < row.terms.endWeekExclusive && row.endedWeek === null)
++    expect(rivals.length).toBeGreaterThan(0)
++    expect(hollywood.employment.some((row) => row.studioId === hollywood.playerStudioId)).toBe(true)
++    const people = [...new Set(hollywood.employment.map((row) => row.terms.talentId))]
++    for (const id of people) check(state, id, state.market.tick, firstEligible(state, id, state.market.tick))
++    const sample = rivals[0]!, selected = firstEligible(state, sample.terms.talentId, state.market.tick)
++    assert.ok(selected)
++    expect(rivalEmployment(state, sample.terms.talentId, state.market.tick)).toBe(selected)
++    expect(studioEmployerId(state, sample.terms.talentId)).toBe(selected.studioId)
++    expect(employmentStatus(state, sample.terms.talentId)).toBe('unavailable')
++    const freelance = freelancerMarketIds(state)
++    for (const row of rivals) expect(freelance).not.toContain(row.terms.talentId)
++    expect(state).toEqual(before)
++  })
++
++  it('returns null for null/empty roots and IDs before, within and after a nonempty lexical domain', () => {
++    check({ hollywood: null }, 'missing', 10, null)
++    const f = probe()
++    check(detached(f.hollywood, []), 'probe-m', 10, null)
++    const input = detached(f.hollywood, f.rows)
++    for (const missing of ['', 'probe-0', 'probe-g', 'probe-missing', 'zz-last']) check(input, missing, 10, null)
++  })
++
++  it('preserves original equal-ID order with interleaved rows, competing eligible rows and query-time player changes', () => {
++    const f = probe(), input = detached(f.hollywood, f.rows)
++    for (const [week, expected] of [
++      [9, f.old], [10, f.ended], [19, f.ended], [20, f.future], [29, f.future],
++      [30, f.future], [113, f.future], [114, f.future], [123, f.future], [124, null],
++    ] satisfies Array<[number, IndustryEmployment | null]>) check(input, 'probe-m', week, expected)
++    // SAME employment array, different Hollywood wrapper/player. The original
++    // player's row now qualifies; it must not have been filtered from the cache.
++    const changedPlayer = detached(f.hollywood, f.rows, f.a)
++    check(changedPlayer, 'probe-m', 20, f.player)
++    check(input, 'probe-m', 20, f.future)
++    expect(changedPlayer.hollywood!.employment).toBe(input.hollywood!.employment)
++    const reversed = detached(f.hollywood, [...f.rows].reverse())
++    check(reversed, 'probe-m', 20, f.competitor)
++    check(input, 'probe-m', 20, f.future)
++  })
++
++  it('keeps inclusive starts, exclusive contractual ends, exclusive endedWeek and null-ended contracts', () => {
++    const f = probe(), input = detached(f.hollywood, f.rows)
++    for (const [week, expected] of [[9, null], [10, f.expiry], [61, f.expiry], [62, null]] satisfies Array<[number, IndustryEmployment | null]>) check(input, 'probe-boundary', week, expected)
++    for (const [week, expected] of [[9, null], [10, f.earlyEnd], [29, f.earlyEnd], [30, null], [114, null]] satisfies Array<[number, IndustryEmployment | null]>) check(input, 'probe-ended', week, expected)
++  })
++})
++
++describe('P14B4 rivalEmployment — adopted288 cold bounded index contract', () => {
++  it('uses the real bounded stable sort once per employment-array identity, preserves all original row refs, and caches no eligibility result', () => {
++    const f = probe(), input = detached(f.hollywood, f.rows), before = clone(input)
++    const original = sortModule.boundedStableSort
++    const calls: { source: readonly unknown[]; result: readonly unknown[]; comparisons: number }[] = []
++    // Frozen input detects in-place sorting; row/term freezes remain correctly
++    // typed detached probe facts, not a forged or validated campaign.
++    Object.freeze(f.rows)
++    for (const row of f.rows) { Object.freeze(row.terms); Object.freeze(row) }
++    const spy = vi.spyOn(sortModule, 'boundedStableSort').mockImplementation(
++      <T>(values: readonly T[], compare: (left: T, right: T) => number): T[] => {
++        let comparisons = 0
++        const result = original(values, (left, right) => { comparisons++; return compare(left, right) })
++        calls.push({ source: values, result, comparisons })
++        return result // preserve the actual shared helper's result, never stub it
++      })
++    try {
++      check(input, 'probe-m', 10, f.ended)
++      expect(calls).toHaveLength(1) // old Map owner should RED here, not on fake policy
++      const cold = calls[0]!, expected = [...f.rows].sort((left, right) =>
++        left.terms.talentId < right.terms.talentId ? -1 : left.terms.talentId > right.terms.talentId ? 1 : 0)
++      expect(cold.source).toHaveLength(f.rows.length)
++      cold.source.forEach((row, index) => expect(row).toBe(f.rows[index]))
++      expect(cold.result).not.toBe(f.rows)
++      expect(cold.result).toEqual(expected)
++      cold.result.forEach((row, index) => expect(row).toBe(expected[index]))
++      expect(cold.comparisons).toBeGreaterThan(0)
++      expect(cold.comparisons).toBeLessThanOrEqual(f.rows.length * Math.ceil(Math.log2(f.rows.length)))
++      check(input, 'probe-m', 9, f.old)
++      check(input, 'probe-m', 20, f.future)
++      check(input, 'absent', 20, null)
++      check(detached(f.hollywood, f.rows, f.a), 'probe-m', 20, f.player)
++      check(input, 'probe-ended', 30, null)
++      expect(calls).toHaveLength(1)
++      const replacement = [...f.rows].reverse()
++      check(detached(f.hollywood, replacement), 'probe-m', 20, f.competitor)
++      expect(calls).toHaveLength(2)
++      expect(calls[1]!.source).toEqual(replacement)
++      calls[1]!.source.forEach((row, index) => expect(row).toBe(replacement[index]))
++      check(input, 'probe-m', 10, f.ended)
++      expect(calls).toHaveLength(2)
++      expect(input).toEqual(before)
++    } finally { spy.mockRestore() }
++  })
++})

@@ -1,0 +1,38 @@
+{"sourceSha":"b1ad9f6bdacb34fb6ae04508e5633ae0de4c444b","testedDiffSha256":"65721abbf1c58b038b78531bb93f3f2a4bc62b2f04a88fe2288184678dd56a29","untrackedSource":["tests/p14b4-bounded-employment-lookup.test.ts"],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14b4-bounded-employment-lookup.test.ts"],"node":"v20.20.2","start":"2026-09-20T06:56:11.868Z","end":null,"exitCode":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/p14b4-bounded-employment-lookup.test.ts (0 test)
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14b4-bounded-employment-lookup.test.ts [ tests/p14b4-bounded-employment-lookup.test.ts ]
+Error: Transform failed with 1 error:
+/Users/zacheryspector/The-Movies-headless-program/tests/p14b4-bounded-employment-lookup.test.ts:124:6: ERROR: Expected ")" but found "satisfies"
+  Plugin: vite:esbuild
+  File: /Users/zacheryspector/The-Movies-headless-program/tests/p14b4-bounded-employment-lookup.test.ts:124:6
+  
+  Expected ")" but found "satisfies"
+  122|      const f = probe(), input = detached(f.hollywood, f.rows)
+  123|      for (const [week, expected] of [[9, null], [10, f.expiry], [61, f.expiry], [62, null]]
+  124|        satisfies Array<[number, IndustryEmployment | null]>) check(input, 'probe-boundary', week, expected)
+     |        ^
+  125|      for (const [week, expected] of [[9, null], [10, f.earlyEnd], [29, f.earlyEnd], [30, null], [114, null]]
+  126|        satisfies Array<[number, IndustryEmployment | null]>) check(input, 'probe-ended', week, expected)
+  
+ ❯ failureErrorWithLog node_modules/vitest/node_modules/esbuild/lib/main.js:1472:15
+ ❯ node_modules/vitest/node_modules/esbuild/lib/main.js:755:50
+ ❯ responseCallbacks.<computed> node_modules/vitest/node_modules/esbuild/lib/main.js:622:9
+ ❯ handleIncomingPacket node_modules/vitest/node_modules/esbuild/lib/main.js:677:12
+ ❯ Socket.readFromStdout node_modules/vitest/node_modules/esbuild/lib/main.js:600:7
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed (1)
+      Tests  no tests
+   Start at  08:56:12
+   Duration  468ms (transform 9ms, setup 0ms, collect 0ms, tests 0ms, environment 0ms, prepare 124ms)
+
+
+{"sourceSha":"b1ad9f6bdacb34fb6ae04508e5633ae0de4c444b","testedDiffSha256":"65721abbf1c58b038b78531bb93f3f2a4bc62b2f04a88fe2288184678dd56a29","untrackedSource":["tests/p14b4-bounded-employment-lookup.test.ts"],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14b4-bounded-employment-lookup.test.ts"],"node":"v20.20.2","start":"2026-09-20T06:56:11.868Z","end":"2026-09-20T06:56:13.473Z","exitCode":1,"signal":null,"error":null,"sourceShaAtEnd":"b1ad9f6bdacb34fb6ae04508e5633ae0de4c444b","testedDiffSha256AtEnd":"65721abbf1c58b038b78531bb93f3f2a4bc62b2f04a88fe2288184678dd56a29","untrackedSourceAtEnd":["tests/p14b4-bounded-employment-lookup.test.ts"],"fixedSource":true}

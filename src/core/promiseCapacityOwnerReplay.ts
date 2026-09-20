@@ -216,6 +216,15 @@ const LITERAL = Object.freeze({
   allocation: literalCost('ok', 'reservations', 'boundSet'),
   phaseEvent: literalCost('kind', 'productionId', 'phase'),
   reservationEvent: literalCost('kind', 'owner', 'ownerId', 'resourceKey'),
+  phaseRelease: literalCost('workflow', 'released'),
+  phaseEntry: literalCost('operations', 'production', 'advanced', 'sets', 'released'),
+  advanceResult: literalCost('productions', 'operations', 'sets', 'admittedReleaseIds', 'firstTakes'),
+  phaseWorkflowOverrides: literalCost('phase', 'reservations', 'shootingTask', 'blocker', 'bindings'),
+  releaseWorkflowOverrides: literalCost('reservations', 'shootingTask', 'bindings'),
+  derivedBindingOverrides: literalCost('stageFacilityId', 'heldSinceWeek'),
+  boundSetOverrides: literalCost('setId', 'lockedNovelty', 'lockedUplift'),
+  shootingTask: literalCost('id', 'productionId', 'directorId', 'soundstageFacilityId', 'status'),
+  capacityBlocker: literalCost('kind', 'capability', 'targetPhase'),
   contextError: literalCost('reason', 'message'),
   commandError: literalCost('message'),
 })
@@ -900,6 +909,151 @@ function allocationBill(d: Dimensions, wrapOnly: boolean, work: Work, retainedDe
     work.calc(32).times(wrapOnly ? 1 : 2, work.calc(32).times(d.f, 2 + text)), slots, composite, 140)
 }
 
+/** The real transition maps/`includes` and sink appends, for known row counts. */
+function smallTransitionBill(d: Dimensions, before: number, after: number, emitted: number, work: Work): number {
+  work.pay(24)
+  const keys = work.calc(8).add(before, after)
+  const keyLength = work.calc(8).add(d.d, 26)
+  const construction = work.calc(16).add(50, work.calc(8).times(2, d.d))
+  // Two map-result arrays; per-key callback/capacity/write and both outer
+  // loops. The two opposite includes walks each compare at most before*after.
+  return work.calc(64).plus(20, work.calc(16).times(keys, 8 + construction),
+    work.calc(16).times(work.calc(8).times(2, work.calc(8).times(before, after)),
+      work.calc(8).add(2, work.calc(8).equality(keyLength))),
+    work.calc(16).times(emitted, LITERAL.reservationEvent + LITERAL.stampedEvent + APPEND + 5))
+}
+
+/** A price for the unchanged ONE-picture owner, not a forecast or a new gate.
+ * Other slates, sound choices and live setup work keep the general bound. */
+function singleEarlySweepBill<P extends StartedPicture>(d: Dimensions, productions: readonly P[],
+  operations: StudioOperations, week: number, work: Work): number | null {
+  work.pay(20)
+  if (d.n !== 1 || operations.workflows.length !== 1 || !d.allSilent) return null
+  work.pay(40)
+  const production = productions[0]!, workflow = operations.workflows[0]!
+  if (production.startTick >= week || (production.remainingTicks !== 7 && production.remainingTicks !== 6)) return null
+  const shooting = production.remainingTicks === 6
+  work.pay(12)
+  if (!work.equal(workflow.productionId, production.id)) return null
+  work.pay(12)
+  if (!work.equal(workflow.phase, shooting ? 'rehearsal' : 'preProduction')) return null
+  work.pay(22)
+  if (workflow.reservations.length !== 1 || workflow.shootingTask !== null ||
+      workflow.bindings.requiresSetBinding !== true) return null
+  work.pay(8)
+  const reservation = workflow.reservations[0]!
+  work.pay(12)
+  if (!work.equal(reservation.capability, shooting ? 'soundstage' : 'development-casting')) return null
+  work.pay(2)
+  if (shooting) {
+    work.pay(28)
+    if (workflow.bindings.setId === null || (workflow.setup != null && workflow.setup.completedWeek === null)) return null
+  } else {
+    work.pay(20)
+    if (workflow.bindings.setId !== null || workflow.bindings.stageFacilityId !== null) return null
+  }
+  work.pay(8)
+  let stageCapacity = 0, sceneryCapacity = 0, stages = 0
+  for (const facility of operations.facilities) {
+    work.pay(14)
+    if (facility.capability === 'soundstage') {
+      stages++
+      stageCapacity = work.calc(8).add(stageCapacity, facility.capacity)
+    } else if (facility.capability === 'set-scenery') {
+      sceneryCapacity = work.calc(8).add(sceneryCapacity, facility.capacity)
+    }
+  }
+  work.pay(40)
+  const text = work.calc(8).equality(d.d), pid = work.calc(8).equality(d.dp)
+  const capabilityText = work.calc(8).equality(19), phaseText = work.calc(8).equality(14)
+  const capabilityKey = work.calc(8).keyBill(1, 19)
+  const keyLength = work.calc(8).add(d.d, 26)
+  const keyConstruction = work.calc(16).add(50, work.calc(8).times(2, d.d))
+  const occupiedKey = work.calc(16).keyBill(d.external + 2, keyLength)
+  work.pay(8)
+  const update = workflowUpdate(d, work)
+  const idKey = work.calc(8).keyBill(1, d.dp)
+  work.pay(8)
+  const reservationCopy = shooting ? work.copyCost(reservation) : 0
+
+  // After 7's Development release there are no raw claims. At 6 the eager
+  // producer emits the retained stage AND its occupied Set, and BOTH are
+  // filtered as this exact owner before any occupancy-map insertion. Neither
+  // case has a task. External rows still populate the complete occupied Set.
+  work.pay(16)
+  const rawClaims = shooting ? 2 : 0
+  const occupancy = work.calc(64).plus(60, 2 * text, capabilityText,
+    work.calc(32).times(rawClaims, work.calc(64).plus(LITERAL.claim, APPEND, 36, 2 * keyConstruction, 2 * text)),
+    work.calc(16).times(d.external, work.calc(8).add(4, work.calc(8).keyBill(d.external, keyLength))))
+  // All facilities are copied/filtered/sorted. Silent selection may scan the
+  // full existing technology row root, but never adoption/installation roots.
+  const callback = work.calc(32).plus(12, phaseText, work.calc(16).times(d.t, 8 + 2 * text))
+  const facilities = work.calc(64).plus(3, work.calc(16).times(d.f, 3 + callback),
+    sortBill(d.f, 6 + 2 * text, work))
+  // At 7 composite and general allocation can each inspect every stage slot.
+  // At 6 the stage is sticky; only Scenery slots have a capacity loop.
+  work.pay(12)
+  const slots = shooting ? sceneryCapacity : work.calc(8).times(2, stageCapacity)
+  const slotSearch = work.calc(16).times(slots,
+    work.calc(32).plus(5, keyConstruction, work.calc(8).times(2, occupiedKey)))
+  // The two requirement walks include all nonmatching facilities too. Sticky
+  // retention also does the exact facilities.some check and copies its row.
+  const requirements = work.calc(64).plus(30, work.calc(16).times(3, capabilityKey),
+    work.calc(16).times(2 * d.f, 2 + text), 2 * capabilityText,
+    reservationCopy, shooting ? 6 + keyConstruction + occupiedKey : 0)
+  // heldSetIds visits the sole workflow and excludes it by ID. bindableSetsOn
+  // remains a FULL, state-order filter for each potentially free stage.
+  work.pay(6)
+  const composite = shooting ? 0 : work.calc(64).plus(20, pid,
+    work.calc(16).times(d.f, 5 + capabilityText),
+    work.calc(16).times(stages, work.calc(16).add(2,
+      work.calc(16).times(d.sets, work.calc(32).plus(21, 3 * text, work.calc(8).keyBill(0, d.d))))))
+  const allocation = work.calc(64).plus(occupancy, facilities, requirements, slotSearch, composite,
+    80, 2 * capabilityText, work.calc(16).times(shooting ? 2 : 1, LITERAL.reservation + APPEND),
+    LITERAL.allocation, LITERAL.capacityBlocker)
+
+  // releaseCompletedPhase: table/filter, two arrays, claimed-capability Set,
+  // one original reservation at most, and the full returned record. At 7 a
+  // blocked first attempt can retry once because it released Development; its
+  // retry has no reservation to release. Both allocations see the same stage,
+  // Set, external and technology facts (only the ignored blocker changed), so
+  // a failed first attempt cannot become a success on that retry. At 6 no
+  // resource is ever released. Thus both cases have at most TWO outer visits.
+  const release = work.calc(32).plus(40, 4 * capabilityText, 2 * capabilityKey, LITERAL.phaseRelease, 6)
+  work.pay(8)
+  const attempts = shooting ? 1 : 2
+  const entries = work.calc(16).times(attempts, work.calc(64).plus(release, allocation, 60,
+    LITERAL.phaseEntry, d.workflowCopy, LITERAL.phaseWorkflowOverrides, update))
+  work.pay(6)
+  const releaseCopy = shooting ? 0 : work.calc(64).plus(d.workflowCopy, LITERAL.releaseWorkflowOverrides,
+    d.bindingsCopy, LITERAL.derivedBindingOverrides, 16, update,
+    smallTransitionBill(d, 1, 0, 1, work))
+  // At most ONE entry succeeds. 7 gains a stage and binds/locks that Set's
+  // actual quality/genre uplift; 6 retains it, gains Scenery and creates a task.
+  work.pay(20)
+  const transition = smallTransitionBill(d, shooting ? 1 : 0, shooting ? 2 : 1, 1, work)
+  const binding = work.calc(64).plus(d.bindingsCopy, LITERAL.derivedBindingOverrides, 20, 2 * text,
+    shooting ? 0 : work.calc(64).plus(d.bindingsCopy, LITERAL.boundSetOverrides, 60,
+      work.calc(16).times(d.genreRows, 3 + work.calc(8).equality(Math.max(d.dp, d.genreId)))))
+  // Rehearsal's callback returns at the phase guard. Shooting's silent lock
+  // still runs its real selection and new-row/old-row immutable update. Only
+  // this one picture can lock during the sweep, AFTER its allocation callbacks.
+  work.pay(6)
+  const lock = shooting ? work.calc(64).plus(40, phaseText, work.calc(16).times(d.t, 8 + 2 * text),
+    d.technologyRowCopy, 12, d.technologyCopy, 12, 4 + 8 * d.t) : work.calc(8).add(6, phaseText)
+  work.pay(6)
+  const task = shooting ? work.calc(32).plus(LITERAL.shootingTask, 30, 2 * d.dp, 2 * capabilityText) : 0
+  const success = work.calc(64).plus(transition, binding, lock, task,
+    LITERAL.phaseEvent, LITERAL.stampedEvent, APPEND, 8)
+  // Two outer visits at most, eight Map/Set operations including original map
+  // construction and final output, two workflow searches, phase/countdown
+  // guards, ordering, one complete generic production copy and result arrays.
+  const common = work.calc(64).plus(orderBill(d, work), 80, work.calc(8).times(8, idKey),
+    work.calc(16).times(2, 25 + 2 + pid + 2 * phaseText),
+    d.pCopy, 15, LITERAL.advanceResult, 12)
+  return work.calc(32).plus(common, entries, releaseCopy, success)
+}
+
 function sweepBill<P extends StartedPicture>(d: Dimensions, productions: readonly P[],
   operations: StudioOperations, week: number, commitments: ReadonlySet<string>, work: Work): number {
   work.pay(6)
@@ -910,6 +1064,9 @@ function sweepBill<P extends StartedPicture>(d: Dimensions, productions: readonl
     if (production.startTick >= week || production.remainingTicks !== 4) wrapOnly = false
   }
   if (restricted) return restrictedSweepBill(d, productions, operations, week, commitments, work)
+  work.pay(20)
+  const singleEarly = singleEarlySweepBill(d, productions, operations, week, work)
+  if (singleEarly !== null) return singleEarly
   // A BOUND, not an alternate simulation. Inspect actual input facts before
   // selecting it, and still execute the unchanged whole-slate owner below.
   let retainedDevelopment = true, retainedMoves = 0

@@ -1,5 +1,50 @@
 # P14B.4 — capacity implementation continuation
 
+CURRENT299:fullqualifiedcheckpoint299written. ALL292–298/304/305/307CLOSED.
+290sourceREFINE actualstringunderpay;293Ready12PASS2budgetFAIL;old26/adjacent137/
+ordinary66PASS;296soleoldbridgeerror.303/306syntaxonlyfix→304rootUI PASS,
+305employment4semanticPASS1structuralcoldsortRED.287sourceFROZEN;307passivelogs
+REMOVED/EXACT287source+304/305patchc5510386…restored. Both7→6/6→5 nowsweep;
+cut199267/request1659 pre-assignowner. No replaytake/kernel. Nextpublish299/300,
+301solewriteractualsharedlookup+coldbill+290fix. SimreadonlyRCA/auditor308review,
+authoridle/max2;302INERTfrozen/fullread, notinstalled. Noassertion/capweakening.
+
+CURRENT292:287 FROZEN/source290dc598…/handback917da717… parentFULLread and verified.
+No writer.290auditor READONLY bounded source/cost review; author302 INERT stale
+Ready-target test prep.291KEEP,289 five-case installedEXACT+firstcomment.
+292root/UI31374SOLEruntime, then293Ready14/294old26/295adjacent137/296bridge
+SERIAL;297 employment5baseline oldHollywood;298ordinarycaller controls.
+NOsource/HEAD changes while runtime. Actual outcomes pending; no assumedgreen.
+Preserve freelancerknownfailure/cap200000;288 realsharedlookup direction adopted
+but NOHollywoodwrite yet. Then299qualifiedcheckpoint/300publication,301solewriter.
+
+CURRENT291:2895-case employment draft FROZEN5da775f878103df3bc76d5e01abaef3d0695a00c63d9aca984fde01c4f404635,
+briefc14f7ae7c8ee106186c6585b6258ff4bac2cff9029962f2fb66ce8539794fa12.
+ParentFULLread/pins;291auditor READONLYboundedtestreview; authoridle/max2.
+287sim stillSOLEwriter ONLYreplayfirsttakebounds; NOmutableinspection/runtime.
+After287freeze: FULLdelta/handback/pins,290boundedsource review; prepared292rootUI,
+293Ready14(all5files),294old26,295adjacent137,296bridge SERIAL. Then newemployment
+baseline afterexact289installation/review, BEFOREanyHollywoodownerwrite release.
+Allchecks remainUNRUN. HollywoodSHA bbb4328af0daf1d2b0e6e2ab81fb91baac7f58b1fc723333f4af1ab96cbd57c8.
+
+CURRENT288/289:288 fullboundedrecommendation persisted/adopted: actualshared
+rivalEmployment stable-sortedORIGINALrefs+lowerbound/stableequal-IDrun; same
+WeakMaparrayidentity, originalquery-timepredicate, exactreturnrefs/order/purity.
+No metric/cap/policy/schema change.289authorONLYinert independenttests now,
+auditoridle/max2.287sim remainsSOLEwriter ONLYreplayfirsttakebounds; noHollywood
+editrelease. Next287freeze/FULLread/pins;289draftreview/exactinstall/serialbaseline
+then laterboundedemploymentwriter. DoNOTinspectmutable287 orrunheavychecks.
+
+CURRENT287:285published HEAD/EXACTremote b1ad9f6bdacb34fb6ae04508e5633ae0de4c444b,
+286publication/push40826CLOSED.287sim NOWSOLEwriter ONLYreplay+handback for
+single-picture7→6/6→5 prepaidbounds realfirsttakefailure; sourceMUTABLE,
+NOinspection/runtime/Git untilfreeze. Alloriginal26+Ready14 IMMUTABLE.
+288auditor READONLYemploymentlookup recommendation; authoridle/max2.
+Freelanceractual35357+192157floor cannotfit200000evenfreecalculator. Needreal
+semantics-preserving sharedownerlookup adjustment, notmetric/capdiscount;
+NOhollywoodownerwrite releaseyet. Parent nextboundedplan/testauthorinertREDprep
+after288returns, while287continuesindependently. Preserveall285qualifiedevidence.
+
 CURRENT285:ALL271–284CLOSED;267FROZEN/no writer. FULL285 qualifiedcheckpoint
 records280typesPASS/28112PASS1freelancerFAIL/282newlongroutebudgetFAIL;273old26/
 274adjacent137PASS/275soleoldbridgekindTS2353. Allraw/patchesread+rehashverified.
