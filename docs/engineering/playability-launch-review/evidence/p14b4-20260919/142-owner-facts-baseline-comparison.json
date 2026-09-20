@@ -1,0 +1,14 @@
+{
+  "candidateRawPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/141-owner-facts-pre-extraction-baseline.txt",
+  "candidateRawSha256": "213050e6f41ecf47b6a621ef6926d61edc49f92647fe5170ac8e52f4d31dc070",
+  "priorComparisonPath": "docs/engineering/playability-launch-review/evidence/p14bf2-20260919-final/13-core-comparison.json",
+  "priorComparisonSha256": "fa4c886eaa51d3b3989a7d8e12b7ac20c65acf442897728a76a9b6edfaaf434a",
+  "test": "tests/world-first-scenery-load-in-provenance.test.ts > World-First Scenery Load-In V1 — frozen district provenance > replays the clean exporter and pins its deliberately non-runtime manifest",
+  "diagnostic": "Error: Command failed: python3 /Users/zacheryspector/The-Movies-headless-program/tools/hollywood/export_district.py --source /Users/zacheryspector/The-Movies-headless-program/art/hollywood/source/moonshot-studio-chronicle-concept.png --manifest /Users/zacheryspector/The-Movies-headless-program/art/hollywood/district-manifest.source.json --output /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/studio-scenery-export-<temporary>\nTraceback (most recent call last):\n  File \"/Users/zacheryspector/The-Movies-headless-program/tools/hollywood/export_district.py\", line 16, in <module>\n    from PIL import Image, ImageDraw\nModuleNotFoundError: No module named 'PIL'\n\n ❯ tests/world-first-scenery-load-in-provenance.test.ts:85:7\n     83|     const output = mkdtempSync(join(tmpdir(), 'studio-scenery-export-'…\n     84|     try {\n     85|       execFileSync('python3', [\n       |       ^\n     86|         resolve('tools/hollywood/export_district.py'),\n     87|         '--source', resolve('art/hollywood/source/moonshot-studio-chro…",
+  "exactHistoricalMatch": true,
+  "normalization": "generated scenery temporary-directory suffix only",
+  "candidate": "6afe629a6519ff64a42e89064b6fe2d1576a2ceb",
+  "protectedPatch": "empty",
+  "result": "100 PASS /1 historical missing-PIL FAIL; no owner-fact type changes yet",
+  "qualification": "Signature attribution only; exporter behavior remains unverified, no installation/test weakening"
+}

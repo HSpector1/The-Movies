@@ -1,0 +1,64 @@
+{"sourceSha":"6afe629a6519ff64a42e89064b6fe2d1576a2ceb","testedDiffSha256":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","untrackedSource":[],"command":["node_modules/.bin/vitest","run","tests/p14b4-managed-clock-owner.test.ts","tests/p13a-production-technology.test.ts","tests/p13b-s5-operational.test.ts","tests/p13b-r07-timeline.test.ts","tests/p13b-s8-setup-symmetry.test.ts","tests/p14b2-setup-wrap-regressions.test.ts","tests/c2a-m5-scenery-load-in-layout.test.ts","tests/p05a-w1-scenery-truth.test.ts","tests/world-first-scenery-load-in-provenance.test.ts","tests/p06a-w1-release-authority.test.ts","--minWorkers=1","--maxWorkers=1"],"node":"v20.20.2","start":"2026-09-20T01:26:38.480Z","end":null,"exitCode":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p05a-w1-scenery-truth.test.ts (21 tests) 806ms
+ ✓ |core| tests/c2a-m5-scenery-load-in-layout.test.ts (20 tests) 347ms
+ ✓ |core| tests/p06a-w1-release-authority.test.ts (14 tests) 1693ms
+   ✓ P06A W1 — save law > imports a pre-P06 Release Ready save as UNCOMMITTED (holds until committed) 412ms
+   ✓ P06A W1 — save law > round-trips a committed live save byte-exactly and refuses downgrades 653ms
+   ✓ P06A W1 — save law > validateSaveV29 rejects forged authority at the save boundary 304ms
+ ✓ |core| tests/p13b-r07-timeline.test.ts (6 tests) 8414ms
+   ✓ P13B-S5-R07 setup timeline arithmetic (test 2) > walks the lighting ballroom route through real ticks: admission 807, entry 809 8274ms
+ ✓ |core| tests/p14b4-managed-clock-owner.test.ts (5 tests) 2414ms
+   ✓ P14B4 behavior-preserving managed clock owner extraction > retains full-P callbacks and technology locks at real shooting entry, not a take 473ms
+   ✓ P14B4 behavior-preserving managed clock owner extraction > holds an unassigned real take, then returns exactly the scheduled 5→4 caller record 612ms
+   ✓ P14B4 behavior-preserving managed clock owner extraction > releases real wrapped stage/Set holds even when the supplied Post slots are occupied 460ms
+   ✓ P14B4 behavior-preserving managed clock owner extraction > holds actual Release Ready until real commitment, then returns its exact admission ID 638ms
+ ✓ |core| tests/p13a-production-technology.test.ts (11 tests) 715ms
+   ✓ P13A first-filming technology and exact production chain > carries the first-filming lock through the complete tick state assembly 428ms
+ ✓ |core| tests/p13b-s5-operational.test.ts (4 tests) 25942ms
+   ✓ P13B-S5 operational law and charges (test 2) > lighting is operational at exactly committedWeek + 4 (deploymentWeeks), postFacilityId is null, and its +$1,000/week joins the ledger with no lag from the operational week onward 7525ms
+   ✓ P13B-S5 operational law and charges (test 2) > sound with no postFacilityId and no existing operational Post anywhere in the studio is refused 4125ms
+   ✓ P13B-S5 operational law and charges (test 2) > a second sound adoption reuses the existing operational Post: no new Post placement, no re-bill, and only the second stage’s own weekly cost joins the ledger 4197ms
+   ✓ P13B-S5 operational law and charges (test 2) > the sound-only production lock discriminator: a lighting adoption’s stage never carries the synchronized-sound-stage installation a sound adoption’s stage does 10093ms
+ ✓ |core| tests/p13b-s8-setup-symmetry.test.ts (4 tests) 104ms
+ ✓ |core| tests/p14b2-setup-wrap-regressions.test.ts (13 tests) 2934ms
+   ✓ P14B.2-F1 completed setup remains historical authority after real wrap > round-trips actual first take → wrap → Post with unchanged setup and released stage 1925ms
+   ✓ P14B.2-F1 completed setup remains historical authority after real wrap > does not require compacted windowed setup/phase events when the permanent exact wrap survives 470ms
+ ❯ |core| tests/world-first-scenery-load-in-provenance.test.ts (3 tests | 1 failed) 427ms
+   × World-First Scenery Load-In V1 — frozen district provenance > replays the clean exporter and pins its deliberately non-runtime manifest 364ms
+     → Command failed: python3 /Users/zacheryspector/The-Movies-headless-program/tools/hollywood/export_district.py --source /Users/zacheryspector/The-Movies-headless-program/art/hollywood/source/moonshot-studio-chronicle-concept.png --manifest /Users/zacheryspector/The-Movies-headless-program/art/hollywood/district-manifest.source.json --output /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/studio-scenery-export-Bid0Kf
+Traceback (most recent call last):
+  File "/Users/zacheryspector/The-Movies-headless-program/tools/hollywood/export_district.py", line 16, in <module>
+    from PIL import Image, ImageDraw
+ModuleNotFoundError: No module named 'PIL'
+
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/world-first-scenery-load-in-provenance.test.ts > World-First Scenery Load-In V1 — frozen district provenance > replays the clean exporter and pins its deliberately non-runtime manifest
+Error: Command failed: python3 /Users/zacheryspector/The-Movies-headless-program/tools/hollywood/export_district.py --source /Users/zacheryspector/The-Movies-headless-program/art/hollywood/source/moonshot-studio-chronicle-concept.png --manifest /Users/zacheryspector/The-Movies-headless-program/art/hollywood/district-manifest.source.json --output /var/folders/3k/tth727z52pg3xftwrl87c5rm0000gn/T/studio-scenery-export-Bid0Kf
+Traceback (most recent call last):
+  File "/Users/zacheryspector/The-Movies-headless-program/tools/hollywood/export_district.py", line 16, in <module>
+    from PIL import Image, ImageDraw
+ModuleNotFoundError: No module named 'PIL'
+
+ ❯ tests/world-first-scenery-load-in-provenance.test.ts:85:7
+     83|     const output = mkdtempSync(join(tmpdir(), 'studio-scenery-export-'…
+     84|     try {
+     85|       execFileSync('python3', [
+       |       ^
+     86|         resolve('tools/hollywood/export_district.py'),
+     87|         '--source', resolve('art/hollywood/source/moonshot-studio-chro…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed | 9 passed (10)
+      Tests  1 failed | 100 passed (101)
+   Start at  03:26:39
+   Duration  52.60s (transform 2.14s, setup 0ms, collect 5.54s, tests 43.80s, environment 3ms, prepare 1.01s)
+
+
+{"sourceSha":"6afe629a6519ff64a42e89064b6fe2d1576a2ceb","testedDiffSha256":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","untrackedSource":[],"command":["node_modules/.bin/vitest","run","tests/p14b4-managed-clock-owner.test.ts","tests/p13a-production-technology.test.ts","tests/p13b-s5-operational.test.ts","tests/p13b-r07-timeline.test.ts","tests/p13b-s8-setup-symmetry.test.ts","tests/p14b2-setup-wrap-regressions.test.ts","tests/c2a-m5-scenery-load-in-layout.test.ts","tests/p05a-w1-scenery-truth.test.ts","tests/world-first-scenery-load-in-provenance.test.ts","tests/p06a-w1-release-authority.test.ts","--minWorkers=1","--maxWorkers=1"],"node":"v20.20.2","start":"2026-09-20T01:26:38.480Z","end":"2026-09-20T01:27:32.169Z","exitCode":1,"signal":null,"error":null,"sourceShaAtEnd":"6afe629a6519ff64a42e89064b6fe2d1576a2ceb","testedDiffSha256AtEnd":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","untrackedSourceAtEnd":[],"fixedSource":true}

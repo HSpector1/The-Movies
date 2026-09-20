@@ -1,0 +1,31 @@
+{
+  "sourceSha": "6afe629a6519ff64a42e89064b6fe2d1576a2ceb",
+  "testedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "untrackedSource": [],
+  "command": [
+    "node_modules/.bin/vitest",
+    "run",
+    "tests/p14b4-managed-clock-owner.test.ts",
+    "tests/p13a-production-technology.test.ts",
+    "tests/p13b-s5-operational.test.ts",
+    "tests/p13b-r07-timeline.test.ts",
+    "tests/p13b-s8-setup-symmetry.test.ts",
+    "tests/p14b2-setup-wrap-regressions.test.ts",
+    "tests/c2a-m5-scenery-load-in-layout.test.ts",
+    "tests/p05a-w1-scenery-truth.test.ts",
+    "tests/world-first-scenery-load-in-provenance.test.ts",
+    "tests/p06a-w1-release-authority.test.ts",
+    "--minWorkers=1",
+    "--maxWorkers=1"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-20T01:26:38.480Z",
+  "end": "2026-09-20T01:27:32.169Z",
+  "exitCode": 1,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "6afe629a6519ff64a42e89064b6fe2d1576a2ceb",
+  "testedDiffSha256AtEnd": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "untrackedSourceAtEnd": [],
+  "fixedSource": true
+}

@@ -1,0 +1,356 @@
+// Installed exact independent138; runtime and strict type RED are recorded separately.
+// INERT independent draft; intended tests/p14b4-owner-fact-views.test.ts.
+// Existing exports only. Narrow calls intentionally require the125 type extraction.
+// Runtime/typecheck UNEXECUTED; controlled access/layout probes are not save fixtures.
+import { describe, expect, it } from 'vitest'
+import { applyActions } from '../src/core/actions.js'
+import { hasOperationalFacilityInstallation } from '../src/core/facilityEffects.js'
+import { initializeHollywood } from '../src/core/hollywood.js'
+import { advanceManagedProductions, assignShootingDirector } from '../src/core/operations.js'
+import { completeDuePlacements } from '../src/core/placement.js'
+import { createProductionSetupRouteResolver, deriveSetupProvenance, SETUP_RECIPES } from '../src/core/productionSetup.js'
+import { releaseCommitmentRefusal } from '../src/core/releaseAuthority.js'
+import { facilityBodyCentre, sceneryLoadInDecision, sceneryLoadInFor } from '../src/core/sceneryLoadIn.js'
+import { applyTechnologyAction, finishTechnologyWeek } from '../src/core/technology.js'
+import { adoptionChainOperational } from '../src/core/technologyAdoption.js'
+import { createProductionTechnologyPolicy } from '../src/core/technologyProduction.js'
+import { tick } from '../src/core/tick.js'
+import type { GameState, Production } from '../src/core/types.js'
+import type { TechnologyId } from '../src/core/technologyTypes.js'
+import { operationsStudio, productionPayload, withCash } from './contracts/_contractFixtures.js'
+
+const STAGE = 'facility-soundstage-07'
+const OTHER_STAGE = 'facility-soundstage-12'
+const POST = 'facility-post-building'
+
+function required<T>(value: T | null | undefined, message: string): T {
+  if (value === null || value === undefined) throw new Error(`fixture prerequisite: ${message}`)
+  return value
+}
+
+function freeze(value: unknown): void {
+  if (value === null || typeof value !== 'object' || Object.isFrozen(value)) return
+  for (const child of Object.values(value)) freeze(child)
+  Object.freeze(value)
+}
+
+function unchanged<T, R>(value: T, read: (value: T) => R): R {
+  const before = structuredClone(value)
+  freeze(value)
+  try { return read(value) } finally { expect(value).toEqual(before) }
+}
+
+function identityFacts(state: GameState) {
+  return state.hollywood === null ? null : { playerStudioId: state.hollywood.playerStudioId }
+}
+
+function technologyFacts(state: GameState) {
+  return { technology: state.technology, market: { tick: state.market.tick },
+    hollywood: identityFacts(state), placement: { facilities: state.placement.facilities } }
+}
+
+function setupFacts(state: GameState) {
+  return { technology: state.technology, hollywood: identityFacts(state),
+    placement: { facilities: state.placement.facilities } }
+}
+
+function chainFacts(state: GameState) {
+  return { hollywood: identityFacts(state), placement: { facilities: state.placement.facilities } }
+}
+
+function geometryFacts(state: GameState) {
+  return { property: state.property, placement: { facilities: state.placement.facilities } }
+}
+
+function clock(production: Production) {
+  return { id: production.id, startTick: production.startTick,
+    remainingTicks: production.remainingTicks, directorId: production.directorId }
+}
+
+function fullReleaseOwner(state: GameState) {
+  return { productions: state.studio.activeProductions, concepts: state.concepts,
+    operations: state.operations, releaseAuthority: state.releaseAuthority }
+}
+
+function narrowReleaseOwner(state: GameState) {
+  return { productions: state.studio.activeProductions.map(production => ({
+    id: production.id, conceptId: production.conceptId, remainingTicks: production.remainingTicks,
+  })), concepts: state.concepts.map(concept => ({ id: concept.id, title: concept.title })),
+  operations: state.operations, releaseAuthority: state.releaseAuthority }
+}
+
+function atRemaining(remaining: number, industry = true): GameState {
+  // Existing77/P13A route: historical-control founding, real hires/greenlight/ticks.
+  // Managed operations and legacy script development are independent legal modes.
+  let state = operationsStudio('p13a-production-consumer')
+  if (industry) state = initializeHollywood(state, 'fresh')
+  state = applyActions(state, [{ kind: 'greenlight', production: productionPayload(state) }])
+  for (let guard = 0; guard < 20; guard++) {
+    const production = required(state.studio.activeProductions[0], 'real active picture')
+    if (production.remainingTicks === remaining) return state
+    if (production.remainingTicks === 5) {
+      let workflow = required(state.operations.workflows.find(row => row.productionId === production.id), 'shooting workflow')
+      if (workflow.shootingTask?.status === 'unassigned') {
+        state = applyActions(state, [{ kind: 'assignShootingDirector', productionId: production.id, directorId: production.directorId }])
+        workflow = required(state.operations.workflows.find(row => row.productionId === production.id), 'called workflow')
+      }
+      if (workflow.shootingTask?.status === 'ready') {
+        state = applyActions(state, [{ kind: 'scheduleShootingTake', productionId: production.id }])
+      }
+    }
+    state = tick(state)
+  }
+  throw new Error(`real action/tick picture did not reach ${remaining}`)
+}
+
+function controlledInstallation(technologyId: TechnologyId) {
+  // Small consumer control, NOT earned research or a claimed strict-admitted save.
+  // Like p13a-production-technology's installConsumerFixture: explicitly seed access;
+  // existing adoption/P09 owners emit all adoption/equipment/placement records.
+  // Lighting's780 query clock is explicitly controlled, not780 simulated weeks.
+  let state = initializeHollywood(withCash(operationsStudio('p13a-production-consumer'), 30_000_000), 'fresh')
+  if (technologyId === 'lighting-control-01') state = { ...state, market: { ...state.market, tick: 780 } }
+  const own = required(state.hollywood, 'industry').playerStudioId
+  state = { ...state, technology: { ...state.technology, access: [{ studioId: own,
+    technologyId, route: 'research', chosenWeek: state.market.tick, acquiredWeek: state.market.tick,
+    accessCost: 0, researchProjectId: 'explicit-owner-view-consumer-control' }] } }
+  const during = applyTechnologyAction(state, technologyId === 'synchronized-sound'
+    ? { kind: 'adoptSynchronizedSound', stageFacilityId: STAGE, postFacilityId: POST }
+    : { kind: 'adoptTechnology', technologyId, stageFacilityId: STAGE })
+  const completionWeek = during.market.tick + (technologyId === 'synchronized-sound' ? 12 : 4)
+  let completedState = during
+  const boundaries = technologyId === 'synchronized-sound'
+    ? [during.market.tick + 6, completionWeek] : [completionWeek]
+  for (const week of boundaries) {
+    const completed = completeDuePlacements(completedState.placement, completedState.operations, week)
+    completedState = { ...completedState, market: { ...completedState.market, tick: week },
+      placement: completed.placement, operations: completed.operations }
+  }
+  const after = finishTechnologyWeek(completedState)
+  const adoption = required(after.technology.adoptions.find(row => row.studioId === own && row.technologyId === technologyId), 'emitted adoption')
+  expect(adoption.operationalWeek).toBe(completionWeek)
+  return { during, after, adoption }
+}
+
+describe('P14B4 existing owner fact views — behavior-preserving narrowing', () => {
+  it.each([false, true])('uses a genuine shooting-entry clock with nullable/default player identity (%s)', industry => {
+    const state = atRemaining(6, industry)
+    const production = required(state.studio.activeProductions[0], 'picture')
+    const narrow = technologyFacts(state)
+    const before = structuredClone({ state, narrow })
+    freeze(state); freeze(narrow)
+    const fullPolicy = createProductionTechnologyPolicy(state)
+    const slimPolicy = createProductionTechnologyPolicy(narrow)
+    const concept = required(state.concepts.find(row => row.id === production.conceptId), 'actual genre')
+    const binding = { sets: state.sets, genreOf: () => concept.genre }
+    const full = advanceManagedProductions(state.operations, [production], state.market.tick, new Set(),
+      new Set(), undefined, binding, fullPolicy.policy)
+    const slim = advanceManagedProductions(state.operations, [clock(production)], state.market.tick, new Set(),
+      new Set(), undefined, binding, slimPolicy.policy)
+    expect(slim.operations).toEqual(full.operations)
+    expect(slim.sets).toEqual(full.sets)
+    expect(slim.productions).toEqual(full.productions.map(clock))
+    expect(slim.productions[0]?.remainingTicks).toBe(5)
+    expect(slim.firstTakes).toEqual([])
+    expect(slimPolicy.technology()).toEqual(fullPolicy.technology())
+    if (industry) {
+      const own = required(state.hollywood, 'player').playerStudioId
+      expect(state.technology.productions.filter(row => row.studioId === own && row.productionId === production.id)).toEqual([])
+      expect(slimPolicy.technology().productions).toEqual([...state.technology.productions, {
+        studioId: own, productionId: production.id,
+        method: 'silent', adoptionId: null, lockedWeek: state.market.tick,
+      }])
+    } else {
+      expect(state.hollywood).toBeNull()
+      expect(slimPolicy.technology()).toEqual(state.technology)
+      const recipe = required(SETUP_RECIPES.find(row => row.id === 'ballroom-reveal-lighting-01'), 'recipe')
+      expect(deriveSetupProvenance(setupFacts(state), recipe, STAGE, state.market.tick))
+        .toEqual({ route: 'conventional', adoptionId: null, equipmentAssetId: null, requiredUnits: 4 })
+    }
+    expect({ state, narrow }).toEqual(before)
+  })
+
+  it('uses actual emitted selected-chain/install records and scopes default versus explicit rival identity', () => {
+    const { during, after, adoption } = controlledInstallation('synchronized-sound')
+    const initial = applyActions(after, [{ kind: 'greenlight', production: productionPayload(after) }])
+    const production = required(initial.studio.activeProductions[0], 'real controlled-consumer greenlight')
+    const state = applyTechnologyAction(initial, { kind: 'setProductionTechnology', productionId: production.id,
+      method: 'synchronized-dialogue', adoptionId: adoption.id })
+    const fields = technologyFacts(state)
+    const rivalId = required(state.hollywood?.businesses[0], 'actual rival identity').studioId
+    const own = required(state.hollywood, 'player identity').playerStudioId
+    expect(rivalId).not.toBe(own)
+    unchanged({ state, fields }, input => {
+      const full = createProductionTechnologyPolicy(input.state)
+      const slim = createProductionTechnologyPolicy(input.fields)
+      const rivalFull = createProductionTechnologyPolicy(input.state, rivalId)
+      const rivalSlim = createProductionTechnologyPolicy(input.fields, rivalId)
+      for (const [id, allowed] of [[STAGE, true], [OTHER_STAGE, false], [POST, true]] as const) {
+        const facility = required(state.operations.facilities.find(row => row.id === id), 'real facility')
+        const phase = facility.capability === 'post' ? 'postProduction' : 'rehearsal'
+        expect(slim.policy.allowsFacility(production.id, facility, phase)).toBe(allowed)
+        expect(slim.policy.allowsFacility(production.id, facility, phase))
+          .toBe(full.policy.allowsFacility(production.id, facility, phase))
+        // A query under an actual DIFFERENT owner must not borrow this player's selection.
+        // No foreign production, selection or lock is fabricated by this read.
+        expect(rivalSlim.policy.allowsFacility(production.id, facility, phase)).toBe(true)
+        expect(rivalSlim.policy.allowsFacility(production.id, facility, phase))
+          .toBe(rivalFull.policy.allowsFacility(production.id, facility, phase))
+      }
+      expect(slim.technology()).toEqual(state.technology)
+      expect(rivalSlim.technology()).toEqual(state.technology)
+      // Explicit pure query-clock control, not a rewound campaign/history claim.
+      const earlyWeek = required(adoption.operationalWeek, 'operational boundary') - 1
+      const earlyFields = { ...input.fields, market: { tick: earlyWeek } }
+      const earlyFull = { ...input.state, market: { ...input.state.market, tick: earlyWeek } }
+      const stage = required(state.operations.facilities.find(row => row.id === STAGE), 'selected stage')
+      expect(createProductionTechnologyPolicy(earlyFields).policy.allowsFacility(production.id, stage, 'rehearsal')).toBe(false)
+      expect(createProductionTechnologyPolicy(earlyFields).policy.allowsFacility(production.id, stage, 'rehearsal'))
+        .toBe(createProductionTechnologyPolicy(earlyFull).policy.allowsFacility(production.id, stage, 'rehearsal'))
+    })
+    const body = { placement: { facilities: after.placement.facilities } }
+    expect(hasOperationalFacilityInstallation(body, STAGE, 'synchronized-sound-stage')).toBe(true)
+    expect(hasOperationalFacilityInstallation(body, STAGE, 'synchronized-sound-stage'))
+      .toBe(hasOperationalFacilityInstallation(after, STAGE, 'synchronized-sound-stage'))
+    expect(hasOperationalFacilityInstallation({ placement: { facilities: during.placement.facilities } }, STAGE, 'synchronized-sound-stage')).toBe(false)
+    expect(hasOperationalFacilityInstallation(body, OTHER_STAGE, 'synchronized-sound-stage')).toBe(false)
+    expect(hasOperationalFacilityInstallation(body, null, 'synchronized-sound-stage')).toBe(false)
+    expect(adoptionChainOperational(chainFacts(after), adoption)).toBe(true)
+    expect(adoptionChainOperational(chainFacts(after), adoption)).toBe(adoptionChainOperational(after, adoption))
+    expect(adoptionChainOperational(chainFacts(during), required(during.technology.adoptions[0], 'pending adoption'))).toBe(false)
+  })
+
+  it('preserves exact-stage lighting, held equipment, cancellation and explicit null/rival setup controls', () => {
+    const { during, after, adoption } = controlledInstallation('lighting-control-01')
+    const recipe = required(SETUP_RECIPES.find(row => row.id === 'ballroom-reveal-lighting-01'), 'ballroom recipe')
+    const assetId = required(adoption.equipmentAssetId, 'emitted held equipment')
+    expect(after.technology.equipment.find(row => row.id === assetId)?.holderAdoptionId).toBe(adoption.id)
+    expect(adoption.postFacilityId).toBeNull()
+    const conventional = { route: 'conventional', adoptionId: null, equipmentAssetId: null, requiredUnits: 4 }
+    const lighting = { route: 'lighting', adoptionId: adoption.id, equipmentAssetId: assetId, requiredUnits: 2 }
+    const fields = setupFacts(after)
+    unchanged({ after, fields }, input => {
+      expect(deriveSetupProvenance(input.fields, recipe, STAGE, after.market.tick)).toEqual(lighting)
+      expect(deriveSetupProvenance(input.fields, recipe, STAGE, after.market.tick))
+        .toEqual(deriveSetupProvenance(input.after, recipe, STAGE, after.market.tick))
+      const request = { stageFacilityId: STAGE, recipeId: recipe.id, week: after.market.tick }
+      expect(createProductionSetupRouteResolver(input.fields)(request)).toEqual(lighting)
+      expect(createProductionSetupRouteResolver(input.fields)(request)).toEqual(createProductionSetupRouteResolver(input.after)(request))
+      expect(deriveSetupProvenance(input.fields, recipe, OTHER_STAGE, after.market.tick)).toEqual(conventional)
+      expect(deriveSetupProvenance(input.fields, recipe, STAGE, after.market.tick, null)).toEqual(conventional)
+      const rivalId = required(after.hollywood?.businesses[0], 'actual rival').studioId
+      expect(deriveSetupProvenance(input.fields, recipe, STAGE, after.market.tick, rivalId)).toEqual(conventional)
+      expect(adoptionChainOperational(chainFacts(after), adoption)).toBe(true)
+    })
+    expect(deriveSetupProvenance(setupFacts(during), recipe, STAGE, during.market.tick)).toEqual(conventional)
+    // Explicit defensive PURE variants of emitted records, not new historical saves.
+    const unheld = { ...after, technology: { ...after.technology, equipment: after.technology.equipment.map(row =>
+      row.id === assetId ? { ...row, holderAdoptionId: null } : row) } }
+    expect(deriveSetupProvenance(setupFacts(unheld), recipe, STAGE, after.market.tick)).toEqual(conventional)
+    const cancelled = { ...adoption, cancelledWeek: after.market.tick }
+    expect(adoptionChainOperational(chainFacts(after), cancelled)).toBe(false)
+    const cancelledRoot = { ...after, technology: { ...after.technology,
+      adoptions: after.technology.adoptions.map(row => row.id === adoption.id ? cancelled : row) } }
+    expect(deriveSetupProvenance(setupFacts(cancelledRoot), recipe, STAGE, after.market.tick)).toEqual(conventional)
+  })
+
+  it('reads only actual property/placement facts for centres and the pre-arrival scenery owner result', () => {
+    const state = atRemaining(5)
+    const production = required(state.studio.activeProductions[0], 'shooting picture')
+    const operations = assignShootingDirector(state.operations, production, production.directorId)
+    const workflow = required(operations.workflows.find(row => row.productionId === production.id), 'real call-owner result')
+    // Actual lower-owner result before the action's due-at-call arrival settlement.
+    // It is not a claimed persisted post-action state; no workflow is fabricated.
+    expect(workflow.blocker?.kind).toBe('scenery-load-in')
+    expect(workflow.bindings.stageFacilityId).toBe(STAGE)
+    expect(workflow.bindings.requiresSetBinding).toBe(true)
+    const fields = geometryFacts(state)
+    unchanged({ state, fields, workflow }, input => {
+      expect(facilityBodyCentre(input.fields, STAGE)).toEqual({ gx: 18, gy: 3 })
+      expect(facilityBodyCentre(input.fields, 'facility-scenery-shop')).toEqual({ gx: 19, gy: 18 })
+      expect(facilityBodyCentre(input.fields, STAGE)).toEqual(facilityBodyCentre(input.state, STAGE))
+      expect(facilityBodyCentre(input.fields, 'no-such-body')).toBeNull()
+      const trip = sceneryLoadInFor(input.fields, input.workflow, state.market.tick)
+      expect(trip).toEqual(sceneryLoadInFor(input.state, input.workflow, state.market.tick))
+      expect(trip).toEqual({
+        fromFacilityId: 'facility-scenery-shop', toFacilityId: STAGE, distance: 16,
+        weeks: 2, calledWeek: workflow.bindings.heldSinceWeek,
+        weeksElapsed: 2, weeksRemaining: 0, arrived: true,
+      })
+      expect(sceneryLoadInDecision(input.fields, input.workflow, state.market.tick))
+        .toEqual({ kind: 'arrived-pending', loadIn: trip })
+      expect(sceneryLoadInDecision(input.fields, input.workflow, state.market.tick))
+        .toEqual(sceneryLoadInDecision(input.state, input.workflow, state.market.tick))
+    })
+  })
+
+  it('keeps controlled far-body transit and missing-body withholding distinct from arrival', () => {
+    const state = atRemaining(5)
+    const production = required(state.studio.activeProductions[0], 'shooting picture')
+    const operations = assignShootingDirector(state.operations, production, production.directorId)
+    const workflow = required(operations.workflows.find(row => row.productionId === production.id), 'call-owner result')
+    expect(workflow.bindings.stageFacilityId).toBe(STAGE)
+    // Explicit geometry-only consumer control, as in p05a-w1-scenery-truth.
+    // This is NOT a lawful move command, new building or admitted campaign fixture.
+    const far = { ...state, property: { ...state.property, structures: state.property.structures.map(row =>
+      row.providesFacilityIds.includes(STAGE) ? { ...row, origin: { gx: 0, gy: 4 } } : row) } }
+    const fields = geometryFacts(far)
+    unchanged({ far, fields, workflow }, input => {
+      expect(facilityBodyCentre(input.fields, STAGE)).toEqual({ gx: 1, gy: 5 })
+      const trip = sceneryLoadInFor(input.fields, input.workflow, state.market.tick)
+      expect(trip).toEqual(sceneryLoadInFor(input.far, input.workflow, state.market.tick))
+      expect(trip).toEqual({
+        fromFacilityId: 'facility-scenery-shop', toFacilityId: STAGE, distance: 31,
+        weeks: 4, calledWeek: workflow.bindings.heldSinceWeek,
+        weeksElapsed: 2, weeksRemaining: 2, arrived: false,
+      })
+      expect(sceneryLoadInDecision(input.fields, input.workflow, state.market.tick)).toEqual({ kind: 'in-transit', loadIn: trip })
+      expect(sceneryLoadInDecision(input.fields, input.workflow, state.market.tick))
+        .toEqual(sceneryLoadInDecision(input.far, input.workflow, state.market.tick))
+    })
+    const missing = { ...far, property: { ...far.property,
+      structures: far.property.structures.filter(row => !row.providesFacilityIds.includes(STAGE)) } }
+    expect(facilityBodyCentre(geometryFacts(missing), STAGE)).toBeNull()
+    expect(sceneryLoadInFor(geometryFacts(missing), workflow, state.market.tick)).toBe('stage-has-no-body')
+    expect(sceneryLoadInDecision(geometryFacts(missing), workflow, state.market.tick))
+      .toEqual({ kind: 'withheld', reason: 'stage-has-no-body' })
+    expect(sceneryLoadInDecision(geometryFacts(missing), workflow, state.market.tick))
+      .toEqual(sceneryLoadInDecision(missing, workflow, state.market.tick))
+  })
+
+  it('uses narrow real production/concept records for early, missing, legal and committed release', () => {
+    const early = atRemaining(6)
+    const picture = required(early.studio.activeProductions[0], 'early picture')
+    const title = required(early.concepts.find(row => row.id === picture.conceptId), 'real title').title
+    const earlyFull = fullReleaseOwner(early)
+    const earlyNarrow = narrowReleaseOwner(early)
+    unchanged({ earlyFull, earlyNarrow }, input => {
+      expect(releaseCommitmentRefusal(input.earlyNarrow, picture.id))
+        .toBe(`"${title}" is not Release Ready — 6 authoritative week(s) remain`)
+      expect(releaseCommitmentRefusal(input.earlyNarrow, picture.id)).toBe(releaseCommitmentRefusal(input.earlyFull, picture.id))
+      expect(releaseCommitmentRefusal(input.earlyNarrow, 'missing-production')).toBe('no active production "missing-production" exists')
+    })
+    const ready = atRemaining(1)
+    const readyPicture = required(ready.studio.activeProductions[0], 'real Release Ready picture')
+    const id = readyPicture.id
+    expect(readyPicture.conceptId).toBe(picture.conceptId)
+    expect(required(ready.concepts.find(row => row.id === readyPicture.conceptId), 'ready title').title).toBe(title)
+    expect(ready.releaseAuthority.commitments).toEqual([])
+    expect(releaseCommitmentRefusal(narrowReleaseOwner(ready), id)).toBeNull()
+    expect(releaseCommitmentRefusal(narrowReleaseOwner(ready), id)).toBe(releaseCommitmentRefusal(fullReleaseOwner(ready), id))
+    const committed = applyActions(ready, [{ kind: 'commitPictureToRelease', productionId: id }])
+    const row = required(committed.releaseAuthority.commitments.find(row => row.productionId === id), 'actual commitment')
+    expect(row).toEqual({ productionId: id, commitmentId: `release-commitment-${id}`, committedAtWeek: ready.market.tick })
+    const full = fullReleaseOwner(committed)
+    const narrow = narrowReleaseOwner(committed)
+    unchanged({ full, narrow }, input => {
+      expect(releaseCommitmentRefusal(input.narrow, id))
+        .toBe(`"${title}" is already committed to release (commitment ${row.commitmentId}, week ${ready.market.tick})`)
+      expect(releaseCommitmentRefusal(input.narrow, id)).toBe(releaseCommitmentRefusal(input.full, id))
+    })
+    // INVALID detached owner view: a real ready production with its workflow omitted.
+    // Never save or call a tick on this defensive missing-authority probe.
+    const malformed = { ...narrowReleaseOwner(ready), operations: { ...ready.operations, workflows: [] } }
+    expect(releaseCommitmentRefusal(malformed, id)).toBe(`managed production "${id}" has no authoritative workflow`)
+  })
+})

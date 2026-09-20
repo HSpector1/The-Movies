@@ -1,5 +1,52 @@
 # P14B.4 — capacity implementation continuation
 
+CURRENT146:145 CLOSED49diagnostics ALLnew138file (48TS2345/1TS2739),
+exact intended broad-owner signatures.1447PASS actualruntime. Samefixedtrue
+6afe629+d0806f2f… TESTONLYpatch.143independentKEEP persisted.146disposition
+complete; ALLsessionsCLOSED/NOsourcewriter. Next publishRED/exactremote then
+ONEsim-core TYPEONLYsixownerfiles under146/137§2, handback147. Alltests frozen.
+137fullparentread/FROZEN; ONLY§2 adopted, runtime/API/cost review148 READONLY
+active. Parent mustsave148report; auditor NEVERwrites. Authoridle/max2specialists.
+Do not implement replay/predicates before accepted137review+independentRED.
+
+ACTIVE145:144 CLOSED7PASS/1file,4.73s/1.91sbodies, fixedtrue6afe629+
+d0806f2f39f5121f14052b4bc5c6405e39c038d5157444d45d5bdbf3f12a5b35.
+ALLnew runtime conjunctions reached, controls unchanged. Sole heavy145 strict
+root typeRED running; NOsourcewriter/allprotected frozen.143read-only review,
+137inertdesign remain only specialists. Complete145 thenpreserve qualified
+typeRED/publication; one bounded type-only owner-fact writer next.
+
+ACTIVE144:138 seven-case draft FROZEN/parentfullread, exactinstalled plusone
+provenancecomment SHA105dfaa180c83e01cef0b84cc18b15a514e609c2ef00d5a900bec6cda424611a.
+Sole runtime144 newtest pre-narrow behavior session78487. Then145root strict
+typing actualRED; runtime pass would NOT prove types already narrow. Allprotected
+frozen, NOproductionwriter. Auditor143 READONLY138 review; sim137 inertexact
+replaycontract, authoridle/max2. Only protecteddelta is138installedtest.
+141 baseline100PASS/1 historicalPIL,142exactsignature. Published6afe629/140.
+
+CURRENT142:141 CLOSED100PASS/1 historical missing-PIL FAIL across10files,
+52.60s/43.80sbodies, fixedtrue6afe629+EMPTYprotectedpatch. Parentfullrawread;
+142 programmatically asserts exact full test identifier/diagnostic/trace against
+B-F2 comparison13, only generatedtempdirsuffix normalized. Exporter behavior
+UNVERIFIED; no art/Python installation or test changes. ALLsessions CLOSED.
+Sim137/author138 inert drafts only; allprotected frozen/NOproductionwriter.
+Next138 typeRED, narrow ownerfacts, useful replay137, coherentP2.140remote holds.
+
+ACTIVE141: Sole heavy runtime141 owner-fact predecessor baseline session13277,
+10 existing clock/technology/setup/scenery/release files, single worker. All
+protected code/tests frozen onpublished6afe629; NOsourcewriter. Sim-core137 and
+testauthor138 inert drafts only/max2. Do not launch another runtime untilclosed.
+Then actual independent138 typeRED, source-only fact narrowing, replay137 review.
+
+CURRENT140:6afe629a6519ff64a42e89064b6fe2d1576a2ceb PUSHED; separate
+EXACTremote verified by01:24:51Z UTC.139qualified/133KEEP,145PASS/rootUIpass,
+bridge sole priorP2typeRED retained. ALLsessions CLOSED, NOproductionwriter.
+Allprotected frozen. Sim-core ONLY inert137 exact replay/cost contract;
+author ONLY inert138 narrow-fact tests/brief; auditoridle/max2specialists.
+Next settle138/actualtypeRED/one type-only seam writer/serialchecks; settle137
+and implement useful actualowner wholetrace, continue coherentP2. Do not stop
+at this publication or confuse bounded staffing extraction with fullB4 acceptance.
+
 CURRENT139: Staffing130 FROZEN/parentreviewed; independent133 KEEP persisted.
 134145PASS/8files;135 root/UI PASS;136 only prior futureP2 kind364TS2353 RED.
 Allfixedtrue5485241+4232e495…; ALLsessions CLOSED, NOproductionwriter.

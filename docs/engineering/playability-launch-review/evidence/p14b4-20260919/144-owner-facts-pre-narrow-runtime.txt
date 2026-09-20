@@ -1,0 +1,17 @@
+{"sourceSha":"6afe629a6519ff64a42e89064b6fe2d1576a2ceb","testedDiffSha256":"d0806f2f39f5121f14052b4bc5c6405e39c038d5157444d45d5bdbf3f12a5b35","untrackedSource":["tests/p14b4-owner-fact-views.test.ts"],"command":["node_modules/.bin/vitest","run","tests/p14b4-owner-fact-views.test.ts","--minWorkers=1","--maxWorkers=1"],"node":"v20.20.2","start":"2026-09-20T01:34:45.557Z","end":null,"exitCode":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p14b4-owner-fact-views.test.ts (7 tests) 1910ms
+   ✓ P14B4 existing owner fact views — behavior-preserving narrowing > uses a genuine shooting-entry clock with nullable/default player identity (true) 420ms
+   ✓ P14B4 existing owner fact views — behavior-preserving narrowing > reads only actual property/placement facts for centres and the pre-arrival scenery owner result 380ms
+   ✓ P14B4 existing owner fact views — behavior-preserving narrowing > uses narrow real production/concept records for early, missing, legal and committed release 603ms
+
+ Test Files  1 passed (1)
+      Tests  7 passed (7)
+   Start at  03:34:46
+   Duration  4.73s (transform 1.80s, setup 0ms, collect 2.41s, tests 1.91s, environment 0ms, prepare 113ms)
+
+
+{"sourceSha":"6afe629a6519ff64a42e89064b6fe2d1576a2ceb","testedDiffSha256":"d0806f2f39f5121f14052b4bc5c6405e39c038d5157444d45d5bdbf3f12a5b35","untrackedSource":["tests/p14b4-owner-fact-views.test.ts"],"command":["node_modules/.bin/vitest","run","tests/p14b4-owner-fact-views.test.ts","--minWorkers=1","--maxWorkers=1"],"node":"v20.20.2","start":"2026-09-20T01:34:45.557Z","end":"2026-09-20T01:34:51.575Z","exitCode":0,"signal":null,"error":null,"sourceShaAtEnd":"6afe629a6519ff64a42e89064b6fe2d1576a2ceb","testedDiffSha256AtEnd":"d0806f2f39f5121f14052b4bc5c6405e39c038d5157444d45d5bdbf3f12a5b35","untrackedSourceAtEnd":["tests/p14b4-owner-fact-views.test.ts"],"fixedSource":true}
