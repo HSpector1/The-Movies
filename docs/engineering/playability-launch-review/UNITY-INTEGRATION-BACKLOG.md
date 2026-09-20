@@ -23,14 +23,17 @@ verified in Unity. Generated C# produced by the TypeScript generator is text, no
 
 ### P14B.4 — cast-class promises (implementation active; no native verification)
 
-Latest headless checkpoint2026-09-20: `ba1a0ba1f0164dfd8a1c86312c6daf6ae5856e06`
-is published/exactremote verified (evidence449/450). Detached Ready replay now
-has genuine complete rehearsal/unassigned Shooting controls; genuine started
-Post retention/release also passes. Focused gates440–447:251PASS, two unchanged
-longReady work-limit failures; root/UI typesPASS, sole futureP2 bridge-type error.
-Whole Ready first-take/stale-route completion and live feasibility integration
-remain OPEN. Evidence448 locates firsttake at output construction and stale at
-next Post-frame dimensions; neither cut certifies the unreturned projection.
+Headless checkpoint477 (2026-09-20), based on published/exactremote
+`0bbf2843e8fc4e658a22e1d140fe8bb1c609983f`, adds paid canonical-output copying.
+Detached Ready first-take replay now returns COMPLETE; actual projection,
+chronology, wrap and all ten additional holds pass their unchanged assertions.
+The combined kernel still exhausts the shared budget during initial scanning.
+Stale-release replay remains cut before the Post3 owner; no whole-route claim.
+Fresh468–475:252focusedPASS, two original longReady tests still FAIL;
+root/UI typesPASS, sole old futureP2 bridge-type error.476probes removed and
+exact source restored.477publication/exactremote receipt follows in478.
+Genuine rehearsal/unassigned Shooting/no-Set and started Post controls remain
+green. Full Ready/shared-budget/live feasibility integration remains OPEN.
 
 These are private logic/work-accounting changes only. No consumer field/action,
 protocol4, projection46, live Save29, evaluator3, schema or generated C# changed.

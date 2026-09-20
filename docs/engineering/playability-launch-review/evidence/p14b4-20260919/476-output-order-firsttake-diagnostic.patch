@@ -1,0 +1,253 @@
+diff --git a/src/core/promiseCapacityKernel.ts b/src/core/promiseCapacityKernel.ts
+index 2909b5e..9434545 100644
+--- a/src/core/promiseCapacityKernel.ts
++++ b/src/core/promiseCapacityKernel.ts
+@@ -172,13 +172,14 @@ class Budget {
+     this.used = Math.min(preparation, limit)
+   }
+   charge(units = 1): void {
+-    if (units > this.limit - this.used) { this.used = this.limit; throw new WorkLimit() }
++    if (units > this.limit - this.used) { console.error('P14B4_KERNEL_CHARGE_CUT_476', this.used, units, this.limit - this.used, this.phase, new Error('diagnostic-only').stack); this.used = this.limit; throw new WorkLimit() }
+     this.used += units
+   }
+   sorting(length: number): void {
+     if (length < 2) return
+     const factor = 4 * Math.ceil(Math.log2(length))
+     if (length > Math.floor((this.limit - this.used) / factor)) {
++      console.error('P14B4_KERNEL_SORT_CUT_476', this.used, this.limit - this.used, length, factor, this.phase, new Error('diagnostic-only').stack)
+       this.used = this.limit; throw new WorkLimit()
+     }
+     this.charge(length * factor)
+@@ -978,8 +979,9 @@ function runCapacity<I extends BaseInput, W>(raw: I, normalizeInput: (input: I)
+   }
+   integer(raw.preparationWork, 'preparation work')
+   const budget = new Budget(raw.limits.work, raw.preparationWork)
++  console.error('P14B4_KERNEL_ENTRY_476', raw.preparationWork, budget.used, budget.limit)
+   try {
+-    if (raw.preparationWork >= raw.limits.work) throw new WorkLimit()
++    if (raw.preparationWork >= raw.limits.work) { console.error('P14B4_KERNEL_ENTRY_CUT_476', raw.preparationWork, raw.limits.work); throw new WorkLimit() }
+     scan(raw, budget)
+     const input = normalizeInput(raw)
+     const remaining = input.target.state === 'bound'
+diff --git a/src/core/promiseCapacityOwnerReplay.ts b/src/core/promiseCapacityOwnerReplay.ts
+index 1eb0350..b455cb5 100644
+--- a/src/core/promiseCapacityOwnerReplay.ts
++++ b/src/core/promiseCapacityOwnerReplay.ts
+@@ -244,7 +244,7 @@ class Work {
+   used: number
+   constructor(readonly limit: number, initial: number) { this.used = Math.min(limit, initial) }
+   pay(units = 1): void {
+-    if (units > this.limit - this.used) { this.used = this.limit; throw new WorkLimit() }
++    if (units > this.limit - this.used) { console.error('P14B4_WORK_LIMIT_476', this.used, units, this.limit, new Error('diagnostic-only').stack); this.used = this.limit; throw new WorkLimit() }
+     this.used += units
+   }
+   /** Evaluate the receiver BEFORE JavaScript evaluates calculator arguments.
+@@ -385,6 +385,39 @@ function sorted<T>(values: readonly T[], keyOf: (value: T) => string, work: Work
+   work.pay(2 + 3 * ordered.length)
+   return ordered.map(row => row.value)
+ }
++/** Only the four dense output arrays with pure key projections use this path.
++ * An inversion pays the entire unchanged sort; every return is a fresh array. */
++function sortedOutput<T>(
++  values: readonly T[],
++  keyOf: (value: T) => string,
++  work: Work,
++): T[] {
++  work.pay(16)
++  const count = values.length
++  if (count < 2) {
++    work.pay(12)
++    return values.slice()
++  }
++  work.pay(24)
++  let previous = keyOf(values[0]!)
++  let index = 1
++  for (;;) {
++    work.pay(10)
++    if (index === count) break
++    work.pay(20)
++    const current = keyOf(values[index]!)
++    work.pay(12)
++    if (work.less(current, previous)) {
++      work.pay(12)
++      return sorted(values, keyOf, work)
++    }
++    work.pay(10)
++    previous = current
++    index++
++  }
++  work.pay(work.calc(16).add(10, work.calc(8).times(2, count)))
++  return values.slice()
++}
+ function find<T>(rows: readonly T[], id: string, keyOf: (row: T) => string, work: Work): T | undefined {
+   work.pay(2)
+   for (const row of rows) {
+@@ -939,6 +972,7 @@ function staticDimensionFacts<P extends StartedPicture>(source: StartedOwnerSour
+ function dimensions<P extends StartedPicture>(source: StartedOwnerSource<P>, productions: readonly P[],
+   operations: StudioOperations, sets: readonly StudioSet[], technology: StudioTechnology,
+   external: number, work: Work, cell: DimensionCell, pictureFacts?: readonly PictureFacts<P>[]): Dimensions {
++  console.error('P14B4_DIMENSIONS_ENTRY_476', work.used, productions.map(row => row.remainingTicks))
+   work.pay(4) // static-fact call arguments/result binding
+   const fixed = staticDimensionFacts(source, cell, work)
+   work.pay(16) // two copy-only fact calls: arguments, result bindings and controls
+@@ -998,6 +1032,7 @@ function dimensions<P extends StartedPicture>(source: StartedOwnerSource<P>, pro
+     work.pay(3); d.technologyRowCopy = Math.max(d.technologyRowCopy, facts(row, true, true).copy!)
+     if (!work.equal(row.method, 'silent')) d.allSilent = false
+   }
++  console.error('P14B4_DIMENSIONS_DONE_476', work.used)
+   return d
+ }
+ function workflowUpdate(d: Dimensions, work: Work): number {
+@@ -1660,9 +1695,9 @@ function completeTrace<P extends StartedPicture>(input: ReplayInput<P>, prepared
+   work.pay(LITERAL.trace + 5)
+   return { kind: 'jointOwnerTrace', traceKey: plan.traceKey,
+     ownerFactRefs: [prepared.factRef, work.token('execution', plan.traceKey, prepared.now.week, prepared.end.week)],
+-    paths: sorted(paths, row => row.pathKey, work),
+-    fixedHoldReplacements: sorted(branch.replacements, row => row.holdId, work),
+-    additionalHolds: sorted(additionalHolds, row => row.holdId, work) }
++    paths: sortedOutput(paths, row => row.pathKey, work),
++    fixedHoldReplacements: sortedOutput(branch.replacements, row => row.holdId, work),
++    additionalHolds: sortedOutput(additionalHolds, row => row.holdId, work) }
+ }
+ 
+ function executeCommand<P extends StartedPicture>(input: ReplayInput<P>, prepared: Prepared<P>,
+@@ -1735,6 +1770,7 @@ function executeCommand<P extends StartedPicture>(input: ReplayInput<P>, prepare
+ 
+ function frame<P extends StartedPicture>(input: ReplayInput<P>, prepared: Prepared<P>,
+   plan: ReplayPlan, branch: Branch<P>, work: Work): void {
++  console.error('P14B4_FRAME_ENTRY_476', branch.week, work.used, branch.productions.map(row => row.remainingTicks))
+   work.pay(7)
+   const arrivedWeek = branch.week + 1
+   for (const background of prepared.backgrounds) {
+@@ -1802,6 +1838,7 @@ function frame<P extends StartedPicture>(input: ReplayInput<P>, prepared: Prepar
+   const before = branch.operations
+   work.pay(6) // current branch Sets read, argument and callee binding
+   const bill = sweepBill(d, branch.productions, branch.operations, branch.week, committed, branch.sets, work)
++  console.error('P14B4_SWEEP_BILL_476', branch.week, work.used, bill, branch.productions.map(row => row.remainingTicks), d)
+   // Reserve observation, sink, binding/callback literals and complete owner work
+   // together: an exhaustion boundary cannot record an unexecuted sweepStarted.
+   work.pay(work.calc(64).plus(bill, 15 + LITERAL.sink + 1 + LITERAL.boundary +
+@@ -2598,7 +2635,7 @@ function replayPlans<P extends StartedPicture, A>(
+         frame(input, branchPrepared, plan, branch, work)
+       }
+       const trace = completeTrace(input, branchPrepared, plan, branch, work)
+-      const completedBackgroundPathKeys = sorted(branch.completed, id => id, work)
++      const completedBackgroundPathKeys = sortedOutput(branch.completed, id => id, work)
+       const complete = finish(input, branch, trace, completedBackgroundPathKeys, work)
+       work.pay(APPEND); attempts.push(complete)
+     } catch (error) {
+@@ -2620,6 +2657,7 @@ function replayPlans<P extends StartedPicture, A>(
+       if (reason === 'workLimit') break
+     }
+   }
++  console.error('P14B4_RESULT_476', work.used, attempts.map(attempt => attempt.kind))
+   return { fixedHolds: prepared.fixed, attempts, preparationWork: work.used, omissions }
+ }
+ 
+diff --git a/tests/p14b4-ready-owner-replay.test.ts b/tests/p14b4-ready-owner-replay.test.ts
+index 6532d46..0919160 100644
+--- a/tests/p14b4-ready-owner-replay.test.ts
++++ b/tests/p14b4-ready-owner-replay.test.ts
+@@ -614,6 +614,16 @@ describe('P14B4 source-now Ready operational admission', () => {
+         expect(matches[0]!.subject).toEqual(expected)
+         expect(matches[0]!.ownerPathKey).toBe(path('screenplay', value.issuerId, payload.projectId))
+       }
++      // 465 BEGIN: all four emitted sequences are canonical without mutating them.
++      const emittedPathKeys = attempt.trace.paths.map((row) => row.pathKey)
++      const emittedReplacementIds = attempt.trace.fixedHoldReplacements.map((row) => row.holdId)
++      const emittedHoldIds = attempt.trace.additionalHolds.map((row) => row.holdId)
++      expect(emittedPathKeys).toEqual([...emittedPathKeys].sort())
++      expect(emittedReplacementIds).toEqual([...emittedReplacementIds].sort())
++      expect(emittedHoldIds).toEqual([...emittedHoldIds].sort())
++      expect(attempt.projection.completedBackgroundPathKeys)
++        .toEqual([...attempt.projection.completedBackgroundPathKeys].sort())
++      // 465 END
+       complete.push(attempt)
+     }
+     expect(complete.map((row) => row.trace.traceKey)).toEqual(['242-sibling-a', '242-sibling-b'])
+@@ -621,6 +631,12 @@ describe('P14B4 source-now Ready operational admission', () => {
+     expect(complete[0]!.projection.plannedProductions[0]).not.toBe(complete[1]!.projection.plannedProductions[0])
+     expect(complete[0]!.projection.operations).not.toBe(complete[1]!.projection.operations)
+     expect(complete[0]!.projection.admissionScriptDevelopment).not.toBe(complete[1]!.projection.admissionScriptDevelopment)
++    // 465 BEGIN: fresh public arrays across siblings, including empty outputs.
++    expect(complete[0]!.trace.paths).not.toBe(complete[1]!.trace.paths)
++    expect(complete[0]!.trace.fixedHoldReplacements).not.toBe(complete[1]!.trace.fixedHoldReplacements)
++    expect(complete[0]!.trace.additionalHolds).not.toBe(complete[1]!.trace.additionalHolds)
++    expect(complete[0]!.projection.completedBackgroundPathKeys).not.toBe(complete[1]!.projection.completedBackgroundPathKeys)
++    // 465 END
+     // Same canonical identities may recur, but newly emitted public occurrences
+     // must remain fresh. Intentionally shared fixed Hold references are untouched.
+     for (const left of complete[0]!.trace.additionalHolds) {
+@@ -638,6 +654,16 @@ describe('P14B4 source-now Ready operational admission', () => {
+     expect(seen.result.preparationWork).toBe(zeroOffset.preparationWork + 17)
+     expect(seen.result.attempts).toEqual(zeroOffset.attempts)
+     expect(seen.result.fixedHolds).toEqual(zeroOffset.fixedHolds)
++    // 465 BEGIN: reuse the existing repeat; no extra replay or fixed-Hold assertion.
++    for (let index = 0; index < complete.length; index++) {
++      const original = complete[index]!, repeated = zeroOffset.attempts[index]!
++      if (repeated.kind !== 'complete') throw new Error(`465 existing repeat cut: ${repeated.reason}: ${repeated.detail}`)
++      expect(repeated.trace.paths).not.toBe(original.trace.paths)
++      expect(repeated.trace.fixedHoldReplacements).not.toBe(original.trace.fixedHoldReplacements)
++      expect(repeated.trace.additionalHolds).not.toBe(original.trace.additionalHolds)
++      expect(repeated.projection.completedBackgroundPathKeys).not.toBe(original.projection.completedBackgroundPathKeys)
++    }
++    // 465 END
+   })
+ 
+   it('refuses occupied source-now Development rather than inventing a queued or later admission; credited writer work is not company occupancy', () => {
+diff --git a/tests/p14b4-ready-replay-background.test.ts b/tests/p14b4-ready-replay-background.test.ts
+index fe5f7e4..729b7cf 100644
+--- a/tests/p14b4-ready-replay-background.test.ts
++++ b/tests/p14b4-ready-replay-background.test.ts
+@@ -196,6 +196,12 @@ describe('P14B4 Ready replay — exact diagnostics and independent audition work
+       castingPath, picturePath,
+       ...state.sets.filter((row) => row.status === 'standing').map((row) => JSON.stringify(['setMount', own, row.id])),
+     ].sort())
++    // 465 BEGIN: exact emitted path order; sort only independent expected keys.
++    expect(attempt.trace.paths.map((row) => row.pathKey)).toEqual([
++      castingPath, picturePath,
++      ...state.sets.filter((row) => row.status === 'standing').map((row) => JSON.stringify(['setMount', own, row.id])),
++    ].sort())
++    // 465 END
+     const background = attempt.trace.paths.find((row) => row.pathKey === castingPath)
+     assert.ok(background && background.kind === 'jointTraceBackground')
+     expect(background.ownerFactRefs.length).toBeGreaterThan(0)
+@@ -218,6 +224,10 @@ describe('P14B4 Ready replay — exact diagnostics and independent audition work
+     expect(attempt.trace.fixedHoldReplacements).toEqual([{ holdId: castingHolds[0]!.holdId, newUntil: completion.at }])
+     expect(attempt.trace.additionalHolds).toHaveLength(6)
+     expect(attempt.trace.additionalHolds.every((row) => row.ownerPathKey === picturePath)).toBe(true)
++    // 465 BEGIN: retain independent membership/timing checks; also pin emitted order.
++    const emittedHoldIds = attempt.trace.additionalHolds.map((row) => row.holdId)
++    expect(emittedHoldIds).toEqual([...emittedHoldIds].sort())
++    // 465 END
+     const newPeople = attempt.trace.additionalHolds.filter((row) => row.subject.kind === 'person')
+     expect(newPeople.map((row) => row.subject.kind === 'person' ? row.subject.personId : '').sort()).toEqual(company(choice).sort())
+     for (const hold of newPeople) {
+diff --git a/tests/p14b4-started-replay-background-command.test.ts b/tests/p14b4-started-replay-background-command.test.ts
+index 2032231..8642ffb 100644
+--- a/tests/p14b4-started-replay-background-command.test.ts
++++ b/tests/p14b4-started-replay-background-command.test.ts
+@@ -240,6 +240,11 @@ describe('P14B4 started replay — real background and explicit command suppleme
+     ])
+     expect(attempt.trace.paths.map((row) => row.pathKey).sort()).toEqual([pathA, pathB,
+       ...state.sets.filter((row) => row.status === 'standing').map((row) => JSON.stringify(['setMount', own, row.id]))].sort())
++    // 465 BEGIN: exact emitted mixed-domain order, independently expected keys.
++    expect(attempt.trace.paths.map((row) => row.pathKey)).toEqual([pathA, pathB,
++      ...state.sets.filter((row) => row.status === 'standing').map((row) => JSON.stringify(['setMount', own, row.id]))].sort())
++    expect(attempt.projection.completedBackgroundPathKeys).toEqual([pathB])
++    // 465 END
+     expect(attempt.trace.paths.find((row) => row.pathKey === pathB)?.kind).toBe('jointTraceBackground')
+     expect(attempt.trace.paths.some((row) => row.pathKey === JSON.stringify(['screenplay', own, aProject.id]))).toBe(false)
+     for (const path of attempt.trace.paths) expect(path.ownerFactRefs.length).toBeGreaterThan(0)
+@@ -264,6 +269,11 @@ describe('P14B4 started replay — real background and explicit command suppleme
+       { kind: 'resource', resourceKey: JSON.stringify(['facility', own, slotB.facilityId]), slot: slotB.slot },
+     ]))
+     expect(attempt.trace.fixedHoldReplacements).toHaveLength(2)
++    // 465 BEGIN: the real writer/Development releases, in emitted hold-ID order.
++    expect(attempt.trace.fixedHoldReplacements).toEqual(backgroundHolds.map((hold) => ({
++      holdId: hold.holdId, newUntil: completion.at,
++    })).sort((left, right) => left.holdId < right.holdId ? -1 : left.holdId > right.holdId ? 1 : 0))
++    // 465 END
+     for (const hold of backgroundHolds) {
+       expect(hold.from).toEqual({ week, step: 0 })
+       expect(hold.until).toEqual({ week: week + 2, step: 0 })

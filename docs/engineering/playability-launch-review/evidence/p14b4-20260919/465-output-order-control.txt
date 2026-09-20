@@ -1,0 +1,26 @@
+{"sourceSha":"0bbf2843e8fc4e658a22e1d140fe8bb1c609983f","testedDiffSha256":"7a0ceaa5ac2882464a0392779c81c9319658317b725c9d0176b16359a0c1d0ce","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14b4-ready-replay-background.test.ts","tests/p14b4-started-replay-background-command.test.ts","tests/p14b4-ready-owner-replay.test.ts"],"node":"v20.20.2","start":"2026-09-20T11:17:06.553Z","end":null,"exitCode":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p14b4-ready-replay-background.test.ts (2 tests) 2714ms
+   ✓ P14B4 Ready replay — exact diagnostics and independent audition work > preserves the actual unknown-project diagnostic including the supplied identity before admission owners 886ms
+   ✓ P14B4 Ready replay — exact diagnostics and independent audition work > admits Ready A beside B’s genuine active audition, closes its resource-only background before sweep, and never engages audition candidates twice 1821ms
+ ✓ |core| tests/p14b4-started-replay-background-command.test.ts (4 tests) 4082ms
+   ✓ P14B4 started replay — real background and explicit command supplement > releases original due-writing holds BEFORE sweep while new-start A keeps a DIFFERENT slot through later 8→7 2185ms
+   ✓ P14B4 started replay — real background and explicit command supplement > executes an explicit scheduleTake only from actual Ready and matches the real action + next tick 1126ms
+   ✓ P14B4 started replay — real background and explicit command supplement > resolves a formerly valid ID against CURRENT branch state after real committed release, without resurrection 699ms
+ ✓ |core| tests/p14b4-ready-owner-replay.test.ts (9 tests) 6831ms
+   ✓ P14B4 source-now Ready operational admission > admits a genuine Ready beside the whole original slate, preserves opaque original fields, and feeds the same capped kernel 2113ms
+   ✓ P14B4 source-now Ready operational admission > returns complete Ready rehearsal and unassigned Shooting projections before any take command 2156ms
+   ✓ P14B4 source-now Ready operational admission > returns the genuine no-Set rehearsal blocker after real strikes without treating retired mounting history as usable 588ms
+   ✓ P14B4 source-now Ready operational admission > allows independent sibling staffings of the SAME Ready project and SAME would-be identity without cross-branch consumption 593ms
+   ✓ P14B4 source-now Ready operational admission > refuses a genuine unfinished audition before allocation and preserves its actual reserved slot 530ms
+
+ Test Files  3 passed (3)
+      Tests  15 passed (15)
+   Start at  13:17:07
+   Duration  11.56s (transform 3.34s, setup 0ms, collect 11.81s, tests 13.63s, environment 1ms, prepare 724ms)
+
+
+{"sourceSha":"0bbf2843e8fc4e658a22e1d140fe8bb1c609983f","testedDiffSha256":"7a0ceaa5ac2882464a0392779c81c9319658317b725c9d0176b16359a0c1d0ce","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14b4-ready-replay-background.test.ts","tests/p14b4-started-replay-background-command.test.ts","tests/p14b4-ready-owner-replay.test.ts"],"node":"v20.20.2","start":"2026-09-20T11:17:06.553Z","end":"2026-09-20T11:17:19.438Z","exitCode":0,"signal":null,"error":null,"sourceShaAtEnd":"0bbf2843e8fc4e658a22e1d140fe8bb1c609983f","testedDiffSha256AtEnd":"7a0ceaa5ac2882464a0392779c81c9319658317b725c9d0176b16359a0c1d0ce","untrackedSourceAtEnd":[],"fixedSource":true}

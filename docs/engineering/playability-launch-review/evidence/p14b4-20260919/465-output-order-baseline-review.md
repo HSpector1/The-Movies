@@ -1,0 +1,28 @@
+# 465 — Actual test review and unchanged-source baseline
+
+2026-09-20. Native independent actualtestreview qualifiedKEEP. Parent FULLread
+all3diffs/brief; exactoriginal-byte reconstruction andpinsverified. AdditionsONLY:
+Readybackground+10 d0a7ef550d592c5b0f4a060c041dbb7e448e92437650cae6d7d9a03c9b71cfab;
+startedbackground+10 b26abdcf492cdf66cbb2c8fd4d514c382f25fe5b12cd0d5c209f6caece03794a;
+Readyowner+26 af5d87eeb80da9da0dc7ee5d20c195f89ce1162e82238a40180879afd93db15b.
+Brief9a7f38ceaf1d7200344975fc6e46df9855ed2258919355d125109f9c0a5f51f4.
+Everyoriginalline retained; no newfixture/case/replay/import/helper/cap/timeout.
+
+Review acceptsindependentexpectedpathkeys, copiedstring-sortorderingproperty,
+realwriter/Developmentreplacementidentities+completionbounds, sibling/existing
+repeat4arrayisolation; returnedarrays neverin-placesorted. Oldfixedsharing kept.
+Only0/1completedbackgroundkeys; no multikeycoverage/privatecopy/tariff proof.
+
+465-output-order-control CLOSEDexit0/fixedSource:true, THREEwholefiles15PASS.
+UTC11:17:06.553–11:17:19.438; FULLraw/jsonread. Exactbase0bbf2843e8fc4e658a22e1d140fe8bb1c609983f,
+testonlypatch7a0ceaa5ac2882464a0392779c81c9319658317b725c9d0176b16359a0c1d0ce
+matchedcapture/metadata; emptyprotecteduntracked. ProductionEXACT452
+a1761d8e14d744f28f6a4b3dd66c26fbf9f6db30183f31edcdd8c5abb2caa7e8 unchanged
+before/during/afterbaseline. This is greenretained-propertycontrol, NOTnewRED
+or466result. Original457longReadyRED remains; rootcompilerfreshgate468later.
+
+Testsfrozen/ownershipyielded. Written465designKEEP/parentadoptionstand.
+NowONE466simproductionwriter onlyreplay+handback; no tests/owners/caps/validators/
+HEADchanges/runtimes. Freeze/hash/yield→467actualreview→468–475freshSERIALgates.
+Preservefailures/removed476diagnostics→477/478publication; continueengineering.
+

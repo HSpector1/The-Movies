@@ -385,6 +385,39 @@ function sorted<T>(values: readonly T[], keyOf: (value: T) => string, work: Work
   work.pay(2 + 3 * ordered.length)
   return ordered.map(row => row.value)
 }
+/** Only the four dense output arrays with pure key projections use this path.
+ * An inversion pays the entire unchanged sort; every return is a fresh array. */
+function sortedOutput<T>(
+  values: readonly T[],
+  keyOf: (value: T) => string,
+  work: Work,
+): T[] {
+  work.pay(16)
+  const count = values.length
+  if (count < 2) {
+    work.pay(12)
+    return values.slice()
+  }
+  work.pay(24)
+  let previous = keyOf(values[0]!)
+  let index = 1
+  for (;;) {
+    work.pay(10)
+    if (index === count) break
+    work.pay(20)
+    const current = keyOf(values[index]!)
+    work.pay(12)
+    if (work.less(current, previous)) {
+      work.pay(12)
+      return sorted(values, keyOf, work)
+    }
+    work.pay(10)
+    previous = current
+    index++
+  }
+  work.pay(work.calc(16).add(10, work.calc(8).times(2, count)))
+  return values.slice()
+}
 function find<T>(rows: readonly T[], id: string, keyOf: (row: T) => string, work: Work): T | undefined {
   work.pay(2)
   for (const row of rows) {
@@ -1660,9 +1693,9 @@ function completeTrace<P extends StartedPicture>(input: ReplayInput<P>, prepared
   work.pay(LITERAL.trace + 5)
   return { kind: 'jointOwnerTrace', traceKey: plan.traceKey,
     ownerFactRefs: [prepared.factRef, work.token('execution', plan.traceKey, prepared.now.week, prepared.end.week)],
-    paths: sorted(paths, row => row.pathKey, work),
-    fixedHoldReplacements: sorted(branch.replacements, row => row.holdId, work),
-    additionalHolds: sorted(additionalHolds, row => row.holdId, work) }
+    paths: sortedOutput(paths, row => row.pathKey, work),
+    fixedHoldReplacements: sortedOutput(branch.replacements, row => row.holdId, work),
+    additionalHolds: sortedOutput(additionalHolds, row => row.holdId, work) }
 }
 
 function executeCommand<P extends StartedPicture>(input: ReplayInput<P>, prepared: Prepared<P>,
@@ -2598,7 +2631,7 @@ function replayPlans<P extends StartedPicture, A>(
         frame(input, branchPrepared, plan, branch, work)
       }
       const trace = completeTrace(input, branchPrepared, plan, branch, work)
-      const completedBackgroundPathKeys = sorted(branch.completed, id => id, work)
+      const completedBackgroundPathKeys = sortedOutput(branch.completed, id => id, work)
       const complete = finish(input, branch, trace, completedBackgroundPathKeys, work)
       work.pay(APPEND); attempts.push(complete)
     } catch (error) {

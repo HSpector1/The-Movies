@@ -614,6 +614,16 @@ describe('P14B4 source-now Ready operational admission', () => {
         expect(matches[0]!.subject).toEqual(expected)
         expect(matches[0]!.ownerPathKey).toBe(path('screenplay', value.issuerId, payload.projectId))
       }
+      // 465 BEGIN: all four emitted sequences are canonical without mutating them.
+      const emittedPathKeys = attempt.trace.paths.map((row) => row.pathKey)
+      const emittedReplacementIds = attempt.trace.fixedHoldReplacements.map((row) => row.holdId)
+      const emittedHoldIds = attempt.trace.additionalHolds.map((row) => row.holdId)
+      expect(emittedPathKeys).toEqual([...emittedPathKeys].sort())
+      expect(emittedReplacementIds).toEqual([...emittedReplacementIds].sort())
+      expect(emittedHoldIds).toEqual([...emittedHoldIds].sort())
+      expect(attempt.projection.completedBackgroundPathKeys)
+        .toEqual([...attempt.projection.completedBackgroundPathKeys].sort())
+      // 465 END
       complete.push(attempt)
     }
     expect(complete.map((row) => row.trace.traceKey)).toEqual(['242-sibling-a', '242-sibling-b'])
@@ -621,6 +631,12 @@ describe('P14B4 source-now Ready operational admission', () => {
     expect(complete[0]!.projection.plannedProductions[0]).not.toBe(complete[1]!.projection.plannedProductions[0])
     expect(complete[0]!.projection.operations).not.toBe(complete[1]!.projection.operations)
     expect(complete[0]!.projection.admissionScriptDevelopment).not.toBe(complete[1]!.projection.admissionScriptDevelopment)
+    // 465 BEGIN: fresh public arrays across siblings, including empty outputs.
+    expect(complete[0]!.trace.paths).not.toBe(complete[1]!.trace.paths)
+    expect(complete[0]!.trace.fixedHoldReplacements).not.toBe(complete[1]!.trace.fixedHoldReplacements)
+    expect(complete[0]!.trace.additionalHolds).not.toBe(complete[1]!.trace.additionalHolds)
+    expect(complete[0]!.projection.completedBackgroundPathKeys).not.toBe(complete[1]!.projection.completedBackgroundPathKeys)
+    // 465 END
     // Same canonical identities may recur, but newly emitted public occurrences
     // must remain fresh. Intentionally shared fixed Hold references are untouched.
     for (const left of complete[0]!.trace.additionalHolds) {
@@ -638,6 +654,16 @@ describe('P14B4 source-now Ready operational admission', () => {
     expect(seen.result.preparationWork).toBe(zeroOffset.preparationWork + 17)
     expect(seen.result.attempts).toEqual(zeroOffset.attempts)
     expect(seen.result.fixedHolds).toEqual(zeroOffset.fixedHolds)
+    // 465 BEGIN: reuse the existing repeat; no extra replay or fixed-Hold assertion.
+    for (let index = 0; index < complete.length; index++) {
+      const original = complete[index]!, repeated = zeroOffset.attempts[index]!
+      if (repeated.kind !== 'complete') throw new Error(`465 existing repeat cut: ${repeated.reason}: ${repeated.detail}`)
+      expect(repeated.trace.paths).not.toBe(original.trace.paths)
+      expect(repeated.trace.fixedHoldReplacements).not.toBe(original.trace.fixedHoldReplacements)
+      expect(repeated.trace.additionalHolds).not.toBe(original.trace.additionalHolds)
+      expect(repeated.projection.completedBackgroundPathKeys).not.toBe(original.projection.completedBackgroundPathKeys)
+    }
+    // 465 END
   })
 
   it('refuses occupied source-now Development rather than inventing a queued or later admission; credited writer work is not company occupancy', () => {

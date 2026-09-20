@@ -240,6 +240,11 @@ describe('P14B4 started replay — real background and explicit command suppleme
     ])
     expect(attempt.trace.paths.map((row) => row.pathKey).sort()).toEqual([pathA, pathB,
       ...state.sets.filter((row) => row.status === 'standing').map((row) => JSON.stringify(['setMount', own, row.id]))].sort())
+    // 465 BEGIN: exact emitted mixed-domain order, independently expected keys.
+    expect(attempt.trace.paths.map((row) => row.pathKey)).toEqual([pathA, pathB,
+      ...state.sets.filter((row) => row.status === 'standing').map((row) => JSON.stringify(['setMount', own, row.id]))].sort())
+    expect(attempt.projection.completedBackgroundPathKeys).toEqual([pathB])
+    // 465 END
     expect(attempt.trace.paths.find((row) => row.pathKey === pathB)?.kind).toBe('jointTraceBackground')
     expect(attempt.trace.paths.some((row) => row.pathKey === JSON.stringify(['screenplay', own, aProject.id]))).toBe(false)
     for (const path of attempt.trace.paths) expect(path.ownerFactRefs.length).toBeGreaterThan(0)
@@ -264,6 +269,11 @@ describe('P14B4 started replay — real background and explicit command suppleme
       { kind: 'resource', resourceKey: JSON.stringify(['facility', own, slotB.facilityId]), slot: slotB.slot },
     ]))
     expect(attempt.trace.fixedHoldReplacements).toHaveLength(2)
+    // 465 BEGIN: the real writer/Development releases, in emitted hold-ID order.
+    expect(attempt.trace.fixedHoldReplacements).toEqual(backgroundHolds.map((hold) => ({
+      holdId: hold.holdId, newUntil: completion.at,
+    })).sort((left, right) => left.holdId < right.holdId ? -1 : left.holdId > right.holdId ? 1 : 0))
+    // 465 END
     for (const hold of backgroundHolds) {
       expect(hold.from).toEqual({ week, step: 0 })
       expect(hold.until).toEqual({ week: week + 2, step: 0 })

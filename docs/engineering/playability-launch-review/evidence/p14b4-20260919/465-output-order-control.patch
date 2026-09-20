@@ -1,0 +1,107 @@
+diff --git a/tests/p14b4-ready-owner-replay.test.ts b/tests/p14b4-ready-owner-replay.test.ts
+index 6532d46..0919160 100644
+--- a/tests/p14b4-ready-owner-replay.test.ts
++++ b/tests/p14b4-ready-owner-replay.test.ts
+@@ -614,6 +614,16 @@ describe('P14B4 source-now Ready operational admission', () => {
+         expect(matches[0]!.subject).toEqual(expected)
+         expect(matches[0]!.ownerPathKey).toBe(path('screenplay', value.issuerId, payload.projectId))
+       }
++      // 465 BEGIN: all four emitted sequences are canonical without mutating them.
++      const emittedPathKeys = attempt.trace.paths.map((row) => row.pathKey)
++      const emittedReplacementIds = attempt.trace.fixedHoldReplacements.map((row) => row.holdId)
++      const emittedHoldIds = attempt.trace.additionalHolds.map((row) => row.holdId)
++      expect(emittedPathKeys).toEqual([...emittedPathKeys].sort())
++      expect(emittedReplacementIds).toEqual([...emittedReplacementIds].sort())
++      expect(emittedHoldIds).toEqual([...emittedHoldIds].sort())
++      expect(attempt.projection.completedBackgroundPathKeys)
++        .toEqual([...attempt.projection.completedBackgroundPathKeys].sort())
++      // 465 END
+       complete.push(attempt)
+     }
+     expect(complete.map((row) => row.trace.traceKey)).toEqual(['242-sibling-a', '242-sibling-b'])
+@@ -621,6 +631,12 @@ describe('P14B4 source-now Ready operational admission', () => {
+     expect(complete[0]!.projection.plannedProductions[0]).not.toBe(complete[1]!.projection.plannedProductions[0])
+     expect(complete[0]!.projection.operations).not.toBe(complete[1]!.projection.operations)
+     expect(complete[0]!.projection.admissionScriptDevelopment).not.toBe(complete[1]!.projection.admissionScriptDevelopment)
++    // 465 BEGIN: fresh public arrays across siblings, including empty outputs.
++    expect(complete[0]!.trace.paths).not.toBe(complete[1]!.trace.paths)
++    expect(complete[0]!.trace.fixedHoldReplacements).not.toBe(complete[1]!.trace.fixedHoldReplacements)
++    expect(complete[0]!.trace.additionalHolds).not.toBe(complete[1]!.trace.additionalHolds)
++    expect(complete[0]!.projection.completedBackgroundPathKeys).not.toBe(complete[1]!.projection.completedBackgroundPathKeys)
++    // 465 END
+     // Same canonical identities may recur, but newly emitted public occurrences
+     // must remain fresh. Intentionally shared fixed Hold references are untouched.
+     for (const left of complete[0]!.trace.additionalHolds) {
+@@ -638,6 +654,16 @@ describe('P14B4 source-now Ready operational admission', () => {
+     expect(seen.result.preparationWork).toBe(zeroOffset.preparationWork + 17)
+     expect(seen.result.attempts).toEqual(zeroOffset.attempts)
+     expect(seen.result.fixedHolds).toEqual(zeroOffset.fixedHolds)
++    // 465 BEGIN: reuse the existing repeat; no extra replay or fixed-Hold assertion.
++    for (let index = 0; index < complete.length; index++) {
++      const original = complete[index]!, repeated = zeroOffset.attempts[index]!
++      if (repeated.kind !== 'complete') throw new Error(`465 existing repeat cut: ${repeated.reason}: ${repeated.detail}`)
++      expect(repeated.trace.paths).not.toBe(original.trace.paths)
++      expect(repeated.trace.fixedHoldReplacements).not.toBe(original.trace.fixedHoldReplacements)
++      expect(repeated.trace.additionalHolds).not.toBe(original.trace.additionalHolds)
++      expect(repeated.projection.completedBackgroundPathKeys).not.toBe(original.projection.completedBackgroundPathKeys)
++    }
++    // 465 END
+   })
+ 
+   it('refuses occupied source-now Development rather than inventing a queued or later admission; credited writer work is not company occupancy', () => {
+diff --git a/tests/p14b4-ready-replay-background.test.ts b/tests/p14b4-ready-replay-background.test.ts
+index fe5f7e4..729b7cf 100644
+--- a/tests/p14b4-ready-replay-background.test.ts
++++ b/tests/p14b4-ready-replay-background.test.ts
+@@ -196,6 +196,12 @@ describe('P14B4 Ready replay — exact diagnostics and independent audition work
+       castingPath, picturePath,
+       ...state.sets.filter((row) => row.status === 'standing').map((row) => JSON.stringify(['setMount', own, row.id])),
+     ].sort())
++    // 465 BEGIN: exact emitted path order; sort only independent expected keys.
++    expect(attempt.trace.paths.map((row) => row.pathKey)).toEqual([
++      castingPath, picturePath,
++      ...state.sets.filter((row) => row.status === 'standing').map((row) => JSON.stringify(['setMount', own, row.id])),
++    ].sort())
++    // 465 END
+     const background = attempt.trace.paths.find((row) => row.pathKey === castingPath)
+     assert.ok(background && background.kind === 'jointTraceBackground')
+     expect(background.ownerFactRefs.length).toBeGreaterThan(0)
+@@ -218,6 +224,10 @@ describe('P14B4 Ready replay — exact diagnostics and independent audition work
+     expect(attempt.trace.fixedHoldReplacements).toEqual([{ holdId: castingHolds[0]!.holdId, newUntil: completion.at }])
+     expect(attempt.trace.additionalHolds).toHaveLength(6)
+     expect(attempt.trace.additionalHolds.every((row) => row.ownerPathKey === picturePath)).toBe(true)
++    // 465 BEGIN: retain independent membership/timing checks; also pin emitted order.
++    const emittedHoldIds = attempt.trace.additionalHolds.map((row) => row.holdId)
++    expect(emittedHoldIds).toEqual([...emittedHoldIds].sort())
++    // 465 END
+     const newPeople = attempt.trace.additionalHolds.filter((row) => row.subject.kind === 'person')
+     expect(newPeople.map((row) => row.subject.kind === 'person' ? row.subject.personId : '').sort()).toEqual(company(choice).sort())
+     for (const hold of newPeople) {
+diff --git a/tests/p14b4-started-replay-background-command.test.ts b/tests/p14b4-started-replay-background-command.test.ts
+index 2032231..8642ffb 100644
+--- a/tests/p14b4-started-replay-background-command.test.ts
++++ b/tests/p14b4-started-replay-background-command.test.ts
+@@ -240,6 +240,11 @@ describe('P14B4 started replay — real background and explicit command suppleme
+     ])
+     expect(attempt.trace.paths.map((row) => row.pathKey).sort()).toEqual([pathA, pathB,
+       ...state.sets.filter((row) => row.status === 'standing').map((row) => JSON.stringify(['setMount', own, row.id]))].sort())
++    // 465 BEGIN: exact emitted mixed-domain order, independently expected keys.
++    expect(attempt.trace.paths.map((row) => row.pathKey)).toEqual([pathA, pathB,
++      ...state.sets.filter((row) => row.status === 'standing').map((row) => JSON.stringify(['setMount', own, row.id]))].sort())
++    expect(attempt.projection.completedBackgroundPathKeys).toEqual([pathB])
++    // 465 END
+     expect(attempt.trace.paths.find((row) => row.pathKey === pathB)?.kind).toBe('jointTraceBackground')
+     expect(attempt.trace.paths.some((row) => row.pathKey === JSON.stringify(['screenplay', own, aProject.id]))).toBe(false)
+     for (const path of attempt.trace.paths) expect(path.ownerFactRefs.length).toBeGreaterThan(0)
+@@ -264,6 +269,11 @@ describe('P14B4 started replay — real background and explicit command suppleme
+       { kind: 'resource', resourceKey: JSON.stringify(['facility', own, slotB.facilityId]), slot: slotB.slot },
+     ]))
+     expect(attempt.trace.fixedHoldReplacements).toHaveLength(2)
++    // 465 BEGIN: the real writer/Development releases, in emitted hold-ID order.
++    expect(attempt.trace.fixedHoldReplacements).toEqual(backgroundHolds.map((hold) => ({
++      holdId: hold.holdId, newUntil: completion.at,
++    })).sort((left, right) => left.holdId < right.holdId ? -1 : left.holdId > right.holdId ? 1 : 0))
++    // 465 END
+     for (const hold of backgroundHolds) {
+       expect(hold.from).toEqual({ week, step: 0 })
+       expect(hold.until).toEqual({ week: week + 2, step: 0 })

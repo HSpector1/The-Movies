@@ -196,6 +196,12 @@ describe('P14B4 Ready replay — exact diagnostics and independent audition work
       castingPath, picturePath,
       ...state.sets.filter((row) => row.status === 'standing').map((row) => JSON.stringify(['setMount', own, row.id])),
     ].sort())
+    // 465 BEGIN: exact emitted path order; sort only independent expected keys.
+    expect(attempt.trace.paths.map((row) => row.pathKey)).toEqual([
+      castingPath, picturePath,
+      ...state.sets.filter((row) => row.status === 'standing').map((row) => JSON.stringify(['setMount', own, row.id])),
+    ].sort())
+    // 465 END
     const background = attempt.trace.paths.find((row) => row.pathKey === castingPath)
     assert.ok(background && background.kind === 'jointTraceBackground')
     expect(background.ownerFactRefs.length).toBeGreaterThan(0)
@@ -218,6 +224,10 @@ describe('P14B4 Ready replay — exact diagnostics and independent audition work
     expect(attempt.trace.fixedHoldReplacements).toEqual([{ holdId: castingHolds[0]!.holdId, newUntil: completion.at }])
     expect(attempt.trace.additionalHolds).toHaveLength(6)
     expect(attempt.trace.additionalHolds.every((row) => row.ownerPathKey === picturePath)).toBe(true)
+    // 465 BEGIN: retain independent membership/timing checks; also pin emitted order.
+    const emittedHoldIds = attempt.trace.additionalHolds.map((row) => row.holdId)
+    expect(emittedHoldIds).toEqual([...emittedHoldIds].sort())
+    // 465 END
     const newPeople = attempt.trace.additionalHolds.filter((row) => row.subject.kind === 'person')
     expect(newPeople.map((row) => row.subject.kind === 'person' ? row.subject.personId : '').sort()).toEqual(company(choice).sort())
     for (const hold of newPeople) {

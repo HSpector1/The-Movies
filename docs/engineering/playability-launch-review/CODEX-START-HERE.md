@@ -2,40 +2,34 @@
 
 ## Current engineering checkpoint — 2026-09-20
 
-Current B4 checkpoint463 (2026-09-20):452SOURCE+451test FROZEN; NOwriter/runtime.
-Base/lastverifiedremote ba1a0ba1f0164dfd8a1c86312c6daf6ae5856e06.
-Publish452+451/evidence/Unitybacklog then464exactremote receipt; CONTINUE.
-Replaya1761d8e14d744f28f6a4b3dd66c26fbf9f6db30183f31edcdd8c5abb2caa7e8.
-Handback5a987c5d6013c067c3d0273758d04f70d7dfc5aae81501f73c2611a1501ee8a9.
-Readytest0e1a25ed6e9b5c1c88d8e4459845636ca7caef6e131f78ff823c5d3cc542f864.
-451one111-lineadditiveblockedSetcase over608-line437; alloriginallinespreserved.
-Protectedpatchdf292325266a0c7cd168de6af4dbe2b63f557f19ee01ba7d81759ed3b182e1bb.
-451design/actualtestKEEP; unchanged438baseline9PASS;453actual452sourceKEEP.
-
-454root/UI,455lookup5,456ordinary66,458started27,459adjacent137,461facts2PASS.
-457Ready15PASS2originalbudgetFAIL;460soleOLDfutureP2kindTS2353test364.
-All454–461CLOSED/fixedSource:true/exactbase+patch/nonoverlapchecked/FULLrawread.
-No-Set/earlyReady/Post/freelancer/siblingcontrols GREEN, no fullReady/B4acceptance.
-462fivepassivelogsREMOVED; EXACT452+451+protectedpatch restored/17pinsverified.
-Remaining7bill17098→9587; allproof/forwardingchargespaid. Specificstaleweek7entry
-199771→192778 saves6993 measuredprefixunits, notwholefit/universalclaim.
-Firsttakecut197387/request11361 inadditionalHolds bounded-sort reserve.
-Stalew7Post3bill576at199898; complete-sweepreserve cuts199998/request673 BEFOREowner.
-Latertrace/projection/kernel orPostexit/commit/release/stalerefusal proofsUNREACHED.
-
-Next464publication then465output-onlypaidmonotonicity/freshcopy/fullsortfallback
-direction/testbaseline. Sim+auditorprospectiveKEEP, NOTyetadopted/implemented.
-FouroutputsitesONLY, preserveinputcanonicalization/oldsorted/allprices,
-pureexistingcallbacks/actualstringspan/fresharray0/1; inversionfullfallbackand
-precheckpaid/no refund, so unsortedmoreexpensive. Cannotaloneresolvestaleprefix.
-AuthorREADONLYaddonlyorder/freshnessassertions inexistingReadybackground,
-startedbackground andReadySAMEsiblings/zeroOffset; no newfixture/replay.
-Multi-keycompletedbackground ordering stilluncovered; don'tclaimotherwise.
-Onlyafter465writtenreview/adoption/independentbaseline releaseONE466writer,
-467actualreview,468+freshSERIALmatrix. No probes/cache/caprelaxation.
-Unitybacklogupdated; no consumer/versionchange. Continuebeyondcheckpoint.
-T4/B2/B3/B-F2closeoutsstand; Save29/rules3/projection46 liveuntilcoherentcutover.
-Unity/native/Owneracceptance deferred/integrationbacklogretained.
+Current B4 qualified477 checkpoint (2026-09-20):468–475CLOSED; ALL476probesREMOVED.
+466replay956a0245872f02e625c93a41cc2cc2033c4279129b85e100f315045d4d4f8ca4;
+handbacke92480b6a27bc944fb17e979e0dcc273e0d6f56ba3ab9303edadb57236af2f6c.
+Base/exactremote0bbf2843e8fc4e658a22e1d140fe8bb1c609983f; new477publicationpending478.
+Protectedpatch58e4ab42fa80609dde64c2d9cd1bd86d992f4c0bafb7295d0b97af73ff993f25.
+465threeadditivecontrols46lines; unchanged452baseline15PASS beforewriter.
+467actualsourceKEEP: paidoutputmonotonicity/freshcopies/fullsortfallback at4sites.
+Owner/inputsort/prices/caps/validatorsunchanged; unsortedoutputs maycostmore.
+468rootUI,469lookup5,470ordinary66,472started27,473adjacent137,475facts2PASS.
+471Ready15PASS/twooriginaltestsFAIL;474soleOLDfutureP2kindTS2353test364.
+AllfixedSource:true/exactbase+patch/nonoverlap/fullrawverified;252focusedPASS.
+FirsttakeproducerNOWCOMPLETE; allpre-kernelactualprojection/chronology/10holds/
+firsttake/wrap/purity assertionsPASS. CombinedkernelFAIL325workLimit persists.
+476producer196468; kernelstarts196468 andcuts199967/request45 ininitialscan.
+StaleFAIL234unchanged:week7Post3entry192778/dims4376/bill576;
+cut199998/request673 BEFOREPost3owner. Postexit/commit/release/stalerefusalUNREACHED.
+NinepassiveprobesREMOVED; EXACT466+originalkernel+3tests+protectedpatchrestored.
+17pinsplusReadybackground/firsttake/staleverified; NOwriter/runtime/probes now.
+Publish477explicitwhitelist/exactstagedpatch, pushandindependentremote478.
+Then479passive cost-category+tenrolehintmeasurement; no cacheimplementationadopted.
+Measureexactrefhits/paid6-unitvisits/fullmisses/modes/atomicshadowpublication;
+candidateoverhead31+4R+8O+40C+6D+12M−6Vhit onlydirectional, partialcutsseparate.
+Use lightweightchargecounters, notper-paymentstackcapture; reconcileinitial/
+successfulcharges/saturationgap. Archive/remove/EXACTrestore beforedecision.
+Continueengineeringbeyondcheckpoint; max2specialists/onewriter/heavychecksserial.
+T4/B2/B3/B-F2qualifiedclosed; no fullReady/B4/liveP2/Unityacceptance.
+Save29/rules3/projection46 liveuntilcoherentcutover; Unitybacklogmaintained,
+handwrittenUnity/native/render/Owneracceptance deferred.
 
 Earlier additive foundation checkpoint: V30 data support implemented and independently
 KEEP; qualified report evidence/p14b4-20260919/29-additive-checkpoint.md.
