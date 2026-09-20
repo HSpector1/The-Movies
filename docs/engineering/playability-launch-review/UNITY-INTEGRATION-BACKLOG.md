@@ -36,6 +36,16 @@ source restored.502 records independent exact-remote publication verification.
 Genuine rehearsal/unassigned Shooting/no-Set and started Post controls remain
 green. Full Ready/stale-release/live feasibility integration remains OPEN.
 
+Headless checkpoint513/514 (2026-09-20, Claude Code runtime after the Owner
+transfer), published/exact remote `9ed6e35670b91d207c2f548de4a8ad592c366012`:
+505 command-only discovery (replay-internal work accounting) reviewed KEEP
+twice (506), 507–512 fixed-source: 255 focused PASS, root/UI types PASS, sole
+old futureP2 bridge-type error unchanged, sole original stale-release test
+still FAILS. First-take producer189256 (net1562 saved, kernel GREEN). Stale
+now cuts inside the week8 sweep bill (Post2→1) at199994; the refusal remains
+the week8 remainder, week9 commit, week9 release frame and week10 stale command
+away. 514 probes removed; exact505 source restored and hash-verified.
+
 These are private logic/work-accounting changes only. No consumer field/action,
 protocol4, projection46, live Save29, evaluator3, schema or generated C# changed.
 Do not expose partial traces as certified offers, impossible schedules or broken
