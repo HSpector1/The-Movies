@@ -1,27 +1,24 @@
 # P14 — Contested Talent Market, Bonds and Promises, Career Lifecycle — headless plan (logic-first)
 
-Current B4 checkpoint190 (2026-09-20): independent started-replay tests installed.
-182569lines/16cases exact+provenancecomment,187independentKEEP.
-1881FailedSuite/ZERObodies missingreplaymodule;189root38new-testdiagnostics for
-missingreplay/duepredicates/narrowcompany anddependenttypes. UIUNREACHED.
-BothfixedSource:true86def+TESTONLYpatche5d1abb3f7ac2744e269554dae1f810951fb0af29f99793b365c2dfd25b713ce.
-184 originaldueowners26PASS/3files CLEAN86def. AllruntimeCLOSED/NOsourcewriter.
-Nextpublish/exactremote190, thenONEsim-core four-file replay implementation
-under137/176/185/186; testsIMMUTABLE. Completecostcomposition/sourceprepayment
-review AND genuine1/2 H6 traces+unchangedkernel<=200000 remainmandatory.
-No additional prerequisite extraction or invented remainingbudget.
+Current B4 replay candidate203 (2026-09-20), NOT full acceptance:
+191 four-file sourceFROZEN; exact194 supplement installed,182unchanged.
+197root+UItypecheckPASS;19819PASS/1fixtureFAIL of20 (beforeReplay: freshHollywood
+initializedweek>0; strictsavecorrectlyrefuses). All18216PASS incl1/2H6+kernelcap;
+194commands3PASS.201adjacentowners98PASS/9files;202soleOLDbridgeP2kind364TS2353.
+AllfixedSource:true on0bc+40b27b819d98693c90b53157db2f6402a90298dee0523b2fca0e68ee0cb3d2ed.
+ALLruntimeCLOSED;NOproductionwriter.196audit finishing with concrete literal-cost
+undercharges; GREENbehavior doesnotprovebudgetconservatism.199/200authorONLYinert
+casting/lawfulweek0fixturepreparations, notinstalled/executed. Simidle/max2.
+Next finish196/preservecheckpoint, independentfixturecheck, ONEsimcostcorrection,
+rerun exactusefulcaps+types+adjacentchecks; do not weaken tests/validators/limits.
 
-179 genuine1/2 fixturesPASS (sixstrictV29validations),180qualification/181KEEP
-published86def6897ad3c5f8c576d2118f12857a353520f9 exactremote183.
-169endpoint: actualtake5 outsideH5; H6 needsactualwrap/Post. Stage/Setholds end
-atmatchingstage-release186, companythroughH. No B2/slack/choicecompleteclaim.
-Prior sharedsortd9ebb:174qualified/170KEEP/55PASS/rootUIpass/soleoldbridgeP2kind
-364TS2353. No test/validator/timeout/workcap/version changes; sourceunchanged.
-
-Earlierqualifiedwork:155/8ed2646ownerinterfaces,139/6afestaffing,119/5caejointkernel.
+HEAD/EXACTremote0bc641a10f995a418a180b1d4fe4e6018aa4a14a (192).
+191 candidate and evidence through203 currently uncommitted.
+179 genuinecontrols/174sharedsort remain qualified, not whole replay acceptance.
+169half-open and186Set-stage endpoints remain binding. No versions/callers changed.
 P14B.1 T4/B2/B3/B-F2 recoveredqualifiedcloseouts; do not rebuild/rerun.
-Continue actualcoding/coherentP2/restP14/P15/P16/specifiedP17/P18 without routine
-permission. Save29/rules3/projection46 staylive untilcoherentcutover.
+Continue coherentP2/restP14/P15/P16/specifiedP17/P18 without routine permission.
+Save29/rules3/projection46 staylive untilcoherentcutover.
 FullB4,Unity/native andOwneracceptance remainowed; Unitybacklogmaintained.
 Evidence/p14b4-20260919/00-start.md records exactownership/runtime/publication;
 older CURRENT blocks are chronology.

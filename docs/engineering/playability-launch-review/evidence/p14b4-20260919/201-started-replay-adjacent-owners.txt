@@ -1,0 +1,36 @@
+{"sourceSha":"0bc641a10f995a418a180b1d4fe4e6018aa4a14a","testedDiffSha256":"40b27b819d98693c90b53157db2f6402a90298dee0523b2fca0e68ee0cb3d2ed","untrackedSource":["src/core/promiseCapacityOwnerReplay.ts","tests/p14b4-started-replay-background-command.test.ts"],"command":["node_modules/.bin/vitest","run","--project","core","tests/script-development.test.ts","tests/casting-sessions-domain.test.ts","tests/casting-sessions-actions.test.ts","tests/operations.test.ts","tests/p14b4-bounded-sort-owners.test.ts","tests/p14b4-owner-fact-views.test.ts","tests/p14b4-managed-clock-owner.test.ts","tests/p14b4-joint-trace.test.ts","tests/p14b4-joint-trace-mode-extension.test.ts"],"node":"v20.20.2","start":"2026-09-20T03:34:09.526Z","end":null,"exitCode":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p14b4-joint-trace.test.ts (38 tests) 747ms
+ ✓ |core| tests/script-development.test.ts (10 tests) 198ms
+ ✓ |core| tests/operations.test.ts (13 tests) 2118ms
+   ✓ Production Operations V1 > holds only the blocked production while world time and weekly costs continue 1177ms
+ ✓ |core| tests/p14b4-owner-fact-views.test.ts (7 tests) 4039ms
+   ✓ P14B4 existing owner fact views — behavior-preserving narrowing > uses a genuine shooting-entry clock with nullable/default player identity (true) 940ms
+   ✓ P14B4 existing owner fact views — behavior-preserving narrowing > reads only actual property/placement facts for centres and the pre-arrival scenery owner result 863ms
+   ✓ P14B4 existing owner fact views — behavior-preserving narrowing > keeps controlled far-body transit and missing-body withholding distinct from arrival 501ms
+   ✓ P14B4 existing owner fact views — behavior-preserving narrowing > uses narrow real production/concept records for early, missing, legal and committed release 1184ms
+ ✓ |core| tests/p14b4-bounded-sort-owners.test.ts (7 tests) 668ms
+   ✓ P14B4 real sort-owner parity, independently runnable before new helper > calls the actual allocator policy in input order but selects first-fit identically 392ms
+ ✓ |core| tests/casting-sessions-actions.test.ts (8 tests) 3277ms
+   ✓ Casting Sessions V1 action, tick, and read-model integration > runs one optional week, persists only observations, stops for review, and never holds talent 955ms
+   ✓ Casting Sessions V1 action, tick, and read-model integration > hands capacity-only casting forward to a queueable Package and closes the exact queued project 551ms
+   ✓ Casting Sessions V1 action, tick, and read-model integration > shares both slots with scripts in both directions and reports one combined occupancy 641ms
+ ✓ |core| tests/p14b4-joint-trace-mode-extension.test.ts (2 tests) 28ms
+ ✓ |core| tests/casting-sessions-domain.test.ts (8 tests) 178ms
+ ✓ |core| tests/p14b4-managed-clock-owner.test.ts (5 tests) 2725ms
+   ✓ P14B4 behavior-preserving managed clock owner extraction > retains complete caller records/order and skips the actual greenlight week 445ms
+   ✓ P14B4 behavior-preserving managed clock owner extraction > retains full-P callbacks and technology locks at real shooting entry, not a take 499ms
+   ✓ P14B4 behavior-preserving managed clock owner extraction > holds an unassigned real take, then returns exactly the scheduled 5→4 caller record 689ms
+   ✓ P14B4 behavior-preserving managed clock owner extraction > releases real wrapped stage/Set holds even when the supplied Post slots are occupied 428ms
+   ✓ P14B4 behavior-preserving managed clock owner extraction > holds actual Release Ready until real commitment, then returns its exact admission ID 663ms
+
+ Test Files  9 passed (9)
+      Tests  98 passed (98)
+   Start at  05:34:10
+   Duration  11.57s (transform 3.81s, setup 0ms, collect 9.96s, tests 13.98s, environment 5ms, prepare 1.65s)
+
+
+{"sourceSha":"0bc641a10f995a418a180b1d4fe4e6018aa4a14a","testedDiffSha256":"40b27b819d98693c90b53157db2f6402a90298dee0523b2fca0e68ee0cb3d2ed","untrackedSource":["src/core/promiseCapacityOwnerReplay.ts","tests/p14b4-started-replay-background-command.test.ts"],"command":["node_modules/.bin/vitest","run","--project","core","tests/script-development.test.ts","tests/casting-sessions-domain.test.ts","tests/casting-sessions-actions.test.ts","tests/operations.test.ts","tests/p14b4-bounded-sort-owners.test.ts","tests/p14b4-owner-fact-views.test.ts","tests/p14b4-managed-clock-owner.test.ts","tests/p14b4-joint-trace.test.ts","tests/p14b4-joint-trace-mode-extension.test.ts"],"node":"v20.20.2","start":"2026-09-20T03:34:09.526Z","end":"2026-09-20T03:34:22.087Z","exitCode":0,"signal":null,"error":null,"sourceShaAtEnd":"0bc641a10f995a418a180b1d4fe4e6018aa4a14a","testedDiffSha256AtEnd":"40b27b819d98693c90b53157db2f6402a90298dee0523b2fca0e68ee0cb3d2ed","untrackedSourceAtEnd":["src/core/promiseCapacityOwnerReplay.ts","tests/p14b4-started-replay-background-command.test.ts"],"fixedSource":true}

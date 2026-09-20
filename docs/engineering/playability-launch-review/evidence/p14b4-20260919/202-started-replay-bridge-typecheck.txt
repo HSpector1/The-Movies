@@ -1,0 +1,9 @@
+{"sourceSha":"0bc641a10f995a418a180b1d4fe4e6018aa4a14a","testedDiffSha256":"40b27b819d98693c90b53157db2f6402a90298dee0523b2fca0e68ee0cb3d2ed","untrackedSource":["src/core/promiseCapacityOwnerReplay.ts","tests/p14b4-started-replay-background-command.test.ts"],"command":["npm","run","typecheck:bridge"],"node":"v20.20.2","start":"2026-09-20T03:34:39.216Z","end":null,"exitCode":null}
+
+
+> project-studio-core@0.1.0 typecheck:bridge
+> tsc -p tsconfig.bridge.json
+
+tests/bridge-p14b4-cast-class.test.ts(364,20): error TS2353: Object literal may only specify known properties, and 'kind' does not exist in type '{ count: number; }'.
+
+{"sourceSha":"0bc641a10f995a418a180b1d4fe4e6018aa4a14a","testedDiffSha256":"40b27b819d98693c90b53157db2f6402a90298dee0523b2fca0e68ee0cb3d2ed","untrackedSource":["src/core/promiseCapacityOwnerReplay.ts","tests/p14b4-started-replay-background-command.test.ts"],"command":["npm","run","typecheck:bridge"],"node":"v20.20.2","start":"2026-09-20T03:34:39.216Z","end":"2026-09-20T03:35:07.758Z","exitCode":2,"signal":null,"error":null,"sourceShaAtEnd":"0bc641a10f995a418a180b1d4fe4e6018aa4a14a","testedDiffSha256AtEnd":"40b27b819d98693c90b53157db2f6402a90298dee0523b2fca0e68ee0cb3d2ed","untrackedSourceAtEnd":["src/core/promiseCapacityOwnerReplay.ts","tests/p14b4-started-replay-background-command.test.ts"],"fixedSource":true}

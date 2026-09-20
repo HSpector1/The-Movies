@@ -405,6 +405,14 @@ function completeSession(
 // Completes every due session in canonical stored order. Each observation owns a
 // derived stream key, so changing traversal order would still produce the same
 // result and state.rngState is outside this function's input entirely.
+export function castingWorkDueAt(
+  session: Pick<CastingSession, 'status' | 'dueWeek'>,
+  arrivalWeek: number,
+): boolean {
+  return !(session.status !== 'auditioning' || session.dueWeek === null ||
+    session.dueWeek > arrivalWeek)
+}
+
 export function completeDueCastingSessions(
   casting: CastingSessions,
   currentWeek: number,
@@ -416,11 +424,7 @@ export function completeDueCastingSessions(
   }
   let changed = false
   const sessions = casting.sessions.map((session) => {
-    if (
-      session.status !== 'auditioning' ||
-      session.dueWeek === null ||
-      session.dueWeek > currentWeek
-    ) {
+    if (!castingWorkDueAt(session, currentWeek)) {
       return session
     }
     changed = true

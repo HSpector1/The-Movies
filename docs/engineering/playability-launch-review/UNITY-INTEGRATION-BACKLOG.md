@@ -30,6 +30,17 @@ the sole futureP2 class-contract TS2353. No consumer shape/version changed.
 Actual whole-owner replay, full work-budget composition and coherent live-P2
 integration remain OPEN; these foundations do not certify live offers or Unity.
 
+Replay continuation: genuine one-/two-picture controls179/180 independently KEEP181;
+test-only checkpoint0bc641a publishes16 independent cases and exact188/189 RED.
+Internal replay191 is implemented and partially verified:197rootUIpass,19819/20
+pass with one invalid test fixture before replay,20198adjacentPASS;202 retains
+the sole known futureP2 bridge type error.196 accounting review requires fixes;
+behavioral GREEN does not certify full prepayment or live feasibility. No
+consumer field/action, generated C#, schema or live version changes
+are authorized in this four-file tranche. Keep capacity explanations tied to the
+future verified evaluator; incomplete bounded analysis must not be presented as
+a proven impossible schedule or a causal broken promise.
+
 Preservation checkpoint a76242f retains genuine outgoing Save29 and runtime46;
 independent RED d39a9a0 is published. The current bounded data step adds explicit
 V30 readers/migrations only. Live writer29/protocol4/projection46/rules3 remain

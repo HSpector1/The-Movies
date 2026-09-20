@@ -1,0 +1,39 @@
+{"sourceSha":"0bc641a10f995a418a180b1d4fe4e6018aa4a14a","testedDiffSha256":"40b27b819d98693c90b53157db2f6402a90298dee0523b2fca0e68ee0cb3d2ed","untrackedSource":["src/core/promiseCapacityOwnerReplay.ts","tests/p14b4-started-replay-background-command.test.ts"],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14b4-started-owner-replay.test.ts","tests/p14b4-started-replay-background-command.test.ts"],"node":"v20.20.2","start":"2026-09-20T03:33:03.150Z","end":null,"exitCode":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/p14b4-started-replay-background-command.test.ts (4 tests | 1 failed) 2486ms
+   × P14B4 started replay — real background and explicit command supplement > releases original due-writing holds BEFORE sweep while new-start A keeps a DIFFERENT slot through later 8→7 336ms
+     → validateSaveV29: frozen V28 state is invalid — validateSaveV28: frozen V27 state is invalid — validateSaveV27: frozen V26 state is invalid — validateSaveV26: frozen V25 state is invalid — validateSaveV25: frozen V24 state is invalid — Hollywood save: fresh campaign starts at week zero
+   ✓ P14B4 started replay — real background and explicit command supplement > executes an explicit scheduleTake only from actual Ready and matches the real action + next tick 1380ms
+   ✓ P14B4 started replay — real background and explicit command supplement > resolves a formerly valid ID against CURRENT branch state after real committed release, without resurrection 712ms
+ ✓ |core| tests/p14b4-started-owner-replay.test.ts (16 tests) 3557ms
+   ✓ P14B4 genuine already-started owner replay — local first-take parity > replays all 1 scheduled picture(s) in ONE real sweep to horizon5 1493ms
+   ✓ P14B4 genuine already-started owner replay — local first-take parity > replays all 2 scheduled picture(s) in ONE real sweep to horizon5 773ms
+   ✓ P14B4 genuine already-started owner replay — local first-take parity > executes the NEXT real wrap/Post sweep for 1 picture(s), not an invented horizon tail 349ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14b4-started-replay-background-command.test.ts > P14B4 started replay — real background and explicit command supplement > releases original due-writing holds BEFORE sweep while new-start A keeps a DIFFERENT slot through later 8→7
+Error: validateSaveV29: frozen V28 state is invalid — validateSaveV28: frozen V27 state is invalid — validateSaveV27: frozen V26 state is invalid — validateSaveV26: frozen V25 state is invalid — validateSaveV25: frozen V24 state is invalid — Hollywood save: fresh campaign starts at week zero
+ ❯ validateSaveV29 src/core/save.ts:8615:11
+    8613|     validateSaveV28({ saveVersion: 28, seed: save.seed, state: stripV2…
+    8614|   } catch (error) {
+    8615|     throw new Error(`validateSaveV29: frozen V28 state is invalid — ${…
+       |           ^
+    8616|   }
+    8617|   return save as SaveFileV29;
+ ❯ Module.makeSave src/core/save.ts:6401:16
+ ❯ supported tests/p14b4-started-replay-background-command.test.ts:57:3
+ ❯ tests/p14b4-started-replay-background-command.test.ts:166:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed | 1 passed (2)
+      Tests  1 failed | 19 passed (20)
+   Start at  05:33:03
+   Duration  7.32s (transform 2.44s, setup 0ms, collect 5.67s, tests 6.04s, environment 1ms, prepare 364ms)
+
+
+{"sourceSha":"0bc641a10f995a418a180b1d4fe4e6018aa4a14a","testedDiffSha256":"40b27b819d98693c90b53157db2f6402a90298dee0523b2fca0e68ee0cb3d2ed","untrackedSource":["src/core/promiseCapacityOwnerReplay.ts","tests/p14b4-started-replay-background-command.test.ts"],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14b4-started-owner-replay.test.ts","tests/p14b4-started-replay-background-command.test.ts"],"node":"v20.20.2","start":"2026-09-20T03:33:03.150Z","end":"2026-09-20T03:33:11.757Z","exitCode":1,"signal":null,"error":null,"sourceShaAtEnd":"0bc641a10f995a418a180b1d4fe4e6018aa4a14a","testedDiffSha256AtEnd":"40b27b819d98693c90b53157db2f6402a90298dee0523b2fca0e68ee0cb3d2ed","untrackedSourceAtEnd":["src/core/promiseCapacityOwnerReplay.ts","tests/p14b4-started-replay-background-command.test.ts"],"fixedSource":true}

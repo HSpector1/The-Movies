@@ -444,6 +444,14 @@ export type ScriptWorkSources = {
 // Completes every due task in canonical stored order. The returned state has all
 // completed reservations released; Production Operations should allocate only
 // after this helper returns.
+export function scriptWorkDueAt(
+  project: Pick<ScriptProject, 'status' | 'dueWeek'>,
+  arrivalWeek: number,
+): boolean {
+  return !((project.status !== 'drafting' && project.status !== 'rewriting') ||
+    project.dueWeek === null || project.dueWeek > arrivalWeek)
+}
+
 export function completeDueScriptWork(
   development: ScriptDevelopment,
   currentWeek: number,
@@ -452,11 +460,7 @@ export function completeDueScriptWork(
   if (development.mode === 'legacy') return development
   let changed = false
   const projects = development.projects.map((project): ScriptProject => {
-    if (
-      (project.status !== 'drafting' && project.status !== 'rewriting') ||
-      project.dueWeek === null ||
-      project.dueWeek > currentWeek
-    ) {
+    if (!scriptWorkDueAt(project, currentWeek)) {
       return project
     }
     const concept = sources.concepts.find((candidate) => candidate.id === project.conceptId)
