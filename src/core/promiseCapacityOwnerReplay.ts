@@ -150,13 +150,17 @@ const LITERAL = Object.freeze({
   decoration: literalCost('value', 'key'),
   person: literalCost('kind', 'personId'),
   resource: literalCost('kind', 'resourceKey', 'slot'),
+  identities: literalCost('issuer', 'entries'),
+  identity: literalCost('domain', 'id', 'key'),
+  subjectFact: literalCost('value', 'atom', 'slot'),
+  fixedIdentity: literalCost('path', 'subject'),
   plan: literalCost('traceKey', 'commands'),
-  pictureFacts: literalCost('production', 'workflow', 'people', 'genre', 'historicallyFilmed', 'pathKey'),
-  backgroundFacts: literalCost('kind', 'row', 'people', 'pathKey'),
-  mount: literalCost('set', 'pathKey'),
+  pictureFacts: literalCost('production', 'workflow', 'people', 'genre', 'historicallyFilmed', 'pathKey', 'identity'),
+  backgroundFacts: literalCost('kind', 'row', 'people', 'pathKey', 'identity'),
+  mount: literalCost('set', 'pathKey', 'identity'),
   hold: literalCost('holdId', 'ownerKey', 'ownerPathKey', 'subject', 'from', 'until'),
   fixedHold: literalCost('holdId', 'ownerKey', 'ownerPathKey', 'subject', 'from', 'until', 'replaceableFrom'),
-  prepared: literalCost('pictures', 'backgrounds', 'mounts', 'plans', 'fixed', 'now', 'end', 'factRef', 'dimensionFacts'),
+  prepared: literalCost('pictures', 'backgrounds', 'mounts', 'plans', 'fixed', 'now', 'end', 'factRef', 'dimensionFacts', 'identities', 'fixedIdentities'),
   dimensionCell: literalCost('value', 'records'),
   dimensionRecord: literalCost('record', 'copy', 'width'),
   staticDimensions: literalCost('f', 'capacity', 'd', 'adoptions', 'access', 'equipment',
@@ -165,7 +169,7 @@ const LITERAL = Object.freeze({
     'workflowCopy', 'taskCopy', 'bindingsCopy', 'operationsCopy', 'setCopy', 'setupCopy',
     'technologyCopy', 'technologyRowCopy', 't', 'adoptions', 'access', 'equipment',
     'placements', 'structures', 'provides', 'cells', 'genreRows', 'genreId', 'allSilent'),
-  ledgerRow: literalCost('hold', 'fixed', 'closed'),
+  ledgerRow: literalCost('hold', 'fixed', 'closed', 'path', 'subject'),
   calendar: literalCost('productionId', 'firstTake', 'personRelease'),
   replacement: literalCost('holdId', 'newUntil'),
   wrapped: literalCost('id', 'stage', 'setId'),
@@ -397,19 +401,60 @@ function uniqueIds<T>(rows: readonly T[], keyOf: (row: T) => string, work: Work)
   }
 }
 
+// Fixed source namespaces, not input-dependent cache keys or gameplay order.
+const IDENTITY_NAMESPACES = ['person', 'facility', 'set', 'mount', 'production',
+  'screenplay', 'castingSession', 'setMount'] as const
+type IdentityDomain = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7
+type SubjectDomain = 0 | 1 | 2 | 3
+type Identity = Readonly<{ domain: IdentityDomain; id: string; key: string }>
+type IdentityTable = { readonly issuer: string; readonly entries: Identity[] }
+type SubjectFact = Readonly<{ value: HoldSubject; atom: Identity; slot: number }>
+type FixedIdentity = Readonly<{ path: Identity; subject: SubjectFact }>
+
+function canonicalIdentity(table: IdentityTable, domain: IdentityDomain, id: string, work: Work): Identity {
+  work.pay(8) // table access, traversal setup and empty/result controls
+  for (const entry of table.entries) {
+    work.pay(8) // visit/reference, domain/id reads, comparison/short circuit and match/return controls
+    if (entry.domain === domain && work.equal(entry.id, id)) return entry
+  }
+  work.pay(10) // domain dispatch, namespace/issuer/id reads, key binding and token call
+  const key = domain === 0 ? id : work.token(IDENTITY_NAMESPACES[domain], table.issuer, id)
+  work.pay(8 + LITERAL.identity + APPEND)
+  const entry: Identity = { domain, id, key }
+  table.entries.push(entry)
+  return entry
+}
+
+/** Public subjects stay freshly allocated; only private identity is shared. */
+function subjectFact(table: IdentityTable, domain: SubjectDomain, id: string, slot: number,
+  work: Work): SubjectFact {
+  work.pay(10) // canonical-call arguments/binding and subject-mode dispatch
+  const atom = canonicalIdentity(table, domain, id, work)
+  work.pay(8 + LITERAL.subjectFact)
+  if (domain === 0) {
+    work.pay(LITERAL.person)
+    const value: HoldSubject = { kind: 'person', personId: id }
+    return { value, atom, slot: 0 }
+  }
+  work.pay(LITERAL.resource)
+  const value: HoldSubject = { kind: 'resource', resourceKey: atom.key, slot }
+  return { value, atom, slot }
+}
+
 type Background = {
-  kind: 'screenplay'; row: ScriptProject; pathKey: string; people: readonly string[]
-} | { kind: 'castingSession'; row: CastingSession; pathKey: string; people: readonly string[] }
+  kind: 'screenplay'; row: ScriptProject; pathKey: string; identity: Identity; people: readonly string[]
+} | { kind: 'castingSession'; row: CastingSession; pathKey: string; identity: Identity; people: readonly string[] }
 type PictureFacts<P extends StartedPicture> = {
-  production: P; workflow: ProductionWorkflow; pathKey: string; people: readonly string[]
+  production: P; workflow: ProductionWorkflow; pathKey: string; identity: Identity; people: readonly string[]
   genre: Genre; historicallyFilmed: boolean
   greenlight?: Boundary
 }
 type Prepared<P extends StartedPicture> = {
   pictures: readonly PictureFacts<P>[]; backgrounds: readonly Background[]
-  mounts: readonly { set: StudioSet; pathKey: string }[]
+  mounts: readonly { set: StudioSet; pathKey: string; identity: Identity }[]
   plans: readonly ReplayPlan[]; fixed: readonly FixedHold[]
   now: Boundary; end: Boundary; factRef: string; dimensionFacts: DimensionCell
+  identities: IdentityTable; fixedIdentities: readonly FixedIdentity[]
 }
 function company<P extends StartedPicture>(productions: readonly P[], work: Work): readonly string[] {
   // Native Set calls: invocation, string span, all possible equal-key operands.
@@ -441,15 +486,15 @@ function bareKey(facilityId: string, slot: number, work: Work): string {
   return `${facilityId}:${slot}`
 }
 function reservationSubject<P extends StartedPicture>(source: StartedOwnerSource<P>,
-  issuer: string, row: Pick<FacilityReservation, 'facilityId' | 'slot' | 'capability'>, work: Work): HoldSubject {
+  identities: IdentityTable, row: Pick<FacilityReservation, 'facilityId' | 'slot' | 'capability'>, work: Work): SubjectFact {
   work.pay(6)
   const facility = find(source.operations.facilities, row.facilityId, value => value.id, work)
   invariant(facility !== undefined && facility.capability === row.capability,
     'reservation references a foreign facility/capability')
   natural(row.slot, 'reservation slot')
   invariant(row.slot < facility.capacity, 'reservation slot exceeds capacity')
-  work.pay(LITERAL.resource)
-  return { kind: 'resource', resourceKey: work.token('facility', issuer, row.facilityId), slot: row.slot }
+  work.pay(10) // subject-factory arguments/field reads, invocation and return
+  return subjectFact(identities, 1, row.facilityId, row.slot, work)
 }
 function prepare<P extends StartedPicture>(input: ReplayInput<P>, work: Work,
   plansPrepared: (plans: readonly ReplayPlan[]) => void, ready = false): Prepared<P> {
@@ -581,6 +626,8 @@ function prepare<P extends StartedPicture>(input: ReplayInput<P>, work: Work,
     'production/workflow cardinality differs')
   uniqueIds(source.studio.activeProductions, row => row.id, work)
   uniqueIds(source.operations.workflows, row => row.productionId, work)
+  work.pay(4 + LITERAL.identities + 1)
+  const identities: IdentityTable = { issuer, entries: [] }
   work.pay(2)
   const pictures: PictureFacts<P>[] = []
   const relevant: string[] = []
@@ -610,9 +657,11 @@ function prepare<P extends StartedPicture>(input: ReplayInput<P>, work: Work,
       work.pay(5)
       if (work.equal(take.productionId, production.id) && work.equal(take.studioId, issuer)) historicallyFilmed = true
     }
-    work.pay(LITERAL.pictureFacts + APPEND)
+    work.pay(8)
+    const identity = canonicalIdentity(identities, 4, production.id, work)
+    work.pay(2 + LITERAL.pictureFacts + APPEND)
     pictures.push({ production, workflow, people, genre: concept.genre, historicallyFilmed,
-      pathKey: work.token('production', issuer, production.id) })
+      pathKey: identity.key, identity })
   }
   work.pay(1)
   const backgrounds: Background[] = []
@@ -623,27 +672,33 @@ function prepare<P extends StartedPicture>(input: ReplayInput<P>, work: Work,
       'active screenplay lacks managed timing/reservation')
     const people = writers(project, work)
     for (const id of people) addRelevant(id)
-    work.pay(LITERAL.backgroundFacts + APPEND)
+    work.pay(8)
+    const identity = canonicalIdentity(identities, 5, project.id, work)
+    work.pay(2 + LITERAL.backgroundFacts + APPEND)
     backgrounds.push({ kind: 'screenplay', row: project, people,
-      pathKey: work.token('screenplay', issuer, project.id) })
+      pathKey: identity.key, identity })
   }
   for (const session of source.castingSessions.sessions) {
     work.pay(7)
     if (session.status !== 'auditioning') continue
     invariant(source.castingSessions.mode === 'managed' && session.reservation !== null && session.dueWeek !== null,
       'active audition lacks managed timing/reservation')
-    work.pay(LITERAL.backgroundFacts + APPEND + 1)
+    work.pay(8)
+    const identity = canonicalIdentity(identities, 6, session.id, work)
+    work.pay(2 + LITERAL.backgroundFacts + APPEND + 1)
     backgrounds.push({ kind: 'castingSession', row: session, people: [],
-      pathKey: work.token('castingSession', issuer, session.id) })
+      pathKey: identity.key, identity })
   }
   checkForeignRelevance(source, issuer, relevant, work)
   work.pay(1)
-  const mounts: { set: StudioSet; pathKey: string }[] = []
+  const mounts: { set: StudioSet; pathKey: string; identity: Identity }[] = []
   for (const set of source.sets) {
     work.pay(3)
     if (set.status === 'standing') {
-      work.pay(LITERAL.mount + APPEND)
-      mounts.push({ set, pathKey: work.token('setMount', issuer, set.id) })
+      work.pay(8)
+      const identity = canonicalIdentity(identities, 7, set.id, work)
+      work.pay(2 + LITERAL.mount + APPEND)
+      mounts.push({ set, pathKey: identity.key, identity })
     }
   }
   work.pay(6)
@@ -651,23 +706,32 @@ function prepare<P extends StartedPicture>(input: ReplayInput<P>, work: Work,
   if (rowsPerTrace > input.limits.alternatives || plans.length > Math.floor(input.limits.alternatives / rowsPerTrace)) {
     contextCut(work, 'sizeLimit', 'global trace/path occurrence limit')
   }
-  work.pay(1)
+  work.pay(2)
   const fixed: FixedHold[] = []
-  const hold = (pathKey: string, subject: HoldSubject): void => {
-    work.pay(4 + LITERAL.fixedHold + APPEND)
-    const subjectId = subject.kind === 'person' ? subject.personId : subject.resourceKey
-    fixed.push({ holdId: work.token('fixed', pathKey, fixed.length), ownerKey: issuer, ownerPathKey: pathKey,
-      subject, from: now, until: end, replaceableFrom: now })
+  const fixedIdentities: FixedIdentity[] = []
+  const hold = (path: Identity, subject: SubjectFact): void => {
+    // Both complete records and appends are paid before either array changes.
+    // The closed public kind union additionally pays 1 + 8 + 6 for its
+    // person/resource discriminant comparison; the native guard narrows value.
+    work.pay(18 + 15 + LITERAL.fixedHold + LITERAL.fixedIdentity + 2 * APPEND)
+    const value = subject.value
+    const subjectId = value.kind === 'person' ? value.personId : value.resourceKey
+    const entry: FixedHold = { holdId: work.token('fixed', path.key, fixed.length),
+      ownerKey: issuer, ownerPathKey: path.key, subject: value, from: now, until: end, replaceableFrom: now }
+    const identity: FixedIdentity = { path, subject }
+    fixed.push(entry)
+    fixedIdentities.push(identity)
     work.text(subjectId)
   }
   for (const picture of pictures) {
     work.pay(4)
     for (const personId of picture.people) {
-      work.pay(2 + LITERAL.person); hold(picture.pathKey, { kind: 'person', personId })
+      work.pay(8); hold(picture.identity, subjectFact(identities, 0, personId, 0, work))
     }
     for (const reservation of picture.workflow.reservations) {
       invariant(work.equal(reservation.productionId, picture.production.id), 'reservation owner differs')
-      hold(picture.pathKey, reservationSubject(source, issuer, reservation, work))
+      work.pay(6)
+      hold(picture.identity, reservationSubject(source, identities, reservation, work))
     }
     work.pay(3 + work.calc(32).times(picture.workflow.reservations.length, 42))
     const stage = picture.workflow.reservations.find(row => row.capability === 'soundstage')
@@ -676,25 +740,27 @@ function prepare<P extends StartedPicture>(input: ReplayInput<P>, work: Work,
       const set = find(source.sets, picture.workflow.bindings.setId, row => row.id, work)
       invariant(set !== undefined && set.status === 'standing' && work.equal(set.mountedOn, stage.facilityId),
         'bound Set is not mounted on occupied stage')
-      work.pay(LITERAL.resource)
-      hold(picture.pathKey, { kind: 'resource', resourceKey: work.token('set', issuer, set.id), slot: 0 })
+      work.pay(8)
+      hold(picture.identity, subjectFact(identities, 2, set.id, 0, work))
     }
   }
   for (const background of backgrounds) {
     work.pay(3)
     for (const personId of background.people) {
-      work.pay(2 + LITERAL.person); hold(background.pathKey, { kind: 'person', personId })
+      work.pay(8); hold(background.identity, subjectFact(identities, 0, personId, 0, work))
     }
     invariant(background.row.reservation !== null, 'active background has no reservation')
-    hold(background.pathKey, reservationSubject(source, issuer, background.row.reservation, work))
+    work.pay(7)
+    hold(background.identity, reservationSubject(source, identities, background.row.reservation, work))
   }
   for (const mount of mounts) {
-    work.pay(2 + LITERAL.resource)
-    hold(mount.pathKey, { kind: 'resource', resourceKey: work.token('mount', issuer, mount.set.mountedOn), slot: 0 })
+    work.pay(9)
+    hold(mount.identity, subjectFact(identities, 3, mount.set.mountedOn, 0, work))
   }
-  work.pay(LITERAL.prepared + LITERAL.dimensionCell + 3)
+  work.pay(LITERAL.prepared + LITERAL.dimensionCell + 5)
   return { pictures, backgrounds, mounts, plans, fixed, now, end,
-    factRef: work.token('source', issuer, now.week), dimensionFacts: { value: null, records: [] } }
+    factRef: work.token('source', issuer, now.week), dimensionFacts: { value: null, records: [] },
+    identities, fixedIdentities }
 }
 
 function checkForeignRelevance<P extends StartedPicture>(source: StartedOwnerSource<P>, issuer: string,
@@ -1278,7 +1344,7 @@ function sweepBill<P extends StartedPicture>(d: Dimensions, productions: readonl
   return work.calc(8).add(common, work.calc(32).times(attempts, work.calc(64).plus(enter, policyLock, setup, binding)))
 }
 
-type LedgerRow = { hold: Hold; fixed: boolean; closed: boolean }
+type LedgerRow = { hold: Hold; fixed: boolean; closed: boolean; path: Identity; subject: SubjectFact }
 type Calendar = { productionId: string; firstTake: Boundary | null; personRelease: Boundary | null }
 type Branch<P extends StartedPicture> = {
   week: number; step: number; productions: readonly P[]; operations: StudioOperations
@@ -1287,24 +1353,36 @@ type Branch<P extends StartedPicture> = {
   replacements: HoldReplacement[]; calendars: Calendar[]; nextHold: number
   admission?: { productionId: string; projectId: string; development: ScriptDevelopment }
 }
-function sameSubject(a: HoldSubject, b: HoldSubject, work: Work): boolean {
-  work.pay(3)
-  if (a.kind === 'person') return b.kind === 'person' && work.equal(a.personId, b.personId)
-  return b.kind === 'resource' && a.slot === b.slot && work.equal(a.resourceKey, b.resourceKey)
+function samePath(a: Identity, b: Identity, work: Work): boolean {
+  work.pay(4) // both references, exact comparison and return
+  return a === b
+}
+function sameSubject(a: SubjectFact, b: SubjectFact, work: Work): boolean {
+  work.pay(8) // both atom/slot reads, comparisons, short circuit and return
+  return a.atom === b.atom && a.slot === b.slot
+}
+function pictureForPath<P extends StartedPicture>(pictures: readonly PictureFacts<P>[], path: Identity,
+  work: Work): PictureFacts<P> | undefined {
+  work.pay(4) // traversal setup and empty/result controls
+  for (const picture of pictures) {
+    work.pay(6) // visit/reference, identity-field access, call/branch and return controls
+    if (samePath(picture.identity, path, work)) return picture
+  }
+  return undefined
 }
 function boundary(branch: { week: number; step: number }, work: Work): Boundary {
   work.pay(5 + LITERAL.boundary)
   branch.step++
   return { week: branch.week, step: branch.step }
 }
-function closeHold<P extends StartedPicture>(branch: Branch<P>, pathKey: string, subject: HoldSubject,
+function closeHold<P extends StartedPicture>(branch: Branch<P>, path: Identity, subject: SubjectFact,
   at: Boundary, work: Work): void {
   let found: LedgerRow | undefined
   work.pay(3)
   for (const row of branch.ledger) {
     work.pay(4)
-    if (!row.closed && row.hold.ownerPathKey !== null && work.equal(row.hold.ownerPathKey, pathKey) &&
-      sameSubject(row.hold.subject, subject, work)) {
+    if (!row.closed && row.hold.ownerPathKey !== null && samePath(row.path, path, work) &&
+      sameSubject(row.subject, subject, work)) {
       invariant(found === undefined, 'multiple live holds for one path/subject')
       found = row
     }
@@ -1319,15 +1397,15 @@ function closeHold<P extends StartedPicture>(branch: Branch<P>, pathKey: string,
   }
 }
 function addHold<P extends StartedPicture>(branch: Branch<P>, plan: ReplayPlan, issuer: string,
-  pathKey: string, subject: HoldSubject, at: Boundary, end: Boundary, work: Work): void {
+  path: Identity, subject: SubjectFact, at: Boundary, end: Boundary, work: Work): void {
   for (const row of branch.ledger) {
     work.pay(3)
-    invariant(row.closed || !sameSubject(row.hold.subject, subject, work), 'owner granted an occupied subject')
+    invariant(row.closed || !sameSubject(row.subject, subject, work), 'owner granted an occupied subject')
   }
-  work.pay(8 + LITERAL.ledgerRow + LITERAL.hold + APPEND)
-  branch.ledger.push({ fixed: false, closed: false, hold: {
+  work.pay(12 + LITERAL.ledgerRow + LITERAL.hold + APPEND)
+  branch.ledger.push({ fixed: false, closed: false, path, subject, hold: {
     holdId: work.token('grant', plan.traceKey, branch.nextHold++, issuer), ownerKey: issuer,
-    ownerPathKey: pathKey, subject, from: at, until: end,
+    ownerPathKey: path.key, subject: subject.value, from: at, until: end,
   } })
 }
 function closePath<P extends StartedPicture>(branch: Branch<P>, pathKey: string, at: Boundary,
@@ -1375,25 +1453,26 @@ function drainEvents<P extends StartedPicture>(input: ReplayInput<P>, prepared: 
       }
     }
     invariant(reservation !== undefined, 'reservation event is not backed by an exact reservation')
-    const subject = reservationSubject(input.source, input.issuerId, reservation, work)
+    work.pay(5)
+    const subject = reservationSubject(input.source, prepared.identities, reservation, work)
     if (draft.kind === 'reservationReleased') {
-      closeHold(branch, picture.pathKey, subject, at, work)
+      closeHold(branch, picture.identity, subject, at, work)
       if (reservation.capability === 'soundstage' && previous?.bindings.setId !== null && previous !== undefined) {
         const wrap = find(wrapped, draft.ownerId, row => row.id, work)
         invariant(wrap !== undefined && work.equal(wrap.stage, reservation.facilityId) &&
           wrap.setId === previous.bindings.setId, 'stage release has no exact wrapped Set witness')
         if (wrap.setId !== null) {
-          work.pay(LITERAL.resource)
-          closeHold(branch, picture.pathKey,
-            { kind: 'resource', resourceKey: work.token('set', input.issuerId, wrap.setId), slot: 0 }, at, work)
+          work.pay(9)
+          closeHold(branch, picture.identity,
+            subjectFact(prepared.identities, 2, wrap.setId, 0, work), at, work)
         }
       }
     } else {
-      addHold(branch, plan, input.issuerId, picture.pathKey, subject, at, prepared.end, work)
+      addHold(branch, plan, input.issuerId, picture.identity, subject, at, prepared.end, work)
       if (reservation.capability === 'soundstage' && current?.bindings.setId !== null && current !== undefined) {
-        work.pay(LITERAL.resource)
-        addHold(branch, plan, input.issuerId, picture.pathKey,
-          { kind: 'resource', resourceKey: work.token('set', input.issuerId, current.bindings.setId), slot: 0 },
+        work.pay(11)
+        addHold(branch, plan, input.issuerId, picture.identity,
+          subjectFact(prepared.identities, 2, current.bindings.setId, 0, work),
           at, prepared.end, work)
       }
     }
@@ -1402,7 +1481,7 @@ function drainEvents<P extends StartedPicture>(input: ReplayInput<P>, prepared: 
 function reconcile<P extends StartedPicture>(input: ReplayInput<P>, prepared: Prepared<P>,
   branch: Branch<P>, work: Work): void {
   work.pay(1)
-  const expected: { path: string; subject: HoldSubject; matches: number }[] = []
+  const expected: { path: Identity; subject: SubjectFact; matches: number }[] = []
   work.pay(3)
   for (const workflow of branch.operations.workflows) {
     work.pay(4)
@@ -1410,27 +1489,27 @@ function reconcile<P extends StartedPicture>(input: ReplayInput<P>, prepared: Pr
     invariant(picture !== undefined, 'workflow has no original trajectory')
     let stage = false
     for (const reservation of workflow.reservations) {
-      work.pay(5 + LITERAL.expected + APPEND)
-      expected.push({ path: picture.pathKey,
-        subject: reservationSubject(input.source, input.issuerId, reservation, work), matches: 0 })
+      work.pay(7 + LITERAL.expected + APPEND)
+      expected.push({ path: picture.identity,
+        subject: reservationSubject(input.source, prepared.identities, reservation, work), matches: 0 })
       if (reservation.capability === 'soundstage') stage = true
     }
     if (stage && workflow.bindings.setId !== null) {
-      work.pay(6 + LITERAL.expected + LITERAL.resource + APPEND)
-      expected.push({ path: picture.pathKey,
-        subject: { kind: 'resource', resourceKey: work.token('set', input.issuerId, workflow.bindings.setId), slot: 0 },
+      work.pay(11 + LITERAL.expected + APPEND)
+      expected.push({ path: picture.identity,
+        subject: subjectFact(prepared.identities, 2, workflow.bindings.setId, 0, work),
         matches: 0 })
     }
   }
   for (const row of branch.ledger) {
     work.pay(4)
     if (row.closed || row.hold.subject.kind !== 'resource' || row.hold.ownerPathKey === null) continue
-    const picture = find(prepared.pictures, row.hold.ownerPathKey, value => value.pathKey, work)
+    const picture = pictureForPath(prepared.pictures, row.path, work)
     if (picture === undefined) continue
     let matches = 0
     for (const fact of expected) {
       work.pay(3)
-      if (work.equal(fact.path, row.hold.ownerPathKey) && sameSubject(fact.subject, row.hold.subject, work)) {
+      if (samePath(fact.path, row.path, work) && sameSubject(fact.subject, row.subject, work)) {
         // Local increment(3), fact/field reads(2), addition(1), keyed write(8), control(2).
         work.pay(16)
         matches++
@@ -2284,19 +2363,23 @@ function admitReady(source: GameState, input: ReplayInput<ReadyPicture>, prepare
   branch.admission = { productionId: id, projectId: project.id, development }
   branch.provenance.push({ kind: 'readyAdmitted', at, projectId: project.id, productionId: id })
   branch.operations = operations; branch.productions = productions
-  work.pay(12 + LITERAL.pictureFacts + 11)
+  work.pay(9)
+  const identity = canonicalIdentity(prepared.identities, 5, project.id, work)
+  work.pay(14 + LITERAL.pictureFacts + 11)
   const picture: PictureFacts<ReadyPicture> = { production: planned, workflow, people: staffing.engagedIds,
     genre: header.concept.genre, historicallyFilmed: false,
-    pathKey: work.token('screenplay', input.issuerId, project.id), greenlight: at }
-  work.calc(32).pay(26 + LITERAL.prepared + 3 + 2 * prepared.pictures.length)
+    pathKey: identity.key, identity, greenlight: at }
+  work.calc(32).pay(30 + LITERAL.prepared + 3 + 2 * prepared.pictures.length)
   const branchPrepared: Prepared<ReadyPicture> = { pictures: [...prepared.pictures, picture],
     backgrounds: prepared.backgrounds, mounts: prepared.mounts, plans: prepared.plans, fixed: prepared.fixed,
-    now: prepared.now, end: prepared.end, factRef: prepared.factRef, dimensionFacts: prepared.dimensionFacts }
+    now: prepared.now, end: prepared.end, factRef: prepared.factRef, dimensionFacts: prepared.dimensionFacts,
+    identities: prepared.identities, fixedIdentities: prepared.fixedIdentities }
   work.pay(LITERAL.calendar + APPEND)
   branch.calendars.push({ productionId: id, firstTake: null, personRelease: null })
   for (const personId of staffing.engagedIds) {
-    work.pay(2 + LITERAL.person)
-    addHold(branch, plan, input.issuerId, picture.pathKey, { kind: 'person', personId }, at, prepared.end, work)
+    work.pay(11)
+    addHold(branch, plan, input.issuerId, picture.identity,
+      subjectFact(prepared.identities, 0, personId, 0, work), at, prepared.end, work)
   }
   drainEvents(input, branchPrepared, plan, branch, sink, before, work)
   reconcile(input, branchPrepared, branch, work)
@@ -2384,12 +2467,15 @@ function replayPlans<P extends StartedPicture, A>(
     let branch: Branch<P> | undefined
     try {
       work.pay(12) // scalar construction-bill reads; sums/products pay themselves
-      work.pay(work.calc(64).plus(LITERAL.branch, 3, 2, work.calc(32).times(prepared.fixed.length, 3 + LITERAL.ledgerRow),
+      work.pay(work.calc(64).plus(LITERAL.branch, 3, 2, work.calc(32).times(prepared.fixed.length, 10 + LITERAL.ledgerRow),
         2, work.calc(32).times(prepared.pictures.length, 3 + LITERAL.calendar)))
       branch = { week: prepared.now.week, step: 0,
         productions: input.source.studio.activeProductions, operations: input.source.operations,
         sets: input.source.sets, technology: input.source.technology, releaseAuthority: input.source.releaseAuthority,
-        completed: [], provenance: [], ledger: prepared.fixed.map(hold => ({ hold, fixed: true, closed: false })),
+        completed: [], provenance: [], ledger: prepared.fixed.map((hold, index) => {
+          const identity = prepared.fixedIdentities[index]!
+          return { hold, fixed: true, closed: false, path: identity.path, subject: identity.subject }
+        }),
         replacements: [], calendars: prepared.pictures.map(row => ({ productionId: row.production.id,
           firstTake: null, personRelease: null })), nextHold: 0 }
       const branchPrepared = admit !== undefined && readySource !== undefined

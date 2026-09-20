@@ -2,25 +2,23 @@
 
 ## Current continuation — 2026-09-20: B-F2 closed; P2 pure owners verified, integration continues
 
-Current B4 checkpoint393 (2026-09-20):382 frozen; ALL384–392 runtime CLOSED.
-HEAD/EXACTremote7e0d1b3c607c22e73a9d987e60f6a76468699b92 (381published).
-382replay8941e0d2ecd68fd3914891f662d11a37e10bb72103d6d22ef92ced9f2f9817a8;
-383independent actual-source KEEP.384rootUI/385lookup5/386ordinary66/
-388started26/389adjacent137/391facts2PASS;387Ready13PASS2workLimitFAIL,
-freelancerFULLYGREEN.390soleOLDfutureP2kind. No Ready/B4 completion claim.
+Current B4 checkpoint408 (2026-09-20):396frozen; ALL398–406runtimeCLOSED.
+HEAD/EXACTremote51cfcc6ea3fb8908623f999b5644510c08d6deda (395published).
+Replay6eb19801534c950e91620b4167be07e4285817981d0263e24d660c7d43b4dd9e;
+397actualsource/testKEEP.398rootUI399lookup5/400ordinary66/402started26/
+403adjacent137/405facts2PASS;401Ready13PASS2workLimitFAIL,freelancerGREEN,
+newadditivesiblingpublicfreshnessPASS.404soleOLDfutureP2kind.
 
-392diagnosticREMOVED; exact382source+384–391 protectedpatch restored:
-f1bdc10ae2779b75a3d876c05d85168aa7fae3df8c0d4e358bdf699d2f72d5a7.
-Wrapbill16951 completes195125; caller100 then195225/request17048 fails
-BEFOREwrapowner/output/trace/kernel. Saves4584 vs378; still12273 short of
-payment alone. Complete firsttake/stale parityUNREACHED. No cap/test weakening.
+406diagnosticREMOVED exactsource/test/protectedpatch68912708a93242655b3fb46d223da753221d6c3ce152920e9fdeeee893a9b30a restored.
+Samewrap184803/request17048 BEFOREactualwrap/output/trace/kernel.
+Saves10422vs392; still1851short payment alone, laterworkowed. No completeReady/B4.
 
-No writer/runtime. Sim READONLY canonical handles design; auditor READONLY
-bounded identity/payment review. One-slot wrap candidate paper4599 saving NOT
-adopted. Parent preserves393, explicit checkpoint/push/exactremote395, then
-adopt394/release396solewriter/freeze397review/398–405serialized actuals.
-Max2 specialists; continueB4/restP14/P15/P16/specifiedP17/P18 beyondcheckpoint.
-T4/B2/B3/B-F2 closeoutsstand; Save29/rules3/projection46 liveuntilcoherentcutover.
+No writer/runtime. Sim407singlewrap-slot designDONE; auditorREADONLYadoption.
+Parent publishes408checkpoint/409exactremote, thenadopt407/410solewriter,
+411review/412+serialgates. Narrowonlyprovedonewrap slotiterations, neverper-slot
+prices/caps/tests. Paper4599savingminusguards NOTfitclaim. AuthorcoverageDONE.
+ContinueB4/restP14/P15/P16/specifiedP17/P18 beyondcheckpoint.
+T4/B2/B3/B-F2closeoutsstand; Save29/rules3/projection46 liveuntilcoherentcutover.
 Unity/native/Owneracceptance deferred/integrationbacklogretained.
 
 Earlier additive foundation checkpoint: V30 data support implemented and independently

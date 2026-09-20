@@ -1,0 +1,26 @@
+{
+  "sourceSha": "51cfcc6ea3fb8908623f999b5644510c08d6deda",
+  "testedDiffSha256": "68912708a93242655b3fb46d223da753221d6c3ce152920e9fdeeee893a9b30a",
+  "untrackedSource": [],
+  "command": [
+    "node_modules/.bin/vitest",
+    "run",
+    "--project",
+    "core",
+    "tests/d11-employment.test.ts",
+    "tests/p13a-research-employment.test.ts",
+    "tests/p14a1-eligibility.test.ts",
+    "tests/casting-package-read-model.test.ts",
+    "tests/p14bf2-acting-discipline.test.ts"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-20T09:29:46.461Z",
+  "end": "2026-09-20T09:30:12.176Z",
+  "exitCode": 0,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "51cfcc6ea3fb8908623f999b5644510c08d6deda",
+  "testedDiffSha256AtEnd": "68912708a93242655b3fb46d223da753221d6c3ce152920e9fdeeee893a9b30a",
+  "untrackedSourceAtEnd": [],
+  "fixedSource": true
+}

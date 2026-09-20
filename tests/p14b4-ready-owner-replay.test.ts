@@ -335,6 +335,10 @@ describe('P14B4 source-now Ready operational admission', () => {
     expect(seen.addCalls).toBe(2)
     expect(seen.linkCalls).toBe(2)
     const complete: Complete[] = []
+    type Subject = Complete['trace']['additionalHolds'][number]['subject']
+    const subjectKey = (subject: Subject) => subject.kind === 'person'
+      ? JSON.stringify(['person', subject.personId])
+      : JSON.stringify(['resource', subject.resourceKey, subject.slot])
     for (const attempt of seen.result.attempts) {
       if (attempt.kind !== 'complete') throw new Error(`242 sibling cut: ${attempt.reason}: ${attempt.detail}`)
       const selected = attempt.trace.traceKey === '242-sibling-a' ? first : second
@@ -347,6 +351,27 @@ describe('P14B4 source-now Ready operational admission', () => {
       expect(attempt.projection.productions).toEqual([])
       expect(attempt.projection.plannedProductions[0]!.cast).toEqual(selected.cast)
       expect(attempt.trace.additionalHolds).toHaveLength(6)
+      // 396 retained-property control: derive occurrences from the REAL action,
+      // not a private identity table or a sibling's replay output.
+      expect(immediate.studio.activeProductions).toHaveLength(1)
+      const admitted = immediate.studio.activeProductions[0]!
+      const workflow = immediate.operations.workflows.find((row) => row.productionId === admitted.id)
+      assert.ok(workflow)
+      expect(workflow.reservations).toHaveLength(1)
+      const reservation = workflow.reservations[0]!
+      expect(reservation.capability).toBe('development-casting')
+      expect(ids(admitted)).toHaveLength(5)
+      expect(new Set(ids(admitted)).size).toBe(5)
+      const expectedSubjects: readonly Subject[] = [
+        ...ids(admitted).map((personId) => ({ kind: 'person' as const, personId })),
+        { kind: 'resource', resourceKey: path('facility', value.issuerId, reservation.facilityId), slot: reservation.slot },
+      ]
+      for (const expected of expectedSubjects) {
+        const matches = attempt.trace.additionalHolds.filter((hold) => subjectKey(hold.subject) === subjectKey(expected))
+        expect(matches).toHaveLength(1)
+        expect(matches[0]!.subject).toEqual(expected)
+        expect(matches[0]!.ownerPathKey).toBe(path('screenplay', value.issuerId, payload.projectId))
+      }
       complete.push(attempt)
     }
     expect(complete.map((row) => row.trace.traceKey)).toEqual(['242-sibling-a', '242-sibling-b'])
@@ -354,6 +379,17 @@ describe('P14B4 source-now Ready operational admission', () => {
     expect(complete[0]!.projection.plannedProductions[0]).not.toBe(complete[1]!.projection.plannedProductions[0])
     expect(complete[0]!.projection.operations).not.toBe(complete[1]!.projection.operations)
     expect(complete[0]!.projection.admissionScriptDevelopment).not.toBe(complete[1]!.projection.admissionScriptDevelopment)
+    // Same canonical identities may recur, but newly emitted public occurrences
+    // must remain fresh. Intentionally shared fixed Hold references are untouched.
+    for (const left of complete[0]!.trace.additionalHolds) {
+      const matches = complete[1]!.trace.additionalHolds.filter((right) => subjectKey(right.subject) === subjectKey(left.subject))
+      expect(matches).toHaveLength(1)
+      const right = matches[0]!
+      expect(right.ownerPathKey).toBe(left.ownerPathKey)
+      expect(right.subject).toEqual(left.subject)
+      expect(right).not.toBe(left)
+      expect(right.subject).not.toBe(left.subject)
+    }
     expect(seen.result.fixedHolds.every((row) => row.subject.kind === 'resource')).toBe(true)
     expect(observed({ ...value, plans: [...value.plans].reverse() }).result).toEqual(seen.result)
     const zeroOffset = observed({ ...value, preparationWork: 0 }).result
