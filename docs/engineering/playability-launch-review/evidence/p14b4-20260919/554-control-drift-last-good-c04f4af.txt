@@ -1,0 +1,320 @@
+{"sourceSha":"c04f4af500c37c726fc7b292db7fac2050ee04d9","testedDiffSha256":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14b1-trust-chooser.test.ts","tests/p14b2-fixture-preconditions.test.ts"],"node":"v20.20.2","start":"2026-09-20T20:18:05.461Z","end":null,"exitCode":null}
+
+
+ RUN  v2.1.9 /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/6ed44184-f9ac-40ba-bf1b-321fc7506549/scratchpad/bisect-wt
+
+stdout | tests/p14b2-fixture-preconditions.test.ts > P14B.2 lawful engine fixture preconditions (not bridge verification) > retains two real winners, films one promise and breaks the other by real early termination
+retention {
+  kept: {
+    promiseId: 'promise-0',
+    family: 'APPEARANCE_COUNT',
+    version: 3,
+    issuerStudioId: 'studio-aca408ec-player',
+    beneficiaryPersonId: 't-act-09',
+    predicate: { count: 1 },
+    windowStartWeek: 52,
+    dueWeekExclusive: 92,
+    feasibilityReceipt: {
+      classification: 'REASONABLY_ACHIEVABLE',
+      bottleneck: null,
+      inputsDigest: 'dffb435ac41a7bf8',
+      rulesVersion: 3,
+      week: 52
+    },
+    progress: 1,
+    evidenceRefs: [ 'first-take-event-24' ],
+    outcome: 'SATISFIED',
+    outcomeWeek: 61,
+    outcomeCause: 'the promised pictures began filming inside the window',
+    outcomeEventId: 'talent-market-event-6',
+    contractId: 'studio-aca408ec-player:contract:t-act-09:52:player-31'
+  },
+  broken: {
+    promiseId: 'promise-1',
+    family: 'APPEARANCE_COUNT',
+    version: 3,
+    issuerStudioId: 'studio-aca408ec-player',
+    beneficiaryPersonId: 't-act-08',
+    predicate: { count: 1 },
+    windowStartWeek: 52,
+    dueWeekExclusive: 92,
+    feasibilityReceipt: {
+      classification: 'REASONABLY_ACHIEVABLE',
+      bottleneck: null,
+      inputsDigest: '57ac45bb5049984b',
+      rulesVersion: 3,
+      week: 52
+    },
+    progress: 0,
+    evidenceRefs: [],
+    outcome: 'BROKEN',
+    outcomeWeek: 61,
+    outcomeCause: 'the studio terminated this contract early, ending the window',
+    outcomeEventId: 'talent-market-event-7',
+    contractId: 'studio-aca408ec-player:contract:t-act-08:52:player-32'
+  },
+  drivers: [
+    {
+      kind: 'promiseBroken',
+      week: 61,
+      positive: false,
+      reason: 'broke a promise'
+    },
+    {
+      kind: 'promiseKept',
+      week: 61,
+      positive: true,
+      reason: 'kept a promise'
+    },
+    {
+      kind: 'terminatedEarly',
+      week: 61,
+      positive: false,
+      reason: 'ended a contract early'
+    },
+    {
+      kind: 'ranToEnd',
+      week: 52,
+      positive: true,
+      reason: 'ran a contract to its end'
+    },
+    {
+      kind: 'ranToEnd',
+      week: 52,
+      positive: true,
+      reason: 'ran a contract to its end'
+    }
+  ]
+}
+
+stdout | tests/p14b2-fixture-preconditions.test.ts > P14B.2 lawful engine fixture preconditions (not bridge verification) > keeps real prior history in the next open case, excludes an actual withdrawal, and binds a second promise
+history { week: 96, talentId: 't-act-09', withdrawnId: 'promise-2' }
+
+stdout | tests/p14b2-fixture-preconditions.test.ts > P14B.2 lawful engine fixture preconditions (not bridge verification) > wins a real rival-owned case and reaches reminder/outcome weeks after proposals are gone
+poaching pipeline premise {"week":197,"promises":[{"promiseId":"promise-42","family":"APPEARANCE_COUNT","version":3,"issuerStudioId":"studio-5a47d054-r01","beneficiaryPersonId":"person-studio-5a47d054-r04-3","predicate":{"count":1},"windowStartWeek":208,"dueWeekExclusive":416,"feasibilityReceipt":{"classification":"REASONABLY_ACHIEVABLE","bottleneck":null,"inputsDigest":"3f5b90ae8799654d","rulesVersion":3,"week":196},"progress":0,"evidenceRefs":[],"outcome":null,"outcomeWeek":null,"outcomeCause":null,"outcomeEventId":null,"contractId":null},{"promiseId":"promise-43","family":"APPEARANCE_COUNT","version":3,"issuerStudioId":"studio-5a47d054-r02","beneficiaryPersonId":"person-studio-5a47d054-r04-3","predicate":{"count":1},"windowStartWeek":208,"dueWeekExclusive":416,"feasibilityReceipt":{"classification":"REASONABLY_ACHIEVABLE","bottleneck":null,"inputsDigest":"e1d162535356ae67","rulesVersion":3,"week":196},"progress":0,"evidenceRefs":[],"outcome":null,"outcomeWeek":null,"outcomeCause":null,"outcomeEventId":null,"contractId":null}],"scripts":{"mode":"managed","projects":[{"id":"script-0000","conceptId":"c-00","writerId":"t-wri-10","writerIds":["t-wri-10"],"shape":{"opening":"slowSetup","midpoint":"revelation","ending":"bittersweet"},"promise":{"genre":"comedy","intendedSegments":["adult"],"ranges":{"intimacy":[-0.5,0.5],"tonalWeight":[-0.5,0.5],"kineticEnergy":[-0.5,0.5]}},"status":"review","rewriteCount":0,"commissionedWeek":196,"dueWeek":null,"assessment":{"actualStrength":68.72650768853818,"perceivedStrength":68.72650768853818},"reservation":null,"productionId":null},{"id":"script-0001","conceptId":"c-01","writerId":"t-wri-10","writerIds":["t-wri-10"],"shape":{"opening":"slowSetup","midpoint":"revelation","ending":"bittersweet"},"promise":{"genre":"romance","intendedSegments":["adult"],"ranges":{"intimacy":[-0.5,0.5],"tonalWeight":[-0.5,0.5],"kineticEnergy":[-0.5,0.5]}},"status":"drafting","rewriteCount":0,"commissionedWeek":197,"dueWeek":198,"assessment":null,"reservation":{"projectId":"script-0001","facilityId":"facility-development-casting","capability":"development-casting","slot":0},"productionId":null}]},"concepts":["c-00","c-01","c-02","c-03","c-04","c-05","c-06","c-07","c-08","c-09","c-10","c-11","c-12","c-13","c-14","c-15","c-16","c-17","c-18","c-19","c-20","c-21","c-22","c-23","c-24","c-25","c-26","c-27","c-28","c-29"],"stages":[{"id":"facility-soundstage-07","name":"Soundstage 7","capability":"soundstage","capacity":1},{"id":"facility-soundstage-12","name":"Soundstage 12","capability":"soundstage","capacity":1}]}
+poaching {
+  talentId: 'person-studio-5a47d054-r04-3',
+  incumbentId: 'studio-5a47d054-r04',
+  promise: {
+    promiseId: 'promise-48',
+    family: 'APPEARANCE_COUNT',
+    version: 3,
+    issuerStudioId: 'studio-5a47d054-player',
+    beneficiaryPersonId: 'person-studio-5a47d054-r04-3',
+    predicate: { count: 1 },
+    windowStartWeek: 208,
+    dueWeekExclusive: 248,
+    feasibilityReceipt: {
+      classification: 'REASONABLY_ACHIEVABLE',
+      bottleneck: null,
+      inputsDigest: 'afdb41e61f899560',
+      rulesVersion: 3,
+      week: 208
+    },
+    progress: 0,
+    evidenceRefs: [],
+    outcome: 'BROKEN',
+    outcomeWeek: 248,
+    outcomeCause: 'the window closed before the promised pictures began filming',
+    outcomeEventId: 'talent-market-event-152',
+    contractId: 'studio-5a47d054-player:contract:person-studio-5a47d054-r04-3:208:player-46'
+  },
+  settlement: [
+    {
+      kind: 'discovered',
+      week: 196,
+      talentId: 'person-studio-5a47d054-r04-3',
+      studioId: 'studio-5a47d054-r04',
+      reasons: [],
+      dropped: [],
+      eventId: 'talent-market-event-21'
+    },
+    {
+      kind: 'proposalSubmitted',
+      week: 196,
+      talentId: 'person-studio-5a47d054-r04-3',
+      studioId: 'studio-5a47d054-r01',
+      reasons: [],
+      dropped: [],
+      eventId: 'talent-market-event-108'
+    },
+    {
+      kind: 'proposalSubmitted',
+      week: 196,
+      talentId: 'person-studio-5a47d054-r04-3',
+      studioId: 'studio-5a47d054-r02',
+      reasons: [],
+      dropped: [],
+      eventId: 'talent-market-event-109'
+    },
+    {
+      kind: 'proposalSubmitted',
+      week: 196,
+      talentId: 'person-studio-5a47d054-r04-3',
+      studioId: 'studio-5a47d054-r03',
+      reasons: [],
+      dropped: [],
+      eventId: 'talent-market-event-110'
+    },
+    {
+      kind: 'proposalSubmitted',
+      week: 196,
+      talentId: 'person-studio-5a47d054-r04-3',
+      studioId: 'studio-5a47d054-r04',
+      reasons: [],
+      dropped: [],
+      eventId: 'talent-market-event-111'
+    },
+    {
+      kind: 'proposalSubmitted',
+      week: 197,
+      talentId: 'person-studio-5a47d054-r04-3',
+      studioId: 'studio-5a47d054-r04',
+      reasons: [],
+      dropped: [],
+      eventId: 'talent-market-event-120'
+    },
+    {
+      kind: 'proposalSubmitted',
+      week: 197,
+      talentId: 'person-studio-5a47d054-r04-3',
+      studioId: 'studio-5a47d054-player',
+      reasons: [],
+      dropped: [],
+      eventId: 'talent-market-event-121'
+    },
+    {
+      kind: 'settled',
+      week: 208,
+      talentId: 'person-studio-5a47d054-r04-3',
+      studioId: 'studio-5a47d054-player',
+      reasons: [Array],
+      dropped: [Array],
+      eventId: 'talent-market-event-143'
+    }
+  ]
+}
+
+stdout | tests/p14b2-fixture-preconditions.test.ts > P14B.2 lawful engine fixture preconditions (not bridge verification) > produces a rival-only open promise and public kept outcome from the unmodified natural rival chain
+rival {
+  openWeek: 196,
+  outcome: {
+    promiseId: 'promise-16',
+    family: 'APPEARANCE_COUNT',
+    version: 3,
+    issuerStudioId: 'studio-aca408ec-r01',
+    beneficiaryPersonId: 'person-studio-aca408ec-r02-2',
+    predicate: { count: 1 },
+    windowStartWeek: 208,
+    dueWeekExclusive: 416,
+    feasibilityReceipt: {
+      classification: 'REASONABLY_ACHIEVABLE',
+      bottleneck: null,
+      inputsDigest: 'c72603beabde18ce',
+      rulesVersion: 3,
+      week: 208
+    },
+    progress: 1,
+    evidenceRefs: [ 'first-take-event-45' ],
+    outcome: 'SATISFIED',
+    outcomeWeek: 213,
+    outcomeCause: 'the promised pictures began filming inside the window',
+    outcomeEventId: 'talent-market-event-120',
+    contractId: 'studio-aca408ec-r01:contract:person-studio-aca408ec-r02-2:208'
+  }
+}
+
+stdout | tests/p14b2-fixture-preconditions.test.ts > P14B.2 lawful engine fixture preconditions (not bridge verification) > diagnostic: the next real production tick must remain save-valid (inherited source finding, not B2 bridge code)
+setup diagnostic {
+  sourceWeek: 61,
+  nextWeek: 62,
+  before: {
+    productionId: 'prod-0052',
+    phase: 'shooting',
+    reservations: [ [Object], [Object] ],
+    shootingTask: {
+      id: 'shooting:prod-0052',
+      productionId: 'prod-0052',
+      directorId: 't-dir-01',
+      soundstageFacilityId: 'facility-soundstage-07',
+      status: 'completed'
+    },
+    blocker: null,
+    bindings: {
+      requiresSetBinding: true,
+      stageFacilityId: 'facility-soundstage-07',
+      setId: 'set-2',
+      lockedNovelty: 1,
+      lockedUplift: 7.8999999999999995,
+      heldSinceWeek: 54
+    },
+    setup: {
+      recipeId: 'ballroom-reveal-lighting-01',
+      planRevision: 0,
+      admittedWeek: 56,
+      route: 'conventional',
+      adoptionId: null,
+      equipmentAssetId: null,
+      stageFacilityId: 'facility-soundstage-07',
+      setId: 'set-2',
+      requiredUnits: 4,
+      creditedUnits: 4,
+      lastCreditedWeek: 60,
+      completedWeek: 60,
+      priorWork: []
+    },
+    planRevision: 0
+  },
+  after: {
+    productionId: 'prod-0052',
+    phase: 'postProduction',
+    reservations: [ [Object] ],
+    shootingTask: null,
+    blocker: null,
+    bindings: {
+      requiresSetBinding: true,
+      stageFacilityId: null,
+      setId: 'set-2',
+      lockedNovelty: 1,
+      lockedUplift: 7.8999999999999995,
+      heldSinceWeek: null
+    },
+    setup: {
+      recipeId: 'ballroom-reveal-lighting-01',
+      planRevision: 0,
+      admittedWeek: 56,
+      route: 'conventional',
+      adoptionId: null,
+      equipmentAssetId: null,
+      stageFacilityId: 'facility-soundstage-07',
+      setId: 'set-2',
+      requiredUnits: 4,
+      creditedUnits: 4,
+      lastCreditedWeek: 60,
+      completedWeek: 60,
+      priorWork: []
+    },
+    planRevision: 0
+  }
+}
+
+ ✓ |core| tests/p14b2-fixture-preconditions.test.ts (5 tests) 15008ms
+   ✓ P14B.2 lawful engine fixture preconditions (not bridge verification) > retains two real winners, films one promise and breaks the other by real early termination 3861ms
+   ✓ P14B.2 lawful engine fixture preconditions (not bridge verification) > keeps real prior history in the next open case, excludes an actual withdrawal, and binds a second promise 908ms
+   ✓ P14B.2 lawful engine fixture preconditions (not bridge verification) > wins a real rival-owned case and reaches reminder/outcome weeks after proposals are gone 5852ms
+   ✓ P14B.2 lawful engine fixture preconditions (not bridge verification) > produces a rival-only open promise and public kept outcome from the unmodified natural rival chain 4322ms
+ ✓ |core| tests/p14b1-trust-chooser.test.ts (13 tests | 2 skipped) 22691ms
+   ✓ P14B.1 test 6: trust, the widened chooser and the priority order > a Distrusted issuer is dropped issuerDistrusted at reservation, and the other (healthy) proposal settles the case 3446ms
+   ✓ P14B.1 test 6: trust, the widened chooser and the priority order > opportunity changes the winner of an otherwise compensation-versus-incumbency 1-1 tie, with two real surviving proposals 5169ms
+   ✓ P14B.1 test 6: trust, the widened chooser and the priority order > a Reliable issuer beats a Mixed-record issuer on the trust band, in the same otherwise-1-1-tie shape 1240ms
+   ✓ P14B.1 test 7: rival symmetry > attachPromise and its feasibility classification work identically when the issuer is a RIVAL (no player-only special-casing) 938ms
+   ✓ P14B.1 test 7: rival symmetry > the FIRST natural rival proposal carries exactly one P1 iff its ORIGINAL authoring verdict is REASONABLY_ACHIEVABLE, with exact proposal/root/receipt joins 6314ms
+   ✓ P14B.1 test 7: rival symmetry > natural rival authoring preserves the first writer IFF, the first actor positive, and an actual non-achievable zero-attachment witness 5147ms
+
+ Test Files  2 passed (2)
+      Tests  16 passed | 2 todo (18)
+   Start at  22:18:06
+   Duration  25.88s (transform 2.77s, setup 0ms, collect 4.98s, tests 37.70s, environment 1ms, prepare 350ms)
+
+
+{"sourceSha":"c04f4af500c37c726fc7b292db7fac2050ee04d9","testedDiffSha256":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14b1-trust-chooser.test.ts","tests/p14b2-fixture-preconditions.test.ts"],"node":"v20.20.2","start":"2026-09-20T20:18:05.461Z","end":"2026-09-20T20:18:32.492Z","exitCode":0,"signal":null,"error":null,"sourceShaAtEnd":"c04f4af500c37c726fc7b292db7fac2050ee04d9","testedDiffSha256AtEnd":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","untrackedSourceAtEnd":[],"fixedSource":true}

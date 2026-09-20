@@ -1,0 +1,22 @@
+{
+  "sourceSha": "4b88394c8611c60223ea516ef481f37d7735ff0e",
+  "testedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "untrackedSource": [],
+  "command": [
+    "node_modules/.bin/vitest",
+    "run",
+    "--project",
+    "core",
+    "tests/bridge-p14b2-trust.test.ts"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-20T20:19:54.182Z",
+  "end": "2026-09-20T20:20:22.166Z",
+  "exitCode": 1,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "4b88394c8611c60223ea516ef481f37d7735ff0e",
+  "testedDiffSha256AtEnd": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "untrackedSourceAtEnd": [],
+  "fixedSource": true
+}
