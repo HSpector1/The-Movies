@@ -1,0 +1,711 @@
+diff --git a/src/core/promiseCapacityOwnerReplay.ts b/src/core/promiseCapacityOwnerReplay.ts
+index f591d7e..2b63d40 100644
+--- a/src/core/promiseCapacityOwnerReplay.ts
++++ b/src/core/promiseCapacityOwnerReplay.ts
+@@ -240,19 +240,163 @@ const LITERAL = Object.freeze({
+ })
+ // An appended element reserves capacity(1), invocation(1), reference write(1).
+ const APPEND = 3
++// TEMPORARY 480 OBSERVER: all storage, tags and logging below are UNMETERED
++// diagnostic overhead. They are not production hints or a work-cost claim.
++const COST_480_ROLES = ['operations', 'technologyRoot', 'production', 'workflow', 'bindings',
++  'reservation', 'task', 'setup', 'set', 'technologyRow'] as const
++let cost480Invocation = 0
++type Cost480Context = { plan: string | null; week: number | null; phase: string; site: string;
++  paid: Map<string, [number, number]> }
++type Cost480Cell = { cell: DimensionCell; id: number; hints: (DimensionRecordFacts | undefined)[] }
++type Cost480Fact = { context: number; cell: Cost480Cell; role: number; hit: boolean;
++  hint: DimensionRecordFacts | undefined; visits: number; entered: number;
++  needCopy: boolean; needStrings: boolean; copyMissing: boolean | null; stringsMissing: boolean | null; outcome: string }
++class Cost480Observer {
++  readonly invocation = ++cost480Invocation
++  readonly contexts: Cost480Context[] = [{ plan: null, week: null, phase: 'envelope', site: 'prepare', paid: new Map() }]
++  active = 0
++  role = -1
++  successful = 0
++  successfulCount = 0
++  saturationGap = 0
++  readonly failures: unknown[] = []
++  readonly outcomes: unknown[] = []
++  readonly cells: Cost480Cell[] = []
++  readonly factCalls: (number | string)[][] = []
++  pending: Cost480Fact | undefined
++  consistencyFailures = 0
++  constructor(readonly initial: number, readonly requestedInitial: number, readonly limit: number) {}
++  enter(phase: string, plan = this.contexts[this.active]!.plan,
++    week = this.contexts[this.active]!.week, site = this.contexts[this.active]!.site): number {
++    const previous = this.active
++    let index = this.contexts.findIndex(row => row.plan === plan && row.week === week && row.phase === phase && row.site === site)
++    if (index < 0) {
++      index = this.contexts.length
++      this.contexts.push({ plan, week, phase, site, paid: new Map() })
++    }
++    this.active = index
++    return previous
++  }
++  restore(context: number): void { this.active = context }
++  paid(units: number, tag: string): void {
++    this.successful += units
++    this.successfulCount++
++    const buckets = this.contexts[this.active]!.paid
++    const row = buckets.get(tag)
++    if (row === undefined) buckets.set(tag, [1, units])
++    else { row[0]++; row[1] += units }
++  }
++  failed(before: number, requested: number, limit: number, tag: string): void {
++    const remaining = limit - before
++    this.saturationGap += remaining
++    this.failures.push([this.active, tag, before, requested, remaining])
++  }
++  registerCell(cell: DimensionCell): Cost480Cell {
++    let shadow = this.cells.find(row => row.cell === cell)
++    if (shadow === undefined) {
++      shadow = { cell, id: this.cells.length, hints: new Array<DimensionRecordFacts | undefined>(10).fill(undefined) }
++      this.cells.push(shadow)
++    }
++    return shadow
++  }
++  factBegin(cell: DimensionCell, record: object, needCopy: boolean, needStrings: boolean, used: number): Cost480Fact {
++    const shadow = this.registerCell(cell)
++    if (this.role < 0 || this.role >= COST_480_ROLES.length || this.pending !== undefined) this.consistencyFailures++
++    const hint = shadow.hints[this.role]
++    const call: Cost480Fact = { context: this.active, cell: shadow, role: this.role,
++      hit: hint !== undefined && hint.record === record, hint, visits: 0, entered: used,
++      needCopy, needStrings, copyMissing: null, stringsMissing: null, outcome: 'unobserved' }
++    this.pending = call
++    return call
++  }
++  factModes(call: Cost480Fact, previous: DimensionRecordFacts | undefined, copyMissing: boolean, stringsMissing: boolean): void {
++    if (call.hit && previous !== call.hint) this.consistencyFailures++
++    call.copyMissing = copyMissing
++    call.stringsMissing = stringsMissing
++    call.outcome = previous === undefined ? 'cold' : copyMissing || stringsMissing ? 'upgrade' : 'modeComplete'
++  }
++  factEnd(call: Cost480Fact, result: DimensionRecordFacts, used: number): void {
++    if ((call.needCopy && result.copy === null) || (call.needStrings && result.width === null)) this.consistencyFailures++
++    else call.cell.hints[call.role] = result
++    this.factCalls.push([call.context, call.cell.id, call.role, call.hit ? 1 : 0,
++      call.visits, call.outcome, call.entered, used, call.needCopy ? 1 : 0, call.needStrings ? 1 : 0,
++      call.copyMissing ? 1 : 0, call.stringsMissing ? 1 : 0])
++    this.pending = undefined
++  }
++  flush(reason: string, used: number): void {
++    // Logging must not replace a producer result/error if the diagnostic sink fails.
++    try {
++      const charges: unknown[] = []
++      for (const [index, context] of this.contexts.entries()) {
++        for (const [tag, [count, units]] of context.paid) charges.push([index, tag, count, units])
++      }
++      const groups = new Map<string, number[]>()
++      let roots = 0, others = 0, completed = 0, completedMisses = 0, visitsOnHits = 0
++      const include = (context: number, cell: number, role: number, hit: boolean, visits: number,
++        outcome: string, enter: number, exit: number | null): void => {
++        const key = `${context}/${cell}/${role}`
++        let row = groups.get(key)
++        if (row === undefined) { row = [0, 0, 0, 0, 0, 0, 0, 0, 0, enter, exit ?? enter]; groups.set(key, row) }
++        row[0] = row[0]! + 1; row[hit ? 2 : 3] = row[hit ? 2 : 3]! + 1; row[4] = row[4]! + visits
++        if (hit) { row[5] = row[5]! + visits; visitsOnHits += visits }
++        if (role === 0 || role === 1) roots++; else others++
++        if (exit !== null) {
++          row[1] = row[1]! + 1; completed++; if (!hit) completedMisses++
++          const outcomeIndex = outcome === 'modeComplete' ? 6 : outcome === 'upgrade' ? 7 : 8
++          row[outcomeIndex] = row[outcomeIndex]! + 1
++          row[10] = exit
++        }
++      }
++      for (const row of this.factCalls) include(Number(row[0]), Number(row[1]), Number(row[2]), row[3] === 1,
++        Number(row[4]), String(row[5]), Number(row[6]), Number(row[7]))
++      const pending = this.pending
++      if (pending !== undefined) include(pending.context, pending.cell.id, pending.role, pending.hit,
++        pending.visits, pending.outcome, pending.entered, null)
++      const calls = roots + others
++      const expected = this.initial + this.successful + this.saturationGap
++      console.log('B4_COST_480', JSON.stringify({ invocation: this.invocation, reason,
++        initial: this.initial, requestedInitial: this.requestedInitial, limit: this.limit,
++        successful: this.successful, successfulCount: this.successfulCount,
++        saturationGap: this.saturationGap, final: used, reconciles: expected === used,
++        contexts: this.contexts.map(row => [row.plan, row.week, row.phase, row.site]),
++        chargeColumns: ['context', 'kind', 'successfulCount', 'successfulUnits'], charges,
++        failureColumns: ['context', 'kind', 'usedBefore', 'requestedUnpaid', 'saturationGap'], failures: this.failures,
++        outcomes: this.outcomes, roles: COST_480_ROLES,
++        factColumns: ['context', 'cell', 'role', 'hintHit', 'paidVisits', 'outcome', 'entryWork', 'exitWork',
++          'needCopy', 'needStrings', 'copyMissing', 'stringsMissing'], facts: this.factCalls,
++        groupColumns: ['calls', 'completions', 'hits', 'misses', 'paidVisits', 'paidVisitsOnHits',
++          'modeComplete', 'upgrade', 'cold', 'firstEntryWork', 'lastExitWork'], groups: [...groups],
++        pending: pending === undefined ? null : { context: pending.context, cell: pending.cell.id,
++          role: pending.role, hit: pending.hit, visits: pending.visits, outcome: pending.outcome,
++          entryWork: pending.entered, needCopy: pending.needCopy, needStrings: pending.needStrings,
++          copyMissing: pending.copyMissing, stringsMissing: pending.stringsMissing },
++        shadowModel: { cells: this.cells.length, roots, others, calls, completed, completedMisses, visitsOnHits,
++          deltaObservedPrefix: 31 * this.cells.length + 4 * roots + 8 * others + 40 * calls + 6 * completed + 12 * completedMisses - 6 * visitsOnHits },
++        consistencyFailures: this.consistencyFailures }))
++    } catch { /* diagnostic output is not part of producer control */ }
++  }
++}
+ class Work {
+   used: number
+-  constructor(readonly limit: number, initial: number) { this.used = Math.min(limit, initial) }
+-  pay(units = 1): void {
+-    if (units > this.limit - this.used) { this.used = this.limit; throw new WorkLimit() }
++  readonly diagnostic: Cost480Observer
++  constructor(readonly limit: number, initial: number) {
++    this.used = Math.min(limit, initial)
++    this.diagnostic = new Cost480Observer(this.used, initial, limit)
++  }
++  pay(units = 1, diagnosticTag = 'direct'): void {
++    if (units > this.limit - this.used) {
++      this.diagnostic.failed(this.used, units, this.limit, diagnosticTag)
++      this.used = this.limit; throw new WorkLimit()
++    }
+     this.used += units
++    this.diagnostic.paid(units, diagnosticTag)
+   }
+   /** Evaluate the receiver BEFORE JavaScript evaluates calculator arguments.
+    * Each source call reserves two units per scalar operand-read/operator:
+    * 8/16/32/64 cover <=4/8/16/32 nodes respectively. Nested paid calls own
+    * their own trees, not this allowance. No callbacks/rest arrays are hidden.
+    */
+-  calc(units: 8 | 16 | 32 | 64): this { this.pay(units); return this }
++  calc(units: 8 | 16 | 32 | 64): this { this.pay(units, 'calc.arguments'); return this }
+   /** No rest/temporary array is allocated before payment. All call sites have
+    * at most18 operands. Entry/optional-argument guards cost20; each of the k-1
+    * saturating adds costs8 BEFORE its subtraction/check/add. Binary
+@@ -263,7 +407,7 @@ class Work {
+   plus(a: number, b: number, c?: number, d?: number, e?: number, f?: number,
+     g?: number, h?: number, i?: number, j?: number, k?: number, l?: number,
+     m?: number, n?: number, o?: number, p?: number, q?: number, r?: number): number {
+-    this.pay(20)
++    this.pay(20, 'calc.plus')
+     let result = this.add(a, b)
+     if (c !== undefined) result = this.add(result, c)
+     if (d !== undefined) result = this.add(result, d)
+@@ -285,20 +429,20 @@ class Work {
+   }
+   /** Exact fixed-binary saturation for nonnegative admitted cost operands. */
+   add(a: number, b: number): number {
+-    this.pay(8)
++    this.pay(8, 'calc.add')
+     return b >= CEILING - a ? CEILING : a + b
+   }
+   times(a: number, b: number): number {
+-    this.pay(10)
++    this.pay(10, 'calc.times')
+     if (a === 0 || b === 0) return 0
+     return a >= CEILING || b >= CEILING || a > Math.floor(CEILING / b) ? CEILING : a * b
+   }
+   equality(length: number): number {
+-    this.pay(20)
++    this.pay(20, 'calc.equality')
+     return length >= EQUALITY_SATURATION_LENGTH ? CEILING : 1 + 2 * length
+   }
+   keyBill(count: number, length: number): number {
+-    this.pay(64)
++    this.pay(64, 'calc.keyBill')
+     if (length >= CEILING) return CEILING
+     const base = 1 + length
+     const unit = 1 + 2 * length
+@@ -308,18 +452,18 @@ class Work {
+   /** Same all-possible-comparisons metric, without substituting an unrelated
+    * maximum for every stored key. Repeated rows may overcount distinct keys. */
+   keySpanBill(count: number, storedChars: number, queryLength: number): number {
+-    this.pay(20) // receiver/arguments, two 1+length expressions and return
++    this.pay(20, 'calc.keySpanBill') // receiver/arguments, two 1+length expressions and return
+     return this.add(1 + queryLength, this.add(this.times(count, 1 + queryLength), storedChars))
+   }
+-  text(value: string): string { this.pay(1 + value.length); return value }
+-  equal(a: string, b: string): boolean { this.pay(1 + a.length + b.length); return a === b }
+-  less(a: string, b: string): boolean { this.pay(1 + a.length + b.length); return a < b }
++  text(value: string): string { this.pay(1 + value.length, 'string.text'); return value }
++  equal(a: string, b: string): boolean { this.pay(1 + a.length + b.length, 'string.equal'); return a === b }
++  less(a: string, b: string): boolean { this.pay(1 + a.length + b.length, 'string.less'); return a < b }
+   /** No Object.keys allocation before payment, and no traversal of opaque values. */
+   copyCost(value: object): number {
+     let cost = 1
+-    this.pay()
++    this.pay(1, 'copy.discovery')
+     for (const key in value) {
+-      this.pay(3 + key.length)
++      this.pay(3 + key.length, 'copy.discovery')
+       if (Object.prototype.hasOwnProperty.call(value, key)) cost = this.calc(8).add(cost, 3 + key.length)
+     }
+     return cost
+@@ -328,16 +472,16 @@ class Work {
+     const length = fourth === undefined ? 3 : 4
+     // Pay array allocation/capacity AND element writes before the tuple exists.
+     // Fixed positional arguments avoid an unprepaid caller tuple/rest array.
+-    this.pay(6 + 1 + 2 * length)
++    this.pay(6 + 1 + 2 * length, 'token.direct')
+     const parts = fourth === undefined ? [first, second, third] : [first, second, third, fourth]
+     // JSON escaping can produce six output characters per UTF-16 code unit.
+-    this.pay(8)
++    this.pay(8, 'token.direct')
+     let cost = 3 + 2 * parts.length
+     for (const part of parts) {
+-      this.pay(6) // loop/type dispatch; arithmetic helpers pay their own calls
++      this.pay(6, 'token.direct') // loop/type dispatch; arithmetic helpers pay their own calls
+       cost = this.calc(16).add(cost, typeof part === 'string' ? 2 + this.calc(8).times(7, part.length) : 25)
+     }
+-    this.pay(cost)
++    this.pay(cost, 'token.serialization')
+     return JSON.stringify(parts)
+   }
+ }
+@@ -380,7 +524,7 @@ function sorted<T>(values: readonly T[], keyOf: (value: T) => string, work: Work
+     rows.push({ value, key })
+   }
+   work.pay(8) // comparator-bound argument reads/arithmetic before sortBill
+-  work.pay(sortBill(rows.length, 6 + 2 * (1 + 2 * max), work))
++  work.pay(sortBill(rows.length, 6 + 2 * (1 + 2 * max), work), 'reserve.sort')
+   const ordered = boundedStableSort(rows, (a, b) => a.key < b.key ? -1 : a.key > b.key ? 1 : 0)
+   work.pay(2 + 3 * ordered.length)
+   return ordered.map(row => row.value)
+@@ -858,10 +1002,12 @@ type DimensionCell = { value: StaticDimensions | null; records: DimensionRecordF
+  * this invocation-local table. Mutable replay records never pass this seam. */
+ function dimensionRecordFacts<T extends object>(record: T, needCopy: boolean, needStrings: boolean,
+   cell: DimensionCell, work: Work): DimensionRecordFacts {
++  const diagnosticCall = work.diagnostic.factBegin(cell, record, needCopy, needStrings, work.used)
+   work.pay(8) // table access, local initialization, empty-loop and return controls
+   let previous: DimensionRecordFacts | undefined
+   for (const entry of cell.records) {
+-    work.pay(6) // visit/reference, record read, identity comparison, match/break controls
++    work.pay(6, 'facts.scan') // visit/reference, record read, identity comparison, match/break controls
++    diagnosticCall.visits++
+     if (entry.record === record) { previous = entry; break }
+   }
+   work.pay(12) // two optional previous-field reads/defaults and local bindings
+@@ -870,15 +1016,19 @@ function dimensionRecordFacts<T extends object>(record: T, needCopy: boolean, ne
+   work.pay(12) // two requested-mode/null checks and boolean result bindings
+   const copyMissing = needCopy && copy === null
+   const stringsMissing = needStrings && width === null
++  work.diagnostic.factModes(diagnosticCall, previous, copyMissing, stringsMissing)
+   work.pay(8) // both missing flags, conjunction, hit reference and return control
+-  if (!copyMissing && !stringsMissing) return previous!
++  if (!copyMissing && !stringsMissing) {
++    work.diagnostic.factEnd(diagnosticCall, previous!, work.used)
++    return previous!
++  }
+   work.pay(8) // two cold-mode guards/default assignments and scan initialization
+   if (copyMissing) copy = 1
+   if (stringsMissing) width = 0
+   for (const key in record) {
+     // One enumeration/own-key check serves both requested cold modes. The
+     // copy accumulator and each consumed string still pay their own work.
+-    work.pay(5 + key.length)
++    work.pay(5 + key.length, 'facts.discovery')
+     if (!Object.prototype.hasOwnProperty.call(record, key)) continue
+     if (copyMissing) copy = work.calc(8).add(copy!, 3 + key.length)
+     if (stringsMissing) {
+@@ -897,11 +1047,13 @@ function dimensionRecordFacts<T extends object>(record: T, needCopy: boolean, ne
+     work.pay(16) // copy/width keyed writes(5+6), references/values/return(5)
+     previous.copy = copy
+     previous.width = width
++    work.diagnostic.factEnd(diagnosticCall, previous, work.used)
+     return previous
+   }
+   work.pay(6 + LITERAL.dimensionRecord + APPEND)
+   const result: DimensionRecordFacts = { record, copy, width }
+   cell.records.push(result)
++  work.diagnostic.factEnd(diagnosticCall, result, work.used)
+   return result
+ }
+ 
+@@ -972,10 +1124,13 @@ function staticDimensionFacts<P extends StartedPicture>(source: StartedOwnerSour
+ function dimensions<P extends StartedPicture>(source: StartedOwnerSource<P>, productions: readonly P[],
+   operations: StudioOperations, sets: readonly StudioSet[], technology: StudioTechnology,
+   external: number, work: Work, cell: DimensionCell, pictureFacts?: readonly PictureFacts<P>[]): Dimensions {
++  const diagnosticContext = work.diagnostic.enter('dimensions')
+   work.pay(4) // static-fact call arguments/result binding
+   const fixed = staticDimensionFacts(source, cell, work)
+   work.pay(16) // two copy-only fact calls: arguments, result bindings and controls
++  work.diagnostic.role = 0
+   const operationsFacts = dimensionRecordFacts(operations, true, false, cell, work)
++  work.diagnostic.role = 1
+   const technologyFacts = dimensionRecordFacts(technology, true, false, cell, work)
+   // Fresh literal and scalar field reads/composition EVERY time; never return
+   // cached combined Dimensions. Each root footprint names its CURRENT record.
+@@ -1012,25 +1167,36 @@ function dimensions<P extends StartedPicture>(source: StartedOwnerSource<P>, pro
+   for (const row of productions) {
+     work.pay(4); text(row.id); text(row.directorId)
+     d.dp = Math.max(d.dp, row.id.length)
++    work.diagnostic.role = 2
+     d.pCopy = Math.max(d.pCopy, facts(row, true, false).copy!)
+   }
+   for (const row of operations.workflows) {
+     work.pay(7)
++    work.diagnostic.role = 3
+     d.workflowCopy = Math.max(d.workflowCopy, facts(row, true, true).copy!)
++    work.diagnostic.role = 4
+     d.bindingsCopy = Math.max(d.bindingsCopy, facts(row.bindings, true, true).copy!)
+-    for (const reservation of row.reservations) { work.pay(3); facts(reservation, false, true) }
++    for (const reservation of row.reservations) {
++      work.pay(3); work.diagnostic.role = 5; facts(reservation, false, true)
++    }
+     if (row.shootingTask !== null) {
++      work.diagnostic.role = 6
+       d.taskCopy = Math.max(d.taskCopy, facts(row.shootingTask, true, true).copy!)
+     }
+     if (row.setup !== null && row.setup !== undefined) {
++      work.diagnostic.role = 7
+       d.setupCopy = Math.max(d.setupCopy, facts(row.setup, true, true).copy!)
+     }
+   }
+-  for (const row of sets) { work.pay(3); d.setCopy = Math.max(d.setCopy, facts(row, true, true).copy!) }
++  for (const row of sets) {
++    work.pay(3); work.diagnostic.role = 8; d.setCopy = Math.max(d.setCopy, facts(row, true, true).copy!)
++  }
+   for (const row of technology.productions) {
++    work.diagnostic.role = 9
+     work.pay(3); d.technologyRowCopy = Math.max(d.technologyRowCopy, facts(row, true, true).copy!)
+     if (!work.equal(row.method, 'silent')) d.allSilent = false
+   }
++  work.diagnostic.restore(diagnosticContext)
+   return d
+ }
+ function workflowUpdate(d: Dimensions, work: Work): number {
+@@ -1555,6 +1721,7 @@ function closePath<P extends StartedPicture>(branch: Branch<P>, pathKey: string,
+ function drainEvents<P extends StartedPicture>(input: ReplayInput<P>, prepared: Prepared<P>,
+   plan: ReplayPlan, branch: Branch<P>, sink: StudioEventSink,
+   before: StudioOperations, work: Work): void {
++  const diagnosticContext = work.diagnostic.enter('drainEvents')
+   work.pay(4) // drain invocation/setup + empty wrapped-fact array
+   const events = sink.drain()
+   const wrapped: { id: string; stage: string; setId: string | null }[] = []
+@@ -1607,9 +1774,11 @@ function drainEvents<P extends StartedPicture>(input: ReplayInput<P>, prepared:
+       }
+     }
+   }
++  work.diagnostic.restore(diagnosticContext)
+ }
+ function reconcile<P extends StartedPicture>(input: ReplayInput<P>, prepared: Prepared<P>,
+   branch: Branch<P>, work: Work): void {
++  const diagnosticContext = work.diagnostic.enter('reconcile')
+   work.pay(1)
+   const expected: { path: Identity; subject: SubjectFact; matches: number }[] = []
+   work.pay(3)
+@@ -1653,6 +1822,7 @@ function reconcile<P extends StartedPicture>(input: ReplayInput<P>, prepared: Pr
+     work.pay(12)
+     invariant(fact.matches === 1, 'owner output has an uncertified reservation')
+   }
++  work.diagnostic.restore(diagnosticContext)
+ }
+ 
+ function completeTrace<P extends StartedPicture>(input: ReplayInput<P>, prepared: Prepared<P>,
+@@ -1700,6 +1870,7 @@ function completeTrace<P extends StartedPicture>(input: ReplayInput<P>, prepared
+ 
+ function executeCommand<P extends StartedPicture>(input: ReplayInput<P>, prepared: Prepared<P>,
+   plan: ReplayPlan, branch: Branch<P>, command: StartedProductionCommand, work: Work): void {
++  const diagnosticContext = work.diagnostic.enter('command', plan.traceKey, branch.week, command.kind)
+   work.pay(8)
+   const production = find(branch.productions, command.productionId, row => row.id, work)
+   if (production === undefined) commandRefused(work, 'production already released in this branch')
+@@ -1718,22 +1889,22 @@ function executeCommand<P extends StartedPicture>(input: ReplayInput<P>, prepare
+   work.pay(10)
+   try {
+     if (command.kind === 'assignLockedDirector') {
+-      work.pay(commandBill)
++      work.pay(commandBill, 'reserve.command')
+       branch.operations = assignShootingDirector(branch.operations, production, production.directorId)
+-      work.pay(work.calc(16).add(arrivalBill(d, branch.operations, work), work.calc(32).times(d.n, work.calc(8).equality(d.dp))))
++      work.pay(work.calc(16).add(arrivalBill(d, branch.operations, work), work.calc(32).times(d.n, work.calc(8).equality(d.dp))), 'reserve.arrival')
+       branch.operations = arriveDueScenery(branch.operations, workflow => workflow.productionId === production.id &&
+         sceneryLoadInDecision(input.source, workflow, branch.week).kind === 'arrived-pending', sink)
+     } else if (command.kind === 'clearGrandfatheredScenery') {
+       const workflow = find(branch.operations.workflows, production.id, row => row.productionId, work)
+       invariant(workflow !== undefined, 'command has no workflow')
+-      work.pay(geometryBill(d, work))
++      work.pay(geometryBill(d, work), 'reserve.geometry')
+       if (sceneryLoadInDecision(input.source, workflow, branch.week).kind !== 'manual-clear') {
+         commandRefused(work, 'only explicitly grandfathered scenery permits manual clear')
+       }
+-      work.pay(commandBill)
++      work.pay(commandBill, 'reserve.command')
+       branch.operations = clearSceneryLoadIn(branch.operations, production.id, sink)
+     } else if (command.kind === 'scheduleTake') {
+-      work.pay(commandBill)
++      work.pay(commandBill, 'reserve.command')
+       branch.operations = scheduleShootingTake(branch.operations, production.id)
+     } else {
+       let longestTitle = 0
+@@ -1743,7 +1914,7 @@ function executeCommand<P extends StartedPicture>(input: ReplayInput<P>, prepare
+         longestTitle = Math.max(longestTitle, concept.title.length, concept.id.length)
+       }
+       work.pay(work.calc(64).plus(240 + LITERAL.releaseOwner, work.calc(32).times(3 * d.n + input.source.concepts.length + branch.releaseAuthority.commitments.length,
+-        4 + work.calc(8).equality(Math.max(d.d, longestTitle))), work.calc(32).times(4, longestTitle + d.d)))
++        4 + work.calc(8).equality(Math.max(d.d, longestTitle))), work.calc(32).times(4, longestTitle + d.d)), 'reserve.releaseRefusal')
+       const reason = releaseCommitmentRefusal({ productions: branch.productions,
+         concepts: input.source.concepts, operations: branch.operations, releaseAuthority: branch.releaseAuthority }, production.id)
+       if (reason !== null) commandRefused(work, reason)
+@@ -1753,7 +1924,7 @@ function executeCommand<P extends StartedPicture>(input: ReplayInput<P>, prepare
+       // capacity+writes; mint's prefix/input/output string spans; real sort.
+       work.pay(work.calc(64).plus(12 + LITERAL.commitment + LITERAL.commitments, 1 + 2 * count,
+         2 * ('release-commitment'.length + 1 + production.id.length),
+-        sortBill(count, 6 + 2 * work.calc(8).equality(d.dp), work)))
++        sortBill(count, 6 + 2 * work.calc(8).equality(d.dp), work)), 'reserve.releaseCommitment')
+       branch.releaseAuthority = withReleaseCommitment(branch.releaseAuthority, production.id, branch.week)
+       work.pay(5 + LITERAL.releaseCommitted + LITERAL.stampedEvent + APPEND)
+       sink.append({ kind: 'releaseCommitted', productionId: production.id })
+@@ -1764,10 +1935,12 @@ function executeCommand<P extends StartedPicture>(input: ReplayInput<P>, prepare
+     throw error
+   }
+   drainEvents(input, prepared, plan, branch, sink, before, work)
++  work.diagnostic.restore(diagnosticContext)
+ }
+ 
+ function frame<P extends StartedPicture>(input: ReplayInput<P>, prepared: Prepared<P>,
+   plan: ReplayPlan, branch: Branch<P>, work: Work): void {
++  const diagnosticContext = work.diagnostic.enter('frame.background', plan.traceKey, branch.week, 'frame')
+   work.pay(7)
+   const arrivedWeek = branch.week + 1
+   for (const background of prepared.backgrounds) {
+@@ -1805,24 +1978,26 @@ function frame<P extends StartedPicture>(input: ReplayInput<P>, prepared: Prepar
+   work.pay(2) // shared invocation-local cell access
+   const d = dimensions(input.source, branch.productions, branch.operations, branch.sets,
+     branch.technology, external.size, work, prepared.dimensionFacts, prepared.pictures)
++  work.diagnostic.enter('frame.arrival')
+   work.pay(5 + LITERAL.sink + 1)
+   const arrivalSink = new StudioEventSink(branch.week, true)
+   const beforeArrival = branch.operations
+-  work.pay(arrivalBill(d, branch.operations, work))
++  work.pay(arrivalBill(d, branch.operations, work), 'reserve.arrival')
+   branch.operations = arriveDueScenery(branch.operations,
+     workflow => sceneryLoadInDecision(input.source, workflow, arrivedWeek).kind === 'arrived-pending', arrivalSink)
+   drainEvents(input, prepared, plan, branch, arrivalSink, beforeArrival, work)
++  work.diagnostic.enter('frame.collectors')
+ 
+   // New collectors per branch AND sweep. Full callbacks, actual selected chain,
+   // original geometry and real branch technology; no GameState assertion.
+   // Exact caller facts AND the owner's returned outer collector/inner policy.
+   // Twelve scalar/call steps and four closure allocations are separate.
+   work.pay(12 + 4 + LITERAL.technologyCollector + LITERAL.technologyPolicy +
+-    LITERAL.technologyFacts + LITERAL.market)
++    LITERAL.technologyFacts + LITERAL.market, 'reserve.technologyCollectorAndFacts')
+   const facts: ProductionTechnologyFacts = { technology: branch.technology, market: { tick: branch.week },
+     placement: input.source.placement, hollywood: input.source.hollywood }
+   const technology = createProductionTechnologyPolicy(facts, input.issuerId)
+-  work.pay(15)
++  work.pay(15, 'reserve.setupCollector')
+   const setup = createProductionSetupRouteResolver(facts)
+   let committedLength = 0
+   for (const row of branch.releaseAuthority.commitments) {
+@@ -1834,11 +2009,13 @@ function frame<P extends StartedPicture>(input: ReplayInput<P>, prepared: Prepar
+   const committed = committedReleaseIds(branch.releaseAuthority)
+   const before = branch.operations
+   work.pay(6) // current branch Sets read, argument and callee binding
++  work.diagnostic.enter('frame.sweepBill')
+   const bill = sweepBill(d, branch.productions, branch.operations, branch.week, committed, branch.sets, work)
++  work.diagnostic.enter('frame.sweep')
+   // Reserve observation, sink, binding/callback literals and complete owner work
+   // together: an exhaustion boundary cannot record an unexecuted sweepStarted.
+   work.pay(work.calc(64).plus(bill, 15 + LITERAL.sink + 1 + LITERAL.boundary +
+-    LITERAL.sweepStarted + APPEND + LITERAL.binding, orderedExternal.length))
++    LITERAL.sweepStarted + APPEND + LITERAL.binding, orderedExternal.length), 'reserve.sweepAndObservation')
+   const sink = new StudioEventSink(branch.week, true)
+   const at: Boundary = { week: branch.week, step: ++branch.step }
+   branch.provenance.push({ kind: 'sweepStarted', at, externalSlotKeys: orderedExternal })
+@@ -1854,6 +2031,7 @@ function frame<P extends StartedPicture>(input: ReplayInput<P>, prepared: Prepar
+   branch.technology = technology.technology()
+   drainEvents(input, prepared, plan, branch, sink, before, work)
+   reconcile(input, prepared, branch, work)
++  work.diagnostic.enter('frame.releaseBookkeeping')
+ 
+   work.pay(1)
+   const zeros: string[] = []
+@@ -1879,7 +2057,7 @@ function frame<P extends StartedPicture>(input: ReplayInput<P>, prepared: Prepar
+     branch.provenance.push({ kind: 'releaseAdmitted', at: releaseAt, productionId: id })
+     const workflow = find(before.workflows, id, row => row.productionId, work)
+     invariant(workflow !== undefined, 'release has no pre-sweep workflow')
+-    work.pay(work.calc(64).plus(24, work.calc(32).times(branch.sets.length, 5 + 2 * work.calc(8).equality(d.d)), d.setCopy, 18))
++    work.pay(work.calc(64).plus(24, work.calc(32).times(branch.sets.length, 5 + 2 * work.calc(8).equality(d.d)), d.setCopy, 18), 'reserve.releaseSetNovelty')
+     branch.sets = depleteSetNoveltyForRelease(branch.sets, workflow.bindings.setId)
+   }
+   work.pay(work.calc(8).add(5, work.calc(32).times(released.length, work.calc(8).keyBill(released.length, d.dp))))
+@@ -1888,10 +2066,10 @@ function frame<P extends StartedPicture>(input: ReplayInput<P>, prepared: Prepar
+   // Root literal(13), filter invocation+array header(2), each callback visit,
+   // projection/predicate and worst-case retained capacity/reference write(5).
+   work.pay(work.calc(64).plus(5, LITERAL.commitments, 2, work.calc(32).times(branch.releaseAuthority.commitments.length,
+-    5 + work.calc(8).keyBill(released.length, d.dp))))
++    5 + work.calc(8).keyBill(released.length, d.dp))), 'reserve.releasePrune')
+   branch.releaseAuthority = pruneReleasedCommitments(branch.releaseAuthority, releasedSet)
+   if (released.length > 0) {
+-    work.pay(work.calc(8).add(2, work.calc(32).times(branch.productions.length, 4 + work.calc(8).keyBill(released.length, d.dp))))
++    work.pay(work.calc(8).add(2, work.calc(32).times(branch.productions.length, 4 + work.calc(8).keyBill(released.length, d.dp))), 'reserve.releaseFilter')
+     branch.productions = branch.productions.filter(row => !releasedSet.has(row.id))
+   }
+   for (const production of advanced.firstTakes) {
+@@ -1907,11 +2085,13 @@ function frame<P extends StartedPicture>(input: ReplayInput<P>, prepared: Prepar
+   }
+   work.pay(3)
+   branch.week = arrivedWeek; branch.step = 0
++  work.diagnostic.restore(diagnosticContext)
+ }
+ 
+ /** Prepaid finite identity-owner walk. This reads identity lengths/counts only;
+  * no event or historical outcome is used as scheduling evidence. */
+ function readyProductionId(source: GameState, work: Work): string {
++  const diagnosticContext = work.diagnostic.enter('admission.identity')
+   work.pay(16) // locals and the three billing closures
+   let visits = 0, additions = 0, width = 22
+   const id = (value: string | null | undefined): void => {
+@@ -1994,7 +2174,7 @@ function readyProductionId(source: GameState, work: Work): string {
+   }
+   work.pay(work.calc(64).plus(64, work.calc(8).times(visits, 40),
+     work.calc(16).times(additions, work.calc(8).add(9, width)),
+-    work.calc(16).times(pairs, work.calc(8).equality(width))))
++    work.calc(16).times(pairs, work.calc(8).equality(width))), 'reserve.persistedIdentityUnion')
+   const taken = persistedProductionIds(source)
+   // Separately paid proof, AFTER the actual full persisted union.100 covers
+   // String(safeInteger)<=22, padding, template output and scalar/call controls.
+@@ -2003,13 +2183,15 @@ function readyProductionId(source: GameState, work: Work): string {
+   const base = `prod-${String(source.market.tick).padStart(4, '0')}`
+   work.pay(work.calc(32).keyBill(taken.size, Math.max(width, base.length)))
+   if (!taken.has(base)) {
+-    work.pay(work.calc(32).add(100, work.calc(32).keyBill(taken.size, Math.max(width, base.length))))
++    work.pay(work.calc(32).add(100, work.calc(32).keyBill(taken.size, Math.max(width, base.length))), 'reserve.allocateIdentity')
++    work.diagnostic.restore(diagnosticContext)
+     return allocateProductionId(source.market.tick, taken)
+   }
+   // At most size+1 suffix candidates; number conversion <=22 characters for
+   // safe-integer cardinalities, with both template constructions and Set reads.
+   work.pay(work.calc(64).plus(100, work.calc(32).times(taken.size + 1,
+-    work.calc(8).add(100, work.calc(16).keyBill(taken.size, Math.max(width, 50))))))
++      work.calc(8).add(100, work.calc(16).keyBill(taken.size, Math.max(width, 50))))), 'reserve.allocateIdentity')
++  work.diagnostic.restore(diagnosticContext)
+   return allocateProductionId(source.market.tick, taken)
+ }
+ 
+@@ -2341,6 +2523,7 @@ function admissionCall<T>(work: Work, call: () => T): T {
+ type ReadyPicture = Production | PlannedReadyProduction
+ function admitReady(source: GameState, input: ReplayInput<ReadyPicture>, prepared: Prepared<ReadyPicture>,
+   plan: ReplayPlan, branch: Branch<ReadyPicture>, work: Work): Prepared<ReadyPicture> {
++  const diagnosticContext = work.diagnostic.enter('admission', plan.traceKey, branch.week, 'admission')
+   work.pay(12)
+   invariant('readyChoice' in plan, 'Ready entry lacks an admission choice')
+   const choice = plan.readyChoice
+@@ -2439,7 +2622,7 @@ function admitReady(source: GameState, input: ReplayInput<ReadyPicture>, prepare
+     }
+     work.pay(2)
+     let market: readonly string[] = []
+-    if (!allContracted) { work.calc(8).pay(freelancerBill(source, work)); market = freelancerMarketIds(source) }
++    if (!allContracted) { work.calc(8).pay(freelancerBill(source, work), 'reserve.freelancerMarket'); market = freelancerMarketIds(source) }
+     for (const id of market) { work.pay(3); work.text(id); contractWidth = Math.max(contractWidth, id.length) }
+     work.pay(work.calc(64).plus(3, work.calc(32).times(market.length, work.calc(8).keyBill(market.length, contractWidth))))
+     const freelancerIds = new Set(market)
+@@ -2473,7 +2656,7 @@ function admitReady(source: GameState, input: ReplayInput<ReadyPicture>, prepare
+   d.external = external.size
+   work.pay(5 + LITERAL.sink + 1)
+   const sink = new StudioEventSink(branch.week, true), before = branch.operations
+-  work.calc(16).pay(initialAdmissionBill(d, branch.operations, work))
++  work.calc(16).pay(initialAdmissionBill(d, branch.operations, work), 'reserve.initialAdmission')
+   work.pay(4)
+   const operations = admissionCall(work, () => addManagedProductionWorkflow(branch.operations,
+     planned, external, sink, source.nextSetId > 0))
+@@ -2485,7 +2668,7 @@ function admitReady(source: GameState, input: ReplayInput<ReadyPicture>, prepare
+     work.pay(5); work.text(row.id); linkWidth = Math.max(linkWidth, row.id.length, row.productionId?.length ?? 0)
+   }
+   work.pay(work.calc(64).plus(190, linkWidth * 2, work.copyCost(source.scriptDevelopment), work.copyCost(project), 40,
+-    work.calc(32).times(source.scriptDevelopment.projects.length, 16 + 4 * work.calc(8).equality(linkWidth)), 4))
++    work.calc(32).times(source.scriptDevelopment.projects.length, 16 + 4 * work.calc(8).equality(linkWidth)), 4), 'reserve.scriptLink')
+   const development = admissionCall(work, () => linkScriptProjectToProduction(source.scriptDevelopment, project.id, id))
+   const workflow = find(operations.workflows, id, row => row.productionId, work)
+   invariant(workflow !== undefined, 'admitted Ready clock has no workflow')
+@@ -2514,6 +2697,7 @@ function admitReady(source: GameState, input: ReplayInput<ReadyPicture>, prepare
+   }
+   drainEvents(input, branchPrepared, plan, branch, sink, before, work)
+   reconcile(input, branchPrepared, branch, work)
++  work.diagnostic.restore(diagnosticContext)
+   return branchPrepared
+ }
+ 
+@@ -2560,10 +2744,12 @@ function replayPlans<P extends StartedPicture, A>(
+   invariant(input.limits.work <= 200000 && input.limits.span <= 220 && input.limits.alternatives <= 1024,
+     'limits may only lower the published caps')
+   const work = new Work(input.limits.work, input.preparationWork)
++  work.diagnostic.enter('envelope', null, input.source.market.tick, 'prepare')
+   // The normal outer result and its three initial arrays are reserved before
+   // construction. Only the fixed administrative work-limit envelope is exempt.
+   try { work.pay(LITERAL.result + 3 + 5 + 12) } catch (error) {
+     if (!(error instanceof WorkLimit)) throw error
++    work.diagnostic.flush('envelopeCut', work.used)
+     return { fixedHolds: [], attempts: [], preparationWork: work.limit,
+       omissions: ['work limit before replay preparation completed'] }
+   }
+@@ -2571,11 +2757,16 @@ function replayPlans<P extends StartedPicture, A>(
+   let knownPlans: readonly ReplayPlan[] = []
+   let prepared: Prepared<P>
+   try {
++    work.diagnostic.enter('prepare')
+     if (input.preparationWork > input.limits.work) throw new WorkLimit()
+     prepared = prepare(input, work, plans => { knownPlans = plans }, readySource !== undefined)
++    work.diagnostic.registerCell(prepared.dimensionFacts)
+   } catch (error) {
+-    if (error instanceof WorkLimit) return { fixedHolds: [], attempts: [], preparationWork: work.limit,
+-      omissions: ['work limit before replay preparation completed'] }
++    if (error instanceof WorkLimit) {
++      work.diagnostic.flush('preparationCut', work.used)
++      return { fixedHolds: [], attempts: [], preparationWork: work.limit,
++        omissions: ['work limit before replay preparation completed'] }
++    }
+     if (error instanceof ContextCut) {
+       try {
+         for (const plan of knownPlans) {
+@@ -2587,14 +2778,18 @@ function replayPlans<P extends StartedPicture, A>(
+         work.pay(1 + 5 + 2) // empty fixedHolds + two-element omissions literal + return control
+       } catch (limit) {
+         if (!(limit instanceof WorkLimit)) throw limit
++        work.diagnostic.flush('contextEnvelopeCut', work.used)
+         return { fixedHolds: [], attempts, preparationWork: work.limit,
+           omissions: [error.reason, 'work limit constructing context cuts'] }
+       }
++      work.diagnostic.flush('contextCut', work.used)
+       return { fixedHolds: [], attempts, preparationWork: work.used, omissions: [error.reason, error.message] }
+     }
++    work.diagnostic.flush('unexpectedPreparationError', work.used)
+     throw error
+   }
+   for (const plan of prepared.plans) {
++    work.diagnostic.enter('branch', plan.traceKey, prepared.now.week, 'branch')
+     let branch: Branch<P> | undefined
+     try {
+       work.pay(12) // scalar construction-bill reads; sums/products pay themselves
+@@ -2613,6 +2808,7 @@ function replayPlans<P extends StartedPicture, A>(
+         ? admit(readySource, input, prepared, plan, branch, work) : prepared
+       let commandIndex = 0
+       while (branch.week < branchPrepared.end.week) {
++        work.diagnostic.enter('branch', plan.traceKey, branch.week, 'branch')
+         work.pay(4)
+         while (commandIndex < plan.commands.length && plan.commands[commandIndex]!.week === branch.week) {
+           work.pay(3)
+@@ -2630,12 +2826,20 @@ function replayPlans<P extends StartedPicture, A>(
+         }
+         frame(input, branchPrepared, plan, branch, work)
+       }
++      const diagnosticOutput = work.diagnostic.enter('output.trace', plan.traceKey, branch.week, 'output')
+       const trace = completeTrace(input, branchPrepared, plan, branch, work)
++      work.diagnostic.enter('output.completedBackgrounds')
+       const completedBackgroundPathKeys = sortedOutput(branch.completed, id => id, work)
++      work.diagnostic.enter('output.projection')
+       const complete = finish(input, branch, trace, completedBackgroundPathKeys, work)
+       work.pay(APPEND); attempts.push(complete)
++      work.diagnostic.outcomes.push([plan.traceKey, 'complete', branch.week, work.used])
++      work.diagnostic.restore(diagnosticOutput)
+     } catch (error) {
+-      if (!(error instanceof WorkLimit || error instanceof CommandRefused || error instanceof ContextCut)) throw error
++      if (!(error instanceof WorkLimit || error instanceof CommandRefused || error instanceof ContextCut)) {
++        work.diagnostic.flush('unexpectedBranchError', work.used)
++        throw error
++      }
+       let reason = error instanceof WorkLimit ? 'workLimit' as const : error instanceof CommandRefused ? 'commandRefused' as const : error.reason
+       let detail = error instanceof WorkLimit ? 'shared replay work limit' : error.message
+       if (!(error instanceof WorkLimit)) {
+@@ -2650,9 +2854,11 @@ function replayPlans<P extends StartedPicture, A>(
+         through: { week: branch?.week ?? prepared.now.week, step: branch?.step ?? 0 }, reason, detail,
+         provenance: branch?.provenance ?? [] })
+       omissions.push(reason === 'workLimit' ? 'work limit; remaining plan suffixes unexecuted' : detail)
++      work.diagnostic.outcomes.push([plan.traceKey, 'cut', reason, branch?.week ?? prepared.now.week, work.used])
+       if (reason === 'workLimit') break
+     }
+   }
++  work.diagnostic.flush('result', work.used)
+   return { fixedHolds: prepared.fixed, attempts, preparationWork: work.used, omissions }
+ }
+ 

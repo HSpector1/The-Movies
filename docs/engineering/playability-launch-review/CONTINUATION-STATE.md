@@ -2,34 +2,29 @@
 
 ## Current continuation — 2026-09-20: B-F2 closed; P2 pure owners verified, integration continues
 
-Current B4 qualified477 checkpoint (2026-09-20):468–475CLOSED; ALL476probesREMOVED.
-466replay956a0245872f02e625c93a41cc2cc2033c4279129b85e100f315045d4d4f8ca4;
-handbacke92480b6a27bc944fb17e979e0dcc273e0d6f56ba3ab9303edadb57236af2f6c.
-Base/exactremote0bbf2843e8fc4e658a22e1d140fe8bb1c609983f; new477publicationpending478.
-Protectedpatch58e4ab42fa80609dde64c2d9cd1bd86d992f4c0bafb7295d0b97af73ff993f25.
-465threeadditivecontrols46lines; unchanged452baseline15PASS beforewriter.
-467actualsourceKEEP: paidoutputmonotonicity/freshcopies/fullsortfallback at4sites.
-Owner/inputsort/prices/caps/validatorsunchanged; unsortedoutputs maycostmore.
-468rootUI,469lookup5,470ordinary66,472started27,473adjacent137,475facts2PASS.
-471Ready15PASS/twooriginaltestsFAIL;474soleOLDfutureP2kindTS2353test364.
-AllfixedSource:true/exactbase+patch/nonoverlap/fullrawverified;252focusedPASS.
-FirsttakeproducerNOWCOMPLETE; allpre-kernelactualprojection/chronology/10holds/
-firsttake/wrap/purity assertionsPASS. CombinedkernelFAIL325workLimit persists.
-476producer196468; kernelstarts196468 andcuts199967/request45 ininitialscan.
-StaleFAIL234unchanged:week7Post3entry192778/dims4376/bill576;
-cut199998/request673 BEFOREPost3owner. Postexit/commit/release/stalerefusalUNREACHED.
-NinepassiveprobesREMOVED; EXACT466+originalkernel+3tests+protectedpatchrestored.
-17pinsplusReadybackground/firsttake/staleverified; NOwriter/runtime/probes now.
-Publish477explicitwhitelist/exactstagedpatch, pushandindependentremote478.
-Then479passive cost-category+tenrolehintmeasurement; no cacheimplementationadopted.
-Measureexactrefhits/paid6-unitvisits/fullmisses/modes/atomicshadowpublication;
-candidateoverhead31+4R+8O+40C+6D+12M−6Vhit onlydirectional, partialcutsseparate.
-Use lightweightchargecounters, notper-paymentstackcapture; reconcileinitial/
-successfulcharges/saturationgap. Archive/remove/EXACTrestore beforedecision.
-Continueengineeringbeyondcheckpoint; max2specialists/onewriter/heavychecksserial.
-T4/B2/B3/B-F2qualifiedclosed; no fullReady/B4/liveP2/Unityacceptance.
-Save29/rules3/projection46 liveuntilcoherentcutover; Unitybacklogmaintained,
-handwrittenUnity/native/render/Owneracceptance deferred.
+Current B4 measurement conclusion484 (2026-09-20):480 probes REMOVED;
+entire protected tree EXACT published32d04de361ae41534bf7e69345a8e061f8cbad4c.
+466replay956a0245872f02e625c93a41cc2cc2033c4279129b85e100f315045d4d4f8ca4.
+No active runtime/production writer. Two bounded READ-ONLY native specialists.
+482/483 CLOSED/fixedSource:true; exact neutral outcomes, complete raw/JSON read,
+nonoverlap/hash/reconciliation verified. Successful196468/199998, gap0/2;
+zero observer consistency failures. Original firsttake325 kernel workLimit;
+stale234 workLimit, week7 request673 at199998 BEFORE Post3 owner.
+Ten-role hint candidate REJECTED: prospective model ADDS3211/3479 units.
+All diagnostic source reverted; preserved patches/raw/handback/481 review remain.
+484 next: attribute admission direct20283/400calls and inspect calculator
+structure (50290/52456 units), not arbitrary prices or speculative cache churn.
+Sim-core admission analysis + contract-auditor calculator review; no implementation
+adopted. Use measured source-counted hypothesis before sole writer release.
+477/478 publication exact32d04de verified11:39:17Z;252 focused passes,
+Ready15PASS/two original failures, bridge sole OLD futureP2kind TS2353test364.
+Firsttake producer COMPLETE/all preceding actual chronology/projection/10holds/
+firsttake/wrap/purity PASS; combined kernel and stale after-release NOT accepted.
+Owner/input sort/prices/caps/validators unchanged. Tests465 additive controls kept.
+T4/B2/B3/B-F2 qualified closed; B4/liveP2/Unity/Owner acceptance NOT closed.
+Save29/rules3/projection46 live until coherent cutover; Unity backlog maintained.
+Continue beyond checkpoint; max2 specialists/one production writer/serial heavy
+checks. No routine permission pauses, resets, installs, Claude or full-gate redo.
 
 Earlier additive foundation checkpoint: V30 data support implemented and independently
 KEEP; qualified report evidence/p14b4-20260919/29-additive-checkpoint.md.
