@@ -1,0 +1,13 @@
+HEAD df944978825120faea7ec9532ebe900d1747ccb8 node v20.20.2 start 2026-09-21T19:52:00Z
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p14b4-cancel-causal-proof.test.ts (22 tests) 3170ms
+   ✓ 629-T case 1: a joint reservation conflict is not causal proof (plan :249-256; 26 §2 "a joint reservation conflict ... is not target-specific physical impossibility") > one person, two bound OPEN count-1 promises, seated LEAD on one greenlit picture, one event still reachable after the cancel: NEITHER is BROKEN at the cancel; the due-week owner decides 1150ms
+
+ Test Files  1 passed (1)
+      Tests  22 passed (22)
+   Start at  21:52:00
+   Duration  5.83s (transform 1.45s, setup 0ms, collect 1.94s, tests 3.17s, environment 0ms, prepare 101ms)
+
+exit 0
