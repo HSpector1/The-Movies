@@ -1,0 +1,1783 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+stdout | tests/bridge-p14b5-mint-v30.test.ts > DRY (no token, no write): build every genuine outgoing-V30 world and readback in memory; print the premises
+[
+  {
+    "name": "empty",
+    "role": "empty V30 roots from generated campaign",
+    "seed": "p13a-core-causal-01",
+    "week": 0,
+    "saveVersion": 30,
+    "uncompressedSha256": "34f772fb643c0df0c63882511a396bcc296b7e327096c5970bc6f4a107be0525",
+    "compressedSha256": "7c237fef11cbc7c1f8e41b3ca8a4d3fad076f3e5df53ad72af2be1d37f2c2d9a",
+    "byteLength": 383776,
+    "compressedByteLength": 47265,
+    "rootCounts": {
+      "promises": 0,
+      "firstTakes": 0,
+      "marketReceipts": 0,
+      "currentProposals": 0
+    },
+    "focus": [],
+    "additionalFacts": null
+  },
+  {
+    "name": "current-p1",
+    "role": "two actual CURRENT unbound P1 attachments (kept and broken persons), unaccepted",
+    "seed": "p13a-core-causal-01",
+    "week": 45,
+    "saveVersion": 30,
+    "uncompressedSha256": "b7a32680df6f002c10829e7edd644a394b9b0cdac1427a7af0aef5395501aebe",
+    "compressedSha256": "a13704632d58909b9edc330f2f6d946f3e3fe7bfc1d9d2adb3ab2a430fd540fd",
+    "byteLength": 675654,
+    "compressedByteLength": 82610,
+    "rootCounts": {
+      "promises": 2,
+      "firstTakes": 20,
+      "marketReceipts": 4,
+      "currentProposals": 2
+    },
+    "focus": [
+      {
+        "promiseId": "promise-0",
+        "family": "APPEARANCE_COUNT",
+        "predicate": {
+          "count": 1
+        },
+        "version": 4,
+        "issuerStudioId": "studio-aca408ec-player",
+        "beneficiaryPersonId": "t-act-09",
+        "windowStartWeek": 52,
+        "dueWeekExclusive": 92,
+        "contractId": null,
+        "outcome": null,
+        "outcomeWeek": null,
+        "outcomeEventId": null,
+        "evidenceRefs": [],
+        "originalFeasibilityReceipt": {
+          "classification": "REASONABLY_ACHIEVABLE",
+          "bottleneck": null,
+          "inputsDigest": "049e3acd7af916bc",
+          "rulesVersion": 4,
+          "week": 45
+        }
+      },
+      {
+        "promiseId": "promise-1",
+        "family": "APPEARANCE_COUNT",
+        "predicate": {
+          "count": 1
+        },
+        "version": 4,
+        "issuerStudioId": "studio-aca408ec-player",
+        "beneficiaryPersonId": "t-act-08",
+        "windowStartWeek": 52,
+        "dueWeekExclusive": 92,
+        "contractId": null,
+        "outcome": null,
+        "outcomeWeek": null,
+        "outcomeEventId": null,
+        "evidenceRefs": [],
+        "originalFeasibilityReceipt": {
+          "classification": "REASONABLY_ACHIEVABLE",
+          "bottleneck": null,
+          "inputsDigest": "57616983e3c3dadb",
+          "rulesVersion": 4,
+          "week": 45
+        }
+      }
+    ],
+    "additionalFacts": null
+  },
+  {
+    "name": "bound-open-p1",
+    "role": "two real winning contracts, bound OPEN P1 promises",
+    "seed": "p13a-core-causal-01",
+    "week": 52,
+    "saveVersion": 30,
+    "uncompressedSha256": "afca923d2979caad72ffe660d069849e9e08f4eddf8642162c09ed8bd0f48c33",
+    "compressedSha256": "48962fd2c47d0b6557a8c68d281d11ed3b7528ddc1ad075372981dab40516bae",
+    "byteLength": 729829,
+    "compressedByteLength": 88103,
+    "rootCounts": {
+      "promises": 2,
+      "firstTakes": 20,
+      "marketReceipts": 6,
+      "currentProposals": 0
+    },
+    "focus": [
+      {
+        "promiseId": "promise-0",
+        "family": "APPEARANCE_COUNT",
+        "predicate": {
+          "count": 1
+        },
+        "version": 4,
+        "issuerStudioId": "studio-aca408ec-player",
+        "beneficiaryPersonId": "t-act-09",
+        "windowStartWeek": 52,
+        "dueWeekExclusive": 92,
+        "contractId": "studio-aca408ec-player:contract:t-act-09:52:player-31",
+        "outcome": null,
+        "outcomeWeek": null,
+        "outcomeEventId": null,
+        "evidenceRefs": [],
+        "originalFeasibilityReceipt": {
+          "classification": "REASONABLY_ACHIEVABLE",
+          "bottleneck": null,
+          "inputsDigest": "dffb435ac41a7bf8",
+          "rulesVersion": 4,
+          "week": 52
+        }
+      },
+      {
+        "promiseId": "promise-1",
+        "family": "APPEARANCE_COUNT",
+        "predicate": {
+          "count": 1
+        },
+        "version": 4,
+        "issuerStudioId": "studio-aca408ec-player",
+        "beneficiaryPersonId": "t-act-08",
+        "windowStartWeek": 52,
+        "dueWeekExclusive": 92,
+        "contractId": "studio-aca408ec-player:contract:t-act-08:52:player-32",
+        "outcome": null,
+        "outcomeWeek": null,
+        "outcomeEventId": null,
+        "evidenceRefs": [],
+        "originalFeasibilityReceipt": {
+          "classification": "REASONABLY_ACHIEVABLE",
+          "bottleneck": null,
+          "inputsDigest": "57ac45bb5049984b",
+          "rulesVersion": 4,
+          "week": 52
+        }
+      }
+    ],
+    "additionalFacts": null
+  },
+  {
+    "name": "bound-open-p2-lead",
+    "role": "real tagged castRoleCount lead P2, bound OPEN through the real freeze",
+    "seed": "p13a-core-causal-01",
+    "week": 52,
+    "saveVersion": 30,
+    "uncompressedSha256": "68651875e6382887050e7057c4d30f2b6251a9070cb71dcef41c9213c63ec702",
+    "compressedSha256": "4966e51b75bf2ae7fcabf67bc27fd50781a42ce3833d0eb83847ed5573b59f7b",
+    "byteLength": 726927,
+    "compressedByteLength": 87978,
+    "rootCounts": {
+      "promises": 1,
+      "firstTakes": 20,
+      "marketReceipts": 3,
+      "currentProposals": 0
+    },
+    "focus": [
+      {
+        "promiseId": "promise-0",
+        "family": "LEAD_OR_SIGNIFICANT_ROLE_COUNT",
+        "predicate": {
+          "kind": "castRoleCount",
+          "count": 1,
+          "seatClass": "lead"
+        },
+        "version": 4,
+        "issuerStudioId": "studio-aca408ec-player",
+        "beneficiaryPersonId": "t-act-09",
+        "windowStartWeek": 52,
+        "dueWeekExclusive": 92,
+        "contractId": "studio-aca408ec-player:contract:t-act-09:52:player-30",
+        "outcome": null,
+        "outcomeWeek": null,
+        "outcomeEventId": null,
+        "evidenceRefs": [],
+        "originalFeasibilityReceipt": {
+          "classification": "REASONABLY_ACHIEVABLE",
+          "bottleneck": null,
+          "inputsDigest": "e2798f42028858e5",
+          "rulesVersion": 4,
+          "week": 52
+        }
+      }
+    ],
+    "additionalFacts": {
+      "talentId": "t-act-09",
+      "submittedWeek": 45,
+      "boundWeek": 52
+    }
+  },
+  {
+    "name": "bound-open-p2-lead-or-antagonist",
+    "role": "real tagged castRoleCount leadOrAntagonist P2, bound OPEN through the real freeze",
+    "seed": "p13a-core-causal-01",
+    "week": 52,
+    "saveVersion": 30,
+    "uncompressedSha256": "ab53968320371d261d0ec4c7083691512283e2af7365905914ebdc3a11408077",
+    "compressedSha256": "14508b4bdf5cb1242fb5f7891c92da13ed9c0719f4a1282d59850c4d17832ebe",
+    "byteLength": 726939,
+    "compressedByteLength": 87990,
+    "rootCounts": {
+      "promises": 1,
+      "firstTakes": 20,
+      "marketReceipts": 3,
+      "currentProposals": 0
+    },
+    "focus": [
+      {
+        "promiseId": "promise-0",
+        "family": "LEAD_OR_SIGNIFICANT_ROLE_COUNT",
+        "predicate": {
+          "kind": "castRoleCount",
+          "count": 1,
+          "seatClass": "leadOrAntagonist"
+        },
+        "version": 4,
+        "issuerStudioId": "studio-aca408ec-player",
+        "beneficiaryPersonId": "t-act-09",
+        "windowStartWeek": 52,
+        "dueWeekExclusive": 92,
+        "contractId": "studio-aca408ec-player:contract:t-act-09:52:player-30",
+        "outcome": null,
+        "outcomeWeek": null,
+        "outcomeEventId": null,
+        "evidenceRefs": [],
+        "originalFeasibilityReceipt": {
+          "classification": "REASONABLY_ACHIEVABLE",
+          "bottleneck": null,
+          "inputsDigest": "13e4c384d4be660e",
+          "rulesVersion": 4,
+          "week": 52
+        }
+      }
+    ],
+    "additionalFacts": {
+      "talentId": "t-act-09",
+      "submittedWeek": 45,
+      "boundWeek": 52
+    }
+  },
+  {
+    "name": "kept-and-broken",
+    "role": "real first take SATISFIED plus same-week early-termination BROKEN (releaseTalent → breakPromisesOnTermination); distinct own outcome receipts",
+    "seed": "p13a-core-causal-01",
+    "week": 61,
+    "saveVersion": 30,
+    "uncompressedSha256": "6336f7560f1cb7896cb62162908f80d412bf87370b0df002b2f80cf9ceea2e36",
+    "compressedSha256": "5c55f3ac3f510643ce72405d65f0391fcf096a7ee64ad014d2ebd10851c716f5",
+    "byteLength": 796283,
+    "compressedByteLength": 95800,
+    "rootCounts": {
+      "promises": 2,
+      "firstTakes": 25,
+      "marketReceipts": 8,
+      "currentProposals": 0
+    },
+    "focus": [
+      {
+        "promiseId": "promise-0",
+        "family": "APPEARANCE_COUNT",
+        "predicate": {
+          "count": 1
+        },
+        "version": 4,
+        "issuerStudioId": "studio-aca408ec-player",
+        "beneficiaryPersonId": "t-act-09",
+        "windowStartWeek": 52,
+        "dueWeekExclusive": 92,
+        "contractId": "studio-aca408ec-player:contract:t-act-09:52:player-31",
+        "outcome": "SATISFIED",
+        "outcomeWeek": 61,
+        "outcomeEventId": "talent-market-event-6",
+        "evidenceRefs": [
+          "first-take-event-24"
+        ],
+        "originalFeasibilityReceipt": {
+          "classification": "REASONABLY_ACHIEVABLE",
+          "bottleneck": null,
+          "inputsDigest": "dffb435ac41a7bf8",
+          "rulesVersion": 4,
+          "week": 52
+        }
+      },
+      {
+        "promiseId": "promise-1",
+        "family": "APPEARANCE_COUNT",
+        "predicate": {
+          "count": 1
+        },
+        "version": 4,
+        "issuerStudioId": "studio-aca408ec-player",
+        "beneficiaryPersonId": "t-act-08",
+        "windowStartWeek": 52,
+        "dueWeekExclusive": 92,
+        "contractId": "studio-aca408ec-player:contract:t-act-08:52:player-32",
+        "outcome": "BROKEN",
+        "outcomeWeek": 61,
+        "outcomeEventId": "talent-market-event-7",
+        "evidenceRefs": [],
+        "originalFeasibilityReceipt": {
+          "classification": "REASONABLY_ACHIEVABLE",
+          "bottleneck": null,
+          "inputsDigest": "57ac45bb5049984b",
+          "rulesVersion": 4,
+          "week": 52
+        }
+      }
+    ],
+    "additionalFacts": {
+      "brokenSeam": "actions.ts breakPromisesOnTermination via real releaseTalent; not due-week, not cancel",
+      "keptTakeEventId": "first-take-event-24",
+      "keptProductionId": "prod-0052"
+    }
+  },
+  {
+    "name": "rival-current-p1-and-p2",
+    "role": "genuine rival-authored current unbound attachments before expiry (families: APPEARANCE_COUNT, LEAD_OR_SIGNIFICANT_ROLE_COUNT)",
+    "seed": "p13a-core-causal-01",
+    "week": 196,
+    "saveVersion": 30,
+    "uncompressedSha256": "c155f636a8758f33e6ee002f124e5da2f51ffb5f37404cbbcf9d7cea736a52a1",
+    "compressedSha256": "e2e8ac939875a1b23bd898c10773f707f8c64d77d476802499a591961d2316c1",
+    "byteLength": 1133174,
+    "compressedByteLength": 122805,
+    "rootCounts": {
+      "promises": 48,
+      "firstTakes": 45,
+      "marketReceipts": 96,
+      "currentProposals": 72
+    },
+    "focus": [
+      {
+        "promiseId": "promise-0",
+        "family": "APPEARANCE_COUNT",
+        "predicate": {
+          "count": 1
+        },
+        "version": 4,
+        "issuerStudioId": "studio-aca408ec-r01",
+        "beneficiaryPersonId": "person-studio-aca408ec-r01-0",
+        "windowStartWeek": 208,
+        "dueWeekExclusive": 416,
+        "contractId": null,
+        "outcome": null,
+        "outcomeWeek": null,
+        "outcomeEventId": null,
+        "evidenceRefs": [],
+        "originalFeasibilityReceipt": {
+          "classification": "REASONABLY_ACHIEVABLE",
+          "bottleneck": null,
+          "inputsDigest": "23624a76aecda19c",
+          "rulesVersion": 4,
+          "week": 196
+        }
+      },
+      {
+        "promiseId": "promise-1",
+        "family": "APPEARANCE_COUNT",
+        "predicate": {
+          "count": 1
+        },
+        "version": 4,
+        "issuerStudioId": "studio-aca408ec-r02",
+        "beneficiaryPersonId": "person-studio-aca408ec-r01-0",
+        "windowStartWeek": 208,
+        "dueWeekExclusive": 416,
+        "contractId": null,
+        "outcome": null,
+        "outcomeWeek": null,
+        "outcomeEventId": null,
+        "evidenceRefs": [],
+        "originalFeasibilityReceipt": {
+          "classification": "REASONABLY_ACHIEVABLE",
+          "bottleneck": null,
+          "inputsDigest": "25fb1485d1df2458",
+          "rulesVersion": 4,
+          "week": 196
+        }
+      },
+      {
+        "promiseId": "promise-2",
+        "family": "APPEARANCE_COUNT",
+        "predicate": {
+          "count": 1
+        },
+        "version": 4,
+        "issuerStudioId": "studio-aca408ec-r01",
+        "beneficiaryPersonId": "person-studio-aca408ec-r01-1",
+        "windowStartWeek": 208,
+        "dueWeekExclusive": 416,
+        "contractId": null,
+        "outcome": null,
+        "outcomeWeek": null,
+        "outcomeEventId": null,
+        "evidenceRefs": [],
+        "originalFeasibilityReceipt": {
+          "classification": "REASONABLY_ACHIEVABLE",
+          "bottleneck": null,
+          "inputsDigest": "ffd89224a43cecb5",
+          "rulesVersion": 4,
+          "week": 196
+        }
+      },
+      {
+        "promiseId": "promise-3",
+        "family": "APPEARANCE_COUNT",
+        "predicate": {
+          "count": 1
+        },
+        "version": 4,
+        "issuerStudioId": "studio-aca408ec-r02",
+        "beneficiaryPersonId": "person-studio-aca408ec-r01-1",
+        "windowStartWeek": 208,
+        "dueWeekExclusive": 416,
+        "contractId": null,
+        "outcome": null,
+        "outcomeWeek": null,
+        "outcomeEventId": null,
+        "evidenceRefs": [],
+        "originalFeasibilityReceipt": {
+          "classification": "REASONABLY_ACHIEVABLE",
+          "bottleneck": null,
+          "inputsDigest": "c700ed8712effe05",
+          "rulesVersion": 4,
+          "week": 196
+        }
+      },
+      {
+        "promiseId": "promise-4",
+        "family": "APPEARANCE_COUNT",
+        "predicate": {
+          "count": 1
+        },
+        "version": 4,
+        "issuerStudioId": "studio-aca408ec-r01",
+        "beneficiaryPersonId": "person-studio-aca408ec-r01-2",
+        "windowStartWeek": 208,
+        "dueWeekExclusive": 416,
+        "contractId": null,
+        "outcome": null,
+        "outcomeWeek": null,
+        "outcomeEventId": null,
+        "evidenceRefs": [],
+        "originalFeasibilityReceipt": {
+          "classification": "REASONABLY_ACHIEVABLE",
+          "bottleneck": null,
+          "inputsDigest": "ca770376d8ac2e96",
+          "rulesVersion": 4,
+          "week": 196
+        }
+      },
+      {
+        "promiseId": "promise-5",
+        "family": "APPEARANCE_COUNT",
+        "predicate": {
+          "count": 1
+        },
+        "version": 4,
+        "issuerStudioId": "studio-aca408ec-r02",
+        "beneficiaryPersonId": "person-studio-aca408ec-r01-2",
+        "windowStartWeek": 208,
+        "dueWeekExclusive": 416,
+        "contractId": null,
+        "outcome": null,
+        "outcomeWeek": null,
+        "outcomeEventId": null,
+        "evidenceRefs": [],
+        "originalFeasibilityReceipt": {
+          "classification": "REASONABLY_ACHIEVABLE",
+          "bottleneck": null,
+          "inputsDigest": "8819a2b9aeee5d96",
+          "rulesVersion": 4,
+          "week": 196
+        }
+      },
+      {
+        "promiseId": "promise-6",
+        "family": "APPEARANCE_COUNT",
+        "predicate": {
+          "count": 1
+        },
+        "version": 4,
+        "issuerStudioId": "studio-aca408ec-r01",
+        "beneficiaryPersonId": "person-studio-aca408ec-r01-3",
+        "windowStartWeek": 208,
+        "dueWeekExclusive": 416,
+        "contractId": null,
+        "outcome": null,
+        "outcomeWeek": null,
+        "outcomeEventId": null,
+        "evidenceRefs": [],
+        "originalFeasibilityReceipt": {
+          "classification": "REASONABLY_ACHIEVABLE",
+          "bottleneck": null,
+          "inputsDigest": "0c2e5a4988d0408f",
+          "rulesVersion": 4,
+          "week": 196
+        }
+      },
+      {
+        "promiseId": "promise-7",
+        "family": "APPEARANCE_COUNT",
+        "predicate": {
+          "count": 1
+        },
+        "version": 4,
+        "issuerStudioId": "studio-aca408ec-r02",
+        "beneficiaryPersonId": "person-studio-aca408ec-r01-3",
+        "windowStartWeek": 208,
+        "dueWeekExclusive": 416,
+        "contractId": null,
+        "outcome": null,
+        "outcomeWeek": null,
+        "outcomeEventId": null,
+        "evidenceRefs": [],
+        "originalFeasibilityReceipt": {
+          "classification": "REASONABLY_ACHIEVABLE",
+          "bottleneck": null,
+          "inputsDigest": "579b2c89018e1e87",
+          "rulesVersion": 4,
+          "week": 196
+        }
+      },
+      {
+        "promiseId": "promise-8",
+        "family": "APPEARANCE_COUNT",
+        "predicate": {
+          "count": 1
+        },
+        "version": 4,
+        "issuerStudioId": "studio-aca408ec-r01",
+        "beneficiaryPersonId": "person-studio-aca408ec-r01-4",
+        "windowStartWeek": 208,
+        "dueWeekExclusive": 416,
+        "contractId": null,
+        "outcome": null,
+        "outcomeWeek": null,
+        "outcomeEventId": null,
+        "evidenceRefs": [],
+        "originalFeasibilityReceipt": {
+          "classification": "REASONABLY_ACHIEVABLE",
+          "bottleneck": null,
+          "inputsDigest": "ee930d86ff50c378",
+          "rulesVersion": 4,
+          "week": 196
+        }
+      },
+      {
+        "promiseId": "promise-9",
+        "family": "APPEARANCE_COUNT",
+        "predicate": {
+          "count": 1
+        },
+        "version": 4,
+        "issuerStudioId": "studio-aca408ec-r02",
+        "beneficiaryPersonId": "person-studio-aca408ec-r01-4",
+        "windowStartWeek": 208,
+        "dueWeekExclusive": 416,
+        "contractId": null,
+        "outcome": null,
+        "outcomeWeek": null,
+        "outcomeEventId": null,
+        "evidenceRefs": [],
+        "originalFeasibilityReceipt": {
+          "classification": "REASONABLY_ACHIEVABLE",
+          "bottleneck": null,
+          "inputsDigest": "fc27581cb9ae5b0c",
+          "rulesVersion": 4,
+          "week": 196
+        }
+      },
+      {
+        "promiseId": "promise-10",
+        "family": "LEAD_OR_SIGNIFICANT_ROLE_COUNT",
+        "predicate": {
+          "kind": "castRoleCount",
+          "count": 1,
+          "seatClass": "leadOrAntagonist"
+        },
+        "version": 4,
+        "issuerStudioId": "studio-aca408ec-r01",
+        "beneficiaryPersonId": "person-studio-aca408ec-r01-5",
+        "windowStartWeek": 208,
+        "dueWeekExclusive": 416,
+        "contractId": null,
+        "outcome": null,
+        "outcomeWeek": null,
+        "outcomeEventId": null,
+        "evidenceRefs": [],
+        "originalFeasibilityReceipt": {
+          "classification": "REASONABLY_ACHIEVABLE",
+          "bottleneck": null,
+          "inputsDigest": "01e958eb08610f05",
+          "rulesVersion": 4,
+          "week": 196
+        }
+      },
+      {
+        "promiseId": "promise-11",
+        "family": "LEAD_OR_SIGNIFICANT_ROLE_COUNT",
+        "predicate": {
+          "kind": "castRoleCount",
+          "count": 1,
+          "seatClass": "leadOrAntagonist"
+        },
+        "version": 4,
+        "issuerStudioId": "studio-aca408ec-r02",
+        "beneficiaryPersonId": "person-studio-aca408ec-r01-5",
+        "windowStartWeek": 208,
+        "dueWeekExclusive": 416,
+        "contractId": null,
+        "outcome": null,
+        "outcomeWeek": null,
+        "outcomeEventId": null,
+        "evidenceRefs": [],
+        "originalFeasibilityReceipt": {
+          "classification": "REASONABLY_ACHIEVABLE",
+          "bottleneck": null,
+          "inputsDigest": "18d74029f68e31e9",
+          "rulesVersion": 4,
+          "week": 196
+        }
+      },
+      {
+        "promiseId": "promise-12",
+        "family": "APPEARANCE_COUNT",
+        "predicate": {
+          "count": 1
+        },
+        "version": 4,
+        "issuerStudioId": "studio-aca408ec-r01",
+        "beneficiaryPersonId": "person-studio-aca408ec-r02-0",
+        "windowStartWeek": 208,
+        "dueWeekExclusive": 416,
+        "contractId": null,
+        "outcome": null,
+        "outcomeWeek": null,
+        "outcomeEventId": null,
+        "evidenceRefs": [],
+        "originalFeasibilityReceipt": {
+          "classification": "REASONABLY_ACHIEVABLE",
+          "bottleneck": null,
+          "inputsDigest": "8c2da4a99e35e7d7",
+          "rulesVersion": 4,
+          "week": 196
+        }
+      },
+      {
+        "promiseId": "promise-13",
+        "family": "APPEARANCE_COUNT",
+        "predicate": {
+          "count": 1
+        },
+        "version": 4,
+        "issuerStudioId": "studio-aca408ec-r02",
+        "beneficiaryPersonId": "person-studio-aca408ec-r02-0",
+        "windowStartWeek": 208,
+        "dueWeekExclusive": 416,
+        "contractId": null,
+        "outcome": null,
+        "outcomeWeek": null,
+        "outcomeEventId": null,
+        "evidenceRefs": [],
+        "originalFeasibilityReceipt": {
+          "classification": "REASONABLY_ACHIEVABLE",
+          "bottleneck": null,
+          "inputsDigest": "7d32f586259f77dc",
+          "rulesVersion": 4,
+          "week": 196
+        }
+      },
+      {
+        "promiseId": "promise-14",
+        "family": "APPEARANCE_COUNT",
+        "predicate": {
+          "count": 1
+        },
+        "version": 4,
+        "issuerStudioId": "studio-aca408ec-r01",
+        "beneficiaryPersonId": "person-studio-aca408ec-r02-1",
+        "windowStartWeek": 208,
+        "dueWeekExclusive": 416,
+        "contractId": null,
+        "outcome": null,
+        "outcomeWeek": null,
+        "outcomeEventId": null,
+        "evidenceRefs": [],
+        "originalFeasibilityReceipt": {
+          "classification": "REASONABLY_ACHIEVABLE",
+          "bottleneck": null,
+          "inputsDigest": "a1d02bbad55e489e",
+          "rulesVersion": 4,
+          "week": 196
+        }
+      },
+      {
+        "promiseId": "promise-15",
+        "family": "APPEARANCE_COUNT",
+        "predicate": {
+          "count": 1
+        },
+        "version": 4,
+        "issuerStudioId": "studio-aca408ec-r02",
+        "beneficiaryPersonId": "person-studio-aca408ec-r02-1",
+        "windowStartWeek": 208,
+        "dueWeekExclusive": 416,
+        "contractId": null,
+        "outcome": null,
+        "outcomeWeek": null,
+        "outcomeEventId": null,
+        "evidenceRefs": [],
+        "originalFeasibilityReceipt": {
+          "classification": "REASONABLY_ACHIEVABLE",
+          "bottleneck": null,
+          "inputsDigest": "3cda810a4c1c0e53",
+          "rulesVersion": 4,
+          "week": 196
+        }
+      },
+      {
+        "promiseId": "promise-16",
+        "family": "APPEARANCE_COUNT",
+        "predicate": {
+          "count": 1
+        },
+        "version": 4,
+        "issuerStudioId": "studio-aca408ec-r01",
+        "beneficiaryPersonId": "person-studio-aca408ec-r02-2",
+        "windowStartWeek": 208,
+        "dueWeekExclusive": 416,
+        "contractId": null,
+        "outcome": null,
+        "outcomeWeek": null,
+        "outcomeEventId": null,
+        "evidenceRefs": [],
+        "originalFeasibilityReceipt": {
+          "classification": "REASONABLY_ACHIEVABLE",
+          "bottleneck": null,
+          "inputsDigest": "d695614634e87edd",
+          "rulesVersion": 4,
+          "week": 196
+        }
+      },
+      {
+        "promiseId": "promise-17",
+        "family": "APPEARANCE_COUNT",
+        "predicate": {
+          "count": 1
+        },
+        "version": 4,
+        "issuerStudioId": "studio-aca408ec-r02",
+        "beneficiaryPersonId": "person-studio-aca408ec-r02-2",
+        "windowStartWeek": 208,
+        "dueWeekExclusive": 416,
+        "contractId": null,
+        "outcome": null,
+        "outcomeWeek": null,
+        "outcomeEventId": null,
+        "evidenceRefs": [],
+        "originalFeasibilityReceipt": {
+          "classification": "REASONABLY_ACHIEVABLE",
+          "bottleneck": null,
+          "inputsDigest": "e6006247a4f341fe",
+          "rulesVersion": 4,
+          "week": 196
+        }
+      },
+      {
+        "promiseId": "promise-18",
+        "family": "APPEARANCE_COUNT",
+        "predicate": {
+          "count": 1
+        },
+        "version": 4,
+        "issuerStudioId": "studio-aca408ec-r01",
+        "beneficiaryPersonId": "person-studio-aca408ec-r02-3",
+        "windowStartWeek": 208,
+        "dueWeekExclusive": 416,
+        "contractId": null,
+        "outcome": null,
+        "outcomeWeek": null,
+        "outcomeEventId": null,
+        "evidenceRefs": [],
+        "originalFeasibilityReceipt": {
+          "classification": "REASONABLY_ACHIEVABLE",
+          "bottleneck": null,
+          "inputsDigest": "32dd21b258777064",
+          "rulesVersion": 4,
+          "week": 196
+        }
+      },
+      {
+        "promiseId": "promise-19",
+        "family": "APPEARANCE_COUNT",
+        "predicate": {
+          "count": 1
+        },
+        "version": 4,
+        "issuerStudioId": "studio-aca408ec-r02",
+        "beneficiaryPersonId": "person-studio-aca408ec-r02-3",
+        "windowStartWeek": 208,
+        "dueWeekExclusive": 416,
+        "contractId": null,
+        "outcome": null,
+        "outcomeWeek": null,
+        "outcomeEventId": null,
+        "evidenceRefs": [],
+        "originalFeasibilityReceipt": {
+          "classification": "REASONABLY_ACHIEVABLE",
+          "bottleneck": null,
+          "inputsDigest": "bc13121f9728ead9",
+          "rulesVersion": 4,
+          "week": 196
+        }
+      },
+      {
+        "promiseId": "promise-20",
+        "family": "APPEARANCE_COUNT",
+        "predicate": {
+          "count": 1
+        },
+        "version": 4,
+        "issuerStudioId": "studio-aca408ec-r01",
+        "beneficiaryPersonId": "person-studio-aca408ec-r02-4",
+        "windowStartWeek": 208,
+        "dueWeekExclusive": 416,
+        "contractId": null,
+        "outcome": null,
+        "outcomeWeek": null,
+        "outcomeEventId": null,
+        "evidenceRefs": [],
+        "originalFeasibilityReceipt": {
+          "classification": "REASONABLY_ACHIEVABLE",
+          "bottleneck": null,
+          "inputsDigest": "f816f0f6f9a6a503",
+          "rulesVersion": 4,
+          "week": 196
+        }
+      },
+      {
+        "promiseId": "promise-21",
+        "family": "APPEARANCE_COUNT",
+        "predicate": {
+          "count": 1
+        },
+        "version": 4,
+        "issuerStudioId": "studio-aca408ec-r02",
+        "beneficiaryPersonId": "person-studio-aca408ec-r02-4",
+        "windowStartWeek": 208,
+        "dueWeekExclusive": 416,
+        "contractId": null,
+        "outcome": null,
+        "outcomeWeek": null,
+        "outcomeEventId": null,
+        "evidenceRefs": [],
+        "originalFeasibilityReceipt": {
+          "classification": "REASONABLY_ACHIEVABLE",
+          "bottleneck": null,
+          "inputsDigest": "a61ee810f247fde7",
+          "rulesVersion": 4,
+          "week": 196
+        }
+      },
+      {
+        "promiseId": "promise-22",
+        "family": "APPEARANCE_COUNT",
+        "predicate": {
+          "count": 1
+        },
+        "version": 4,
+        "issuerStudioId": "studio-aca408ec-r01",
+        "beneficiaryPersonId": "person-studio-aca408ec-r02-5",
+        "windowStartWeek": 208,
+        "dueWeekExclusive": 416,
+        "contractId": null,
+        "outcome": null,
+        "outcomeWeek": null,
+        "outcomeEventId": null,
+        "evidenceRefs": [],
+        "originalFeasibilityReceipt": {
+          "classification": "REASONABLY_ACHIEVABLE",
+          "bottleneck": null,
+          "inputsDigest": "57dec05a64f51b9a",
+          "rulesVersion": 4,
+          "week": 196
+        }
+      },
+      {
+        "promiseId": "promise-23",
+        "family": "APPEARANCE_COUNT",
+        "predicate": {
+          "count": 1
+        },
+        "version": 4,
+        "issuerStudioId": "studio-aca408ec-r02",
+        "beneficiaryPersonId": "person-studio-aca408ec-r02-5",
+        "windowStartWeek": 208,
+        "dueWeekExclusive": 416,
+        "contractId": null,
+        "outcome": null,
+        "outcomeWeek": null,
+        "outcomeEventId": null,
+        "evidenceRefs": [],
+        "originalFeasibilityReceipt": {
+          "classification": "REASONABLY_ACHIEVABLE",
+          "bottleneck": null,
+          "inputsDigest": "a166803755d6714c",
+          "rulesVersion": 4,
+          "week": 196
+        }
+      },
+      {
+        "promiseId": "promise-24",
+        "family": "APPEARANCE_COUNT",
+        "predicate": {
+          "count": 1
+        },
+        "version": 4,
+        "issuerStudioId": "studio-aca408ec-r01",
+        "beneficiaryPersonId": "person-studio-aca408ec-r03-0",
+        "windowStartWeek": 208,
+        "dueWeekExclusive": 416,
+        "contractId": null,
+        "outcome": null,
+        "outcomeWeek": null,
+        "outcomeEventId": null,
+        "evidenceRefs": [],
+        "originalFeasibilityReceipt": {
+          "classification": "REASONABLY_ACHIEVABLE",
+          "bottleneck": null,
+          "inputsDigest": "4133c5454905f89a",
+          "rulesVersion": 4,
+          "week": 196
+        }
+      },
+      {
+        "promiseId": "promise-25",
+        "family": "APPEARANCE_COUNT",
+        "predicate": {
+          "count": 1
+        },
+        "version": 4,
+        "issuerStudioId": "studio-aca408ec-r02",
+        "beneficiaryPersonId": "person-studio-aca408ec-r03-0",
+        "windowStartWeek": 208,
+        "dueWeekExclusive": 416,
+        "contractId": null,
+        "outcome": null,
+        "outcomeWeek": null,
+        "outcomeEventId": null,
+        "evidenceRefs": [],
+        "originalFeasibilityReceipt": {
+          "classification": "REASONABLY_ACHIEVABLE",
+          "bottleneck": null,
+          "inputsDigest": "41a6ca347337cf22",
+          "rulesVersion": 4,
+          "week": 196
+        }
+      },
+      {
+        "promiseId": "promise-26",
+        "family": "APPEARANCE_COUNT",
+        "predicate": {
+          "count": 1
+        },
+        "version": 4,
+        "issuerStudioId": "studio-aca408ec-r01",
+        "beneficiaryPersonId": "person-studio-aca408ec-r03-1",
+        "windowStartWeek": 208,
+        "dueWeekExclusive": 416,
+        "contractId": null,
+        "outcome": null,
+        "outcomeWeek": null,
+        "outcomeEventId": null,
+        "evidenceRefs": [],
+        "originalFeasibilityReceipt": {
+          "classification": "REASONABLY_ACHIEVABLE",
+          "bottleneck": null,
+          "inputsDigest": "e16bf5e1ddb78203",
+          "rulesVersion": 4,
+          "week": 196
+        }
+      },
+      {
+        "promiseId": "promise-27",
+        "family": "APPEARANCE_COUNT",
+        "predicate": {
+          "count": 1
+        },
+        "version": 4,
+        "issuerStudioId": "studio-aca408ec-r02",
+        "beneficiaryPersonId": "person-studio-aca408ec-r03-1",
+        "windowStartWeek": 208,
+        "dueWeekExclusive": 416,
+        "contractId": null,
+        "outcome": null,
+        "outcomeWeek": null,
+        "outcomeEventId": null,
+        "evidenceRefs": [],
+        "originalFeasibilityReceipt": {
+          "classification": "REASONABLY_ACHIEVABLE",
+          "bottleneck": null,
+          "inputsDigest": "4ef7babc28ce5831",
+          "rulesVersion": 4,
+          "week": 196
+        }
+      },
+      {
+        "promiseId": "promise-28",
+        "family": "LEAD_OR_SIGNIFICANT_ROLE_COUNT",
+        "predicate": {
+          "kind": "castRoleCount",
+          "count": 1,
+          "seatClass": "leadOrAntagonist"
+        },
+        "version": 4,
+        "issuerStudioId": "studio-aca408ec-r01",
+        "beneficiaryPersonId": "person-studio-aca408ec-r03-2",
+        "windowStartWeek": 208,
+        "dueWeekExclusive": 416,
+        "contractId": null,
+        "outcome": null,
+        "outcomeWeek": null,
+        "outcomeEventId": null,
+        "evidenceRefs": [],
+        "originalFeasibilityReceipt": {
+          "classification": "REASONABLY_ACHIEVABLE",
+          "bottleneck": null,
+          "inputsDigest": "bb41e4fd60e3b5fe",
+          "rulesVersion": 4,
+          "week": 196
+        }
+      },
+      {
+        "promiseId": "promise-29",
+        "family": "LEAD_OR_SIGNIFICANT_ROLE_COUNT",
+        "predicate": {
+          "kind": "castRoleCount",
+          "count": 1,
+          "seatClass": "leadOrAntagonist"
+        },
+        "version": 4,
+        "issuerStudioId": "studio-aca408ec-r02",
+        "beneficiaryPersonId": "person-studio-aca408ec-r03-2",
+        "windowStartWeek": 208,
+        "dueWeekExclusive": 416,
+        "contractId": null,
+        "outcome": null,
+        "outcomeWeek": null,
+        "outcomeEventId": null,
+        "evidenceRefs": [],
+        "originalFeasibilityReceipt": {
+          "classification": "REASONABLY_ACHIEVABLE",
+          "bottleneck": null,
+          "inputsDigest": "fe6886de816b9969",
+          "rulesVersion": 4,
+          "week": 196
+        }
+      },
+      {
+        "promiseId": "promise-30",
+        "family": "APPEARANCE_COUNT",
+        "predicate": {
+          "count": 1
+        },
+        "version": 4,
+        "issuerStudioId": "studio-aca408ec-r01",
+        "beneficiaryPersonId": "person-studio-aca408ec-r03-3",
+        "windowStartWeek": 208,
+        "dueWeekExclusive": 416,
+        "contractId": null,
+        "outcome": null,
+        "outcomeWeek": null,
+        "outcomeEventId": null,
+        "evidenceRefs": [],
+        "originalFeasibilityReceipt": {
+          "classification": "REASONABLY_ACHIEVABLE",
+          "bottleneck": null,
+          "inputsDigest": "db099e6a732437a9",
+          "rulesVersion": 4,
+          "week": 196
+        }
+      },
+      {
+        "promiseId": "promise-31",
+        "family": "APPEARANCE_COUNT",
+        "predicate": {
+          "count": 1
+        },
+        "version": 4,
+        "issuerStudioId": "studio-aca408ec-r02",
+        "beneficiaryPersonId": "person-studio-aca408ec-r03-3",
+        "windowStartWeek": 208,
+        "dueWeekExclusive": 416,
+        "contractId": null,
+        "outcome": null,
+        "outcomeWeek": null,
+        "outcomeEventId": null,
+        "evidenceRefs": [],
+        "originalFeasibilityReceipt": {
+          "classification": "REASONABLY_ACHIEVABLE",
+          "bottleneck": null,
+          "inputsDigest": "9dcb29f8eccf160e",
+          "rulesVersion": 4,
+          "week": 196
+        }
+      },
+      {
+        "promiseId": "promise-32",
+        "family": "LEAD_OR_SIGNIFICANT_ROLE_COUNT",
+        "predicate": {
+          "kind": "castRoleCount",
+          "count": 1,
+          "seatClass": "leadOrAntagonist"
+        },
+        "version": 4,
+        "issuerStudioId": "studio-aca408ec-r01",
+        "beneficiaryPersonId": "person-studio-aca408ec-r03-4",
+        "windowStartWeek": 208,
+        "dueWeekExclusive": 416,
+        "contractId": null,
+        "outcome": null,
+        "outcomeWeek": null,
+        "outcomeEventId": null,
+        "evidenceRefs": [],
+        "originalFeasibilityReceipt": {
+          "classification": "REASONABLY_ACHIEVABLE",
+          "bottleneck": null,
+          "inputsDigest": "d23e3c16f1299b84",
+          "rulesVersion": 4,
+          "week": 196
+        }
+      },
+      {
+        "promiseId": "promise-33",
+        "family": "LEAD_OR_SIGNIFICANT_ROLE_COUNT",
+        "predicate": {
+          "kind": "castRoleCount",
+          "count": 1,
+          "seatClass": "leadOrAntagonist"
+        },
+        "version": 4,
+        "issuerStudioId": "studio-aca408ec-r02",
+        "beneficiaryPersonId": "person-studio-aca408ec-r03-4",
+        "windowStartWeek": 208,
+        "dueWeekExclusive": 416,
+        "contractId": null,
+        "outcome": null,
+        "outcomeWeek": null,
+        "outcomeEventId": null,
+        "evidenceRefs": [],
+        "originalFeasibilityReceipt": {
+          "classification": "REASONABLY_ACHIEVABLE",
+          "bottleneck": null,
+          "inputsDigest": "5cd4433eecd2b1cc",
+          "rulesVersion": 4,
+          "week": 196
+        }
+      },
+      {
+        "promiseId": "promise-34",
+        "family": "APPEARANCE_COUNT",
+        "predicate": {
+          "count": 1
+        },
+        "version": 4,
+        "issuerStudioId": "studio-aca408ec-r01",
+        "beneficiaryPersonId": "person-studio-aca408ec-r03-5",
+        "windowStartWeek": 208,
+        "dueWeekExclusive": 416,
+        "contractId": null,
+        "outcome": null,
+        "outcomeWeek": null,
+        "outcomeEventId": null,
+        "evidenceRefs": [],
+        "originalFeasibilityReceipt": {
+          "classification": "REASONABLY_ACHIEVABLE",
+          "bottleneck": null,
+          "inputsDigest": "7582a9948246c4d7",
+          "rulesVersion": 4,
+          "week": 196
+        }
+      },
+      {
+        "promiseId": "promise-35",
+        "family": "APPEARANCE_COUNT",
+        "predicate": {
+          "count": 1
+        },
+        "version": 4,
+        "issuerStudioId": "studio-aca408ec-r02",
+        "beneficiaryPersonId": "person-studio-aca408ec-r03-5",
+        "windowStartWeek": 208,
+        "dueWeekExclusive": 416,
+        "contractId": null,
+        "outcome": null,
+        "outcomeWeek": null,
+        "outcomeEventId": null,
+        "evidenceRefs": [],
+        "originalFeasibilityReceipt": {
+          "classification": "REASONABLY_ACHIEVABLE",
+          "bottleneck": null,
+          "inputsDigest": "355c3e0c4cd62058",
+          "rulesVersion": 4,
+          "week": 196
+        }
+      },
+      {
+        "promiseId": "promise-36",
+        "family": "APPEARANCE_COUNT",
+        "predicate": {
+          "count": 1
+        },
+        "version": 4,
+        "issuerStudioId": "studio-aca408ec-r01",
+        "beneficiaryPersonId": "person-studio-aca408ec-r04-0",
+        "windowStartWeek": 208,
+        "dueWeekExclusive": 416,
+        "contractId": null,
+        "outcome": null,
+        "outcomeWeek": null,
+        "outcomeEventId": null,
+        "evidenceRefs": [],
+        "originalFeasibilityReceipt": {
+          "classification": "REASONABLY_ACHIEVABLE",
+          "bottleneck": null,
+          "inputsDigest": "01df6d09b81d0925",
+          "rulesVersion": 4,
+          "week": 196
+        }
+      },
+      {
+        "promiseId": "promise-37",
+        "family": "APPEARANCE_COUNT",
+        "predicate": {
+          "count": 1
+        },
+        "version": 4,
+        "issuerStudioId": "studio-aca408ec-r02",
+        "beneficiaryPersonId": "person-studio-aca408ec-r04-0",
+        "windowStartWeek": 208,
+        "dueWeekExclusive": 416,
+        "contractId": null,
+        "outcome": null,
+        "outcomeWeek": null,
+        "outcomeEventId": null,
+        "evidenceRefs": [],
+        "originalFeasibilityReceipt": {
+          "classification": "REASONABLY_ACHIEVABLE",
+          "bottleneck": null,
+          "inputsDigest": "1f4653a3258c8a9c",
+          "rulesVersion": 4,
+          "week": 196
+        }
+      },
+      {
+        "promiseId": "promise-38",
+        "family": "APPEARANCE_COUNT",
+        "predicate": {
+          "count": 1
+        },
+        "version": 4,
+        "issuerStudioId": "studio-aca408ec-r01",
+        "beneficiaryPersonId": "person-studio-aca408ec-r04-1",
+        "windowStartWeek": 208,
+        "dueWeekExclusive": 416,
+        "contractId": null,
+        "outcome": null,
+        "outcomeWeek": null,
+        "outcomeEventId": null,
+        "evidenceRefs": [],
+        "originalFeasibilityReceipt": {
+          "classification": "REASONABLY_ACHIEVABLE",
+          "bottleneck": null,
+          "inputsDigest": "0c3f621f95eb56cc",
+          "rulesVersion": 4,
+          "week": 196
+        }
+      },
+      {
+        "promiseId": "promise-39",
+        "family": "APPEARANCE_COUNT",
+        "predicate": {
+          "count": 1
+        },
+        "version": 4,
+        "issuerStudioId": "studio-aca408ec-r02",
+        "beneficiaryPersonId": "person-studio-aca408ec-r04-1",
+        "windowStartWeek": 208,
+        "dueWeekExclusive": 416,
+        "contractId": null,
+        "outcome": null,
+        "outcomeWeek": null,
+        "outcomeEventId": null,
+        "evidenceRefs": [],
+        "originalFeasibilityReceipt": {
+          "classification": "REASONABLY_ACHIEVABLE",
+          "bottleneck": null,
+          "inputsDigest": "cee770c1df755297",
+          "rulesVersion": 4,
+          "week": 196
+        }
+      },
+      {
+        "promiseId": "promise-40",
+        "family": "APPEARANCE_COUNT",
+        "predicate": {
+          "count": 1
+        },
+        "version": 4,
+        "issuerStudioId": "studio-aca408ec-r01",
+        "beneficiaryPersonId": "person-studio-aca408ec-r04-2",
+        "windowStartWeek": 208,
+        "dueWeekExclusive": 416,
+        "contractId": null,
+        "outcome": null,
+        "outcomeWeek": null,
+        "outcomeEventId": null,
+        "evidenceRefs": [],
+        "originalFeasibilityReceipt": {
+          "classification": "REASONABLY_ACHIEVABLE",
+          "bottleneck": null,
+          "inputsDigest": "8665c12cad9cbdbf",
+          "rulesVersion": 4,
+          "week": 196
+        }
+      },
+      {
+        "promiseId": "promise-41",
+        "family": "APPEARANCE_COUNT",
+        "predicate": {
+          "count": 1
+        },
+        "version": 4,
+        "issuerStudioId": "studio-aca408ec-r02",
+        "beneficiaryPersonId": "person-studio-aca408ec-r04-2",
+        "windowStartWeek": 208,
+        "dueWeekExclusive": 416,
+        "contractId": null,
+        "outcome": null,
+        "outcomeWeek": null,
+        "outcomeEventId": null,
+        "evidenceRefs": [],
+        "originalFeasibilityReceipt": {
+          "classification": "REASONABLY_ACHIEVABLE",
+          "bottleneck": null,
+          "inputsDigest": "51233e734861a1e9",
+          "rulesVersion": 4,
+          "week": 196
+        }
+      },
+      {
+        "promiseId": "promise-42",
+        "family": "APPEARANCE_COUNT",
+        "predicate": {
+          "count": 1
+        },
+        "version": 4,
+        "issuerStudioId": "studio-aca408ec-r01",
+        "beneficiaryPersonId": "person-studio-aca408ec-r04-3",
+        "windowStartWeek": 208,
+        "dueWeekExclusive": 416,
+        "contractId": null,
+        "outcome": null,
+        "outcomeWeek": null,
+        "outcomeEventId": null,
+        "evidenceRefs": [],
+        "originalFeasibilityReceipt": {
+          "classification": "REASONABLY_ACHIEVABLE",
+          "bottleneck": null,
+          "inputsDigest": "0dea199a1069c2c6",
+          "rulesVersion": 4,
+          "week": 196
+        }
+      },
+      {
+        "promiseId": "promise-43",
+        "family": "APPEARANCE_COUNT",
+        "predicate": {
+          "count": 1
+        },
+        "version": 4,
+        "issuerStudioId": "studio-aca408ec-r02",
+        "beneficiaryPersonId": "person-studio-aca408ec-r04-3",
+        "windowStartWeek": 208,
+        "dueWeekExclusive": 416,
+        "contractId": null,
+        "outcome": null,
+        "outcomeWeek": null,
+        "outcomeEventId": null,
+        "evidenceRefs": [],
+        "originalFeasibilityReceipt": {
+          "classification": "REASONABLY_ACHIEVABLE",
+          "bottleneck": null,
+          "inputsDigest": "eecf25328292b806",
+          "rulesVersion": 4,
+          "week": 196
+        }
+      },
+      {
+        "promiseId": "promise-44",
+        "family": "APPEARANCE_COUNT",
+        "predicate": {
+          "count": 1
+        },
+        "version": 4,
+        "issuerStudioId": "studio-aca408ec-r01",
+        "beneficiaryPersonId": "person-studio-aca408ec-r04-4",
+        "windowStartWeek": 208,
+        "dueWeekExclusive": 416,
+        "contractId": null,
+        "outcome": null,
+        "outcomeWeek": null,
+        "outcomeEventId": null,
+        "evidenceRefs": [],
+        "originalFeasibilityReceipt": {
+          "classification": "REASONABLY_ACHIEVABLE",
+          "bottleneck": null,
+          "inputsDigest": "f0604f851924e291",
+          "rulesVersion": 4,
+          "week": 196
+        }
+      },
+      {
+        "promiseId": "promise-45",
+        "family": "APPEARANCE_COUNT",
+        "predicate": {
+          "count": 1
+        },
+        "version": 4,
+        "issuerStudioId": "studio-aca408ec-r02",
+        "beneficiaryPersonId": "person-studio-aca408ec-r04-4",
+        "windowStartWeek": 208,
+        "dueWeekExclusive": 416,
+        "contractId": null,
+        "outcome": null,
+        "outcomeWeek": null,
+        "outcomeEventId": null,
+        "evidenceRefs": [],
+        "originalFeasibilityReceipt": {
+          "classification": "REASONABLY_ACHIEVABLE",
+          "bottleneck": null,
+          "inputsDigest": "919acb03489c22cb",
+          "rulesVersion": 4,
+          "week": 196
+        }
+      },
+      {
+        "promiseId": "promise-46",
+        "family": "APPEARANCE_COUNT",
+        "predicate": {
+          "count": 1
+        },
+        "version": 4,
+        "issuerStudioId": "studio-aca408ec-r01",
+        "beneficiaryPersonId": "person-studio-aca408ec-r04-5",
+        "windowStartWeek": 208,
+        "dueWeekExclusive": 416,
+        "contractId": null,
+        "outcome": null,
+        "outcomeWeek": null,
+        "outcomeEventId": null,
+        "evidenceRefs": [],
+        "originalFeasibilityReceipt": {
+          "classification": "REASONABLY_ACHIEVABLE",
+          "bottleneck": null,
+          "inputsDigest": "399fc34b3797f6a8",
+          "rulesVersion": 4,
+          "week": 196
+        }
+      },
+      {
+        "promiseId": "promise-47",
+        "family": "APPEARANCE_COUNT",
+        "predicate": {
+          "count": 1
+        },
+        "version": 4,
+        "issuerStudioId": "studio-aca408ec-r02",
+        "beneficiaryPersonId": "person-studio-aca408ec-r04-5",
+        "windowStartWeek": 208,
+        "dueWeekExclusive": 416,
+        "contractId": null,
+        "outcome": null,
+        "outcomeWeek": null,
+        "outcomeEventId": null,
+        "evidenceRefs": [],
+        "originalFeasibilityReceipt": {
+          "classification": "REASONABLY_ACHIEVABLE",
+          "bottleneck": null,
+          "inputsDigest": "7cf924ad819d8954",
+          "rulesVersion": 4,
+          "week": 196
+        }
+      }
+    ],
+    "additionalFacts": {
+      "families": [
+        "APPEARANCE_COUNT",
+        "LEAD_OR_SIGNIFICANT_ROLE_COUNT"
+      ]
+    }
+  },
+  {
+    "name": "rival-shared-take-terminal",
+    "role": "multiple real rival SATISFIED beneficiaries share one take, never their outcome receipt",
+    "seed": "p13a-core-causal-01",
+    "week": 213,
+    "saveVersion": 30,
+    "uncompressedSha256": "a90f97cefd7031bbec526f94c1f6b714f54d6e5c4c89cf510ad3670bbe5a9eb6",
+    "compressedSha256": "0430ea318f96efaae373c1010eb0a9fc24f24de4b20a358fbe2b1f795f71ab3c",
+    "byteLength": 1131552,
+    "compressedByteLength": 122599,
+    "rootCounts": {
+      "promises": 48,
+      "firstTakes": 46,
+      "marketReceipts": 123,
+      "currentProposals": 0
+    },
+    "focus": [
+      {
+        "promiseId": "promise-12",
+        "family": "APPEARANCE_COUNT",
+        "predicate": {
+          "count": 1
+        },
+        "version": 4,
+        "issuerStudioId": "studio-aca408ec-r01",
+        "beneficiaryPersonId": "person-studio-aca408ec-r02-0",
+        "windowStartWeek": 208,
+        "dueWeekExclusive": 416,
+        "contractId": "studio-aca408ec-r01:contract:person-studio-aca408ec-r02-0:208",
+        "outcome": "SATISFIED",
+        "outcomeWeek": 213,
+        "outcomeEventId": "talent-market-event-120",
+        "evidenceRefs": [
+          "first-take-event-45"
+        ],
+        "originalFeasibilityReceipt": {
+          "classification": "REASONABLY_ACHIEVABLE",
+          "bottleneck": null,
+          "inputsDigest": "a4747f7daad8fbf8",
+          "rulesVersion": 4,
+          "week": 208
+        }
+      },
+      {
+        "promiseId": "promise-16",
+        "family": "APPEARANCE_COUNT",
+        "predicate": {
+          "count": 1
+        },
+        "version": 4,
+        "issuerStudioId": "studio-aca408ec-r01",
+        "beneficiaryPersonId": "person-studio-aca408ec-r02-2",
+        "windowStartWeek": 208,
+        "dueWeekExclusive": 416,
+        "contractId": "studio-aca408ec-r01:contract:person-studio-aca408ec-r02-2:208",
+        "outcome": "SATISFIED",
+        "outcomeWeek": 213,
+        "outcomeEventId": "talent-market-event-121",
+        "evidenceRefs": [
+          "first-take-event-45"
+        ],
+        "originalFeasibilityReceipt": {
+          "classification": "REASONABLY_ACHIEVABLE",
+          "bottleneck": null,
+          "inputsDigest": "c72603beabde18ce",
+          "rulesVersion": 4,
+          "week": 208
+        }
+      },
+      {
+        "promiseId": "promise-18",
+        "family": "APPEARANCE_COUNT",
+        "predicate": {
+          "count": 1
+        },
+        "version": 4,
+        "issuerStudioId": "studio-aca408ec-r01",
+        "beneficiaryPersonId": "person-studio-aca408ec-r02-3",
+        "windowStartWeek": 208,
+        "dueWeekExclusive": 416,
+        "contractId": "studio-aca408ec-r01:contract:person-studio-aca408ec-r02-3:208",
+        "outcome": "SATISFIED",
+        "outcomeWeek": 213,
+        "outcomeEventId": "talent-market-event-122",
+        "evidenceRefs": [
+          "first-take-event-45"
+        ],
+        "originalFeasibilityReceipt": {
+          "classification": "REASONABLY_ACHIEVABLE",
+          "bottleneck": null,
+          "inputsDigest": "a1f587cf8504f76f",
+          "rulesVersion": 4,
+          "week": 208
+        }
+      }
+    ],
+    "additionalFacts": {
+      "firstTakeEventId": "first-take-event-45",
+      "productionId": "studio-aca408ec-r01:film:11",
+      "studioId": "studio-aca408ec-r01",
+      "takeWeek": 213,
+      "cast": {
+        "lead": "person-studio-aca408ec-r02-3",
+        "antagonist": "person-studio-aca408ec-r02-2",
+        "support": "person-studio-aca408ec-r02-0"
+      },
+      "outcomeEventIds": [
+        "talent-market-event-120",
+        "talent-market-event-121",
+        "talent-market-event-122"
+      ]
+    }
+  },
+  {
+    "name": "first-take-at-five",
+    "role": "player picture at remainingTicks 5 with the bound tagged-lead promised person seated as lead; shooting task unassigned; no take yet",
+    "seed": "p13a-core-causal-01",
+    "week": 60,
+    "saveVersion": 30,
+    "uncompressedSha256": "3eab4f7af55917d3a011776850f129dc5dc135da8215d8ebec6845dfb8db620d",
+    "compressedSha256": "62df3d07eee0a01da767203f51b0ce89edfdb281177511f848a740293ca4ceb7",
+    "byteLength": 779578,
+    "compressedByteLength": 94125,
+    "rootCounts": {
+      "promises": 1,
+      "firstTakes": 24,
+      "marketReceipts": 3,
+      "currentProposals": 0
+    },
+    "focus": [
+      {
+        "promiseId": "promise-0",
+        "family": "LEAD_OR_SIGNIFICANT_ROLE_COUNT",
+        "predicate": {
+          "kind": "castRoleCount",
+          "count": 1,
+          "seatClass": "lead"
+        },
+        "version": 4,
+        "issuerStudioId": "studio-aca408ec-player",
+        "beneficiaryPersonId": "t-act-09",
+        "windowStartWeek": 52,
+        "dueWeekExclusive": 92,
+        "contractId": "studio-aca408ec-player:contract:t-act-09:52:player-30",
+        "outcome": null,
+        "outcomeWeek": null,
+        "outcomeEventId": null,
+        "evidenceRefs": [],
+        "originalFeasibilityReceipt": {
+          "classification": "REASONABLY_ACHIEVABLE",
+          "bottleneck": null,
+          "inputsDigest": "e2798f42028858e5",
+          "rulesVersion": 4,
+          "week": 52
+        }
+      }
+    ],
+    "additionalFacts": {
+      "productionId": "prod-0052",
+      "cast": {
+        "lead": "t-act-09",
+        "antagonist": "t-act-12",
+        "support": "t-act-11"
+      },
+      "directorId": "t-dir-01",
+      "greenlitWeek": 52,
+      "remainingTicks": 5,
+      "nextTakeIfScheduled": {
+        "discardedProbe": true,
+        "firstTakeEventId": "first-take-event-24",
+        "week": 61,
+        "promiseOutcome": "SATISFIED",
+        "outcomeEventId": "talent-market-event-3",
+        "evidenceRefs": [
+          "first-take-event-24"
+        ]
+      }
+    }
+  },
+  {
+    "name": "legacy-count-only-p2-current-draft",
+    "role": "V29 count-only LEAD_OR_SIGNIFICANT_ROLE_COUNT current draft (evaluator-3 IMPOSSIBLE receipt, unbound) carried into V30 by the real migrateToV30; origin is the genuine V29 corpus, not a fresh mint",
+    "seed": "p13a-core-causal-01",
+    "week": 45,
+    "saveVersion": 30,
+    "uncompressedSha256": "3c46a87473dea1c231dfad248d5af483ed4331bc9ba6787262bba442a993a494",
+    "compressedSha256": "e7b33115f37605656649df2544885418680679b0dd5548afaaaeee52bcb4f174",
+    "byteLength": 676337,
+    "compressedByteLength": 82742,
+    "rootCounts": {
+      "promises": 3,
+      "firstTakes": 20,
+      "marketReceipts": 5,
+      "currentProposals": 2
+    },
+    "focus": [
+      {
+        "promiseId": "promise-2",
+        "family": "LEAD_OR_SIGNIFICANT_ROLE_COUNT",
+        "predicate": {
+          "count": 1
+        },
+        "version": 3,
+        "issuerStudioId": "studio-aca408ec-player",
+        "beneficiaryPersonId": "t-act-09",
+        "windowStartWeek": 52,
+        "dueWeekExclusive": 92,
+        "contractId": null,
+        "outcome": null,
+        "outcomeWeek": null,
+        "outcomeEventId": null,
+        "evidenceRefs": [],
+        "originalFeasibilityReceipt": {
+          "bottleneck": "a seat-class promise is not offered in this slice",
+          "classification": "IMPOSSIBLE",
+          "inputsDigest": "bda6cfb7ed859cd5",
+          "rulesVersion": 3,
+          "week": 45
+        }
+      }
+    ],
+    "additionalFacts": null
+  }
+]
+
+ ❯ |core| tests/bridge-p14b5-mint-v30.test.ts (2 tests | 1 failed) 10758ms
+   ✓ DRY (no token, no write): build every genuine outgoing-V30 world and readback in memory; print the premises 10741ms
+   × ONE-SHOT: mint 10 genuine outgoing-V30 fixtures only after the qualified B4 closeout and before B.5 15ms
+     → REFUSED: STUDIO_MINT_V30_APPROVED_FINAL must equal the independently accepted publication d6c11b9b4809d361e356ef74495e731f9296acc2; only the parent sets it, and only for the one-shot mint
++ actual - expected
+
++ undefined
+- 'd6c11b9b4809d361e356ef74495e731f9296acc2'
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/bridge-p14b5-mint-v30.test.ts > ONE-SHOT: mint 10 genuine outgoing-V30 fixtures only after the qualified B4 closeout and before B.5
+AssertionError: REFUSED: STUDIO_MINT_V30_APPROVED_FINAL must equal the independently accepted publication d6c11b9b4809d361e356ef74495e731f9296acc2; only the parent sets it, and only for the one-shot mint
++ actual - expected
+
++ undefined
+- 'd6c11b9b4809d361e356ef74495e731f9296acc2'
+ ❯ gate scripts/v30-mint-support.ts:75:10
+     73|   assert.match(authority.publishedRecoverySha, /^[a-f0-9]{40}$/, `${au…
+     74|   assert.match(authority.closeoutSha256, /^[a-f0-9]{64}$/, 'accepted c…
+     75|   assert.equal(process.env[authority.approvalEnvironmentVariable], aut…
+       |          ^
+     76|     `REFUSED: ${authority.approvalEnvironmentVariable} must equal the …
+     77|     + `${authority.publishedRecoverySha}; only the parent sets it, and…
+ ❯ Module.mintV30Corpus scripts/v30-mint-support.ts:141:19
+ ❯ tests/bridge-p14b5-mint-v30.test.ts:431:3
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 1 passed (2)
+   Start at  00:06:30
+   Duration  14.48s (transform 2.39s, setup 0ms, collect 3.27s, tests 10.76s, environment 0ms, prepare 109ms)
+
+exit=1

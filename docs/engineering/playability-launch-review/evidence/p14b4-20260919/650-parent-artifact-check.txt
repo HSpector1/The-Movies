@@ -1,0 +1,19 @@
+MANIFEST keys: ['authority', 'observedHeadSha', 'sourceFiles', 'minterSha256', 'supportSha256', 'nodeVersion', 'startedAt', 'endedAt', 'campaignSource', 'command', 'scope', 'fixtures']
+authority: {'testedSourceSha': '61833f0df4ffdb5673903d5a81680b2d37ba254b', 'publishedRecoverySha': 'd6c11b9b4809d361e356ef74495e731f9296acc2', 'schemaId': 'sha256:6f6b48805aadcf14d456614d87bf1571eb1ce0d9aa0bc44f604e7976f4f85538', 'projectionVersion': 47, 'saveVersion': 30, 'promiseRulesVersion': 4}
+cases in manifest: 0
+bound-open-p1                              sv=30 gz=48962fd2c47d raw=afca923d2979 prov(gz,raw)=(True,True) dry-report=True
+bound-open-p2-lead-or-antagonist           sv=30 gz=14508b4bdf5c raw=ab5396832037 prov(gz,raw)=(True,True) dry-report=True
+bound-open-p2-lead                         sv=30 gz=4966e51b75bf raw=68651875e638 prov(gz,raw)=(True,True) dry-report=True
+current-p1                                 sv=30 gz=a13704632d58 raw=b7a32680df6f prov(gz,raw)=(True,True) dry-report=True
+empty                                      sv=30 gz=7c237fef11cb raw=34f772fb643c prov(gz,raw)=(True,True) dry-report=True
+first-take-at-five                         sv=30 gz=62df3d07eee0 raw=3eab4f7af559 prov(gz,raw)=(True,True) dry-report=True
+kept-and-broken                            sv=30 gz=5c55f3ac3f51 raw=6336f7560f1c prov(gz,raw)=(True,True) dry-report=True
+legacy-count-only-p2-current-draft         sv=30 gz=e7b33115f376 raw=3c46a87473de prov(gz,raw)=(True,True) dry-report=True
+rival-current-p1-and-p2                    sv=30 gz=e2e8ac939875 raw=c155f636a875 prov(gz,raw)=(True,True) dry-report=True
+rival-shared-take-terminal                 sv=30 gz=0430ea318f96 raw=a90f97cefd70 prov(gz,raw)=(True,True) dry-report=True
+runtime checkpoint keys: ['checkpointVersion', 'currentSaveJson', 'currentStateDigest', 'format', 'journal', 'journalDigest', 'protocolVersion', 'savedSaveJson', 'savedStateDigest', 'schemaId', 'sessionId', 'stateRevision']
+runtime gz 38275e91d083651f raw c7e3cd2a56ef0871 pinned in provenance: True True
+savedSaveSha256 == corpus current-p1 raw: True
+PROBLEMS: []
+648-mint-final-v30 new files: 21 all under fixtures: True
+649-mint-runtime47 new files: 3 all under fixtures: True

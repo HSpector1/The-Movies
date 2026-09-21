@@ -1,0 +1,73 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+stdout | tests/bridge-p14b5-mint-projection47.test.ts > DRY (no token, no write): build the genuine outgoing projection-47 checkpoint in memory; print the premises
+{
+  "filename": "genuine-projection47-runtime.checkpoint.json.gz",
+  "provenanceFilename": "genuine-projection47-runtime.provenance.json",
+  "uncompressedSha256": "4fb26dae8daa24367161f38daaea60e5e217a48d766e45688ac2f586d87d0a61",
+  "compressedSha256": "16b30eea8914d946ee5fc8aaaad7294e2bcdac2c1658fc8942a4a6cf0bdc51dd",
+  "byteLength": 3183647,
+  "compressedByteLength": 301367,
+  "schemaId": "sha256:6f6b48805aadcf14d456614d87bf1571eb1ce0d9aa0bc44f604e7976f4f85538",
+  "protocolVersion": 4,
+  "projectionVersion": 47,
+  "currentSaveVersion": 30,
+  "savedSaveVersion": 30,
+  "currentSaveSha256": "6788225135a0c7a2eca94faaf6d0d068b8dac1ba00e7b6b8ad29c7d4338c7388",
+  "savedSaveSha256": "b7a32680df6f002c10829e7edd644a394b9b0cdac1427a7af0aef5395501aebe",
+  "currentWeek": 45,
+  "savedWeek": 45,
+  "stateRevision": 1,
+  "journalEntries": 2,
+  "journalDigest": "8847518a4baccd40985dd3cd310cd2c1838329e28f293669fd832db47ee47bb4",
+  "sessionId": "p14b5-genuine-outgoing47",
+  "focusPromiseId": "promise-0",
+  "talentId": "t-act-09",
+  "recipe": {
+    "builder": "tests/helpers/p14b2-fixtures.ts:retentionFixture().submitted (the corpus current-p1 world)",
+    "economicInput": "explicit fund helper cash delta with matching ledger",
+    "actions": [
+      "real save with CURRENT P1",
+      "real quote and commit withdrawal; retained unbound promise history"
+    ],
+    "quoteIntentId": "intent-v4-b0002a249cabc02e6b099e2269db0407002c76976b579bec7f2623c5cf26ea78",
+    "commandId": "commit-withdraw",
+    "savedSlotIsCorpusWorld": "savedSaveJson equals exportSave(makeSave(current-p1 state)); compare with genuine-v30-current-p1 uncompressedSha256"
+  }
+}
+
+ ❯ |core| tests/bridge-p14b5-mint-projection47.test.ts (2 tests | 1 failed) 6444ms
+   ✓ DRY (no token, no write): build the genuine outgoing projection-47 checkpoint in memory; print the premises 6432ms
+   × ONE-SHOT: genuine outgoing projection47 checkpoint before B.5, never restamped 11ms
+     → REFUSED: STUDIO_MINT_PROJECTION47_APPROVED must equal the independently accepted publication d6c11b9b4809d361e356ef74495e731f9296acc2; only the parent sets it, and only for the one-shot mint
++ actual - expected
+
++ undefined
+- 'd6c11b9b4809d361e356ef74495e731f9296acc2'
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/bridge-p14b5-mint-projection47.test.ts > ONE-SHOT: genuine outgoing projection47 checkpoint before B.5, never restamped
+AssertionError: REFUSED: STUDIO_MINT_PROJECTION47_APPROVED must equal the independently accepted publication d6c11b9b4809d361e356ef74495e731f9296acc2; only the parent sets it, and only for the one-shot mint
++ actual - expected
+
++ undefined
+- 'd6c11b9b4809d361e356ef74495e731f9296acc2'
+ ❯ Module.gate scripts/v30-mint-support.ts:75:10
+     73|   assert.match(authority.publishedRecoverySha, /^[a-f0-9]{40}$/, `${au…
+     74|   assert.match(authority.closeoutSha256, /^[a-f0-9]{64}$/, 'accepted c…
+     75|   assert.equal(process.env[authority.approvalEnvironmentVariable], aut…
+       |          ^
+     76|     `REFUSED: ${authority.approvalEnvironmentVariable} must equal the …
+     77|     + `${authority.publishedRecoverySha}; only the parent sets it, and…
+ ❯ tests/bridge-p14b5-mint-projection47.test.ts:132:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 1 passed (2)
+   Start at  00:04:10
+   Duration  10.02s (transform 2.30s, setup 0ms, collect 3.18s, tests 6.44s, environment 0ms, prepare 99ms)
+
+exit=1

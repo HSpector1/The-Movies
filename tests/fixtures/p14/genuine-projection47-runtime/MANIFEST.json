@@ -1,0 +1,43 @@
+{
+  "authority": {
+    "phase": "qualified P14B.4 logic closeout / exact last-V30 upstream before B.5",
+    "testedSourceSha": "61833f0df4ffdb5673903d5a81680b2d37ba254b",
+    "textOnlySourceSha": "651fea8ba28450ad20dccf45f209bde6ab058aaa",
+    "textOnlyProducerDiffSha256": "456a099e448f5c4f7ff2a3506dd1cf3c82611c5e7b16ddfc29cb26d70cc0b31a",
+    "publishedRecoverySha": "d6c11b9b4809d361e356ef74495e731f9296acc2",
+    "closeoutRelativePath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/637-cancel-causal-qualified-checkpoint.md",
+    "closeoutSha256": "382eee596901b28e4c597cd46ec09ffd6ee15f54f4c443d23090dde57e23f6a4",
+    "schemaId": "sha256:6f6b48805aadcf14d456614d87bf1571eb1ce0d9aa0bc44f604e7976f4f85538",
+    "projectionVersion": 47,
+    "protocolVersion": 4,
+    "saveVersion": 30,
+    "promiseRulesVersion": 4,
+    "approvalEnvironmentVariable": "STUDIO_MINT_PROJECTION47_APPROVED",
+    "outputRelativePath": "tests/fixtures/p14/genuine-projection47-runtime"
+  },
+  "fixtures": [
+    {
+      "filename": "genuine-projection47-runtime.checkpoint.json.gz",
+      "provenanceFilename": "genuine-projection47-runtime.provenance.json",
+      "uncompressedSha256": "c7e3cd2a56ef0871b8a8754ce1a75b06d095916f9aeb71e57229fc2aeee6496b",
+      "compressedSha256": "38275e91d083651f232a2845b1bd8b738ac996c63523c65203c4ca8f72703d11",
+      "byteLength": 3183638,
+      "compressedByteLength": 301363,
+      "schemaId": "sha256:6f6b48805aadcf14d456614d87bf1571eb1ce0d9aa0bc44f604e7976f4f85538",
+      "protocolVersion": 4,
+      "projectionVersion": 47,
+      "currentSaveVersion": 30,
+      "savedSaveVersion": 30,
+      "currentSaveSha256": "6788225135a0c7a2eca94faaf6d0d068b8dac1ba00e7b6b8ad29c7d4338c7388",
+      "savedSaveSha256": "b7a32680df6f002c10829e7edd644a394b9b0cdac1427a7af0aef5395501aebe",
+      "currentWeek": 45,
+      "savedWeek": 45,
+      "stateRevision": 1,
+      "journalEntries": 2,
+      "journalDigest": "5cad726588c2caf2514c13bf75de5eaa66747b345441a20c83ad9e620b3f7d99",
+      "sessionId": "p14b5-genuine-outgoing47",
+      "focusPromiseId": "promise-0",
+      "talentId": "t-act-09"
+    }
+  ]
+}

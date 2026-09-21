@@ -1,0 +1,156 @@
+// P14B.5 T0 (646-T): ONE-SHOT minter for the genuine outgoing projection-47 runtime checkpoint.
+// Temporary operational entry tests/bridge-p14b5-mint-projection47.test.ts, the corrected B4
+// runtime46 pattern (evidence/p14b4-20260919/05-mint-runtime46-canonical.executed.ts.txt)
+// with its −0→0 premise (03/08): each complete inner slot is compared with its OWN expected
+// state's governed writer bytes, never with the in-memory state. Separate obligation from the
+// genuine SaveV30 corpus: preserve the actual outer runtime schema, retry journal and two
+// distinct inner gameplay slots. Same gate, same authority, same corpus world (current-p1).
+//
+// The DRY case builds the session, both slots and every readback in memory and prints the
+// facts; it never writes and needs no token. The ONE-SHOT case is gated by the approval
+// environment variable that only the parent sets.
+import assert from 'node:assert/strict'
+import { mkdirSync, readFileSync, writeFileSync } from 'node:fs'
+import { join } from 'node:path'
+import { fileURLToPath } from 'node:url'
+import { gzipSync, gunzipSync } from 'node:zlib'
+import { it } from 'vitest'
+import { BridgeSession } from '../bridge/session.ts'
+import { PROTOCOL_VERSION, PROJECTION_VERSION, SCHEMA_ID } from '../bridge/protocol.ts'
+import { encodeBridgeRuntimeCheckpoint, loadBridgeRuntimeCheckpoint } from '../bridge/runtime-checkpoint.ts'
+import { exportSave, makeSave, validateSaveV30 } from '../src/core/save.js'
+import { currentProposals } from '../src/core/talentMarket.js'
+import { player, retentionFixture } from './helpers/p14b2-fixtures.js'
+import { gate, git, sha, type MinterAuthority } from '../scripts/v30-mint-support.js'
+
+// Same verified values as tests/bridge-p14b5-mint-v30.test.ts (646-T report); only the token
+// name and the output directory differ.
+const APPROVED: MinterAuthority = {
+  phase: 'qualified P14B.4 logic closeout / exact last-V30 upstream before B.5',
+  testedSourceSha: '61833f0df4ffdb5673903d5a81680b2d37ba254b',
+  textOnlySourceSha: '651fea8ba28450ad20dccf45f209bde6ab058aaa',
+  textOnlyProducerDiffSha256: '456a099e448f5c4f7ff2a3506dd1cf3c82611c5e7b16ddfc29cb26d70cc0b31a',
+  publishedRecoverySha: 'd6c11b9b4809d361e356ef74495e731f9296acc2',
+  closeoutRelativePath: 'docs/engineering/playability-launch-review/evidence/p14b4-20260919/637-cancel-causal-qualified-checkpoint.md',
+  closeoutSha256: '382eee596901b28e4c597cd46ec09ffd6ee15f54f4c443d23090dde57e23f6a4',
+  schemaId: 'sha256:6f6b48805aadcf14d456614d87bf1571eb1ce0d9aa0bc44f604e7976f4f85538',
+  projectionVersion: 47, protocolVersion: 4, saveVersion: 30, promiseRulesVersion: 4,
+  approvalEnvironmentVariable: 'STUDIO_MINT_PROJECTION47_APPROVED',
+  outputRelativePath: 'tests/fixtures/p14/genuine-projection47-runtime',
+}
+const FILENAME = 'genuine-projection47-runtime.checkpoint.json.gz'
+const PROVENANCE_FILENAME = 'genuine-projection47-runtime.provenance.json'
+
+type PreparedRuntime = { bytes: string; compressed: Buffer; facts: Record<string, unknown>; recipe: Record<string, unknown> }
+let preparedCache: PreparedRuntime | undefined
+/** Everything except the gate and the writes; in memory, deterministic, no token. */
+function prepare(): PreparedRuntime {
+  if (preparedCache !== undefined) return preparedCache
+  const retained = retentionFixture() // unchanged accepted generated-campaign recipe; the corpus's current-p1 world
+  const state = structuredClone(retained.submitted)
+  assert.equal(state.founding, null)
+  const proposal = currentProposals(state, retained.keptId).find((p) => p.issuerStudioId === player(state))
+  assert.ok(proposal)
+  assert.equal(proposal.promises.length, 1)
+  const root = state.promises.find((p) => p.promiseId === proposal.promises[0])
+  assert.ok(root)
+  assert.equal(root.contractId, null)
+  assert.equal(root.outcome, null)
+  assert.equal(root.family, 'APPEARANCE_COUNT')
+  assert.equal(root.version, 4)
+  assert.equal(root.feasibilityReceipt.rulesVersion, 4)
+  const session = new BridgeSession(state, 'p14b5-genuine-outgoing47')
+  const control = (commandId: string) => ({ protocolVersion: PROTOCOL_VERSION, schemaId: SCHEMA_ID,
+    sessionId: session.sessionId, commandId, expectedStateRevision: session.stateRevision })
+  const saved = session.save(control('save-current-p1'))
+  assert.ok(saved.accepted, saved.message)
+  const quote = session.quote({ ...control('quote-withdraw'), type: 'quoteMarketProposal', draft: {
+    verb: 'withdraw', talentId: retained.keptId, termWeeks: null, premiumTier: null,
+  } })
+  if (!quote.accepted) throw new Error(quote.message)
+  assert.equal(quote.quote.ok, true)
+  const request = { ...control('commit-withdraw'), type: 'submitIntent' as const, payload: { intentId: quote.quote.intentId } }
+  const committed = session.command(request)
+  assert.ok(committed.accepted, committed.message)
+  assert.equal(session.stateRevision, 1)
+  assert.ok(!currentProposals(session.gameState, retained.keptId).some((p) => p.issuerStudioId === player(state)))
+  assert.deepEqual(session.gameState.promises, state.promises)
+  assert.deepEqual(session.gameState.firstTakes, state.firstTakes)
+  assert.equal(session.gameState.rngState, state.rngState)
+  const checkpoint = session.exportRuntimeCheckpoint()
+  assert.equal(checkpoint.schemaId, APPROVED.schemaId)
+  assert.equal(checkpoint.protocolVersion, 4)
+  assert.equal(checkpoint.stateRevision, 1)
+  assert.equal(checkpoint.journal.length, 2)
+  assert.deepEqual(checkpoint.journal.map((entry) => entry.route), ['save', 'command'])
+  assert.ok(checkpoint.savedSaveJson !== null)
+  assert.notEqual(checkpoint.currentSaveJson, checkpoint.savedSaveJson)
+  const current = validateSaveV30(JSON.parse(checkpoint.currentSaveJson))
+  const prior = validateSaveV30(JSON.parse(checkpoint.savedSaveJson))
+  assert.equal(exportSave(current), checkpoint.currentSaveJson)
+  assert.equal(exportSave(prior), checkpoint.savedSaveJson)
+  // Compare each complete slot to its own validated canonical writer bytes; JSON preserves 0, not in-memory -0.
+  assert.equal(checkpoint.savedSaveJson, exportSave(makeSave(state)))
+  assert.equal(checkpoint.currentSaveJson, exportSave(makeSave(session.gameState)))
+  assert.equal(current.state.market.tick, prior.state.market.tick)
+  assert.deepEqual(current.state.promises, prior.state.promises)
+  assert.equal(prior.state.talentMarket.proposals.length, current.state.talentMarket.proposals.length + 1)
+  const bytes = encodeBridgeRuntimeCheckpoint(checkpoint)
+  const loaded = loadBridgeRuntimeCheckpoint(bytes, undefined, () => { throw new Error('must not migrate current47') })
+  assert.equal(loaded.migratedFromProtocolVersion, null)
+  assert.deepEqual(loaded.hydrated.checkpoint, checkpoint)
+  const reopened = BridgeSession.fromRuntimeCheckpoint(loaded.hydrated)
+  assert.equal(encodeBridgeRuntimeCheckpoint(reopened.exportRuntimeCheckpoint()), bytes)
+  assert.deepEqual(reopened.command(request), committed, 'same-identity retry must replay the actual journal response')
+  assert.equal(encodeBridgeRuntimeCheckpoint(reopened.exportRuntimeCheckpoint()), bytes)
+  const compressed = gzipSync(bytes, { level: 9 })
+  assert.equal(gunzipSync(compressed).toString('utf8'), bytes)
+  const facts = { filename: FILENAME, provenanceFilename: PROVENANCE_FILENAME,
+    uncompressedSha256: sha(bytes), compressedSha256: sha(compressed),
+    byteLength: Buffer.byteLength(bytes), compressedByteLength: compressed.length,
+    schemaId: checkpoint.schemaId, protocolVersion: checkpoint.protocolVersion, projectionVersion: PROJECTION_VERSION,
+    currentSaveVersion: current.saveVersion, savedSaveVersion: prior.saveVersion,
+    currentSaveSha256: sha(checkpoint.currentSaveJson), savedSaveSha256: sha(checkpoint.savedSaveJson),
+    currentWeek: current.state.market.tick, savedWeek: prior.state.market.tick,
+    stateRevision: checkpoint.stateRevision, journalEntries: checkpoint.journal.length,
+    journalDigest: checkpoint.journalDigest, sessionId: checkpoint.sessionId,
+    focusPromiseId: root.promiseId, talentId: retained.keptId }
+  const recipe = { builder: 'tests/helpers/p14b2-fixtures.ts:retentionFixture().submitted (the corpus current-p1 world)',
+    economicInput: 'explicit fund helper cash delta with matching ledger',
+    actions: ['real save with CURRENT P1', 'real quote and commit withdrawal; retained unbound promise history'],
+    quoteIntentId: quote.quote.intentId, commandId: request.commandId,
+    savedSlotIsCorpusWorld: 'savedSaveJson equals exportSave(makeSave(current-p1 state)); compare with genuine-v30-current-p1 uncompressedSha256' }
+  return preparedCache = { bytes, compressed, facts, recipe }
+}
+
+it('DRY (no token, no write): build the genuine outgoing projection-47 checkpoint in memory; print the premises', () => {
+  const { facts, recipe } = prepare()
+  console.log(JSON.stringify({ ...facts, recipe }, null, 2))
+}, 300_000)
+
+it('ONE-SHOT: genuine outgoing projection47 checkpoint before B.5, never restamped', () => {
+  const initial = gate(APPROVED)
+  const minterPath = fileURLToPath(import.meta.url)
+  assert.ok(minterPath.startsWith(`${initial.root}/tests/`))
+  const minterSha256 = sha(readFileSync(new URL(import.meta.url)))
+  const startedAt = new Date().toISOString()
+  const { compressed, facts, recipe } = prepare()
+  const final = gate(APPROVED)
+  assert.deepEqual(final, initial, 'producer/recipe/configuration or closeout changed during construction')
+  assert.equal(sha(readFileSync(new URL(import.meta.url))), minterSha256, 'executed entry changed during mint')
+  const minterRelativePath = minterPath.slice(initial.root.length + 1)
+  const provenance = { authority: APPROVED, observedHeadSha: git('rev-parse', 'HEAD'),
+    sourceFiles: initial.sourceFiles, minterSha256, closeoutSha256: initial.closeoutHash,
+    nodeVersion: process.version, startedAt, endedAt: new Date().toISOString(),
+    command: `${APPROVED.approvalEnvironmentVariable}=${APPROVED.publishedRecoverySha} node_modules/.bin/vitest run ${minterRelativePath} --minWorkers=1 --maxWorkers=1`,
+    campaign: 'generated test campaign, never Owner save',
+    recipe,
+    scope: 'genuine outgoing runtime47 authority and V30 gameplay slots; no future migration or native acceptance claim',
+    ...facts }
+  const directory = join(initial.root, APPROVED.outputRelativePath)
+  mkdirSync(directory)
+  writeFileSync(join(directory, FILENAME), compressed, { flag: 'wx' })
+  writeFileSync(join(directory, PROVENANCE_FILENAME), JSON.stringify(provenance, null, 2) + '\n', { flag: 'wx' })
+  writeFileSync(join(directory, 'MANIFEST.json'), JSON.stringify({ authority: APPROVED, fixtures: [facts] }, null, 2) + '\n', { flag: 'wx' })
+  console.log(JSON.stringify(provenance, null, 2))
+}, 300_000)

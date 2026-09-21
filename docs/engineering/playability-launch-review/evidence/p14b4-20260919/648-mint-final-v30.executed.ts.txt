@@ -1,0 +1,432 @@
+// P14B.5 T0 (646-T): ONE-SHOT minter for the genuine outgoing Save V30 corpus.
+// Temporary operational entry tests/bridge-p14b5-mint-v30.test.ts, the B4 pattern
+// (evidence/p14b4-20260919/01-mint-final-v29.executed.ts.txt). Run only this file, one
+// worker, at the exact published HEAD below with the three operational files UNTRACKED;
+// then archive/remove it from discovery. Uses the existing B2 Vitest-backed fixture
+// builders and the B4 outcomes test's tagged-P2 route (copied, never imported: importing
+// a test file would register its cases here); not a vite-node job.
+//
+// The DRY case builds every world and readback in memory and prints the facts; it
+// never writes and needs no token. The ONE-SHOT case is gated by the approval
+// environment variable that only the parent sets; without it the gate refuses
+// before any output directory exists.
+import assert from 'node:assert/strict'
+import { readFileSync } from 'node:fs'
+import { gunzipSync } from 'node:zlib'
+import { it } from 'vitest'
+import { applyActions, hiringMarketIds, tick } from '../src/core/index.js'
+import { attachPromise } from '../src/core/promises.js'
+import { exportSave, importSave, migrateToV30, validateSaveV29 } from '../src/core/save.js'
+import { currentProposals, submitProposal } from '../src/core/talentMarket.js'
+import { productionTechnologyView } from '../src/core/technologyProduction.js'
+import { TUNING } from '../src/core/tuning.js'
+import type { Action, CastSlot, GameState, ProfessionalPromise } from '../src/core/types.js'
+import { advanceTo, fund, p13aGeneratedStudio, player, retentionFixture, rivalFixture } from './helpers/p14b2-fixtures.js'
+import { mintV30Corpus, prepareV30Corpus, sha, type MinterAuthority, type Snapshot } from '../scripts/v30-mint-support.js'
+
+// Every value verified by reading at HEAD d6c11b9b (646-T report): git rev-parse for the
+// three shas; `git diff 61833f0d 651fea8b -- PRODUCER_PATHS` is the comment-only 638-W
+// hunk set (promiseCapacityOwners.ts header, promises.ts reclassifyPromise doc) and
+// `git diff 651fea8b d6c11b9b -- PRODUCER_PATHS` is empty; shasum -a 256 for the closeout;
+// generated/unity/StudioBridgeDtos.Generated.cs:3 for the schema; save.ts:6396,
+// bridge-schema.ts:233, promises.ts:45 for the versions.
+const APPROVED_FINAL_V30: MinterAuthority = {
+  phase: 'qualified P14B.4 logic closeout / exact last-V30 upstream before B.5',
+  testedSourceSha: '61833f0df4ffdb5673903d5a81680b2d37ba254b',
+  textOnlySourceSha: '651fea8ba28450ad20dccf45f209bde6ab058aaa',
+  textOnlyProducerDiffSha256: '456a099e448f5c4f7ff2a3506dd1cf3c82611c5e7b16ddfc29cb26d70cc0b31a',
+  publishedRecoverySha: 'd6c11b9b4809d361e356ef74495e731f9296acc2',
+  closeoutRelativePath: 'docs/engineering/playability-launch-review/evidence/p14b4-20260919/637-cancel-causal-qualified-checkpoint.md',
+  closeoutSha256: '382eee596901b28e4c597cd46ec09ffd6ee15f54f4c443d23090dde57e23f6a4',
+  schemaId: 'sha256:6f6b48805aadcf14d456614d87bf1571eb1ce0d9aa0bc44f604e7976f4f85538',
+  projectionVersion: 47,
+  protocolVersion: 4,
+  saveVersion: 30,
+  promiseRulesVersion: 4,
+  approvalEnvironmentVariable: 'STUDIO_MINT_V30_APPROVED_FINAL',
+  outputRelativePath: 'tests/fixtures/p14/genuine-v30-pre-b5',
+}
+/** The legacy case's ORIGIN: the genuine V29 corpus (B4 T0, record 09), never a fresh mint. */
+const LEGACY_ORIGIN = {
+  directory: 'tests/fixtures/p14/genuine-v29-pre-p2',
+  filename: 'genuine-v29-refused-p2-count-only-current-draft.json.gz',
+  compressedSha256: 'dedd68ed7a975d362838dbbbc5b32016181052a62d3b82a33dea3d95a63d5497',
+  uncompressedSha256: '7f7529cb05ab29d2b27bb2855448d2b72e69b5b222b6b351698da0ec7632a253',
+  manifestSha256: '77fa32dabb635f4fc839328ac47b07a008b8d26953cff61cf10d1a3dbbb8c1d1',
+  testedSourceSha: '89b5ad2cfc6947ea07fb043ef5b23eba38d7dbde',
+  publishedRecoverySha: 'c06db6eae2a1350317c018c6f108d115dcba7b19',
+}
+const CASE_COUNT = 10
+const SLOTS = ['lead', 'antagonist', 'support'] as const
+type SeatClass = 'lead' | 'leadOrAntagonist'
+
+function root(state: GameState, promiseId: string): ProfessionalPromise {
+  const rows = state.promises.filter((p) => p.promiseId === promiseId)
+  assert.equal(rows.length, 1)
+  return rows[0]!
+}
+function ownPromise(state: GameState, personId: string): ProfessionalPromise {
+  const proposal = currentProposals(state, personId).find((p) => p.issuerStudioId === player(state))
+  assert.ok(proposal)
+  assert.equal(proposal.promises.length, 1)
+  return root(state, proposal.promises[0]!)
+}
+function binding(state: GameState, promise: ProfessionalPromise): void {
+  assert.notEqual(promise.contractId, null)
+  const employment = state.hollywood!.employment.find((row) => row.contractId === promise.contractId)
+  assert.ok(employment)
+  assert.equal(employment.studioId, promise.issuerStudioId)
+  assert.equal(employment.terms.talentId, promise.beneficiaryPersonId)
+  assert.equal(employment.terms.startWeek, promise.windowStartWeek)
+  assert.ok(state.talentMarket.receipts.some((r) => r.kind === 'settled' && r.week === employment.terms.startWeek
+    && r.talentId === promise.beneficiaryPersonId && r.studioId === promise.issuerStudioId))
+}
+function outcome(state: GameState, promise: ProfessionalPromise): void {
+  binding(state, promise)
+  assert.notEqual(promise.outcome, null)
+  assert.notEqual(promise.outcomeEventId, null)
+  const refs = state.talentMarket.receipts.filter((r) => r.eventId === promise.outcomeEventId)
+  assert.equal(refs.length, 1)
+  assert.equal(refs[0]!.kind, 'promiseOutcome')
+  assert.equal(refs[0]!.week, promise.outcomeWeek)
+  assert.equal(refs[0]!.talentId, promise.beneficiaryPersonId)
+  assert.equal(refs[0]!.studioId, promise.issuerStudioId)
+}
+// ── The tagged-P2 route, copied from tests/p14b4-cast-class-outcomes.test.ts :143-190 and :312-347 ──
+function sign(state: GameState, role: 'actor' | 'writer' | 'director' | 'craft', termWeeks = 208) {
+  for (let steps = 0; steps < 60; steps++) {
+    const person = hiringMarketIds(state, state.market.tick).map((id) => state.talent.find((p) => p.id === id)).find((p) => p?.role === role)
+    if (person !== undefined) return { state: applyActions(state, [{ kind: 'signContract', talentId: person.id, termWeeks }]), id: person.id }
+    state = tick(state)
+  }
+  throw new Error('UNEXECUTED prerequisite: no actual hireable ' + role + ' within60 weeks')
+}
+const p2 = (seatClass: SeatClass) => ({ family: 'LEAD_OR_SIGNIFICANT_ROLE_COUNT' as const,
+  predicate: { kind: 'castRoleCount' as const, count: 1, seatClass } })
+/** Real submitProposal + attachPromise of a TAGGED seat-class P2, bound by the real freeze at `start`. */
+function realPlayerPromise(seatClass: SeatClass) {
+  let state = fund(p13aGeneratedStudio())
+  const target = sign(state, 'actor', 52); state = target.state
+  for (const role of ['writer', 'director', 'actor', 'actor', 'craft'] as const) state = sign(state, role).state
+  const contract = state.contracts.find((c) => c.talentId === target.id)
+  assert.ok(contract)
+  const start = contract.endWeekExclusive
+  const stage = 'facility-soundstage-07'
+  assert.ok(state.operations.facilities.some((f) => f.id === stage && f.capability === 'soundstage'))
+  const mounted = state.sets.find((s) => s.mountedOn === stage && s.status !== 'retired')
+  if (mounted !== undefined) state = applyActions(state, [{ kind: 'strikeSet', setId: mounted.id }])
+  state = applyActions(state, [{ kind: 'commissionSet', commission: { blueprintId: 'set-grand-ballroom', stageFacilityId: stage } }])
+  state = advanceTo(state, state.market.tick + TUNING.SET_BUILD_WEEKS_BAND_HIGH)
+  assert.ok(state.market.tick <= start - 7)
+  state = advanceTo(state, start - 7)
+  state = submitProposal(state, { talentId: target.id, issuerStudioId: player(state), termWeeks: 52, premiumTier: 1.25 })
+  state = attachPromise(state, target.id, player(state), { ...p2(seatClass), windowStartWeek: start, dueWeekExclusive: start + 40 })
+  const draft = ownPromise(state, target.id)
+  assert.equal(draft.version, 4)
+  assert.equal(draft.contractId, null)
+  assert.deepEqual(draft.predicate, p2(seatClass).predicate)
+  assert.equal(draft.feasibilityReceipt.rulesVersion, 4)
+  assert.equal(draft.feasibilityReceipt.classification, 'REASONABLY_ACHIEVABLE')
+  const submittedWeek = state.market.tick
+  state = advanceTo(state, start)
+  const bound = root(state, draft.promiseId)
+  binding(state, bound)
+  assert.equal(bound.feasibilityReceipt.rulesVersion, 4)
+  assert.equal(bound.feasibilityReceipt.week, start)
+  assert.equal(bound.feasibilityReceipt.classification, 'REASONABLY_ACHIEVABLE')
+  assert.equal(bound.outcome, null)
+  assert.deepEqual(currentProposals(state, target.id), [])
+  return { state, promiseId: draft.promiseId, talentId: target.id, submittedWeek, start,
+    recipe: { builder: 'tests/p14b4-cast-class-outcomes.test.ts:realPlayerPromise (copied route)', seatClass,
+      generatedCampaignOnly: true, economicInput: 'explicit fund helper cash delta with matching ledger',
+      actions: ['real signContract x6', 'real strikeSet/commissionSet set-grand-ballroom', `real submitProposal at ${submittedWeek}`,
+        `real attachPromise LEAD_OR_SIGNIFICANT_ROLE_COUNT castRoleCount count1 ${seatClass} window [${start},${start + 40})`,
+        `real market freeze at ${start} binds the promise to the winning contract`] } }
+}
+function playerPayload(state: GameState, promiseId: string, slot: CastSlot): Extract<Action, { kind: 'greenlight' }>['production'] {
+  const promised = root(state, promiseId)
+  const available = state.contracts.filter((c) => c.startWeek <= state.market.tick && state.market.tick < c.endWeekExclusive)
+    .map((c) => state.talent.find((p) => p.id === c.talentId)!)
+  const actorIds = available.filter((p) => p.role === 'actor' && p.id !== promised.beneficiaryPersonId).map((p) => p.id)
+  assert.ok(actorIds.length >= 2, 'fixture prerequisite: two lawful complementary actors missing')
+  const cast: Record<CastSlot, string> = { lead: '', antagonist: '', support: '' }
+  cast[slot] = promised.beneficiaryPersonId
+  for (const other of SLOTS.filter((candidate) => candidate !== slot)) cast[other] = actorIds.shift()!
+  const writer = available.find((p) => p.role === 'writer')
+  const director = available.find((p) => p.role === 'director')
+  const craft = available.find((p) => p.role === 'craft')
+  assert.ok(writer && director && craft, 'fixture prerequisite: real complementary crew missing')
+  assert.equal(new Set([writer.id, director.id, craft.id, ...Object.values(cast)]).size, 6)
+  const used = new Set([...state.studio.activeProductions.map((p) => p.conceptId),
+    ...state.studio.releasedFilms.map((p) => p.conceptId), ...state.scriptDevelopment.projects.map((p) => p.conceptId)])
+  const concept = state.concepts.find((c) => !used.has(c.id))
+  assert.ok(concept, 'fixture prerequisite: no distinct unused existing stock concept')
+  return { conceptId: concept.id, writerId: writer.id, directorId: director.id, cast, craftIds: [craft.id],
+    shape: { opening: 'slowSetup', midpoint: 'revelation', ending: 'bittersweet' },
+    promise: { genre: concept.genre, intendedSegments: ['adult'], ranges: {
+      intimacy: [-0.5, 0.5], tonalWeight: [-0.5, 0.5], kineticEnergy: [-0.5, 0.5] } },
+    budget: { negative: concept.baseNegativeCost, marketing: 0 } }
+}
+/** Real greenlight with the promised person in `slot`, ticked to shooting entry (remainingTicks 5), take not yet scheduled. */
+function playerToFive(state: GameState, promiseId: string, slot: CastSlot) {
+  binding(state, root(state, promiseId))
+  const payload = playerPayload(state, promiseId, slot)
+  const greenlitWeek = state.market.tick
+  state = applyActions(state, [{ kind: 'greenlight', production: payload }])
+  const productionId = state.studio.activeProductions.at(-1)!.id
+  assert.equal(state.firstTakes.some((take) => take.productionId === productionId), false)
+  state = tick(tick(tick(state)))
+  const rehearsal = state.operations.workflows.find((w) => w.productionId === productionId)
+  assert.ok(rehearsal)
+  assert.equal(rehearsal.phase, 'rehearsal')
+  state = applyActions(state, [{ kind: 'setProductionSetupRecipe', productionId,
+    recipeId: 'ballroom-reveal-lighting-01', expectedPlanRevision: rehearsal.planRevision }])
+  for (let steps = 0; state.studio.activeProductions.find((p) => p.id === productionId)!.remainingTicks !== 5; steps++) {
+    if (steps >= 40) throw new Error('UNEXECUTED prerequisite: player never reached shooting entry within40 actual ticks')
+    state = tick(state)
+  }
+  const film = state.studio.activeProductions.find((p) => p.id === productionId)!
+  assert.equal(film.cast[slot], root(state, promiseId).beneficiaryPersonId)
+  assert.deepEqual(state.firstTakes.filter((take) => take.productionId === productionId), [])
+  assert.equal(state.operations.workflows.find((w) => w.productionId === productionId)!.shootingTask?.status, 'unassigned')
+  assert.equal(productionTechnologyView(state, productionId).locked, true)
+  assert.notEqual(productionTechnologyView(state, productionId).lockedWeek, null)
+  assert.equal(root(state, promiseId).outcome, null)
+  return { state, productionId, film, greenlitWeek,
+    recipe: { builder: 'tests/p14b4-cast-class-outcomes.test.ts:playerToFive (copied route)', slot,
+      actions: [`real greenlight at ${greenlitWeek} (${payload.conceptId}) with the promised person as ${slot}`,
+        'three real ticks to rehearsal', 'real setProductionSetupRecipe ballroom-reveal-lighting-01',
+        `real ticks to remainingTicks 5 at ${state.market.tick}; shooting task unassigned; technology locked; no take`] } }
+}
+/** PREMISE PROOF ONLY on a discarded clone: the next scheduled tick films the take. Not saved. */
+function nextTakeIfScheduled(state: GameState, productionId: string, promiseId: string) {
+  const film = state.studio.activeProductions.find((p) => p.id === productionId)!
+  let probe = applyActions(structuredClone(state), [{ kind: 'assignShootingDirector', productionId, directorId: film.directorId },
+    { kind: 'scheduleShootingTake', productionId }])
+  probe = tick(probe)
+  const rows = probe.firstTakes.filter((take) => take.productionId === productionId)
+  assert.equal(rows.length, 1)
+  assert.equal(rows[0]!.week, state.market.tick + 1)
+  assert.deepEqual(rows[0]!.cast, film.cast)
+  const settled = root(probe, promiseId)
+  return { discardedProbe: true, firstTakeEventId: rows[0]!.eventId, week: rows[0]!.week,
+    promiseOutcome: settled.outcome, outcomeEventId: settled.outcomeEventId, evidenceRefs: settled.evidenceRefs }
+}
+
+function snapshots(): Snapshot[] {
+  const empty = p13aGeneratedStudio()
+  assert.deepEqual(empty.promises, [])
+  assert.deepEqual(empty.firstTakes, [])
+
+  const retained = retentionFixture() // unchanged actual B2 fixture builder
+  const current = retained.submitted
+  const currentFocus = [retained.keptId, retained.brokenId].map((id) => ownPromise(current, id))
+  for (const promise of currentFocus) {
+    assert.equal(promise.family, 'APPEARANCE_COUNT')
+    assert.equal(promise.contractId, null)
+    assert.equal(promise.outcome, null)
+    assert.equal(promise.version, 4)
+    assert.equal(promise.feasibilityReceipt.rulesVersion, 4)
+  }
+  const boundPromises = retained.bound.promises.filter((p) => p.issuerStudioId === player(retained.bound))
+  assert.equal(boundPromises.length, 2)
+  for (const promise of boundPromises) { binding(retained.bound, promise); assert.equal(promise.outcome, null) }
+  const terminals = retained.outcomes.promises.filter((p) => p.issuerStudioId === player(retained.outcomes))
+  assert.deepEqual(terminals.map((p) => p.outcome).sort(), ['BROKEN', 'SATISFIED'])
+  assert.equal(new Set(terminals.map((p) => p.outcomeEventId)).size, terminals.length)
+  for (const promise of terminals) outcome(retained.outcomes, promise)
+  const kept = terminals.find((p) => p.outcome === 'SATISFIED')!
+  const broken = terminals.find((p) => p.outcome === 'BROKEN')!
+  assert.equal(kept.beneficiaryPersonId, retained.keptId)
+  assert.equal(broken.beneficiaryPersonId, retained.brokenId)
+  const keptTake = retained.outcomes.firstTakes.find((take) => take.eventId === kept.evidenceRefs[0])
+  assert.ok(keptTake)
+  assert.equal(keptTake.productionId, retained.productionId)
+  assert.equal(kept.outcomeWeek, keptTake.week)
+  // The BROKEN is the termination seam (actions.ts breakPromisesOnTermination via the real
+  // `releaseTalent` action in retentionFixture), same week as the take; not the due-week owner,
+  // not the cancel seam. Genuine: a real action through applyActions with its own receipt.
+  assert.equal(broken.outcomeWeek, kept.outcomeWeek)
+  assert.deepEqual(broken.evidenceRefs, [])
+  assert.ok(retained.outcomes.hollywood!.employment.some((row) => row.contractId === broken.contractId && row.endedWeek === broken.outcomeWeek))
+
+  const retainedRecipe = { builder: 'tests/helpers/p14b2-fixtures.ts:retentionFixture',
+    generatedCampaignOnly: true, economicInput: 'explicit fund helper cash delta with matching ledger',
+    keptPersonId: retained.keptId, brokenPersonId: retained.brokenId, productionId: retained.productionId }
+
+  const lead = realPlayerPromise('lead')
+  const flexible = realPlayerPromise('leadOrAntagonist')
+  assert.equal(lead.talentId, flexible.talentId) // same generated campaign, same first hireable actor; different tag
+  assert.equal(lead.promiseId, flexible.promiseId)
+  assert.notDeepEqual(root(lead.state, lead.promiseId).predicate, root(flexible.state, flexible.promiseId).predicate)
+
+  const atFive = playerToFive(structuredClone(lead.state), lead.promiseId, 'lead')
+  const seated = root(atFive.state, lead.promiseId)
+  binding(atFive.state, seated)
+  assert.deepEqual(seated.predicate, p2('lead').predicate)
+  assert.ok(seated.windowStartWeek <= atFive.state.market.tick + 1 && atFive.state.market.tick + 1 < seated.dueWeekExclusive)
+  const nextTake = nextTakeIfScheduled(atFive.state, atFive.productionId, lead.promiseId)
+  assert.equal(nextTake.promiseOutcome, 'SATISFIED')
+
+  const rival = rivalFixture() // unchanged real generated rival chain
+  const rivalOpenBefore = JSON.stringify(rival.open)
+  // The proposal table holds CURRENT offers. Unbound historical roots are not
+  // necessarily current: derive the focus from actual attachment references.
+  const rivalCurrentFocus = rival.open.talentMarket.proposals
+    .filter((proposal) => proposal.issuerStudioId !== player(rival.open) && proposal.promises.length > 0)
+    .map((proposal) => {
+      const issuer = rival.open.hollywood!.identities.filter((s) => s.studioId === proposal.issuerStudioId)
+      assert.equal(issuer.length, 1)
+      assert.equal(issuer[0]!.role, 'rival')
+      assert.notEqual(issuer[0]!.enteredWeek, null)
+      assert.deepEqual(currentProposals(rival.open, proposal.talentId)
+        .filter((p) => p.issuerStudioId === proposal.issuerStudioId), [proposal])
+      const cases = rival.open.talentMarket.cases.filter((c) => c.talentId === proposal.talentId && c.outcome === null)
+      assert.equal(cases.length, 1)
+      assert.equal(proposal.promises.length, 1)
+      const promise = root(rival.open, proposal.promises[0]!)
+      assert.equal(promise.issuerStudioId, proposal.issuerStudioId)
+      assert.equal(promise.beneficiaryPersonId, proposal.talentId)
+      // HEAD rivals author P1 or a tagged leadOrAntagonist P2 (talentMarket.ts authorRivalPromise).
+      if (promise.family === 'APPEARANCE_COUNT') assert.deepEqual(promise.predicate, { count: 1 })
+      else {
+        assert.equal(promise.family, 'LEAD_OR_SIGNIFICANT_ROLE_COUNT')
+        assert.deepEqual(promise.predicate, { kind: 'castRoleCount', count: 1, seatClass: 'leadOrAntagonist' })
+      }
+      assert.equal(promise.version, 4)
+      assert.equal(promise.windowStartWeek, proposal.startWeek)
+      assert.equal(promise.dueWeekExclusive, proposal.startWeek + proposal.termWeeks)
+      assert.equal(promise.contractId, null)
+      assert.equal(promise.outcome, null)
+      assert.equal(promise.outcomeWeek, null)
+      assert.equal(promise.outcomeCause, null)
+      assert.equal(promise.outcomeEventId, null)
+      assert.equal(promise.progress, 0)
+      assert.deepEqual(promise.evidenceRefs, [])
+      assert.equal(promise.feasibilityReceipt.classification, 'REASONABLY_ACHIEVABLE')
+      assert.equal(promise.feasibilityReceipt.bottleneck, null)
+      assert.equal(promise.feasibilityReceipt.rulesVersion, 4)
+      assert.equal(promise.feasibilityReceipt.week, proposal.submittedWeek)
+      const submitted = rival.open.talentMarket.receipts.filter((r) =>
+        r.kind === 'proposalSubmitted' && r.talentId === proposal.talentId
+        && r.studioId === proposal.issuerStudioId && r.week === proposal.submittedWeek)
+      assert.equal(submitted.length, 1)
+      return { promiseId: promise.promiseId, family: promise.family, originalFeasibilityReceipt: structuredClone(promise.feasibilityReceipt) }
+    })
+  assert.ok(rivalCurrentFocus.length > 0, 'no actual CURRENT rival attachment; refuse mint')
+  assert.equal(new Set(rivalCurrentFocus.map((focus) => focus.promiseId)).size, rivalCurrentFocus.length)
+  let sharedState = rival.terminal
+  let shared: ProfessionalPromise[] | undefined
+  let sharedTakeId: string | undefined
+  // Same bounded, real receipt-group search as T4 sharedTakeOutcomes; start from
+  // B2's already-produced terminal chain rather than rerunning it independently.
+  while (sharedState.market.tick <= 230) {
+    const groups = new Map<string, ProfessionalPromise[]>()
+    for (const promise of sharedState.promises) {
+      if (promise.outcome !== 'SATISFIED') continue
+      for (const id of promise.evidenceRefs) groups.set(id, [...(groups.get(id) ?? []), promise])
+    }
+    const found = [...groups.entries()].find(([, group]) => new Set(group.map((p) => p.beneficiaryPersonId)).size >= 2)
+    if (found !== undefined) { [sharedTakeId, shared] = found; break }
+    sharedState = tick(sharedState)
+  }
+  assert.ok(shared && sharedTakeId, 'no genuine multi-beneficiary shared take by230; refuse mint, never forge it')
+  const take = sharedState.firstTakes.find((entry) => entry.eventId === sharedTakeId)
+  assert.ok(take)
+  assert.equal(new Set(shared.map((p) => p.outcomeEventId)).size, shared.length)
+  for (const promise of shared) {
+    outcome(sharedState, promise)
+    assert.notEqual(promise.issuerStudioId, player(sharedState))
+    assert.equal(promise.issuerStudioId, take.studioId)
+    assert.ok(Object.values(take.cast).includes(promise.beneficiaryPersonId))
+    assert.ok(promise.evidenceRefs.includes(take.eventId))
+  }
+
+  // Legacy count-only P2: ORIGIN is the genuine V29 corpus; carried into V30 by the real
+  // migrateToV30 at HEAD. A BOUND count-only P2 is not producible genuinely: P2 was
+  // nonofferable in V29 (IMPOSSIBLE at attach, dropped at the freeze) and HEAD refuses a
+  // count-only P2 at any new quote/freeze (promises.ts promiseFeasibility). So this is the
+  // unbound CURRENT draft, exactly as V29 froze it, plus the migration step.
+  const originDirectory = new URL(`./fixtures/p14/genuine-v29-pre-p2/`, import.meta.url)
+  const originCompressed = readFileSync(new URL(LEGACY_ORIGIN.filename, originDirectory))
+  assert.equal(sha(originCompressed), LEGACY_ORIGIN.compressedSha256)
+  assert.equal(sha(readFileSync(new URL('MANIFEST.json', originDirectory))), LEGACY_ORIGIN.manifestSha256)
+  const originRaw = gunzipSync(originCompressed).toString('utf8')
+  assert.equal(sha(originRaw), LEGACY_ORIGIN.uncompressedSha256)
+  const originProvenance = JSON.parse(readFileSync(new URL(LEGACY_ORIGIN.filename.replace('.json.gz', '.provenance.json'), originDirectory), 'utf8'))
+  assert.equal(originProvenance.compressedSha256, LEGACY_ORIGIN.compressedSha256)
+  assert.equal(originProvenance.uncompressedSha256, LEGACY_ORIGIN.uncompressedSha256)
+  assert.equal(originProvenance.authority.testedSourceSha, LEGACY_ORIGIN.testedSourceSha)
+  assert.equal(originProvenance.authority.publishedRecoverySha, LEGACY_ORIGIN.publishedRecoverySha)
+  assert.equal(originProvenance.authority.saveVersion, 29)
+  assert.equal(originProvenance.authority.promiseRulesVersion, 3)
+  const originSave = validateSaveV29(JSON.parse(originRaw)) // the actual frozen old reader first
+  assert.equal(exportSave(originSave), originRaw)
+  const migrated = migrateToV30(importSave(originRaw)) // the real live load-to-play route
+  assert.equal(migrated.saveVersion, 30)
+  assert.deepEqual(migrated.state, originSave.state) // every root and receipt carried unchanged
+  assert.deepEqual(JSON.parse(exportSave(migrated)), { ...JSON.parse(originRaw), saveVersion: 30 })
+  const legacyId: unknown = originProvenance.focus[0].promiseId
+  assert.ok(typeof legacyId === 'string')
+  const legacy = root(migrated.state, legacyId)
+  assert.equal(legacy.family, 'LEAD_OR_SIGNIFICANT_ROLE_COUNT')
+  assert.deepEqual(legacy.predicate, { count: 1 })
+  assert.equal(legacy.version, 3)
+  assert.equal(legacy.feasibilityReceipt.rulesVersion, 3)
+  assert.equal(legacy.feasibilityReceipt.classification, 'IMPOSSIBLE')
+  assert.equal(legacy.contractId, null)
+  assert.equal(legacy.outcome, null)
+  assert.deepEqual(legacy.feasibilityReceipt, originProvenance.focus[0].originalFeasibilityReceipt)
+  assert.ok(currentProposals(migrated.state, legacy.beneficiaryPersonId).some((p) => p.promises.includes(legacyId)))
+
+  // Selection changes only provenance focus, never the saved campaign. Retain
+  // ALL historical roots, including abandoned unbound ones, and their receipts.
+  assert.equal(JSON.stringify(rival.open), rivalOpenBefore, 'rival open snapshot changed while preparing focus')
+  for (const focus of rivalCurrentFocus) assert.deepEqual(root(rival.open, focus.promiseId).feasibilityReceipt, focus.originalFeasibilityReceipt)
+  const rivalFamilies = [...new Set(rivalCurrentFocus.map((focus) => focus.family))].sort()
+  return [
+    { name: 'empty', state: empty, role: 'empty V30 roots from generated campaign', recipe: { builder: 'p13aGeneratedStudio()' }, focusPromiseIds: [] },
+    { name: 'current-p1', state: current, role: 'two actual CURRENT unbound P1 attachments (kept and broken persons), unaccepted',
+      recipe: retainedRecipe, focusPromiseIds: currentFocus.map((p) => p.promiseId) },
+    { name: 'bound-open-p1', state: retained.bound, role: 'two real winning contracts, bound OPEN P1 promises', recipe: retainedRecipe,
+      focusPromiseIds: boundPromises.map((p) => p.promiseId) },
+    { name: 'bound-open-p2-lead', state: lead.state, role: 'real tagged castRoleCount lead P2, bound OPEN through the real freeze',
+      recipe: lead.recipe, focusPromiseIds: [lead.promiseId], facts: { talentId: lead.talentId, submittedWeek: lead.submittedWeek, boundWeek: lead.start } },
+    { name: 'bound-open-p2-lead-or-antagonist', state: flexible.state, role: 'real tagged castRoleCount leadOrAntagonist P2, bound OPEN through the real freeze',
+      recipe: flexible.recipe, focusPromiseIds: [flexible.promiseId], facts: { talentId: flexible.talentId, submittedWeek: flexible.submittedWeek, boundWeek: flexible.start } },
+    { name: 'kept-and-broken', state: retained.outcomes,
+      role: 'real first take SATISFIED plus same-week early-termination BROKEN (releaseTalent → breakPromisesOnTermination); distinct own outcome receipts',
+      recipe: retainedRecipe, focusPromiseIds: terminals.map((p) => p.promiseId),
+      facts: { brokenSeam: 'actions.ts breakPromisesOnTermination via real releaseTalent; not due-week, not cancel', keptTakeEventId: keptTake.eventId, keptProductionId: keptTake.productionId } },
+    // Named for what the world holds: at HEAD the default seed's rivals author tagged leadOrAntagonist P2 beside P1.
+    { name: 'rival-current-p1-and-p2', state: rival.open, role: `genuine rival-authored current unbound attachments before expiry (families: ${rivalFamilies.join(', ')})`,
+      recipe: { builder: 'tests/helpers/p14b2-fixtures.ts:rivalFixture().open', generatedCampaignOnly: true },
+      focusPromiseIds: rivalCurrentFocus.map((focus) => focus.promiseId), facts: { families: rivalFamilies } },
+    { name: 'rival-shared-take-terminal', state: sharedState, role: 'multiple real rival SATISFIED beneficiaries share one take, never their outcome receipt',
+      recipe: { builder: 'rivalFixture().terminal + bounded real tick/receipt search through230', generatedCampaignOnly: true },
+      focusPromiseIds: shared.map((p) => p.promiseId),
+      facts: { firstTakeEventId: sharedTakeId, productionId: take.productionId, studioId: take.studioId, takeWeek: take.week, cast: take.cast, outcomeEventIds: shared.map((p) => p.outcomeEventId) } },
+    { name: 'first-take-at-five', state: atFive.state,
+      role: 'player picture at remainingTicks 5 with the bound tagged-lead promised person seated as lead; shooting task unassigned; no take yet',
+      recipe: { base: lead.recipe, then: atFive.recipe }, focusPromiseIds: [lead.promiseId],
+      facts: { productionId: atFive.productionId, cast: atFive.film.cast, directorId: atFive.film.directorId, greenlitWeek: atFive.greenlitWeek,
+        remainingTicks: 5, nextTakeIfScheduled: nextTake } },
+    { name: 'legacy-count-only-p2-current-draft', state: migrated.state,
+      role: 'V29 count-only LEAD_OR_SIGNIFICANT_ROLE_COUNT current draft (evaluator-3 IMPOSSIBLE receipt, unbound) carried into V30 by the real migrateToV30; origin is the genuine V29 corpus, not a fresh mint',
+      recipe: { origin: { ...LEGACY_ORIGIN, provenanceFilename: LEGACY_ORIGIN.filename.replace('.json.gz', '.provenance.json') },
+        migration: 'real migrateToV30(importSave(raw)) at HEAD; state deep-equal to the V29 state; no field touched',
+        droppedVariant: 'legacy-count-only-p2-bound: no genuine V29 fixture holds a bound count-only P2 (P2 was nonofferable in V29) and HEAD refuses a count-only P2 at any new freeze; a bound one exists only as the outcomes test\'s labeled synthetic variant()' },
+      focusPromiseIds: [legacyId] },
+  ]
+}
+let built: Snapshot[] | undefined
+const build = () => (built ??= snapshots())
+
+it('DRY (no token, no write): build every genuine outgoing-V30 world and readback in memory; print the premises', () => {
+  const prepared = prepareV30Corpus(CASE_COUNT, build)
+  console.log(JSON.stringify(prepared.map(({ item, facts }) => ({ name: item.name, role: item.role, ...facts, additionalFacts: item.facts ?? null })), null, 2))
+}, 600_000)
+
+it(`ONE-SHOT: mint ${CASE_COUNT} genuine outgoing-V30 fixtures only after the qualified B4 closeout and before B.5`, () => {
+  mintV30Corpus(APPROVED_FINAL_V30, import.meta.url, CASE_COUNT, build)
+}, 600_000)
