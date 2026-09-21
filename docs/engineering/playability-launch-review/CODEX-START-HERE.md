@@ -240,11 +240,25 @@ seed's witnesses still required; nothing invented, no timeout/helper/fixture/sou
 progression 593 → 607 → 617 is 83 → 12 → 1; the nine rival outcome cases RUN on a recorded seed
 (partial evidence under 26 §2, not B4 closeout). Findings: O-T4-1 a natural seating-preference
 witness (r01 seats two tagged beneficiaries lead + SUPPORT while a P1 holds antagonist; the
-permutation would serve 3/3 masks). NEXT618: the remaining B4 families under the existing
-directive — (a) final seating preference (hollywoodPolicy.ts :31-66 six permutations / hollywoodTick.ts
-:162 initial actors; test-author RED first, O-T4-1 as the natural witness; ONE writer after review),
-(b) breakPromisesOnCancel causal-coupling correction (26 §2; own RED), (c) the stale-title text
-pass + 574-R doc fix at the next release; evaluator 5 later (D2 (i-c)). Unity/native deferred. Gross2221 omitted fact cost is NOT
+permutation would serve 3/3 masks). NEXT618 (a) DONE → 628 RECORDED (published 2c035de1): the FINAL SEATING PREFERENCE (plan :215-236)
+is landed and QUALIFIED WITH RECORD-ONLY ITEMS (619-R). Identity 85d23a8b = 4baa4d7b
+(promisedCastMasks reader + chooseIndustryPackage lexicographic (benefit, score) with the
+inherited BILLINGS fallback; no-member path byte-identical) → fc1c7b07 (initial-cast seam:
+promised members first in employment order, writer/director/craft excluded, masks passed only
+when non-empty) → 85d23a8b (619-T2: RED re-pinned from receipts, seam law asserted on every
+decision row of both seeds, the positive non-primary-actor seam witness live). RED chain 620
+5/15/2 → 622 19/1/2 (only the R2-attributed default-seed digest) → 626 21/0/1. 627 FULL CORE
+9 files / 24 failed / 3791 passed / 8 todo = exactly the 22 inherited (since 89b5ad2) + 2
+designated (stale route :234; evaluator-5) — the natural-premise and load-only failures of 610
+are gone; never cited as all-green. 625: 16 natural-chain control files 177/2 todo, no pinned
+control moved. G10 ledger (default seed r01 w208 seats its sole writer r02-0 on promise-12,
+film:11 before film:6; seed-b r01 f23 permutation at a 309,545 score cost; bridge seed w211 both
+rivals seat their sole writer as antagonist, 1.70M / 1.34M costs, pins held; adoption seed
+unchanged). OWNER EXPANSION-REVIEW QUESTIONS recorded in 628, nothing adopted: R5 seam ordering
+(keep as landed vs actors-first), G-1(A) rival authoring exclusion for sole crew (later, own RED),
+G-2 ordinary-pool retry. NEXT628: (b) breakPromisesOnCancel causal-coupling correction (26 §2;
+test-author RED → sim-core design note → review → ONE writer); (c) stale-title text pass + 574-R
+doc fix; evaluator 5 later (D2 (i-c)). No wire/save change in this slice. Unity/native deferred. Gross2221 omitted fact cost is NOT
 net saving: cold discovery can shift into next frame. No route-fit claim.
 Draft-discovery, silent-policy, affine and Map alternatives remain unadopted.
 T4/B2/B3/B-F2 qualified closed; B4/liveP2/Unity/Owner acceptance NOT closed.
