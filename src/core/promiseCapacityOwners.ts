@@ -5,11 +5,17 @@
  * maps the kernel's proof class. It never runs a producer, never reads cash,
  * RNG or history, and mutates nothing.
  *
- * NOT in this slice (539 §2): no enumerator over owner alternatives (coverage
- * `existingCalendars`/`allOwnerTraces` stay 'incomplete' with the fixed
- * omission), no live importer (not re-exported from index.ts), no version stamp
- * or receipt fields (`rulesVersion`/`week` are deliberately absent), no
- * Save/projection change, no kernel or producer change.
+ * Still NOT here after the later slices (539 §2 as they left it): no enumerator
+ * in this module — the ENUMERATOR slice (record 555; `promiseCapacityEnumerator.ts`)
+ * imports it, runs ONE Started plan through `promiseCapacityOwnerReplay.ts`
+ * (bills reduced and re-measured at records 583/597) and hands its certificate
+ * to the 5-arity `assembleCapacityInput`, while the 4-arity default
+ * (`classifyDetachedOffer`) still carries `existingCalendars`/`allOwnerTraces`
+ * 'incomplete' with the fixed omission; no live importer (neither this module
+ * nor the enumerator is re-exported from index.ts; the live evaluator 4 of
+ * record 600 lives in promises.ts); no version stamp or receipt fields
+ * (`rulesVersion`/`week` remain absent from `DetachedOfferClassification`); no
+ * Save/projection change; no kernel or producer change from this module.
  */
 import { fnv1a64 } from './math.js'
 import { promiseCastSlots, qualifyingTakes, type PromiseDraft } from './promises.js'

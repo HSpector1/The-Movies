@@ -446,10 +446,16 @@ export function promiseFeasibility(state: GameState, draft: PromiseDraft, week: 
   return receipt('REASONABLY_ACHIEVABLE', null, inputs, week)
 }
 
-/** Re-classification of an ALREADY-MINTED promise against committed state — the
- * freeze step (§2.1.8) and the studio-caused-event step (§4.4) share it. The
- * window itself is the interval: a live promise no longer asks whether it fits
- * inside a contract it already rode in on. */
+/** Re-classification of an ALREADY-MINTED promise against committed state
+ * through `promiseFeasibility`. The window itself is the interval: a live
+ * promise no longer asks whether it fits inside a contract it already rode in
+ * on. History: p14b1's §4.4 studio-caused-event step (`breakPromisesOnCancel`)
+ * broke a promise on this read's IMPOSSIBLE; since record 630 that seam judges
+ * by `targetSpecificImpossibility` instead. The §2.1.8 freeze step never used
+ * it: talentMarket's own `attachedFeasibility` reads `promiseFeasibility` over
+ * the PROPOSAL's interval. No production caller remains (grep src/ bridge/ ui/);
+ * the export stays for index.ts and the RED's premises
+ * (tests/p14b4-cancel-causal-proof.test.ts). */
 export function reclassifyPromise(state: GameState, promise: ProfessionalPromise, week: number): PromiseFeasibilityReceipt {
   return promiseFeasibility(state, {
     family: promise.family,
