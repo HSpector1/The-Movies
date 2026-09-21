@@ -256,9 +256,29 @@ film:11 before film:6; seed-b r01 f23 permutation at a 309,545 score cost; bridg
 rivals seat their sole writer as antagonist, 1.70M / 1.34M costs, pins held; adoption seed
 unchanged). OWNER EXPANSION-REVIEW QUESTIONS recorded in 628, nothing adopted: R5 seam ordering
 (keep as landed vs actors-first), G-1(A) rival authoring exclusion for sole crew (later, own RED),
-G-2 ordinary-pool retry. NEXT628: (b) breakPromisesOnCancel causal-coupling correction (26 §2;
-test-author RED → sim-core design note → review → ONE writer); (c) stale-title text pass + 574-R
-doc fix; evaluator 5 later (D2 (i-c)). No wire/save change in this slice. Unity/native deferred. Gross2221 omitted fact cost is NOT
+G-2 ordinary-pool retry. NEXT628 (b) DELIVERED — records 629–637 (record 637 published `e273715d06c2`): the
+breakPromisesOnCancel causal-coupling correction (26 §2) is landed and QUALIFIED WITH RECORD-ONLY
+ITEMS (629-R). Candidate `61833f0d` = c5a2ecdc (S1 promises.ts: exported
+targetSpecificImpossibility — remaining = count − actual class-qualified distinct takes, t0 =
+max(windowStart, expectedFirstTakeWeek(k=0)), nMax = ceil((due − t0)/5), BROKEN iff remaining >
+nMax; mask-seat relevance on the cancelled picture; immunity/strings/termination/due-week owners
+unchanged) + 61833f0d (S2 actions.ts comment-only). Rulings (630): cadence B hard bound with the D1
+window-start clamp over the quote's 8+5 hypothesis; no take-inside-window precondition. RED
+tests/p14b4-cancel-causal-proof.test.ts 629 baseline 7/9 (joint conflict, classless-P2 refusal,
+unsupported family, class-blind support seat, original-count physical bound all pinned; the
+array-order loser shape witnessed) → 631 16/16 unamended → 633 22/22 after 629-T2 (case-5
+negative, A/B separator, D1 clamp both ways, direct helper pins). 634 live-P2 14 files 1/226/2
+(designated evaluator-5 only); 635 natural-chain controls 177/2 todo identical to 625; 636 FULL
+CORE 9 files / 24 failed / 3813 passed / 8 todo = the 627 set unchanged (22 inherited + 2
+designated) + 22 new passing; never cited as all-green. Publication correction def4ace1: 52 probe
+logs named by 616/618/628 were untracked by .gitignore *.log, force-added; log dirs verified with
+git ls-files since. Record-only: cancel attribution (a cancel credited with a pre-existing
+impossibility) and the unbuilt 5-week two-take witness for the Owner; comment drift for the text
+pass. NEXT637: (c) stale-title text pass (600-R Q2 list + promises.ts:90/:449-452 +
+p14b1-promises:578/:780 wording) + 574-R promiseCapacityOwners.ts:8-9 doc fix — comment/title-only,
+ONE writer, no assertion change; evaluator 5 later (D2 (i-c)). Owner expansion-review questions
+from 628 (R5, G-1(A), G-2) await the Owner; nothing adopted. No wire/save change in this slice.
+Unity/native deferred. Gross2221 omitted fact cost is NOT
 net saving: cold discovery can shift into next frame. No route-fit claim.
 Draft-discovery, silent-policy, affine and Map alternatives remain unadopted.
 T4/B2/B3/B-F2 qualified closed; B4/liveP2/Unity/Owner acceptance NOT closed.
