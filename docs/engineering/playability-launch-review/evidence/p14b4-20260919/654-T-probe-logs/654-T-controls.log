@@ -1,0 +1,31 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p14b1-promises.test.ts (15 tests) 5672ms
+   ✓ P14B.1 test 2: the promise record and the widened digest > attaching a promise changes the digest; a second attach on an already-promised proposal is refused (enforced at most one); revising (re-submit, then attach a different promise) and removing (re-submit with no attach) both change the digest again — removing restores the exact original 1189ms
+   ✓ P14B.1 test 2: the promise record and the widened digest > a window outside the proposed contract is IMPOSSIBLE by construction 640ms
+   ✓ P14B.1 test 2: the promise record and the widened digest > a promise DRIFTED after attachment (its own definition changed through some other channel) drops materialTermsChanged at freeze 595ms
+   ✓ P14B.1 test 3: the feasibility service > Example B shape: an active promise consuming the person's only existing-path seat makes a SECOND, overlapping promise FRAGILE with the 'needs a picture not yet commissioned' bottleneck 591ms
+   ✓ P14B.1 test 4: settlement freeze re-classification > a feasible promise becomes FRAGILE after two lawful greenlights consume the existing stages; freeze drops it with a promise-naming sentence 737ms
+   ✓ P14B.1 test 5: outcomes > SATISFIED once the X-th qualifying first take occurs, with evidence refs naming the causing eventId; idempotent on a later tick 621ms
+   ✓ P14B.1 test 5: outcomes > BROKEN at dueWeekExclusive when the window passes unsatisfied, through a BOUND promise: on genuine legacy-v28-open-case-45, attach a P1 promise to the player's own proposal, settle at 52 (retained -> bound, contractId set), then walk to dueWeekExclusive with no qualifying first take 589ms
+   ✓ P14B.1 test 5: outcomes > RED (T2b closes this): a promise attached to a proposal that then LOSES stays UNBOUND (contractId null) and is never evaluated — on genuine legacy-v28-open-case-45, withdrawing the player's own proposal leaves the promise attached to a proposal that vanishes at settlement (declined, "all proposals dropped"); past its own dueWeekExclusive the record must keep outcome: null and contractId: null, mint no promiseOutcome receipt, and leave the issuer's trust descriptor without a promiseBroken driver 427ms
+ ✓ |core| tests/p14b4-cast-class-outcomes.test.ts (23 tests) 12334ms
+   ✓ P14B4 genuine submit/settle/take routes, no synthetic commitments > PLAYER: actual offered lead P2 settles and the real class-compatible take satisfies it 1803ms
+   ✓ P14B4 genuine submit/settle/take routes, no synthetic commitments > PLAYER: actual offered leadOrAntagonist P2 settles and the real class-compatible take satisfies it 968ms
+   ✓ P14B4 genuine submit/settle/take routes, no synthetic commitments > RIVAL: a genuinely naturally authored tagged commitment binds and qualifies through the real scheduled owner transition 2996ms
+   ✓ P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'player' 'lead' with actual 'lead' seat: qualification=true 573ms
+   ✓ P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'player' 'lead' with actual 'antagonist' seat: qualification=false 350ms
+   ✓ P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'rival' 'lead' with actual 'support' seat: qualification=false 445ms
+   ✓ P14B4 labeled outcome-owner probes on real bound roots and actual casts > rival support qualifies for P1 and shape-legacy count-only P2, not tagged P2 709ms
+   ✓ P14B4 labeled outcome-owner probes on real bound roots and actual casts > player half-open window counts start, excludes before-start and excludes due 371ms
+   ✓ P14B4 labeled outcome-owner probes on real bound roots and actual casts > rival half-open window counts start, excludes before-start and excludes due 701ms
+   ✓ P14B4 labeled outcome-owner probes on real bound roots and actual casts > count2 requires TWO real distinct productions; repeated owner passes/ticks on one picture never add another event 371ms
+   ✓ P14B4 labeled outcome-owner probes on real bound roots and actual casts > two genuinely bound beneficiaries share one completed take but receive DISTINCT own outcome receipts exactly once 397ms
+
+ Test Files  2 passed (2)
+      Tests  38 passed (38)
+   Start at  01:26:09
+   Duration  21.22s (transform 1.63s, setup 0ms, collect 2.50s, tests 18.01s, environment 1ms, prepare 182ms)
+
+EXIT 0

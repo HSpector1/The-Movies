@@ -1,0 +1,5510 @@
+[
+ {
+  "seed": "p13a-core-causal-01",
+  "ms": 4639,
+  "week": 416,
+  "rows": [
+   {
+    "seed": "p13a-core-causal-01",
+    "week": 208,
+    "eventId": "talent-market-event-96",
+    "kind": "settled",
+    "talentId": "person-studio-aca408ec-r01-0",
+    "subjectStudioId": "studio-aca408ec-r01",
+    "winner": "studio-aca408ec-r02",
+    "reasons": [
+     "their proposal ranked above the others overall"
+    ],
+    "dropped": [],
+    "survivors": [
+     {
+      "issuer": "studio-aca408ec-r01",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-aca408ec-r02",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-aca408ec-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": true,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13a-core-causal-01",
+    "week": 208,
+    "eventId": "talent-market-event-97",
+    "kind": "settled",
+    "talentId": "person-studio-aca408ec-r01-1",
+    "subjectStudioId": "studio-aca408ec-r01",
+    "winner": "studio-aca408ec-r02",
+    "reasons": [
+     "their proposal ranked above the others overall"
+    ],
+    "dropped": [],
+    "survivors": [
+     {
+      "issuer": "studio-aca408ec-r01",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-aca408ec-r02",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-aca408ec-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": true,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13a-core-causal-01",
+    "week": 208,
+    "eventId": "talent-market-event-98",
+    "kind": "settled",
+    "talentId": "person-studio-aca408ec-r01-2",
+    "subjectStudioId": "studio-aca408ec-r01",
+    "winner": "studio-aca408ec-r02",
+    "reasons": [
+     "their proposal ranked above the others overall"
+    ],
+    "dropped": [],
+    "survivors": [
+     {
+      "issuer": "studio-aca408ec-r01",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-aca408ec-r02",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-aca408ec-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": true,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13a-core-causal-01",
+    "week": 208,
+    "eventId": "talent-market-event-99",
+    "kind": "settled",
+    "talentId": "person-studio-aca408ec-r01-3",
+    "subjectStudioId": "studio-aca408ec-r01",
+    "winner": "studio-aca408ec-r02",
+    "reasons": [
+     "their proposal ranked above the others overall"
+    ],
+    "dropped": [],
+    "survivors": [
+     {
+      "issuer": "studio-aca408ec-r01",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-aca408ec-r02",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-aca408ec-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": true,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13a-core-causal-01",
+    "week": 208,
+    "eventId": "talent-market-event-100",
+    "kind": "settled",
+    "talentId": "person-studio-aca408ec-r01-4",
+    "subjectStudioId": "studio-aca408ec-r01",
+    "winner": "studio-aca408ec-r02",
+    "reasons": [
+     "their proposal ranked above the others overall"
+    ],
+    "dropped": [],
+    "survivors": [
+     {
+      "issuer": "studio-aca408ec-r01",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-aca408ec-r02",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-aca408ec-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": true,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13a-core-causal-01",
+    "week": 208,
+    "eventId": "talent-market-event-101",
+    "kind": "settled",
+    "talentId": "person-studio-aca408ec-r01-5",
+    "subjectStudioId": "studio-aca408ec-r01",
+    "winner": "studio-aca408ec-r02",
+    "reasons": [
+     "their proposal ranked above the others overall"
+    ],
+    "dropped": [],
+    "survivors": [
+     {
+      "issuer": "studio-aca408ec-r01",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-aca408ec-r02",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-aca408ec-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": true,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13a-core-causal-01",
+    "week": 208,
+    "eventId": "talent-market-event-102",
+    "kind": "settled",
+    "talentId": "person-studio-aca408ec-r02-0",
+    "subjectStudioId": "studio-aca408ec-r02",
+    "winner": "studio-aca408ec-r01",
+    "reasons": [
+     "they offered an opportunity",
+     "their studio standing ranked higher"
+    ],
+    "dropped": [
+     "Rose Lantern Films had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-aca408ec-r01",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-aca408ec-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": true,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13a-core-causal-01",
+    "week": 208,
+    "eventId": "talent-market-event-103",
+    "kind": "settled",
+    "talentId": "person-studio-aca408ec-r02-1",
+    "subjectStudioId": "studio-aca408ec-r02",
+    "winner": "studio-aca408ec-r01",
+    "reasons": [
+     "they offered an opportunity",
+     "their studio standing ranked higher"
+    ],
+    "dropped": [
+     "Rose Lantern Films had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-aca408ec-r01",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-aca408ec-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": true,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13a-core-causal-01",
+    "week": 208,
+    "eventId": "talent-market-event-104",
+    "kind": "settled",
+    "talentId": "person-studio-aca408ec-r02-2",
+    "subjectStudioId": "studio-aca408ec-r02",
+    "winner": "studio-aca408ec-r01",
+    "reasons": [
+     "they offered an opportunity",
+     "their studio standing ranked higher"
+    ],
+    "dropped": [
+     "Rose Lantern Films had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-aca408ec-r01",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-aca408ec-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": true,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13a-core-causal-01",
+    "week": 208,
+    "eventId": "talent-market-event-105",
+    "kind": "settled",
+    "talentId": "person-studio-aca408ec-r02-3",
+    "subjectStudioId": "studio-aca408ec-r02",
+    "winner": "studio-aca408ec-r01",
+    "reasons": [
+     "they offered an opportunity",
+     "their studio standing ranked higher"
+    ],
+    "dropped": [
+     "Rose Lantern Films had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-aca408ec-r01",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-aca408ec-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": true,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13a-core-causal-01",
+    "week": 208,
+    "eventId": "talent-market-event-106",
+    "kind": "settled",
+    "talentId": "person-studio-aca408ec-r02-4",
+    "subjectStudioId": "studio-aca408ec-r02",
+    "winner": "studio-aca408ec-r01",
+    "reasons": [
+     "they offered an opportunity",
+     "their studio standing ranked higher"
+    ],
+    "dropped": [
+     "Rose Lantern Films had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-aca408ec-r01",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-aca408ec-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": true,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13a-core-causal-01",
+    "week": 208,
+    "eventId": "talent-market-event-107",
+    "kind": "settled",
+    "talentId": "person-studio-aca408ec-r02-5",
+    "subjectStudioId": "studio-aca408ec-r02",
+    "winner": "studio-aca408ec-r01",
+    "reasons": [
+     "they offered an opportunity",
+     "their studio standing ranked higher"
+    ],
+    "dropped": [
+     "Rose Lantern Films had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-aca408ec-r01",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-aca408ec-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": true,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13a-core-causal-01",
+    "week": 208,
+    "eventId": "talent-market-event-108",
+    "kind": "settled",
+    "talentId": "person-studio-aca408ec-r03-0",
+    "subjectStudioId": "studio-aca408ec-r03",
+    "winner": "studio-aca408ec-r03",
+    "reasons": [
+     "theirs was the only proposal on the table"
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week.",
+     "Rose Lantern Films had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-aca408ec-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": true,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13a-core-causal-01",
+    "week": 208,
+    "eventId": "talent-market-event-109",
+    "kind": "settled",
+    "talentId": "person-studio-aca408ec-r03-1",
+    "subjectStudioId": "studio-aca408ec-r03",
+    "winner": "studio-aca408ec-r03",
+    "reasons": [
+     "theirs was the only proposal on the table"
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week.",
+     "Rose Lantern Films had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-aca408ec-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": true,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13a-core-causal-01",
+    "week": 208,
+    "eventId": "talent-market-event-110",
+    "kind": "settled",
+    "talentId": "person-studio-aca408ec-r03-2",
+    "subjectStudioId": "studio-aca408ec-r03",
+    "winner": "studio-aca408ec-r03",
+    "reasons": [
+     "theirs was the only proposal on the table"
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week.",
+     "Rose Lantern Films had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-aca408ec-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": true,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13a-core-causal-01",
+    "week": 208,
+    "eventId": "talent-market-event-111",
+    "kind": "settled",
+    "talentId": "person-studio-aca408ec-r03-3",
+    "subjectStudioId": "studio-aca408ec-r03",
+    "winner": "studio-aca408ec-r03",
+    "reasons": [
+     "theirs was the only proposal on the table"
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week.",
+     "Rose Lantern Films had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-aca408ec-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": true,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13a-core-causal-01",
+    "week": 208,
+    "eventId": "talent-market-event-112",
+    "kind": "declined",
+    "talentId": "person-studio-aca408ec-r03-4",
+    "subjectStudioId": "studio-aca408ec-r03",
+    "winner": null,
+    "reasons": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week.",
+     "Rose Lantern Films had no seat open for this person's role at the decision week.",
+     "Night Orchard Productions could not fund the signing bonus."
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week.",
+     "Rose Lantern Films had no seat open for this person's role at the decision week.",
+     "Night Orchard Productions could not fund the signing bonus."
+    ],
+    "survivors": [],
+    "churn": true,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13a-core-causal-01",
+    "week": 208,
+    "eventId": "talent-market-event-113",
+    "kind": "declined",
+    "talentId": "person-studio-aca408ec-r03-5",
+    "subjectStudioId": "studio-aca408ec-r03",
+    "winner": null,
+    "reasons": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week.",
+     "Rose Lantern Films had no seat open for this person's role at the decision week.",
+     "Night Orchard Productions could not fund the signing bonus."
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week.",
+     "Rose Lantern Films had no seat open for this person's role at the decision week.",
+     "Night Orchard Productions could not fund the signing bonus."
+    ],
+    "survivors": [],
+    "churn": true,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13a-core-causal-01",
+    "week": 208,
+    "eventId": "talent-market-event-114",
+    "kind": "declined",
+    "talentId": "person-studio-aca408ec-r04-0",
+    "subjectStudioId": "studio-aca408ec-r04",
+    "winner": null,
+    "reasons": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week.",
+     "Rose Lantern Films had no seat open for this person's role at the decision week.",
+     "Night Orchard Productions had no seat open for this person's role at the decision week."
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week.",
+     "Rose Lantern Films had no seat open for this person's role at the decision week.",
+     "Night Orchard Productions had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [],
+    "churn": true,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13a-core-causal-01",
+    "week": 208,
+    "eventId": "talent-market-event-115",
+    "kind": "declined",
+    "talentId": "person-studio-aca408ec-r04-1",
+    "subjectStudioId": "studio-aca408ec-r04",
+    "winner": null,
+    "reasons": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week.",
+     "Rose Lantern Films had no seat open for this person's role at the decision week.",
+     "Night Orchard Productions had no seat open for this person's role at the decision week."
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week.",
+     "Rose Lantern Films had no seat open for this person's role at the decision week.",
+     "Night Orchard Productions had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [],
+    "churn": true,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13a-core-causal-01",
+    "week": 208,
+    "eventId": "talent-market-event-116",
+    "kind": "declined",
+    "talentId": "person-studio-aca408ec-r04-2",
+    "subjectStudioId": "studio-aca408ec-r04",
+    "winner": null,
+    "reasons": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week.",
+     "Rose Lantern Films had no seat open for this person's role at the decision week.",
+     "Night Orchard Productions could not fund the signing bonus."
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week.",
+     "Rose Lantern Films had no seat open for this person's role at the decision week.",
+     "Night Orchard Productions could not fund the signing bonus."
+    ],
+    "survivors": [],
+    "churn": true,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13a-core-causal-01",
+    "week": 208,
+    "eventId": "talent-market-event-117",
+    "kind": "declined",
+    "talentId": "person-studio-aca408ec-r04-3",
+    "subjectStudioId": "studio-aca408ec-r04",
+    "winner": null,
+    "reasons": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week.",
+     "Rose Lantern Films had no seat open for this person's role at the decision week.",
+     "Night Orchard Productions could not fund the signing bonus."
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week.",
+     "Rose Lantern Films had no seat open for this person's role at the decision week.",
+     "Night Orchard Productions could not fund the signing bonus."
+    ],
+    "survivors": [],
+    "churn": true,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13a-core-causal-01",
+    "week": 208,
+    "eventId": "talent-market-event-118",
+    "kind": "declined",
+    "talentId": "person-studio-aca408ec-r04-4",
+    "subjectStudioId": "studio-aca408ec-r04",
+    "winner": null,
+    "reasons": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week.",
+     "Rose Lantern Films had no seat open for this person's role at the decision week.",
+     "Night Orchard Productions could not fund the signing bonus."
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week.",
+     "Rose Lantern Films had no seat open for this person's role at the decision week.",
+     "Night Orchard Productions could not fund the signing bonus."
+    ],
+    "survivors": [],
+    "churn": true,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13a-core-causal-01",
+    "week": 208,
+    "eventId": "talent-market-event-119",
+    "kind": "declined",
+    "talentId": "person-studio-aca408ec-r04-5",
+    "subjectStudioId": "studio-aca408ec-r04",
+    "winner": null,
+    "reasons": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week.",
+     "Rose Lantern Films had no seat open for this person's role at the decision week.",
+     "Night Orchard Productions could not fund the signing bonus."
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week.",
+     "Rose Lantern Films had no seat open for this person's role at the decision week.",
+     "Night Orchard Productions could not fund the signing bonus."
+    ],
+    "survivors": [],
+    "churn": true,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13a-core-causal-01",
+    "week": 416,
+    "eventId": "talent-market-event-148",
+    "kind": "expired",
+    "talentId": "person-studio-aca408ec-r01-0",
+    "subjectStudioId": "studio-aca408ec-r02",
+    "winner": null,
+    "reasons": [
+     "no studio proposed before the decision week"
+    ],
+    "dropped": [],
+    "survivors": [],
+    "churn": false,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13a-core-causal-01",
+    "week": 416,
+    "eventId": "talent-market-event-149",
+    "kind": "expired",
+    "talentId": "person-studio-aca408ec-r01-1",
+    "subjectStudioId": "studio-aca408ec-r02",
+    "winner": null,
+    "reasons": [
+     "no studio proposed before the decision week"
+    ],
+    "dropped": [],
+    "survivors": [],
+    "churn": false,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13a-core-causal-01",
+    "week": 416,
+    "eventId": "talent-market-event-150",
+    "kind": "expired",
+    "talentId": "person-studio-aca408ec-r01-2",
+    "subjectStudioId": "studio-aca408ec-r02",
+    "winner": null,
+    "reasons": [
+     "no studio proposed before the decision week"
+    ],
+    "dropped": [],
+    "survivors": [],
+    "churn": false,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13a-core-causal-01",
+    "week": 416,
+    "eventId": "talent-market-event-151",
+    "kind": "expired",
+    "talentId": "person-studio-aca408ec-r01-3",
+    "subjectStudioId": "studio-aca408ec-r02",
+    "winner": null,
+    "reasons": [
+     "no studio proposed before the decision week"
+    ],
+    "dropped": [],
+    "survivors": [],
+    "churn": false,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13a-core-causal-01",
+    "week": 416,
+    "eventId": "talent-market-event-152",
+    "kind": "expired",
+    "talentId": "person-studio-aca408ec-r01-4",
+    "subjectStudioId": "studio-aca408ec-r02",
+    "winner": null,
+    "reasons": [
+     "no studio proposed before the decision week"
+    ],
+    "dropped": [],
+    "survivors": [],
+    "churn": false,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13a-core-causal-01",
+    "week": 416,
+    "eventId": "talent-market-event-153",
+    "kind": "expired",
+    "talentId": "person-studio-aca408ec-r01-5",
+    "subjectStudioId": "studio-aca408ec-r02",
+    "winner": null,
+    "reasons": [
+     "no studio proposed before the decision week"
+    ],
+    "dropped": [],
+    "survivors": [],
+    "churn": false,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13a-core-causal-01",
+    "week": 416,
+    "eventId": "talent-market-event-154",
+    "kind": "expired",
+    "talentId": "person-studio-aca408ec-r02-0",
+    "subjectStudioId": "studio-aca408ec-r01",
+    "winner": null,
+    "reasons": [
+     "no studio proposed before the decision week"
+    ],
+    "dropped": [],
+    "survivors": [],
+    "churn": false,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13a-core-causal-01",
+    "week": 416,
+    "eventId": "talent-market-event-155",
+    "kind": "expired",
+    "talentId": "person-studio-aca408ec-r02-1",
+    "subjectStudioId": "studio-aca408ec-r01",
+    "winner": null,
+    "reasons": [
+     "no studio proposed before the decision week"
+    ],
+    "dropped": [],
+    "survivors": [],
+    "churn": false,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13a-core-causal-01",
+    "week": 416,
+    "eventId": "talent-market-event-156",
+    "kind": "expired",
+    "talentId": "person-studio-aca408ec-r02-2",
+    "subjectStudioId": "studio-aca408ec-r01",
+    "winner": null,
+    "reasons": [
+     "no studio proposed before the decision week"
+    ],
+    "dropped": [],
+    "survivors": [],
+    "churn": false,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13a-core-causal-01",
+    "week": 416,
+    "eventId": "talent-market-event-157",
+    "kind": "expired",
+    "talentId": "person-studio-aca408ec-r02-3",
+    "subjectStudioId": "studio-aca408ec-r01",
+    "winner": null,
+    "reasons": [
+     "no studio proposed before the decision week"
+    ],
+    "dropped": [],
+    "survivors": [],
+    "churn": false,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13a-core-causal-01",
+    "week": 416,
+    "eventId": "talent-market-event-158",
+    "kind": "expired",
+    "talentId": "person-studio-aca408ec-r02-4",
+    "subjectStudioId": "studio-aca408ec-r01",
+    "winner": null,
+    "reasons": [
+     "no studio proposed before the decision week"
+    ],
+    "dropped": [],
+    "survivors": [],
+    "churn": false,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13a-core-causal-01",
+    "week": 416,
+    "eventId": "talent-market-event-159",
+    "kind": "expired",
+    "talentId": "person-studio-aca408ec-r02-5",
+    "subjectStudioId": "studio-aca408ec-r01",
+    "winner": null,
+    "reasons": [
+     "no studio proposed before the decision week"
+    ],
+    "dropped": [],
+    "survivors": [],
+    "churn": false,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13a-core-causal-01",
+    "week": 416,
+    "eventId": "talent-market-event-160",
+    "kind": "expired",
+    "talentId": "person-studio-aca408ec-r03-0",
+    "subjectStudioId": "studio-aca408ec-r03",
+    "winner": null,
+    "reasons": [
+     "no studio proposed before the decision week"
+    ],
+    "dropped": [],
+    "survivors": [],
+    "churn": false,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13a-core-causal-01",
+    "week": 416,
+    "eventId": "talent-market-event-161",
+    "kind": "expired",
+    "talentId": "person-studio-aca408ec-r03-1",
+    "subjectStudioId": "studio-aca408ec-r03",
+    "winner": null,
+    "reasons": [
+     "no studio proposed before the decision week"
+    ],
+    "dropped": [],
+    "survivors": [],
+    "churn": false,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13a-core-causal-01",
+    "week": 416,
+    "eventId": "talent-market-event-162",
+    "kind": "expired",
+    "talentId": "person-studio-aca408ec-r03-2",
+    "subjectStudioId": "studio-aca408ec-r03",
+    "winner": null,
+    "reasons": [
+     "no studio proposed before the decision week"
+    ],
+    "dropped": [],
+    "survivors": [],
+    "churn": false,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13a-core-causal-01",
+    "week": 416,
+    "eventId": "talent-market-event-163",
+    "kind": "expired",
+    "talentId": "person-studio-aca408ec-r03-3",
+    "subjectStudioId": "studio-aca408ec-r03",
+    "winner": null,
+    "reasons": [
+     "no studio proposed before the decision week"
+    ],
+    "dropped": [],
+    "survivors": [],
+    "churn": false,
+    "exposed": false,
+    "newSentences": []
+   }
+  ],
+  "settlementDigest": "706e54c6ec9728df1664025982ebbafeb0fc36afb245b6bd0b983305f6a10a77",
+  "prefixDigest": "706e54c6ec9728df1664025982ebbafeb0fc36afb245b6bd0b983305f6a10a77",
+  "receiptsDigest": "af8c4d1325ecb350dbc07fbf2f762dd8257db04075b8030bf7bd975b4cb2a766",
+  "employmentDigest": "09bcc35ba327579ac63dd1ed63535b23cbc8ff55b25fd9597a2872a819f08750",
+  "takesDigest": "8af116b1687ed210c02953b5b506456e638a64482e8042b0e549b0d57e428694",
+  "rng": "\"2598418427,508725886,1318803286,3129010527\"",
+  "firstExposedWeek": null,
+  "relationshipsRoot": false
+ },
+ {
+  "seed": "seed-b",
+  "ms": 7311,
+  "week": 416,
+  "rows": [
+   {
+    "seed": "seed-b",
+    "week": 208,
+    "eventId": "talent-market-event-120",
+    "kind": "settled",
+    "talentId": "person-studio-bc14baf6-r01-0",
+    "subjectStudioId": "studio-bc14baf6-r01",
+    "winner": "studio-bc14baf6-r01",
+    "reasons": [
+     "they are the current employer"
+    ],
+    "dropped": [],
+    "survivors": [
+     {
+      "issuer": "studio-bc14baf6-r01",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-bc14baf6-r02",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-bc14baf6-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-bc14baf6-r04",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": true,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "seed-b",
+    "week": 208,
+    "eventId": "talent-market-event-121",
+    "kind": "settled",
+    "talentId": "person-studio-bc14baf6-r01-1",
+    "subjectStudioId": "studio-bc14baf6-r01",
+    "winner": "studio-bc14baf6-r01",
+    "reasons": [
+     "they are the current employer"
+    ],
+    "dropped": [],
+    "survivors": [
+     {
+      "issuer": "studio-bc14baf6-r01",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-bc14baf6-r02",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-bc14baf6-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-bc14baf6-r04",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": true,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "seed-b",
+    "week": 208,
+    "eventId": "talent-market-event-122",
+    "kind": "settled",
+    "talentId": "person-studio-bc14baf6-r01-2",
+    "subjectStudioId": "studio-bc14baf6-r01",
+    "winner": "studio-bc14baf6-r01",
+    "reasons": [
+     "they are the current employer"
+    ],
+    "dropped": [],
+    "survivors": [
+     {
+      "issuer": "studio-bc14baf6-r01",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-bc14baf6-r02",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-bc14baf6-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-bc14baf6-r04",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": true,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "seed-b",
+    "week": 208,
+    "eventId": "talent-market-event-123",
+    "kind": "settled",
+    "talentId": "person-studio-bc14baf6-r01-3",
+    "subjectStudioId": "studio-bc14baf6-r01",
+    "winner": "studio-bc14baf6-r01",
+    "reasons": [
+     "they are the current employer"
+    ],
+    "dropped": [],
+    "survivors": [
+     {
+      "issuer": "studio-bc14baf6-r01",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-bc14baf6-r02",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-bc14baf6-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-bc14baf6-r04",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": true,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "seed-b",
+    "week": 208,
+    "eventId": "talent-market-event-124",
+    "kind": "settled",
+    "talentId": "person-studio-bc14baf6-r01-4",
+    "subjectStudioId": "studio-bc14baf6-r01",
+    "winner": "studio-bc14baf6-r01",
+    "reasons": [
+     "they are the current employer"
+    ],
+    "dropped": [],
+    "survivors": [
+     {
+      "issuer": "studio-bc14baf6-r01",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-bc14baf6-r02",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-bc14baf6-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-bc14baf6-r04",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": true,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "seed-b",
+    "week": 208,
+    "eventId": "talent-market-event-125",
+    "kind": "settled",
+    "talentId": "person-studio-bc14baf6-r01-5",
+    "subjectStudioId": "studio-bc14baf6-r01",
+    "winner": "studio-bc14baf6-r01",
+    "reasons": [
+     "they are the current employer"
+    ],
+    "dropped": [],
+    "survivors": [
+     {
+      "issuer": "studio-bc14baf6-r01",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-bc14baf6-r02",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-bc14baf6-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-bc14baf6-r04",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": true,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "seed-b",
+    "week": 208,
+    "eventId": "talent-market-event-126",
+    "kind": "settled",
+    "talentId": "person-studio-bc14baf6-r02-0",
+    "subjectStudioId": "studio-bc14baf6-r02",
+    "winner": "studio-bc14baf6-r02",
+    "reasons": [
+     "they offered an opportunity",
+     "they are the current employer"
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-bc14baf6-r02",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-bc14baf6-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-bc14baf6-r04",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": true,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "seed-b",
+    "week": 208,
+    "eventId": "talent-market-event-127",
+    "kind": "settled",
+    "talentId": "person-studio-bc14baf6-r02-1",
+    "subjectStudioId": "studio-bc14baf6-r02",
+    "winner": "studio-bc14baf6-r02",
+    "reasons": [
+     "they offered an opportunity",
+     "they are the current employer"
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-bc14baf6-r02",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-bc14baf6-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-bc14baf6-r04",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": true,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "seed-b",
+    "week": 208,
+    "eventId": "talent-market-event-128",
+    "kind": "settled",
+    "talentId": "person-studio-bc14baf6-r02-2",
+    "subjectStudioId": "studio-bc14baf6-r02",
+    "winner": "studio-bc14baf6-r02",
+    "reasons": [
+     "they offered an opportunity",
+     "they are the current employer"
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-bc14baf6-r02",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-bc14baf6-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-bc14baf6-r04",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": true,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "seed-b",
+    "week": 208,
+    "eventId": "talent-market-event-129",
+    "kind": "settled",
+    "talentId": "person-studio-bc14baf6-r02-3",
+    "subjectStudioId": "studio-bc14baf6-r02",
+    "winner": "studio-bc14baf6-r02",
+    "reasons": [
+     "they offered an opportunity",
+     "they are the current employer"
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-bc14baf6-r02",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-bc14baf6-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-bc14baf6-r04",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": true,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "seed-b",
+    "week": 208,
+    "eventId": "talent-market-event-130",
+    "kind": "settled",
+    "talentId": "person-studio-bc14baf6-r02-4",
+    "subjectStudioId": "studio-bc14baf6-r02",
+    "winner": "studio-bc14baf6-r02",
+    "reasons": [
+     "they offered an opportunity",
+     "they are the current employer"
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-bc14baf6-r02",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-bc14baf6-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-bc14baf6-r04",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": true,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "seed-b",
+    "week": 208,
+    "eventId": "talent-market-event-131",
+    "kind": "settled",
+    "talentId": "person-studio-bc14baf6-r02-5",
+    "subjectStudioId": "studio-bc14baf6-r02",
+    "winner": "studio-bc14baf6-r02",
+    "reasons": [
+     "they offered an opportunity",
+     "they are the current employer"
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-bc14baf6-r02",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-bc14baf6-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-bc14baf6-r04",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": true,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "seed-b",
+    "week": 208,
+    "eventId": "talent-market-event-132",
+    "kind": "settled",
+    "talentId": "person-studio-bc14baf6-r03-0",
+    "subjectStudioId": "studio-bc14baf6-r03",
+    "winner": "studio-bc14baf6-r03",
+    "reasons": [
+     "they are the current employer"
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week.",
+     "Rose Lantern Films had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-bc14baf6-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-bc14baf6-r04",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": true,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "seed-b",
+    "week": 208,
+    "eventId": "talent-market-event-133",
+    "kind": "settled",
+    "talentId": "person-studio-bc14baf6-r03-1",
+    "subjectStudioId": "studio-bc14baf6-r03",
+    "winner": "studio-bc14baf6-r03",
+    "reasons": [
+     "they are the current employer"
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week.",
+     "Rose Lantern Films had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-bc14baf6-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-bc14baf6-r04",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": true,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "seed-b",
+    "week": 208,
+    "eventId": "talent-market-event-134",
+    "kind": "settled",
+    "talentId": "person-studio-bc14baf6-r03-2",
+    "subjectStudioId": "studio-bc14baf6-r03",
+    "winner": "studio-bc14baf6-r04",
+    "reasons": [
+     "theirs was the only proposal on the table"
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week.",
+     "Rose Lantern Films had no seat open for this person's role at the decision week.",
+     "Night Orchard Productions's attached promise no longer had a feasible path by the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-bc14baf6-r04",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": true,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "seed-b",
+    "week": 208,
+    "eventId": "talent-market-event-135",
+    "kind": "settled",
+    "talentId": "person-studio-bc14baf6-r03-3",
+    "subjectStudioId": "studio-bc14baf6-r03",
+    "winner": "studio-bc14baf6-r04",
+    "reasons": [
+     "theirs was the only proposal on the table"
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week.",
+     "Rose Lantern Films had no seat open for this person's role at the decision week.",
+     "Night Orchard Productions's attached promise no longer had a feasible path by the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-bc14baf6-r04",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": true,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "seed-b",
+    "week": 208,
+    "eventId": "talent-market-event-136",
+    "kind": "settled",
+    "talentId": "person-studio-bc14baf6-r03-4",
+    "subjectStudioId": "studio-bc14baf6-r03",
+    "winner": "studio-bc14baf6-r04",
+    "reasons": [
+     "theirs was the only proposal on the table"
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week.",
+     "Rose Lantern Films had no seat open for this person's role at the decision week.",
+     "Night Orchard Productions's attached promise no longer had a feasible path by the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-bc14baf6-r04",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": true,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "seed-b",
+    "week": 208,
+    "eventId": "talent-market-event-137",
+    "kind": "settled",
+    "talentId": "person-studio-bc14baf6-r03-5",
+    "subjectStudioId": "studio-bc14baf6-r03",
+    "winner": "studio-bc14baf6-r03",
+    "reasons": [
+     "they are the current employer"
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week.",
+     "Rose Lantern Films had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-bc14baf6-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-bc14baf6-r04",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": true,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "seed-b",
+    "week": 208,
+    "eventId": "talent-market-event-138",
+    "kind": "settled",
+    "talentId": "person-studio-bc14baf6-r04-0",
+    "subjectStudioId": "studio-bc14baf6-r04",
+    "winner": "studio-bc14baf6-r04",
+    "reasons": [
+     "theirs was the only proposal on the table"
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week.",
+     "Rose Lantern Films had no seat open for this person's role at the decision week.",
+     "Night Orchard Productions had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-bc14baf6-r04",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": true,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "seed-b",
+    "week": 208,
+    "eventId": "talent-market-event-139",
+    "kind": "settled",
+    "talentId": "person-studio-bc14baf6-r04-1",
+    "subjectStudioId": "studio-bc14baf6-r04",
+    "winner": "studio-bc14baf6-r04",
+    "reasons": [
+     "theirs was the only proposal on the table"
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week.",
+     "Rose Lantern Films had no seat open for this person's role at the decision week.",
+     "Night Orchard Productions had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-bc14baf6-r04",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": true,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "seed-b",
+    "week": 208,
+    "eventId": "talent-market-event-140",
+    "kind": "settled",
+    "talentId": "person-studio-bc14baf6-r04-2",
+    "subjectStudioId": "studio-bc14baf6-r04",
+    "winner": "studio-bc14baf6-r03",
+    "reasons": [
+     "theirs was the only proposal on the table"
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week.",
+     "Rose Lantern Films had no seat open for this person's role at the decision week.",
+     "Silver Current Pictures had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-bc14baf6-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": true,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "seed-b",
+    "week": 208,
+    "eventId": "talent-market-event-141",
+    "kind": "settled",
+    "talentId": "person-studio-bc14baf6-r04-3",
+    "subjectStudioId": "studio-bc14baf6-r04",
+    "winner": "studio-bc14baf6-r03",
+    "reasons": [
+     "theirs was the only proposal on the table"
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week.",
+     "Rose Lantern Films had no seat open for this person's role at the decision week.",
+     "Silver Current Pictures had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-bc14baf6-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": true,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "seed-b",
+    "week": 208,
+    "eventId": "talent-market-event-142",
+    "kind": "settled",
+    "talentId": "person-studio-bc14baf6-r04-4",
+    "subjectStudioId": "studio-bc14baf6-r04",
+    "winner": "studio-bc14baf6-r03",
+    "reasons": [
+     "theirs was the only proposal on the table"
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week.",
+     "Rose Lantern Films had no seat open for this person's role at the decision week.",
+     "Silver Current Pictures had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-bc14baf6-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": true,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "seed-b",
+    "week": 208,
+    "eventId": "talent-market-event-143",
+    "kind": "settled",
+    "talentId": "person-studio-bc14baf6-r04-5",
+    "subjectStudioId": "studio-bc14baf6-r04",
+    "winner": "studio-bc14baf6-r04",
+    "reasons": [
+     "theirs was the only proposal on the table"
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week.",
+     "Rose Lantern Films had no seat open for this person's role at the decision week.",
+     "Night Orchard Productions had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-bc14baf6-r04",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": true,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "seed-b",
+    "week": 416,
+    "eventId": "talent-market-event-276",
+    "kind": "settled",
+    "talentId": "person-studio-bc14baf6-r01-0",
+    "subjectStudioId": "studio-bc14baf6-r01",
+    "winner": "studio-bc14baf6-r04",
+    "reasons": [
+     "their proposal ranked above the others overall"
+    ],
+    "dropped": [],
+    "survivors": [
+     {
+      "issuer": "studio-bc14baf6-r01",
+      "roster": 4,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-bc14baf6-r02",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-bc14baf6-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-bc14baf6-r04",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": false,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "seed-b",
+    "week": 416,
+    "eventId": "talent-market-event-277",
+    "kind": "settled",
+    "talentId": "person-studio-bc14baf6-r01-1",
+    "subjectStudioId": "studio-bc14baf6-r01",
+    "winner": "studio-bc14baf6-r04",
+    "reasons": [
+     "their proposal ranked above the others overall"
+    ],
+    "dropped": [],
+    "survivors": [
+     {
+      "issuer": "studio-bc14baf6-r01",
+      "roster": 4,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-bc14baf6-r02",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-bc14baf6-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-bc14baf6-r04",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": false,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "seed-b",
+    "week": 416,
+    "eventId": "talent-market-event-278",
+    "kind": "settled",
+    "talentId": "person-studio-bc14baf6-r01-2",
+    "subjectStudioId": "studio-bc14baf6-r01",
+    "winner": "studio-bc14baf6-r01",
+    "reasons": [
+     "they are the current employer"
+    ],
+    "dropped": [],
+    "survivors": [
+     {
+      "issuer": "studio-bc14baf6-r01",
+      "roster": 4,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-bc14baf6-r02",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-bc14baf6-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-bc14baf6-r04",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": false,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "seed-b",
+    "week": 416,
+    "eventId": "talent-market-event-279",
+    "kind": "settled",
+    "talentId": "person-studio-bc14baf6-r01-3",
+    "subjectStudioId": "studio-bc14baf6-r01",
+    "winner": "studio-bc14baf6-r01",
+    "reasons": [
+     "they are the current employer"
+    ],
+    "dropped": [],
+    "survivors": [
+     {
+      "issuer": "studio-bc14baf6-r01",
+      "roster": 4,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-bc14baf6-r02",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-bc14baf6-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-bc14baf6-r04",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": false,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "seed-b",
+    "week": 416,
+    "eventId": "talent-market-event-280",
+    "kind": "settled",
+    "talentId": "person-studio-bc14baf6-r01-4",
+    "subjectStudioId": "studio-bc14baf6-r01",
+    "winner": "studio-bc14baf6-r01",
+    "reasons": [
+     "they are the current employer"
+    ],
+    "dropped": [],
+    "survivors": [
+     {
+      "issuer": "studio-bc14baf6-r01",
+      "roster": 4,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-bc14baf6-r02",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-bc14baf6-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-bc14baf6-r04",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": false,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "seed-b",
+    "week": 416,
+    "eventId": "talent-market-event-281",
+    "kind": "settled",
+    "talentId": "person-studio-bc14baf6-r01-5",
+    "subjectStudioId": "studio-bc14baf6-r01",
+    "winner": "studio-bc14baf6-r04",
+    "reasons": [
+     "their proposal ranked above the others overall"
+    ],
+    "dropped": [],
+    "survivors": [
+     {
+      "issuer": "studio-bc14baf6-r01",
+      "roster": 4,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-bc14baf6-r02",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-bc14baf6-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-bc14baf6-r04",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": false,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "seed-b",
+    "week": 416,
+    "eventId": "talent-market-event-282",
+    "kind": "settled",
+    "talentId": "person-studio-bc14baf6-r02-0",
+    "subjectStudioId": "studio-bc14baf6-r02",
+    "winner": "studio-bc14baf6-r02",
+    "reasons": [
+     "they are the current employer"
+    ],
+    "dropped": [
+     "Silver Current Pictures had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-bc14baf6-r01",
+      "roster": 4,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-bc14baf6-r02",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-bc14baf6-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": false,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "seed-b",
+    "week": 416,
+    "eventId": "talent-market-event-283",
+    "kind": "settled",
+    "talentId": "person-studio-bc14baf6-r02-1",
+    "subjectStudioId": "studio-bc14baf6-r02",
+    "winner": "studio-bc14baf6-r02",
+    "reasons": [
+     "they are the current employer"
+    ],
+    "dropped": [
+     "Silver Current Pictures had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-bc14baf6-r01",
+      "roster": 4,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-bc14baf6-r02",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-bc14baf6-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": false,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "seed-b",
+    "week": 416,
+    "eventId": "talent-market-event-284",
+    "kind": "settled",
+    "talentId": "person-studio-bc14baf6-r02-2",
+    "subjectStudioId": "studio-bc14baf6-r02",
+    "winner": "studio-bc14baf6-r02",
+    "reasons": [
+     "they offered an opportunity",
+     "they are the current employer"
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-bc14baf6-r02",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-bc14baf6-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-bc14baf6-r04",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": false,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "seed-b",
+    "week": 416,
+    "eventId": "talent-market-event-285",
+    "kind": "settled",
+    "talentId": "person-studio-bc14baf6-r02-3",
+    "subjectStudioId": "studio-bc14baf6-r02",
+    "winner": "studio-bc14baf6-r02",
+    "reasons": [
+     "they offered an opportunity",
+     "they are the current employer"
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-bc14baf6-r02",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-bc14baf6-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-bc14baf6-r04",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": false,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "seed-b",
+    "week": 416,
+    "eventId": "talent-market-event-286",
+    "kind": "settled",
+    "talentId": "person-studio-bc14baf6-r02-4",
+    "subjectStudioId": "studio-bc14baf6-r02",
+    "winner": "studio-bc14baf6-r02",
+    "reasons": [
+     "they offered an opportunity",
+     "they are the current employer"
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-bc14baf6-r02",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-bc14baf6-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-bc14baf6-r04",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": false,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "seed-b",
+    "week": 416,
+    "eventId": "talent-market-event-287",
+    "kind": "settled",
+    "talentId": "person-studio-bc14baf6-r02-5",
+    "subjectStudioId": "studio-bc14baf6-r02",
+    "winner": "studio-bc14baf6-r02",
+    "reasons": [
+     "they are the current employer"
+    ],
+    "dropped": [
+     "Silver Current Pictures had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-bc14baf6-r01",
+      "roster": 4,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-bc14baf6-r02",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-bc14baf6-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": false,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "seed-b",
+    "week": 416,
+    "eventId": "talent-market-event-288",
+    "kind": "settled",
+    "talentId": "person-studio-bc14baf6-r03-0",
+    "subjectStudioId": "studio-bc14baf6-r03",
+    "winner": "studio-bc14baf6-r03",
+    "reasons": [
+     "their record with this person ranked above the others",
+     "they are the current employer"
+    ],
+    "dropped": [
+     "Rose Lantern Films had no seat open for this person's role at the decision week.",
+     "Silver Current Pictures had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-bc14baf6-r01",
+      "roster": 4,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-bc14baf6-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": false,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "seed-b",
+    "week": 416,
+    "eventId": "talent-market-event-289",
+    "kind": "settled",
+    "talentId": "person-studio-bc14baf6-r03-1",
+    "subjectStudioId": "studio-bc14baf6-r03",
+    "winner": "studio-bc14baf6-r03",
+    "reasons": [
+     "their record with this person ranked above the others",
+     "they are the current employer"
+    ],
+    "dropped": [
+     "Rose Lantern Films had no seat open for this person's role at the decision week.",
+     "Silver Current Pictures had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-bc14baf6-r01",
+      "roster": 4,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-bc14baf6-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": false,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "seed-b",
+    "week": 416,
+    "eventId": "talent-market-event-290",
+    "kind": "settled",
+    "talentId": "person-studio-bc14baf6-r03-2",
+    "subjectStudioId": "studio-bc14baf6-r04",
+    "winner": "studio-bc14baf6-r04",
+    "reasons": [
+     "their studio standing ranked higher",
+     "they are the current employer"
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week.",
+     "Rose Lantern Films had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-bc14baf6-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-bc14baf6-r04",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": false,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "seed-b",
+    "week": 416,
+    "eventId": "talent-market-event-291",
+    "kind": "settled",
+    "talentId": "person-studio-bc14baf6-r03-3",
+    "subjectStudioId": "studio-bc14baf6-r04",
+    "winner": "studio-bc14baf6-r04",
+    "reasons": [
+     "their studio standing ranked higher",
+     "they are the current employer"
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week.",
+     "Rose Lantern Films had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-bc14baf6-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-bc14baf6-r04",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": false,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "seed-b",
+    "week": 416,
+    "eventId": "talent-market-event-292",
+    "kind": "settled",
+    "talentId": "person-studio-bc14baf6-r03-4",
+    "subjectStudioId": "studio-bc14baf6-r04",
+    "winner": "studio-bc14baf6-r04",
+    "reasons": [
+     "their studio standing ranked higher",
+     "they are the current employer"
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week.",
+     "Rose Lantern Films had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-bc14baf6-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-bc14baf6-r04",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": false,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "seed-b",
+    "week": 416,
+    "eventId": "talent-market-event-293",
+    "kind": "settled",
+    "talentId": "person-studio-bc14baf6-r03-5",
+    "subjectStudioId": "studio-bc14baf6-r03",
+    "winner": "studio-bc14baf6-r03",
+    "reasons": [
+     "their record with this person ranked above the others",
+     "they are the current employer"
+    ],
+    "dropped": [
+     "Rose Lantern Films had no seat open for this person's role at the decision week.",
+     "Silver Current Pictures had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-bc14baf6-r01",
+      "roster": 4,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-bc14baf6-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": false,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "seed-b",
+    "week": 416,
+    "eventId": "talent-market-event-294",
+    "kind": "settled",
+    "talentId": "person-studio-bc14baf6-r04-0",
+    "subjectStudioId": "studio-bc14baf6-r04",
+    "winner": "studio-bc14baf6-r01",
+    "reasons": [
+     "theirs was the only proposal on the table"
+    ],
+    "dropped": [
+     "Rose Lantern Films had no seat open for this person's role at the decision week.",
+     "Night Orchard Productions had no seat open for this person's role at the decision week.",
+     "Silver Current Pictures had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-bc14baf6-r01",
+      "roster": 4,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": false,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "seed-b",
+    "week": 416,
+    "eventId": "talent-market-event-295",
+    "kind": "settled",
+    "talentId": "person-studio-bc14baf6-r04-1",
+    "subjectStudioId": "studio-bc14baf6-r04",
+    "winner": "studio-bc14baf6-r01",
+    "reasons": [
+     "theirs was the only proposal on the table"
+    ],
+    "dropped": [
+     "Rose Lantern Films had no seat open for this person's role at the decision week.",
+     "Night Orchard Productions had no seat open for this person's role at the decision week.",
+     "Silver Current Pictures had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-bc14baf6-r01",
+      "roster": 4,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": false,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "seed-b",
+    "week": 416,
+    "eventId": "talent-market-event-296",
+    "kind": "settled",
+    "talentId": "person-studio-bc14baf6-r04-2",
+    "subjectStudioId": "studio-bc14baf6-r03",
+    "winner": "studio-bc14baf6-r03",
+    "reasons": [
+     "theirs was the only proposal on the table"
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week.",
+     "Rose Lantern Films had no seat open for this person's role at the decision week.",
+     "Silver Current Pictures had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-bc14baf6-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": false,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "seed-b",
+    "week": 416,
+    "eventId": "talent-market-event-297",
+    "kind": "settled",
+    "talentId": "person-studio-bc14baf6-r04-3",
+    "subjectStudioId": "studio-bc14baf6-r03",
+    "winner": "studio-bc14baf6-r03",
+    "reasons": [
+     "theirs was the only proposal on the table"
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week.",
+     "Rose Lantern Films had no seat open for this person's role at the decision week.",
+     "Silver Current Pictures had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-bc14baf6-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": false,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "seed-b",
+    "week": 416,
+    "eventId": "talent-market-event-298",
+    "kind": "settled",
+    "talentId": "person-studio-bc14baf6-r04-4",
+    "subjectStudioId": "studio-bc14baf6-r03",
+    "winner": "studio-bc14baf6-r03",
+    "reasons": [
+     "theirs was the only proposal on the table"
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week.",
+     "Rose Lantern Films had no seat open for this person's role at the decision week.",
+     "Silver Current Pictures had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-bc14baf6-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": false,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "seed-b",
+    "week": 416,
+    "eventId": "talent-market-event-299",
+    "kind": "settled",
+    "talentId": "person-studio-bc14baf6-r04-5",
+    "subjectStudioId": "studio-bc14baf6-r04",
+    "winner": "studio-bc14baf6-r01",
+    "reasons": [
+     "theirs was the only proposal on the table"
+    ],
+    "dropped": [
+     "Rose Lantern Films had no seat open for this person's role at the decision week.",
+     "Night Orchard Productions had no seat open for this person's role at the decision week.",
+     "Silver Current Pictures had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-bc14baf6-r01",
+      "roster": 4,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": false,
+    "exposed": false,
+    "newSentences": []
+   }
+  ],
+  "settlementDigest": "f9622a876a73673591f4016b5fe80ab708bbec30e330a423d3d82729b0ec678c",
+  "prefixDigest": "f9622a876a73673591f4016b5fe80ab708bbec30e330a423d3d82729b0ec678c",
+  "receiptsDigest": "8e791d65d1a54ee73a8c7a2debbfed272a0f144f240040d074118a337edeb871",
+  "employmentDigest": "ba5ab89e481264e8d6a57d32f07ac49902bcc36b65a1df14722f85c573f0b13a",
+  "takesDigest": "c81d90211a2b917681e8c816c85df567a2139dda9372d3cd608615f9e23c805d",
+  "rng": "\"1640490702,2161102015,891615888,2071390822\"",
+  "firstExposedWeek": null,
+  "relationshipsRoot": false
+ },
+ {
+  "seed": "p13b-s8-bridge-probe-01",
+  "ms": 4600,
+  "week": 416,
+  "rows": [
+   {
+    "seed": "p13b-s8-bridge-probe-01",
+    "week": 208,
+    "eventId": "talent-market-event-120",
+    "kind": "settled",
+    "talentId": "person-studio-efb645e3-r01-0",
+    "subjectStudioId": "studio-efb645e3-r01",
+    "winner": "studio-efb645e3-r02",
+    "reasons": [
+     "their proposal ranked above the others overall"
+    ],
+    "dropped": [],
+    "survivors": [
+     {
+      "issuer": "studio-efb645e3-r01",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-efb645e3-r02",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-efb645e3-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-efb645e3-r04",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": true,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13b-s8-bridge-probe-01",
+    "week": 208,
+    "eventId": "talent-market-event-121",
+    "kind": "settled",
+    "talentId": "person-studio-efb645e3-r01-1",
+    "subjectStudioId": "studio-efb645e3-r01",
+    "winner": "studio-efb645e3-r02",
+    "reasons": [
+     "their proposal ranked above the others overall"
+    ],
+    "dropped": [],
+    "survivors": [
+     {
+      "issuer": "studio-efb645e3-r01",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-efb645e3-r02",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-efb645e3-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-efb645e3-r04",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": true,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13b-s8-bridge-probe-01",
+    "week": 208,
+    "eventId": "talent-market-event-122",
+    "kind": "settled",
+    "talentId": "person-studio-efb645e3-r01-2",
+    "subjectStudioId": "studio-efb645e3-r01",
+    "winner": "studio-efb645e3-r02",
+    "reasons": [
+     "their proposal ranked above the others overall"
+    ],
+    "dropped": [],
+    "survivors": [
+     {
+      "issuer": "studio-efb645e3-r01",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-efb645e3-r02",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-efb645e3-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-efb645e3-r04",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": true,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13b-s8-bridge-probe-01",
+    "week": 208,
+    "eventId": "talent-market-event-123",
+    "kind": "settled",
+    "talentId": "person-studio-efb645e3-r01-3",
+    "subjectStudioId": "studio-efb645e3-r01",
+    "winner": "studio-efb645e3-r02",
+    "reasons": [
+     "their proposal ranked above the others overall"
+    ],
+    "dropped": [],
+    "survivors": [
+     {
+      "issuer": "studio-efb645e3-r01",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-efb645e3-r02",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-efb645e3-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-efb645e3-r04",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": true,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13b-s8-bridge-probe-01",
+    "week": 208,
+    "eventId": "talent-market-event-124",
+    "kind": "settled",
+    "talentId": "person-studio-efb645e3-r01-4",
+    "subjectStudioId": "studio-efb645e3-r01",
+    "winner": "studio-efb645e3-r02",
+    "reasons": [
+     "their proposal ranked above the others overall"
+    ],
+    "dropped": [],
+    "survivors": [
+     {
+      "issuer": "studio-efb645e3-r01",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-efb645e3-r02",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-efb645e3-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-efb645e3-r04",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": true,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13b-s8-bridge-probe-01",
+    "week": 208,
+    "eventId": "talent-market-event-125",
+    "kind": "settled",
+    "talentId": "person-studio-efb645e3-r01-5",
+    "subjectStudioId": "studio-efb645e3-r01",
+    "winner": "studio-efb645e3-r02",
+    "reasons": [
+     "their proposal ranked above the others overall"
+    ],
+    "dropped": [],
+    "survivors": [
+     {
+      "issuer": "studio-efb645e3-r01",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-efb645e3-r02",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-efb645e3-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-efb645e3-r04",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": true,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13b-s8-bridge-probe-01",
+    "week": 208,
+    "eventId": "talent-market-event-126",
+    "kind": "settled",
+    "talentId": "person-studio-efb645e3-r02-0",
+    "subjectStudioId": "studio-efb645e3-r02",
+    "winner": "studio-efb645e3-r01",
+    "reasons": [
+     "they offered an opportunity"
+    ],
+    "dropped": [
+     "Rose Lantern Films had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-efb645e3-r01",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-efb645e3-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-efb645e3-r04",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": true,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13b-s8-bridge-probe-01",
+    "week": 208,
+    "eventId": "talent-market-event-127",
+    "kind": "settled",
+    "talentId": "person-studio-efb645e3-r02-1",
+    "subjectStudioId": "studio-efb645e3-r02",
+    "winner": "studio-efb645e3-r01",
+    "reasons": [
+     "they offered an opportunity"
+    ],
+    "dropped": [
+     "Rose Lantern Films had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-efb645e3-r01",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-efb645e3-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-efb645e3-r04",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": true,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13b-s8-bridge-probe-01",
+    "week": 208,
+    "eventId": "talent-market-event-128",
+    "kind": "settled",
+    "talentId": "person-studio-efb645e3-r02-2",
+    "subjectStudioId": "studio-efb645e3-r02",
+    "winner": "studio-efb645e3-r01",
+    "reasons": [
+     "they offered an opportunity"
+    ],
+    "dropped": [
+     "Rose Lantern Films had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-efb645e3-r01",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-efb645e3-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-efb645e3-r04",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": true,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13b-s8-bridge-probe-01",
+    "week": 208,
+    "eventId": "talent-market-event-129",
+    "kind": "settled",
+    "talentId": "person-studio-efb645e3-r02-3",
+    "subjectStudioId": "studio-efb645e3-r02",
+    "winner": "studio-efb645e3-r01",
+    "reasons": [
+     "they offered an opportunity"
+    ],
+    "dropped": [
+     "Rose Lantern Films had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-efb645e3-r01",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-efb645e3-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-efb645e3-r04",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": true,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13b-s8-bridge-probe-01",
+    "week": 208,
+    "eventId": "talent-market-event-130",
+    "kind": "settled",
+    "talentId": "person-studio-efb645e3-r02-4",
+    "subjectStudioId": "studio-efb645e3-r02",
+    "winner": "studio-efb645e3-r01",
+    "reasons": [
+     "they offered an opportunity"
+    ],
+    "dropped": [
+     "Rose Lantern Films had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-efb645e3-r01",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-efb645e3-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-efb645e3-r04",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": true,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13b-s8-bridge-probe-01",
+    "week": 208,
+    "eventId": "talent-market-event-131",
+    "kind": "settled",
+    "talentId": "person-studio-efb645e3-r02-5",
+    "subjectStudioId": "studio-efb645e3-r02",
+    "winner": "studio-efb645e3-r01",
+    "reasons": [
+     "they offered an opportunity"
+    ],
+    "dropped": [
+     "Rose Lantern Films had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-efb645e3-r01",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-efb645e3-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-efb645e3-r04",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": true,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13b-s8-bridge-probe-01",
+    "week": 208,
+    "eventId": "talent-market-event-132",
+    "kind": "settled",
+    "talentId": "person-studio-efb645e3-r03-0",
+    "subjectStudioId": "studio-efb645e3-r03",
+    "winner": "studio-efb645e3-r03",
+    "reasons": [
+     "they are the current employer"
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week.",
+     "Rose Lantern Films had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-efb645e3-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-efb645e3-r04",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": true,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13b-s8-bridge-probe-01",
+    "week": 208,
+    "eventId": "talent-market-event-133",
+    "kind": "settled",
+    "talentId": "person-studio-efb645e3-r03-1",
+    "subjectStudioId": "studio-efb645e3-r03",
+    "winner": "studio-efb645e3-r03",
+    "reasons": [
+     "they are the current employer"
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week.",
+     "Rose Lantern Films had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-efb645e3-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-efb645e3-r04",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": true,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13b-s8-bridge-probe-01",
+    "week": 208,
+    "eventId": "talent-market-event-134",
+    "kind": "settled",
+    "talentId": "person-studio-efb645e3-r03-2",
+    "subjectStudioId": "studio-efb645e3-r03",
+    "winner": "studio-efb645e3-r04",
+    "reasons": [
+     "theirs was the only proposal on the table"
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week.",
+     "Rose Lantern Films had no seat open for this person's role at the decision week.",
+     "Night Orchard Productions's attached promise no longer had a feasible path by the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-efb645e3-r04",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": true,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13b-s8-bridge-probe-01",
+    "week": 208,
+    "eventId": "talent-market-event-135",
+    "kind": "settled",
+    "talentId": "person-studio-efb645e3-r03-3",
+    "subjectStudioId": "studio-efb645e3-r03",
+    "winner": "studio-efb645e3-r04",
+    "reasons": [
+     "theirs was the only proposal on the table"
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week.",
+     "Rose Lantern Films had no seat open for this person's role at the decision week.",
+     "Night Orchard Productions's attached promise no longer had a feasible path by the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-efb645e3-r04",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": true,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13b-s8-bridge-probe-01",
+    "week": 208,
+    "eventId": "talent-market-event-136",
+    "kind": "settled",
+    "talentId": "person-studio-efb645e3-r03-4",
+    "subjectStudioId": "studio-efb645e3-r03",
+    "winner": "studio-efb645e3-r04",
+    "reasons": [
+     "theirs was the only proposal on the table"
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week.",
+     "Rose Lantern Films had no seat open for this person's role at the decision week.",
+     "Night Orchard Productions's attached promise no longer had a feasible path by the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-efb645e3-r04",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": true,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13b-s8-bridge-probe-01",
+    "week": 208,
+    "eventId": "talent-market-event-137",
+    "kind": "settled",
+    "talentId": "person-studio-efb645e3-r03-5",
+    "subjectStudioId": "studio-efb645e3-r03",
+    "winner": "studio-efb645e3-r03",
+    "reasons": [
+     "they are the current employer"
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week.",
+     "Rose Lantern Films had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-efb645e3-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-efb645e3-r04",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": true,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13b-s8-bridge-probe-01",
+    "week": 208,
+    "eventId": "talent-market-event-138",
+    "kind": "settled",
+    "talentId": "person-studio-efb645e3-r04-0",
+    "subjectStudioId": "studio-efb645e3-r04",
+    "winner": "studio-efb645e3-r04",
+    "reasons": [
+     "theirs was the only proposal on the table"
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week.",
+     "Rose Lantern Films had no seat open for this person's role at the decision week.",
+     "Night Orchard Productions had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-efb645e3-r04",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": true,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13b-s8-bridge-probe-01",
+    "week": 208,
+    "eventId": "talent-market-event-139",
+    "kind": "settled",
+    "talentId": "person-studio-efb645e3-r04-1",
+    "subjectStudioId": "studio-efb645e3-r04",
+    "winner": "studio-efb645e3-r04",
+    "reasons": [
+     "theirs was the only proposal on the table"
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week.",
+     "Rose Lantern Films had no seat open for this person's role at the decision week.",
+     "Night Orchard Productions had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-efb645e3-r04",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": true,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13b-s8-bridge-probe-01",
+    "week": 208,
+    "eventId": "talent-market-event-140",
+    "kind": "settled",
+    "talentId": "person-studio-efb645e3-r04-2",
+    "subjectStudioId": "studio-efb645e3-r04",
+    "winner": "studio-efb645e3-r03",
+    "reasons": [
+     "theirs was the only proposal on the table"
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week.",
+     "Rose Lantern Films had no seat open for this person's role at the decision week.",
+     "Silver Current Pictures had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-efb645e3-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": true,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13b-s8-bridge-probe-01",
+    "week": 208,
+    "eventId": "talent-market-event-141",
+    "kind": "settled",
+    "talentId": "person-studio-efb645e3-r04-3",
+    "subjectStudioId": "studio-efb645e3-r04",
+    "winner": "studio-efb645e3-r03",
+    "reasons": [
+     "theirs was the only proposal on the table"
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week.",
+     "Rose Lantern Films had no seat open for this person's role at the decision week.",
+     "Silver Current Pictures had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-efb645e3-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": true,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13b-s8-bridge-probe-01",
+    "week": 208,
+    "eventId": "talent-market-event-142",
+    "kind": "settled",
+    "talentId": "person-studio-efb645e3-r04-4",
+    "subjectStudioId": "studio-efb645e3-r04",
+    "winner": "studio-efb645e3-r03",
+    "reasons": [
+     "theirs was the only proposal on the table"
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week.",
+     "Rose Lantern Films had no seat open for this person's role at the decision week.",
+     "Silver Current Pictures had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-efb645e3-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": true,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13b-s8-bridge-probe-01",
+    "week": 208,
+    "eventId": "talent-market-event-143",
+    "kind": "settled",
+    "talentId": "person-studio-efb645e3-r04-5",
+    "subjectStudioId": "studio-efb645e3-r04",
+    "winner": "studio-efb645e3-r04",
+    "reasons": [
+     "theirs was the only proposal on the table"
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week.",
+     "Rose Lantern Films had no seat open for this person's role at the decision week.",
+     "Night Orchard Productions had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-efb645e3-r04",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": true,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13b-s8-bridge-probe-01",
+    "week": 416,
+    "eventId": "talent-market-event-276",
+    "kind": "settled",
+    "talentId": "person-studio-efb645e3-r01-0",
+    "subjectStudioId": "studio-efb645e3-r02",
+    "winner": "studio-efb645e3-r02",
+    "reasons": [
+     "they are the current employer"
+    ],
+    "dropped": [],
+    "survivors": [
+     {
+      "issuer": "studio-efb645e3-r01",
+      "roster": 4,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-efb645e3-r02",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-efb645e3-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-efb645e3-r04",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": false,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13b-s8-bridge-probe-01",
+    "week": 416,
+    "eventId": "talent-market-event-277",
+    "kind": "settled",
+    "talentId": "person-studio-efb645e3-r01-1",
+    "subjectStudioId": "studio-efb645e3-r02",
+    "winner": "studio-efb645e3-r01",
+    "reasons": [
+     "their proposal ranked above the others overall"
+    ],
+    "dropped": [],
+    "survivors": [
+     {
+      "issuer": "studio-efb645e3-r01",
+      "roster": 4,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-efb645e3-r02",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-efb645e3-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-efb645e3-r04",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": false,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13b-s8-bridge-probe-01",
+    "week": 416,
+    "eventId": "talent-market-event-278",
+    "kind": "settled",
+    "talentId": "person-studio-efb645e3-r01-2",
+    "subjectStudioId": "studio-efb645e3-r02",
+    "winner": "studio-efb645e3-r02",
+    "reasons": [
+     "they are the current employer"
+    ],
+    "dropped": [],
+    "survivors": [
+     {
+      "issuer": "studio-efb645e3-r01",
+      "roster": 4,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-efb645e3-r02",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-efb645e3-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-efb645e3-r04",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": false,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13b-s8-bridge-probe-01",
+    "week": 416,
+    "eventId": "talent-market-event-279",
+    "kind": "settled",
+    "talentId": "person-studio-efb645e3-r01-3",
+    "subjectStudioId": "studio-efb645e3-r02",
+    "winner": "studio-efb645e3-r02",
+    "reasons": [
+     "they are the current employer"
+    ],
+    "dropped": [],
+    "survivors": [
+     {
+      "issuer": "studio-efb645e3-r01",
+      "roster": 4,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-efb645e3-r02",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-efb645e3-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-efb645e3-r04",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": false,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13b-s8-bridge-probe-01",
+    "week": 416,
+    "eventId": "talent-market-event-280",
+    "kind": "settled",
+    "talentId": "person-studio-efb645e3-r01-4",
+    "subjectStudioId": "studio-efb645e3-r02",
+    "winner": "studio-efb645e3-r02",
+    "reasons": [
+     "they are the current employer"
+    ],
+    "dropped": [],
+    "survivors": [
+     {
+      "issuer": "studio-efb645e3-r01",
+      "roster": 4,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-efb645e3-r02",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-efb645e3-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-efb645e3-r04",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": false,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13b-s8-bridge-probe-01",
+    "week": 416,
+    "eventId": "talent-market-event-281",
+    "kind": "settled",
+    "talentId": "person-studio-efb645e3-r01-5",
+    "subjectStudioId": "studio-efb645e3-r02",
+    "winner": "studio-efb645e3-r01",
+    "reasons": [
+     "their proposal ranked above the others overall"
+    ],
+    "dropped": [],
+    "survivors": [
+     {
+      "issuer": "studio-efb645e3-r01",
+      "roster": 4,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-efb645e3-r02",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-efb645e3-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-efb645e3-r04",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": false,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13b-s8-bridge-probe-01",
+    "week": 416,
+    "eventId": "talent-market-event-282",
+    "kind": "settled",
+    "talentId": "person-studio-efb645e3-r02-0",
+    "subjectStudioId": "studio-efb645e3-r01",
+    "winner": "studio-efb645e3-r01",
+    "reasons": [
+     "they offered an opportunity",
+     "they are the current employer"
+    ],
+    "dropped": [
+     "Rose Lantern Films had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-efb645e3-r01",
+      "roster": 4,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-efb645e3-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-efb645e3-r04",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": false,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13b-s8-bridge-probe-01",
+    "week": 416,
+    "eventId": "talent-market-event-283",
+    "kind": "settled",
+    "talentId": "person-studio-efb645e3-r02-1",
+    "subjectStudioId": "studio-efb645e3-r01",
+    "winner": "studio-efb645e3-r02",
+    "reasons": [
+     "they offered an opportunity"
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-efb645e3-r02",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-efb645e3-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-efb645e3-r04",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": false,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13b-s8-bridge-probe-01",
+    "week": 416,
+    "eventId": "talent-market-event-284",
+    "kind": "settled",
+    "talentId": "person-studio-efb645e3-r02-2",
+    "subjectStudioId": "studio-efb645e3-r01",
+    "winner": "studio-efb645e3-r01",
+    "reasons": [
+     "they offered an opportunity",
+     "they are the current employer"
+    ],
+    "dropped": [
+     "Rose Lantern Films had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-efb645e3-r01",
+      "roster": 4,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-efb645e3-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-efb645e3-r04",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": false,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13b-s8-bridge-probe-01",
+    "week": 416,
+    "eventId": "talent-market-event-285",
+    "kind": "settled",
+    "talentId": "person-studio-efb645e3-r02-3",
+    "subjectStudioId": "studio-efb645e3-r01",
+    "winner": "studio-efb645e3-r01",
+    "reasons": [
+     "they offered an opportunity",
+     "they are the current employer"
+    ],
+    "dropped": [
+     "Rose Lantern Films had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-efb645e3-r01",
+      "roster": 4,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-efb645e3-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-efb645e3-r04",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": false,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13b-s8-bridge-probe-01",
+    "week": 416,
+    "eventId": "talent-market-event-286",
+    "kind": "settled",
+    "talentId": "person-studio-efb645e3-r02-4",
+    "subjectStudioId": "studio-efb645e3-r01",
+    "winner": "studio-efb645e3-r01",
+    "reasons": [
+     "they offered an opportunity",
+     "they are the current employer"
+    ],
+    "dropped": [
+     "Rose Lantern Films had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-efb645e3-r01",
+      "roster": 4,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-efb645e3-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-efb645e3-r04",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": false,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13b-s8-bridge-probe-01",
+    "week": 416,
+    "eventId": "talent-market-event-287",
+    "kind": "settled",
+    "talentId": "person-studio-efb645e3-r02-5",
+    "subjectStudioId": "studio-efb645e3-r01",
+    "winner": "studio-efb645e3-r02",
+    "reasons": [
+     "they offered an opportunity"
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-efb645e3-r02",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-efb645e3-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-efb645e3-r04",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": false,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13b-s8-bridge-probe-01",
+    "week": 416,
+    "eventId": "talent-market-event-288",
+    "kind": "settled",
+    "talentId": "person-studio-efb645e3-r03-0",
+    "subjectStudioId": "studio-efb645e3-r03",
+    "winner": "studio-efb645e3-r03",
+    "reasons": [
+     "they are the current employer"
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week.",
+     "Rose Lantern Films had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-efb645e3-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-efb645e3-r04",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": false,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13b-s8-bridge-probe-01",
+    "week": 416,
+    "eventId": "talent-market-event-289",
+    "kind": "settled",
+    "talentId": "person-studio-efb645e3-r03-1",
+    "subjectStudioId": "studio-efb645e3-r03",
+    "winner": "studio-efb645e3-r03",
+    "reasons": [
+     "they are the current employer"
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week.",
+     "Rose Lantern Films had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-efb645e3-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-efb645e3-r04",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": false,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13b-s8-bridge-probe-01",
+    "week": 416,
+    "eventId": "talent-market-event-290",
+    "kind": "settled",
+    "talentId": "person-studio-efb645e3-r03-2",
+    "subjectStudioId": "studio-efb645e3-r04",
+    "winner": "studio-efb645e3-r03",
+    "reasons": [
+     "theirs was the only proposal on the table"
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week.",
+     "Rose Lantern Films had no seat open for this person's role at the decision week.",
+     "Silver Current Pictures's attached promise no longer had a feasible path by the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-efb645e3-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": false,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13b-s8-bridge-probe-01",
+    "week": 416,
+    "eventId": "talent-market-event-291",
+    "kind": "settled",
+    "talentId": "person-studio-efb645e3-r03-3",
+    "subjectStudioId": "studio-efb645e3-r04",
+    "winner": "studio-efb645e3-r03",
+    "reasons": [
+     "theirs was the only proposal on the table"
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week.",
+     "Rose Lantern Films had no seat open for this person's role at the decision week.",
+     "Silver Current Pictures's attached promise no longer had a feasible path by the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-efb645e3-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": false,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13b-s8-bridge-probe-01",
+    "week": 416,
+    "eventId": "talent-market-event-292",
+    "kind": "settled",
+    "talentId": "person-studio-efb645e3-r03-4",
+    "subjectStudioId": "studio-efb645e3-r04",
+    "winner": "studio-efb645e3-r03",
+    "reasons": [
+     "theirs was the only proposal on the table"
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week.",
+     "Rose Lantern Films had no seat open for this person's role at the decision week.",
+     "Silver Current Pictures's attached promise no longer had a feasible path by the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-efb645e3-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": false,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13b-s8-bridge-probe-01",
+    "week": 416,
+    "eventId": "talent-market-event-293",
+    "kind": "settled",
+    "talentId": "person-studio-efb645e3-r03-5",
+    "subjectStudioId": "studio-efb645e3-r03",
+    "winner": "studio-efb645e3-r03",
+    "reasons": [
+     "they are the current employer"
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week.",
+     "Rose Lantern Films had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-efb645e3-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-efb645e3-r04",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": false,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13b-s8-bridge-probe-01",
+    "week": 416,
+    "eventId": "talent-market-event-294",
+    "kind": "settled",
+    "talentId": "person-studio-efb645e3-r04-0",
+    "subjectStudioId": "studio-efb645e3-r04",
+    "winner": "studio-efb645e3-r04",
+    "reasons": [
+     "theirs was the only proposal on the table"
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week.",
+     "Rose Lantern Films had no seat open for this person's role at the decision week.",
+     "Night Orchard Productions had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-efb645e3-r04",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": false,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13b-s8-bridge-probe-01",
+    "week": 416,
+    "eventId": "talent-market-event-295",
+    "kind": "settled",
+    "talentId": "person-studio-efb645e3-r04-1",
+    "subjectStudioId": "studio-efb645e3-r04",
+    "winner": "studio-efb645e3-r04",
+    "reasons": [
+     "theirs was the only proposal on the table"
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week.",
+     "Rose Lantern Films had no seat open for this person's role at the decision week.",
+     "Night Orchard Productions had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-efb645e3-r04",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": false,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13b-s8-bridge-probe-01",
+    "week": 416,
+    "eventId": "talent-market-event-296",
+    "kind": "settled",
+    "talentId": "person-studio-efb645e3-r04-2",
+    "subjectStudioId": "studio-efb645e3-r03",
+    "winner": "studio-efb645e3-r04",
+    "reasons": [
+     "theirs was the only proposal on the table"
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week.",
+     "Rose Lantern Films had no seat open for this person's role at the decision week.",
+     "Night Orchard Productions had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-efb645e3-r04",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": false,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13b-s8-bridge-probe-01",
+    "week": 416,
+    "eventId": "talent-market-event-297",
+    "kind": "settled",
+    "talentId": "person-studio-efb645e3-r04-3",
+    "subjectStudioId": "studio-efb645e3-r03",
+    "winner": "studio-efb645e3-r04",
+    "reasons": [
+     "theirs was the only proposal on the table"
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week.",
+     "Rose Lantern Films had no seat open for this person's role at the decision week.",
+     "Night Orchard Productions had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-efb645e3-r04",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": false,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13b-s8-bridge-probe-01",
+    "week": 416,
+    "eventId": "talent-market-event-298",
+    "kind": "settled",
+    "talentId": "person-studio-efb645e3-r04-4",
+    "subjectStudioId": "studio-efb645e3-r03",
+    "winner": "studio-efb645e3-r04",
+    "reasons": [
+     "theirs was the only proposal on the table"
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week.",
+     "Rose Lantern Films had no seat open for this person's role at the decision week.",
+     "Night Orchard Productions had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-efb645e3-r04",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": false,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13b-s8-bridge-probe-01",
+    "week": 416,
+    "eventId": "talent-market-event-299",
+    "kind": "settled",
+    "talentId": "person-studio-efb645e3-r04-5",
+    "subjectStudioId": "studio-efb645e3-r04",
+    "winner": "studio-efb645e3-r04",
+    "reasons": [
+     "theirs was the only proposal on the table"
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week.",
+     "Rose Lantern Films had no seat open for this person's role at the decision week.",
+     "Night Orchard Productions had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-efb645e3-r04",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": false,
+    "exposed": false,
+    "newSentences": []
+   }
+  ],
+  "settlementDigest": "f8b0d3a7a9d15b30ce65b3b90c291d29189aabd5f445621c7996117b4fd178c2",
+  "prefixDigest": "f8b0d3a7a9d15b30ce65b3b90c291d29189aabd5f445621c7996117b4fd178c2",
+  "receiptsDigest": "b729a1f33fac085228697a52bb474400b26ca04dab8114f2cd3fa893861186c4",
+  "employmentDigest": "6e39a55cbf70e669ac5b27e1d845a6279057ead6b2922c526d25a45f605043ae",
+  "takesDigest": "df029e65f83f015c0efe36258b36444c9c0f30e61e9d732b791d13a4d8d6da75",
+  "rng": "\"2343039306,887634093,2940629248,1402597496\"",
+  "firstExposedWeek": null,
+  "relationshipsRoot": false
+ },
+ {
+  "seed": "p13-public-commercial-adoption",
+  "ms": 5155,
+  "week": 416,
+  "rows": [
+   {
+    "seed": "p13-public-commercial-adoption",
+    "week": 208,
+    "eventId": "talent-market-event-120",
+    "kind": "settled",
+    "talentId": "person-studio-5a47d054-r01-0",
+    "subjectStudioId": "studio-5a47d054-r01",
+    "winner": "studio-5a47d054-r01",
+    "reasons": [
+     "their studio standing ranked higher",
+     "they are the current employer"
+    ],
+    "dropped": [],
+    "survivors": [
+     {
+      "issuer": "studio-5a47d054-r01",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-5a47d054-r02",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-5a47d054-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-5a47d054-r04",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": true,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13-public-commercial-adoption",
+    "week": 208,
+    "eventId": "talent-market-event-121",
+    "kind": "settled",
+    "talentId": "person-studio-5a47d054-r01-1",
+    "subjectStudioId": "studio-5a47d054-r01",
+    "winner": "studio-5a47d054-r01",
+    "reasons": [
+     "their studio standing ranked higher",
+     "they are the current employer"
+    ],
+    "dropped": [],
+    "survivors": [
+     {
+      "issuer": "studio-5a47d054-r01",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-5a47d054-r02",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-5a47d054-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-5a47d054-r04",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": true,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13-public-commercial-adoption",
+    "week": 208,
+    "eventId": "talent-market-event-122",
+    "kind": "settled",
+    "talentId": "person-studio-5a47d054-r01-2",
+    "subjectStudioId": "studio-5a47d054-r01",
+    "winner": "studio-5a47d054-r01",
+    "reasons": [
+     "their studio standing ranked higher",
+     "they are the current employer"
+    ],
+    "dropped": [],
+    "survivors": [
+     {
+      "issuer": "studio-5a47d054-r01",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-5a47d054-r02",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-5a47d054-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-5a47d054-r04",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": true,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13-public-commercial-adoption",
+    "week": 208,
+    "eventId": "talent-market-event-123",
+    "kind": "settled",
+    "talentId": "person-studio-5a47d054-r01-3",
+    "subjectStudioId": "studio-5a47d054-r01",
+    "winner": "studio-5a47d054-r01",
+    "reasons": [
+     "their studio standing ranked higher",
+     "they are the current employer"
+    ],
+    "dropped": [],
+    "survivors": [
+     {
+      "issuer": "studio-5a47d054-r01",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-5a47d054-r02",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-5a47d054-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-5a47d054-r04",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": true,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13-public-commercial-adoption",
+    "week": 208,
+    "eventId": "talent-market-event-124",
+    "kind": "settled",
+    "talentId": "person-studio-5a47d054-r01-4",
+    "subjectStudioId": "studio-5a47d054-r01",
+    "winner": "studio-5a47d054-r01",
+    "reasons": [
+     "their studio standing ranked higher",
+     "they are the current employer"
+    ],
+    "dropped": [],
+    "survivors": [
+     {
+      "issuer": "studio-5a47d054-r01",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-5a47d054-r02",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-5a47d054-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-5a47d054-r04",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": true,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13-public-commercial-adoption",
+    "week": 208,
+    "eventId": "talent-market-event-125",
+    "kind": "settled",
+    "talentId": "person-studio-5a47d054-r01-5",
+    "subjectStudioId": "studio-5a47d054-r01",
+    "winner": "studio-5a47d054-r01",
+    "reasons": [
+     "their studio standing ranked higher",
+     "they are the current employer"
+    ],
+    "dropped": [],
+    "survivors": [
+     {
+      "issuer": "studio-5a47d054-r01",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-5a47d054-r02",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-5a47d054-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-5a47d054-r04",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": true,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13-public-commercial-adoption",
+    "week": 208,
+    "eventId": "talent-market-event-126",
+    "kind": "settled",
+    "talentId": "person-studio-5a47d054-r02-0",
+    "subjectStudioId": "studio-5a47d054-r02",
+    "winner": "studio-5a47d054-r02",
+    "reasons": [
+     "they offered an opportunity",
+     "they are the current employer"
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-5a47d054-r02",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-5a47d054-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-5a47d054-r04",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": true,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13-public-commercial-adoption",
+    "week": 208,
+    "eventId": "talent-market-event-127",
+    "kind": "settled",
+    "talentId": "person-studio-5a47d054-r02-1",
+    "subjectStudioId": "studio-5a47d054-r02",
+    "winner": "studio-5a47d054-r02",
+    "reasons": [
+     "they offered an opportunity",
+     "they are the current employer"
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-5a47d054-r02",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-5a47d054-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-5a47d054-r04",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": true,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13-public-commercial-adoption",
+    "week": 208,
+    "eventId": "talent-market-event-128",
+    "kind": "settled",
+    "talentId": "person-studio-5a47d054-r02-2",
+    "subjectStudioId": "studio-5a47d054-r02",
+    "winner": "studio-5a47d054-r02",
+    "reasons": [
+     "they offered an opportunity",
+     "they are the current employer"
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-5a47d054-r02",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-5a47d054-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-5a47d054-r04",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": true,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13-public-commercial-adoption",
+    "week": 208,
+    "eventId": "talent-market-event-129",
+    "kind": "settled",
+    "talentId": "person-studio-5a47d054-r02-3",
+    "subjectStudioId": "studio-5a47d054-r02",
+    "winner": "studio-5a47d054-r02",
+    "reasons": [
+     "they offered an opportunity",
+     "they are the current employer"
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-5a47d054-r02",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-5a47d054-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-5a47d054-r04",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": true,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13-public-commercial-adoption",
+    "week": 208,
+    "eventId": "talent-market-event-130",
+    "kind": "settled",
+    "talentId": "person-studio-5a47d054-r02-4",
+    "subjectStudioId": "studio-5a47d054-r02",
+    "winner": "studio-5a47d054-r02",
+    "reasons": [
+     "they offered an opportunity",
+     "they are the current employer"
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-5a47d054-r02",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-5a47d054-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-5a47d054-r04",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": true,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13-public-commercial-adoption",
+    "week": 208,
+    "eventId": "talent-market-event-131",
+    "kind": "settled",
+    "talentId": "person-studio-5a47d054-r02-5",
+    "subjectStudioId": "studio-5a47d054-r02",
+    "winner": "studio-5a47d054-r02",
+    "reasons": [
+     "they offered an opportunity",
+     "they are the current employer"
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-5a47d054-r02",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-5a47d054-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-5a47d054-r04",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": true,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13-public-commercial-adoption",
+    "week": 208,
+    "eventId": "talent-market-event-132",
+    "kind": "settled",
+    "talentId": "person-studio-5a47d054-r03-0",
+    "subjectStudioId": "studio-5a47d054-r03",
+    "winner": "studio-5a47d054-r03",
+    "reasons": [
+     "they are the current employer"
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week.",
+     "Rose Lantern Films had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-5a47d054-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-5a47d054-r04",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": true,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13-public-commercial-adoption",
+    "week": 208,
+    "eventId": "talent-market-event-133",
+    "kind": "settled",
+    "talentId": "person-studio-5a47d054-r03-1",
+    "subjectStudioId": "studio-5a47d054-r03",
+    "winner": "studio-5a47d054-r03",
+    "reasons": [
+     "they are the current employer"
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week.",
+     "Rose Lantern Films had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-5a47d054-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-5a47d054-r04",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": true,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13-public-commercial-adoption",
+    "week": 208,
+    "eventId": "talent-market-event-134",
+    "kind": "settled",
+    "talentId": "person-studio-5a47d054-r03-2",
+    "subjectStudioId": "studio-5a47d054-r03",
+    "winner": "studio-5a47d054-r03",
+    "reasons": [
+     "they are the current employer"
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week.",
+     "Rose Lantern Films had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-5a47d054-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-5a47d054-r04",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": true,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13-public-commercial-adoption",
+    "week": 208,
+    "eventId": "talent-market-event-135",
+    "kind": "settled",
+    "talentId": "person-studio-5a47d054-r03-3",
+    "subjectStudioId": "studio-5a47d054-r03",
+    "winner": "studio-5a47d054-r03",
+    "reasons": [
+     "they are the current employer"
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week.",
+     "Rose Lantern Films had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-5a47d054-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-5a47d054-r04",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": true,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13-public-commercial-adoption",
+    "week": 208,
+    "eventId": "talent-market-event-136",
+    "kind": "settled",
+    "talentId": "person-studio-5a47d054-r03-4",
+    "subjectStudioId": "studio-5a47d054-r03",
+    "winner": "studio-5a47d054-r03",
+    "reasons": [
+     "they are the current employer"
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week.",
+     "Rose Lantern Films had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-5a47d054-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-5a47d054-r04",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": true,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13-public-commercial-adoption",
+    "week": 208,
+    "eventId": "talent-market-event-137",
+    "kind": "settled",
+    "talentId": "person-studio-5a47d054-r03-5",
+    "subjectStudioId": "studio-5a47d054-r03",
+    "winner": "studio-5a47d054-r03",
+    "reasons": [
+     "they are the current employer"
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week.",
+     "Rose Lantern Films had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-5a47d054-r03",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-5a47d054-r04",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": true,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13-public-commercial-adoption",
+    "week": 208,
+    "eventId": "talent-market-event-138",
+    "kind": "settled",
+    "talentId": "person-studio-5a47d054-r04-0",
+    "subjectStudioId": "studio-5a47d054-r04",
+    "winner": "studio-5a47d054-r04",
+    "reasons": [
+     "theirs was the only proposal on the table"
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week.",
+     "Rose Lantern Films had no seat open for this person's role at the decision week.",
+     "Night Orchard Productions had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-5a47d054-r04",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": true,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13-public-commercial-adoption",
+    "week": 208,
+    "eventId": "talent-market-event-139",
+    "kind": "settled",
+    "talentId": "person-studio-5a47d054-r04-1",
+    "subjectStudioId": "studio-5a47d054-r04",
+    "winner": "studio-5a47d054-r04",
+    "reasons": [
+     "theirs was the only proposal on the table"
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week.",
+     "Rose Lantern Films had no seat open for this person's role at the decision week.",
+     "Night Orchard Productions had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-5a47d054-r04",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": true,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13-public-commercial-adoption",
+    "week": 208,
+    "eventId": "talent-market-event-140",
+    "kind": "settled",
+    "talentId": "person-studio-5a47d054-r04-2",
+    "subjectStudioId": "studio-5a47d054-r04",
+    "winner": "studio-5a47d054-r04",
+    "reasons": [
+     "theirs was the only proposal on the table"
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week.",
+     "Rose Lantern Films had no seat open for this person's role at the decision week.",
+     "Night Orchard Productions had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-5a47d054-r04",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": true,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13-public-commercial-adoption",
+    "week": 208,
+    "eventId": "talent-market-event-141",
+    "kind": "settled",
+    "talentId": "person-studio-5a47d054-r04-3",
+    "subjectStudioId": "studio-5a47d054-r04",
+    "winner": "studio-5a47d054-r04",
+    "reasons": [
+     "theirs was the only proposal on the table"
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week.",
+     "Rose Lantern Films had no seat open for this person's role at the decision week.",
+     "Night Orchard Productions had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-5a47d054-r04",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": true,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13-public-commercial-adoption",
+    "week": 208,
+    "eventId": "talent-market-event-142",
+    "kind": "settled",
+    "talentId": "person-studio-5a47d054-r04-4",
+    "subjectStudioId": "studio-5a47d054-r04",
+    "winner": "studio-5a47d054-r04",
+    "reasons": [
+     "theirs was the only proposal on the table"
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week.",
+     "Rose Lantern Films had no seat open for this person's role at the decision week.",
+     "Night Orchard Productions had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-5a47d054-r04",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": true,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13-public-commercial-adoption",
+    "week": 208,
+    "eventId": "talent-market-event-143",
+    "kind": "settled",
+    "talentId": "person-studio-5a47d054-r04-5",
+    "subjectStudioId": "studio-5a47d054-r04",
+    "winner": "studio-5a47d054-r04",
+    "reasons": [
+     "theirs was the only proposal on the table"
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week.",
+     "Rose Lantern Films had no seat open for this person's role at the decision week.",
+     "Night Orchard Productions had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-5a47d054-r04",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": true,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13-public-commercial-adoption",
+    "week": 416,
+    "eventId": "talent-market-event-228",
+    "kind": "settled",
+    "talentId": "person-studio-5a47d054-r01-0",
+    "subjectStudioId": "studio-5a47d054-r01",
+    "winner": "studio-5a47d054-r01",
+    "reasons": [
+     "their studio standing ranked higher",
+     "they are the current employer"
+    ],
+    "dropped": [],
+    "survivors": [
+     {
+      "issuer": "studio-5a47d054-r01",
+      "roster": 4,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-5a47d054-r02",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": false,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13-public-commercial-adoption",
+    "week": 416,
+    "eventId": "talent-market-event-229",
+    "kind": "settled",
+    "talentId": "person-studio-5a47d054-r01-1",
+    "subjectStudioId": "studio-5a47d054-r01",
+    "winner": "studio-5a47d054-r01",
+    "reasons": [
+     "their studio standing ranked higher",
+     "they are the current employer"
+    ],
+    "dropped": [],
+    "survivors": [
+     {
+      "issuer": "studio-5a47d054-r01",
+      "roster": 4,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-5a47d054-r02",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": false,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13-public-commercial-adoption",
+    "week": 416,
+    "eventId": "talent-market-event-230",
+    "kind": "settled",
+    "talentId": "person-studio-5a47d054-r01-2",
+    "subjectStudioId": "studio-5a47d054-r01",
+    "winner": "studio-5a47d054-r01",
+    "reasons": [
+     "their record with this person ranked above the others",
+     "their studio standing ranked higher",
+     "they are the current employer"
+    ],
+    "dropped": [],
+    "survivors": [
+     {
+      "issuer": "studio-5a47d054-r01",
+      "roster": 4,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-5a47d054-r02",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": false,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13-public-commercial-adoption",
+    "week": 416,
+    "eventId": "talent-market-event-231",
+    "kind": "settled",
+    "talentId": "person-studio-5a47d054-r01-3",
+    "subjectStudioId": "studio-5a47d054-r01",
+    "winner": "studio-5a47d054-r01",
+    "reasons": [
+     "their record with this person ranked above the others",
+     "their studio standing ranked higher",
+     "they are the current employer"
+    ],
+    "dropped": [],
+    "survivors": [
+     {
+      "issuer": "studio-5a47d054-r01",
+      "roster": 4,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-5a47d054-r02",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": false,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13-public-commercial-adoption",
+    "week": 416,
+    "eventId": "talent-market-event-232",
+    "kind": "settled",
+    "talentId": "person-studio-5a47d054-r01-4",
+    "subjectStudioId": "studio-5a47d054-r01",
+    "winner": "studio-5a47d054-r01",
+    "reasons": [
+     "their record with this person ranked above the others",
+     "their studio standing ranked higher",
+     "they are the current employer"
+    ],
+    "dropped": [],
+    "survivors": [
+     {
+      "issuer": "studio-5a47d054-r01",
+      "roster": 4,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-5a47d054-r02",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": false,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13-public-commercial-adoption",
+    "week": 416,
+    "eventId": "talent-market-event-233",
+    "kind": "settled",
+    "talentId": "person-studio-5a47d054-r01-5",
+    "subjectStudioId": "studio-5a47d054-r01",
+    "winner": "studio-5a47d054-r01",
+    "reasons": [
+     "their studio standing ranked higher",
+     "they are the current employer"
+    ],
+    "dropped": [],
+    "survivors": [
+     {
+      "issuer": "studio-5a47d054-r01",
+      "roster": 4,
+      "sharedTakeCounterparts": []
+     },
+     {
+      "issuer": "studio-5a47d054-r02",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": false,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13-public-commercial-adoption",
+    "week": 416,
+    "eventId": "talent-market-event-234",
+    "kind": "settled",
+    "talentId": "person-studio-5a47d054-r02-0",
+    "subjectStudioId": "studio-5a47d054-r02",
+    "winner": "studio-5a47d054-r02",
+    "reasons": [
+     "theirs was the only proposal on the table"
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-5a47d054-r02",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": false,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13-public-commercial-adoption",
+    "week": 416,
+    "eventId": "talent-market-event-235",
+    "kind": "settled",
+    "talentId": "person-studio-5a47d054-r02-1",
+    "subjectStudioId": "studio-5a47d054-r02",
+    "winner": "studio-5a47d054-r02",
+    "reasons": [
+     "theirs was the only proposal on the table"
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-5a47d054-r02",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": false,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13-public-commercial-adoption",
+    "week": 416,
+    "eventId": "talent-market-event-236",
+    "kind": "settled",
+    "talentId": "person-studio-5a47d054-r02-2",
+    "subjectStudioId": "studio-5a47d054-r02",
+    "winner": "studio-5a47d054-r02",
+    "reasons": [
+     "theirs was the only proposal on the table"
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-5a47d054-r02",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": false,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13-public-commercial-adoption",
+    "week": 416,
+    "eventId": "talent-market-event-237",
+    "kind": "settled",
+    "talentId": "person-studio-5a47d054-r02-3",
+    "subjectStudioId": "studio-5a47d054-r02",
+    "winner": "studio-5a47d054-r02",
+    "reasons": [
+     "theirs was the only proposal on the table"
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-5a47d054-r02",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": false,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13-public-commercial-adoption",
+    "week": 416,
+    "eventId": "talent-market-event-238",
+    "kind": "settled",
+    "talentId": "person-studio-5a47d054-r02-4",
+    "subjectStudioId": "studio-5a47d054-r02",
+    "winner": "studio-5a47d054-r02",
+    "reasons": [
+     "theirs was the only proposal on the table"
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-5a47d054-r02",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": false,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13-public-commercial-adoption",
+    "week": 416,
+    "eventId": "talent-market-event-239",
+    "kind": "settled",
+    "talentId": "person-studio-5a47d054-r02-5",
+    "subjectStudioId": "studio-5a47d054-r02",
+    "winner": "studio-5a47d054-r02",
+    "reasons": [
+     "theirs was the only proposal on the table"
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [
+     {
+      "issuer": "studio-5a47d054-r02",
+      "roster": 0,
+      "sharedTakeCounterparts": []
+     }
+    ],
+    "churn": false,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13-public-commercial-adoption",
+    "week": 416,
+    "eventId": "talent-market-event-240",
+    "kind": "declined",
+    "talentId": "person-studio-5a47d054-r03-0",
+    "subjectStudioId": "studio-5a47d054-r03",
+    "winner": null,
+    "reasons": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week.",
+     "Rose Lantern Films had no seat open for this person's role at the decision week."
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week.",
+     "Rose Lantern Films had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [],
+    "churn": false,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13-public-commercial-adoption",
+    "week": 416,
+    "eventId": "talent-market-event-241",
+    "kind": "declined",
+    "talentId": "person-studio-5a47d054-r03-1",
+    "subjectStudioId": "studio-5a47d054-r03",
+    "winner": null,
+    "reasons": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week.",
+     "Rose Lantern Films had no seat open for this person's role at the decision week."
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week.",
+     "Rose Lantern Films had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [],
+    "churn": false,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13-public-commercial-adoption",
+    "week": 416,
+    "eventId": "talent-market-event-242",
+    "kind": "declined",
+    "talentId": "person-studio-5a47d054-r03-2",
+    "subjectStudioId": "studio-5a47d054-r03",
+    "winner": null,
+    "reasons": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week.",
+     "Rose Lantern Films had no seat open for this person's role at the decision week."
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week.",
+     "Rose Lantern Films had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [],
+    "churn": false,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13-public-commercial-adoption",
+    "week": 416,
+    "eventId": "talent-market-event-243",
+    "kind": "declined",
+    "talentId": "person-studio-5a47d054-r03-3",
+    "subjectStudioId": "studio-5a47d054-r03",
+    "winner": null,
+    "reasons": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week.",
+     "Rose Lantern Films had no seat open for this person's role at the decision week."
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week.",
+     "Rose Lantern Films had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [],
+    "churn": false,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13-public-commercial-adoption",
+    "week": 416,
+    "eventId": "talent-market-event-244",
+    "kind": "declined",
+    "talentId": "person-studio-5a47d054-r03-4",
+    "subjectStudioId": "studio-5a47d054-r03",
+    "winner": null,
+    "reasons": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week.",
+     "Rose Lantern Films had no seat open for this person's role at the decision week."
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week.",
+     "Rose Lantern Films had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [],
+    "churn": false,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13-public-commercial-adoption",
+    "week": 416,
+    "eventId": "talent-market-event-245",
+    "kind": "declined",
+    "talentId": "person-studio-5a47d054-r03-5",
+    "subjectStudioId": "studio-5a47d054-r03",
+    "winner": null,
+    "reasons": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week.",
+     "Rose Lantern Films had no seat open for this person's role at the decision week."
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week.",
+     "Rose Lantern Films had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [],
+    "churn": false,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13-public-commercial-adoption",
+    "week": 416,
+    "eventId": "talent-market-event-246",
+    "kind": "declined",
+    "talentId": "person-studio-5a47d054-r04-0",
+    "subjectStudioId": "studio-5a47d054-r04",
+    "winner": null,
+    "reasons": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week.",
+     "Rose Lantern Films had no seat open for this person's role at the decision week."
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week.",
+     "Rose Lantern Films had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [],
+    "churn": false,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13-public-commercial-adoption",
+    "week": 416,
+    "eventId": "talent-market-event-247",
+    "kind": "declined",
+    "talentId": "person-studio-5a47d054-r04-1",
+    "subjectStudioId": "studio-5a47d054-r04",
+    "winner": null,
+    "reasons": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week.",
+     "Rose Lantern Films had no seat open for this person's role at the decision week."
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week.",
+     "Rose Lantern Films had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [],
+    "churn": false,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13-public-commercial-adoption",
+    "week": 416,
+    "eventId": "talent-market-event-248",
+    "kind": "declined",
+    "talentId": "person-studio-5a47d054-r04-2",
+    "subjectStudioId": "studio-5a47d054-r04",
+    "winner": null,
+    "reasons": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week.",
+     "Rose Lantern Films had no seat open for this person's role at the decision week."
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week.",
+     "Rose Lantern Films had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [],
+    "churn": false,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13-public-commercial-adoption",
+    "week": 416,
+    "eventId": "talent-market-event-249",
+    "kind": "declined",
+    "talentId": "person-studio-5a47d054-r04-3",
+    "subjectStudioId": "studio-5a47d054-r04",
+    "winner": null,
+    "reasons": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week.",
+     "Rose Lantern Films had no seat open for this person's role at the decision week."
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week.",
+     "Rose Lantern Films had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [],
+    "churn": false,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13-public-commercial-adoption",
+    "week": 416,
+    "eventId": "talent-market-event-250",
+    "kind": "declined",
+    "talentId": "person-studio-5a47d054-r04-4",
+    "subjectStudioId": "studio-5a47d054-r04",
+    "winner": null,
+    "reasons": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week.",
+     "Rose Lantern Films had no seat open for this person's role at the decision week."
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week.",
+     "Rose Lantern Films had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [],
+    "churn": false,
+    "exposed": false,
+    "newSentences": []
+   },
+   {
+    "seed": "p13-public-commercial-adoption",
+    "week": 416,
+    "eventId": "talent-market-event-251",
+    "kind": "declined",
+    "talentId": "person-studio-5a47d054-r04-5",
+    "subjectStudioId": "studio-5a47d054-r04",
+    "winner": null,
+    "reasons": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week.",
+     "Rose Lantern Films had no seat open for this person's role at the decision week."
+    ],
+    "dropped": [
+     "Bellwether Pictures had no seat open for this person's role at the decision week.",
+     "Rose Lantern Films had no seat open for this person's role at the decision week."
+    ],
+    "survivors": [],
+    "churn": false,
+    "exposed": false,
+    "newSentences": []
+   }
+  ],
+  "settlementDigest": "c034f2fb5a8e5f454a475020cec9de1ac764d742ce121a6cd8d2bc3b641eb544",
+  "prefixDigest": "c034f2fb5a8e5f454a475020cec9de1ac764d742ce121a6cd8d2bc3b641eb544",
+  "receiptsDigest": "be7310b6d73124dab34723644f7cf16c52a4b193e67a4b85d9c20e7f60e47850",
+  "employmentDigest": "bb775d62c37d48e48af30811a69c86e117d89c63166bd1af4d73df1b3c16fc97",
+  "takesDigest": "3867855dd105c2fff8389e9dc76b56d7ecc43f9722419de3e85423a84b087094",
+  "rng": "\"3069080245,1730081600,660681499,2741201056\"",
+  "firstExposedWeek": null,
+  "relationshipsRoot": false
+ }
+]

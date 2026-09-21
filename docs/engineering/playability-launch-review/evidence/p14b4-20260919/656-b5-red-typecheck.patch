@@ -1,0 +1,1770 @@
+diff --git a/tests/bridge-p14b5-relationships.test.ts b/tests/bridge-p14b5-relationships.test.ts
+new file mode 100644
+index 00000000..e345ba2f
+--- /dev/null
++++ b/tests/bridge-p14b5-relationships.test.ts
+@@ -0,0 +1,458 @@
++// 654-T (record 653 NEXT653; plan T1 "independent test-author RED against accepted predecessor").
++// P14B.5 First Shared-Work Bond Core — the BRIDGE RED: family 11 (projection 48, THIN — forced by the closed
++// six-member `priorityOrder` enum, plan "Scope — bridge") and family 12 (the R-D5 natural-chain LEDGER, measured
++// on unchanged source and pinned as the frozen control; scratchpad/654-T-ledger.md is the record). Authored at
++// HEAD 74bd325b on a clean tree; no production, helper, fixture, generated artifact or timeout is touched.
++//
++// RED-BY-VALUE (the thin surface needs no bridge module, so nothing here imports an absent bridge file):
++//   (a) the `priorityOrder` wire enum gains `relationships` (bridge-schema.ts :2320-2324);
++//   (b) `DESCRIPTOR_LABEL` gains a phrase for it (people.ts :866-875) — observable only as the `line` staying
++//       total and unchanged, since `relationships` sits at index 2/3 and the line reads [0]/[1];
++//   (c) the OUTGOING 47 identity is registered as `projection-v47` (runtime-checkpoint.ts :59-63) and the
++//       registry holds the 35 accepted prior ids PLUS it;
++//   (d) the generator artifacts stay in sync with the running identity (law, stable across the bump);
++//   (e) `preferences.priorityOrder` publishes SEVEN members on a genuine open case and the D5 settlement sentence
++//       reaches `settlementReasons` VERBATIM (people.ts :998, free text, no enum);
++//   (f) the leak law extends to the new facts: no `closeness`, no edge, no `recent` delta on any serialized DTO.
++// The FROZEN SIDE (GREEN today; R-VERSION class, re-expressed by the test-author's sweep after T2): projection 47,
++// `SCHEMA_ID` = sha256:6f6b4880…, exactly 35 prior ids, `LIVE_SAVE_VERSION` 30, the checkpoint loading as CURRENT.
++//
++// Anything that needs the engine's new module is reached through a DYNAMIC import inside the case, so this file
++// loads and its frozen pins and ledger controls run today; those cases reject (RED) until T2 creates the module,
++// and the first assertion in each of them is that the import resolved (memory rule: never a spurious pass).
++//
++// FAMILY 12 — THE LEDGER (R-D5 pre-declaration, 647-B D1/R2/A2; measured 2026-09-22 on HEAD 74bd325b, four seeds,
++// 416 ticks each): settlement receipts fall at the SYNCHRONIZED CHURNS 208 and 416 only (the plan's "404" is the
++// week the second-cycle cases OPEN; they settle at 416). At 208 EVERY survivor's roster under the D1 predicate is
++// EMPTY on every seed (D1 CONFIRMED: churn receipts are NOT exposed). At 416 the only rows active under the predicate
++// are r01's four `replacement` rows 265→473 (`*-supply-265-6..9`, research supply staff), and NONE of them shares a
++// first take with any subject. Hence ZERO receipts on the four seeds are exposed to D5 through 416, and the four
++// chain digests below MUST NOT MOVE at T2. After T2 the same routine recomputes the D5 bands at W for every
++// settlement (647-B R2) from the engine's own tiers and rosters, so a lawful movement anywhere is attributed on
++// the spot: the D5 sentence is REQUIRED iff the winner's band strictly exceeds every other survivor's.
++
++import assert from 'node:assert/strict'
++import { createHash } from 'node:crypto'
++import { readFileSync } from 'node:fs'
++import { gunzipSync } from 'node:zlib'
++import { describe, expect, it, vi } from 'vitest'
++import { PROJECTION_VERSION, PROTOCOL_VERSION, SCHEMA_ID } from '../bridge/protocol.ts'
++import { BRIDGE_SCHEMA } from '../bridge/schema/bridge-schema.ts'
++import { canonicalJson, schemaIdentity } from '../bridge/schema/canonical.ts'
++import { parseWireValue } from '../bridge/schema/runtime.ts'
++import { loadBridgeRuntimeCheckpoint, SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS } from '../bridge/runtime-checkpoint.ts'
++import { marketCaseProjection, peopleProjection } from '../bridge/people.ts'
++import { marketPage } from '../bridge/market.ts'
++import { applyActions } from '../src/core/actions.js'
++import { hiringMarketIds } from '../src/core/employment.js'
++import { tick } from '../src/core/tick.js'
++import * as marketModule from '../src/core/talentMarket.js'
++import { submitProposal } from '../src/core/talentMarket.js'
++import { attachPromise } from '../src/core/promises.js'
++import { exportSave, importSave, LIVE_SAVE_VERSION, makeSave, migrateToV31, validateSaveV30 } from '../src/core/save.js'
++import { advanceTo, fund, p13aGeneratedStudio, player, poachingFixture } from './helpers/p14b2-fixtures.js'
++import type { GameState, TalentMarketCase, TalentMarketReceipt } from '../src/core/types.js'
++
++const OUTGOING_46 = 'sha256:584bdd8565030f049d548b1af4fcbf8c517ca7c9150016736f632f1ef8fcb98c'
++const OUTGOING_47 = 'sha256:6f6b48805aadcf14d456614d87bf1571eb1ce0d9aa0bc44f604e7976f4f85538' // T0 MANIFEST authority.schemaId
++const OUTGOING_PROJECTION = 47
++// The 35 accepted prior literals (tests/bridge-p14b4-runtime47-compatibility.test.ts :39-75); never derived from the registry.
++const EXPECTED_35_PRIOR_IDS = [
++  'sha256:01f15efc8fc33fd810b051242857385ca23b5e1c775b357db1bfe5a70e907e1e', 'sha256:0285e92f32c27cd2960df802b3f7ea156a15372f05001ad1f4964c2f25db55b5',
++  'sha256:0474ceafd6c148f329fe99eac328c79ed0b0caf906e0f7442b7f3cf0fe40cb4f', 'sha256:15033cf9ca43be65abcb25fc6f910f9487ac23056090126ec7d3e2353f6ce587',
++  'sha256:18de162d1a9da3034378f71cec3d3b3f109ea91df8c1a8d40469924108b36e78', 'sha256:1bad05a95c284e64ceaef54c276f2dd0ccad8ca3ef1b12198068bb61b85198c9',
++  'sha256:204a71924bd8c2e8ae9af47591226894b3e42f62457da3cc20ed6b106ede611a', 'sha256:2b339a6a8b3e5add0726b7eaac9ce8746e235d8b6111a6816f890ff56afdffd1',
++  'sha256:510f08e4a551827a30e0f3d93bbe09fa5ddadbd39366b4dcfa93530500c7979c', 'sha256:584bdd8565030f049d548b1af4fcbf8c517ca7c9150016736f632f1ef8fcb98c',
++  'sha256:5b2a4ca93d930e90a288db55bb5cc3fdc8eea070ef51fa1450a193a325bd755d', 'sha256:625377a2804a681da3be209da02850e221ae33ac5f58b727f6395736ad607ad1',
++  'sha256:6a2c01feaf02c931a8c41bbf2090f8af003b89a492d77135d7aab2b42a8d3dc9', 'sha256:71529afdcb8e5cf645ab136efb9685256da0039e86d989bfab97b7b2cc5d9a8b',
++  'sha256:7e3af4db0d3d18cdeaab00082e0034f304a9141f46ea87e9e64e5a99d985483c', 'sha256:80f2f0fcd14d1b25e713c2624286a6c05a98c53ea5cfcb2b47612f8c030f5e47',
++  'sha256:85a6d125960dce49b4775f842d7b56d7360c81cef3638cd819057c79c99f0236', 'sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85',
++  'sha256:92317ec179456cdc5bd5cc7c4ca47dd066b768a9e2e45519f1263ef921a211a4', 'sha256:97940e51e0566bed80231b223e5b7303a45d62db8d698f693e525eb244775211',
++  'sha256:a481d14f3810ffbafcba2bbf509db7340263f3f0fd665a059507a1567d98923d', 'sha256:a6f374596e956800f9547ad538fdd859c01bda3460aac8b877279c67686c6f4b',
++  'sha256:b779faa92227bd1f2e623ad04d0899c87e7ddc60ce43f9ae9c39a7626c20a83d', 'sha256:ba9cd199704f66d375585d0bec2128c950618a3ba6a8cf0845a5550fde41659f',
++  'sha256:be7ed660d04ed9b1056f48e946f86f26c10cab42b950a273d57ad9cba372f5bb', 'sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712',
++  'sha256:c9c07d6febe4afee7f7c27c991acdfa1c86b6c3a7f5dff8528d7fa5ad72e43a1', 'sha256:c9dad9f3d8bb94445db1a5425d90db3f9894da9354f47a07992ff96261cfc399',
++  'sha256:d3338cb713385cc23414e6a17293a5900871764f0eeaed19698e17634e74740b', 'sha256:ddce1c399ac4ff58327b296a0600428ac3f3346b84f3639e66e48e53a65fbe99',
++  'sha256:e64a3b659e4247b98631f1caa1f0e9eb0b6016aac92b0f46be590360ff9cee48', 'sha256:ea5d645f34a472f4710b9273b225d6f15433d6d17ae8ed1af3c03686a225c8c4',
++  'sha256:eb95add0fc06a54d19998c4707dd0b0ba861a22cfee6d8e6631499beeea18e25', 'sha256:f84ae77ec59a0d7ca7cdd89115456504ddecbde2c6e3839936e4951bd65bce61',
++  'sha256:fe9bf4558dc12abc5f258ba8b8f581242e06361cfbae8ae31d8c676f6c7a6460',
++] as const
++const CHECKPOINT = {
++  gz: '38275e91d083651f232a2845b1bd8b738ac996c63523c65203c4ca8f72703d11', raw: 'c7e3cd2a56ef0871b8a8754ce1a75b06d095916f9aeb71e57229fc2aeee6496b',
++  current: '6788225135a0c7a2eca94faaf6d0d068b8dac1ba00e7b6b8ad29c7d4338c7388', saved: 'b7a32680df6f002c10829e7edd644a394b9b0cdac1427a7af0aef5395501aebe',
++  journal: '5cad726588c2caf2514c13bf75de5eaa66747b345441a20c83ad9e620b3f7d99', sessionId: 'p14b5-genuine-outgoing47', week: 45, talentId: 't-act-09',
++} as const
++const CURRENT_P1 = { gz: 'a13704632d58909b9edc330f2f6d946f3e3fe7bfc1d9d2adb3ab2a430fd540fd', raw: CHECKPOINT.saved, week: 45 } as const
++// Companion §2.1.7 :120 — the seven-member public orders.
++const UNPROVEN_ORDER = ['opportunity', 'compensation', 'relationships', 'term', 'trust', 'standing', 'incumbency'] as const
++const WIRE_ENUM_7 = ['opportunity', 'compensation', 'term', 'trust', 'standing', 'incumbency', 'relationships'] as const
++// Measured on unchanged source (bridge/people.ts :991 reads [0]/[1] only): the line does NOT move with the bump.
++const CURRENT_P1_LINE = 'Prefers terms of 1 year · Weighs the opportunity offered first, then compensation'
++// The eight FROZEN settlement sentences (talentMarket.ts :671-678, :877, :885) and the nine FROZEN drop templates (:1022-1032).
++const FROZEN_REASONS: ReadonlySet<string> = new Set([
++  'their compensation band ranked above the others', 'their term matched what this person prefers', 'they offered an opportunity',
++  'their record with this person ranked above the others', 'their studio standing ranked higher', 'they are the current employer',
++  'theirs was the only proposal on the table', 'their proposal ranked above the others overall',
++])
++const FROZEN_DROP_TEMPLATES: readonly RegExp[] = [
++  /^.+ had not entered the industry by the decision week\.$/, /^.+'s offer lapsed — this person was already committed elsewhere by the decision week\.$/,
++  /^.+'s offer named a start week that no longer matches this decision\.$/, /^.+'s offer fell below this person's reservation for that term\.$/,
++  /^.+'s terms changed since submission\.$/, /^.+ could not fund the signing bonus\.$/, /^.+ had no seat open for this person's role at the decision week\.$/,
++  /^.+'s attached promise no longer had a feasible path by the decision week\.$/, /^.+ holds a record this person distrusts\.$/,
++]
++const TIE_SENTENCE = 'this person could not separate 2 equally ranked proposals.'
++const POACHING_REASONS = ['their compensation band ranked above the others', 'their term matched what this person prefers'] // p14b2-fixtures.ts :200-201
++
++// ── the ledger seeds and their frozen controls (654-T ledger §B; 416 ticks from p13aGeneratedStudio(seed)) ──
++const LEDGER_END_WEEK = 416
++const CHURN_WEEKS = new Set([208, 416])
++const LEDGER_SEEDS = {
++  'p13a-core-causal-01': { role: 'default', rows: 40, settled: 16, declined: 8, expired: 16,
++    settlement: '706e54c6ec9728df1664025982ebbafeb0fc36afb245b6bd0b983305f6a10a77', receipts: 'af8c4d1325ecb350dbc07fbf2f762dd8257db04075b8030bf7bd975b4cb2a766',
++    employment: '09bcc35ba327579ac63dd1ed63535b23cbc8ff55b25fd9597a2872a819f08750', takes: '8af116b1687ed210c02953b5b506456e638a64482e8042b0e549b0d57e428694',
++    rng: '2598418427,508725886,1318803286,3129010527' },
++  'seed-b': { role: 'seed-b (the seating/outcomes witness seed)', rows: 48, settled: 48, declined: 0, expired: 0,
++    settlement: 'f9622a876a73673591f4016b5fe80ab708bbec30e330a423d3d82729b0ec678c', receipts: '8e791d65d1a54ee73a8c7a2debbfed272a0f144f240040d074118a337edeb871',
++    employment: 'ba5ab89e481264e8d6a57d32f07ac49902bcc36b65a1df14722f85c573f0b13a', takes: 'c81d90211a2b917681e8c816c85df567a2139dda9372d3cd608615f9e23c805d',
++    rng: '1640490702,2161102015,891615888,2071390822' },
++  'p13b-s8-bridge-probe-01': { role: 'the bridge seed (plain campaign; the s8 file adds a laboratory placement it does not share)', rows: 48, settled: 48, declined: 0, expired: 0,
++    settlement: 'f8b0d3a7a9d15b30ce65b3b90c291d29189aabd5f445621c7996117b4fd178c2', receipts: 'b729a1f33fac085228697a52bb474400b26ca04dab8114f2cd3fa893861186c4',
++    employment: '6e39a55cbf70e669ac5b27e1d845a6279057ead6b2922c526d25a45f605043ae', takes: 'df029e65f83f015c0efe36258b36444c9c0f30e61e9d732b791d13a4d8d6da75',
++    rng: '2343039306,887634093,2940629248,1402597496' },
++  'p13-public-commercial-adoption': { role: 'the adoption seed (B.1 T1 ruling (v); the D3/poaching seed)', rows: 48, settled: 36, declined: 12, expired: 0,
++    settlement: 'c034f2fb5a8e5f454a475020cec9de1ac764d742ce121a6cd8d2bc3b641eb544', receipts: 'be7310b6d73124dab34723644f7cf16c52a4b193e67a4b85d9c20e7f60e47850',
++    employment: 'bb775d62c37d48e48af30811a69c86e117d89c63166bd1af4d73df1b3c16fc97', takes: '3867855dd105c2fff8389e9dc76b56d7ecc43f9722419de3e85423a84b087094',
++    rng: '3069080245,1730081600,660681499,2741201056' },
++} as const
++type LedgerSeed = keyof typeof LEDGER_SEEDS
++
++const artifact = (path: string) => new URL('./fixtures/p14/' + path, import.meta.url)
++const sha = (value: string | Uint8Array) => createHash('sha256').update(value).digest('hex')
++const clone = <T>(value: T): T => structuredClone(value)
++const SLOTS = ['lead', 'antagonist', 'support'] as const
++type Relationships = {
++  currentTier: (edge: unknown, week: number) => string
++  RELATIONSHIP_TIER_FLOOR: Record<string, number>
++}
++type Edge = { edgeId: string; a: string; b: string; closeness: number; firstSharedWeek: number; lastEventWeek: number; sharedProductions: number
++  sharedSuccesses: number; sharedFailures: number; sharedCancellations: number; peakTier: string; peakTierWeek: number; recent: readonly { kind: string; week: number; ref: string; delta: number }[] }
++const edges = (state: GameState): readonly Edge[] => (state as unknown as { relationships?: readonly Edge[] }).relationships ?? []
++/** The engine's new module, reached dynamically so the frozen pins of this file run before it exists. */
++async function relationships(): Promise<Relationships | null> {
++  try { return await import('../src/core/relationships.js') as unknown as Relationships } catch { return null }
++}
++/** The D1 predicate (plan scope (5); 647-B D1): strict at W on both ends, subject excluded. */
++function rosterAt(state: GameState, issuer: string, subject: string, week: number): string[] {
++  return state.hollywood!.employment
++    .filter((e) => e.studioId === issuer && e.terms.talentId !== subject && e.terms.startWeek < week && (e.endedWeek === null || week < e.endedWeek))
++    .map((e) => e.terms.talentId)
++}
++const sharesTake = (state: GameState, x: string, y: string): boolean =>
++  state.firstTakes.some((t) => { const seats = [t.directorId, ...SLOTS.map((s) => t.cast[s])]; return seats.includes(x) && seats.includes(y) })
++/** D5 band at W for one issuer (plan scope (5)): 2 close ties here, 0 enemies here, 1 none. */
++function d5Band(rel: Relationships, state: GameState, subject: string, issuer: string, week: number): 0 | 1 | 2 {
++  const roster = new Set(rosterAt(state, issuer, subject, week))
++  const tiers = edges(state).filter((e) => e.a === subject || e.b === subject).filter((e) => roster.has(e.a === subject ? e.b : e.a))
++    .map((e) => rel.currentTier(e, week))
++  if (tiers.some((t) => t === 'CloseFriends' || t === 'Inseparable')) return 2
++  if (tiers.some((t) => t === 'Enemies' || t === 'Nemeses')) return 0
++  return 1
++}
++const settlementRows = (state: GameState) => state.talentMarket.receipts.filter((r) => r.kind === 'settled' || r.kind === 'declined' || r.kind === 'expired')
++const settlementDigest = (state: GameState) => sha(JSON.stringify(settlementRows(state).map((r) => [r.eventId, r.kind, r.week, r.talentId, r.studioId, r.reasons, r.dropped])))
++type Row = { week: number; eventId: string; kind: string; talentId: string; subjectStudioId: string; winner: string | null; reasons: readonly string[]; dropped: readonly string[]
++  survivors: { issuer: string; roster: string[]; sharedTakeCounterparts: string[]; band: 0 | 1 | 2 | null }[]; churn: boolean; exposed: boolean; newSentences: string[] }
++/** One deterministic pass; every settlement is classified AT ITS WEEK from receipts, employment and takes (receipt-derived, never assumed). */
++function runLedger(seed: string, rel: Relationships | null): { state: GameState; rows: Row[] } {
++  let state = p13aGeneratedStudio(seed)
++  const rows: Row[] = []
++  let seen = 0
++  for (let step = 0; step < LEDGER_END_WEEK; step++) {
++    state = tick(state)
++    const week = state.market.tick
++    const receipts = state.talentMarket.receipts
++    for (let i = seen; i < receipts.length; i++) {
++      const r = receipts[i]!
++      if (r.kind !== 'settled' && r.kind !== 'declined' && r.kind !== 'expired') continue
++      expect(r.week).toBe(week)
++      const kase = state.talentMarket.cases.find((c) => c.talentId === r.talentId && c.closedWeek === r.week && c.outcome === r.kind)
++      assert.ok(kase, `ledger: no case for receipt ${r.eventId}`)
++      const names = new Map(state.hollywood!.identities.map((s) => [s.name, s.studioId] as const))
++      const droppedIssuers = r.dropped.map((sentence) => {
++        const hit = [...names.keys()].filter((n) => sentence.startsWith(n)).sort((a, b) => b.length - a.length)[0]
++        assert.ok(hit, `ledger: a dropped sentence names no studio: ${sentence}`)
++        expect(FROZEN_DROP_TEMPLATES.some((t) => t.test(sentence))).toBe(true) // nemesisOnRoster (or any tenth template) is never emitted
++        return names.get(hit)!
++      })
++      const submitted = [...new Set(receipts.filter((q) => q.kind === 'proposalSubmitted' && q.talentId === r.talentId && q.week >= kase.openedWeek && q.week <= r.week).map((q) => q.studioId!))]
++      const survivors = submitted.filter((s) => !droppedIssuers.includes(s)).map((issuer) => {
++        const roster = rosterAt(state, issuer, r.talentId, r.week)
++        return { issuer, roster, sharedTakeCounterparts: roster.filter((p) => sharesTake(state, r.talentId, p)), band: rel === null ? null : d5Band(rel, state, r.talentId, issuer, r.week) }
++      })
++      const newSentences = r.kind === 'settled' ? r.reasons.filter((s) => !FROZEN_REASONS.has(s)) : []
++      rows.push({ week: r.week, eventId: r.eventId, kind: r.kind, talentId: r.talentId, subjectStudioId: kase.subjectStudioId, winner: r.kind === 'settled' ? r.studioId : null,
++        reasons: r.reasons, dropped: r.dropped, survivors, churn: CHURN_WEEKS.has(r.week), exposed: survivors.length >= 2 && survivors.some((s) => s.sharedTakeCounterparts.length > 0), newSentences })
++      // 647-B R2 — the receipt facts a lawful D5 movement must show, checked on EVERY settlement once the engine ranks on D5.
++      if (rel !== null && r.kind === 'settled' && survivors.length >= 2) {
++        const winner = survivors.find((s) => s.issuer === r.studioId)
++        assert.ok(winner, `ledger: the winner of ${r.eventId} is not among the survivors`)
++        const strictlyBest = survivors.every((s) => s === winner || winner.band! > s.band!)
++        expect(newSentences.length > 0).toBe(strictlyBest)
++        expect(newSentences.length).toBeLessThanOrEqual(1)
++      }
++    }
++    seen = receipts.length
++  }
++  return { state, rows }
++}
++
++// ── the family-6 world for the wire (the engine RED's construction, duplicated here because helpers are frozen) ──
++const F6 = { seed: 'p13-public-commercial-adoption', subject: 'person-studio-5a47d054-r04-3', incumbent: 'studio-5a47d054-r04', W: 208 } as const
++function signActor(state: GameState, termWeeks: number, exclude: readonly string[] = []) {
++  const id = hiringMarketIds(state, state.market.tick).map((i) => state.talent.find((t) => t.id === i)).find((t) => t?.role === 'actor' && !exclude.includes(t.id))?.id
++  if (id === undefined) throw new Error('fixture premise failed: no signable actor')
++  return { state: applyActions(state, [{ kind: 'signContract', talentId: id, termWeeks }]), id }
++}
++function f6Base(): { at207: GameState; playerId: string; r01: string; offCycle: string } {
++  let state = fund(p13aGeneratedStudio(F6.seed))
++  const reliable = signActor(state, 52); state = reliable.state
++  const closedAtW = signActor(state, 208, [reliable.id]); state = closedAtW.state
++  state = advanceTo(state, 60)
++  const offCycle = signActor(state, 156, [reliable.id, closedAtW.id]); state = offCycle.state
++  state = advanceTo(state, 195)
++  let preMarket196: GameState | undefined
++  const real = marketModule.advanceTalentMarketWeek
++  const capture = vi.spyOn(marketModule, 'advanceTalentMarketWeek').mockImplementation((input) => {
++    if (input.market.tick === 196) preMarket196 = clone(input)
++    return real(input)
++  })
++  try { tick(state) } finally { capture.mockRestore() }
++  if (preMarket196 === undefined) throw new Error('F6 premise: no real week-196 market input captured')
++  state = preMarket196
++  const playerId = player(state)
++  const row = state.hollywood!.employment.find((e) => e.studioId === F6.incumbent && e.terms.talentId === F6.subject && e.endedWeek === null)!
++  expect(row.terms.endWeekExclusive).toBe(F6.W)
++  const counter = state.talentMarket.receipts.length
++  const kase: TalentMarketCase = { talentId: F6.subject, subjectStudioId: F6.incumbent, contractId: row.contractId, openedWeek: 196, outcome: null, closedWeek: null, reason: null }
++  const discovery: TalentMarketReceipt = { eventId: `talent-market-event-${String(counter)}`, kind: 'discovered', week: 196, talentId: F6.subject, studioId: F6.incumbent, reasons: [], dropped: [] }
++  state = { ...state, talentMarket: { ...state.talentMarket, cases: [...state.talentMarket.cases, kase], receipts: [...state.talentMarket.receipts, discovery] } }
++  const entered = state.hollywood!.identities.filter((s) => s.enteredWeek !== null)
++  for (const issuer of entered) state = submitProposal(state, { talentId: F6.subject, issuerStudioId: issuer.studioId, termWeeks: 208, premiumTier: 1 })
++  state = advanceTo(marketModule.advanceTalentMarketWeek(state), 207)
++  const r01 = entered.find((s) => s.studioId.endsWith('-r01'))!.studioId
++  for (const issuer of entered.filter((s) => ![playerId, r01].includes(s.studioId))) {
++    state = attachPromise(state, F6.subject, issuer.studioId, { family: 'APPEARANCE_COUNT', predicate: { count: 999 }, windowStartWeek: 415, dueWeekExclusive: 416 })
++  }
++  const standing = state.hollywood!.businesses.find((b) => b.studioId === r01)!.standing
++  state = { ...state, studio: { ...state.studio, standing: { ...standing } } }
++  return { at207: state, playerId, r01, offCycle: offCycle.id }
++}
++const settlementAt208 = (state: GameState) => {
++  const receipt = state.talentMarket.receipts.find((r) => r.talentId === F6.subject && r.week === F6.W && (r.kind === 'settled' || r.kind === 'declined'))
++  assert.ok(receipt, 'F6: no settlement receipt at 208')
++  return receipt
++}
++function currentP1(): GameState {
++  const compressed = readFileSync(artifact('genuine-v30-pre-b5/genuine-v30-current-p1.json.gz'))
++  expect(sha(compressed)).toBe(CURRENT_P1.gz)
++  const raw = gunzipSync(compressed).toString('utf8')
++  expect(sha(raw)).toBe(CURRENT_P1.raw)
++  return validateSaveV30(JSON.parse(raw)).state as GameState
++}
++type HistoricalCheckpoint = { format: string; protocolVersion: number; schemaId: string; sessionId: string; currentSaveJson: string; savedSaveJson: string; journalDigest: string }
++function checkpoint(): { raw: string; prior: HistoricalCheckpoint } {
++  const compressed = readFileSync(artifact('genuine-projection47-runtime/genuine-projection47-runtime.checkpoint.json.gz'))
++  expect(sha(compressed)).toBe(CHECKPOINT.gz)
++  const raw = gunzipSync(compressed).toString('utf8')
++  expect(sha(raw)).toBe(CHECKPOINT.raw)
++  const prior = JSON.parse(raw) as HistoricalCheckpoint
++  expect(canonicalJson(prior) + '\n').toBe(raw)
++  expect(prior).toMatchObject({ format: 'project-studio-bridge-runtime-checkpoint', protocolVersion: 4, schemaId: OUTGOING_47, sessionId: CHECKPOINT.sessionId, journalDigest: CHECKPOINT.journal })
++  expect(sha(prior.currentSaveJson)).toBe(CHECKPOINT.current)
++  expect(sha(prior.savedSaveJson)).toBe(CHECKPOINT.saved)
++  return { raw, prior }
++}
++const wireEnum = (): string[] => {
++  const schema = BRIDGE_SCHEMA as unknown as { $defs: Record<string, { properties: Record<string, { items: { enum: string[] } }> }> }
++  return schema.$defs['StudioMarketPreferencesSnapshot']!.properties['priorityOrder']!.items.enum
++}
++
++// ─────────────────────────────────────────────────────────────────────────────────────────────────────
++describe('P14B.5 frozen side — the OUTGOING wire identities (GREEN today; R-VERSION class, re-expressed after T2 by the test-author\'s sweep)', () => {
++  it('projection 47, SCHEMA_ID sha256:6f6b4880…, LIVE_SAVE_VERSION 30, exactly the 35 accepted prior ids with projection-v46 at the head', () => {
++    expect(PROTOCOL_VERSION).toBe(4)
++    expect(PROJECTION_VERSION).toBe(OUTGOING_PROJECTION)
++    expect(SCHEMA_ID).toBe(OUTGOING_47)
++    expect(LIVE_SAVE_VERSION).toBe(30)
++    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_35_PRIOR_IDS])
++    expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_46)).toBe('projection-v46')
++    expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(OUTGOING_47)).toBe(false)
++  })
++
++  it('the genuine projection-47 checkpoint loads as the CURRENT identity today (no migration)', () => {
++    const { raw } = checkpoint()
++    const neverMigrate = vi.fn(() => { throw new Error('current schema must not migrate') })
++    const loaded = loadBridgeRuntimeCheckpoint(raw, undefined, neverMigrate)
++    expect(loaded.migratedFromProtocolVersion).toBeNull()
++    expect(neverMigrate).not.toHaveBeenCalled()
++  })
++
++  it('the checked-in generator artifacts equal the running identity (law: stable across the bump once the generator runs)', () => {
++    const schemaJson = JSON.parse(readFileSync(new URL('../bridge/schema/project-studio-bridge.schema.json', import.meta.url), 'utf8')) as { $id: string; 'x-project-studio': { projectionVersion: number } }
++    const manifest = JSON.parse(readFileSync(new URL('../generated/unity/project-studio-bridge.contract-manifest.json', import.meta.url), 'utf8')) as { schemaId: string; projectionVersion: number }
++    const csharp = readFileSync(new URL('../generated/unity/StudioBridgeDtos.Generated.cs', import.meta.url), 'utf8')
++    expect(schemaIdentity(BRIDGE_SCHEMA)).toBe(SCHEMA_ID)
++    expect(schemaJson.$id).toBe(`urn:project-studio:bridge:protocol-4:projection-${String(PROJECTION_VERSION)}`)
++    expect(schemaJson['x-project-studio'].projectionVersion).toBe(PROJECTION_VERSION)
++    expect(BRIDGE_SCHEMA.$id).toBe(schemaJson.$id)
++    expect(manifest).toMatchObject({ schemaId: SCHEMA_ID, projectionVersion: PROJECTION_VERSION })
++    expect(csharp).toContain(`// Schema identity: ${SCHEMA_ID}`)
++    expect(csharp).toContain('string[] priorityOrder') // a JSON-schema enum widening, never a C# enum (647-B 14(b))
++  })
++
++  it('the `line` on a genuine open case reads [0]/[1] only and the six landed members parse against the wire enum today', () => {
++    const state = currentP1()
++    const block = marketCaseProjection(state, CHECKPOINT.talentId, player(state))
++    assert.ok(block, 'T0 premise: no market case for t-act-09 on current-p1')
++    expect(block.status).toBe('proposals_open')
++    expect(block.preferences.line).toBe(CURRENT_P1_LINE)
++    expect(parseWireValue(BRIDGE_SCHEMA.$defs.StudioMarketPreferencesSnapshot, block.preferences)).toEqual(block.preferences)
++  })
++})
++
++// ─────────────────────────────────────────────────────────────────────────────────────────────────────
++describe('family 11 — projection 48 THIN (RED by value): the enum, the registry, the seven-member order, the D5 sentence on the wire', () => {
++  it('the priorityOrder wire enum gains `relationships` (seven members, closed)', () => {
++    expect([...wireEnum()].sort()).toEqual([...WIRE_ENUM_7].sort())
++  })
++
++  it('the running identity moves off the outgoing 47 and 47 is registered as projection-v47 beside the 35 accepted priors (36)', () => {
++    expect(PROJECTION_VERSION).toBeGreaterThan(OUTGOING_PROJECTION)
++    expect(SCHEMA_ID).not.toBe(OUTGOING_47)
++    expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)
++    expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_47)).toBe('projection-v47')
++    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_35_PRIOR_IDS, OUTGOING_47].sort())
++    expect(LIVE_SAVE_VERSION).toBeGreaterThan(30) // the governed inner-save step rides the same wave (R22 :610)
++  })
++
++  it.each(['currentSaveJson', 'savedSaveJson'] as const)('the genuine projection-47 checkpoint takes the governed prior path and %s lands on the live save through migrateToV31', (slot) => {
++    expect(typeof migrateToV31).toBe('function')
++    const { raw, prior } = checkpoint()
++    const loaded = loadBridgeRuntimeCheckpoint(raw, undefined, () => 'p14b5-new48-' + slot)
++    expect(loaded.migratedFromProtocolVersion).toBe(4)
++    const actualBytes = loaded.hydrated.checkpoint[slot]
++    assert.ok(typeof actualBytes === 'string')
++    const expected = migrateToV31(importSave(prior[slot]))
++    expect(expected.saveVersion).toBe(LIVE_SAVE_VERSION)
++    expect(actualBytes).toBe(exportSave(expected))
++    const actual = importSave(actualBytes)
++    expect(actual.saveVersion).toBe(LIVE_SAVE_VERSION)
++    expect(actual.state.market.tick).toBe(CHECKPOINT.week)
++    expect((actual.state as unknown as { relationships: unknown }).relationships).toEqual([])
++    const old = validateSaveV30(JSON.parse(prior[slot]))
++    expect(actual.state.promises).toEqual(old.state.promises)
++    expect(actual.state.firstTakes).toEqual(old.state.firstTakes)
++    expect(actual.state.talentMarket).toEqual(old.state.talentMarket)
++    expect(actual.state.hollywood).toEqual(old.state.hollywood)
++    expect(sha(raw)).toBe(CHECKPOINT.raw)
++  })
++
++  it('preferences.priorityOrder publishes SEVEN members on a genuine open case with the `line` unchanged, and the value parses against the widened enum', () => {
++    const state = currentP1()
++    const block = marketCaseProjection(state, CHECKPOINT.talentId, player(state))!
++    expect(block.preferences.priorityOrder).toEqual([...UNPROVEN_ORDER])
++    expect(block.preferences.line).toBe(CURRENT_P1_LINE)
++    expect(parseWireValue(BRIDGE_SCHEMA.$defs.StudioMarketPreferencesSnapshot, block.preferences)).toEqual(block.preferences)
++    const profile = peopleProjection(state).profiles.find((p) => p.talentId === CHECKPOINT.talentId)!
++    expect(profile.marketCase!.preferences).toEqual(block.preferences)
++    expect(marketPage(state, { view: 'market', targetId: CHECKPOINT.talentId }).selected!.rail.preferences).toEqual(block.preferences)
++  })
++
++  it('the D5 settlement sentence reaches settlementReasons VERBATIM on the family-6 world, and no closeness, edge or driver leaks onto any serialized DTO', async () => {
++    const rel = await relationships()
++    assert.ok(rel, 'RED: src/core/relationships.ts does not exist yet')
++    expect(typeof rel.currentTier).toBe('function')
++    const base = f6Base()
++    const [a, b] = F6.subject < base.offCycle ? [F6.subject, base.offCycle] : [base.offCycle, F6.subject]
++    const closeness = rel.RELATIONSHIP_TIER_FLOOR['CloseFriends']!
++    const edge: Edge = { edgeId: `relationship-edge-${String(edges(base.at207).length)}`, a, b, closeness, firstSharedWeek: 207, lastEventWeek: 207,
++      sharedProductions: 1, sharedSuccesses: 0, sharedFailures: 0, sharedCancellations: 0, peakTier: 'CloseFriends', peakTierWeek: 207,
++      recent: [{ kind: 'sharedProduction', week: 207, ref: 'staged-production', delta: 1 }] }
++    const staged = makeSave({ ...base.at207, relationships: [...edges(base.at207), edge] } as unknown as GameState) // validator-admitted staging
++    expect(staged.saveVersion).toBe(LIVE_SAVE_VERSION)
++    const after = tick(staged.state as GameState)
++    const receipt = settlementAt208(after)
++    expect(receipt.kind).toBe('settled')
++    expect(receipt.studioId).toBe(base.playerId)
++    const sentence = receipt.reasons.filter((s) => !FROZEN_REASONS.has(s))
++    expect(sentence).toHaveLength(1)
++    expect(sentence[0]).not.toMatch(/\d/)
++    for (const viewer of [base.playerId, base.r01, F6.incumbent]) {
++      const block = marketCaseProjection(after, F6.subject, viewer)
++      assert.ok(block)
++      expect(block.status).toBe('settled')
++      expect(block.settlementReasons).toEqual([...receipt.reasons]) // people.ts :998 — verbatim, free text, no enum
++      const dto = JSON.stringify({ block, people: peopleProjection(after), market: marketPage(after, { view: 'market', targetId: F6.subject }) })
++      for (const leak of ['"closeness"', '"edgeId"', 'relationship-edge-', '"recent"', '"relationships"', '"lastEventWeek"', '"peakTier"']) expect(dto).not.toContain(leak)
++      expect(dto).not.toContain(String(closeness) + '"') // no number of the record on the wire
++    }
++    // the control (no edge) shows the same wire with the tie sentence and no D5 sentence
++    const control = settlementAt208(tick(base.at207))
++    expect(control.kind).toBe('declined')
++    expect(control.reasons).toEqual([TIE_SENTENCE])
++    expect(marketCaseProjection(tick(base.at207), F6.subject, base.playerId)!.settlementReasons).toEqual([TIE_SENTENCE])
++  }, 180_000)
++})
++
++// ─────────────────────────────────────────────────────────────────────────────────────────────────────
++describe('family 12 — the R-D5 natural-chain LEDGER (measured; the frozen controls MUST NOT move at T2; after T2 every settlement is checked against the D5 receipt facts)', () => {
++  it.each(Object.keys(LEDGER_SEEDS) as LedgerSeed[])('%s: chain digests, row counts, churn rosters empty under D1, zero exposed rows through 416; the nine frozen drop templates only', async (seed) => {
++    const rel = await relationships()
++    const control = LEDGER_SEEDS[seed]
++    const { state, rows } = runLedger(seed, rel)
++    expect(state.market.tick).toBe(LEDGER_END_WEEK)
++    expect(rows).toHaveLength(control.rows)
++    expect(rows.filter((r) => r.kind === 'settled')).toHaveLength(control.settled)
++    expect(rows.filter((r) => r.kind === 'declined')).toHaveLength(control.declined)
++    expect(rows.filter((r) => r.kind === 'expired')).toHaveLength(control.expired)
++    expect(rows.every((r) => r.churn)).toBe(true) // every settlement on these seeds sits at a synchronized churn (208 / 416)
++    // 647-B D1 measured: at 208 every survivor's roster under the predicate is EMPTY; at 416 only r01's supply-265 replacement rows survive, sharing no take.
++    for (const r of rows.filter((x) => x.week === 208)) expect(r.survivors.every((s) => s.roster.length === 0)).toBe(true)
++    for (const r of rows.filter((x) => x.week === 416)) {
++      for (const s of r.survivors) {
++        expect(s.roster.every((p) => /-supply-265-\d$/.test(p))).toBe(true)
++        expect(s.sharedTakeCounterparts).toEqual([])
++      }
++    }
++    expect(rows.filter((r) => r.exposed)).toEqual([]) // NOT EXPOSED: no survivor holds a roster member who shares a take with the subject
++    expect(rows.flatMap((r) => r.newSentences)).toEqual([]) // no D5 sentence can lawfully appear where no close tie can exist
++    if (rel !== null) expect(rows.every((r) => r.survivors.every((s) => s.band === 1))).toBe(true)
++    // the frozen controls (CANNOT-MOVE class until a first moved settlement, of which this window has none)
++    expect(settlementDigest(state)).toBe(control.settlement)
++    expect(sha(JSON.stringify(state.talentMarket.receipts))).toBe(control.receipts)
++    expect(sha(JSON.stringify(state.hollywood!.employment))).toBe(control.employment)
++    expect(sha(JSON.stringify(state.firstTakes))).toBe(control.takes)
++    expect(state.rngState).toBe(control.rng)
++    if (rel !== null) expect(edges(state).every((e) => e.recent.length <= 8 && e.sharedSuccesses + e.sharedFailures <= e.sharedProductions)).toBe(true)
++  }, 300_000)
++
++  it('the MOST EXPOSED shared fixture, poachingFixture (p14b2-fixtures.ts :145-211; consumers bridge-p14b2-trust, p14b2-fixture-preconditions): the week-208 reasons pin and endedWeek 208 hold, and under D1 no survivor holds a shared-take counterpart', async () => {
++    const rel = await relationships()
++    const { bound, talentId, incumbentId } = poachingFixture()
++    const receipt = bound.talentMarket.receipts.find((r) => r.kind === 'settled' && r.talentId === talentId && r.week === 208)
++    assert.ok(receipt)
++    expect(receipt.reasons).toEqual(POACHING_REASONS) // :200-201, byte-for-byte
++    expect(receipt.studioId).toBe(player(bound))
++    expect(bound.hollywood!.employment.some((e) => e.studioId === incumbentId && e.terms.talentId === talentId && e.endedWeek === 208)).toBe(true) // :204
++    expect(rosterAt(bound, incumbentId, talentId, 208)).toEqual([]) // the churned incumbent: closed AT W
++    const playerRoster = rosterAt(bound, player(bound), talentId, 208)
++    expect(playerRoster).toHaveLength(1) // the writer signed at 196 (:171), the one off-cycle row
++    expect(bound.talent.find((t) => t.id === playerRoster[0])!.role).toBe('writer')
++    expect(playerRoster.filter((p) => sharesTake(bound, talentId, p))).toEqual([]) // no take shared with the subject: D5 `none` for every bidder
++    if (rel !== null) {
++      for (const issuer of new Set(bound.talentMarket.receipts.filter((r) => r.kind === 'proposalSubmitted' && r.talentId === talentId).map((r) => r.studioId!))) {
++        expect(d5Band(rel, bound, talentId, issuer, 208)).toBe(1)
++      }
++    }
++  }, 180_000)
++})
+diff --git a/tests/p14b5-relationships.test.ts b/tests/p14b5-relationships.test.ts
+new file mode 100644
+index 00000000..c9a9b100
+--- /dev/null
++++ b/tests/p14b5-relationships.test.ts
+@@ -0,0 +1,986 @@
++// 654-T (record 653 NEXT653; plan T1 "independent test-author RED against accepted predecessor").
++// P14B.5 First Shared-Work Bond Core — the SYNTHETIC/ENGINE RED: families 1–8 and 10 of the inserted
++// expansion (docs/engineering/playability-launch-review/plans/P14-HEADLESS-PLAN.md, "## P14B.5 — First
++// Shared-Work Bond Core — task expansion (… audit applied)", the Tests paragraph) plus the family-9
++// one-edge `migrateToV30` refusal (record 653 parent ruling (4): every reader-admitted synthetic variant
++// lives in this file, B4 plan :391-393). Authored at HEAD 74bd325b on a clean tree; no production,
++// helper, fixture or timeout is touched.
++//
++// RED MECHANISM (memory rule: vite binds a MISSING named export to `undefined`, so a missing symbol
++// alone can pass spuriously): every case imports VALUE bindings from the ABSENT `src/core/relationships.ts`,
++// so this whole file fails at module resolution (0 collected) until T2 creates the module; the first
++// case of every `describe` then asserts each binding it calls is a function/defined, so a partial
++// module can never turn a family green by accident.
++//
++// EXPECTATIONS ARE DERIVED FROM THE LAW, never from current output:
++//   scope (1)   the root `relationships: RelationshipEdge[]` at the top level, the edge fields as
++//               proposed ("the T1 RED pins the fields it reads, T2 may rename with the ruling recorded");
++//   scope (2)   ONE seam `advanceRelationshipsWeek(state, { takes, releases }, week)` at the tick tail
++//               between `appendFirstTakes` and `advancePromisesWeek`, minting FROM THE DELTA; guard
++//               order copied from `appendFirstTakes` :125-127; every tail driver stamped
++//               `week = state.market.tick` (647-B R1); (2a) six pairs in the receipt's seat order with
++//               proximity weights and the repeat accelerator; (2b) success/failure at release by
++//               `criticScore`; (2c) `recordCancelledAfterFirstTake` at the player cancel, the
++//               complement of `breakPromisesOnCancel` :788;
++//   scope (3)   integer 0–100, `RELATIONSHIP_BASELINE` 50 (647-B ruling (i) on OPEN 4), tier edges as
++//               NAMED constants, drift-on-read with `GRACE`/`RETURN`, tier under `RELATIONSHIP_RULES_VERSION`
++//               = 1 with the §5.3 evidence condition (no conflict record ⇒ Strained);
++//   scope (4)   `RELATIONSHIP_FAILURE_DELTA > RELATIONSHIP_PROXIMITY_LOW` BY NAME (647-B ruling (ii) on
++//               OPEN 5); Enemies/Nemeses unreachable BY RULE;
++//   scope (5)   D5 in the chooser with the D1 roster predicate `startWeek < W && (endedWeek === null ||
++//               W < endedWeek)`, subject excluded, strict at both ends (647-B D1);
++//   scope (6)   `nemesisOnRoster` enumerated, never emitted;  (7) `pairChemistry` read-only, no consumer;
++//   scope (8)   no RNG, no order dependence, copy-on-write;   (9) fold-by-count at `RELATIONSHIP_RECENT_CAP`;
++//   scope (10)  the V31 root validator and the one-edge downgrade refusal.
++//
++// INTERPRETATIONS NAMED (the parent rules; none is a refusal):
++//   I1. The seven tier edges are read as ONE exported record `RELATIONSHIP_TIER_FLOOR` keyed by tier
++//       (`Nemeses` at 0, the other seven the named lower edges); the ladder and the driver kinds are read
++//       as the runtime catalogues `RELATIONSHIP_TIERS` / `RELATIONSHIP_DRIVER_KINDS` the validator needs.
++//       These NAMES are the RED's; T2 may rename with the ruling recorded (plan scope (1)).
++//   I2. A release whose take predates the recording of any edge (a pre-migration take: Q3, no backfill,
++//       "edges are minted only by live events") mints NOTHING — the validator's
++//       `sharedSuccesses + sharedFailures ≤ sharedProductions` admits no other reading.
++//   I3. The "live flop" of family 4 is exercised on the REAL first take and the REAL release fact with
++//       ONE field varied (`criticScore` one below the failure edge) fed to the seam directly, labelled
++//       IN-MEMORY RELEASE-RESULT VARIANT, because the natural score of the one genuine player picture is
++//       not the test's to choose; the natural release is ALSO asserted on whichever branch its real
++//       score selects.
++//   I4. The D5 sentence is identified as the ONE settled-receipt reason outside the eight frozen
++//       sentences of `talentMarket.ts` (six `DESCRIPTOR_REASON` strings and the two fallbacks); its
++//       wording is a copy hypothesis, its CLASS (ordering-only, no person, tier or number) is pinned.
++//
++// PREMISES MEASURED on unchanged source (654-T ledger, scratchpad/654-T-ledger.md): the family-6 base
++// (the B.2 T3 controlled staging on `p13-public-commercial-adoption`, subject r04-3, two survivors
++// player + r01, three bidders dropped by IMPOSSIBLE attachments, standing equalised) DECLINES at 208
++// with "this person could not separate 2 equally ranked proposals." — every landed band ties; the
++// player's D1 roster at 208 is exactly the actor signed at 60 for 156 weeks; r01's and r04's are empty.
++// The family-1 world (`genuine-v30-first-take-at-five` + assign + schedule + one tick) mints
++// `first-take-event-24` at 61 and leaves `rngState` at "2598418427,508725886,1318803286,3129010527";
++// the release commits at 64 (Release Ready) and lands at 65 with `releaseTick` 64.
++
++import assert from 'node:assert/strict'
++import { createHash } from 'node:crypto'
++import { existsSync, readFileSync } from 'node:fs'
++import { gunzipSync } from 'node:zlib'
++import { describe, expect, it, vi } from 'vitest'
++import { applyActions } from '../src/core/actions.js'
++import { hiringMarketIds } from '../src/core/employment.js'
++import { tick } from '../src/core/tick.js'
++import * as marketModule from '../src/core/talentMarket.js'
++import { publicPreferredTerm, publicPriorityOrder, submitProposal, type FreezeDrop } from '../src/core/talentMarket.js'
++import { attachPromise } from '../src/core/promises.js'
++import { LIVE_SAVE_VERSION, makeSave, migrateToV25, migrateToV26, migrateToV27, migrateToV28, migrateToV29, migrateToV30, migrateToV31, validateSaveV30, validateSaveV31 } from '../src/core/save.js'
++import { TUNING } from '../src/core/tuning.js'
++import { careerIdentity } from '../src/core/talentSummary.js'
++import { advanceTo, fund, p13aGeneratedStudio, player } from './helpers/p14b2-fixtures.js'
++import type { CastSlot, FilmResult, GameState, Production, TalentMarketCase, TalentMarketReceipt } from '../src/core/types.js'
++// RED-by-design: src/core/relationships.ts does not exist. Every binding below is CALLED.
++import {
++  RELATIONSHIP_BASELINE, RELATIONSHIP_CANCEL_DELTA, RELATIONSHIP_DRIFT_GRACE_WEEKS, RELATIONSHIP_DRIFT_RETURN_WEEKS,
++  RELATIONSHIP_DRIVER_KINDS, RELATIONSHIP_FAILURE_CRITIC_SCORE, RELATIONSHIP_FAILURE_DELTA, RELATIONSHIP_PROXIMITY_HIGH,
++  RELATIONSHIP_PROXIMITY_LOW, RELATIONSHIP_PROXIMITY_MID, RELATIONSHIP_RECENT_CAP, RELATIONSHIP_REPEAT_CAP,
++  RELATIONSHIP_RULES_VERSION, RELATIONSHIP_SUCCESS_CRITIC_SCORE, RELATIONSHIP_SUCCESS_DELTA, RELATIONSHIP_TIERS,
++  RELATIONSHIP_TIER_FLOOR, advanceRelationshipsWeek, currentCloseness, currentTier, driverGain, pairChemistry,
++  projectRelationshipsPreV31, recordCancelledAfterFirstTake, requireRelationshipsRoot, validateRelationshipsRoot,
++} from '../src/core/relationships.js'
++
++// ── shapes read by this RED (plan scope (1) PROPOSED SHAPE; field names pinned here) ────────────────
++type Tier = 'Nemeses' | 'Enemies' | 'Strained' | 'Acquaintances' | 'Colleagues' | 'Friends' | 'CloseFriends' | 'Inseparable'
++type DriverKind = 'sharedProduction' | 'repeatedCollaboration' | 'sharedSuccess' | 'sharedFailure' | 'cancelledAfterFirstTake'
++type Driver = { kind: DriverKind; week: number; ref: string; delta: number }
++type Edge = {
++  edgeId: string; a: string; b: string; closeness: number; firstSharedWeek: number; lastEventWeek: number
++  sharedProductions: number; sharedSuccesses: number; sharedFailures: number; sharedCancellations: number
++  peakTier: Tier; peakTierWeek: number; recent: readonly Driver[]
++}
++type Chemistry = { tier: Tier | null; sign: -1 | 0 | 1; reasons: readonly string[] }
++type TakeEntry = { studioId: string; production: Production }
++const LADDER: readonly Tier[] = ['Nemeses', 'Enemies', 'Strained', 'Acquaintances', 'Colleagues', 'Friends', 'CloseFriends', 'Inseparable']
++const KINDS: readonly DriverKind[] = ['sharedProduction', 'repeatedCollaboration', 'sharedSuccess', 'sharedFailure', 'cancelledAfterFirstTake']
++// The eight FROZEN settlement sentences of talentMarket.ts (:671-678 DESCRIPTOR_REASON; :877, :885 fallbacks).
++const FROZEN_REASONS: ReadonlySet<string> = new Set([
++  'their compensation band ranked above the others', 'their term matched what this person prefers', 'they offered an opportunity',
++  'their record with this person ranked above the others', 'their studio standing ranked higher', 'they are the current employer',
++  'theirs was the only proposal on the table', 'their proposal ranked above the others overall',
++])
++const TIE_SENTENCE = 'this person could not separate 2 equally ranked proposals.'
++// Companion §2.1.7 :120 — the SEVEN-member public orders (asserted against the companion, never the landed array).
++const UNPROVEN_ORDER = ['opportunity', 'compensation', 'relationships', 'term', 'trust', 'standing', 'incumbency'] as const
++const PROVEN_ORDER = ['compensation', 'term', 'trust', 'relationships', 'incumbency', 'standing', 'opportunity'] as const
++
++// ── T0 corpus (tests/fixtures/p14/genuine-v30-pre-b5/MANIFEST.json; pins read from the MANIFEST at HEAD) ──
++const V30_PINS = {
++  'first-take-at-five': { raw: '3eab4f7af55917d3a011776850f129dc5dc135da8215d8ebec6845dfb8db620d', gz: '62df3d07eee0a01da767203f51b0ce89edfdb281177511f848a740293ca4ceb7', week: 60 },
++  'rival-current-p1-and-p2': { raw: 'c155f636a8758f33e6ee002f124e5da2f51ffb5f37404cbbcf9d7cea736a52a1', gz: 'e2e8ac939875a1b23bd898c10773f707f8c64d77d476802499a591961d2316c1', week: 196 },
++  'current-p1': { raw: 'b7a32680df6f002c10829e7edd644a394b9b0cdac1427a7af0aef5395501aebe', gz: 'a13704632d58909b9edc330f2f6d946f3e3fe7bfc1d9d2adb3ab2a430fd540fd', week: 45 },
++} as const
++type CorpusName = keyof typeof V30_PINS
++const corpus = (file: string) => new URL('./fixtures/p14/genuine-v30-pre-b5/' + file, import.meta.url)
++const legacyV28 = new URL('./fixtures/p14/legacy-v28-shooting-5.json.gz', import.meta.url)
++const sha = (value: string | Uint8Array) => createHash('sha256').update(value).digest('hex')
++const clone = <T>(value: T): T => structuredClone(value)
++// Measured on unchanged source at HEAD 74bd325b (scratchpad/654-T-ledger.md §F1); frozen controls, CANNOT-MOVE class.
++const FROZEN = {
++  takeEventId: 'first-take-event-24', takeWeek: 61, productionId: 'prod-0052', directorId: 't-dir-01',
++  cast: { lead: 't-act-09', antagonist: 't-act-12', support: 't-act-11' } as Record<CastSlot, string>,
++  rngAfterTake: '2598418427,508725886,1318803286,3129010527',
++  rngAfterRelease: '3273107727,1382938971,2227203681,3129010529',
++  releaseCommitWeek: 64, releaseWeek: 65,
++  // sha256 of JSON.stringify(post-tick state with the `relationships` key removed) after the family-1 tick.
++  postTakeDigestStripped: '6403ac2bb1dd59249db054732115f9227a104f5f2afd9f699e9f89d393388d21',
++  // The rival chain from `rival-current-p1-and-p2` (196): first post-migration take, its release, the repeat take.
++  rival: { studioId: 'studio-aca408ec-r01', firstTake: 'studio-aca408ec-r01:film:11', firstTakeWeek: 213, firstReleaseWeek: 217,
++    repeatTake: 'studio-aca408ec-r01:film:6', repeatTakeWeek: 222 },
++} as const
++
++function fixture(name: CorpusName) {
++  const file = `genuine-v30-${name}.json.gz`
++  assert.ok(existsSync(corpus(file)), 'T0 NOT COMPLETE: genuine V30 artifact missing: ' + file)
++  const compressed = readFileSync(corpus(file))
++  const raw = gunzipSync(compressed).toString('utf8')
++  expect(sha(compressed)).toBe(V30_PINS[name].gz)
++  expect(sha(raw)).toBe(V30_PINS[name].raw)
++  const save = validateSaveV30(JSON.parse(raw)) // the genuine frozen validator FIRST
++  expect(save.state.market.tick).toBe(V30_PINS[name].week)
++  return save
++}
++/** The lifted V31 world: EMPTY root, everything else the V30 bytes (family 9 proves it byte-for-byte). */
++function lifted(name: CorpusName): GameState {
++  const state = migrateToV31(fixture(name)).state as GameState
++  expect(edges(state)).toEqual([])
++  return state
++}
++const edges = (state: GameState): readonly Edge[] => (state as unknown as { relationships: readonly Edge[] }).relationships
++const withEdges = (state: GameState, relationships: readonly Edge[]): GameState => ({ ...state, relationships } as unknown as GameState)
++/** The governed strict entry (no manual version stamp): admitted iff the live validator admits it. */
++function live(state: GameState): GameState {
++  const validated = makeSave(state)
++  expect(validated.saveVersion).toBe(LIVE_SAVE_VERSION)
++  return validated.state as GameState
++}
++const canon = (x: string, y: string): [string, string] => (x < y ? [x, y] : [y, x]) // §5.7 :486, code-unit order
++const findEdge = (state: GameState, x: string, y: string): Edge | undefined => {
++  const [a, b] = canon(x, y)
++  return edges(state).find((e) => e.a === a && e.b === b)
++}
++const weightOf = { HIGH: () => RELATIONSHIP_PROXIMITY_HIGH, MID: () => RELATIONSHIP_PROXIMITY_MID, LOW: () => RELATIONSHIP_PROXIMITY_LOW }
++/** The six pairs in the RECEIPT'S OWN SEAT ORDER with the §5.4 :439 proximity class (scope (2a)). */
++function seatPairs(take: { directorId: string; cast: Record<CastSlot, string> }): { x: string; y: string; weight: keyof typeof weightOf }[] {
++  return [
++    { x: take.directorId, y: take.cast.lead, weight: 'HIGH' }, { x: take.directorId, y: take.cast.antagonist, weight: 'MID' },
++    { x: take.directorId, y: take.cast.support, weight: 'LOW' }, { x: take.cast.lead, y: take.cast.antagonist, weight: 'HIGH' },
++    { x: take.cast.lead, y: take.cast.support, weight: 'MID' }, { x: take.cast.antagonist, y: take.cast.support, weight: 'LOW' },
++  ]
++}
++const clamp = (v: number) => Math.max(0, Math.min(100, v))
++/** Independent drift oracle — plan scope (3), the formula as written; never `currentCloseness` as its own oracle. */
++function driftOracle(closeness: number, dormant: number): number {
++  if (dormant <= RELATIONSHIP_DRIFT_GRACE_WEEKS) return closeness
++  const span = Math.min(dormant - RELATIONSHIP_DRIFT_GRACE_WEEKS, RELATIONSHIP_DRIFT_RETURN_WEEKS)
++  return closeness + Math.trunc((RELATIONSHIP_BASELINE - closeness) * span / RELATIONSHIP_DRIFT_RETURN_WEEKS)
++}
++const floor = (tier: Tier): number => (RELATIONSHIP_TIER_FLOOR as Record<Tier, number>)[tier]
++function bandOracle(closeness: number): Tier {
++  let band: Tier = 'Nemeses'
++  for (const tier of LADDER) if (closeness >= floor(tier)) band = tier
++  return band
++}
++/** §5.3 :423-425 under RULES 1: Nemeses/Enemies need a conflict record; B.5 mints none ⇒ those bands READ Strained. */
++const tierOracle = (closeness: number): Tier => { const band = bandOracle(closeness); return band === 'Nemeses' || band === 'Enemies' ? 'Strained' : band }
++const rank = (tier: Tier) => LADDER.indexOf(tier)
++function mintedEdge(index: number, x: string, y: string, weight: number, week: number, ref: string): Edge {
++  const [a, b] = canon(x, y)
++  const closeness = clamp(RELATIONSHIP_BASELINE + weight)
++  return { edgeId: `relationship-edge-${String(index)}`, a, b, closeness, firstSharedWeek: week, lastEventWeek: week,
++    sharedProductions: 1, sharedSuccesses: 0, sharedFailures: 0, sharedCancellations: 0, peakTier: tierOracle(closeness), peakTierWeek: week,
++    recent: [{ kind: 'sharedProduction', week, ref, delta: weight }] }
++}
++/** A STAGED (reader-admitted, validator-checked) edge — never a claim that the engine minted it. */
++function stagedEdge(state: GameState, x: string, y: string, closeness: number, lastEventWeek: number, extra: Partial<Edge> = {}): Edge {
++  const [a, b] = canon(x, y)
++  const tier = tierOracle(closeness)
++  return { edgeId: `relationship-edge-${String(edges(state).length)}`, a, b, closeness, firstSharedWeek: lastEventWeek, lastEventWeek,
++    sharedProductions: 1, sharedSuccesses: 0, sharedFailures: 0, sharedCancellations: 0, peakTier: tier, peakTierWeek: lastEventWeek,
++    recent: [{ kind: 'sharedProduction', week: lastEventWeek, ref: 'staged-production', delta: RELATIONSHIP_PROXIMITY_HIGH }], ...extra }
++}
++const stage = (state: GameState, edge: Edge): GameState => live(withEdges(state, [...edges(state), edge]))
++const bytes = (state: GameState): string => { const { relationships: _r, ...rest } = state as unknown as Record<string, unknown>; return JSON.stringify(rest) }
++function stripRoot(state: GameState): GameState { const { relationships: _r, ...rest } = state as unknown as Record<string, unknown>; return rest as unknown as GameState }
++
++// ── the family-1 world: the genuine player picture at remainingTicks 5, the take scheduled, ONE tick ──
++let takeCache: { pre: GameState; after: GameState; production: Production } | undefined
++function takeWorld() {
++  if (takeCache === undefined) {
++    const state = lifted('first-take-at-five')
++    const production = state.studio.activeProductions.find((p) => p.id === FROZEN.productionId)
++    assert.ok(production, 'T0 premise: prod-0052 missing on genuine-v30-first-take-at-five')
++    expect(production.remainingTicks).toBe(5)
++    expect(production.directorId).toBe(FROZEN.directorId)
++    expect(production.cast).toEqual(FROZEN.cast)
++    expect(state.firstTakes.some((t) => t.productionId === production.id)).toBe(false)
++    const pre = applyActions(state, [{ kind: 'assignShootingDirector', productionId: production.id, directorId: production.directorId },
++      { kind: 'scheduleShootingTake', productionId: production.id }])
++    expect(edges(pre)).toEqual([]) // an action mints nothing (S20: the take is the event)
++    const after = tick(pre)
++    takeCache = { pre, after, production: clone(production) }
++  }
++  return { pre: clone(takeCache.pre), after: clone(takeCache.after), production: clone(takeCache.production) }
++}
++/** The real release: Release Ready at 64, the ONE explicit commitment, landed at 65 (releaseTick 64). */
++let releaseCache: { before: GameState; after: GameState; film: FilmResult } | undefined
++function releaseWorld() {
++  if (releaseCache === undefined) {
++    let state = takeWorld().after
++    for (let guard = 0; state.operations.workflows.find((w) => w.productionId === FROZEN.productionId)?.phase !== 'releaseReady'; guard++) {
++      if (guard > 6) throw new Error('UNEXECUTED premise: the genuine picture never reached Release Ready within 6 ticks of its take')
++      state = tick(state)
++    }
++    expect(state.market.tick).toBe(FROZEN.releaseCommitWeek)
++    const before = applyActions(state, [{ kind: 'commitPictureToRelease', productionId: FROZEN.productionId }])
++    const after = tick(before)
++    const film = after.studio.releasedFilms.find((f) => f.productionId === FROZEN.productionId)
++    assert.ok(film, 'UNEXECUTED premise: the committed picture did not release on the next tick')
++    expect(after.market.tick).toBe(FROZEN.releaseWeek)
++    expect(film.releaseTick).toBe(FROZEN.releaseWeek - 1) // tick.ts :623/:642 — the pre-increment week
++    releaseCache = { before, after, film: clone(film) }
++  }
++  return { before: clone(releaseCache.before), after: clone(releaseCache.after), film: clone(releaseCache.film) }
++}
++/** The rival chain on `rival-current-p1-and-p2` (196): states after the first post-migration rival take, its release
++ * and the same studio's repeat take. Weeks are FROZEN premises (the 208 churn on this campaign is not D5-exposed:
++ * ledger §C), asserted, never searched for. */
++type RivalWorlds = { atFirstTake: GameState; beforeFirstTake: GameState; atRelease: GameState; beforeRelease: GameState; atRepeat: GameState; beforeRepeat: GameState }
++let rivalCache: RivalWorlds | undefined
++function rivalWorld(): RivalWorlds {
++  if (rivalCache === undefined) {
++    let state = lifted('rival-current-p1-and-p2')
++    const takesBefore = state.firstTakes.length
++    const out: Partial<RivalWorlds> = {}
++    for (let guard = 0; state.market.tick < FROZEN.rival.repeatTakeWeek; guard++) {
++      if (guard > 40) throw new Error('UNEXECUTED premise: the rival chain did not reach the repeat take')
++      const before = state
++      state = tick(state)
++      const week = state.market.tick
++      const newTakes = state.firstTakes.slice(before.firstTakes.length)
++      const newFilms = state.hollywood!.films.slice(before.hollywood!.films.length)
++      if (week === FROZEN.rival.firstTakeWeek) {
++        expect(newTakes.map((t) => t.productionId)).toEqual([FROZEN.rival.firstTake]) // moved premise ⇒ loud
++        expect(state.firstTakes.length).toBe(takesBefore + 1)
++        out.beforeFirstTake = before; out.atFirstTake = state
++      } else if (week === FROZEN.rival.firstReleaseWeek) {
++        expect(newFilms.map((f) => f.filmId)).toEqual([FROZEN.rival.firstTake])
++        out.beforeRelease = before; out.atRelease = state
++      } else if (week === FROZEN.rival.repeatTakeWeek) {
++        expect(newTakes.map((t) => t.productionId)).toEqual([FROZEN.rival.repeatTake])
++        out.beforeRepeat = before; out.atRepeat = state
++      } else {
++        expect(newTakes).toEqual([]) // no other take between 196 and 222 on this chain (measured)
++      }
++    }
++    for (const key of ['atFirstTake', 'beforeFirstTake', 'atRelease', 'beforeRelease', 'atRepeat', 'beforeRepeat'] as const) {
++      assert.ok(out[key], `chain premise: ${key} was not reached on the rival chain (moved chain, not a pass)`)
++    }
++    rivalCache = out as RivalWorlds
++  }
++  return clone(rivalCache)
++}
++
++// ── the family-6 base: the B.2 T3 controlled staging (plan :573) under the D1 predicate (647-B R7) ──
++// Two survivors (player + r01), every landed band equal, three bidders dropped by IMPOSSIBLE attachments;
++// the player's roster at 208 holds ONE off-cycle `player-contract` row (signed at 60 for 156 weeks), one row
++// closed AT 208 (signed at 0 for 208 weeks) and nothing else. Measured on unchanged source: DECLINE by the tie order.
++const F6 = { seed: 'p13-public-commercial-adoption', subject: 'person-studio-5a47d054-r04-3', incumbent: 'studio-5a47d054-r04', W: 208 } as const
++function signActor(state: GameState, termWeeks: number, exclude: readonly string[] = []) {
++  const id = hiringMarketIds(state, state.market.tick).map((i) => state.talent.find((t) => t.id === i))
++    .find((t) => t?.role === 'actor' && !exclude.includes(t.id))?.id
++  if (id === undefined) throw new Error('fixture premise failed: no signable actor')
++  return { state: applyActions(state, [{ kind: 'signContract', talentId: id, termWeeks }]), id }
++}
++/** The D1 predicate (plan scope (5)): strict at W on both ends, subject excluded. */
++function rosterAt(state: GameState, issuer: string, subject: string, week: number): string[] {
++  return state.hollywood!.employment
++    .filter((e) => e.studioId === issuer && e.terms.talentId !== subject && e.terms.startWeek < week && (e.endedWeek === null || week < e.endedWeek))
++    .map((e) => e.terms.talentId)
++}
++type F6Base = { at207: GameState; playerId: string; r01: string; reliable: string; closedAtW: string; offCycle: string; free: string }
++let f6Cache: F6Base | undefined
++function f6Base(): F6Base {
++  if (f6Cache === undefined) {
++    let state = fund(p13aGeneratedStudio(F6.seed))
++    const reliable = signActor(state, 52); state = reliable.state // ranToEnd at 52: the player's Reliable studio fallback
++    const closedAtW = signActor(state, 208, [reliable.id]); state = closedAtW.state // 0 → 208: closed AT W by finishHollywoodWeek
++    state = advanceTo(state, 60)
++    const offCycle = signActor(state, 156, [reliable.id, closedAtW.id]); state = offCycle.state // 60 → 216: ON the roster at 208
++    state = advanceTo(state, 195)
++    let preMarket196: GameState | undefined
++    const real = marketModule.advanceTalentMarketWeek
++    const capture = vi.spyOn(marketModule, 'advanceTalentMarketWeek').mockImplementation((input) => {
++      if (input.market.tick === 196) preMarket196 = clone(input)
++      return real(input)
++    })
++    try { tick(state) } finally { capture.mockRestore() }
++    if (preMarket196 === undefined) throw new Error('F6 premise: no real week-196 market input captured')
++    state = preMarket196
++    const playerId = player(state)
++    const row = state.hollywood!.employment.find((e) => e.studioId === F6.incumbent && e.terms.talentId === F6.subject && e.endedWeek === null)
++    assert.ok(row, 'F6 premise: the subject holds no live r04 row at 196')
++    expect(row.terms.endWeekExclusive).toBe(F6.W)
++    expect(state.talentMarket.cases.some((c) => c.talentId === F6.subject)).toBe(false)
++    const counter = state.talentMarket.receipts.length
++    const kase: TalentMarketCase = { talentId: F6.subject, subjectStudioId: F6.incumbent, contractId: row.contractId, openedWeek: 196, outcome: null, closedWeek: null, reason: null }
++    const discovery: TalentMarketReceipt = { eventId: `talent-market-event-${String(counter)}`, kind: 'discovered', week: 196, talentId: F6.subject, studioId: F6.incumbent, reasons: [], dropped: [] }
++    state = { ...state, talentMarket: { ...state.talentMarket, cases: [...state.talentMarket.cases, kase], receipts: [...state.talentMarket.receipts, discovery] } }
++    const entered = state.hollywood!.identities.filter((s) => s.enteredWeek !== null)
++    expect(entered).toHaveLength(5)
++    for (const issuer of entered) state = submitProposal(state, { talentId: F6.subject, issuerStudioId: issuer.studioId, termWeeks: 208, premiumTier: 1 })
++    state = advanceTo(marketModule.advanceTalentMarketWeek(state), 207)
++    expect(marketModule.currentProposals(state, F6.subject)).toHaveLength(5)
++    const r01 = entered.find((s) => s.studioId.endsWith('-r01'))!.studioId
++    for (const issuer of entered.filter((s) => ![playerId, r01].includes(s.studioId))) {
++      // The B.2 T3 device: a staged IMPOSSIBLE draft is refused at freeze (promiseNotFeasible); no drop is forged.
++      state = attachPromise(state, F6.subject, issuer.studioId, { family: 'APPEARANCE_COUNT', predicate: { count: 999 }, windowStartWeek: 415, dueWeekExclusive: 416 })
++    }
++    // Explicit synthetic Standing INPUT (identical in every branch), never a claimed standing event.
++    const standing = state.hollywood!.businesses.find((b) => b.studioId === r01)!.standing
++    state = { ...state, studio: { ...state.studio, standing: { ...standing } } }
++    const free = hiringMarketIds(state, 207).map((i) => state.talent.find((t) => t.id === i))
++      .find((t) => t?.role === 'actor' && ![reliable.id, closedAtW.id, offCycle.id].includes(t.id))?.id
++    if (free === undefined) throw new Error('F6 premise: no free actor at 207 for the committed-at-W probe')
++    expect(state.market.tick).toBe(207)
++    expect(edges(state)).toEqual([]) // the player filmed nothing on this campaign: no edge exists before staging
++    f6Cache = { at207: state, playerId, r01, reliable: reliable.id, closedAtW: closedAtW.id, offCycle: offCycle.id, free }
++  }
++  return clone(f6Cache)
++}
++function settlementAt208(state: GameState) {
++  const receipt = state.talentMarket.receipts.find((r) => r.talentId === F6.subject && r.week === F6.W && (r.kind === 'settled' || r.kind === 'declined'))
++  assert.ok(receipt, 'F6: no settlement receipt at 208')
++  return receipt
++}
++const newSentences = (reasons: readonly string[]) => reasons.filter((s) => !FROZEN_REASONS.has(s))
++
++// ─────────────────────────────────────────────────────────────────────────────────────────────────────
++describe('P14B.5 T1 — the module and its named exports exist (RED at import; never a spurious pass)', () => {
++  it('every binding this file calls is a function or a defined constant', () => {
++    for (const fn of [advanceRelationshipsWeek, recordCancelledAfterFirstTake, currentCloseness, currentTier, pairChemistry,
++      validateRelationshipsRoot, projectRelationshipsPreV31, driverGain, requireRelationshipsRoot, migrateToV31, validateSaveV31]) {
++      expect(typeof fn).toBe('function')
++    }
++    for (const constant of [RELATIONSHIP_BASELINE, RELATIONSHIP_PROXIMITY_HIGH, RELATIONSHIP_PROXIMITY_MID, RELATIONSHIP_PROXIMITY_LOW,
++      RELATIONSHIP_REPEAT_CAP, RELATIONSHIP_SUCCESS_DELTA, RELATIONSHIP_FAILURE_DELTA, RELATIONSHIP_CANCEL_DELTA,
++      RELATIONSHIP_SUCCESS_CRITIC_SCORE, RELATIONSHIP_FAILURE_CRITIC_SCORE, RELATIONSHIP_DRIFT_GRACE_WEEKS,
++      RELATIONSHIP_DRIFT_RETURN_WEEKS, RELATIONSHIP_RECENT_CAP, RELATIONSHIP_RULES_VERSION]) {
++      expect(Number.isInteger(constant)).toBe(true)
++    }
++    expect(RELATIONSHIP_TIER_FLOOR).toBeDefined()
++    expect([...RELATIONSHIP_TIERS]).toEqual(LADDER)
++    expect([...RELATIONSHIP_DRIVER_KINDS].sort()).toEqual([...KINDS].sort())
++  })
++
++  it('the hypothesis constants carry the companion values named in the expansion and the ONE pinned relation', () => {
++    // 647-B ruling (i) on OPEN 4: integer 0–100, baseline 50 fixed (§5.1 :401's random 45–55 replaced by one constant).
++    expect(RELATIONSHIP_BASELINE).toBe(50)
++    expect(RELATIONSHIP_DRIFT_GRACE_WEEKS).toBe(52) // §5.5 :467
++    expect(RELATIONSHIP_DRIFT_RETURN_WEEKS).toBe(260) // §5.5 :467
++    expect(RELATIONSHIP_RECENT_CAP).toBe(8) // OPEN 16 as folded
++    expect(RELATIONSHIP_RULES_VERSION).toBe(1) // scope (3), code-only
++    // 647-B ruling (ii) on OPEN 5: pinned BY NAME — a relation between two hypotheses, not a value.
++    expect(RELATIONSHIP_FAILURE_DELTA).toBeGreaterThan(RELATIONSHIP_PROXIMITY_LOW)
++    // §5.4 :439 proximity classes: director–lead / co-leads highest, supporting lowest.
++    expect(RELATIONSHIP_PROXIMITY_HIGH).toBeGreaterThanOrEqual(RELATIONSHIP_PROXIMITY_MID)
++    expect(RELATIONSHIP_PROXIMITY_MID).toBeGreaterThanOrEqual(RELATIONSHIP_PROXIMITY_LOW)
++    for (const delta of [RELATIONSHIP_PROXIMITY_LOW, RELATIONSHIP_REPEAT_CAP, RELATIONSHIP_SUCCESS_DELTA, RELATIONSHIP_FAILURE_DELTA, RELATIONSHIP_CANCEL_DELTA]) {
++      expect(delta).toBeGreaterThan(0) // every driver has a sign (§5.4); a zero delta would be a driver with no effect
++    }
++    expect(RELATIONSHIP_SUCCESS_CRITIC_SCORE).toBeGreaterThanOrEqual(RELATIONSHIP_FAILURE_CRITIC_SCORE) // "above a threshold" / below one; a gap may be empty, never inverted
++    // The seven tier edges (I1): strictly ascending, Nemeses at 0, the baseline INSIDE Acquaintances (§5.3 :426 "neutral baseline").
++    expect(floor('Nemeses')).toBe(0)
++    for (let i = 1; i < LADDER.length; i++) expect(floor(LADDER[i]!)).toBeGreaterThan(floor(LADDER[i - 1]!))
++    expect(floor('Inseparable')).toBeLessThanOrEqual(100)
++    expect(RELATIONSHIP_BASELINE).toBeGreaterThanOrEqual(floor('Acquaintances'))
++    expect(RELATIONSHIP_BASELINE).toBeLessThan(floor('Colleagues'))
++    // OPEN 1 (Q2, stays OPEN): the reversible mechanism is a pure pass-through today.
++    const world = takeWorld().after
++    expect(driverGain(world, FROZEN.cast.lead, FROZEN.directorId, RELATIONSHIP_PROXIMITY_HIGH)).toBe(RELATIONSHIP_PROXIMITY_HIGH)
++    expect(driverGain(world, FROZEN.cast.lead, FROZEN.directorId, -RELATIONSHIP_FAILURE_DELTA)).toBe(-RELATIONSHIP_FAILURE_DELTA)
++  })
++})
++
++// ─────────────────────────────────────────────────────────────────────────────────────────────────────
++describe('family 1 — EDGE MINTING at the tick tail from the advance\'s delta (scope (2), (2a))', () => {
++  it('the seam exists and refuses in the copied guard order: empty delta before the root guard, then the LOUD root guard, then hollywood null', () => {
++    expect(typeof advanceRelationshipsWeek).toBe('function')
++    const world = takeWorld().pre
++    const rootless = stripRoot(world)
++    // appendFirstTakes :125-127 order (647-B record-only): an EMPTY delta returns the state unchanged BEFORE the root guard.
++    expect(advanceRelationshipsWeek(rootless, { takes: [], releases: [] }, world.market.tick)).toBe(rootless)
++    // A non-empty delta on a state without the root is a migration fault, refused loudly (the requirePromiseRoots model :88-92).
++    const production = world.studio.activeProductions.find((p) => p.id === FROZEN.productionId)!
++    const entry: TakeEntry = { studioId: player(world), production }
++    expect(() => advanceRelationshipsWeek(rootless, { takes: [entry], releases: [] }, world.market.tick)).toThrow(/relationships|V31|migrate/i)
++    expect(() => requireRelationshipsRoot(rootless)).toThrow(/relationships|V31|migrate/i)
++    expect(requireRelationshipsRoot(world)).toBeUndefined()
++  })
++
++  it('advancing the genuine player picture through its first take mints EXACTLY six edges in the receipt\'s seat order, each with the proximity delta and every week = the tail week', () => {
++    const { after, production } = takeWorld()
++    const week = after.market.tick
++    expect(week).toBe(FROZEN.takeWeek)
++    const take = after.firstTakes.find((t) => t.productionId === production.id)
++    assert.ok(take)
++    expect(take).toMatchObject({ eventId: FROZEN.takeEventId, week, studioId: player(after), directorId: FROZEN.directorId, cast: FROZEN.cast })
++    // Q3 by construction: the 24 pre-migration rival takes on this world mint NOTHING; only this advance's delta does.
++    const expected = seatPairs(take).map((p, i) => mintedEdge(i, p.x, p.y, weightOf[p.weight](), week, production.id))
++    expect(edges(after)).toEqual(expected)
++    expect(edges(after).map((e) => e.edgeId)).toEqual(expected.map((_, i) => `relationship-edge-${String(i)}`))
++    for (const edge of edges(after)) {
++      expect(edge.a < edge.b).toBe(true)
++      expect(Number.isInteger(edge.closeness) && edge.closeness >= 0 && edge.closeness <= 100).toBe(true)
++      expect(edge.firstSharedWeek).toBe(week); expect(edge.lastEventWeek).toBe(week)
++      expect(edge.recent.every((d) => d.week === week && d.ref === production.id)).toBe(true)
++      expect(currentTier(edge, week)).toBe(edge.peakTier)
++    }
++  })
++
++  it('a second advance from the same pre-take state mints byte-identical edges (replay); re-ticking the post-take state leaves the six untouched (idempotent) and mints only from THAT week\'s delta', () => {
++    const { pre, after } = takeWorld()
++    const again = tick(clone(pre))
++    expect(JSON.stringify(edges(again))).toBe(JSON.stringify(edges(after)))
++    expect(JSON.stringify(again)).toBe(JSON.stringify(after)) // scope (8): deterministic, copy-on-write, no cache
++    const six = edges(after)
++    const next = tick(after)
++    for (const edge of six) expect(findEdge(next, edge.a, edge.b)).toEqual(edge)
++    // Anything new was minted from THIS week's takes only (never a scan of a root).
++    const newTakes = next.firstTakes.slice(after.firstTakes.length)
++    for (const extra of edges(next).filter((e) => !six.some((s) => s.edgeId === e.edgeId))) {
++      expect(extra.firstSharedWeek).toBe(next.market.tick)
++      expect(newTakes.some((t) => seatPairs(t).some((p) => canon(p.x, p.y)[0] === extra.a && canon(p.x, p.y)[1] === extra.b))).toBe(true)
++    }
++    // The seam replayed on the SAME delta mints nothing twice: idempotent by (edgeId, kind, ref).
++    const production = pre.studio.activeProductions.find((p) => p.id === FROZEN.productionId)!
++    const replayed = advanceRelationshipsWeek(after, { takes: [{ studioId: player(after), production }], releases: [] }, after.market.tick)
++    expect(JSON.stringify(edges(replayed))).toBe(JSON.stringify(six))
++  })
++
++  it('no RNG reaches the seam: rngState is byte-equal before/after the seam and the tick\'s rngState equals the frozen control; everything but the root is byte-identical to the frozen post-tick state', () => {
++    const { pre, after } = takeWorld()
++    expect(JSON.stringify(after.rngState)).toBe(JSON.stringify(pre.rngState)) // the take week consumes no sim RNG (measured)
++    expect(after.rngState).toBe(FROZEN.rngAfterTake)
++    expect(sha(bytes(after))).toBe(FROZEN.postTakeDigestStripped) // CANNOT-MOVE class: the pre-settlement chain
++    const production = pre.studio.activeProductions.find((p) => p.id === FROZEN.productionId)!
++    const direct = advanceRelationshipsWeek(withEdges(pre, []), { takes: [{ studioId: player(pre), production }], releases: [] }, pre.market.tick + 1)
++    expect(JSON.stringify(direct.rngState)).toBe(JSON.stringify(pre.rngState))
++    expect(edges(direct)).toHaveLength(6)
++  })
++
++  it('a person seated twice on one take is refused loudly, never skipped', () => {
++    const { pre } = takeWorld()
++    const production = pre.studio.activeProductions.find((p) => p.id === FROZEN.productionId)!
++    const twice: Production = { ...production, cast: { ...production.cast, support: production.cast.lead } } // explicitly malformed seam input
++    expect(() => advanceRelationshipsWeek(pre, { takes: [{ studioId: player(pre), production: twice }], releases: [] }, pre.market.tick + 1)).toThrow()
++  })
++
++  it('a headless world (legacy-v28-shooting-5: hollywood null) lifted through migrateToV31 keeps relationships empty across a tick', () => {
++    assert.ok(existsSync(legacyV28), 'frozen fixture missing: legacy-v28-shooting-5.json.gz (plan :523)')
++    const raw = JSON.parse(gunzipSync(readFileSync(legacyV28)).toString('utf8')) as { saveVersion: number }
++    expect(raw.saveVersion).toBe(28)
++    const state = migrateToV31(raw).state as GameState
++    expect(state.hollywood).toBeNull()
++    expect(state.market.tick).toBe(16)
++    expect(edges(state)).toEqual([])
++    const next = tick(state)
++    expect(edges(next)).toEqual([])
++    expect(next.firstTakes).toEqual([])
++  })
++})
++
++// ─────────────────────────────────────────────────────────────────────────────────────────────────────
++describe('family 2 — CANONICAL KEY and REPETITION on the rival chain (scope (2a); S25 symmetry)', () => {
++  it('the first post-migration RIVAL take mints six edges under the same law; the 45 pre-migration takes mint none (Q3)', () => {
++    expect(typeof advanceRelationshipsWeek).toBe('function')
++    const { beforeFirstTake, atFirstTake } = rivalWorld()
++    expect(edges(beforeFirstTake)).toEqual([])
++    const take = atFirstTake.firstTakes.find((t) => t.productionId === FROZEN.rival.firstTake)!
++    expect(take.studioId).toBe(FROZEN.rival.studioId)
++    const expected = seatPairs(take).map((p, i) => mintedEdge(i, p.x, p.y, weightOf[p.weight](), atFirstTake.market.tick, take.productionId))
++    expect(edges(atFirstTake)).toEqual(expected)
++  }, 60_000)
++
++  it('the same pair on a second production is ONE edge with sharedProductions 2 and a repeatedCollaboration driver of the capped accelerator; a < b regardless of seat order', () => {
++    const { beforeRepeat, atRepeat } = rivalWorld()
++    const week = atRepeat.market.tick
++    const repeat = atRepeat.firstTakes.find((t) => t.productionId === FROZEN.rival.repeatTake)!
++    const first = atRepeat.firstTakes.find((t) => t.productionId === FROZEN.rival.firstTake)!
++    const repeated = seatPairs(repeat).filter((p) => seatPairs(first).some((q) => canon(q.x, q.y).join('|') === canon(p.x, p.y).join('|')))
++    assert.ok(repeated.length > 0, 'chain premise: the repeat take shares no pair with the first take (moved chain, not a pass)')
++    for (const p of seatPairs(repeat)) {
++      const before = findEdge(beforeRepeat, p.x, p.y)
++      const edge = findEdge(atRepeat, p.x, p.y)
++      assert.ok(edge)
++      expect([edge.a, edge.b]).toEqual(canon(p.x, p.y))
++      expect(edges(atRepeat).filter((e) => e.a === edge.a && e.b === edge.b)).toHaveLength(1)
++      const weight = weightOf[p.weight]()
++      if (before === undefined) {
++        expect(edge).toMatchObject({ sharedProductions: 1, firstSharedWeek: week, lastEventWeek: week, recent: [{ kind: 'sharedProduction', week, ref: repeat.productionId, delta: weight }] })
++        continue
++      }
++      const accelerator = Math.min(before.sharedProductions + 1 - 1, RELATIONSHIP_REPEAT_CAP) // :442 "increasing, capped"
++      expect(edge.sharedProductions).toBe(before.sharedProductions + 1)
++      expect(edge.firstSharedWeek).toBe(before.firstSharedWeek)
++      expect(edge.lastEventWeek).toBe(week)
++      expect(edge.recent.slice(-2)).toEqual([
++        { kind: 'sharedProduction', week, ref: repeat.productionId, delta: weight },
++        { kind: 'repeatedCollaboration', week, ref: repeat.productionId, delta: accelerator },
++      ])
++      expect(edge.closeness).toBe(clamp(driftOracle(before.closeness, week - before.lastEventWeek) + weight + accelerator))
++      expect(edge.sharedSuccesses).toBe(before.sharedSuccesses); expect(edge.sharedFailures).toBe(before.sharedFailures)
++      expect(rank(edge.peakTier)).toBeGreaterThanOrEqual(rank(before.peakTier))
++    }
++  }, 60_000)
++})
++
++// ─────────────────────────────────────────────────────────────────────────────────────────────────────
++describe('family 3 — DRIFT ON READ and FOLD-BY-COUNT (scope (3), (9); §5.5 :467-468)', () => {
++  const staged = (closeness: number, lastEventWeek: number): Edge => {
++    const world = takeWorld().after
++    return stagedEdge(world, FROZEN.cast.lead, FROZEN.cast.support, closeness, lastEventWeek)
++  }
++
++  it('currentCloseness/currentTier are functions; inside the grace window the stored value and tier read unchanged', () => {
++    expect(typeof currentCloseness).toBe('function'); expect(typeof currentTier).toBe('function')
++    const w = 61
++    const edge = staged(floor('CloseFriends'), w)
++    for (const at of [w, w + 1, w + RELATIONSHIP_DRIFT_GRACE_WEEKS]) {
++      expect(currentCloseness(edge, at)).toBe(edge.closeness)
++      expect(currentTier(edge, at)).toBe('CloseFriends')
++    }
++  })
++
++  it('past the grace window the value drifts toward the baseline by the plan formula (independent oracle), from either side, never past it, and is fully returned at GRACE + RETURN', () => {
++    const w = 61
++    for (const start of [floor('Inseparable'), floor('CloseFriends'), floor('Friends'), floor('Colleagues'), floor('Strained'), floor('Enemies'), 0, 100]) {
++      const edge = staged(start, w)
++      let previous = start
++      for (let dormant = RELATIONSHIP_DRIFT_GRACE_WEEKS + 1; dormant <= RELATIONSHIP_DRIFT_GRACE_WEEKS + RELATIONSHIP_DRIFT_RETURN_WEEKS + 5; dormant += 7) {
++        const value = currentCloseness(edge, w + dormant)
++        expect(value).toBe(driftOracle(start, dormant))
++        expect(Number.isInteger(value)).toBe(true)
++        // toward the baseline, monotone, never past it
++        if (start >= RELATIONSHIP_BASELINE) { expect(value).toBeLessThanOrEqual(previous); expect(value).toBeGreaterThanOrEqual(RELATIONSHIP_BASELINE) }
++        else { expect(value).toBeGreaterThanOrEqual(previous); expect(value).toBeLessThanOrEqual(RELATIONSHIP_BASELINE) }
++        expect(currentTier(edge, w + dormant)).toBe(tierOracle(value))
++        previous = value
++      }
++      expect(currentCloseness(edge, w + RELATIONSHIP_DRIFT_GRACE_WEEKS + RELATIONSHIP_DRIFT_RETURN_WEEKS)).toBe(RELATIONSHIP_BASELINE)
++      expect(currentTier(edge, w + RELATIONSHIP_DRIFT_GRACE_WEEKS + RELATIONSHIP_DRIFT_RETURN_WEEKS)).toBe('Acquaintances')
++    }
++  })
++
++  it('drift never moves a tier AWAY from Acquaintances and touches no counter, milestone or peak (a read is pure)', () => {
++    const w = 61
++    for (const start of [floor('Inseparable'), floor('Strained'), 5]) {
++      const edge = staged(start, w)
++      const frozen = JSON.stringify(edge)
++      const startRank = rank(tierOracle(start))
++      for (let dormant = 0; dormant <= RELATIONSHIP_DRIFT_GRACE_WEEKS + RELATIONSHIP_DRIFT_RETURN_WEEKS; dormant += 13) {
++        const tier = currentTier(edge, w + dormant)
++        // the distance from Acquaintances never grows
++        expect(Math.abs(rank(tier) - rank('Acquaintances'))).toBeLessThanOrEqual(Math.abs(startRank - rank('Acquaintances')))
++        expect(JSON.stringify(edge)).toBe(frozen)
++      }
++    }
++  })
++
++  it('a WRITE after dormancy materialises the drifted value first, then applies the delta; counters, firstSharedWeek and the peak survive; recent folds by count at the cap', () => {
++    const { after: world, production } = takeWorld()
++    const { film } = releaseWorld()
++    const w = world.market.tick
++    const dormantWeek = w + RELATIONSHIP_DRIFT_GRACE_WEEKS + Math.trunc(RELATIONSHIP_DRIFT_RETURN_WEEKS / 2)
++    // Staged variant of ONE genuinely minted edge (director–support): a full `recent` window and a raised value.
++    const base = findEdge(world, FROZEN.directorId, FROZEN.cast.support)!
++    const full: Driver[] = Array.from({ length: RELATIONSHIP_RECENT_CAP }, (_, i) => ({ kind: 'sharedProduction', week: w, ref: `staged-${String(i)}`, delta: RELATIONSHIP_PROXIMITY_LOW }))
++    const variant: Edge = { ...base, closeness: floor('Inseparable'), peakTier: 'Inseparable', peakTierWeek: w, sharedProductions: RELATIONSHIP_RECENT_CAP, recent: full }
++    const stagedWorld = live(withEdges(world, edges(world).map((e) => (e.edgeId === base.edgeId ? variant : e))))
++    // A dormant world at `dormantWeek`: only the clock moves (pure-read input), the release fact is the real one.
++    const dormant: GameState = { ...stagedWorld, market: { ...stagedWorld.market, tick: dormantWeek } }
++    const success: FilmResult = { ...film, criticScore: RELATIONSHIP_SUCCESS_CRITIC_SCORE } // IN-MEMORY RELEASE-RESULT VARIANT (I3)
++    const written = advanceRelationshipsWeek(dormant, { takes: [], releases: [success] }, dormantWeek)
++    const edge = findEdge(written, FROZEN.directorId, FROZEN.cast.support)!
++    const drifted = driftOracle(variant.closeness, dormantWeek - variant.lastEventWeek)
++    expect(drifted).toBeLessThan(variant.closeness) // the dormancy really moved it (premise of the materialisation check)
++    expect(edge.closeness).toBe(clamp(drifted + RELATIONSHIP_SUCCESS_DELTA))
++    expect(edge.lastEventWeek).toBe(dormantWeek)
++    expect(edge.firstSharedWeek).toBe(variant.firstSharedWeek)
++    expect(edge).toMatchObject({ sharedProductions: RELATIONSHIP_RECENT_CAP, sharedSuccesses: 1, sharedFailures: 0, sharedCancellations: 0, peakTier: 'Inseparable', peakTierWeek: w })
++    expect(edge.recent).toHaveLength(RELATIONSHIP_RECENT_CAP) // fold-by-count: the oldest folds OUT at write, the counters keep the count
++    expect(edge.recent[0]).toEqual(full[1])
++    expect(edge.recent.at(-1)).toEqual({ kind: 'sharedSuccess', week: dormantWeek, ref: production.id, delta: RELATIONSHIP_SUCCESS_DELTA })
++    expect(edges(written).every((e) => e.recent.length <= RELATIONSHIP_RECENT_CAP)).toBe(true)
++  })
++})
++
++// ─────────────────────────────────────────────────────────────────────────────────────────────────────
++describe('family 4 — TIER RULE under RELATIONSHIP_RULES_VERSION 1 and the D2 reachability (scope (3)-(4))', () => {
++  it('eight members, byte-equal output for byte-equal input, and a value in the Enemies/Nemeses bands WITHOUT a conflict record reads Strained', () => {
++    expect(typeof currentTier).toBe('function')
++    expect(RELATIONSHIP_RULES_VERSION).toBe(1)
++    expect(new Set(RELATIONSHIP_TIERS).size).toBe(8)
++    const world = takeWorld().after
++    for (const tier of LADDER) {
++      const edge = stagedEdge(world, FROZEN.cast.lead, FROZEN.cast.support, floor(tier), world.market.tick)
++      const read = currentTier(edge, world.market.tick)
++      expect(read).toBe(tierOracle(floor(tier)))
++      expect(currentTier(clone(edge), world.market.tick)).toBe(read)
++      if (tier === 'Nemeses' || tier === 'Enemies') expect(read).toBe('Strained') // §5.3 :423-425 evidence condition; B.5 mints no conflict record
++    }
++    expect(currentTier(stagedEdge(world, FROZEN.cast.lead, FROZEN.cast.support, 0, world.market.tick), world.market.tick)).toBe('Strained')
++    expect(currentTier(stagedEdge(world, FROZEN.cast.lead, FROZEN.cast.support, 100, world.market.tick), world.market.tick)).toBe('Inseparable')
++  })
++
++  it('a released flop nets a LOW-proximity pair below where it stood before the take (FAILURE > PROXIMITY_LOW by name)', () => {
++    const { after: world } = takeWorld()
++    const { film } = releaseWorld()
++    const week = world.market.tick + 4
++    const flop: FilmResult = { ...film, criticScore: RELATIONSHIP_FAILURE_CRITIC_SCORE - 1 } // IN-MEMORY RELEASE-RESULT VARIANT (I3)
++    const written = advanceRelationshipsWeek({ ...world, market: { ...world.market, tick: week } }, { takes: [], releases: [flop] }, week)
++    for (const pair of [[FROZEN.directorId, FROZEN.cast.support], [FROZEN.cast.antagonist, FROZEN.cast.support]] as const) {
++      const edge = findEdge(written, pair[0], pair[1])!
++      expect(edge.closeness).toBe(clamp(RELATIONSHIP_BASELINE + RELATIONSHIP_PROXIMITY_LOW - RELATIONSHIP_FAILURE_DELTA))
++      expect(edge.closeness).toBeLessThan(RELATIONSHIP_BASELINE)
++      expect(edge.recent.at(-1)).toEqual({ kind: 'sharedFailure', week, ref: FROZEN.productionId, delta: -RELATIONSHIP_FAILURE_DELTA })
++      expect(edge.sharedFailures).toBe(1)
++    }
++  })
++
++  it('a staged pair at the Acquaintances floor reads Strained after one flop and pairChemistry reads sign −1; Enemies/Nemeses never read on any B.5-minted edge', () => {
++    const { after: world } = takeWorld()
++    const { film } = releaseWorld()
++    const base = findEdge(world, FROZEN.directorId, FROZEN.cast.support)!
++    const variant: Edge = { ...base, closeness: floor('Acquaintances'), peakTier: 'Acquaintances' } // staged value on a genuinely minted edge
++    const stagedWorld = live(withEdges(world, edges(world).map((e) => (e.edgeId === base.edgeId ? variant : e))))
++    const week = world.market.tick + 4
++    const flop: FilmResult = { ...film, criticScore: RELATIONSHIP_FAILURE_CRITIC_SCORE - 1 }
++    const written = advanceRelationshipsWeek({ ...stagedWorld, market: { ...stagedWorld.market, tick: week } }, { takes: [], releases: [flop] }, week)
++    const edge = findEdge(written, FROZEN.directorId, FROZEN.cast.support)!
++    expect(edge.closeness).toBe(clamp(floor('Acquaintances') - RELATIONSHIP_FAILURE_DELTA))
++    expect(edge.closeness).toBeLessThan(floor('Acquaintances'))
++    expect(currentTier(edge, week)).toBe('Strained')
++    expect(pairChemistry(written, FROZEN.directorId, FROZEN.cast.support, week)).toMatchObject({ tier: 'Strained', sign: -1 })
++    for (const e of edges(written)) expect(['Enemies', 'Nemeses']).not.toContain(currentTier(e, week))
++    // The natural release on whichever branch its real score selects: the driver, and no Enemies/Nemeses anywhere.
++    const { after } = releaseWorld()
++    for (const e of edges(after)) expect(['Enemies', 'Nemeses']).not.toContain(currentTier(e, after.market.tick))
++  })
++})
++
++// ─────────────────────────────────────────────────────────────────────────────────────────────────────
++describe('family 5 — RELEASE and CANCEL drivers (scope (2b)-(2c); 647-B R1 week stamp; coexistence with the promise seam)', () => {
++  it('the genuine player release mints the driver its real criticScore selects on all six pairs ONCE, stamped driver.week = state.market.tick = film.releaseTick + 1; rngState equals the frozen release control', () => {
++    expect(typeof advanceRelationshipsWeek).toBe('function')
++    const { before, after, film } = releaseWorld()
++    const week = after.market.tick
++    expect(week).toBe(film.releaseTick + 1)
++    expect(after.rngState).toBe(FROZEN.rngAfterRelease) // the release consumes the FROZEN reception stream only
++    const kind: DriverKind | null = film.criticScore >= RELATIONSHIP_SUCCESS_CRITIC_SCORE ? 'sharedSuccess'
++      : film.criticScore < RELATIONSHIP_FAILURE_CRITIC_SCORE ? 'sharedFailure' : null
++    for (const p of seatPairs({ directorId: FROZEN.directorId, cast: FROZEN.cast })) {
++      const was = findEdge(before, p.x, p.y)!
++      const edge = findEdge(after, p.x, p.y)!
++      if (kind === null) { expect(edge).toEqual(was); continue } // between the edges: nothing (:440-441 "above a threshold")
++      const delta = kind === 'sharedSuccess' ? RELATIONSHIP_SUCCESS_DELTA : -RELATIONSHIP_FAILURE_DELTA
++      expect(edge.recent.filter((d) => d.kind === kind)).toEqual([{ kind, week, ref: FROZEN.productionId, delta }])
++      expect(edge.closeness).toBe(clamp(driftOracle(was.closeness, week - was.lastEventWeek) + delta))
++      expect(edge.lastEventWeek).toBe(week)
++      expect(edge[kind === 'sharedSuccess' ? 'sharedSuccesses' : 'sharedFailures']).toBe(1)
++      expect(edge.sharedProductions).toBe(was.sharedProductions)
++    }
++    // idempotent across a re-tick: the next advance carries no release for this picture
++    const again = tick(after)
++    for (const edge of edges(after)) expect(findEdge(again, edge.a, edge.b)).toEqual(edge)
++    // and the seam replayed on the SAME release mints nothing twice (idempotent by (edgeId, kind, productionId))
++    const replayed = advanceRelationshipsWeek(after, { takes: [], releases: [film] }, week)
++    expect(JSON.stringify(edges(replayed))).toBe(JSON.stringify(edges(after)))
++  })
++
++  it('a rival release (hollywood.films / industry.growth) mints under the same law; a release whose take predates every edge mints nothing (I2)', () => {
++    const { beforeRelease, atRelease } = rivalWorld()
++    const week = atRelease.market.tick
++    const released = atRelease.hollywood!.films.find((f) => f.filmId === FROZEN.rival.firstTake)
++    assert.ok(released && released.provenance === 'simulation/v1', 'chain premise: the rival film is not a live release')
++    expect(released.result.releaseTick).toBe(week - 1)
++    const take = atRelease.firstTakes.find((t) => t.productionId === FROZEN.rival.firstTake)!
++    const kind: DriverKind | null = released.result.criticScore >= RELATIONSHIP_SUCCESS_CRITIC_SCORE ? 'sharedSuccess'
++      : released.result.criticScore < RELATIONSHIP_FAILURE_CRITIC_SCORE ? 'sharedFailure' : null
++    for (const p of seatPairs(take)) {
++      const was = findEdge(beforeRelease, p.x, p.y)!
++      const edge = findEdge(atRelease, p.x, p.y)!
++      if (kind === null) { expect(edge).toEqual(was); continue }
++      const delta = kind === 'sharedSuccess' ? RELATIONSHIP_SUCCESS_DELTA : -RELATIONSHIP_FAILURE_DELTA
++      expect(edge.recent.filter((d) => d.kind === kind)).toEqual([{ kind, week, ref: released.filmId, delta }])
++      expect(edge.closeness).toBe(clamp(driftOracle(was.closeness, week - was.lastEventWeek) + delta))
++    }
++    // Every OTHER film released between 196 and the repeat take took its first take before the recording of any edge: no edge, no driver.
++    const { atRepeat } = rivalWorld()
++    const preMigrationTakes = new Set(lifted('rival-current-p1-and-p2').firstTakes.map((t) => t.productionId))
++    for (const film of atRepeat.hollywood!.films.filter((f) => preMigrationTakes.has(f.filmId))) {
++      expect(edges(atRepeat).some((e) => e.recent.some((d) => d.ref === film.filmId))).toBe(false)
++    }
++    expect(edges(atRepeat).every((e) => e.sharedSuccesses + e.sharedFailures <= e.sharedProductions)).toBe(true)
++  }, 60_000)
++
++  it('a player cancel of a picture WITH a first take mints cancelledAfterFirstTake on its six pairs once (week = the action week) while breakPromisesOnCancel is a no-op for it', () => {
++    expect(typeof recordCancelledAfterFirstTake).toBe('function')
++    const { after: world } = takeWorld()
++    const week = world.market.tick
++    const promise = world.promises.find((p) => p.promiseId === 'promise-0')!
++    expect(promise.outcome).toBe('SATISFIED') // the take satisfied it; :788 returns early for a filmed picture
++    const cancelled = applyActions(world, [{ kind: 'cancel', productionId: FROZEN.productionId }])
++    expect(cancelled.studio.activeProductions.some((p) => p.id === FROZEN.productionId)).toBe(false)
++    expect(cancelled.promises.find((p) => p.promiseId === 'promise-0')).toEqual(promise) // the promise seam untouched
++    expect(cancelled.firstTakes).toEqual(world.firstTakes) // a first take is never un-taken
++    for (const p of seatPairs({ directorId: FROZEN.directorId, cast: FROZEN.cast })) {
++      const was = findEdge(world, p.x, p.y)!
++      const edge = findEdge(cancelled, p.x, p.y)!
++      expect(edge.recent.filter((d) => d.kind === 'cancelledAfterFirstTake')).toEqual([{ kind: 'cancelledAfterFirstTake', week, ref: FROZEN.productionId, delta: -RELATIONSHIP_CANCEL_DELTA }])
++      expect(edge.closeness).toBe(clamp(was.closeness - RELATIONSHIP_CANCEL_DELTA))
++      expect(edge.sharedCancellations).toBe(1)
++      expect(edge.lastEventWeek).toBe(week)
++    }
++    expect(JSON.stringify(cancelled.rngState)).toBe(JSON.stringify(world.rngState))
++    // the pure helper directly: idempotent, and a no-op for a picture without a take
++    const production = world.studio.activeProductions.find((p) => p.id === FROZEN.productionId)!
++    const twice = recordCancelledAfterFirstTake(cancelled, player(cancelled), production)
++    expect(JSON.stringify(edges(twice))).toBe(JSON.stringify(edges(cancelled)))
++    const noTake = { ...production, id: 'prod-never-filmed' }
++    expect(recordCancelledAfterFirstTake(cancelled, player(cancelled), noTake)).toBe(cancelled)
++  })
++
++  it('a cancel of a picture WITHOUT a take mints nothing while the promise seam judges on its own (coexistence; both seams fire independently)', () => {
++    const { pre } = takeWorld() // the take is scheduled but not taken: no receipt for prod-0052
++    expect(pre.firstTakes.some((t) => t.productionId === FROZEN.productionId)).toBe(false)
++    const cancelled = applyActions(pre, [{ kind: 'cancel', productionId: FROZEN.productionId }])
++    expect(edges(cancelled)).toEqual([])
++    // The FROZEN promise law (never touched by B.5, scope (12)): measured on unchanged source this cancel leaves
++    // promise-0 OPEN (a path remains before its due week 92); the seam judged, the relationship seam did not.
++    expect(cancelled.promises.find((p) => p.promiseId === 'promise-0')!.outcome).toBeNull()
++    expect(cancelled.firstTakes).toEqual(pre.firstTakes)
++  })
++})
++
++// ─────────────────────────────────────────────────────────────────────────────────────────────────────
++describe('family 6 — D5 IN THE CHOOSER under the D1 roster predicate (scope (5); companion :116, :120)', () => {
++  const closeTieAt207 = (base: F6Base, counterpart: string, lastEventWeek = 207): GameState =>
++    stage(base.at207, stagedEdge(base.at207, F6.subject, counterpart, floor('CloseFriends'), lastEventWeek))
++
++  it('the base (no edge) declines by the tie order: every landed band ties between the two survivors (measured premise)', () => {
++    expect(typeof pairChemistry).toBe('function')
++    const base = f6Base()
++    const after = tick(base.at207)
++    const receipt = settlementAt208(after)
++    expect(receipt.kind).toBe('declined')
++    expect(receipt.reasons).toEqual([TIE_SENTENCE])
++    expect(receipt.dropped).toHaveLength(3)
++    expect(rosterAt(after, base.playerId, F6.subject, F6.W)).toEqual([base.offCycle])
++    expect(rosterAt(after, base.r01, F6.subject, F6.W)).toEqual([])
++    expect(rosterAt(after, F6.incumbent, F6.subject, F6.W)).toEqual([]) // the churned incumbent: every row closed AT W (647-B D1)
++    expect(after.hollywood!.employment.some((e) => e.studioId === base.playerId && e.terms.talentId === base.closedAtW && e.endedWeek === F6.W)).toBe(true)
++    expect(newSentences(receipt.reasons.filter((s) => s !== TIE_SENTENCE))).toEqual([])
++  }, 120_000)
++
++  it('a CloseFriends counterpart on the player\'s OFF-CYCLE row (startWeek < W, active at W) settles the case for the player with the D5 sentence as the ONLY reason', () => {
++    const base = f6Base()
++    const treated = closeTieAt207(base, base.offCycle)
++    const after = tick(treated)
++    const receipt = settlementAt208(after)
++    expect(receipt.kind).toBe('settled')
++    expect(receipt.studioId).toBe(base.playerId)
++    const sentence = newSentences(receipt.reasons)
++    expect(sentence).toHaveLength(1)
++    expect(receipt.reasons).toEqual(sentence) // bands equal elsewhere: nothing but D5 is strictly won
++    expect(sentence[0]).not.toMatch(/\d/) // ordering-only: no number
++    for (const name of [F6.subject, base.offCycle, ...LADDER]) expect(sentence[0]).not.toContain(name) // no person, no tier
++    expect(receipt.dropped).toEqual(settlementAt208(tick(base.at207)).dropped)
++    expect(after.hollywood!.employment.some((e) => e.studioId === base.playerId && e.terms.talentId === F6.subject && e.terms.startWeek === F6.W && e.endedWeek === null)).toBe(true)
++    expect(pairChemistry(after, F6.subject, base.offCycle, F6.W).tier).toBe('CloseFriends')
++    expect(JSON.stringify(after.rngState)).toBe(JSON.stringify(tick(base.at207).rngState))
++  }, 120_000)
++
++  it('the same case at a W where that edge has DRIFTED below Close Friends declines by the tie order', () => {
++    const base = f6Base()
++    const lastEventWeek = F6.W - RELATIONSHIP_DRIFT_GRACE_WEEKS - Math.trunc(RELATIONSHIP_DRIFT_RETURN_WEEKS / 2)
++    expect(lastEventWeek).toBeGreaterThanOrEqual(base.at207.studioHistory.recordingStartedWeek)
++    const treated = closeTieAt207(base, base.offCycle, lastEventWeek)
++    const edge = findEdge(treated, F6.subject, base.offCycle)!
++    expect(rank(currentTier(edge, F6.W))).toBeLessThan(rank('CloseFriends')) // the premise, by the versioned rule
++    expect(currentTier(edge, lastEventWeek)).toBe('CloseFriends')
++    const receipt = settlementAt208(tick(treated))
++    expect(receipt.kind).toBe('declined')
++    expect(receipt.reasons).toEqual([TIE_SENTENCE])
++  }, 120_000)
++
++  it('a row CLOSED AT W (the actor signed at 0 for 208 weeks) never counts — the predicate\'s strict upper end', () => {
++    const base = f6Base()
++    const receipt = settlementAt208(tick(closeTieAt207(base, base.closedAtW)))
++    expect(receipt.kind).toBe('declined')
++    expect(receipt.reasons).toEqual([TIE_SENTENCE])
++  }, 120_000)
++
++  it('a row COMMITTED AT W (startWeek === W) never counts — the predicate\'s strict lower end; the same row one week earlier does', () => {
++    const base = f6Base()
++    const treated = closeTieAt207(base, base.free)
++    // (i) the counterpart signed INSIDE the week-208 pass, before settlement: startWeek === W ⇒ off the roster
++    let preMarket208: GameState | undefined
++    const real = marketModule.advanceTalentMarketWeek
++    const capture = vi.spyOn(marketModule, 'advanceTalentMarketWeek').mockImplementation((input) => {
++      if (input.market.tick === F6.W) { preMarket208 = clone(input); throw new Error('captured') }
++      return real(input)
++    })
++    try { expect(() => tick(treated)).toThrow('captured') } finally { capture.mockRestore() }
++    assert.ok(preMarket208, 'F6 premise: no real pre-market week-208 input captured')
++    assert.ok(hiringMarketIds(preMarket208, F6.W).includes(base.free), 'F6 premise: the free actor was taken before the 208 pass; never forge a row')
++    const signedAtW = applyActions(preMarket208, [{ kind: 'signContract', talentId: base.free, termWeeks: 208 }])
++    expect(signedAtW.hollywood!.employment.some((e) => e.studioId === base.playerId && e.terms.talentId === base.free && e.terms.startWeek === F6.W)).toBe(true)
++    const receipt = settlementAt208(marketModule.advanceTalentMarketWeek(signedAtW))
++    expect(receipt.kind).toBe('declined')
++    expect(receipt.reasons).toEqual([TIE_SENTENCE])
++    // (ii) the same counterpart signed at 207 (startWeek 207 < 208, active at 208): counts.
++    const signedBefore = applyActions(treated, [{ kind: 'signContract', talentId: base.free, termWeeks: 208 }])
++    const settled = settlementAt208(tick(signedBefore))
++    expect(settled.kind).toBe('settled')
++    expect(settled.studioId).toBe(base.playerId)
++    expect(newSentences(settled.reasons)).toHaveLength(1)
++  }, 120_000)
++
++  it('`enemies here` is never read: without a Close Friends counterpart no D5 sentence appears, whatever the value on the record', () => {
++    const base = f6Base()
++    // A negative-band edge (Strained by rule) with its counterpart on the player's roster at W: D5 reads `none`, not `enemies here`.
++    const strained = stage(base.at207, stagedEdge(base.at207, F6.subject, base.offCycle, floor('Enemies'), 207))
++    expect(currentTier(findEdge(strained, F6.subject, base.offCycle)!, F6.W)).toBe('Strained')
++    const receipt = settlementAt208(tick(strained))
++    expect(receipt.kind).toBe('declined')
++    expect(receipt.reasons).toEqual([TIE_SENTENCE])
++  }, 120_000)
++})
++
++// ─────────────────────────────────────────────────────────────────────────────────────────────────────
++describe('family 7 — PUBLIC ORDER: the SEVEN-member companion orders (§2.1.7 :120), term preference unchanged', () => {
++  it('publicPriorityOrder is byte-equal to the companion order for both archetypes and publicPreferredTerm is value-identical', () => {
++    expect(typeof pairChemistry).toBe('function')
++    const state = p13aGeneratedStudio()
++    const unproven = state.talent.find((p) => p.age < 30 && careerIdentity(p).identityDisciplines.length === 0)
++    const proven = state.talent.find((p) => p.age >= 30 || careerIdentity(p).identityDisciplines.length > 0)
++    assert.ok(unproven && proven, 'fixture premise failed: both archetypes must exist on the default seed')
++    expect(publicPriorityOrder(state, unproven.id)).toEqual(UNPROVEN_ORDER)
++    expect(publicPriorityOrder(state, proven.id)).toEqual(PROVEN_ORDER)
++    const options = TUNING.CONTRACT_TERM_OPTIONS
++    expect(publicPreferredTerm(state, proven.id)).toBe(options[options.length - 1])
++    expect(publicPreferredTerm(state, unproven.id)).toBe(options[0])
++  })
++})
++
++// ─────────────────────────────────────────────────────────────────────────────────────────────────────
++describe('family 8 — RESERVATION enumerated and CHEMISTRY read-only (scope (6)-(7); §5.6 :476, :482)', () => {
++  it('pairChemistry returns {null, 0, []} without an edge, sign +1 for Colleagues and above, −1 for Strained and below, no digit in any reason, and reads nothing but the record', () => {
++    expect(typeof pairChemistry).toBe('function')
++    const { after: world } = takeWorld()
++    const week = world.market.tick
++    expect(pairChemistry(world, FROZEN.cast.lead, 't-wri-03', week)).toEqual({ tier: null, sign: 0, reasons: [] }) // the writer seat is EXCLUDED (no edge)
++    expect(pairChemistry(world, 'nobody-1', 'nobody-2', week)).toEqual({ tier: null, sign: 0, reasons: [] })
++    for (const tier of LADDER) {
++      const staged = stage(world, stagedEdge(world, FROZEN.cast.lead, 't-wri-03', floor(tier), week))
++      const forward = pairChemistry(staged, FROZEN.cast.lead, 't-wri-03', week) as Chemistry
++      const backward = pairChemistry(staged, 't-wri-03', FROZEN.cast.lead, week) as Chemistry
++      expect(backward).toEqual(forward) // the canonical key is an identity, not a choice
++      expect(forward.tier).toBe(tierOracle(floor(tier)))
++      expect(forward.sign).toBe(rank(forward.tier!) >= rank('Colleagues') ? 1 : forward.tier === 'Acquaintances' ? 0 : -1)
++      expect(forward.reasons.length).toBeGreaterThan(0)
++      for (const reason of forward.reasons) { expect(reason).not.toMatch(/\d/); expect(typeof reason).toBe('string') }
++      expect(JSON.stringify(staged.rngState)).toBe(JSON.stringify(world.rngState))
++    }
++    // A pair at the Acquaintances floor reads sign 0 (§5.3 :426 "no effect"); the ladder is symmetric about it.
++    const neutral = stage(world, stagedEdge(world, FROZEN.cast.lead, 't-wri-03', RELATIONSHIP_BASELINE, week))
++    expect((pairChemistry(neutral, FROZEN.cast.lead, 't-wri-03', week) as Chemistry)).toMatchObject({ tier: 'Acquaintances', sign: 0 })
++  })
++
++  it('nemesisOnRoster is an enumerated FreezeDrop member; Nemeses needs a conflict record B.5 never mints, so no genuine edge can trip it', () => {
++    const member: FreezeDrop = 'nemesisOnRoster' // type-level pin on the closed vocabulary (typecheck)
++    expect(member).toBe('nemesisOnRoster')
++    const { after: world } = takeWorld()
++    for (const e of edges(world)) expect(currentTier(e, world.market.tick)).not.toBe('Nemeses')
++    expect(edges(world).every((e) => e.recent.every((d) => KINDS.includes(d.kind)))).toBe(true)
++  })
++})
++
++// ─────────────────────────────────────────────────────────────────────────────────────────────────────
++describe('family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; family 9\'s ONE-EDGE downgrade refusal (scope (10))', () => {
++  const v31 = () => { const { after } = takeWorld(); return JSON.parse(JSON.stringify(makeSave(after))) as { saveVersion: number; seed: string; state: Record<string, unknown> & { relationships: Edge[] }; broadcastCache: unknown } }
++  const expectRefused = (mutate: (edges: Edge[], state: Record<string, unknown>) => void, pattern: RegExp) => {
++    const save = v31()
++    mutate(save.state.relationships, save.state)
++    expect(() => validateSaveV31(save)).toThrow(pattern)
++    expect(() => validateRelationshipsRoot(save.state)).toThrow(pattern)
++  }
++
++  it('validateSaveV31/validateRelationshipsRoot exist and admit the genuinely minted world round-trip', () => {
++    expect(typeof validateSaveV31).toBe('function'); expect(typeof validateRelationshipsRoot).toBe('function')
++    const save = v31()
++    expect(save.saveVersion).toBe(LIVE_SAVE_VERSION)
++    expect(save.state.relationships).toHaveLength(6)
++    expect(validateSaveV31(save)).toEqual(save)
++  })
++
++  it('refuses a missing root', () => {
++    const save = v31()
++    Reflect.deleteProperty(save.state, 'relationships')
++    expect(() => validateSaveV31(save)).toThrow(/relationships/)
++  })
++  it('refuses a non-ordinal edgeId', () => expectRefused((e) => { e[0]!.edgeId = 'edge-x' }, /edgeId/))
++  it('refuses a duplicate pair', () => expectRefused((e) => { e[1]!.a = e[0]!.a; e[1]!.b = e[0]!.b }, /duplicate|pair/i))
++  it('refuses a non-canonical key', () => expectRefused((e) => { const [a, b] = [e[0]!.a, e[0]!.b]; e[0]!.a = b; e[0]!.b = a }, /canonical|order|a < b|\ba\b/i))
++  it('refuses a person not in state.talent', () => expectRefused((e) => { e[0]!.b = 'zz-not-a-person' }, /person|talent/i))
++  it('refuses firstSharedWeek > lastEventWeek', () => expectRefused((e) => { e[0]!.firstSharedWeek = e[0]!.lastEventWeek + 1 }, /firstSharedWeek|lastEventWeek/))
++  it('refuses a week outside the recording interval (before the boundary; after market.tick)', () => {
++    expectRefused((e) => { e[0]!.firstSharedWeek = -1 }, /recording|interval|firstSharedWeek/i)
++    expectRefused((e, state) => { const tick = (state.market as { tick: number }).tick; e[0]!.lastEventWeek = tick + 1; e[0]!.recent = [] }, /recording|interval|lastEventWeek/i)
++  })
++  it('refuses a driver week after lastEventWeek', () => expectRefused((e) => { e[0]!.recent = [{ ...e[0]!.recent[0]!, week: e[0]!.lastEventWeek + 1 }] }, /week|driver/i))
++  it('refuses recent over the cap', () => expectRefused((e) => { e[0]!.recent = Array.from({ length: RELATIONSHIP_RECENT_CAP + 1 }, () => ({ ...e[0]!.recent[0]! })) }, /recent|cap/i))
++  it('refuses peakTier outside the catalogue', () => expectRefused((e) => { (e[0] as unknown as { peakTier: string }).peakTier = 'Partners' }, /peakTier|tier/i))
++  it('refuses closeness outside 0..100 or non-integer', () => {
++    expectRefused((e) => { e[0]!.closeness = 101 }, /closeness/)
++    expectRefused((e) => { e[0]!.closeness = -1 }, /closeness/)
++    expectRefused((e) => { e[0]!.closeness = 50.5 }, /closeness/)
++  })
++  it('refuses inconsistent counters', () => {
++    expectRefused((e) => { e[0]!.sharedSuccesses = e[0]!.sharedProductions + 1 }, /sharedSuccesses|sharedFailures|sharedProductions|counter/i)
++    expectRefused((e) => { e[0]!.sharedCancellations = e[0]!.sharedProductions + 1 }, /sharedCancellations|sharedProductions|counter/i)
++    expectRefused((e) => { e[0]!.sharedProductions = -1 }, /sharedProductions|counter|non-negative/i)
++  })
++  it('refuses an unknown driver kind, an empty ref and a non-integer delta', () => {
++    expectRefused((e) => { (e[0]!.recent[0] as unknown as { kind: string }).kind = 'conflict' }, /kind/)
++    expectRefused((e) => { (e[0]!.recent[0] as unknown as { ref: string }).ref = '' }, /ref/)
++    expectRefused((e) => { (e[0]!.recent[0] as unknown as { delta: number }).delta = 1.5 }, /delta/)
++  })
++  it('refuses an extra key on an edge', () => expectRefused((e) => { (e[0] as unknown as Record<string, unknown>).closenessShown = 1 }, /field|key|closenessShown/i))
++
++  it('a V31 world holding ONE edge refuses migrateToV30 with the downgrade message and refuses every older migrateToVn; empty is lossless', () => {
++    expect(typeof projectRelationshipsPreV31).toBe('function')
++    const save = v31()
++    const one = { ...save, state: { ...save.state, relationships: [save.state.relationships[0]!] } }
++    const admitted = validateSaveV31(one)
++    const before = JSON.stringify(admitted)
++    expect(() => projectRelationshipsPreV31(one.state)).toThrow()
++    expect(() => migrateToV30(admitted)).toThrow(/cannot downgrade SaveFileV31 or discard the relationship record/)
++    for (const older of [migrateToV29, migrateToV28, migrateToV27, migrateToV26, migrateToV25]) {
++      expect(() => older(admitted as never)).toThrow(/cannot downgrade|SaveFileV31|relationship/)
++    }
++    expect(JSON.stringify(admitted)).toBe(before)
++    const empty = validateSaveV31({ ...save, state: { ...save.state, relationships: [] } })
++    expect(projectRelationshipsPreV31(empty.state)).toBeUndefined()
++    const downgraded = migrateToV30(empty)
++    expect(downgraded.saveVersion).toBe(30)
++    const { relationships: _r, ...rest } = empty.state
++    expect(JSON.stringify(downgraded.state)).toBe(JSON.stringify(rest))
++  })
++})
+diff --git a/tests/p14b5-save-v31.test.ts b/tests/p14b5-save-v31.test.ts
+new file mode 100644
+index 00000000..2aa50f59
+--- /dev/null
++++ b/tests/p14b5-save-v31.test.ts
+@@ -0,0 +1,308 @@
++// 654-T (record 653 NEXT653; plan T1 "independent test-author RED against accepted predecessor").
++// P14B.5 First Shared-Work Bond Core — the FROZEN SAVE / MIGRATION RED: family 9 ONLY (B4 plan :391-393
++// "separate files for frozen save/migration and reader-admitted synthetic variants"; 647-B R4; record 653
++// ruling (4) moved the one-edge refusal to the synthetic file). Authored at HEAD 74bd325b on a clean tree.
++//
++// Law (plan scope (10)): `validateSaveV31` validates the envelope, `Object.hasOwn(raw, 'relationships')`, the
++// root, then strips `relationships` and delegates to `validateSaveV30` (the `stripV29Roots` device);
++// `convertV30ToV31` opens the root EMPTY and recomputes NOTHING (Q3 — OPEN 2 stays open; a campaign written
++// before edges existed formed none; `convertV28ToV29`'s comment :8620-8628); `convertV31ToV30` is lossless
++// exactly when the root is empty; `migrateToV31` is the live route; every older `migrateToVn` gains the 31
++// route line; `LIVE_SAVE_VERSION` moves to the V31 the writer stamps through `makeSave`.
++//
++// RED MECHANISM: this file imports NOTHING from the absent `src/core/relationships.ts` (nothing synthetic
++// lives here), so it LOADS today; the four V31 save exports it calls do not exist on `save.ts` yet and bind
++// to `undefined` (memory rule), so the first case of every RED `describe` asserts each is a function and every
++// call site throws until T2 lands the V31 block. The FROZEN SIDE is GREEN today and moves only at the T2
++// values-only sweep (R-VERSION class): `LIVE_SAVE_VERSION` 30, the genuine V30/V29/V28 bytes and their
++// frozen chains. V31 is NOT allocated by this RED: the V31 law is asserted RELATIVE to `LIVE_SAVE_VERSION`
++// (the lifted envelope carries the live version; the sentinel is `LIVE_SAVE_VERSION + 1`), never as a
++// guessed literal.
++
++import assert from 'node:assert/strict'
++import { createHash } from 'node:crypto'
++import { existsSync, readFileSync } from 'node:fs'
++import { gunzipSync } from 'node:zlib'
++import { describe, expect, it } from 'vitest'
++import {
++  LIVE_SAVE_VERSION, convertV30ToV29, convertV30ToV31, convertV31ToV30, exportSave, importSave, loadSave, makeSave,
++  migrateToV26, migrateToV27, migrateToV28, migrateToV29, migrateToV30, migrateToV31, validateSave, validateSaveV29,
++  validateSaveV30, validateSaveV31,
++} from '../src/core/save.js'
++
++// ── the T0 corpus: tests/fixtures/p14/genuine-v30-pre-b5 (MANIFEST.json written last; pins copied from it at HEAD) ──
++const V30_NAMES = [
++  'empty', 'current-p1', 'bound-open-p1', 'bound-open-p2-lead', 'bound-open-p2-lead-or-antagonist', 'kept-and-broken',
++  'rival-current-p1-and-p2', 'rival-shared-take-terminal', 'first-take-at-five', 'legacy-count-only-p2-current-draft',
++] as const
++type V30Name = typeof V30_NAMES[number]
++const V30_PINS: Record<V30Name, { gz: string; raw: string; week: number; bytes: number }> = {
++  empty: { gz: '7c237fef11cbc7c1f8e41b3ca8a4d3fad076f3e5df53ad72af2be1d37f2c2d9a', raw: '34f772fb643c0df0c63882511a396bcc296b7e327096c5970bc6f4a107be0525', week: 0, bytes: 383776 },
++  'current-p1': { gz: 'a13704632d58909b9edc330f2f6d946f3e3fe7bfc1d9d2adb3ab2a430fd540fd', raw: 'b7a32680df6f002c10829e7edd644a394b9b0cdac1427a7af0aef5395501aebe', week: 45, bytes: 675654 },
++  'bound-open-p1': { gz: '48962fd2c47d0b6557a8c68d281d11ed3b7528ddc1ad075372981dab40516bae', raw: 'afca923d2979caad72ffe660d069849e9e08f4eddf8642162c09ed8bd0f48c33', week: 52, bytes: 729829 },
++  'bound-open-p2-lead': { gz: '4966e51b75bf2ae7fcabf67bc27fd50781a42ce3833d0eb83847ed5573b59f7b', raw: '68651875e6382887050e7057c4d30f2b6251a9070cb71dcef41c9213c63ec702', week: 52, bytes: 726927 },
++  'bound-open-p2-lead-or-antagonist': { gz: '14508b4bdf5cb1242fb5f7891c92da13ed9c0719f4a1282d59850c4d17832ebe', raw: 'ab53968320371d261d0ec4c7083691512283e2af7365905914ebdc3a11408077', week: 52, bytes: 726939 },
++  'kept-and-broken': { gz: '5c55f3ac3f510643ce72405d65f0391fcf096a7ee64ad014d2ebd10851c716f5', raw: '6336f7560f1cb7896cb62162908f80d412bf87370b0df002b2f80cf9ceea2e36', week: 61, bytes: 796283 },
++  'rival-current-p1-and-p2': { gz: 'e2e8ac939875a1b23bd898c10773f707f8c64d77d476802499a591961d2316c1', raw: 'c155f636a8758f33e6ee002f124e5da2f51ffb5f37404cbbcf9d7cea736a52a1', week: 196, bytes: 1133174 },
++  'rival-shared-take-terminal': { gz: '0430ea318f96efaae373c1010eb0a9fc24f24de4b20a358fbe2b1f795f71ab3c', raw: 'a90f97cefd7031bbec526f94c1f6b714f54d6e5c4c89cf510ad3670bbe5a9eb6', week: 213, bytes: 1131552 },
++  'first-take-at-five': { gz: '62df3d07eee0a01da767203f51b0ce89edfdb281177511f848a740293ca4ceb7', raw: '3eab4f7af55917d3a011776850f129dc5dc135da8215d8ebec6845dfb8db620d', week: 60, bytes: 779578 },
++  'legacy-count-only-p2-current-draft': { gz: 'e7b33115f37605656649df2544885418680679b0dd5548afaaaeee52bcb4f174', raw: '3c46a87473dea1c231dfad248d5af483ed4331bc9ba6787262bba442a993a494', week: 45, bytes: 676337 },
++}
++const V30_AUTHORITY = {
++  phase: 'qualified P14B.4 logic closeout / exact last-V30 upstream before B.5',
++  testedSourceSha: '61833f0df4ffdb5673903d5a81680b2d37ba254b', textOnlySourceSha: '651fea8ba28450ad20dccf45f209bde6ab058aaa',
++  publishedRecoverySha: 'd6c11b9b4809d361e356ef74495e731f9296acc2',
++  schemaId: 'sha256:6f6b48805aadcf14d456614d87bf1571eb1ce0d9aa0bc44f604e7976f4f85538',
++  projectionVersion: 47, protocolVersion: 4, saveVersion: 30, promiseRulesVersion: 4,
++} as const
++// The genuine outgoing V29 corpus (tests/fixtures/p14/genuine-v29-pre-p2; the accepted pins of
++// tests/p14b4-save-v30-compatibility.test.ts, the frozen chain's own authority).
++const V29_NAMES = ['empty', 'current-p1', 'replaced-p1', 'withdrawn-p1', 'bound-open-p1', 'kept-and-broken-p1', 'rival-current-p1',
++  'rival-shared-take-terminal-p1', 'refused-p2-count-only-current-draft'] as const
++type V29Name = typeof V29_NAMES[number]
++const V29_PINS: Record<V29Name, string> = {
++  empty: '2ca7733a9e7d60f13c0fc46d3646e6bb4711962d394523684717a5503afaea6a',
++  'current-p1': '03017370f16d9d2cf211f5653650a6d41452f73f0e8b96bb4aa154a6a946f4ca',
++  'replaced-p1': '7d5dba1e1dcf78c361c42ccfe5637578a33e64e943662a6e201d699656eb9950',
++  'withdrawn-p1': '95a01ac1e86772fc7e0e338fdc167261a244fb09e2b15d8c73e8ba4cd7a0bae7',
++  'bound-open-p1': '9d1a1ea177f021477fbd73d401e76bbb4a0448a680253082a100c1e5246862d9',
++  'kept-and-broken-p1': 'd4ddc01941f4a814cf992ad101a3a03b0b64aaa0043953d2108fa234a0475c4c',
++  'rival-current-p1': '4902a1b2151529336091ffa30c488f2b6f2ecd818add1596eb8f37fbc81cb555',
++  'rival-shared-take-terminal-p1': '51cb83b5a9cbbc8aa08fdd1e66a269d2e57ff77a98e88d08e134f5d6a16d7918',
++  'refused-p2-count-only-current-draft': '7f7529cb05ab29d2b27bb2855448d2b72e69b5b222b6b351698da0ec7632a253',
++}
++const V28_FILES = ['legacy-v28-shooting-5', 'legacy-v28-open-case-45', 'legacy-v28-settled-208', 'legacy-v28-legacy-terminations-20'] as const
++// The genuine projection-47 runtime checkpoint (tests/fixtures/p14/genuine-projection47-runtime/MANIFEST.json).
++const CHECKPOINT = {
++  gz: '38275e91d083651f232a2845b1bd8b738ac996c63523c65203c4ca8f72703d11', raw: 'c7e3cd2a56ef0871b8a8754ce1a75b06d095916f9aeb71e57229fc2aeee6496b',
++  current: '6788225135a0c7a2eca94faaf6d0d068b8dac1ba00e7b6b8ad29c7d4338c7388', saved: 'b7a32680df6f002c10829e7edd644a394b9b0cdac1427a7af0aef5395501aebe',
++  journal: '5cad726588c2caf2514c13bf75de5eaa66747b345441a20c83ad9e620b3f7d99', sessionId: 'p14b5-genuine-outgoing47', week: 45,
++} as const
++
++const p14 = (path: string) => new URL('./fixtures/p14/' + path, import.meta.url)
++const sha = (value: string | Uint8Array) => createHash('sha256').update(value).digest('hex')
++type V30Save = ReturnType<typeof validateSaveV30>
++type StateRecord = Record<string, unknown>
++const rootsOf = (state: object): StateRecord => state as StateRecord
++
++function v30(name: V30Name): { raw: string; save: V30Save } {
++  const file = `genuine-v30-${name}.json.gz`
++  for (const suffix of ['.json.gz', '.provenance.json']) {
++    assert.ok(existsSync(p14('genuine-v30-pre-b5/genuine-v30-' + name + suffix)), 'T0 NOT COMPLETE: genuine V30 artifact missing: ' + name + suffix)
++  }
++  const compressed = readFileSync(p14('genuine-v30-pre-b5/' + file))
++  const raw = gunzipSync(compressed).toString('utf8')
++  expect(sha(compressed)).toBe(V30_PINS[name].gz)
++  expect(sha(raw)).toBe(V30_PINS[name].raw)
++  expect(Buffer.byteLength(raw, 'utf8')).toBe(V30_PINS[name].bytes)
++  const provenance = JSON.parse(readFileSync(p14('genuine-v30-pre-b5/genuine-v30-' + name + '.provenance.json'), 'utf8'))
++  const manifest = JSON.parse(readFileSync(p14('genuine-v30-pre-b5/MANIFEST.json'), 'utf8'))
++  expect(provenance).toMatchObject({ filename: file, compressedSha256: V30_PINS[name].gz, uncompressedSha256: V30_PINS[name].raw, seed: 'p13a-core-causal-01', week: V30_PINS[name].week, saveVersion: 30 })
++  expect(provenance.authority).toMatchObject(V30_AUTHORITY)
++  expect(provenance.observedHeadSha).toBe(V30_AUTHORITY.publishedRecoverySha)
++  expect(manifest.authority).toEqual(provenance.authority)
++  expect(manifest.fixtures).toHaveLength(10)
++  expect(manifest.fixtures.map((row: { filename: string }) => row.filename).sort()).toEqual(V30_NAMES.map((n) => `genuine-v30-${n}.json.gz`).sort())
++  expect(manifest.fixtures).toContainEqual(expect.objectContaining({ filename: file, compressedSha256: V30_PINS[name].gz, uncompressedSha256: V30_PINS[name].raw }))
++  const save = validateSaveV30(JSON.parse(raw)) // the genuine FROZEN validator first
++  expect(save.saveVersion).toBe(30)
++  expect(save.state.market.tick).toBe(V30_PINS[name].week)
++  expect(exportSave(save)).toBe(raw)
++  expect(Object.hasOwn(save.state, 'relationships')).toBe(false) // a V30 file never carries the B.5 root
++  return { raw, save }
++}
++function v29(name: V29Name) {
++  const compressed = readFileSync(p14('genuine-v29-pre-p2/genuine-v29-' + name + '.json.gz'))
++  const raw = gunzipSync(compressed).toString('utf8')
++  expect(sha(raw)).toBe(V29_PINS[name])
++  const save = validateSaveV29(JSON.parse(raw))
++  expect(exportSave(save)).toBe(raw)
++  return { raw, save }
++}
++function v28(name: typeof V28_FILES[number]) {
++  const raw = gunzipSync(readFileSync(p14(name + '.json.gz'))).toString('utf8')
++  const save = validateSave(JSON.parse(raw))
++  expect(save.saveVersion).toBe(28)
++  expect(exportSave(save)).toBe(raw)
++  return { raw, save }
++}
++function checkpoint() {
++  const compressed = readFileSync(p14('genuine-projection47-runtime/genuine-projection47-runtime.checkpoint.json.gz'))
++  expect(sha(compressed)).toBe(CHECKPOINT.gz)
++  const raw = gunzipSync(compressed).toString('utf8')
++  expect(sha(raw)).toBe(CHECKPOINT.raw)
++  const prior = JSON.parse(raw) as { schemaId: string; sessionId: string; currentSaveJson: string; savedSaveJson: string; journalDigest: string }
++  expect(prior).toMatchObject({ schemaId: V30_AUTHORITY.schemaId, sessionId: CHECKPOINT.sessionId, journalDigest: CHECKPOINT.journal })
++  expect(sha(prior.currentSaveJson)).toBe(CHECKPOINT.current)
++  expect(sha(prior.savedSaveJson)).toBe(CHECKPOINT.saved)
++  return prior
++}
++
++/** Family 9's byte law on ONE lifted envelope: the root opens EMPTY, every other root is byte-identical,
++ * the live routes accept it, the writer restamps it and the empty-root downgrade reproduces the V30 bytes. */
++function liftsLosslessly(raw: string, save: V30Save) {
++  const before = JSON.stringify(save)
++  const lifted = migrateToV31(save)
++  expect(lifted.saveVersion).toBe(LIVE_SAVE_VERSION) // the live route lands on the version the live writer stamps
++  expect(lifted.saveVersion).not.toBe(30) // and V30 is the OUTGOING identity
++  const state = rootsOf(lifted.state)
++  expect(state['relationships']).toEqual([])
++  expect(Object.keys(state).sort()).toEqual([...Object.keys(save.state), 'relationships'].sort())
++  for (const key of Object.keys(save.state)) {
++    expect(JSON.stringify(state[key])).toBe(JSON.stringify(rootsOf(save.state)[key])) // NOTHING is recomputed (Q3; scope (10))
++  }
++  expect(lifted.seed).toBe(save.seed)
++  expect(JSON.stringify(lifted.broadcastCache)).toBe(JSON.stringify(save.broadcastCache))
++  expect(validateSaveV31(lifted)).toEqual(lifted)
++  expect(validateSave(lifted)).toEqual(lifted)
++  expect(loadSave(lifted)).toEqual(lifted)
++  expect(importSave(exportSave(lifted))).toEqual(lifted)
++  expect(makeSave(lifted.state)).toEqual(lifted) // the live writer stamps exactly this envelope
++  expect(convertV30ToV31(save)).toEqual(lifted)
++  // lossless when empty: both downgrade routes reproduce the V30 bytes
++  for (const downgraded of [convertV31ToV30(lifted), migrateToV30(lifted)]) {
++    expect(downgraded.saveVersion).toBe(30)
++    expect(validateSaveV30(downgraded)).toEqual(save)
++    expect(exportSave(downgraded)).toBe(raw)
++  }
++  expect(JSON.stringify(save)).toBe(before) // copy-on-write: the source envelope is untouched
++  return lifted
++}
++
++// ─────────────────────────────────────────────────────────────────────────────────────────────────────
++describe('P14B.5 frozen side — the OUTGOING identities and the T0 corpus (GREEN today; moves only at the T2 values-only sweep)', () => {
++  it('LIVE_SAVE_VERSION is the OUTGOING literal 30 (R-VERSION class: the test-author re-expresses this pin after T2 lands V31)', () => {
++    expect(LIVE_SAVE_VERSION).toBe(30)
++  })
++
++  it('the dispatch sentinel is LIVE_SAVE_VERSION + 1, refused with the handled range "1 through <LIVE_SAVE_VERSION> only" (the law, stable across the bump)', () => {
++    const { save } = v30('empty')
++    const forged = { ...save, saveVersion: LIVE_SAVE_VERSION + 1 }
++    expect(() => validateSave(forged)).toThrow(new RegExp(`versions 1 through ${String(LIVE_SAVE_VERSION)} only`))
++    expect(() => loadSave(forged)).toThrow(new RegExp(`versions 1 through ${String(LIVE_SAVE_VERSION)} only`))
++  })
++
++  it.each(V30_NAMES)('genuine V30 %s: pins, provenance, the frozen V30 validator first, byte-stable export, and V29 downgrade law unchanged', (name) => {
++    const { raw, save } = v30(name)
++    expect(exportSave(loadSave(JSON.parse(raw)))).toBe(raw)
++    expect(exportSave(importSave(raw))).toBe(raw)
++    const tagged = save.state.promises.some((p) => Object.hasOwn(p.predicate, 'kind'))
++    if (tagged) expect(() => convertV30ToV29(save)).toThrow(/cannot downgrade SaveFileV30 or discard a tagged promise predicate/)
++    else expect(exportSave(migrateToV30(convertV30ToV29(save)))).toBe(raw)
++  })
++
++  it.each(V29_NAMES)('genuine V29 %s reaches V30 through the frozen chain byte-identically (the accepted P14B.4 law)', (name) => {
++    const { save } = v29(name)
++    const migrated = migrateToV30(save)
++    expect(migrated).toEqual({ ...save, saveVersion: 30 })
++    expect(exportSave(validateSaveV30(migrated))).toBe(exportSave(migrated))
++  })
++
++  it.each(V28_FILES)('legacy %s reaches V29 and V30 through the frozen chain with empty P14 roots', (name) => {
++    const { save } = v28(name)
++    const lifted = migrateToV30(save)
++    expect(lifted.saveVersion).toBe(30)
++    expect(lifted.state.firstTakes).toEqual([])
++    expect(lifted.state.promises).toEqual([])
++    expect(migrateToV29(save)).toEqual({ ...lifted, saveVersion: 29 })
++  })
++
++  it('the genuine projection-47 checkpoint embeds two genuine V30 saves; the saved slot IS the current-p1 raw', () => {
++    const prior = checkpoint()
++    for (const slot of ['currentSaveJson', 'savedSaveJson'] as const) {
++      const save = validateSaveV30(JSON.parse(prior[slot]))
++      expect(save.state.market.tick).toBe(CHECKPOINT.week)
++      expect(exportSave(save)).toBe(prior[slot])
++    }
++    expect(prior.savedSaveJson).toBe(v30('current-p1').raw)
++  })
++})
++
++// ─────────────────────────────────────────────────────────────────────────────────────────────────────
++describe('family 9 — every genuine V30 case migrates through migrateToV31 with an EMPTY root, otherwise byte-identical; lossless downgrade when empty', () => {
++  it('the four V31 save exports exist (RED until T2 lands the V31 block; never a spurious pass on an undefined binding)', () => {
++    for (const fn of [validateSaveV31, migrateToV31, convertV30ToV31, convertV31ToV30]) expect(typeof fn).toBe('function')
++  })
++
++  it.each(V30_NAMES)('genuine V30 %s', (name) => {
++    const { raw, save } = v30(name)
++    liftsLosslessly(raw, save)
++    // the version-dispatched live readers land on the live version, never on the outgoing 30
++    for (const loaded of [loadSave(JSON.parse(raw)), importSave(raw)]) {
++      expect(loaded.saveVersion).toBe(30) // the FROZEN reader still recognises its own bytes …
++      expect(migrateToV31(loaded).saveVersion).toBe(LIVE_SAVE_VERSION) // … and the live route lifts them
++    }
++  })
++
++  it('the older routes see a lifted V31 exactly as they saw its V30 source (each migrateToVn gained the 31 route line)', () => {
++    for (const name of ['empty', 'current-p1', 'bound-open-p2-lead', 'rival-shared-take-terminal'] as const) {
++      const { save } = v30(name)
++      const lifted = migrateToV31(save)
++      for (const older of [migrateToV29, migrateToV28, migrateToV27, migrateToV26]) {
++        let fromV30: unknown, fromV31: unknown
++        try { fromV30 = older(save) } catch (error) { fromV30 = { threw: (error as Error).message } }
++        try { fromV31 = older(lifted) } catch (error) { fromV31 = { threw: (error as Error).message.replace(/SaveFileV31|the relationship record/g, '') } }
++        if (typeof fromV30 === 'object' && fromV30 !== null && 'threw' in fromV30) {
++          expect(fromV31).toHaveProperty('threw')
++          expect(String((fromV31 as { threw: string }).threw)).toMatch(/cannot downgrade/)
++        } else {
++          expect(fromV31).toEqual(fromV30)
++        }
++      }
++    }
++  })
++})
++
++describe('family 9 — the V29 and V28 corpora reach V31 through their frozen chains unchanged (R4 through migrateToV31)', () => {
++  it('migrateToV31 exists', () => { expect(typeof migrateToV31).toBe('function') })
++
++  it.each(V29_NAMES)('genuine V29 %s', (name) => {
++    const { save } = v29(name)
++    const viaV30 = migrateToV30(save)
++    const lifted = migrateToV31(save)
++    expect(lifted).toEqual(migrateToV31(viaV30))
++    expect(lifted.saveVersion).toBe(LIVE_SAVE_VERSION)
++    expect(rootsOf(lifted.state)['relationships']).toEqual([])
++    for (const key of Object.keys(save.state)) expect(JSON.stringify(rootsOf(lifted.state)[key])).toBe(JSON.stringify(rootsOf(save.state)[key]))
++    expect(exportSave(migrateToV30(lifted))).toBe(exportSave(viaV30))
++  })
++
++  it.each(V28_FILES)('legacy %s', (name) => {
++    const { save } = v28(name)
++    const viaV30 = migrateToV30(save)
++    const lifted = migrateToV31(save)
++    expect(lifted.saveVersion).toBe(LIVE_SAVE_VERSION)
++    expect(rootsOf(lifted.state)['relationships']).toEqual([])
++    for (const key of Object.keys(viaV30.state)) expect(JSON.stringify(rootsOf(lifted.state)[key])).toBe(JSON.stringify(rootsOf(viaV30.state)[key]))
++    expect(exportSave(migrateToV30(lifted))).toBe(exportSave(viaV30))
++  })
++})
++
++describe('family 9 — the projection-47 checkpoint\'s embedded saves load through the live route', () => {
++  it('migrateToV31 exists', () => { expect(typeof migrateToV31).toBe('function') })
++
++  it.each(['currentSaveJson', 'savedSaveJson'] as const)('%s lifts with an empty root and every other root byte-identical to its own genuine V30 bytes', (slot) => {
++    const prior = checkpoint()
++    const old = validateSaveV30(JSON.parse(prior[slot]))
++    const lifted = liftsLosslessly(prior[slot], old)
++    expect(lifted.state.market.tick).toBe(CHECKPOINT.week)
++    expect(lifted.state.promises).toEqual(old.state.promises)
++    expect(lifted.state.firstTakes).toEqual(old.state.firstTakes)
++    expect(lifted.state.talentMarket).toEqual(old.state.talentMarket)
++    expect(lifted.state.hollywood).toEqual(old.state.hollywood)
++  })
++})
++
++describe('family 9 — the V31 validator\'s own boundary (envelope law only; edge faults are the synthetic file\'s)', () => {
++  it('validateSaveV31 exists', () => { expect(typeof validateSaveV31).toBe('function') })
++
++  it('refuses a V30 envelope (no root) and a lifted envelope whose root was removed, without repairing either', () => {
++    const { save } = v30('current-p1')
++    expect(() => validateSaveV31(save)).toThrow(/validateSaveV31/)
++    const lifted = migrateToV31(save)
++    const stripped = { ...lifted, state: Object.fromEntries(Object.entries(rootsOf(lifted.state)).filter(([key]) => key !== 'relationships')) }
++    expect(() => validateSaveV31(stripped)).toThrow(/relationships/)
++    expect(() => validateSaveV31({ ...lifted, saveVersion: 30 })).toThrow(/validateSaveV31/)
++    expect(() => validateSaveV30(lifted)).toThrow(/validateSaveV30/) // the frozen V30 validator is never taught the new root
++  })
++})

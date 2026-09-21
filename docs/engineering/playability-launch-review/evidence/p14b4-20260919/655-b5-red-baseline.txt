@@ -1,0 +1,380 @@
+{"sourceSha":"8708d6a98e6eb4ad53e3a54e431c4b40b974f79d","testedDiffSha256":"b05442018e7f8ce27f42eec9b7e69f0e5eee6cab957679c95d21a7de3705670d","untrackedSource":["tests/bridge-p14b5-relationships.test.ts","tests/p14b5-relationships.test.ts","tests/p14b5-save-v31.test.ts"],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14b5-relationships.test.ts","tests/p14b5-save-v31.test.ts","tests/bridge-p14b5-relationships.test.ts","--minWorkers=1","--maxWorkers=1"],"node":"v20.20.2","start":"2026-09-21T23:31:00.576Z","end":null,"exitCode":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/p14b5-relationships.test.ts (0 test)
+stdout | tests/bridge-p14b5-relationships.test.ts > family 12 — the R-D5 natural-chain LEDGER (measured; the frozen controls MUST NOT move at T2; after T2 every settlement is checked against the D5 receipt facts) > the MOST EXPOSED shared fixture, poachingFixture (p14b2-fixtures.ts :145-211; consumers bridge-p14b2-trust, p14b2-fixture-preconditions): the week-208 reasons pin and endedWeek 208 hold, and under D1 no survivor holds a shared-take counterpart
+poaching pipeline premise {"week":197,"promises":[{"promiseId":"promise-42","version":4,"issuerStudioId":"studio-5a47d054-r01","beneficiaryPersonId":"person-studio-5a47d054-r04-3","windowStartWeek":208,"dueWeekExclusive":416,"feasibilityReceipt":{"classification":"REASONABLY_ACHIEVABLE","bottleneck":null,"inputsDigest":"d47355fa0c8494c3","rulesVersion":4,"week":196},"progress":0,"evidenceRefs":[],"outcome":null,"outcomeWeek":null,"outcomeCause":null,"outcomeEventId":null,"contractId":null,"family":"LEAD_OR_SIGNIFICANT_ROLE_COUNT","predicate":{"kind":"castRoleCount","count":1,"seatClass":"leadOrAntagonist"}},{"promiseId":"promise-43","version":4,"issuerStudioId":"studio-5a47d054-r02","beneficiaryPersonId":"person-studio-5a47d054-r04-3","windowStartWeek":208,"dueWeekExclusive":416,"feasibilityReceipt":{"classification":"REASONABLY_ACHIEVABLE","bottleneck":null,"inputsDigest":"dfa4a41e3f908bd0","rulesVersion":4,"week":196},"progress":0,"evidenceRefs":[],"outcome":null,"outcomeWeek":null,"outcomeCause":null,"outcomeEventId":null,"contractId":null,"family":"LEAD_OR_SIGNIFICANT_ROLE_COUNT","predicate":{"kind":"castRoleCount","count":1,"seatClass":"leadOrAntagonist"}}],"scripts":{"mode":"managed","projects":[{"id":"script-0000","conceptId":"c-00","writerId":"t-wri-10","writerIds":["t-wri-10"],"shape":{"opening":"slowSetup","midpoint":"revelation","ending":"bittersweet"},"promise":{"genre":"comedy","intendedSegments":["adult"],"ranges":{"intimacy":[-0.5,0.5],"tonalWeight":[-0.5,0.5],"kineticEnergy":[-0.5,0.5]}},"status":"review","rewriteCount":0,"commissionedWeek":196,"dueWeek":null,"assessment":{"actualStrength":68.72650768853818,"perceivedStrength":68.72650768853818},"reservation":null,"productionId":null},{"id":"script-0001","conceptId":"c-01","writerId":"t-wri-10","writerIds":["t-wri-10"],"shape":{"opening":"slowSetup","midpoint":"revelation","ending":"bittersweet"},"promise":{"genre":"romance","intendedSegments":["adult"],"ranges":{"intimacy":[-0.5,0.5],"tonalWeight":[-0.5,0.5],"kineticEnergy":[-0.5,0.5]}},"status":"drafting","rewriteCount":0,"commissionedWeek":197,"dueWeek":198,"assessment":null,"reservation":{"projectId":"script-0001","facilityId":"facility-development-casting","capability":"development-casting","slot":0},"productionId":null}]},"concepts":["c-00","c-01","c-02","c-03","c-04","c-05","c-06","c-07","c-08","c-09","c-10","c-11","c-12","c-13","c-14","c-15","c-16","c-17","c-18","c-19","c-20","c-21","c-22","c-23","c-24","c-25","c-26","c-27","c-28","c-29"],"stages":[{"id":"facility-soundstage-07","name":"Soundstage 7","capability":"soundstage","capacity":1},{"id":"facility-soundstage-12","name":"Soundstage 12","capability":"soundstage","capacity":1}]}
+
+ ❯ |core| tests/bridge-p14b5-relationships.test.ts (15 tests | 6 failed) 31106ms
+   ✓ P14B.5 frozen side — the OUTGOING wire identities (GREEN today; R-VERSION class, re-expressed after T2 by the test-author's sweep) > the genuine projection-47 checkpoint loads as the CURRENT identity today (no migration) 662ms
+   × family 11 — projection 48 THIN (RED by value): the enum, the registry, the seven-member order, the D5 sentence on the wire > the priorityOrder wire enum gains `relationships` (seven members, closed) 16ms
+     → expected [ 'compensation', 'incumbency', …(4) ] to deeply equal [ 'compensation', 'incumbency', …(5) ]
+   × family 11 — projection 48 THIN (RED by value): the enum, the registry, the seven-member order, the D5 sentence on the wire > the running identity moves off the outgoing 47 and 47 is registered as projection-v47 beside the 35 accepted priors (36) 1ms
+     → expected 47 to be greater than 47
+   × family 11 — projection 48 THIN (RED by value): the enum, the registry, the seven-member order, the D5 sentence on the wire > the genuine projection-47 checkpoint takes the governed prior path and currentSaveJson lands on the live save through migrateToV31 4ms
+     → expected 'undefined' to be 'function' // Object.is equality
+   × family 11 — projection 48 THIN (RED by value): the enum, the registry, the seven-member order, the D5 sentence on the wire > the genuine projection-47 checkpoint takes the governed prior path and savedSaveJson lands on the live save through migrateToV31 1ms
+     → expected 'undefined' to be 'function' // Object.is equality
+   × family 11 — projection 48 THIN (RED by value): the enum, the registry, the seven-member order, the D5 sentence on the wire > preferences.priorityOrder publishes SEVEN members on a genuine open case with the `line` unchanged, and the value parses against the widened enum 30ms
+     → expected [ 'opportunity', 'compensation', …(4) ] to deeply equal [ 'opportunity', 'compensation', …(5) ]
+   × family 11 — projection 48 THIN (RED by value): the enum, the registry, the seven-member order, the D5 sentence on the wire > the D5 settlement sentence reaches settlementReasons VERBATIM on the family-6 world, and no closeness, edge or driver leaks onto any serialized DTO 5ms
+     → RED: src/core/relationships.ts does not exist yet
+   ✓ family 12 — the R-D5 natural-chain LEDGER (measured; the frozen controls MUST NOT move at T2; after T2 every settlement is checked against the D5 receipt facts) > p13a-core-causal-01: chain digests, row counts, churn rosters empty under D1, zero exposed rows through 416; the nine frozen drop templates only 5499ms
+   ✓ family 12 — the R-D5 natural-chain LEDGER (measured; the frozen controls MUST NOT move at T2; after T2 every settlement is checked against the D5 receipt facts) > seed-b: chain digests, row counts, churn rosters empty under D1, zero exposed rows through 416; the nine frozen drop templates only 8331ms
+   ✓ family 12 — the R-D5 natural-chain LEDGER (measured; the frozen controls MUST NOT move at T2; after T2 every settlement is checked against the D5 receipt facts) > p13b-s8-bridge-probe-01: chain digests, row counts, churn rosters empty under D1, zero exposed rows through 416; the nine frozen drop templates only 5973ms
+   ✓ family 12 — the R-D5 natural-chain LEDGER (measured; the frozen controls MUST NOT move at T2; after T2 every settlement is checked against the D5 receipt facts) > p13-public-commercial-adoption: chain digests, row counts, churn rosters empty under D1, zero exposed rows through 416; the nine frozen drop templates only 6158ms
+   ✓ family 12 — the R-D5 natural-chain LEDGER (measured; the frozen controls MUST NOT move at T2; after T2 every settlement is checked against the D5 receipt facts) > the MOST EXPOSED shared fixture, poachingFixture (p14b2-fixtures.ts :145-211; consumers bridge-p14b2-trust, p14b2-fixture-preconditions): the week-208 reasons pin and endedWeek 208 hold, and under D1 no survivor holds a shared-take counterpart 4366ms
+ ❯ |core| tests/p14b5-save-v31.test.ts (57 tests | 31 failed) 11813ms
+   ✓ P14B.5 frozen side — the OUTGOING identities and the T0 corpus (GREEN today; moves only at the T2 values-only sweep) > the dispatch sentinel is LIVE_SAVE_VERSION + 1, refused with the handled range "1 through <LIVE_SAVE_VERSION> only" (the law, stable across the bump) 309ms
+   ✓ P14B.5 frozen side — the OUTGOING identities and the T0 corpus (GREEN today; moves only at the T2 values-only sweep) > genuine V30 current-p1: pins, provenance, the frozen V30 validator first, byte-stable export, and V29 downgrade law unchanged 416ms
+   ✓ P14B.5 frozen side — the OUTGOING identities and the T0 corpus (GREEN today; moves only at the T2 values-only sweep) > genuine V30 bound-open-p1: pins, provenance, the frozen V30 validator first, byte-stable export, and V29 downgrade law unchanged 365ms
+   ✓ P14B.5 frozen side — the OUTGOING identities and the T0 corpus (GREEN today; moves only at the T2 values-only sweep) > genuine V30 kept-and-broken: pins, provenance, the frozen V30 validator first, byte-stable export, and V29 downgrade law unchanged 407ms
+   ✓ P14B.5 frozen side — the OUTGOING identities and the T0 corpus (GREEN today; moves only at the T2 values-only sweep) > genuine V30 rival-current-p1-and-p2: pins, provenance, the frozen V30 validator first, byte-stable export, and V29 downgrade law unchanged 450ms
+   ✓ P14B.5 frozen side — the OUTGOING identities and the T0 corpus (GREEN today; moves only at the T2 values-only sweep) > genuine V30 legacy-count-only-p2-current-draft: pins, provenance, the frozen V30 validator first, byte-stable export, and V29 downgrade law unchanged 383ms
+   ✓ P14B.5 frozen side — the OUTGOING identities and the T0 corpus (GREEN today; moves only at the T2 values-only sweep) > genuine V29 current-p1 reaches V30 through the frozen chain byte-identically (the accepted P14B.4 law) 312ms
+   ✓ P14B.5 frozen side — the OUTGOING identities and the T0 corpus (GREEN today; moves only at the T2 values-only sweep) > genuine V29 kept-and-broken-p1 reaches V30 through the frozen chain byte-identically (the accepted P14B.4 law) 552ms
+   ✓ P14B.5 frozen side — the OUTGOING identities and the T0 corpus (GREEN today; moves only at the T2 values-only sweep) > genuine V29 rival-current-p1 reaches V30 through the frozen chain byte-identically (the accepted P14B.4 law) 388ms
+   ✓ P14B.5 frozen side — the OUTGOING identities and the T0 corpus (GREEN today; moves only at the T2 values-only sweep) > genuine V29 rival-shared-take-terminal-p1 reaches V30 through the frozen chain byte-identically (the accepted P14B.4 law) 388ms
+   ✓ P14B.5 frozen side — the OUTGOING identities and the T0 corpus (GREEN today; moves only at the T2 values-only sweep) > legacy legacy-v28-settled-208 reaches V29 and V30 through the frozen chain with empty P14 roots 628ms
+   ✓ P14B.5 frozen side — the OUTGOING identities and the T0 corpus (GREEN today; moves only at the T2 values-only sweep) > legacy legacy-v28-legacy-terminations-20 reaches V29 and V30 through the frozen chain with empty P14 roots 312ms
+   × family 9 — every genuine V30 case migrates through migrateToV31 with an EMPTY root, otherwise byte-identical; lossless downgrade when empty > the four V31 save exports exist (RED until T2 lands the V31 block; never a spurious pass on an undefined binding) 12ms
+     → expected 'undefined' to be 'function' // Object.is equality
+   × family 9 — every genuine V30 case migrates through migrateToV31 with an EMPTY root, otherwise byte-identical; lossless downgrade when empty > genuine V30 empty 51ms
+     → migrateToV31 is not a function
+   × family 9 — every genuine V30 case migrates through migrateToV31 with an EMPTY root, otherwise byte-identical; lossless downgrade when empty > genuine V30 current-p1 71ms
+     → migrateToV31 is not a function
+   × family 9 — every genuine V30 case migrates through migrateToV31 with an EMPTY root, otherwise byte-identical; lossless downgrade when empty > genuine V30 bound-open-p1 74ms
+     → migrateToV31 is not a function
+   × family 9 — every genuine V30 case migrates through migrateToV31 with an EMPTY root, otherwise byte-identical; lossless downgrade when empty > genuine V30 bound-open-p2-lead 72ms
+     → migrateToV31 is not a function
+   × family 9 — every genuine V30 case migrates through migrateToV31 with an EMPTY root, otherwise byte-identical; lossless downgrade when empty > genuine V30 bound-open-p2-lead-or-antagonist 81ms
+     → migrateToV31 is not a function
+   × family 9 — every genuine V30 case migrates through migrateToV31 with an EMPTY root, otherwise byte-identical; lossless downgrade when empty > genuine V30 kept-and-broken 97ms
+     → migrateToV31 is not a function
+   × family 9 — every genuine V30 case migrates through migrateToV31 with an EMPTY root, otherwise byte-identical; lossless downgrade when empty > genuine V30 rival-current-p1-and-p2 99ms
+     → migrateToV31 is not a function
+   × family 9 — every genuine V30 case migrates through migrateToV31 with an EMPTY root, otherwise byte-identical; lossless downgrade when empty > genuine V30 rival-shared-take-terminal 100ms
+     → migrateToV31 is not a function
+   × family 9 — every genuine V30 case migrates through migrateToV31 with an EMPTY root, otherwise byte-identical; lossless downgrade when empty > genuine V30 first-take-at-five 77ms
+     → migrateToV31 is not a function
+   × family 9 — every genuine V30 case migrates through migrateToV31 with an EMPTY root, otherwise byte-identical; lossless downgrade when empty > genuine V30 legacy-count-only-p2-current-draft 76ms
+     → migrateToV31 is not a function
+   × family 9 — every genuine V30 case migrates through migrateToV31 with an EMPTY root, otherwise byte-identical; lossless downgrade when empty > the older routes see a lifted V31 exactly as they saw its V30 source (each migrateToVn gained the 31 route line) 56ms
+     → migrateToV31 is not a function
+   × family 9 — the V29 and V28 corpora reach V31 through their frozen chains unchanged (R4 through migrateToV31) > migrateToV31 exists 3ms
+     → expected 'undefined' to be 'function' // Object.is equality
+   × family 9 — the V29 and V28 corpora reach V31 through their frozen chains unchanged (R4 through migrateToV31) > genuine V29 empty 90ms
+     → migrateToV31 is not a function
+   × family 9 — the V29 and V28 corpora reach V31 through their frozen chains unchanged (R4 through migrateToV31) > genuine V29 current-p1 174ms
+     → migrateToV31 is not a function
+   × family 9 — the V29 and V28 corpora reach V31 through their frozen chains unchanged (R4 through migrateToV31) > genuine V29 replaced-p1 180ms
+     → migrateToV31 is not a function
+   × family 9 — the V29 and V28 corpora reach V31 through their frozen chains unchanged (R4 through migrateToV31) > genuine V29 withdrawn-p1 155ms
+     → migrateToV31 is not a function
+   × family 9 — the V29 and V28 corpora reach V31 through their frozen chains unchanged (R4 through migrateToV31) > genuine V29 bound-open-p1 426ms
+     → migrateToV31 is not a function
+   × family 9 — the V29 and V28 corpora reach V31 through their frozen chains unchanged (R4 through migrateToV31) > genuine V29 kept-and-broken-p1 157ms
+     → migrateToV31 is not a function
+   × family 9 — the V29 and V28 corpora reach V31 through their frozen chains unchanged (R4 through migrateToV31) > genuine V29 rival-current-p1 239ms
+     → migrateToV31 is not a function
+   × family 9 — the V29 and V28 corpora reach V31 through their frozen chains unchanged (R4 through migrateToV31) > genuine V29 rival-shared-take-terminal-p1 240ms
+     → migrateToV31 is not a function
+   × family 9 — the V29 and V28 corpora reach V31 through their frozen chains unchanged (R4 through migrateToV31) > genuine V29 refused-p2-count-only-current-draft 137ms
+     → migrateToV31 is not a function
+   × family 9 — the V29 and V28 corpora reach V31 through their frozen chains unchanged (R4 through migrateToV31) > legacy legacy-v28-shooting-5 114ms
+     → migrateToV31 is not a function
+   × family 9 — the V29 and V28 corpora reach V31 through their frozen chains unchanged (R4 through migrateToV31) > legacy legacy-v28-open-case-45 187ms
+     → migrateToV31 is not a function
+   × family 9 — the V29 and V28 corpora reach V31 through their frozen chains unchanged (R4 through migrateToV31) > legacy legacy-v28-settled-208 352ms
+     → migrateToV31 is not a function
+   × family 9 — the V29 and V28 corpora reach V31 through their frozen chains unchanged (R4 through migrateToV31) > legacy legacy-v28-legacy-terminations-20 142ms
+     → migrateToV31 is not a function
+   × family 9 — the projection-47 checkpoint's embedded saves load through the live route > migrateToV31 exists 1ms
+     → expected 'undefined' to be 'function' // Object.is equality
+   × family 9 — the projection-47 checkpoint's embedded saves load through the live route > currentSaveJson lifts with an empty root and every other root byte-identical to its own genuine V30 bytes 86ms
+     → migrateToV31 is not a function
+   × family 9 — the projection-47 checkpoint's embedded saves load through the live route > savedSaveJson lifts with an empty root and every other root byte-identical to its own genuine V30 bytes 76ms
+     → migrateToV31 is not a function
+   × family 9 — the V31 validator's own boundary (envelope law only; edge faults are the synthetic file's) > validateSaveV31 exists 1ms
+     → expected 'undefined' to be 'function' // Object.is equality
+   × family 9 — the V31 validator's own boundary (envelope law only; edge faults are the synthetic file's) > refuses a V30 envelope (no root) and a lifted envelope whose root was removed, without repairing either 81ms
+     → migrateToV31 is not a function
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14b5-relationships.test.ts [ tests/p14b5-relationships.test.ts ]
+Error: Failed to load url ../src/core/relationships.js (resolved id: ../src/core/relationships.js) in /Users/zacheryspector/The-Movies-headless-program/tests/p14b5-relationships.test.ts. Does the file exist?
+ ❯ loadAndTransform node_modules/vitest/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:51969:17
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/38]⎯
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 37 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/bridge-p14b5-relationships.test.ts > family 11 — projection 48 THIN (RED by value): the enum, the registry, the seven-member order, the D5 sentence on the wire > the priorityOrder wire enum gains `relationships` (seven members, closed)
+AssertionError: expected [ 'compensation', 'incumbency', …(4) ] to deeply equal [ 'compensation', 'incumbency', …(5) ]
+
+- Expected
++ Received
+
+  Array [
+    "compensation",
+    "incumbency",
+    "opportunity",
+-   "relationships",
+    "standing",
+    "term",
+    "trust",
+  ]
+
+ ❯ tests/bridge-p14b5-relationships.test.ts:326:36
+    324| describe('family 11 — projection 48 THIN (RED by value): the enum, the…
+    325|   it('the priorityOrder wire enum gains `relationships` (seven members…
+    326|     expect([...wireEnum()].sort()).toEqual([...WIRE_ENUM_7].sort())
+       |                                    ^
+    327|   })
+    328| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/38]⎯
+
+ FAIL |core|  tests/bridge-p14b5-relationships.test.ts > family 11 — projection 48 THIN (RED by value): the enum, the registry, the seven-member order, the D5 sentence on the wire > the running identity moves off the outgoing 47 and 47 is registered as projection-v47 beside the 35 accepted priors (36)
+AssertionError: expected 47 to be greater than 47
+ ❯ tests/bridge-p14b5-relationships.test.ts:330:32
+    328| 
+    329|   it('the running identity moves off the outgoing 47 and 47 is registe…
+    330|     expect(PROJECTION_VERSION).toBeGreaterThan(OUTGOING_PROJECTION)
+       |                                ^
+    331|     expect(SCHEMA_ID).not.toBe(OUTGOING_47)
+    332|     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/38]⎯
+
+ FAIL |core|  tests/bridge-p14b5-relationships.test.ts > family 11 — projection 48 THIN (RED by value): the enum, the registry, the seven-member order, the D5 sentence on the wire > the genuine projection-47 checkpoint takes the governed prior path and currentSaveJson lands on the live save through migrateToV31
+ FAIL |core|  tests/bridge-p14b5-relationships.test.ts > family 11 — projection 48 THIN (RED by value): the enum, the registry, the seven-member order, the D5 sentence on the wire > the genuine projection-47 checkpoint takes the governed prior path and savedSaveJson lands on the live save through migrateToV31
+AssertionError: expected 'undefined' to be 'function' // Object.is equality
+
+Expected: "function"
+Received: "undefined"
+
+ ❯ tests/bridge-p14b5-relationships.test.ts:339:33
+    337| 
+    338|   it.each(['currentSaveJson', 'savedSaveJson'] as const)('the genuine …
+    339|     expect(typeof migrateToV31).toBe('function')
+       |                                 ^
+    340|     const { raw, prior } = checkpoint()
+    341|     const loaded = loadBridgeRuntimeCheckpoint(raw, undefined, () => '…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/38]⎯
+
+ FAIL |core|  tests/bridge-p14b5-relationships.test.ts > family 11 — projection 48 THIN (RED by value): the enum, the registry, the seven-member order, the D5 sentence on the wire > preferences.priorityOrder publishes SEVEN members on a genuine open case with the `line` unchanged, and the value parses against the widened enum
+AssertionError: expected [ 'opportunity', 'compensation', …(4) ] to deeply equal [ 'opportunity', 'compensation', …(5) ]
+
+- Expected
++ Received
+
+  Array [
+    "opportunity",
+    "compensation",
+-   "relationships",
+    "term",
+    "trust",
+    "standing",
+    "incumbency",
+  ]
+
+ ❯ tests/bridge-p14b5-relationships.test.ts:363:45
+    361|     const state = currentP1()
+    362|     const block = marketCaseProjection(state, CHECKPOINT.talentId, pla…
+    363|     expect(block.preferences.priorityOrder).toEqual([...UNPROVEN_ORDER…
+       |                                             ^
+    364|     expect(block.preferences.line).toBe(CURRENT_P1_LINE)
+    365|     expect(parseWireValue(BRIDGE_SCHEMA.$defs.StudioMarketPreferencesS…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/38]⎯
+
+ FAIL |core|  tests/bridge-p14b5-relationships.test.ts > family 11 — projection 48 THIN (RED by value): the enum, the registry, the seven-member order, the D5 sentence on the wire > the D5 settlement sentence reaches settlementReasons VERBATIM on the family-6 world, and no closeness, edge or driver leaks onto any serialized DTO
+AssertionError: RED: src/core/relationships.ts does not exist yet
+
+- Expected: 
+true
+
++ Received: 
+null
+
+ ❯ tests/bridge-p14b5-relationships.test.ts:373:12
+    371|   it('the D5 settlement sentence reaches settlementReasons VERBATIM on…
+    372|     const rel = await relationships()
+    373|     assert.ok(rel, 'RED: src/core/relationships.ts does not exist yet')
+       |            ^
+    374|     expect(typeof rel.currentTier).toBe('function')
+    375|     const base = f6Base()
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/38]⎯
+
+ FAIL |core|  tests/p14b5-save-v31.test.ts > family 9 — every genuine V30 case migrates through migrateToV31 with an EMPTY root, otherwise byte-identical; lossless downgrade when empty > the four V31 save exports exist (RED until T2 lands the V31 block; never a spurious pass on an undefined binding)
+AssertionError: expected 'undefined' to be 'function' // Object.is equality
+
+Expected: "function"
+Received: "undefined"
+
+ ❯ tests/p14b5-save-v31.test.ts:224:107
+    222| describe('family 9 — every genuine V30 case migrates through migrateTo…
+    223|   it('the four V31 save exports exist (RED until T2 lands the V31 bloc…
+    224|     for (const fn of [validateSaveV31, migrateToV31, convertV30ToV31, …
+       |                                                                                                           ^
+    225|   })
+    226| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/38]⎯
+
+ FAIL |core|  tests/p14b5-save-v31.test.ts > family 9 — every genuine V30 case migrates through migrateToV31 with an EMPTY root, otherwise byte-identical; lossless downgrade when empty > genuine V30 empty
+ FAIL |core|  tests/p14b5-save-v31.test.ts > family 9 — every genuine V30 case migrates through migrateToV31 with an EMPTY root, otherwise byte-identical; lossless downgrade when empty > genuine V30 current-p1
+ FAIL |core|  tests/p14b5-save-v31.test.ts > family 9 — every genuine V30 case migrates through migrateToV31 with an EMPTY root, otherwise byte-identical; lossless downgrade when empty > genuine V30 bound-open-p1
+ FAIL |core|  tests/p14b5-save-v31.test.ts > family 9 — every genuine V30 case migrates through migrateToV31 with an EMPTY root, otherwise byte-identical; lossless downgrade when empty > genuine V30 bound-open-p2-lead
+ FAIL |core|  tests/p14b5-save-v31.test.ts > family 9 — every genuine V30 case migrates through migrateToV31 with an EMPTY root, otherwise byte-identical; lossless downgrade when empty > genuine V30 bound-open-p2-lead-or-antagonist
+ FAIL |core|  tests/p14b5-save-v31.test.ts > family 9 — every genuine V30 case migrates through migrateToV31 with an EMPTY root, otherwise byte-identical; lossless downgrade when empty > genuine V30 kept-and-broken
+ FAIL |core|  tests/p14b5-save-v31.test.ts > family 9 — every genuine V30 case migrates through migrateToV31 with an EMPTY root, otherwise byte-identical; lossless downgrade when empty > genuine V30 rival-current-p1-and-p2
+ FAIL |core|  tests/p14b5-save-v31.test.ts > family 9 — every genuine V30 case migrates through migrateToV31 with an EMPTY root, otherwise byte-identical; lossless downgrade when empty > genuine V30 rival-shared-take-terminal
+ FAIL |core|  tests/p14b5-save-v31.test.ts > family 9 — every genuine V30 case migrates through migrateToV31 with an EMPTY root, otherwise byte-identical; lossless downgrade when empty > genuine V30 first-take-at-five
+ FAIL |core|  tests/p14b5-save-v31.test.ts > family 9 — every genuine V30 case migrates through migrateToV31 with an EMPTY root, otherwise byte-identical; lossless downgrade when empty > genuine V30 legacy-count-only-p2-current-draft
+TypeError: migrateToV31 is not a function
+ ❯ liftsLosslessly tests/p14b5-save-v31.test.ts:145:18
+    143| function liftsLosslessly(raw: string, save: V30Save) {
+    144|   const before = JSON.stringify(save)
+    145|   const lifted = migrateToV31(save)
+       |                  ^
+    146|   expect(lifted.saveVersion).toBe(LIVE_SAVE_VERSION) // the live route…
+    147|   expect(lifted.saveVersion).not.toBe(30) // and V30 is the OUTGOING i…
+ ❯ tests/p14b5-save-v31.test.ts:229:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/38]⎯
+
+ FAIL |core|  tests/p14b5-save-v31.test.ts > family 9 — every genuine V30 case migrates through migrateToV31 with an EMPTY root, otherwise byte-identical; lossless downgrade when empty > the older routes see a lifted V31 exactly as they saw its V30 source (each migrateToVn gained the 31 route line)
+TypeError: migrateToV31 is not a function
+ ❯ tests/p14b5-save-v31.test.ts:240:22
+    238|     for (const name of ['empty', 'current-p1', 'bound-open-p2-lead', '…
+    239|       const { save } = v30(name)
+    240|       const lifted = migrateToV31(save)
+       |                      ^
+    241|       for (const older of [migrateToV29, migrateToV28, migrateToV27, m…
+    242|         let fromV30: unknown, fromV31: unknown
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/38]⎯
+
+ FAIL |core|  tests/p14b5-save-v31.test.ts > family 9 — the V29 and V28 corpora reach V31 through their frozen chains unchanged (R4 through migrateToV31) > migrateToV31 exists
+AssertionError: expected 'undefined' to be 'function' // Object.is equality
+
+Expected: "function"
+Received: "undefined"
+
+ ❯ tests/p14b5-save-v31.test.ts:257:65
+    255| 
+    256| describe('family 9 — the V29 and V28 corpora reach V31 through their f…
+    257|   it('migrateToV31 exists', () => { expect(typeof migrateToV31).toBe('…
+       |                                                                 ^
+    258| 
+    259|   it.each(V29_NAMES)('genuine V29 %s', (name) => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/38]⎯
+
+ FAIL |core|  tests/p14b5-save-v31.test.ts > family 9 — the V29 and V28 corpora reach V31 through their frozen chains unchanged (R4 through migrateToV31) > genuine V29 empty
+ FAIL |core|  tests/p14b5-save-v31.test.ts > family 9 — the V29 and V28 corpora reach V31 through their frozen chains unchanged (R4 through migrateToV31) > genuine V29 current-p1
+ FAIL |core|  tests/p14b5-save-v31.test.ts > family 9 — the V29 and V28 corpora reach V31 through their frozen chains unchanged (R4 through migrateToV31) > genuine V29 replaced-p1
+ FAIL |core|  tests/p14b5-save-v31.test.ts > family 9 — the V29 and V28 corpora reach V31 through their frozen chains unchanged (R4 through migrateToV31) > genuine V29 withdrawn-p1
+ FAIL |core|  tests/p14b5-save-v31.test.ts > family 9 — the V29 and V28 corpora reach V31 through their frozen chains unchanged (R4 through migrateToV31) > genuine V29 bound-open-p1
+ FAIL |core|  tests/p14b5-save-v31.test.ts > family 9 — the V29 and V28 corpora reach V31 through their frozen chains unchanged (R4 through migrateToV31) > genuine V29 kept-and-broken-p1
+ FAIL |core|  tests/p14b5-save-v31.test.ts > family 9 — the V29 and V28 corpora reach V31 through their frozen chains unchanged (R4 through migrateToV31) > genuine V29 rival-current-p1
+ FAIL |core|  tests/p14b5-save-v31.test.ts > family 9 — the V29 and V28 corpora reach V31 through their frozen chains unchanged (R4 through migrateToV31) > genuine V29 rival-shared-take-terminal-p1
+ FAIL |core|  tests/p14b5-save-v31.test.ts > family 9 — the V29 and V28 corpora reach V31 through their frozen chains unchanged (R4 through migrateToV31) > genuine V29 refused-p2-count-only-current-draft
+TypeError: migrateToV31 is not a function
+ ❯ tests/p14b5-save-v31.test.ts:262:20
+    260|     const { save } = v29(name)
+    261|     const viaV30 = migrateToV30(save)
+    262|     const lifted = migrateToV31(save)
+       |                    ^
+    263|     expect(lifted).toEqual(migrateToV31(viaV30))
+    264|     expect(lifted.saveVersion).toBe(LIVE_SAVE_VERSION)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/38]⎯
+
+ FAIL |core|  tests/p14b5-save-v31.test.ts > family 9 — the V29 and V28 corpora reach V31 through their frozen chains unchanged (R4 through migrateToV31) > legacy legacy-v28-shooting-5
+ FAIL |core|  tests/p14b5-save-v31.test.ts > family 9 — the V29 and V28 corpora reach V31 through their frozen chains unchanged (R4 through migrateToV31) > legacy legacy-v28-open-case-45
+ FAIL |core|  tests/p14b5-save-v31.test.ts > family 9 — the V29 and V28 corpora reach V31 through their frozen chains unchanged (R4 through migrateToV31) > legacy legacy-v28-settled-208
+ FAIL |core|  tests/p14b5-save-v31.test.ts > family 9 — the V29 and V28 corpora reach V31 through their frozen chains unchanged (R4 through migrateToV31) > legacy legacy-v28-legacy-terminations-20
+TypeError: migrateToV31 is not a function
+ ❯ tests/p14b5-save-v31.test.ts:273:20
+    271|     const { save } = v28(name)
+    272|     const viaV30 = migrateToV30(save)
+    273|     const lifted = migrateToV31(save)
+       |                    ^
+    274|     expect(lifted.saveVersion).toBe(LIVE_SAVE_VERSION)
+    275|     expect(rootsOf(lifted.state)['relationships']).toEqual([])
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/38]⎯
+
+ FAIL |core|  tests/p14b5-save-v31.test.ts > family 9 — the projection-47 checkpoint's embedded saves load through the live route > migrateToV31 exists
+AssertionError: expected 'undefined' to be 'function' // Object.is equality
+
+Expected: "function"
+Received: "undefined"
+
+ ❯ tests/p14b5-save-v31.test.ts:282:65
+    280| 
+    281| describe('family 9 — the projection-47 checkpoint\'s embedded saves lo…
+    282|   it('migrateToV31 exists', () => { expect(typeof migrateToV31).toBe('…
+       |                                                                 ^
+    283| 
+    284|   it.each(['currentSaveJson', 'savedSaveJson'] as const)('%s lifts wit…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[13/38]⎯
+
+ FAIL |core|  tests/p14b5-save-v31.test.ts > family 9 — the projection-47 checkpoint's embedded saves load through the live route > currentSaveJson lifts with an empty root and every other root byte-identical to its own genuine V30 bytes
+ FAIL |core|  tests/p14b5-save-v31.test.ts > family 9 — the projection-47 checkpoint's embedded saves load through the live route > savedSaveJson lifts with an empty root and every other root byte-identical to its own genuine V30 bytes
+TypeError: migrateToV31 is not a function
+ ❯ liftsLosslessly tests/p14b5-save-v31.test.ts:145:18
+    143| function liftsLosslessly(raw: string, save: V30Save) {
+    144|   const before = JSON.stringify(save)
+    145|   const lifted = migrateToV31(save)
+       |                  ^
+    146|   expect(lifted.saveVersion).toBe(LIVE_SAVE_VERSION) // the live route…
+    147|   expect(lifted.saveVersion).not.toBe(30) // and V30 is the OUTGOING i…
+ ❯ tests/p14b5-save-v31.test.ts:287:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[14/38]⎯
+
+ FAIL |core|  tests/p14b5-save-v31.test.ts > family 9 — the V31 validator's own boundary (envelope law only; edge faults are the synthetic file's) > validateSaveV31 exists
+AssertionError: expected 'undefined' to be 'function' // Object.is equality
+
+Expected: "function"
+Received: "undefined"
+
+ ❯ tests/p14b5-save-v31.test.ts:297:71
+    295| 
+    296| describe('family 9 — the V31 validator\'s own boundary (envelope law o…
+    297|   it('validateSaveV31 exists', () => { expect(typeof validateSaveV31).…
+       |                                                                       ^
+    298| 
+    299|   it('refuses a V30 envelope (no root) and a lifted envelope whose roo…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[15/38]⎯
+
+ FAIL |core|  tests/p14b5-save-v31.test.ts > family 9 — the V31 validator's own boundary (envelope law only; edge faults are the synthetic file's) > refuses a V30 envelope (no root) and a lifted envelope whose root was removed, without repairing either
+TypeError: migrateToV31 is not a function
+ ❯ tests/p14b5-save-v31.test.ts:302:20
+    300|     const { save } = v30('current-p1')
+    301|     expect(() => validateSaveV31(save)).toThrow(/validateSaveV31/)
+    302|     const lifted = migrateToV31(save)
+       |                    ^
+    303|     const stripped = { ...lifted, state: Object.fromEntries(Object.ent…
+    304|     expect(() => validateSaveV31(stripped)).toThrow(/relationships/)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[16/38]⎯
+
+ Test Files  3 failed (3)
+      Tests  37 failed | 35 passed (72)
+   Start at  01:31:01
+   Duration  48.43s (transform 2.74s, setup 0ms, collect 1.46s, tests 42.92s, environment 1ms, prepare 342ms)
+
+
+{"sourceSha":"8708d6a98e6eb4ad53e3a54e431c4b40b974f79d","testedDiffSha256":"b05442018e7f8ce27f42eec9b7e69f0e5eee6cab957679c95d21a7de3705670d","untrackedSource":["tests/bridge-p14b5-relationships.test.ts","tests/p14b5-relationships.test.ts","tests/p14b5-save-v31.test.ts"],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14b5-relationships.test.ts","tests/p14b5-save-v31.test.ts","tests/bridge-p14b5-relationships.test.ts","--minWorkers=1","--maxWorkers=1"],"node":"v20.20.2","start":"2026-09-21T23:31:00.576Z","end":"2026-09-21T23:31:50.126Z","exitCode":1,"signal":null,"error":null,"sourceShaAtEnd":"8708d6a98e6eb4ad53e3a54e431c4b40b974f79d","testedDiffSha256AtEnd":"b05442018e7f8ce27f42eec9b7e69f0e5eee6cab957679c95d21a7de3705670d","untrackedSourceAtEnd":["tests/bridge-p14b5-relationships.test.ts","tests/p14b5-relationships.test.ts","tests/p14b5-save-v31.test.ts"],"fixedSource":true}

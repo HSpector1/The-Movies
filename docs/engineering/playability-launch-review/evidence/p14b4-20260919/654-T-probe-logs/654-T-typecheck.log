@@ -1,0 +1,13 @@
+
+> project-studio-core@0.1.0 typecheck
+> tsc --noEmit && tsc -p ui/tsconfig.json --noEmit
+
+tests/p14b5-relationships.test.ts(73,123): error TS2724: '"../src/core/save.js"' has no exported member named 'migrateToV31'. Did you mean 'migrateToV10'?
+tests/p14b5-relationships.test.ts(73,154): error TS2724: '"../src/core/save.js"' has no exported member named 'validateSaveV31'. Did you mean 'validateSaveV1'?
+tests/p14b5-relationships.test.ts(86,8): error TS2307: Cannot find module '../src/core/relationships.js' or its corresponding type declarations.
+tests/p14b5-relationships.test.ts(907,11): error TS2322: Type '"nemesisOnRoster"' is not assignable to type 'FreezeDrop'.
+tests/p14b5-save-v31.test.ts(28,39): error TS2724: '"../src/core/save.js"' has no exported member named 'convertV30ToV31'. Did you mean 'convertV2ToV3'?
+tests/p14b5-save-v31.test.ts(28,56): error TS2724: '"../src/core/save.js"' has no exported member named 'convertV31ToV30'. Did you mean 'convertV1ToV2'?
+tests/p14b5-save-v31.test.ts(29,73): error TS2724: '"../src/core/save.js"' has no exported member named 'migrateToV31'. Did you mean 'migrateToV10'?
+tests/p14b5-save-v31.test.ts(30,20): error TS2724: '"../src/core/save.js"' has no exported member named 'validateSaveV31'. Did you mean 'validateSaveV1'?
+EXIT 2

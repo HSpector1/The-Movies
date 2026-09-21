@@ -1,0 +1,16 @@
+{"sourceSha":"8708d6a98e6eb4ad53e3a54e431c4b40b974f79d","testedDiffSha256":"b05442018e7f8ce27f42eec9b7e69f0e5eee6cab957679c95d21a7de3705670d","untrackedSource":["tests/bridge-p14b5-relationships.test.ts","tests/p14b5-relationships.test.ts","tests/p14b5-save-v31.test.ts"],"command":["npm","run","typecheck"],"node":"v20.20.2","start":"2026-09-21T23:31:50.590Z","end":null,"exitCode":null}
+
+
+> project-studio-core@0.1.0 typecheck
+> tsc --noEmit && tsc -p ui/tsconfig.json --noEmit
+
+tests/p14b5-relationships.test.ts(73,123): error TS2724: '"../src/core/save.js"' has no exported member named 'migrateToV31'. Did you mean 'migrateToV10'?
+tests/p14b5-relationships.test.ts(73,154): error TS2724: '"../src/core/save.js"' has no exported member named 'validateSaveV31'. Did you mean 'validateSaveV1'?
+tests/p14b5-relationships.test.ts(86,8): error TS2307: Cannot find module '../src/core/relationships.js' or its corresponding type declarations.
+tests/p14b5-relationships.test.ts(907,11): error TS2322: Type '"nemesisOnRoster"' is not assignable to type 'FreezeDrop'.
+tests/p14b5-save-v31.test.ts(28,39): error TS2724: '"../src/core/save.js"' has no exported member named 'convertV30ToV31'. Did you mean 'convertV2ToV3'?
+tests/p14b5-save-v31.test.ts(28,56): error TS2724: '"../src/core/save.js"' has no exported member named 'convertV31ToV30'. Did you mean 'convertV1ToV2'?
+tests/p14b5-save-v31.test.ts(29,73): error TS2724: '"../src/core/save.js"' has no exported member named 'migrateToV31'. Did you mean 'migrateToV10'?
+tests/p14b5-save-v31.test.ts(30,20): error TS2724: '"../src/core/save.js"' has no exported member named 'validateSaveV31'. Did you mean 'validateSaveV1'?
+
+{"sourceSha":"8708d6a98e6eb4ad53e3a54e431c4b40b974f79d","testedDiffSha256":"b05442018e7f8ce27f42eec9b7e69f0e5eee6cab957679c95d21a7de3705670d","untrackedSource":["tests/bridge-p14b5-relationships.test.ts","tests/p14b5-relationships.test.ts","tests/p14b5-save-v31.test.ts"],"command":["npm","run","typecheck"],"node":"v20.20.2","start":"2026-09-21T23:31:50.590Z","end":"2026-09-21T23:32:24.407Z","exitCode":2,"signal":null,"error":null,"sourceShaAtEnd":"8708d6a98e6eb4ad53e3a54e431c4b40b974f79d","testedDiffSha256AtEnd":"b05442018e7f8ce27f42eec9b7e69f0e5eee6cab957679c95d21a7de3705670d","untrackedSourceAtEnd":["tests/bridge-p14b5-relationships.test.ts","tests/p14b5-relationships.test.ts","tests/p14b5-save-v31.test.ts"],"fixedSource":true}
