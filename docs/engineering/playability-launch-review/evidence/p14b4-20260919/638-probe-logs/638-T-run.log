@@ -1,0 +1,54 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p14b4-cancel-causal-proof.test.ts (22 tests) 8386ms
+   ✓ 629-T case 1: a joint reservation conflict is not causal proof (plan :249-256; 26 §2 "a joint reservation conflict ... is not target-specific physical impossibility") > one person, two bound OPEN count-1 promises, seated LEAD on one greenlit picture, one event still reachable after the cancel: NEITHER is BROKEN at the cancel; the due-week owner decides 3581ms
+   ✓ 629-T case 1: a joint reservation conflict is not causal proof (plan :249-256; 26 §2 "a joint reservation conflict ... is not target-specific physical impossibility") > "either lead claimant could still be kept when one film remains": two beneficiaries each promised ONE lead, both seated on the cancelled picture (lead / antagonist), one film reachable — neither is BROKEN (plan :251-252) 438ms
+   ✓ 629-T case 4: the cancelled picture must be able to satisfy THIS class (26 §2 "check whether the cancelled picture could satisfy this class"; plan :246 "relevant ... seams") > tagged 'leadOrAntagonist' P2, person seated 'support' on the cancelled picture, due = week + 2: NOT broken at the cancel (no path was removed); the due-week owner breaks it at the due week 375ms
+   ✓ 629-T case 5: the remaining count uses ACTUAL class-qualified takes (plan :331-334) > count-2 tagged lead P2, ONE real qualifying take on A (progress 1), seated LEAD on pre-first-take B, one more event reachable: NOT broken when B is cancelled 466ms
+   ✓ 629-T case 6: target-specific physical impossibility still breaks at the cancel (plan :252-254) > differential shape: the picture at remainingTicks 5 COULD have served (take expected week + 1 < due = week + 3) and nothing else can after the cancel — BROKEN at the cancel 341ms
+   ✓ 629-T2 case 5N: the remaining count is CLASS-qualified — a SUPPORT take never serves a lead mask (plan :324-326, :331-334; R1 "actual class-qualified distinct first takes") > count-2 tagged lead P2, the ONE real take on A recorded with the person in SUPPORT, then seated LEAD on pre-first-take B at 30, window [21,38): BROKEN when B is cancelled (remaining 2 > nMax 1) 364ms
+   ✓ 629-T2 separator: the landed bound is the 5-week floor chain t0 + 5k, not the quote's SEAT_CYCLE_WEEKS cadence (record 630 R1; 629-B Q2 D2; plan :341-343, :350-351 "a valid hard bound") > count-2 tagged lead P2, person LEAD on the greenlit-this-week picture, window [21,33): the quote estimate refuses (its nMax 1 < 2) yet the cancel leaves the root untouched (hard nMax 2); the due-week owner breaks it at 33 568ms
+   ✓ 629-T2 direct pins on the exported proof (record 630 R1 boundaries; promises.ts :661-667) > bound tagged lead roots, no running picture at week 21 (t0 = 26): the sentence iff remaining > ceil((due - 26) / 5) 371ms
+ ✓ |core| tests/p14b1-promises.test.ts (15 tests) 14909ms
+   ✓ P14B.1 test 2: the promise record and the widened digest > attaching a promise changes the digest; a second attach on an already-promised proposal is refused (enforced at most one); revising (re-submit, then attach a different promise) and removing (re-submit with no attach) both change the digest again — removing restores the exact original 3831ms
+   ✓ P14B.1 test 2: the promise record and the widened digest > a window outside the proposed contract is IMPOSSIBLE by construction 1513ms
+   ✓ P14B.1 test 2: the promise record and the widened digest > a promise DRIFTED after attachment (its own definition changed through some other channel) drops materialTermsChanged at freeze 1333ms
+   ✓ P14B.1 test 3: the feasibility service > Example B shape: an active promise consuming the person's only existing-path seat makes a SECOND, overlapping promise FRAGILE with the 'needs a picture not yet commissioned' bottleneck 1514ms
+   ✓ P14B.1 test 4: settlement freeze re-classification > a feasible promise becomes FRAGILE after two lawful greenlights consume the existing stages; freeze drops it with a promise-naming sentence 1932ms
+   ✓ P14B.1 test 5: outcomes > SATISFIED once the X-th qualifying first take occurs, with evidence refs naming the causing eventId; idempotent on a later tick 1473ms
+   ✓ P14B.1 test 5: outcomes > BROKEN at dueWeekExclusive when the window passes unsatisfied, through a BOUND promise: on genuine legacy-v28-open-case-45, attach a P1 promise to the player's own proposal, settle at 52 (retained -> bound, contractId set), then walk to dueWeekExclusive with no qualifying first take 1360ms
+   ✓ P14B.1 test 5: outcomes > RED (T2b closes this): a promise attached to a proposal that then LOSES stays UNBOUND (contractId null) and is never evaluated — on genuine legacy-v28-open-case-45, withdrawing the player's own proposal leaves the promise attached to a proposal that vanishes at settlement (declined, "all proposals dropped"); past its own dueWeekExclusive the record must keep outcome: null and contractId: null, mint no promiseOutcome receipt, and leave the issuer's trust descriptor without a promiseBroken driver 1222ms
+   ✓ P14B.1 test 5: outcomes > BROKEN on capacity collapse: cancelling the promised person's ONLY production before its first take, with a due week too close for any other path, fails the target-specific proof (remaining 1 > nMax 0) and the promise is BROKEN at the cancel 588ms
+ ✓ |core| tests/p14bf2-acting-discipline.test.ts (13 tests) 7693ms
+   ✓ B-F2: settled has-acting-discipline law, not primary-role eligibility > the real generated writer is lawfully cast as lead without relabeling or occupying two roles 3756ms
+   ✓ B-F2: settled has-acting-discipline law, not primary-role eligibility > real winning writer P1 binds, then one completed scheduled cast take satisfies it with exact durable references 1203ms
+   ✓ B-F2: genuine old role-refusal evidence survives, fresh evaluations use the live evaluator (4 after record 600) > valid load preserves the old erroneous receipt/root/digest bytes exactly without repairing history 1679ms
+   ✓ B-F2: genuine old role-refusal evidence survives, fresh evaluations use the live evaluator (4 after record 600) > actual resubmit/attach evaluates afresh under4 but keeps the original version1 refusal untouched 585ms
+ ✓ |core| tests/bridge-operations-events.test.ts (6 tests) 2675ms
+   ✓ R3-N7-SIM-01 — operationsEventsProjection (projection 32) > L1 publishes every kind and every row in the log, week-descending 428ms
+   ✓ R3-N7-SIM-01 — operationsEventsProjection (projection 32) > L6 is pure, mutates nothing, and validates inside the served projection-47 envelope 2231ms
+ ✓ |core| tests/p14b1-save-v29.test.ts (6 tests) 1198ms
+   ✓ P14B.1 test 8: Save V29 (genuine V28 fixture, empty new tables, same digests, round trip, downgrade) > genuine V28 open-case-45 fixture: sha256 matches, still validates as V28 through the frozen chain, migrates to V29 with EMPTY firstTakes and promises roots and promises: [] on every existing proposal, otherwise byte-identical 494ms
+ ✓ |core| tests/bridge-p14b1-promises.test.ts (11 tests) 20416ms
+   ✓ group 2: case block and market page promise rows > the Profile case block's proposal rows carry promise — own row real (family, count, window, classification), competing row the UNKNOWN marker, never the rival's family/count/window 2949ms
+   ✓ group 2: case block and market page promise rows > the Market page comparison row carries the SAME own/UNKNOWN promise facts (bridge/market.ts reuses the case block's own `proposals` array by reference) 1466ms
+   ✓ group 3: trust descriptor label and promise history, open then settled with an outcome > open right after settlement, then BROKEN once the window passes unsatisfied — both read through the engine's own trustDescriptor / state.promises as the oracle 4810ms
+   ✓ group 4: the promise draft on marketProposalAction's quote family > refuses a promise window beginning before the proposed contract, although its due week is inside the contract (T4 lower-edge regression) 1430ms
+   ✓ group 4: the promise draft on marketProposalAction's quote family > promiseQuoteSnapshot returns the engine's own promiseFeasibility classification, ok true only when REASONABLY_ACHIEVABLE, and the same fact rides the EXISTING quoteMarketProposal session intent (no new intent kind) 1744ms
+   ✓ group 4: the promise draft on marketProposalAction's quote family > a window outside the proposed contract is IMPOSSIBLE, refused "not offerable: <bottleneck>" 1443ms
+   ✓ group 4: the promise draft on marketProposalAction's quote family > a non-P1 family is refused with its own typed reason, deterministically, before any pipeline check runs 1256ms
+   ✓ group 5: disclosure narrowing — the rival's promise leaks nowhere > a world where the RIVAL proposal carries a real promise: the profile, the market page, a player-requested quote and pulse all serialize with no trace of the rival's family/window 1887ms
+   ✓ group 6: save/load > a genuine V28 fixture (open-case-45) converts to V29 with empty firstTakes/promises, and the bridge reads it with no promise fact anywhere 893ms
+   ✓ group 6: save/load > a live V30 state carrying a real promise round-trips through the bridge save/load path byte-stable, and the promise-row read is identical on both sides 2533ms
+ ✓ |core| tests/p14b3-rule-revision.test.ts (6 tests) 4482ms
+   ✓ P14B.3 continuity under the live evaluator (4 after record 600) with genuine old evaluator1 history > preserves genuine evaluator1-current-p1 root/receipt/digest bytes through valid load, not a restamped current fixture 1611ms
+   ✓ P14B.3 continuity under the live evaluator (4 after record 600) with genuine old evaluator1 history > preserves genuine evaluator1-withdrawn-p1 root/receipt/digest bytes through valid load, not a restamped current fixture 991ms
+   ✓ P14B.3 continuity under the live evaluator (4 after record 600) with genuine old evaluator1 history > preserves genuine evaluator1-role-label-refused-p1 root/receipt/digest bytes through valid load, not a restamped current fixture 1094ms
+   ✓ P14B.3 continuity under the live evaluator (4 after record 600) with genuine old evaluator1 history > actual later winning freeze keeps old root.version1 but stores genuine new rulesVersion4 receipt and binding 576ms
+
+ Test Files  7 passed (7)
+      Tests  79 passed (79)
+   Start at  23:04:26
+   Duration  26.55s (transform 4.71s, setup 0ms, collect 12.71s, tests 59.76s, environment 4ms, prepare 1.61s)
+

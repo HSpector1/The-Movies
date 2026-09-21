@@ -1,0 +1,28 @@
+{
+  "sourceSha": "0e330da0752efcc78c84aee8421ffd88044277a9",
+  "testedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "untrackedSource": [],
+  "command": [
+    "node_modules/.bin/vitest",
+    "run",
+    "--project",
+    "core",
+    "tests/bridge-operations-events.test.ts",
+    "tests/bridge-p14b1-promises.test.ts",
+    "tests/p14b1-promises.test.ts",
+    "tests/p14b1-save-v29.test.ts",
+    "tests/p14b3-rule-revision.test.ts",
+    "tests/p14b4-cancel-causal-proof.test.ts",
+    "tests/p14bf2-acting-discipline.test.ts"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-21T21:13:45.807Z",
+  "end": "2026-09-21T21:14:21.110Z",
+  "exitCode": 0,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "0e330da0752efcc78c84aee8421ffd88044277a9",
+  "testedDiffSha256AtEnd": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "untrackedSourceAtEnd": [],
+  "fixedSource": true
+}
