@@ -1,0 +1,481 @@
+337	1	calc(8).add(cost, 3 + key.length)
+352	1	calc(16).add(cost, typeof part === 'string' ? 2 + this.calc(8).times(7
+352	2	calc(8).times(7, part.length) : 25)
+376	1	calc(16).add(runs, Math.ceil(n / (2 * width)))
+379	1	calc(8).times(n, levels)
+380	1	calc(8).add(13, comparator)
+382	1	calc(64).plus(10, work.calc(8).times(3, n), work.calc(8).times(8, leve
+382	2	calc(8).times(3, n), work.calc(8).times(8, levels), work.calc(8).times
+382	3	calc(8).times(8, levels), work.calc(8).times(19, runs),
+382	4	calc(8).times(19, runs),
+383	1	calc(32).times(coefficient, merges))
+432	1	calc(16).add(10, work.calc(8).times(2, count)))
+432	2	calc(8).times(2, count)))
+513	1	calc(8).add(chars, id.length) }
+514	1	calc(8).add(chars, id.length) }
+516	1	calc(64).plus(5, work.calc(8).times(6, productions.length), work.calc(
+516	2	calc(8).times(6, productions.length), work.calc(8).times(4, count), ch
+516	3	calc(8).times(4, count), chars,
+517	1	calc(32).times(count, count + work.calc(8).times(2, chars))))
+517	2	calc(8).times(2, chars))))
+526	1	calc(8).add(chars, id.length) }
+527	1	calc(64).plus(10, project.writerIds.length, work.calc(32).times(projec
+527	2	calc(32).times(project.writerIds.length, 2 + project.writerId.length),
+783	1	calc(32).times(picture.workflow.reservations.length, 42))
+901	1	calc(8).add(copy!, 3 + key.length)
+958	1	calc(8).add(capacity, row.capacity)
+967	1	calc(8).add(provides, row.providesFacilityIds.length)
+973	1	calc(8).add(cells, row.cells.length)
+1107	1	calc(64).plus(d.operationsCopy, 11, 2, d.n, work.calc(32).times(d.n, 2
+1107	2	calc(32).times(d.n, 2 + work.calc(8).equality(d.dp)))
+1107	3	calc(8).equality(d.dp)))
+1113	1	calc(64).plus(50, work.calc(8).times(d.structures, 8), work.calc(32).t
+1113	2	calc(8).times(d.structures, 8), work.calc(32).times(d.provides, 2 + wo
+1113	3	calc(32).times(d.provides, 2 + work.calc(8).equality(d.d)),
+1113	4	calc(8).equality(d.d)),
+1114	1	calc(32).times(d.placements, 3 + work.calc(8).equality(d.d)), work.cal
+1114	2	calc(8).equality(d.d)), work.calc(8).times(d.cells, 10), d.structures,
+1114	3	calc(8).times(d.cells, 10), d.structures, d.placements)
+1115	1	calc(64).plus(130, work.calc(32).times(2, work.calc(8).equality(d.d)),
+1115	2	calc(32).times(2, work.calc(8).equality(d.d)), work.calc(8).times(2, b
+1115	3	calc(8).equality(d.d)), work.calc(8).times(2, body))
+1115	4	calc(8).times(2, body))
+1133	1	calc(32).add(18, work.calc(32).times(d.n, 14 + work.calc(32).times(4, 
+1133	2	calc(32).times(d.n, 14 + work.calc(32).times(4, work.calc(8).equality(
+1133	3	calc(32).times(4, work.calc(8).equality(d.d))))
+1133	4	calc(8).equality(d.d))))
+1138	1	calc(32).add(common,
+1139	1	calc(32).times(possible, work.calc(64).plus(geometryBill(d, work), 70,
+1139	2	calc(64).plus(geometryBill(d, work), 70, d.workflowCopy, d.taskCopy, w
+1143	1	calc(64).plus(4, work.calc(8).times(2, d.n), work.calc(32).times(d.n, 
+1143	2	calc(8).times(2, d.n), work.calc(32).times(d.n, 67 + 2 * d.dp),
+1143	3	calc(32).times(d.n, 67 + 2 * d.dp),
+1144	1	calc(8).equality(d.dp), work))
+1159	1	calc(16).add(taskText, 1 + workflow.shootingTask.status.length + 9)
+1161	1	calc(64).plus(copies, d.pCopy, 15)
+1162	1	calc(64).plus(takeCopies, d.workflowCopy, 13, d.taskCopy, 7)
+1165	1	calc(64).plus(copies, d.pCopy, 15)
+1167	1	calc(8).keyBill(commitments.size, d.dp))
+1168	1	calc(64).plus(copies, d.pCopy, 15) }
+1172	1	calc(32).times(d.n, 1 + delta)
+1173	1	calc(8).add(work.calc(32).times((4 + delta) * d.n + active + t + c + r
+1173	2	calc(32).times((4 + delta) * d.n + active + t + c + r + t, work.calc(8
+1173	3	calc(8).keyBill(d.n, d.dp)),
+1174	1	calc(32).times(o, work.calc(8).keyBill(commitments.size, d.dp)))
+1174	2	calc(8).keyBill(commitments.size, d.dp)))
+1175	1	calc(64).plus(5, d.n, 3 * (1 + delta) + 1, visits, d.n, 4 * active,
+1177	1	calc(64).plus(orderBill(d, work), assoc, work.calc(32).times(active, 1
+1177	2	calc(32).times(active, 1 + work.calc(32).times(d.n, 1 + work.calc(8).e
+1177	3	calc(32).times(d.n, 1 + work.calc(8).equality(d.dp))),
+1177	4	calc(8).equality(d.dp))),
+1178	1	calc(32).times(t + r, workflowUpdate(d, work)), copies, takeCopies,
+1179	1	calc(32).times(active + c, work.calc(8).equality(14)), taskText, work.
+1179	2	calc(8).equality(14)), taskText, work.calc(32).times(1 + r, 15),
+1179	3	calc(32).times(1 + r, 15),
+1180	1	calc(8).times(6, d.n), work.calc(8).times(4, t), work.calc(8).times(2,
+1180	2	calc(8).times(4, t), work.calc(8).times(2, r), control, work.calc(8).t
+1180	3	calc(8).times(2, r), control, work.calc(8).times(11, r))
+1180	4	calc(8).times(11, r))
+1196	1	calc(8).times(4, rawOwners)
+1197	1	calc(8).add(d.external, work.calc(8).times(3, other))
+1197	2	calc(8).times(3, other))
+1198	1	calc(8).equality(d.d), keyLength = work.calc(8).add(d.d, 26), keyConst
+1198	2	calc(8).add(d.d, 26), keyConstruction = work.calc(8).add(50, work.calc
+1198	3	calc(8).add(50, work.calc(8).times(2, d.d))
+1198	4	calc(8).times(2, d.d))
+1201	1	calc(64).plus(40, 1 + claims, 2 * d.n, work.calc(32).times(2 * rawOwne
+1201	2	calc(32).times(2 * rawOwners, text),
+1202	1	calc(32).times(claims, work.calc(8).add(89, work.calc(8).times(2, keyC
+1202	2	calc(8).add(89, work.calc(8).times(2, keyConstruction))))
+1202	3	calc(8).times(2, keyConstruction))))
+1203	1	calc(64).plus(raw, 4, d.external, work.calc(32).times(claims, 6 + 3 * 
+1203	2	calc(32).times(claims, 6 + 3 * text),
+1204	1	calc(32).times(occupied, work.calc(8).add(5, work.calc(32).times(3, wo
+1204	2	calc(8).add(5, work.calc(32).times(3, work.calc(8).keyBill(occupied, k
+1204	3	calc(32).times(3, work.calc(8).keyBill(occupied, keyLength)))))
+1204	4	calc(8).keyBill(occupied, keyLength)))))
+1208	1	calc(8).add(17, work.calc(32).times(d.t + (wrapOnly || retainedDevelop
+1208	2	calc(32).times(d.t + (wrapOnly || retainedDevelopment || singlePostExi
+1209	1	calc(64).plus(30, work.calc(32).times(d.adoptions, 8 + 3 * text), work
+1209	2	calc(32).times(d.adoptions, 8 + 3 * text), work.calc(32).times(2 * d.p
+1209	3	calc(32).times(2 * d.placements, 8 + 4 * text))
+1210	1	calc(8).add(selection, adoption)
+1218	1	calc(32).times(wrapOnly ? (singleWrapSlot ? 1 : d.capacity) : 3 * d.ca
+1219	1	calc(64).plus(5, keyConstruction, work.calc(32).times(2, work.calc(8).
+1219	2	calc(32).times(2, work.calc(8).keyBill(occupied + 2, keyLength))))
+1219	3	calc(8).keyBill(occupied + 2, keyLength))))
+1225	1	calc(16).plus(20, 20, work.calc(8).keyBill(2, 19))
+1225	2	calc(8).keyBill(2, 19))
+1227	1	calc(8).add(20, work.calc(64).plus(20, work.calc(8).times(2, text), wo
+1227	2	calc(64).plus(20, work.calc(8).times(2, text), work.calc(32).times(d.f
+1227	3	calc(8).times(2, text), work.calc(32).times(d.f, 2 + text),
+1227	4	calc(32).times(d.f, 2 + text),
+1228	1	calc(8).keyBill(2, 19), keyConstruction, work.calc(8).keyBill(occupied
+1228	2	calc(8).keyBill(occupied, keyLength)))
+1229	1	calc(8).add(20, work.calc(32).times(2, work.calc(64).plus(20, work.cal
+1229	2	calc(32).times(2, work.calc(64).plus(20, work.calc(8).times(2, text), 
+1229	3	calc(64).plus(20, work.calc(8).times(2, text), work.calc(32).times(d.f
+1229	4	calc(8).times(2, text), work.calc(32).times(d.f, 2 + text),
+1229	5	calc(32).times(d.f, 2 + text),
+1230	1	calc(8).keyBill(2, 19), keyConstruction, work.calc(8).keyBill(occupied
+1230	2	calc(8).keyBill(occupied + 2, keyLength))))
+1231	1	calc(64).plus(20, work.calc(32).times(d.n, work.calc(64).plus(9, text,
+1231	2	calc(32).times(d.n, work.calc(64).plus(9, text, work.calc(8).times(2, 
+1231	3	calc(64).plus(9, text, work.calc(8).times(2, text), work.calc(8).keyBi
+1231	4	calc(8).times(2, text), work.calc(8).keyBill(d.n, d.d))),
+1231	5	calc(8).keyBill(d.n, d.d))),
+1232	1	calc(32).times(d.f, work.calc(64).plus(5, text, work.calc(32).times(d.
+1232	2	calc(64).plus(5, text, work.calc(32).times(d.sets, work.calc(64).plus(
+1232	3	calc(32).times(d.sets, work.calc(64).plus(14, work.calc(8).times(3, te
+1232	4	calc(64).plus(14, work.calc(8).times(3, text), work.calc(8).keyBill(d.
+1232	5	calc(8).times(3, text), work.calc(8).keyBill(d.n, d.d))))))
+1232	6	calc(8).keyBill(d.n, d.d))))))
+1235	1	calc(64).plus(occupancy, 3 + 3 * d.f, work.calc(8).times(d.f, callback
+1235	2	calc(8).times(d.f, callback), facilitySort, retention,
+1236	1	calc(32).times(wrapOnly || retainedDevelopment ? 1 : 2, work.calc(32).
+1236	2	calc(32).times(d.f, 2 + text)), slots, composite, 140)
+1242	1	calc(8).add(before, after)
+1243	1	calc(8).add(d.d, 26)
+1244	1	calc(16).add(50, work.calc(8).times(2, d.d))
+1244	2	calc(8).times(2, d.d))
+1247	1	calc(64).plus(20, work.calc(16).times(keys, 8 + construction),
+1247	2	calc(16).times(keys, 8 + construction),
+1248	1	calc(16).times(work.calc(8).times(2, work.calc(8).times(before, after)
+1248	2	calc(8).times(2, work.calc(8).times(before, after)),
+1248	3	calc(8).times(before, after)),
+1249	1	calc(8).add(2, work.calc(8).equality(keyLength))),
+1249	2	calc(8).equality(keyLength))),
+1250	1	calc(16).times(emitted, LITERAL.reservationEvent + LITERAL.stampedEven
+1265	1	calc(16).add(20, work.calc(8).add(9, set.status.length)))
+1265	2	calc(8).add(9, set.status.length)))
+1308	1	calc(8).add(stageCapacity, facility.capacity)
+1310	1	calc(8).add(sceneryCapacity, facility.capacity)
+1320	1	calc(8).equality(d.d), pid = work.calc(8).equality(d.dp)
+1320	2	calc(8).equality(d.dp)
+1321	1	calc(8).equality(19), phaseText = work.calc(8).equality(14)
+1321	2	calc(8).equality(14)
+1322	1	calc(8).keyBill(1, 19)
+1323	1	calc(8).add(d.d, 26)
+1324	1	calc(16).add(50, work.calc(8).times(2, d.d))
+1324	2	calc(8).times(2, d.d))
+1328	1	calc(16).keyBill(d.external + (shooting ? 1 : 0), keyLength)
+1331	1	calc(8).keyBill(1, d.dp)
+1341	1	calc(64).plus(60, 2 * text, capabilityText,
+1342	1	calc(32).times(rawClaims, work.calc(64).plus(LITERAL.claim, APPEND, 36
+1342	2	calc(64).plus(LITERAL.claim, APPEND, 36, 2 * keyConstruction, 2 * text
+1343	1	calc(16).times(d.external, work.calc(8).add(4, work.calc(8).keyBill(d.
+1343	2	calc(8).add(4, work.calc(8).keyBill(d.external, keyLength))))
+1343	3	calc(8).keyBill(d.external, keyLength))))
+1346	1	calc(32).plus(12, phaseText, work.calc(16).times(d.t, 8 + 2 * text))
+1346	2	calc(16).times(d.t, 8 + 2 * text))
+1347	1	calc(64).plus(3, work.calc(16).times(d.f, 3 + callback),
+1347	2	calc(16).times(d.f, 3 + callback),
+1355	1	calc(8).times(2, stageCapacity)
+1360	1	calc(8).add(stages, 1)
+1364	1	calc(16).times(slots,
+1365	1	calc(32).plus(5, keyConstruction, work.calc(8).times(2, occupiedKey)))
+1365	2	calc(8).times(2, occupiedKey)))
+1371	1	calc(64).plus(30, work.calc(16).times(3, capabilityKey),
+1371	2	calc(16).times(3, capabilityKey),
+1372	1	calc(32).times(2 * d.f, 2 + (shooting ? text : capabilityText)), 2 * c
+1377	1	calc(64).plus(20, pid,
+1378	1	calc(16).times(d.f, 5 + capabilityText),
+1379	1	calc(16).times(stages, work.calc(16).add(2,
+1379	2	calc(16).add(2,
+1380	1	calc(16).times(d.sets, work.calc(32).plus(21, 3 * text, work.calc(8).k
+1380	2	calc(32).plus(21, 3 * text, work.calc(8).keyBill(0, d.d))))))
+1380	3	calc(8).keyBill(0, d.d))))))
+1381	1	calc(64).plus(occupancy, facilities, requirements, slotSearch, composi
+1382	1	calc(16).times(shooting ? 2 : 1, LITERAL.reservation + APPEND),
+1392	1	calc(32).plus(40, 4 * capabilityText, 2 * capabilityKey, LITERAL.phase
+1396	1	calc(16).times(attempts, work.calc(64).plus(release, allocation, 60,
+1396	2	calc(64).plus(release, allocation, 60,
+1399	1	calc(64).plus(d.workflowCopy, LITERAL.releaseWorkflowOverrides,
+1406	1	calc(64).plus(d.bindingsCopy, LITERAL.derivedBindingOverrides, 20, 2 *
+1407	1	calc(64).plus(d.bindingsCopy, LITERAL.boundSetOverrides, 60,
+1408	1	calc(16).times(d.genreRows, 3 + work.calc(8).equality(Math.max(d.dp, d
+1408	2	calc(8).equality(Math.max(d.dp, d.genreId)))))
+1413	1	calc(64).plus(40, phaseText, work.calc(16).times(d.t, 8 + 2 * text),
+1413	2	calc(16).times(d.t, 8 + 2 * text),
+1414	1	calc(8).add(6, phaseText)
+1416	1	calc(32).plus(LITERAL.shootingTask, 30, 2 * d.dp, 2 * capabilityText) 
+1417	1	calc(64).plus(transition, binding, lock, task,
+1422	1	calc(64).plus(orderBill(d, work), 80, work.calc(8).times(8, idKey),
+1422	2	calc(8).times(8, idKey),
+1423	1	calc(16).times(2, 25 + 2 + pid + 2 * phaseText),
+1425	1	calc(32).plus(common, entries, releaseCopy, success)
+1482	1	calc(8).equality(d.d), pid = work.calc(8).equality(d.dp)
+1482	2	calc(8).equality(d.dp)
+1483	1	calc(8).add(d.d, 26), keyConstruction = work.calc(8).add(50, work.calc
+1483	2	calc(8).add(50, work.calc(8).times(2, d.d))
+1483	3	calc(8).times(2, d.d))
+1486	1	calc(64).plus(30, work.calc(8).times(4, keyConstruction), work.calc(32
+1486	2	calc(8).times(4, keyConstruction), work.calc(32).times(8, work.calc(8)
+1486	3	calc(32).times(8, work.calc(8).equality(keyLength)), 160)
+1486	4	calc(8).equality(keyLength)), 160)
+1493	1	calc(32).plus(40, 4 * work.calc(8).equality(19), 2 * work.calc(8).keyB
+1493	2	calc(8).equality(19), 2 * work.calc(8).keyBill(1, 19), LITERAL.phaseRe
+1493	3	calc(8).keyBill(1, 19), LITERAL.phaseRelease, 6)
+1494	1	calc(64).plus(80, singlePostExit ? 0 : work.calc(8).times(8, text), d.
+1494	2	calc(8).times(8, text), d.workflowCopy, d.bindingsCopy, 70)
+1495	1	calc(64).plus(24, work.calc(32).times(d.sets, 5 + 2 * text), d.setCopy
+1495	2	calc(32).times(d.sets, 5 + 2 * text), d.setCopy, 18)
+1499	1	calc(8).add(6, text) : wrapOnly ? 0 : work.calc(64).plus(80, work.calc
+1499	2	calc(64).plus(80, work.calc(32).times(d.t + d.n, 6 + 2 * text),
+1499	3	calc(32).times(d.t + d.n, 6 + 2 * text),
+1500	1	calc(32).times(d.adoptions, 8 + 3 * text), work.calc(32).times(2 * d.p
+1500	2	calc(32).times(2 * d.placements, 8 + 4 * text),
+1502	1	calc(64).plus(160, d.setupCopy, d.workflowCopy, update,
+1503	1	calc(32).times(d.access, 8 + 2 * text), work.calc(32).times(d.adoption
+1503	2	calc(32).times(d.adoptions, 12 + 3 * text),
+1504	1	calc(32).times(d.equipment, 8 + 3 * text), work.calc(32).times(2 * d.p
+1504	2	calc(32).times(2 * d.placements, 8 + 4 * text), 140)
+1505	1	calc(64).plus(d.taskCopy, d.bindingsCopy, 150,
+1506	1	calc(32).times(d.genreRows, 3 + work.calc(8).equality(Math.max(d.dp, d
+1506	2	calc(8).equality(Math.max(d.dp, d.genreId))))
+1511	1	calc(8).times(d.n, rounds)
+1524	1	calc(8).add(slateKeys, keys)
+1525	1	calc(16).add(retainedClaims, keys + (row.shootingTask === null ? 0 : 1
+1528	1	calc(8).add(d.external, slateKeys - 1)
+1540	1	calc(8).add(post, facility.capacity)
+1570	1	calc(32).times(d.n / 2, d.n + 3) : work.calc(32).times(d.n, (d.n + 3) 
+1570	2	calc(32).times(d.n, (d.n + 3) / 2)
+1578	1	calc(8).add(smallTransitionBill(d, 2, 0, 2, work),
+1581	1	calc(16).add(smallTransitionBill(d, 1, 0, 1, work),
+1583	1	calc(32).times(2, transition)
+1585	1	calc(64).plus(releasePhase, 65, wear, phaseTransitions, work.calc(32).
+1585	2	calc(32).times(retainedDevelopment ? 1 : singlePostExit ? 2 : 3, updat
+1590	1	calc(64).plus(orderBill(d, work), 80, work.calc(32).times(d.n, work.ca
+1590	2	calc(32).times(d.n, work.calc(8).keyBill(d.n, d.dp)),
+1590	3	calc(8).keyBill(d.n, d.dp)),
+1591	1	calc(32).times(commonVisits, work.calc(64).plus(25, work.calc(32).time
+1591	2	calc(64).plus(25, work.calc(32).times(4, work.calc(8).keyBill(d.n, d.d
+1591	3	calc(32).times(4, work.calc(8).keyBill(d.n, d.dp)), 1 + work.calc(32).
+1591	4	calc(8).keyBill(d.n, d.dp)), 1 + work.calc(32).times(d.n, 1 + pid),
+1591	5	calc(32).times(d.n, 1 + pid),
+1592	1	calc(32).times(d.n, work.calc(64).plus(d.pCopy, 15, update, d.workflow
+1592	2	calc(64).plus(d.pCopy, 15, update, d.workflowCopy, d.taskCopy, 100)),
+1593	1	calc(32).times(d.n, work.calc(8).keyBill(commitments.size, d.dp)))
+1593	2	calc(8).keyBill(commitments.size, d.dp)))
+1595	1	calc(8).add(common, work.calc(32).times(attempts, work.calc(64).plus(e
+1595	2	calc(32).times(attempts, work.calc(64).plus(enter, policyLock, setup, 
+1595	3	calc(64).plus(enter, policyLock, setup, binding)))
+1838	1	calc(64).plus(150, work.calc(8).times(8, d.d), work.calc(32).times(d.n
+1838	2	calc(8).times(8, d.d), work.calc(32).times(d.n, 3 + work.calc(8).equal
+1838	3	calc(32).times(d.n, 3 + work.calc(8).equality(d.dp)),
+1838	4	calc(8).equality(d.dp)),
+1845	1	calc(16).add(arrivalBill(d, branch.operations, work), work.calc(32).ti
+1845	2	calc(32).times(d.n, work.calc(8).equality(d.dp))))
+1845	3	calc(8).equality(d.dp))))
+1867	1	calc(64).plus(240 + LITERAL.releaseOwner, work.calc(32).times(3 * d.n 
+1867	2	calc(32).times(3 * d.n + input.source.concepts.length + branch.release
+1868	1	calc(8).equality(Math.max(d.d, longestTitle))), work.calc(32).times(4,
+1868	2	calc(32).times(4, longestTitle + d.d)))
+1876	1	calc(64).plus(12 + LITERAL.commitment + LITERAL.commitments, 1 + 2 * c
+1878	1	calc(8).equality(d.dp), work)))
+1925	1	calc(8).add(3, work.calc(32).times(orderedExternal.length, work.calc(8
+1925	2	calc(32).times(orderedExternal.length, work.calc(8).keyBill(orderedExt
+1925	3	calc(8).keyBill(orderedExternal.length, externalKeyLength))))
+1954	1	calc(8).add(4, work.calc(32).times(branch.releaseAuthority.commitments
+1954	2	calc(32).times(branch.releaseAuthority.commitments.length,
+1955	1	calc(8).keyBill(branch.releaseAuthority.commitments.length, committedL
+1962	1	calc(64).plus(bill, 15 + LITERAL.sink + 1 + LITERAL.boundary +
+2004	1	calc(64).plus(24, work.calc(32).times(branch.sets.length, 5 + 2 * work
+2004	2	calc(32).times(branch.sets.length, 5 + 2 * work.calc(8).equality(d.d))
+2004	3	calc(8).equality(d.d)), d.setCopy, 18))
+2007	1	calc(8).add(5, work.calc(32).times(released.length, work.calc(8).keyBi
+2007	2	calc(32).times(released.length, work.calc(8).keyBill(released.length, 
+2007	3	calc(8).keyBill(released.length, d.dp))))
+2012	1	calc(64).plus(5, LITERAL.commitments, 2, work.calc(32).times(branch.re
+2012	2	calc(32).times(branch.releaseAuthority.commitments.length,
+2013	1	calc(8).keyBill(released.length, d.dp))))
+2016	1	calc(8).add(2, work.calc(32).times(branch.productions.length, 4 + work
+2016	2	calc(32).times(branch.productions.length, 4 + work.calc(8).keyBill(rel
+2016	3	calc(8).keyBill(released.length, d.dp))))
+2043	1	calc(8).add(additions, 1)
+2048	1	calc(8).add(visits, 1); inspect(row)
+2114	1	calc(16).times(additions / 2, additions - 1)
+2115	1	calc(16).times(additions, (additions - 1) / 2)
+2117	1	calc(64).plus(64, work.calc(8).times(visits, 40),
+2117	2	calc(8).times(visits, 40),
+2118	1	calc(16).times(additions, work.calc(8).add(9, width)),
+2118	2	calc(8).add(9, width)),
+2119	1	calc(16).times(pairs, work.calc(8).equality(width))))
+2119	2	calc(8).equality(width))))
+2126	1	calc(32).keyBill(taken.size, Math.max(width, base.length)))
+2128	1	calc(32).add(100, work.calc(32).keyBill(taken.size, Math.max(width, ba
+2128	2	calc(32).keyBill(taken.size, Math.max(width, base.length))))
+2133	1	calc(64).plus(100, work.calc(32).times(taken.size + 1,
+2133	2	calc(32).times(taken.size + 1,
+2134	1	calc(8).add(100, work.calc(16).keyBill(taken.size, Math.max(width, 50)
+2134	2	calc(16).keyBill(taken.size, Math.max(width, 50))))))
+2145	1	calc(16).add(bill, 5 + value.length + needle.length)
+2168	1	calc(32).add(contractPrefix[contractPrefix.length - 1]!, 10 + row.tale
+2195	1	calc(32).add(contractBill, work.calc(16).add(contractPrefix[visited]!,
+2195	2	calc(16).add(contractPrefix[visited]!,
+2196	1	calc(8).times(visited, person.length)))
+2201	1	calc(8).add(busyChars, person.length)
+2209	1	calc(8).add(conceptChars, concept.id.length)
+2218	1	calc(16).times(conceptMapCount / 2, conceptMapCount + 1)
+2219	1	calc(16).times(conceptMapCount, (conceptMapCount + 1) / 2)
+2220	1	calc(32).plus(work.calc(8).times(10, conceptMapCount),
+2220	2	calc(8).times(10, conceptMapCount),
+2221	1	calc(8).times(conceptMapCount, conceptChars))
+2228	1	calc(8).add(companyRows, 1)
+2235	1	calc(32).add(statusBill, 19 + 2 * row.status.length)
+2238	1	calc(8).add(writerBill, 12)
+2242	1	calc(16).add(writerBill, 3 + person.length + row.writerId.length)
+2247	1	calc(16).add(statusBill, 9 + row.status.length)
+2249	1	calc(32).add(writerLookupBill,
+2250	1	calc(16).keySpanBill(source.concepts.length, conceptChars, row.concept
+2251	1	calc(8).add(writerRows, row.writerIds.length)
+2262	1	calc(8).add(indexedRows, 1)
+2269	1	calc(16).add(statusBill, 7 + project.status.length)
+2273	1	calc(8).add(researchSeats, 1)
+2279	1	calc(8).add(talentChars, person.id.length)
+2290	1	calc(8).add(queryChars, person.id.length)
+2299	1	calc(32).add(work.calc(16).times(b, work.calc(16).plus(1, b, busyChars
+2299	2	calc(16).times(b, work.calc(16).plus(1, b, busyChars)),
+2299	3	calc(16).plus(1, b, busyChars)),
+2300	1	calc(16).times(work.calc(8).add(1, b), busyChars))
+2300	2	calc(8).add(1, b), busyChars))
+2301	1	calc(32).add(work.calc(8).times(14, b), work.calc(8).times(3, busyKeys
+2301	2	calc(8).times(14, b), work.calc(8).times(3, busyKeys))
+2301	3	calc(8).times(3, busyKeys))
+2302	1	calc(32).add(work.calc(16).times(t, work.calc(16).plus(25, b, busyChar
+2302	2	calc(16).times(t, work.calc(16).plus(25, b, busyChars)),
+2302	3	calc(16).plus(25, b, busyChars)),
+2303	1	calc(16).times(work.calc(8).add(1, b), talentChars))
+2303	2	calc(8).add(1, b), talentChars))
+2308	1	calc(16).add(20, work.calc(8).times(32, queryCount))
+2308	2	calc(8).times(32, queryCount))
+2317	1	calc(8).add(employmentChars, row.terms.talentId.length)
+2318	1	calc(8).add(studioChars, row.studioId.length)
+2330	1	calc(16).add(24, work.calc(16).times(2, work.calc(8).equality(employme
+2330	2	calc(16).times(2, work.calc(8).equality(employmentWidth)))
+2330	3	calc(8).equality(employmentWidth)))
+2331	1	calc(16).add(12, sortBill(employmentCount, comparator, work))
+2334	1	calc(32).times(levels, work.calc(32).add(
+2334	2	calc(32).add(
+2335	1	calc(16).times(queryCount, work.calc(8).add(33, employmentWidth)), que
+2335	2	calc(8).add(33, employmentWidth)), queryChars))
+2340	1	calc(32).add(work.calc(16).times(queryCount,
+2340	2	calc(16).times(queryCount,
+2341	1	calc(8).add(21, employmentWidth)), queryChars)
+2342	1	calc(32).plus(work.calc(8).times(66, employmentCount),
+2342	2	calc(8).times(66, employmentCount),
+2343	1	calc(8).times(2, employmentChars), studioChars,
+2344	1	calc(16).times(employmentCount, h.playerStudioId.length))
+2349	1	calc(64).plus(rival, coldSort, binary, boundary, matches)
+2354	1	calc(64).plus(60, writerBill, conceptMapBill, writerLookupBill, status
+2355	1	calc(32).times(writerRows, 30 + LITERAL.writerAssignment + titleWidth 
+2356	1	calc(8).times(source.scriptDevelopment.projects.length, 12),
+2357	1	calc(32).times(companyRows, 12), busySetBill, work.calc(8).times(resea
+2357	2	calc(8).times(researchSeats, 12),
+2358	1	calc(32).times(source.technology.projects.length, 6),
+2359	1	calc(32).times(indexedRows, 6), work.calc(32).times(h?.businesses.leng
+2359	2	calc(32).times(h?.businesses.length ?? 0, 16))
+2363	1	calc(64).plus(240, work.calc(32).times(source.seed.length + 50, 8),
+2363	2	calc(32).times(source.seed.length + 50, 8),
+2364	1	calc(32).times(Math.min(t, TUNING.HIRING_FREELANCER_MARKET_SIZE), 100)
+2364	2	calc(8).times(t, 6))
+2365	1	calc(64).plus(busy, rival, random, filterBill, contractBill)
+2383	1	calc(16).add(productionClaims, row.reservations.length +
+2388	1	calc(8).add(scriptClaims, castingClaims)
+2389	1	calc(64).plus(slotClaims, productionClaims, mounts)
+2390	1	calc(8).add(d.d, 26)
+2391	1	calc(64).plus(LITERAL.claim, APPEND, 20, work.calc(32).times(2, 50 + 2
+2391	2	calc(32).times(2, 50 + 2 * d.d))
+2394	1	calc(64).plus(160,
+2395	1	calc(32).times(source.scriptDevelopment.projects.length + source.casti
+2396	1	calc(32).times(source.operations.workflows.length, 20), work.calc(8).t
+2396	2	calc(8).times(source.sets.length, 14),
+2397	1	calc(32).times(slotClaims + allClaims, rawClaim),
+2398	1	calc(32).times(slotClaims, work.calc(64).plus(24, work.calc(8).times(4
+2398	2	calc(64).plus(24, work.calc(8).times(4, work.calc(8).keyBill(slotClaim
+2398	3	calc(8).times(4, work.calc(8).keyBill(slotClaims, keyLength)))),
+2398	4	calc(8).keyBill(slotClaims, keyLength)))),
+2399	1	calc(8).times(allClaims, 8), work.calc(32).times(slotClaims, 4 + work.
+2399	2	calc(32).times(slotClaims, 4 + work.calc(8).keyBill(slotClaims, keyLen
+2399	3	calc(8).keyBill(slotClaims, keyLength)))
+2413	1	calc(16).add(rawClaims, row.reservations.length + (row.shootingTask ==
+2414	1	calc(8).add(indexedClaims, row.reservations.length)
+2418	1	calc(8).add(reservationVisits, 1)
+2420	1	calc(8).add(rawClaims, 1)
+2421	1	calc(8).add(indexedClaims, 1)
+2428	1	calc(8).add(developmentCapacity, facility.capacity)
+2432	1	calc(8).add(indexedClaims, d.external)
+2433	1	calc(8).equality(d.d), keyLength = work.calc(8).add(d.d, 26)
+2433	2	calc(8).add(d.d, 26)
+2434	1	calc(8).keyBill(occupied + 1, keyLength)
+2439	1	calc(8).keyBill(0, keyLength) : key
+2440	1	calc(64).plus(40, work.calc(32).times(d.n, 20 + 2 * eq),
+2440	2	calc(32).times(d.n, 20 + 2 * eq),
+2441	1	calc(8).times(reservationVisits, 5),
+2442	1	calc(32).times(rawClaims, work.calc(64).plus(LITERAL.claim, APPEND, 20
+2442	2	calc(64).plus(LITERAL.claim, APPEND, 20, work.calc(32).times(2, 50 + 2
+2442	3	calc(32).times(2, 50 + 2 * d.d))))
+2443	1	calc(64).plus(raw, 40,
+2444	1	calc(32).times(rawClaims, 16 + 2 * eq),
+2445	1	calc(32).times(indexedClaims, work.calc(8).times(3, key)),
+2445	2	calc(8).times(3, key)),
+2446	1	calc(32).times(d.external, work.calc(8).add(4, key)))
+2446	2	calc(8).add(4, key)))
+2447	1	calc(64).plus(occupancy, 60, work.calc(8).times(d.f, 14),
+2447	2	calc(8).times(d.f, 14),
+2449	1	calc(32).times(examined, work.calc(64).plus(14, 50 + 2 * d.d, slotKey,
+2449	2	calc(64).plus(14, 50 + 2 * d.d, slotKey, slotKey)),
+2453	1	calc(64).plus(allocation, 80, LITERAL.workflow, d.workflowCopy,
+2454	1	calc(8).times(2, d.bindingsCopy), 34, work.calc(8).times(2, d.operatio
+2454	2	calc(8).times(2, d.operationsCopy),
+2455	1	calc(32).times(d.n, 10 + 2 * eq), 70 + 2 * d.d,
+2456	1	calc(32).times(2, LITERAL.stampedEvent + APPEND),
+2478	1	calc(16).pay(69 + choice.projectId.length)
+2482	1	calc(64).plus(120, LITERAL.headerResult,
+2490	1	calc(16).add(headerBill, 1 + 2 * value.length)
+2493	1	calc(16).add(headerBill, 6 + 2 * value.length)
+2502	1	calc(64).plus(headerBill, 220, sessionWidth, project.id.length * 2, pr
+2510	1	calc(64).plus(LITERAL.staffingResult, LITERAL.cast, 70), idWidth = 0
+2513	1	calc(64).plus(staffingBill, searchBill(source.talent, row => row.id, i
+2517	1	calc(64).plus(staffingBill, searchBill(source.talent, row => row.id, i
+2523	1	calc(64).plus(staffingBill, 320, Math.max(22, idWidth) * 4, LITERAL.st
+2524	1	calc(32).times(assignments, work.calc(64).plus(LITERAL.roleAssignment,
+2524	2	calc(64).plus(LITERAL.roleAssignment, 40,
+2525	1	calc(8).times(2, work.calc(8).keyBill(assignments, idWidth)))),
+2525	2	calc(8).keyBill(assignments, idWidth)))),
+2526	1	calc(32).times(3, work.calc(8).keyBill(3, idWidth))))
+2526	2	calc(8).keyBill(3, idWidth))))
+2547	1	calc(64).plus(3, work.calc(32).times(busyRows.length, work.calc(8).key
+2547	2	calc(32).times(busyRows.length, work.calc(8).keyBill(busyRows.length, 
+2547	3	calc(8).keyBill(busyRows.length, idWidth))))
+2550	1	calc(64).plus(160, Math.max(22, idWidth), work.calc(32).times(staffing
+2550	2	calc(32).times(staffing.engagedIds.length,
+2551	1	calc(8).keyBill(busy.size, idWidth)), 4))
+2565	1	calc(64).plus(8, work.calc(32).times(source.contracts.length,
+2565	2	calc(32).times(source.contracts.length,
+2566	1	calc(8).equality(contractWidth)), work.calc(8).keyBill(staffing.engage
+2566	2	calc(8).keyBill(staffing.engagedIds.length, contractWidth)))
+2572	1	calc(8).pay(freelancerBill(source, work)); market = freelancerMarketId
+2574	1	calc(64).plus(3, work.calc(32).times(market.length, work.calc(8).keyBi
+2574	2	calc(32).times(market.length, work.calc(8).keyBill(market.length, cont
+2574	3	calc(8).keyBill(market.length, contractWidth))))
+2577	1	calc(64).plus(LITERAL.employmentFacts, 180, Math.max(22, idWidth), 4,
+2578	1	calc(32).times(staffing.engagedIds.length, work.calc(64).plus(10,
+2578	2	calc(64).plus(10,
+2579	1	calc(8).keyBill(contracted.size, contractWidth), work.calc(8).keyBill(
+2579	2	calc(8).keyBill(freelancerIds.size, contractWidth)))))
+2585	1	calc(32).pay(LITERAL.readyClock + LITERAL.cast + 1 + 2 * choice.craftI
+2590	1	calc(16).pay(3 + 2 * branch.productions.length)
+2594	1	calc(8).pay(readyOccupancyBill(source, d, work))
+2600	1	calc(64).plus(16, work.calc(8).times(slotCount, 2),
+2600	2	calc(8).times(slotCount, 2),
+2601	1	calc(32).times(slotCount, work.calc(8).keyBill(slotCount, d.d + 26))))
+2601	2	calc(8).keyBill(slotCount, d.d + 26))))
+2607	1	calc(16).pay(initialAdmissionBill(d, branch.operations, work))
+2618	1	calc(64).plus(190, linkWidth * 2, work.copyCost(source.scriptDevelopme
+2619	1	calc(32).times(source.scriptDevelopment.projects.length, 16 + 4 * work
+2619	2	calc(8).equality(linkWidth)), 4))
+2634	1	calc(32).pay(30 + LITERAL.prepared + 3 + 2 * prepared.pictures.length)
+2732	1	calc(64).plus(LITERAL.branch, 3, 2, work.calc(32).times(prepared.fixed
+2732	2	calc(32).times(prepared.fixed.length, 10 + LITERAL.ledgerRow),
+2733	1	calc(32).times(prepared.pictures.length, 3 + LITERAL.calendar)))
