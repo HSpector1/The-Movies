@@ -183,11 +183,19 @@ pre-cut prefix; the S6 assumed-coverage class change is an observation, not a
 certificate; RED comment cites +12 stale; comparison flag explained; two-pay
 preference not taken). NO cap/tariff/refusal/deadline/timeout/metric/test change;
 the stale route stays RED (≈28k gap); 578 Owner packet stands (D1 537§3, D2
-538-C §2, 515§6). NEXT598: the parallel track's last item C1 (calculator structure
-+ C5 static widths as module-init constants; ≈8–11k gross, diffuse, bills byte-
-identical) opens only as a bounded READ-ONLY design note if no Owner ruling arrives
-first — it closes no route and moves no certificate bound; otherwise the program
-waits on 578. Replay C1 remains the last, diffuse item of the parallel track. Gross2221 omitted fact cost is NOT
+538-C §2, 515§6). NEXT598 DONE → 599 RECORDED (published 5c5e9e55; source unchanged at 48a43511): C1
+(calculator structure + C5(i) static widths as module-init constants) designed READ-ONLY
+(599-A sim-core: 481 calc(k) sites on 282 lines, 244 would fall; L1 bucket right-sizing
++ H1–H7 structurally-zero hunks + C5(i) constants ≈13–15k on the stale prefix, ≈11–12k
+first-take, ≈3k on 538 scenario1, ≈0.2k prepare-only; bill VALUES byte-identical; closes
+no route, the stale gap stays ≈28k, the 576 bound unchanged) and reviewed (599-B
+contract-auditor: KEEP as record, REFINE only, three paper slips D1–D3; Ruling 1
+convention A′ at six uncovered helper sites; Ruling 2 the six textual under-reservations
+record-only): both recommend NOT opening C1 and the parent adopts it — no RED, no writer,
+no re-measurement; the PARALLEL TRACK IS CLOSED with 599 (site table, strict table,
+counter and route-model scripts archived by hash). Reopen only on an Owner ruling under
+578 that makes ≈13k load-bearing. NEXT599: no bounded engineering slice is open; the
+program waits on 578 (D1 537§3, D2 538-C §2, 515§6, C9/C10); Unity/native deferred. Gross2221 omitted fact cost is NOT
 net saving: cold discovery can shift into next frame. No route-fit claim.
 Draft-discovery, silent-policy, affine and Map alternatives remain unadopted.
 T4/B2/B3/B-F2 qualified closed; B4/liveP2/Unity/Owner acceptance NOT closed.

@@ -135,6 +135,19 @@ operand proofs; C1 is the parallel track's last item. Record 578 consolidates
 the open Owner decisions. Consumer impact: none; protocol4/projection46/Save29
 unchanged; no cap, tariff or refusal changed.
 
+Headless record599 (2026-09-21), published/exact remote
+`5c5e9e5591702b33fe8a8dc32592a14b22ec4a19` (source unchanged at `48a43511`): the
+parallel track's last item, replay bill reduction C1 (calculator bucket
+right-sizing, seven structurally-zero hunks, C5(i) literal constants), was
+designed READ-ONLY (599-A) and reviewed (599-B). Paper saving ≈13–15k on the
+stale route prefix, ≈3k on 538 scenario 1; bill values byte-identical; it
+closes no route (the stale gap stays ≈28k) and moves no certificate bound.
+Both specialists recommend NOT opening it and the parent adopts that: no RED,
+no writer, no re-measurement; the parallel track is closed; the site table and
+the counter/route-model scripts are archived by hash for any Owner-ordered
+reopening under record 578. Consumer impact: none; nothing in source changed;
+protocol4/projection46/Save29 unchanged; no cap, tariff or refusal changed.
+
 These are private logic/work-accounting changes only. No consumer field/action,
 protocol4, projection46, live Save29, evaluator3, schema or generated C# changed.
 Do not expose partial traces as certified offers, impossible schedules or broken
