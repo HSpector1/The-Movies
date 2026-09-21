@@ -254,28 +254,32 @@ film:11 before film:6; seed-b r01 f23 permutation at a 309,545 score cost; bridg
 rivals seat their sole writer as antagonist, 1.70M / 1.34M costs, pins held; adoption seed
 unchanged). OWNER EXPANSION-REVIEW QUESTIONS recorded in 628, nothing adopted: R5 seam ordering
 (keep as landed vs actors-first), G-1(A) rival authoring exclusion for sole crew (later, own RED),
-G-2 ordinary-pool retry. NEXT628 (b) DELIVERED — records 629–637 (record 637 published `e273715d06c2`): the
-breakPromisesOnCancel causal-coupling correction (26 §2) is landed and QUALIFIED WITH RECORD-ONLY
-ITEMS (629-R). Candidate `61833f0d` = c5a2ecdc (S1 promises.ts: exported
-targetSpecificImpossibility — remaining = count − actual class-qualified distinct takes, t0 =
-max(windowStart, expectedFirstTakeWeek(k=0)), nMax = ceil((due − t0)/5), BROKEN iff remaining >
-nMax; mask-seat relevance on the cancelled picture; immunity/strings/termination/due-week owners
-unchanged) + 61833f0d (S2 actions.ts comment-only). Rulings (630): cadence B hard bound with the D1
-window-start clamp over the quote's 8+5 hypothesis; no take-inside-window precondition. RED
-tests/p14b4-cancel-causal-proof.test.ts 629 baseline 7/9 (joint conflict, classless-P2 refusal,
-unsupported family, class-blind support seat, original-count physical bound all pinned; the
-array-order loser shape witnessed) → 631 16/16 unamended → 633 22/22 after 629-T2 (case-5
-negative, A/B separator, D1 clamp both ways, direct helper pins). 634 live-P2 14 files 1/226/2
-(designated evaluator-5 only); 635 natural-chain controls 177/2 todo identical to 625; 636 FULL
-CORE 9 files / 24 failed / 3813 passed / 8 todo = the 627 set unchanged (22 inherited + 2
-designated) + 22 new passing; never cited as all-green. Publication correction def4ace1: 52 probe
-logs named by 616/618/628 were untracked by .gitignore *.log, force-added; log dirs verified with
-git ls-files since. Record-only: cancel attribution (a cancel credited with a pre-existing
-impossibility) and the unbuilt 5-week two-take witness for the Owner; comment drift for the text
-pass. NEXT637: (c) stale-title text pass (600-R Q2 list + promises.ts:90/:449-452 +
-p14b1-promises:578/:780 wording) + 574-R promiseCapacityOwners.ts:8-9 doc fix — comment/title-only,
-ONE writer, no assertion change; evaluator 5 later (D2 (i-c)). Owner expansion-review questions
-from 628 (R5, G-1(A), G-2) await the Owner; nothing adopted. No wire/save change in this slice.
+G-2 ordinary-pool retry. NEXT628 (b) DELIVERED — records 629–637 (637 published `e273715d06c2`): the breakPromisesOnCancel
+causal-coupling correction (26 §2) landed as `61833f0d` (S1 promises.ts targetSpecificImpossibility:
+remaining = count − actual class-qualified takes, t0 = max(windowStart, expectedFirstTakeWeek(k=0)),
+nMax = ceil((due − t0)/5), BROKEN iff remaining > nMax, mask-seat relevance; S2 actions.ts comment)
+and QUALIFIED WITH RECORD-ONLY ITEMS (629-R); RED 629 7/9 → 631 16/16 → 633 22/22; 634 live-P2
+1/226/2 (designated evaluator-5 only); 635 controls identical to 625; 636 FULL CORE 9 files / 24
+failed / 3813 passed / 8 todo = the 627 set unchanged (22 inherited + 2 designated), never all-green.
+Publication correction def4ace1 (52 probe logs untracked by .gitignore *.log, force-added).
+NEXT637 (c) DELIVERED — record 645 (`93beaf9f0d23`): text pass 651fea8b (src doc comments; 574-R
+item 1 closed) + 0e330da0 (test titles/comments, no assertion change); 639 typecheck EXIT 0; 640
+touched files 79/79; 641/642 generator checks clean; 643 FIRST FULL UI-PROJECT RUN 9 files / 28
+failed / 2657 passed recorded as the UI baseline (643-C: 10 PIL-environment, 2 V16 oracle-fixture
+assertions inherited from P14A.1, 1 unhandled hollywoodPerformance test-double error, the rest
+timeouts/cascades; 644 single-worker: five files green, WorldInspectorDefault 27-mount sweep over
+budget — unreachable by P14B.4). B4 LOGIC FAMILIES CLOSED OUT against 600 §3 step 8 (616/618/628/
+637 + text pass); evaluator 5 later (D2 (i-c)). 645-A scoping: NEXT FAMILY = P14B.5 First
+Shared-Work Bond Core (relationships, companion §5: shared-take/release/cancel drivers,
+drift-on-read tiers, D5 in the chooser, nemesisOnRoster drop enumerated; Save V31 empty root,
+projection 47→48 thin via the closed priorityOrder enum; romance/chemistry consumption/read models
+→ B.6; waiver next); Q2/Q3/Q4 (§7.3) carried on the companion's own "recommended first behavior,
+not an approval" footing (B.1 precedent), isolated in the OPEN section — the Owner may object.
+NEXT645: (1) T0 — mint the genuine outgoing V30 corpus + projection-47 runtime checkpoint at HEAD
+(none exists; final V30 behavioural writer 61833f0d) with provenance and independent KEEP; (2) B.5
+expansion draft (sim-core READ-ONLY, B.1 pattern) + contract-auditor audit; (3) T1 RED against the
+absent src/core/relationships.ts, V31/48 allocated at execution. Owner items open: 628 R5 / G-1(A)
+/ G-2; 637 cancel attribution; Q2/Q3/Q4 footing. No wire/save change landed since 616.
 Unity/native deferred. Gross2221 omitted fact cost is NOT
 net saving: cold discovery can shift into next frame. No route-fit claim.
 Draft-discovery, silent-policy, affine and Map alternatives remain unadopted.
