@@ -596,6 +596,27 @@ export function promiseCastSlots(promise: Pick<ProfessionalPromiseV30, 'predicat
   return promise.predicate.seatClass === 'lead' ? ['lead'] : ['lead', 'antagonist']
 }
 
+/** P14B.4 final seating preference (plan :215-236): the people a package decided
+ * this week should seat, each with the INTERSECTION of the masks of every promise
+ * a take in `takeWeek` could serve — bound OPEN, unmet, this issuer, take inside
+ * the half-open window. CURRENT unaccepted offers never count: they reserve quote
+ * capacity (`activePromiseReservations`) and bind nobody. Reads `state.promises`
+ * only; no receipts, no RNG. */
+export function promisedCastMasks(
+  state: Pick<GameStateV30, 'promises'>, issuerStudioId: string, takeWeek: number,
+): ReadonlyMap<string, readonly CastSlot[]> {
+  const masks = new Map<string, readonly CastSlot[]>()
+  for (const promise of state.promises) {
+    if (!evaluable(promise) || promise.issuerStudioId !== issuerStudioId
+      || promise.progress >= promise.predicate.count
+      || takeWeek < promise.windowStartWeek || takeWeek >= promise.dueWeekExclusive) continue
+    const slots = promiseCastSlots(promise)
+    masks.set(promise.beneficiaryPersonId,
+      (masks.get(promise.beneficiaryPersonId) ?? CAST_SLOTS).filter((slot) => slots.includes(slot)))
+  }
+  return masks
+}
+
 export function qualifyingTakes(
   state: Pick<GameStateV30, 'firstTakes'>,
   promise: ProfessionalPromiseV30,
