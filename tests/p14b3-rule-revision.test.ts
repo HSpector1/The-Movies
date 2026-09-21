@@ -1,4 +1,4 @@
-// DRAFT ONLY: intended tests/p14b3-rule-revision.test.ts. Not installed or run.
+// Drafted before B3 T0 as the intended tests/p14b3-rule-revision.test.ts; installed and run in the core project since f4e1230.
 // B3 T0 must first mint the genuine accepted-B2 evaluator1 corpus. Missing files
 // are a prerequisite failure, NEVER the behavioral RED for evaluator revision2.
 // No fixture bytes, old versions, receipts or hashes are synthesized here.
@@ -94,7 +94,7 @@ function readFixture(name: CorpusCase) {
 // evaluator1 fixtures and old root.version1 stay1. Classifications, digests, fixtures and
 // weeks are untouched; residual-buffer movements are reconciled from evidence (600 §3 2(d)).
 describe('P14B.3 continuity under the live evaluator (4 after record 600) with genuine old evaluator1 history', () => {
-  it('pins the new evaluator generation independently of unchanged Save29/projection46', () => {
+  it('pins the live evaluator generation (PROMISE_RULES_VERSION 4; Save30/projection47 landed in the same record-600 cutover)', () => {
     expect(PROMISE_RULES_VERSION).toBe(4)
   })
 

@@ -105,7 +105,7 @@ function promisesRootOf(state: GameState): readonly unknown[] {
 }
 
 describe('P14B.1 test 8: Save V29 (genuine V28 fixture, empty new tables, same digests, round trip, downgrade)', () => {
-  it('LIVE_SAVE_VERSION is 29', () => {
+  it('LIVE_SAVE_VERSION is 30 (the P14B.4 cutover, record 600 / qualified 616; the V29 lift this slice pins is the intermediate step)', () => {
     expect(save.LIVE_SAVE_VERSION as number).toBe(30)
   })
 
@@ -190,8 +190,9 @@ describe('P14B.1 test 8: Save V29 (genuine V28 fixture, empty new tables, same d
     expect(JSON.stringify(downgraded.state as GameState)).toBe(JSON.stringify(beforeState))
   })
 
-  // B4 additive reader recognizes V30 before the live writer cuts over; this is
-  // the CURRENT dispatch sentinel, not a change to frozen V29 fixture law.
+  // The B4 additive reader recognized V30 before the live writer cut over (it did at
+  // record 600 / 616, LIVE_SAVE_VERSION 30); 30 is the current dispatch sentinel,
+  // not a change to frozen V29 fixture law.
   it('an unknown saveVersion 31 is refused, naming the handled range "1 through 30 only"', () => {
     const json = load(FIXTURE.file)
     const lifted = withV29.migrateToV29(JSON.parse(json))

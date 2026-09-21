@@ -12,8 +12,8 @@
 // NON-target-specific bottleneck the case isolates (a joint reservation, the classless fresh-offer refusal,
 // an unsupported family, a class-blind physical bound, or the ORIGINAL count instead of the remaining
 // count). A case that later turns GREEN because its premise stopped holding fails at the premise line, not
-// at the expectation. The landed coupling (record 630 R1/R2, commit c5a2ecdc; promises.ts :779-796) breaks
-// iff the separate exported proof `targetSpecificImpossibility` (:661-667), run on the POST-cancel state
+// at the expectation. The landed coupling (record 630 R1/R2, commit c5a2ecdc; promises.ts :785-802) breaks
+// iff the separate exported proof `targetSpecificImpossibility` (:667-673), run on the POST-cancel state
 // (actions.ts :599 passes `withoutProduction`), finds `remaining > nMax` for a root whose class mask seats
 // the person on the cancelled picture. The 629-T2 cases at the end of this file pin the parts of that law
 // the 629-T cases could not separate (remaining >= 2, the window-start clamp, the class-qualified take).
@@ -46,7 +46,7 @@
 //   does not move the physical clock, only the existing-path count. A picture at remainingTicks 5
 //   expects its take at week + 1, so cancelling it moves the clock from week + 1 to week + 5 (case 6c).
 //
-// LANDED BOUND (record 630 R1; promises.ts :661-667 `targetSpecificImpossibility`), transcribed by
+// LANDED BOUND (record 630 R1; promises.ts :667-673 `targetSpecificImpossibility`), transcribed by
 // `hardBound` below and pinned directly in the 629-T2 section:
 //   remaining = max(0, count - |qualifyingTakes(state, promise)|); remaining 0 -> null (not judged);
 //   t0 = max(windowStartWeek, expectedFirstTakeWeek(state, promise, week, 0));
@@ -56,7 +56,7 @@
 //   The quote clamps the GREENLIGHT week to the window start (`from`); the hard bound clamps the TAKE
 //   week (t0) — a picture greenlit before the window opens may be held at ticks 5 (629-B D1): 629-T2 D1.
 //
-// CAUSE STRINGS pinned below are DESIGN-OWNED: the cancel cause is the landed :791 literal (byte-identical
+// CAUSE STRINGS pinned below are DESIGN-OWNED: the cancel cause is the landed :797 literal (byte-identical
 // to the pre-writer :756); if a later change renames it, change `CANCEL_CAUSE` here (one line) and record
 // the new string.
 
@@ -74,12 +74,12 @@ import {
 import { p13aGeneratedStudio } from '../src/harness/p13a/fixtures.js'
 import type { CastSlot, FirstTakeReceipt, GameState, ProfessionalPromise, PromiseFamily, SegmentId } from '../src/core/types.js'
 
-// ── design-owned strings (promises.ts :736 due, :762 termination, :791 cancel, :793 receipt reason) ──
+// ── design-owned strings (promises.ts :742 due, :768 termination, :797 cancel, :799 receipt reason) ──
 const CANCEL_CAUSE = 'the studio cancelled the picture this person was cast in, and no path was left'
 const DUE_CAUSE = 'the window closed before the promised pictures began filming'
 const TERMINATION_CAUSE = 'the studio terminated this contract early, ending the window'
 // quote-service NON-target-specific refusal bottlenecks the RED premises isolate (promises.ts :214, :399, :426-427);
-// the landed proof reuses the PHYSICAL_BOUND sentence (:666) and none of the other three
+// the landed proof reuses the PHYSICAL_BOUND sentence (:672) and none of the other three
 const JOINT_RESERVATION = 'promises already made to this person exhaust the window'
 const CLASSLESS_REFUSAL = 'a seat-class promise needs its seat class selected (lead, or lead-or-antagonist); without one it is not offered'
 const FAMILY_REFUSAL = 'a directing promise is not offered in this slice'
@@ -100,7 +100,7 @@ function quoteNMax(from: number, due: number): number {
   while (freshEventWeek(from, n) < due) n += 1
   return n
 }
-// ── landed bound, transcribed (record 630 R1; promises.ts :664-665) ──────────
+// ── landed bound, transcribed (record 630 R1; promises.ts :670-671) ──────────
 /** nMax = ceil((due - t0) / WEEKS_TO_FIRST_TAKE) when the earliest take week t0 lies before `due`, else 0. */
 const hardBound = (t0: number, due: number): number => (t0 < due ? Math.ceil((due - t0) / W5) : 0)
 
@@ -411,7 +411,7 @@ describe('629-T case 3: an unsupported legacy family is not causal proof (26 §2
     const due = w + 20
     const state = bind(g.state, { promiseId: '629-3', family: 'DIRECTING_COUNT', predicate: { count: 1 }, beneficiaryPersonId: P, windowStartWeek: w, dueWeekExclusive: due })
     // BOUNDARY CHECK: the V30 root validator admits every catalogue family with a count-only predicate
-    // (promises.ts :969-970, :986-990). A refusal here is a boundary finding, not a proof.
+    // (promises.ts :1017-1018, :1034-1038). A refusal here is a boundary finding, not a proof.
     lawful(state)
     // RED PREMISE (executed): the fresh-offer service refuses the family outright (NOT_OFFERED_IN_B1).
     expect(reclassifyPromise(state, root(state, '629-3'), w)).toMatchObject({ classification: 'IMPOSSIBLE', bottleneck: FAMILY_REFUSAL })
@@ -419,7 +419,7 @@ describe('629-T case 3: an unsupported legacy family is not causal proof (26 §2
     const cancelled = cancel(state, g.productionId)
     // plan :252-254 (impossibility must be independent of "analysis limits") — a family this slice does not
     // offer is an analysis limit. REVIEWER FLAG: this source reads a legacy count-only root of ANY family
-    // with generic-cast semantics (promiseCastSlots :592-597), so the seam is "relevant" for the seated
+    // with generic-cast semantics (promiseCastSlots :603-608), so the seam is "relevant" for the seated
     // person; even so the wide window leaves two reachable events and no physical proof exists.
     untouched(state, cancelled)
   })
@@ -707,7 +707,7 @@ describe('629-T2 D1: the window start clamps the TAKE week t0, not the greenligh
     const cancelled = cancel(state, g.productionId)
     // ... and after it the quote estimate says IMPOSSIBLE (fresh from 23 -> 28 >= 28): the pre-writer coupling, which
     // re-ran the quote on the post-cancel state, BROKE this root. The lawful path greenlight 21 -> take 26 in [23, 28)
-    // exists (qualifyingTakes :633-634 admits a take at 26), so the landed bound leaves it to the due-week owner.
+    // exists (qualifyingTakes :639-640 admits a take at 26), so the landed bound leaves it to the due-week owner.
     expect(reclassifyPromise(cancelled, root(cancelled, '629-D1'), w)).toMatchObject({ classification: 'IMPOSSIBLE', bottleneck: PHYSICAL_BOUND })
     untouched(state, cancelled)
     expect(targetSpecificImpossibility(cancelled, root(cancelled, '629-D1'), w)).toBeNull()
@@ -734,7 +734,7 @@ describe('629-T2 D1: the window start clamps the TAKE week t0, not the greenligh
 })
 
 // ═════════════════════════════════════════════════════════════════════════════
-describe('629-T2 direct pins on the exported proof (record 630 R1 boundaries; promises.ts :661-667)', () => {
+describe('629-T2 direct pins on the exported proof (record 630 R1 boundaries; promises.ts :667-673)', () => {
   it('bound tagged lead roots, no running picture at week 21 (t0 = 26): the sentence iff remaining > ceil((due - 26) / 5)', () => {
     const r = roster()
     const P = r.actors[0]!

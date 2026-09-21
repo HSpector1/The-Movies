@@ -575,7 +575,11 @@ describe('P14B.1 test 5: outcomes', () => {
   // immediately on early termination of the beneficiary; each once and
   // idempotent; WAIVED/VOIDED unreachable (pinned as never emitted on the
   // B.1 seeds)." Plus the assigning brief: BROKEN-on-capacity-collapse via
-  // the landed `cancel` action, asserted iff re-feasibility is IMPOSSIBLE.
+  // the landed `cancel` action. As landed (records 630/637) the cancel seam
+  // breaks iff the separate target-specific proof `targetSpecificImpossibility`
+  // (remaining count > nMax = ceil((due - t0) / 5), t0 = max(windowStart,
+  // week + 5 or the running picture's take week)) fails on the post-cancel
+  // state; the offer re-feasibility is no longer the trigger.
 
   // T2c PREMISE CORRECTION (T2 ruling, "TEST-SIDE premises"): the SATISFIED
   // case below previously loaded `legacy-v28-shooting-5.json.gz` and read
@@ -777,7 +781,7 @@ describe('P14B.1 test 5: outcomes', () => {
     expect(broken.outcomeCause ?? '').toMatch(/terminat/i)
   })
 
-  it('BROKEN on capacity collapse: cancelling the promised person\'s ONLY production before its first take, with a due week too close for any other path, makes re-feasibility IMPOSSIBLE and the promise BROKEN', () => {
+  it('BROKEN on capacity collapse: cancelling the promised person\'s ONLY production before its first take, with a due week too close for any other path, fails the target-specific proof (remaining 1 > nMax 0) and the promise is BROKEN at the cancel', () => {
     let state = p13aGeneratedStudio()
     const director = signOne(state, 'director'); state = director.state
     const writer = signOne(state, 'writer'); state = writer.state
@@ -816,10 +820,12 @@ describe('P14B.1 test 5: outcomes', () => {
       contractId,
     }
     state = withPromises(state, [record])
-    // sanity: re-feasibility is already IMPOSSIBLE BEFORE the cancel too
-    // (the window is too tight regardless) — the meaningful claim this test
-    // pins is the STUDIO-CAUSED cancel producing the BROKEN outcome, not
-    // that cancelling is what tips it into IMPOSSIBLE by itself.
+    // PREMISE (not the trigger): the offer service already says IMPOSSIBLE
+    // BEFORE the cancel (the window is too tight regardless). The landed seam
+    // (records 630/637) does not consult this quote; it breaks iff the separate
+    // target-specific proof fails on the post-cancel state — here remaining 1 >
+    // nMax 0 (t0 = week + 5 >= due = week + 2). The claim this test pins is the
+    // STUDIO-CAUSED cancel producing the BROKEN outcome at the cancel.
     const beforeCancel = promiseFeasibility(
       state,
       { family: 'APPEARANCE_COUNT', issuerStudioId: state.hollywood!.playerStudioId, beneficiaryPersonId: lead.id, predicate: { count: 1 }, windowStartWeek: week, dueWeekExclusive: week + 2, startWeek: week, termWeeks: 208 },

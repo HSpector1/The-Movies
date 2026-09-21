@@ -203,7 +203,7 @@ function containsNumber(value: unknown, target: number): boolean {
 // ── group 1: PROJECTION_VERSION / LIVE_SAVE_VERSION ─────────────────────────
 
 describe('group 1: PROJECTION_VERSION / LIVE_SAVE_VERSION', () => {
-  it('LIVE_SAVE_VERSION stays 29; the live promise surface carries projection 46 after P14B.2', () => {
+  it('LIVE_SAVE_VERSION is 30 and the live promise surface carries projection 47 after the P14B.4 cutover (record 600 / 616)', () => {
     expect(LIVE_SAVE_VERSION).toBe(30)
     expect(PROJECTION_VERSION).toBe(47)
     expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${String(PROTOCOL_VERSION)}:projection-47`)
@@ -488,14 +488,15 @@ describe('group 6: save/load', () => {
     const reSaved = session.save({ protocolVersion: PROTOCOL_VERSION, schemaId: SCHEMA_ID, sessionId: session.sessionId, commandId: 'save-1', expectedStateRevision: session.stateRevision })
     expect(reSaved.accepted).toBe(true)
     // T3 CORRECTION to this file's own T3a premise: an unmodified round trip does NOT
-    // stay V28. Save V29 is the live writer and `fromSaveJson` migrates on load (the two
-    // empty roots asserted above ARE that conversion), so the re-save is V29 bytes by
-    // law. The fixture's V28 sha stays the provenance pin on the FILE (line above); the
+    // stay V28. The live writer (V29 when T3 corrected this; V30 since the P14B.4 cutover,
+    // record 600 / 616) migrates on load through `fromSaveJson` (the two empty roots asserted
+    // above ARE the V28->V29 step of that conversion), so the re-save is live-version bytes
+    // by law. The fixture's V28 sha stays the provenance pin on the FILE (line above); the
     // re-save proves only that the bridge wrote the live envelope.
     if (reSaved.accepted) expect((JSON.parse(reSaved.saveJson) as { saveVersion: number }).saveVersion).toBe(30)
   })
 
-  it('a live V29 state carrying a real promise round-trips through the bridge save/load path byte-stable, and the promise-row read is identical on both sides', () => {
+  it('a live V30 state carrying a real promise round-trips through the bridge save/load path byte-stable, and the promise-row read is identical on both sides', () => {
     const { state: submitted, talentId, playerStudioId } = openCaseWithBothProposals('p14b1-bridge-roundtrip')
     const proposal = currentProposals(submitted, talentId).find((p) => p.issuerStudioId === playerStudioId)!
     const state = attachPromise(submitted, talentId, playerStudioId, {

@@ -1,4 +1,4 @@
-// DRAFT ONLY, intended tests/p14bf2-acting-discipline.test.ts. Not installed/run.
+// Drafted as the intended tests/p14bf2-acting-discipline.test.ts; installed and run in the core project since 957d2de.
 // Gate: qualified B3/rules2 plus genuinely minted B2/rules1 corpus; B-F2 uses3.
 // Existing D9 OQ-1 + companion4.2: acting-profile presence, not profession label.
 // No candidate-pool, rival-policy, label, Save29/projection46 or P2 change.

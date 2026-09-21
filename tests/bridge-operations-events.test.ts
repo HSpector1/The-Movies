@@ -320,7 +320,7 @@ describe('R3-N7-SIM-01 — operationsEventsProjection (projection 32)', () => {
       .toEqual(projection.rows.filter((row) => row.tier === 'permanent').map((row) => row.seq))
   })
 
-  it('L6 is pure, mutates nothing, and validates inside the served projection-46 envelope', () => {
+  it('L6 is pure, mutates nothing, and validates inside the served projection-47 envelope', () => {
     const state = studio()
     const before = digest(state)
     expect(stableStringify(operationsEventsProjection(state)))
