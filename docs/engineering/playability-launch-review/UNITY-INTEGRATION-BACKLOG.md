@@ -148,6 +148,8 @@ the counter/route-model scripts are archived by hash for any Owner-ordered
 reopening under record 578. Consumer impact: none; nothing in source changed;
 protocol4/projection46/Save29 unchanged; no cap, tariff or refusal changed.
 
+Headless record600 (2026-09-21), published/exact remote `690837347e248733bb44f867b7f44b4a138c4d25` (source unchanged at `48a43511`): the Owner ruled on record 578 — D1 (a) evaluator 4 = class-aware scalar (class-restricted fixed-seat paths + shared residual capacity, fresh P1 and tagged P2), the kernel joint certificate and UNCERTIFIED→FRAGILE mapping become evaluator 5; D2 (i-c) the 200000 cap and 162 §2 metric fixed; 515 §6 (c) the stale route stays RED, C9/C10 not authorized; 576 a fact; C1 closed. The B4 plan carries an additive "Owner ruling 2026-09-21 (record 600)" section. Engineering is reopened for the coordinated core/save/runtime/wire cutover (Save30, projection 47, rules 4, the family-discriminated P2 draft with required `seatClass`, nullable `seatClass` on own snapshot/history rows, `preferredOpportunity` on preferences, generator run over its three owned artifacts). For Unity this means the projection-47 schema and DTOs WILL move in the next writer release; the native class selector, preference/legacy display and new-schema/save loading stay backlog and deferred. No native work follows automatically.
+
 These are private logic/work-accounting changes only. No consumer field/action,
 protocol4, projection46, live Save29, evaluator3, schema or generated C# changed.
 Do not expose partial traces as certified offers, impossible schedules or broken

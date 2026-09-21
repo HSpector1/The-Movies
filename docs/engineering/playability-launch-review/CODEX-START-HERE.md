@@ -194,8 +194,24 @@ convention A′ at six uncovered helper sites; Ruling 2 the six textual under-re
 record-only): both recommend NOT opening C1 and the parent adopts it — no RED, no writer,
 no re-measurement; the PARALLEL TRACK IS CLOSED with 599 (site table, strict table,
 counter and route-model scripts archived by hash). Reopen only on an Owner ruling under
-578 that makes ≈13k load-bearing. NEXT599: no bounded engineering slice is open; the
-program waits on 578 (D1 537§3, D2 538-C §2, 515§6, C9/C10); Unity/native deferred. Gross2221 omitted fact cost is NOT
+578 that makes ≈13k load-bearing. NEXT599 DONE → 600 RECORDED (published 69083734; source unchanged at 48a43511): the OWNER RULED on
+578 — D1 (a): evaluator 4 = class-restricted fixed-seat paths + shared residual capacity on
+the existing scalar, for fresh P1 AND tagged P2; the kernel joint certificate and
+UNCERTIFIED→FRAGILE move to evaluator 5; implemented INSIDE the coordinated
+core/save/runtime/wire cutover (26 §2–§4), never as a partial live change; D2 (i-c): the
+200000 cap and the 162 §2 metric stay exactly as adopted, certified offers only where the
+current kernel fits, no multi/deferred-admission grammar, revisit at the evaluator-5 design;
+515 §6 (c): the 302 stale route stays RED as an exact boundary, C9/C10 NOT authorized, the
+control untouched; 576 recorded as a fact; C1 stays closed. Plan amended additively
+(`plans/P14B4-HEADLESS-PLAN.md` "Owner ruling 2026-09-21 (record 600)" section; SHA
+382252e2… → 28b8fdd6…; earlier line cites n>8 are now n+51). ENGINEERING REOPENED. NEXT600:
+(2) test-author reconciliation 600-T as RED on unchanged source (B-F2/B3 rules-3 pins → 4 for
+fresh reads; kernel-vocabulary capacity cases → evaluator-5 file or explicit unreached
+marking; trust-chooser test 6 per 110/554; natural-chain residual-buffer inventory) → (3)
+sim-core READ-ONLY cutover design note 600-A → (4) contract-auditor review 600-B → (5) ONE
+sim-core writer 600-W (per-step patches) → (6) serialized verification vs 536/593 → (7) 600-R
+review, per-step commits pushed together, record, headers. No cap/tariff/refusal/timeout/
+fixture moves to obtain a pass; Unity/native deferred. Gross2221 omitted fact cost is NOT
 net saving: cold discovery can shift into next frame. No route-fit claim.
 Draft-discovery, silent-policy, affine and Map alternatives remain unadopted.
 T4/B2/B3/B-F2 qualified closed; B4/liveP2/Unity/Owner acceptance NOT closed.
