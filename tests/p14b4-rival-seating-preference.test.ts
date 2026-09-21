@@ -1,0 +1,698 @@
+// 619-T (record 618 NEXT618 (a); plan T1 "independent test-author RED against accepted predecessor").
+// Independent behavioral RED for the FINAL SEATING PREFERENCE at the rival's actual
+// chooseIndustryPackage billing comparison. Authority: P14B4-HEADLESS-PLAN.md :209-235
+// ("Final seating preference belongs at the actual chooseIndustryPackage billing comparison…"),
+// record 26 §2 :80-87, records 600/616/618. Authored at HEAD 62ca561a against the accepted
+// predecessor files (outcomes/policy); no production, helper, fixture or timeout change.
+//
+// Expectations are DERIVED FROM THE LAW, never from current output:
+//   membership  — bound OPEN (contractId !== null, outcome === null), unmet (progress < count),
+//                 same issuer as the deciding rival, prospective qualifying take inside
+//                 [windowStartWeek, dueWeekExclusive); never a CURRENT unaccepted offer (:210-213).
+//   masks       — the shared reader promiseCastSlots (promises.ts :592-597): legacy count-only →
+//                 generic cast; tagged lead → lead; tagged leadOrAntagonist → lead+antagonist;
+//                 one beneficiary with several applicable promises → INTERSECTION (:213-215).
+//   benefit     — DISTINCT beneficiaries whose assigned role satisfies their mask (:215-216).
+//   order       — maximize benefit among legal/affordable/VIABLE packages, then the ordinary
+//                 economic score, then the existing strict-greater BILLINGS iteration (:216-218);
+//                 the last rule is inherited tie behaviour, not fairness (:219-221).
+//   preserved   — exact no-preference path, screenplay-planning call, viability gates (:223-225);
+//                 the initial cast seam must include eligible promised people without broadening
+//                 ordinary no-promise policy (:225-232).
+// The "ordinary economic score" is the EXISTING score at hollywoodPolicy.ts :45-60; `ordinaryBest`
+// below transcribes it per fixed permutation ONLY so the test can order permutations the way the
+// plan orders them. It is self-validated: on every decision without members the transcription must
+// reproduce the real function's choice exactly (cast, budget, margins) — that is the no-preference
+// regression control, not an oracle of the preference.
+//
+// Observation only: `vi.spyOn(chooseIndustryPackage)` records the real service's inputs/outputs
+// and returns the real result (the accepted policy-test pattern). No stub, no synthetic state.
+// Labeled IN-MEMORY VARIANTS (the accepted outcomes-test `variant()` discipline) change ONE
+// genuinely bound OPEN root's family/predicate/window, or ONE person's reception inputs, and say so.
+import assert from 'node:assert/strict'
+import { createHash } from 'node:crypto'
+import { describe, expect, it, vi } from 'vitest'
+import { tick } from '../src/core/index.js'
+import * as policyModule from '../src/core/hollywoodPolicy.js'
+import { perceivedPlanningInputs, type IndustryPackageChoice } from '../src/core/hollywoodPolicy.js'
+import { computeForecast } from '../src/core/forecast.js'
+import { marketingCapacityForInputs, marketingMenuFromCapacity } from '../src/core/marketingMenu.js'
+import { resolveShape } from '../src/core/shape.js'
+import { busyTalentIds } from '../src/core/employment.js'
+import { attachPromise, promiseCastSlots, qualifyingTakes } from '../src/core/promises.js'
+import { submitProposal } from '../src/core/talentMarket.js'
+import { makeSave } from '../src/core/save.js'
+import { TUNING } from '../src/core/tuning.js'
+import type { ReceptionInputs } from '../src/core/reception.js'
+import type { CastSlot, GameState, ProfessionalPromise, Talent } from '../src/core/types.js'
+import type { RivalBusiness } from '../src/core/hollywoodTypes.js'
+import { p13aGeneratedStudio } from './helpers/p14b2-fixtures.js'
+
+const SLOTS = ['lead', 'antagonist', 'support'] as const
+// The existing iteration order at hollywoodPolicy.ts :18 — pinned as INHERITED tie behaviour (:218-221).
+const BILLINGS = [[0, 1, 2], [0, 2, 1], [1, 0, 2], [1, 2, 0], [2, 0, 1], [2, 1, 0]] as const
+const DEFAULT_SEED = 'p13a-core-causal-01'
+const SCAN_TICKS = 350
+const WITNESS = { seed: 'seed-b', week: 211, studioId: 'studio-bc14baf6-r01', key: 'studio-bc14baf6-r01:package:script-0023',
+  filmId: 'studio-bc14baf6-r01:film:23', writer: 'person-studio-bc14baf6-r01-0', director: 'person-studio-bc14baf6-r01-1',
+  craft: 'person-studio-bc14baf6-r01-5', a2: 'person-studio-bc14baf6-r01-2', a3: 'person-studio-bc14baf6-r01-3', a4: 'person-studio-bc14baf6-r01-4' }
+// Pinned from the real production record studio-aca408ec-r01:film:0 after tick 3 on p13a-core-causal-01 at HEAD 62ca561a.
+const PRODUCTION_DIGEST = '89385c2a5b32e0b62cebb3149a085a0be39171d9dbd236e470df4b9fd94eee19'
+// Digest of every real film decision (week, studio, key, pool, cast, budget) on the default seed (all 350 ticks) and on
+// seed-b BEFORE its first member decision (w211): the pre-existing seam and choice, pinned as the no-preference control.
+const CHAIN_DIGESTS = { [DEFAULT_SEED]: 'dba473b9bc13816e1b4cb1ed04f53f669912384179c5c73d0b23eeb64ed65489', 'seed-b': 'd3218295f449599c4451ee5d85c13a3bd3171522ce2697b9d034dc71b96daea2' }
+type Options = Parameters<typeof policyModule.chooseIndustryPackage>[2]
+type Call = { input: ReceptionInputs; policy: RivalBusiness['policy']; options: Options; result: IndustryPackageChoice | null }
+type Decision = Call & { seed: string; week: number; studioId: string }
+type Member = { beneficiaryPersonId: string; mask: readonly CastSlot[]; promiseIds: string[] }
+const clone = <T>(value: T): T => structuredClone(value)
+const sha = (value: string) => createHash('sha256').update(value).digest('hex')
+const ids = (cast: Record<CastSlot, { id: string }>) => ({ lead: cast.lead.id, antagonist: cast.antagonist.id, support: cast.support.id })
+const poolOf = (d: Pick<Call, 'input'>) => [d.input.cast.lead.id, d.input.cast.antagonist.id, d.input.cast.support.id]
+const business = (state: GameState, studioId: string) => state.hollywood!.businesses.find((b) => b.studioId === studioId)!
+const root = (state: GameState, promiseId: string): ProfessionalPromise => {
+  const rows = state.promises.filter((p) => p.promiseId === promiseId)
+  expect(rows).toHaveLength(1)
+  return rows[0]!
+}
+function live(state: GameState): GameState {
+  const validated = makeSave(state) // the governed strict V30 entry; no manual version stamp
+  expect(validated.saveVersion).toBe(30)
+  return validated.state
+}
+/** Employed, non-busy people of one rival in employment order — the existing seam law at hollywoodTick.ts :156-163. */
+function employed(state: GameState, studioId: string): Talent[] {
+  const h = state.hollywood!
+  const busy = busyTalentIds(state)
+  return h.activeEmploymentOrdinals.map((i) => h.employment[i]!).filter((e) => e.studioId === studioId)
+    .map((e) => state.talent.find((t) => t.id === e.terms.talentId)!).filter((t) => !busy.has(t.id))
+}
+/** Every week a take could plausibly land for a film decided at `week`: the plan pins no estimate, so a
+ * promise is a CERTAIN member only when its window holds the whole range and AMBIGUOUS when it holds part. */
+const takeWeeks = (week: number) => Array.from({ length: TUNING.PRODUCTION_TICKS }, (_, i) => week + 1 + i)
+function membersAt(state: GameState, studioId: string, week: number): { certain: Member[]; ambiguous: ProfessionalPromise[] } {
+  const weeks = takeWeeks(week)
+  const inside = (p: ProfessionalPromise, w: number) => p.windowStartWeek <= w && w < p.dueWeekExclusive
+  const open = state.promises.filter((p) => p.issuerStudioId === studioId && p.contractId !== null && p.outcome === null
+    && p.progress < p.predicate.count)
+  const byPerson = new Map<string, Member>()
+  for (const p of open.filter((p) => weeks.every((w) => inside(p, w)))) {
+    const slots = promiseCastSlots(p)
+    const existing = byPerson.get(p.beneficiaryPersonId)
+    byPerson.set(p.beneficiaryPersonId, existing === undefined ? { beneficiaryPersonId: p.beneficiaryPersonId, mask: slots, promiseIds: [p.promiseId] }
+      : { ...existing, mask: existing.mask.filter((s) => slots.includes(s)), promiseIds: [...existing.promiseIds, p.promiseId] })
+  }
+  return { certain: [...byPerson.values()], ambiguous: open.filter((p) => !weeks.every((w) => inside(p, w)) && weeks.some((w) => inside(p, w))) }
+}
+const asMember = (p: ProfessionalPromise): Member => ({ beneficiaryPersonId: p.beneficiaryPersonId, mask: promiseCastSlots(p), promiseIds: [p.promiseId] })
+function benefitOf(cast: Record<CastSlot, string>, members: readonly Member[]): number {
+  return members.filter((m) => SLOTS.some((slot) => cast[slot] === m.beneficiaryPersonId && m.mask.includes(slot))).length
+}
+type Ordinary = { score: number; budget: { negative: number; marketing: number }; expectedOperatingMargin: number; expectedIncrementalContribution: number; holdOperatingMargin: number }
+/** The EXISTING ordinary economic score (hollywoodPolicy.ts :45-60) for one fixed permutation under a locked
+ * screenplay; null when no package is legal/affordable/viable for it. Self-validated on no-member decisions. */
+function ordinaryBest(d: Pick<Call, 'input' | 'policy' | 'options'>, cast: Record<CastSlot, Talent>): Ordinary | null {
+  expect(d.options.lockScreenplay).toBe(true)
+  const planning = perceivedPlanningInputs({ ...d.input, cast })
+  const inp: ReceptionInputs = { ...planning, shapeEffects: resolveShape(planning.shape) }
+  const required = inp.concept.baseNegativeCost * inp.shapeEffects.budgetDemandMultiplier * inp.era.costScale
+  const holdOperatingMargin = -d.options.weeklyCost * (TUNING.PRODUCTION_TICKS + TUNING.THEATRICAL_WEEKS)
+  let best: Ordinary | null = null
+  for (const scale of TUNING.HOLLYWOOD_NEGATIVE_CHOICES) {
+    const negative = Math.round(required * scale * d.policy.negativeScale)
+    const base = { ...inp, budget: { negative, marketing: 0 } }
+    for (const marketing of marketingMenuFromCapacity(marketingCapacityForInputs(base, true))) {
+      if (negative + marketing > d.options.cashAvailable) continue
+      const candidate = { ...base, budget: { negative, marketing } }
+      const forecast = computeForecast(candidate, { seed: d.options.seed, productionId: d.options.key, directorId: inp.director.id, releasedFilms: [], concepts: [inp.concept] }, true, true)
+      const expectedIncrementalContribution = forecast.expectedTotal * TUNING.STUDIO_RENTAL_BLENDED - negative - marketing
+      const expectedOperatingMargin = expectedIncrementalContribution + holdOperatingMargin
+      const score = expectedOperatingMargin - Math.abs(marketing / Math.max(negative, 1) - d.policy.marketingRatio) * TUNING.HOLLYWOOD_POLICY_PREFERENCE_COST
+      if (score <= holdOperatingMargin) continue
+      if (best === null || score > best.score) best = { score, budget: { negative, marketing }, expectedOperatingMargin, expectedIncrementalContribution, holdOperatingMargin }
+    }
+  }
+  return best
+}
+type Permutation = { billing: readonly [number, number, number]; cast: Record<CastSlot, string>; benefit: number; ordinary: Ordinary | null }
+function permutations(d: Pick<Call, 'input' | 'policy' | 'options'>, members: readonly Member[]): Permutation[] {
+  const actors = [d.input.cast.lead, d.input.cast.antagonist, d.input.cast.support]
+  return BILLINGS.map((billing) => {
+    const people = { lead: actors[billing[0]]!, antagonist: actors[billing[1]]!, support: actors[billing[2]]! }
+    const cast = ids(people)
+    return { billing, cast, benefit: benefitOf(cast, members), ordinary: ordinaryBest(d, people) }
+  })
+}
+/** Plan :216-218: max benefit among VIABLE permutations, then ordinary score, then the first strict-greater winner. */
+function lawPick(perms: readonly Permutation[]): Permutation | null {
+  let best: Permutation | null = null
+  for (const p of perms) {
+    if (p.ordinary === null) continue
+    if (best === null || p.benefit > best.benefit || (p.benefit === best.benefit && p.ordinary.score > best.ordinary!.score)) best = p
+  }
+  return best
+}
+/** The pre-existing no-preference winner: ordinary score only, first strict-greater. */
+function ordinaryPick(perms: readonly Permutation[]): Permutation | null {
+  let best: Permutation | null = null
+  for (const p of perms) if (p.ordinary !== null && (best === null || p.ordinary.score > best.ordinary!.score)) best = p
+  return best
+}
+const short = (id: string) => id.replace(/^person-studio-/, '')
+const show = (p: Permutation | null) => p === null ? 'null' : `${short(p.cast.lead)}/${short(p.cast.antagonist)}/${short(p.cast.support)}#${p.benefit}@${p.ordinary!.score.toFixed(0)}`
+const table = (perms: readonly Permutation[]) => perms.map((p) => `[${p.billing.join('')}] ${short(p.cast.lead)}/${short(p.cast.antagonist)}/${short(p.cast.support)} benefit=${p.benefit} ${p.ordinary === null ? 'NOT VIABLE' : `score=${p.ordinary.score.toFixed(0)} budget=${p.ordinary.budget.negative}+${p.ordinary.budget.marketing}`}`).join('\n')
+const same = (a: Record<CastSlot, string>, b: Record<CastSlot, string>) => a.lead === b.lead && a.antagonist === b.antagonist && a.support === b.support
+
+/** Observe every real chooseIndustryPackage call inside ONE tick; the real result is always returned. */
+function observedTick(state: GameState): { after: GameState; calls: Call[] } {
+  const choose = policyModule.chooseIndustryPackage
+  const calls: Call[] = []
+  const spy = vi.spyOn(policyModule, 'chooseIndustryPackage').mockImplementation((input, policy, options) => {
+    const before = clone({ input, policy, options })
+    const result = choose(input, policy, options)
+    expect({ input, policy, options }).toEqual(before) // transparent, never a stub
+    calls.push(clone({ input, policy, options, result }))
+    return result
+  })
+  try { return { after: tick(state), calls } } finally { spy.mockRestore() }
+}
+const studioOf = (options: Options) => options.key.split(':package:')[0]!
+function filmDecisions(seed: string, before: GameState, calls: readonly Call[]): Decision[] {
+  return calls.filter((c) => c.options.lockScreenplay).map((c) => ({ ...c, seed, week: before.market.tick, studioId: studioOf(c.options) }))
+}
+
+/** Plan :216-218 and :223-225 on ONE real decision: the real choice equals the law pick over the strict members;
+ * a null choice is allowed only when no permutation is viable (no forged package). Returns the row for the table. */
+function lawRow(d: Decision, before: GameState) {
+  const m = membersAt(before, d.studioId, d.week)
+  const perms = permutations(d, m.certain)
+  const law = lawPick(perms), ordinary = ordinaryPick(perms)
+  const chosenBenefit = d.result === null ? null : benefitOf(d.result.cast, m.certain)
+  const pool = poolOf(d)
+  const team = employed(before, d.studioId)
+  const firstThree = team.filter((t) => t.role === 'actor').slice(0, 3).map((t) => t.id)
+  const promisedOutside = m.certain.map((x) => x.beneficiaryPersonId).filter((id) => !firstThree.includes(id) && team.some((t) => t.id === id && t.role === 'actor'))
+  const poolKnownBefore = pool.every((id) => team.some((t) => t.id === id)) // this week's own staffing (same pass, before decide) is not in `before`
+  const ok = m.ambiguous.length === 0 && (law === null ? d.result === null : d.result !== null && same(d.result.cast, law.cast)
+    && JSON.stringify(d.result.budget) === JSON.stringify(law.ordinary!.budget) && d.result.expectedOperatingMargin === law.ordinary!.expectedOperatingMargin)
+  return { seed: d.seed, week: d.week, studioId: d.studioId, key: d.options.key, pool, firstThree, promisedOutside, ambiguous: m.ambiguous.map((p) => p.promiseId),
+    members: m.certain.map((x) => `${x.beneficiaryPersonId}:${x.mask.join('|')}`), inPool: m.certain.filter((x) => pool.includes(x.beneficiaryPersonId)).length, poolKnownBefore,
+    budget: d.result === null ? null : d.result.budget,
+    chosen: d.result === null ? null : `${short(d.result.cast.lead)}/${short(d.result.cast.antagonist)}/${short(d.result.cast.support)}`,
+    chosenBenefit, law: show(law), ordinary: show(ordinary), ok, perms }
+}
+
+type Scan = { rows: ReturnType<typeof lawRow>[]; witness?: { before: GameState; decision: Decision }; pending?: { before: GameState; decision: Decision }
+  planning?: Call; firstFilm?: { before: GameState; decision: Decision; after: GameState }; noStaffingWeeks: string[] }
+const scans = new Map<string, Scan>()
+/** One deterministic pass per seed; every real film decision is checked against the law (never against today's output). */
+function scan(seed: string): Scan {
+  if (scans.has(seed)) return scans.get(seed)!
+  const out: Scan = { rows: [], noStaffingWeeks: [] }
+  let state = p13aGeneratedStudio(seed)
+  for (let step = 0; step < SCAN_TICKS; step++) {
+    const before = state
+    const { after, calls } = observedTick(before)
+    if (out.planning === undefined) { const planning = calls.find((c) => !c.options.lockScreenplay); if (planning !== undefined) out.planning = planning }
+    for (const d of filmDecisions(seed, before, calls)) {
+      const row = lawRow(d, before)
+      out.rows.push(row)
+      const viable = row.perms.filter((p) => p.ordinary !== null)
+      const max = Math.max(...viable.map((p) => p.benefit))
+      // The natural witness: >= 2 members in the pool AND the seating matters (some viable permutation serves fewer than the max).
+      if (out.witness === undefined && d.result !== null && row.inPool >= 2 && viable.some((p) => p.benefit < max)) out.witness = { before: clone(before), decision: d }
+      // A decision taken while the rival's OWN retention offers (promise attached, contractId null) are still CURRENT.
+      if (out.pending === undefined && d.result !== null && before.promises.some((p) => p.issuerStudioId === d.studioId && p.contractId === null
+        && p.outcome === null && row.pool.includes(p.beneficiaryPersonId)
+        && before.talentMarket.proposals.some((q) => q.issuerStudioId === d.studioId && q.promises.includes(p.promiseId)))) out.pending = { before: clone(before), decision: d }
+      if (out.firstFilm === undefined && d.result !== null) out.firstFilm = { before: clone(before), decision: d, after: clone(after) }
+    }
+    // Capacity constraint (:231-232): a rival with a ready screenplay, no picture and no lawful complementary staffing decides nothing.
+    for (const b of before.hollywood!.businesses) {
+      const ready = b.activeScriptOrdinals.map((i) => b.development.projects[i]!).some((p) => p.status === 'ready')
+      if (!ready || b.productions.length !== 0 || before.market.tick < b.nextDecisionWeek || calls.some((c) => c.options.lockScreenplay && studioOf(c.options) === b.studioId)) continue
+      const team = employed(after, b.studioId) // after this week's staffing, before its decision (same pass)
+      const deficit = !team.some((t) => t.role === 'director') || team.filter((t) => t.role === 'actor').length < 3 || !team.some((t) => t.role === 'craft')
+      out.noStaffingWeeks.push(`${seed} w${before.market.tick} ${b.studioId} deficit=${deficit}`)
+      expect(business(after, b.studioId).productions).toEqual([]) // never a forged package
+    }
+    state = after
+  }
+  scans.set(seed, out)
+  return out
+}
+
+/** Labeled IN-MEMORY OUTCOME-OWNER VARIANT (the accepted outcomes-test discipline): only this genuinely bound OPEN
+ * root's family/predicate/window changes; binding, receipts, takes, market and every other root are byte-identical. */
+type Material = { family: ProfessionalPromise['family']; predicate: ProfessionalPromise['predicate'] }
+function promiseVariant(base: GameState, promiseId: string, material?: Material, window: { start?: number; due?: number } = {}): GameState {
+  const original = root(base, promiseId)
+  expect(original).toMatchObject({ outcome: null, progress: 0, evidenceRefs: [] })
+  assert.notEqual(original.contractId, null)
+  const changed = { ...original, ...(material ?? {}), windowStartWeek: window.start ?? original.windowStartWeek, dueWeekExclusive: window.due ?? original.dueWeekExclusive }
+  const state = live({ ...clone(base), promises: base.promises.map((p) => p.promiseId === promiseId ? clone(changed) as ProfessionalPromise : clone(p)) })
+  expect(root(state, promiseId).contractId).toBe(original.contractId)
+  expect(root(state, promiseId).feasibilityReceipt).toEqual(original.feasibilityReceipt)
+  const json = (x: unknown) => JSON.stringify(x)
+  expect(json(state.hollywood!.employment)).toBe(json(base.hollywood!.employment))
+  expect(json(state.firstTakes)).toBe(json(base.firstTakes))
+  expect(json(state.talentMarket)).toBe(json(base.talentMarket))
+  expect(json(state.talent)).toBe(json(base.talent))
+  expect(json(state.promises.filter((p) => p.promiseId !== promiseId))).toBe(json(base.promises.filter((p) => p.promiseId !== promiseId)))
+  return state
+}
+/** Labeled IN-MEMORY RECEPTION-INPUT VARIANT: `subject` receives `model`'s whole Talent record with its own id and name,
+ * so two permutations that swap them are reception-identical. A pure-read input, not a career, history or binding claim. */
+function twinVariant(base: GameState, subject: string, model: string): GameState {
+  const twin = base.talent.find((t) => t.id === model)!
+  const me = base.talent.find((t) => t.id === subject)!
+  expect(twin.role).toBe('actor'); expect(me.role).toBe('actor')
+  const state = live({ ...clone(base), talent: base.talent.map((t) => t.id === subject ? { ...clone(twin), id: me.id, name: me.name } : clone(t)) })
+  const json = (x: unknown) => JSON.stringify(x)
+  expect(json(state.talent.filter((t) => t.id !== subject))).toBe(json(base.talent.filter((t) => t.id !== subject)))
+  expect(json({ ...state.talent.find((t) => t.id === subject)!, id: '', name: '' })).toBe(json({ ...twin, id: '', name: '' }))
+  expect(json(state.promises)).toBe(json(base.promises))
+  expect(json(state.hollywood!.employment)).toBe(json(base.hollywood!.employment))
+  return state
+}
+const p2lead: Material = { family: 'LEAD_OR_SIGNIFICANT_ROLE_COUNT', predicate: { kind: 'castRoleCount', count: 1, seatClass: 'lead' } }
+const legacyP2: Material = { family: 'LEAD_OR_SIGNIFICANT_ROLE_COUNT', predicate: { count: 1 } }
+const p1: Material = { family: 'APPEARANCE_COUNT', predicate: { count: 1 } }
+
+/** The witness state (seed-b, w211 before the decision), pinned by identity so a moved premise fails loudly. */
+function witness(): { before: GameState; decision: Decision } {
+  const found = scan(WITNESS.seed).witness
+  assert.ok(found, `UNEXECUTED natural premise: no rival film decision on '${WITNESS.seed}' within ${SCAN_TICKS} ticks holds >= 2 pool members whose seating matters; never a synthesized state`)
+  expect({ week: found.decision.week, studioId: found.decision.studioId, key: found.decision.options.key })
+    .toEqual({ week: WITNESS.week, studioId: WITNESS.studioId, key: WITNESS.key })
+  return { before: clone(found.before), decision: found.decision }
+}
+/** Tick ONE real decision from `before` for `studioId`, produce its picture, then run to its real first take (bounded). */
+function produce(before: GameState, studioId: string) {
+  const { after, calls } = observedTick(before)
+  const decisions = filmDecisions('variant', before, calls).filter((d) => d.studioId === studioId)
+  expect(decisions).toHaveLength(1)
+  const decision = decisions[0]!
+  assert.ok(decision.result, 'UNEXECUTED: the real decision chose no package')
+  const films = business(after, studioId).productions.filter((p) => p.startTick === before.market.tick)
+  expect(films).toHaveLength(1)
+  const film = films[0]!
+  expect(film.cast).toEqual(decision.result.cast)
+  expect(film.budget).toEqual(decision.result.budget)
+  expect(film.budget.negative + film.budget.marketing).toBeLessThanOrEqual(decision.options.cashAvailable)
+  expect(decision.options.cashAvailable).toBeLessThanOrEqual(business(before, studioId).account.cash)
+  let state = after
+  for (let steps = 0; !state.firstTakes.some((t) => t.productionId === film.id); steps++) {
+    if (steps >= 12) throw new Error('UNEXECUTED prerequisite: the rival picture never reached its first take within 12 real ticks')
+    state = tick(state)
+  }
+  const take = state.firstTakes.find((t) => t.productionId === film.id)!
+  expect(take.cast).toEqual(film.cast)
+  expect(take.studioId).toBe(studioId)
+  return { decision, film, take, taken: state, members: membersAt(before, studioId, before.market.tick) }
+}
+function expectSatisfiedBy(state: GameState, promiseId: string, take: { eventId: string }) {
+  const p = root(state, promiseId)
+  expect(qualifyingTakes(state, p).map((t) => t.eventId)).toContain(take.eventId)
+  expect(p).toMatchObject({ outcome: 'SATISFIED', progress: p.predicate.count, evidenceRefs: [take.eventId] })
+  expect(p.outcomeEventId).not.toBeNull()
+}
+function expectUnserved(state: GameState, promiseId: string, take: { eventId: string }) {
+  const p = root(state, promiseId)
+  expect(qualifyingTakes(state, p).map((t) => t.eventId)).not.toContain(take.eventId)
+  expect(p).toMatchObject({ progress: 0, evidenceRefs: [] })
+  expect(p.outcome).not.toBe('SATISFIED')
+}
+/** Re-author one studio's CURRENT offer for a person through the REAL services: submitProposal revises the offer in place
+ * (the codebase's own convention clears its promise) and attachPromise mints a new UNBOUND root. Nothing binds; the old
+ * root stays unbound for good (ruling (i)). Same route as the accepted poaching fixture's rival-issuer proposal. */
+function reauthorOffer(state: GameState, talentId: string, issuerStudioId: string, material: Material): GameState {
+  const proposal = state.talentMarket.proposals.find((p) => p.talentId === talentId && p.issuerStudioId === issuerStudioId)
+  assert.ok(proposal, 'fixture prerequisite: the real current offer is missing')
+  let next = submitProposal(state, { talentId, issuerStudioId, termWeeks: proposal.termWeeks, premiumTier: proposal.premiumTier })
+  next = attachPromise(next, talentId, issuerStudioId, { ...material, windowStartWeek: proposal.startWeek, dueWeekExclusive: proposal.startWeek + proposal.termWeeks })
+  const revised = next.talentMarket.proposals.filter((p) => p.talentId === talentId && p.issuerStudioId === issuerStudioId)
+  expect(revised).toHaveLength(1)
+  expect(revised[0]!.promises).toHaveLength(1)
+  expect(root(next, revised[0]!.promises[0]!)).toMatchObject({ ...material, contractId: null, outcome: null, issuerStudioId, beneficiaryPersonId: talentId })
+  expect(next.hollywood!.employment).toEqual(state.hollywood!.employment)
+  return live(next)
+}
+/** The same rival's next real film decision (bounded), observed through the real service. */
+function nextDecision(from: GameState, studioId: string): { decision: Decision; before: GameState } {
+  let state = from
+  for (let steps = 0; steps < 40; steps++) {
+    const { after, calls } = observedTick(state)
+    const d = filmDecisions('next', state, calls).find((x) => x.studioId === studioId && x.result !== null)
+    if (d !== undefined) return { decision: d, before: state }
+    state = after
+  }
+  throw new Error('UNEXECUTED: the rival took no further film decision within 40 real ticks')
+}
+
+describe('P14B4 final seating preference — no-preference path and viability gates (plan :223-225)', () => {
+  it('default seed: the first screenplay-planning call and first film decision are byte-identical to the accepted values; the transcribed ordinary score reproduces the real no-preference choice', () => {
+    // Regression control pinned from a real decision at HEAD 62ca561a: p13a-core-causal-01, week 3, studio-aca408ec-r01, no member promises.
+    const s = scan(DEFAULT_SEED)
+    assert.ok(s.planning && s.firstFilm)
+    expect(s.planning.options).toEqual({ seed: DEFAULT_SEED, key: 'studio-aca408ec-r01:screenplay:0', cashAvailable: 23362807, weeklyCost: 97680, lockScreenplay: false })
+    expect(poolOf(s.planning)).toEqual(['person-studio-aca408ec-r01-2', 'person-studio-aca408ec-r01-3', 'person-studio-aca408ec-r01-4'])
+    const ranges = { intimacy: [-0.19878214611733674, 0.5012178538826633] as [number, number], tonalWeight: [-0.37710479461569446, 0.3228952053843055] as [number, number], kineticEnergy: [-0.3963969529168919, 0.30360304708310804] as [number, number] }
+    expect(s.planning.result).toEqual({ shape: { opening: 'slowSetup', midpoint: 'revelation', ending: 'bittersweet' },
+      promise: { genre: 'drama', intendedSegments: ['adult'], ranges }, budget: { negative: 3304115, marketing: 948896 },
+      cast: { lead: 'person-studio-aca408ec-r01-4', antagonist: 'person-studio-aca408ec-r01-3', support: 'person-studio-aca408ec-r01-2' },
+      expectedOperatingMargin: -1459843.0106883487, expectedIncrementalContribution: -92323.01068834867, holdOperatingMargin: -1367520 })
+    const { before, decision, after } = s.firstFilm
+    expect({ week: decision.week, studioId: decision.studioId }).toEqual({ week: 3, studioId: 'studio-aca408ec-r01' })
+    expect(decision.options).toEqual({ seed: DEFAULT_SEED, key: 'studio-aca408ec-r01:package:script-0000', cashAvailable: 23167447, weeklyCost: 97680, lockScreenplay: true })
+    expect(membersAt(before, decision.studioId, decision.week)).toEqual({ certain: [], ambiguous: [] })
+    expect(poolOf(decision)).toEqual(employed(before, decision.studioId).filter((t) => t.role === 'actor').slice(0, 3).map((t) => t.id))
+    expect(poolOf(decision)).toEqual(['person-studio-aca408ec-r01-2', 'person-studio-aca408ec-r01-3', 'person-studio-aca408ec-r01-4'])
+    const pinned: IndustryPackageChoice = { shape: { opening: 'slowSetup', midpoint: 'revelation', ending: 'bittersweet' },
+      promise: { genre: 'drama', intendedSegments: ['adult'], ranges }, budget: { negative: 3304115, marketing: 981122 },
+      cast: { lead: 'person-studio-aca408ec-r01-4', antagonist: 'person-studio-aca408ec-r01-3', support: 'person-studio-aca408ec-r01-2' },
+      expectedOperatingMargin: 63768.80190253258, expectedIncrementalContribution: 1431288.8019025326, holdOperatingMargin: -1367520 }
+    expect(decision.result).toEqual(pinned)
+    // Self-validation of the transcription: with no members the law pick IS the ordinary pick and reproduces the real result exactly.
+    const perms = permutations(decision, [])
+    const law = lawPick(perms)
+    expect(law).toEqual(ordinaryPick(perms))
+    expect(law!.cast).toEqual(pinned.cast)
+    expect(law!.ordinary).toEqual({ score: law!.ordinary!.score, budget: pinned.budget, expectedOperatingMargin: pinned.expectedOperatingMargin,
+      expectedIncrementalContribution: pinned.expectedIncrementalContribution, holdOperatingMargin: pinned.holdOperatingMargin })
+    const film = business(after, decision.studioId).productions.find((p) => p.id === 'studio-aca408ec-r01:film:0')
+    assert.ok(film)
+    expect(film).toMatchObject({ startTick: 3, cast: pinned.cast, budget: pinned.budget, writerId: 'person-studio-aca408ec-r01-0',
+      directorId: 'person-studio-aca408ec-r01-1', craftIds: ['person-studio-aca408ec-r01-5'] })
+    expect(sha(JSON.stringify(film))).toBe(PRODUCTION_DIGEST)
+  })
+
+  it.each([DEFAULT_SEED, 'seed-b'])('%s: every real film decision without members equals the pre-existing choice and pool; a null choice only when no permutation is viable', (seed) => {
+    const rows = scan(seed).rows
+    expect(rows.length).toBeGreaterThan(0)
+    const controls = rows.filter((r) => r.members.length === 0)
+    expect(controls.length).toBeGreaterThan(0)
+    for (const r of controls) {
+      expect(r.ambiguous).toEqual([])
+      if (r.poolKnownBefore) expect(r.pool, `${r.seed} w${r.week} ${r.studioId}`).toEqual(r.firstThree) // plan :227-229: no silent broadening of ordinary no-promise policy
+      expect(r.ok, `${r.seed} w${r.week} ${r.studioId} chosen=${r.chosen} law=${r.law}`).toBe(true)
+    }
+    for (const r of rows) if (r.chosen === null) expect(r.perms.every((p) => p.ordinary === null), `${r.seed} w${r.week} ${r.studioId}`).toBe(true)
+    // Byte-identity of the pre-existing chain (seam + choice), pinned at HEAD 62ca561a: every decision on the default seed carries
+    // only generic members (P1) or none, so the law never moves it; seed-b is pinned up to its first member decision (w211).
+    const stable = rows.filter((r) => seed === DEFAULT_SEED || r.week < WITNESS.week)
+    const digest = sha(JSON.stringify(stable.map((r) => [r.week, r.studioId, r.key, r.pool, r.chosen, r.budget])))
+    console.log(`${seed}: ${rows.length} real film decisions (${rows.filter((r) => r.chosen !== null).length} pictures), ${controls.length} without members; chain digest over ${stable.length} rows = ${digest}`)
+    expect(digest).toBe(CHAIN_DIGESTS[seed as keyof typeof CHAIN_DIGESTS])
+  })
+})
+
+describe('P14B4 final seating preference — the natural witness (seed-b w211 studio-bc14baf6-r01, record 618 O-T4-1)', () => {
+  it('search table: the first seed-b decision whose seating matters holds two tagged leadOrAntagonist beneficiaries and one P1 beneficiary in a three-actor pool', () => {
+    const { before, decision } = witness()
+    const m = membersAt(before, decision.studioId, decision.week)
+    expect(m.ambiguous).toEqual([])
+    expect(poolOf(decision)).toEqual([WITNESS.a2, WITNESS.a3, WITNESS.a4]) // employment order; the inherited BILLINGS order runs over it
+    expect(poolOf(decision)).toEqual(employed(before, decision.studioId).filter((t) => t.role === 'actor').slice(0, 3).map((t) => t.id))
+    const byId = Object.fromEntries(m.certain.map((x) => [x.beneficiaryPersonId, x.mask]))
+    expect(byId).toEqual({ [WITNESS.writer]: SLOTS, [WITNESS.director]: SLOTS, [WITNESS.a2]: ['lead', 'antagonist'], [WITNESS.a3]: SLOTS,
+      [WITNESS.a4]: ['lead', 'antagonist'], [WITNESS.craft]: SLOTS })
+    for (const x of m.certain) {
+      expect(x.promiseIds).toHaveLength(1)
+      const p = root(before, x.promiseIds[0]!)
+      expect(p).toMatchObject({ issuerStudioId: WITNESS.studioId, outcome: null, progress: 0, windowStartWeek: 208, dueWeekExclusive: 416 })
+      expect(before.hollywood!.employment.filter((e) => e.contractId === p.contractId)).toHaveLength(1)
+    }
+    const perms = permutations(decision, m.certain)
+    console.log(`WITNESS ${decision.seed} w${decision.week} ${decision.studioId} ${decision.options.key} cashAvailable=${decision.options.cashAvailable}\n${table(perms)}\nchosen today: ${decision.result === null ? 'null' : JSON.stringify(decision.result.cast)} law: ${show(lawPick(perms))} ordinary: ${show(ordinaryPick(perms))}`)
+    // Exactly the O-T4-1 shape: the two tagged people in lead+antagonist and the P1 person in support serves 3/3.
+    const three = perms.filter((p) => p.benefit === 3)
+    expect(three.map((p) => p.cast)).toEqual([{ lead: WITNESS.a2, antagonist: WITNESS.a4, support: WITNESS.a3 }, { lead: WITNESS.a4, antagonist: WITNESS.a2, support: WITNESS.a3 }])
+    expect(perms.filter((p) => p.ordinary !== null).length).toBeGreaterThanOrEqual(2)
+    expect(lawPick(perms)!.benefit).toBe(3)
+  })
+
+  it('RED: the real seating serves the maximal DISTINCT-beneficiary count (plan :215-218), the picture is viable and affordable (:223-225), and the real first take then satisfies all three through advancePromisesWeek/qualifyingTakes', () => {
+    const { before, decision } = witness()
+    const m = membersAt(before, decision.studioId, decision.week)
+    const perms = permutations(decision, m.certain)
+    const law = lawPick(perms)!
+    assert.ok(decision.result)
+    expect(benefitOf(decision.result.cast, m.certain)).toBe(law.benefit) // maximal count first (:216-217)
+    expect(decision.result.cast).toEqual(law.cast) // then ordinary score, then the inherited BILLINGS order (:217-218)
+    expect(decision.result.budget).toEqual(law.ordinary!.budget)
+    expect(decision.result.expectedOperatingMargin).toBe(law.ordinary!.expectedOperatingMargin)
+    const { film, take, taken } = produce(before, decision.studioId)
+    expect(film.id).toBe(WITNESS.filmId)
+    expect(film.cast).toEqual(law.cast)
+    for (const person of [WITNESS.a2, WITNESS.a3, WITNESS.a4]) expectSatisfiedBy(taken, m.certain.find((x) => x.beneficiaryPersonId === person)!.promiseIds[0]!, take)
+    expect(new Set(['promise-4', 'promise-6', 'promise-8'].map((id) => root(taken, id).outcomeEventId)).size).toBe(3) // one OWN outcome receipt each
+  })
+
+  it('RED: every real film decision on seed-b with members seats the law pick (benefit, then ordinary score, then BILLINGS); the violation table names each miss', () => {
+    const rows = scan('seed-b').rows.filter((r) => r.members.length > 0)
+    expect(rows.length).toBeGreaterThan(0)
+    for (const r of rows) expect(r.pool, `${r.seed} w${r.week} ${r.studioId}`).toEqual(expect.arrayContaining(r.promisedOutside)) // the seam must include eligible promised people (:225-227)
+    const misses = rows.filter((r) => !r.ok).map((r) => `${r.seed} w${r.week} ${r.studioId} pool=${r.pool.map(short).join(',')} members=${r.members.map(short).join(' ')} chosen=${r.chosen}#${r.chosenBenefit} law=${r.law} ordinary=${r.ordinary} ambiguous=${r.ambiguous.join(',')}`)
+    console.log(`SEED-B MEMBER DECISIONS ${rows.length} (${rows.filter((r) => r.chosen !== null).length} pictures); MISSES ${misses.length}\n${misses.join('\n')}`)
+    expect(misses).toEqual([])
+  })
+
+  it('CONFLICT: the ordinary economic score prefers a two-beneficiary permutation; benefit count wins over score (:216-217) and the real take proves it', () => {
+    const { before, decision } = witness()
+    const m = membersAt(before, decision.studioId, decision.week)
+    const perms = permutations(decision, m.certain)
+    const law = lawPick(perms)!, ordinary = ordinaryPick(perms)!
+    expect(ordinary.benefit).toBeLessThan(law.benefit) // the natural conflict: the economically strongest seating serves fewer people
+    expect(ordinary.ordinary!.score).toBeGreaterThan(law.ordinary!.score)
+    expect(ordinary.cast).toEqual({ lead: WITNESS.a4, antagonist: WITNESS.a3, support: WITNESS.a2 })
+    expect(law.cast).toEqual({ lead: WITNESS.a4, antagonist: WITNESS.a2, support: WITNESS.a3 })
+    // The other 3/3 permutation has NO viable package at this cash — it must not win merely because it serves a promise (:224-225).
+    expect(perms.find((p) => p.cast.lead === WITNESS.a2 && p.cast.antagonist === WITNESS.a4)!.ordinary).toBeNull()
+    assert.ok(decision.result)
+    expect(decision.result.cast).toEqual(law.cast) // RED today: the real choice is the ordinary pick a4/a3/a2 (benefit 2)
+    expect(decision.result.cast).not.toEqual(ordinary.cast)
+    const { take, taken } = produce(before, decision.studioId)
+    expect(take.cast).toEqual(law.cast)
+    expectSatisfiedBy(taken, 'promise-4', take)
+  })
+
+  it('EQUAL BENEFIT: with every member generic (seed-b w211 studio-bc14baf6-r02, all P1) the ordinary score orders the permutations exactly as before', () => {
+    const rows = scan('seed-b').rows.filter((r) => r.week === 211 && r.studioId === 'studio-bc14baf6-r02')
+    expect(rows).toHaveLength(1)
+    const r = rows[0]!
+    expect(r.inPool).toBe(3)
+    expect(r.members.filter((x) => r.pool.includes(x.split(':')[0]!)).map((x) => x.split(':')[1])).toEqual(['lead|antagonist|support', 'lead|antagonist|support', 'lead|antagonist|support'])
+    const viable = r.perms.filter((p) => p.ordinary !== null)
+    expect(viable.length).toBeGreaterThanOrEqual(2)
+    expect(new Set(viable.map((p) => p.benefit))).toEqual(new Set([3]))
+    expect(r.law).toBe(r.ordinary)
+    expect(r.ok, `${r.chosen} vs ${r.law}`).toBe(true)
+  })
+
+  it('TIE FALLBACK (labeled reception-input variant): two reception-identical tagged beneficiaries tie on score; the first strict-greater winner in the inherited BILLINGS order is seated — inherited tie behaviour, not fairness (:218-221)', () => {
+    // VARIED: person-studio-bc14baf6-r01-2's Talent record := r01-4's with r01-2's id and name (twinVariant). Nothing else.
+    const { before } = witness()
+    const state = twinVariant(before, WITNESS.a2, WITNESS.a4)
+    const { after, calls } = observedTick(state)
+    const decision = filmDecisions('seed-b:twin', state, calls).find((d) => d.studioId === WITNESS.studioId)!
+    expect(poolOf(decision)).toEqual([WITNESS.a2, WITNESS.a3, WITNESS.a4])
+    const m = membersAt(state, WITNESS.studioId, state.market.tick)
+    const perms = permutations(decision, m.certain)
+    const [first, second] = [perms[1]!, perms[4]!] // [021] = a2/a4/a3 and [201] = a4/a2/a3
+    expect(first.cast).toEqual({ lead: WITNESS.a2, antagonist: WITNESS.a4, support: WITNESS.a3 })
+    expect(second.cast).toEqual({ lead: WITNESS.a4, antagonist: WITNESS.a2, support: WITNESS.a3 })
+    expect([first.benefit, second.benefit]).toEqual([3, 3])
+    assert.ok(first.ordinary && second.ordinary, 'UNEXECUTED: the twin permutations are not viable')
+    expect(first.ordinary.score).toBe(second.ordinary.score) // exact tie by construction
+    expect(first.ordinary).toEqual(second.ordinary)
+    console.log(`TIE VARIANT w${state.market.tick} ${WITNESS.studioId}\n${table(perms)}`)
+    const law = lawPick(perms)!
+    expect(law.billing).toEqual([0, 2, 1]) // the earlier of the tied pair in the existing loop order over the pool [a2, a3, a4]
+    expect(law.cast).toEqual(first.cast)
+    assert.ok(decision.result)
+    expect(decision.result.cast).toEqual(law.cast)
+    const film = business(after, WITNESS.studioId).productions.find((p) => p.startTick === state.market.tick)!
+    expect(film.cast).toEqual(law.cast)
+    let taken = after
+    for (let steps = 0; !taken.firstTakes.some((t) => t.productionId === film.id); steps++) { if (steps >= 12) throw new Error('UNEXECUTED: no take within 12 ticks'); taken = tick(taken) }
+    const take = taken.firstTakes.find((t) => t.productionId === film.id)!
+    expect(take.cast).toEqual(law.cast)
+    for (const id of ['promise-4', 'promise-6', 'promise-8']) expectSatisfiedBy(taken, id, take)
+  })
+})
+
+describe('P14B4 final seating preference — membership (plan :210-213) and masks (:213-215)', () => {
+  it('CURRENT unaccepted offers never count: seed-b w202, three rivals decide while their own retention offers carry promises with contractId null; re-authored offers make the negative discriminating', () => {
+    const s = scan('seed-b')
+    assert.ok(s.pending, 'UNEXECUTED natural premise: no seed-b film decision while the deciding rival\'s own promise-bearing offers are CURRENT')
+    const { before, decision } = s.pending
+    expect({ week: decision.week, studioId: decision.studioId }).toEqual({ week: 202, studioId: WITNESS.studioId })
+    const offers = before.promises.filter((p) => p.issuerStudioId === decision.studioId && p.contractId === null && p.outcome === null && poolOf(decision).includes(p.beneficiaryPersonId))
+    expect(offers.map((p) => p.promiseId).sort()).toEqual(['promise-4', 'promise-6', 'promise-8'])
+    for (const p of offers) expect(before.talentMarket.proposals.filter((q) => q.issuerStudioId === decision.studioId && q.talentId === p.beneficiaryPersonId && q.promises.includes(p.promiseId))).toHaveLength(1)
+    expect(membersAt(before, decision.studioId, decision.week)).toEqual({ certain: [], ambiguous: [] })
+    const rows = s.rows.filter((r) => r.week === 202 && r.chosen !== null)
+    expect(rows.map((r) => r.studioId)).toEqual(['studio-bc14baf6-r01', 'studio-bc14baf6-r02', 'studio-bc14baf6-r03'])
+    for (const r of rows) { expect(r.members).toEqual([]); expect(r.ok, `${r.studioId} ${r.chosen} vs ${r.law}`).toBe(true) }
+    // Evidence limit on the natural offers (a2 flex, a3 P1, a4 flex): the two viable permutations tie at 2 if counted, so counting
+    // would not move the pick. RE-AUTHORED through the real services (submitProposal revises r01's own offer in place, attachPromise
+    // mints a new UNBOUND root): a3 -> tagged lead, a2 -> P1. Counting these CURRENT offers would seat a3/a4/a2; the law seats a4/a3/a2.
+    const reauthored = reauthorOffer(reauthorOffer(before, WITNESS.a3, decision.studioId, p2lead), WITNESS.a2, decision.studioId, p1)
+    const current = reauthored.promises.filter((p) => p.issuerStudioId === decision.studioId && p.contractId === null && p.outcome === null && poolOf(decision).includes(p.beneficiaryPersonId)
+      && reauthored.talentMarket.proposals.some((q) => q.issuerStudioId === decision.studioId && q.promises.includes(p.promiseId)))
+    expect(current.map((p) => [p.beneficiaryPersonId, promiseCastSlots(p)])).toEqual([[WITNESS.a4, ['lead', 'antagonist']], [WITNESS.a3, ['lead']], [WITNESS.a2, SLOTS]])
+    const { after, calls } = observedTick(reauthored)
+    const d = filmDecisions('seed-b:reauthored', reauthored, calls).find((x) => x.studioId === decision.studioId)!
+    expect(membersAt(reauthored, d.studioId, d.week)).toEqual({ certain: [], ambiguous: [] })
+    const strict = lawPick(permutations(d, []))!
+    const asIfBound = lawPick(permutations(d, current.map(asMember)))!
+    console.log(`PENDING-OFFER w${d.week} strict=${show(strict)} asIfBound=${show(asIfBound)}\n${table(permutations(d, current.map(asMember)))}`)
+    expect(same(asIfBound.cast, strict.cast)).toBe(false)
+    expect(strict.cast).toEqual({ lead: WITNESS.a4, antagonist: WITNESS.a3, support: WITNESS.a2 })
+    assert.ok(d.result)
+    expect(d.result.cast).toEqual(strict.cast)
+    expect(business(after, d.studioId).productions.find((p) => p.startTick === reauthored.market.tick)!.cast).toEqual(strict.cast)
+    for (const p of current) expect(root(after, p.promiseId).contractId).toBeNull() // still CURRENT after the decision week
+  })
+
+  it('another issuer\'s promise never counts: r02\'s offers to r01\'s three actors are present at w202 and at the witness and never enter r01\'s member set; re-authored r02 offers make the negative discriminating', () => {
+    // Evidence limit: under exclusive employment another issuer's promise to a rival's own pool person is necessarily UNBOUND, so
+    // this negative is doubly excluded; it is pinned as present and as excluded, and made DISCRIMINATING by re-authoring r02's
+    // CURRENT offers at w202 through the real services (a3 -> tagged lead, a2 -> P1; counting them as r01's would seat a3/a4/a2).
+    const s = scan('seed-b')
+    assert.ok(s.pending)
+    const foreignAt = (state: GameState, d: Decision) => state.promises.filter((p) => p.issuerStudioId !== d.studioId && p.outcome === null && poolOf(d).includes(p.beneficiaryPersonId))
+    const w = witness()
+    expect(foreignAt(w.before, w.decision).map((p) => [p.promiseId, p.issuerStudioId, p.contractId])).toEqual([['promise-5', 'studio-bc14baf6-r02', null], ['promise-7', 'studio-bc14baf6-r02', null], ['promise-9', 'studio-bc14baf6-r02', null]])
+    for (const p of foreignAt(w.before, w.decision)) expect(membersAt(w.before, w.decision.studioId, w.decision.week).certain.flatMap((x) => x.promiseIds)).not.toContain(p.promiseId)
+    const { before, decision } = s.pending
+    expect(foreignAt(before, decision).map((p) => p.promiseId)).toEqual(['promise-5', 'promise-7', 'promise-9'])
+    const other = 'studio-bc14baf6-r02'
+    const reauthored = reauthorOffer(reauthorOffer(before, WITNESS.a3, other, p2lead), WITNESS.a2, other, p1)
+    const foreign = foreignAt(reauthored, decision).filter((p) => reauthored.talentMarket.proposals.some((q) => q.issuerStudioId === p.issuerStudioId && q.promises.includes(p.promiseId)))
+    expect(foreign.map((p) => [p.issuerStudioId, p.beneficiaryPersonId, promiseCastSlots(p)])).toEqual([[other, WITNESS.a4, ['lead', 'antagonist']], [other, WITNESS.a3, ['lead']], [other, WITNESS.a2, SLOTS]])
+    const { after, calls } = observedTick(reauthored)
+    const d = filmDecisions('seed-b:foreign', reauthored, calls).find((x) => x.studioId === decision.studioId)!
+    expect(membersAt(reauthored, d.studioId, d.week)).toEqual({ certain: [], ambiguous: [] })
+    const strict = lawPick(permutations(d, []))!
+    const asIfOwn = lawPick(permutations(d, foreign.map(asMember)))!
+    expect(same(asIfOwn.cast, strict.cast)).toBe(false)
+    assert.ok(d.result)
+    expect(d.result.cast).toEqual(strict.cast)
+    expect(business(after, d.studioId).productions.find((p) => p.startTick === reauthored.market.tick)!.cast).toEqual(strict.cast)
+  })
+
+  it('a met promise never counts (control, r02 chain): after r02\'s w211 picture satisfies its three P1 roots at w216, its next real decision has no member and takes the ordinary pick', () => {
+    const s = scan('seed-b')
+    assert.ok(s.witness)
+    const studioId = 'studio-bc14baf6-r02'
+    const { taken, take } = produce(clone(s.witness.before), studioId) // r02 also decides at w211 (same tick, same before-state)
+    const met = taken.promises.filter((p) => p.issuerStudioId === studioId && p.outcome === 'SATISFIED' && p.evidenceRefs.includes(take.eventId))
+    expect(met.map((p) => p.beneficiaryPersonId).sort()).toEqual(Object.values(take.cast).sort())
+    const next = nextDecision(taken, studioId)
+    const m = membersAt(next.before, studioId, next.decision.week)
+    expect(m.ambiguous).toEqual([])
+    for (const p of met) expect(m.certain.flatMap((x) => x.promiseIds)).not.toContain(p.promiseId)
+    expect(m.certain.filter((x) => poolOf(next.decision).includes(x.beneficiaryPersonId))).toEqual([])
+    const perms = permutations(next.decision, m.certain)
+    expect(lawPick(perms)).toEqual(ordinaryPick(perms))
+    expect(next.decision.result!.cast).toEqual(lawPick(perms)!.cast)
+  })
+
+  it('a met promise never counts (r01 chain, RED today only through the witness defect): after the witness take the SATISFIED roots leave r01\'s member set at its next real decision', () => {
+    // RED today only through the witness defect: r01-2 stays OPEN because the current seating wastes its support seat, so the
+    // next decision still has a tagged member the current strategy ignores. After the fix all three are met and the pick is ordinary.
+    const { before, decision } = witness()
+    const { taken, take } = produce(before, decision.studioId)
+    const met = taken.promises.filter((p) => p.issuerStudioId === decision.studioId && p.outcome === 'SATISFIED' && p.evidenceRefs.includes(take.eventId))
+    expect(met.length).toBeGreaterThanOrEqual(2)
+    const next = nextDecision(taken, decision.studioId)
+    const m = membersAt(next.before, decision.studioId, next.decision.week)
+    expect(m.ambiguous).toEqual([])
+    for (const p of met) expect(m.certain.flatMap((x) => x.promiseIds)).not.toContain(p.promiseId)
+    const strict = lawPick(permutations(next.decision, m.certain))!
+    const pool = poolOf(next.decision)
+    const asIfUnmet = lawPick(permutations(next.decision, m.certain.filter((x) => !met.some((p) => p.beneficiaryPersonId === x.beneficiaryPersonId))
+      .concat(met.filter((p) => pool.includes(p.beneficiaryPersonId)).map(asMember))))!
+    console.log(`MET-NEGATIVE w${next.decision.week} met=${met.map((p) => p.promiseId).join(',')} strict=${show(strict)} asIfUnmet=${show(asIfUnmet)} discriminating=${!same(strict.cast, asIfUnmet.cast)}`)
+    expect(next.decision.result!.cast).toEqual(strict.cast)
+  })
+
+  it.each([
+    { label: 'window starts after every plausible take (start = w311)', window: { start: 311 } },
+    { label: 'window ends before any take can land (due = w212)', window: { due: 212 } },
+  ])('a promise whose window excludes the prospective take never counts — $label', ({ window }) => {
+    // VARIED (promiseVariant): only promise-4 (r01-2, bound OPEN tagged leadOrAntagonist) window. Expected from the law over the
+    // remaining members {r01-3: generic, r01-4: lead|antagonist}: max benefit 2, ordinary score decides among those.
+    const { before, decision } = witness()
+    const state = promiseVariant(before, 'promise-4', undefined, window)
+    const { decision: d, film, take, taken, members } = produce(state, decision.studioId)
+    expect(members.certain.map((x) => x.beneficiaryPersonId)).not.toContain(WITNESS.a2)
+    const perms = permutations(d, members.certain)
+    const strict = lawPick(perms)!
+    const asIfInside = lawPick(permutations(d, membersAt(before, decision.studioId, decision.week).certain))!
+    expect(same(asIfInside.cast, strict.cast)).toBe(false) // discriminating: counting it would seat a4/a2/a3
+    expect(strict.benefit).toBe(2)
+    expect(d.result!.cast).toEqual(strict.cast)
+    expect(film.cast).toEqual(strict.cast)
+    expectUnserved(taken, 'promise-4', take)
+    for (const id of ['promise-6', 'promise-8']) {
+      const p = root(taken, id)
+      if (SLOTS.some((s) => take.cast[s] === p.beneficiaryPersonId && promiseCastSlots(p).includes(s))) expectSatisfiedBy(taken, id, take)
+    }
+  })
+
+  it.each([
+    { label: 'tagged lead stays exact: r01-2 counts only in lead', material: p2lead, mask: ['lead'] as readonly CastSlot[] },
+    { label: 'legacy count-only LEAD_OR_SIGNIFICANT_ROLE_COUNT stays generic cast', material: legacyP2, mask: SLOTS as readonly CastSlot[] },
+    { label: 'APPEARANCE_COUNT is generic cast', material: p1, mask: SLOTS as readonly CastSlot[] },
+  ])('mask derivation through the shared reader — $label', ({ material, mask }) => {
+    // VARIED (promiseVariant): only promise-4's family/predicate. The seating must use the same mask the outcome law uses.
+    const { before, decision } = witness()
+    const state = promiseVariant(before, 'promise-4', material)
+    expect(promiseCastSlots(root(state, 'promise-4'))).toEqual(mask)
+    const { decision: d, film, take, taken, members } = produce(state, decision.studioId)
+    expect(members.certain.find((x) => x.beneficiaryPersonId === WITNESS.a2)!.mask).toEqual(mask)
+    const perms = permutations(d, members.certain)
+    const strict = lawPick(perms)!
+    const asFlex = lawPick(permutations(d, membersAt(before, decision.studioId, decision.week).certain))!
+    expect(same(strict.cast, asFlex.cast)).toBe(false) // discriminating against the natural leadOrAntagonist reading
+    console.log(`MASK VARIANT ${JSON.stringify(material.predicate)}\n${table(perms)}\nlaw ${show(strict)}`)
+    expect(d.result!.cast).toEqual(strict.cast)
+    expect(film.cast).toEqual(strict.cast)
+    const seat = SLOTS.find((s) => take.cast[s] === WITNESS.a2)!
+    if (mask.includes(seat)) expectSatisfiedBy(taken, 'promise-4', take); else expectUnserved(taken, 'promise-4', take)
+  })
+
+  it.todo('UNEXECUTED (no lawful construction): one beneficiary with a tagged lead AND a legacy count-only bound OPEN promise from the same rival counts ONCE with the INTERSECTION mask (lead) — attachPromise binds at most one promise per proposal, rival contracts run 208 weeks, so a second bound root for one person lies beyond the 350-tick bound; never a synthesized root')
+})
+
+describe('P14B4 final seating preference — the initial cast seam (plan :225-232)', () => {
+  it('promised non-primary-actor beneficiaries (the witness rival\'s writer, director and craft, each bound OPEN P1) are never seated: one person cannot double, and the sole holder of a role is a capacity constraint, not a forged package', () => {
+    const { before, decision } = witness()
+    const m = membersAt(before, decision.studioId, decision.week)
+    const nonActors = [WITNESS.writer, WITNESS.director, WITNESS.craft]
+    for (const id of nonActors) {
+      const person = before.talent.find((t) => t.id === id)!
+      expect(person.role).not.toBe('actor')
+      expect(m.certain.some((x) => x.beneficiaryPersonId === id)).toBe(true)
+      expect(employed(before, decision.studioId).filter((t) => t.role === person.role)).toHaveLength(1) // sole holder
+    }
+    const { film, take, taken } = produce(before, decision.studioId)
+    expect([film.writerId, film.directorId, film.craftIds]).toEqual([WITNESS.writer, WITNESS.director, [WITNESS.craft]])
+    expect(Object.values(film.cast).filter((id) => nonActors.includes(id))).toEqual([])
+    expect(new Set([film.writerId, film.directorId, ...film.craftIds, ...Object.values(film.cast)]).size).toBe(6)
+    // Strategy gap pinned as a source fact (not a defect claim): their P1 roots stay OPEN and unserved by this picture.
+    for (const id of nonActors) expectUnserved(taken, m.certain.find((x) => x.beneficiaryPersonId === id)!.promiseIds[0]!, take)
+    expect(poolOf(decision)).toEqual(employed(before, decision.studioId).filter((t) => t.role === 'actor').map((t) => t.id))
+  })
+
+  it('capacity constraint: a rival with a ready screenplay and no lawful complementary staffing decides nothing (natural weeks logged; zero is a fixture finding)', () => {
+    const weeks = [...scan(DEFAULT_SEED).noStaffingWeeks, ...scan('seed-b').noStaffingWeeks]
+    console.log(`NO-STAFFING WEEKS ${weeks.length}\n${weeks.join('\n')}`)
+    for (const w of weeks) expect(w.endsWith('deficit=true')).toBe(true)
+  })
+
+  it.todo('UNEXECUTED (fixture finding): an eligible promised ACTOR outside the first three non-busy employed actors — no rival on p13a-core-causal-01/seed-b/seed-c/seed-d holds four actors within 350 ticks; RIVAL_TEAM_ROLES seats three and a challenger offer is dropped at freeze ("no seat open", seed-b w208 talent-market-event-128..130); never a synthesized employment')
+})

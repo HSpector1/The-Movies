@@ -1,0 +1,26 @@
+{
+  "sourceSha": "62ca561abb3af583b366bbd11043019a7032ab57",
+  "testedDiffSha256": "30c303cf31a22993a65f5ab03a8c084ca1862de87810646fe10e32098da3d197",
+  "untrackedSource": [
+    "tests/p14b4-rival-seating-preference.test.ts"
+  ],
+  "command": [
+    "node_modules/.bin/vitest",
+    "run",
+    "--project",
+    "core",
+    "tests/p14b4-rival-seating-preference.test.ts"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-21T17:05:51.791Z",
+  "end": "2026-09-21T17:06:24.533Z",
+  "exitCode": 1,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "62ca561abb3af583b366bbd11043019a7032ab57",
+  "testedDiffSha256AtEnd": "30c303cf31a22993a65f5ab03a8c084ca1862de87810646fe10e32098da3d197",
+  "untrackedSourceAtEnd": [
+    "tests/p14b4-rival-seating-preference.test.ts"
+  ],
+  "fixedSource": true
+}
