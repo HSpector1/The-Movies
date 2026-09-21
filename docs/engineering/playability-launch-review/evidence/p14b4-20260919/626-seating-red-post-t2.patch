@@ -1,0 +1,226 @@
+diff --git a/tests/p14b4-cast-class-outcomes.test.ts b/tests/p14b4-cast-class-outcomes.test.ts
+index 1dd2058..5a8c9ef 100644
+--- a/tests/p14b4-cast-class-outcomes.test.ts
++++ b/tests/p14b4-cast-class-outcomes.test.ts
+@@ -211,8 +211,11 @@ function rivalWorlds(): RivalWorlds {
+   // 600-T4 (record 616 R-6; 600-R Q6 (iii)): the default seed never meets `genuine` within 350 ticks (its
+   // only bound tagged root is to a craft worker never cast; 600-T2 D.1). 'seed-b' is the first candidate
+   // where THIS search meets both prerequisites: at w215 all three slots on ONE rival film
+-  // (studio-bc14baf6-r01:film:23; lead promise-8 tagged leadOrAntagonist, antagonist promise-6 P1,
+-  // support promise-4 tagged) and genuine = that lead root (scan log 600-T4-scan-A-rival-seed-b-seed-d.log).
++  // (studio-bc14baf6-r01:film:23) and genuine = that lead root (scan log 600-T4-scan-A-rival-seed-b-seed-d.log).
++  // Slot mapping since the final seating preference landed (fc1c7b07, record 621; 619-T2 comment sweep, file run
++  // once 23/23): lead promise-8 (r01-4, tagged leadOrAntagonist), antagonist promise-4 (r01-2, tagged
++  // leadOrAntagonist), support promise-6 (r01-3, P1). Before it the antagonist was promise-6 and the support
++  // promise-4 (a G10-a permutation on seed-b r01 f23; the search, the week, the film and `genuine` are unchanged).
+   // Every other case in this file keeps its own default-seed chain.
+   let state = p13aGeneratedStudio('seed-b')
+   const slots: Partial<Record<CastSlot, Prepared>> = {}
+diff --git a/tests/p14b4-rival-seating-preference.test.ts b/tests/p14b4-rival-seating-preference.test.ts
+index 0629b61..e7391cf 100644
+--- a/tests/p14b4-rival-seating-preference.test.ts
++++ b/tests/p14b4-rival-seating-preference.test.ts
+@@ -29,6 +29,9 @@
+ // and returns the real result (the accepted policy-test pattern). No stub, no synthetic state.
+ // Labeled IN-MEMORY VARIANTS (the accepted outcomes-test `variant()` discipline) change ONE
+ // genuinely bound OPEN root's family/predicate/window, or ONE person's reception inputs, and say so.
++// 619-T2 (record 621 R2, on the landed fc1c7b07): the default-seed chain digest is re-pinned from receipts (G10-b — the seam
++// admits r01's sole writer r02-0 on promise-12 at w208, see CHAIN_DIGESTS), every row is now checked against the seam law
++// (`seamPool`) as well as the choice law, and the positive seam witness plan :233 asks for replaces the former four-actor todo.
+ import assert from 'node:assert/strict'
+ import { createHash } from 'node:crypto'
+ import { describe, expect, it, vi } from 'vitest'
+@@ -39,7 +42,7 @@ import { computeForecast } from '../src/core/forecast.js'
+ import { marketingCapacityForInputs, marketingMenuFromCapacity } from '../src/core/marketingMenu.js'
+ import { resolveShape } from '../src/core/shape.js'
+ import { busyTalentIds } from '../src/core/employment.js'
+-import { attachPromise, promiseCastSlots, qualifyingTakes } from '../src/core/promises.js'
++import { attachPromise, promiseCastSlots, qualifyingTakes, WEEKS_TO_FIRST_TAKE } from '../src/core/promises.js'
+ import { submitProposal } from '../src/core/talentMarket.js'
+ import { makeSave } from '../src/core/save.js'
+ import { TUNING } from '../src/core/tuning.js'
+@@ -59,8 +62,18 @@ const WITNESS = { seed: 'seed-b', week: 211, studioId: 'studio-bc14baf6-r01', ke
+ // Pinned from the real production record studio-aca408ec-r01:film:0 after tick 3 on p13a-core-causal-01 at HEAD 62ca561a.
+ const PRODUCTION_DIGEST = '89385c2a5b32e0b62cebb3149a085a0be39171d9dbd236e470df4b9fd94eee19'
+ // Digest of every real film decision (week, studio, key, pool, cast, budget) on the default seed (all 350 ticks) and on
+-// seed-b BEFORE its first member decision (w211): the pre-existing seam and choice, pinned as the no-preference control.
+-const CHAIN_DIGESTS = { [DEFAULT_SEED]: 'dba473b9bc13816e1b4cb1ed04f53f669912384179c5c73d0b23eeb64ed65489', 'seed-b': 'd3218295f449599c4451ee5d85c13a3bd3171522ce2697b9d034dc71b96daea2' }
++// seed-b BEFORE its first member decision (w211). seed-b is the pre-existing seam and choice (no-preference control, HEAD 62ca561a).
++// The default seed was RE-PINNED at fc1c7b07 under record 621 R2 (G10-b; re-derived from receipts by 619-T2, never copied):
++// the w208 settlement swaps r01's and r02's teams, r01's two ready scripts (0006, 0011) carry the departed writer r01-0, so
++// r01's new sole writer person-studio-aca408ec-r02-0 (role writer; promise-12, P1 generic, bound OPEN, window [208,416) holds
++// the take week 213) is admitted by the seam ahead of the actors: pool [r02-0, r02-2, r02-3] instead of [r02-2, r02-3, r02-4].
++// script-0006 then has no viable package; script-0011 becomes film:11 (lead r02-3 / antagonist r02-2 / support r02-0), whose
++// first-take-event-45 at w213 satisfies promise-12/16/18; film:6 follows at w217 (r02-4 lead; its take at w222 satisfies
++// promise-20) and r01's w229/242/255/264 pictures keep their cast with cash-downstream budget drift. r02 symmetrically admits
++// r01-0 (writer, promise-1) from w208 on and never finds a viable package. Every row stays ok under the law and the rows that
++// moved are exactly the seam-admitted member rows (asserted below), so this is a receipt-derived pin, not a bare hash.
++// Pre-seam value at 62ca561a/68b1083: dba473b9bc13816e1b4cb1ed04f53f669912384179c5c73d0b23eeb64ed65489.
++const CHAIN_DIGESTS = { [DEFAULT_SEED]: '2aec0184c3301f1e174fe9843a0b076258fdc9de9683424cb064a5d777382610', 'seed-b': 'd3218295f449599c4451ee5d85c13a3bd3171522ce2697b9d034dc71b96daea2' }
+ type Options = Parameters<typeof policyModule.chooseIndustryPackage>[2]
+ type Call = { input: ReceptionInputs; policy: RivalBusiness['policy']; options: Options; result: IndustryPackageChoice | null }
+ type Decision = Call & { seed: string; week: number; studioId: string }
+@@ -181,6 +194,18 @@ function filmDecisions(seed: string, before: GameState, calls: readonly Call[]):
+   return calls.filter((c) => c.options.lockScreenplay).map((c) => ({ ...c, seed, week: before.market.tick, studioId: studioOf(c.options) }))
+ }
+ 
++/** The initial cast seam as the plan states it (:225-232): eligible promised people enter the triple first, in employment
++ * order, reading has-discipline (an acting profile), employment/busy and the one-seat exclusions (this screenplay's writer,
++ * the chosen director and craft); then the historical first non-busy actors; three seats. With no member it IS the first-three
++ * rule. Derived from `before` and the strict members, never from the observed pool (record 621 G10 condition (2); 619-B L1). */
++function seamPool(before: GameState, studioId: string, key: string, members: readonly Member[]): string[] {
++  const team = employed(before, studioId)
++  const script = business(before, studioId).development.projects.find((p) => p.id === key.split(':package:')[1])
++  const taken = new Set([script?.writerId, team.find((t) => t.role === 'director')?.id, team.find((t) => t.role === 'craft')?.id])
++  const promised = team.filter((t) => members.some((m) => m.beneficiaryPersonId === t.id) && !taken.has(t.id) && t.skills.acting !== undefined)
++  return [...promised, ...team.filter((t) => t.role === 'actor' && !promised.includes(t))].slice(0, 3).map((t) => t.id)
++}
++
+ /** Plan :216-218 and :223-225 on ONE real decision: the real choice equals the law pick over the strict members;
+  * a null choice is allowed only when no permutation is viable (no forged package). Returns the row for the table. */
+ function lawRow(d: Decision, before: GameState) {
+@@ -193,9 +218,14 @@ function lawRow(d: Decision, before: GameState) {
+   const firstThree = team.filter((t) => t.role === 'actor').slice(0, 3).map((t) => t.id)
+   const promisedOutside = m.certain.map((x) => x.beneficiaryPersonId).filter((id) => !firstThree.includes(id) && team.some((t) => t.id === id && t.role === 'actor'))
+   const poolKnownBefore = pool.every((id) => team.some((t) => t.id === id)) // this week's own staffing (same pass, before decide) is not in `before`
++  const roleOf = (id: string) => before.talent.find((t) => t.id === id)?.role ?? 'unknown'
++  // The seam's own contribution: members seated who are NOT among the historical first three (any role; record 621 G10-b).
++  const admitted = m.certain.filter((x) => pool.includes(x.beneficiaryPersonId) && !firstThree.includes(x.beneficiaryPersonId))
++    .map((x) => ({ id: x.beneficiaryPersonId, role: roleOf(x.beneficiaryPersonId), mask: x.mask, promiseIds: x.promiseIds }))
+   const ok = m.ambiguous.length === 0 && (law === null ? d.result === null : d.result !== null && same(d.result.cast, law.cast)
+     && JSON.stringify(d.result.budget) === JSON.stringify(law.ordinary!.budget) && d.result.expectedOperatingMargin === law.ordinary!.expectedOperatingMargin)
+-  return { seed: d.seed, week: d.week, studioId: d.studioId, key: d.options.key, pool, firstThree, promisedOutside, ambiguous: m.ambiguous.map((p) => p.promiseId),
++  return { seed: d.seed, week: d.week, studioId: d.studioId, key: d.options.key, pool, poolRoles: pool.map(roleOf), firstThree, promisedOutside, admitted,
++    seam: seamPool(before, d.studioId, d.options.key, m.certain), ambiguous: m.ambiguous.map((p) => p.promiseId),
+     members: m.certain.map((x) => `${x.beneficiaryPersonId}:${x.mask.join('|')}`), inPool: m.certain.filter((x) => pool.includes(x.beneficiaryPersonId)).length, poolKnownBefore,
+     budget: d.result === null ? null : d.result.budget,
+     chosen: d.result === null ? null : `${short(d.result.cast.lead)}/${short(d.result.cast.antagonist)}/${short(d.result.cast.support)}`,
+@@ -203,7 +233,7 @@ function lawRow(d: Decision, before: GameState) {
+ }
+ 
+ type Scan = { rows: ReturnType<typeof lawRow>[]; witness?: { before: GameState; decision: Decision }; pending?: { before: GameState; decision: Decision }
+-  planning?: Call; firstFilm?: { before: GameState; decision: Decision; after: GameState }; noStaffingWeeks: string[] }
++  seam?: { before: GameState; decision: Decision }; planning?: Call; firstFilm?: { before: GameState; decision: Decision; after: GameState }; noStaffingWeeks: string[] }
+ const scans = new Map<string, Scan>()
+ /** One deterministic pass per seed; every real film decision is checked against the law (never against today's output). */
+ function scan(seed: string): Scan {
+@@ -226,6 +256,8 @@ function scan(seed: string): Scan {
+         && p.outcome === null && row.pool.includes(p.beneficiaryPersonId)
+         && before.talentMarket.proposals.some((q) => q.issuerStudioId === d.studioId && q.promises.includes(p.promiseId)))) out.pending = { before: clone(before), decision: d }
+       if (out.firstFilm === undefined && d.result !== null) out.firstFilm = { before: clone(before), decision: d, after: clone(after) }
++      // The positive seam witness (plan :225-227, :233): the first PICTURE whose pool seats a promised person outside the historical first three.
++      if (out.seam === undefined && d.result !== null && row.admitted.length > 0) out.seam = { before: clone(before), decision: d }
+     }
+     // Capacity constraint (:231-232): a rival with a ready screenplay, no picture and no lawful complementary staffing decides nothing.
+     for (const b of before.hollywood!.businesses) {
+@@ -387,7 +419,7 @@ describe('P14B4 final seating preference — no-preference path and viability ga
+     expect(sha(JSON.stringify(film))).toBe(PRODUCTION_DIGEST)
+   })
+ 
+-  it.each([DEFAULT_SEED, 'seed-b'])('%s: every real film decision without members equals the pre-existing choice and pool; a null choice only when no permutation is viable', (seed) => {
++  it.each([DEFAULT_SEED, 'seed-b'])('%s: every real film decision without members equals the pre-existing choice and pool; every decision seats the law pick over the pool the seam law derives; a null choice only when no permutation is viable', (seed) => {
+     const rows = scan(seed).rows
+     expect(rows.length).toBeGreaterThan(0)
+     const controls = rows.filter((r) => r.members.length === 0)
+@@ -398,8 +430,31 @@ describe('P14B4 final seating preference — no-preference path and viability ga
+       expect(r.ok, `${r.seed} w${r.week} ${r.studioId} chosen=${r.chosen} law=${r.law}`).toBe(true)
+     }
+     for (const r of rows) if (r.chosen === null) expect(r.perms.every((p) => p.ordinary === null), `${r.seed} w${r.week} ${r.studioId}`).toBe(true)
+-    // Byte-identity of the pre-existing chain (seam + choice), pinned at HEAD 62ca561a: every decision on the default seed carries
+-    // only generic members (P1) or none, so the law never moves it; seed-b is pinned up to its first member decision (w211).
++    // Record 621 G10 conditions (2)/(5): EVERY row, with or without members, is the law pick over the pool the seam law derives
++    // (plan :225-232) — a pool departs from the historical first three only by admitting promised members (closes 619-B L1).
++    for (const r of rows) {
++      expect(r.ok, `${r.seed} w${r.week} ${r.studioId} chosen=${r.chosen} law=${r.law} ambiguous=${r.ambiguous.join(',')}`).toBe(true)
++      if (r.poolKnownBefore) expect(r.pool, `${r.seed} w${r.week} ${r.studioId} ${r.key}`).toEqual(r.seam)
++    }
++    // G10-b (record 621 R2), receipt-derived: the only people ever seated from OUTSIDE the first three are sole writers whose ready
++    // screenplay was written by someone else — r01 admits r02-0 (promise-12) at w208 for both ready scripts (script-0006 chooses
++    // nothing, script-0011 the picture); r02 admits r01-0 (promise-1) on every decision from w208 to w349 (two ready scripts a
++    // week, never a viable package). seed-b admits nobody outside the first three (its writer/director/craft are always taken).
++    const admissions = rows.filter((r) => r.admitted.length > 0).map((r) => ({ week: r.week, studioId: r.studioId, key: r.key, admitted: r.admitted, chosen: r.chosen }))
++    if (seed === DEFAULT_SEED) {
++      const soleWriter = (n: string, promiseId: string) => [{ id: `person-studio-aca408ec-${n}`, role: 'writer', mask: SLOTS, promiseIds: [promiseId] }]
++      expect(admissions.filter((a) => a.studioId === 'studio-aca408ec-r01')).toEqual([
++        { week: 208, studioId: 'studio-aca408ec-r01', key: 'studio-aca408ec-r01:package:script-0006', admitted: soleWriter('r02-0', 'promise-12'), chosen: null },
++        { week: 208, studioId: 'studio-aca408ec-r01', key: 'studio-aca408ec-r01:package:script-0011', admitted: soleWriter('r02-0', 'promise-12'), chosen: 'aca408ec-r02-3/aca408ec-r02-2/aca408ec-r02-0' }])
++      const r02 = admissions.filter((a) => a.studioId === 'studio-aca408ec-r02')
++      expect(admissions).toHaveLength(2 + r02.length)
++      expect(r02).toHaveLength(284)
++      expect([r02[0]!.week, r02[r02.length - 1]!.week]).toEqual([208, 349])
++      for (const a of r02) expect(a).toMatchObject({ admitted: soleWriter('r01-0', 'promise-1'), chosen: null })
++    } else expect(admissions).toEqual([])
++    // Chain digest (seam + choice). The default seed is the G10-b re-pin described at CHAIN_DIGESTS (r01 w208 admits its sole
++    // writer r02-0 on promise-12; film:11 instead of film:6; every row ok, the moved rows exactly the seam-admitted member rows);
++    // seed-b is the pre-existing chain pinned up to its first member decision (w211).
+     const stable = rows.filter((r) => seed === DEFAULT_SEED || r.week < WITNESS.week)
+     const digest = sha(JSON.stringify(stable.map((r) => [r.week, r.studioId, r.key, r.pool, r.chosen, r.budget])))
+     console.log(`${seed}: ${rows.length} real film decisions (${rows.filter((r) => r.chosen !== null).length} pictures), ${controls.length} without members; chain digest over ${stable.length} rows = ${digest}`)
+@@ -694,5 +749,66 @@ describe('P14B4 final seating preference — the initial cast seam (plan :225-23
+     for (const w of weeks) expect(w.endsWith('deficit=true')).toBe(true)
+   })
+ 
+-  it.todo('UNEXECUTED (fixture finding): an eligible promised ACTOR outside the first three non-busy employed actors — no rival on p13a-core-causal-01/seed-b/seed-c/seed-d holds four actors within 350 ticks; RIVAL_TEAM_ROLES seats three and a challenger offer is dropped at freeze ("no seat open", seed-b w208 talent-market-event-128..130); never a synthesized employment')
++  it('the positive seam witness (plan :225-227, :233; record 621 R2 / G10-b): the first default-seed picture whose pool seats a promised person outside the historical first three admits r01\'s sole WRITER — a non-primary-actor beneficiary — and the real package and first take serve his promise', () => {
++    // Derived by search (scan → Scan.seam), then pinned by identity so a moved premise fails loudly (the 618 style). The fixture
++    // finding behind the former todo stands: no rival on p13a-core-causal-01/seed-b/seed-c/seed-d holds FOUR actors within 350
++    // ticks (RIVAL_TEAM_ROLES seats three; a challenger offer is dropped at freeze, "no seat open", seed-b w208
++    // talent-market-event-128..130), so an eligible promised ACTOR outside the first three is not lawfully constructible. The
++    // lawful non-primary-actor witness is the sole writer whose READY screenplay was written by someone else: the default seed's
++    // w208 settlement swaps r01's and r02's teams on bound P1 roots (619-B D2). Never a synthesized employment or root.
++    const s = scan(DEFAULT_SEED)
++    assert.ok(s.seam, `UNEXECUTED natural premise: no picture on '${DEFAULT_SEED}' within ${SCAN_TICKS} ticks seats a promised person outside the historical first three`)
++    const { before, decision } = s.seam
++    const studioId = 'studio-aca408ec-r01', departed = 'person-studio-aca408ec-r01-0', writer = 'person-studio-aca408ec-r02-0'
++    const [a2, a3, a4] = ['person-studio-aca408ec-r02-2', 'person-studio-aca408ec-r02-3', 'person-studio-aca408ec-r02-4']
++    expect({ week: decision.week, studioId: decision.studioId, key: decision.options.key }).toEqual({ week: 208, studioId, key: `${studioId}:package:script-0011` })
++    const team = employed(before, studioId) // the swapped team in employment order; nobody busy
++    expect(team.map((t) => [t.id, t.role])).toEqual([[writer, 'writer'], ['person-studio-aca408ec-r02-1', 'director'], [a2, 'actor'], [a3, 'actor'], [a4, 'actor'], ['person-studio-aca408ec-r02-5', 'craft']])
++    expect(team.filter((t) => t.role === 'writer')).toHaveLength(1)
++    expect(before.talent.find((t) => t.id === writer)!.skills.acting).toBeDefined() // has-discipline (plan :227-228)
++    const m = membersAt(before, studioId, decision.week)
++    expect(m.ambiguous).toEqual([])
++    expect(m.certain.map((x) => [x.beneficiaryPersonId, x.mask, x.promiseIds])).toEqual(team.map((t, i) => [t.id, SLOTS, [`promise-${12 + 2 * i}`]])) // six bound OPEN P1 roots, one per employee
++    const p = root(before, 'promise-12')
++    expect(p).toMatchObject({ beneficiaryPersonId: writer, issuerStudioId: studioId, family: 'APPEARANCE_COUNT', predicate: { count: 1 }, outcome: null, progress: 0, evidenceRefs: [], windowStartWeek: 208, dueWeekExclusive: 416 })
++    expect(before.hollywood!.employment.filter((e) => e.contractId === p.contractId && e.studioId === studioId && e.terms.talentId === writer)).toHaveLength(1)
++    expect(p.windowStartWeek <= decision.week + WEEKS_TO_FIRST_TAKE && decision.week + WEEKS_TO_FIRST_TAKE < p.dueWeekExclusive).toBe(true)
++    // Not "taken" (plan :229-230): both ready screenplays were written by the departed r01-0, who no longer works here.
++    expect(business(before, studioId).development.projects.filter((x) => x.status === 'ready').map((x) => [x.id, x.writerId])).toEqual([['script-0006', departed], ['script-0011', departed]])
++    expect(team.some((t) => t.id === departed)).toBe(false)
++    // The seam (:225-227): promised people first in employment order — the writer, then the actors — three seats; r02-4 is displaced.
++    expect(poolOf(decision)).toEqual([writer, a2, a3])
++    const row = s.rows.find((r) => r.week === decision.week && r.studioId === studioId && r.key === decision.options.key)!
++    expect({ seam: row.seam, firstThree: row.firstThree, admitted: row.admitted, ok: row.ok })
++      .toEqual({ seam: [writer, a2, a3], firstThree: [a2, a3, a4], admitted: [{ id: writer, role: 'writer', mask: SLOTS, promiseIds: ['promise-12'] }], ok: true })
++    // The earlier call this week (script-0006, same seam pool) chose nothing because no permutation is viable — never a forged package (:231-232).
++    const earlier = s.rows.find((r) => r.week === decision.week && r.studioId === studioId && r.key === `${studioId}:package:script-0006`)!
++    expect({ pool: earlier.pool, chosen: earlier.chosen, viable: earlier.perms.filter((x) => x.ordinary !== null).length, ok: earlier.ok }).toEqual({ pool: [writer, a2, a3], chosen: null, viable: 0, ok: true })
++    // The real choice is the law pick: all three seated members served (benefit 3), the writer in support (a generic mask serves any seat).
++    const perms = permutations(decision, m.certain)
++    const law = lawPick(perms)!
++    console.log(`SEAM WITNESS w${decision.week} ${studioId} ${decision.options.key} cashAvailable=${decision.options.cashAvailable}\n${table(perms)}\nlaw ${show(law)} ordinary ${show(ordinaryPick(perms))}`)
++    expect(law.benefit).toBe(3)
++    assert.ok(decision.result)
++    expect(decision.result.cast).toEqual(law.cast)
++    expect(decision.result.cast).toEqual({ lead: a3, antagonist: a2, support: writer })
++    expect(decision.result.budget).toEqual(law.ordinary!.budget)
++    expect(decision.result.budget).toEqual({ negative: 3033668, marketing: 594746 })
++    // The real picture (the same tick, re-observed from the saved before-state) and its real first take; then the outcome owner.
++    const { after, calls } = observedTick(before)
++    expect(filmDecisions(DEFAULT_SEED, before, calls).filter((d) => d.studioId === studioId).map((d) => [d.options.key, d.result?.cast ?? null]))
++      .toEqual([[`${studioId}:package:script-0006`, null], [decision.options.key, decision.result.cast]])
++    const film = business(after, studioId).productions.find((x) => x.startTick === decision.week)
++    assert.ok(film)
++    expect(film).toMatchObject({ id: `${studioId}:film:11`, cast: decision.result.cast, budget: decision.result.budget, writerId: departed, directorId: 'person-studio-aca408ec-r02-1', craftIds: ['person-studio-aca408ec-r02-5'] })
++    expect(new Set([film.writerId, film.directorId, ...film.craftIds, ...Object.values(film.cast)]).size).toBe(6) // one person, one seat (:230-231)
++    let taken = after
++    for (let steps = 0; !taken.firstTakes.some((t) => t.productionId === film.id); steps++) { if (steps >= 12) throw new Error('UNEXECUTED: no take within 12 ticks'); taken = tick(taken) }
++    const take = taken.firstTakes.find((t) => t.productionId === film.id)!
++    expect(take).toMatchObject({ eventId: 'first-take-event-45', week: decision.week + WEEKS_TO_FIRST_TAKE, studioId, cast: film.cast })
++    for (const id of ['promise-12', 'promise-16', 'promise-18']) expectSatisfiedBy(taken, id, take)
++    expect(new Set(['promise-12', 'promise-16', 'promise-18'].map((id) => root(taken, id).outcomeEventId)).size).toBe(3) // one OWN outcome receipt each
++    expectUnserved(taken, 'promise-20', take) // the displaced actor r02-4 waits for r01's next picture (film:6 at w217; its take at w222 — CHAIN_DIGESTS)
++    for (const id of ['promise-14', 'promise-22']) expectUnserved(taken, id, take) // the sole director/craft: the G-1 class, recorded not fixed (record 621)
++  })
+ })

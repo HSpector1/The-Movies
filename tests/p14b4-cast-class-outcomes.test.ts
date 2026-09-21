@@ -211,8 +211,11 @@ function rivalWorlds(): RivalWorlds {
   // 600-T4 (record 616 R-6; 600-R Q6 (iii)): the default seed never meets `genuine` within 350 ticks (its
   // only bound tagged root is to a craft worker never cast; 600-T2 D.1). 'seed-b' is the first candidate
   // where THIS search meets both prerequisites: at w215 all three slots on ONE rival film
-  // (studio-bc14baf6-r01:film:23; lead promise-8 tagged leadOrAntagonist, antagonist promise-6 P1,
-  // support promise-4 tagged) and genuine = that lead root (scan log 600-T4-scan-A-rival-seed-b-seed-d.log).
+  // (studio-bc14baf6-r01:film:23) and genuine = that lead root (scan log 600-T4-scan-A-rival-seed-b-seed-d.log).
+  // Slot mapping since the final seating preference landed (fc1c7b07, record 621; 619-T2 comment sweep, file run
+  // once 23/23): lead promise-8 (r01-4, tagged leadOrAntagonist), antagonist promise-4 (r01-2, tagged
+  // leadOrAntagonist), support promise-6 (r01-3, P1). Before it the antagonist was promise-6 and the support
+  // promise-4 (a G10-a permutation on seed-b r01 f23; the search, the week, the film and `genuine` are unchanged).
   // Every other case in this file keeps its own default-seed chain.
   let state = p13aGeneratedStudio('seed-b')
   const slots: Partial<Record<CastSlot, Prepared>> = {}
