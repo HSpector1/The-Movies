@@ -204,14 +204,22 @@ current kernel fits, no multi/deferred-admission grammar, revisit at the evaluat
 515 §6 (c): the 302 stale route stays RED as an exact boundary, C9/C10 NOT authorized, the
 control untouched; 576 recorded as a fact; C1 stays closed. Plan amended additively
 (`plans/P14B4-HEADLESS-PLAN.md` "Owner ruling 2026-09-21 (record 600)" section; SHA
-382252e2… → 28b8fdd6…; earlier line cites n>8 are now n+51). ENGINEERING REOPENED. NEXT600:
-(2) test-author reconciliation 600-T as RED on unchanged source (B-F2/B3 rules-3 pins → 4 for
-fresh reads; kernel-vocabulary capacity cases → evaluator-5 file or explicit unreached
-marking; trust-chooser test 6 per 110/554; natural-chain residual-buffer inventory) → (3)
-sim-core READ-ONLY cutover design note 600-A → (4) contract-auditor review 600-B → (5) ONE
-sim-core writer 600-W (per-step patches) → (6) serialized verification vs 536/593 → (7) 600-R
-review, per-step commits pushed together, record, headers. No cap/tariff/refusal/timeout/
-fixture moves to obtain a pass; Unity/native deferred. Gross2221 omitted fact cost is NOT
+382252e2… → 28b8fdd6…; earlier line cites n>8 are now n+51). ENGINEERING REOPENED. NEXT600 IN PROGRESS → 601/602 RECORDED (39a64ef0 the 600-T RED + 601 baseline; c9ed1fc4 record
+602; source still 48a43511 at 602): 600-T test-author reconciliation installed as RED on
+unchanged source (B-F2/B3 fresh pins 3→4, historical 1s untouched; conflicting-claim joint case
+moved verbatim to `p14b4-cast-class-capacity-evaluator5` as a LIVE designated failure;
+trust-chooser test 6 migrated to a real leadOrAntagonist P2; 601: 25 failed / 20 passed / 3 todo);
+600-A sim-core READ-ONLY cutover design note (S1 core → S3 save → S4 load/runtime → S2 policy →
+S5 wire + generator; 28 citation drifts vs 537-A, 0 source moves; 73/83 GREEN by paper, 1 by law
+to the evaluator-5 file, 9 natural); 600-B contract-auditor RELEASE WITH CONDITIONS C1–C12
+(adopted verbatim in 602 R1; fifth root-tsc residual `tests/save.test.ts:229-233`; registry line
+and disclosure hunks in S5; D17 drivers in S4; the G9 rival flexible-first movements a NAMED
+reconciliation class under plan T2). 600-W the ONE sim-core writer is RELEASED on that design
+(cumulative patches per step, never commits; parent lands five commits via commit-tree and pushes
+them together). NEXT602: 600-W → parent freeze/hash + typecheck/generator/live-P2 checks → land +
+push → test-author 600-T2 (29→30 values-only sweep, meaning pins from evidence, G9 class) →
+serialized record-checks vs 536/593 → 600-R review → record, headers, Unity backlog. No
+cap/tariff/refusal/timeout/fixture moves to obtain a pass; Unity/native deferred. Gross2221 omitted fact cost is NOT
 net saving: cold discovery can shift into next frame. No route-fit claim.
 Draft-discovery, silent-policy, affine and Map alternatives remain unadopted.
 T4/B2/B3/B-F2 qualified closed; B4/liveP2/Unity/Owner acceptance NOT closed.
