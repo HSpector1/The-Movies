@@ -20,12 +20,13 @@
 // Trust text and promise attention live in trust.ts; public outcomes in industry.ts.
 
 import { allPromises, promiseFeasibility } from '../src/core/promises.ts'
+import type { PromiseAttachment } from '../src/core/promises.ts'
 import { caseDisclosure, caseForTalent, UNKNOWN } from '../src/core/talentMarket.ts'
 import type { Disclosed, DisclosedPromise } from '../src/core/talentMarket.ts'
+import type { GameState, PromiseClassification } from '../src/core/types.ts'
 import type {
-  GameState, PromiseClassification, PromiseFamily,
-} from '../src/core/types.ts'
-import type { BridgeMarketPromiseHistoryRow } from './schema/bridge-schema.ts'
+  BridgeMarketProposalPromiseDraftPayload, BridgeMarketPromiseHistoryRow,
+} from './schema/bridge-schema.ts'
 
 /** One proposal's promise disclosure, as the viewing studio may lawfully read it:
  * the real draft for its own row, `null` when its own row attached none, and the
@@ -37,13 +38,22 @@ export type MarketPromiseRow = {
 
 export type MarketPromiseHistoryRow = BridgeMarketPromiseHistoryRow
 
+/** The wire draft (projection 47): the closed family-discriminated union — a
+ * `LEAD_OR_SIGNIFICANT_ROLE_COUNT` draft carries its required `seatClass`, every
+ * other family is count-only. */
+export type WirePromiseDraft = BridgeMarketProposalPromiseDraftPayload
+
+/** The ONE wire→core material conversion, shared by quote and attach: the kind
+ * and the selected class travel together, only for the seat-class family. */
+export function corePredicateOf(draft: WirePromiseDraft): PromiseAttachment['predicate'] {
+  return 'seatClass' in draft
+    ? { kind: 'castRoleCount', count: draft.count, seatClass: draft.seatClass }
+    : { count: draft.count }
+}
+
 /** The quote-time draft. The window is checked against the PROPOSED contract, so
  * the proposal's own `startWeek` and `termWeeks` ride along. */
-export type PromiseQuoteDraft = {
-  family: PromiseFamily
-  count: number
-  windowStartWeek: number
-  dueWeekExclusive: number
+export type PromiseQuoteDraft = WirePromiseDraft & {
   startWeek: number
   termWeeks: number
 }
@@ -94,6 +104,8 @@ export function promiseHistoryFor(
         promiseId: promise.promiseId,
         family: promise.family,
         count: promise.predicate.count,
+        // The stored shape alone selects a class; a legacy classless P2 reads null.
+        seatClass: 'kind' in promise.predicate ? promise.predicate.seatClass : null,
         windowStartWeek: promise.windowStartWeek,
         dueWeekExclusive: promise.dueWeekExclusive,
         contractId: promise.contractId,
@@ -121,7 +133,7 @@ export function promiseQuoteSnapshot(
     family: draft.family,
     issuerStudioId,
     beneficiaryPersonId: talentId,
-    predicate: { count: draft.count },
+    predicate: corePredicateOf(draft),
     windowStartWeek: draft.windowStartWeek,
     dueWeekExclusive: draft.dueWeekExclusive,
     startWeek: draft.startWeek,

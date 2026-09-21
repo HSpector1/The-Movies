@@ -219,7 +219,18 @@ export const PROTOCOL_VERSION = 4 as const
 // verdict, and `priorityOrder` widens to the six landed descriptors. No new view,
 // page or intent kind; the trust driver text, the Pulse promise activities, the
 // promise attention causes and the workspace history are P14B.2.
-export const PROJECTION_VERSION = 46 as const
+// P14B.4 (projection 47, record 600) — Save V30 is live (the explicitly selected P2
+// seat class on the promise root) and `PROMISE_RULES_VERSION` is 4. The market-proposal
+// draft's `promise` becomes a CLOSED family-discriminated union: a
+// `LEAD_OR_SIGNIFICANT_ROLE_COUNT` draft REQUIRES `seatClass` (`lead` |
+// `leadOrAntagonist`, no default, no optional); every other catalogue family stays
+// count-only with no class member (P3–P5 remain enumerated and engine-refused). The
+// issuer's own promise snapshot and the bound history row gain `seatClass`
+// (nullable: the real class for a tagged P2, `null` for a count family or a legacy
+// classless P2 — never a fabricated lead). The preferences snapshot gains
+// `preferredOpportunity` (the engine's own public archetype reader). Competing rows
+// keep the whole `"UNKNOWN"` marker; no new view, page, intent kind or persisted fact.
+export const PROJECTION_VERSION = 47 as const
 
 const nonEmptyText = () => text({ minLength: 1 })
 const nonNegativeInteger = () => integer({ minimum: 0 })
@@ -1753,12 +1764,32 @@ const MARKET_PROPOSAL_REFUSAL_KINDS = [
 // P14B.1: the promise a propose/revise draft may carry. The window is read against
 // the SAME proposed contract the draft names (`startWeek` is the case's decision
 // week, `termWeeks` the draft's own term), so the payload carries neither.
-const StudioMarketProposalPromiseDraftPayload = object('StudioMarketProposalPromiseDraftPayload', {
-  family: enumeration(PROMISE_FAMILIES),
+// P14B.4 (projection 47): a CLOSED union discriminated by `family`. The two members'
+// `family` domains are disjoint, so the first-match `anyOf` is order-independent.
+const PROMISE_SEAT_CLASSES = ['lead', 'leadOrAntagonist'] as const
+const COUNT_ONLY_PROMISE_FAMILIES = [
+  'APPEARANCE_COUNT', 'DIRECTING_COUNT', 'PREFERRED_GENRE_OPPORTUNITY', 'SPECIFIC_PROJECT',
+] as const
+const promiseDraftTerms = {
   count: integer({ minimum: 1 }),
   windowStartWeek: nonNegativeInteger(),
   dueWeekExclusive: nonNegativeInteger(),
+}
+/** A seat-class (P2) draft REQUIRES its explicitly selected class: no default, no optional. */
+const StudioMarketProposalCastClassPromiseDraftPayload = object('StudioMarketProposalCastClassPromiseDraftPayload', {
+  family: literal('LEAD_OR_SIGNIFICANT_ROLE_COUNT'),
+  ...promiseDraftTerms,
+  seatClass: enumeration(PROMISE_SEAT_CLASSES),
 })
+/** Every other catalogue family stays count-only; P3–P5 remain enumerated and engine-refused. */
+const StudioMarketProposalCountPromiseDraftPayload = object('StudioMarketProposalCountPromiseDraftPayload', {
+  family: enumeration(COUNT_ONLY_PROMISE_FAMILIES),
+  ...promiseDraftTerms,
+})
+const StudioMarketProposalPromiseDraftPayload = union('StudioMarketProposalPromiseDraftPayload', [
+  reference('StudioMarketProposalCastClassPromiseDraftPayload', StudioMarketProposalCastClassPromiseDraftPayload),
+  reference('StudioMarketProposalCountPromiseDraftPayload', StudioMarketProposalCountPromiseDraftPayload),
+] as const)
 const StudioMarketProposalDraftPayload = object('StudioMarketProposalDraftPayload', {
   verb: enumeration(['propose', 'revise', 'withdraw']),
   talentId: nonEmptyText(),
@@ -2220,6 +2251,9 @@ const StudioMarketPromiseSnapshot = object('StudioMarketPromiseSnapshot', {
   family: enumeration(PROMISE_FAMILIES),
   /** The promised count X of a count family. */
   count: integer({ minimum: 1 }),
+  /** P14B.4: the explicitly selected P2 seat class; `null` for a count family or a
+   * legacy classless P2 (read from the stored shape, never inferred from a version). */
+  seatClass: nullable(enumeration(PROMISE_SEAT_CLASSES)),
   windowStartWeek: nonNegativeInteger(),
   dueWeekExclusive: nonNegativeInteger(),
   classification: enumeration(PROMISE_CLASSIFICATIONS),
@@ -2230,6 +2264,8 @@ const StudioMarketPromiseHistoryRow = object('StudioMarketPromiseHistoryRow', {
   promiseId: nonEmptyText(),
   family: enumeration(PROMISE_FAMILIES),
   count: integer({ minimum: 1 }),
+  /** P14B.4: as on `StudioMarketPromiseSnapshot` — real class or `null`. */
+  seatClass: nullable(enumeration(PROMISE_SEAT_CLASSES)),
   windowStartWeek: nonNegativeInteger(),
   dueWeekExclusive: nonNegativeInteger(),
   /** Bound history always names the actual employment contract. */
@@ -2287,6 +2323,9 @@ const StudioMarketPreferencesSnapshot = object('StudioMarketPreferencesSnapshot'
     ['opportunity', 'compensation', 'term', 'trust', 'standing', 'incumbency'],
   )),
   preferredTermWeeks: integer({ minimum: 1 }),
+  /** P14B.4: the engine's own public opportunity preference (`publicPreferredOpportunity`,
+   * the same proven/unproven archetype as the order and term) — read, never a copy. */
+  preferredOpportunity: enumeration(['significantCastRole', 'anyCastAppearance']),
   line: nonEmptyText(),
 })
 const StudioMarketCaseSnapshot = object('StudioMarketCaseSnapshot', {
@@ -3259,6 +3298,8 @@ const definitions = {
   StudioQuoteSetCommissionRequest,
   StudioContractDraftPayload,
   StudioQuoteContractRequest,
+  StudioMarketProposalCastClassPromiseDraftPayload,
+  StudioMarketProposalCountPromiseDraftPayload,
   StudioMarketProposalPromiseDraftPayload,
   StudioMarketProposalDraftPayload,
   StudioQuoteMarketProposalRequest,

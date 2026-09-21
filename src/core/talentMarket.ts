@@ -459,6 +459,9 @@ export type Disclosed<T> = T | typeof UNKNOWN
 export type DisclosedPromise = {
   family: PromiseFamily
   count: number
+  /** P14B.4: the explicitly selected P2 seat class, or null (count family or a
+   * legacy classless P2) — read from the stored shape, never from a version. */
+  seatClass: 'lead' | 'leadOrAntagonist' | null
   windowStartWeek: number
   dueWeekExclusive: number
   classification: PromiseClassification
@@ -541,6 +544,7 @@ function disclosedPromise(state: GameState, proposal: TalentMarketProposal): Dis
   return {
     family: promise.family,
     count: promise.predicate.count,
+    seatClass: 'kind' in promise.predicate ? promise.predicate.seatClass : null,
     windowStartWeek: promise.windowStartWeek,
     dueWeekExclusive: promise.dueWeekExclusive,
     classification: promise.feasibilityReceipt.classification,

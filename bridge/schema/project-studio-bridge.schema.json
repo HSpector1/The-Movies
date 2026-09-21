@@ -492,7 +492,7 @@
           "$ref": "#/$defs/StudioProjectionBundle"
         },
         "snapshotVersion": {
-          "const": 46,
+          "const": 47,
           "type": "integer"
         },
         "stateDigest": {
@@ -609,7 +609,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 46,
+          "const": 47,
           "type": "integer"
         },
         "stateDigest": {
@@ -1128,7 +1128,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 46,
+          "const": 47,
           "type": "integer"
         },
         "stateDigest": {
@@ -1207,7 +1207,7 @@
           "$ref": "#/$defs/StudioProjectionBundle"
         },
         "snapshotVersion": {
-          "const": 46,
+          "const": 47,
           "type": "integer"
         },
         "stateDigest": {
@@ -1499,7 +1499,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 46,
+          "const": 47,
           "type": "integer"
         },
         "stateDigest": {
@@ -9240,6 +9240,13 @@
           "minLength": 1,
           "type": "string"
         },
+        "preferredOpportunity": {
+          "enum": [
+            "significantCastRole",
+            "anyCastAppearance"
+          ],
+          "type": "string"
+        },
         "preferredTermWeeks": {
           "maximum": 2147483647,
           "minimum": 1,
@@ -9262,6 +9269,7 @@
       },
       "required": [
         "line",
+        "preferredOpportunity",
         "preferredTermWeeks",
         "priorityOrder"
       ],
@@ -9337,6 +9345,20 @@
           "minLength": 1,
           "type": "string"
         },
+        "seatClass": {
+          "anyOf": [
+            {
+              "enum": [
+                "lead",
+                "leadOrAntagonist"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
         "windowStartWeek": {
           "maximum": 2147483647,
           "minimum": 0,
@@ -9352,6 +9374,7 @@
         "outcomeCause",
         "outcomeWeek",
         "promiseId",
+        "seatClass",
         "windowStartWeek"
       ],
       "type": "object",
@@ -9421,6 +9444,20 @@
           ],
           "type": "string"
         },
+        "seatClass": {
+          "anyOf": [
+            {
+              "enum": [
+                "lead",
+                "leadOrAntagonist"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
         "windowStartWeek": {
           "maximum": 2147483647,
           "minimum": 0,
@@ -9432,10 +9469,88 @@
         "count",
         "dueWeekExclusive",
         "family",
+        "seatClass",
         "windowStartWeek"
       ],
       "type": "object",
       "x-csharp-name": "StudioMarketPromiseSnapshot"
+    },
+    "StudioMarketProposalCastClassPromiseDraftPayload": {
+      "additionalProperties": false,
+      "properties": {
+        "count": {
+          "maximum": 2147483647,
+          "minimum": 1,
+          "type": "integer"
+        },
+        "dueWeekExclusive": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "family": {
+          "const": "LEAD_OR_SIGNIFICANT_ROLE_COUNT",
+          "type": "string"
+        },
+        "seatClass": {
+          "enum": [
+            "lead",
+            "leadOrAntagonist"
+          ],
+          "type": "string"
+        },
+        "windowStartWeek": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "count",
+        "dueWeekExclusive",
+        "family",
+        "seatClass",
+        "windowStartWeek"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioMarketProposalCastClassPromiseDraftPayload"
+    },
+    "StudioMarketProposalCountPromiseDraftPayload": {
+      "additionalProperties": false,
+      "properties": {
+        "count": {
+          "maximum": 2147483647,
+          "minimum": 1,
+          "type": "integer"
+        },
+        "dueWeekExclusive": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "family": {
+          "enum": [
+            "APPEARANCE_COUNT",
+            "DIRECTING_COUNT",
+            "PREFERRED_GENRE_OPPORTUNITY",
+            "SPECIFIC_PROJECT"
+          ],
+          "type": "string"
+        },
+        "windowStartWeek": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "count",
+        "dueWeekExclusive",
+        "family",
+        "windowStartWeek"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioMarketProposalCountPromiseDraftPayload"
     },
     "StudioMarketProposalDraftPayload": {
       "additionalProperties": false,
@@ -9489,41 +9604,14 @@
       "x-csharp-name": "StudioMarketProposalDraftPayload"
     },
     "StudioMarketProposalPromiseDraftPayload": {
-      "additionalProperties": false,
-      "properties": {
-        "count": {
-          "maximum": 2147483647,
-          "minimum": 1,
-          "type": "integer"
+      "anyOf": [
+        {
+          "$ref": "#/$defs/StudioMarketProposalCastClassPromiseDraftPayload"
         },
-        "dueWeekExclusive": {
-          "maximum": 2147483647,
-          "minimum": 0,
-          "type": "integer"
-        },
-        "family": {
-          "enum": [
-            "APPEARANCE_COUNT",
-            "LEAD_OR_SIGNIFICANT_ROLE_COUNT",
-            "DIRECTING_COUNT",
-            "PREFERRED_GENRE_OPPORTUNITY",
-            "SPECIFIC_PROJECT"
-          ],
-          "type": "string"
-        },
-        "windowStartWeek": {
-          "maximum": 2147483647,
-          "minimum": 0,
-          "type": "integer"
+        {
+          "$ref": "#/$defs/StudioMarketProposalCountPromiseDraftPayload"
         }
-      },
-      "required": [
-        "count",
-        "dueWeekExclusive",
-        "family",
-        "windowStartWeek"
       ],
-      "type": "object",
       "x-csharp-name": "StudioMarketProposalPromiseDraftPayload"
     },
     "StudioMarketProposalQuoteSnapshot": {
@@ -16273,7 +16361,7 @@
       "x-csharp-name": "StudioWrapReceiptSnapshot"
     }
   },
-  "$id": "urn:project-studio:bridge:protocol-4:projection-46",
+  "$id": "urn:project-studio:bridge:protocol-4:projection-47",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "description": "Canonical wire contract owned by the authoritative TypeScript runtime.",
   "oneOf": [
@@ -16329,7 +16417,7 @@
   "title": "Project Studio TypeScript to Unity Bridge",
   "x-project-studio": {
     "contractId": "project-studio-current-game-unity-bridge",
-    "projectionVersion": 46,
+    "projectionVersion": 47,
     "protocolVersion": 4,
     "routes": {
       "command": "POST /command",

@@ -48,9 +48,9 @@ import {
   withdrawProposal,
 } from '../src/core/index.ts'
 import { financialConsequence } from './finance-consequence.ts'
-import { promiseQuoteSnapshot } from './promises.ts'
+import { corePredicateOf, promiseQuoteSnapshot } from './promises.ts'
+import type { WirePromiseDraft } from './promises.ts'
 import { attachPromise } from '../src/core/promises.ts'
-import type { PromiseFamily } from '../src/core/types.ts'
 import { TUNING } from '../src/core/tuning.ts'
 import type { ActionOutcome } from '../ui/src/engine/adapter.ts'
 import type {
@@ -334,13 +334,9 @@ export function contractQuoteSnapshot(
 
 /** P14B.1: the promise a propose/revise draft may carry. The proposed contract
  * interval it is checked against comes from the draft's own term and the case's
- * decision week — a client never names either. */
-export type MarketPromiseDraft = {
-  family: PromiseFamily
-  count: number
-  windowStartWeek: number
-  dueWeekExclusive: number
-}
+ * decision week — a client never names either. P14B.4: the wire union itself — a
+ * seat-class draft carries its required `seatClass`, every other family is count-only. */
+export type MarketPromiseDraft = WirePromiseDraft
 
 export type MarketProposalDraft = {
   verb: 'propose' | 'revise' | 'withdraw'
@@ -468,7 +464,7 @@ function prepareMarketProposal(state: GameState, draft: MarketProposalDraft): Ma
     }
     const next = attachPromise(proposed, draft.talentId, draft.issuerStudioId, {
       family: draft.promise.family,
-      predicate: { count: draft.promise.count },
+      predicate: corePredicateOf(draft.promise),
       windowStartWeek: draft.promise.windowStartWeek,
       dueWeekExclusive: draft.promise.dueWeekExclusive,
     })

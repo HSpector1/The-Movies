@@ -39,7 +39,7 @@ import { DISCIPLINE_ORDER, PERSON_DISCIPLINE_ORDER, ROLE_TO_DISCIPLINE } from '.
 import { guaranteedComp, activeContract, busyTalentIds, renewalWindowOpen } from '../src/core/employment.ts'
 import {
   caseDisclosure, caseForTalent, caseOpenForTalent, currentProposals,
-  publicPreferredTerm, publicPriorityOrder, submitProposal, UNKNOWN,
+  publicPreferredOpportunity, publicPreferredTerm, publicPriorityOrder, submitProposal, UNKNOWN,
 } from '../src/core/talentMarket.ts'
 import type { Disclosed, MarketCaseView } from '../src/core/talentMarket.ts'
 import { trustDescriptor } from '../src/core/promises.ts'
@@ -986,6 +986,8 @@ export function marketCaseProjection(
     preferences: {
       priorityOrder,
       preferredTermWeeks,
+      // P14B.4: the engine's own public archetype reader, never a second copy.
+      preferredOpportunity: publicPreferredOpportunity(state, talentId),
       line: `Prefers terms of ${contractTermLabel(preferredTermWeeks)} · Weighs ${DESCRIPTOR_LABEL[priorityOrder[0] ?? 'compensation']!} first, then ${DESCRIPTOR_LABEL[priorityOrder[1] ?? 'term']!}`,
     },
     proposals,

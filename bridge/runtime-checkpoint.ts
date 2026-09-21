@@ -57,6 +57,10 @@ const R05_NATIVE_FOUNDING_SCHEMA_ID =
 // that window would carry the earlier hash, and this map is keyed on the
 // hash, not the label.
 export const SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS: ReadonlyMap<string, string> = new Map<string, string>([
+  // P14B.4: exact OUTGOING projection-46 identity (Save V29 / rules 3), minted at
+  // c06db6ea and frozen in tests/fixtures/p14/genuine-projection46-runtime; every
+  // durable checkpoint written under it takes the governed prior path.
+  ['sha256:584bdd8565030f049d548b1af4fcbf8c517ca7c9150016736f632f1ef8fcb98c', 'projection-v46'],
   // P14B.2: exact outgoing projection-45 identity; T1 froze a genuine checkpoint
   // before this bump. Missing older identities are not fabricated by this entry.
   ['sha256:5b2a4ca93d930e90a288db55bb5cc3fdc8eea070ef51fa1450a193a325bd755d', 'projection-v45'],
