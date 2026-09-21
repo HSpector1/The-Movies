@@ -229,12 +229,22 @@ Evidence 601–615: live-P2 83 → 12 (all natural/designated); full core 96 fil
 inherited + 2 designated + 11 natural + 4 load-only (pass alone); root+UI and bridge tsc EXIT 0
 (the OLD TS2353 cleared); UI five-file 45/45. Replay module unchanged (9e97ffed…); stale route
 :234 stays RED; no cap/tariff/refusal/timeout/fixture moved; nothing native. Owner-visible
-behaviour list and Unity backlog in 616. NEXT616: (1) R-6 test-author seed-scan reconciliation of
-the three natural premises (rivalWorlds ×9, outcomes :438, policy :529 P1fallback) as its own
-record; (2) the remaining B4 families under the existing directive — rival P2 outcomes on a
-recorded seed, final seating preference (own RED), breakPromisesOnCancel correction (own RED),
-stale-title text pass + 574-R doc fix at the next release; (3) evaluator 5 later (D2 (i-c)).
-Unity/native deferred. Gross2221 omitted fact cost is NOT
+behaviour list and Unity backlog in 616. NEXT616 (1) DONE → 618 RECORDED (published bad20a76): 600-T4 seed-scan reconciliation of the three
+natural premises under 600-R Q6 (i)–(iv) — rivalWorlds() on 'seed-b' (SLOTS + GENUINE both met
+at w215 by the same search; every other case keeps the default seed), outcomes :438 as a CAST
+CHOICE of the fixture's own second bound beneficiary (optional `prefer` on playerPayload,
+asserted employed non-focus actor), policy P1fallback witnessed on 'seed-b' w196 (FLEX FRAGILE
+"needs a picture not yet commissioned" → P1 ACHIEVABLE, root promise-36) with the default
+seed's witnesses still required; nothing invented, no timeout/helper/fixture/source change.
+617: the live-P2 set is 1 failed (the evaluator-5 case by law) / 192 passed / 1 todo — the
+progression 593 → 607 → 617 is 83 → 12 → 1; the nine rival outcome cases RUN on a recorded seed
+(partial evidence under 26 §2, not B4 closeout). Findings: O-T4-1 a natural seating-preference
+witness (r01 seats two tagged beneficiaries lead + SUPPORT while a P1 holds antagonist; the
+permutation would serve 3/3 masks). NEXT618: the remaining B4 families under the existing
+directive — (a) final seating preference (hollywoodPolicy.ts :31-66 six permutations / hollywoodTick.ts
+:162 initial actors; test-author RED first, O-T4-1 as the natural witness; ONE writer after review),
+(b) breakPromisesOnCancel causal-coupling correction (26 §2; own RED), (c) the stale-title text
+pass + 574-R doc fix at the next release; evaluator 5 later (D2 (i-c)). Unity/native deferred. Gross2221 omitted fact cost is NOT
 net saving: cold discovery can shift into next frame. No route-fit claim.
 Draft-discovery, silent-policy, affine and Map alternatives remain unadopted.
 T4/B2/B3/B-F2 qualified closed; B4/liveP2/Unity/Owner acceptance NOT closed.
