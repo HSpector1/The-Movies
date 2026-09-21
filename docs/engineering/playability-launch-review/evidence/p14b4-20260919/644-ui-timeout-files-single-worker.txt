@@ -1,0 +1,2019 @@
+{"sourceSha":"404518588d85cbc9d44adcbb1ff790468e543ff5","testedDiffSha256":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","ui","--minWorkers=1","--maxWorkers=1","ui/src/lot/WorldFirstLotNativeNextEventApp.test.tsx","ui/src/lot/WorldFirstLotNativeCastingReviewApp.test.tsx","ui/src/lot/WorldFirstLotNativeCastingReviewAppAuthority.test.tsx","ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx","ui/src/lot/livingTurn.scheduler.test.tsx","ui/src/lot/livingTurn.parity.test.tsx"],"node":"v20.20.2","start":"2026-09-21T21:43:39.225Z","end":null,"exitCode":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+stderr | ui/src/lot/WorldFirstLotNativeNextEventApp.test.tsx > World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > rejects a delayed hidden-tab compatibility tail and accepts a later fresh pointer boundary
+An update to StudioLotScreen inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+stderr | ui/src/lot/WorldFirstLotNativeNextEventApp.test.tsx > World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > rejects a delayed hidden-tab compatibility tail and accepts a later fresh pointer boundary
+An update to StudioLotScreen inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+ ✓ |ui| ui/src/lot/WorldFirstLotNativeNextEventApp.test.tsx (36 tests) 44963ms
+   ✓ World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > keeps an exact non-release stop on one mounted world, contains a stale repeat, and returns from the exact deep owner 2493ms
+   ✓ World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > accepts a newly surfaced first draft in the mounted Lot with direct-adapter parity 605ms
+   ✓ World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > requests the legal final rewrite from a newly surfaced review and reports its exact base slot 690ms
+   ✓ World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > uses and repaints the operational Annex only when the accepted rewrite owns its exact slot 1561ms
+   ✓ World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > opens an already-pending final review from Development, returns by exact identity, and accepts it in the same Lot 1314ms
+   ✓ World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > rebuilds an imported pending review only after the player selects Development in the replacement Lot 1277ms
+   ✓ World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > returns neutral instead of substituting the next screenplay after the focused deep review is accepted 630ms
+   ✓ World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > keeps the pending screenplay action complete when the Hollywood renderer fails 635ms
+   ✓ World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > keeps the same Lot-native screenplay review and action in Classic semantic fallback 425ms
+   ✓ World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > contains same-stack duplicate screenplay activation when the Engine rejects 527ms
+   ✓ World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > restores the exact next-event screenplay ceremony after Engine rejection and permits a fresh retry 904ms
+   ✓ World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > does not replay an already-Operational Annex announcement across an unchanged exact deep return 1335ms
+   ✓ World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > consumes a script/completion co-event through a deep state successor without replaying either Annex announcement 1028ms
+   ✓ World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > cancels a held rail action across renderer failure while preserving fresh semantic fallback 557ms
+   ✓ World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > names the exact pending production problem when next-event cadence is disabled 532ms
+   ✓ World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > rejects pointer-cancel compatibility recapture while keeping a fresh virtual activation 541ms
+   ✓ World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > rejects a delayed compatibility tail after pointer blur and accepts a fresh physical boundary 627ms
+   ✓ World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > rejects a delayed hidden-tab compatibility tail and accepts a later fresh pointer boundary 694ms
+   ✓ World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > cannot recapture a delayed pointer tail onto an authoritative replacement state 598ms
+   ✓ World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > revalidates an exact deep route against current truth and demotes stale detail without leaving the world 756ms
+   ✓ World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > physically orients an exact Stage 7 decision and keeps the world command before either deep route 872ms
+   ✓ World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > dismisses an exact Stage 7 reaction into a neutral world instead of retaining event-owned selection 886ms
+   ✓ World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > consumes one exact event world command before Engine dispatch and rejects its same-stack tail 1115ms
+   ✓ World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > retains the exact event world command on Classic Lot rollback without inventing Hollywood presence 800ms
+   ✓ World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > keeps an exact Stage 12 decision semantic without painting or substituting the Stage 7 production 949ms
+   ✓ World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > clears an unrelated selected production when a neutral event becomes the sole orientation 868ms
+   ✓ World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > keeps a generic contract stop spatially neutral, claims no person, and focuses the Roster heading 2708ms
+   ✓ World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > orients a cash stop to Administration and focuses the supporting Finances section 7583ms
+   ✓ World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > accepts only neutral final facts when the primary receipt is malformed and retains one independently valid completion 1590ms
+   ✓ World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > drops a malformed completion before non-release suppression or focus ownership 1135ms
+   ✓ World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > renders the exact 520-week guard as neutral and never fabricates a deep event target 793ms
+   ✓ World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > keeps the canonical release route, owns a simultaneous completion once, and returns receipt-free to the Lot control 962ms
+   ✓ World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > never forwards a malformed completion into the release chain 985ms
+   ✓ World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > preserves the exact live-world reaction after a rejected import or declined restart 2381ms
+   ✓ World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > clears every next-event transient across an accepted same-seed same-week whole-studio replacement 3347ms
+ ✓ |ui| ui/src/lot/WorldFirstLotNativeCastingReviewAppAuthority.test.tsx (15 tests) 13754ms
+   ✓ Lot-native Casting review — App commit and handoff authority > commits the clear successor, invokes autosave, then opens the exact Package owner once 1207ms
+   ✓ Lot-native Casting review — App commit and handoff authority > contains retained Lot profile tails while the Package and its nested Profile own input 600ms
+   ✓ Lot-native Casting review — App commit and handoff authority > cancels only the optional Package open when a current Lot Profile wins the handoff boundary 690ms
+   ✓ Lot-native Casting review — App commit and handoff authority > accepts one exact Custom Talent successor without replacing the Lot, workspace, or Assembly owner 615ms
+   ✓ Lot-native Casting review — App commit and handoff authority > keeps the committing successor above the same Lot until autosave, then publishes one live formation atomically 640ms
+   ✓ Lot-native Casting review — App commit and handoff authority > commits a valid greenlight with a mismatched presentation receipt but exposes no formation guess 685ms
+   ✓ Lot-native Casting review — App commit and handoff authority > retains an exact queued greenlight with project truth, no formation cue, and no invented production 783ms
+   ✓ Lot-native Casting review — App commit and handoff authority > keeps a blocked accepted successor in the same mounted Lot and autosaves exact parity 679ms
+   ✓ Lot-native Casting review — App commit and handoff authority > restores one rejected event ceremony and permits exactly one later fresh retry 629ms
+   ✓ Lot-native Casting review — App commit and handoff authority > demotes a malformed Casting receipt neutrally, then permits only a later explicit pending action 679ms
+   ✓ Lot-native Casting review — App commit and handoff authority > never lets stale Casting review closures demote or mutate a newer exact event 4126ms
+   ✓ Lot-native Casting review — App commit and handoff authority > invalidates retained Lot Casting callbacks synchronously when deep navigation starts 577ms
+   ✓ Lot-native Casting review — App commit and handoff authority > keeps the committed clear successor and autosave but cancels Package after Lot drift 649ms
+   ✓ Lot-native Casting review — App commit and handoff authority > rejects retained Casting callbacks after the exact Lot presentation unmounts 527ms
+   ✓ Lot-native Casting review — App commit and handoff authority > rejects retained Casting commands synchronously behind the Talent Profile modal 667ms
+ ❯ |ui| ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx (28 tests | 5 failed) 19070ms
+   ✓ World Inspector Default V1 — no building click ever ejects > never navigates from any of the nine places, and always lands an in-world context 1804ms
+   ✓ World Inspector Default V1 — no building click ever ejects > lands the generic inspector — with name, role and live status — where no richer context applies 1598ms
+   ✓ World Inspector Default V1 — no building click ever ejects > reaches the canonical deep screen ONLY through the explicit details action 2126ms
+   ✓ World Inspector Default V1 — no building click ever ejects > routes canvas intent and semantic companion activation to the same owner 370ms
+   ✓ World Inspector Default V1 — no building click ever ejects > prints the shared Development & Casting occupancy and the stage’s own idle truth 353ms
+   ✓ the camera grammar — selection frames, and the whole property is always one control away > keeps the retained contexts asking the world to bring their place into view 310ms
+   ✓ the camera grammar — selection frames, and the whole property is always one control away > never asks the world to reframe for an ORDINARY inspector — the quiet half of the grammar 621ms
+   × M-B — the buildings carry the verbs the guidance names > never lets any place print its blocks out of the canonical order 5185ms
+     → Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+   × M-B — the buildings carry the verbs the guidance names > offers Development the Commission verb at Week 0 — the first step of the whole game 321ms
+     → Found multiple elements by: [data-testid="lot-nav-writers"]
+
+Here are the matching elements:
+
+Ignored nodes: comments, script, style
+[36m<button[39m
+  [33mclass[39m=[32m"lot-nav-item att-empty"[39m
+  [33mdata-attention[39m=[32m"empty"[39m
+  [33mdata-testid[39m=[32m"lot-nav-writers"[39m
+  [33mtitle[39m=[32m"Develop and assemble your next film."[39m
+  [33mtype[39m=[32m"button"[39m
+[36m>[39m
+  [36m<span[39m
+    [33mclass[39m=[32m"lot-nav-name"[39m
+  [36m>[39m
+    [0mDevelopment[0m
+  [36m</span>[39m
+  [36m<span[39m
+    [33mclass[39m=[32m"lot-nav-state"[39m
+    [33mdata-testid[39m=[32m"lot-nav-writers-state"[39m
+  [36m>[39m
+    [36m<span[39m
+      [33maria-hidden[39m=[32m"true"[39m
+      [33mclass[39m=[32m"lot-nav-icon"[39m
+    [36m>[39m
+      [0m○[0m
+    [36m</span>[39m
+    [36m<span[39m
+      [33mclass[39m=[32m"lot-nav-att-word visually-hidden"[39m
+    [36m>[39m
+      [0mAvailable[0m
+      [0m: [0m
+    [36m</span>[39m
+    [0mWriters Room idle[0m
+  [36m</span>[39m
+[36m</button>[39m
+
+Ignored nodes: comments, script, style
+[36m<button[39m
+  [33mclass[39m=[32m"lot-nav-item att-positive"[39m
+  [33mdata-attention[39m=[32m"positive"[39m
+  [33mdata-testid[39m=[32m"lot-nav-writers"[39m
+  [33mtitle[39m=[32m"Develop and assemble your next film."[39m
+  [33mtype[39m=[32m"button"[39m
+[36m>[39m
+  [36m<span[39m
+    [33mclass[39m=[32m"lot-nav-name"[39m
+  [36m>[39m
+    [0mDevelopment[0m
+  [36m</span>[39m
+  [36m<span[39m
+    [33mclass[39m=[32m"lot-nav-state"[39m
+    [33mdata-testid[39m=[32m"lot-nav-writers-state"[39m
+  [36m>[39m
+    [36m<span[39m
+      [33maria-hidden[39m=[32m"true"[39m
+      [33mclass[39m=[32m"lot-nav-icon"[39m
+    [36m>[39m
+      [0m✓[0m
+    [36m</span>[39m
+    [36m<span[39m
+      [33mclass[39m=[32m"lot-nav-att-word visually-hidden"[39m
+    [36m>[39m
+      [0mPositive[0m
+      [0m: [0m
+    [36m</span>[39m
+    [0mScreenplay ready to package[0m
+  [36m</span>[39m
+[36m</button>[39m
+
+(If this is intentional, then use the `*AllBy*` variant of the query (like `queryAllByText`, `getAllByText`, or `findAllByText`)).
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"lot-screen lot-hollywood"[39m
+      [33mdata-entry-focus[39m=[32m"none"[39m
+      [33mdata-testid[39m=[32m"studio-lot-screen"[39m
+    [36m>[39m
+      [36m<div[39m
+        [33maria-atomic[39m=[32m"true"[39m
+        [33maria-live[39m=[32m"polite"[39m
+        [33mclass[39m=[32m"visually-hidden"[39m
+        [33mdata-testid[39m=[32m"lot-casting-review-announcement"[39m
+        [33mrole[39m=[32m"status"[39m
+      [36m/>[39m
+      [36m<div[39m
+        [33maria-atomic[39m=[32m"true"[39m
+        [33maria-live[39m=[32m"polite"[39m
+        [33mclass[39m=[32m"visually-hidden"[39m
+        [33mdata-testid[39m=[32m"lot-production-formation-announcement"[39m
+        [33mrole[39m=[32m"status"[39m
+      [36m/>[39m
+      [36m<div[39m
+        [33maria-atomic[39m=[32m"true"[39m
+        [33maria-live[39m=[32m"polite"[39m
+        [33mclass[39m=[32m"visually-hidden"[39m
+        [33mdata-testid[39m=[32m"lot-script-review-announcement"[39m
+        [33mrole[39m=[32m"status"[39m
+      [36m/>[39m
+      [36m<header[39m
+        [33mclass[39m=[32m"lot-topbar"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"lot-brand"[39m
+        [36m>[39m
+          [36m<h1[39m
+            [33mclass[39m=[32m"mark lot-studio-heading"[39m
+            [33mdata-testid[39m=[32m"lot-studio-heading"[39m
+            [33mtabindex[39m=[32m"-1"[39m
+          [36m>[39m
+            [0mPROJECT: STUDIO[0m
+          [36m</h1>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"lot-sub"[39m
+          [36m>[39m
+            [0mStudio Chronicle · Hollywood, 1920 · Week 1[0m
+          [36m</span>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"lot-topbar-actions"[39m
+        [36m>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"lot-cash-slot"[39m
+          [36m>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"lot-cash"[39m
+              [33mdata-testid[39m=[32m"lot-cash"[39m
+            [36m>[39m
+              [0m$20,000,000[0m
+            [36m</span>[39m
+          [36m</span>[39m
+          [36m<button[39m
+            [33maria-label[39m=[32m"Advance one week"[39m
+            [33mclass[39m=[32m"primary lot-advance-week lot-topbar-compactable"[39m
+            [33mdata-testid[39m=[32m"lot-advance-week"[39m
+            [33mtitle[39m=[32m"Advance one week"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m>[39m
+            [36m<span[39m
+              [33maria-hidden[39m=[32m"true"[39m
+              [33mclass[39m=[32m"lot-topbar-mark"[39m
+            [36m>[39m
+              [0m▸[0m
+            [36m</span>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"lot-topbar-label"[39m
+            [36m>[39m
+              [0mAdvance one week[0m
+            [36m</span>[39m
+          [36m</button>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"lot-next-event-control"[39m
+          [36m>[39m
+            [36m<button[39m
+              [33maria-label[39m=[32m"Sim to next event"[39m
+              [33mclass[39m=[32m"accent lot-next-event-button lot-topbar-compactable"[39m
+              [33mdata-testid[39m=[32m"lot-sim-to-next-event"[39m
+              [33mdisabled[39m=[32m""[39m
+              [33mtitle[39m=[32m"Sim to next event"[39m
+              [33mtype[39m=[32m"button"[39m
+            [36m>[39m
+              [36m<span[39m
+                [33maria-hidden[39m=[32m"true"[39m
+                [33mclass[39m=[32m"lot-topbar-mark"[39m
+              [36m>[39m
+                [0m»[0m
+              [36m</span>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"lot-topbar-label"[39m
+              [36m>[39m
+                [0mSim to next event[0m
+              [36m</span>[39m
+            [36m</button>[39m
+          [36m</div>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"ghost"[39m
+            [33mdata-testid[39m=[32m"lot-return-dashboard"[39m
+          [36m>[39m
+            [0mOpen Dashboard[0m
+          [36m</button>[39m
+          [36m<button[39m
+            [33maria-label[39m=[32m"Saves"[39m
+            [33mclass[39m=[32m"ghost lot-topbar-compactable"[39m
+            [33mdata-testid[39m=[32m"lot-open-saves"[39m
+            [33mtitle[39m=[32m"Export a print of this studio, or load one"[39m
+          [36m>[39m
+            [36m<span[39m
+              [33maria-hidden[39m=[32m"true"[39m
+              [33mclass[39m=[32m"lot-topbar-mark"[39m
+            [36m>[39m
+              [0m▤[0m
+            [36m</span>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"lot-topbar-label"[39m
+            [36m>[39m
+              [0mSaves[0m
+            [36m</span>[39m
+          [36m</button>[39m
+        [36m</div>[39m
+      [36m</header>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"lot-body"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"lot-stage-wrap"[39m
+          [33mdata-guidance-target[39m=[32m"writers"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33maria-hidden[39m=[32m"true"[39m
+            [33mclass[39m=[32m"lot-canvas"[39m
+            [33mdata-testid[39m=[32m"studio-lot-canvas"[39m
+          [36m/>[39m
+          [36m<div[39m
+            [33maria-atomic[39m=[32m"true"[39m
+            [33maria-live[39m=[32m"polite"[39m
+            [33mclass[39m=[32m"lot-notice"[39m
+            [33mdata-punctuation[39m=[32m"0"[39m
+            [33mdata-testid[39m=[32m"lot-annex-operational-announcement"[39m
+            [33mrole[39m=[32m"status"[39m
+          [36m/>[39m
+          [36m<div[39m
+            [33maria-atomic[39m=[32m"true"[39m
+            [33maria-live[39m=[32m"polite"[39m
+            [33mclass[39m=[32m"lot-notice"[39m
+            [33mdata-punctuation[39m=[32m"0"[39m
+            [33mdata-testid[39m=[32m"lot-week-update-announcement"[39m
+            [33mrole[39m=[32m"status"[39m
+          [36m/>[39m
+          [36m<div[39m
+            [33maria-label[39m=[32m"Lot camera"[39m
+            [33mclass[39m=[32m"lot-camera-tools"[39m
+            [33mrole[39m=[32m"group"[39m
+          [36m>[39m
+            [36m<button[39m
+              [33maria-keyshortcuts[39m=[32m"R"[39m
+              [33maria-label[39m=[32m"Show the whole property. Keyboard shortcut R."[39m
+              [33mclass[39m=[32m"lot-camera-home"[39m
+              [33mdata-testid[39m=[32m"lot-camera-home"[39m
+              [33mtitle[39m=[32m"Show the whole property (shortcut: R)"[39m
+              [33mtype[39m=[32m"button"[39m
+            [36m>[39m
+              [36m<span...
+   × M-B — the buildings carry the verbs the guidance names > routes the Commission verb to the commission intent, and the deep ghost to Development 333ms
+     → Found multiple elements by: [data-testid="lot-nav-writers"]
+
+Here are the matching elements:
+
+Ignored nodes: comments, script, style
+[36m<button[39m
+  [33mclass[39m=[32m"lot-nav-item att-empty"[39m
+  [33mdata-attention[39m=[32m"empty"[39m
+  [33mdata-testid[39m=[32m"lot-nav-writers"[39m
+  [33mtitle[39m=[32m"Develop and assemble your next film."[39m
+  [33mtype[39m=[32m"button"[39m
+[36m>[39m
+  [36m<span[39m
+    [33mclass[39m=[32m"lot-nav-name"[39m
+  [36m>[39m
+    [0mDevelopment[0m
+  [36m</span>[39m
+  [36m<span[39m
+    [33mclass[39m=[32m"lot-nav-state"[39m
+    [33mdata-testid[39m=[32m"lot-nav-writers-state"[39m
+  [36m>[39m
+    [36m<span[39m
+      [33maria-hidden[39m=[32m"true"[39m
+      [33mclass[39m=[32m"lot-nav-icon"[39m
+    [36m>[39m
+      [0m○[0m
+    [36m</span>[39m
+    [36m<span[39m
+      [33mclass[39m=[32m"lot-nav-att-word visually-hidden"[39m
+    [36m>[39m
+      [0mAvailable[0m
+      [0m: [0m
+    [36m</span>[39m
+    [0mWriters Room idle[0m
+  [36m</span>[39m
+[36m</button>[39m
+
+Ignored nodes: comments, script, style
+[36m<button[39m
+  [33mclass[39m=[32m"lot-nav-item att-positive"[39m
+  [33mdata-attention[39m=[32m"positive"[39m
+  [33mdata-testid[39m=[32m"lot-nav-writers"[39m
+  [33mtitle[39m=[32m"Develop and assemble your next film."[39m
+  [33mtype[39m=[32m"button"[39m
+[36m>[39m
+  [36m<span[39m
+    [33mclass[39m=[32m"lot-nav-name"[39m
+  [36m>[39m
+    [0mDevelopment[0m
+  [36m</span>[39m
+  [36m<span[39m
+    [33mclass[39m=[32m"lot-nav-state"[39m
+    [33mdata-testid[39m=[32m"lot-nav-writers-state"[39m
+  [36m>[39m
+    [36m<span[39m
+      [33maria-hidden[39m=[32m"true"[39m
+      [33mclass[39m=[32m"lot-nav-icon"[39m
+    [36m>[39m
+      [0m✓[0m
+    [36m</span>[39m
+    [36m<span[39m
+      [33mclass[39m=[32m"lot-nav-att-word visually-hidden"[39m
+    [36m>[39m
+      [0mPositive[0m
+      [0m: [0m
+    [36m</span>[39m
+    [0mScreenplay ready to package[0m
+  [36m</span>[39m
+[36m</button>[39m
+
+(If this is intentional, then use the `*AllBy*` variant of the query (like `queryAllByText`, `getAllByText`, or `findAllByText`)).
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"lot-screen lot-hollywood"[39m
+      [33mdata-entry-focus[39m=[32m"none"[39m
+      [33mdata-testid[39m=[32m"studio-lot-screen"[39m
+    [36m>[39m
+      [36m<div[39m
+        [33maria-atomic[39m=[32m"true"[39m
+        [33maria-live[39m=[32m"polite"[39m
+        [33mclass[39m=[32m"visually-hidden"[39m
+        [33mdata-testid[39m=[32m"lot-casting-review-announcement"[39m
+        [33mrole[39m=[32m"status"[39m
+      [36m/>[39m
+      [36m<div[39m
+        [33maria-atomic[39m=[32m"true"[39m
+        [33maria-live[39m=[32m"polite"[39m
+        [33mclass[39m=[32m"visually-hidden"[39m
+        [33mdata-testid[39m=[32m"lot-production-formation-announcement"[39m
+        [33mrole[39m=[32m"status"[39m
+      [36m/>[39m
+      [36m<div[39m
+        [33maria-atomic[39m=[32m"true"[39m
+        [33maria-live[39m=[32m"polite"[39m
+        [33mclass[39m=[32m"visually-hidden"[39m
+        [33mdata-testid[39m=[32m"lot-script-review-announcement"[39m
+        [33mrole[39m=[32m"status"[39m
+      [36m/>[39m
+      [36m<header[39m
+        [33mclass[39m=[32m"lot-topbar"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"lot-brand"[39m
+        [36m>[39m
+          [36m<h1[39m
+            [33mclass[39m=[32m"mark lot-studio-heading"[39m
+            [33mdata-testid[39m=[32m"lot-studio-heading"[39m
+            [33mtabindex[39m=[32m"-1"[39m
+          [36m>[39m
+            [0mPROJECT: STUDIO[0m
+          [36m</h1>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"lot-sub"[39m
+          [36m>[39m
+            [0mStudio Chronicle · Hollywood, 1920 · Week 1[0m
+          [36m</span>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"lot-topbar-actions"[39m
+        [36m>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"lot-cash-slot"[39m
+          [36m>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"lot-cash"[39m
+              [33mdata-testid[39m=[32m"lot-cash"[39m
+            [36m>[39m
+              [0m$20,000,000[0m
+            [36m</span>[39m
+          [36m</span>[39m
+          [36m<button[39m
+            [33maria-label[39m=[32m"Advance one week"[39m
+            [33mclass[39m=[32m"primary lot-advance-week lot-topbar-compactable"[39m
+            [33mdata-testid[39m=[32m"lot-advance-week"[39m
+            [33mtitle[39m=[32m"Advance one week"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m>[39m
+            [36m<span[39m
+              [33maria-hidden[39m=[32m"true"[39m
+              [33mclass[39m=[32m"lot-topbar-mark"[39m
+            [36m>[39m
+              [0m▸[0m
+            [36m</span>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"lot-topbar-label"[39m
+            [36m>[39m
+              [0mAdvance one week[0m
+            [36m</span>[39m
+          [36m</button>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"lot-next-event-control"[39m
+          [36m>[39m
+            [36m<button[39m
+              [33maria-label[39m=[32m"Sim to next event"[39m
+              [33mclass[39m=[32m"accent lot-next-event-button lot-topbar-compactable"[39m
+              [33mdata-testid[39m=[32m"lot-sim-to-next-event"[39m
+              [33mdisabled[39m=[32m""[39m
+              [33mtitle[39m=[32m"Sim to next event"[39m
+              [33mtype[39m=[32m"button"[39m
+            [36m>[39m
+              [36m<span[39m
+                [33maria-hidden[39m=[32m"true"[39m
+                [33mclass[39m=[32m"lot-topbar-mark"[39m
+              [36m>[39m
+                [0m»[0m
+              [36m</span>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"lot-topbar-label"[39m
+              [36m>[39m
+                [0mSim to next event[0m
+              [36m</span>[39m
+            [36m</button>[39m
+          [36m</div>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"ghost"[39m
+            [33mdata-testid[39m=[32m"lot-return-dashboard"[39m
+          [36m>[39m
+            [0mOpen Dashboard[0m
+          [36m</button>[39m
+          [36m<button[39m
+            [33maria-label[39m=[32m"Saves"[39m
+            [33mclass[39m=[32m"ghost lot-topbar-compactable"[39m
+            [33mdata-testid[39m=[32m"lot-open-saves"[39m
+            [33mtitle[39m=[32m"Export a print of this studio, or load one"[39m
+          [36m>[39m
+            [36m<span[39m
+              [33maria-hidden[39m=[32m"true"[39m
+              [33mclass[39m=[32m"lot-topbar-mark"[39m
+            [36m>[39m
+              [0m▤[0m
+            [36m</span>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"lot-topbar-label"[39m
+            [36m>[39m
+              [0mSaves[0m
+            [36m</span>[39m
+          [36m</button>[39m
+        [36m</div>[39m
+      [36m</header>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"lot-body"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"lot-stage-wrap"[39m
+          [33mdata-guidance-target[39m=[32m"writers"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33maria-hidden[39m=[32m"true"[39m
+            [33mclass[39m=[32m"lot-canvas"[39m
+            [33mdata-testid[39m=[32m"studio-lot-canvas"[39m
+          [36m/>[39m
+          [36m<div[39m
+            [33maria-atomic[39m=[32m"true"[39m
+            [33maria-live[39m=[32m"polite"[39m
+            [33mclass[39m=[32m"lot-notice"[39m
+            [33mdata-punctuation[39m=[32m"0"[39m
+            [33mdata-testid[39m=[32m"lot-annex-operational-announcement"[39m
+            [33mrole[39m=[32m"status"[39m
+          [36m/>[39m
+          [36m<div[39m
+            [33maria-atomic[39m=[32m"true"[39m
+            [33maria-live[39m=[32m"polite"[39m
+            [33mclass[39m=[32m"lot-notice"[39m
+            [33mdata-punctuation[39m=[32m"0"[39m
+            [33mdata-testid[39m=[32m"lot-week-update-announcement"[39m
+            [33mrole[39m=[32m"status"[39m
+          [36m/>[39m
+          [36m<div[39m
+            [33maria-label[39m=[32m"Lot camera"[39m
+            [33mclass[39m=[32m"lot-camera-tools"[39m
+            [33mrole[39m=[32m"group"[39m
+          [36m>[39m
+            [36m<button[39m
+              [33maria-keyshortcuts[39m=[32m"R"[39m
+              [33maria-label[39m=[32m"Show the whole property. Keyboard shortcut R."[39m
+              [33mclass[39m=[32m"lot-camera-home"[39m
+              [33mdata-testid[39m=[32m"lot-camera-home"[39m
+              [33mtitle[39m=[32m"Show the whole property (shortcut: R)"[39m
+              [33mtype[39m=[32m"button"[39m
+            [36m>[39m
+              [36m<span...
+   × M-B — the buildings carry the verbs the guidance names > F4: offers the Commission verb while a screenplay is already being written 420ms
+     → Found multiple elements by: [data-testid="lot-nav-writers"]
+
+Here are the matching elements:
+
+Ignored nodes: comments, script, style
+[36m<button[39m
+  [33mclass[39m=[32m"lot-nav-item att-active"[39m
+  [33mdata-attention[39m=[32m"active"[39m
+  [33mdata-testid[39m=[32m"lot-nav-writers"[39m
+  [33mtitle[39m=[32m"Develop and assemble your next film."[39m
+  [33mtype[39m=[32m"button"[39m
+[36m>[39m
+  [36m<span[39m
+    [33mclass[39m=[32m"lot-nav-name"[39m
+  [36m>[39m
+    [0mDevelopment[0m
+  [36m</span>[39m
+  [36m<span[39m
+    [33mclass[39m=[32m"lot-nav-state"[39m
+    [33mdata-testid[39m=[32m"lot-nav-writers-state"[39m
+  [36m>[39m
+    [36m<span[39m
+      [33maria-hidden[39m=[32m"true"[39m
+      [33mclass[39m=[32m"lot-nav-icon"[39m
+    [36m>[39m
+      [0m▶[0m
+    [36m</span>[39m
+    [36m<span[39m
+      [33mclass[39m=[32m"lot-nav-att-word visually-hidden"[39m
+    [36m>[39m
+      [0mActive[0m
+      [0m: [0m
+    [36m</span>[39m
+    [0mDrafting: The Careless Harvest[0m
+  [36m</span>[39m
+[36m</button>[39m
+
+Ignored nodes: comments, script, style
+[36m<button[39m
+  [33mclass[39m=[32m"lot-nav-item att-positive"[39m
+  [33mdata-attention[39m=[32m"positive"[39m
+  [33mdata-testid[39m=[32m"lot-nav-writers"[39m
+  [33mtitle[39m=[32m"Develop and assemble your next film."[39m
+  [33mtype[39m=[32m"button"[39m
+[36m>[39m
+  [36m<span[39m
+    [33mclass[39m=[32m"lot-nav-name"[39m
+  [36m>[39m
+    [0mDevelopment[0m
+  [36m</span>[39m
+  [36m<span[39m
+    [33mclass[39m=[32m"lot-nav-state"[39m
+    [33mdata-testid[39m=[32m"lot-nav-writers-state"[39m
+  [36m>[39m
+    [36m<span[39m
+      [33maria-hidden[39m=[32m"true"[39m
+      [33mclass[39m=[32m"lot-nav-icon"[39m
+    [36m>[39m
+      [0m✓[0m
+    [36m</span>[39m
+    [36m<span[39m
+      [33mclass[39m=[32m"lot-nav-att-word visually-hidden"[39m
+    [36m>[39m
+      [0mPositive[0m
+      [0m: [0m
+    [36m</span>[39m
+    [0mScreenplay ready to package[0m
+  [36m</span>[39m
+[36m</button>[39m
+
+(If this is intentional, then use the `*AllBy*` variant of the query (like `queryAllByText`, `getAllByText`, or `findAllByText`)).
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"lot-screen lot-hollywood"[39m
+      [33mdata-entry-focus[39m=[32m"none"[39m
+      [33mdata-testid[39m=[32m"studio-lot-screen"[39m
+    [36m>[39m
+      [36m<div[39m
+        [33maria-atomic[39m=[32m"true"[39m
+        [33maria-live[39m=[32m"polite"[39m
+        [33mclass[39m=[32m"visually-hidden"[39m
+        [33mdata-testid[39m=[32m"lot-casting-review-announcement"[39m
+        [33mrole[39m=[32m"status"[39m
+      [36m/>[39m
+      [36m<div[39m
+        [33maria-atomic[39m=[32m"true"[39m
+        [33maria-live[39m=[32m"polite"[39m
+        [33mclass[39m=[32m"visually-hidden"[39m
+        [33mdata-testid[39m=[32m"lot-production-formation-announcement"[39m
+        [33mrole[39m=[32m"status"[39m
+      [36m/>[39m
+      [36m<div[39m
+        [33maria-atomic[39m=[32m"true"[39m
+        [33maria-live[39m=[32m"polite"[39m
+        [33mclass[39m=[32m"visually-hidden"[39m
+        [33mdata-testid[39m=[32m"lot-script-review-announcement"[39m
+        [33mrole[39m=[32m"status"[39m
+      [36m/>[39m
+      [36m<header[39m
+        [33mclass[39m=[32m"lot-topbar"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"lot-brand"[39m
+        [36m>[39m
+          [36m<h1[39m
+            [33mclass[39m=[32m"mark lot-studio-heading"[39m
+            [33mdata-testid[39m=[32m"lot-studio-heading"[39m
+            [33mtabindex[39m=[32m"-1"[39m
+          [36m>[39m
+            [0mPROJECT: STUDIO[0m
+          [36m</h1>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"lot-sub"[39m
+          [36m>[39m
+            [0mStudio Chronicle · Hollywood, 1920 · Week 1[0m
+          [36m</span>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"lot-topbar-actions"[39m
+        [36m>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"lot-cash-slot"[39m
+          [36m>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"lot-cash"[39m
+              [33mdata-testid[39m=[32m"lot-cash"[39m
+            [36m>[39m
+              [0m$20,000,000[0m
+            [36m</span>[39m
+          [36m</span>[39m
+          [36m<button[39m
+            [33maria-label[39m=[32m"Advance one week"[39m
+            [33mclass[39m=[32m"primary lot-advance-week lot-topbar-compactable"[39m
+            [33mdata-testid[39m=[32m"lot-advance-week"[39m
+            [33mtitle[39m=[32m"Advance one week"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m>[39m
+            [36m<span[39m
+              [33maria-hidden[39m=[32m"true"[39m
+              [33mclass[39m=[32m"lot-topbar-mark"[39m
+            [36m>[39m
+              [0m▸[0m
+            [36m</span>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"lot-topbar-label"[39m
+            [36m>[39m
+              [0mAdvance one week[0m
+            [36m</span>[39m
+          [36m</button>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"lot-next-event-control"[39m
+          [36m>[39m
+            [36m<button[39m
+              [33maria-label[39m=[32m"Sim to next event"[39m
+              [33mclass[39m=[32m"accent lot-next-event-button lot-topbar-compactable"[39m
+              [33mdata-testid[39m=[32m"lot-sim-to-next-event"[39m
+              [33mdisabled[39m=[32m""[39m
+              [33mtitle[39m=[32m"Sim to next event"[39m
+              [33mtype[39m=[32m"button"[39m
+            [36m>[39m
+              [36m<span[39m
+                [33maria-hidden[39m=[32m"true"[39m
+                [33mclass[39m=[32m"lot-topbar-mark"[39m
+              [36m>[39m
+                [0m»[0m
+              [36m</span>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"lot-topbar-label"[39m
+              [36m>[39m
+                [0mSim to next event[0m
+              [36m</span>[39m
+            [36m</button>[39m
+          [36m</div>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"ghost"[39m
+            [33mdata-testid[39m=[32m"lot-return-dashboard"[39m
+          [36m>[39m
+            [0mOpen Dashboard[0m
+          [36m</button>[39m
+          [36m<button[39m
+            [33maria-label[39m=[32m"Saves"[39m
+            [33mclass[39m=[32m"ghost lot-topbar-compactable"[39m
+            [33mdata-testid[39m=[32m"lot-open-saves"[39m
+            [33mtitle[39m=[32m"Export a print of this studio, or load one"[39m
+          [36m>[39m
+            [36m<span[39m
+              [33maria-hidden[39m=[32m"true"[39m
+              [33mclass[39m=[32m"lot-topbar-mark"[39m
+            [36m>[39m
+              [0m▤[0m
+            [36m</span>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"lot-topbar-label"[39m
+            [36m>[39m
+              [0mSaves[0m
+            [36m</span>[39m
+          [36m</button>[39m
+        [36m</div>[39m
+      [36m</header>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"lot-body"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"lot-stage-wrap"[39m
+          [33mdata-guidance-target[39m=[32m"none"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33maria-hidden[39m=[32m"true"[39m
+            [33mclass[39m=[32m"lot-canvas"[39m
+            [33mdata-testid[39m=[32m"studio-lot-canvas"[39m
+          [36m/>[39m
+          [36m<div[39m
+            [33maria-atomic[39m=[32m"true"[39m
+            [33maria-live[39m=[32m"polite"[39m
+            [33mclass[39m=[32m"lot-notice"[39m
+            [33mdata-punctuation[39m=[32m"0"[39m
+            [33mdata-testid[39m=[32m"lot-annex-operational-announcement"[39m
+            [33mrole[39m=[32m"status"[39m
+          [36m/>[39m
+          [36m<div[39m
+            [33maria-atomic[39m=[32m"true"[39m
+            [33maria-live[39m=[32m"polite"[39m
+            [33mclass[39m=[32m"lot-notice"[39m
+            [33mdata-punctuation[39m=[32m"0"[39m
+            [33mdata-testid[39m=[32m"lot-week-update-announcement"[39m
+            [33mrole[39m=[32m"status"[39m
+          [36m/>[39m
+          [36m<div[39m
+            [33maria-label[39m=[32m"Lot camera"[39m
+            [33mclass[39m=[32m"lot-camera-tools"[39m
+            [33mrole[39m=[32m"group"[39m
+          [36m>[39m
+            [36m<button[39m
+              [33maria-keyshortcuts[39m=[32m"R"[39m
+              [33maria-label[39m=[32m"Show the whole property. Keyboard shortcut R."[39m
+              [33mclass[39m=[32m"lot-camera-home"[39m
+              [33mdata-testid[39m=[32m"lot-camera-home"[39m
+              [33mtitle[39m=[32m"Show the whole property (shortcut: R)"[39m
+              [33mtype[39m=[32m"button"[39m
+            [36m>[39m
+              [36m<span[39...
+   × M-B — the buildings carry the verbs the guidance names > F4: offers it with an accepted screenplay waiting on casting, too 1103ms
+     → expected [] to have a length of 1 but got +0
+
+Ignored nodes: comments, script, style
+[36m<html>[39m
+  [36m<head />[39m
+  [36m<body>[39m
+    [36m<div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"lot-screen lot-hollywood"[39m
+        [33mdata-entry-focus[39m=[32m"none"[39m
+        [33mdata-testid[39m=[32m"studio-lot-screen"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33maria-atomic[39m=[32m"true"[39m
+          [33maria-live[39m=[32m"polite"[39m
+          [33mclass[39m=[32m"visually-hidden"[39m
+          [33mdata-testid[39m=[32m"lot-casting-review-announcement"[39m
+          [33mrole[39m=[32m"status"[39m
+        [36m/>[39m
+        [36m<div[39m
+          [33maria-atomic[39m=[32m"true"[39m
+          [33maria-live[39m=[32m"polite"[39m
+          [33mclass[39m=[32m"visually-hidden"[39m
+          [33mdata-testid[39m=[32m"lot-production-formation-announcement"[39m
+          [33mrole[39m=[32m"status"[39m
+        [36m/>[39m
+        [36m<div[39m
+          [33maria-atomic[39m=[32m"true"[39m
+          [33maria-live[39m=[32m"polite"[39m
+          [33mclass[39m=[32m"visually-hidden"[39m
+          [33mdata-testid[39m=[32m"lot-script-review-announcement"[39m
+          [33mrole[39m=[32m"status"[39m
+        [36m/>[39m
+        [36m<header[39m
+          [33mclass[39m=[32m"lot-topbar"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"lot-brand"[39m
+          [36m>[39m
+            [36m<h1[39m
+              [33mclass[39m=[32m"mark lot-studio-heading"[39m
+              [33mdata-testid[39m=[32m"lot-studio-heading"[39m
+              [33mtabindex[39m=[32m"-1"[39m
+            [36m>[39m
+              [0mPROJECT: STUDIO[0m
+            [36m</h1>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"lot-sub"[39m
+            [36m>[39m
+              [0mStudio Chronicle · Hollywood, 1920 · Week 2[0m
+            [36m</span>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"lot-topbar-actions"[39m
+          [36m>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"lot-cash-slot"[39m
+            [36m>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"lot-cash"[39m
+                [33mdata-testid[39m=[32m"lot-cash"[39m
+              [36m>[39m
+                [0m$19,907,802[0m
+              [36m</span>[39m
+            [36m</span>[39m
+            [36m<button[39m
+              [33maria-label[39m=[32m"Advance one week"[39m
+              [33mclass[39m=[32m"primary lot-advance-week lot-topbar-compactable"[39m
+              [33mdata-testid[39m=[32m"lot-advance-week"[39m
+              [33mtitle[39m=[32m"Advance one week"[39m
+              [33mtype[39m=[32m"button"[39m
+            [36m>[39m
+              [36m<span[39m
+                [33maria-hidden[39m=[32m"true"[39m
+                [33mclass[39m=[32m"lot-topbar-mark"[39m
+              [36m>[39m
+                [0m▸[0m
+              [36m</span>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"lot-topbar-label"[39m
+              [36m>[39m
+                [0mAdvance one week[0m
+              [36m</span>[39m
+            [36m</button>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"lot-next-event-control"[39m
+            [36m>[39m
+              [36m<button[39m
+                [33maria-label[39m=[32m"Sim to next event"[39m
+                [33mclass[39m=[32m"accent lot-next-event-button lot-topbar-compactable"[39m
+                [33mdata-testid[39m=[32m"lot-sim-to-next-event"[39m
+                [33mdisabled[39m=[32m""[39m
+                [33mtitle[39m=[32m"Sim to next event"[39m
+                [33mtype[39m=[32m"button"[39m
+              [36m>[39m
+                [36m<span[39m
+                  [33maria-hidden[39m=[32m"true"[39m
+                  [33mclass[39m=[32m"lot-topbar-mark"[39m
+                [36m>[39m
+                  [0m»[0m
+                [36m</span>[39m
+                [36m<span[39m
+                  [33mclass[39m=[32m"lot-topbar-label"[39m
+                [36m>[39m
+                  [0mSim to next event[0m
+                [36m</span>[39m
+              [36m</button>[39m
+            [36m</div>[39m
+            [36m<button[39m
+              [33mclass[39m=[32m"ghost"[39m
+              [33mdata-testid[39m=[32m"lot-return-dashboard"[39m
+            [36m>[39m
+              [0mOpen Dashboard[0m
+            [36m</button>[39m
+            [36m<button[39m
+              [33maria-label[39m=[32m"Saves"[39m
+              [33mclass[39m=[32m"ghost lot-topbar-compactable"[39m
+              [33mdata-testid[39m=[32m"lot-open-saves"[39m
+              [33mtitle[39m=[32m"Export a print of this studio, or load one"[39m
+            [36m>[39m
+              [36m<span[39m
+                [33maria-hidden[39m=[32m"true"[39m
+                [33mclass[39m=[32m"lot-topbar-mark"[39m
+              [36m>[39m
+                [0m▤[0m
+              [36m</span>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"lot-topbar-label"[39m
+              [36m>[39m
+                [0mSaves[0m
+              [36m</span>[39m
+            [36m</button>[39m
+          [36m</div>[39m
+        [36m</header>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"lot-body"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"lot-stage-wrap"[39m
+            [33mdata-guidance-target[39m=[32m"casting"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33maria-hidden[39m=[32m"true"[39m
+              [33mclass[39m=[32m"lot-canvas"[39m
+              [33mdata-testid[39m=[32m"studio-lot-canvas"[39m
+            [36m/>[39m
+            [36m<div[39m
+              [33maria-atomic[39m=[32m"true"[39m
+              [33maria-live[39m=[32m"polite"[39m
+              [33mclass[39m=[32m"lot-notice"[39m
+              [33mdata-punctuation[39m=[32m"0"[39m
+              [33mdata-testid[39m=[32m"lot-annex-operational-announcement"[39m
+              [33mrole[39m=[32m"status"[39m
+            [36m/>[39m
+            [36m<div[39m
+              [33maria-atomic[39m=[32m"true"[39m
+              [33maria-live[39m=[32m"polite"[39m
+              [33mclass[39m=[32m"lot-notice"[39m
+              [33mdata-punctuation[39m=[32m"0"[39m
+              [33mdata-testid[39m=[32m"lot-week-update-announcement"[39m
+              [33mrole[39m=[32m"status"[39m
+            [36m/>[39m
+            [36m<div[39m
+              [33maria-label[39m=[32m"Lot camera"[39m
+              [33mclass[39m=[32m"lot-camera-tools"[39m
+              [33mrole[39m=[32m"group"[39m
+            [36m>[39m
+              [36m<button[39m
+                [33maria-keyshortcuts[39m=[32m"R"[39m
+                [33maria-...
+   ✓ M-B — the buildings carry the verbs the guidance names > names the picture in Casting’s audition verb, and prefers the retained in-world planner 321ms
+   ✓ M-B — the audition verb is a first-class retained-planner origin > opens the in-world planner over the live lot when the companion rail cannot vouch for it 801ms
+   ✓ M-B — the audition verb is a first-class retained-planner origin > still refuses — and still never dead-ends — when the verb cannot prove ITSELF either 368ms
+   ✓ M-B — the audition verb is a first-class retained-planner origin > keeps the companion rail a first-class origin of its own 418ms
+ ✓ |ui| ui/src/lot/WorldFirstLotNativeCastingReviewApp.test.tsx (10 tests) 15244ms
+   ✓ World-First Lot-Native Casting Review Intervention V1 — App/Lot integration > reviews all six event-owned observations in the Lot, keeps deep detail optional, then hands the clear successor to Package 2730ms
+   ✓ World-First Lot-Native Casting Review Intervention V1 — App/Lot integration > greenlights the canonical Package into exact formation without replacing the Lot, canvas, or renderer 3056ms
+   ✓ World-First Lot-Native Casting Review Intervention V1 — App/Lot integration > keeps a blocked acknowledgement and every current remedy on the same mounted fallback Lot 1328ms
+   ✓ World-First Lot-Native Casting Review Intervention V1 — App/Lot integration > keeps the complete blocked world action available in the Classic physical fallback 693ms
+   ✓ World-First Lot-Native Casting Review Intervention V1 — App/Lot integration > preserves the clear Classic rollback route as standalone Package Assembly 1431ms
+   ✓ World-First Lot-Native Casting Review Intervention V1 — App/Lot integration > rebuilds an imported pending review only after Casting is selected in the replacement Lot 1893ms
+   ✓ World-First Lot-Native Casting Review Intervention V1 — App/Lot integration > keeps a malformed current Casting decision neutral instead of falling through to Casting Room 667ms
+   ✓ World-First Lot-Native Casting Review Intervention V1 — App/Lot integration > keeps a thrown current-decision adapter neutral 778ms
+   ✓ World-First Lot-Native Casting Review Intervention V1 — App/Lot integration > lands the in-world Casting inspector when no current studio decision exists, and still reaches the Casting Room by explicit choice 853ms
+   ✓ World-First Lot-Native Casting Review Intervention V1 — App/Lot integration > dispatches the first same-title session from the Lot and returns neutral instead of substituting the later review 1813ms
+ ✓ |ui| ui/src/lot/livingTurn.scheduler.test.tsx (13 tests) 18082ms
+   ✓ Living Turn V1 — the transport > offers hold/roll and the whole pace ladder, paused at 1x 680ms
+   ✓ Living Turn V1 — the transport > speaks about the studio, never about a scheduler 344ms
+   ✓ Living Turn V1 — time flows while unpaused (the Owner s acceptance) > commits ONE authoritative week per witnessed week and nothing else 1247ms
+   ✓ Living Turn V1 — time flows while unpaused (the Owner s acceptance) > runs 12 consecutive weeks with ZERO input and lands byte-identically 4278ms
+   ✓ Living Turn V1 — time flows while unpaused (the Owner s acceptance) > speed changes the PACE and nothing else — 4x is four weeks in one week s time 1651ms
+   ✓ Living Turn V1 — time flows while unpaused (the Owner s acceptance) > holding stops the weeks, and the studio stays exactly where it was 1690ms
+   ✓ Living Turn V1 — time flows while unpaused (the Owner s acceptance) > a hidden tab is a held studio — living time never advances what nobody watches 916ms
+   ✓ Living Turn V1 — the partition, at the seam > auto-pauses on the FIRST PAUSE-class stop, at exactly the hand-advanced week 2303ms
+   ✓ Living Turn V1 — the partition, at the seam > a NOTIFY-class wrap reaches the bulletin and the loop keeps working 1093ms
+   ✓ Living Turn V1 — the partition, at the seam > the bulletin clears on request 709ms
+   ✓ Living Turn V1 — the loop cannot stall silently, and the batch verb holds it > re-arms the week on screen when the cadence channel is cleared under a running loop 1448ms
+   ✓ Living Turn V1 — the loop cannot stall silently, and the batch verb holds it > the batch verb HOLDS the studio — a skipped batch was never witnessed time 885ms
+   ✓ Living Turn V1 — the release week plays before its surfaces take over > the shipping week is witnessed, and the release surface follows it 836ms
+ ✓ |ui| ui/src/lot/livingTurn.parity.test.tsx (7 tests) 23343ms
+   ✓ C2a-M5 — four-way time parity: the same twelve weeks, four ways > (a) by hand at the seam — the manual verb, pressed twelve times 2847ms
+   ✓ C2a-M5 — four-way time parity: the same twelve weeks, four ways > (b) by the living loop at 1× — one press of Roll, then nothing at all 3956ms
+   ✓ C2a-M5 — four-way time parity: the same twelve weeks, four ways > (b′) by the living loop at 4× — the same weeks, a quarter of the wall time 3838ms
+   ✓ C2a-M5 — four-way time parity: the same twelve weeks, four ways > (c) paused and resumed arbitrarily, including mid-week 4540ms
+   ✓ C2a-M5 — and the four are one studio > exports FOUR byte-identical saves from four different ways of spending time 7985ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 5 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |ui|  ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx > M-B — the buildings carry the verbs the guidance names > never lets any place print its blocks out of the canonical order
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/5]⎯
+
+ FAIL |ui|  ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx > M-B — the buildings carry the verbs the guidance names > offers Development the Commission verb at Week 0 — the first step of the whole game
+TestingLibraryElementError: Found multiple elements by: [data-testid="lot-nav-writers"]
+
+Here are the matching elements:
+
+Ignored nodes: comments, script, style
+[36m<button[39m
+  [33mclass[39m=[32m"lot-nav-item att-empty"[39m
+  [33mdata-attention[39m=[32m"empty"[39m
+  [33mdata-testid[39m=[32m"lot-nav-writers"[39m
+  [33mtitle[39m=[32m"Develop and assemble your next film."[39m
+  [33mtype[39m=[32m"button"[39m
+[36m>[39m
+  [36m<span[39m
+    [33mclass[39m=[32m"lot-nav-name"[39m
+  [36m>[39m
+    [0mDevelopment[0m
+  [36m</span>[39m
+  [36m<span[39m
+    [33mclass[39m=[32m"lot-nav-state"[39m
+    [33mdata-testid[39m=[32m"lot-nav-writers-state"[39m
+  [36m>[39m
+    [36m<span[39m
+      [33maria-hidden[39m=[32m"true"[39m
+      [33mclass[39m=[32m"lot-nav-icon"[39m
+    [36m>[39m
+      [0m○[0m
+    [36m</span>[39m
+    [36m<span[39m
+      [33mclass[39m=[32m"lot-nav-att-word visually-hidden"[39m
+    [36m>[39m
+      [0mAvailable[0m
+      [0m: [0m
+    [36m</span>[39m
+    [0mWriters Room idle[0m
+  [36m</span>[39m
+[36m</button>[39m
+
+Ignored nodes: comments, script, style
+[36m<button[39m
+  [33mclass[39m=[32m"lot-nav-item att-positive"[39m
+  [33mdata-attention[39m=[32m"positive"[39m
+  [33mdata-testid[39m=[32m"lot-nav-writers"[39m
+  [33mtitle[39m=[32m"Develop and assemble your next film."[39m
+  [33mtype[39m=[32m"button"[39m
+[36m>[39m
+  [36m<span[39m
+    [33mclass[39m=[32m"lot-nav-name"[39m
+  [36m>[39m
+    [0mDevelopment[0m
+  [36m</span>[39m
+  [36m<span[39m
+    [33mclass[39m=[32m"lot-nav-state"[39m
+    [33mdata-testid[39m=[32m"lot-nav-writers-state"[39m
+  [36m>[39m
+    [36m<span[39m
+      [33maria-hidden[39m=[32m"true"[39m
+      [33mclass[39m=[32m"lot-nav-icon"[39m
+    [36m>[39m
+      [0m✓[0m
+    [36m</span>[39m
+    [36m<span[39m
+      [33mclass[39m=[32m"lot-nav-att-word visually-hidden"[39m
+    [36m>[39m
+      [0mPositive[0m
+      [0m: [0m
+    [36m</span>[39m
+    [0mScreenplay ready to package[0m
+  [36m</span>[39m
+[36m</button>[39m
+
+(If this is intentional, then use the `*AllBy*` variant of the query (like `queryAllByText`, `getAllByText`, or `findAllByText`)).
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"lot-screen lot-hollywood"[39m
+      [33mdata-entry-focus[39m=[32m"none"[39m
+      [33mdata-testid[39m=[32m"studio-lot-screen"[39m
+    [36m>[39m
+      [36m<div[39m
+        [33maria-atomic[39m=[32m"true"[39m
+        [33maria-live[39m=[32m"polite"[39m
+        [33mclass[39m=[32m"visually-hidden"[39m
+        [33mdata-testid[39m=[32m"lot-casting-review-announcement"[39m
+        [33mrole[39m=[32m"status"[39m
+      [36m/>[39m
+      [36m<div[39m
+        [33maria-atomic[39m=[32m"true"[39m
+        [33maria-live[39m=[32m"polite"[39m
+        [33mclass[39m=[32m"visually-hidden"[39m
+        [33mdata-testid[39m=[32m"lot-production-formation-announcement"[39m
+        [33mrole[39m=[32m"status"[39m
+      [36m/>[39m
+      [36m<div[39m
+        [33maria-atomic[39m=[32m"true"[39m
+        [33maria-live[39m=[32m"polite"[39m
+        [33mclass[39m=[32m"visually-hidden"[39m
+        [33mdata-testid[39m=[32m"lot-script-review-announcement"[39m
+        [33mrole[39m=[32m"status"[39m
+      [36m/>[39m
+      [36m<header[39m
+        [33mclass[39m=[32m"lot-topbar"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"lot-brand"[39m
+        [36m>[39m
+          [36m<h1[39m
+            [33mclass[39m=[32m"mark lot-studio-heading"[39m
+            [33mdata-testid[39m=[32m"lot-studio-heading"[39m
+            [33mtabindex[39m=[32m"-1"[39m
+          [36m>[39m
+            [0mPROJECT: STUDIO[0m
+          [36m</h1>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"lot-sub"[39m
+          [36m>[39m
+            [0mStudio Chronicle · Hollywood, 1920 · Week 1[0m
+          [36m</span>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"lot-topbar-actions"[39m
+        [36m>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"lot-cash-slot"[39m
+          [36m>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"lot-cash"[39m
+              [33mdata-testid[39m=[32m"lot-cash"[39m
+            [36m>[39m
+              [0m$20,000,000[0m
+            [36m</span>[39m
+          [36m</span>[39m
+          [36m<button[39m
+            [33maria-label[39m=[32m"Advance one week"[39m
+            [33mclass[39m=[32m"primary lot-advance-week lot-topbar-compactable"[39m
+            [33mdata-testid[39m=[32m"lot-advance-week"[39m
+            [33mtitle[39m=[32m"Advance one week"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m>[39m
+            [36m<span[39m
+              [33maria-hidden[39m=[32m"true"[39m
+              [33mclass[39m=[32m"lot-topbar-mark"[39m
+            [36m>[39m
+              [0m▸[0m
+            [36m</span>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"lot-topbar-label"[39m
+            [36m>[39m
+              [0mAdvance one week[0m
+            [36m</span>[39m
+          [36m</button>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"lot-next-event-control"[39m
+          [36m>[39m
+            [36m<button[39m
+              [33maria-label[39m=[32m"Sim to next event"[39m
+              [33mclass[39m=[32m"accent lot-next-event-button lot-topbar-compactable"[39m
+              [33mdata-testid[39m=[32m"lot-sim-to-next-event"[39m
+              [33mdisabled[39m=[32m""[39m
+              [33mtitle[39m=[32m"Sim to next event"[39m
+              [33mtype[39m=[32m"button"[39m
+            [36m>[39m
+              [36m<span[39m
+                [33maria-hidden[39m=[32m"true"[39m
+                [33mclass[39m=[32m"lot-topbar-mark"[39m
+              [36m>[39m
+                [0m»[0m
+              [36m</span>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"lot-topbar-label"[39m
+              [36m>[39m
+                [0mSim to next event[0m
+              [36m</span>[39m
+            [36m</button>[39m
+          [36m</div>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"ghost"[39m
+            [33mdata-testid[39m=[32m"lot-return-dashboard"[39m
+          [36m>[39m
+            [0mOpen Dashboard[0m
+          [36m</button>[39m
+          [36m<button[39m
+            [33maria-label[39m=[32m"Saves"[39m
+            [33mclass[39m=[32m"ghost lot-topbar-compactable"[39m
+            [33mdata-testid[39m=[32m"lot-open-saves"[39m
+            [33mtitle[39m=[32m"Export a print of this studio, or load one"[39m
+          [36m>[39m
+            [36m<span[39m
+              [33maria-hidden[39m=[32m"true"[39m
+              [33mclass[39m=[32m"lot-topbar-mark"[39m
+            [36m>[39m
+              [0m▤[0m
+            [36m</span>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"lot-topbar-label"[39m
+            [36m>[39m
+              [0mSaves[0m
+            [36m</span>[39m
+          [36m</button>[39m
+        [36m</div>[39m
+      [36m</header>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"lot-body"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"lot-stage-wrap"[39m
+          [33mdata-guidance-target[39m=[32m"writers"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33maria-hidden[39m=[32m"true"[39m
+            [33mclass[39m=[32m"lot-canvas"[39m
+            [33mdata-testid[39m=[32m"studio-lot-canvas"[39m
+          [36m/>[39m
+          [36m<div[39m
+            [33maria-atomic[39m=[32m"true"[39m
+            [33maria-live[39m=[32m"polite"[39m
+            [33mclass[39m=[32m"lot-notice"[39m
+            [33mdata-punctuation[39m=[32m"0"[39m
+            [33mdata-testid[39m=[32m"lot-annex-operational-announcement"[39m
+            [33mrole[39m=[32m"status"[39m
+          [36m/>[39m
+          [36m<div[39m
+            [33maria-atomic[39m=[32m"true"[39m
+            [33maria-live[39m=[32m"polite"[39m
+            [33mclass[39m=[32m"lot-notice"[39m
+            [33mdata-punctuation[39m=[32m"0"[39m
+            [33mdata-testid[39m=[32m"lot-week-update-announcement"[39m
+            [33mrole[39m=[32m"status"[39m
+          [36m/>[39m
+          [36m<div[39m
+            [33maria-label[39m=[32m"Lot camera"[39m
+            [33mclass[39m=[32m"lot-camera-tools"[39m
+            [33mrole[39m=[32m"group"[39m
+          [36m>[39m
+            [36m<button[39m
+              [33maria-keyshortcuts[39m=[32m"R"[39m
+              [33maria-label[39m=[32m"Show the whole property. Keyboard shortcut R."[39m
+              [33mclass[39m=[32m"lot-camera-home"[39m
+              [33mdata-testid[39m=[32m"lot-camera-home"[39m
+              [33mtitle[39m=[32m"Show the whole property (shortcut: R)"[39m
+              [33mtype[39m=[32m"button"[39m
+            [36m>[39m
+              [36m<span...
+ ❯ Object.getElementError node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ getElementError node_modules/@testing-library/dom/dist/query-helpers.js:20:35
+ ❯ getMultipleElementsFoundError node_modules/@testing-library/dom/dist/query-helpers.js:23:10
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:55:13
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx:635:28
+    633|     await onlyView()
+    634| 
+    635|     fireEvent.click(screen.getByTestId('lot-nav-writers'))
+       |                            ^
+    636|     const commission = screen.getByTestId('lot-building-inspector-prim…
+    637|     expect(commission.tagName).toBe('BUTTON')
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/5]⎯
+
+ FAIL |ui|  ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx > M-B — the buildings carry the verbs the guidance names > routes the Commission verb to the commission intent, and the deep ghost to Development
+TestingLibraryElementError: Found multiple elements by: [data-testid="lot-nav-writers"]
+
+Here are the matching elements:
+
+Ignored nodes: comments, script, style
+[36m<button[39m
+  [33mclass[39m=[32m"lot-nav-item att-empty"[39m
+  [33mdata-attention[39m=[32m"empty"[39m
+  [33mdata-testid[39m=[32m"lot-nav-writers"[39m
+  [33mtitle[39m=[32m"Develop and assemble your next film."[39m
+  [33mtype[39m=[32m"button"[39m
+[36m>[39m
+  [36m<span[39m
+    [33mclass[39m=[32m"lot-nav-name"[39m
+  [36m>[39m
+    [0mDevelopment[0m
+  [36m</span>[39m
+  [36m<span[39m
+    [33mclass[39m=[32m"lot-nav-state"[39m
+    [33mdata-testid[39m=[32m"lot-nav-writers-state"[39m
+  [36m>[39m
+    [36m<span[39m
+      [33maria-hidden[39m=[32m"true"[39m
+      [33mclass[39m=[32m"lot-nav-icon"[39m
+    [36m>[39m
+      [0m○[0m
+    [36m</span>[39m
+    [36m<span[39m
+      [33mclass[39m=[32m"lot-nav-att-word visually-hidden"[39m
+    [36m>[39m
+      [0mAvailable[0m
+      [0m: [0m
+    [36m</span>[39m
+    [0mWriters Room idle[0m
+  [36m</span>[39m
+[36m</button>[39m
+
+Ignored nodes: comments, script, style
+[36m<button[39m
+  [33mclass[39m=[32m"lot-nav-item att-positive"[39m
+  [33mdata-attention[39m=[32m"positive"[39m
+  [33mdata-testid[39m=[32m"lot-nav-writers"[39m
+  [33mtitle[39m=[32m"Develop and assemble your next film."[39m
+  [33mtype[39m=[32m"button"[39m
+[36m>[39m
+  [36m<span[39m
+    [33mclass[39m=[32m"lot-nav-name"[39m
+  [36m>[39m
+    [0mDevelopment[0m
+  [36m</span>[39m
+  [36m<span[39m
+    [33mclass[39m=[32m"lot-nav-state"[39m
+    [33mdata-testid[39m=[32m"lot-nav-writers-state"[39m
+  [36m>[39m
+    [36m<span[39m
+      [33maria-hidden[39m=[32m"true"[39m
+      [33mclass[39m=[32m"lot-nav-icon"[39m
+    [36m>[39m
+      [0m✓[0m
+    [36m</span>[39m
+    [36m<span[39m
+      [33mclass[39m=[32m"lot-nav-att-word visually-hidden"[39m
+    [36m>[39m
+      [0mPositive[0m
+      [0m: [0m
+    [36m</span>[39m
+    [0mScreenplay ready to package[0m
+  [36m</span>[39m
+[36m</button>[39m
+
+(If this is intentional, then use the `*AllBy*` variant of the query (like `queryAllByText`, `getAllByText`, or `findAllByText`)).
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"lot-screen lot-hollywood"[39m
+      [33mdata-entry-focus[39m=[32m"none"[39m
+      [33mdata-testid[39m=[32m"studio-lot-screen"[39m
+    [36m>[39m
+      [36m<div[39m
+        [33maria-atomic[39m=[32m"true"[39m
+        [33maria-live[39m=[32m"polite"[39m
+        [33mclass[39m=[32m"visually-hidden"[39m
+        [33mdata-testid[39m=[32m"lot-casting-review-announcement"[39m
+        [33mrole[39m=[32m"status"[39m
+      [36m/>[39m
+      [36m<div[39m
+        [33maria-atomic[39m=[32m"true"[39m
+        [33maria-live[39m=[32m"polite"[39m
+        [33mclass[39m=[32m"visually-hidden"[39m
+        [33mdata-testid[39m=[32m"lot-production-formation-announcement"[39m
+        [33mrole[39m=[32m"status"[39m
+      [36m/>[39m
+      [36m<div[39m
+        [33maria-atomic[39m=[32m"true"[39m
+        [33maria-live[39m=[32m"polite"[39m
+        [33mclass[39m=[32m"visually-hidden"[39m
+        [33mdata-testid[39m=[32m"lot-script-review-announcement"[39m
+        [33mrole[39m=[32m"status"[39m
+      [36m/>[39m
+      [36m<header[39m
+        [33mclass[39m=[32m"lot-topbar"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"lot-brand"[39m
+        [36m>[39m
+          [36m<h1[39m
+            [33mclass[39m=[32m"mark lot-studio-heading"[39m
+            [33mdata-testid[39m=[32m"lot-studio-heading"[39m
+            [33mtabindex[39m=[32m"-1"[39m
+          [36m>[39m
+            [0mPROJECT: STUDIO[0m
+          [36m</h1>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"lot-sub"[39m
+          [36m>[39m
+            [0mStudio Chronicle · Hollywood, 1920 · Week 1[0m
+          [36m</span>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"lot-topbar-actions"[39m
+        [36m>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"lot-cash-slot"[39m
+          [36m>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"lot-cash"[39m
+              [33mdata-testid[39m=[32m"lot-cash"[39m
+            [36m>[39m
+              [0m$20,000,000[0m
+            [36m</span>[39m
+          [36m</span>[39m
+          [36m<button[39m
+            [33maria-label[39m=[32m"Advance one week"[39m
+            [33mclass[39m=[32m"primary lot-advance-week lot-topbar-compactable"[39m
+            [33mdata-testid[39m=[32m"lot-advance-week"[39m
+            [33mtitle[39m=[32m"Advance one week"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m>[39m
+            [36m<span[39m
+              [33maria-hidden[39m=[32m"true"[39m
+              [33mclass[39m=[32m"lot-topbar-mark"[39m
+            [36m>[39m
+              [0m▸[0m
+            [36m</span>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"lot-topbar-label"[39m
+            [36m>[39m
+              [0mAdvance one week[0m
+            [36m</span>[39m
+          [36m</button>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"lot-next-event-control"[39m
+          [36m>[39m
+            [36m<button[39m
+              [33maria-label[39m=[32m"Sim to next event"[39m
+              [33mclass[39m=[32m"accent lot-next-event-button lot-topbar-compactable"[39m
+              [33mdata-testid[39m=[32m"lot-sim-to-next-event"[39m
+              [33mdisabled[39m=[32m""[39m
+              [33mtitle[39m=[32m"Sim to next event"[39m
+              [33mtype[39m=[32m"button"[39m
+            [36m>[39m
+              [36m<span[39m
+                [33maria-hidden[39m=[32m"true"[39m
+                [33mclass[39m=[32m"lot-topbar-mark"[39m
+              [36m>[39m
+                [0m»[0m
+              [36m</span>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"lot-topbar-label"[39m
+              [36m>[39m
+                [0mSim to next event[0m
+              [36m</span>[39m
+            [36m</button>[39m
+          [36m</div>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"ghost"[39m
+            [33mdata-testid[39m=[32m"lot-return-dashboard"[39m
+          [36m>[39m
+            [0mOpen Dashboard[0m
+          [36m</button>[39m
+          [36m<button[39m
+            [33maria-label[39m=[32m"Saves"[39m
+            [33mclass[39m=[32m"ghost lot-topbar-compactable"[39m
+            [33mdata-testid[39m=[32m"lot-open-saves"[39m
+            [33mtitle[39m=[32m"Export a print of this studio, or load one"[39m
+          [36m>[39m
+            [36m<span[39m
+              [33maria-hidden[39m=[32m"true"[39m
+              [33mclass[39m=[32m"lot-topbar-mark"[39m
+            [36m>[39m
+              [0m▤[0m
+            [36m</span>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"lot-topbar-label"[39m
+            [36m>[39m
+              [0mSaves[0m
+            [36m</span>[39m
+          [36m</button>[39m
+        [36m</div>[39m
+      [36m</header>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"lot-body"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"lot-stage-wrap"[39m
+          [33mdata-guidance-target[39m=[32m"writers"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33maria-hidden[39m=[32m"true"[39m
+            [33mclass[39m=[32m"lot-canvas"[39m
+            [33mdata-testid[39m=[32m"studio-lot-canvas"[39m
+          [36m/>[39m
+          [36m<div[39m
+            [33maria-atomic[39m=[32m"true"[39m
+            [33maria-live[39m=[32m"polite"[39m
+            [33mclass[39m=[32m"lot-notice"[39m
+            [33mdata-punctuation[39m=[32m"0"[39m
+            [33mdata-testid[39m=[32m"lot-annex-operational-announcement"[39m
+            [33mrole[39m=[32m"status"[39m
+          [36m/>[39m
+          [36m<div[39m
+            [33maria-atomic[39m=[32m"true"[39m
+            [33maria-live[39m=[32m"polite"[39m
+            [33mclass[39m=[32m"lot-notice"[39m
+            [33mdata-punctuation[39m=[32m"0"[39m
+            [33mdata-testid[39m=[32m"lot-week-update-announcement"[39m
+            [33mrole[39m=[32m"status"[39m
+          [36m/>[39m
+          [36m<div[39m
+            [33maria-label[39m=[32m"Lot camera"[39m
+            [33mclass[39m=[32m"lot-camera-tools"[39m
+            [33mrole[39m=[32m"group"[39m
+          [36m>[39m
+            [36m<button[39m
+              [33maria-keyshortcuts[39m=[32m"R"[39m
+              [33maria-label[39m=[32m"Show the whole property. Keyboard shortcut R."[39m
+              [33mclass[39m=[32m"lot-camera-home"[39m
+              [33mdata-testid[39m=[32m"lot-camera-home"[39m
+              [33mtitle[39m=[32m"Show the whole property (shortcut: R)"[39m
+              [33mtype[39m=[32m"button"[39m
+            [36m>[39m
+              [36m<span...
+ ❯ Object.getElementError node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ getElementError node_modules/@testing-library/dom/dist/query-helpers.js:20:35
+ ❯ getMultipleElementsFoundError node_modules/@testing-library/dom/dist/query-helpers.js:23:10
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:55:13
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx:663:28
+    661|     const { routes, unmount } = renderLot(managedScriptWeekZero('m-b-c…
+    662|     await onlyView()
+    663|     fireEvent.click(screen.getByTestId('lot-nav-writers'))
+       |                            ^
+    664|     fireEvent.click(screen.getByTestId('lot-building-inspector-primary…
+    665|     expect(routes).toEqual([{ kind: 'commissionScreenplay' }])
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/5]⎯
+
+ FAIL |ui|  ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx > M-B — the buildings carry the verbs the guidance names > F4: offers the Commission verb while a screenplay is already being written
+TestingLibraryElementError: Found multiple elements by: [data-testid="lot-nav-writers"]
+
+Here are the matching elements:
+
+Ignored nodes: comments, script, style
+[36m<button[39m
+  [33mclass[39m=[32m"lot-nav-item att-active"[39m
+  [33mdata-attention[39m=[32m"active"[39m
+  [33mdata-testid[39m=[32m"lot-nav-writers"[39m
+  [33mtitle[39m=[32m"Develop and assemble your next film."[39m
+  [33mtype[39m=[32m"button"[39m
+[36m>[39m
+  [36m<span[39m
+    [33mclass[39m=[32m"lot-nav-name"[39m
+  [36m>[39m
+    [0mDevelopment[0m
+  [36m</span>[39m
+  [36m<span[39m
+    [33mclass[39m=[32m"lot-nav-state"[39m
+    [33mdata-testid[39m=[32m"lot-nav-writers-state"[39m
+  [36m>[39m
+    [36m<span[39m
+      [33maria-hidden[39m=[32m"true"[39m
+      [33mclass[39m=[32m"lot-nav-icon"[39m
+    [36m>[39m
+      [0m▶[0m
+    [36m</span>[39m
+    [36m<span[39m
+      [33mclass[39m=[32m"lot-nav-att-word visually-hidden"[39m
+    [36m>[39m
+      [0mActive[0m
+      [0m: [0m
+    [36m</span>[39m
+    [0mDrafting: The Careless Harvest[0m
+  [36m</span>[39m
+[36m</button>[39m
+
+Ignored nodes: comments, script, style
+[36m<button[39m
+  [33mclass[39m=[32m"lot-nav-item att-positive"[39m
+  [33mdata-attention[39m=[32m"positive"[39m
+  [33mdata-testid[39m=[32m"lot-nav-writers"[39m
+  [33mtitle[39m=[32m"Develop and assemble your next film."[39m
+  [33mtype[39m=[32m"button"[39m
+[36m>[39m
+  [36m<span[39m
+    [33mclass[39m=[32m"lot-nav-name"[39m
+  [36m>[39m
+    [0mDevelopment[0m
+  [36m</span>[39m
+  [36m<span[39m
+    [33mclass[39m=[32m"lot-nav-state"[39m
+    [33mdata-testid[39m=[32m"lot-nav-writers-state"[39m
+  [36m>[39m
+    [36m<span[39m
+      [33maria-hidden[39m=[32m"true"[39m
+      [33mclass[39m=[32m"lot-nav-icon"[39m
+    [36m>[39m
+      [0m✓[0m
+    [36m</span>[39m
+    [36m<span[39m
+      [33mclass[39m=[32m"lot-nav-att-word visually-hidden"[39m
+    [36m>[39m
+      [0mPositive[0m
+      [0m: [0m
+    [36m</span>[39m
+    [0mScreenplay ready to package[0m
+  [36m</span>[39m
+[36m</button>[39m
+
+(If this is intentional, then use the `*AllBy*` variant of the query (like `queryAllByText`, `getAllByText`, or `findAllByText`)).
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"lot-screen lot-hollywood"[39m
+      [33mdata-entry-focus[39m=[32m"none"[39m
+      [33mdata-testid[39m=[32m"studio-lot-screen"[39m
+    [36m>[39m
+      [36m<div[39m
+        [33maria-atomic[39m=[32m"true"[39m
+        [33maria-live[39m=[32m"polite"[39m
+        [33mclass[39m=[32m"visually-hidden"[39m
+        [33mdata-testid[39m=[32m"lot-casting-review-announcement"[39m
+        [33mrole[39m=[32m"status"[39m
+      [36m/>[39m
+      [36m<div[39m
+        [33maria-atomic[39m=[32m"true"[39m
+        [33maria-live[39m=[32m"polite"[39m
+        [33mclass[39m=[32m"visually-hidden"[39m
+        [33mdata-testid[39m=[32m"lot-production-formation-announcement"[39m
+        [33mrole[39m=[32m"status"[39m
+      [36m/>[39m
+      [36m<div[39m
+        [33maria-atomic[39m=[32m"true"[39m
+        [33maria-live[39m=[32m"polite"[39m
+        [33mclass[39m=[32m"visually-hidden"[39m
+        [33mdata-testid[39m=[32m"lot-script-review-announcement"[39m
+        [33mrole[39m=[32m"status"[39m
+      [36m/>[39m
+      [36m<header[39m
+        [33mclass[39m=[32m"lot-topbar"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"lot-brand"[39m
+        [36m>[39m
+          [36m<h1[39m
+            [33mclass[39m=[32m"mark lot-studio-heading"[39m
+            [33mdata-testid[39m=[32m"lot-studio-heading"[39m
+            [33mtabindex[39m=[32m"-1"[39m
+          [36m>[39m
+            [0mPROJECT: STUDIO[0m
+          [36m</h1>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"lot-sub"[39m
+          [36m>[39m
+            [0mStudio Chronicle · Hollywood, 1920 · Week 1[0m
+          [36m</span>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"lot-topbar-actions"[39m
+        [36m>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"lot-cash-slot"[39m
+          [36m>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"lot-cash"[39m
+              [33mdata-testid[39m=[32m"lot-cash"[39m
+            [36m>[39m
+              [0m$20,000,000[0m
+            [36m</span>[39m
+          [36m</span>[39m
+          [36m<button[39m
+            [33maria-label[39m=[32m"Advance one week"[39m
+            [33mclass[39m=[32m"primary lot-advance-week lot-topbar-compactable"[39m
+            [33mdata-testid[39m=[32m"lot-advance-week"[39m
+            [33mtitle[39m=[32m"Advance one week"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m>[39m
+            [36m<span[39m
+              [33maria-hidden[39m=[32m"true"[39m
+              [33mclass[39m=[32m"lot-topbar-mark"[39m
+            [36m>[39m
+              [0m▸[0m
+            [36m</span>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"lot-topbar-label"[39m
+            [36m>[39m
+              [0mAdvance one week[0m
+            [36m</span>[39m
+          [36m</button>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"lot-next-event-control"[39m
+          [36m>[39m
+            [36m<button[39m
+              [33maria-label[39m=[32m"Sim to next event"[39m
+              [33mclass[39m=[32m"accent lot-next-event-button lot-topbar-compactable"[39m
+              [33mdata-testid[39m=[32m"lot-sim-to-next-event"[39m
+              [33mdisabled[39m=[32m""[39m
+              [33mtitle[39m=[32m"Sim to next event"[39m
+              [33mtype[39m=[32m"button"[39m
+            [36m>[39m
+              [36m<span[39m
+                [33maria-hidden[39m=[32m"true"[39m
+                [33mclass[39m=[32m"lot-topbar-mark"[39m
+              [36m>[39m
+                [0m»[0m
+              [36m</span>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"lot-topbar-label"[39m
+              [36m>[39m
+                [0mSim to next event[0m
+              [36m</span>[39m
+            [36m</button>[39m
+          [36m</div>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"ghost"[39m
+            [33mdata-testid[39m=[32m"lot-return-dashboard"[39m
+          [36m>[39m
+            [0mOpen Dashboard[0m
+          [36m</button>[39m
+          [36m<button[39m
+            [33maria-label[39m=[32m"Saves"[39m
+            [33mclass[39m=[32m"ghost lot-topbar-compactable"[39m
+            [33mdata-testid[39m=[32m"lot-open-saves"[39m
+            [33mtitle[39m=[32m"Export a print of this studio, or load one"[39m
+          [36m>[39m
+            [36m<span[39m
+              [33maria-hidden[39m=[32m"true"[39m
+              [33mclass[39m=[32m"lot-topbar-mark"[39m
+            [36m>[39m
+              [0m▤[0m
+            [36m</span>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"lot-topbar-label"[39m
+            [36m>[39m
+              [0mSaves[0m
+            [36m</span>[39m
+          [36m</button>[39m
+        [36m</div>[39m
+      [36m</header>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"lot-body"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"lot-stage-wrap"[39m
+          [33mdata-guidance-target[39m=[32m"none"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33maria-hidden[39m=[32m"true"[39m
+            [33mclass[39m=[32m"lot-canvas"[39m
+            [33mdata-testid[39m=[32m"studio-lot-canvas"[39m
+          [36m/>[39m
+          [36m<div[39m
+            [33maria-atomic[39m=[32m"true"[39m
+            [33maria-live[39m=[32m"polite"[39m
+            [33mclass[39m=[32m"lot-notice"[39m
+            [33mdata-punctuation[39m=[32m"0"[39m
+            [33mdata-testid[39m=[32m"lot-annex-operational-announcement"[39m
+            [33mrole[39m=[32m"status"[39m
+          [36m/>[39m
+          [36m<div[39m
+            [33maria-atomic[39m=[32m"true"[39m
+            [33maria-live[39m=[32m"polite"[39m
+            [33mclass[39m=[32m"lot-notice"[39m
+            [33mdata-punctuation[39m=[32m"0"[39m
+            [33mdata-testid[39m=[32m"lot-week-update-announcement"[39m
+            [33mrole[39m=[32m"status"[39m
+          [36m/>[39m
+          [36m<div[39m
+            [33maria-label[39m=[32m"Lot camera"[39m
+            [33mclass[39m=[32m"lot-camera-tools"[39m
+            [33mrole[39m=[32m"group"[39m
+          [36m>[39m
+            [36m<button[39m
+              [33maria-keyshortcuts[39m=[32m"R"[39m
+              [33maria-label[39m=[32m"Show the whole property. Keyboard shortcut R."[39m
+              [33mclass[39m=[32m"lot-camera-home"[39m
+              [33mdata-testid[39m=[32m"lot-camera-home"[39m
+              [33mtitle[39m=[32m"Show the whole property (shortcut: R)"[39m
+              [33mtype[39m=[32m"button"[39m
+            [36m>[39m
+              [36m<span[39...
+ ❯ Object.getElementError node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ getElementError node_modules/@testing-library/dom/dist/query-helpers.js:20:35
+ ❯ getMultipleElementsFoundError node_modules/@testing-library/dom/dist/query-helpers.js:23:10
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:55:13
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx:697:28
+    695|     await onlyView()
+    696| 
+    697|     fireEvent.click(screen.getByTestId('lot-nav-writers'))
+       |                            ^
+    698|     expect(screen.getByTestId('lot-building-inspector-writers')).toBeI…
+    699|     expect(screen.getByTestId('lot-building-inspector-primary-commissi…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/5]⎯
+
+ FAIL |ui|  ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx > M-B — the buildings carry the verbs the guidance names > F4: offers it with an accepted screenplay waiting on casting, too
+AssertionError: expected [] to have a length of 1 but got +0
+
+Ignored nodes: comments, script, style
+[36m<html>[39m
+  [36m<head />[39m
+  [36m<body>[39m
+    [36m<div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"lot-screen lot-hollywood"[39m
+        [33mdata-entry-focus[39m=[32m"none"[39m
+        [33mdata-testid[39m=[32m"studio-lot-screen"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33maria-atomic[39m=[32m"true"[39m
+          [33maria-live[39m=[32m"polite"[39m
+          [33mclass[39m=[32m"visually-hidden"[39m
+          [33mdata-testid[39m=[32m"lot-casting-review-announcement"[39m
+          [33mrole[39m=[32m"status"[39m
+        [36m/>[39m
+        [36m<div[39m
+          [33maria-atomic[39m=[32m"true"[39m
+          [33maria-live[39m=[32m"polite"[39m
+          [33mclass[39m=[32m"visually-hidden"[39m
+          [33mdata-testid[39m=[32m"lot-production-formation-announcement"[39m
+          [33mrole[39m=[32m"status"[39m
+        [36m/>[39m
+        [36m<div[39m
+          [33maria-atomic[39m=[32m"true"[39m
+          [33maria-live[39m=[32m"polite"[39m
+          [33mclass[39m=[32m"visually-hidden"[39m
+          [33mdata-testid[39m=[32m"lot-script-review-announcement"[39m
+          [33mrole[39m=[32m"status"[39m
+        [36m/>[39m
+        [36m<header[39m
+          [33mclass[39m=[32m"lot-topbar"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"lot-brand"[39m
+          [36m>[39m
+            [36m<h1[39m
+              [33mclass[39m=[32m"mark lot-studio-heading"[39m
+              [33mdata-testid[39m=[32m"lot-studio-heading"[39m
+              [33mtabindex[39m=[32m"-1"[39m
+            [36m>[39m
+              [0mPROJECT: STUDIO[0m
+            [36m</h1>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"lot-sub"[39m
+            [36m>[39m
+              [0mStudio Chronicle · Hollywood, 1920 · Week 2[0m
+            [36m</span>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"lot-topbar-actions"[39m
+          [36m>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"lot-cash-slot"[39m
+            [36m>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"lot-cash"[39m
+                [33mdata-testid[39m=[32m"lot-cash"[39m
+              [36m>[39m
+                [0m$19,907,802[0m
+              [36m</span>[39m
+            [36m</span>[39m
+            [36m<button[39m
+              [33maria-label[39m=[32m"Advance one week"[39m
+              [33mclass[39m=[32m"primary lot-advance-week lot-topbar-compactable"[39m
+              [33mdata-testid[39m=[32m"lot-advance-week"[39m
+              [33mtitle[39m=[32m"Advance one week"[39m
+              [33mtype[39m=[32m"button"[39m
+            [36m>[39m
+              [36m<span[39m
+                [33maria-hidden[39m=[32m"true"[39m
+                [33mclass[39m=[32m"lot-topbar-mark"[39m
+              [36m>[39m
+                [0m▸[0m
+              [36m</span>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"lot-topbar-label"[39m
+              [36m>[39m
+                [0mAdvance one week[0m
+              [36m</span>[39m
+            [36m</button>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"lot-next-event-control"[39m
+            [36m>[39m
+              [36m<button[39m
+                [33maria-label[39m=[32m"Sim to next event"[39m
+                [33mclass[39m=[32m"accent lot-next-event-button lot-topbar-compactable"[39m
+                [33mdata-testid[39m=[32m"lot-sim-to-next-event"[39m
+                [33mdisabled[39m=[32m""[39m
+                [33mtitle[39m=[32m"Sim to next event"[39m
+                [33mtype[39m=[32m"button"[39m
+              [36m>[39m
+                [36m<span[39m
+                  [33maria-hidden[39m=[32m"true"[39m
+                  [33mclass[39m=[32m"lot-topbar-mark"[39m
+                [36m>[39m
+                  [0m»[0m
+                [36m</span>[39m
+                [36m<span[39m
+                  [33mclass[39m=[32m"lot-topbar-label"[39m
+                [36m>[39m
+                  [0mSim to next event[0m
+                [36m</span>[39m
+              [36m</button>[39m
+            [36m</div>[39m
+            [36m<button[39m
+              [33mclass[39m=[32m"ghost"[39m
+              [33mdata-testid[39m=[32m"lot-return-dashboard"[39m
+            [36m>[39m
+              [0mOpen Dashboard[0m
+            [36m</button>[39m
+            [36m<button[39m
+              [33maria-label[39m=[32m"Saves"[39m
+              [33mclass[39m=[32m"ghost lot-topbar-compactable"[39m
+              [33mdata-testid[39m=[32m"lot-open-saves"[39m
+              [33mtitle[39m=[32m"Export a print of this studio, or load one"[39m
+            [36m>[39m
+              [36m<span[39m
+                [33maria-hidden[39m=[32m"true"[39m
+                [33mclass[39m=[32m"lot-topbar-mark"[39m
+              [36m>[39m
+                [0m▤[0m
+              [36m</span>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"lot-topbar-label"[39m
+              [36m>[39m
+                [0mSaves[0m
+              [36m</span>[39m
+            [36m</button>[39m
+          [36m</div>[39m
+        [36m</header>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"lot-body"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"lot-stage-wrap"[39m
+            [33mdata-guidance-target[39m=[32m"casting"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33maria-hidden[39m=[32m"true"[39m
+              [33mclass[39m=[32m"lot-canvas"[39m
+              [33mdata-testid[39m=[32m"studio-lot-canvas"[39m
+            [36m/>[39m
+            [36m<div[39m
+              [33maria-atomic[39m=[32m"true"[39m
+              [33maria-live[39m=[32m"polite"[39m
+              [33mclass[39m=[32m"lot-notice"[39m
+              [33mdata-punctuation[39m=[32m"0"[39m
+              [33mdata-testid[39m=[32m"lot-annex-operational-announcement"[39m
+              [33mrole[39m=[32m"status"[39m
+            [36m/>[39m
+            [36m<div[39m
+              [33maria-atomic[39m=[32m"true"[39m
+              [33maria-live[39m=[32m"polite"[39m
+              [33mclass[39m=[32m"lot-notice"[39m
+              [33mdata-punctuation[39m=[32m"0"[39m
+              [33mdata-testid[39m=[32m"lot-week-update-announcement"[39m
+              [33mrole[39m=[32m"status"[39m
+            [36m/>[39m
+            [36m<div[39m
+              [33maria-label[39m=[32m"Lot camera"[39m
+              [33mclass[39m=[32m"lot-camera-tools"[39m
+              [33mrole[39m=[32m"group"[39m
+            [36m>[39m
+              [36m<button[39m
+                [33maria-keyshortcuts[39m=[32m"R"[39m
+                [33maria-...
+
+- Expected
++ Received
+
+- 1
++ 0
+
+ ❯ ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx:110:50
+    108| 
+    109| async function onlyView() {
+    110|   await waitFor(() => expect(renderer.instances).toHaveLength(1))
+       |                                                  ^
+    111|   return renderer.instances[0]!
+    112| }
+ ❯ runWithExpensiveErrorDiagnosticsDisabled node_modules/@testing-library/dom/dist/config.js:47:12
+ ❯ checkCallback node_modules/@testing-library/dom/dist/wait-for.js:124:77
+ ❯ Timeout.checkRealTimersCallback node_modules/@testing-library/dom/dist/wait-for.js:118:16
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/5]⎯
+
+ Test Files  1 failed | 5 passed (6)
+      Tests  5 failed | 104 passed (109)
+   Start at  23:43:40
+   Duration  151.35s (transform 4.87s, setup 666ms, collect 9.90s, tests 134.45s, environment 4.20s, prepare 591ms)
+
+
+{"sourceSha":"404518588d85cbc9d44adcbb1ff790468e543ff5","testedDiffSha256":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","ui","--minWorkers=1","--maxWorkers=1","ui/src/lot/WorldFirstLotNativeNextEventApp.test.tsx","ui/src/lot/WorldFirstLotNativeCastingReviewApp.test.tsx","ui/src/lot/WorldFirstLotNativeCastingReviewAppAuthority.test.tsx","ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx","ui/src/lot/livingTurn.scheduler.test.tsx","ui/src/lot/livingTurn.parity.test.tsx"],"node":"v20.20.2","start":"2026-09-21T21:43:39.225Z","end":"2026-09-21T21:46:12.179Z","exitCode":1,"signal":null,"error":null,"sourceShaAtEnd":"404518588d85cbc9d44adcbb1ff790468e543ff5","testedDiffSha256AtEnd":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","untrackedSourceAtEnd":[],"fixedSource":true}

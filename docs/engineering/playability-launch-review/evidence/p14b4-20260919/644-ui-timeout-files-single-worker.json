@@ -1,0 +1,29 @@
+{
+  "sourceSha": "404518588d85cbc9d44adcbb1ff790468e543ff5",
+  "testedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "untrackedSource": [],
+  "command": [
+    "node_modules/.bin/vitest",
+    "run",
+    "--project",
+    "ui",
+    "--minWorkers=1",
+    "--maxWorkers=1",
+    "ui/src/lot/WorldFirstLotNativeNextEventApp.test.tsx",
+    "ui/src/lot/WorldFirstLotNativeCastingReviewApp.test.tsx",
+    "ui/src/lot/WorldFirstLotNativeCastingReviewAppAuthority.test.tsx",
+    "ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx",
+    "ui/src/lot/livingTurn.scheduler.test.tsx",
+    "ui/src/lot/livingTurn.parity.test.tsx"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-21T21:43:39.225Z",
+  "end": "2026-09-21T21:46:12.179Z",
+  "exitCode": 1,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "404518588d85cbc9d44adcbb1ff790468e543ff5",
+  "testedDiffSha256AtEnd": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "untrackedSourceAtEnd": [],
+  "fixedSource": true
+}
