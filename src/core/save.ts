@@ -494,8 +494,8 @@ export type SaveFileV29 = {
   broadcastCache: BroadcastItem[];
 };
 
-// P14B.4 additive data boundary. Live gameplay remains V29 until the coordinated
-// outcome/wire cutover; only V30 can carry a tagged P2 seat-class predicate.
+// P14B.4 (record 600): the live gameplay boundary. Only V30 can carry a tagged
+// P2 seat-class predicate; V29 is the frozen prior shape it migrates from.
 export type SaveFileV30 = {
   saveVersion: 30;
   seed: string;
@@ -6393,15 +6393,15 @@ export function makeSaveV16(state: GameStateV16): SaveFileV16 {
 // Every caller that asks "is this envelope a migration?" compares against this
 // constant rather than a literal that goes stale the next time `makeSave` moves
 // (the bridge and the ui adapter both still compared against 23 at V25).
-export const LIVE_SAVE_VERSION = 29 as const;
+export const LIVE_SAVE_VERSION = 30 as const;
 
-// makeSave — the live V29 boundary. Frozen prior values migrate explicitly.
+// makeSave — the live V30 boundary (P14B.4). Frozen prior values migrate explicitly.
 // The new plain-JSON root is detached once; only final serialization sorts it.
-export function makeSave(state: GameState): SaveFileV29 {
-  const save = validateSaveV29({ saveVersion: 29, seed: state.seed, state, broadcastCache: state.broadcastItems });
+export function makeSave(state: GameState): SaveFileV30 {
+  const save = validateSaveV30({ saveVersion: 30, seed: state.seed, state, broadcastCache: state.broadcastItems });
   // Validation precedes detachment, so undefined/non-JSON authority cannot be
   // silently repaired by stringify before the boundary sees it.
-  return JSON.parse(JSON.stringify(save)) as SaveFileV29;
+  return JSON.parse(JSON.stringify(save)) as SaveFileV30;
 }
 
 // ── Load / export / import ───────────────────────────────────────────────────
@@ -8709,8 +8709,8 @@ export function convertV30ToV29(save: SaveFileV30): SaveFileV29 {
   return validateSaveV29({ ...clonePlainJson(validated), saveVersion: 29 });
 }
 
-/** Additive data migration. This is deliberately NOT yet the live load-to-play
- * route: that cutover must accompany class-aware outcomes and projection47. */
+/** The live load-to-play route (P14B.4, record 600): every prior envelope
+ * migrates to the V30 boundary the live writer stamps. */
 export function migrateToV30(save: SaveFile | { saveVersion: number }): SaveFileV30 {
   if (save.saveVersion === 30) return validateSaveV30(save);
   return convertV29ToV30(migrateToV29(save));

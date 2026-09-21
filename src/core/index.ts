@@ -1289,7 +1289,7 @@ export {
   migrateToV29,
   convertV28ToV29,
   convertV29ToV28,
-  // P14B.4 additive persistence foundation; live writer stays V29 until cutover.
+  // P14B.4 — live V29 → NEW V30 + migrateToV30 (explicit P2 seat class; record 600).
   validateSaveV30,
   migrateToV30,
   convertV29ToV30,
