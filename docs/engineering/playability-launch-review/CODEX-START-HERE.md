@@ -216,10 +216,25 @@ to the evaluator-5 file, 9 natural); 600-B contract-auditor RELEASE WITH CONDITI
 and disclosure hunks in S5; D17 drivers in S4; the G9 rival flexible-first movements a NAMED
 reconciliation class under plan T2). 600-W the ONE sim-core writer is RELEASED on that design
 (cumulative patches per step, never commits; parent lands five commits via commit-tree and pushes
-them together). NEXT602: 600-W → parent freeze/hash + typecheck/generator/live-P2 checks → land +
-push → test-author 600-T2 (29→30 values-only sweep, meaning pins from evidence, G9 class) →
-serialized record-checks vs 536/593 → 600-R review → record, headers, Unity backlog. No
-cap/tariff/refusal/timeout/fixture moves to obtain a pass; Unity/native deferred. Gross2221 omitted fact cost is NOT
+them together). NEXT602 DONE → 616 RECORDED (published 1f6015d0): the COORDINATED CUTOVER IS LANDED AND
+QUALIFIED WITH RECORD-ONLY ITEMS (600-R). Identity f2192d8b = writer 47b2bbf4 S1 core (evaluator
+4: masks, reserved+X buffer, classless-P2/tagged-non-P2 refusals, full-predicate mint, rules 4)
+→ 3b8f5b6a S3 (Save V30 live) → 2cbc3de5 S4 (load/runtime → migrateToV30, V30 checkpoints) →
+a64ac00b S2 (rival unproven → flexible P2 then P1) → 027155e7 S5 (projection 47, closed P2 draft
+union with required seatClass, nullable seatClass rows, preferredOpportunity, outgoing46
+registered, generator run; schemaId 6f6b4880…) + test-author e9f4962b (600-T2: 29→30 values-only
+sweep of 100 test files, meaning pins re-expressed from evidence, the G9 class re-expressed; no
+pinned winner moved; trust-chooser test 6 GREEN) + f2192d8b (600-T3: eight stale UI 28-pins → 30).
+Evidence 601–615: live-P2 83 → 12 (all natural/designated); full core 96 files/312 → 13/39 = 22
+inherited + 2 designated + 11 natural + 4 load-only (pass alone); root+UI and bridge tsc EXIT 0
+(the OLD TS2353 cleared); UI five-file 45/45. Replay module unchanged (9e97ffed…); stale route
+:234 stays RED; no cap/tariff/refusal/timeout/fixture moved; nothing native. Owner-visible
+behaviour list and Unity backlog in 616. NEXT616: (1) R-6 test-author seed-scan reconciliation of
+the three natural premises (rivalWorlds ×9, outcomes :438, policy :529 P1fallback) as its own
+record; (2) the remaining B4 families under the existing directive — rival P2 outcomes on a
+recorded seed, final seating preference (own RED), breakPromisesOnCancel correction (own RED),
+stale-title text pass + 574-R doc fix at the next release; (3) evaluator 5 later (D2 (i-c)).
+Unity/native deferred. Gross2221 omitted fact cost is NOT
 net saving: cold discovery can shift into next frame. No route-fit claim.
 Draft-discovery, silent-policy, affine and Map alternatives remain unadopted.
 T4/B2/B3/B-F2 qualified closed; B4/liveP2/Unity/Owner acceptance NOT closed.
