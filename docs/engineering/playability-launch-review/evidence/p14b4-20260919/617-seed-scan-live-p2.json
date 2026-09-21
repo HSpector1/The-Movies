@@ -1,0 +1,33 @@
+{
+  "sourceSha": "23d59bdba9c963f68c93727d3d0575e303b4212d",
+  "testedDiffSha256": "267a1aec3e5b32e70aaf0570dd2420da67f550216acd9920d3298d92a26f6b3c",
+  "untrackedSource": [],
+  "command": [
+    "node_modules/.bin/vitest",
+    "run",
+    "--project",
+    "core",
+    "tests/p14b4-capacity-kernel.test.ts",
+    "tests/p14b4-cast-class-capacity.test.ts",
+    "tests/p14b4-cast-class-outcomes.test.ts",
+    "tests/p14b4-cast-class-policy.test.ts",
+    "tests/p14b4-d3-matching.test.ts",
+    "tests/p14b4-material-evidence-core.test.ts",
+    "tests/p14b4-save-v30-compatibility.test.ts",
+    "tests/p14b4-kernel-hold-order-extension.test.ts",
+    "tests/p14b4-bounded-stable-sort.test.ts",
+    "tests/bridge-p14b4-cast-class.test.ts",
+    "tests/bridge-p14b4-runtime47-compatibility.test.ts",
+    "tests/p14b4-cast-class-capacity-evaluator5.test.ts"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-21T16:20:28.919Z",
+  "end": "2026-09-21T16:23:13.603Z",
+  "exitCode": 1,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "23d59bdba9c963f68c93727d3d0575e303b4212d",
+  "testedDiffSha256AtEnd": "267a1aec3e5b32e70aaf0570dd2420da67f550216acd9920d3298d92a26f6b3c",
+  "untrackedSourceAtEnd": [],
+  "fixedSource": true
+}

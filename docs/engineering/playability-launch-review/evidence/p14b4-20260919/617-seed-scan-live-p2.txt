@@ -1,0 +1,165 @@
+{"sourceSha":"23d59bdba9c963f68c93727d3d0575e303b4212d","testedDiffSha256":"267a1aec3e5b32e70aaf0570dd2420da67f550216acd9920d3298d92a26f6b3c","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14b4-capacity-kernel.test.ts","tests/p14b4-cast-class-capacity.test.ts","tests/p14b4-cast-class-outcomes.test.ts","tests/p14b4-cast-class-policy.test.ts","tests/p14b4-d3-matching.test.ts","tests/p14b4-material-evidence-core.test.ts","tests/p14b4-save-v30-compatibility.test.ts","tests/p14b4-kernel-hold-order-extension.test.ts","tests/p14b4-bounded-stable-sort.test.ts","tests/bridge-p14b4-cast-class.test.ts","tests/bridge-p14b4-runtime47-compatibility.test.ts","tests/p14b4-cast-class-capacity-evaluator5.test.ts"],"node":"v20.20.2","start":"2026-09-21T16:20:28.919Z","end":null,"exitCode":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p14b4-capacity-kernel.test.ts (41 tests) 249ms
+ ✓ |core| tests/p14b4-cast-class-outcomes.test.ts (23 tests) 36398ms
+   ✓ P14B4 genuine submit/settle/take routes, no synthetic commitments > PLAYER: actual offered lead P2 settles and the real class-compatible take satisfies it 5531ms
+   ✓ P14B4 genuine submit/settle/take routes, no synthetic commitments > PLAYER: actual offered leadOrAntagonist P2 settles and the real class-compatible take satisfies it 2488ms
+   ✓ P14B4 genuine submit/settle/take routes, no synthetic commitments > RIVAL: a genuinely naturally authored tagged commitment binds and qualifies through the real scheduled owner transition 9907ms
+   ✓ P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'player' 'lead' with actual 'lead' seat: qualification=true 1611ms
+   ✓ P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'player' 'lead' with actual 'antagonist' seat: qualification=false 849ms
+   ✓ P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'player' 'lead' with actual 'support' seat: qualification=false 623ms
+   ✓ P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'player' 'leadOrAntagonist' with actual 'support' seat: qualification=false 330ms
+   ✓ P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'rival' 'lead' with actual 'lead' seat: qualification=true 1049ms
+   ✓ P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'rival' 'lead' with actual 'antagonist' seat: qualification=false 615ms
+   ✓ P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'rival' 'lead' with actual 'support' seat: qualification=false 564ms
+   ✓ P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'rival' 'leadOrAntagonist' with actual 'lead' seat: qualification=true 787ms
+   ✓ P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'rival' 'leadOrAntagonist' with actual 'antagonist' seat: qualification=true 754ms
+   ✓ P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'rival' 'leadOrAntagonist' with actual 'support' seat: qualification=false 887ms
+   ✓ P14B4 labeled outcome-owner probes on real bound roots and actual casts > player support qualifies for P1 and shape-legacy count-only P2, not tagged P2 705ms
+   ✓ P14B4 labeled outcome-owner probes on real bound roots and actual casts > rival support qualifies for P1 and shape-legacy count-only P2, not tagged P2 1934ms
+   ✓ P14B4 labeled outcome-owner probes on real bound roots and actual casts > shooting entry/technology lock and an unscheduled tick produce no first take or tagged-P2 outcome 539ms
+   ✓ P14B4 labeled outcome-owner probes on real bound roots and actual casts > player half-open window counts start, excludes before-start and excludes due 1206ms
+   ✓ P14B4 labeled outcome-owner probes on real bound roots and actual casts > rival half-open window counts start, excludes before-start and excludes due 2263ms
+   ✓ P14B4 labeled outcome-owner probes on real bound roots and actual casts > count2 requires TWO real distinct productions; repeated owner passes/ticks on one picture never add another event 1018ms
+   ✓ P14B4 labeled outcome-owner probes on real bound roots and actual casts > two genuinely bound beneficiaries share one completed take but receive DISTINCT own outcome receipts exactly once 1569ms
+   ✓ P14B4 labeled outcome-owner probes on real bound roots and actual casts > first take THEN real player cancellation never un-satisfies or rewrites the evidence/outcome 666ms
+ ✓ |core| tests/p14b4-material-evidence-core.test.ts (17 tests) 21452ms
+   ✓ P14B4 staged material owner, independent old formula and explicit class > retains the exact old count-only APPEARANCE_COUNT formula and attached formula 1178ms
+   ✓ P14B4 staged material owner, independent old formula and explicit class > retains the exact old count-only LEAD_OR_SIGNIFICANT_ROLE_COUNT formula and attached formula 597ms
+   ✓ P14B4 staged material owner, independent old formula and explicit class > retains the exact old count-only DIRECTING_COUNT formula and attached formula 475ms
+   ✓ P14B4 staged material owner, independent old formula and explicit class > retains the exact old count-only PREFERRED_GENRE_OPPORTUNITY formula and attached formula 600ms
+   ✓ P14B4 staged material owner, independent old formula and explicit class > retains the exact old count-only SPECIFIC_PROJECT formula and attached formula 546ms
+   ✓ P14B4 staged material owner, independent old formula and explicit class > kind/class are material; old classless P2 never aliases either new class; pure reads retain inputs 1222ms
+   ✓ P14B4 staged material owner, independent old formula and explicit class > family, count and both window endpoints remain material without receipt/version repair 1553ms
+   ✓ P14B4 staged outcome owner: real completed take, synthetic MATERIAL only > 'lead' against actual 'lead' 2232ms
+   ✓ P14B4 staged outcome owner: real completed take, synthetic MATERIAL only > 'lead' against actual 'antagonist' 1678ms
+   ✓ P14B4 staged outcome owner: real completed take, synthetic MATERIAL only > 'lead' against actual 'support' 2269ms
+   ✓ P14B4 staged outcome owner: real completed take, synthetic MATERIAL only > 'leadOrAntagonist' against actual 'lead' 1066ms
+   ✓ P14B4 staged outcome owner: real completed take, synthetic MATERIAL only > 'leadOrAntagonist' against actual 'antagonist' 1289ms
+   ✓ P14B4 staged outcome owner: real completed take, synthetic MATERIAL only > 'leadOrAntagonist' against actual 'support' 1129ms
+   ✓ P14B4 staged outcome owner: real completed take, synthetic MATERIAL only > actual support still qualifies for old count-only 'APPEARANCE_COUNT' 1236ms
+   ✓ P14B4 staged outcome owner: real completed take, synthetic MATERIAL only > actual support still qualifies for old count-only 'LEAD_OR_SIGNIFICANT_ROLE_COUNT' 994ms
+   ✓ P14B4 staged outcome owner: real completed take, synthetic MATERIAL only > two genuinely bound people share one take but get exactly two distinct own outcome receipts 1472ms
+   ✓ P14B4 staged outcome owner: real completed take, synthetic MATERIAL only > a real take at window start counts; the same real take at due-exclusive does not 1914ms
+ ✓ |core| tests/p14b4-cast-class-capacity.test.ts (14 tests) 11012ms
+   ✓ P14B4 bounded fixed-cast capacity, requirement-based owner probes > 'lead' target actually fixed in 'lead': eligible=true 4418ms
+   ✓ P14B4 bounded fixed-cast capacity, requirement-based owner probes > 'lead' target actually fixed in 'antagonist': eligible=false 536ms
+   ✓ P14B4 bounded fixed-cast capacity, requirement-based owner probes > 'lead' target actually fixed in 'support': eligible=false 461ms
+   ✓ P14B4 bounded fixed-cast capacity, requirement-based owner probes > 'leadOrAntagonist' target actually fixed in 'lead': eligible=true 558ms
+   ✓ P14B4 bounded fixed-cast capacity, requirement-based owner probes > 'leadOrAntagonist' target actually fixed in 'antagonist': eligible=true 371ms
+   ✓ P14B4 bounded fixed-cast capacity, requirement-based owner probes > 'leadOrAntagonist' target actually fixed in 'support': eligible=false 330ms
+   ✓ P14B4 bounded fixed-cast capacity, requirement-based owner probes > one real picture jointly serves lead+flexible+P1, but never splices a later Ready script into its spare witness 948ms
+   ✓ P14B4 bounded fixed-cast capacity, requirement-based owner probes > revise removes a real CURRENT reservation but preserves root/receipt history and digest neutrality 485ms
+   ✓ P14B4 bounded fixed-cast capacity, requirement-based owner probes > withdraw removes a real CURRENT reservation but preserves root/receipt history and digest neutrality 406ms
+   ✓ P14B4 bounded fixed-cast capacity, requirement-based owner probes > a lawful CURRENT nonoverlapping attachment does not alter the class-aware read or its digest 312ms
+   ✓ P14B4 bounded fixed-cast capacity, requirement-based owner probes > class changes material and feasibility digests; unrelated cash and valid RNG words change neither read nor history 936ms
+   ✓ P14B4 bounded fixed-cast capacity, requirement-based owner probes > huge admitted staged window/count=1 preserves history; a real outside-contract refusal is not relabeled cap uncertainty 398ms
+   ✓ P14B4 bounded fixed-cast capacity, requirement-based owner probes > huge admitted staged window/count=65 preserves history; a real outside-contract refusal is not relabeled cap uncertainty 430ms
+   ✓ P14B4 bounded fixed-cast capacity, requirement-based owner probes > huge admitted staged window/count=9007199254740991 preserves history; a real outside-contract refusal is not relabeled cap uncertainty 418ms
+ ✓ |core| tests/bridge-p14b4-cast-class.test.ts (28 tests) 70103ms
+   ✓ P14B4 exact wire grammar — no P2 offerability prerequisite > accepts explicit lead P2 through the actual closed quote-request validator 2076ms
+   ✓ P14B4 exact wire grammar — no P2 offerability prerequisite > accepts explicit leadOrAntagonist P2 through the actual closed quote-request validator 1283ms
+   ✓ P14B4 exact wire grammar — no P2 offerability prerequisite > refuses 'P2 missing class' before session quote/commit authority is reached 1119ms
+   ✓ P14B4 exact wire grammar — no P2 offerability prerequisite > refuses 'bad class null' before session quote/commit authority is reached 938ms
+   ✓ P14B4 exact wire grammar — no P2 offerability prerequisite > refuses 'bad class "support"' before session quote/commit authority is reached 967ms
+   ✓ P14B4 exact wire grammar — no P2 offerability prerequisite > refuses 'bad class "leadOrSupport"' before session quote/commit authority is reached 1018ms
+   ✓ P14B4 exact wire grammar — no P2 offerability prerequisite > refuses 'bad class 1' before session quote/commit authority is reached 1035ms
+   ✓ P14B4 exact wire grammar — no P2 offerability prerequisite > refuses 'bad class ["lead"]' before session quote/commit authority is reached 1588ms
+   ✓ P14B4 exact wire grammar — no P2 offerability prerequisite > refuses 'extra wire kind' before session quote/commit authority is reached 1149ms
+   ✓ P14B4 exact wire grammar — no P2 offerability prerequisite > refuses 'extra nested predicate' before session quote/commit authority is reached 1386ms
+   ✓ P14B4 exact wire grammar — no P2 offerability prerequisite > refuses 'class inapplicable to APPEARANCE_COUNT' before session quote/commit authority is reached 1324ms
+   ✓ P14B4 exact wire grammar — no P2 offerability prerequisite > refuses 'class inapplicable to DIRECTING_COUNT' before session quote/commit authority is reached 1493ms
+   ✓ P14B4 exact wire grammar — no P2 offerability prerequisite > refuses 'class inapplicable to PREFERRED_GENRE…' before session quote/commit authority is reached 1353ms
+   ✓ P14B4 exact wire grammar — no P2 offerability prerequisite > refuses 'class inapplicable to SPECIFIC_PROJECT' before session quote/commit authority is reached 1412ms
+   ✓ P14B4 exact wire grammar — no P2 offerability prerequisite > keeps no-promise and count-only non-P2 wire shapes legal; P3-P5 remain engine-refused separately 358ms
+   ✓ P14B4 real P2 session integration — offerability/commit prerequisites UNEXECUTED > class changes opaque intent identity; quote/conversion/pending values are nested immutable snapshots 3379ms
+   ✓ P14B4 real P2 session integration — offerability/commit prerequisites UNEXECUTED > whole-quote refusal registers no intent and returns no partial proposal/root/cash/ledger/RNG state 1361ms
+   ✓ P14B4 real P2 session integration — offerability/commit prerequisites UNEXECUTED > class revision replaces attachment, while remove/withdraw preserve every old root and create no outcome 15238ms
+   ✓ P14B4 real P2 session integration — offerability/commit prerequisites UNEXECUTED > direct apply revalidates real CURRENT employment, not the earlier offerable conversion 669ms
+   ✓ P14B4 real P2 session integration — offerability/commit prerequisites UNEXECUTED > session/revision/replay protections still permit only one class-bearing attachment 6475ms
+   ✓ P14B4 real P2 session integration — offerability/commit prerequisites UNEXECUTED > exact cap16: after 16 distinct offerable class-bearing quotes 4245ms
+   ✓ P14B4 real P2 session integration — offerability/commit prerequisites UNEXECUTED > exact cap16: after 17 distinct offerable class-bearing quotes 4575ms
+   ✓ P14B4 existing own/private/public carriers > both viewing directions retain whole competing promise UNKNOWN, with no class beside it 3344ms
+   ✓ P14B4 existing own/private/public carriers > own legacy classless P2 shows null/unknown, never a fabricated lead; P1 remains not-applicable 1551ms
+   ✓ P14B4 existing own/private/public carriers > shared profile/case/workspace preferences expose the existing age-edge at29 849ms
+   ✓ P14B4 existing own/private/public carriers > shared profile/case/workspace preferences expose the existing age-edge at30 608ms
+   ✓ P14B4 existing own/private/public carriers > actual lead quote→binding→termination exposes own class, not public/private leakage 4880ms
+   ✓ P14B4 existing own/private/public carriers > actual leadOrAntagonist quote→binding→termination exposes own class, not public/private leakage 4425ms
+ ❯ |core| tests/p14b4-cast-class-capacity-evaluator5.test.ts (2 tests | 1 failed | 1 skipped) 4581ms
+   × P14B4 evaluator-5 kernel vocabulary (record 600 §3 2(b)): the joint certificate the scalar cannot issue > a conflicting fixed lead claim makes the joint offer impossible, not a target-specific BROKEN winner choice 4579ms
+     → expected 'FRAGILE' to be 'IMPOSSIBLE' // Object.is equality
+ ✓ |core| tests/bridge-p14b4-runtime47-compatibility.test.ts (6 tests) 12715ms
+   ✓ P14B4 genuine outgoing46 runtime compatibility — future Save30/projection47 > pins genuine original46 artifact, producer authority, and two SAME-week DIFFERENT slots 732ms
+   ✓ P14B4 genuine outgoing46 runtime compatibility — future Save30/projection47 > migrates currentSaveJson from its OWN genuine V29 state, preserving exact material/history 2172ms
+   ✓ P14B4 genuine outgoing46 runtime compatibility — future Save30/projection47 > migrates savedSaveJson from its OWN genuine V29 state, preserving exact material/history 2531ms
+   ✓ P14B4 genuine outgoing46 runtime compatibility — future Save30/projection47 > resets ONLY prior runtime authority, then reopens current47 without a second migration 6999ms
+ ✓ |core| tests/p14b4-kernel-hold-order-extension.test.ts (5 tests) 133ms
+ ✓ |core| tests/p14b4-bounded-stable-sort.test.ts (7 tests) 274ms
+ ✓ |core| tests/p14b4-d3-matching.test.ts (8 tests) 1956ms
+   ✓ B4 D3 public pure matcher: literal adopted match table > 'significant / P1' matches=false without mutating the read input 404ms
+   ✓ B4 D3 public pure matcher: literal adopted match table > at age29, historical untagged P2 and other families acquire no invented cast class 402ms
+   ✓ B4 D3 public pure matcher: literal adopted match table > at age30, historical untagged P2 and other families acquire no invented cast class 304ms
+ ✓ |core| tests/p14b4-save-v30-compatibility.test.ts (36 tests) 69562ms
+   ✓ P14B4 Save30: genuine final V29 corpus, exact old-state preservation > migrates genuine empty without rewriting roots, receipts, digests or history and downgrades losslessly 1742ms
+   ✓ P14B4 Save30: genuine final V29 corpus, exact old-state preservation > migrates genuine current-p1 without rewriting roots, receipts, digests or history and downgrades losslessly 2217ms
+   ✓ P14B4 Save30: genuine final V29 corpus, exact old-state preservation > migrates genuine replaced-p1 without rewriting roots, receipts, digests or history and downgrades losslessly 1518ms
+   ✓ P14B4 Save30: genuine final V29 corpus, exact old-state preservation > migrates genuine withdrawn-p1 without rewriting roots, receipts, digests or history and downgrades losslessly 1756ms
+   ✓ P14B4 Save30: genuine final V29 corpus, exact old-state preservation > migrates genuine bound-open-p1 without rewriting roots, receipts, digests or history and downgrades losslessly 1541ms
+   ✓ P14B4 Save30: genuine final V29 corpus, exact old-state preservation > migrates genuine kept-and-broken-p1 without rewriting roots, receipts, digests or history and downgrades losslessly 1647ms
+   ✓ P14B4 Save30: genuine final V29 corpus, exact old-state preservation > migrates genuine rival-current-p1 without rewriting roots, receipts, digests or history and downgrades losslessly 2124ms
+   ✓ P14B4 Save30: genuine final V29 corpus, exact old-state preservation > migrates genuine rival-shared-take-terminal-p1 without rewriting roots, receipts, digests or history and downgrades losslessly 2782ms
+   ✓ P14B4 Save30: genuine final V29 corpus, exact old-state preservation > migrates genuine refused-p2-count-only-current-draft without rewriting roots, receipts, digests or history and downgrades losslessly 2002ms
+   ✓ P14B4 reader-admitted SYNTHETIC legacy variants — never producer fixtures > keeps count-only CURRENT APPEARANCE_COUNT with arbitrary positive root/receipt versions 8583ms
+   ✓ P14B4 reader-admitted SYNTHETIC legacy variants — never producer fixtures > keeps count-only CURRENT LEAD_OR_SIGNIFICANT_ROLE_COUNT with arbitrary positive root/receipt versions 5631ms
+   ✓ P14B4 reader-admitted SYNTHETIC legacy variants — never producer fixtures > keeps count-only CURRENT DIRECTING_COUNT with arbitrary positive root/receipt versions 5422ms
+   ✓ P14B4 reader-admitted SYNTHETIC legacy variants — never producer fixtures > keeps count-only CURRENT PREFERRED_GENRE_OPPORTUNITY with arbitrary positive root/receipt versions 5284ms
+   ✓ P14B4 reader-admitted SYNTHETIC legacy variants — never producer fixtures > keeps count-only CURRENT SPECIFIC_PROJECT with arbitrary positive root/receipt versions 5862ms
+   ✓ P14B4 reader-admitted SYNTHETIC legacy variants — never producer fixtures > keeps genuinely backed OPEN/SATISFIED/BROKEN count-only APPEARANCE_COUNT variants 2667ms
+   ✓ P14B4 reader-admitted SYNTHETIC legacy variants — never producer fixtures > keeps genuinely backed OPEN/SATISFIED/BROKEN count-only LEAD_OR_SIGNIFICANT_ROLE_COUNT variants 3365ms
+   ✓ P14B4 reader-admitted SYNTHETIC legacy variants — never producer fixtures > keeps genuinely backed OPEN/SATISFIED/BROKEN count-only DIRECTING_COUNT variants 3489ms
+   ✓ P14B4 reader-admitted SYNTHETIC legacy variants — never producer fixtures > keeps genuinely backed OPEN/SATISFIED/BROKEN count-only PREFERRED_GENRE_OPPORTUNITY variants 2914ms
+   ✓ P14B4 reader-admitted SYNTHETIC legacy variants — never producer fixtures > keeps genuinely backed OPEN/SATISFIED/BROKEN count-only SPECIFIC_PROJECT variants 3181ms
+   ✓ P14B4 reader-admitted SYNTHETIC legacy variants — never producer fixtures > keeps classless P2 terminal variants with an actual shared take and DISTINCT original outcome receipts 1500ms
+   ✓ P14B4 reader-admitted SYNTHETIC legacy variants — never producer fixtures > keeps a classless P2 SATISFIED by an ACTUAL support seat, without inventing a role class or take 1247ms
+   ✓ P14B4 tagged P2 V30 shape is not lossy-downgradable > accepts explicit lead P2 shape at30, never at29, and refuses downgrade without stripping 620ms
+   ✓ P14B4 tagged P2 V30 shape is not lossy-downgradable > accepts explicit leadOrAntagonist P2 shape at30, never at29, and refuses downgrade without stripping 656ms
+stdout | tests/p14b4-cast-class-policy.test.ts > P14B4: natural rival policy uses the real shared service, never staged failed candidates > observes flexible-first, actual P1 fallback, proven P1, and a genuine zero-attachment refusal without extra RNG
+default seed w196 provenP1: studio-aca408ec-r01 -> person-studio-aca408ec-r01-0 reads APPEARANCE_COUNT=REASONABLY_ACHIEVABLE root promise-0
+default seed w196 flexibleP2: studio-aca408ec-r01 -> person-studio-aca408ec-r01-5 reads LEAD_OR_SIGNIFICANT_ROLE_COUNT=REASONABLY_ACHIEVABLE root promise-10
+default seed w196 neither: studio-aca408ec-r03 -> person-studio-aca408ec-r01-5 reads LEAD_OR_SIGNIFICANT_ROLE_COUNT=FRAGILE:needs a picture not yet commissioned, APPEARANCE_COUNT=FRAGILE:needs a picture not yet commissioned
+seed-b w196 P1fallback: studio-bc14baf6-r03 -> person-studio-bc14baf6-r03-4 reads LEAD_OR_SIGNIFICANT_ROLE_COUNT=FRAGILE:needs a picture not yet commissioned, APPEARANCE_COUNT=REASONABLY_ACHIEVABLE root promise-36
+
+ ✓ |core| tests/p14b4-cast-class-policy.test.ts (7 tests) 159319ms
+   ✓ P14B4: one shared public archetype; no new personality or priority-position inference > a real under-30 release credit supplies the proven branch independently of the age edge 2580ms
+   ✓ P14B4: all six D3 class matches through real two-survivor settlements > age 29: mismatch changes only D3, never proposal legality 12212ms
+   ✓ P14B4: all six D3 class matches through real two-survivor settlements > age 30: mismatch changes only D3, never proposal legality 11186ms
+   ✓ P14B4: natural rival policy uses the real shared service, never staged failed candidates > observes flexible-first, actual P1 fallback, proven P1, and a genuine zero-attachment refusal without extra RNG 132751ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14b4-cast-class-capacity-evaluator5.test.ts > P14B4 evaluator-5 kernel vocabulary (record 600 §3 2(b)): the joint certificate the scalar cannot issue > a conflicting fixed lead claim makes the joint offer impossible, not a target-specific BROKEN winner choice
+AssertionError: expected 'FRAGILE' to be 'IMPOSSIBLE' // Object.is equality
+
+Expected: "IMPOSSIBLE"
+Received: "FRAGILE"
+
+ ❯ tests/p14b4-cast-class-capacity-evaluator5.test.ts:239:77
+    237|     const w = world()
+    238|     const state = shortVariants(w, { lead: p2('lead'), antagonist: p2(…
+    239|     expect(pureRead(state, shortDraft(w, state, 'support')).classifica…
+       |                                                                             ^
+    240|     // The support person's own physical predicate still has the actua…
+    241|     // Never resolve that joint conflict by marking some bound benefic…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed | 11 passed (12)
+      Tests  1 failed | 192 passed | 1 todo (194)
+   Start at  18:20:29
+   Duration  163.50s (transform 5.78s, setup 0ms, collect 15.74s, tests 387.75s, environment 4ms, prepare 2.86s)
+
+
+{"sourceSha":"23d59bdba9c963f68c93727d3d0575e303b4212d","testedDiffSha256":"267a1aec3e5b32e70aaf0570dd2420da67f550216acd9920d3298d92a26f6b3c","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14b4-capacity-kernel.test.ts","tests/p14b4-cast-class-capacity.test.ts","tests/p14b4-cast-class-outcomes.test.ts","tests/p14b4-cast-class-policy.test.ts","tests/p14b4-d3-matching.test.ts","tests/p14b4-material-evidence-core.test.ts","tests/p14b4-save-v30-compatibility.test.ts","tests/p14b4-kernel-hold-order-extension.test.ts","tests/p14b4-bounded-stable-sort.test.ts","tests/bridge-p14b4-cast-class.test.ts","tests/bridge-p14b4-runtime47-compatibility.test.ts","tests/p14b4-cast-class-capacity-evaluator5.test.ts"],"node":"v20.20.2","start":"2026-09-21T16:20:28.919Z","end":"2026-09-21T16:23:13.603Z","exitCode":1,"signal":null,"error":null,"sourceShaAtEnd":"23d59bdba9c963f68c93727d3d0575e303b4212d","testedDiffSha256AtEnd":"267a1aec3e5b32e70aaf0570dd2420da67f550216acd9920d3298d92a26f6b3c","untrackedSourceAtEnd":[],"fixedSource":true}

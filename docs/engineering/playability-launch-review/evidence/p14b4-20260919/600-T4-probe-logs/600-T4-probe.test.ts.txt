@@ -1,0 +1,328 @@
+// 600-T4 PROBE SOURCE (archived copy; the file lived at tests/zz-600-t4-probe.test.ts during the scans
+// and was deleted before hand-back; NOT in the patch). Run as:
+//   T4_SEEDS=seed-b,seed-d node_modules/.bin/vitest run --project core tests/zz-600-t4-probe.test.ts -t "A rival scan"
+//   node_modules/.bin/vitest run --project core tests/zz-600-t4-probe.test.ts -t "B second beneficiary"
+//   T4_SEEDS=seed-b,seed-c node_modules/.bin/vitest run --project core tests/zz-600-t4-probe.test.ts -t "C policy scan"
+// A: the rivalWorlds() search (tests/p14b4-cast-class-outcomes.test.ts:204-234 at HEAD 23d59bdb) copied verbatim,
+//    with per-discovery logging, over candidate seeds.
+// B: the fixture's bound OPEN player roots and the contract-order fill, read from the state.
+// C: the policy :402-495 scan copied verbatim (same in-loop assertions), with witness logging, over candidate seeds.
+import assert from 'node:assert/strict'
+import { describe, expect, it, vi } from 'vitest'
+import { applyActions, tick } from '../src/core/index.js'
+import { careerIdentity } from '../src/core/talentSummary.js'
+import * as marketModule from '../src/core/talentMarket.js'
+import * as promiseModule from '../src/core/promises.js'
+import { exportSave, makeSave, validateSaveV29 } from '../src/core/save.js'
+import { gunzipSync } from 'node:zlib'
+import { readFileSync } from 'node:fs'
+import type { CastSlot, GameState, ProfessionalPromise, TalentMarketProposal, TalentMarketReceipt } from '../src/core/types.js'
+import { p13aGeneratedStudio, player } from './helpers/p14b2-fixtures.js'
+
+const SLOTS = ['lead', 'antagonist', 'support'] as const
+type Prepared = { state: GameState; studioId: string; productionId: string; promiseId: string; slot: CastSlot }
+function root(state: GameState, promiseId: string): ProfessionalPromise {
+  const rows = state.promises.filter((p) => p.promiseId === promiseId)
+  expect(rows).toHaveLength(1)
+  return rows[0]!
+}
+function binding(state: GameState, promiseId: string): void {
+  const promise = root(state, promiseId)
+  assert.notEqual(promise.contractId, null)
+  const rows = state.hollywood!.employment.filter((e) => e.contractId === promise.contractId)
+  expect(rows).toHaveLength(1)
+  expect(rows[0]!.studioId).toBe(promise.issuerStudioId)
+  expect(rows[0]!.terms.talentId).toBe(promise.beneficiaryPersonId)
+  expect(rows[0]!.terms.startWeek).toBeLessThanOrEqual(state.market.tick)
+  expect(state.talentMarket.receipts).toContainEqual(expect.objectContaining({
+    kind: 'settled', talentId: promise.beneficiaryPersonId, studioId: promise.issuerStudioId,
+    week: rows[0]!.terms.startWeek,
+  }))
+}
+const who = (state: GameState, id: string) => { const t = state.talent.find((p) => p.id === id)!; return `${id}(${t.role},${t.age.toFixed(2)})` }
+
+// ---------- A: rivalWorlds() search, verbatim loop + logging ----------
+function rivalScan(seed: string) {
+  let state = p13aGeneratedStudio(seed)
+  const slots: Partial<Record<CastSlot, Prepared>> = {}
+  let genuine: Prepared | undefined
+  const lines: string[] = []
+  for (let steps = 0; steps <= 350; steps++) {
+    for (const business of state.hollywood!.businesses) for (const film of business.productions) {
+      if (film.remainingTicks !== 5 || state.firstTakes.some((take) => take.productionId === film.id)) continue
+      for (const slot of SLOTS) {
+        const promise = state.promises.find((p) => p.issuerStudioId === business.studioId
+          && p.beneficiaryPersonId === film.cast[slot] && p.contractId !== null && p.outcome === null
+          && p.progress === 0 && p.windowStartWeek <= state.market.tick + 1 && state.market.tick + 1 < p.dueWeekExclusive)
+        if (promise === undefined) continue
+        const candidate = { state: structuredClone(state), studioId: business.studioId,
+          productionId: film.id, promiseId: promise.promiseId, slot }
+        binding(state, promise.promiseId)
+        const desc = `w${state.market.tick} ${business.studioId} film=${film.id} ${slot}=${who(state, film.cast[slot])} ${promise.promiseId} ${promise.family} ${JSON.stringify(promise.predicate)} window=[${promise.windowStartWeek},${promise.dueWeekExclusive})`
+        if (slots[slot] === undefined) { slots[slot] = candidate; lines.push(`SLOT FIRST ${desc}`) } else lines.push(`slot later ${desc}`)
+        const predicate = promise.predicate
+        if (genuine === undefined && promise.family === 'LEAD_OR_SIGNIFICANT_ROLE_COUNT'
+          && 'kind' in predicate && predicate.kind === 'castRoleCount' && 'seatClass' in predicate
+          && (slot === 'lead' || (slot === 'antagonist' && predicate.seatClass === 'leadOrAntagonist'))) { genuine = candidate; lines.push(`GENUINE ${desc}`) }
+      }
+    }
+    if (slots.lead !== undefined && slots.antagonist !== undefined && slots.support !== undefined && genuine !== undefined) {
+      const films = new Set(SLOTS.map((s) => slots[s]!.productionId))
+      lines.push(`BOTH MET at w${state.market.tick} (steps=${steps}); slots ticks lead=w${slots.lead.state.market.tick} antagonist=w${slots.antagonist.state.market.tick} support=w${slots.support.state.market.tick}; slot films ${[...films].join(',')} (${films.size === 1 ? 'ONE film' : films.size + ' films'}); genuine w${genuine.state.market.tick} ${genuine.productionId} ${genuine.slot} ${genuine.promiseId}`)
+      return { met: state.market.tick, lines }
+    }
+    if (steps < 350) state = tick(state)
+  }
+  lines.push(`NOT MET by 350: slots ${SLOTS.map((s) => `${s}=${slots[s] ? 'w' + slots[s]!.state.market.tick : 'none'}`).join(' ')} genuine=${genuine ? 'w' + genuine.state.market.tick : 'none'}`)
+  return { met: null, lines }
+}
+
+// ---------- C: policy :402-495 scan, verbatim loop + witness logging ----------
+const clone = <T>(value: T): T => structuredClone(value)
+const ACHIEVABLE = 'REASONABLY_ACHIEVABLE'
+const P1 = { family: 'APPEARANCE_COUNT', predicate: { count: 1 } } as const
+const FLEX = { family: 'LEAD_OR_SIGNIFICANT_ROLE_COUNT', predicate: { kind: 'castRoleCount', count: 1, seatClass: 'leadOrAntagonist' } } as const
+function person(state: GameState, id: string) { const r = state.talent.find((t) => t.id === id); if (r === undefined) throw new Error('missing ' + id); return r }
+function realProven(state: GameState, id: string): boolean {
+  const subject = person(state, id)
+  return subject.age >= 30 || careerIdentity(subject).identityDisciplines.length > 0
+}
+type ReadObservation = { input: GameState; draft: Parameters<typeof promiseModule.promiseFeasibility>[1]; week: number;
+  proposal: TalentMarketProposal; submission: TalentMarketReceipt; receipt: ReturnType<typeof promiseModule.promiseFeasibility> }
+type AttachmentObservation = { before: GameState; after: GameState; talentId: string; issuer: string;
+  draft: Parameters<typeof promiseModule.attachPromise>[3] }
+type FreezeObservation = { input: GameState; draft: Parameters<typeof promiseModule.promiseFeasibility>[1]; week: number;
+  receipt: ReturnType<typeof promiseModule.promiseFeasibility> }
+function policyScan(seed: string) {
+  const evaluate = promiseModule.promiseFeasibility
+  const attach = promiseModule.attachPromise
+  const market = marketModule.advanceTalentMarketWeek
+  let reads: ReadObservation[] = []
+  let attachments: AttachmentObservation[] = []
+  let freezes: FreezeObservation[] = []
+  const seen = new Set<string>()
+  const witnesses: string[] = []
+  const readSpy = vi.spyOn(promiseModule, 'promiseFeasibility').mockImplementation((input, draft, week) => {
+    if (draft.promiseId !== undefined) {
+      const receipt = evaluate(input, draft, week)
+      if (input.talentMarket.proposals.some((p) => p.promises.includes(draft.promiseId!))) {
+        freezes.push(clone({ input, draft, week, receipt }))
+      }
+      return receipt
+    }
+    if (input.hollywood === null || draft.issuerStudioId === input.hollywood.playerStudioId) return evaluate(input, draft, week)
+    const proposals = input.talentMarket.proposals.filter((p) => p.talentId === draft.beneficiaryPersonId && p.issuerStudioId === draft.issuerStudioId)
+    if (proposals.length === 0 || proposals[0]!.promises.length !== 0) return evaluate(input, draft, week)
+    const before = clone(input), draftBefore = clone(draft)
+    const receipt = evaluate(input, draft, week)
+    expect(input).toEqual(before)
+    expect(draft).toEqual(draftBefore)
+    expect(proposals).toHaveLength(1)
+    const proposal = proposals[0]!
+    expect(input.hollywood.identities.find((s) => s.studioId === proposal.issuerStudioId)?.role).toBe('rival')
+    expect(input.talentMarket.cases.filter((c) => c.talentId === proposal.talentId && c.outcome === null)).toHaveLength(1)
+    expect(proposal.submittedWeek).toBe(week)
+    expect(week).toBe(input.market.tick)
+    const submissions = input.talentMarket.receipts.filter((r) => r.kind === 'proposalSubmitted'
+      && r.talentId === proposal.talentId && r.studioId === proposal.issuerStudioId && r.week === week)
+    expect(submissions).toHaveLength(1)
+    const observed = clone({ input, draft, week, proposal, submission: submissions[0]!, receipt })
+    const duplicate = reads.find((r) => r.submission.eventId === observed.submission.eventId
+      && r.draft.family === draft.family && JSON.stringify(r.draft.predicate) === JSON.stringify(draft.predicate))
+    if (duplicate === undefined) reads.push(observed)
+    else expect(observed).toEqual(duplicate)
+    return receipt
+  })
+  const attachSpy = vi.spyOn(promiseModule, 'attachPromise').mockImplementation((input, id, issuer, draft) => {
+    const before = clone(input), draftBefore = clone(draft)
+    const after = attach(input, id, issuer, draft)
+    expect(input).toEqual(before)
+    expect(draft).toEqual(draftBefore)
+    expect(after.rngState).toBe(input.rngState)
+    attachments.push(clone({ before, after, talentId: id, issuer, draft }))
+    return after
+  })
+  const marketSpy = vi.spyOn(marketModule, 'advanceTalentMarketWeek').mockImplementation((input) => {
+    const before = clone(input)
+    const after = market(input)
+    expect(input).toEqual(before)
+    expect(after.rngState).toBe(input.rngState)
+    return after
+  })
+  try {
+    let state = p13aGeneratedStudio(seed)
+    for (let step = 0; step < 220; step++) {
+      reads = []; attachments = []; freezes = []
+      state = tick(state)
+      const submissions = state.talentMarket.receipts.filter((r) => r.kind === 'proposalSubmitted'
+        && r.studioId !== null && r.studioId !== state.hollywood!.playerStudioId && r.week === state.market.tick)
+      for (const submission of submissions) {
+        const calls = reads.filter((r) => r.submission.eventId === submission.eventId)
+        expect(calls.length).toBeGreaterThan(0)
+        const first = calls[0]!
+        expect(first.submission).toEqual(submission)
+        const proven = realProven(first.input, first.proposal.talentId)
+        const candidates = proven ? [P1] : [FLEX, P1]
+        const expectedCount = !proven && first.receipt.classification !== ACHIEVABLE ? 2 : 1
+        expect(calls).toHaveLength(expectedCount)
+        for (const [index, call] of calls.entries()) {
+          expect(call.input).toEqual(first.input)
+          expect(call.proposal).toEqual(first.proposal)
+          expect(call.submission).toEqual(submission)
+          expect(call.draft).toEqual({ ...candidates[index], issuerStudioId: first.proposal.issuerStudioId,
+            beneficiaryPersonId: first.proposal.talentId, startWeek: first.proposal.startWeek, termWeeks: first.proposal.termWeeks,
+            windowStartWeek: first.proposal.startWeek, dueWeekExclusive: first.proposal.startWeek + first.proposal.termWeeks })
+        }
+        const chosen = calls.find((call) => call.receipt.classification === ACHIEVABLE)
+        const writes = attachments.filter((a) => a.talentId === first.proposal.talentId && a.issuer === first.proposal.issuerStudioId)
+        const current = marketModule.currentProposals(state, first.proposal.talentId).filter((p) => p.issuerStudioId === first.proposal.issuerStudioId)
+        const originalCases = first.input.talentMarket.cases.filter((c) => c.talentId === first.proposal.talentId && c.outcome === null)
+        expect(originalCases).toHaveLength(1)
+        const originalCase = originalCases[0]!
+        const finalCases = state.talentMarket.cases.filter((c) => c.talentId === originalCase.talentId
+          && c.contractId === originalCase.contractId && c.openedWeek === originalCase.openedWeek)
+        expect(finalCases).toHaveLength(1)
+        const finalCase = finalCases[0]!
+        let terminal: TalentMarketReceipt | undefined
+        if (finalCase.outcome === null) {
+          expect(finalCase).toEqual(originalCase)
+          expect(current).toHaveLength(1)
+        } else {
+          expect(['settled', 'declined']).toContain(finalCase.outcome)
+          expect(finalCase.closedWeek).toBe(first.week)
+          const decision = first.input.hollywood!.employment.find((e) => e.contractId === originalCase.contractId)
+          expect(decision).toBeDefined()
+          expect(decision!.terms.endWeekExclusive).toBeLessThanOrEqual(first.week)
+          expect(marketModule.currentProposals(state, originalCase.talentId)).toEqual([])
+          const terminals = state.talentMarket.receipts.filter((r) => r.talentId === originalCase.talentId
+            && r.kind === finalCase.outcome && r.week === first.week
+            && !first.input.talentMarket.receipts.some((old) => old.eventId === r.eventId))
+          expect(terminals).toHaveLength(1)
+          terminal = terminals[0]!
+          if (terminal.kind === 'settled') {
+            expect(terminal.studioId).not.toBeNull()
+            const winner = state.hollywood!.employment.filter((e) => e.terms.talentId === originalCase.talentId
+              && e.studioId === terminal!.studioId && e.terms.startWeek === first.week && e.endedWeek === null)
+            expect(winner).toHaveLength(1)
+            expect(first.input.hollywood!.employment.some((e) => e.contractId === winner[0]!.contractId)).toBe(false)
+          }
+        }
+        const beforePair = first.input.promises.filter((p) => p.beneficiaryPersonId === first.proposal.talentId && p.issuerStudioId === first.proposal.issuerStudioId)
+        const afterPair = state.promises.filter((p) => p.beneficiaryPersonId === first.proposal.talentId && p.issuerStudioId === first.proposal.issuerStudioId)
+        const describeRead = (kind: string) => `${kind} w${first.week} ${first.proposal.issuerStudioId} -> ${who(state, first.proposal.talentId)} reads=${calls.map((c) => `${c.draft.family}/${JSON.stringify(c.draft.predicate)} => ${c.receipt.classification}:${c.receipt.bottleneck ?? 'null'} rules=${c.receipt.rulesVersion} w${c.receipt.week}`).join(' ; ')}`
+        if (chosen === undefined) {
+          expect(writes).toEqual([])
+          expect(afterPair).toEqual(beforePair)
+          if (terminal === undefined) expect(current).toEqual([first.proposal])
+          if (!proven) { if (!seen.has('neither')) witnesses.push(describeRead('neither')); seen.add('neither') }
+        } else {
+          expect(writes).toHaveLength(1)
+          const write = writes[0]!
+          expect(write.before).toEqual(chosen.input)
+          expect(write.after.promises.slice(0, -1)).toEqual(write.before.promises)
+          expect(write.after.promises).toHaveLength(write.before.promises.length + 1)
+          expect(write.draft).toEqual({ family: chosen.draft.family, predicate: chosen.draft.predicate,
+            windowStartWeek: chosen.draft.windowStartWeek, dueWeekExclusive: chosen.draft.dueWeekExclusive })
+          const root = write.after.promises.at(-1)!
+          const authored = marketModule.currentProposals(write.after, first.proposal.talentId)
+            .filter((p) => p.issuerStudioId === first.proposal.issuerStudioId)
+          expect(authored).toHaveLength(1)
+          const proposal = authored[0]!
+          expect(proposal).toEqual({ ...first.proposal, promises: proposal.promises, digest: proposal.digest })
+          expect(proposal.promises).toEqual([root.promiseId])
+          expect(proposal.digest).not.toBe(first.proposal.digest)
+          expect(root).toMatchObject({ family: chosen.draft.family, predicate: chosen.draft.predicate,
+            issuerStudioId: first.proposal.issuerStudioId, beneficiaryPersonId: first.proposal.talentId,
+            windowStartWeek: first.proposal.startWeek, dueWeekExclusive: first.proposal.startWeek + first.proposal.termWeeks,
+            contractId: null, outcome: null, progress: 0, evidenceRefs: [] })
+          expect(root.feasibilityReceipt).toEqual(chosen.receipt)
+          expect(root.feasibilityReceipt.week).toBe(submission.week)
+          expect(afterPair.filter((p) => beforePair.some((old) => old.promiseId === p.promiseId))).toEqual(beforePair)
+          const newRoots = afterPair.filter((p) => !beforePair.some((old) => old.promiseId === p.promiseId))
+          expect(newRoots).toHaveLength(1)
+          const finalRoot = newRoots[0]!
+          expect(finalRoot.promiseId).toBe(root.promiseId)
+          if (terminal?.kind === 'settled' && terminal.studioId === root.issuerStudioId) {
+            const employment = state.hollywood!.employment.filter((e) => e.contractId === finalRoot.contractId)
+            expect(employment).toHaveLength(1)
+            expect(employment[0]!).toMatchObject({ studioId: root.issuerStudioId, endedWeek: null,
+              terms: { talentId: root.beneficiaryPersonId, startWeek: first.week, termWeeks: first.proposal.termWeeks } })
+            const matching = freezes.filter((f) => f.draft.promiseId === root.promiseId && f.week === first.week
+              && f.receipt.classification === ACHIEVABLE
+              && f.input.talentMarket.proposals.some((p) => p.talentId === proposal.talentId
+                && p.issuerStudioId === proposal.issuerStudioId && p.digest === proposal.digest))
+            expect(matching.length).toBeGreaterThan(0)
+            expect(matching.map((f) => f.receipt)).toContainEqual(finalRoot.feasibilityReceipt)
+            for (const frozen of matching) {
+              expect(frozen.input.promises.find((p) => p.promiseId === root.promiseId)).toEqual(root)
+              expect(frozen.input.hollywood!.employment.some((e) => e.contractId === finalRoot.contractId)).toBe(false)
+            }
+            expect(finalRoot).toEqual({ ...root, contractId: employment[0]!.contractId,
+              feasibilityReceipt: finalRoot.feasibilityReceipt })
+            expect(finalRoot.feasibilityReceipt.week).toBe(first.week)
+          } else {
+            expect(finalRoot).toEqual(root)
+            if (terminal === undefined) expect(current).toEqual([proposal])
+          }
+          const kind = proven ? 'provenP1' : chosen.draft.family === 'LEAD_OR_SIGNIFICANT_ROLE_COUNT' ? 'flexibleP2' : 'P1fallback'
+          if (!seen.has(kind)) witnesses.push(describeRead(kind) + ` root=${root.promiseId}`)
+          seen.add(kind)
+        }
+      }
+      if (seen.size === 4) break
+    }
+    return { seen: [...seen].sort(), witnesses, lastWeek: state.market.tick }
+  } finally {
+    marketSpy.mockRestore(); attachSpy.mockRestore(); readSpy.mockRestore()
+  }
+}
+
+describe('600-T4 probe', () => {
+  it('A rival scan', () => {
+    const seeds = (process.env.T4_SEEDS ?? 'seed-b,seed-d').split(',')
+    for (const seed of seeds) {
+      const result = rivalScan(seed)
+      console.log(`SEED ${seed}: ${result.met === null ? 'NOT MET' : 'BOTH MET at w' + result.met}\n` + result.lines.map((l) => '  ' + l).join('\n'))
+    }
+  })
+  it('B second beneficiary from the fixture state', () => {
+    const raw = gunzipSync(readFileSync(new URL('./fixtures/p14/genuine-v29-pre-p2/genuine-v29-bound-open-p1.json.gz', import.meta.url))).toString('utf8')
+    const saved = validateSaveV29(JSON.parse(raw))
+    expect(exportSave(saved)).toBe(raw)
+    const state = makeSave(saved.state).state
+    const issuer = player(state)
+    const bound = state.promises.filter((p) => p.issuerStudioId === issuer && p.contractId !== null && p.outcome === null)
+    console.log(`TICK ${state.market.tick} issuer ${issuer} bound OPEN player roots: ${bound.map((p) => `${p.promiseId} -> ${who(state, p.beneficiaryPersonId)} ${p.family} ${JSON.stringify(p.predicate)} window=[${p.windowStartWeek},${p.dueWeekExclusive})`).join(' ; ')}`)
+    for (const p of bound) binding(state, p.promiseId)
+    const available = state.contracts.filter((c) => c.startWeek <= state.market.tick && state.market.tick < c.endWeekExclusive)
+    console.log(`CONTRACT ORDER (active at tick): ${available.map((c) => `${c.talentId}[${c.startWeek},${c.endWeekExclusive})`).join(' ')}`)
+    const focus = bound[0]!
+    const actorIds = available.map((c) => state.talent.find((t) => t.id === c.talentId)!).filter((t) => t.role === 'actor' && t.id !== focus.beneficiaryPersonId).map((t) => t.id)
+    console.log(`playerPayload(focus=${focus.promiseId} ${focus.beneficiaryPersonId}, 'lead') contract-order fill → antagonist=${actorIds[0]} support=${actorIds[1]} third=${actorIds[2]}`)
+    const others = bound.filter((p) => p.promiseId !== focus.promiseId).map((p) => p.beneficiaryPersonId)
+    console.log(`issuer's OTHER bound OPEN beneficiaries: ${JSON.stringify(others)}; employed actor now: ${others.map((id) => actorIds.includes(id)).join(',')}`)
+    console.log(`activeProductions at tick: ${state.studio.activeProductions.map((p) => `${p.id} cast=${JSON.stringify(p.cast)} rt=${p.remainingTicks}`).join(' ; ') || 'none'}`)
+    console.log(`greenlight check: applyActions accepts antagonist=${others[0]}? `)
+    const writer = available.map((c) => state.talent.find((t) => t.id === c.talentId)!).find((t) => t.role === 'writer')!
+    const director = available.map((c) => state.talent.find((t) => t.id === c.talentId)!).find((t) => t.role === 'director')!
+    const craft = available.map((c) => state.talent.find((t) => t.id === c.talentId)!).find((t) => t.role === 'craft')!
+    const used = new Set([...state.studio.activeProductions.map((p) => p.conceptId), ...state.studio.releasedFilms.map((p) => p.conceptId), ...state.scriptDevelopment.projects.map((p) => p.conceptId)])
+    const concept = state.concepts.find((c) => !used.has(c.id))!
+    const after = applyActions(state, [{ kind: 'greenlight', production: { conceptId: concept.id, writerId: writer.id, directorId: director.id,
+      cast: { lead: focus.beneficiaryPersonId, antagonist: others[0]!, support: actorIds.filter((id) => id !== others[0])[0]! }, craftIds: [craft.id],
+      shape: { opening: 'slowSetup', midpoint: 'revelation', ending: 'bittersweet' },
+      promise: { genre: concept.genre, intendedSegments: ['adult'], ranges: { intimacy: [-0.5, 0.5], tonalWeight: [-0.5, 0.5], kineticEnergy: [-0.5, 0.5] } },
+      budget: { negative: concept.baseNegativeCost, marketing: 0 } } }])
+    const film = after.studio.activeProductions.at(-1)!
+    console.log(`greenlit ${film.id} cast=${JSON.stringify(film.cast)} (productions before=${state.studio.activeProductions.length} after=${after.studio.activeProductions.length})`)
+    expect(after.studio.activeProductions.length).toBe(state.studio.activeProductions.length + 1)
+    expect(film.cast.antagonist).toBe(others[0])
+  })
+  it('C policy scan', () => {
+    const seeds = (process.env.T4_SEEDS ?? 'seed-b,seed-c').split(',')
+    for (const seed of seeds) {
+      const result = policyScan(seed)
+      console.log(`SEED ${seed}: seen=${JSON.stringify(result.seen)} lastWeek=${result.lastWeek}\n` + result.witnesses.map((w) => '  ' + w).join('\n'))
+    }
+  })
+})

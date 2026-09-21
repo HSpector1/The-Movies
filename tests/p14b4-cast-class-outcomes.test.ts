@@ -141,11 +141,16 @@ function oldBound() {
   return structuredClone(oldBoundCache)
 }
 
-function playerPayload(state: GameState, promiseId: string, slot: CastSlot): Extract<Action, { kind: 'greenlight' }>['production'] {
+function playerPayload(state: GameState, promiseId: string, slot: CastSlot, prefer: readonly string[] = []): Extract<Action, { kind: 'greenlight' }>['production'] {
   const promised = root(state, promiseId)
   const available = state.contracts.filter((c) => c.startWeek <= state.market.tick && state.market.tick < c.endWeekExclusive)
     .map((c) => state.talent.find((p) => p.id === c.talentId)!)
-  const actorIds = available.filter((p) => p.role === 'actor' && p.id !== promised.beneficiaryPersonId).map((p) => p.id)
+  const employed = available.filter((p) => p.role === 'actor' && p.id !== promised.beneficiaryPersonId).map((p) => p.id)
+  // 600-T4 (record 616 R-6 (iv)): `prefer` is the player's CAST CHOICE for the complementary seats, in
+  // order, before the default contract-order fill; each preferred person must already be an employed
+  // non-focus actor on this state (no binding, contract or person is invented).
+  for (const id of prefer) assert.ok(employed.includes(id), 'fixture prerequisite: preferred complementary actor is not an employed non-focus actor')
+  const actorIds = [...prefer, ...employed.filter((id) => !prefer.includes(id))]
   assert.ok(actorIds.length >= 2, 'fixture prerequisite: two lawful complementary actors missing')
   const cast: Record<CastSlot, string> = { lead: '', antagonist: '', support: '' }
   cast[slot] = promised.beneficiaryPersonId
@@ -165,9 +170,9 @@ function playerPayload(state: GameState, promiseId: string, slot: CastSlot): Ext
       intimacy: [-0.5, 0.5], tonalWeight: [-0.5, 0.5], kineticEnergy: [-0.5, 0.5] } },
     budget: { negative: concept.baseNegativeCost, marketing: 0 } }
 }
-function playerToFive(state: GameState, promiseId: string, slot: CastSlot): Prepared {
+function playerToFive(state: GameState, promiseId: string, slot: CastSlot, prefer: readonly string[] = []): Prepared {
   binding(state, promiseId)
-  const payload = playerPayload(state, promiseId, slot)
+  const payload = playerPayload(state, promiseId, slot, prefer)
   state = applyActions(state, [{ kind: 'greenlight', production: payload }])
   const productionId = state.studio.activeProductions.at(-1)!.id
   expect(state.firstTakes.some((take) => take.productionId === productionId)).toBe(false)
@@ -203,7 +208,13 @@ type RivalWorlds = { slots: Record<CastSlot, Prepared>; genuine: Prepared }
 let rivalCache: RivalWorlds | undefined
 function rivalWorlds(): RivalWorlds {
   if (rivalCache !== undefined) return structuredClone(rivalCache)
-  let state = p13aGeneratedStudio()
+  // 600-T4 (record 616 R-6; 600-R Q6 (iii)): the default seed never meets `genuine` within 350 ticks (its
+  // only bound tagged root is to a craft worker never cast; 600-T2 D.1). 'seed-b' is the first candidate
+  // where THIS search meets both prerequisites: at w215 all three slots on ONE rival film
+  // (studio-bc14baf6-r01:film:23; lead promise-8 tagged leadOrAntagonist, antagonist promise-6 P1,
+  // support promise-4 tagged) and genuine = that lead root (scan log 600-T4-scan-A-rival-seed-b-seed-d.log).
+  // Every other case in this file keeps its own default-seed chain.
+  let state = p13aGeneratedStudio('seed-b')
   const slots: Partial<Record<CastSlot, Prepared>> = {}
   let genuine: Prepared | undefined
   for (let steps = 0; steps <= 350; steps++) {
@@ -431,7 +442,15 @@ describe('P14B4 labeled outcome-owner probes on real bound roots and actual cast
   })
 
   it('two genuinely bound beneficiaries share one completed take but receive DISTINCT own outcome receipts exactly once', () => {
-    let prepared = variant(playerAtFive('lead'), p2('lead'))
+    // 600-T4 (record 616 R-6 (iv)): a CAST CHOICE, never an invented binding. The issuer's other genuinely
+    // bound OPEN beneficiary is read from the state (the frozen fixture carries exactly one); playerPayload's
+    // contract-order fill seats that person third, so the player chooses them for the antagonist seat
+    // through the same playerPayload/greenlight route (scan log 600-T4-scan-B-second-beneficiary.log).
+    const old = oldBound()
+    const others = old.state.promises.filter((p) => p.issuerStudioId === player(old.state) && p.promiseId !== old.promiseId
+      && p.contractId !== null && p.outcome === null).map((p) => p.beneficiaryPersonId)
+    expect(others).toHaveLength(1)
+    let prepared = variant(playerToFive(old.state, old.promiseId, 'lead', others), p2('lead'))
     const film = production(prepared)
     const other = prepared.state.promises.find((p) => p.issuerStudioId === prepared.studioId
       && p.beneficiaryPersonId === film.cast.antagonist && p.contractId !== null && p.outcome === null)

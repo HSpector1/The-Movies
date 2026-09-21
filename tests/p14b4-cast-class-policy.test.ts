@@ -341,6 +341,10 @@ type AttachmentObservation = { before: GameState; after: GameState; talentId: st
 type FreezeObservation = { input: GameState; draft: Parameters<typeof promiseFeasibility>[1]; week: number;
   receipt: ReturnType<typeof promiseFeasibility> }
 
+const witness = (seed: string | undefined, kind: string, first: ReadObservation, calls: readonly ReadObservation[], rootId: string | null) =>
+  `${seed ?? 'default seed'} w${first.week} ${kind}: ${first.proposal.issuerStudioId} -> ${first.proposal.talentId} reads ${calls
+    .map((c) => `${c.draft.family}=${c.receipt.classification}${c.receipt.bottleneck === null ? '' : ':' + c.receipt.bottleneck}`).join(', ')}${rootId === null ? '' : ' root ' + rootId}`
+
 describe('P14B4: natural rival policy uses the real shared service, never staged failed candidates', () => {
   it('observes flexible-first, actual P1 fallback, proven P1, and a genuine zero-attachment refusal without extra RNG', () => {
     const evaluate = promiseModule.promiseFeasibility
@@ -398,8 +402,9 @@ describe('P14B4: natural rival policy uses the real shared service, never staged
       expect(after.rngState).toBe(input.rngState)
       return after
     })
-    try {
-      let state = p13aGeneratedStudio()
+    // One chain per seed, the same search and in-loop assertions for every seed; `seen` accumulates.
+    const scan = (seed?: string) => {
+      let state = p13aGeneratedStudio(seed)
       for (let step = 0; step < 220; step++) {
         reads = []; attachments = []; freezes = []
         state = tick(state)
@@ -466,6 +471,7 @@ describe('P14B4: natural rival policy uses the real shared service, never staged
             // No attachment means no newly minted pair root or reservation.
             expect(afterPair).toEqual(beforePair)
             if (terminal === undefined) expect(current).toEqual([first.proposal])
+            if (!proven && !seen.has('neither')) console.log(witness(seed, 'neither', first, calls, null))
             if (!proven) seen.add('neither') // requires actual BOTH-candidate refusal
           } else {
             expect(writes).toHaveLength(1)
@@ -518,11 +524,23 @@ describe('P14B4: natural rival policy uses the real shared service, never staged
               expect(finalRoot).toEqual(root) // open, declined or another studio won
               if (terminal === undefined) expect(current).toEqual([proposal])
             }
-            seen.add(proven ? 'provenP1' : chosen.draft.family === 'LEAD_OR_SIGNIFICANT_ROLE_COUNT' ? 'flexibleP2' : 'P1fallback')
+            const kind = proven ? 'provenP1' : chosen.draft.family === 'LEAD_OR_SIGNIFICANT_ROLE_COUNT' ? 'flexibleP2' : 'P1fallback'
+            if (!seen.has(kind)) console.log(witness(seed, kind, first, calls, root.promiseId))
+            seen.add(kind)
           }
         }
         if (seen.size === 4) break
       }
+    }
+    try {
+      scan() // the default seed: every witness it carried before 600-T4 is still required of it below
+      expect([...seen].sort()).toEqual(expect.arrayContaining(['flexibleP2', 'neither', 'provenP1']))
+      // 600-T4 (record 616 R-6; F-G9-1): the P1-fallback branch (FLEX non-achievable, P1 achievable for an
+      // unproven person) has no natural witness on the default seed within 220 ticks (600-T2 D.3). 'seed-b'
+      // carries it at w196 (r03 -> r03-4, actor 28: FLEX FRAGILE "needs a picture not yet commissioned", P1
+      // REASONABLY_ACHIEVABLE, root promise-36; scan log 600-T4-scan-C-policy-seed-b-seed-c-bottleneck.log),
+      // found by this same search with the same in-loop assertions. Never a synthetic state.
+      scan('seed-b')
     } finally {
       marketSpy.mockRestore(); attachSpy.mockRestore(); readSpy.mockRestore()
     }
