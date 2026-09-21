@@ -130,7 +130,7 @@ function s6ForgeV26(genuineV25State: GameState, mutate: (state: GameState) => Ga
  */
 function s6ForgeLive(genuineV25State: GameState, mutate: (state: GameState) => GameState) {
   const v25Envelope = { saveVersion: 25 as const, seed: genuineV25State.seed, state: genuineV25State, broadcastCache: genuineV25State.broadcastItems }
-  const lifted = (save as unknown as { migrateToV29: (envelope: unknown) => { seed: string; state: GameState; broadcastCache: unknown } }).migrateToV29(v25Envelope)
+  const lifted = (save as unknown as { migrateToV30: (envelope: unknown) => { seed: string; state: GameState; broadcastCache: unknown } }).migrateToV30(v25Envelope)
   const mutated = mutate(lifted.state)
   const envelope = { saveVersion: save.LIVE_SAVE_VERSION, seed: lifted.seed, state: mutated, broadcastCache: lifted.broadcastCache }
   const json = save.exportSave(envelope as unknown as Parameters<typeof save.exportSave>[0])
@@ -251,7 +251,7 @@ describe('P13B-S6 Save V26: genuine V25 fixtures, honest lift, chains, validator
       // clock's reach (already proven by tests/p13b-s6-ordering.test.ts case 3).
       return advanceTo(cancelled, 320)
     })
-    expect((reimported as { saveVersion: number }).saveVersion).toBe(29) // did NOT throw (at the live version this real advance writes)
+    expect((reimported as { saveVersion: number }).saveVersion).toBe(30) // did NOT throw (at the live version this real advance writes)
   })
 
   it('REFUSED: a cancelled placement marked operational', () => {

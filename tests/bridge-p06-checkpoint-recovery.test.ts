@@ -14,7 +14,7 @@ import { SCHEMA_ID } from '../bridge/protocol.ts'
 import { canonicalJson } from '../bridge/schema/canonical.ts'
 import type { BridgeCheckpointStore } from '../bridge/runtime/checkpoint-store.ts'
 import { createBridgeRuntimeCoordinator } from '../bridge/runtime/runtime-coordinator.ts'
-import { importSave, type SaveFileV29 } from '../src/core/save.js'
+import { importSave, type SaveFileV30 } from '../src/core/save.js'
 import { initialTechnology } from '../src/core/technology.js'
 import { initialPhysicalPlans } from '../src/core/physicalPlans.js'
 import { initialTalentMarket } from '../src/core/talentMarket.js'
@@ -51,7 +51,7 @@ function previous(bytes: string): BridgeRuntimeCheckpointV1 {
   return JSON.parse(bytes) as BridgeRuntimeCheckpointV1
 }
 
-function expectPreservedGameplay(beforeJson: string, after: SaveFileV29): void {
+function expectPreservedGameplay(beforeJson: string, after: SaveFileV30): void {
   const before = importSave(beforeJson)
   if (before.saveVersion !== 16) throw new Error('Frozen P06 evidence must contain an original Save V16')
   // Assert every old root, including IDs, commitment, cash/ledger, week and RNG,
@@ -67,7 +67,7 @@ function expectPreservedGameplay(beforeJson: string, after: SaveFileV29): void {
   // against `initialTechnology`, whose adoptions are always empty), but
   // `placement.facilities` is compared generically as part of `afterState`
   // below, so the expected object widens that leaf explicitly.
-  // Comparing with migrateToV29's own output would not prove preservation.
+  // Comparing with migrateToV30's own output would not prove preservation.
   const oldIds=new Set(before.state.talent.map(t=>t.id))
   const {hollywood,technology,physicalPlans,talentMarket,firstTakes,promises,...afterState}=after.state
   expect(hollywood).toMatchObject({origin:'migration',originWeek:before.state.market.tick,films:[]})
@@ -87,7 +87,7 @@ function expectPreservedGameplay(beforeJson: string, after: SaveFileV29): void {
     return copied
   })
   expect({...after,state:{...afterState,talent:oldPeople}}).toEqual({
-    saveVersion: 29,
+    saveVersion: 30,
     seed: before.seed,
     state: {
       ...before.state,

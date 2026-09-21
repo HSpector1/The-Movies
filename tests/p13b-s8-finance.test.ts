@@ -30,7 +30,7 @@
 //     on a rival Laboratory; the landed law PRICES it instead (S8 LAW item
 //     6) — inverted, and extended to price a held instrument module too.
 //   - "Migration basis frozen" now lifts a GENUINE V26 period (ten keys)
-//     through the real `migrateToV29` and compares it to its own V26
+//     through the real `migrateToV30` and compares it to its own V26
 //     source, rather than widening a LIVE period against itself — a live
 //     period already carries all fourteen keys under the landed engine, so
 //     that comparison was vacuous.
@@ -60,7 +60,7 @@ import type { HollywoodState, IndustryReceipt, RivalBusiness } from '../src/core
 import { admitRivalPlans } from '../src/core/rivalResearch.js'
 
 type SaveModuleWithV27 = typeof save & {
-  migrateToV29: (envelope: unknown) => { saveVersion: number; seed: string; state: GameState; broadcastCache: unknown[] }
+  migrateToV30: (envelope: unknown) => { saveVersion: number; seed: string; state: GameState; broadcastCache: unknown[] }
 }
 const withV27 = save as SaveModuleWithV27
 
@@ -156,7 +156,7 @@ describe('P13B-S8 rival finance: typed kinds and interval Opex reconcile, migrat
     expect(totalAfterRepeat).toBe(-TUNING.RESEARCH_LABORATORY_CAPEX)
   }, 30_000)
 
-  it('migration basis frozen: a GENUINE V26 period (ten keys), lifted through the real migrateToV29, carries the four new keys at zero and its nine original movements byte-identical (coordinator ruling: a LIVE period already carries all 14 keys — this compares the lifted period against its OWN V26 source, never a live period against itself)', () => {
+  it('migration basis frozen: a GENUINE V26 period (ten keys), lifted through the real migrateToV30, carries the four new keys at zero and its nine original movements byte-identical (coordinator ruling: a LIVE period already carries all 14 keys — this compares the lifted period against its OWN V26 source, never a live period against itself)', () => {
     const base = p13aGeneratedStudio(SEED) // week 0: no rival research fact exists yet, so the downgrade below is lossless
     const { business } = bellwether(base)
     const v27Envelope = save.makeSave(base)
@@ -167,7 +167,7 @@ describe('P13B-S8 rival finance: typed kinds and interval Opex reconcile, migrat
     expect(Object.keys(v26Period.movements)).toHaveLength(10) // the genuine pre-S8 shape: ten kinds, none of the four research ones
     for (const kind of RIVAL_RESEARCH_MONEY_KINDS) expect(Object.hasOwn(v26Period.movements, kind)).toBe(false)
 
-    const lifted = withV27.migrateToV29(v26Envelope)
+    const lifted = withV27.migrateToV30(v26Envelope)
     const liftedHollywood = lifted.state.hollywood as unknown as HollywoodState
     const liftedBusiness = liftedHollywood.businesses.find(b => b.studioId === business.studioId)!
     const liftedPeriod = liftedBusiness.account.periods[0]!

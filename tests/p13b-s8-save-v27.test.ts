@@ -184,7 +184,7 @@ describe('P13B-S8 Save V27: genuine V26 fixtures, honest lift, conditional downg
       .account.periods.reduce((sum, p) => sum + p.movements.researchCapacity, 0)
     expect(totalResearchCapacity).not.toBe(0) // the fact this refusal depends on is genuinely nonzero, not forged
     const envelope = save.makeSave(natural) // LIVE_SAVE_VERSION is 28 (P14A.1) — a real, validated SaveFileV28
-    expect(envelope.saveVersion).toBe(29)
+    expect(envelope.saveVersion).toBe(30)
     expect(() => save.migrateToV26(envelope as never)).toThrow(/cannot downgrade/i)
   })
 

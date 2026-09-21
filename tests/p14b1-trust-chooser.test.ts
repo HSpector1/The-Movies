@@ -536,20 +536,46 @@ describe('P14B.1 test 7: rival symmetry', () => {
   // B-F2 2026-09-19: has-discipline replaces the erroneous writer-label gate.
   // Observe the ORIGINAL authoring decision; neither a duplicate attachment nor
   // a later read with changed reservations can explain that historical decision.
+  //
+  // 600-T2 (record 600 S2, plan "Rival unproven authoring", 537-B G9, 600-B
+  // C10) — the "rival flexible-first authoring" class: for a publicly UNPROVEN
+  // person the rival reads the flexible leadOrAntagonist P2 (count 1, the full
+  // proposed term) FIRST and the P1 only when that read is not achievable; a
+  // PROVEN person gets the P1 read alone. The first REASONABLY_ACHIEVABLE read is
+  // attached, neither means no attachment, and every read of one authoring sees
+  // the SAME unchanged state. The observation therefore keeps the ORDERED reads
+  // of each submission and the public archetype at the authoring week.
+  type RivalAuthoringRead = {
+    draft: Parameters<typeof promiseFeasibility>[1]
+    receipt: ReturnType<typeof promiseFeasibility>
+  }
   type RivalAuthoringObservation = {
     input: GameState
-    draft: Parameters<typeof promiseFeasibility>[1]
+    inputRef: GameState
     week: number
     proposal: GameState['talentMarket']['proposals'][number]
     submission: TalentMarketReceipt
-    receipt: ReturnType<typeof promiseFeasibility>
+    proven: boolean
+    reads: RivalAuthoringRead[]
+  }
+  const FLEX_PREDICATE: CastRoleCountPredicate = { kind: 'castRoleCount', count: 1, seatClass: 'leadOrAntagonist' }
+  function expectedAuthoringDraft(
+    proposal: GameState['talentMarket']['proposals'][number],
+    family: 'APPEARANCE_COUNT' | 'LEAD_OR_SIGNIFICANT_ROLE_COUNT',
+  ): Parameters<typeof promiseFeasibility>[1] {
+    return {
+      family, predicate: family === 'APPEARANCE_COUNT' ? { count: 1 } : FLEX_PREDICATE,
+      issuerStudioId: proposal.issuerStudioId, beneficiaryPersonId: proposal.talentId,
+      startWeek: proposal.startWeek, termWeeks: proposal.termWeeks,
+      windowStartWeek: proposal.startWeek, dueWeekExclusive: proposal.startWeek + proposal.termWeeks,
+    }
   }
 
   function scanNaturalRivalAuthoring(
     visit: (after: GameState, observed: RivalAuthoringObservation) => boolean,
   ): void {
     const evaluate = promiseModule.promiseFeasibility
-    let pending: RivalAuthoringObservation[] = []
+    let pending = new Map<string, RivalAuthoringObservation>()
     const observer = vi.spyOn(promiseModule, 'promiseFeasibility').mockImplementation((input, draft, week) => {
       const receipt = evaluate(input, draft, week) // transparent: real inputs/result, no stub
       // Freeze/ranking calls supply promiseId. Authoring reads a genuinely
@@ -567,25 +593,34 @@ describe('P14B.1 test 7: rival symmetry', () => {
         c.talentId === proposal.talentId && c.outcome === null)).toHaveLength(1)
       expect(proposal.submittedWeek).toBe(week)
       expect(week).toBe(input.market.tick)
-      expect(draft).toEqual({
-        family: 'APPEARANCE_COUNT', predicate: { count: 1 },
-        issuerStudioId: proposal.issuerStudioId, beneficiaryPersonId: proposal.talentId,
-        startWeek: proposal.startWeek, termWeeks: proposal.termWeeks,
-        windowStartWeek: proposal.startWeek, dueWeekExclusive: proposal.startWeek + proposal.termWeeks,
-      })
       const submissions = input.talentMarket.receipts.filter((r) =>
         r.kind === 'proposalSubmitted' && r.talentId === proposal.talentId
         && r.studioId === proposal.issuerStudioId && r.week === proposal.submittedWeek)
       expect(submissions).toHaveLength(1)
       const submission = submissions[0]!
-      const observed: RivalAuthoringObservation = structuredClone({
-        input, draft, week, proposal, submission, receipt,
-      })
-      // Retain the first exact call if the same authoring input is evaluated
-      // more than once; a different state/tuple/result is not the same witness.
-      const prior = pending.find((candidate) => candidate.submission.eventId === submission.eventId)
-      if (prior === undefined) pending.push(observed)
-      else expect(observed).toEqual(prior)
+      // The public archetype at the authoring week (the same read the policy and
+      // D3 use; never a hidden fact): proven prefers any cast appearance.
+      const proven = marketModule.publicPreferredOpportunity(input, proposal.talentId) === 'anyCastAppearance'
+      let observed = pending.get(submission.eventId)
+      if (observed === undefined) {
+        observed = { ...structuredClone({ input, week, proposal, submission }), inputRef: input, proven, reads: [] }
+        pending.set(submission.eventId, observed)
+      } else {
+        // A later read of the same authoring sees the SAME state object (the
+        // flexible read attached nothing) and the same archetype.
+        expect(Object.is(input, observed.inputRef)).toBe(true)
+        expect(week).toBe(observed.week)
+        expect(proven).toBe(observed.proven)
+      }
+      // The flexible-first sequence: proven → [P1]; unproven → [FLEX, P1 only after
+      // a non-achievable FLEX read]. Any read beyond that sequence fails here.
+      const index = observed.reads.length
+      const sequence: ReadonlyArray<'APPEARANCE_COUNT' | 'LEAD_OR_SIGNIFICANT_ROLE_COUNT'> =
+        proven ? ['APPEARANCE_COUNT'] : ['LEAD_OR_SIGNIFICANT_ROLE_COUNT', 'APPEARANCE_COUNT']
+      expect(index).toBeLessThan(sequence.length)
+      expect(draft).toEqual(expectedAuthoringDraft(proposal, sequence[index]!))
+      if (index === 1) expect(observed.reads[0]!.receipt.classification).not.toBe('REASONABLY_ACHIEVABLE')
+      observed.reads.push(structuredClone({ draft, receipt }))
       return receipt
     })
     try {
@@ -593,16 +628,16 @@ describe('P14B.1 test 7: rival symmetry', () => {
       expect(state.talentMarket.receipts.filter((r) => r.kind === 'proposalSubmitted'
         && r.studioId !== null && r.studioId !== state.hollywood!.playerStudioId)).toEqual([])
       for (let step = 0; step < 220; step++) {
-        pending = []
+        pending = new Map()
         state = tick(state)
         const submissions = state.talentMarket.receipts.filter((r) =>
           r.kind === 'proposalSubmitted' && r.studioId !== null
           && r.studioId !== state.hollywood!.playerStudioId && r.week === state.market.tick)
         for (const submission of submissions) {
-          const observations = pending.filter((candidate) => candidate.submission.eventId === submission.eventId)
-          expect(observations).toHaveLength(1)
-          const observed = observations[0]!
+          const observed = pending.get(submission.eventId)
+          if (observed === undefined) throw new Error(`test premise failed: rival submission ${submission.eventId} was never authored`)
           expect(observed.submission).toEqual(submission)
+          expect(observed.reads.length).toBeGreaterThan(0)
           if (visit(state, observed)) return
         }
       }
@@ -626,12 +661,19 @@ describe('P14B.1 test 7: rival symmetry', () => {
     // Attachment changes only promise references and their material digest;
     // the exact submitted material/price tuple and submission week stay joined.
     expect(proposal).toEqual({ ...observed.proposal, promises: proposal.promises, digest: proposal.digest })
-    if (observed.receipt.classification !== 'REASONABLY_ACHIEVABLE') {
-      expect(['FRAGILE', 'IMPOSSIBLE']).toContain(observed.receipt.classification)
+    const chosenIndex = observed.reads.findIndex((read) => read.receipt.classification === 'REASONABLY_ACHIEVABLE')
+    if (chosenIndex === -1) {
+      // Every read of the sequence was taken and none was achievable: exactly
+      // [P1] for a proven person, exactly [FLEX, P1] for an unproven one.
+      expect(observed.reads).toHaveLength(observed.proven ? 1 : 2)
+      for (const read of observed.reads) expect(['FRAGILE', 'IMPOSSIBLE']).toContain(read.receipt.classification)
       expect(proposal.promises).toEqual([])
       expect(proposal.digest).toBe(observed.proposal.digest)
       return undefined
     }
+    // The FIRST achievable read is attached and no read follows it.
+    expect(chosenIndex).toBe(observed.reads.length - 1)
+    const chosen = observed.reads[chosenIndex]!
     expect(proposal.promises).toHaveLength(1)
     const authoredId = proposal.promises[0]!
     expect(observed.input.promises.some((p) => p.promiseId === authoredId)).toBe(false)
@@ -639,21 +681,22 @@ describe('P14B.1 test 7: rival symmetry', () => {
     expect(roots).toHaveLength(1)
     const authored = roots[0]!
     expect(authored).toMatchObject({
-      promiseId: authoredId, family: 'APPEARANCE_COUNT', predicate: { count: 1 },
+      promiseId: authoredId, family: chosen.draft.family, predicate: chosen.draft.predicate,
       issuerStudioId: observed.proposal.issuerStudioId, beneficiaryPersonId: observed.proposal.talentId,
       windowStartWeek: observed.proposal.startWeek,
       dueWeekExclusive: observed.proposal.startWeek + observed.proposal.termWeeks,
       contractId: null, outcome: null, progress: 0, evidenceRefs: [],
     })
-    expect(authored.predicate).toEqual({ count: 1 })
-    expect(authored.feasibilityReceipt).toEqual(observed.receipt)
+    expect(authored.predicate).toEqual(chosen.draft.predicate)
+    expect(authored.family).toBe(observed.proven || chosenIndex === 1 ? 'APPEARANCE_COUNT' : 'LEAD_OR_SIGNIFICANT_ROLE_COUNT')
+    expect(authored.feasibilityReceipt).toEqual(chosen.receipt)
     expect(authored.feasibilityReceipt.week).toBe(observed.week)
     expect(authored.feasibilityReceipt.classification).toBe('REASONABLY_ACHIEVABLE')
     expect(proposal.digest).not.toBe(observed.proposal.digest)
     return authored
   }
 
-  it('the FIRST natural rival proposal carries exactly one P1 iff its ORIGINAL authoring verdict is REASONABLY_ACHIEVABLE, with exact proposal/root/receipt joins', () => {
+  it('the FIRST natural rival proposal carries exactly one promise iff an ORIGINAL authoring read is REASONABLY_ACHIEVABLE — the flexible P2 read first for an unproven person, the P1 read alone for a proven one — with exact proposal/root/receipt joins', () => {
     scanNaturalRivalAuthoring((after, observed) => {
       const first = after.talentMarket.receipts.find((r) => r.kind === 'proposalSubmitted'
         && r.studioId !== null && r.studioId !== after.hollywood!.playerStudioId)
@@ -668,13 +711,23 @@ describe('P14B.1 test 7: rival symmetry', () => {
   // require a separately OBSERVED non-achievable authoring decision with zero
   // attachments. An absent negative within 220 weeks is a fixture finding,
   // never a conditional pass or permission to invent a refusal.
-  it('natural rival authoring preserves the first writer IFF, the first actor positive, and an actual non-achievable zero-attachment witness', () => {
+  // 600-T2: the first actor's "exactly one P1" becomes "exactly one promise —
+  // P1 if the actor is publicly proven, the flexible P2 if unproven" (600-B
+  // C10); the unproven flexible-P2 witness and the unproven "neither" witness
+  // join the proven negative so every branch of the delegated policy that has a
+  // natural witness within 220 weeks is observed. The unproven P1-FALLBACK
+  // branch (flexible not achievable, P1 achievable) has NO natural witness on
+  // this chain — recorded as a fixture finding, never synthesized here.
+  it('natural rival authoring preserves the first writer IFF, the first actor positive (P1 if proven, flexible P2 if unproven), an unproven flexible-P2 witness, and actual non-achievable zero-attachment witnesses for a proven and an unproven person', () => {
     let firstWriter: RivalAuthoringObservation | undefined
     let firstActor: RivalAuthoringObservation | undefined
-    let negative: RivalAuthoringObservation | undefined
+    let flexible: RivalAuthoringObservation | undefined
+    let negativeProven: RivalAuthoringObservation | undefined
+    let negativeUnproven: RivalAuthoringObservation | undefined
     scanNaturalRivalAuthoring((after, observed) => {
       const person = observed.input.talent.find((t) => t.id === observed.proposal.talentId)
       if (person === undefined) throw new Error('test premise failed: authoring subject has no real talent row')
+      const achievable = observed.reads.some((read) => read.receipt.classification === 'REASONABLY_ACHIEVABLE')
       if (firstWriter === undefined && person.role === 'writer') {
         firstWriter = observed
         expect(person.role).toBe('writer')
@@ -685,25 +738,53 @@ describe('P14B.1 test 7: rival symmetry', () => {
         if (firstWriter === undefined) throw new Error('search premise failed: first actor arrived before any first writer witness')
         firstActor = observed
         expect(person.role).toBe('actor')
-        expect(observed.receipt.classification).toBe('REASONABLY_ACHIEVABLE')
+        // The unconditional positive: the actor's FIRST read is achievable, so
+        // exactly that read's promise is authored — never a fallback.
+        expect(observed.reads[0]!.receipt.classification).toBe('REASONABLY_ACHIEVABLE')
         const authored = assertOriginalAuthoring(after, observed)
-        if (authored === undefined) throw new Error('test premise failed: first actor has no genuinely authored P1')
-        expect(authored.family).toBe('APPEARANCE_COUNT')
-        expect(authored.predicate).toEqual({ count: 1 })
+        if (authored === undefined) throw new Error('test premise failed: first actor has no genuinely authored promise')
+        if (observed.proven) {
+          expect(authored.family).toBe('APPEARANCE_COUNT')
+          expect(authored.predicate).toEqual({ count: 1 })
+        } else {
+          expect(authored.family).toBe('LEAD_OR_SIGNIFICANT_ROLE_COUNT')
+          expect(authored.predicate).toEqual(FLEX_PREDICATE)
+        }
         expect(authored.windowStartWeek).toBe(observed.proposal.startWeek)
         expect(authored.dueWeekExclusive).toBe(observed.proposal.startWeek + observed.proposal.termWeeks)
         expect(authored.feasibilityReceipt.classification).toBe('REASONABLY_ACHIEVABLE')
         expect(authored.contractId).toBeNull()
       }
-      if (negative === undefined && observed.receipt.classification !== 'REASONABLY_ACHIEVABLE') {
-        negative = observed
+      if (flexible === undefined && !observed.proven && observed.reads[0]!.receipt.classification === 'REASONABLY_ACHIEVABLE') {
+        flexible = observed
+        const authored = assertOriginalAuthoring(after, observed)
+        if (authored === undefined) throw new Error('test premise failed: achievable flexible read authored nothing')
+        expect(observed.reads).toHaveLength(1)
+        expect(authored.family).toBe('LEAD_OR_SIGNIFICANT_ROLE_COUNT')
+        expect(authored.predicate).toEqual(FLEX_PREDICATE)
+        // Why the rival reads it first: the tagged P2 is the opportunity an
+        // unproven person publicly prefers, which the P1 does not earn (D3).
+        expect(marketModule.publicPreferredOpportunity(after, person.id)).toBe('significantCastRole')
+        expect(marketModule.promiseMatchesPreferredOpportunity(after, person.id, authored)).toBe(true)
+        expect(marketModule.promiseMatchesPreferredOpportunity(after, person.id, { family: 'APPEARANCE_COUNT', predicate: { count: 1 } })).toBe(false)
+      }
+      if (negativeProven === undefined && observed.proven && !achievable) {
+        negativeProven = observed
         expect(assertOriginalAuthoring(after, observed)).toBeUndefined() // checks EXACTLY zero attachments
       }
-      return firstWriter !== undefined && firstActor !== undefined && negative !== undefined
+      if (negativeUnproven === undefined && !observed.proven && !achievable) {
+        negativeUnproven = observed
+        expect(observed.reads.map((read) => read.draft.family)).toEqual(['LEAD_OR_SIGNIFICANT_ROLE_COUNT', 'APPEARANCE_COUNT'])
+        expect(assertOriginalAuthoring(after, observed)).toBeUndefined() // neither read achievable: zero attachments
+      }
+      return firstWriter !== undefined && firstActor !== undefined && flexible !== undefined
+        && negativeProven !== undefined && negativeUnproven !== undefined
     })
     expect(firstWriter).toBeDefined()
     expect(firstActor).toBeDefined()
-    expect(negative).toBeDefined()
+    expect(flexible).toBeDefined()
+    expect(negativeProven).toBeDefined()
+    expect(negativeUnproven).toBeDefined()
   })
 
   it('a rival first take satisfies a promise exactly as a player one does — found by direct search over the natural chain (never a magic week)', () => {

@@ -48,7 +48,7 @@ import {
   studioCalendar,
   tick,
   validateSave,
-  validateSaveV29,
+  validateSaveV30,
 } from '../src/core/index.js'
 import {
   DEVELOPMENT_CASTING_ANNEX_BLUEPRINT,
@@ -775,9 +775,9 @@ describe('C1-M3a (F) — saves, boundaries, and determinism', () => {
     state = advance(state, 2)
 
     const save = makeSave(state)
-    expect(save.saveVersion).toBe(29)
+    expect(save.saveVersion).toBe(30)
     expect(validateSave(save)).toBe(save)
-    expect(validateSaveV29(save)).toBe(save)
+    expect(validateSaveV30(save)).toBe(save)
     const json = exportSave(save)
     expect(exportSave(importSave(json))).toBe(json)
     const reloaded = migrateToCurrentControl(importSave(json)).state

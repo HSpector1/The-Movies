@@ -551,12 +551,18 @@ describe('CF-08 sound union-to-C# generation', () => {
       expect(response.promotedProperties.map((property) => property.wireName)).not.toContain('title')
       expect(response.promotedProperties.map((property) => property.wireName)).not.toContain('noFeeLine')
 
-      const generated = generateCsharpContract({ schema, protocolVersion: 4, projectionVersion: 46 })
+      // P14B.4 (record 600, projection 47): the family-discriminated P2 draft
+      // (required seatClass), nullable seatClass on own snapshot/history rows and
+      // preferredOpportunity on preferences moved the whole-schema identity. The
+      // literal below is the schemaId of the checked-in
+      // generated/unity/project-studio-bridge.contract-manifest.json at 027155e7,
+      // read independently of this test (never schemaIdentity(schema) itself).
+      const generated = generateCsharpContract({ schema, protocolVersion: 4, projectionVersion: 47 })
       expect(generated).toContain(
-        '// Schema identity: sha256:584bdd8565030f049d548b1af4fcbf8c517ca7c9150016736f632f1ef8fcb98c',
+        '// Schema identity: sha256:6f6b48805aadcf14d456614d87bf1571eb1ce0d9aa0bc44f604e7976f4f85538',
       )
       expect(schemaIdentity(schema)).toBe(
-        'sha256:584bdd8565030f049d548b1af4fcbf8c517ca7c9150016736f632f1ef8fcb98c',
+        'sha256:6f6b48805aadcf14d456614d87bf1571eb1ce0d9aa0bc44f604e7976f4f85538',
       )
       expect(generated).toContain('public sealed partial class StudioQuoteCastingRequest : StudioBridgeQuoteRequest')
       expect(generated).toContain('public StudioCastingDraftPayload draft;')
@@ -653,8 +659,16 @@ describe('CF-08 sound union-to-C# generation', () => {
         // identity/outcome fields and promise attention/Pulse facts widen the
         // current schema. F10 and F11 render that WHOLE schema, not frozen union
         // subsets; both exact declaration-body identities therefore move together.
-        F10_CURRENT_QUOTE_UNIONS: '9edf6dedf8ac4305a44d3a59ce124e56d5bee4916a9ab63d3d95cf3c9fedb64e',
-        F11_CURRENT_COMMAND_UNION: '9edf6dedf8ac4305a44d3a59ce124e56d5bee4916a9ab63d3d95cf3c9fedb64e',
+        // P14B.4 (projection 47, record 600): StudioMarketProposalPromiseDraftPayload
+        // becomes a family-discriminated union (APPEARANCE_COUNT count-only /
+        // LEAD_OR_SIGNIFICANT_ROLE_COUNT with required seatClass), `seatClass`
+        // (nullable) joins the own promise snapshot and history rows and
+        // `preferredOpportunity` joins the preferences block. Both fixtures render
+        // the WHOLE schema, so both declaration-body identities move together.
+        // Value computed once by the generator on 027155e7 (600-T2 record), not by
+        // this test against itself.
+        F10_CURRENT_QUOTE_UNIONS: '53058c23075427647bf9e24052128cd4f7ad0340fa54763e3e75df25aeea482e',
+        F11_CURRENT_COMMAND_UNION: '53058c23075427647bf9e24052128cd4f7ad0340fa54763e3e75df25aeea482e',
         F12_P05_PRODUCTION_SENTINEL: '78d68a2d7670585946f79ebbfc449c85c8ad98ac381b422a8a9abea66702bde6',
       } as const
       for (const [name, expectedHash] of Object.entries(expected)) {

@@ -62,7 +62,7 @@ describe('Owner UX outgoing projection20 migration', () => {
     expect(sha(beforeBytes)).toBe('88049d4408573de3a36a56957c2b8d3aed36655b9b3dbadc68da7bef991a8510')
     expect(sha(afterBytes)).toBe('a02fd2ac61c4dab71327cc685d0649da005c43f3834e47366f63a46318dfd10b')
     expect(PROTOCOL_VERSION).toBe(4)
-    expect(PROJECTION_VERSION).toBe(46)
+    expect(PROJECTION_VERSION).toBe(47)
     expect(SCHEMA_ID).not.toBe(P20_SCHEMA)
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(P20_SCHEMA)).toBe('projection-v20')
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)
@@ -116,7 +116,7 @@ describe('Owner UX outgoing projection20 migration', () => {
     for(const [beforeJson,afterJson,afterDigest] of [[predecessor.currentSaveJson,next.currentSaveJson,next.currentStateDigest],[predecessor.savedSaveJson,next.savedSaveJson,next.savedStateDigest]]){
       if(beforeJson===null){expect(afterJson).toBeNull();expect(afterDigest).toBeNull();continue}
       const before=JSON.parse(beforeJson),after=JSON.parse(afterJson!)
-      expect(after.saveVersion).toBe(29)
+      expect(after.saveVersion).toBe(30)
       const {hollywood,technology,physicalPlans,talentMarket,firstTakes,promises,...oldRoots}=after.state
       expect(technology).toEqual({ version: 4, recordingStartedWeek: before.state.market.tick, cooperationFromWeek: before.state.market.tick, projects: [], access: [], adoptions: [], productions: [], equipment: [], nextEquipmentId: 0 })
       // P13B-S3: V23 adds the physical-plan root, empty at the migration week.

@@ -5,6 +5,7 @@ import { describe, expect, it } from 'vitest'
 import { SCHEMA_ID } from '../bridge/protocol.ts'
 import { loadBridgeRuntimeCheckpoint, SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS } from '../bridge/runtime-checkpoint.ts'
 import { BridgeSession } from '../bridge/session.ts'
+import { exportSave, importSave, migrateToV30 } from '../src/core/save.js'
 
 // Genuine e37cd23 projection45 export, not a current checkpoint with restamped ID.
 const OUTGOING_45 = 'sha256:5b2a4ca93d930e90a288db55bb5cc3fdc8eea070ef51fa1450a193a325bd755d'
@@ -31,10 +32,21 @@ describe('P14B.2 outgoing projection45 runtime compatibility (Save29 unchanged)'
     expect(after.sessionId).toBe('p14b2-current-session')
     expect(after.stateRevision).toBe(0)
     expect(after.journal).toEqual([])
-    expect(after.currentSaveJson).toBe(before.currentSaveJson)
-    expect(after.savedSaveJson).toBe(before.savedSaveJson)
-    expect(after.currentStateDigest).toBe(before.currentStateDigest)
-    expect(after.savedStateDigest).toBe(before.savedStateDigest)
+    // 600-T2 (record 600, C9/C10): the live writer stamps Save30, so "slot bytes
+    // unchanged" held only while live = 29 and is a moved premise. The invariant
+    // kept, per slot: the hydrated bytes ARE the governed V29->V30 migration of
+    // that slot's OWN genuine V29 bytes, which differ from the source by the
+    // version tag alone (no restamped root, receipt, digest or week), and each
+    // digest is the digest of exactly those bytes. Pattern: runtime47 :191-205.
+    const sha = (v: string) => createHash('sha256').update(v).digest('hex')
+    for (const slot of ['currentSaveJson', 'savedSaveJson'] as const) {
+      const governed = migrateToV30(importSave(before[slot]))
+      expect(governed.saveVersion).toBe(30)
+      expect(JSON.parse(exportSave(governed))).toEqual({ ...JSON.parse(before[slot]), saveVersion: 30 })
+      expect(after[slot]).toBe(exportSave(governed))
+    }
+    expect(after.currentStateDigest).toBe(sha(after.currentSaveJson))
+    expect(after.savedStateDigest).toBe(sha(after.savedSaveJson!))
     expect(after.currentSaveJson).not.toBe(after.savedSaveJson)
     const session = BridgeSession.fromRuntimeCheckpoint(loaded.hydrated)
     expect(session.gameState.market.tick).toBe(12)

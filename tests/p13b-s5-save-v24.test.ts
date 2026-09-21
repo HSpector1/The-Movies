@@ -207,7 +207,7 @@ describe('P13B-S5 Save V24 (test 4)', () => {
   // AMENDED AGAIN (P13B-S6 live-version sweep, 2026-09-17): `makeSave` moved to
   // the live V26 boundary; this section moved with it a second time.
   it('makeSave writes saveVersion 26', () => {
-    expect(makeSave(p13aLaboratorySlice()).saveVersion).toBe(29)
+    expect(makeSave(p13aLaboratorySlice()).saveVersion).toBe(30)
   })
 
   it('an unknown saveVersion 31 is refused, naming the handled range "1 through 30 only"', () => {

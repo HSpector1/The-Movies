@@ -46,7 +46,7 @@ import {
   stableStringify,
   validateSave,
   validateSaveV11,
-  validateSaveV29,
+  validateSaveV30,
   type SaveFile,
   type SaveFileV11,
 } from "../src/core/save.js";
@@ -186,9 +186,9 @@ describe("Development & Casting Annex V1 — SaveFileV11", () => {
 
     for (const state of states) {
       const save = makeSave(state);
-      expect(save.saveVersion).toBe(29);
+      expect(save.saveVersion).toBe(30);
       expect(validateSave(save)).toBe(save);
-      expect(validateSaveV29(save)).toBe(save);
+      expect(validateSaveV30(save)).toBe(save);
       const json = exportSave(save);
       expect(exportSave(importSave(json))).toBe(json);
     }
@@ -511,7 +511,7 @@ describe("Development & Casting Annex V1 — SaveFileV11", () => {
           productionId: reservedId,
           note: "forged persisted production identity",
         });
-        expect(() => validateSaveV29(forgedV13)).toThrow(
+        expect(() => validateSaveV30(forgedV13)).toThrow(
           /canonical Annex id .*collides with persisted production history/,
         );
       }

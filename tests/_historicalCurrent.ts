@@ -1,14 +1,14 @@
-import {migrateToV18,migrateToV29,type SaveFile,type SaveFileV29,type GameStateV18,type GameState} from '../src/core/index.js'
+import {migrateToV18,migrateToV30,type SaveFile,type SaveFileV30,type GameStateV18,type GameState} from '../src/core/index.js'
 import {withResearchFoundation} from '../src/core/researchPeople.js'
 import {initialTechnology} from '../src/core/technology.js'
 import {initialPhysicalPlans} from '../src/core/physicalPlans.js'
 import {initialTalentMarket} from '../src/core/talentMarket.js'
 /** Historical player-law control: preserve pre-P12 authority while lifting the
  * type to the current test engine. Native migration uses the real V20 chain. */
-export function migrateToCurrentControl(save:SaveFile):SaveFileV29 {
-  if(save.saveVersion>=19)return migrateToV29(save)
+export function migrateToCurrentControl(save:SaveFile):SaveFileV30 {
+  if(save.saveVersion>=19)return migrateToV30(save)
   const old=migrateToV18(save)
-  return {...old,saveVersion:29,state:liftHistoricalState(old.state)}
+  return {...old,saveVersion:30,state:liftHistoricalState(old.state)}
 }
 
 export function liftHistoricalState(state:GameStateV18):GameState {

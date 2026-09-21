@@ -10,7 +10,7 @@ import { beforeAll, describe, expect, it, vi } from 'vitest'
 import * as promiseModule from '../src/core/promises.js'
 import { attachPromise, PROMISE_RULES_VERSION } from '../src/core/promises.js'
 import { currentProposals, submitProposal } from '../src/core/talentMarket.js'
-import { exportSave, importSave, loadSave, makeSave, migrateToV29, validateSaveV29 } from '../src/core/save.js'
+import { exportSave, importSave, loadSave, makeSave, migrateToV29, migrateToV30, validateSaveV29, validateSaveV30 } from '../src/core/save.js'
 import type { GameState, PromiseFeasibilityReceipt } from '../src/core/types.js'
 import { advanceTo } from '../src/harness/p13a/fixtures.js'
 
@@ -106,7 +106,15 @@ describe('P14B.3 continuity under the live evaluator (4 after record 600) with g
     expect(exportSave(importSave(raw))).toBe(raw)
     const reloaded = migrateToV29(importSave(raw))
     expect(exportSave(reloaded)).toBe(raw)
-    expect(exportSave(makeSave(reloaded.state))).toBe(raw)
+    // 600-T2 (record 600, C9/C10): the live writer stamps Save30, so "makeSave
+    // reproduces the raw V29 bytes" is a moved premise. The invariant kept: the
+    // live writer's output IS the governed V29->V30 migration of the raw fixture,
+    // which differs from raw by the version tag alone (no restamped root, receipt
+    // or digest); the V29 half above stays byte-identical.
+    const governed = migrateToV30(importSave(raw))
+    expect(governed.saveVersion).toBe(30)
+    expect(JSON.parse(exportSave(governed))).toEqual({ ...JSON.parse(raw), saveVersion: 30 })
+    expect(exportSave(makeSave(reloaded.state))).toBe(exportSave(governed))
     expect(JSON.stringify(reloaded.state.promises)).toBe(promiseBytes)
     expect(JSON.stringify(reloaded.state.talentMarket)).toBe(marketBytes)
     expect(focused.version).toBe(1)
@@ -128,7 +136,7 @@ describe('P14B.3 continuity under the live evaluator (4 after record 600) with g
 
   it('new actual attachment uses root.version4 and receipt.rulesVersion4 without rewriting old roots', () => {
     const { save, focused: old } = readFixture('evaluator1-current-p1')
-    const state = migrateToV29(save).state
+    const state = migrateToV30(save).state
     const priorRoots = JSON.stringify(state.promises)
     const proposal = currentProposals(state, old.beneficiaryPersonId).find((p) => p.issuerStudioId === old.issuerStudioId)
     assert.ok(proposal)
@@ -148,13 +156,13 @@ describe('P14B.3 continuity under the live evaluator (4 after record 600) with g
     expect(JSON.stringify(attached.promises.slice(0, state.promises.length))).toBe(priorRoots)
     expect(currentProposals(attached, proposal.talentId).find((p) => p.issuerStudioId === proposal.issuerStudioId)!.promises)
       .toEqual([fresh.promiseId])
-    const reloaded = validateSaveV29(importSave(exportSave(makeSave(attached)))).state
+    const reloaded = validateSaveV30(importSave(exportSave(makeSave(attached)))).state
     expect(reloaded.promises).toEqual(attached.promises)
   })
 
   it('actual later winning freeze keeps old root.version1 but stores genuine new rulesVersion4 receipt and binding', () => {
     const { save, focused: old } = readFixture('evaluator1-current-p1')
-    const state = migrateToV29(save).state
+    const state = migrateToV30(save).state
     const priorRoots = JSON.stringify(state.promises)
     const proposal = currentProposals(state, old.beneficiaryPersonId).find((p) => p.issuerStudioId === old.issuerStudioId)
     assert.ok(proposal)
@@ -190,7 +198,7 @@ describe('P14B.3 continuity under the live evaluator (4 after record 600) with g
       talentId: old.beneficiaryPersonId, studioId: old.issuerStudioId, week: proposal.startWeek }))
     expect(currentProposals(settled, old.beneficiaryPersonId)).toEqual([])
     expect(JSON.stringify(state.promises)).toBe(priorRoots)
-    const reloaded = validateSaveV29(importSave(exportSave(makeSave(settled)))).state
+    const reloaded = validateSaveV30(importSave(exportSave(makeSave(settled)))).state
     expect(reloaded.promises.find((p) => p.promiseId === old.promiseId)).toEqual(bound)
     expect(old.version).toBe(1)
     expect(old.feasibilityReceipt.rulesVersion).toBe(1)

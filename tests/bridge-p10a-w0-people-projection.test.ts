@@ -24,7 +24,7 @@ import {
   FOUNDING_MINIMUMS,
   generateWorld,
   makeSaveV16,
-  migrateToV29,
+  migrateToV30,
   tick,
 } from '../src/core/index.js'
 import type { CreativeRole, GameState } from '../src/core/index.js'
@@ -318,8 +318,8 @@ describe('P10A W0 — people projection', () => {
   it('R9 the served section is projection 32 and the projection-17/18 identities stay accepted', () => {
     const state = foundStudio('p10-w0-schema')
     // Owner UX adds explicit public genre cells and saved-slot envelope metadata.
-    expect(PROJECTION_VERSION).toBe(46)
-    expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-46')
+    expect(PROJECTION_VERSION).toBe(47)
+    expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-47')
     const context = snapshotBuildContextFor(state)
     const bundle = projectStudioProjectionBundle({ ...context.lotSnapshot(), development: context.development(), casting: context.casting(), release: context.release(), history: context.history(), operationsEvents: context.operationsEvents(), talent: context.people(), finance: context.finance(), industry: context.industry() })
     expect(bundle.talent.talent.profiles.length).toBe(state.talent.length)
@@ -337,7 +337,7 @@ describe('P10A W0 — people projection', () => {
     const a = createHash('sha256').update(serialized(state)).digest('hex')
     const b = createHash('sha256').update(serialized(state)).digest('hex')
     expect(a).toBe(b)
-    const migrated = migrateToV29(makeSaveV16(state)).state
+    const migrated = migrateToV30(makeSaveV16(state)).state
     const after = peopleProjection(migrated)
     expect(after.profiles.length).toBeGreaterThanOrEqual(state.talent.length)
     // JSON persistence canonically represents negative zero as zero.

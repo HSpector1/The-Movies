@@ -204,10 +204,10 @@ function containsNumber(value: unknown, target: number): boolean {
 
 describe('group 1: PROJECTION_VERSION / LIVE_SAVE_VERSION', () => {
   it('LIVE_SAVE_VERSION stays 29; the live promise surface carries projection 46 after P14B.2', () => {
-    expect(LIVE_SAVE_VERSION).toBe(29)
-    expect(PROJECTION_VERSION).toBe(46)
-    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${String(PROTOCOL_VERSION)}:projection-46`)
-    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(46)
+    expect(LIVE_SAVE_VERSION).toBe(30)
+    expect(PROJECTION_VERSION).toBe(47)
+    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${String(PROTOCOL_VERSION)}:projection-47`)
+    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(47)
   })
 })
 
@@ -292,12 +292,14 @@ describe('group 3: trust descriptor label and promise history, open then settled
     const openLabel = trustDescriptor(state, talentId, playerStudioId, state.market.tick).label
     const openBlock = marketCaseProjection(state, talentId, playerStudioId) as unknown as {
       trustLabel: string
-      promiseHistory: Array<{ promiseId: string; family: string; count: number; windowStartWeek: number; dueWeekExclusive: number; contractId: string; outcome: string | null; outcomeWeek: number | null; outcomeCause: string | null }>
+      promiseHistory: Array<{ promiseId: string; family: string; count: number; seatClass: string | null; windowStartWeek: number; dueWeekExclusive: number; contractId: string; outcome: string | null; outcomeWeek: number | null; outcomeCause: string | null }>
     } | null
     expect(openBlock).not.toBeNull()
     expect(openBlock!.trustLabel).toBe(openLabel)
+    // P14B.4 (projection 47): history rows carry the nullable `seatClass`; a
+    // count-only P1 reads null (shape-derived, never an invented class).
     expect(openBlock!.promiseHistory).toEqual([{
-      promiseId: openPromise.promiseId, family: openPromise.family, count: openPromise.predicate.count,
+      promiseId: openPromise.promiseId, family: openPromise.family, count: openPromise.predicate.count, seatClass: null,
       windowStartWeek: openPromise.windowStartWeek, dueWeekExclusive: openPromise.dueWeekExclusive,
       contractId: openPromise.contractId, outcome: null, outcomeWeek: null, outcomeCause: null,
     }])
@@ -311,11 +313,11 @@ describe('group 3: trust descriptor label and promise history, open then settled
     const settledLabel = trustDescriptor(settled, talentId, playerStudioId, settled.market.tick).label
     const settledBlock = marketCaseProjection(settled, talentId, playerStudioId) as unknown as {
       trustLabel: string
-      promiseHistory: Array<{ promiseId: string; family: string; count: number; windowStartWeek: number; dueWeekExclusive: number; contractId: string; outcome: string | null; outcomeWeek: number | null; outcomeCause: string | null }>
+      promiseHistory: Array<{ promiseId: string; family: string; count: number; seatClass: string | null; windowStartWeek: number; dueWeekExclusive: number; contractId: string; outcome: string | null; outcomeWeek: number | null; outcomeCause: string | null }>
     } | null
     expect(settledBlock!.trustLabel).toBe(settledLabel)
     expect(settledBlock!.promiseHistory).toEqual([{
-      promiseId: brokenPromise.promiseId, family: brokenPromise.family, count: brokenPromise.predicate.count,
+      promiseId: brokenPromise.promiseId, family: brokenPromise.family, count: brokenPromise.predicate.count, seatClass: null,
       windowStartWeek: brokenPromise.windowStartWeek, dueWeekExclusive: brokenPromise.dueWeekExclusive,
       contractId: brokenPromise.contractId, outcome: 'BROKEN', outcomeWeek: dueWeekExclusive,
       outcomeCause: brokenPromise.outcomeCause,
@@ -490,7 +492,7 @@ describe('group 6: save/load', () => {
     // empty roots asserted above ARE that conversion), so the re-save is V29 bytes by
     // law. The fixture's V28 sha stays the provenance pin on the FILE (line above); the
     // re-save proves only that the bridge wrote the live envelope.
-    if (reSaved.accepted) expect((JSON.parse(reSaved.saveJson) as { saveVersion: number }).saveVersion).toBe(29)
+    if (reSaved.accepted) expect((JSON.parse(reSaved.saveJson) as { saveVersion: number }).saveVersion).toBe(30)
   })
 
   it('a live V29 state carrying a real promise round-trips through the bridge save/load path byte-stable, and the promise-row read is identical on both sides', () => {
@@ -506,7 +508,7 @@ describe('group 6: save/load', () => {
     expect(saved.accepted).toBe(true)
     if (!saved.accepted) throw new Error(`save refused: ${JSON.stringify(saved)}`)
     const parsed = JSON.parse(saved.saveJson) as { saveVersion: number; state: { promises: unknown[] } }
-    expect(parsed.saveVersion).toBe(29)
+    expect(parsed.saveVersion).toBe(30)
     expect(parsed.state.promises).toHaveLength(1)
 
     const reloaded = BridgeSession.fromSaveJson(saved.saveJson, 'p14b1-bridge-roundtrip-reload')

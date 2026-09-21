@@ -229,8 +229,8 @@ describe('BridgeRuntimeCheckpointV1', () => {
     })
     expect(loaded.hydrated.checkpoint.currentStateDigest).toBe(sha256(source.currentSaveJson))
     expect(loaded.hydrated.checkpoint.savedStateDigest).toBe(sha256(source.savedSaveJson))
-    expect(loaded.hydrated.currentSave.saveVersion).toBe(29)
-    expect(loaded.hydrated.savedSave?.saveVersion).toBe(29)
+    expect(loaded.hydrated.currentSave.saveVersion).toBe(30)
+    expect(loaded.hydrated.savedSave?.saveVersion).toBe(30)
     expect(() => decodeBridgeRuntimeCheckpoint(
       encodeBridgeRuntimeCheckpoint(loaded.hydrated.checkpoint),
     )).not.toThrow()
@@ -266,8 +266,8 @@ describe('BridgeRuntimeCheckpointV1', () => {
       savedStateDigest: sha256(source.savedSaveJson),
       journal: [],
     })
-    expect(loaded.hydrated.currentSave.saveVersion).toBe(29)
-    expect(loaded.hydrated.savedSave?.saveVersion).toBe(29)
+    expect(loaded.hydrated.currentSave.saveVersion).toBe(30)
+    expect(loaded.hydrated.savedSave?.saveVersion).toBe(30)
 
     const corrupted = JSON.parse(priorBytes) as Record<string, unknown>
     corrupted.journalDigest = '0'.repeat(64)
@@ -328,8 +328,8 @@ describe('BridgeRuntimeCheckpointV1', () => {
     const hydrated = decodeBridgeRuntimeCheckpoint(encoded)
     expect(hydrated.checkpoint).toEqual(source.checkpoint)
     expect(encodeBridgeRuntimeCheckpoint(hydrated.checkpoint)).toBe(encoded)
-    expect(hydrated.currentSave.saveVersion).toBe(29)
-    expect(hydrated.savedSave?.saveVersion).toBe(29)
+    expect(hydrated.currentSave.saveVersion).toBe(30)
+    expect(hydrated.savedSave?.saveVersion).toBe(30)
     expect(hydrated.checkpoint.currentSaveJson).toBe(source.currentSaveJson)
     expect(hydrated.checkpoint.savedSaveJson).toBe(source.savedSaveJson)
     expect(hydrated.checkpoint.currentStateDigest).toBe(sha256(source.currentSaveJson))
@@ -428,7 +428,7 @@ describe('BridgeRuntimeCheckpointV1', () => {
       currentSaveJson: nonCanonicalSave,
       savedSaveJson: checkpoint.savedSaveJson,
       journal: checkpoint.journal,
-    })).toThrow(/canonical V29 save bytes exactly/)
+    })).toThrow(/canonical V30 save bytes exactly/)
 
     const forgedSave = JSON.parse(checkpoint.currentSaveJson) as Record<string, unknown>
     forgedSave['bridgeJournal'] = []
@@ -718,7 +718,7 @@ describe('P04A REOPEN — enumerated prior protocol-4 checkpoint import', () => 
 
     // save now V16, digests recomputed correctly.
     expect(loaded.hydrated.checkpoint.schemaId).toBe(SCHEMA_ID)
-    expect(loaded.hydrated.currentSave.saveVersion).toBe(29)
+    expect(loaded.hydrated.currentSave.saveVersion).toBe(30)
     expect(loaded.hydrated.checkpoint.currentStateDigest)
       .toBe(sha256(loaded.hydrated.checkpoint.currentSaveJson))
 
@@ -746,7 +746,7 @@ describe('P04A REOPEN — enumerated prior protocol-4 checkpoint import', () => 
 
     expect(loaded.migratedFromProtocolVersion).toBe(PROTOCOL_VERSION)
     expect(loaded.hydrated.checkpoint.savedSaveJson).not.toBeNull()
-    expect(loaded.hydrated.savedSave?.saveVersion).toBe(29)
+    expect(loaded.hydrated.savedSave?.saveVersion).toBe(30)
     expect(loaded.hydrated.savedSave?.state.market.tick).toBe(savedState.market.tick)
     expect(loaded.hydrated.savedSave?.state.studio.cash).toBe(savedState.studio.cash)
     expect(loaded.hydrated.checkpoint.savedStateDigest)
@@ -774,7 +774,7 @@ describe('P04A REOPEN — enumerated prior protocol-4 checkpoint import', () => 
       expect(loaded.hydrated.checkpoint.schemaId).toBe(SCHEMA_ID)
       expect(loaded.hydrated.checkpoint.stateRevision).toBe(0)
       expect(loaded.hydrated.checkpoint.journal).toEqual([])
-      expect(loaded.hydrated.currentSave.saveVersion).toBe(29)
+      expect(loaded.hydrated.currentSave.saveVersion).toBe(30)
     },
   )
 
@@ -981,6 +981,10 @@ describe('prior protocol-4 acceptance boundary pins', () => {
       // Authentic outgoing ready26: d906's generated header and unchanged v3 corpus.
       'sha256:2b339a6a8b3e5add0726b7eaac9ce8746e235d8b6111a6816f890ff56afdffd1',
       'sha256:510f08e4a551827a30e0f3d93bbe09fa5ddadbd39366b4dcfa93530500c7979c',
+      // P14B.4 (record 600): the outgoing projection-46 identity — the checked-in
+      // contract-manifest schemaId before the projection-47 bump (47b2bbf4^), also
+      // pinned independently by bridge-p14b4-runtime47-compatibility.test.ts.
+      'sha256:584bdd8565030f049d548b1af4fcbf8c517ca7c9150016736f632f1ef8fcb98c',
       // Genuine outgoing projection45: e37cd23 generated header and preserved runtime checkpoint.
       'sha256:5b2a4ca93d930e90a288db55bb5cc3fdc8eea070ef51fa1450a193a325bd755d',
       'sha256:625377a2804a681da3be209da02850e221ae33ac5f58b727f6395736ad607ad1',

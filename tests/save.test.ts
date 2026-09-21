@@ -41,7 +41,7 @@ import type {
   FilmConcept,
   Segment,
 } from "../src/core/index.js";
-import type { SaveFileV14, SaveFileV15, SaveFileV29 } from "../src/core/save.js";
+import type { SaveFileV14, SaveFileV15, SaveFileV30 } from "../src/core/save.js";
 import { initialProperty } from "../src/core/lot.js";
 import { contendedStudio, freePackage } from "./_m4Fixtures.js";
 
@@ -223,10 +223,10 @@ function makeState(broadcastItems: BroadcastItem[]): GameState {
 }
 
 // A well-formed save: envelope seed === state.seed, broadcastCache === broadcastItems.
-// `makeSave` is the live boundary (P14B.1): SaveFileV29. Every V1–V13-style shape
+// `makeSave` is the live boundary (P14B.1): SaveFileV30. Every V1–V13-style shape
 // assertion below is unchanged by the cutover — only the envelope's own version
 // tag moved.
-function wellFormedSave(): SaveFileV29 {
+function wellFormedSave(): SaveFileV30 {
   const items = [broadcastItem];
   const state = makeState(items);
   return makeSave(state);
@@ -276,7 +276,7 @@ describe("M14 — loud rejection when envelope seed ≠ state.seed", () => {
     // Source: M14 "the envelope seed must equal state.seed; load validation
     // rejects any divergence loudly (same failure mode as an unknown saveVersion)."
     const save = wellFormedSave();
-    const bad: SaveFileV29 = { ...save, seed: "a-different-seed" };
+    const bad: SaveFileV30 = { ...save, seed: "a-different-seed" };
     expect(() => loadSave(bad)).toThrow();
   });
 });
@@ -290,14 +290,14 @@ describe("M14 — loud rejection when broadcastCache ≠ state.broadcastItems", 
       ...broadcastItem,
       template: "release-worse",
     };
-    const bad: SaveFileV29 = { ...save, broadcastCache: [divergentItem] };
+    const bad: SaveFileV30 = { ...save, broadcastCache: [divergentItem] };
     expect(() => loadSave(bad)).toThrow();
   });
 
   it("throws when broadcastCache differs from state.broadcastItems by length", () => {
     // Source: M14 — any divergence (including cardinality) is rejected.
     const save = wellFormedSave();
-    const bad: SaveFileV29 = { ...save, broadcastCache: [] };
+    const bad: SaveFileV30 = { ...save, broadcastCache: [] };
     expect(() => loadSave(bad)).toThrow();
   });
 });

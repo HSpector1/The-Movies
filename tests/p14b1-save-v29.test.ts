@@ -106,7 +106,7 @@ function promisesRootOf(state: GameState): readonly unknown[] {
 
 describe('P14B.1 test 8: Save V29 (genuine V28 fixture, empty new tables, same digests, round trip, downgrade)', () => {
   it('LIVE_SAVE_VERSION is 29', () => {
-    expect(save.LIVE_SAVE_VERSION as number).toBe(29)
+    expect(save.LIVE_SAVE_VERSION as number).toBe(30)
   })
 
   it('genuine V28 open-case-45 fixture: sha256 matches, still validates as V28 through the frozen chain, migrates to V29 with EMPTY firstTakes and promises roots and promises: [] on every existing proposal, otherwise byte-identical', () => {
