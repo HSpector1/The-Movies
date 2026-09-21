@@ -1,0 +1,386 @@
+diff --git a/tests/p14b4-cancel-causal-proof.test.ts b/tests/p14b4-cancel-causal-proof.test.ts
+index fb62065..e0e5f1d 100644
+--- a/tests/p14b4-cancel-causal-proof.test.ts
++++ b/tests/p14b4-cancel-causal-proof.test.ts
+@@ -6,12 +6,17 @@
+ // studio-caused outcome checks use the separate target-specific physical predicate proof, not the offer
+ // result). Each case names the sentence its expectation derives from.
+ //
+-// AUTHORED AGAINST THE LAW, NOT THE OUTPUT. The current coupling (promises.ts :753) breaks a promise
+-// whenever `reclassifyPromise(...).classification === 'IMPOSSIBLE'`. Every RED case therefore asserts,
+-// BEFORE the cancel, that the current service refuses with the exact NON-target-specific bottleneck the
+-// case isolates (a joint reservation, the classless fresh-offer refusal, an unsupported family, a
+-// class-blind physical bound, or the ORIGINAL count instead of the remaining count). A case that later
+-// turns GREEN because its premise stopped holding fails at the premise line, not at the expectation.
++// AUTHORED AGAINST THE LAW, NOT THE OUTPUT. The pre-writer coupling (record 629, promises.ts :753 at
++// cb13a457) broke a promise whenever `reclassifyPromise(...).classification === 'IMPOSSIBLE'`. Every RED
++// case therefore asserts, BEFORE the cancel, that the quote service refuses with the exact
++// NON-target-specific bottleneck the case isolates (a joint reservation, the classless fresh-offer refusal,
++// an unsupported family, a class-blind physical bound, or the ORIGINAL count instead of the remaining
++// count). A case that later turns GREEN because its premise stopped holding fails at the premise line, not
++// at the expectation. The landed coupling (record 630 R1/R2, commit c5a2ecdc; promises.ts :779-796) breaks
++// iff the separate exported proof `targetSpecificImpossibility` (:661-667), run on the POST-cancel state
++// (actions.ts :599 passes `withoutProduction`), finds `remaining > nMax` for a root whose class mask seats
++// the person on the cancelled picture. The 629-T2 cases at the end of this file pin the parts of that law
++// the 629-T cases could not separate (remaining >= 2, the window-start clamp, the class-qualified take).
+ //
+ // FIXTURES (labeled, disposable): the generated world `p13aGeneratedStudio()` and the real
+ // signContract / greenlight / setProductionSetupRecipe / assignShootingDirector / scheduleShootingTake /
+@@ -28,19 +33,32 @@
+ // no rival code path builds a `{kind:'cancel'}` action. `breakPromisesOnCancel`'s only caller is
+ // actions.ts :599; `breakPromisesOnTermination`'s only caller is `applyReleaseTalent` (:2637).
+ //
+-// SCHEDULE LAW TRANSCRIBED (promises.ts :352-367 `expectedFirstTakeWeek`; the one physical clock this
+-// source owns and the bound the plan's "hard physical/lawful impossibility" can be computed from here):
++// QUOTE LAW TRANSCRIBED (promises.ts :352-370 `expectedFirstTakeWeek`, consumed by the offer service
++// `promiseFeasibility` :416-427 with `from = max(windowStartWeek, week)`). This is the quote's
++// SEAT_CYCLE_WEEKS ESTIMATE, used here only to compute the RED premises (what `reclassifyPromise` says);
++// it is NOT the landed cancel bound:
+ //   - a person's k-th sequential fresh event first-takes at `from + k*SEAT_CYCLE_WEEKS + WEEKS_TO_FIRST_TAKE`
+ //     (SEAT_CYCLE_WEEKS = TUNING.PRODUCTION_TICKS = 8, WEEKS_TO_FIRST_TAKE = 5);
+ //   - event 0 may instead be a RUNNING pre-first-take picture the person is seated on inside the class
+ //     mask: `from + max(1, remainingTicks - 4) + (startTick >= from ? 1 : 0)`.
+ //   A picture greenlit THIS week (remainingTicks 8, startTick = week) therefore expects its take at
+ //   week + 5 — the same week as a fresh greenlight — so in the "greenlit this week" shape the cancel
+-//   does not move the physical bound, only the existing-path count. A picture at remainingTicks 5
+-//   expects its take at week + 1, so cancelling it moves the bound from week + 1 to week + 5 (case 6c).
++//   does not move the physical clock, only the existing-path count. A picture at remainingTicks 5
++//   expects its take at week + 1, so cancelling it moves the clock from week + 1 to week + 5 (case 6c).
+ //
+-// CAUSE STRINGS pinned below are DESIGN-OWNED: the cancel cause is the current :755 literal; if the
+-// corrected proof renames it, change `CANCEL_CAUSE` here (one line) and record the new string.
++// LANDED BOUND (record 630 R1; promises.ts :661-667 `targetSpecificImpossibility`), transcribed by
++// `hardBound` below and pinned directly in the 629-T2 section:
++//   remaining = max(0, count - |qualifyingTakes(state, promise)|); remaining 0 -> null (not judged);
++//   t0 = max(windowStartWeek, expectedFirstTakeWeek(state, promise, week, 0));
++//   nMax = t0 < due ? ceil((due - t0) / WEEKS_TO_FIRST_TAKE) : 0;   BROKEN iff remaining > nMax.
++//   The quote estimate and the hard bound coincide for remaining = 1 (every 629-T pin) and separate at
++//   remaining >= 2 (the quote's k = 1 event is from + 13, the hard bound's is t0 + 5): 629-T2 separator.
++//   The quote clamps the GREENLIGHT week to the window start (`from`); the hard bound clamps the TAKE
++//   week (t0) — a picture greenlit before the window opens may be held at ticks 5 (629-B D1): 629-T2 D1.
++//
++// CAUSE STRINGS pinned below are DESIGN-OWNED: the cancel cause is the landed :791 literal (byte-identical
++// to the pre-writer :756); if a later change renames it, change `CANCEL_CAUSE` here (one line) and record
++// the new string.
+ 
+ import assert from 'node:assert/strict'
+ import { describe, expect, it } from 'vitest'
+@@ -51,32 +69,40 @@ import { tick } from '../src/core/tick.js'
+ import { TUNING } from '../src/core/tuning.js'
+ import {
+   PROMISE_RULES_VERSION, WEEKS_TO_FIRST_TAKE, advancePromisesWeek, qualifyingTakes, reclassifyPromise,
++  targetSpecificImpossibility,
+ } from '../src/core/promises.js'
+ import { p13aGeneratedStudio } from '../src/harness/p13a/fixtures.js'
+ import type { CastSlot, FirstTakeReceipt, GameState, ProfessionalPromise, PromiseFamily, SegmentId } from '../src/core/types.js'
+ 
+-// ── design-owned strings (promises.ts :690-755) ──────────────────────────────
++// ── design-owned strings (promises.ts :736 due, :762 termination, :791 cancel, :793 receipt reason) ──
+ const CANCEL_CAUSE = 'the studio cancelled the picture this person was cast in, and no path was left'
+ const DUE_CAUSE = 'the window closed before the promised pictures began filming'
+ const TERMINATION_CAUSE = 'the studio terminated this contract early, ending the window'
+-// current NON-target-specific refusal bottlenecks the RED premises isolate (promises.ts :213-217, :392-394, :420-421)
++// quote-service NON-target-specific refusal bottlenecks the RED premises isolate (promises.ts :214, :399, :426-427);
++// the landed proof reuses the PHYSICAL_BOUND sentence (:666) and none of the other three
+ const JOINT_RESERVATION = 'promises already made to this person exhaust the window'
+ const CLASSLESS_REFUSAL = 'a seat-class promise needs its seat class selected (lead, or lead-or-antagonist); without one it is not offered'
+ const FAMILY_REFUSAL = 'a directing promise is not offered in this slice'
+ const PHYSICAL_BOUND = 'no filming week inside the window can reach that many pictures'
+ 
+-// ── schedule law, transcribed (see header) ───────────────────────────────────
++// ── quote law, transcribed (see header): the offer service's ESTIMATE, used for RED premises only ──
+ const CYCLE = TUNING.PRODUCTION_TICKS
+ const W5 = WEEKS_TO_FIRST_TAKE
+ const freshEventWeek = (from: number, k: number): number => from + k * CYCLE + W5
+ const runningEventWeek = (from: number, p: { remainingTicks: number; startTick: number }): number =>
+   from + Math.max(1, p.remainingTicks - 4) + (p.startTick >= from ? 1 : 0)
+-/** N_max once the person's only running picture is gone: fresh events expected strictly before `due`. */
+-function nMaxAfterCancel(from: number, due: number): number {
++/** The QUOTE LAW's N_max once the person's only running picture is gone: fresh events on the
++ * SEAT_CYCLE_WEEKS cadence expected strictly before `due` (promiseFeasibility :420-425). This is what the
++ * `reclassifyPromise` premises compare `count` against; it is NOT the landed cancel bound (see `hardBound`).
++ * It equals the hard bound whenever the relevant count is 1 and undercounts it from 2 upward. */
++function quoteNMax(from: number, due: number): number {
+   let n = 0
+   while (freshEventWeek(from, n) < due) n += 1
+   return n
+ }
++// ── landed bound, transcribed (record 630 R1; promises.ts :664-665) ──────────
++/** nMax = ceil((due - t0) / WEEKS_TO_FIRST_TAKE) when the earliest take week t0 lies before `due`, else 0. */
++const hardBound = (t0: number, due: number): number => (t0 < due ? Math.ceil((due - t0) / W5) : 0)
+ 
+ // ── local helpers (self-contained; nothing imported from another test file) ──
+ const STAGE_7 = 'facility-soundstage-07'
+@@ -177,12 +203,16 @@ function atFive(r: Roster, cast: Record<CastSlot, string>): Greenlit & { greenli
+   return { state, productionId: g.productionId, week: state.market.tick, greenlightWeek: g.week }
+ }
+ type Took = { state: GameState; productionId: string; greenlightWeek: number; take: FirstTakeReceipt }
+-let tookCache: Took | undefined
+-/** actors[0] LEAD on picture A, walked to its REAL first take (assign director, schedule, tick 5 -> 4). */
+-function took(): Took {
+-  if (tookCache === undefined) {
++const tookCache = new Map<'lead' | 'support', Took>()
++/** actors[0] seated `seat` (LEAD by default; SUPPORT for the 629-T2 class-qualified negative) on picture A,
++ * walked to its REAL first take (assign director, schedule, tick 5 -> 4). One cached build per seat. */
++function took(seat: 'lead' | 'support' = 'lead'): Took {
++  let tookCached = tookCache.get(seat)
++  if (tookCached === undefined) {
+     const r = roster()
+-    const five = atFive(r, { lead: r.actors[0]!, antagonist: r.actors[1]!, support: r.actors[2]! })
++    const five = atFive(r, seat === 'lead'
++      ? { lead: r.actors[0]!, antagonist: r.actors[1]!, support: r.actors[2]! }
++      : { lead: r.actors[1]!, antagonist: r.actors[2]!, support: r.actors[0]! })
+     let state = applyActions(five.state, [
+       { kind: 'assignShootingDirector', productionId: five.productionId, directorId: r.directorId },
+       { kind: 'scheduleShootingTake', productionId: five.productionId },
+@@ -193,10 +223,11 @@ function took(): Took {
+     const takes = state.firstTakes.filter((t) => t.productionId === five.productionId)
+     expect(takes).toHaveLength(1)
+     const take = takes[0]!
+-    expect(take).toMatchObject({ studioId: player(state), week: state.market.tick, cast: { lead: r.actors[0] } })
+-    tookCache = { state, productionId: five.productionId, greenlightWeek: five.greenlightWeek, take }
++    expect(take).toMatchObject({ studioId: player(state), week: state.market.tick, cast: { [seat]: r.actors[0] } })
++    tookCached = { state, productionId: five.productionId, greenlightWeek: five.greenlightWeek, take }
++    tookCache.set(seat, tookCached)
+   }
+-  return structuredClone(tookCache)
++  return structuredClone(tookCached)
+ }
+ 
+ type Predicate = { count: number } | { kind: 'castRoleCount'; count: number; seatClass: 'lead' | 'leadOrAntagonist' }
+@@ -285,7 +316,7 @@ describe('629-T case 1: a joint reservation conflict is not causal proof (plan :
+     const due = w + CYCLE // [w, w+8): one fresh event (w+5) reachable after the cancel, a second (w+13) is not
+     // paper (transcribed law): nMax after the cancel = 1; X = 1 <= 1 for EACH promise; reserved (the other
+     // promise) + X = 2 > 1 — the JOINT bottleneck, not a target-specific one
+-    expect(nMaxAfterCancel(w, due)).toBe(1)
++    expect(quoteNMax(w, due)).toBe(1)
+     expect(runningEventWeek(w, productionOf(g.state, g.productionId))).toBe(freshEventWeek(w, 0)) // greenlit this week: the cancel does not move the bound
+     let state = bind(g.state, { promiseId: '629-1-p1', family: P1, predicate: { count: 1 }, beneficiaryPersonId: P, windowStartWeek: w, dueWeekExclusive: due })
+     state = bind(state, { promiseId: '629-1-p2', family: P2, predicate: tagged('lead'), beneficiaryPersonId: P, windowStartWeek: w, dueWeekExclusive: due })
+@@ -315,7 +346,7 @@ describe('629-T case 1: a joint reservation conflict is not causal proof (plan :
+     const g = greenlit(r, r.state, { lead: A, antagonist: B, support: r.actors[2]! })
+     const w = g.week
+     const due = w + CYCLE
+-    expect(nMaxAfterCancel(w, due)).toBe(1)
++    expect(quoteNMax(w, due)).toBe(1)
+     let state = bind(g.state, { promiseId: '629-1b-A', family: P2, predicate: tagged('lead'), beneficiaryPersonId: A, windowStartWeek: w, dueWeekExclusive: due })
+     state = bind(state, { promiseId: '629-1b-B', family: P2, predicate: tagged('lead'), beneficiaryPersonId: B, windowStartWeek: w, dueWeekExclusive: due })
+     lawful(state)
+@@ -341,7 +372,7 @@ describe('629-T case 2: a bound legacy P2 is never routed through fresh-offer re
+     const g = greenlit(r, r.state, { lead: r.actors[1]!, antagonist: r.actors[2]!, support: P })
+     const w = g.week
+     const due = w + 20 // two fresh events (w+5, w+13) reachable after the cancel; count 1
+-    expect(nMaxAfterCancel(w, due)).toBe(2)
++    expect(quoteNMax(w, due)).toBe(2)
+     const state = bind(g.state, { promiseId: '629-2a', family: P2, predicate: { count: 1 }, beneficiaryPersonId: P, windowStartWeek: w, dueWeekExclusive: due })
+     lawful(state)
+     // RED PREMISE (executed): the fresh-offer service refuses the classless root before any schedule is read.
+@@ -357,7 +388,7 @@ describe('629-T case 2: a bound legacy P2 is never routed through fresh-offer re
+     const g = greenlit(r, r.state, { lead: r.actors[1]!, antagonist: r.actors[2]!, support: P })
+     const w = g.week
+     const due = w + 2
+-    expect(nMaxAfterCancel(w, due)).toBe(0)
++    expect(quoteNMax(w, due)).toBe(0)
+     const state = bind(g.state, { promiseId: '629-2b', family: P2, predicate: { count: 1 }, beneficiaryPersonId: P, windowStartWeek: w, dueWeekExclusive: due })
+     lawful(state)
+     const cancelled = cancel(state, g.productionId)
+@@ -384,7 +415,7 @@ describe('629-T case 3: an unsupported legacy family is not causal proof (26 §2
+     lawful(state)
+     // RED PREMISE (executed): the fresh-offer service refuses the family outright (NOT_OFFERED_IN_B1).
+     expect(reclassifyPromise(state, root(state, '629-3'), w)).toMatchObject({ classification: 'IMPOSSIBLE', bottleneck: FAMILY_REFUSAL })
+-    expect(nMaxAfterCancel(w, due)).toBe(2)
++    expect(quoteNMax(w, due)).toBe(2)
+     const cancelled = cancel(state, g.productionId)
+     // plan :252-254 (impossibility must be independent of "analysis limits") — a family this slice does not
+     // offer is an analysis limit. REVIEWER FLAG: this source reads a legacy count-only root of ANY family
+@@ -407,7 +438,7 @@ describe('629-T case 4: the cancelled picture must be able to satisfy THIS class
+     const g = greenlit(r, r.state, cast)
+     const w = g.week
+     const due = w + 2
+-    expect(nMaxAfterCancel(w, due)).toBe(0)
++    expect(quoteNMax(w, due)).toBe(0)
+     const state = bind(g.state, { promiseId: `629-4-${seatClass}-${slot}`, family: P2, predicate: tagged(seatClass), beneficiaryPersonId: P, windowStartWeek: w, dueWeekExclusive: due })
+     lawful(state)
+     // RED PREMISE (executed): a class-blind physical probe already says IMPOSSIBLE before the cancel.
+@@ -426,7 +457,7 @@ describe('629-T case 4: the cancelled picture must be able to satisfy THIS class
+     const g = greenlit(r, r.state, { lead: r.actors[1]!, antagonist: P, support: r.actors[2]! })
+     const w = g.week
+     const due = w + 2
+-    expect(nMaxAfterCancel(w, due)).toBe(0)
++    expect(quoteNMax(w, due)).toBe(0)
+     const state = bind(g.state, { promiseId: '629-4c', family: P2, predicate: tagged('leadOrAntagonist'), beneficiaryPersonId: P, windowStartWeek: w, dueWeekExclusive: due })
+     lawful(state)
+     const cancelled = cancel(state, g.productionId)
+@@ -468,7 +499,7 @@ describe('629-T case 5: the remaining count uses ACTUAL class-qualified takes (p
+     const { state, productionId, id, w, due } = countTwoAfterOneTake(false)
+     // paper: nMax = 1 (before AND after the cancel: B greenlit this week expects w+5, as does a fresh
+     // greenlight), original count 2 > 1, REMAINING = 2 - 1 = 1 <= 1.
+-    expect(nMaxAfterCancel(w, due)).toBe(1)
++    expect(quoteNMax(w, due)).toBe(1)
+     expect(runningEventWeek(w, productionOf(state, productionId))).toBe(freshEventWeek(w, 0))
+     // RED PREMISE (executed, pre-cancel): the service feeds the ORIGINAL count into the physical bound.
+     expect(reclassifyPromise(state, root(state, id), w)).toMatchObject({ classification: 'IMPOSSIBLE', bottleneck: PHYSICAL_BOUND })
+@@ -501,7 +532,7 @@ describe('629-T case 6: target-specific physical impossibility still breaks at t
+     const g = greenlit(r, r.state, { lead: P, antagonist: r.actors[1]!, support: r.actors[2]! })
+     const w = g.week
+     const due = w + 2
+-    expect(nMaxAfterCancel(w, due)).toBe(0)
++    expect(quoteNMax(w, due)).toBe(0)
+     const id = `629-6-${label}`
+     const state = bind(g.state, { promiseId: id, family, predicate, beneficiaryPersonId: P, windowStartWeek: w, dueWeekExclusive: due })
+     lawful(state)
+@@ -532,7 +563,7 @@ describe('629-T case 6: target-specific physical impossibility still breaks at t
+     const picture = productionOf(five.state, five.productionId)
+     expect(picture.remainingTicks).toBe(5)
+     expect(runningEventWeek(w, picture)).toBe(w + 1) // before: the running picture's own clock reaches a take
+-    expect(nMaxAfterCancel(w, due)).toBe(0) // after: a fresh greenlight first-takes at w+5 >= due
++    expect(quoteNMax(w, due)).toBe(0) // after: a fresh greenlight first-takes at w+5 >= due
+     const state = bind(five.state, { promiseId: '629-6c', family: P2, predicate: tagged('lead'), beneficiaryPersonId: P, windowStartWeek: w, dueWeekExclusive: due })
+     lawful(state)
+     expect(reclassifyPromise(state, root(state, '629-6c'), w).classification).not.toBe('IMPOSSIBLE') // possible before the studio action
+@@ -590,3 +621,145 @@ describe('629-T case 8: no-change control', () => {
+     untouched(state, cancelled)
+   })
+ })
++
++// ═════════════════════════════════════════════════════════════════════════════
++// ── 629-T2: extension after the writer landed (record 630 R1/R2 and its "629-T2 follow-ups" 1-5) ──
++// Every case below is authored from the landed law sentence it names and computes t0 / nMax / remaining on
++// paper next to the real route; the proof runs on the post-cancel state (actions.ts :599), where the person
++// sits on no running picture, so expectedFirstTakeWeek(k = 0) = week + 5 in every shape used here.
++// ═════════════════════════════════════════════════════════════════════════════
++describe('629-T2 case 5N: the remaining count is CLASS-qualified — a SUPPORT take never serves a lead mask (plan :324-326, :331-334; R1 "actual class-qualified distinct first takes")', () => {
++  it('count-2 tagged lead P2, the ONE real take on A recorded with the person in SUPPORT, then seated LEAD on pre-first-take B at 30, window [21,38): BROKEN when B is cancelled (remaining 2 > nMax 1)', () => {
++    const t = took('support') // actors[0] SUPPORT on A; A's real first take is recorded this week (30)
++    const r = roster()
++    const P = r.actors[0]!
++    const w = t.state.market.tick
++    expect(t.take.week).toBe(w)
++    expect(t.take.cast.support).toBe(P)
++    const due = w + CYCLE
++    let state = bind(t.state, { promiseId: '629-5N', family: P2, predicate: tagged('lead', 2), beneficiaryPersonId: P, windowStartWeek: t.greenlightWeek, dueWeekExclusive: due })
++    // plan :324-326: the take is real, this issuer, inside the window — and OUTSIDE the lead mask: it does not qualify
++    expect(qualifyingTakes(state, root(state, '629-5N'))).toEqual([])
++    state = advancePromisesWeek(state) // the real progress owner counts nothing either
++    expect(root(state, '629-5N')).toMatchObject({ progress: 0, outcome: null, evidenceRefs: [] })
++    lawful(state)
++    const afterA = cancel(state, t.productionId) // A already filmed: immune (plan :244), frees the person for B
++    untouched(state, afterA)
++    const b = greenlit(r, afterA, { lead: P, antagonist: r.actors[1]!, support: r.actors[2]! }, 1)
++    expect(b.week).toBe(w)
++    lawful(b.state)
++    // R1: remaining = 2 - 0 = 2; t0 = max(21, 30 + 5) = 35; nMax = ceil((38 - 35) / 5) = 1; 2 > 1 -> the sentence.
++    // Case 5 differs ONLY in the seat of the take on A (lead there: remaining 1 <= 1 -> untouched); a proof that
++    // counted takes class-blind would leave this root untouched too.
++    expect(hardBound(Math.max(t.greenlightWeek, w + W5), due)).toBe(1)
++    expect(targetSpecificImpossibility(b.state, root(b.state, '629-5N'), w)).toBe(PHYSICAL_BOUND) // B greenlit this week: its clock is 35 as well
++    const cancelled = cancel(b.state, b.productionId)
++    expect(root(cancelled, '629-5N')).toMatchObject({ outcome: 'BROKEN', outcomeWeek: w, outcomeCause: CANCEL_CAUSE, progress: 0, evidenceRefs: [] })
++    expect(cancelled.talentMarket.receipts).toHaveLength(b.state.talentMarket.receipts.length + 1)
++    ownReceipt(cancelled, '629-5N')
++    lawful(cancelled)
++  })
++})
++
++// ═════════════════════════════════════════════════════════════════════════════
++describe('629-T2 separator: the landed bound is the 5-week floor chain t0 + 5k, not the quote\'s SEAT_CYCLE_WEEKS cadence (record 630 R1; 629-B Q2 D2; plan :341-343, :350-351 "a valid hard bound")', () => {
++  it('count-2 tagged lead P2, person LEAD on the greenlit-this-week picture, window [21,33): the quote estimate refuses (its nMax 1 < 2) yet the cancel leaves the root untouched (hard nMax 2); the due-week owner breaks it at 33', () => {
++    const r = roster()
++    const P = r.actors[0]!
++    const g = greenlit(r, r.state, { lead: P, antagonist: r.actors[1]!, support: r.actors[2]! })
++    const w = g.week
++    const due = w + 12
++    // quote estimate: k = 0 at 21 + 5 = 26 < 33, k = 1 at 21 + 8 + 5 = 34 >= 33 -> 1.
++    // hard bound: t0 = max(21, 26) = 26; nMax = ceil((33 - 26) / 5) = 2; remaining 2 <= 2.
++    expect(quoteNMax(w, due)).toBe(1)
++    expect(hardBound(w + W5, due)).toBe(2)
++    const state = bind(g.state, { promiseId: '629-S', family: P2, predicate: tagged('lead', 2), beneficiaryPersonId: P, windowStartWeek: w, dueWeekExclusive: due })
++    lawful(state)
++    // PREMISE (executed, pre-cancel): the quote service refuses with the physical sentence (original count 2 > its nMax 1)
++    expect(reclassifyPromise(state, root(state, '629-S'), w)).toMatchObject({ classification: 'IMPOSSIBLE', bottleneck: PHYSICAL_BOUND })
++    const cancelled = cancel(state, g.productionId)
++    // Under the quote's SEAT_CYCLE_WEEKS cadence this root would be BROKEN here (the pre-writer coupling did exactly
++    // that). Under the landed hard bound the lawful path greenlight 21 -> take 26 -> cancel 26 (immune, take kept)
++    // -> greenlight 26 -> take 31 < 33 (629-B Q2 D2) still reaches two pictures: untouched.
++    untouched(state, cancelled)
++    expect(targetSpecificImpossibility(cancelled, root(cancelled, '629-S'), w)).toBeNull()
++    // plan :254-255: no greenlight follows, so the due-week owner breaks it at 33 with the due cause
++    const atDue = advanceTo(cancelled, due)
++    expect(root(atDue, '629-S')).toMatchObject({ outcome: 'BROKEN', outcomeWeek: due, outcomeCause: DUE_CAUSE, progress: 0, evidenceRefs: [] })
++    ownReceipt(atDue, '629-S')
++  })
++})
++
++// ═════════════════════════════════════════════════════════════════════════════
++describe('629-T2 D1: the window start clamps the TAKE week t0, not the greenlight week (record 630 R1 "the window start is a floor because a picture can be held at ticks 5"; 629-B Q2 D1)', () => {
++  it('count-1 tagged lead, person LEAD on the picture greenlit at 21, window [23,28): untouched at the cancel (t0 = max(23, 26) = 26 < 28 -> nMax 1); the due-week owner breaks it at 28', () => {
++    const r = roster()
++    const P = r.actors[0]!
++    const g = greenlit(r, r.state, { lead: P, antagonist: r.actors[1]!, support: r.actors[2]! })
++    const w = g.week
++    const windowStart = w + 2, due = w + 7
++    expect(hardBound(Math.max(windowStart, w + W5), due)).toBe(1)
++    expect(quoteNMax(windowStart, due)).toBe(0) // the quote clamps the GREENLIGHT week: from = max(23, 21) = 23 -> take 28 >= 28
++    const state = bind(g.state, { promiseId: '629-D1', family: P2, predicate: tagged('lead'), beneficiaryPersonId: P, windowStartWeek: windowStart, dueWeekExclusive: due })
++    lawful(state)
++    // quote estimate before the cancel: the running picture reaches 23 + 4 = 27 < 28, so it is not IMPOSSIBLE ...
++    expect(reclassifyPromise(state, root(state, '629-D1'), w).classification).not.toBe('IMPOSSIBLE')
++    const cancelled = cancel(state, g.productionId)
++    // ... and after it the quote estimate says IMPOSSIBLE (fresh from 23 -> 28 >= 28): the pre-writer coupling, which
++    // re-ran the quote on the post-cancel state, BROKE this root. The lawful path greenlight 21 -> take 26 in [23, 28)
++    // exists (qualifyingTakes :633-634 admits a take at 26), so the landed bound leaves it to the due-week owner.
++    expect(reclassifyPromise(cancelled, root(cancelled, '629-D1'), w)).toMatchObject({ classification: 'IMPOSSIBLE', bottleneck: PHYSICAL_BOUND })
++    untouched(state, cancelled)
++    expect(targetSpecificImpossibility(cancelled, root(cancelled, '629-D1'), w)).toBeNull()
++    const atDue = advanceTo(cancelled, due)
++    expect(root(atDue, '629-D1')).toMatchObject({ outcome: 'BROKEN', outcomeWeek: due, outcomeCause: DUE_CAUSE, progress: 0 })
++    ownReceipt(atDue, '629-D1')
++  })
++
++  it('mirror, window [23,26): t0 = max(23, 26) = 26 >= 26 -> nMax 0 -> BROKEN at the cancel with the cancel cause and ONE own receipt', () => {
++    const r = roster()
++    const P = r.actors[0]!
++    const g = greenlit(r, r.state, { lead: P, antagonist: r.actors[1]!, support: r.actors[2]! })
++    const w = g.week
++    const windowStart = w + 2, due = w + 5
++    expect(hardBound(Math.max(windowStart, w + W5), due)).toBe(0)
++    const state = bind(g.state, { promiseId: '629-D1m', family: P2, predicate: tagged('lead'), beneficiaryPersonId: P, windowStartWeek: windowStart, dueWeekExclusive: due })
++    lawful(state)
++    const cancelled = cancel(state, g.productionId)
++    expect(root(cancelled, '629-D1m')).toMatchObject({ outcome: 'BROKEN', outcomeWeek: w, outcomeCause: CANCEL_CAUSE, progress: 0 })
++    expect(cancelled.talentMarket.receipts).toHaveLength(state.talentMarket.receipts.length + 1)
++    ownReceipt(cancelled, '629-D1m')
++    lawful(cancelled)
++  })
++})
++
++// ═════════════════════════════════════════════════════════════════════════════
++describe('629-T2 direct pins on the exported proof (record 630 R1 boundaries; promises.ts :661-667)', () => {
++  it('bound tagged lead roots, no running picture at week 21 (t0 = 26): the sentence iff remaining > ceil((due - 26) / 5)', () => {
++    const r = roster()
++    const P = r.actors[0]!
++    const w = r.state.market.tick
++    expect(r.state.studio.activeProductions).toEqual([])
++    const probe = (id: string, count: number, due: number): string | null => {
++      const state = bind(r.state, { promiseId: id, family: P2, predicate: tagged('lead', count), beneficiaryPersonId: P, windowStartWeek: w, dueWeekExclusive: due })
++      lawful(state)
++      return targetSpecificImpossibility(state, root(state, id), w)
++    }
++    expect(probe('629-P1', 1, w + 5)).toBe(PHYSICAL_BOUND) // t0 = 26 >= due 26 -> nMax 0 < 1
++    expect(probe('629-P2', 1, w + 6)).toBeNull()            // nMax = ceil(1 / 5) = 1 >= 1
++    expect(probe('629-P3', 2, w + 10)).toBe(PHYSICAL_BOUND) // nMax = ceil(5 / 5) = 1 < 2
++    expect(probe('629-P4', 2, w + 11)).toBeNull()           // nMax = ceil(6 / 5) = 2 >= 2
++    for (const [due, n] of [[w + 5, 0], [w + 6, 1], [w + 10, 1], [w + 11, 2]] as const) expect(hardBound(w + W5, due)).toBe(n)
++  })
++
++  it('remaining 0 (count 1 with the real qualifying lead take on A) -> null even with due = week + 1: a met predicate belongs to the weekly owner, not the proof', () => {
++    const t = took()
++    const r = roster()
++    const P = r.actors[0]!
++    const w = t.state.market.tick
++    const state = bind(t.state, { promiseId: '629-P0', family: P2, predicate: tagged('lead'), beneficiaryPersonId: P, windowStartWeek: t.greenlightWeek, dueWeekExclusive: w + 1 })
++    lawful(state)
++    expect(qualifyingTakes(state, root(state, '629-P0')).map((x) => x.eventId)).toEqual([t.take.eventId])
++    expect(targetSpecificImpossibility(state, root(state, '629-P0'), w)).toBeNull()
++  })
++})

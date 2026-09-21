@@ -1,0 +1,550 @@
+{"sourceSha":"df944978825120faea7ec9532ebe900d1747ccb8","testedDiffSha256":"034887915509ffaa9a5cffdb69a9308e9830571b0947cf68ec5af976f77c13d0","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14b4-capacity-kernel.test.ts","tests/p14b4-cast-class-capacity.test.ts","tests/p14b4-cast-class-outcomes.test.ts","tests/p14b4-cast-class-policy.test.ts","tests/p14b4-d3-matching.test.ts","tests/p14b4-material-evidence-core.test.ts","tests/p14b4-save-v30-compatibility.test.ts","tests/p14b4-kernel-hold-order-extension.test.ts","tests/p14b4-bounded-stable-sort.test.ts","tests/bridge-p14b4-cast-class.test.ts","tests/bridge-p14b4-runtime47-compatibility.test.ts","tests/p14b4-cast-class-capacity-evaluator5.test.ts","tests/p14b4-rival-seating-preference.test.ts","tests/p14bf2-acting-discipline.test.ts"],"node":"v20.20.2","start":"2026-09-21T19:55:17.479Z","end":null,"exitCode":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p14b4-capacity-kernel.test.ts (41 tests) 279ms
+ ✓ |core| tests/p14b4-cast-class-outcomes.test.ts (23 tests) 25079ms
+   ✓ P14B4 genuine submit/settle/take routes, no synthetic commitments > PLAYER: actual offered lead P2 settles and the real class-compatible take satisfies it 4620ms
+   ✓ P14B4 genuine submit/settle/take routes, no synthetic commitments > PLAYER: actual offered leadOrAntagonist P2 settles and the real class-compatible take satisfies it 1972ms
+   ✓ P14B4 genuine submit/settle/take routes, no synthetic commitments > RIVAL: a genuinely naturally authored tagged commitment binds and qualifies through the real scheduled owner transition 5743ms
+   ✓ P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'player' 'lead' with actual 'lead' seat: qualification=true 1089ms
+   ✓ P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'player' 'lead' with actual 'antagonist' seat: qualification=false 626ms
+   ✓ P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'player' 'lead' with actual 'support' seat: qualification=false 566ms
+   ✓ P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'rival' 'lead' with actual 'lead' seat: qualification=true 529ms
+   ✓ P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'rival' 'lead' with actual 'antagonist' seat: qualification=false 487ms
+   ✓ P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'rival' 'lead' with actual 'support' seat: qualification=false 464ms
+   ✓ P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'rival' 'leadOrAntagonist' with actual 'lead' seat: qualification=true 635ms
+   ✓ P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'rival' 'leadOrAntagonist' with actual 'antagonist' seat: qualification=true 587ms
+   ✓ P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'rival' 'leadOrAntagonist' with actual 'support' seat: qualification=false 516ms
+   ✓ P14B4 labeled outcome-owner probes on real bound roots and actual casts > player support qualifies for P1 and shape-legacy count-only P2, not tagged P2 618ms
+   ✓ P14B4 labeled outcome-owner probes on real bound roots and actual casts > rival support qualifies for P1 and shape-legacy count-only P2, not tagged P2 1227ms
+   ✓ P14B4 labeled outcome-owner probes on real bound roots and actual casts > shooting entry/technology lock and an unscheduled tick produce no first take or tagged-P2 outcome 391ms
+   ✓ P14B4 labeled outcome-owner probes on real bound roots and actual casts > player half-open window counts start, excludes before-start and excludes due 805ms
+   ✓ P14B4 labeled outcome-owner probes on real bound roots and actual casts > rival half-open window counts start, excludes before-start and excludes due 1511ms
+   ✓ P14B4 labeled outcome-owner probes on real bound roots and actual casts > count2 requires TWO real distinct productions; repeated owner passes/ticks on one picture never add another event 729ms
+   ✓ P14B4 labeled outcome-owner probes on real bound roots and actual casts > two genuinely bound beneficiaries share one completed take but receive DISTINCT own outcome receipts exactly once 906ms
+   ✓ P14B4 labeled outcome-owner probes on real bound roots and actual casts > first take THEN real player cancellation never un-satisfies or rewrites the evidence/outcome 412ms
+stdout | tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — no-preference path and viability gates (plan :223-225) > p13a-core-causal-01: every real film decision without members equals the pre-existing choice and pool; every decision seats the law pick over the pool the seam law derives; a null choice only when no permutation is viable
+p13a-core-causal-01: 1015 real film decisions (51 pictures), 724 without members; chain digest over 1015 rows = 2aec0184c3301f1e174fe9843a0b076258fdc9de9683424cb064a5d777382610
+
+stdout | tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — no-preference path and viability gates (plan :223-225) > seed-b: every real film decision without members equals the pre-existing choice and pool; every decision seats the law pick over the pool the seam law derives; a null choice only when no permutation is viable
+seed-b: 1083 real film decisions (98 pictures), 669 without members; chain digest over 134 rows = d3218295f449599c4451ee5d85c13a3bd3171522ce2697b9d034dc71b96daea2
+
+stdout | tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — the natural witness (seed-b w211 studio-bc14baf6-r01, record 618 O-T4-1) > search table: the first seed-b decision whose seating matters holds two tagged leadOrAntagonist beneficiaries and one P1 beneficiary in a three-actor pool
+WITNESS seed-b w211 studio-bc14baf6-r01 studio-bc14baf6-r01:package:script-0023 cashAvailable=52015156.96352156
+[012] bc14baf6-r01-2/bc14baf6-r01-3/bc14baf6-r01-4 benefit=2 NOT VIABLE
+[021] bc14baf6-r01-2/bc14baf6-r01-4/bc14baf6-r01-3 benefit=3 NOT VIABLE
+[102] bc14baf6-r01-3/bc14baf6-r01-2/bc14baf6-r01-4 benefit=2 NOT VIABLE
+[120] bc14baf6-r01-3/bc14baf6-r01-4/bc14baf6-r01-2 benefit=2 score=-1507894 budget=2925161+671170
+[201] bc14baf6-r01-4/bc14baf6-r01-2/bc14baf6-r01-3 benefit=3 score=-1735081 budget=2925161+647648
+[210] bc14baf6-r01-4/bc14baf6-r01-3/bc14baf6-r01-2 benefit=2 score=-1425536 budget=2925161+679067
+chosen today: {"lead":"person-studio-bc14baf6-r01-4","antagonist":"person-studio-bc14baf6-r01-2","support":"person-studio-bc14baf6-r01-3"} law: bc14baf6-r01-4/bc14baf6-r01-2/bc14baf6-r01-3#3@-1735081 ordinary: bc14baf6-r01-4/bc14baf6-r01-3/bc14baf6-r01-2#2@-1425536
+
+stdout | tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — the natural witness (seed-b w211 studio-bc14baf6-r01, record 618 O-T4-1) > RED: every real film decision on seed-b with members seats the law pick (benefit, then ordinary score, then BILLINGS); the violation table names each miss
+SEED-B MEMBER DECISIONS 414 (8 pictures); MISSES 0
+
+
+stdout | tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — the natural witness (seed-b w211 studio-bc14baf6-r01, record 618 O-T4-1) > TIE FALLBACK (labeled reception-input variant): two reception-identical tagged beneficiaries tie on score; the first strict-greater winner in the inherited BILLINGS order is seated — inherited tie behaviour, not fairness (:218-221)
+TIE VARIANT w211 studio-bc14baf6-r01
+[012] bc14baf6-r01-2/bc14baf6-r01-3/bc14baf6-r01-4 benefit=2 score=-1515917 budget=2925161+671672
+[021] bc14baf6-r01-2/bc14baf6-r01-4/bc14baf6-r01-3 benefit=3 score=-1545921 budget=2925161+668330
+[102] bc14baf6-r01-3/bc14baf6-r01-2/bc14baf6-r01-4 benefit=2 score=-1565297 budget=2925161+667055
+[120] bc14baf6-r01-3/bc14baf6-r01-4/bc14baf6-r01-2 benefit=2 score=-1565297 budget=2925161+667055
+[201] bc14baf6-r01-4/bc14baf6-r01-2/bc14baf6-r01-3 benefit=3 score=-1545921 budget=2925161+668330
+[210] bc14baf6-r01-4/bc14baf6-r01-3/bc14baf6-r01-2 benefit=2 score=-1515917 budget=2925161+671672
+
+stdout | tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — membership (plan :210-213) and masks (:213-215) > CURRENT unaccepted offers never count: seed-b w202, three rivals decide while their own retention offers carry promises with contractId null; re-authored offers make the negative discriminating
+PENDING-OFFER w202 strict=bc14baf6-r01-4/bc14baf6-r01-3/bc14baf6-r01-2#0@-1391270 asIfBound=bc14baf6-r01-3/bc14baf6-r01-4/bc14baf6-r01-2#3@-1459842
+[012] bc14baf6-r01-2/bc14baf6-r01-3/bc14baf6-r01-4 benefit=1 NOT VIABLE
+[021] bc14baf6-r01-2/bc14baf6-r01-4/bc14baf6-r01-3 benefit=2 NOT VIABLE
+[102] bc14baf6-r01-3/bc14baf6-r01-2/bc14baf6-r01-4 benefit=2 NOT VIABLE
+[120] bc14baf6-r01-3/bc14baf6-r01-4/bc14baf6-r01-2 benefit=3 score=-1459842 budget=2626575+435673
+[201] bc14baf6-r01-4/bc14baf6-r01-2/bc14baf6-r01-3 benefit=2 NOT VIABLE
+[210] bc14baf6-r01-4/bc14baf6-r01-3/bc14baf6-r01-2 benefit=2 score=-1391270 budget=2626575+439485
+
+stdout | tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — membership (plan :210-213) and masks (:213-215) > a met promise never counts (r01 chain, RED today only through the witness defect): after the witness take the SATISFIED roots leave r01's member set at its next real decision
+MET-NEGATIVE w220 met=promise-4,promise-6,promise-8 strict=bc14baf6-r01-3/bc14baf6-r01-4/bc14baf6-r01-2#0@-957526 asIfUnmet=bc14baf6-r01-4/bc14baf6-r01-2/bc14baf6-r01-3#3@-1258947 discriminating=true
+
+stdout | tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — membership (plan :210-213) and masks (:213-215) > mask derivation through the shared reader — 'tagged lead stays exact: r01-2 counts…'
+MASK VARIANT {"kind":"castRoleCount","count":1,"seatClass":"lead"}
+[012] bc14baf6-r01-2/bc14baf6-r01-3/bc14baf6-r01-4 benefit=2 NOT VIABLE
+[021] bc14baf6-r01-2/bc14baf6-r01-4/bc14baf6-r01-3 benefit=3 NOT VIABLE
+[102] bc14baf6-r01-3/bc14baf6-r01-2/bc14baf6-r01-4 benefit=1 NOT VIABLE
+[120] bc14baf6-r01-3/bc14baf6-r01-4/bc14baf6-r01-2 benefit=2 score=-1507894 budget=2925161+671170
+[201] bc14baf6-r01-4/bc14baf6-r01-2/bc14baf6-r01-3 benefit=2 score=-1735081 budget=2925161+647648
+[210] bc14baf6-r01-4/bc14baf6-r01-3/bc14baf6-r01-2 benefit=2 score=-1425536 budget=2925161+679067
+law bc14baf6-r01-4/bc14baf6-r01-3/bc14baf6-r01-2#2@-1425536
+
+stdout | tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — membership (plan :210-213) and masks (:213-215) > mask derivation through the shared reader — 'legacy count-only LEAD_OR_SIGNIFICANT…'
+MASK VARIANT {"count":1}
+[012] bc14baf6-r01-2/bc14baf6-r01-3/bc14baf6-r01-4 benefit=2 NOT VIABLE
+[021] bc14baf6-r01-2/bc14baf6-r01-4/bc14baf6-r01-3 benefit=3 NOT VIABLE
+[102] bc14baf6-r01-3/bc14baf6-r01-2/bc14baf6-r01-4 benefit=2 NOT VIABLE
+[120] bc14baf6-r01-3/bc14baf6-r01-4/bc14baf6-r01-2 benefit=3 score=-1507894 budget=2925161+671170
+[201] bc14baf6-r01-4/bc14baf6-r01-2/bc14baf6-r01-3 benefit=3 score=-1735081 budget=2925161+647648
+[210] bc14baf6-r01-4/bc14baf6-r01-3/bc14baf6-r01-2 benefit=3 score=-1425536 budget=2925161+679067
+law bc14baf6-r01-4/bc14baf6-r01-3/bc14baf6-r01-2#3@-1425536
+
+stdout | tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — membership (plan :210-213) and masks (:213-215) > mask derivation through the shared reader — 'APPEARANCE_COUNT is generic cast'
+MASK VARIANT {"count":1}
+[012] bc14baf6-r01-2/bc14baf6-r01-3/bc14baf6-r01-4 benefit=2 NOT VIABLE
+[021] bc14baf6-r01-2/bc14baf6-r01-4/bc14baf6-r01-3 benefit=3 NOT VIABLE
+[102] bc14baf6-r01-3/bc14baf6-r01-2/bc14baf6-r01-4 benefit=2 NOT VIABLE
+[120] bc14baf6-r01-3/bc14baf6-r01-4/bc14baf6-r01-2 benefit=3 score=-1507894 budget=2925161+671170
+[201] bc14baf6-r01-4/bc14baf6-r01-2/bc14baf6-r01-3 benefit=3 score=-1735081 budget=2925161+647648
+[210] bc14baf6-r01-4/bc14baf6-r01-3/bc14baf6-r01-2 benefit=3 score=-1425536 budget=2925161+679067
+law bc14baf6-r01-4/bc14baf6-r01-3/bc14baf6-r01-2#3@-1425536
+
+stdout | tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — the initial cast seam (plan :225-232) > capacity constraint: a rival with a ready screenplay and no lawful complementary staffing decides nothing (natural weeks logged; zero is a fixture finding)
+NO-STAFFING WEEKS 286
+p13a-core-causal-01 w208 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w208 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w209 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w209 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w210 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w210 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w211 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w211 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w212 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w212 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w213 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w213 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w214 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w214 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w215 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w215 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w216 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w216 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w217 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w217 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w218 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w218 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w219 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w219 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w220 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w220 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w221 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w221 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w222 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w222 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w223 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w223 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w224 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w224 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w225 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w225 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w226 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w226 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w227 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w227 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w228 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w228 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w229 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w229 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w230 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w230 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w231 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w231 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w232 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w232 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w233 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w233 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w234 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w234 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w235 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w235 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w236 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w236 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w237 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w237 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w238 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w238 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w239 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w239 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w240 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w240 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w241 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w241 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w242 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w242 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w243 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w243 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w244 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w244 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w245 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w245 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w246 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w246 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w247 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w247 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w248 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w248 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w249 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w249 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w250 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w250 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w251 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w251 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w252 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w252 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w253 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w253 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w254 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w254 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w255 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w255 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w256 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w256 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w257 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w257 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w258 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w258 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w259 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w259 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w260 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w260 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w261 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w261 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w262 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w262 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w263 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w263 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w264 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w264 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w265 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w265 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w266 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w266 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w267 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w267 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w268 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w268 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w269 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w269 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w270 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w270 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w271 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w271 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w272 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w272 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w273 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w273 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w274 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w274 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w275 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w275 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w276 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w276 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w277 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w277 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w278 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w278 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w279 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w279 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w280 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w280 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w281 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w281 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w282 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w282 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w283 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w283 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w284 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w284 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w285 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w285 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w286 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w286 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w287 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w287 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w288 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w288 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w289 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w289 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w290 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w290 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w291 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w291 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w292 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w292 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w293 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w293 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w294 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w294 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w295 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w295 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w296 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w296 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w297 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w297 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w298 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w298 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w299 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w299 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w300 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w300 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w301 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w301 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w302 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w302 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w303 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w303 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w304 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w304 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w305 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w305 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w306 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w306 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w307 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w307 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w308 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w308 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w309 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w309 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w310 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w310 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w311 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w311 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w312 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w312 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w313 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w313 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w314 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w314 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w315 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w315 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w316 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w316 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w317 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w317 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w318 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w318 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w319 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w319 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w320 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w320 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w321 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w321 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w322 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w322 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w323 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w323 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w324 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w324 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w325 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w325 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w326 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w326 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w327 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w327 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w328 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w328 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w329 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w329 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w330 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w330 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w331 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w331 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w332 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w332 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w333 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w333 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w334 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w334 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w335 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w335 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w336 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w336 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w337 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w337 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w338 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w338 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w339 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w339 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w340 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w340 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w341 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w341 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w342 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w342 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w343 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w343 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w344 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w344 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w345 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w345 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w346 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w346 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w347 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w347 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w348 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w348 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w349 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w349 studio-aca408ec-r04 deficit=true
+seed-b w208 studio-bc14baf6-r04 deficit=true
+seed-b w209 studio-bc14baf6-r04 deficit=true
+
+stdout | tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — the initial cast seam (plan :225-232) > the positive seam witness (plan :225-227, :233; record 621 R2 / G10-b): the first default-seed picture whose pool seats a promised person outside the historical first three admits r01's sole WRITER — a non-primary-actor beneficiary — and the real package and first take serve his promise
+SEAM WITNESS w208 studio-aca408ec-r01 studio-aca408ec-r01:package:script-0011 cashAvailable=8686605.262935068
+[012] aca408ec-r02-0/aca408ec-r02-2/aca408ec-r02-3 benefit=3 NOT VIABLE
+[021] aca408ec-r02-0/aca408ec-r02-3/aca408ec-r02-2 benefit=3 NOT VIABLE
+[102] aca408ec-r02-2/aca408ec-r02-0/aca408ec-r02-3 benefit=3 NOT VIABLE
+[120] aca408ec-r02-2/aca408ec-r02-3/aca408ec-r02-0 benefit=3 NOT VIABLE
+[201] aca408ec-r02-3/aca408ec-r02-0/aca408ec-r02-2 benefit=3 NOT VIABLE
+[210] aca408ec-r02-3/aca408ec-r02-2/aca408ec-r02-0 benefit=3 score=-1366501 budget=3033668+594746
+law aca408ec-r02-3/aca408ec-r02-2/aca408ec-r02-0#3@-1366501 ordinary aca408ec-r02-3/aca408ec-r02-2/aca408ec-r02-0#3@-1366501
+
+ ✓ |core| tests/p14b4-rival-seating-preference.test.ts (22 tests | 1 skipped) 54933ms
+   ✓ P14B4 final seating preference — no-preference path and viability gates (plan :223-225) > default seed: the first screenplay-planning call and first film decision are byte-identical to the accepted values; the transcribed ordinary score reproduces the real no-preference choice 21576ms
+   ✓ P14B4 final seating preference — no-preference path and viability gates (plan :223-225) > seed-b: every real film decision without members equals the pre-existing choice and pool; every decision seats the law pick over the pool the seam law derives; a null choice only when no permutation is viable 27030ms
+   ✓ P14B4 final seating preference — the natural witness (seed-b w211 studio-bc14baf6-r01, record 618 O-T4-1) > RED: the real seating serves the maximal DISTINCT-beneficiary count (plan :215-218), the picture is viable and affordable (:223-225), and the real first take then satisfies all three through advancePromisesWeek/qualifyingTakes 307ms
+   ✓ P14B4 final seating preference — the natural witness (seed-b w211 studio-bc14baf6-r01, record 618 O-T4-1) > TIE FALLBACK (labeled reception-input variant): two reception-identical tagged beneficiaries tie on score; the first strict-greater winner in the inherited BILLINGS order is seated — inherited tie behaviour, not fairness (:218-221) 721ms
+   ✓ P14B4 final seating preference — membership (plan :210-213) and masks (:213-215) > CURRENT unaccepted offers never count: seed-b w202, three rivals decide while their own retention offers carry promises with contractId null; re-authored offers make the negative discriminating 416ms
+   ✓ P14B4 final seating preference — membership (plan :210-213) and masks (:213-215) > another issuer's promise never counts: r02's offers to r01's three actors are present at w202 and at the witness and never enter r01's member set; re-authored r02 offers make the negative discriminating 429ms
+   ✓ P14B4 final seating preference — membership (plan :210-213) and masks (:213-215) > a met promise never counts (control, r02 chain): after r02's w211 picture satisfies its three P1 roots at w216, its next real decision has no member and takes the ordinary pick 536ms
+   ✓ P14B4 final seating preference — membership (plan :210-213) and masks (:213-215) > a met promise never counts (r01 chain, RED today only through the witness defect): after the witness take the SATISFIED roots leave r01's member set at its next real decision 536ms
+   ✓ P14B4 final seating preference — membership (plan :210-213) and masks (:213-215) > a promise whose window excludes the prospective take never counts — 'window starts after every plausible t…' 450ms
+   ✓ P14B4 final seating preference — membership (plan :210-213) and masks (:213-215) > a promise whose window excludes the prospective take never counts — 'window ends before any take can land …' 438ms
+   ✓ P14B4 final seating preference — membership (plan :210-213) and masks (:213-215) > mask derivation through the shared reader — 'tagged lead stays exact: r01-2 counts…' 412ms
+   ✓ P14B4 final seating preference — membership (plan :210-213) and masks (:213-215) > mask derivation through the shared reader — 'legacy count-only LEAD_OR_SIGNIFICANT…' 410ms
+   ✓ P14B4 final seating preference — membership (plan :210-213) and masks (:213-215) > mask derivation through the shared reader — 'APPEARANCE_COUNT is generic cast' 604ms
+ ✓ |core| tests/p14b4-material-evidence-core.test.ts (17 tests) 18670ms
+   ✓ P14B4 staged material owner, independent old formula and explicit class > retains the exact old count-only APPEARANCE_COUNT formula and attached formula 1127ms
+   ✓ P14B4 staged material owner, independent old formula and explicit class > retains the exact old count-only LEAD_OR_SIGNIFICANT_ROLE_COUNT formula and attached formula 659ms
+   ✓ P14B4 staged material owner, independent old formula and explicit class > retains the exact old count-only DIRECTING_COUNT formula and attached formula 583ms
+   ✓ P14B4 staged material owner, independent old formula and explicit class > retains the exact old count-only PREFERRED_GENRE_OPPORTUNITY formula and attached formula 720ms
+   ✓ P14B4 staged material owner, independent old formula and explicit class > retains the exact old count-only SPECIFIC_PROJECT formula and attached formula 653ms
+   ✓ P14B4 staged material owner, independent old formula and explicit class > kind/class are material; old classless P2 never aliases either new class; pure reads retain inputs 1071ms
+   ✓ P14B4 staged material owner, independent old formula and explicit class > family, count and both window endpoints remain material without receipt/version repair 1716ms
+   ✓ P14B4 staged outcome owner: real completed take, synthetic MATERIAL only > 'lead' against actual 'lead' 1788ms
+   ✓ P14B4 staged outcome owner: real completed take, synthetic MATERIAL only > 'lead' against actual 'antagonist' 1605ms
+   ✓ P14B4 staged outcome owner: real completed take, synthetic MATERIAL only > 'lead' against actual 'support' 1369ms
+   ✓ P14B4 staged outcome owner: real completed take, synthetic MATERIAL only > 'leadOrAntagonist' against actual 'lead' 815ms
+   ✓ P14B4 staged outcome owner: real completed take, synthetic MATERIAL only > 'leadOrAntagonist' against actual 'antagonist' 770ms
+   ✓ P14B4 staged outcome owner: real completed take, synthetic MATERIAL only > 'leadOrAntagonist' against actual 'support' 783ms
+   ✓ P14B4 staged outcome owner: real completed take, synthetic MATERIAL only > actual support still qualifies for old count-only 'APPEARANCE_COUNT' 952ms
+   ✓ P14B4 staged outcome owner: real completed take, synthetic MATERIAL only > actual support still qualifies for old count-only 'LEAD_OR_SIGNIFICANT_ROLE_COUNT' 949ms
+   ✓ P14B4 staged outcome owner: real completed take, synthetic MATERIAL only > two genuinely bound people share one take but get exactly two distinct own outcome receipts 1117ms
+   ✓ P14B4 staged outcome owner: real completed take, synthetic MATERIAL only > a real take at window start counts; the same real take at due-exclusive does not 1989ms
+ ✓ |core| tests/bridge-p14b4-cast-class.test.ts (28 tests) 56207ms
+   ✓ P14B4 exact wire grammar — no P2 offerability prerequisite > accepts explicit lead P2 through the actual closed quote-request validator 1173ms
+   ✓ P14B4 exact wire grammar — no P2 offerability prerequisite > accepts explicit leadOrAntagonist P2 through the actual closed quote-request validator 845ms
+   ✓ P14B4 exact wire grammar — no P2 offerability prerequisite > refuses 'P2 missing class' before session quote/commit authority is reached 736ms
+   ✓ P14B4 exact wire grammar — no P2 offerability prerequisite > refuses 'bad class null' before session quote/commit authority is reached 697ms
+   ✓ P14B4 exact wire grammar — no P2 offerability prerequisite > refuses 'bad class "support"' before session quote/commit authority is reached 897ms
+   ✓ P14B4 exact wire grammar — no P2 offerability prerequisite > refuses 'bad class "leadOrSupport"' before session quote/commit authority is reached 984ms
+   ✓ P14B4 exact wire grammar — no P2 offerability prerequisite > refuses 'bad class 1' before session quote/commit authority is reached 940ms
+   ✓ P14B4 exact wire grammar — no P2 offerability prerequisite > refuses 'bad class ["lead"]' before session quote/commit authority is reached 1006ms
+   ✓ P14B4 exact wire grammar — no P2 offerability prerequisite > refuses 'extra wire kind' before session quote/commit authority is reached 1006ms
+   ✓ P14B4 exact wire grammar — no P2 offerability prerequisite > refuses 'extra nested predicate' before session quote/commit authority is reached 939ms
+   ✓ P14B4 exact wire grammar — no P2 offerability prerequisite > refuses 'class inapplicable to APPEARANCE_COUNT' before session quote/commit authority is reached 963ms
+   ✓ P14B4 exact wire grammar — no P2 offerability prerequisite > refuses 'class inapplicable to DIRECTING_COUNT' before session quote/commit authority is reached 725ms
+   ✓ P14B4 exact wire grammar — no P2 offerability prerequisite > refuses 'class inapplicable to PREFERRED_GENRE…' before session quote/commit authority is reached 649ms
+   ✓ P14B4 exact wire grammar — no P2 offerability prerequisite > refuses 'class inapplicable to SPECIFIC_PROJECT' before session quote/commit authority is reached 841ms
+   ✓ P14B4 exact wire grammar — no P2 offerability prerequisite > keeps no-promise and count-only non-P2 wire shapes legal; P3-P5 remain engine-refused separately 395ms
+   ✓ P14B4 real P2 session integration — offerability/commit prerequisites UNEXECUTED > class changes opaque intent identity; quote/conversion/pending values are nested immutable snapshots 3069ms
+   ✓ P14B4 real P2 session integration — offerability/commit prerequisites UNEXECUTED > whole-quote refusal registers no intent and returns no partial proposal/root/cash/ledger/RNG state 1306ms
+   ✓ P14B4 real P2 session integration — offerability/commit prerequisites UNEXECUTED > class revision replaces attachment, while remove/withdraw preserve every old root and create no outcome 9091ms
+   ✓ P14B4 real P2 session integration — offerability/commit prerequisites UNEXECUTED > direct apply revalidates real CURRENT employment, not the earlier offerable conversion 532ms
+   ✓ P14B4 real P2 session integration — offerability/commit prerequisites UNEXECUTED > session/revision/replay protections still permit only one class-bearing attachment 6651ms
+   ✓ P14B4 real P2 session integration — offerability/commit prerequisites UNEXECUTED > exact cap16: after 16 distinct offerable class-bearing quotes 2931ms
+   ✓ P14B4 real P2 session integration — offerability/commit prerequisites UNEXECUTED > exact cap16: after 17 distinct offerable class-bearing quotes 3081ms
+   ✓ P14B4 existing own/private/public carriers > both viewing directions retain whole competing promise UNKNOWN, with no class beside it 2399ms
+   ✓ P14B4 existing own/private/public carriers > own legacy classless P2 shows null/unknown, never a fabricated lead; P1 remains not-applicable 1482ms
+   ✓ P14B4 existing own/private/public carriers > shared profile/case/workspace preferences expose the existing age-edge at29 682ms
+   ✓ P14B4 existing own/private/public carriers > shared profile/case/workspace preferences expose the existing age-edge at30 633ms
+   ✓ P14B4 existing own/private/public carriers > actual lead quote→binding→termination exposes own class, not public/private leakage 6317ms
+   ✓ P14B4 existing own/private/public carriers > actual leadOrAntagonist quote→binding→termination exposes own class, not public/private leakage 5232ms
+ ✓ |core| tests/p14bf2-acting-discipline.test.ts (13 tests) 8853ms
+   ✓ B-F2: settled has-acting-discipline law, not primary-role eligibility > the real generated writer is lawfully cast as lead without relabeling or occupying two roles 4352ms
+   ✓ B-F2: settled has-acting-discipline law, not primary-role eligibility > real winning writer P1 binds, then one completed scheduled cast take satisfies it with exact durable references 1205ms
+   ✓ B-F2: genuine old role-refusal evidence survives, fresh evaluations use the live evaluator (4 after record 600) > valid load preserves the old erroneous receipt/root/digest bytes exactly without repairing history 2113ms
+   ✓ B-F2: genuine old role-refusal evidence survives, fresh evaluations use the live evaluator (4 after record 600) > actual resubmit/attach evaluates afresh under4 but keeps the original version1 refusal untouched 637ms
+ ✓ |core| tests/p14b4-cast-class-capacity.test.ts (14 tests) 10400ms
+   ✓ P14B4 bounded fixed-cast capacity, requirement-based owner probes > 'lead' target actually fixed in 'lead': eligible=true 4440ms
+   ✓ P14B4 bounded fixed-cast capacity, requirement-based owner probes > 'lead' target actually fixed in 'antagonist': eligible=false 432ms
+   ✓ P14B4 bounded fixed-cast capacity, requirement-based owner probes > 'lead' target actually fixed in 'support': eligible=false 344ms
+   ✓ P14B4 bounded fixed-cast capacity, requirement-based owner probes > 'leadOrAntagonist' target actually fixed in 'lead': eligible=true 373ms
+   ✓ P14B4 bounded fixed-cast capacity, requirement-based owner probes > 'leadOrAntagonist' target actually fixed in 'antagonist': eligible=true 303ms
+   ✓ P14B4 bounded fixed-cast capacity, requirement-based owner probes > 'leadOrAntagonist' target actually fixed in 'support': eligible=false 370ms
+   ✓ P14B4 bounded fixed-cast capacity, requirement-based owner probes > one real picture jointly serves lead+flexible+P1, but never splices a later Ready script into its spare witness 966ms
+   ✓ P14B4 bounded fixed-cast capacity, requirement-based owner probes > revise removes a real CURRENT reservation but preserves root/receipt history and digest neutrality 662ms
+   ✓ P14B4 bounded fixed-cast capacity, requirement-based owner probes > withdraw removes a real CURRENT reservation but preserves root/receipt history and digest neutrality 553ms
+   ✓ P14B4 bounded fixed-cast capacity, requirement-based owner probes > a lawful CURRENT nonoverlapping attachment does not alter the class-aware read or its digest 434ms
+   ✓ P14B4 bounded fixed-cast capacity, requirement-based owner probes > class changes material and feasibility digests; unrelated cash and valid RNG words change neither read nor history 662ms
+   ✓ P14B4 bounded fixed-cast capacity, requirement-based owner probes > huge admitted staged window/count=65 preserves history; a real outside-contract refusal is not relabeled cap uncertainty 302ms
+   ✓ P14B4 bounded fixed-cast capacity, requirement-based owner probes > huge admitted staged window/count=9007199254740991 preserves history; a real outside-contract refusal is not relabeled cap uncertainty 321ms
+ ❯ |core| tests/p14b4-cast-class-capacity-evaluator5.test.ts (2 tests | 1 failed | 1 skipped) 4423ms
+   × P14B4 evaluator-5 kernel vocabulary (record 600 §3 2(b)): the joint certificate the scalar cannot issue > a conflicting fixed lead claim makes the joint offer impossible, not a target-specific BROKEN winner choice 4421ms
+     → expected 'FRAGILE' to be 'IMPOSSIBLE' // Object.is equality
+ ✓ |core| tests/bridge-p14b4-runtime47-compatibility.test.ts (6 tests) 13605ms
+   ✓ P14B4 genuine outgoing46 runtime compatibility — future Save30/projection47 > pins genuine original46 artifact, producer authority, and two SAME-week DIFFERENT slots 692ms
+   ✓ P14B4 genuine outgoing46 runtime compatibility — future Save30/projection47 > migrates currentSaveJson from its OWN genuine V29 state, preserving exact material/history 2500ms
+   ✓ P14B4 genuine outgoing46 runtime compatibility — future Save30/projection47 > migrates savedSaveJson from its OWN genuine V29 state, preserving exact material/history 3136ms
+   ✓ P14B4 genuine outgoing46 runtime compatibility — future Save30/projection47 > resets ONLY prior runtime authority, then reopens current47 without a second migration 6925ms
+ ✓ |core| tests/p14b4-kernel-hold-order-extension.test.ts (5 tests) 82ms
+ ✓ |core| tests/p14b4-bounded-stable-sort.test.ts (7 tests) 243ms
+ ✓ |core| tests/p14b4-d3-matching.test.ts (8 tests) 1980ms
+   ✓ B4 D3 public pure matcher: literal adopted match table > 'significant / P1' matches=false without mutating the read input 304ms
+   ✓ B4 D3 public pure matcher: literal adopted match table > at age29, historical untagged P2 and other families acquire no invented cast class 393ms
+   ✓ B4 D3 public pure matcher: literal adopted match table > at age30, historical untagged P2 and other families acquire no invented cast class 345ms
+stdout | tests/p14b4-cast-class-policy.test.ts > P14B4: natural rival policy uses the real shared service, never staged failed candidates > observes flexible-first, actual P1 fallback, proven P1, and a genuine zero-attachment refusal without extra RNG
+default seed w196 provenP1: studio-aca408ec-r01 -> person-studio-aca408ec-r01-0 reads APPEARANCE_COUNT=REASONABLY_ACHIEVABLE root promise-0
+default seed w196 flexibleP2: studio-aca408ec-r01 -> person-studio-aca408ec-r01-5 reads LEAD_OR_SIGNIFICANT_ROLE_COUNT=REASONABLY_ACHIEVABLE root promise-10
+default seed w196 neither: studio-aca408ec-r03 -> person-studio-aca408ec-r01-5 reads LEAD_OR_SIGNIFICANT_ROLE_COUNT=FRAGILE:needs a picture not yet commissioned, APPEARANCE_COUNT=FRAGILE:needs a picture not yet commissioned
+seed-b w196 P1fallback: studio-bc14baf6-r03 -> person-studio-bc14baf6-r03-4 reads LEAD_OR_SIGNIFICANT_ROLE_COUNT=FRAGILE:needs a picture not yet commissioned, APPEARANCE_COUNT=REASONABLY_ACHIEVABLE root promise-36
+
+ ✓ |core| tests/p14b4-cast-class-policy.test.ts (7 tests) 145147ms
+   ✓ P14B4: one shared public archetype; no new personality or priority-position inference > a real under-30 release credit supplies the proven branch independently of the age edge 2277ms
+   ✓ P14B4: all six D3 class matches through real two-survivor settlements > age 29: mismatch changes only D3, never proposal legality 8723ms
+   ✓ P14B4: all six D3 class matches through real two-survivor settlements > age 30: mismatch changes only D3, never proposal legality 7537ms
+   ✓ P14B4: natural rival policy uses the real shared service, never staged failed candidates > observes flexible-first, actual P1 fallback, proven P1, and a genuine zero-attachment refusal without extra RNG 126140ms
+ ✓ |core| tests/p14b4-save-v30-compatibility.test.ts (36 tests) 58193ms
+   ✓ P14B4 Save30: genuine final V29 corpus, exact old-state preservation > migrates genuine empty without rewriting roots, receipts, digests or history and downgrades losslessly 1217ms
+   ✓ P14B4 Save30: genuine final V29 corpus, exact old-state preservation > migrates genuine current-p1 without rewriting roots, receipts, digests or history and downgrades losslessly 1634ms
+   ✓ P14B4 Save30: genuine final V29 corpus, exact old-state preservation > migrates genuine replaced-p1 without rewriting roots, receipts, digests or history and downgrades losslessly 1773ms
+   ✓ P14B4 Save30: genuine final V29 corpus, exact old-state preservation > migrates genuine withdrawn-p1 without rewriting roots, receipts, digests or history and downgrades losslessly 1279ms
+   ✓ P14B4 Save30: genuine final V29 corpus, exact old-state preservation > migrates genuine bound-open-p1 without rewriting roots, receipts, digests or history and downgrades losslessly 1540ms
+   ✓ P14B4 Save30: genuine final V29 corpus, exact old-state preservation > migrates genuine kept-and-broken-p1 without rewriting roots, receipts, digests or history and downgrades losslessly 2048ms
+   ✓ P14B4 Save30: genuine final V29 corpus, exact old-state preservation > migrates genuine rival-current-p1 without rewriting roots, receipts, digests or history and downgrades losslessly 2239ms
+   ✓ P14B4 Save30: genuine final V29 corpus, exact old-state preservation > migrates genuine rival-shared-take-terminal-p1 without rewriting roots, receipts, digests or history and downgrades losslessly 2656ms
+   ✓ P14B4 Save30: genuine final V29 corpus, exact old-state preservation > migrates genuine refused-p2-count-only-current-draft without rewriting roots, receipts, digests or history and downgrades losslessly 1580ms
+   ✓ P14B4 reader-admitted SYNTHETIC legacy variants — never producer fixtures > keeps count-only CURRENT APPEARANCE_COUNT with arbitrary positive root/receipt versions 8700ms
+   ✓ P14B4 reader-admitted SYNTHETIC legacy variants — never producer fixtures > keeps count-only CURRENT LEAD_OR_SIGNIFICANT_ROLE_COUNT with arbitrary positive root/receipt versions 6943ms
+   ✓ P14B4 reader-admitted SYNTHETIC legacy variants — never producer fixtures > keeps count-only CURRENT DIRECTING_COUNT with arbitrary positive root/receipt versions 5016ms
+   ✓ P14B4 reader-admitted SYNTHETIC legacy variants — never producer fixtures > keeps count-only CURRENT PREFERRED_GENRE_OPPORTUNITY with arbitrary positive root/receipt versions 4308ms
+   ✓ P14B4 reader-admitted SYNTHETIC legacy variants — never producer fixtures > keeps count-only CURRENT SPECIFIC_PROJECT with arbitrary positive root/receipt versions 3784ms
+   ✓ P14B4 reader-admitted SYNTHETIC legacy variants — never producer fixtures > keeps genuinely backed OPEN/SATISFIED/BROKEN count-only APPEARANCE_COUNT variants 2389ms
+   ✓ P14B4 reader-admitted SYNTHETIC legacy variants — never producer fixtures > keeps genuinely backed OPEN/SATISFIED/BROKEN count-only LEAD_OR_SIGNIFICANT_ROLE_COUNT variants 2564ms
+   ✓ P14B4 reader-admitted SYNTHETIC legacy variants — never producer fixtures > keeps genuinely backed OPEN/SATISFIED/BROKEN count-only DIRECTING_COUNT variants 1671ms
+   ✓ P14B4 reader-admitted SYNTHETIC legacy variants — never producer fixtures > keeps genuinely backed OPEN/SATISFIED/BROKEN count-only PREFERRED_GENRE_OPPORTUNITY variants 1457ms
+   ✓ P14B4 reader-admitted SYNTHETIC legacy variants — never producer fixtures > keeps genuinely backed OPEN/SATISFIED/BROKEN count-only SPECIFIC_PROJECT variants 2247ms
+   ✓ P14B4 reader-admitted SYNTHETIC legacy variants — never producer fixtures > keeps classless P2 terminal variants with an actual shared take and DISTINCT original outcome receipts 1077ms
+   ✓ P14B4 reader-admitted SYNTHETIC legacy variants — never producer fixtures > keeps a classless P2 SATISFIED by an ACTUAL support seat, without inventing a role class or take 602ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14b4-cast-class-capacity-evaluator5.test.ts > P14B4 evaluator-5 kernel vocabulary (record 600 §3 2(b)): the joint certificate the scalar cannot issue > a conflicting fixed lead claim makes the joint offer impossible, not a target-specific BROKEN winner choice
+AssertionError: expected 'FRAGILE' to be 'IMPOSSIBLE' // Object.is equality
+
+Expected: "IMPOSSIBLE"
+Received: "FRAGILE"
+
+ ❯ tests/p14b4-cast-class-capacity-evaluator5.test.ts:239:77
+    237|     const w = world()
+    238|     const state = shortVariants(w, { lead: p2('lead'), antagonist: p2(…
+    239|     expect(pureRead(state, shortDraft(w, state, 'support')).classifica…
+       |                                                                             ^
+    240|     // The support person's own physical predicate still has the actua…
+    241|     // Never resolve that joint conflict by marking some bound benefic…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed | 13 passed (14)
+      Tests  1 failed | 226 passed | 2 todo (229)
+   Start at  21:55:18
+   Duration  151.18s (transform 5.16s, setup 0ms, collect 15.16s, tests 398.09s, environment 4ms, prepare 2.81s)
+
+
+{"sourceSha":"df944978825120faea7ec9532ebe900d1747ccb8","testedDiffSha256":"034887915509ffaa9a5cffdb69a9308e9830571b0947cf68ec5af976f77c13d0","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14b4-capacity-kernel.test.ts","tests/p14b4-cast-class-capacity.test.ts","tests/p14b4-cast-class-outcomes.test.ts","tests/p14b4-cast-class-policy.test.ts","tests/p14b4-d3-matching.test.ts","tests/p14b4-material-evidence-core.test.ts","tests/p14b4-save-v30-compatibility.test.ts","tests/p14b4-kernel-hold-order-extension.test.ts","tests/p14b4-bounded-stable-sort.test.ts","tests/bridge-p14b4-cast-class.test.ts","tests/bridge-p14b4-runtime47-compatibility.test.ts","tests/p14b4-cast-class-capacity-evaluator5.test.ts","tests/p14b4-rival-seating-preference.test.ts","tests/p14bf2-acting-discipline.test.ts"],"node":"v20.20.2","start":"2026-09-21T19:55:17.479Z","end":"2026-09-21T19:57:49.895Z","exitCode":1,"signal":null,"error":null,"sourceShaAtEnd":"df944978825120faea7ec9532ebe900d1747ccb8","testedDiffSha256AtEnd":"034887915509ffaa9a5cffdb69a9308e9830571b0947cf68ec5af976f77c13d0","untrackedSourceAtEnd":[],"fixedSource":true}

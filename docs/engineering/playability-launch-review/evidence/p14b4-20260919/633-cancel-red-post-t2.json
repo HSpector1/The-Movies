@@ -1,0 +1,22 @@
+{
+  "sourceSha": "df944978825120faea7ec9532ebe900d1747ccb8",
+  "testedDiffSha256": "034887915509ffaa9a5cffdb69a9308e9830571b0947cf68ec5af976f77c13d0",
+  "untrackedSource": [],
+  "command": [
+    "node_modules/.bin/vitest",
+    "run",
+    "--project",
+    "core",
+    "tests/p14b4-cancel-causal-proof.test.ts"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-21T19:55:09.605Z",
+  "end": "2026-09-21T19:55:17.304Z",
+  "exitCode": 0,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "df944978825120faea7ec9532ebe900d1747ccb8",
+  "testedDiffSha256AtEnd": "034887915509ffaa9a5cffdb69a9308e9830571b0947cf68ec5af976f77c13d0",
+  "untrackedSourceAtEnd": [],
+  "fixedSource": true
+}
