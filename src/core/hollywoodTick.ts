@@ -3,6 +3,7 @@ import { considerRivalSoundPurchase, selectRivalSoundProduction, rivalInstallati
 import { createProductionTechnologyPolicy } from './technologyProduction.js'
 import { busyTalentIds, offerForTalent, weeklySalary, renewalWindowOpen } from './employment.js'
 import { caseOpenForTalent } from './talentMarket.js'
+import { promisedCastMasks, WEEKS_TO_FIRST_TAKE } from './promises.js'
 import { moveRivalMoney, rivalCapacityOpex, rivalWeeklyOperatingCost, uniqueIdentity } from './hollywood.js'
 import { admitRivalPlansInWeek, advanceRivalResearch, completeRivalPlans, rivalScientistDemand } from './rivalResearch.js'
 import { researchAfterEmploymentRelease } from './technology.js'
@@ -159,15 +160,22 @@ function decide(state:GameState,h:HollywoodState,b:RivalBusiness,talent:Talent[]
   for(const ready of hotDevelopment(b).projects.filter(p=>p.status==='ready')) {
     if(b.productions.length!==0)break
     const director=employees.find(t=>t.role==='director'&&!busy.has(t.id))
-    const actors=employees.filter(t=>t.role==='actor'&&!busy.has(t.id)).slice(0,3)
     const craft=employees.find(t=>t.role==='craft'&&!busy.has(t.id))
+    // P14B.4 seating preference (plan :215-236): eligible PROMISED people enter the triple first, in employment
+    // order; the writer of this screenplay and the chosen director/craft cannot double as cast; with no member
+    // the expression below is the historical first-three rule unchanged.
+    const masks=promisedCastMasks(state,b.studioId,week+WEEKS_TO_FIRST_TAKE)
+    const taken=new Set([ready.writerId,director?.id,craft?.id])
+    const promised=employees.filter(t=>masks.has(t.id)&&!busy.has(t.id)&&!taken.has(t.id)&&t.skills.acting!==undefined)
+    const actors=[...promised,...employees.filter(t=>t.role==='actor'&&!busy.has(t.id)&&!promised.includes(t))].slice(0,3)
     if(director&&actors.length===3&&craft) {
       const cost=b.projects[Number(ready.id.slice(7))]!
       const concept=h.concepts[cost.conceptOrdinal]!
       const provisional={conceptId:concept.id,shape:ready.shape,promise:ready.promise,budget:{negative:concept.baseNegativeCost,marketing:0},writerId:ready.writerId,
         directorId:director.id,cast:{lead:actors[0]!.id,antagonist:actors[1]!.id,support:actors[2]!.id},craftIds:[craft.id]}
       const candidate=chooseIndustryPackage(inputsFor(state,h,b,provisional,ready,people),b.policy,{seed:state.seed,key:`${b.studioId}:package:${ready.id}`,
-        cashAvailable:b.account.cash-operatingReserve(b,h,week),weeklyCost:rivalWeeklyOperatingCost(b,h,week),lockScreenplay:true})
+        cashAvailable:b.account.cash-operatingReserve(b,h,week),weeklyCost:rivalWeeklyOperatingCost(b,h,week),lockScreenplay:true,
+        ...(masks.size>0?{promisedMasks:masks}:{})})
       if(candidate) {
         const {negative,marketing}=candidate.budget
         const id=uniqueIdentity(`${b.studioId}:film:${Number(ready.id.slice(7))}`,persistedProductionIds({...state,hollywood:h}))
