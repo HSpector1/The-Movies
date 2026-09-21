@@ -87,9 +87,15 @@ function readFixture(name: CorpusCase) {
 // B-F2 2026-09-19: live evaluation moves2→3 for the acting-discipline fix.
 // B3's revision2 RED/GREEN remains at f4e1230/425170e; do not rewrite that evidence.
 // Only fresh roots/receipts use3. Genuine evaluator1 fixtures and old root.version1 stay1.
-describe('P14B.3 continuity under B-F2 evaluator3 with genuine old evaluator1 history', () => {
+// Record 600 (2026-09-21, Owner ruling on 578, D1 (a)): live evaluation moves3→4 for the
+// class-aware scalar (class-restricted fixed-seat paths + shared residual capacity) inside
+// the coordinated core/save/runtime/wire cutover. B3's revision2 and B-F2's evaluator3
+// evidence stay where they were recorded. Only fresh roots/receipts below use4; genuine
+// evaluator1 fixtures and old root.version1 stay1. Classifications, digests, fixtures and
+// weeks are untouched; residual-buffer movements are reconciled from evidence (600 §3 2(d)).
+describe('P14B.3 continuity under the live evaluator (4 after record 600) with genuine old evaluator1 history', () => {
   it('pins the new evaluator generation independently of unchanged Save29/projection46', () => {
-    expect(PROMISE_RULES_VERSION).toBe(3)
+    expect(PROMISE_RULES_VERSION).toBe(4)
   })
 
   it.each(CASES)('preserves genuine %s root/receipt/digest bytes through valid load, not a restamped current fixture', (name) => {
@@ -120,7 +126,7 @@ describe('P14B.3 continuity under B-F2 evaluator3 with genuine old evaluator1 hi
     }
   })
 
-  it('new actual attachment uses root.version3 and receipt.rulesVersion3 without rewriting old roots', () => {
+  it('new actual attachment uses root.version4 and receipt.rulesVersion4 without rewriting old roots', () => {
     const { save, focused: old } = readFixture('evaluator1-current-p1')
     const state = migrateToV29(save).state
     const priorRoots = JSON.stringify(state.promises)
@@ -135,10 +141,10 @@ describe('P14B.3 continuity under B-F2 evaluator3 with genuine old evaluator1 hi
     })
     expect(attached.promises).toHaveLength(state.promises.length + 1)
     const fresh = attached.promises[state.promises.length]!
-    expect(fresh).toMatchObject({ promiseId: `promise-${state.promises.length}`, version: 3,
+    expect(fresh).toMatchObject({ promiseId: `promise-${state.promises.length}`, version: 4,
       beneficiaryPersonId: old.beneficiaryPersonId, issuerStudioId: old.issuerStudioId,
       contractId: null, outcome: null,
-      feasibilityReceipt: { rulesVersion: 3, week: state.market.tick, classification: 'REASONABLY_ACHIEVABLE' } })
+      feasibilityReceipt: { rulesVersion: 4, week: state.market.tick, classification: 'REASONABLY_ACHIEVABLE' } })
     expect(JSON.stringify(attached.promises.slice(0, state.promises.length))).toBe(priorRoots)
     expect(currentProposals(attached, proposal.talentId).find((p) => p.issuerStudioId === proposal.issuerStudioId)!.promises)
       .toEqual([fresh.promiseId])
@@ -146,7 +152,7 @@ describe('P14B.3 continuity under B-F2 evaluator3 with genuine old evaluator1 hi
     expect(reloaded.promises).toEqual(attached.promises)
   })
 
-  it('actual later winning freeze keeps old root.version1 but stores genuine new rulesVersion3 receipt and binding', () => {
+  it('actual later winning freeze keeps old root.version1 but stores genuine new rulesVersion4 receipt and binding', () => {
     const { save, focused: old } = readFixture('evaluator1-current-p1')
     const state = migrateToV29(save).state
     const priorRoots = JSON.stringify(state.promises)
@@ -171,7 +177,7 @@ describe('P14B.3 continuity under B-F2 evaluator3 with genuine old evaluator1 hi
     const bound = settled.promises.find((p) => p.promiseId === old.promiseId)
     assert.ok(bound)
     expect(bound.version).toBe(1)
-    expect(bound.feasibilityReceipt).toMatchObject({ rulesVersion: 3, week: proposal.startWeek,
+    expect(bound.feasibilityReceipt).toMatchObject({ rulesVersion: 4, week: proposal.startWeek,
       classification: 'REASONABLY_ACHIEVABLE' })
     expect(bound.feasibilityReceipt.inputsDigest).not.toBe(old.feasibilityReceipt.inputsDigest)
     expect(freezes.length).toBeGreaterThan(0)

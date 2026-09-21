@@ -1,0 +1,514 @@
+{"sourceSha":"5e6ac5dc8d877097719847defc2858e6a5908c4f","testedDiffSha256":"664c4dea19ee5b5915e48b03e566c49f047ec8fee573abce167e563cd0c7b75c","untrackedSource":["tests/p14b4-cast-class-capacity-evaluator5.test.ts"],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14bf2-acting-discipline.test.ts","tests/p14b3-rule-revision.test.ts","tests/p14b4-cast-class-capacity.test.ts","tests/p14b4-cast-class-capacity-evaluator5.test.ts","tests/p14b1-trust-chooser.test.ts"],"node":"v20.20.2","start":"2026-09-21T11:44:33.844Z","end":null,"exitCode":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/p14bf2-acting-discipline.test.ts (13 tests | 6 failed) 6217ms
+   × B-F2: settled has-acting-discipline law, not primary-role eligibility > pins the live evaluator generation: 4 after record 600 (B-F2 landed the eligibility correction at3) 32ms
+     → expected 3 to be 4 // Object.is equality
+   ✓ B-F2: settled has-acting-discipline law, not primary-role eligibility > the real generated writer is lawfully cast as lead without relabeling or occupying two roles 4736ms
+   × B-F2: settled has-acting-discipline law, not primary-role eligibility > a lawful non-primary actor receives an achievable P1 and the pure read changes no state or labels 100ms
+     → expected { …(5) } to match object { rulesVersion: 4, week: 71, …(2) }
+(1 matching property omitted from actual)
+   × B-F2: settled has-acting-discipline law, not primary-role eligibility > unknown beneficiary refuses without treating a made-up identity as a cast participant 55ms
+     → expected { classification: 'IMPOSSIBLE', …(4) } to match object { rulesVersion: 4, …(2) }
+(2 matching properties omitted from actual)
+   × B-F2: settled has-acting-discipline law, not primary-role eligibility > missing acting profile refuses and changes eligibility digest at identical week (INVALID PURE PROBE ONLY) 67ms
+     → expected { classification: 'IMPOSSIBLE', …(4) } to match object { rulesVersion: 4, …(1) }
+(3 matching properties omitted from actual)
+   × B-F2: settled has-acting-discipline law, not primary-role eligibility > real winning writer P1 binds, then one completed scheduled cast take satisfies it with exact durable references 33ms
+     → expected { promiseId: 'promise-0', …(15) } to match object { version: 4, contractId: null, …(2) }
+(16 matching properties omitted from actual)
+   ✓ B-F2: genuine old role-refusal evidence survives, fresh evaluations use the live evaluator (4 after record 600) > valid load preserves the old erroneous receipt/root/digest bytes exactly without repairing history 919ms
+   × B-F2: genuine old role-refusal evidence survives, fresh evaluations use the live evaluator (4 after record 600) > actual resubmit/attach evaluates afresh under4 but keeps the original version1 refusal untouched 130ms
+     → expected 3 to be 4 // Object.is equality
+ ❯ |core| tests/p14b4-cast-class-capacity.test.ts (14 tests | 14 failed) 7453ms
+   × P14B4 bounded fixed-cast capacity, requirement-based owner probes > 'lead' target actually fixed in 'lead': eligible=true 4739ms
+     → validateSaveV29: state.promises[0].predicate.kind is not a field of this record
+   × P14B4 bounded fixed-cast capacity, requirement-based owner probes > 'lead' target actually fixed in 'antagonist': eligible=false 156ms
+     → validateSaveV29: state.promises[1].predicate.kind is not a field of this record
+   × P14B4 bounded fixed-cast capacity, requirement-based owner probes > 'lead' target actually fixed in 'support': eligible=false 122ms
+     → validateSaveV29: state.promises[2].predicate.kind is not a field of this record
+   × P14B4 bounded fixed-cast capacity, requirement-based owner probes > 'leadOrAntagonist' target actually fixed in 'lead': eligible=true 118ms
+     → validateSaveV29: state.promises[0].predicate.kind is not a field of this record
+   × P14B4 bounded fixed-cast capacity, requirement-based owner probes > 'leadOrAntagonist' target actually fixed in 'antagonist': eligible=true 117ms
+     → validateSaveV29: state.promises[1].predicate.kind is not a field of this record
+   × P14B4 bounded fixed-cast capacity, requirement-based owner probes > 'leadOrAntagonist' target actually fixed in 'support': eligible=false 168ms
+     → validateSaveV29: state.promises[2].predicate.kind is not a field of this record
+   × P14B4 bounded fixed-cast capacity, requirement-based owner probes > one real picture jointly serves lead+flexible+P1, but never splices a later Ready script into its spare witness 177ms
+     → validateSaveV29: state.promises[0].predicate.kind is not a field of this record
+   × P14B4 bounded fixed-cast capacity, requirement-based owner probes > revise removes a real CURRENT reservation but preserves root/receipt history and digest neutrality 284ms
+     → expected 3 to be 4 // Object.is equality
+   × P14B4 bounded fixed-cast capacity, requirement-based owner probes > withdraw removes a real CURRENT reservation but preserves root/receipt history and digest neutrality 276ms
+     → expected 3 to be 4 // Object.is equality
+   × P14B4 bounded fixed-cast capacity, requirement-based owner probes > a lawful CURRENT nonoverlapping attachment does not alter the class-aware read or its digest 169ms
+     → expected 3 to be 4 // Object.is equality
+   × P14B4 bounded fixed-cast capacity, requirement-based owner probes > class changes material and feasibility digests; unrelated cash and valid RNG words change neither read nor history 346ms
+     → expected 3 to be 4 // Object.is equality
+   × P14B4 bounded fixed-cast capacity, requirement-based owner probes > huge admitted staged window/count=1 preserves history; a real outside-contract refusal is not relabeled cap uncertainty 296ms
+     → expected 3 to be 4 // Object.is equality
+   × P14B4 bounded fixed-cast capacity, requirement-based owner probes > huge admitted staged window/count=65 preserves history; a real outside-contract refusal is not relabeled cap uncertainty 233ms
+     → expected 3 to be 4 // Object.is equality
+   × P14B4 bounded fixed-cast capacity, requirement-based owner probes > huge admitted staged window/count=9007199254740991 preserves history; a real outside-contract refusal is not relabeled cap uncertainty 249ms
+     → expected 3 to be 4 // Object.is equality
+ ❯ |core| tests/p14b4-cast-class-capacity-evaluator5.test.ts (2 tests | 1 failed | 1 skipped) 4086ms
+   × P14B4 evaluator-5 kernel vocabulary (record 600 §3 2(b)): the joint certificate the scalar cannot issue > a conflicting fixed lead claim makes the joint offer impossible, not a target-specific BROKEN winner choice 4083ms
+     → validateSaveV29: state.promises[0].predicate.kind is not a field of this record
+ ❯ |core| tests/p14b3-rule-revision.test.ts (6 tests | 3 failed) 3460ms
+   × P14B.3 continuity under the live evaluator (4 after record 600) with genuine old evaluator1 history > pins the new evaluator generation independently of unchanged Save29/projection46 28ms
+     → expected 3 to be 4 // Object.is equality
+   ✓ P14B.3 continuity under the live evaluator (4 after record 600) with genuine old evaluator1 history > preserves genuine evaluator1-current-p1 root/receipt/digest bytes through valid load, not a restamped current fixture 985ms
+   ✓ P14B.3 continuity under the live evaluator (4 after record 600) with genuine old evaluator1 history > preserves genuine evaluator1-withdrawn-p1 root/receipt/digest bytes through valid load, not a restamped current fixture 745ms
+   ✓ P14B.3 continuity under the live evaluator (4 after record 600) with genuine old evaluator1 history > preserves genuine evaluator1-role-label-refused-p1 root/receipt/digest bytes through valid load, not a restamped current fixture 941ms
+   × P14B.3 continuity under the live evaluator (4 after record 600) with genuine old evaluator1 history > new actual attachment uses root.version4 and receipt.rulesVersion4 without rewriting old roots 161ms
+     → expected { promiseId: 'promise-2', …(15) } to match object { promiseId: 'promise-2', …(6) }
+(12 matching properties omitted from actual)
+   × P14B.3 continuity under the live evaluator (4 after record 600) with genuine old evaluator1 history > actual later winning freeze keeps old root.version1 but stores genuine new rulesVersion4 receipt and binding 598ms
+     → expected { …(5) } to match object { rulesVersion: 4, week: 52, …(1) }
+(2 matching properties omitted from actual)
+ ❯ |core| tests/p14b1-trust-chooser.test.ts (13 tests | 1 failed | 2 skipped) 22238ms
+   ✓ P14B.1 test 6: trust, the widened chooser and the priority order > a Distrusted issuer is dropped issuerDistrusted at reservation, and the other (healthy) proposal settles the case 3668ms
+   × P14B.1 test 6: trust, the widened chooser and the priority order > opportunity changes the winner of an otherwise compensation-versus-incumbency 1-1 tie, with two real surviving proposals 7610ms
+     → expected { promiseId: 'promise-49', …(15) } to match object { …(2) }
+(19 matching properties omitted from actual)
+   ✓ P14B.1 test 6: trust, the widened chooser and the priority order > a Reliable issuer beats a Mixed-record issuer on the trust band, in the same otherwise-1-1-tie shape 1516ms
+   ✓ P14B.1 test 7: rival symmetry > attachPromise and its feasibility classification work identically when the issuer is a RIVAL (no player-only special-casing) 564ms
+   ✓ P14B.1 test 7: rival symmetry > the FIRST natural rival proposal carries exactly one P1 iff its ORIGINAL authoring verdict is REASONABLY_ACHIEVABLE, with exact proposal/root/receipt joins 4213ms
+   ✓ P14B.1 test 7: rival symmetry > natural rival authoring preserves the first writer IFF, the first actor positive, and an actual non-achievable zero-attachment witness 4364ms
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 25 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14b1-trust-chooser.test.ts > P14B.1 test 6: trust, the widened chooser and the priority order > opportunity changes the winner of an otherwise compensation-versus-incumbency 1-1 tie, with two real surviving proposals
+AssertionError: expected { promiseId: 'promise-49', …(15) } to match object { …(2) }
+(19 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  Object {
+    "family": "LEAD_OR_SIGNIFICANT_ROLE_COUNT",
+    "predicate": Object {
+      "count": 1,
+-     "kind": "castRoleCount",
+-     "seatClass": "leadOrAntagonist",
+    },
+  }
+
+ ❯ tests/p14b1-trust-chooser.test.ts:398:22
+    396|       windowStartWeek: incumbentProposal.startWeek, dueWeekExclusive: …
+    397|     const promised = treated.promises.find((p) => p.issuerStudioId ===…
+    398|     expect(promised).toMatchObject({ family: 'LEAD_OR_SIGNIFICANT_ROLE…
+       |                      ^
+    399|     expect(marketModule.promiseMatchesPreferredOpportunity(treated, ta…
+    400|     expect(promised.windowStartWeek).toBe(208)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/25]⎯
+
+ FAIL |core|  tests/p14b3-rule-revision.test.ts > P14B.3 continuity under the live evaluator (4 after record 600) with genuine old evaluator1 history > pins the new evaluator generation independently of unchanged Save29/projection46
+AssertionError: expected 3 to be 4 // Object.is equality
+
+- Expected
++ Received
+
+- 4
++ 3
+
+ ❯ tests/p14b3-rule-revision.test.ts:98:35
+     96| describe('P14B.3 continuity under the live evaluator (4 after record 6…
+     97|   it('pins the new evaluator generation independently of unchanged Sav…
+     98|     expect(PROMISE_RULES_VERSION).toBe(4)
+       |                                   ^
+     99|   })
+    100| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/25]⎯
+
+ FAIL |core|  tests/p14b3-rule-revision.test.ts > P14B.3 continuity under the live evaluator (4 after record 600) with genuine old evaluator1 history > new actual attachment uses root.version4 and receipt.rulesVersion4 without rewriting old roots
+AssertionError: expected { promiseId: 'promise-2', …(15) } to match object { promiseId: 'promise-2', …(6) }
+(12 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  Object {
+    "beneficiaryPersonId": "t-act-09",
+    "contractId": null,
+    "feasibilityReceipt": Object {
+      "classification": "REASONABLY_ACHIEVABLE",
+-     "rulesVersion": 4,
++     "rulesVersion": 3,
+      "week": 45,
+    },
+    "issuerStudioId": "studio-aca408ec-player",
+    "outcome": null,
+    "promiseId": "promise-2",
+-   "version": 4,
++   "version": 3,
+  }
+
+ ❯ tests/p14b3-rule-revision.test.ts:144:19
+    142|     expect(attached.promises).toHaveLength(state.promises.length + 1)
+    143|     const fresh = attached.promises[state.promises.length]!
+    144|     expect(fresh).toMatchObject({ promiseId: `promise-${state.promises…
+       |                   ^
+    145|       beneficiaryPersonId: old.beneficiaryPersonId, issuerStudioId: ol…
+    146|       contractId: null, outcome: null,
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/25]⎯
+
+ FAIL |core|  tests/p14b3-rule-revision.test.ts > P14B.3 continuity under the live evaluator (4 after record 600) with genuine old evaluator1 history > actual later winning freeze keeps old root.version1 but stores genuine new rulesVersion4 receipt and binding
+AssertionError: expected { …(5) } to match object { rulesVersion: 4, week: 52, …(1) }
+(2 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  Object {
+    "classification": "REASONABLY_ACHIEVABLE",
+-   "rulesVersion": 4,
++   "rulesVersion": 3,
+    "week": 52,
+  }
+
+ ❯ tests/p14b3-rule-revision.test.ts:180:38
+    178|     assert.ok(bound)
+    179|     expect(bound.version).toBe(1)
+    180|     expect(bound.feasibilityReceipt).toMatchObject({ rulesVersion: 4, …
+       |                                      ^
+    181|       classification: 'REASONABLY_ACHIEVABLE' })
+    182|     expect(bound.feasibilityReceipt.inputsDigest).not.toBe(old.feasibi…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/25]⎯
+
+ FAIL |core|  tests/p14b4-cast-class-capacity-evaluator5.test.ts > P14B4 evaluator-5 kernel vocabulary (record 600 §3 2(b)): the joint certificate the scalar cannot issue > a conflicting fixed lead claim makes the joint offer impossible, not a target-specific BROKEN winner choice
+Error: validateSaveV29: state.promises[0].predicate.kind is not a field of this record
+ ❯ fail src/core/promises.ts:820:11
+    818| function validatePromiseRootsForVersion(state: unknown, saveVersion: 2…
+    819|   const fail = (message: string): never => {
+    820|     throw new Error(`validateSaveV${String(saveVersion)}: ${message}`)
+       |           ^
+    821|   }
+    822|   if (!isRecord(state)) return fail('state is not a plain object')
+ ❯ exact src/core/promises.ts:834:66
+ ❯ validatePromiseRootsForVersion src/core/promises.ts:928:7
+ ❯ Module.validatePromiseRoots src/core/promises.ts:809:3
+ ❯ validateSaveV29 src/core/save.ts:8611:3
+ ❯ Module.makeSave src/core/save.ts:6401:16
+ ❯ live tests/p14b4-cast-class-capacity-evaluator5.test.ts:49:10
+ ❯ shortVariants tests/p14b4-cast-class-capacity-evaluator5.test.ts:212:17
+ ❯ tests/p14b4-cast-class-capacity-evaluator5.test.ts:238:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/25]⎯
+
+ FAIL |core|  tests/p14b4-cast-class-capacity.test.ts > P14B4 bounded fixed-cast capacity, requirement-based owner probes > 'lead' target actually fixed in 'lead': eligible=true
+ FAIL |core|  tests/p14b4-cast-class-capacity.test.ts > P14B4 bounded fixed-cast capacity, requirement-based owner probes > 'leadOrAntagonist' target actually fixed in 'lead': eligible=true
+Error: validateSaveV29: state.promises[0].predicate.kind is not a field of this record
+ ❯ fail src/core/promises.ts:820:11
+    818| function validatePromiseRootsForVersion(state: unknown, saveVersion: 2…
+    819|   const fail = (message: string): never => {
+    820|     throw new Error(`validateSaveV${String(saveVersion)}: ${message}`)
+       |           ^
+    821|   }
+    822|   if (!isRecord(state)) return fail('state is not a plain object')
+ ❯ exact src/core/promises.ts:834:66
+ ❯ validatePromiseRootsForVersion src/core/promises.ts:928:7
+ ❯ Module.validatePromiseRoots src/core/promises.ts:809:3
+ ❯ validateSaveV29 src/core/save.ts:8611:3
+ ❯ Module.makeSave src/core/save.ts:6401:16
+ ❯ live tests/p14b4-cast-class-capacity.test.ts:41:10
+ ❯ shortVariants tests/p14b4-cast-class-capacity.test.ts:211:17
+ ❯ tests/p14b4-cast-class-capacity.test.ts:241:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/25]⎯
+
+ FAIL |core|  tests/p14b4-cast-class-capacity.test.ts > P14B4 bounded fixed-cast capacity, requirement-based owner probes > 'lead' target actually fixed in 'antagonist': eligible=false
+ FAIL |core|  tests/p14b4-cast-class-capacity.test.ts > P14B4 bounded fixed-cast capacity, requirement-based owner probes > 'leadOrAntagonist' target actually fixed in 'antagonist': eligible=true
+Error: validateSaveV29: state.promises[1].predicate.kind is not a field of this record
+ ❯ fail src/core/promises.ts:820:11
+    818| function validatePromiseRootsForVersion(state: unknown, saveVersion: 2…
+    819|   const fail = (message: string): never => {
+    820|     throw new Error(`validateSaveV${String(saveVersion)}: ${message}`)
+       |           ^
+    821|   }
+    822|   if (!isRecord(state)) return fail('state is not a plain object')
+ ❯ exact src/core/promises.ts:834:66
+ ❯ validatePromiseRootsForVersion src/core/promises.ts:928:7
+ ❯ Module.validatePromiseRoots src/core/promises.ts:809:3
+ ❯ validateSaveV29 src/core/save.ts:8611:3
+ ❯ Module.makeSave src/core/save.ts:6401:16
+ ❯ live tests/p14b4-cast-class-capacity.test.ts:41:10
+ ❯ shortVariants tests/p14b4-cast-class-capacity.test.ts:211:17
+ ❯ tests/p14b4-cast-class-capacity.test.ts:241:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/25]⎯
+
+ FAIL |core|  tests/p14b4-cast-class-capacity.test.ts > P14B4 bounded fixed-cast capacity, requirement-based owner probes > 'lead' target actually fixed in 'support': eligible=false
+ FAIL |core|  tests/p14b4-cast-class-capacity.test.ts > P14B4 bounded fixed-cast capacity, requirement-based owner probes > 'leadOrAntagonist' target actually fixed in 'support': eligible=false
+Error: validateSaveV29: state.promises[2].predicate.kind is not a field of this record
+ ❯ fail src/core/promises.ts:820:11
+    818| function validatePromiseRootsForVersion(state: unknown, saveVersion: 2…
+    819|   const fail = (message: string): never => {
+    820|     throw new Error(`validateSaveV${String(saveVersion)}: ${message}`)
+       |           ^
+    821|   }
+    822|   if (!isRecord(state)) return fail('state is not a plain object')
+ ❯ exact src/core/promises.ts:834:66
+ ❯ validatePromiseRootsForVersion src/core/promises.ts:928:7
+ ❯ Module.validatePromiseRoots src/core/promises.ts:809:3
+ ❯ validateSaveV29 src/core/save.ts:8611:3
+ ❯ Module.makeSave src/core/save.ts:6401:16
+ ❯ live tests/p14b4-cast-class-capacity.test.ts:41:10
+ ❯ shortVariants tests/p14b4-cast-class-capacity.test.ts:211:17
+ ❯ tests/p14b4-cast-class-capacity.test.ts:241:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/25]⎯
+
+ FAIL |core|  tests/p14b4-cast-class-capacity.test.ts > P14B4 bounded fixed-cast capacity, requirement-based owner probes > one real picture jointly serves lead+flexible+P1, but never splices a later Ready script into its spare witness
+Error: validateSaveV29: state.promises[0].predicate.kind is not a field of this record
+ ❯ fail src/core/promises.ts:820:11
+    818| function validatePromiseRootsForVersion(state: unknown, saveVersion: 2…
+    819|   const fail = (message: string): never => {
+    820|     throw new Error(`validateSaveV${String(saveVersion)}: ${message}`)
+       |           ^
+    821|   }
+    822|   if (!isRecord(state)) return fail('state is not a plain object')
+ ❯ exact src/core/promises.ts:834:66
+ ❯ validatePromiseRootsForVersion src/core/promises.ts:928:7
+ ❯ Module.validatePromiseRoots src/core/promises.ts:809:3
+ ❯ validateSaveV29 src/core/save.ts:8611:3
+ ❯ Module.makeSave src/core/save.ts:6401:16
+ ❯ live tests/p14b4-cast-class-capacity.test.ts:41:10
+ ❯ shortVariants tests/p14b4-cast-class-capacity.test.ts:211:17
+ ❯ tests/p14b4-cast-class-capacity.test.ts:257:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/25]⎯
+
+ FAIL |core|  tests/p14b4-cast-class-capacity.test.ts > P14B4 bounded fixed-cast capacity, requirement-based owner probes > revise removes a real CURRENT reservation but preserves root/receipt history and digest neutrality
+ FAIL |core|  tests/p14b4-cast-class-capacity.test.ts > P14B4 bounded fixed-cast capacity, requirement-based owner probes > withdraw removes a real CURRENT reservation but preserves root/receipt history and digest neutrality
+AssertionError: expected 3 to be 4 // Object.is equality
+
+- Expected
++ Received
+
+- 4
++ 3
+
+ ❯ pureRead tests/p14b4-cast-class-capacity.test.ts:201:31
+    199|   expect(state).toEqual(before)
+    200|   expect(draft).toEqual(terms)
+    201|   expect(result.rulesVersion).toBe(4)
+       |                               ^
+    202|   expect(result.week).toBe(state.market.tick)
+    203|   return result
+ ❯ tests/p14b4-cast-class-capacity.test.ts:292:22
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/25]⎯
+
+ FAIL |core|  tests/p14b4-cast-class-capacity.test.ts > P14B4 bounded fixed-cast capacity, requirement-based owner probes > a lawful CURRENT nonoverlapping attachment does not alter the class-aware read or its digest
+AssertionError: expected 3 to be 4 // Object.is equality
+
+- Expected
++ Received
+
+- 4
++ 3
+
+ ❯ pureRead tests/p14b4-cast-class-capacity.test.ts:201:31
+    199|   expect(state).toEqual(before)
+    200|   expect(draft).toEqual(terms)
+    201|   expect(result.rulesVersion).toBe(4)
+       |                               ^
+    202|   expect(result.week).toBe(state.market.tick)
+    203|   return result
+ ❯ tests/p14b4-cast-class-capacity.test.ts:312:22
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/25]⎯
+
+ FAIL |core|  tests/p14b4-cast-class-capacity.test.ts > P14B4 bounded fixed-cast capacity, requirement-based owner probes > class changes material and feasibility digests; unrelated cash and valid RNG words change neither read nor history
+AssertionError: expected 3 to be 4 // Object.is equality
+
+- Expected
++ Received
+
+- 4
++ 3
+
+ ❯ pureRead tests/p14b4-cast-class-capacity.test.ts:201:31
+    199|   expect(state).toEqual(before)
+    200|   expect(draft).toEqual(terms)
+    201|   expect(result.rulesVersion).toBe(4)
+       |                               ^
+    202|   expect(result.week).toBe(state.market.tick)
+    203|   return result
+ ❯ tests/p14b4-cast-class-capacity.test.ts:326:12
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/25]⎯
+
+ FAIL |core|  tests/p14b4-cast-class-capacity.test.ts > P14B4 bounded fixed-cast capacity, requirement-based owner probes > huge admitted staged window/count=1 preserves history; a real outside-contract refusal is not relabeled cap uncertainty
+ FAIL |core|  tests/p14b4-cast-class-capacity.test.ts > P14B4 bounded fixed-cast capacity, requirement-based owner probes > huge admitted staged window/count=65 preserves history; a real outside-contract refusal is not relabeled cap uncertainty
+ FAIL |core|  tests/p14b4-cast-class-capacity.test.ts > P14B4 bounded fixed-cast capacity, requirement-based owner probes > huge admitted staged window/count=9007199254740991 preserves history; a real outside-contract refusal is not relabeled cap uncertainty
+AssertionError: expected 3 to be 4 // Object.is equality
+
+- Expected
++ Received
+
+- 4
++ 3
+
+ ❯ pureRead tests/p14b4-cast-class-capacity.test.ts:201:31
+    199|   expect(state).toEqual(before)
+    200|   expect(draft).toEqual(terms)
+    201|   expect(result.rulesVersion).toBe(4)
+       |                               ^
+    202|   expect(result.week).toBe(state.market.tick)
+    203|   return result
+ ❯ tests/p14b4-cast-class-capacity.test.ts:355:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[13/25]⎯
+
+ FAIL |core|  tests/p14bf2-acting-discipline.test.ts > B-F2: settled has-acting-discipline law, not primary-role eligibility > pins the live evaluator generation: 4 after record 600 (B-F2 landed the eligibility correction at3)
+AssertionError: expected 3 to be 4 // Object.is equality
+
+- Expected
++ Received
+
+- 4
++ 3
+
+ ❯ tests/p14bf2-acting-discipline.test.ts:98:35
+     96| describe('B-F2: settled has-acting-discipline law, not primary-role el…
+     97|   it('pins the live evaluator generation: 4 after record 600 (B-F2 lan…
+     98|     expect(PROMISE_RULES_VERSION).toBe(4)
+       |                                   ^
+     99|   })
+    100| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[14/25]⎯
+
+ FAIL |core|  tests/p14bf2-acting-discipline.test.ts > B-F2: settled has-acting-discipline law, not primary-role eligibility > a lawful non-primary actor receives an achievable P1 and the pure read changes no state or labels
+AssertionError: expected { …(5) } to match object { rulesVersion: 4, week: 71, …(2) }
+(1 matching property omitted from actual)
+
+- Expected
++ Received
+
+  Object {
+    "bottleneck": null,
+    "classification": "REASONABLY_ACHIEVABLE",
+-   "rulesVersion": 4,
++   "rulesVersion": 3,
+    "week": 71,
+  }
+
+ ❯ tests/p14bf2-acting-discipline.test.ts:120:21
+    118|     const bytes = JSON.stringify(state)
+    119|     const receipt = promiseFeasibility(state, draft(state, crew.leadId…
+    120|     expect(receipt).toMatchObject({ rulesVersion: 4, week: state.marke…
+       |                     ^
+    121|       classification: 'REASONABLY_ACHIEVABLE', bottleneck: null })
+    122|     expect(promiseFeasibility(state, draft(state, crew.leadId), state.…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[15/25]⎯
+
+ FAIL |core|  tests/p14bf2-acting-discipline.test.ts > B-F2: settled has-acting-discipline law, not primary-role eligibility > unknown beneficiary refuses without treating a made-up identity as a cast participant
+AssertionError: expected { classification: 'IMPOSSIBLE', …(4) } to match object { rulesVersion: 4, …(2) }
+(2 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  Object {
+    "bottleneck": "this person is not in the world",
+    "classification": "IMPOSSIBLE",
+-   "rulesVersion": 4,
++   "rulesVersion": 3,
+  }
+
+ ❯ tests/p14bf2-acting-discipline.test.ts:133:21
+    131|     const before = JSON.stringify(state)
+    132|     const receipt = promiseFeasibility(state, { ...draft(state, crew.l…
+    133|     expect(receipt).toMatchObject({ rulesVersion: 4, classification: '…
+       |                     ^
+    134|     expect(JSON.stringify(state)).toBe(before)
+    135|   })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[16/25]⎯
+
+ FAIL |core|  tests/p14bf2-acting-discipline.test.ts > B-F2: settled has-acting-discipline law, not primary-role eligibility > missing acting profile refuses and changes eligibility digest at identical week (INVALID PURE PROBE ONLY)
+AssertionError: expected { classification: 'IMPOSSIBLE', …(4) } to match object { rulesVersion: 4, …(1) }
+(3 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  Object {
+    "classification": "IMPOSSIBLE",
+-   "rulesVersion": 4,
++   "rulesVersion": 3,
+  }
+
+ ❯ tests/p14bf2-acting-discipline.test.ts:151:20
+    149|     // asserted to be a lawful campaign. Only the defensive pure servi…
+    150|     const absent = promiseFeasibility(invalidProbe, requested, invalid…
+    151|     expect(absent).toMatchObject({ rulesVersion: 4, classification: 'I…
+       |                    ^
+    152|     expect(absent.bottleneck).toMatch(/acting|discipline/i)
+    153|     expect(absent.inputsDigest).not.toBe(valid.inputsDigest)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[17/25]⎯
+
+ FAIL |core|  tests/p14bf2-acting-discipline.test.ts > B-F2: settled has-acting-discipline law, not primary-role eligibility > real winning writer P1 binds, then one completed scheduled cast take satisfies it with exact durable references
+AssertionError: expected { promiseId: 'promise-0', …(15) } to match object { version: 4, contractId: null, …(2) }
+(16 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  Object {
+    "contractId": null,
+    "feasibilityReceipt": Object {
+      "classification": "REASONABLY_ACHIEVABLE",
+-     "rulesVersion": 4,
++     "rulesVersion": 3,
+    },
+    "outcome": null,
+-   "version": 4,
++   "version": 3,
+  }
+
+ ❯ tests/p14bf2-acting-discipline.test.ts:193:21
+    191|     let state = attach(opened, crew.leadId)
+    192|     const promise = state.promises[opened.promises.length]!
+    193|     expect(promise).toMatchObject({ version: 4, contractId: null, outc…
+       |                     ^
+    194|       feasibilityReceipt: { rulesVersion: 4, classification: 'REASONAB…
+    195|     state = advanceTo(state, promise.windowStartWeek)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[18/25]⎯
+
+ FAIL |core|  tests/p14bf2-acting-discipline.test.ts > B-F2: genuine old role-refusal evidence survives, fresh evaluations use the live evaluator (4 after record 600) > actual resubmit/attach evaluates afresh under4 but keeps the original version1 refusal untouched
+AssertionError: expected 3 to be 4 // Object.is equality
+
+- Expected
++ Received
+
+- 4
++ 3
+
+ ❯ tests/p14bf2-acting-discipline.test.ts:325:32
+    323|       startWeek: proposal.startWeek, termWeeks: proposal.termWeeks }
+    324|     const fresh = promiseFeasibility(revised, requested, revised.marke…
+    325|     expect(fresh.rulesVersion).toBe(4)
+       |                                ^
+    326|     expect(fresh.bottleneck).not.toBe(old.feasibilityReceipt.bottlenec…
+    327|     // The natural rival may still be FRAGILE/IMPOSSIBLE for an actual…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[19/25]⎯
+
+ Test Files  5 failed (5)
+      Tests  25 failed | 20 passed | 3 todo (48)
+   Start at  13:44:34
+   Duration  25.28s (transform 2.60s, setup 0ms, collect 8.59s, tests 43.45s, environment 2ms, prepare 1.18s)
+
+
+{"sourceSha":"5e6ac5dc8d877097719847defc2858e6a5908c4f","testedDiffSha256":"664c4dea19ee5b5915e48b03e566c49f047ec8fee573abce167e563cd0c7b75c","untrackedSource":["tests/p14b4-cast-class-capacity-evaluator5.test.ts"],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14bf2-acting-discipline.test.ts","tests/p14b3-rule-revision.test.ts","tests/p14b4-cast-class-capacity.test.ts","tests/p14b4-cast-class-capacity-evaluator5.test.ts","tests/p14b1-trust-chooser.test.ts"],"node":"v20.20.2","start":"2026-09-21T11:44:33.844Z","end":"2026-09-21T11:45:00.427Z","exitCode":1,"signal":null,"error":null,"sourceShaAtEnd":"5e6ac5dc8d877097719847defc2858e6a5908c4f","testedDiffSha256AtEnd":"664c4dea19ee5b5915e48b03e566c49f047ec8fee573abce167e563cd0c7b75c","untrackedSourceAtEnd":["tests/p14b4-cast-class-capacity-evaluator5.test.ts"],"fixedSource":true}

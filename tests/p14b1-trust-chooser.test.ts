@@ -97,7 +97,7 @@ import { hiringMarketIds } from '../src/core/employment.js'
 import { tick } from '../src/core/tick.js'
 import { p13aGeneratedStudio, advanceTo } from '../src/harness/p13a/fixtures.js'
 import { careerIdentity } from '../src/core/talentSummary.js'
-import type { GameState, TalentMarketCase, TalentMarketReceipt } from '../src/core/types.js'
+import type { CastRoleCountPredicate, GameState, TalentMarketCase, TalentMarketReceipt } from '../src/core/types.js'
 import * as marketModule from '../src/core/talentMarket.js'
 import * as promiseModule from '../src/core/promises.js'
 import { publicPriorityOrder, publicPreferredTerm, submitProposal } from '../src/core/talentMarket.js'
@@ -293,6 +293,15 @@ describe('P14B.1 test 6: trust, the widened chooser and the priority order', () 
   // P14B.2 supersedes ONLY the designated D3 todo above. The old week404
   // insolvency finding remains true; this explicitly synthetic controlled case
   // uses the first solvent window and actual employment/expiry/history instead.
+  // Record 600 §3 step 2(c) (records 110/554, DESIGNATED at the D3 checkpoint): under
+  // the accepted B4 D3 law an UNPROVEN person prefers a significant cast role, so a P1
+  // (any appearance) no longer reads as "opportunity" for this subject and the old
+  // unproven-P1 bonus expectation moved (player won on compensation). The incumbent's
+  // opportunity is now a REAL tagged P2 (`leadOrAntagonist` castRoleCount, the flexible
+  // class the plan authors first for an unproven person). Same 1-1 tie, seeds, weeks and
+  // winner meaning. RED until the coordinated cutover: today `attachPromise` refuses the
+  // family (NOT_OFFERED_IN_B1 → IMPOSSIBLE) and copies only `count`; after it the full
+  // predicate is copied at attach, the class-aware scalar quotes it, and freeze reads it.
   it('opportunity changes the winner of an otherwise compensation-versus-incumbency 1-1 tie, with two real surviving proposals', () => {
     const talentId = 'person-studio-5a47d054-r04-3'
     const incumbentId = 'studio-5a47d054-r04'
@@ -379,9 +388,15 @@ describe('P14B.1 test 6: trust, the widened chooser and the priority order', () 
     const standing = state.hollywood!.businesses.find((b) => b.studioId === incumbentId)!.standing
     const common: GameState = { ...state, studio: { ...state.studio, standing: { ...standing } } }
     const incumbentProposal = marketModule.currentProposals(common, talentId).find((p) => p.issuerStudioId === incumbentId)!
-    const treated = attachPromise(common, talentId, incumbentId, { family: 'APPEARANCE_COUNT', predicate: { count: 1 },
+    // A typed local (not an inline literal) is assignable to today's count-only attachment
+    // shape and to the post-cutover union alike: no cast, no @ts-expect-error.
+    const predicate: CastRoleCountPredicate = { kind: 'castRoleCount', count: 1, seatClass: 'leadOrAntagonist' }
+    expect(marketModule.publicPreferredOpportunity(common, talentId)).toBe('significantCastRole')
+    const treated = attachPromise(common, talentId, incumbentId, { family: 'LEAD_OR_SIGNIFICANT_ROLE_COUNT', predicate,
       windowStartWeek: incumbentProposal.startWeek, dueWeekExclusive: 415 })
     const promised = treated.promises.find((p) => p.issuerStudioId === incumbentId && p.beneficiaryPersonId === talentId)!
+    expect(promised).toMatchObject({ family: 'LEAD_OR_SIGNIFICANT_ROLE_COUNT', predicate })
+    expect(marketModule.promiseMatchesPreferredOpportunity(treated, talentId, promised)).toBe(true)
     expect(promised.windowStartWeek).toBe(208)
     expect(promised.dueWeekExclusive).toBe(415)
     for (const staged of common.promises.filter((p) => p.beneficiaryPersonId === talentId)) {

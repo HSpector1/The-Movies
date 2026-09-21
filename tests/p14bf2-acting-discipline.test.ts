@@ -2,6 +2,13 @@
 // Gate: qualified B3/rules2 plus genuinely minted B2/rules1 corpus; B-F2 uses3.
 // Existing D9 OQ-1 + companion4.2: acting-profile presence, not profession label.
 // No candidate-pool, rival-policy, label, Save29/projection46 or P2 change.
+// Record 600 (2026-09-21, Owner ruling on 578, D1 (a)): live evaluation moves3→4 for
+// the class-aware scalar (class-restricted fixed-seat paths + shared residual capacity)
+// inside the coordinated core/save/runtime/wire cutover. B-F2's own RED/GREEN evidence
+// at3 stays where it was recorded; do not rewrite it. Only FRESH reads, attachments and
+// freeze receipts below use4. Genuine evaluator1 fixtures and old root.version1 stay1.
+// Classifications, bottlenecks, digests, fixtures, weeks and timeouts are untouched here;
+// residual-buffer movements of fresh P1 reads are reconciled from evidence (600 §3 2(d)).
 import assert from 'node:assert/strict'
 import { createHash } from 'node:crypto'
 import { existsSync, readFileSync } from 'node:fs'
@@ -87,8 +94,8 @@ function attach(state: GameState, personId: string) {
 }
 
 describe('B-F2: settled has-acting-discipline law, not primary-role eligibility', () => {
-  it('uses evaluator3 for the eligibility correction', () => {
-    expect(PROMISE_RULES_VERSION).toBe(3)
+  it('pins the live evaluator generation: 4 after record 600 (B-F2 landed the eligibility correction at3)', () => {
+    expect(PROMISE_RULES_VERSION).toBe(4)
   })
 
   it('the real generated writer is lawfully cast as lead without relabeling or occupying two roles', () => {
@@ -110,7 +117,7 @@ describe('B-F2: settled has-acting-discipline law, not primary-role eligibility'
     const { state, crew } = fixture()
     const bytes = JSON.stringify(state)
     const receipt = promiseFeasibility(state, draft(state, crew.leadId), state.market.tick)
-    expect(receipt).toMatchObject({ rulesVersion: 3, week: state.market.tick,
+    expect(receipt).toMatchObject({ rulesVersion: 4, week: state.market.tick,
       classification: 'REASONABLY_ACHIEVABLE', bottleneck: null })
     expect(promiseFeasibility(state, draft(state, crew.leadId), state.market.tick)).toEqual(receipt)
     expect(JSON.stringify(state)).toBe(bytes)
@@ -123,7 +130,7 @@ describe('B-F2: settled has-acting-discipline law, not primary-role eligibility'
     expect(state.talent.some((p) => p.id === unknown)).toBe(false)
     const before = JSON.stringify(state)
     const receipt = promiseFeasibility(state, { ...draft(state, crew.leadId), beneficiaryPersonId: unknown }, state.market.tick)
-    expect(receipt).toMatchObject({ rulesVersion: 3, classification: 'IMPOSSIBLE', bottleneck: 'this person is not in the world' })
+    expect(receipt).toMatchObject({ rulesVersion: 4, classification: 'IMPOSSIBLE', bottleneck: 'this person is not in the world' })
     expect(JSON.stringify(state)).toBe(before)
   })
 
@@ -141,7 +148,7 @@ describe('B-F2: settled has-acting-discipline law, not primary-role eligibility'
     // Deliberately violates Talent shape: never saved, loaded, ticked, cast or
     // asserted to be a lawful campaign. Only the defensive pure service sees it.
     const absent = promiseFeasibility(invalidProbe, requested, invalidProbe.market.tick)
-    expect(absent).toMatchObject({ rulesVersion: 3, classification: 'IMPOSSIBLE' })
+    expect(absent).toMatchObject({ rulesVersion: 4, classification: 'IMPOSSIBLE' })
     expect(absent.bottleneck).toMatch(/acting|discipline/i)
     expect(absent.inputsDigest).not.toBe(valid.inputsDigest)
     expect(promiseFeasibility(invalidProbe, requested, invalidProbe.market.tick)).toEqual(absent)
@@ -183,12 +190,12 @@ describe('B-F2: settled has-acting-discipline law, not primary-role eligibility'
     const { state: opened, crew } = fixture()
     let state = attach(opened, crew.leadId)
     const promise = state.promises[opened.promises.length]!
-    expect(promise).toMatchObject({ version: 3, contractId: null, outcome: null,
-      feasibilityReceipt: { rulesVersion: 3, classification: 'REASONABLY_ACHIEVABLE' } })
+    expect(promise).toMatchObject({ version: 4, contractId: null, outcome: null,
+      feasibilityReceipt: { rulesVersion: 4, classification: 'REASONABLY_ACHIEVABLE' } })
     state = advanceTo(state, promise.windowStartWeek)
     const bound = state.promises.find((p) => p.promiseId === promise.promiseId)!
     expect(bound.contractId).not.toBeNull()
-    expect(bound.feasibilityReceipt).toMatchObject({ rulesVersion: 3, week: state.market.tick,
+    expect(bound.feasibilityReceipt).toMatchObject({ rulesVersion: 4, week: state.market.tick,
       classification: 'REASONABLY_ACHIEVABLE' })
     expect(bound.outcome).toBeNull()
     expect(state.hollywood!.employment.find((e) => e.contractId === bound.contractId)).toMatchObject({
@@ -224,7 +231,7 @@ describe('B-F2: settled has-acting-discipline law, not primary-role eligibility'
     expect(take.week).toBeGreaterThanOrEqual(promise.windowStartWeek)
     expect(take.week).toBeLessThan(promise.dueWeekExclusive)
     const kept = state.promises.find((p) => p.promiseId === promise.promiseId)!
-    expect(kept).toMatchObject({ version: 3, contractId: bound.contractId, progress: 1,
+    expect(kept).toMatchObject({ version: 4, contractId: bound.contractId, progress: 1,
       outcome: 'SATISFIED', outcomeWeek: take.week, evidenceRefs: [take.eventId] })
     const receipts = state.talentMarket.receipts.filter((r) => r.eventId === kept.outcomeEventId)
     expect(receipts).toHaveLength(1)
@@ -281,7 +288,7 @@ function oldRefusal() {
   return { raw, save, focused }
 }
 
-describe('B-F2: genuine old role-refusal evidence survives, fresh evaluations use3', () => {
+describe('B-F2: genuine old role-refusal evidence survives, fresh evaluations use the live evaluator (4 after record 600)', () => {
   beforeAll(() => {
     for (const suffix of ['.json.gz', '.provenance.json']) assert.ok(existsSync(oldPath(suffix)),
       'T0 NOT COMPLETE: actual accepted-B2 role-refusal corpus missing; not a B-F2 behavioral RED')
@@ -301,7 +308,7 @@ describe('B-F2: genuine old role-refusal evidence survives, fresh evaluations us
     expect(Object.keys(writer.skills.acting).sort()).toEqual([...SKILL_ORDER.acting].sort())
   })
 
-  it('actual resubmit/attach evaluates afresh under3 but keeps the original version1 refusal untouched', () => {
+  it('actual resubmit/attach evaluates afresh under4 but keeps the original version1 refusal untouched', () => {
     const { save, focused: old } = oldRefusal()
     const state = migrateToV29(save).state
     const originalRoots = JSON.stringify(state.promises)
@@ -315,14 +322,14 @@ describe('B-F2: genuine old role-refusal evidence survives, fresh evaluations us
       windowStartWeek: old.windowStartWeek, dueWeekExclusive: old.dueWeekExclusive,
       startWeek: proposal.startWeek, termWeeks: proposal.termWeeks }
     const fresh = promiseFeasibility(revised, requested, revised.market.tick)
-    expect(fresh.rulesVersion).toBe(3)
+    expect(fresh.rulesVersion).toBe(4)
     expect(fresh.bottleneck).not.toBe(old.feasibilityReceipt.bottleneck)
     // The natural rival may still be FRAGILE/IMPOSSIBLE for an actual remaining
     // constraint. Do not assert ACHIEVABLE or automatic casting from eligibility.
     const attached = attachPromise(revised, old.beneficiaryPersonId, old.issuerStudioId, requested)
     expect(attached.promises).toHaveLength(state.promises.length + 1)
     const newRoot = attached.promises[state.promises.length]!
-    expect(newRoot).toMatchObject({ promiseId: `promise-${state.promises.length}`, version: 3,
+    expect(newRoot).toMatchObject({ promiseId: `promise-${state.promises.length}`, version: 4,
       contractId: null, outcome: null, feasibilityReceipt: fresh })
     expect(JSON.stringify(attached.promises.slice(0, state.promises.length))).toBe(originalRoots)
     expect(attached.talent.find((p) => p.id === old.beneficiaryPersonId)!.role).toBe('writer')

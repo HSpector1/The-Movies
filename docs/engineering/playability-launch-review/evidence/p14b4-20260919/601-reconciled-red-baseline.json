@@ -1,0 +1,30 @@
+{
+  "sourceSha": "5e6ac5dc8d877097719847defc2858e6a5908c4f",
+  "testedDiffSha256": "664c4dea19ee5b5915e48b03e566c49f047ec8fee573abce167e563cd0c7b75c",
+  "untrackedSource": [
+    "tests/p14b4-cast-class-capacity-evaluator5.test.ts"
+  ],
+  "command": [
+    "node_modules/.bin/vitest",
+    "run",
+    "--project",
+    "core",
+    "tests/p14bf2-acting-discipline.test.ts",
+    "tests/p14b3-rule-revision.test.ts",
+    "tests/p14b4-cast-class-capacity.test.ts",
+    "tests/p14b4-cast-class-capacity-evaluator5.test.ts",
+    "tests/p14b1-trust-chooser.test.ts"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-21T11:44:33.844Z",
+  "end": "2026-09-21T11:45:00.427Z",
+  "exitCode": 1,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "5e6ac5dc8d877097719847defc2858e6a5908c4f",
+  "testedDiffSha256AtEnd": "664c4dea19ee5b5915e48b03e566c49f047ec8fee573abce167e563cd0c7b75c",
+  "untrackedSourceAtEnd": [
+    "tests/p14b4-cast-class-capacity-evaluator5.test.ts"
+  ],
+  "fixedSource": true
+}

@@ -1,24 +1,33 @@
-// Installed after published T0 and independent partial-draft KEEP ec9e71b6…; actual RED follows.
-// INERT / UNEXECUTED. Intended tests/p14b4-cast-class-capacity.test.ts.
-// Source c06db6eae2a1350317c018c6f108d115dcba7b19; preservation publication
-// a76242f2f4bdfda98e38ec706e3110ad6a9bb957 reported by parent; no runtime here.
-// Authority: B4 plan382252e23b6353acf602d87f38032ff961e9f7f9740bbfdf2b2ae368c30df4e4
-// and p14bf2-20260919/13 owner map /14 review. Existing public feasibility API only.
-// This bounded group has FIXED real cast and ONE imminent event; it does not
-// pretend to prove general unstarted matching, full temporal search or cap exhaustion.
+// tests/p14b4-cast-class-capacity-evaluator5.test.ts — EVALUATOR-5 kernel-vocabulary case.
+// Record 600 (2026-09-21, Owner ruling on 578, D1 (a)) §3 step 2(b): evaluator 4 is the
+// class-aware scalar (class-restricted fixed-seat paths + shared residual capacity); the
+// bounded joint certificate, UNCERTIFIED→FRAGILE and "not a guessed scalar maximum" are
+// evaluator-5 law. The one live case below moved VERBATIM out of
+// tests/p14b4-cast-class-capacity.test.ts (:279-288 at HEAD 5e6ac5dc) because the scalar
+// cannot answer it: `activePromiseReservations` filters by beneficiary, so the antagonist
+// person's bound lead-class claim is invisible to the SUPPORT target's read (537-A §3,
+// 537-C Q2.1). By paper the evaluator-4 scalar returns FRAGILE 'the schedule leaves no spare
+// picture inside the window' there; the expectation IMPOSSIBLE is the joint certificate.
+//
+// DISPOSITION: a LIVE it(...), executable, and a DESIGNATED failure until evaluator 5 lands.
+// Today it stops at strict live V29 refusing `predicate.kind` inside shortVariants (536 stop
+// point); after the coordinated cutover it stops at the IMPOSSIBLE assertion. A writer never
+// rewrites it; test-author reconciles it from evidence when evaluator 5 is designed. The
+// `pureRead` pin stays the copied `rulesVersion 4` so the post-cutover failure lands on the
+// classification, not on a version literal for an evaluator nobody has designed (537 §3 (a):
+// "the capacity pin moves at 5"; D2 (i-c): revisit only when evaluator 5 is designed).
+// Helpers are COPIED, not imported: importing the live test file would register its cases
+// here and couple the two files' failure sets. Same fixture world, same seed, same weeks.
+// Authority: B4 plan (record-600 amendment) and 600 §2; no cap, fixture or timeout moves.
 import assert from 'node:assert/strict'
 import { describe, expect, it } from 'vitest'
 import { applyActions, hiringMarketIds, tick } from '../src/core/index.js'
-import {
-  advancePromisesWeek, attachPromise, attachedPromiseDigest, promiseDigest,
-  promiseFeasibility, type PromiseDraft,
-} from '../src/core/promises.js'
-import { currentProposals, submitProposal, withdrawProposal } from '../src/core/talentMarket.js'
+import { advancePromisesWeek, attachPromise, promiseFeasibility, type PromiseDraft } from '../src/core/promises.js'
+import { currentProposals, submitProposal } from '../src/core/talentMarket.js'
 import { makeSave } from '../src/core/save.js'
 import { TUNING } from '../src/core/tuning.js'
 import type { CastSlot, GameState, ProfessionalPromise } from '../src/core/types.js'
 import { advanceTo, fund, p13aGeneratedStudio, player } from './helpers/p14b2-fixtures.js'
-
 const SLOTS = ['lead', 'antagonist', 'support'] as const
 const CLASSES = ['lead', 'leadOrAntagonist'] as const
 type SeatClass = typeof CLASSES[number]
@@ -33,7 +42,6 @@ type World = {
   actors: Record<CastSlot, string>; ids: Record<CastSlot, string>
   productionId: string; projects: readonly string[]
 }
-const UNKNOWN_CAP = 'bounded capacity analysis could not certify this schedule'
 
 function live(state: GameState): GameState {
   // The governed strict live writer admits actual fixture facts before probing.
@@ -186,13 +194,6 @@ function world(): World {
     productionId: film.id, projects: [first.projectId, second.projectId] }
   return structuredClone(cached)
 }
-function offerDraft(state: GameState, personId: string, material: Material = p2('lead')): PromiseDraft {
-  const proposal = currentProposals(state, personId).find((p) => p.issuerStudioId === player(state))
-  assert.ok(proposal)
-  return { ...material, issuerStudioId: player(state), beneficiaryPersonId: personId,
-    startWeek: proposal.startWeek, termWeeks: proposal.termWeeks,
-    windowStartWeek: proposal.startWeek, dueWeekExclusive: proposal.startWeek + 40 }
-}
 function pureRead(state: GameState, draft: PromiseDraft) {
   const before = structuredClone(state), terms = structuredClone(draft)
   const result = promiseFeasibility(state, draft, state.market.tick)
@@ -231,136 +232,17 @@ function shortDraft(w: World, state: GameState, slot: CastSlot): PromiseDraft {
     windowStartWeek: promised.windowStartWeek, dueWeekExclusive: promised.dueWeekExclusive }
 }
 
-describe('P14B4 bounded fixed-cast capacity, requirement-based owner probes', () => {
-  const matrix = CLASSES.flatMap((seatClass) => SLOTS.map((slot) => ({ seatClass, slot,
-    eligible: slot === 'lead' || (seatClass === 'leadOrAntagonist' && slot === 'antagonist') })))
-  it.each(matrix)('$seatClass target actually fixed in $slot: eligible=$eligible', ({ seatClass, slot, eligible }) => {
+describe('P14B4 evaluator-5 kernel vocabulary (record 600 §3 2(b)): the joint certificate the scalar cannot issue', () => {
+  it('a conflicting fixed lead claim makes the joint offer impossible, not a target-specific BROKEN winner choice', () => {
     const w = world()
-    const material: Record<CastSlot, Material> = { lead: p1(), antagonist: p1(), support: p1() }
-    material[slot] = p2(seatClass)
-    const state = shortVariants(w, material)
-    const read = pureRead(state, shortDraft(w, state, slot))
-    // Exactly one possible event at next week. A fresh film cannot complete before
-    // due in two weeks, and this person's one existing cast assignment is fixed.
-    // Feasible X=1 is FRAGILE (no B=2 spare/slack), not spuriously achievable.
-    expect(read.classification).toBe(eligible ? 'FRAGILE' : 'IMPOSSIBLE')
-    // Record 600 2(b): holds at evaluator 4 by construction, the scalar names a real bound and never emits UNKNOWN_CAP (537-C Q2.2); the certified-bottleneck intent is the evaluator-5 file's todo.
-    if (eligible) expect(read.bottleneck).not.toBe(UNKNOWN_CAP)
-    const beforeOutcomes = state.talentMarket.receipts.filter((r) => r.kind === 'promiseOutcome')
-    const repeated = advancePromisesWeek(state) // SAME week, before due, no new take
+    const state = shortVariants(w, { lead: p2('lead'), antagonist: p2('lead'), support: p1() })
+    expect(pureRead(state, shortDraft(w, state, 'support')).classification).toBe('IMPOSSIBLE')
+    // The support person's own physical predicate still has the actual next take.
+    // Never resolve that joint conflict by marking some bound beneficiary broken.
+    const repeated = advancePromisesWeek(state)
     expect(repeated.promises).toEqual(state.promises)
-    expect(repeated.talentMarket.receipts.filter((r) => r.kind === 'promiseOutcome')).toEqual(beforeOutcomes)
+    expect(repeated.talentMarket.receipts).toEqual(state.talentMarket.receipts)
   })
 
-  it('one real picture jointly serves lead+flexible+P1, but never splices a later Ready script into its spare witness', () => {
-    const w = world()
-    const state = shortVariants(w, { lead: p2('lead'), antagonist: p2('leadOrAntagonist'), support: p1() })
-    for (const slot of SLOTS) {
-      const result = pureRead(state, shortDraft(w, state, slot))
-      expect(result.classification).toBe('FRAGILE')
-      // Record 600 2(b): holds at evaluator 4 by construction, the scalar names a real bound and never emits UNKNOWN_CAP (537-C Q2.2); the certified-bottleneck intent is the evaluator-5 file's todo.
-      expect(result.bottleneck).not.toBe(UNKNOWN_CAP)
-    }
-    // The script linked to this production is NOT another event, nor can the
-    // remaining Ready script bypass managed admission, first-take timing or holds.
-    expect(state.scriptDevelopment.projects.filter((p) => p.productionId === w.productionId)).toHaveLength(1)
-    expect(state.scriptDevelopment.projects.find((p) => p.id === w.projects[1])!.status).toBe('ready')
-    const withoutSelfExclusion = { ...shortDraft(w, state, 'support') }
-    delete withoutSelfExclusion.promiseId
-    expect(pureRead(state, withoutSelfExclusion).classification).toBe('IMPOSSIBLE')
-    const actual = tick(state)
-    const takes = actual.firstTakes.filter((t) => t.productionId === w.productionId)
-    expect(takes).toHaveLength(1)
-    expect(takes[0]!).toMatchObject({ week: state.market.tick + 1, studioId: player(state), cast: w.actors })
-    for (const slot of SLOTS) expect(root(actual, w.ids[slot])).toMatchObject({
-      outcome: 'SATISFIED', evidenceRefs: [takes[0]!.eventId],
-    })
-    live(actual)
-  })
-
-  // Record 600 §3 step 2(b): the case 'a conflicting fixed lead claim makes the joint
-  // offer impossible, not a target-specific BROKEN winner choice' moved VERBATIM to
-  // tests/p14b4-cast-class-capacity-evaluator5.test.ts. It asserts cross-beneficiary
-  // class capacity (the antagonist person's bound lead-class claim making the SUPPORT
-  // target IMPOSSIBLE), which is the kernel's joint certificate (537-A §3): evaluator-5
-  // law under the Owner ruling D1 (a), not the evaluator-4 class-aware scalar this file
-  // now targets. Not weakened, not deleted; it stays a designated failure over there.
-
-  it.each(['revise', 'withdraw'] as const)('%s removes a real CURRENT reservation but preserves root/receipt history and digest neutrality', (operation) => {
-    const w = world(), state = w.opened, id = w.actors.lead
-    const draft = offerDraft(state, id)
-    const baseline = pureRead(state, draft)
-    expect(baseline.classification).toBe('REASONABLY_ACHIEVABLE')
-    const attached = attachPromise(state, id, player(state), draft)
-    const old = currentRoot(attached, id)
-    expect(pureRead(attached, { ...draft, promiseId: old.promiseId })).toEqual(baseline)
-    expect(pureRead(attached, draft).inputsDigest).not.toBe(baseline.inputsDigest)
-    const proposal = currentProposals(attached, id).find((p) => p.issuerStudioId === player(attached))!
-    const next = operation === 'withdraw' ? withdrawProposal(attached, id, player(attached))
-      : submitProposal(attached, { talentId: id, issuerStudioId: player(attached),
-        termWeeks: proposal.termWeeks, premiumTier: proposal.premiumTier })
-    expect(root(next, old.promiseId)).toEqual(old)
-    expect(next.promises).toEqual(attached.promises)
-    expect(next.talentMarket.receipts.slice(0, attached.talentMarket.receipts.length)).toEqual(attached.talentMarket.receipts)
-    expect(pureRead(next, draft)).toEqual(baseline)
-    live(next)
-  })
-
-  it('a lawful CURRENT nonoverlapping attachment does not alter the class-aware read or its digest', () => {
-    const w = world(), state = w.opened, id = w.actors.lead
-    const draft = offerDraft(state, id)
-    const baseline = pureRead(state, draft)
-    const attached = attachPromise(state, id, player(state), { ...p2('leadOrAntagonist'),
-      windowStartWeek: draft.dueWeekExclusive, dueWeekExclusive: draft.startWeek + draft.termWeeks })
-    const old = currentRoot(attached, id)
-    expect(old.windowStartWeek).toBe(draft.dueWeekExclusive) // exact half-open edge
-    expect(pureRead(attached, draft)).toEqual(baseline)
-    expect(root(attached, old.promiseId)).toEqual(old)
-    live(attached)
-  })
-
-  it('class changes material and feasibility digests; unrelated cash and valid RNG words change neither read nor history', () => {
-    const w = world(), state = w.opened, id = w.actors.lead
-    const lead = offerDraft(state, id, p2('lead'))
-    const flexible = offerDraft(state, id, p2('leadOrAntagonist'))
-    expect(pureRead(state, lead).inputsDigest).not.toBe(pureRead(state, flexible).inputsDigest)
-    const a = attachPromise(state, id, player(state), lead)
-    const b = attachPromise(state, id, player(state), flexible)
-    const ar = currentRoot(a, id), br = currentRoot(b, id)
-    expect(ar.predicate).toEqual(lead.predicate)
-    expect(br.predicate).toEqual(flexible.predicate)
-    expect(promiseDigest(ar)).not.toBe(promiseDigest(br))
-    expect(attachedPromiseDigest(a, [ar.promiseId])).not.toBe(attachedPromiseDigest(b, [br.promiseId]))
-    expect(currentProposals(a, id).find((p) => p.issuerStudioId === player(a))!.digest)
-      .not.toBe(currentProposals(b, id).find((p) => p.issuerStudioId === player(b))!.digest)
-    const baseline = pureRead(state, lead)
-    const cash = live({ ...structuredClone(state), studio: { ...state.studio, cash: state.studio.cash + 1 },
-      ledger: [...state.ledger, { week: state.market.tick, kind: 'studioRevenue', amount: 1, note: 'disclosed irrelevant cash probe' }] })
-    const rng = live({ ...structuredClone(state), rngState: '1,2,3,4' }) // valid serialized words; no RNG draw
-    expect(rng.rngState).not.toBe(state.rngState)
-    expect(pureRead(cash, lead)).toEqual(baseline)
-    expect(pureRead(rng, lead)).toEqual(baseline)
-  })
-
-  it.each([1, 65, Number.MAX_SAFE_INTEGER])('huge admitted staged window/count=%i preserves history; a real outside-contract refusal is not relabeled cap uncertainty', (count) => {
-    const w = world(), state = w.opened, id = w.actors.lead
-    const draft = { ...offerDraft(state, id, p2('leadOrAntagonist', count)), dueWeekExclusive: Number.MAX_SAFE_INTEGER }
-    // Real staging is allowed to retain nonofferable drafts. This is NOT a legal
-    // catalogue-term offer or a fabricated enormous employment/binding interval.
-    const staged = live(attachPromise(state, id, player(state), draft))
-    const promised = currentRoot(staged, id)
-    expect(promised.predicate.count).toBe(count)
-    expect(promised.dueWeekExclusive).toBe(Number.MAX_SAFE_INTEGER)
-    expect(promised.contractId).toBeNull()
-    const read = pureRead(staged, { ...draft, promiseId: promised.promiseId })
-    expect(read.classification).toBe('IMPOSSIBLE')
-    expect(read.bottleneck).toBe('the due week falls outside the proposed contract')
-    // Record 600 2(b): holds at evaluator 4 by construction, the scalar names a real bound and never emits UNKNOWN_CAP (537-C Q2.2); the certified-bottleneck intent is the evaluator-5 file's todo.
-    expect(read.bottleneck).not.toBe(UNKNOWN_CAP)
-    const after = advancePromisesWeek(staged)
-    expect(after.promises).toEqual(staged.promises)
-    expect(after.talentMarket.receipts).toEqual(staged.talentMarket.receipts)
-    expect(root(after, promised.promiseId)).toMatchObject({ outcome: null, outcomeEventId: null })
-    live(after)
-  })
+  it.todo('evaluator 5: a FRAGILE fixed-cast read carries a CERTIFIED bottleneck from a complete-domain bounded search, never the UNCERTIFIED string \'bounded capacity analysis could not certify this schedule\' as a guessed scalar maximum (plan feasibility contract; 537-C Q2.2; the three `bottleneck !== UNKNOWN_CAP` lines in the live file hold at evaluator 4 only by construction)')
 })
