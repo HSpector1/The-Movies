@@ -588,11 +588,11 @@ function applyCancel(state: GameState, action: Action & { kind: 'cancel' }): Gam
     technology: discardUnfilmedProductionTechnology(state,action.productionId),
     scriptDevelopment,
   }
-  // P14B.1 (6) / companion §4.4: BROKEN is recorded IMMEDIATELY by the studio-caused
-  // event that makes the predicate unsatisfiable. Cancelling a picture the promised
-  // person was cast in BEFORE its first take is exactly that — but only when the
-  // re-run feasibility says IMPOSSIBLE; a cancellation the schedule can absorb is
-  // priced by trust instead, and a picture that already filmed never un-satisfies.
+  // P14B.1 (6) / companion §4.4 / plan :243-252 / record 26 §2: BROKEN is recorded
+  // IMMEDIATELY iff the SEPARATE target-specific physical proof finds no path for the
+  // REMAINING count on the post-cancel state, in the promise's class mask. A joint
+  // reservation conflict, an unsupported family or a FRAGILE remainder never breaks; an
+  // absorbable cancellation is priced by trust; a picture that already filmed never un-satisfies.
   const playerStudioId = state.hollywood?.playerStudioId
   return playerStudioId === undefined
     ? withoutProduction
