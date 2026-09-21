@@ -2228,10 +2228,10 @@ export type GameStateV30 = Omit<GameStateV29, 'promises'> & {
   promises: readonly ProfessionalPromiseV30[]
 }
 
-// The additive V30 persistence API is not the gameplay/wire cutover. Keep live
-// callers count-only until their outcome and projection contracts move together.
-export type ProfessionalPromise = ProfessionalPromiseV29
-export type GameState = GameStateV29
+// P14B.4 (record 600): the live gameplay/wire boundary is V30. V29 remains the
+// frozen prior save shape; a tagged predicate exists only on the V30 union.
+export type ProfessionalPromise = ProfessionalPromiseV30
+export type GameState = GameStateV30
 
 // ── D-14 Talent Career Impact — frozen career-event record (§7) ───────────────
 // The ONE canonical persisted record of a participant's outcome on one released film.

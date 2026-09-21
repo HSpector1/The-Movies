@@ -30,16 +30,19 @@ import { fnv1a64 } from './math.js'
 import { occupiedResourceSlots } from './occupancy.js'
 import { TUNING } from './tuning.js'
 import type {
-  CastSlot, FirstTakeReceipt, GameState, GameStateV30, ProfessionalPromise, ProfessionalPromiseV30, Production, PromiseClassification,
-  PromiseFamily, PromiseFeasibilityReceipt, TalentMarketState,
+  CastRoleCountPredicate, CastSlot, FirstTakeReceipt, GameState, GameStateV30, ProfessionalPromise, ProfessionalPromiseV30, Production,
+  PromiseClassification, PromiseFamily, PromiseFeasibilityReceipt, TalentMarketState,
 } from './types.js'
 
 const CAST_SLOTS: readonly CastSlot[] = ['lead', 'antagonist', 'support'] as const
 
 /** The evaluator revision stamped on newly evaluated receipts and newly minted
- * roots. B-F2's has-discipline correction changes observable evaluations, so uses 3;
- * stored root versions and old receipts are never rewritten on load. */
-export const PROMISE_RULES_VERSION = 3
+ * roots. 4 = P14B.4 (record 600, D1 (a)): class-restricted fixed-seat paths for
+ * tagged P2 plus shared residual capacity (`reserved + X` against the spare-event
+ * buffer) on the count-family scalar, applied to fresh P1 and tagged P2 alike.
+ * The bounded joint certificate and UNCERTIFIED -> FRAGILE are a later evaluator
+ * revision (5). Stored root versions and old receipts are never rewritten. */
+export const PROMISE_RULES_VERSION = 4
 
 // ── the named HYPOTHESES (plan's OPEN section; none of these is settled law) ──
 
@@ -186,11 +189,15 @@ export function proposalDigest(
 
 // ── §4.3 the feasibility service ─────────────────────────────────────────────
 
+/** The material predicate: count-only for every family, or the explicitly
+ * selected P2 seat class. The class is never inferred from a version. */
+export type PromisePredicate = { count: number } | CastRoleCountPredicate
+
 export type PromiseDraft = {
   family: PromiseFamily
   issuerStudioId: string
   beneficiaryPersonId: string
-  predicate: { count: number }
+  predicate: PromisePredicate
   windowStartWeek: number
   dueWeekExclusive: number
   /** The PROPOSED CONTRACT interval the window must lie inside. */
@@ -201,8 +208,9 @@ export type PromiseDraft = {
   promiseId?: string
 }
 
+// P14B.4 (record 600): the P2 line left this map; a seat-class promise is offered
+// exactly when its class is explicitly selected (see `promiseFeasibility`).
 const NOT_OFFERED_IN_B1: Partial<Record<PromiseFamily, string>> = {
-  LEAD_OR_SIGNIFICANT_ROLE_COUNT: 'a seat-class promise is not offered in this slice',
   DIRECTING_COUNT: 'a directing promise is not offered in this slice',
   PREFERRED_GENRE_OPPORTUNITY: 'a genre promise is not offered in this slice',
   SPECIFIC_PROJECT: 'a named-project promise is not offered in this slice',
@@ -258,11 +266,18 @@ function stockGreenlightAvailable(state: GameState, studioId: string): boolean {
 }
 
 /** This person's seat on an ALREADY-STARTED picture of this studio whose first
- * take is still ahead — the one path that needs no greenlight either. */
-function seatedPreFirstTake(state: GameState, studioId: string, personId: string): readonly Production[] {
+ * take is still ahead — the one path that needs no greenlight either. Only a seat
+ * inside the promise's class mask counts (record 600): a fixed seat outside the
+ * mask is not an event. A recorded first take means no NEW event from that picture. */
+function seatedPreFirstTake(
+  state: GameState,
+  studioId: string,
+  personId: string,
+  slots: readonly CastSlot[],
+): readonly Production[] {
   const recorded = new Set(state.firstTakes.map((t) => t.productionId))
   return studioProductions(state, studioId).filter(
-    (p) => !recorded.has(p.id) && CAST_SLOTS.some((slot) => p.cast[slot] === personId),
+    (p) => !recorded.has(p.id) && slots.some((slot) => p.cast[slot] === personId),
   )
 }
 
@@ -322,6 +337,8 @@ function feasibilityInputs(state: GameState, draft: PromiseDraft, week: number):
       .map((e) => [e.contractId, e.studioId, e.terms.startWeek, e.terms.endWeekExclusive, e.endedWeek]) ?? [],
     activePromiseReservations(state, draft, from)
       .map((p) => [p.promiseId, p.family, p.issuerStudioId, p.windowStartWeek, p.dueWeekExclusive, p.predicate.count, p.progress]),
+    // Appended only for a tagged draft so every count-only tuple stays byte-identical.
+    ...('kind' in draft.predicate ? [[draft.predicate.kind, draft.predicate.seatClass]] : []),
   ]
 }
 
@@ -334,7 +351,7 @@ function feasibilityInputs(state: GameState, draft: PromiseDraft, week: number):
  */
 function expectedFirstTakeWeek(state: GameState, draft: PromiseDraft, from: number, k: number): number {
   if (k === 0) {
-    const running = seatedPreFirstTake(state, draft.issuerStudioId, draft.beneficiaryPersonId)
+    const running = seatedPreFirstTake(state, draft.issuerStudioId, draft.beneficiaryPersonId, promiseCastSlots(draft))
     let earliest: number | null = null
     for (const production of running) {
       // `remainingTicks` 5 is the week BEFORE the take; the first advance is
@@ -370,6 +387,15 @@ export function promiseFeasibility(state: GameState, draft: PromiseDraft, week: 
 
   const notOffered = NOT_OFFERED_IN_B1[draft.family]
   if (notOffered !== undefined) return refuse(notOffered)
+  // Record 600: a seat-class promise is offered only with its class selected; a
+  // legacy count-only P2 stays nonofferable at a new quote/freeze with the missing
+  // fact named. A class on any other family is a shape refusal, not a search miss.
+  if (draft.family === 'LEAD_OR_SIGNIFICANT_ROLE_COUNT' && !('kind' in draft.predicate)) {
+    return refuse('a seat-class promise needs its seat class selected (lead, or lead-or-antagonist); without one it is not offered')
+  }
+  if ('kind' in draft.predicate && draft.family !== 'LEAD_OR_SIGNIFICANT_ROLE_COUNT') {
+    return refuse('a selected seat class applies only to a seat-class promise')
+  }
   if (!Number.isInteger(X) || X < 1) return refuse('the promised count must be a whole picture')
   if (draft.dueWeekExclusive <= draft.windowStartWeek) return refuse('the window closes before it opens')
   if (draft.windowStartWeek < draft.startWeek) return refuse('the window starts before the proposed contract')
@@ -395,12 +421,15 @@ export function promiseFeasibility(state: GameState, draft: PromiseDraft, week: 
   if (X > nMax) return refuse('no filming week inside the window can reach that many pictures')
   if (reserved + X > nMax) return refuse('promises already made to this person exhaust the window')
 
-  const existingPath = seatedPreFirstTake(state, draft.issuerStudioId, draft.beneficiaryPersonId).length
+  const existingPath = seatedPreFirstTake(state, draft.issuerStudioId, draft.beneficiaryPersonId, promiseCastSlots(draft)).length
     + unproducedScripts(state, draft.issuerStudioId)
     + (stockGreenlightAvailable(state, draft.issuerStudioId) ? 1 : 0)
   const lastEventWeek = expectedFirstTakeWeek(state, draft, from, reserved + X - 1)
 
-  if (X > nMax - promiseBuffer(nMax)) {
+  // Evaluator 4 (record 600): active reservations are subtracted before the
+  // spare-event buffer is tested — shared residual capacity, for fresh P1 and
+  // tagged P2 alike.
+  if (reserved + X > nMax - promiseBuffer(nMax)) {
     return receipt('FRAGILE', 'the schedule leaves no spare picture inside the window', inputs, week)
   }
   if (reserved + X > existingPath) {
@@ -434,7 +463,7 @@ export function reclassifyPromise(state: GameState, promise: ProfessionalPromise
 
 export type PromiseAttachment = {
   family: PromiseFamily
-  predicate: { count: number }
+  predicate: PromisePredicate
   windowStartWeek: number
   dueWeekExclusive: number
 }
@@ -476,6 +505,13 @@ export function attachPromise(
       `promises: studio "${issuerStudioId}"'s proposal for "${talentId}" already carries a promise — P14B.1 attaches at most one; re-submit the proposal to revise it`,
     )
   }
+  // A selected class is legal only on the P2 family (the V30 writer refuses any
+  // other root); fail loud here rather than stage an unsaveable state.
+  if ('kind' in draft.predicate && draft.family !== 'LEAD_OR_SIGNIFICANT_ROLE_COUNT') {
+    throw new Error(
+      `promises: a selected seat class is legal only on a LEAD_OR_SIGNIFICANT_ROLE_COUNT promise, not "${draft.family}"`,
+    )
+  }
   const feasibilityReceipt = promiseFeasibility(state, {
     family: draft.family,
     issuerStudioId,
@@ -486,13 +522,11 @@ export function attachPromise(
     startWeek: proposal.startWeek,
     termWeeks: proposal.termWeeks,
   }, week)
-  const promise: ProfessionalPromise = {
+  const base = {
     promiseId: `promise-${String(state.promises.length)}`,
-    family: draft.family,
     version: PROMISE_RULES_VERSION,
     issuerStudioId,
     beneficiaryPersonId: talentId,
-    predicate: { count: draft.predicate.count },
     windowStartWeek: draft.windowStartWeek,
     dueWeekExclusive: draft.dueWeekExclusive,
     feasibilityReceipt,
@@ -504,6 +538,16 @@ export function attachPromise(
     outcomeEventId: null,
     contractId: null,
   }
+  // The COMPLETE predicate is copied as a detached object, minted in two typed
+  // branches against the correlated V30 members (the tagged branch is P2 by the
+  // guard above).
+  const promise: ProfessionalPromise = 'kind' in draft.predicate
+    ? {
+        ...base,
+        family: 'LEAD_OR_SIGNIFICANT_ROLE_COUNT',
+        predicate: { kind: 'castRoleCount', count: draft.predicate.count, seatClass: draft.predicate.seatClass },
+      }
+    : { ...base, family: draft.family, predicate: { count: draft.predicate.count } }
   const promises = [...state.promises, promise]
   const promised = { ...proposal, promises: [promise.promiseId] }
   const redigested = {
@@ -568,10 +612,13 @@ export function qualifyingTakes(
   })
 }
 
+/** The five outcome fields a settlement may write; identical on both V30 members. */
+type PromiseSettlement = Partial<Pick<ProfessionalPromise, 'progress' | 'evidenceRefs' | 'outcome' | 'outcomeCause' | 'outcomeEventId'>>
+
 function settle(
   state: GameState,
   promise: ProfessionalPromise,
-  next: Partial<ProfessionalPromise>,
+  next: PromiseSettlement,
   week: number,
   reason: string,
 ): GameState {
