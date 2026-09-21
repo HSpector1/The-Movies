@@ -1,0 +1,364 @@
+START 2026-09-21T19:14:38Z HEAD cb13a4579ab5b27dbf89d8e3b3d461828e8cb729
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/p14b4-cancel-causal-proof.test.ts (16 tests | 7 failed) 2700ms
+   × 629-T case 1: a joint reservation conflict is not causal proof (plan :249-256; 26 §2 "a joint reservation conflict ... is not target-specific physical impossibility") > one person, two bound OPEN count-1 promises, seated LEAD on one greenlit picture, one event still reachable after the cancel: NEITHER is BROKEN at the cancel; the due-week owner decides 1159ms
+     → expected [ …(2) ] to deeply equal [ …(2) ]
+   × 629-T case 2: a bound legacy P2 is never routed through fresh-offer refusal (26 §2 last sentence; plan :257 "legacy generic-cast compatibility") > legacy count-only P2 (no kind), person seated SUPPORT (generic cast qualifies any seat), wide window: NOT broken at the cancel 44ms
+     → expected [ { promiseId: '629-2a', …(15) } ] to deeply equal [ { promiseId: '629-2a', …(15) } ]
+   × 629-T case 3: an unsupported legacy family is not causal proof (26 §2 "unsupported legacy family ... is not target-specific physical impossibility") > a bound OPEN DIRECTING_COUNT root is a lawful persisted record (validateSaveV30) and is NOT broken by a cancel with a wide window 47ms
+     → expected [ { promiseId: '629-3', …(15) } ] to deeply equal [ { promiseId: '629-3', …(15) } ]
+   × 629-T case 4: the cancelled picture must be able to satisfy THIS class (26 §2 "check whether the cancelled picture could satisfy this class"; plan :246 "relevant ... seams") > tagged 'lead' P2, person seated 'support' on the cancelled picture, due = week + 2: NOT broken at the cancel (no path was removed); the due-week owner breaks it at the due week 41ms
+     → expected [ { …(16) } ] to deeply equal [ { …(16) } ]
+   × 629-T case 4: the cancelled picture must be able to satisfy THIS class (26 §2 "check whether the cancelled picture could satisfy this class"; plan :246 "relevant ... seams") > tagged 'leadOrAntagonist' P2, person seated 'support' on the cancelled picture, due = week + 2: NOT broken at the cancel (no path was removed); the due-week owner breaks it at the due week 38ms
+     → expected [ { …(16) } ] to deeply equal [ { …(16) } ]
+   × 629-T case 5: the remaining count uses ACTUAL class-qualified takes (plan :331-334) > count-2 tagged lead P2, ONE real qualifying take on A (progress 1), seated LEAD on pre-first-take B, one more event reachable: NOT broken when B is cancelled 265ms
+     → expected [ { promiseId: '629-5', …(15) } ] to deeply equal [ { promiseId: '629-5', …(15) } ]
+   × 629-T case 5: the remaining count uses ACTUAL class-qualified takes (plan :331-334) > stale progress counter (0) while the real take exists: still NOT broken — the proof reads qualifyingTakes, not progress 62ms
+     → expected [ { promiseId: '629-5-stale', …(15) } ] to deeply equal [ { promiseId: '629-5-stale', …(15) } ]
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 7 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14b4-cancel-causal-proof.test.ts > 629-T case 1: a joint reservation conflict is not causal proof (plan :249-256; 26 §2 "a joint reservation conflict ... is not target-specific physical impossibility") > one person, two bound OPEN count-1 promises, seated LEAD on one greenlit picture, one event still reachable after the cancel: NEITHER is BROKEN at the cancel; the due-week owner decides
+AssertionError: expected [ …(2) ] to deeply equal [ …(2) ]
+
+- Expected
++ Received
+
+  Array [
+    Object {
+      "beneficiaryPersonId": "t-act-11",
+      "contractId": "studio-aca408ec-player:contract:t-act-11:13:player-27",
+      "dueWeekExclusive": 29,
+      "evidenceRefs": Array [],
+      "family": "APPEARANCE_COUNT",
+      "feasibilityReceipt": Object {
+        "bottleneck": "629-T labeled variant receipt (not evaluated by any owner)",
+        "classification": "FRAGILE",
+        "inputsDigest": "0000000000000000",
+        "rulesVersion": 4,
+        "week": 21,
+      },
+      "issuerStudioId": "studio-aca408ec-player",
+-     "outcome": null,
+-     "outcomeCause": null,
+-     "outcomeEventId": null,
+-     "outcomeWeek": null,
++     "outcome": "BROKEN",
++     "outcomeCause": "the studio cancelled the picture this person was cast in, and no path was left",
++     "outcomeEventId": "talent-market-event-0",
++     "outcomeWeek": 21,
+      "predicate": Object {
+        "count": 1,
+      },
+      "progress": 0,
+      "promiseId": "629-1-p1",
+      "version": 4,
+      "windowStartWeek": 21,
+    },
+    Object {
+      "beneficiaryPersonId": "t-act-11",
+      "contractId": "studio-aca408ec-player:contract:t-act-11:13:player-27",
+      "dueWeekExclusive": 29,
+      "evidenceRefs": Array [],
+      "family": "LEAD_OR_SIGNIFICANT_ROLE_COUNT",
+      "feasibilityReceipt": Object {
+        "bottleneck": "629-T labeled variant receipt (not evaluated by any owner)",
+        "classification": "FRAGILE",
+        "inputsDigest": "0000000000000000",
+        "rulesVersion": 4,
+        "week": 21,
+      },
+      "issuerStudioId": "studio-aca408ec-player",
+      "outcome": null,
+      "outcomeCause": null,
+      "outcomeEventId": null,
+      "outcomeWeek": null,
+      "predicate": Object {
+        "count": 1,
+        "kind": "castRoleCount",
+        "seatClass": "lead",
+      },
+      "progress": 0,
+      "promiseId": "629-1-p2",
+      "version": 4,
+      "windowStartWeek": 21,
+    },
+  ]
+
+ ❯ untouched tests/p14b4-cancel-causal-proof.test.ts:267:26
+    265| /** The immediate-cause seam changed NOTHING on the promise root or th…
+    266| function untouched(before: GameState, after: GameState): void {
+    267|   expect(after.promises).toEqual(before.promises)
+       |                          ^
+    268|   expect(after.talentMarket.receipts).toEqual(before.talentMarket.rece…
+    269| }
+ ❯ tests/p14b4-cancel-causal-proof.test.ts:301:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/7]⎯
+
+ FAIL |core|  tests/p14b4-cancel-causal-proof.test.ts > 629-T case 2: a bound legacy P2 is never routed through fresh-offer refusal (26 §2 last sentence; plan :257 "legacy generic-cast compatibility") > legacy count-only P2 (no kind), person seated SUPPORT (generic cast qualifies any seat), wide window: NOT broken at the cancel
+AssertionError: expected [ { promiseId: '629-2a', …(15) } ] to deeply equal [ { promiseId: '629-2a', …(15) } ]
+
+- Expected
++ Received
+
+  Array [
+    Object {
+      "beneficiaryPersonId": "t-act-11",
+      "contractId": "studio-aca408ec-player:contract:t-act-11:13:player-27",
+      "dueWeekExclusive": 41,
+      "evidenceRefs": Array [],
+      "family": "LEAD_OR_SIGNIFICANT_ROLE_COUNT",
+      "feasibilityReceipt": Object {
+        "bottleneck": "629-T labeled variant receipt (not evaluated by any owner)",
+        "classification": "FRAGILE",
+        "inputsDigest": "0000000000000000",
+        "rulesVersion": 4,
+        "week": 21,
+      },
+      "issuerStudioId": "studio-aca408ec-player",
+-     "outcome": null,
+-     "outcomeCause": null,
+-     "outcomeEventId": null,
+-     "outcomeWeek": null,
++     "outcome": "BROKEN",
++     "outcomeCause": "the studio cancelled the picture this person was cast in, and no path was left",
++     "outcomeEventId": "talent-market-event-0",
++     "outcomeWeek": 21,
+      "predicate": Object {
+        "count": 1,
+      },
+      "progress": 0,
+      "promiseId": "629-2a",
+      "version": 4,
+      "windowStartWeek": 21,
+    },
+  ]
+
+ ❯ untouched tests/p14b4-cancel-causal-proof.test.ts:267:26
+    265| /** The immediate-cause seam changed NOTHING on the promise root or th…
+    266| function untouched(before: GameState, after: GameState): void {
+    267|   expect(after.promises).toEqual(before.promises)
+       |                          ^
+    268|   expect(after.talentMarket.receipts).toEqual(before.talentMarket.rece…
+    269| }
+ ❯ tests/p14b4-cancel-causal-proof.test.ts:351:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/7]⎯
+
+ FAIL |core|  tests/p14b4-cancel-causal-proof.test.ts > 629-T case 3: an unsupported legacy family is not causal proof (26 §2 "unsupported legacy family ... is not target-specific physical impossibility") > a bound OPEN DIRECTING_COUNT root is a lawful persisted record (validateSaveV30) and is NOT broken by a cancel with a wide window
+AssertionError: expected [ { promiseId: '629-3', …(15) } ] to deeply equal [ { promiseId: '629-3', …(15) } ]
+
+- Expected
++ Received
+
+  Array [
+    Object {
+      "beneficiaryPersonId": "t-act-11",
+      "contractId": "studio-aca408ec-player:contract:t-act-11:13:player-27",
+      "dueWeekExclusive": 41,
+      "evidenceRefs": Array [],
+      "family": "DIRECTING_COUNT",
+      "feasibilityReceipt": Object {
+        "bottleneck": "629-T labeled variant receipt (not evaluated by any owner)",
+        "classification": "FRAGILE",
+        "inputsDigest": "0000000000000000",
+        "rulesVersion": 4,
+        "week": 21,
+      },
+      "issuerStudioId": "studio-aca408ec-player",
+-     "outcome": null,
+-     "outcomeCause": null,
+-     "outcomeEventId": null,
+-     "outcomeWeek": null,
++     "outcome": "BROKEN",
++     "outcomeCause": "the studio cancelled the picture this person was cast in, and no path was left",
++     "outcomeEventId": "talent-market-event-0",
++     "outcomeWeek": 21,
+      "predicate": Object {
+        "count": 1,
+      },
+      "progress": 0,
+      "promiseId": "629-3",
+      "version": 4,
+      "windowStartWeek": 21,
+    },
+  ]
+
+ ❯ untouched tests/p14b4-cancel-causal-proof.test.ts:267:26
+    265| /** The immediate-cause seam changed NOTHING on the promise root or th…
+    266| function untouched(before: GameState, after: GameState): void {
+    267|   expect(after.promises).toEqual(before.promises)
+       |                          ^
+    268|   expect(after.talentMarket.receipts).toEqual(before.talentMarket.rece…
+    269| }
+ ❯ tests/p14b4-cancel-causal-proof.test.ts:393:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/7]⎯
+
+ FAIL |core|  tests/p14b4-cancel-causal-proof.test.ts > 629-T case 4: the cancelled picture must be able to satisfy THIS class (26 §2 "check whether the cancelled picture could satisfy this class"; plan :246 "relevant ... seams") > tagged 'lead' P2, person seated 'support' on the cancelled picture, due = week + 2: NOT broken at the cancel (no path was removed); the due-week owner breaks it at the due week
+ FAIL |core|  tests/p14b4-cancel-causal-proof.test.ts > 629-T case 4: the cancelled picture must be able to satisfy THIS class (26 §2 "check whether the cancelled picture could satisfy this class"; plan :246 "relevant ... seams") > tagged 'leadOrAntagonist' P2, person seated 'support' on the cancelled picture, due = week + 2: NOT broken at the cancel (no path was removed); the due-week owner breaks it at the due week
+AssertionError: expected [ { …(16) } ] to deeply equal [ { …(16) } ]
+
+- Expected
++ Received
+
+  Array [
+    Object {
+      "beneficiaryPersonId": "t-act-11",
+      "contractId": "studio-aca408ec-player:contract:t-act-11:13:player-27",
+      "dueWeekExclusive": 23,
+      "evidenceRefs": Array [],
+      "family": "LEAD_OR_SIGNIFICANT_ROLE_COUNT",
+      "feasibilityReceipt": Object {
+        "bottleneck": "629-T labeled variant receipt (not evaluated by any owner)",
+        "classification": "FRAGILE",
+        "inputsDigest": "0000000000000000",
+        "rulesVersion": 4,
+        "week": 21,
+      },
+      "issuerStudioId": "studio-aca408ec-player",
+-     "outcome": null,
+-     "outcomeCause": null,
+-     "outcomeEventId": null,
+-     "outcomeWeek": null,
++     "outcome": "BROKEN",
++     "outcomeCause": "the studio cancelled the picture this person was cast in, and no path was left",
++     "outcomeEventId": "talent-market-event-0",
++     "outcomeWeek": 21,
+      "predicate": Object {
+        "count": 1,
+        "kind": "castRoleCount",
+        "seatClass": "lead",
+      },
+      "progress": 0,
+      "promiseId": "629-4-lead-support",
+      "version": 4,
+      "windowStartWeek": 21,
+    },
+  ]
+
+ ❯ untouched tests/p14b4-cancel-causal-proof.test.ts:267:26
+    265| /** The immediate-cause seam changed NOTHING on the promise root or th…
+    266| function untouched(before: GameState, after: GameState): void {
+    267|   expect(after.promises).toEqual(before.promises)
+       |                          ^
+    268|   expect(after.talentMarket.receipts).toEqual(before.talentMarket.rece…
+    269| }
+ ❯ tests/p14b4-cancel-causal-proof.test.ts:417:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/7]⎯
+
+ FAIL |core|  tests/p14b4-cancel-causal-proof.test.ts > 629-T case 5: the remaining count uses ACTUAL class-qualified takes (plan :331-334) > count-2 tagged lead P2, ONE real qualifying take on A (progress 1), seated LEAD on pre-first-take B, one more event reachable: NOT broken when B is cancelled
+AssertionError: expected [ { promiseId: '629-5', …(15) } ] to deeply equal [ { promiseId: '629-5', …(15) } ]
+
+- Expected
++ Received
+
+  Array [
+    Object {
+      "beneficiaryPersonId": "t-act-11",
+      "contractId": "studio-aca408ec-player:contract:t-act-11:13:player-27",
+      "dueWeekExclusive": 38,
+      "evidenceRefs": Array [],
+      "family": "LEAD_OR_SIGNIFICANT_ROLE_COUNT",
+      "feasibilityReceipt": Object {
+        "bottleneck": "629-T labeled variant receipt (not evaluated by any owner)",
+        "classification": "FRAGILE",
+        "inputsDigest": "0000000000000000",
+        "rulesVersion": 4,
+        "week": 30,
+      },
+      "issuerStudioId": "studio-aca408ec-player",
+-     "outcome": null,
+-     "outcomeCause": null,
+-     "outcomeEventId": null,
+-     "outcomeWeek": null,
++     "outcome": "BROKEN",
++     "outcomeCause": "the studio cancelled the picture this person was cast in, and no path was left",
++     "outcomeEventId": "talent-market-event-0",
++     "outcomeWeek": 30,
+      "predicate": Object {
+        "count": 2,
+        "kind": "castRoleCount",
+        "seatClass": "lead",
+      },
+      "progress": 1,
+      "promiseId": "629-5",
+      "version": 4,
+      "windowStartWeek": 21,
+    },
+  ]
+
+ ❯ untouched tests/p14b4-cancel-causal-proof.test.ts:267:26
+    265| /** The immediate-cause seam changed NOTHING on the promise root or th…
+    266| function untouched(before: GameState, after: GameState): void {
+    267|   expect(after.promises).toEqual(before.promises)
+       |                          ^
+    268|   expect(after.talentMarket.receipts).toEqual(before.talentMarket.rece…
+    269| }
+ ❯ tests/p14b4-cancel-causal-proof.test.ts:479:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/7]⎯
+
+ FAIL |core|  tests/p14b4-cancel-causal-proof.test.ts > 629-T case 5: the remaining count uses ACTUAL class-qualified takes (plan :331-334) > stale progress counter (0) while the real take exists: still NOT broken — the proof reads qualifyingTakes, not progress
+AssertionError: expected [ { promiseId: '629-5-stale', …(15) } ] to deeply equal [ { promiseId: '629-5-stale', …(15) } ]
+
+- Expected
++ Received
+
+  Array [
+    Object {
+      "beneficiaryPersonId": "t-act-11",
+      "contractId": "studio-aca408ec-player:contract:t-act-11:13:player-27",
+      "dueWeekExclusive": 38,
+      "evidenceRefs": Array [],
+      "family": "LEAD_OR_SIGNIFICANT_ROLE_COUNT",
+      "feasibilityReceipt": Object {
+        "bottleneck": "629-T labeled variant receipt (not evaluated by any owner)",
+        "classification": "FRAGILE",
+        "inputsDigest": "0000000000000000",
+        "rulesVersion": 4,
+        "week": 30,
+      },
+      "issuerStudioId": "studio-aca408ec-player",
+-     "outcome": null,
+-     "outcomeCause": null,
+-     "outcomeEventId": null,
+-     "outcomeWeek": null,
++     "outcome": "BROKEN",
++     "outcomeCause": "the studio cancelled the picture this person was cast in, and no path was left",
++     "outcomeEventId": "talent-market-event-0",
++     "outcomeWeek": 30,
+      "predicate": Object {
+        "count": 2,
+        "kind": "castRoleCount",
+        "seatClass": "lead",
+      },
+      "progress": 0,
+      "promiseId": "629-5-stale",
+      "version": 4,
+      "windowStartWeek": 21,
+    },
+  ]
+
+ ❯ untouched tests/p14b4-cancel-causal-proof.test.ts:267:26
+    265| /** The immediate-cause seam changed NOTHING on the promise root or th…
+    266| function untouched(before: GameState, after: GameState): void {
+    267|   expect(after.promises).toEqual(before.promises)
+       |                          ^
+    268|   expect(after.talentMarket.receipts).toEqual(before.talentMarket.rece…
+    269| }
+ ❯ tests/p14b4-cancel-causal-proof.test.ts:489:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/7]⎯
+
+ Test Files  1 failed (1)
+      Tests  7 failed | 9 passed (16)
+   Start at  21:14:39
+   Duration  5.26s (transform 1.41s, setup 0ms, collect 2.00s, tests 2.70s, environment 0ms, prepare 143ms)
+
+EXIT 1
+END 2026-09-21T19:14:45Z

@@ -1,0 +1,7 @@
+START 2026-09-21T19:15:04Z HEAD cb13a4579ab5b27dbf89d8e3b3d461828e8cb729
+
+> project-studio-core@0.1.0 typecheck
+> tsc --noEmit && tsc -p ui/tsconfig.json --noEmit
+
+EXIT 0
+END 2026-09-21T19:16:12Z

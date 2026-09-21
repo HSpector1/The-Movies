@@ -1,0 +1,27 @@
+START 2026-09-21T19:16:34Z HEAD cb13a4579ab5b27dbf89d8e3b3d461828e8cb729
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p14b4-cast-class-outcomes.test.ts (23 tests) 12669ms
+   ✓ P14B4 genuine submit/settle/take routes, no synthetic commitments > PLAYER: actual offered lead P2 settles and the real class-compatible take satisfies it 1733ms
+   ✓ P14B4 genuine submit/settle/take routes, no synthetic commitments > PLAYER: actual offered leadOrAntagonist P2 settles and the real class-compatible take satisfies it 990ms
+   ✓ P14B4 genuine submit/settle/take routes, no synthetic commitments > RIVAL: a genuinely naturally authored tagged commitment binds and qualifies through the real scheduled owner transition 2911ms
+   ✓ P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'player' 'lead' with actual 'lead' seat: qualification=true 596ms
+   ✓ P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'player' 'lead' with actual 'antagonist' seat: qualification=false 435ms
+   ✓ P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'player' 'lead' with actual 'support' seat: qualification=false 408ms
+   ✓ P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'rival' 'lead' with actual 'lead' seat: qualification=true 325ms
+   ✓ P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'rival' 'leadOrAntagonist' with actual 'lead' seat: qualification=true 334ms
+   ✓ P14B4 labeled outcome-owner probes on real bound roots and actual casts > player support qualifies for P1 and shape-legacy count-only P2, not tagged P2 305ms
+   ✓ P14B4 labeled outcome-owner probes on real bound roots and actual casts > rival support qualifies for P1 and shape-legacy count-only P2, not tagged P2 643ms
+   ✓ P14B4 labeled outcome-owner probes on real bound roots and actual casts > player half-open window counts start, excludes before-start and excludes due 384ms
+   ✓ P14B4 labeled outcome-owner probes on real bound roots and actual casts > rival half-open window counts start, excludes before-start and excludes due 821ms
+   ✓ P14B4 labeled outcome-owner probes on real bound roots and actual casts > count2 requires TWO real distinct productions; repeated owner passes/ticks on one picture never add another event 392ms
+   ✓ P14B4 labeled outcome-owner probes on real bound roots and actual casts > two genuinely bound beneficiaries share one completed take but receive DISTINCT own outcome receipts exactly once 399ms
+
+ Test Files  1 passed (1)
+      Tests  23 passed (23)
+   Start at  21:16:35
+   Duration  15.43s (transform 1.62s, setup 0ms, collect 2.21s, tests 12.67s, environment 0ms, prepare 123ms)
+
+EXIT 0
+END 2026-09-21T19:16:51Z
