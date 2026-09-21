@@ -349,7 +349,12 @@ function feasibilityInputs(state: GameState, draft: PromiseDraft, week: number):
  * (`remainingTicks` counts down to the 5 → 4 take), and nothing needs to be
  * greenlit for it at all.
  */
-function expectedFirstTakeWeek(state: GameState, draft: PromiseDraft, from: number, k: number): number {
+function expectedFirstTakeWeek(
+  state: GameState,
+  draft: Pick<PromiseDraft, 'issuerStudioId' | 'beneficiaryPersonId' | 'predicate'>,
+  from: number,
+  k: number,
+): number {
   if (k === 0) {
     const running = seatedPreFirstTake(state, draft.issuerStudioId, draft.beneficiaryPersonId, promiseCastSlots(draft))
     let earliest: number | null = null
@@ -633,6 +638,34 @@ export function qualifyingTakes(
   })
 }
 
+/**
+ * Plan :331-336 / :348-355: the SEPARATE target-specific physical proof for a
+ * BOUND promise after a studio action (the cancel seam), never the offer
+ * classification. `remaining` is the count minus the ACTUAL class-qualified
+ * distinct first takes (`qualifyingTakes`), never the stored `progress`
+ * counter; zero remaining is a met predicate the weekly owner settles, not a
+ * failed probe. The bound presumes M16 one-seat exclusivity
+ * (`assertGreenlightStaffingIdle`: a person on a running picture cannot be
+ * greenlit again) and fixed cast (no recast verb), so each later take needs a
+ * greenlight at least WEEKS_TO_FIRST_TAKE after the previous take week:
+ * t0 + 5k is a floor on the k-th remaining take week and ceil((due - t0) / 5)
+ * a ceiling on the count reachable before `dueWeekExclusive` — a hard upper
+ * bound (plan :348-349), deliberately looser than the quote's SEAT_CYCLE_WEEKS
+ * hypothesis, which may not write a permanent BROKEN. The physical clock runs
+ * from `week` (a picture greenlit now first-takes at week + 5); the window
+ * start is only a floor on t0 because a picture can be held at ticks 5 until
+ * the window opens. No reservation subtraction, no family or class refusal, no
+ * FRAGILE term, no receipt (record 26 §2): a joint conflict, an unsupported
+ * family and a FRAGILE remainder are all `null` here. Pure, no RNG.
+ */
+export function targetSpecificImpossibility(state: GameState, promise: ProfessionalPromise, week: number): string | null {
+  const remaining = Math.max(0, promise.predicate.count - qualifyingTakes(state, promise).length)
+  if (remaining === 0) return null
+  const t0 = Math.max(promise.windowStartWeek, expectedFirstTakeWeek(state, promise, week, 0))
+  const nMax = t0 < promise.dueWeekExclusive ? Math.ceil((promise.dueWeekExclusive - t0) / WEEKS_TO_FIRST_TAKE) : 0
+  return remaining > nMax ? 'no filming week inside the window can reach that many pictures' : null
+}
+
 /** The five outcome fields a settlement may write; identical on both V30 members. */
 type PromiseSettlement = Partial<Pick<ProfessionalPromise, 'progress' | 'evidenceRefs' | 'outcome' | 'outcomeCause' | 'outcomeEventId'>>
 
@@ -735,22 +768,24 @@ export function breakPromisesOnTermination(state: GameState, issuerStudioId: str
 
 /**
  * §4.4's "any studio-caused event that makes the predicate unsatisfiable": the
- * studio cancelled a picture the beneficiary was seated on BEFORE its first take.
- * The service is re-run against committed state and the promise is BROKEN IFF the
- * result is IMPOSSIBLE — a cancellation the schedule can still absorb costs the
- * studio nothing here (it is priced by trust, §4.5), and a first take already
+ * studio cancelled a picture the beneficiary held a CLASS seat on BEFORE its
+ * first take. BROKEN iff the separate target-specific proof finds no physical
+ * path for the REMAINING count on the post-cancel state (plan :243-252, :331-336;
+ * record 26 §2). A cancellation the schedule can still absorb costs the studio
+ * nothing here (it is priced by trust, §4.5); a joint reservation conflict, an
+ * unsupported family or a FRAGILE remainder never breaks; a first take already
  * taken is never un-taken (companion §4.2: "first take, then cancellation").
  */
 export function breakPromisesOnCancel(state: GameState, issuerStudioId: string, cancelled: Production): GameState {
   requirePromiseRoots(state)
   const week = state.market.tick
   if (state.firstTakes.some((t) => t.productionId === cancelled.id)) return state
-  const seated = new Set(CAST_SLOTS.map((slot) => cancelled.cast[slot]))
   let next = state
   for (const promise of state.promises) {
     if (!evaluable(promise)) continue
-    if (promise.issuerStudioId !== issuerStudioId || !seated.has(promise.beneficiaryPersonId)) continue
-    if (reclassifyPromise(next, promise, week).classification !== 'IMPOSSIBLE') continue
+    if (promise.issuerStudioId !== issuerStudioId) continue
+    if (!promiseCastSlots(promise).some((slot) => cancelled.cast[slot] === promise.beneficiaryPersonId)) continue
+    if (targetSpecificImpossibility(state, promise, week) === null) continue
     next = settle(next, promise, {
       outcome: 'BROKEN',
       outcomeCause: 'the studio cancelled the picture this person was cast in, and no path was left',
