@@ -6,6 +6,57 @@ run remains the sole heavy runtime. This expansion turns the bounded preparation
 in evidence/p14b3-20260919/15-p2-refined-execution-map.md into the next executable
 slice; it does not reopen B1/B2/B3 or claim the rest of P14 complete.
 
+## Owner ruling 2026-09-21 (record 600) — amendments in force
+
+The Owner ruled on record 578 (D1 537 §3, D2 538-C §2, 515 §6, the 576 bound); the ruling
+text is verbatim in `evidence/p14b4-20260919/600-owner-ruling-578-reopened-program.md`.
+Every paragraph below this section stays as written for provenance; where this section and
+a later paragraph disagree, this section governs. Reviewed-plan SHA256 before this amendment:
+`382252e23b6353acf602d87f38032ff961e9f7f9740bbfdf2b2ae368c30df4e4` (the pin cited in the
+B4 test headers); the amended file's hash is recorded in record 600.
+
+**D1 (a) — evaluator 4 is the class-aware scalar; the certificate is evaluator 5.**
+Evaluator 4 = class-restricted fixed-seat paths plus shared residual capacity on the existing
+count-family scalar, applied to fresh P1 AND tagged P2 (the "Evaluator4 explicitly applies
+shared residual capacity" paragraph stays evaluator-4 law: active reservations are subtracted
+before classification, `reserved + X` against the spare-event buffer; some new P1 offers may
+become nonofferable). Cast masks: legacy count-only of every family → lead, antagonist,
+support; tagged lead → lead; tagged leadOrAntagonist → lead + antagonist. A fixed seat outside
+the mask is not an event; IMPOSSIBLE at evaluator 4 comes only from an actual bound (no
+mask-qualified filming week inside the window; reserved plus requested exceeding the residual
+capacity), never from a search miss. Classless legacy P2 stays nonofferable at a new quote or
+freeze with an honest missing-class reason. The bounded joint certificate (the "Bounded
+capacity implementation appendix"), the UNCERTIFIED → nonofferable FRAGILE mapping with the
+exact explanation `bounded capacity analysis could not certify this schedule`, and the "not a
+guessed scalar maximum" requirement are evaluator-5 law: they do not gate `PROMISE_RULES_VERSION
+4`, Save30, projection 47 or the live cutover, and the detached adapter (record 553) and
+enumerator (record 574) are not wired live at evaluator 4. Record 26 §2 row 3's "reviewed
+owner-adapter/class-capacity result" reads, at evaluator 4, as the reviewed class-aware scalar
+service. Rules 4 is stamped only by that evaluator change, never as a literal-only bump
+(record 23 stands). The move lands INSIDE the coordinated core/save/runtime/wire cutover
+(record 26 §2–§4), not as a pre-cutover era. The test-author reconciles the B-F2/B3 rules-3
+pins and the kernel-vocabulary capacity cases (separate evaluator-5 file or explicit unreached
+marking, never loosened), and holds natural-chain reconciliation authority for residual-buffer
+movements of fresh P1 classifications.
+
+**D2 (i-c) — budget fixed.** The 200000 shared work cap and the record 162 §2 native Map/Set
+metric stay exactly as adopted. Certified offers exist only where the current kernel fits
+(record 538: the fixed-cast 2-week cells and the conflicting-claim case; record 576: unforced
+started pictures for windows ending at now + 2). No multi-admission or deferred-admission
+grammar is opened. UNCERTIFIED → FRAGILE remains evaluator-5 behaviour. The metric and the cap
+are revisited only when evaluator 5 is designed.
+
+**515 §6 (c) — the 302 stale route.** `tests/p14b4-ready-replay-stale-target.test.ts:234`
+stays RED as a recorded exact boundary (expected `commandRefused`, receives `workLimit`).
+C9 and C10 are not authorized; the 302 control (horizon, route, cap) is not rewritten or
+weakened. Revisit only if a future D2 ruling changes the metric or cap.
+
+**576 — fact.** The detached certificate track's bound (record 576) is recorded as measured;
+no ruling attaches to it.
+
+**C1 stays closed** (record 599). The computational hypotheses paragraph ("at most 32 relevant
+claim rows … 200000 charged primitive search operations") is unchanged.
+
 ## Authority, order and ownership
 
 Companion Revision3 at8ef5246a §§4.1–4.5/R12–R13 and the existing logic-first
