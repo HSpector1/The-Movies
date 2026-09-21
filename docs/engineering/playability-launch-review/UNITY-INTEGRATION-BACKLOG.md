@@ -123,6 +123,18 @@ certificates wait on D1/D2 or an Owner budget ruling. The parallel track
 (replay bill reductions C6/C7, then C5) starts next; an Owner decision packet
 follows. Consumer impact: none; nothing in source changed.
 
+Headless checkpoint598 (2026-09-21), published/exact remote
+`c6f4fc792701f5fe5103aed959064da5748dad24` (C6 `3f993b1d`, C7 `21569c7c`): the
+replay bill reductions C6 (module-literal copy price at the two hold-close
+sites) and C7 (`uniqueIds` through the existing paid-walk sort path) are landed
+and qualified in `promiseCapacityOwnerReplay.ts`; bills fall by the law's exact
+terms on every measured route (prepare −2349 Started / −2279 Ready; −153/−187
+per close) with zero residual; no behaviour, trace, hold, refusal or
+classification moved; the stale route stays RED by design; C5 dropped after
+operand proofs; C1 is the parallel track's last item. Record 578 consolidates
+the open Owner decisions. Consumer impact: none; protocol4/projection46/Save29
+unchanged; no cap, tariff or refusal changed.
+
 These are private logic/work-accounting changes only. No consumer field/action,
 protocol4, projection46, live Save29, evaluator3, schema or generated C# changed.
 Do not expose partial traces as certified offers, impossible schedules or broken
