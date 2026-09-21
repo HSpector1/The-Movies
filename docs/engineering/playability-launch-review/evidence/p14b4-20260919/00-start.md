@@ -254,33 +254,31 @@ film:11 before film:6; seed-b r01 f23 permutation at a 309,545 score cost; bridg
 rivals seat their sole writer as antagonist, 1.70M / 1.34M costs, pins held; adoption seed
 unchanged). OWNER EXPANSION-REVIEW QUESTIONS recorded in 628, nothing adopted: R5 seam ordering
 (keep as landed vs actors-first), G-1(A) rival authoring exclusion for sole crew (later, own RED),
-G-2 ordinary-pool retry. NEXT628 (b) DELIVERED — records 629–637 (637 published `e273715d06c2`): the breakPromisesOnCancel
-causal-coupling correction (26 §2) landed as `61833f0d` (S1 promises.ts targetSpecificImpossibility:
-remaining = count − actual class-qualified takes, t0 = max(windowStart, expectedFirstTakeWeek(k=0)),
-nMax = ceil((due − t0)/5), BROKEN iff remaining > nMax, mask-seat relevance; S2 actions.ts comment)
-and QUALIFIED WITH RECORD-ONLY ITEMS (629-R); RED 629 7/9 → 631 16/16 → 633 22/22; 634 live-P2
-1/226/2 (designated evaluator-5 only); 635 controls identical to 625; 636 FULL CORE 9 files / 24
-failed / 3813 passed / 8 todo = the 627 set unchanged (22 inherited + 2 designated), never all-green.
-Publication correction def4ace1 (52 probe logs untracked by .gitignore *.log, force-added).
-NEXT637 (c) DELIVERED — record 645 (`93beaf9f0d23`): text pass 651fea8b (src doc comments; 574-R
-item 1 closed) + 0e330da0 (test titles/comments, no assertion change); 639 typecheck EXIT 0; 640
-touched files 79/79; 641/642 generator checks clean; 643 FIRST FULL UI-PROJECT RUN 9 files / 28
-failed / 2657 passed recorded as the UI baseline (643-C: 10 PIL-environment, 2 V16 oracle-fixture
-assertions inherited from P14A.1, 1 unhandled hollywoodPerformance test-double error, the rest
-timeouts/cascades; 644 single-worker: five files green, WorldInspectorDefault 27-mount sweep over
-budget — unreachable by P14B.4). B4 LOGIC FAMILIES CLOSED OUT against 600 §3 step 8 (616/618/628/
-637 + text pass); evaluator 5 later (D2 (i-c)). 645-A scoping: NEXT FAMILY = P14B.5 First
-Shared-Work Bond Core (relationships, companion §5: shared-take/release/cancel drivers,
-drift-on-read tiers, D5 in the chooser, nemesisOnRoster drop enumerated; Save V31 empty root,
-projection 47→48 thin via the closed priorityOrder enum; romance/chemistry consumption/read models
-→ B.6; waiver next); Q2/Q3/Q4 (§7.3) carried on the companion's own "recommended first behavior,
-not an approval" footing (B.1 precedent), isolated in the OPEN section — the Owner may object.
-NEXT645: (1) T0 — mint the genuine outgoing V30 corpus + projection-47 runtime checkpoint at HEAD
-(none exists; final V30 behavioural writer 61833f0d) with provenance and independent KEEP; (2) B.5
-expansion draft (sim-core READ-ONLY, B.1 pattern) + contract-auditor audit; (3) T1 RED against the
-absent src/core/relationships.ts, V31/48 allocated at execution. Owner items open: 628 R5 / G-1(A)
-/ G-2; 637 cancel attribution; Q2/Q3/Q4 footing. No wire/save change landed since 616.
-Unity/native deferred. Gross2221 omitted fact cost is NOT
+G-2 ordinary-pool retry. NEXT628 (b) DELIVERED — records 629–637 (`e273715d06c2`): breakPromisesOnCancel causal-coupling
+correction landed as `61833f0d` (targetSpecificImpossibility hard bound; mask-seat relevance) and
+QUALIFIED WITH RECORD-ONLY ITEMS (629-R); 636 FULL CORE 9 files / 24 failed / 3813 passed / 8 todo
+= 22 inherited + 2 designated. NEXT637 (c) DELIVERED — record 645 (`93beaf9f0d23`): text pass
+651fea8b (src doc comments) + 0e330da0 (test titles/comments); 641/642 generator checks clean; 643
+FIRST FULL UI-PROJECT RUN 9 files / 28 failed / 2657 passed recorded as the UI baseline (643-C
+classification; 644 single-worker: WorldInspectorDefault 27-mount sweep over budget, unreachable by
+P14B.4). B4 LOGIC FAMILIES CLOSED OUT (616/618/628/637 + text pass); evaluator 5 later (D2 (i-c)).
+P14B.5 First Shared-Work Bond Core OPENED: 645-A scoping; T0 DONE — record 652 (`1117717a`): genuine
+outgoing Save V30 corpus (tests/fixtures/p14/genuine-v30-pre-b5, ten cases) + projection-47 runtime
+checkpoint minted one-shot at published `d6c11b9b` (tested writer 61833f0d; 651fea8b comment-only
+pinned by diff hash), record-checks 648/649, parent checks 650/650b, 651-B KEEP WITH RECORD-ONLY
+ITEMS; expansion INSERTED — record 653 (`74bd325b`): P14 plan :725-781 = 647-A draft + 647-B audit
+dispositions applied (647-A2): D1 roster predicate startWeek < W && (endedWeek === null || W <
+endedWeek) at the settlement pass (churn receipts NOT exposed; off-cycle rows are — measured by the
+test-author), D2 OPEN 5 ruling (ii) release-failure driver reaches Strained / sign −1 while
+Enemies/Nemeses stay unreachable by rule, D3 sweep + poachingFixture controls; Save V31 (empty
+`relationships` root on lift, downgrade refused with any edge), projection 47→48 thin (the closed
+priorityOrder enum + the D5 reason); OPEN 1–3 (Q2 base rate / Q3 no backfill / Q4 warning) carried
+on the companion's "recommended first behavior, not an approval" footing, 11/15 open — the Owner may
+object. NEXT653: T1 RED (test-author, three files, measured R-D5 ledger, imports from the absent
+src/core/relationships.ts; V31/48 allocated only at T2) → RED baseline record-check → 653-B review →
+T2 ONE sim-core writer (S1 core → S2 chooser → S3 Save V31 → S4 load/runtime → S5 projection 48;
+split values-only sweep) → T3 → T4 vs 636/643. Owner items open: 628 R5 / G-1(A) / G-2; 637 cancel
+attribution; B.5 OPEN 1–3/11/15. No wire/save change landed since 616. Unity/native deferred. Gross2221 omitted fact cost is NOT
 net saving: cold discovery can shift into next frame. No route-fit claim.
 Draft-discovery, silent-policy, affine and Map alternatives remain unadopted.
 T4/B2/B3/B-F2 qualified closed; B4/liveP2/Unity/Owner acceptance NOT closed.
