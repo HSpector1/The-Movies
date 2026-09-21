@@ -1,0 +1,44 @@
+{"sourceSha":"e9f4962bfc996ff1eb0f584909f727bd4c1a6132","testedDiffSha256":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/bridge-supervisor.test.ts","tests/bridge-runtime-checkpoint-prepared-reuse.test.ts"],"node":"v20.20.2","start":"2026-09-21T15:34:02.229Z","end":null,"exitCode":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/bridge-supervisor.test.ts (14 tests) 88470ms
+   ✓ one-command studio supervisor > emits, audits, and supervises the packaged production graph without the development loader 6899ms
+   ✓ one-command studio supervisor > recovers stable empty or partial acquisition artifacts without weakening private ownership 672ms
+   ✓ one-command studio supervisor > launches only after authenticated readiness and preserves one private profile across distinct logs 14438ms
+   ✓ one-command studio supervisor > restarts a SIGKILLed engine on its fixed port without changing durable authority 11324ms
+   ✓ one-command studio supervisor > cancels replacement work when Unity exits during an engine outage 7237ms
+   ✓ one-command studio supervisor > kills a Unity helper that survives TERM before releasing the active lease 12176ms
+   ✓ one-command studio supervisor > rejects a concurrent owner, shuts down on signal, and reclaims only a stale incarnation 18414ms
+   ✓ one-command studio supervisor > bounds engine crash loops and never touches an unrelated process 17056ms
+ ✓ |core| tests/bridge-runtime-checkpoint-prepared-reuse.test.ts (21 tests) 115313ms
+   ✓ prepared checkpoint representation reuse preserves authority boundaries > intersects session and caller maxCheckpointBytes allowances, including after a successful export 4578ms
+   ✓ prepared checkpoint representation reuse preserves authority boundaries > intersects session and caller maxJournalBytes allowances, including after a successful export 4064ms
+   ✓ prepared checkpoint representation reuse preserves authority boundaries > intersects session and caller maxJournalEntries allowances, including after a successful export 3236ms
+   ✓ prepared checkpoint representation reuse preserves authority boundaries > does not retain aliases from exported checkpoints or hydrated state 3830ms
+   ✓ prepared checkpoint representation reuse preserves authority boundaries > keeps repeated public encoding and decoding strict after a successful validation 3238ms
+   ✓ prepared checkpoint representation reuse preserves authority boundaries > replaces saved-slot and journal bytes when Save leaves the state revision unchanged 3775ms
+   ✓ prepared checkpoint representation reuse preserves authority boundaries > uses one final save artifact for its record, response and working checkpoint 7137ms
+   ✓ prepared checkpoint representation reuse preserves authority boundaries > uses one final saveAs artifact for its record, response and working checkpoint 5690ms
+   ✓ prepared checkpoint representation reuse preserves authority boundaries > does not reuse the saved source stage after dirty save-before-load replaces the prospective world 8950ms
+   ✓ prepared checkpoint representation reuse preserves authority boundaries > detaches returned dispatch artifacts from both old and newly committed journal entries 4430ms
+   ✓ prepared checkpoint representation reuse preserves authority boundaries > captures current command/load state and never reuses an artifact after ordinary public changes 14337ms
+   ✓ prepared checkpoint representation reuse preserves authority boundaries > captures a journaled command refusal and returns null for replay or foreign session 2363ms
+   ✓ prepared checkpoint representation reuse preserves authority boundaries > captures a journaled save refusal and returns null for replay or foreign session 2221ms
+   ✓ prepared checkpoint representation reuse preserves authority boundaries > captures a journaled load refusal and returns null for replay or foreign session 3663ms
+   ✓ prepared checkpoint representation reuse preserves authority boundaries > fails tighter caller bounds before command authority mutation and permits a clean retry 11813ms
+   ✓ prepared checkpoint representation reuse preserves authority boundaries > fails tighter caller bounds before save authority mutation and permits a clean retry 5572ms
+   ✓ prepared checkpoint representation reuse preserves authority boundaries > fails tighter caller bounds before load authority mutation and permits a clean retry 7587ms
+   ✓ prepared checkpoint representation reuse preserves authority boundaries > discards failed history preparation before a detached rollover creates its own artifact 1799ms
+   ✓ prepared checkpoint representation reuse preserves authority boundaries > strictly rejects malformed ordinary Save requests before changing the saved slot or journal 2002ms
+   ✓ prepared checkpoint representation reuse preserves authority boundaries > strictly rejects malformed prepared Save requests before changing the saved slot or journal 2360ms
+   ✓ prepared checkpoint representation reuse preserves authority boundaries > preserves live authority on failed Save and replays the exact successful receipt after later changes and restart 12666ms
+
+ Test Files  2 passed (2)
+      Tests  35 passed (35)
+   Start at  17:34:02
+   Duration  121.65s (transform 4.64s, setup 0ms, collect 6.60s, tests 203.78s, environment 1ms, prepare 272ms)
+
+
+{"sourceSha":"e9f4962bfc996ff1eb0f584909f727bd4c1a6132","testedDiffSha256":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/bridge-supervisor.test.ts","tests/bridge-runtime-checkpoint-prepared-reuse.test.ts"],"node":"v20.20.2","start":"2026-09-21T15:34:02.229Z","end":"2026-09-21T15:36:05.111Z","exitCode":0,"signal":null,"error":null,"sourceShaAtEnd":"e9f4962bfc996ff1eb0f584909f727bd4c1a6132","testedDiffSha256AtEnd":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","untrackedSourceAtEnd":[],"fixedSource":true}

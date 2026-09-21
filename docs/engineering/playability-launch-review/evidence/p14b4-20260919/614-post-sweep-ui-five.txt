@@ -1,0 +1,203 @@
+{"sourceSha":"e9f4962bfc996ff1eb0f584909f727bd4c1a6132","testedDiffSha256":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","ui","--minWorkers=1","--maxWorkers=1","ui/src/saves.test.tsx","ui/src/session.test.tsx","ui/src/engine/d17-save-migration.test.ts","ui/src/engine/film-chronicle-adapter.test.ts","ui/src/lot/snapshot/v14SetHolderBoundary.test.ts"],"node":"v20.20.2","start":"2026-09-21T15:38:11.074Z","end":null,"exitCode":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |ui| ui/src/session.test.tsx (17 tests | 3 failed) 5904ms
+   ✓ D-12 active-session recovery — exact round-trip > restores a theatrical run mid-flight — week, payments received/remaining, no duplicate 1080ms
+   ✓ D-12 active-session recovery — exact round-trip > restores completed releases + their film records 552ms
+   ✓ D-12 active-session recovery — App startup > keeps restored Chronicle, Clipping, and session-only Autopsy as three honest paths 928ms
+   ✓ D-12 New Studio — confirmed destructive action > wipes to the Start screen and clears the autosave when the player confirms 379ms
+   × D-17A fix-pass — a stored V5 autosave migrates on load > an ENGAGED V5 session restores with the flag true and the converted banner 542ms
+     → expected 30 to be 28 // Object.is equality
+   × D-17A fix-pass — a stored V5 autosave migrates on load > a NEVER-ENGAGED headless V5 session restores with the flag false 689ms
+     → expected 30 to be 28 // Object.is equality
+   × Script Projects V1 — a stored V8 autosave migrates on load > preserves operations, seeds legacy screenplay and casting state, then re-saves as V15 519ms
+     → expected 30 to be 28 // Object.is equality
+ ❯ |ui| ui/src/saves.test.tsx (15 tests | 1 failed) 4942ms
+   × saves: export → import round-trips the EXACT state > importSaveJson(exportSaveJson(state)) has a serialized form equal to the original 476ms
+     → expected 30 to be 28 // Object.is equality
+   ✓ saves: legacy V1 import (D-9.15) converts and reports the conversion > a legacy V1 save auto-loads, is flagged converted, and yields a playable current state 474ms
+   ✓ saves: legacy V1 import (D-9.15) converts and reports the conversion > the explicit "Import legacy V1 save" affordance converts and shows a conversion notice 512ms
+   ✓ saves: migration disclosure through real App navigation > shows a one-shot, version-neutral notice after an accepted V8 load leaves Saves 891ms
+   ✓ saves: migration disclosure through real App navigation > keeps the live studio and emits no success notice when App rejects an import 422ms
+   ✓ saves: migration disclosure through real App navigation > carries the same version-neutral notice through a Start-screen V8 import 754ms
+   ✓ saves: migration disclosure through real App navigation > discloses migration when App restores an older active-session envelope 528ms
+ ❯ |ui| ui/src/engine/film-chronicle-adapter.test.ts (2 tests | 1 failed) 2350ms
+   ✓ Film Chronicle V1 — real adapter wiring > associates the middle film with its exact Produced project and production debit 1375ms
+   × Film Chronicle V1 — real adapter wiring > uses current market week as the chronology gate and reconstructs deeply after V13 reload 973ms
+     → expected 30 to be 28 // Object.is equality
+ ❯ |ui| ui/src/engine/d17-save-migration.test.ts (6 tests | 2 failed) 3880ms
+   ✓ V11: adapter migration preserves an honest pre-ledger cash checkpoint > a played literal V2 save preserves its pre-ledger cash checkpoint when upgraded to V11 904ms
+   ✓ D-17A: importSaveJson recovers economyEngagedEver from a literal V5 file > an ENGAGED V5 save loads into the current state with engagement preserved 519ms
+   ✓ D-17A: importSaveJson recovers economyEngagedEver from a literal V5 file > a NEVER-ENGAGED V5 save loads as a non-engaged studio (byte-identical behaviour) 927ms
+   × D-17A: importSaveJson recovers economyEngagedEver from a literal V5 file > a CURRENT-version save round-trips through the adapter as NOT converted 101ms
+     → expected 30 to be 28 // Object.is equality
+   × D-17A: importSaveJson recovers economyEngagedEver from a literal V5 file > a literal V8 save upgrades to V16 with legacy screenplay, casting, construction, placement, and property state 629ms
+     → expected 30 to be 28 // Object.is equality
+   ✓ D-17A: importSaveJson recovers economyEngagedEver from a literal V5 file > a V5 file with a hand-added economyEngagedEver is still read as V5 (the flag is recomputed) 796ms
+ ❯ |ui| ui/src/lot/snapshot/v14SetHolderBoundary.test.ts (5 tests | 1 failed) 443ms
+   × C2a-M2 — a save round-trips as V15, roots and all > exports V15 and imports it back with the four C2a roots intact 191ms
+     → expected 30 to be 28 // Object.is equality
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 8 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |ui|  ui/src/saves.test.tsx > saves: export → import round-trips the EXACT state > importSaveJson(exportSaveJson(state)) has a serialized form equal to the original
+AssertionError: expected 30 to be 28 // Object.is equality
+
+- Expected
++ Received
+
+- 28
++ 30
+
+ ❯ ui/src/saves.test.tsx:125:42
+    123| 
+    124|     const json = exportSaveJson(state)
+    125|     expect(JSON.parse(json).saveVersion).toBe(28) // live writer (P13B…
+       |                                          ^
+    126|     const r = importSaveJson(json)
+    127|     expect(r.ok).toBe(true)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/8]⎯
+
+ FAIL |ui|  ui/src/session.test.tsx > D-17A fix-pass — a stored V5 autosave migrates on load > an ENGAGED V5 session restores with the flag true and the converted banner
+AssertionError: expected 30 to be 28 // Object.is equality
+
+- Expected
++ Received
+
+- 28
++ 30
+
+ ❯ ui/src/session.test.tsx:332:79
+    330|     // …and re-saving it writes a V14 envelope that loads back UNCONVE…
+    331|     saveActiveSession(loaded.state)
+    332|     expect(JSON.parse(localStorage.getItem(ACTIVE_SESSION_KEY)!).saveV…
+       |                                                                               ^
+    333|     const again = loadActiveSession()
+    334|     expect(again.ok).toBe(true)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/8]⎯
+
+ FAIL |ui|  ui/src/session.test.tsx > D-17A fix-pass — a stored V5 autosave migrates on load > a NEVER-ENGAGED headless V5 session restores with the flag false
+AssertionError: expected 30 to be 28 // Object.is equality
+
+- Expected
++ Received
+
+- 28
++ 30
+
+ ❯ ui/src/session.test.tsx:360:79
+    358|     // Round-trip: saved as V14, reloaded unconverted, still not engag…
+    359|     saveActiveSession(loaded.state)
+    360|     expect(JSON.parse(localStorage.getItem(ACTIVE_SESSION_KEY)!).saveV…
+       |                                                                               ^
+    361|     const again = loadActiveSession()
+    362|     expect(again.ok).toBe(true)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/8]⎯
+
+ FAIL |ui|  ui/src/session.test.tsx > Script Projects V1 — a stored V8 autosave migrates on load > preserves operations, seeds legacy screenplay and casting state, then re-saves as V15
+AssertionError: expected 30 to be 28 // Object.is equality
+
+- Expected
++ Received
+
+- 28
++ 30
+
+ ❯ ui/src/session.test.tsx:387:35
+    385|     saveActiveSession(loaded.state)
+    386|     const parsedV11 = JSON.parse(localStorage.getItem(ACTIVE_SESSION_K…
+    387|     expect(parsedV11.saveVersion).toBe(28) // P13B-S8: live saves are …
+       |                                   ^
+    388|     expect(parsedV11.state.scriptDevelopment).toEqual({ mode: 'legacy'…
+    389|     expect(parsedV11.state.castingSessions).toEqual({ mode: 'legacy', …
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/8]⎯
+
+ FAIL |ui|  ui/src/engine/d17-save-migration.test.ts > D-17A: importSaveJson recovers economyEngagedEver from a literal V5 file > a CURRENT-version save round-trips through the adapter as NOT converted
+AssertionError: expected 30 to be 28 // Object.is equality
+
+- Expected
++ Received
+
+- 28
++ 30
+
+ ❯ ui/src/engine/d17-save-migration.test.ts:131:42
+    129|     const state = newFoundedGame('d17-adapter-v10')
+    130|     const json = exportSaveJson(state)
+    131|     expect(JSON.parse(json).saveVersion).toBe(28) // Current writer (P…
+       |                                          ^
+    132| 
+    133|     const r = importSaveJson(json)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/8]⎯
+
+ FAIL |ui|  ui/src/engine/d17-save-migration.test.ts > D-17A: importSaveJson recovers economyEngagedEver from a literal V5 file > a literal V8 save upgrades to V16 with legacy screenplay, casting, construction, placement, and property state
+AssertionError: expected 30 to be 28 // Object.is equality
+
+- Expected
++ Received
+
+- 28
++ 30
+
+ ❯ ui/src/engine/d17-save-migration.test.ts:155:61
+    153|     expect(r.state.scriptDevelopment).toEqual({ mode: 'legacy', projec…
+    154|     expect(r.state.castingSessions).toEqual({ mode: 'legacy', sessions…
+    155|     expect(JSON.parse(exportSaveJson(r.state)).saveVersion).toBe(28)
+       |                                                             ^
+    156|   })
+    157| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/8]⎯
+
+ FAIL |ui|  ui/src/engine/film-chronicle-adapter.test.ts > Film Chronicle V1 — real adapter wiring > uses current market week as the chronology gate and reconstructs deeply after V13 reload
+AssertionError: expected 30 to be 28 // Object.is equality
+
+- Expected
++ Received
+
+- 28
++ 30
+
+ ❯ ui/src/engine/film-chronicle-adapter.test.ts:289:71
+    287|     expect(before).not.toBeNull()
+    288|     const json = exportSaveJson(state)
+    289|     expect((JSON.parse(json) as { saveVersion: number }).saveVersion).…
+       |                                                                       ^
+    290|     const imported = importSaveJson(json)
+    291|     expect(imported.ok).toBe(true)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/8]⎯
+
+ FAIL |ui|  ui/src/lot/snapshot/v14SetHolderBoundary.test.ts > C2a-M2 — a save round-trips as V15, roots and all > exports V15 and imports it back with the four C2a roots intact
+AssertionError: expected 30 to be 28 // Object.is equality
+
+- Expected
++ Received
+
+- 28
++ 30
+
+ ❯ ui/src/lot/snapshot/v14SetHolderBoundary.test.ts:46:42
+     44|     // This exercises the current writer, including the governed P13 r…
+     45|     // Frozen historical validators retain their separate versioned te…
+     46|     expect(JSON.parse(json).saveVersion).toBe(28)
+       |                                          ^
+     47| 
+     48|     const outcome = importSaveJson(json)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/8]⎯
+
+ Test Files  5 failed (5)
+      Tests  8 failed | 37 passed (45)
+   Start at  17:38:11
+   Duration  32.69s (transform 3.70s, setup 842ms, collect 6.96s, tests 17.52s, environment 5.42s, prepare 635ms)
+
+
+{"sourceSha":"e9f4962bfc996ff1eb0f584909f727bd4c1a6132","testedDiffSha256":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","ui","--minWorkers=1","--maxWorkers=1","ui/src/saves.test.tsx","ui/src/session.test.tsx","ui/src/engine/d17-save-migration.test.ts","ui/src/engine/film-chronicle-adapter.test.ts","ui/src/lot/snapshot/v14SetHolderBoundary.test.ts"],"node":"v20.20.2","start":"2026-09-21T15:38:11.074Z","end":"2026-09-21T15:38:44.836Z","exitCode":1,"signal":null,"error":null,"sourceShaAtEnd":"e9f4962bfc996ff1eb0f584909f727bd4c1a6132","testedDiffSha256AtEnd":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","untrackedSourceAtEnd":[],"fixedSource":true}
