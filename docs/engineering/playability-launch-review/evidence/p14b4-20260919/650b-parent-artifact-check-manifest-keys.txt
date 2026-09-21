@@ -1,0 +1,18 @@
+650b — parent artifact check keyed on MANIFEST.fixtures (651-B item 1), at HEAD ce04e49e
+genuine-v30-empty.json.gz                                sv=30 w=0    gz==MANIFEST True raw==MANIFEST True both in provenance True
+genuine-v30-current-p1.json.gz                           sv=30 w=45   gz==MANIFEST True raw==MANIFEST True both in provenance True
+genuine-v30-bound-open-p1.json.gz                        sv=30 w=52   gz==MANIFEST True raw==MANIFEST True both in provenance True
+genuine-v30-bound-open-p2-lead.json.gz                   sv=30 w=52   gz==MANIFEST True raw==MANIFEST True both in provenance True
+genuine-v30-bound-open-p2-lead-or-antagonist.json.gz     sv=30 w=52   gz==MANIFEST True raw==MANIFEST True both in provenance True
+genuine-v30-kept-and-broken.json.gz                      sv=30 w=61   gz==MANIFEST True raw==MANIFEST True both in provenance True
+genuine-v30-rival-current-p1-and-p2.json.gz              sv=30 w=196  gz==MANIFEST True raw==MANIFEST True both in provenance True
+genuine-v30-rival-shared-take-terminal.json.gz           sv=30 w=213  gz==MANIFEST True raw==MANIFEST True both in provenance True
+genuine-v30-first-take-at-five.json.gz                   sv=30 w=60   gz==MANIFEST True raw==MANIFEST True both in provenance True
+genuine-v30-legacy-count-only-p2-current-draft.json.gz   sv=30 w=45   gz==MANIFEST True raw==MANIFEST True both in provenance True
+MANIFEST<->file<->provenance mismatches: []
+sourceFiles entries: 41 | re-hashed at HEAD, drift: []
+minterSha256 == archived 648 minter: True
+supportSha256 == archived 648 support: True
+runtime minterSha256 == archived 649 minter: True | runtime supportSha256 key present: False
+closeoutSha256 == 637 record at HEAD: True
+runtime sourceFiles identical to corpus MANIFEST: True
