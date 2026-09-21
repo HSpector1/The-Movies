@@ -1,0 +1,23 @@
+{"sourceSha":"0af0dabecd36d903a208443db1dfc12833532cfa","testedDiffSha256":"fee048b5b1d42e1142d5508637aee10cb5980f38804ad1f8f92d71af09c74b43","untrackedSource":[],"command":["npm","run","typecheck"],"node":"v20.20.2","start":"2026-09-21T12:40:53.224Z","end":null,"exitCode":null}
+
+
+> project-studio-core@0.1.0 typecheck
+> tsc --noEmit && tsc -p ui/tsconfig.json --noEmit
+
+tests/contracts/cross-owner-refusal.contract.test.ts(73,3): error TS2322: Type 'SaveFileV30' is not assignable to type 'SaveFileV29'.
+  Types of property 'saveVersion' are incompatible.
+    Type '30' is not assignable to type '29'.
+tests/contracts/determinism-floor.contract.test.ts(125,12): error TS2322: Type 'SaveFileV30' is not assignable to type 'SaveFileV29'.
+  Types of property 'saveVersion' are incompatible.
+    Type '30' is not assignable to type '29'.
+tests/contracts/phase-table-agreement.contract.test.ts(105,3): error TS2322: Type 'SaveFileV30' is not assignable to type 'SaveFileV29'.
+  Types of property 'saveVersion' are incompatible.
+    Type '30' is not assignable to type '29'.
+tests/legacy-parcel-ground.test.ts(356,5): error TS2322: Type 'SaveFileV30' is not assignable to type 'SaveFileV29'.
+  Types of property 'saveVersion' are incompatible.
+    Type '30' is not assignable to type '29'.
+tests/save.test.ts(232,3): error TS2322: Type 'SaveFileV30' is not assignable to type 'SaveFileV29'.
+  Types of property 'saveVersion' are incompatible.
+    Type '30' is not assignable to type '29'.
+
+{"sourceSha":"0af0dabecd36d903a208443db1dfc12833532cfa","testedDiffSha256":"fee048b5b1d42e1142d5508637aee10cb5980f38804ad1f8f92d71af09c74b43","untrackedSource":[],"command":["npm","run","typecheck"],"node":"v20.20.2","start":"2026-09-21T12:40:53.224Z","end":"2026-09-21T12:41:28.582Z","exitCode":2,"signal":null,"error":null,"sourceShaAtEnd":"0af0dabecd36d903a208443db1dfc12833532cfa","testedDiffSha256AtEnd":"fee048b5b1d42e1142d5508637aee10cb5980f38804ad1f8f92d71af09c74b43","untrackedSourceAtEnd":[],"fixedSource":true}

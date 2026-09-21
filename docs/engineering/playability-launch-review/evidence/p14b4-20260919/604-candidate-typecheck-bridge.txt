@@ -1,0 +1,15 @@
+{"sourceSha":"0af0dabecd36d903a208443db1dfc12833532cfa","testedDiffSha256":"fee048b5b1d42e1142d5508637aee10cb5980f38804ad1f8f92d71af09c74b43","untrackedSource":[],"command":["npm","run","typecheck:bridge"],"node":"v20.20.2","start":"2026-09-21T12:41:39.684Z","end":null,"exitCode":null}
+
+
+> project-studio-core@0.1.0 typecheck:bridge
+> tsc -p tsconfig.bridge.json
+
+tests/bridge-p06-checkpoint-recovery.test.ts(167,50): error TS2345: Argument of type 'SaveFileV30' is not assignable to parameter of type 'SaveFileV29'.
+  Types of property 'saveVersion' are incompatible.
+    Type '30' is not assignable to type '29'.
+tests/bridge-p06-checkpoint-recovery.test.ts(174,50): error TS2345: Argument of type 'SaveFileV30' is not assignable to parameter of type 'SaveFileV29'.
+  Types of property 'saveVersion' are incompatible.
+    Type '30' is not assignable to type '29'.
+tests/bridge-p14b3-promise-command.test.ts(155,47): error TS2322: Type '"LEAD_OR_SIGNIFICANT_ROLE_COUNT"' is not assignable to type '"APPEARANCE_COUNT" | "DIRECTING_COUNT" | "PREFERRED_GENRE_OPPORTUNITY" | "SPECIFIC_PROJECT"'.
+
+{"sourceSha":"0af0dabecd36d903a208443db1dfc12833532cfa","testedDiffSha256":"fee048b5b1d42e1142d5508637aee10cb5980f38804ad1f8f92d71af09c74b43","untrackedSource":[],"command":["npm","run","typecheck:bridge"],"node":"v20.20.2","start":"2026-09-21T12:41:39.684Z","end":"2026-09-21T12:42:11.195Z","exitCode":2,"signal":null,"error":null,"sourceShaAtEnd":"0af0dabecd36d903a208443db1dfc12833532cfa","testedDiffSha256AtEnd":"fee048b5b1d42e1142d5508637aee10cb5980f38804ad1f8f92d71af09c74b43","untrackedSourceAtEnd":[],"fixedSource":true}
