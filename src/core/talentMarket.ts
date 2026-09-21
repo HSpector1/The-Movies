@@ -34,6 +34,7 @@ import { recordPlayerEmployment } from './industryEmployment.js'
 import { activeContract, canAfford, contractOffer, guaranteedComp, renewalWindowOpen, terminationCost } from './employment.js'
 import type { ContractOffer, TerminationLaw } from './employment.js'
 import { attachPromise, attachedPromiseDigest, promiseFeasibility, proposalDigest, trustDescriptor } from './promises.js'
+import type { PromiseAttachment } from './promises.js'
 import { careerIdentity } from './talentSummary.js'
 import { TUNING } from './tuning.js'
 import type { Contract, GameState, LedgerEntry, LegacyTermination, MarketCaseStatus, MarketEligibilityStatus,
@@ -1251,29 +1252,43 @@ function openCasesAt(state: GameState, week: number): TalentMarketCase[] {
 /**
  * P14B.1 (9), RULING (ii) under S25 symmetry: a rival authors its own promise at
  * its own proposal site, through the SAME `attachPromise` and the SAME feasibility
- * service the player uses — exactly ONE `APPEARANCE_COUNT` promise, X = 1, over a
- * window spanning its own proposed term, IFF that rival's OWN feasibility reads
- * REASONABLY ACHIEVABLE at submission; otherwise none. Pure and deterministic: no
- * RNG, no policy field, no new persisted fact (the record is the same V29
- * promise). A losing rival's promise is simply never bound (ruling (i)).
+ * service the player uses — at most ONE promise, X = 1, over a window spanning
+ * its own proposed term, attached IFF that rival's OWN feasibility reads
+ * REASONABLY ACHIEVABLE at submission; otherwise none.
+ *
+ * P14B.4 (record 600 / plan "Delegated public preference and strategy
+ * hypothesis"): the candidate order follows the existing shared proven/unproven
+ * archetype (`isProven`). An UNPROVEN person is offered the flexible
+ * `LEAD_OR_SIGNIFICANT_ROLE_COUNT` class (`leadOrAntagonist`, count 1) over the
+ * full proposed term first, then the existing `APPEARANCE_COUNT` fallback; a
+ * PROVEN person keeps `APPEARANCE_COUNT`. The first REASONABLY ACHIEVABLE
+ * candidate is attached; a failed candidate leaves no staged root or reservation
+ * (both reads see the same unchanged state); neither achievable means no
+ * attachment. No lead-only selection, count escalation, role gate or RNG. Pure
+ * and deterministic; the record is the same V30 promise. A losing rival's promise
+ * is simply never bound (ruling (i)).
  */
 function authorRivalPromise(state: GameState, talentId: string, issuerStudioId: string): GameState {
   const proposal = state.talentMarket.proposals.find((p) => p.talentId === talentId && p.issuerStudioId === issuerStudioId)
   if (proposal === undefined || proposal.promises.length > 0) return state
-  const attachment = {
-    family: 'APPEARANCE_COUNT' as PromiseFamily,
-    predicate: { count: 1 },
-    windowStartWeek: proposal.startWeek,
-    dueWeekExclusive: proposal.startWeek + proposal.termWeeks,
+  const window = { windowStartWeek: proposal.startWeek, dueWeekExclusive: proposal.startWeek + proposal.termWeeks }
+  const p1: PromiseAttachment = { family: 'APPEARANCE_COUNT', predicate: { count: 1 }, ...window }
+  const flexible: PromiseAttachment = {
+    family: 'LEAD_OR_SIGNIFICANT_ROLE_COUNT',
+    predicate: { kind: 'castRoleCount', count: 1, seatClass: 'leadOrAntagonist' },
+    ...window,
   }
-  const classification = promiseFeasibility(state, {
-    ...attachment,
-    issuerStudioId,
-    beneficiaryPersonId: talentId,
-    startWeek: proposal.startWeek,
-    termWeeks: proposal.termWeeks,
-  }, state.market.tick).classification
-  return classification === 'REASONABLY_ACHIEVABLE' ? attachPromise(state, talentId, issuerStudioId, attachment) : state
+  for (const attachment of isProven(state, talentId) ? [p1] : [flexible, p1]) {
+    const classification = promiseFeasibility(state, {
+      ...attachment,
+      issuerStudioId,
+      beneficiaryPersonId: talentId,
+      startWeek: proposal.startWeek,
+      termWeeks: proposal.termWeeks,
+    }, state.market.tick).classification
+    if (classification === 'REASONABLY_ACHIEVABLE') return attachPromise(state, talentId, issuerStudioId, attachment)
+  }
+  return state
 }
 
 /** HYPOTHESIS (the plan records the rival's trigger policy NUMBERS as OPEN): the
