@@ -1,0 +1,28 @@
+{
+  "sourceSha": "6f9c8006f37db44f1a227bfbc4c9efc762358cb7",
+  "testedDiffSha256": "f928f68aa88077584ffe7e8bf22c13dcb8872d1a0f0c3c7fe15f6a95a5b5bf81",
+  "untrackedSource": [],
+  "command": [
+    "node_modules/.bin/vitest",
+    "run",
+    "--project",
+    "ui",
+    "--minWorkers=1",
+    "--maxWorkers=1",
+    "ui/src/saves.test.tsx",
+    "ui/src/session.test.tsx",
+    "ui/src/engine/d17-save-migration.test.ts",
+    "ui/src/engine/film-chronicle-adapter.test.ts",
+    "ui/src/lot/snapshot/v14SetHolderBoundary.test.ts"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-21T15:42:35.558Z",
+  "end": "2026-09-21T15:43:08.096Z",
+  "exitCode": 0,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "6f9c8006f37db44f1a227bfbc4c9efc762358cb7",
+  "testedDiffSha256AtEnd": "f928f68aa88077584ffe7e8bf22c13dcb8872d1a0f0c3c7fe15f6a95a5b5bf81",
+  "untrackedSourceAtEnd": [],
+  "fixedSource": true
+}

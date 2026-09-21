@@ -128,7 +128,7 @@ describe('D-17A: importSaveJson recovers economyEngagedEver from a literal V5 fi
   it('a CURRENT-version save round-trips through the adapter as NOT converted', () => {
     const state = newFoundedGame('d17-adapter-v10')
     const json = exportSaveJson(state)
-    expect(JSON.parse(json).saveVersion).toBe(28) // Current writer (P13B-S8): SaveFileV28.
+    expect(JSON.parse(json).saveVersion).toBe(30) // Current writer (P14B.4): SaveFileV30.
 
     const r = importSaveJson(json)
     expect(r.ok).toBe(true)
@@ -152,7 +152,7 @@ describe('D-17A: importSaveJson recovers economyEngagedEver from a literal V5 fi
     expect(r.state.operations).toEqual(state.operations)
     expect(r.state.scriptDevelopment).toEqual({ mode: 'legacy', projects: [] })
     expect(r.state.castingSessions).toEqual({ mode: 'legacy', sessions: [] })
-    expect(JSON.parse(exportSaveJson(r.state)).saveVersion).toBe(28)
+    expect(JSON.parse(exportSaveJson(r.state)).saveVersion).toBe(30) // live writer (P14B.4): SaveFileV30.
   })
 
   it('a V5 file with a hand-added economyEngagedEver is still read as V5 (the flag is recomputed)', () => {

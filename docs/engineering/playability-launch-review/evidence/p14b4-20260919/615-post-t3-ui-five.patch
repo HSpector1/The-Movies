@@ -1,0 +1,92 @@
+diff --git a/ui/src/engine/d17-save-migration.test.ts b/ui/src/engine/d17-save-migration.test.ts
+index 7738018..ea434ae 100644
+--- a/ui/src/engine/d17-save-migration.test.ts
++++ b/ui/src/engine/d17-save-migration.test.ts
+@@ -128,7 +128,7 @@ describe('D-17A: importSaveJson recovers economyEngagedEver from a literal V5 fi
+   it('a CURRENT-version save round-trips through the adapter as NOT converted', () => {
+     const state = newFoundedGame('d17-adapter-v10')
+     const json = exportSaveJson(state)
+-    expect(JSON.parse(json).saveVersion).toBe(28) // Current writer (P13B-S8): SaveFileV28.
++    expect(JSON.parse(json).saveVersion).toBe(30) // Current writer (P14B.4): SaveFileV30.
+ 
+     const r = importSaveJson(json)
+     expect(r.ok).toBe(true)
+@@ -152,7 +152,7 @@ describe('D-17A: importSaveJson recovers economyEngagedEver from a literal V5 fi
+     expect(r.state.operations).toEqual(state.operations)
+     expect(r.state.scriptDevelopment).toEqual({ mode: 'legacy', projects: [] })
+     expect(r.state.castingSessions).toEqual({ mode: 'legacy', sessions: [] })
+-    expect(JSON.parse(exportSaveJson(r.state)).saveVersion).toBe(28)
++    expect(JSON.parse(exportSaveJson(r.state)).saveVersion).toBe(30) // live writer (P14B.4): SaveFileV30.
+   })
+ 
+   it('a V5 file with a hand-added economyEngagedEver is still read as V5 (the flag is recomputed)', () => {
+diff --git a/ui/src/engine/film-chronicle-adapter.test.ts b/ui/src/engine/film-chronicle-adapter.test.ts
+index cf0bc1d..a9660e4 100644
+--- a/ui/src/engine/film-chronicle-adapter.test.ts
++++ b/ui/src/engine/film-chronicle-adapter.test.ts
+@@ -286,7 +286,7 @@ describe('Film Chronicle V1 — real adapter wiring', () => {
+     const before = releaseNewspaper(state, film)
+     expect(before).not.toBeNull()
+     const json = exportSaveJson(state)
+-    expect((JSON.parse(json) as { saveVersion: number }).saveVersion).toBe(28)
++    expect((JSON.parse(json) as { saveVersion: number }).saveVersion).toBe(30) // live writer (P14B.4): SaveFileV30.
+     const imported = importSaveJson(json)
+     expect(imported.ok).toBe(true)
+     if (!imported.ok) return
+diff --git a/ui/src/lot/snapshot/v14SetHolderBoundary.test.ts b/ui/src/lot/snapshot/v14SetHolderBoundary.test.ts
+index 772ab31..a423b2a 100644
+--- a/ui/src/lot/snapshot/v14SetHolderBoundary.test.ts
++++ b/ui/src/lot/snapshot/v14SetHolderBoundary.test.ts
+@@ -43,7 +43,7 @@ describe('C2a-M2 — a save round-trips as V15, roots and all', () => {
+     const json = exportSaveJson(state)
+     // This exercises the current writer, including the governed P13 root.
+     // Frozen historical validators retain their separate versioned tests.
+-    expect(JSON.parse(json).saveVersion).toBe(28)
++    expect(JSON.parse(json).saveVersion).toBe(30) // live writer (P14B.4): SaveFileV30.
+ 
+     const outcome = importSaveJson(json)
+     expect(outcome.ok).toBe(true)
+diff --git a/ui/src/saves.test.tsx b/ui/src/saves.test.tsx
+index 8c84e29..e67b8a8 100644
+--- a/ui/src/saves.test.tsx
++++ b/ui/src/saves.test.tsx
+@@ -122,7 +122,7 @@ describe('saves: export → import round-trips the EXACT state', () => {
+     state = advanceWeek(state).next
+ 
+     const json = exportSaveJson(state)
+-    expect(JSON.parse(json).saveVersion).toBe(28) // live writer (P13B-S8): SaveFileV28.
++    expect(JSON.parse(json).saveVersion).toBe(30) // live writer (P14B.4): SaveFileV30.
+     const r = importSaveJson(json)
+     expect(r.ok).toBe(true)
+     if (!r.ok) return
+diff --git a/ui/src/session.test.tsx b/ui/src/session.test.tsx
+index c52a04c..680bd46 100644
+--- a/ui/src/session.test.tsx
++++ b/ui/src/session.test.tsx
+@@ -329,7 +329,7 @@ describe('D-17A fix-pass — a stored V5 autosave migrates on load', () => {
+ 
+     // …and re-saving it writes a V14 envelope that loads back UNCONVERTED.
+     saveActiveSession(loaded.state)
+-    expect(JSON.parse(localStorage.getItem(ACTIVE_SESSION_KEY)!).saveVersion).toBe(28) // P13B-S8: live saves are SaveFileV28.
++    expect(JSON.parse(localStorage.getItem(ACTIVE_SESSION_KEY)!).saveVersion).toBe(30) // P14B.4: live saves are SaveFileV30.
+     const again = loadActiveSession()
+     expect(again.ok).toBe(true)
+     if (!again.ok) return
+@@ -357,7 +357,7 @@ describe('D-17A fix-pass — a stored V5 autosave migrates on load', () => {
+ 
+     // Round-trip: saved as V14, reloaded unconverted, still not engaged.
+     saveActiveSession(loaded.state)
+-    expect(JSON.parse(localStorage.getItem(ACTIVE_SESSION_KEY)!).saveVersion).toBe(28) // P13B-S8: live saves are SaveFileV28.
++    expect(JSON.parse(localStorage.getItem(ACTIVE_SESSION_KEY)!).saveVersion).toBe(30) // P14B.4: live saves are SaveFileV30.
+     const again = loadActiveSession()
+     expect(again.ok).toBe(true)
+     if (!again.ok) return
+@@ -384,7 +384,7 @@ describe('Script Projects V1 — a stored V8 autosave migrates on load', () => {
+ 
+     saveActiveSession(loaded.state)
+     const parsedV11 = JSON.parse(localStorage.getItem(ACTIVE_SESSION_KEY)!)
+-    expect(parsedV11.saveVersion).toBe(28) // P13B-S8: live saves are SaveFileV28.
++    expect(parsedV11.saveVersion).toBe(30) // P14B.4: live saves are SaveFileV30.
+     expect(parsedV11.state.scriptDevelopment).toEqual({ mode: 'legacy', projects: [] })
+     expect(parsedV11.state.castingSessions).toEqual({ mode: 'legacy', sessions: [] })
+     expect(parsedV11.state.construction).toEqual({ mode: 'legacy', parcels: [], projects: [] })

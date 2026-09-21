@@ -1,0 +1,39 @@
+{"sourceSha":"6f9c8006f37db44f1a227bfbc4c9efc762358cb7","testedDiffSha256":"f928f68aa88077584ffe7e8bf22c13dcb8872d1a0f0c3c7fe15f6a95a5b5bf81","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","ui","--minWorkers=1","--maxWorkers=1","ui/src/saves.test.tsx","ui/src/session.test.tsx","ui/src/engine/d17-save-migration.test.ts","ui/src/engine/film-chronicle-adapter.test.ts","ui/src/lot/snapshot/v14SetHolderBoundary.test.ts"],"node":"v20.20.2","start":"2026-09-21T15:42:35.558Z","end":null,"exitCode":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |ui| ui/src/session.test.tsx (17 tests) 6167ms
+   ✓ D-12 active-session recovery — exact round-trip > refresh restores a founded studio exactly 433ms
+   ✓ D-12 active-session recovery — exact round-trip > restores a theatrical run mid-flight — week, payments received/remaining, no duplicate 868ms
+   ✓ D-12 active-session recovery — exact round-trip > restores completed releases + their film records 683ms
+   ✓ D-12 active-session recovery — App startup > a valid autosave is RESTORED on mount (no new studio) with a continuation notice 461ms
+   ✓ D-12 active-session recovery — App startup > keeps restored Chronicle, Clipping, and session-only Autopsy as three honest paths 786ms
+   ✓ D-17A fix-pass — a stored V5 autosave migrates on load > an ENGAGED V5 session restores with the flag true and the converted banner 590ms
+   ✓ D-17A fix-pass — a stored V5 autosave migrates on load > a NEVER-ENGAGED headless V5 session restores with the flag false 942ms
+   ✓ Script Projects V1 — a stored V8 autosave migrates on load > preserves operations, seeds legacy screenplay and casting state, then re-saves as V15 545ms
+ ✓ |ui| ui/src/saves.test.tsx (15 tests) 5078ms
+   ✓ saves: export → import round-trips the EXACT state > importSaveJson(exportSaveJson(state)) has a serialized form equal to the original 590ms
+   ✓ saves: legacy V1 import (D-9.15) converts and reports the conversion > a legacy V1 save auto-loads, is flagged converted, and yields a playable current state 676ms
+   ✓ saves: legacy V1 import (D-9.15) converts and reports the conversion > the explicit "Import legacy V1 save" affordance converts and shows a conversion notice 508ms
+   ✓ saves: migration disclosure through real App navigation > shows a one-shot, version-neutral notice after an accepted V8 load leaves Saves 905ms
+   ✓ saves: migration disclosure through real App navigation > carries the same version-neutral notice through a Start-screen V8 import 931ms
+   ✓ saves: migration disclosure through real App navigation > discloses migration when App restores an older active-session envelope 564ms
+ ✓ |ui| ui/src/engine/film-chronicle-adapter.test.ts (2 tests) 2512ms
+   ✓ Film Chronicle V1 — real adapter wiring > associates the middle film with its exact Produced project and production debit 1375ms
+   ✓ Film Chronicle V1 — real adapter wiring > uses current market week as the chronology gate and reconstructs deeply after V13 reload 1133ms
+ ✓ |ui| ui/src/engine/d17-save-migration.test.ts (6 tests) 3849ms
+   ✓ V11: adapter migration preserves an honest pre-ledger cash checkpoint > a played literal V2 save preserves its pre-ledger cash checkpoint when upgraded to V11 804ms
+   ✓ D-17A: importSaveJson recovers economyEngagedEver from a literal V5 file > an ENGAGED V5 save loads into the current state with engagement preserved 494ms
+   ✓ D-17A: importSaveJson recovers economyEngagedEver from a literal V5 file > a NEVER-ENGAGED V5 save loads as a non-engaged studio (byte-identical behaviour) 964ms
+   ✓ D-17A: importSaveJson recovers economyEngagedEver from a literal V5 file > a literal V8 save upgrades to V16 with legacy screenplay, casting, construction, placement, and property state 656ms
+   ✓ D-17A: importSaveJson recovers economyEngagedEver from a literal V5 file > a V5 file with a hand-added economyEngagedEver is still read as V5 (the flag is recomputed) 791ms
+ ✓ |ui| ui/src/lot/snapshot/v14SetHolderBoundary.test.ts (5 tests) 305ms
+
+ Test Files  5 passed (5)
+      Tests  45 passed (45)
+   Start at  17:42:36
+   Duration  31.63s (transform 3.48s, setup 954ms, collect 7.04s, tests 17.91s, environment 3.82s, prepare 536ms)
+
+
+{"sourceSha":"6f9c8006f37db44f1a227bfbc4c9efc762358cb7","testedDiffSha256":"f928f68aa88077584ffe7e8bf22c13dcb8872d1a0f0c3c7fe15f6a95a5b5bf81","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","ui","--minWorkers=1","--maxWorkers=1","ui/src/saves.test.tsx","ui/src/session.test.tsx","ui/src/engine/d17-save-migration.test.ts","ui/src/engine/film-chronicle-adapter.test.ts","ui/src/lot/snapshot/v14SetHolderBoundary.test.ts"],"node":"v20.20.2","start":"2026-09-21T15:42:35.558Z","end":"2026-09-21T15:43:08.096Z","exitCode":0,"signal":null,"error":null,"sourceShaAtEnd":"6f9c8006f37db44f1a227bfbc4c9efc762358cb7","testedDiffSha256AtEnd":"f928f68aa88077584ffe7e8bf22c13dcb8872d1a0f0c3c7fe15f6a95a5b5bf81","untrackedSourceAtEnd":[],"fixedSource":true}
