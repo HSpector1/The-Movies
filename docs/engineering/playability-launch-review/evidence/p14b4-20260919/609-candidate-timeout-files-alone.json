@@ -1,0 +1,23 @@
+{
+  "sourceSha": "45d62b30b50b8b236ecfbede7ba621e16ae37e5e",
+  "testedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "untrackedSource": [],
+  "command": [
+    "node_modules/.bin/vitest",
+    "run",
+    "--project",
+    "core",
+    "tests/bridge-p12-campaign-library.test.ts",
+    "tests/bridge-runtime-checkpoint-prepared-reuse.test.ts"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-21T13:36:07.512Z",
+  "end": "2026-09-21T13:38:16.005Z",
+  "exitCode": 1,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "45d62b30b50b8b236ecfbede7ba621e16ae37e5e",
+  "testedDiffSha256AtEnd": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "untrackedSourceAtEnd": [],
+  "fixedSource": true
+}
