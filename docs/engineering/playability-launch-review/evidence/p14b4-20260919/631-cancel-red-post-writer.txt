@@ -1,0 +1,15 @@
+{"sourceSha":"61833f0df4ffdb5673903d5a81680b2d37ba254b","testedDiffSha256":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14b4-cancel-causal-proof.test.ts"],"node":"v20.20.2","start":"2026-09-21T19:43:51.832Z","end":null,"exitCode":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p14b4-cancel-causal-proof.test.ts (16 tests) 2904ms
+   ✓ 629-T case 1: a joint reservation conflict is not causal proof (plan :249-256; 26 §2 "a joint reservation conflict ... is not target-specific physical impossibility") > one person, two bound OPEN count-1 promises, seated LEAD on one greenlit picture, one event still reachable after the cancel: NEITHER is BROKEN at the cancel; the due-week owner decides 1385ms
+
+ Test Files  1 passed (1)
+      Tests  16 passed (16)
+   Start at  21:43:52
+   Duration  5.70s (transform 1.69s, setup 0ms, collect 2.20s, tests 2.90s, environment 0ms, prepare 132ms)
+
+
+{"sourceSha":"61833f0df4ffdb5673903d5a81680b2d37ba254b","testedDiffSha256":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14b4-cancel-causal-proof.test.ts"],"node":"v20.20.2","start":"2026-09-21T19:43:51.832Z","end":"2026-09-21T19:43:58.411Z","exitCode":0,"signal":null,"error":null,"sourceShaAtEnd":"61833f0df4ffdb5673903d5a81680b2d37ba254b","testedDiffSha256AtEnd":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","untrackedSourceAtEnd":[],"fixedSource":true}
