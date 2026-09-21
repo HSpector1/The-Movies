@@ -1,0 +1,23 @@
+Mon Sep 21 14:24:50 UTC 2026
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+stdout | tests/bridge-p14b2-trust.test.ts > P14B.2 group5 — independent promise attention after cases close > raises due at minus8 but not minus9 for an actual player poaching winner with no proposals
+poaching pipeline premise {"week":197,"promises":[{"promiseId":"promise-42","version":4,"issuerStudioId":"studio-5a47d054-r01","beneficiaryPersonId":"person-studio-5a47d054-r04-3","windowStartWeek":208,"dueWeekExclusive":416,"feasibilityReceipt":{"classification":"REASONABLY_ACHIEVABLE","bottleneck":null,"inputsDigest":"d47355fa0c8494c3","rulesVersion":4,"week":196},"progress":0,"evidenceRefs":[],"outcome":null,"outcomeWeek":null,"outcomeCause":null,"outcomeEventId":null,"contractId":null,"family":"LEAD_OR_SIGNIFICANT_ROLE_COUNT","predicate":{"kind":"castRoleCount","count":1,"seatClass":"leadOrAntagonist"}},{"promiseId":"promise-43","version":4,"issuerStudioId":"studio-5a47d054-r02","beneficiaryPersonId":"person-studio-5a47d054-r04-3","windowStartWeek":208,"dueWeekExclusive":416,"feasibilityReceipt":{"classification":"REASONABLY_ACHIEVABLE","bottleneck":null,"inputsDigest":"dfa4a41e3f908bd0","rulesVersion":4,"week":196},"progress":0,"evidenceRefs":[],"outcome":null,"outcomeWeek":null,"outcomeCause":null,"outcomeEventId":null,"contractId":null,"family":"LEAD_OR_SIGNIFICANT_ROLE_COUNT","predicate":{"kind":"castRoleCount","count":1,"seatClass":"leadOrAntagonist"}}],"scripts":{"mode":"managed","projects":[{"id":"script-0000","conceptId":"c-00","writerId":"t-wri-10","writerIds":["t-wri-10"],"shape":{"opening":"slowSetup","midpoint":"revelation","ending":"bittersweet"},"promise":{"genre":"comedy","intendedSegments":["adult"],"ranges":{"intimacy":[-0.5,0.5],"tonalWeight":[-0.5,0.5],"kineticEnergy":[-0.5,0.5]}},"status":"review","rewriteCount":0,"commissionedWeek":196,"dueWeek":null,"assessment":{"actualStrength":68.72650768853818,"perceivedStrength":68.72650768853818},"reservation":null,"productionId":null},{"id":"script-0001","conceptId":"c-01","writerId":"t-wri-10","writerIds":["t-wri-10"],"shape":{"opening":"slowSetup","midpoint":"revelation","ending":"bittersweet"},"promise":{"genre":"romance","intendedSegments":["adult"],"ranges":{"intimacy":[-0.5,0.5],"tonalWeight":[-0.5,0.5],"kineticEnergy":[-0.5,0.5]}},"status":"drafting","rewriteCount":0,"commissionedWeek":197,"dueWeek":198,"assessment":null,"reservation":{"projectId":"script-0001","facilityId":"facility-development-casting","capability":"development-casting","slot":0},"productionId":null}]},"concepts":["c-00","c-01","c-02","c-03","c-04","c-05","c-06","c-07","c-08","c-09","c-10","c-11","c-12","c-13","c-14","c-15","c-16","c-17","c-18","c-19","c-20","c-21","c-22","c-23","c-24","c-25","c-26","c-27","c-28","c-29"],"stages":[{"id":"facility-soundstage-07","name":"Soundstage 7","capability":"soundstage","capacity":1},{"id":"facility-soundstage-12","name":"Soundstage 12","capability":"soundstage","capacity":1}]}
+
+ ✓ |core| tests/bridge-p14b2-trust.test.ts (22 tests) 14727ms
+   ✓ P14B.2 group1 — projection46, unchanged Save29/intents, closed wire shapes > validates actual session profile, Market, Pulse and studio DTOs without stripping the new members 2577ms
+   ✓ P14B.2 group3 — one bound-only newest-first history DTO on both carriers > shows two real contracts newest-first, with contract identity, open/outcome fields and exact causes 581ms
+   ✓ P14B.2 group3 — one bound-only newest-first history DTO on both carriers > does not publish another studio’s real bound history as the player’s own terms 3147ms
+   ✓ P14B.2 group5 — independent promise attention after cases close > raises due at minus8 but not minus9 for an actual player poaching winner with no proposals 3518ms
+   ✓ P14B.2 group5 — independent promise attention after cases close > ignores real withdrawn unbound drafts near due and never interrupts for rival-issued promises 534ms
+   ✓ P14B.2 group7 — rival terms stay private and rival outcomes stay public > is semantically unchanged when only hidden terminal terms vary, retaining real outcome/event identities 452ms
+   ✓ P14B.2 group9 — validated kept+broken V29 BridgeSession roundtrip > preserves Profile, Market, attention, Pulse and Industry DTO bytes after real save/load 2887ms
+
+ Test Files  1 passed (1)
+      Tests  22 passed (22)
+   Start at  16:24:51
+   Duration  18.48s (transform 2.27s, setup 0ms, collect 3.20s, tests 14.73s, environment 0ms, prepare 114ms)
+
+EXIT=0
+Mon Sep 21 14:25:10 UTC 2026

@@ -1,0 +1,20 @@
+Mon Sep 21 14:11:29 UTC 2026
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/bridge-schema.test.ts (22 tests) 33853ms
+   ✓ canonical Unity bridge schema > projects a real authoritative snapshot to the exact Unity DTO and validates the full envelope 4260ms
+   ✓ canonical Unity bridge schema > keeps live location identities in the projection-v4 building namespace 20387ms
+   ✓ canonical Unity bridge schema > rejects missing, additional, wrong-enum, wrong-nullability, and old-projection data 2202ms
+   ✓ canonical Unity bridge schema > preserves required nullable numeric fields through schema projection 1978ms
+   ✓ canonical Unity bridge schema > models accepted load/command responses as one flat projection envelope 1847ms
+   ✓ canonical Unity bridge schema > requires one closed structured rejection with non-empty guidance and a nullable holder 1287ms
+   ✓ canonical Unity bridge schema > validates the session and health handshake envelopes 1763ms
+
+ Test Files  1 passed (1)
+      Tests  22 passed (22)
+   Start at  16:11:30
+   Duration  38.13s (transform 2.58s, setup 0ms, collect 3.65s, tests 33.85s, environment 0ms, prepare 96ms)
+
+EXIT=0
+Mon Sep 21 14:12:08 UTC 2026

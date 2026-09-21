@@ -1,0 +1,16 @@
+[33mThe CJS build of Vite's Node API is deprecated. See https://vite.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.[39m
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+stdout | ../../../private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/6ed44184-f9ac-40ba-bf1b-321fc7506549/scratchpad/619-T2-probe/chain.probe.test.ts > chain
+p13a-core-causal-01 /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/6ed44184-f9ac-40ba-bf1b-321fc7506549/scratchpad/619-T2-preseam/src: 1014 rows; pictures 51; notOk 0; poolMoved 0; digest dba473b9bc13816e1b4cb1ed04f53f669912384179c5c73d0b23eeb64ed65489
+
+ ✓ ../../../private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/6ed44184-f9ac-40ba-bf1b-321fc7506549/scratchpad/619-T2-probe/chain.probe.test.ts (1 test) 9548ms
+   ✓ chain 9547ms
+
+ Test Files  1 passed (1)
+      Tests  1 passed (1)
+   Start at  19:47:45
+   Duration  10.21s (transform 1.68s, setup 0ms, collect 119ms, tests 9.55s, environment 0ms, prepare 114ms)
+
+EXIT 0

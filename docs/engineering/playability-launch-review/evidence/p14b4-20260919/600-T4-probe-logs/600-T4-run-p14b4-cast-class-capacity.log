@@ -1,0 +1,18 @@
+Mon Sep 21 16:15:14 UTC 2026
+23d59bdba9c963f68c93727d3d0575e303b4212d
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p14b4-cast-class-capacity.test.ts (14 tests) 4519ms
+   ✓ P14B4 bounded fixed-cast capacity, requirement-based owner probes > 'lead' target actually fixed in 'lead': eligible=true 1867ms
+   ✓ P14B4 bounded fixed-cast capacity, requirement-based owner probes > one real picture jointly serves lead+flexible+P1, but never splices a later Ready script into its spare witness 302ms
+   ✓ P14B4 bounded fixed-cast capacity, requirement-based owner probes > withdraw removes a real CURRENT reservation but preserves root/receipt history and digest neutrality 367ms
+   ✓ P14B4 bounded fixed-cast capacity, requirement-based owner probes > class changes material and feasibility digests; unrelated cash and valid RNG words change neither read nor history 351ms
+
+ Test Files  1 passed (1)
+      Tests  14 passed (14)
+   Start at  18:15:15
+   Duration  7.26s (transform 1.60s, setup 0ms, collect 2.19s, tests 4.52s, environment 0ms, prepare 92ms)
+
+EXIT=0
+Mon Sep 21 16:15:22 UTC 2026

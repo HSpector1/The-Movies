@@ -1,0 +1,372 @@
+Mon Sep 21 14:18:35 UTC 2026
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+stdout | tests/zz-600-t2-probe.test.ts > probe seed undefined
+SEED default start tick 0
+READ w196 studio-aca408ec-r01 person-studio-aca408ec-r01-0 role=writer age=44.36540781416331 pref=anyCastAppearance APPEARANCE_COUNT/- -> REASONABLY_ACHIEVABLE :: 
+READ w196 studio-aca408ec-r02 person-studio-aca408ec-r01-0 role=writer age=44.36540781416331 pref=anyCastAppearance APPEARANCE_COUNT/- -> REASONABLY_ACHIEVABLE :: 
+READ w196 studio-aca408ec-r03 person-studio-aca408ec-r01-0 role=writer age=44.36540781416331 pref=anyCastAppearance APPEARANCE_COUNT/- -> FRAGILE :: needs a picture not yet commissioned
+READ w196 studio-aca408ec-r01 person-studio-aca408ec-r01-1 role=director age=48.70801517856732 pref=anyCastAppearance APPEARANCE_COUNT/- -> REASONABLY_ACHIEVABLE :: 
+READ w196 studio-aca408ec-r02 person-studio-aca408ec-r01-1 role=director age=48.70801517856732 pref=anyCastAppearance APPEARANCE_COUNT/- -> REASONABLY_ACHIEVABLE :: 
+READ w196 studio-aca408ec-r03 person-studio-aca408ec-r01-1 role=director age=48.70801517856732 pref=anyCastAppearance APPEARANCE_COUNT/- -> FRAGILE :: needs a picture not yet commissioned
+READ w196 studio-aca408ec-r01 person-studio-aca408ec-r01-2 role=actor age=30.706232958391467 pref=anyCastAppearance APPEARANCE_COUNT/- -> REASONABLY_ACHIEVABLE :: 
+READ w196 studio-aca408ec-r02 person-studio-aca408ec-r01-2 role=actor age=30.706232958391467 pref=anyCastAppearance APPEARANCE_COUNT/- -> REASONABLY_ACHIEVABLE :: 
+READ w196 studio-aca408ec-r03 person-studio-aca408ec-r01-2 role=actor age=30.706232958391467 pref=anyCastAppearance APPEARANCE_COUNT/- -> FRAGILE :: needs a picture not yet commissioned
+READ w196 studio-aca408ec-r01 person-studio-aca408ec-r01-3 role=actor age=40.04834772311771 pref=anyCastAppearance APPEARANCE_COUNT/- -> REASONABLY_ACHIEVABLE :: 
+READ w196 studio-aca408ec-r02 person-studio-aca408ec-r01-3 role=actor age=40.04834772311771 pref=anyCastAppearance APPEARANCE_COUNT/- -> REASONABLY_ACHIEVABLE :: 
+READ w196 studio-aca408ec-r03 person-studio-aca408ec-r01-3 role=actor age=40.04834772311771 pref=anyCastAppearance APPEARANCE_COUNT/- -> FRAGILE :: needs a picture not yet commissioned
+READ w196 studio-aca408ec-r01 person-studio-aca408ec-r01-4 role=actor age=34.8353363537762 pref=anyCastAppearance APPEARANCE_COUNT/- -> REASONABLY_ACHIEVABLE :: 
+READ w196 studio-aca408ec-r02 person-studio-aca408ec-r01-4 role=actor age=34.8353363537762 pref=anyCastAppearance APPEARANCE_COUNT/- -> REASONABLY_ACHIEVABLE :: 
+READ w196 studio-aca408ec-r03 person-studio-aca408ec-r01-4 role=actor age=34.8353363537762 pref=anyCastAppearance APPEARANCE_COUNT/- -> FRAGILE :: needs a picture not yet commissioned
+READ w196 studio-aca408ec-r01 person-studio-aca408ec-r01-5 role=craft age=29.927234713302248 pref=significantCastRole LEAD_OR_SIGNIFICANT_ROLE_COUNT/leadOrAntagonist -> REASONABLY_ACHIEVABLE :: 
+READ w196 studio-aca408ec-r02 person-studio-aca408ec-r01-5 role=craft age=29.927234713302248 pref=significantCastRole LEAD_OR_SIGNIFICANT_ROLE_COUNT/leadOrAntagonist -> REASONABLY_ACHIEVABLE :: 
+READ w196 studio-aca408ec-r03 person-studio-aca408ec-r01-5 role=craft age=29.927234713302248 pref=significantCastRole LEAD_OR_SIGNIFICANT_ROLE_COUNT/leadOrAntagonist -> FRAGILE :: needs a picture not yet commissioned
+READ w196 studio-aca408ec-r03 person-studio-aca408ec-r01-5 role=craft age=29.927234713302248 pref=significantCastRole APPEARANCE_COUNT/- -> FRAGILE :: needs a picture not yet commissioned
+READ w196 studio-aca408ec-r01 person-studio-aca408ec-r02-0 role=writer age=53.09611512878311 pref=anyCastAppearance APPEARANCE_COUNT/- -> REASONABLY_ACHIEVABLE :: 
+READ w196 studio-aca408ec-r02 person-studio-aca408ec-r02-0 role=writer age=53.09611512878311 pref=anyCastAppearance APPEARANCE_COUNT/- -> REASONABLY_ACHIEVABLE :: 
+READ w196 studio-aca408ec-r03 person-studio-aca408ec-r02-0 role=writer age=53.09611512878311 pref=anyCastAppearance APPEARANCE_COUNT/- -> FRAGILE :: needs a picture not yet commissioned
+READ w196 studio-aca408ec-r01 person-studio-aca408ec-r02-1 role=director age=40.255207774620324 pref=anyCastAppearance APPEARANCE_COUNT/- -> REASONABLY_ACHIEVABLE :: 
+READ w196 studio-aca408ec-r02 person-studio-aca408ec-r02-1 role=director age=40.255207774620324 pref=anyCastAppearance APPEARANCE_COUNT/- -> REASONABLY_ACHIEVABLE :: 
+READ w196 studio-aca408ec-r03 person-studio-aca408ec-r02-1 role=director age=40.255207774620324 pref=anyCastAppearance APPEARANCE_COUNT/- -> FRAGILE :: needs a picture not yet commissioned
+READ w196 studio-aca408ec-r01 person-studio-aca408ec-r02-2 role=actor age=40.093064922683496 pref=anyCastAppearance APPEARANCE_COUNT/- -> REASONABLY_ACHIEVABLE :: 
+READ w196 studio-aca408ec-r02 person-studio-aca408ec-r02-2 role=actor age=40.093064922683496 pref=anyCastAppearance APPEARANCE_COUNT/- -> REASONABLY_ACHIEVABLE :: 
+READ w196 studio-aca408ec-r03 person-studio-aca408ec-r02-2 role=actor age=40.093064922683496 pref=anyCastAppearance APPEARANCE_COUNT/- -> FRAGILE :: needs a picture not yet commissioned
+READ w196 studio-aca408ec-r01 person-studio-aca408ec-r02-3 role=actor age=54.082681874932234 pref=anyCastAppearance APPEARANCE_COUNT/- -> REASONABLY_ACHIEVABLE :: 
+READ w196 studio-aca408ec-r02 person-studio-aca408ec-r02-3 role=actor age=54.082681874932234 pref=anyCastAppearance APPEARANCE_COUNT/- -> REASONABLY_ACHIEVABLE :: 
+READ w196 studio-aca408ec-r03 person-studio-aca408ec-r02-3 role=actor age=54.082681874932234 pref=anyCastAppearance APPEARANCE_COUNT/- -> FRAGILE :: needs a picture not yet commissioned
+READ w196 studio-aca408ec-r01 person-studio-aca408ec-r02-4 role=actor age=43.19009438114523 pref=anyCastAppearance APPEARANCE_COUNT/- -> REASONABLY_ACHIEVABLE :: 
+READ w196 studio-aca408ec-r02 person-studio-aca408ec-r02-4 role=actor age=43.19009438114523 pref=anyCastAppearance APPEARANCE_COUNT/- -> REASONABLY_ACHIEVABLE :: 
+READ w196 studio-aca408ec-r03 person-studio-aca408ec-r02-4 role=actor age=43.19009438114523 pref=anyCastAppearance APPEARANCE_COUNT/- -> FRAGILE :: needs a picture not yet commissioned
+READ w196 studio-aca408ec-r01 person-studio-aca408ec-r02-5 role=craft age=49.92240797196069 pref=anyCastAppearance APPEARANCE_COUNT/- -> REASONABLY_ACHIEVABLE :: 
+READ w196 studio-aca408ec-r02 person-studio-aca408ec-r02-5 role=craft age=49.92240797196069 pref=anyCastAppearance APPEARANCE_COUNT/- -> REASONABLY_ACHIEVABLE :: 
+READ w196 studio-aca408ec-r03 person-studio-aca408ec-r02-5 role=craft age=49.92240797196069 pref=anyCastAppearance APPEARANCE_COUNT/- -> FRAGILE :: needs a picture not yet commissioned
+READ w196 studio-aca408ec-r01 person-studio-aca408ec-r03-0 role=writer age=51.182996256107096 pref=anyCastAppearance APPEARANCE_COUNT/- -> REASONABLY_ACHIEVABLE :: 
+READ w196 studio-aca408ec-r02 person-studio-aca408ec-r03-0 role=writer age=51.182996256107096 pref=anyCastAppearance APPEARANCE_COUNT/- -> REASONABLY_ACHIEVABLE :: 
+READ w196 studio-aca408ec-r03 person-studio-aca408ec-r03-0 role=writer age=51.182996256107096 pref=anyCastAppearance APPEARANCE_COUNT/- -> FRAGILE :: needs a picture not yet commissioned
+READ w196 studio-aca408ec-r01 person-studio-aca408ec-r03-1 role=director age=46.581942481860075 pref=anyCastAppearance APPEARANCE_COUNT/- -> REASONABLY_ACHIEVABLE :: 
+READ w196 studio-aca408ec-r02 person-studio-aca408ec-r03-1 role=director age=46.581942481860075 pref=anyCastAppearance APPEARANCE_COUNT/- -> REASONABLY_ACHIEVABLE :: 
+READ w196 studio-aca408ec-r03 person-studio-aca408ec-r03-1 role=director age=46.581942481860075 pref=anyCastAppearance APPEARANCE_COUNT/- -> FRAGILE :: needs a picture not yet commissioned
+READ w196 studio-aca408ec-r01 person-studio-aca408ec-r03-2 role=actor age=28 pref=significantCastRole LEAD_OR_SIGNIFICANT_ROLE_COUNT/leadOrAntagonist -> REASONABLY_ACHIEVABLE :: 
+READ w196 studio-aca408ec-r02 person-studio-aca408ec-r03-2 role=actor age=28 pref=significantCastRole LEAD_OR_SIGNIFICANT_ROLE_COUNT/leadOrAntagonist -> REASONABLY_ACHIEVABLE :: 
+READ w196 studio-aca408ec-r03 person-studio-aca408ec-r03-2 role=actor age=28 pref=significantCastRole LEAD_OR_SIGNIFICANT_ROLE_COUNT/leadOrAntagonist -> FRAGILE :: needs a picture not yet commissioned
+READ w196 studio-aca408ec-r03 person-studio-aca408ec-r03-2 role=actor age=28 pref=significantCastRole APPEARANCE_COUNT/- -> FRAGILE :: needs a picture not yet commissioned
+READ w196 studio-aca408ec-r01 person-studio-aca408ec-r03-3 role=actor age=31.872599486928138 pref=anyCastAppearance APPEARANCE_COUNT/- -> REASONABLY_ACHIEVABLE :: 
+READ w196 studio-aca408ec-r02 person-studio-aca408ec-r03-3 role=actor age=31.872599486928138 pref=anyCastAppearance APPEARANCE_COUNT/- -> REASONABLY_ACHIEVABLE :: 
+READ w196 studio-aca408ec-r03 person-studio-aca408ec-r03-3 role=actor age=31.872599486928138 pref=anyCastAppearance APPEARANCE_COUNT/- -> FRAGILE :: needs a picture not yet commissioned
+READ w196 studio-aca408ec-r01 person-studio-aca408ec-r03-4 role=actor age=28.588303918345026 pref=significantCastRole LEAD_OR_SIGNIFICANT_ROLE_COUNT/leadOrAntagonist -> REASONABLY_ACHIEVABLE :: 
+READ w196 studio-aca408ec-r02 person-studio-aca408ec-r03-4 role=actor age=28.588303918345026 pref=significantCastRole LEAD_OR_SIGNIFICANT_ROLE_COUNT/leadOrAntagonist -> REASONABLY_ACHIEVABLE :: 
+READ w196 studio-aca408ec-r03 person-studio-aca408ec-r03-4 role=actor age=28.588303918345026 pref=significantCastRole LEAD_OR_SIGNIFICANT_ROLE_COUNT/leadOrAntagonist -> FRAGILE :: needs a picture not yet commissioned
+READ w196 studio-aca408ec-r03 person-studio-aca408ec-r03-4 role=actor age=28.588303918345026 pref=significantCastRole APPEARANCE_COUNT/- -> FRAGILE :: needs a picture not yet commissioned
+READ w196 studio-aca408ec-r01 person-studio-aca408ec-r03-5 role=craft age=49.652968596419115 pref=anyCastAppearance APPEARANCE_COUNT/- -> REASONABLY_ACHIEVABLE :: 
+READ w196 studio-aca408ec-r02 person-studio-aca408ec-r03-5 role=craft age=49.652968596419115 pref=anyCastAppearance APPEARANCE_COUNT/- -> REASONABLY_ACHIEVABLE :: 
+READ w196 studio-aca408ec-r03 person-studio-aca408ec-r03-5 role=craft age=49.652968596419115 pref=anyCastAppearance APPEARANCE_COUNT/- -> FRAGILE :: needs a picture not yet commissioned
+READ w196 studio-aca408ec-r01 person-studio-aca408ec-r04-0 role=writer age=36.85040859598189 pref=anyCastAppearance APPEARANCE_COUNT/- -> REASONABLY_ACHIEVABLE :: 
+READ w196 studio-aca408ec-r02 person-studio-aca408ec-r04-0 role=writer age=36.85040859598189 pref=anyCastAppearance APPEARANCE_COUNT/- -> REASONABLY_ACHIEVABLE :: 
+READ w196 studio-aca408ec-r03 person-studio-aca408ec-r04-0 role=writer age=36.85040859598189 pref=anyCastAppearance APPEARANCE_COUNT/- -> FRAGILE :: needs a picture not yet commissioned
+READ w196 studio-aca408ec-r01 person-studio-aca408ec-r04-1 role=director age=33.361823482084816 pref=anyCastAppearance APPEARANCE_COUNT/- -> REASONABLY_ACHIEVABLE :: 
+READ w196 studio-aca408ec-r02 person-studio-aca408ec-r04-1 role=director age=33.361823482084816 pref=anyCastAppearance APPEARANCE_COUNT/- -> REASONABLY_ACHIEVABLE :: 
+READ w196 studio-aca408ec-r03 person-studio-aca408ec-r04-1 role=director age=33.361823482084816 pref=anyCastAppearance APPEARANCE_COUNT/- -> FRAGILE :: needs a picture not yet commissioned
+READ w196 studio-aca408ec-r01 person-studio-aca408ec-r04-2 role=actor age=34.80258332496116 pref=anyCastAppearance APPEARANCE_COUNT/- -> REASONABLY_ACHIEVABLE :: 
+READ w196 studio-aca408ec-r02 person-studio-aca408ec-r04-2 role=actor age=34.80258332496116 pref=anyCastAppearance APPEARANCE_COUNT/- -> REASONABLY_ACHIEVABLE :: 
+READ w196 studio-aca408ec-r03 person-studio-aca408ec-r04-2 role=actor age=34.80258332496116 pref=anyCastAppearance APPEARANCE_COUNT/- -> FRAGILE :: needs a picture not yet commissioned
+READ w196 studio-aca408ec-r01 person-studio-aca408ec-r04-3 role=actor age=42.82028348171056 pref=anyCastAppearance APPEARANCE_COUNT/- -> REASONABLY_ACHIEVABLE :: 
+READ w196 studio-aca408ec-r02 person-studio-aca408ec-r04-3 role=actor age=42.82028348171056 pref=anyCastAppearance APPEARANCE_COUNT/- -> REASONABLY_ACHIEVABLE :: 
+READ w196 studio-aca408ec-r03 person-studio-aca408ec-r04-3 role=actor age=42.82028348171056 pref=anyCastAppearance APPEARANCE_COUNT/- -> FRAGILE :: needs a picture not yet commissioned
+READ w196 studio-aca408ec-r01 person-studio-aca408ec-r04-4 role=actor age=35.08365010216108 pref=anyCastAppearance APPEARANCE_COUNT/- -> REASONABLY_ACHIEVABLE :: 
+READ w196 studio-aca408ec-r02 person-studio-aca408ec-r04-4 role=actor age=35.08365010216108 pref=anyCastAppearance APPEARANCE_COUNT/- -> REASONABLY_ACHIEVABLE :: 
+READ w196 studio-aca408ec-r03 person-studio-aca408ec-r04-4 role=actor age=35.08365010216108 pref=anyCastAppearance APPEARANCE_COUNT/- -> FRAGILE :: needs a picture not yet commissioned
+READ w196 studio-aca408ec-r01 person-studio-aca408ec-r04-5 role=craft age=48.21165402732983 pref=anyCastAppearance APPEARANCE_COUNT/- -> REASONABLY_ACHIEVABLE :: 
+READ w196 studio-aca408ec-r02 person-studio-aca408ec-r04-5 role=craft age=48.21165402732983 pref=anyCastAppearance APPEARANCE_COUNT/- -> REASONABLY_ACHIEVABLE :: 
+READ w196 studio-aca408ec-r03 person-studio-aca408ec-r04-5 role=craft age=48.21165402732983 pref=anyCastAppearance APPEARANCE_COUNT/- -> FRAGILE :: needs a picture not yet commissioned
+ROOT  w196 promise-0 issuer=studio-aca408ec-r01 person=person-studio-aca408ec-r01-0 APPEARANCE_COUNT/- count=1 window=[208,416) v4/r4 REASONABLY_ACHIEVABLE
+ROOT  w196 promise-1 issuer=studio-aca408ec-r02 person=person-studio-aca408ec-r01-0 APPEARANCE_COUNT/- count=1 window=[208,416) v4/r4 REASONABLY_ACHIEVABLE
+ROOT  w196 promise-2 issuer=studio-aca408ec-r01 person=person-studio-aca408ec-r01-1 APPEARANCE_COUNT/- count=1 window=[208,416) v4/r4 REASONABLY_ACHIEVABLE
+ROOT  w196 promise-3 issuer=studio-aca408ec-r02 person=person-studio-aca408ec-r01-1 APPEARANCE_COUNT/- count=1 window=[208,416) v4/r4 REASONABLY_ACHIEVABLE
+ROOT  w196 promise-4 issuer=studio-aca408ec-r01 person=person-studio-aca408ec-r01-2 APPEARANCE_COUNT/- count=1 window=[208,416) v4/r4 REASONABLY_ACHIEVABLE
+ROOT  w196 promise-5 issuer=studio-aca408ec-r02 person=person-studio-aca408ec-r01-2 APPEARANCE_COUNT/- count=1 window=[208,416) v4/r4 REASONABLY_ACHIEVABLE
+ROOT  w196 promise-6 issuer=studio-aca408ec-r01 person=person-studio-aca408ec-r01-3 APPEARANCE_COUNT/- count=1 window=[208,416) v4/r4 REASONABLY_ACHIEVABLE
+ROOT  w196 promise-7 issuer=studio-aca408ec-r02 person=person-studio-aca408ec-r01-3 APPEARANCE_COUNT/- count=1 window=[208,416) v4/r4 REASONABLY_ACHIEVABLE
+ROOT  w196 promise-8 issuer=studio-aca408ec-r01 person=person-studio-aca408ec-r01-4 APPEARANCE_COUNT/- count=1 window=[208,416) v4/r4 REASONABLY_ACHIEVABLE
+ROOT  w196 promise-9 issuer=studio-aca408ec-r02 person=person-studio-aca408ec-r01-4 APPEARANCE_COUNT/- count=1 window=[208,416) v4/r4 REASONABLY_ACHIEVABLE
+ROOT  w196 promise-10 issuer=studio-aca408ec-r01 person=person-studio-aca408ec-r01-5 LEAD_OR_SIGNIFICANT_ROLE_COUNT/leadOrAntagonist count=1 window=[208,416) v4/r4 REASONABLY_ACHIEVABLE
+ROOT  w196 promise-11 issuer=studio-aca408ec-r02 person=person-studio-aca408ec-r01-5 LEAD_OR_SIGNIFICANT_ROLE_COUNT/leadOrAntagonist count=1 window=[208,416) v4/r4 REASONABLY_ACHIEVABLE
+ROOT  w196 promise-12 issuer=studio-aca408ec-r01 person=person-studio-aca408ec-r02-0 APPEARANCE_COUNT/- count=1 window=[208,416) v4/r4 REASONABLY_ACHIEVABLE
+ROOT  w196 promise-13 issuer=studio-aca408ec-r02 person=person-studio-aca408ec-r02-0 APPEARANCE_COUNT/- count=1 window=[208,416) v4/r4 REASONABLY_ACHIEVABLE
+ROOT  w196 promise-14 issuer=studio-aca408ec-r01 person=person-studio-aca408ec-r02-1 APPEARANCE_COUNT/- count=1 window=[208,416) v4/r4 REASONABLY_ACHIEVABLE
+ROOT  w196 promise-15 issuer=studio-aca408ec-r02 person=person-studio-aca408ec-r02-1 APPEARANCE_COUNT/- count=1 window=[208,416) v4/r4 REASONABLY_ACHIEVABLE
+ROOT  w196 promise-16 issuer=studio-aca408ec-r01 person=person-studio-aca408ec-r02-2 APPEARANCE_COUNT/- count=1 window=[208,416) v4/r4 REASONABLY_ACHIEVABLE
+ROOT  w196 promise-17 issuer=studio-aca408ec-r02 person=person-studio-aca408ec-r02-2 APPEARANCE_COUNT/- count=1 window=[208,416) v4/r4 REASONABLY_ACHIEVABLE
+ROOT  w196 promise-18 issuer=studio-aca408ec-r01 person=person-studio-aca408ec-r02-3 APPEARANCE_COUNT/- count=1 window=[208,416) v4/r4 REASONABLY_ACHIEVABLE
+ROOT  w196 promise-19 issuer=studio-aca408ec-r02 person=person-studio-aca408ec-r02-3 APPEARANCE_COUNT/- count=1 window=[208,416) v4/r4 REASONABLY_ACHIEVABLE
+ROOT  w196 promise-20 issuer=studio-aca408ec-r01 person=person-studio-aca408ec-r02-4 APPEARANCE_COUNT/- count=1 window=[208,416) v4/r4 REASONABLY_ACHIEVABLE
+ROOT  w196 promise-21 issuer=studio-aca408ec-r02 person=person-studio-aca408ec-r02-4 APPEARANCE_COUNT/- count=1 window=[208,416) v4/r4 REASONABLY_ACHIEVABLE
+ROOT  w196 promise-22 issuer=studio-aca408ec-r01 person=person-studio-aca408ec-r02-5 APPEARANCE_COUNT/- count=1 window=[208,416) v4/r4 REASONABLY_ACHIEVABLE
+ROOT  w196 promise-23 issuer=studio-aca408ec-r02 person=person-studio-aca408ec-r02-5 APPEARANCE_COUNT/- count=1 window=[208,416) v4/r4 REASONABLY_ACHIEVABLE
+ROOT  w196 promise-24 issuer=studio-aca408ec-r01 person=person-studio-aca408ec-r03-0 APPEARANCE_COUNT/- count=1 window=[208,416) v4/r4 REASONABLY_ACHIEVABLE
+ROOT  w196 promise-25 issuer=studio-aca408ec-r02 person=person-studio-aca408ec-r03-0 APPEARANCE_COUNT/- count=1 window=[208,416) v4/r4 REASONABLY_ACHIEVABLE
+ROOT  w196 promise-26 issuer=studio-aca408ec-r01 person=person-studio-aca408ec-r03-1 APPEARANCE_COUNT/- count=1 window=[208,416) v4/r4 REASONABLY_ACHIEVABLE
+ROOT  w196 promise-27 issuer=studio-aca408ec-r02 person=person-studio-aca408ec-r03-1 APPEARANCE_COUNT/- count=1 window=[208,416) v4/r4 REASONABLY_ACHIEVABLE
+ROOT  w196 promise-28 issuer=studio-aca408ec-r01 person=person-studio-aca408ec-r03-2 LEAD_OR_SIGNIFICANT_ROLE_COUNT/leadOrAntagonist count=1 window=[208,416) v4/r4 REASONABLY_ACHIEVABLE
+ROOT  w196 promise-29 issuer=studio-aca408ec-r02 person=person-studio-aca408ec-r03-2 LEAD_OR_SIGNIFICANT_ROLE_COUNT/leadOrAntagonist count=1 window=[208,416) v4/r4 REASONABLY_ACHIEVABLE
+ROOT  w196 promise-30 issuer=studio-aca408ec-r01 person=person-studio-aca408ec-r03-3 APPEARANCE_COUNT/- count=1 window=[208,416) v4/r4 REASONABLY_ACHIEVABLE
+ROOT  w196 promise-31 issuer=studio-aca408ec-r02 person=person-studio-aca408ec-r03-3 APPEARANCE_COUNT/- count=1 window=[208,416) v4/r4 REASONABLY_ACHIEVABLE
+ROOT  w196 promise-32 issuer=studio-aca408ec-r01 person=person-studio-aca408ec-r03-4 LEAD_OR_SIGNIFICANT_ROLE_COUNT/leadOrAntagonist count=1 window=[208,416) v4/r4 REASONABLY_ACHIEVABLE
+ROOT  w196 promise-33 issuer=studio-aca408ec-r02 person=person-studio-aca408ec-r03-4 LEAD_OR_SIGNIFICANT_ROLE_COUNT/leadOrAntagonist count=1 window=[208,416) v4/r4 REASONABLY_ACHIEVABLE
+ROOT  w196 promise-34 issuer=studio-aca408ec-r01 person=person-studio-aca408ec-r03-5 APPEARANCE_COUNT/- count=1 window=[208,416) v4/r4 REASONABLY_ACHIEVABLE
+ROOT  w196 promise-35 issuer=studio-aca408ec-r02 person=person-studio-aca408ec-r03-5 APPEARANCE_COUNT/- count=1 window=[208,416) v4/r4 REASONABLY_ACHIEVABLE
+ROOT  w196 promise-36 issuer=studio-aca408ec-r01 person=person-studio-aca408ec-r04-0 APPEARANCE_COUNT/- count=1 window=[208,416) v4/r4 REASONABLY_ACHIEVABLE
+ROOT  w196 promise-37 issuer=studio-aca408ec-r02 person=person-studio-aca408ec-r04-0 APPEARANCE_COUNT/- count=1 window=[208,416) v4/r4 REASONABLY_ACHIEVABLE
+ROOT  w196 promise-38 issuer=studio-aca408ec-r01 person=person-studio-aca408ec-r04-1 APPEARANCE_COUNT/- count=1 window=[208,416) v4/r4 REASONABLY_ACHIEVABLE
+ROOT  w196 promise-39 issuer=studio-aca408ec-r02 person=person-studio-aca408ec-r04-1 APPEARANCE_COUNT/- count=1 window=[208,416) v4/r4 REASONABLY_ACHIEVABLE
+ROOT  w196 promise-40 issuer=studio-aca408ec-r01 person=person-studio-aca408ec-r04-2 APPEARANCE_COUNT/- count=1 window=[208,416) v4/r4 REASONABLY_ACHIEVABLE
+ROOT  w196 promise-41 issuer=studio-aca408ec-r02 person=person-studio-aca408ec-r04-2 APPEARANCE_COUNT/- count=1 window=[208,416) v4/r4 REASONABLY_ACHIEVABLE
+ROOT  w196 promise-42 issuer=studio-aca408ec-r01 person=person-studio-aca408ec-r04-3 APPEARANCE_COUNT/- count=1 window=[208,416) v4/r4 REASONABLY_ACHIEVABLE
+ROOT  w196 promise-43 issuer=studio-aca408ec-r02 person=person-studio-aca408ec-r04-3 APPEARANCE_COUNT/- count=1 window=[208,416) v4/r4 REASONABLY_ACHIEVABLE
+ROOT  w196 promise-44 issuer=studio-aca408ec-r01 person=person-studio-aca408ec-r04-4 APPEARANCE_COUNT/- count=1 window=[208,416) v4/r4 REASONABLY_ACHIEVABLE
+ROOT  w196 promise-45 issuer=studio-aca408ec-r02 person=person-studio-aca408ec-r04-4 APPEARANCE_COUNT/- count=1 window=[208,416) v4/r4 REASONABLY_ACHIEVABLE
+ROOT  w196 promise-46 issuer=studio-aca408ec-r01 person=person-studio-aca408ec-r04-5 APPEARANCE_COUNT/- count=1 window=[208,416) v4/r4 REASONABLY_ACHIEVABLE
+ROOT  w196 promise-47 issuer=studio-aca408ec-r02 person=person-studio-aca408ec-r04-5 APPEARANCE_COUNT/- count=1 window=[208,416) v4/r4 REASONABLY_ACHIEVABLE
+RCPT  w208 settled talent-market-event-96 person=person-studio-aca408ec-r01-0 studio=studio-aca408ec-r02 ["their proposal ranked above the others overall"] ""
+RCPT  w208 settled talent-market-event-97 person=person-studio-aca408ec-r01-1 studio=studio-aca408ec-r02 ["their proposal ranked above the others overall"] ""
+RCPT  w208 settled talent-market-event-98 person=person-studio-aca408ec-r01-2 studio=studio-aca408ec-r02 ["their proposal ranked above the others overall"] ""
+RCPT  w208 settled talent-market-event-99 person=person-studio-aca408ec-r01-3 studio=studio-aca408ec-r02 ["their proposal ranked above the others overall"] ""
+RCPT  w208 settled talent-market-event-100 person=person-studio-aca408ec-r01-4 studio=studio-aca408ec-r02 ["their proposal ranked above the others overall"] ""
+RCPT  w208 settled talent-market-event-101 person=person-studio-aca408ec-r01-5 studio=studio-aca408ec-r02 ["their proposal ranked above the others overall"] ""
+RCPT  w208 settled talent-market-event-102 person=person-studio-aca408ec-r02-0 studio=studio-aca408ec-r01 ["they offered an opportunity","their studio standing ranked higher"] ""
+RCPT  w208 settled talent-market-event-103 person=person-studio-aca408ec-r02-1 studio=studio-aca408ec-r01 ["they offered an opportunity","their studio standing ranked higher"] ""
+RCPT  w208 settled talent-market-event-104 person=person-studio-aca408ec-r02-2 studio=studio-aca408ec-r01 ["they offered an opportunity","their studio standing ranked higher"] ""
+RCPT  w208 settled talent-market-event-105 person=person-studio-aca408ec-r02-3 studio=studio-aca408ec-r01 ["they offered an opportunity","their studio standing ranked higher"] ""
+RCPT  w208 settled talent-market-event-106 person=person-studio-aca408ec-r02-4 studio=studio-aca408ec-r01 ["they offered an opportunity","their studio standing ranked higher"] ""
+RCPT  w208 settled talent-market-event-107 person=person-studio-aca408ec-r02-5 studio=studio-aca408ec-r01 ["they offered an opportunity","their studio standing ranked higher"] ""
+RCPT  w208 settled talent-market-event-108 person=person-studio-aca408ec-r03-0 studio=studio-aca408ec-r03 ["theirs was the only proposal on the table"] ""
+RCPT  w208 settled talent-market-event-109 person=person-studio-aca408ec-r03-1 studio=studio-aca408ec-r03 ["theirs was the only proposal on the table"] ""
+RCPT  w208 settled talent-market-event-110 person=person-studio-aca408ec-r03-2 studio=studio-aca408ec-r03 ["theirs was the only proposal on the table"] ""
+RCPT  w208 settled talent-market-event-111 person=person-studio-aca408ec-r03-3 studio=studio-aca408ec-r03 ["theirs was the only proposal on the table"] ""
+PROM  w208 promise-1 issuer=studio-aca408ec-r02 person=person-studio-aca408ec-r01-0 bound=studio-aca408ec-r02:contract:person-studio-aca408ec-r01-0:208 outcome=-@-
+PROM  w208 promise-3 issuer=studio-aca408ec-r02 person=person-studio-aca408ec-r01-1 bound=studio-aca408ec-r02:contract:person-studio-aca408ec-r01-1:208 outcome=-@-
+PROM  w208 promise-5 issuer=studio-aca408ec-r02 person=person-studio-aca408ec-r01-2 bound=studio-aca408ec-r02:contract:person-studio-aca408ec-r01-2:208 outcome=-@-
+PROM  w208 promise-7 issuer=studio-aca408ec-r02 person=person-studio-aca408ec-r01-3 bound=studio-aca408ec-r02:contract:person-studio-aca408ec-r01-3:208 outcome=-@-
+PROM  w208 promise-9 issuer=studio-aca408ec-r02 person=person-studio-aca408ec-r01-4 bound=studio-aca408ec-r02:contract:person-studio-aca408ec-r01-4:208 outcome=-@-
+PROM  w208 promise-11 issuer=studio-aca408ec-r02 person=person-studio-aca408ec-r01-5 bound=studio-aca408ec-r02:contract:person-studio-aca408ec-r01-5:208 outcome=-@-
+PROM  w208 promise-12 issuer=studio-aca408ec-r01 person=person-studio-aca408ec-r02-0 bound=studio-aca408ec-r01:contract:person-studio-aca408ec-r02-0:208 outcome=-@-
+PROM  w208 promise-14 issuer=studio-aca408ec-r01 person=person-studio-aca408ec-r02-1 bound=studio-aca408ec-r01:contract:person-studio-aca408ec-r02-1:208 outcome=-@-
+PROM  w208 promise-16 issuer=studio-aca408ec-r01 person=person-studio-aca408ec-r02-2 bound=studio-aca408ec-r01:contract:person-studio-aca408ec-r02-2:208 outcome=-@-
+PROM  w208 promise-18 issuer=studio-aca408ec-r01 person=person-studio-aca408ec-r02-3 bound=studio-aca408ec-r01:contract:person-studio-aca408ec-r02-3:208 outcome=-@-
+PROM  w208 promise-20 issuer=studio-aca408ec-r01 person=person-studio-aca408ec-r02-4 bound=studio-aca408ec-r01:contract:person-studio-aca408ec-r02-4:208 outcome=-@-
+PROM  w208 promise-22 issuer=studio-aca408ec-r01 person=person-studio-aca408ec-r02-5 bound=studio-aca408ec-r01:contract:person-studio-aca408ec-r02-5:208 outcome=-@-
+RCPT  w213 promiseOutcome talent-market-event-120 person=person-studio-aca408ec-r02-2 studio=studio-aca408ec-r01 ["a promise to this person was kept"] ""
+RCPT  w213 promiseOutcome talent-market-event-121 person=person-studio-aca408ec-r02-3 studio=studio-aca408ec-r01 ["a promise to this person was kept"] ""
+RCPT  w213 promiseOutcome talent-market-event-122 person=person-studio-aca408ec-r02-4 studio=studio-aca408ec-r01 ["a promise to this person was kept"] ""
+PROM  w213 promise-16 issuer=studio-aca408ec-r01 person=person-studio-aca408ec-r02-2 bound=studio-aca408ec-r01:contract:person-studio-aca408ec-r02-2:208 outcome=SATISFIED@213
+PROM  w213 promise-18 issuer=studio-aca408ec-r01 person=person-studio-aca408ec-r02-3 bound=studio-aca408ec-r01:contract:person-studio-aca408ec-r02-3:208 outcome=SATISFIED@213
+PROM  w213 promise-20 issuer=studio-aca408ec-r01 person=person-studio-aca408ec-r02-4 bound=studio-aca408ec-r01:contract:person-studio-aca408ec-r02-4:208 outcome=SATISFIED@213
+
+stdout | tests/zz-600-t2-probe.test.ts > probe seed p13-public-commercial-adoption
+SEED p13-public-commercial-adoption start tick 0
+READ w196 studio-5a47d054-r01 person-studio-5a47d054-r01-0 role=writer age=31.172746805447233 pref=anyCastAppearance APPEARANCE_COUNT/- -> REASONABLY_ACHIEVABLE :: 
+READ w196 studio-5a47d054-r02 person-studio-5a47d054-r01-0 role=writer age=31.172746805447233 pref=anyCastAppearance APPEARANCE_COUNT/- -> REASONABLY_ACHIEVABLE :: 
+READ w196 studio-5a47d054-r03 person-studio-5a47d054-r01-0 role=writer age=31.172746805447233 pref=anyCastAppearance APPEARANCE_COUNT/- -> FRAGILE :: needs a picture not yet commissioned
+READ w196 studio-5a47d054-r04 person-studio-5a47d054-r01-0 role=writer age=31.172746805447233 pref=anyCastAppearance APPEARANCE_COUNT/- -> FRAGILE :: needs a picture not yet commissioned
+READ w196 studio-5a47d054-r01 person-studio-5a47d054-r01-1 role=director age=43.867443122883884 pref=anyCastAppearance APPEARANCE_COUNT/- -> REASONABLY_ACHIEVABLE :: 
+READ w196 studio-5a47d054-r02 person-studio-5a47d054-r01-1 role=director age=43.867443122883884 pref=anyCastAppearance APPEARANCE_COUNT/- -> REASONABLY_ACHIEVABLE :: 
+READ w196 studio-5a47d054-r03 person-studio-5a47d054-r01-1 role=director age=43.867443122883884 pref=anyCastAppearance APPEARANCE_COUNT/- -> FRAGILE :: needs a picture not yet commissioned
+READ w196 studio-5a47d054-r04 person-studio-5a47d054-r01-1 role=director age=43.867443122883884 pref=anyCastAppearance APPEARANCE_COUNT/- -> FRAGILE :: needs a picture not yet commissioned
+READ w196 studio-5a47d054-r01 person-studio-5a47d054-r01-2 role=actor age=29.344066471939428 pref=anyCastAppearance APPEARANCE_COUNT/- -> REASONABLY_ACHIEVABLE :: 
+READ w196 studio-5a47d054-r02 person-studio-5a47d054-r01-2 role=actor age=29.344066471939428 pref=anyCastAppearance APPEARANCE_COUNT/- -> REASONABLY_ACHIEVABLE :: 
+READ w196 studio-5a47d054-r03 person-studio-5a47d054-r01-2 role=actor age=29.344066471939428 pref=anyCastAppearance APPEARANCE_COUNT/- -> FRAGILE :: needs a picture not yet commissioned
+READ w196 studio-5a47d054-r04 person-studio-5a47d054-r01-2 role=actor age=29.344066471939428 pref=anyCastAppearance APPEARANCE_COUNT/- -> FRAGILE :: needs a picture not yet commissioned
+READ w196 studio-5a47d054-r01 person-studio-5a47d054-r01-3 role=actor age=33.14671659503134 pref=anyCastAppearance APPEARANCE_COUNT/- -> REASONABLY_ACHIEVABLE :: 
+READ w196 studio-5a47d054-r02 person-studio-5a47d054-r01-3 role=actor age=33.14671659503134 pref=anyCastAppearance APPEARANCE_COUNT/- -> REASONABLY_ACHIEVABLE :: 
+READ w196 studio-5a47d054-r03 person-studio-5a47d054-r01-3 role=actor age=33.14671659503134 pref=anyCastAppearance APPEARANCE_COUNT/- -> FRAGILE :: needs a picture not yet commissioned
+READ w196 studio-5a47d054-r04 person-studio-5a47d054-r01-3 role=actor age=33.14671659503134 pref=anyCastAppearance APPEARANCE_COUNT/- -> FRAGILE :: needs a picture not yet commissioned
+READ w196 studio-5a47d054-r01 person-studio-5a47d054-r01-4 role=actor age=61.26999616087216 pref=anyCastAppearance APPEARANCE_COUNT/- -> REASONABLY_ACHIEVABLE :: 
+READ w196 studio-5a47d054-r02 person-studio-5a47d054-r01-4 role=actor age=61.26999616087216 pref=anyCastAppearance APPEARANCE_COUNT/- -> REASONABLY_ACHIEVABLE :: 
+READ w196 studio-5a47d054-r03 person-studio-5a47d054-r01-4 role=actor age=61.26999616087216 pref=anyCastAppearance APPEARANCE_COUNT/- -> FRAGILE :: needs a picture not yet commissioned
+READ w196 studio-5a47d054-r04 person-studio-5a47d054-r01-4 role=actor age=61.26999616087216 pref=anyCastAppearance APPEARANCE_COUNT/- -> FRAGILE :: needs a picture not yet commissioned
+READ w196 studio-5a47d054-r01 person-studio-5a47d054-r01-5 role=craft age=44.44379021364729 pref=anyCastAppearance APPEARANCE_COUNT/- -> REASONABLY_ACHIEVABLE :: 
+READ w196 studio-5a47d054-r02 person-studio-5a47d054-r01-5 role=craft age=44.44379021364729 pref=anyCastAppearance APPEARANCE_COUNT/- -> REASONABLY_ACHIEVABLE :: 
+READ w196 studio-5a47d054-r03 person-studio-5a47d054-r01-5 role=craft age=44.44379021364729 pref=anyCastAppearance APPEARANCE_COUNT/- -> FRAGILE :: needs a picture not yet commissioned
+READ w196 studio-5a47d054-r04 person-studio-5a47d054-r01-5 role=craft age=44.44379021364729 pref=anyCastAppearance APPEARANCE_COUNT/- -> FRAGILE :: needs a picture not yet commissioned
+READ w196 studio-5a47d054-r01 person-studio-5a47d054-r02-0 role=writer age=31.807498294443135 pref=anyCastAppearance APPEARANCE_COUNT/- -> REASONABLY_ACHIEVABLE :: 
+READ w196 studio-5a47d054-r02 person-studio-5a47d054-r02-0 role=writer age=31.807498294443135 pref=anyCastAppearance APPEARANCE_COUNT/- -> REASONABLY_ACHIEVABLE :: 
+READ w196 studio-5a47d054-r03 person-studio-5a47d054-r02-0 role=writer age=31.807498294443135 pref=anyCastAppearance APPEARANCE_COUNT/- -> FRAGILE :: needs a picture not yet commissioned
+READ w196 studio-5a47d054-r04 person-studio-5a47d054-r02-0 role=writer age=31.807498294443135 pref=anyCastAppearance APPEARANCE_COUNT/- -> FRAGILE :: needs a picture not yet commissioned
+READ w196 studio-5a47d054-r01 person-studio-5a47d054-r02-1 role=director age=52.05424324852887 pref=anyCastAppearance APPEARANCE_COUNT/- -> REASONABLY_ACHIEVABLE :: 
+READ w196 studio-5a47d054-r02 person-studio-5a47d054-r02-1 role=director age=52.05424324852887 pref=anyCastAppearance APPEARANCE_COUNT/- -> REASONABLY_ACHIEVABLE :: 
+READ w196 studio-5a47d054-r03 person-studio-5a47d054-r02-1 role=director age=52.05424324852887 pref=anyCastAppearance APPEARANCE_COUNT/- -> FRAGILE :: needs a picture not yet commissioned
+READ w196 studio-5a47d054-r04 person-studio-5a47d054-r02-1 role=director age=52.05424324852887 pref=anyCastAppearance APPEARANCE_COUNT/- -> FRAGILE :: needs a picture not yet commissioned
+READ w196 studio-5a47d054-r01 person-studio-5a47d054-r02-2 role=actor age=39.284570767860195 pref=anyCastAppearance APPEARANCE_COUNT/- -> REASONABLY_ACHIEVABLE :: 
+READ w196 studio-5a47d054-r02 person-studio-5a47d054-r02-2 role=actor age=39.284570767860195 pref=anyCastAppearance APPEARANCE_COUNT/- -> REASONABLY_ACHIEVABLE :: 
+READ w196 studio-5a47d054-r03 person-studio-5a47d054-r02-2 role=actor age=39.284570767860195 pref=anyCastAppearance APPEARANCE_COUNT/- -> FRAGILE :: needs a picture not yet commissioned
+READ w196 studio-5a47d054-r04 person-studio-5a47d054-r02-2 role=actor age=39.284570767860195 pref=anyCastAppearance APPEARANCE_COUNT/- -> FRAGILE :: needs a picture not yet commissioned
+READ w196 studio-5a47d054-r01 person-studio-5a47d054-r02-3 role=actor age=28 pref=anyCastAppearance APPEARANCE_COUNT/- -> REASONABLY_ACHIEVABLE :: 
+READ w196 studio-5a47d054-r02 person-studio-5a47d054-r02-3 role=actor age=28 pref=anyCastAppearance APPEARANCE_COUNT/- -> REASONABLY_ACHIEVABLE :: 
+READ w196 studio-5a47d054-r03 person-studio-5a47d054-r02-3 role=actor age=28 pref=anyCastAppearance APPEARANCE_COUNT/- -> FRAGILE :: needs a picture not yet commissioned
+READ w196 studio-5a47d054-r04 person-studio-5a47d054-r02-3 role=actor age=28 pref=anyCastAppearance APPEARANCE_COUNT/- -> FRAGILE :: needs a picture not yet commissioned
+READ w196 studio-5a47d054-r01 person-studio-5a47d054-r02-4 role=actor age=35.54894479213263 pref=anyCastAppearance APPEARANCE_COUNT/- -> REASONABLY_ACHIEVABLE :: 
+READ w196 studio-5a47d054-r02 person-studio-5a47d054-r02-4 role=actor age=35.54894479213263 pref=anyCastAppearance APPEARANCE_COUNT/- -> REASONABLY_ACHIEVABLE :: 
+READ w196 studio-5a47d054-r03 person-studio-5a47d054-r02-4 role=actor age=35.54894479213263 pref=anyCastAppearance APPEARANCE_COUNT/- -> FRAGILE :: needs a picture not yet commissioned
+READ w196 studio-5a47d054-r04 person-studio-5a47d054-r02-4 role=actor age=35.54894479213263 pref=anyCastAppearance APPEARANCE_COUNT/- -> FRAGILE :: needs a picture not yet commissioned
+READ w196 studio-5a47d054-r01 person-studio-5a47d054-r02-5 role=craft age=45.9341941735846 pref=anyCastAppearance APPEARANCE_COUNT/- -> REASONABLY_ACHIEVABLE :: 
+READ w196 studio-5a47d054-r02 person-studio-5a47d054-r02-5 role=craft age=45.9341941735846 pref=anyCastAppearance APPEARANCE_COUNT/- -> REASONABLY_ACHIEVABLE :: 
+READ w196 studio-5a47d054-r03 person-studio-5a47d054-r02-5 role=craft age=45.9341941735846 pref=anyCastAppearance APPEARANCE_COUNT/- -> FRAGILE :: needs a picture not yet commissioned
+READ w196 studio-5a47d054-r04 person-studio-5a47d054-r02-5 role=craft age=45.9341941735846 pref=anyCastAppearance APPEARANCE_COUNT/- -> FRAGILE :: needs a picture not yet commissioned
+READ w196 studio-5a47d054-r01 person-studio-5a47d054-r03-0 role=writer age=59.63712731330356 pref=anyCastAppearance APPEARANCE_COUNT/- -> REASONABLY_ACHIEVABLE :: 
+READ w196 studio-5a47d054-r02 person-studio-5a47d054-r03-0 role=writer age=59.63712731330356 pref=anyCastAppearance APPEARANCE_COUNT/- -> REASONABLY_ACHIEVABLE :: 
+READ w196 studio-5a47d054-r03 person-studio-5a47d054-r03-0 role=writer age=59.63712731330356 pref=anyCastAppearance APPEARANCE_COUNT/- -> FRAGILE :: needs a picture not yet commissioned
+READ w196 studio-5a47d054-r04 person-studio-5a47d054-r03-0 role=writer age=59.63712731330356 pref=anyCastAppearance APPEARANCE_COUNT/- -> FRAGILE :: needs a picture not yet commissioned
+READ w196 studio-5a47d054-r01 person-studio-5a47d054-r03-1 role=director age=53.20570817105842 pref=anyCastAppearance APPEARANCE_COUNT/- -> REASONABLY_ACHIEVABLE :: 
+READ w196 studio-5a47d054-r02 person-studio-5a47d054-r03-1 role=director age=53.20570817105842 pref=anyCastAppearance APPEARANCE_COUNT/- -> REASONABLY_ACHIEVABLE :: 
+READ w196 studio-5a47d054-r03 person-studio-5a47d054-r03-1 role=director age=53.20570817105842 pref=anyCastAppearance APPEARANCE_COUNT/- -> FRAGILE :: needs a picture not yet commissioned
+READ w196 studio-5a47d054-r04 person-studio-5a47d054-r03-1 role=director age=53.20570817105842 pref=anyCastAppearance APPEARANCE_COUNT/- -> FRAGILE :: needs a picture not yet commissioned
+READ w196 studio-5a47d054-r01 person-studio-5a47d054-r03-2 role=actor age=50.99823153035303 pref=anyCastAppearance APPEARANCE_COUNT/- -> REASONABLY_ACHIEVABLE :: 
+READ w196 studio-5a47d054-r02 person-studio-5a47d054-r03-2 role=actor age=50.99823153035303 pref=anyCastAppearance APPEARANCE_COUNT/- -> REASONABLY_ACHIEVABLE :: 
+READ w196 studio-5a47d054-r03 person-studio-5a47d054-r03-2 role=actor age=50.99823153035303 pref=anyCastAppearance APPEARANCE_COUNT/- -> FRAGILE :: needs a picture not yet commissioned
+READ w196 studio-5a47d054-r04 person-studio-5a47d054-r03-2 role=actor age=50.99823153035303 pref=anyCastAppearance APPEARANCE_COUNT/- -> FRAGILE :: needs a picture not yet commissioned
+READ w196 studio-5a47d054-r01 person-studio-5a47d054-r03-3 role=actor age=38.31242916381756 pref=anyCastAppearance APPEARANCE_COUNT/- -> REASONABLY_ACHIEVABLE :: 
+READ w196 studio-5a47d054-r02 person-studio-5a47d054-r03-3 role=actor age=38.31242916381756 pref=anyCastAppearance APPEARANCE_COUNT/- -> REASONABLY_ACHIEVABLE :: 
+READ w196 studio-5a47d054-r03 person-studio-5a47d054-r03-3 role=actor age=38.31242916381756 pref=anyCastAppearance APPEARANCE_COUNT/- -> FRAGILE :: needs a picture not yet commissioned
+READ w196 studio-5a47d054-r04 person-studio-5a47d054-r03-3 role=actor age=38.31242916381756 pref=anyCastAppearance APPEARANCE_COUNT/- -> FRAGILE :: needs a picture not yet commissioned
+READ w196 studio-5a47d054-r01 person-studio-5a47d054-r03-4 role=actor age=28 pref=anyCastAppearance APPEARANCE_COUNT/- -> REASONABLY_ACHIEVABLE :: 
+READ w196 studio-5a47d054-r02 person-studio-5a47d054-r03-4 role=actor age=28 pref=anyCastAppearance APPEARANCE_COUNT/- -> REASONABLY_ACHIEVABLE :: 
+READ w196 studio-5a47d054-r03 person-studio-5a47d054-r03-4 role=actor age=28 pref=anyCastAppearance APPEARANCE_COUNT/- -> FRAGILE :: needs a picture not yet commissioned
+READ w196 studio-5a47d054-r04 person-studio-5a47d054-r03-4 role=actor age=28 pref=anyCastAppearance APPEARANCE_COUNT/- -> FRAGILE :: needs a picture not yet commissioned
+READ w196 studio-5a47d054-r01 person-studio-5a47d054-r03-5 role=craft age=44.015728828447216 pref=anyCastAppearance APPEARANCE_COUNT/- -> REASONABLY_ACHIEVABLE :: 
+READ w196 studio-5a47d054-r02 person-studio-5a47d054-r03-5 role=craft age=44.015728828447216 pref=anyCastAppearance APPEARANCE_COUNT/- -> REASONABLY_ACHIEVABLE :: 
+READ w196 studio-5a47d054-r03 person-studio-5a47d054-r03-5 role=craft age=44.015728828447216 pref=anyCastAppearance APPEARANCE_COUNT/- -> FRAGILE :: needs a picture not yet commissioned
+READ w196 studio-5a47d054-r04 person-studio-5a47d054-r03-5 role=craft age=44.015728828447216 pref=anyCastAppearance APPEARANCE_COUNT/- -> FRAGILE :: needs a picture not yet commissioned
+READ w196 studio-5a47d054-r01 person-studio-5a47d054-r04-0 role=writer age=44.563205020370965 pref=anyCastAppearance APPEARANCE_COUNT/- -> REASONABLY_ACHIEVABLE :: 
+READ w196 studio-5a47d054-r02 person-studio-5a47d054-r04-0 role=writer age=44.563205020370965 pref=anyCastAppearance APPEARANCE_COUNT/- -> REASONABLY_ACHIEVABLE :: 
+READ w196 studio-5a47d054-r03 person-studio-5a47d054-r04-0 role=writer age=44.563205020370965 pref=anyCastAppearance APPEARANCE_COUNT/- -> FRAGILE :: needs a picture not yet commissioned
+READ w196 studio-5a47d054-r04 person-studio-5a47d054-r04-0 role=writer age=44.563205020370965 pref=anyCastAppearance APPEARANCE_COUNT/- -> FRAGILE :: needs a picture not yet commissioned
+READ w196 studio-5a47d054-r01 person-studio-5a47d054-r04-1 role=director age=38.59676740031422 pref=anyCastAppearance APPEARANCE_COUNT/- -> REASONABLY_ACHIEVABLE :: 
+READ w196 studio-5a47d054-r02 person-studio-5a47d054-r04-1 role=director age=38.59676740031422 pref=anyCastAppearance APPEARANCE_COUNT/- -> REASONABLY_ACHIEVABLE :: 
+READ w196 studio-5a47d054-r03 person-studio-5a47d054-r04-1 role=director age=38.59676740031422 pref=anyCastAppearance APPEARANCE_COUNT/- -> FRAGILE :: needs a picture not yet commissioned
+READ w196 studio-5a47d054-r04 person-studio-5a47d054-r04-1 role=director age=38.59676740031422 pref=anyCastAppearance APPEARANCE_COUNT/- -> FRAGILE :: needs a picture not yet commissioned
+READ w196 studio-5a47d054-r01 person-studio-5a47d054-r04-2 role=actor age=49.59471814184934 pref=anyCastAppearance APPEARANCE_COUNT/- -> REASONABLY_ACHIEVABLE :: 
+READ w196 studio-5a47d054-r02 person-studio-5a47d054-r04-2 role=actor age=49.59471814184934 pref=anyCastAppearance APPEARANCE_COUNT/- -> REASONABLY_ACHIEVABLE :: 
+READ w196 studio-5a47d054-r03 person-studio-5a47d054-r04-2 role=actor age=49.59471814184934 pref=anyCastAppearance APPEARANCE_COUNT/- -> FRAGILE :: needs a picture not yet commissioned
+READ w196 studio-5a47d054-r04 person-studio-5a47d054-r04-2 role=actor age=49.59471814184934 pref=anyCastAppearance APPEARANCE_COUNT/- -> FRAGILE :: needs a picture not yet commissioned
+READ w196 studio-5a47d054-r01 person-studio-5a47d054-r04-3 role=actor age=29.84081390477671 pref=significantCastRole LEAD_OR_SIGNIFICANT_ROLE_COUNT/leadOrAntagonist -> REASONABLY_ACHIEVABLE :: 
+READ w196 studio-5a47d054-r02 person-studio-5a47d054-r04-3 role=actor age=29.84081390477671 pref=significantCastRole LEAD_OR_SIGNIFICANT_ROLE_COUNT/leadOrAntagonist -> REASONABLY_ACHIEVABLE :: 
+READ w196 studio-5a47d054-r03 person-studio-5a47d054-r04-3 role=actor age=29.84081390477671 pref=significantCastRole LEAD_OR_SIGNIFICANT_ROLE_COUNT/leadOrAntagonist -> FRAGILE :: needs a picture not yet commissioned
+READ w196 studio-5a47d054-r03 person-studio-5a47d054-r04-3 role=actor age=29.84081390477671 pref=significantCastRole APPEARANCE_COUNT/- -> FRAGILE :: needs a picture not yet commissioned
+READ w196 studio-5a47d054-r04 person-studio-5a47d054-r04-3 role=actor age=29.84081390477671 pref=significantCastRole LEAD_OR_SIGNIFICANT_ROLE_COUNT/leadOrAntagonist -> FRAGILE :: needs a picture not yet commissioned
+READ w196 studio-5a47d054-r04 person-studio-5a47d054-r04-3 role=actor age=29.84081390477671 pref=significantCastRole APPEARANCE_COUNT/- -> FRAGILE :: needs a picture not yet commissioned
+READ w196 studio-5a47d054-r01 person-studio-5a47d054-r04-4 role=actor age=35.143719269275834 pref=anyCastAppearance APPEARANCE_COUNT/- -> REASONABLY_ACHIEVABLE :: 
+READ w196 studio-5a47d054-r02 person-studio-5a47d054-r04-4 role=actor age=35.143719269275834 pref=anyCastAppearance APPEARANCE_COUNT/- -> REASONABLY_ACHIEVABLE :: 
+READ w196 studio-5a47d054-r03 person-studio-5a47d054-r04-4 role=actor age=35.143719269275834 pref=anyCastAppearance APPEARANCE_COUNT/- -> FRAGILE :: needs a picture not yet commissioned
+READ w196 studio-5a47d054-r04 person-studio-5a47d054-r04-4 role=actor age=35.143719269275834 pref=anyCastAppearance APPEARANCE_COUNT/- -> FRAGILE :: needs a picture not yet commissioned
+READ w196 studio-5a47d054-r01 person-studio-5a47d054-r04-5 role=craft age=36.06964868808217 pref=anyCastAppearance APPEARANCE_COUNT/- -> REASONABLY_ACHIEVABLE :: 
+READ w196 studio-5a47d054-r02 person-studio-5a47d054-r04-5 role=craft age=36.06964868808217 pref=anyCastAppearance APPEARANCE_COUNT/- -> REASONABLY_ACHIEVABLE :: 
+READ w196 studio-5a47d054-r03 person-studio-5a47d054-r04-5 role=craft age=36.06964868808217 pref=anyCastAppearance APPEARANCE_COUNT/- -> FRAGILE :: needs a picture not yet commissioned
+READ w196 studio-5a47d054-r04 person-studio-5a47d054-r04-5 role=craft age=36.06964868808217 pref=anyCastAppearance APPEARANCE_COUNT/- -> FRAGILE :: needs a picture not yet commissioned
+ROOT  w196 promise-0 issuer=studio-5a47d054-r01 person=person-studio-5a47d054-r01-0 APPEARANCE_COUNT/- count=1 window=[208,416) v4/r4 REASONABLY_ACHIEVABLE
+ROOT  w196 promise-1 issuer=studio-5a47d054-r02 person=person-studio-5a47d054-r01-0 APPEARANCE_COUNT/- count=1 window=[208,416) v4/r4 REASONABLY_ACHIEVABLE
+ROOT  w196 promise-2 issuer=studio-5a47d054-r01 person=person-studio-5a47d054-r01-1 APPEARANCE_COUNT/- count=1 window=[208,416) v4/r4 REASONABLY_ACHIEVABLE
+ROOT  w196 promise-3 issuer=studio-5a47d054-r02 person=person-studio-5a47d054-r01-1 APPEARANCE_COUNT/- count=1 window=[208,416) v4/r4 REASONABLY_ACHIEVABLE
+ROOT  w196 promise-4 issuer=studio-5a47d054-r01 person=person-studio-5a47d054-r01-2 APPEARANCE_COUNT/- count=1 window=[208,416) v4/r4 REASONABLY_ACHIEVABLE
+ROOT  w196 promise-5 issuer=studio-5a47d054-r02 person=person-studio-5a47d054-r01-2 APPEARANCE_COUNT/- count=1 window=[208,416) v4/r4 REASONABLY_ACHIEVABLE
+ROOT  w196 promise-6 issuer=studio-5a47d054-r01 person=person-studio-5a47d054-r01-3 APPEARANCE_COUNT/- count=1 window=[208,416) v4/r4 REASONABLY_ACHIEVABLE
+ROOT  w196 promise-7 issuer=studio-5a47d054-r02 person=person-studio-5a47d054-r01-3 APPEARANCE_COUNT/- count=1 window=[208,416) v4/r4 REASONABLY_ACHIEVABLE
+ROOT  w196 promise-8 issuer=studio-5a47d054-r01 person=person-studio-5a47d054-r01-4 APPEARANCE_COUNT/- count=1 window=[208,416) v4/r4 REASONABLY_ACHIEVABLE
+ROOT  w196 promise-9 issuer=studio-5a47d054-r02 person=person-studio-5a47d054-r01-4 APPEARANCE_COUNT/- count=1 window=[208,416) v4/r4 REASONABLY_ACHIEVABLE
+ROOT  w196 promise-10 issuer=studio-5a47d054-r01 person=person-studio-5a47d054-r01-5 APPEARANCE_COUNT/- count=1 window=[208,416) v4/r4 REASONABLY_ACHIEVABLE
+ROOT  w196 promise-11 issuer=studio-5a47d054-r02 person=person-studio-5a47d054-r01-5 APPEARANCE_COUNT/- count=1 window=[208,416) v4/r4 REASONABLY_ACHIEVABLE
+ROOT  w196 promise-12 issuer=studio-5a47d054-r01 person=person-studio-5a47d054-r02-0 APPEARANCE_COUNT/- count=1 window=[208,416) v4/r4 REASONABLY_ACHIEVABLE
+ROOT  w196 promise-13 issuer=studio-5a47d054-r02 person=person-studio-5a47d054-r02-0 APPEARANCE_COUNT/- count=1 window=[208,416) v4/r4 REASONABLY_ACHIEVABLE
+ROOT  w196 promise-14 issuer=studio-5a47d054-r01 person=person-studio-5a47d054-r02-1 APPEARANCE_COUNT/- count=1 window=[208,416) v4/r4 REASONABLY_ACHIEVABLE
+ROOT  w196 promise-15 issuer=studio-5a47d054-r02 person=person-studio-5a47d054-r02-1 APPEARANCE_COUNT/- count=1 window=[208,416) v4/r4 REASONABLY_ACHIEVABLE
+ROOT  w196 promise-16 issuer=studio-5a47d054-r01 person=person-studio-5a47d054-r02-2 APPEARANCE_COUNT/- count=1 window=[208,416) v4/r4 REASONABLY_ACHIEVABLE
+ROOT  w196 promise-17 issuer=studio-5a47d054-r02 person=person-studio-5a47d054-r02-2 APPEARANCE_COUNT/- count=1 window=[208,416) v4/r4 REASONABLY_ACHIEVABLE
+ROOT  w196 promise-18 issuer=studio-5a47d054-r01 person=person-studio-5a47d054-r02-3 APPEARANCE_COUNT/- count=1 window=[208,416) v4/r4 REASONABLY_ACHIEVABLE
+ROOT  w196 promise-19 issuer=studio-5a47d054-r02 person=person-studio-5a47d054-r02-3 APPEARANCE_COUNT/- count=1 window=[208,416) v4/r4 REASONABLY_ACHIEVABLE
+ROOT  w196 promise-20 issuer=studio-5a47d054-r01 person=person-studio-5a47d054-r02-4 APPEARANCE_COUNT/- count=1 window=[208,416) v4/r4 REASONABLY_ACHIEVABLE
+ROOT  w196 promise-21 issuer=studio-5a47d054-r02 person=person-studio-5a47d054-r02-4 APPEARANCE_COUNT/- count=1 window=[208,416) v4/r4 REASONABLY_ACHIEVABLE
+ROOT  w196 promise-22 issuer=studio-5a47d054-r01 person=person-studio-5a47d054-r02-5 APPEARANCE_COUNT/- count=1 window=[208,416) v4/r4 REASONABLY_ACHIEVABLE
+ROOT  w196 promise-23 issuer=studio-5a47d054-r02 person=person-studio-5a47d054-r02-5 APPEARANCE_COUNT/- count=1 window=[208,416) v4/r4 REASONABLY_ACHIEVABLE
+ROOT  w196 promise-24 issuer=studio-5a47d054-r01 person=person-studio-5a47d054-r03-0 APPEARANCE_COUNT/- count=1 window=[208,416) v4/r4 REASONABLY_ACHIEVABLE
+ROOT  w196 promise-25 issuer=studio-5a47d054-r02 person=person-studio-5a47d054-r03-0 APPEARANCE_COUNT/- count=1 window=[208,416) v4/r4 REASONABLY_ACHIEVABLE
+ROOT  w196 promise-26 issuer=studio-5a47d054-r01 person=person-studio-5a47d054-r03-1 APPEARANCE_COUNT/- count=1 window=[208,416) v4/r4 REASONABLY_ACHIEVABLE
+ROOT  w196 promise-27 issuer=studio-5a47d054-r02 person=person-studio-5a47d054-r03-1 APPEARANCE_COUNT/- count=1 window=[208,416) v4/r4 REASONABLY_ACHIEVABLE
+ROOT  w196 promise-28 issuer=studio-5a47d054-r01 person=person-studio-5a47d054-r03-2 APPEARANCE_COUNT/- count=1 window=[208,416) v4/r4 REASONABLY_ACHIEVABLE
+ROOT  w196 promise-29 issuer=studio-5a47d054-r02 person=person-studio-5a47d054-r03-2 APPEARANCE_COUNT/- count=1 window=[208,416) v4/r4 REASONABLY_ACHIEVABLE
+ROOT  w196 promise-30 issuer=studio-5a47d054-r01 person=person-studio-5a47d054-r03-3 APPEARANCE_COUNT/- count=1 window=[208,416) v4/r4 REASONABLY_ACHIEVABLE
+ROOT  w196 promise-31 issuer=studio-5a47d054-r02 person=person-studio-5a47d054-r03-3 APPEARANCE_COUNT/- count=1 window=[208,416) v4/r4 REASONABLY_ACHIEVABLE
+ROOT  w196 promise-32 issuer=studio-5a47d054-r01 person=person-studio-5a47d054-r03-4 APPEARANCE_COUNT/- count=1 window=[208,416) v4/r4 REASONABLY_ACHIEVABLE
+ROOT  w196 promise-33 issuer=studio-5a47d054-r02 person=person-studio-5a47d054-r03-4 APPEARANCE_COUNT/- count=1 window=[208,416) v4/r4 REASONABLY_ACHIEVABLE
+ROOT  w196 promise-34 issuer=studio-5a47d054-r01 person=person-studio-5a47d054-r03-5 APPEARANCE_COUNT/- count=1 window=[208,416) v4/r4 REASONABLY_ACHIEVABLE
+ROOT  w196 promise-35 issuer=studio-5a47d054-r02 person=person-studio-5a47d054-r03-5 APPEARANCE_COUNT/- count=1 window=[208,416) v4/r4 REASONABLY_ACHIEVABLE
+ROOT  w196 promise-36 issuer=studio-5a47d054-r01 person=person-studio-5a47d054-r04-0 APPEARANCE_COUNT/- count=1 window=[208,416) v4/r4 REASONABLY_ACHIEVABLE
+ROOT  w196 promise-37 issuer=studio-5a47d054-r02 person=person-studio-5a47d054-r04-0 APPEARANCE_COUNT/- count=1 window=[208,416) v4/r4 REASONABLY_ACHIEVABLE
+ROOT  w196 promise-38 issuer=studio-5a47d054-r01 person=person-studio-5a47d054-r04-1 APPEARANCE_COUNT/- count=1 window=[208,416) v4/r4 REASONABLY_ACHIEVABLE
+ROOT  w196 promise-39 issuer=studio-5a47d054-r02 person=person-studio-5a47d054-r04-1 APPEARANCE_COUNT/- count=1 window=[208,416) v4/r4 REASONABLY_ACHIEVABLE
+ROOT  w196 promise-40 issuer=studio-5a47d054-r01 person=person-studio-5a47d054-r04-2 APPEARANCE_COUNT/- count=1 window=[208,416) v4/r4 REASONABLY_ACHIEVABLE
+ROOT  w196 promise-41 issuer=studio-5a47d054-r02 person=person-studio-5a47d054-r04-2 APPEARANCE_COUNT/- count=1 window=[208,416) v4/r4 REASONABLY_ACHIEVABLE
+ROOT  w196 promise-42 issuer=studio-5a47d054-r01 person=person-studio-5a47d054-r04-3 LEAD_OR_SIGNIFICANT_ROLE_COUNT/leadOrAntagonist count=1 window=[208,416) v4/r4 REASONABLY_ACHIEVABLE
+ROOT  w196 promise-43 issuer=studio-5a47d054-r02 person=person-studio-5a47d054-r04-3 LEAD_OR_SIGNIFICANT_ROLE_COUNT/leadOrAntagonist count=1 window=[208,416) v4/r4 REASONABLY_ACHIEVABLE
+ROOT  w196 promise-44 issuer=studio-5a47d054-r01 person=person-studio-5a47d054-r04-4 APPEARANCE_COUNT/- count=1 window=[208,416) v4/r4 REASONABLY_ACHIEVABLE
+ROOT  w196 promise-45 issuer=studio-5a47d054-r02 person=person-studio-5a47d054-r04-4 APPEARANCE_COUNT/- count=1 window=[208,416) v4/r4 REASONABLY_ACHIEVABLE
+ROOT  w196 promise-46 issuer=studio-5a47d054-r01 person=person-studio-5a47d054-r04-5 APPEARANCE_COUNT/- count=1 window=[208,416) v4/r4 REASONABLY_ACHIEVABLE
+ROOT  w196 promise-47 issuer=studio-5a47d054-r02 person=person-studio-5a47d054-r04-5 APPEARANCE_COUNT/- count=1 window=[208,416) v4/r4 REASONABLY_ACHIEVABLE
+RCPT  w208 settled talent-market-event-120 person=person-studio-5a47d054-r01-0 studio=studio-5a47d054-r01 ["their studio standing ranked higher","they are the current employer"] ""
+RCPT  w208 settled talent-market-event-121 person=person-studio-5a47d054-r01-1 studio=studio-5a47d054-r01 ["their studio standing ranked higher","they are the current employer"] ""
+RCPT  w208 settled talent-market-event-122 person=person-studio-5a47d054-r01-2 studio=studio-5a47d054-r01 ["their studio standing ranked higher","they are the current employer"] ""
+RCPT  w208 settled talent-market-event-123 person=person-studio-5a47d054-r01-3 studio=studio-5a47d054-r01 ["their studio standing ranked higher","they are the current employer"] ""
+RCPT  w208 settled talent-market-event-124 person=person-studio-5a47d054-r01-4 studio=studio-5a47d054-r01 ["their studio standing ranked higher","they are the current employer"] ""
+RCPT  w208 settled talent-market-event-125 person=person-studio-5a47d054-r01-5 studio=studio-5a47d054-r01 ["their studio standing ranked higher","they are the current employer"] ""
+RCPT  w208 settled talent-market-event-126 person=person-studio-5a47d054-r02-0 studio=studio-5a47d054-r02 ["they offered an opportunity","they are the current employer"] ""
+RCPT  w208 settled talent-market-event-127 person=person-studio-5a47d054-r02-1 studio=studio-5a47d054-r02 ["they offered an opportunity","they are the current employer"] ""
+RCPT  w208 settled talent-market-event-128 person=person-studio-5a47d054-r02-2 studio=studio-5a47d054-r02 ["they offered an opportunity","they are the current employer"] ""
+RCPT  w208 settled talent-market-event-129 person=person-studio-5a47d054-r02-3 studio=studio-5a47d054-r02 ["they offered an opportunity","they are the current employer"] ""
+RCPT  w208 settled talent-market-event-130 person=person-studio-5a47d054-r02-4 studio=studio-5a47d054-r02 ["they offered an opportunity","they are the current employer"] ""
+RCPT  w208 settled talent-market-event-131 person=person-studio-5a47d054-r02-5 studio=studio-5a47d054-r02 ["they offered an opportunity","they are the current employer"] ""
+RCPT  w208 settled talent-market-event-132 person=person-studio-5a47d054-r03-0 studio=studio-5a47d054-r03 ["they are the current employer"] ""
+RCPT  w208 settled talent-market-event-133 person=person-studio-5a47d054-r03-1 studio=studio-5a47d054-r03 ["they are the current employer"] ""
+RCPT  w208 settled talent-market-event-134 person=person-studio-5a47d054-r03-2 studio=studio-5a47d054-r03 ["they are the current employer"] ""
+RCPT  w208 settled talent-market-event-135 person=person-studio-5a47d054-r03-3 studio=studio-5a47d054-r03 ["they are the current employer"] ""
+RCPT  w208 settled talent-market-event-136 person=person-studio-5a47d054-r03-4 studio=studio-5a47d054-r03 ["they are the current employer"] ""
+RCPT  w208 settled talent-market-event-137 person=person-studio-5a47d054-r03-5 studio=studio-5a47d054-r03 ["they are the current employer"] ""
+RCPT  w208 settled talent-market-event-138 person=person-studio-5a47d054-r04-0 studio=studio-5a47d054-r04 ["theirs was the only proposal on the table"] ""
+RCPT  w208 settled talent-market-event-139 person=person-studio-5a47d054-r04-1 studio=studio-5a47d054-r04 ["theirs was the only proposal on the table"] ""
+RCPT  w208 settled talent-market-event-140 person=person-studio-5a47d054-r04-2 studio=studio-5a47d054-r04 ["theirs was the only proposal on the table"] ""
+RCPT  w208 settled talent-market-event-141 person=person-studio-5a47d054-r04-3 studio=studio-5a47d054-r04 ["theirs was the only proposal on the table"] ""
+RCPT  w208 settled talent-market-event-142 person=person-studio-5a47d054-r04-4 studio=studio-5a47d054-r04 ["theirs was the only proposal on the table"] ""
+RCPT  w208 settled talent-market-event-143 person=person-studio-5a47d054-r04-5 studio=studio-5a47d054-r04 ["theirs was the only proposal on the table"] ""
+PROM  w208 promise-0 issuer=studio-5a47d054-r01 person=person-studio-5a47d054-r01-0 bound=studio-5a47d054-r01:contract:person-studio-5a47d054-r01-0:208 outcome=-@-
+PROM  w208 promise-2 issuer=studio-5a47d054-r01 person=person-studio-5a47d054-r01-1 bound=studio-5a47d054-r01:contract:person-studio-5a47d054-r01-1:208 outcome=-@-
+PROM  w208 promise-4 issuer=studio-5a47d054-r01 person=person-studio-5a47d054-r01-2 bound=studio-5a47d054-r01:contract:person-studio-5a47d054-r01-2:208 outcome=-@-
+PROM  w208 promise-6 issuer=studio-5a47d054-r01 person=person-studio-5a47d054-r01-3 bound=studio-5a47d054-r01:contract:person-studio-5a47d054-r01-3:208 outcome=-@-
+PROM  w208 promise-8 issuer=studio-5a47d054-r01 person=person-studio-5a47d054-r01-4 bound=studio-5a47d054-r01:contract:person-studio-5a47d054-r01-4:208 outcome=-@-
+PROM  w208 promise-10 issuer=studio-5a47d054-r01 person=person-studio-5a47d054-r01-5 bound=studio-5a47d054-r01:contract:person-studio-5a47d054-r01-5:208 outcome=-@-
+PROM  w208 promise-13 issuer=studio-5a47d054-r02 person=person-studio-5a47d054-r02-0 bound=studio-5a47d054-r02:contract:person-studio-5a47d054-r02-0:208 outcome=-@-
+PROM  w208 promise-15 issuer=studio-5a47d054-r02 person=person-studio-5a47d054-r02-1 bound=studio-5a47d054-r02:contract:person-studio-5a47d054-r02-1:208 outcome=-@-
+PROM  w208 promise-17 issuer=studio-5a47d054-r02 person=person-studio-5a47d054-r02-2 bound=studio-5a47d054-r02:contract:person-studio-5a47d054-r02-2:208 outcome=-@-
+PROM  w208 promise-19 issuer=studio-5a47d054-r02 person=person-studio-5a47d054-r02-3 bound=studio-5a47d054-r02:contract:person-studio-5a47d054-r02-3:208 outcome=-@-
+PROM  w208 promise-21 issuer=studio-5a47d054-r02 person=person-studio-5a47d054-r02-4 bound=studio-5a47d054-r02:contract:person-studio-5a47d054-r02-4:208 outcome=-@-
+PROM  w208 promise-23 issuer=studio-5a47d054-r02 person=person-studio-5a47d054-r02-5 bound=studio-5a47d054-r02:contract:person-studio-5a47d054-r02-5:208 outcome=-@-
+RCPT  w216 promiseOutcome talent-market-event-144 person=person-studio-5a47d054-r01-2 studio=studio-5a47d054-r01 ["a promise to this person was kept"] ""
+RCPT  w216 promiseOutcome talent-market-event-145 person=person-studio-5a47d054-r01-3 studio=studio-5a47d054-r01 ["a promise to this person was kept"] ""
+RCPT  w216 promiseOutcome talent-market-event-146 person=person-studio-5a47d054-r01-4 studio=studio-5a47d054-r01 ["a promise to this person was kept"] ""
+RCPT  w216 promiseOutcome talent-market-event-147 person=person-studio-5a47d054-r02-2 studio=studio-5a47d054-r02 ["a promise to this person was kept"] ""
+RCPT  w216 promiseOutcome talent-market-event-148 person=person-studio-5a47d054-r02-3 studio=studio-5a47d054-r02 ["a promise to this person was kept"] ""
+RCPT  w216 promiseOutcome talent-market-event-149 person=person-studio-5a47d054-r02-4 studio=studio-5a47d054-r02 ["a promise to this person was kept"] ""
+PROM  w216 promise-4 issuer=studio-5a47d054-r01 person=person-studio-5a47d054-r01-2 bound=studio-5a47d054-r01:contract:person-studio-5a47d054-r01-2:208 outcome=SATISFIED@216
+PROM  w216 promise-6 issuer=studio-5a47d054-r01 person=person-studio-5a47d054-r01-3 bound=studio-5a47d054-r01:contract:person-studio-5a47d054-r01-3:208 outcome=SATISFIED@216
+PROM  w216 promise-8 issuer=studio-5a47d054-r01 person=person-studio-5a47d054-r01-4 bound=studio-5a47d054-r01:contract:person-studio-5a47d054-r01-4:208 outcome=SATISFIED@216
+PROM  w216 promise-17 issuer=studio-5a47d054-r02 person=person-studio-5a47d054-r02-2 bound=studio-5a47d054-r02:contract:person-studio-5a47d054-r02-2:208 outcome=SATISFIED@216
+PROM  w216 promise-19 issuer=studio-5a47d054-r02 person=person-studio-5a47d054-r02-3 bound=studio-5a47d054-r02:contract:person-studio-5a47d054-r02-3:208 outcome=SATISFIED@216
+PROM  w216 promise-21 issuer=studio-5a47d054-r02 person=person-studio-5a47d054-r02-4 bound=studio-5a47d054-r02:contract:person-studio-5a47d054-r02-4:208 outcome=SATISFIED@216
+
+ ✓ |core| tests/zz-600-t2-probe.test.ts (2 tests) 7677ms
+   ✓ probe seed undefined 3965ms
+   ✓ probe seed p13-public-commercial-adoption 3710ms
+
+ Test Files  1 passed (1)
+      Tests  2 passed (2)
+   Start at  16:18:35
+   Duration  9.98s (transform 1.27s, setup 0ms, collect 1.75s, tests 7.68s, environment 0ms, prepare 91ms)
+
+EXIT=0
+Mon Sep 21 14:18:45 UTC 2026

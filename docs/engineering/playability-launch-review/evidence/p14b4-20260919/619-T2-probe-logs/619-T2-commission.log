@@ -1,0 +1,106 @@
+=== LANDED r01 205-240
+205 proj=12 asо=2 prods= cash=10865430 writers=aca408ec-r01-0 writerInCast=
+206 proj=12 asо=2 prods= cash=10764750 writers=aca408ec-r01-0 writerInCast=
+207 proj=12 asо=2 prods= cash=10664070 writers=aca408ec-r01-0 writerInCast=
+208 proj=12 asо=2 prods= cash=10052580 writers=aca408ec-r02-0 writerInCast=
+209 proj=12 asо=2 prods=studio-aca408ec-r01:film:11@8 cash=6319091 writers=aca408ec-r02-0(busy) writerInCast=aca408ec-r02-0
+210 proj=12 asо=2 prods=studio-aca408ec-r01:film:11@7 cash=6214016 writers=aca408ec-r02-0(busy) writerInCast=aca408ec-r02-0
+211 proj=12 asо=2 prods=studio-aca408ec-r01:film:11@6 cash=6108941 writers=aca408ec-r02-0(busy) writerInCast=aca408ec-r02-0
+212 proj=12 asо=2 prods=studio-aca408ec-r01:film:11@5 cash=6003866 writers=aca408ec-r02-0(busy) writerInCast=aca408ec-r02-0
+213 proj=12 asо=2 prods=studio-aca408ec-r01:film:11@4 cash=5898791 writers=aca408ec-r02-0(busy) writerInCast=aca408ec-r02-0
+214 proj=12 asо=2 prods=studio-aca408ec-r01:film:11@3 cash=5793716 writers=aca408ec-r02-0(busy) writerInCast=aca408ec-r02-0
+215 proj=12 asо=2 prods=studio-aca408ec-r01:film:11@2 cash=5688641 writers=aca408ec-r02-0(busy) writerInCast=aca408ec-r02-0
+216 proj=12 asо=2 prods=studio-aca408ec-r01:film:11@1 cash=5583566 writers=aca408ec-r02-0(busy) writerInCast=aca408ec-r02-0
+217 proj=12 asо=1 prods= cash=6897908 writers=aca408ec-r02-0 writerInCast=
+218 proj=12 asо=1 prods=studio-aca408ec-r01:film:6@8 cash=4694209 writers=aca408ec-r02-0 writerInCast=
+219 proj=12 asо=1 prods=studio-aca408ec-r01:film:6@7 cash=5132166 writers=aca408ec-r02-0 writerInCast=
+220 proj=12 asо=1 prods=studio-aca408ec-r01:film:6@6 cash=5293845 writers=aca408ec-r02-0 writerInCast=
+221 proj=12 asо=1 prods=studio-aca408ec-r01:film:6@5 cash=5360615 writers=aca408ec-r02-0 writerInCast=
+222 proj=12 asо=1 prods=studio-aca408ec-r01:film:6@4 cash=5427384 writers=aca408ec-r02-0 writerInCast=
+223 proj=12 asо=1 prods=studio-aca408ec-r01:film:6@3 cash=5322309 writers=aca408ec-r02-0 writerInCast=
+224 proj=12 asо=1 prods=studio-aca408ec-r01:film:6@2 cash=5217234 writers=aca408ec-r02-0 writerInCast=
+225 proj=12 asо=1 prods=studio-aca408ec-r01:film:6@1 cash=5112159 writers=aca408ec-r02-0 writerInCast=
+226 proj=12 +COMMISSION asо=0 prods= cash=6345562 writers=aca408ec-r02-0 writerInCast=
+227 proj=13 asо=1 prods= cash=7272223 writers=aca408ec-r02-0(busy) writerInCast=
+228 proj=13 asо=1 prods= cash=7672257 writers=aca408ec-r02-0(busy) writerInCast=
+229 proj=13 asо=1 prods= cash=7814470 writers=aca408ec-r02-0 writerInCast=
+230 proj=13 asо=1 prods=studio-aca408ec-r01:film:12@8 cash=3122160 writers=aca408ec-r02-0 writerInCast=
+231 proj=13 asо=1 prods=studio-aca408ec-r01:film:12@7 cash=3177751 writers=aca408ec-r02-0 writerInCast=
+232 proj=13 asо=1 prods=studio-aca408ec-r01:film:12@6 cash=3072676 writers=aca408ec-r02-0 writerInCast=
+233 proj=13 asо=1 prods=studio-aca408ec-r01:film:12@5 cash=2967601 writers=aca408ec-r02-0 writerInCast=
+234 proj=13 asо=1 prods=studio-aca408ec-r01:film:12@4 cash=2862526 writers=aca408ec-r02-0 writerInCast=
+235 proj=13 asо=1 prods=studio-aca408ec-r01:film:12@3 cash=2757451 writers=aca408ec-r02-0 writerInCast=
+236 proj=13 asо=1 prods=studio-aca408ec-r01:film:12@2 cash=2652376 writers=aca408ec-r02-0 writerInCast=
+237 proj=13 asо=1 prods=studio-aca408ec-r01:film:12@1 cash=2547301 writers=aca408ec-r02-0 writerInCast=
+238 proj=13 asо=0 prods= cash=4304703 writers=aca408ec-r02-0 writerInCast=
+239 proj=13 +COMMISSION asо=0 prods= cash=5822136 writers=aca408ec-r02-0 writerInCast=
+240 proj=14 asо=1 prods= cash=6546088 writers=aca408ec-r02-0(busy) writerInCast=
+=== PRESEAM r01 205-240
+205 proj=12 asо=2 prods= cash=10865430 writers=aca408ec-r01-0 writerInCast=
+206 proj=12 asо=2 prods= cash=10764750 writers=aca408ec-r01-0 writerInCast=
+207 proj=12 asо=2 prods= cash=10664070 writers=aca408ec-r01-0 writerInCast=
+208 proj=12 asо=2 prods= cash=10052580 writers=aca408ec-r02-0 writerInCast=
+209 proj=12 asо=2 prods=studio-aca408ec-r01:film:6@8 cash=6727422 writers=aca408ec-r02-0 writerInCast=
+210 proj=12 asо=2 prods=studio-aca408ec-r01:film:6@7 cash=6622347 writers=aca408ec-r02-0 writerInCast=
+211 proj=12 asо=2 prods=studio-aca408ec-r01:film:6@6 cash=6517272 writers=aca408ec-r02-0 writerInCast=
+212 proj=12 asо=2 prods=studio-aca408ec-r01:film:6@5 cash=6412197 writers=aca408ec-r02-0 writerInCast=
+213 proj=12 asо=2 prods=studio-aca408ec-r01:film:6@4 cash=6307122 writers=aca408ec-r02-0 writerInCast=
+214 proj=12 asо=2 prods=studio-aca408ec-r01:film:6@3 cash=6202047 writers=aca408ec-r02-0 writerInCast=
+215 proj=12 asо=2 prods=studio-aca408ec-r01:film:6@2 cash=6096972 writers=aca408ec-r02-0 writerInCast=
+216 proj=12 asо=2 prods=studio-aca408ec-r01:film:6@1 cash=5991897 writers=aca408ec-r02-0 writerInCast=
+217 proj=12 asо=1 prods= cash=7256530 writers=aca408ec-r02-0 writerInCast=
+218 proj=12 asо=1 prods=studio-aca408ec-r01:film:11@8 cash=4590018 writers=aca408ec-r02-0 writerInCast=
+219 proj=12 asо=1 prods=studio-aca408ec-r01:film:11@7 cash=5000575 writers=aca408ec-r02-0 writerInCast=
+220 proj=12 asо=1 prods=studio-aca408ec-r01:film:11@6 cash=5147787 writers=aca408ec-r02-0 writerInCast=
+221 proj=12 asо=1 prods=studio-aca408ec-r01:film:11@5 cash=5206876 writers=aca408ec-r02-0 writerInCast=
+222 proj=12 asо=1 prods=studio-aca408ec-r01:film:11@4 cash=5265965 writers=aca408ec-r02-0 writerInCast=
+223 proj=12 asо=1 prods=studio-aca408ec-r01:film:11@3 cash=5160890 writers=aca408ec-r02-0 writerInCast=
+224 proj=12 asо=1 prods=studio-aca408ec-r01:film:11@2 cash=5055815 writers=aca408ec-r02-0 writerInCast=
+225 proj=12 asо=1 prods=studio-aca408ec-r01:film:11@1 cash=4950740 writers=aca408ec-r02-0 writerInCast=
+226 proj=12 +COMMISSION asо=0 prods= cash=6261882 writers=aca408ec-r02-0 writerInCast=
+227 proj=13 asо=1 prods= cash=7283476 writers=aca408ec-r02-0(busy) writerInCast=
+228 proj=13 asо=1 prods= cash=7735799 writers=aca408ec-r02-0(busy) writerInCast=
+229 proj=13 asо=1 prods= cash=7906487 writers=aca408ec-r02-0 writerInCast=
+230 proj=13 asо=1 prods=studio-aca408ec-r01:film:12@8 cash=3223916 writers=aca408ec-r02-0 writerInCast=
+231 proj=13 asо=1 prods=studio-aca408ec-r01:film:12@7 cash=3293387 writers=aca408ec-r02-0 writerInCast=
+232 proj=13 asо=1 prods=studio-aca408ec-r01:film:12@6 cash=3188312 writers=aca408ec-r02-0 writerInCast=
+233 proj=13 asо=1 prods=studio-aca408ec-r01:film:12@5 cash=3083237 writers=aca408ec-r02-0 writerInCast=
+234 proj=13 asо=1 prods=studio-aca408ec-r01:film:12@4 cash=2978162 writers=aca408ec-r02-0 writerInCast=
+235 proj=13 asо=1 prods=studio-aca408ec-r01:film:12@3 cash=2873087 writers=aca408ec-r02-0 writerInCast=
+236 proj=13 asо=1 prods=studio-aca408ec-r01:film:12@2 cash=2768012 writers=aca408ec-r02-0 writerInCast=
+237 proj=13 asо=1 prods=studio-aca408ec-r01:film:12@1 cash=2662937 writers=aca408ec-r02-0 writerInCast=
+238 proj=13 asо=0 prods= cash=4427482 writers=aca408ec-r02-0 writerInCast=
+239 proj=13 +COMMISSION asо=0 prods= cash=5952791 writers=aca408ec-r02-0 writerInCast=
+240 proj=14 asо=1 prods= cash=6681083 writers=aca408ec-r02-0(busy) writerInCast=
+landed r01 commissions [
+    1,   3,  12,  21, 30,  39,
+   48,  57,  69,  81, 93, 105,
+  226, 239, 252, 256
+]
+preseam r01 commissions [
+    1,   3,  12,  21, 30,  39,
+   48,  57,  69,  81, 93, 105,
+  226, 239, 252, 256
+]
+landed r02 commissions [
+    1,   4, 13, 22, 31, 40,
+   49,  58, 67, 76, 85, 94,
+  103, 115
+]
+preseam r02 commissions [
+    1,   4, 13, 22, 31, 40,
+   49,  58, 67, 76, 85, 94,
+  103, 115
+]
+=== LANDED r02 205-215
+205 proj=14 asо=2 prods= cash=12281310 writers=aca408ec-r02-0 writerInCast=
+206 proj=14 asо=2 prods= cash=12189664 writers=aca408ec-r02-0 writerInCast=
+207 proj=14 asо=2 prods= cash=12098018 writers=aca408ec-r02-0 writerInCast=
+208 proj=14 asо=2 prods= cash=11393812 writers=aca408ec-r01-0 writerInCast=
+209 proj=14 asо=2 prods= cash=11277866 writers=aca408ec-r01-0 writerInCast=
+210 proj=14 asо=2 prods= cash=11161920 writers=aca408ec-r01-0 writerInCast=
+211 proj=14 asо=2 prods= cash=11045974 writers=aca408ec-r01-0 writerInCast=
+212 proj=14 asо=2 prods= cash=10930028 writers=aca408ec-r01-0 writerInCast=
+213 proj=14 asо=2 prods= cash=10814082 writers=aca408ec-r01-0 writerInCast=
+214 proj=14 asо=2 prods= cash=10698136 writers=aca408ec-r01-0 writerInCast=
+215 proj=14 asо=2 prods= cash=10582190 writers=aca408ec-r01-0 writerInCast=

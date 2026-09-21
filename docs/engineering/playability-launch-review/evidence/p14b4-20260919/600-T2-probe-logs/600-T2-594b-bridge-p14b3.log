@@ -1,0 +1,28 @@
+Mon Sep 21 14:24:12 UTC 2026
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/bridge-p14b3-promise-command.test.ts (19 tests) 28533ms
+   ✓ P14B.3: quote and atomic command attachment > commits exactly one real attachment at the live ordinal, one revision, no immediate cash movement 3114ms
+   ✓ P14B.3: quote and atomic command attachment > pure repeated quotes retain exact state/RNG/receipt/cash/slot bytes and one opaque identity 425ms
+   ✓ P14B.3: quote and atomic command attachment > the session pending quote retains values rather than its caller-owned mutable draft 1007ms
+   ✓ P14B.3: quote and atomic command attachment > base proposals without a promise still commit without appending any promise 853ms
+   ✓ P14B.3: whole-quote refusal and current-state atomicity > 'FRAGILE existing one-path capacity': accepted noncommittable answer retains nested verdict; no registered intent or partial commit 633ms
+   ✓ P14B.3: whole-quote refusal and current-state atomicity > 'IMPOSSIBLE count': accepted noncommittable answer retains nested verdict; no registered intent or partial commit 623ms
+   ✓ P14B.3: whole-quote refusal and current-state atomicity > 'lower contract-window edge': accepted noncommittable answer retains nested verdict; no registered intent or partial commit 817ms
+   ✓ P14B.3: whole-quote refusal and current-state atomicity > 'upper contract-window edge': accepted noncommittable answer retains nested verdict; no registered intent or partial commit 754ms
+   ✓ P14B.3: revise, remove, withdraw retain abandoned evidence without phantom seats > replacement feasibility uses the real cleared intermediate proposal; removal/withdrawal mint no false outcome 8109ms
+   ✓ P14B.3: session/revision/intent identity and isolation > wrong-session/stale envelopes, same-command replay and superseded intents never duplicate attachment 2631ms
+   ✓ P14B.3: session/revision/intent identity and isolation > the oldest of exactly 16 distinct offerable quotes remains committable in a fresh session 1056ms
+   ✓ P14B.3: session/revision/intent identity and isolation > the 17th distinct quote expires the oldest pending quote, while the newest still attaches once 1257ms
+   ✓ P14B.3: session/revision/intent identity and isolation > same-seed/same-person sessions do not share quote authority, mutable drafts or committed state 2505ms
+   ✓ P14B.3: session/revision/intent identity and isolation > load and process restart discard pending quote authorization without inventing promises 2224ms
+   ✓ P14B.3: real settlement/outcome, V29 and B2 public/private carriers > quote→commit→real winning expiry binds; due-week BROKEN survives validated reload and exact public receipt join 1994ms
+
+ Test Files  1 passed (1)
+      Tests  19 passed (19)
+   Start at  16:24:12
+   Duration  32.38s (transform 2.40s, setup 0ms, collect 3.32s, tests 28.53s, environment 0ms, prepare 107ms)
+
+EXIT=0
+Mon Sep 21 14:24:45 UTC 2026

@@ -1,0 +1,36 @@
+[33mThe CJS build of Vite's Node API is deprecated. See https://vite.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.[39m
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+stdout | ../../../private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/6ed44184-f9ac-40ba-bf1b-321fc7506549/scratchpad/619-T2-probe/chain.probe.test.ts > chain
+p13b-s8-bridge-probe-01 /Users/zacheryspector/The-Movies-headless-program/src: 131 rows; pictures 131; notOk 0; poolMoved 4; digest 1b1dac207e0cf0387cb2e8ccdd8e95deaa1744a3f5160dcb9dcfb540594afc09
+
+ ✓ ../../../private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/6ed44184-f9ac-40ba-bf1b-321fc7506549/scratchpad/619-T2-probe/chain.probe.test.ts (1 test) 6930ms
+   ✓ chain 6929ms
+
+ Test Files  1 passed (1)
+      Tests  1 passed (1)
+   Start at  20:01:35
+   Duration  7.54s (transform 1.61s, setup 0ms, collect 123ms, tests 6.93s, environment 0ms, prepare 125ms)
+
+EXIT 0
+bridge seed: rows 131 pictures 131 member rows 19 hasMasks 19 poolMoved 4 nonActorInPool 2
+member rows with pictures: 211 studio-efb645e3-r01 pool=efb645e3-r02-0,efb645e3-r02-2,efb645e3-r02-3 chosen=efb645e3-r02-3/efb645e3-r02-0/efb645e3-r02-2#3 law=efb645e3-r02-3/efb645e3-r02-0/efb645e3-r02-2#3@1294545 ordinary=efb645e3-r02-3/efb645e3-r02-0/efb645e3-r02-2#3@1294545
+211 studio-efb645e3-r02 pool=efb645e3-r01-0,efb645e3-r01-2,efb645e3-r01-3 chosen=efb645e3-r01-2/efb645e3-r01-0/efb645e3-r01-3#3 law=efb645e3-r01-2/efb645e3-r01-0/efb645e3-r01-3#3@2363080 ordinary=efb645e3-r01-3/efb645e3-r01-2/efb645e3-r01-0#2@3703443
+220 studio-efb645e3-r01 pool=efb645e3-r02-4,efb645e3-r02-2,efb645e3-r02-3 chosen=efb645e3-r02-4/efb645e3-r02-3/efb645e3-r02-2#1 law=efb645e3-r02-4/efb645e3-r02-3/efb645e3-r02-2#1@3481106 ordinary=efb645e3-r02-4/efb645e3-r02-3/efb645e3-r02-2#1@3481106
+220 studio-efb645e3-r02 pool=efb645e3-r01-4,efb645e3-r01-2,efb645e3-r01-3 chosen=efb645e3-r01-4/efb645e3-r01-3/efb645e3-r01-2#1 law=efb645e3-r01-4/efb645e3-r01-3/efb645e3-r01-2#1@3648714 ordinary=efb645e3-r01-4/efb645e3-r01-3/efb645e3-r01-2#1@3648714
+229 studio-efb645e3-r01 pool=efb645e3-r02-2,efb645e3-r02-3,efb645e3-r02-4 chosen=efb645e3-r02-4/efb645e3-r02-3/efb645e3-r02-2#0 law=efb645e3-r02-4/efb645e3-r02-3/efb645e3-r02-2#0@5711754 ordinary=efb645e3-r02-4/efb645e3-r02-3/efb645e3-r02-2#0@5711754
+229 studio-efb645e3-r02 pool=efb645e3-r01-2,efb645e3-r01-3,efb645e3-r01-4 chosen=efb645e3-r01-4/efb645e3-r01-3/efb645e3-r01-2#0 law=efb645e3-r01-4/efb645e3-r01-3/efb645e3-r01-2#0@4267795 ordinary=efb645e3-r01-4/efb645e3-r01-3/efb645e3-r01-2#0@4267795
+238 studio-efb645e3-r01 pool=efb645e3-r02-2,efb645e3-r02-3,efb645e3-r02-4 chosen=efb645e3-r02-4/efb645e3-r02-3/efb645e3-r02-2#0 law=efb645e3-r02-4/efb645e3-r02-3/efb645e3-r02-2#0@6605123 ordinary=efb645e3-r02-4/efb645e3-r02-3/efb645e3-r02-2#0@6605123
+238 studio-efb645e3-r02 pool=efb645e3-r01-2,efb645e3-r01-3,efb645e3-r01-4 chosen=efb645e3-r01-3/efb645e3-r01-4/efb645e3-r01-2#0 law=efb645e3-r01-3/efb645e3-r01-4/efb645e3-r01-2#0@7838473 ordinary=efb645e3-r01-3/efb645e3-r01-4/efb645e3-r01-2#0@7838473
+247 studio-efb645e3-r01 pool=efb645e3-r02-2,efb645e3-r02-3,efb645e3-r02-4 chosen=efb645e3-r02-4/efb645e3-r02-3/efb645e3-r02-2#0 law=efb645e3-r02-4/efb645e3-r02-3/efb645e3-r02-2#0@4775984 ordinary=efb645e3-r02-4/efb645e3-r02-3/efb645e3-r02-2#0@4775984
+247 studio-efb645e3-r02 pool=efb645e3-r01-2,efb645e3-r01-3,efb645e3-r01-4 chosen=efb645e3-r01-4/efb645e3-r01-3/efb645e3-r01-2#0 law=efb645e3-r01-4/efb645e3-r01-3/efb645e3-r01-2#0@5154541 ordinary=efb645e3-r01-4/efb645e3-r01-3/efb645e3-r01-2#0@5154541
+256 studio-efb645e3-r01 pool=efb645e3-r02-2,efb645e3-r02-3,efb645e3-r02-4 chosen=efb645e3-r02-4/efb645e3-r02-3/efb645e3-r02-2#0 law=efb645e3-r02-4/efb645e3-r02-3/efb645e3-r02-2#0@5630141 ordinary=efb645e3-r02-4/efb645e3-r02-3/efb645e3-r02-2#0@5630141
+256 studio-efb645e3-r02 pool=efb645e3-r01-2,efb645e3-r01-3,efb645e3-r01-4 chosen=efb645e3-r01-4/efb645e3-r01-3/efb645e3-r01-2#0 law=efb645e3-r01-4/efb645e3-r01-3/efb645e3-r01-2#0@5268219 ordinary=efb645e3-r01-4/efb645e3-r01-3/efb645e3-r01-2#0@5268219
+265 studio-efb645e3-r01 pool=efb645e3-r02-2,efb645e3-r02-3,efb645e3-r02-4 chosen=efb645e3-r02-4/efb645e3-r02-3/efb645e3-r02-2#0 law=efb645e3-r02-4/efb645e3-r02-3/efb645e3-r02-2#0@5353312 ordinary=efb645e3-r02-4/efb645e3-r02-3/efb645e3-r02-2#0@5353312
+265 studio-efb645e3-r02 pool=efb645e3-r01-2,efb645e3-r01-3,efb645e3-r01-4 chosen=efb645e3-r01-4/efb645e3-r01-3/efb645e3-r01-2#0 law=efb645e3-r01-4/efb645e3-r01-3/efb645e3-r01-2#0@6761257 ordinary=efb645e3-r01-4/efb645e3-r01-3/efb645e3-r01-2#0@6761257
+274 studio-efb645e3-r01 pool=efb645e3-r02-2,efb645e3-r02-3,efb645e3-r02-4 chosen=efb645e3-r02-4/efb645e3-r02-3/efb645e3-r02-2#0 law=efb645e3-r02-4/efb645e3-r02-3/efb645e3-r02-2#0@5746851 ordinary=efb645e3-r02-4/efb645e3-r02-3/efb645e3-r02-2#0@5746851
+274 studio-efb645e3-r02 pool=efb645e3-r01-2,efb645e3-r01-3,efb645e3-r01-4 chosen=efb645e3-r01-4/efb645e3-r01-3/efb645e3-r01-2#0 law=efb645e3-r01-4/efb645e3-r01-3/efb645e3-r01-2#0@4714802 ordinary=efb645e3-r01-4/efb645e3-r01-3/efb645e3-r01-2#0@4714802
+283 studio-efb645e3-r02 pool=efb645e3-r01-2,efb645e3-r01-3,efb645e3-r01-4 chosen=efb645e3-r01-3/efb645e3-r01-4/efb645e3-r01-2#0 law=efb645e3-r01-3/efb645e3-r01-4/efb645e3-r01-2#0@6208775 ordinary=efb645e3-r01-3/efb645e3-r01-4/efb645e3-r01-2#0@6208775
+292 studio-efb645e3-r02 pool=efb645e3-r01-2,efb645e3-r01-3,efb645e3-r01-4 chosen=efb645e3-r01-4/efb645e3-r01-3/efb645e3-r01-2#0 law=efb645e3-r01-4/efb645e3-r01-3/efb645e3-r01-2#0@6291474 ordinary=efb645e3-r01-4/efb645e3-r01-3/efb645e3-r01-2#0@6291474
+295 studio-efb645e3-r01 pool=efb645e3-r02-2,efb645e3-r02-3,efb645e3-r02-4 chosen=efb645e3-r02-4/efb645e3-r02-3/efb645e3-r02-2#0 law=efb645e3-r02-4/efb645e3-r02-3/efb645e3-r02-2#0@4757441 ordinary=efb645e3-r02-4/efb645e3-r02-3/efb645e3-r02-2#0@4757441

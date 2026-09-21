@@ -1,0 +1,384 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+stdout | tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — no-preference path and viability gates (plan :223-225) > p13a-core-causal-01: every real film decision without members equals the pre-existing choice and pool; every decision seats the law pick over the pool the seam law derives; a null choice only when no permutation is viable
+p13a-core-causal-01: 1015 real film decisions (51 pictures), 724 without members; chain digest over 1015 rows = 2aec0184c3301f1e174fe9843a0b076258fdc9de9683424cb064a5d777382610
+
+stdout | tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — no-preference path and viability gates (plan :223-225) > seed-b: every real film decision without members equals the pre-existing choice and pool; every decision seats the law pick over the pool the seam law derives; a null choice only when no permutation is viable
+seed-b: 1083 real film decisions (98 pictures), 669 without members; chain digest over 134 rows = d3218295f449599c4451ee5d85c13a3bd3171522ce2697b9d034dc71b96daea2
+
+stdout | tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — the natural witness (seed-b w211 studio-bc14baf6-r01, record 618 O-T4-1) > search table: the first seed-b decision whose seating matters holds two tagged leadOrAntagonist beneficiaries and one P1 beneficiary in a three-actor pool
+WITNESS seed-b w211 studio-bc14baf6-r01 studio-bc14baf6-r01:package:script-0023 cashAvailable=52015156.96352156
+[012] bc14baf6-r01-2/bc14baf6-r01-3/bc14baf6-r01-4 benefit=2 NOT VIABLE
+[021] bc14baf6-r01-2/bc14baf6-r01-4/bc14baf6-r01-3 benefit=3 NOT VIABLE
+[102] bc14baf6-r01-3/bc14baf6-r01-2/bc14baf6-r01-4 benefit=2 NOT VIABLE
+[120] bc14baf6-r01-3/bc14baf6-r01-4/bc14baf6-r01-2 benefit=2 score=-1507894 budget=2925161+671170
+[201] bc14baf6-r01-4/bc14baf6-r01-2/bc14baf6-r01-3 benefit=3 score=-1735081 budget=2925161+647648
+[210] bc14baf6-r01-4/bc14baf6-r01-3/bc14baf6-r01-2 benefit=2 score=-1425536 budget=2925161+679067
+chosen today: {"lead":"person-studio-bc14baf6-r01-4","antagonist":"person-studio-bc14baf6-r01-2","support":"person-studio-bc14baf6-r01-3"} law: bc14baf6-r01-4/bc14baf6-r01-2/bc14baf6-r01-3#3@-1735081 ordinary: bc14baf6-r01-4/bc14baf6-r01-3/bc14baf6-r01-2#2@-1425536
+
+stdout | tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — the natural witness (seed-b w211 studio-bc14baf6-r01, record 618 O-T4-1) > RED: every real film decision on seed-b with members seats the law pick (benefit, then ordinary score, then BILLINGS); the violation table names each miss
+SEED-B MEMBER DECISIONS 414 (8 pictures); MISSES 0
+
+
+stdout | tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — the natural witness (seed-b w211 studio-bc14baf6-r01, record 618 O-T4-1) > TIE FALLBACK (labeled reception-input variant): two reception-identical tagged beneficiaries tie on score; the first strict-greater winner in the inherited BILLINGS order is seated — inherited tie behaviour, not fairness (:218-221)
+TIE VARIANT w211 studio-bc14baf6-r01
+[012] bc14baf6-r01-2/bc14baf6-r01-3/bc14baf6-r01-4 benefit=2 score=-1515917 budget=2925161+671672
+[021] bc14baf6-r01-2/bc14baf6-r01-4/bc14baf6-r01-3 benefit=3 score=-1545921 budget=2925161+668330
+[102] bc14baf6-r01-3/bc14baf6-r01-2/bc14baf6-r01-4 benefit=2 score=-1565297 budget=2925161+667055
+[120] bc14baf6-r01-3/bc14baf6-r01-4/bc14baf6-r01-2 benefit=2 score=-1565297 budget=2925161+667055
+[201] bc14baf6-r01-4/bc14baf6-r01-2/bc14baf6-r01-3 benefit=3 score=-1545921 budget=2925161+668330
+[210] bc14baf6-r01-4/bc14baf6-r01-3/bc14baf6-r01-2 benefit=2 score=-1515917 budget=2925161+671672
+
+stdout | tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — membership (plan :210-213) and masks (:213-215) > CURRENT unaccepted offers never count: seed-b w202, three rivals decide while their own retention offers carry promises with contractId null; re-authored offers make the negative discriminating
+PENDING-OFFER w202 strict=bc14baf6-r01-4/bc14baf6-r01-3/bc14baf6-r01-2#0@-1391270 asIfBound=bc14baf6-r01-3/bc14baf6-r01-4/bc14baf6-r01-2#3@-1459842
+[012] bc14baf6-r01-2/bc14baf6-r01-3/bc14baf6-r01-4 benefit=1 NOT VIABLE
+[021] bc14baf6-r01-2/bc14baf6-r01-4/bc14baf6-r01-3 benefit=2 NOT VIABLE
+[102] bc14baf6-r01-3/bc14baf6-r01-2/bc14baf6-r01-4 benefit=2 NOT VIABLE
+[120] bc14baf6-r01-3/bc14baf6-r01-4/bc14baf6-r01-2 benefit=3 score=-1459842 budget=2626575+435673
+[201] bc14baf6-r01-4/bc14baf6-r01-2/bc14baf6-r01-3 benefit=2 NOT VIABLE
+[210] bc14baf6-r01-4/bc14baf6-r01-3/bc14baf6-r01-2 benefit=2 score=-1391270 budget=2626575+439485
+
+stdout | tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — membership (plan :210-213) and masks (:213-215) > a met promise never counts (r01 chain, RED today only through the witness defect): after the witness take the SATISFIED roots leave r01's member set at its next real decision
+MET-NEGATIVE w220 met=promise-4,promise-6,promise-8 strict=bc14baf6-r01-3/bc14baf6-r01-4/bc14baf6-r01-2#0@-957526 asIfUnmet=bc14baf6-r01-4/bc14baf6-r01-2/bc14baf6-r01-3#3@-1258947 discriminating=true
+
+stdout | tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — membership (plan :210-213) and masks (:213-215) > mask derivation through the shared reader — 'tagged lead stays exact: r01-2 counts…'
+MASK VARIANT {"kind":"castRoleCount","count":1,"seatClass":"lead"}
+[012] bc14baf6-r01-2/bc14baf6-r01-3/bc14baf6-r01-4 benefit=2 NOT VIABLE
+[021] bc14baf6-r01-2/bc14baf6-r01-4/bc14baf6-r01-3 benefit=3 NOT VIABLE
+[102] bc14baf6-r01-3/bc14baf6-r01-2/bc14baf6-r01-4 benefit=1 NOT VIABLE
+[120] bc14baf6-r01-3/bc14baf6-r01-4/bc14baf6-r01-2 benefit=2 score=-1507894 budget=2925161+671170
+[201] bc14baf6-r01-4/bc14baf6-r01-2/bc14baf6-r01-3 benefit=2 score=-1735081 budget=2925161+647648
+[210] bc14baf6-r01-4/bc14baf6-r01-3/bc14baf6-r01-2 benefit=2 score=-1425536 budget=2925161+679067
+law bc14baf6-r01-4/bc14baf6-r01-3/bc14baf6-r01-2#2@-1425536
+
+stdout | tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — membership (plan :210-213) and masks (:213-215) > mask derivation through the shared reader — 'legacy count-only LEAD_OR_SIGNIFICANT…'
+MASK VARIANT {"count":1}
+[012] bc14baf6-r01-2/bc14baf6-r01-3/bc14baf6-r01-4 benefit=2 NOT VIABLE
+[021] bc14baf6-r01-2/bc14baf6-r01-4/bc14baf6-r01-3 benefit=3 NOT VIABLE
+[102] bc14baf6-r01-3/bc14baf6-r01-2/bc14baf6-r01-4 benefit=2 NOT VIABLE
+[120] bc14baf6-r01-3/bc14baf6-r01-4/bc14baf6-r01-2 benefit=3 score=-1507894 budget=2925161+671170
+[201] bc14baf6-r01-4/bc14baf6-r01-2/bc14baf6-r01-3 benefit=3 score=-1735081 budget=2925161+647648
+[210] bc14baf6-r01-4/bc14baf6-r01-3/bc14baf6-r01-2 benefit=3 score=-1425536 budget=2925161+679067
+law bc14baf6-r01-4/bc14baf6-r01-3/bc14baf6-r01-2#3@-1425536
+
+stdout | tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — membership (plan :210-213) and masks (:213-215) > mask derivation through the shared reader — 'APPEARANCE_COUNT is generic cast'
+MASK VARIANT {"count":1}
+[012] bc14baf6-r01-2/bc14baf6-r01-3/bc14baf6-r01-4 benefit=2 NOT VIABLE
+[021] bc14baf6-r01-2/bc14baf6-r01-4/bc14baf6-r01-3 benefit=3 NOT VIABLE
+[102] bc14baf6-r01-3/bc14baf6-r01-2/bc14baf6-r01-4 benefit=2 NOT VIABLE
+[120] bc14baf6-r01-3/bc14baf6-r01-4/bc14baf6-r01-2 benefit=3 score=-1507894 budget=2925161+671170
+[201] bc14baf6-r01-4/bc14baf6-r01-2/bc14baf6-r01-3 benefit=3 score=-1735081 budget=2925161+647648
+[210] bc14baf6-r01-4/bc14baf6-r01-3/bc14baf6-r01-2 benefit=3 score=-1425536 budget=2925161+679067
+law bc14baf6-r01-4/bc14baf6-r01-3/bc14baf6-r01-2#3@-1425536
+
+stdout | tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — the initial cast seam (plan :225-232) > capacity constraint: a rival with a ready screenplay and no lawful complementary staffing decides nothing (natural weeks logged; zero is a fixture finding)
+NO-STAFFING WEEKS 286
+p13a-core-causal-01 w208 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w208 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w209 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w209 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w210 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w210 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w211 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w211 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w212 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w212 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w213 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w213 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w214 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w214 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w215 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w215 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w216 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w216 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w217 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w217 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w218 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w218 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w219 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w219 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w220 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w220 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w221 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w221 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w222 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w222 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w223 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w223 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w224 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w224 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w225 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w225 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w226 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w226 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w227 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w227 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w228 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w228 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w229 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w229 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w230 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w230 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w231 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w231 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w232 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w232 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w233 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w233 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w234 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w234 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w235 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w235 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w236 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w236 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w237 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w237 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w238 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w238 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w239 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w239 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w240 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w240 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w241 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w241 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w242 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w242 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w243 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w243 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w244 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w244 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w245 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w245 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w246 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w246 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w247 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w247 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w248 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w248 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w249 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w249 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w250 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w250 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w251 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w251 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w252 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w252 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w253 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w253 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w254 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w254 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w255 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w255 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w256 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w256 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w257 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w257 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w258 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w258 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w259 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w259 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w260 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w260 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w261 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w261 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w262 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w262 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w263 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w263 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w264 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w264 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w265 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w265 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w266 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w266 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w267 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w267 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w268 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w268 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w269 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w269 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w270 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w270 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w271 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w271 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w272 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w272 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w273 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w273 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w274 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w274 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w275 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w275 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w276 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w276 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w277 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w277 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w278 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w278 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w279 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w279 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w280 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w280 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w281 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w281 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w282 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w282 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w283 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w283 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w284 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w284 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w285 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w285 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w286 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w286 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w287 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w287 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w288 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w288 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w289 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w289 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w290 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w290 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w291 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w291 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w292 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w292 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w293 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w293 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w294 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w294 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w295 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w295 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w296 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w296 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w297 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w297 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w298 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w298 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w299 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w299 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w300 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w300 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w301 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w301 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w302 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w302 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w303 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w303 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w304 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w304 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w305 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w305 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w306 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w306 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w307 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w307 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w308 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w308 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w309 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w309 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w310 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w310 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w311 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w311 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w312 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w312 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w313 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w313 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w314 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w314 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w315 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w315 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w316 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w316 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w317 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w317 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w318 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w318 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w319 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w319 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w320 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w320 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w321 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w321 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w322 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w322 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w323 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w323 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w324 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w324 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w325 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w325 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w326 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w326 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w327 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w327 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w328 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w328 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w329 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w329 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w330 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w330 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w331 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w331 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w332 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w332 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w333 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w333 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w334 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w334 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w335 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w335 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w336 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w336 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w337 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w337 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w338 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w338 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w339 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w339 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w340 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w340 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w341 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w341 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w342 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w342 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w343 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w343 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w344 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w344 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w345 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w345 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w346 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w346 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w347 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w347 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w348 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w348 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w349 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w349 studio-aca408ec-r04 deficit=true
+seed-b w208 studio-bc14baf6-r04 deficit=true
+seed-b w209 studio-bc14baf6-r04 deficit=true
+
+stdout | tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — the initial cast seam (plan :225-232) > the positive seam witness (plan :225-227, :233; record 621 R2 / G10-b): the first default-seed picture whose pool seats a promised person outside the historical first three admits r01's sole WRITER — a non-primary-actor beneficiary — and the real package and first take serve his promise
+SEAM WITNESS w208 studio-aca408ec-r01 studio-aca408ec-r01:package:script-0011 cashAvailable=8686605.262935068
+[012] aca408ec-r02-0/aca408ec-r02-2/aca408ec-r02-3 benefit=3 NOT VIABLE
+[021] aca408ec-r02-0/aca408ec-r02-3/aca408ec-r02-2 benefit=3 NOT VIABLE
+[102] aca408ec-r02-2/aca408ec-r02-0/aca408ec-r02-3 benefit=3 NOT VIABLE
+[120] aca408ec-r02-2/aca408ec-r02-3/aca408ec-r02-0 benefit=3 NOT VIABLE
+[201] aca408ec-r02-3/aca408ec-r02-0/aca408ec-r02-2 benefit=3 NOT VIABLE
+[210] aca408ec-r02-3/aca408ec-r02-2/aca408ec-r02-0 benefit=3 score=-1366501 budget=3033668+594746
+law aca408ec-r02-3/aca408ec-r02-2/aca408ec-r02-0#3@-1366501 ordinary aca408ec-r02-3/aca408ec-r02-2/aca408ec-r02-0#3@-1366501
+
+ ✓ |core| tests/p14b4-rival-seating-preference.test.ts (22 tests | 1 skipped) 27883ms
+   ✓ P14B4 final seating preference — no-preference path and viability gates (plan :223-225) > default seed: the first screenplay-planning call and first film decision are byte-identical to the accepted values; the transcribed ordinary score reproduces the real no-preference choice 11378ms
+   ✓ P14B4 final seating preference — no-preference path and viability gates (plan :223-225) > seed-b: every real film decision without members equals the pre-existing choice and pool; every decision seats the law pick over the pool the seam law derives; a null choice only when no permutation is viable 13092ms
+   ✓ P14B4 final seating preference — the natural witness (seed-b w211 studio-bc14baf6-r01, record 618 O-T4-1) > TIE FALLBACK (labeled reception-input variant): two reception-identical tagged beneficiaries tie on score; the first strict-greater winner in the inherited BILLINGS order is seated — inherited tie behaviour, not fairness (:218-221) 363ms
+
+ Test Files  1 passed (1)
+      Tests  21 passed | 1 todo (22)
+   Start at  19:56:56
+   Duration  30.74s (transform 1.65s, setup 0ms, collect 2.23s, tests 27.88s, environment 0ms, prepare 142ms)
+
+EXIT 0

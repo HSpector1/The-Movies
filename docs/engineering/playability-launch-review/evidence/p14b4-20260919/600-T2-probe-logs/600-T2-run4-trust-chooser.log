@@ -1,0 +1,19 @@
+Mon Sep 21 14:22:13 UTC 2026
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p14b1-trust-chooser.test.ts (13 tests | 2 skipped) 14927ms
+   ✓ P14B.1 test 6: trust, the widened chooser and the priority order > a Distrusted issuer is dropped issuerDistrusted at reservation, and the other (healthy) proposal settles the case 1287ms
+   ✓ P14B.1 test 6: trust, the widened chooser and the priority order > opportunity changes the winner of an otherwise compensation-versus-incumbency 1-1 tie, with two real surviving proposals 3143ms
+   ✓ P14B.1 test 6: trust, the widened chooser and the priority order > a Reliable issuer beats a Mixed-record issuer on the trust band, in the same otherwise-1-1-tie shape 695ms
+   ✓ P14B.1 test 7: rival symmetry > attachPromise and its feasibility classification work identically when the issuer is a RIVAL (no player-only special-casing) 586ms
+   ✓ P14B.1 test 7: rival symmetry > the FIRST natural rival proposal carries exactly one promise iff an ORIGINAL authoring read is REASONABLY_ACHIEVABLE — the flexible P2 read first for an unproven person, the P1 read alone for a proven one — with exact proposal/root/receipt joins 4500ms
+   ✓ P14B.1 test 7: rival symmetry > natural rival authoring preserves the first writer IFF, the first actor positive (P1 if proven, flexible P2 if unproven), an unproven flexible-P2 witness, and actual non-achievable zero-attachment witnesses for a proven and an unproven person 4418ms
+
+ Test Files  1 passed (1)
+      Tests  11 passed | 2 todo (13)
+   Start at  16:22:14
+   Duration  17.43s (transform 1.49s, setup 0ms, collect 1.96s, tests 14.93s, environment 0ms, prepare 110ms)
+
+EXIT=0
+Mon Sep 21 14:22:31 UTC 2026

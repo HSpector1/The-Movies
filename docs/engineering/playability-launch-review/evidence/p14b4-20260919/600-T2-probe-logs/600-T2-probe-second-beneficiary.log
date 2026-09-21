@@ -1,0 +1,19 @@
+Mon Sep 21 14:29:07 UTC 2026
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+stdout | tests/zz-600-t2-probe.test.ts > probe second bound beneficiary
+FOCUS [{"promiseId":"promise-0"},{"promiseId":"promise-1"}]
+TICK 52 BOUND OPEN ["promise-0 PLAYER->t-act-09 window=[52,92)","promise-1 PLAYER->t-act-08 window=[52,92)"]
+CONTRACT ORDER actors (excluding focus0 beneficiary) ["t-act-12","t-act-13","t-act-08"] → slot lead=focus0 beneficiary t-act-09 antagonist= t-act-12 support= t-act-13
+CONTRACTS [{"talentId":"t-wri-03","role":"writer","start":13,"end":221},{"talentId":"t-dir-01","role":"director","start":13,"end":221},{"talentId":"t-act-12","role":"actor","start":13,"end":221},{"talentId":"t-act-13","role":"actor","start":13,"end":221},{"talentId":"t-cra-01","role":"craft","start":13,"end":221},{"talentId":"t-act-09","role":"actor","start":52,"end":104},{"talentId":"t-act-08","role":"actor","start":52,"end":104}]
+
+ ✓ |core| tests/zz-600-t2-probe.test.ts (1 test) 117ms
+
+ Test Files  1 passed (1)
+      Tests  1 passed (1)
+   Start at  16:29:07
+   Duration  2.35s (transform 1.33s, setup 0ms, collect 1.69s, tests 117ms, environment 0ms, prepare 118ms)
+
+EXIT=0
+Mon Sep 21 14:29:10 UTC 2026

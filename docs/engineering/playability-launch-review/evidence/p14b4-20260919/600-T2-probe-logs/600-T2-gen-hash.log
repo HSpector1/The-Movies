@@ -1,0 +1,5 @@
+schemaIdentity(F10)= sha256:6f6b48805aadcf14d456614d87bf1571eb1ce0d9aa0bc44f604e7976f4f85538
+F10 decl sha256= 53058c23075427647bf9e24052128cd4f7ad0340fa54763e3e75df25aeea482e
+F11 decl sha256= 53058c23075427647bf9e24052128cd4f7ad0340fa54763e3e75df25aeea482e
+generated header line (47): // Schema identity: sha256:6f6b48805aadcf14d456614d87bf1571eb1ce0d9aa0bc44f604e7976f4f85538
+generated contains ProjectionVersion = 47: true

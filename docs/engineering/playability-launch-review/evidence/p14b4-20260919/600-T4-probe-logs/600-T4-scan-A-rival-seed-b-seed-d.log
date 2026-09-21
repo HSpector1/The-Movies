@@ -1,0 +1,35 @@
+Mon Sep 21 16:07:33 UTC 2026
+23d59bdba9c963f68c93727d3d0575e303b4212d
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+stdout | tests/zz-600-t4-probe.test.ts > 600-T4 probe > A rival scan
+SEED seed-b: BOTH MET at w215
+  SLOT FIRST w215 studio-bc14baf6-r01 film=studio-bc14baf6-r01:film:23 lead=person-studio-bc14baf6-r01-4(actor,28.00) promise-8 LEAD_OR_SIGNIFICANT_ROLE_COUNT {"kind":"castRoleCount","count":1,"seatClass":"leadOrAntagonist"} window=[208,416)
+  GENUINE w215 studio-bc14baf6-r01 film=studio-bc14baf6-r01:film:23 lead=person-studio-bc14baf6-r01-4(actor,28.00) promise-8 LEAD_OR_SIGNIFICANT_ROLE_COUNT {"kind":"castRoleCount","count":1,"seatClass":"leadOrAntagonist"} window=[208,416)
+  SLOT FIRST w215 studio-bc14baf6-r01 film=studio-bc14baf6-r01:film:23 antagonist=person-studio-bc14baf6-r01-3(actor,48.35) promise-6 APPEARANCE_COUNT {"count":1} window=[208,416)
+  SLOT FIRST w215 studio-bc14baf6-r01 film=studio-bc14baf6-r01:film:23 support=person-studio-bc14baf6-r01-2(actor,28.00) promise-4 LEAD_OR_SIGNIFICANT_ROLE_COUNT {"kind":"castRoleCount","count":1,"seatClass":"leadOrAntagonist"} window=[208,416)
+  slot later w215 studio-bc14baf6-r02 film=studio-bc14baf6-r02:film:23 lead=person-studio-bc14baf6-r02-3(actor,63.13) promise-19 APPEARANCE_COUNT {"count":1} window=[208,416)
+  slot later w215 studio-bc14baf6-r02 film=studio-bc14baf6-r02:film:23 antagonist=person-studio-bc14baf6-r02-4(actor,41.63) promise-21 APPEARANCE_COUNT {"count":1} window=[208,416)
+  slot later w215 studio-bc14baf6-r02 film=studio-bc14baf6-r02:film:23 support=person-studio-bc14baf6-r02-2(actor,47.94) promise-17 APPEARANCE_COUNT {"count":1} window=[208,416)
+  BOTH MET at w215 (steps=215); slots ticks lead=w215 antagonist=w215 support=w215; slot films studio-bc14baf6-r01:film:23 (ONE film); genuine w215 studio-bc14baf6-r01:film:23 lead promise-8
+SEED seed-d: BOTH MET at w215
+  SLOT FIRST w215 studio-17a8b650-r01 film=studio-17a8b650-r01:film:23 lead=person-studio-17a8b650-r01-4(actor,51.04) promise-8 APPEARANCE_COUNT {"count":1} window=[208,416)
+  SLOT FIRST w215 studio-17a8b650-r01 film=studio-17a8b650-r01:film:23 antagonist=person-studio-17a8b650-r01-3(actor,42.83) promise-6 APPEARANCE_COUNT {"count":1} window=[208,416)
+  SLOT FIRST w215 studio-17a8b650-r01 film=studio-17a8b650-r01:film:23 support=person-studio-17a8b650-r01-2(actor,54.94) promise-4 APPEARANCE_COUNT {"count":1} window=[208,416)
+  slot later w215 studio-17a8b650-r02 film=studio-17a8b650-r02:film:23 lead=person-studio-17a8b650-r02-3(actor,47.14) promise-19 APPEARANCE_COUNT {"count":1} window=[208,416)
+  slot later w215 studio-17a8b650-r02 film=studio-17a8b650-r02:film:23 antagonist=person-studio-17a8b650-r02-2(actor,28.00) promise-17 LEAD_OR_SIGNIFICANT_ROLE_COUNT {"kind":"castRoleCount","count":1,"seatClass":"leadOrAntagonist"} window=[208,416)
+  GENUINE w215 studio-17a8b650-r02 film=studio-17a8b650-r02:film:23 antagonist=person-studio-17a8b650-r02-2(actor,28.00) promise-17 LEAD_OR_SIGNIFICANT_ROLE_COUNT {"kind":"castRoleCount","count":1,"seatClass":"leadOrAntagonist"} window=[208,416)
+  slot later w215 studio-17a8b650-r02 film=studio-17a8b650-r02:film:23 support=person-studio-17a8b650-r02-4(actor,28.00) promise-21 LEAD_OR_SIGNIFICANT_ROLE_COUNT {"kind":"castRoleCount","count":1,"seatClass":"leadOrAntagonist"} window=[208,416)
+  BOTH MET at w215 (steps=215); slots ticks lead=w215 antagonist=w215 support=w215; slot films studio-17a8b650-r01:film:23 (ONE film); genuine w215 studio-17a8b650-r02:film:23 antagonist promise-17
+
+ ✓ |core| tests/zz-600-t4-probe.test.ts (3 tests | 2 skipped) 6349ms
+   ✓ 600-T4 probe > A rival scan 6347ms
+
+ Test Files  1 passed (1)
+      Tests  1 passed | 2 skipped (3)
+   Start at  18:07:33
+   Duration  9.35s (transform 1.62s, setup 0ms, collect 2.36s, tests 6.35s, environment 0ms, prepare 127ms)
+
+EXIT=0
+Mon Sep 21 16:07:43 UTC 2026

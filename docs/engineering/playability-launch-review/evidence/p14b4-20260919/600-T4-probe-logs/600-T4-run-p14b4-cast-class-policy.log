@@ -1,0 +1,24 @@
+Mon Sep 21 16:13:56 UTC 2026
+23d59bdba9c963f68c93727d3d0575e303b4212d
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+stdout | tests/p14b4-cast-class-policy.test.ts > P14B4: natural rival policy uses the real shared service, never staged failed candidates > observes flexible-first, actual P1 fallback, proven P1, and a genuine zero-attachment refusal without extra RNG
+default seed w196 provenP1: studio-aca408ec-r01 -> person-studio-aca408ec-r01-0 reads APPEARANCE_COUNT=REASONABLY_ACHIEVABLE root promise-0
+default seed w196 flexibleP2: studio-aca408ec-r01 -> person-studio-aca408ec-r01-5 reads LEAD_OR_SIGNIFICANT_ROLE_COUNT=REASONABLY_ACHIEVABLE root promise-10
+default seed w196 neither: studio-aca408ec-r03 -> person-studio-aca408ec-r01-5 reads LEAD_OR_SIGNIFICANT_ROLE_COUNT=FRAGILE:needs a picture not yet commissioned, APPEARANCE_COUNT=FRAGILE:needs a picture not yet commissioned
+seed-b w196 P1fallback: studio-bc14baf6-r03 -> person-studio-bc14baf6-r03-4 reads LEAD_OR_SIGNIFICANT_ROLE_COUNT=FRAGILE:needs a picture not yet commissioned, APPEARANCE_COUNT=REASONABLY_ACHIEVABLE root promise-36
+
+ ✓ |core| tests/p14b4-cast-class-policy.test.ts (7 tests) 65640ms
+   ✓ P14B4: one shared public archetype; no new personality or priority-position inference > a real under-30 release credit supplies the proven branch independently of the age edge 730ms
+   ✓ P14B4: all six D3 class matches through real two-survivor settlements > age 29: mismatch changes only D3, never proposal legality 4603ms
+   ✓ P14B4: all six D3 class matches through real two-survivor settlements > age 30: mismatch changes only D3, never proposal legality 3740ms
+   ✓ P14B4: natural rival policy uses the real shared service, never staged failed candidates > observes flexible-first, actual P1 fallback, proven P1, and a genuine zero-attachment refusal without extra RNG 56322ms
+
+ Test Files  1 passed (1)
+      Tests  7 passed (7)
+   Start at  18:13:56
+   Duration  68.37s (transform 1.42s, setup 0ms, collect 2.09s, tests 65.64s, environment 0ms, prepare 180ms)
+
+EXIT=0
+Mon Sep 21 16:15:05 UTC 2026

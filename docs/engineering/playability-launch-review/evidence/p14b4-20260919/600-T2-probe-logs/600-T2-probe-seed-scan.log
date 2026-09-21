@@ -1,0 +1,28 @@
+Mon Sep 21 14:30:56 UTC 2026
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+stdout | tests/zz-600-t2-probe.test.ts > seed scan
+SEED p13a-core-causal-01: unproven authoring reads=9 flexibleP2=6 neither=3 P1fallback=0 [] | genuine tagged bound lead/antagonist at shooting entry (≤350): NONE
+SEED p13-public-commercial-adoption: unproven authoring reads=4 flexibleP2=2 neither=2 P1fallback=0 [] | genuine tagged bound lead/antagonist at shooting entry (≤350): NONE
+SEED seed-a: unproven authoring reads=9 flexibleP2=6 neither=3 P1fallback=0 [] | genuine tagged bound lead/antagonist at shooting entry (≤350): NONE
+SEED seed-b: unproven authoring reads=12 flexibleP2=6 neither=5 P1fallback=1 [["w196 studio-bc14baf6-r03->person-studio-bc14baf6-r03-4",{"role":"actor","age":28,"flex":"FRAGILE:needs a picture not yet commissioned","p1":"REASONABLY_ACHIEVABLE:"}]] | genuine tagged bound lead/antagonist at shooting entry (≤350): w215 studio-bc14baf6-r01 film=studio-bc14baf6-r01:film:23 lead=person-studio-bc14baf6-r01-4 promise-8
+SEED seed-c: unproven authoring reads=8 flexibleP2=4 neither=3 P1fallback=1 [["w196 studio-a72efa70-r03->person-studio-a72efa70-r03-3",{"role":"actor","age":28,"flex":"FRAGILE:needs a picture not yet commissioned","p1":"REASONABLY_ACHIEVABLE:"}]] | genuine tagged bound lead/antagonist at shooting entry (≤350): NONE
+SEED seed-d: unproven authoring reads=20 flexibleP2=10 neither=10 P1fallback=0 [] | genuine tagged bound lead/antagonist at shooting entry (≤350): w215 studio-17a8b650-r02 film=studio-17a8b650-r02:film:23 antagonist=person-studio-17a8b650-r02-2 promise-17
+SEED seed-e: unproven authoring reads=4 flexibleP2=2 neither=2 P1fallback=0 [] | genuine tagged bound lead/antagonist at shooting entry (≤350): NONE
+SEED seed-f: unproven authoring reads=12 flexibleP2=6 neither=6 P1fallback=0 [] | genuine tagged bound lead/antagonist at shooting entry (≤350): NONE
+SEED seed-g: unproven authoring reads=6 flexibleP2=4 neither=2 P1fallback=0 [] | genuine tagged bound lead/antagonist at shooting entry (≤350): NONE
+SEED seed-h: unproven authoring reads=12 flexibleP2=8 neither=4 P1fallback=0 [] | genuine tagged bound lead/antagonist at shooting entry (≤350): NONE
+SEED seed-i: unproven authoring reads=6 flexibleP2=6 neither=0 P1fallback=0 [] | genuine tagged bound lead/antagonist at shooting entry (≤350): NONE
+SEED seed-j: unproven authoring reads=12 flexibleP2=7 neither=5 P1fallback=0 [] | genuine tagged bound lead/antagonist at shooting entry (≤350): NONE
+
+ ✓ |core| tests/zz-600-t2-probe.test.ts (1 test) 51372ms
+   ✓ seed scan 51370ms
+
+ Test Files  1 passed (1)
+      Tests  1 passed (1)
+   Start at  16:30:56
+   Duration  53.69s (transform 1.29s, setup 0ms, collect 1.76s, tests 51.37s, environment 0ms, prepare 90ms)
+
+EXIT=0
+Mon Sep 21 14:31:50 UTC 2026

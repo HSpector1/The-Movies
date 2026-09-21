@@ -1,0 +1,23 @@
+digests equal: true 482c6231b42184fb2feb6258f1127ee8dd66a9fa24eb3f8244018ca032397434
+firstPurchase landed {"weekBefore":520,"weekAfter":521,"rows":[{"id":"studio-5a47d054-r05:sound-adoption:0","studioId":"studio-5a47d054-r05","technologyId":"synchronized-sound","stageFacilityId":"studio-5a47d054-r05:stage","postFacilityId":"studio-5a47d054-r05:post","route":"purchase","committedWeek":520,"operationalWeek":null,"cancelledWeek":null,"equipmentCost":300000,"installationCost":975000,"physicalProjectIds":[],"prototypeProjectId":null,"components":[{"kind":"access","label":"Synchronized sound access","cost":0,"weeks":null,"source":"existing","placementId":null,"equipmentAssetId":null},{"kind":"equipment","label":"Synchronized sound equipment set at the commercial price","cost":300000,"weeks":null,"source":"commercial","placementId":null,"equipmentAssetId":"studio-5a47d054-r05:equipment:1"},{"kind":"installation","label":"Synchronized sound installation","cost":975000,"weeks":12,"source":"physical","placementId":null,"equipmentAssetId":null}],"equipmentAssetId":"studio-5a47d054-r05:equipment:1"}]}
+firstPurchase preseam {"weekBefore":520,"weekAfter":521,"rows":[{"id":"studio-5a47d054-r05:sound-adoption:0","studioId":"studio-5a47d054-r05","technologyId":"synchronized-sound","stageFacilityId":"studio-5a47d054-r05:stage","postFacilityId":"studio-5a47d054-r05:post","route":"purchase","committedWeek":520,"operationalWeek":null,"cancelledWeek":null,"equipmentCost":300000,"installationCost":975000,"physicalProjectIds":[],"prototypeProjectId":null,"components":[{"kind":"access","label":"Synchronized sound access","cost":0,"weeks":null,"source":"existing","placementId":null,"equipmentAssetId":null},{"kind":"equipment","label":"Synchronized sound equipment set at the commercial price","cost":300000,"weeks":null,"source":"commercial","placementId":null,"equipmentAssetId":"studio-5a47d054-r05:equipment:1"},{"kind":"installation","label":"Synchronized sound installation","cost":975000,"weeks":12,"source":"physical","placementId":null,"equipmentAssetId":null}],"equipmentAssetId":"studio-5a47d054-r05:equipment:1"}]}
+cash404 equal: true [["studio-5a47d054-r01",52653177],["studio-5a47d054-r02",6531315],["studio-5a47d054-r03",-14729050],["studio-5a47d054-r04",-8933725]]
+cash416 equal: true [["studio-5a47d054-r01",52012563],["studio-5a47d054-r02",3900619],["studio-5a47d054-r03",-16239214],["studio-5a47d054-r04",-10127665]]
+notOk rows landed: 408 studio-5a47d054-r02 ambiguous=promise-13,promise-15,promise-23 members=0 chosen=null
+408 studio-5a47d054-r02 ambiguous=promise-13,promise-15,promise-23 members=0 chosen=null
+409 studio-5a47d054-r02 ambiguous=promise-13,promise-15,promise-23 members=0 chosen=null
+409 studio-5a47d054-r02 ambiguous=promise-13,promise-15,promise-23 members=0 chosen=null
+410 studio-5a47d054-r02 ambiguous=promise-13,promise-15,promise-23 members=0 chosen=null
+410 studio-5a47d054-r02 ambiguous=promise-13,promise-15,promise-23 members=0 chosen=null
+411 studio-5a47d054-r02 ambiguous=promise-13,promise-15,promise-23 members=0 chosen=null
+411 studio-5a47d054-r02 ambiguous=promise-13,promise-15,promise-23 members=0 chosen=null
+412 studio-5a47d054-r01 ambiguous=promise-0,promise-2,promise-10 members=0 chosen=5a47d054-r01-3/5a47d054-r01-2/5a47d054-r01-4
+412 studio-5a47d054-r02 ambiguous=promise-13,promise-15,promise-23 members=0 chosen=null
+412 studio-5a47d054-r02 ambiguous=promise-13,promise-15,promise-23 members=0 chosen=null
+413 studio-5a47d054-r02 ambiguous=promise-13,promise-15,promise-23 members=0 chosen=null
+413 studio-5a47d054-r02 ambiguous=promise-13,promise-15,promise-23 members=0 chosen=null
+414 studio-5a47d054-r02 ambiguous=promise-13,promise-15,promise-23 members=0 chosen=null
+414 studio-5a47d054-r02 ambiguous=promise-13,promise-15,promise-23 members=0 chosen=null
+all notOk are ambiguous-only: true
+members>0 rows landed 415 hasMasks 421 chosen non-null among member rows 48
+rows with member in pool 230

@@ -1,0 +1,240 @@
+landed rows 1015 preseam rows 1014
+landed digest 2aec0184c3301f1e174fe9843a0b076258fdc9de9683424cb064a5d777382610
+preseam digest dba473b9bc13816e1b4cb1ed04f53f669912384179c5c73d0b23eeb64ed65489
+only landed [
+  '208|studio-aca408ec-r01|studio-aca408ec-r01:package:script-0011',
+  '217|studio-aca408ec-r01|studio-aca408ec-r01:package:script-0006'
+]
+only preseam [ '217|studio-aca408ec-r01|studio-aca408ec-r01:package:script-0011' ]
+moved rows (tuple differs) 289
+studio-aca408ec-r01 {
+  n: 5,
+  weekRange: [ 208, 264 ],
+  pool: 1,
+  chosen: 1,
+  budget: 5,
+  poolsLanded: [
+    '["person-studio-aca408ec-r02-0","person-studio-aca408ec-r02-2","person-studio-aca408ec-r02-3"]',
+    '["person-studio-aca408ec-r02-2","person-studio-aca408ec-r02-3","person-studio-aca408ec-r02-4"]'
+  ],
+  poolsPre: [
+    '["person-studio-aca408ec-r02-2","person-studio-aca408ec-r02-3","person-studio-aca408ec-r02-4"]'
+  ],
+  chosenLanded: [ null, 'aca408ec-r02-4/aca408ec-r02-3/aca408ec-r02-2' ],
+  chosenPre: [ 'aca408ec-r02-4/aca408ec-r02-3/aca408ec-r02-2' ]
+}
+studio-aca408ec-r02 {
+  n: 284,
+  weekRange: [ 208, 349 ],
+  pool: 284,
+  chosen: 0,
+  budget: 0,
+  poolsLanded: [
+    '["person-studio-aca408ec-r01-0","person-studio-aca408ec-r01-2","person-studio-aca408ec-r01-3"]'
+  ],
+  poolsPre: [
+    '["person-studio-aca408ec-r01-2","person-studio-aca408ec-r01-3","person-studio-aca408ec-r01-4"]'
+  ],
+  chosenLanded: [ null ],
+  chosenPre: [ null ]
+}
+first moved {
+  k: '208|studio-aca408ec-r01|studio-aca408ec-r01:package:script-0006',
+  landed: {
+    pool: [
+      'person-studio-aca408ec-r02-0',
+      'person-studio-aca408ec-r02-2',
+      'person-studio-aca408ec-r02-3'
+    ],
+    poolRoles: [ 'writer', 'actor', 'actor' ],
+    chosen: null,
+    budget: null,
+    members: [
+      'person-studio-aca408ec-r02-0:lead|antagonist|support:promise-12',
+      'person-studio-aca408ec-r02-1:lead|antagonist|support:promise-14',
+      'person-studio-aca408ec-r02-2:lead|antagonist|support:promise-16',
+      'person-studio-aca408ec-r02-3:lead|antagonist|support:promise-18',
+      'person-studio-aca408ec-r02-4:lead|antagonist|support:promise-20',
+      'person-studio-aca408ec-r02-5:lead|antagonist|support:promise-22'
+    ],
+    ok: true,
+    law: 'null',
+    ordinary: 'null',
+    filmId: null,
+    filmCrew: null,
+    hasMasks: true,
+    optionKeys: [
+      'seed',
+      'key',
+      'cashAvailable',
+      'weeklyCost',
+      'lockScreenplay',
+      'promisedMasks'
+    ],
+    firstThree: [
+      'person-studio-aca408ec-r02-2',
+      'person-studio-aca408ec-r02-3',
+      'person-studio-aca408ec-r02-4'
+    ]
+  },
+  preseam: {
+    pool: [
+      'person-studio-aca408ec-r02-2',
+      'person-studio-aca408ec-r02-3',
+      'person-studio-aca408ec-r02-4'
+    ],
+    chosen: 'aca408ec-r02-4/aca408ec-r02-3/aca408ec-r02-2',
+    budget: { negative: 2647083, marketing: 573000 },
+    members: [
+      'person-studio-aca408ec-r02-0:lead|antagonist|support:promise-12',
+      'person-studio-aca408ec-r02-1:lead|antagonist|support:promise-14',
+      'person-studio-aca408ec-r02-2:lead|antagonist|support:promise-16',
+      'person-studio-aca408ec-r02-3:lead|antagonist|support:promise-18',
+      'person-studio-aca408ec-r02-4:lead|antagonist|support:promise-20',
+      'person-studio-aca408ec-r02-5:lead|antagonist|support:promise-22'
+    ],
+    ok: true,
+    filmId: 'studio-aca408ec-r01:film:6'
+  }
+}
+all pre-w208 rows identical: true
+landed rows with chosen moved: [
+  {
+    k: '208|studio-aca408ec-r01|studio-aca408ec-r01:package:script-0006',
+    landed: null,
+    pre: 'aca408ec-r02-4/aca408ec-r02-3/aca408ec-r02-2',
+    landedFilm: null,
+    preFilm: 'studio-aca408ec-r01:film:6'
+  }
+]
+landed rows with budget moved but chosen same: [
+  {
+    k: '229|studio-aca408ec-r01|studio-aca408ec-r01:package:script-0012',
+    landed: { negative: 3597754, marketing: 1150147 },
+    pre: { negative: 3597754, marketing: 1154288 },
+    filmL: 'studio-aca408ec-r01:film:12',
+    filmP: 'studio-aca408ec-r01:film:12'
+  },
+  {
+    k: '242|studio-aca408ec-r01|studio-aca408ec-r01:package:script-0013',
+    landed: { negative: 3696112, marketing: 1162611 },
+    pre: { negative: 3696112, marketing: 1167103 },
+    filmL: 'studio-aca408ec-r01:film:13',
+    filmP: 'studio-aca408ec-r01:film:13'
+  },
+  {
+    k: '255|studio-aca408ec-r01|studio-aca408ec-r01:package:script-0014',
+    landed: { negative: 2567608, marketing: 522477 },
+    pre: { negative: 2567608, marketing: 524949 },
+    filmL: 'studio-aca408ec-r01:film:14',
+    filmP: 'studio-aca408ec-r01:film:14'
+  },
+  {
+    k: '264|studio-aca408ec-r01|studio-aca408ec-r01:package:script-0015',
+    landed: { negative: 1479726, marketing: 501787 },
+    pre: { negative: 1561932, marketing: 493348 },
+    filmL: 'studio-aca408ec-r01:film:15',
+    filmP: 'studio-aca408ec-r01:film:15'
+  }
+]
+only-landed rows: [
+  {
+    k: '208|studio-aca408ec-r01|studio-aca408ec-r01:package:script-0011',
+    pool: [
+      'person-studio-aca408ec-r02-0',
+      'person-studio-aca408ec-r02-2',
+      'person-studio-aca408ec-r02-3'
+    ],
+    poolRoles: [ 'writer', 'actor', 'actor' ],
+    chosen: 'aca408ec-r02-3/aca408ec-r02-2/aca408ec-r02-0',
+    budget: { negative: 3033668, marketing: 594746 },
+    members: [
+      'person-studio-aca408ec-r02-0:lead|antagonist|support:promise-12',
+      'person-studio-aca408ec-r02-1:lead|antagonist|support:promise-14',
+      'person-studio-aca408ec-r02-2:lead|antagonist|support:promise-16',
+      'person-studio-aca408ec-r02-3:lead|antagonist|support:promise-18',
+      'person-studio-aca408ec-r02-4:lead|antagonist|support:promise-20',
+      'person-studio-aca408ec-r02-5:lead|antagonist|support:promise-22'
+    ],
+    ok: true,
+    law: 'aca408ec-r02-3/aca408ec-r02-2/aca408ec-r02-0#3@-1366501',
+    filmId: 'studio-aca408ec-r01:film:11',
+    filmCrew: {
+      writerId: 'person-studio-aca408ec-r01-0',
+      directorId: 'person-studio-aca408ec-r02-1',
+      craftIds: [Array]
+    }
+  },
+  {
+    k: '217|studio-aca408ec-r01|studio-aca408ec-r01:package:script-0006',
+    pool: [
+      'person-studio-aca408ec-r02-4',
+      'person-studio-aca408ec-r02-2',
+      'person-studio-aca408ec-r02-3'
+    ],
+    poolRoles: [ 'actor', 'actor', 'actor' ],
+    chosen: 'aca408ec-r02-4/aca408ec-r02-3/aca408ec-r02-2',
+    budget: { negative: 2647083, marketing: 556994 },
+    members: [
+      'person-studio-aca408ec-r02-1:lead|antagonist|support:promise-14',
+      'person-studio-aca408ec-r02-4:lead|antagonist|support:promise-20',
+      'person-studio-aca408ec-r02-5:lead|antagonist|support:promise-22'
+    ],
+    ok: true,
+    law: 'aca408ec-r02-4/aca408ec-r02-3/aca408ec-r02-2#1@-1453905',
+    filmId: 'studio-aca408ec-r01:film:6',
+    filmCrew: {
+      writerId: 'person-studio-aca408ec-r01-0',
+      directorId: 'person-studio-aca408ec-r02-1',
+      craftIds: [Array]
+    }
+  }
+]
+only-preseam rows: [
+  {
+    k: '217|studio-aca408ec-r01|studio-aca408ec-r01:package:script-0011',
+    pool: [
+      'person-studio-aca408ec-r02-2',
+      'person-studio-aca408ec-r02-3',
+      'person-studio-aca408ec-r02-4'
+    ],
+    chosen: 'aca408ec-r02-3/aca408ec-r02-2/aca408ec-r02-4',
+    budget: { negative: 3033668, marketing: 581631 },
+    members: [
+      'person-studio-aca408ec-r02-0:lead|antagonist|support:promise-12',
+      'person-studio-aca408ec-r02-1:lead|antagonist|support:promise-14',
+      'person-studio-aca408ec-r02-5:lead|antagonist|support:promise-22'
+    ],
+    ok: true,
+    filmId: 'studio-aca408ec-r01:film:11',
+    filmCrew: {
+      writerId: 'person-studio-aca408ec-r01-0',
+      directorId: 'person-studio-aca408ec-r02-1',
+      craftIds: [Array]
+    }
+  }
+]
+landed notOk 0 landed rows w/ non-actor in pool [
+  '208 studio-aca408ec-r01 writer,actor,actor',
+  '208 studio-aca408ec-r01 writer,actor,actor',
+  '208 studio-aca408ec-r02 writer,actor,actor',
+  '208 studio-aca408ec-r02 writer,actor,actor',
+  '209 studio-aca408ec-r02 writer,actor,actor'
+] ... total 286
+landed hasMasks rows 291 members>0 rows 291 preseam hasMasks rows 0
+r01 landed pictures after 208: [
+  '208 studio-aca408ec-r01:package:script-0011 aca408ec-r02-3/aca408ec-r02-2/aca408ec-r02-0 {"negative":3033668,"marketing":594746} studio-aca408ec-r01:film:11 members=6 pool=r02-0,r02-2,r02-3',
+  '217 studio-aca408ec-r01:package:script-0006 aca408ec-r02-4/aca408ec-r02-3/aca408ec-r02-2 {"negative":2647083,"marketing":556994} studio-aca408ec-r01:film:6 members=3 pool=r02-4,r02-2,r02-3',
+  '229 studio-aca408ec-r01:package:script-0012 aca408ec-r02-4/aca408ec-r02-3/aca408ec-r02-2 {"negative":3597754,"marketing":1150147} studio-aca408ec-r01:film:12 members=2 pool=r02-2,r02-3,r02-4',
+  '242 studio-aca408ec-r01:package:script-0013 aca408ec-r02-4/aca408ec-r02-3/aca408ec-r02-2 {"negative":3696112,"marketing":1162611} studio-aca408ec-r01:film:13 members=2 pool=r02-2,r02-3,r02-4',
+  '255 studio-aca408ec-r01:package:script-0014 aca408ec-r02-4/aca408ec-r02-3/aca408ec-r02-2 {"negative":2567608,"marketing":522477} studio-aca408ec-r01:film:14 members=2 pool=r02-2,r02-3,r02-4',
+  '264 studio-aca408ec-r01:package:script-0015 aca408ec-r02-4/aca408ec-r02-3/aca408ec-r02-2 {"negative":1479726,"marketing":501787} studio-aca408ec-r01:film:15 members=2 pool=r02-2,r02-3,r02-4'
+]
+r01 preseam pictures after 208: [
+  '208 studio-aca408ec-r01:package:script-0006 aca408ec-r02-4/aca408ec-r02-3/aca408ec-r02-2 {"negative":2647083,"marketing":573000} studio-aca408ec-r01:film:6 members=6 pool=r02-2,r02-3,r02-4',
+  '217 studio-aca408ec-r01:package:script-0011 aca408ec-r02-3/aca408ec-r02-2/aca408ec-r02-4 {"negative":3033668,"marketing":581631} studio-aca408ec-r01:film:11 members=3 pool=r02-2,r02-3,r02-4',
+  '229 studio-aca408ec-r01:package:script-0012 aca408ec-r02-4/aca408ec-r02-3/aca408ec-r02-2 {"negative":3597754,"marketing":1154288} studio-aca408ec-r01:film:12 members=3 pool=r02-2,r02-3,r02-4',
+  '242 studio-aca408ec-r01:package:script-0013 aca408ec-r02-4/aca408ec-r02-3/aca408ec-r02-2 {"negative":3696112,"marketing":1167103} studio-aca408ec-r01:film:13 members=3 pool=r02-2,r02-3,r02-4',
+  '255 studio-aca408ec-r01:package:script-0014 aca408ec-r02-4/aca408ec-r02-3/aca408ec-r02-2 {"negative":2567608,"marketing":524949} studio-aca408ec-r01:film:14 members=3 pool=r02-2,r02-3,r02-4',
+  '264 studio-aca408ec-r01:package:script-0015 aca408ec-r02-4/aca408ec-r02-3/aca408ec-r02-2 {"negative":1561932,"marketing":493348} studio-aca408ec-r01:film:15 members=3 pool=r02-2,r02-3,r02-4'
+]

@@ -1,0 +1,356 @@
+Mon Sep 21 13:59:47 UTC 2026
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19A — the one-writer pipeline never deadlocks > greenlights Ready screenplay A while its credited writer is actively drafting B
+[P04A.2 WITNESS] §19A quote availability (A ready, writer drafting B): {
+  "writerAvailable": true,
+  "knownGatesClear": true,
+  "canSubmitGreenlightIntent": true,
+  "blockers": []
+}
+[P04A.2 WITNESS] §19A single writing assignment after greenlight: {"talentId":"t-wri-02","projectId":"script-0001","status":"drafting","title":"The Restless Sanctuary","label":"Drafting The Restless Sanctuary"}
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19A — the one-writer pipeline never deadlocks > HOSTILE REVIEWER: the credited writer is NOT busy after greenlight, all five seats ARE
+[P04A.2 WITNESS] §19A busy set after greenlight: {"busy":["t-act-01","t-act-09","t-act-21","t-cra-06","t-dir-02"],"creditedWriter":"t-wri-02","writerBusy":false}
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19A — the one-writer pipeline never deadlocks > HOSTILE REVIEWER: the released film record still carries the exact writer talentId
+[P04A.2 WITNESS] §19A released-film writer credit: {"talentId":"t-wri-02","name":"Roland Ashcombe","role":"writer","discipline":"writing","greenlightOVR":77,"greenlightFit":72,"greenlightEP":{"low":67.7800661551918,"high":97.7682901551918,"expected":82.7741781551918},"freelancer":false}
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19B — writing exclusivity is unchanged > the same writer CANNOT draft A and B simultaneously
+[P04A.2 WITNESS] §19B draft-while-drafting refusal: applyActions: commissionScript rejected — writer "t-wri-02" already has an active assignment
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19B — writing exclusivity is unchanged > the same writer CANNOT draft one screenplay and rewrite another
+[P04A.2 WITNESS] §19B rewrite-while-drafting refusal: applyActions: requestScriptRewrite rejected — writer "t-wri-08" already has an active assignment
+[P04A.2 WITNESS] §19B rewrite blockers (writer drafting elsewhere): {"kinds":["writer-assignment"],"legalActions":["acceptScript"]}
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19B — writing exclusivity is unchanged > the same writer CANNOT rewrite two screenplays simultaneously
+[P04A.2 WITNESS] §19B rewrite-while-rewriting refusal: applyActions: requestScriptRewrite rejected — writer "t-wri-08" already has an active assignment
+[P04A.2 WITNESS] §19B draft-while-rewriting refusal: applyActions: commissionScript rejected — writer "t-wri-08" already has an active assignment
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19C — production exclusivity for the five real seats is unweakened > refuses a second greenlight that reuses picture A's director
+[P04A.2 WITNESS] §19C director exclusivity refusal: applyActions: greenlight talent "t-dir-02" is already engaged in an active production (exclusivity, M16)
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19C — production exclusivity for the five real seats is unweakened > refuses a second greenlight that reuses picture A's cast.lead
+[P04A.2 WITNESS] §19C cast.lead exclusivity refusal: applyActions: greenlight talent "t-act-01" is already engaged in an active production (exclusivity, M16)
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19C — production exclusivity for the five real seats is unweakened > refuses a second greenlight that reuses picture A's cast.antagonist
+[P04A.2 WITNESS] §19C cast.antagonist exclusivity refusal: applyActions: greenlight talent "t-act-09" is already engaged in an active production (exclusivity, M16)
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19C — production exclusivity for the five real seats is unweakened > refuses a second greenlight that reuses picture A's cast.support
+[P04A.2 WITNESS] §19C cast.support exclusivity refusal: applyActions: greenlight talent "t-act-14" is already engaged in an active production (exclusivity, M16)
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19C — production exclusivity for the five real seats is unweakened > refuses a second greenlight that reuses picture A's craft
+[P04A.2 WITNESS] §19C craft exclusivity refusal: applyActions: greenlight talent "t-cra-07" is already engaged in an active production (exclusivity, M16)
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19C — production exclusivity for the five real seats is unweakened > CONTROL: the fully disjoint second package IS legal (the five refusals are about the seats, not the world)
+[P04A.2 WITNESS] §19C one writer credited on two live pictures, busy on neither: {"writerId":"t-wri-07","credited":["t-wri-07"],"busy":false}
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19D — the credited writer holds no production presence claim > projects the writer at Development for the screenplay they are DRAFTING, never into the picture they merely wrote
+[P04A.2 WITNESS] §19D presence (A in production, writer drafting B): {"talentId":"t-wri-02","name":"Roland Ashcombe","role":"writer","engagement":"script","credit":"writer","ownerId":"script-0001","site":"facility-development-casting","slot":0,"beats":["home","home","travel","at-site","at-site","at-site","at-site","at-site","at-site","home"],"blockedReason":null}
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19D — the credited writer holds no production presence claim > never puts the credited writer on the soundstage in rehearsal or shooting
+[P04A.2 WITNESS] §19D writer presence across every phase of the picture they wrote: [{"phase":"development","engagement":"script","site":"facility-development-casting"},{"phase":"preProduction","engagement":"roster","site":"facility-development-casting"},{"phase":"rehearsal","engagement":"roster","site":"facility-development-casting"},{"phase":"shooting","engagement":"roster","site":"facility-development-casting"},{"phase":"postProduction","engagement":"roster","site":"facility-development-casting"}]
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19E — the quote projections publish no writer-busy blocker for a CREDIT > both greenlight readiness projections are clear, and name the exact writer id
+[P04A.2 WITNESS] §19E scriptReadModel package availability: {
+  "writerId": "t-wri-02",
+  "writerAvailable": true,
+  "knownGatesClear": true,
+  "canSubmitGreenlightIntent": true,
+  "blockers": []
+}
+[P04A.2 WITNESS] §19E castingPackageReadModel readiness: {"knownGatesClear":true,"willQueue":false,"blockers":[]}
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19E — the quote projections publish no writer-busy blocker for a CREDIT > a REFUSED greenlight command mutates nothing at all
+[P04A.2 WITNESS] §19E refused greenlight (no partial mutation): applyActions: greenlight assigns the same actor to more than one cast slot (t-act-01, t-act-01, t-act-21)
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19F — the queued greenlight path is unchanged and still truthful > a capacity refusal still QUEUES a greenlight whose credited writer is mid-draft
+[P04A.2 WITNESS] §19F queue admission while the credited writer drafts: {"kind":"greenlightScriptProject","ordinal":0,"queuedWeek":2,"writerDrafting":true}
+[P04A.2 WITNESS] §19F dequeue while still slot-starved: {"outcome":"waiting","capacity":0,"namedRefusal":"QueueableCapacityRefusal"}
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19F — the queued greenlight path is unchanged and still truthful > the queued greenlight later executes correctly, preserving the exact writer credit
+[P04A.2 WITNESS] §19F queue drained: {"remaining":0,"productions":[{"projectId":"prod-0002","writerId":"t-wri-06"},{"projectId":"prod-0005","writerId":"t-wri-06"}]}
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19G — the split needs no save migration and survives reload > keeps saveVersion at 16 and round-trips film credit + live writing assignment together
+[P04A.2 WITNESS] §19G saveVersion: {"saveVersion":30}
+[P04A.2 WITNESS] §19G both facts after reload: {"creditedOn":"prod-0001","draftingProject":"script-0001","busy":true}
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19H — an out-of-contract credited writer: the exact current limitation > publishes no writer blocker, and the greenlight succeeds at the ENGINE layer too
+[P04A.3 WITNESS] §19H projection blockers for an out-of-contract credited writer: []
+[P04A.3 WITNESS] §19H out-of-contract greenlight now succeeds at the engine layer: {"activeProductions":1}
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19H — an out-of-contract credited writer: the exact current limitation > the CREDIT itself survives the contract ending mid-production
+[P04A.2 WITNESS] §19H credit survives contract expiry: {"writerId":"t-wri-02","contracted":false,"creditedOn":"prod-0001"}
+[P04A.2 WITNESS] §19H released-film credit for an off-lot writer: {"talentId":"t-wri-02","name":"Roland Ashcombe","role":"writer","discipline":"writing","greenlightOVR":77,"greenlightFit":72,"greenlightEP":{"low":67.7800661551918,"high":97.7682901551918,"expected":82.7741781551918},"freelancer":false}
+
+ ✓ |core| tests/p04a2-writer-credit-law.test.ts (22 tests) 2221ms
+   ✓ P04A.2 §19E — the quote projections publish no writer-busy blocker for a CREDIT > a REFUSED greenlight command mutates nothing at all 517ms
+   ✓ P04A.2 §19G — the split needs no save migration and survives reload > keeps saveVersion at 16 and round-trips film credit + live writing assignment together 445ms
+ ✓ |core| tests/film-chronicle.test.ts (28 tests) 737ms
+   ✓ Film Chronicle V1 — SaveFileV11 durability > reconstructs a deep-equal Chronicle after an exact V11 export/import round-trip 624ms
+ ✓ |core| tests/facility-move-demolish.test.ts (30 tests) 5002ms
+   ✓ C1-M3a (A) — every persisted holder of a facility blocks both verbs > finds a screenplay reservation, on the RESERVATION and not the status 1920ms
+   ✓ C1-M3a (A) — every persisted holder of a facility blocks both verbs > finds a casting-session reservation 515ms
+   ✓ C1-M3a (A) — every persisted holder of a facility blocks both verbs > reports an idle facility as engaged by nothing, and is deterministic 492ms
+   ✓ C1-M3a (A) — every persisted holder of a facility blocks both verbs > REFUSES both verbs while the facility is engaged, and changes nothing 360ms
+   ✓ C1-M3a (F) — saves, boundaries, and determinism > round-trips a history containing both a move and a demolition 491ms
+ ✓ |core| tests/construction-core.test.ts (12 tests) 6914ms
+   ✓ Development & Casting Annex V1 core lifecycle > completes on exactly the thirteenth advance from a nonzero start with no recurring charge or RNG draw 1873ms
+   ✓ Development & Casting Annex V1 core lifecycle > does not reallocate completing-advance productions into the Annex, then exposes it immediately 892ms
+   ✓ Development & Casting Annex V1 core lifecycle > uses the authoritative greenlight debit to reject skip-first start-clock laundering 582ms
+   ✓ Development & Casting Annex V1 core lifecycle > allows a production started after completion to claim the Annex under normal allocation 1143ms
+   ✓ Development & Casting Annex V1 core lifecycle > accepts only the exact Annex V1 facility set and detects cross-owner collisions 1077ms
+ ✓ |core| tests/property-state-v13.test.ts (24 tests) 13833ms
+   ✓ C1-M1a (a) — the property IS the constants, in a new representation > decides every query verdict from state exactly as the constants decided it 2334ms
+   ✓ C1-M1a (a) — the property IS the constants, in a new representation > keeps the severance walk verdict-identical with structures in the obstacle set 2365ms
+   ✓ C1-M1a (a) — the property IS the constants, in a new representation > plays a migrated V12 world byte-identically to a native V13 world for 30+ weeks 799ms
+   ✓ C1-M1a (b) — nothing assumes eight structures or a small placement count > carries twelve-plus placed facilities through invariants, completion, opex, and save 1506ms
+   ✓ C1-M1a (b) — nothing assumes eight structures or a small placement count > carries far more than twelve when the property has room for them 4380ms
+   ✓ C1-M1a (d) — SaveFileV13 > writes V13 by default and round-trips every lifecycle state byte-identically 938ms
+ ✓ |core| tests/d11-employment.test.ts (36 tests) 13425ms
+   ✓ D-11.2 — starting applicant draft > no guaranteed superstar: across many seeds, some drafts have no 90+ OVR actor 549ms
+   ✓ D-11 — contracts & offers > payroll accrues each week; the ledger reconciles after several weeks 1216ms
+   ✓ D-11.8 — expiration > a contract expires at term end and the talent becomes a free agent 4087ms
+   ✓ D-11.7 — renewals > renewing inside the window is refused as underMarketCase and redirected to the proposal path (P14A §2.1.3 / R6) 2650ms
+   ✓ D-11.14 — deterministic markets > the market rotates across epochs (different listings over a full rotation) 623ms
+   ✓ D-11 — determinism & live saves > new games save at the live version and round-trip byte-identically 468ms
+   ✓ D-11 — determinism & live saves > no duplicate payroll after reload (reload ≡ continuous run) 2118ms
+   ✓ D-11 — determinism & live saves > two same-seed founded+advanced runs are byte-identical (deterministic offers/markets) 992ms
+ ✓ |core| tests/d17-engagement-persistence.test.ts (30 tests) 4136ms
+   ✓ D-17A/R2: economyEngagedEver is seeded false and set only by founding / signing > a headless run NEVER engages, however many films it releases 1218ms
+   ✓ D-17A/R2: convertV5ToV6 reconstructs the fact correctly for every save class > never-engaged headless WITH releases → false (production/boxOffice are excluded) 1099ms
+   ✓ D-17A/R2: convertV5ToV6 reconstructs the fact correctly for every save class > legacy V3-migrated never-engaged (economyModelVersion 0 runs) → false 636ms
+ ✓ |core| tests/ruling-a-development-in-play.test.ts (18 tests) 2039ms
+   ✓ RULING A — development survives save round-trips without duplication > export→import preserves the developed talent exactly (no re-development on load) 363ms
+ ✓ |core| tests/placement-save-v12.test.ts (20 tests) 5960ms
+   ✓ Placement Core V12 — the frozen envelope > writes V12 explicitly and round-trips every lifecycle state byte-identically 1587ms
+   ✓ Placement Core V12 — the frozen envelope > rejects a malformed placement root structurally, before any domain rule 406ms
+   ✓ Placement Core V12 — the frozen envelope > rejects a semantically forged placement root 509ms
+   ✓ Placement Core V12 — historical boundary guards (law 19) > keeps the V11 validator rules exactly as they were 548ms
+   ✓ Placement Core V12 — the V11 → V12 migration > gives a managed VACANT world the empty managed root and a free parcel 521ms
+   ✓ Placement Core V12 — the V11 → V12 migration > moves a BUILDING legacy Annex onto the legacy parcel with the same clock 472ms
+   ✓ Placement Core V12 — the V11 → V12 migration > moves a COMPLETED legacy Annex without disturbing its facility or reservations 392ms
+   ✓ Placement Core V12 — the V11 → V12 migration > is deterministic and idempotent 382ms
+stdout | tests/p09a-w0-founding-regime.test.ts > P09 R5/R6 — the ordinary bare-lot studio releases a picture on its own money > HARD-STOP GATE: sparse start → four builds → screenplay → set → picture → release → receipts, cash never below zero
+[p09 gate] release week 37; cash floor 7888869; final cash 9778380.025328362; weeks 42
+
+ ✓ |core| tests/p09a-w0-founding-regime.test.ts (13 tests) 12514ms
+   ✓ P09 R1 — the founding regime is persisted, exact, and immutable > V18 round-trips the regime and refuses a forged or missing one 1315ms
+   ✓ P09 R1 — the founding regime is persisted, exact, and immutable > every pre-P09 save migrates to endowed with no other change; downgrades are refused 367ms
+   ✓ P09 R1 — the founding regime is persisted, exact, and immutable > the regime is never inferred from what stands on the lot 2028ms
+   ✓ P09 R4 — the minimum plant fits and completes on its committed weeks > P09 §10.3: on the sparse lot only the founding office is quotable first; every other row says exactly why 947ms
+   ✓ P09 R4 — the minimum plant fits and completes on its committed weeks > four committed sites complete on their own weeks, become operational, and start paying opex only then 1240ms
+   ✓ P09 R4 — the minimum plant fits and completes on its committed weeks > save/load mid-construction continues byte-identically; same-week sites complete together in id order 2548ms
+   ✓ P09 R5/R6 — the ordinary bare-lot studio releases a picture on its own money > a screenplay commission with no capacity queues, and admits itself when the office opens 561ms
+   ✓ P09 R5/R6 — the ordinary bare-lot studio releases a picture on its own money > HARD-STOP GATE: sparse start → four builds → screenplay → set → picture → release → receipts, cash never below zero 2080ms
+   ✓ P09A W1 R9 — a picture may hold a stage that completed after its greenlight, from the stamped week only > holds from bindings.heldSinceWeek; a stamp forged before completion is refused 1166ms
+ ✓ |core| tests/p13b-s6-save-v26.test.ts (11 tests) 5620ms
+   ✓ P13B-S6 Save V26: genuine V25 fixtures, honest lift, chains, validator refusals (test 7) > genuine V25 sound-mid-deployment fixture: sha256 matches, migrates to V26 with cancellation:null / cancelledWeek:null and no constructionRefund rows, otherwise byte-identical 670ms
+   ✓ P13B-S6 Save V26: genuine V25 fixtures, honest lift, chains, validator refusals (test 7) > genuine V25 lighting-mid-deployment fixture: sha256 matches, migrates to V26 honestly (cancellation:null / cancelledWeek:null) 434ms
+   ✓ P13B-S6 Save V26: genuine V25 fixtures, honest lift, chains, validator refusals (test 7) > migrateToV25 / migrateToV24 / migrateToV23 / migrateToV22 / migrateToV21 / migrateToV20 all refuse a V26 save (downgrade chain) 434ms
+   ✓ P13B-S6 Save V26: genuine V25 fixtures, honest lift, chains, validator refusals (test 7) > VALID: a cancelled adoption with a passed original completesWeek is exempt from the v4 "operational receipt differs" clause 1959ms
+   ✓ P13B-S6 Save V26: genuine V25 fixtures, honest lift, chains, validator refusals (test 7) > REFUSED: a cancelled placement marked operational 403ms
+   ✓ P13B-S6 Save V26: genuine V25 fixtures, honest lift, chains, validator refusals (test 7) > REFUSED: the refund ledger row is written twice for one project ("once-only" reconciliation) 401ms
+ ✓ |core| tests/p08a-w0-studio-history.test.ts (13 tests) 15145ms
+   ✓ P08A H3/H4 — the release mutation site records exact receipts and the release fact > freezes before/after/deltas equal to the actual Standing change, with the source id and drivers 1078ms
+   ✓ P08A H3/H4 — the release mutation site records exact receipts and the release fact > records filmReleased as a LANDMARK for the first film and MAJOR afterwards, by exact id 892ms
+   ✓ P08A H3/H4 — the release mutation site records exact receipts and the release fact > records theatricalRunCompleted exactly once when the run settles 1102ms
+   ✓ P08A H3/H4 — the release mutation site records exact receipts and the release fact > release drivers reproduce the exact update (consistency of the frozen facts) 309ms
+   ✓ P08A H3/H5 — weekly settling receipts are exact, bounded, and folded deterministically > records a routine settling receipt only when awareness actually moves, then folds past the window 8003ms
+   ✓ P08A H6 — V16→V17 migration invents nothing and every downgrade is refused > begins recording at the migration week, keeps every other root and the current Standing 390ms
+   ✓ P08A H7 — save/load mid-run continues with identical history > reloaded branch equals the unbroken branch byte-for-byte after more releases 2194ms
+   ✓ P08A H8 — the save boundary refuses forged history > refuses out-of-order ids, pre-boundary rows, lying deltas, and unknown kinds 812ms
+ ✓ |core| tests/contracts/v14-boundary-guards.contract.test.ts (36 tests) 2799ms
+   ✓ C2a-M1 · guards (B) — the live boundary moves one way > refuses to write REAL V14 authority out through any frozen builder 307ms
+ ✓ |core| tests/cash-ledger-checkpoint-v11.test.ts (10 tests) 9174ms
+   ✓ SaveFileV11 cash/ledger checkpoint — historical migration > migrates an authentic played V2 without fabricating the missing production ledger row 712ms
+   ✓ SaveFileV11 cash/ledger checkpoint — historical migration > preserves validator-accepted non-opening cash through every V1-V10 descendant 861ms
+   ✓ SaveFileV11 cash/ledger checkpoint — historical migration > keeps native and existing reconciled V11 files on the original omitted-field shape 561ms
+   ✓ SaveFileV11 cash/ledger checkpoint — post-migration authority > prevents every frozen builder from moving a checkpoint after later gameplay 605ms
+   ✓ SaveFileV11 cash/ledger checkpoint — post-migration authority > retains a nonempty historical checkpoint prefix only through ledger-owning builders 3208ms
+   ✓ SaveFileV11 cash/ledger checkpoint — post-migration authority > anchors cash and rejects checkpoint, cash, boundary, and suffix tampering 460ms
+   ✓ SaveFileV11 cash/ledger checkpoint — post-migration authority > preserves exact checkpoint reconciliation through managed payroll and overhead suffixes 1655ms
+   ✓ SaveFileV11 cash/ledger checkpoint — post-migration authority > starts and completes the Annex from a mismatched managed V10 with exactly one post-checkpoint capex 873ms
+ ✓ |core| tests/d17b-publicity.test.ts (29 tests) 1997ms
+   ✓ D-17B §2/§6 — save round-trip and replay determinism > a bought campaign survives export → import byte-identically, stamps and all 405ms
+   ✓ D-17B §2/§6 — save round-trip and replay determinism > a mixed sequence of ticks and campaigns replays identically from the same seed 380ms
+ ✓ |core| tests/p06a-w1-release-authority.test.ts (14 tests) 4179ms
+   ✓ P06A W1 — save law > imports a pre-P06 Release Ready save as UNCOMMITTED (holds until committed) 1212ms
+   ✓ P06A W1 — save law > round-trips a committed live save byte-exactly and refuses downgrades 1511ms
+   ✓ P06A W1 — save law > validateSaveV30 rejects forged authority at the save boundary 657ms
+ ✓ |core| tests/legacy-parcel-ground.test.ts (14 tests) 9610ms
+   ✓ C1-M8 (B) — a generic building may not be BUILT there > accepts nothing anywhere on the property whose body the world would not show 8217ms
+   ✓ C1-M8 (C) — a building the studio owns may not be CARRIED there > refuses the move from every cell of the reserved ground, byte-neutrally 371ms
+ ✓ |core| tests/p13b-s2-access-identity.test.ts (14 tests) 35771ms
+   ✓ P13B-S2 access identity: completion grant must key on (studioId, technologyId) > 3. simultaneous completion: both technologies grant their own row with the same acquiredWeek, independent of project creation order 312ms
+   ✓ P13B-S2 access identity: completion grant must key on (studioId, technologyId) > 6. save/reload and later ticks: exactly two rows, no duplicates, no erasure; validateSaveV30 accepts 1418ms
+   ✓ P13B-S2 access identity: forward validator invariant "completed research without its access grant" > accepts the unmutated two-technology-completed save (forging baseline control) 472ms
+   ✓ P13B-S2 access identity: forward validator invariant "completed research without its access grant" > (a) rejects a two-technology completed state with the lighting access row deleted — the exact shape the old engine produced 518ms
+   ✓ P13B-S2 access identity: forward validator invariant "completed research without its access grant" > (b) rejects the lighting research row when its researchProjectId points at the sound project instead of its own 393ms
+   ✓ P13B-S2 access identity: forward validator invariant "completed research without its access grant" > (c) rejects the lighting row when its route is changed to wait with acquiredWeek null 403ms
+   ✓ P13B-S2 access identity: forward validator invariant "completed research without its access grant" > (d) rejects the lighting row when its acquiredWeek is moved one week off the project completedWeek 339ms
+   ✓ P13B-S2 access identity: forward validator invariant "completed research without its access grant" > confirms a purchase row for the same technology (case 8 shape) still validates once its research also completes 529ms
+ ✓ |core| tests/d11-cycle2.test.ts (19 tests) 5068ms
+   ✓ D-11.A — each released film keeps its OWN immutable participants > film A and film B use different writers/directors/actors/craft and each records its own 1251ms
+   ✓ D-11.A — each released film keeps its OWN immutable participants > participants carry greenlight name/OVR/Fit/EP and contracted status 682ms
+   ✓ D-11.A — each released film keeps its OWN immutable participants > later development does NOT rewrite an older film's locked greenlight OVR/name 1148ms
+   ✓ D-11.A — each released film keeps its OWN immutable participants > releasing a participant does NOT remove them from an older film's record 575ms
+   ✓ D-11.A — each released film keeps its OWN immutable participants > save/reload (V3) preserves each film's distinct participant history 967ms
+ ✓ |core| tests/contracts/studio-events.contract.test.ts (25 tests) 2017ms
+ ✓ |core| tests/construction-save-v11.test.ts (12 tests) 4753ms
+   ✓ Development & Casting Annex V1 — SaveFileV11 > writes V12 by default and round-trips legacy, vacant, building, and completed lifecycle states 1102ms
+   ✓ Development & Casting Annex V1 — SaveFileV11 > round-trips and continues byte-identically at start, S+12, and S+13 929ms
+   ✓ Development & Casting Annex V1 — SaveFileV11 > converts V10 deterministically from validated operations mode without inventing history 656ms
+   ✓ Development & Casting Annex V1 — SaveFileV11 > migrates V1–V10, passes V11 by identity, and rejects every historical downgrade 469ms
+   ✓ Development & Casting Annex V1 — SaveFileV11 > strictly rejects malformed parcel, project, ledger, cash, and facility truth 432ms
+   ✓ Development & Casting Annex V1 — SaveFileV11 > rejects every canonical Annex ID in persisted production history while building 381ms
+   ✓ Development & Casting Annex V1 — SaveFileV11 > rejects every canonical Annex ID in persisted production history while completed 318ms
+ ✓ |core| tests/d12-economy.test.ts (17 tests) 1016ms
+   ✓ D-12: V3→V4 migration records released films as legacyCompleted (no double-pay) > migrated releases carry their full-gross V3 payout and are never credited again 536ms
+   ✓ D-12: reload equals continuous play with an active run straddling the save > export at mid-run → import → advance is byte-identical to an uninterrupted run 322ms
+ ✓ |core| tests/c2a-m3-screenplay-mint.test.ts (8 tests) 1789ms
+   ✓ C2a-M3 — a writer goes to work and hands the studio a new movie > mints a concept, a title and a blueprint at COMMISSION-COMMIT, and drafts it 729ms
+   ✓ C2a-M3 — a writer goes to work and hands the studio a new movie > NEVER re-prices the pool — correlateConceptCost is a founding-only permutation 358ms
+ ✓ |core| tests/p13b-s8-save-v27.test.ts (8 tests) 7870ms
+   ✓ P13B-S8 Save V27: genuine V26 fixtures, honest lift, conditional downgrade, validator refusals, sentinel 28 (test 7) > genuine V26 sound-mid-deployment fixture: sha256 matches, migrates to V27 with the four new RivalMoneyKind movement keys at 0 on every period and NO new receipts, otherwise byte-identical 755ms
+   ✓ P13B-S8 Save V27: genuine V26 fixtures, honest lift, conditional downgrade, validator refusals, sentinel 28 (test 7) > genuine V26 lighting-cancelled and lighting-restored fixtures: sha256 matches, migrate to V27 honestly (four zero keys, no new receipts) 884ms
+   ✓ P13B-S8 Save V27: genuine V26 fixtures, honest lift, conditional downgrade, validator refusals, sentinel 28 (test 7) > downgrade LOSSLESS: a freshly-lifted V27 state (genuine V26 fixture, every new key still zero) downgrades through save.migrateToV26 directly, byte-identical to the source 442ms
+   ✓ P13B-S8 Save V27: genuine V26 fixtures, honest lift, conditional downgrade, validator refusals, sentinel 28 (test 7) > downgrade REFUSED: a NATURAL campaign whose rival genuinely admitted a Laboratory carries a nonzero researchCapacity movement, and save.migrateToV26 refuses it 3058ms
+   ✓ P13B-S8 Save V27: genuine V26 fixtures, honest lift, conditional downgrade, validator refusals, sentinel 28 (test 7) > downgrade REFUSED: the same natural campaign also carries a new receipt kind (laboratoryCommitted/laboratoryOperational), independently sufficient to refuse V27->V26 1780ms
+   ✓ P13B-S8 Save V27: genuine V26 fixtures, honest lift, conditional downgrade, validator refusals, sentinel 28 (test 7) > VALIDATOR REFUSED: "no rival authority without a receipt" — a rival Laboratory facility with no laboratoryCommitted/laboratoryOperational receipt is refused 476ms
+   ✓ P13B-S8 Save V27: genuine V26 fixtures, honest lift, conditional downgrade, validator refusals, sentinel 28 (test 7) > an unknown saveVersion 31 is refused, naming the handled range "1 through 30 only" (B4 additive reader boundary) 339ms
+ ✓ |core| tests/c2a-m3-rename-and-pooling.test.ts (9 tests) 1635ms
+   ✓ C2a-M3 — the bounded writer pool (00E.9) > is refused on a screenplay that is not being drafted 630ms
+ ✓ |core| tests/placement-lifecycle.test.ts (14 tests) 4745ms
+   ✓ Placement Core V12 — completion flips capacity exactly once, on its week > flips at the same week when the run is split by a save and a reload 3046ms
+   ✓ Placement Core V12 — determinism > replays a scripted run byte-identically from the same seed 455ms
+   ✓ Placement Core V12 — determinism > continues byte-identically after a mid-run save and reload 331ms
+ ✓ |core| tests/p13b-s1-scheduler.test.ts (13 tests) 41464ms
+   ✓ P13B-S1 determinism, replay and interleaving (test 7) > rebuilds byte-identically from the same seed and the same action list, both before and after further identical actions 14699ms
+   ✓ P13B-S1 determinism, replay and interleaving (test 7) > round-trips save/reload byte-identically after seating, after funded weeks, after expiry and after pause 3021ms
+ ✓ |core| tests/d17b-save-v7.test.ts (22 tests) 2870ms
+   ✓ D-17B/E4 — the empty publicity state is the seeded default everywhere > ticking a headless world never creates campaign state (the action is engaged-only) 860ms
+   ✓ D-17B/E4 — migrateToV7 lifts every known version, and the chain still holds > a V7 save reloads and continues identically to an uninterrupted run 1019ms
+ ✓ |core| tests/c2a-m2-sets-save.test.ts (4 tests) 5137ms
+   ✓ C2a-M2 — sets across the save boundary > round-trips a studio that has built, repaired and struck, byte for byte 2746ms
+   ✓ C2a-M2 — sets across the save boundary > refuses, at the V16 boundary, every state the sets authority forbids 1157ms
+   ✓ C2a-M2 — the §12-M2 gate: a migrated managed V13 save reaches a NEW greenlight > greenlights, binds a set, and shoots — while the picture it migrated with never does 995ms
+ ✓ |core| tests/p13b-s5-save-v24.test.ts (15 tests) 34119ms
+   ✓ P13B-S5 Save V24 (test 4) > migrates legacy-v23-sound-operational-315 and its identical V20 ancestor to V24 with an honest first-prototype lift, byte-identical otherwise 1254ms
+   ✓ P13B-S5 Save V24 (test 4) > migrates the genuine V23 fixture legacy-v23-lighting-complete-plan-queued: rival EMPTY-physicalProjectIds adoption lifts to ONE aggregated installation row (placementId null), one held commercial asset, the queued physical plan survives byte-identically 480ms
+   ✓ P13B-S5 Save V24 (test 4) > chains the genuine V22 fixture './fixtures/p13b/legacy-v22-staffed-4-…' through V23 to V24 with the same honest lift 469ms
+   ✓ P13B-S5 Save V24 (test 4) > chains the genuine V22 fixture './fixtures/p13b/legacy-v22-two-labs-c…' through V23 to V24 with the same honest lift 419ms
+   ✓ P13B-S5 Save V24 (test 4) > chains the genuine V21 fixture './fixtures/p13b/legacy-v21-staffed-4-…' through V22, V23 to V24 505ms
+   ✓ P13B-S5 Save V24 (test 4) > chains the genuine V21 fixture './fixtures/p13b/legacy-v21-released-p…' through V22, V23 to V24 615ms
+   ✓ P13B-S5 Save V24 (test 4) > chains the genuine V21 fixture './fixtures/p13b/legacy-v21-two-labs-t…' through V22, V23 to V24 821ms
+   ✓ P13B-S5 Save V24 (test 4) > chains the genuine V20 fixture './fixtures/p13b/legacy-v20-research-a…' through V21, V22, V23 to V24 676ms
+   ✓ P13B-S5 Save V24 (test 4) > chains the genuine V20 fixture './fixtures/p13b/legacy-v20-research-p…' through V21, V22, V23 to V24 1020ms
+   ✓ P13B-S5 Save V24 (test 4) > chains the genuine V20 fixture './fixtures/p13b/legacy-v20-research-c…' through V21, V22, V23 to V24 1272ms
+   ✓ P13B-S5 Save V24 (test 4) > migrateToV23 / migrateToV22 / migrateToV21 / migrateToV20 refuse a V24 save 1778ms
+   ✓ P13B-S5 Save V24 (test 4) > makeSave writes saveVersion 26 848ms
+   ✓ P13B-S5 Save V24 (test 4) > an unknown saveVersion 31 is refused, naming the handled range "1 through 30 only" 682ms
+   ✓ P13B-S5 Save V24 (test 4) > save/reload mid-deployment continues identically (byte for byte): a lighting adoption committed but not yet operational 22984ms
+ ✓ |core| tests/p13b-s3-validation.test.ts (12 tests) 18215ms
+   ✓ P13B-S3 validator refusals for physicalPlans (test 8) > accepts the unmutated hand-authored baseline directly through validateSaveV30 675ms
+   ✓ P13B-S3 validator refusals for physicalPlans (test 8) > (a) rejects a dependency cycle 447ms
+   ✓ P13B-S3 validator refusals for physicalPlans (test 8) > (b) rejects a dependency naming an unknown plan id 433ms
+   ✓ P13B-S3 validator refusals for physicalPlans (test 8) > (c) rejects two plans sharing one ordinal 475ms
+   ✓ P13B-S3 validator refusals for physicalPlans (test 8) > (d) rejects a started plan whose placement does not exist 484ms
+   ✓ P13B-S3 validator refusals for physicalPlans (test 8) > (e) rejects a started plan whose placement carries a different blueprint 441ms
+   ✓ P13B-S3 validator refusals for physicalPlans (test 8) > (f) rejects two started plans naming the SAME placement (duplicate commitReceipt) 460ms
+   ✓ P13B-S3 validator refusals for physicalPlans (test 8) > (g) rejects a plan naming another studio's target (campaign isolation — the same FINDING/limitation tests/p13b-s2-validation.test.ts records: no public action path grows a genuine rival plan, so the rival side of this law is proven by structural injection) 477ms
+   ✓ P13B-S3 validator refusals for physicalPlans (test 8) > (h) rejects a non-integer approvedMaximumDebit 490ms
+   ✓ P13B-S3 validator refusals for physicalPlans (test 8) > (i) rejects nextPlanId that is not above every existing plan id 409ms
+   ✓ P13B-S3 validator refusals for physicalPlans (test 8) > (j) rejects a queued plan carrying a pendingQuote 368ms
+   ✓ P13B-S3 validator refusals for physicalPlans (test 8) > (k) rejects a held plan with no pendingQuote 488ms
+ ✓ |core| tests/p13b-s2-save-v22.test.ts (12 tests) 30709ms
+   ✓ P13B-S2 V21 to V22 migration (test 8) > lifts ./fixtures/p13b/legacy-v21-staffed-4-seats-263.json.gz: every receipt ×8, per-Laboratory rows derived honestly, cooperationFromWeek stamped at the fixture's own week 3390ms
+   ✓ P13B-S2 V21 to V22 migration (test 8) > lifts ./fixtures/p13b/legacy-v21-released-paused-266.json.gz: every receipt ×8, per-Laboratory rows derived honestly, cooperationFromWeek stamped at the fixture's own week 2287ms
+   ✓ P13B-S2 V21 to V22 migration (test 8) > lifts ./fixtures/p13b/legacy-v21-two-labs-two-briefs-783.json.gz: every receipt ×8, per-Laboratory rows derived honestly, cooperationFromWeek stamped at the fixture's own week 3090ms
+   ✓ P13B-S2 V21 to V22 migration (test 8) > continues the migrated active staffed-4-seats-263 project for one more funded week (now carrying its own labs row) and re-saves byte-identically 2356ms
+   ✓ P13B-S2 V21 to V22 migration (test 8) > refuses to downgrade a V22 save to V21, V20 or V19 367ms
+   ✓ P13B-S2 V21 to V22 migration (test 8) > chains V20→V21→V22 for ./fixtures/p13b/legacy-v20-research-active-280.json.gz: the S1 legacy prefix survives intact, weeks stays empty 2637ms
+   ✓ P13B-S2 V21 to V22 migration (test 8) > chains V20→V21→V22 for ./fixtures/p13b/legacy-v20-research-paused-expired-468.json.gz: the S1 legacy prefix survives intact, weeks stays empty 2907ms
+   ✓ P13B-S2 V21 to V22 migration (test 8) > chains V20→V21→V22 for ./fixtures/p13b/legacy-v20-research-complete-operational-315.json.gz: the S1 legacy prefix survives intact, weeks stays empty 2765ms
+   ✓ P13B-S2 envelope law at the live writer (test 8) > makeSave always writes the live saveVersion 26 2005ms
+   ✓ P13B-S2 envelope law at the live writer (test 8) > refuses an unknown saveVersion 31 with the updated range 2041ms
+   ✓ P13B-S2 envelope law at the live writer (test 8) > round-trips a migrated two-Laboratory save through exportSave/importSave/migrateToV30 byte-identically 2822ms
+   ✓ P13B-S2 campaign isolation across the migrated copies (mirrors the S1 case) > produces independent migrated copies from the same V21 fixture; advancing one never touches the other 4040ms
+ ✓ |core| tests/d14-star-power.test.ts (15 tests) 7472ms
+   ✓ D-14 Star Power lifecycle (real engine) > 1 + 12. fame changes only at release, and the career event matches the transition 1689ms
+   ✓ D-14 Star Power lifecycle (real engine) > 2. the update occurs exactly once — one career event per participant per film 946ms
+   ✓ D-14 Star Power lifecycle (real engine) > 3. the released film economics are NOT retroactively changed by its own fame update 759ms
+   ✓ D-14 Star Power lifecycle (real engine) > 4. a future film reads the UPDATED fame (progression compounds) 984ms
+   ✓ D-14 Star Power lifecycle (real engine) > 16 + 17. reload cannot apply progression twice, and round-trip preserves career events 1322ms
+   ✓ D-14 Star Power lifecycle (real engine) > 18. determinism — two identical runs produce identical career events 1691ms
+ ✓ |core| tests/d17a-adv-migration.test.ts (17 tests) 58ms
+ ✓ |core| tests/contracts/phase-table-agreement.contract.test.ts (10 tests) 2130ms
+   ✓ C2a-M0 · G6 (C) — the SAVE BOUNDARY agrees, proved by refusal > refuses a falsified capability multiset, naming the shared module’s own requirement 1235ms
+   ✓ C2a-M0 · G6 (C) — the SAVE BOUNDARY agrees, proved by refusal > refuses a blocker whose targetPhase is not nextProductionPhase(phase) 574ms
+ ✓ |core| tests/contracts/v14-byte-parity.contract.test.ts (6 tests) 2098ms
+   ✓ C2a-M1 · parity (A) — the same seeded script exports the same bytes > produces a byte-identical export from two independent runs 919ms
+   ✓ C2a-M1 · parity (A) — the same seeded script exports the same bytes > does NOT produce those bytes from a different seed 384ms
+   ✓ C2a-M1 · parity (B) — the ledger survives a reload > exports the same bytes whether or not the run was saved and loaded midway 401ms
+ ✓ |core| tests/p13a-rival-adoption.test.ts (2 tests) 23133ms
+   ✓ P13A shared commercial adoption and exact rival cash consequence > uses the shared player/rival eligibility function and debits only technology adoption without new plant or RNG draws 1136ms
+   ✓ P13A shared commercial adoption and exact rival cash consequence > replays the actual weekly commercial purchase, reconciles its debit and creates one dated operational receipt 3515ms
+ ✓ |core| tests/contracts/cross-owner-refusal.contract.test.ts (3 tests) 1620ms
+   ✓ C2a-M0 · §12-M0 gate — a slot claimed by two owners is REFUSED > refuses a screenplay forged onto the slot a production holds 760ms
+   ✓ C2a-M0 · §12-M0 gate — a slot claimed by two owners is REFUSED > refuses a production forged onto the slot a screenplay holds 438ms
+   ✓ C2a-M0 · §12-M0 gate — a slot claimed by two owners is REFUSED > refuses an audition forged onto the slot a screenplay holds 418ms
+ ✓ |core| tests/p13b-s3-save-v23.test.ts (13 tests) 9387ms
+   ✓ P13B-S3 Save V23 (test 7) > migrates the genuine V22 fixture './fixtures/p13b/legacy-v22-staffed-4-…' to V23 with an empty physicalPlans root, byte-identical otherwise 743ms
+   ✓ P13B-S3 Save V23 (test 7) > migrates the genuine V22 fixture './fixtures/p13b/legacy-v22-two-labs-c…' to V23 with an empty physicalPlans root, byte-identical otherwise 571ms
+   ✓ P13B-S3 Save V23 (test 7) > chains the genuine V21 fixture './fixtures/p13b/legacy-v21-released-p…' through V22 to V23 367ms
+   ✓ P13B-S3 Save V23 (test 7) > chains the genuine V21 fixture './fixtures/p13b/legacy-v21-two-labs-t…' through V22 to V23 402ms
+   ✓ P13B-S3 Save V23 (test 7) > chains the genuine V20 fixture './fixtures/p13b/legacy-v20-research-a…' through V21, V22 to V23 655ms
+   ✓ P13B-S3 Save V23 (test 7) > chains the genuine V20 fixture './fixtures/p13b/legacy-v20-research-p…' through V21, V22 to V23 639ms
+   ✓ P13B-S3 Save V23 (test 7) > chains the genuine V20 fixture './fixtures/p13b/legacy-v20-research-c…' through V21, V22 to V23 527ms
+   ✓ P13B-S3 Save V23 (test 7) > migrateToV22 / migrateToV21 / migrateToV20 refuse a live save 1552ms
+   ✓ P13B-S3 Save V23 (test 7) > makeSave writes saveVersion 29 838ms
+   ✓ P13B-S3 Save V23 (test 7) > an unknown saveVersion 31 is refused, naming the handled range 740ms
+   ✓ P13B-S3 Save V23 (test 7) > save/reload mid-queue continues identically (byte for byte) 1936ms
+ ✓ |core| tests/p13b-s7-announcements.test.ts (6 tests) 14208ms
+   ✓ P13B-S7 announcements persist nowhere: genuine V26 fixture, live load, advance past the announce week (test 3) > genuine V26 fixture at week 795 (before lighting announces at 884): sha256 matches, loads through the live path, no lighting announcement row 1679ms
+   ✓ P13B-S7 announcements persist nowhere: genuine V26 fixture, live load, advance past the announce week (test 3) > advanced to week 884: exactly one lighting announcement row, week 884; still no sound row 3174ms
+   ✓ P13B-S7 announcements persist nowhere: genuine V26 fixture, live load, advance past the announce week (test 3) > advanced further to week 900: still exactly one lighting row, unchanged content (row week stays 884, not 900) 1932ms
+   ✓ P13B-S7 announcements persist nowhere: genuine V26 fixture, live load, advance past the announce week (test 3) > the announcement is derived-only: the exported live save carries no announcement record, and round-trips cleanly at the unchanged live version 2565ms
+   ✓ P13B-S7 announcements persist nowhere: genuine V26 fixture, live load, advance past the announce week (test 3) > Save As proxy: two independently-loaded copies of the same genuine save publish byte-identical announcement rows at 884 4852ms
+ ✓ |core| tests/p13a-technology-membership.test.ts (9 tests) 20065ms
+   ✓ P13A exact historical technology membership under local indexing > still rejects an exact duplicate original Hollywood film after indexed membership succeeds 339ms
+   ✓ P13A exact historical technology membership under local indexing > does not reuse membership across independent round-tripped copies with the same world and entity IDs 1366ms
+   ✓ P13A exact historical technology membership under local indexing > rechecks the same mutable input after removal and after exact restoration 1636ms
+ ✓ |core| tests/p13a-causal-core.test.ts (8 tests) 30179ms
+   ✓ P13A causal Core through the real weekly engine > retains exact paid work and reloads a lawful $1 weekly budget 1584ms
+   ✓ P13A causal Core through the real weekly engine > retains exact paid work and reloads a lawful $3 weekly budget 1516ms
+   ✓ P13A causal Core through the real weekly engine > retains exact paid work and reloads a lawful $2499 weekly budget 1282ms
+   ✓ P13A causal Core through the real weekly engine > retains exact paid work and reloads a lawful $5600 weekly budget 1224ms
+   ✓ P13A causal Core through the real weekly engine > retains exact paid work and reloads a lawful $9999 weekly budget 1348ms
+   ✓ P13A causal Core through the real weekly engine > one Scientist completes 64 units in 43 funded weeks, then P09 completes the exact chain at315 2052ms
+   ✓ P13A causal Core through the real weekly engine > saturation caps both output and actual spend, while pause/cancel/resume retain work 776ms
+   ✓ P13A causal Core through the real weekly engine > waiting buys no capability; purchase opens416, takes12weeks, and forfeits113weeks of lead 9309ms
+ ✓ |core| tests/p13a-technology-milestones.test.ts (4 tests) 12684ms
+   ✓ P13A dated public technology history > round-trips both boundaries exactly and resumes without duplicating the permanent events 1833ms
+   ✓ P13A dated public technology history > never backfills after migration, skips dates not actually reached, and leaves the frozen V19 vocabulary closed 425ms
+   ✓ P13A dated public technology history > rejects invented dates, unknown facts, wrong significance or subjects, duplicates, and pre-recording history 359ms
+ ✓ |core| tests/p12-starting-world.test.ts (3 tests) 4074ms
+   ✓ R05 canonical starting history and genuine migration > opens four established distinct businesses with settled canonical history and protected applicants 548ms
+   ✓ R05 canonical starting history and genuine migration > migrates at each old state own week with empty company histories and exact player state 3159ms
+   ✓ R05 canonical starting history and genuine migration > refuses early entry and malformed or duplicate authored history without repairing it 347ms
+ ✓ |core| tests/p13a-research-employment.test.ts (1 test) 10944ms
+   ✓ P13A research employment continuity > releasing the actual Scientist pauses work immediately and survives save/reload without losing verified work 10941ms
+ ✓ |core| tests/p13b-s2-validation.test.ts (15 tests) 110586ms
+   ✓ P13B-S2 conservation, determinism, save/reload and campaign isolation (test 7) > conservation: reconciles receipts, expenditure, ledger and cash over a funded cooperate interval 17355ms
+   ✓ P13B-S2 conservation, determinism, save/reload and campaign isolation (test 7) > determinism: two independent builds from the same seed give byte-identical exportSave, both fresh and after identical further actions 33465ms
+   ✓ P13B-S2 conservation, determinism, save/reload and campaign isolation (test 7) > save/reload mid-project: a reloaded cooperate project continues identically to the uninterrupted run over further weeks 15565ms
+   ✓ P13B-S2 conservation, determinism, save/reload and campaign isolation (test 7) > campaign isolation: every project a public action can create carries studioId === the player, by construction 13353ms
+   ✓ P13B-S2 conservation, determinism, save/reload and campaign isolation (test 7) > campaign isolation: a rival two-Laboratory project never surfaces through the player-scoped read filter, and forging the player’s own project never touches its bytes 9146ms
+
+ Test Files  46 passed (46)
+      Tests  676 passed (676)
+   Start at  15:59:47
+   Duration  211.43s (transform 2.98s, setup 0ms, collect 37.06s, tests 561.12s, environment 20ms, prepare 9.97s)
+
+EXIT=0
+Mon Sep 21 14:03:19 UTC 2026

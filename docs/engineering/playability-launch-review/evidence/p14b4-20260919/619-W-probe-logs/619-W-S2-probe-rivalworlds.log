@@ -1,0 +1,16 @@
+[33mThe CJS build of Vite's Node API is deprecated. See https://vite.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.[39m
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+stdout | ../../../private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/6ed44184-f9ac-40ba-bf1b-321fc7506549/scratchpad/probe/rivalworlds.probe.test.ts > rivalWorlds mapping
+RIVALWORLDS {"slots":{"lead":{"week":215,"studioId":"studio-bc14baf6-r01","productionId":"studio-bc14baf6-r01:film:23","promiseId":"promise-8","person":"person-studio-bc14baf6-r01-4","family":"LEAD_OR_SIGNIFICANT_ROLE_COUNT","predicate":{"kind":"castRoleCount","count":1,"seatClass":"leadOrAntagonist"},"slot":"lead"},"antagonist":{"week":215,"studioId":"studio-bc14baf6-r01","productionId":"studio-bc14baf6-r01:film:23","promiseId":"promise-4","person":"person-studio-bc14baf6-r01-2","family":"LEAD_OR_SIGNIFICANT_ROLE_COUNT","predicate":{"kind":"castRoleCount","count":1,"seatClass":"leadOrAntagonist"},"slot":"antagonist"},"support":{"week":215,"studioId":"studio-bc14baf6-r01","productionId":"studio-bc14baf6-r01:film:23","promiseId":"promise-6","person":"person-studio-bc14baf6-r01-3","family":"APPEARANCE_COUNT","predicate":{"count":1},"slot":"support"}},"genuine":{"week":215,"studioId":"studio-bc14baf6-r01","productionId":"studio-bc14baf6-r01:film:23","promiseId":"promise-8","person":"person-studio-bc14baf6-r01-4","family":"LEAD_OR_SIGNIFICANT_ROLE_COUNT","predicate":{"kind":"castRoleCount","count":1,"seatClass":"leadOrAntagonist"},"slot":"lead"}}
+
+ ✓ ../../../private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/6ed44184-f9ac-40ba-bf1b-321fc7506549/scratchpad/probe/rivalworlds.probe.test.ts (1 test) 5601ms
+   ✓ rivalWorlds mapping 5600ms
+
+ Test Files  1 passed (1)
+      Tests  1 passed (1)
+   Start at  19:33:48
+   Duration  6.13s (transform 1.54s, setup 0ms, collect 58ms, tests 5.60s, environment 0ms, prepare 160ms)
+
+EXIT 0

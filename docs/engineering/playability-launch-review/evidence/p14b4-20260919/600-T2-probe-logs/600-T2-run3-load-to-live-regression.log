@@ -1,0 +1,89 @@
+Mon Sep 21 14:12:19 UTC 2026
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p14a1-save-v28.test.ts (10 tests) 3140ms
+   ✓ P14A.1 test 8: Save V28 (genuine V27 fixtures, honest lift, downgrade, validator refusals, sentinel 29) > genuine V27 natural-rival-labs fixture: sha256 matches, migrates to V28 with an EMPTY talentMarket root and no P14 receipts, otherwise byte-identical 336ms
+   ✓ P14A.1 test 8: Save V28 (genuine V27 fixtures, honest lift, downgrade, validator refusals, sentinel 29) > genuine V27 renewal-window-456 fixture (a player Scientist already inside its 12-week renewal window): still migrates to V28 with an EMPTY talentMarket root — migration invents no case 569ms
+   ✓ P14A.1 test 8: Save V28 (genuine V27 fixtures, honest lift, downgrade, validator refusals, sentinel 29) > genuine usage of marketEligibility (not a dead import): the renewal-window-456 fixture's player Scientist subject classifies as renewal_window on the lifted V28 state 365ms
+   ✓ P14A.1 test 8: Save V28 (genuine V27 fixtures, honest lift, downgrade, validator refusals, sentinel 29) > downgrade LOSSLESS: a freshly-lifted V28 state (empty talentMarket root) downgrades through save.migrateToV27 directly, byte-identical to the source 423ms
+   ✓ P14A.1 test 8: Save V28 (genuine V27 fixtures, honest lift, downgrade, validator refusals, sentinel 29) > R4 legacy terminations: a V27 termination priced under the OLD 50% law still validates through the frozen chain, and lifts to V28 recorded as legacy with no invented back-charge 544ms
+ ✓ |core| tests/p14b1-first-take.test.ts (3 tests) 4299ms
+   ✓ P14B.1 test 1: the first-take receipt > PLAYER: never at shooting entry (empty at remainingTicks 5, shooting task unassigned then scheduled through the real actions, still empty after scheduling); appended exactly once at the 5 -> 4 advance; idempotent on a later tick; byte-stable across save/load 3666ms
+   ✓ P14B.1 test 1: the first-take receipt > RIVAL: the same receipt is appended once at the 5 -> 4 advance for a rival production found by direct search over the natural chain (never a magic week) 620ms
+ ✓ |core| tests/bridge-p07a-w6-result-continuity.test.ts (6 tests) 6682ms
+   ✓ P07A W6 — commitment releases exactly once (R1) > one commit + one week = one FilmResult + one run; later weeks never duplicate 1821ms
+   ✓ P07A W6 — active-run truth and the run-complete flip (R2/R3) > speaks projected while active, final once complete, and stays durably inspectable 972ms
+   ✓ P07A W6 — save/load preserves result truth mid-run (R4) > round-trips the projection byte-for-byte and completes the run identically 1599ms
+   ✓ P07A W6 — duplicate titles are separated by exact id (R5) > two films named identically keep separate results, runs, and wire cards 1385ms
+   ✓ P07A W6 — pre-run-tracking films read as settled legacy truth (R6) > no run record ⇒ runStatus none, paid == totals, never projected 388ms
+   ✓ P07A W6 — the results projection is pure presentation (R7) > deriving twice yields identical bytes and mutates nothing 498ms
+ ✓ |core| tests/p14b4-started-replay-scenery-commands.test.ts (1 test) 3090ms
+   ✓ P14B4 actual grandfather scenery command > strictly migrates preserved incoming evidence, clears manually then schedules and executes the real next sweep 3088ms
+ ✓ |core| tests/p13b-s8-finance.test.ts (5 tests) 1963ms
+   ✓ P13B-S8 rival finance: typed kinds and interval Opex reconcile, migration frozen, legacy grandfathered (test 4) > interval Opex: no back-charges — a Laboratory adds its weekly cost only from its own operational week, never retroactively 1000ms
+   ✓ P13B-S8 rival finance: typed kinds and interval Opex reconcile, migration frozen, legacy grandfathered (test 4) > migration basis frozen: a GENUINE V26 period (ten keys), lifted through the real migrateToV30, carries the four new keys at zero and its nine original movements byte-identical (coordinator ruling: a LIVE period already carries all 14 keys — this compares the lifted period against its OWN V26 source, never a live period against itself) 828ms
+ ✓ |core| tests/bridge-p11-finance.test.ts (11 tests) 24767ms
+   ✓ P11 construction financial consequence over the real bridge > development-casting-annex: retains pennies, charges once now and introduces Opex only after completion 8951ms
+   ✓ P11 construction financial consequence over the real bridge > development-office-2: retains pennies, charges once now and introduces Opex only after completion 6366ms
+   ✓ P11 construction financial consequence over the real bridge > gives illegal placement no financial successor and refuses a stale legal financial preview 3265ms
+   ✓ P11 current people, obligations and film economics owners > publishes only current contracts, with guarantees beside literal Cash and exact payroll 1281ms
+   ✓ P11 current people, obligations and film economics owners > keeps same-title films independent, preserves every P07 business amount and excludes studio costs 1535ms
+   ✓ P11 current people, obligations and film economics owners > marks genuinely missing legacy direct commitments unavailable without rewriting P07 1034ms
+   ✓ P11 current people, obligations and film economics owners > does not turn a retained legacy freelancer receipt into a complete film budget 1008ms
+   ✓ P11 current people, obligations and film economics owners > discloses legacy bundled production spending without inventing a historic budget split 900ms
+ ✓ |core| tests/d17a-adv-reconciliation.test.ts (14 tests) 29061ms
+   ✓ D-17A/B — Σ perFilm + idle ≡ Σ ledger payroll+overhead, to the dollar > holds over the default window with a founding prefix of 0 weeks 4883ms
+   ✓ D-17A/B — Σ perFilm + idle ≡ Σ ledger payroll+overhead, to the dollar > holds over the default window with a founding prefix of 3 weeks 2908ms
+   ✓ D-17A/B — Σ perFilm + idle ≡ Σ ledger payroll+overhead, to the dollar > holds over the default window with a founding prefix of 11 weeks 3652ms
+   ✓ D-17A/B — Σ perFilm + idle ≡ Σ ledger payroll+overhead, to the dollar > holds over EVERY prefix window [from, k] of the run (a sliding reconciliation sweep) 1677ms
+   ✓ D-17A/B — Σ perFilm + idle ≡ Σ ledger payroll+overhead, to the dollar > holds when a release sits at week 0 of engagement (occupancy reaching before the ledger) 1076ms
+   ✓ D-17A/B — conservation holds mid-flight, not only on tidy finished slates > holds while a film is still IN PRODUCTION and has never released 319ms
+   ✓ D-17A/B — conservation holds mid-flight, not only on tidy finished slates > holds while a theatrical run is still ACTIVE (window ends mid-run) 535ms
+   ✓ D-17A/B — conservation holds mid-flight, not only on tidy finished slates > holds on a rosterless post-cliff studio still paying overhead 1831ms
+   ✓ D-17A/B — a film is charged only for the weeks it actually occupied the studio > allocates 0 to every film over a window disjoint from its occupancy 2232ms
+   ✓ D-17A/B — a film is charged only for the weeks it actually occupied the studio > charges each film 0 in every window that ends before it starts or starts after it ends 2122ms
+   ✓ D-17A/B — window additivity (the partition is per WEEK, so splits are exact) > alloc[a,k] + alloc[k+1,b] === alloc[a,b] per film, per idle, per total — 24 seeded splits 1798ms
+   ✓ D-17A/B — odd dollars: whole-dollar determinism and a governed tie-break > conserves exactly even when the weekly cost is indivisible by the occupant count 1086ms
+   ✓ D-17A/B — odd dollars: whole-dollar determinism and a governed tie-break > gives the odd dollar to the lower productionId (largest remainder, ascending plain-<) 1469ms
+   ✓ D-17A/B — odd dollars: whole-dollar determinism and a governed tie-break > is identical across two independent calls and across a save → validate → migrate → load trip 3460ms
+ ✓ |core| tests/bridge-p08a-w2-history-projection.test.ts (4 tests) 5859ms
+   ✓ P08A W2 — P1 purity and P2 exact wire contract > derives byte-identically twice, mutates nothing, and validates as the history bundle section 2648ms
+   ✓ P08A W2 — P3 exact routes and P5 provenance > links receipts and rows to the exact production id, marks result availability, and reconciles channels 931ms
+   ✓ P08A W2 — P4 honesty for migrated worlds > says what was not recorded, lists pre-boundary films as unrecorded, and invents no row 1522ms
+   ✓ P08A W2 — P4 honesty for migrated worlds > keeps same-title films distinct by id in every row 757ms
+ ✓ |core| tests/p13b-s1-save-v21.test.ts (8 tests) 9766ms
+   ✓ P13B-S1 V20 to V21 migration (test 8) > lifts ./fixtures/p13b/legacy-v20-research-active-280.json.gz into one retained seat and a frozen legacy prefix 996ms
+   ✓ P13B-S1 V20 to V21 migration (test 8) > lifts ./fixtures/p13b/legacy-v20-research-paused-expired-468.json.gz into one retained seat and a frozen legacy prefix 316ms
+   ✓ P13B-S1 V20 to V21 migration (test 8) > lifts ./fixtures/p13b/legacy-v20-research-complete-operational-315.json.gz into one retained seat and a frozen legacy prefix 349ms
+   ✓ P13B-S1 V20 to V21 migration (test 8) > continues the migrated active-280 project lawfully for one more funded week and re-saves byte-identically 2432ms
+   ✓ P13B-S1 V20 to V21 migration (test 8) > keeps the migrated paused-expired seat retained but ineligible, refuses resumeResearch, then accepts it after rehiring the same id 1471ms
+   ✓ P13B-S1 campaign isolation (test 10) > produces independent migrated copies from the same fixture; advancing one never touches the other 3719ms
+ ✓ |core| tests/contracts/determinism-floor.contract.test.ts (3 tests) 807ms
+   ✓ C2a-M0 · §12-M0 gate — same seed, same actions, same bytes > exports byte-identically across two fresh runs 472ms
+ ✓ |core| tests/bridge-p13b-s3-save-as.test.ts (1 test) 14525ms
+   ✓ P13B-S3 Save As (test 7, A11) > a Save As copy keeps the same plan ids and advances independently; the inactive original never advances (complete-state comparison) 14524ms
+ ✓ |core| tests/p13a-save-v20.test.ts (5 tests) 3115ms
+   ✓ P13A governed V19 to V20 persistence > loads the exact accepted product fixture and preserves its history, balances and employment 595ms
+   ✓ P13A governed V19 to V20 persistence > round-trips a migrated V20 world exactly and creates independent state objects 1196ms
+   ✓ P13A governed V19 to V20 persistence > validates the source before JSON detachment can erase an invalid leaf 888ms
+ ✓ |core| tests/p13a-research-identity.test.ts (1 test) 2355ms
+   ✓ P13A retained research Laboratory identity > keeps paused and cancelled Laboratory references intact without blocking lawful instrument installation 2336ms
+ ✓ |core| tests/p12-lifecycle.test.ts (5 tests) 17254ms
+   ✓ R05 shared-law rival lifecycle > rejects forged owners, erased archive announcements, invented employers and invalid chart history 2460ms
+   ✓ R05 shared-law rival lifecycle > rejects forged frozen credits, double roles, and another studio’s reserved performers 924ms
+   ✓ R05 shared-law rival lifecycle > commissions, staffs, funds, operates, releases and settles real films without player RNG draws 5905ms
+   ✓ R05 shared-law rival lifecycle > expires ordinary contracts and crosses the first real arrival from elapsed play 7869ms
+stdout | tests/bridge-p09a-w5-bare-lot-first-film.test.ts > P09A W5 — the bare-lot first film, driven only through the bridge > founds sparse, builds the plant and a Set at engine prices, and releases a picture on its own money
+[p09 bridge journey] released week 37; commands 46; rollovers 2; cash floor 8864638; final cash 9374658
+
+ ✓ |core| tests/bridge-p09a-w5-bare-lot-first-film.test.ts (1 test) 219204ms
+   ✓ P09A W5 — the bare-lot first film, driven only through the bridge > founds sparse, builds the plant and a Set at engine prices, and releases a picture on its own money 219202ms
+
+ Test Files  15 passed (15)
+      Tests  78 passed (78)
+   Start at  16:12:19
+   Duration  244.18s (transform 4.65s, setup 0ms, collect 17.34s, tests 345.89s, environment 5ms, prepare 3.50s)
+
+EXIT=0
+Mon Sep 21 14:16:24 UTC 2026

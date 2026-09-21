@@ -1,0 +1,16 @@
+[33mThe CJS build of Vite's Node API is deprecated. See https://vite.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.[39m
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+stdout | ../../../private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/6ed44184-f9ac-40ba-bf1b-321fc7506549/scratchpad/probe/scan.probe.test.ts > scan
+p13a-core-causal-01: 1014 rows; pictures 51; notOk 0; poolMoved 0
+
+ ✓ ../../../private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/6ed44184-f9ac-40ba-bf1b-321fc7506549/scratchpad/probe/scan.probe.test.ts (1 test) 9704ms
+   ✓ scan 9703ms
+
+ Test Files  1 passed (1)
+      Tests  1 passed (1)
+   Start at  19:31:21
+   Duration  10.32s (transform 1.67s, setup 0ms, collect 84ms, tests 9.70s, environment 0ms, prepare 98ms)
+
+EXIT 0

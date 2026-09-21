@@ -1,0 +1,16 @@
+[33mThe CJS build of Vite's Node API is deprecated. See https://vite.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.[39m
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+stdout | ../../../private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/6ed44184-f9ac-40ba-bf1b-321fc7506549/scratchpad/619-T2-probe/chain.probe.test.ts > chain
+p13-public-commercial-adoption /Users/zacheryspector/The-Movies-headless-program/src: 1610 rows; pictures 126; notOk 15; poolMoved 0; digest 482c6231b42184fb2feb6258f1127ee8dd66a9fa24eb3f8244018ca032397434
+
+ ✓ ../../../private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/6ed44184-f9ac-40ba-bf1b-321fc7506549/scratchpad/619-T2-probe/chain.probe.test.ts (1 test) 13079ms
+   ✓ chain 13078ms
+
+ Test Files  1 passed (1)
+      Tests  1 passed (1)
+   Start at  20:00:01
+   Duration  13.73s (transform 1.59s, setup 0ms, collect 108ms, tests 13.08s, environment 0ms, prepare 150ms)
+
+EXIT 0

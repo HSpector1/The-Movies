@@ -1,0 +1,23 @@
+Mon Sep 21 16:08:01 UTC 2026
+23d59bdba9c963f68c93727d3d0575e303b4212d
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+stdout | tests/zz-600-t4-probe.test.ts > 600-T4 probe > B second beneficiary from the fixture state
+TICK 52 issuer studio-aca408ec-player bound OPEN player roots: promise-0 -> t-act-09(actor,25.17) APPEARANCE_COUNT {"count":1} window=[52,92) ; promise-1 -> t-act-08(actor,38.16) APPEARANCE_COUNT {"count":1} window=[52,92)
+CONTRACT ORDER (active at tick): t-wri-03[13,221) t-dir-01[13,221) t-act-12[13,221) t-act-13[13,221) t-cra-01[13,221) t-act-09[52,104) t-act-08[52,104)
+playerPayload(focus=promise-0 t-act-09, 'lead') contract-order fill → antagonist=t-act-12 support=t-act-13 third=t-act-08
+issuer's OTHER bound OPEN beneficiaries: ["t-act-08"]; employed actor now: true
+activeProductions at tick: none
+greenlight check: applyActions accepts antagonist=t-act-08? 
+greenlit prod-0052 cast={"lead":"t-act-09","antagonist":"t-act-08","support":"t-act-12"} (productions before=0 after=1)
+
+ ✓ |core| tests/zz-600-t4-probe.test.ts (3 tests | 2 skipped) 227ms
+
+ Test Files  1 passed (1)
+      Tests  1 passed | 2 skipped (3)
+   Start at  18:08:02
+   Duration  3.13s (transform 1.57s, setup 0ms, collect 2.38s, tests 227ms, environment 0ms, prepare 89ms)
+
+EXIT=0
+Mon Sep 21 16:08:05 UTC 2026

@@ -1,0 +1,7 @@
+Mon Sep 21 13:56:11 UTC 2026
+
+> project-studio-core@0.1.0 typecheck
+> tsc --noEmit && tsc -p ui/tsconfig.json --noEmit
+
+EXIT=0
+Mon Sep 21 13:57:24 UTC 2026

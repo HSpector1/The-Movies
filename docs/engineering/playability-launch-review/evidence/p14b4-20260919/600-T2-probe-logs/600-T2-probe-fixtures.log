@@ -1,0 +1,23 @@
+Mon Sep 21 14:25:32 UTC 2026
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+stdout | tests/zz-600-t2-probe.test.ts > probe fixtures
+poaching pipeline premise {"week":197,"promises":[{"promiseId":"promise-42","version":4,"issuerStudioId":"studio-5a47d054-r01","beneficiaryPersonId":"person-studio-5a47d054-r04-3","windowStartWeek":208,"dueWeekExclusive":416,"feasibilityReceipt":{"classification":"REASONABLY_ACHIEVABLE","bottleneck":null,"inputsDigest":"d47355fa0c8494c3","rulesVersion":4,"week":196},"progress":0,"evidenceRefs":[],"outcome":null,"outcomeWeek":null,"outcomeCause":null,"outcomeEventId":null,"contractId":null,"family":"LEAD_OR_SIGNIFICANT_ROLE_COUNT","predicate":{"kind":"castRoleCount","count":1,"seatClass":"leadOrAntagonist"}},{"promiseId":"promise-43","version":4,"issuerStudioId":"studio-5a47d054-r02","beneficiaryPersonId":"person-studio-5a47d054-r04-3","windowStartWeek":208,"dueWeekExclusive":416,"feasibilityReceipt":{"classification":"REASONABLY_ACHIEVABLE","bottleneck":null,"inputsDigest":"dfa4a41e3f908bd0","rulesVersion":4,"week":196},"progress":0,"evidenceRefs":[],"outcome":null,"outcomeWeek":null,"outcomeCause":null,"outcomeEventId":null,"contractId":null,"family":"LEAD_OR_SIGNIFICANT_ROLE_COUNT","predicate":{"kind":"castRoleCount","count":1,"seatClass":"leadOrAntagonist"}}],"scripts":{"mode":"managed","projects":[{"id":"script-0000","conceptId":"c-00","writerId":"t-wri-10","writerIds":["t-wri-10"],"shape":{"opening":"slowSetup","midpoint":"revelation","ending":"bittersweet"},"promise":{"genre":"comedy","intendedSegments":["adult"],"ranges":{"intimacy":[-0.5,0.5],"tonalWeight":[-0.5,0.5],"kineticEnergy":[-0.5,0.5]}},"status":"review","rewriteCount":0,"commissionedWeek":196,"dueWeek":null,"assessment":{"actualStrength":68.72650768853818,"perceivedStrength":68.72650768853818},"reservation":null,"productionId":null},{"id":"script-0001","conceptId":"c-01","writerId":"t-wri-10","writerIds":["t-wri-10"],"shape":{"opening":"slowSetup","midpoint":"revelation","ending":"bittersweet"},"promise":{"genre":"romance","intendedSegments":["adult"],"ranges":{"intimacy":[-0.5,0.5],"tonalWeight":[-0.5,0.5],"kineticEnergy":[-0.5,0.5]}},"status":"drafting","rewriteCount":0,"commissionedWeek":197,"dueWeek":198,"assessment":null,"reservation":{"projectId":"script-0001","facilityId":"facility-development-casting","capability":"development-casting","slot":0},"productionId":null}]},"concepts":["c-00","c-01","c-02","c-03","c-04","c-05","c-06","c-07","c-08","c-09","c-10","c-11","c-12","c-13","c-14","c-15","c-16","c-17","c-18","c-19","c-20","c-21","c-22","c-23","c-24","c-25","c-26","c-27","c-28","c-29"],"stages":[{"id":"facility-soundstage-07","name":"Soundstage 7","capability":"soundstage","capacity":1},{"id":"facility-soundstage-12","name":"Soundstage 12","capability":"soundstage","capacity":1}]}
+POACH subject person-studio-5a47d054-r04-3 incumbent studio-5a47d054-r04 age 29.84081390477671 role actor
+POACH settled [{"week":208,"studio":"PLAYER","reasons":["their compensation band ranked above the others","their term matched what this person prefers"],"eventId":"talent-market-event-145"}]
+POACH roots [{"id":"promise-42","issuer":"studio-5a47d054-r01","family":"LEAD_OR_SIGNIFICANT_ROLE_COUNT","predicate":{"kind":"castRoleCount","count":1,"seatClass":"leadOrAntagonist"},"window":[208,416],"bound":null,"cls":"REASONABLY_ACHIEVABLE","outcome":null},{"id":"promise-43","issuer":"studio-5a47d054-r02","family":"LEAD_OR_SIGNIFICANT_ROLE_COUNT","predicate":{"kind":"castRoleCount","count":1,"seatClass":"leadOrAntagonist"},"window":[208,416],"bound":null,"cls":"REASONABLY_ACHIEVABLE","outcome":null},{"id":"promise-48","issuer":"PLAYER","family":"APPEARANCE_COUNT","predicate":{"count":1},"window":[208,248],"bound":"studio-5a47d054-player:contract:person-studio-5a47d054-r04-3:208:player-47","cls":"REASONABLY_ACHIEVABLE","outcome":null}]
+POACH other receipts at 208 []
+RIVAL open week 196 terminal week 213 promise {"id":"promise-16","issuer":"studio-aca408ec-r01","person":"person-studio-aca408ec-r02-2","family":"APPEARANCE_COUNT","predicate":{"count":1},"outcome":"SATISFIED","outcomeWeek":213}
+RIVAL open proposals with promises at open 48 tagged roots at terminal 6 of 48
+
+ ✓ |core| tests/zz-600-t2-probe.test.ts (1 test) 7764ms
+   ✓ probe fixtures 7763ms
+
+ Test Files  1 passed (1)
+      Tests  1 passed (1)
+   Start at  16:25:33
+   Duration  10.47s (transform 1.55s, setup 0ms, collect 2.16s, tests 7.76s, environment 0ms, prepare 139ms)
+
+EXIT=0
+Mon Sep 21 14:25:44 UTC 2026

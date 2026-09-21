@@ -1,0 +1,27 @@
+Mon Sep 21 16:09:42 UTC 2026
+23d59bdba9c963f68c93727d3d0575e303b4212d
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+stdout | tests/zz-600-t4-probe.test.ts > 600-T4 probe > C policy scan
+SEED seed-b: seen=["P1fallback","flexibleP2","neither","provenP1"] lastWeek=196
+  provenP1 w196 studio-bc14baf6-r01 -> person-studio-bc14baf6-r01-0(writer,51.56) reads=APPEARANCE_COUNT/{"count":1} => REASONABLY_ACHIEVABLE:null rules=4 w196 root=promise-0
+  flexibleP2 w196 studio-bc14baf6-r01 -> person-studio-bc14baf6-r01-2(actor,28.00) reads=LEAD_OR_SIGNIFICANT_ROLE_COUNT/{"kind":"castRoleCount","count":1,"seatClass":"leadOrAntagonist"} => REASONABLY_ACHIEVABLE:null rules=4 w196 root=promise-4
+  neither w196 studio-bc14baf6-r03 -> person-studio-bc14baf6-r01-2(actor,28.00) reads=LEAD_OR_SIGNIFICANT_ROLE_COUNT/{"kind":"castRoleCount","count":1,"seatClass":"leadOrAntagonist"} => FRAGILE:needs a picture not yet commissioned rules=4 w196 ; APPEARANCE_COUNT/{"count":1} => FRAGILE:needs a picture not yet commissioned rules=4 w196
+  P1fallback w196 studio-bc14baf6-r03 -> person-studio-bc14baf6-r03-4(actor,28.00) reads=LEAD_OR_SIGNIFICANT_ROLE_COUNT/{"kind":"castRoleCount","count":1,"seatClass":"leadOrAntagonist"} => FRAGILE:needs a picture not yet commissioned rules=4 w196 ; APPEARANCE_COUNT/{"count":1} => REASONABLY_ACHIEVABLE:null rules=4 w196 root=promise-36
+SEED seed-c: seen=["P1fallback","flexibleP2","neither","provenP1"] lastWeek=196
+  provenP1 w196 studio-a72efa70-r01 -> person-studio-a72efa70-r01-0(writer,48.66) reads=APPEARANCE_COUNT/{"count":1} => REASONABLY_ACHIEVABLE:null rules=4 w196 root=promise-0
+  flexibleP2 w196 studio-a72efa70-r01 -> person-studio-a72efa70-r03-3(actor,28.00) reads=LEAD_OR_SIGNIFICANT_ROLE_COUNT/{"kind":"castRoleCount","count":1,"seatClass":"leadOrAntagonist"} => REASONABLY_ACHIEVABLE:null rules=4 w196 root=promise-31
+  P1fallback w196 studio-a72efa70-r03 -> person-studio-a72efa70-r03-3(actor,28.00) reads=LEAD_OR_SIGNIFICANT_ROLE_COUNT/{"kind":"castRoleCount","count":1,"seatClass":"leadOrAntagonist"} => FRAGILE:needs a picture not yet commissioned rules=4 w196 ; APPEARANCE_COUNT/{"count":1} => REASONABLY_ACHIEVABLE:null rules=4 w196 root=promise-33
+  neither w196 studio-a72efa70-r04 -> person-studio-a72efa70-r03-3(actor,28.00) reads=LEAD_OR_SIGNIFICANT_ROLE_COUNT/{"kind":"castRoleCount","count":1,"seatClass":"leadOrAntagonist"} => FRAGILE:needs a picture not yet commissioned rules=4 w196 ; APPEARANCE_COUNT/{"count":1} => FRAGILE:needs a picture not yet commissioned rules=4 w196
+
+ ✓ |core| tests/zz-600-t4-probe.test.ts (3 tests | 2 skipped) 61109ms
+   ✓ 600-T4 probe > C policy scan 61108ms
+
+ Test Files  1 passed (1)
+      Tests  1 passed | 2 skipped (3)
+   Start at  18:09:42
+   Duration  64.46s (transform 1.86s, setup 0ms, collect 2.53s, tests 61.11s, environment 0ms, prepare 122ms)
+
+EXIT=0
+Mon Sep 21 16:10:47 UTC 2026

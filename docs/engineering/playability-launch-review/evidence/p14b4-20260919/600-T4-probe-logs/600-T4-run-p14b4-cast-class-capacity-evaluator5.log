@@ -1,0 +1,34 @@
+Mon Sep 21 16:15:29 UTC 2026
+23d59bdba9c963f68c93727d3d0575e303b4212d
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/p14b4-cast-class-capacity-evaluator5.test.ts (2 tests | 1 failed | 1 skipped) 1875ms
+   × P14B4 evaluator-5 kernel vocabulary (record 600 §3 2(b)): the joint certificate the scalar cannot issue > a conflicting fixed lead claim makes the joint offer impossible, not a target-specific BROKEN winner choice 1873ms
+     → expected 'FRAGILE' to be 'IMPOSSIBLE' // Object.is equality
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14b4-cast-class-capacity-evaluator5.test.ts > P14B4 evaluator-5 kernel vocabulary (record 600 §3 2(b)): the joint certificate the scalar cannot issue > a conflicting fixed lead claim makes the joint offer impossible, not a target-specific BROKEN winner choice
+AssertionError: expected 'FRAGILE' to be 'IMPOSSIBLE' // Object.is equality
+
+Expected: "IMPOSSIBLE"
+Received: "FRAGILE"
+
+ ❯ tests/p14b4-cast-class-capacity-evaluator5.test.ts:239:77
+    237|     const w = world()
+    238|     const state = shortVariants(w, { lead: p2('lead'), antagonist: p2(…
+    239|     expect(pureRead(state, shortDraft(w, state, 'support')).classifica…
+       |                                                                             ^
+    240|     // The support person's own physical predicate still has the actua…
+    241|     // Never resolve that joint conflict by marking some bound benefic…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 1 todo (2)
+   Start at  18:15:29
+   Duration  5.01s (transform 1.74s, setup 0ms, collect 2.53s, tests 1.87s, environment 0ms, prepare 128ms)
+
+EXIT=1
+Mon Sep 21 16:15:34 UTC 2026

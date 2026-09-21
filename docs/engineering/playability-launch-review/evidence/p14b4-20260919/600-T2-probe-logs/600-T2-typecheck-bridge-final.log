@@ -1,0 +1,7 @@
+Mon Sep 21 14:33:34 UTC 2026
+
+> project-studio-core@0.1.0 typecheck:bridge
+> tsc -p tsconfig.bridge.json
+
+EXIT=0
+Mon Sep 21 14:33:59 UTC 2026
