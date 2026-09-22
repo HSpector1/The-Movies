@@ -1,0 +1,11 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p14b1-first-take.test.ts (3 tests) 1757ms
+   ✓ P14B.1 test 1: the first-take receipt > PLAYER: never at shooting entry (empty at remainingTicks 5, shooting task unassigned then scheduled through the real actions, still empty after scheduling); appended exactly once at the 5 -> 4 advance; idempotent on a later tick; byte-stable across save/load 1491ms
+
+ Test Files  1 passed (1)
+      Tests  3 passed (3)
+   Start at  13:17:54
+   Duration  4.74s (transform 1.51s, setup 0ms, collect 2.25s, tests 1.76s, environment 0ms, prepare 126ms)
+

@@ -117,7 +117,7 @@ describe('Owner UX outgoing projection20 migration', () => {
       if(beforeJson===null){expect(afterJson).toBeNull();expect(afterDigest).toBeNull();continue}
       const before=JSON.parse(beforeJson),after=JSON.parse(afterJson!)
       expect(after.saveVersion).toBe(31)
-      const {hollywood,technology,physicalPlans,talentMarket,firstTakes,promises,...oldRoots}=after.state
+      const {hollywood,technology,physicalPlans,talentMarket,firstTakes,promises,relationships,...oldRoots}=after.state
       expect(technology).toEqual({ version: 4, recordingStartedWeek: before.state.market.tick, cooperationFromWeek: before.state.market.tick, projects: [], access: [], adoptions: [], productions: [], equipment: [], nextEquipmentId: 0 })
       // P13B-S3: V23 adds the physical-plan root, empty at the migration week.
       expect(physicalPlans).toEqual({ version: 1, nextPlanId: 1, plans: [] })
@@ -127,6 +127,10 @@ describe('Owner UX outgoing projection20 migration', () => {
       // first take and no promise is reconstructed for anything already recorded.
       expect(firstTakes).toEqual([])
       expect(promises).toEqual([])
+      // P14B.5: V31 adds the shared-work bond root, EMPTY at the migration week —
+      // the lift opens it empty and recomputes nothing, so no bond is invented
+      // for work these predecessor slots already recorded.
+      expect(relationships).toEqual([])
       for (const person of oldRoots.talent) {
         expect(person.skills.research).toEqual(Object.fromEntries(['scientificMethod','acoustics','instrumentation','experimentation','engineering','documentation'].map(skill => [skill,{ actual: 1, perceived: 1 }])))
         expect(person.workHistory.research).toBe(0)

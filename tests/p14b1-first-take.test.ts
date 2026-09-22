@@ -99,13 +99,6 @@ import type { CastSlot, GameState, SegmentId } from '../src/core/types.js'
 // CALLED below.
 import { firstTakeReceipts } from '../src/core/promises.js'
 
-type Envelope = { saveVersion: number; seed: string; state: GameState; broadcastCache: unknown[] }
-type SaveModuleWithV29 = typeof save & {
-  migrateToV29: (envelope: unknown) => Envelope
-  validateSaveV29: (envelope: unknown) => unknown
-}
-const withV29 = save as SaveModuleWithV29
-
 type FirstTake = { eventId: string; week: number; productionId: string; studioId: string; directorId: string; cast: { lead: string; antagonist: string; support: readonly string[] | string } }
 function takesFor(state: GameState, productionId: string): FirstTake[] {
   return (firstTakeReceipts(state) as readonly FirstTake[]).filter((r) => r.productionId === productionId)
@@ -282,8 +275,19 @@ describe('P14B.1 test 1: the first-take receipt', () => {
     expect(takesFor(afterSecondWeek, productionId).length).toBe(1)
 
     // byte-stable across save/load.
-    const envelope = { saveVersion: 29, seed: afterFirstWeek.seed, state: afterFirstWeek, broadcastCache: afterFirstWeek.broadcastItems }
-    const roundTripped = withV29.validateSaveV29(JSON.parse(JSON.stringify(envelope))) as Envelope
+    // AMENDED (P14B.5 live-version sweep, 2026-09-22): the envelope moved 29 ->
+    // 31 and the validator with it. The claim is unchanged — this receipt
+    // survives a real save/load byte-for-byte — but the state being round-
+    // tripped is a LIVE state, and a live state now carries the V31
+    // `relationships` root, which `validateSaveV29`'s frozen chain refuses as an
+    // unknown field. Projecting DOWN is not available here: the first take
+    // asserted above mints shared-work bonds (asserted on the next line), and
+    // `convertV31ToV30` refuses any world that holds an edge. So the round trip
+    // runs at the LIVE version, exactly as
+    // tests/p14b4-cast-class-outcomes.test.ts:355 does.
+    expect(afterFirstWeek.relationships.length).toBeGreaterThan(0)
+    const envelope = { saveVersion: 31, seed: afterFirstWeek.seed, state: afterFirstWeek, broadcastCache: afterFirstWeek.broadcastItems }
+    const roundTripped = save.validateSaveV31(JSON.parse(JSON.stringify(envelope)))
     // Filtered by productionId, exactly like `takes` above: an industry
     // world's `firstTakes` root also carries every rival's own first takes
     // (unlike the V28-fixture's isolated operations-only world), so the

@@ -830,6 +830,13 @@ describe('C1-M3a (F) — saves, boundaries, and determinism', () => {
     expect(forgedV11.state.promises).toEqual([])
     delete forgedV11.state.firstTakes
     delete forgedV11.state.promises
+    // P14B.5: and the shared-work bond root (V31), for the same reason as every
+    // root above — the V11 exact-keys allowlist trips on "unknown field
+    // relationships" before the walk ever reaches the demolition refund boundary
+    // this test is about. Removed only while EMPTY: this world never filmed a
+    // take, so no bond exists and no relationship history is discarded.
+    expect(forgedV11.state.relationships).toEqual([])
+    delete forgedV11.state.relationships
     for (const person of forgedV11.state.talent as Record<string, unknown>[]) {
       for (const key of ['skills', 'ceilings', 'devRate', 'genreExperience', 'workHistory']) {
         delete (person[key] as Record<string, unknown>).research

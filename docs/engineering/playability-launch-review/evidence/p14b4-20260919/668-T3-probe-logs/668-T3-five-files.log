@@ -1,0 +1,43 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p14b1-first-take.test.ts (3 tests) 4852ms
+   ✓ P14B.1 test 1: the first-take receipt > PLAYER: never at shooting entry (empty at remainingTicks 5, shooting task unassigned then scheduled through the real actions, still empty after scheduling); appended exactly once at the 5 -> 4 advance; idempotent on a later tick; byte-stable across save/load 4419ms
+   ✓ P14B.1 test 1: the first-take receipt > RIVAL: the same receipt is appended once at the 5 -> 4 advance for a rival production found by direct search over the natural chain (never a magic week) 406ms
+ ✓ |core| tests/facility-move-demolish.test.ts (30 tests) 6816ms
+   ✓ C1-M3a (A) — every persisted holder of a facility blocks both verbs > finds a screenplay reservation, on the RESERVATION and not the status 3135ms
+   ✓ C1-M3a (A) — every persisted holder of a facility blocks both verbs > finds a casting-session reservation 712ms
+   ✓ C1-M3a (A) — every persisted holder of a facility blocks both verbs > reports an idle facility as engaged by nothing, and is deterministic 482ms
+   ✓ C1-M3a (A) — every persisted holder of a facility blocks both verbs > REFUSES both verbs while the facility is engaged, and changes nothing 456ms
+   ✓ C1-M3a (F) — saves, boundaries, and determinism > round-trips a history containing both a move and a demolition 488ms
+ ✓ |core| tests/p13b-r07-save-v25.test.ts (8 tests) 2053ms
+   ✓ P13B-S5-R07 Save V25 (test 5) > validates the genuine V24 fixtures directly (sha256-pinned, week-pinned) before migration 481ms
+   ✓ P13B-S5-R07 Save V25 (test 5) > migrates both genuine V24 fixtures to V25: saveVersion 25, technology state byte-identical aside from the version bump, setup: null lift (vacuous — both carry zero workflows) 648ms
+   ✓ P13B-S5-R07 Save V25 (test 5) > mid-setup save/reload round-trips byte-identically (export/import codec only) — INTERPRETATION 3: hand-authored setup, no genuine producer exists yet 350ms
+ ✓ |core| tests/bridge-owner-ux-projection20-migration.test.ts (10 tests) 17359ms
+   ✓ Owner UX outgoing projection20 migration > migrates 'frozen Week105 null slot' without changing either V18 gameplay slot 1371ms
+   ✓ Owner UX outgoing projection20 migration > migrates 'frozen R12 Week106 null slot and genu…' without changing either V18 gameplay slot 1041ms
+   ✓ Owner UX outgoing projection20 migration > migrates 'constructed distinct-slot envelope fr…' without changing either V18 gameplay slot 1455ms
+   ✓ Owner UX outgoing projection20 migration > persists 'frozen Week105 null slot' once, then preserves the new session on restart 1443ms
+   ✓ Owner UX outgoing projection20 migration > persists 'frozen R12 Week106 null slot and genu…' once, then preserves the new session on restart 2506ms
+   ✓ Owner UX outgoing projection20 migration > persists 'constructed distinct-slot envelope fr…' once, then preserves the new session on restart 2063ms
+   ✓ Owner UX outgoing projection20 migration > preserves current-schema journal/session and exact Save retries after real published advance 5899ms
+   ✓ Owner UX outgoing projection20 migration > leaves both predecessor slots and journal intact when migration persistence fails 1467ms
+ ✓ |core| tests/bridge-p13b-r07-setup.test.ts (13 tests) 30395ms
+   ✓ requirement 2: each production snapshot gains setup: StudioProductionSetup | null > conventional ballroom: null pre-selection; admission at week 12 with 0 credited; a held rehearsal names the setup wait and a weeksRemaining consistent with the forecast; walked week-by-week to Shooting entry 16 9346ms
+   ✓ requirement 3: setup-recipe-<productionId>-<recipeId> rows, offered pre-Shooting with a bound stage whose Set type matches the recipe — PREMISE: published as setupRecipeActions on the same productionOperations row > the eligible ballroom recipe row is enabled, carries productionId/recipeId/planRevision, intent kind productionSetupAction, no rejections 984ms
+   ✓ requirement 3: setup-recipe-<productionId>-<recipeId> rows, offered pre-Shooting with a bound stage whose Set type matches the recipe — PREMISE: published as setupRecipeActions on the same productionOperations row > a wrong-Set-type row (ordinary recipe on a ballroom-bound production) is disabled, names its own refusal, and enabled agrees with the refusal 834ms
+   ✓ requirement 3: setup-recipe-<productionId>-<recipeId> rows, offered pre-Shooting with a bound stage whose Set type matches the recipe — PREMISE: published as setupRecipeActions on the same productionOperations row > rows are absent once the production enters Shooting (legacy path: no recipe ever selected) 1599ms
+   ✓ requirement 4: committing a recipe row through the bridge > writes exactly one setup record, advances stateRevision, refuses the same intent at the old revision, and the forecast matches setupForecast once the sweep visit admits it 3691ms
+   ✓ requirement 5: ticking through the bridge credits one unit per week and enters Shooting at the forecast week, on all three measured fixtures; the four setup history kinds appear on the history view > conventional ballroom: admission 12 -> Shooting entry 16, history rows setupAdmitted/setupUnitCredited x4/setupCompleted, production-scoped 1356ms
+   ✓ requirement 5: ticking through the bridge credits one unit per week and enters Shooting at the forecast week, on all three measured fixtures; the four setup history kinds appear on the history view > lighting ballroom: admission 807 -> Shooting entry 809, route "lighting" 10019ms
+   ✓ requirement 5: ticking through the bridge credits one unit per week and enters Shooting at the forecast week, on all three measured fixtures; the four setup history kinds appear on the history view > ordinary interior: admission 4 -> Shooting entry 5, both routes agree at 1 unit 666ms
+   ✓ requirement 6: player-safe; a legacy production publishes setup: null with its schedule unchanged > every productionOperations row belongs to this studio's own activeProductions — MEASURED: the engine has no rival production model to leak (operations/placement are single, player-scoped roots, the same fact tests/bridge-p13b-s4-office.test.ts case 7 and tests/bridge-p13b-s5-adoption.test.ts requirement 6 both rely on for their own rival-injection idiom) 630ms
+   ✓ requirement 6: player-safe; a legacy production publishes setup: null with its schedule unchanged > legacy timeline byte-identical through the bridge: a production that never selects a recipe publishes setup: null and today's exact (unheld) schedule 744ms
+   ✓ extra pin (parent instruction): the bridge's save/load "converted" report against the CURRENT save version, not a stale literal 23 (bridge/session.ts:123) > RED: a genuine CURRENT (live-version) checkpoint saved and reloaded through the SAME bridge session reports converted: false 518ms
+
+ Test Files  5 passed (5)
+      Tests  64 passed (64)
+   Start at  13:13:23
+   Duration  36.79s (transform 5.42s, setup 0ms, collect 12.49s, tests 61.48s, environment 2ms, prepare 1.30s)
+

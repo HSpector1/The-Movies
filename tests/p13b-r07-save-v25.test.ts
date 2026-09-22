@@ -168,6 +168,12 @@ function asV25Envelope(state: GameState): { saveVersion: 25; seed: string; state
   expect(stripped.promises).toEqual([])
   delete (stripped as unknown as { firstTakes?: unknown }).firstTakes
   delete (stripped as unknown as { promises?: unknown }).promises
+  // P14B.5 sweep: a frozen V25 envelope carries no `relationships` root either —
+  // the frozen chain's exact-key law refuses a root V25 never had. Same honest
+  // reconstruction as the two lines above: this rehearsing world completes no
+  // take, so it holds no bond and nothing is discarded.
+  expect(stripped.relationships).toEqual([])
+  delete (stripped as unknown as { relationships?: unknown }).relationships
   return { saveVersion: 25, seed: stripped.seed, state: stripped, broadcastCache: stripped.broadcastItems }
 }
 
