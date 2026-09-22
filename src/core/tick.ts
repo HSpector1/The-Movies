@@ -1,5 +1,6 @@
 import { advanceHollywoodWeek, finishHollywoodWeek } from './hollywoodTick.js'
 import { advancePromisesWeek, appendFirstTakes } from './promises.js'
+import { advanceRelationshipsWeek } from './relationships.js'
 import { advanceTalentMarketWeek } from './talentMarket.js'
 import { advanceResearchWeek, finishTechnologyWeek, weeklyResearchPayroll } from './technology.js'
 import { createProductionTechnologyPolicy } from './technologyProduction.js'
@@ -1099,15 +1100,26 @@ export function tick(state: GameState, options?: TickOptions): GameState {
   // written before anything reads it. P14B.1 (6): promise outcomes are then
   // evaluated ONCE, before the terminal market step, so a promise kept or broken
   // this week is already a fact when the market ranks on trust.
+  const takeEntries = [
+    ...productionAdvance.firstTakes.map((production) => ({ studioId: finalized.hollywood?.playerStudioId ?? '', production })),
+    ...industry.firstTakes,
+  ]
   const withTakes = appendFirstTakes(
     finishHollywoodWeek(finishTechnologyWeek(finalized)),
-    [
-      ...productionAdvance.firstTakes.map((production) => ({ studioId: finalized.hollywood?.playerStudioId ?? '', production })),
-      ...industry.firstTakes,
-    ],
+    takeEntries,
     finalized.market.tick,
   )
-  return advanceTalentMarketWeek(advancePromisesWeek(withTakes))
+  // P14B.5 (2): the ONE relationship seam, between the take append and the
+  // promise evaluation — the takes are already a fact, the market has not yet
+  // ranked on D5. Fed THIS advance's delta only: the same take entries, plus this
+  // advance's release results (the player's `records` and every rival's
+  // `industry.growth`), never a scan of a root.
+  const withBonds = advanceRelationshipsWeek(
+    withTakes,
+    { takes: takeEntries, releases: [...records.map((r) => r.filmResult), ...industry.growth.map((r) => r.filmResult)] },
+    finalized.market.tick,
+  )
+  return advanceTalentMarketWeek(advancePromisesWeek(withBonds))
 }
 
 /**

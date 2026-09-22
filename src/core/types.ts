@@ -2228,10 +2228,60 @@ export type GameStateV30 = Omit<GameStateV29, 'promises'> & {
   promises: readonly ProfessionalPromiseV30[]
 }
 
-// P14B.4 (record 600): the live gameplay/wire boundary is V30. V29 remains the
-// frozen prior save shape; a tagged predicate exists only on the V30 union.
+// P14B.4 (record 600): V30 added the tagged predicate. V29 remains the frozen
+// prior save shape; a tagged predicate exists only on the V30 union.
 export type ProfessionalPromise = ProfessionalPromiseV30
-export type GameState = GameStateV30
+
+// ── P14B.5 — the first shared-work bond (Save V31) ──────────────────────────
+
+/** The eight-member friendship ladder (companion §5.3 :423-430), lowest first.
+ * Partners is the romance track, held ALONGSIDE the tier — never a rung. */
+export type RelationshipTier = 'Nemeses' | 'Enemies' | 'Strained' | 'Acquaintances' | 'Colleagues' | 'Friends' | 'CloseFriends' | 'Inseparable'
+
+/** The five driver kinds B.5 mints (§5.4): shared first take with its proximity
+ * weight, the repeat accelerator, success/failure at release, the player cancel
+ * after a first take. No conflict-record kind exists yet. */
+export type RelationshipDriverKind = 'sharedProduction' | 'repeatedCollaboration' | 'sharedSuccess' | 'sharedFailure' | 'cancelledAfterFirstTake'
+
+/** One evidence row: `ref` = the productionId; `week` = `state.market.tick` at
+ * the write; no prose persisted (kind → copy at read, the B.2 pattern). */
+export type RelationshipDriver = {
+  kind: RelationshipDriverKind
+  week: number
+  ref: string
+  delta: number
+}
+
+/** §5.2 :412's two facts per pair — CURRENT closeness (integer 0..100 AT
+ * `lastEventWeek`; drift is computed on read from that anchor) and CAREER history
+ * (the exact counters, never compacted; the peak; the bounded `recent` window,
+ * oldest first, whose overflow folds OUT at write into the counters). Keyed by
+ * the canonical pair `a < b` (code-unit order); in-state ordinal `edgeId`. */
+export type RelationshipEdge = {
+  edgeId: string
+  a: string
+  b: string
+  closeness: number
+  firstSharedWeek: number
+  lastEventWeek: number
+  sharedProductions: number
+  sharedSuccesses: number
+  sharedFailures: number
+  sharedCancellations: number
+  peakTier: RelationshipTier
+  peakTierWeek: number
+  recent: readonly RelationshipDriver[]
+}
+
+export type GameStateV31 = GameStateV30 & {
+  /** P14B.5 (1): the ONE relationship root, top level beside `firstTakes`/`promises`
+   * (R22), its version the save version. Minted only from live shared work. */
+  relationships: readonly RelationshipEdge[]
+}
+
+// P14B.5: the live gameplay/wire boundary is V31. V30 remains the frozen prior
+// save shape; a relationship edge exists only on the V31 root.
+export type GameState = GameStateV31
 
 // ── D-14 Talent Career Impact — frozen career-event record (§7) ───────────────
 // The ONE canonical persisted record of a participant's outcome on one released film.

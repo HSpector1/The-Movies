@@ -59,6 +59,7 @@ import { computeForecast, type ForecastContext } from './forecast.js'
 import { forecastHistoryForOwner } from './industryCareer.js'
 import { recordPlayerEmployment } from './industryEmployment.js'
 import { breakPromisesOnCancel, breakPromisesOnTermination } from './promises.js'
+import { recordCancelledAfterFirstTake } from './relationships.js'
 import { caseOpenForTalent, playerOffer } from './talentMarket.js'
 import { cancelAdoption, cancelInstallation, cancellationQuote } from './installationCancellation.js'
 import { clamp } from './math.js'
@@ -593,10 +594,13 @@ function applyCancel(state: GameState, action: Action & { kind: 'cancel' }): Gam
   // REMAINING count on the post-cancel state, in the promise's class mask. A joint
   // reservation conflict, an unsupported family or a FRAGILE remainder never breaks; an
   // absorbable cancellation is priced by trust; a picture that already filmed never un-satisfies.
+  // P14B.5 (2c): the relationship driver fires on exactly the COMPLEMENTARY
+  // condition — a first take EXISTS for the picture — beside the promise seam,
+  // which is untouched; a picture without a take mints nothing here.
   const playerStudioId = state.hollywood?.playerStudioId
   return playerStudioId === undefined
     ? withoutProduction
-    : breakPromisesOnCancel(withoutProduction, playerStudioId, cancelled)
+    : recordCancelledAfterFirstTake(breakPromisesOnCancel(withoutProduction, playerStudioId, cancelled), playerStudioId, cancelled)
 }
 
 // ── createTalent (§10 / D-9.14 creation budget) ──────────────────────────────

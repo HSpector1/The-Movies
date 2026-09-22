@@ -20,14 +20,15 @@ export function liftV18Control(state:GameStateV18):GameState { const cloned=stru
   talentMarket:initialTalentMarket(),
   // P14B.1 (Save V29): a historical control films no first take and makes no
   // promise — the two empty roots, exactly what the real lift writes.
-  firstTakes:[],promises:[]} }
+  // P14B.5 (Save V31): it shares no work — the empty relationship root.
+  firstTakes:[],promises:[],relationships:[]} }
 export function historicalHashState<T extends object>(state:T):object {
   if(!('technology' in state) && !('hollywood' in state) && !('physicalPlans' in state) && !('talentMarket' in state)
-    && !('firstTakes' in state) && !('promises' in state))return state
+    && !('firstTakes' in state) && !('promises' in state) && !('relationships' in state))return state
   if('hollywood' in state && state.hollywood!==null)throw new Error('Historical hash cannot discard a living industry')
   // P14B.1: the control records no qualifying event and no commitment; an empty
-  // pair of roots is the only lawful shape to discard.
-  for(const key of ['firstTakes','promises'] as const) {
+  // pair of roots is the only lawful shape to discard. P14B.5: nor any edge.
+  for(const key of ['firstTakes','promises','relationships'] as const) {
     if(key in state && (state as Partial<GameState>)[key]?.length!==0)throw new Error(`Historical hash cannot discard ${key} authority`)
   }
   if ('technology' in state) {
@@ -43,7 +44,7 @@ export function historicalHashState<T extends object>(state:T):object {
     if (stableStringify(state.talentMarket) !== stableStringify(initialTalentMarket())) throw new Error('Historical hash cannot discard talent-market authority')
   }
   const {hollywood: _control, technology: _research, physicalPlans: _plans, talentMarket: _market,
-    firstTakes: _takes, promises: _promises,...frozen}=state as Partial<GameState>
+    firstTakes: _takes, promises: _promises, relationships: _relationships,...frozen}=state as Partial<GameState>
   if (frozen.operations) {
     // P13B S5-R07: the live workflow carries `setup`/`planRevision`; a historical control never selected a recipe, so the only lawful
     // shape to discard is the null record at revision 0.

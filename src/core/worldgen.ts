@@ -783,5 +783,7 @@ export function generateWorld(seed: string, options?: GenerateWorldOptions): Gam
     // P14B.1: a fresh world has filmed no first take and made no promise.
     firstTakes: [],
     promises: [],
+    // P14B.5: a fresh world has shared no work — no edge.
+    relationships: [],
   }
 }
