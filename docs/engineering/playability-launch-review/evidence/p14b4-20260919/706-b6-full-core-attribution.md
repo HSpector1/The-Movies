@@ -13,9 +13,19 @@ establish, and the attribution of all 26 failures. Read it before reading the co
 | `testedDiffSha256` | `e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855` (empty) | `828149214dbe74bae3178bb0a2926b20bb9e2a2851cfe3a7b8f21c7f89ebc0c6` |
 
 The commit never moved. The working tree did: the D1 prose correction to
-`bridge/schema/bridge-schema.ts` (record 704) landed while the run was in flight, together
-with the `UNITY-INTEGRATION-BACKLOG.md` entry. `record-check` detected this by design and
-labelled the run. 703 is therefore an intermediate observation, not the fixed-source
+`bridge/schema/bridge-schema.ts` (record 704) landed while the run was in flight.
+`record-check` detected this by design and labelled the run.
+
+CORRECTION, made after this record was first published at `14d2c796`. The original wording
+said the tree also moved because of the `UNITY-INTEGRATION-BACKLOG.md` entry. That is wrong
+and is corrected here rather than silently. `record-check`'s `sourcePaths` (`:22-23`) are
+`src`, `bridge`, `tests`, `generated`, `ui`, `scripts` and the six config files; `docs/` is
+NOT among them, so no record or backlog file can move `testedDiffSha256` or `fixedSource`.
+The sole contributor was `bridge/schema/bridge-schema.ts`. Nothing else in this record
+changes: the CF-09 attribution rested on the schema edit alone and was confirmed by hash.
+A useful consequence: evidence records may be written DURING a run without qualifying it.
+
+703 is therefore an intermediate observation, not the fixed-source
 verification the Owner disposition requires. That verification is still owed and is listed
 under "What this run does not establish".
 
@@ -82,8 +92,14 @@ baseline, with all 11 `bridge-p12-campaign-library` failures and the
 `bridge-p13-campaign-isolation` failure timing out rather than asserting.
 
 This attribution is supported, not proven. A timeout that does not reproduce once may
-still be real. The final fixed-source run re-observes it, and if it returns there it is
-a defect, not weather.
+still be real.
+
+CORRECTED BY THE OWNER after first publication: this record originally said that if the
+timeout returned it would be "a defect, not weather". That is the same error as the first
+one, inverted, and it is withdrawn. A returning timeout is to be INVESTIGATED and neither
+default is to be applied. What has to be established is which assertion or await failed to
+finish, how far the case got, whether the elapsed profile matches the baseline, and whether
+anything in the landed change can reach that path at all. Only then is it attributed.
 
 ## Verification of the record 704 prediction
 
