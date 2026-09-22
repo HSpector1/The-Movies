@@ -1,0 +1,836 @@
+{"sourceSha":"68fe5985f2368992dc616e39aaa4d5fe582dc97f","testedDiffSha256":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core"],"node":"v20.20.2","start":"2026-09-22T20:03:58.538Z","end":null,"exitCode":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p14b4-owner-enumerator-slice.test.ts (45 tests) 13447ms
+   ✓ 558-T surface (RED law: a missing module or export is named, never a spurious pass) > surface (E10): every adopted export of promiseCapacityEnumerator.js exists with its runtime type; the adapter honours a 5th argument; NO_ENUMERATION is not exported; RED 11 key list unchanged 5628ms
+   ✓ 558-T floor: FRESH_TAKE_OFFSET and earliestStartedTakeWeek > E1 (555-B Q7) natural chain LAW: a real greenlight on w.opened at now, assign/schedule at the earliest lawful boundaries, records its first take no earlier than now + FRESH_TAKE_OFFSET 552ms
+   ✓ 558-T certificate: enumerateOwnerTraces on the started domain > E2: 2-week cell 'conflicting fixed lead claims (RED 4)…' — ONE Started run seeded with w_e, byte-equal trace and holds, both flags complete, no omission, floors now+5 348ms
+   ✓ 558-T honesty: the floor edge, the unforced started picture, the queue > E4 (555-B Q4): beyond the floor BOTH flags are incomplete with exactly the fresh-admission omission; the Started run to now+6 is complete (loud precondition); UNCERTIFIED/domainIncomplete, no horizon-guard throw 341ms
+ ✓ |core| tests/film-package-truthfulness.test.ts (27 tests) 1313ms
+   ✓ #18 a strong, expected-to-profit package can still lose money (authorized uncertainty) > a strong brief with POSITIVE expected profit can still take a real LOSS (D-12 share; scanned witness) 657ms
+ ✓ |core| tests/p14b5-relationships.test.ts (46 tests) 25948ms
+   ✓ P14B.5 T1 — the module and its named exports exist (RED at import; never a spurious pass) > the hypothesis constants carry the companion values named in the expansion and the ONE pinned relation 1348ms
+   ✓ family 1 — EDGE MINTING at the tick tail from the advance's delta (scope (2), (2a)) > a second advance from the same pre-take state mints byte-identical edges (replay); re-ticking the post-take state leaves the six untouched (idempotent) and mints only from THAT week's delta 834ms
+   ✓ family 2 — CANONICAL KEY and REPETITION on the rival chain (scope (2a); S25 symmetry) > the first post-migration RIVAL take mints six edges under the same law; the 45 pre-migration takes mint none (Q3) 2367ms
+   ✓ family 3 — DRIFT ON READ and FOLD-BY-COUNT (scope (3), (9); §5.5 :467-468) > past the grace window the value drifts toward the baseline by the plan formula (independent oracle), from either side, never past it, and is fully returned at GRACE + RETURN 876ms
+   ✓ family 3 — DRIFT ON READ and FOLD-BY-COUNT (scope (3), (9); §5.5 :467-468) > a WRITE after dormancy materialises the drifted value first, then applies the delta; counters, firstSharedWeek and the peak survive; recent folds by count at the cap 440ms
+   ✓ family 5 — RELEASE and CANCEL drivers (scope (2b)-(2c); 647-B R1 week stamp; coexistence with the promise seam) > a rival release (hollywood.films / industry.growth) mints under the same law; a release whose take predates every edge mints nothing (I2) 403ms
+   ✓ family 6 — D5 IN THE CHOOSER under the D1 roster predicate (scope (5); companion :116, :120) > the base (no edge) declines by the tie order: every landed band ties between the two survivors (measured premise) 8575ms
+   ✓ family 6 — D5 IN THE CHOOSER under the D1 roster predicate (scope (5); companion :116, :120) > a CloseFriends counterpart on the player's OFF-CYCLE row (startWeek < W, active at W) settles the case for the player with the D5 sentence as the ONLY reason 732ms
+   ✓ family 6 — D5 IN THE CHOOSER under the D1 roster predicate (scope (5); companion :116, :120) > the same case at a W where that edge has DRIFTED below Close Friends declines by the tie order 465ms
+   ✓ family 6 — D5 IN THE CHOOSER under the D1 roster predicate (scope (5); companion :116, :120) > a row CLOSED AT W (the actor signed at 0 for 208 weeks) never counts — the predicate's strict upper end 462ms
+   ✓ family 6 — D5 IN THE CHOOSER under the D1 roster predicate (scope (5); companion :116, :120) > a row COMMITTED AT W (startWeek === W) never counts — the predicate's strict lower end; the same row one week earlier does 970ms
+   ✓ family 6 — D5 IN THE CHOOSER under the D1 roster predicate (scope (5); companion :116, :120) > `enemies here` is never read: without a Close Friends counterpart no D5 sentence appears, whatever the value on the record 534ms
+   ✓ family 8 — RESERVATION enumerated and CHEMISTRY read-only (scope (6)-(7); §5.6 :476, :482) > pairChemistry returns {null, 0, []} without an edge, sign +1 for Colleagues and above, −1 for Strained and below, no digit in any reason, and reads nothing but the record 954ms
+   ✓ family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > refuses a week outside the recording interval (before the boundary; after market.tick) 580ms
+   ✓ family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > refuses closeness outside 0..100 or non-integer 564ms
+   ✓ family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > refuses inconsistent counters 504ms
+   ✓ family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > refuses an unknown driver kind, an empty ref and a non-integer delta 570ms
+   ✓ family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > a V31 world holding ONE edge refuses migrateToV30 with the downgrade message and refuses every older migrateToVn; empty is lossless 449ms
+ ✓ |core| tests/p14b4-owner-adapter-first-slice.test.ts (33 tests) 8784ms
+   ✓ 540-T claims: collectPromiseClaims membership, mask, remaining, target, guards > RED 1: collects bound-open P1 roots on world().ready as generic-mask prior claims 4233ms
+   ✓ 540-T digest: capacityInputsDigest identity > RED 12 (539-B refined): the digest changes with class and claims, is independent of preparationWork, keeps limits, and is unchanged by cash or RNG through the STARTED producer on w.ready 474ms
+   ✓ 540-T mapping: mapCapacityResult and classifyDetachedOffer > RED 9: 2-week cell 'joint lead+flexible+P1, target support' reaches the kernel within budget and maps UNCERTIFIED/domainIncomplete to FRAGILE with the exact bottleneck 354ms
+ ✓ |core| tests/bridge-p14b6-relationship-read-models.test.ts (24 tests) 17163ms
+   ✓ family 0 — PREMISES of the engine-built worlds (GREEN control; measured 2026-09-22 at HEAD 43817117) > W1: the real player take at week 61 mints six player edges beside 24 RIVAL-INTERNAL ones on the standard seed 3688ms
+   ✓ family 0 — PREMISES of the engine-built worlds (GREEN control; measured 2026-09-22 at HEAD 43817117) > W2: the market re-settlement puts BOTH predicate boundaries on week 104 with the week-61 edge standing 1281ms
+   ✓ family 0 — PREMISES of the engine-built worlds (GREEN control; measured 2026-09-22 at HEAD 43817117) > S1/S2/S3 staged roots are VALIDATOR-ADMITTED, and Strained really is sign −1 under the live constants 417ms
+   ✓ family 2 — DISCLOSURE, the family that matters most (RED BY RESOLUTION) > when undisclosed ties exist the block carries an HONEST line with no count and no identity (the presence.withheld precedent, people.ts :351-356) 402ms
+   ✓ family 3 — DRIVERS TEXT and the 694-C Q2 FORWARD CONSTRAINT (RED BY RESOLUTION) > S1 STAGED: one edge holding BOTH a -4 and a -5 sharedFailure renders text IDENTICAL to an edge holding only the -5 609ms
+   ✓ family 6 — FACTUAL SHARED-CREDIT COUNTS, Owner ruling 3 (ii) (RED BY RESOLUTION) > the GENUINE pre-V31 artifact (projection-47 savedSaveJson through migrateToV31) publishes no tier at all 567ms
+   ✓ family 7 — the LEAK LAW over the NEW DTOs (RED BY RESOLUTION; the landed :404-408 test stays GREEN UNAMENDED) > no root, record, edge id or rendered delta reaches people, casting or market on any world this file builds 466ms
+   ✓ family 9 — COMPATIBILITY (RED BY VALUE: the T0 fixture identity is the RUNNING identity today) > the genuine projection-48 checkpoint takes the governed PRIOR path exactly once and both slots land on Save V31 2512ms
+   ✓ family 9 — COMPATIBILITY (RED BY VALUE: the T0 fixture identity is the RUNNING identity today) > the 45 / 46 / 47 fixtures keep migrating exactly as they do today 5165ms
+ ✓ |core| tests/bridge-p14a2-market.test.ts (16 tests) 32955ms
+   ✓ group 2: buckets — one bucket per case, fixed order, paged closed > two open cases sharing a decision week sort renewalWindow by discovery order; a settling case one week before its decision reads under settling, not renewalWindow 5682ms
+   ✓ group 2: buckets — one bucket per case, fixed order, paged closed > every closed case in the settled-208 fixture is bounded by MARKET_CLOSED_PAGE_SIZE and pages deterministically across two reads; no case appears in a live bucket 1036ms
+   ✓ group 3: workspace attention rows > deduplicated per (cause, talentId), including termsRevised (a rival revision after the player proposed) and decisionWeekNear (one week before the decision) 1553ms
+   ✓ group 4: selected — candidate rail, offer comparison, settlement reasons/dropped > the rail's case block is byte-equal to marketCaseProjection; the own row equals proposalDraft; every competing figure is UNKNOWN 2089ms
+   ✓ group 4: selected — candidate rail, offer comparison, settlement reasons/dropped > after settlement (settled-208): the receipt's order-only reasons show; no dropped sentence shows for a case where the player never proposed 1152ms
+   ✓ group 5: paged employer/career history > employer intervals from the P12 rows, rival salaries private, credits by reference, bounded by MARKET_HISTORY_PAGE_SIZE 1466ms
+   ✓ group 6: workspace intents (Review & Submit / Revise / Withdraw) > the same quote -> commit -> STALE_REVISION -> revise -> withdraw -> INTENT_NOT_AVAILABLE sequence as A.1 group 8, from a session whose current page is the market page 11131ms
+   ✓ group 7: Pulse fold on view:"pulse" > one activity row per settlement, naming the person/studio/term length, salary absent, correlated by (talentId, week) against the two P12 receipts — never doubled 1097ms
+   ✓ group 8: disclosure leak check — workspace and pulse JSON > the rival's real figures at a non-1.00 tier appear nowhere in the workspace or pulse JSON 1957ms
+   ✓ group 9: save/load > LIVE_SAVE_VERSION === 28; a genuine V27 fixture converts to an EMPTY workspace (no attention, no cases, no selected) 1396ms
+   ✓ group 9: save/load > the three genuine V28 T0 fixtures load byte-stable and the market page reads them as T0 pins 3575ms
+   ✓ group 9: save/load > a V28 save round-trips through the bridge save/load path, and the market page reads identically on both sides 634ms
+stdout | tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — no-preference path and viability gates (plan :223-225) > p13a-core-causal-01: every real film decision without members equals the pre-existing choice and pool; every decision seats the law pick over the pool the seam law derives; a null choice only when no permutation is viable
+p13a-core-causal-01: 1015 real film decisions (51 pictures), 724 without members; chain digest over 1015 rows = 2aec0184c3301f1e174fe9843a0b076258fdc9de9683424cb064a5d777382610
+
+stdout | tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — no-preference path and viability gates (plan :223-225) > seed-b: every real film decision without members equals the pre-existing choice and pool; every decision seats the law pick over the pool the seam law derives; a null choice only when no permutation is viable
+seed-b: 1083 real film decisions (98 pictures), 669 without members; chain digest over 134 rows = d3218295f449599c4451ee5d85c13a3bd3171522ce2697b9d034dc71b96daea2
+
+stdout | tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — the natural witness (seed-b w211 studio-bc14baf6-r01, record 618 O-T4-1) > search table: the first seed-b decision whose seating matters holds two tagged leadOrAntagonist beneficiaries and one P1 beneficiary in a three-actor pool
+WITNESS seed-b w211 studio-bc14baf6-r01 studio-bc14baf6-r01:package:script-0023 cashAvailable=52015156.96352156
+[012] bc14baf6-r01-2/bc14baf6-r01-3/bc14baf6-r01-4 benefit=2 NOT VIABLE
+[021] bc14baf6-r01-2/bc14baf6-r01-4/bc14baf6-r01-3 benefit=3 NOT VIABLE
+[102] bc14baf6-r01-3/bc14baf6-r01-2/bc14baf6-r01-4 benefit=2 NOT VIABLE
+[120] bc14baf6-r01-3/bc14baf6-r01-4/bc14baf6-r01-2 benefit=2 score=-1507894 budget=2925161+671170
+[201] bc14baf6-r01-4/bc14baf6-r01-2/bc14baf6-r01-3 benefit=3 score=-1735081 budget=2925161+647648
+[210] bc14baf6-r01-4/bc14baf6-r01-3/bc14baf6-r01-2 benefit=2 score=-1425536 budget=2925161+679067
+chosen today: {"lead":"person-studio-bc14baf6-r01-4","antagonist":"person-studio-bc14baf6-r01-2","support":"person-studio-bc14baf6-r01-3"} law: bc14baf6-r01-4/bc14baf6-r01-2/bc14baf6-r01-3#3@-1735081 ordinary: bc14baf6-r01-4/bc14baf6-r01-3/bc14baf6-r01-2#2@-1425536
+
+stdout | tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — the natural witness (seed-b w211 studio-bc14baf6-r01, record 618 O-T4-1) > RED: every real film decision on seed-b with members seats the law pick (benefit, then ordinary score, then BILLINGS); the violation table names each miss
+SEED-B MEMBER DECISIONS 414 (8 pictures); MISSES 0
+
+
+stdout | tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — the natural witness (seed-b w211 studio-bc14baf6-r01, record 618 O-T4-1) > TIE FALLBACK (labeled reception-input variant): two reception-identical tagged beneficiaries tie on score; the first strict-greater winner in the inherited BILLINGS order is seated — inherited tie behaviour, not fairness (:218-221)
+TIE VARIANT w211 studio-bc14baf6-r01
+[012] bc14baf6-r01-2/bc14baf6-r01-3/bc14baf6-r01-4 benefit=2 score=-1515917 budget=2925161+671672
+[021] bc14baf6-r01-2/bc14baf6-r01-4/bc14baf6-r01-3 benefit=3 score=-1545921 budget=2925161+668330
+[102] bc14baf6-r01-3/bc14baf6-r01-2/bc14baf6-r01-4 benefit=2 score=-1565297 budget=2925161+667055
+[120] bc14baf6-r01-3/bc14baf6-r01-4/bc14baf6-r01-2 benefit=2 score=-1565297 budget=2925161+667055
+[201] bc14baf6-r01-4/bc14baf6-r01-2/bc14baf6-r01-3 benefit=3 score=-1545921 budget=2925161+668330
+[210] bc14baf6-r01-4/bc14baf6-r01-3/bc14baf6-r01-2 benefit=2 score=-1515917 budget=2925161+671672
+
+stdout | tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — membership (plan :210-213) and masks (:213-215) > CURRENT unaccepted offers never count: seed-b w202, three rivals decide while their own retention offers carry promises with contractId null; re-authored offers make the negative discriminating
+PENDING-OFFER w202 strict=bc14baf6-r01-4/bc14baf6-r01-3/bc14baf6-r01-2#0@-1391270 asIfBound=bc14baf6-r01-3/bc14baf6-r01-4/bc14baf6-r01-2#3@-1459842
+[012] bc14baf6-r01-2/bc14baf6-r01-3/bc14baf6-r01-4 benefit=1 NOT VIABLE
+[021] bc14baf6-r01-2/bc14baf6-r01-4/bc14baf6-r01-3 benefit=2 NOT VIABLE
+[102] bc14baf6-r01-3/bc14baf6-r01-2/bc14baf6-r01-4 benefit=2 NOT VIABLE
+[120] bc14baf6-r01-3/bc14baf6-r01-4/bc14baf6-r01-2 benefit=3 score=-1459842 budget=2626575+435673
+[201] bc14baf6-r01-4/bc14baf6-r01-2/bc14baf6-r01-3 benefit=2 NOT VIABLE
+[210] bc14baf6-r01-4/bc14baf6-r01-3/bc14baf6-r01-2 benefit=2 score=-1391270 budget=2626575+439485
+
+stdout | tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — membership (plan :210-213) and masks (:213-215) > a met promise never counts (r01 chain, RED today only through the witness defect): after the witness take the SATISFIED roots leave r01's member set at its next real decision
+MET-NEGATIVE w220 met=promise-4,promise-6,promise-8 strict=bc14baf6-r01-3/bc14baf6-r01-4/bc14baf6-r01-2#0@-957526 asIfUnmet=bc14baf6-r01-4/bc14baf6-r01-2/bc14baf6-r01-3#3@-1258947 discriminating=true
+
+stdout | tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — membership (plan :210-213) and masks (:213-215) > mask derivation through the shared reader — 'tagged lead stays exact: r01-2 counts…'
+MASK VARIANT {"kind":"castRoleCount","count":1,"seatClass":"lead"}
+[012] bc14baf6-r01-2/bc14baf6-r01-3/bc14baf6-r01-4 benefit=2 NOT VIABLE
+[021] bc14baf6-r01-2/bc14baf6-r01-4/bc14baf6-r01-3 benefit=3 NOT VIABLE
+[102] bc14baf6-r01-3/bc14baf6-r01-2/bc14baf6-r01-4 benefit=1 NOT VIABLE
+[120] bc14baf6-r01-3/bc14baf6-r01-4/bc14baf6-r01-2 benefit=2 score=-1507894 budget=2925161+671170
+[201] bc14baf6-r01-4/bc14baf6-r01-2/bc14baf6-r01-3 benefit=2 score=-1735081 budget=2925161+647648
+[210] bc14baf6-r01-4/bc14baf6-r01-3/bc14baf6-r01-2 benefit=2 score=-1425536 budget=2925161+679067
+law bc14baf6-r01-4/bc14baf6-r01-3/bc14baf6-r01-2#2@-1425536
+
+stdout | tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — membership (plan :210-213) and masks (:213-215) > mask derivation through the shared reader — 'legacy count-only LEAD_OR_SIGNIFICANT…'
+MASK VARIANT {"count":1}
+[012] bc14baf6-r01-2/bc14baf6-r01-3/bc14baf6-r01-4 benefit=2 NOT VIABLE
+[021] bc14baf6-r01-2/bc14baf6-r01-4/bc14baf6-r01-3 benefit=3 NOT VIABLE
+[102] bc14baf6-r01-3/bc14baf6-r01-2/bc14baf6-r01-4 benefit=2 NOT VIABLE
+[120] bc14baf6-r01-3/bc14baf6-r01-4/bc14baf6-r01-2 benefit=3 score=-1507894 budget=2925161+671170
+[201] bc14baf6-r01-4/bc14baf6-r01-2/bc14baf6-r01-3 benefit=3 score=-1735081 budget=2925161+647648
+[210] bc14baf6-r01-4/bc14baf6-r01-3/bc14baf6-r01-2 benefit=3 score=-1425536 budget=2925161+679067
+law bc14baf6-r01-4/bc14baf6-r01-3/bc14baf6-r01-2#3@-1425536
+
+stdout | tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — membership (plan :210-213) and masks (:213-215) > mask derivation through the shared reader — 'APPEARANCE_COUNT is generic cast'
+MASK VARIANT {"count":1}
+[012] bc14baf6-r01-2/bc14baf6-r01-3/bc14baf6-r01-4 benefit=2 NOT VIABLE
+[021] bc14baf6-r01-2/bc14baf6-r01-4/bc14baf6-r01-3 benefit=3 NOT VIABLE
+[102] bc14baf6-r01-3/bc14baf6-r01-2/bc14baf6-r01-4 benefit=2 NOT VIABLE
+[120] bc14baf6-r01-3/bc14baf6-r01-4/bc14baf6-r01-2 benefit=3 score=-1507894 budget=2925161+671170
+[201] bc14baf6-r01-4/bc14baf6-r01-2/bc14baf6-r01-3 benefit=3 score=-1735081 budget=2925161+647648
+[210] bc14baf6-r01-4/bc14baf6-r01-3/bc14baf6-r01-2 benefit=3 score=-1425536 budget=2925161+679067
+law bc14baf6-r01-4/bc14baf6-r01-3/bc14baf6-r01-2#3@-1425536
+
+stdout | tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — the initial cast seam (plan :225-232) > capacity constraint: a rival with a ready screenplay and no lawful complementary staffing decides nothing (natural weeks logged; zero is a fixture finding)
+NO-STAFFING WEEKS 286
+p13a-core-causal-01 w208 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w208 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w209 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w209 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w210 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w210 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w211 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w211 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w212 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w212 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w213 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w213 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w214 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w214 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w215 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w215 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w216 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w216 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w217 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w217 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w218 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w218 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w219 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w219 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w220 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w220 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w221 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w221 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w222 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w222 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w223 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w223 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w224 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w224 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w225 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w225 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w226 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w226 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w227 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w227 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w228 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w228 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w229 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w229 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w230 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w230 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w231 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w231 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w232 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w232 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w233 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w233 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w234 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w234 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w235 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w235 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w236 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w236 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w237 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w237 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w238 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w238 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w239 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w239 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w240 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w240 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w241 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w241 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w242 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w242 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w243 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w243 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w244 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w244 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w245 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w245 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w246 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w246 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w247 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w247 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w248 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w248 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w249 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w249 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w250 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w250 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w251 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w251 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w252 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w252 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w253 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w253 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w254 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w254 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w255 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w255 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w256 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w256 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w257 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w257 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w258 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w258 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w259 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w259 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w260 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w260 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w261 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w261 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w262 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w262 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w263 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w263 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w264 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w264 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w265 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w265 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w266 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w266 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w267 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w267 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w268 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w268 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w269 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w269 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w270 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w270 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w271 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w271 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w272 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w272 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w273 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w273 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w274 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w274 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w275 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w275 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w276 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w276 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w277 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w277 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w278 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w278 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w279 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w279 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w280 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w280 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w281 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w281 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w282 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w282 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w283 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w283 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w284 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w284 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w285 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w285 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w286 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w286 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w287 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w287 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w288 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w288 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w289 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w289 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w290 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w290 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w291 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w291 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w292 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w292 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w293 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w293 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w294 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w294 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w295 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w295 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w296 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w296 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w297 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w297 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w298 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w298 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w299 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w299 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w300 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w300 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w301 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w301 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w302 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w302 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w303 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w303 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w304 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w304 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w305 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w305 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w306 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w306 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w307 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w307 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w308 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w308 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w309 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w309 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w310 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w310 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w311 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w311 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w312 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w312 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w313 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w313 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w314 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w314 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w315 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w315 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w316 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w316 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w317 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w317 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w318 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w318 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w319 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w319 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w320 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w320 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w321 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w321 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w322 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w322 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w323 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w323 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w324 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w324 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w325 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w325 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w326 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w326 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w327 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w327 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w328 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w328 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w329 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w329 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w330 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w330 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w331 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w331 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w332 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w332 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w333 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w333 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w334 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w334 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w335 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w335 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w336 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w336 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w337 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w337 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w338 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w338 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w339 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w339 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w340 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w340 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w341 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w341 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w342 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w342 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w343 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w343 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w344 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w344 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w345 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w345 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w346 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w346 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w347 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w347 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w348 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w348 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w349 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w349 studio-aca408ec-r04 deficit=true
+seed-b w208 studio-bc14baf6-r04 deficit=true
+seed-b w209 studio-bc14baf6-r04 deficit=true
+
+stdout | tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — the initial cast seam (plan :225-232) > the positive seam witness (plan :225-227, :233; record 621 R2 / G10-b): the first default-seed picture whose pool seats a promised person outside the historical first three admits r01's sole WRITER — a non-primary-actor beneficiary — and the real package and first take serve his promise
+SEAM WITNESS w208 studio-aca408ec-r01 studio-aca408ec-r01:package:script-0011 cashAvailable=8686605.262935068
+[012] aca408ec-r02-0/aca408ec-r02-2/aca408ec-r02-3 benefit=3 NOT VIABLE
+[021] aca408ec-r02-0/aca408ec-r02-3/aca408ec-r02-2 benefit=3 NOT VIABLE
+[102] aca408ec-r02-2/aca408ec-r02-0/aca408ec-r02-3 benefit=3 NOT VIABLE
+[120] aca408ec-r02-2/aca408ec-r02-3/aca408ec-r02-0 benefit=3 NOT VIABLE
+[201] aca408ec-r02-3/aca408ec-r02-0/aca408ec-r02-2 benefit=3 NOT VIABLE
+[210] aca408ec-r02-3/aca408ec-r02-2/aca408ec-r02-0 benefit=3 score=-1366501 budget=3033668+594746
+law aca408ec-r02-3/aca408ec-r02-2/aca408ec-r02-0#3@-1366501 ordinary aca408ec-r02-3/aca408ec-r02-2/aca408ec-r02-0#3@-1366501
+
+ ✓ |core| tests/p14b4-rival-seating-preference.test.ts (22 tests | 1 skipped) 72630ms
+   ✓ P14B4 final seating preference — no-preference path and viability gates (plan :223-225) > default seed: the first screenplay-planning call and first film decision are byte-identical to the accepted values; the transcribed ordinary score reproduces the real no-preference choice 29591ms
+   ✓ P14B4 final seating preference — no-preference path and viability gates (plan :223-225) > p13a-core-causal-01: every real film decision without members equals the pre-existing choice and pool; every decision seats the law pick over the pool the seam law derives; a null choice only when no permutation is viable 473ms
+   ✓ P14B4 final seating preference — no-preference path and viability gates (plan :223-225) > seed-b: every real film decision without members equals the pre-existing choice and pool; every decision seats the law pick over the pool the seam law derives; a null choice only when no permutation is viable 33738ms
+   ✓ P14B4 final seating preference — the natural witness (seed-b w211 studio-bc14baf6-r01, record 618 O-T4-1) > RED: the real seating serves the maximal DISTINCT-beneficiary count (plan :215-218), the picture is viable and affordable (:223-225), and the real first take then satisfies all three through advancePromisesWeek/qualifyingTakes 345ms
+   ✓ P14B4 final seating preference — the natural witness (seed-b w211 studio-bc14baf6-r01, record 618 O-T4-1) > CONFLICT: the ordinary economic score prefers a two-beneficiary permutation; benefit count wins over score (:216-217) and the real take proves it 394ms
+   ✓ P14B4 final seating preference — the natural witness (seed-b w211 studio-bc14baf6-r01, record 618 O-T4-1) > TIE FALLBACK (labeled reception-input variant): two reception-identical tagged beneficiaries tie on score; the first strict-greater winner in the inherited BILLINGS order is seated — inherited tie behaviour, not fairness (:218-221) 1198ms
+   ✓ P14B4 final seating preference — membership (plan :210-213) and masks (:213-215) > CURRENT unaccepted offers never count: seed-b w202, three rivals decide while their own retention offers carry promises with contractId null; re-authored offers make the negative discriminating 702ms
+   ✓ P14B4 final seating preference — membership (plan :210-213) and masks (:213-215) > another issuer's promise never counts: r02's offers to r01's three actors are present at w202 and at the witness and never enter r01's member set; re-authored r02 offers make the negative discriminating 643ms
+   ✓ P14B4 final seating preference — membership (plan :210-213) and masks (:213-215) > a met promise never counts (control, r02 chain): after r02's w211 picture satisfies its three P1 roots at w216, its next real decision has no member and takes the ordinary pick 876ms
+   ✓ P14B4 final seating preference — membership (plan :210-213) and masks (:213-215) > a met promise never counts (r01 chain, RED today only through the witness defect): after the witness take the SATISFIED roots leave r01's member set at its next real decision 924ms
+   ✓ P14B4 final seating preference — membership (plan :210-213) and masks (:213-215) > a promise whose window excludes the prospective take never counts — 'window starts after every plausible t…' 608ms
+   ✓ P14B4 final seating preference — membership (plan :210-213) and masks (:213-215) > a promise whose window excludes the prospective take never counts — 'window ends before any take can land …' 584ms
+   ✓ P14B4 final seating preference — membership (plan :210-213) and masks (:213-215) > mask derivation through the shared reader — 'tagged lead stays exact: r01-2 counts…' 680ms
+   ✓ P14B4 final seating preference — membership (plan :210-213) and masks (:213-215) > mask derivation through the shared reader — 'legacy count-only LEAD_OR_SIGNIFICANT…' 570ms
+   ✓ P14B4 final seating preference — membership (plan :210-213) and masks (:213-215) > mask derivation through the shared reader — 'APPEARANCE_COUNT is generic cast' 675ms
+   ✓ P14B4 final seating preference — the initial cast seam (plan :225-232) > promised non-primary-actor beneficiaries (the witness rival's writer, director and craft, each bound OPEN P1) are never seated: one person cannot double, and the sole holder of a role is a capacity constraint, not a forged package 332ms
+ ✓ |core| tests/p14b1-trust-chooser.test.ts (13 tests | 2 skipped) 40440ms
+   ✓ P14B.1 test 6: trust, the widened chooser and the priority order > a Distrusted issuer is dropped issuerDistrusted at reservation, and the other (healthy) proposal settles the case 4121ms
+   ✓ P14B.1 test 6: trust, the widened chooser and the priority order > opportunity changes the winner of an otherwise compensation-versus-incumbency 1-1 tie, with two real surviving proposals 8051ms
+   ✓ P14B.1 test 6: trust, the widened chooser and the priority order > a Reliable issuer beats a Mixed-record issuer on the trust band, in the same otherwise-1-1-tie shape 1811ms
+   ✓ P14B.1 test 7: rival symmetry > attachPromise and its feasibility classification work identically when the issuer is a RIVAL (no player-only special-casing) 1234ms
+   ✓ P14B.1 test 7: rival symmetry > the FIRST natural rival proposal carries exactly one promise iff an ORIGINAL authoring read is REASONABLY_ACHIEVABLE — the flexible P2 read first for an unproven person, the P1 read alone for a proven one — with exact proposal/root/receipt joins 11078ms
+   ✓ P14B.1 test 7: rival symmetry > natural rival authoring preserves the first writer IFF, the first actor positive (P1 if proven, flexible P2 if unproven), an unproven flexible-P2 witness, and actual non-achievable zero-attachment witnesses for a proven and an unproven person 13303ms
+   ✓ P14B.1 test 7: rival symmetry > a rival first take satisfies a promise exactly as a player one does — found by direct search over the natural chain (never a magic week) 506ms
+ ✓ |core| tests/p14b4-cancel-causal-proof.test.ts (22 tests) 8239ms
+   ✓ 629-T case 1: a joint reservation conflict is not causal proof (plan :249-256; 26 §2 "a joint reservation conflict ... is not target-specific physical impossibility") > one person, two bound OPEN count-1 promises, seated LEAD on one greenlit picture, one event still reachable after the cancel: NEITHER is BROKEN at the cancel; the due-week owner decides 2392ms
+   ✓ 629-T case 1: a joint reservation conflict is not causal proof (plan :249-256; 26 §2 "a joint reservation conflict ... is not target-specific physical impossibility") > "either lead claimant could still be kept when one film remains": two beneficiaries each promised ONE lead, both seated on the cancelled picture (lead / antagonist), one film reachable — neither is BROKEN (plan :251-252) 504ms
+   ✓ 629-T case 4: the cancelled picture must be able to satisfy THIS class (26 §2 "check whether the cancelled picture could satisfy this class"; plan :246 "relevant ... seams") > tagged 'lead' P2, person seated 'support' on the cancelled picture, due = week + 2: NOT broken at the cancel (no path was removed); the due-week owner breaks it at the due week 474ms
+   ✓ 629-T case 4: the cancelled picture must be able to satisfy THIS class (26 §2 "check whether the cancelled picture could satisfy this class"; plan :246 "relevant ... seams") > tagged 'leadOrAntagonist' P2, person seated 'support' on the cancelled picture, due = week + 2: NOT broken at the cancel (no path was removed); the due-week owner breaks it at the due week 338ms
+   ✓ 629-T case 5: the remaining count uses ACTUAL class-qualified takes (plan :331-334) > count-2 tagged lead P2, ONE real qualifying take on A (progress 1), seated LEAD on pre-first-take B, one more event reachable: NOT broken when B is cancelled 644ms
+   ✓ 629-T case 6: target-specific physical impossibility still breaks at the cancel (plan :252-254) > 'tagged lead P2' count-1, person LEAD on the only pre-first-take picture, due = week + 2: BROKEN at the cancel with ONE own receipt, idempotent under a following owner pass and tick 338ms
+   ✓ 629-T case 6: target-specific physical impossibility still breaks at the cancel (plan :252-254) > differential shape: the picture at remainingTicks 5 COULD have served (take expected week + 1 < due = week + 3) and nothing else can after the cancel — BROKEN at the cancel 410ms
+   ✓ 629-T2 case 5N: the remaining count is CLASS-qualified — a SUPPORT take never serves a lead mask (plan :324-326, :331-334; R1 "actual class-qualified distinct first takes") > count-2 tagged lead P2, the ONE real take on A recorded with the person in SUPPORT, then seated LEAD on pre-first-take B at 30, window [21,38): BROKEN when B is cancelled (remaining 2 > nMax 1) 470ms
+   ✓ 629-T2 separator: the landed bound is the 5-week floor chain t0 + 5k, not the quote's SEAT_CYCLE_WEEKS cadence (record 630 R1; 629-B Q2 D2; plan :341-343, :350-351 "a valid hard bound") > count-2 tagged lead P2, person LEAD on the greenlit-this-week picture, window [21,33): the quote estimate refuses (its nMax 1 < 2) yet the cancel leaves the root untouched (hard nMax 2); the due-week owner breaks it at 33 438ms
+   ✓ 629-T2 direct pins on the exported proof (record 630 R1 boundaries; promises.ts :667-673) > bound tagged lead roots, no running picture at week 21 (t0 = 26): the sentence iff remaining > ceil((due - 26) / 5) 303ms
+ ✓ |core| tests/bridge-contract-generator.test.ts (31 tests) 3707ms
+   ✓ CF-08 sound union-to-C# generation > C — closed discriminated object unions > keeps member storage attached and generated bytes identical when anyOf order reverses 1356ms
+   ✓ CF-08 sound union-to-C# generation > current accepted contract and future sentinel > F10 emits sound request and response union shapes without changing schema identity 580ms
+   ✓ CF-08 sound union-to-C# generation > current accepted contract and future sentinel > F11 preserves command member-only directorId and nullable base use 393ms
+   ✓ CF-08 sound union-to-C# generation > current accepted contract and future sentinel > pins exact positive output identities and deterministic rerendering 832ms
+   ✓ CF-08 sound union-to-C# generation > current accepted contract and future sentinel > is a red mutation guard against first-member-wins flattening 409ms
+ ✓ |core| tests/p14b4-ready-owner-replay.test.ts (10 tests) 7783ms
+   ✓ P14B4 source-now Ready operational admission > admits a genuine Ready beside the whole original slate, preserves opaque original fields, and feeds the same capped kernel 1709ms
+   ✓ P14B4 source-now Ready operational admission > returns complete Ready rehearsal and unassigned Shooting projections before any take command 1862ms
+   ✓ P14B4 source-now Ready operational admission > returns the genuine no-Set rehearsal blocker after real strikes without treating retired mounting history as usable 956ms
+   ✓ P14B4 source-now Ready operational admission > allows independent sibling staffings of the SAME Ready project and SAME would-be identity without cross-branch consumption 960ms
+   ✓ P14B4 source-now Ready operational admission > refuses occupied source-now Development rather than inventing a queued or later admission; credited writer work is not company occupancy 557ms
+   ✓ P14B4 source-now Ready operational admission > refuses a genuine unfinished audition before allocation and preserves its actual reserved slot 503ms
+   ✓ P14B4 source-now Ready operational admission > preserves the exact long unknown-director refusal before any Ready allocation or sweep 305ms
+   ✓ P14B4 source-now Ready operational admission > refuses a genuinely already-linked project, not legal reuse across independent sibling plans 389ms
+   ✓ P14B4 source-now Ready operational admission > cuts zero and tiny shared budgets before invoking admission, linking or sweep owners 364ms
+ ✓ |core| tests/p14b1-promises.test.ts (15 tests) 14695ms
+   ✓ P14B.1 test 2: the promise record and the widened digest > attaching a promise changes the digest; a second attach on an already-promised proposal is refused (enforced at most one); revising (re-submit, then attach a different promise) and removing (re-submit with no attach) both change the digest again — removing restores the exact original 3294ms
+   ✓ P14B.1 test 2: the promise record and the widened digest > a window outside the proposed contract is IMPOSSIBLE by construction 1587ms
+   ✓ P14B.1 test 2: the promise record and the widened digest > a promise DRIFTED after attachment (its own definition changed through some other channel) drops materialTermsChanged at freeze 1541ms
+   ✓ P14B.1 test 3: the feasibility service > Example B shape: an active promise consuming the person's only existing-path seat makes a SECOND, overlapping promise FRAGILE with the 'needs a picture not yet commissioned' bottleneck 1656ms
+   ✓ P14B.1 test 4: settlement freeze re-classification > a feasible promise becomes FRAGILE after two lawful greenlights consume the existing stages; freeze drops it with a promise-naming sentence 1918ms
+   ✓ P14B.1 test 5: outcomes > SATISFIED once the X-th qualifying first take occurs, with evidence refs naming the causing eventId; idempotent on a later tick 1074ms
+   ✓ P14B.1 test 5: outcomes > BROKEN at dueWeekExclusive when the window passes unsatisfied, through a BOUND promise: on genuine legacy-v28-open-case-45, attach a P1 promise to the player's own proposal, settle at 52 (retained -> bound, contractId set), then walk to dueWeekExclusive with no qualifying first take 1650ms
+   ✓ P14B.1 test 5: outcomes > RED (T2b closes this): a promise attached to a proposal that then LOSES stays UNBOUND (contractId null) and is never evaluated — on genuine legacy-v28-open-case-45, withdrawing the player's own proposal leaves the promise attached to a proposal that vanishes at settlement (declined, "all proposals dropped"); past its own dueWeekExclusive the record must keep outcome: null and contractId: null, mint no promiseOutcome receipt, and leave the issuer's trust descriptor without a promiseBroken driver 1249ms
+   ✓ P14B.1 test 5: outcomes > BROKEN on capacity collapse: cancelling the promised person's ONLY production before its first take, with a due week too close for any other path, fails the target-specific proof (remaining 1 > nMax 0) and the promise is BROKEN at the cancel 586ms
+ ✓ |core| tests/bridge-p13b-s7-disclosure.test.ts (22 tests) 73466ms
+   ✓ P13B-S7-T3 item 2: Laboratory forecast rows — windowed before 884 (no leak), exact at/after 884, sound exact throughout > week 793 (windowed, unannounced): lighting forecast row is a window 884..988; campaignDate(936).label appears NOWHERE in the Laboratory page JSON 537ms
+   ✓ P13B-S7-T3 item 2: Laboratory forecast rows — windowed before 884 (no leak), exact at/after 884, sound exact throughout > week 884 and week 900 (exact, announced): lighting forecast row publishes the exact 936 date, window labels null 689ms
+   ✓ P13B-S7-T3 item 3: replacementLabel on the purchase row, adopt-* rows and adoptions[] rows, for both technologies > an uncommitted adopt-synchronized-sound-* row and an uncommitted adopt-lighting-control-01-* row both carry replacementLabel verbatim 320ms
+   ✓ P13B-S7-T3 item 3: replacementLabel on the purchase row, adopt-* rows and adoptions[] rows, for both technologies > committed adoptions[] rows for both technologies carry replacementLabel verbatim (s6SoundReady/s6LightingReady) 23106ms
+   ✓ P13B-S7-T3 item 4: generalised wait-<id>/purchase-<id> rows — sound unchanged, lighting per the MEASURED engine law (see header) > purchase-lighting-control-01 at week 936 (commercial open): enabled, accessCost in its own text; commit charges accessCost once, advances stateRevision, refuses the same intent at the old revision, and both rows publish disabled with the engine's access-held sentence once access is held 3520ms
+   ✓ P13B-S7-T3 item 5: Industry announcement row — derived, nullable studioId, excluded from per-studio History, absent for sound, Save As identical > identical in a Save As world: two independently-saved-as campaign slots of the same week-884 state publish byte-identical announcement rows 16650ms
+   ✓ P13B-S7-T3 item 6: rival-independence on the wire — identical forecast/announcement rows across states differing only in rival facts (PARTIAL until S8, per the engine's own test 2 scope) > Laboratory forecast rows (both technologies) are byte-identical across the two rival-divergent states at week 416 1136ms
+   ✓ P13B-S7-T3 item 6: rival-independence on the wire — identical forecast/announcement rows across states differing only in rival facts (PARTIAL until S8, per the engine's own test 2 scope) > industry announcement rows are byte-identical across the two rival-divergent states, both at week 416 (empty) and advanced independently to week 900 (one lighting row) 26126ms
+   ✓ P13B-S7-T3 item 7: genuine V26 fixture loads through the bridge and publishes the windowed lighting forecast at week 795 > sha256 matches provenance; BridgeSession.fromSaveJson loads it; the Laboratory page publishes a windowed lighting forecast (884..988), never 936 1301ms
+ ✓ |core| tests/p14b4-joint-trace.test.ts (38 tests) 683ms
+ ✓ |core| tests/bridge-runtime-checkpoint.test.ts (64 tests) 192196ms
+   ✓ BridgeRuntimeCheckpointV1 > forward-migrates protocol 3 by preserving both V15 slots and discarding incompatible replay bytes 10918ms
+   ✓ BridgeRuntimeCheckpointV1 > rolls the previous protocol-4 schema forward without changing either V15 save slot 8013ms
+   ✓ BridgeRuntimeCheckpointV1 > rolls an authentic previous protocol-4 checkpoint with no explicit save slot 3967ms
+   ✓ BridgeRuntimeCheckpointV1 > encodes one exact closed canonical shape with one LF and hydrates stable V15 bytes 7948ms
+   ✓ BridgeRuntimeCheckpointV1 > requires canonical checkpoint bytes followed by exactly one LF 8925ms
+   ✓ BridgeRuntimeCheckpointV1 > rejects missing and additional roots plus incompatible format, version, protocol, and schema 8756ms
+   ✓ BridgeRuntimeCheckpointV1 > requires untouched canonical V15 current and explicit-save bytes with exact digests 18964ms
+   ✓ BridgeRuntimeCheckpointV1 > validates route-specific requests, responses, identity, session, revision, and canonical JSON 15182ms
+   ✓ BridgeRuntimeCheckpointV1 > binds exact historical bytes and rejection semantics to their original route 11749ms
+   ✓ BridgeRuntimeCheckpointV1 > rejects duplicate identities and revision-regressing journal order 7777ms
+   ✓ BridgeRuntimeCheckpointV1 > binds the root revision to the terminal journal response 10199ms
+   ✓ BridgeRuntimeCheckpointV1 > returns a normalized prospective append only after identity and capacity validation 9891ms
+   ✓ BridgeRuntimeCheckpointV1 > enforces injectable entry, journal-byte, and checkpoint-byte bounds before hydration 8018ms
+   ✓ BridgeRuntimeCheckpointV1 > validates an accepted save response V15 payload and digest before journaling it 7070ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > preserves both actual accepted P12 founding slots through the P13 save migration 2228ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > migrates a v4-identity (f84ae77e) checkpoint with a V14 current save and an opaque 2-entry journal 809ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > preserves and migrates a non-null savedSaveJson slot for a prior protocol-4 identity 2319ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > accepts and migrates the enumerated sha256:00c0075bef257634956da7d16d117a145d203047e7169c643156b7971c4c7fec (projection-v48) identity 1495ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > accepts and migrates the enumerated sha256:6f6b48805aadcf14d456614d87bf1571eb1ce0d9aa0bc44f604e7976f4f85538 (projection-v47) identity 1021ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > accepts and migrates the enumerated sha256:584bdd8565030f049d548b1af4fcbf8c517ca7c9150016736f632f1ef8fcb98c (projection-v46) identity 1279ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > accepts and migrates the enumerated sha256:5b2a4ca93d930e90a288db55bb5cc3fdc8eea070ef51fa1450a193a325bd755d (projection-v45) identity 1258ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > accepts and migrates the enumerated sha256:c9c07d6febe4afee7f7c27c991acdfa1c86b6c3a7f5dff8528d7fa5ad72e43a1 (projection-v31) identity 922ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > accepts and migrates the enumerated sha256:e64a3b659e4247b98631f1caa1f0e9eb0b6016aac92b0f46be590360ff9cee48 (projection-v30) identity 881ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > accepts and migrates the enumerated sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85 (projection-v29) identity 1215ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > accepts and migrates the enumerated sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712 (projection-v28) identity 1598ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > accepts and migrates the enumerated sha256:97940e51e0566bed80231b223e5b7303a45d62db8d698f693e525eb244775211 (projection-v27) identity 1294ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > accepts and migrates the enumerated sha256:2b339a6a8b3e5add0726b7eaac9ce8746e235d8b6111a6816f890ff56afdffd1 (projection-v26) identity 1532ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > accepts and migrates the enumerated sha256:fe9bf4558dc12abc5f258ba8b8f581242e06361cfbae8ae31d8c676f6c7a6460 (projection-v25) identity 1096ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > accepts and migrates the enumerated sha256:204a71924bd8c2e8ae9af47591226894b3e42f62457da3cc20ed6b106ede611a (projection-v24) identity 910ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > accepts and migrates the enumerated sha256:ba9cd199704f66d375585d0bec2128c950618a3ba6a8cf0845a5550fde41659f (projection-v4-early) identity 2013ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > accepts and migrates the enumerated sha256:f84ae77ec59a0d7ca7cdd89115456504ddecbde2c6e3839936e4951bd65bce61 (projection-v4) identity 1427ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > accepts and migrates the enumerated sha256:be7ed660d04ed9b1056f48e946f86f26c10cab42b950a273d57ad9cba372f5bb (projection-v5) identity 1289ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > accepts and migrates the enumerated sha256:15033cf9ca43be65abcb25fc6f910f9487ac23056090126ec7d3e2353f6ce587 (projection-v6) identity 1194ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > accepts and migrates the enumerated sha256:7e3af4db0d3d18cdeaab00082e0034f304a9141f46ea87e9e64e5a99d985483c (projection-v7) identity 1636ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > accepts and migrates the enumerated sha256:0285e92f32c27cd2960df802b3f7ea156a15372f05001ad1f4964c2f25db55b5 (projection-v8) identity 1482ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > accepts and migrates the enumerated sha256:510f08e4a551827a30e0f3d93bbe09fa5ddadbd39366b4dcfa93530500c7979c (projection-v9-early) identity 1162ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > accepts and migrates the enumerated sha256:80f2f0fcd14d1b25e713c2624286a6c05a98c53ea5cfcb2b47612f8c030f5e47 (projection-v9) identity 1031ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > accepts and migrates the enumerated sha256:92317ec179456cdc5bd5cc7c4ca47dd066b768a9e2e45519f1263ef921a211a4 (projection-v10) identity 804ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > accepts and migrates the enumerated sha256:01f15efc8fc33fd810b051242857385ca23b5e1c775b357db1bfe5a70e907e1e (projection-v11) identity 760ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > accepts and migrates the enumerated sha256:a481d14f3810ffbafcba2bbf509db7340263f3f0fd665a059507a1567d98923d (projection-v12-stale-urn) identity 956ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > accepts and migrates the enumerated sha256:a6f374596e956800f9547ad538fdd859c01bda3460aac8b877279c67686c6f4b (projection-v12) identity 1366ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > accepts and migrates the enumerated sha256:0474ceafd6c148f329fe99eac328c79ed0b0caf906e0f7442b7f3cf0fe40cb4f (projection-v13) identity 1603ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > accepts and migrates the enumerated sha256:71529afdcb8e5cf645ab136efb9685256da0039e86d989bfab97b7b2cc5d9a8b (projection-v14) identity 1035ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > accepts and migrates the enumerated sha256:ddce1c399ac4ff58327b296a0600428ac3f3346b84f3639e66e48e53a65fbe99 (projection-v15) identity 1281ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > accepts and migrates the enumerated sha256:85a6d125960dce49b4775f842d7b56d7360c81cef3638cd819057c79c99f0236 (projection-v16) identity 1021ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > accepts and migrates the enumerated sha256:c9dad9f3d8bb94445db1a5425d90db3f9894da9354f47a07992ff96261cfc399 (projection-v17-early) identity 1035ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > accepts and migrates the enumerated sha256:eb95add0fc06a54d19998c4707dd0b0ba861a22cfee6d8e6631499beeea18e25 (projection-v17-w1b) identity 1277ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > accepts and migrates the enumerated sha256:18de162d1a9da3034378f71cec3d3b3f109ea91df8c1a8d40469924108b36e78 (projection-v17) identity 1030ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > accepts and migrates the enumerated sha256:ea5d645f34a472f4710b9273b225d6f15433d6d17ae8ed1af3c03686a225c8c4 (projection-v18) identity 1267ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > accepts and migrates the enumerated sha256:6a2c01feaf02c931a8c41bbf2090f8af003b89a492d77135d7aab2b42a8d3dc9 (projection-v19) identity 884ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > accepts and migrates the enumerated sha256:d3338cb713385cc23414e6a17293a5900871764f0eeaed19698e17634e74740b (projection-v20) identity 1415ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > accepts and migrates the enumerated sha256:1bad05a95c284e64ceaef54c276f2dd0ccad8ca3ef1b12198068bb61b85198c9 (projection-v23) identity 1874ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > accepts and migrates the enumerated sha256:b779faa92227bd1f2e623ad04d0899c87e7ddc60ce43f9ae9c39a7626c20a83d (projection-v22) identity 946ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > accepts and migrates the enumerated sha256:625377a2804a681da3be209da02850e221ae33ac5f58b727f6395736ad607ad1 (projection-v21) identity 1251ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > re-hydrates the migrated output via the normal current-schema path (write-read round trip, idempotent) 1699ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > never parses journal request/response bodies for a prior protocol-4 identity 1347ms
+ ❯ |core| tests/bridge-process-restart.test.ts (10 tests | 5 failed) 89303ms
+   ✓ rejects the post-commit response gate outside a test process before opening runtime state 3461ms
+   ✓ restores one durable logical bridge session and exact HTTP replay after SIGKILL 25665ms
+   ✓ withholds a durably committed command response until SIGKILL and replays it byte-identically after restart 16192ms
+   ✓ withholds a durably committed save response until SIGKILL and replays it byte-identically after restart 13583ms
+   × withholds a durably committed load response until SIGKILL and replays it byte-identically after restart 19459ms
+     → Bridge exited before startup (code=1, signal=null).
+bridge: pid=14561 exitCode=1 signal=null
+bridge stdout:
+<empty>
+bridge stderr:
+[bridge] startup failed: Command failed: /Users/zacheryspector/.nvm/versions/node/v20.20.2/bin/node /Users/zacheryspector/The-Movies-headless-program/scripts/prepare-runtime-worker.mjs
+/Users/zacheryspector/The-Movies-headless-program/node_modules/esbuild/lib/main.js:1467
+  let error = new Error(text);
+              ^
+
+Error: Build failed with 1 error:
+error: Failed to write to output file: write /tmp/studio-runtime-worker-4DeFZG/runtime-worker.mjs: no space left on device
+    at failureErrorWithLog (/Users/zacheryspector/The-Movies-headless-program/node_modules/esbuild/lib/main.js:1467:15)
+    at /Users/zacheryspector/The-Movies-headless-program/node_modules/esbuild/lib/main.js:926:25
+    at runOnEndCallbacks (/Users/zacheryspector/The-Movies-headless-program/node_modules/esbuild/lib/main.js:1307:45)
+    at buildResponseToResult (/Users/zacheryspector/The-Movies-headless-program/node_modules/esbuild/lib/main.js:924:7)
+    at /Users/zacheryspector/The-Movies-headless-program/node_modules/esbuild/lib/main.js:951:16
+    at responseCallbacks.<computed> (/Users/zacheryspector/The-Movies-headless-program/node_modules/esbuild/lib/main.js:603:9)
+    at handleIncomingPacket (/Users/zacheryspector/The-Movies-headless-program/node_modules/esbuild/lib/main.js:658:12)
+    at Socket.readFromStdout (/Users/zacheryspector/The-Movies-headless-program/node_modules/esbuild/lib/main.js:581:7)
+    at Socket.emit (node:events:524:28)
+    at addChunk (node:internal/streams/readable:561:12) {
+  errors: [Getter/Setter],
+  warnings: [Getter/Setter]
+}
+
+Node.js v20.20.2
+
+
+
+first bridge: pid=14543 exitCode=null signal=SIGKILL
+first bridge stdout:
+[bridge] live http://127.0.0.1:61757 protocol=4 snapshot=49 schema=sha256:60af24c58bc4bea8f04e7fc818f8401daeadd87da91252e60cfcf3ee028d8e1b
+[bridge] session=8fc0c2c6-3445-40e8-ac9d-d893c15ec601 revision=0 week=0 digest=048e14ba3ead09226606dceaac7977fe3d68d5b3cb1d63ca0635b4d45265eee4 checkpoint=durable
+[bridge] snapshotBytes=486842 serializationMs=867.664
+[bridge] 2026-09-22T20:08:35.290Z commandId=post-commit-hold-load-pre-save expectedRevision=0 operation=save result=accepted revision=0 disposition=first-seen durationMs=75.688
+[bridge] 2026-09-22T20:08:38.058Z commandId=post-commit-hold-load-pre-load-mutation expectedRevision=0 operation=submitIntent result=accepted revision=1 disposition=first-seen durationMs=1166.000
+[bridge:test] post-commit {"action":"hold","commandId":"post-commit-hold-load","committedSessionId":"8fc0c2c6-3445-40e8-ac9d-d893c15ec601","committedStateDigest":"048e14ba3ead09226606dceaac7977fe3d68d5b3cb1d63ca0635b4d45265eee4","committedStateRevision":2,"event":"post-commit-response","nonce":"hold-load","requestUtf8Sha256":"f5c54a0cfe3128edbd6d38dc2456d468b7e8bfead636054608ad797cc60699ed","responseJsonSha256":"6144b21df0551e998410f438ba4676567300ae61d3c61f72eb9a8e3557fd0469","route":"load","version":1}
+
+first bridge stderr:
+<empty>
+
+restarted bridge: process was not started.
+   × observes a byte-different semantic replay instead of falsely proving an exact request retry 2649ms
+     → Bridge exited before startup (code=1, signal=null).
+bridge: pid=14567 exitCode=1 signal=null
+bridge stdout:
+<empty>
+bridge stderr:
+[bridge] startup failed: Command failed: /Users/zacheryspector/.nvm/versions/node/v20.20.2/bin/node /Users/zacheryspector/The-Movies-headless-program/scripts/prepare-runtime-worker.mjs
+/Users/zacheryspector/The-Movies-headless-program/node_modules/esbuild/lib/main.js:1467
+  let error = new Error(text);
+              ^
+
+Error: Build failed with 1 error:
+error: Failed to write to output file: write /tmp/studio-runtime-worker-4Tz96U/runtime-worker.mjs: no space left on device
+    at failureErrorWithLog (/Users/zacheryspector/The-Movies-headless-program/node_modules/esbuild/lib/main.js:1467:15)
+    at /Users/zacheryspector/The-Movies-headless-program/node_modules/esbuild/lib/main.js:926:25
+    at runOnEndCallbacks (/Users/zacheryspector/The-Movies-headless-program/node_modules/esbuild/lib/main.js:1307:45)
+    at buildResponseToResult (/Users/zacheryspector/The-Movies-headless-program/node_modules/esbuild/lib/main.js:924:7)
+    at /Users/zacheryspector/The-Movies-headless-program/node_modules/esbuild/lib/main.js:951:16
+    at responseCallbacks.<computed> (/Users/zacheryspector/The-Movies-headless-program/node_modules/esbuild/lib/main.js:603:9)
+    at handleIncomingPacket (/Users/zacheryspector/The-Movies-headless-program/node_modules/esbuild/lib/main.js:658:12)
+    at Socket.readFromStdout (/Users/zacheryspector/The-Movies-headless-program/node_modules/esbuild/lib/main.js:581:7)
+    at Socket.emit (node:events:524:28)
+    at addChunk (node:internal/streams/readable:561:12) {
+  errors: [Getter/Setter],
+  warnings: [Getter/Setter]
+}
+
+Node.js v20.20.2
+
+
+
+bridge: process was not started.
+   × drops a durably committed command response and replays it byte-identically in the same process 2762ms
+     → Bridge exited before startup (code=1, signal=null).
+bridge: pid=14573 exitCode=1 signal=null
+bridge stdout:
+<empty>
+bridge stderr:
+[bridge] startup failed: Command failed: /Users/zacheryspector/.nvm/versions/node/v20.20.2/bin/node /Users/zacheryspector/The-Movies-headless-program/scripts/prepare-runtime-worker.mjs
+/Users/zacheryspector/The-Movies-headless-program/node_modules/esbuild/lib/main.js:1467
+  let error = new Error(text);
+              ^
+
+Error: Build failed with 1 error:
+error: Failed to write to output file: write /tmp/studio-runtime-worker-jPP2mr/runtime-worker.mjs: no space left on device
+    at failureErrorWithLog (/Users/zacheryspector/The-Movies-headless-program/node_modules/esbuild/lib/main.js:1467:15)
+    at /Users/zacheryspector/The-Movies-headless-program/node_modules/esbuild/lib/main.js:926:25
+    at runOnEndCallbacks (/Users/zacheryspector/The-Movies-headless-program/node_modules/esbuild/lib/main.js:1307:45)
+    at buildResponseToResult (/Users/zacheryspector/The-Movies-headless-program/node_modules/esbuild/lib/main.js:924:7)
+    at /Users/zacheryspector/The-Movies-headless-program/node_modules/esbuild/lib/main.js:951:16
+    at responseCallbacks.<computed> (/Users/zacheryspector/The-Movies-headless-program/node_modules/esbuild/lib/main.js:603:9)
+    at handleIncomingPacket (/Users/zacheryspector/The-Movies-headless-program/node_modules/esbuild/lib/main.js:658:12)
+    at Socket.readFromStdout (/Users/zacheryspector/The-Movies-headless-program/node_modules/esbuild/lib/main.js:581:7)
+    at Socket.emit (node:events:524:28)
+    at addChunk (node:internal/streams/readable:561:12) {
+  errors: [Getter/Setter],
+  warnings: [Getter/Setter]
+}
+
+Node.js v20.20.2
+
+
+
+bridge: process was not started.
+   × drops a durably committed save response and replays it byte-identically in the same process 3000ms
+     → Bridge exited before startup (code=1, signal=null).
+bridge: pid=14581 exitCode=1 signal=null
+bridge stdout:
+<empty>
+bridge stderr:
+[bridge] startup failed: Command failed: /Users/zacheryspector/.nvm/versions/node/v20.20.2/bin/node /Users/zacheryspector/The-Movies-headless-program/scripts/prepare-runtime-worker.mjs
+/Users/zacheryspector/The-Movies-headless-program/node_modules/esbuild/lib/main.js:1467
+  let error = new Error(text);
+              ^
+
+Error: Build failed with 1 error:
+error: Failed to write to output file: write /tmp/studio-runtime-worker-beYVtO/runtime-worker.mjs: no space left on device
+    at failureErrorWithLog (/Users/zacheryspector/The-Movies-headless-program/node_modules/esbuild/lib/main.js:1467:15)
+    at /Users/zacheryspector/The-Movies-headless-program/node_modules/esbuild/lib/main.js:926:25
+    at runOnEndCallbacks (/Users/zacheryspector/The-Movies-headless-program/node_modules/esbuild/lib/main.js:1307:45)
+    at buildResponseToResult (/Users/zacheryspector/The-Movies-headless-program/node_modules/esbuild/lib/main.js:924:7)
+    at /Users/zacheryspector/The-Movies-headless-program/node_modules/esbuild/lib/main.js:951:16
+    at responseCallbacks.<computed> (/Users/zacheryspector/The-Movies-headless-program/node_modules/esbuild/lib/main.js:603:9)
+    at handleIncomingPacket (/Users/zacheryspector/The-Movies-headless-program/node_modules/esbuild/lib/main.js:658:12)
+    at Socket.readFromStdout (/Users/zacheryspector/The-Movies-headless-program/node_modules/esbuild/lib/main.js:581:7)
+    at Socket.emit (node:events:524:28)
+    at addChunk (node:internal/streams/readable:561:12) {
+  errors: [Getter/Setter],
+  warnings: [Getter/Setter]
+}
+
+Node.js v20.20.2
+
+
+
+bridge: process was not started.
+   × drops a durably committed load response and replays it byte-identically in the same process 2525ms
+     → Bridge exited before startup (code=1, signal=null).
+bridge: pid=14585 exitCode=1 signal=null
+bridge stdout:
+<empty>
+bridge stderr:
+[bridge] startup failed: Command failed: /Users/zacheryspector/.nvm/versions/node/v20.20.2/bin/node /Users/zacheryspector/The-Movies-headless-program/scripts/prepare-runtime-worker.mjs
+/Users/zacheryspector/The-Movies-headless-program/node_modules/esbuild/lib/main.js:1467
+  let error = new Error(text);
+              ^
+
+Error: Build failed with 1 error:
+error: Failed to write to output file: write /tmp/studio-runtime-worker-Zmgn5f/runtime-worker.mjs: no space left on device
+    at failureErrorWithLog (/Users/zacheryspector/The-Movies-headless-program/node_modules/esbuild/lib/main.js:1467:15)
+    at /Users/zacheryspector/The-Movies-headless-program/node_modules/esbuild/lib/main.js:926:25
+    at runOnEndCallbacks (/Users/zacheryspector/The-Movies-headless-program/node_modules/esbuild/lib/main.js:1307:45)
+    at buildResponseToResult (/Users/zacheryspector/The-Movies-headless-program/node_modules/esbuild/lib/main.js:924:7)
+    at /Users/zacheryspector/The-Movies-headless-program/node_modules/esbuild/lib/main.js:951:16
+    at responseCallbacks.<computed> (/Users/zacheryspector/The-Movies-headless-program/node_modules/esbuild/lib/main.js:603:9)
+    at handleIncomingPacket (/Users/zacheryspector/The-Movies-headless-program/node_modules/esbuild/lib/main.js:658:12)
+    at Socket.readFromStdout (/Users/zacheryspector/The-Movies-headless-program/node_modules/esbuild/lib/main.js:581:7)
+    at Socket.emit (node:events:524:28)
+    at addChunk (node:internal/streams/readable:561:12) {
+  errors: [Getter/Setter],
+  warnings: [Getter/Setter]
+}
+
+Node.js v20.20.2
+
+
+
+bridge: process was not started.
+ ❯ |core| tests/p04a2-writer-credit-law.test.ts (0 test)
+ ❯ |core| tests/bridge-supervisor.test.ts (0 test)
+ ❯ |core| tests/p14b4-started-owner-replay.test.ts (0 test)
+ ❯ |core| tests/bridge-p14a3-world.test.ts (0 test)
+ ❯ |core| tests/bridge-schema.test.ts (0 test)
+ ❯ |core| tests/bridge-p14b5-relationships.test.ts (0 test)
+ ❯ |core| tests/first-film-journey.test.ts (0 test)
+ ❯ |core| tests/bridge-contract-consumer-lock.test.ts (0 test)
+ ❯ |core| tests/facility-move-demolish.test.ts (0 test)
+ ❯ |core| tests/property-state-v13.test.ts (0 test)
+ ❯ |core| tests/actions.test.ts (0 test)
+ ❯ |core| tests/p14b4-cast-class-policy.test.ts (0 test)
+ ❯ |core| tests/bridge-p14b1-promises.test.ts (0 test)
+ ❯ |core| tests/bridge-p14a1-market.test.ts (0 test)
+ ❯ |core| tests/bridge-p13b-s4-office.test.ts (0 test)
+ ❯ |core| tests/d9-talent.test.ts (0 test)
+ ❯ |core| tests/bridge-p13b-r07-setup.test.ts (0 test)
+ ❯ |core| tests/bridge-p13b-s3-plans.test.ts (0 test)
+ ❯ |core| tests/bridge-p13b-s8-rivals.test.ts (0 test)
+ ❯ |core| tests/bridge-p14b3-promise-command.test.ts (0 test)
+ ❯ |core| tests/p14b4-capacity-kernel.test.ts (0 test)
+ ❯ |core| tests/bridge-p13b-s5-adoption.test.ts (0 test)
+ ❯ |core| tests/film-chronicle.test.ts (0 test)
+ ❯ |core| tests/ruling-c-filmshape.test.ts (0 test)
+ ❯ |core| tests/p14b4-production-admission.test.ts (0 test)
+ ❯ |core| tests/p14b5-t-failure-tuning.test.ts (0 test)
+ ❯ |core| tests/bridge-casting.test.ts (0 test)
+ ❯ |core| tests/bridge-p13b-s2-labs.test.ts (0 test)
+ ❯ |core| tests/p14b4-cast-class-outcomes.test.ts (0 test)
+ ❯ |core| tests/bridge-p14b2-trust.test.ts (0 test)
+ ❯ |core| tests/roster-wall-artifacts.test.ts (0 test)
+ ❯ |core| tests/operations.test.ts (0 test)
+ ✓ |core| tests/blueprint-requirements.test.ts (27 tests) 20627ms
+   ✓ C1-M2 — requirement kinds evaluate honestly > P13A opens only the exact research gate after actual player access, while waiting remains unmet 18325ms
+   ✓ C1-M2 — the shipped Annex is unchanged > quotes identically across the WHOLE parcel map, gates and all 1354ms
+ ❯ |core| tests/bridge-p14b4-cast-class.test.ts (0 test)
+ ❯ |core| tests/d11-employment.test.ts (0 test)
+ ❯ |core| tests/placement-core.test.ts (0 test)
+ ❯ |core| tests/construction-core.test.ts (0 test)
+ ❯ |core| tests/broadcast.test.ts (0 test)
+ ❯ |core| tests/p09a-w0-founding-regime.test.ts (0 test)
+ ❯ |core| tests/p13b-s5-quotes.test.ts (0 test)
+ ❯ |core| tests/facility-effects.test.ts (0 test)
+ ❯ |core| tests/studio-calendar.test.ts (0 test)
+ ❯ |core| tests/p14b4-replay-bill-reductions.test.ts (0 test)
+ ❯ |core| tests/script-read-model.test.ts (0 test)
+ ❯ |core| tests/p14b4-started-replay-background-command.test.ts (0 test)
+ ❯ |core| tests/standing.test.ts (0 test)
+ ❯ |core| tests/d17-engagement-persistence.test.ts (0 test)
+ ❯ |core| tests/production-operations-save-v8.test.ts (0 test)
+ ❯ |core| tests/bridge-p10a-r1-contract-quote.test.ts (0 test)
+ ❯ |core| tests/placement-save-v12.test.ts (0 test)
+ ❯ |core| tests/p13b-s3-admission.test.ts (0 test)
+ ❯ |core| tests/ruling-a-development-in-play.test.ts (0 test)
+ ❯ |core| tests/ruling-b-multihyphenate.test.ts (0 test)
+ ❯ |core| tests/d11-cycle3.test.ts (0 test)
+ ❯ |core| tests/p08a-w0-studio-history.test.ts (0 test)
+ ❯ |core| tests/roster-wall-fixtures.test.ts (0 test)
+ ❯ |core| tests/bridge-p09a-w1-placement-quote.test.ts (0 test)
+ ❯ |core| tests/migration.test.ts (0 test)
+ ❯ |core| tests/bridge-runtime-checkpoint-prepared-reuse.test.ts (0 test)
+ ❯ |core| tests/p13b-s6-save-v26.test.ts (0 test)
+ ❯ |core| tests/p14b4-material-evidence-core.test.ts (0 test)
+ ❯ |core| tests/p14b4-owner-fact-views.test.ts (0 test)
+ ❯ |core| tests/p05a-w1-scenery-truth.test.ts (0 test)
+ ❯ |core| tests/p13b-s2-access-identity.test.ts (0 test)
+ ❯ |core| tests/bridge-p11-ready.test.ts (0 test)
+ ❯ |core| tests/c2a-m5-studio-week-theater.test.ts (0 test)
+ ❯ |core| tests/p14bf2-acting-discipline.test.ts (0 test)
+ ❯ |core| tests/p14b4-cast-class-capacity.test.ts (0 test)
+ ❯ |core| tests/d17b-awareness-counterflow.test.ts (0 test)
+ ❯ |core| tests/p14b4-ready-replay-first-take.test.ts (0 test)
+ ❯ |core| tests/p14b4-save-v30-compatibility.test.ts (0 test)
+ ❯ |core| tests/d17a-fixed-cost-allocation.test.ts (0 test)
+ ❯ |core| tests/script-projects-save-v9.test.ts (0 test)
+ ❯ |core| tests/cash-ledger-checkpoint-v11.test.ts (0 test)
+ ❯ |core| tests/p14a1-seat-budget.test.ts (0 test)
+ ❯ |core| tests/facilities-observatory.test.ts (0 test)
+ ❯ |core| tests/forecast.test.ts (0 test)
+ ❯ |core| tests/reception-formulas.test.ts (0 test)
+ ❯ |core| tests/contracts/v14-boundary-guards.contract.test.ts (0 test)
+ ❯ |core| tests/p14a1-save-v28.test.ts (0 test)
+ ❯ |core| tests/p14a1-decline-reasons.test.ts (0 test)
+ ❯ |core| tests/bridge-p12-campaign-library.test.ts (0 test)
+ ❯ |core| tests/script-development.test.ts (0 test)
+ ❯ |core| tests/c1-m6-second-zone-by-data.test.ts (0 test)
+ ❯ |core| tests/p14b5-save-v31.test.ts (0 test)
+ ❯ |core| tests/p13b-s2-doc03.test.ts (0 test)
+ ❯ |core| tests/c2a-m2-sets-machinery.test.ts (0 test)
+ ❯ |core| tests/d17a-economy-selectors.test.ts (0 test)
+ ❯ |core| tests/p13b-r07-controls.test.ts (0 test)
+ ❯ |core| tests/bridge-p11-finance.test.ts (0 test)
+ ❯ |core| tests/c2a-m5-scenery-load-in-layout.test.ts (0 test)
+ ❯ |core| tests/acceptance-corpus.test.ts (0 test)
+ ❯ |core| tests/bridge-runtime-coordinator.test.ts (0 test)
+ ❯ |core| tests/p13b-r07-gate.test.ts (0 test)
+ ❯ |core| tests/d17b-publicity.test.ts (0 test)
+ ❯ |core| tests/p06a-w1-release-authority.test.ts (0 test)
+ ❯ |core| tests/c2a-m2-set-binding.test.ts (0 test)
+ ❯ |core| tests/legacy-parcel-ground.test.ts (0 test)
+ ❯ |core| tests/presence-scenario.test.ts (0 test)
