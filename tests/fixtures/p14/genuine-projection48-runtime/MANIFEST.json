@@ -1,0 +1,47 @@
+{
+  "authority": {
+    "phase": "qualified P14B.5-T tuning checkpoint / exact last-projection-48 upstream before B.6",
+    "testedSourceSha": "caa8cdb39c4f92598777b7b54f84b23cde03cc40",
+    "testedRunBaseSha": "63688a796ea930213bc53dafa8d11b416a74d13e",
+    "testedRunDiffSha256": "4c138264597d383bed1984112c889d88ab0c92a37729727381df14f35a34891c",
+    "textOnlySourceSha": "ab405dbe4c05fc20048b52c86d45c2e50f8deb27",
+    "textOnlyProducerDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "publishedRecoverySha": "ab405dbe4c05fc20048b52c86d45c2e50f8deb27",
+    "publicationState": "PUBLISHED: the minting head is on origin as refs/heads/wip/headless-program-20260916-ts. Verified at amendment time by git ls-remote origin wip/headless-program-20260916-ts, which returned ab405dbe4c05fc20048b52c86d45c2e50f8deb27, equal to the minting HEAD. This worktree holds no refs/remotes/origin/wip/headless-program-20260916-ts, so git for-each-ref --contains is not a publication test here; the mint-time LOCAL ONLY claim came from that bookkeeping gap and was wrong. ls-remote proves the sha is on the published branch, not the push time; the coordinator states the push preceded the mint.",
+    "closeoutRelativePath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/693-p14b5t-tuning-checkpoint.md",
+    "closeoutSha256": "3a9c755c39a3ee514cfc7055c1605d82491e08002384d090d4e8f5ad7d8f4392",
+    "schemaId": "sha256:00c0075bef257634956da7d16d117a145d203047e7169c643156b7971c4c7fec",
+    "projectionVersion": 48,
+    "protocolVersion": 4,
+    "saveVersion": 31,
+    "promiseRulesVersion": 4,
+    "relationshipRulesVersion": 1,
+    "approvalEnvironmentVariable": "STUDIO_MINT_PROJECTION48_APPROVED",
+    "outputRelativePath": "tests/fixtures/p14/genuine-projection48-runtime"
+  },
+  "fixtures": [
+    {
+      "filename": "genuine-projection48-runtime.checkpoint.json.gz",
+      "provenanceFilename": "genuine-projection48-runtime.provenance.json",
+      "uncompressedSha256": "b04c82747dddc4dec3454fc659e4da409b9022320ae00245847237b1746523c8",
+      "compressedSha256": "7412ec78c1d3265b5e1fa89bc59b0187937121dbd132f0dbd9f923272f156152",
+      "byteLength": 3269551,
+      "compressedByteLength": 321641,
+      "schemaId": "sha256:00c0075bef257634956da7d16d117a145d203047e7169c643156b7971c4c7fec",
+      "protocolVersion": 4,
+      "projectionVersion": 48,
+      "currentSaveVersion": 31,
+      "savedSaveVersion": 31,
+      "currentSaveSha256": "9f26dca8dd9e1b242f2a3e8285f72a17eb100f1fa41a737fc334b6d3e5f6dc8b",
+      "savedSaveSha256": "b8e78b47408b2740a01312dff2d98f1a20a756a405bcf530222ddeea3aa77586",
+      "currentWeek": 45,
+      "savedWeek": 45,
+      "stateRevision": 1,
+      "journalEntries": 2,
+      "journalDigest": "c7e22f654987464a079f898548903a13fe7e2f462395c88a7977719db33659b6",
+      "sessionId": "p14b6-genuine-outgoing48",
+      "focusPromiseId": "promise-0",
+      "talentId": "t-act-09"
+    }
+  ]
+}
