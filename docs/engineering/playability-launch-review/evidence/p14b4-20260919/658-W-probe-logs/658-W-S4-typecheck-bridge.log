@@ -1,0 +1,135 @@
+
+> project-studio-core@0.1.0 typecheck:bridge
+> tsc -p tsconfig.bridge.json
+
+bridge/people.ts(987,7): error TS2322: Type '("standing" | "relationships" | "compensation" | "term" | "opportunity" | "trust" | "incumbency")[]' is not assignable to type '("standing" | "compensation" | "term" | "opportunity" | "trust" | "incumbency")[]'.
+  Type '"standing" | "relationships" | "compensation" | "term" | "opportunity" | "trust" | "incumbency"' is not assignable to type '"standing" | "compensation" | "term" | "opportunity" | "trust" | "incumbency"'.
+    Type '"relationships"' is not assignable to type '"standing" | "compensation" | "term" | "opportunity" | "trust" | "incumbency"'.
+tests/bridge-p06-checkpoint-recovery.test.ts(167,50): error TS2345: Argument of type 'SaveFileV31' is not assignable to parameter of type 'SaveFileV30'.
+  Types of property 'saveVersion' are incompatible.
+    Type '31' is not assignable to type '30'.
+tests/bridge-p06-checkpoint-recovery.test.ts(174,50): error TS2345: Argument of type 'SaveFileV31' is not assignable to parameter of type 'SaveFileV30'.
+  Types of property 'saveVersion' are incompatible.
+    Type '31' is not assignable to type '30'.
+tests/bridge-p07a-w6-result-continuity.test.ts(224,46): error TS2379: Argument of type 'GameStateV30' is not assignable to parameter of type 'GameStateV31' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Property 'relationships' is missing in type 'GameStateV30' but required in type '{ relationships: readonly RelationshipEdge[]; }'.
+tests/bridge-p07a-w6-result-continuity.test.ts(230,41): error TS2379: Argument of type 'GameStateV30' is not assignable to parameter of type 'GameStateV31' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Property 'relationships' is missing in type 'GameStateV30' but required in type '{ relationships: readonly RelationshipEdge[]; }'.
+tests/bridge-p07a-w6-result-continuity.test.ts(277,46): error TS2379: Argument of type 'GameStateV30' is not assignable to parameter of type 'GameStateV31' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Property 'relationships' is missing in type 'GameStateV30' but required in type '{ relationships: readonly RelationshipEdge[]; }'.
+tests/bridge-p08a-w2-history-projection.test.ts(178,33): error TS2379: Argument of type 'GameStateV30' is not assignable to parameter of type 'GameStateV31' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Property 'relationships' is missing in type 'GameStateV30' but required in type '{ relationships: readonly RelationshipEdge[]; }'.
+tests/bridge-p08a-w2-history-projection.test.ts(189,27): error TS2379: Argument of type 'GameStateV30' is not assignable to parameter of type 'GameStateV31' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Property 'relationships' is missing in type 'GameStateV30' but required in type '{ relationships: readonly RelationshipEdge[]; }'.
+tests/bridge-p09a-w5-bare-lot-first-film.test.ts(97,32): error TS2375: Type 'GameStateV30' is not assignable to type 'GameStateV31' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Property 'relationships' is missing in type 'GameStateV30' but required in type '{ relationships: readonly RelationshipEdge[]; }'.
+tests/bridge-p10a-w0-people-projection.test.ts(341,36): error TS2379: Argument of type 'GameStateV30' is not assignable to parameter of type 'GameStateV31' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Property 'relationships' is missing in type 'GameStateV30' but required in type '{ relationships: readonly RelationshipEdge[]; }'.
+tests/bridge-p11-finance.test.ts(274,38): error TS2379: Argument of type 'GameStateV30' is not assignable to parameter of type 'GameStateV31' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Property 'relationships' is missing in type 'GameStateV30' but required in type '{ relationships: readonly RelationshipEdge[]; }'.
+tests/bridge-p11-finance.test.ts(275,35): error TS2379: Argument of type 'GameStateV30' is not assignable to parameter of type 'GameStateV31' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Property 'relationships' is missing in type 'GameStateV30' but required in type '{ relationships: readonly RelationshipEdge[]; }'.
+tests/bridge-p11-finance.test.ts(275,62): error TS2379: Argument of type 'GameStateV30' is not assignable to parameter of type 'GameStateV31' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Property 'relationships' is missing in type 'GameStateV30' but required in type '{ relationships: readonly RelationshipEdge[]; }'.
+tests/bridge-p11-finance.test.ts(282,27): error TS2379: Argument of type 'GameStateV30' is not assignable to parameter of type 'GameStateV31' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Property 'relationships' is missing in type 'GameStateV30' but required in type '{ relationships: readonly RelationshipEdge[]; }'.
+tests/bridge-p11-finance.test.ts(293,35): error TS2379: Argument of type 'GameStateV30' is not assignable to parameter of type 'GameStateV31' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Property 'relationships' is missing in type 'GameStateV30' but required in type '{ relationships: readonly RelationshipEdge[]; }'.
+tests/bridge-p11-finance.test.ts(293,62): error TS2379: Argument of type 'GameStateV30' is not assignable to parameter of type 'GameStateV31' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Property 'relationships' is missing in type 'GameStateV30' but required in type '{ relationships: readonly RelationshipEdge[]; }'.
+tests/bridge-p11-finance.test.ts(306,37): error TS2379: Argument of type 'GameStateV30' is not assignable to parameter of type 'GameStateV31' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Property 'relationships' is missing in type 'GameStateV30' but required in type '{ relationships: readonly RelationshipEdge[]; }'.
+tests/bridge-p11-finance.test.ts(307,35): error TS2379: Argument of type 'GameStateV30' is not assignable to parameter of type 'GameStateV31' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Property 'relationships' is missing in type 'GameStateV30' but required in type '{ relationships: readonly RelationshipEdge[]; }'.
+tests/bridge-p11-finance.test.ts(307,62): error TS2379: Argument of type 'GameStateV30' is not assignable to parameter of type 'GameStateV31' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Property 'relationships' is missing in type 'GameStateV30' but required in type '{ relationships: readonly RelationshipEdge[]; }'.
+tests/bridge-p13b-s3-save-as.test.ts(62,43): error TS2375: Type 'GameStateV30' is not assignable to type 'GameStateV31' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Property 'relationships' is missing in type 'GameStateV30' but required in type '{ relationships: readonly RelationshipEdge[]; }'.
+tests/bridge-p14b2-trust.test.ts(461,79): error TS2379: Argument of type 'GameStateV30' is not assignable to parameter of type 'GameStateV31' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Property 'relationships' is missing in type 'GameStateV30' but required in type '{ relationships: readonly RelationshipEdge[]; }'.
+tests/bridge-p14b4-cast-class.test.ts(70,33): error TS2379: Argument of type 'GameStateV30' is not assignable to parameter of type 'GameStateV31' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Property 'relationships' is missing in type 'GameStateV30' but required in type '{ relationships: readonly RelationshipEdge[]; }'.
+tests/bridge-p14b4-cast-class.test.ts(88,30): error TS2379: Argument of type 'GameStateV30' is not assignable to parameter of type 'GameStateV31' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Property 'relationships' is missing in type 'GameStateV30' but required in type '{ relationships: readonly RelationshipEdge[]; }'.
+tests/bridge-p14b4-cast-class.test.ts(94,27): error TS2379: Argument of type 'GameStateV30' is not assignable to parameter of type 'GameStateV31' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Property 'relationships' is missing in type 'GameStateV30' but required in type '{ relationships: readonly RelationshipEdge[]; }'.
+tests/bridge-p14b4-cast-class.test.ts(143,39): error TS2345: Argument of type 'GameStateV30' is not assignable to parameter of type 'GameStateV31 | undefined'.
+  Type 'GameStateV30' is not assignable to type 'GameStateV31' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+    Property 'relationships' is missing in type 'GameStateV30' but required in type '{ relationships: readonly RelationshipEdge[]; }'.
+tests/bridge-p14b4-cast-class.test.ts(155,39): error TS2345: Argument of type 'GameStateV30' is not assignable to parameter of type 'GameStateV31 | undefined'.
+  Type 'GameStateV30' is not assignable to type 'GameStateV31' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+    Property 'relationships' is missing in type 'GameStateV30' but required in type '{ relationships: readonly RelationshipEdge[]; }'.
+tests/bridge-p14b4-cast-class.test.ts(167,39): error TS2345: Argument of type 'GameStateV30' is not assignable to parameter of type 'GameStateV31 | undefined'.
+  Type 'GameStateV30' is not assignable to type 'GameStateV31' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+    Property 'relationships' is missing in type 'GameStateV30' but required in type '{ relationships: readonly RelationshipEdge[]; }'.
+tests/bridge-p14b4-cast-class.test.ts(179,39): error TS2345: Argument of type 'GameStateV30' is not assignable to parameter of type 'GameStateV31 | undefined'.
+  Type 'GameStateV30' is not assignable to type 'GameStateV31' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+    Property 'relationships' is missing in type 'GameStateV30' but required in type '{ relationships: readonly RelationshipEdge[]; }'.
+tests/bridge-p14b4-cast-class.test.ts(189,43): error TS2379: Argument of type 'GameStateV30' is not assignable to parameter of type 'GameStateV31' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Property 'relationships' is missing in type 'GameStateV30' but required in type '{ relationships: readonly RelationshipEdge[]; }'.
+tests/bridge-p14b4-cast-class.test.ts(191,51): error TS2379: Argument of type 'GameStateV30' is not assignable to parameter of type 'GameStateV31' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Property 'relationships' is missing in type 'GameStateV30' but required in type '{ relationships: readonly RelationshipEdge[]; }'.
+tests/bridge-p14b4-cast-class.test.ts(200,37): error TS2379: Argument of type 'GameStateV30' is not assignable to parameter of type 'GameStateV31' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Property 'relationships' is missing in type 'GameStateV30' but required in type '{ relationships: readonly RelationshipEdge[]; }'.
+tests/bridge-p14b4-cast-class.test.ts(216,39): error TS2345: Argument of type 'GameStateV30' is not assignable to parameter of type 'GameStateV31 | undefined'.
+  Type 'GameStateV30' is not assignable to type 'GameStateV31' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+    Property 'relationships' is missing in type 'GameStateV30' but required in type '{ relationships: readonly RelationshipEdge[]; }'.
+tests/bridge-p14b4-cast-class.test.ts(224,52): error TS2379: Argument of type 'GameStateV30' is not assignable to parameter of type 'GameStateV31' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Property 'relationships' is missing in type 'GameStateV30' but required in type '{ relationships: readonly RelationshipEdge[]; }'.
+tests/bridge-p14b4-cast-class.test.ts(224,79): error TS2379: Argument of type 'GameStateV30' is not assignable to parameter of type 'GameStateV31' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Property 'relationships' is missing in type 'GameStateV30' but required in type '{ relationships: readonly RelationshipEdge[]; }'.
+tests/bridge-p14b4-cast-class.test.ts(226,38): error TS2379: Argument of type 'GameStateV30' is not assignable to parameter of type 'GameStateV31' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Property 'relationships' is missing in type 'GameStateV30' but required in type '{ relationships: readonly RelationshipEdge[]; }'.
+tests/bridge-p14b4-cast-class.test.ts(233,39): error TS2345: Argument of type 'GameStateV30' is not assignable to parameter of type 'GameStateV31 | undefined'.
+  Type 'GameStateV30' is not assignable to type 'GameStateV31' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+    Property 'relationships' is missing in type 'GameStateV30' but required in type '{ relationships: readonly RelationshipEdge[]; }'.
+tests/bridge-p14b4-cast-class.test.ts(264,52): error TS2379: Argument of type 'GameStateV30' is not assignable to parameter of type 'GameStateV31' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Property 'relationships' is missing in type 'GameStateV30' but required in type '{ relationships: readonly RelationshipEdge[]; }'.
+tests/bridge-p14b4-cast-class.test.ts(264,79): error TS2379: Argument of type 'GameStateV30' is not assignable to parameter of type 'GameStateV31' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Property 'relationships' is missing in type 'GameStateV30' but required in type '{ relationships: readonly RelationshipEdge[]; }'.
+tests/bridge-p14b4-cast-class.test.ts(270,34): error TS2379: Argument of type 'GameStateV30' is not assignable to parameter of type 'GameStateV31' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Property 'relationships' is missing in type 'GameStateV30' but required in type '{ relationships: readonly RelationshipEdge[]; }'.
+tests/bridge-p14b4-cast-class.test.ts(281,33): error TS2345: Argument of type 'GameStateV30' is not assignable to parameter of type 'GameStateV31 | undefined'.
+  Type 'GameStateV30' is not assignable to type 'GameStateV31' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+    Property 'relationships' is missing in type 'GameStateV30' but required in type '{ relationships: readonly RelationshipEdge[]; }'.
+tests/bridge-p14b4-cast-class.test.ts(281,88): error TS2345: Argument of type 'GameStateV30' is not assignable to parameter of type 'GameStateV31 | undefined'.
+  Type 'GameStateV30' is not assignable to type 'GameStateV31' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+    Property 'relationships' is missing in type 'GameStateV30' but required in type '{ relationships: readonly RelationshipEdge[]; }'.
+tests/bridge-p14b4-cast-class.test.ts(301,39): error TS2345: Argument of type 'GameStateV30' is not assignable to parameter of type 'GameStateV31 | undefined'.
+  Type 'GameStateV30' is not assignable to type 'GameStateV31' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+    Property 'relationships' is missing in type 'GameStateV30' but required in type '{ relationships: readonly RelationshipEdge[]; }'.
+tests/bridge-p14b4-cast-class.test.ts(329,36): error TS2379: Argument of type 'GameStateV30' is not assignable to parameter of type 'GameStateV31' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Property 'relationships' is missing in type 'GameStateV30' but required in type '{ relationships: readonly RelationshipEdge[]; }'.
+tests/bridge-p14b4-cast-class.test.ts(332,36): error TS2379: Argument of type 'GameStateV30' is not assignable to parameter of type 'GameStateV31' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Property 'relationships' is missing in type 'GameStateV30' but required in type '{ relationships: readonly RelationshipEdge[]; }'.
+tests/bridge-p14b4-cast-class.test.ts(335,31): error TS2379: Argument of type 'GameStateV30' is not assignable to parameter of type 'GameStateV31' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Property 'relationships' is missing in type 'GameStateV30' but required in type '{ relationships: readonly RelationshipEdge[]; }'.
+tests/bridge-p14b4-cast-class.test.ts(339,33): error TS2379: Argument of type 'GameStateV30' is not assignable to parameter of type 'GameStateV31' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Property 'relationships' is missing in type 'GameStateV30' but required in type '{ relationships: readonly RelationshipEdge[]; }'.
+tests/bridge-p14b4-cast-class.test.ts(343,48): error TS2379: Argument of type 'GameStateV30' is not assignable to parameter of type 'GameStateV31' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Property 'relationships' is missing in type 'GameStateV30' but required in type '{ relationships: readonly RelationshipEdge[]; }'.
+tests/bridge-p14b4-cast-class.test.ts(356,39): error TS2345: Argument of type 'GameStateV30' is not assignable to parameter of type 'GameStateV31 | undefined'.
+  Type 'GameStateV30' is not assignable to type 'GameStateV31' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+    Property 'relationships' is missing in type 'GameStateV30' but required in type '{ relationships: readonly RelationshipEdge[]; }'.
+tests/bridge-p14b4-cast-class.test.ts(385,38): error TS2379: Argument of type 'GameStateV30' is not assignable to parameter of type 'GameStateV31' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Property 'relationships' is missing in type 'GameStateV30' but required in type '{ relationships: readonly RelationshipEdge[]; }'.
+tests/bridge-p14b4-cast-class.test.ts(406,40): error TS2379: Argument of type '{ talent: Talent[]; publicity: PublicityState; ledger: LedgerEntry[]; seed: string; rngState: string; market: MarketState; ... 31 more ...; promises: readonly ProfessionalPromiseV30[]; }' is not assignable to parameter of type 'GameStateV31' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Property 'relationships' is missing in type '{ talent: Talent[]; publicity: PublicityState; ledger: LedgerEntry[]; seed: string; rngState: string; market: MarketState; ... 31 more ...; promises: readonly ProfessionalPromiseV30[]; }' but required in type '{ relationships: readonly RelationshipEdge[]; }'.
+tests/bridge-p14b4-cast-class.test.ts(407,38): error TS2379: Argument of type '{ talent: Talent[]; publicity: PublicityState; ledger: LedgerEntry[]; seed: string; rngState: string; market: MarketState; ... 31 more ...; promises: readonly ProfessionalPromiseV30[]; }' is not assignable to parameter of type 'GameStateV31' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Property 'relationships' is missing in type '{ talent: Talent[]; publicity: PublicityState; ledger: LedgerEntry[]; seed: string; rngState: string; market: MarketState; ... 31 more ...; promises: readonly ProfessionalPromiseV30[]; }' but required in type '{ relationships: readonly RelationshipEdge[]; }'.
+tests/bridge-p14b4-cast-class.test.ts(408,34): error TS2379: Argument of type '{ talent: Talent[]; publicity: PublicityState; ledger: LedgerEntry[]; seed: string; rngState: string; market: MarketState; ... 31 more ...; promises: readonly ProfessionalPromiseV30[]; }' is not assignable to parameter of type 'GameStateV31' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Property 'relationships' is missing in type '{ talent: Talent[]; publicity: PublicityState; ledger: LedgerEntry[]; seed: string; rngState: string; market: MarketState; ... 31 more ...; promises: readonly ProfessionalPromiseV30[]; }' but required in type '{ relationships: readonly RelationshipEdge[]; }'.
+tests/bridge-p14b4-cast-class.test.ts(420,39): error TS2345: Argument of type 'GameStateV30' is not assignable to parameter of type 'GameStateV31 | undefined'.
+  Type 'GameStateV30' is not assignable to type 'GameStateV31' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+    Property 'relationships' is missing in type 'GameStateV30' but required in type '{ relationships: readonly RelationshipEdge[]; }'.
+tests/bridge-p14b4-cast-class.test.ts(445,38): error TS2379: Argument of type 'GameStateV30' is not assignable to parameter of type 'GameStateV31' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Property 'relationships' is missing in type 'GameStateV30' but required in type '{ relationships: readonly RelationshipEdge[]; }'.
+tests/bridge-p14b5-relationships.test.ts(353,25): error TS2339: Property 'promises' does not exist on type 'GameStateV2 | GameStateV3 | GameStateV4 | GameStateV5 | GameStateV6 | GameStateV7 | GameStateV8 | ... 19 more ... | GameStateV1'.
+  Property 'promises' does not exist on type 'GameStateV2'.
+tests/bridge-p14b5-relationships.test.ts(354,25): error TS2339: Property 'firstTakes' does not exist on type 'GameStateV2 | GameStateV3 | GameStateV4 | GameStateV5 | GameStateV6 | GameStateV7 | GameStateV8 | ... 19 more ... | GameStateV1'.
+  Property 'firstTakes' does not exist on type 'GameStateV2'.
+tests/bridge-p14b5-relationships.test.ts(355,25): error TS2339: Property 'talentMarket' does not exist on type 'GameStateV2 | GameStateV3 | GameStateV4 | GameStateV5 | GameStateV6 | GameStateV7 | GameStateV8 | ... 19 more ... | GameStateV1'.
+  Property 'talentMarket' does not exist on type 'GameStateV2'.
+tests/bridge-p14b5-relationships.test.ts(356,25): error TS2339: Property 'hollywood' does not exist on type 'GameStateV2 | GameStateV3 | GameStateV4 | GameStateV5 | GameStateV6 | GameStateV7 | GameStateV8 | ... 19 more ... | GameStateV1'.
+  Property 'hollywood' does not exist on type 'GameStateV2'.
+EXIT 2

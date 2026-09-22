@@ -1,0 +1,26 @@
+{
+  "sourceSha": "040651b49c350fddad672a8bc22c28407b509b4f",
+  "testedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "untrackedSource": [],
+  "command": [
+    "node_modules/.bin/vitest",
+    "run",
+    "--project",
+    "core",
+    "tests/p14b5-relationships.test.ts",
+    "tests/p14b5-save-v31.test.ts",
+    "tests/bridge-p14b5-relationships.test.ts",
+    "--minWorkers=1",
+    "--maxWorkers=1"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-22T00:29:13.316Z",
+  "end": "2026-09-22T00:30:53.495Z",
+  "exitCode": 1,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "040651b49c350fddad672a8bc22c28407b509b4f",
+  "testedDiffSha256AtEnd": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "untrackedSourceAtEnd": [],
+  "fixedSource": true
+}

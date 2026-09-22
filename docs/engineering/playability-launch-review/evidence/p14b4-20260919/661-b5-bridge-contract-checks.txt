@@ -1,0 +1,16 @@
+{"sourceSha":"040651b49c350fddad672a8bc22c28407b509b4f","testedDiffSha256":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","untrackedSource":[],"command":["sh","-c","npm run check:bridge-contract && npm run check:bridge-contract:fixtures"],"node":"v20.20.2","start":"2026-09-22T00:31:32.215Z","end":null,"exitCode":null}
+
+
+> project-studio-core@0.1.0 check:bridge-contract
+> vite-node scripts/generate-bridge-contract.ts --check
+
+verified /Users/zacheryspector/The-Movies-headless-program/bridge/schema/project-studio-bridge.schema.json
+verified /Users/zacheryspector/The-Movies-headless-program/generated/unity/StudioBridgeDtos.Generated.cs
+verified /Users/zacheryspector/The-Movies-headless-program/generated/unity/project-studio-bridge.contract-manifest.json
+
+> project-studio-core@0.1.0 check:bridge-contract:fixtures
+> vite-node scripts/generate-bridge-contract-fixtures.ts --check
+
+verified /Users/zacheryspector/The-Movies-headless-program/generated/unity/tests/StudioBridgeUnionFixtures.Generated.cs
+
+{"sourceSha":"040651b49c350fddad672a8bc22c28407b509b4f","testedDiffSha256":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","untrackedSource":[],"command":["sh","-c","npm run check:bridge-contract && npm run check:bridge-contract:fixtures"],"node":"v20.20.2","start":"2026-09-22T00:31:32.215Z","end":"2026-09-22T00:31:35.131Z","exitCode":0,"signal":null,"error":null,"sourceShaAtEnd":"040651b49c350fddad672a8bc22c28407b509b4f","testedDiffSha256AtEnd":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","untrackedSourceAtEnd":[],"fixedSource":true}
