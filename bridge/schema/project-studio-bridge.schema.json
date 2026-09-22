@@ -492,7 +492,7 @@
           "$ref": "#/$defs/StudioProjectionBundle"
         },
         "snapshotVersion": {
-          "const": 48,
+          "const": 49,
           "type": "integer"
         },
         "stateDigest": {
@@ -609,7 +609,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 48,
+          "const": 49,
           "type": "integer"
         },
         "stateDigest": {
@@ -1128,7 +1128,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 48,
+          "const": 49,
           "type": "integer"
         },
         "stateDigest": {
@@ -1207,7 +1207,7 @@
           "$ref": "#/$defs/StudioProjectionBundle"
         },
         "snapshotVersion": {
-          "const": 48,
+          "const": 49,
           "type": "integer"
         },
         "stateDigest": {
@@ -1499,7 +1499,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 48,
+          "const": 49,
           "type": "integer"
         },
         "stateDigest": {
@@ -2007,6 +2007,85 @@
       ],
       "type": "object",
       "x-csharp-name": "StudioCastingCandidateSnapshot"
+    },
+    "StudioCastingChemistryRow": {
+      "additionalProperties": false,
+      "properties": {
+        "drivers": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "line": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "seatA": {
+          "enum": [
+            "director",
+            "lead",
+            "antagonist",
+            "support"
+          ],
+          "type": "string"
+        },
+        "seatB": {
+          "enum": [
+            "director",
+            "lead",
+            "antagonist",
+            "support"
+          ],
+          "type": "string"
+        },
+        "sign": {
+          "maximum": 1,
+          "minimum": -1,
+          "type": "integer"
+        },
+        "talentIdA": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "talentIdB": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "tierLabel": {
+          "anyOf": [
+            {
+              "enum": [
+                "Nemeses",
+                "Enemies",
+                "Strained",
+                "Acquaintances",
+                "Colleagues",
+                "Friends",
+                "CloseFriends",
+                "Inseparable"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "drivers",
+        "line",
+        "seatA",
+        "seatB",
+        "sign",
+        "talentIdA",
+        "talentIdB",
+        "tierLabel"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioCastingChemistryRow"
     },
     "StudioCastingDraftPayload": {
       "additionalProperties": false,
@@ -2527,6 +2606,29 @@
             }
           ]
         },
+        "chemistry": {
+          "anyOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/StudioCastingChemistryRow"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "chemistryWarning": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
         "commitLabel": {
           "minLength": 1,
           "type": "string"
@@ -2775,6 +2877,8 @@
         "affordable",
         "cashAfter",
         "cashBefore",
+        "chemistry",
+        "chemistryWarning",
         "commitLabel",
         "financial",
         "forecastLine",
@@ -11108,6 +11212,9 @@
           "minLength": 1,
           "type": "string"
         },
+        "collaborators": {
+          "$ref": "#/$defs/StudioRelationshipBlock"
+        },
         "disciplines": {
           "items": {
             "$ref": "#/$defs/StudioPersonDisciplineSnapshot"
@@ -11234,6 +11341,7 @@
         "capableButUnproven",
         "career",
         "careerIdentityLabel",
+        "collaborators",
         "disciplines",
         "employment",
         "genreExperience",
@@ -13924,6 +14032,87 @@
       ],
       "x-csharp-name": "StudioQuoteSnapshot"
     },
+    "StudioRelationshipBlock": {
+      "additionalProperties": false,
+      "properties": {
+        "line": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "rows": {
+          "items": {
+            "$ref": "#/$defs/StudioRelationshipRow"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "line",
+        "rows"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioRelationshipBlock"
+    },
+    "StudioRelationshipRow": {
+      "additionalProperties": false,
+      "properties": {
+        "counterpartId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "counterpartName": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "drivers": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "sharedPictures": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "sign": {
+          "maximum": 1,
+          "minimum": -1,
+          "type": "integer"
+        },
+        "tierLabel": {
+          "anyOf": [
+            {
+              "enum": [
+                "Nemeses",
+                "Enemies",
+                "Strained",
+                "Acquaintances",
+                "Colleagues",
+                "Friends",
+                "CloseFriends",
+                "Inseparable"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "counterpartId",
+        "counterpartName",
+        "drivers",
+        "sharedPictures",
+        "sign",
+        "tierLabel"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioRelationshipRow"
+    },
     "StudioReleaseBoard": {
       "additionalProperties": false,
       "properties": {
@@ -16362,7 +16551,7 @@
       "x-csharp-name": "StudioWrapReceiptSnapshot"
     }
   },
-  "$id": "urn:project-studio:bridge:protocol-4:projection-48",
+  "$id": "urn:project-studio:bridge:protocol-4:projection-49",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "description": "Canonical wire contract owned by the authoritative TypeScript runtime.",
   "oneOf": [
@@ -16418,7 +16607,7 @@
   "title": "Project Studio TypeScript to Unity Bridge",
   "x-project-studio": {
     "contractId": "project-studio-current-game-unity-bridge",
-    "projectionVersion": 48,
+    "projectionVersion": 49,
     "protocolVersion": 4,
     "routes": {
       "command": "POST /command",

@@ -57,6 +57,12 @@ const R05_NATIVE_FOUNDING_SCHEMA_ID =
 // that window would carry the earlier hash, and this map is keyed on the
 // hash, not the label.
 export const SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS: ReadonlyMap<string, string> = new Map<string, string>([
+  // P14B.6: exact OUTGOING projection-48 identity (Save V31, no relationship DTO),
+  // minted at 43817117 and frozen in tests/fixtures/p14/genuine-projection48-runtime
+  // BEFORE this bump (T0, record 697); every durable checkpoint written under it takes
+  // the governed prior path. Save V31 does not move in B.6, so both slots migrate as
+  // identity.
+  ['sha256:00c0075bef257634956da7d16d117a145d203047e7169c643156b7971c4c7fec', 'projection-v48'],
   // P14B.5: exact OUTGOING projection-47 identity (Save V30 / rules 4), minted at
   // 027155e7 and frozen in tests/fixtures/p14/genuine-projection47-runtime; every
   // durable checkpoint written under it takes the governed prior path.

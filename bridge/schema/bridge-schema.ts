@@ -237,7 +237,18 @@ export const PROTOCOL_VERSION = 4 as const
 // `settlementReasons`. NOTHING ELSE: no relationship DTO, no tier, no drivers text, no
 // chemistry row, no casting warning, no attention cause, no view/intent/page (B.6);
 // no closeness, edge or driver ever appears on any serialized DTO.
-export const PROJECTION_VERSION = 48 as const
+// P14B.6 (projection 49, Owner ruling 4 of record 683) — the relationship READ MODELS,
+// and nothing else: `StudioPersonProfileSnapshot` gains the `collaborators` block
+// (`StudioRelationshipBlock` + `StudioRelationshipRow`) and the casting CONFIRMATION
+// (`StudioCastingQuoteSnapshot`) gains `chemistry` (`StudioCastingChemistryRow`) and
+// `chemistryWarning`. The DTO key is `collaborators`, NOT `relationships`: the landed
+// leak law forbids that key form on every serialized DTO. NO SAVE STEP —
+// `LIVE_SAVE_VERSION` stays 31, with no new root, validator or migration; no new driver
+// kind, constant, policy, refusal or RNG; and NO production-quality modifier, which
+// remains the production-result owner's own slice. A tie is published only when its
+// counterpart is independently visible to the player, so a rival-internal pair reaches
+// no DTO; closeness, edge ids, stored driver rows and delta magnitudes still reach none.
+export const PROJECTION_VERSION = 49 as const
 
 const nonEmptyText = () => text({ minLength: 1 })
 const nonNegativeInteger = () => integer({ minimum: 0 })
