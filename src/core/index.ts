@@ -99,6 +99,11 @@ export type {
   GameStateV24,
   GameStateV29,
   GameStateV30,
+  GameStateV31,
+  RelationshipEdge,
+  RelationshipDriver,
+  RelationshipDriverKind,
+  RelationshipTier,
   ProfessionalPromiseV29,
   ProfessionalPromiseV30,
   CastRoleCountPredicate,
@@ -1289,11 +1294,16 @@ export {
   migrateToV29,
   convertV28ToV29,
   convertV29ToV28,
-  // P14B.4 — live V29 → NEW V30 + migrateToV30 (explicit P2 seat class; record 600).
+  // P14B.4 — V29 → V30 + migrateToV30 (explicit P2 seat class; record 600).
   validateSaveV30,
   migrateToV30,
   convertV29ToV30,
   convertV30ToV29,
+  // P14B.5 — live V30 → NEW V31 + migrateToV31 (the `relationships` root).
+  validateSaveV31,
+  migrateToV31,
+  convertV30ToV31,
+  convertV31ToV30,
   convertV27ToV28,
   convertV28ToV27,
   // P13B-S5-R07 — live V24 → NEW V25 + migrateToV25 (the widened production
@@ -1333,6 +1343,7 @@ export type {
   SaveFileV28,
   SaveFileV29,
   SaveFileV30,
+  SaveFileV31,
   SaveFile,
   TalentV1,
   GameStateV1,
@@ -1425,6 +1436,38 @@ export type {
   TrustDriverKind,
   TrustLabel,
 } from './promises.js'
+
+// ── P14B.5 The first shared-work bond (edges, drift, tier, chemistry, root) ──
+export {
+  advanceRelationshipsWeek,
+  recordCancelledAfterFirstTake,
+  currentCloseness,
+  currentTier,
+  pairChemistry,
+  driverGain,
+  tiersOnRoster,
+  requireRelationshipsRoot,
+  validateRelationshipsRoot,
+  projectRelationshipsPreV31,
+  RELATIONSHIP_RULES_VERSION,
+  RELATIONSHIP_BASELINE,
+  RELATIONSHIP_TIERS,
+  RELATIONSHIP_TIER_FLOOR,
+  RELATIONSHIP_DRIVER_KINDS,
+  RELATIONSHIP_PROXIMITY_HIGH,
+  RELATIONSHIP_PROXIMITY_MID,
+  RELATIONSHIP_PROXIMITY_LOW,
+  RELATIONSHIP_REPEAT_CAP,
+  RELATIONSHIP_SUCCESS_DELTA,
+  RELATIONSHIP_FAILURE_DELTA,
+  RELATIONSHIP_CANCEL_DELTA,
+  RELATIONSHIP_SUCCESS_CRITIC_SCORE,
+  RELATIONSHIP_FAILURE_CRITIC_SCORE,
+  RELATIONSHIP_DRIFT_GRACE_WEEKS,
+  RELATIONSHIP_DRIFT_RETURN_WEEKS,
+  RELATIONSHIP_RECENT_CAP,
+} from './relationships.js'
+export type { PairChemistry, RelationshipDelta } from './relationships.js'
 
 // ── P13B-S3 Physical plans (persistent queue, dependencies, admission) ───────
 export {
