@@ -1837,6 +1837,30 @@ const StudioFinancialConsequence = object('StudioFinancialConsequence', {
   laterNetWeeklyCashflow: nullable(number()), laterRunway: nullable(text()), laterBasis: nullable(text()), exclusions: nonEmptyText(),
 })
 
+// P14B.6 (projection 49) — the RELATIONSHIP READ MODELS. Every field they add is a
+// LABEL, a SENTENCE or an INTEGER COUNT: no closeness, no edge id, no stored driver row,
+// and NO DELTA MAGNITUDE ever (694-C Q2 — a resumed campaign can hold both a -4 and a -5
+// sharedFailure on ONE edge, so a magnitude would show two numbers for one event class).
+// The eight-rung ladder of `RELATIONSHIP_TIERS` (src/core/relationships.ts :45), restated
+// here on the TRUST_LABELS precedent: this schema module imports no engine source. A rung
+// added there and not here fails LOUDLY at the wire parse.
+const RELATIONSHIP_TIER_LABELS =
+  ['Nemeses', 'Enemies', 'Strained', 'Acquaintances', 'Colleagues', 'Friends', 'CloseFriends', 'Inseparable'] as const
+// The pairwise readout among the four seats of a PROPOSED seating, in `seatPairs` seat
+// order. A pair with no edge reads `tierLabel: null` and an honest line — never a neutral
+// score. Ruling 4: this is a READOUT and never a production-quality modifier.
+const StudioCastingChemistryRow = object('StudioCastingChemistryRow', {
+  seatA: enumeration(['director', 'lead', 'antagonist', 'support']),
+  seatB: enumeration(['director', 'lead', 'antagonist', 'support']),
+  talentIdA: nonEmptyText(),
+  talentIdB: nonEmptyText(),
+  tierLabel: nullable(enumeration(RELATIONSHIP_TIER_LABELS)),
+  sign: integer({ minimum: -1, maximum: 1 }),
+  /** `pairChemistry(...).reasons` verbatim — copy that carries no number. */
+  drivers: array(nonEmptyText()),
+  line: nonEmptyText(),
+})
+
 const StudioCastingQuoteSnapshot = object('StudioCastingQuoteSnapshot', {
   financial: nullable(reference('StudioFinancialConsequence', StudioFinancialConsequence)),
   /** The ONE opaque digest-bound commit intent this quote mints. */
@@ -2538,6 +2562,32 @@ const StudioTrustBlock = object('StudioTrustBlock', {
   line: nonEmptyText(),
 })
 
+// P14B.6 (projection 49) — the PROFILE COLLABORATORS block, on the StudioTrustBlock
+// pattern above. The `$def` keeps 687's `StudioRelationshipBlock` name; the DTO KEY is
+// `collaborators`, because the landed leak law forbids the key form `"relationships":`
+// on every serialized DTO (tests/bridge-p14b5-relationships.test.ts :404-408) and a
+// `$def` name never appears as a key. The tier vocabulary and the no-magnitude law are
+// stated on `StudioCastingChemistryRow` above.
+const StudioRelationshipRow = object('StudioRelationshipRow', {
+  counterpartId: nonEmptyText(),
+  counterpartName: nonEmptyText(),
+  /** The rung at this week; null when no tie is recorded. A shared credit alone never
+   *  backfills a tier (Owner ruling 3 (ii)), so a pre-V31 campaign reads null here. */
+  tierLabel: nullable(enumeration(RELATIONSHIP_TIER_LABELS)),
+  sign: integer({ minimum: -1, maximum: 1 }),
+  /** `pairChemistry(...).reasons` verbatim — copy that carries no number. */
+  drivers: array(nonEmptyText()),
+  /** A FACT derived from `firstTakes` and released credits, never friendship. */
+  sharedPictures: nonNegativeInteger(),
+})
+const StudioRelationshipBlock = object('StudioRelationshipBlock', {
+  /** Present on every profile. When ties exist that the player cannot see in their own
+   *  right, this line says so WITHOUT a count and WITHOUT an identity (the
+   *  `presence.withheld` precedent). */
+  line: nonEmptyText(),
+  rows: array(reference('StudioRelationshipRow', StudioRelationshipRow)),
+})
+
 const StudioPersonProfileSnapshot = object('StudioPersonProfileSnapshot', {
   talentId: nonEmptyText(),
   name: nonEmptyText(),
@@ -2566,6 +2616,9 @@ const StudioPersonProfileSnapshot = object('StudioPersonProfileSnapshot', {
   attention: reference('StudioPersonAttentionSnapshot', StudioPersonAttentionSnapshot),
   career: reference('StudioPersonCareerSnapshot', StudioPersonCareerSnapshot),
   trust: reference('StudioTrustBlock', StudioTrustBlock),
+  /** P14B.6: only ties whose COUNTERPART the player can already see in their own right
+   *  (on the player's roster at W). A rival-internal pair appears on no DTO anywhere. */
+  collaborators: reference('StudioRelationshipBlock', StudioRelationshipBlock),
   promises: array(reference('StudioMarketPromiseHistoryRow', StudioMarketPromiseHistoryRow)),
   /** P14A.1: present exactly while the engine holds a case for this person; null otherwise. */
   marketCase: nullable(reference('StudioMarketCaseSnapshot', StudioMarketCaseSnapshot)),
@@ -3314,6 +3367,7 @@ const definitions = {
   StudioMarketPromiseQuoteSnapshot,
   StudioMarketProposalQuoteSnapshot,
   StudioBridgeQuoteRequest,
+  StudioCastingChemistryRow,
   StudioCastingQuoteSnapshot,
   StudioPlacementCellVerdictSnapshot,
   StudioPlacementUnmetRequirementSnapshot,
@@ -3382,6 +3436,8 @@ const definitions = {
   StudioWorldRouteSnapshot,
   StudioTrustDriverRow,
   StudioTrustBlock,
+  StudioRelationshipRow,
+  StudioRelationshipBlock,
   StudioPersonProfileSnapshot,
   StudioRosterOvrSnapshot,
   StudioRosterRowSnapshot,
@@ -3499,6 +3555,7 @@ export type BridgeCastingExpiryNoticeSnapshot = InferSchema<typeof StudioCasting
 export type BridgeCommissionDraftPayload = InferSchema<typeof StudioCommissionDraftPayload>
 export type BridgeCommissionQuoteSnapshot = InferSchema<typeof StudioCommissionQuoteSnapshot>
 export type BridgeCastingDraftPayload = InferSchema<typeof StudioCastingDraftPayload>
+export type BridgeCastingChemistryRow = InferSchema<typeof StudioCastingChemistryRow>
 export type BridgeCastingQuoteSnapshot = InferSchema<typeof StudioCastingQuoteSnapshot>
 export type BridgeContractOfferSnapshot = InferSchema<typeof StudioContractOfferSnapshot>
 export type BridgeHiringCandidateSnapshot = InferSchema<typeof StudioHiringCandidateSnapshot>
@@ -3535,6 +3592,8 @@ export type BridgeWorldCaseRef = InferSchema<typeof StudioWorldCaseRef>
 export type BridgeWorldRouteSnapshot = InferSchema<typeof StudioWorldRouteSnapshot>
 export type BridgeTrustDriverRow = InferSchema<typeof StudioTrustDriverRow>
 export type BridgeTrustBlock = InferSchema<typeof StudioTrustBlock>
+export type BridgeRelationshipRow = InferSchema<typeof StudioRelationshipRow>
+export type BridgeRelationshipBlock = InferSchema<typeof StudioRelationshipBlock>
 export type BridgePersonRenewalTermSnapshot = InferSchema<typeof StudioPersonRenewalTermSnapshot>
 export type BridgePersonContractActionsSnapshot = InferSchema<typeof StudioPersonContractActionsSnapshot>
 export type BridgePlacementQuoteSnapshot = InferSchema<typeof StudioPlacementQuoteSnapshot>
