@@ -245,9 +245,16 @@ export const PROTOCOL_VERSION = 4 as const
 // leak law forbids that key form on every serialized DTO. NO SAVE STEP —
 // `LIVE_SAVE_VERSION` stays 31, with no new root, validator or migration; no new driver
 // kind, constant, policy, refusal or RNG; and NO production-quality modifier, which
-// remains the production-result owner's own slice. A tie is published only when its
-// counterpart is independently visible to the player, so a rival-internal pair reaches
-// no DTO; closeness, edge ids, stored driver rows and delta magnitudes still reach none.
+// remains the production-result owner's own slice. The two carriers disclose on DIFFERENT
+// bases, and the distinction is load-bearing. On the PROFILE block a tie publishes only
+// when its counterpart is independently visible to the player in their own right, on the
+// player's roster at W, so a pair internal to a rival reaches no profile. On the CASTING
+// rows there is no roster predicate and none is intended: the player has proposed both
+// people for the same picture, both ids are already inside their own request, and ruling
+// 3 (iii) requires the readout for exactly that seating — so two off-roster freelancers
+// who share an edge DO read there, on the basis that a seating the player proposes is
+// self-disclosing. Closeness, edge ids, stored driver rows and delta magnitudes reach
+// neither carrier.
 export const PROJECTION_VERSION = 49 as const
 
 const nonEmptyText = () => text({ minLength: 1 })
@@ -2636,7 +2643,9 @@ const StudioPersonProfileSnapshot = object('StudioPersonProfileSnapshot', {
   career: reference('StudioPersonCareerSnapshot', StudioPersonCareerSnapshot),
   trust: reference('StudioTrustBlock', StudioTrustBlock),
   /** P14B.6: only ties whose COUNTERPART the player can already see in their own right
-   *  (on the player's roster at W). A rival-internal pair appears on no DTO anywhere. */
+   *  (on the player's roster at W), so a pair internal to a rival appears on no profile.
+   *  That predicate is the PROFILE block's alone. The casting rows deliberately carry no
+   *  roster filter — see the disclosure note above `PROJECTION_VERSION`. */
   collaborators: reference('StudioRelationshipBlock', StudioRelationshipBlock),
   promises: array(reference('StudioMarketPromiseHistoryRow', StudioMarketPromiseHistoryRow)),
   /** P14A.1: present exactly while the engine holds a case for this person; null otherwise. */
