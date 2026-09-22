@@ -45,11 +45,13 @@ import type { Disclosed, MarketCaseView } from '../src/core/talentMarket.ts'
 import { trustDescriptor } from '../src/core/promises.ts'
 import { promiseHistoryFor, unboxPromise } from './promises.ts'
 import { promiseAttentionRows, promiseRowsForPerson, trustBlockFor } from './trust.ts'
+import { relationshipBlockFor } from './relationships.ts'
 import { contractActionDecisions, contractTermLabel } from './contract.ts'
 import { personWorldRoute } from './world.ts'
 import type {
   BridgeMarketAttentionRowSnapshot, BridgeMarketCaseSnapshot, BridgeMarketProposalSnapshot,
-  BridgeMarketPromiseHistoryRow, BridgePersonContractActionsSnapshot, BridgeTrustBlock, BridgeWorldRouteSnapshot,
+  BridgeMarketPromiseHistoryRow, BridgePersonContractActionsSnapshot, BridgeRelationshipBlock, BridgeTrustBlock,
+  BridgeWorldRouteSnapshot,
 } from './schema/bridge-schema.ts'
 import type {
   CreativeRole,
@@ -215,6 +217,11 @@ export type BridgePersonProfileSnapshot = {
   career: BridgePersonCareerSnapshot
   /** P14B.2: public trust evidence for the player studio, independent of a case. */
   trust: BridgeTrustBlock
+  /** P14B.6: published working ties. DTO key `collaborators`, not `relationships`: the
+   * landed leak law forbids that key form on every serialized DTO. Only counterparts the
+   * player can already see in their own right appear; the rest are named by the `line`
+   * without a count and without an identity. */
+  collaborators: BridgeRelationshipBlock
   /** Only bound promises issued by the player studio, newest first. */
   promises: BridgeMarketPromiseHistoryRow[]
   /** P14A.1: the contested-expiry case block, present only while the engine holds a case. */
@@ -520,6 +527,7 @@ function buildProfile(
     attention,
     career,
     trust: trustBlockFor(state, talent.id, viewerStudioId, input.week),
+    collaborators: relationshipBlockFor(state, talent.id, viewerStudioId, input.week),
     promises: promiseRowsForPerson(state, talent.id, viewerStudioId, input.week),
     marketCase,
     // The world route reuses the presence answer this profile already holds, so the
