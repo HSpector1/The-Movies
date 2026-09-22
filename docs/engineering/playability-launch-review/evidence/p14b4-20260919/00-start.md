@@ -308,9 +308,52 @@ the unreachable lower half with the FAILURE_DELTA dial, Finding 2 the saturation
 carried, OPEN 15 closed by events (V31 shipped without the waiver field, so the waiver needs its own
 save step), and ONE recommended next slice — P14B.6 READ MODELS over the waiver, with acceptance
 checks and an effort forecast. 628 R5 / G-1(A) / G-2 and 637 carried, not blocking.
-NEXT680: STOP AT THE OWNER DECISION GATE. Nothing in B.6, the waiver or any relationship constant
-starts on this packet alone. Evaluator 5 later; the endurance-scenario half of B.5 scope (9) stays
-outstanding. LOGIC VERIFIED · UNITY NOT VERIFIED. Unity/native deferred. Gross2221 omitted fact cost is NOT
+OWNER RULINGS ACTIVATED 2026-09-22 on record 680 (record 683; the Owner's `01-APPROVE-AND-CONTINUE.txt`,
+blob `cbdbca4e`, at source `63688a79`): (1) RELATIONSHIP_FAILURE_DELTA := 5 as PROVISIONAL CANDIDATE
+TUNING so repeated failure can reach Strained on the low-proximity path — no conflict driver, no
+Enemies/Nemeses, no romance, no seating refusal, no general production penalty; (2) rival casting,
+staffing and seat policy NOT touched, saturation retained, 628 R5 / G-1(A) / G-2 keep their own
+disposition; (3) OPEN 1 SETTLED as common base growth (proximity weights remain), OPEN 2 SETTLED as no
+behavioral backfill (factual shared-credit counts may display as facts), OPEN 3 SETTLED as warnings not
+a hard refusal (B.6 must not invent a quality modifier), OPEN 11 retained for the later conflict work,
+OPEN 15 OVERTAKEN by V31's publication so the waiver needs its own governed change; (4) P14B.6 read
+models next, TypeScript/bridge only. Recorded once in the plan's B.5 OPEN register.
+P14B.5-T TUNING CHECKPOINT QUALIFIED WITH RECORD-ONLY ITEMS — record 693 (694-C). Production: ONE file,
+ONE hunk, +9/−1 — `RELATIONSHIP_FAILURE_DELTA` 4 → 5 with its doc comment (`relationships.ts:80`, one
+call site). NO version step: RULES_VERSION 1, Save V31, projection 48 all unmoved, no migration; the
+delta is a driver constant, the validator pins no delta value, no fixture stores a driver, no reader
+reads a delta as a magnitude, and `projectRelationshipsPreV31` refuses rather than flattens — 694-C Q2
+attacked this and could not break it. RED-first, independently owned: `tests/p14b5-t-failure-tuning.test.ts`
+(466 lines, final sha `bc02cfcf…`), group 1 RED at 4 and groups 2–7 GREEN at 4. EVIDENCE: 688 requirement
+12/12; 690 the 24 natural-chain controls 324 passed / 4 todo IDENTICAL to the 671 pre row; 691 typechecks
++ both generator checks EXIT 0; 695 FULL CORE on the final bytes `4c138264…` = 9 files / 24 failed /
+3944 passed / 8 todo, the 636 baseline set EXACTLY, with the requirement file green at 12 — and the
+669→695 failure CAUSES byte-identical but for one ephemeral mkdtemp path. ONE genuinely new failure
+occurred and was closed: `hygiene.test.ts` bans the literal `Math.random` anywhere under src/ or tests/
+and the new file's line 41 spelled it in a comment; its AUTHOR reworded that one line (restoring it
+reproduces the prior hash, `diff` = exactly `41c41`). MEASURED CONSEQUENCE (682 pre → 689 post, same
+engine PROVEN: `git diff ddf58e87..63688a79 -- src bridge generated ui scripts` EMPTY): min closeness
+ever 48 → 47 on three seeds at the same week and edge; first Inseparable read w40 → w44 and w45 → w54;
+one p13a pair now peaks at CloseFriends instead of Inseparable; root +1 byte on p13a stated as an
+UNDECOMPOSED net; gzip moves on p13a AND seed-b (seed-b's raw root is byte-identical, its compressed
+size is not); edges, drivers and every counter unchanged on all four seeds. STRAINED IS STILL NEVER READ
+on the four standard seeds at either value — the capability is proven through the real write path, the
+standard campaigns do not exercise it, and per the Owner that is accepted and is NOT a reason to retune.
+Player encounter frequency is a PLAYTESTING hypothesis, not a finding. `681-b5-closeness-floor-witness.ts`
+is FROZEN as the old-law witness (breaks at :102-104, :113, :144; reproduce at `63688a79`), never a
+current-law test. FORWARD CONSTRAINT ON B.6 (694-C Q2): a resumed campaign's `recent` can hold both −4
+and −5 failure rows on one edge, lawful and invisible only while nothing renders a delta, so B.6's
+readable drivers must keep the no-number pattern or carry an era signal.
+NEXT696: P14B.6 READ MODELS (expansion draft 687) — profile relationship block on the landed `trust`
+pattern, readable drivers, casting chemistry rows, factual shared-credit counts, the Q4 casting warning.
+Projection 48 → 49, NO save step, no new root, no new driver, no constant. HARD ORDERING CONSTRAINT: mint
+`genuine-projection48-runtime` BEFORE the writer touches PROJECTION_VERSION, as 45/46/47 were minted.
+DISCLOSURE is the slice's real decision — nearly every measured edge is rival-internal, so a tie is
+published only when its counterpart is independently visible to the player; the landed leak law stays
+green UNAMENDED (labels, copy and counts, never root fields). Then the remaining authorized P14
+obligations, P15, P16, P17 and sufficiently specified P18 in dependency order. Carried: positive-saturation,
+the 6,240-week endurance obligation, 628 R5 / G-1(A) / G-2, 637, the waiver, evaluator 5.
+LOGIC VERIFIED · UNITY NOT VERIFIED. Unity/native deferred. Gross2221 omitted fact cost is NOT
 net saving: cold discovery can shift into next frame. No route-fit claim.
 Draft-discovery, silent-policy, affine and Map alternatives remain unadopted.
 T4/B2/B3/B-F2 qualified closed; B4/liveP2/Unity/Owner acceptance NOT closed.
