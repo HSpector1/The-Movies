@@ -344,11 +344,25 @@ function f6Base(): F6Base {
     // Explicit synthetic Standing INPUT (identical in every branch), never a claimed standing event.
     const standing = state.hollywood!.businesses.find((b) => b.studioId === r01)!.standing
     state = { ...state, studio: { ...state.studio, standing: { ...standing } } }
+    // 662-T2b amendment (RED-side premise, no law decided): the hiring market rotates every
+    // HIRING_MARKET_ROTATION_WEEKS (13) and 208 = 16 x 13 opens a new epoch, so the week-207 listing is
+    // resampled at 208. The committed-at-W probe signs the SAME actor at 207 (branch ii) and inside the 208
+    // pass (branch i), so the actor must be listed in BOTH weeks; the :851 guard still measures the 208 listing
+    // on the real pre-market input, never a forged row.
+    const listedAt208 = new Set(hiringMarketIds(state, F6.W))
     const free = hiringMarketIds(state, 207).map((i) => state.talent.find((t) => t.id === i))
-      .find((t) => t?.role === 'actor' && ![reliable.id, closedAtW.id, offCycle.id].includes(t.id))?.id
-    if (free === undefined) throw new Error('F6 premise: no free actor at 207 for the committed-at-W probe')
+      .find((t) => t?.role === 'actor' && listedAt208.has(t.id) && ![reliable.id, closedAtW.id, offCycle.id].includes(t.id))?.id
+    if (free === undefined) throw new Error('F6 premise: no actor listed at both 207 and 208 for the committed-at-W probe')
     expect(state.market.tick).toBe(207)
-    expect(edges(state)).toEqual([]) // the player filmed nothing on this campaign: no edge exists before staging
+    // 662-T2 amendment (658-W item 1; plan (2a) is symmetric across studios — family 2 asserts a RIVAL take mints
+    // six edges, so the root is NOT empty on this campaign at 207). The premise family 6 needs: the player filmed
+    // nothing (no player take), so no edge touches anyone on the player's roster at W — the staged edge is the
+    // ONLY D5 signal the player can hold, and the base is a pure tie.
+    expect(state.firstTakes.filter((t) => t.studioId === playerId)).toEqual([])
+    const playerRosterAtW = new Set(rosterAt(state, playerId, F6.subject, F6.W))
+    expect(playerRosterAtW.has(offCycle.id)).toBe(true)
+    expect(edges(state).filter((e) => playerRosterAtW.has(e.a) || playerRosterAtW.has(e.b))).toEqual([])
+    expect(findEdge(state, F6.subject, offCycle.id)).toBeUndefined()
     f6Cache = { at207: state, playerId, r01, reliable: reliable.id, closedAtW: closedAtW.id, offCycle: offCycle.id, free }
   }
   return clone(f6Cache)
@@ -695,9 +709,11 @@ describe('family 5 — RELEASE and CANCEL drivers (scope (2b)-(2c); 647-B R1 wee
       expect(edge[kind === 'sharedSuccess' ? 'sharedSuccesses' : 'sharedFailures']).toBe(1)
       expect(edge.sharedProductions).toBe(was.sharedProductions)
     }
-    // idempotent across a re-tick: the next advance carries no release for this picture
+    // idempotent across a re-tick: the next advance carries no release for THIS picture, so its six pairs are
+    // untouched (662-T2 amendment, 658-W item 2: a RIVAL release in that same week lawfully drives ITS pairs —
+    // plan (2b) is symmetric — so the loop is scoped to the player's six pairs, never to every edge)
     const again = tick(after)
-    for (const edge of edges(after)) expect(findEdge(again, edge.a, edge.b)).toEqual(edge)
+    for (const p of seatPairs({ directorId: FROZEN.directorId, cast: FROZEN.cast })) expect(findEdge(again, p.x, p.y)).toEqual(findEdge(after, p.x, p.y))
     // and the seam replayed on the SAME release mints nothing twice (idempotent by (edgeId, kind, productionId))
     const replayed = advanceRelationshipsWeek(after, { takes: [], releases: [film] }, week)
     expect(JSON.stringify(edges(replayed))).toBe(JSON.stringify(edges(after)))

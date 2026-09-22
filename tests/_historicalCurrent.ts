@@ -1,14 +1,14 @@
-import {migrateToV18,migrateToV30,type SaveFile,type SaveFileV30,type GameStateV18,type GameState} from '../src/core/index.js'
+import {migrateToV18,migrateToV31,type SaveFile,type SaveFileV31,type GameStateV18,type GameState} from '../src/core/index.js'
 import {withResearchFoundation} from '../src/core/researchPeople.js'
 import {initialTechnology} from '../src/core/technology.js'
 import {initialPhysicalPlans} from '../src/core/physicalPlans.js'
 import {initialTalentMarket} from '../src/core/talentMarket.js'
 /** Historical player-law control: preserve pre-P12 authority while lifting the
  * type to the current test engine. Native migration uses the real V20 chain. */
-export function migrateToCurrentControl(save:SaveFile):SaveFileV30 {
-  if(save.saveVersion>=19)return migrateToV30(save)
+export function migrateToCurrentControl(save:SaveFile):SaveFileV31 {
+  if(save.saveVersion>=19)return migrateToV31(save)
   const old=migrateToV18(save)
-  return {...old,saveVersion:30,state:liftHistoricalState(old.state)}
+  return {...old,saveVersion:31,state:liftHistoricalState(old.state)}
 }
 
 export function liftHistoricalState(state:GameStateV18):GameState {
@@ -20,6 +20,9 @@ export function liftHistoricalState(state:GameStateV18):GameState {
     // P14B.1 (Save V29): the same lift the real V28->V29 migration writes — a
     // historical campaign filmed no recorded first take and promised nothing.
     firstTakes:[],promises:[],
+    // P14B.5 (Save V31): the same lift the real V30->V31 migration writes — a
+    // historical campaign shared no recorded work, so the relationship root opens empty.
+    relationships:[],
     // P13B-S5-R07 (Save V25): the same lift the real V24->V25 migration writes —
     // a historical picture reviewed no setup recipe and its plan is at revision 0.
     operations:{...state.operations,workflows:state.operations.workflows.map(workflow=>({...workflow,setup:null,planRevision:0}))},

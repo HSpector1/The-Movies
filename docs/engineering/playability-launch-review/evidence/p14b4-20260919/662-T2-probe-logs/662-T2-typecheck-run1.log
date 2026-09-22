@@ -1,0 +1,29 @@
+
+> project-studio-core@0.1.0 typecheck
+> tsc --noEmit && tsc -p ui/tsconfig.json --noEmit
+
+tests/p14b4-material-evidence-core.test.ts(227,26): error TS2379: Argument of type 'GameStateV29' is not assignable to parameter of type 'GameStateV31' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Property 'relationships' is missing in type 'GameStateV29' but required in type '{ relationships: readonly RelationshipEdge[]; }'.
+tests/p14b4-material-evidence-core.test.ts(228,13): error TS2379: Argument of type 'GameStateV29' is not assignable to parameter of type 'GameStateV31' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Property 'relationships' is missing in type 'GameStateV29' but required in type '{ relationships: readonly RelationshipEdge[]; }'.
+tests/p14b4-material-evidence-core.test.ts(233,30): error TS2379: Argument of type 'GameStateV29' is not assignable to parameter of type 'GameStateV31' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Property 'relationships' is missing in type 'GameStateV29' but required in type '{ relationships: readonly RelationshipEdge[]; }'.
+tests/p14b4-material-evidence-core.test.ts(233,42): error TS2379: Argument of type 'GameStateV29' is not assignable to parameter of type 'GameStateV31' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Property 'relationships' is missing in type 'GameStateV29' but required in type '{ relationships: readonly RelationshipEdge[]; }'.
+tests/p14b4-material-evidence-core.test.ts(234,24): error TS2379: Argument of type 'GameStateV29' is not assignable to parameter of type 'GameStateV31' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Property 'relationships' is missing in type 'GameStateV29' but required in type '{ relationships: readonly RelationshipEdge[]; }'.
+tests/p14b4-material-evidence-core.test.ts(237,26): error TS2379: Argument of type 'GameStateV29' is not assignable to parameter of type 'GameStateV31' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Property 'relationships' is missing in type 'GameStateV29' but required in type '{ relationships: readonly RelationshipEdge[]; }'.
+tests/p14b4-material-evidence-core.test.ts(241,24): error TS2379: Argument of type 'GameStateV29' is not assignable to parameter of type 'GameStateV31' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Property 'relationships' is missing in type 'GameStateV29' but required in type '{ relationships: readonly RelationshipEdge[]; }'.
+tests/p14b4-material-evidence-core.test.ts(245,18): error TS2379: Argument of type 'GameStateV29' is not assignable to parameter of type 'GameStateV31' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Property 'relationships' is missing in type 'GameStateV29' but required in type '{ relationships: readonly RelationshipEdge[]; }'.
+tests/p14b4-material-evidence-core.test.ts(247,24): error TS2379: Argument of type 'GameStateV29' is not assignable to parameter of type 'GameStateV31' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Property 'relationships' is missing in type 'GameStateV29' but required in type '{ relationships: readonly RelationshipEdge[]; }'.
+tests/p14b4-material-evidence-core.test.ts(252,18): error TS2379: Argument of type 'GameStateV29' is not assignable to parameter of type 'GameStateV31' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Property 'relationships' is missing in type 'GameStateV29' but required in type '{ relationships: readonly RelationshipEdge[]; }'.
+tests/p14b4-material-evidence-core.test.ts(254,24): error TS2379: Argument of type 'GameStateV29' is not assignable to parameter of type 'GameStateV31' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Property 'relationships' is missing in type 'GameStateV29' but required in type '{ relationships: readonly RelationshipEdge[]; }'.
+tests/p14b4-material-evidence-core.test.ts(276,14): error TS2379: Argument of type 'GameStateV29' is not assignable to parameter of type 'GameStateV31' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Property 'relationships' is missing in type 'GameStateV29' but required in type '{ relationships: readonly RelationshipEdge[]; }'.
+EXIT 2

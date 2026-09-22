@@ -14,8 +14,9 @@
 //   (e) `preferences.priorityOrder` publishes SEVEN members on a genuine open case and the D5 settlement sentence
 //       reaches `settlementReasons` VERBATIM (people.ts :998, free text, no enum);
 //   (f) the leak law extends to the new facts: no `closeness`, no edge, no `recent` delta on any serialized DTO.
-// The FROZEN SIDE (GREEN today; R-VERSION class, re-expressed by the test-author's sweep after T2): projection 47,
-// `SCHEMA_ID` = sha256:6f6b4880…, exactly 35 prior ids, `LIVE_SAVE_VERSION` 30, the checkpoint loading as CURRENT.
+// The FROZEN SIDE (R-VERSION class, re-expressed by the test-author's 662-T2 sweep after T2): projection 48
+// (47 outgoing), `SCHEMA_ID` = sha256:00c0075b… (6f6b4880… outgoing), 36 prior ids, `LIVE_SAVE_VERSION` 31, the
+// projection-47 checkpoint taking the governed prior path.
 //
 // Anything that needs the engine's new module is reached through a DYNAMIC import inside the case, so this file
 // loads and its frozen pins and ledger controls run today; those cases reject (RED) until T2 creates the module,
@@ -133,6 +134,7 @@ const SLOTS = ['lead', 'antagonist', 'support'] as const
 type Relationships = {
   currentTier: (edge: unknown, week: number) => string
   RELATIONSHIP_TIER_FLOOR: Record<string, number>
+  RELATIONSHIP_RECENT_CAP: number
 }
 type Edge = { edgeId: string; a: string; b: string; closeness: number; firstSharedWeek: number; lastEventWeek: number; sharedProductions: number
   sharedSuccesses: number; sharedFailures: number; sharedCancellations: number; peakTier: string; peakTierWeek: number; recent: readonly { kind: string; week: number; ref: string; delta: number }[] }
@@ -278,23 +280,26 @@ const wireEnum = (): string[] => {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────────────────────────────
-describe('P14B.5 frozen side — the OUTGOING wire identities (GREEN today; R-VERSION class, re-expressed after T2 by the test-author\'s sweep)', () => {
-  it('projection 47, SCHEMA_ID sha256:6f6b4880…, LIVE_SAVE_VERSION 30, exactly the 35 accepted prior ids with projection-v46 at the head', () => {
+describe('P14B.5 frozen side — the OUTGOING wire identities (R-VERSION class, re-expressed by 662-T2 after T2 landed projection 48 / Save V31)', () => {
+  it('projection 48 (47 outgoing), SCHEMA_ID sha256:00c0075b… (6f6b4880… outgoing), LIVE_SAVE_VERSION 31, exactly the 35 accepted prior ids PLUS the outgoing 47 with projection-v46 and projection-v47 registered', () => {
     expect(PROTOCOL_VERSION).toBe(4)
-    expect(PROJECTION_VERSION).toBe(OUTGOING_PROJECTION)
-    expect(SCHEMA_ID).toBe(OUTGOING_47)
-    expect(LIVE_SAVE_VERSION).toBe(30)
-    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_35_PRIOR_IDS])
+    expect(PROJECTION_VERSION).toBe(48)
+    expect(OUTGOING_PROJECTION).toBe(47)
+    // The checked-in contract-manifest schemaId at 040651b4, read independently of this test.
+    expect(SCHEMA_ID).toBe('sha256:00c0075bef257634956da7d16d117a145d203047e7169c643156b7971c4c7fec')
+    expect(SCHEMA_ID).not.toBe(OUTGOING_47)
+    expect(LIVE_SAVE_VERSION).toBe(31)
+    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_35_PRIOR_IDS, OUTGOING_47].sort())
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_46)).toBe('projection-v46')
-    expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(OUTGOING_47)).toBe(false)
+    expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_47)).toBe('projection-v47')
   })
 
-  it('the genuine projection-47 checkpoint loads as the CURRENT identity today (no migration)', () => {
+  it('the genuine projection-47 checkpoint is no longer the CURRENT identity: it takes the governed prior path exactly once (family 11 pins the slot bytes)', () => {
     const { raw } = checkpoint()
-    const neverMigrate = vi.fn(() => { throw new Error('current schema must not migrate') })
-    const loaded = loadBridgeRuntimeCheckpoint(raw, undefined, neverMigrate)
-    expect(loaded.migratedFromProtocolVersion).toBeNull()
-    expect(neverMigrate).not.toHaveBeenCalled()
+    const createSession = vi.fn(() => 'p14b5-frozen-side-prior-path')
+    const loaded = loadBridgeRuntimeCheckpoint(raw, undefined, createSession)
+    expect(loaded.migratedFromProtocolVersion).toBe(4)
+    expect(createSession).toHaveBeenCalledTimes(1)
   })
 
   it('the checked-in generator artifacts equal the running identity (law: stable across the bump once the generator runs)', () => {
@@ -347,6 +352,9 @@ describe('family 11 — projection 48 THIN (RED by value): the enum, the registr
     expect(actualBytes).toBe(exportSave(expected))
     const actual = importSave(actualBytes)
     expect(actual.saveVersion).toBe(LIVE_SAVE_VERSION)
+    // 662-T2b (657 REFINE): narrow the SaveFile union to the live V31 member (the runtime47 :201 guard) so the
+    // root reads below typecheck; the literal is R-VERSION class and the pin above already holds the value.
+    if (actual.saveVersion !== 31) throw new Error('slot did not reach the live Save31')
     expect(actual.state.market.tick).toBe(CHECKPOINT.week)
     expect((actual.state as unknown as { relationships: unknown }).relationships).toEqual([])
     const old = validateSaveV30(JSON.parse(prior[slot]))
@@ -393,14 +401,25 @@ describe('family 11 — projection 48 THIN (RED by value): the enum, the registr
       expect(block.status).toBe('settled')
       expect(block.settlementReasons).toEqual([...receipt.reasons]) // people.ts :998 — verbatim, free text, no enum
       const dto = JSON.stringify({ block, people: peopleProjection(after), market: marketPage(after, { view: 'market', targetId: F6.subject }) })
-      for (const leak of ['"closeness"', '"edgeId"', 'relationship-edge-', '"recent"', '"relationships"', '"lastEventWeek"', '"peakTier"']) expect(dto).not.toContain(leak)
-      expect(dto).not.toContain(String(closeness) + '"') // no number of the record on the wire
+      // 662-T2 amendment (658-W item 3): the leak law is "no relationship ROOT/record on a DTO", so every probe is
+      // the KEY form `"name":` — the bare value `"relationships"` is now the lawful seventh `priorityOrder` member.
+      // 657-B REFINE (a): the `String(closeness) + '"'` substring probe is dropped (any DTO string ending in the
+      // floor value tripped it for a non-law reason); the `"closeness":` key probe is the law's check.
+      for (const leak of ['"closeness":', '"edgeId":', 'relationship-edge-', '"recent":', '"relationships":', '"lastEventWeek":', '"peakTier":']) expect(dto).not.toContain(leak)
     }
-    // the control (no edge) shows the same wire with the tie sentence and no D5 sentence
-    const control = settlementAt208(tick(base.at207))
+    // the control (no edge) declines by the tie sentence on its RECEIPT and carries no D5 sentence on the wire
+    const controlState = tick(base.at207)
+    const control = settlementAt208(controlState)
     expect(control.kind).toBe('declined')
     expect(control.reasons).toEqual([TIE_SENTENCE])
-    expect(marketCaseProjection(tick(base.at207), F6.subject, base.playerId)!.settlementReasons).toEqual([TIE_SENTENCE])
+    // 662-T2b amendment (RED-side; frozen law d49cc274, pre-B.5, untouched by 658-W): `caseDisclosure` publishes
+    // `settlementReasons` from the latest SETTLED receipt only, so a DECLINED case shows `[]` on the wire — the tie
+    // sentence lives on the receipt (asserted above), never on this DTO. The wire pin is the law's own read (the
+    // bridge-p14a2-market :479 device) and "no D5 sentence" on it; the original `[TIE_SENTENCE]` was unsupported.
+    const controlWire = marketCaseProjection(controlState, F6.subject, base.playerId)!.settlementReasons
+    expect(controlWire).toEqual([...marketModule.caseDisclosure(controlState, F6.subject, base.playerId).settlementReasons])
+    expect(controlWire).toEqual([])
+    expect(controlWire.filter((s) => !FROZEN_REASONS.has(s))).toEqual([])
   }, 180_000)
 })
 
@@ -433,7 +452,7 @@ describe('family 12 — the R-D5 natural-chain LEDGER (measured; the frozen cont
     expect(sha(JSON.stringify(state.hollywood!.employment))).toBe(control.employment)
     expect(sha(JSON.stringify(state.firstTakes))).toBe(control.takes)
     expect(state.rngState).toBe(control.rng)
-    if (rel !== null) expect(edges(state).every((e) => e.recent.length <= 8 && e.sharedSuccesses + e.sharedFailures <= e.sharedProductions)).toBe(true)
+    if (rel !== null) expect(edges(state).every((e) => e.recent.length <= rel.RELATIONSHIP_RECENT_CAP && e.sharedSuccesses + e.sharedFailures <= e.sharedProductions)).toBe(true) // 657-B REFINE (b): the cap read through the module
   }, 300_000)
 
   it('the MOST EXPOSED shared fixture, poachingFixture (p14b2-fixtures.ts :145-211; consumers bridge-p14b2-trust, p14b2-fixture-preconditions): the week-208 reasons pin and endedWeek 208 hold, and under D1 no survivor holds a shared-take counterpart', async () => {

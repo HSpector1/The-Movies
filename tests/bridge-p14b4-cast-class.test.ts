@@ -22,9 +22,9 @@ import { attachPromise } from '../src/core/promises.js'
 import * as promiseModule from '../src/core/promises.js'
 import { currentProposals, submitProposal, withdrawProposal } from '../src/core/talentMarket.js'
 import { careerIdentity } from '../src/core/talentSummary.js'
-import { exportSave, migrateToV30, validateSaveV29, validateSaveV30 } from '../src/core/save.js'
+import { exportSave, migrateToV31, validateSaveV29, validateSaveV31 } from '../src/core/save.js'
 import { advanceTo } from '../src/harness/p13a/fixtures.js'
-import type { GameStateV30, ProfessionalPromiseV30 } from '../src/core/types.js'
+import type { GameState, ProfessionalPromiseV30 } from '../src/core/types.js'
 
 type SeatClass = 'lead' | 'leadOrAntagonist'
 type P2Payload = { verb: 'propose' | 'revise'; talentId: string; termWeeks: number; premiumTier: number;
@@ -56,8 +56,9 @@ function fixture(name: keyof typeof PINS) {
     projectionVersion: 46, schemaId: 'sha256:584bdd8565030f049d548b1af4fcbf8c517ca7c9150016736f632f1ef8fcb98c' })
   const old = validateSaveV29(JSON.parse(raw))
   expect(exportSave(old)).toBe(raw)
-  const save = migrateToV30(old)
-  expect(save.state).toEqual(old.state)
+  const save = migrateToV31(old)
+  // P14B.5: the governed lift adds ONLY the empty relationship root (nothing recomputed).
+  expect(save.state).toEqual({ ...old.state, relationships: [] })
   const id: unknown = provenance.focus[0]?.promiseId
   assert.equal(typeof id, 'string')
   const focus = save.state.promises.find((p) => p.promiseId === id)
@@ -65,13 +66,13 @@ function fixture(name: keyof typeof PINS) {
   expect(focus.feasibilityReceipt).toEqual(provenance.focus[0].originalFeasibilityReceipt)
   return { old, save, focus }
 }
-const player = (state: GameStateV30) => state.hollywood!.playerStudioId
-function ownProposal(state: GameStateV30, id: string) {
+const player = (state: GameState) => state.hollywood!.playerStudioId
+function ownProposal(state: GameState, id: string) {
   const rows = currentProposals(state, id).filter((p) => p.issuerStudioId === player(state))
   expect(rows).toHaveLength(1)
   return rows[0]!
 }
-function ownRoot(state: GameStateV30, id: string): ProfessionalPromiseV30 {
+function ownRoot(state: GameState, id: string): ProfessionalPromiseV30 {
   const proposal = ownProposal(state, id)
   expect(proposal.promises).toHaveLength(1)
   const root = state.promises.find((p) => p.promiseId === proposal.promises[0])
@@ -92,7 +93,7 @@ function base() {
   expect(state.operations.mode).toBe('managed')
   expect(state.scriptDevelopment.mode).toBe('legacy')
   expect(currentProposals(state, focus.beneficiaryPersonId)).toEqual([])
-  validateSaveV30({ ...save, state, broadcastCache: state.broadcastItems })
+  validateSaveV31({ ...save, state, broadcastCache: state.broadcastItems })
   return { state, talentId: focus.beneficiaryPersonId }
 }
 function p2(talentId: string, seatClass: SeatClass = 'lead'): P2Payload {
@@ -321,7 +322,7 @@ describe('P14B4 real P2 session integration — offerability/commit prerequisite
   })
 })
 
-function history(state: GameStateV30, root: ProfessionalPromiseV30, seatClass: SeatClass | null) {
+function history(state: GameState, root: ProfessionalPromiseV30, seatClass: SeatClass | null) {
   expect(root.contractId).not.toBeNull()
   const expected = { promiseId: root.promiseId, family: root.family, count: root.predicate.count,
     seatClass, windowStartWeek: root.windowStartWeek, dueWeekExclusive: root.dueWeekExclusive,
@@ -339,7 +340,7 @@ function history(state: GameStateV30, root: ProfessionalPromiseV30, seatClass: S
     expect(promiseRowsForPerson(state, root.beneficiaryPersonId, issuer.studioId).some((row) => row.promiseId === root.promiseId)).toBe(false)
   }
 }
-function pulse(state: GameStateV30) {
+function pulse(state: GameState) {
   const page = (index: number) => industryPage(state, 'b4-public', 0, { protocolVersion: PROTOCOL_VERSION, schemaId: SCHEMA_ID,
     sessionId: 'b4-public', requestId: 'pulse-' + index, expectedStateRevision: 0, type: 'industryQuery', view: 'pulse',
     targetId: null, page: index, pageSize: 50, lane: 'recent', period: 'all' })
@@ -392,7 +393,7 @@ describe('P14B4 existing own/private/public carriers', () => {
     const changed = clone(bound.old)
     const original = changed.state.promises.find((p) => p.promiseId === bound.focus.promiseId)!
     original.family = 'LEAD_OR_SIGNIFICANT_ROLE_COUNT'
-    const migrated = migrateToV30(validateSaveV29(changed))
+    const migrated = migrateToV31(validateSaveV29(changed))
     history(migrated.state, migrated.state.promises.find((p) => p.promiseId === original.promiseId)!, null)
   })
 
@@ -401,14 +402,14 @@ describe('P14B4 existing own/private/public carriers', () => {
     const person = save.state.talent.find((p) => p.id === focus.beneficiaryPersonId)!
     expect(careerIdentity(person).identityDisciplines).toEqual([])
     const state = { ...save.state, talent: save.state.talent.map((p) => p.id === person.id ? { ...p, age } : p) }
-    validateSaveV30({ ...save, state }) // disclosed synthetic pure-read age input, no fake credit
+    validateSaveV31({ ...save, state }) // disclosed synthetic pure-read age input, no fake credit
     const before = clone(state)
     const block = marketCaseProjection(state, person.id, player(state))!
     const profile = peopleProjection(state).profiles.find((p) => p.talentId === person.id)!
     const workspace = marketPage(state, { view: 'market', targetId: person.id }).selected!
     expect(block.preferences).toMatchObject({ preferredOpportunity: age === 29 ? 'significantCastRole' : 'anyCastAppearance',
-      priorityOrder: age === 29 ? ['opportunity', 'compensation', 'term', 'trust', 'standing', 'incumbency']
-        : ['compensation', 'term', 'trust', 'incumbency', 'standing', 'opportunity'] })
+      priorityOrder: age === 29 ? ['opportunity', 'compensation', 'relationships', 'term', 'trust', 'standing', 'incumbency']
+        : ['compensation', 'term', 'trust', 'relationships', 'incumbency', 'standing', 'opportunity'] })
     expect(profile.marketCase!.preferences).toEqual(block.preferences)
     expect(workspace.rail.preferences).toEqual(block.preferences)
     expect(parseWireValue(BRIDGE_SCHEMA.$defs.StudioMarketPreferencesSnapshot, block.preferences)).toEqual(block.preferences)
@@ -422,14 +423,14 @@ describe('P14B4 existing own/private/public carriers', () => {
     expect(q.quote.ok).toBe(true)
     expect(session.command(command(session, q.quote.intentId, 'commit-bind')).accepted).toBe(true)
     const minted = clone(ownRoot(session.gameState, talentId))
-    const freezes: { input: GameStateV30; receipt: ReturnType<typeof promiseModule.promiseFeasibility> }[] = []
+    const freezes: { input: GameState; receipt: ReturnType<typeof promiseModule.promiseFeasibility> }[] = []
     const original = promiseModule.promiseFeasibility
     const spy = vi.spyOn(promiseModule, 'promiseFeasibility').mockImplementation((input, draft, week) => {
       const receipt = original(input, draft, week)
       if (draft.promiseId === minted.promiseId && week === 52) freezes.push(clone({ input, receipt }))
       return receipt
     })
-    let settled: GameStateV30
+    let settled: GameState
     try { settled = advanceTo(session.gameState, 52) } finally { spy.mockRestore() }
     const bound = settled.promises.find((p) => p.promiseId === minted.promiseId)!
     assertTagged(bound, seatClass)
@@ -459,7 +460,7 @@ describe('P14B4 existing own/private/public carriers', () => {
     const savedSession = new BridgeSession(brokenState, 'b4-saved-' + seatClass)
     const saved = savedSession.save(control(savedSession, 'save-real-outcome'))
     if (!saved.accepted) throw new Error(saved.message)
-    expect(validateSaveV30(JSON.parse(saved.saveJson)).state.promises).toEqual(brokenState.promises)
+    expect(validateSaveV31(JSON.parse(saved.saveJson)).state.promises).toEqual(brokenState.promises)
     const loaded = BridgeSession.fromSaveJson(saved.saveJson, 'b4-loaded-' + seatClass)
     expect(loaded.gameState.promises).toEqual(brokenState.promises)
     history(loaded.gameState, loaded.gameState.promises.find((p) => p.promiseId === broken.promiseId)!, seatClass)

@@ -9,7 +9,7 @@ import { applyActions } from '../src/core/actions.js'
 import * as operationsModule from '../src/core/operations.js'
 import { replayStartedProductionPlans, type StartedOwnerReplayInput,
   type StartedProductionCommand } from '../src/core/promiseCapacityOwnerReplay.js'
-import { makeSave, migrateToV14, migrateToV30, validateSaveV13 } from '../src/core/save.js'
+import { makeSave, migrateToV14, migrateToV31, validateSaveV13 } from '../src/core/save.js'
 import { sceneryLoadInDecision } from '../src/core/sceneryLoadIn.js'
 import { scriptProjectWriterIds } from '../src/core/scriptDevelopment.js'
 import { tick } from '../src/core/tick.js'
@@ -91,7 +91,7 @@ function preservedGrandfather() {
   expect(grandfather.bindings.requiresSetBinding).toBe(false)
   expect(grandfather.bindings.setId).toBeNull()
   expect(grandfather.shootingTask).toEqual(oldWorkflow.shootingTask)
-  const state = migrateToV30(v14).state
+  const state = migrateToV31(v14).state
   expect(incoming).toEqual(before)
   expect(state.market.tick).toBe(30)
   expect(state.hollywood).toMatchObject({ origin: 'migration', originWeek: 30 })

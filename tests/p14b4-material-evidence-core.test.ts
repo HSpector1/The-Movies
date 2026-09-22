@@ -2,7 +2,7 @@
 // INERT, UNEXECUTED. Intended tests/p14b4-material-evidence-core.test.ts.
 // B4 plan382252; focused staging boundary, NOT a replacement for installed
 // whole-save, real authoring/settlement, both-issuer, capacity or bridge tests.
-// Uses the existing digest/outcome owners with actual validateSaveV30-admitted
+// Uses the existing digest/outcome owners with actual validateSaveV31-admitted
 // states. No makeSave/LIVE_SAVE_VERSION/rules4/attachment barrier and no new API.
 import assert from 'node:assert/strict'
 import { createHash } from 'node:crypto'
@@ -14,11 +14,11 @@ import { fnv1a64 } from '../src/core/math.js'
 import { advancePromisesWeek, attachedPromiseDigest, promiseDigest } from '../src/core/promises.js'
 import * as promisesModule from '../src/core/promises.js'
 import * as operationsModule from '../src/core/operations.js'
-import { exportSave, migrateToV30, validateSaveV29, validateSaveV30 } from '../src/core/save.js'
+import { exportSave, migrateToV31, validateSaveV29, validateSaveV31 } from '../src/core/save.js'
 import { tick } from '../src/core/tick.js'
-import type { Action, CastSlot, GameState, GameStateV30, ProfessionalPromiseV30 } from '../src/core/types.js'
+import type { Action, CastSlot, GameState, ProfessionalPromiseV30 } from '../src/core/types.js'
 
-type Envelope = ReturnType<typeof validateSaveV30>
+type Envelope = ReturnType<typeof validateSaveV31>
 const SLOTS = ['lead', 'antagonist', 'support'] as const
 const CLASSES = ['lead', 'leadOrAntagonist'] as const
 type SeatClass = typeof CLASSES[number]
@@ -58,9 +58,10 @@ function fixture(name: keyof typeof PINS) {
   expect(provenance.observedHeadSha).toBe('c06db6eae2a1350317c018c6f108d115dcba7b19')
   const old = validateSaveV29(JSON.parse(raw)) // frozen admission BEFORE governed migration
   expect(exportSave(old)).toBe(raw)
-  const migrated = migrateToV30(old)
-  expect(migrated.state).toEqual(old.state)
-  expect(validateSaveV30(migrated)).toEqual(migrated)
+  const migrated = migrateToV31(old)
+  // P14B.5: the governed lift adds ONLY the empty relationship root (nothing recomputed).
+  expect(migrated.state).toEqual({ ...old.state, relationships: [] })
+  expect(validateSaveV31(migrated)).toEqual(migrated)
   const ids: string[] = []
   for (const focus of provenance.focus) {
     assert.equal(typeof focus.promiseId, 'string')
@@ -72,17 +73,17 @@ function fixture(name: keyof typeof PINS) {
   expect(new Set(ids).size).toBe(ids.length)
   return { old, migrated, ids }
 }
-function root(state: GameStateV30, id: string): ProfessionalPromiseV30 {
+function root(state: GameState, id: string): ProfessionalPromiseV30 {
   const matches = state.promises.filter((p) => p.promiseId === id)
   expect(matches).toHaveLength(1)
   return matches[0]!
 }
-function validateState(carrier: Envelope, state: GameStateV30): Envelope {
-  // An explicit in-memory V30 input on the already governed carrier. This does
+function validateState(carrier: Envelope, state: GameState): Envelope {
+  // An explicit in-memory V31 input on the already governed carrier. This does
   // not stamp a historical fixture, invoke the still-V29 writer or strip tags.
-  return validateSaveV30({ ...carrier, state, broadcastCache: state.broadcastItems })
+  return validateSaveV31({ ...carrier, state, broadcastCache: state.broadcastItems })
 }
-function binding(state: GameStateV30, promise: ProfessionalPromiseV30): void {
+function binding(state: GameState, promise: ProfessionalPromiseV30): void {
   assert.notEqual(promise.contractId, null)
   const rows = state.hollywood!.employment.filter((e) => e.contractId === promise.contractId)
   expect(rows).toHaveLength(1)
@@ -208,15 +209,15 @@ function payload(state: GameState, targetId: string, slot: CastSlot, otherBoundP
       intimacy: [-0.5, 0.5], tonalWeight: [-0.5, 0.5], kineticEnergy: [-0.5, 0.5] } },
     budget: { negative: concept.baseNegativeCost, marketing: 0 } }
 }
-type Prepared = { carrier: Envelope; id: string; ids: string[]; take: GameStateV30['firstTakes'][number]; slot: CastSlot }
+type Prepared = { carrier: Envelope; id: string; ids: string[]; take: GameState['firstTakes'][number]; slot: CastSlot }
 const cache = new Map<CastSlot, Prepared>()
 function actualTakeInput(slot: CastSlot): Prepared {
   const cached = cache.get(slot)
   if (cached !== undefined) return clone(cached)
-  const { old, migrated, ids } = fixture('bound-open-p1')
+  const { migrated, ids } = fixture('bound-open-p1')
   expect(ids).toHaveLength(2)
   const id = ids[0]!
-  let state = clone(old.state)
+  let state = clone(migrated.state) // 662-T2: the governed V31 lift of `old` (asserted above: the empty relationship root only)
   expect(state.market.tick).toBe(52)
   expect(state.operations.mode).toBe('managed')
   expect(state.scriptDevelopment.mode).toBe('legacy') // separate mode authorities, evidence17
@@ -295,9 +296,9 @@ function actualTakeInput(slot: CastSlot): Prepared {
   cache.set(slot, clone(result))
   return result
 }
-function outcomes(state: GameStateV30) { return state.talentMarket.receipts.filter((r) => r.kind === 'promiseOutcome') }
-function evaluate(input: Envelope): GameStateV30 {
-  validateSaveV30(input)
+function outcomes(state: GameState) { return state.talentMarket.receipts.filter((r) => r.kind === 'promiseOutcome') }
+function evaluate(input: Envelope): GameState {
+  validateSaveV31(input)
   const before = clone(input)
   const after = advancePromisesWeek(input.state) // existing structurally compatible public owner, no cast
   expect(input).toEqual(before)
@@ -308,7 +309,7 @@ function evaluate(input: Envelope): GameStateV30 {
   expect(after.ledger).toEqual(input.state.ledger)
   return after
 }
-function ownOutcome(state: GameStateV30, id: string) {
+function ownOutcome(state: GameState, id: string) {
   const promise = root(state, id)
   binding(state, promise)
   assert.notEqual(promise.outcomeEventId, null)
@@ -318,7 +319,7 @@ function ownOutcome(state: GameStateV30, id: string) {
   expect(promise.evidenceRefs).not.toContain(promise.outcomeEventId)
   return own[0]!
 }
-function strictAndRepeat(carrier: Envelope, after: GameStateV30): void {
+function strictAndRepeat(carrier: Envelope, after: GameState): void {
   const validated = validateState(carrier, after)
   const before = clone(validated)
   const twice = evaluate(validated)

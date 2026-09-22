@@ -232,10 +232,10 @@ describe('P13B-S5-R07 Save V25 (test 5)', () => {
   // the CURRENT total supported range, so this case tracks the live boundary
   // forward exactly as p13b-s5-save-v24.test.ts's own sentinel case does
   // (superseded as the canonical proof by tests/p13b-s6-save-v26.test.ts's
-  // "an unknown saveVersion 31..." case, kept here rather than deleted).
-  it('an unknown saveVersion 31 is refused, naming the handled range "1 through 30 only" (B4 additive reader boundary)', () => {
-    const forged = { ...save.makeSave(legacyRehearsingWorld('r07-save-v25-unknown-version')), saveVersion: 31 }
-    expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 30 only/)
+  // "an unknown saveVersion 32..." case, kept here rather than deleted).
+  it('an unknown saveVersion 32 is refused, naming the handled range "1 through 31 only" (B4 additive reader boundary)', () => {
+    const forged = { ...save.makeSave(legacyRehearsingWorld('r07-save-v25-unknown-version')), saveVersion: 32 }
+    expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 31 only/)
   })
 
   it('mid-setup save/reload round-trips byte-identically (export/import codec only) — INTERPRETATION 3: hand-authored setup, no genuine producer exists yet', () => {

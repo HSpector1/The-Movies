@@ -38,6 +38,12 @@
 //   unproven: opportunity, compensation, term, trust, standing, incumbency
 //   proven:   compensation, term, trust, incumbency, standing, opportunity
 //
+// SUPERSEDED AGAIN AT P14B.5 (662-T2 values-only sweep, plan :725-781): D5
+// relationships goes LIVE, restored at its companion positions (:120) — the
+// SEVEN-descriptor orders pinned below. Both F1 precedences still hold.
+//   unproven: opportunity, compensation, relationships, term, trust, standing, incumbency
+//   proven:   compensation, term, trust, relationships, incumbency, standing, opportunity
+//
 // EXPECTED RED (per the assigning brief, HISTORICAL — T1): the unproven-order
 // case below failed at T1 (the landed code returned `term` first over the
 // four-descriptor reduction); the proven-order case and both
@@ -81,14 +87,14 @@ function findProven(): string {
 }
 
 describe('P14A.1-F1: publicPriorityOrder and publicPreferredTerm against companion §2.1.7', () => {
-  it('capable-but-unproven (age < 30, no identity-discipline credit): publicPriorityOrder is the WIDENED six-descriptor order (opportunity, compensation, term, trust, standing, incumbency) — compensation still precedes term (the F1 fix survives the widening)', () => {
+  it('capable-but-unproven (age < 30, no identity-discipline credit): publicPriorityOrder is the WIDENED seven-descriptor order (opportunity, compensation, relationships, term, trust, standing, incumbency) — compensation still precedes term (the F1 fix survives the widening)', () => {
     const talentId = findUnproven()
-    expect(publicPriorityOrder(state, talentId)).toEqual(['opportunity', 'compensation', 'term', 'trust', 'standing', 'incumbency'])
+    expect(publicPriorityOrder(state, talentId)).toEqual(['opportunity', 'compensation', 'relationships', 'term', 'trust', 'standing', 'incumbency'])
   })
 
-  it('proven (an identity-discipline credit, or age >= 30): publicPriorityOrder is the WIDENED six-descriptor order (compensation, term, trust, incumbency, standing, opportunity) — incumbency still precedes standing (the F1 fix survives the widening); pinned so neither fix can disturb the other', () => {
+  it('proven (an identity-discipline credit, or age >= 30): publicPriorityOrder is the WIDENED seven-descriptor order (compensation, term, trust, relationships, incumbency, standing, opportunity) — incumbency still precedes standing (the F1 fix survives the widening); pinned so neither fix can disturb the other', () => {
     const talentId = findProven()
-    expect(publicPriorityOrder(state, talentId)).toEqual(['compensation', 'term', 'trust', 'incumbency', 'standing', 'opportunity'])
+    expect(publicPriorityOrder(state, talentId)).toEqual(['compensation', 'term', 'trust', 'relationships', 'incumbency', 'standing', 'opportunity'])
   })
 
   it('proven: publicPreferredTerm is the longest TUNING.CONTRACT_TERM_OPTIONS entry', () => {

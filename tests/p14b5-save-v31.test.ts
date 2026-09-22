@@ -171,8 +171,9 @@ function liftsLosslessly(raw: string, save: V30Save) {
 
 // ─────────────────────────────────────────────────────────────────────────────────────────────────────
 describe('P14B.5 frozen side — the OUTGOING identities and the T0 corpus (GREEN today; moves only at the T2 values-only sweep)', () => {
-  it('LIVE_SAVE_VERSION is the OUTGOING literal 30 (R-VERSION class: the test-author re-expresses this pin after T2 lands V31)', () => {
-    expect(LIVE_SAVE_VERSION).toBe(30)
+  it('LIVE_SAVE_VERSION is the literal 31 the live writer stamps; 30 is the OUTGOING identity (R-VERSION class, re-expressed by 662-T2 after T2 landed V31)', () => {
+    expect(LIVE_SAVE_VERSION).toBe(31)
+    expect(V30_AUTHORITY.saveVersion).toBe(30)
   })
 
   it('the dispatch sentinel is LIVE_SAVE_VERSION + 1, refused with the handled range "1 through <LIVE_SAVE_VERSION> only" (the law, stable across the bump)', () => {

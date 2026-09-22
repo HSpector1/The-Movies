@@ -415,6 +415,12 @@ export function projectToV13State(state: GameState): Record<string, unknown> {
   }
   delete raw.firstTakes
   delete raw.promises
+  // P14B.5: the relationship root is V31-only, so a genuine V13 file never
+  // carried one. Real relationship authority is never discarded, as above.
+  if ((state.relationships ?? []).length > 0) {
+    throw new Error('V13 twin cannot discard relationship authority')
+  }
+  delete raw.relationships
   for (const person of raw.talent as Record<string, unknown>[]) {
     for (const key of ['skills', 'ceilings', 'devRate', 'genreExperience', 'workHistory']) {
       delete (person[key] as Record<string, unknown>).research

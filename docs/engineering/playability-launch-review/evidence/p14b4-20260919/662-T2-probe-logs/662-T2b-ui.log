@@ -1,0 +1,35 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |ui| ui/src/session.test.tsx (17 tests) 6035ms
+   ✓ D-12 active-session recovery — exact round-trip > restores a theatrical run mid-flight — week, payments received/remaining, no duplicate 888ms
+   ✓ D-12 active-session recovery — exact round-trip > restores completed releases + their film records 584ms
+   ✓ D-12 active-session recovery — App startup > a valid autosave is RESTORED on mount (no new studio) with a continuation notice 302ms
+   ✓ D-12 active-session recovery — App startup > keeps restored Chronicle, Clipping, and session-only Autopsy as three honest paths 859ms
+   ✓ D-17A fix-pass — a stored V5 autosave migrates on load > an ENGAGED V5 session restores with the flag true and the converted banner 661ms
+   ✓ D-17A fix-pass — a stored V5 autosave migrates on load > a NEVER-ENGAGED headless V5 session restores with the flag false 816ms
+   ✓ Script Projects V1 — a stored V8 autosave migrates on load > preserves operations, seeds legacy screenplay and casting state, then re-saves as V15 684ms
+ ✓ |ui| ui/src/saves.test.tsx (15 tests) 4892ms
+   ✓ saves: export → import round-trips the EXACT state > importSaveJson(exportSaveJson(state)) has a serialized form equal to the original 557ms
+   ✓ saves: legacy V1 import (D-9.15) converts and reports the conversion > a legacy V1 save auto-loads, is flagged converted, and yields a playable current state 496ms
+   ✓ saves: legacy V1 import (D-9.15) converts and reports the conversion > the explicit "Import legacy V1 save" affordance converts and shows a conversion notice 547ms
+   ✓ saves: migration disclosure through real App navigation > shows a one-shot, version-neutral notice after an accepted V8 load leaves Saves 973ms
+   ✓ saves: migration disclosure through real App navigation > carries the same version-neutral notice through a Start-screen V8 import 798ms
+   ✓ saves: migration disclosure through real App navigation > discloses migration when App restores an older active-session envelope 570ms
+ ✓ |ui| ui/src/engine/film-chronicle-adapter.test.ts (2 tests) 2409ms
+   ✓ Film Chronicle V1 — real adapter wiring > associates the middle film with its exact Produced project and production debit 1402ms
+   ✓ Film Chronicle V1 — real adapter wiring > uses current market week as the chronology gate and reconstructs deeply after V13 reload 1005ms
+ ✓ |ui| ui/src/engine/d17-save-migration.test.ts (6 tests) 3946ms
+   ✓ V11: adapter migration preserves an honest pre-ledger cash checkpoint > a played literal V2 save preserves its pre-ledger cash checkpoint when upgraded to V11 797ms
+   ✓ D-17A: importSaveJson recovers economyEngagedEver from a literal V5 file > an ENGAGED V5 save loads into the current state with engagement preserved 538ms
+   ✓ D-17A: importSaveJson recovers economyEngagedEver from a literal V5 file > a NEVER-ENGAGED V5 save loads as a non-engaged studio (byte-identical behaviour) 1030ms
+   ✓ D-17A: importSaveJson recovers economyEngagedEver from a literal V5 file > a literal V8 save upgrades to V16 with legacy screenplay, casting, construction, placement, and property state 555ms
+   ✓ D-17A: importSaveJson recovers economyEngagedEver from a literal V5 file > a V5 file with a hand-added economyEngagedEver is still read as V5 (the flag is recomputed) 879ms
+ ✓ |ui| ui/src/lot/snapshot/v14SetHolderBoundary.test.ts (5 tests) 330ms
+
+ Test Files  5 passed (5)
+      Tests  45 passed (45)
+   Start at  11:50:54
+   Duration  32.63s (transform 3.82s, setup 840ms, collect 7.18s, tests 17.61s, environment 5.12s, prepare 554ms)
+
+EXIT 0

@@ -167,10 +167,10 @@ function findProven(state: GameState): string {
 }
 
 describe('P14B.1 test 6: trust, the widened chooser and the priority order', () => {
-  it('publicPriorityOrder is the WIDENED companion order (opportunity and trust inserted, relationships still excluded) for both archetypes, byte-equal', () => {
+  it('publicPriorityOrder is the WIDENED companion order (opportunity and trust inserted; relationships restored by P14B.5) for both archetypes, byte-equal', () => {
     const state = p13aGeneratedStudio()
-    expect(publicPriorityOrder(state, findUnproven(state))).toEqual(['opportunity', 'compensation', 'term', 'trust', 'standing', 'incumbency'])
-    expect(publicPriorityOrder(state, findProven(state))).toEqual(['compensation', 'term', 'trust', 'incumbency', 'standing', 'opportunity'])
+    expect(publicPriorityOrder(state, findUnproven(state))).toEqual(['opportunity', 'compensation', 'relationships', 'term', 'trust', 'standing', 'incumbency'])
+    expect(publicPriorityOrder(state, findProven(state))).toEqual(['compensation', 'term', 'trust', 'relationships', 'incumbency', 'standing', 'opportunity'])
   })
 
   it('publicPreferredTerm is unchanged by the widening: proven -> longest catalogue term, unproven -> shortest', () => {

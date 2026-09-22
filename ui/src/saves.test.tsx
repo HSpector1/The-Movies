@@ -122,7 +122,7 @@ describe('saves: export → import round-trips the EXACT state', () => {
     state = advanceWeek(state).next
 
     const json = exportSaveJson(state)
-    expect(JSON.parse(json).saveVersion).toBe(30) // live writer (P14B.4): SaveFileV30.
+    expect(JSON.parse(json).saveVersion).toBe(31) // live writer (P14B.5): SaveFileV31.
     const r = importSaveJson(json)
     expect(r.ok).toBe(true)
     if (!r.ok) return

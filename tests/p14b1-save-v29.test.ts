@@ -63,7 +63,7 @@ import { readFileSync } from 'node:fs'
 import { gunzipSync } from 'node:zlib'
 import { describe, expect, it } from 'vitest'
 import * as save from '../src/core/save.js'
-import type { GameState } from '../src/core/types.js'
+import type { GameState, GameStateV29 } from '../src/core/types.js'
 // RED-by-design: src/core/promises.ts does not exist. firstTakeReceipts is
 // CALLED below (it is the smallest useful import for this file's assertions:
 // the empty-new-table check ties directly to the first-take root).
@@ -94,19 +94,20 @@ type MarketRootWithPromises = {
   firstTakes?: readonly unknown[]
   promises?: readonly unknown[]
 }
-function marketOf(state: GameState): MarketRootWithPromises {
+// 662-T2 (P14B.5): the live GameState is V31; these readers also take the V29 state this boundary file lifts to.
+function marketOf(state: GameState | GameStateV29): MarketRootWithPromises {
   return (state as unknown as { talentMarket: MarketRootWithPromises }).talentMarket
 }
-function firstTakesOf(state: GameState): readonly unknown[] {
+function firstTakesOf(state: GameState | GameStateV29): readonly unknown[] {
   return (state as unknown as { firstTakes: readonly unknown[] }).firstTakes
 }
-function promisesRootOf(state: GameState): readonly unknown[] {
+function promisesRootOf(state: GameState | GameStateV29): readonly unknown[] {
   return (state as unknown as { promises: readonly unknown[] }).promises
 }
 
 describe('P14B.1 test 8: Save V29 (genuine V28 fixture, empty new tables, same digests, round trip, downgrade)', () => {
-  it('LIVE_SAVE_VERSION is 30 (the P14B.4 cutover, record 600 / qualified 616; the V29 lift this slice pins is the intermediate step)', () => {
-    expect(save.LIVE_SAVE_VERSION as number).toBe(30)
+  it('LIVE_SAVE_VERSION is 31 (the P14B.5 cutover, record 662; the V29 lift this slice pins is the intermediate step)', () => {
+    expect(save.LIVE_SAVE_VERSION as number).toBe(31)
   })
 
   it('genuine V28 open-case-45 fixture: sha256 matches, still validates as V28 through the frozen chain, migrates to V29 with EMPTY firstTakes and promises roots and promises: [] on every existing proposal, otherwise byte-identical', () => {
@@ -190,13 +191,13 @@ describe('P14B.1 test 8: Save V29 (genuine V28 fixture, empty new tables, same d
     expect(JSON.stringify(downgraded.state as GameState)).toBe(JSON.stringify(beforeState))
   })
 
-  // The B4 additive reader recognized V30 before the live writer cut over (it did at
-  // record 600 / 616, LIVE_SAVE_VERSION 30); 30 is the current dispatch sentinel,
-  // not a change to frozen V29 fixture law.
-  it('an unknown saveVersion 31 is refused, naming the handled range "1 through 30 only"', () => {
+  // The B5 additive reader recognizes V31 (the live writer cut over at record 662,
+  // LIVE_SAVE_VERSION 31); 31 is the current dispatch ceiling, not a change to
+  // frozen V29 fixture law.
+  it('an unknown saveVersion 32 is refused, naming the handled range "1 through 31 only"', () => {
     const json = load(FIXTURE.file)
     const lifted = withV29.migrateToV29(JSON.parse(json))
-    const forged = { ...lifted, saveVersion: 31 }
-    expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 30 only/)
+    const forged = { ...lifted, saveVersion: 32 }
+    expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 31 only/)
   })
 })

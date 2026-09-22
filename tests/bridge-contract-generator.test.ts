@@ -553,16 +553,18 @@ describe('CF-08 sound union-to-C# generation', () => {
 
       // P14B.4 (record 600, projection 47): the family-discriminated P2 draft
       // (required seatClass), nullable seatClass on own snapshot/history rows and
-      // preferredOpportunity on preferences moved the whole-schema identity. The
+      // preferredOpportunity on preferences moved the whole-schema identity.
+      // P14B.5 (record 662, projection 48): the `priorityOrder` wire enum gains
+      // `relationships` (thin), moving the whole-schema identity again. The
       // literal below is the schemaId of the checked-in
-      // generated/unity/project-studio-bridge.contract-manifest.json at 027155e7,
+      // generated/unity/project-studio-bridge.contract-manifest.json at 040651b4,
       // read independently of this test (never schemaIdentity(schema) itself).
-      const generated = generateCsharpContract({ schema, protocolVersion: 4, projectionVersion: 47 })
+      const generated = generateCsharpContract({ schema, protocolVersion: 4, projectionVersion: 48 })
       expect(generated).toContain(
-        '// Schema identity: sha256:6f6b48805aadcf14d456614d87bf1571eb1ce0d9aa0bc44f604e7976f4f85538',
+        '// Schema identity: sha256:00c0075bef257634956da7d16d117a145d203047e7169c643156b7971c4c7fec',
       )
       expect(schemaIdentity(schema)).toBe(
-        'sha256:6f6b48805aadcf14d456614d87bf1571eb1ce0d9aa0bc44f604e7976f4f85538',
+        'sha256:00c0075bef257634956da7d16d117a145d203047e7169c643156b7971c4c7fec',
       )
       expect(generated).toContain('public sealed partial class StudioQuoteCastingRequest : StudioBridgeQuoteRequest')
       expect(generated).toContain('public StudioCastingDraftPayload draft;')
@@ -666,6 +668,11 @@ describe('CF-08 sound union-to-C# generation', () => {
         // `preferredOpportunity` joins the preferences block. Both fixtures render
         // the WHOLE schema, so both declaration-body identities move together.
         // Value computed once by the generator on 027155e7 (600-T2 record), not by
+        // this test against itself.
+        // P14B.5 (projection 48, record 662): the enum-only widening of
+        // `priorityOrder` leaves the C# declarations byte-identical (the generated
+        // member stays `string[]`), so both declaration-body identities are
+        // UNCHANGED — recomputed once on 040651b4 (662-T2-gen-hash.log), not by
         // this test against itself.
         F10_CURRENT_QUOTE_UNIONS: '53058c23075427647bf9e24052128cd4f7ad0340fa54763e3e75df25aeea482e',
         F11_CURRENT_COMMAND_UNION: '53058c23075427647bf9e24052128cd4f7ad0340fa54763e3e75df25aeea482e',

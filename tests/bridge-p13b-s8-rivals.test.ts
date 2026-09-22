@@ -220,9 +220,9 @@ const DIVERGENT_WEEK13 = advanceTo(commitPlacement(p13aGeneratedStudio('p13b-s8-
 
 describe('P13B-S8-T3 item 1: projection version bump 40 -> 41; converted flag', () => {
   it('bumps PROJECTION_VERSION to 41 and its schema $id / x-project-studio.projectionVersion move with it', () => {
-    expect(PROJECTION_VERSION).toBe(47) // RED: today PROJECTION_VERSION is 40
-    expect(BRIDGE_SCHEMA.$id).toContain('projection-47')
-    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(47)
+    expect(PROJECTION_VERSION).toBe(48) // RED: today PROJECTION_VERSION is 40
+    expect(BRIDGE_SCHEMA.$id).toContain('projection-48')
+    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(48)
   })
 
   it('converted: false for a genuine current live-version save, round-tripped through save()/load() on the SAME session (regression guard — matches tests/bridge-p13b-r07-setup.test.ts\'s own now-fixed case)', () => {
@@ -230,7 +230,7 @@ describe('P13B-S8-T3 item 1: projection version bump 40 -> 41; converted flag', 
     const saved = session.save(control(session, nextCommandId('save')))
     expect(saved.accepted).toBe(true)
     if (!saved.accepted) throw new Error(`save refused: ${JSON.stringify(saved)}`)
-    expect((JSON.parse(saved.saveJson) as { saveVersion: number }).saveVersion).toBe(30)
+    expect((JSON.parse(saved.saveJson) as { saveVersion: number }).saveVersion).toBe(31)
     const loaded = session.load(control(session, nextCommandId('load')))
     expect(loaded.accepted).toBe(true)
     if (!loaded.accepted) throw new Error(`load refused: ${JSON.stringify(loaded)}`)
@@ -401,7 +401,7 @@ describe('P13B-S8-T3 item 6: live-version save round-trip, Save As, genuine V26 
     const savedBefore = session.save(control(session, nextCommandId('save-before')))
     expect(savedBefore.accepted).toBe(true)
     if (!savedBefore.accepted) throw new Error(`save refused: ${JSON.stringify(savedBefore)}`)
-    expect((JSON.parse(savedBefore.saveJson) as { saveVersion: number }).saveVersion).toBe(30)
+    expect((JSON.parse(savedBefore.saveJson) as { saveVersion: number }).saveVersion).toBe(31)
     const loaded = session.load(control(session, nextCommandId('load')))
     expect(loaded.accepted).toBe(true)
     if (!loaded.accepted) throw new Error(`load refused: ${JSON.stringify(loaded)}`)

@@ -1,0 +1,44 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p14b5-save-v31.test.ts (57 tests) 25149ms
+   ✓ P14B.5 frozen side — the OUTGOING identities and the T0 corpus (GREEN today; moves only at the T2 values-only sweep) > genuine V30 current-p1: pins, provenance, the frozen V30 validator first, byte-stable export, and V29 downgrade law unchanged 377ms
+   ✓ P14B.5 frozen side — the OUTGOING identities and the T0 corpus (GREEN today; moves only at the T2 values-only sweep) > genuine V30 bound-open-p1: pins, provenance, the frozen V30 validator first, byte-stable export, and V29 downgrade law unchanged 339ms
+   ✓ P14B.5 frozen side — the OUTGOING identities and the T0 corpus (GREEN today; moves only at the T2 values-only sweep) > genuine V30 kept-and-broken: pins, provenance, the frozen V30 validator first, byte-stable export, and V29 downgrade law unchanged 410ms
+   ✓ P14B.5 frozen side — the OUTGOING identities and the T0 corpus (GREEN today; moves only at the T2 values-only sweep) > genuine V30 legacy-count-only-p2-current-draft: pins, provenance, the frozen V30 validator first, byte-stable export, and V29 downgrade law unchanged 312ms
+   ✓ P14B.5 frozen side — the OUTGOING identities and the T0 corpus (GREEN today; moves only at the T2 values-only sweep) > genuine V29 kept-and-broken-p1 reaches V30 through the frozen chain byte-identically (the accepted P14B.4 law) 454ms
+   ✓ P14B.5 frozen side — the OUTGOING identities and the T0 corpus (GREEN today; moves only at the T2 values-only sweep) > genuine V29 rival-current-p1 reaches V30 through the frozen chain byte-identically (the accepted P14B.4 law) 339ms
+   ✓ P14B.5 frozen side — the OUTGOING identities and the T0 corpus (GREEN today; moves only at the T2 values-only sweep) > genuine V29 rival-shared-take-terminal-p1 reaches V30 through the frozen chain byte-identically (the accepted P14B.4 law) 342ms
+   ✓ P14B.5 frozen side — the OUTGOING identities and the T0 corpus (GREEN today; moves only at the T2 values-only sweep) > legacy legacy-v28-settled-208 reaches V29 and V30 through the frozen chain with empty P14 roots 481ms
+   ✓ P14B.5 frozen side — the OUTGOING identities and the T0 corpus (GREEN today; moves only at the T2 values-only sweep) > the genuine projection-47 checkpoint embeds two genuine V30 saves; the saved slot IS the current-p1 raw 358ms
+   ✓ family 9 — every genuine V30 case migrates through migrateToV31 with an EMPTY root, otherwise byte-identical; lossless downgrade when empty > genuine V30 empty 511ms
+   ✓ family 9 — every genuine V30 case migrates through migrateToV31 with an EMPTY root, otherwise byte-identical; lossless downgrade when empty > genuine V30 current-p1 796ms
+   ✓ family 9 — every genuine V30 case migrates through migrateToV31 with an EMPTY root, otherwise byte-identical; lossless downgrade when empty > genuine V30 bound-open-p1 708ms
+   ✓ family 9 — every genuine V30 case migrates through migrateToV31 with an EMPTY root, otherwise byte-identical; lossless downgrade when empty > genuine V30 bound-open-p2-lead 790ms
+   ✓ family 9 — every genuine V30 case migrates through migrateToV31 with an EMPTY root, otherwise byte-identical; lossless downgrade when empty > genuine V30 bound-open-p2-lead-or-antagonist 778ms
+   ✓ family 9 — every genuine V30 case migrates through migrateToV31 with an EMPTY root, otherwise byte-identical; lossless downgrade when empty > genuine V30 kept-and-broken 884ms
+   ✓ family 9 — every genuine V30 case migrates through migrateToV31 with an EMPTY root, otherwise byte-identical; lossless downgrade when empty > genuine V30 rival-current-p1-and-p2 1089ms
+   ✓ family 9 — every genuine V30 case migrates through migrateToV31 with an EMPTY root, otherwise byte-identical; lossless downgrade when empty > genuine V30 rival-shared-take-terminal 948ms
+   ✓ family 9 — every genuine V30 case migrates through migrateToV31 with an EMPTY root, otherwise byte-identical; lossless downgrade when empty > genuine V30 first-take-at-five 1016ms
+   ✓ family 9 — every genuine V30 case migrates through migrateToV31 with an EMPTY root, otherwise byte-identical; lossless downgrade when empty > genuine V30 legacy-count-only-p2-current-draft 777ms
+   ✓ family 9 — every genuine V30 case migrates through migrateToV31 with an EMPTY root, otherwise byte-identical; lossless downgrade when empty > the older routes see a lifted V31 exactly as they saw its V30 source (each migrateToVn gained the 31 route line) 2425ms
+   ✓ family 9 — the V29 and V28 corpora reach V31 through their frozen chains unchanged (R4 through migrateToV31) > genuine V29 current-p1 441ms
+   ✓ family 9 — the V29 and V28 corpora reach V31 through their frozen chains unchanged (R4 through migrateToV31) > genuine V29 replaced-p1 469ms
+   ✓ family 9 — the V29 and V28 corpora reach V31 through their frozen chains unchanged (R4 through migrateToV31) > genuine V29 withdrawn-p1 414ms
+   ✓ family 9 — the V29 and V28 corpora reach V31 through their frozen chains unchanged (R4 through migrateToV31) > genuine V29 bound-open-p1 459ms
+   ✓ family 9 — the V29 and V28 corpora reach V31 through their frozen chains unchanged (R4 through migrateToV31) > genuine V29 kept-and-broken-p1 519ms
+   ✓ family 9 — the V29 and V28 corpora reach V31 through their frozen chains unchanged (R4 through migrateToV31) > genuine V29 rival-current-p1 670ms
+   ✓ family 9 — the V29 and V28 corpora reach V31 through their frozen chains unchanged (R4 through migrateToV31) > genuine V29 rival-shared-take-terminal-p1 539ms
+   ✓ family 9 — the V29 and V28 corpora reach V31 through their frozen chains unchanged (R4 through migrateToV31) > genuine V29 refused-p2-count-only-current-draft 472ms
+   ✓ family 9 — the V29 and V28 corpora reach V31 through their frozen chains unchanged (R4 through migrateToV31) > legacy legacy-v28-open-case-45 503ms
+   ✓ family 9 — the V29 and V28 corpora reach V31 through their frozen chains unchanged (R4 through migrateToV31) > legacy legacy-v28-settled-208 767ms
+   ✓ family 9 — the V29 and V28 corpora reach V31 through their frozen chains unchanged (R4 through migrateToV31) > legacy legacy-v28-legacy-terminations-20 354ms
+   ✓ family 9 — the projection-47 checkpoint's embedded saves load through the live route > currentSaveJson lifts with an empty root and every other root byte-identical to its own genuine V30 bytes 786ms
+   ✓ family 9 — the projection-47 checkpoint's embedded saves load through the live route > savedSaveJson lifts with an empty root and every other root byte-identical to its own genuine V30 bytes 673ms
+
+ Test Files  1 passed (1)
+      Tests  57 passed (57)
+   Start at  11:42:12
+   Duration  27.53s (transform 1.20s, setup 0ms, collect 1.80s, tests 25.15s, environment 0ms, prepare 138ms)
+
+EXIT 0

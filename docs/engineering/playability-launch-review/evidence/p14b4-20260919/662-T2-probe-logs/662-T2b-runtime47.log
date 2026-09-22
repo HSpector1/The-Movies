@@ -1,0 +1,14 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/bridge-p14b4-runtime47-compatibility.test.ts (6 tests) 5371ms
+   ✓ P14B4 genuine outgoing46 runtime compatibility — future Save30/projection47 > migrates currentSaveJson from its OWN genuine V29 state, preserving exact material/history 1079ms
+   ✓ P14B4 genuine outgoing46 runtime compatibility — future Save30/projection47 > migrates savedSaveJson from its OWN genuine V29 state, preserving exact material/history 1195ms
+   ✓ P14B4 genuine outgoing46 runtime compatibility — future Save30/projection47 > resets ONLY prior runtime authority, then reopens current47 without a second migration 2700ms
+
+ Test Files  1 passed (1)
+      Tests  6 passed (6)
+   Start at  11:48:47
+   Duration  9.68s (transform 2.73s, setup 0ms, collect 3.65s, tests 5.37s, environment 0ms, prepare 102ms)
+
+EXIT 0

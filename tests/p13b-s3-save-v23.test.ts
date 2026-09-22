@@ -100,18 +100,18 @@ describe('P13B-S3 Save V23 (test 7)', () => {
     // guards see is a V29 envelope now; each still refuses at ITS OWN nearest
     // guard, which reports the true incoming version, not V23.
     const live = makeSave(p13aLaboratorySlice())
-    expect(() => migrateToV22(live)).toThrow(/cannot downgrade SaveFileV30/)
-    expect(() => migrateToV21(live)).toThrow(/cannot downgrade SaveFileV30/)
-    expect(() => migrateToV20(live)).toThrow(/cannot downgrade SaveFileV30/)
+    expect(() => migrateToV22(live)).toThrow(/cannot downgrade SaveFileV31/)
+    expect(() => migrateToV21(live)).toThrow(/cannot downgrade SaveFileV31/)
+    expect(() => migrateToV20(live)).toThrow(/cannot downgrade SaveFileV31/)
   })
 
   it('makeSave writes saveVersion 29', () => {
-    expect(makeSave(p13aLaboratorySlice()).saveVersion).toBe(30)
+    expect(makeSave(p13aLaboratorySlice()).saveVersion).toBe(31)
   })
 
-  it('an unknown saveVersion 31 is refused, naming the handled range', () => {
-    const forged = { ...makeSave(p13aLaboratorySlice()), saveVersion: 31 }
-    expect(() => validateSave(forged)).toThrow(/versions 1 through 30 only/)
+  it('an unknown saveVersion 32 is refused, naming the handled range', () => {
+    const forged = { ...makeSave(p13aLaboratorySlice()), saveVersion: 32 }
+    expect(() => validateSave(forged)).toThrow(/versions 1 through 31 only/)
   })
 
   it('save/reload mid-queue continues identically (byte for byte)', () => {

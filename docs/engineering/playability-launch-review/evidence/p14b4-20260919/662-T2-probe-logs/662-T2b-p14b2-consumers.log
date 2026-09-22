@@ -1,0 +1,847 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p14b4-owner-enumerator-slice.test.ts (45 tests) 12107ms
+   ✓ 558-T surface (RED law: a missing module or export is named, never a spurious pass) > surface (E10): every adopted export of promiseCapacityEnumerator.js exists with its runtime type; the adapter honours a 5th argument; NO_ENUMERATION is not exported; RED 11 key list unchanged 4409ms
+   ✓ 558-T floor: FRESH_TAKE_OFFSET and earliestStartedTakeWeek > E1 (555-B Q7) natural chain LAW: a real greenlight on w.opened at now, assign/schedule at the earliest lawful boundaries, records its first take no earlier than now + FRESH_TAKE_OFFSET 545ms
+   ✓ 558-T certificate: enumerateOwnerTraces on the started domain > E2: 2-week cell 'matrix leadOrAntagonist target fixed …' — ONE Started run seeded with w_e, byte-equal trace and holds, both flags complete, no omission, floors now+5 305ms
+ ✓ |core| tests/p14b4-owner-adapter-first-slice.test.ts (33 tests) 7039ms
+   ✓ 540-T claims: collectPromiseClaims membership, mask, remaining, target, guards > RED 1: collects bound-open P1 roots on world().ready as generic-mask prior claims 3735ms
+   ✓ 540-T digest: capacityInputsDigest identity > RED 12 (539-B refined): the digest changes with class and claims, is independent of preparationWork, keeps limits, and is unchanged by cash or RNG through the STARTED producer on w.ready 332ms
+ ✓ |core| tests/p14b5-relationships.test.ts (46 tests) 22868ms
+   ✓ P14B.5 T1 — the module and its named exports exist (RED at import; never a spurious pass) > the hypothesis constants carry the companion values named in the expansion and the ONE pinned relation 1233ms
+   ✓ family 1 — EDGE MINTING at the tick tail from the advance's delta (scope (2), (2a)) > a second advance from the same pre-take state mints byte-identical edges (replay); re-ticking the post-take state leaves the six untouched (idempotent) and mints only from THAT week's delta 496ms
+   ✓ family 2 — CANONICAL KEY and REPETITION on the rival chain (scope (2a); S25 symmetry) > the first post-migration RIVAL take mints six edges under the same law; the 45 pre-migration takes mint none (Q3) 1988ms
+   ✓ family 3 — DRIFT ON READ and FOLD-BY-COUNT (scope (3), (9); §5.5 :467-468) > past the grace window the value drifts toward the baseline by the plan formula (independent oracle), from either side, never past it, and is fully returned at GRACE + RETURN 789ms
+   ✓ family 3 — DRIFT ON READ and FOLD-BY-COUNT (scope (3), (9); §5.5 :467-468) > a WRITE after dormancy materialises the drifted value first, then applies the delta; counters, firstSharedWeek and the peak survive; recent folds by count at the cap 368ms
+   ✓ family 5 — RELEASE and CANCEL drivers (scope (2b)-(2c); 647-B R1 week stamp; coexistence with the promise seam) > a rival release (hollywood.films / industry.growth) mints under the same law; a release whose take predates every edge mints nothing (I2) 563ms
+   ✓ family 6 — D5 IN THE CHOOSER under the D1 roster predicate (scope (5); companion :116, :120) > the base (no edge) declines by the tie order: every landed band ties between the two survivors (measured premise) 8355ms
+   ✓ family 6 — D5 IN THE CHOOSER under the D1 roster predicate (scope (5); companion :116, :120) > a CloseFriends counterpart on the player's OFF-CYCLE row (startWeek < W, active at W) settles the case for the player with the D5 sentence as the ONLY reason 640ms
+   ✓ family 6 — D5 IN THE CHOOSER under the D1 roster predicate (scope (5); companion :116, :120) > the same case at a W where that edge has DRIFTED below Close Friends declines by the tie order 324ms
+   ✓ family 6 — D5 IN THE CHOOSER under the D1 roster predicate (scope (5); companion :116, :120) > a row CLOSED AT W (the actor signed at 0 for 208 weeks) never counts — the predicate's strict upper end 342ms
+   ✓ family 6 — D5 IN THE CHOOSER under the D1 roster predicate (scope (5); companion :116, :120) > a row COMMITTED AT W (startWeek === W) never counts — the predicate's strict lower end; the same row one week earlier does 757ms
+   ✓ family 8 — RESERVATION enumerated and CHEMISTRY read-only (scope (6)-(7); §5.6 :476, :482) > pairChemistry returns {null, 0, []} without an edge, sign +1 for Colleagues and above, −1 for Strained and below, no digit in any reason, and reads nothing but the record 733ms
+   ✓ family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > refuses a week outside the recording interval (before the boundary; after market.tick) 306ms
+   ✓ family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > refuses closeness outside 0..100 or non-integer 415ms
+   ✓ family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > refuses inconsistent counters 569ms
+   ✓ family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > refuses an unknown driver kind, an empty ref and a non-integer delta 698ms
+   ✓ family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) > a V31 world holding ONE edge refuses migrateToV30 with the downgrade message and refuses every older migrateToVn; empty is lossless 500ms
+stdout | tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — no-preference path and viability gates (plan :223-225) > p13a-core-causal-01: every real film decision without members equals the pre-existing choice and pool; every decision seats the law pick over the pool the seam law derives; a null choice only when no permutation is viable
+p13a-core-causal-01: 1015 real film decisions (51 pictures), 724 without members; chain digest over 1015 rows = 2aec0184c3301f1e174fe9843a0b076258fdc9de9683424cb064a5d777382610
+
+stdout | tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — no-preference path and viability gates (plan :223-225) > seed-b: every real film decision without members equals the pre-existing choice and pool; every decision seats the law pick over the pool the seam law derives; a null choice only when no permutation is viable
+seed-b: 1083 real film decisions (98 pictures), 669 without members; chain digest over 134 rows = d3218295f449599c4451ee5d85c13a3bd3171522ce2697b9d034dc71b96daea2
+
+stdout | tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — the natural witness (seed-b w211 studio-bc14baf6-r01, record 618 O-T4-1) > search table: the first seed-b decision whose seating matters holds two tagged leadOrAntagonist beneficiaries and one P1 beneficiary in a three-actor pool
+WITNESS seed-b w211 studio-bc14baf6-r01 studio-bc14baf6-r01:package:script-0023 cashAvailable=52015156.96352156
+[012] bc14baf6-r01-2/bc14baf6-r01-3/bc14baf6-r01-4 benefit=2 NOT VIABLE
+[021] bc14baf6-r01-2/bc14baf6-r01-4/bc14baf6-r01-3 benefit=3 NOT VIABLE
+[102] bc14baf6-r01-3/bc14baf6-r01-2/bc14baf6-r01-4 benefit=2 NOT VIABLE
+[120] bc14baf6-r01-3/bc14baf6-r01-4/bc14baf6-r01-2 benefit=2 score=-1507894 budget=2925161+671170
+[201] bc14baf6-r01-4/bc14baf6-r01-2/bc14baf6-r01-3 benefit=3 score=-1735081 budget=2925161+647648
+[210] bc14baf6-r01-4/bc14baf6-r01-3/bc14baf6-r01-2 benefit=2 score=-1425536 budget=2925161+679067
+chosen today: {"lead":"person-studio-bc14baf6-r01-4","antagonist":"person-studio-bc14baf6-r01-2","support":"person-studio-bc14baf6-r01-3"} law: bc14baf6-r01-4/bc14baf6-r01-2/bc14baf6-r01-3#3@-1735081 ordinary: bc14baf6-r01-4/bc14baf6-r01-3/bc14baf6-r01-2#2@-1425536
+
+stdout | tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — the natural witness (seed-b w211 studio-bc14baf6-r01, record 618 O-T4-1) > RED: every real film decision on seed-b with members seats the law pick (benefit, then ordinary score, then BILLINGS); the violation table names each miss
+SEED-B MEMBER DECISIONS 414 (8 pictures); MISSES 0
+
+
+stdout | tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — the natural witness (seed-b w211 studio-bc14baf6-r01, record 618 O-T4-1) > TIE FALLBACK (labeled reception-input variant): two reception-identical tagged beneficiaries tie on score; the first strict-greater winner in the inherited BILLINGS order is seated — inherited tie behaviour, not fairness (:218-221)
+TIE VARIANT w211 studio-bc14baf6-r01
+[012] bc14baf6-r01-2/bc14baf6-r01-3/bc14baf6-r01-4 benefit=2 score=-1515917 budget=2925161+671672
+[021] bc14baf6-r01-2/bc14baf6-r01-4/bc14baf6-r01-3 benefit=3 score=-1545921 budget=2925161+668330
+[102] bc14baf6-r01-3/bc14baf6-r01-2/bc14baf6-r01-4 benefit=2 score=-1565297 budget=2925161+667055
+[120] bc14baf6-r01-3/bc14baf6-r01-4/bc14baf6-r01-2 benefit=2 score=-1565297 budget=2925161+667055
+[201] bc14baf6-r01-4/bc14baf6-r01-2/bc14baf6-r01-3 benefit=3 score=-1545921 budget=2925161+668330
+[210] bc14baf6-r01-4/bc14baf6-r01-3/bc14baf6-r01-2 benefit=2 score=-1515917 budget=2925161+671672
+
+stdout | tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — membership (plan :210-213) and masks (:213-215) > CURRENT unaccepted offers never count: seed-b w202, three rivals decide while their own retention offers carry promises with contractId null; re-authored offers make the negative discriminating
+PENDING-OFFER w202 strict=bc14baf6-r01-4/bc14baf6-r01-3/bc14baf6-r01-2#0@-1391270 asIfBound=bc14baf6-r01-3/bc14baf6-r01-4/bc14baf6-r01-2#3@-1459842
+[012] bc14baf6-r01-2/bc14baf6-r01-3/bc14baf6-r01-4 benefit=1 NOT VIABLE
+[021] bc14baf6-r01-2/bc14baf6-r01-4/bc14baf6-r01-3 benefit=2 NOT VIABLE
+[102] bc14baf6-r01-3/bc14baf6-r01-2/bc14baf6-r01-4 benefit=2 NOT VIABLE
+[120] bc14baf6-r01-3/bc14baf6-r01-4/bc14baf6-r01-2 benefit=3 score=-1459842 budget=2626575+435673
+[201] bc14baf6-r01-4/bc14baf6-r01-2/bc14baf6-r01-3 benefit=2 NOT VIABLE
+[210] bc14baf6-r01-4/bc14baf6-r01-3/bc14baf6-r01-2 benefit=2 score=-1391270 budget=2626575+439485
+
+stdout | tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — membership (plan :210-213) and masks (:213-215) > a met promise never counts (r01 chain, RED today only through the witness defect): after the witness take the SATISFIED roots leave r01's member set at its next real decision
+MET-NEGATIVE w220 met=promise-4,promise-6,promise-8 strict=bc14baf6-r01-3/bc14baf6-r01-4/bc14baf6-r01-2#0@-957526 asIfUnmet=bc14baf6-r01-4/bc14baf6-r01-2/bc14baf6-r01-3#3@-1258947 discriminating=true
+
+stdout | tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — membership (plan :210-213) and masks (:213-215) > mask derivation through the shared reader — 'tagged lead stays exact: r01-2 counts…'
+MASK VARIANT {"kind":"castRoleCount","count":1,"seatClass":"lead"}
+[012] bc14baf6-r01-2/bc14baf6-r01-3/bc14baf6-r01-4 benefit=2 NOT VIABLE
+[021] bc14baf6-r01-2/bc14baf6-r01-4/bc14baf6-r01-3 benefit=3 NOT VIABLE
+[102] bc14baf6-r01-3/bc14baf6-r01-2/bc14baf6-r01-4 benefit=1 NOT VIABLE
+[120] bc14baf6-r01-3/bc14baf6-r01-4/bc14baf6-r01-2 benefit=2 score=-1507894 budget=2925161+671170
+[201] bc14baf6-r01-4/bc14baf6-r01-2/bc14baf6-r01-3 benefit=2 score=-1735081 budget=2925161+647648
+[210] bc14baf6-r01-4/bc14baf6-r01-3/bc14baf6-r01-2 benefit=2 score=-1425536 budget=2925161+679067
+law bc14baf6-r01-4/bc14baf6-r01-3/bc14baf6-r01-2#2@-1425536
+
+stdout | tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — membership (plan :210-213) and masks (:213-215) > mask derivation through the shared reader — 'legacy count-only LEAD_OR_SIGNIFICANT…'
+MASK VARIANT {"count":1}
+[012] bc14baf6-r01-2/bc14baf6-r01-3/bc14baf6-r01-4 benefit=2 NOT VIABLE
+[021] bc14baf6-r01-2/bc14baf6-r01-4/bc14baf6-r01-3 benefit=3 NOT VIABLE
+[102] bc14baf6-r01-3/bc14baf6-r01-2/bc14baf6-r01-4 benefit=2 NOT VIABLE
+[120] bc14baf6-r01-3/bc14baf6-r01-4/bc14baf6-r01-2 benefit=3 score=-1507894 budget=2925161+671170
+[201] bc14baf6-r01-4/bc14baf6-r01-2/bc14baf6-r01-3 benefit=3 score=-1735081 budget=2925161+647648
+[210] bc14baf6-r01-4/bc14baf6-r01-3/bc14baf6-r01-2 benefit=3 score=-1425536 budget=2925161+679067
+law bc14baf6-r01-4/bc14baf6-r01-3/bc14baf6-r01-2#3@-1425536
+
+stdout | tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — membership (plan :210-213) and masks (:213-215) > mask derivation through the shared reader — 'APPEARANCE_COUNT is generic cast'
+MASK VARIANT {"count":1}
+[012] bc14baf6-r01-2/bc14baf6-r01-3/bc14baf6-r01-4 benefit=2 NOT VIABLE
+[021] bc14baf6-r01-2/bc14baf6-r01-4/bc14baf6-r01-3 benefit=3 NOT VIABLE
+[102] bc14baf6-r01-3/bc14baf6-r01-2/bc14baf6-r01-4 benefit=2 NOT VIABLE
+[120] bc14baf6-r01-3/bc14baf6-r01-4/bc14baf6-r01-2 benefit=3 score=-1507894 budget=2925161+671170
+[201] bc14baf6-r01-4/bc14baf6-r01-2/bc14baf6-r01-3 benefit=3 score=-1735081 budget=2925161+647648
+[210] bc14baf6-r01-4/bc14baf6-r01-3/bc14baf6-r01-2 benefit=3 score=-1425536 budget=2925161+679067
+law bc14baf6-r01-4/bc14baf6-r01-3/bc14baf6-r01-2#3@-1425536
+
+stdout | tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — the initial cast seam (plan :225-232) > capacity constraint: a rival with a ready screenplay and no lawful complementary staffing decides nothing (natural weeks logged; zero is a fixture finding)
+NO-STAFFING WEEKS 286
+p13a-core-causal-01 w208 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w208 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w209 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w209 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w210 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w210 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w211 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w211 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w212 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w212 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w213 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w213 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w214 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w214 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w215 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w215 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w216 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w216 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w217 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w217 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w218 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w218 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w219 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w219 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w220 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w220 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w221 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w221 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w222 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w222 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w223 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w223 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w224 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w224 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w225 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w225 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w226 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w226 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w227 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w227 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w228 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w228 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w229 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w229 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w230 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w230 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w231 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w231 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w232 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w232 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w233 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w233 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w234 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w234 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w235 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w235 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w236 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w236 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w237 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w237 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w238 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w238 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w239 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w239 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w240 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w240 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w241 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w241 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w242 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w242 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w243 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w243 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w244 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w244 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w245 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w245 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w246 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w246 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w247 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w247 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w248 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w248 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w249 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w249 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w250 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w250 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w251 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w251 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w252 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w252 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w253 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w253 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w254 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w254 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w255 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w255 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w256 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w256 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w257 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w257 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w258 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w258 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w259 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w259 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w260 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w260 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w261 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w261 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w262 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w262 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w263 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w263 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w264 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w264 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w265 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w265 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w266 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w266 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w267 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w267 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w268 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w268 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w269 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w269 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w270 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w270 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w271 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w271 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w272 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w272 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w273 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w273 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w274 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w274 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w275 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w275 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w276 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w276 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w277 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w277 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w278 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w278 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w279 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w279 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w280 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w280 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w281 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w281 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w282 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w282 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w283 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w283 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w284 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w284 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w285 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w285 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w286 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w286 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w287 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w287 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w288 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w288 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w289 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w289 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w290 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w290 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w291 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w291 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w292 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w292 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w293 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w293 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w294 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w294 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w295 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w295 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w296 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w296 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w297 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w297 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w298 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w298 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w299 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w299 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w300 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w300 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w301 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w301 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w302 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w302 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w303 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w303 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w304 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w304 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w305 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w305 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w306 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w306 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w307 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w307 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w308 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w308 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w309 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w309 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w310 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w310 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w311 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w311 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w312 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w312 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w313 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w313 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w314 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w314 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w315 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w315 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w316 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w316 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w317 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w317 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w318 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w318 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w319 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w319 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w320 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w320 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w321 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w321 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w322 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w322 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w323 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w323 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w324 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w324 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w325 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w325 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w326 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w326 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w327 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w327 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w328 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w328 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w329 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w329 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w330 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w330 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w331 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w331 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w332 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w332 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w333 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w333 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w334 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w334 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w335 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w335 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w336 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w336 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w337 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w337 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w338 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w338 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w339 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w339 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w340 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w340 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w341 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w341 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w342 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w342 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w343 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w343 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w344 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w344 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w345 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w345 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w346 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w346 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w347 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w347 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w348 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w348 studio-aca408ec-r04 deficit=true
+p13a-core-causal-01 w349 studio-aca408ec-r03 deficit=true
+p13a-core-causal-01 w349 studio-aca408ec-r04 deficit=true
+seed-b w208 studio-bc14baf6-r04 deficit=true
+seed-b w209 studio-bc14baf6-r04 deficit=true
+
+stdout | tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — the initial cast seam (plan :225-232) > the positive seam witness (plan :225-227, :233; record 621 R2 / G10-b): the first default-seed picture whose pool seats a promised person outside the historical first three admits r01's sole WRITER — a non-primary-actor beneficiary — and the real package and first take serve his promise
+SEAM WITNESS w208 studio-aca408ec-r01 studio-aca408ec-r01:package:script-0011 cashAvailable=8686605.262935068
+[012] aca408ec-r02-0/aca408ec-r02-2/aca408ec-r02-3 benefit=3 NOT VIABLE
+[021] aca408ec-r02-0/aca408ec-r02-3/aca408ec-r02-2 benefit=3 NOT VIABLE
+[102] aca408ec-r02-2/aca408ec-r02-0/aca408ec-r02-3 benefit=3 NOT VIABLE
+[120] aca408ec-r02-2/aca408ec-r02-3/aca408ec-r02-0 benefit=3 NOT VIABLE
+[201] aca408ec-r02-3/aca408ec-r02-0/aca408ec-r02-2 benefit=3 NOT VIABLE
+[210] aca408ec-r02-3/aca408ec-r02-2/aca408ec-r02-0 benefit=3 score=-1366501 budget=3033668+594746
+law aca408ec-r02-3/aca408ec-r02-2/aca408ec-r02-0#3@-1366501 ordinary aca408ec-r02-3/aca408ec-r02-2/aca408ec-r02-0#3@-1366501
+
+ ✓ |core| tests/p14b4-rival-seating-preference.test.ts (22 tests | 1 skipped) 64479ms
+   ✓ P14B4 final seating preference — no-preference path and viability gates (plan :223-225) > default seed: the first screenplay-planning call and first film decision are byte-identical to the accepted values; the transcribed ordinary score reproduces the real no-preference choice 25008ms
+   ✓ P14B4 final seating preference — no-preference path and viability gates (plan :223-225) > p13a-core-causal-01: every real film decision without members equals the pre-existing choice and pool; every decision seats the law pick over the pool the seam law derives; a null choice only when no permutation is viable 383ms
+   ✓ P14B4 final seating preference — no-preference path and viability gates (plan :223-225) > seed-b: every real film decision without members equals the pre-existing choice and pool; every decision seats the law pick over the pool the seam law derives; a null choice only when no permutation is viable 32955ms
+   ✓ P14B4 final seating preference — the natural witness (seed-b w211 studio-bc14baf6-r01, record 618 O-T4-1) > RED: the real seating serves the maximal DISTINCT-beneficiary count (plan :215-218), the picture is viable and affordable (:223-225), and the real first take then satisfies all three through advancePromisesWeek/qualifyingTakes 308ms
+   ✓ P14B4 final seating preference — the natural witness (seed-b w211 studio-bc14baf6-r01, record 618 O-T4-1) > TIE FALLBACK (labeled reception-input variant): two reception-identical tagged beneficiaries tie on score; the first strict-greater winner in the inherited BILLINGS order is seated — inherited tie behaviour, not fairness (:218-221) 894ms
+   ✓ P14B4 final seating preference — membership (plan :210-213) and masks (:213-215) > CURRENT unaccepted offers never count: seed-b w202, three rivals decide while their own retention offers carry promises with contractId null; re-authored offers make the negative discriminating 447ms
+   ✓ P14B4 final seating preference — membership (plan :210-213) and masks (:213-215) > another issuer's promise never counts: r02's offers to r01's three actors are present at w202 and at the witness and never enter r01's member set; re-authored r02 offers make the negative discriminating 412ms
+   ✓ P14B4 final seating preference — membership (plan :210-213) and masks (:213-215) > a met promise never counts (control, r02 chain): after r02's w211 picture satisfies its three P1 roots at w216, its next real decision has no member and takes the ordinary pick 560ms
+   ✓ P14B4 final seating preference — membership (plan :210-213) and masks (:213-215) > a met promise never counts (r01 chain, RED today only through the witness defect): after the witness take the SATISFIED roots leave r01's member set at its next real decision 526ms
+   ✓ P14B4 final seating preference — membership (plan :210-213) and masks (:213-215) > a promise whose window excludes the prospective take never counts — 'window starts after every plausible t…' 437ms
+   ✓ P14B4 final seating preference — membership (plan :210-213) and masks (:213-215) > a promise whose window excludes the prospective take never counts — 'window ends before any take can land …' 457ms
+   ✓ P14B4 final seating preference — membership (plan :210-213) and masks (:213-215) > mask derivation through the shared reader — 'tagged lead stays exact: r01-2 counts…' 476ms
+   ✓ P14B4 final seating preference — membership (plan :210-213) and masks (:213-215) > mask derivation through the shared reader — 'legacy count-only LEAD_OR_SIGNIFICANT…' 402ms
+   ✓ P14B4 final seating preference — membership (plan :210-213) and masks (:213-215) > mask derivation through the shared reader — 'APPEARANCE_COUNT is generic cast' 438ms
+ ✓ |core| tests/bridge-p14b3-promise-command.test.ts (19 tests) 67357ms
+   ✓ P14B.3: quote and atomic command attachment > commits exactly one real attachment at the live ordinal, one revision, no immediate cash movement 8121ms
+   ✓ P14B.3: quote and atomic command attachment > pure repeated quotes retain exact state/RNG/receipt/cash/slot bytes and one opaque identity 1493ms
+   ✓ P14B.3: quote and atomic command attachment > each material promise field participates in the opaque intent identity, including refused variants 616ms
+   ✓ P14B.3: quote and atomic command attachment > the session pending quote retains values rather than its caller-owned mutable draft 1866ms
+   ✓ P14B.3: quote and atomic command attachment > base proposals without a promise still commit without appending any promise 1966ms
+   ✓ P14B.3: whole-quote refusal and current-state atomicity > 'FRAGILE existing one-path capacity': accepted noncommittable answer retains nested verdict; no registered intent or partial commit 1914ms
+   ✓ P14B.3: whole-quote refusal and current-state atomicity > 'IMPOSSIBLE count': accepted noncommittable answer retains nested verdict; no registered intent or partial commit 1592ms
+   ✓ P14B.3: whole-quote refusal and current-state atomicity > 'lower contract-window edge': accepted noncommittable answer retains nested verdict; no registered intent or partial commit 1540ms
+   ✓ P14B.3: whole-quote refusal and current-state atomicity > 'upper contract-window edge': accepted noncommittable answer retains nested verdict; no registered intent or partial commit 1359ms
+   ✓ P14B.3: whole-quote refusal and current-state atomicity > malformed wire input and a forged issuer are rejected before any historical fact exists 833ms
+   ✓ P14B.3: revise, remove, withdraw retain abandoned evidence without phantom seats > replacement feasibility uses the real cleared intermediate proposal; removal/withdrawal mint no false outcome 18357ms
+   ✓ P14B.3: session/revision/intent identity and isolation > wrong-session/stale envelopes, same-command replay and superseded intents never duplicate attachment 6382ms
+   ✓ P14B.3: session/revision/intent identity and isolation > the oldest of exactly 16 distinct offerable quotes remains committable in a fresh session 2033ms
+   ✓ P14B.3: session/revision/intent identity and isolation > the 17th distinct quote expires the oldest pending quote, while the newest still attaches once 2216ms
+   ✓ P14B.3: session/revision/intent identity and isolation > same-seed/same-person sessions do not share quote authority, mutable drafts or committed state 6133ms
+   ✓ P14B.3: session/revision/intent identity and isolation > load and process restart discard pending quote authorization without inventing promises 5495ms
+   ✓ P14B.3: real settlement/outcome, V29 and B2 public/private carriers > quote→commit→real winning expiry binds; due-week BROKEN survives validated reload and exact public receipt join 5377ms
+ ✓ |core| tests/p14b4-cast-class-outcomes.test.ts (23 tests) 28145ms
+   ✓ P14B4 genuine submit/settle/take routes, no synthetic commitments > PLAYER: actual offered lead P2 settles and the real class-compatible take satisfies it 3696ms
+   ✓ P14B4 genuine submit/settle/take routes, no synthetic commitments > PLAYER: actual offered leadOrAntagonist P2 settles and the real class-compatible take satisfies it 1914ms
+   ✓ P14B4 genuine submit/settle/take routes, no synthetic commitments > RIVAL: a genuinely naturally authored tagged commitment binds and qualifies through the real scheduled owner transition 6826ms
+   ✓ P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'player' 'lead' with actual 'lead' seat: qualification=true 1697ms
+   ✓ P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'player' 'lead' with actual 'antagonist' seat: qualification=false 802ms
+   ✓ P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'player' 'lead' with actual 'support' seat: qualification=false 725ms
+   ✓ P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'player' 'leadOrAntagonist' with actual 'antagonist' seat: qualification=true 332ms
+   ✓ P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'player' 'leadOrAntagonist' with actual 'support' seat: qualification=false 302ms
+   ✓ P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'rival' 'lead' with actual 'lead' seat: qualification=true 817ms
+   ✓ P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'rival' 'lead' with actual 'antagonist' seat: qualification=false 619ms
+   ✓ P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'rival' 'lead' with actual 'support' seat: qualification=false 671ms
+   ✓ P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'rival' 'leadOrAntagonist' with actual 'lead' seat: qualification=true 558ms
+   ✓ P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'rival' 'leadOrAntagonist' with actual 'antagonist' seat: qualification=true 534ms
+   ✓ P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'rival' 'leadOrAntagonist' with actual 'support' seat: qualification=false 540ms
+   ✓ P14B4 labeled outcome-owner probes on real bound roots and actual casts > player support qualifies for P1 and shape-legacy count-only P2, not tagged P2 671ms
+   ✓ P14B4 labeled outcome-owner probes on real bound roots and actual casts > rival support qualifies for P1 and shape-legacy count-only P2, not tagged P2 1586ms
+   ✓ P14B4 labeled outcome-owner probes on real bound roots and actual casts > shooting entry/technology lock and an unscheduled tick produce no first take or tagged-P2 outcome 488ms
+   ✓ P14B4 labeled outcome-owner probes on real bound roots and actual casts > player half-open window counts start, excludes before-start and excludes due 931ms
+   ✓ P14B4 labeled outcome-owner probes on real bound roots and actual casts > rival half-open window counts start, excludes before-start and excludes due 1708ms
+   ✓ P14B4 labeled outcome-owner probes on real bound roots and actual casts > count2 requires TWO real distinct productions; repeated owner passes/ticks on one picture never add another event 936ms
+   ✓ P14B4 labeled outcome-owner probes on real bound roots and actual casts > two genuinely bound beneficiaries share one completed take but receive DISTINCT own outcome receipts exactly once 1074ms
+   ✓ P14B4 labeled outcome-owner probes on real bound roots and actual casts > first take THEN real player cancellation never un-satisfies or rewrites the evidence/outcome 444ms
+stdout | tests/p14b4-replay-bill-reductions.test.ts > 580 case 1 — C7 witness: facility array order moves the prepare bill (RED on unchanged source) > a [0]<->[1] facility swap keeps every result field (facilities normalised) and, after C7, costs strictly more
+B4_BILL_580 {"fixture":"enumerator world().unscheduled (558/576 copy)","now":60,"horizon":61,"plan":"one plan, no commands","swap":["facility-development-casting","facility-post-building"],"original":56826,"swapped":59246,"delta":2420,"equalToday":false}
+
+stdout | tests/p14b4-replay-bill-reductions.test.ts > 580 case 3 — C6 protection: fixed-schema key sets on routes with fixed and non-fixed closes (GREEN both sides) > world().ready at now+2 (the 538 two-week wrap): every schema exact; the route closes >= 1 FIXED hold
+B4_CLOSES_580 {"route":"world().ready now+2 (538 wrap)","now":60,"horizon":62,"fixedCloses":3,"nonFixedCloses":0,"preparationWork":104975}
+
+stdout | tests/p14b4-replay-bill-reductions.test.ts > 580 case 3 — C6 protection: fixed-schema key sets on routes with fixed and non-fixed closes (GREEN both sides) > world().ready at now+5 (wrap, Post grant and Post exit inside the window): every schema exact; >= 1 NON-FIXED close
+B4_CLOSES_580 {"route":"world().ready now+5 (Post exit)","now":60,"horizon":65,"fixedCloses":3,"nonFixedCloses":1,"preparationWork":169361}
+
+ ✓ |core| tests/p14b4-replay-bill-reductions.test.ts (5 tests) 4920ms
+   ✓ 580 case 1 — C7 witness: facility array order moves the prepare bill (RED on unchanged source) > a [0]<->[1] facility swap keeps every result field (facilities normalised) and, after C7, costs strictly more 4144ms
+   ✓ 580 case 2 — C7 protection: duplicate consumed identity refused in-order and out-of-order (GREEN both sides) > studio.activeProductions and operations.workflows: in-order and out-of-order duplicates each throw 516ms
+stdout | tests/bridge-p14b5-relationships.test.ts > family 12 — the R-D5 natural-chain LEDGER (measured; the frozen controls MUST NOT move at T2; after T2 every settlement is checked against the D5 receipt facts) > the MOST EXPOSED shared fixture, poachingFixture (p14b2-fixtures.ts :145-211; consumers bridge-p14b2-trust, p14b2-fixture-preconditions): the week-208 reasons pin and endedWeek 208 hold, and under D1 no survivor holds a shared-take counterpart
+poaching pipeline premise {"week":197,"promises":[{"promiseId":"promise-42","version":4,"issuerStudioId":"studio-5a47d054-r01","beneficiaryPersonId":"person-studio-5a47d054-r04-3","windowStartWeek":208,"dueWeekExclusive":416,"feasibilityReceipt":{"classification":"REASONABLY_ACHIEVABLE","bottleneck":null,"inputsDigest":"d47355fa0c8494c3","rulesVersion":4,"week":196},"progress":0,"evidenceRefs":[],"outcome":null,"outcomeWeek":null,"outcomeCause":null,"outcomeEventId":null,"contractId":null,"family":"LEAD_OR_SIGNIFICANT_ROLE_COUNT","predicate":{"kind":"castRoleCount","count":1,"seatClass":"leadOrAntagonist"}},{"promiseId":"promise-43","version":4,"issuerStudioId":"studio-5a47d054-r02","beneficiaryPersonId":"person-studio-5a47d054-r04-3","windowStartWeek":208,"dueWeekExclusive":416,"feasibilityReceipt":{"classification":"REASONABLY_ACHIEVABLE","bottleneck":null,"inputsDigest":"dfa4a41e3f908bd0","rulesVersion":4,"week":196},"progress":0,"evidenceRefs":[],"outcome":null,"outcomeWeek":null,"outcomeCause":null,"outcomeEventId":null,"contractId":null,"family":"LEAD_OR_SIGNIFICANT_ROLE_COUNT","predicate":{"kind":"castRoleCount","count":1,"seatClass":"leadOrAntagonist"}}],"scripts":{"mode":"managed","projects":[{"id":"script-0000","conceptId":"c-00","writerId":"t-wri-10","writerIds":["t-wri-10"],"shape":{"opening":"slowSetup","midpoint":"revelation","ending":"bittersweet"},"promise":{"genre":"comedy","intendedSegments":["adult"],"ranges":{"intimacy":[-0.5,0.5],"tonalWeight":[-0.5,0.5],"kineticEnergy":[-0.5,0.5]}},"status":"review","rewriteCount":0,"commissionedWeek":196,"dueWeek":null,"assessment":{"actualStrength":68.72650768853818,"perceivedStrength":68.72650768853818},"reservation":null,"productionId":null},{"id":"script-0001","conceptId":"c-01","writerId":"t-wri-10","writerIds":["t-wri-10"],"shape":{"opening":"slowSetup","midpoint":"revelation","ending":"bittersweet"},"promise":{"genre":"romance","intendedSegments":["adult"],"ranges":{"intimacy":[-0.5,0.5],"tonalWeight":[-0.5,0.5],"kineticEnergy":[-0.5,0.5]}},"status":"drafting","rewriteCount":0,"commissionedWeek":197,"dueWeek":198,"assessment":null,"reservation":{"projectId":"script-0001","facilityId":"facility-development-casting","capability":"development-casting","slot":0},"productionId":null}]},"concepts":["c-00","c-01","c-02","c-03","c-04","c-05","c-06","c-07","c-08","c-09","c-10","c-11","c-12","c-13","c-14","c-15","c-16","c-17","c-18","c-19","c-20","c-21","c-22","c-23","c-24","c-25","c-26","c-27","c-28","c-29"],"stages":[{"id":"facility-soundstage-07","name":"Soundstage 7","capability":"soundstage","capacity":1},{"id":"facility-soundstage-12","name":"Soundstage 12","capability":"soundstage","capacity":1}]}
+
+ ✓ |core| tests/bridge-p14b5-relationships.test.ts (15 tests) 80038ms
+   ✓ P14B.5 frozen side — the OUTGOING wire identities (R-VERSION class, re-expressed by 662-T2 after T2 landed projection 48 / Save V31) > the genuine projection-47 checkpoint is no longer the CURRENT identity: it takes the governed prior path exactly once (family 11 pins the slot bytes) 1772ms
+   ✓ family 11 — projection 48 THIN (RED by value): the enum, the registry, the seven-member order, the D5 sentence on the wire > the genuine projection-47 checkpoint takes the governed prior path and currentSaveJson lands on the live save through migrateToV31 2415ms
+   ✓ family 11 — projection 48 THIN (RED by value): the enum, the registry, the seven-member order, the D5 sentence on the wire > the genuine projection-47 checkpoint takes the governed prior path and savedSaveJson lands on the live save through migrateToV31 2340ms
+   ✓ family 11 — projection 48 THIN (RED by value): the enum, the registry, the seven-member order, the D5 sentence on the wire > the D5 settlement sentence reaches settlementReasons VERBATIM on the family-6 world, and no closeness, edge or driver leaks onto any serialized DTO 10669ms
+   ✓ family 12 — the R-D5 natural-chain LEDGER (measured; the frozen controls MUST NOT move at T2; after T2 every settlement is checked against the D5 receipt facts) > p13a-core-causal-01: chain digests, row counts, churn rosters empty under D1, zero exposed rows through 416; the nine frozen drop templates only 10593ms
+   ✓ family 12 — the R-D5 natural-chain LEDGER (measured; the frozen controls MUST NOT move at T2; after T2 every settlement is checked against the D5 receipt facts) > seed-b: chain digests, row counts, churn rosters empty under D1, zero exposed rows through 416; the nine frozen drop templates only 16391ms
+   ✓ family 12 — the R-D5 natural-chain LEDGER (measured; the frozen controls MUST NOT move at T2; after T2 every settlement is checked against the D5 receipt facts) > p13b-s8-bridge-probe-01: chain digests, row counts, churn rosters empty under D1, zero exposed rows through 416; the nine frozen drop templates only 10767ms
+   ✓ family 12 — the R-D5 natural-chain LEDGER (measured; the frozen controls MUST NOT move at T2; after T2 every settlement is checked against the D5 receipt facts) > p13-public-commercial-adoption: chain digests, row counts, churn rosters empty under D1, zero exposed rows through 416; the nine frozen drop templates only 14187ms
+   ✓ family 12 — the R-D5 natural-chain LEDGER (measured; the frozen controls MUST NOT move at T2; after T2 every settlement is checked against the D5 receipt facts) > the MOST EXPOSED shared fixture, poachingFixture (p14b2-fixtures.ts :145-211; consumers bridge-p14b2-trust, p14b2-fixture-preconditions): the week-208 reasons pin and endedWeek 208 hold, and under D1 no survivor holds a shared-take counterpart 10475ms
+ ✓ |core| tests/p14bf2-acting-discipline.test.ts (13 tests) 8652ms
+   ✓ B-F2: settled has-acting-discipline law, not primary-role eligibility > the real generated writer is lawfully cast as lead without relabeling or occupying two roles 4134ms
+   ✓ B-F2: settled has-acting-discipline law, not primary-role eligibility > real winning writer P1 binds, then one completed scheduled cast take satisfies it with exact durable references 1293ms
+   ✓ B-F2: genuine old role-refusal evidence survives, fresh evaluations use the live evaluator (4 after record 600) > valid load preserves the old erroneous receipt/root/digest bytes exactly without repairing history 1761ms
+   ✓ B-F2: genuine old role-refusal evidence survives, fresh evaluations use the live evaluator (4 after record 600) > actual resubmit/attach evaluates afresh under4 but keeps the original version1 refusal untouched 927ms
+ ✓ |core| tests/p14b4-cast-class-capacity.test.ts (14 tests) 10756ms
+   ✓ P14B4 bounded fixed-cast capacity, requirement-based owner probes > 'lead' target actually fixed in 'lead': eligible=true 4327ms
+   ✓ P14B4 bounded fixed-cast capacity, requirement-based owner probes > 'lead' target actually fixed in 'antagonist': eligible=false 424ms
+   ✓ P14B4 bounded fixed-cast capacity, requirement-based owner probes > 'lead' target actually fixed in 'support': eligible=false 372ms
+   ✓ P14B4 bounded fixed-cast capacity, requirement-based owner probes > 'leadOrAntagonist' target actually fixed in 'lead': eligible=true 517ms
+   ✓ P14B4 bounded fixed-cast capacity, requirement-based owner probes > 'leadOrAntagonist' target actually fixed in 'antagonist': eligible=true 381ms
+   ✓ P14B4 bounded fixed-cast capacity, requirement-based owner probes > 'leadOrAntagonist' target actually fixed in 'support': eligible=false 317ms
+   ✓ P14B4 bounded fixed-cast capacity, requirement-based owner probes > one real picture jointly serves lead+flexible+P1, but never splices a later Ready script into its spare witness 785ms
+   ✓ P14B4 bounded fixed-cast capacity, requirement-based owner probes > revise removes a real CURRENT reservation but preserves root/receipt history and digest neutrality 954ms
+   ✓ P14B4 bounded fixed-cast capacity, requirement-based owner probes > withdraw removes a real CURRENT reservation but preserves root/receipt history and digest neutrality 616ms
+   ✓ P14B4 bounded fixed-cast capacity, requirement-based owner probes > class changes material and feasibility digests; unrelated cash and valid RNG words change neither read nor history 808ms
+   ✓ P14B4 bounded fixed-cast capacity, requirement-based owner probes > huge admitted staged window/count=1 preserves history; a real outside-contract refusal is not relabeled cap uncertainty 361ms
+   ✓ P14B4 bounded fixed-cast capacity, requirement-based owner probes > huge admitted staged window/count=65 preserves history; a real outside-contract refusal is not relabeled cap uncertainty 343ms
+ ❯ |core| tests/p14b4-cast-class-capacity-evaluator5.test.ts (2 tests | 1 failed | 1 skipped) 3969ms
+   × P14B4 evaluator-5 kernel vocabulary (record 600 §3 2(b)): the joint certificate the scalar cannot issue > a conflicting fixed lead claim makes the joint offer impossible, not a target-specific BROKEN winner choice 3968ms
+     → expected 'FRAGILE' to be 'IMPOSSIBLE' // Object.is equality
+ ✓ |core| tests/p14b3-reservations.test.ts (9 tests) 5146ms
+   ✓ P14B.3 F1: real reservation membership and matching feasibility digest > a CURRENT unbound attachment still consumes the only existing path; only its own recheck excludes itself 3094ms
+   ✓ P14B.3 F1: real reservation membership and matching feasibility digest > revise preserves the old unbound root but removes its reservation AND digest contribution 331ms
+   ✓ P14B.3 F1: real reservation membership and matching feasibility digest > a genuinely bound OPEN promise reserves after the winning proposal has left the current table 591ms
+   ✓ P14B.3 F1: real reservation membership and matching feasibility digest > a real terminal BROKEN outcome no longer reserves even though its bound contract identity remains 427ms
+   ✓ P14B.3 F1: real reservation membership and matching feasibility digest > an actually dropped losing draft stays in evidence after settlement but cannot reserve a later overlapping read 342ms
+ ✓ |core| tests/p14b2-setup-wrap-regressions.test.ts (13 tests) 6624ms
+   ✓ P14B.2-F1 completed setup remains historical authority after real wrap > round-trips actual first take → wrap → Post with unchanged setup and released stage 4344ms
+   ✓ P14B.2-F1 completed setup remains historical authority after real wrap > does not require compacted windowed setup/phase events when the permanent exact wrap survives 946ms
+stdout | tests/bridge-p14b2-trust.test.ts > P14B.2 group5 — independent promise attention after cases close > raises due at minus8 but not minus9 for an actual player poaching winner with no proposals
+poaching pipeline premise {"week":197,"promises":[{"promiseId":"promise-42","version":4,"issuerStudioId":"studio-5a47d054-r01","beneficiaryPersonId":"person-studio-5a47d054-r04-3","windowStartWeek":208,"dueWeekExclusive":416,"feasibilityReceipt":{"classification":"REASONABLY_ACHIEVABLE","bottleneck":null,"inputsDigest":"d47355fa0c8494c3","rulesVersion":4,"week":196},"progress":0,"evidenceRefs":[],"outcome":null,"outcomeWeek":null,"outcomeCause":null,"outcomeEventId":null,"contractId":null,"family":"LEAD_OR_SIGNIFICANT_ROLE_COUNT","predicate":{"kind":"castRoleCount","count":1,"seatClass":"leadOrAntagonist"}},{"promiseId":"promise-43","version":4,"issuerStudioId":"studio-5a47d054-r02","beneficiaryPersonId":"person-studio-5a47d054-r04-3","windowStartWeek":208,"dueWeekExclusive":416,"feasibilityReceipt":{"classification":"REASONABLY_ACHIEVABLE","bottleneck":null,"inputsDigest":"dfa4a41e3f908bd0","rulesVersion":4,"week":196},"progress":0,"evidenceRefs":[],"outcome":null,"outcomeWeek":null,"outcomeCause":null,"outcomeEventId":null,"contractId":null,"family":"LEAD_OR_SIGNIFICANT_ROLE_COUNT","predicate":{"kind":"castRoleCount","count":1,"seatClass":"leadOrAntagonist"}}],"scripts":{"mode":"managed","projects":[{"id":"script-0000","conceptId":"c-00","writerId":"t-wri-10","writerIds":["t-wri-10"],"shape":{"opening":"slowSetup","midpoint":"revelation","ending":"bittersweet"},"promise":{"genre":"comedy","intendedSegments":["adult"],"ranges":{"intimacy":[-0.5,0.5],"tonalWeight":[-0.5,0.5],"kineticEnergy":[-0.5,0.5]}},"status":"review","rewriteCount":0,"commissionedWeek":196,"dueWeek":null,"assessment":{"actualStrength":68.72650768853818,"perceivedStrength":68.72650768853818},"reservation":null,"productionId":null},{"id":"script-0001","conceptId":"c-01","writerId":"t-wri-10","writerIds":["t-wri-10"],"shape":{"opening":"slowSetup","midpoint":"revelation","ending":"bittersweet"},"promise":{"genre":"romance","intendedSegments":["adult"],"ranges":{"intimacy":[-0.5,0.5],"tonalWeight":[-0.5,0.5],"kineticEnergy":[-0.5,0.5]}},"status":"drafting","rewriteCount":0,"commissionedWeek":197,"dueWeek":198,"assessment":null,"reservation":{"projectId":"script-0001","facilityId":"facility-development-casting","capability":"development-casting","slot":0},"productionId":null}]},"concepts":["c-00","c-01","c-02","c-03","c-04","c-05","c-06","c-07","c-08","c-09","c-10","c-11","c-12","c-13","c-14","c-15","c-16","c-17","c-18","c-19","c-20","c-21","c-22","c-23","c-24","c-25","c-26","c-27","c-28","c-29"],"stages":[{"id":"facility-soundstage-07","name":"Soundstage 7","capability":"soundstage","capacity":1},{"id":"facility-soundstage-12","name":"Soundstage 12","capability":"soundstage","capacity":1}]}
+
+ ✓ |core| tests/bridge-p14b2-trust.test.ts (22 tests) 35099ms
+   ✓ P14B.2 group1 — projection46, unchanged Save29/intents, closed wire shapes > validates actual session profile, Market, Pulse and studio DTOs without stripping the new members 6013ms
+   ✓ P14B.2 group3 — one bound-only newest-first history DTO on both carriers > shows two real contracts newest-first, with contract identity, open/outcome fields and exact causes 1623ms
+   ✓ P14B.2 group3 — one bound-only newest-first history DTO on both carriers > does not publish another studio’s real bound history as the player’s own terms 8790ms
+   ✓ P14B.2 group4 — Pulse joins exact outcome receipts once > keeps one row for each receipt after the actual next tick, never re-emitting the event 547ms
+   ✓ P14B.2 group5 — independent promise attention after cases close > raises due at minus8 but not minus9 for an actual player poaching winner with no proposals 9692ms
+   ✓ P14B.2 group5 — independent promise attention after cases close > shows kept and broken attention with own causes, removes due after a real take, then clears both outcomes 565ms
+   ✓ P14B.2 group5 — independent promise attention after cases close > ignores real withdrawn unbound drafts near due and never interrupts for rival-issued promises 1644ms
+   ✓ P14B.2 group7 — rival terms stay private and rival outcomes stay public > is semantically unchanged when only hidden terminal terms vary, retaining real outcome/event identities 790ms
+   ✓ P14B.2 group9 — validated kept+broken V29 BridgeSession roundtrip > preserves Profile, Market, attention, Pulse and Industry DTO bytes after real save/load 3976ms
+stdout | tests/p14b2-fixture-preconditions.test.ts > P14B.2 lawful engine fixture preconditions (not bridge verification) > retains two real winners, films one promise and breaks the other by real early termination
+retention {
+  kept: {
+    promiseId: 'promise-0',
+    version: 4,
+    issuerStudioId: 'studio-aca408ec-player',
+    beneficiaryPersonId: 't-act-09',
+    windowStartWeek: 52,
+    dueWeekExclusive: 92,
+    feasibilityReceipt: {
+      classification: 'REASONABLY_ACHIEVABLE',
+      bottleneck: null,
+      inputsDigest: 'dffb435ac41a7bf8',
+      rulesVersion: 4,
+      week: 52
+    },
+    progress: 1,
+    evidenceRefs: [ 'first-take-event-24' ],
+    outcome: 'SATISFIED',
+    outcomeWeek: 61,
+    outcomeCause: 'the promised pictures began filming inside the window',
+    outcomeEventId: 'talent-market-event-6',
+    contractId: 'studio-aca408ec-player:contract:t-act-09:52:player-31',
+    family: 'APPEARANCE_COUNT',
+    predicate: { count: 1 }
+  },
+  broken: {
+    promiseId: 'promise-1',
+    version: 4,
+    issuerStudioId: 'studio-aca408ec-player',
+    beneficiaryPersonId: 't-act-08',
+    windowStartWeek: 52,
+    dueWeekExclusive: 92,
+    feasibilityReceipt: {
+      classification: 'REASONABLY_ACHIEVABLE',
+      bottleneck: null,
+      inputsDigest: '57ac45bb5049984b',
+      rulesVersion: 4,
+      week: 52
+    },
+    progress: 0,
+    evidenceRefs: [],
+    outcome: 'BROKEN',
+    outcomeWeek: 61,
+    outcomeCause: 'the studio terminated this contract early, ending the window',
+    outcomeEventId: 'talent-market-event-7',
+    contractId: 'studio-aca408ec-player:contract:t-act-08:52:player-32',
+    family: 'APPEARANCE_COUNT',
+    predicate: { count: 1 }
+  },
+  drivers: [
+    {
+      kind: 'promiseBroken',
+      week: 61,
+      positive: false,
+      reason: 'broke a promise'
+    },
+    {
+      kind: 'promiseKept',
+      week: 61,
+      positive: true,
+      reason: 'kept a promise'
+    },
+    {
+      kind: 'terminatedEarly',
+      week: 61,
+      positive: false,
+      reason: 'ended a contract early'
+    },
+    {
+      kind: 'ranToEnd',
+      week: 52,
+      positive: true,
+      reason: 'ran a contract to its end'
+    },
+    {
+      kind: 'ranToEnd',
+      week: 52,
+      positive: true,
+      reason: 'ran a contract to its end'
+    }
+  ]
+}
+
+stdout | tests/p14b2-fixture-preconditions.test.ts > P14B.2 lawful engine fixture preconditions (not bridge verification) > keeps real prior history in the next open case, excludes an actual withdrawal, and binds a second promise
+history { week: 96, talentId: 't-act-09', withdrawnId: 'promise-2' }
+
+stdout | tests/p14b2-fixture-preconditions.test.ts > P14B.2 lawful engine fixture preconditions (not bridge verification) > wins a real rival-owned case and reaches reminder/outcome weeks after proposals are gone
+poaching pipeline premise {"week":197,"promises":[{"promiseId":"promise-42","version":4,"issuerStudioId":"studio-5a47d054-r01","beneficiaryPersonId":"person-studio-5a47d054-r04-3","windowStartWeek":208,"dueWeekExclusive":416,"feasibilityReceipt":{"classification":"REASONABLY_ACHIEVABLE","bottleneck":null,"inputsDigest":"d47355fa0c8494c3","rulesVersion":4,"week":196},"progress":0,"evidenceRefs":[],"outcome":null,"outcomeWeek":null,"outcomeCause":null,"outcomeEventId":null,"contractId":null,"family":"LEAD_OR_SIGNIFICANT_ROLE_COUNT","predicate":{"kind":"castRoleCount","count":1,"seatClass":"leadOrAntagonist"}},{"promiseId":"promise-43","version":4,"issuerStudioId":"studio-5a47d054-r02","beneficiaryPersonId":"person-studio-5a47d054-r04-3","windowStartWeek":208,"dueWeekExclusive":416,"feasibilityReceipt":{"classification":"REASONABLY_ACHIEVABLE","bottleneck":null,"inputsDigest":"dfa4a41e3f908bd0","rulesVersion":4,"week":196},"progress":0,"evidenceRefs":[],"outcome":null,"outcomeWeek":null,"outcomeCause":null,"outcomeEventId":null,"contractId":null,"family":"LEAD_OR_SIGNIFICANT_ROLE_COUNT","predicate":{"kind":"castRoleCount","count":1,"seatClass":"leadOrAntagonist"}}],"scripts":{"mode":"managed","projects":[{"id":"script-0000","conceptId":"c-00","writerId":"t-wri-10","writerIds":["t-wri-10"],"shape":{"opening":"slowSetup","midpoint":"revelation","ending":"bittersweet"},"promise":{"genre":"comedy","intendedSegments":["adult"],"ranges":{"intimacy":[-0.5,0.5],"tonalWeight":[-0.5,0.5],"kineticEnergy":[-0.5,0.5]}},"status":"review","rewriteCount":0,"commissionedWeek":196,"dueWeek":null,"assessment":{"actualStrength":68.72650768853818,"perceivedStrength":68.72650768853818},"reservation":null,"productionId":null},{"id":"script-0001","conceptId":"c-01","writerId":"t-wri-10","writerIds":["t-wri-10"],"shape":{"opening":"slowSetup","midpoint":"revelation","ending":"bittersweet"},"promise":{"genre":"romance","intendedSegments":["adult"],"ranges":{"intimacy":[-0.5,0.5],"tonalWeight":[-0.5,0.5],"kineticEnergy":[-0.5,0.5]}},"status":"drafting","rewriteCount":0,"commissionedWeek":197,"dueWeek":198,"assessment":null,"reservation":{"projectId":"script-0001","facilityId":"facility-development-casting","capability":"development-casting","slot":0},"productionId":null}]},"concepts":["c-00","c-01","c-02","c-03","c-04","c-05","c-06","c-07","c-08","c-09","c-10","c-11","c-12","c-13","c-14","c-15","c-16","c-17","c-18","c-19","c-20","c-21","c-22","c-23","c-24","c-25","c-26","c-27","c-28","c-29"],"stages":[{"id":"facility-soundstage-07","name":"Soundstage 7","capability":"soundstage","capacity":1},{"id":"facility-soundstage-12","name":"Soundstage 12","capability":"soundstage","capacity":1}]}
+poaching {
+  talentId: 'person-studio-5a47d054-r04-3',
+  incumbentId: 'studio-5a47d054-r04',
+  promise: {
+    promiseId: 'promise-48',
+    version: 4,
+    issuerStudioId: 'studio-5a47d054-player',
+    beneficiaryPersonId: 'person-studio-5a47d054-r04-3',
+    windowStartWeek: 208,
+    dueWeekExclusive: 248,
+    feasibilityReceipt: {
+      classification: 'REASONABLY_ACHIEVABLE',
+      bottleneck: null,
+      inputsDigest: 'e09ea3c1e21dc2ac',
+      rulesVersion: 4,
+      week: 208
+    },
+    progress: 0,
+    evidenceRefs: [],
+    outcome: 'BROKEN',
+    outcomeWeek: 248,
+    outcomeCause: 'the window closed before the promised pictures began filming',
+    outcomeEventId: 'talent-market-event-154',
+    contractId: 'studio-5a47d054-player:contract:person-studio-5a47d054-r04-3:208:player-47',
+    family: 'APPEARANCE_COUNT',
+    predicate: { count: 1 }
+  },
+  settlement: [
+    {
+      kind: 'discovered',
+      week: 196,
+      talentId: 'person-studio-5a47d054-r04-3',
+      studioId: 'studio-5a47d054-r04',
+      reasons: [],
+      dropped: [],
+      eventId: 'talent-market-event-23'
+    },
+    {
+      kind: 'proposalSubmitted',
+      week: 196,
+      talentId: 'person-studio-5a47d054-r04-3',
+      studioId: 'studio-5a47d054-r01',
+      reasons: [],
+      dropped: [],
+      eventId: 'talent-market-event-110'
+    },
+    {
+      kind: 'proposalSubmitted',
+      week: 196,
+      talentId: 'person-studio-5a47d054-r04-3',
+      studioId: 'studio-5a47d054-r02',
+      reasons: [],
+      dropped: [],
+      eventId: 'talent-market-event-111'
+    },
+    {
+      kind: 'proposalSubmitted',
+      week: 196,
+      talentId: 'person-studio-5a47d054-r04-3',
+      studioId: 'studio-5a47d054-r03',
+      reasons: [],
+      dropped: [],
+      eventId: 'talent-market-event-112'
+    },
+    {
+      kind: 'proposalSubmitted',
+      week: 196,
+      talentId: 'person-studio-5a47d054-r04-3',
+      studioId: 'studio-5a47d054-r04',
+      reasons: [],
+      dropped: [],
+      eventId: 'talent-market-event-113'
+    },
+    {
+      kind: 'proposalSubmitted',
+      week: 197,
+      talentId: 'person-studio-5a47d054-r04-3',
+      studioId: 'studio-5a47d054-r04',
+      reasons: [],
+      dropped: [],
+      eventId: 'talent-market-event-122'
+    },
+    {
+      kind: 'proposalSubmitted',
+      week: 197,
+      talentId: 'person-studio-5a47d054-r04-3',
+      studioId: 'studio-5a47d054-player',
+      reasons: [],
+      dropped: [],
+      eventId: 'talent-market-event-123'
+    },
+    {
+      kind: 'settled',
+      week: 208,
+      talentId: 'person-studio-5a47d054-r04-3',
+      studioId: 'studio-5a47d054-player',
+      reasons: [Array],
+      dropped: [Array],
+      eventId: 'talent-market-event-145'
+    }
+  ]
+}
+
+stdout | tests/p14b2-fixture-preconditions.test.ts > P14B.2 lawful engine fixture preconditions (not bridge verification) > produces a rival-only open promise and public kept outcome from the unmodified natural rival chain
+rival {
+  openWeek: 196,
+  outcome: {
+    promiseId: 'promise-12',
+    version: 4,
+    issuerStudioId: 'studio-aca408ec-r01',
+    beneficiaryPersonId: 'person-studio-aca408ec-r02-0',
+    windowStartWeek: 208,
+    dueWeekExclusive: 416,
+    feasibilityReceipt: {
+      classification: 'REASONABLY_ACHIEVABLE',
+      bottleneck: null,
+      inputsDigest: 'a4747f7daad8fbf8',
+      rulesVersion: 4,
+      week: 208
+    },
+    progress: 1,
+    evidenceRefs: [ 'first-take-event-45' ],
+    outcome: 'SATISFIED',
+    outcomeWeek: 213,
+    outcomeCause: 'the promised pictures began filming inside the window',
+    outcomeEventId: 'talent-market-event-120',
+    contractId: 'studio-aca408ec-r01:contract:person-studio-aca408ec-r02-0:208',
+    family: 'APPEARANCE_COUNT',
+    predicate: { count: 1 }
+  }
+}
+
+stdout | tests/p14b2-fixture-preconditions.test.ts > P14B.2 lawful engine fixture preconditions (not bridge verification) > diagnostic: the next real production tick must remain save-valid (inherited source finding, not B2 bridge code)
+setup diagnostic {
+  sourceWeek: 61,
+  nextWeek: 62,
+  before: {
+    productionId: 'prod-0052',
+    phase: 'shooting',
+    reservations: [ [Object], [Object] ],
+    shootingTask: {
+      id: 'shooting:prod-0052',
+      productionId: 'prod-0052',
+      directorId: 't-dir-01',
+      soundstageFacilityId: 'facility-soundstage-07',
+      status: 'completed'
+    },
+    blocker: null,
+    bindings: {
+      requiresSetBinding: true,
+      stageFacilityId: 'facility-soundstage-07',
+      setId: 'set-2',
+      lockedNovelty: 1,
+      lockedUplift: 7.8999999999999995,
+      heldSinceWeek: 54
+    },
+    setup: {
+      recipeId: 'ballroom-reveal-lighting-01',
+      planRevision: 0,
+      admittedWeek: 56,
+      route: 'conventional',
+      adoptionId: null,
+      equipmentAssetId: null,
+      stageFacilityId: 'facility-soundstage-07',
+      setId: 'set-2',
+      requiredUnits: 4,
+      creditedUnits: 4,
+      lastCreditedWeek: 60,
+      completedWeek: 60,
+      priorWork: []
+    },
+    planRevision: 0
+  },
+  after: {
+    productionId: 'prod-0052',
+    phase: 'postProduction',
+    reservations: [ [Object] ],
+    shootingTask: null,
+    blocker: null,
+    bindings: {
+      requiresSetBinding: true,
+      stageFacilityId: null,
+      setId: 'set-2',
+      lockedNovelty: 1,
+      lockedUplift: 7.8999999999999995,
+      heldSinceWeek: null
+    },
+    setup: {
+      recipeId: 'ballroom-reveal-lighting-01',
+      planRevision: 0,
+      admittedWeek: 56,
+      route: 'conventional',
+      adoptionId: null,
+      equipmentAssetId: null,
+      stageFacilityId: 'facility-soundstage-07',
+      setId: 'set-2',
+      requiredUnits: 4,
+      creditedUnits: 4,
+      lastCreditedWeek: 60,
+      completedWeek: 60,
+      priorWork: []
+    },
+    planRevision: 0
+  }
+}
+
+ ✓ |core| tests/p14b2-fixture-preconditions.test.ts (5 tests) 11314ms
+   ✓ P14B.2 lawful engine fixture preconditions (not bridge verification) > retains two real winners, films one promise and breaks the other by real early termination 2920ms
+   ✓ P14B.2 lawful engine fixture preconditions (not bridge verification) > keeps real prior history in the next open case, excludes an actual withdrawal, and binds a second promise 887ms
+   ✓ P14B.2 lawful engine fixture preconditions (not bridge verification) > wins a real rival-owned case and reaches reminder/outcome weeks after proposals are gone 4512ms
+   ✓ P14B.2 lawful engine fixture preconditions (not bridge verification) > produces a rival-only open promise and public kept outcome from the unmodified natural rival chain 2948ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14b4-cast-class-capacity-evaluator5.test.ts > P14B4 evaluator-5 kernel vocabulary (record 600 §3 2(b)): the joint certificate the scalar cannot issue > a conflicting fixed lead claim makes the joint offer impossible, not a target-specific BROKEN winner choice
+AssertionError: expected 'FRAGILE' to be 'IMPOSSIBLE' // Object.is equality
+
+Expected: "IMPOSSIBLE"
+Received: "FRAGILE"
+
+ ❯ tests/p14b4-cast-class-capacity-evaluator5.test.ts:239:77
+    237|     const w = world()
+    238|     const state = shortVariants(w, { lead: p2('lead'), antagonist: p2(…
+    239|     expect(pureRead(state, shortDraft(w, state, 'support')).classifica…
+       |                                                                             ^
+    240|     // The support person's own physical predicate still has the actua…
+    241|     // Never resolve that joint conflict by marking some bound benefic…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed | 14 passed (15)
+      Tests  1 failed | 283 passed | 2 todo (286)
+   Start at  11:46:11
+   Duration  137.81s (transform 5.14s, setup 0ms, collect 19.66s, tests 368.51s, environment 11ms, prepare 3.01s)
+
+EXIT 1

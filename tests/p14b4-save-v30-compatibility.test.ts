@@ -15,7 +15,7 @@ import { fnv1a64 } from '../src/core/math.js'
 import { attachedPromiseDigest, promiseDigest, proposalDigest } from '../src/core/promises.js'
 import {
   LIVE_SAVE_VERSION, convertV29ToV28, exportSave, importSave, loadSave, makeSave,
-  validateSaveV29, validateSaveV30, migrateToV30, convertV30ToV29,
+  validateSaveV29, validateSaveV30, migrateToV30, migrateToV31, convertV30ToV29,
 } from '../src/core/save.js'
 
 const NAMES = [
@@ -153,7 +153,13 @@ function preservesExactly(admitted: OldSave) {
   }
   expect(loadSave(migrated)).toEqual(migrated)
   expect(importSave(exportSave(migrated))).toEqual(migrated)
-  expect(makeSave(migrated.state)).toEqual(migrated)
+  // 662-T2 (P14B.5, R-VERSION): the live writer stamps Save31, so "makeSave
+  // reproduces the V30 envelope" is a moved premise. The invariant kept: the live
+  // writer fed the V30 state plus the EMPTY relationship root reproduces the
+  // governed V30->V31 lift of this envelope (version tag and empty root alone).
+  const lifted = migrateToV31(migrated)
+  expect(lifted).toEqual({ ...migrated, saveVersion: 31, state: { ...migrated.state, relationships: [] } })
+  expect(makeSave({ ...migrated.state, relationships: [] })).toEqual(lifted)
   const downgraded = convertV30ToV29(migrated)
   expect(validateSaveV29(downgraded)).toEqual(admitted)
   expect(exportSave(downgraded)).toBe(raw)
@@ -181,8 +187,8 @@ function assertActualBacking(save: OldSave, root: OldPromise): void {
 }
 
 describe('P14B4 Save30: genuine final V29 corpus, exact old-state preservation', () => {
-  it('pins LIVE_SAVE_VERSION to literal30 independently of the value under test', () => {
-    expect(LIVE_SAVE_VERSION).toBe(30)
+  it('pins LIVE_SAVE_VERSION to literal31 independently of the value under test (P14B.5, 662-T2)', () => {
+    expect(LIVE_SAVE_VERSION).toBe(31)
   })
 
   it.each(NAMES)('migrates genuine %s without rewriting roots, receipts, digests or history and downgrades losslessly', (name) => {

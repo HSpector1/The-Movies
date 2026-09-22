@@ -17,7 +17,7 @@ import { beforeAll, describe, expect, it } from 'vitest'
 import { applyActions, hiringMarketIds, SKILL_ORDER, tick } from '../src/core/index.js'
 import { attachPromise, promiseFeasibility, PROMISE_RULES_VERSION, type PromiseDraft } from '../src/core/promises.js'
 import { currentProposals, submitProposal, withdrawProposal } from '../src/core/talentMarket.js'
-import { exportSave, importSave, loadSave, makeSave, migrateToV29, migrateToV30, validateSaveV29, validateSaveV30 } from '../src/core/save.js'
+import { exportSave, importSave, loadSave, makeSave, migrateToV29, migrateToV31, validateSaveV29, validateSaveV31 } from '../src/core/save.js'
 import { TUNING } from '../src/core/tuning.js'
 import type { Action, CastSlot, GameState } from '../src/core/types.js'
 import { advanceTo, fund, p13aGeneratedStudio, player } from './helpers/p14b2-fixtures.js'
@@ -66,7 +66,7 @@ function fixture(): Window {
     state = submitProposal(state, { talentId: lead.id, issuerStudioId: player(state), termWeeks: 52, premiumTier: 1.25 })
     expect(state.studio.activeProductions).toEqual([])
     expect(state.promises.filter((p) => p.beneficiaryPersonId === lead.id)).toEqual([])
-    validateSaveV30(makeSave(state))
+    validateSaveV31(makeSave(state))
     cached = { castable, state, crew }
   }
   return structuredClone(cached)
@@ -106,7 +106,7 @@ describe('B-F2: settled has-acting-discipline law, not primary-role eligibility'
     expect(legal.studio.activeProductions.at(-1)!.cast.lead).toBe(crew.leadId)
     expect(legal.studio.activeProductions.at(-1)!.writerId).toBe(crew.writerId)
     expect(legal.talent.find((p) => p.id === crew.leadId)!.role).toBe('writer')
-    validateSaveV30(makeSave(legal))
+    validateSaveV31(makeSave(legal))
     const doubleRole = payload(castable, crew)
     doubleRole.writerId = crew.leadId
     expect(() => applyActions(castable, [{ kind: 'greenlight', production: doubleRole }]))
@@ -238,7 +238,7 @@ describe('B-F2: settled has-acting-discipline law, not primary-role eligibility'
     expect(receipts[0]).toMatchObject({ kind: 'promiseOutcome', week: take.week,
       talentId: crew.leadId, studioId: player(state) })
     expect(state.talent.find((p) => p.id === crew.leadId)!.role).toBe('writer')
-    const loaded = validateSaveV30(importSave(exportSave(makeSave(state)))).state
+    const loaded = validateSaveV31(importSave(exportSave(makeSave(state)))).state
     expect(loaded.promises).toEqual(state.promises)
     expect(loaded.firstTakes).toEqual(state.firstTakes)
   })
@@ -306,10 +306,15 @@ describe('B-F2: genuine old role-refusal evidence survives, fresh evaluations us
     // live writer's output IS the governed V29->V30 migration of the raw corpus,
     // which differs from raw by the version tag alone (no repaired receipt, root
     // or digest); the V29 half above stays byte-identical.
-    const governed = migrateToV30(importSave(raw))
-    expect(governed.saveVersion).toBe(30)
-    expect(JSON.parse(exportSave(governed))).toEqual({ ...JSON.parse(raw), saveVersion: 30 })
-    expect(exportSave(makeSave(loaded.state))).toBe(exportSave(governed))
+    // 662-T2 (P14B.5, R-VERSION): the live writer now stamps Save31; the governed
+    // V29->V31 migration differs from raw by the version tag AND the EMPTY
+    // relationship root alone (nothing recomputed, plan :725-781). The live writer
+    // fed the V29-loaded state plus that empty root reproduces the governed bytes.
+    const governed = migrateToV31(importSave(raw))
+    expect(governed.saveVersion).toBe(31)
+    const parsedRaw = JSON.parse(raw)
+    expect(JSON.parse(exportSave(governed))).toEqual({ ...parsedRaw, saveVersion: 31, state: { ...parsedRaw.state, relationships: [] } })
+    expect(exportSave(makeSave({ ...loaded.state, relationships: [] }))).toBe(exportSave(governed))
     expect(loaded.state.promises).toEqual(save.state.promises)
     expect(loaded.state.talentMarket).toEqual(save.state.talentMarket)
     const writer = loaded.state.talent.find((p) => p.id === focused.beneficiaryPersonId)!
@@ -319,7 +324,7 @@ describe('B-F2: genuine old role-refusal evidence survives, fresh evaluations us
 
   it('actual resubmit/attach evaluates afresh under4 but keeps the original version1 refusal untouched', () => {
     const { save, focused: old } = oldRefusal()
-    const state = migrateToV30(save).state
+    const state = migrateToV31(save).state
     const originalRoots = JSON.stringify(state.promises)
     const proposal = currentProposals(state, old.beneficiaryPersonId).find((p) => p.issuerStudioId === old.issuerStudioId)
     assert.ok(proposal)
@@ -342,6 +347,6 @@ describe('B-F2: genuine old role-refusal evidence survives, fresh evaluations us
       contractId: null, outcome: null, feasibilityReceipt: fresh })
     expect(JSON.stringify(attached.promises.slice(0, state.promises.length))).toBe(originalRoots)
     expect(attached.talent.find((p) => p.id === old.beneficiaryPersonId)!.role).toBe('writer')
-    expect(validateSaveV30(importSave(exportSave(makeSave(attached)))).state.promises).toEqual(attached.promises)
+    expect(validateSaveV31(importSave(exportSave(makeSave(attached)))).state.promises).toEqual(attached.promises)
   })
 })

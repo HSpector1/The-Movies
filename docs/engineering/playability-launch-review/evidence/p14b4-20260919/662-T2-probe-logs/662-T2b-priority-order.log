@@ -1,0 +1,59 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p14b1-trust-chooser.test.ts (13 tests | 2 skipped) 35446ms
+   ✓ P14B.1 test 6: trust, the widened chooser and the priority order > a Distrusted issuer is dropped issuerDistrusted at reservation, and the other (healthy) proposal settles the case 3736ms
+   ✓ P14B.1 test 6: trust, the widened chooser and the priority order > opportunity changes the winner of an otherwise compensation-versus-incumbency 1-1 tie, with two real surviving proposals 7613ms
+   ✓ P14B.1 test 6: trust, the widened chooser and the priority order > a Reliable issuer beats a Mixed-record issuer on the trust band, in the same otherwise-1-1-tie shape 1992ms
+   ✓ P14B.1 test 7: rival symmetry > attachPromise and its feasibility classification work identically when the issuer is a RIVAL (no player-only special-casing) 1607ms
+   ✓ P14B.1 test 7: rival symmetry > the FIRST natural rival proposal carries exactly one promise iff an ORIGINAL authoring read is REASONABLY_ACHIEVABLE — the flexible P2 read first for an unproven person, the P1 read alone for a proven one — with exact proposal/root/receipt joins 11349ms
+   ✓ P14B.1 test 7: rival symmetry > natural rival authoring preserves the first writer IFF, the first actor positive (P1 if proven, flexible P2 if unproven), an unproven flexible-P2 witness, and actual non-achievable zero-attachment witnesses for a proven and an unproven person 8559ms
+   ✓ P14B.1 test 7: rival symmetry > a rival first take satisfies a promise exactly as a player one does — found by direct search over the natural chain (never a magic week) 359ms
+ ✓ |core| tests/p14a1-f1-priority-order.test.ts (5 tests | 1 skipped) 8ms
+ ✓ |core| tests/bridge-p14b4-cast-class.test.ts (28 tests) 54739ms
+   ✓ P14B4 exact wire grammar — no P2 offerability prerequisite > accepts explicit lead P2 through the actual closed quote-request validator 1961ms
+   ✓ P14B4 exact wire grammar — no P2 offerability prerequisite > accepts explicit leadOrAntagonist P2 through the actual closed quote-request validator 1095ms
+   ✓ P14B4 exact wire grammar — no P2 offerability prerequisite > refuses 'P2 missing class' before session quote/commit authority is reached 1190ms
+   ✓ P14B4 exact wire grammar — no P2 offerability prerequisite > refuses 'bad class null' before session quote/commit authority is reached 931ms
+   ✓ P14B4 exact wire grammar — no P2 offerability prerequisite > refuses 'bad class "support"' before session quote/commit authority is reached 987ms
+   ✓ P14B4 exact wire grammar — no P2 offerability prerequisite > refuses 'bad class "leadOrSupport"' before session quote/commit authority is reached 1316ms
+   ✓ P14B4 exact wire grammar — no P2 offerability prerequisite > refuses 'bad class 1' before session quote/commit authority is reached 1658ms
+   ✓ P14B4 exact wire grammar — no P2 offerability prerequisite > refuses 'bad class ["lead"]' before session quote/commit authority is reached 1342ms
+   ✓ P14B4 exact wire grammar — no P2 offerability prerequisite > refuses 'extra wire kind' before session quote/commit authority is reached 1538ms
+   ✓ P14B4 exact wire grammar — no P2 offerability prerequisite > refuses 'extra nested predicate' before session quote/commit authority is reached 1238ms
+   ✓ P14B4 exact wire grammar — no P2 offerability prerequisite > refuses 'class inapplicable to APPEARANCE_COUNT' before session quote/commit authority is reached 1288ms
+   ✓ P14B4 exact wire grammar — no P2 offerability prerequisite > refuses 'class inapplicable to DIRECTING_COUNT' before session quote/commit authority is reached 980ms
+   ✓ P14B4 exact wire grammar — no P2 offerability prerequisite > refuses 'class inapplicable to PREFERRED_GENRE…' before session quote/commit authority is reached 914ms
+   ✓ P14B4 exact wire grammar — no P2 offerability prerequisite > refuses 'class inapplicable to SPECIFIC_PROJECT' before session quote/commit authority is reached 1123ms
+   ✓ P14B4 exact wire grammar — no P2 offerability prerequisite > keeps no-promise and count-only non-P2 wire shapes legal; P3-P5 remain engine-refused separately 549ms
+   ✓ P14B4 real P2 session integration — offerability/commit prerequisites UNEXECUTED > class changes opaque intent identity; quote/conversion/pending values are nested immutable snapshots 4212ms
+   ✓ P14B4 real P2 session integration — offerability/commit prerequisites UNEXECUTED > whole-quote refusal registers no intent and returns no partial proposal/root/cash/ledger/RNG state 1704ms
+   ✓ P14B4 real P2 session integration — offerability/commit prerequisites UNEXECUTED > class revision replaces attachment, while remove/withdraw preserve every old root and create no outcome 10290ms
+   ✓ P14B4 real P2 session integration — offerability/commit prerequisites UNEXECUTED > direct apply revalidates real CURRENT employment, not the earlier offerable conversion 553ms
+   ✓ P14B4 real P2 session integration — offerability/commit prerequisites UNEXECUTED > session/revision/replay protections still permit only one class-bearing attachment 5116ms
+   ✓ P14B4 real P2 session integration — offerability/commit prerequisites UNEXECUTED > exact cap16: after 16 distinct offerable class-bearing quotes 1932ms
+   ✓ P14B4 real P2 session integration — offerability/commit prerequisites UNEXECUTED > exact cap16: after 17 distinct offerable class-bearing quotes 1972ms
+   ✓ P14B4 existing own/private/public carriers > both viewing directions retain whole competing promise UNKNOWN, with no class beside it 2261ms
+   ✓ P14B4 existing own/private/public carriers > own legacy classless P2 shows null/unknown, never a fabricated lead; P1 remains not-applicable 1459ms
+   ✓ P14B4 existing own/private/public carriers > shared profile/case/workspace preferences expose the existing age-edge at29 574ms
+   ✓ P14B4 existing own/private/public carriers > shared profile/case/workspace preferences expose the existing age-edge at30 581ms
+   ✓ P14B4 existing own/private/public carriers > actual lead quote→binding→termination exposes own class, not public/private leakage 3499ms
+   ✓ P14B4 existing own/private/public carriers > actual leadOrAntagonist quote→binding→termination exposes own class, not public/private leakage 2466ms
+stdout | tests/p14b4-cast-class-policy.test.ts > P14B4: natural rival policy uses the real shared service, never staged failed candidates > observes flexible-first, actual P1 fallback, proven P1, and a genuine zero-attachment refusal without extra RNG
+default seed w196 provenP1: studio-aca408ec-r01 -> person-studio-aca408ec-r01-0 reads APPEARANCE_COUNT=REASONABLY_ACHIEVABLE root promise-0
+default seed w196 flexibleP2: studio-aca408ec-r01 -> person-studio-aca408ec-r01-5 reads LEAD_OR_SIGNIFICANT_ROLE_COUNT=REASONABLY_ACHIEVABLE root promise-10
+default seed w196 neither: studio-aca408ec-r03 -> person-studio-aca408ec-r01-5 reads LEAD_OR_SIGNIFICANT_ROLE_COUNT=FRAGILE:needs a picture not yet commissioned, APPEARANCE_COUNT=FRAGILE:needs a picture not yet commissioned
+seed-b w196 P1fallback: studio-bc14baf6-r03 -> person-studio-bc14baf6-r03-4 reads LEAD_OR_SIGNIFICANT_ROLE_COUNT=FRAGILE:needs a picture not yet commissioned, APPEARANCE_COUNT=REASONABLY_ACHIEVABLE root promise-36
+
+ ✓ |core| tests/p14b4-cast-class-policy.test.ts (7 tests) 96608ms
+   ✓ P14B4: one shared public archetype; no new personality or priority-position inference > a real under-30 release credit supplies the proven branch independently of the age edge 2530ms
+   ✓ P14B4: all six D3 class matches through real two-survivor settlements > age 29: mismatch changes only D3, never proposal legality 10765ms
+   ✓ P14B4: all six D3 class matches through real two-survivor settlements > age 30: mismatch changes only D3, never proposal legality 9588ms
+   ✓ P14B4: natural rival policy uses the real shared service, never staged failed candidates > observes flexible-first, actual P1 fallback, proven P1, and a genuine zero-attachment refusal without extra RNG 73166ms
+
+ Test Files  4 passed (4)
+      Tests  50 passed | 3 todo (53)
+   Start at  11:49:04
+   Duration  100.12s (transform 4.40s, setup 0ms, collect 10.77s, tests 186.80s, environment 1ms, prepare 988ms)
+
+EXIT 0

@@ -23,7 +23,7 @@
 // tick / cancel / releaseTalent routes. Every promise is a REAL BOUND ROOT installed by the labeled state
 // variant `bind`: its `contractId` is read from the person's actual `hollywood.employment` row (never
 // invented); its `feasibilityReceipt` is a placeholder no outcome owner reads; the installed state is
-// then passed through the live V30 writer (`makeSave` -> validateSaveV30) so only a lawful persisted
+// then passed through the live V30 writer (`makeSave` -> validateSaveV31) so only a lawful persisted
 // record is tested. No first take, binding, receipt or outcome is invented: first takes come from the
 // real 5 -> 4 advance (`took`), outcomes only from `advancePromisesWeek`, `tick` and the action seams.
 //
@@ -265,9 +265,9 @@ function bind(state: GameState, spec: BindSpec): GameState {
     : { ...base, family: spec.family, predicate: { count: spec.predicate.count } }
   return { ...state, promises: [...state.promises, promise] }
 }
-/** The live V30 writer validates the whole state (validateSaveV30); a refusal fails the case with its text. */
+/** The live V30 writer validates the whole state (validateSaveV31); a refusal fails the case with its text. */
 function lawful(state: GameState): void {
-  expect(makeSave(state).saveVersion).toBe(30)
+  expect(makeSave(state).saveVersion).toBe(31)
 }
 function root(state: GameState, promiseId: string): ProfessionalPromise {
   const rows = state.promises.filter((p) => p.promiseId === promiseId)
@@ -403,7 +403,7 @@ describe('629-T case 2: a bound legacy P2 is never routed through fresh-offer re
 
 // ═════════════════════════════════════════════════════════════════════════════
 describe('629-T case 3: an unsupported legacy family is not causal proof (26 §2 "unsupported legacy family ... is not target-specific physical impossibility")', () => {
-  it('a bound OPEN DIRECTING_COUNT root is a lawful persisted record (validateSaveV30) and is NOT broken by a cancel with a wide window', () => {
+  it('a bound OPEN DIRECTING_COUNT root is a lawful persisted record (validateSaveV31) and is NOT broken by a cancel with a wide window', () => {
     const r = roster()
     const P = r.actors[0]!
     const g = greenlit(r, r.state, { lead: P, antagonist: r.actors[1]!, support: r.actors[2]! })

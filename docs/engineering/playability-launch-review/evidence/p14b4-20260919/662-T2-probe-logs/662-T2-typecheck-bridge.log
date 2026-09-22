@@ -1,0 +1,13 @@
+
+> project-studio-core@0.1.0 typecheck:bridge
+> tsc -p tsconfig.bridge.json
+
+tests/bridge-p14b5-relationships.test.ts(358,25): error TS2339: Property 'promises' does not exist on type 'GameStateV2 | GameStateV3 | GameStateV4 | GameStateV5 | GameStateV6 | GameStateV7 | GameStateV8 | ... 19 more ... | GameStateV1'.
+  Property 'promises' does not exist on type 'GameStateV2'.
+tests/bridge-p14b5-relationships.test.ts(359,25): error TS2339: Property 'firstTakes' does not exist on type 'GameStateV2 | GameStateV3 | GameStateV4 | GameStateV5 | GameStateV6 | GameStateV7 | GameStateV8 | ... 19 more ... | GameStateV1'.
+  Property 'firstTakes' does not exist on type 'GameStateV2'.
+tests/bridge-p14b5-relationships.test.ts(360,25): error TS2339: Property 'talentMarket' does not exist on type 'GameStateV2 | GameStateV3 | GameStateV4 | GameStateV5 | GameStateV6 | GameStateV7 | GameStateV8 | ... 19 more ... | GameStateV1'.
+  Property 'talentMarket' does not exist on type 'GameStateV2'.
+tests/bridge-p14b5-relationships.test.ts(361,25): error TS2339: Property 'hollywood' does not exist on type 'GameStateV2 | GameStateV3 | GameStateV4 | GameStateV5 | GameStateV6 | GameStateV7 | GameStateV8 | ... 19 more ... | GameStateV1'.
+  Property 'hollywood' does not exist on type 'GameStateV2'.
+EXIT 2

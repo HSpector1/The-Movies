@@ -18,7 +18,7 @@ import {
   SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS,
 } from '../bridge/runtime-checkpoint.ts'
 import { BridgeSession } from '../bridge/session.ts'
-import { exportSave, importSave, LIVE_SAVE_VERSION, migrateToV30, validateSaveV29 } from '../src/core/save.js'
+import { exportSave, importSave, LIVE_SAVE_VERSION, migrateToV31, validateSaveV29 } from '../src/core/save.js'
 
 const OUTGOING_46 = 'sha256:584bdd8565030f049d548b1af4fcbf8c517ca7c9150016736f632f1ef8fcb98c'
 const PINS = {
@@ -34,7 +34,8 @@ const PINS = {
   closeout: '6f6e425314107a7f0050739becb5f97adede58de94d7631a6f5bf25de8abfc81',
   minter: '58e3a9554026089616f96c309cc4dc1ad6b909c87936c9c129165fb77c96c5b6',
 } as const
-// All 34 accepted predecessor literal pins, plus the independently minted outgoing46.
+// All 34 accepted predecessor literal pins, plus the independently minted outgoing46
+// and (P14B.5) the independently minted outgoing47.
 // Do not derive this expected list from the registry. Missing32–44 are a separate backlog.
 const EXPECTED_PRIOR_IDS = [
   'sha256:01f15efc8fc33fd810b051242857385ca23b5e1c775b357db1bfe5a70e907e1e',
@@ -50,6 +51,10 @@ const EXPECTED_PRIOR_IDS = [
   'sha256:5b2a4ca93d930e90a288db55bb5cc3fdc8eea070ef51fa1450a193a325bd755d',
   'sha256:625377a2804a681da3be209da02850e221ae33ac5f58b727f6395736ad607ad1',
   'sha256:6a2c01feaf02c931a8c41bbf2090f8af003b89a492d77135d7aab2b42a8d3dc9',
+  // P14B.5 (662-T2 sweep): the OUTGOING projection-47 identity — the checked-in
+  // contract-manifest schemaId before the projection-48 bump (040651b4^), read
+  // independently (tests/fixtures/p14/genuine-projection47-runtime/MANIFEST.json).
+  'sha256:6f6b48805aadcf14d456614d87bf1571eb1ce0d9aa0bc44f604e7976f4f85538',
   'sha256:71529afdcb8e5cf645ab136efb9685256da0039e86d989bfab97b7b2cc5d9a8b',
   'sha256:7e3af4db0d3d18cdeaab00082e0034f304a9141f46ea87e9e64e5a99d985483c',
   'sha256:80f2f0fcd14d1b25e713c2624286a6c05a98c53ea5cfcb2b47612f8c030f5e47',
@@ -159,10 +164,10 @@ describe('P14B4 genuine outgoing46 runtime compatibility — future Save30/proje
     expect(current.state.talentMarket.proposals.filter((p) => p.promises.includes('promise-0'))).toEqual([])
   })
 
-  it('requires literal projection47/Save30 and exact 35 prior IDs, excluding the running identity', () => {
+  it('requires literal projection48/Save31 and exact 36 prior IDs, excluding the running identity', () => {
     expect(PROTOCOL_VERSION).toBe(4)
-    expect(PROJECTION_VERSION).toBe(47)
-    expect(LIVE_SAVE_VERSION).toBe(30)
+    expect(PROJECTION_VERSION).toBe(48)
+    expect(LIVE_SAVE_VERSION).toBe(31)
     expect(SCHEMA_ID).not.toBe(OUTGOING_46)
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)
     expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual(EXPECTED_PRIOR_IDS)
@@ -185,15 +190,15 @@ describe('P14B4 genuine outgoing46 runtime compatibility — future Save30/proje
   it.each(['currentSaveJson', 'savedSaveJson'] as const)('migrates %s from its OWN genuine V29 state, preserving exact material/history', (slot) => {
     const old = validateSaveV29(JSON.parse(prior[slot]))
     const oldBytes = exportSave(old)
-    const expected = migrateToV30(importSave(prior[slot]))
-    expect(expected.saveVersion).toBe(30)
+    const expected = migrateToV31(importSave(prior[slot]))
+    expect(expected.saveVersion).toBe(31)
     const loaded = loadBridgeRuntimeCheckpoint(raw, undefined, () => 'p14b4-new47-' + slot)
     expect(loaded.migratedFromProtocolVersion).toBe(4)
     const actualBytes = loaded.hydrated.checkpoint[slot]
     assert.ok(typeof actualBytes === 'string')
     expect(actualBytes).toBe(exportSave(expected))
     const actual = importSave(actualBytes)
-    if (actual.saveVersion !== 30) throw new Error('Future behavior RED: slot did not reach governed Save30')
+    if (actual.saveVersion !== 31) throw new Error('Future behavior RED: slot did not reach governed Save31')
     expect(actual.state.market.tick).toBe(45)
     expect(actual.state.promises).toEqual(old.state.promises)
     expect(actual.state.firstTakes).toEqual(old.state.firstTakes)
@@ -209,8 +214,8 @@ describe('P14B4 genuine outgoing46 runtime compatibility — future Save30/proje
     const loaded = loadBridgeRuntimeCheckpoint(raw, undefined, createSession)
     expect(createSession).toHaveBeenCalledTimes(1)
     expect(loaded.migratedFromProtocolVersion).toBe(4)
-    const current = exportSave(migrateToV30(importSave(prior.currentSaveJson)))
-    const saved = exportSave(migrateToV30(importSave(prior.savedSaveJson)))
+    const current = exportSave(migrateToV31(importSave(prior.currentSaveJson)))
+    const saved = exportSave(migrateToV31(importSave(prior.savedSaveJson)))
     const after = loaded.hydrated.checkpoint
     // Expected object only: no fabricated/restamped checkpoint is fed to migration.
     expect(after).toEqual({ ...prior, schemaId: SCHEMA_ID,
