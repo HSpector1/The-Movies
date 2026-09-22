@@ -48,6 +48,13 @@ const seatTalent = (seats: ChemistrySeats, seat: Seat): string =>
 const ROSTER_LINE = 'Working ties with people on your roster.'
 const WITHHELD_LINE = 'Other working ties here are with people you do not employ.'
 const QUIET_LINE = 'No shared work recorded yet.'
+/** D2: the honest answer when the roster cannot be read AT ALL. `state.hollywood` is
+ *  genuinely nullable (`src/core/types.ts` :1906), and on a world without that root
+ *  `WITHHELD_LINE` would assert a POSITIVE employment fact this projector cannot
+ *  compute — the player may employ that very counterpart through `state.contracts`.
+ *  Absence of the ROOT, never an empty roster: when the root is present and the
+ *  viewer's employment list is simply empty, `WITHHELD_LINE` is true and stays. */
+const NO_ROSTER_ROOT_LINE = 'No studio roster on record, so working ties are not shown.'
 const NO_SHARED_WORK_LINE = 'No shared work yet.'
 const CHEMISTRY_LINE: Readonly<Record<-1 | 0 | 1, string>> = {
   [-1]: 'They have not worked well together.',
@@ -147,9 +154,13 @@ export function relationshipBlockFor(
       sharedPictures,
     })
   }
+  // The withheld sentence speaks to EMPLOYMENT, so it may only be emitted when the
+  // employment root is readable; without it `rosterAt` returns empty for a reason it
+  // cannot report, and `rows` is necessarily empty too.
+  const withheldLine = (state.hollywood ?? null) === null ? NO_ROSTER_ROOT_LINE : WITHHELD_LINE
   const line = rows.length > 0
     ? (withheld ? `${ROSTER_LINE} ${WITHHELD_LINE}` : ROSTER_LINE)
-    : withheld ? WITHHELD_LINE : QUIET_LINE
+    : withheld ? withheldLine : QUIET_LINE
   return { line, rows }
 }
 
