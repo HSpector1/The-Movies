@@ -1898,6 +1898,14 @@ const StudioCastingQuoteSnapshot = object('StudioCastingQuoteSnapshot', {
   signTermWeeks: nullable(nonNegativeInteger()),
   signWeeklySalary: nullable(nonNegativeInteger()),
   signGuaranteedComp: nullable(nonNegativeInteger()),
+  // P14B.6 — the casting CONFIRMATION carries the chemistry readout for the seating it
+  // proposes. The board project snapshot is NOT a carrier: a Ready screenplay's
+  // `activeSlate` is null, so no seating exists there. Both are null for a screen test
+  // and a contract signing, neither of which proposes a four-seat package.
+  chemistry: nullable(array(reference('StudioCastingChemistryRow', StudioCastingChemistryRow))),
+  /** Ruling 3 (iii): ONE sentence when a seated pair reads −1. It never refuses, never
+   *  blocks, and never changes a quote, a cost or a forecast. */
+  chemistryWarning: nullable(text()),
 })
 
 const StudioPlacementCellVerdictSnapshot = object('StudioPlacementCellVerdictSnapshot', {

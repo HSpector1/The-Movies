@@ -66,6 +66,7 @@ import type {
   BridgeCastingQuoteSnapshot,
   BridgeCastingSnapshot,
 } from './schema/bridge-schema.ts'
+import { castingChemistryRows, castingChemistryWarning, type ChemistrySeats } from './relationships.ts'
 
 type CastingBoardWire = NonNullable<BridgeCastingSnapshot['board']>
 type CastSlotPoolRole = 'lead' | 'antagonist' | 'support'
@@ -623,6 +624,10 @@ function screenTestQuoteSnapshot(
     signTermWeeks: null,
     signWeeklySalary: null,
     signGuaranteedComp: null,
+    // A screen test proposes SLATES, not a four-seat package: there is no seating to
+    // read chemistry for, and an honest null is not a neutral score.
+    chemistry: null,
+    chemistryWarning: null,
   }
 }
 
@@ -677,6 +682,9 @@ function greenlightQuoteSnapshot(
     promise: readyView.lockedPromise,
     budget: { negative, marketing },
   }
+  const seats: ChemistrySeats = {
+    directorId: pkg.directorId, lead: pkg.cast.lead, antagonist: pkg.cast.antagonist, support: pkg.cast.support,
+  }
   const fit = assessPackageFit(state, pkg)
   const profit = assessProfitRange(state, pkg, readyView.projectId)
   const demand = productionDemandView(state, concept, readyView.lockedShape, negative)
@@ -715,6 +723,11 @@ function greenlightQuoteSnapshot(
     signTermWeeks: null,
     signWeeklySalary: null,
     signGuaranteedComp: null,
+    // P14B.6 — the readout for the seating this confirmation proposes, and Owner ruling
+    // 3 (iii)'s one warning sentence. Both are published beside the consequence and
+    // change NOTHING in it: no cost, no forecast, no affordability and no refusal.
+    chemistry: [...castingChemistryRows(state, seats)],
+    chemistryWarning: castingChemistryWarning(state, seats),
   }
 }
 
@@ -776,6 +789,9 @@ function signContractQuoteSnapshot(
     signTermWeeks: offer?.termWeeks ?? null,
     signWeeklySalary: offer?.weeklySalary ?? null,
     signGuaranteedComp: offer?.guaranteedComp ?? null,
+    // Signing a contract proposes no seating; an honest null, never a neutral score.
+    chemistry: null,
+    chemistryWarning: null,
   }
 }
 
