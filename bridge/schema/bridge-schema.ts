@@ -230,7 +230,14 @@ export const PROTOCOL_VERSION = 4 as const
 // classless P2 — never a fabricated lead). The preferences snapshot gains
 // `preferredOpportunity` (the engine's own public archetype reader). Competing rows
 // keep the whole `"UNKNOWN"` marker; no new view, page, intent kind or persisted fact.
-export const PROJECTION_VERSION = 47 as const
+// P14B.5 (projection 48) — Save V31 is live (the top-level `relationships` root) and
+// D5 relationships ranks in the chooser, so the engine's own `publicPriorityOrder`
+// returns SEVEN members: the CLOSED `priorityOrder` enum gains `relationships`. The
+// D5 settlement sentence reaches the wire as a VALUE through the existing free-text
+// `settlementReasons`. NOTHING ELSE: no relationship DTO, no tier, no drivers text, no
+// chemistry row, no casting warning, no attention cause, no view/intent/page (B.6);
+// no closeness, edge or driver ever appears on any serialized DTO.
+export const PROJECTION_VERSION = 48 as const
 
 const nonEmptyText = () => text({ minLength: 1 })
 const nonNegativeInteger = () => integer({ minimum: 0 })
@@ -2320,7 +2327,8 @@ const StudioMarketPreferencesSnapshot = object('StudioMarketPreferencesSnapshot'
   priorityOrder: array(enumeration(
     // P14B.1: the six LANDED descriptors (`talentMarket.ts` DESCRIPTOR_ORDER) — D3
     // `opportunity` and D4 `trust` joined the engine's own public order at T2.
-    ['opportunity', 'compensation', 'term', 'trust', 'standing', 'incumbency'],
+    // P14B.5: D5 `relationships` joins it (the seventh and last companion member).
+    ['opportunity', 'compensation', 'term', 'trust', 'standing', 'incumbency', 'relationships'],
   )),
   preferredTermWeeks: integer({ minimum: 1 }),
   /** P14B.4: the engine's own public opportunity preference (`publicPreferredOpportunity`,

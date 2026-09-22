@@ -872,6 +872,9 @@ const DESCRIPTOR_LABEL: Record<string, string> = {
   // person now weighs `opportunity` FIRST, so both need a published phrase here.
   opportunity: 'the opportunity offered',
   trust: 'a studio’s record with them',
+  // P14B.5: D5 joined the public order at index 2 (unproven) / 3 (proven), so the
+  // `line` VALUE (which reads [0]/[1]) does not move; the record stays total.
+  relationships: 'friends on the roster',
 }
 
 const unbox = (value: Disclosed<number>): number | null => (value === UNKNOWN ? null : value)
