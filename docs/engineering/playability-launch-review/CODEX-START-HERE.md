@@ -265,31 +265,54 @@ P14B.5 FIRST SHARED-WORK BOND CORE LANDED AND QUALIFIED WITH RECORD-ONLY ITEMS �
 (`0f1d56173246`, 672-R). T0 record 652 (`1117717a`): genuine outgoing Save V30 corpus (ten cases)
 + projection-47 runtime checkpoint minted at `d6c11b9b`, 651-B KEEP. Expansion inserted record 653
 (`74bd325b`, plan :725-781) with the 647-B dispositions. T1 RED record 657 (`c32961c6`, 657-B
-RELEASE WITH CONDITIONS C1–C10; I1–I4 accepted with the take.week >= firstSharedWeek precision;
-measured R-D5 ledger: 0 of 96 churn-week survivors hold a roster at 208, cases open at 404 and
-settle at 416, exposed rows 0). CANDIDATE `040651b4` = five bisectable 658-W commits (S1 core
-relationships root + tail seam + cancel seam; S2 D5 descriptor with the roster-at-W predicate and
-nemesisOnRoster; S3 Save V31 — empty-root lift, downgrade refused with any edge; S4 load/runtime;
-S5 projection 48), each tree byte-equal to its patch; test-side `8e03ff97` (662-T2/T2b values-only
-sweep, 121 files; first agent died on API 529, tree hashed and audited by the continuation) and
-`5f116403` (668-T3 strip class: an older frozen validator handed a live state carrying the new
-root — eight premises re-expressed, none weakened; 668-B + 672-R: production V31 chain COMPLETE,
-zero writer defects). IDENTITIES: Save V31, projection 48, schema
+RELEASE WITH CONDITIONS C1–C10; measured R-D5 ledger: 0 of 96 churn-week survivors hold a roster
+at 208, cases open at 404 and settle at 416, exposed rows 0). CANDIDATE `040651b4` = five
+bisectable 658-W commits (S1 core root + tail seam + cancel seam; S2 D5 descriptor with the
+roster-at-W predicate and nemesisOnRoster; S3 Save V31; S4 load/runtime; S5 projection 48), each
+tree byte-equal to its patch; test-side `8e03ff97` (662-T2/T2b sweep, 121 files) and `5f116403`
+(668-T3 strip class; 668-B + 672-R: production V31 chain COMPLETE, zero writer defects).
+IDENTITIES: Save V31, projection 48, schema
 `sha256:00c0075bef257634956da7d16d117a145d203047e7169c643156b7971c4c7fec`, outgoing `6f6b4880…`
 registered `projection-v47` (36 prior ids); PROMISE_RULES_VERSION 4 unchanged. EVIDENCE: 669 FULL
-CORE 9 files / 24 failed / 3932 passed / 8 todo = the 636 baseline set EXACTLY (22 inherited + 2
-designated), +119 passing (118 new RED tests + 1 it.each from the widened registry — the "+141" in
-df693294's message is corrected in record 675); 671 the 24 natural-chain controls 324 passed / 4
-todo, none moved; 663 RED 118/118; 670 typecheck + typecheck:bridge + both generator checks EXIT 0;
-673 FULL UI 26 failed (≤ the 643 baseline); 674 test:bridge exactly the two inherited files.
-CARRIED TO THE OWNER, nothing adopted: negative tiers have no natural producer under the landed
-constants (a low-proximity edge bottoms at 47; Strained needs < 45) beside the rival fixed-team
-saturation to Inseparable; the §8 week-260 measurement; B.5 OPEN 1–3 (Q2 base rate / Q3 no
-backfill / Q4 warning-not-refusal) and 11, 15; 628 R5 / G-1(A) / G-2; 637 cancel attribution.
-NEXT675: (1) the §8 measurement probe recorded beside the checkpoint; (2) one expansion-review
-packet to the Owner (the OPEN items + the negative-tier asymmetry); (3) then P14B.6 read models or
-the waiver slice, whichever the Owner's answer selects. Evaluator 5 later. LOGIC VERIFIED · UNITY
-NOT VERIFIED. Unity/native deferred. Gross2221 omitted fact cost is NOT
+CORE 9 files / 24 failed / 3932 passed / 8 todo = the 636 baseline set EXACTLY, +119 passing (the
+"+141" in df693294's message is corrected in record 675); 671 controls 324 passed / 4 todo, none
+moved; 663 RED 118/118; 670 typechecks + both generator checks EXIT 0; 673 FULL UI 26 failed (≤ the
+643 baseline); 674 test:bridge exactly the two inherited files.
+NEXT675 (1) DELIVERED — record 679, the §8 :645 week-260 measurement, reviewed in 678-C (QUALIFIED
+WITH RECORD-ONLY ITEMS; D1–D5 + REFINE 1–5 applied). Harness `676-b5-week260-probe.ts` (test-author
+under 676-T): run 677 on sha `4e7438d4…`, then two FALSE COMMENTS corrected (comments only; the
+reversal reproduces the old sha byte for byte) and re-run as 682 on `198337d7…` — 682 REPRODUCES
+EVERY MEASURED LINE of 677. Both runs on `ddf58e87`, EXIT 0, `fixedSource: true`, EMPTY tested diff,
+node v20.20.2 darwin x64, 17.2 s. Four recorded standard seeds ticked one week at a time to 260, no
+player action during the ticks (bootstrap named: generateWorld + economyEngagedEver +
+activateStudioOperations + initializeHollywood('fresh')); every tier read through the real
+`currentTier`; `validateRelationshipsRoot` + `makeSave` pass on all four final states. MEASURED:
+edges@260 27 / 27 / 36 / 24; drivers derived == observed == distinct mint keys (675 / 1341 / 1452 /
+1080, 4,548 total, ZERO duplicate mints, so idempotency held past the fold); retained 195 / 195 /
+246 / 192; STRAINED NEVER READ on any seed at any week, minimum closeness ever 48; Inseparable
+11 / 24 / 27 / 24 at 260, first read w36–w45; drift is PARTIAL (a completed return needs 312 dormant
+weeks; the most any edge reaches by 260 is span 200 ≈ 77%) and changes the reading on ONE seed of
+four; root 23.8–32.2 KB (~900 B/edge) = 1.34–2.06% of the uncompressed save and 0.47–0.78% gzip-9.
+FLOOR MEASURED AT 45 by the witness `681-b5-closeness-floor-witness.ts` (`1cc77f71…`, run 681, a
+CONSTRUCTED worst case with no seed, staging disclosed) driving the real advanceRelationshipsWeek:
+52 mint → 50 after a completed 313-week return → 46 → 49 → 45, `currentTier` = Acquaintances because
+45 IS RELATIONSHIP_TIER_FLOOR.Acquaintances, one point above the Strained ceiling 44, and a fixed
+point. Record 675 item 1's 47 holds only for a release inside the grace window; 676-P revision 1's
+46 was DEMONSTRATED WRONG by 678-C D1. THE DIAL: once the accelerator caps a cycle nets
+5 − RELATIONSHIP_FAILURE_DELTA, so the landed 4 gains a point per picture, 5 breaks even and opens
+the band (min 42), 6 declines without bound (min 34) — hypothetical arithmetic, no src/ constant
+changed. Saturation CAUSE identified and WEAKENED per 678-C D3: while a rival's roster stands its
+pictures re-seat the same quartet (one director, three actors), but rosters do change, which is why
+edge counts read 27/27/36/24 and not a fixed 24. 260 weeks is not the 6,240-week endurance scenario
+and no §8 R25 bound is claimed cleared.
+NEXT675 (2) DELIVERED — the Owner packet `680-OWNER-PACKET-b5-decisions.md` (600 words): Finding 1
+the unreachable lower half with the FAILURE_DELTA dial, Finding 2 the saturation, OPEN 1–3/11
+carried, OPEN 15 closed by events (V31 shipped without the waiver field, so the waiver needs its own
+save step), and ONE recommended next slice — P14B.6 READ MODELS over the waiver, with acceptance
+checks and an effort forecast. 628 R5 / G-1(A) / G-2 and 637 carried, not blocking.
+NEXT680: STOP AT THE OWNER DECISION GATE. Nothing in B.6, the waiver or any relationship constant
+starts on this packet alone. Evaluator 5 later; the endurance-scenario half of B.5 scope (9) stays
+outstanding. LOGIC VERIFIED · UNITY NOT VERIFIED. Unity/native deferred. Gross2221 omitted fact cost is NOT
 net saving: cold discovery can shift into next frame. No route-fit claim.
 Draft-discovery, silent-policy, affine and Map alternatives remain unadopted.
 T4/B2/B3/B-F2 qualified closed; B4/liveP2/Unity/Owner acceptance NOT closed.
