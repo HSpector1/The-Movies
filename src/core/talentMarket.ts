@@ -34,6 +34,7 @@ import { recordPlayerEmployment } from './industryEmployment.js'
 import { activeContract, canAfford, contractOffer, guaranteedComp, renewalWindowOpen, terminationCost } from './employment.js'
 import type { ContractOffer, TerminationLaw } from './employment.js'
 import { attachPromise, attachedPromiseDigest, promiseFeasibility, proposalDigest, trustDescriptor } from './promises.js'
+import { tiersOnRoster } from './relationships.js'
 import type { PromiseAttachment } from './promises.js'
 import { careerIdentity } from './talentSummary.js'
 import { TUNING } from './tuning.js'
@@ -656,16 +657,17 @@ export function rivalProposalTrigger(
 // each reduced to a small BAND so near-equal offers TIE rather than differ by a
 // dollar; every band difference produces a typed, ordering-only reason.
 //
-// D3 (opportunity) and D4 (trust) GO LIVE with P14B.1: a promise and a trust
-// record are now real facts. D5 (relationships) stays NEUTRAL — no relationship
-// fact exists yet, so it would tie for every pair and is omitted rather than
-// faked. It arrives with P14B.2.
+// D3 (opportunity) and D4 (trust) went LIVE with P14B.1: a promise and a trust
+// record are real facts. D5 (relationships) goes LIVE with P14B.5: the first
+// shared-work bond is a real fact (`state.relationships`), read for the case's
+// subject against each issuer's roster AT W under the strict interval predicate
+// of `rosterAt` below — never a tie faked for a fact that did not exist.
 //
 // The band edges below marked HYPOTHESIS are NUMERICAL/CONTENT HYPOTHESIS per the
 // companion, not settled law; the RULE (bands, pairwise wins, dominance, the
 // public priority order) is what is settled.
 
-const DESCRIPTOR_ORDER = ['compensation', 'term', 'opportunity', 'trust', 'standing', 'incumbency'] as const
+const DESCRIPTOR_ORDER = ['compensation', 'term', 'opportunity', 'trust', 'relationships', 'standing', 'incumbency'] as const
 export type DescriptorKey = (typeof DESCRIPTOR_ORDER)[number]
 
 const DESCRIPTOR_REASON: Record<DescriptorKey, string> = {
@@ -673,6 +675,9 @@ const DESCRIPTOR_REASON: Record<DescriptorKey, string> = {
   term: 'their term matched what this person prefers',
   opportunity: 'they offered an opportunity',
   trust: 'their record with this person ranked above the others',
+  // P14B.5 (5): CANDIDATE WORDING; the contract is the sentence's CLASS —
+  // ordering-only, naming no person, tier or number.
+  relationships: "their roster holds this person's close ties",
   standing: 'their studio standing ranked higher',
   incumbency: 'they are the current employer',
 }
@@ -687,18 +692,17 @@ function isProven(state: GameState, talentId: string): boolean {
   return talent !== undefined && (careerIdentity(talent).identityDisciplines.length > 0 || talent.age >= 30)
 }
 
-/** §2.1.7's two archetype orders, reduced over the LIVE descriptors (only D5
- * relationships stays NEUTRAL — see DESCRIPTOR_ORDER above): capable-but-unproven
- * (opportunity, compensation, relationships, term, trust, Standing, incumbency) →
- * opportunity, compensation, term, trust, standing, incumbency; proven veterans
- * (compensation, term, trust, relationships, incumbency, Standing, opportunity) →
- * compensation, term, trust, incumbency, standing, opportunity. The P14A.1-F1 fix
- * is PRESERVED by this widening: compensation still precedes term for the
- * unproven branch, and incumbency still precedes Standing for the proven one. */
+/** §2.1.7's two archetype orders (companion :120), complete now that every
+ * descriptor is LIVE (P14B.5 restored D5 relationships at its companion
+ * positions): capable-but-unproven → opportunity, compensation, relationships,
+ * term, trust, Standing, incumbency; proven veterans → compensation, term, trust,
+ * relationships, incumbency, Standing, opportunity. The P14A.1-F1 fix is
+ * PRESERVED by this widening: compensation still precedes term for the unproven
+ * branch, and incumbency still precedes Standing for the proven one. */
 function priorityOrder(state: GameState, talentId: string): readonly DescriptorKey[] {
   return isProven(state, talentId)
-    ? (['compensation', 'term', 'trust', 'incumbency', 'standing', 'opportunity'] as const)
-    : (['opportunity', 'compensation', 'term', 'trust', 'standing', 'incumbency'] as const)
+    ? (['compensation', 'term', 'trust', 'relationships', 'incumbency', 'standing', 'opportunity'] as const)
+    : (['opportunity', 'compensation', 'relationships', 'term', 'trust', 'standing', 'incumbency'] as const)
 }
 
 /** HYPOTHESIS: the person's public term preference — a proven professional
@@ -776,12 +780,33 @@ function attachedFeasibility(state: GameState, proposal: TalentMarketProposal, w
   }, week)
 }
 
+/**
+ * P14B.5 (5)-(6): the ISSUER'S ROSTER AT W — every person (the subject excluded)
+ * on one of its `hollywood.employment` rows with `startWeek < W && (endedWeek ===
+ * null || W < endedWeek)`, STRICT at W on both ends (647-B D1). The `<=` form of
+ * `rivalProposalTrigger` is deliberately NOT used: a row committed earlier in the
+ * same settlement pass carries `startWeek === W`, and the pass runs in case array
+ * order, so under `<=` the first-settled case would see no friends and the last
+ * all of them. Under the strict form a row `finishHollywoodWeek` closed at W and a
+ * row the pass committed at W are both OFF the roster: this reads the roster as
+ * it stood when the pass began, which is order-independent.
+ */
+function rosterAt(hollywood: HollywoodState, issuerStudioId: string, subjectId: string, week: number): ReadonlySet<string> {
+  const roster = new Set<string>()
+  for (const row of hollywood.employment) {
+    if (row.studioId !== issuerStudioId || row.terms.talentId === subjectId) continue
+    if (row.terms.startWeek < week && (row.endedWeek === null || week < row.endedWeek)) roster.add(row.terms.talentId)
+  }
+  return roster
+}
+
 function bandsFor(
   state: GameState,
   proposals: readonly TalentMarketProposal[],
   kase: TalentMarketCase,
   week: number,
 ): Map<TalentMarketProposal, Record<DescriptorKey, number>> {
+  const hollywood = state.hollywood!
   const standings = proposals.map((p) => issuerStanding(state, p.issuerStudioId))
   const highest = Math.max(...standings)
   const lowest = Math.min(...standings)
@@ -810,7 +835,14 @@ function bandsFor(
     // at all, so the band's floor is only ever seen through the studio aggregate.
     const band = trustDescriptor(state, kase.talentId, p.issuerStudioId, week).label
     const trust = band === 'Reliable' ? 2 : band === 'Mixed record' ? 1 : 0
-    out.set(p, { compensation, term, opportunity, trust, standing, incumbency })
+    // D5 relationships (P14B.5 (5); companion :116): `close ties here` (2) iff a
+    // counterpart of the subject reads CloseFriends or Inseparable on the issuer's
+    // roster at W; `enemies here` (0) iff one reads Enemies or Nemeses and no close
+    // tie (precedence when both: OPEN 11, unreachable in B.5); else `none` (1).
+    const tiers = tiersOnRoster(state, kase.talentId, rosterAt(hollywood, p.issuerStudioId, kase.talentId, week), week)
+    const relationships = tiers.some((t) => t === 'CloseFriends' || t === 'Inseparable') ? 2
+      : tiers.some((t) => t === 'Enemies' || t === 'Nemeses') ? 0 : 1
+    out.set(p, { compensation, term, opportunity, trust, relationships, standing, incumbency })
   })
   return out
 }
@@ -1008,6 +1040,10 @@ export type FreezeDrop =
   | 'promiseNotFeasible'
   /** P14B.1 (8) / companion §2.1.7: the reservation predicate "not Distrusted". */
   | 'issuerDistrusted'
+  /** P14B.5 (6) / companion §2.1.7 :104: the reservation predicate "no Nemeses-tier
+   * relation of the person is on the issuer's roster". Enumerated; UNREACHABLE in
+   * B.5 by rule (Nemeses needs a conflict record, and B.5 mints none). */
+  | 'nemesisOnRoster'
 
 /** The studio as a person would name it; the id only if this world has no identity
  * for it (a state that could not have produced the proposal in the first place). */
@@ -1029,6 +1065,7 @@ const DROP_SENTENCE: Record<FreezeDrop, (studio: string) => string> = {
   noSeatForRole: (studio) => `${studio} had no seat open for this person's role at the decision week.`,
   promiseNotFeasible: (studio) => `${studio}'s attached promise no longer had a feasible path by the decision week.`,
   issuerDistrusted: (studio) => `${studio} holds a record this person distrusts.`,
+  nemesisOnRoster: (studio) => `${studio}'s roster holds someone this person will not work beside.`,
 }
 
 /**
@@ -1065,6 +1102,9 @@ function survivesFreeze(
   // ahead of the rival seat budget for exactly that reason: "I will not work for
   // them" is not a fact about whether they had a chair free.
   if (trustDescriptor(state, proposal.talentId, proposal.issuerStudioId, week).label === 'Distrusted') return 'issuerDistrusted'
+  // Reservation, P14B.5 (6): "I will not work beside them" — the SAME roster
+  // helper and predicate the D5 band reads. Unreachable in B.5 (no conflict record).
+  if (tiersOnRoster(state, proposal.talentId, rosterAt(hollywood, proposal.issuerStudioId, proposal.talentId, week), week).includes('Nemeses')) return 'nemesisOnRoster'
   if (subjectTerms(state, proposal.talentId, week) !== undefined) return 'subjectCommittedElsewhere'
   if (proposal.startWeek !== week) return 'startWeekMoved'
   // The seat budget binds a RIVAL only. The player's roster law is P10's and has no
