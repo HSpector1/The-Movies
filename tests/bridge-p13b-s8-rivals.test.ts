@@ -220,9 +220,9 @@ const DIVERGENT_WEEK13 = advanceTo(commitPlacement(p13aGeneratedStudio('p13b-s8-
 
 describe('P13B-S8-T3 item 1: projection version bump 40 -> 41; converted flag', () => {
   it('bumps PROJECTION_VERSION to 41 and its schema $id / x-project-studio.projectionVersion move with it', () => {
-    expect(PROJECTION_VERSION).toBe(48) // RED: today PROJECTION_VERSION is 40
-    expect(BRIDGE_SCHEMA.$id).toContain('projection-48')
-    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(48)
+    expect(PROJECTION_VERSION).toBe(49) // RED: today PROJECTION_VERSION is 40
+    expect(BRIDGE_SCHEMA.$id).toContain('projection-49')
+    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(49)
   })
 
   it('converted: false for a genuine current live-version save, round-tripped through save()/load() on the SAME session (regression guard — matches tests/bridge-p13b-r07-setup.test.ts\'s own now-fixed case)', () => {

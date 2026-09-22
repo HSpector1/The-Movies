@@ -1,0 +1,19 @@
+{
+  "sourceSha": "d749b3eae74534d857a341bf1b8ed29c2452bf63",
+  "testedDiffSha256": "d40337a0764f907905ca990c45b5127f1e9966630fca93b140a665ec2dd89235",
+  "untrackedSource": [],
+  "command": [
+    "node_modules/.bin/vite-node",
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/700-gen-hash-probe.ts"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-22T19:44:00.204Z",
+  "end": "2026-09-22T19:44:01.914Z",
+  "exitCode": 0,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "d749b3eae74534d857a341bf1b8ed29c2452bf63",
+  "testedDiffSha256AtEnd": "d40337a0764f907905ca990c45b5127f1e9966630fca93b140a665ec2dd89235",
+  "untrackedSourceAtEnd": [],
+  "fixedSource": true
+}

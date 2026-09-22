@@ -214,9 +214,9 @@ function marketQuery(sessionId: string, targetId: string | null, page = 0, histo
 
 describe('group 1: PROJECTION_VERSION 46 / schema / view market / converted law', () => {
   it('PROJECTION_VERSION is 46; the schema $id and x-project-studio.projectionVersion move with it', () => {
-    expect(PROJECTION_VERSION).toBe(48)
-    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${String(PROTOCOL_VERSION)}:projection-48`)
-    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(48)
+    expect(PROJECTION_VERSION).toBe(49)
+    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${String(PROTOCOL_VERSION)}:projection-49`)
+    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(49)
   })
 
   it('a view:"market" industry request validates against the wire schema, and marketPage answers it', () => {

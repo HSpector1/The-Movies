@@ -1,0 +1,571 @@
+diff --git a/tests/bridge-contract-generator.test.ts b/tests/bridge-contract-generator.test.ts
+index ad71d7c8..ff8b6415 100644
+--- a/tests/bridge-contract-generator.test.ts
++++ b/tests/bridge-contract-generator.test.ts
+@@ -559,12 +559,12 @@ describe('CF-08 sound union-to-C# generation', () => {
+       // literal below is the schemaId of the checked-in
+       // generated/unity/project-studio-bridge.contract-manifest.json at 040651b4,
+       // read independently of this test (never schemaIdentity(schema) itself).
+-      const generated = generateCsharpContract({ schema, protocolVersion: 4, projectionVersion: 48 })
++      const generated = generateCsharpContract({ schema, protocolVersion: 4, projectionVersion: 49 })
+       expect(generated).toContain(
+-        '// Schema identity: sha256:00c0075bef257634956da7d16d117a145d203047e7169c643156b7971c4c7fec',
++        '// Schema identity: sha256:60af24c58bc4bea8f04e7fc818f8401daeadd87da91252e60cfcf3ee028d8e1b',
+       )
+       expect(schemaIdentity(schema)).toBe(
+-        'sha256:00c0075bef257634956da7d16d117a145d203047e7169c643156b7971c4c7fec',
++        'sha256:60af24c58bc4bea8f04e7fc818f8401daeadd87da91252e60cfcf3ee028d8e1b',
+       )
+       expect(generated).toContain('public sealed partial class StudioQuoteCastingRequest : StudioBridgeQuoteRequest')
+       expect(generated).toContain('public StudioCastingDraftPayload draft;')
+diff --git a/tests/bridge-operations-events.test.ts b/tests/bridge-operations-events.test.ts
+index 373f9298..9a59d686 100644
+--- a/tests/bridge-operations-events.test.ts
++++ b/tests/bridge-operations-events.test.ts
+@@ -320,7 +320,7 @@ describe('R3-N7-SIM-01 — operationsEventsProjection (projection 32)', () => {
+       .toEqual(projection.rows.filter((row) => row.tier === 'permanent').map((row) => row.seq))
+   })
+ 
+-  it('L6 is pure, mutates nothing, and validates inside the served projection-48 envelope', () => {
++  it('L6 is pure, mutates nothing, and validates inside the served projection-49 envelope', () => {
+     const state = studio()
+     const before = digest(state)
+     expect(stableStringify(operationsEventsProjection(state)))
+@@ -330,7 +330,7 @@ describe('R3-N7-SIM-01 — operationsEventsProjection (projection 32)', () => {
+     const response = new BridgeSession(state, 'r3n7-operations-events').snapshot()
+     expect(() => parseWireValue(BRIDGE_SCHEMA.$defs.StudioBridgeSnapshotResponse, response)).not.toThrow()
+     expect(response.snapshotVersion).toBe(PROJECTION_VERSION)
+-    expect(PROJECTION_VERSION).toBe(48)
++    expect(PROJECTION_VERSION).toBe(49)
+     const served = response.snapshot.operationsEvents.operationsEvents
+     // The served section is the projection itself — no re-derivation on the way out.
+     expect(stableStringify(served)).toBe(stableStringify(operationsEventsProjection(state)))
+diff --git a/tests/bridge-owner-ux-projection20-migration.test.ts b/tests/bridge-owner-ux-projection20-migration.test.ts
+index 248af5e6..c271bf20 100644
+--- a/tests/bridge-owner-ux-projection20-migration.test.ts
++++ b/tests/bridge-owner-ux-projection20-migration.test.ts
+@@ -62,7 +62,7 @@ describe('Owner UX outgoing projection20 migration', () => {
+     expect(sha(beforeBytes)).toBe('88049d4408573de3a36a56957c2b8d3aed36655b9b3dbadc68da7bef991a8510')
+     expect(sha(afterBytes)).toBe('a02fd2ac61c4dab71327cc685d0649da005c43f3834e47366f63a46318dfd10b')
+     expect(PROTOCOL_VERSION).toBe(4)
+-    expect(PROJECTION_VERSION).toBe(48)
++    expect(PROJECTION_VERSION).toBe(49)
+     expect(SCHEMA_ID).not.toBe(P20_SCHEMA)
+     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(P20_SCHEMA)).toBe('projection-v20')
+     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)
+diff --git a/tests/bridge-owner-ux-projection21-schema.test.ts b/tests/bridge-owner-ux-projection21-schema.test.ts
+index 5c954099..6785ce6e 100644
+--- a/tests/bridge-owner-ux-projection21-schema.test.ts
++++ b/tests/bridge-owner-ux-projection21-schema.test.ts
+@@ -15,8 +15,8 @@ function control(s: BridgeSession, commandId: string) {
+ describe('Owner UX projection21 public field wire boundary', () => {
+   it('pins the intended version and required envelope/profile fields independently', () => {
+     expect(PROTOCOL_VERSION).toBe(4)
+-    expect(PROJECTION_VERSION).toBe(48)
+-    expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-48')
++    expect(PROJECTION_VERSION).toBe(49)
++    expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-49')
+     expect(BRIDGE_SCHEMA.$defs.StudioPersonProfileSnapshot.required).toContain('genreExperience')
+     for (const definition of [BRIDGE_SCHEMA.$defs.StudioBridgeSnapshotResponse,
+       BRIDGE_SCHEMA.$defs.StudioBridgeAcceptedCommandResponse, BRIDGE_SCHEMA.$defs.StudioBridgeSaveResponse]) {
+diff --git a/tests/bridge-p10a-w0-people-projection.test.ts b/tests/bridge-p10a-w0-people-projection.test.ts
+index ecc94929..99b4c330 100644
+--- a/tests/bridge-p10a-w0-people-projection.test.ts
++++ b/tests/bridge-p10a-w0-people-projection.test.ts
+@@ -318,8 +318,8 @@ describe('P10A W0 — people projection', () => {
+   it('R9 the served section is projection 32 and the projection-17/18 identities stay accepted', () => {
+     const state = foundStudio('p10-w0-schema')
+     // Owner UX adds explicit public genre cells and saved-slot envelope metadata.
+-    expect(PROJECTION_VERSION).toBe(48)
+-    expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-48')
++    expect(PROJECTION_VERSION).toBe(49)
++    expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-49')
+     const context = snapshotBuildContextFor(state)
+     const bundle = projectStudioProjectionBundle({ ...context.lotSnapshot(), development: context.development(), casting: context.casting(), release: context.release(), history: context.history(), operationsEvents: context.operationsEvents(), talent: context.people(), finance: context.finance(), industry: context.industry() })
+     expect(bundle.talent.talent.profiles.length).toBe(state.talent.length)
+diff --git a/tests/bridge-p11-capital-contributors.test.ts b/tests/bridge-p11-capital-contributors.test.ts
+index f970d7a1..da014b7b 100644
+--- a/tests/bridge-p11-capital-contributors.test.ts
++++ b/tests/bridge-p11-capital-contributors.test.ts
+@@ -21,7 +21,7 @@ function capitalStudio() {
+ 
+ describe('P11 recorded facility capital contributors over the real bridge', () => {
+   it('hydrates genuine outgoing projection24 and joins four original payments to exact construction events', () => {
+-    expect(PROJECTION_VERSION).toBe(48)
++    expect(PROJECTION_VERSION).toBe(49)
+     expect(SCHEMA_ID).not.toBe(oldSchema)
+     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(oldSchema)).toBe('projection-v24')
+     const session = capitalStudio()
+diff --git a/tests/bridge-p11-ready.test.ts b/tests/bridge-p11-ready.test.ts
+index efa181b6..6bf0f954 100644
+--- a/tests/bridge-p11-ready.test.ts
++++ b/tests/bridge-p11-ready.test.ts
+@@ -49,7 +49,7 @@ function packageDraft(state: GameState, projectId: string): BridgeCastingDraftPa
+ 
+ describe('P11 ready Upcoming and discarded financial successors', () => {
+   it('migrates authentic core25 without relabeling its bytes; strict26 includes a nullable Week0 history', () => {
+-    expect(PROJECTION_VERSION).toBe(48)
++    expect(PROJECTION_VERSION).toBe(49)
+     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get('sha256:fe9bf4558dc12abc5f258ba8b8f581242e06361cfbae8ae31d8c676f6c7a6460')).toBe('projection-v25')
+     const state = fixture('s5-p11-steady')
+     const snapshot = new BridgeSession(state, 'ready-week0').snapshot()
+diff --git a/tests/bridge-p13b-r07-setup.test.ts b/tests/bridge-p13b-r07-setup.test.ts
+index aa728803..5327d626 100644
+--- a/tests/bridge-p13b-r07-setup.test.ts
++++ b/tests/bridge-p13b-r07-setup.test.ts
+@@ -317,9 +317,9 @@ function lightingBallroomAtRehearsal(): GameState {
+ 
+ describe('P13B-S5-R07-T3 bridge projection bump (37 -> 38; 46 after the P14B.2 bump)', () => {
+   it('PROJECTION_VERSION is 40; schema $id and x-project-studio.projectionVersion move with it', () => {
+-    expect(PROJECTION_VERSION).toBe(48)
+-    expect(BRIDGE_SCHEMA.$id).toContain('projection-48')
+-    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(48)
++    expect(PROJECTION_VERSION).toBe(49)
++    expect(BRIDGE_SCHEMA.$id).toContain('projection-49')
++    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(49)
+   })
+   it('AVAILABLE_INTENT_KINDS gains productionSetupAction, distinct from every existing kind', () => {
+     expect((AVAILABLE_INTENT_KINDS as readonly string[])).toContain('productionSetupAction')
+diff --git a/tests/bridge-p13b-s1b-seats.test.ts b/tests/bridge-p13b-s1b-seats.test.ts
+index 3034fdd7..f105a4e5 100644
+--- a/tests/bridge-p13b-s1b-seats.test.ts
++++ b/tests/bridge-p13b-s1b-seats.test.ts
+@@ -73,7 +73,7 @@ function identityFixture(seed: string, idA: string, idB: string) {
+ 
+ describe('P13B-S1b Laboratory seats read model (projection 46 after P14B.2)', () => {
+   it('bumps PROJECTION_VERSION to the S1b wire contract (33; 46 after the P14B.2 bump)', () => {
+-    expect(PROJECTION_VERSION).toBe(48)
++    expect(PROJECTION_VERSION).toBe(49)
+   })
+ 
+   let entry: GameState
+@@ -99,7 +99,7 @@ describe('P13B-S1b Laboratory seats read model (projection 46 after P14B.2)', ()
+ 
+   it('a. fresh Laboratory with no project publishes empty seats/receipts, zero weekly and snapshotVersion 38', () => {
+     const page = readLaboratory(entry, entryLabFacilityId)
+-    expect(page.snapshotVersion).toBe(48)
++    expect(page.snapshotVersion).toBe(49)
+     expect(page.laboratory!.seats).toEqual([])
+     expect(page.laboratory!.receipts).toEqual([])
+     expect(page.laboratory!.weekly).toEqual({ ceiling: 0, usable: 0, seats: 0, output: 0, units: 0, labs: [] })
+diff --git a/tests/bridge-p13b-s2-labs.test.ts b/tests/bridge-p13b-s2-labs.test.ts
+index f2d0f1b8..1f2e2a64 100644
+--- a/tests/bridge-p13b-s2-labs.test.ts
++++ b/tests/bridge-p13b-s2-labs.test.ts
+@@ -112,7 +112,7 @@ function dispatch(session: BridgeSession, buildingId: string, rowId: string): vo
+ 
+ describe('P13B-S2 T6 Laboratory bridge page: projection bump', () => {
+   it('bumps PROJECTION_VERSION to the S2 wire contract (34; 38 after the S5-R07-T3 bump)', () => {
+-    expect(PROJECTION_VERSION).toBe(48)
++    expect(PROJECTION_VERSION).toBe(49)
+   })
+ })
+ 
+@@ -123,7 +123,7 @@ describe('case 1: a fresh Laboratory publishes snapshotVersion 38 and an empty p
+     const buildingId = buildingIdOf(state, laboratoryFacilityId)
+     const session = new BridgeSession(state, 'p13b-s2-labs-1-fresh')
+     const response = labResponse(session, buildingId, nextRequestId('fresh'))
+-    expect(response.snapshotVersion).toBe(48)
++    expect(response.snapshotVersion).toBe(49)
+     expect(response.laboratory.projects).toEqual([])
+   })
+ })
+diff --git a/tests/bridge-p13b-s3-plans.test.ts b/tests/bridge-p13b-s3-plans.test.ts
+index 7bf1aee8..38223184 100644
+--- a/tests/bridge-p13b-s3-plans.test.ts
++++ b/tests/bridge-p13b-s3-plans.test.ts
+@@ -199,7 +199,7 @@ function ownPlans<T extends { studioId: string }>(state: { physicalPlans: { plan
+ 
+ describe('P13B-S3-T4 plans bridge page: projection bump', () => {
+   it('bumps PROJECTION_VERSION to the S3-T4 wire contract (35; 38 after the S5-R07-T3 bump)', () => {
+-    expect(PROJECTION_VERSION).toBe(48)
++    expect(PROJECTION_VERSION).toBe(49)
+   })
+ })
+ 
+@@ -211,7 +211,7 @@ describe('case 1: a fresh studio publishes an empty plans page; plans is null of
+     const session = new BridgeSession(state, 'p13b-s3-plans-1-fresh')
+ 
+     const plans = plansResponse(session, nextRequestId('fresh'))
+-    expect(plans.snapshotVersion).toBe(48)
++    expect(plans.snapshotVersion).toBe(49)
+     expect(plans.plans.rows).toEqual([])
+     expect(plans.plans.actions).toEqual([])
+ 
+diff --git a/tests/bridge-p13b-s4-office.test.ts b/tests/bridge-p13b-s4-office.test.ts
+index ccf66052..797e724f 100644
+--- a/tests/bridge-p13b-s4-office.test.ts
++++ b/tests/bridge-p13b-s4-office.test.ts
+@@ -221,7 +221,7 @@ function laboratoryBuildingId(state: GameState): string {
+ 
+ describe('P13B-S4-T3 office bridge page: projection bump', () => {
+   it('bumps PROJECTION_VERSION to the S4-T3 wire contract (36)', () => {
+-    expect(PROJECTION_VERSION).toBe(48)
++    expect(PROJECTION_VERSION).toBe(49)
+   })
+ })
+ 
+@@ -232,7 +232,7 @@ describe('case 1: the founding office at week 12 — full quote parity on the wi
+     const session = new BridgeSession(state, 'p13b-s4-office-1-fresh')
+ 
+     const response = officeResponse(session, facilityId, nextRequestId('fresh'))
+-    expect(response.snapshotVersion).toBe(48)
++    expect(response.snapshotVersion).toBe(49)
+     const office = response.office
+     expect(office.facilityId).toBe(facilityId)
+     expect(office.standard).toBe('I')
+diff --git a/tests/bridge-p13b-s5-adoption.test.ts b/tests/bridge-p13b-s5-adoption.test.ts
+index b35f2c4e..f1d1cbbe 100644
+--- a/tests/bridge-p13b-s5-adoption.test.ts
++++ b/tests/bridge-p13b-s5-adoption.test.ts
+@@ -247,9 +247,9 @@ function dispatchRow(session: BridgeSession, actions: readonly WireAction[], row
+ 
+ describe('P13B-S5-T4 bridge adoption wire: projection bump (36 -> 37)', () => {
+   it('bumps PROJECTION_VERSION to 37 and its schema $id / x-project-studio.projectionVersion move with it', () => {
+-    expect(PROJECTION_VERSION).toBe(48)
+-    expect(BRIDGE_SCHEMA.$id).toContain('projection-48')
+-    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(48)
++    expect(PROJECTION_VERSION).toBe(49)
++    expect(BRIDGE_SCHEMA.$id).toContain('projection-49')
++    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(49)
+   })
+   it('AVAILABLE_INTENT_KINDS gains the adoptTechnology kind, distinct from researchAction/installationAction/physicalPlanAction', () => {
+     expect((AVAILABLE_INTENT_KINDS as readonly string[])).toContain('adoptTechnology')
+diff --git a/tests/bridge-p13b-s6-cancellation.test.ts b/tests/bridge-p13b-s6-cancellation.test.ts
+index 26ce0321..18fd6ae3 100644
+--- a/tests/bridge-p13b-s6-cancellation.test.ts
++++ b/tests/bridge-p13b-s6-cancellation.test.ts
+@@ -267,9 +267,9 @@ function ownPlans<T extends { studioId: string }>(state: { physicalPlans: { plan
+ 
+ describe('P13B-S6-T3 item 1: projection version bump (38 -> 39; 46 after the P14B.2 bump) and the cancellationAction intent kind', () => {
+   it('bumps PROJECTION_VERSION to 41 and its schema $id / x-project-studio.projectionVersion move with it', () => {
+-    expect(PROJECTION_VERSION).toBe(48)
+-    expect(BRIDGE_SCHEMA.$id).toContain('projection-48')
+-    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(48)
++    expect(PROJECTION_VERSION).toBe(49)
++    expect(BRIDGE_SCHEMA.$id).toContain('projection-49')
++    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(49)
+   })
+   it('AVAILABLE_INTENT_KINDS gains cancellationAction, distinct from researchAction/installationAction/physicalPlanAction/adoptTechnology', () => {
+     const kinds = AVAILABLE_INTENT_KINDS as readonly string[]
+diff --git a/tests/bridge-p13b-s7-disclosure.test.ts b/tests/bridge-p13b-s7-disclosure.test.ts
+index a5085d5c..1f654aa4 100644
+--- a/tests/bridge-p13b-s7-disclosure.test.ts
++++ b/tests/bridge-p13b-s7-disclosure.test.ts
+@@ -267,9 +267,9 @@ const S936 = advanceTo(S900, 936) // lighting: exact, commercial access open
+ 
+ describe('P13B-S7-T3 item 1: projection version bump 39 -> 40; 46 after the P14B.2 bump', () => {
+   it('bumps PROJECTION_VERSION to 41 and its schema $id / x-project-studio.projectionVersion move with it', () => {
+-    expect(PROJECTION_VERSION).toBe(48)
+-    expect(BRIDGE_SCHEMA.$id).toContain('projection-48')
+-    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(48)
++    expect(PROJECTION_VERSION).toBe(49)
++    expect(BRIDGE_SCHEMA.$id).toContain('projection-49')
++    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(49)
+   })
+ })
+ 
+diff --git a/tests/bridge-p13b-s8-rivals.test.ts b/tests/bridge-p13b-s8-rivals.test.ts
+index b8d20547..c21868f3 100644
+--- a/tests/bridge-p13b-s8-rivals.test.ts
++++ b/tests/bridge-p13b-s8-rivals.test.ts
+@@ -220,9 +220,9 @@ const DIVERGENT_WEEK13 = advanceTo(commitPlacement(p13aGeneratedStudio('p13b-s8-
+ 
+ describe('P13B-S8-T3 item 1: projection version bump 40 -> 41; converted flag', () => {
+   it('bumps PROJECTION_VERSION to 41 and its schema $id / x-project-studio.projectionVersion move with it', () => {
+-    expect(PROJECTION_VERSION).toBe(48) // RED: today PROJECTION_VERSION is 40
+-    expect(BRIDGE_SCHEMA.$id).toContain('projection-48')
+-    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(48)
++    expect(PROJECTION_VERSION).toBe(49) // RED: today PROJECTION_VERSION is 40
++    expect(BRIDGE_SCHEMA.$id).toContain('projection-49')
++    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(49)
+   })
+ 
+   it('converted: false for a genuine current live-version save, round-tripped through save()/load() on the SAME session (regression guard — matches tests/bridge-p13b-r07-setup.test.ts\'s own now-fixed case)', () => {
+diff --git a/tests/bridge-p14a1-market.test.ts b/tests/bridge-p14a1-market.test.ts
+index 85296240..4a8e6f40 100644
+--- a/tests/bridge-p14a1-market.test.ts
++++ b/tests/bridge-p14a1-market.test.ts
+@@ -149,9 +149,9 @@ function employmentQuery(sessionId: string, targetId: string): IndustryQuery {
+ 
+ describe('group 1: PROJECTION_VERSION', () => {
+   it('PROJECTION_VERSION is 46; the schema $id and x-project-studio.projectionVersion move with it', () => {
+-    expect(PROJECTION_VERSION).toBe(48)
+-    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${String(PROTOCOL_VERSION)}:projection-48`)
+-    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(48)
++    expect(PROJECTION_VERSION).toBe(49)
++    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${String(PROTOCOL_VERSION)}:projection-49`)
++    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(49)
+   })
+ })
+ 
+diff --git a/tests/bridge-p14a2-market.test.ts b/tests/bridge-p14a2-market.test.ts
+index dba9c5f8..62b01095 100644
+--- a/tests/bridge-p14a2-market.test.ts
++++ b/tests/bridge-p14a2-market.test.ts
+@@ -214,9 +214,9 @@ function marketQuery(sessionId: string, targetId: string | null, page = 0, histo
+ 
+ describe('group 1: PROJECTION_VERSION 46 / schema / view market / converted law', () => {
+   it('PROJECTION_VERSION is 46; the schema $id and x-project-studio.projectionVersion move with it', () => {
+-    expect(PROJECTION_VERSION).toBe(48)
+-    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${String(PROTOCOL_VERSION)}:projection-48`)
+-    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(48)
++    expect(PROJECTION_VERSION).toBe(49)
++    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${String(PROTOCOL_VERSION)}:projection-49`)
++    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(49)
+   })
+ 
+   it('a view:"market" industry request validates against the wire schema, and marketPage answers it', () => {
+diff --git a/tests/bridge-p14a3-world.test.ts b/tests/bridge-p14a3-world.test.ts
+index c11589bb..182612dc 100644
+--- a/tests/bridge-p14a3-world.test.ts
++++ b/tests/bridge-p14a3-world.test.ts
+@@ -226,9 +226,9 @@ function studioQuery(sessionId: string, targetId: string): IndustryQuery {
+ 
+ describe('group 1: PROJECTION_VERSION 46 / schema / converted law', () => {
+   it('PROJECTION_VERSION is 46; the schema $id and x-project-studio.projectionVersion move with it', () => {
+-    expect(PROJECTION_VERSION).toBe(48)
+-    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${String(PROTOCOL_VERSION)}:projection-48`)
+-    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(48)
++    expect(PROJECTION_VERSION).toBe(49)
++    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${String(PROTOCOL_VERSION)}:projection-49`)
++    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(49)
+   })
+ 
+   it('personWorldRoute answers for a freshly signed actor with no case yet — reach playerLot, statusLine null, caseRef null', () => {
+diff --git a/tests/bridge-p14b1-promises.test.ts b/tests/bridge-p14b1-promises.test.ts
+index 5a8396cf..0e6e743a 100644
+--- a/tests/bridge-p14b1-promises.test.ts
++++ b/tests/bridge-p14b1-promises.test.ts
+@@ -205,9 +205,9 @@ function containsNumber(value: unknown, target: number): boolean {
+ describe('group 1: PROJECTION_VERSION / LIVE_SAVE_VERSION', () => {
+   it('LIVE_SAVE_VERSION is 30 and the live promise surface carries projection 47 after the P14B.4 cutover (record 600 / 616)', () => {
+     expect(LIVE_SAVE_VERSION).toBe(31)
+-    expect(PROJECTION_VERSION).toBe(48)
+-    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${String(PROTOCOL_VERSION)}:projection-48`)
+-    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(48)
++    expect(PROJECTION_VERSION).toBe(49)
++    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${String(PROTOCOL_VERSION)}:projection-49`)
++    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(49)
+   })
+ })
+ 
+diff --git a/tests/bridge-p14b2-trust.test.ts b/tests/bridge-p14b2-trust.test.ts
+index e8aa9af4..e52a5033 100644
+--- a/tests/bridge-p14b2-trust.test.ts
++++ b/tests/bridge-p14b2-trust.test.ts
+@@ -131,10 +131,10 @@ describe('P14B.2 group1 — projection46, unchanged Save29/intents, closed wire
+   it('pins the exact version, old-five-plus-two attention enum and unchanged intent vocabulary', () => {
+     const state = p13aGeneratedStudio()
+     readModels(state, state.talent[0]!.id)
+-    expect(PROJECTION_VERSION).toBe(48)
++    expect(PROJECTION_VERSION).toBe(49)
+     expect(LIVE_SAVE_VERSION).toBe(31)
+-    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${PROTOCOL_VERSION}:projection-48`)
+-    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(48)
++    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${PROTOCOL_VERSION}:projection-49`)
++    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(49)
+     const attentionSchema = schemaDefinition('StudioMarketAttentionRowSnapshot') as unknown as { properties: { cause: { enum: string[] } } }
+     expect(attentionSchema.properties.cause.enum).toEqual(['decisionWeekNear', 'newCompetingProposal', 'termsRevised',
+       'settlementCompleted', 'proposalWouldFail', 'promiseDue', 'promiseOutcome'])
+diff --git a/tests/bridge-p14b3-promise-command.test.ts b/tests/bridge-p14b3-promise-command.test.ts
+index 431f6495..47310758 100644
+--- a/tests/bridge-p14b3-promise-command.test.ts
++++ b/tests/bridge-p14b3-promise-command.test.ts
+@@ -499,7 +499,7 @@ describe('P14B.3: real settlement/outcome, V29 and B2 public/private carriers',
+     const saved = saveSlot(completed)
+     const validated = validateSaveV31(JSON.parse(saved))
+     expect(LIVE_SAVE_VERSION).toBe(31)
+-    expect(PROJECTION_VERSION).toBe(48)
++    expect(PROJECTION_VERSION).toBe(49)
+     expect(validated.saveVersion).toBe(31)
+     const reloaded = BridgeSession.fromSaveJson(saved, 'b3-outcome-reloaded')
+     const read = (world: GameState) => ({ trust: trustBlockFor(world, talentId, player(world)),
+diff --git a/tests/bridge-p14b4-runtime47-compatibility.test.ts b/tests/bridge-p14b4-runtime47-compatibility.test.ts
+index 42cbbcde..42755e04 100644
+--- a/tests/bridge-p14b4-runtime47-compatibility.test.ts
++++ b/tests/bridge-p14b4-runtime47-compatibility.test.ts
+@@ -34,10 +34,14 @@ const PINS = {
+   closeout: '6f6e425314107a7f0050739becb5f97adede58de94d7631a6f5bf25de8abfc81',
+   minter: '58e3a9554026089616f96c309cc4dc1ad6b909c87936c9c129165fb77c96c5b6',
+ } as const
+-// All 34 accepted predecessor literal pins, plus the independently minted outgoing46
+-// and (P14B.5) the independently minted outgoing47.
++// All 34 accepted predecessor literal pins, plus the independently minted outgoing46,
++// (P14B.5) the independently minted outgoing47 and (P14B.6) the independently minted outgoing48.
+ // Do not derive this expected list from the registry. Missing32–44 are a separate backlog.
+ const EXPECTED_PRIOR_IDS = [
++  // P14B.6 (700-T2 sweep): the OUTGOING projection-48 identity — the checked-in
++  // contract-manifest schemaId before the projection-49 bump (ad49031f^), read
++  // independently (tests/fixtures/p14/genuine-projection48-runtime/MANIFEST.json).
++  'sha256:00c0075bef257634956da7d16d117a145d203047e7169c643156b7971c4c7fec',
+   'sha256:01f15efc8fc33fd810b051242857385ca23b5e1c775b357db1bfe5a70e907e1e',
+   'sha256:0285e92f32c27cd2960df802b3f7ea156a15372f05001ad1f4964c2f25db55b5',
+   'sha256:0474ceafd6c148f329fe99eac328c79ed0b0caf906e0f7442b7f3cf0fe40cb4f',
+@@ -164,9 +168,9 @@ describe('P14B4 genuine outgoing46 runtime compatibility — future Save30/proje
+     expect(current.state.talentMarket.proposals.filter((p) => p.promises.includes('promise-0'))).toEqual([])
+   })
+ 
+-  it('requires literal projection48/Save31 and exact 36 prior IDs, excluding the running identity', () => {
++  it('requires literal projection49/Save31 and exact 37 prior IDs, excluding the running identity', () => {
+     expect(PROTOCOL_VERSION).toBe(4)
+-    expect(PROJECTION_VERSION).toBe(48)
++    expect(PROJECTION_VERSION).toBe(49)
+     expect(LIVE_SAVE_VERSION).toBe(31)
+     expect(SCHEMA_ID).not.toBe(OUTGOING_46)
+     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)
+diff --git a/tests/bridge-p14b5-relationships.test.ts b/tests/bridge-p14b5-relationships.test.ts
+index e53e54c4..c7fd8c8f 100644
+--- a/tests/bridge-p14b5-relationships.test.ts
++++ b/tests/bridge-p14b5-relationships.test.ts
+@@ -14,8 +14,8 @@
+ //   (e) `preferences.priorityOrder` publishes SEVEN members on a genuine open case and the D5 settlement sentence
+ //       reaches `settlementReasons` VERBATIM (people.ts :998, free text, no enum);
+ //   (f) the leak law extends to the new facts: no `closeness`, no edge, no `recent` delta on any serialized DTO.
+-// The FROZEN SIDE (R-VERSION class, re-expressed by the test-author's 662-T2 sweep after T2): projection 48
+-// (47 outgoing), `SCHEMA_ID` = sha256:00c0075b… (6f6b4880… outgoing), 36 prior ids, `LIVE_SAVE_VERSION` 31, the
++// The FROZEN SIDE (R-VERSION class, re-expressed by the test-author's 700-T2 sweep after P14B.6): projection 49
++// (48 outgoing), `SCHEMA_ID` = sha256:60af24c5… (00c0075b… outgoing), 37 prior ids, `LIVE_SAVE_VERSION` 31, the
+ // projection-47 checkpoint taking the governed prior path.
+ //
+ // Anything that needs the engine's new module is reached through a DYNAMIC import inside the case, so this file
+@@ -56,8 +56,11 @@ import type { GameState, TalentMarketCase, TalentMarketReceipt } from '../src/co
+ 
+ const OUTGOING_46 = 'sha256:584bdd8565030f049d548b1af4fcbf8c517ca7c9150016736f632f1ef8fcb98c'
+ const OUTGOING_47 = 'sha256:6f6b48805aadcf14d456614d87bf1571eb1ce0d9aa0bc44f604e7976f4f85538' // T0 MANIFEST authority.schemaId
++// P14B.6 (700-T2 sweep): the OUTGOING projection-48 identity, minted at 43817117 and frozen in
++// tests/fixtures/p14/genuine-projection48-runtime/MANIFEST.json; registered as projection-v48 by ad49031f.
++const OUTGOING_48 = 'sha256:00c0075bef257634956da7d16d117a145d203047e7169c643156b7971c4c7fec'
+ const OUTGOING_PROJECTION = 47
+-// The 35 accepted prior literals (tests/bridge-p14b4-runtime47-compatibility.test.ts :39-75); never derived from the registry.
++// The 35 accepted prior literals (tests/bridge-p14b4-runtime47-compatibility.test.ts :41-83); never derived from the registry.
+ const EXPECTED_35_PRIOR_IDS = [
+   'sha256:01f15efc8fc33fd810b051242857385ca23b5e1c775b357db1bfe5a70e907e1e', 'sha256:0285e92f32c27cd2960df802b3f7ea156a15372f05001ad1f4964c2f25db55b5',
+   'sha256:0474ceafd6c148f329fe99eac328c79ed0b0caf906e0f7442b7f3cf0fe40cb4f', 'sha256:15033cf9ca43be65abcb25fc6f910f9487ac23056090126ec7d3e2353f6ce587',
+@@ -280,16 +283,16 @@ const wireEnum = (): string[] => {
+ }
+ 
+ // ─────────────────────────────────────────────────────────────────────────────────────────────────────
+-describe('P14B.5 frozen side — the OUTGOING wire identities (R-VERSION class, re-expressed by 662-T2 after T2 landed projection 48 / Save V31)', () => {
+-  it('projection 48 (47 outgoing), SCHEMA_ID sha256:00c0075b… (6f6b4880… outgoing), LIVE_SAVE_VERSION 31, exactly the 35 accepted prior ids PLUS the outgoing 47 with projection-v46 and projection-v47 registered', () => {
++describe('P14B.5 frozen side — the OUTGOING wire identities (R-VERSION class, re-expressed by 700-T2 after P14B.6 landed projection 49 / Save V31 unchanged)', () => {
++  it('projection 49 (48 outgoing), SCHEMA_ID sha256:60af24c5… (00c0075b… outgoing), LIVE_SAVE_VERSION 31, exactly the 35 accepted prior ids PLUS the outgoing 47 and 48 with projection-v46 and projection-v47 registered', () => {
+     expect(PROTOCOL_VERSION).toBe(4)
+-    expect(PROJECTION_VERSION).toBe(48)
++    expect(PROJECTION_VERSION).toBe(49)
+     expect(OUTGOING_PROJECTION).toBe(47)
+-    // The checked-in contract-manifest schemaId at 040651b4, read independently of this test.
+-    expect(SCHEMA_ID).toBe('sha256:00c0075bef257634956da7d16d117a145d203047e7169c643156b7971c4c7fec')
++    // The checked-in contract-manifest schemaId at ad49031f, read independently of this test.
++    expect(SCHEMA_ID).toBe('sha256:60af24c58bc4bea8f04e7fc818f8401daeadd87da91252e60cfcf3ee028d8e1b')
+     expect(SCHEMA_ID).not.toBe(OUTGOING_47)
+     expect(LIVE_SAVE_VERSION).toBe(31)
+-    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_35_PRIOR_IDS, OUTGOING_47].sort())
++    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_35_PRIOR_IDS, OUTGOING_47, OUTGOING_48].sort())
+     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_46)).toBe('projection-v46')
+     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_47)).toBe('projection-v47')
+   })
+@@ -331,12 +334,12 @@ describe('family 11 — projection 48 THIN (RED by value): the enum, the registr
+     expect([...wireEnum()].sort()).toEqual([...WIRE_ENUM_7].sort())
+   })
+ 
+-  it('the running identity moves off the outgoing 47 and 47 is registered as projection-v47 beside the 35 accepted priors (36)', () => {
++  it('the running identity moves off the outgoing 47 and 47 is registered as projection-v47 beside the 35 accepted priors and the outgoing 48 (37)', () => {
+     expect(PROJECTION_VERSION).toBeGreaterThan(OUTGOING_PROJECTION)
+     expect(SCHEMA_ID).not.toBe(OUTGOING_47)
+     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)
+     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_47)).toBe('projection-v47')
+-    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_35_PRIOR_IDS, OUTGOING_47].sort())
++    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_35_PRIOR_IDS, OUTGOING_47, OUTGOING_48].sort())
+     expect(LIVE_SAVE_VERSION).toBeGreaterThan(30) // the governed inner-save step rides the same wave (R22 :610)
+   })
+ 
+diff --git a/tests/bridge-r3n4-read-model-deltas.test.ts b/tests/bridge-r3n4-read-model-deltas.test.ts
+index f36fe914..a48e9494 100644
+--- a/tests/bridge-r3n4-read-model-deltas.test.ts
++++ b/tests/bridge-r3n4-read-model-deltas.test.ts
+@@ -141,8 +141,8 @@ describe('R3-N4-SIM-20 — batched N4/N5/N6 read-model deltas (projection 31)',
+     // deltas below are unchanged by that; what this case still owns is the law
+     // that the identity this task retired stays accepted forever.
+     expect(PROTOCOL_VERSION).toBe(4)
+-    expect(PROJECTION_VERSION).toBe(48)
+-    expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-48')
++    expect(PROJECTION_VERSION).toBe(49)
++    expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-49')
+     // A bump that forgets its outgoing identity bricks every durable checkpoint
+     // written under it; a bump that keeps the RUNNING identity re-migrates forever.
+     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_PROJECTION_30_SCHEMA_ID)).toBe('projection-v30')
+@@ -348,7 +348,7 @@ describe('R3-N4-SIM-20 — batched N4/N5/N6 read-model deltas (projection 31)',
+ 
+     const response = new BridgeSession(state, 'r3n4-bundle').snapshot()
+     expect(() => parseWireValue(BRIDGE_SCHEMA.$defs.StudioBridgeSnapshotResponse, response)).not.toThrow()
+-    expect(response.snapshotVersion).toBe(48)
++    expect(response.snapshotVersion).toBe(49)
+ 
+     const development = response.snapshot.development.development.board!
+     expect(development.projects.length).toBeGreaterThan(0)
+diff --git a/tests/bridge-runtime-checkpoint.test.ts b/tests/bridge-runtime-checkpoint.test.ts
+index 7a599115..8253d256 100644
+--- a/tests/bridge-runtime-checkpoint.test.ts
++++ b/tests/bridge-runtime-checkpoint.test.ts
+@@ -970,6 +970,10 @@ describe('prior protocol-4 acceptance boundary pins', () => {
+     // Recovery projection20 registers the outgoing projection19 header frozen
+     // at recovery base1b5eb8f08c81c7d9c639058c3e28b21b9c1f8e84.
+     expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([
++      // P14B.6 (700-T2): the outgoing projection-48 identity — the checked-in
++      // contract-manifest schemaId before the projection-49 bump (ad49031f^), also
++      // pinned independently by bridge-p14b4-runtime47-compatibility.test.ts.
++      'sha256:00c0075bef257634956da7d16d117a145d203047e7169c643156b7971c4c7fec',
+       'sha256:01f15efc8fc33fd810b051242857385ca23b5e1c775b357db1bfe5a70e907e1e',
+       'sha256:0285e92f32c27cd2960df802b3f7ea156a15372f05001ad1f4964c2f25db55b5',
+       'sha256:0474ceafd6c148f329fe99eac328c79ed0b0caf906e0f7442b7f3cf0fe40cb4f',
+diff --git a/tests/bridge-schema.test.ts b/tests/bridge-schema.test.ts
+index b969990b..2c0be0fa 100644
+--- a/tests/bridge-schema.test.ts
++++ b/tests/bridge-schema.test.ts
+@@ -78,10 +78,10 @@ describe('canonical Unity bridge schema', () => {
+     assertEveryObjectIsClosed(BRIDGE_SCHEMA)
+     expect(BRIDGE_SCHEMA['x-project-studio']).toMatchObject({
+       protocolVersion: 4,
+-      projectionVersion: 48,
++      projectionVersion: 49,
+       transport: 'http-json-localhost',
+     })
+-    expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-48')
++    expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-49')
+   })
+ 
+   it('projects a real authoritative snapshot to the exact Unity DTO and validates the full envelope', () => {
+@@ -337,8 +337,8 @@ describe('canonical Unity bridge schema', () => {
+     expect(() => parseWireValue(definition, int32Overflow)).toThrow(/<= 2147483647/)
+ 
+     const oldProjection = { ...clone(envelope), snapshotVersion: 24 }
+-    expect(PROJECTION_VERSION).toBe(48)
+-    expect(() => parseWireValue(definition, oldProjection)).toThrow(/expected literal 48/)
++    expect(PROJECTION_VERSION).toBe(49)
++    expect(() => parseWireValue(definition, oldProjection)).toThrow(/expected literal 49/)
+ 
+     const missingSection = clone(envelope)
+     delete (missingSection.snapshot as Partial<typeof missingSection.snapshot>).releaseResults
+@@ -573,7 +573,7 @@ describe('canonical Unity bridge schema', () => {
+     expect(checkedInSchema).toBe(canonicalJsonPretty(BRIDGE_SCHEMA))
+     expect(generatedCsharp).toContain(`public const string SchemaId = "${SCHEMA_ID}";`)
+     expect(generatedCsharp).toContain('public const int ProtocolVersion = 4;')
+-    expect(generatedCsharp).toContain('public const int ProjectionVersion = 48;')
++    expect(generatedCsharp).toContain('public const int ProjectionVersion = 49;')
+     expect(generatedCsharp).toContain('public int protocolVersion;')
+     expect(generatedCsharp).toContain('public int snapshotVersion;')
+     expect(generatedCsharp.match(/public string runtimeInstanceId;/g)).toHaveLength(2)
+diff --git a/tests/bridge.test.ts b/tests/bridge.test.ts
+index df6010c0..6a83ff0f 100644
+--- a/tests/bridge.test.ts
++++ b/tests/bridge.test.ts
+@@ -164,7 +164,7 @@ function expectOrderedSubsequence<T>(actual: readonly T[], expected: readonly T[
+ describe('Current-game Unity adoption bridge', () => {
+   it('pins protocol v4/projection v32 and fingerprints named projections and exact intent fields', () => {
+     expect(PROTOCOL_VERSION).toBe(4)
+-    expect(SNAPSHOT_VERSION).toBe(48)
++    expect(SNAPSHOT_VERSION).toBe(49)
+     expect(SCHEMA_ID).toMatch(/^sha256:[0-9a-f]{64}$/)
+     expect(Object.keys(
+       BRIDGE_CONTRACT.$defs.StudioBridgeIntentOption.properties as Record<string, unknown>,

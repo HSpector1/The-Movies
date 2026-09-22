@@ -267,9 +267,9 @@ const S936 = advanceTo(S900, 936) // lighting: exact, commercial access open
 
 describe('P13B-S7-T3 item 1: projection version bump 39 -> 40; 46 after the P14B.2 bump', () => {
   it('bumps PROJECTION_VERSION to 41 and its schema $id / x-project-studio.projectionVersion move with it', () => {
-    expect(PROJECTION_VERSION).toBe(48)
-    expect(BRIDGE_SCHEMA.$id).toContain('projection-48')
-    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(48)
+    expect(PROJECTION_VERSION).toBe(49)
+    expect(BRIDGE_SCHEMA.$id).toContain('projection-49')
+    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(49)
   })
 })
 

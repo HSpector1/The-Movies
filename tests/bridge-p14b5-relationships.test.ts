@@ -14,8 +14,8 @@
 //   (e) `preferences.priorityOrder` publishes SEVEN members on a genuine open case and the D5 settlement sentence
 //       reaches `settlementReasons` VERBATIM (people.ts :998, free text, no enum);
 //   (f) the leak law extends to the new facts: no `closeness`, no edge, no `recent` delta on any serialized DTO.
-// The FROZEN SIDE (R-VERSION class, re-expressed by the test-author's 662-T2 sweep after T2): projection 48
-// (47 outgoing), `SCHEMA_ID` = sha256:00c0075b… (6f6b4880… outgoing), 36 prior ids, `LIVE_SAVE_VERSION` 31, the
+// The FROZEN SIDE (R-VERSION class, re-expressed by the test-author's 700-T2 sweep after P14B.6): projection 49
+// (48 outgoing), `SCHEMA_ID` = sha256:60af24c5… (00c0075b… outgoing), 37 prior ids, `LIVE_SAVE_VERSION` 31, the
 // projection-47 checkpoint taking the governed prior path.
 //
 // Anything that needs the engine's new module is reached through a DYNAMIC import inside the case, so this file
@@ -56,8 +56,11 @@ import type { GameState, TalentMarketCase, TalentMarketReceipt } from '../src/co
 
 const OUTGOING_46 = 'sha256:584bdd8565030f049d548b1af4fcbf8c517ca7c9150016736f632f1ef8fcb98c'
 const OUTGOING_47 = 'sha256:6f6b48805aadcf14d456614d87bf1571eb1ce0d9aa0bc44f604e7976f4f85538' // T0 MANIFEST authority.schemaId
+// P14B.6 (700-T2 sweep): the OUTGOING projection-48 identity, minted at 43817117 and frozen in
+// tests/fixtures/p14/genuine-projection48-runtime/MANIFEST.json; registered as projection-v48 by ad49031f.
+const OUTGOING_48 = 'sha256:00c0075bef257634956da7d16d117a145d203047e7169c643156b7971c4c7fec'
 const OUTGOING_PROJECTION = 47
-// The 35 accepted prior literals (tests/bridge-p14b4-runtime47-compatibility.test.ts :39-75); never derived from the registry.
+// The 35 accepted prior literals (tests/bridge-p14b4-runtime47-compatibility.test.ts :41-83); never derived from the registry.
 const EXPECTED_35_PRIOR_IDS = [
   'sha256:01f15efc8fc33fd810b051242857385ca23b5e1c775b357db1bfe5a70e907e1e', 'sha256:0285e92f32c27cd2960df802b3f7ea156a15372f05001ad1f4964c2f25db55b5',
   'sha256:0474ceafd6c148f329fe99eac328c79ed0b0caf906e0f7442b7f3cf0fe40cb4f', 'sha256:15033cf9ca43be65abcb25fc6f910f9487ac23056090126ec7d3e2353f6ce587',
@@ -280,16 +283,16 @@ const wireEnum = (): string[] => {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────────────────────────────
-describe('P14B.5 frozen side — the OUTGOING wire identities (R-VERSION class, re-expressed by 662-T2 after T2 landed projection 48 / Save V31)', () => {
-  it('projection 48 (47 outgoing), SCHEMA_ID sha256:00c0075b… (6f6b4880… outgoing), LIVE_SAVE_VERSION 31, exactly the 35 accepted prior ids PLUS the outgoing 47 with projection-v46 and projection-v47 registered', () => {
+describe('P14B.5 frozen side — the OUTGOING wire identities (R-VERSION class, re-expressed by 700-T2 after P14B.6 landed projection 49 / Save V31 unchanged)', () => {
+  it('projection 49 (48 outgoing), SCHEMA_ID sha256:60af24c5… (00c0075b… outgoing), LIVE_SAVE_VERSION 31, exactly the 35 accepted prior ids PLUS the outgoing 47 and 48 with projection-v46 and projection-v47 registered', () => {
     expect(PROTOCOL_VERSION).toBe(4)
-    expect(PROJECTION_VERSION).toBe(48)
+    expect(PROJECTION_VERSION).toBe(49)
     expect(OUTGOING_PROJECTION).toBe(47)
-    // The checked-in contract-manifest schemaId at 040651b4, read independently of this test.
-    expect(SCHEMA_ID).toBe('sha256:00c0075bef257634956da7d16d117a145d203047e7169c643156b7971c4c7fec')
+    // The checked-in contract-manifest schemaId at ad49031f, read independently of this test.
+    expect(SCHEMA_ID).toBe('sha256:60af24c58bc4bea8f04e7fc818f8401daeadd87da91252e60cfcf3ee028d8e1b')
     expect(SCHEMA_ID).not.toBe(OUTGOING_47)
     expect(LIVE_SAVE_VERSION).toBe(31)
-    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_35_PRIOR_IDS, OUTGOING_47].sort())
+    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_35_PRIOR_IDS, OUTGOING_47, OUTGOING_48].sort())
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_46)).toBe('projection-v46')
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_47)).toBe('projection-v47')
   })
@@ -331,12 +334,12 @@ describe('family 11 — projection 48 THIN (RED by value): the enum, the registr
     expect([...wireEnum()].sort()).toEqual([...WIRE_ENUM_7].sort())
   })
 
-  it('the running identity moves off the outgoing 47 and 47 is registered as projection-v47 beside the 35 accepted priors (36)', () => {
+  it('the running identity moves off the outgoing 47 and 47 is registered as projection-v47 beside the 35 accepted priors and the outgoing 48 (37)', () => {
     expect(PROJECTION_VERSION).toBeGreaterThan(OUTGOING_PROJECTION)
     expect(SCHEMA_ID).not.toBe(OUTGOING_47)
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_47)).toBe('projection-v47')
-    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_35_PRIOR_IDS, OUTGOING_47].sort())
+    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_35_PRIOR_IDS, OUTGOING_47, OUTGOING_48].sort())
     expect(LIVE_SAVE_VERSION).toBeGreaterThan(30) // the governed inner-save step rides the same wave (R22 :610)
   })
 

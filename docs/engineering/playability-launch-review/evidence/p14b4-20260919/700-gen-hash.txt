@@ -1,0 +1,10 @@
+{"sourceSha":"d749b3eae74534d857a341bf1b8ed29c2452bf63","testedDiffSha256":"d40337a0764f907905ca990c45b5127f1e9966630fca93b140a665ec2dd89235","untrackedSource":[],"command":["node_modules/.bin/vite-node","docs/engineering/playability-launch-review/evidence/p14b4-20260919/700-gen-hash-probe.ts"],"node":"v20.20.2","start":"2026-09-22T19:44:00.204Z","end":null,"exitCode":null}
+
+PROBE700_SELF {"selfScriptSha256":"77983f7ef376b4d0c22a84bd47095fc386a6fa7d3b4676445d97654b568a0d81","projectionVersion":49,"nodeVersion":"v20.20.2","platform":"darwin","arch":"x64"}
+  F10_CURRENT_QUOTE_UNIONS       d54e94725f3a8b516493a7a7e1a65727bd3b61019228763a63d8e9facfb9f139   373576 bytes
+  F11_CURRENT_COMMAND_UNION      d54e94725f3a8b516493a7a7e1a65727bd3b61019228763a63d8e9facfb9f139   373576 bytes
+  F12_P05_PRODUCTION_SENTINEL    78d68a2d7670585946f79ebbfc449c85c8ad98ac381b422a8a9abea66702bde6    15018 bytes
+  F12 frozen sentinel unchanged: true
+JSON {"probe":"700-gen-hash-probe.ts","projectionVersion":49,"identities":{"F10_CURRENT_QUOTE_UNIONS":{"sha256":"d54e94725f3a8b516493a7a7e1a65727bd3b61019228763a63d8e9facfb9f139","bytes":373576,"deterministic":true},"F11_CURRENT_COMMAND_UNION":{"sha256":"d54e94725f3a8b516493a7a7e1a65727bd3b61019228763a63d8e9facfb9f139","bytes":373576,"deterministic":true},"F12_P05_PRODUCTION_SENTINEL":{"sha256":"78d68a2d7670585946f79ebbfc449c85c8ad98ac381b422a8a9abea66702bde6","bytes":15018,"deterministic":true}},"f12Frozen":"78d68a2d7670585946f79ebbfc449c85c8ad98ac381b422a8a9abea66702bde6"}
+
+{"sourceSha":"d749b3eae74534d857a341bf1b8ed29c2452bf63","testedDiffSha256":"d40337a0764f907905ca990c45b5127f1e9966630fca93b140a665ec2dd89235","untrackedSource":[],"command":["node_modules/.bin/vite-node","docs/engineering/playability-launch-review/evidence/p14b4-20260919/700-gen-hash-probe.ts"],"node":"v20.20.2","start":"2026-09-22T19:44:00.204Z","end":"2026-09-22T19:44:01.914Z","exitCode":0,"signal":null,"error":null,"sourceShaAtEnd":"d749b3eae74534d857a341bf1b8ed29c2452bf63","testedDiffSha256AtEnd":"d40337a0764f907905ca990c45b5127f1e9966630fca93b140a665ec2dd89235","untrackedSourceAtEnd":[],"fixedSource":true}

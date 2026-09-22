@@ -34,10 +34,14 @@ const PINS = {
   closeout: '6f6e425314107a7f0050739becb5f97adede58de94d7631a6f5bf25de8abfc81',
   minter: '58e3a9554026089616f96c309cc4dc1ad6b909c87936c9c129165fb77c96c5b6',
 } as const
-// All 34 accepted predecessor literal pins, plus the independently minted outgoing46
-// and (P14B.5) the independently minted outgoing47.
+// All 34 accepted predecessor literal pins, plus the independently minted outgoing46,
+// (P14B.5) the independently minted outgoing47 and (P14B.6) the independently minted outgoing48.
 // Do not derive this expected list from the registry. Missing32–44 are a separate backlog.
 const EXPECTED_PRIOR_IDS = [
+  // P14B.6 (700-T2 sweep): the OUTGOING projection-48 identity — the checked-in
+  // contract-manifest schemaId before the projection-49 bump (ad49031f^), read
+  // independently (tests/fixtures/p14/genuine-projection48-runtime/MANIFEST.json).
+  'sha256:00c0075bef257634956da7d16d117a145d203047e7169c643156b7971c4c7fec',
   'sha256:01f15efc8fc33fd810b051242857385ca23b5e1c775b357db1bfe5a70e907e1e',
   'sha256:0285e92f32c27cd2960df802b3f7ea156a15372f05001ad1f4964c2f25db55b5',
   'sha256:0474ceafd6c148f329fe99eac328c79ed0b0caf906e0f7442b7f3cf0fe40cb4f',
@@ -164,9 +168,9 @@ describe('P14B4 genuine outgoing46 runtime compatibility — future Save30/proje
     expect(current.state.talentMarket.proposals.filter((p) => p.promises.includes('promise-0'))).toEqual([])
   })
 
-  it('requires literal projection48/Save31 and exact 36 prior IDs, excluding the running identity', () => {
+  it('requires literal projection49/Save31 and exact 37 prior IDs, excluding the running identity', () => {
     expect(PROTOCOL_VERSION).toBe(4)
-    expect(PROJECTION_VERSION).toBe(48)
+    expect(PROJECTION_VERSION).toBe(49)
     expect(LIVE_SAVE_VERSION).toBe(31)
     expect(SCHEMA_ID).not.toBe(OUTGOING_46)
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)

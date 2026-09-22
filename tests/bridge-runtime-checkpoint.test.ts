@@ -970,6 +970,10 @@ describe('prior protocol-4 acceptance boundary pins', () => {
     // Recovery projection20 registers the outgoing projection19 header frozen
     // at recovery base1b5eb8f08c81c7d9c639058c3e28b21b9c1f8e84.
     expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([
+      // P14B.6 (700-T2): the outgoing projection-48 identity — the checked-in
+      // contract-manifest schemaId before the projection-49 bump (ad49031f^), also
+      // pinned independently by bridge-p14b4-runtime47-compatibility.test.ts.
+      'sha256:00c0075bef257634956da7d16d117a145d203047e7169c643156b7971c4c7fec',
       'sha256:01f15efc8fc33fd810b051242857385ca23b5e1c775b357db1bfe5a70e907e1e',
       'sha256:0285e92f32c27cd2960df802b3f7ea156a15372f05001ad1f4964c2f25db55b5',
       'sha256:0474ceafd6c148f329fe99eac328c79ed0b0caf906e0f7442b7f3cf0fe40cb4f',

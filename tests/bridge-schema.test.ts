@@ -78,10 +78,10 @@ describe('canonical Unity bridge schema', () => {
     assertEveryObjectIsClosed(BRIDGE_SCHEMA)
     expect(BRIDGE_SCHEMA['x-project-studio']).toMatchObject({
       protocolVersion: 4,
-      projectionVersion: 48,
+      projectionVersion: 49,
       transport: 'http-json-localhost',
     })
-    expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-48')
+    expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-49')
   })
 
   it('projects a real authoritative snapshot to the exact Unity DTO and validates the full envelope', () => {
@@ -337,8 +337,8 @@ describe('canonical Unity bridge schema', () => {
     expect(() => parseWireValue(definition, int32Overflow)).toThrow(/<= 2147483647/)
 
     const oldProjection = { ...clone(envelope), snapshotVersion: 24 }
-    expect(PROJECTION_VERSION).toBe(48)
-    expect(() => parseWireValue(definition, oldProjection)).toThrow(/expected literal 48/)
+    expect(PROJECTION_VERSION).toBe(49)
+    expect(() => parseWireValue(definition, oldProjection)).toThrow(/expected literal 49/)
 
     const missingSection = clone(envelope)
     delete (missingSection.snapshot as Partial<typeof missingSection.snapshot>).releaseResults
@@ -573,7 +573,7 @@ describe('canonical Unity bridge schema', () => {
     expect(checkedInSchema).toBe(canonicalJsonPretty(BRIDGE_SCHEMA))
     expect(generatedCsharp).toContain(`public const string SchemaId = "${SCHEMA_ID}";`)
     expect(generatedCsharp).toContain('public const int ProtocolVersion = 4;')
-    expect(generatedCsharp).toContain('public const int ProjectionVersion = 48;')
+    expect(generatedCsharp).toContain('public const int ProjectionVersion = 49;')
     expect(generatedCsharp).toContain('public int protocolVersion;')
     expect(generatedCsharp).toContain('public int snapshotVersion;')
     expect(generatedCsharp.match(/public string runtimeInstanceId;/g)).toHaveLength(2)
@@ -844,6 +844,12 @@ describe('canonical Unity bridge schema', () => {
         signTermWeeks: null,
         signWeeklySalary: null,
         signGuaranteedComp: null,
+        // P14B.6: both keys are REQUIRED on the closed union member and carry null here —
+        // a screen test proposes no four-seat package, so there is no seating to read
+        // (bridge/schema/bridge-schema.ts :1911-1919; `nullable` is a null VALUE, never an
+        // absent key, which is the structural closure this case asserts below).
+        chemistry: null,
+        chemistryWarning: null,
       }
       const greenlightQuote = {
         financial: null,
@@ -875,6 +881,24 @@ describe('canonical Unity bridge schema', () => {
         signTermWeeks: null,
         signWeeklySalary: null,
         signGuaranteedComp: null,
+        // P14B.6: the casting CONFIRMATION does propose a seating, so this member carries a
+        // representative StudioCastingChemistryRow and the closed union is exercised WITH
+        // content rather than with null. Labels, a sentence and an integer sign only — never a
+        // closeness, an edgeId or a delta (the landed leak law). `chemistryWarning` is null
+        // because ruling 3 (iii) emits its one sentence only for a pair reading −1.
+        chemistry: [
+          {
+            seatA: 'director',
+            seatB: 'support',
+            talentIdA: 't-dir-01',
+            talentIdB: 't-act-01',
+            tierLabel: 'Colleagues',
+            sign: 1,
+            drivers: ['Two pictures together.'],
+            line: 'They have worked together before.',
+          },
+        ],
+        chemistryWarning: null,
       }
       expect(parseWireValue(BRIDGE_SCHEMA.$defs.StudioQuoteSnapshot, commissionQuote)).toEqual(commissionQuote)
       expect(parseWireValue(BRIDGE_SCHEMA.$defs.StudioQuoteSnapshot, screenTestQuote)).toEqual(screenTestQuote)

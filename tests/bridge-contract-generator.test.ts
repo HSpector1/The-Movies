@@ -559,12 +559,12 @@ describe('CF-08 sound union-to-C# generation', () => {
       // literal below is the schemaId of the checked-in
       // generated/unity/project-studio-bridge.contract-manifest.json at 040651b4,
       // read independently of this test (never schemaIdentity(schema) itself).
-      const generated = generateCsharpContract({ schema, protocolVersion: 4, projectionVersion: 48 })
+      const generated = generateCsharpContract({ schema, protocolVersion: 4, projectionVersion: 49 })
       expect(generated).toContain(
-        '// Schema identity: sha256:00c0075bef257634956da7d16d117a145d203047e7169c643156b7971c4c7fec',
+        '// Schema identity: sha256:60af24c58bc4bea8f04e7fc818f8401daeadd87da91252e60cfcf3ee028d8e1b',
       )
       expect(schemaIdentity(schema)).toBe(
-        'sha256:00c0075bef257634956da7d16d117a145d203047e7169c643156b7971c4c7fec',
+        'sha256:60af24c58bc4bea8f04e7fc818f8401daeadd87da91252e60cfcf3ee028d8e1b',
       )
       expect(generated).toContain('public sealed partial class StudioQuoteCastingRequest : StudioBridgeQuoteRequest')
       expect(generated).toContain('public StudioCastingDraftPayload draft;')
@@ -674,8 +674,18 @@ describe('CF-08 sound union-to-C# generation', () => {
         // member stays `string[]`), so both declaration-body identities are
         // UNCHANGED — recomputed once on 040651b4 (662-T2-gen-hash.log), not by
         // this test against itself.
-        F10_CURRENT_QUOTE_UNIONS: '53058c23075427647bf9e24052128cd4f7ad0340fa54763e3e75df25aeea482e',
-        F11_CURRENT_COMMAND_UNION: '53058c23075427647bf9e24052128cd4f7ad0340fa54763e3e75df25aeea482e',
+        // P14B.6 (projection 49, record 700): S1 added the `StudioRelationshipBlock`,
+        // `StudioRelationshipRow` and `StudioCastingChemistryRow` $defs and S3 added the
+        // `chemistry` / `chemistryWarning` members to the casting quote snapshot. F10 and
+        // F11 render the WHOLE schema, so the declaration body legitimately GREW and both
+        // identities move together, 53058c23… -> d54e9472… (373576 bytes each). Recomputed
+        // once by the generator in 700-gen-hash.txt (probe 700-gen-hash-probe.ts, sha256
+        // 77983f7e…, run through record-check, EXIT 0, fixedSource true), NOT by this test
+        // against itself and never read off a failure message. F12 is the frozen P05 subset
+        // and is INDEPENDENT of those $defs: it MUST NOT move, and the probe throws if it
+        // does — that unchanged value is the evidence B.6 stayed inside its scope.
+        F10_CURRENT_QUOTE_UNIONS: 'd54e94725f3a8b516493a7a7e1a65727bd3b61019228763a63d8e9facfb9f139',
+        F11_CURRENT_COMMAND_UNION: 'd54e94725f3a8b516493a7a7e1a65727bd3b61019228763a63d8e9facfb9f139',
         F12_P05_PRODUCTION_SENTINEL: '78d68a2d7670585946f79ebbfc449c85c8ad98ac381b422a8a9abea66702bde6',
       } as const
       for (const [name, expectedHash] of Object.entries(expected)) {
