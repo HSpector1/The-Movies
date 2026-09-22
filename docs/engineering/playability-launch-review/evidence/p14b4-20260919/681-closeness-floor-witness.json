@@ -1,0 +1,19 @@
+{
+  "sourceSha": "ddf58e873d72b01cc91b00e910d9cfe8a8e03ba8",
+  "testedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "untrackedSource": [],
+  "command": [
+    "node_modules/.bin/vite-node",
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/681-b5-closeness-floor-witness.ts"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-22T15:22:55.641Z",
+  "end": "2026-09-22T15:22:56.485Z",
+  "exitCode": 0,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "ddf58e873d72b01cc91b00e910d9cfe8a8e03ba8",
+  "testedDiffSha256AtEnd": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "untrackedSourceAtEnd": [],
+  "fixedSource": true
+}

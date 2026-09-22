@@ -1,0 +1,26 @@
+{"sourceSha":"ddf58e873d72b01cc91b00e910d9cfe8a8e03ba8","testedDiffSha256":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","untrackedSource":[],"command":["node_modules/.bin/vite-node","docs/engineering/playability-launch-review/evidence/p14b4-20260919/681-b5-closeness-floor-witness.ts"],"node":"v20.20.2","start":"2026-09-22T15:22:55.641Z","end":null,"exitCode":null}
+
+WITNESS681_SELF {"selfScriptSha256":"1cc77f71a9886c9d37d3a5965bf0383e454c8da52333aec534ccf72599448a9c","constructedWorstCase":true,"seed":null,"campaign":null,"baseline":50,"low":2,"failureDelta":4,"repeatCap":3,"dormantWeeksStaged":313,"strainedCeiling":44,"nodeVersion":"v20.20.2","platform":"darwin","arch":"x64"}
+
+  step                          week  closeness  tier            P  F  min(all six)
+  1 mint P1                       10         52  Acquaintances   1  0            52
+  2 flop P1 after full drift     323         46  Acquaintances   1  1            46
+  3 take P2 (+LOW +accel)        324         49  Acquaintances   2  1            49
+  4 flop P2 = FLOOR              325         45  Acquaintances   2  2            45
+  6 cycle P3                     327         45  Acquaintances   3  3            45
+  6 cycle P4                     329         46  Acquaintances   4  4            46
+  6 cycle P5                     331         47  Acquaintances   5  5            47
+  6 cycle P6                     333         48  Acquaintances   6  6            48
+  6 cycle P7                     335         49  Acquaintances   7  7            49
+  6 cycle P8                     337         50  Acquaintances   8  8            50
+
+  MEASURED FLOOR 45 = RELATIONSHIP_TIER_FLOOR.Acquaintances, one point above the Strained ceiling 44
+
+  HYPOTHETICAL ARITHMETIC (no src/ constant changed; shipped delta is the first row)
+  failureDelta=4 (SHIPPED) min 45 tier Acquaintances entersStrained false
+  failureDelta=5 (hypothetical) min 42 tier Strained entersStrained true
+  failureDelta=6 (hypothetical) min 34 tier Strained entersStrained true
+  failureDelta=7 (hypothetical) min 26 tier Strained entersStrained true
+JSON {"probe":"681-b5-closeness-floor-witness.ts","selfScriptSha256":"1cc77f71a9886c9d37d3a5965bf0383e454c8da52333aec534ccf72599448a9c","constructedWorstCase":true,"measuredFloor":45,"acquaintancesFloor":45,"strainedCeiling":44,"marginToStrained":1,"productions":8,"dormantWeeksStaged":313,"steps":[{"step":"1 mint P1","week":10,"closeness":52,"tier":"Acquaintances","P":1,"F":0,"minAllSix":52},{"step":"2 flop P1 after full drift","week":323,"closeness":46,"tier":"Acquaintances","P":1,"F":1,"minAllSix":46},{"step":"3 take P2 (+LOW +accel)","week":324,"closeness":49,"tier":"Acquaintances","P":2,"F":1,"minAllSix":49},{"step":"4 flop P2 = FLOOR","week":325,"closeness":45,"tier":"Acquaintances","P":2,"F":2,"minAllSix":45},{"step":"6 cycle P3","week":327,"closeness":45,"tier":"Acquaintances","P":3,"F":3,"minAllSix":45},{"step":"6 cycle P4","week":329,"closeness":46,"tier":"Acquaintances","P":4,"F":4,"minAllSix":46},{"step":"6 cycle P5","week":331,"closeness":47,"tier":"Acquaintances","P":5,"F":5,"minAllSix":47},{"step":"6 cycle P6","week":333,"closeness":48,"tier":"Acquaintances","P":6,"F":6,"minAllSix":48},{"step":"6 cycle P7","week":335,"closeness":49,"tier":"Acquaintances","P":7,"F":7,"minAllSix":49},{"step":"6 cycle P8","week":337,"closeness":50,"tier":"Acquaintances","P":8,"F":8,"minAllSix":50}],"hypotheticalArithmetic":[{"failureDelta":4,"minimumReached":45,"tierAtMinimum":"Acquaintances","entersStrained":false},{"failureDelta":5,"minimumReached":42,"tierAtMinimum":"Strained","entersStrained":true},{"failureDelta":6,"minimumReached":34,"tierAtMinimum":"Strained","entersStrained":true},{"failureDelta":7,"minimumReached":26,"tierAtMinimum":"Strained","entersStrained":true}],"environment":{"nodeVersion":"v20.20.2","platform":"darwin","arch":"x64"}}
+
+{"sourceSha":"ddf58e873d72b01cc91b00e910d9cfe8a8e03ba8","testedDiffSha256":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","untrackedSource":[],"command":["node_modules/.bin/vite-node","docs/engineering/playability-launch-review/evidence/p14b4-20260919/681-b5-closeness-floor-witness.ts"],"node":"v20.20.2","start":"2026-09-22T15:22:55.641Z","end":"2026-09-22T15:22:56.485Z","exitCode":0,"signal":null,"error":null,"sourceShaAtEnd":"ddf58e873d72b01cc91b00e910d9cfe8a8e03ba8","testedDiffSha256AtEnd":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","untrackedSourceAtEnd":[],"fixedSource":true}
