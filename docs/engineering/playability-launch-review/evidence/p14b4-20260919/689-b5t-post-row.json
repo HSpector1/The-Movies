@@ -1,0 +1,23 @@
+{
+  "sourceSha": "63688a796ea930213bc53dafa8d11b416a74d13e",
+  "testedDiffSha256": "702667b6985969f6f961f88578dfdc45a51cf27e73cb7c48fe52deaa6d08b19f",
+  "untrackedSource": [
+    "tests/p14b5-t-failure-tuning.test.ts"
+  ],
+  "command": [
+    "node_modules/.bin/vite-node",
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/676-b5-week260-probe.ts"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-22T16:02:30.561Z",
+  "end": "2026-09-22T16:02:50.941Z",
+  "exitCode": 0,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "63688a796ea930213bc53dafa8d11b416a74d13e",
+  "testedDiffSha256AtEnd": "702667b6985969f6f961f88578dfdc45a51cf27e73cb7c48fe52deaa6d08b19f",
+  "untrackedSourceAtEnd": [
+    "tests/p14b5-t-failure-tuning.test.ts"
+  ],
+  "fixedSource": true
+}

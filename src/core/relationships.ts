@@ -69,7 +69,15 @@ export const RELATIONSHIP_REPEAT_CAP = 3
  * (647-B ruling (ii) on OPEN 5): `RELATIONSHIP_FAILURE_DELTA > RELATIONSHIP_PROXIMITY_LOW`,
  * so a released flop nets a low-proximity pair below where it stood before the take. */
 export const RELATIONSHIP_SUCCESS_DELTA = 5
-export const RELATIONSHIP_FAILURE_DELTA = 4
+/** PROVISIONAL CANDIDATE TUNING, 4 → 5, not settled balance: a capped repeat cycle
+ * nets `RELATIONSHIP_PROXIMITY_LOW + RELATIONSHIP_REPEAT_CAP − RELATIONSHIP_FAILURE_DELTA`,
+ * so at 4 a repeatedly-flopping low-proximity pair still GAINED a point per picture and
+ * could never reach the Strained band; at 5 the cycle breaks even and the band opens.
+ * The pinned relation above still holds (5 > 2). Record 683 (the Owner ruling on record
+ * 680, finding 1 option (b)), measured in 679 / 681 / 682. Driver constant, not part of
+ * `RELATIONSHIP_RULES_VERSION`: it applies prospectively at write time and no stored
+ * `delta: -4` is restamped. */
+export const RELATIONSHIP_FAILURE_DELTA = 5
 /** §5.4 :445 "small". */
 export const RELATIONSHIP_CANCEL_DELTA = 2
 /** The release thresholds on `FilmResult.criticScore` (0..100, always present —

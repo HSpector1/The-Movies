@@ -1,0 +1,25 @@
+{
+  "sourceSha": "63688a796ea930213bc53dafa8d11b416a74d13e",
+  "testedDiffSha256": "4c138264597d383bed1984112c889d88ab0c92a37729727381df14f35a34891c",
+  "untrackedSource": [
+    "tests/p14b5-t-failure-tuning.test.ts"
+  ],
+  "command": [
+    "node_modules/.bin/vitest",
+    "run",
+    "--project",
+    "core"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-22T17:07:22.119Z",
+  "end": "2026-09-22T17:59:31.347Z",
+  "exitCode": 1,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "63688a796ea930213bc53dafa8d11b416a74d13e",
+  "testedDiffSha256AtEnd": "4c138264597d383bed1984112c889d88ab0c92a37729727381df14f35a34891c",
+  "untrackedSourceAtEnd": [
+    "tests/p14b5-t-failure-tuning.test.ts"
+  ],
+  "fixedSource": true
+}

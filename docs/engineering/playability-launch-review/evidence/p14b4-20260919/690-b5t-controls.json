@@ -1,0 +1,49 @@
+{
+  "sourceSha": "63688a796ea930213bc53dafa8d11b416a74d13e",
+  "testedDiffSha256": "702667b6985969f6f961f88578dfdc45a51cf27e73cb7c48fe52deaa6d08b19f",
+  "untrackedSource": [
+    "tests/p14b5-t-failure-tuning.test.ts"
+  ],
+  "command": [
+    "node_modules/.bin/vitest",
+    "run",
+    "--project",
+    "core",
+    "tests/p14b1-first-take.test.ts",
+    "tests/p14b1-leak.test.ts",
+    "tests/p14b1-promises.test.ts",
+    "tests/p14b1-save-v29.test.ts",
+    "tests/p14b1-t4-regressions.test.ts",
+    "tests/p14b1-trust-chooser.test.ts",
+    "tests/p14b2-fixture-preconditions.test.ts",
+    "tests/p14b2-setup-wrap-regressions.test.ts",
+    "tests/p14b3-reservations.test.ts",
+    "tests/p14b3-rule-revision.test.ts",
+    "tests/bridge-p14b1-promises.test.ts",
+    "tests/bridge-p14b3-promise-command.test.ts",
+    "tests/bridge-p14b2-trust.test.ts",
+    "tests/bridge-p13b-s8-rivals.test.ts",
+    "tests/p13a-rival-adoption.test.ts",
+    "tests/p14a1-rival-trigger.test.ts",
+    "tests/p14b4-rival-seating-preference.test.ts",
+    "tests/p14b4-cast-class-outcomes.test.ts",
+    "tests/p14b4-cast-class-policy.test.ts",
+    "tests/p14b4-cancel-causal-proof.test.ts",
+    "tests/bridge-p14b4-runtime47-compatibility.test.ts",
+    "tests/p14a1-f1-priority-order.test.ts",
+    "tests/bridge-p14b4-cast-class.test.ts",
+    "tests/p14b4-save-v30-compatibility.test.ts"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-22T16:03:23.524Z",
+  "end": "2026-09-22T16:08:50.216Z",
+  "exitCode": 0,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "63688a796ea930213bc53dafa8d11b416a74d13e",
+  "testedDiffSha256AtEnd": "702667b6985969f6f961f88578dfdc45a51cf27e73cb7c48fe52deaa6d08b19f",
+  "untrackedSourceAtEnd": [
+    "tests/p14b5-t-failure-tuning.test.ts"
+  ],
+  "fixedSource": true
+}
