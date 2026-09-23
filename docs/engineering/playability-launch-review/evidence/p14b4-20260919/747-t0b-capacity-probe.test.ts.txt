@@ -1,0 +1,235 @@
+// P14B.8-T0b CAPACITY PROBE — measurement only, ASSERTS NOTHING about the product.
+//
+// Question: can the archived `part-served-p1` mint route (record 722, lines 224-260)
+// carry a promise of count 3 instead of 2? Record 744 §7 states that as a HYPOTHESIS;
+// this file MEASURES it instead of reasoning about it, because this repository has
+// twice published a paper bound that turned out to be wrong.
+//
+// STRAY-PROBE DISCIPLINE (record 726 precedent): this file is run ALONE by positional
+// filename, never inside a suite pass, then archived and removed. It registers one
+// `it` that only prints. It changes no fixture and writes no artifact.
+import assert from 'node:assert/strict'
+import { it } from 'vitest'
+import { applyActions, hiringMarketIds, tick } from '../src/core/index.js'
+import { attachPromise, promiseFeasibility } from '../src/core/promises.js'
+import { submitProposal } from '../src/core/talentMarket.js'
+import { TUNING } from '../src/core/tuning.js'
+import type { GameState } from '../src/core/types.js'
+import { advanceTo, fund, p13aGeneratedStudio, player } from './helpers/p14b2-fixtures.js'
+
+function sign(state: GameState, role: 'actor' | 'writer' | 'director' | 'craft', termWeeks = 208) {
+  for (let steps = 0; steps < 60; steps++) {
+    const person = hiringMarketIds(state, state.market.tick)
+      .map((id) => state.talent.find((p) => p.id === id)).find((p) => p?.role === role)
+    if (person !== undefined) {
+      return { state: applyActions(state, [{ kind: 'signContract', talentId: person.id, termWeeks }]), id: person.id }
+    }
+    state = tick(state)
+  }
+  throw new Error('UNEXECUTED prerequisite: no hireable ' + role + ' within 60 weeks')
+}
+function unusedConcept(state: GameState) {
+  const used = new Set([...state.studio.activeProductions.map((p) => p.conceptId),
+    ...state.studio.releasedFilms.map((p) => p.conceptId), ...state.scriptDevelopment.projects.map((p) => p.conceptId)])
+  const concept = state.concepts.find((c) => !used.has(c.id))
+  assert.ok(concept, 'no distinct unused stock concept')
+  return concept
+}
+function readySoundstage(state: GameState): GameState {
+  const stage = 'facility-soundstage-07'
+  const mounted = state.sets.find((s) => s.mountedOn === stage && s.status !== 'retired')
+  if (mounted !== undefined) state = applyActions(state, [{ kind: 'strikeSet', setId: mounted.id }])
+  state = applyActions(state, [{ kind: 'commissionSet',
+    commission: { blueprintId: 'set-grand-ballroom', stageFacilityId: stage } }])
+  return advanceTo(state, state.market.tick + TUNING.SET_BUILD_WEEKS_BAND_HIGH)
+}
+
+it('MEASURES the count ceiling on the part-served route', () => {
+  // The archived route, verbatim through the throwaway greenlight.
+  let ps = fund(p13aGeneratedStudio())
+  const psTarget = sign(ps, 'actor', 104); ps = psTarget.state
+  const psWriter = sign(ps, 'writer'); ps = psWriter.state
+  const psDirector = sign(ps, 'director'); ps = psDirector.state
+  const psOther1 = sign(ps, 'actor'); ps = psOther1.state
+  const psOther2 = sign(ps, 'actor'); ps = psOther2.state
+  const psCraft = sign(ps, 'craft'); ps = psCraft.state
+  const psContract = ps.contracts.find((c) => c.talentId === psTarget.id)
+  assert.ok(psContract)
+  const psStart = psContract.endWeekExclusive
+  const throwaway = unusedConcept(ps)
+  ps = applyActions(ps, [{ kind: 'greenlight', production: {
+    conceptId: throwaway.id, writerId: psWriter.id, directorId: psDirector.id,
+    cast: { lead: psOther1.id, antagonist: psOther2.id, support: psTarget.id }, craftIds: [psCraft.id],
+    shape: { opening: 'slowSetup', midpoint: 'revelation', ending: 'bittersweet' },
+    promise: { genre: throwaway.genre, intendedSegments: ['adult'], ranges: {
+      intimacy: [-0.5, 0.5], tonalWeight: [-0.5, 0.5], kineticEnergy: [-0.5, 0.5] } },
+    budget: { negative: throwaway.baseNegativeCost, marketing: 0 },
+  } }])
+  ps = readySoundstage(ps)
+  ps = advanceTo(ps, psStart - 7)
+  ps = submitProposal(ps, { talentId: psTarget.id, issuerStudioId: player(ps), termWeeks: 104, premiumTier: 1.25 })
+
+  const at = ps.market.tick
+  const measure = (state: GameState, count: number, windowWeeks: number) => {
+    const receipt = promiseFeasibility(state, {
+      family: 'APPEARANCE_COUNT', issuerStudioId: player(state), beneficiaryPersonId: psTarget.id,
+      predicate: { count }, windowStartWeek: psStart, dueWeekExclusive: psStart + windowWeeks,
+      startWeek: psStart, termWeeks: 104,
+    }, at)
+    return { count, windowWeeks, classification: receipt.classification, bottleneck: receipt.bottleneck }
+  }
+
+  const grid: ReturnType<typeof measure>[] = []
+  for (const count of [1, 2, 3, 4]) {
+    for (const windowWeeks of [90, 104, 130]) grid.push(measure(ps, count, windowWeeks))
+  }
+  // Printed BEFORE any lever is tried, so a failing lever cannot lose the measurement.
+  console.log('BASE GRID ' + JSON.stringify(grid))
+
+  // Lever: commission scripts. `unproducedScripts` is a direct existingPath term and
+  // needs no stage. One writer can hold only one drafting project, so each added
+  // script needs its own real signed writer.
+  const withScripts: unknown[] = []
+  let scripted = ps
+  for (let added = 1; added <= 3; added++) {
+    try {
+      const hired = sign(scripted, 'writer'); scripted = hired.state
+      const concept = unusedConcept(scripted)
+      scripted = applyActions(scripted, [{ kind: 'commissionScript', project: {
+        conceptId: concept.id, writerId: hired.id,
+        shape: { opening: 'slowSetup', midpoint: 'revelation', ending: 'bittersweet' },
+        promise: { genre: concept.genre, intendedSegments: ['adult'], ranges: {
+          intimacy: [-0.5, 0.5], tonalWeight: [-0.5, 0.5], kineticEnergy: [-0.5, 0.5] } },
+      } }])
+      for (const count of [3, 4]) {
+        withScripts.push({ scriptsAdded: added, week: scripted.market.tick, ...measure(scripted, count, 104) })
+      }
+    } catch (error) {
+      withScripts.push({ scriptsAdded: added, error: (error as Error).message })
+      break
+    }
+  }
+  console.log('WITH SCRIPTS ' + JSON.stringify(withScripts))
+
+  // Does a count-3 attach actually land on the best cell found above?
+  const attempts: string[] = []
+  for (const [label, state] of [['scripted', scripted], ['base', ps]] as const) {
+    for (const windowWeeks of [130, 104, 90]) {
+      try {
+        const next = attachPromise(state, psTarget.id, player(state), {
+          family: 'APPEARANCE_COUNT', predicate: { count: 3 },
+          windowStartWeek: psStart, dueWeekExclusive: psStart + windowWeeks,
+        })
+        const proposal = next.talentMarket.proposals.find((p) => p.issuerStudioId === player(next)
+          && p.talentId === psTarget.id)
+        const promise = next.promises.find((p) => p.promiseId === proposal?.promises[0])
+        attempts.push(`ATTACHED ${label} window${windowWeeks} classification=`
+          + String(promise?.feasibilityReceipt.classification))
+      } catch (error) {
+        attempts.push(`REFUSED ${label} window${windowWeeks}: ${(error as Error).message}`)
+      }
+    }
+  }
+
+  // PHASE 2. The live question the grid cannot answer: `attachPromise` ADMITS a
+  // FRAGILE count-3 draft, but the market freeze re-reads feasibility
+  // (talentMarket.ts attachedFeasibility). Does a FRAGILE promise actually BIND?
+  // If it does not, the promise stays unbound and `waiverAccepted` rule 2 fires
+  // instead of rule 7, which would make the fixture useless for the Owner's case.
+  const freeze: Record<string, unknown> = {}
+  try {
+    let live = attachPromise(ps, psTarget.id, player(ps), {
+      family: 'APPEARANCE_COUNT', predicate: { count: 3 },
+      windowStartWeek: psStart, dueWeekExclusive: psStart + 90,
+    })
+    const proposal = live.talentMarket.proposals.find((q) => q.issuerStudioId === player(live)
+      && q.talentId === psTarget.id)
+    const promiseId = proposal!.promises[0]!
+    freeze.attachedClassification =
+      live.promises.find((q) => q.promiseId === promiseId)!.feasibilityReceipt.classification
+    live = advanceTo(live, psStart)
+    const bound = live.promises.find((q) => q.promiseId === promiseId)
+    freeze.promiseStillPresent = bound !== undefined
+    freeze.contractId = bound?.contractId ?? null
+    freeze.bound = bound?.contractId !== null && bound?.contractId !== undefined
+    freeze.outcome = bound?.outcome ?? null
+    freeze.progress = bound?.progress ?? null
+    freeze.count = bound?.predicate.count ?? null
+    freeze.boundClassification = bound?.feasibilityReceipt.classification ?? null
+    freeze.employmentResolves = live.hollywood!.employment
+      .some((row) => row.contractId === bound?.contractId)
+    freeze.remainingObligation = (bound?.predicate.count ?? 0) - (bound?.progress ?? 0)
+  } catch (error) {
+    freeze.error = (error as Error).message
+  }
+  console.log('FREEZE ' + JSON.stringify(freeze, null, 2))
+
+  // PHASE 3. The one remaining lever. existingPath = seatedPreFirstTake +
+  // unproducedScripts + stockGreenlight. Scripts are unavailable on this world
+  // ("screenplay development is not managed") and stockGreenlight is already 1, so
+  // count 3 needs seatedPreFirstTake = 2: a SECOND unfilmed production also seating
+  // the target. The buffer gate is NOT the constraint (the grid's count-3 bottleneck
+  // is the existingPath one, which is tested after it), so this is the whole gap.
+  const second: Record<string, unknown> = {}
+  try {
+    let two = fund(p13aGeneratedStudio())
+    const target = sign(two, 'actor', 104); two = target.state
+    const writer = sign(two, 'writer'); two = writer.state
+    const director = sign(two, 'director'); two = director.state
+    const a1 = sign(two, 'actor'); two = a1.state
+    const a2 = sign(two, 'actor'); two = a2.state
+    const a3 = sign(two, 'actor'); two = a3.state
+    const a4 = sign(two, 'actor'); two = a4.state
+    const craft = sign(two, 'craft'); two = craft.state
+    const writer2 = sign(two, 'writer'); two = writer2.state
+    const director2 = sign(two, 'director'); two = director2.state
+    const craft2 = sign(two, 'craft'); two = craft2.state
+    const start = two.contracts.find((c) => c.talentId === target.id)!.endWeekExclusive
+    const greenlightSeating = (state: GameState, others: readonly [string, string], crew: 1 | 2) => {
+      const concept = unusedConcept(state)
+      return applyActions(state, [{ kind: 'greenlight', production: {
+        conceptId: concept.id,
+        writerId: crew === 1 ? writer.id : writer2.id,
+        directorId: crew === 1 ? director.id : director2.id,
+        cast: { lead: others[0], antagonist: others[1], support: target.id },
+        craftIds: [crew === 1 ? craft.id : craft2.id],
+        shape: { opening: 'slowSetup', midpoint: 'revelation', ending: 'bittersweet' },
+        promise: { genre: concept.genre, intendedSegments: ['adult'], ranges: {
+          intimacy: [-0.5, 0.5], tonalWeight: [-0.5, 0.5], kineticEnergy: [-0.5, 0.5] } },
+        budget: { negative: concept.baseNegativeCost, marketing: 0 },
+      } }])
+    }
+    two = greenlightSeating(two, [a1.id, a2.id], 1)
+    second.firstGreenlight = 'ok'
+    two = greenlightSeating(two, [a3.id, a4.id], 2)
+    second.secondGreenlight = 'ok'
+    second.activeProductions = two.studio.activeProductions.length
+    two = readySoundstage(two)
+    two = advanceTo(two, start - 7)
+    two = submitProposal(two, { talentId: target.id, issuerStudioId: player(two), termWeeks: 104, premiumTier: 1.25 })
+    const at3 = two.market.tick
+    second.count3 = promiseFeasibility(two, {
+      family: 'APPEARANCE_COUNT', issuerStudioId: player(two), beneficiaryPersonId: target.id,
+      predicate: { count: 3 }, windowStartWeek: start, dueWeekExclusive: start + 90,
+      startWeek: start, termWeeks: 104,
+    }, at3).classification
+    const live0 = attachPromise(two, target.id, player(two), {
+      family: 'APPEARANCE_COUNT', predicate: { count: 3 },
+      windowStartWeek: start, dueWeekExclusive: start + 90,
+    })
+    const promiseId = live0.talentMarket.proposals
+      .find((q) => q.issuerStudioId === player(live0) && q.talentId === target.id)!.promises[0]!
+    const live = advanceTo(live0, start)
+    const bound = live.promises.find((q) => q.promiseId === promiseId)
+    second.boundContractId = bound?.contractId ?? null
+    second.bound = bound?.contractId != null
+    second.boundClassification = bound?.feasibilityReceipt.classification ?? null
+    second.employmentResolves = live.hollywood!.employment.some((r) => r.contractId === bound?.contractId)
+    second.remainingObligation = (bound?.predicate.count ?? 0) - (bound?.progress ?? 0)
+  } catch (error) {
+    second.error = (error as Error).message
+  }
+  console.log('SECOND SEAT ' + JSON.stringify(second, null, 2))
+
+  console.log(JSON.stringify({ probeWeek: at, psStart, baseGrid: grid, withScripts, attempts, freeze, second }, null, 2))
+}, 600_000)
