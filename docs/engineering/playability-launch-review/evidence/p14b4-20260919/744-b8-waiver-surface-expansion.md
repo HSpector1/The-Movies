@@ -212,3 +212,119 @@ route-fit claim. The 24 inherited full-core failures are not B.8's and are not t
 disposition stays open: the measured margin is recorded, the threshold was not moved, and the case
 for aligning the prepared-reuse budget to the repository's own `60_000` restart convention remains a
 recommendation awaiting decision.
+
+---
+
+## 11. Amendment log (record 745-C, and the parent's measurements)
+
+The audit returned PROCEED WITH AMENDMENTS with ten items. The original text above is preserved
+unchanged; every correction is recorded here. The parent verified each HIGH finding against the
+source independently rather than adopting it on the specialist's word.
+
+**A1 (HIGH) — §4 gains a FIFTH change: the ownership gate.** Neither `waiverAccepted`
+(`src/core/promises.ts:917-959`) nor `waivePromise` (`:980`) compares the promise's
+`issuerStudioId` to the player's studio; the one occurrence of that field in `waiverAccepted`
+(`:951`) passes the RIVAL's id into `trustDescriptor`. `waivePromise` resolves by id alone. Promise
+ids are `promise-${state.promises.length}`, sequential and enumerable. B.8 creates the first client
+route to this verb, so the gate is B.8's obligation and not a pre-existing defect: the bridge
+refuses a `promiseId` whose issuer is not the player's studio, at the quote AND again at the commit,
+because the board can move between them. An unknown or malformed `promiseId` is rejected at
+conversion with `ENGINE_REJECTED`, matching the four existing families, since an accepted `ok:false`
+quote is reserved for a real engine verdict.
+
+**A2 (HIGH) — §6's "excluded twice over" is WRONG and is withdrawn.** `settle` writes
+`outcomeEventId: next.outcomeEventId ?? eventId` (`:706`), and `??` falls through on null, so
+`waivePromise`'s `outcomeEventId: null` (`:1006`) stores the real receipt id. B.7's group7 test
+already proved it by finding the receipt through that very field. The Industry exclusion rests on
+ONE guard, the outcome enum at `bridge/industry.ts:148`; the `outcomeEventId !== null` clause beside
+it is vacuous for every settled promise. The exclusion still holds. The claimed second guard never
+existed. Checked and confined: the phrase appears in no published record, only in this draft.
+
+**A3 (HIGH) — §4 item 4 was a one-line placeholder; the bump's real obligations are:** the constant
+(`bridge-schema.ts:258`); the outgoing identity `sha256:60af24c5…` registered as `projection-v49` in
+`SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS` (`bridge/runtime-checkpoint.ts:59`) IN THE SAME COMMIT;
+`bridge/schema/project-studio-bridge.schema.json` (`$id` and `x-project-studio.projectionVersion`);
+`generated/unity/StudioBridgeDtos.Generated.cs`; and
+`generated/unity/project-studio-bridge.contract-manifest.json`. All three generated artifacts are
+asserted against the running identity by `tests/bridge-p14b5-relationships.test.ts:308-319`, which
+also pins `SCHEMA_ID` to the outgoing literal at `:292` and the prior-id set exactly at `:295` and
+`:342`. THIRTY test files contain `PROJECTION_VERSION).toBe(49)` or a `projection-49` URN (counted,
+not estimated). `SCHEMA_ID` is a content hash over the whole schema document
+(`bridge/protocol.ts:35`), so the new field and the new quote family mint a new identity even before
+the constant moves, and `validateVersionedRecord` (`:88-95`) strands every checkpoint written under
+an unregistered identity.
+
+**A4 (HIGH) — a sixth change: a new `AVAILABLE_INTENT_KINDS` member.** `quotedIntentFor` copies
+`kind: pending.kind` into the intent option (`bridge/session.ts:1630`), and that field is typed from
+`enumeration(AVAILABLE_INTENT_KINDS)` (`bridge/schema/intent-schema.ts:60`). The list holds 25
+members and none fits a waiver; reusing `marketProposalAction` would mislabel the commit. It is
+pinned by an exact `toEqual` at `tests/bridge-p14b2-trust.test.ts:141-145`, so adding a member breaks
+that test by design. `StudioBridgeQuoteRequest` and the `quote()` overload set widen with it.
+
+**A5 (HIGH) — §7 T0b's hypothesis is FALSE, and the audit's own remedy is also shut.** Both settled
+by measurement at record 747, not by argument. The window was never the constraint; `existingPath`
+is, and the audit derived that correctly from the constants before the parent measured it. The
+audit's recommended remedy, one commissioned screenplay to raise `unproducedScripts`, does not work:
+`commissionScript` throws `screenplay development is not managed`, `unproducedScripts` returns 0
+outright unless the mode is `managed` (`:239-245`), and that mode is set at world construction by no
+action. The other lever is shut by M16 exclusivity. The audit's two predictions about FRAGILE were
+both measured CORRECT: `attachPromise` admits it, and the freeze then refuses to bind it.
+`genuine-v32-owes-two-p1` was minted at count 2 / progress 0 / remaining 2 instead, and the audit's
+two conditions on the mint were adopted in full. The audit's objection to that substitution is
+recorded and overruled in 745-C §5: the discrimination it worried about is already pinned by
+group13 on `part-served-p1` and proven by injection at 743, and M16 caps count at 2 so no single
+world can carry both properties.
+
+**A6 (MODERATE) — Trap 1 is qualified.** Its last sentence, "the commit path calls `waivePromise`",
+stops too soon. `caught` (`bridge/session.ts:365-371`) returns the raw `error.message`,
+`executeCommand` makes it `ENGINE_REJECTED` and `reject` publishes it unchanged, so a substitute
+accepted at quote time and refused at commit time ships `promises: this person did not accept the
+substitute — …` to the player, the exact namespaced string Trap 1 forbids. The commit arm re-asks
+`waiverAccepted` inside `quotedIntentFor` and returns curated copy, as all four other families do
+(`:1656-1689`).
+
+**A7 (MODERATE) — T0a and T0b are both DONE.** §8 begins at step 3. `genuine-projection49-runtime`
+is minted, committed and published (`4cba7090`); `genuine-v32-owes-two-p1` likewise (`6d93e62c`).
+Neither is byte-reproducible, so neither may be re-minted: a re-run orphans every hash its manifest
+records.
+
+**A8 (MODERATE) — the unoffered-family jargon, DECIDED rather than deferred.** Reusing the market
+wire draft would let `DIRECTING_COUNT`, `PREFERRED_GENRE_OPPORTUNITY` and `SPECIFIC_PROJECT` reach
+`NOT_OFFERED_IN_B1` and publish *a directing promise is not offered in this slice* to a player.
+DECISION: the waiver quote gets its OWN draft payload whose `family` enumerates only the families
+this surface offers, so the jargon is unreachable by construction and no curated substitute copy is
+needed. This is an interface decision inside the slice, not a product choice: it removes no
+behaviour a player could previously obtain, because the engine already refuses all three. A client
+naming an unoffered family gets `INVALID_COMMAND`, which is the honest answer to asking a surface
+for something it does not have. The identical sentences already reachable through
+`promiseQuoteSnapshot` on the market-proposal surface are PRE-EXISTING and are not B.8's to fix;
+recorded, with no owner claimed.
+
+**A9 (MODERATE) — §3(b) is imprecise and is corrected.** The join already exists on the wire as free
+text: `waivePromise` writes the successor id into `outcomeCause` (`:1005`), `promiseHistoryFor`
+projects it verbatim, and `bridge/trust.ts:83-86` publishes it into the attention row, where
+`tests/bridge-p14b7-promise-waiver.test.ts:177` pins the exact string. B.8 must not rewrite that
+copy. What is missing is the TYPED link, which is what §4 item 3 adds. The derivation rule, now
+stated so no consumer parses prose: a row's substitute is the row whose `promiseId` equals this row's
+`supersededByPromiseId`; a row's predecessor is the row whose `supersededByPromiseId` equals this
+row's `promiseId`; never parse `outcomeCause`. Trap 3 is untouched and the tension is only apparent:
+Trap 3 forbids the QUOTE predicting the id, while the RECORD states it as a fact afterwards.
+
+**A10 (LOW) — citation drift.** §3(c): FOUR families implement refusal-as-an-accepted-answer in
+`session.ts` (placement `:1782-1789`, Set `:1815-1820`, contract `:1846-1851`, market proposal
+`:1912`); commission and casting reject at conversion instead, and `promiseQuoteSnapshot` is a
+sub-verdict of the market-proposal family living in `bridge/promises.ts:125-148`, not a fifth family.
+The `quote()` method runs to `:1967`. §4 item 2: `quotedIntentFor` is `:1625-1694`. §4 item 3:
+`promiseDraftTerms.count` is `:1799`, not `:1798`; Trap 4's substance is unaffected.
+
+**Ruled and adopted from §9's open row:** the inverse link is NOT added. The derivation is total
+because `waivePromise` copies the three fields `promiseHistoryFor` filters on, and the carrier is
+unpaged. Two conditions ride with it: the derivation rule above is recorded, and the RED asserts
+co-presence of both rows on all three carriers, so "derivable" stays a fact rather than a hope. One
+ordering note for the C# reader: `promiseHistoryFor` ends with `.reverse()`, so the SUBSTITUTE
+appears BEFORE the waived original.
+
+**Also adopted from §10:** completion condition 8 costs a test, not code, and condition 7's proof
+includes `bridge/session.ts:2054`, which clears `pendingQuotes` on load, so a quote minted before a
+save can never be committed after a reload. The conversion cascade's unguarded final `else` is
+compile-safe and must not be "fixed" defensively.
