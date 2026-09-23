@@ -615,6 +615,60 @@ prior id in the same commit. The nine refusal sentences are the read model's cop
 copy change is a test edit plus a projection bump. The record-740 gate is DISCHARGED (record 743), so B.8's
 acceptance claims now rest on suites that prove which refusal fires and pin the Owner's approved rule. Then the remaining authorized P14 obligations, P15,
 P16, P17 and sufficiently specified P18 in dependency order.
+P14B.8 OPENED — THE WAIVER'S PLAYER SURFACE. THE PLAYER BEHAVIOUR BEING IMPLEMENTED: a studio
+that can no longer keep an open promise can today reach the waiver only through a TypeScript
+function call. B.8 puts it in front of the player as one connected interaction — select an open
+promise, propose a substitute, receive an accurate quote or the specific refusal, confirm, and see
+the original marked WAIVED with the replacement recorded beside it. COMPLETION CONDITION, eight
+checkable clauses at record 744 §2: a refused substitute answers with the engine's own sentence
+verbatim and leaves the original promise and the whole game state unchanged; an accepted one
+registers exactly one commit intent; confirming settles the original WAIVED and binds the
+substitute in one accepted command; the player's own history then shows which promise replaced
+which; no waiver reaches any public Industry surface and the existing public kept/broken
+announcements stay untouched; a replayed intent, a stale revision and a moved board each fail
+closed; and a save taken after the waiver reloads with the link intact. Expansion drafted at record
+744 and independently audited (745) before the slice begins, on the 720/723-C precedent. FOUR
+CHANGES, and no more: a `quoteWaivePromise` family, a `promiseWaiver` commit arm with the
+fail-closed revalidation every other family has, ONE read-model field (`supersededByPromiseId` on
+`StudioMarketPromiseHistoryRow`, which three carriers share), and the projection bump. WHAT IS
+ALREADY DONE AND MUST NOT BE REBUILT, verified rather than assumed: a WAIVED row ALREADY reaches
+the player's history at projection 49 (`bridge/promises.ts:93-118` filters on issuer, beneficiary
+and contractId and on nothing else, and `PROMISE_OUTCOMES` has carried WAIVED since before B.7), so
+only the LINK is missing; refusal-as-an-accepted-quote is an established pattern across five
+families; and all four protections against waiving twice already exist generically in
+`bridge/session.ts` (stale revision :1562, moved-board digest :1628, pendingQuotes.clear :1613,
+command-id replay :1560) — B.8 PROVES them for this family and builds none of them.
+THE T0 GATE IS DISCHARGED, both halves, before anything touches PROJECTION_VERSION.
+T0a: `genuine-projection49-runtime` MINTED at `4a268feb` and published (`4cba7090`), while 49 is
+still the running identity and its schema id is NOT yet a registered prior. It carries two things
+the 48 artifact did not — a REAL publication receipt (`git ls-remote origin <branch>` returned the
+minting head; `for-each-ref --contains` is not a publication test in a worktree holding no
+refs/remotes/<branch>, which the 48 MANIFEST records as its own corrected error), and a MEASURED
+V31→V32 delta: the archived V31 corpus migrates forward with `supersededByPromiseId` null on every
+promise, and stripping that field back off reproduces the V31 rows byte for byte, so the whole save
+bump is one field, proven. Distinct current/saved slots asserted in the minter, not implied: same
+week 45, different digests. Minter archived at record 746.
+T0b: the Owner's edge case needed a world no published fixture could express — the largest
+remaining obligation in the whole pre-b7 corpus is 1. The Owner's literal 3 promised / 1 delivered
+/ 2 owed was MEASURED (record 747) and is blocked by a PRODUCT LAW, not by fixture construction:
+count 3 reads FRAGILE "needs a picture not yet commissioned"; `existingPath` has three levers and
+all three are measured shut (stock already 1, `commissionScript` throws "screenplay development is
+not managed" on every world this corpus builds from, and a second production seating the same
+person refuses under M16 exclusivity); and `attachPromise` ADMITS a FRAGILE draft but the freeze
+refuses to BIND it, which would fire `waiverAccepted` rule 2 four rules before the count rule the
+case exists to test. `genuine-v32-owes-two-p1` was minted instead at count 2 / progress 0 /
+remaining 2, by the archived part-served route STOPPED AT THE FREEZE, and it PROVES the case rather
+than claiming it: the minter measured both directions on the live engine before writing a byte
+(count 1 → "only 1 of the 2 pictures still owed would be covered", count 2 → null) and re-measured
+the refusal on the state read BACK from disk. WHAT THE SUBSTITUTION COSTS IS RECORDED, not buried:
+at progress 0 the remaining obligation equals the original count, so this world alone cannot
+separate `count` from `count - progress`; part-served-p1's group13 already pins that and was proven
+by injection at 743, so the two worlds are complementary and neither replaces the other. Minter
+archived at record 748; the capacity probe at 747, run alone four times, never inside a pass.
+A SHARPER FINDING THAN THE ONE THE SLICE WAS OPENED ON: the wire's `count: integer({minimum: 1})`
+(`bridge-schema.ts:1798`) makes B.7's zero-count rule-7 refusal STRUCTURALLY UNREACHABLE from the
+player surface, so the Owner's positive-but-insufficient case is not one useful case among several
+— it is the ONLY way rule 7's refusal can be exercised through the bridge at all.
 LOGIC VERIFIED · UNITY NOT VERIFIED. Unity/native deferred. Gross2221 omitted fact cost is NOT
 net saving: cold discovery can shift into next frame. No route-fit claim.
 Draft-discovery, silent-policy, affine and Map alternatives remain unadopted.
