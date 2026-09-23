@@ -548,6 +548,9 @@ export function attachPromise(
     outcomeCause: null,
     outcomeEventId: null,
     contractId: null,
+    // Save V32: a freshly attached promise supersedes nothing. Only `waivePromise`
+    // ever writes a non-null link, and only onto the promise it waives.
+    supersededByPromiseId: null,
   }
   // The COMPLETE predicate is copied as a detached object, minted in two typed
   // branches against the correlated V30 members (the tagged branch is P2 by the
@@ -596,7 +599,10 @@ export function attachPromise(
  * the freeze re-classification act on ATTACHED, not-yet-bound promises by
  * design — quoting a promise before anyone has accepted it is what they are for.
  */
-function evaluable(promise: ProfessionalPromise): boolean {
+function evaluable(promise: Pick<ProfessionalPromiseV30, 'outcome' | 'contractId'>): boolean {
+  // The two fields it actually reads, so a FROZEN V30 row (`promisedCastMasks`)
+  // answers the same question as a live V32 one. Both are identical on both V30
+  // union members and unchanged by the V32 field.
   return promise.outcome === null && promise.contractId !== null
 }
 
@@ -672,8 +678,12 @@ export function targetSpecificImpossibility(state: GameState, promise: Professio
   return remaining > nMax ? 'no filming week inside the window can reach that many pictures' : null
 }
 
-/** The five outcome fields a settlement may write; identical on both V30 members. */
-type PromiseSettlement = Partial<Pick<ProfessionalPromise, 'progress' | 'evidenceRefs' | 'outcome' | 'outcomeCause' | 'outcomeEventId'>>
+/** The outcome fields a settlement may write; identical on both V30 members.
+ * `supersededByPromiseId` (Save V32) joins them because the WAIVED branch is the
+ * only settlement that names a successor, and it must be written in the SAME
+ * `settle()` call that freezes the outcome. */
+type PromiseSettlement = Partial<Pick<ProfessionalPromise,
+  'progress' | 'evidenceRefs' | 'outcome' | 'outcomeCause' | 'outcomeEventId' | 'supersededByPromiseId'>>
 
 function settle(
   state: GameState,
@@ -886,6 +896,23 @@ function identicalSubstitute(promise: ProfessionalPromise, substitute: PromiseAt
  * TRUST is a LABEL test, never a driver count: `label()` reads
  * `negative >= 2 && negative > positives`, so a genuinely Distrusted record can
  * still carry a positive driver.
+ *
+ * THE WINDOW OPENS AFTER THE WEEK IT IS AGREED, `windowStartWeek > week`. A
+ * substitute is a FORWARD obligation, and `qualifyingTakes` (`:637-641`) excludes
+ * only `take.week < windowStartWeek`, so a window opening ON the waiver week
+ * inherits every take that already served the ORIGINAL: promise two, deliver one,
+ * waive for a one-picture substitute opening on the delivered take's own week, owe
+ * nothing further and collect a SATISFIED for free. Measured live on
+ * `genuine-v31-part-served-p1`, not reasoned. The comparison rather than a scan
+ * over `firstTakes` is deliberate: a take scheduled to land LATER in the same week
+ * would still be credited to a window opening at `week`, so a scan closes the
+ * instance and this closes the class.
+ *
+ * EVERY BRANCH RETURNS ITS OWN SENTENCE, distinguished within its first six
+ * characters. The refusals overlap by design — an identical substitute carries the
+ * original's window, which has usually already opened, so both that rule and the
+ * window rule fire on it — and a caller that publishes or asserts WHICH refusal it
+ * got must not have two of them collapse under truncation.
  */
 export function waiverAccepted(
   state: GameState,
@@ -898,32 +925,35 @@ export function waiverAccepted(
   // "TERMINAL and emitted ONCE" law froze; an UNBOUND one because B.1 mints no
   // outcome for an offer nobody took.
   if (promise.outcome !== null) {
-    return `this promise already settled ${promise.outcome} and a terminal outcome is never rewritten`
+    return `this promise already settled ${promise.outcome}, and a terminal outcome is never rewritten`
   }
   if (promise.contractId === null) {
-    return 'this promise was never taken up, so there is no commitment to waive'
+    return 'nobody took up this promise, so there is no commitment to waive'
   }
   const interval = contractInterval(state, promise)
   if (interval === null) {
     return 'the employment contract this promise rode in on is no longer on the record'
   }
   if (identicalSubstitute(promise, substitute)) {
-    return 'the substitute repeats the promise it replaces, so nothing this studio owes would change'
+    return 'an identical substitute changes nothing this studio owes'
+  }
+  if (substitute.windowStartWeek <= week) {
+    return 'a substitute is a forward obligation, and this window opens no later than the week of the waiver'
   }
   const promised = promiseCastSlots(promise)
   if (!promiseCastSlots({ predicate: substitute.predicate }).every((slot) => promised.includes(slot))) {
-    return 'the substitute offers a weaker part than the promise it replaces'
+    return 'the part offered is weaker than the part promised'
   }
   const remaining = promise.predicate.count - promise.progress
   if (substitute.predicate.count < remaining) {
-    return `the substitute covers ${String(substitute.predicate.count)} of the ${String(remaining)} pictures still owed`
+    return `only ${String(substitute.predicate.count)} of the ${String(remaining)} pictures still owed would be covered`
   }
   if (trustDescriptor(state, promise.beneficiaryPersonId, promise.issuerStudioId, week).label === 'Distrusted') {
-    return 'this person no longer trusts this studio enough to take a substitute in place of what was promised'
+    return 'this person no longer trusts this studio enough to accept a substitute for what was promised'
   }
   const feasibility = promiseFeasibility(state, substituteDraft(promise, substitute, interval), week)
   if (feasibility.classification !== 'REASONABLY_ACHIEVABLE') {
-    return `the substitute is not reasonably achievable over what remains of the contract — ${feasibility.bottleneck ?? feasibility.classification}`
+    return `what remains of the contract cannot reasonably carry the substitute — ${feasibility.bottleneck ?? feasibility.classification}`
   }
   return null
 }
@@ -974,6 +1004,10 @@ export function waivePromise(
     outcome: 'WAIVED',
     outcomeCause: `this person accepted the substitute promise "${substituteId}" in place of it`,
     outcomeEventId: null,
+    // Save V32's typed link, on the WAIVED original and nowhere else. The prose
+    // above stays because every terminal branch states a cause; it is not what
+    // a reader resolves the successor by.
+    supersededByPromiseId: substituteId,
   }, week, 'a promise to this person was waived for a substitute the person accepted')
   const base = {
     promiseId: substituteId,
@@ -990,6 +1024,8 @@ export function waivePromise(
     outcomeCause: null,
     outcomeEventId: null,
     contractId: promise.contractId,
+    // The link points backwards only: the substitute supersedes nothing.
+    supersededByPromiseId: null,
   }
   const substitute: ProfessionalPromise = 'kind' in draft.substitute.predicate
     ? {
@@ -1356,6 +1392,43 @@ export function projectPromisesPreV29(state: unknown): void {
   for (const row of proposals) {
     if (isRecord(row) && Array.isArray(row.promises) && row.promises.length > 0) {
       throw new Error('frozen save projection cannot discard an authoritative V29 promise attached to a proposal')
+    }
+  }
+}
+
+/**
+ * The V32 field, validated where the save boundary can name the real fault (R22:
+ * no authority without its backing fact). `validateSaveV32` asks this and then
+ * hands the frozen V31 chain the row shape V31 knows — an older validator is
+ * never taught a newer field and never silently tolerates one.
+ *
+ * A link is present on every row, is `string | null`, and when it is set it names
+ * a DIFFERENT promise of this same campaign, on a row that really settled WAIVED.
+ * A non-null link on a live or differently-settled promise would claim a
+ * renegotiation that never happened.
+ */
+export function validateWaivedPromiseLinks(state: unknown): void {
+  const fail = (message: string): never => {
+    throw new Error(`validateSaveV32: ${message}`)
+  }
+  if (!isRecord(state)) return fail('state is not a plain object')
+  const rows = state.promises
+  if (!Array.isArray(rows)) return fail('state.promises is not an array')
+  const ids = new Set(rows.filter(isRecord).map((row) => row.promiseId))
+  for (let i = 0; i < rows.length; i++) {
+    const at = `state.promises[${String(i)}]`
+    const row = rows[i]
+    if (!isRecord(row)) return fail(`${at} is not a plain object`)
+    if (!Object.hasOwn(row, 'supersededByPromiseId')) return fail(`${at}.supersededByPromiseId is missing`)
+    const superseded = row.supersededByPromiseId
+    if (superseded === null) continue
+    if (typeof superseded !== 'string' || superseded.trim() === '') {
+      return fail(`${at}.supersededByPromiseId must be a promise id or null`)
+    }
+    if (superseded === row.promiseId) return fail(`${at}.supersededByPromiseId names itself`)
+    if (!ids.has(superseded)) return fail(`${at}.supersededByPromiseId does not name a promise of this world`)
+    if (row.outcome !== 'WAIVED') {
+      return fail(`${at}.supersededByPromiseId names a substitute for a promise that was not waived`)
     }
   }
 }

@@ -100,12 +100,14 @@ export type {
   GameStateV29,
   GameStateV30,
   GameStateV31,
+  GameStateV32,
   RelationshipEdge,
   RelationshipDriver,
   RelationshipDriverKind,
   RelationshipTier,
   ProfessionalPromiseV29,
   ProfessionalPromiseV30,
+  ProfessionalPromiseV32,
   CastRoleCountPredicate,
   // ── Blueprint Requirements (C1-M2) ──
   BlueprintRequirement,
@@ -1299,11 +1301,16 @@ export {
   migrateToV30,
   convertV29ToV30,
   convertV30ToV29,
-  // P14B.5 — live V30 → NEW V31 + migrateToV31 (the `relationships` root).
+  // P14B.5 — V30 → V31 + migrateToV31 (the `relationships` root).
   validateSaveV31,
   migrateToV31,
   convertV30ToV31,
   convertV31ToV30,
+  // P14B.7 — live V31 → NEW V32 + migrateToV32 (the waived-promise link).
+  validateSaveV32,
+  migrateToV32,
+  convertV31ToV32,
+  convertV32ToV31,
   convertV27ToV28,
   convertV28ToV27,
   // P13B-S5-R07 — live V24 → NEW V25 + migrateToV25 (the widened production
@@ -1344,6 +1351,7 @@ export type {
   SaveFileV29,
   SaveFileV30,
   SaveFileV31,
+  SaveFileV32,
   SaveFile,
   TalentV1,
   GameStateV1,

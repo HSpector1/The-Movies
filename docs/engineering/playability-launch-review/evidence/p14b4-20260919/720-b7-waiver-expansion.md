@@ -93,9 +93,27 @@ none may be satisfied by narrowing the claim. Seven items were added or correcte
     and rejected later during saving." The RED proves the refusal AND the non-mutation, because a
     `waivePromise` that refuses after already appending a receipt or touching a promise row passes
     a refusal test and still corrupts the save.
-17. The substitute starts at `progress: 0` with `evidenceRefs: []`, and the original's qualifying
-    takes are NOT swept into it at mint and do NOT become retroactively eligible for it. Owner
-    requirement under §5 (c): do not erase completed work, and do not count it again.
+17. The substitute starts at `progress: 0` with `evidenceRefs: []`. Owner requirement under §5 (c):
+    do not erase completed work, and do not count it again. **CORRECTED after W's first pass: a
+    clean mint does NOT discharge the second half.** This item originally claimed the original's
+    takes "do NOT become retroactively eligible", which was false. `qualifyingTakes`
+    (`promises.ts:637-641`) rejects a take only when `take.week < windowStartWeek`, so a take AT
+    the window's first week qualifies and the next weekly pass credits it. Measured: a substitute
+    minted clean at `progress: 0` was SATISFIED one tick later by the very picture that gave the
+    original its progress. See item 19, which is the law that closes it.
+19. **THE LAW.** `waiverAccepted` REFUSES when `substitute.windowStartWeek <= waiverWeek`, with its
+    own stated reason. This item did not exist until W measured the exploit above; the law lived
+    only in the T1 suite and brief 732 while no numbered item carried it, which W reported. A
+    substitute is a FORWARD obligation.
+
+    The narrower alternative, refusing a window that already CONTAINS a qualifying take, was
+    offered and NOT taken: a take scheduled to land later in the same week would still be credited
+    to a window opening at `waiverWeek`, so the scan closes the instance and the comparison closes
+    the class. One comparison, no scan over `firstTakes`.
+
+    ORDERING: `identicalSubstitute` is checked BEFORE this law, so an identical substitute returns
+    the identical-substitute sentence and THE LAW's sentence stays reserved for the exploit shape.
+    That matters because the two overlap, and a follow-up asserts WHICH reason each refusal gives.
 18. The waiver's attention row says WAIVED, not "kept" and not "broken". `bridge/trust.ts:69` is a
     two-way ternary with no third arm, so widening the gate at `:68` without touching `:69` reports
     a breach that did not happen. The RED pins the ROW TEXT, not merely the row's existence.

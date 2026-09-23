@@ -2229,8 +2229,10 @@ export type GameStateV30 = Omit<GameStateV29, 'promises'> & {
 }
 
 // P14B.4 (record 600): V30 added the tagged predicate. V29 remains the frozen
-// prior save shape; a tagged predicate exists only on the V30 union.
-export type ProfessionalPromise = ProfessionalPromiseV30
+// prior save shape; a tagged predicate exists only on the V30 union. Since P14B.7
+// the LIVE promise row is `ProfessionalPromiseV32` (the waived-promise link);
+// V30 remains the frozen shape both later versions are built on.
+export type ProfessionalPromise = ProfessionalPromiseV32
 
 // ── P14B.5 — the first shared-work bond (Save V31) ──────────────────────────
 
@@ -2279,16 +2281,18 @@ export type GameStateV31 = GameStateV30 & {
   relationships: readonly RelationshipEdge[]
 }
 
-// P14B.5: the live gameplay/wire boundary is V31. V30 remains the frozen prior
-// save shape; a relationship edge exists only on the V31 root.
-export type GameState = GameStateV31
+// P14B.5 added the `relationships` root at V31. Since P14B.7 the live gameplay
+// boundary is V32 (the waived-promise link); V31 remains the frozen prior save
+// shape, and its one lossless-when-empty downgrade is the only way back.
+export type GameState = GameStateV32
 
 // ── P14B.7 — the waived-promise link (Save V32) ─────────────────────────────
 
 /** V32 records WHICH substitute superseded a promise the person agreed to waive.
  * `null` on every other record, and on every record a pre-V32 campaign wrote:
- * the field opens empty and recomputes nothing. NOT the live shape — B.7 defines
- * the V32 step, and `LIVE_SAVE_VERSION` stays 31 until the writer moves. */
+ * the field opens empty and recomputes nothing. THE LIVE SHAPE since P14B.7 —
+ * `LIVE_SAVE_VERSION` is 32 and `makeSave` stamps it, so `waivePromise` writes a
+ * durable link rather than leaving the successor recoverable only from prose. */
 export type ProfessionalPromiseV32 = ProfessionalPromiseV30 & {
   supersededByPromiseId: string | null
 }

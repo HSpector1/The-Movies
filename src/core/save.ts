@@ -52,7 +52,7 @@ import { assertReleaseAuthorityInvariants } from './releaseAuthority.js'
 import { assertStudioHistoryInvariants, migratedStudioHistory } from './studioHistory.js'
 import { initialPhysicalPlans, validatePhysicalPlans } from './physicalPlans.js'
 import { initialTalentMarket, projectLegacyTerminations, projectTalentMarketPreV28, talentMarketTerminationLaw, validateTalentMarketRoot } from './talentMarket.js'
-import { projectPromisesPreV29, projectPromisesPreV32, validatePromiseRoots, validatePromiseRootsV30 } from './promises.js'
+import { projectPromisesPreV29, projectPromisesPreV32, validatePromiseRoots, validatePromiseRootsV30, validateWaivedPromiseLinks } from './promises.js'
 import { projectRelationshipsPreV31, validateRelationshipsRoot } from './relationships.js'
 import { PRE_V28_TERMINATION_LAW } from './employment.js'
 import type { TerminationLaw } from './employment.js'
@@ -515,9 +515,9 @@ export type SaveFileV31 = {
   broadcastCache: BroadcastItem[];
 };
 
-// P14B.7: the V32 envelope. DEFINED, NOT LIVE — `LIVE_SAVE_VERSION` and
-// `makeSave` stay at V31, so nothing writes this shape yet and it is deliberately
-// absent from the `SaveFile` union no V32 file can reach.
+// P14B.7: the live gameplay boundary. Only V32 carries `supersededByPromiseId` on
+// a promise row; V31 is the frozen prior shape it migrates from, and the downgrade
+// back is lossless exactly when no promise names a substitute.
 export type SaveFileV32 = {
   saveVersion: 32;
   seed: string;
@@ -557,7 +557,8 @@ export type SaveFile =
   | SaveFileV28
   | SaveFileV29
   | SaveFileV30
-  | SaveFileV31;
+  | SaveFileV31
+  | SaveFileV32;
 
 // ── Stable stringify (UNCHANGED) ─────────────────────────────────────────────
 // Recursively serializes with object keys sorted lexicographically, so the same
@@ -5304,8 +5305,9 @@ export function validateSave(save: unknown): SaveFile {
   if (s.saveVersion === 29) return validateSaveV29(save);
   if (s.saveVersion === 30) return validateSaveV30(save);
   if (s.saveVersion === 31) return validateSaveV31(save);
+  if (s.saveVersion === 32) return validateSaveV32(save);
   throw new Error(
-    `validateSave: unknown saveVersion ${JSON.stringify(s.saveVersion)} (this build handles versions 1 through 31 only)`,
+    `validateSave: unknown saveVersion ${JSON.stringify(s.saveVersion)} (this build handles versions 1 through 32 only)`,
   );
 }
 
@@ -6417,15 +6419,15 @@ export function makeSaveV16(state: GameStateV16): SaveFileV16 {
 // Every caller that asks "is this envelope a migration?" compares against this
 // constant rather than a literal that goes stale the next time `makeSave` moves
 // (the bridge and the ui adapter both still compared against 23 at V25).
-export const LIVE_SAVE_VERSION = 31 as const;
+export const LIVE_SAVE_VERSION = 32 as const;
 
-// makeSave — the live V31 boundary (P14B.5). Frozen prior values migrate explicitly.
+// makeSave — the live V32 boundary (P14B.7). Frozen prior values migrate explicitly.
 // The new plain-JSON root is detached once; only final serialization sorts it.
-export function makeSave(state: GameState): SaveFileV31 {
-  const save = validateSaveV31({ saveVersion: 31, seed: state.seed, state, broadcastCache: state.broadcastItems });
+export function makeSave(state: GameState): SaveFileV32 {
+  const save = validateSaveV32({ saveVersion: 32, seed: state.seed, state, broadcastCache: state.broadcastItems });
   // Validation precedes detachment, so undefined/non-JSON authority cannot be
   // silently repaired by stringify before the boundary sees it.
-  return JSON.parse(JSON.stringify(save)) as SaveFileV31;
+  return JSON.parse(JSON.stringify(save)) as SaveFileV32;
 }
 
 // ── Load / export / import ───────────────────────────────────────────────────
@@ -7338,6 +7340,7 @@ export function migrateToV7(
 // V1–V7 migrate deterministically. Newer files are rejected loudly: this function
 // may never silently discard authoritative screenplay or casting state.
 export function migrateToV8(save: SaveFile): SaveFileV8 {
+  if (save.saveVersion === 32) throw new Error('migrateToV8: cannot downgrade SaveFileV32 or discard the waived-promise link');
   if (save.saveVersion === 31) throw new Error('migrateToV8: cannot downgrade SaveFileV31 or discard the relationship record');
   if (save.saveVersion === 30) throw new Error('migrateToV8: cannot downgrade SaveFileV30 or discard the promise predicate');
   if (
@@ -7364,6 +7367,7 @@ export function migrateToV8(save: SaveFile): SaveFileV8 {
 // identity; V1–V8 migrate forward. V10 is rejected rather than silently losing
 // authoritative casting history.
 export function migrateToV9(save: SaveFile): SaveFileV9 {
+  if (save.saveVersion === 32) throw new Error('migrateToV9: cannot downgrade SaveFileV32 or discard the waived-promise link');
   if (save.saveVersion === 31) throw new Error('migrateToV9: cannot downgrade SaveFileV31 or discard the relationship record');
   if (save.saveVersion === 30) throw new Error('migrateToV9: cannot downgrade SaveFileV30 or discard the promise predicate');
   if (
@@ -7389,6 +7393,7 @@ export function migrateToV9(save: SaveFile): SaveFileV9 {
 // identity; V1–V9 cross every frozen boundary and receive exactly legacy-empty
 // casting state only at the final V9→V10 step. V11 is rejected, never downgraded.
 export function migrateToV10(save: SaveFile): SaveFileV10 {
+  if (save.saveVersion === 32) throw new Error('migrateToV10: cannot downgrade SaveFileV32 or discard the waived-promise link');
   if (save.saveVersion === 31) throw new Error('migrateToV10: cannot downgrade SaveFileV31 or discard the relationship record');
   if (save.saveVersion === 30) throw new Error('migrateToV10: cannot downgrade SaveFileV30 or discard the promise predicate');
   if (
@@ -7415,6 +7420,7 @@ export function migrateToV10(save: SaveFile): SaveFileV10 {
 // mode. V12 is rejected, never downgraded: a placed facility, its land, its
 // debit, and its operating history have no V11 home.
 export function migrateToV11(save: SaveFile): SaveFileV11 {
+  if (save.saveVersion === 32) throw new Error('migrateToV11: cannot downgrade SaveFileV32 or discard the waived-promise link');
   if (save.saveVersion === 31) throw new Error('migrateToV11: cannot downgrade SaveFileV31 or discard the relationship record');
   if (save.saveVersion === 30) throw new Error('migrateToV11: cannot downgrade SaveFileV30 or discard the promise predicate');
   if (
@@ -7439,6 +7445,7 @@ export function migrateToV11(save: SaveFile): SaveFileV11 {
 // their own validated construction history implies at the final V11→V12 step.
 // V13 is rejected, never downgraded: a property that has grown has no V12 home.
 export function migrateToV12(save: SaveFile): SaveFileV12 {
+  if (save.saveVersion === 32) throw new Error('migrateToV12: cannot downgrade SaveFileV32 or discard the waived-promise link');
   if (save.saveVersion === 31) throw new Error('migrateToV12: cannot downgrade SaveFileV31 or discard the relationship record');
   if (save.saveVersion === 30) throw new Error('migrateToV12: cannot downgrade SaveFileV30 or discard the promise predicate');
   if (save.saveVersion === 13 || save.saveVersion === 14 || save.saveVersion === 15 || save.saveVersion === 16 || save.saveVersion === 17 || save.saveVersion === 18) {
@@ -7466,6 +7473,7 @@ export function migrateToV12(save: SaveFile): SaveFileV12 {
 // one widened leaf — the honest, un-guessed `subjectId: null` on any
 // pre-existing `queueIntentExpired` row — at the final V14→V15 step.
 export function migrateToV15(save: SaveFile): SaveFileV15 {
+  if (save.saveVersion === 32) throw new Error('migrateToV15: cannot downgrade SaveFileV32 or discard the waived-promise link');
   if (save.saveVersion === 31) throw new Error('migrateToV15: cannot downgrade SaveFileV31 or discard the relationship record');
   if (save.saveVersion === 30) throw new Error('migrateToV15: cannot downgrade SaveFileV30 or discard the promise predicate');
   if (save.saveVersion === 29) throw new Error('migrateToV15: cannot downgrade SaveFileV29 or discard the promise record');
@@ -7545,6 +7553,7 @@ export function convertV17ToV18(v17: SaveFileV17): SaveFileV18 {
 // identity (after validation at the call boundary); V1–V17 cross every frozen
 // boundary, then receive `endowed` at the final V17→V18 step.
 export function migrateToV18(save: SaveFile): SaveFileV18 {
+  if (save.saveVersion === 32) throw new Error('migrateToV18: cannot downgrade SaveFileV32 or discard the waived-promise link');
   if (save.saveVersion === 31) throw new Error('migrateToV18: cannot downgrade SaveFileV31 or discard the relationship record');
   if (save.saveVersion === 30) throw new Error('migrateToV18: cannot downgrade SaveFileV30 or discard the promise predicate');
   if (save.saveVersion === 29) throw new Error('migrateToV18: cannot downgrade SaveFileV29 or discard the promise record');
@@ -7565,6 +7574,7 @@ export function migrateToV18(save: SaveFile): SaveFileV18 {
 // migrateToV17 — the frozen V17-target migration (P08A). A V18 save can never
 // be downgraded: discarding the founding regime would erase exact history.
 export function migrateToV17(save: SaveFile): SaveFileV17 {
+  if (save.saveVersion === 32) throw new Error('migrateToV17: cannot downgrade SaveFileV32 or discard the waived-promise link');
   if (save.saveVersion === 31) throw new Error('migrateToV17: cannot downgrade SaveFileV31 or discard the relationship record');
   if (save.saveVersion === 30) throw new Error('migrateToV17: cannot downgrade SaveFileV30 or discard the promise predicate');
   if (save.saveVersion === 29) throw new Error('migrateToV17: cannot downgrade SaveFileV29 or discard the promise record');
@@ -7590,6 +7600,7 @@ export function migrateToV17(save: SaveFile): SaveFileV17 {
 // migrateToV16 — the frozen V16-target migration (P06A). A V17 save can never
 // be downgraded: discarding the recorded history would silently erase provenance.
 export function migrateToV16(save: SaveFile): SaveFileV16 {
+  if (save.saveVersion === 32) throw new Error('migrateToV16: cannot downgrade SaveFileV32 or discard the waived-promise link');
   if (save.saveVersion === 31) throw new Error('migrateToV16: cannot downgrade SaveFileV31 or discard the relationship record');
   if (save.saveVersion === 30) throw new Error('migrateToV16: cannot downgrade SaveFileV30 or discard the promise predicate');
   if (save.saveVersion === 29) throw new Error('migrateToV16: cannot downgrade SaveFileV29 or discard the promise record');
@@ -7618,6 +7629,7 @@ export function migrateToV16(save: SaveFile): SaveFileV16 {
 }
 
 export function migrateToV14(save: SaveFile): SaveFileV14 {
+  if (save.saveVersion === 32) throw new Error('migrateToV14: cannot downgrade SaveFileV32 or discard the waived-promise link');
   if (save.saveVersion === 31) throw new Error('migrateToV14: cannot downgrade SaveFileV31 or discard the relationship record');
   if (save.saveVersion === 30) throw new Error('migrateToV14: cannot downgrade SaveFileV30 or discard the promise predicate');
   if (save.saveVersion === 29) throw new Error('migrateToV14: cannot downgrade SaveFileV29 or discard the promise record');
@@ -7656,6 +7668,7 @@ export function migrateToV14(save: SaveFile): SaveFileV14 {
 }
 
 export function migrateToV13(save: SaveFile): SaveFileV13 {
+  if (save.saveVersion === 32) throw new Error('migrateToV13: cannot downgrade SaveFileV32 or discard the waived-promise link');
   if (save.saveVersion === 31) throw new Error('migrateToV13: cannot downgrade SaveFileV31 or discard the relationship record');
   if (save.saveVersion === 30) throw new Error('migrateToV13: cannot downgrade SaveFileV30 or discard the promise predicate');
   if (save.saveVersion === 29) throw new Error('migrateToV13: cannot downgrade SaveFileV29 or discard the promise record');
@@ -7763,6 +7776,7 @@ export function convertV18ToV19(save: SaveFileV18): SaveFileV19 {
   return validateSaveV19({ saveVersion: 19, seed: save.seed, state, broadcastCache: state.broadcastItems });
 }
 export function migrateToV19(save: SaveFile): SaveFileV19 {
+  if (save.saveVersion === 32) throw new Error('migrateToV19: cannot downgrade SaveFileV32 or discard the waived-promise link');
   if (save.saveVersion === 31) throw new Error('migrateToV19: cannot downgrade SaveFileV31 or discard the relationship record');
   if (save.saveVersion === 30) throw new Error('migrateToV19: cannot downgrade SaveFileV30 or discard the promise predicate');
   if (save.saveVersion === 29) throw new Error('migrateToV19: cannot downgrade SaveFileV29 or discard the promise record');
@@ -7845,6 +7859,7 @@ export function convertV20ToV21(save: SaveFileV20): SaveFileV21 {
 }
 
 export function migrateToV21(save: SaveFile): SaveFileV21 {
+  if (save.saveVersion === 32) throw new Error('migrateToV21: cannot downgrade SaveFileV32 or discard the waived-promise link');
   if (save.saveVersion === 31) throw new Error('migrateToV21: cannot downgrade SaveFileV31 or discard the relationship record');
   if (save.saveVersion === 30) throw new Error('migrateToV21: cannot downgrade SaveFileV30 or discard the promise predicate');
   if (save.saveVersion === 29) throw new Error('migrateToV21: cannot downgrade SaveFileV29 or discard the promise record');
@@ -7873,6 +7888,7 @@ export function convertV21ToV22(save: SaveFileV21): SaveFileV22 {
 }
 
 export function migrateToV22(save: SaveFile): SaveFileV22 {
+  if (save.saveVersion === 32) throw new Error('migrateToV22: cannot downgrade SaveFileV32 or discard the waived-promise link');
   if (save.saveVersion === 31) throw new Error('migrateToV22: cannot downgrade SaveFileV31 or discard the relationship record');
   if (save.saveVersion === 30) throw new Error('migrateToV22: cannot downgrade SaveFileV30 or discard the promise predicate');
   if (save.saveVersion === 29) throw new Error('migrateToV22: cannot downgrade SaveFileV29 or discard the promise record');
@@ -7926,6 +7942,7 @@ export function convertV22ToV23(save: SaveFileV22): SaveFileV23 {
  * so nothing here is trusted on the strength of its declared type alone.
  */
 export function migrateToV23(save: SaveFile | { saveVersion: number }): SaveFileV23 {
+  if (save.saveVersion === 32) throw new Error('migrateToV23: cannot downgrade SaveFileV32 or discard the waived-promise link');
   if (save.saveVersion === 31) throw new Error('migrateToV23: cannot downgrade SaveFileV31 or discard the relationship record');
   if (save.saveVersion === 30) throw new Error('migrateToV23: cannot downgrade SaveFileV30 or discard the promise predicate');
   if (save.saveVersion === 29) throw new Error('migrateToV23: cannot downgrade SaveFileV29 or discard the promise record');
@@ -7989,6 +8006,7 @@ export function convertV23ToV24(save: SaveFileV23): SaveFileV24 {
  * so nothing here is trusted on the strength of its declared type alone.
  */
 export function migrateToV24(save: SaveFile | { saveVersion: number }): SaveFileV24 {
+  if (save.saveVersion === 32) throw new Error('migrateToV24: cannot downgrade SaveFileV32 or discard the waived-promise link');
   if (save.saveVersion === 31) throw new Error('migrateToV24: cannot downgrade SaveFileV31 or discard the relationship record');
   if (save.saveVersion === 30) throw new Error('migrateToV24: cannot downgrade SaveFileV30 or discard the promise predicate');
   if (save.saveVersion === 29) throw new Error('migrateToV24: cannot downgrade SaveFileV29 or discard the promise record');
@@ -8213,6 +8231,7 @@ export function convertV24ToV25(save: SaveFileV24): SaveFileV25 {
  * so nothing here is trusted on the strength of its declared type alone.
  */
 export function migrateToV25(save: SaveFile | { saveVersion: number }): SaveFileV25 {
+  if (save.saveVersion === 32) throw new Error('migrateToV25: cannot downgrade SaveFileV32 or discard the waived-promise link');
   if (save.saveVersion === 31) throw new Error('migrateToV25: cannot downgrade SaveFileV31 or discard the relationship record');
   if (save.saveVersion === 30) throw new Error('migrateToV25: cannot downgrade SaveFileV30 or discard the promise predicate');
   if (save.saveVersion === 29) throw new Error('migrateToV25: cannot downgrade SaveFileV29 or discard the promise record');
@@ -8378,6 +8397,7 @@ export function convertV25ToV26(save: SaveFileV25): SaveFileV26 {
  * so nothing here is trusted on the strength of its declared type alone.
  */
 export function migrateToV26(save: SaveFile | { saveVersion: number }): SaveFileV26 {
+  if (save.saveVersion === 32) return migrateToV26(convertV32ToV31(save as SaveFileV32));
   if (save.saveVersion === 31) return migrateToV26(convertV31ToV30(save as SaveFileV31));
   if (save.saveVersion === 30) return migrateToV26(convertV30ToV29(save as SaveFileV30));
   if (save.saveVersion === 29) return convertV27ToV26(convertV28ToV27(convertV29ToV28(save as SaveFileV29)));
@@ -8530,6 +8550,7 @@ export function convertV27ToV26(save: SaveFileV27): SaveFileV26 {
  * so nothing here is trusted on the strength of its declared type alone.
  */
 export function migrateToV27(save: SaveFile | { saveVersion: number }): SaveFileV27 {
+  if (save.saveVersion === 32) return migrateToV27(convertV32ToV31(save as SaveFileV32));
   if (save.saveVersion === 31) return migrateToV27(convertV31ToV30(save as SaveFileV31));
   if (save.saveVersion === 30) return migrateToV27(convertV30ToV29(save as SaveFileV30));
   if (save.saveVersion === 29) return convertV28ToV27(convertV29ToV28(save as SaveFileV29));
@@ -8612,6 +8633,7 @@ export function convertV28ToV27(save: SaveFileV28): SaveFileV27 {
  * so nothing here is trusted on the strength of its declared type alone.
  */
 export function migrateToV28(save: SaveFile | { saveVersion: number }): SaveFileV28 {
+  if (save.saveVersion === 32) return migrateToV28(convertV32ToV31(save as SaveFileV32));
   if (save.saveVersion === 31) return migrateToV28(convertV31ToV30(save as SaveFileV31));
   if (save.saveVersion === 30) return migrateToV28(convertV30ToV29(save as SaveFileV30));
   if (save.saveVersion === 29) return convertV29ToV28(save as SaveFileV29);
@@ -8711,6 +8733,7 @@ export function convertV29ToV28(save: SaveFileV29): SaveFileV28 {
  * so nothing here is trusted on the strength of its declared type alone.
  */
 export function migrateToV29(save: SaveFile | { saveVersion: number }): SaveFileV29 {
+  if (save.saveVersion === 32) return migrateToV29(convertV32ToV31(save as SaveFileV32));
   if (save.saveVersion === 31) return convertV30ToV29(convertV31ToV30(save as SaveFileV31));
   if (save.saveVersion === 30) return convertV30ToV29(save as SaveFileV30);
   if (save.saveVersion === 29) return validateSaveV29(save);
@@ -8757,6 +8780,7 @@ export function convertV30ToV29(save: SaveFileV30): SaveFileV29 {
 /** The V30 boundary (P14B.4, record 600); since P14B.5 a frozen prior shape
  * reached from the live V31 by the ONE lossless-when-empty downgrade. */
 export function migrateToV30(save: SaveFile | { saveVersion: number }): SaveFileV30 {
+  if (save.saveVersion === 32) return migrateToV30(convertV32ToV31(save as SaveFileV32));
   if (save.saveVersion === 31) return convertV31ToV30(save as SaveFileV31);
   if (save.saveVersion === 30) return validateSaveV30(save);
   return convertV29ToV30(migrateToV29(save));
@@ -8832,16 +8856,15 @@ export function convertV31ToV30(save: SaveFileV31): SaveFileV30 {
 /** The live load-to-play route (P14B.5): every prior envelope migrates to the
  * V31 boundary the live writer stamps. */
 export function migrateToV31(save: SaveFile | { saveVersion: number }): SaveFileV31 {
+  if (save.saveVersion === 32) return convertV32ToV31(save as SaveFileV32);
   if (save.saveVersion === 31) return validateSaveV31(save);
   return convertV30ToV31(migrateToV30(save));
 }
 
 // ── The waived-promise link — SaveFileV32 (P14B.7) ───────────────────────────
 //
-// THE STEP IS DEFINED, THE WRITER DOES NOT MOVE. `LIVE_SAVE_VERSION` stays 31 and
-// `makeSave` still stamps V31, so no live campaign carries `supersededByPromiseId`
-// yet and `waivePromise` does not write one. The pair below is the governed step a
-// later slice's live bump rides in on.
+// The live boundary: `LIVE_SAVE_VERSION` is 32, `makeSave` stamps it, and
+// `waivePromise` writes `supersededByPromiseId` onto the promise it waives.
 
 /** The V32 promise row with its one new field REMOVED — exactly what V31 knows.
  * An older validator is never taught a newer field and never silently tolerates
@@ -8860,6 +8883,26 @@ function stripV32Field(raw: Record<string, unknown>): Record<string, unknown> {
 }
 
 /**
+ * V32 validates its OWN field (`validateWaivedPromiseLinks`: present on every row,
+ * a promise id or null, naming another promise of this world on a row that really
+ * settled WAIVED), then hands the frozen V31 chain exactly what V31 knows — the
+ * `stripV31Root` device, one level down at the row instead of the root.
+ */
+export function validateSaveV32(save: unknown): SaveFileV32 {
+  if (!isRecord(save)) throw new Error('validateSaveV32: object required');
+  v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
+  if (save.saveVersion !== 32) throw new Error('validateSaveV32: expected version 32');
+  const raw = v14Record(checkEnvelope(save, 'validateSaveV32'), 'state');
+  validateWaivedPromiseLinks(raw);
+  try {
+    validateSaveV31({ saveVersion: 31, seed: save.seed, state: stripV32Field(raw), broadcastCache: save.broadcastCache });
+  } catch (error) {
+    throw new Error(`validateSaveV32: frozen V31 state is invalid — ${(error as Error).message}`);
+  }
+  return save as SaveFileV32;
+}
+
+/**
  * Governed V31→V32: the field opens `null` on EVERY existing record and NOTHING
  * IS RECOMPUTED — a campaign written before waivers existed waived nothing (Q3,
  * no behavioral backfill; the V25→V26 `cancellation` precedent). Every other root
@@ -8873,7 +8916,7 @@ export function convertV31ToV32(save: SaveFileV31): SaveFileV32 {
     ...oldState,
     promises: oldState.promises.map((promise) => ({ ...promise, supersededByPromiseId: null })),
   };
-  return { saveVersion: 32, seed: state.seed, state, broadcastCache: state.broadcastItems };
+  return validateSaveV32({ saveVersion: 32, seed: state.seed, state, broadcastCache: state.broadcastItems });
 }
 
 /**
@@ -8896,6 +8939,13 @@ export function convertV32ToV31(save: SaveFileV32): SaveFileV31 {
   return validateSaveV31({ saveVersion: 31, seed: state.seed, state, broadcastCache: state.broadcastItems });
 }
 
+/** The live load-to-play route (P14B.7): every prior envelope migrates to the
+ * V32 boundary the live writer stamps. */
+export function migrateToV32(save: SaveFile | { saveVersion: number }): SaveFileV32 {
+  if (save.saveVersion === 32) return validateSaveV32(save);
+  return convertV31ToV32(migrateToV31(save));
+}
+
 export function convertV19ToV20(save: SaveFileV19): SaveFileV20 {
   const validated = validateSaveV19(save);
   const oldState = JSON.parse(JSON.stringify(validated.state)) as GameStateV19;
@@ -8914,6 +8964,7 @@ export function convertV19ToV20(save: SaveFileV19): SaveFileV20 {
 }
 
 export function migrateToV20(save: SaveFile): SaveFileV20 {
+  if (save.saveVersion === 32) throw new Error('migrateToV20: cannot downgrade SaveFileV32 or discard the waived-promise link');
   if (save.saveVersion === 31) throw new Error('migrateToV20: cannot downgrade SaveFileV31 or discard the relationship record');
   if (save.saveVersion === 30) throw new Error('migrateToV20: cannot downgrade SaveFileV30 or discard the promise predicate');
   if (save.saveVersion === 29) throw new Error('migrateToV20: cannot downgrade SaveFileV29 or discard the promise record');
