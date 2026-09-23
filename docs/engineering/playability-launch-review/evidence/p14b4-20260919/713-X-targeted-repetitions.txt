@@ -1,0 +1,13 @@
+# 713-X raw — targeted repetitions, three lot files, both revisions, same machine
+# command: vitest run --project ui WorldFirstWorldInspectorDefault WorldFirstLotNativeCastingReviewApp WorldFirstLotNativeNextEventApp
+
+== rep-head-1:       Tests  13 failed | 61 passed (74)
+== rep-head-2:       Tests  14 failed | 60 passed (74)
+== rep-head-3:       Tests  15 failed | 59 passed (74)
+== rep-baseline-1:       Tests  13 failed | 61 passed (74)
+== rep-baseline-2:       Tests  11 failed | 63 passed (74)
+== rep-baseline-3:       Tests  16 failed | 58 passed (74)
+
+== earlier singles:
+targeted-head:           Tests  16 failed | 58 passed (74)
+targeted-baseline:       Tests  15 failed | 59 passed (74)

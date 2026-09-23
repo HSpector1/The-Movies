@@ -24,9 +24,16 @@ vanished.
 
 IF CF-09 FAILS AGAIN, the manifest regeneration did not settle it and record 704's account of
 `GENERATOR_SOURCE_PATHS` is incomplete.
-IF THE PREPARED-REUSE TIMEOUT RETURNS, record 706's attribution is wrong and it is a defect,
-not weather. Record 706 already commits to reading it that way.
+IF THE PREPARED-REUSE TIMEOUT RETURNS, record 706's attribution is wrong and the case is to
+be INVESTIGATED: which assertion or await failed to finish, how far it got, whether the
+elapsed profile matches the baseline, and whether the landed change can reach that path.
 IF ANY OTHER FAILURE APPEARS, the D2 fix is not as bounded as its +12/-1 diff suggests.
+
+CORRECTED after publication, by the Owner's ruling. The sentence here originally read "it is
+a defect, not weather", which is the same error record 706 carried and is withdrawn for the
+same reason: neither an engine defect nor environmental noise may be applied as a default.
+It did not fire, so nothing downstream rests on it, but the rule it stated was wrong and the
+record should not keep it. Record 711 holds the measurement the corrected rule requires.
 
 ## UI (`npm run test:ui`), predicted
 
