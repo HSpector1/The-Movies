@@ -333,3 +333,70 @@ T0b arithmetic was superseded by measurement, in the direction it predicted for 
 against it for the remedy.
 
 LOGIC VERIFIED, UNITY NOT VERIFIED. This audit is acceptance of nothing.
+
+---
+
+## 12. The audit's second pass, and the parent's answers
+
+The auditor was resumed with the T0b measurement and returned a revised report: eleven amendments
+instead of ten, with two revised and one added. Recorded here.
+
+**It retracted its own remedy and downgraded its own objection, unprompted.** "My recommendation to
+commission one unproduced screenplay is retracted… My remedy was arithmetic the engine does not
+permit." And on the count-2 substitution: "The parent's substitution is the right call. The
+objection survives only as a disclosed coverage gap." Both retractions are accepted and the record
+stands as written in §5 above.
+
+**A11 (new, MODERATE) — "the accept path has no measured world". ALREADY DISCHARGED, and the
+auditor said so was INFERRED.** Its concern: completion condition 3 needs a world where a substitute
+is ACCEPTED, and it believed only the refusal had been measured. It further guessed a mechanism —
+that the archived route cancels the throwaway greenlight after the freeze (`722:275-277`), which
+would drop `existingPath` to 1 by the waiver week and make every count-2 substitute FRAGILE.
+
+Both halves are refuted by the artifact, which postdated the auditor's read and which it correctly
+flagged as unverified:
+
+- The accept case WAS measured, on the same world, at the same week the fixture sits at. The
+  provenance records `substituteCountAccepted: 2`, `acceptanceIsNull: true`, `measuredAtWeek: 104`,
+  and the fixture's own `week` is 104. A test loading the fixture and waiving at
+  `state.market.tick` waives at exactly the measured week.
+- The guessed mechanism does not apply, and the reason is the very thing that makes this fixture
+  different from `part-served-p1`. The archived route cancels the throwaway because it needs the
+  target free to be greenlit again for the focus production. **This minter stops at the freeze and
+  never cancels it**, so the throwaway is still active at week 104 and still supplies
+  `seatedPreFirstTake = 1`. That is why the count-2 substitute is accepted rather than FRAGILE.
+  Recorded because it is load-bearing: a later edit that cancels the throwaway would silently take
+  the accept case away.
+
+**A12 (parent decision) — the history row gains `progress`.** The auditor noticed a real usability
+hole and then recommended against fixing it as scope expansion: `StudioMarketPromiseHistoryRow`
+carries no `progress` member, so a player sees "count 2, open" and cannot tell how many pictures are
+still owed before drafting a substitute. They would learn the remainder only by being refused.
+
+The parent overrules that caution and adds the field. Completion condition 1 requires a player to
+PROPOSE a substitute; a player who cannot see the remaining obligation proposes by trial and error,
+and the refusal sentence becomes a guessing oracle rather than an explanation. The field rides the
+same projection bump, on the same row, with the same single write site, so it costs nothing extra;
+it removes no behaviour; it discloses only a fact the viewing studio's own promise already holds
+about itself, on a row already scoped to that studio. Recorded as a decision rather than a question,
+and reversible on one line if the Owner disagrees.
+
+The auditor's related observation stands and is worth keeping: on a progress-0 world the refusal
+sentence and the promised count agree numerically, so this friction is invisible in the only fixture
+B.8 has. That is an argument for the field, not against it.
+
+**Adopted from the second pass, for the RED author.** Rule ordering on the owes-two fixture: a
+count-1 substitute reaches rule 7 only if every earlier rule passes, so the RED must hold family and
+seat class EQUAL to the original and vary only the count. A P2 substitute against a P1 original
+fires rule 6 first and masks rule 7 entirely.
+
+**Answered, one item the auditor left open.** It asked whether B.7's core suite already pins rule
+7's `- progress` term directly, and said it had not checked. It does: group13 of
+`tests/p14b7-promise-waiver.test.ts` runs both directions on `genuine-v31-part-served-p1` (count 2,
+progress 1, remaining 1), and both were proven by defect injection at record 743. So the disclosed
+gap is confined to the PLAYER SURFACE, not to the law, and it should be recorded at that narrower
+scope.
+
+**Its §9 exclusions table returned all six HONEST**, with one caveat already covered by amendment 3:
+the projection bump regenerates `generated/unity/StudioBridgeDtos.Generated.cs` regardless, so B.8
+does write into `generated/unity/` even though native CONTROLS stay deferred.

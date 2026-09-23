@@ -328,3 +328,33 @@ appears BEFORE the waived original.
 includes `bridge/session.ts:2054`, which clears `pendingQuotes` on load, so a quote minted before a
 save can never be committed after a reload. The conversion cascade's unguarded final `else` is
 compile-safe and must not be "fixed" defensively.
+
+**A11 (from the audit's second pass) — the ACCEPT path is already measured; the concern was
+INFERRED and is refuted by the artifact.** The owes-two provenance records
+`substituteCountAccepted: 2`, `acceptanceIsNull: true` at `measuredAtWeek: 104`, and the fixture's
+own week is 104, so a test waiving at `state.market.tick` waives at the measured week. The auditor's
+guessed mechanism (that the throwaway greenlight is cancelled after the freeze, dropping
+`existingPath`) does not apply: the archived route cancels it to free the target for a focus
+production, and this minter stops at the freeze and never cancels it. The throwaway stays active and
+keeps supplying `seatedPreFirstTake = 1`, which is exactly why a count-2 substitute is accepted
+rather than FRAGILE. LOAD-BEARING: an edit that cancels the throwaway would silently remove the
+accept case.
+
+**A12 (parent decision) — `StudioMarketPromiseHistoryRow` gains `progress: nonNegativeInteger()`.**
+The row carries `count` but not `progress`, so a player sees "count 2, open" and cannot tell how
+many pictures are still owed before drafting a substitute; the refusal sentence would be their only
+oracle. Completion condition 1 requires them to PROPOSE, not to guess. The field rides the same
+projection bump, on the same row, through the same single write site, so it costs nothing extra, and
+it discloses only a fact about the viewing studio's own promise on a row already scoped to that
+studio. The audit recommended recording the friction instead of fixing it, as scope expansion; that
+caution is overruled and the reasoning is recorded at 745-C §12 for the Owner to reverse on one line.
+
+**A13 (for the RED author) — rule ordering on the owes-two fixture.** A count-1 substitute reaches
+rule 7 only if rules 1 through 6 all pass. The RED must hold family and seat class EQUAL to the
+original and vary ONLY the count: a P2 substitute against a P1 original fires rule 6 (the seat-mask
+strength test) first and masks rule 7 entirely.
+
+**Scope correction to A5's disclosed gap.** The audit asked whether B.7's core suite already pins
+rule 7's `- progress` term directly. It does: group13 runs both directions on
+`genuine-v31-part-served-p1`, proven by injection at 743. The disclosed gap is therefore confined to
+the PLAYER SURFACE, not the law, and is recorded at that narrower scope.
