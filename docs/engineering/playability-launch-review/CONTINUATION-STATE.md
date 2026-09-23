@@ -649,6 +649,39 @@ FINAL outgoingV29 corpus AND outgoing46 runtime before P2's writer moves.
 P2 preparation15 is not an implementation release or adopted product policy.
 Continue remaining P14 → P15 → P16 → sufficiently specified P17/P18.
 
+P14B.7 CLOSED AND PUBLISHED (records 742 closeout, 743 gap closure, source `4a268feb`). Save V31 → V32
+for `supersededByPromiseId`; PROJECTION 49, protocol 4, schema `60af24c5…`, rules 4 all UNMOVED, and
+`git diff 152ee9a4..HEAD -- generated/` EMPTY: the first P14B slice to move the save without moving the
+wire. Both suites 38 passed (32 engine + 6 bridge). Eight of the nine `waiverAccepted` refusals covered;
+rule 3 and the 4/5 separation disclosed untested with their reasons. Three guards PROVEN BY INJECTION,
+including one hole the verification found that neither the brief nor the test author had: the Owner's own
+approved remaining-obligation rule had no refusal case, so the suite would have stayed green under an
+implementation reading the original's raw count.
+P14B.8 OPEN — THE WAIVER'S PLAYER SURFACE (expansion 744 AS AMENDED by its §11; audit 745-C; RED brief
+749; sweep inventory 751). THE BEHAVIOUR: select an open promise, propose a substitute, receive an
+accurate quote or the specific refusal, confirm, and see the original marked WAIVED with the replacement
+recorded. Eight-clause completion condition at 744 §2.
+BOTH T0 MINTS DISCHARGED BEFORE ANYTHING TOUCHES THE BUMP. `genuine-projection49-runtime` (`4cba7090`),
+minted while 49 is still the running identity and its schema is NOT yet a registered prior, carrying a
+real `ls-remote` publication receipt and a MEASURED V31→V32 delta (stripping `supersededByPromiseId` off
+the migrated corpus reproduces the V31 rows byte for byte). `genuine-v32-owes-two-p1` (`6d93e62c`), count
+2 / progress 0 / remaining 2, the first world in the corpus with a remaining obligation above 1, which
+PROVES its case at mint time and again on the state read back from disk. The Owner's literal 3/1/2 was
+MEASURED (747) and is blocked by M16 exclusivity, not by fixture construction; the substitution and what
+it costs are recorded, not buried.
+THE AUDIT CAUGHT A RIVAL-WAIVER HOLE AND IT IS B.8's TO CLOSE. Neither `waiverAccepted` nor
+`waivePromise` compares the promise's `issuerStudioId` to the player's studio, and promise ids are
+`promise-<length>`, sequential and enumerable. No client can reach the verb today; B.8 creates the route,
+so B.8 owes the gate, at the quote AND at the commit. Also corrected: the parent's own draft claimed a
+waiver is excluded from the public Industry fold "twice over" because it settles with a null
+`outcomeEventId`. It does not. `settle` coerces `next.outcomeEventId ?? eventId`, so the row carries the
+real receipt id and the exclusion rests on the outcome enum alone. The phrase reached no published record.
+REMAINING FOR B.8: RED (in flight), implementation, the 49→50 bump with `60af24c5…` registered as
+`projection-v49` in the SAME commit, the generated artifacts, the 22 running-identity test files, then
+verification and publication. THE SPLIT IS THE RISK: 13 provenance/MANIFEST files carry the literal 49 as
+MINTED EVIDENCE and must never move.
+
+
 Max two native specialists, one production writer; parent owns serialized heavy
 checks. Use native Fable roles, no Claude or installation campaign. Unity
 handwritten code/rendering/native UI/UX and Owner acceptance remain deferred.
