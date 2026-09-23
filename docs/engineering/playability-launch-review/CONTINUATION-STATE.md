@@ -494,10 +494,22 @@ CORRECTED: the trust consequence of a waiver is settled by the companion (`:379`
 visible", ruling S11 `:568`) and the engine already agrees by construction, and the retirement-moot branch's
 OUTCOME is genuinely ambiguous in the companion, which lists the same cause under BOTH the WAIVED and VOIDED
 rows, so P14C inherits an ambiguity rather than a rule.
-T1 RED DONE — record 725-T, `tests/p14b7-promise-waiver.test.ts`, 573 lines, sha256 `bf5fb83a…`, run
-transcript `c332f67e…`. 26 FAILED / 2 passed (28), deterministic across two runs. The parent verified the
-attribution independently: 104 "RED premise" guards in the transcript and ZERO non-premise errors, so every
-failure is a named missing export and none is module resolution or a masked `toThrow()`. The two passes call
+T1 RED DONE — record 725-T, IDENTITY CORRECTED BY RECORD 727. `tests/p14b7-promise-waiver.test.ts` AS
+COMMITTED is sha256 `68c76efe…`, 619 lines, **27 FAILED / 2 passed (29)**, exit 1, re-run by the parent on
+the exact committed bytes (transcript `727-red-recheck-on-committed-bytes.txt`). The first publication of
+this line named `bf5fb83a…`, 573 lines, 26/2 (28), which were the bytes 725-T describes and are NOT the
+bytes in the repository: the suite grew by ONE case, covering the Owner's approved remaining-obligation
+rule, between the engineer's hand-back and the commit, because the parent's message carrying that decision
+arrived after the report was composed and resumed the agent. THE PARENT PUBLISHED A STALE IDENTITY, having
+hashed the file, then sent a further message that resumed the agent inside the same tree, then committed
+without re-hashing. RULE: re-hash immediately before staging, not merely before the last thing that could
+have changed it. Attribution RE-VERIFIED on the committed bytes: 108 "RED premise" guards and ZERO
+AssertionError/TypeError/ReferenceError/SyntaxError lines lacking that marker, over two guarded symbols
+(`waivePromise`, `convertV31ToV32`), so every failure is a named missing export and none is module
+resolution or a masked `toThrow()`. One of the two passes PROVES THE FIRST TRAP IS REAL rather than
+asserting desired behaviour: it shows the `reclassifyPromise`-buggy interval substitution ACCEPTING a
+substitute the correct reading refuses. 725-T is left as the engineer wrote it, truthful when written; 727
+is the reconciliation and the two are read together. The two passes call
 only functions that exist today and are premise-proving, not pins. Coverage: all ten brief priorities, the
 two foundational items, and the mid-task eleventh pin on the public industry fold, asserted
 positive-then-absent so it cannot pass vacuously. Three interface interpretations are NAMED rather than

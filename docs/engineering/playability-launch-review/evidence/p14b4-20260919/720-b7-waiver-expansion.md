@@ -397,9 +397,13 @@ must move together, and the RED pins the ROW TEXT, not merely the row's existenc
    `RELATIONSHIP_FAILURE_DELTA` 4 → 5, and that changes edge values inside a V31 save).
    `src/core/save.ts`'s own last writer is `f5310afb`; record both, as 645-A did for V30.
 2. **Audit. DONE**, record 723-C, verdict REFINE, this record amended in place (§10).
-3. **T1. DONE**, record 725-T. `tests/p14b7-promise-waiver.test.ts`, 573 lines, sha256
-   `bf5fb83a…`. 26 failed / 2 passed (28), deterministic across two runs. Parent-verified
-   attribution: 104 "RED premise" guards in the transcript and ZERO non-premise errors.
+3. **T1. DONE**, record 725-T, with its published IDENTITY corrected by record 727.
+   `tests/p14b7-promise-waiver.test.ts` as committed is sha256 `68c76efe…`, 619 lines,
+   **27 failed / 2 passed (29)**. 725-T and the first header publication named `bf5fb83a…`,
+   573 lines, 26/2 (28): the suite grew by one case, for the Owner's approved
+   remaining-obligation rule, between the hand-back and the commit, and the parent published a
+   hash taken before a message that resumed the agent. Attribution re-verified ON THE COMMITTED
+   BYTES: 108 "RED premise" guards and ZERO non-premise errors.
 4. **W.** sim-core lands `waivePromise`, `waiverAccepted`, the V32 save step and the migrations.
 5. **Close.** Pre-registered prediction, then full core on fixed source, then the checkpoint.
 

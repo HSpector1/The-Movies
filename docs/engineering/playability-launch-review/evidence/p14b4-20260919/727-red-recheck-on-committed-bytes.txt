@@ -1,0 +1,526 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ × |core| tests/p14b7-promise-waiver.test.ts > P14B.7 group0 — the two verbs exist, are pure, and dispatch (720 §2 items 1-2) > waivePromise and waiverAccepted are functions (the RED-mechanism guard every later case relies on)
+   → RED premise: waivePromise must exist as a named export of src/core/promises.ts: expected 'undefined' to be 'function' // Object.is equality
+ × |core| tests/p14b7-promise-waiver.test.ts > P14B.7 group0 — the two verbs exist, are pure, and dispatch (720 §2 items 1-2) > opens with requirePromiseRoots exactly like every other state-mutating export in this file
+   → RED premise: waivePromise must exist as a named export of src/core/promises.ts: expected 'undefined' to be 'function' // Object.is equality
+ × |core| tests/p14b7-promise-waiver.test.ts > P14B.7 group0 — the two verbs exist, are pure, and dispatch (720 §2 items 1-2) > is reachable from applyActions and agrees exactly with the direct call (I2 substitute shape)
+   → RED premise: waivePromise must exist as a named export of src/core/promises.ts: expected 'undefined' to be 'function' // Object.is equality
+ × |core| tests/p14b7-promise-waiver.test.ts > P14B.7 group0 — the two verbs exist, are pure, and dispatch (720 §2 items 1-2) > consumes no RNG: rngState is byte-identical before and after an accepted waiver
+   → RED premise: waivePromise must exist as a named export of src/core/promises.ts: expected 'undefined' to be 'function' // Object.is equality
+ × |core| tests/p14b7-promise-waiver.test.ts > P14B.7 group1 — the substitute window is judged against the REAL employment contract > PUBLISHES A REFUSAL for a substitute whose window overruns the real contract, not a later save-validator crash
+   → RED premise: waivePromise must exist as a named export of src/core/promises.ts: expected 'undefined' to be 'function' // Object.is equality
+ × |core| tests/p14b7-promise-waiver.test.ts > P14B.7 group1 — the substitute window is judged against the REAL employment contract > §2 item 16 (Owner-named scenario): the refusal is CLEAN — the original promise and the whole game state are unchanged, not corrected later during saving
+   → RED premise: waivePromise must exist as a named export of src/core/promises.ts: expected 'undefined' to be 'function' // Object.is equality
+ ✓ |core| tests/p14b7-promise-waiver.test.ts > P14B.7 group1 — the substitute window is judged against the REAL employment contract > the SAME window judged the reclassifyPromise-buggy way (its own window as the interval) would wrongly accept it — the trap is real
+ × |core| tests/p14b7-promise-waiver.test.ts > P14B.7 group1 — the substitute window is judged against the REAL employment contract > ACCEPTS a substitute whose window fits inside the real contract (isolating the window check from blanket infeasibility)
+   → RED premise: waivePromise must exist as a named export of src/core/promises.ts: expected 'undefined' to be 'function' // Object.is equality
+ × |core| tests/p14b7-promise-waiver.test.ts > P14B.7 group2 — strength is a SUBSET test (substituteMask ⊆ originalMask), never a superset test > REFUSES a P1 (all-cast) substitute for a P2-lead original — an illegal downgrade, though independently feasible
+   → RED premise: waivePromise must exist as a named export of src/core/promises.ts: expected 'undefined' to be 'function' // Object.is equality
+ × |core| tests/p14b7-promise-waiver.test.ts > P14B.7 group2 — strength is a SUBSET test (substituteMask ⊆ originalMask), never a superset test > REFUSES a leadOrAntagonist substitute for a P2-lead original — the middle rung is still a downgrade
+   → RED premise: waivePromise must exist as a named export of src/core/promises.ts: expected 'undefined' to be 'function' // Object.is equality
+ × |core| tests/p14b7-promise-waiver.test.ts > P14B.7 group2 — strength is a SUBSET test (substituteMask ⊆ originalMask), never a superset test > ACCEPTS a same-class (lead) substitute for a P2-lead original — the equality case
+   → RED premise: waivePromise must exist as a named export of src/core/promises.ts: expected 'undefined' to be 'function' // Object.is equality
+ × |core| tests/p14b7-promise-waiver.test.ts > P14B.7 group2 — strength is a SUBSET test (substituteMask ⊆ originalMask), never a superset test > ACCEPTS a P2-lead substitute for a P1 (all-cast) original — the legal upgrade direction
+   → RED premise: waivePromise must exist as a named export of src/core/promises.ts: expected 'undefined' to be 'function' // Object.is equality
+ × |core| tests/p14b7-promise-waiver.test.ts > P14B.7 group3 — refuses waiving a promise that is not evaluable() (both halves) > REFUSES waiving an ALREADY-SATISFIED promise (settle() must not overwrite a terminal outcome)
+   → RED premise: waivePromise must exist as a named export of src/core/promises.ts: expected 'undefined' to be 'function' // Object.is equality
+ × |core| tests/p14b7-promise-waiver.test.ts > P14B.7 group3 — refuses waiving a promise that is not evaluable() (both halves) > REFUSES waiving an ALREADY-BROKEN promise (the same terminal law, the other outcome)
+   → RED premise: waivePromise must exist as a named export of src/core/promises.ts: expected 'undefined' to be 'function' // Object.is equality
+ × |core| tests/p14b7-promise-waiver.test.ts > P14B.7 group3 — refuses waiving a promise that is not evaluable() (both halves) > REFUSES waiving an UNBOUND promise (B.1: "mints no outcome for an offer nobody took")
+   → RED premise: waivePromise must exist as a named export of src/core/promises.ts: expected 'undefined' to be 'function' // Object.is equality
+ × |core| tests/p14b7-promise-waiver.test.ts > P14B.7 group4 — the substitute carries its own feasibilityReceipt (exact-key, today's week) > mints a feasibilityReceipt on the substitute matching the independent oracle exactly
+   → RED premise: waivePromise must exist as a named export of src/core/promises.ts: expected 'undefined' to be 'function' // Object.is equality
+ × |core| tests/p14b7-promise-waiver.test.ts > P14B.7 group5 — a Distrusted issuer cannot waive, even a fully feasible, legal, non-identical substitute > REFUSES for a genuinely Distrusted issuer (measured: 2 negative + 1 positive driver, still Distrusted)
+   → RED premise: waivePromise must exist as a named export of src/core/promises.ts: expected 'undefined' to be 'function' // Object.is equality
+ × |core| tests/p14b7-promise-waiver.test.ts > P14B.7 group6 — identical-substitute refusal, progress/evidenceRefs preserved, a stated outcomeCause > REFUSES a substitute identical to the original in family, class, count and window — though independently feasible
+   → RED premise: waivePromise must exist as a named export of src/core/promises.ts: expected 'undefined' to be 'function' // Object.is equality
+ × |core| tests/p14b7-promise-waiver.test.ts > P14B.7 group6 — identical-substitute refusal, progress/evidenceRefs preserved, a stated outcomeCause > PRESERVES progress and evidenceRefs on the waived original (does not recompute them like the BROKEN branch)
+   → RED premise: waivePromise must exist as a named export of src/core/promises.ts: expected 'undefined' to be 'function' // Object.is equality
+ × |core| tests/p14b7-promise-waiver.test.ts > P14B.7 group6 — identical-substitute refusal, progress/evidenceRefs preserved, a stated outcomeCause > stamps a non-empty outcomeCause on the waived original, as every other terminal branch does
+   → RED premise: waivePromise must exist as a named export of src/core/promises.ts: expected 'undefined' to be 'function' // Object.is equality
+ × |core| tests/p14b7-promise-waiver.test.ts > P14B.7 group7 — exactly ONE promiseOutcome receipt through the existing settle(), no new receipt kind > appends exactly one new talentMarket receipt, kind promiseOutcome, named by the original's outcomeEventId
+   → RED premise: waivePromise must exist as a named export of src/core/promises.ts: expected 'undefined' to be 'function' // Object.is equality
+ × |core| tests/p14b7-promise-waiver.test.ts > P14B.7 group8 — the substitute is minted BOUND directly, never through attachPromise > binds contractId to the original's own contract, outcome null, and creates NO proposal or case
+   → RED premise: waivePromise must exist as a named export of src/core/promises.ts: expected 'undefined' to be 'function' // Object.is equality
+ ✓ |core| tests/p14b7-promise-waiver.test.ts > P14B.7 group9 — Save V31 -> V32: supersededByPromiseId opens null, downgrade refuses non-null > LIVE_SAVE_VERSION and PROJECTION_VERSION are still the frozen values this suite must not move
+ × |core| tests/p14b7-promise-waiver.test.ts > P14B.7 group9 — Save V31 -> V32: supersededByPromiseId opens null, downgrade refuses non-null > convertV31ToV32 and convertV32ToV31 exist (the RED-mechanism guard for this group)
+   → RED premise: convertV31ToV32 must exist as a named export of src/core/save.ts: expected 'undefined' to be 'function' // Object.is equality
+ × |core| tests/p14b7-promise-waiver.test.ts > P14B.7 group9 — Save V31 -> V32: supersededByPromiseId opens null, downgrade refuses non-null > opens supersededByPromiseId: null on EVERY existing promise record, recomputing nothing else
+   → RED premise: convertV31ToV32 must exist as a named export of src/core/save.ts: expected 'undefined' to be 'function' // Object.is equality
+ × |core| tests/p14b7-promise-waiver.test.ts > P14B.7 group9 — Save V31 -> V32: supersededByPromiseId opens null, downgrade refuses non-null > the DOWNGRADE REFUSES a non-null supersededByPromiseId rather than silently dropping it
+   → RED premise: convertV31ToV32 must exist as a named export of src/core/save.ts: expected 'undefined' to be 'function' // Object.is equality
+ × |core| tests/p14b7-promise-waiver.test.ts > P14B.7 group9 — Save V31 -> V32: supersededByPromiseId opens null, downgrade refuses non-null > a lossless downgrade (every record null) round-trips to the ORIGINAL V31 bytes
+   → RED premise: convertV31ToV32 must exist as a named export of src/core/save.ts: expected 'undefined' to be 'function' // Object.is equality
+ × |core| tests/p14b7-promise-waiver.test.ts > P14B.7 group10 — a waived promise mints a promiseOutcome attention row, exactly like SATISFIED/BROKEN > mints exactly one promiseOutcome attention row for the waived promise, in the waived week
+   → RED premise: waivePromise must exist as a named export of src/core/promises.ts: expected 'undefined' to be 'function' // Object.is equality
+ × |core| tests/p14b7-promise-waiver.test.ts > P14B.7 group11 — a waived promise is public as an OUTCOME receipt but mints NO public industry activity > the promiseOutcome receipt exists after a waiver, and no industry Pulse activity carries its eventId
+   → RED premise: waivePromise must exist as a named export of src/core/promises.ts: expected 'undefined' to be 'function' // Object.is equality
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 27 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14b7-promise-waiver.test.ts > P14B.7 group0 — the two verbs exist, are pure, and dispatch (720 §2 items 1-2) > waivePromise and waiverAccepted are functions (the RED-mechanism guard every later case relies on)
+AssertionError: RED premise: waivePromise must exist as a named export of src/core/promises.ts: expected 'undefined' to be 'function' // Object.is equality
+
+Expected: "function"
+Received: "undefined"
+
+ ❯ assertWaiverFns tests/p14b7-promise-waiver.test.ts:120:113
+    118| 
+    119| function assertWaiverFns(): void {
+    120|   expect(typeof waivePromise, 'RED premise: waivePromise must exist as…
+       |                                                                                                                 ^
+    121|   expect(typeof waiverAccepted, 'RED premise: waiverAccepted must exis…
+    122| }
+ ❯ tests/p14b7-promise-waiver.test.ts:211:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/27]⎯
+
+ FAIL |core|  tests/p14b7-promise-waiver.test.ts > P14B.7 group0 — the two verbs exist, are pure, and dispatch (720 §2 items 1-2) > opens with requirePromiseRoots exactly like every other state-mutating export in this file
+AssertionError: RED premise: waivePromise must exist as a named export of src/core/promises.ts: expected 'undefined' to be 'function' // Object.is equality
+
+Expected: "function"
+Received: "undefined"
+
+ ❯ assertWaiverFns tests/p14b7-promise-waiver.test.ts:120:113
+    118| 
+    119| function assertWaiverFns(): void {
+    120|   expect(typeof waivePromise, 'RED premise: waivePromise must exist as…
+       |                                                                                                                 ^
+    121|   expect(typeof waiverAccepted, 'RED premise: waiverAccepted must exis…
+    122| }
+ ❯ tests/p14b7-promise-waiver.test.ts:214:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/27]⎯
+
+ FAIL |core|  tests/p14b7-promise-waiver.test.ts > P14B.7 group0 — the two verbs exist, are pure, and dispatch (720 §2 items 1-2) > is reachable from applyActions and agrees exactly with the direct call (I2 substitute shape)
+AssertionError: RED premise: waivePromise must exist as a named export of src/core/promises.ts: expected 'undefined' to be 'function' // Object.is equality
+
+Expected: "function"
+Received: "undefined"
+
+ ❯ assertWaiverFns tests/p14b7-promise-waiver.test.ts:120:113
+    118| 
+    119| function assertWaiverFns(): void {
+    120|   expect(typeof waivePromise, 'RED premise: waivePromise must exist as…
+       |                                                                                                                 ^
+    121|   expect(typeof waiverAccepted, 'RED premise: waiverAccepted must exis…
+    122| }
+ ❯ tests/p14b7-promise-waiver.test.ts:221:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/27]⎯
+
+ FAIL |core|  tests/p14b7-promise-waiver.test.ts > P14B.7 group0 — the two verbs exist, are pure, and dispatch (720 §2 items 1-2) > consumes no RNG: rngState is byte-identical before and after an accepted waiver
+AssertionError: RED premise: waivePromise must exist as a named export of src/core/promises.ts: expected 'undefined' to be 'function' // Object.is equality
+
+Expected: "function"
+Received: "undefined"
+
+ ❯ assertWaiverFns tests/p14b7-promise-waiver.test.ts:120:113
+    118| 
+    119| function assertWaiverFns(): void {
+    120|   expect(typeof waivePromise, 'RED premise: waivePromise must exist as…
+       |                                                                                                                 ^
+    121|   expect(typeof waiverAccepted, 'RED premise: waiverAccepted must exis…
+    122| }
+ ❯ tests/p14b7-promise-waiver.test.ts:230:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/27]⎯
+
+ FAIL |core|  tests/p14b7-promise-waiver.test.ts > P14B.7 group1 — the substitute window is judged against the REAL employment contract > PUBLISHES A REFUSAL for a substitute whose window overruns the real contract, not a later save-validator crash
+AssertionError: RED premise: waivePromise must exist as a named export of src/core/promises.ts: expected 'undefined' to be 'function' // Object.is equality
+
+Expected: "function"
+Received: "undefined"
+
+ ❯ assertWaiverFns tests/p14b7-promise-waiver.test.ts:120:113
+    118| 
+    119| function assertWaiverFns(): void {
+    120|   expect(typeof waivePromise, 'RED premise: waivePromise must exist as…
+       |                                                                                                                 ^
+    121|   expect(typeof waiverAccepted, 'RED premise: waiverAccepted must exis…
+    122| }
+ ❯ tests/p14b7-promise-waiver.test.ts:245:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/27]⎯
+
+ FAIL |core|  tests/p14b7-promise-waiver.test.ts > P14B.7 group1 — the substitute window is judged against the REAL employment contract > §2 item 16 (Owner-named scenario): the refusal is CLEAN — the original promise and the whole game state are unchanged, not corrected later during saving
+AssertionError: RED premise: waivePromise must exist as a named export of src/core/promises.ts: expected 'undefined' to be 'function' // Object.is equality
+
+Expected: "function"
+Received: "undefined"
+
+ ❯ assertWaiverFns tests/p14b7-promise-waiver.test.ts:120:113
+    118| 
+    119| function assertWaiverFns(): void {
+    120|   expect(typeof waivePromise, 'RED premise: waivePromise must exist as…
+       |                                                                                                                 ^
+    121|   expect(typeof waiverAccepted, 'RED premise: waiverAccepted must exis…
+    122| }
+ ❯ tests/p14b7-promise-waiver.test.ts:259:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/27]⎯
+
+ FAIL |core|  tests/p14b7-promise-waiver.test.ts > P14B.7 group1 — the substitute window is judged against the REAL employment contract > ACCEPTS a substitute whose window fits inside the real contract (isolating the window check from blanket infeasibility)
+AssertionError: RED premise: waivePromise must exist as a named export of src/core/promises.ts: expected 'undefined' to be 'function' // Object.is equality
+
+Expected: "function"
+Received: "undefined"
+
+ ❯ assertWaiverFns tests/p14b7-promise-waiver.test.ts:120:113
+    118| 
+    119| function assertWaiverFns(): void {
+    120|   expect(typeof waivePromise, 'RED premise: waivePromise must exist as…
+       |                                                                                                                 ^
+    121|   expect(typeof waiverAccepted, 'RED premise: waiverAccepted must exis…
+    122| }
+ ❯ tests/p14b7-promise-waiver.test.ts:292:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/27]⎯
+
+ FAIL |core|  tests/p14b7-promise-waiver.test.ts > P14B.7 group2 — strength is a SUBSET test (substituteMask ⊆ originalMask), never a superset test > REFUSES a P1 (all-cast) substitute for a P2-lead original — an illegal downgrade, though independently feasible
+AssertionError: RED premise: waivePromise must exist as a named export of src/core/promises.ts: expected 'undefined' to be 'function' // Object.is equality
+
+Expected: "function"
+Received: "undefined"
+
+ ❯ assertWaiverFns tests/p14b7-promise-waiver.test.ts:120:113
+    118| 
+    119| function assertWaiverFns(): void {
+    120|   expect(typeof waivePromise, 'RED premise: waivePromise must exist as…
+       |                                                                                                                 ^
+    121|   expect(typeof waiverAccepted, 'RED premise: waiverAccepted must exis…
+    122| }
+ ❯ tests/p14b7-promise-waiver.test.ts:309:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/27]⎯
+
+ FAIL |core|  tests/p14b7-promise-waiver.test.ts > P14B.7 group2 — strength is a SUBSET test (substituteMask ⊆ originalMask), never a superset test > REFUSES a leadOrAntagonist substitute for a P2-lead original — the middle rung is still a downgrade
+AssertionError: RED premise: waivePromise must exist as a named export of src/core/promises.ts: expected 'undefined' to be 'function' // Object.is equality
+
+Expected: "function"
+Received: "undefined"
+
+ ❯ assertWaiverFns tests/p14b7-promise-waiver.test.ts:120:113
+    118| 
+    119| function assertWaiverFns(): void {
+    120|   expect(typeof waivePromise, 'RED premise: waivePromise must exist as…
+       |                                                                                                                 ^
+    121|   expect(typeof waiverAccepted, 'RED premise: waiverAccepted must exis…
+    122| }
+ ❯ tests/p14b7-promise-waiver.test.ts:320:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/27]⎯
+
+ FAIL |core|  tests/p14b7-promise-waiver.test.ts > P14B.7 group2 — strength is a SUBSET test (substituteMask ⊆ originalMask), never a superset test > ACCEPTS a same-class (lead) substitute for a P2-lead original — the equality case
+AssertionError: RED premise: waivePromise must exist as a named export of src/core/promises.ts: expected 'undefined' to be 'function' // Object.is equality
+
+Expected: "function"
+Received: "undefined"
+
+ ❯ assertWaiverFns tests/p14b7-promise-waiver.test.ts:120:113
+    118| 
+    119| function assertWaiverFns(): void {
+    120|   expect(typeof waivePromise, 'RED premise: waivePromise must exist as…
+       |                                                                                                                 ^
+    121|   expect(typeof waiverAccepted, 'RED premise: waiverAccepted must exis…
+    122| }
+ ❯ tests/p14b7-promise-waiver.test.ts:329:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/27]⎯
+
+ FAIL |core|  tests/p14b7-promise-waiver.test.ts > P14B.7 group2 — strength is a SUBSET test (substituteMask ⊆ originalMask), never a superset test > ACCEPTS a P2-lead substitute for a P1 (all-cast) original — the legal upgrade direction
+AssertionError: RED premise: waivePromise must exist as a named export of src/core/promises.ts: expected 'undefined' to be 'function' // Object.is equality
+
+Expected: "function"
+Received: "undefined"
+
+ ❯ assertWaiverFns tests/p14b7-promise-waiver.test.ts:120:113
+    118| 
+    119| function assertWaiverFns(): void {
+    120|   expect(typeof waivePromise, 'RED premise: waivePromise must exist as…
+       |                                                                                                                 ^
+    121|   expect(typeof waiverAccepted, 'RED premise: waiverAccepted must exis…
+    122| }
+ ❯ tests/p14b7-promise-waiver.test.ts:339:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/27]⎯
+
+ FAIL |core|  tests/p14b7-promise-waiver.test.ts > P14B.7 group3 — refuses waiving a promise that is not evaluable() (both halves) > REFUSES waiving an ALREADY-SATISFIED promise (settle() must not overwrite a terminal outcome)
+AssertionError: RED premise: waivePromise must exist as a named export of src/core/promises.ts: expected 'undefined' to be 'function' // Object.is equality
+
+Expected: "function"
+Received: "undefined"
+
+ ❯ assertWaiverFns tests/p14b7-promise-waiver.test.ts:120:113
+    118| 
+    119| function assertWaiverFns(): void {
+    120|   expect(typeof waivePromise, 'RED premise: waivePromise must exist as…
+       |                                                                                                                 ^
+    121|   expect(typeof waiverAccepted, 'RED premise: waiverAccepted must exis…
+    122| }
+ ❯ tests/p14b7-promise-waiver.test.ts:354:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/27]⎯
+
+ FAIL |core|  tests/p14b7-promise-waiver.test.ts > P14B.7 group3 — refuses waiving a promise that is not evaluable() (both halves) > REFUSES waiving an ALREADY-BROKEN promise (the same terminal law, the other outcome)
+AssertionError: RED premise: waivePromise must exist as a named export of src/core/promises.ts: expected 'undefined' to be 'function' // Object.is equality
+
+Expected: "function"
+Received: "undefined"
+
+ ❯ assertWaiverFns tests/p14b7-promise-waiver.test.ts:120:113
+    118| 
+    119| function assertWaiverFns(): void {
+    120|   expect(typeof waivePromise, 'RED premise: waivePromise must exist as…
+       |                                                                                                                 ^
+    121|   expect(typeof waiverAccepted, 'RED premise: waiverAccepted must exis…
+    122| }
+ ❯ tests/p14b7-promise-waiver.test.ts:366:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[13/27]⎯
+
+ FAIL |core|  tests/p14b7-promise-waiver.test.ts > P14B.7 group3 — refuses waiving a promise that is not evaluable() (both halves) > REFUSES waiving an UNBOUND promise (B.1: "mints no outcome for an offer nobody took")
+AssertionError: RED premise: waivePromise must exist as a named export of src/core/promises.ts: expected 'undefined' to be 'function' // Object.is equality
+
+Expected: "function"
+Received: "undefined"
+
+ ❯ assertWaiverFns tests/p14b7-promise-waiver.test.ts:120:113
+    118| 
+    119| function assertWaiverFns(): void {
+    120|   expect(typeof waivePromise, 'RED premise: waivePromise must exist as…
+       |                                                                                                                 ^
+    121|   expect(typeof waiverAccepted, 'RED premise: waiverAccepted must exis…
+    122| }
+ ❯ tests/p14b7-promise-waiver.test.ts:375:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[14/27]⎯
+
+ FAIL |core|  tests/p14b7-promise-waiver.test.ts > P14B.7 group4 — the substitute carries its own feasibilityReceipt (exact-key, today's week) > mints a feasibilityReceipt on the substitute matching the independent oracle exactly
+AssertionError: RED premise: waivePromise must exist as a named export of src/core/promises.ts: expected 'undefined' to be 'function' // Object.is equality
+
+Expected: "function"
+Received: "undefined"
+
+ ❯ assertWaiverFns tests/p14b7-promise-waiver.test.ts:120:113
+    118| 
+    119| function assertWaiverFns(): void {
+    120|   expect(typeof waivePromise, 'RED premise: waivePromise must exist as…
+       |                                                                                                                 ^
+    121|   expect(typeof waiverAccepted, 'RED premise: waiverAccepted must exis…
+    122| }
+ ❯ tests/p14b7-promise-waiver.test.ts:392:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[15/27]⎯
+
+ FAIL |core|  tests/p14b7-promise-waiver.test.ts > P14B.7 group5 — a Distrusted issuer cannot waive, even a fully feasible, legal, non-identical substitute > REFUSES for a genuinely Distrusted issuer (measured: 2 negative + 1 positive driver, still Distrusted)
+AssertionError: RED premise: waivePromise must exist as a named export of src/core/promises.ts: expected 'undefined' to be 'function' // Object.is equality
+
+Expected: "function"
+Received: "undefined"
+
+ ❯ assertWaiverFns tests/p14b7-promise-waiver.test.ts:120:113
+    118| 
+    119| function assertWaiverFns(): void {
+    120|   expect(typeof waivePromise, 'RED premise: waivePromise must exist as…
+       |                                                                                                                 ^
+    121|   expect(typeof waiverAccepted, 'RED premise: waiverAccepted must exis…
+    122| }
+ ❯ tests/p14b7-promise-waiver.test.ts:411:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[16/27]⎯
+
+ FAIL |core|  tests/p14b7-promise-waiver.test.ts > P14B.7 group6 — identical-substitute refusal, progress/evidenceRefs preserved, a stated outcomeCause > REFUSES a substitute identical to the original in family, class, count and window — though independently feasible
+AssertionError: RED premise: waivePromise must exist as a named export of src/core/promises.ts: expected 'undefined' to be 'function' // Object.is equality
+
+Expected: "function"
+Received: "undefined"
+
+ ❯ assertWaiverFns tests/p14b7-promise-waiver.test.ts:120:113
+    118| 
+    119| function assertWaiverFns(): void {
+    120|   expect(typeof waivePromise, 'RED premise: waivePromise must exist as…
+       |                                                                                                                 ^
+    121|   expect(typeof waiverAccepted, 'RED premise: waiverAccepted must exis…
+    122| }
+ ❯ tests/p14b7-promise-waiver.test.ts:436:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[17/27]⎯
+
+ FAIL |core|  tests/p14b7-promise-waiver.test.ts > P14B.7 group6 — identical-substitute refusal, progress/evidenceRefs preserved, a stated outcomeCause > PRESERVES progress and evidenceRefs on the waived original (does not recompute them like the BROKEN branch)
+AssertionError: RED premise: waivePromise must exist as a named export of src/core/promises.ts: expected 'undefined' to be 'function' // Object.is equality
+
+Expected: "function"
+Received: "undefined"
+
+ ❯ assertWaiverFns tests/p14b7-promise-waiver.test.ts:120:113
+    118| 
+    119| function assertWaiverFns(): void {
+    120|   expect(typeof waivePromise, 'RED premise: waivePromise must exist as…
+       |                                                                                                                 ^
+    121|   expect(typeof waiverAccepted, 'RED premise: waiverAccepted must exis…
+    122| }
+ ❯ tests/p14b7-promise-waiver.test.ts:449:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[18/27]⎯
+
+ FAIL |core|  tests/p14b7-promise-waiver.test.ts > P14B.7 group6 — identical-substitute refusal, progress/evidenceRefs preserved, a stated outcomeCause > stamps a non-empty outcomeCause on the waived original, as every other terminal branch does
+AssertionError: RED premise: waivePromise must exist as a named export of src/core/promises.ts: expected 'undefined' to be 'function' // Object.is equality
+
+Expected: "function"
+Received: "undefined"
+
+ ❯ assertWaiverFns tests/p14b7-promise-waiver.test.ts:120:113
+    118| 
+    119| function assertWaiverFns(): void {
+    120|   expect(typeof waivePromise, 'RED premise: waivePromise must exist as…
+       |                                                                                                                 ^
+    121|   expect(typeof waiverAccepted, 'RED premise: waiverAccepted must exis…
+    122| }
+ ❯ tests/p14b7-promise-waiver.test.ts:465:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[19/27]⎯
+
+ FAIL |core|  tests/p14b7-promise-waiver.test.ts > P14B.7 group7 — exactly ONE promiseOutcome receipt through the existing settle(), no new receipt kind > appends exactly one new talentMarket receipt, kind promiseOutcome, named by the original's outcomeEventId
+AssertionError: RED premise: waivePromise must exist as a named export of src/core/promises.ts: expected 'undefined' to be 'function' // Object.is equality
+
+Expected: "function"
+Received: "undefined"
+
+ ❯ assertWaiverFns tests/p14b7-promise-waiver.test.ts:120:113
+    118| 
+    119| function assertWaiverFns(): void {
+    120|   expect(typeof waivePromise, 'RED premise: waivePromise must exist as…
+       |                                                                                                                 ^
+    121|   expect(typeof waiverAccepted, 'RED premise: waiverAccepted must exis…
+    122| }
+ ❯ tests/p14b7-promise-waiver.test.ts:483:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[20/27]⎯
+
+ FAIL |core|  tests/p14b7-promise-waiver.test.ts > P14B.7 group8 — the substitute is minted BOUND directly, never through attachPromise > binds contractId to the original's own contract, outcome null, and creates NO proposal or case
+AssertionError: RED premise: waivePromise must exist as a named export of src/core/promises.ts: expected 'undefined' to be 'function' // Object.is equality
+
+Expected: "function"
+Received: "undefined"
+
+ ❯ assertWaiverFns tests/p14b7-promise-waiver.test.ts:120:113
+    118| 
+    119| function assertWaiverFns(): void {
+    120|   expect(typeof waivePromise, 'RED premise: waivePromise must exist as…
+       |                                                                                                                 ^
+    121|   expect(typeof waiverAccepted, 'RED premise: waiverAccepted must exis…
+    122| }
+ ❯ tests/p14b7-promise-waiver.test.ts:510:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[21/27]⎯
+
+ FAIL |core|  tests/p14b7-promise-waiver.test.ts > P14B.7 group9 — Save V31 -> V32: supersededByPromiseId opens null, downgrade refuses non-null > convertV31ToV32 and convertV32ToV31 exist (the RED-mechanism guard for this group)
+AssertionError: RED premise: convertV31ToV32 must exist as a named export of src/core/save.ts: expected 'undefined' to be 'function' // Object.is equality
+
+Expected: "function"
+Received: "undefined"
+
+ ❯ assertMigrationFns tests/p14b7-promise-waiver.test.ts:124:115
+    122| }
+    123| function assertMigrationFns(): void {
+    124|   expect(typeof convertV31ToV32, 'RED premise: convertV31ToV32 must ex…
+       |                                                                                                                   ^
+    125|   expect(typeof convertV32ToV31, 'RED premise: convertV32ToV31 must ex…
+    126| }
+ ❯ tests/p14b7-promise-waiver.test.ts:534:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[22/27]⎯
+
+ FAIL |core|  tests/p14b7-promise-waiver.test.ts > P14B.7 group9 — Save V31 -> V32: supersededByPromiseId opens null, downgrade refuses non-null > opens supersededByPromiseId: null on EVERY existing promise record, recomputing nothing else
+AssertionError: RED premise: convertV31ToV32 must exist as a named export of src/core/save.ts: expected 'undefined' to be 'function' // Object.is equality
+
+Expected: "function"
+Received: "undefined"
+
+ ❯ assertMigrationFns tests/p14b7-promise-waiver.test.ts:124:115
+    122| }
+    123| function assertMigrationFns(): void {
+    124|   expect(typeof convertV31ToV32, 'RED premise: convertV31ToV32 must ex…
+       |                                                                                                                   ^
+    125|   expect(typeof convertV32ToV31, 'RED premise: convertV32ToV31 must ex…
+    126| }
+ ❯ tests/p14b7-promise-waiver.test.ts:537:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[23/27]⎯
+
+ FAIL |core|  tests/p14b7-promise-waiver.test.ts > P14B.7 group9 — Save V31 -> V32: supersededByPromiseId opens null, downgrade refuses non-null > the DOWNGRADE REFUSES a non-null supersededByPromiseId rather than silently dropping it
+AssertionError: RED premise: convertV31ToV32 must exist as a named export of src/core/save.ts: expected 'undefined' to be 'function' // Object.is equality
+
+Expected: "function"
+Received: "undefined"
+
+ ❯ assertMigrationFns tests/p14b7-promise-waiver.test.ts:124:115
+    122| }
+    123| function assertMigrationFns(): void {
+    124|   expect(typeof convertV31ToV32, 'RED premise: convertV31ToV32 must ex…
+       |                                                                                                                   ^
+    125|   expect(typeof convertV32ToV31, 'RED premise: convertV32ToV31 must ex…
+    126| }
+ ❯ tests/p14b7-promise-waiver.test.ts:554:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[24/27]⎯
+
+ FAIL |core|  tests/p14b7-promise-waiver.test.ts > P14B.7 group9 — Save V31 -> V32: supersededByPromiseId opens null, downgrade refuses non-null > a lossless downgrade (every record null) round-trips to the ORIGINAL V31 bytes
+AssertionError: RED premise: convertV31ToV32 must exist as a named export of src/core/save.ts: expected 'undefined' to be 'function' // Object.is equality
+
+Expected: "function"
+Received: "undefined"
+
+ ❯ assertMigrationFns tests/p14b7-promise-waiver.test.ts:124:115
+    122| }
+    123| function assertMigrationFns(): void {
+    124|   expect(typeof convertV31ToV32, 'RED premise: convertV31ToV32 must ex…
+       |                                                                                                                   ^
+    125|   expect(typeof convertV32ToV31, 'RED premise: convertV32ToV31 must ex…
+    126| }
+ ❯ tests/p14b7-promise-waiver.test.ts:563:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[25/27]⎯
+
+ FAIL |core|  tests/p14b7-promise-waiver.test.ts > P14B.7 group10 — a waived promise mints a promiseOutcome attention row, exactly like SATISFIED/BROKEN > mints exactly one promiseOutcome attention row for the waived promise, in the waived week
+AssertionError: RED premise: waivePromise must exist as a named export of src/core/promises.ts: expected 'undefined' to be 'function' // Object.is equality
+
+Expected: "function"
+Received: "undefined"
+
+ ❯ assertWaiverFns tests/p14b7-promise-waiver.test.ts:120:113
+    118| 
+    119| function assertWaiverFns(): void {
+    120|   expect(typeof waivePromise, 'RED premise: waivePromise must exist as…
+       |                                                                                                                 ^
+    121|   expect(typeof waiverAccepted, 'RED premise: waiverAccepted must exis…
+    122| }
+ ❯ tests/p14b7-promise-waiver.test.ts:579:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[26/27]⎯
+
+ FAIL |core|  tests/p14b7-promise-waiver.test.ts > P14B.7 group11 — a waived promise is public as an OUTCOME receipt but mints NO public industry activity > the promiseOutcome receipt exists after a waiver, and no industry Pulse activity carries its eventId
+AssertionError: RED premise: waivePromise must exist as a named export of src/core/promises.ts: expected 'undefined' to be 'function' // Object.is equality
+
+Expected: "function"
+Received: "undefined"
+
+ ❯ assertWaiverFns tests/p14b7-promise-waiver.test.ts:120:113
+    118| 
+    119| function assertWaiverFns(): void {
+    120|   expect(typeof waivePromise, 'RED premise: waivePromise must exist as…
+       |                                                                                                                 ^
+    121|   expect(typeof waiverAccepted, 'RED premise: waiverAccepted must exis…
+    122| }
+ ❯ tests/p14b7-promise-waiver.test.ts:602:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[27/27]⎯
+
+ Test Files  1 failed (1)
+      Tests  27 failed | 2 passed (29)
+   Start at  12:20:09
+   Duration  4.09s (transform 2.52s, setup 0ms, collect 3.44s, tests 190ms, environment 0ms, prepare 107ms)
+
