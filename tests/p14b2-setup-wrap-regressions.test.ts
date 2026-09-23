@@ -4,7 +4,7 @@
 import { describe, expect, it } from 'vitest'
 import { applyActions, tick } from '../src/core/index.js'
 import { validateProductionSetup } from '../src/core/productionSetup.js'
-import { makeSave, validateSaveV31 } from '../src/core/save.js'
+import { makeSave, validateSaveV32 } from '../src/core/save.js'
 import { isTierDStudioEventKind } from '../src/core/studioEvents.js'
 import { TUNING } from '../src/core/tuning.js'
 import type { GameState } from '../src/core/types.js'
@@ -24,7 +24,7 @@ function wrapped() {
 }
 function roundTrip(state: GameState): void {
   const saved = makeSave(state)
-  expect(validateSaveV31(JSON.parse(JSON.stringify(saved)))).toEqual(saved)
+  expect(validateSaveV32(JSON.parse(JSON.stringify(saved)))).toEqual(saved)
 }
 describe('P14B.2-F1 completed setup remains historical authority after real wrap', () => {
   it('round-trips actual first take → wrap → Post with unchanged setup and released stage', () => {

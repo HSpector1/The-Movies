@@ -25,7 +25,7 @@ import { existsSync, readFileSync } from 'node:fs'
 import { gunzipSync } from 'node:zlib'
 import { describe, expect, it } from 'vitest'
 import {
-  LIVE_SAVE_VERSION, convertV30ToV29, convertV30ToV31, convertV31ToV30, exportSave, importSave, loadSave, makeSave,
+  LIVE_SAVE_VERSION, convertV30ToV29, convertV30ToV31, convertV31ToV30, convertV31ToV32, exportSave, importSave, loadSave, makeSave,
   migrateToV26, migrateToV27, migrateToV28, migrateToV29, migrateToV30, migrateToV31, validateSave, validateSaveV29,
   validateSaveV30, validateSaveV31,
 } from '../src/core/save.js'
@@ -143,7 +143,10 @@ function checkpoint() {
 function liftsLosslessly(raw: string, save: V30Save) {
   const before = JSON.stringify(save)
   const lifted = migrateToV31(save)
-  expect(lifted.saveVersion).toBe(LIVE_SAVE_VERSION) // the live route lands on the version the live writer stamps
+  // 735-T (P14B.7): migrateToV31 lifts exactly to V31, frozen — P14B.7 later
+  // introduced V32 as the live boundary, one governed step beyond what this
+  // function reaches, so this no longer equals LIVE_SAVE_VERSION.
+  expect(lifted.saveVersion).toBe(31)
   expect(lifted.saveVersion).not.toBe(30) // and V30 is the OUTGOING identity
   const state = rootsOf(lifted.state)
   expect(state['relationships']).toEqual([])
@@ -157,7 +160,13 @@ function liftsLosslessly(raw: string, save: V30Save) {
   expect(validateSave(lifted)).toEqual(lifted)
   expect(loadSave(lifted)).toEqual(lifted)
   expect(importSave(exportSave(lifted))).toEqual(lifted)
-  expect(makeSave(lifted.state)).toEqual(lifted) // the live writer stamps exactly this envelope
+  // 735-T (P14B.7): the live writer now stamps V32, one governed step beyond
+  // migrateToV31. Re-expressed at the live boundary rather than weakened: the
+  // live writer, fed this V31 envelope's own further-governed V32 lift,
+  // reproduces that V32 envelope exactly (supersededByPromiseId:null on every
+  // promise, nothing else moved) — the same invariant, one step further out.
+  const liveEnvelope = convertV31ToV32(lifted)
+  expect(makeSave(liveEnvelope.state)).toEqual(liveEnvelope)
   expect(convertV30ToV31(save)).toEqual(lifted)
   // lossless when empty: both downgrade routes reproduce the V30 bytes
   for (const downgraded of [convertV31ToV30(lifted), migrateToV30(lifted)]) {
@@ -171,8 +180,8 @@ function liftsLosslessly(raw: string, save: V30Save) {
 
 // ─────────────────────────────────────────────────────────────────────────────────────────────────────
 describe('P14B.5 frozen side — the OUTGOING identities and the T0 corpus (GREEN today; moves only at the T2 values-only sweep)', () => {
-  it('LIVE_SAVE_VERSION is the literal 31 the live writer stamps; 30 is the OUTGOING identity (R-VERSION class, re-expressed by 662-T2 after T2 landed V31)', () => {
-    expect(LIVE_SAVE_VERSION).toBe(31)
+  it('LIVE_SAVE_VERSION is the literal 32 the live writer stamps; 30 is the OUTGOING identity (R-VERSION class, re-expressed by 735-T after P14B.7 landed V32)', () => {
+    expect(LIVE_SAVE_VERSION).toBe(32)
     expect(V30_AUTHORITY.saveVersion).toBe(30)
   })
 
@@ -228,10 +237,10 @@ describe('family 9 — every genuine V30 case migrates through migrateToV31 with
   it.each(V30_NAMES)('genuine V30 %s', (name) => {
     const { raw, save } = v30(name)
     liftsLosslessly(raw, save)
-    // the version-dispatched live readers land on the live version, never on the outgoing 30
+    // the version-dispatched readers land on their own declared version, never on the outgoing 30
     for (const loaded of [loadSave(JSON.parse(raw)), importSave(raw)]) {
       expect(loaded.saveVersion).toBe(30) // the FROZEN reader still recognises its own bytes …
-      expect(migrateToV31(loaded).saveVersion).toBe(LIVE_SAVE_VERSION) // … and the live route lifts them
+      expect(migrateToV31(loaded).saveVersion).toBe(31) // … and migrateToV31 lifts them exactly to V31 (frozen; not LIVE_SAVE_VERSION since P14B.7)
     }
   })
 
@@ -262,7 +271,7 @@ describe('family 9 — the V29 and V28 corpora reach V31 through their frozen ch
     const viaV30 = migrateToV30(save)
     const lifted = migrateToV31(save)
     expect(lifted).toEqual(migrateToV31(viaV30))
-    expect(lifted.saveVersion).toBe(LIVE_SAVE_VERSION)
+    expect(lifted.saveVersion).toBe(31) // migrateToV31 lifts exactly to V31 (frozen; not LIVE_SAVE_VERSION since P14B.7)
     expect(rootsOf(lifted.state)['relationships']).toEqual([])
     for (const key of Object.keys(save.state)) expect(JSON.stringify(rootsOf(lifted.state)[key])).toBe(JSON.stringify(rootsOf(save.state)[key]))
     expect(exportSave(migrateToV30(lifted))).toBe(exportSave(viaV30))
@@ -272,7 +281,7 @@ describe('family 9 — the V29 and V28 corpora reach V31 through their frozen ch
     const { save } = v28(name)
     const viaV30 = migrateToV30(save)
     const lifted = migrateToV31(save)
-    expect(lifted.saveVersion).toBe(LIVE_SAVE_VERSION)
+    expect(lifted.saveVersion).toBe(31) // migrateToV31 lifts exactly to V31 (frozen; not LIVE_SAVE_VERSION since P14B.7)
     expect(rootsOf(lifted.state)['relationships']).toEqual([])
     for (const key of Object.keys(viaV30.state)) expect(JSON.stringify(rootsOf(lifted.state)[key])).toBe(JSON.stringify(rootsOf(viaV30.state)[key]))
     expect(exportSave(migrateToV30(lifted))).toBe(exportSave(viaV30))

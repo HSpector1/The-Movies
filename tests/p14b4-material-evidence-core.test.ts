@@ -14,11 +14,21 @@ import { fnv1a64 } from '../src/core/math.js'
 import { advancePromisesWeek, attachedPromiseDigest, promiseDigest } from '../src/core/promises.js'
 import * as promisesModule from '../src/core/promises.js'
 import * as operationsModule from '../src/core/operations.js'
-import { exportSave, migrateToV31, validateSaveV29, validateSaveV31 } from '../src/core/save.js'
+import { convertV31ToV32, exportSave, migrateToV31, validateSaveV29, validateSaveV31, validateSaveV32 } from '../src/core/save.js'
 import { tick } from '../src/core/tick.js'
-import type { Action, CastSlot, GameState, ProfessionalPromiseV30 } from '../src/core/types.js'
+import type { Action, CastSlot, GameState, GameStateV31, ProfessionalPromiseV30 } from '../src/core/types.js'
 
+// P14B.7 sweep (735-T): `fixture()` stays the frozen V29->V31 proof (P14B.5's own
+// migration contract, untouched below); `actualTakeInput()` then converts the
+// SAME validated V31 state up to the live V32 boundary before feeding it to
+// applyActions/tick, which require GameState (=GameStateV32). Two envelope
+// families follow from that one fork -- Envelope/validateState/variant stay V31
+// for the first describe block's staged material assertions; EnvelopeV32/
+// validateStateV32/variantV32 carry the second describe block's real-gameplay
+// exercise. `root`/`binding` are generic over either shape (only V32 adds a
+// field neither reads), so they need no duplicate.
 type Envelope = ReturnType<typeof validateSaveV31>
+type EnvelopeV32 = ReturnType<typeof validateSaveV32>
 const SLOTS = ['lead', 'antagonist', 'support'] as const
 const CLASSES = ['lead', 'leadOrAntagonist'] as const
 type SeatClass = typeof CLASSES[number]
@@ -73,17 +83,23 @@ function fixture(name: keyof typeof PINS) {
   expect(new Set(ids).size).toBe(ids.length)
   return { old, migrated, ids }
 }
-function root(state: GameState, id: string): ProfessionalPromiseV30 {
+function root<S extends GameStateV31>(state: S, id: string): S['promises'][number] {
   const matches = state.promises.filter((p) => p.promiseId === id)
   expect(matches).toHaveLength(1)
   return matches[0]!
 }
-function validateState(carrier: Envelope, state: GameState): Envelope {
+function validateState(carrier: Envelope, state: GameStateV31): Envelope {
   // An explicit in-memory V31 input on the already governed carrier. This does
   // not stamp a historical fixture, invoke the still-V29 writer or strip tags.
   return validateSaveV31({ ...carrier, state, broadcastCache: state.broadcastItems })
 }
-function binding(state: GameState, promise: ProfessionalPromiseV30): void {
+function validateStateV32(carrier: EnvelopeV32, state: GameState): EnvelopeV32 {
+  // The live-boundary twin of validateState above, for the second describe
+  // block's real-gameplay states (genuinely V32-shaped once applyActions/tick
+  // have touched them) -- same device, the frozen V31 reader untouched.
+  return validateSaveV32({ ...carrier, state, broadcastCache: state.broadcastItems })
+}
+function binding(state: GameStateV31, promise: ProfessionalPromiseV30): void {
   assert.notEqual(promise.contractId, null)
   const rows = state.hollywood!.employment.filter((e) => e.contractId === promise.contractId)
   expect(rows).toHaveLength(1)
@@ -100,6 +116,26 @@ function variant(carrier: Envelope, id: string, material: Material, window?: { s
   const changed = { ...prior, ...material, windowStartWeek: window?.start ?? prior.windowStartWeek,
     dueWeekExclusive: window?.due ?? prior.dueWeekExclusive }
   const result = validateState(carrier, { ...clone(carrier.state),
+    promises: carrier.state.promises.map((p) => p.promiseId === id ? clone(changed) : clone(p)) })
+  expect(root(result.state, id).feasibilityReceipt).toEqual(prior.feasibilityReceipt)
+  expect(root(result.state, id).version).toBe(prior.version)
+  expect(root(result.state, id).contractId).toBe(prior.contractId)
+  expect(result.state.hollywood!.employment).toEqual(carrier.state.hollywood!.employment)
+  expect(result.state.firstTakes).toEqual(carrier.state.firstTakes)
+  expect(result.state.talentMarket).toEqual(carrier.state.talentMarket)
+  expect(carrier).toEqual(before)
+  return result
+}
+function variantV32(carrier: EnvelopeV32, id: string, material: Material, window?: { start: number; due: number }): EnvelopeV32 {
+  // The live-boundary twin of variant() above, byte-identical logic, for the
+  // second describe block's carrier (genuinely V32 since actualTakeInput ran it
+  // through real gameplay). Never used by the first (frozen V31) describe block.
+  const before = clone(carrier)
+  const prior = root(carrier.state, id)
+  expect(prior).toMatchObject({ outcome: null, progress: 0, evidenceRefs: [], outcomeWeek: null, outcomeEventId: null, outcomeCause: null })
+  const changed = { ...prior, ...material, windowStartWeek: window?.start ?? prior.windowStartWeek,
+    dueWeekExclusive: window?.due ?? prior.dueWeekExclusive }
+  const result = validateStateV32(carrier, { ...clone(carrier.state),
     promises: carrier.state.promises.map((p) => p.promiseId === id ? clone(changed) : clone(p)) })
   expect(root(result.state, id).feasibilityReceipt).toEqual(prior.feasibilityReceipt)
   expect(root(result.state, id).version).toBe(prior.version)
@@ -173,7 +209,7 @@ describe('P14B4 staged material owner, independent old formula and explicit clas
   })
 })
 
-function payload(state: GameState, targetId: string, slot: CastSlot, otherBoundPromiseId: string): Extract<Action, { kind: 'greenlight' }>['production'] {
+function payload(state: GameStateV31, targetId: string, slot: CastSlot, otherBoundPromiseId: string): Extract<Action, { kind: 'greenlight' }>['production'] {
   const available = state.contracts.filter((c) => c.startWeek <= state.market.tick && state.market.tick < c.endWeekExclusive)
     .map((c) => state.talent.find((p) => p.id === c.talentId)!)
   let actors = available.filter((p) => p.role === 'actor' && p.id !== targetId).map((p) => p.id)
@@ -209,7 +245,7 @@ function payload(state: GameState, targetId: string, slot: CastSlot, otherBoundP
       intimacy: [-0.5, 0.5], tonalWeight: [-0.5, 0.5], kineticEnergy: [-0.5, 0.5] } },
     budget: { negative: concept.baseNegativeCost, marketing: 0 } }
 }
-type Prepared = { carrier: Envelope; id: string; ids: string[]; take: GameState['firstTakes'][number]; slot: CastSlot }
+type Prepared = { carrier: EnvelopeV32; id: string; ids: string[]; take: GameState['firstTakes'][number]; slot: CastSlot }
 const cache = new Map<CastSlot, Prepared>()
 function actualTakeInput(slot: CastSlot): Prepared {
   const cached = cache.get(slot)
@@ -217,20 +253,25 @@ function actualTakeInput(slot: CastSlot): Prepared {
   const { migrated, ids } = fixture('bound-open-p1')
   expect(ids).toHaveLength(2)
   const id = ids[0]!
-  let state = clone(migrated.state) // 662-T2: the governed V31 lift of `old` (asserted above: the empty relationship root only)
-  expect(state.market.tick).toBe(52)
-  expect(state.operations.mode).toBe('managed')
-  expect(state.scriptDevelopment.mode).toBe('legacy') // separate mode authorities, evidence17
-  expect(state.scriptDevelopment.projects).toEqual([])
-  expect(state.studio.activeProductions).toEqual([])
+  const frozenState = clone(migrated.state) // 662-T2: the governed V31 lift of `old` (asserted above: the empty relationship root only)
+  expect(frozenState.market.tick).toBe(52)
+  expect(frozenState.operations.mode).toBe('managed')
+  expect(frozenState.scriptDevelopment.mode).toBe('legacy') // separate mode authorities, evidence17
+  expect(frozenState.scriptDevelopment.projects).toEqual([])
+  expect(frozenState.studio.activeProductions).toEqual([])
   for (const promiseId of ids) {
-    const promise = root(state, promiseId)
-    binding(state, promise)
+    const promise = root(frozenState, promiseId)
+    binding(frozenState, promise)
     expect(promise).toMatchObject({ outcome: null, progress: 0, evidenceRefs: [] })
   }
   const otherBoundPromiseId = ids.find((candidate) => candidate !== id)
   assert.ok(otherBoundPromiseId, 'fixture: distinct second genuine bound root required')
-  const production = payload(state, root(state, id).beneficiaryPersonId, slot, otherBoundPromiseId)
+  const production = payload(frozenState, root(frozenState, id).beneficiaryPersonId, slot, otherBoundPromiseId)
+  // 735-T: the caller from here on is LIVE (applyActions/tick require GameState,
+  // the V32 alias) -- lift the already-validated V31 state up through the lawful
+  // conversion, never by softening validateSaveV31's own refusal above.
+  const migratedV32: EnvelopeV32 = convertV31ToV32({ saveVersion: 31, seed: frozenState.seed, state: frozenState, broadcastCache: frozenState.broadcastItems })
+  let state: GameState = migratedV32.state
   state = applyActions(state, [{ kind: 'greenlight', production }])
   const filmId = state.studio.activeProductions.at(-1)!.id
   expect(state.studio.activeProductions.at(-1)!.cast).toEqual(production.cast)
@@ -276,7 +317,7 @@ function actualTakeInput(slot: CastSlot): Prepared {
   try { tick(state) } finally { outcomeSpy.mockRestore(); takeSpy.mockRestore() }
   expect(transitions).toEqual([{ before: 5, after: 4, emitted: [filmId] }])
   assert.ok(observed, 'fixture: actual pre-outcome owner input absent')
-  const carrier = validateState(migrated, observed)
+  const carrier = validateStateV32(migratedV32, observed)
   const takes = carrier.state.firstTakes.filter((t) => t.productionId === filmId)
   expect(takes).toHaveLength(1)
   const take = takes[0]!
@@ -288,7 +329,7 @@ function actualTakeInput(slot: CastSlot): Prepared {
     const promise = root(carrier.state, promiseId)
     binding(carrier.state, promise)
     expect(promise).toMatchObject({ outcome: null, progress: 0, evidenceRefs: [] })
-    expect(promise.feasibilityReceipt).toEqual(root(migrated.state, promiseId).feasibilityReceipt)
+    expect(promise.feasibilityReceipt).toEqual(root(frozenState, promiseId).feasibilityReceipt)
     expect(take.week).toBeGreaterThanOrEqual(promise.windowStartWeek)
     expect(take.week).toBeLessThan(promise.dueWeekExclusive)
   }
@@ -297,8 +338,8 @@ function actualTakeInput(slot: CastSlot): Prepared {
   return result
 }
 function outcomes(state: GameState) { return state.talentMarket.receipts.filter((r) => r.kind === 'promiseOutcome') }
-function evaluate(input: Envelope): GameState {
-  validateSaveV31(input)
+function evaluate(input: EnvelopeV32): GameState {
+  validateSaveV32(input)
   const before = clone(input)
   const after = advancePromisesWeek(input.state) // existing structurally compatible public owner, no cast
   expect(input).toEqual(before)
@@ -319,23 +360,23 @@ function ownOutcome(state: GameState, id: string) {
   expect(promise.evidenceRefs).not.toContain(promise.outcomeEventId)
   return own[0]!
 }
-function strictAndRepeat(carrier: Envelope, after: GameState): void {
-  const validated = validateState(carrier, after)
+function strictAndRepeat(carrier: EnvelopeV32, after: GameState): void {
+  const validated = validateStateV32(carrier, after)
   const before = clone(validated)
   const twice = evaluate(validated)
-  const third = evaluate(validateState(carrier, twice))
+  const third = evaluate(validateStateV32(carrier, twice))
   expect(outcomes(twice)).toEqual(outcomes(after)) // exact set, including orphan receipt regressions
   expect(outcomes(third)).toEqual(outcomes(after))
   expect(twice).toEqual(after)
   expect(third).toEqual(after)
   expect(validated).toEqual(before)
-  validateState(carrier, third)
+  validateStateV32(carrier, third)
 }
 
 describe('P14B4 staged outcome owner: real completed take, synthetic MATERIAL only', () => {
   it.each(CLASSES.flatMap((seatClass) => SLOTS.map((slot) => ({ seatClass, slot }))))('$seatClass against actual $slot', ({ seatClass, slot }) => {
     const prepared = actualTakeInput(slot)
-    const input = variant(prepared.carrier, prepared.id, p2(seatClass))
+    const input = variantV32(prepared.carrier, prepared.id, p2(seatClass))
     const after = evaluate(input)
     const promise = root(after, prepared.id)
     const matches = slot === 'lead' || (seatClass === 'leadOrAntagonist' && slot === 'antagonist')
@@ -354,7 +395,7 @@ describe('P14B4 staged outcome owner: real completed take, synthetic MATERIAL on
 
   it.each([p1, legacyP2])('actual support still qualifies for old count-only $family', (material) => {
     const prepared = actualTakeInput('support')
-    const input = variant(prepared.carrier, prepared.id, material)
+    const input = variantV32(prepared.carrier, prepared.id, material)
     const after = evaluate(input)
     expect(root(after, prepared.id)).toMatchObject({ outcome: 'SATISFIED', progress: 1, evidenceRefs: [prepared.take.eventId] })
     ownOutcome(after, prepared.id)
@@ -367,7 +408,7 @@ describe('P14B4 staged outcome owner: real completed take, synthetic MATERIAL on
     const other = prepared.ids.find((id) => root(prepared.carrier.state, id).beneficiaryPersonId === prepared.take.cast.antagonist)
     assert.ok(other, 'UNEXECUTED fixture: second genuine bound OPEN beneficiary must actually occupy antagonist')
     expect(root(prepared.carrier.state, other).contractId).not.toBe(lead.contractId)
-    const input = variant(variant(prepared.carrier, prepared.id, p2('lead')), other, p2('leadOrAntagonist'))
+    const input = variantV32(variantV32(prepared.carrier, prepared.id, p2('lead')), other, p2('leadOrAntagonist'))
     const after = evaluate(input)
     const roots = [prepared.id, other].map((id) => root(after, id))
     for (const promise of roots) {
@@ -383,8 +424,8 @@ describe('P14B4 staged outcome owner: real completed take, synthetic MATERIAL on
   it('a real take at window start counts; the same real take at due-exclusive does not', () => {
     const prepared = actualTakeInput('lead')
     const original = root(prepared.carrier.state, prepared.id)
-    const start = variant(prepared.carrier, prepared.id, p2('lead'), { start: prepared.take.week, due: original.dueWeekExclusive })
-    const excluded = variant(prepared.carrier, prepared.id, p2('lead'), { start: original.windowStartWeek, due: prepared.take.week })
+    const start = variantV32(prepared.carrier, prepared.id, p2('lead'), { start: prepared.take.week, due: original.dueWeekExclusive })
+    const excluded = variantV32(prepared.carrier, prepared.id, p2('lead'), { start: original.windowStartWeek, due: prepared.take.week })
     const kept = evaluate(start)
     expect(root(kept, prepared.id)).toMatchObject({ outcome: 'SATISFIED', progress: 1, evidenceRefs: [prepared.take.eventId] })
     ownOutcome(kept, prepared.id)

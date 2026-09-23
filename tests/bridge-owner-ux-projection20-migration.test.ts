@@ -116,7 +116,7 @@ describe('Owner UX outgoing projection20 migration', () => {
     for(const [beforeJson,afterJson,afterDigest] of [[predecessor.currentSaveJson,next.currentSaveJson,next.currentStateDigest],[predecessor.savedSaveJson,next.savedSaveJson,next.savedStateDigest]]){
       if(beforeJson===null){expect(afterJson).toBeNull();expect(afterDigest).toBeNull();continue}
       const before=JSON.parse(beforeJson),after=JSON.parse(afterJson!)
-      expect(after.saveVersion).toBe(31)
+      expect(after.saveVersion).toBe(32)
       const {hollywood,technology,physicalPlans,talentMarket,firstTakes,promises,relationships,...oldRoots}=after.state
       expect(technology).toEqual({ version: 4, recordingStartedWeek: before.state.market.tick, cooperationFromWeek: before.state.market.tick, projects: [], access: [], adoptions: [], productions: [], equipment: [], nextEquipmentId: 0 })
       // P13B-S3: V23 adds the physical-plan root, empty at the migration week.

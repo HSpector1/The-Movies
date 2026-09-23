@@ -49,7 +49,7 @@ import { describe, expect, it } from 'vitest'
 
 import { applyActions, beginFounding, generateWorld, nextStudioDecision, tick } from '../src/core/index.js'
 import { RELATIONSHIP_TIERS } from '../src/core/relationships.js'
-import { LIVE_SAVE_VERSION, makeSave, validateSaveV31 } from '../src/core/save.js'
+import { LIVE_SAVE_VERSION, makeSave, validateSaveV32 } from '../src/core/save.js'
 import type { CreativeRole, GameState, RelationshipDriver, RelationshipTier, SegmentId } from '../src/core/types.js'
 import { peopleProjection } from '../bridge/people.ts'
 import { castingChemistryRows, sharedPictureCount, type ChemistrySeats } from '../bridge/relationships.ts'
@@ -92,7 +92,7 @@ const withRoot = (state: GameState, rows: readonly Edge[]): GameState => ({ ...s
 function admitted(state: GameState, label: string): GameState {
   const save = makeSave(state)
   expect(save.saveVersion).toBe(LIVE_SAVE_VERSION)
-  validateSaveV31(JSON.parse(JSON.stringify(save)))
+  validateSaveV32(JSON.parse(JSON.stringify(save)))
   expect(label.length).toBeGreaterThan(0)
   return save.state as GameState
 }

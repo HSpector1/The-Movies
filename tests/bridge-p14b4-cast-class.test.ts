@@ -22,7 +22,7 @@ import { attachPromise } from '../src/core/promises.js'
 import * as promiseModule from '../src/core/promises.js'
 import { currentProposals, submitProposal, withdrawProposal } from '../src/core/talentMarket.js'
 import { careerIdentity } from '../src/core/talentSummary.js'
-import { exportSave, migrateToV31, validateSaveV29, validateSaveV31 } from '../src/core/save.js'
+import { convertV31ToV32, exportSave, migrateToV31, migrateToV32, validateSaveV29, validateSaveV32 } from '../src/core/save.js'
 import { advanceTo } from '../src/harness/p13a/fixtures.js'
 import type { GameState, ProfessionalPromiseV30 } from '../src/core/types.js'
 
@@ -81,7 +81,12 @@ function ownRoot(state: GameState, id: string): ProfessionalPromiseV30 {
 }
 function base() {
   const { save, focus } = fixture('current-p1')
-  let state = clone(save.state)
+  // 735-T (P14B.7 bridge sweep): the caller from here on is LIVE (BridgeSession,
+  // withdrawProposal require GameState, the V32 alias) -- lift the already-
+  // validated V31 state up through the lawful conversion, never by softening
+  // validateSaveV31's own refusal inside fixture() above.
+  const live = convertV31ToV32(save)
+  let state: GameState = clone(live.state)
   const originalRoots = clone(state.promises)
   // Real withdrawal abandons both existing player drafts; roots/receipts remain.
   // The genuine whole roster/Set/mixed development+operations mode is preserved.
@@ -93,7 +98,7 @@ function base() {
   expect(state.operations.mode).toBe('managed')
   expect(state.scriptDevelopment.mode).toBe('legacy')
   expect(currentProposals(state, focus.beneficiaryPersonId)).toEqual([])
-  validateSaveV31({ ...save, state, broadcastCache: state.broadcastItems })
+  validateSaveV32({ ...live, state, broadcastCache: state.broadcastItems })
   return { state, talentId: focus.beneficiaryPersonId }
 }
 function p2(talentId: string, seatClass: SeatClass = 'lead'): P2Payload {
@@ -383,17 +388,17 @@ describe('P14B4 existing own/private/public carriers', () => {
     const oldRefused = fixture('refused-p2-count-only-current-draft')
     expect(oldRefused.focus.family).toBe('LEAD_OR_SIGNIFICANT_ROLE_COUNT')
     expect(oldRefused.focus.predicate).toEqual({ count: 1 })
-    const own = marketCaseProjection(oldRefused.save.state, oldRefused.focus.beneficiaryPersonId, oldRefused.focus.issuerStudioId)!
+    const own = marketCaseProjection(convertV31ToV32(oldRefused.save).state, oldRefused.focus.beneficiaryPersonId, oldRefused.focus.issuerStudioId)!
       .proposals.find((p) => p.issuerStudioId === oldRefused.focus.issuerStudioId)
     expect(own).toMatchObject({ disclosure: 'own', promise: { family: 'LEAD_OR_SIGNIFICANT_ROLE_COUNT', seatClass: null } })
     const bound = fixture('bound-open-p1')
-    history(bound.save.state, bound.focus, null)
+    history(convertV31ToV32(bound.save).state, bound.focus, null)
     // Explicit OLD READER-ADMITTED bound legacy-P2 variant, not producer history.
     // Change family only; validate frozen29 BEFORE migration; keep actual binding.
     const changed = clone(bound.old)
     const original = changed.state.promises.find((p) => p.promiseId === bound.focus.promiseId)!
     original.family = 'LEAD_OR_SIGNIFICANT_ROLE_COUNT'
-    const migrated = migrateToV31(validateSaveV29(changed))
+    const migrated = migrateToV32(validateSaveV29(changed))
     history(migrated.state, migrated.state.promises.find((p) => p.promiseId === original.promiseId)!, null)
   })
 
@@ -401,8 +406,9 @@ describe('P14B4 existing own/private/public carriers', () => {
     const { save, focus } = fixture('current-p1')
     const person = save.state.talent.find((p) => p.id === focus.beneficiaryPersonId)!
     expect(careerIdentity(person).identityDisciplines).toEqual([])
-    const state = { ...save.state, talent: save.state.talent.map((p) => p.id === person.id ? { ...p, age } : p) }
-    validateSaveV31({ ...save, state }) // disclosed synthetic pure-read age input, no fake credit
+    const live = convertV31ToV32(save)
+    const state = { ...live.state, talent: live.state.talent.map((p) => p.id === person.id ? { ...p, age } : p) }
+    validateSaveV32({ ...live, state }) // disclosed synthetic pure-read age input, no fake credit
     const before = clone(state)
     const block = marketCaseProjection(state, person.id, player(state))!
     const profile = peopleProjection(state).profiles.find((p) => p.talentId === person.id)!
@@ -460,7 +466,7 @@ describe('P14B4 existing own/private/public carriers', () => {
     const savedSession = new BridgeSession(brokenState, 'b4-saved-' + seatClass)
     const saved = savedSession.save(control(savedSession, 'save-real-outcome'))
     if (!saved.accepted) throw new Error(saved.message)
-    expect(validateSaveV31(JSON.parse(saved.saveJson)).state.promises).toEqual(brokenState.promises)
+    expect(validateSaveV32(JSON.parse(saved.saveJson)).state.promises).toEqual(brokenState.promises)
     const loaded = BridgeSession.fromSaveJson(saved.saveJson, 'b4-loaded-' + seatClass)
     expect(loaded.gameState.promises).toEqual(brokenState.promises)
     history(loaded.gameState, loaded.gameState.promises.find((p) => p.promiseId === broken.promiseId)!, seatClass)

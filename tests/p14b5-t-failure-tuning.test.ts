@@ -51,7 +51,7 @@ import {
   RELATIONSHIP_SUCCESS_CRITIC_SCORE, RELATIONSHIP_SUCCESS_DELTA, RELATIONSHIP_TIER_FLOOR,
   advanceRelationshipsWeek, currentCloseness, currentTier, pairChemistry, validateRelationshipsRoot,
 } from '../src/core/relationships.js'
-import { LIVE_SAVE_VERSION, makeSave, migrateToV31, validateSaveV31 } from '../src/core/save.js'
+import { LIVE_SAVE_VERSION, makeSave, migrateToV32, validateSaveV32 } from '../src/core/save.js'
 import { advanceTo, p13aGeneratedStudio } from '../src/harness/p13a/fixtures.js'
 import { tick } from '../src/core/tick.js'
 import type { FilmResult, GameState, Production, RelationshipDriver, RelationshipEdge } from '../src/core/types.js'
@@ -378,15 +378,15 @@ describe('CONSTRUCTED group 5 — REPLAY AND IDEMPOTENCY on the real carrier wor
 
 // ───────────────────────────────────────────────────────────────────────────────────────────────
 describe('CONSTRUCTED group 6 — SAVE AND LOAD ACROSS THE CHANGE: historical deltas are carried, never restamped', () => {
-  it('a genuinely written root round-trips through makeSave / validateSaveV31 / migrateToV31 with every driver delta verbatim', () => {
+  it('a genuinely written root round-trips through makeSave / validateSaveV32 / migrateToV32 with every driver delta verbatim', () => {
     const chain = carrierChain(FLOP_SCORE)
     const state = chain.at(-1)!.state
     const written = edgesOf(state).map((e) => e.recent.map((d) => d.delta))
     expect(written.every((row) => row.includes(FAIL_DELTA))).toBe(true) // the chain really recorded failures
     const save = makeSave(state)
     expect(save.saveVersion).toBe(LIVE_SAVE_VERSION)
-    expect(validateSaveV31(save)).toEqual(save)
-    const migrated = migrateToV31(save)
+    expect(validateSaveV32(save)).toEqual(save)
+    const migrated = migrateToV32(save)
     expect(JSON.stringify(migrated.state.relationships)).toBe(JSON.stringify(save.state.relationships))
     expect(migrated.state.relationships.map((e) => e.recent.map((d) => d.delta))).toEqual(written)
   })
@@ -410,7 +410,7 @@ describe('CONSTRUCTED group 6 — SAVE AND LOAD ACROSS THE CHANGE: historical de
     const carried = save.state.relationships.flatMap((e) => e.recent.filter((d) => d.kind === 'sharedFailure').map((d) => d.delta))
     expect(carried.length).toBeGreaterThan(0)
     expect(new Set(carried)).toEqual(new Set([historicalDelta]))
-    const migrated = migrateToV31(validateSaveV31(save))
+    const migrated = migrateToV32(validateSaveV32(save))
     expect(JSON.stringify(migrated.state.relationships)).toBe(JSON.stringify(save.state.relationships))
     expect(migrated.state.relationships.flatMap((e) => e.recent.filter((d) => d.kind === 'sharedFailure').map((d) => d.delta)))
       .toEqual(carried)

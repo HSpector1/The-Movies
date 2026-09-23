@@ -229,7 +229,7 @@ describe('group 1: PROJECTION_VERSION 46 / schema / view market / converted law'
   })
 
   it('LIVE_SAVE_VERSION is 29 under projection 46 — no persisted fact of A.2’s own, the converted law is unchanged', () => {
-    expect(LIVE_SAVE_VERSION).toBe(31)
+    expect(LIVE_SAVE_VERSION).toBe(32)
   })
 })
 
@@ -736,7 +736,7 @@ describe('group 8: disclosure leak check — workspace and pulse JSON', () => {
 
 describe('group 9: save/load', () => {
   it('LIVE_SAVE_VERSION === 28; a genuine V27 fixture converts to an EMPTY workspace (no attention, no cases, no selected)', () => {
-    expect(LIVE_SAVE_VERSION).toBe(31)
+    expect(LIVE_SAVE_VERSION).toBe(32)
     const json = load(V27_RENEWAL_WINDOW.file)
     assertSha256(json, V27_RENEWAL_WINDOW.sha256)
     const session = BridgeSession.fromSaveJson(json, 'p14a2-bridge-v27-load')
@@ -769,7 +769,7 @@ describe('group 9: save/load', () => {
     // by law (the two new roots are added), so the re-save is V29 bytes and can never
     // equal the V28 fixture's own sha. The fixture's V28 sha above stays the provenance
     // pin; what the re-save must prove is that it is the LIVE envelope.
-    if (reSavedOpen.accepted) expect((JSON.parse(reSavedOpen.saveJson) as { saveVersion: number }).saveVersion).toBe(31)
+    if (reSavedOpen.accepted) expect((JSON.parse(reSavedOpen.saveJson) as { saveVersion: number }).saveVersion).toBe(32)
     // NOT YET EXISTING: marketPage — this test's RED cause.
     const openPage = marketPage(openSession.gameState, { view: 'market', targetId: null })
     expect(openPage.cases.renewalWindow).toHaveLength(1)
@@ -781,7 +781,7 @@ describe('group 9: save/load', () => {
     const settledSession = BridgeSession.fromSaveJson(settledJson, 'p14a2-bridge-v28-settled')
     const reSavedSettled = settledSession.save({ protocolVersion: PROTOCOL_VERSION, schemaId: SCHEMA_ID, sessionId: settledSession.sessionId, commandId: 'save-1', expectedStateRevision: settledSession.stateRevision })
     expect(reSavedSettled.accepted).toBe(true)
-    if (reSavedSettled.accepted) expect((JSON.parse(reSavedSettled.saveJson) as { saveVersion: number }).saveVersion).toBe(31)
+    if (reSavedSettled.accepted) expect((JSON.parse(reSavedSettled.saveJson) as { saveVersion: number }).saveVersion).toBe(32)
     const settledPage = marketPage(settledSession.gameState, { view: 'market', targetId: null })
     expect(settledPage.cases.closed.total).toBe(24)
 
@@ -791,7 +791,7 @@ describe('group 9: save/load', () => {
     const legacySession = BridgeSession.fromSaveJson(legacyJson, 'p14a2-bridge-v28-legacy')
     const reSavedLegacy = legacySession.save({ protocolVersion: PROTOCOL_VERSION, schemaId: SCHEMA_ID, sessionId: legacySession.sessionId, commandId: 'save-1', expectedStateRevision: legacySession.stateRevision })
     expect(reSavedLegacy.accepted).toBe(true)
-    if (reSavedLegacy.accepted) expect((JSON.parse(reSavedLegacy.saveJson) as { saveVersion: number }).saveVersion).toBe(31)
+    if (reSavedLegacy.accepted) expect((JSON.parse(reSavedLegacy.saveJson) as { saveVersion: number }).saveVersion).toBe(32)
     expect((legacySession.gameState as unknown as { talentMarket: { legacyTerminations: unknown[] } }).talentMarket.legacyTerminations).toHaveLength(1)
     const legacyPage = marketPage(legacySession.gameState, { view: 'market', targetId: null })
     expect(legacyPage.attention).toEqual([])
@@ -806,7 +806,7 @@ describe('group 9: save/load', () => {
     expect(saved.accepted).toBe(true)
     if (!saved.accepted) throw new Error(`save refused: ${JSON.stringify(saved)}`)
     const parsed = JSON.parse(saved.saveJson) as { saveVersion: number }
-    expect(parsed.saveVersion).toBe(31)
+    expect(parsed.saveVersion).toBe(32)
     const reloaded = BridgeSession.fromSaveJson(saved.saveJson, 'p14a2-bridge-roundtrip-reload')
     expect(reloaded.gameState).toEqual(JSON.parse(JSON.stringify(session.gameState)))
     // NOT YET EXISTING: marketPage — this test's RED cause.

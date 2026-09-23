@@ -1,14 +1,14 @@
-import {migrateToV18,migrateToV31,type SaveFile,type SaveFileV31,type GameStateV18,type GameState} from '../src/core/index.js'
+import {migrateToV18,migrateToV32,type SaveFile,type SaveFileV32,type GameStateV18,type GameState} from '../src/core/index.js'
 import {withResearchFoundation} from '../src/core/researchPeople.js'
 import {initialTechnology} from '../src/core/technology.js'
 import {initialPhysicalPlans} from '../src/core/physicalPlans.js'
 import {initialTalentMarket} from '../src/core/talentMarket.js'
 /** Historical player-law control: preserve pre-P12 authority while lifting the
  * type to the current test engine. Native migration uses the real V20 chain. */
-export function migrateToCurrentControl(save:SaveFile):SaveFileV31 {
-  if(save.saveVersion>=19)return migrateToV31(save)
+export function migrateToCurrentControl(save:SaveFile):SaveFileV32 {
+  if(save.saveVersion>=19)return migrateToV32(save)
   const old=migrateToV18(save)
-  return {...old,saveVersion:31,state:liftHistoricalState(old.state)}
+  return {...old,saveVersion:32,state:liftHistoricalState(old.state)}
 }
 
 export function liftHistoricalState(state:GameStateV18):GameState {
@@ -19,6 +19,8 @@ export function liftHistoricalState(state:GameStateV18):GameState {
     talentMarket:initialTalentMarket(),
     // P14B.1 (Save V29): the same lift the real V28->V29 migration writes — a
     // historical campaign filmed no recorded first take and promised nothing.
+    // P14B.7 (Save V32): the same lift the real V31->V32 migration writes — a
+    // historical campaign waived no promise; moot here since promises opens empty.
     firstTakes:[],promises:[],
     // P14B.5 (Save V31): the same lift the real V30->V31 migration writes — a
     // historical campaign shared no recorded work, so the relationship root opens empty.

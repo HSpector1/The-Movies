@@ -246,11 +246,11 @@ describe('P14A.1 test 8: Save V28 (genuine V27 fixtures, honest lift, downgrade,
     expect(() => withV28.validateSaveV28(nonNull as never)).toThrow(/representation/i)
   })
 
-  it('an unknown saveVersion 32 is refused, naming the handled range "1 through 31 only"', () => {
+  it('an unknown saveVersion 33 is refused, naming the handled range "1 through 32 only"', () => {
     const json = load(V27_FIXTURES.naturalRivalLabs.file)
     const lifted = withV28.migrateToV28(JSON.parse(json))
-    const forged = { ...lifted, saveVersion: 32 }
-    expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 31 only/)
+    const forged = { ...lifted, saveVersion: 33 }
+    expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 32 only/)
   })
 
   it('releaseTalent on a migrateToV28-only state throws the named V29-roots-missing message (T2c: pins the fail-loud behaviour that made the R4 case below need migrateToV29 for its live action)', () => {

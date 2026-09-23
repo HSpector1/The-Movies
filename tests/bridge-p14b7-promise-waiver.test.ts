@@ -53,7 +53,7 @@ import {
   // RED-by-design (720 §2 items 1-2): neither exists in src/core/promises.ts today.
   waivePromise, waiverAccepted,
 } from '../src/core/promises.js'
-import { validateSaveV31 } from '../src/core/save.js'
+import { convertV31ToV32, validateSaveV31 } from '../src/core/save.js'
 import { PROJECTION_VERSION } from '../bridge/schema/bridge-schema.ts'
 import { industryPage } from '../bridge/industry.ts'
 import { PROTOCOL_VERSION, SCHEMA_ID } from '../bridge/protocol.ts'
@@ -85,7 +85,10 @@ function boundOpenP1(): GameState {
   expect(createHash('sha256').update(raw).digest('hex')).toBe(BOUND_OPEN_P1.raw)
   const save = validateSaveV31(JSON.parse(raw)) // the genuine frozen validator FIRST
   expect(save.state.market.tick).toBe(BOUND_OPEN_P1.week)
-  return save.state as unknown as GameState
+  // The fixture is genuinely V31 (validated above, unmoved); this state then feeds
+  // waivePromise, a live function on the V32 shape, so it is carried up through the
+  // lawful conversion — never by softening validateSaveV31's own refusal.
+  return convertV31ToV32(save).state as unknown as GameState
 }
 function promiseZero(state: GameState): ProfessionalPromise {
   const promise = state.promises.find((p) => p.promiseId === 'promise-0')

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { beginFounding, generateWorld, makeSave, exportSave, importSave, migrateToV25, migrateToV31, makeSaveV18 } from '../src/core/index.js'
+import { beginFounding, generateWorld, makeSave, exportSave, importSave, migrateToV25, migrateToV32, makeSaveV18 } from '../src/core/index.js'
 import { enterRival } from '../src/core/hollywood.js'
 import { persistedConceptIds, persistedProductionIds } from '../src/core/productionIdentity.js'
 
@@ -24,7 +24,7 @@ describe('R05 canonical starting history and genuine migration', () => {
       expect(persistedConceptIds(world).has(f.conceptId)).toBe(true)
     }
     const bytes=exportSave(makeSave(world))
-    expect(exportSave(migrateToV31(importSave(bytes)))).toBe(bytes)
+    expect(exportSave(migrateToV32(importSave(bytes)))).toBe(bytes)
     expect(exportSave(makeSave(beginFounding(world)))).toBe(bytes)
   })
   it('migrates at each old state own week with empty company histories and exact player state', () => {

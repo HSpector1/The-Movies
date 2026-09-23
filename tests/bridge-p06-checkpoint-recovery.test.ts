@@ -14,7 +14,7 @@ import { SCHEMA_ID } from '../bridge/protocol.ts'
 import { canonicalJson } from '../bridge/schema/canonical.ts'
 import type { BridgeCheckpointStore } from '../bridge/runtime/checkpoint-store.ts'
 import { createBridgeRuntimeCoordinator } from '../bridge/runtime/runtime-coordinator.ts'
-import { importSave, type SaveFileV31 } from '../src/core/save.js'
+import { importSave, type SaveFileV32 } from '../src/core/save.js'
 import { initialTechnology } from '../src/core/technology.js'
 import { initialPhysicalPlans } from '../src/core/physicalPlans.js'
 import { initialTalentMarket } from '../src/core/talentMarket.js'
@@ -51,7 +51,7 @@ function previous(bytes: string): BridgeRuntimeCheckpointV1 {
   return JSON.parse(bytes) as BridgeRuntimeCheckpointV1
 }
 
-function expectPreservedGameplay(beforeJson: string, after: SaveFileV31): void {
+function expectPreservedGameplay(beforeJson: string, after: SaveFileV32): void {
   const before = importSave(beforeJson)
   if (before.saveVersion !== 16) throw new Error('Frozen P06 evidence must contain an original Save V16')
   // Assert every old root, including IDs, commitment, cash/ledger, week and RNG,
@@ -89,7 +89,7 @@ function expectPreservedGameplay(beforeJson: string, after: SaveFileV31): void {
     return copied
   })
   expect({...after,state:{...afterState,talent:oldPeople}}).toEqual({
-    saveVersion: 31,
+    saveVersion: 32,
     seed: before.seed,
     state: {
       ...before.state,

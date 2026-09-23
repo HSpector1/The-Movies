@@ -5,7 +5,7 @@ import { describe, expect, it } from 'vitest'
 import { SCHEMA_ID } from '../bridge/protocol.ts'
 import { loadBridgeRuntimeCheckpoint, SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS } from '../bridge/runtime-checkpoint.ts'
 import { BridgeSession } from '../bridge/session.ts'
-import { exportSave, importSave, migrateToV31 } from '../src/core/save.js'
+import { exportSave, importSave, migrateToV32 } from '../src/core/save.js'
 
 // Genuine e37cd23 projection45 export, not a current checkpoint with restamped ID.
 const OUTGOING_45 = 'sha256:5b2a4ca93d930e90a288db55bb5cc3fdc8eea070ef51fa1450a193a325bd755d'
@@ -41,12 +41,18 @@ describe('P14B.2 outgoing projection45 runtime compatibility (Save29 unchanged)'
     // 662-T2 (P14B.5, R-VERSION): the live writer now stamps Save31; the governed
     // V29->V31 migration of each slot differs from its source by the version tag
     // AND the EMPTY relationship root alone (nothing recomputed, plan :725-781).
+    // 735-T (P14B.7, R-VERSION): the live writer now stamps Save32; the governed
+    // V29->V32 migration of each slot differs from its source by the version tag,
+    // the EMPTY relationship root, AND `supersededByPromiseId: null` on every
+    // existing promise (nothing else recomputed).
     const sha = (v: string) => createHash('sha256').update(v).digest('hex')
+    const addedFields = (promise: Record<string, unknown>) => ({ ...promise, supersededByPromiseId: null })
     for (const slot of ['currentSaveJson', 'savedSaveJson'] as const) {
-      const governed = migrateToV31(importSave(before[slot]))
-      expect(governed.saveVersion).toBe(31)
+      const governed = migrateToV32(importSave(before[slot]))
+      expect(governed.saveVersion).toBe(32)
       const source = JSON.parse(before[slot])
-      expect(JSON.parse(exportSave(governed))).toEqual({ ...source, saveVersion: 31, state: { ...source.state, relationships: [] } })
+      expect(JSON.parse(exportSave(governed))).toEqual({ ...source, saveVersion: 32, state: { ...source.state,
+        relationships: [], promises: (source.state.promises as Record<string, unknown>[]).map(addedFields) } })
       expect(after[slot]).toBe(exportSave(governed))
     }
     expect(after.currentStateDigest).toBe(sha(after.currentSaveJson))
