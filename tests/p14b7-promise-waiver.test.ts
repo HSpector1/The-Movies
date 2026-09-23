@@ -6,6 +6,15 @@
 // closed-item batch below). Fixtures: the nine genuine outgoing V31 saves minted at T0 (record
 // 722), `tests/fixtures/p14/genuine-v31-pre-b7/`.
 //
+// PATCHED by 730-T (report: 731-T-b7-red-patch.md) on three findings from the writer's first pass:
+// (1) a live exploit item 17's substitute half never pinned -- see group6's new case and THE LAW
+// below; (2) LIVE_SAVE_VERSION was pinned at the OUTGOING value 31 by a bad reading of T1's own
+// brief -- now pinned at 32, the slice's own save step; (3) this file's bridge/*.ts imports broke
+// `npx tsc --noEmit` (bridge/*.ts's own internal `.ts`-extension imports are not legal under the
+// ROOT tsconfig, which has no `allowImportingTsExtensions`) -- bridge-touching cases (group10,
+// group11, and the PROJECTION_VERSION pin) now live in the sibling `tests/bridge-p14b7-promise-
+// waiver.test.ts`, matched by the existing `tests/bridge*.test.ts` exclude. THIS file is engine-only.
+//
 // OWNER-DECIDED ADDITIONS (720 §2 items 16-18, §5(c)/(d) final, §7's trust question CLOSED):
 //   item 16 -- a REFUSED waiver leaves the original promise AND THE WHOLE GAME STATE unchanged,
 //     the refusal published, not "accepted and rejected later during saving" (Owner's own words,
@@ -17,15 +26,31 @@
 //     completed work or counting it again"). Pinned in group6 on `genuine-v31-part-served-p1`
 //     (count 2, progress 1, remaining 1) -- the SAME general rule the Owner's "three-picture served
 //     once, two-picture substitute, two further" illustration states, at smaller numbers (no V31
-//     fixture in this corpus carries a count-3 promise; T1 does not mint new fixtures).
+//     fixture in this corpus carries a count-3 promise; T1 does not mint new fixtures). THE OTHER
+//     HALF of item 17 (730-T finding 1, previously pinned NOWHERE): a substitute whose window opens
+//     ON or before the waiver week is immediately credited with a take that already served the
+//     ORIGINAL, by construction (`qualifyingTakes`, promises.ts:637-641, excludes only `take.week <
+//     windowStartWeek`, so a take landing AT the window's first week qualifies) -- promise two,
+//     deliver one, waive for a one-picture substitute opening the week the take landed, owe nothing
+//     further, collect a `promiseKept`-shaped SATISFIED for free. THE LAW (the parent's, chosen over
+//     W's narrower take-scan): a legal substitute's `windowStartWeek` must be STRICTLY GREATER than
+//     the waiver week -- structural, refused with a stated reason, because a take landing LATER in
+//     the SAME week would still be wrongly credited under a scan that only excludes the instance
+//     measured, not the class. Pinned in group6 alongside item 17's mint-time half. Every OTHER
+//     draft in this file opening at `today` or earlier moved past it too (730-T; see 731-T report).
 //   item 18 -- the waiver's attention row text must not read "kept" or "broken" -- `bridge/trust.ts
 //     :69`'s ternary has no third arm today, so widening the gate alone would publish a false
-//     breach. Pinned in group10 as a hard negative (not "kept", not "broken") plus a softer,
-//     separately-labelled interpretation (mentions "waived").
+//     breach. Pinned in group10 (now `tests/bridge-p14b7-promise-waiver.test.ts`, split by 730-T
+//     finding 3 for typecheck) as a hard negative on the row's own TEXT (not "kept", not "broken")
+//     plus a softer, separately-labelled interpretation (mentions "waived") -- corrected by 730-T:
+//     group10 previously pinned only the row's existence and a non-empty reason, never its text.
 //   CLOSED, no longer deferred -- a waiver moves NO trust label and mints NO driver
 //     (P14-PREPARATION-COMPANION.md :379, ruling S11 :568; `trustDrivers` enumerates five kinds and
 //     none is a waiver, so this already holds by construction and only needs a regression pin).
-//     New group12.
+//     NOT YET PINNED ANYWHERE IN THIS SUITE (730-T finding 3 correction): this header previously
+//     claimed a "New group12" that was never written into the file body; W caught the false claim
+//     and the parent's ruling for 730-T was to correct the prose, not to author the missing group
+//     now. The requirement is not in dispute -- the regression pin is an open gap, not a decision.
 //
 // RED MECHANISM (memory: vite/esbuild binds a MISSING NAMED EXPORT to `undefined` WITHOUT
 // throwing). Unlike a brand-new module (where the whole file fails at resolution), both
@@ -93,23 +118,30 @@ import { gunzipSync } from 'node:zlib'
 import { describe, expect, it } from 'vitest'
 import { applyActions } from '../src/core/actions.js'
 import {
-  promiseCastSlots, promiseFeasibility, qualifyingTakes, trustDescriptor, trustDrivers,
-  type PromiseDraft, type PromiseFamily, type PromiseFeasibilityReceipt, type PromisePredicate,
+  advancePromisesWeek, promiseCastSlots, promiseFeasibility, qualifyingTakes, trustDescriptor,
+  type PromiseDraft, type PromisePredicate,
   // RED-by-design (720 §2 items 1-2): neither exists in src/core/promises.ts today.
   waivePromise, waiverAccepted,
 } from '../src/core/promises.js'
 import {
-  LIVE_SAVE_VERSION, makeSave, validateSaveV31,
+  LIVE_SAVE_VERSION, validateSaveV31,
   // RED-by-design (720 §2 item 11): the V31->V32 step does not exist today.
   convertV31ToV32, convertV32ToV31,
 } from '../src/core/save.js'
-import { PROJECTION_VERSION } from '../bridge/schema/bridge-schema.ts'
-import { industryPage } from '../bridge/industry.ts'
-import { PROTOCOL_VERSION, SCHEMA_ID } from '../bridge/protocol.ts'
-import { promiseAttentionRows } from '../bridge/trust.ts'
-import type { IndustryPage, IndustryQuery } from '../bridge/schema/industry-schema.ts'
-import type { GameState, ProfessionalPromise } from '../src/core/types.js'
-import { historyFixture, player } from './helpers/p14b2-fixtures.js'
+// 730-T finding 3: PromiseFamily/PromiseFeasibilityReceipt are DEFINED in types.ts and only
+// IMPORTED (not re-exported) by promises.ts -- importing them from promises.js does not typecheck
+// (TS2459/TS2724), measured directly against this file by `npx tsc --noEmit`.
+import type { GameState, ProfessionalPromise, PromiseFamily, PromiseFeasibilityReceipt } from '../src/core/types.js'
+import { historyFixture } from './helpers/p14b2-fixtures.js'
+// bridge/*.ts imports (PROJECTION_VERSION, industryPage, promiseAttentionRows, the Industry Pulse
+// helpers) moved OUT of this file by 730-T finding 3: bridge/*.ts's own internal `.ts`-extension
+// imports are not legal under the ROOT tsconfig (no `allowImportingTsExtensions`), and once ANY
+// bridge/ import is reachable from a root-included file the WHOLE bridge/ module graph (plus its
+// `ui/src/engine/adapter.ts` dependents, reached via bridge/industry.ts ->
+// bridge/snapshot-build-context.ts) is pulled into the program and fails `npx tsc --noEmit` --
+// measured: 131 errors with this file's bridge imports included, 13 of them on this file's own
+// lines (see 731-T-b7-red-patch.md). Bridge-touching cases now live in the sibling
+// `tests/bridge-p14b7-promise-waiver.test.ts`, matched by the tests/bridge*.test.ts exclude.
 
 // ── I2: the substitute draft this whole file pins ───────────────────────────────────────────────
 type WaiverSubstituteDraft = { family: PromiseFamily; predicate: PromisePredicate; windowStartWeek: number; dueWeekExclusive: number }
@@ -187,23 +219,14 @@ function substituteOf(before: GameState, after: GameState): ProfessionalPromise 
 /** A trivial, structurally-irrelevant draft for refusal cases where the substitute's own content
  * does not matter (the refusal must come from the ORIGINAL's own state, not the substitute). */
 function irrelevantDraft(today: number): WaiverSubstituteDraft {
-  return { family: 'APPEARANCE_COUNT', predicate: { count: 1 }, windowStartWeek: today, dueWeekExclusive: today + 40 }
+  // 730-T finding 1: THE LAW refuses windowStartWeek <= the waiver week, so an "irrelevant" draft
+  // must open STRICTLY AFTER today or it would itself trigger the window refusal, confounding
+  // these cases' isolation claim (the refusal must come from the ORIGINAL's state, not the draft).
+  return { family: 'APPEARANCE_COUNT', predicate: { count: 1 }, windowStartWeek: today + 1, dueWeekExclusive: today + 41 }
 }
 
-// ── Industry Pulse helper (identical shape to bridge-p14b2-trust.test.ts's own precedent) ──────
-const SESSION_ID = 'p14b7-waiver-red'
-function pulseQuery(page = 0): IndustryQuery {
-  return { protocolVersion: PROTOCOL_VERSION, schemaId: SCHEMA_ID, sessionId: SESSION_ID, requestId: `b7-pulse-${String(page)}`,
-    expectedStateRevision: 0, type: 'industryQuery', view: 'pulse', targetId: null, page, pageSize: 50, lane: 'recent', period: 'all' }
-}
-function allActivities(state: GameState): IndustryPage['activities'] {
-  const first = industryPage(state, SESSION_ID, 0, pulseQuery())
-  const rows = [...first.activities]
-  expect(first.pageCount).toBeLessThan(1000)
-  for (let page = 1; page < first.pageCount; page++) rows.push(...industryPage(state, SESSION_ID, 0, pulseQuery(page)).activities)
-  expect(rows).toHaveLength(first.totalRows)
-  return rows
-}
+// (Industry Pulse helpers and the bridge/trust.ts, bridge/industry.ts, bridge/schema/bridge-
+// schema.ts imports they needed moved to tests/bridge-p14b7-promise-waiver.test.ts -- 730-T.)
 
 // ═══════════════════════════════════════════════════════════════════════════════════════════════
 describe('P14B.7 group0 — the two verbs exist, are pure, and dispatch (720 §2 items 1-2)', () => {
@@ -259,7 +282,6 @@ describe('P14B.7 group1 — the substitute window is judged against the REAL emp
     assertWaiverFns()
     const state = fixture('bound-open-p1')
     const promise = promiseZero(state)
-    const today = state.market.tick
     const overrun: WaiverSubstituteDraft = { family: 'APPEARANCE_COUNT', predicate: { count: 1 }, windowStartWeek: 60, dueWeekExclusive: 110 }
     const promisesBefore = JSON.stringify(state.promises)
     const receiptsBefore = JSON.stringify(state.talentMarket.receipts)
@@ -416,7 +438,10 @@ describe('P14B.7 group5 — a Distrusted issuer cannot waive, even a fully feasi
     expect(descriptor.label).toBe('Distrusted')
     expect(descriptor.drivers.filter((d) => !d.positive)).toHaveLength(2)
     expect(descriptor.drivers.some((d) => d.positive)).toBe(true) // the tolerated positive driver -- assert the LABEL, not driver purity
-    const substitute: WaiverSubstituteDraft = { family: 'LEAD_OR_SIGNIFICANT_ROLE_COUNT', predicate: { kind: 'castRoleCount', count: 1, seatClass: 'lead' }, windowStartWeek: 60, dueWeekExclusive: 100 }
+    // 730-T finding 1: THE LAW refuses windowStartWeek <= the waiver week (today=70). The window
+    // moves from [60,100) to [71,101) -- still inside the real contract [52,104) (measured) -- or
+    // this isolation premise would refuse for the WINDOW, not for trust, and be false.
+    const substitute: WaiverSubstituteDraft = { family: 'LEAD_OR_SIGNIFICANT_ROLE_COUNT', predicate: { kind: 'castRoleCount', count: 1, seatClass: 'lead' }, windowStartWeek: 71, dueWeekExclusive: 101 }
     // Isolation: independently prove this exact substitute is feasible AND legal-strength AND
     // non-identical, so the ONLY thing left that can refuse it is the trust condition.
     expect(realFeasibility(state, promise, substitute, today).classification).toBe('REASONABLY_ACHIEVABLE')
@@ -453,7 +478,9 @@ describe('P14B.7 group6 — identical-substitute refusal, progress/evidenceRefs 
     expect(trustDescriptor(state, promise.beneficiaryPersonId, promise.issuerStudioId, state.market.tick).label).not.toBe('Distrusted')
     const today = state.market.tick
     // §5(c): substitute.predicate.count >= original.count - original.progress = 2 - 1 = 1
-    const remainderOnly: WaiverSubstituteDraft = { family: 'APPEARANCE_COUNT', predicate: { count: 1 }, windowStartWeek: today, dueWeekExclusive: today + 60 }
+    // 730-T finding 1: THE LAW refuses windowStartWeek <= the waiver week, so this legal-acceptance
+    // draft moves to today+1 (was today, which is the exact exploit shape pinned separately below).
+    const remainderOnly: WaiverSubstituteDraft = { family: 'APPEARANCE_COUNT', predicate: { count: 1 }, windowStartWeek: today + 1, dueWeekExclusive: today + 61 }
     expect(realFeasibility(state, promise, remainderOnly, today).classification).toBe('REASONABLY_ACHIEVABLE')
     const after = waive(state, { promiseId: promise.promiseId, substitute: remainderOnly })
     const waived = after.promises.find((p) => p.promiseId === promise.promiseId)!
@@ -472,6 +499,47 @@ describe('P14B.7 group6 — identical-substitute refusal, progress/evidenceRefs 
     expect(typeof waived.outcomeCause).toBe('string')
     expect(waived.outcomeCause!.trim().length).toBeGreaterThan(0)
     expect(waived.outcomeWeek).toBe(today)
+  })
+  it('730-T FINDING 1 — item 17\'s substitute half (previously pinned NOWHERE): a substitute whose window opens ON the waiver week is refused, closing the live exploit measured on this exact fixture and draft', () => {
+    assertWaiverFns()
+    const state = fixture('part-served-p1')
+    const promise = promiseZero(state) // count 2, progress 1
+    const today = state.market.tick // 113
+    // THE EXACT exploit draft measured by W: windowStartWeek === today. A qualifying take for the
+    // ORIGINAL already landed at week 113 (first-take-event-42); this window's own first week is
+    // the SAME week, so a naive take-scan would still credit it to the substitute.
+    const exploit: WaiverSubstituteDraft = { family: 'APPEARANCE_COUNT', predicate: { count: 1 }, windowStartWeek: today, dueWeekExclusive: today + 60 }
+    // Isolation: this exact window is independently feasible (it is group6's own former
+    // acceptance draft, unmoved) -- the ONLY thing left that can refuse it is THE LAW.
+    expect(realFeasibility(state, promise, exploit, today).classification).toBe('REASONABLY_ACHIEVABLE')
+    // Independent confirmation of the CAUSE (promises.ts:637-641's own `qualifyingTakes`, not a
+    // re-implementation of it): a take landing AT windowStartWeek is not excluded by
+    // `take.week < windowStartWeek`, so today's real firstTakes already qualify for this exact
+    // draft, using the SAME production primitive that later choice of law must defeat one level up.
+    const probe = { predicate: exploit.predicate, issuerStudioId: promise.issuerStudioId, beneficiaryPersonId: promise.beneficiaryPersonId,
+      windowStartWeek: exploit.windowStartWeek, dueWeekExclusive: exploit.dueWeekExclusive } as unknown as ProfessionalPromise
+    expect(qualifyingTakes(state, probe).length, 'independent confirmation of the cause: a take AT windowStartWeek qualifies today, unfixed').toBeGreaterThan(0)
+    // THE LAW: substitute.windowStartWeek must be strictly greater than the waiver week.
+    const reason = accepted(state, promise, exploit, today)
+    expect(reason, 'THE LAW: a substitute window opening ON (or before) the waiver week must be refused').not.toBeNull()
+    expect(typeof reason).toBe('string')
+    expect(reason!.length).toBeGreaterThan(0)
+    let after: GameState | undefined
+    try {
+      after = waive(state, { promiseId: promise.promiseId, substitute: exploit })
+    } catch {
+      after = undefined // refused at mint -- the exploit is structurally impossible, which this pins
+    }
+    if (after === undefined) return
+    // Defense in depth, regardless of WHICH function ends up refusing this: even if some other fix
+    // strategy allowed the mint, the substitute must never be credited with a take that predates --
+    // or lands ON -- its own window's first week.
+    const minted = substituteOf(state, after)
+    expect(minted.progress, 'a substitute must never be credited at mint with a pre-existing take').toBe(0)
+    const advanced = advancePromisesWeek(after)
+    const stillThere = advanced.promises.find((p) => p.promiseId === minted.promiseId)!
+    expect(stillThere.progress, 'FAILS if a substitute is ever credited with a take that predates its own window (the live exploit: promise two, deliver one, waive for a one-picture substitute opening on the week the take landed, collect a satisfied substitute with nothing further owed)').toBe(0)
+    expect(stillThere.outcome).toBeNull()
   })
 })
 
@@ -510,7 +578,6 @@ describe('P14B.7 group8 — the substitute is minted BOUND directly, never throu
     assertWaiverFns()
     const state = fixture('bound-open-p1')
     const promise = promiseZero(state)
-    const today = state.market.tick
     const substitute: WaiverSubstituteDraft = { family: 'APPEARANCE_COUNT', predicate: { count: 1 }, windowStartWeek: 60, dueWeekExclusive: 100 }
     const after = waive(state, { promiseId: promise.promiseId, substitute })
     const minted = substituteOf(state, after)
@@ -526,9 +593,19 @@ describe('P14B.7 group8 — the substitute is minted BOUND directly, never throu
 // Priority 9 (§2 item 11): Save V31 -> V32. The field opens null on every existing record,
 // recomputes nothing; the DOWNGRADE refuses a non-null value rather than dropping it.
 describe('P14B.7 group9 — Save V31 -> V32: supersededByPromiseId opens null, downgrade refuses non-null', () => {
-  it('LIVE_SAVE_VERSION and PROJECTION_VERSION are still the frozen values this suite must not move', () => {
-    expect(LIVE_SAVE_VERSION).toBe(31)
-    expect(PROJECTION_VERSION).toBe(49)
+  // 730-T finding 2: this pin was wrong, not the implementation. Record 720 item 11 has always
+  // said V31 -> V32, and T0 minted nine "genuine OUTGOING V31" fixtures precisely BECAUSE V32 was
+  // coming; pinning the OUTGOING value here blocked the slice's own save step (a promise row could
+  // never carry supersededByPromiseId -- the exact-key validator refuses a 17th key). The T1 brief
+  // said to verify the constant was unmoved BY the T1 author; that self-check became this
+  // requirement, a bad reading of a badly-worded instruction, not the writer's fault.
+  //
+  // PROJECTION_VERSION's own pin (still 49, still a real B.7 constraint this slice must not move)
+  // relocated to tests/bridge-p14b7-promise-waiver.test.ts group9b: its ONLY source is
+  // bridge/schema/bridge-schema.ts, and that import alone fails `npx tsc --noEmit` under the root
+  // tsconfig regardless of anything downstream (730-T finding 3).
+  it('LIVE_SAVE_VERSION is the value this slice\'s own V31->V32 step must produce (720 item 11)', () => {
+    expect(LIVE_SAVE_VERSION).toBe(32)
   })
   it('convertV31ToV32 and convertV32ToV31 exist (the RED-mechanism guard for this group)', () => {
     assertMigrationFns()
@@ -569,51 +646,6 @@ describe('P14B.7 group9 — Save V31 -> V32: supersededByPromiseId opens null, d
   })
 })
 
-// ═══════════════════════════════════════════════════════════════════════════════════════════════
-// Priority 10 (§2 item 12, §6): bridge/trust.ts mints an attention row for a waived promise. Today
-// gated on SATISFIED||BROKEN only (bridge/trust.ts :68), so a waiver mints nothing -- a DEFECT B.7
-// CREATES, so B.7 fixes it. The reason text is free text (720 §6); only the row's EXISTENCE and
-// identity are pinned, not its wording.
-describe('P14B.7 group10 — a waived promise mints a promiseOutcome attention row, exactly like SATISFIED/BROKEN', () => {
-  it('mints exactly one promiseOutcome attention row for the waived promise, in the waived week', () => {
-    assertWaiverFns()
-    const state = fixture('bound-open-p1')
-    const promise = promiseZero(state)
-    const today = state.market.tick
-    expect(promiseAttentionRows(state, promise.issuerStudioId, today).filter((r) => r.cause === 'promiseOutcome' && r.talentId === promise.beneficiaryPersonId)).toEqual([])
-    const substitute: WaiverSubstituteDraft = { family: 'APPEARANCE_COUNT', predicate: { count: 1 }, windowStartWeek: 60, dueWeekExclusive: 100 }
-    const after = waive(state, { promiseId: promise.promiseId, substitute })
-    const rows = promiseAttentionRows(after, promise.issuerStudioId, today).filter((r) => r.cause === 'promiseOutcome' && r.talentId === promise.beneficiaryPersonId)
-    expect(rows).toHaveLength(1)
-    expect(typeof rows[0]!.reason).toBe('string')
-    expect(rows[0]!.reason.trim().length).toBeGreaterThan(0)
-  })
-})
-
-// ═══════════════════════════════════════════════════════════════════════════════════════════════
-// Coordinator's 11th pin (mid-task correction to 720 §6): a WAIVED promise's promiseOutcome
-// receipt EXISTS, but publishes NO row in the public industry activity fold. Today the fold
-// filters to SATISFIED||BROKEN (bridge/industry.ts :136) so a WAIVED receipt is dropped at :141;
-// under the adopted decision this behaviour is CORRECT and must survive as a stated pin, not an
-// accident. Asserted POSITIVELY (receipt exists, then no activity carries its eventId) to avoid
-// the vacuous-before-the-feature-exists trap the coordinator named.
-describe('P14B.7 group11 — a waived promise is public as an OUTCOME receipt but mints NO public industry activity', () => {
-  it('the promiseOutcome receipt exists after a waiver, and no industry Pulse activity carries its eventId', () => {
-    assertWaiverFns()
-    const state = fixture('bound-open-p1')
-    const promise = promiseZero(state)
-    const today = state.market.tick
-    const substitute: WaiverSubstituteDraft = { family: 'APPEARANCE_COUNT', predicate: { count: 1 }, windowStartWeek: 60, dueWeekExclusive: 100 }
-    const after = waive(state, { promiseId: promise.promiseId, substitute })
-    const waived = after.promises.find((p) => p.promiseId === promise.promiseId)!
-    expect(waived.outcome).toBe('WAIVED')
-    const receipt = after.talentMarket.receipts.find((r) => r.eventId === waived.outcomeEventId)
-    expect(receipt, 'the promiseOutcome receipt must exist -- this pins ABSENCE FROM THE FOLD, not absence of the fact').toBeDefined()
-    expect(receipt).toMatchObject({ kind: 'promiseOutcome' })
-    const activities = allActivities(after)
-    expect(activities.some((row) => row.eventId === receipt!.eventId)).toBe(false)
-    expect(activities.filter((row) => 'outcomeKind' in row)).toEqual(
-      allActivities(state).filter((row) => 'outcomeKind' in row), // unchanged: no SATISFIED/BROKEN row gained or lost either
-    )
-  })
-})
+// group10 (bridge/trust.ts attention row) and group11 (bridge/industry.ts fold exclusion) moved to
+// tests/bridge-p14b7-promise-waiver.test.ts by 730-T finding 3 -- see that file's header for the
+// full original commentary, preserved there verbatim alongside the item-18 row-TEXT correction.
