@@ -346,15 +346,85 @@ is FROZEN as the old-law witness (breaks at :102-104, :113, :144; reproduce at `
 current-law test. FORWARD CONSTRAINT ON B.6 (694-C Q2): a resumed campaign's `recent` can hold both −4
 and −5 failure rows on one edge, lawful and invisible only while nothing renders a delta, so B.6's
 readable drivers must keep the no-number pattern or carry an era signal.
-NEXT696: P14B.6 READ MODELS (expansion draft 687) — profile relationship block on the landed `trust`
-pattern, readable drivers, casting chemistry rows, factual shared-credit counts, the Q4 casting warning.
-Projection 48 → 49, NO save step, no new root, no new driver, no constant. HARD ORDERING CONSTRAINT: mint
-`genuine-projection48-runtime` BEFORE the writer touches PROJECTION_VERSION, as 45/46/47 were minted.
-DISCLOSURE is the slice's real decision — nearly every measured edge is rival-internal, so a tie is
-published only when its counterpart is independently visible to the player; the landed leak law stays
-green UNAMENDED (labels, copy and counts, never root fields). Then the remaining authorized P14
+P14B.6 RELATIONSHIP READ MODELS QUALIFIED CHECKPOINT — record 718, source `211f1c18`, span
+`ab405dbe..211f1c18` (15 commits). `git diff --stat ab405dbe..211f1c18 -- src` is EMPTY: B.6 changed no
+engine law, no root, no validator, no migration and no constant. Bridge only: `bridge/relationships.ts`
+(+263, new), `bridge/schema/bridge-schema.ts`, the schema JSON, `bridge/casting.ts`, `bridge/people.ts`,
+`bridge/runtime-checkpoint.ts`, plus regenerated `generated/unity/*`. IDENTITIES: Save V31 UNMOVED, protocol
+4 UNMOVED, projection 48 → 49, schema `sha256:00c0075b…` → `sha256:60af24c5…`, generated C# `370568f3…` →
+`c84b5f95…`; outgoing 48 registered as a prior id at `ad49031f`; generator run exactly once;
+`genuine-projection48-runtime` minted at T0 `43817117`, FIVE COMMITS BEFORE the writer touched
+PROJECTION_VERSION, honouring the hard ordering constraint. All six NEXT696 items delivered: profile block,
+readable drivers, casting chemistry rows, factual shared-credit counts, the Q4 warning, the thin wire step.
+TESTS: three independently authored files, 33 cases (read-models 24, D2 2, E714 7), plus the 700 values-only
+sweep across 30 existing files, which refused to bend two non-version regressions it met. EVIDENCE: 717 full
+core on FIXED source `5ba2b8d6` = 9 files failed / 344 passed (353); 24 failed / 3978 passed / 8 todo (4010),
+matching record 716's pre-registered prediction in EVERY CELL; the 712 → 717 comparison made on CAUSES (each
+FAIL header paired with its own next Error line, one ephemeral mkdtemp suffix normalised) is EMPTY: same 24
+failures, same files, same cause strings, the inherited baseline set unchanged. Both sibling B.6 suites green
+INSIDE that run (read-models 24/24, D2 2/2), discharging the writer's one named evidence limit. DISCLOSURE
+was the slice's real content, and the two carriers disclose on DIFFERENT bases DELIBERATELY: the profile
+block publishes a tie only when its counterpart is independently visible on the player roster at W
+(`startWeek < W && (endedWeek === null || W < endedWeek)`, subject excluded, strict at both ends), while the
+casting rows carry NO roster predicate because the player proposed both people and the seating is
+self-disclosing. Record 710 bounds it: `sharedPictureCount` scans `state.firstTakes` unfiltered and rival
+receipts land there by design, so a count alone can see work the viewer never commissioned. THREE
+CORRECTIONS LANDED INSIDE THE SLICE, each with its own RED: D1 (704), a comment claiming the profile rule
+held on every DTO anywhere; D2 (707/712), `WITHHELD_LINE` asserting a POSITIVE employment fact on a state
+with no `hollywood` root; E714 (710/714/715/716/717), both absence sentences denying shared work on the
+absence of an EDGE. One hazard was closed BEFORE publication: the first E714 casting sentence was a strict
+PREFIX of `CHEMISTRY_LINE[0]`, diverging at word 5, so truncation would have rendered "no record at all" as
+"a recorded, neutral tie"; amended to diverge at word 1. TWO PREDICTIONS FAILED AND ARE RECORDED AS FAILURES:
+709's UI prediction (30 observed / 26 predicted, attributed in 713 to the unstable suite and NOT to the
+candidate), and the parent's own 3-failed/4-passed forecast for the disclosure pin, where the actual 4/3 was
+correct. NOT CLAIMED: UI NOT RERUN, reliability open (713 re-ran the UNCHANGED baseline source `df693294`
+today and got 32 failed against the 26 it recorded as 673, with `livingTurn.scheduler` 1 → 6 → 1; 14 cases
+intermittent, so the AGGREGATE carries no signal about a source change, while an INDIVIDUAL failure in it
+remains real evidence); UNITY NOT VERIFIED (the manifest's matching Unity-side sha is a RECORDED PAIRING
+written by the generator, not a verified one: no Unity checkout read, nothing compiled, nothing rendered;
+Build56/32 remain unpaired with 49); the 24 inherited core failures untouched; the natural casting-warning
+route UNTESTED (no fixture here releases a player picture, so the covered route is staged). Unity backlog
+entry updated for the D2/E714 absence copy and its truncation hazard.
+RELIABILITY FOLLOW-UPS ASSIGNED — record 719, on the Owner's 2026-09-23 correction that investigating an
+unstable test is legitimate engineering and is NOT "bending it to look green"; the parent's earlier framing
+conflated the two and is withdrawn. FU-1 the `ui` project: OWNER test-author; TRIGGER before the next
+UI-affecting acceptance claim (not now, engine work continues); five named files carry all the movement and
+four are perfectly stable; diagnose to one of synchronisation, leaked state, fixture error, or performance
+under load; NOT AUTHORIZED to remove an assertion, skip, quarantine, retry or widen a timeout; RETURNS when
+three consecutive full `ui` runs at one unchanged source give the same count AND the same identities.
+FU-2 `bridge-runtime-checkpoint-prepared-reuse`: OWNER parent; TRIGGER a recurrence only; threshold RETAINED
+and margin RECORDED (≈6.3s of a 20000ms budget at `:367`, ≈68% consumed idle at BOTH `43817117` 14278ms and
+`e63d6143` 13328/13710ms, so the B.6 source did not cause it; 21/21 in 176619ms inside run 717); on a
+recurrence identify the OPERATION that failed to finish, with comparable timings both sides, never
+defaulting to engine defect or environmental noise; NOT AUTHORIZED to widen, quarantine or open an
+optimization campaign.
+NEXT721: P14B.7 THE PROMISE WAIVER (expansion 720) — the player may WAIVE an open promise by offering a
+substitute the person accepts in its place, instead of the single road the engine has today, where an
+undeliverable promise simply BREAKS at its due week and the trust label degrades. Accepted only when the
+substitute is REASONABLY ACHIEVABLE over the REMAINING contract interval, is AT LEAST AS STRONG as the
+promise it replaces, and the person does not already read the studio as `Distrusted`; a refusal returns a
+reason and leaves the original open on its original terms. Save V31 → V32 for `supersededByPromiseId: string
+| null` (exact-key validation; `convertV32ToV31` REFUSES a non-null value rather than dropping it). NO
+PROJECTION STEP: `WAIVED` is already on the wire enum (`bridge-schema.ts:1770`) and already an enumerated
+`PromiseOutcome` that no path reaches (`types.ts:2173`), so B.7 activates an enumerated terminal state rather
+than widening a union. The original settles through the EXISTING `settle()` (`promises.ts:678`) with ONE
+`promiseOutcome` receipt, the B.1 one-kind ruling unamended; the substitute is minted BOUND to the existing
+`contractId` and does NOT travel through `attachPromise`, which requires a current proposal and would throw.
+STRENGTH RUNS OPPOSITE TO MASK SIZE: "at least as strong" is `substituteMask ⊆ originalMask`, a SUBSET test,
+and a writer who tests superset inverts it silently, accepting every downgrade. Three product choices
+isolated with recommendations, not blocking: (a) mask inclusion over an explicit table, (b) no
+re-classification of a BOUND substitute, (c) NEW, the substitute's count must meet the REMAINING obligation
+(`count - progress`), not the original. EXCLUDED with owners: rival waiver policy record-only (R3); the
+retirement-moot `VOIDED` branch needs P14C; the bridge intent and read model are the slice AFTER B.7, on the
+B.5 → B.6 rhythm; the trust consequence of a waiver is NOT invented here (`trustDrivers` enumerates five
+kinds and WAIVED is not among them). ORDER: T0 mint genuine outgoing V31 fixtures recording BOTH identities
+(last behavioural V31 writer `caa8cdb3`, since B.5-T moved RELATIONSHIP_FAILURE_DELTA 4 → 5 and that changes
+edge values inside a V31 save; `save.ts`'s own last writer `f5310afb`) → read-only audit → T1 RED → sim-core
+→ pre-registered prediction → full core on fixed source → checkpoint. Then the remaining authorized P14
 obligations, P15, P16, P17 and sufficiently specified P18 in dependency order. Carried: positive-saturation,
-the 6,240-week endurance obligation, 628 R5 / G-1(A) / G-2, 637, the waiver, evaluator 5.
+the 6,240-week endurance obligation, 628 R5 / G-1(A) / G-2, 637, evaluator 5, 702-C REFINE 3-6, the B.6
+per-talent projection cost, and `rosterAt`/`SEAT_PAIRS` restated in `bridge/relationships.ts` from private
+`src/core/` helpers (they will drift silently if the engine's move).
 LOGIC VERIFIED · UNITY NOT VERIFIED. Unity/native deferred. Gross2221 omitted fact cost is NOT
 net saving: cold discovery can shift into next frame. No route-fit claim.
 Draft-discovery, silent-policy, affine and Map alternatives remain unadopted.
