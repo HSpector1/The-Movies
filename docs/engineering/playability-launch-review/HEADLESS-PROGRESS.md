@@ -476,6 +476,61 @@ obligations, P15, P16, P17 and sufficiently specified P18 in dependency order. C
 the 6,240-week endurance obligation, 628 R5 / G-1(A) / G-2, 637, evaluator 5, 702-C REFINE 3-6, the B.6
 per-talent projection cost, and `rosterAt`/`SEAT_PAIRS` restated in `bridge/relationships.ts` from private
 `src/core/` helpers (they will drift silently if the engine's move).
+OWNER DECISIONS 2026-09-23 on the two open choices, both recorded in 720 §5. (c) THE REMAINING-OBLIGATION
+RULE IS APPROVED verbatim: "a substitute must cover at least the original's unfulfilled qualifying count,
+without erasing completed work or counting it again toward the substitute." So `substitute.count >=
+original.count - original.progress`, the original KEEPS its progress and evidenceRefs, and the substitute
+starts at `progress: 0` with `evidenceRefs: []` and may NOT absorb the original's takes. A three-picture
+promise served once, waived for a two-picture substitute, needs TWO FURTHER appearances: six would
+double-charge and one would double-credit. (d) PRIVATE CONFIRMATION, NO PUBLIC ANNOUNCEMENT, as recommended,
+with the existing public kept/broken announcements PRESERVED UNTOUCHED and the issuing player getting an
+accurate confirmation and accessible history, never mislabelled. THE PROJECTION CLAIM IS NOW SETTLED BY
+ENUMERATION, per the Owner's requirement that it be confirmed across consumers and schema rather than rested
+on one enum: every promise-outcome consumer in `bridge/` and `ui/` swept (720 §6). `promiseHistoryFor`
+already publishes WAIVED, viewer-scoped to the issuer, which IS the companion's "recorded and visible";
+`trust.ts:64` promiseDue self-corrects; `contract.ts`'s `outcome` is the command envelope, unrelated;
+`supervisor.ts` is an unrelated symbol; and THERE IS NO `ui/` CONSUMER OF A PROMISE OUTCOME AT ALL. Exactly
+two surfaces need attention and no third exists. A MISLABEL HAZARD was found by that sweep and is the
+Owner's warning made concrete: `trust.ts:69` is a two-way ternary with NO third arm, so widening the gate at
+`:68` without touching `:69` publishes a waiver to the player as "BROKEN", reporting a breach that did not
+happen against a settlement the person accepted. TWO SETTLED MATTERS WERE MIS-SORTED AS OPEN AND ARE
+CORRECTED: the trust consequence of a waiver is settled by the companion (`:379` "none; recorded and
+visible", ruling S11 `:568`) and the engine already agrees by construction, and the retirement-moot branch's
+OUTCOME is genuinely ambiguous in the companion, which lists the same cause under BOTH the WAIVED and VOIDED
+rows, so P14C inherits an ambiguity rather than a rule.
+T1 RED DONE — record 725-T, `tests/p14b7-promise-waiver.test.ts`, 573 lines, sha256 `bf5fb83a…`, run
+transcript `c332f67e…`. 26 FAILED / 2 passed (28), deterministic across two runs. The parent verified the
+attribution independently: 104 "RED premise" guards in the transcript and ZERO non-premise errors, so every
+failure is a named missing export and none is module resolution or a masked `toThrow()`. The two passes call
+only functions that exist today and are premise-proving, not pins. Coverage: all ten brief priorities, the
+two foundational items, and the mid-task eleventh pin on the public industry fold, asserted
+positive-then-absent so it cannot pass vacuously. Three interface interpretations are NAMED rather than
+assumed (720 §2a): `waiverAccepted` returns `string | null`, the substitute draft mirrors
+`PromiseAttachment`, and the save functions are `convertV31ToV32`/`convertV32ToV31`. The writer follows them
+or a divergence gets a recorded ruling; a silent rename under the suite would make a green run meaningless.
+A SECOND TRAP was found by T1 authoring against the real engine, of the same anatomy as the first and
+missed by both the parent and the audit: THE ORIGINAL PROMISE DOUBLE-CHARGES ITS OWN REPLACEMENT.
+`activePromiseReservations` (`promises.ts:289-297`) filters competing reservations on `promise.promiseId !==
+draft.promiseId` and `reservedByActivePromises` (`:300-303`) sums `count - progress`, which is EXACTLY the
+remaining obligation the Owner's rule requires the substitute to cover, so the original books the capacity
+its own replacement needs. Measured, not reasoned: every happy-path acceptance candidate reads
+`FRAGILE — needs a picture not yet commissioned` until the exclusion is applied. `PromiseDraft.promiseId`
+exists for precisely this (`:206-207`) and was written for `reclassifyPromise`; the waiver uses the same
+field with the ORIGINAL's id on the SUBSTITUTE's draft, which is correct rather than convenient, since the
+original settles WAIVED in the same step and its reservation is being released. Both traps share one
+anatomy: a documented helper or field written for a neighbouring caller, whose correct use by the waiver
+differs in one detail nothing enforces, failing silently and surfacing far away.
+THE T0 PROBE IS ARCHIVED, NOT DELETED — record 726, on the Owner's ruling that a stray probe must be
+preserved, its effect established and kept outside the suite unless deliberately admitted. The parent's
+"delete it" instruction was the wrong remedy and is owned as the parent's error: deleting destroys the
+evidence needed to answer what it touched. Recovered verbatim; it asserted NOTHING, so its maximum possible
+contribution was one passing file. It ran once deliberately, alone. Four further invocations named a single
+file positionally, three confirmed by their own visible "(1)" counts, and the fourth was reported as an
+HONEST GAP by the engineer rather than closed with a plausible claim. THE PARENT CLOSED THAT GAP BY
+EXPERIMENT: a guaranteed-failing file was planted in `tests/` under a shell trap, a DIFFERENT named file was
+run, and the run reported `Test Files 1 passed (1)` — so a positional CLI argument filters COLLECTION, not
+merely reporting, at vitest 2.1.9 here. No `record-check.mjs`, full-core or `test:ui` run occurred in the
+probe's window, so NO BASELINE WAS TOUCHED and no published count includes it.
 LOGIC VERIFIED · UNITY NOT VERIFIED. Unity/native deferred. Gross2221 omitted fact cost is NOT
 net saving: cold discovery can shift into next frame. No route-fit claim.
 Draft-discovery, silent-policy, affine and Map alternatives remain unadopted.

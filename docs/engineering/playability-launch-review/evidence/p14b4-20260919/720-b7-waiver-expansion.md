@@ -47,7 +47,10 @@ none may be satisfied by narrowing the claim. Seven items were added or correcte
    `startWeek` and `termWeeks` in the `PromiseDraft` handed to `promiseFeasibility` are read
    from the employment contract named by `promise.contractId`, because they are documented as
    "the PROPOSED CONTRACT interval the window must lie inside" (`:203`) and they alone arm the
-   two refusals at `:406-409`. See §4, which is where a writer is most likely to go wrong.
+   two refusals at `:406-409`. The SAME draft sets `promiseId` to the ORIGINAL's id, so the
+   promise being waived does not count as a competing reservation against its own replacement
+   (`:289-297`, `:206-207`). Both points are in §3, which is where a writer is most likely to go
+   wrong, and getting either wrong fails silently.
 5. The substitute carries its OWN `feasibilityReceipt`, computed by `promiseFeasibility` at
    today's week and stored on the record. It is an exact-key mandatory field (`:1012`) and is
    validated member by member (`:1047-1061`), so a substitute minted without one does not fail
@@ -84,6 +87,30 @@ none may be satisfied by narrowing the claim. Seven items were added or correcte
 14. A full core run on FIXED source matches a prediction pre-registered before the run starts,
     and the inherited 24-failure set is unchanged in identity AND in cause.
 15. `LOGIC VERIFIED · UNITY NOT VERIFIED`, with a Unity backlog entry for the save step.
+16. A REFUSED waiver leaves the original promise AND the game state UNCHANGED, and the refusal is
+    published. Owner requirement: an otherwise achievable substitute whose window ends beyond the
+    contract is "cleanly refused, with the original promise and game state unchanged, not accepted
+    and rejected later during saving." The RED proves the refusal AND the non-mutation, because a
+    `waivePromise` that refuses after already appending a receipt or touching a promise row passes
+    a refusal test and still corrupts the save.
+17. The substitute starts at `progress: 0` with `evidenceRefs: []`, and the original's qualifying
+    takes are NOT swept into it at mint and do NOT become retroactively eligible for it. Owner
+    requirement under §5 (c): do not erase completed work, and do not count it again.
+18. The waiver's attention row says WAIVED, not "kept" and not "broken". `bridge/trust.ts:69` is a
+    two-way ternary with no third arm, so widening the gate at `:68` without touching `:69` reports
+    a breach that did not happen. The RED pins the ROW TEXT, not merely the row's existence.
+
+## 2a. Three interface interpretations the RED made, which the writer follows or gets ruled
+
+T1 named these rather than assuming them silently, on the 654-T precedent. 720 does not pin the
+interface literally, so the suite had to choose. The writer FOLLOWS them. A divergence is not
+forbidden, but it needs a recorded ruling rather than a quiet rename, because the suite is the
+requirement and renaming under it would make a green run meaningless.
+
+- **I1.** `waiverAccepted` returns `string | null`, a reason or nothing, per §2 item 2.
+- **I2.** The substitute draft mirrors `PromiseAttachment` in shape.
+- **I3.** The save functions are `convertV31ToV32` and `convertV32ToV31`, following the
+  one-version-ago naming this codebase already uses at every prior step.
 
 ## 3. What the engine already provides, verified rather than assumed
 
@@ -118,6 +145,42 @@ published refusal §2 item 2 exists to give them.
 Two further reasons not to treat that function as a model: it has NO production caller at all
 (its own comment records the grep over `src/ bridge/ ui/`), and it exists today only for
 `index.ts` and one RED's premises.
+
+### The SECOND trap, found by T1 authoring against the real engine
+
+Neither the parent nor the 723-C audit caught this, and 720 said nothing about it either way. It is
+not a false claim in this record; it is a silence of exactly the shape that made the first trap
+dangerous.
+
+**The original promise double-charges its own replacement unless the substitute's draft excludes
+it.** `activePromiseReservations` (`promises.ts:289-297`) filters competing reservations with
+`promise.promiseId !== draft.promiseId`, and `reservedByActivePromises` (`:300-303`) sums
+`max(0, promise.predicate.count - promise.progress)` over whatever survives. The original is an
+open bound promise for the same person over an overlapping window, so it survives that filter
+unless the draft names it, and the quantity it contributes is `count - progress`: **exactly the
+remaining obligation the Owner's approved rule requires the substitute to cover.** The original
+books the capacity its own replacement needs.
+
+Measured by T1 against the real engine, not reasoned: every happy-path acceptance candidate in the
+requirement suite reads `FRAGILE — needs a picture not yet commissioned` instead of
+`REASONABLY_ACHIEVABLE` until the exclusion is applied.
+
+`PromiseDraft.promiseId` already exists for this, and its own doc comment (`:206-207`) states the
+purpose in plain words: "Set when an ALREADY-MINTED promise is re-classified, so the service does
+not count the promise against itself as an active seat reservation." It was written for
+`reclassifyPromise`, where the draft and the excluded promise are the same record. The waiver uses
+the SAME field for the same reason with one difference worth stating, because it is where a writer
+could get it backwards: the draft is the SUBSTITUTE's, and the id to exclude is the ORIGINAL's.
+
+That is correct rather than a convenience. The original is about to settle WAIVED in the same step,
+so its reservation is about to be released; judging the substitute while still counting it
+double-books capacity that is being freed.
+
+**Both traps in this slice have the same anatomy.** A documented helper or field, written for a
+neighbouring caller, whose correct use by the waiver differs in one detail that nothing enforces.
+Get either wrong and the code compiles, the tests a careless author would write pass, and the
+failure surfaces far away: the first as a save-validator crash, the second as an achievable
+substitute refused for a reason that names the wrong bottleneck.
 
 ### Two engine facts MEASURED at T0, not read off the source
 
@@ -163,7 +226,7 @@ this table, weakest to strongest. Read literally as set notation over the actual
 backwards, since P1's mask is a SUPERSET of P2-leadOrAntagonist's. This table, not that line,
 is the source. 645-A is not amended.
 
-## 5. What is settled by existing law, and the genuine product choices
+## 5. What is settled by existing law, and what the Owner decided
 
 The first draft of this record isolated three questions for the Owner. The 723-C audit showed two
 of them are already decided, by law and by this record's own architecture. Sending a settled
@@ -183,17 +246,35 @@ Freeze re-classification runs only over `state.talentMarket.proposals`, and item
 proposal for the substitute. There is no code path by which a freeze could reach it. The answer
 follows from the architecture this record already commits to.
 
-**(d) Does the public feed announce a waiver? GENUINELY OPEN, and it is the SECOND one.** It was
-first written up as settled, on a premise the parent had not checked. See §6, which holds the
-correction, the recommendation, the objection to it and the cost of the alternative.
+**(c) What count must the substitute carry? DECIDED BY THE OWNER, 2026-09-23.** Approved verbatim:
 
-**(c) What count must the substitute carry? GENUINELY OPEN. Recommendation stated, B.7 proceeds
-on it.** The original may be part-served (`progress` > 0). Recommend
-**`substitute.predicate.count >= original.predicate.count - original.progress`**: at least the
-REMAINING obligation, not the original one. The alternative charges the player again for takes
-already delivered, which reads as a penalty rather than a settlement, and it is the reason item 8
-preserves `progress` rather than clearing it. No prior record decides this. If the Owner prefers
-the stricter reading, it is one comparison and no save shape moves.
+> Approve the remaining-obligation rule: a substitute must cover at least the original's unfulfilled
+> qualifying count, without erasing completed work or counting it again toward the substitute.
+
+So `substitute.predicate.count >= original.predicate.count - original.progress`. The approval
+carries TWO constraints beyond the comparison, and the second was not in the parent's own
+recommendation:
+
+- **Do not erase completed work.** The original keeps its `progress` and `evidenceRefs` when it
+  settles WAIVED, which §2 item 8 already required.
+- **Do not count it again.** The substitute starts at `progress: 0` with `evidenceRefs: []`. The
+  original's qualifying takes must NOT be swept into the substitute at mint, and must not become
+  eligible for it retroactively. A three-picture promise served once, waived for a two-picture
+  substitute, requires TWO FURTHER qualifying appearances. Six in total would be double-charging
+  and one would be double-crediting; the rule is neither.
+
+**(d) Does the public feed announce a waiver? DECIDED BY THE OWNER, 2026-09-23, as the parent
+recommended.** Private confirmation without a public Industry announcement. The Owner attached two
+qualifications, both adopted:
+
+- **Preserve the existing public kept/broken announcements.** B.7 does not touch them. The Owner's
+  reasoning is the correction the parent had already made to itself: private terms do not make
+  every outcome private, and those public outcomes are deliberately distinguished in the bridge.
+- **The issuing player must get an accurate waiver confirmation and keep accessible history,
+  without the waiver being mislabelled "kept" or "broken".** That is the companion's "recorded and
+  visible" (`:379`), and the sweep in §6 shows exactly where it lands: `promiseHistoryFor` already
+  publishes it correctly and viewer-scoped, and `bridge/trust.ts:69` is the one place that would
+  mislabel it. See §6's mislabel hazard, which is precisely this failure mode.
 
 ## 6. The two surfaces that change behaviour the moment WAIVED is reachable
 
@@ -253,22 +334,59 @@ needs no projection step because of the recommendation above, not because the qu
 exist. The first draft of this record claimed otherwise and was wrong in its reasoning while right
 in its conclusion.
 
+### The projection claim, settled by ENUMERATION rather than by one observation
+
+The Owner required that "no projection step" be confirmed across the affected consumers and
+schema, not rested on the fact that `WAIVED` already exists in one enum. Every consumer of a
+promise outcome in `bridge/` and `ui/`, swept and dispositioned:
+
+| consumer | what it does with an outcome | disposition |
+| --- | --- | --- |
+| `bridge/promises.ts:112` `promiseHistoryFor` | passes `promise.outcome` through with NO allowlist | PUBLISHES WAIVED ALREADY, no change. Viewer-scoped to the issuer (`:100-102`), which IS the companion's "recorded and visible" and the Owner's private confirmation |
+| `bridge/promises.ts:114` | `outcomeCause` through, schema `nullable(text())` | carries the waiver's reason verbatim, no change |
+| `bridge/trust.ts:64` `promiseDue` | gated on `outcome === null` | CORRECT BY CONSTRUCTION: a waived promise stops generating due reminders the moment it settles |
+| `bridge/trust.ts:69` `promiseOutcome` | gated on `SATISFIED \|\| BROKEN` | DEFECT, B.7 fixes. See the mislabel hazard below |
+| `bridge/industry.ts:135-145` public fold | filters to `SATISFIED \|\| BROKEN` | EXCLUDED BY DECISION (§6). Code unchanged, comment corrected, exclusion PINNED |
+| `bridge/contract.ts:443-519` | its `outcome` is the command envelope `{ok, error, next}` | NOT a promise outcome. Unaffected |
+| `bridge/supervisor/supervisor.ts:840` | `LifecycleOutcome` | unrelated symbol. Unaffected |
+| `ui/src/**` | two prose comments in `Dashboard.tsx` using "promised outcome" as English | **NO UI CONSUMER OF A PROMISE OUTCOME EXISTS.** Nothing to change |
+| schema `bridge-schema.ts:2331` | `nullable(enumeration(PROMISE_OUTCOMES))` | already admits WAIVED |
+| schema `industry-schema.ts:147` | `outcomeKind` closed to `promiseKept`/`promiseBroken` | the ONLY closed enum in the set, and the only thing the excluded reading would have to widen |
+
+**Exactly two surfaces need attention and there is no third.** The claim now rests on that
+enumeration.
+
+**THE MISLABEL HAZARD, found by the sweep and exactly what the Owner warned against.**
+`bridge/trust.ts:69` does not merely omit a waiver. Its row text is
+`promise.outcome === 'SATISFIED' ? 'kept' : 'broken'`, a two-way ternary with no third arm. A
+writer who widens the gate at `:68` to admit WAIVED and does not touch `:69` publishes a waived
+promise to the player as **"broken"**, which is worse than the silence it replaced: it reports a
+breach that did not happen, against a settlement the person accepted. The gate and the ternary
+must move together, and the RED pins the ROW TEXT, not merely the row's existence.
+
 ## 7. Excluded, each with its owner
 
 - **Rival waiver policy: RECORD-ONLY**, the R3 pattern. Rivals do not waive in B.7. A rival
   waiver would need its own achievability policy and would be invisible to the player anyway,
   since another studio's promise terms are never disclosed.
-- **The retirement-moot branch: P14C.** A promise made moot by the person's own retirement or
-  profession transition settles `VOIDED`, not `WAIVED`, and `VOIDED` has no producer until
-  P14C exists (645-A §3, and `promises.ts:708-710` records the same).
+- **The retirement-moot branch: P14C, and WHICH outcome it settles as is OPEN.** The first draft
+  asserted it settles `VOIDED`, not `WAIVED`. The companion does not say that. Its WAIVED row
+  (`:379`) lists "the person's own announced retirement or profession transition makes the promise
+  moot" as an acceptance branch, and its VOIDED row (`:381`) lists the SAME cause. The companion is
+  genuinely ambiguous and B.7 implements NEITHER branch, so B.7 need not resolve it. P14C must, and
+  it inherits an ambiguity rather than a rule. Recorded so P14C is not surprised by it.
 - **The bridge intent and any read model: the slice AFTER B.7**, on the B.5 → B.6 rhythm. B.7
   lands the engine law with no WIRE change, meaning no schema or projection move. It does edit
   `bridge/trust.ts` per §6, because that defect is one B.7 itself creates. The waiver reaches a
   player surface next.
-- **Trust consequence of a waiver: NOT INVENTED HERE, a different question from §6.** `trustDrivers` (`promises.ts:822`)
-  enumerates five driver kinds and `WAIVED` is not among them, so a waived promise contributes
-  no driver and moves no label. Whether it SHOULD is a product question for the slice that owns
-  trust text, not a gap B.7 fills by guessing.
+- **Trust consequence of a waiver: SETTLED BY THE COMPANION, not deferred.** The first draft called
+  this an open question for a later slice. It is not. `P14-PREPARATION-COMPANION.md:379` gives
+  WAIVED a trust effect of "none; recorded and visible", and ruling S11 (`:568`) says a mutual
+  waiver carries no penalty. The engine already agrees by construction: `trustDrivers`
+  (`promises.ts:822`) enumerates five kinds and none is a waiver, so a waived promise contributes
+  no driver and moves no label WITHOUT B.7 writing anything. What the companion additionally
+  REQUIRES is the "recorded and visible" half, which is why §6's attention row is a defect B.7
+  must fix rather than a nicety. Third time this record mis-sorted a settled matter; see §10.
 
 ## 8. Order of work
 
@@ -279,7 +397,9 @@ in its conclusion.
    `RELATIONSHIP_FAILURE_DELTA` 4 → 5, and that changes edge values inside a V31 save).
    `src/core/save.ts`'s own last writer is `f5310afb`; record both, as 645-A did for V30.
 2. **Audit. DONE**, record 723-C, verdict REFINE, this record amended in place (§10).
-3. **T1.** Test-author writes and RUNS the requirement suite. RED for the stated reason.
+3. **T1. DONE**, record 725-T. `tests/p14b7-promise-waiver.test.ts`, 573 lines, sha256
+   `bf5fb83a…`. 26 failed / 2 passed (28), deterministic across two runs. Parent-verified
+   attribution: 104 "RED premise" guards in the transcript and ZERO non-premise errors.
 4. **W.** sim-core lands `waivePromise`, `waiverAccepted`, the V32 save step and the migrations.
 5. **Close.** Pre-registered prediction, then full core on fixed source, then the checkpoint.
 
