@@ -409,9 +409,21 @@ substitute is REASONABLY ACHIEVABLE over the REMAINING contract interval, is AT 
 promise it replaces, and the person does not already read the studio as `Distrusted`; a refusal returns a
 reason and leaves the original open on its original terms. Save V31 → V32 for `supersededByPromiseId: string
 | null` (exact-key validation; `convertV32ToV31` REFUSES a non-null value rather than dropping it). NO
-PROJECTION STEP: `WAIVED` is already on the wire enum (`bridge-schema.ts:1770`) and already an enumerated
-`PromiseOutcome` that no path reaches (`types.ts:2173`), so B.7 activates an enumerated terminal state rather
-than widening a union. The original settles through the EXISTING `settle()` (`promises.ts:678`) with ONE
+PROJECTION STEP, CORRECTED AFTER PUBLICATION BY THE 723-C AUDIT: the conclusion survives and the reasoning
+first published here did not. `WAIVED` is already on the wire enum (`bridge-schema.ts:1770`) and already an
+enumerated `PromiseOutcome` no path reaches (`types.ts:2173`), so the promise-history row publishes it with
+no wire change and B.7 activates an enumerated terminal state rather than widening a union. But that alone
+does NOT settle the projection question, and the first version of this line implied it did. TWO BRIDGE
+SURFACES CHANGE BEHAVIOUR WITH ZERO CODE EDIT the moment a WAIVED promise can exist: `bridge/trust.ts:68`
+gates the attention row on `SATISFIED || BROKEN`, so a player who NEGOTIATES a waiver would get LESS feedback
+than one who lets the promise break, which B.7 creates and therefore B.7 fixes; and `bridge/industry.ts:136`
+filters the public activity fold the same way, dropping a WAIVED receipt at `:141` and silently falsifying
+the module's own invariant at `:133-134` ("one PUBLIC activity per exact outcome receipt"). Announcing
+waivers publicly WOULD need a projection bump, because `industry-schema.ts:147` closes `outcomeKind` to
+`['promiseKept','promiseBroken']` with no legal third value. RECOMMENDED AND ADOPTED: do NOT announce, since
+a waiver is a private renegotiation and promise terms are private to their issuer throughout this codebase;
+the fold's comment is corrected so the exclusion is a decision on the record and not an accident. So
+projection stays 49 because of that decision, not because the question did not exist. The original settles through the EXISTING `settle()` (`promises.ts:678`) with ONE
 `promiseOutcome` receipt, the B.1 one-kind ruling unamended; the substitute is minted BOUND to the existing
 `contractId` and does NOT travel through `attachPromise`, which requires a current proposal and would throw.
 STRENGTH RUNS OPPOSITE TO MASK SIZE: "at least as strong" is `substituteMask ⊆ originalMask`, a SUBSET test,
@@ -421,10 +433,34 @@ re-classification of a BOUND substitute, (c) NEW, the substitute's count must me
 (`count - progress`), not the original. EXCLUDED with owners: rival waiver policy record-only (R3); the
 retirement-moot `VOIDED` branch needs P14C; the bridge intent and read model are the slice AFTER B.7, on the
 B.5 → B.6 rhythm; the trust consequence of a waiver is NOT invented here (`trustDrivers` enumerates five
-kinds and WAIVED is not among them). ORDER: T0 mint genuine outgoing V31 fixtures recording BOTH identities
-(last behavioural V31 writer `caa8cdb3`, since B.5-T moved RELATIONSHIP_FAILURE_DELTA 4 → 5 and that changes
-edge values inside a V31 save; `save.ts`'s own last writer `f5310afb`) → read-only audit → T1 RED → sim-core
-→ pre-registered prediction → full core on fixed source → checkpoint. Then the remaining authorized P14
+kinds and WAIVED is not among them). EXPANSION AUDITED BEFORE THE SLICE BEGAN, per the plan's standing
+rule: record 723-C, read-only, verdict REFINE, five HIGH findings, EVERY ONE re-verified against the
+source by the parent before acceptance and none taken on the auditor's word. The sharpest was the
+parent's own: the draft pointed the writer at `reclassifyPromise` as a shape to copy, and copying it
+would have made BOTH contract-fit refusals (`promises.ts:406-409`) tautological for the one promise
+whose window has never been checked against a contract, since that function passes the promise's own
+window as the interval BY DESIGN for a live promise (`:449-451`) and has no production caller at all.
+The audit also added the `feasibilityReceipt` requirement, the non-`evaluable()` refusals (terminal or
+unbound), the identical-substitute refusal, the `progress`/`evidenceRefs` disposition, and showed that
+TWO of the three "product choices" were already settled by existing law and by the record's own
+architecture, leaving only the substitute's count genuinely open. Record 720 amended in place with its
+own §10 log; T1 is authored against the AMENDMENT, not the draft. ORDER: T0 DONE → audit DONE → T1 RED → sim-core →
+pre-registered prediction → full core on fixed source → checkpoint. T0 (record 722) minted NINE genuine
+outgoing V31 fixtures at `152ee9a4` through REAL ACTION PATHS ONLY, no hand-assembled state and no gap in
+the roster, recording BOTH identities as the V30 precedent does (tested source `caa8cdb3`, the last
+BEHAVIOURAL V31 writer, since B.5-T moved RELATIONSHIP_FAILURE_DELTA 4 → 5 and that changes edge values
+inside a V31 save; `save.ts`'s own last writer `f5310afb`). The parent re-verified every compressed sha256
+against the files on disk, the archived minter and support against the manifest's own
+`minterSha256`/`supportSha256`, and that the approval gate's VALUE equals the observed head, so the mint
+could not have fired by accident; `LIVE_SAVE_VERSION` still reads 31 and `PROJECTION_VERSION` still reads
+49 on disk. The operational minter and its support module were archived as executed text and REMOVED from
+the tree, the disposition every prior mint used. TWO ENGINE FACTS WERE MEASURED THAT A STATIC READ COULD
+NOT SEE, which is why T0 precedes T1: `Distrusted` TOLERATES a positive driver, because `label()`
+(`promises.ts:879-884`) tests `negative >= 2 && negative > positive` and not driver purity (the minted
+`distrusted-issuer` carries 2 negatives AND 1 naturally-arriving positive and still reads Distrusted), so
+a RED asserting purity would pin a stronger premise than the engine holds; and a promise whose count is 2
+or more needs a SECOND pipeline opening, where `activateScriptDevelopment` looks like the door and is not,
+since it changes `greenlight`'s own admission rule. Then the remaining authorized P14
 obligations, P15, P16, P17 and sufficiently specified P18 in dependency order. Carried: positive-saturation,
 the 6,240-week endurance obligation, 628 R5 / G-1(A) / G-2, 637, evaluator 5, 702-C REFINE 3-6, the B.6
 per-talent projection cost, and `rosterAt`/`SEAT_PAIRS` restated in `bridge/relationships.ts` from private

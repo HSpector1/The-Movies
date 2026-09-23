@@ -1,0 +1,189 @@
+// P14B.7 T0 (721) support; the B.5 scripts/v30-mint-support.ts pattern
+// (archived evidence/p14b4-20260919/648-mint-support.executed.ts.txt), adapted to
+// the FACTS of this range: B.5-T (`caa8cdb3`) is the last BEHAVIOURAL V31 writer,
+// and `src` has not moved since (VERIFIED by `gate()` itself, not assumed) even
+// though B.6 moved `bridge/` and `generated/` on top of it. So this authority
+// carries ONE producer-diff fact scoped to `src` (`srcProducerDiffSha256`)
+// instead of the V30 precedent's two-rung tested/text-only-pass pair — there is
+// no intermediate text-only commit in this range to name.
+//
+// No side effects on import. Only the explicitly authorized one-shot minter
+// calls `mintV31Corpus`. `prepareV31Corpus` builds every world and readback in
+// memory and writes nothing; the gated `mintV31Corpus` is the only writer and it
+// runs the gate BEFORE and AFTER preparation.
+import assert from 'node:assert/strict'
+import { execFileSync } from 'node:child_process'
+import { createHash } from 'node:crypto'
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
+import { join, resolve } from 'node:path'
+import { fileURLToPath } from 'node:url'
+import { gzipSync, gunzipSync } from 'node:zlib'
+import { BridgeSession } from '../bridge/session.ts'
+import { PROTOCOL_VERSION, SCHEMA_ID } from '../bridge/protocol.ts'
+import { PROJECTION_VERSION } from '../bridge/schema/bridge-schema.ts'
+import { PROMISE_RULES_VERSION } from '../src/core/promises.ts'
+import { RELATIONSHIP_RULES_VERSION } from '../src/core/relationships.ts'
+import { exportSave, importSave, LIVE_SAVE_VERSION, makeSave, validateSaveV31 } from '../src/core/save.ts'
+import type { GameState } from '../src/core/types.ts'
+
+export type MinterAuthority = {
+  phase: string
+  /** The last BEHAVIOURAL V31 writer (record 721 identities table). */
+  testedSourceSha: string
+  /** sha256 of `git diff --no-color --no-ext-diff testedSourceSha publishedRecoverySha -- src`,
+   * expected the empty-string hash (`e3b0c44...`) — recorded either way per the T0 brief. */
+  srcProducerDiffSha256: string
+  publishedRecoverySha: string
+  /** Record-only (721 identities table): `src/core/save.ts`'s own last writer;
+   * not gated on, since B.6 legitimately moved files this writer did not touch. */
+  saveWriterSha: string
+  closeoutRelativePath: string; closeoutSha256: string
+  schemaId: string; projectionVersion: number; protocolVersion: number
+  saveVersion: number; promiseRulesVersion: number; relationshipRulesVersion: number
+  approvalEnvironmentVariable: string; outputRelativePath: string
+}
+export type Snapshot = {
+  name: string; state: GameState; role: string; recipe: unknown
+  focusPromiseIds: string[]; facts?: unknown
+}
+export const BRANCH = 'wip/headless-program-20260916-ts'
+/** Every path whose bytes produce or shape a world, at the CURRENT head (not
+ * `testedSourceSha`) — `src` is pinned unmoved since `testedSourceSha` by `gate()`
+ * itself; `bridge`/`generated`/config moved under B.6 and are read as they stand. */
+export const PRODUCER_PATHS = ['src', 'bridge', 'generated', 'package.json', 'package-lock.json',
+  ':(glob)**/tsconfig*.json', 'vitest.config.ts', 'vitest.workspace.ts',
+  'tests/helpers/p14b2-fixtures.ts', 'tests/p14b1-t4-regressions.test.ts', 'tests/p14b4-cast-class-outcomes.test.ts']
+/** Hashed into provenance: what the minters import and what the worlds depend on. */
+export const EVIDENCE_FILES = [
+  'src/core/save.ts', 'src/core/promises.ts', 'src/core/talentMarket.ts', 'src/core/tick.ts',
+  'src/core/actions.ts', 'src/core/types.ts', 'src/core/index.ts', 'src/core/tuning.ts',
+  'src/core/worldgen.ts', 'src/core/hollywood.ts', 'src/core/operations.ts', 'src/core/technologyProduction.ts',
+  'src/core/hollywoodPolicy.ts', 'src/core/hollywoodTick.ts', 'src/core/employment.ts',
+  'src/core/promiseCapacityOwners.ts', 'src/core/promiseCapacityEnumerator.ts', 'src/core/promiseCapacityOwnerReplay.ts',
+  'src/core/relationships.ts',
+  'src/harness/p13a/fixtures.ts',
+  'bridge/contract.ts', 'bridge/session.ts', 'bridge/protocol.ts', 'bridge/runtime-checkpoint.ts',
+  'bridge/promises.ts', 'bridge/people.ts', 'bridge/trust.ts', 'bridge/schema/bridge-schema.ts',
+  'generated/unity/StudioBridgeDtos.Generated.cs',
+  'ui/src/engine/adapter.ts', 'ui/vite.config.ts', 'ui/tsconfig.json',
+  'tsconfig.json', 'tsconfig.src.json', 'tsconfig.bridge.json', 'vitest.config.ts', 'vitest.workspace.ts',
+  'package.json', 'package-lock.json',
+  'tests/helpers/p14b2-fixtures.ts', 'tests/p14b1-t4-regressions.test.ts', 'tests/p14b4-cast-class-outcomes.test.ts',
+]
+export const sha = (value: string | Uint8Array): string => createHash('sha256').update(value).digest('hex')
+export const gitRaw = (...args: string[]): string => execFileSync('git', args, { encoding: 'utf8' })
+export const git = (...args: string[]): string => gitRaw(...args).trim()
+
+export function gate(authority: MinterAuthority) {
+  assert.match(authority.testedSourceSha, /^[a-f0-9]{40}$/, `${authority.phase} last behavioural writer is not pinned`)
+  assert.match(authority.srcProducerDiffSha256, /^[a-f0-9]{64}$/, 'src producer diff is not pinned')
+  assert.match(authority.publishedRecoverySha, /^[a-f0-9]{40}$/, `${authority.phase} accepted publication is not pinned`)
+  assert.match(authority.saveWriterSha, /^[a-f0-9]{40}$/, 'save.ts own last writer is not pinned')
+  assert.match(authority.closeoutSha256, /^[a-f0-9]{64}$/, 'accepted closeout evidence is not pinned')
+  assert.equal(process.env[authority.approvalEnvironmentVariable], authority.publishedRecoverySha,
+    `REFUSED: ${authority.approvalEnvironmentVariable} must equal the current head `
+    + `${authority.publishedRecoverySha}; only the parent sets it, and only for the one-shot mint`)
+  const root = git('rev-parse', '--show-toplevel')
+  assert.equal(resolve(process.cwd()), root, 'invoke only at the authorized repository root')
+  assert.equal(git('branch', '--show-current'), BRANCH)
+  assert.equal(git('rev-parse', 'HEAD'), authority.publishedRecoverySha, 'producer moved after acceptance')
+  git('merge-base', '--is-ancestor', authority.testedSourceSha, authority.publishedRecoverySha)
+  // The FACT this T0 exists to establish: `src` has not moved since the last
+  // BEHAVIOURAL V31 writer, even though `bridge`/`generated` legitimately have
+  // (B.6). A non-empty diff here means the outgoing-V31 state producer itself
+  // moved after its last accepted writer — stop, do not mint over a surprise.
+  const srcDiff = gitRaw('diff', '--no-color', '--no-ext-diff', authority.testedSourceSha, authority.publishedRecoverySha, '--', 'src')
+  assert.equal(sha(srcDiff), authority.srcProducerDiffSha256, 'src moved since the last behavioural V31 writer — refusing to mint over a surprise')
+  assert.equal(git('ls-files', '--others', '--exclude-standard', '--', ...PRODUCER_PATHS), '', 'untracked producer code is forbidden')
+  assert.equal(LIVE_SAVE_VERSION, authority.saveVersion, 'not the required outgoing V31 writer')
+  assert.equal(PROTOCOL_VERSION, authority.protocolVersion)
+  assert.equal(PROJECTION_VERSION, authority.projectionVersion)
+  assert.equal(SCHEMA_ID, authority.schemaId)
+  assert.equal(PROMISE_RULES_VERSION, authority.promiseRulesVersion, 'wrong promise evaluator generation')
+  assert.equal(RELATIONSHIP_RULES_VERSION, authority.relationshipRulesVersion, 'wrong relationship rules generation')
+  for (const path of [authority.closeoutRelativePath, authority.outputRelativePath]) {
+    assert.ok(!path.includes('..') && !path.startsWith('/'), 'paths must stay relative inside the authorized repository')
+  }
+  assert.ok(authority.outputRelativePath.startsWith('tests/fixtures/p14/'), 'output must remain the scoped new fixture corpus')
+  const closeoutHash = sha(readFileSync(join(root, authority.closeoutRelativePath)))
+  assert.equal(closeoutHash, authority.closeoutSha256)
+  assert.ok(!existsSync(join(root, authority.outputRelativePath)), 'refusing existing/partial corpus directory')
+  const sourceFiles = Object.fromEntries(EVIDENCE_FILES.map((path) => [path, sha(readFileSync(join(root, path)))]))
+  return { root, sourceFiles, closeoutHash }
+}
+
+export type Prepared = ReturnType<typeof prepareV31Corpus>[number]
+/** Every world, readback and hash, in memory. Writes nothing; needs no token. */
+export function prepareV31Corpus(count: number, build: () => Snapshot[]) {
+  const prepared = build().map((item) => {
+    assert.match(item.name, /^[a-z0-9-]+$/)
+    const raw = exportSave(makeSave(item.state))
+    const validated = validateSaveV31(JSON.parse(raw))
+    assert.equal(validated.saveVersion, 31)
+    assert.equal(exportSave(validated), raw)
+    assert.equal(exportSave(validateSaveV31(importSave(raw))), raw)
+    const session = BridgeSession.fromSaveJson(raw, `v31-roundtrip-${item.name}`)
+    assert.equal(exportSave(makeSave(session.gameState)), raw)
+    assert.deepEqual(session.gameState.promises, item.state.promises)
+    assert.deepEqual(session.gameState.firstTakes, item.state.firstTakes)
+    assert.deepEqual(session.gameState.talentMarket, item.state.talentMarket)
+    assert.deepEqual(session.gameState.relationships, item.state.relationships)
+    const compressed = gzipSync(raw, { level: 9 })
+    assert.equal(gunzipSync(compressed).toString('utf8'), raw)
+    return { item, compressed, facts: { seed: item.state.seed, week: item.state.market.tick, saveVersion: 31,
+      uncompressedSha256: sha(raw), compressedSha256: sha(compressed), byteLength: Buffer.byteLength(raw),
+      compressedByteLength: compressed.length,
+      rootCounts: { promises: item.state.promises.length, firstTakes: item.state.firstTakes.length,
+        marketReceipts: item.state.talentMarket.receipts.length, currentProposals: item.state.talentMarket.proposals.length,
+        relationshipEdges: item.state.relationships.length },
+      focus: item.state.promises.filter((p) => item.focusPromiseIds.includes(p.promiseId)).map((p) => ({
+        promiseId: p.promiseId, family: p.family, predicate: p.predicate, version: p.version,
+        issuerStudioId: p.issuerStudioId, beneficiaryPersonId: p.beneficiaryPersonId,
+        windowStartWeek: p.windowStartWeek, dueWeekExclusive: p.dueWeekExclusive,
+        contractId: p.contractId, outcome: p.outcome, outcomeWeek: p.outcomeWeek,
+        outcomeEventId: p.outcomeEventId, evidenceRefs: p.evidenceRefs, progress: p.progress,
+        originalFeasibilityReceipt: p.feasibilityReceipt })) } }
+  })
+  assert.equal(prepared.length, count)
+  assert.equal(new Set(prepared.map((p) => p.item.name)).size, count)
+  for (const { item, facts } of prepared) assert.equal(facts.focus.length, item.focusPromiseIds.length, `${item.name}: a focus id is not a root`)
+  return prepared
+}
+
+export function mintV31Corpus(authority: MinterAuthority, minterUrl: string, count: number, build: () => Snapshot[]): void {
+  const initial = gate(authority)
+  const minterPath = fileURLToPath(minterUrl)
+  assert.ok(minterPath.startsWith(`${initial.root}/tests/`), 'install operational entry only in authorized tests path')
+  const minterRelativePath = minterPath.slice(initial.root.length + 1)
+  const operationalHashes = { minterSha256: sha(readFileSync(new URL(minterUrl))),
+    supportSha256: sha(readFileSync(new URL(import.meta.url))) }
+  const startedAt = new Date().toISOString()
+  // Prepare ALL worlds and readbacks before any output creation. No JSON restamp.
+  const prepared = prepareV31Corpus(count, build)
+  const final = gate(authority)
+  assert.deepEqual(final.sourceFiles, initial.sourceFiles, 'producer/recipe/configuration bytes moved during generation')
+  assert.equal(final.closeoutHash, initial.closeoutHash)
+  assert.equal(sha(readFileSync(new URL(minterUrl))), operationalHashes.minterSha256, 'executed entry changed during mint')
+  assert.equal(sha(readFileSync(new URL(import.meta.url))), operationalHashes.supportSha256, 'shared helper changed during mint')
+  const common = { authority, observedHeadSha: git('rev-parse', 'HEAD'), sourceFiles: initial.sourceFiles,
+    ...operationalHashes,
+    nodeVersion: process.version, startedAt, endedAt: new Date().toISOString(),
+    campaignSource: 'generated test campaigns only; never Owner saves',
+    command: `${authority.approvalEnvironmentVariable}=${authority.publishedRecoverySha} node_modules/.bin/vitest run ${minterRelativePath} --minWorkers=1 --maxWorkers=1`,
+    scope: 'genuine SaveV31 producer evidence; no forward migration or native/product acceptance claim' }
+  const directory = join(initial.root, authority.outputRelativePath)
+  mkdirSync(directory) // fresh exact directory; no recursive delete/overwrite
+  const manifest = []
+  for (const { item, compressed, facts } of prepared) {
+    const filename = `genuine-v31-${item.name}.json.gz`
+    const provenanceFilename = `genuine-v31-${item.name}.provenance.json`
+    writeFileSync(join(directory, filename), compressed, { flag: 'wx' })
+    writeFileSync(join(directory, provenanceFilename), JSON.stringify({ ...common, filename,
+      role: item.role, recipe: item.recipe, ...facts, additionalFacts: item.facts ?? null }, null, 2) + '\n', { flag: 'wx' })
+    manifest.push({ filename, provenanceFilename, ...facts })
+  }
+  // LAST: absence means an incomplete batch, not permission to overwrite/remint.
+  writeFileSync(join(directory, 'MANIFEST.json'), JSON.stringify({ ...common, fixtures: manifest }, null, 2) + '\n', { flag: 'wx' })
+  console.log(JSON.stringify({ corpus: authority.outputRelativePath, observedHeadSha: common.observedHeadSha,
+    fixtures: manifest.map(({ filename, uncompressedSha256, compressedSha256 }) => ({ filename, uncompressedSha256, compressedSha256 })) }, null, 2))
+}

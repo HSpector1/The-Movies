@@ -1,0 +1,402 @@
+// P14B.7 T0 (721-T0-v31-mint-brief): ONE-SHOT minter for the genuine outgoing Save
+// V31 corpus, before any source change bumps LIVE_SAVE_VERSION to 32. The B.5 T0
+// pattern (evidence/p14b4-20260919/648-mint-final-v30.executed.ts.txt). Run only
+// this file, one worker, at the exact published HEAD below with the operational
+// files UNTRACKED; then archive/remove it from discovery. Uses the existing B2
+// Vitest-backed fixture builders and copies (never imports) route shapes from
+// tests/p14b4-cast-class-outcomes.test.ts so this file never registers cases there.
+//
+// The DRY case builds every world and readback in memory and prints the facts; it
+// never writes and needs no token. The ONE-SHOT case is gated by the approval
+// environment variable that only the parent sets; without it the gate refuses
+// before any output directory exists.
+import assert from 'node:assert/strict'
+import { it } from 'vitest'
+import { applyActions, hiringMarketIds, tick } from '../src/core/index.js'
+import { attachPromise, trustDescriptor } from '../src/core/promises.js'
+import { currentProposals, submitProposal } from '../src/core/talentMarket.js'
+import { TUNING } from '../src/core/tuning.js'
+import type { Action, CastSlot, GameState, ProfessionalPromise } from '../src/core/types.js'
+import { advanceTo, fund, p13aGeneratedStudio, player, retentionFixture, rivalFixture } from './helpers/p14b2-fixtures.js'
+import { mintV31Corpus, prepareV31Corpus, sha, type MinterAuthority, type Snapshot } from '../scripts/v31-mint-support.js'
+
+// Every value independently verified by reading at HEAD 152ee9a4 (722-T0 report):
+// `git rev-parse HEAD`; `git log -1 --format=%H -- src/core/save.ts` for the save
+// writer; `git diff caa8cdb3 152ee9a4 -- src` (EMPTY; sha is the empty-string
+// hash) for the src-unmoved fact; `save.ts:6409`, `bridge-schema.ts:258` for
+// LIVE_SAVE_VERSION/PROJECTION_VERSION; `bridge-schema.ts:21` for PROTOCOL_VERSION;
+// `promises.ts:45` for PROMISE_RULES_VERSION; `relationships.ts` RELATIONSHIP_RULES_VERSION;
+// `docs/.../718-b6-checkpoint.md:42` (the "after" column) for schemaId; shasum -a 256
+// for the closeout file itself.
+const APPROVED_FINAL_V31: MinterAuthority = {
+  phase: 'qualified P14B.6 checkpoint (718) / last BEHAVIOURAL V31 writer before B.7',
+  testedSourceSha: 'caa8cdb39c4f92598777b7b54f84b23cde03cc40',
+  srcProducerDiffSha256: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
+  publishedRecoverySha: '152ee9a4be0502d6a1d1f6cf50573660717b0c98',
+  saveWriterSha: 'f5310afb5b503362aa90eee1c8090e326b0fd9ea',
+  closeoutRelativePath: 'docs/engineering/playability-launch-review/evidence/p14b4-20260919/718-b6-checkpoint.md',
+  closeoutSha256: '652d08f304a245de469e4d2a153e4bbab08eab862a1bb819d01839f14f379e7f',
+  schemaId: 'sha256:60af24c58bc4bea8f04e7fc818f8401daeadd87da91252e60cfcf3ee028d8e1b',
+  projectionVersion: 49,
+  protocolVersion: 4,
+  saveVersion: 31,
+  promiseRulesVersion: 4,
+  relationshipRulesVersion: 1,
+  approvalEnvironmentVariable: 'STUDIO_MINT_V31_APPROVED',
+  outputRelativePath: 'tests/fixtures/p14/genuine-v31-pre-b7',
+}
+const CASE_COUNT = 9
+const SLOTS = ['lead', 'antagonist', 'support'] as const
+type SeatClass = 'lead' | 'leadOrAntagonist'
+
+function root(state: GameState, promiseId: string): ProfessionalPromise {
+  const rows = state.promises.filter((p) => p.promiseId === promiseId)
+  assert.equal(rows.length, 1)
+  return rows[0]!
+}
+function ownPromise(state: GameState, personId: string): ProfessionalPromise {
+  const proposal = currentProposals(state, personId).find((p) => p.issuerStudioId === player(state))
+  assert.ok(proposal)
+  assert.equal(proposal.promises.length, 1)
+  return root(state, proposal.promises[0]!)
+}
+function binding(state: GameState, promise: ProfessionalPromise): void {
+  assert.notEqual(promise.contractId, null)
+  const employment = state.hollywood!.employment.find((row) => row.contractId === promise.contractId)
+  assert.ok(employment)
+  assert.equal(employment.studioId, promise.issuerStudioId)
+  assert.equal(employment.terms.talentId, promise.beneficiaryPersonId)
+  assert.equal(employment.terms.startWeek, promise.windowStartWeek)
+  assert.ok(state.talentMarket.receipts.some((r) => r.kind === 'settled' && r.week === employment.terms.startWeek
+    && r.talentId === promise.beneficiaryPersonId && r.studioId === promise.issuerStudioId))
+}
+// ── The tagged-P2 route, copied from tests/p14b4-cast-class-outcomes.test.ts
+// (playerPayload/playerToFive shape) and the B.5 648 minter's realPlayerPromise
+// — never imported, so this file registers no case there.
+function sign(state: GameState, role: 'actor' | 'writer' | 'director' | 'craft', termWeeks = 208) {
+  for (let steps = 0; steps < 60; steps++) {
+    const person = hiringMarketIds(state, state.market.tick).map((id) => state.talent.find((p) => p.id === id)).find((p) => p?.role === role)
+    if (person !== undefined) return { state: applyActions(state, [{ kind: 'signContract', talentId: person.id, termWeeks }]), id: person.id }
+    state = tick(state)
+  }
+  throw new Error('UNEXECUTED prerequisite: no actual hireable ' + role + ' within60 weeks')
+}
+const p2 = (seatClass: SeatClass) => ({ family: 'LEAD_OR_SIGNIFICANT_ROLE_COUNT' as const,
+  predicate: { kind: 'castRoleCount' as const, count: 1, seatClass } })
+const p1 = (count: number) => ({ family: 'APPEARANCE_COUNT' as const, predicate: { count } })
+
+function readySoundstage(state: GameState): GameState {
+  const stage = 'facility-soundstage-07'
+  assert.ok(state.operations.facilities.some((f) => f.id === stage && f.capability === 'soundstage'))
+  const mounted = state.sets.find((s) => s.mountedOn === stage && s.status !== 'retired')
+  if (mounted !== undefined) state = applyActions(state, [{ kind: 'strikeSet', setId: mounted.id }])
+  state = applyActions(state, [{ kind: 'commissionSet', commission: { blueprintId: 'set-grand-ballroom', stageFacilityId: stage } }])
+  return advanceTo(state, state.market.tick + TUNING.SET_BUILD_WEEKS_BAND_HIGH)
+}
+/** Real submitProposal + attachPromise of a TAGGED seat-class P2, bound by the real freeze at `start`. */
+function realPlayerPromise(seatClass: SeatClass) {
+  let state = fund(p13aGeneratedStudio())
+  const target = sign(state, 'actor', 52); state = target.state
+  for (const role of ['writer', 'director', 'actor', 'actor', 'craft'] as const) state = sign(state, role).state
+  const contract = state.contracts.find((c) => c.talentId === target.id)
+  assert.ok(contract)
+  const start = contract.endWeekExclusive
+  state = readySoundstage(state)
+  assert.ok(state.market.tick <= start - 7)
+  state = advanceTo(state, start - 7)
+  state = submitProposal(state, { talentId: target.id, issuerStudioId: player(state), termWeeks: 52, premiumTier: 1.25 })
+  state = attachPromise(state, target.id, player(state), { ...p2(seatClass), windowStartWeek: start, dueWeekExclusive: start + 40 })
+  const draft = ownPromise(state, target.id)
+  assert.equal(draft.version, 4)
+  assert.equal(draft.contractId, null)
+  assert.deepEqual(draft.predicate, p2(seatClass).predicate)
+  assert.equal(draft.feasibilityReceipt.rulesVersion, 4)
+  assert.equal(draft.feasibilityReceipt.classification, 'REASONABLY_ACHIEVABLE')
+  const submittedWeek = state.market.tick
+  state = advanceTo(state, start)
+  const bound = root(state, draft.promiseId)
+  binding(state, bound)
+  assert.equal(bound.feasibilityReceipt.rulesVersion, 4)
+  assert.equal(bound.feasibilityReceipt.week, start)
+  assert.equal(bound.outcome, null)
+  assert.deepEqual(currentProposals(state, target.id), [])
+  return { state, promiseId: draft.promiseId, talentId: target.id, submittedWeek, start,
+    recipe: { builder: 'tests/p14b4-cast-class-outcomes.test.ts-shaped route (copied)', seatClass,
+      generatedCampaignOnly: true, economicInput: 'explicit fund helper cash delta with matching ledger',
+      actions: ['real signContract x6', 'real strikeSet/commissionSet set-grand-ballroom', `real submitProposal at ${submittedWeek}`,
+        `real attachPromise LEAD_OR_SIGNIFICANT_ROLE_COUNT castRoleCount count1 ${seatClass} window [${start},${start + 40})`,
+        `real market freeze at ${start} binds the promise to the winning contract`] } }
+}
+function playerPayload(state: GameState, promiseId: string, slot: CastSlot, concept: GameState['concepts'][number]): Extract<Action, { kind: 'greenlight' }>['production'] {
+  const promised = root(state, promiseId)
+  const available = state.contracts.filter((c) => c.startWeek <= state.market.tick && state.market.tick < c.endWeekExclusive)
+    .map((c) => state.talent.find((p) => p.id === c.talentId)!)
+  const actorIds = available.filter((p) => p.role === 'actor' && p.id !== promised.beneficiaryPersonId).map((p) => p.id)
+  assert.ok(actorIds.length >= 2, 'fixture prerequisite: two lawful complementary actors missing')
+  const cast: Record<CastSlot, string> = { lead: '', antagonist: '', support: '' }
+  cast[slot] = promised.beneficiaryPersonId
+  for (const other of SLOTS.filter((candidate) => candidate !== slot)) cast[other] = actorIds.shift()!
+  const writer = available.find((p) => p.role === 'writer')
+  const director = available.find((p) => p.role === 'director')
+  const craft = available.find((p) => p.role === 'craft')
+  assert.ok(writer && director && craft, 'fixture prerequisite: real complementary crew missing')
+  assert.equal(new Set([writer.id, director.id, craft.id, ...Object.values(cast)]).size, 6)
+  return { conceptId: concept.id, writerId: writer.id, directorId: director.id, cast, craftIds: [craft.id],
+    shape: { opening: 'slowSetup', midpoint: 'revelation', ending: 'bittersweet' },
+    promise: { genre: concept.genre, intendedSegments: ['adult'], ranges: {
+      intimacy: [-0.5, 0.5], tonalWeight: [-0.5, 0.5], kineticEnergy: [-0.5, 0.5] } },
+    budget: { negative: concept.baseNegativeCost, marketing: 0 } }
+}
+function unusedConcept(state: GameState) {
+  const used = new Set([...state.studio.activeProductions.map((p) => p.conceptId),
+    ...state.studio.releasedFilms.map((p) => p.conceptId), ...state.scriptDevelopment.projects.map((p) => p.conceptId)])
+  const concept = state.concepts.find((c) => !used.has(c.id))
+  assert.ok(concept, 'fixture prerequisite: no distinct unused existing stock concept')
+  return concept
+}
+/** Real greenlight with the promised person in `slot`, ticked to shooting entry (remainingTicks 5), take not yet scheduled. */
+function playerToFive(state: GameState, promiseId: string, slot: CastSlot) {
+  binding(state, root(state, promiseId))
+  const payload = playerPayload(state, promiseId, slot, unusedConcept(state))
+  const greenlitWeek = state.market.tick
+  state = applyActions(state, [{ kind: 'greenlight', production: payload }])
+  const productionId = state.studio.activeProductions.at(-1)!.id
+  assert.equal(state.firstTakes.some((take) => take.productionId === productionId), false)
+  state = tick(tick(tick(state)))
+  const rehearsal = state.operations.workflows.find((w) => w.productionId === productionId)
+  assert.ok(rehearsal)
+  assert.equal(rehearsal.phase, 'rehearsal')
+  state = applyActions(state, [{ kind: 'setProductionSetupRecipe', productionId,
+    recipeId: 'ballroom-reveal-lighting-01', expectedPlanRevision: rehearsal.planRevision }])
+  for (let steps = 0; state.studio.activeProductions.find((p) => p.id === productionId)!.remainingTicks !== 5; steps++) {
+    if (steps >= 40) throw new Error('UNEXECUTED prerequisite: player never reached shooting entry within40 actual ticks')
+    state = tick(state)
+  }
+  const film = state.studio.activeProductions.find((p) => p.id === productionId)!
+  assert.equal(film.cast[slot], root(state, promiseId).beneficiaryPersonId)
+  assert.deepEqual(state.firstTakes.filter((take) => take.productionId === productionId), [])
+  assert.equal(state.operations.workflows.find((w) => w.productionId === productionId)!.shootingTask?.status, 'unassigned')
+  assert.equal(root(state, promiseId).outcome, null)
+  return { state, productionId, film, greenlitWeek,
+    recipe: { builder: 'tests/p14b4-cast-class-outcomes.test.ts-shaped route (copied)', slot,
+      actions: [`real greenlight at ${greenlitWeek} (${payload.conceptId}) with the promised person as ${slot}`,
+        'three real ticks to rehearsal', 'real setProductionSetupRecipe ballroom-reveal-lighting-01',
+        `real ticks to remainingTicks 5 at ${state.market.tick}; shooting task unassigned; no take`] } }
+}
+/** Real assign + schedule + ONE tick: films the first take for real (not discarded). */
+function filmOneTake(state: GameState, productionId: string, directorId: string) {
+  const before = state.market.tick
+  state = applyActions(state, [{ kind: 'assignShootingDirector', productionId, directorId },
+    { kind: 'scheduleShootingTake', productionId }])
+  state = tick(state)
+  const rows = state.firstTakes.filter((take) => take.productionId === productionId)
+  assert.equal(rows.length, 1)
+  assert.equal(rows[0]!.week, before + 1)
+  return { state, take: rows[0]! }
+}
+
+function snapshots(): Snapshot[] {
+  const empty = p13aGeneratedStudio()
+  assert.deepEqual(empty.promises, [])
+  assert.deepEqual(empty.firstTakes, [])
+  assert.deepEqual(empty.relationships, [])
+
+  // ── bound-open-p1: reuse the real B2 retention fixture's `bound` state (two
+  // real winning contracts, two real bound OPEN P1 promises, unaccepted). ──
+  const retained = retentionFixture()
+  const boundPromises = retained.bound.promises.filter((p) => p.issuerStudioId === player(retained.bound))
+  assert.equal(boundPromises.length, 2)
+  for (const promise of boundPromises) { binding(retained.bound, promise); assert.equal(promise.outcome, null) }
+  const retainedRecipe = { builder: 'tests/helpers/p14b2-fixtures.ts:retentionFixture',
+    generatedCampaignOnly: true, economicInput: 'explicit fund helper cash delta with matching ledger',
+    keptPersonId: retained.keptId, brokenPersonId: retained.brokenId, productionId: retained.productionId }
+
+  // ── kept-and-broken: reuse the same fixture's terminal `outcomes` state. ──
+  const terminals = retained.outcomes.promises.filter((p) => p.issuerStudioId === player(retained.outcomes))
+  assert.deepEqual(terminals.map((p) => p.outcome).sort(), ['BROKEN', 'SATISFIED'])
+
+  // ── bound-open-p2-lead / bound-open-p2-lead-or-antagonist: real tagged castRoleCount. ──
+  const lead = realPlayerPromise('lead')
+  const flexible = realPlayerPromise('leadOrAntagonist')
+  assert.equal(lead.talentId, flexible.talentId)
+  assert.notDeepEqual(root(lead.state, lead.promiseId).predicate, root(flexible.state, flexible.promiseId).predicate)
+
+  // ── part-served-p1: a P1 count=2 promise, ONE real qualifying take filmed
+  // (a distinct production from another actor's, so it can never satisfy
+  // count=2 alone), progress advances to 1, still OPEN before its due week. ──
+  let ps = fund(p13aGeneratedStudio())
+  const psTarget = sign(ps, 'actor', 104); ps = psTarget.state
+  const psWriter = sign(ps, 'writer'); ps = psWriter.state
+  const psDirector = sign(ps, 'director'); ps = psDirector.state
+  const psOther1 = sign(ps, 'actor'); ps = psOther1.state
+  const psOther2 = sign(ps, 'actor'); ps = psOther2.state
+  const psCraft = sign(ps, 'craft'); ps = psCraft.state
+  const psContract = ps.contracts.find((c) => c.talentId === psTarget.id)
+  assert.ok(psContract)
+  const psStart = psContract.endWeekExclusive
+  // A count=2 P1 needs `existingPath` >= 2 (companion §4.3.2's existing-pipeline
+  // test, promises.ts `existingPath = seatedPreFirstTake + unproducedScripts +
+  // (stockGreenlightAvailable ? 1 : 0)`). Real fresh-signed studios hold TWO
+  // soundstages (measured), so a THROWAWAY greenlight seating the target
+  // pre-first-take (P1's mask is every slot) leaves the SECOND stage's stock
+  // door open too: seatedPreFirstTake(1) + stockGreenlightAvailable(1) = 2.
+  // Without this the attach reads FRAGILE "needs a picture not yet
+  // commissioned" (measured on this source).
+  const psThrowawayConcept = unusedConcept(ps)
+  ps = applyActions(ps, [{ kind: 'greenlight', production: {
+    conceptId: psThrowawayConcept.id, writerId: psWriter.id, directorId: psDirector.id,
+    cast: { lead: psOther1.id, antagonist: psOther2.id, support: psTarget.id }, craftIds: [psCraft.id],
+    shape: { opening: 'slowSetup', midpoint: 'revelation', ending: 'bittersweet' },
+    promise: { genre: psThrowawayConcept.genre, intendedSegments: ['adult'], ranges: {
+      intimacy: [-0.5, 0.5], tonalWeight: [-0.5, 0.5], kineticEnergy: [-0.5, 0.5] } },
+    budget: { negative: psThrowawayConcept.baseNegativeCost, marketing: 0 },
+  } }])
+  const psThrowawayId = ps.studio.activeProductions.at(-1)!.id
+  assert.equal(ps.firstTakes.some((take) => take.productionId === psThrowawayId), false)
+  ps = readySoundstage(ps)
+  assert.ok(ps.market.tick <= psStart - 7)
+  ps = advanceTo(ps, psStart - 7)
+  ps = submitProposal(ps, { talentId: psTarget.id, issuerStudioId: player(ps), termWeeks: 104, premiumTier: 1.25 })
+  ps = attachPromise(ps, psTarget.id, player(ps), { ...p1(2), windowStartWeek: psStart, dueWeekExclusive: psStart + 90 })
+  const psDraft = ownPromise(ps, psTarget.id)
+  assert.equal(psDraft.feasibilityReceipt.classification, 'REASONABLY_ACHIEVABLE')
+  ps = advanceTo(ps, psStart)
+  const psBoundBefore = root(ps, psDraft.promiseId)
+  binding(ps, psBoundBefore)
+  assert.equal(psBoundBefore.progress, 0)
+  assert.equal(ps.studio.activeProductions.some((p) => p.id === psThrowawayId), true, 'the throwaway must still be UNFILMED at the freeze — the feasibility re-check at freeze (talentMarket.ts attachedFeasibility) reads the same existingPath')
+  assert.equal(ps.firstTakes.some((take) => take.productionId === psThrowawayId), false)
+  // The throwaway has done its job (fed BOTH the attach-time and freeze-time
+  // existingPath checks); cancel it now so the target is free to be greenlit
+  // again for the REAL focus production. `breakPromisesOnCancel` reads
+  // `targetSpecificImpossibility` (a pure time/window reachability test, not an
+  // existingPath one) and the due week is 90 weeks out, so the just-bound
+  // promise survives this cancellation.
+  ps = applyActions(ps, [{ kind: 'cancel', productionId: psThrowawayId }])
+  assert.equal(ps.studio.activeProductions.some((p) => p.id === psThrowawayId), false)
+  assert.equal(root(ps, psDraft.promiseId).outcome, null, 'cancelling the throwaway (never filmed, ample remaining window) must not break the count=2 promise')
+  const psFive = playerToFive(ps, psDraft.promiseId, 'lead')
+  ps = psFive.state
+  const psFilmed = filmOneTake(ps, psFive.productionId, psFive.film.directorId)
+  ps = psFilmed.state
+  const psPromise = root(ps, psDraft.promiseId)
+  assert.equal(psPromise.outcome, null)
+  assert.equal(psPromise.progress, 1)
+  assert.deepEqual(psPromise.evidenceRefs, [])
+  assert.ok(ps.market.tick < psPromise.dueWeekExclusive)
+
+  // ── distrusted-issuer: bind a P2-lead promise FIRST (trust still Reliable),
+  // then accrue two REAL negative `cancelledAfterFirstTake` trust drivers for the
+  // SAME beneficiary by casting them (as antagonist, outside the P2-lead mask)
+  // in two throwaway productions, filming a real take, then cancelling each
+  // AFTER the take — `breakPromisesOnCancel` early-returns once a first take
+  // already exists (promises.ts), so the bound P2-lead promise is never touched.
+  const di = realPlayerPromise('lead')
+  let diState = di.state
+  const diConcepts = [unusedConcept(diState)]
+  let diProductionIds: string[] = []
+  let diDirectorId = ''
+  for (let round = 0; round < 2; round++) {
+    const concept = round === 0 ? diConcepts[0]! : unusedConcept(diState)
+    const payload = playerPayload(diState, di.promiseId, 'antagonist', concept)
+    diState = applyActions(diState, [{ kind: 'greenlight', production: payload }])
+    const productionId = diState.studio.activeProductions.at(-1)!.id
+    diProductionIds.push(productionId)
+    diState = tick(tick(tick(diState)))
+    const rehearsal = diState.operations.workflows.find((w) => w.productionId === productionId)
+    assert.ok(rehearsal)
+    diState = applyActions(diState, [{ kind: 'setProductionSetupRecipe', productionId,
+      recipeId: 'ballroom-reveal-lighting-01', expectedPlanRevision: rehearsal.planRevision }])
+    for (let steps = 0; diState.studio.activeProductions.find((p) => p.id === productionId)!.remainingTicks !== 5; steps++) {
+      if (steps >= 40) throw new Error('UNEXECUTED prerequisite: distrusted-issuer throwaway production never reached shooting entry')
+      diState = tick(diState)
+    }
+    const film = diState.studio.activeProductions.find((p) => p.id === productionId)!
+    diDirectorId = film.directorId
+    const filmed = filmOneTake(diState, productionId, film.directorId)
+    diState = filmed.state
+    diState = applyActions(diState, [{ kind: 'cancel', productionId }])
+    assert.equal(diState.studio.activeProductions.some((p) => p.id === productionId), false)
+  }
+  const diPromise = root(diState, di.promiseId)
+  assert.equal(diPromise.outcome, null, 'the P2-lead promise must stay OPEN through both cancellations')
+  binding(diState, diPromise)
+  const diDescriptor = trustDescriptor(diState, di.talentId, player(diState), diState.market.tick)
+  assert.equal(diDescriptor.label, 'Distrusted', 'the two throwaway cancellations must actually reach Distrusted')
+  assert.equal(diDescriptor.scope, 'person')
+  // Two REAL negative cancelledAfterFirstTake drivers, exactly TRUST_DISTRUST_MIN_NEGATIVES
+  // (promises.ts:78). A THIRD driver also appears (`ranToEnd`, positive, week 52 —
+  // the target's own FIRST 52-week contract, which the renewal that carries the
+  // P2-lead promise necessarily runs past): label() still reads Distrusted
+  // because negative(2) > positive(1), and that inequality is the actual rule,
+  // not driver purity.
+  const diNegatives = diDescriptor.drivers.filter((d) => !d.positive)
+  assert.equal(diNegatives.length, 2)
+  assert.ok(diNegatives.every((d) => d.kind === 'cancelledAfterFirstTake'))
+
+  // ── rival-current-p1-and-p2: real rival-authored current unbound attachments
+  // (both families, when the seed reaches that state before expiry). ──
+  let rv = p13aGeneratedStudio()
+  let rivalFocus: { promiseId: string; family: string; originalFeasibilityReceipt: unknown }[] = []
+  let rivalFamiliesSeen = new Set<string>()
+  for (let week = 0; week <= 260; week++) {
+    const current = rv.talentMarket.proposals.filter((proposal) => proposal.issuerStudioId !== player(rv) && proposal.promises.length > 0)
+    if (current.length > 0) {
+      const focus = current.map((proposal) => {
+        const promise = root(rv, proposal.promises[0]!)
+        return { promiseId: promise.promiseId, family: promise.family, originalFeasibilityReceipt: structuredClone(promise.feasibilityReceipt) }
+      })
+      const families = new Set(focus.map((f) => f.family))
+      if (families.size > rivalFamiliesSeen.size || (families.has('APPEARANCE_COUNT') && families.has('LEAD_OR_SIGNIFICANT_ROLE_COUNT'))) {
+        rivalFocus = focus
+        rivalFamiliesSeen = families
+      }
+      if (rivalFamiliesSeen.has('APPEARANCE_COUNT') && rivalFamiliesSeen.has('LEAD_OR_SIGNIFICANT_ROLE_COUNT')) break
+    }
+    rv = tick(rv)
+  }
+  assert.ok(rivalFocus.length > 0, 'no actual CURRENT rival attachment by week 260; refuse mint')
+
+  return [
+    { name: 'empty', state: empty, role: 'empty V31 roots (promises, firstTakes, relationships) from a generated campaign',
+      recipe: { builder: 'p13aGeneratedStudio()' }, focusPromiseIds: [] },
+    { name: 'bound-open-p1', state: retained.bound, role: 'two real winning contracts, bound OPEN P1 promises', recipe: retainedRecipe,
+      focusPromiseIds: boundPromises.map((p) => p.promiseId) },
+    { name: 'bound-open-p2-lead', state: lead.state, role: 'real tagged castRoleCount lead P2, bound OPEN through the real freeze — the equality case of the subset (strength) test',
+      recipe: lead.recipe, focusPromiseIds: [lead.promiseId], facts: { talentId: lead.talentId, submittedWeek: lead.submittedWeek, boundWeek: lead.start } },
+    { name: 'bound-open-p2-lead-or-antagonist', state: flexible.state, role: 'real tagged castRoleCount leadOrAntagonist P2, bound OPEN through the real freeze — the middle rung',
+      recipe: flexible.recipe, focusPromiseIds: [flexible.promiseId], facts: { talentId: flexible.talentId, submittedWeek: flexible.submittedWeek, boundWeek: flexible.start } },
+    { name: 'part-served-p1', state: ps, role: 'bound OPEN P1 count=2 with ONE real qualifying take: 0 < progress(1) < predicate.count(2)',
+      recipe: { builder: 'inline P14B.7-T0 route (this file)', generatedCampaignOnly: true, actions: ['real signContract x6', 'real strikeSet/commissionSet',
+        `real submitProposal + attachPromise APPEARANCE_COUNT count2 at ${psStart}`, 'real freeze bind', 'real greenlight as lead, real ticks to shooting entry',
+        'real assignShootingDirector + scheduleShootingTake + ONE real tick films the take'] },
+      focusPromiseIds: [psDraft.promiseId], facts: { talentId: psTarget.id, productionId: psFive.productionId, takeEventId: psFilmed.take.eventId, takeWeek: psFilmed.take.week } },
+    { name: 'kept-and-broken', state: retained.outcomes,
+      role: 'real first take SATISFIED plus same-week early-termination BROKEN (releaseTalent -> breakPromisesOnTermination); distinct own outcome receipts',
+      recipe: retainedRecipe, focusPromiseIds: terminals.map((p) => p.promiseId) },
+    { name: 'rival-current-p1-and-p2', state: rv, role: `genuine rival-authored current unbound attachments before expiry (families: ${[...rivalFamiliesSeen].join(', ')})`,
+      recipe: { builder: 'inline P14B.7-T0 route (this file); real tick loop, no action beyond it', generatedCampaignOnly: true },
+      focusPromiseIds: rivalFocus.map((focus) => focus.promiseId), facts: { families: [...rivalFamiliesSeen] } },
+    { name: 'with-edges', state: rivalFixture().terminal, role: 'relationships root NON-EMPTY from real shared first takes across the campaign',
+      recipe: { builder: 'tests/helpers/p14b2-fixtures.ts:rivalFixture().terminal', generatedCampaignOnly: true }, focusPromiseIds: [] },
+    { name: 'distrusted-issuer', state: diState,
+      role: 'a bound OPEN P2-lead promise whose beneficiary now reads the issuing studio as Distrusted, from two REAL cancelledAfterFirstTake drivers earned after the promise bound (never touching it: breakPromisesOnCancel early-returns once a take exists)',
+      recipe: { builder: 'inline P14B.7-T0 route (this file)', generatedCampaignOnly: true,
+        actions: ['real tagged P2-lead bound OPEN (see bound-open-p2-lead route)',
+          `real greenlight x2 as antagonist (outside the lead mask) in throwaway productions ${diProductionIds.join(', ')}`,
+          'real assignShootingDirector + scheduleShootingTake + ONE real tick films each take',
+          'real cancel AFTER each take (kind: cancel) -> two real cancelledAfterFirstTake trust drivers'] },
+      focusPromiseIds: [di.promiseId], facts: { talentId: di.talentId, productionIds: diProductionIds, directorId: diDirectorId } },
+  ]
+}
+let built: Snapshot[] | undefined
+const build = () => (built ??= snapshots())
+
+it('DRY (no token, no write): build every genuine outgoing-V31 world and readback in memory; print the premises', () => {
+  const prepared = prepareV31Corpus(CASE_COUNT, build)
+  console.log(JSON.stringify(prepared.map(({ item, facts }) => ({ name: item.name, role: item.role, ...facts, additionalFacts: item.facts ?? null })), null, 2))
+}, 600_000)
+
+it(`ONE-SHOT: mint ${CASE_COUNT} genuine outgoing-V31 fixtures only after the qualified B.6 checkpoint and before B.7`, () => {
+  mintV31Corpus(APPROVED_FINAL_V31, import.meta.url, CASE_COUNT, build)
+}, 600_000)
