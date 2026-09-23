@@ -414,10 +414,21 @@ than one who lets the promise break, which B.7 creates and therefore B.7 fixes; 
 filters the public activity fold the same way, dropping a WAIVED receipt at `:141` and silently falsifying
 the module's own invariant at `:133-134` ("one PUBLIC activity per exact outcome receipt"). Announcing
 waivers publicly WOULD need a projection bump, because `industry-schema.ts:147` closes `outcomeKind` to
-`['promiseKept','promiseBroken']` with no legal third value. RECOMMENDED AND ADOPTED: do NOT announce, since
-a waiver is a private renegotiation and promise terms are private to their issuer throughout this codebase;
-the fold's comment is corrected so the exclusion is a decision on the record and not an accident. So
-projection stays 49 because of that decision, not because the question did not exist. The original settles through the EXISTING `settle()` (`promises.ts:678`) with ONE
+`['promiseKept','promiseBroken']` with no legal third value. RECOMMENDED AND ADOPTED: do NOT announce. THE
+BASIS FIRST PUBLISHED HERE WAS WRONG AND IS REPLACED: it said promise terms are private to their issuer,
+which is TRUE (`bridge/promises.ts:100-102` filters on `issuerStudioId !== viewerStudioId`) and does NOT
+support the conclusion, because the fold publishes no terms. It publishes an OUTCOME, and outcomes are
+ALREADY public for every studio: `bridge/industry.ts:135-137` carries NO studio filter and `:146` emits
+"Studio X kept/broke its promise to Y" by name, rivals included. So this is the SECOND GENUINE PRODUCT
+CHOICE of the slice, not a settled matter, and the objection is stated rather than hidden: silence lets a
+studio about to break a promise waive instead and keep the public record clean. What bounds that is the
+waiver's own three conditions, since a studio that has already broken promises reads `Distrusted` and
+cannot waive at all. Cost of the other reading, so it can be priced: a third `outcomeKind` widens a closed
+enum, which is projection 49 → 50 PLUS its own hard ordering constraint to mint
+`genuine-projection49-runtime` first, as 45/46/47/48 all were. Under the adopted reading the fold's code
+does not change, but its comment is corrected AND the RED pins that a waived promise produces no public
+activity, so the decision does not survive as an accident the next person will "fix". Projection stays 49
+because of that decision, not because the question did not exist. The original settles through the EXISTING `settle()` (`promises.ts:678`) with ONE
 `promiseOutcome` receipt, the B.1 one-kind ruling unamended; the substitute is minted BOUND to the existing
 `contractId` and does NOT travel through `attachPromise`, which requires a current proposal and would throw.
 STRENGTH RUNS OPPOSITE TO MASK SIZE: "at least as strong" is `substituteMask ⊆ originalMask`, a SUBSET test,

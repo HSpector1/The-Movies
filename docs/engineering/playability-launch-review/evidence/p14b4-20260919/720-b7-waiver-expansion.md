@@ -163,7 +163,7 @@ this table, weakest to strongest. Read literally as set notation over the actual
 backwards, since P1's mask is a SUPERSET of P2-leadOrAntagonist's. This table, not that line,
 is the source. 645-A is not amended.
 
-## 5. What is settled by existing law, and the ONE genuine product choice
+## 5. What is settled by existing law, and the genuine product choices
 
 The first draft of this record isolated three questions for the Owner. The 723-C audit showed two
 of them are already decided, by law and by this record's own architecture. Sending a settled
@@ -182,6 +182,10 @@ inclusion is not recommended, it is required.
 Freeze re-classification runs only over `state.talentMarket.proposals`, and item 10 creates no
 proposal for the substitute. There is no code path by which a freeze could reach it. The answer
 follows from the architecture this record already commits to.
+
+**(d) Does the public feed announce a waiver? GENUINELY OPEN, and it is the SECOND one.** It was
+first written up as settled, on a premise the parent had not checked. See §6, which holds the
+correction, the recommendation, the objection to it and the cost of the alternative.
 
 **(c) What count must the substitute carry? GENUINELY OPEN. Recommendation stated, B.7 proceeds
 on it.** The original may be part-served (`progress` > 0). Recommend
@@ -208,15 +212,37 @@ EXPLICIT.** The fold filters to `p.outcome==='SATISFIED'||p.outcome==='BROKEN'`,
 receipt matches nothing and is dropped at `:141`. That silently falsifies the module's own stated
 invariant two lines above it (`:133-134`, "one PUBLIC activity per exact outcome receipt").
 
-RECOMMENDATION, and B.7 proceeds on it: **do not announce a waiver in the public feed.** A waiver
-is a private renegotiation between one studio and one person, and promise terms are private to
-their issuer throughout this codebase (`promiseHistoryFor` publishes only promises the VIEWING
-studio issued). Announcing "Studio X negotiated its way out of its promise to Y" would publish the
-existence and direction of a private settlement to every rival.
+CORRECTED BY THE PARENT, after checking its own premise. The first version of this section
+recommended silence on the ground that "a waiver is a private renegotiation, and promise terms are
+private to their issuer throughout this codebase". The second half of that is true:
+`promiseHistoryFor` (`bridge/promises.ts:100-102`) filters on `promise.issuerStudioId !==
+viewerStudioId`, so a rival never sees another studio's promise terms. It does not support the
+conclusion. **The fold publishes no terms. It publishes an OUTCOME, and outcomes are ALREADY
+public for every studio**: `bridge/industry.ts:135-137` carries no studio filter at all, and
+`:146` emits "Studio X kept its promise to Y" and "Studio X broke its promise to Y" by name, for
+rivals as readily as for the player. Suppressing a waiver is therefore not a privacy decision at
+all. It is a decision about whether one outcome is public when its two siblings are.
 
-Under that recommendation the fold's behaviour is CORRECT and the code does not change, but the
-comment at `:133-134` MUST be corrected to name the exclusion, so the outcome is a decision on the
-record rather than an accident that happens to read well.
+So this is the SECOND genuine product choice in the slice, not a settled matter. Both readings are
+defensible and the parent proceeds on the recommendation without pretending the question is closed.
+
+**RECOMMENDED AND ADOPTED: do NOT announce.** A break is a public failure; a waiver is an
+agreement that the person accepted, so there is no breach to report. The obvious objection is real
+and is stated rather than hidden: silence creates an ASYMMETRY in which a studio about to break a
+promise waives instead and the public record stays clean, which is reputation laundering. What
+bounds it is the waiver's own three conditions. A studio that has already broken promises reads
+`Distrusted` and cannot waive at all, and a studio with nothing achievable to offer cannot either,
+so the escape hatch is closed to exactly the studios that would most want it.
+
+**Cost of the other reading, so the Owner can price it.** Announcing needs a third `outcomeKind`,
+which widens a closed enum and is a projection step, 49 → 50, carrying its own hard ordering
+constraint: mint `genuine-projection49-runtime` BEFORE anything touches `PROJECTION_VERSION`, as
+45, 46, 47 and 48 all were. That is roughly a day of T0 and sweep work, not a line change.
+
+Under the adopted recommendation the fold's behaviour is CORRECT and the code does not change, but
+the comment at `:133-134` MUST be corrected to name the exclusion, and the RED must PIN that a
+waived promise produces no public activity. Otherwise the decision survives only as an accident
+that happens to read well, and the next person to touch that filter will "fix" it.
 
 **This is where the "no projection step" claim actually rests.** The promise-history row already
 admits WAIVED on the wire, so B.7 compiles with projection 49 either way. But
@@ -287,3 +313,19 @@ parent against the source before being accepted; none was taken on the auditor's
 | 645-A's own subset notation | its shorthand reads backwards as literal set notation, though its intent matches | ACCEPTED as a note in §4. 645-A is not amended; this record is the unambiguous source |
 
 The audit could not verify the commit shas in §8, having no git access. The parent verified them.
+
+### A later correction, found by the parent checking its own premise
+
+§6's first version recommended that the public feed stay silent about a waiver, on the ground
+that promise terms are private to their issuer. The second half is true and the conclusion did not
+follow from it. The fold publishes no terms; it publishes an OUTCOME, and `bridge/industry.ts:135-137`
+carries NO studio filter, so "Studio X kept its promise to Y" and "Studio X broke its promise to Y"
+are already public for every studio by name. Suppressing a waiver is not a privacy decision. It is a
+decision about whether one outcome is public when its two siblings are.
+
+The recommendation survives and its BASIS is replaced, the objection to it is now stated, and the
+question is promoted to the second genuine product choice rather than presented as settled. This
+was the parent's error twice over: first in §6 as written, then in publishing that reasoning into
+the five header files before checking it. It is corrected in both places. The same audit that
+caught §6's original omission did not catch this, and neither did the parent until it went to
+verify a sentence it had already shipped.
