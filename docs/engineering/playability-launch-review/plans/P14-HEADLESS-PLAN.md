@@ -537,6 +537,74 @@ EXPERIMENT: a guaranteed-failing file was planted in `tests/` under a shell trap
 run, and the run reported `Test Files 1 passed (1)` — so a positional CLI argument filters COLLECTION, not
 merely reporting, at vitest 2.1.9 here. No `record-check.mjs`, full-core or `test:ui` run occurred in the
 probe's window, so NO BASELINE WAS TOUCHED and no published count includes it.
+P14B.7 THE PROMISE WAIVER QUALIFIED CHECKPOINT — record 742, source `ca5b6c1f`, span
+`152ee9a4..ca5b6c1f`. THE PLAYER BEHAVIOUR: a studio with an open promise it can no longer keep may
+offer the person a SUBSTITUTE promise in its place; on acceptance the original settles WAIVED and the
+substitute binds to the SAME employment contract in the same step, and on refusal the original promise
+and the whole game state are left exactly as they were. Nine refusal conditions, each its own
+player-facing sentence. IDENTITIES: Save V31 → V32 (`ProfessionalPromiseV32` adds
+`supersededByPromiseId: string | null`), protocol 4 UNMOVED, PROJECTION 49 UNMOVED, schema
+`sha256:60af24c5…` UNMOVED, `PROMISE_RULES_VERSION` 4 UNMOVED, and `git diff 152ee9a4..HEAD --
+generated/` is EMPTY — the FIRST P14B slice to move the save version without moving the wire.
+`migrateToV32` is the live load route from nine call sites across seven files; `convertV32ToV31` is the
+one allowed downgrade, lossless exactly when no promise names a substitute, and `projectPromisesPreV32`
+refuses anything else BEFORE validation so a waived world is refused as a DOWNGRADE, never as a shape
+complaint about a field V31 has no schema for. OWNER DECISIONS LANDED AS APPROVED: the
+remaining-obligation rule (`substitute.count >= count - progress`; substitute minted at `progress: 0`
+with `evidenceRefs: []`, so completed work is neither erased nor counted twice), and private
+confirmation with the public kept/broken announcements PRESERVED UNTOUCHED. VERIFICATION — run 739 on
+fixed source, `fixedSource: true`, 3151.67s: 10 files failed / 345 passed (355); 25 failed / 4010
+passed / 8 todo (4043). Full failure-NAME sets against run 717: 24 SHARED, byte-identical names, ZERO
+VANISHED, exactly ONE new. Both B.7 suites green in-suite (28 + 5 = 33). Typecheck root 0, bridge 0, ui
+0. THE PRE-REGISTERED PREDICTION EARNED ITS KEEP TWICE. Run 737 against prediction 736 was FALSIFIED
+(13 files / 30 failures vs 9 / 24) and caught FOUR SWEEP MISSES the sweep's own "CANNOT-MOVE residue:
+none" had denied (record 737). Three were sites asserting that the version ONE ABOVE live is unknown;
+the sweep carried that class and applied it to 12 of 15 files, but every site it found states the range
+`"1 through 31 only"` on the same line while the three it missed contain ZERO occurrences of `31`
+anywhere in the file, so a finder keyed on the OUTGOING version was structurally blind to them. The
+fourth was `studio-events.contract.test.ts:129`, which resolves the LIVE boundary reflectively as the
+string `'validateSaveV31'`; that one was findable and simply was not in the brief's class list. Fixed in
+four values-only lines; the OTHER 28 `validateSaveV31` references all STAY, being frozen-era proofs
+including B.7's own validate-then-convert design, and a blanket rename would have destroyed them. A
+CORRECTION TO METHOD, recorded because it nearly hid this: the parent's cause-TEXT diff showed no change
+at all, because the new failure's text is identical to an existing timeout message and is visible only in
+the occurrence count; the failure-NAME set comparison is the robust instrument and is what the records
+use. FU-2 IS TRIGGERED AND DIAGNOSED — record 741, and prediction 738 named it in advance. The operation
+is prepared-reuse `:367` "…after later changes and restart", explicit budget `}, 20000)`; four
+measurements across three commits read 13328 / 13710 / 14161 / 14278 ms, a 7% spread, so THE OPERATION IS
+NOT REGRESSING, which is what FU-2 existed to settle. Contention multiplies that file 1.67×–1.74× and the
+budget is 1.412× the operation cost, so the crossing point sits below what the full suite imposes; 737
+passing is the surprise, not 739 failing. The repository's own restart-class convention is `60_000`
+(`bridge-process-restart.test.ts`, all three tests, observed to 21929ms and passing), so 20000 is the
+outlier. NEITHER environmental noise NOR an engine defect, the two defaults 719 forbade. THE THRESHOLD
+WAS NOT MOVED: the Owner said retain it, and the recurrence instruction was to investigate, not to then
+raise the number; the case for alignment is recorded as a recommendation for decision. WHAT THE
+CHECKPOINT DOES NOT CLAIM: Unity NOT VERIFIED (no re-vendor is required, the projection did not move);
+the `ui` project NOT RUN (FU-1 has not returned); the 24 inherited failures untouched and none of them
+B.7's; the natural waiver route UNTESTED, since no fixture in this repository plays a picture forward to
+where a studio would genuinely need to waive; and TWO COVERAGE GAPS OPEN AND BRIEFED (record 740) — the
+suites prove that the engine refuses but not WHICH of the nine refusals fired, and two of the nine
+overlap on reachable inputs, while NOTHING asserts the slice's central law, so an added
+`else if (outcome === 'WAIVED')` trust-driver arm would keep both suites green today. The behaviour is
+correct as landed and verified by reading; it is not yet pinned by a test, and that is stated rather than
+absorbed. Also recorded: the bridge B.7 suite sha moved from `e6c7ae4d…`/185 (records 731, 733) to
+`eedc23fb…`/188 because the T2 sweep legitimately edited it, carrying the genuine V31 fixture up through
+`convertV31ToV32` AFTER the frozen validator admits it rather than softening `validateSaveV31`; no case
+was added. Unity backlog entry for the V32 save step is written, and it states the native hazard plainly:
+nothing fails to parse, but a C# switch handling only kept/broken will now RECEIVE `WAIVED` at runtime.
+NEXT743: P14B.8 THE WAIVER'S PLAYER SURFACE — the bridge intent and read model, on the B.5 → B.6 rhythm
+this programme already uses (engine slice, then the read-model slice over it). THE PLAYER BEHAVIOUR IT
+COMPLETES: today a player can only reach the waiver through the engine API; B.8 gives them the affordance
+to offer a substitute, the quote-style refusal shown verbatim when the person declines, and the waived row
+in their own promise history. COMPLETION CONDITION: a player can propose a substitute, see the specific
+reason it was refused, and see the settled waiver in their history, with no waiver reaching any public
+Industry surface. HARD ORDERING CONSTRAINT, inherited from 45/46/47/48 and stated here so it is not
+rediscovered: this is a PROJECTION STEP (49 → 50), so `genuine-projection49-runtime` must be minted and
+published BEFORE the bump, and the outgoing 49 identity `sha256:60af24c5…` registered as a supported
+prior id in the same commit. The nine refusal sentences are the read model's copy and are hypotheses; a
+copy change is a test edit plus a projection bump. Before B.8 opens: close the two record-740 gaps, since
+B.8's acceptance claims will rest on the same suites. Then the remaining authorized P14 obligations, P15,
+P16, P17 and sufficiently specified P18 in dependency order.
 LOGIC VERIFIED · UNITY NOT VERIFIED. Unity/native deferred. Gross2221 omitted fact cost is NOT
 net saving: cold discovery can shift into next frame. No route-fit claim.
 Draft-discovery, silent-policy, affine and Map alternatives remain unadopted.
