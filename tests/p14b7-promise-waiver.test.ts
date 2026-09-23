@@ -118,7 +118,7 @@ import { gunzipSync } from 'node:zlib'
 import { describe, expect, it } from 'vitest'
 import { applyActions } from '../src/core/actions.js'
 import {
-  advancePromisesWeek, promiseCastSlots, promiseFeasibility, qualifyingTakes, trustDescriptor,
+  advancePromisesWeek, promiseCastSlots, promiseFeasibility, qualifyingTakes, trustDescriptor, trustDrivers,
   type PromiseDraft, type PromisePredicate,
   // RED-by-design (720 §2 items 1-2): neither exists in src/core/promises.ts today.
   waivePromise, waiverAccepted,
@@ -276,7 +276,10 @@ describe('P14B.7 group1 — the substitute window is judged against the REAL emp
     expect(reason, 'a substitute overrunning the real contract must be refused, not silently accepted').not.toBeNull()
     expect(typeof reason).toBe('string')
     expect(reason!.length).toBeGreaterThan(0)
-    expect(() => waive(state, { promiseId: promise.promiseId, substitute: overrun })).toThrow()
+    // 740-T gap 1: pin THIS refusal's OWN sentence (rule 9), not a shared "it threw" shape -- a
+    // test that only checks toThrow() would still pass if some other rule refused this draft first.
+    expect(reason).toBe('what remains of the contract cannot reasonably carry the substitute — the due week falls outside the proposed contract')
+    expect(() => waive(state, { promiseId: promise.promiseId, substitute: overrun })).toThrow(/what remains of the contract cannot reasonably carry the substitute/)
   })
   it('§2 item 16 (Owner-named scenario): the refusal is CLEAN — the original promise and the whole game state are unchanged, not corrected later during saving', () => {
     assertWaiverFns()
@@ -286,7 +289,7 @@ describe('P14B.7 group1 — the substitute window is judged against the REAL emp
     const promisesBefore = JSON.stringify(state.promises)
     const receiptsBefore = JSON.stringify(state.talentMarket.receipts)
     const wholeStateBefore = JSON.stringify(state)
-    expect(() => waive(state, { promiseId: promise.promiseId, substitute: overrun })).toThrow()
+    expect(() => waive(state, { promiseId: promise.promiseId, substitute: overrun })).toThrow(/what remains of the contract cannot reasonably carry the substitute/)
     // A `waivePromise` that builds its successor by mutating shared arrays/objects in place before
     // deciding to throw would corrupt THIS input object even though it "returns nothing" -- the
     // Owner's own failure mode ("not accepted and rejected later during saving"). Re-serializing the
@@ -336,7 +339,9 @@ describe('P14B.7 group2 — strength is a SUBSET test (substituteMask ⊆ origin
     const downgrade: WaiverSubstituteDraft = { family: 'APPEARANCE_COUNT', predicate: { count: 1 }, windowStartWeek: 60, dueWeekExclusive: 100 }
     expect(realFeasibility(state, promise, downgrade, today).classification).toBe('REASONABLY_ACHIEVABLE')
     expect(accepted(state, promise, downgrade, today), 'a superset mask must be refused as a downgrade even when feasible').not.toBeNull()
-    expect(() => waive(state, { promiseId: promise.promiseId, substitute: downgrade })).toThrow()
+    // 740-T gap 1: pin THIS refusal's OWN sentence (rule 6).
+    expect(accepted(state, promise, downgrade, today)).toBe('the part offered is weaker than the part promised')
+    expect(() => waive(state, { promiseId: promise.promiseId, substitute: downgrade })).toThrow(/the part offered is weaker than the part promised/)
   })
   it('REFUSES a leadOrAntagonist substitute for a P2-lead original — the middle rung is still a downgrade', () => {
     assertWaiverFns()
@@ -346,6 +351,9 @@ describe('P14B.7 group2 — strength is a SUBSET test (substituteMask ⊆ origin
     const middle: WaiverSubstituteDraft = { family: 'LEAD_OR_SIGNIFICANT_ROLE_COUNT', predicate: { kind: 'castRoleCount', count: 1, seatClass: 'leadOrAntagonist' }, windowStartWeek: 60, dueWeekExclusive: 100 }
     expect(realFeasibility(state, promise, middle, today).classification).toBe('REASONABLY_ACHIEVABLE')
     expect(accepted(state, promise, middle, today)).not.toBeNull()
+    // 740-T gap 1: pin THIS refusal's OWN sentence (rule 6, same rule as the P1 case above, the
+    // middle-rung draft).
+    expect(accepted(state, promise, middle, today)).toBe('the part offered is weaker than the part promised')
   })
   it('ACCEPTS a same-class (lead) substitute for a P2-lead original — the equality case', () => {
     assertWaiverFns()
@@ -380,8 +388,10 @@ describe('P14B.7 group3 — refuses waiving a promise that is not evaluable() (b
     const today = state.market.tick
     const reason = accepted(state, promise, irrelevantDraft(today), today)
     expect(reason, 'a terminal SATISFIED promise must not be waivable').not.toBeNull()
+    // 740-T gap 1: pin THIS refusal's OWN sentence (rule 1, the SATISFIED outcome).
+    expect(reason).toBe('this promise already settled SATISFIED, and a terminal outcome is never rewritten')
     const before = JSON.stringify(state)
-    expect(() => waive(state, { promiseId: promise.promiseId, substitute: irrelevantDraft(today) })).toThrow()
+    expect(() => waive(state, { promiseId: promise.promiseId, substitute: irrelevantDraft(today) })).toThrow(/this promise already settled SATISFIED, and a terminal outcome is never rewritten/)
     expect(JSON.stringify(state)).toBe(before) // the input state itself must never be mutated
   })
   it('REFUSES waiving an ALREADY-BROKEN promise (the same terminal law, the other outcome)', () => {
@@ -391,7 +401,10 @@ describe('P14B.7 group3 — refuses waiving a promise that is not evaluable() (b
     expect(promise.outcome).toBe('BROKEN')
     const today = state.market.tick
     expect(accepted(state, promise, irrelevantDraft(today), today)).not.toBeNull()
-    expect(() => waive(state, { promiseId: promise.promiseId, substitute: irrelevantDraft(today) })).toThrow()
+    // 740-T gap 1: pin THIS refusal's OWN sentence (rule 1, the BROKEN outcome -- a DIFFERENT
+    // literal string than the SATISFIED case above, since `${promise.outcome}` is interpolated).
+    expect(accepted(state, promise, irrelevantDraft(today), today)).toBe('this promise already settled BROKEN, and a terminal outcome is never rewritten')
+    expect(() => waive(state, { promiseId: promise.promiseId, substitute: irrelevantDraft(today) })).toThrow(/this promise already settled BROKEN, and a terminal outcome is never rewritten/)
   })
   it('REFUSES waiving an UNBOUND promise (B.1: "mints no outcome for an offer nobody took")', () => {
     assertWaiverFns()
@@ -402,7 +415,10 @@ describe('P14B.7 group3 — refuses waiving a promise that is not evaluable() (b
     const today = f.withdrawn.market.tick
     const reason = accepted(f.withdrawn, promise, irrelevantDraft(today), today)
     expect(reason, 'an unbound (never-committed) promise must not be waivable').not.toBeNull()
-    expect(() => waive(f.withdrawn, { promiseId: promise.promiseId, substitute: irrelevantDraft(today) })).toThrow()
+    // 740-T gap 1: pin THIS refusal's OWN sentence (rule 2, distinct from rule 1's terminal-outcome
+    // text above).
+    expect(reason).toBe('nobody took up this promise, so there is no commitment to waive')
+    expect(() => waive(f.withdrawn, { promiseId: promise.promiseId, substitute: irrelevantDraft(today) })).toThrow(/nobody took up this promise, so there is no commitment to waive/)
   })
 })
 
@@ -449,7 +465,9 @@ describe('P14B.7 group5 — a Distrusted issuer cannot waive, even a fully feasi
     expect(substitute.windowStartWeek).not.toBe(promise.windowStartWeek)
     const reason = accepted(state, promise, substitute, today)
     expect(reason, 'a Distrusted issuer must refuse even a feasible, legal, non-identical substitute').not.toBeNull()
-    expect(() => waive(state, { promiseId: promise.promiseId, substitute })).toThrow()
+    // 740-T gap 1: pin THIS refusal's OWN sentence (rule 8).
+    expect(reason).toBe('this person no longer trusts this studio enough to accept a substitute for what was promised')
+    expect(() => waive(state, { promiseId: promise.promiseId, substitute })).toThrow(/this person no longer trusts this studio enough to accept a substitute for what was promised/)
   })
 })
 
@@ -468,7 +486,25 @@ describe('P14B.7 group6 — identical-substitute refusal, progress/evidenceRefs 
     expect(realFeasibility(state, promise, identical, today).classification).toBe('REASONABLY_ACHIEVABLE')
     const reason = accepted(state, promise, identical, today)
     expect(reason, 'an identical substitute must be refused even though it is independently feasible').not.toBeNull()
-    expect(() => waive(state, { promiseId: promise.promiseId, substitute: identical })).toThrow()
+    // 740-T gap 1 ("the one that matters most"): identicalSubstitute (rule 4) and THE LAW's forward-
+    // window rule (rule 5) overlap on this exact draft -- identical() copies the ORIGINAL's own
+    // window, and EVERY player-issued promise-0 in the genuine-v31-pre-b7 corpus already has its
+    // window OPEN at its own fixture's pinned "today" (windowStartWeek <= tick: bound-open-p1
+    // 52<=52, bound-open-p2-lead 52<=52, bound-open-p2-lead-or-antagonist 52<=52, part-served-p1
+    // 104<=113, distrusted-issuer 52<=70 -- measured directly off the decompressed fixtures by this
+    // suite's author, not assumed). A TRUE isolation of rule 4 -- an identical substitute whose
+    // copied window is STRICTLY AFTER the waiver week, so rule 5's own condition cannot be true --
+    // needs either a new fixture (not authorized by 740-T) or an artificial state.market.tick
+    // override divorced from the fixture's own genuine "today" (the contortion 740-T's brief names
+    // and asks to be reported rather than forced). REPORTED, not forced: this suite cannot
+    // independently PROVE rule 4 is the one firing on logical necessity alone with this corpus --
+    // both rules' conditions are simultaneously true for every identical-substitute draft this
+    // corpus can produce. What IS pinned below is the CURRENT engine's actual returned sentence:
+    // source order puts identicalSubstitute (promises.ts :937) before the window check (:940), so
+    // this returns rule 4's text today, and reordering the two checks -- the exact regression this
+    // gap exists to catch -- would flip the returned text and turn this assertion red.
+    expect(reason).toBe('an identical substitute changes nothing this studio owes')
+    expect(() => waive(state, { promiseId: promise.promiseId, substitute: identical })).toThrow(/an identical substitute changes nothing this studio owes/)
   })
   it('PRESERVES progress and evidenceRefs on the waived original (does not recompute them like the BROKEN branch)', () => {
     assertWaiverFns()
@@ -524,6 +560,13 @@ describe('P14B.7 group6 — identical-substitute refusal, progress/evidenceRefs 
     expect(reason, 'THE LAW: a substitute window opening ON (or before) the waiver week must be refused').not.toBeNull()
     expect(typeof reason).toBe('string')
     expect(reason!.length).toBeGreaterThan(0)
+    // 740-T gap 1, "the other direction": this exploit draft is NOT identical to the original
+    // (count 1 vs the original's count 2, so identicalSubstitute() is false) and its window opens AT
+    // the waiver week -- exactly the rule-5-only case 740-T's brief asks for, already assembled by
+    // this scenario (feasible per the realFeasibility check above, legal strength, not Distrusted per
+    // this same fixture's own group6 "PRESERVES progress" case); only the exact sentence was never
+    // pinned before now.
+    expect(reason).toBe('a substitute is a forward obligation, and this window opens no later than the week of the waiver')
     let after: GameState | undefined
     try {
       after = waive(state, { promiseId: promise.promiseId, substitute: exploit })
@@ -646,6 +689,124 @@ describe('P14B.7 group9 — Save V31 -> V32: supersededByPromiseId opens null, d
   })
 })
 
+// ═══════════════════════════════════════════════════════════════════════════════════════════════
+// 740-T gap 2 (the coverage gap named at T1b and left open until the writer's pass landed): the
+// slice's central law is `WAIVED: no trust effect; recorded and visible`
+// (P14-PREPARATION-COMPANION.md :379, ruling S11 :568). Every other B.7 case that touches
+// `trustDescriptor` uses it only as a PRECONDITION -- asserting an issuer is or is not Distrusted
+// BEFORE waiving (group1, group2, group5, group6's "PRESERVES progress" case). NOTHING asserted
+// what a waiver itself does to trust. `trustDrivers` (promises.ts :1062-1117) mints a driver for
+// `SATISFIED` and for `BROKEN` in an explicit `if / else if` (:1081-1085) and for NOTHING else --
+// today that already means WAIVED mints no driver, by omission, not by a stated arm. This group
+// pins that omission as a REGRESSION GUARD: it is written to FAIL the moment a future writer adds
+// `else if (promise.outcome === 'WAIVED')` to that block, which is the exact one-line change that
+// would silently violate the law while leaving every other B.7 case green.
+describe('P14B.7 group12 — WAIVED moves no trust label and mints no driver (740-T gap 2: P14-PREPARATION-COMPANION.md:379, ruling S11 :568)', () => {
+  it('trustDrivers for the (beneficiary, issuing studio) pair are IDENTICAL before and after an accepted waiver', () => {
+    assertWaiverFns()
+    const state = fixture('bound-open-p1')
+    const promise = promiseZero(state)
+    const today = state.market.tick
+    const substitute: WaiverSubstituteDraft = { family: 'APPEARANCE_COUNT', predicate: { count: 1 }, windowStartWeek: 60, dueWeekExclusive: 100 }
+    const driversBefore = trustDrivers(state, promise.beneficiaryPersonId, promise.issuerStudioId, today)
+    const labelBefore = trustDescriptor(state, promise.beneficiaryPersonId, promise.issuerStudioId, today).label
+    const after = waive(state, { promiseId: promise.promiseId, substitute })
+    const waived = after.promises.find((p) => p.promiseId === promise.promiseId)!
+    // Premise: the waiver actually landed, or the before/after comparison below is vacuous.
+    expect(waived.outcome).toBe('WAIVED')
+    const driversAfter = trustDrivers(after, promise.beneficiaryPersonId, promise.issuerStudioId, today)
+    const labelAfter = trustDescriptor(after, promise.beneficiaryPersonId, promise.issuerStudioId, today).label
+    // Equality is the right shape here: it fails on an added driver, a removed one, and a
+    // reordering, without enumerating what a driver looks like. FAILS the moment `trustDrivers`
+    // grows an `else if (promise.outcome === 'WAIVED')` arm.
+    expect(driversAfter).toEqual(driversBefore)
+    expect(labelAfter).toBe(labelBefore)
+    // The substitute itself is minted OPEN (`outcome: null`) and must contribute nothing either.
+    // `trustDrivers`' own loop (promises.ts :1080) skips every promise whose outcome is null, so
+    // this and the equality above together prove NEITHER the newly-WAIVED original NOR the
+    // newly-minted substitute added a driver -- named directly, not left as an inference.
+    const minted = substituteOf(state, after)
+    expect(minted.outcome).toBeNull()
+  })
+  it('the studio-level aggregate (trustDrivers with personId: null) is unchanged by the same waiver', () => {
+    assertWaiverFns()
+    const state = fixture('bound-open-p1')
+    const promise = promiseZero(state)
+    const today = state.market.tick
+    const substitute: WaiverSubstituteDraft = { family: 'APPEARANCE_COUNT', predicate: { count: 1 }, windowStartWeek: 60, dueWeekExclusive: 100 }
+    const aggregateBefore = trustDrivers(state, null, promise.issuerStudioId, today)
+    const after = waive(state, { promiseId: promise.promiseId, substitute })
+    expect(after.promises.find((p) => p.promiseId === promise.promiseId)!.outcome).toBe('WAIVED')
+    const aggregateAfter = trustDrivers(after, null, promise.issuerStudioId, today)
+    expect(aggregateAfter).toEqual(aggregateBefore)
+  })
+})
+
+// ═══════════════════════════════════════════════════════════════════════════════════════════════
+// Coordinator's bounded follow-up addition (2026-09-23): rule 7's REFUSAL half was untested
+// anywhere in this suite. Owner ruling (2026-09-23, verbatim): "a substitute must cover at least the
+// original's unfulfilled qualifying count, without erasing completed work or counting it again
+// toward the substitute." The second half is already covered elsewhere in this file (group6's
+// "PRESERVES progress" case and the 730-T FINDING 1 exploit guard: progress/evidenceRefs preserved,
+// the substitute minted at progress 0, no credit for a pre-existing take). This group proves the
+// FIRST half: the count comparison uses `count - progress` (the REMAINING obligation), never the
+// original's raw `count`. On part-served-p1 (count 2, progress 1, remaining 1) the two denominators
+// genuinely DIFFER (1 vs 2), so both cases below are constructed to expose that difference, not
+// merely to exercise "some" refusal/acceptance.
+describe('P14B.7 group13 — rule 7 is judged against count - progress (the remaining obligation), never the original count', () => {
+  it('REFUSES a substitute whose count is strictly less than the remaining obligation, pinning the exact sentence with the REAL remaining count (1), not the original count (2)', () => {
+    assertWaiverFns()
+    const state = fixture('part-served-p1')
+    const promise = promiseZero(state) // count 2, progress 1
+    expect(promise.predicate.count - promise.progress, 'premise: remaining really is 1, not the original count 2').toBe(1)
+    const today = state.market.tick
+    const tooFew: WaiverSubstituteDraft = { family: 'APPEARANCE_COUNT', predicate: { count: 0 }, windowStartWeek: today + 1, dueWeekExclusive: today + 61 }
+    // Isolation: same family/mask as the original (no strength confound), not identical (count 0 !=
+    // the original's 2, so identicalSubstitute() is false), window strictly after today (no rule-5
+    // confound, matching the same [today+1, today+61) shape group6's own "PRESERVES progress" case
+    // already proved REASONABLY_ACHIEVABLE on this exact fixture) -- the ONLY thing left able to
+    // refuse this draft is the count rule.
+    expect(promiseCastSlots({ predicate: tooFew.predicate })).toEqual(promiseCastSlots(promise))
+    const reason = accepted(state, promise, tooFew, today)
+    expect(reason, 'a substitute covering fewer than the REMAINING obligation must be refused').not.toBeNull()
+    // The distinguishing pin: "1", not "2" -- a naive implementation comparing against the
+    // original's raw count instead of count - progress would report a DIFFERENT number here, even
+    // in a case where the accept/refuse verdict happened to agree.
+    expect(reason).toBe('only 0 of the 1 pictures still owed would be covered')
+    expect(() => waive(state, { promiseId: promise.promiseId, substitute: tooFew })).toThrow(/only 0 of the 1 pictures still owed would be covered/)
+  })
+  it('ACCEPTS a substitute whose count EQUALS the remaining obligation exactly (the "at least" boundary) -- a naive `count < original.count` comparison would wrongly refuse this one', () => {
+    assertWaiverFns()
+    const state = fixture('part-served-p1')
+    const promise = promiseZero(state) // count 2, progress 1
+    const today = state.market.tick
+    const remaining = promise.predicate.count - promise.progress
+    expect(remaining).toBe(1)
+    const exact: WaiverSubstituteDraft = { family: 'APPEARANCE_COUNT', predicate: { count: remaining }, windowStartWeek: today + 1, dueWeekExclusive: today + 61 }
+    // Premise: this draft's count (1) IS strictly less than the ORIGINAL's raw count (2) -- a naive
+    // `substitute.count < promise.predicate.count` law would wrongly refuse it; only a law comparing
+    // against `count - progress` correctly accepts it.
+    expect(exact.predicate.count).toBeLessThan(promise.predicate.count)
+    expect(realFeasibility(state, promise, exact, today).classification).toBe('REASONABLY_ACHIEVABLE')
+    expect(trustDescriptor(state, promise.beneficiaryPersonId, promise.issuerStudioId, today).label).not.toBe('Distrusted')
+    expect(accepted(state, promise, exact, today), 'a substitute covering EXACTLY the remaining obligation must be accepted -- "at least", not "more than"').toBeNull()
+    expect(() => waive(state, { promiseId: promise.promiseId, substitute: exact })).not.toThrow()
+  })
+})
+
 // group10 (bridge/trust.ts attention row) and group11 (bridge/industry.ts fold exclusion) moved to
 // tests/bridge-p14b7-promise-waiver.test.ts by 730-T finding 3 -- see that file's header for the
 // full original commentary, preserved there verbatim alongside the item-18 row-TEXT correction.
+// group12 (740-T gap 2, trust-driver purity) and group13 (rule 7 both directions) are engine-only
+// (all of trustDrivers/trustDescriptor/promiseCastSlots/realFeasibility are src/core/promises.ts
+// exports or this file's own helpers already imported here) and stay in this file.
+//
+// Rule 3 ("the employment contract this promise rode in on is no longer on the record") is NOT
+// added here: every genuine-v31-pre-b7 fixture was checked directly (all 9, decompressed, promises
+// cross-referenced against state.hollywood.employment by contractId) and NONE contains a promise
+// whose non-null contractId fails to resolve to a real employment record -- 2 in bound-open-p1, 1
+// each in bound-open-p2-lead, bound-open-p2-lead-or-antagonist, distrusted-issuer, part-served-p1, 2
+// in kept-and-broken, 12 in with-edges (rival-issued, out of scope per 720 §7), 0 in empty and
+// rival-current-p1-and-p2 -- every one resolves. Reaching rule 3 would need either a new fixture
+// (not authorized) or forging state by deleting a genuine promise's own matching employment record
+// (the contortion the coordinator's follow-up explicitly ruled out). Reported untested, not forced.

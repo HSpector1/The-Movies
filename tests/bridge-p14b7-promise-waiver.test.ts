@@ -158,6 +158,24 @@ describe('P14B.7 group10 — a waived promise mints a promiseOutcome attention r
     expect(rows).toHaveLength(1)
     expect(rows[0]!.reason).toMatch(/waived/i)
   })
+  it('740-T gap 2 (hard pin, upgraded from the soft I5 case above now that the landed table is a verified fact, not an interpretation): the row is byte-identical to PROMISE_OUTCOME_WORD\'s own WAIVED entry, reconstructed from the row\'s own name and outcomeCause, not a loose regex', () => {
+    assertWaiverFns()
+    const state = boundOpenP1()
+    const promise = promiseZero(state)
+    const today = state.market.tick
+    const substitute: WaiverSubstituteDraft = { family: 'APPEARANCE_COUNT', predicate: { count: 1 }, windowStartWeek: 60, dueWeekExclusive: 100 }
+    const after = waive(state, { promiseId: promise.promiseId, substitute })
+    const waived = after.promises.find((p) => p.promiseId === promise.promiseId)!
+    const name = after.talent.find((t) => t.id === promise.beneficiaryPersonId)?.name ?? promise.beneficiaryPersonId
+    const rows = promiseAttentionRows(after, promise.issuerStudioId, today).filter((r) => r.cause === 'promiseOutcome' && r.talentId === promise.beneficiaryPersonId)
+    expect(rows).toHaveLength(1)
+    // bridge/trust.ts's own template is `Promise to ${name} ${word} — ${promise.outcomeCause}`
+    // (PROMISE_OUTCOME_WORD[promise.outcome], :78-82). FAILS if the table's WAIVED entry ever stops
+    // reading the literal word "waived", or if the gate/word regress to the two-way ternary this
+    // table replaced (which had no third arm and would have published an accepted settlement as
+    // "broken" -- the exact false breach this pin exists to catch).
+    expect(rows[0]!.reason).toBe(`Promise to ${name} waived — ${waived.outcomeCause}`)
+  })
 })
 
 // ═══════════════════════════════════════════════════════════════════════════════════════════════

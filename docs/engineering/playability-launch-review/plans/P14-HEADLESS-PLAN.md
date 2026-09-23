@@ -582,12 +582,22 @@ raise the number; the case for alignment is recorded as a recommendation for dec
 CHECKPOINT DOES NOT CLAIM: Unity NOT VERIFIED (no re-vendor is required, the projection did not move);
 the `ui` project NOT RUN (FU-1 has not returned); the 24 inherited failures untouched and none of them
 B.7's; the natural waiver route UNTESTED, since no fixture in this repository plays a picture forward to
-where a studio would genuinely need to waive; and TWO COVERAGE GAPS OPEN AND BRIEFED (record 740) — the
-suites prove that the engine refuses but not WHICH of the nine refusals fired, and two of the nine
-overlap on reachable inputs, while NOTHING asserts the slice's central law, so an added
-`else if (outcome === 'WAIVED')` trust-driver arm would keep both suites green today. The behaviour is
-correct as landed and verified by reading; it is not yet pinned by a test, and that is stated rather than
-absorbed. Also recorded: the bridge B.7 suite sha moved from `e6c7ae4d…`/185 (records 731, 733) to
+where a studio would genuinely need to waive; and the two coverage gaps briefed at record 740 are now CLOSED
+(record 743), together with a THIRD hole the parent found while verifying the first pass and which
+mattered more than either: THE OWNER'S OWN APPROVED RULE HAD NO TEST. Rule 7's preservation half was
+covered, but the refusal when a substitute covers too few had no case anywhere, so the suite would have
+stayed green under an implementation reading the original's raw count instead of the remainder. All
+three guards are PROVEN BY INJECTION rather than asserted: the WAIVED trust-driver arm was added to
+`trustDrivers` and both group12 tests went red; the naive `remaining = promise.predicate.count` law was
+substituted and both group13 tests went red, in the two distinct ways their construction predicts (the
+refusal on the NUMBER, "of the 2" against "of the 1", and the boundary on the VERDICT); each injection
+was reverted in the same command block under a shell trap with the clean tree confirmed after. Suites
+now 38 passed (38), 32 engine + 6 bridge. EIGHT of the nine refusals are covered; rule 3 ("the
+employment contract this promise rode in on is no longer on the record") is the one no case reaches,
+because every promise with a non-null `contractId` in all nine corpus fixtures resolves to a real
+employment record with ZERO orphans anywhere, so reaching it needs a new fixture or a forged state —
+recorded untested rather than forced. Rules 4 and 5 could not be logically separated for the same
+corpus-shape reason and that limit is disclosed, not hidden. Also recorded: the bridge B.7 suite sha moved from `e6c7ae4d…`/185 (records 731, 733) to
 `eedc23fb…`/188 because the T2 sweep legitimately edited it, carrying the genuine V31 fixture up through
 `convertV31ToV32` AFTER the frozen validator admits it rather than softening `validateSaveV31`; no case
 was added. Unity backlog entry for the V32 save step is written, and it states the native hazard plainly:
@@ -602,8 +612,8 @@ Industry surface. HARD ORDERING CONSTRAINT, inherited from 45/46/47/48 and state
 rediscovered: this is a PROJECTION STEP (49 → 50), so `genuine-projection49-runtime` must be minted and
 published BEFORE the bump, and the outgoing 49 identity `sha256:60af24c5…` registered as a supported
 prior id in the same commit. The nine refusal sentences are the read model's copy and are hypotheses; a
-copy change is a test edit plus a projection bump. Before B.8 opens: close the two record-740 gaps, since
-B.8's acceptance claims will rest on the same suites. Then the remaining authorized P14 obligations, P15,
+copy change is a test edit plus a projection bump. The record-740 gate is DISCHARGED (record 743), so B.8's
+acceptance claims now rest on suites that prove which refusal fires and pin the Owner's approved rule. Then the remaining authorized P14 obligations, P15,
 P16, P17 and sufficiently specified P18 in dependency order.
 LOGIC VERIFIED · UNITY NOT VERIFIED. Unity/native deferred. Gross2221 omitted fact cost is NOT
 net saving: cold discovery can shift into next frame. No route-fit claim.
