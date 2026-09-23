@@ -801,6 +801,210 @@ export function breakPromisesOnCancel(state: GameState, issuerStudioId: string, 
   return next
 }
 
+// ── §4.4 the waiver: the second road out of an open promise (P14B.7) ────────
+
+/**
+ * The REAL employment interval the original rode in on, read from the contract
+ * `promise.contractId` names. `null` when no such contract is on the record —
+ * reported, never defaulted.
+ */
+function contractInterval(state: GameState, promise: ProfessionalPromise): { startWeek: number; termWeeks: number } | null {
+  const contract = state.hollywood?.employment.find((e) => e.contractId === promise.contractId)
+  if (contract === undefined) return null
+  return { startWeek: contract.terms.startWeek, termWeeks: contract.terms.endWeekExclusive - contract.terms.startWeek }
+}
+
+/**
+ * The substitute's feasibility draft. TWO details differ from every neighbouring
+ * caller and nothing in the type enforces either, so both are stated here.
+ *
+ * `startWeek`/`termWeeks` are the CONTRACT interval (`:203`), and they alone arm
+ * the two refusals at `:406-409`. `reclassifyPromise` passes the PROMISE's own
+ * window there, which makes both refusals tautological (`w < w`, `d > d`). That
+ * is correct for a live promise, which already rode in on a contract, and wrong
+ * here: the substitute is a brand-new promise whose window has never been checked
+ * against anything. Copying that shape would accept a substitute overrunning the
+ * real contract and hand the player an opaque save-validator crash instead of a
+ * published refusal.
+ *
+ * `promiseId` names the ORIGINAL, not the substitute. `activePromiseReservations`
+ * (`:289-297`) excludes exactly that id and `reservedByActivePromises` sums
+ * `count - progress` — precisely the remaining obligation this substitute must
+ * cover. Unexcluded, the promise being waived books the capacity its own
+ * replacement needs. It is lawful to exclude it because it settles WAIVED in this
+ * same step, so the reservation being subtracted is one already being released.
+ */
+function substituteDraft(
+  promise: ProfessionalPromise,
+  substitute: PromiseAttachment,
+  interval: { startWeek: number; termWeeks: number },
+): PromiseDraft {
+  return {
+    family: substitute.family,
+    issuerStudioId: promise.issuerStudioId,
+    beneficiaryPersonId: promise.beneficiaryPersonId,
+    predicate: substitute.predicate,
+    windowStartWeek: substitute.windowStartWeek,
+    dueWeekExclusive: substitute.dueWeekExclusive,
+    startWeek: interval.startWeek,
+    termWeeks: interval.termWeeks,
+    promiseId: promise.promiseId,
+  }
+}
+
+/** The selected P2 seat class, or `null` for every count-only record. */
+function seatClassOf(predicate: PromisePredicate): string | null {
+  return 'kind' in predicate ? predicate.seatClass : null
+}
+
+/** Same family, class, count AND window: a substitute that changes nothing the
+ * studio owes. It passes strength at equality and the count rule at equality, so
+ * only this test can refuse it. */
+function identicalSubstitute(promise: ProfessionalPromise, substitute: PromiseAttachment): boolean {
+  return substitute.family === promise.family
+    && seatClassOf(substitute.predicate) === seatClassOf(promise.predicate)
+    && substitute.predicate.count === promise.predicate.count
+    && substitute.windowStartWeek === promise.windowStartWeek
+    && substitute.dueWeekExclusive === promise.dueWeekExclusive
+}
+
+/**
+ * §1's three acceptance conditions plus the shape rules, as a SEPARATE pure
+ * predicate: the REASON a person refuses this substitute, or `null` when they
+ * accept it. A reason rather than a boolean, so `waivePromise` publishes the
+ * refusal it actually made instead of re-deriving one.
+ *
+ * STRENGTH IS A SUBSET TEST, `substituteMask ⊆ originalMask`, over the module's
+ * one seat-mask authority (`promiseCastSlots`). Strength runs OPPOSITE to mask
+ * size — P1 `['lead','antagonist','support']` is the WEAKEST promise and P2-lead
+ * `['lead']` the strongest — so a superset test would silently accept every
+ * downgrade and refuse every upgrade.
+ *
+ * COUNT (Owner, 2026-09-23): the substitute covers at least the unfulfilled
+ * obligation, `count - progress`. Completed work is neither erased nor recounted.
+ *
+ * TRUST is a LABEL test, never a driver count: `label()` reads
+ * `negative >= 2 && negative > positives`, so a genuinely Distrusted record can
+ * still carry a positive driver.
+ */
+export function waiverAccepted(
+  state: GameState,
+  promise: ProfessionalPromise,
+  substitute: PromiseAttachment,
+  week: number,
+): string | null {
+  // `evaluable()`, both halves, for their two separate reasons. A terminal
+  // promise must not be waived because `settle()` would overwrite an outcome the
+  // "TERMINAL and emitted ONCE" law froze; an UNBOUND one because B.1 mints no
+  // outcome for an offer nobody took.
+  if (promise.outcome !== null) {
+    return `this promise already settled ${promise.outcome} and a terminal outcome is never rewritten`
+  }
+  if (promise.contractId === null) {
+    return 'this promise was never taken up, so there is no commitment to waive'
+  }
+  const interval = contractInterval(state, promise)
+  if (interval === null) {
+    return 'the employment contract this promise rode in on is no longer on the record'
+  }
+  if (identicalSubstitute(promise, substitute)) {
+    return 'the substitute repeats the promise it replaces, so nothing this studio owes would change'
+  }
+  const promised = promiseCastSlots(promise)
+  if (!promiseCastSlots({ predicate: substitute.predicate }).every((slot) => promised.includes(slot))) {
+    return 'the substitute offers a weaker part than the promise it replaces'
+  }
+  const remaining = promise.predicate.count - promise.progress
+  if (substitute.predicate.count < remaining) {
+    return `the substitute covers ${String(substitute.predicate.count)} of the ${String(remaining)} pictures still owed`
+  }
+  if (trustDescriptor(state, promise.beneficiaryPersonId, promise.issuerStudioId, week).label === 'Distrusted') {
+    return 'this person no longer trusts this studio enough to take a substitute in place of what was promised'
+  }
+  const feasibility = promiseFeasibility(state, substituteDraft(promise, substitute, interval), week)
+  if (feasibility.classification !== 'REASONABLY_ACHIEVABLE') {
+    return `the substitute is not reasonably achievable over what remains of the contract — ${feasibility.bottleneck ?? feasibility.classification}`
+  }
+  return null
+}
+
+/**
+ * §1's second road: the player WAIVES an open promise by offering a substitute
+ * the person accepts in its place. The original settles WAIVED through the
+ * existing `settle()` — one `promiseOutcome` receipt, no second kind invented —
+ * keeping its `progress` and `evidenceRefs`, and the substitute binds to the SAME
+ * contract in the same step.
+ *
+ * REFUSAL IS CLEAN AND LOUD: the reason is thrown before any successor is built,
+ * so the original promise and the whole game state are untouched. Nothing is
+ * staged for a later save to reject.
+ *
+ * The substitute is minted BOUND (`contractId` from the original, `outcome: null`,
+ * so `evaluable()` admits it on the next weekly pass) and never travels through
+ * `attachPromise`: no proposal is created and no market case is opened. It starts
+ * at `progress: 0` with `evidenceRefs: []` — the original's delivered takes are
+ * not swept in (Owner: "without erasing completed work or counting it again").
+ *
+ * Pure and RNG-free like every other verb in this module.
+ */
+export function waivePromise(
+  state: GameState,
+  draft: { promiseId: string; substitute: PromiseAttachment },
+): GameState {
+  requirePromiseRoots(state)
+  const week = state.market.tick
+  const promise = state.promises.find((p) => p.promiseId === draft.promiseId)
+  if (promise === undefined) {
+    throw new Error(`promises: no promise "${draft.promiseId}" to waive`)
+  }
+  const refusal = waiverAccepted(state, promise, draft.substitute, week)
+  if (refusal !== null) {
+    throw new Error(`promises: this person did not accept the substitute — ${refusal}`)
+  }
+  const interval = contractInterval(state, promise)
+  if (interval === null) {
+    throw new Error(`promises: contract "${String(promise.contractId)}" is no longer on the record`)
+  }
+  const feasibilityReceipt = promiseFeasibility(state, substituteDraft(promise, draft.substitute, interval), week)
+  const substituteId = `promise-${String(state.promises.length)}`
+  // `progress` and `evidenceRefs` are ABSENT from the settlement, so the waived
+  // original keeps both (`settle`'s `next` is Partial; the BROKEN branch
+  // recomputes progress, this one deliberately does not).
+  const settled = settle(state, promise, {
+    outcome: 'WAIVED',
+    outcomeCause: `this person accepted the substitute promise "${substituteId}" in place of it`,
+    outcomeEventId: null,
+  }, week, 'a promise to this person was waived for a substitute the person accepted')
+  const base = {
+    promiseId: substituteId,
+    version: PROMISE_RULES_VERSION,
+    issuerStudioId: promise.issuerStudioId,
+    beneficiaryPersonId: promise.beneficiaryPersonId,
+    windowStartWeek: draft.substitute.windowStartWeek,
+    dueWeekExclusive: draft.substitute.dueWeekExclusive,
+    feasibilityReceipt,
+    progress: 0,
+    evidenceRefs: [],
+    outcome: null,
+    outcomeWeek: null,
+    outcomeCause: null,
+    outcomeEventId: null,
+    contractId: promise.contractId,
+  }
+  const substitute: ProfessionalPromise = 'kind' in draft.substitute.predicate
+    ? {
+        ...base,
+        family: 'LEAD_OR_SIGNIFICANT_ROLE_COUNT',
+        predicate: {
+          kind: 'castRoleCount',
+          count: draft.substitute.predicate.count,
+          seatClass: draft.substitute.predicate.seatClass,
+        },
+      }
+    : { ...base, family: draft.substitute.family, predicate: { count: draft.substitute.predicate.count } }
+  return { ...settled, promises: [...settled.promises, substitute] }
+}
+
 // ── §4.5 trust: professional memory, DERIVED ON READ ────────────────────────
 
 export type TrustLabel = 'Reliable' | 'Mixed record' | 'Distrusted'
@@ -1152,6 +1356,29 @@ export function projectPromisesPreV29(state: unknown): void {
   for (const row of proposals) {
     if (isRecord(row) && Array.isArray(row.promises) && row.promises.length > 0) {
       throw new Error('frozen save projection cannot discard an authoritative V29 promise attached to a proposal')
+    }
+  }
+}
+
+/**
+ * The POSITIVE projection to every version before V32, the device
+ * `projectPromisesPreV29` and `projectRelationshipsPreV31` both use: a waiver
+ * link is REFUSED rather than dropped, and the question is asked BEFORE the
+ * envelope is validated, so a world that really waived a promise is refused as a
+ * DOWNGRADE and not as a shape complaint about a field V31 has no schema for.
+ * Lossless exactly when no promise names a substitute.
+ */
+export function projectPromisesPreV32(state: unknown): void {
+  if (!isRecord(state)) return
+  const rows = state.promises
+  if (!Array.isArray(rows)) return
+  for (const row of rows) {
+    if (!isRecord(row)) continue
+    const superseded = row.supersededByPromiseId
+    if (superseded !== undefined && superseded !== null) {
+      throw new Error(
+        `frozen save projection cannot discard the substitute "${String(superseded)}" a waived promise was superseded by`,
+      )
     }
   }
 }

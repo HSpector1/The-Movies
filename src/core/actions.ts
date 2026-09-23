@@ -58,7 +58,7 @@ import {
 import { computeForecast, type ForecastContext } from './forecast.js'
 import { forecastHistoryForOwner } from './industryCareer.js'
 import { recordPlayerEmployment } from './industryEmployment.js'
-import { breakPromisesOnCancel, breakPromisesOnTermination } from './promises.js'
+import { breakPromisesOnCancel, breakPromisesOnTermination, waivePromise } from './promises.js'
 import { recordCancelledAfterFirstTake } from './relationships.js'
 import { caseOpenForTalent, playerOffer } from './talentMarket.js'
 import { cancelAdoption, cancelInstallation, cancellationQuote } from './installationCancellation.js'
@@ -2966,6 +2966,11 @@ export function applyActions(state: GameState, actions: Action[]): GameState {
         break
       case 'commitPictureToRelease':
         next = applyCommitPictureToRelease(next, action)
+        break
+      // P14B.7: the waiver is the engine's own verb; the dispatch adds no rule
+      // of its own, so the action and the direct call agree exactly.
+      case 'waivePromise':
+        next = waivePromise(next, { promiseId: action.promiseId, substitute: action.substitute })
         break
       // P13B-S3: the five plan verbs write `physicalPlans` (and its history rows)
       // and NOTHING else — a queued plan reserves no cash, slot or engagement.

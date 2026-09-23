@@ -2,12 +2,22 @@
 // No new promise law or durable facts: the engine owns the descriptor and progress.
 import { campaignDate } from '../src/core/calendar.ts'
 import { PROMISE_SLACK_WEEKS, trustDescriptor } from '../src/core/promises.ts'
-import type { GameState } from '../src/core/types.ts'
+import type { GameState, PromiseOutcome } from '../src/core/types.ts'
 import { promiseHistoryFor, type MarketPromiseHistoryRow } from './promises.ts'
 import type { BridgeMarketAttentionRowSnapshot, BridgeTrustBlock } from './schema/bridge-schema.ts'
 
 /** Display/reminder hypothesis: the same eight weeks as the published promise slack. */
 export const PROMISE_ATTENTION_WEEKS = PROMISE_SLACK_WEEKS
+
+/** The word each settled outcome is reported to its ISSUER by. An outcome with no
+ * entry mints no attention row at all, which is why this is a table and not a
+ * ternary: silence is correct for an outcome this surface has no word for, and a
+ * wrong word is a false report. */
+const PROMISE_OUTCOME_WORD: Partial<Record<PromiseOutcome, string>> = {
+  SATISFIED: 'kept',
+  BROKEN: 'broken',
+  WAIVED: 'waived',
+}
 
 export function trustBlockFor(
   state: GameState,
@@ -65,8 +75,14 @@ export function promiseAttentionRows(
       && promise.dueWeekExclusive - week <= PROMISE_ATTENTION_WEEKS) {
       add('promiseDue', `Promise to ${name} due Week ${String(promise.dueWeekExclusive)} — filming has not begun`)
     }
-    if (promise.outcomeWeek === week && (promise.outcome === 'SATISFIED' || promise.outcome === 'BROKEN')) {
-      add('promiseOutcome', `Promise to ${name} ${promise.outcome === 'SATISFIED' ? 'kept' : 'broken'} — ${promise.outcomeCause}`)
+    // P14B.7: the gate and the WORD move together. This was a two-way ternary
+    // with no third arm, so admitting WAIVED at the gate alone would have
+    // published a settlement the person ACCEPTED as "broken" — a breach that did
+    // not happen. A table refuses to name an outcome it has no word for (VOIDED,
+    // P14C) instead of mislabelling it as the ternary's else branch.
+    const word = promise.outcome === null ? undefined : PROMISE_OUTCOME_WORD[promise.outcome]
+    if (promise.outcomeWeek === week && word !== undefined) {
+      add('promiseOutcome', `Promise to ${name} ${word} — ${promise.outcomeCause}`)
     }
   }
   return rows

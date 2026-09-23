@@ -132,6 +132,18 @@ function indexFor(state:GameState):Index {
   })
   // P14B.2: one PUBLIC activity per exact outcome receipt. Terms remain private;
   // neither reason prose nor a coincident person/week is an outcome identity.
+  // P14B.7, A DECISION AND NOT AN OVERSIGHT: WAIVED is EXCLUDED here, so the
+  // invariant above reads "per SATISFIED or BROKEN outcome receipt". The fold
+  // publishes no terms — it publishes an OUTCOME, and these rows carry no studio
+  // filter, so a rival's kept/broken promises are already public by name. Owner,
+  // 2026-09-23: a waiver is a settlement the person ACCEPTED, so there is no
+  // breach to announce; the issuer gets a private confirmation instead
+  // (`promiseHistoryFor`, viewer-scoped, and the waived attention row in
+  // bridge/trust.ts). The existing kept/broken announcements are untouched.
+  // DO NOT "fix" this filter by admitting WAIVED: `outcomeKind` is closed to
+  // promiseKept/promiseBroken (schema/industry-schema.ts:147), so announcing a
+  // waiver widens a closed enum and is a projection step (49 -> 50), not a line
+  // change. The cost was priced and the Owner chose silence.
   const outcomes=new Map(state.promises
     .filter(p=>p.outcomeEventId!==null&&(p.outcome==='SATISFIED'||p.outcome==='BROKEN'))
     .map(p=>[p.outcomeEventId,p]))

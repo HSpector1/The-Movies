@@ -52,7 +52,7 @@ import { assertReleaseAuthorityInvariants } from './releaseAuthority.js'
 import { assertStudioHistoryInvariants, migratedStudioHistory } from './studioHistory.js'
 import { initialPhysicalPlans, validatePhysicalPlans } from './physicalPlans.js'
 import { initialTalentMarket, projectLegacyTerminations, projectTalentMarketPreV28, talentMarketTerminationLaw, validateTalentMarketRoot } from './talentMarket.js'
-import { projectPromisesPreV29, validatePromiseRoots, validatePromiseRootsV30 } from './promises.js'
+import { projectPromisesPreV29, projectPromisesPreV32, validatePromiseRoots, validatePromiseRootsV30 } from './promises.js'
 import { projectRelationshipsPreV31, validateRelationshipsRoot } from './relationships.js'
 import { PRE_V28_TERMINATION_LAW } from './employment.js'
 import type { TerminationLaw } from './employment.js'
@@ -88,6 +88,7 @@ import type {
   GameStateV29,
   GameStateV30,
   GameStateV31,
+  GameStateV32,
   CancellationReceipt,
   PhysicalPlan,
   PlacedFacility,
@@ -511,6 +512,16 @@ export type SaveFileV31 = {
   saveVersion: 31;
   seed: string;
   state: GameStateV31;
+  broadcastCache: BroadcastItem[];
+};
+
+// P14B.7: the V32 envelope. DEFINED, NOT LIVE — `LIVE_SAVE_VERSION` and
+// `makeSave` stay at V31, so nothing writes this shape yet and it is deliberately
+// absent from the `SaveFile` union no V32 file can reach.
+export type SaveFileV32 = {
+  saveVersion: 32;
+  seed: string;
+  state: GameStateV32;
   broadcastCache: BroadcastItem[];
 };
 
@@ -8823,6 +8834,66 @@ export function convertV31ToV30(save: SaveFileV31): SaveFileV30 {
 export function migrateToV31(save: SaveFile | { saveVersion: number }): SaveFileV31 {
   if (save.saveVersion === 31) return validateSaveV31(save);
   return convertV30ToV31(migrateToV30(save));
+}
+
+// ── The waived-promise link — SaveFileV32 (P14B.7) ───────────────────────────
+//
+// THE STEP IS DEFINED, THE WRITER DOES NOT MOVE. `LIVE_SAVE_VERSION` stays 31 and
+// `makeSave` still stamps V31, so no live campaign carries `supersededByPromiseId`
+// yet and `waivePromise` does not write one. The pair below is the governed step a
+// later slice's live bump rides in on.
+
+/** The V32 promise row with its one new field REMOVED — exactly what V31 knows.
+ * An older validator is never taught a newer field and never silently tolerates
+ * one, the device `stripV31Root` uses for the root above. Spread-preserving, so
+ * `promises` keeps its key position and each row its original key order. */
+function stripV32Field(raw: Record<string, unknown>): Record<string, unknown> {
+  const rows = Array.isArray(raw.promises) ? raw.promises : [];
+  return {
+    ...raw,
+    promises: rows.map((row) => {
+      if (!isRecord(row)) return row;
+      const { supersededByPromiseId: _superseded, ...legacy } = row;
+      return legacy;
+    }),
+  };
+}
+
+/**
+ * Governed V31→V32: the field opens `null` on EVERY existing record and NOTHING
+ * IS RECOMPUTED — a campaign written before waivers existed waived nothing (Q3,
+ * no behavioral backfill; the V25→V26 `cancellation` precedent). Every other root
+ * is carried byte-for-byte.
+ */
+export function convertV31ToV32(save: SaveFileV31): SaveFileV32 {
+  const validated = validateSaveV31(save);
+  // Insertion-order clone (the `convertV28ToV29` device), never the sorted one.
+  const oldState = JSON.parse(JSON.stringify(validated.state)) as GameStateV31;
+  const state: GameStateV32 = {
+    ...oldState,
+    promises: oldState.promises.map((promise) => ({ ...promise, supersededByPromiseId: null })),
+  };
+  return { saveVersion: 32, seed: state.seed, state, broadcastCache: state.broadcastItems };
+}
+
+/**
+ * Governed V32→V31, and the ONE downgrade this version allows: lossless exactly
+ * when no promise names a substitute. `projectPromisesPreV32` REFUSES anything
+ * else — asked BEFORE the envelope is validated, so a world that really waived a
+ * promise is refused as a DOWNGRADE, never as a shape complaint about a field V31
+ * has no schema for.
+ */
+export function convertV32ToV31(save: SaveFileV32): SaveFileV31 {
+  const rawState = isRecord(save) ? (save as Record<string, unknown>).state : undefined;
+  try {
+    projectPromisesPreV32(rawState);
+  } catch (error) {
+    throw new Error(`migrateToV31: cannot downgrade SaveFileV32 or discard the waived-promise link — ${(error as Error).message}`);
+  }
+  if (!isRecord(rawState)) throw new Error('migrateToV31: SaveFileV32 carries no state');
+  const oldState = JSON.parse(JSON.stringify(rawState)) as Record<string, unknown>;
+  const state = stripV32Field(oldState) as unknown as GameStateV31;
+  return validateSaveV31({ saveVersion: 31, seed: state.seed, state, broadcastCache: state.broadcastItems });
 }
 
 export function convertV19ToV20(save: SaveFileV19): SaveFileV20 {

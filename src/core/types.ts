@@ -2283,6 +2283,20 @@ export type GameStateV31 = GameStateV30 & {
 // save shape; a relationship edge exists only on the V31 root.
 export type GameState = GameStateV31
 
+// ── P14B.7 — the waived-promise link (Save V32) ─────────────────────────────
+
+/** V32 records WHICH substitute superseded a promise the person agreed to waive.
+ * `null` on every other record, and on every record a pre-V32 campaign wrote:
+ * the field opens empty and recomputes nothing. NOT the live shape — B.7 defines
+ * the V32 step, and `LIVE_SAVE_VERSION` stays 31 until the writer moves. */
+export type ProfessionalPromiseV32 = ProfessionalPromiseV30 & {
+  supersededByPromiseId: string | null
+}
+
+export type GameStateV32 = Omit<GameStateV31, 'promises'> & {
+  promises: readonly ProfessionalPromiseV32[]
+}
+
 // ── D-14 Talent Career Impact — frozen career-event record (§7) ───────────────
 // The ONE canonical persisted record of a participant's outcome on one released film.
 // Autopsy (film-centric) and Talent Profile (talent-centric) BOTH render from this —
@@ -2426,6 +2440,19 @@ export type Action =
       dependsOn?: readonly string[]
       earliestStartWeek?: number
       admission?: PhysicalPlanAdmission
+    }
+  // P14B.7: waive an open promise for a substitute the person accepts in its
+  // place. The substitute mirrors `PromiseAttachment` (promises.ts), stated
+  // structurally here so the action union stays free of a module import.
+  | {
+      kind: 'waivePromise'
+      promiseId: string
+      substitute: {
+        family: PromiseFamily
+        predicate: { count: number } | CastRoleCountPredicate
+        windowStartWeek: number
+        dueWeekExclusive: number
+      }
     }
   | { kind: 'reorderPhysicalPlans'; planIds: readonly string[] }
   | { kind: 'cancelPhysicalPlan'; planId: string }
