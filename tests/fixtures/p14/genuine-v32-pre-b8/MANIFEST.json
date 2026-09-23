@@ -1,0 +1,83 @@
+{
+  "authority": {
+    "phase": "P14B.8 T0b / a genuine V32 world with a remaining obligation of TWO, which no published fixture had",
+    "headSha": "c7b5fd7952e05821f5a028527f3b5d05050ebb28",
+    "publishedRecoverySha": "c7b5fd7952e05821f5a028527f3b5d05050ebb28",
+    "publicationState": "PUBLISHED: git ls-remote origin wip/headless-program-20260916-ts returned the minting head at mint time.",
+    "closeoutRelativePath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/742-b7-checkpoint.md",
+    "closeoutSha256": "2c2e8fd11c662ec96bee8806f72cd8a5da56f5798f21f1baad67afbb15d16ca9",
+    "expansionRelativePath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/744-b8-waiver-surface-expansion.md",
+    "expansionSha256": "bdcfb39a670aa97fc47f79c95597a819f0d02e50e4364e5867f8b39a6771e1ef",
+    "measurementRelativePath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/747-t0b-capacity-measurement.md",
+    "measurementSha256": "9cc8c77ab64ef594366aff0d007f613f7aee40c9e7e7a4ebf3a3085d57f32a14",
+    "schemaId": "sha256:60af24c58bc4bea8f04e7fc818f8401daeadd87da91252e60cfcf3ee028d8e1b",
+    "projectionVersion": 49,
+    "protocolVersion": 4,
+    "saveVersion": 32,
+    "promiseRulesVersion": 4,
+    "relationshipRulesVersion": 1,
+    "approvalEnvironmentVariable": "STUDIO_MINT_V32_OWES_TWO_APPROVED",
+    "outputRelativePath": "tests/fixtures/p14/genuine-v32-pre-b8"
+  },
+  "fixtures": [
+    {
+      "filename": "genuine-v32-owes-two-p1.json.gz",
+      "provenanceFilename": "genuine-v32-owes-two-p1.provenance.json",
+      "seed": "p13a-core-causal-01",
+      "week": 104,
+      "saveVersion": 32,
+      "uncompressedSha256": "ccd30fdf7bd2f379bf44d150e03529b1c83f02086d79812800f4a255c766ea6d",
+      "compressedSha256": "56f629994f48ea5949a5dad5da44af5bba8ee2943451a05badd3bc4d98793daa",
+      "byteLength": 1007365,
+      "compressedByteLength": 119037,
+      "rootCounts": {
+        "promises": 1,
+        "firstTakes": 40,
+        "marketReceipts": 3,
+        "currentProposals": 0,
+        "relationshipEdges": 24
+      },
+      "focus": [
+        {
+          "promiseId": "promise-0",
+          "family": "APPEARANCE_COUNT",
+          "predicate": {
+            "count": 2
+          },
+          "version": 4,
+          "issuerStudioId": "studio-aca408ec-player",
+          "beneficiaryPersonId": "t-act-09",
+          "windowStartWeek": 104,
+          "dueWeekExclusive": 194,
+          "contractId": "studio-aca408ec-player:contract:t-act-09:104:player-30",
+          "outcome": null,
+          "outcomeWeek": null,
+          "outcomeEventId": null,
+          "supersededByPromiseId": null,
+          "evidenceRefs": [],
+          "progress": 0,
+          "originalFeasibilityReceipt": {
+            "classification": "REASONABLY_ACHIEVABLE",
+            "bottleneck": null,
+            "inputsDigest": "06997348c46d1778",
+            "rulesVersion": 4,
+            "week": 104
+          }
+        }
+      ],
+      "ownerCase": {
+        "question": "a substitute count that is POSITIVE and still INSUFFICIENT, separated from the zero-count case which the wire refuses before any engine rule runs",
+        "originalCount": 2,
+        "originalProgress": 0,
+        "remainingObligation": 2,
+        "substituteCountRefused": 1,
+        "refusalSentence": "only 1 of the 2 pictures still owed would be covered",
+        "substituteCountAccepted": 2,
+        "acceptanceIsNull": true,
+        "measuredAtWeek": 104,
+        "limitation": "At progress 0 the remaining obligation equals the original count, so this world alone cannot tell `count` from `count - progress`. That discrimination is pinned separately on genuine-v31-part-served-p1 (count 2, progress 1) by group13 of tests/p14b7-promise-waiver.test.ts, proven by defect injection at record 743. The two worlds are complementary; neither replaces the other.",
+        "whyNotTheOwnersLiteralNumbers": "Record 747 measured 3/1/2 and it is blocked by M16 exclusivity, not by fixture construction: count 3 reads FRAGILE \"needs a picture not yet commissioned\", the only lever that lifts existingPath is a second production seating the same person, and an attached FRAGILE promise does not bind at the freeze."
+      }
+    }
+  ]
+}
