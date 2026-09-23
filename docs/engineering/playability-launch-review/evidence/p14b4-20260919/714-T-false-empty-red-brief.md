@@ -97,6 +97,33 @@ If this route does not work, use whichever does and say what you used. Do not ha
 state the engine cannot produce, and do not weaken the case to reach it — report the
 obstruction instead, the way the D2 reachability finding was reported.
 
+## COPY AMENDMENT, after the writer landed and before the slice is sealed
+
+`CASE4_LINE` / `SHARED_NO_RECORD_LINE` changes from
+
+    'They have worked together before. Nothing is recorded about how it went.'
+
+to
+
+    'They share a credit. Nothing is recorded about how it went.'
+
+REASON, raised by the writer and verified by the parent. The original is a STRICT PREFIX of
+`CHEMISTRY_LINE[0]`'s `'They have worked together before.'`, which is the RECORDED neutral-tier
+sentence. Measured: the two strings do not diverge until word 5, where the neutral line ends.
+Both can appear as adjacent rows of one six-row casting readout.
+
+That collapses in the WRONG DIRECTION. Any truncation, ellipsis or narrow row drops exactly the
+clause that denies the record, and a pair with NO tie then reads as a pair with a recorded
+neutral one. This whole correction exists to stop an absence being published as a stronger
+claim than the data supports; a sentence whose truncation asserts a record that does not exist
+reintroduces that failure at a second site. The information gradient also inverts, with the
+state carrying LESS data rendering as the longer and more authoritative string.
+
+The replacement diverges at word 1. No existing test exploited the prefix, so nothing was
+broken today; this is a hazard closed before publication, not a bug fixed. Every constraint
+still holds: no digit, no identity, no tier name, no friendship implication, and the work is
+stated before the record is denied.
+
 ## Constraints on every string you pin
 
 The 694-C forward constraint binds all of them: no digit, no identity, no tier name. The

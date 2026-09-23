@@ -47,7 +47,17 @@ const seatTalent = (seats: ChemistrySeats, seat: Seat): string =>
 /** The published copy. No digit, no identity, no tier name in any of it. */
 const ROSTER_LINE = 'Working ties with people on your roster.'
 const WITHHELD_LINE = 'Other working ties here are with people you do not employ.'
-const QUIET_LINE = 'No shared work recorded yet.'
+/** E714: scoped to the viewer's OWN pictures. The former 'No shared work recorded yet.'
+ *  denied shared work ANYWHERE, which this projector cannot know and which is false when
+ *  the only shared work is rival-internal (record 710). This sentence claims only what the
+ *  block may speak to. */
+const QUIET_LINE = 'No shared work on your pictures yet.'
+/** E714: zero edges, no disclosable counterpart, and work the viewer COMMISSIONED. The
+ *  branch's own guarantee makes the second sentence strictly true: an edge with an
+ *  on-roster counterpart would have produced a row, and one with an off-roster counterpart
+ *  would have set `withheld`. The work is stated, then the record denied, in that order —
+ *  no sentence here may imply friendship. */
+const SHARED_NO_TIE_LINE = 'Shared credits on your pictures. No working relationship on record.'
 /** D2: the honest answer when the roster cannot be read AT ALL. `state.hollywood` is
  *  genuinely nullable (`src/core/types.ts` :1906), and on a world without that root
  *  `WITHHELD_LINE` would assert a POSITIVE employment fact this projector cannot
@@ -56,6 +66,15 @@ const QUIET_LINE = 'No shared work recorded yet.'
  *  viewer's employment list is simply empty, `WITHHELD_LINE` is true and stays. */
 const NO_ROSTER_ROOT_LINE = 'No studio roster on record, so working ties are not shown.'
 const NO_SHARED_WORK_LINE = 'No shared work yet.'
+/** E714, the sibling site: the pair shares a picture and holds no edge, so the no-edge
+ *  sentence above would overclaim. A seating the player PROPOSES is self-disclosing, which
+ *  is why this one needs no roster filter (record 710).
+ *  IT MUST NOT OPEN WITH `CHEMISTRY_LINE[0]`'s SENTENCE. Both rows can sit in ONE six-row
+ *  readout, and a line prefixed by the NEUTRAL-TIER sentence differs from it only in a
+ *  trailing clause: truncate that clause and "no record at all" renders as "a recorded,
+ *  neutral tie" — a false-neutral planted in place of the false-empty this slice removes.
+ *  Keep the opening clause distinct from every `CHEMISTRY_LINE` value. */
+const SHARED_NO_RECORD_LINE = 'They share a credit. Nothing is recorded about how it went.'
 const CHEMISTRY_LINE: Readonly<Record<-1 | 0 | 1, string>> = {
   [-1]: 'They have not worked well together.',
   [0]: 'They have worked together before.',
@@ -117,6 +136,44 @@ export function sharedPictureCount(state: GameState, a: string, b: string): numb
 }
 
 /**
+ * "Does this person appear with any OTHER person on a picture THIS VIEWER COMMISSIONED" —
+ * the only shared-work basis `relationshipBlockFor` may speak to (record 710). It is NOT
+ * `sharedPictureCount` with a filter bolted on: that count is a pair fact published under
+ * ruling 3 (ii) and is left exactly as it is. `state.firstTakes` holds RIVAL receipts by
+ * design (`FirstTakeReceipt.studioId`, `src/core/types.ts` :2131-2142), and reporting their
+ * EXISTENCE from a browsed profile is the leak the disclosure law forbids, so takes are
+ * filtered to the viewer's own studio; `state.studio.releasedFilms` is the player's own
+ * studio's history (`types.ts` :524) and needs no filter. A DISTINCT other id is required:
+ * a subject credited twice on one picture has worked with nobody.
+ * WITH NO `state.hollywood` THE TWO LEGS ANSWER DIFFERENTLY, and only the first fails closed.
+ * `viewerStudioId` then arrives as `''` (`bridge/people.ts` :489), which no receipt's
+ * `studioId` equals, so the TAKES leg matches nothing. The RELEASES leg still answers, by
+ * design: `state.studio.releasedFilms` is the player's own studio's history whether or not a
+ * Hollywood root exists, so a rootless world holding released films returns true here. The
+ * consequence is that such a block emits `SHARED_NO_TIE_LINE` rather than D2's
+ * `NO_ROSTER_ROOT_LINE`, which is lawful precisely because that sentence asserts NO
+ * employment fact — it speaks only to credits on pictures the player commissioned.
+ */
+function sharesViewerPicture(state: GameState, talentId: string, viewerStudioId: string): boolean {
+  const withAnother = (seats: readonly string[]): boolean =>
+    seats.includes(talentId) && seats.some((id) => id !== talentId)
+  for (const take of state.firstTakes) {
+    if (take.studioId !== viewerStudioId) continue
+    if (withAnother([take.directorId, take.cast.lead, take.cast.antagonist, take.cast.support])) return true
+  }
+  for (const film of state.studio.releasedFilms) {
+    const participants = film.participants
+    if (participants === undefined) continue
+    if (withAnother([
+      participants.writer.talentId, participants.director.talentId,
+      participants.cast.lead.talentId, participants.cast.antagonist.talentId, participants.cast.support.talentId,
+      ...participants.craft.map((craft) => craft.talentId),
+    ])) return true
+  }
+  return false
+}
+
+/**
  * One person's published ties, for the viewer's own studio. Rows are the DISCLOSED
  * counterparts — on the viewer's roster at `week`, the subject excluded — that this
  * person either holds an edge with or shares a credit with; sorted by counterpart id so
@@ -160,7 +217,9 @@ export function relationshipBlockFor(
   const withheldLine = (state.hollywood ?? null) === null ? NO_ROSTER_ROOT_LINE : WITHHELD_LINE
   const line = rows.length > 0
     ? (withheld ? `${ROSTER_LINE} ${WITHHELD_LINE}` : ROSTER_LINE)
-    : withheld ? withheldLine : QUIET_LINE
+    : withheld ? withheldLine
+      : sharesViewerPicture(state, talentId, viewerStudioId) ? SHARED_NO_TIE_LINE
+        : QUIET_LINE
   return { line, rows }
 }
 
@@ -184,7 +243,9 @@ export function castingChemistryRows(
       tierLabel: chemistry.tier,
       sign: chemistry.sign,
       drivers: [...chemistry.reasons],
-      line: chemistry.tier === null ? NO_SHARED_WORK_LINE : CHEMISTRY_LINE[chemistry.sign],
+      line: chemistry.tier !== null
+        ? CHEMISTRY_LINE[chemistry.sign]
+        : sharedPictureCount(state, talentIdA, talentIdB) > 0 ? SHARED_NO_RECORD_LINE : NO_SHARED_WORK_LINE,
     }
   })
 }

@@ -62,6 +62,24 @@ id: a subject credited twice on one picture is not shared work. Filter takes by
 already the player's own. When `state.hollywood` is null, `viewerStudioId` arrives as `''`
 (`bridge/people.ts:489`) and no receipt matches, which fails closed — leave that behaviour.
 
+## A FOURTH red you must also satisfy, added after the RED was authored
+
+The RED is `tests/bridge-p14b6-e714-false-empty-absence-lines.test.ts` (362 lines, sha256
+`43d4e60b51aa2c51f7e02d40e1cf0065340287bc1c080cbae6a9ffeb3ba2300c`). It carries FOUR failing
+cases, not three. The fourth is the record-710 disclosure check, and it is a positive pin:
+
+A subject whose ONLY shared work is RIVAL-INTERNAL, holding zero edges, whose `rows` are
+empty, must read the case-3 sentence `'No shared work on your pictures yet.'` — not the case-2
+sentence, and not anything else. The test proves the premise before it asserts: it checks
+`sharedPictureCount` sees that rival pair (so the leak risk is real, not hypothetical), and
+checks `rows` is empty (so the block genuinely reaches the absence branch).
+
+This follows from the spec above rather than adding to it: the rival work is not
+viewer-commissioned, so it fails the case-2 predicate and falls to case 3. It is called out
+because it is the cross-check that catches a predicate written too loosely. If your helper
+counts any shared work rather than only the viewer's, this case goes red and the other three
+may still pass.
+
 ## The change, site 2 — `castingChemistryRows` (:173-190)
 
 Same defect, second site. Today:
@@ -75,6 +93,33 @@ When the tier is null but the pair shares a picture, emit exactly:
 `NO_SHARED_WORK_LINE` stays as-is for a pair with neither. Use `sharedPictureCount` directly
 here with NO roster filter and do not add one: a seating the player proposes is
 self-disclosing, which is this function's existing design and the basis record 710 relied on.
+
+## COPY AMENDMENT, after the writer landed and before the slice is sealed
+
+`CASE4_LINE` / `SHARED_NO_RECORD_LINE` changes from
+
+    'They have worked together before. Nothing is recorded about how it went.'
+
+to
+
+    'They share a credit. Nothing is recorded about how it went.'
+
+REASON, raised by the writer and verified by the parent. The original is a STRICT PREFIX of
+`CHEMISTRY_LINE[0]`'s `'They have worked together before.'`, which is the RECORDED neutral-tier
+sentence. Measured: the two strings do not diverge until word 5, where the neutral line ends.
+Both can appear as adjacent rows of one six-row casting readout.
+
+That collapses in the WRONG DIRECTION. Any truncation, ellipsis or narrow row drops exactly the
+clause that denies the record, and a pair with NO tie then reads as a pair with a recorded
+neutral one. This whole correction exists to stop an absence being published as a stronger
+claim than the data supports; a sentence whose truncation asserts a record that does not exist
+reintroduces that failure at a second site. The information gradient also inverts, with the
+state carrying LESS data rendering as the longer and more authoritative string.
+
+The replacement diverges at word 1. No existing test exploited the prefix, so nothing was
+broken today; this is a hazard closed before publication, not a bug fixed. Every constraint
+still holds: no digit, no identity, no tier name, no friendship implication, and the work is
+stated before the record is denied.
 
 ## What must NOT change
 
