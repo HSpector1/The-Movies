@@ -1,0 +1,48 @@
+{
+  "authority": {
+    "phase": "qualified P14B.7 promise-waiver checkpoint (742, gaps closed 743) / exact last-projection-49 upstream before B.8",
+    "testedSourceSha": "d5293b1f8f2acd1771067a4dacd138c9bea7ae99",
+    "testedRunLabel": "739-b7-full-core-confirm, fixedSource: true, 3151.67s",
+    "textOnlySourceSha": "4a268feba06636e6be965a662f217ac1cf76247f",
+    "textOnlyProducerDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "publishedRecoverySha": "4a268feba06636e6be965a662f217ac1cf76247f",
+    "publicationState": "PUBLISHED: git ls-remote origin wip/headless-program-20260916-ts returned the minting head at mint time. ls-remote is the instrument because this worktree holds no refs/remotes/wip/headless-program-20260916-ts, so for-each-ref --contains is not a publication test here (the 48 MANIFEST records that exact bookkeeping error and its correction).",
+    "closeoutRelativePath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/742-b7-checkpoint.md",
+    "closeoutSha256": "2c2e8fd11c662ec96bee8806f72cd8a5da56f5798f21f1baad67afbb15d16ca9",
+    "gapClosureRelativePath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/743-b7-gaps-closed.md",
+    "gapClosureSha256": "a34f4e4f2066fcd266ba45752f75e47a8ca9a48514ab2385a1564ec03b0ce4c3",
+    "schemaId": "sha256:60af24c58bc4bea8f04e7fc818f8401daeadd87da91252e60cfcf3ee028d8e1b",
+    "projectionVersion": 49,
+    "protocolVersion": 4,
+    "saveVersion": 32,
+    "promiseRulesVersion": 4,
+    "relationshipRulesVersion": 1,
+    "approvalEnvironmentVariable": "STUDIO_MINT_PROJECTION49_APPROVED",
+    "outputRelativePath": "tests/fixtures/p14/genuine-projection49-runtime"
+  },
+  "fixtures": [
+    {
+      "filename": "genuine-projection49-runtime.checkpoint.json.gz",
+      "provenanceFilename": "genuine-projection49-runtime.provenance.json",
+      "uncompressedSha256": "c92774f524a28876d63b00b5226f36e360ad4022e643c7e029a19a7b5f075c45",
+      "compressedSha256": "55f2a2fd75e5063f9fedee08a6d103d8696c3b4a8923d695fcab1b6c39afd972",
+      "byteLength": 3276993,
+      "compressedByteLength": 321953,
+      "schemaId": "sha256:60af24c58bc4bea8f04e7fc818f8401daeadd87da91252e60cfcf3ee028d8e1b",
+      "protocolVersion": 4,
+      "projectionVersion": 49,
+      "currentSaveVersion": 32,
+      "savedSaveVersion": 32,
+      "currentSaveSha256": "1c5e49df9e131a96fc7664f2a2cbe5644fb3e37a0a5f10e1dc2b0902657c9ae5",
+      "savedSaveSha256": "c9d23fb1f332cf6939b2bac684d6ea804be7194f2b7f028128dd1433b5f4e532",
+      "currentWeek": 45,
+      "savedWeek": 45,
+      "stateRevision": 1,
+      "journalEntries": 2,
+      "journalDigest": "214e36fb701ba0e0ea1e1e85aca4ff6ec0c4f761d1c00449f387bb361c8e76d0",
+      "sessionId": "p14b8-genuine-outgoing49",
+      "focusPromiseId": "promise-0",
+      "talentId": "t-act-09"
+    }
+  ]
+}
