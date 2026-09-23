@@ -109,3 +109,59 @@ corrects the title only, and touches no assertion. Recorded rather than fixed si
 
 These are static enumerations at `25794023`. Which of the 22 files actually fail under the bump is
 unknown until the bump runs, and no count here should be read as a prediction of the failure set.
+
+---
+
+## CORRECTION — this inventory was incomplete, and it failed the same way record 737 did
+
+The RED author (record 750) found six sites this inventory does not reach. The parent re-ran the
+greps and found a seventh. All confirmed by direct read.
+
+**The root cause is mine and it is the record-737 failure one level up.** Record 737's sweep keyed a
+finder on the outgoing VERSION and was structurally blind to files that never mention it. This
+inventory keyed its classes on the SYMBOL `PROJECTION_VERSION` and was blind to every other spelling
+of the same fact. The lesson generalises: **grep the VALUE, not the symbol.** A bare `toBe(49)`
+finds 42 lines across 27 files; the symbol-keyed pattern found 26.
+
+### The complete class list, seven not three
+
+| # | pattern | hits | note |
+| --- | --- | --- | --- |
+| 1 | `PROJECTION_VERSION).toBe(49)` | 26 | the original class |
+| 2 | `SNAPSHOT_VERSION).toBe(49)` | 1 | `tests/bridge.test.ts:167`. `SNAPSHOT_VERSION = PROJECTION_VERSION` (`bridge/protocol.ts:34`). This file appears in NO class of the original inventory: it has no URN string and no schema-id literal either, so it was invisible three times over. |
+| 3 | `<response>.snapshotVersion).toBe(49)` | 5 | `bridge-p13b-s1b-seats:102`, `s2-labs:126`, `s3-plans:214`, `s4-office:235`, `r3n4-read-model-deltas:351`. Each is a SECOND line in a file the original listed at one line. |
+| 4 | `BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(49)` | 10 | `bridge-p13b-r07-setup:322`, `s5-adoption:252`, `s6-cancellation:272`, `s7-disclosure:272`, `s8-rivals:225`, `bridge-p14a1-market:154`, `p14a2-market:219`, `p14a3-world:231`, `p14b1-promises:210`, `p14b2-trust:137`. A fourth spelling, missed entirely. |
+| 5 | symbolic constants `= 49` | 2 | `bridge/schema/bridge-schema.ts:258` (the constant) and `tests/bridge-p14b6-relationship-read-models.test.ts:95` (`INCOMING_PROJECTION`). No `toBe` grep reaches a definition. |
+| 6 | the C# constant as TEXT | 1 | `tests/bridge-schema.test.ts:576`: `expect(generatedCsharp).toContain('public const int ProjectionVersion = 49;')`. Parent-found on the re-run. Invisible to every other class, including the value-keyed one, because the number sits inside a quoted C# string. |
+| 7 | `projection-49` URN text | 23 | as originally listed |
+
+Class 8 remains the schema-id literal `60af24c5…` (28 files, 13 of them frozen evidence).
+
+### Prior-roster assertions, each needing the new id
+
+- `tests/bridge-p14b4-runtime47-compatibility.test.ts:177`, against the literal roster at `:40`. The
+  original listed only `:173` in this file.
+- `tests/bridge-p14b5-relationships.test.ts:295` and `:342`.
+- `tests/bridge-runtime-checkpoint.test.ts:972`. **The original marked this file MUST NOT MOVE** for
+  the historical comment at `:974`. That stands for the comment, and the assertion three lines above
+  it must still gain the new id. A file can hold both a frozen line and a live one; the split is
+  per-LINE, not per-file. This is the sharpest correction in this record.
+- `tests/bridge-p14b6-relationship-read-models.test.ts:766` and `:767` (`size).toBe(37)` → 38). The
+  original omitted this file from the MOVES list entirely.
+
+### Row-shape pins that break on the two new members, reached by no version class
+
+- `tests/bridge-p14b2-trust.test.ts:50`, the `expectedHistory` helper, consumed at `:219`, `:239`,
+  `:250` and `:342`.
+- `tests/bridge-p14b4-cast-class.test.ts:330-337`, an exact row `toEqual` plus a `parseWireValue`
+  comparison. Author-reported; no projection class reaches it.
+- `tests/bridge-p14b1-promises.test.ts:295`, `:301`, `:316`, `:319`. Author-reported.
+- `tests/bridge-p14b2-trust.test.ts:141-145`, the exact 25-member `AVAILABLE_INTENT_KINDS` `toEqual`.
+  Breaks by design when the new intent kind lands.
+- `tests/bridge-p14b2-trust.test.ts:157` does NOT break: both sides come from the same function.
+
+### What the original got right, kept
+
+The SPLIT and its 13 files of minted evidence stand, and so do the three historical comments, with
+the one correction above that `bridge-runtime-checkpoint.test.ts` is split per-line rather than
+frozen whole.

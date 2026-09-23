@@ -358,3 +358,21 @@ strength test) first and masks rule 7 entirely.
 rule 7's `- progress` term directly. It does: group13 runs both directions on
 `genuine-v31-part-served-p1`, proven by injection at 743. The disclosed gap is therefore confined to
 the PLAYER SURFACE, not the law, and is recorded at that narrower scope.
+
+**A13 IS WRONG AS WRITTEN AND IS CORRECTED HERE.** A13 claimed "a P2 substitute against a P1
+original fires rule 6 (the seat-mask strength test) first and masks rule 7 entirely." The direction
+is inverted. Rule 6 (`src/core/promises.ts:943-946`) tests whether every slot of the SUBSTITUTE is
+inside the PROMISED mask. A P1 original's mask is every slot (`promiseCastSlots` returns
+`CAST_SLOTS` for a count-only predicate, `:609-614`), so a P2-lead substitute's `['lead']` IS a
+subset and rule 6 PASSES. The refusal fires in the opposite case: a P1 substitute offered against a
+P2-lead original, whose extra slots are not in `['lead']`.
+
+Measured by the RED author on the owes-two fixture and confirmed by the parent reading the source: a
+P2-lead count-1 substitute REACHES rule 7 and returns the Owner's own sentence; a P2-lead count-2
+substitute diverts to rule 9 (`needs a picture not yet commissioned`) on the `existingPath` ceiling.
+
+A13's ADVICE still binds, for a different reason than the one it gave. Hold family and seat class
+equal and vary only the count, because the P2 route cannot express the ACCEPT half of the pair. A
+reader who believed A13's stated mechanism would have concluded the P2 family is untestable against a
+P1 original and dropped it, which would have cost real coverage. Recorded as a parent error found by
+the test author, not as a clarification.
