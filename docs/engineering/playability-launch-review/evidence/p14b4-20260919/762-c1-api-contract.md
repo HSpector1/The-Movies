@@ -159,3 +159,39 @@ NOT `Talent.authored`. Consequences for §4:
 - Provenance must capture the age as it is AT THE APPEND, after any raise, not as drawn.
 - `enterRival` pushes into a LOCAL `talent` array copy and commits it later. The provenance write
   must follow the same commit, not a separate path that can diverge from it.
+
+---
+
+## 10. CORRECTION to §5 — the ordering as written is unimplementable, and the right rule is stronger
+
+§5 said `materializeAges` "runs after `market.tick` advances and before any consumer of `talent.age`
+runs in that week". **No such point exists inside `tick()`.** `src/core/tick.ts:408-410` states the
+rule in its own comment — "the clock is the TICK's to advance, as its last step (M1)" — and `:1048`
+is where it happens. For the whole body of the tick, `state.market.tick` is still `currentTick`.
+
+**The corrected rule, which is simpler and checks harder.** The materialization happens at the TAIL,
+beside the clock advance at `tick.ts:1047-1049`, against `currentTick + 1`. `talent` is already a
+local rebound at `:1049`, so it slots in there and nowhere else.
+
+The invariant that falls out is the one the validator already wants:
+
+> **On every state the engine ever emits, `talent[i].age === ageAt(row_i, state.market.tick)`.**
+
+That is stronger than the original wording, because it is true at every boundary rather than at one
+privileged moment, and it is exactly validator condition 2. A person whose birthday falls in week
+`w` is the new age for the whole of week `w`, because the tick that PRODUCED week `w` set it at its
+tail.
+
+**What is deliberately NOT asserted here.** Whether a given step INSIDE a tick sees the old age or
+the new one depends on where that step sits relative to the tail, and this contract does not guess.
+The RED MEASURES it on the 30 crossing and reports what it finds. A measured in-tick ordering is a
+finding; an assumed one is how a wrong law gets written into a test.
+
+**`materializeAges` therefore takes the week it is materializing against**, rather than reading
+`state.market.tick`, since at the call site the clock has not moved yet:
+
+```ts
+export function materializeAges(state: GameState, week: number): GameState
+```
+
+§3's single-argument signature is superseded by this one.
