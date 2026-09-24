@@ -255,7 +255,18 @@ export const PROTOCOL_VERSION = 4 as const
 // who share an edge DO read there, on the basis that a seating the player proposes is
 // self-disclosing. Closeness, edge ids, stored driver rows and delta magnitudes reach
 // neither carrier.
-export const PROJECTION_VERSION = 49 as const
+// P14B.8 (projection 50) — THE WAIVER'S PLAYER SURFACE. Three wire changes and no more:
+// (1) `StudioMarketPromiseHistoryRow` gains `supersededByPromiseId` (the TYPED successor
+// link, so no consumer parses `outcomeCause`) and `progress` (a player who cannot see the
+// remaining obligation drafts a substitute by trial and error); all three carriers of that
+// row inherit both. (2) the `quoteWaivePromise` family — its OWN draft payload, whose
+// `family` domain admits only the two the surface offers, plus
+// `StudioPromiseWaiverQuoteSnapshot`. (3) the `waivePromise` intent kind. NO SAVE STEP:
+// `LIVE_SAVE_VERSION` stays 32 and `PROMISE_RULES_VERSION` stays 4 — B.7's waiver law is
+// complete and B.8 moves none of it. The OWNERSHIP of a promise is not on this wire and
+// never becomes a client's to assert: the bridge resolves the issuer from the promise id
+// and refuses every id the player's own studio does not hold.
+export const PROJECTION_VERSION = 50 as const
 
 const nonEmptyText = () => text({ minLength: 1 })
 const nonNegativeInteger = () => integer({ minimum: 0 })
@@ -1837,6 +1848,46 @@ const StudioQuoteMarketProposalRequest = object('StudioQuoteMarketProposalReques
   draft: reference('StudioMarketProposalDraftPayload', StudioMarketProposalDraftPayload),
 })
 
+// ── P14B.8 (projection 50) — the waiver's propose leg ────────────────────────
+// ITS OWN DRAFT PAYLOAD, not the market proposal's reused. The `family` domain
+// enumerates ONLY the two families this surface offers, so `DIRECTING_COUNT`,
+// `PREFERRED_GENRE_OPPORTUNITY` and `SPECIFIC_PROJECT` are unexpressible BY
+// CONSTRUCTION: each of those reaches the engine's `NOT_OFFERED_IN_B1` refusal,
+// which would publish the build vocabulary *a directing promise is not offered in
+// this slice* to a player. The seat-class family REQUIRES its explicit class for
+// exactly the same reason — a classless P2 publishes *a seat-class promise needs
+// its seat class selected (lead, or lead-or-antagonist)*.
+// The draft NAMES NO STUDIO. The issuer arrives implicitly through the promise id,
+// and the bridge refuses every id whose issuer is not the player's own studio.
+const StudioPromiseWaiverCastClassSubstituteDraftPayload = object('StudioPromiseWaiverCastClassSubstituteDraftPayload', {
+  family: literal('LEAD_OR_SIGNIFICANT_ROLE_COUNT'),
+  ...promiseDraftTerms,
+  seatClass: enumeration(PROMISE_SEAT_CLASSES),
+})
+const StudioPromiseWaiverCountSubstituteDraftPayload = object('StudioPromiseWaiverCountSubstituteDraftPayload', {
+  family: literal('APPEARANCE_COUNT'),
+  ...promiseDraftTerms,
+})
+const StudioPromiseWaiverSubstituteDraftPayload = union('StudioPromiseWaiverSubstituteDraftPayload', [
+  reference('StudioPromiseWaiverCastClassSubstituteDraftPayload', StudioPromiseWaiverCastClassSubstituteDraftPayload),
+  reference('StudioPromiseWaiverCountSubstituteDraftPayload', StudioPromiseWaiverCountSubstituteDraftPayload),
+] as const)
+const StudioPromiseWaiverDraftPayload = object('StudioPromiseWaiverDraftPayload', {
+  /** The player's OWN open promise. Every other id is refused at conversion. */
+  promiseId: nonEmptyText(),
+  substitute: reference('StudioPromiseWaiverSubstituteDraftPayload', StudioPromiseWaiverSubstituteDraftPayload),
+})
+
+const StudioQuoteWaivePromiseRequest = object('StudioQuoteWaivePromiseRequest', {
+  protocolVersion: literal(PROTOCOL_VERSION),
+  schemaId: nonEmptyText(),
+  sessionId: nonEmptyText(),
+  commandId: nonEmptyText(),
+  expectedStateRevision: nonNegativeInteger(),
+  type: literal('quoteWaivePromise'),
+  draft: reference('StudioPromiseWaiverDraftPayload', StudioPromiseWaiverDraftPayload),
+})
+
 const StudioBridgeQuoteRequest = union('StudioBridgeQuoteRequest', [
   reference('StudioQuoteCommissionRequest', StudioQuoteCommissionRequest),
   reference('StudioQuoteCastingRequest', StudioQuoteCastingRequest),
@@ -1844,6 +1895,7 @@ const StudioBridgeQuoteRequest = union('StudioBridgeQuoteRequest', [
   reference('StudioQuoteSetCommissionRequest', StudioQuoteSetCommissionRequest),
   reference('StudioQuoteContractRequest', StudioQuoteContractRequest),
   reference('StudioQuoteMarketProposalRequest', StudioQuoteMarketProposalRequest),
+  reference('StudioQuoteWaivePromiseRequest', StudioQuoteWaivePromiseRequest),
 ] as const)
 
 const StudioFinancialConsequence = object('StudioFinancialConsequence', {
@@ -2092,6 +2144,43 @@ const StudioMarketProposalQuoteSnapshot = object('StudioMarketProposalQuoteSnaps
   promise: nullable(reference('StudioMarketPromiseQuoteSnapshot', StudioMarketPromiseQuoteSnapshot)),
 })
 
+// P14B.8: the waiver's answer, shaped on `StudioMarketProposalQuoteSnapshot`. A
+// substitute the person would refuse is an ACCEPTED answer carrying `ok: false` and
+// `waiverAccepted`'s BARE sentence — never the namespaced throw `waivePromise` raises,
+// and never a protocol rejection. The echoed terms are the SUBSTITUTE's; the
+// substitute's own promise id is deliberately absent, because it is minted at commit
+// as `promise-${promises.length}` and any quote naming it is wrong the moment another
+// promise lands first. Nothing is charged by a waiver, so there is no money sheet.
+const StudioPromiseWaiverQuoteSnapshot = object('StudioPromiseWaiverQuoteSnapshot', {
+  /** The union's shared identity slot; REGISTERED for commit only when `ok`. */
+  intentId: nonEmptyText(),
+  kind: enumeration(['waivePromise']),
+  commitLabel: nonEmptyText(),
+  /** The union's three shared scheduling slots, carried for the same reason every
+   * other member carries them: the generator promotes exactly the members all six
+   * share onto the abstract `StudioQuoteSnapshot`, and dropping them here would
+   * demote `startsNow`/`queues`/`queueNote` into five concrete classes and break
+   * every C# reader that holds a base reference. A waiver settles the original and
+   * binds the substitute in the SAME accepted command, so it starts now and queues
+   * nothing — the opposite of a market proposal, which settles at its decision week. */
+  startsNow: bool(),
+  queues: bool(),
+  queueNote: nullable(text()),
+  ok: bool(),
+  /** null exactly when `ok`; otherwise the engine's own refusal, verbatim. */
+  refusalReason: nullable(text()),
+  /** The ORIGINAL being waived, echoed back; resolved to this person by the bridge. */
+  promiseId: nonEmptyText(),
+  talentId: nonEmptyText(),
+  /** The SUBSTITUTE's terms. `seatClass` is null for the count-only family. */
+  family: enumeration(PROMISE_FAMILIES),
+  count: integer({ minimum: 1 }),
+  seatClass: nullable(enumeration(PROMISE_SEAT_CLASSES)),
+  windowStartWeek: nonNegativeInteger(),
+  dueWeekExclusive: nonNegativeInteger(),
+  consequence: nonEmptyText(),
+})
+
 const StudioQuoteSnapshot = union('StudioQuoteSnapshot', [
   reference('StudioCommissionQuoteSnapshot', StudioCommissionQuoteSnapshot),
   reference('StudioCastingQuoteSnapshot', StudioCastingQuoteSnapshot),
@@ -2099,6 +2188,7 @@ const StudioQuoteSnapshot = union('StudioQuoteSnapshot', [
   reference('StudioSetCommissionQuoteSnapshot', StudioSetCommissionQuoteSnapshot),
   reference('StudioContractQuoteSnapshot', StudioContractQuoteSnapshot),
   reference('StudioMarketProposalQuoteSnapshot', StudioMarketProposalQuoteSnapshot),
+  reference('StudioPromiseWaiverQuoteSnapshot', StudioPromiseWaiverQuoteSnapshot),
 ] as const)
 
 const StudioBridgeQuoteResponse = object('StudioBridgeQuoteResponse', {
@@ -2331,6 +2421,17 @@ const StudioMarketPromiseHistoryRow = object('StudioMarketPromiseHistoryRow', {
   outcome: nullable(enumeration(PROMISE_OUTCOMES)),
   outcomeWeek: nullable(nonNegativeInteger()),
   outcomeCause: nullable(text()),
+  /** P14B.8: the TYPED successor link, set only on a WAIVED original and pointing
+   * BACKWARDS only. The derivation, so no consumer ever parses `outcomeCause`: a
+   * row's substitute is the row whose `promiseId` equals this row's
+   * `supersededByPromiseId`; a row's predecessor is the row whose
+   * `supersededByPromiseId` equals this row's `promiseId`. Both rows always travel
+   * together on this carrier, which is what licenses leaving the inverse link off. */
+  supersededByPromiseId: nullable(nonEmptyText()),
+  /** P14B.8: the delivered part of `count`, so a player drafting a substitute can
+   * SEE the remaining obligation (`count - progress`) instead of discovering it
+   * from a refusal. Event-derived by the engine, never a second authority. */
+  progress: nonNegativeInteger(),
 })
 const StudioMarketOwnProposalSnapshot = object('StudioMarketOwnProposalSnapshot', {
   disclosure: literal('own'),
@@ -3392,8 +3493,14 @@ const definitions = {
   StudioMarketProposalPromiseDraftPayload,
   StudioMarketProposalDraftPayload,
   StudioQuoteMarketProposalRequest,
+  StudioPromiseWaiverCastClassSubstituteDraftPayload,
+  StudioPromiseWaiverCountSubstituteDraftPayload,
+  StudioPromiseWaiverSubstituteDraftPayload,
+  StudioPromiseWaiverDraftPayload,
+  StudioQuoteWaivePromiseRequest,
   StudioMarketPromiseQuoteSnapshot,
   StudioMarketProposalQuoteSnapshot,
+  StudioPromiseWaiverQuoteSnapshot,
   StudioBridgeQuoteRequest,
   StudioCastingChemistryRow,
   StudioCastingQuoteSnapshot,
@@ -3602,6 +3709,10 @@ export type BridgeMarketProposalDraftPayload = InferSchema<typeof StudioMarketPr
 export type BridgeQuoteMarketProposalRequest = InferSchema<typeof StudioQuoteMarketProposalRequest>
 export type BridgeMarketProposalQuoteSnapshot = InferSchema<typeof StudioMarketProposalQuoteSnapshot>
 export type BridgeMarketProposalRefusalKind = (typeof MARKET_PROPOSAL_REFUSAL_KINDS)[number]
+export type BridgePromiseWaiverSubstituteDraftPayload = InferSchema<typeof StudioPromiseWaiverSubstituteDraftPayload>
+export type BridgePromiseWaiverDraftPayload = InferSchema<typeof StudioPromiseWaiverDraftPayload>
+export type BridgeQuoteWaivePromiseRequest = InferSchema<typeof StudioQuoteWaivePromiseRequest>
+export type BridgePromiseWaiverQuoteSnapshot = InferSchema<typeof StudioPromiseWaiverQuoteSnapshot>
 export type BridgeMarketPromiseSnapshot = InferSchema<typeof StudioMarketPromiseSnapshot>
 export type BridgeMarketPromiseHistoryRow = InferSchema<typeof StudioMarketPromiseHistoryRow>
 export type BridgeMarketPromiseQuoteSnapshot = InferSchema<typeof StudioMarketPromiseQuoteSnapshot>

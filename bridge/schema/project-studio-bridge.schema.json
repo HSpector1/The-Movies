@@ -492,7 +492,7 @@
           "$ref": "#/$defs/StudioProjectionBundle"
         },
         "snapshotVersion": {
-          "const": 49,
+          "const": 50,
           "type": "integer"
         },
         "stateDigest": {
@@ -609,7 +609,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 49,
+          "const": 50,
           "type": "integer"
         },
         "stateDigest": {
@@ -686,7 +686,8 @@
             "adoptTechnology",
             "productionSetupAction",
             "cancellationAction",
-            "marketProposalAction"
+            "marketProposalAction",
+            "waivePromise"
           ],
           "type": "string"
         },
@@ -824,6 +825,9 @@
         },
         {
           "$ref": "#/$defs/StudioQuoteMarketProposalRequest"
+        },
+        {
+          "$ref": "#/$defs/StudioQuoteWaivePromiseRequest"
         }
       ],
       "x-csharp-name": "StudioBridgeQuoteRequest"
@@ -1128,7 +1132,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 49,
+          "const": 50,
           "type": "integer"
         },
         "stateDigest": {
@@ -1207,7 +1211,7 @@
           "$ref": "#/$defs/StudioProjectionBundle"
         },
         "snapshotVersion": {
-          "const": 49,
+          "const": 50,
           "type": "integer"
         },
         "stateDigest": {
@@ -1499,7 +1503,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 49,
+          "const": 50,
           "type": "integer"
         },
         "stateDigest": {
@@ -9446,6 +9450,11 @@
             }
           ]
         },
+        "progress": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
         "promiseId": {
           "minLength": 1,
           "type": "string"
@@ -9457,6 +9466,17 @@
                 "lead",
                 "leadOrAntagonist"
               ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "supersededByPromiseId": {
+          "anyOf": [
+            {
+              "minLength": 1,
               "type": "string"
             },
             {
@@ -9478,8 +9498,10 @@
         "outcome",
         "outcomeCause",
         "outcomeWeek",
+        "progress",
         "promiseId",
         "seatClass",
+        "supersededByPromiseId",
         "windowStartWeek"
       ],
       "type": "object",
@@ -13632,6 +13654,226 @@
       "type": "object",
       "x-csharp-name": "StudioProjectionBundle"
     },
+    "StudioPromiseWaiverCastClassSubstituteDraftPayload": {
+      "additionalProperties": false,
+      "properties": {
+        "count": {
+          "maximum": 2147483647,
+          "minimum": 1,
+          "type": "integer"
+        },
+        "dueWeekExclusive": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "family": {
+          "const": "LEAD_OR_SIGNIFICANT_ROLE_COUNT",
+          "type": "string"
+        },
+        "seatClass": {
+          "enum": [
+            "lead",
+            "leadOrAntagonist"
+          ],
+          "type": "string"
+        },
+        "windowStartWeek": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "count",
+        "dueWeekExclusive",
+        "family",
+        "seatClass",
+        "windowStartWeek"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioPromiseWaiverCastClassSubstituteDraftPayload"
+    },
+    "StudioPromiseWaiverCountSubstituteDraftPayload": {
+      "additionalProperties": false,
+      "properties": {
+        "count": {
+          "maximum": 2147483647,
+          "minimum": 1,
+          "type": "integer"
+        },
+        "dueWeekExclusive": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "family": {
+          "const": "APPEARANCE_COUNT",
+          "type": "string"
+        },
+        "windowStartWeek": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "count",
+        "dueWeekExclusive",
+        "family",
+        "windowStartWeek"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioPromiseWaiverCountSubstituteDraftPayload"
+    },
+    "StudioPromiseWaiverDraftPayload": {
+      "additionalProperties": false,
+      "properties": {
+        "promiseId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "substitute": {
+          "$ref": "#/$defs/StudioPromiseWaiverSubstituteDraftPayload"
+        }
+      },
+      "required": [
+        "promiseId",
+        "substitute"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioPromiseWaiverDraftPayload"
+    },
+    "StudioPromiseWaiverQuoteSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "commitLabel": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "consequence": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "count": {
+          "maximum": 2147483647,
+          "minimum": 1,
+          "type": "integer"
+        },
+        "dueWeekExclusive": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "family": {
+          "enum": [
+            "APPEARANCE_COUNT",
+            "LEAD_OR_SIGNIFICANT_ROLE_COUNT",
+            "DIRECTING_COUNT",
+            "PREFERRED_GENRE_OPPORTUNITY",
+            "SPECIFIC_PROJECT"
+          ],
+          "type": "string"
+        },
+        "intentId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "waivePromise"
+          ],
+          "type": "string"
+        },
+        "ok": {
+          "type": "boolean"
+        },
+        "promiseId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "queueNote": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "queues": {
+          "type": "boolean"
+        },
+        "refusalReason": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "seatClass": {
+          "anyOf": [
+            {
+              "enum": [
+                "lead",
+                "leadOrAntagonist"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "startsNow": {
+          "type": "boolean"
+        },
+        "talentId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "windowStartWeek": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "commitLabel",
+        "consequence",
+        "count",
+        "dueWeekExclusive",
+        "family",
+        "intentId",
+        "kind",
+        "ok",
+        "promiseId",
+        "queueNote",
+        "queues",
+        "refusalReason",
+        "seatClass",
+        "startsNow",
+        "talentId",
+        "windowStartWeek"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioPromiseWaiverQuoteSnapshot"
+    },
+    "StudioPromiseWaiverSubstituteDraftPayload": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/StudioPromiseWaiverCastClassSubstituteDraftPayload"
+        },
+        {
+          "$ref": "#/$defs/StudioPromiseWaiverCountSubstituteDraftPayload"
+        }
+      ],
+      "x-csharp-name": "StudioPromiseWaiverSubstituteDraftPayload"
+    },
     "StudioPropertyBoundsSnapshot": {
       "additionalProperties": false,
       "properties": {
@@ -14028,9 +14270,56 @@
         },
         {
           "$ref": "#/$defs/StudioMarketProposalQuoteSnapshot"
+        },
+        {
+          "$ref": "#/$defs/StudioPromiseWaiverQuoteSnapshot"
         }
       ],
       "x-csharp-name": "StudioQuoteSnapshot"
+    },
+    "StudioQuoteWaivePromiseRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "commandId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "draft": {
+          "$ref": "#/$defs/StudioPromiseWaiverDraftPayload"
+        },
+        "expectedStateRevision": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "protocolVersion": {
+          "const": 4,
+          "type": "integer"
+        },
+        "schemaId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "sessionId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "type": {
+          "const": "quoteWaivePromise",
+          "type": "string"
+        }
+      },
+      "required": [
+        "commandId",
+        "draft",
+        "expectedStateRevision",
+        "protocolVersion",
+        "schemaId",
+        "sessionId",
+        "type"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioQuoteWaivePromiseRequest"
     },
     "StudioRelationshipBlock": {
       "additionalProperties": false,
@@ -16551,7 +16840,7 @@
       "x-csharp-name": "StudioWrapReceiptSnapshot"
     }
   },
-  "$id": "urn:project-studio:bridge:protocol-4:projection-49",
+  "$id": "urn:project-studio:bridge:protocol-4:projection-50",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "description": "Canonical wire contract owned by the authoritative TypeScript runtime.",
   "oneOf": [
@@ -16607,7 +16896,7 @@
   "title": "Project Studio TypeScript to Unity Bridge",
   "x-project-studio": {
     "contractId": "project-studio-current-game-unity-bridge",
-    "projectionVersion": 49,
+    "projectionVersion": 50,
     "protocolVersion": 4,
     "routes": {
       "command": "POST /command",

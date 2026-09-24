@@ -19,13 +19,15 @@
 // P14B.2 reuses this same bound history for the case, Profile and workspace.
 // Trust text and promise attention live in trust.ts; public outcomes in industry.ts.
 
-import { allPromises, promiseFeasibility } from '../src/core/promises.ts'
+import { allPromises, promiseFeasibility, waiverAccepted, waivePromise } from '../src/core/promises.ts'
 import type { PromiseAttachment } from '../src/core/promises.ts'
 import { caseDisclosure, caseForTalent, UNKNOWN } from '../src/core/talentMarket.ts'
 import type { Disclosed, DisclosedPromise } from '../src/core/talentMarket.ts'
 import type { GameState, PromiseClassification } from '../src/core/types.ts'
+import type { ActionOutcome } from '../ui/src/engine/adapter.ts'
 import type {
   BridgeMarketProposalPromiseDraftPayload, BridgeMarketPromiseHistoryRow,
+  BridgePromiseWaiverDraftPayload, BridgePromiseWaiverQuoteSnapshot,
 } from './schema/bridge-schema.ts'
 
 /** One proposal's promise disclosure, as the viewing studio may lawfully read it:
@@ -112,6 +114,10 @@ export function promiseHistoryFor(
         outcome: promise.outcome,
         outcomeWeek: promise.outcomeWeek,
         outcomeCause: promise.outcomeCause,
+        // P14B.8: the TYPED successor link and the delivered part of the count. Both
+        // are read straight off the stored row — this module derives neither.
+        supersededByPromiseId: promise.supersededByPromiseId,
+        progress: promise.progress,
       }]
     })
     .reverse()
@@ -151,4 +157,146 @@ export function promiseQuoteSnapshot(
  * both from the same issuer test), so this is a type narrowing, not a fallback. */
 export function unboxPromise(value: Disclosed<DisclosedPromise | null>): DisclosedPromise | null {
   return value === UNKNOWN ? null : value
+}
+
+// ── P14B.8 (projection 50) — THE WAIVER'S PLAYER ROUTE ───────────────────────
+//
+// B.7 built the law: a studio that can no longer keep an open promise offers the
+// person a substitute, and on acceptance the original settles WAIVED while the
+// substitute binds to the SAME employment contract in the same step. B.8 adds the
+// route and NOTHING ELSE — no rule, no sentence and no version of the law moves.
+//
+// THE OWNERSHIP GATE lives here and only here. `waiverAccepted` and `waivePromise`
+// compare no issuer: `waivePromise` resolves by id alone, ids are
+// `promise-${promises.length}` (sequential, dense, trivially enumerable), and
+// `substituteDraft` reads `issuerStudioId` off the promise, so a rival's waiver
+// evaluates against the RIVAL's own pipeline and trust and looks entirely lawful.
+// Measured, not argued: on `genuine-v31-with-edges`, `waiverAccepted` returns NULL
+// for a rival-issued `promise-1` and `waivePromise` settles it. Because the engine
+// publishes no sentence there, the refusal CANNOT be an accepted `ok:false` quote —
+// there would be nothing to put in it. It is a conversion refusal, and it is
+// deliberately WORD-FOR-WORD the refusal an unknown id gets, so the answer declines
+// to confirm that a promise the player may not read about exists at all.
+//
+// The gate is the BRIDGE's because `waivePromise` is a pure verb whose caller
+// supplies authority, and every other authority decision in this codebase is made at
+// this boundary. `playerProposalDraft` is the same decision one step earlier: it
+// FORCES `issuerStudioId` to the player rather than trusting the payload. A waiver
+// has no such field to force, so the same decision can only be a refusal.
+
+/** The wire draft (projection 50): one promise id plus one substitute, whose family
+ * is APPEARANCE_COUNT or an explicitly classed LEAD_OR_SIGNIFICANT_ROLE_COUNT. */
+export type WireWaiverDraft = BridgePromiseWaiverDraftPayload
+
+export type PromiseWaiverConversionOk = {
+  ok: true
+  kind: 'waivePromise'
+  /** The ORIGINAL, resolved from the id and PROVEN to be this studio's own. */
+  promiseId: string
+  talentId: string
+  talentName: string
+  substitute: PromiseAttachment
+  seatClass: BridgePromiseWaiverQuoteSnapshot['seatClass']
+  commitLabel: string
+  /** `waiverAccepted`'s BARE sentence, or `null` when this person accepts. */
+  refusal: string | null
+  apply: (current: GameState) => ActionOutcome
+}
+export type PromiseWaiverConversion = { ok: false; error: string } | PromiseWaiverConversionOk
+
+/** The ONE sentence for "not yours" and "no such thing". Naming which it was would
+ * itself disclose whether a rival holds that id. */
+function noSuchPromiseOfYours(promiseId: string): string {
+  return `This studio has no promise ${JSON.stringify(promiseId)} on its record.`
+}
+
+function substituteTerms(count: number, seatClass: string | null): string {
+  const noun = seatClass === null
+    ? 'appearance'
+    : seatClass === 'lead' ? 'lead role' : 'lead or antagonist role'
+  return `${String(count)} ${noun}${count === 1 ? '' : 's'}`
+}
+
+/**
+ * ONE module-level `apply`, not a fresh closure per conversion (the market-proposal
+ * precedent): two conversions of the same draft on the same state must be
+ * INDISTINGUISHABLE, and two distinct closures are never deeply equal. Called as a
+ * METHOD, never detached. It re-runs the engine verb on CURRENT state; the
+ * fail-closed re-check of ownership and acceptance happens in `quotedIntentFor`
+ * BEFORE this is ever reached, so the namespaced throw never becomes player copy.
+ */
+function applyPromiseWaiver(this: PromiseWaiverConversionOk, current: GameState): ActionOutcome {
+  return { ok: true, next: waivePromise(current, { promiseId: this.promiseId, substitute: this.substitute }) }
+}
+
+/** The ONLY conversion from a waiver draft to the engine. Pure: it asks
+ * `waiverAccepted` (which mutates nothing) for the verdict and NEVER calls
+ * `waivePromise` inside a `try` to ask a question — that would ship the engine's
+ * `promises: …` namespace to a player and ask a mutating verb a read-only one. */
+export function promiseWaiverDraftToEngine(state: GameState, draft: WireWaiverDraft): PromiseWaiverConversion {
+  const promise = allPromises(state).find((candidate) => candidate.promiseId === draft.promiseId)
+  // THE GATE. `hollywood` absent means no player studio is on the record, and
+  // `string !== undefined` refuses — fail-closed, never a permissive default.
+  if (promise === undefined || promise.issuerStudioId !== state.hollywood?.playerStudioId) {
+    return { ok: false, error: noSuchPromiseOfYours(draft.promiseId) }
+  }
+  const talent = state.talent.find((candidate) => candidate.id === promise.beneficiaryPersonId)
+  if (talent === undefined) {
+    return { ok: false, error: `The person promise ${JSON.stringify(draft.promiseId)} was made to is not on this world's record.` }
+  }
+  const substitute: PromiseAttachment = {
+    family: draft.substitute.family,
+    predicate: corePredicateOf(draft.substitute),
+    windowStartWeek: draft.substitute.windowStartWeek,
+    dueWeekExclusive: draft.substitute.dueWeekExclusive,
+  }
+  const seatClass = 'seatClass' in draft.substitute ? draft.substitute.seatClass : null
+  const terms = substituteTerms(draft.substitute.count, seatClass)
+  return {
+    ok: true,
+    kind: 'waivePromise',
+    promiseId: promise.promiseId,
+    talentId: talent.id,
+    talentName: talent.name,
+    substitute,
+    seatClass,
+    commitLabel: `WAIVE PROMISE — ${talent.name.toUpperCase()} · SUBSTITUTE ${terms.toUpperCase()} BEFORE WEEK ${String(draft.substitute.dueWeekExclusive)}`,
+    // Rule 9 reads the substitute against the REAL employment interval inside the
+    // engine (`substituteDraft`), so the bridge re-derives no contract window of its
+    // own: one that disagreed with the commit would be worse than none.
+    refusal: waiverAccepted(state, promise, substitute, state.market.tick),
+    apply: applyPromiseWaiver,
+  }
+}
+
+/** The waiver consequence sheet Unity renders verbatim. It describes the
+ * substitute's TERMS and never its id: that id is minted at COMMIT as
+ * `promise-${promises.length}` and is wrong the moment another promise lands first. */
+export function promiseWaiverQuoteSnapshot(
+  conversion: PromiseWaiverConversionOk,
+  intentId: string,
+): BridgePromiseWaiverQuoteSnapshot {
+  const { substitute, seatClass, refusal, talentName } = conversion
+  const terms = substituteTerms(substitute.predicate.count, seatClass)
+  return {
+    intentId,
+    kind: 'waivePromise',
+    commitLabel: conversion.commitLabel,
+    // A waiver settles and binds in the same accepted command. Nothing queues.
+    startsNow: true,
+    queues: false,
+    queueNote: null,
+    ok: refusal === null,
+    refusalReason: refusal,
+    promiseId: conversion.promiseId,
+    talentId: conversion.talentId,
+    family: substitute.family,
+    count: substitute.predicate.count,
+    seatClass,
+    windowStartWeek: substitute.windowStartWeek,
+    dueWeekExclusive: substitute.dueWeekExclusive,
+    consequence: refusal === null
+      ? `Settles your open promise to ${talentName} as waived and binds the substitute in its place — ${terms} between Week ${String(substitute.windowStartWeek)} and Week ${String(substitute.dueWeekExclusive - 1)}, on the same employment contract. Work already delivered is neither erased nor counted again. Nothing is charged, and this is not announced publicly.`
+      : `Nothing is waived and nothing changes: ${refusal}.`,
+  }
 }

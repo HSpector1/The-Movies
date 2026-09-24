@@ -54,7 +54,10 @@ function expectedHistory(state: GameState, talentId: string, viewer = player(sta
       // stored predicate shape alone selects it (a count-only root reads null).
       seatClass: 'kind' in p.predicate ? p.predicate.seatClass : null,
       windowStartWeek: p.windowStartWeek, dueWeekExclusive: p.dueWeekExclusive, contractId: p.contractId!,
-      outcome: p.outcome, outcomeWeek: p.outcomeWeek, outcomeCause: p.outcomeCause }))
+      outcome: p.outcome, outcomeWeek: p.outcomeWeek, outcomeCause: p.outcomeCause,
+      // P14B.8 (projection 50): the typed successor link and the delivered part of
+      // the count ride every history row, read straight off the stored promise.
+      supersededByPromiseId: p.supersededByPromiseId, progress: p.progress }))
 }
 const attention = (state: GameState): AttentionRow[] => marketPage(state, { view: 'market', targetId: null }).attention
 function query(view: 'studios' | 'pulse' | 'market', page = 0, targetId: string | null = null): IndustryQuery {
@@ -131,10 +134,10 @@ describe('P14B.2 group1 — projection46, unchanged Save29/intents, closed wire 
   it('pins the exact version, old-five-plus-two attention enum and unchanged intent vocabulary', () => {
     const state = p13aGeneratedStudio()
     readModels(state, state.talent[0]!.id)
-    expect(PROJECTION_VERSION).toBe(49)
+    expect(PROJECTION_VERSION).toBe(50)
     expect(LIVE_SAVE_VERSION).toBe(32)
-    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${PROTOCOL_VERSION}:projection-49`)
-    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(49)
+    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${PROTOCOL_VERSION}:projection-50`)
+    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(50)
     const attentionSchema = schemaDefinition('StudioMarketAttentionRowSnapshot') as unknown as { properties: { cause: { enum: string[] } } }
     expect(attentionSchema.properties.cause.enum).toEqual(['decisionWeekNear', 'newCompetingProposal', 'termsRevised',
       'settlementCompleted', 'proposalWouldFail', 'promiseDue', 'promiseOutcome'])
@@ -142,7 +145,7 @@ describe('P14B.2 group1 — projection46, unchanged Save29/intents, closed wire 
       'acceptScreenplay', 'requestRewrite', 'startAuditions', 'acknowledgeAuditions', 'greenlightPicture', 'resolveProductionBlocker',
       'startConstruction', 'commissionOriginalScreenplay', 'signContract', 'commitPictureToRelease', 'placeFacility', 'commissionSet',
       'renewContract', 'releaseTalent', 'researchAction', 'physicalPlanAction', 'installationAction', 'adoptTechnology',
-      'productionSetupAction', 'cancellationAction', 'marketProposalAction'])
+      'productionSetupAction', 'cancellationAction', 'marketProposalAction', 'waivePromise'])
   })
   it('validates actual session profile, Market, Pulse and studio DTOs without stripping the new members', () => {
     const f = retentionFixture()

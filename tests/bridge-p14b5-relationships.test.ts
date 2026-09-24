@@ -14,8 +14,8 @@
 //   (e) `preferences.priorityOrder` publishes SEVEN members on a genuine open case and the D5 settlement sentence
 //       reaches `settlementReasons` VERBATIM (people.ts :998, free text, no enum);
 //   (f) the leak law extends to the new facts: no `closeness`, no edge, no `recent` delta on any serialized DTO.
-// The FROZEN SIDE (R-VERSION class, re-expressed by the test-author's 700-T2 sweep after P14B.6): projection 49
-// (48 outgoing), `SCHEMA_ID` = sha256:60af24c5… (00c0075b… outgoing), 37 prior ids, `LIVE_SAVE_VERSION` 31, the
+// The FROZEN SIDE (R-VERSION class, re-expressed by the 700-T2 sweep after P14B.6, re-swept by P14B.8): projection 50
+// (49 outgoing), `SCHEMA_ID` = sha256:e2d354dc… (60af24c5… outgoing), 38 prior ids, `LIVE_SAVE_VERSION` 32, the
 // projection-47 checkpoint taking the governed prior path.
 //
 // Anything that needs the engine's new module is reached through a DYNAMIC import inside the case, so this file
@@ -59,6 +59,8 @@ const OUTGOING_47 = 'sha256:6f6b48805aadcf14d456614d87bf1571eb1ce0d9aa0bc44f604e
 // P14B.6 (700-T2 sweep): the OUTGOING projection-48 identity, minted at 43817117 and frozen in
 // tests/fixtures/p14/genuine-projection48-runtime/MANIFEST.json; registered as projection-v48 by ad49031f.
 const OUTGOING_48 = 'sha256:00c0075bef257634956da7d16d117a145d203047e7169c643156b7971c4c7fec'
+// P14B.8: the outgoing projection-49 identity, retired by the B.8 bump.
+const OUTGOING_49 = 'sha256:60af24c58bc4bea8f04e7fc818f8401daeadd87da91252e60cfcf3ee028d8e1b'
 const OUTGOING_PROJECTION = 47
 // The 35 accepted prior literals (tests/bridge-p14b4-runtime47-compatibility.test.ts :41-83); never derived from the registry.
 const EXPECTED_35_PRIOR_IDS = [
@@ -283,16 +285,16 @@ const wireEnum = (): string[] => {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────────────────────────────
-describe('P14B.5 frozen side — the OUTGOING wire identities (R-VERSION class, re-expressed by 700-T2 after P14B.6 landed projection 49 / Save V31 unchanged)', () => {
-  it('projection 49 (48 outgoing), SCHEMA_ID sha256:60af24c5… (00c0075b… outgoing), LIVE_SAVE_VERSION 31, exactly the 35 accepted prior ids PLUS the outgoing 47 and 48 with projection-v46 and projection-v47 registered', () => {
+describe('P14B.5 frozen side — the OUTGOING wire identities (R-VERSION class, re-expressed by 700-T2 after P14B.8 landed projection 50 / Save V32 unchanged)', () => {
+  it('projection 50 (49 outgoing), SCHEMA_ID sha256:e2d354dc… (60af24c5… outgoing), LIVE_SAVE_VERSION 32, exactly the 35 accepted prior ids PLUS the outgoing 47, 48 and 49 with projection-v46 and projection-v47 registered', () => {
     expect(PROTOCOL_VERSION).toBe(4)
-    expect(PROJECTION_VERSION).toBe(49)
+    expect(PROJECTION_VERSION).toBe(50)
     expect(OUTGOING_PROJECTION).toBe(47)
     // The checked-in contract-manifest schemaId at ad49031f, read independently of this test.
-    expect(SCHEMA_ID).toBe('sha256:60af24c58bc4bea8f04e7fc818f8401daeadd87da91252e60cfcf3ee028d8e1b')
+    expect(SCHEMA_ID).toBe('sha256:e2d354dcbae1a6dc93a2367756512c14243b11be202a26107de0c81a4f3e0698')
     expect(SCHEMA_ID).not.toBe(OUTGOING_47)
     expect(LIVE_SAVE_VERSION).toBe(32)
-    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_35_PRIOR_IDS, OUTGOING_47, OUTGOING_48].sort())
+    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_35_PRIOR_IDS, OUTGOING_47, OUTGOING_48, OUTGOING_49].sort())
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_46)).toBe('projection-v46')
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_47)).toBe('projection-v47')
   })
@@ -339,7 +341,7 @@ describe('family 11 — projection 48 THIN (RED by value): the enum, the registr
     expect(SCHEMA_ID).not.toBe(OUTGOING_47)
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_47)).toBe('projection-v47')
-    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_35_PRIOR_IDS, OUTGOING_47, OUTGOING_48].sort())
+    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_35_PRIOR_IDS, OUTGOING_47, OUTGOING_48, OUTGOING_49].sort())
     expect(LIVE_SAVE_VERSION).toBeGreaterThan(30) // the governed inner-save step rides the same wave (R22 :610)
   })
 

@@ -205,9 +205,9 @@ function containsNumber(value: unknown, target: number): boolean {
 describe('group 1: PROJECTION_VERSION / LIVE_SAVE_VERSION', () => {
   it('LIVE_SAVE_VERSION is 30 and the live promise surface carries projection 47 after the P14B.4 cutover (record 600 / 616)', () => {
     expect(LIVE_SAVE_VERSION).toBe(32)
-    expect(PROJECTION_VERSION).toBe(49)
-    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${String(PROTOCOL_VERSION)}:projection-49`)
-    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(49)
+    expect(PROJECTION_VERSION).toBe(50)
+    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${String(PROTOCOL_VERSION)}:projection-50`)
+    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(50)
   })
 })
 
@@ -292,7 +292,7 @@ describe('group 3: trust descriptor label and promise history, open then settled
     const openLabel = trustDescriptor(state, talentId, playerStudioId, state.market.tick).label
     const openBlock = marketCaseProjection(state, talentId, playerStudioId) as unknown as {
       trustLabel: string
-      promiseHistory: Array<{ promiseId: string; family: string; count: number; seatClass: string | null; windowStartWeek: number; dueWeekExclusive: number; contractId: string; outcome: string | null; outcomeWeek: number | null; outcomeCause: string | null }>
+      promiseHistory: Array<{ promiseId: string; family: string; count: number; seatClass: string | null; windowStartWeek: number; dueWeekExclusive: number; contractId: string; outcome: string | null; outcomeWeek: number | null; outcomeCause: string | null; supersededByPromiseId: string | null; progress: number }>
     } | null
     expect(openBlock).not.toBeNull()
     expect(openBlock!.trustLabel).toBe(openLabel)
@@ -302,6 +302,8 @@ describe('group 3: trust descriptor label and promise history, open then settled
       promiseId: openPromise.promiseId, family: openPromise.family, count: openPromise.predicate.count, seatClass: null,
       windowStartWeek: openPromise.windowStartWeek, dueWeekExclusive: openPromise.dueWeekExclusive,
       contractId: openPromise.contractId, outcome: null, outcomeWeek: null, outcomeCause: null,
+      // P14B.8 (projection 50): the typed successor link and the delivered count.
+      supersededByPromiseId: null, progress: openPromise.progress,
     }])
 
     const settled = advanceTo(state, dueWeekExclusive) // past due, no first take ever occurred -> BROKEN
@@ -313,7 +315,7 @@ describe('group 3: trust descriptor label and promise history, open then settled
     const settledLabel = trustDescriptor(settled, talentId, playerStudioId, settled.market.tick).label
     const settledBlock = marketCaseProjection(settled, talentId, playerStudioId) as unknown as {
       trustLabel: string
-      promiseHistory: Array<{ promiseId: string; family: string; count: number; seatClass: string | null; windowStartWeek: number; dueWeekExclusive: number; contractId: string; outcome: string | null; outcomeWeek: number | null; outcomeCause: string | null }>
+      promiseHistory: Array<{ promiseId: string; family: string; count: number; seatClass: string | null; windowStartWeek: number; dueWeekExclusive: number; contractId: string; outcome: string | null; outcomeWeek: number | null; outcomeCause: string | null; supersededByPromiseId: string | null; progress: number }>
     } | null
     expect(settledBlock!.trustLabel).toBe(settledLabel)
     expect(settledBlock!.promiseHistory).toEqual([{
@@ -321,6 +323,7 @@ describe('group 3: trust descriptor label and promise history, open then settled
       windowStartWeek: brokenPromise.windowStartWeek, dueWeekExclusive: brokenPromise.dueWeekExclusive,
       contractId: brokenPromise.contractId, outcome: 'BROKEN', outcomeWeek: dueWeekExclusive,
       outcomeCause: brokenPromise.outcomeCause,
+      supersededByPromiseId: null, progress: brokenPromise.progress,
     }])
   })
 })

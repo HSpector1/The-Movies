@@ -535,6 +535,8 @@ describe('CF-08 sound union-to-C# generation', () => {
         // P09 W1: the placement quote family joins the SAME union envelope.
         ['StudioQuotePlacementRequest', ['quotePlacement'], ['draft', 'type']],
         ['StudioQuoteSetCommissionRequest', ['quoteSetCommission'], ['draft', 'type']],
+        // P14B.8: the waiver quote family joins the same envelope.
+        ['StudioQuoteWaivePromiseRequest', ['quoteWaivePromise'], ['draft', 'type']],
       ])
 
       const response = discriminatedUnion(schema, 'StudioQuoteSnapshot')
@@ -559,12 +561,12 @@ describe('CF-08 sound union-to-C# generation', () => {
       // literal below is the schemaId of the checked-in
       // generated/unity/project-studio-bridge.contract-manifest.json at 040651b4,
       // read independently of this test (never schemaIdentity(schema) itself).
-      const generated = generateCsharpContract({ schema, protocolVersion: 4, projectionVersion: 49 })
+      const generated = generateCsharpContract({ schema, protocolVersion: 4, projectionVersion: 50 })
       expect(generated).toContain(
-        '// Schema identity: sha256:60af24c58bc4bea8f04e7fc818f8401daeadd87da91252e60cfcf3ee028d8e1b',
+        '// Schema identity: sha256:e2d354dcbae1a6dc93a2367756512c14243b11be202a26107de0c81a4f3e0698',
       )
       expect(schemaIdentity(schema)).toBe(
-        'sha256:60af24c58bc4bea8f04e7fc818f8401daeadd87da91252e60cfcf3ee028d8e1b',
+        'sha256:e2d354dcbae1a6dc93a2367756512c14243b11be202a26107de0c81a4f3e0698',
       )
       expect(generated).toContain('public sealed partial class StudioQuoteCastingRequest : StudioBridgeQuoteRequest')
       expect(generated).toContain('public StudioCastingDraftPayload draft;')
@@ -684,8 +686,19 @@ describe('CF-08 sound union-to-C# generation', () => {
         // against itself and never read off a failure message. F12 is the frozen P05 subset
         // and is INDEPENDENT of those $defs: it MUST NOT move, and the probe throws if it
         // does — that unchanged value is the evidence B.6 stayed inside its scope.
-        F10_CURRENT_QUOTE_UNIONS: 'd54e94725f3a8b516493a7a7e1a65727bd3b61019228763a63d8e9facfb9f139',
-        F11_CURRENT_COMMAND_UNION: 'd54e94725f3a8b516493a7a7e1a65727bd3b61019228763a63d8e9facfb9f139',
+        // P14B.8 (projection 50, record 753-W): the waiver quote family added five $defs
+        // (`StudioQuoteWaivePromiseRequest`, `StudioPromiseWaiverDraftPayload`, its two
+        // substitute members and their union) plus `StudioPromiseWaiverQuoteSnapshot`, and
+        // `StudioMarketPromiseHistoryRow` gained `supersededByPromiseId` and `progress`.
+        // F10 and F11 render the WHOLE schema, so the declaration body legitimately GREW
+        // again and both identities move together, d54e9472… -> 2f2fefaa… (386222 bytes
+        // each, up from 373576). Computed once BY THE GENERATOR on the B.8 source through a
+        // disposable probe that renders twice and refuses a non-deterministic render, NOT
+        // by this test against itself and never read off a failure message. F12 is the
+        // frozen P05 subset and is INDEPENDENT of those $defs: the same probe measured it
+        // UNCHANGED at 78d68a2d… / 15018 bytes, which is the evidence B.8 stayed in scope.
+        F10_CURRENT_QUOTE_UNIONS: '2f2fefaac16b113695e169f8c9cd4aba3ad453f3e78f20e3fdbaa602bbb2eb0e',
+        F11_CURRENT_COMMAND_UNION: '2f2fefaac16b113695e169f8c9cd4aba3ad453f3e78f20e3fdbaa602bbb2eb0e',
         F12_P05_PRODUCTION_SENTINEL: '78d68a2d7670585946f79ebbfc449c85c8ad98ac381b422a8a9abea66702bde6',
       } as const
       for (const [name, expectedHash] of Object.entries(expected)) {

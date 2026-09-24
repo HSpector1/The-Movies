@@ -101,6 +101,9 @@ import type {
   BridgeMarketProposalDraftPayload,
   BridgeQuoteMarketProposalRequest,
   BridgeMarketProposalQuoteSnapshot,
+  BridgePromiseWaiverDraftPayload,
+  BridgeQuoteWaivePromiseRequest,
+  BridgePromiseWaiverQuoteSnapshot,
 } from './schema/bridge-schema.ts'
 import { projectStudioProjectionBundle } from './schema/runtime.ts'
 import {
@@ -114,6 +117,7 @@ import {
   contractDraftToEngine, contractQuoteSnapshot,
   marketProposalDraftToEngine, marketProposalQuoteSnapshot, playerProposalDraft,
 } from './contract.ts'
+import { promiseWaiverDraftToEngine, promiseWaiverQuoteSnapshot } from './promises.ts'
 
 type ImportOutcome =
   | { ok: true; state: GameState; converted: boolean }
@@ -219,6 +223,16 @@ type PendingQuote =
       draft: BridgeMarketProposalDraftPayload
       stateDigest: string
       kind: 'marketProposalAction'
+      commitLabel: string
+    }
+  | {
+      // P14B.8: a LEGAL waiver preview mints the one waiver commit. The family
+      // discriminant is INTERNAL and deliberately differs from the wire intent kind,
+      // exactly as `marketProposal` differs from `marketProposalAction`.
+      family: 'promiseWaiver'
+      draft: BridgePromiseWaiverDraftPayload
+      stateDigest: string
+      kind: 'waivePromise'
       commitLabel: string
     }
 
@@ -1644,7 +1658,9 @@ export class BridgeSession {
             ? setCommissionDraftToEngine(this.state, pending.draft)
             : pending.family === 'marketProposal'
               ? marketProposalDraftToEngine(this.state, playerProposalDraft(this.state, pending.draft))
-              : contractDraftToEngine(this.state, pending.draft)
+              : pending.family === 'promiseWaiver'
+                ? promiseWaiverDraftToEngine(this.state, pending.draft)
+                : contractDraftToEngine(this.state, pending.draft)
     if (!conversion.ok) {
       return {
         option: { intentId, ...fields },
@@ -1678,6 +1694,24 @@ export class BridgeSession {
       return {
         option: { intentId, ...fields },
         apply: () => ({ ok: false, error: reason }),
+      }
+    }
+    // P14B.8: THE OWNERSHIP GATE, again at COMMIT. The conversion above re-resolves
+    // the promise on the LIVE state and returns `ok:false` for any id the player's own
+    // studio does not hold, so the `!conversion.ok` arm already refuses a rival's
+    // promise even if the board moved between the quote and the confirmation. Today no
+    // public sequence reaches this arm, because the quote is the only route to a
+    // registered waiver intent and it refuses first; an unreachable guard now is a
+    // reachable hole after the next change.
+    // AND the acceptance re-check (744 §11 A6): a substitute the person no longer
+    // accepts fails closed with CURATED copy. Letting `waivePromise` throw instead
+    // would publish `promises: this person did not accept the substitute — …`
+    // verbatim, since `caught` returns the raw message and `reject` republishes it.
+    if (conversion.kind === 'waivePromise' && conversion.refusal !== null) {
+      const refusal = conversion.refusal
+      return {
+        option: { intentId, ...fields },
+        apply: () => ({ ok: false, error: `This substitute is no longer accepted: ${refusal}.` }),
       }
     }
     // P09A W5: a Set quote that is no longer legal fails closed at commit the same way.
@@ -1760,6 +1794,7 @@ export class BridgeSession {
   quote(request: BridgeQuoteSetCommissionRequest): AcceptedQuoteResponseFor<BridgeSetCommissionQuoteSnapshot> | RejectedResponse
   quote(request: BridgeQuoteContractRequest): AcceptedQuoteResponseFor<BridgeContractQuoteSnapshot> | RejectedResponse
   quote(request: BridgeQuoteMarketProposalRequest): AcceptedQuoteResponseFor<BridgeMarketProposalQuoteSnapshot> | RejectedResponse
+  quote(request: BridgeQuoteWaivePromiseRequest): AcceptedQuoteResponseFor<BridgePromiseWaiverQuoteSnapshot> | RejectedResponse
   quote(request: BridgeQuoteRequest): QuoteResponse
   quote(request: BridgeQuoteRequest): QuoteResponse {
     const started = performance.now()
@@ -1919,6 +1954,37 @@ export class BridgeSession {
         draft: payload,
         stateDigest,
         kind: 'marketProposalAction',
+        commitLabel: quote.commitLabel,
+      })
+      this.capPendingQuotes()
+      return this.mintQuoteResponse(request, started, stateDigest, quote)
+    }
+
+    if (request.type === 'quoteWaivePromise') {
+      // P14B.8: a substitute this person would refuse is an ACCEPTED answer carrying
+      // `ok:false` and `waiverAccepted`'s bare sentence; only an accepted one is
+      // preflighted and registered for the digest-bound commit. A promise id this
+      // studio does not own — and one no promise exists for — are BOTH conversion
+      // refusals, with one identical sentence, so the answer never confirms a rival's
+      // promise exists. Detached VALUES, never a caller-owned mutable payload.
+      const draft = structuredClone(request.draft)
+      const conversion = promiseWaiverDraftToEngine(this.state, draft)
+      if (!conversion.ok) {
+        return this.reject(request.commandId, 'ENGINE_REJECTED', conversion.error, started)
+      }
+      const stateDigest = authoritativeDigest(this.state)
+      const intentId = opaqueIntentId(stateDigest, { promiseWaiverDraft: draft })
+      const quote = promiseWaiverQuoteSnapshot(conversion, intentId)
+      if (!quote.ok) return this.mintQuoteResponse(request, started, stateDigest, quote)
+      const preflight = caught(() => conversion.apply(this.state))
+      if (!preflight.ok) {
+        return this.reject(request.commandId, 'ENGINE_REJECTED', preflight.error, started)
+      }
+      this.pendingQuotes.set(intentId, {
+        family: 'promiseWaiver',
+        draft,
+        stateDigest,
+        kind: 'waivePromise',
         commitLabel: quote.commitLabel,
       })
       this.capPendingQuotes()

@@ -499,7 +499,7 @@ describe('P14B.3: real settlement/outcome, V29 and B2 public/private carriers', 
     const saved = saveSlot(completed)
     const validated = validateSaveV32(JSON.parse(saved))
     expect(LIVE_SAVE_VERSION).toBe(32)
-    expect(PROJECTION_VERSION).toBe(49)
+    expect(PROJECTION_VERSION).toBe(50)
     expect(validated.saveVersion).toBe(32)
     const reloaded = BridgeSession.fromSaveJson(saved, 'b3-outcome-reloaded')
     const read = (world: GameState) => ({ trust: trustBlockFor(world, talentId, player(world)),
@@ -509,9 +509,11 @@ describe('P14B.3: real settlement/outcome, V29 and B2 public/private carriers', 
     const before = read(outcome), after = read(reloaded.gameState)
     expect(after).toEqual(before)
     // P14B.4 (projection 47): the nullable `seatClass` rides every history row; a count-only P1 reads null.
+    // P14B.8 (projection 50): so do `supersededByPromiseId` and `progress`. This promise was
+    // BROKEN, never waived, and no take ever landed, so the link is null and progress is 0.
     expect(before.own).toEqual([{ promiseId: broken.promiseId, family: 'APPEARANCE_COUNT', count: 1, seatClass: null,
       windowStartWeek: 52, dueWeekExclusive: 92, contractId: broken.contractId, outcome: 'BROKEN',
-      outcomeWeek: 92, outcomeCause: broken.outcomeCause }])
+      outcomeWeek: 92, outcomeCause: broken.outcomeCause, supersededByPromiseId: null, progress: 0 }])
     expect(before.foreign).toEqual([]) // rival sees no player-owned private history; its losing draft is unbound
     // The public trust DTO carries kind/week/reason, not a private promise ID.
     expect(before.trust.drivers.filter((d) => d.kind === 'promiseBroken'))

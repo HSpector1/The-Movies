@@ -91,10 +91,13 @@ const BLOCK_KEY = 'collaborators'
 const OUTGOING_48 = 'sha256:00c0075bef257634956da7d16d117a145d203047e7169c643156b7971c4c7fec'
 const OUTGOING_47 = 'sha256:6f6b48805aadcf14d456614d87bf1571eb1ce0d9aa0bc44f604e7976f4f85538'
 const OUTGOING_46 = 'sha256:584bdd8565030f049d548b1af4fcbf8c517ca7c9150016736f632f1ef8fcb98c'
+// P14B.8: the outgoing projection-49 identity, retired by the B.8 bump.
+const OUTGOING_49 = 'sha256:60af24c58bc4bea8f04e7fc818f8401daeadd87da91252e60cfcf3ee028d8e1b'
 const OUTGOING_PROJECTION = 48
-const INCOMING_PROJECTION = 49
+const INCOMING_PROJECTION = 50
 // The 36 accepted prior literals as they stand today (tests/bridge-p14b4-runtime47-compatibility.test.ts
-// :40-80, exact-count pin at :162). B.6 takes this roster to 37 by adding OUTGOING_48.
+// :40-80, exact-count pin at :162). B.6 took this roster to 37 by adding OUTGOING_48;
+// B.8 takes it to 38 by adding OUTGOING_49.
 const EXPECTED_36_PRIOR_IDS = [
   'sha256:01f15efc8fc33fd810b051242857385ca23b5e1c775b357db1bfe5a70e907e1e', 'sha256:0285e92f32c27cd2960df802b3f7ea156a15372f05001ad1f4964c2f25db55b5',
   'sha256:0474ceafd6c148f329fe99eac328c79ed0b0caf906e0f7442b7f3cf0fe40cb4f', 'sha256:15033cf9ca43be65abcb25fc6f910f9487ac23056090126ec7d3e2353f6ce587',
@@ -747,7 +750,7 @@ describe('family 7 — the LEAK LAW over the NEW DTOs (RED BY RESOLUTION; the la
 
 // ═════════════════════════════════════════════════════════════════════════════════════════════════
 describe('family 8 — the WIRE (RED BY VALUE: version literals and a registry count; no absent module is imported here)', () => {
-  it('projection 49, schema $id projection-49, LIVE_SAVE_VERSION still 31, and the outgoing 48 identity is retired', () => {
+  it('projection 50, schema $id projection-50, LIVE_SAVE_VERSION still 32, and the outgoing 48 identity is retired', () => {
     expect(PROTOCOL_VERSION).toBe(4)
     expect(PROJECTION_VERSION).toBe(INCOMING_PROJECTION)
     expect(OUTGOING_PROJECTION).toBe(48)
@@ -757,14 +760,14 @@ describe('family 8 — the WIRE (RED BY VALUE: version literals and a registry c
     expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-4:projection-${String(INCOMING_PROJECTION)}`)
   })
 
-  it('the outgoing 00c0075b… registers as projection-v48 and the prior roster goes 36 -> 37 in sorted position', () => {
+  it('the outgoing 00c0075b… registers as projection-v48 and the prior roster goes 37 -> 38 in sorted position', () => {
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_48)).toBe('projection-v48')
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_47)).toBe('projection-v47')
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_46)).toBe('projection-v46')
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)
     expect(EXPECTED_36_PRIOR_IDS).toHaveLength(36)
-    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_36_PRIOR_IDS, OUTGOING_48].sort())
-    expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.size).toBe(37)
+    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_36_PRIOR_IDS, OUTGOING_48, OUTGOING_49].sort())
+    expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.size).toBe(38)
   })
 
   it('the checked-in generator artifacts equal the running identity (`--check` clean), and priorityOrder keeps its seven members and its line', () => {

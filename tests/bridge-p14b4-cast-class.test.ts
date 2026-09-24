@@ -329,9 +329,14 @@ describe('P14B4 real P2 session integration — offerability/commit prerequisite
 
 function history(state: GameState, root: ProfessionalPromiseV30, seatClass: SeatClass | null) {
   expect(root.contractId).not.toBeNull()
+  // P14B.8 (projection 50): `supersededByPromiseId` and `progress` ride every row, read
+  // off the LIVE row in `state`: one caller hands in a pre-V32 promise object that never
+  // carried the link at all, and reading it from there would pin `undefined`.
+  const live = state.promises.find((p) => p.promiseId === root.promiseId)!
   const expected = { promiseId: root.promiseId, family: root.family, count: root.predicate.count,
     seatClass, windowStartWeek: root.windowStartWeek, dueWeekExclusive: root.dueWeekExclusive,
-    contractId: root.contractId, outcome: root.outcome, outcomeWeek: root.outcomeWeek, outcomeCause: root.outcomeCause }
+    contractId: root.contractId, outcome: root.outcome, outcomeWeek: root.outcomeWeek, outcomeCause: root.outcomeCause,
+    supersededByPromiseId: live.supersededByPromiseId, progress: live.progress }
   const own = promiseRowsForPerson(state, root.beneficiaryPersonId, root.issuerStudioId)
   expect(own.filter((row) => row.promiseId === root.promiseId)).toEqual([expected])
   expect(parseWireValue(BRIDGE_SCHEMA.$defs.StudioMarketPromiseHistoryRow, expected)).toEqual(expected)

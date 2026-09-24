@@ -57,6 +57,14 @@ const R05_NATIVE_FOUNDING_SCHEMA_ID =
 // that window would carry the earlier hash, and this map is keyed on the
 // hash, not the label.
 export const SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS: ReadonlyMap<string, string> = new Map<string, string>([
+  // P14B.8: exact OUTGOING projection-49 identity (Save V32 / rules 4, no waiver quote
+  // family and no `supersededByPromiseId`/`progress` on the promise history row), minted
+  // at 4cba7090 and frozen in tests/fixtures/p14/genuine-projection49-runtime BEFORE this
+  // bump (T0a, record 744 §7). Registered in the SAME commit as the bump, never later:
+  // `validateVersionedRecord` strands every durable checkpoint written under an
+  // unregistered identity. Save V32 does not move in B.8, so both slots migrate as
+  // identity.
+  ['sha256:60af24c58bc4bea8f04e7fc818f8401daeadd87da91252e60cfcf3ee028d8e1b', 'projection-v49'],
   // P14B.6: exact OUTGOING projection-48 identity (Save V31, no relationship DTO),
   // minted at 43817117 and frozen in tests/fixtures/p14/genuine-projection48-runtime
   // BEFORE this bump (T0, record 697); every durable checkpoint written under it takes

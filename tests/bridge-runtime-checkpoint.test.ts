@@ -991,6 +991,10 @@ describe('prior protocol-4 acceptance boundary pins', () => {
       'sha256:584bdd8565030f049d548b1af4fcbf8c517ca7c9150016736f632f1ef8fcb98c',
       // Genuine outgoing projection45: e37cd23 generated header and preserved runtime checkpoint.
       'sha256:5b2a4ca93d930e90a288db55bb5cc3fdc8eea070ef51fa1450a193a325bd755d',
+      // P14B.8: the outgoing projection-49 identity — the checked-in contract-manifest
+      // schemaId before the projection-50 bump, also pinned independently by
+      // bridge-p14b4-runtime47-compatibility.test.ts.
+      'sha256:60af24c58bc4bea8f04e7fc818f8401daeadd87da91252e60cfcf3ee028d8e1b',
       'sha256:625377a2804a681da3be209da02850e221ae33ac5f58b727f6395736ad607ad1',
       'sha256:6a2c01feaf02c931a8c41bbf2090f8af003b89a492d77135d7aab2b42a8d3dc9',
       // P14B.5 (662-T2): the outgoing projection-47 identity — the checked-in

@@ -53,6 +53,11 @@ export const AVAILABLE_INTENT_KINDS = [
   // by an accepted, legal market-proposal quote; commit revalidates. Not a contract action:
   // nothing is signed or charged this week — the case settles at its decision week.
   'marketProposalAction',
+  // P14B.8: ONE waiver of ONE open promise the player's own studio issued, minted only
+  // by an accepted, legal waiver quote; commit revalidates, ownership included. Its own
+  // verb kind rather than a family router: a waiver settles one promise WAIVED and binds
+  // one substitute to the same employment contract, and nothing else.
+  'waivePromise',
 ] as const
 
 export const StudioBridgeIntentOption = object('StudioBridgeIntentOption', {

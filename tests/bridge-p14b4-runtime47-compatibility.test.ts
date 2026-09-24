@@ -35,7 +35,8 @@ const PINS = {
   minter: '58e3a9554026089616f96c309cc4dc1ad6b909c87936c9c129165fb77c96c5b6',
 } as const
 // All 34 accepted predecessor literal pins, plus the independently minted outgoing46,
-// (P14B.5) the independently minted outgoing47 and (P14B.6) the independently minted outgoing48.
+// (P14B.5) the independently minted outgoing47, (P14B.6) the independently minted
+// outgoing48 and (P14B.8) the independently minted outgoing49.
 // Do not derive this expected list from the registry. Missing32–44 are a separate backlog.
 const EXPECTED_PRIOR_IDS = [
   // P14B.6 (700-T2 sweep): the OUTGOING projection-48 identity — the checked-in
@@ -53,6 +54,10 @@ const EXPECTED_PRIOR_IDS = [
   'sha256:510f08e4a551827a30e0f3d93bbe09fa5ddadbd39366b4dcfa93530500c7979c',
   'sha256:584bdd8565030f049d548b1af4fcbf8c517ca7c9150016736f632f1ef8fcb98c',
   'sha256:5b2a4ca93d930e90a288db55bb5cc3fdc8eea070ef51fa1450a193a325bd755d',
+  // P14B.8: the OUTGOING projection-49 identity — the checked-in contract-manifest
+  // schemaId before the projection-50 bump, read independently
+  // (tests/fixtures/p14/genuine-projection49-runtime/MANIFEST.json).
+  'sha256:60af24c58bc4bea8f04e7fc818f8401daeadd87da91252e60cfcf3ee028d8e1b',
   'sha256:625377a2804a681da3be209da02850e221ae33ac5f58b727f6395736ad607ad1',
   'sha256:6a2c01feaf02c931a8c41bbf2090f8af003b89a492d77135d7aab2b42a8d3dc9',
   // P14B.5 (662-T2 sweep): the OUTGOING projection-47 identity — the checked-in
@@ -168,9 +173,9 @@ describe('P14B4 genuine outgoing46 runtime compatibility — future Save30/proje
     expect(current.state.talentMarket.proposals.filter((p) => p.promises.includes('promise-0'))).toEqual([])
   })
 
-  it('requires literal projection49/Save31 and exact 37 prior IDs, excluding the running identity', () => {
+  it('requires literal projection50/Save32 and exact 38 prior IDs, excluding the running identity', () => {
     expect(PROTOCOL_VERSION).toBe(4)
-    expect(PROJECTION_VERSION).toBe(49)
+    expect(PROJECTION_VERSION).toBe(50)
     expect(LIVE_SAVE_VERSION).toBe(32)
     expect(SCHEMA_ID).not.toBe(OUTGOING_46)
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)
