@@ -204,7 +204,7 @@ function containsNumber(value: unknown, target: number): boolean {
 
 describe('group 1: PROJECTION_VERSION / LIVE_SAVE_VERSION', () => {
   it('LIVE_SAVE_VERSION is 30 and the live promise surface carries projection 47 after the P14B.4 cutover (record 600 / 616)', () => {
-    expect(LIVE_SAVE_VERSION).toBe(32)
+    expect(LIVE_SAVE_VERSION).toBe(33)
     expect(PROJECTION_VERSION).toBe(50)
     expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${String(PROTOCOL_VERSION)}:projection-50`)
     expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(50)
@@ -496,7 +496,7 @@ describe('group 6: save/load', () => {
     // above ARE the V28->V29 step of that conversion), so the re-save is live-version bytes
     // by law. The fixture's V28 sha stays the provenance pin on the FILE (line above); the
     // re-save proves only that the bridge wrote the live envelope.
-    if (reSaved.accepted) expect((JSON.parse(reSaved.saveJson) as { saveVersion: number }).saveVersion).toBe(32)
+    if (reSaved.accepted) expect((JSON.parse(reSaved.saveJson) as { saveVersion: number }).saveVersion).toBe(33)
   })
 
   it('a live V30 state carrying a real promise round-trips through the bridge save/load path byte-stable, and the promise-row read is identical on both sides', () => {
@@ -512,7 +512,7 @@ describe('group 6: save/load', () => {
     expect(saved.accepted).toBe(true)
     if (!saved.accepted) throw new Error(`save refused: ${JSON.stringify(saved)}`)
     const parsed = JSON.parse(saved.saveJson) as { saveVersion: number; state: { promises: unknown[] } }
-    expect(parsed.saveVersion).toBe(32)
+    expect(parsed.saveVersion).toBe(33)
     expect(parsed.state.promises).toHaveLength(1)
 
     const reloaded = BridgeSession.fromSaveJson(saved.saveJson, 'p14b1-bridge-roundtrip-reload')

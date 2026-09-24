@@ -648,7 +648,7 @@ describe('P14B.7 group9 — Save V31 -> V32: supersededByPromiseId opens null, d
   // bridge/schema/bridge-schema.ts, and that import alone fails `npx tsc --noEmit` under the root
   // tsconfig regardless of anything downstream (730-T finding 3).
   it('LIVE_SAVE_VERSION is the value this slice\'s own V31->V32 step must produce (720 item 11)', () => {
-    expect(LIVE_SAVE_VERSION).toBe(32)
+    expect(LIVE_SAVE_VERSION).toBe(33)
   })
   it('convertV31ToV32 and convertV32ToV31 exist (the RED-mechanism guard for this group)', () => {
     assertMigrationFns()
@@ -658,7 +658,7 @@ describe('P14B.7 group9 — Save V31 -> V32: supersededByPromiseId opens null, d
     const v31 = validateSaveV31(JSON.parse(gunzipSync(readFileSync(corpusPath('kept-and-broken'))).toString('utf8')))
     expect(v31.state.promises.length).toBeGreaterThan(0)
     const v32 = (convertV31ToV32 as unknown as (s: typeof v31) => { saveVersion: number; state: GameState & { promises: readonly (ProfessionalPromise & { supersededByPromiseId: string | null })[] } })(v31)
-    expect(v32.saveVersion).toBe(32)
+    expect(v32.saveVersion).toBe(33)
     expect(v32.state.promises).toHaveLength(v31.state.promises.length)
     for (let i = 0; i < v32.state.promises.length; i++) {
       const { supersededByPromiseId, ...rest } = v32.state.promises[i]!
@@ -674,7 +674,7 @@ describe('P14B.7 group9 — Save V31 -> V32: supersededByPromiseId opens null, d
     assertMigrationFns()
     const v31 = validateSaveV31(JSON.parse(gunzipSync(readFileSync(corpusPath('kept-and-broken'))).toString('utf8')))
     const staged = {
-      saveVersion: 32, seed: v31.seed, broadcastCache: v31.broadcastCache,
+      saveVersion: 33, seed: v31.seed, broadcastCache: v31.broadcastCache,
       state: { ...v31.state, promises: v31.state.promises.map((p, i) => ({ ...p, supersededByPromiseId: i === 0 ? 'promise-1' : null })) },
     }
     expect(() => (convertV32ToV31 as unknown as (s: typeof staged) => unknown)(staged)).toThrow()

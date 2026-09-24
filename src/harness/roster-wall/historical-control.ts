@@ -4,6 +4,7 @@ import { initialTechnology } from '../../core/technology.js'
 import { initialPhysicalPlans } from '../../core/physicalPlans.js'
 import { initialTalentMarket } from '../../core/talentMarket.js'
 import { withResearchFoundation } from '../../core/researchPeople.js'
+import { buildTalentProvenance } from '../../core/aging.js'
 import { stableStringify } from '../../core/save.js'
 import { SKILL_ORDER, GENRE_ORDER } from '../../core/tuning.js'
 import type { GameState, GameStateV18 } from '../../core/types.js'
@@ -21,10 +22,19 @@ export function liftV18Control(state:GameStateV18):GameState { const cloned=stru
   // P14B.1 (Save V29): a historical control films no first take and makes no
   // promise — the two empty roots, exactly what the real lift writes.
   // P14B.5 (Save V31): it shares no work — the empty relationship root.
-  firstTakes:[],promises:[],relationships:[]} }
+  firstTakes:[],promises:[],relationships:[],
+  // P14C.1 (Save V33, record 762 §12 F4): `GameState` now requires the provenance
+  // root, so the control gets one — built from its OWN EXISTING ages at
+  // `boundaryWeek = market.tick`, and DELIBERATELY NOT FLOORED. A historical control
+  // is a frozen artifact whose ages are pre-C.1 facts: it is never ticked, never
+  // saved at V33 (it uses `makeSaveV18`), so nothing materializes over it, and C.1
+  // has no authority to move an accepted historical artifact. This is the one root
+  // in the codebase that is legitimately out of step with validator condition 2,
+  // because no V33 validator ever sees it.
+  talentProvenance:buildTalentProvenance(state.talent,state.market.tick,'legacy_age_anchor')} }
 export function historicalHashState<T extends object>(state:T):object {
   if(!('technology' in state) && !('hollywood' in state) && !('physicalPlans' in state) && !('talentMarket' in state)
-    && !('firstTakes' in state) && !('promises' in state) && !('relationships' in state))return state
+    && !('firstTakes' in state) && !('promises' in state) && !('relationships' in state) && !('talentProvenance' in state))return state
   if('hollywood' in state && state.hollywood!==null)throw new Error('Historical hash cannot discard a living industry')
   // P14B.1: the control records no qualifying event and no commitment; an empty
   // pair of roots is the only lawful shape to discard. P14B.5: nor any edge.
@@ -43,8 +53,21 @@ export function historicalHashState<T extends object>(state:T):object {
     // P14A.1: the historical control fights no contested expiry; an empty market root is the only lawful shape to discard.
     if (stableStringify(state.talentMarket) !== stableStringify(initialTalentMarket())) throw new Error('Historical hash cannot discard talent-market authority')
   }
+  if ('talentProvenance' in state) {
+    // P14C.1 (record 762 §12 F4): stripped on the `technology`/`physicalPlans`/
+    // `talentMarket` precedent — verified against the canonical rebuild from the
+    // control's own people — rather than the empty-root precedent, because this root
+    // is legitimately NON-EMPTY. Rebuilt from the root's own `boundaryWeek`, exactly
+    // as the technology check rebuilds from `recordingStartedWeek`.
+    const root = state.talentProvenance as GameState['talentProvenance']
+    const people = ((state as Partial<GameState>).talent ?? []) as readonly {id: string; age: number}[]
+    if (stableStringify(root) !== stableStringify(buildTalentProvenance(people, root.boundaryWeek, 'legacy_age_anchor'))) {
+      throw new Error('Historical hash cannot discard talent provenance authority')
+    }
+  }
   const {hollywood: _control, technology: _research, physicalPlans: _plans, talentMarket: _market,
-    firstTakes: _takes, promises: _promises, relationships: _relationships,...frozen}=state as Partial<GameState>
+    firstTakes: _takes, promises: _promises, relationships: _relationships, talentProvenance: _provenance,
+    ...frozen}=state as Partial<GameState>
   if (frozen.operations) {
     // P13B S5-R07: the live workflow carries `setup`/`planRevision`; a historical control never selected a recipe, so the only lawful
     // shape to discard is the null record at revision 0.

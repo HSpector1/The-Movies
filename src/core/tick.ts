@@ -1,4 +1,5 @@
 import { advanceHollywoodWeek, finishHollywoodWeek } from './hollywoodTick.js'
+import { materializeAges, withTalentProvenance } from './aging.js'
 import { advancePromisesWeek, appendFirstTakes } from './promises.js'
 import { advanceRelationshipsWeek } from './relationships.js'
 import { advanceTalentMarketWeek } from './talentMarket.js'
@@ -1034,6 +1035,26 @@ export function tick(state: GameState, options?: TickOptions): GameState {
   // collector commits. No milestone is reconstructed when loading a later save.
   for (const draft of technologyMilestoneDrafts(state, currentTick + 1)) history.append(draft)
 
+  // P14C.1 (record 762 §10): the ONE materialization, at the TICK TAIL beside the
+  // clock advance below, against `currentTick + 1` — the week this advance PRODUCES.
+  // Nowhere else works: `tick.ts:408-410` states the rule in its own comment ("the
+  // clock is the TICK's to advance, as its last step"), so for the whole body of the
+  // tick `state.market.tick` is still `currentTick` and there is no point inside it
+  // that is both after the advance and before every reader of `talent.age`.
+  //
+  // The invariant this produces is stronger than the original §5 wording and is
+  // exactly validator condition 2: on every state the engine emits,
+  // `talent[i].age === ageAt(row_i, state.market.tick)`. A person whose birthday
+  // falls in week `w` is the new age for the WHOLE of week `w`, because the tick that
+  // produced week `w` set it here. It consumes no RNG, so `rngState` above is final.
+  // The rival supply of `hollywoodTick.ts:142` appended into the same `talent` array,
+  // so its rows are written here, with that commit, BEFORE the materialization reads
+  // them. `withTalentProvenance` anchors each on `state.market.tick` — still
+  // `currentTick`, the week `staff()` itself used.
+  let provenanced: GameState = { ...state, talent, talentProvenance: state.talentProvenance }
+  for (const person of industry.suppliedTalent) provenanced = withTalentProvenance(provenanced, person)
+  const materialized = materializeAges(provenanced, currentTick + 1)
+
   let finalized: GameState = {
     // C2a-M4: the ADMITTED state is the base — it carries this advance's queue
     // (rows granted or expired are gone from it), the concepts an admitted
@@ -1046,7 +1067,8 @@ export function tick(state: GameState, options?: TickOptions): GameState {
     hollywood,
     rngState: rng.serialize(),
     market: { ...state.market, tick: currentTick + 1 },
-    talent,
+    talent: materialized.talent,
+    talentProvenance: materialized.talentProvenance,
     studio: {
       ...admitted.studio,
       cash,

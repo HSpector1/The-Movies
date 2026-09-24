@@ -50,7 +50,7 @@ import { tick } from '../src/core/tick.js'
 import * as marketModule from '../src/core/talentMarket.js'
 import { submitProposal } from '../src/core/talentMarket.js'
 import { attachPromise } from '../src/core/promises.js'
-import { exportSave, importSave, LIVE_SAVE_VERSION, makeSave, migrateToV32, validateSaveV30 } from '../src/core/save.js'
+import { exportSave, importSave, LIVE_SAVE_VERSION, makeSave, migrateToV33, validateSaveV30 } from '../src/core/save.js'
 import { advanceTo, fund, p13aGeneratedStudio, player, poachingFixture } from './helpers/p14b2-fixtures.js'
 import type { GameState, TalentMarketCase, TalentMarketReceipt } from '../src/core/types.js'
 
@@ -293,7 +293,7 @@ describe('P14B.5 frozen side — the OUTGOING wire identities (R-VERSION class, 
     // The checked-in contract-manifest schemaId at ad49031f, read independently of this test.
     expect(SCHEMA_ID).toBe('sha256:e2d354dcbae1a6dc93a2367756512c14243b11be202a26107de0c81a4f3e0698')
     expect(SCHEMA_ID).not.toBe(OUTGOING_47)
-    expect(LIVE_SAVE_VERSION).toBe(32)
+    expect(LIVE_SAVE_VERSION).toBe(33)
     expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_35_PRIOR_IDS, OUTGOING_47, OUTGOING_48, OUTGOING_49].sort())
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_46)).toBe('projection-v46')
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_47)).toBe('projection-v47')
@@ -346,13 +346,13 @@ describe('family 11 — projection 48 THIN (RED by value): the enum, the registr
   })
 
   it.each(['currentSaveJson', 'savedSaveJson'] as const)('the genuine projection-47 checkpoint takes the governed prior path and %s lands on the live save through migrateToV32', (slot) => {
-    expect(typeof migrateToV32).toBe('function')
+    expect(typeof migrateToV33).toBe('function')
     const { raw, prior } = checkpoint()
     const loaded = loadBridgeRuntimeCheckpoint(raw, undefined, () => 'p14b5-new48-' + slot)
     expect(loaded.migratedFromProtocolVersion).toBe(4)
     const actualBytes = loaded.hydrated.checkpoint[slot]
     assert.ok(typeof actualBytes === 'string')
-    const expected = migrateToV32(importSave(prior[slot]))
+    const expected = migrateToV33(importSave(prior[slot]))
     expect(expected.saveVersion).toBe(LIVE_SAVE_VERSION)
     expect(actualBytes).toBe(exportSave(expected))
     const actual = importSave(actualBytes)
@@ -360,7 +360,7 @@ describe('family 11 — projection 48 THIN (RED by value): the enum, the registr
     // 662-T2b (657 REFINE): narrow the SaveFile union to the live V31 member (the runtime47 :201 guard) so the
     // root reads below typecheck; the literal is R-VERSION class and the pin above already holds the value.
     // 735-T (P14B.7 bridge sweep): the live member is V32 now, one step further.
-    if (actual.saveVersion !== 32) throw new Error('slot did not reach the live Save32')
+    if (actual.saveVersion !== 33) throw new Error('slot did not reach the live Save32')
     expect(actual.state.market.tick).toBe(CHECKPOINT.week)
     expect((actual.state as unknown as { relationships: unknown }).relationships).toEqual([])
     const old = validateSaveV30(JSON.parse(prior[slot]))

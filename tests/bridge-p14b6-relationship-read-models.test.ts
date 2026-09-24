@@ -76,7 +76,7 @@ import { castingDraftToEngine, castingProjection, castingQuoteSnapshot } from '.
 import type { BridgeCastingDraftPayload } from '../bridge/schema/bridge-schema.ts'
 import { applyActions } from '../src/core/actions.js'
 import { tick } from '../src/core/tick.js'
-import { exportSave, importSave, LIVE_SAVE_VERSION, makeSave, migrateToV32, validateSaveV30, validateSaveV32 } from '../src/core/save.js'
+import { exportSave, importSave, LIVE_SAVE_VERSION, makeSave, migrateToV33, validateSaveV30, validateSaveV33 } from '../src/core/save.js'
 import { pairChemistry, RELATIONSHIP_TIERS } from '../src/core/relationships.js'
 import type { GameState, RelationshipDriver, RelationshipTier } from '../src/core/types.js'
 import { historyFixture, player, retentionFixture } from './helpers/p14b2-fixtures.js'
@@ -218,7 +218,7 @@ function everyBlock(state: GameState): { talentId: string; block: Block }[] {
 function admitted(state: GameState, label: string): GameState {
   const save = makeSave(state)
   expect(save.saveVersion).toBe(LIVE_SAVE_VERSION)
-  validateSaveV32(JSON.parse(JSON.stringify(save)))
+  validateSaveV33(JSON.parse(JSON.stringify(save)))
   expect(label.length).toBeGreaterThan(0)
   return save.state as GameState
 }
@@ -714,7 +714,7 @@ describe('family 6 — FACTUAL SHARED-CREDIT COUNTS, Owner ruling 3 (ii) (RED BY
     const compressed = readFileSync(artifact('genuine-projection47-runtime/genuine-projection47-runtime.checkpoint.json.gz'))
     expect(sha(compressed)).toBe(PRIOR_47.gz)
     const prior = JSON.parse(gunzipSync(compressed).toString('utf8')) as { savedSaveJson: string }
-    const migrated = migrateToV32(importSave(prior.savedSaveJson))
+    const migrated = migrateToV33(importSave(prior.savedSaveJson))
     expect(migrated.saveVersion).toBe(LIVE_SAVE_VERSION)
     const state = migrated.state as unknown as GameState
     expect(edges(state)).toEqual([])
@@ -754,7 +754,7 @@ describe('family 8 — the WIRE (RED BY VALUE: version literals and a registry c
     expect(PROTOCOL_VERSION).toBe(4)
     expect(PROJECTION_VERSION).toBe(INCOMING_PROJECTION)
     expect(OUTGOING_PROJECTION).toBe(48)
-    expect(LIVE_SAVE_VERSION).toBe(32) // B.6 has NO save step
+    expect(LIVE_SAVE_VERSION).toBe(33) // B.6 has NO save step
     expect(SCHEMA_ID).not.toBe(OUTGOING_48)
     expect(schemaIdentity(BRIDGE_SCHEMA)).toBe(SCHEMA_ID)
     expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-4:projection-${String(INCOMING_PROJECTION)}`)
@@ -816,7 +816,7 @@ describe('family 9 — COMPATIBILITY (RED BY VALUE: the T0 fixture identity is t
       // no-op, the P14B.5-era claim this test made when V31 was still live).
       // The byte-parity claim itself is unweakened: the checkpoint loader's
       // output must still equal the SAME governed migration run directly.
-      expect(bytes).toBe(exportSave(migrateToV32(importSave(prior[slot]))))
+      expect(bytes).toBe(exportSave(migrateToV33(importSave(prior[slot]))))
       const actual = importSave(bytes)
       expect(actual.saveVersion).toBe(LIVE_SAVE_VERSION)
       expect(actual.state.market.tick).toBe(T0_48.week)

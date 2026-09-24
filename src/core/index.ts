@@ -101,6 +101,9 @@ export type {
   GameStateV30,
   GameStateV31,
   GameStateV32,
+  GameStateV33,
+  TalentProvenanceRoot,
+  TalentProvenanceRow,
   RelationshipEdge,
   RelationshipDriver,
   RelationshipDriverKind,
@@ -1306,11 +1309,17 @@ export {
   migrateToV31,
   convertV30ToV31,
   convertV31ToV30,
-  // P14B.7 — live V31 → NEW V32 + migrateToV32 (the waived-promise link).
+  // P14B.7 — V31 → V32 + migrateToV32 (the waived-promise link).
   validateSaveV32,
   migrateToV32,
   convertV31ToV32,
   convertV32ToV31,
+  // P14C.1 — live V32 → NEW V33 + migrateToV33 (the talent provenance root).
+  validateSaveV33,
+  validateTalentProvenanceRoot,
+  migrateToV33,
+  convertV32ToV33,
+  convertV33ToV32,
   convertV27ToV28,
   convertV28ToV27,
   // P13B-S5-R07 — live V24 → NEW V25 + migrateToV25 (the widened production
@@ -1352,6 +1361,7 @@ export type {
   SaveFileV30,
   SaveFileV31,
   SaveFileV32,
+  SaveFileV33,
   SaveFile,
   TalentV1,
   GameStateV1,
@@ -1564,6 +1574,18 @@ export type {
 } from './types.js'
 export { forecastHistoryForOwner } from './industryCareer.js'
 export { exportCurrentState } from './save.js'
+
+// ── P14C.1 Materialized aging — age derived from provenance, never incremented ──
+export {
+  anchorOf,
+  ageAt,
+  nextBirthdayWeek,
+  provenanceRowFor,
+  recomputeDue,
+  buildTalentProvenance,
+  materializeAges,
+  withTalentProvenance,
+} from './aging.js'
 export { campaignDate } from './calendar.js'
 export { SYNCHRONIZED_SOUND, researchWeekQuote, playerTechnologyAccess, technologyAccess, validateTechnologyV2, validateTechnologyV3, liftTechnologyV2, liftTechnologyV3 } from './technology.js'
 export { adoptionQuote, equipmentAssets } from './technologyAdoption.js'

@@ -1,7 +1,7 @@
 import { beforeAll, describe, expect, it } from 'vitest'
 import { applyActions } from '../src/core/actions.js'
 import { activeContract, weeklySalary } from '../src/core/employment.js'
-import { exportSave, importSave, makeSave, migrateToV32 } from '../src/core/save.js'
+import { exportSave, importSave, makeSave, migrateToV33 } from '../src/core/save.js'
 import { eligibleSeatIds, researchCandidates, researchWeekQuote, weeklyResearchPayroll } from '../src/core/technology.js'
 import { tick } from '../src/core/tick.js'
 import type { GameState } from '../src/core/types.js'
@@ -56,7 +56,7 @@ function buildFixtureB(base: GameState, lab: string): FixtureB {
 
 function assertRoundTrip(state: GameState) {
   const direct = exportSave(makeSave(state))
-  const restored = migrateToV32(importSave(direct)).state
+  const restored = migrateToV33(importSave(direct)).state
   expect(exportSave(makeSave(restored))).toBe(direct)
 }
 

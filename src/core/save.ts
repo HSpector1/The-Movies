@@ -54,6 +54,7 @@ import { initialPhysicalPlans, validatePhysicalPlans } from './physicalPlans.js'
 import { initialTalentMarket, projectLegacyTerminations, projectTalentMarketPreV28, talentMarketTerminationLaw, validateTalentMarketRoot } from './talentMarket.js'
 import { projectPromisesPreV29, projectPromisesPreV32, validatePromiseRoots, validatePromiseRootsV30, validateWaivedPromiseLinks } from './promises.js'
 import { projectRelationshipsPreV31, validateRelationshipsRoot } from './relationships.js'
+import { ageAt, anchorOf, buildTalentProvenance, recomputeDue } from './aging.js'
 import { PRE_V28_TERMINATION_LAW } from './employment.js'
 import type { TerminationLaw } from './employment.js'
 import type {
@@ -89,6 +90,8 @@ import type {
   GameStateV30,
   GameStateV31,
   GameStateV32,
+  GameStateV33,
+  TalentProvenanceRow,
   CancellationReceipt,
   PhysicalPlan,
   PlacedFacility,
@@ -525,6 +528,16 @@ export type SaveFileV32 = {
   broadcastCache: BroadcastItem[];
 };
 
+// P14C.1: the live gameplay boundary. Only V33 carries the top-level
+// `talentProvenance` root; V32 is the frozen prior shape it migrates from, and
+// the downgrade back is lossless exactly while no age has materialized.
+export type SaveFileV33 = {
+  saveVersion: 33;
+  seed: string;
+  state: GameStateV33;
+  broadcastCache: BroadcastItem[];
+};
+
 // Any envelope (the return of the version-dispatching validateSave/loadSave).
 export type SaveFile =
   | SaveFileV1
@@ -558,7 +571,8 @@ export type SaveFile =
   | SaveFileV29
   | SaveFileV30
   | SaveFileV31
-  | SaveFileV32;
+  | SaveFileV32
+  | SaveFileV33;
 
 // ── Stable stringify (UNCHANGED) ─────────────────────────────────────────────
 // Recursively serializes with object keys sorted lexicographically, so the same
@@ -5306,8 +5320,9 @@ export function validateSave(save: unknown): SaveFile {
   if (s.saveVersion === 30) return validateSaveV30(save);
   if (s.saveVersion === 31) return validateSaveV31(save);
   if (s.saveVersion === 32) return validateSaveV32(save);
+  if (s.saveVersion === 33) return validateSaveV33(save);
   throw new Error(
-    `validateSave: unknown saveVersion ${JSON.stringify(s.saveVersion)} (this build handles versions 1 through 32 only)`,
+    `validateSave: unknown saveVersion ${JSON.stringify(s.saveVersion)} (this build handles versions 1 through 33 only)`,
   );
 }
 
@@ -6419,15 +6434,15 @@ export function makeSaveV16(state: GameStateV16): SaveFileV16 {
 // Every caller that asks "is this envelope a migration?" compares against this
 // constant rather than a literal that goes stale the next time `makeSave` moves
 // (the bridge and the ui adapter both still compared against 23 at V25).
-export const LIVE_SAVE_VERSION = 32 as const;
+export const LIVE_SAVE_VERSION = 33 as const;
 
-// makeSave — the live V32 boundary (P14B.7). Frozen prior values migrate explicitly.
+// makeSave — the live V33 boundary (P14C.1). Frozen prior values migrate explicitly.
 // The new plain-JSON root is detached once; only final serialization sorts it.
-export function makeSave(state: GameState): SaveFileV32 {
-  const save = validateSaveV32({ saveVersion: 32, seed: state.seed, state, broadcastCache: state.broadcastItems });
+export function makeSave(state: GameState): SaveFileV33 {
+  const save = validateSaveV33({ saveVersion: 33, seed: state.seed, state, broadcastCache: state.broadcastItems });
   // Validation precedes detachment, so undefined/non-JSON authority cannot be
   // silently repaired by stringify before the boundary sees it.
-  return JSON.parse(JSON.stringify(save)) as SaveFileV32;
+  return JSON.parse(JSON.stringify(save)) as SaveFileV33;
 }
 
 // ── Load / export / import ───────────────────────────────────────────────────
@@ -7340,6 +7355,7 @@ export function migrateToV7(
 // V1–V7 migrate deterministically. Newer files are rejected loudly: this function
 // may never silently discard authoritative screenplay or casting state.
 export function migrateToV8(save: SaveFile): SaveFileV8 {
+  if (save.saveVersion === 33) throw new Error('migrateToV8: cannot downgrade SaveFileV33 or discard the talent provenance root');
   if (save.saveVersion === 32) throw new Error('migrateToV8: cannot downgrade SaveFileV32 or discard the waived-promise link');
   if (save.saveVersion === 31) throw new Error('migrateToV8: cannot downgrade SaveFileV31 or discard the relationship record');
   if (save.saveVersion === 30) throw new Error('migrateToV8: cannot downgrade SaveFileV30 or discard the promise predicate');
@@ -7367,6 +7383,7 @@ export function migrateToV8(save: SaveFile): SaveFileV8 {
 // identity; V1–V8 migrate forward. V10 is rejected rather than silently losing
 // authoritative casting history.
 export function migrateToV9(save: SaveFile): SaveFileV9 {
+  if (save.saveVersion === 33) throw new Error('migrateToV9: cannot downgrade SaveFileV33 or discard the talent provenance root');
   if (save.saveVersion === 32) throw new Error('migrateToV9: cannot downgrade SaveFileV32 or discard the waived-promise link');
   if (save.saveVersion === 31) throw new Error('migrateToV9: cannot downgrade SaveFileV31 or discard the relationship record');
   if (save.saveVersion === 30) throw new Error('migrateToV9: cannot downgrade SaveFileV30 or discard the promise predicate');
@@ -7393,6 +7410,7 @@ export function migrateToV9(save: SaveFile): SaveFileV9 {
 // identity; V1–V9 cross every frozen boundary and receive exactly legacy-empty
 // casting state only at the final V9→V10 step. V11 is rejected, never downgraded.
 export function migrateToV10(save: SaveFile): SaveFileV10 {
+  if (save.saveVersion === 33) throw new Error('migrateToV10: cannot downgrade SaveFileV33 or discard the talent provenance root');
   if (save.saveVersion === 32) throw new Error('migrateToV10: cannot downgrade SaveFileV32 or discard the waived-promise link');
   if (save.saveVersion === 31) throw new Error('migrateToV10: cannot downgrade SaveFileV31 or discard the relationship record');
   if (save.saveVersion === 30) throw new Error('migrateToV10: cannot downgrade SaveFileV30 or discard the promise predicate');
@@ -7420,6 +7438,7 @@ export function migrateToV10(save: SaveFile): SaveFileV10 {
 // mode. V12 is rejected, never downgraded: a placed facility, its land, its
 // debit, and its operating history have no V11 home.
 export function migrateToV11(save: SaveFile): SaveFileV11 {
+  if (save.saveVersion === 33) throw new Error('migrateToV11: cannot downgrade SaveFileV33 or discard the talent provenance root');
   if (save.saveVersion === 32) throw new Error('migrateToV11: cannot downgrade SaveFileV32 or discard the waived-promise link');
   if (save.saveVersion === 31) throw new Error('migrateToV11: cannot downgrade SaveFileV31 or discard the relationship record');
   if (save.saveVersion === 30) throw new Error('migrateToV11: cannot downgrade SaveFileV30 or discard the promise predicate');
@@ -7445,6 +7464,7 @@ export function migrateToV11(save: SaveFile): SaveFileV11 {
 // their own validated construction history implies at the final V11→V12 step.
 // V13 is rejected, never downgraded: a property that has grown has no V12 home.
 export function migrateToV12(save: SaveFile): SaveFileV12 {
+  if (save.saveVersion === 33) throw new Error('migrateToV12: cannot downgrade SaveFileV33 or discard the talent provenance root');
   if (save.saveVersion === 32) throw new Error('migrateToV12: cannot downgrade SaveFileV32 or discard the waived-promise link');
   if (save.saveVersion === 31) throw new Error('migrateToV12: cannot downgrade SaveFileV31 or discard the relationship record');
   if (save.saveVersion === 30) throw new Error('migrateToV12: cannot downgrade SaveFileV30 or discard the promise predicate');
@@ -7473,6 +7493,7 @@ export function migrateToV12(save: SaveFile): SaveFileV12 {
 // one widened leaf — the honest, un-guessed `subjectId: null` on any
 // pre-existing `queueIntentExpired` row — at the final V14→V15 step.
 export function migrateToV15(save: SaveFile): SaveFileV15 {
+  if (save.saveVersion === 33) throw new Error('migrateToV15: cannot downgrade SaveFileV33 or discard the talent provenance root');
   if (save.saveVersion === 32) throw new Error('migrateToV15: cannot downgrade SaveFileV32 or discard the waived-promise link');
   if (save.saveVersion === 31) throw new Error('migrateToV15: cannot downgrade SaveFileV31 or discard the relationship record');
   if (save.saveVersion === 30) throw new Error('migrateToV15: cannot downgrade SaveFileV30 or discard the promise predicate');
@@ -7553,6 +7574,7 @@ export function convertV17ToV18(v17: SaveFileV17): SaveFileV18 {
 // identity (after validation at the call boundary); V1–V17 cross every frozen
 // boundary, then receive `endowed` at the final V17→V18 step.
 export function migrateToV18(save: SaveFile): SaveFileV18 {
+  if (save.saveVersion === 33) throw new Error('migrateToV18: cannot downgrade SaveFileV33 or discard the talent provenance root');
   if (save.saveVersion === 32) throw new Error('migrateToV18: cannot downgrade SaveFileV32 or discard the waived-promise link');
   if (save.saveVersion === 31) throw new Error('migrateToV18: cannot downgrade SaveFileV31 or discard the relationship record');
   if (save.saveVersion === 30) throw new Error('migrateToV18: cannot downgrade SaveFileV30 or discard the promise predicate');
@@ -7574,6 +7596,7 @@ export function migrateToV18(save: SaveFile): SaveFileV18 {
 // migrateToV17 — the frozen V17-target migration (P08A). A V18 save can never
 // be downgraded: discarding the founding regime would erase exact history.
 export function migrateToV17(save: SaveFile): SaveFileV17 {
+  if (save.saveVersion === 33) throw new Error('migrateToV17: cannot downgrade SaveFileV33 or discard the talent provenance root');
   if (save.saveVersion === 32) throw new Error('migrateToV17: cannot downgrade SaveFileV32 or discard the waived-promise link');
   if (save.saveVersion === 31) throw new Error('migrateToV17: cannot downgrade SaveFileV31 or discard the relationship record');
   if (save.saveVersion === 30) throw new Error('migrateToV17: cannot downgrade SaveFileV30 or discard the promise predicate');
@@ -7600,6 +7623,7 @@ export function migrateToV17(save: SaveFile): SaveFileV17 {
 // migrateToV16 — the frozen V16-target migration (P06A). A V17 save can never
 // be downgraded: discarding the recorded history would silently erase provenance.
 export function migrateToV16(save: SaveFile): SaveFileV16 {
+  if (save.saveVersion === 33) throw new Error('migrateToV16: cannot downgrade SaveFileV33 or discard the talent provenance root');
   if (save.saveVersion === 32) throw new Error('migrateToV16: cannot downgrade SaveFileV32 or discard the waived-promise link');
   if (save.saveVersion === 31) throw new Error('migrateToV16: cannot downgrade SaveFileV31 or discard the relationship record');
   if (save.saveVersion === 30) throw new Error('migrateToV16: cannot downgrade SaveFileV30 or discard the promise predicate');
@@ -7629,6 +7653,7 @@ export function migrateToV16(save: SaveFile): SaveFileV16 {
 }
 
 export function migrateToV14(save: SaveFile): SaveFileV14 {
+  if (save.saveVersion === 33) throw new Error('migrateToV14: cannot downgrade SaveFileV33 or discard the talent provenance root');
   if (save.saveVersion === 32) throw new Error('migrateToV14: cannot downgrade SaveFileV32 or discard the waived-promise link');
   if (save.saveVersion === 31) throw new Error('migrateToV14: cannot downgrade SaveFileV31 or discard the relationship record');
   if (save.saveVersion === 30) throw new Error('migrateToV14: cannot downgrade SaveFileV30 or discard the promise predicate');
@@ -7668,6 +7693,7 @@ export function migrateToV14(save: SaveFile): SaveFileV14 {
 }
 
 export function migrateToV13(save: SaveFile): SaveFileV13 {
+  if (save.saveVersion === 33) throw new Error('migrateToV13: cannot downgrade SaveFileV33 or discard the talent provenance root');
   if (save.saveVersion === 32) throw new Error('migrateToV13: cannot downgrade SaveFileV32 or discard the waived-promise link');
   if (save.saveVersion === 31) throw new Error('migrateToV13: cannot downgrade SaveFileV31 or discard the relationship record');
   if (save.saveVersion === 30) throw new Error('migrateToV13: cannot downgrade SaveFileV30 or discard the promise predicate');
@@ -7776,6 +7802,7 @@ export function convertV18ToV19(save: SaveFileV18): SaveFileV19 {
   return validateSaveV19({ saveVersion: 19, seed: save.seed, state, broadcastCache: state.broadcastItems });
 }
 export function migrateToV19(save: SaveFile): SaveFileV19 {
+  if (save.saveVersion === 33) throw new Error('migrateToV19: cannot downgrade SaveFileV33 or discard the talent provenance root');
   if (save.saveVersion === 32) throw new Error('migrateToV19: cannot downgrade SaveFileV32 or discard the waived-promise link');
   if (save.saveVersion === 31) throw new Error('migrateToV19: cannot downgrade SaveFileV31 or discard the relationship record');
   if (save.saveVersion === 30) throw new Error('migrateToV19: cannot downgrade SaveFileV30 or discard the promise predicate');
@@ -7859,6 +7886,7 @@ export function convertV20ToV21(save: SaveFileV20): SaveFileV21 {
 }
 
 export function migrateToV21(save: SaveFile): SaveFileV21 {
+  if (save.saveVersion === 33) throw new Error('migrateToV21: cannot downgrade SaveFileV33 or discard the talent provenance root');
   if (save.saveVersion === 32) throw new Error('migrateToV21: cannot downgrade SaveFileV32 or discard the waived-promise link');
   if (save.saveVersion === 31) throw new Error('migrateToV21: cannot downgrade SaveFileV31 or discard the relationship record');
   if (save.saveVersion === 30) throw new Error('migrateToV21: cannot downgrade SaveFileV30 or discard the promise predicate');
@@ -7888,6 +7916,7 @@ export function convertV21ToV22(save: SaveFileV21): SaveFileV22 {
 }
 
 export function migrateToV22(save: SaveFile): SaveFileV22 {
+  if (save.saveVersion === 33) throw new Error('migrateToV22: cannot downgrade SaveFileV33 or discard the talent provenance root');
   if (save.saveVersion === 32) throw new Error('migrateToV22: cannot downgrade SaveFileV32 or discard the waived-promise link');
   if (save.saveVersion === 31) throw new Error('migrateToV22: cannot downgrade SaveFileV31 or discard the relationship record');
   if (save.saveVersion === 30) throw new Error('migrateToV22: cannot downgrade SaveFileV30 or discard the promise predicate');
@@ -7942,6 +7971,7 @@ export function convertV22ToV23(save: SaveFileV22): SaveFileV23 {
  * so nothing here is trusted on the strength of its declared type alone.
  */
 export function migrateToV23(save: SaveFile | { saveVersion: number }): SaveFileV23 {
+  if (save.saveVersion === 33) throw new Error('migrateToV23: cannot downgrade SaveFileV33 or discard the talent provenance root');
   if (save.saveVersion === 32) throw new Error('migrateToV23: cannot downgrade SaveFileV32 or discard the waived-promise link');
   if (save.saveVersion === 31) throw new Error('migrateToV23: cannot downgrade SaveFileV31 or discard the relationship record');
   if (save.saveVersion === 30) throw new Error('migrateToV23: cannot downgrade SaveFileV30 or discard the promise predicate');
@@ -8006,6 +8036,7 @@ export function convertV23ToV24(save: SaveFileV23): SaveFileV24 {
  * so nothing here is trusted on the strength of its declared type alone.
  */
 export function migrateToV24(save: SaveFile | { saveVersion: number }): SaveFileV24 {
+  if (save.saveVersion === 33) throw new Error('migrateToV24: cannot downgrade SaveFileV33 or discard the talent provenance root');
   if (save.saveVersion === 32) throw new Error('migrateToV24: cannot downgrade SaveFileV32 or discard the waived-promise link');
   if (save.saveVersion === 31) throw new Error('migrateToV24: cannot downgrade SaveFileV31 or discard the relationship record');
   if (save.saveVersion === 30) throw new Error('migrateToV24: cannot downgrade SaveFileV30 or discard the promise predicate');
@@ -8231,6 +8262,7 @@ export function convertV24ToV25(save: SaveFileV24): SaveFileV25 {
  * so nothing here is trusted on the strength of its declared type alone.
  */
 export function migrateToV25(save: SaveFile | { saveVersion: number }): SaveFileV25 {
+  if (save.saveVersion === 33) throw new Error('migrateToV25: cannot downgrade SaveFileV33 or discard the talent provenance root');
   if (save.saveVersion === 32) throw new Error('migrateToV25: cannot downgrade SaveFileV32 or discard the waived-promise link');
   if (save.saveVersion === 31) throw new Error('migrateToV25: cannot downgrade SaveFileV31 or discard the relationship record');
   if (save.saveVersion === 30) throw new Error('migrateToV25: cannot downgrade SaveFileV30 or discard the promise predicate');
@@ -8397,6 +8429,7 @@ export function convertV25ToV26(save: SaveFileV25): SaveFileV26 {
  * so nothing here is trusted on the strength of its declared type alone.
  */
 export function migrateToV26(save: SaveFile | { saveVersion: number }): SaveFileV26 {
+  if (save.saveVersion === 33) return migrateToV26(convertV33ToV32(save as SaveFileV33));
   if (save.saveVersion === 32) return migrateToV26(convertV32ToV31(save as SaveFileV32));
   if (save.saveVersion === 31) return migrateToV26(convertV31ToV30(save as SaveFileV31));
   if (save.saveVersion === 30) return migrateToV26(convertV30ToV29(save as SaveFileV30));
@@ -8550,6 +8583,7 @@ export function convertV27ToV26(save: SaveFileV27): SaveFileV26 {
  * so nothing here is trusted on the strength of its declared type alone.
  */
 export function migrateToV27(save: SaveFile | { saveVersion: number }): SaveFileV27 {
+  if (save.saveVersion === 33) return migrateToV27(convertV33ToV32(save as SaveFileV33));
   if (save.saveVersion === 32) return migrateToV27(convertV32ToV31(save as SaveFileV32));
   if (save.saveVersion === 31) return migrateToV27(convertV31ToV30(save as SaveFileV31));
   if (save.saveVersion === 30) return migrateToV27(convertV30ToV29(save as SaveFileV30));
@@ -8633,6 +8667,7 @@ export function convertV28ToV27(save: SaveFileV28): SaveFileV27 {
  * so nothing here is trusted on the strength of its declared type alone.
  */
 export function migrateToV28(save: SaveFile | { saveVersion: number }): SaveFileV28 {
+  if (save.saveVersion === 33) return migrateToV28(convertV33ToV32(save as SaveFileV33));
   if (save.saveVersion === 32) return migrateToV28(convertV32ToV31(save as SaveFileV32));
   if (save.saveVersion === 31) return migrateToV28(convertV31ToV30(save as SaveFileV31));
   if (save.saveVersion === 30) return migrateToV28(convertV30ToV29(save as SaveFileV30));
@@ -8733,6 +8768,7 @@ export function convertV29ToV28(save: SaveFileV29): SaveFileV28 {
  * so nothing here is trusted on the strength of its declared type alone.
  */
 export function migrateToV29(save: SaveFile | { saveVersion: number }): SaveFileV29 {
+  if (save.saveVersion === 33) return migrateToV29(convertV33ToV32(save as SaveFileV33));
   if (save.saveVersion === 32) return migrateToV29(convertV32ToV31(save as SaveFileV32));
   if (save.saveVersion === 31) return convertV30ToV29(convertV31ToV30(save as SaveFileV31));
   if (save.saveVersion === 30) return convertV30ToV29(save as SaveFileV30);
@@ -8780,6 +8816,7 @@ export function convertV30ToV29(save: SaveFileV30): SaveFileV29 {
 /** The V30 boundary (P14B.4, record 600); since P14B.5 a frozen prior shape
  * reached from the live V31 by the ONE lossless-when-empty downgrade. */
 export function migrateToV30(save: SaveFile | { saveVersion: number }): SaveFileV30 {
+  if (save.saveVersion === 33) return migrateToV30(convertV33ToV32(save as SaveFileV33));
   if (save.saveVersion === 32) return migrateToV30(convertV32ToV31(save as SaveFileV32));
   if (save.saveVersion === 31) return convertV31ToV30(save as SaveFileV31);
   if (save.saveVersion === 30) return validateSaveV30(save);
@@ -8856,6 +8893,7 @@ export function convertV31ToV30(save: SaveFileV31): SaveFileV30 {
 /** The live load-to-play route (P14B.5): every prior envelope migrates to the
  * V31 boundary the live writer stamps. */
 export function migrateToV31(save: SaveFile | { saveVersion: number }): SaveFileV31 {
+  if (save.saveVersion === 33) return migrateToV31(convertV33ToV32(save as SaveFileV33));
   if (save.saveVersion === 32) return convertV32ToV31(save as SaveFileV32);
   if (save.saveVersion === 31) return validateSaveV31(save);
   return convertV30ToV31(migrateToV30(save));
@@ -8942,8 +8980,260 @@ export function convertV32ToV31(save: SaveFileV32): SaveFileV31 {
 /** The live load-to-play route (P14B.7): every prior envelope migrates to the
  * V32 boundary the live writer stamps. */
 export function migrateToV32(save: SaveFile | { saveVersion: number }): SaveFileV32 {
+  if (save.saveVersion === 33) return convertV33ToV32(save as SaveFileV33);
   if (save.saveVersion === 32) return validateSaveV32(save);
   return convertV31ToV32(migrateToV31(save));
+}
+
+// ── The talent provenance root — SaveFileV33 (P14C.1) ────────────────────────
+//
+// The live boundary: `LIVE_SAVE_VERSION` is 33, `makeSave` stamps it, and every
+// stored `Talent.age` is a CACHE of `ageAt(row, market.tick)` over this root. The
+// validator below is what keeps that cache honest — record 762 §2's requirement
+// that a cache in a save file be reconciled by something, which is the truth-loss
+// class 759-C amendment 8 closed.
+
+/** The V33 state with its one new root REMOVED — exactly what V32 knows. An older
+ * validator is never taught a newer root and never silently tolerates one, the
+ * device V23, V28, V29 and `stripV31Root` all used. Record 762 §11: the state
+ * object is EXACT-KEYED at the V14 level (`v12ExactKeys(state, V14_STATE_KEYS, …)`
+ * at `:4827` and `:4952`), so a V32 validator meeting `talentProvenance` refuses it
+ * as an unknown key. That is what makes C.1 a save step. */
+function stripV33Root(raw: Record<string, unknown>): Record<string, unknown> {
+  const { talentProvenance: _talentProvenance, ...legacy } = raw;
+  return legacy;
+}
+
+function v33Error(message: string): never {
+  throw new Error(`validateSaveV33: ${message}`);
+}
+
+function v33Week(value: unknown, label: string): number {
+  if (typeof value !== 'number' || !Number.isInteger(value) || value < 0) {
+    return v33Error(`${label} must be a whole week`);
+  }
+  return value;
+}
+
+function v33Age(value: unknown, label: string): number {
+  if (typeof value !== 'number' || !Number.isFinite(value)) v33Error(`${label} must be a finite age`);
+  return value as number;
+}
+
+/** One provenance row, shape-checked and narrowed to the union. A row carries EXACTLY
+ * the keys of its own kind: an `authored_exact_week` row holding `ageAtMigration` is a
+ * row whose anchor could be read two ways, and `anchorOf` would silently prefer one. */
+function v33Row(value: unknown, index: number): TalentProvenanceRow {
+  if (!isRecord(value)) return v33Error(`talentProvenance.rows[${index}] must be an object`);
+  const personId = value.personId;
+  if (typeof personId !== 'string' || personId.length === 0) {
+    return v33Error(`talentProvenance.rows[${index}].personId must be a non-empty string`);
+  }
+  const keys = Object.keys(value).sort().join(',');
+  if (value.kind === 'legacy_age_anchor') {
+    if (keys !== 'ageAtMigration,kind,migrationWeek,personId') {
+      return v33Error(`talentProvenance row for ${personId} is not the exact legacy_age_anchor shape`);
+    }
+    return {
+      personId, kind: 'legacy_age_anchor',
+      ageAtMigration: v33Age(value.ageAtMigration, `talentProvenance row for ${personId}: ageAtMigration`),
+      migrationWeek: v33Week(value.migrationWeek, `talentProvenance row for ${personId}: migrationWeek`),
+    };
+  }
+  if (value.kind === 'authored_exact_week') {
+    if (keys !== 'ageAtEntry,entryWeek,kind,personId') {
+      return v33Error(`talentProvenance row for ${personId} is not the exact authored_exact_week shape`);
+    }
+    return {
+      personId, kind: 'authored_exact_week',
+      ageAtEntry: v33Age(value.ageAtEntry, `talentProvenance row for ${personId}: ageAtEntry`),
+      entryWeek: v33Week(value.entryWeek, `talentProvenance row for ${personId}: entryWeek`),
+    };
+  }
+  return v33Error(`talentProvenance row for ${personId} has unrecognized kind ${JSON.stringify(value.kind)}`);
+}
+
+/**
+ * The FIVE checks of record 762 §6, in the order that makes each refusal attributable
+ * to its own cause rather than to whichever check happens to notice first:
+ *
+ * 1. exactly one row per `state.talent` id, and no row naming a person who is not there
+ * 2. `talent[i].age === ageAt(row_i, market.tick)` for every person — what keeps the
+ *    materialized age honest against its provenance
+ * 3. `due` equals the recomputation from `rows` and the stored ages, exactly, order
+ *    included
+ * 4. `boundaryWeek <= market.tick`, and every anchor week `<= market.tick`
+ * 5. no anchor week earlier than `boundaryWeek` for a `legacy_age_anchor` row
+ *
+ * Checks 4 and 5 run before check 2 deliberately: an anchor in the future makes the
+ * derived age meaningless, and reporting the age as the defect would misattribute it.
+ */
+export function validateTalentProvenanceRoot(raw: Record<string, unknown>): void {
+  const root = raw.talentProvenance;
+  if (!isRecord(root)) v33Error('talentProvenance root missing');
+  const rootKeys = Object.keys(root).sort().join(',');
+  if (rootKeys !== 'boundaryWeek,due,rows') v33Error('talentProvenance must carry exactly boundaryWeek, rows and due');
+  const boundaryWeek = v33Week(root.boundaryWeek, 'talentProvenance.boundaryWeek');
+  if (!Array.isArray(root.rows)) v33Error('talentProvenance.rows must be an array');
+  // Record 762 §2 / 759-C amendment 14: `due` is an ARRAY and never an object keyed by
+  // week, because `stableStringify` sorts object keys lexicographically (`:588`) and
+  // "100" would precede "11".
+  if (!Array.isArray(root.due)) v33Error('talentProvenance.due must be an array, never an object keyed by week');
+  if (!isRecord(raw.market)) v33Error('state.market is required to check talent provenance');
+  const tick = v33Week((raw.market as Record<string, unknown>).tick, 'state.market.tick');
+  if (!Array.isArray(raw.talent)) v33Error('state.talent must be an array');
+
+  const rows = (root.rows as readonly unknown[]).map((row, index) => v33Row(row, index));
+
+  // (1) exactly one row per person, in both directions, each direction its own message.
+  const rowByPerson = new Map<string, TalentProvenanceRow>();
+  for (const row of rows) {
+    if (rowByPerson.has(row.personId)) v33Error(`talentProvenance carries more than one row for ${row.personId}`);
+    rowByPerson.set(row.personId, row);
+  }
+  const ageByPerson = new Map<string, number>();
+  (raw.talent as readonly unknown[]).forEach((person, index) => {
+    if (!isRecord(person)) v33Error(`state.talent[${index}] must be an object`);
+    const id = (person as Record<string, unknown>).id;
+    if (typeof id !== 'string' || id.length === 0) v33Error(`state.talent[${index}].id must be a non-empty string`);
+    ageByPerson.set(id as string, v33Age((person as Record<string, unknown>).age, `state.talent[${index}].age`));
+    if (!rowByPerson.has(id as string)) v33Error(`no talent provenance row for ${String(id)}`);
+  });
+  for (const row of rows) {
+    if (!ageByPerson.has(row.personId)) v33Error(`talent provenance row names ${row.personId}, who is not a person of this world`);
+  }
+
+  // (4) and (5) the anchor weeks, before any age is derived from them.
+  if (boundaryWeek > tick) v33Error(`talentProvenance.boundaryWeek ${boundaryWeek} is after the campaign week ${tick}`);
+  for (const row of rows) {
+    const anchor = anchorOf(row);
+    if (anchor.week > tick) v33Error(`talent provenance for ${row.personId} anchors at week ${anchor.week}, after the campaign week ${tick}`);
+    if (row.kind === 'legacy_age_anchor' && anchor.week < boundaryWeek) {
+      v33Error(`legacy talent provenance for ${row.personId} anchors at week ${anchor.week}, before the migration boundary ${boundaryWeek}`);
+    }
+  }
+
+  // (2) the stored age is the derived age, on every person, at this week.
+  for (const row of rows) {
+    const stored = ageByPerson.get(row.personId) as number;
+    const derived = ageAt(row, tick);
+    if (stored !== derived) {
+      v33Error(`stored age ${stored} for ${row.personId} disagrees with its provenance, which derives ${derived} at week ${tick}`);
+    }
+  }
+
+  // (3) `due` is the recomputation and nothing else — the reconciliation that makes
+  // this cache lawful to carry in a save at all.
+  const expected = recomputeDue(rows, (personId) => ageByPerson.get(personId));
+  if (stableStringify(root.due) !== stableStringify(expected)) {
+    v33Error('talentProvenance.due is stale: it is not the recomputation from rows and the stored ages');
+  }
+}
+
+/**
+ * V33 validates its OWN root (`validateTalentProvenanceRoot`: one row per person, the
+ * stored age against the formula, the reconciled visit list, the anchor weeks), then
+ * hands the frozen V32 chain exactly what V32 knows — the `stripV31Root` device.
+ */
+export function validateSaveV33(save: unknown): SaveFileV33 {
+  if (!isRecord(save)) throw new Error('validateSaveV33: object required');
+  v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
+  if (save.saveVersion !== 33) throw new Error('validateSaveV33: expected version 33');
+  const raw = v14Record(checkEnvelope(save, 'validateSaveV33'), 'state');
+  if (!Object.hasOwn(raw, 'talentProvenance')) throw new Error('validateSaveV33: talentProvenance root missing');
+  validateTalentProvenanceRoot(raw);
+  try {
+    validateSaveV32({ saveVersion: 32, seed: save.seed, state: stripV33Root(raw), broadcastCache: save.broadcastCache });
+  } catch (error) {
+    throw new Error(`validateSaveV33: frozen V32 state is invalid — ${(error as Error).message}`);
+  }
+  return save as SaveFileV33;
+}
+
+/**
+ * Governed V32→V33. The root is the ONE place in this series that RECOMPUTES rather
+ * than opening empty, and it does so from information the world already holds: every
+ * person becomes a `legacy_age_anchor` whose `ageAtMigration` is the ORIGINAL FLOAT,
+ * unrounded, recorded at `market.tick` — never `hollywood.originWeek`, which is
+ * nullable (759-C amendment 11). Each `talent[i].age` is then FLOORED, and that first
+ * flooring is Trap 1's value-shape change and the migration's visible cost.
+ *
+ * 83 of 84 stored ages in the held fixture are fractional, because `truncatedNormal`
+ * returns the raw gaussian, so keeping the float is what spreads legacy birthdays
+ * deterministically across the year instead of standing the whole population on one
+ * annual tick.
+ */
+export function convertV32ToV33(save: SaveFileV32): SaveFileV33 {
+  const validated = validateSaveV32(save);
+  // Insertion-order clone (the `convertV28ToV29` device), never the sorted one:
+  // key order is the caller's and only the final serialization sorts it.
+  const oldState = JSON.parse(JSON.stringify(validated.state)) as GameStateV32;
+  const talentProvenance = buildTalentProvenance(oldState.talent, oldState.market.tick, 'legacy_age_anchor');
+  const state: GameStateV33 = {
+    ...oldState,
+    talent: oldState.talent.map((person) => ({ ...person, age: Math.floor(person.age) })),
+    talentProvenance,
+  };
+  return validateSaveV33({ saveVersion: 33, seed: state.seed, state, broadcastCache: state.broadcastItems });
+}
+
+/**
+ * Governed V33→V32, and the ONE downgrade this version allows: lossless exactly while
+ * NO AGE HAS MATERIALIZED — `market.tick === boundaryWeek` and every row is a
+ * `legacy_age_anchor`. Under that predicate each `ageAtMigration` goes back into
+ * `talent[i].age` and the root is stripped, which recovers the exact original V32
+ * bytes, fractional ages included.
+ *
+ * Refused otherwise, and refused as a DOWNGRADE rather than as a shape complaint about
+ * a root V32 has no schema for: stripping the root after materialization would yield a
+ * V32 save whose ages advanced with no provenance, which every frozen validator accepts
+ * because `v8Number` takes any finite number. That is the truth loss 759-C amendment 8
+ * closed, and it is why the predicate is asked BEFORE the envelope is validated.
+ *
+ * A fresh V33 campaign is therefore NOT downgradable (record 762 §12 F3): its rows are
+ * `authored_exact_week`, and correctly so — a V33-native campaign has no V32 ancestor
+ * bytes to be lossless about.
+ */
+export function convertV33ToV32(save: SaveFileV33): SaveFileV32 {
+  const rawState = isRecord(save) ? (save as unknown as Record<string, unknown>).state : undefined;
+  if (!isRecord(rawState)) throw new Error('migrateToV32: SaveFileV33 carries no state');
+  const root = rawState.talentProvenance;
+  if (!isRecord(root) || !Array.isArray(root.rows)) {
+    throw new Error('migrateToV32: cannot downgrade SaveFileV33 — it carries no talent provenance root to reconcile');
+  }
+  const tick = isRecord(rawState.market) ? (rawState.market as Record<string, unknown>).tick : undefined;
+  if (tick !== root.boundaryWeek) {
+    throw new Error(
+      `migrateToV32: cannot downgrade SaveFileV33 — an age has materialized since week ${String(root.boundaryWeek)} ` +
+      `(the campaign is at week ${String(tick)}), and V32 has nowhere to record the provenance that produced it`,
+    );
+  }
+  const rows = (root.rows as readonly unknown[]).map((row, index) => v33Row(row, index));
+  const anchored = new Map<string, number>();
+  for (const row of rows) {
+    if (row.kind !== 'legacy_age_anchor') {
+      throw new Error(
+        `migrateToV32: cannot downgrade SaveFileV33 — ${row.personId} entered at a known week under V33 and has no V32 ancestor age to restore`,
+      );
+    }
+    anchored.set(row.personId, row.ageAtMigration);
+  }
+  const validated = validateSaveV33(save);
+  const oldState = JSON.parse(JSON.stringify(validated.state)) as Record<string, unknown>;
+  const stripped = stripV33Root(oldState);
+  const people = Array.isArray(stripped.talent) ? (stripped.talent as readonly Record<string, unknown>[]) : [];
+  const state = {
+    ...stripped,
+    talent: people.map((person) => ({ ...person, age: anchored.get(person.id as string) as number })),
+  } as unknown as GameStateV32;
+  return validateSaveV32({ saveVersion: 32, seed: state.seed, state, broadcastCache: state.broadcastItems });
+}
+
+/** The live load-to-play route (P14C.1): every prior envelope migrates to the
+ * V33 boundary the live writer stamps. */
+export function migrateToV33(save: SaveFile | { saveVersion: number }): SaveFileV33 {
+  if (save.saveVersion === 33) return validateSaveV33(save);
+  return convertV32ToV33(migrateToV32(save));
 }
 
 export function convertV19ToV20(save: SaveFileV19): SaveFileV20 {
@@ -8964,6 +9254,7 @@ export function convertV19ToV20(save: SaveFileV19): SaveFileV20 {
 }
 
 export function migrateToV20(save: SaveFile): SaveFileV20 {
+  if (save.saveVersion === 33) throw new Error('migrateToV20: cannot downgrade SaveFileV33 or discard the talent provenance root');
   if (save.saveVersion === 32) throw new Error('migrateToV20: cannot downgrade SaveFileV32 or discard the waived-promise link');
   if (save.saveVersion === 31) throw new Error('migrateToV20: cannot downgrade SaveFileV31 or discard the relationship record');
   if (save.saveVersion === 30) throw new Error('migrateToV20: cannot downgrade SaveFileV30 or discard the promise predicate');

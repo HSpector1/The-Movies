@@ -38,7 +38,7 @@ import type {
   FoundingApplicantRow,
   GameState,
 } from '../ui/src/engine/adapter.ts'
-import { applyActions, importSave, LIVE_SAVE_VERSION, migrateToV32 } from '../src/core/index.js'
+import { applyActions, importSave, LIVE_SAVE_VERSION, migrateToV33 } from '../src/core/index.js'
 import type { FoundingRegime } from '../src/core/index.js'
 import {
   PROTOCOL_VERSION,
@@ -137,7 +137,7 @@ function importSaveJsonCurrent(json: string): ImportOutcome {
   try {
     const save = importSave(json)
     const converted = save.saveVersion !== LIVE_SAVE_VERSION
-    return { ok: true, state: migrateToV32(save).state, converted }
+    return { ok: true, state: migrateToV33(save).state, converted }
   } catch (error) {
     return { ok: false, error: (error as Error).message }
   }
@@ -606,7 +606,11 @@ function resolveFounding(
         workEthicLabel: row.workEthicLabel,
         standingPct: row.standingPct,
         standingTier: row.standing,
-        // The engine ages talent continuously; the person's stated age is completed years.
+        // P14C.1 (758 A14): the engine no longer ages talent continuously — `Talent.age`
+        // is materialized to completed years at the tick that produces a birthday week,
+        // so this floor is now a no-op on every live state. Kept, not removed: the
+        // projection must not start depending on the writer's rounding, and the frozen
+        // historical control still carries pre-C.1 fractional ages.
         age: Math.floor(row.age),
         topStrengths: row.topStrengths,
         primaryConcern: row.primaryConcern,

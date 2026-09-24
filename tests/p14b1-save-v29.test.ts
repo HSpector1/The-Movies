@@ -107,7 +107,7 @@ function promisesRootOf(state: GameState | GameStateV29): readonly unknown[] {
 
 describe('P14B.1 test 8: Save V29 (genuine V28 fixture, empty new tables, same digests, round trip, downgrade)', () => {
   it('LIVE_SAVE_VERSION is 31 (the P14B.5 cutover, record 662; the V29 lift this slice pins is the intermediate step)', () => {
-    expect(save.LIVE_SAVE_VERSION as number).toBe(32)
+    expect(save.LIVE_SAVE_VERSION as number).toBe(33)
   })
 
   it('genuine V28 open-case-45 fixture: sha256 matches, still validates as V28 through the frozen chain, migrates to V29 with EMPTY firstTakes and promises roots and promises: [] on every existing proposal, otherwise byte-identical', () => {
@@ -197,7 +197,7 @@ describe('P14B.1 test 8: Save V29 (genuine V28 fixture, empty new tables, same d
   it('an unknown saveVersion 33 is refused, naming the handled range "1 through 32 only"', () => {
     const json = load(FIXTURE.file)
     const lifted = withV29.migrateToV29(JSON.parse(json))
-    const forged = { ...lifted, saveVersion: 33 }
-    expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 32 only/)
+    const forged = { ...lifted, saveVersion: 34 }
+    expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 33 only/)
   })
 })

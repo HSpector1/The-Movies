@@ -13,80 +13,198 @@
 //
 // NOTHING HERE DRAWS FROM THE RNG. `src/core/tick.ts:227` deserializes one shared
 // stream and re-serializes it, so a single draw taken here would move every
-// downstream draw in the world.
-//
-// STATUS: SCAFFOLD. Every export throws. This file exists so the C.1 RED fails
-// because the behaviour is missing, not because a missing named export bound to
-// `undefined` and an assertion passed by accident. The writer replaces it.
-import type { GameState } from './types.js'
+// downstream draw in the world. Every quantity below is a pure function of the
+// provenance row and a week.
+import type { GameState, TalentProvenanceRoot, TalentProvenanceRow } from './types.js'
 
-/** One person's origin. See record 762 §2 for the naming hazard: `authored_exact_week`
- * covers every person who ENTERED `state.talent` at a known week with a known exact
- * age, including worldgen's genesis population and rival hires. It is NOT
- * `Talent.authored`, which means player-created. */
-export type TalentProvenanceRow =
-  | { personId: string; kind: 'authored_exact_week'; ageAtEntry: number; entryWeek: number }
-  | { personId: string; kind: 'legacy_age_anchor'; ageAtMigration: number; migrationWeek: number }
+export type { TalentProvenanceRoot, TalentProvenanceRow } from './types.js'
 
-/** The new top-level root, on the `stripV31Root` pattern (`src/core/save.ts:8794`).
- * `due` is an ARRAY and never an object keyed by week, because `save.ts:588` sorts
- * object keys lexicographically and `"100"` would precede `"11"`. */
-export type TalentProvenanceRoot = {
-  boundaryWeek: number
-  rows: TalentProvenanceRow[]
-  due: { week: number; personIds: string[] }[]
+/** The anchor pair, read through ONE accessor so the two kinds derive identically.
+ * Every other quantity in this module goes through it; nothing reads
+ * `ageAtMigration` or `ageAtEntry` directly. */
+export function anchorOf(row: TalentProvenanceRow): { age: number; week: number } {
+  return row.kind === 'legacy_age_anchor'
+    ? { age: row.ageAtMigration, week: row.migrationWeek }
+    : { age: row.ageAtEntry, week: row.entryWeek }
 }
 
-const unbuilt = (name: string): never => {
-  throw new Error(`aging.${name}: P14C.1 is not implemented yet (scaffold, record 762)`)
+/** `floor(anchorAge + (week - anchorWeek) / 52)`, and nothing else (record 762 §1). */
+export function ageAt(row: TalentProvenanceRow, week: number): number {
+  const anchor = anchorOf(row)
+  return Math.floor(anchor.age + (week - anchor.week) / 52)
 }
 
-/** The anchor pair, read through one accessor so the two kinds derive identically. */
-export function anchorOf(_row: TalentProvenanceRow): { age: number; week: number } {
-  return unbuilt('anchorOf')
+/**
+ * The smallest `w` with `ageAt(row, w) > storedAge`.
+ *
+ * SEEDED by `anchorWeek + ceil((storedAge + 1 - anchorAge) * 52)` and then CORRECTED
+ * against `ageAt` itself, stepping by at most one in each direction until
+ * `ageAt(row, w - 1) === storedAge` and `ageAt(row, w) === storedAge + 1`. The
+ * correction is not decoration: `(30 - 29.75) * 52` is representable, but a
+ * neighbouring anchor whose product evaluates to `13.000000000000002` ceils to 14 and
+ * leaves a stored age stale for a whole week, with every reader — including
+ * `isProven` (`talentMarket.ts:690`) — reading the stale value.
+ *
+ * `ageAt` is monotone nondecreasing in `w`, so the corrected `w` is unique and is the
+ * true crossing however the seed got there. SUCCESSIVE birthdays are recomputed from
+ * the anchor by calling this again with the new stored age, NEVER by adding 52.
+ */
+export function nextBirthdayWeek(row: TalentProvenanceRow, storedAge: number): number {
+  const anchor = anchorOf(row)
+  let week = anchor.week + Math.ceil((storedAge + 1 - anchor.age) * 52)
+  while (ageAt(row, week) <= storedAge) week++
+  while (ageAt(row, week - 1) > storedAge) week--
+  return week
 }
 
-/** `floor(anchorAge + (week - anchorWeek) / 52)`, and nothing else. */
-export function ageAt(_row: TalentProvenanceRow, _week: number): number {
-  return unbuilt('ageAt')
-}
-
-/** The smallest `w` with `ageAt(row, w) > storedAge`, seeded by `ceil` and then
- * CORRECTED against `ageAt` itself, because a product evaluating to
- * `13.000000000000002` would otherwise leave a stored age stale for a week. */
-export function nextBirthdayWeek(_row: TalentProvenanceRow, _storedAge: number): number {
-  return unbuilt('nextBirthdayWeek')
-}
-
+/** Record 762 §12 F1: FOUR arguments. The caller supplies the kind because it knows
+ * it and this function cannot infer it — `convertV32ToV33` writes `legacy_age_anchor`,
+ * every append site writes `authored_exact_week`. §3's three-argument declaration is
+ * struck. */
 export function provenanceRowFor(
-  _personId: string, _age: number, _week: number, _kind: TalentProvenanceRow['kind'],
+  personId: string, age: number, week: number, kind: TalentProvenanceRow['kind'],
 ): TalentProvenanceRow {
-  return unbuilt('provenanceRowFor')
+  return kind === 'legacy_age_anchor'
+    ? { personId, kind, ageAtMigration: age, migrationWeek: week }
+    : { personId, kind, ageAtEntry: age, entryWeek: week }
 }
 
+/**
+ * The ONE canonical derivation of the `due` visit list from `rows` and the STORED
+ * ages. Every writer in the codebase builds `due` through this, and the V33 validator
+ * recomputes it through the same function and refuses a mismatch — so the cache can
+ * never disagree with the law it caches (record 762 §2).
+ *
+ * Buckets ascend by week; inside a bucket, people keep their `rows` order. A person
+ * with no stored age is skipped rather than guessed at: that is a broken world and
+ * validator condition 1 is what reports it.
+ */
+export function recomputeDue(
+  rows: readonly TalentProvenanceRow[], storedAgeOf: (personId: string) => number | undefined,
+): TalentProvenanceRoot['due'] {
+  const byWeek = new Map<number, string[]>()
+  for (const row of rows) {
+    const storedAge = storedAgeOf(row.personId)
+    if (storedAge === undefined) continue
+    const week = nextBirthdayWeek(row, storedAge)
+    const bucket = byWeek.get(week)
+    if (bucket === undefined) byWeek.set(week, [row.personId])
+    else bucket.push(row.personId)
+  }
+  return [...byWeek.entries()]
+    .sort((a, b) => a[0] - b[0])
+    .map(([week, personIds]) => ({ week, personIds }))
+}
+
+/** One row per person, anchored on the age each person carries NOW, plus the derived
+ * visit list. The stored age a `due` bucket is computed against is `floor(anchorAge)`,
+ * which is exactly what the migration then writes onto `talent[i].age`. */
 export function buildTalentProvenance(
-  _people: { id: string; age: number }[], _week: number, _kind: TalentProvenanceRow['kind'],
+  people: readonly { id: string; age: number }[], week: number, kind: TalentProvenanceRow['kind'],
 ): TalentProvenanceRoot {
-  return unbuilt('buildTalentProvenance')
+  const rows = people.map((person) => provenanceRowFor(person.id, person.age, week, kind))
+  const floored = new Map(people.map((person) => [person.id, Math.floor(person.age)]))
+  return { boundaryWeek: week, rows, due: recomputeDue(rows, (id) => floored.get(id)) }
 }
 
-/** Visits only the people `due` at or before `week`. Consumes no RNG, takes no RNG
- * argument, and is idempotent.
+/**
+ * Visits only the people `due` at or before `week`, writes `ageAt(row, week)` onto
+ * each, and rebuilds the visit list. CONSUMES NO RNG and takes no RNG argument.
+ * Idempotent: `nextBirthdayWeek` of a freshly written age is strictly later than
+ * `week`, so a second call finds nothing due and returns an equal state.
  *
  * It takes the week EXPLICITLY rather than reading `state.market.tick`, because the
  * one call site is the tick TAIL beside the clock advance (`src/core/tick.ts:1047-1049`)
  * and at that point the clock has not moved yet. `src/core/tick.ts:408-410` states the
  * rule in its own comment: the clock is the tick's to advance, as its last step.
  *
- * The invariant this produces, and the one the validator checks:
- * on every state the engine emits, `talent[i].age === ageAt(row_i, state.market.tick)`. */
-export function materializeAges(_state: GameState, _week: number): GameState {
-  return unbuilt('materializeAges')
+ * The invariant this produces, and the one validator condition 2 checks:
+ * on every state the engine emits, `talent[i].age === ageAt(row_i, state.market.tick)`.
+ *
+ * It does NOT self-heal a stored age that is not due. A person whose cached age
+ * disagrees with their provenance while carrying a future due week is a real defect,
+ * and the validator reports it rather than this quietly papering over it.
+ */
+export function materializeAges(state: GameState, week: number): GameState {
+  const root = state.talentProvenance
+  const due = new Set<string>()
+  for (const bucket of root.due) {
+    if (bucket.week > week) continue
+    for (const personId of bucket.personIds) due.add(personId)
+  }
+  const rowById = new Map(root.rows.map((row) => [row.personId, row]))
+  const talent = due.size === 0 ? state.talent : state.talent.map((person) => {
+    if (!due.has(person.id)) return person
+    const row = rowById.get(person.id)
+    if (row === undefined) return person
+    const age = ageAt(row, week)
+    return age === person.age ? person : { ...person, age }
+  })
+  const storedAge = new Map(talent.map((person) => [person.id, person.age]))
+  return {
+    ...state,
+    talent,
+    talentProvenance: { ...root, due: recomputeDue(root.rows, (id) => storedAge.get(id)) },
+  }
 }
 
-/** What the five append sites call, AT THE APPEND and never at the mint call. */
+/**
+ * What the five append sites (record 762 §4) call, AT THE APPEND and never at the mint
+ * call: `hollywoodTick.ts:136-142` mints at `:138`, checks affordability at `:141` and
+ * `continue`s, so provenance written inside a shared mint primitive would record one
+ * dead row per unaffordable rival hire per week, forever, in a save validated on every
+ * load (759-C amendment 3).
+ *
+ * `person.age` here is the EXACT entry age — after `enterRival`'s `Math.max(28, …)`
+ * raise, never as drawn — and the row stores that fraction UNROUNDED. Preserving it is
+ * the point of the anchor: it is what spreads birthdays across the year and what makes a
+ * downgrade able to recover an original value. THIS FUNCTION DOES NOT FLOOR, and does
+ * not touch `state.talent`.
+ *
+ * The COMMITTED person carries `floor(that age)`, and each append site applies that floor
+ * where the person is CONSTRUCTED FOR COMMIT — before `offerForTalent` prices it — so the
+ * contract, the provenance row and `state.talent` all agree about which value is stored.
+ * The floor cannot be deferred to the tick tail: the scheduled-entry loop at
+ * `tick.ts:1087-1091` runs AFTER the materialization at `tick.ts:1049`, so a person who
+ * entered carrying a fractional stored age would break validator condition 2 on the state
+ * that advance emits.
+ */
 export function withTalentProvenance(
-  _state: GameState, _person: { id: string; age: number },
+  state: GameState, person: { id: string; age: number },
 ): GameState {
-  return unbuilt('withTalentProvenance')
+  const root = state.talentProvenance
+  // NOT in record 763's inventory, and found by tracing the caller rather than by
+  // grepping: `convertV18ToV19` (`save.ts:7783`) hands `initializeHollywood` a genuine
+  // GameStateV18 — a state that legitimately has NO provenance root, because V19 never
+  // had one — and that initializer calls `enterRival` for every due migration entry.
+  // The rule is the one the physical-plan root already states at `hollywood.ts:175-177`:
+  // a root TRAVELS WITH THE STATE and is never minted inside a frozen conversion, whose
+  // output must carry no root its own version never had. Nobody is lost by skipping:
+  // `convertV32ToV33` builds one row per person in `state.talent` when the chain finally
+  // reaches the live boundary, and until then no V33 validator ever reads this state.
+  if (root === undefined || root === null) return state
+  // A caller that has no clock (only the root) anchors at the root's own boundary;
+  // every real append site carries `market`.
+  const week = state.market?.tick ?? root.boundaryWeek
+  const row = provenanceRowFor(person.id, person.age, week, 'authored_exact_week')
+  // The visit list is keyed on the STORED age, which is the anchor's floor.
+  const dueWeek = nextBirthdayWeek(row, Math.floor(person.age))
+  // Inserted exactly where `recomputeDue` would put it: the new row is last in `rows`,
+  // so it is last inside its bucket, and a new bucket lands in ascending position.
+  const due: { week: number; personIds: readonly string[] }[] = []
+  let placed = false
+  for (const bucket of root.due) {
+    if (!placed && bucket.week === dueWeek) {
+      due.push({ week: bucket.week, personIds: [...bucket.personIds, person.id] })
+      placed = true
+      continue
+    }
+    if (!placed && bucket.week > dueWeek) {
+      due.push({ week: dueWeek, personIds: [person.id] })
+      placed = true
+    }
+    due.push(bucket)
+  }
+  if (!placed) due.push({ week: dueWeek, personIds: [person.id] })
+  return { ...state, talentProvenance: { ...root, rows: [...root.rows, row], due } }
 }

@@ -108,7 +108,7 @@ import { marketPage } from '../bridge/market.ts'
 import { industryPage } from '../bridge/industry.ts'
 import { promiseRowsForPerson } from '../bridge/trust.ts'
 import { waivePromise } from '../src/core/promises.js'
-import { convertV31ToV32, validateSaveV31, validateSaveV32 } from '../src/core/save.js'
+import { convertV31ToV32, convertV32ToV33, validateSaveV31, validateSaveV32 } from '../src/core/save.js'
 import type { IndustryPage, IndustryQuery } from '../bridge/schema/industry-schema.ts'
 import type { GameState } from '../src/core/types.js'
 
@@ -166,9 +166,11 @@ function pinned(relative: string, hashes: { gz: string; raw: string }): string {
 let owesTwoCache: GameState | undefined
 function owesTwoState(): GameState {
   if (owesTwoCache === undefined) {
+    // `validateSaveV32` STAYS: this is a genuine V32 artifact and is admitted by the
+    // validator of its own version. Only the LIFT to the live GameState moves (P14C.1).
     const save = validateSaveV32(JSON.parse(pinned('genuine-v32-pre-b8/genuine-v32-owes-two-p1.json.gz', OWES_TWO)))
     expect(save.state.market.tick).toBe(OWES_TWO.week)
-    owesTwoCache = save.state as unknown as GameState
+    owesTwoCache = convertV32ToV33(save).state as unknown as GameState
   }
   return structuredClone(owesTwoCache)
 }
@@ -177,14 +179,14 @@ function withEdgesState(): GameState {
   if (withEdgesCache === undefined) {
     const save = validateSaveV31(JSON.parse(pinned('genuine-v31-pre-b7/genuine-v31-with-edges.json.gz', WITH_EDGES)))
     expect(save.state.market.tick).toBe(WITH_EDGES.week)
-    withEdgesCache = convertV31ToV32(save).state as unknown as GameState
+    withEdgesCache = convertV32ToV33(convertV31ToV32(save)).state as unknown as GameState
   }
   return structuredClone(withEdgesCache)
 }
 function keptAndBrokenState(): GameState {
   const save = validateSaveV31(JSON.parse(pinned('genuine-v31-pre-b7/genuine-v31-kept-and-broken.json.gz', KEPT_AND_BROKEN)))
   expect(save.state.market.tick).toBe(KEPT_AND_BROKEN.week)
-  return convertV31ToV32(save).state as unknown as GameState
+  return convertV32ToV33(convertV31ToV32(save)).state as unknown as GameState
 }
 
 // ── The wire draft (I2) and the envelope helpers, in the exact idiom of the four landed families ──
@@ -806,8 +808,8 @@ describe('P14B.8 group12 — the projection moves 49 -> 50 and the outgoing iden
     expect(loaded.migratedFromProtocolVersion, 'handled exactly as its projection-47 and -48 siblings are').toBe(4)
     expect(minted, 'the governed prior path mints one fresh session id').toBe(1)
     const hydrated = loaded.hydrated as unknown as { currentSave: { saveVersion: number; state: { market: { tick: number } } }; savedSave: { saveVersion: number } }
-    expect(hydrated.currentSave.saveVersion, '744 §6: B.8 is a wire change, so both slots migrate as identity').toBe(32)
-    expect(hydrated.savedSave.saveVersion).toBe(32)
+    expect(hydrated.currentSave.saveVersion, '744 §6: B.8 is a wire change, so both slots migrate as identity').toBe(33)
+    expect(hydrated.savedSave.saveVersion).toBe(33)
     expect(hydrated.currentSave.state.market.tick).toBe(PROJECTION49_CHECKPOINT.week)
   })
 })

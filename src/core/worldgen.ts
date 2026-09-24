@@ -62,6 +62,7 @@ import { initialReleaseAuthority } from './releaseAuthority.js'
 import { initialStudioHistory } from './studioHistory.js'
 import { initialPhysicalPlans } from './physicalPlans.js'
 import { initialTalentMarket } from './talentMarket.js'
+import { buildTalentProvenance } from './aging.js'
 import { stream } from './rng.js'
 import { RngStream } from './rng.js'
 import {
@@ -699,6 +700,24 @@ export function generateWorld(seed: string, options?: GenerateWorldOptions): Gam
     releasedFilms: [],
   }
 
+  // P14C.1 (record 762 §12 F3): the population is committed HERE, so this is where
+  // the provenance root is created — §4's five append sites each presume a root to
+  // append into and name no creator. A fresh campaign has no migration and every
+  // person's exact entry week genuinely is 0.
+  //
+  // Its stated consequence: a new V33 campaign STORES integer ages. Validator
+  // condition 2 forces `talent[i].age === ageAt(row, market.tick)`, so `43.40522…`
+  // is stored as `43` from genesis and `ageFactor(43)` prices it, not
+  // `ageFactor(43.405)`. That is Trap 1 and Trap 2 arriving together at world
+  // generation, and it is intended.
+  //
+  // The ROW keeps `43.40522…` unrounded. Preserving the fraction is the whole point of
+  // the anchor: it is what spreads genesis birthdays across the year instead of standing
+  // the entire population on one annual tick, and a floored anchor would destroy it
+  // silently. Drawn first, floored for commit, anchored on the draw.
+  const drawn = generateTalent(seed)
+  const people = drawn.map(person => ({ ...person, age: Math.floor(person.age) }))
+
   return {
     seed,
     hollywood: null,
@@ -710,7 +729,7 @@ export function generateWorld(seed: string, options?: GenerateWorldOptions): Gam
     market: generateMarket(seed),
     era,
     studio,
-    talent: generateTalent(seed),
+    talent: people,
     concepts: generateConcepts(seed),
     broadcastItems: [],
     coverageContexts: [],
@@ -785,5 +804,8 @@ export function generateWorld(seed: string, options?: GenerateWorldOptions): Gam
     promises: [],
     // P14B.5: a fresh world has shared no work — no edge.
     relationships: [],
+    // P14C.1: one `authored_exact_week` row per generated person, anchored on the
+    // EXACT drawn age at week 0; `talent` above stores each floor of it.
+    talentProvenance: buildTalentProvenance(drawn, 0, 'authored_exact_week'),
   }
 }

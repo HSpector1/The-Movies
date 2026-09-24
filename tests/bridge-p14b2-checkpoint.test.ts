@@ -5,7 +5,8 @@ import { describe, expect, it } from 'vitest'
 import { SCHEMA_ID } from '../bridge/protocol.ts'
 import { loadBridgeRuntimeCheckpoint, SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS } from '../bridge/runtime-checkpoint.ts'
 import { BridgeSession } from '../bridge/session.ts'
-import { exportSave, importSave, migrateToV32 } from '../src/core/save.js'
+import { exportSave, importSave, migrateToV33 } from '../src/core/save.js'
+import { buildTalentProvenance } from '../src/core/aging.js'
 
 // Genuine e37cd23 projection45 export, not a current checkpoint with restamped ID.
 const OUTGOING_45 = 'sha256:5b2a4ca93d930e90a288db55bb5cc3fdc8eea070ef51fa1450a193a325bd755d'
@@ -48,11 +49,17 @@ describe('P14B.2 outgoing projection45 runtime compatibility (Save29 unchanged)'
     const sha = (v: string) => createHash('sha256').update(v).digest('hex')
     const addedFields = (promise: Record<string, unknown>) => ({ ...promise, supersededByPromiseId: null })
     for (const slot of ['currentSaveJson', 'savedSaveJson'] as const) {
-      const governed = migrateToV32(importSave(before[slot]))
-      expect(governed.saveVersion).toBe(32)
+      const governed = migrateToV33(importSave(before[slot]))
+      expect(governed.saveVersion).toBe(33)
       const source = JSON.parse(before[slot])
-      expect(JSON.parse(exportSave(governed))).toEqual({ ...source, saveVersion: 32, state: { ...source.state,
-        relationships: [], promises: (source.state.promises as Record<string, unknown>[]).map(addedFields) } })
+      // 763-R8 (P14C.1, R-VERSION): the governed lift now also writes C.1's provenance
+      // root and FLOORS every stored age against it — the first step in this chain that
+      // changes a value rather than only adding a field, so both are named here.
+      const sourcePeople = source.state.talent as { id: string; age: number }[]
+      expect(JSON.parse(exportSave(governed))).toEqual({ ...source, saveVersion: 33, state: { ...source.state,
+        relationships: [], promises: (source.state.promises as Record<string, unknown>[]).map(addedFields),
+        talent: sourcePeople.map((person) => ({ ...person, age: Math.floor(person.age) })),
+        talentProvenance: buildTalentProvenance(sourcePeople, source.state.market.tick as number, 'legacy_age_anchor') } })
       expect(after[slot]).toBe(exportSave(governed))
     }
     expect(after.currentStateDigest).toBe(sha(after.currentSaveJson))

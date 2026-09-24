@@ -14,7 +14,7 @@ import { fnv1a64 } from '../src/core/math.js'
 import { advancePromisesWeek, attachedPromiseDigest, promiseDigest } from '../src/core/promises.js'
 import * as promisesModule from '../src/core/promises.js'
 import * as operationsModule from '../src/core/operations.js'
-import { convertV31ToV32, exportSave, migrateToV31, validateSaveV29, validateSaveV31, validateSaveV32 } from '../src/core/save.js'
+import { convertV31ToV32, convertV32ToV33, exportSave, migrateToV31, validateSaveV29, validateSaveV31, validateSaveV33 } from '../src/core/save.js'
 import { tick } from '../src/core/tick.js'
 import type { Action, CastSlot, GameState, GameStateV31, ProfessionalPromiseV30 } from '../src/core/types.js'
 
@@ -23,12 +23,12 @@ import type { Action, CastSlot, GameState, GameStateV31, ProfessionalPromiseV30 
 // SAME validated V31 state up to the live V32 boundary before feeding it to
 // applyActions/tick, which require GameState (=GameStateV32). Two envelope
 // families follow from that one fork -- Envelope/validateState/variant stay V31
-// for the first describe block's staged material assertions; EnvelopeV32/
-// validateStateV32/variantV32 carry the second describe block's real-gameplay
+// for the first describe block's staged material assertions; EnvelopeV33/
+// validateStateV33/variantLive carry the second describe block's real-gameplay
 // exercise. `root`/`binding` are generic over either shape (only V32 adds a
 // field neither reads), so they need no duplicate.
 type Envelope = ReturnType<typeof validateSaveV31>
-type EnvelopeV32 = ReturnType<typeof validateSaveV32>
+type EnvelopeV33 = ReturnType<typeof validateSaveV33>
 const SLOTS = ['lead', 'antagonist', 'support'] as const
 const CLASSES = ['lead', 'leadOrAntagonist'] as const
 type SeatClass = typeof CLASSES[number]
@@ -93,11 +93,11 @@ function validateState(carrier: Envelope, state: GameStateV31): Envelope {
   // not stamp a historical fixture, invoke the still-V29 writer or strip tags.
   return validateSaveV31({ ...carrier, state, broadcastCache: state.broadcastItems })
 }
-function validateStateV32(carrier: EnvelopeV32, state: GameState): EnvelopeV32 {
+function validateStateV33(carrier: EnvelopeV33, state: GameState): EnvelopeV33 {
   // The live-boundary twin of validateState above, for the second describe
-  // block's real-gameplay states (genuinely V32-shaped once applyActions/tick
+  // block's real-gameplay states (genuinely live-shaped once applyActions/tick
   // have touched them) -- same device, the frozen V31 reader untouched.
-  return validateSaveV32({ ...carrier, state, broadcastCache: state.broadcastItems })
+  return validateSaveV33({ ...carrier, state, broadcastCache: state.broadcastItems })
 }
 function binding(state: GameStateV31, promise: ProfessionalPromiseV30): void {
   assert.notEqual(promise.contractId, null)
@@ -126,7 +126,7 @@ function variant(carrier: Envelope, id: string, material: Material, window?: { s
   expect(carrier).toEqual(before)
   return result
 }
-function variantV32(carrier: EnvelopeV32, id: string, material: Material, window?: { start: number; due: number }): EnvelopeV32 {
+function variantLive(carrier: EnvelopeV33, id: string, material: Material, window?: { start: number; due: number }): EnvelopeV33 {
   // The live-boundary twin of variant() above, byte-identical logic, for the
   // second describe block's carrier (genuinely V32 since actualTakeInput ran it
   // through real gameplay). Never used by the first (frozen V31) describe block.
@@ -135,7 +135,7 @@ function variantV32(carrier: EnvelopeV32, id: string, material: Material, window
   expect(prior).toMatchObject({ outcome: null, progress: 0, evidenceRefs: [], outcomeWeek: null, outcomeEventId: null, outcomeCause: null })
   const changed = { ...prior, ...material, windowStartWeek: window?.start ?? prior.windowStartWeek,
     dueWeekExclusive: window?.due ?? prior.dueWeekExclusive }
-  const result = validateStateV32(carrier, { ...clone(carrier.state),
+  const result = validateStateV33(carrier, { ...clone(carrier.state),
     promises: carrier.state.promises.map((p) => p.promiseId === id ? clone(changed) : clone(p)) })
   expect(root(result.state, id).feasibilityReceipt).toEqual(prior.feasibilityReceipt)
   expect(root(result.state, id).version).toBe(prior.version)
@@ -245,7 +245,7 @@ function payload(state: GameStateV31, targetId: string, slot: CastSlot, otherBou
       intimacy: [-0.5, 0.5], tonalWeight: [-0.5, 0.5], kineticEnergy: [-0.5, 0.5] } },
     budget: { negative: concept.baseNegativeCost, marketing: 0 } }
 }
-type Prepared = { carrier: EnvelopeV32; id: string; ids: string[]; take: GameState['firstTakes'][number]; slot: CastSlot }
+type Prepared = { carrier: EnvelopeV33; id: string; ids: string[]; take: GameState['firstTakes'][number]; slot: CastSlot }
 const cache = new Map<CastSlot, Prepared>()
 function actualTakeInput(slot: CastSlot): Prepared {
   const cached = cache.get(slot)
@@ -270,8 +270,11 @@ function actualTakeInput(slot: CastSlot): Prepared {
   // 735-T: the caller from here on is LIVE (applyActions/tick require GameState,
   // the V32 alias) -- lift the already-validated V31 state up through the lawful
   // conversion, never by softening validateSaveV31's own refusal above.
-  const migratedV32: EnvelopeV32 = convertV31ToV32({ saveVersion: 31, seed: frozenState.seed, state: frozenState, broadcastCache: frozenState.broadcastItems })
-  let state: GameState = migratedV32.state
+  // 763-R8 (P14C.1): the live alias is GameStateV33, so the lift runs one further
+  // governed step -- `convertV32ToV33`, which writes the provenance root and floors
+  // each stored age against it. Still the lawful conversion, never a softened reader.
+  const migratedLive: EnvelopeV33 = convertV32ToV33(convertV31ToV32({ saveVersion: 31, seed: frozenState.seed, state: frozenState, broadcastCache: frozenState.broadcastItems }))
+  let state: GameState = migratedLive.state
   state = applyActions(state, [{ kind: 'greenlight', production }])
   const filmId = state.studio.activeProductions.at(-1)!.id
   expect(state.studio.activeProductions.at(-1)!.cast).toEqual(production.cast)
@@ -317,7 +320,7 @@ function actualTakeInput(slot: CastSlot): Prepared {
   try { tick(state) } finally { outcomeSpy.mockRestore(); takeSpy.mockRestore() }
   expect(transitions).toEqual([{ before: 5, after: 4, emitted: [filmId] }])
   assert.ok(observed, 'fixture: actual pre-outcome owner input absent')
-  const carrier = validateStateV32(migratedV32, observed)
+  const carrier = validateStateV33(migratedLive, observed)
   const takes = carrier.state.firstTakes.filter((t) => t.productionId === filmId)
   expect(takes).toHaveLength(1)
   const take = takes[0]!
@@ -338,8 +341,8 @@ function actualTakeInput(slot: CastSlot): Prepared {
   return result
 }
 function outcomes(state: GameState) { return state.talentMarket.receipts.filter((r) => r.kind === 'promiseOutcome') }
-function evaluate(input: EnvelopeV32): GameState {
-  validateSaveV32(input)
+function evaluate(input: EnvelopeV33): GameState {
+  validateSaveV33(input)
   const before = clone(input)
   const after = advancePromisesWeek(input.state) // existing structurally compatible public owner, no cast
   expect(input).toEqual(before)
@@ -360,23 +363,23 @@ function ownOutcome(state: GameState, id: string) {
   expect(promise.evidenceRefs).not.toContain(promise.outcomeEventId)
   return own[0]!
 }
-function strictAndRepeat(carrier: EnvelopeV32, after: GameState): void {
-  const validated = validateStateV32(carrier, after)
+function strictAndRepeat(carrier: EnvelopeV33, after: GameState): void {
+  const validated = validateStateV33(carrier, after)
   const before = clone(validated)
   const twice = evaluate(validated)
-  const third = evaluate(validateStateV32(carrier, twice))
+  const third = evaluate(validateStateV33(carrier, twice))
   expect(outcomes(twice)).toEqual(outcomes(after)) // exact set, including orphan receipt regressions
   expect(outcomes(third)).toEqual(outcomes(after))
   expect(twice).toEqual(after)
   expect(third).toEqual(after)
   expect(validated).toEqual(before)
-  validateStateV32(carrier, third)
+  validateStateV33(carrier, third)
 }
 
 describe('P14B4 staged outcome owner: real completed take, synthetic MATERIAL only', () => {
   it.each(CLASSES.flatMap((seatClass) => SLOTS.map((slot) => ({ seatClass, slot }))))('$seatClass against actual $slot', ({ seatClass, slot }) => {
     const prepared = actualTakeInput(slot)
-    const input = variantV32(prepared.carrier, prepared.id, p2(seatClass))
+    const input = variantLive(prepared.carrier, prepared.id, p2(seatClass))
     const after = evaluate(input)
     const promise = root(after, prepared.id)
     const matches = slot === 'lead' || (seatClass === 'leadOrAntagonist' && slot === 'antagonist')
@@ -395,7 +398,7 @@ describe('P14B4 staged outcome owner: real completed take, synthetic MATERIAL on
 
   it.each([p1, legacyP2])('actual support still qualifies for old count-only $family', (material) => {
     const prepared = actualTakeInput('support')
-    const input = variantV32(prepared.carrier, prepared.id, material)
+    const input = variantLive(prepared.carrier, prepared.id, material)
     const after = evaluate(input)
     expect(root(after, prepared.id)).toMatchObject({ outcome: 'SATISFIED', progress: 1, evidenceRefs: [prepared.take.eventId] })
     ownOutcome(after, prepared.id)
@@ -408,7 +411,7 @@ describe('P14B4 staged outcome owner: real completed take, synthetic MATERIAL on
     const other = prepared.ids.find((id) => root(prepared.carrier.state, id).beneficiaryPersonId === prepared.take.cast.antagonist)
     assert.ok(other, 'UNEXECUTED fixture: second genuine bound OPEN beneficiary must actually occupy antagonist')
     expect(root(prepared.carrier.state, other).contractId).not.toBe(lead.contractId)
-    const input = variantV32(variantV32(prepared.carrier, prepared.id, p2('lead')), other, p2('leadOrAntagonist'))
+    const input = variantLive(variantLive(prepared.carrier, prepared.id, p2('lead')), other, p2('leadOrAntagonist'))
     const after = evaluate(input)
     const roots = [prepared.id, other].map((id) => root(after, id))
     for (const promise of roots) {
@@ -424,8 +427,8 @@ describe('P14B4 staged outcome owner: real completed take, synthetic MATERIAL on
   it('a real take at window start counts; the same real take at due-exclusive does not', () => {
     const prepared = actualTakeInput('lead')
     const original = root(prepared.carrier.state, prepared.id)
-    const start = variantV32(prepared.carrier, prepared.id, p2('lead'), { start: prepared.take.week, due: original.dueWeekExclusive })
-    const excluded = variantV32(prepared.carrier, prepared.id, p2('lead'), { start: original.windowStartWeek, due: prepared.take.week })
+    const start = variantLive(prepared.carrier, prepared.id, p2('lead'), { start: prepared.take.week, due: original.dueWeekExclusive })
+    const excluded = variantLive(prepared.carrier, prepared.id, p2('lead'), { start: original.windowStartWeek, due: prepared.take.week })
     const kept = evaluate(start)
     expect(root(kept, prepared.id)).toMatchObject({ outcome: 'SATISFIED', progress: 1, evidenceRefs: [prepared.take.eventId] })
     ownOutcome(kept, prepared.id)

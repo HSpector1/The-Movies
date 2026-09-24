@@ -1,19 +1,26 @@
-import {migrateToV18,migrateToV32,type SaveFile,type SaveFileV32,type GameStateV18,type GameState} from '../src/core/index.js'
+import {migrateToV18,migrateToV33,type SaveFile,type SaveFileV33,type GameStateV18,type GameState} from '../src/core/index.js'
+import {buildTalentProvenance} from '../src/core/aging.js'
 import {withResearchFoundation} from '../src/core/researchPeople.js'
 import {initialTechnology} from '../src/core/technology.js'
 import {initialPhysicalPlans} from '../src/core/physicalPlans.js'
 import {initialTalentMarket} from '../src/core/talentMarket.js'
 /** Historical player-law control: preserve pre-P12 authority while lifting the
  * type to the current test engine. Native migration uses the real V20 chain. */
-export function migrateToCurrentControl(save:SaveFile):SaveFileV32 {
-  if(save.saveVersion>=19)return migrateToV32(save)
+export function migrateToCurrentControl(save:SaveFile):SaveFileV33 {
+  if(save.saveVersion>=19)return migrateToV33(save)
   const old=migrateToV18(save)
-  return {...old,saveVersion:32,state:liftHistoricalState(old.state)}
+  return {...old,saveVersion:33,state:liftHistoricalState(old.state)}
 }
 
 export function liftHistoricalState(state:GameStateV18):GameState {
   if ('hollywood' in state && state.hollywood!==null && state.hollywood!==undefined)throw new Error('Cannot erase living industry from a historical fixture')
-  return {...state,hollywood:null,talent:state.talent.map(withResearchFoundation),technology:initialTechnology(state.market.tick),physicalPlans:initialPhysicalPlans(),
+  const people=state.talent.map(withResearchFoundation)
+  return {...state,hollywood:null,talent:people.map(person=>({...person,age:Math.floor(person.age)})),technology:initialTechnology(state.market.tick),physicalPlans:initialPhysicalPlans(),
+    // P14C.1 (Save V33): the same lift the real V32->V33 migration writes — one
+    // `legacy_age_anchor` per person holding the ORIGINAL UNROUNDED age at
+    // `market.tick`, with each stored age then FLOORED. This helper hand-builds a
+    // LIVE envelope, so it owes the live shape, flooring included.
+    talentProvenance:buildTalentProvenance(people,state.market.tick,'legacy_age_anchor'),
     // P14A.1 (Save V28): the same lift the real V27->V28 migration writes — a
     // historical campaign fought no contested expiry, so the market root opens empty.
     talentMarket:initialTalentMarket(),

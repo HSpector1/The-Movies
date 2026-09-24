@@ -88,7 +88,7 @@ function operateStage(b:RivalBusiness) {
 }
 
 /** Fill only actual role deficits. Existing lawful employees are preferred; no player poaching. */
-function staff(state:GameState,h:HollywoodState,b:RivalBusiness,talent:Talent[],week:number,extraRoles:readonly Talent['role'][]=[]):Talent[] {
+function staff(state:GameState,h:HollywoodState,b:RivalBusiness,talent:Talent[],week:number,extraRoles:readonly Talent['role'][],suppliedPeople:{id:string;age:number}[]):Talent[] {
   const reserveAfterOffer=(terms:import('./types.js').Contract,replacing?:number)=>{
     const employment=[...h.employment,{contractId:'prospective',studioId:b.studioId,terms,endedWeek:null,reason:'replacement' as const}]
     const activeEmploymentOrdinals=[...h.activeEmploymentOrdinals.filter(i=>i!==replacing),employment.length-1]
@@ -133,13 +133,26 @@ function staff(state:GameState,h:HollywoodState,b:RivalBusiness,talent:Talent[],
     let person=expired&&!unavailable.has(expired.terms.talentId)?next.find(t=>t.id===expired.terms.talentId):undefined
     person ??= next.find(t=>t.role===role&&!unavailable.has(t.id))
     let supplied=false
+    let exactAge=0
     if(!person) {
       const id=uniqueIdentity(`person-${b.studioId}-supply-${week}-${slot}`,new Set(next.map(t=>t.id)))
-      person=generateIndustryTalent(state.seed,id,role);supplied=true
+      person=generateIndustryTalent(state.seed,id,role)
+      // P14C.1: the EXACT draw is the provenance anchor and is kept unrounded; the
+      // COMMITTED person stores its floor, applied HERE so `offerForTalent` below
+      // prices the age this world ends up storing.
+      exactAge=person.age
+      person={...person,age:Math.floor(exactAge)}
+      supplied=true
     }
     const terms=offerForTalent(state.seed,person,TUNING.HOLLYWOOD_CONTRACT_WEEKS,week)
     if(b.account.cash-terms.signingBonus < reserveAfterOffer(terms))continue
-    if(supplied)next=[...next,person]
+    // P14C.1 (record 762 §4, 759-C amendment 3): the APPEND, not the mint at :138.
+    // The affordability check above `continue`s, so a rival that cannot pay discards
+    // the person it just minted; provenance written inside a shared mint primitive
+    // would record one dead row per unaffordable rival hire per week, forever, in a
+    // save validated on every load. Collected here and written by the outer tick with
+    // the same `talent` array this returns.
+    if(supplied){next=[...next,person];suppliedPeople.push({id:person.id,age:exactAge})}
     const reason=expired?.terms.talentId===person.id?'renewal':'replacement'
     const contractId=`${b.studioId}:contract:${person.id}:${week}`
     h.activeEmploymentOrdinals=[...h.activeEmploymentOrdinals,h.employment.length]
@@ -235,9 +248,13 @@ function decide(state:GameState,h:HollywoodState,b:RivalBusiness,talent:Talent[]
 export function advanceHollywoodWeek(state:GameState):{hollywood:HollywoodState|null;talent:Talent[];growth:ReleaseGrowthRecord[];technology:GameState['technology'];physicalPlans:GameState['physicalPlans'];
   /** P14B.1 (1): this week's rival first takes (the 5 -> 4 advance), handed to
    * the outer tick so the ONE first-take root is appended in one place. */
-  firstTakes:{studioId:string;production:Production}[]} {
+  firstTakes:{studioId:string;production:Production}[];
+  /** P14C.1: the people `staff()` actually APPENDED this week (a mint the rival could
+   * not afford is discarded and is not here), each carrying its EXACT entry age, handed
+   * to the outer tick so provenance is written with the same commit that carries them. */
+  suppliedTalent:{id:string;age:number}[]} {
   const source=state.hollywood
-  if(!source)return {hollywood:null,talent:state.talent,growth:[],technology:state.technology,physicalPlans:state.physicalPlans,firstTakes:[]}
+  if(!source)return {hollywood:null,talent:state.talent,growth:[],technology:state.technology,physicalPlans:state.physicalPlans,firstTakes:[],suppliedTalent:[]}
   const week=state.market.tick
   const h:HollywoodState={...source,businesses:source.businesses.map(b=>({...b,account:{...b.account,
     periods:b.account.periods.map((p,i)=>i===b.account.periods.length-1?{...p,movements:{...p.movements}}:p)}}))}
@@ -246,10 +263,11 @@ export function advanceHollywoodWeek(state:GameState):{hollywood:HollywoodState|
   let physicalPlans=state.physicalPlans
   const growth:ReleaseGrowthRecord[]=[]
   const firstTakes:{studioId:string;production:Production}[]=[]
+  const suppliedTalent:{id:string;age:number}[]=[]
   for(const b of h.businesses) {
     technology=considerRivalSoundPurchase({...state,technology,hollywood:h},h,b)
     if(week>=b.nextDecisionWeek)talent=staff(state,h,b,talent,week,
-      Array.from({length:rivalScientistDemand({...state,technology,physicalPlans,hollywood:h},h,b,talent,week)},()=>'scientist' as const))
+      Array.from({length:rivalScientistDemand({...state,technology,physicalPlans,hollywood:h},h,b,talent,week)},()=>'scientist' as const),suppliedTalent)
     // P13B-S8 (audit item 7): this studio's own physical admission and research
     // week, after its hiring and before it commissions a film — its capital and
     // its research bill are spent from the same account the film draws on.
@@ -325,7 +343,7 @@ export function advanceHollywoodWeek(state:GameState):{hollywood:HollywoodState|
     for(const project of complete.projects)if(project.status==='review')complete=acceptScriptProject(complete,project.id)
     storeHotDevelopment(b,complete)
   }
-  return {hollywood:h,talent,growth,technology,physicalPlans,firstTakes}
+  return {hollywood:h,talent,growth,technology,physicalPlans,firstTakes,suppliedTalent}
 }
 
 /** End-of-week expiry follows payroll; future entrants are attached by the outer tick. */

@@ -18,7 +18,7 @@ import {
   SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS,
 } from '../bridge/runtime-checkpoint.ts'
 import { BridgeSession } from '../bridge/session.ts'
-import { exportSave, importSave, LIVE_SAVE_VERSION, migrateToV32, validateSaveV29 } from '../src/core/save.js'
+import { exportSave, importSave, LIVE_SAVE_VERSION, migrateToV33, validateSaveV29 } from '../src/core/save.js'
 
 const OUTGOING_46 = 'sha256:584bdd8565030f049d548b1af4fcbf8c517ca7c9150016736f632f1ef8fcb98c'
 const PINS = {
@@ -176,7 +176,7 @@ describe('P14B4 genuine outgoing46 runtime compatibility — future Save30/proje
   it('requires literal projection50/Save32 and exact 38 prior IDs, excluding the running identity', () => {
     expect(PROTOCOL_VERSION).toBe(4)
     expect(PROJECTION_VERSION).toBe(50)
-    expect(LIVE_SAVE_VERSION).toBe(32)
+    expect(LIVE_SAVE_VERSION).toBe(33)
     expect(SCHEMA_ID).not.toBe(OUTGOING_46)
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)
     expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual(EXPECTED_PRIOR_IDS)
@@ -199,15 +199,15 @@ describe('P14B4 genuine outgoing46 runtime compatibility — future Save30/proje
   it.each(['currentSaveJson', 'savedSaveJson'] as const)('migrates %s from its OWN genuine V29 state, preserving exact material/history', (slot) => {
     const old = validateSaveV29(JSON.parse(prior[slot]))
     const oldBytes = exportSave(old)
-    const expected = migrateToV32(importSave(prior[slot]))
-    expect(expected.saveVersion).toBe(32)
+    const expected = migrateToV33(importSave(prior[slot]))
+    expect(expected.saveVersion).toBe(33)
     const loaded = loadBridgeRuntimeCheckpoint(raw, undefined, () => 'p14b4-new47-' + slot)
     expect(loaded.migratedFromProtocolVersion).toBe(4)
     const actualBytes = loaded.hydrated.checkpoint[slot]
     assert.ok(typeof actualBytes === 'string')
     expect(actualBytes).toBe(exportSave(expected))
     const actual = importSave(actualBytes)
-    if (actual.saveVersion !== 32) throw new Error('Future behavior RED: slot did not reach governed Save32')
+    if (actual.saveVersion !== 33) throw new Error('Future behavior RED: slot did not reach governed Save32')
     expect(actual.state.market.tick).toBe(45)
     // 735-T (P14B.7 bridge sweep): the governed lift now reaches V32, one step
     // past the V29 material this claim is about; re-expressed to include the
@@ -226,8 +226,8 @@ describe('P14B4 genuine outgoing46 runtime compatibility — future Save30/proje
     const loaded = loadBridgeRuntimeCheckpoint(raw, undefined, createSession)
     expect(createSession).toHaveBeenCalledTimes(1)
     expect(loaded.migratedFromProtocolVersion).toBe(4)
-    const current = exportSave(migrateToV32(importSave(prior.currentSaveJson)))
-    const saved = exportSave(migrateToV32(importSave(prior.savedSaveJson)))
+    const current = exportSave(migrateToV33(importSave(prior.currentSaveJson)))
+    const saved = exportSave(migrateToV33(importSave(prior.savedSaveJson)))
     const after = loaded.hydrated.checkpoint
     // Expected object only: no fabricated/restamped checkpoint is fed to migration.
     expect(after).toEqual({ ...prior, schemaId: SCHEMA_ID,

@@ -3,7 +3,7 @@ import { applyActions } from '../src/core/actions.js'
 import { activeContract, busyTalentIds, terminationCost } from '../src/core/employment.js'
 import { initializeHollywood } from '../src/core/hollywood.js'
 import { commitPlacement } from '../src/core/placement.js'
-import { exportSave, importSave, makeSave, migrateToV32 } from '../src/core/save.js'
+import { exportSave, importSave, makeSave, migrateToV33 } from '../src/core/save.js'
 import { tick } from '../src/core/tick.js'
 import { weeklyResearchPayroll, weeklyResearchSpend } from '../src/core/technology.js'
 import { generateWorld } from '../src/core/worldgen.js'
@@ -35,7 +35,7 @@ describe('P13A research employment continuity', () => {
     expect(weeklyResearchPayroll(released)).toBe(0)
     expect(weeklyResearchSpend(released)).toBe(0)
     expect(() => applyActions(released, [{ kind: 'resumeResearch', projectId }])).toThrow('Employ and assign')
-    const restored = migrateToV32(importSave(exportSave(makeSave(released)))).state
+    const restored = migrateToV33(importSave(exportSave(makeSave(released)))).state
     expect(makeSave(restored)).toEqual(makeSave(released))
     expect(restored.technology.projects[0]).toEqual(released.technology.projects[0])
     const nextWeek = tick(restored)
@@ -44,6 +44,6 @@ describe('P13A research employment continuity', () => {
     const rehired = applyActions(nextWeek, [{ kind: 'recruitScientist', laboratoryFacilityId }, { kind: 'resumeResearch', projectId }])
     expect(rehired.talent.filter(person => person.role === 'scientist')).toHaveLength(1)
     expect(rehired.technology.projects[0]).toEqual({ ...project, status: 'active' })
-    expect(makeSave(migrateToV32(importSave(exportSave(makeSave(rehired)))).state)).toEqual(makeSave(rehired))
+    expect(makeSave(migrateToV33(importSave(exportSave(makeSave(rehired)))).state)).toEqual(makeSave(rehired))
   }, 30_000)
 })

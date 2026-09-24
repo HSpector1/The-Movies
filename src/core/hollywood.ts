@@ -7,6 +7,7 @@ import { busyTalentIds, offerForTalent, weeklySalary } from './employment.js'
 import { initialReleaseAuthority } from './releaseAuthority.js'
 import { initialManagedScriptDevelopment, scriptProjectWriterIds } from './scriptDevelopment.js'
 import { stream } from './rng.js'
+import { withTalentProvenance } from './aging.js'
 import { generateIndustryTalent } from './worldgen.js'
 import { initialTechnology } from './technology.js'
 import { FACILITY_BLUEPRINTS, GENRE_ORDER, ROLE_TO_DISCIPLINE, TUNING } from './tuning.js'
@@ -211,6 +212,14 @@ export function enterRival(state: GameState, studioId: string, origin: 'fresh' |
   for (const c of state.contracts) reserved.add(c.talentId)
   for (const ordinal of h.activeEmploymentOrdinals) { const c=h.employment[ordinal]!; if (c.endedWeek === null && c.terms.endWeekExclusive > week) reserved.add(c.terms.talentId) }
   const peopleTaken = new Set(talent.map(t => t.id))
+  // P14C.1 (record 762 §4/§9): the people this entry MINTS. A hire that reuses an
+  // existing free agent appends nothing and must write NO row — writing one per hire
+  // would give the same person a second row on the next rival that hired them, which
+  // validator condition 1 refuses. Collected here and committed with the same
+  // `talent` array below, never on a separate path that can diverge from it.
+  // Each entry carries the EXACT entry age — the provenance anchor — while the person
+  // pushed into `talent` carries its floor.
+  const entered: {id: string; age: number}[] = []
   const credits = RIVAL_TEAM_ROLES.map((role,index) => {
     let person: Talent | undefined = authored ? undefined : talent.find(t => t.role === role && !reserved.has(t.id))
     if (!person) {
@@ -220,6 +229,12 @@ export function enterRival(state: GameState, studioId: string, origin: 'fresh' |
         const discipline = ROLE_TO_DISCIPLINE[role]
         person = {...person,age:Math.max(28,person.age), workHistory:{...person.workHistory,[discipline]:template.films!.length}}
       }
+      // P14C.1: the EXACT age at the append is the anchor and is recorded unrounded;
+      // the COMMITTED person stores its floor, and it is that committed value
+      // `offerForTalent` below prices, so the contract, the row and `state.talent` all
+      // agree about which age this person has.
+      entered.push({id: person.id, age: person.age})
+      person = {...person, age: Math.floor(person.age)}
       talent.push(person)
     }
     reserved.add(person.id)
@@ -244,5 +259,10 @@ export function enterRival(state: GameState, studioId: string, origin: 'fresh' |
       title,genre,credits:credits.map(c => ({...c})),provenance:'authored-start/v1',released:historicalDate(year),
       criticScore,audienceScore,openingGross,totalGross,settled:true})
   })
-  return {...state,talent,hollywood:h}
+  // The provenance write follows the SAME commit as the people it records, and
+  // captures each age AS IT IS AT THE APPEND — after the `Math.max(28, …)` raise
+  // above, never as drawn.
+  let next: GameState = {...state,talent,hollywood:h}
+  for (const person of entered) next = withTalentProvenance(next,person)
+  return next
 }

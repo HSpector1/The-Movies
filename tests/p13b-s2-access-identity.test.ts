@@ -1,7 +1,7 @@
 import { beforeAll, describe, expect, it } from 'vitest'
 import { applyActions } from '../src/core/actions.js'
 import { tick } from '../src/core/tick.js'
-import { exportSave, importSave, makeSave, migrateToV32, validateSaveV32 } from '../src/core/save.js'
+import { exportSave, importSave, makeSave, migrateToV33, validateSaveV33 } from '../src/core/save.js'
 import { playerTechnologyAccess } from '../src/core/technology.js'
 import type { TechnologyAccess, TechnologyId } from '../src/core/technologyTypes.js'
 import type { GameState } from '../src/core/types.js'
@@ -182,7 +182,7 @@ describe('P13B-S2 access identity: completion grant must key on (studioId, techn
     const { afterSecond, firstId, secondId } = soundThenLight
     const json = exportSave(makeSave(afterSecond))
     const imported = importSave(json)
-    const migrated = migrateToV32(imported)
+    const migrated = migrateToV33(imported)
     let state: GameState = migrated.state
     for (let i = 0; i < 10; i++) state = tick(state)
     const soundRows = state.technology.access.filter(a => a.studioId === own && a.technologyId === 'synchronized-sound')
@@ -193,7 +193,7 @@ describe('P13B-S2 access identity: completion grant must key on (studioId, techn
     expect(lightRows).toHaveLength(1)
     expect(soundRows[0]).toEqual({ studioId: own, technologyId: 'synchronized-sound', route: 'research', chosenWeek: 780, acquiredWeek: 787, accessCost: 0, researchProjectId: firstId })
     expect(lightRows[0]).toEqual({ studioId: own, technologyId: 'lighting-control-01', route: 'research', chosenWeek: 787, acquiredWeek: 794, accessCost: 0, researchProjectId: secondId })
-    expect(() => validateSaveV32(makeSave(state))).not.toThrow()
+    expect(() => validateSaveV33(makeSave(state))).not.toThrow()
   })
 
   it('7. idempotence: ticking again after completion never adds a duplicate row for either technology', () => {
@@ -253,7 +253,7 @@ describe('P13B-S2 access identity: forward validator invariant "completed resear
   /** exportSave(makeSave(state)) → parse the JSON envelope → forge exactly the
    * `technology.access` rows `mutate` touches → reserialize → return a thunk
    * that calls `importSave` on the forged JSON (which internally dispatches to
-   * `validateSaveV32`, exercising the full save-file boundary, not just the
+   * `validateSaveV33`, exercising the full save-file boundary, not just the
    * in-memory validator). */
   function forgedImport(state: GameState, mutate: (access: ForgedAccessRow[]) => void): () => unknown {
     const envelope = JSON.parse(exportSave(makeSave(state))) as { state: { technology: { access: ForgedAccessRow[] } } }

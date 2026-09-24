@@ -10,8 +10,9 @@ import { beforeAll, describe, expect, it, vi } from 'vitest'
 import * as promiseModule from '../src/core/promises.js'
 import { attachPromise, PROMISE_RULES_VERSION } from '../src/core/promises.js'
 import { currentProposals, submitProposal } from '../src/core/talentMarket.js'
-import { exportSave, importSave, loadSave, makeSave, migrateToV29, migrateToV32, validateSaveV29, validateSaveV32 } from '../src/core/save.js'
+import { exportSave, importSave, loadSave, makeSave, migrateToV29, migrateToV33, validateSaveV29, validateSaveV33 } from '../src/core/save.js'
 import type { GameState, PromiseFeasibilityReceipt } from '../src/core/types.js'
+import { buildTalentProvenance } from '../src/core/aging.js'
 import { advanceTo } from '../src/harness/p13a/fixtures.js'
 
 const CORPUS = './fixtures/p14/genuine-v29-pre-b3-evaluator1/'
@@ -120,14 +121,25 @@ describe('P14B.3 continuity under the live evaluator (4 after record 600) with g
     // relationship root, AND `supersededByPromiseId: null` on every existing
     // promise (nothing else recomputed). The live writer fed the V29-loaded state
     // plus those two additive fields reproduces the governed bytes.
-    const governed = migrateToV32(importSave(raw))
-    expect(governed.saveVersion).toBe(32)
+    // 763-R8 (P14C.1, R-VERSION): the live writer now stamps Save33. The governed
+    // lift adds C.1's provenance root AND floors every stored age against it — the
+    // first step in this chain that changes a VALUE rather than only adding a field,
+    // so the expected shape below names both, derived from the fixture's own people
+    // rather than read back off the output.
+    const governed = migrateToV33(importSave(raw))
+    expect(governed.saveVersion).toBe(33)
     const parsedRaw = JSON.parse(raw)
     const addedFieldsRaw = (promise: Record<string, unknown>) => ({ ...promise, supersededByPromiseId: null })
-    expect(JSON.parse(exportSave(governed))).toEqual({ ...parsedRaw, saveVersion: 32, state: { ...parsedRaw.state,
-      relationships: [], promises: (parsedRaw.state.promises as Record<string, unknown>[]).map(addedFieldsRaw) } })
+    const rawPeople = parsedRaw.state.talent as { id: string; age: number }[]
+    expect(JSON.parse(exportSave(governed))).toEqual({ ...parsedRaw, saveVersion: 33, state: { ...parsedRaw.state,
+      relationships: [], promises: (parsedRaw.state.promises as Record<string, unknown>[]).map(addedFieldsRaw),
+      talent: rawPeople.map((person) => ({ ...person, age: Math.floor(person.age) })),
+      talentProvenance: buildTalentProvenance(rawPeople, parsedRaw.state.market.tick as number, 'legacy_age_anchor') } })
     const addedFieldsReloaded = (promise: typeof reloaded.state.promises[number]) => ({ ...promise, supersededByPromiseId: null })
-    expect(exportSave(makeSave({ ...reloaded.state, relationships: [], promises: reloaded.state.promises.map(addedFieldsReloaded) })))
+    const liftedV32 = { ...reloaded.state, relationships: [], promises: reloaded.state.promises.map(addedFieldsReloaded) }
+    expect(exportSave(makeSave({ ...liftedV32,
+      talent: liftedV32.talent.map((person) => ({ ...person, age: Math.floor(person.age) })),
+      talentProvenance: buildTalentProvenance(liftedV32.talent, liftedV32.market.tick, 'legacy_age_anchor') })))
       .toBe(exportSave(governed))
     expect(JSON.stringify(reloaded.state.promises)).toBe(promiseBytes)
     expect(JSON.stringify(reloaded.state.talentMarket)).toBe(marketBytes)
@@ -150,7 +162,7 @@ describe('P14B.3 continuity under the live evaluator (4 after record 600) with g
 
   it('new actual attachment uses root.version4 and receipt.rulesVersion4 without rewriting old roots', () => {
     const { save, focused: old } = readFixture('evaluator1-current-p1')
-    const state = migrateToV32(save).state
+    const state = migrateToV33(save).state
     const priorRoots = JSON.stringify(state.promises)
     const proposal = currentProposals(state, old.beneficiaryPersonId).find((p) => p.issuerStudioId === old.issuerStudioId)
     assert.ok(proposal)
@@ -170,13 +182,13 @@ describe('P14B.3 continuity under the live evaluator (4 after record 600) with g
     expect(JSON.stringify(attached.promises.slice(0, state.promises.length))).toBe(priorRoots)
     expect(currentProposals(attached, proposal.talentId).find((p) => p.issuerStudioId === proposal.issuerStudioId)!.promises)
       .toEqual([fresh.promiseId])
-    const reloaded = validateSaveV32(importSave(exportSave(makeSave(attached)))).state
+    const reloaded = validateSaveV33(importSave(exportSave(makeSave(attached)))).state
     expect(reloaded.promises).toEqual(attached.promises)
   })
 
   it('actual later winning freeze keeps old root.version1 but stores genuine new rulesVersion4 receipt and binding', () => {
     const { save, focused: old } = readFixture('evaluator1-current-p1')
-    const state = migrateToV32(save).state
+    const state = migrateToV33(save).state
     const priorRoots = JSON.stringify(state.promises)
     const proposal = currentProposals(state, old.beneficiaryPersonId).find((p) => p.issuerStudioId === old.issuerStudioId)
     assert.ok(proposal)
@@ -212,7 +224,7 @@ describe('P14B.3 continuity under the live evaluator (4 after record 600) with g
       talentId: old.beneficiaryPersonId, studioId: old.issuerStudioId, week: proposal.startWeek }))
     expect(currentProposals(settled, old.beneficiaryPersonId)).toEqual([])
     expect(JSON.stringify(state.promises)).toBe(priorRoots)
-    const reloaded = validateSaveV32(importSave(exportSave(makeSave(settled)))).state
+    const reloaded = validateSaveV33(importSave(exportSave(makeSave(settled)))).state
     expect(reloaded.promises.find((p) => p.promiseId === old.promiseId)).toEqual(bound)
     expect(old.version).toBe(1)
     expect(old.feasibilityReceipt.rulesVersion).toBe(1)

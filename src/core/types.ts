@@ -2281,24 +2281,62 @@ export type GameStateV31 = GameStateV30 & {
   relationships: readonly RelationshipEdge[]
 }
 
-// P14B.5 added the `relationships` root at V31. Since P14B.7 the live gameplay
-// boundary is V32 (the waived-promise link); V31 remains the frozen prior save
-// shape, and its one lossless-when-empty downgrade is the only way back.
-export type GameState = GameStateV32
+// P14B.5 added the `relationships` root at V31, P14B.7 the waived-promise link at
+// V32. Since P14C.1 the live gameplay boundary is V33 (the talent provenance root);
+// V32 remains the frozen prior save shape, and its one lossless-while-unmaterialized
+// downgrade is the only way back.
+export type GameState = GameStateV33
 
 // ── P14B.7 — the waived-promise link (Save V32) ─────────────────────────────
 
 /** V32 records WHICH substitute superseded a promise the person agreed to waive.
  * `null` on every other record, and on every record a pre-V32 campaign wrote:
- * the field opens empty and recomputes nothing. THE LIVE SHAPE since P14B.7 —
- * `LIVE_SAVE_VERSION` is 32 and `makeSave` stamps it, so `waivePromise` writes a
- * durable link rather than leaving the successor recoverable only from prose. */
+ * the field opens empty and recomputes nothing. The live shape from P14B.7 until
+ * P14C.1 (`LIVE_SAVE_VERSION` is 33 and `makeSave` stamps it since then); the
+ * field survives unchanged into V33, so `waivePromise` still writes a durable
+ * link rather than leaving the successor recoverable only from prose. */
 export type ProfessionalPromiseV32 = ProfessionalPromiseV30 & {
   supersededByPromiseId: string | null
 }
 
 export type GameStateV32 = Omit<GameStateV31, 'promises'> & {
   promises: readonly ProfessionalPromiseV32[]
+}
+
+// ── P14C.1 — materialized aging (Save V33) ──────────────────────────────────
+//
+// Age is DERIVED and MATERIALIZED, never incremented. The whole law is one
+// formula (record 762 §1): `age(w) = floor(anchorAge + (w - anchorWeek) / 52)`.
+// No stored birth week exists to disagree with it.
+
+/** One person's origin. Record 762 §2 records the naming hazard rather than
+ * renaming it: `authored_exact_week` is the companion's own kind name and covers
+ * every person who ENTERED `state.talent` at a known week with a known exact age —
+ * worldgen's genesis population, rival hires, the player's own creations. It is NOT
+ * `Talent.authored`, which in this codebase means player-created. */
+export type TalentProvenanceRow =
+  | { personId: string; kind: 'authored_exact_week'; ageAtEntry: number; entryWeek: number }
+  | { personId: string; kind: 'legacy_age_anchor'; ageAtMigration: number; migrationWeek: number }
+
+/** The ONE top-level provenance root, on the `stripV31Root` pattern
+ * (`src/core/save.ts:8794`). `due` is an ARRAY and never an object keyed by week,
+ * because `save.ts:588` sorts object keys lexicographically and `"100"` would
+ * precede `"11"` (759-C amendment 14). `due` is a cache, and the validator
+ * recomputes it and refuses a mismatch — a cache nothing reconciles is the
+ * truth-loss class A8 closed. */
+export type TalentProvenanceRoot = {
+  /** `market.tick` when the root was created. */
+  boundaryWeek: number
+  /** Exactly one row per `state.talent` id. */
+  rows: readonly TalentProvenanceRow[]
+  /** The visit list, ASCENDING by week. */
+  due: readonly { week: number; personIds: readonly string[] }[]
+}
+
+export type GameStateV33 = GameStateV32 & {
+  /** P14C.1: the ONE provenance root, top level beside `relationships`. Every
+   * stored `Talent.age` is a cache of `ageAt(row, market.tick)` over it. */
+  talentProvenance: TalentProvenanceRoot
 }
 
 // ── D-14 Talent Career Impact — frozen career-event record (§7) ───────────────

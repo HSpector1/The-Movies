@@ -288,8 +288,8 @@ describe('P14B.1 test 1: the first-take receipt', () => {
     // AMENDED AGAIN (735-T, P14B.7 live-version sweep, 2026-09-23): the envelope
     // moved 31 -> 32 and the validator with it, same reasoning one step further.
     expect(afterFirstWeek.relationships.length).toBeGreaterThan(0)
-    const envelope = { saveVersion: 32, seed: afterFirstWeek.seed, state: afterFirstWeek, broadcastCache: afterFirstWeek.broadcastItems }
-    const roundTripped = save.validateSaveV32(JSON.parse(JSON.stringify(envelope)))
+    const envelope = { saveVersion: 33, seed: afterFirstWeek.seed, state: afterFirstWeek, broadcastCache: afterFirstWeek.broadcastItems }
+    const roundTripped = save.validateSaveV33(JSON.parse(JSON.stringify(envelope)))
     // Filtered by productionId, exactly like `takes` above: an industry
     // world's `firstTakes` root also carries every rival's own first takes
     // (unlike the V28-fixture's isolated operations-only world), so the

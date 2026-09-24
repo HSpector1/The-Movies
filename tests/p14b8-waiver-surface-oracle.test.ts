@@ -66,7 +66,7 @@ import {
   PROMISE_RULES_VERSION, waivePromise, waiverAccepted,
   type PromiseAttachment,
 } from '../src/core/promises.js'
-import { LIVE_SAVE_VERSION, convertV31ToV32, validateSaveV31, validateSaveV32 } from '../src/core/save.js'
+import { LIVE_SAVE_VERSION, convertV31ToV32, convertV32ToV33, validateSaveV31, validateSaveV32 } from '../src/core/save.js'
 import type { GameState, ProfessionalPromise } from '../src/core/types.js'
 
 const sha = (value: Buffer | string): string => createHash('sha256').update(value).digest('hex')
@@ -114,9 +114,11 @@ function owesTwo(): GameState {
   const raw = gunzipSync(compressed).toString('utf8')
   expect(sha(compressed), 'owes-two compressed bytes moved: the fixture was re-minted or edited').toBe(OWES_TWO.gz)
   expect(sha(raw), 'owes-two uncompressed bytes moved: the fixture was re-minted or edited').toBe(OWES_TWO.raw)
+  // `validateSaveV32` STAYS: this is a genuine V32 artifact, admitted by the validator
+  // of its own version. Only the LIFT to the live GameState moves (P14C.1).
   const save = validateSaveV32(JSON.parse(raw))
   expect(save.state.market.tick).toBe(OWES_TWO.week)
-  return save.state as unknown as GameState
+  return convertV32ToV33(save).state as unknown as GameState
 }
 
 /** The V31 world holding RIVAL-ISSUED bound open promises, lifted through the lawful conversion. */
@@ -127,7 +129,7 @@ function withEdges(): GameState {
   expect(sha(raw), 'with-edges uncompressed bytes moved: the fixture was re-minted or edited').toBe(WITH_EDGES.raw)
   const save = validateSaveV31(JSON.parse(raw))
   expect(save.state.market.tick).toBe(WITH_EDGES.week)
-  return convertV31ToV32(save).state as unknown as GameState
+  return convertV32ToV33(convertV31ToV32(save)).state as unknown as GameState
 }
 
 function promiseOf(state: GameState, promiseId: string): ProfessionalPromise {
@@ -172,7 +174,7 @@ describe('P14B.8 group1 — the owes-two world is exactly what 744 §11 A5 says 
   })
 
   it('744 §6: B.8 is a wire change, so LIVE_SAVE_VERSION stays 32 and PROMISE_RULES_VERSION stays 4', () => {
-    expect(LIVE_SAVE_VERSION, 'B.8 moves no save law; a bump here is a plan amendment, not an implementation detail').toBe(32)
+    expect(LIVE_SAVE_VERSION, 'B.8 moves no save law; a bump here is a plan amendment, not an implementation detail').toBe(33)
     expect(PROMISE_RULES_VERSION, 'B.8 moves no promise rule; the stamped law version does not move').toBe(4)
   })
 })

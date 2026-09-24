@@ -70,7 +70,7 @@ import { tick } from '../src/core/tick.js'
 import * as marketModule from '../src/core/talentMarket.js'
 import { publicPreferredTerm, publicPriorityOrder, submitProposal, type FreezeDrop } from '../src/core/talentMarket.js'
 import { attachPromise } from '../src/core/promises.js'
-import { LIVE_SAVE_VERSION, makeSave, migrateToV25, migrateToV26, migrateToV27, migrateToV28, migrateToV29, migrateToV30, migrateToV31, migrateToV32, validateSaveV30, validateSaveV31, validateSaveV32 } from '../src/core/save.js'
+import { LIVE_SAVE_VERSION, makeSave, migrateToV25, migrateToV26, migrateToV27, migrateToV28, migrateToV29, migrateToV30, migrateToV31, migrateToV33, validateSaveV30, validateSaveV31, validateSaveV33 } from '../src/core/save.js'
 import { TUNING } from '../src/core/tuning.js'
 import { careerIdentity } from '../src/core/talentSummary.js'
 import { advanceTo, fund, p13aGeneratedStudio, player } from './helpers/p14b2-fixtures.js'
@@ -147,7 +147,7 @@ function fixture(name: CorpusName) {
 }
 /** The lifted V31 world: EMPTY root, everything else the V30 bytes (family 9 proves it byte-for-byte). */
 function lifted(name: CorpusName): GameState {
-  const state = migrateToV32(fixture(name)).state as GameState
+  const state = migrateToV33(fixture(name)).state as GameState
   expect(edges(state)).toEqual([])
   return state
 }
@@ -511,7 +511,7 @@ describe('family 1 — EDGE MINTING at the tick tail from the advance\'s delta (
     assert.ok(existsSync(legacyV28), 'frozen fixture missing: legacy-v28-shooting-5.json.gz (plan :523)')
     const raw = JSON.parse(gunzipSync(readFileSync(legacyV28)).toString('utf8')) as { saveVersion: number }
     expect(raw.saveVersion).toBe(28)
-    const state = migrateToV32(raw).state as GameState
+    const state = migrateToV33(raw).state as GameState
     expect(state.hollywood).toBeNull()
     expect(state.market.tick).toBe(16)
     expect(edges(state)).toEqual([])
@@ -946,22 +946,22 @@ describe('family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; fam
   const expectRefused = (mutate: (edges: Edge[], state: Record<string, unknown>) => void, pattern: RegExp) => {
     const save = v31()
     mutate(save.state.relationships, save.state)
-    expect(() => validateSaveV32(save)).toThrow(pattern)
+    expect(() => validateSaveV33(save)).toThrow(pattern)
     expect(() => validateRelationshipsRoot(save.state)).toThrow(pattern)
   }
 
   it('validateSaveV32/validateRelationshipsRoot exist and admit the genuinely minted world round-trip', () => {
-    expect(typeof validateSaveV32).toBe('function'); expect(typeof validateRelationshipsRoot).toBe('function')
+    expect(typeof validateSaveV33).toBe('function'); expect(typeof validateRelationshipsRoot).toBe('function')
     const save = v31()
     expect(save.saveVersion).toBe(LIVE_SAVE_VERSION)
     expect(save.state.relationships).toHaveLength(6)
-    expect(validateSaveV32(save)).toEqual(save)
+    expect(validateSaveV33(save)).toEqual(save)
   })
 
   it('refuses a missing root', () => {
     const save = v31()
     Reflect.deleteProperty(save.state, 'relationships')
-    expect(() => validateSaveV32(save)).toThrow(/relationships/)
+    expect(() => validateSaveV33(save)).toThrow(/relationships/)
   })
   it('refuses a non-ordinal edgeId', () => expectRefused((e) => { e[0]!.edgeId = 'edge-x' }, /edgeId/))
   it('refuses a duplicate pair', () => expectRefused((e) => { e[1]!.a = e[0]!.a; e[1]!.b = e[0]!.b }, /duplicate|pair/i))
@@ -996,7 +996,7 @@ describe('family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; fam
     expect(typeof projectRelationshipsPreV31).toBe('function')
     const save = v31()
     const one = { ...save, state: { ...save.state, relationships: [save.state.relationships[0]!] } }
-    const admitted = validateSaveV32(one)
+    const admitted = validateSaveV33(one)
     const before = JSON.stringify(admitted)
     expect(() => projectRelationshipsPreV31(one.state)).toThrow()
     expect(() => migrateToV30(admitted)).toThrow(/cannot downgrade SaveFileV31 or discard the relationship record/)
@@ -1004,7 +1004,7 @@ describe('family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; fam
       expect(() => older(admitted as never)).toThrow(/cannot downgrade|SaveFileV31|relationship/)
     }
     expect(JSON.stringify(admitted)).toBe(before)
-    const empty = validateSaveV32({ ...save, state: { ...save.state, relationships: [] } })
+    const empty = validateSaveV33({ ...save, state: { ...save.state, relationships: [] } })
     expect(projectRelationshipsPreV31(empty.state)).toBeUndefined()
     const downgraded = migrateToV30(empty)
     expect(downgraded.saveVersion).toBe(30)

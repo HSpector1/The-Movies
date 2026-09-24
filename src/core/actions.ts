@@ -2,6 +2,7 @@ import { buildFilmParticipants } from './filmParticipants.js'
 import { applyTechnologyAction, researchAfterEmploymentRelease, researchCandidates, RESEARCH_SCIENTISTS_PER_STUDIO, spelled } from './technology.js'
 import { discardUnfilmedProductionTechnology } from './technologyProduction.js'
 import { withResearchFoundation } from './researchPeople.js'
+import { withTalentProvenance } from './aging.js'
 // ── §3 applyActions ──────────────────────────────────────────────────────────
 // `applyActions(state, actions): GameState` — pure; validates, then applies the
 // three action kinds (greenlight / cancel / createTalent). This is the
@@ -823,7 +824,12 @@ function applyCreateTalent(state: GameState, action: Action & { kind: 'createTal
 // the minimum once signed). During operations → a Free Agent (signable via the Hiring
 // Market). Idempotent (dedupe guard) so repeated confirm/back-nav never duplicates.
 function withCreatedTalent(state: GameState, talent: Talent): GameState {
-  const base: GameState = { ...state, talent: [...state.talent, talent] }
+  // P14C.1 (record 762 §4): the ONE authored append, covering all three creators. The
+  // EXACT authored age is the anchor and is recorded unrounded; the COMMITTED person
+  // stores its floor (`createTalent` at :744 stores age unrounded, so a player-supplied
+  // fraction really can reach here — 759-C amendment 14).
+  const committed: Talent = { ...talent, age: Math.floor(talent.age) }
+  const base: GameState = withTalentProvenance({ ...state, talent: [...state.talent, committed] }, talent)
   if (state.founding !== null) {
     const applicantIds = state.founding.applicantIds.includes(talent.id)
       ? state.founding.applicantIds
@@ -2839,7 +2845,15 @@ export function applyActions(state: GameState, actions: Action[]): GameState {
         if (activeContract(next, scientist.id)) throw new Error(`This programme already employs ${scientist.name}.`)
         if (next.talent.filter(t => t.role === 'scientist' && activeContract(next, t.id)).length >= RESEARCH_SCIENTISTS_PER_STUDIO) throw new Error(`This studio's research programme already employs its ${spelled(RESEARCH_SCIENTISTS_PER_STUDIO)} Scientists.`)
         if (next.talent.some(t => t.id === scientist.id && t !== scientist)) throw new Error('The Scientist identity is already in use.')
-        const candidate = next.talent.includes(scientist) ? next : {...next, talent:[...next.talent,scientist], freeAgents:[...next.freeAgents,scientist.id]}
+        // P14C.1 (record 762 §4, 759-C amendment 2): a recruited Scientist derived from
+        // `researchCandidates` was never in `state.talent`, so this is a genuine fifth
+        // append site — and it writes a row only on the branch that really appends.
+        // The committed Scientist stores the floor of the exact age the row anchors on;
+        // `researchCandidates` returns the STORED object once one exists, so a second
+        // recruit of the same identity still short-circuits on `includes`.
+        const candidate = next.talent.includes(scientist) ? next
+          : withTalentProvenance({...next, talent:[...next.talent,{...scientist, age:Math.floor(scientist.age)}],
+              freeAgents:[...next.freeAgents,scientist.id]}, scientist)
         next = applySignContract(candidate,{kind:'signContract',talentId:scientist.id,termWeeks:208})
         break
       }

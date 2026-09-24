@@ -15,8 +15,9 @@ import { fnv1a64 } from '../src/core/math.js'
 import { attachedPromiseDigest, promiseDigest, proposalDigest } from '../src/core/promises.js'
 import {
   LIVE_SAVE_VERSION, convertV29ToV28, exportSave, importSave, loadSave, makeSave,
-  validateSaveV29, validateSaveV30, migrateToV30, migrateToV32, convertV30ToV29,
+  validateSaveV29, validateSaveV30, migrateToV30, migrateToV33, convertV30ToV29,
 } from '../src/core/save.js'
+import { buildTalentProvenance } from '../src/core/aging.js'
 
 const NAMES = [
   'empty', 'current-p1', 'replaced-p1', 'withdrawn-p1', 'bound-open-p1',
@@ -161,11 +162,18 @@ function preservesExactly(admitted: OldSave) {
   // invariant extends one more governed step: the live writer fed the V30 state
   // plus the EMPTY relationship root AND `supersededByPromiseId: null` on every
   // existing promise reproduces the governed V30->V32 lift of this envelope.
-  const lifted = migrateToV32(migrated)
+  // 763-R8 (P14C.1, R-VERSION): the live writer now stamps Save33, so the invariant
+  // extends one more governed step — C.1's provenance root, and every stored age
+  // FLOORED against it. That is the first step in this chain that changes a VALUE
+  // rather than only adding a field, so both are named explicitly below.
+  const lifted = migrateToV33(migrated)
   const addedFields = (promise: typeof migrated.state.promises[number]) => ({ ...promise, supersededByPromiseId: null })
-  expect(lifted).toEqual({ ...migrated, saveVersion: 32, state: { ...migrated.state, relationships: [],
-    promises: migrated.state.promises.map(addedFields) } })
-  expect(makeSave({ ...migrated.state, relationships: [], promises: migrated.state.promises.map(addedFields) })).toEqual(lifted)
+  const floored = migrated.state.talent.map((person) => ({ ...person, age: Math.floor(person.age) }))
+  const provenance = buildTalentProvenance(migrated.state.talent, migrated.state.market.tick, 'legacy_age_anchor')
+  expect(lifted).toEqual({ ...migrated, saveVersion: 33, state: { ...migrated.state, relationships: [],
+    promises: migrated.state.promises.map(addedFields), talent: floored, talentProvenance: provenance } })
+  expect(makeSave({ ...migrated.state, relationships: [], promises: migrated.state.promises.map(addedFields),
+    talent: floored, talentProvenance: provenance })).toEqual(lifted)
   const downgraded = convertV30ToV29(migrated)
   expect(validateSaveV29(downgraded)).toEqual(admitted)
   expect(exportSave(downgraded)).toBe(raw)
@@ -194,7 +202,7 @@ function assertActualBacking(save: OldSave, root: OldPromise): void {
 
 describe('P14B4 Save30: genuine final V29 corpus, exact old-state preservation', () => {
   it('pins LIVE_SAVE_VERSION to literal32 independently of the value under test (P14B.7, 735-T)', () => {
-    expect(LIVE_SAVE_VERSION).toBe(32)
+    expect(LIVE_SAVE_VERSION).toBe(33)
   })
 
   it.each(NAMES)('migrates genuine %s without rewriting roots, receipts, digests or history and downgrades losslessly', (name) => {

@@ -14,7 +14,8 @@ import { SCHEMA_ID } from '../bridge/protocol.ts'
 import { canonicalJson } from '../bridge/schema/canonical.ts'
 import type { BridgeCheckpointStore } from '../bridge/runtime/checkpoint-store.ts'
 import { createBridgeRuntimeCoordinator } from '../bridge/runtime/runtime-coordinator.ts'
-import { importSave, type SaveFileV32 } from '../src/core/save.js'
+import { importSave, type SaveFileV33 } from '../src/core/save.js'
+import { buildTalentProvenance } from '../src/core/aging.js'
 import { initialTechnology } from '../src/core/technology.js'
 import { initialPhysicalPlans } from '../src/core/physicalPlans.js'
 import { initialTalentMarket } from '../src/core/talentMarket.js'
@@ -51,7 +52,7 @@ function previous(bytes: string): BridgeRuntimeCheckpointV1 {
   return JSON.parse(bytes) as BridgeRuntimeCheckpointV1
 }
 
-function expectPreservedGameplay(beforeJson: string, after: SaveFileV32): void {
+function expectPreservedGameplay(beforeJson: string, after: SaveFileV33): void {
   const before = importSave(beforeJson)
   if (before.saveVersion !== 16) throw new Error('Frozen P06 evidence must contain an original Save V16')
   // Assert every old root, including IDs, commitment, cash/ledger, week and RNG,
@@ -69,7 +70,7 @@ function expectPreservedGameplay(beforeJson: string, after: SaveFileV32): void {
   // below, so the expected object widens that leaf explicitly.
   // Comparing with migrateToV31's own output would not prove preservation.
   const oldIds=new Set(before.state.talent.map(t=>t.id))
-  const {hollywood,technology,physicalPlans,talentMarket,firstTakes,promises,relationships,...afterState}=after.state
+  const {hollywood,technology,physicalPlans,talentMarket,firstTakes,promises,relationships,talentProvenance,...afterState}=after.state
   expect(hollywood).toMatchObject({origin:'migration',originWeek:before.state.market.tick,films:[]})
   expect(technology).toEqual(initialTechnology(before.state.market.tick))
   // P13B-S3: V23 adds the physical-plan root, EMPTY — a migrated save planned nothing.
@@ -82,17 +83,26 @@ function expectPreservedGameplay(beforeJson: string, after: SaveFileV32): void {
   expect(promises).toEqual([])
   // P14B.5: V31 adds the relationship root, EMPTY — the lift recomputes nothing (plan :725-781).
   expect(relationships).toEqual([])
-  expect(after.state.talent.filter(t=>oldIds.has(t.id))).toEqual(before.state.talent.map(withResearchFoundation))
+  // P14C.1: V33 adds the provenance root, and it is the one root in this chain that is
+  // NOT empty — one `legacy_age_anchor` per person holding the ORIGINAL UNROUNDED age
+  // at the migration week. Its visible cost is that every stored age is then FLOORED,
+  // which is why the talent comparison below floors too rather than being relaxed.
+  expect(talentProvenance).toEqual(buildTalentProvenance(before.state.talent, before.state.market.tick, 'legacy_age_anchor'))
+  const flooredBefore = before.state.talent.map(withResearchFoundation).map(person=>({...person,age:Math.floor(person.age)}))
+  expect(after.state.talent.filter(t=>oldIds.has(t.id))).toEqual(flooredBefore)
   const oldPeople = after.state.talent.filter(t=>oldIds.has(t.id)).map(person => {
     const copied = structuredClone(person)
     for (const key of ['skills','ceilings','devRate','genreExperience','workHistory'] as const) Reflect.deleteProperty(copied[key], 'research')
     return copied
   })
   expect({...after,state:{...afterState,talent:oldPeople}}).toEqual({
-    saveVersion: 32,
+    saveVersion: 33,
     seed: before.seed,
     state: {
       ...before.state,
+      // P14C.1: the ages the V32->V33 step floored (the provenance root itself is
+      // compared above, then stripped with the other post-V16 roots).
+      talent: before.state.talent.map(person=>({...person,age:Math.floor(person.age)})),
       era: { ...before.state.era, soundRequired: false },
       studioHistory: { recordingStartedWeek: before.state.market.tick, nextEventId: 0, rows: [] },
       foundingRegime: 'endowed',
