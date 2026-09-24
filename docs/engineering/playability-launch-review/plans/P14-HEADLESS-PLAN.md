@@ -669,6 +669,53 @@ A SHARPER FINDING THAN THE ONE THE SLICE WAS OPENED ON: the wire's `count: integ
 (`bridge-schema.ts:1798`) makes B.7's zero-count rule-7 refusal STRUCTURALLY UNREACHABLE from the
 player surface, so the Owner's positive-but-insufficient case is not one useful case among several
 — it is the ONLY way rule 7's refusal can be exercised through the bridge at all.
+P14B.8 VERIFIED AND PUBLISHED — P14B CLOSES. Record 757, source `c368e6b1`, run `755-b8-full-core`
+at `3cae7c93`, `fixedSource: true`, empty tree diff both ends. IDENTITIES: projection 49 → 50, schema
+`sha256:e2d354dc…`, prior roster 37 → 38 with `60af24c5…` registered as `projection-v49` IN THE SAME
+COMMIT; save V32, rules 4 and protocol 4 all UNMOVED and `git status src/` EMPTY. B.7 moved the save
+without moving the wire; B.8 IS ITS EXACT MIRROR, moving the wire without moving the save. Suites 44
+passed (44). Full core 10 files failed / 347 passed (357); 25 failed / 4060 passed / 8 todo (4093).
+THE FAILURE-NAME SET IS IDENTICAL TO RUN 739: 50 distinct lines, ZERO new, ZERO vanished, which was
+prediction 754's core claim. The COUNTS were falsified by the parent's arithmetic, not the run, and
+are attributed per file: 4043 + 5 (B.7's own gap closure, which landed AFTER run 739) + 1 + 44 = 4093.
+The `+1` is `bridge-runtime-checkpoint.test.ts:758`, an `it.each` over the prior-identity roster, so
+registering `projection-v49` adds exactly one case from a four-line data edit with no new `it()`.
+THE AUDIT EARNED THE SLICE: neither `waiverAccepted` nor `waivePromise` compares a promise's
+`issuerStudioId` to anything, and ids are `promise-<index>`, sequential. MEASURED on
+`genuine-v31-with-edges`: `waiverAccepted` returns NULL for a rival's promise and `waivePromise`
+settles it WAIVED with a substitute bound to the RIVAL's own contract, invisible to trust and to every
+read model. B.8 created the first client route, so B.8 owed the gate; it lives in `bridge/promises.ts`
+alone, refuses at quote AND commit, and answers a rival's id exactly as an unknown one. That engine
+null also settled the refusal's SHAPE, which the expansion left open: no engine sentence exists, so it
+is `ENGINE_REJECTED`, not an accepted `ok:false`. FU-2 recurred at 20305ms against 20000ms and record
+741 is CONFIRMED not falsified (file total 177669ms against 739's 180289ms, a 1.5% spread); tally is
+2 failures in 3 recent full runs; THE THRESHOLD WAS AGAIN NOT MOVED per the Owner. FIVE ERRORS THIS
+SLICE CAUGHT, three of them the parent's, listed at 757 §7 because a checkpoint that hides them is
+worth less: the rival-waiver hole; the parent's false "excluded twice over" claim about
+`outcomeEventId` (`settle` coerces `next.outcomeEventId ?? eventId`, so a waiver carries a REAL
+receipt id and the Industry exclusion rests on ONE guard); the parent's A13, which stated rule 6's
+subset test BACKWARDS and would have led a reader to drop the P2 family as untestable; the parent's
+sweep inventory, which keyed on the SYMBOL `PROJECTION_VERSION` and missed four other spellings while
+the writer found three more classes beyond the correction; and the case arithmetic above. THE
+GENERALISATION NOW ON THE RECORD: a version sweep is not finished until every test touching the
+bumped surface has RUN — static enumeration found 42 of 45 version sites and 3 of 4 row-shape sites.
+NEXT757: P14C — CAREER LIFECYCLE, and its first slice C.1 is MATERIALIZED AGING. Scope checked at
+record 756 against the companion §2.3 and §6 rather than inferred from the heading, with its
+correction: the `p14b4-cast-class-capacity-evaluator5` failure is DESIGNATED by its own file header
+("a writer never rewrites it") and is NOT the next obligation. UPSTREAM CHECKED: `Talent.age` already
+exists (`src/core/types.ts:123`) and is STATIC, set at founding and clamped 18-70 and incremented
+nowhere; `talentMarket.ts:74` already declares the three P14C eligibility rows in the type and states
+they are unreachable before P14C. The seam is pre-built. §6.1's law is specific and is NOT to be
+redesigned: age is DERIVED FROM PROVENANCE AND MATERIALIZED, never incremented independently; each
+person carries birth provenance in the P14 root (`authored_exact_week`, or
+`legacy_age_anchor {ageAtMigration, migrationWeek}` for pre-P14C saves); at each person's birthday due
+week, an IN-STATE BUCKET and not a scan, the integer age is computed from provenance and `market.tick`
+and WRITTEN into the accepted `Talent.age` leaf, with the validator cross-checking against provenance.
+Every accepted reader of `talent.age` then ages for free with no P10 reader change. Age NEVER
+decrements a skill, genre experience, ceiling, development rate or Star Power. AUTHORITY NOTE, raised
+rather than assumed: `CLAUDE.md` lists "aging and career progression" as not-current-scope, and that
+same section provides for supersession by the current campaign, which names P14C explicitly in the
+companion, the slice order and the Owner's continuation packet.
 LOGIC VERIFIED · UNITY NOT VERIFIED. Unity/native deferred. Gross2221 omitted fact cost is NOT
 net saving: cold discovery can shift into next frame. No route-fit claim.
 Draft-discovery, silent-policy, affine and Map alternatives remain unadopted.
