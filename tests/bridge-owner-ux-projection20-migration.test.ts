@@ -117,7 +117,7 @@ describe('Owner UX outgoing projection20 migration', () => {
       if(beforeJson===null){expect(afterJson).toBeNull();expect(afterDigest).toBeNull();continue}
       const before=JSON.parse(beforeJson),after=JSON.parse(afterJson!)
       expect(after.saveVersion).toBe(33)
-      const {hollywood,technology,physicalPlans,talentMarket,firstTakes,promises,relationships,...oldRoots}=after.state
+      const {hollywood,technology,physicalPlans,talentMarket,firstTakes,promises,relationships,talentProvenance,...oldRoots}=after.state
       expect(technology).toEqual({ version: 4, recordingStartedWeek: before.state.market.tick, cooperationFromWeek: before.state.market.tick, projects: [], access: [], adoptions: [], productions: [], equipment: [], nextEquipmentId: 0 })
       // P13B-S3: V23 adds the physical-plan root, empty at the migration week.
       expect(physicalPlans).toEqual({ version: 1, nextPlanId: 1, plans: [] })
@@ -136,7 +136,26 @@ describe('Owner UX outgoing projection20 migration', () => {
         expect(person.workHistory.research).toBe(0)
         for (const key of ['skills','ceilings','devRate','genreExperience','workHistory']) delete person[key].research
       }
-      expect(oldRoots).toEqual({ ...before.state, era: { ...before.state.era, soundRequired: false } })
+      // P14C.1 (record 771, approved_behavioral_change): convertV32ToV33 floors
+      // every talent[].age at the migration week while keeping the exact
+      // original float in `talentProvenance` (contract 762 §6: "the original
+      // float, unrounded"). Prove that relationship exactly, person by person
+      // — an EXACT recovery, not a bound, since this is a single migration
+      // with no re-anchoring involved — then restore the original ages before
+      // the whole-state equality below, so every OTHER field (including every
+      // other talent field) still gets the full, unweakened `toEqual`.
+      const provenanceByPerson = new Map(talentProvenance.rows.map((row: { personId: string }) => [row.personId, row]))
+      const beforeTalentById = new Map(before.state.talent.map((person: { id: string; age: number }) => [person.id, person]))
+      const restoredTalent = oldRoots.talent.map((person: { id: string; age: number }) => {
+        const row = provenanceByPerson.get(person.id) as { kind: string; ageAtMigration: number } | undefined
+        const beforePerson = beforeTalentById.get(person.id) as { age: number } | undefined
+        expect(row?.kind, `${person.id} provenance kind`).toBe('legacy_age_anchor')
+        expect(beforePerson, `${person.id} present in the predecessor`).toBeDefined()
+        expect(row?.ageAtMigration, `${person.id}: exact pre-migration age recovered`).toBe(beforePerson!.age)
+        expect(person.age, `${person.id}: stored age is the floor of the recovered original`).toBe(Math.floor(beforePerson!.age))
+        return { ...person, age: beforePerson!.age }
+      })
+      expect({ ...oldRoots, talent: restoredTalent }).toEqual({ ...before.state, era: { ...before.state.era, soundRequired: false } })
       expect(hollywood).toMatchObject({origin:'migration',originWeek:before.state.market.tick,films:[],careerEvents:[]})
       expect(afterJson).not.toBe(beforeJson);expect(afterDigest).toBe(sha(afterJson!));expect(afterDigest).not.toBe(sha(beforeJson))
     }

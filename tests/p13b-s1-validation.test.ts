@@ -1,4 +1,5 @@
 import { beforeAll, describe, expect, it } from 'vitest'
+import { withTalentProvenance } from '../src/core/aging.js'
 import { makeSave } from '../src/core/save.js'
 import { generateScientist } from '../src/core/worldgen.js'
 import type { GameState } from '../src/core/types.js'
@@ -44,8 +45,14 @@ describe('P13B-S1 validator refusals on the live save (test 9)', () => {
   it('rejects a receipt naming a Scientist who was never employed that week, even with a seat forged to cover it', () => {
     rejected(base2, state => {
       const project = state.technology.projects[0]!
+      // P14C.1 (record 771, inconsistent_fixture): appended in the same shape
+      // production's own append site uses (`recruitScientist`, actions.ts:2854-2856)
+      // — floor the stored age, anchor the row on the exact drawn age via
+      // `withTalentProvenance` — so this mutation trips only the refusal under
+      // test (an unemployed Scientist), not the unrelated provenance-root check.
       const outsider = generateScientist(state.seed, 't-sci-04')
-      state.talent.push(outsider)
+      state.talent.push({ ...outsider, age: Math.floor(outsider.age) })
+      state.talentProvenance = withTalentProvenance(state, outsider).talentProvenance
       project.seats.push({ talentId: outsider.id, laboratoryFacilityId: project.laboratoryFacilityId, assignedWeek: project.weeks[0]!.week, releasedWeek: null })
       project.weeks[0]!.seatTalentIds = [...project.weeks[0]!.seatTalentIds, outsider.id]
     }, /unemployed Scientist/)
@@ -54,8 +61,11 @@ describe('P13B-S1 validator refusals on the live save (test 9)', () => {
   it('rejects a fifth unreleased seat on a four-seat Laboratory', () => {
     rejected(base4, state => {
       const project = state.technology.projects[0]!
+      // P14C.1 (record 771, inconsistent_fixture): same production-shaped append
+      // as the case above — floor the stored age, anchor via `withTalentProvenance`.
       const outsider = generateScientist(state.seed, 't-sci-04')
-      state.talent.push(outsider)
+      state.talent.push({ ...outsider, age: Math.floor(outsider.age) })
+      state.talentProvenance = withTalentProvenance(state, outsider).talentProvenance
       project.seats.push({ talentId: outsider.id, laboratoryFacilityId: project.laboratoryFacilityId, assignedWeek: state.market.tick, releasedWeek: null })
     }, /exceed capacity/)
   })

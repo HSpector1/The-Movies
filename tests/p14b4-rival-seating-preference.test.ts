@@ -73,7 +73,16 @@ const PRODUCTION_DIGEST = '89385c2a5b32e0b62cebb3149a085a0be39171d9dbd236e470df4
 // r01-0 (writer, promise-1) from w208 on and never finds a viable package. Every row stays ok under the law and the rows that
 // moved are exactly the seam-admitted member rows (asserted below), so this is a receipt-derived pin, not a bare hash.
 // Pre-seam value at 62ca561a/68b1083: dba473b9bc13816e1b4cb1ed04f53f669912384179c5c73d0b23eeb64ed65489.
-const CHAIN_DIGESTS = { [DEFAULT_SEED]: '2aec0184c3301f1e174fe9843a0b076258fdc9de9683424cb064a5d777382610', 'seed-b': 'd3218295f449599c4451ee5d85c13a3bd3171522ce2697b9d034dc71b96daea2' }
+// P14C.1 (record 771, approved_behavioral_change): both digests move under the
+// same genesis-flooring repricing as the "default seed" pin above (contract
+// 762 §12 F3, ageFactor -> annualSalary -> rivalWeeklyOperatingCost -> weeklyCost/
+// cashAvailable -> chooseIndustryPackage). Measured: every r.ok / pool===seam /
+// admissions/G10-b assertion in this same `it` still passes on both seeds —
+// same 1015 decisions, same 51 pictures, same 724 control rows for
+// p13a-core-causal-01; same 1083 decisions, 98 pictures, 669 without members
+// and `admissions` still [] for seed-b — so only the pinned bytes moved, never
+// the seating law itself.
+const CHAIN_DIGESTS = { [DEFAULT_SEED]: '699435479e1ce81358b3ed65447fb7662f5e2fa14f507360e96da71898edd46b', 'seed-b': 'f9cd2a86368b222882e84776b30f8a8d3f5b26cf38b25d5881480a910d112cc4' }
 type Options = Parameters<typeof policyModule.chooseIndustryPackage>[2]
 type Call = { input: ReceptionInputs; policy: RivalBusiness['policy']; options: Options; result: IndustryPackageChoice | null }
 type Decision = Call & { seed: string; week: number; studioId: string }
@@ -311,7 +320,24 @@ const p2lead: Material = { family: 'LEAD_OR_SIGNIFICANT_ROLE_COUNT', predicate: 
 const legacyP2: Material = { family: 'LEAD_OR_SIGNIFICANT_ROLE_COUNT', predicate: { count: 1 } }
 const p1: Material = { family: 'APPEARANCE_COUNT', predicate: { count: 1 } }
 
-/** The witness state (seed-b, w211 before the decision), pinned by identity so a moved premise fails loudly. */
+/**
+ * The witness state (seed-b, w211 before the decision), pinned by identity so a moved premise fails loudly.
+ *
+ * P14C.1 (record 771/770, approved_behavioral_change — DELIBERATELY LEFT
+ * FAILING in the 13 cases gated on this function; see the P14C.1 test-repair
+ * report). Both seed-b subjects that ever supplied a "capable-but-unproven"
+ * pool member (person-studio-bc14baf6-r01-4 and -r01-2) anchor at 28 at week 0
+ * and cross 30 at exactly week 104 under materialized aging (contract 762
+ * §1); isProven flips there on the age term alone (measured, record 770), and
+ * every one of seed-b's natural member decisions this scan finds happens at
+ * or after w202 — long after the crossing. `scan(WITNESS.seed).witness` is
+ * therefore unreachable within the scan window, not intermittently but as a
+ * structural fact: this population only ages forward, so a wider window would
+ * make it WORSE, not better. Restoring a natural witness would need a
+ * different seed or subject, which is a new fixture, not a repair, and the
+ * standing rule against relaxing a selector or widening a tick budget to make
+ * an old premise reappear forbids forcing this one back with search tricks.
+ */
 function witness(): { before: GameState; decision: Decision } {
   const found = scan(WITNESS.seed).witness
   assert.ok(found, `UNEXECUTED natural premise: no rival film decision on '${WITNESS.seed}' within ${SCAN_TICKS} ticks holds >= 2 pool members whose seating matters; never a synthesized state`)
@@ -385,25 +411,36 @@ function nextDecision(from: GameState, studioId: string): { decision: Decision; 
 describe('P14B4 final seating preference — no-preference path and viability gates (plan :223-225)', () => {
   it('default seed: the first screenplay-planning call and first film decision are byte-identical to the accepted values; the transcribed ordinary score reproduces the real no-preference choice', () => {
     // Regression control pinned from a real decision at HEAD 62ca561a: p13a-core-causal-01, week 3, studio-aca408ec-r01, no member promises.
+    // P14C.1 (record 771, approved_behavioral_change): enterRival now commits
+    // Math.floor(entryAge) at genesis (contract 762 §12 F3), so every rival
+    // payroll term prices off the floored age. ageFactor (src/core/employment.ts:
+    // 262-266) inside offerForTalent -> annualSalary -> rivalWeeklyOperatingCost
+    // (hollywood.ts:104-108) moves weeklyCost 97680 -> 97705 at BOTH the
+    // screenplay-planning call and the first film decision (same studio, same
+    // payroll), moving cashAvailable, holdOperatingMargin (= -weeklyCost *
+    // (PRODUCTION_TICKS + THEATRICAL_WEEKS)) and expectedOperatingMargin with
+    // it at each site — measured directly from this test's own run, not
+    // guessed. Nothing else (cast, shape, promise, marketing, negative budget,
+    // expectedIncrementalContribution) moved at either site.
     const s = scan(DEFAULT_SEED)
     assert.ok(s.planning && s.firstFilm)
-    expect(s.planning.options).toEqual({ seed: DEFAULT_SEED, key: 'studio-aca408ec-r01:screenplay:0', cashAvailable: 23362807, weeklyCost: 97680, lockScreenplay: false })
+    expect(s.planning.options).toEqual({ seed: DEFAULT_SEED, key: 'studio-aca408ec-r01:screenplay:0', cashAvailable: 23362209, weeklyCost: 97705, lockScreenplay: false })
     expect(poolOf(s.planning)).toEqual(['person-studio-aca408ec-r01-2', 'person-studio-aca408ec-r01-3', 'person-studio-aca408ec-r01-4'])
     const ranges = { intimacy: [-0.19878214611733674, 0.5012178538826633] as [number, number], tonalWeight: [-0.37710479461569446, 0.3228952053843055] as [number, number], kineticEnergy: [-0.3963969529168919, 0.30360304708310804] as [number, number] }
     expect(s.planning.result).toEqual({ shape: { opening: 'slowSetup', midpoint: 'revelation', ending: 'bittersweet' },
       promise: { genre: 'drama', intendedSegments: ['adult'], ranges }, budget: { negative: 3304115, marketing: 948896 },
       cast: { lead: 'person-studio-aca408ec-r01-4', antagonist: 'person-studio-aca408ec-r01-3', support: 'person-studio-aca408ec-r01-2' },
-      expectedOperatingMargin: -1459843.0106883487, expectedIncrementalContribution: -92323.01068834867, holdOperatingMargin: -1367520 })
+      expectedOperatingMargin: -1460193.0106883487, expectedIncrementalContribution: -92323.01068834867, holdOperatingMargin: -1367870 })
     const { before, decision, after } = s.firstFilm
     expect({ week: decision.week, studioId: decision.studioId }).toEqual({ week: 3, studioId: 'studio-aca408ec-r01' })
-    expect(decision.options).toEqual({ seed: DEFAULT_SEED, key: 'studio-aca408ec-r01:package:script-0000', cashAvailable: 23167447, weeklyCost: 97680, lockScreenplay: true })
+    expect(decision.options).toEqual({ seed: DEFAULT_SEED, key: 'studio-aca408ec-r01:package:script-0000', cashAvailable: 23166799, weeklyCost: 97705, lockScreenplay: true })
     expect(membersAt(before, decision.studioId, decision.week)).toEqual({ certain: [], ambiguous: [] })
     expect(poolOf(decision)).toEqual(employed(before, decision.studioId).filter((t) => t.role === 'actor').slice(0, 3).map((t) => t.id))
     expect(poolOf(decision)).toEqual(['person-studio-aca408ec-r01-2', 'person-studio-aca408ec-r01-3', 'person-studio-aca408ec-r01-4'])
     const pinned: IndustryPackageChoice = { shape: { opening: 'slowSetup', midpoint: 'revelation', ending: 'bittersweet' },
       promise: { genre: 'drama', intendedSegments: ['adult'], ranges }, budget: { negative: 3304115, marketing: 981122 },
       cast: { lead: 'person-studio-aca408ec-r01-4', antagonist: 'person-studio-aca408ec-r01-3', support: 'person-studio-aca408ec-r01-2' },
-      expectedOperatingMargin: 63768.80190253258, expectedIncrementalContribution: 1431288.8019025326, holdOperatingMargin: -1367520 }
+      expectedOperatingMargin: 63418.80190253258, expectedIncrementalContribution: 1431288.8019025326, holdOperatingMargin: -1367870 }
     expect(decision.result).toEqual(pinned)
     // Self-validation of the transcription: with no members the law pick IS the ordinary pick and reproduces the real result exactly.
     const perms = permutations(decision, [])
@@ -593,10 +630,20 @@ describe('P14B4 final seating preference — membership (plan :210-213) and mask
     // Evidence limit on the natural offers (a2 flex, a3 P1, a4 flex): the two viable permutations tie at 2 if counted, so counting
     // would not move the pick. RE-AUTHORED through the real services (submitProposal revises r01's own offer in place, attachPromise
     // mints a new UNBOUND root): a3 -> tagged lead, a2 -> P1. Counting these CURRENT offers would seat a3/a4/a2; the law seats a4/a3/a2.
+    //
+    // P14C.1 (record 771/770, approved_behavioral_change): a4 (person-studio-
+    // bc14baf6-r01-4) anchors at 28 at week 0 (worldgen), crosses 30 at exactly
+    // week 104 under materialized aging (contract 762 §1), and isProven flips
+    // there on the age term alone — the credit term never fires (measured,
+    // record 770: identityDisciplines [] at every sampled week). At w202,
+    // isProven(a4)=true, so authorRivalPromise (talentMarket.ts:1325) offers
+    // only [P1] (APPEARANCE_COUNT), never the flexible family — a4's own
+    // natural CURRENT offer is no longer "flex", it is APPEARANCE_COUNT, whose
+    // mask is every slot (SLOTS). a3/a2 are untouched.
     const reauthored = reauthorOffer(reauthorOffer(before, WITNESS.a3, decision.studioId, p2lead), WITNESS.a2, decision.studioId, p1)
     const current = reauthored.promises.filter((p) => p.issuerStudioId === decision.studioId && p.contractId === null && p.outcome === null && poolOf(decision).includes(p.beneficiaryPersonId)
       && reauthored.talentMarket.proposals.some((q) => q.issuerStudioId === decision.studioId && q.promises.includes(p.promiseId)))
-    expect(current.map((p) => [p.beneficiaryPersonId, promiseCastSlots(p)])).toEqual([[WITNESS.a4, ['lead', 'antagonist']], [WITNESS.a3, ['lead']], [WITNESS.a2, SLOTS]])
+    expect(current.map((p) => [p.beneficiaryPersonId, promiseCastSlots(p)])).toEqual([[WITNESS.a4, SLOTS], [WITNESS.a3, ['lead']], [WITNESS.a2, SLOTS]])
     const { after, calls } = observedTick(reauthored)
     const d = filmDecisions('seed-b:reauthored', reauthored, calls).find((x) => x.studioId === decision.studioId)!
     expect(membersAt(reauthored, d.studioId, d.week)).toEqual({ certain: [], ambiguous: [] })
@@ -793,7 +840,17 @@ describe('P14B4 final seating preference — the initial cast seam (plan :225-23
     expect(decision.result.cast).toEqual(law.cast)
     expect(decision.result.cast).toEqual({ lead: a3, antagonist: a2, support: writer })
     expect(decision.result.budget).toEqual(law.ordinary!.budget)
-    expect(decision.result.budget).toEqual({ negative: 3033668, marketing: 594746 })
+    // P14C.1 (record 771, approved_behavioral_change): r02's retention
+    // contracts at w208 are priced off ages floored at genesis (762 §12 F3)
+    // and then advanced by materialization, so weeklyCost falls, cashAvailable
+    // rises (8686605.262935068 -> 8716950.262935068) and the ordinary score
+    // moves (-1366501 -> -1344278); the marketing menu pick moves with it.
+    // Measured: this line's own budget===law.ordinary!.budget check above
+    // still passes (the engine still agrees with the transcribed law), the
+    // whole cast and the negative budget are unchanged, and every permutation
+    // row keeps benefit=3 with the same five NOT VIABLE — only this pinned
+    // literal is a repriced number, not a law break.
+    expect(decision.result.budget).toEqual({ negative: 3033668, marketing: 594737 })
     // The real picture (the same tick, re-observed from the saved before-state) and its real first take; then the outcome owner.
     const { after, calls } = observedTick(before)
     expect(filmDecisions(DEFAULT_SEED, before, calls).filter((d) => d.studioId === studioId).map((d) => [d.options.key, d.result?.cast ?? null]))

@@ -1,4 +1,5 @@
 import { beforeAll, describe, expect, it } from 'vitest'
+import { withTalentProvenance } from '../src/core/aging.js'
 import { applyActions } from '../src/core/actions.js'
 import { exportSave, importSave, makeSave, migrateToV33 } from '../src/core/save.js'
 import { tick } from '../src/core/tick.js'
@@ -87,8 +88,14 @@ describe('P13B-S2 validator refusals for the per-Laboratory facts (test 7)', () 
 
   it('(d) rejects a fifth unreleased seat on one Laboratory when it is spread ACROSS two different technology projects', () => {
     rejected(base, state => {
+      // P14C.1 (record 771, inconsistent_fixture): appended in the same shape
+      // production's own append site uses (`recruitScientist`, actions.ts:2854-2856)
+      // — floor the stored age, anchor the row on the exact drawn age via
+      // `withTalentProvenance` — so this mutation trips only the refusal under
+      // test (capacity), not an unrelated missing-provenance-row refusal.
       const outsider = generateScientist(state.seed, 't-sci-outsider')
-      state.talent.push(outsider)
+      state.talent.push({ ...outsider, age: Math.floor(outsider.age) })
+      state.talentProvenance = withTalentProvenance(state, outsider).talentProvenance
       const own = state.hollywood!.playerStudioId
       state.technology.projects.push({
         id: `${own}:research:lighting-control-01`, studioId: own, technologyId: 'lighting-control-01',

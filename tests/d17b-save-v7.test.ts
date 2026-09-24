@@ -67,7 +67,23 @@ function toV6(s: GameState): GameStateV6 {
 }
 function toV7(s: GameState): GameStateV7 {
   const { operations: _operations, scriptDevelopment: _scripts, castingSessions: _casting, ...v7 } = makeSaveV10(s).state
-  return v7
+  // P14C.1 (record 771, inconsistent_fixture): `makeSaveV10` projects the LIVE
+  // world, whose `talent[].age` is already C.1's floored (and, past week 0,
+  // possibly aged) integer. A genuine pre-C.1 V7 file held the raw drawn float
+  // directly, unmoved by any elapsed week — pre-C.1 never wrote `talent[].age`
+  // at all. Restoring each person's provenance `ageAtEntry` (the genesis float,
+  // regardless of what week this V7 twin is frozen at) is what an honest V7
+  // twin of this world actually looked like.
+  const genuineAge = new Map<string, number>()
+  for (const row of s.talentProvenance.rows) {
+    if (row.kind === 'authored_exact_week') genuineAge.set(row.personId, row.ageAtEntry)
+  }
+  return {
+    ...v7,
+    talent: v7.talent.map((person) =>
+      genuineAge.has(person.id) ? { ...person, age: genuineAge.get(person.id)! } : person,
+    ),
+  }
 }
 function frozenV7ToV6(s: GameStateV7): GameStateV6 {
   const { publicity: _publicity, ...v6 } = s
@@ -249,7 +265,10 @@ describe('D-17B/E4 — migrateToV7 lifts every known version, and the chain stil
     }
     // P08A: every pre-P08 byte is identical; the history records forward from
     // the reload week (see tests/_p08HistoryTwins.ts).
-    expectForwardHistoryTwin(split, continuous, boundaryWeek)
+    // P14C.1 (record 771): boundaryWeek is 6, not 0, so the legacy re-basing
+    // law (762 §6) delays every migrated birthday by 6 weeks relative to the
+    // native schedule — a residue no fixture fix removes; see the helper.
+    expectForwardHistoryTwin(split, continuous, boundaryWeek, { ageResidue: true })
   })
 })
 

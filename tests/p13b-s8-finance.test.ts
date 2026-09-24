@@ -160,7 +160,32 @@ describe('P13B-S8 rival finance: typed kinds and interval Opex reconcile, migrat
     const base = p13aGeneratedStudio(SEED) // week 0: no rival research fact exists yet, so the downgrade below is lossless
     const { business } = bellwether(base)
     const v27Envelope = save.makeSave(base)
-    const v26Envelope = save.migrateToV26(v27Envelope) // genuine, lossless V26 envelope — ten-key periods
+    // P14C.1 (record 771, inconsistent_fixture): a freshly-generated V33 world's
+    // provenance rows are `authored_exact_week` (worldgen, contract 762 §12 F3),
+    // and the downgrade predicate admits only `legacy_age_anchor` rows — "a
+    // fresh V33 campaign is therefore NOT downgradable ... there is nothing to
+    // be lossless about." At week 0 (this fixture never ticks before here),
+    // `authored_exact_week {ageAtEntry, entryWeek:0}` and `legacy_age_anchor
+    // {ageAtMigration, migrationWeek:0}` name the exact same anchor (same age,
+    // same week), so recasting the row kind describes a genuinely equivalent
+    // world — one that instead entered by a migration at week 0 — not a
+    // different fact, and lets the REAL migrateToV26 downgrade run rather than
+    // being hand-forged around.
+    const v27AsLegacyEntry = {
+      ...v27Envelope,
+      state: {
+        ...v27Envelope.state,
+        talentProvenance: {
+          ...v27Envelope.state.talentProvenance,
+          rows: v27Envelope.state.talentProvenance.rows.map((row) =>
+            row.kind === 'authored_exact_week'
+              ? { personId: row.personId, kind: 'legacy_age_anchor' as const, ageAtMigration: row.ageAtEntry, migrationWeek: row.entryWeek }
+              : row,
+          ),
+        },
+      },
+    }
+    const v26Envelope = save.migrateToV26(v27AsLegacyEntry) // genuine, lossless V26 envelope — ten-key periods
     const v26Hollywood = v26Envelope.state.hollywood as unknown as HollywoodState
     const v26Business = v26Hollywood.businesses.find(b => b.studioId === business.studioId)!
     const v26Period = v26Business.account.periods[0]!

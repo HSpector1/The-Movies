@@ -128,7 +128,17 @@ const FROZEN = {
   rngAfterRelease: '3273107727,1382938971,2227203681,3129010529',
   releaseCommitWeek: 64, releaseWeek: 65,
   // sha256 of JSON.stringify(post-tick state with the `relationships` key removed) after the family-1 tick.
-  postTakeDigestStripped: '6403ac2bb1dd59249db054732115f9227a104f5f2afd9f699e9f89d393388d21',
+  // P14C.1 (record 771, approved_behavioral_change): convertV32ToV33 floors
+  // 83 of 84 people at the migration boundary (week 60; max |delta| ~0.94, a
+  // pure floor — nobody crosses a birthday in this one tick) and adds the
+  // `talentProvenance` root, both inside `bytes()`'s digest (it strips only
+  // `relationships` and `supersededByPromiseId`). DECISIVE COUNTERFACTUAL
+  // (record 771): deleting `talentProvenance` and restoring every
+  // talent[].age to its pre-migration float reproduces this OLD digest
+  // exactly; stripping the root alone does not — both halves are needed and
+  // nothing else in the state moved. Contract 762 §6 authorises the flooring
+  // and §11 makes the new root unavoidable.
+  postTakeDigestStripped: '9702aa6869cf80f82d5133f68137427a0ed44c07ce987e8fe2be66bbb60f3d78',
   // The rival chain from `rival-current-p1-and-p2` (196): first post-migration take, its release, the repeat take.
   rival: { studioId: 'studio-aca408ec-r01', firstTake: 'studio-aca408ec-r01:film:11', firstTakeWeek: 213, firstReleaseWeek: 217,
     repeatTake: 'studio-aca408ec-r01:film:6', repeatTakeWeek: 222 },

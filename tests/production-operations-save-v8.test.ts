@@ -66,7 +66,24 @@ import {
 
 function toV7(state: GameState): GameStateV7 {
   const { operations: _operations, scriptDevelopment: _scripts, castingSessions: _casting, ...v7 } = makeSaveV10(state).state;
-  return v7;
+  // P14C.1 (record 771, inconsistent_fixture): `makeSaveV10` projects the LIVE
+  // world, whose `talent[].age` is already C.1's floored integer. A genuine
+  // pre-C.1 V7 file held the raw drawn float directly — pre-C.1 never wrote
+  // `talent[].age` at all, it just sat at its worldgen draw forever — so
+  // restoring each person's provenance `ageAtEntry` here is what an honest V7
+  // twin of this (unticked, tick 0) world actually looked like, not a live
+  // snapshot wearing a V7 label. Every fixture in this file that reaches here
+  // is built at tick 0, so `ageAtEntry` needs no elapsed-week adjustment.
+  const genuineAge = new Map<string, number>();
+  for (const row of state.talentProvenance.rows) {
+    if (row.kind === "authored_exact_week") genuineAge.set(row.personId, row.ageAtEntry);
+  }
+  return {
+    ...v7,
+    talent: v7.talent.map((person) =>
+      genuineAge.has(person.id) ? { ...person, age: genuineAge.get(person.id)! } : person,
+    ),
+  };
 }
 
 function applicants(state: GameState): Talent[] {
@@ -538,7 +555,13 @@ describe("Production Operations V1 — managed state validation and continuation
       resumed = tick(resumed);
     }
     // P08A: pre-P08 bytes identical; history recorded forward from the reload week.
-    expectForwardHistoryTwin(resumed, continuous, boundaryWeek2);
+    // P14C.1 (record 771, approved_behavioral_change): boundaryWeek2 > 0 here
+    // (managedShootingState ticks the world before this reload), so the legacy
+    // re-basing law (762 §6) delays every migrated birthday relative to the
+    // native schedule — a residue no fixture fix removes (there is no forged
+    // fixture in this path to repair; `state` is a genuine live-engine world);
+    // see the helper.
+    expectForwardHistoryTwin(resumed, continuous, boundaryWeek2, { ageResidue: true });
   });
 
   it("rejects facility truth drift plus orphaned, missing, and phase-mismatched workflows", () => {

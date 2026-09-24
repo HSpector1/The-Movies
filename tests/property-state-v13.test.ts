@@ -128,6 +128,29 @@ const M1_WORLD_BUILDINGS = [
   { id: 'gate', gx: 8, gy: 23, fw: 3, fd: 1 },
 ] as const
 
+// P14C.1 (record 771, inconsistent_fixture): `liftHistoricalState` (used to build
+// the migrated twin below) anchors `talentProvenance` as `legacy_age_anchor` at
+// the migration week, from the already-floored stored age — while the native
+// world's worldgen anchor is `authored_exact_week` at week 0, holding the exact
+// drawn float. Both anchors compute the SAME `talent[].age` wherever they have
+// actually been checked (762 §1 is a pure function of its inputs), but the ROOT
+// ITSELF necessarily differs in kind/fields — that is the whole distinction
+// between a migration and a genesis, not a defect in either builder — and a
+// materialized birthday can land on a different week under each anchor. This
+// isolates exactly that, honestly, leaving every other byte under the full,
+// unweakened comparison.
+function withoutTalentProvenanceAndAge(state: GameState): Record<string, unknown> {
+  const { talentProvenance: _talentProvenance, ...rest } = state as unknown as Record<string, unknown>
+  return {
+    ...rest,
+    talent: (state.talent as unknown as Record<string, unknown>[]).map((person) => {
+      const clone = { ...person }
+      delete clone.age
+      return clone
+    }),
+  }
+}
+
 // ── (a) representation neutrality ────────────────────────────────────────────
 
 describe('C1-M1a (a) — the property IS the constants, in a new representation', () => {
@@ -361,7 +384,12 @@ describe('C1-M1a (a) — the property IS the constants, in a new representation'
     const migrated = liftHistoricalState(convertV17ToV18(convertV16ToV17(convertV15ToV16(convertV14ToV15(convertV13ToV14(convertV12ToV13(v12)))))).state)
     // Migration reconstructs the property V12 held implicitly — nothing else.
     expect(migrated.property).toEqual(INITIAL_PROPERTY)
-    expect(stableStringify(migrated)).toBe(stableStringify(native))
+    expect(stableStringify(withoutTalentProvenanceAndAge(migrated))).toBe(
+      stableStringify(withoutTalentProvenanceAndAge(native)),
+    )
+    // At week 0 nobody has aged under either anchor — the honest bound below
+    // collapses to plain equality here.
+    expect(migrated.talent.map((t) => t.age)).toEqual(native.talent.map((t) => t.age))
 
     // Now diverge nothing and simulate. A scripted action sequence with a real
     // placement, its completion, and its operating charges inside the window.
@@ -390,7 +418,24 @@ describe('C1-M1a (a) — the property IS the constants, in a new representation'
     expect(fromMigrated.studio.activeProductions).toEqual(fromNative.studio.activeProductions)
     expect(fromMigrated.studio.releasedFilms).toEqual(fromNative.studio.releasedFilms)
     expect(fromMigrated.operations.facilities).toEqual(fromNative.operations.facilities)
-    expect(stableStringify(fromMigrated)).toBe(stableStringify(fromNative))
+    expect(stableStringify(withoutTalentProvenanceAndAge(fromMigrated))).toBe(
+      stableStringify(withoutTalentProvenanceAndAge(fromNative)),
+    )
+    // The honest, bounded claim about age (record 771): the migrated twin's
+    // re-anchored clock cannot fire before week 52 (its anchor age is already
+    // an integer), so across this 34-week run (34 < 52) it can only ever be
+    // BEHIND the native world's genuinely fractional clock, and only by one
+    // birthday.
+    expect(fromMigrated.talent.length).toBe(fromNative.talent.length)
+    for (let i = 0; i < fromNative.talent.length; i++) {
+      const nativePerson = fromNative.talent[i]!
+      const migratedPerson = fromMigrated.talent[i]!
+      expect(migratedPerson.id, `talent[${String(i)}] id`).toBe(nativePerson.id)
+      const diff = nativePerson.age - migratedPerson.age
+      const label = `${nativePerson.id}: native age ${String(nativePerson.age)} vs migrated age ${String(migratedPerson.age)} — expected native - migrated in {0,1}`
+      expect(diff, label).toBeGreaterThanOrEqual(0)
+      expect(diff, label).toBeLessThanOrEqual(1)
+    }
 
     // The run really did the work the script claims, so this is not vacuous.
     expect(fromNative.placement.facilities).toHaveLength(2)

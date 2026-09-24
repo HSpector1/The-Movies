@@ -658,7 +658,14 @@ describe('P14B.7 group9 — Save V31 -> V32: supersededByPromiseId opens null, d
     const v31 = validateSaveV31(JSON.parse(gunzipSync(readFileSync(corpusPath('kept-and-broken'))).toString('utf8')))
     expect(v31.state.promises.length).toBeGreaterThan(0)
     const v32 = (convertV31ToV32 as unknown as (s: typeof v31) => { saveVersion: number; state: GameState & { promises: readonly (ProfessionalPromise & { supersededByPromiseId: string | null })[] } })(v31)
-    expect(v32.saveVersion).toBe(33)
+    // P14C.1 (record 771, group9 literal): `convertV31ToV32`'s own output is
+    // version 32 by construction (save.ts:8949-8957 stamps 32 and validates
+    // through validateSaveV32) — LIVE_SAVE_VERSION moved to 33 with C.1's V33
+    // step, but this converter's output did not. Commit a04fa398 swept this
+    // pin from 32 to 33 along with the (correct) LIVE_SAVE_VERSION pin above;
+    // reverted, since a V33 envelope needs `talentProvenance`, which this
+    // converter builds none of.
+    expect(v32.saveVersion).toBe(32)
     expect(v32.state.promises).toHaveLength(v31.state.promises.length)
     for (let i = 0; i < v32.state.promises.length; i++) {
       const { supersededByPromiseId, ...rest } = v32.state.promises[i]!

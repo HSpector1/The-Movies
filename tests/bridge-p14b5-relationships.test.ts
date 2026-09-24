@@ -113,21 +113,40 @@ const POACHING_REASONS = ['their compensation band ranked above the others', 'th
 const LEDGER_END_WEEK = 416
 const CHURN_WEEKS = new Set([208, 416])
 const LEDGER_SEEDS = {
+  // P14C.1 (record 771, approved_behavioral_change): the `employment` digest on
+  // every seed below moves because the pricing chain it hashes is
+  // age-sensitive — ageFactor(offerForTalent) prices every genesis hire's
+  // annualSalary/signingBonus off the now-floored-at-genesis stored age
+  // (contract 762 §12 F3) rather than the pre-C.1 raw float. Measured (record
+  // 771 family-12 entries): settlementDigest, receipts, rngState and takes are
+  // UNMOVED for p13a-core-causal-01 (no rival casting decision changed); for
+  // the other three seeds the repriced cash also moves which package
+  // chooseIndustryPackage can afford, so `takes` moves too — its new value is
+  // read here from the same deterministic run these `employment` values came
+  // from (this file's own it.each; row counts, settlementDigest, receipts and
+  // rngState below are all confirmed UNMOVED from their pre-C.1 pins).
   'p13a-core-causal-01': { role: 'default', rows: 40, settled: 16, declined: 8, expired: 16,
     settlement: '706e54c6ec9728df1664025982ebbafeb0fc36afb245b6bd0b983305f6a10a77', receipts: 'af8c4d1325ecb350dbc07fbf2f762dd8257db04075b8030bf7bd975b4cb2a766',
-    employment: '09bcc35ba327579ac63dd1ed63535b23cbc8ff55b25fd9597a2872a819f08750', takes: '8af116b1687ed210c02953b5b506456e638a64482e8042b0e549b0d57e428694',
+    employment: '4cffcb410893395f8ee93da2d7d6146f35db2369962fe333e02de8d2fc7c0b58', takes: '8af116b1687ed210c02953b5b506456e638a64482e8042b0e549b0d57e428694',
     rng: '2598418427,508725886,1318803286,3129010527' },
+  // `takes` also moves on these three seeds (unlike p13a-core-causal-01): the
+  // repriced genesis cash changes which package chooseIndustryPackage can
+  // afford, so rival casting moves. Value re-derived by running this same
+  // it.each with the (now-fixed) `employment` pin in place, so the run first
+  // reaches the `takes` assertion; every earlier pin (rows/settled/declined/
+  // expired/settlementDigest/receipts/rngState) stays unmoved, confining the
+  // change to exactly what contract 762 §12 F3 predicts.
   'seed-b': { role: 'seed-b (the seating/outcomes witness seed)', rows: 48, settled: 48, declined: 0, expired: 0,
     settlement: 'f9622a876a73673591f4016b5fe80ab708bbec30e330a423d3d82729b0ec678c', receipts: '8e791d65d1a54ee73a8c7a2debbfed272a0f144f240040d074118a337edeb871',
-    employment: 'ba5ab89e481264e8d6a57d32f07ac49902bcc36b65a1df14722f85c573f0b13a', takes: 'c81d90211a2b917681e8c816c85df567a2139dda9372d3cd608615f9e23c805d',
+    employment: '6c7f608cea8d3ceafef0f844f949805c252f21ebc88d22d36dd09c8a6f7ef855', takes: '1d9395b7c8408fb73d1eaff037297661e95326bd3cb9e70711effb6abba3b2a1',
     rng: '1640490702,2161102015,891615888,2071390822' },
   'p13b-s8-bridge-probe-01': { role: 'the bridge seed (plain campaign; the s8 file adds a laboratory placement it does not share)', rows: 48, settled: 48, declined: 0, expired: 0,
     settlement: 'f8b0d3a7a9d15b30ce65b3b90c291d29189aabd5f445621c7996117b4fd178c2', receipts: 'b729a1f33fac085228697a52bb474400b26ca04dab8114f2cd3fa893861186c4',
-    employment: '6e39a55cbf70e669ac5b27e1d845a6279057ead6b2922c526d25a45f605043ae', takes: 'df029e65f83f015c0efe36258b36444c9c0f30e61e9d732b791d13a4d8d6da75',
+    employment: 'd4f19ea4618c680f60d9b7f4ea395ddc6813291ed261f939e06c4178a86fe8b1', takes: 'e9a1b08f794a9a8aa6645428ce5fbfe60401ed0700424902ee92a5aaa562b9e2',
     rng: '2343039306,887634093,2940629248,1402597496' },
   'p13-public-commercial-adoption': { role: 'the adoption seed (B.1 T1 ruling (v); the D3/poaching seed)', rows: 48, settled: 36, declined: 12, expired: 0,
     settlement: 'c034f2fb5a8e5f454a475020cec9de1ac764d742ce121a6cd8d2bc3b641eb544', receipts: 'be7310b6d73124dab34723644f7cf16c52a4b193e67a4b85d9c20e7f60e47850',
-    employment: 'bb775d62c37d48e48af30811a69c86e117d89c63166bd1af4d73df1b3c16fc97', takes: '3867855dd105c2fff8389e9dc76b56d7ecc43f9722419de3e85423a84b087094',
+    employment: '94e3a1066c95b3b3dc0046b2a09ae32109b2d529297af5eb0d2f7e06bac51049', takes: '83a53d5b52dd7ffbb851c38fc508c70ac3af7da925457358c18a61bd5c04d871',
     rng: '3069080245,1730081600,660681499,2741201056' },
 } as const
 type LedgerSeed = keyof typeof LEDGER_SEEDS

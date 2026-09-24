@@ -53,7 +53,14 @@ const MARKET_IDS = [
   't-wri-01',
 ]
 const GLORIA = 't-act-17' // Gloria Underwood, cheapest signable actor
-const GLORIA_1YR = { weekly: 6040, guaranteed: 314080, bonus: 56536 }
+// P14C.1 (adapter repair 8ee6fb5c; coordinator re-pin): t-act-17's stored age
+// moves 25.440489233845923 -> 25 (contract 762 §12 F3, genesis flooring).
+// ageFactor (src/core/employment.ts:263), the only factor the floor touches
+// inside offerForTalent (:283), moves 0.977294 -> 0.974897 (-0.2453%), which
+// prices this one-year offer down to the cent: -0.248% on weekly, matching
+// ageFactor's move to rounding. Not a directional law — 42 of 60 roster
+// ageFactors rise and 15 fall under the same floor; Gloria is one of the 15.
+const GLORIA_1YR = { weekly: 6025, guaranteed: 313300, bonus: 56398 }
 
 function ownerState(): GameState {
   // P06A: the P05-era fixture migrates to the LIVE state — the old cast hid it.

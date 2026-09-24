@@ -53,7 +53,7 @@ import {
   // RED-by-design (720 §2 items 1-2): neither exists in src/core/promises.ts today.
   waivePromise, waiverAccepted,
 } from '../src/core/promises.js'
-import { convertV31ToV32, validateSaveV31 } from '../src/core/save.js'
+import { convertV31ToV32, convertV32ToV33, validateSaveV31 } from '../src/core/save.js'
 import { PROJECTION_VERSION } from '../bridge/schema/bridge-schema.ts'
 import { industryPage } from '../bridge/industry.ts'
 import { PROTOCOL_VERSION, SCHEMA_ID } from '../bridge/protocol.ts'
@@ -88,7 +88,16 @@ function boundOpenP1(): GameState {
   // The fixture is genuinely V31 (validated above, unmoved); this state then feeds
   // waivePromise, a live function on the V32 shape, so it is carried up through the
   // lawful conversion — never by softening validateSaveV31's own refusal.
-  return convertV31ToV32(save).state as unknown as GameState
+  //
+  // P14C.1 (record 771, inconsistent_fixture, group11): carried one lawful
+  // conversion further, to V33. A LIVE `GameState` (the type this returns) must
+  // carry `talentProvenance` (contract 762 §6) — group11's `allActivities()` ->
+  // `industryPage` -> `stateDigest` -> `makeSave` route validates that root and
+  // group10's cases never reach it, so stopping at V32 only happened to look
+  // adequate for five of the six consumers. `convertV32ToV33` adds nothing a
+  // waived-promise assertion reads (no promise/relationship field moves), so
+  // this is a widening of what the fixture honestly represents, not a new fact.
+  return convertV32ToV33(convertV31ToV32(save)).state
 }
 function promiseZero(state: GameState): ProfessionalPromise {
   const promise = state.promises.find((p) => p.promiseId === 'promise-0')

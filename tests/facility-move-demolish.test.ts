@@ -837,6 +837,15 @@ describe('C1-M3a (F) — saves, boundaries, and determinism', () => {
     // take, so no bond exists and no relationship history is discarded.
     expect(forgedV11.state.relationships).toEqual([])
     delete forgedV11.state.relationships
+    // P14C.1 (record 771, inconsistent_fixture): and the age-provenance root
+    // (V33), for the same reason as every root above — the V11 exact-keys
+    // allowlist trips on "unknown field talentProvenance" before the walk
+    // reaches the demolition refund boundary this test is about. Unlike the
+    // roots above, this one is never empty on a live state (contract 762 §12
+    // F3: exactly one row per person from worldgen genesis on), so there is no
+    // emptiness precondition to prove before stripping it, exactly as
+    // `hollywood`/`technology`/`physicalPlans` above are stripped unconditionally.
+    delete forgedV11.state.talentProvenance
     for (const person of forgedV11.state.talent as Record<string, unknown>[]) {
       for (const key of ['skills', 'ceilings', 'devRate', 'genreExperience', 'workHistory']) {
         delete (person[key] as Record<string, unknown>).research

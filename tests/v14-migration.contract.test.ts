@@ -101,6 +101,40 @@ function stateOf(envelope: { state: Record<string, unknown> }): GameState {
   return envelope.state as unknown as GameState
 }
 
+// P14C.1 fixture limit (measured, record 771 "inconsistent_fixture"/v14-migration
+// group; contract 762 §6/§12 F3). `v13TwinOf` projects the V13 twin FROM an
+// ALREADY-MATERIALIZED live V33 state, so `talent[].age` on the twin side is
+// already an integer at construction — unlike a genuine pre-C.1 V13 file, which
+// stored the raw (almost always fractional) age directly. Re-migrating that
+// integer through `liftHistoricalState`/`convertV32ToV33` re-anchors every
+// birthday as a `legacy_age_anchor` at the TWIN's own migration week holding
+// that already-floored integer, so (since T9_RUN_WEEKS=30 < 52) the migrated
+// side never crosses a birthday inside the run window, while the native side's
+// genuinely fractional anchor can cross one at any week. The lost fraction was
+// never stored anywhere reachable and is not reconstructed here. The bound this
+// fixture can honestly state — proven by construction above, not merely
+// observed — is: for every person, at every week of the run, the native age is
+// never behind the migrated age, and never ahead of it by more than one
+// birthday (native - migrated ∈ {0, 1}). Everything else V13-visible still
+// gets the full, unweakened byte comparison.
+function talentAges(projected: Record<string, unknown>): { id: string; age: number }[] {
+  return (projected.talent as { id: string; age: number }[]).map((person) => ({
+    id: person.id,
+    age: person.age,
+  }))
+}
+
+function withoutTalentAges(projected: Record<string, unknown>): Record<string, unknown> {
+  return {
+    ...projected,
+    talent: (projected.talent as Record<string, unknown>[]).map((person) => {
+      const rest = { ...person }
+      delete rest.age
+      return rest
+    }),
+  }
+}
+
 // ── (A) the matrix is REAL — every cell legal, every gap unreachable ────────
 
 describe('C2a-M1 · T9 (A) — the headline matrix covers every phase that holds a reservation', () => {
@@ -272,11 +306,44 @@ describe('C2a-M1 · T9 (B) — every held phase × blocker kind migrates and pla
         fromMigrated = scriptedWeek(fromMigrated)
         fromNative = scriptedWeek(fromNative)
 
-        // The whole V13 surface, every single week — not merely at the end.
+        const migratedProjection = projectToV13State(fromMigrated)
+        const nativeProjection = projectToV13State(fromNative)
+
+        // The whole V13 surface, every single week — not merely at the end —
+        // EXCEPT `talent[].age`, whose divergence is this fixture's own
+        // measured limitation (see the comment on `withoutTalentAges` above),
+        // not a production defect. Every other byte still gets the full,
+        // unweakened comparison.
         expect(
-          stableStringify(projectToV13State(fromMigrated)),
-          `${cell.key} diverged from its V13 twin at week ${String(week)}`,
-        ).toBe(stableStringify(projectToV13State(fromNative)))
+          stableStringify(withoutTalentAges(migratedProjection)),
+          `${cell.key} diverged from its V13 twin at week ${String(week)} (fields other than talent age)`,
+        ).toBe(stableStringify(withoutTalentAges(nativeProjection)))
+
+        // The honest, bounded claim about age (record 771): the migrated
+        // twin's re-anchored birthday clock never fires inside this 30-week
+        // window, so it can only ever be BEHIND the native world's genuinely
+        // fractional clock, and only by one birthday.
+        const migratedAges = talentAges(migratedProjection)
+        const nativeAges = talentAges(nativeProjection)
+        expect(migratedAges.length, `${cell.key} week ${String(week)} talent roster size`).toBe(
+          nativeAges.length,
+        )
+        for (let i = 0; i < nativeAges.length; i++) {
+          const native = nativeAges[i]!
+          const migrated = migratedAges[i]!
+          expect(migrated.id, `${cell.key} week ${String(week)} talent[${String(i)}] id`).toBe(
+            native.id,
+          )
+          const diff = native.age - migrated.age
+          expect(
+            diff,
+            `${cell.key} week ${String(week)} ${native.id}: native age ${String(native.age)} vs migrated age ${String(migrated.age)} — expected native - migrated in {0,1}`,
+          ).toBeGreaterThanOrEqual(0)
+          expect(
+            diff,
+            `${cell.key} week ${String(week)} ${native.id}: native age ${String(native.age)} vs migrated age ${String(migrated.age)} — expected native - migrated in {0,1}`,
+          ).toBeLessThanOrEqual(1)
+        }
 
         // §8.3's grandfather, held for the entire run: an in-flight migrated
         // production never acquires a set.

@@ -174,6 +174,13 @@ function asV25Envelope(state: GameState): { saveVersion: 25; seed: string; state
   // take, so it holds no bond and nothing is discarded.
   expect(stripped.relationships).toEqual([])
   delete (stripped as unknown as { relationships?: unknown }).relationships
+  // P14C.1 sweep (record 771, inconsistent_fixture): a frozen V25 envelope
+  // carries no `talentProvenance` root either — the frozen chain's exact-key
+  // law refuses a root V25 never had. Unlike the three roots above, this one
+  // has no emptiness precondition to prove (contract 762 §12 F3: the root is
+  // never empty on a live state, by construction since worldgen), so it is
+  // simply stripped, exactly like `talentMarket` above.
+  delete (stripped as unknown as { talentProvenance?: unknown }).talentProvenance
   return { saveVersion: 25, seed: stripped.seed, state: stripped, broadcastCache: stripped.broadcastItems }
 }
 

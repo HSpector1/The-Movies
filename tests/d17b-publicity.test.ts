@@ -27,6 +27,7 @@ import {
   importSave,
   initialReleaseAuthority,
   makeSave,
+  materializeAges,
   periodSummary,
   publicityLiftAt,
   publicityOffer,
@@ -54,21 +55,32 @@ function foundStudio(seed: string): GameState {
   return applyActions(s, [{ kind: 'foundStudio' }])
 }
 
-/** A founded studio placed at a chosen week, awareness and cash — no ticking needed. */
+/**
+ * A founded studio placed at a chosen week, awareness and cash — no ticking needed.
+ *
+ * P14C.1 (record 771, inconsistent_fixture): jumping `market.tick` by hand, as
+ * this helper always has, skips the tick tail's `materializeAges` step
+ * (contract 762 §10), leaving `talent[].age` stale against its own provenance —
+ * `validateSaveV33` then refuses the very state the round-trip cases below build.
+ * Production is right to check this; the fixture must do what the tick tail
+ * does. `materializeAges` is idempotent and a no-op when nothing is due, so this
+ * is harmless for callers that pass no `week` at all.
+ */
 function studioAt(seed: string, over: { week?: number; awareness?: number; cash?: number } = {}): GameState {
   const s = foundStudio(seed)
+  const week = over.week ?? s.market.tick
   const cash = over.cash ?? 100_000_000
   const cashAdjustment = cash - s.studio.cash
-  return {
+  const jumped: GameState = {
     ...s,
-    market: { ...s.market, tick: over.week ?? s.market.tick },
+    market: { ...s.market, tick: week },
     ledger:
       cashAdjustment === 0
         ? s.ledger
         : [
             ...s.ledger,
             {
-              week: over.week ?? s.market.tick,
+              week,
               kind: 'studioRevenue',
               amount: cashAdjustment,
               note: 'test fixture cash identity adjustment',
@@ -80,6 +92,7 @@ function studioAt(seed: string, over: { week?: number; awareness?: number; cash?
       standing: { ...s.studio.standing, audienceAwareness: over.awareness ?? 40 },
     },
   }
+  return materializeAges(jumped, week)
 }
 
 const buy = (s: GameState, tier: PublicityTier): GameState => applyActions(s, [{ kind: 'publicity', tier }])

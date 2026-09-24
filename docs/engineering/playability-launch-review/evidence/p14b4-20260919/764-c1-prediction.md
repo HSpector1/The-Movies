@@ -166,3 +166,77 @@ anyone's board". Checked against run 766's own new-failure list: **all four are 
 ripple effects already attributed at 766, not pre-existing failures and not new discoveries. The
 author meant "not caused by my title edits", which is true and which I verified independently — their
 diffs in those files are pure string edits inside existing `it(` calls.
+
+---
+
+## THIRD CORRECTION, before the final confirming run (candidate = the repair pass)
+
+**Counts unchanged: 358 files, 4139 cases, 8 todo.** Verified again — the `it(`/`describe(` call-site
+count is identical to HEAD in all 20 files the repair pass touched, so no coverage was added or
+removed anywhere.
+
+**Predicted failures: 54, ±1.** Derived rather than guessed:
+
+| | |
+| --- | --- |
+| run 767 | 104 |
+| repaired by the two-specialist pass | **−50** |
+| **predicted** | **54** |
+
+The −50, per file: `bridge-p05a1` 6, `bridge-p05a3` 4, `v14-migration` 9, `bridge-p14b5-relationships`
+4 of 5, `bridge-owner-ux-projection20-migration` 3, `ruling-a-development-in-play` 3,
+`p14b4-rival-seating-preference` 5 of 18, `d17b-publicity` 2, `p13b-s1-validation` 2,
+`p13b-r07-save-v25` 2, `production-operations-save-v8` 2, and one each from `p13b-s2-validation`,
+`bridge-p14b7-promise-waiver`, `facility-move-demolish`, `p13b-s8-finance`, `property-state-v13`,
+`p14b7-promise-waiver`, `p14b5-relationships`, `d17b-save-v7`.
+
+**The ±1 is FU-2**, the prepared-reuse timeout, which has now failed in 739 and 755 and passed in 737
+and 767. Two of four. Its threshold is still deliberately unmoved.
+
+## The 54 are 24 inherited plus 30 deliberate, and the 30 are the honest residue
+
+**These are NOT unexplained failures and they are NOT repairable by moving a number.** Two causes:
+
+**1. Isolated-population loss — 25 cases** (`p14b4-rival-seating-preference` 13,
+`p14b4-cast-class-outcomes` 9, `p14b4-cast-class-policy` 1, `p14b1-trust-chooser` 2). Each test's
+natural search depends on a specific subject being capable-but-unproven; under materialized aging
+those subjects cross `isProven` before the natural events the search finds ever occur. **Aging only
+moves forward, so a wider scan window makes this strictly worse, never better.** Restoring them needs
+a new seed, subject or scenario — a redesign, not a repair — and the standing rule forbids relaxing a
+selector or widening a tick budget to make an old premise reappear.
+
+**2. The `poachingFixture` cascade — 5 cases** (`bridge-p14b5-relationships` 1, `bridge-p14b2-trust` 3,
+`p14b2-fixture-preconditions` 1). **Here the attribution evidence was correct but incomplete, and the
+test author found the deeper fact rather than pinning around it.** 771 traced the failure to
+`publicPreferredTerm` 52 → 208, which is right; bumping that pin moves the failure one step deeper,
+into `assertBinding`. Measured: the fixture's incumbent offers a 208-week term while the player's
+promise hard-codes 52. Under the OLD unproven preference, shortest wins and the player won — which is
+the premise every consumer of that fixture is built on. Under the NEW proven preference, longest wins,
+**the incumbent wins outright and the player's promise is never bound at all.** The author reverted
+the attempted fix and left the original pin failing at its correctly-diagnosed line rather than
+carrying the failure somewhere harder to find. That is the right call.
+
+## Two repairs flagged as the weakest in the set, accepted with their limits stated
+
+**`_p08HistoryTwins.ts` gained an opt-in `ageResidue` parameter.** Read and checked: it defaults to
+false so every other caller keeps strict byte equality; when on, every other byte is still compared in
+full with `age` stripped from BOTH sides, and `age` then gets an exact per-person bound —
+`native − migrated ∈ {0,1}` with native never behind, ids paired. It replaces "byte-identical
+including age" with "byte-identical excluding age PLUS a proven bound", which is a re-expression, not
+a relaxation: it still fails if any age moves by two or if the migrated side ever leads.
+
+**`p13b-s8-finance` recasts `authored_exact_week` rows to `legacy_age_anchor` in-test.** At week 0 the
+two kinds name the identical anchor, so this constructs a lawful equivalent world — one that entered
+by a migration at week 0 — and lets the REAL `migrateToV26` run instead of hand-forging its result.
+The test's own subject is money-kind stripping, which the recast does not touch. **It is the weakest
+repair in the set** because it hand-builds a provenance row rather than reaching the state by a real
+path, and the alternative record 771 suggested — minting the fixture at the old writer — remains open
+and was outside this pass's authority.
+
+## Falsifiers
+
+1. a file count other than 358, or a case count other than 4139
+2. a failure count outside **53–55**
+3. any of the 50 repaired cases still failing
+4. any NEW failure not in the 24 inherited and not among the 30 deliberate
+5. `tests/p14c1-materialized-aging.test.ts` below 46 of 46

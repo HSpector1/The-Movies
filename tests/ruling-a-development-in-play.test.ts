@@ -23,6 +23,7 @@ import {migrateToCurrentControl} from './_historicalCurrent.js'
 
 import { describe, it, expect } from 'vitest'
 import {
+  ageAt,
   applyActions,
   generateWorld,
   tick,
@@ -148,6 +149,27 @@ function talentById(state: GameState, id: string): Talent {
   return t
 }
 
+// P14C.1 (record 771, approved_behavioral_change): `Talent.age` now legitimately
+// varies with the clock (contract 762 §1) — RULING A's "no development" claims
+// in this file are about skills/ceilings/devRate/genreExperience/workHistory,
+// never about age, so a byte-frozen `age` field is not part of what those
+// rulings guard. `withoutAge` isolates exactly that field for comparison;
+// `expectAgeMaterialized` then proves, exactly (not just bounded), that the one
+// field excluded moved BY THE LAW and nothing else — tying the change directly
+// to `ageAt` (762 §1) rather than merely accepting that it differs.
+function withoutAge(person: Talent): Record<string, unknown> {
+  const rest = { ...(person as unknown as Record<string, unknown>) }
+  delete rest.age
+  return rest
+}
+function expectAgeMaterialized(anchorState: GameState, afterState: GameState, personId: string): void {
+  const row = anchorState.talentProvenance.rows.find((r) => r.personId === personId)
+  if (row === undefined) throw new Error(`no provenance row for ${personId}`)
+  const expected = ageAt(row, afterState.market.tick)
+  const actual = talentById(afterState, personId).age
+  expect(actual, `${personId}: age at week ${String(afterState.market.tick)} should follow ageAt(row, week) exactly`).toBe(expected)
+}
+
 // Total actual-skill mass across all 24 skills (a scalar proxy for "how much the
 // talent has grown"). Used to detect any development at all.
 function totalActualSkill(t: Talent): number {
@@ -211,8 +233,10 @@ describe('RULING A — development applies exactly once per released production'
     const beforeExtra = released.studio.releasedFilms.length
     const after = advanceDev(released, 10)
     expect(after.studio.releasedFilms.length).toBe(beforeExtra) // no new release
-    // Talent is byte-identical (no development without a release).
-    expect(after.talent).toEqual(released.talent)
+    // Talent is byte-identical (no development without a release) except for
+    // `age`, which the clock alone moves (record 771) — proved exactly below.
+    expect(after.talent.map(withoutAge)).toEqual(released.talent.map(withoutAge))
+    for (const person of released.talent) expectAgeMaterialized(released, after, person.id)
   })
 
   it('development actually occurred (guards against a vacuous "no change" pass)', () => {
@@ -245,9 +269,11 @@ describe('RULING A — canceled and unfinished work develop nobody', () => {
     s = advanceDev(s, 20)
 
     expect(s.studio.releasedFilms.length).toBe(0)
-    // Every performer is byte-identical to the fresh world (never developed).
+    // Every performer is byte-identical to the fresh world (never developed),
+    // except `age`, which the clock alone moves (record 771) — proved exactly.
     for (const { id } of performerIds(payload)) {
-      expect(s.talent.find((t) => t.id === id)).toEqual(before.talent.find((t) => t.id === id))
+      expect(withoutAge(s.talent.find((t) => t.id === id)!)).toEqual(withoutAge(before.talent.find((t) => t.id === id)!))
+      expectAgeMaterialized(before, s, id)
     }
   })
 
@@ -424,8 +450,11 @@ describe('RULING A — development survives save round-trips without duplication
     const reloaded = importSave(exportSave(makeSave(released)))
     // The reloaded state is the live SaveFileV11; drive it forward, no greenlights.
     if (reloaded.saveVersion !== 33) throw new Error('expected V28 save')
-    const advanced = advanceDev(migrateToCurrentControl(reloaded).state, 5)
-    expect(advanced.talent).toEqual(reloaded.state.talent)
+    const liftedReloaded = migrateToCurrentControl(reloaded).state
+    const advanced = advanceDev(liftedReloaded, 5)
+    // Byte-identical except `age`, which the clock alone moves (record 771).
+    expect(advanced.talent.map(withoutAge)).toEqual(reloaded.state.talent.map(withoutAge))
+    for (const person of reloaded.state.talent) expectAgeMaterialized(liftedReloaded, advanced, person.id)
   })
 })
 

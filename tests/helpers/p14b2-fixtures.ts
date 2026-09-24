@@ -155,6 +155,40 @@ export function poachingFixture() {
   // fallback reads Reliable, trust ties, and the unproven tie order (opportunity
   // 0 = 0, then compensation 2 > 0) picks the player. Same lever as
   // p14b1-trust-chooser test 6; no synthetic standing, receipt or binding.
+  //
+  // P14C.1 (record 771/770, approved_behavioral_change — DELIBERATELY LEFT
+  // FAILING, not fixed in this pass; see the P14C.1 test-repair report for the
+  // full finding). talentId's provenance anchors at 29.84081390477671 at week
+  // 0 (worldgen), so under materialized aging (contract 762 §1) the stored age
+  // crosses 30 — isProven flips true on the age term alone, careerIdentity's
+  // credit term never firing — at week 9, long before this fixture reads state
+  // at week 196. The subject is no longer "a publicly unproven person":
+  // publicPreferredTerm now reads TUNING.CONTRACT_TERM_OPTIONS[last] (208),
+  // not [0] (52) — MEASURED, not reasoned; the line below still asserts 52 and
+  // still fails there, honestly, at the first traced cause.
+  //
+  // Bumping just this one pin to 208 is NOT sufficient and was tried and
+  // reverted: it moves the failure one step deeper, inside `assertBinding`
+  // (line ~211 below), because the fixture's incumbent offers a 208-week term
+  // while the PLAYER's promise is built through the shared `proposePromise`
+  // helper, which hard-codes `termWeeks: 52`. Under the OLD unproven
+  // preference (shortest term wins), the player's 52 matched and the
+  // player's studio won the case, which is the whole premise every consumer
+  // of this fixture (bridge-p14b5-relationships poachingFixture case,
+  // bridge-p14b2-trust group5's three cases, p14b2-fixture-preconditions's
+  // "wins a real rival-owned case" case) is built on: a BOUND player promise,
+  // a specific settled `reasons` list, a BROKEN outcome. Under the NEW proven
+  // preference (longest term wins), the incumbent's 208 now matches instead
+  // and the incumbent wins the case outright (measured: settled reasons
+  // become ["their term matched what this person prefers","their studio
+  // standing ranked higher","they are the current employer"], and the
+  // player's own promise is never bound — contractId stays null forever).
+  // Restoring "the player wins" would require re-deriving a new natural lever
+  // under the proven priority order (e.g. a same-length player offer), which
+  // means changing `proposePromise`'s hard-coded term — a helper this file
+  // shares with fixtures well outside this one — or picking a different
+  // subject/seed. Either is a genuine redesign, not a pin move, and is
+  // deliberately left for a follow-up pass rather than forced here.
   const reliable = sign(state, 'actor', 52); state = reliable.state
   state = advanceTo(state, 196)
   expect(state.hollywood!.employment.some((e) => e.studioId === player(state) && e.terms.talentId === reliable.id
