@@ -78,3 +78,58 @@ filename is forbidden. They are attributed individually before anything changes.
 No economic expectation has been re-pinned anywhere, by anyone, in either run. The `ui` project was
 not run and FU-1 is still unreturned. Unity/native unchanged and deferred. C.1's own suite is
 **46 of 46**.
+
+---
+
+## CORRECTION — A13 is a NEWLY ENFORCED invariant, not a long-standing violation
+
+This record says the growing A13 count is "a strong signal that condition 2 is a LAW the test corpus
+has been quietly violating for a long time". **That framing is wrong and it blames the wrong party.**
+
+Before C.1 there was no provenance root. Writing `{ ...person, age: 29 }` onto a test person created
+no disagreement with anything, because there was nothing for it to disagree with. Those fixtures were
+valid under the law that existed when they were written. C.1 introduces the invariant, and the
+fixtures now need internally consistent setup under it.
+
+The count growing under examination — one named by the audit, two by the writer, four by the test
+author, three more files in this run — is therefore a measure of **how widely the old idiom was
+used**, which is ordinary, not of how long a rule was broken.
+
+What follows for the work is unchanged in substance and changed in method: update the current test
+builders so the LAW derives the wanted age, without weakening validation and without rewriting a
+genuine historical save. The test author's `withSyntheticAge` helper is exactly that shape.
+
+## The birthday-phase group is NOT classified until one question is answered
+
+This record grouped the nine `v14-migration` failures as "birthday PHASE loss in a projected twin" and
+asserted real saves are unaffected because a genuine pre-C2 file holds fractional ages. **That
+reasoning is published and it is not yet verified.**
+
+The question to settle before anything in that group is touched: **is the phase loss confined to a
+test-only projected twin, or does it also occur in an actual supported conversion?** A rounded age
+alone cannot reconstruct the original birthday timing, so if any supported path hands the migration
+an already-integer age, that path loses phase for real players, and treating the group as ordinary
+repricing would hide the wrong problem.
+
+Two things already known and neither sufficient: worldgen wrote raw gaussians in the pre-C2 era, so
+most stored ages in a genuine old save are fractional; and `hollywood.ts:221` manufactures exact
+integers on the authored-template path, so *some* stored ages in a genuine old save are integers
+whose phase is genuinely unrecoverable. Whether that second set is a disclosed inherent limit or a
+defect depends on whether the conversion is supported, which is what has to be established.
+
+## What matching case counts does and does not prove
+
+4139 matched the prediction to the case. **That proves collection completeness — every file was
+collected and every case registered — and nothing whatever about whether the remaining behaviour is
+correct.** Recorded because a matching count is the kind of number that reads like a pass.
+
+## The four categories every unresolved case is sorted into before any expectation moves
+
+1. a **production defect**
+2. a **now-inconsistent test fixture** (the A13 shape, under the newly enforced invariant)
+3. an **approved behavioural change** (the intended repricing)
+4. an **inherited failure** (present in baseline 755, nothing to do with C.1)
+
+Category 3 is the dangerous one, because it is the label under which a real defect travels unnoticed.
+It requires the first changed age, the legitimate consumer it reaches, and the downstream effect,
+per 765 §3 — never a filename.
