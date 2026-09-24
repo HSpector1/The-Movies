@@ -1,0 +1,80 @@
+{
+  "authority": {
+    "phase": "P14C.1 T0 / the genuine outgoing Save V32 corpus for materialized aging, minted at the FINAL V32 writer before any C.1 source change",
+    "headSha": "ace2773ab91e49ce97930d3e6e40abf834ee041d",
+    "publishedRecoverySha": "ace2773ab91e49ce97930d3e6e40abf834ee041d",
+    "publicationState": "PUBLISHED: git ls-remote origin wip/headless-program-20260916-ts returned the minting head at mint time.",
+    "expansionRelativePath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/758-c1-aging-expansion.md",
+    "expansionSha256": "da555c4f08f5a9fe342a194ff5e377322567ffda6fcdf50f842c4a44416d3167",
+    "auditRelativePath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/759-C-c1-aging-audit.md",
+    "auditSha256": "1628ce04d5c7de1f7ed1fef8ace9d29643e2f7aad2f29207c701092676ae0e18",
+    "measurementRelativePath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/760-c1-t0-corpus-measurement.md",
+    "measurementSha256": "4bebf8e8f6b8cc908d3837a356a6bd283b016680beb9f219b012dbf0197e8e67",
+    "saveVersion": 32,
+    "wireIdentityNote": "The projection and schema identities are NOT imported here: this minter lives in the root tsconfig project, which excludes bridge .ts imports. They are pinned by headSha, and the clean-tree gate covers generated/.",
+    "promiseRulesVersion": 4,
+    "relationshipRulesVersion": 1,
+    "approvalEnvironmentVariable": "STUDIO_MINT_V32_C1_CORPUS_APPROVED",
+    "outputRelativePath": "tests/fixtures/p14/genuine-v32-c1-corpus",
+    "alsoHeld": "tests/fixtures/p14/genuine-v32-pre-b8/genuine-v32-owes-two-p1.json.gz covers the top of the age draw (68.28) at week 104 and is NOT re-minted here."
+  },
+  "observedHeadSha": "ace2773ab91e49ce97930d3e6e40abf834ee041d",
+  "minterRelativePath": "tests/p14c1-mint-v32-corpus.test.ts",
+  "minterSha256": "08fa86e0b24a0628dc27fa06b705a9d929bf61c308fb90fc448a0ceb653bacff",
+  "minterArchivedRelativePath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/761-mint-v32-c1-corpus-minter.test.ts",
+  "minterReproduction": "Archived at minterArchivedRelativePath and removed from tests/, so no suite collects it. Reproducing requires copying the archived bytes back to tests/p14c1-mint-v32-corpus.test.ts before running the recorded command.",
+  "nodeVersion": "v20.20.2",
+  "startedAt": "2026-09-24T08:36:57.042Z",
+  "worldBuildMs": 5425.594772,
+  "command": "STUDIO_MINT_V32_C1_CORPUS_APPROVED=ace2773ab91e49ce97930d3e6e40abf834ee041d node_modules/.bin/vitest run tests/p14c1-mint-v32-corpus.test.ts --minWorkers=1 --maxWorkers=1",
+  "campaign": "generated test campaign, never Owner save",
+  "scope": "genuine OUTGOING V32 worlds spanning the five measured C.1 corpus axes; no future migration, no native and no Owner acceptance claim",
+  "endedAt": "2026-09-24T08:37:04.309Z",
+  "recipe": {
+    "builder": "p13aResearchReady() (src/harness/p13a/fixtures.ts), an existing accepted harness builder, not a route this minter invents",
+    "actions": [
+      "laboratory slice",
+      "installAcousticInstruments",
+      "advanceTo(260)",
+      "real recruitScientist",
+      "real assignResearchScientist"
+    ],
+    "compression": "node:zlib gzipSync with library defaults"
+  },
+  "filename": "genuine-v32-scientist.json.gz",
+  "provenanceFilename": "genuine-v32-scientist.provenance.json",
+  "seed": "p14c1-corpus-01",
+  "week": 260,
+  "saveVersion": 32,
+  "uncompressedSha256": "20c9dff60e614b6c7c447f959dfc1e9d43d6852a40328aa3ad5df6c71208d668",
+  "compressedSha256": "655ba574a96fa219b8aa538cdf42a364faf85ea19cb4bb4c6cdd4e1eaedbffc2",
+  "byteLength": 1242288,
+  "compressedByteLength": 137559,
+  "axis": "a SCIENTIST in state.talent at a non-zero week. Record 759-C amendment 10 decided Scientists age, because condition 1 covers every id in state.talent and the profession list in the companion predates P13. The held fixture contains zero scientists. actions.ts:2842 recruitScientist is a PLAYER append site carrying no provenance today.",
+  "ageFacts": {
+    "hollywoodIsNull": false,
+    "marketTick": 260,
+    "originWeek": 0,
+    "talentCount": 85,
+    "fractionalAges": 84,
+    "integerAges": 1,
+    "ageMin": 20.681766150591155,
+    "ageMax": 68.27905073840981,
+    "authoredCount": 0,
+    "scientistCount": 1,
+    "provenAges": 72,
+    "roles": [
+      "actor",
+      "craft",
+      "director",
+      "scientist",
+      "writer"
+    ],
+    "rivalEmploymentRows": 40
+  },
+  "focus": {
+    "scientistPersonId": "t-sci-00",
+    "scientistAge": 56.133311122846976,
+    "scientistAppendSite": "src/core/actions.ts:2842 recruitScientist"
+  }
+}

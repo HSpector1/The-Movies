@@ -1,0 +1,72 @@
+{
+  "authority": {
+    "phase": "P14C.1 T0 / the genuine outgoing Save V32 corpus for materialized aging, minted at the FINAL V32 writer before any C.1 source change",
+    "headSha": "ace2773ab91e49ce97930d3e6e40abf834ee041d",
+    "publishedRecoverySha": "ace2773ab91e49ce97930d3e6e40abf834ee041d",
+    "publicationState": "PUBLISHED: git ls-remote origin wip/headless-program-20260916-ts returned the minting head at mint time.",
+    "expansionRelativePath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/758-c1-aging-expansion.md",
+    "expansionSha256": "da555c4f08f5a9fe342a194ff5e377322567ffda6fcdf50f842c4a44416d3167",
+    "auditRelativePath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/759-C-c1-aging-audit.md",
+    "auditSha256": "1628ce04d5c7de1f7ed1fef8ace9d29643e2f7aad2f29207c701092676ae0e18",
+    "measurementRelativePath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/760-c1-t0-corpus-measurement.md",
+    "measurementSha256": "4bebf8e8f6b8cc908d3837a356a6bd283b016680beb9f219b012dbf0197e8e67",
+    "saveVersion": 32,
+    "wireIdentityNote": "The projection and schema identities are NOT imported here: this minter lives in the root tsconfig project, which excludes bridge .ts imports. They are pinned by headSha, and the clean-tree gate covers generated/.",
+    "promiseRulesVersion": 4,
+    "relationshipRulesVersion": 1,
+    "approvalEnvironmentVariable": "STUDIO_MINT_V32_C1_CORPUS_APPROVED",
+    "outputRelativePath": "tests/fixtures/p14/genuine-v32-c1-corpus",
+    "alsoHeld": "tests/fixtures/p14/genuine-v32-pre-b8/genuine-v32-owes-two-p1.json.gz covers the top of the age draw (68.28) at week 104 and is NOT re-minted here."
+  },
+  "observedHeadSha": "ace2773ab91e49ce97930d3e6e40abf834ee041d",
+  "minterRelativePath": "tests/p14c1-mint-v32-corpus.test.ts",
+  "minterSha256": "08fa86e0b24a0628dc27fa06b705a9d929bf61c308fb90fc448a0ceb653bacff",
+  "minterArchivedRelativePath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/761-mint-v32-c1-corpus-minter.test.ts",
+  "minterReproduction": "Archived at minterArchivedRelativePath and removed from tests/, so no suite collects it. Reproducing requires copying the archived bytes back to tests/p14c1-mint-v32-corpus.test.ts before running the recorded command.",
+  "nodeVersion": "v20.20.2",
+  "startedAt": "2026-09-24T08:36:57.042Z",
+  "worldBuildMs": 5425.594772,
+  "command": "STUDIO_MINT_V32_C1_CORPUS_APPROVED=ace2773ab91e49ce97930d3e6e40abf834ee041d node_modules/.bin/vitest run tests/p14c1-mint-v32-corpus.test.ts --minWorkers=1 --maxWorkers=1",
+  "campaign": "generated test campaign, never Owner save",
+  "scope": "genuine OUTGOING V32 worlds spanning the five measured C.1 corpus axes; no future migration, no native and no Owner acceptance claim",
+  "endedAt": "2026-09-24T08:37:04.307Z",
+  "recipe": {
+    "builder": "p13aGeneratedStudio(seed)",
+    "actions": [],
+    "compression": "node:zlib gzipSync with library defaults"
+  },
+  "filename": "genuine-v32-fresh-tick0.json.gz",
+  "provenanceFilename": "genuine-v32-fresh-tick0.provenance.json",
+  "seed": "p14c1-corpus-01",
+  "week": 0,
+  "saveVersion": 32,
+  "uncompressedSha256": "38b97e297598163fb15ba3bf4e139319d84998efcec4595c9c563055aacc26b0",
+  "compressedSha256": "491b6732f85890d5b09eaca7d2a1a9537962121352e2653c1e85af7b9bf288be",
+  "byteLength": 383685,
+  "compressedByteLength": 48464,
+  "axis": "hollywood present at tick 0 with rival employment. Distinguishes a correct migrationWeek from one defaulted to zero, and carries INTEGER ages manufactured by src/core/hollywood.ts:221 (Math.max(28, person.age)) with no authored person present.",
+  "ageFacts": {
+    "hollywoodIsNull": false,
+    "marketTick": 0,
+    "originWeek": 0,
+    "talentCount": 84,
+    "fractionalAges": 80,
+    "integerAges": 4,
+    "ageMin": 21.66688087536627,
+    "ageMax": 61.93105310214089,
+    "authoredCount": 0,
+    "scientistCount": 0,
+    "provenAges": 66,
+    "roles": [
+      "actor",
+      "craft",
+      "director",
+      "writer"
+    ],
+    "rivalEmploymentRows": 24
+  },
+  "focus": {
+    "integerAgesWithoutAuthoring": 4,
+    "manufacturedBy": "src/core/hollywood.ts:221 Math.max(28, person.age)"
+  }
+}
