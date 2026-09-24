@@ -5,7 +5,7 @@ import { initialPhysicalPlans } from '../../core/physicalPlans.js'
 import { initialTalentMarket } from '../../core/talentMarket.js'
 import { withResearchFoundation } from '../../core/researchPeople.js'
 import { buildTalentProvenance } from '../../core/aging.js'
-import { stableStringify } from '../../core/save.js'
+import { stableStringify, validateTalentProvenanceRoot } from '../../core/save.js'
 import { SKILL_ORDER, GENRE_ORDER } from '../../core/tuning.js'
 import type { GameState, GameStateV18 } from '../../core/types.js'
 export { beginFoundingHistoricalControl as beginFounding } from '../../core/employment.js'
@@ -54,15 +54,22 @@ export function historicalHashState<T extends object>(state:T):object {
     if (stableStringify(state.talentMarket) !== stableStringify(initialTalentMarket())) throw new Error('Historical hash cannot discard talent-market authority')
   }
   if ('talentProvenance' in state) {
-    // P14C.1 (record 762 §12 F4): stripped on the `technology`/`physicalPlans`/
-    // `talentMarket` precedent — verified against the canonical rebuild from the
-    // control's own people — rather than the empty-root precedent, because this root
-    // is legitimately NON-EMPTY. Rebuilt from the root's own `boundaryWeek`, exactly
-    // as the technology check rebuilds from `recordingStartedWeek`.
-    const root = state.talentProvenance as GameState['talentProvenance']
-    const people = ((state as Partial<GameState>).talent ?? []) as readonly {id: string; age: number}[]
-    if (stableStringify(root) !== stableStringify(buildTalentProvenance(people, root.boundaryWeek, 'legacy_age_anchor'))) {
-      throw new Error('Historical hash cannot discard talent provenance authority')
+    // P14C.1. The provenance root fits NEITHER existing guard pattern: it is not
+    // "must be empty" like `firstTakes`/`promises`/`relationships`, and not "must
+    // equal the initial value" like `technology`/`physicalPlans`/`talentMarket`,
+    // because it is legitimately NON-EMPTY and legitimately EVOLVES — these call
+    // sites hash TICKED worlds, with people appended after the boundary and a `due`
+    // list that has advanced. A canonical-rebuild check can only ever hold for a
+    // state that never ticked, so it is the wrong question here.
+    //
+    // The right question is INTERNAL CONSISTENCY with the state the root travels
+    // with: one row per person, every stored age equal to `ageAt(row, market.tick)`,
+    // and `due` the exact recomputation. That is precisely what the live validator
+    // already asks, so it is reused rather than copied — one law, one implementation.
+    try {
+      validateTalentProvenanceRoot(state as unknown as Record<string, unknown>)
+    } catch (error) {
+      throw new Error(`Historical hash cannot discard talent provenance authority — ${(error as Error).message}`)
     }
   }
   const {hollywood: _control, technology: _research, physicalPlans: _plans, talentMarket: _market,

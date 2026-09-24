@@ -99,3 +99,70 @@ re-measured after causes 1 and 2 are fixed, and attributed then.
   names look aging-adjacent.
 - The `ui` project was not run. FU-1 is still unreturned.
 - Unity/native unchanged and still deferred.
+
+---
+
+## CORRECTION — cause 2 is NOT a production defect, and I called it one without checking
+
+Record 766 above says the `v14-migration.contract` cluster is "a GENUINE PRODUCTION DEFECT, and the
+most important finding of this run". **The first half is wrong.** I inferred "production" from the
+error text — `validateSaveV12: state has unknown field "talentProvenance"` — and published that
+inference as a finding without tracing where the offending state was built.
+
+**Where it actually is.** `tests/contracts/_v14Contract.ts:377`, `projectToV13State`: a hand
+projection owned by the contract test, which strips each post-V13 root by an explicit
+`delete raw.<root>` line — `releaseAuthority`, `studioHistory`, `hollywood`, `foundingRegime`,
+`technology`, `physicalPlans`, `talentMarket`, `firstTakes`, `promises`, `relationships` — and has no
+line for `talentProvenance`. `V14_STATE_ROOTS` at `:43` is declared in that same test file and names
+only the five V14 additions, so it never covered any of them. Every prior save bump added a line
+here; C.1's is the one that was missed.
+
+**Production is clean, and I verified it independently rather than on the writer's probe.**
+`projectStateV13` / `V14` / `V18` (`src/core/save.ts:5674`, `:5704`, `:6385`) are ALLOWLIST
+projections, so a new root cannot leak through them by construction. The only multi-root destructures
+in `src/` are `save.ts:8685`, `:8694`, `:8832` — each a single chained strip — and
+`historical-control.ts:76`, which already carries `talentProvenance`.
+
+**The class my sweep inventory missed, stated so the next save step has it.** 763 enumerated version
+LITERALS and `migrateToVn` call sites. It has no class for **enumerated root-strip lists**, which is
+a different shape: a list that must GROW by one line at every save bump, in which the failure mode is
+an omission rather than a stale value, and which therefore matches no value grep at all. Measured
+sites: `src/core/save.ts` (chained, one root each, correct by construction),
+`src/harness/roster-wall/historical-control.ts:76` (correct), `tests/contracts/_v14Contract.ts:377`
+(**the gap**). `tests/d17a-adv-migration.test.ts:189-192` matched the same grep and is NOT this class:
+it deletes pre-V13-era fields to forge an old state, and it did not fail.
+
+**What the mischaracterisation nearly cost.** Calling it production would have sent a writer hunting
+a leak in `save.ts` that does not exist, while the actual one-line fix sat in a file the writer is
+forbidden to author. The failure text named a production validator, which is exactly why it read as a
+production defect; the validator was the reporter, not the culprit.
+
+## Cause 1's fix, and what it showed about the four moved hashes
+
+`src/harness/roster-wall/historical-control.ts`, +17/−10, the only production file changed. The guard
+now calls `validateTalentProvenanceRoot` and rethrows with context, so the observatory and the save
+boundary cannot drift apart by carrying two copies of the same conditions.
+
+| file | before | after |
+| --- | --- | --- |
+| `facilities-observatory` | died at collection | **12 / 12** |
+| `roster-wall-player-policy` + `roster-wall-campaign` | died at collection / failing | **21 / 21** |
+| `c2a-m4-g101-throughput` | died at collection | **4 / 4** |
+| `roster-wall-continuation` + `roster-wall-artifacts` | failing | **22 / 22** |
+
+Those six are every file that can reach `historicalHashState` or `liftV18Control`. **No historical
+hash pin failed in any of them and nothing was re-pinned.** So the four "moved hashes" in run 766
+look like the guard throwing rather than a hash actually moving — which, if the full re-run confirms
+it, means my F4 falsifier fired on my own broken guard rather than on a real consequence. Recorded as
+provisional: one targeted pass is not the full suite, and the re-measure is mine to make.
+
+## An orchestration defect of mine, recorded because it cost a verification
+
+I told the writer their acceptance check was "the RED must stay at 44 of 45", and at the same time
+dispatched a test author to rewrite exactly those assertions in exactly that file, in the same
+worktree. The writer correctly refused to touch it and reported the conflict instead of running
+against a file someone else was mid-write on.
+
+**Two specialists on disjoint FILES is not enough. A verification target is an ownership claim too.**
+The next brief names the file a specialist may READ for acceptance as explicitly as the files it may
+write.
