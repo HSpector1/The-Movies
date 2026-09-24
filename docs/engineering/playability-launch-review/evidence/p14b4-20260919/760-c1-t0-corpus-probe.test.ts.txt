@@ -1,0 +1,103 @@
+// P14C.1-T0 CORPUS PROBE — measurement only, ASSERTS NOTHING about the product.
+//
+// Record 759-C §3 replaced the expansion's corpus axes with five measured ones. This
+// file establishes, by building them, which are REACHABLE and what each world actually
+// contains, before a minter commits bytes. The T0b probe (record 747) paid for itself
+// by proving a planned fixture impossible; this is the same move.
+//
+// STRAY-PROBE DISCIPLINE (record 726): run ALONE by positional filename, never inside a
+// suite pass, then archived and removed. One `it` that only prints.
+import assert from 'node:assert/strict'
+import { it } from 'vitest'
+import { applyActions, hiringMarketIds, tick } from '../src/core/index.js'
+import { generateWorld } from '../src/core/worldgen.js'
+import { LIVE_SAVE_VERSION, exportSave, makeSave, validateSaveV32 } from '../src/core/save.js'
+import { p13aResearchReady } from '../src/harness/p13a/fixtures.js'
+import type { GameState } from '../src/core/types.js'
+import { advanceTo, fund, p13aGeneratedStudio, player } from './helpers/p14b2-fixtures.js'
+
+const SEED = 'p14c1-corpus-01'
+
+function describeWorld(label: string, state: GameState) {
+  const ages = state.talent.map((t) => t.age)
+  const fractional = ages.filter((a) => a !== Math.floor(a)).length
+  let saveVersion: number | string = 'REFUSED'
+  let bytes = 0
+  try {
+    const json = exportSave(makeSave(state))
+    saveVersion = validateSaveV32(JSON.parse(json)).saveVersion
+    bytes = Buffer.byteLength(json, 'utf8')
+  } catch (error) { saveVersion = `REFUSED: ${(error as Error).message.slice(0, 90)}` }
+  return {
+    label,
+    hollywoodIsNull: state.hollywood === null,
+    marketTick: state.market.tick,
+    talentCount: state.talent.length,
+    fractionalAges: fractional,
+    integerAges: ages.length - fractional,
+    ageMin: ages.length > 0 ? Math.min(...ages) : null,
+    ageMax: ages.length > 0 ? Math.max(...ages) : null,
+    authoredCount: state.talent.filter((t) => (t as { authored?: boolean }).authored === true).length,
+    scientistCount: state.talent.filter((t) => t.role === 'scientist').length,
+    roles: [...new Set(state.talent.map((t) => t.role))].sort(),
+    rivalEmploymentRows: state.hollywood === null ? 0
+      : state.hollywood.employment.filter((e) => e.studioId !== state.hollywood!.playerStudioId).length,
+    originWeek: state.hollywood?.originWeek ?? null,
+    saveVersion,
+    bytes,
+  }
+}
+
+it('MEASURES which of the five corpus axes are reachable', () => {
+  const rows: unknown[] = []
+
+  // AXIS 1 — hollywood === null. worldgen.ts:704 sets it; talentMarket.ts:28 documents
+  // the M0A corpus and the roster-wall observatory as null-hollywood worlds.
+  const bare = generateWorld(SEED)
+  rows.push(describeWorld('axis1-bare-world', bare))
+
+  // AXIS 2 — a world at market.tick 0 WITH hollywood, to separate a correct
+  // migrationWeek from one defaulted to zero.
+  const fresh = p13aGeneratedStudio(SEED)
+  rows.push(describeWorld('axis2-fresh-hollywood-tick0', fresh))
+
+  // Can a null-hollywood world be ticked at all? If yes, axes 1 and 2 separate fully.
+  let bareTicked = 'NOT ATTEMPTED'
+  try {
+    const t = tick(bare)
+    bareTicked = `TICKED to ${String(t.market.tick)}, hollywoodIsNull=${String(t.hollywood === null)}`
+    rows.push(describeWorld('axis1b-bare-world-ticked', t))
+  } catch (error) { bareTicked = `REFUSED: ${(error as Error).message.slice(0, 120)}` }
+
+  // AXIS 3 — an AUTHORED person, the only lawful route to an integer stored age and to
+  // the [18,70] authored clamp. Probe the three creator action kinds to find one that lands.
+  const authoredAttempts: string[] = []
+  let authoredWorld: GameState | null = null
+  for (const kind of ['createTalent', 'createCustomTalent', 'createBalancedTalent'] as const) {
+    try {
+      const next = applyActions(fund(fresh), [{ kind, talent: {
+        name: 'Probe Person', role: 'actor', age: 19,
+        actual: { warmth: 0.3, gravity: -0.4, physicality: 0.7 },
+        potentialTier: 'Steady', workEthic: 60,
+      } } as never])
+      authoredAttempts.push(`${kind}: OK, talent ${String(fresh.talent.length)} -> ${String(next.talent.length)}`)
+      if (authoredWorld === null) authoredWorld = next
+    } catch (error) { authoredAttempts.push(`${kind}: REFUSED ${(error as Error).message.slice(0, 110)}`) }
+  }
+  if (authoredWorld !== null) rows.push(describeWorld('axis3-authored-person', authoredWorld))
+
+  // AXIS 4 — a SCIENTIST, appended by recruitScientist (actions.ts:2842), which record
+  // 759-C established is a PLAYER append site carrying no provenance today.
+  let scientistNote = 'NOT ATTEMPTED'
+  try {
+    const s = p13aResearchReady()
+    scientistNote = `p13aResearchReady OK: scientists=${String(s.talent.filter((t) => t.role === 'scientist').length)}`
+    rows.push(describeWorld('axis4-scientist', s))
+  } catch (error) { scientistNote = `REFUSED: ${(error as Error).message.slice(0, 160)}` }
+
+  // AXIS 5 — near the top of the draw. Already satisfied by the held fixture at 68.28;
+  // reported here for the new seed so the minter knows what it has.
+  assert.equal(LIVE_SAVE_VERSION, 32)
+
+  console.log(JSON.stringify({ seed: SEED, bareTicked, authoredAttempts, scientistNote, rows }, null, 2))
+}, 900_000)
