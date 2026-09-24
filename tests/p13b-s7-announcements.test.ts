@@ -83,7 +83,7 @@ function assertSha256(json: string, expected: string) {
 const liveState = (json: string): GameState => save.migrateToV33(JSON.parse(json) as never).state as GameState
 
 describe('P13B-S7 announcements persist nowhere: genuine V26 fixture, live load, advance past the announce week (test 3)', () => {
-  it('LIVE_SAVE_VERSION is 27 (P13B-S8) — S7 itself changes no save', () => {
+  it('LIVE_SAVE_VERSION is 33 (stale title corrected post-C.1; P13B-S8 made it 27 at the time) — S7 itself changes no save', () => {
     expect(save.LIVE_SAVE_VERSION).toBe(33)
   })
 

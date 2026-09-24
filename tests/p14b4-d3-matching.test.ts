@@ -7,6 +7,24 @@ import { careerIdentity } from '../src/core/talentSummary.js'
 import { promiseMatchesPreferredOpportunity, publicPreferredOpportunity } from '../src/core/talentMarket.js'
 import type { GameState, ProfessionalPromiseV30 } from '../src/core/types.js'
 import { p13aGeneratedStudio } from '../src/harness/p13a/fixtures.js'
+import { provenanceRowFor, recomputeDue } from '../src/core/aging.js'
+import { makeSave } from '../src/core/save.js'
+
+/** 762 §6 condition 2: the V33 validator refuses a hand-written `talent[i].age`
+ * that disagrees with its own provenance row. This rewrites the person's own
+ * anchor to the current tick instead, so the LAW derives the desired age rather
+ * than the test overwriting the cache directly — same explicit synthetic
+ * pure-read age input as before, now expressed legally. `due` is rebuilt so
+ * condition 3 (the cache) stays honest too. */
+function withSyntheticAge(state: GameState, personId: string, age: number): GameState {
+  const oldRow = state.talentProvenance.rows.find((r) => r.personId === personId)
+  if (oldRow === undefined) throw new Error(`withSyntheticAge: no provenance row for ${personId}`)
+  const newRow = provenanceRowFor(personId, age, state.market.tick, oldRow.kind)
+  const rows = state.talentProvenance.rows.map((r) => (r.personId === personId ? newRow : r))
+  const talent = state.talent.map((t) => (t.id === personId ? { ...t, age } : t))
+  const storedAge = new Map(talent.map((t) => [t.id, t.age]))
+  return { ...state, talent, talentProvenance: { ...state.talentProvenance, rows, due: recomputeDue(rows, (id) => storedAge.get(id)) } }
+}
 
 type Material = Pick<ProfessionalPromiseV30, 'family' | 'predicate'>
 const P1 = { family: 'APPEARANCE_COUNT', predicate: { count: 1 } } as const satisfies Material
@@ -31,13 +49,16 @@ function readFixture(age: 29 | 30): { state: GameState; id: string } {
   if (subject === undefined) throw new Error('fixture: genuine generated uncredited subject required')
   expect(careerIdentity(subject).identityDisciplines).toEqual([])
   // Explicit pure-read input variant, NOT a birthday, game action, save or
-  // fabricated past career. Preserve the complete subject except this age.
-  const state = { ...generated, talent: generated.talent.map((person) => person.id === subject.id ? { ...person, age } : person) }
+  // fabricated past career. Preserve the complete subject except this age,
+  // expressed through the person's own provenance anchor (762 §6 condition 2:
+  // a hand-written `talent[i].age` disagreeing with it is now refused).
+  const state = withSyntheticAge(generated, subject.id, age)
+  expect(() => makeSave(state), 'the synthetic age must be provenance-consistent, not merely a value that happens to read right').not.toThrow()
   const changed = state.talent.find((person) => person.id === subject.id)!
   expect({ ...changed, age: subject.age }).toEqual(subject)
   expect(changed.workHistory).toEqual(subject.workHistory)
   expect(careerIdentity(changed).identityDisciplines).toEqual([])
-  expect({ ...state, talent: generated.talent }).toEqual(generated)
+  expect({ ...state, talent: generated.talent, talentProvenance: generated.talentProvenance }).toEqual(generated)
   expect(generated).toEqual(beforeGenerated)
   // Literal expected preference; do not infer it from priority-array position.
   expect(publicPreferredOpportunity(state, subject.id)).toBe(age === 29 ? 'significantCastRole' : 'anyCastAppearance')

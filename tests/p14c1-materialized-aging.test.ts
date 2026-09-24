@@ -34,6 +34,8 @@ import type { AuthoredTalentInput, GameState, SaveFile, Talent } from '../src/co
 import { enterRival, initializeHollywood } from '../src/core/hollywood.js'
 import { commitPlacement } from '../src/core/placement.js'
 import { publicPreferredOpportunity, publicPreferredTerm, publicPriorityOrder } from '../src/core/talentMarket.js'
+import { generateIndustryTalent } from '../src/core/worldgen.js'
+import { offerForTalent, busyTalentIds } from '../src/core/employment.js'
 import * as SaveModule from '../src/core/save.js'
 import {
   ageAt, anchorOf, buildTalentProvenance, materializeAges, nextBirthdayWeek, provenanceRowFor, withTalentProvenance,
@@ -415,11 +417,25 @@ describe('6. the calendar advance', () => {
 })
 
 // ══════════════════════════════════════════════════════════════════════════
-// 7. THE 30 CROSSING IS A MARKET DECISION — externally observable across the
-//    crossing (safe, warranted by §10's invariant), plus a MEASUREMENT (not
-//    an assumed ordering) of what an in-tick step sees, derived from the
-//    contract's own mandated call site (tick.ts:1049, ahead of
-//    advanceTalentMarketWeek at tick.ts:1122).
+// 7. THE 30 CROSSING IS A MARKET DECISION — three tests, three different
+//    strengths of evidence, kept honestly distinct (765 §2 / its CORRECTION):
+//
+//    (1) externally observable across the crossing, using the REAL tick() —
+//        proves the before/after difference, says nothing about in-tick order.
+//    (2) a COMPONENT test: a hand-reconstructed sequence calling
+//        `materializeAges` directly and building a successor state by hand.
+//        It exercises the aging.ts/talentMarket.ts surface correctly but does
+//        NOT run tick() and therefore cannot prove what the real settlement
+//        order is — relabeled from "MEASURED"/tick evidence, which it never
+//        was, per 765's own finding about itself.
+//    (3) REAL evidence: the ACTUAL tick() run across the boundary, on a
+//        bounded arrangement (reusing the real 'authored' corpus, never a
+//        rewritten fixture) that forces the tick-tail's scheduled rival-entry
+//        loop (tick.ts:1092-1096, which runs strictly AFTER the materialize
+//        call at :1049 — see 765's CORRECTION to §2) to reuse a specific
+//        crossing person as a free agent and price them via the real
+//        `offerForTalent` call at hollywood.ts:224. The priced contract is a
+//        durable artifact of the real run, not a value we assert on faith.
 // ══════════════════════════════════════════════════════════════════════════
 
 describe('7. the 30 crossing is a market decision (talentMarket.ts:690 isProven)', () => {
@@ -449,26 +465,108 @@ describe('7. the 30 crossing is a market decision (talentMarket.ts:690 isProven)
     expect(publicPreferredOpportunity(state12, id)).not.toBe(publicPreferredOpportunity(state13, id))
   })
 
-  it('MEASURED (762 §10): reconstructing the mandated tick-tail sequencing (materializeAges feeds the SAME local `talent` that tick.ts:1092-1122 consumes, strictly after tick.ts:1049), an in-tick observable already sees the new age for the tick that PRODUCES the crossing week', () => {
+  it('COMPONENT TEST, NOT TICK EVIDENCE (765 §2 finding, applied to itself): a hand-reconstructed successor state, calling `materializeAges` directly and building `tailState` by hand rather than running tick(), shows the aging.ts/talentMarket.ts surface agrees internally — it does NOT and cannot prove what the real tick() settles with, because the real tick() is never called here', () => {
     const { save } = loadCorpus('authored')
     const migrated = migrateV33(save).state
     const state12 = tickN(migrated, 12)
     expect(state12.market.tick).toBe(12)
 
-    // Per 762 §10: at the tick TAIL, `materializeAges` is called against `currentTick+1`
-    // (here, 13) WHILE `state.market.tick` is still 12, and its result feeds the SAME
-    // local `talent` that every step after tick.ts:1049 — including
-    // `advanceTalentMarketWeek` at :1122 — consumes. This reconstructs exactly that
-    // hand-off using only the public `materializeAges`/`publicPriorityOrder` surface,
-    // to MEASURE (not assume) what such a step sees, rather than asserting an ordering
-    // nobody has run.
+    // NOT run through tick(): `materializeAges` is called directly and `tailState`
+    // is built by hand. This can pass even if the real tick() settles with the OLD
+    // age and materializes only afterward (765 §2) — it says nothing about the real
+    // in-tick order. See test 3 below (the real tick()) for that evidence.
     const materializedTalent = materializeAges(state12, 13).talent
     const tailState = withProvenance({ ...state12, talent: materializedTalent, market: { ...state12.market, tick: 13 } })
 
     const order = publicPriorityOrder(tailState, 'authored-0001')
     // eslint-disable-next-line no-console
-    console.log('MEASURED in-tick order at the crossing week (post-materialize, pre-return):', order)
+    console.log('component reconstruction, NOT the real tick, order at the hand-built tail state:', order)
     expect(order).toEqual(['compensation', 'term', 'trust', 'relationships', 'incumbency', 'standing', 'opportunity'])
+  })
+
+  it('REAL EVIDENCE: the ACTUAL tick() across the crossing prices a reused free agent through hollywood.ts:224 with the materialized (new) age, never the pre-crossing one — measured on a bounded arrangement, corpus and tick unmodified', () => {
+    // Bounded arrangement, not a rewritten fixture (765 §2 disposition): the real
+    // 'authored' corpus, ticked normally to week 12 by the real tick(). One
+    // not-yet-entered rival identity (measured for this corpus: studio-2e45b791-r05,
+    // eligibleWeek 520) is given an eligibleWeek of 13 so its SCHEDULED entry fires
+    // on the very tick that crosses 'authored-0001' to 30. Every OTHER free agent of
+    // 'authored-0001's role is removed so `enterRival`'s `talent.find(...)` (never
+    // authored for a 'scheduled' origin — hollywood.ts:198 — so it always attempts
+    // reuse first) deterministically reuses 'authored-0001' rather than some other
+    // free actor. Nothing about `tick()`, `enterRival`, `materializeAges` or the
+    // market's own decision logic is touched; only the INPUT is arranged.
+    const { save } = loadCorpus('authored')
+    const migrated = migrateV33(save).state
+    const state12 = tickN(migrated, 12)
+    expect(state12.market.tick).toBe(12)
+    const target = state12.talent.find((t) => t.id === 'authored-0001')!
+    expect(target.age).toBe(29) // pre-crossing, confirmed before the real tick runs
+
+    const h = state12.hollywood!
+    const reserved = busyTalentIds(state12)
+    for (const id of state12.founding?.applicantIds ?? []) reserved.add(id)
+    for (const c of state12.contracts) reserved.add(c.talentId)
+    for (const ordinal of h.activeEmploymentOrdinals) {
+      const e = h.employment[ordinal]!
+      if (e.endedWeek === null && e.terms.endWeekExclusive > state12.market.tick) reserved.add(e.terms.talentId)
+    }
+    const otherFreeSameRole = new Set(
+      state12.talent.filter((t) => t.role === target.role && t.id !== target.id && !reserved.has(t.id)).map((t) => t.id),
+    )
+    expect(otherFreeSameRole.size, 'fixture no longer has other free agents of this role to remove').toBeGreaterThan(0)
+
+    const targetIdentity = h.identities.find((s) => s.studioId === 'studio-2e45b791-r05')
+    expect(targetIdentity, 'fixture no longer has the measured not-yet-entered rival identity').toBeDefined()
+    expect(targetIdentity!.enteredWeek).toBeNull()
+
+    const newTalent = state12.talent.filter((t) => !otherFreeSameRole.has(t.id))
+    const newRows = state12.talentProvenance.rows.filter((r) => !otherFreeSameRole.has(r.personId))
+    const newDue = state12.talentProvenance.due
+      .map((d) => ({ ...d, personIds: d.personIds.filter((id) => !otherFreeSameRole.has(id)) }))
+      .filter((d) => d.personIds.length > 0)
+    const newIdentities = h.identities.map((s) => (s.studioId === 'studio-2e45b791-r05' ? { ...s, eligibleWeek: 13 } : s))
+    const constructed = withProvenance({
+      ...state12,
+      talent: newTalent,
+      hollywood: { ...h, identities: newIdentities },
+      talentProvenance: { ...state12.talentProvenance, rows: newRows, due: newDue },
+    })
+
+    // THE REAL FUNCTION. Not reconstructed, not reordered.
+    let after: ProvenanceState | undefined
+    expect(() => { after = withProvenance(tick(constructed)) }).not.toThrow()
+    expect(after!.market.tick).toBe(13)
+    const targetAfter = after!.talent.find((t) => t.id === 'authored-0001')!
+    expect(targetAfter.age).toBe(30) // materialized by the real tick, not by us
+
+    const contract = after!.hollywood!.employment.find((e) => e.terms.talentId === 'authored-0001')
+    expect(contract, 'the scheduled rival did not reuse authored-0001 as predicted — the arrangement no longer holds for this corpus').toBeDefined()
+
+    // MEASURED, against the two possible prices, not assumed: the real contract's
+    // terms are re-derived through the same public pricing entry at both candidate
+    // ages, and only ONE of the two can match a real, already-committed contract.
+    const pricedAtNewAge = offerForTalent(after!.seed, { ...targetAfter, age: 30 }, 208, 13)
+    const pricedAtOldAge = offerForTalent(after!.seed, { ...targetAfter, age: 29 }, 208, 13)
+    expect(pricedAtNewAge.annualSalary, 'the two candidate ages priced identically on this seed — not distinguishing').not.toBe(pricedAtOldAge.annualSalary)
+    // eslint-disable-next-line no-console
+    console.log('REAL tick() contract for authored-0001 at the crossing:', JSON.stringify(contract!.terms), 'priced-at-30:', pricedAtNewAge, 'priced-at-29:', pricedAtOldAge)
+    expect(contract!.terms.annualSalary).toBe(pricedAtNewAge.annualSalary)
+    expect(contract!.terms.signingBonus).toBe(pricedAtNewAge.signingBonus)
+    expect(contract!.terms.annualSalary).not.toBe(pricedAtOldAge.annualSalary)
+
+    // This confirms, on the REAL tick() and the REAL settlement-adjacent pricing
+    // call, exactly what 765's CORRECTION derived from reading tick.ts: the
+    // scheduled rival-entry loop runs after the tail's materialization, and a
+    // person crossing 30 on the very tick that produces the crossing week is
+    // already 30 to that consumer. It does NOT reach `advanceTalentMarketWeek`
+    // itself (tick.ts's terminal line) — the natural corpus opens no talent-market
+    // CASE for 'authored-0001' at this boundary (measured: none exists), and
+    // constructing one would require fabricating a `TalentMarketCase`/proposal
+    // pair rather than arranging the INPUT to a real code path. That narrower gap
+    // — whether `advanceTalentMarketWeek`'s own tie-break sees the new age — is
+    // named here rather than stood in for: it is structurally downstream of the
+    // same materialized `talent` this test already proves is live by the
+    // scheduled-entry loop's position, but it is not itself exercised by this test.
   })
 })
 
@@ -658,11 +756,17 @@ describe('13. provenance is written at the append, not the mint call', () => {
     for (const person of state.talent) expect(ids.has(person.id)).toBe(true)
   })
 
-  it('actions.ts:826 withCreatedTalent (createTalent) adds exactly one row, matching the created person\'s exact age and entry week', () => {
+  it('actions.ts:826 withCreatedTalent (createTalent) adds exactly one row; the anchor keeps the EXACT pre-floor age (762 §10 / 765 correction: never equal to the already-floored committed person for a fractional entrant), the stored person is its floor, and the birthday crosses 13 weeks after the ACTUAL entry week — never +52', () => {
     const state = generateWorld('p14c1-red-createtalent-1')
     const before = withProvenance(state).talentProvenance.rows.length
+    const entryWeek = state.market.tick
+    // 29.75 is the Owner's own worked case (contract §1): the anchor is a KNOWN
+    // INPUT, supplied here directly, not read back from the already-floored
+    // person the append returns. `applyCreateTalent` clamps only the INTEGER
+    // range [18,70] (actions.ts) and stores `a.age` unrounded, so this fraction
+    // really does reach the anchor unmodified.
     const input: AuthoredTalentInput = {
-      name: 'RED Author', role: 'actor', age: 41,
+      name: 'RED Author', role: 'actor', age: 29.75,
       actual: { warmth: 0.3, gravity: -0.4, physicality: 0.7 },
       potentialTier: 'Steady', workEthic: 60,
     }
@@ -673,9 +777,17 @@ describe('13. provenance is written at the append, not the mint call', () => {
     expect(row, 'no provenance row for the newly created talent').toBeDefined()
     expect(row!.kind).toBe('authored_exact_week')
     if (row!.kind === 'authored_exact_week') {
-      expect(row!.ageAtEntry).toBe(newPerson.age)
-      expect(row!.entryWeek).toBe(result.market.tick)
+      // the anchor is the KNOWN INPUT (29.75), never `newPerson.age` (the floor).
+      expect(row!.ageAtEntry).toBe(29.75)
+      expect(row!.entryWeek).toBe(entryWeek)
     }
+    // the committed person carries the floor, never the exact anchor.
+    expect(newPerson.age).toBe(29)
+    expect(newPerson.age).not.toBe(row!.kind === 'authored_exact_week' ? row!.ageAtEntry : NaN)
+    // the birthday crosses 13 weeks after the ACTUAL entry week, never a naive +52
+    // from the floored stored age (record 761's committed prediction, 765 correction).
+    expect(nextBirthdayWeek(row!, 29)).toBe(entryWeek + 13)
+    expect(nextBirthdayWeek(row!, 29)).not.toBe(entryWeek + 52)
   })
 
   it('actions.ts:2842 recruitScientist adds exactly one row for the recruited scientist', () => {
@@ -697,7 +809,7 @@ describe('13. provenance is written at the append, not the mint call', () => {
     expect(row, 'no provenance row for the recruited scientist').toBeDefined()
   })
 
-  it('hollywood.ts:223 enterRival (762 §9, narrower than record 760): a fresh rival appends one row per NEWLY MINTED person (never for a reused one), capturing the age AFTER the authored-template raise', () => {
+  it('hollywood.ts:223 enterRival (762 §9, narrower than record 760): a fresh rival appends one row per NEWLY MINTED person (never for a reused one); the anchor is the EXACT age after the authored-template raise and BEFORE the floor (765 correction — never equal to the already-floored `person.age`), the committed person is that floor, the birthday derives from the actual entry week, and the pricing path (hollywood.ts:224) consumed the committed floor', () => {
     // Deterministic given the seed (verified empirically against the identically-seeded
     // genuine-v32-fresh-tick0, whose own measurement shows 60 -> 84 with 4 integer
     // ages): all four starting rivals are `authored` (origin==='fresh' && row<=4), and
@@ -716,17 +828,49 @@ describe('13. provenance is written at the append, not the mint call', () => {
     const raised = newPeople.filter((t) => t.age === 28)
     expect(raised.length).toBeGreaterThanOrEqual(1) // measured: 4, for this exact seed
 
+    let fractionalChecked = 0
     for (const person of newPeople) {
       const row = result.talentProvenance.rows.find((r) => r.personId === person.id)
       expect(row, `no provenance row for newly minted rival hire ${person.id}`).toBeDefined()
       expect(row!.kind).toBe('authored_exact_week')
-      if (row!.kind === 'authored_exact_week') {
-        // captures the age AT THE APPEND, i.e. AFTER Math.max(28, drawn) — a naive
-        // implementation reading the pre-raise draw would fail this for every one of
-        // the (>=1, measured 4) people actually raised to exactly 28.
-        expect(row!.ageAtEntry).toBe(person.age)
+      if (row!.kind !== 'authored_exact_week') continue
+
+      // The anchor is derived from the KNOWN INPUT — the raw draw, independently
+      // reproduced by calling the SAME deterministic mint (`generateIndustryTalent`,
+      // keyed only by seed/id/role; the `name` override never touches a stream —
+      // worldgen.ts:552) — with the SAME legitimate rival clamp applied
+      // (`Math.max(28, drawn)`, hollywood.ts:221). NEVER derived from `person.age`,
+      // which is already the floor the append commits (765's exact hole).
+      const drawn = generateIndustryTalent(migrated.seed, person.id, person.role)
+      const expectedAnchor = Math.max(28, drawn.age)
+      expect(row!.ageAtEntry, `entrant ${person.id} anchor disagrees with its independently-derived input`).toBe(expectedAnchor)
+      // the committed person is the anchor's FLOOR, never the exact anchor.
+      expect(person.age).toBe(Math.floor(expectedAnchor))
+
+      if (!Number.isInteger(expectedAnchor)) {
+        fractionalChecked++
+        // birthday timing derives from the ACTUAL entry week (762 §10 / 765
+        // correction), never a naive +52 from the floored stored age.
+        const entryWeek = row!.entryWeek
+        const crossing = nextBirthdayWeek(row!, person.age)
+        expect(crossing).toBeGreaterThan(entryWeek)
+        expect(crossing).toBeLessThan(entryWeek + 52)
+
+        // the pricing path (hollywood.ts:224, `offerForTalent`) consumed the
+        // COMMITTED (floored) person, never the unfloored anchor — checked against
+        // the REAL contract this same append wrote, not a recomputation standing in
+        // for it.
+        const contract = result.hollywood!.employment.find((e) => e.terms.talentId === person.id)
+        expect(contract, `no employment contract recorded for ${person.id}`).toBeDefined()
+        const pricedAtCommitted = offerForTalent(result.seed, person, 208, entryWeek)
+        const pricedAtAnchor = offerForTalent(result.seed, { ...person, age: expectedAnchor }, 208, entryWeek)
+        expect(contract!.terms.annualSalary).toBe(pricedAtCommitted.annualSalary)
+        expect(contract!.terms.signingBonus).toBe(pricedAtCommitted.signingBonus)
+        // a naive unfloored price would disagree — proves the path actually branches on it.
+        expect(contract!.terms.annualSalary).not.toBe(pricedAtAnchor.annualSalary)
       }
     }
+    expect(fractionalChecked, 'no genuinely fractional entrant was minted for this seed — the anchor-vs-floor distinction was never exercised').toBeGreaterThan(0)
   })
 
   it('enterRival idempotency: re-entering an already-entered rival is a no-op and writes no additional row', () => {

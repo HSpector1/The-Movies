@@ -208,7 +208,7 @@ describe('P13B-S8 Save V27: genuine V26 fixtures, honest lift, conditional downg
     })).toThrow()
   })
 
-  it('an unknown saveVersion 33 is refused, naming the handled range "1 through 32 only" (B4 additive reader boundary)', () => {
+  it('an unknown saveVersion 34 is refused, naming the handled range "1 through 33 only" (B4 additive reader boundary; stale numbers corrected post-C.1)', () => {
     const json = load(V26_FIXTURES.soundMidDeployment.file)
     const v27 = withV27.migrateToV27(JSON.parse(json))
     const forged = { ...v27, saveVersion: 34 }

@@ -105,11 +105,11 @@ describe('P13B-S3 Save V23 (test 7)', () => {
     expect(() => migrateToV20(live)).toThrow(/cannot downgrade SaveFileV33/)
   })
 
-  it('makeSave writes saveVersion 29', () => {
+  it('makeSave writes the live saveVersion 33 (stale title corrected post-C.1)', () => {
     expect(makeSave(p13aLaboratorySlice()).saveVersion).toBe(33)
   })
 
-  it('an unknown saveVersion 33 is refused, naming the handled range', () => {
+  it('an unknown saveVersion 34 is refused, naming the handled range (stale number corrected post-C.1)', () => {
     const forged = { ...makeSave(p13aLaboratorySlice()), saveVersion: 34 }
     expect(() => validateSave(forged)).toThrow(/versions 1 through 33 only/)
   })

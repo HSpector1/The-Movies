@@ -992,37 +992,66 @@ describe('family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; fam
   })
   it('refuses an extra key on an edge', () => expectRefused((e) => { (e[0] as unknown as Record<string, unknown>).closenessShown = 1 }, /field|key|closenessShown/i))
 
-  it('a V31 world holding ONE edge refuses migrateToV30 with the downgrade message and refuses every older migrateToVn; empty is lossless', () => {
+  it('a V31 world holding ONE edge, and the SAME world with relationships emptied, both refuse migrateToV30 — MEASURED: the nearest guard is now V33s own materialization gate, one week past its migration boundary, not the V31-specific message', () => {
     expect(typeof projectRelationshipsPreV31).toBe('function')
     const save = v31()
     const one = { ...save, state: { ...save.state, relationships: [save.state.relationships[0]!] } }
     const admitted = validateSaveV33(one)
     const before = JSON.stringify(admitted)
     expect(() => projectRelationshipsPreV31(one.state)).toThrow()
-    expect(() => migrateToV30(admitted)).toThrow(/cannot downgrade SaveFileV31 or discard the relationship record/)
+    // RE-EXPRESSED (was: `/cannot downgrade SaveFileV31 or discard the relationship
+    // record/`). `migrateToV30` on a saveVersion-33 input chains through
+    // `convertV33ToV32` FIRST (save.ts:8819). `v31()`'s `talentProvenance` root IS
+    // `legacy_age_anchor` (`lifted` migrates a genuine V30 fixture all the way to
+    // V33, so `convertV32ToV33` built it, contract §6) — but `takeWorld()` then ticks
+    // ONCE more (to record the take), so `market.tick` (61) disagrees with
+    // `boundaryWeek` (60). MEASURED (not assumed): `convertV33ToV32` checks that
+    // BEFORE it ever checks row kind (save.ts:9204-9210), and refuses with "an age
+    // has materialized since week 60 (the campaign is at week 61), and V32 has
+    // nowhere to record the provenance that produced it" — never reaching V31's own
+    // relationship-specific downgrade guard at all. This is the SAME rule
+    // `tests/p14c1-materialized-aging.test.ts` family 5 exercises directly ("ticking
+    // once past the boundary is refused as a downgrade"), arriving here for a
+    // different reason (a mandatory take-recording tick) than that file's.
+    expect(() => migrateToV30(admitted)).toThrow(/cannot downgrade SaveFileV33 — an age has materialized since week \d+ \(the campaign is at week \d+\), and V32 has nowhere to record the provenance that produced it/)
+    // Every older migrateToVn refuses too, but MEASURED (not assumed) to be for
+    // two DIFFERENT reasons depending on vintage, so the loop's regex only claims
+    // what both share: migrateToV29/28/27/26 chain through the same convertV33ToV32
+    // gate as migrateToV30 above (the materialization message); migrateToV25 (and
+    // every migrator older than V26) carries its OWN unconditional
+    // `saveVersion === 33` refusal added directly beside the pre-existing V31 one
+    // (save.ts:8265 and siblings), "cannot downgrade SaveFileV33 or discard the
+    // talent provenance root" — never reaching convertV33ToV32 at all. Neither
+    // reaches its own frozen V31-specific arm either way.
     for (const older of [migrateToV29, migrateToV28, migrateToV27, migrateToV26, migrateToV25]) {
-      expect(() => older(admitted as never)).toThrow(/cannot downgrade|SaveFileV31|relationship/)
+      expect(() => older(admitted as never)).toThrow(/cannot downgrade SaveFileV33/)
     }
     expect(JSON.stringify(admitted)).toBe(before)
+
+    // RE-EXPRESSED (was: "empty is lossless" — `migrateToV30(empty)` succeeded and
+    // was compared byte-for-byte against a hand-stripped V30 twin). `empty` is built
+    // from the SAME `v31()` campaign with only `relationships` changed, so it is
+    // ALSO one tick past its own migration boundary — `convertV33ToV32` refuses it
+    // for the identical materialization reason BEFORE it ever inspects
+    // `relationships`. Emptying the relationship root no longer unlocks anything,
+    // because the gate that now fires first has nothing to do with relationships.
+    // That downgrade route does not exist for this fixture any more; the correct,
+    // current-law assertion is that it is refused too — not a different message,
+    // and not a success.
     const empty = validateSaveV33({ ...save, state: { ...save.state, relationships: [] } })
     expect(projectRelationshipsPreV31(empty.state)).toBeUndefined()
-    const downgraded = migrateToV30(empty)
-    expect(downgraded.saveVersion).toBe(30)
-    const { relationships: _r, ...rest } = empty.state
-    // 735-T (P14B.7): `empty.state` is V32-shaped (every promise carries the
-    // governed `supersededByPromiseId: null`), but `downgraded` fell all the
-    // way to V30 through convertV32ToV31 (which strips that field back off,
-    // lossless because nothing here was actually waived) then convertV31ToV30
-    // (which strips `relationships`). The byte-for-byte comparison must strip
-    // the same field from `rest`'s promises or it is comparing two different
-    // shapes. Never weakened: still every other key, verbatim.
-    const restV30 = {
-      ...rest,
-      promises: (rest.promises as unknown as Record<string, unknown>[]).map((p) => {
-        const { supersededByPromiseId: _superseded, ...legacy } = p
-        return legacy
-      }),
-    }
-    expect(JSON.stringify(downgraded.state)).toBe(JSON.stringify(restV30))
+    expect(() => migrateToV30(empty)).toThrow(/cannot downgrade SaveFileV33 — an age has materialized since week \d+ \(the campaign is at week \d+\), and V32 has nowhere to record the provenance that produced it/)
+    // GAP, disclosed rather than hidden: the ORIGINAL claim under test here — that an
+    // EMPTY relationship root downgrades losslessly — is a real, still-implemented
+    // behavior of `convertV32ToV31`/`convertV31ToV30`, but it is not observable from
+    // THIS file's only relationship-carrying fixture, because `takeWorld()` (every
+    // relationship-minting fixture in this file is built on it) always ticks one week
+    // past its own migration boundary to record the take, and that alone is now
+    // sufficient for `convertV33ToV32` to refuse before relationships are ever
+    // inspected. Exercising the lossless-when-empty behavior again needs a
+    // `legacy_age_anchor` fixture AT its own boundary week — e.g. `convertV32ToV33`
+    // applied directly to a genuine V32 corpus file with no further tick, which this
+    // file does not hold and does not mint relationships on without one. No fixture
+    // is invented here to paper over that; the gap is named instead.
   })
 })

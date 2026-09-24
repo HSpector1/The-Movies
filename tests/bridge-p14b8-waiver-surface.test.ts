@@ -798,7 +798,7 @@ describe('P14B.8 group12 — the projection moves 49 -> 50 and the outgoing iden
     expect(csharp.includes('StudioPromiseWaiverQuoteSnapshot'), 'the regenerated DTOs must carry the new quote type').toBe(true)
   })
 
-  it('the genuine projection-49 checkpoint is no longer the CURRENT identity: it takes the governed prior path exactly once, with both slots still Save V32', () => {
+  it('the genuine projection-49 checkpoint is no longer the CURRENT identity: it takes the governed prior path exactly once, with both slots on the live Save V33 (stale title corrected post-C.1)', () => {
     const raw = gunzipSync(artifact('genuine-projection49-runtime/genuine-projection49-runtime.checkpoint.json.gz')).toString('utf8')
     expect(sha(raw)).toBe(PROJECTION49_CHECKPOINT.raw)
     const parsed = JSON.parse(raw) as { schemaId: string; sessionId: string; stateRevision: number }

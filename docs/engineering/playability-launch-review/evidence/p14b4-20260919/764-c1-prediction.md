@@ -115,3 +115,54 @@ ranges their bodies no longer use — for example `p14b5-save-v31:186` still rea
 is the literal 32". A misleading title is worse than the risk the rule guarded against. The correct
 invariant is the one I actually verified above: the NUMBER of call sites per file is unchanged. The
 20 titles go to the test author.
+
+---
+
+## SECOND CORRECTION, again BEFORE the affected run (candidate `b7e3e24a` + the test pass)
+
+**Counts.** The RED gained ONE case (51 call sites against 50), the only call-site change in 30
+touched test files; the other 29 are title-only and verified delta-zero per file. Both collection
+deaths are fixed. So: **358 files, 4093 + 46 = 4139 cases, 8 todo.**
+
+**Predicted remaining failure classes, named before measurement.** I am deliberately NOT predicting a
+total, because the last two attempts to predict a failure count were both wrong and the classes are
+what matter:
+
+1. the 25 inherited failures, unchanged
+2. **9 in `v14-migration.contract`, a NEW class and the deepest consequence C.1 has produced** — see
+   below
+3. the natural-chain repricing casualties: `p14b4-rival-seating-preference` (18),
+   `p14b4-cast-class-outcomes` (9), `p14b4-cast-class-policy` (1)
+4. byte-identical and age-timing casualties in `p14b5-relationships` family 1,
+   `bridge-p14b5-relationships` family 12, `d17b-save-v7`, `p13b-r07-save-v25`, `property-state-v13`
+5. the 7 timeouts and 6 `ENOENT`, which I expect to CLEAR if they were cause-1 cascades. **That is a
+   prediction and its falsifier is their survival.**
+
+## The new class, because it is the most interesting thing C.1 has found
+
+The 9 surviving `v14-migration` failures are each **a single character in a 225,000-character
+stringified state: one person's age off by exactly one**, diverging in the first week or two of a
+30-week comparison and never in any other field.
+
+**Cause, and it is not a defect.** The T9 contract projects a live V33 state down to a V13 twin and
+plays both forward. The twin's ages are ALREADY FLOORED when the root is dropped, so its
+re-migration mints a `legacy_age_anchor` from an integer, and its next birthday lands at exactly +52.
+The original's anchor keeps its true fraction and crosses earlier or later. **Birthday PHASE is the
+information the twin cannot carry**, and it is unrecoverable once the root is stripped.
+
+**Why this does not threaten real saves.** A genuine pre-C2 file on a player's disk holds FRACTIONAL
+ages, because worldgen wrote raw gaussians in that era. Migrating it anchors on those fractions and
+phase is preserved. Only a twin projected from an already-materialized V33 state loses it, which is
+an artifact of how the test builds its twin rather than of the migration law.
+
+Re-expressing that comparison is test authoring and it is not done in this pass. **Recorded, not
+adjusted.**
+
+## A characterisation I am correcting rather than repeating
+
+The test author reported the `bridge-p14b5-relationships` family 12, `d17b-save-v7`,
+`p13b-r07-save-v25` and `property-state-v13` failures as "pre-existing" and "not previously on
+anyone's board". Checked against run 766's own new-failure list: **all four are in it.** They are C.1
+ripple effects already attributed at 766, not pre-existing failures and not new discoveries. The
+author meant "not caused by my title edits", which is true and which I verified independently — their
+diffs in those files are pure string edits inside existing `it(` calls.

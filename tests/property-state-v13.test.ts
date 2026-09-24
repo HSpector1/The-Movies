@@ -882,7 +882,7 @@ describe('C1-M1a (d) — SaveFileV13', () => {
     }
   })
 
-  it('rejects unknown V31 beyond the current V30 reader boundary', () => {
+  it('rejects unknown V34 beyond the current V33 reader boundary (stale numbers corrected post-C.1)', () => {
     const live = makeSave(managedStudio('c1-m1a-unknown'))
     expect(() => validateSave({ ...live, saveVersion: 34 })).toThrow(
       /unknown saveVersion 34.*versions 1 through 33 only/,

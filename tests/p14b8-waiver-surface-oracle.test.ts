@@ -173,7 +173,7 @@ describe('P14B.8 group1 — the owes-two world is exactly what 744 §11 A5 says 
     expect(state.hollywood?.playerStudioId).toBe(OWES_TWO.issuer)
   })
 
-  it('744 §6: B.8 is a wire change, so LIVE_SAVE_VERSION stays 32 and PROMISE_RULES_VERSION stays 4', () => {
+  it('744 §6: B.8 is a wire change, so LIVE_SAVE_VERSION stays 33 (stale title corrected post-C.1) and PROMISE_RULES_VERSION stays 4', () => {
     expect(LIVE_SAVE_VERSION, 'B.8 moves no save law; a bump here is a plan amendment, not an implementation detail').toBe(33)
     expect(PROMISE_RULES_VERSION, 'B.8 moves no promise rule; the stamped law version does not move').toBe(4)
   })

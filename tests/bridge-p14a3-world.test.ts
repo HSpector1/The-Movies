@@ -241,7 +241,7 @@ describe('group 1: PROJECTION_VERSION 46 / schema / converted law', () => {
     expect(route.reach).toBe('playerLot')
   })
 
-  it('LIVE_SAVE_VERSION is 29 under projection 46 — no persisted fact of A.3’s own, the converted law is unchanged', () => {
+  it('LIVE_SAVE_VERSION is 33 (stale title corrected post-C.1) under projection 46 — no persisted fact of A.3’s own, the converted law is unchanged', () => {
     expect(LIVE_SAVE_VERSION).toBe(33)
   })
 })

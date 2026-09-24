@@ -750,7 +750,7 @@ describe('family 7 — the LEAK LAW over the NEW DTOs (RED BY RESOLUTION; the la
 
 // ═════════════════════════════════════════════════════════════════════════════════════════════════
 describe('family 8 — the WIRE (RED BY VALUE: version literals and a registry count; no absent module is imported here)', () => {
-  it('projection 50, schema $id projection-50, LIVE_SAVE_VERSION still 32, and the outgoing 48 identity is retired', () => {
+  it('projection 50, schema $id projection-50, LIVE_SAVE_VERSION now 33 (stale title corrected post-C.1; B.6 itself has no save step), and the outgoing 48 identity is retired', () => {
     expect(PROTOCOL_VERSION).toBe(4)
     expect(PROJECTION_VERSION).toBe(INCOMING_PROJECTION)
     expect(OUTGOING_PROJECTION).toBe(48)

@@ -246,7 +246,7 @@ describe('P14A.1 test 8: Save V28 (genuine V27 fixtures, honest lift, downgrade,
     expect(() => withV28.validateSaveV28(nonNull as never)).toThrow(/representation/i)
   })
 
-  it('an unknown saveVersion 33 is refused, naming the handled range "1 through 32 only"', () => {
+  it('an unknown saveVersion 34 is refused, naming the handled range "1 through 33 only" (stale numbers corrected post-C.1)', () => {
     const json = load(V27_FIXTURES.naturalRivalLabs.file)
     const lifted = withV28.migrateToV28(JSON.parse(json))
     const forged = { ...lifted, saveVersion: 34 }

@@ -203,7 +203,7 @@ function containsNumber(value: unknown, target: number): boolean {
 // ── group 1: PROJECTION_VERSION / LIVE_SAVE_VERSION ─────────────────────────
 
 describe('group 1: PROJECTION_VERSION / LIVE_SAVE_VERSION', () => {
-  it('LIVE_SAVE_VERSION is 30 and the live promise surface carries projection 47 after the P14B.4 cutover (record 600 / 616)', () => {
+  it('LIVE_SAVE_VERSION is 33 (stale title corrected post-C.1) and the live promise surface carries projection 47 after the P14B.4 cutover (record 600 / 616)', () => {
     expect(LIVE_SAVE_VERSION).toBe(33)
     expect(PROJECTION_VERSION).toBe(50)
     expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${String(PROTOCOL_VERSION)}:projection-50`)

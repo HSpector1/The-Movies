@@ -24,12 +24,28 @@ import { currentProposals, submitProposal, withdrawProposal } from '../src/core/
 import { careerIdentity } from '../src/core/talentSummary.js'
 import { convertV31ToV32, convertV32ToV33, exportSave, migrateToV31, migrateToV33, validateSaveV29, validateSaveV33 } from '../src/core/save.js'
 import { advanceTo } from '../src/harness/p13a/fixtures.js'
+import { provenanceRowFor, recomputeDue } from '../src/core/aging.js'
 import type { GameState, ProfessionalPromiseV30 } from '../src/core/types.js'
 
 type SeatClass = 'lead' | 'leadOrAntagonist'
 type P2Payload = { verb: 'propose' | 'revise'; talentId: string; termWeeks: number; premiumTier: number;
   promise: { family: 'LEAD_OR_SIGNIFICANT_ROLE_COUNT'; count: number; windowStartWeek: number; dueWeekExclusive: number; seatClass: SeatClass } }
 const clone = <T>(value: T): T => structuredClone(value)
+
+/** 762 §6 condition 2: the V33 validator refuses a hand-written `talent[i].age`
+ * that disagrees with its own provenance row. This rewrites the person's own
+ * anchor to the current tick instead, so the law derives the desired age —
+ * same explicit synthetic pure-read age input as before, expressed legally.
+ * `due` is rebuilt so condition 3 (the cache) stays honest too. */
+function withSyntheticAge(state: GameState, personId: string, age: number): GameState {
+  const oldRow = state.talentProvenance.rows.find((r) => r.personId === personId)
+  if (oldRow === undefined) throw new Error(`withSyntheticAge: no provenance row for ${personId}`)
+  const newRow = provenanceRowFor(personId, age, state.market.tick, oldRow.kind)
+  const rows = state.talentProvenance.rows.map((r) => (r.personId === personId ? newRow : r))
+  const talent = state.talent.map((t) => (t.id === personId ? { ...t, age } : t))
+  const storedAge = new Map(talent.map((t) => [t.id, t.age]))
+  return { ...state, talent, talentProvenance: { ...state.talentProvenance, rows, due: recomputeDue(rows, (id) => storedAge.get(id)) } }
+}
 const hash = (bytes: string | Uint8Array) => createHash('sha256').update(bytes).digest('hex')
 const path = (name: string) => new URL('./fixtures/p14/genuine-v29-pre-p2/genuine-v29-' + name, import.meta.url)
 const PINS = {
@@ -414,7 +430,10 @@ describe('P14B4 existing own/private/public carriers', () => {
     const person = save.state.talent.find((p) => p.id === focus.beneficiaryPersonId)!
     expect(careerIdentity(person).identityDisciplines).toEqual([])
     const live = convertV32ToV33(convertV31ToV32(save))
-    const state = { ...live.state, talent: live.state.talent.map((p) => p.id === person.id ? { ...p, age } : p) }
+    // Expressed through the person's own provenance anchor (762 §6 condition 2: a
+    // hand-written `talent[i].age` disagreeing with it is now refused), not a
+    // fabricated credit — same disclosed synthetic pure-read age input as before.
+    const state = withSyntheticAge(live.state, person.id, age)
     validateSaveV33({ ...live, state }) // disclosed synthetic pure-read age input, no fake credit
     const before = clone(state)
     const block = marketCaseProjection(state, person.id, player(state))!

@@ -206,11 +206,11 @@ describe('P13B-S5 Save V24 (test 4)', () => {
   // are frozen historical migration proofs and stay untouched.
   // AMENDED AGAIN (P13B-S6 live-version sweep, 2026-09-17): `makeSave` moved to
   // the live V26 boundary; this section moved with it a second time.
-  it('makeSave writes saveVersion 26', () => {
+  it('makeSave writes the live saveVersion 33 (stale title corrected post-C.1)', () => {
     expect(makeSave(p13aLaboratorySlice()).saveVersion).toBe(33)
   })
 
-  it('an unknown saveVersion 33 is refused, naming the handled range "1 through 32 only"', () => {
+  it('an unknown saveVersion 34 is refused, naming the handled range "1 through 33 only" (stale numbers corrected post-C.1)', () => {
     const forged = { ...makeSave(p13aLaboratorySlice()), saveVersion: 34 }
     expect(() => validateSave(forged as never)).toThrow(/versions 1 through 33 only/)
   })

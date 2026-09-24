@@ -269,7 +269,7 @@ describe("§17 / §15.7 — export→import→export round-trips byte-identicall
 });
 
 describe("§17 — loud rejection of an unknown saveVersion", () => {
-  it("throws on an unknown saveVersion (e.g. 33)", () => {
+  it("throws on an unknown saveVersion (e.g. 34; stale example number corrected post-C.1 — 33 is now live and valid)", () => {
     // Source: §17 "loud rejection of unknown versions". B5's additive reader
     // recognizes versions 1–33 before the live writer cutover; the unsupported
     // sentinel remains one version past that CURRENT dispatch ceiling.
@@ -429,7 +429,7 @@ describe("P04A §2.5 — SaveFileV15 identity-bearing queue expiry", () => {
     ).toMatchObject({ subjectId: null });
   });
 
-  it("rejects an unknown saveVersion 33 with the updated range, and rejects downgrading V15 to V14", () => {
+  it("rejects an unknown saveVersion 34 with the updated range, and rejects downgrading V15 to V14 (stale number corrected post-C.1)", () => {
     const save = wellFormedV15Save();
     expect(() => validateSave({ ...save, saveVersion: 34 })).toThrow(
       /versions 1 through 33 only/,

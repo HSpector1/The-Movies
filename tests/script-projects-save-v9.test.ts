@@ -410,7 +410,7 @@ describe("Script Projects V1 — SaveFileV9", () => {
     expect(migrateToV9(current)).toBe(current);
   });
 
-  it("rejects unknown V31 and refuses to downgrade V9 through migrateToV8", () => {
+  it("rejects unknown V34 and refuses to downgrade V9 through migrateToV8 (stale number corrected post-C.1)", () => {
     const save = makeSaveV9(generateWorld("save-v9-boundary"));
     expect(() => validateSave({ ...save, saveVersion: 34 })).toThrow(
       /unknown saveVersion 34/,

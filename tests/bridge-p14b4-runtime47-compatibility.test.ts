@@ -173,7 +173,7 @@ describe('P14B4 genuine outgoing46 runtime compatibility — future Save30/proje
     expect(current.state.talentMarket.proposals.filter((p) => p.promises.includes('promise-0'))).toEqual([])
   })
 
-  it('requires literal projection50/Save32 and exact 38 prior IDs, excluding the running identity', () => {
+  it('requires literal projection50/Save33 (stale number corrected post-C.1) and exact 38 prior IDs, excluding the running identity', () => {
     expect(PROTOCOL_VERSION).toBe(4)
     expect(PROJECTION_VERSION).toBe(50)
     expect(LIVE_SAVE_VERSION).toBe(33)

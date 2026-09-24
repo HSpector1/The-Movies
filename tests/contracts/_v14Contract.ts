@@ -421,6 +421,14 @@ export function projectToV13State(state: GameState): Record<string, unknown> {
     throw new Error('V13 twin cannot discard relationship authority')
   }
   delete raw.relationships
+  // P14C.1: the age-provenance root is V33-only, so a genuine V13 file never
+  // carried one. Unlike the guarded roots above, `talentProvenance` is NEVER
+  // empty on a live state (762 §12 F3: exactly one row per person, from
+  // worldgen genesis on), so there is no "real authority" emptiness check to
+  // make here — every live state fails it, which would make the twin
+  // unbuildable rather than proving anything. It is simply stripped, exactly
+  // like `hollywood`/`foundingRegime`/`studioHistory` above.
+  delete raw.talentProvenance
   for (const person of raw.talent as Record<string, unknown>[]) {
     for (const key of ['skills', 'ceilings', 'devRate', 'genreExperience', 'workHistory']) {
       delete (person[key] as Record<string, unknown>).research

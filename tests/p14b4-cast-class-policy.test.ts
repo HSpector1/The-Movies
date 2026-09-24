@@ -21,8 +21,27 @@ import * as marketModule from '../src/core/talentMarket.js'
 import * as promiseModule from '../src/core/promises.js'
 import { publicPreferredOpportunity, publicPreferredTerm, publicPriorityOrder, submitProposal } from '../src/core/talentMarket.js'
 import { attachPromise, promiseFeasibility, trustDescriptor } from '../src/core/promises.js'
+import { provenanceRowFor, recomputeDue } from '../src/core/aging.js'
 
 const clone = <T>(value: T): T => structuredClone(value)
+
+/** 762 §6 condition 2: the V33 validator refuses a hand-written `talent[i].age`
+ * that disagrees with its own provenance row (measured: it is silently
+ * OVERWRITTEN by the next real `materializeAges`/`tick()` instead of throwing
+ * immediately, if that tick runs before anything validates — a more dangerous
+ * failure than a loud refusal). This rewrites the person's own anchor to the
+ * CURRENT tick instead, so the law itself derives the desired age — same
+ * explicit synthetic pure-read age input as before, now expressed legally and
+ * durable across further ticking. `due` is rebuilt so condition 3 stays honest. */
+function withSyntheticAge(state: GameState, personId: string, age: number): GameState {
+  const oldRow = state.talentProvenance.rows.find((r) => r.personId === personId)
+  if (oldRow === undefined) throw new Error(`withSyntheticAge: no provenance row for ${personId}`)
+  const newRow = provenanceRowFor(personId, age, state.market.tick, oldRow.kind)
+  const rows = state.talentProvenance.rows.map((r) => (r.personId === personId ? newRow : r))
+  const talent = state.talent.map((t) => (t.id === personId ? { ...t, age } : t))
+  const storedAge = new Map(talent.map((t) => [t.id, t.age]))
+  return { ...state, talent, talentProvenance: { ...state.talentProvenance, rows, due: recomputeDue(rows, (id) => storedAge.get(id)) } }
+}
 const ACHIEVABLE = 'REASONABLY_ACHIEVABLE'
 const P1 = { family: 'APPEARANCE_COUNT', predicate: { count: 1 } } as const
 const LEAD = { family: 'LEAD_OR_SIGNIFICANT_ROLE_COUNT', predicate: { kind: 'castRoleCount', count: 1, seatClass: 'lead' } } as const
@@ -59,9 +78,12 @@ describe('P14B4: one shared public archetype; no new personality or priority-pos
     const generated = p13aGeneratedStudio()
     const subject = generated.talent.find((t) => t.age < 30 && Object.values(t.workHistory).every((n) => n === 0))
     if (subject === undefined) throw new Error('fixture: no genuinely uncredited subject')
-    // Explicit synthetic pure-read age INPUT, not a historical birthday or save
-    // provenance claim. Every credit/profile/label and all durable roots stay.
-    const state = { ...generated, talent: generated.talent.map((t) => t.id === subject.id ? { ...t, age } : t) }
+    // Explicit synthetic pure-read age INPUT, not a historical birthday. Expressed
+    // through the subject's OWN provenance anchor (762 §6 condition 2: a
+    // hand-written `talent[i].age` disagreeing with it is now refused), never as a
+    // fabricated career. Every credit/profile/label and all durable roots stay.
+    const state = withSyntheticAge(generated, subject.id, age)
+    expect(() => makeSave(state)).not.toThrow()
     expect(person(state, subject.id).workHistory).toEqual(subject.workHistory)
     expectPreferences(state, subject.id, age === 30)
   })
@@ -199,7 +221,11 @@ function controlledPair(age: 29 | 30) {
     expect([...state.careerEvents, ...state.hollywood!.careerEvents].some((e) => e.talentId === talentId
       && e.discipline === discipline.discipline && e.workHistoryAfter > e.workHistoryBefore)).toBe(true)
   }
-  state = { ...state, talent: state.talent.map((t) => t.id === talentId ? { ...t, age } : t) }
+  // 762 §6 condition 2: expressed through the subject's own provenance anchor,
+  // not a hand-written `talent[i].age` — which the validator now refuses, and
+  // which (measured) a subsequent real tick's materialization would otherwise
+  // silently overwrite before anything ever throws.
+  state = withSyntheticAge(state, talentId, age)
   expect({ ...person(state, talentId), age: actualSubject.age }).toEqual(actualSubject)
   expect(careerIdentity(person(state, talentId)).identityDisciplines).toEqual([])
   expect(state.careerEvents).toEqual(historyBeforeAge.player)

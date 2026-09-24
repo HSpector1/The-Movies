@@ -286,7 +286,7 @@ const wireEnum = (): string[] => {
 
 // ─────────────────────────────────────────────────────────────────────────────────────────────────────
 describe('P14B.5 frozen side — the OUTGOING wire identities (R-VERSION class, re-expressed by 700-T2 after P14B.8 landed projection 50 / Save V32 unchanged)', () => {
-  it('projection 50 (49 outgoing), SCHEMA_ID sha256:e2d354dc… (60af24c5… outgoing), LIVE_SAVE_VERSION 32, exactly the 35 accepted prior ids PLUS the outgoing 47, 48 and 49 with projection-v46 and projection-v47 registered', () => {
+  it('projection 50 (49 outgoing), SCHEMA_ID sha256:e2d354dc… (60af24c5… outgoing), LIVE_SAVE_VERSION 33 (stale title corrected post-C.1), exactly the 35 accepted prior ids PLUS the outgoing 47, 48 and 49 with projection-v46 and projection-v47 registered', () => {
     expect(PROTOCOL_VERSION).toBe(4)
     expect(PROJECTION_VERSION).toBe(50)
     expect(OUTGOING_PROJECTION).toBe(47)
