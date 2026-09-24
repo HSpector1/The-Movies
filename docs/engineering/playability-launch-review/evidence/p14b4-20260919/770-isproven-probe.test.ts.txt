@@ -1,0 +1,117 @@
+// P14C.1 isProven PROBE — measurement only, ASSERTS NOTHING about the product.
+//
+// WHY A SECOND PROBE. Record 769's probe measured only `talent.age >= 30` while its
+// own comment claimed to copy `isProven`'s "exact predicate". The real predicate at
+// `src/core/talentMarket.ts:690-692` is a DISJUNCTION:
+//
+//     careerIdentity(talent).identityDisciplines.length > 0 || talent.age >= 30
+//
+// So a person can already be proven BEFORE turning 30, by holding a real credit in a
+// capable discipline (`careerIdentity`, `src/core/talentSummary.ts:543`: capable is
+// `roleOVR >= TUNING.CAPABILITY_OVR_MIN` = 60, proven is capable AND workHistory > 0).
+// Measuring a birthday at week 104 establishes correct AGING. It does not establish
+// that `isProven` changed then, and 769 overclaimed when it called the whole
+// attribution measured on that evidence.
+//
+// This probe measures BOTH terms, week by week, and records the first week each
+// becomes true. It also records which branch `authorRivalPromise`
+// (`talentMarket.ts:1325`) would take — proven takes `[p1]` only, unproven takes
+// `[flexible, p1]` — which is the link from the predicate to the promise family.
+//
+// It asserts nothing and writes no artifact.
+//
+// STRAY-PROBE DISCIPLINE (record 726): run ALONE by positional filename, never inside
+// a suite pass, then archived and removed. One `it` that only prints.
+import { it } from 'vitest'
+import { tick } from '../src/core/index.js'
+import { ageAt } from '../src/core/aging.js'
+import { careerIdentity } from '../src/core/talentSummary.js'
+import type { GameState, Talent } from '../src/core/types.js'
+import { p13aGeneratedStudio } from './helpers/p14b2-fixtures.js'
+
+const SEED = 'seed-b'
+const SUBJECTS = ['person-studio-bc14baf6-r01-4', 'person-studio-bc14baf6-r01-2'] as const
+const WITNESS_WEEK = 211
+
+/** BOTH terms of `isProven`, named separately so the disjunction is visible. */
+function provenTerms(person: Talent) {
+  const identity = careerIdentity(person).identityDisciplines
+  const byCredit = identity.length > 0
+  const byAge = person.age >= 30
+  return {
+    age: person.age,
+    identityDisciplines: [...identity],
+    byCredit,
+    byAge,
+    isProven: byCredit || byAge,
+    // Which arm `authorRivalPromise` (talentMarket.ts:1325) would take.
+    promiseBranch: (byCredit || byAge)
+      ? ['APPEARANCE_COUNT']
+      : ['LEAD_OR_SIGNIFICANT_ROLE_COUNT(castRoleCount,leadOrAntagonist)', 'APPEARANCE_COUNT'],
+  }
+}
+
+it('MEASURES both terms of isProven, week by week, for the two seating subjects', () => {
+  let state: GameState = p13aGeneratedStudio(SEED)
+
+  const first = new Map<string, { credit: number | null; age: number | null; proven: number | null }>(
+    SUBJECTS.map((id) => [id, { credit: null, age: null, proven: null }]),
+  )
+  const samples: unknown[] = []
+
+  const sampleAt = (week: number) => {
+    for (const id of SUBJECTS) {
+      const person = state.talent.find((t) => t.id === id)
+      if (person === undefined) continue
+      const t = provenTerms(person)
+      const f = first.get(id)!
+      if (f.credit === null && t.byCredit) f.credit = week
+      if (f.age === null && t.byAge) f.age = week
+      if (f.proven === null && t.isProven) f.proven = week
+      // Keep a full sample only at the weeks that can decide the question.
+      if (week === 0 || week === 103 || week === 104 || week === WITNESS_WEEK) {
+        samples.push({ id, week, ...t, workHistory: { ...person.workHistory } })
+      }
+    }
+  }
+
+  sampleAt(0)
+  for (let w = 0; w < WITNESS_WEEK; w++) {
+    state = tick(state)
+    sampleAt(state.market.tick)
+  }
+
+  // The population counts, labelled precisely. "Under 30" is NOT "capable but
+  // unproven": the credit term can prove a person the age term has not reached.
+  const population = state.talent.map((p) => provenTerms(p))
+  const counts = {
+    total: population.length,
+    under30: population.filter((p) => !p.byAge).length,
+    provenByCreditOnly: population.filter((p) => p.byCredit && !p.byAge).length,
+    provenByAgeOnly: population.filter((p) => p.byAge && !p.byCredit).length,
+    provenByBoth: population.filter((p) => p.byCredit && p.byAge).length,
+    NOT_PROVEN_AT_ALL: population.filter((p) => !p.isProven).length,
+  }
+
+  const anchors = SUBJECTS.map((id) => {
+    const row = state.talentProvenance.rows.find((r) => r.personId === id)
+    return {
+      id,
+      anchor: row === undefined ? null : {
+        kind: row.kind,
+        age: row.kind === 'authored_exact_week' ? row.ageAtEntry : row.ageAtMigration,
+        week: row.kind === 'authored_exact_week' ? row.entryWeek : row.migrationWeek,
+      },
+      lawAgeAtWitness: row === undefined ? null : ageAt(row, state.market.tick),
+    }
+  })
+
+  console.log(JSON.stringify({
+    seed: SEED,
+    witnessWeek: WITNESS_WEEK,
+    anchors,
+    firstWeekEachTermBecameTrue: Object.fromEntries(first),
+    samples,
+    populationCountsAtWitness: counts,
+  }, null, 2))
+}, 900_000)
