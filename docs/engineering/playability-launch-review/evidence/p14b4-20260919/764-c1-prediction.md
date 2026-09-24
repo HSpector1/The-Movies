@@ -72,3 +72,46 @@ existing expectations solely to recover old outcomes.
 It does not predict WHICH files move on economics, because that depends on which assertions pin
 absolute values rather than relative ones, and no static reading tells me that. The attribution is
 done against the run, per file, as B.8's was.
+
+---
+
+## CORRECTION, published BEFORE the affected run (candidate `a04fa398`)
+
+The focused-review addendum (765 §3) created a standing obligation: if a justified regression changes
+this record's predictions, the PREDICTION is corrected in the open before the run, never the tests to
+preserve a number. This is that correction. The writer has handed back; no full run has been started.
+
+**The counts stand.** 358 files, 4138 cases, 8 todo. Verified two independent ways rather than
+asserted: the `it(`/`describe(` diff across `tests/` is 0 added and 0 removed, AND the per-file
+call-site count is identical to HEAD in all 104 touched test files.
+
+**Three justified regressions are now NAMED, so they are not falsifier-5 triggers when the run finds
+them.** Each is contract-mandated rather than a defect, and none is re-pinned to hide it:
+
+1. **`tests/bridge-p14b4-cast-class.test.ts`, 2 of 28.** The A13 cause has a SECOND instance the audit
+   never named: `:414-419` hand-writes `age: 29` / `age: 30` onto a real person and then validates.
+   Condition 2 now refuses it — `stored age 29 for t-act-09 disagrees with its provenance, which
+   derives 25 at week 45`. The honest fix is a provenance-consistent synthetic age, which is test
+   authoring.
+2. **`tests/p14b5-relationships.test.ts` family 10, 2 cases.** Structurally invalidated by §6 plus
+   §12 F3: a V33-native campaign carries `authored_exact_week` rows and is not downgradable, so the
+   "lossless when empty" route those cases exercise no longer exists, and the nearest guard now
+   refuses with the materialization message rather than the relationship one.
+3. **`tests/p14c1-materialized-aging.test.ts`, 1 case.** The RED's own wrong expectation, per 765 §1.
+
+**Falsifier 5 is re-expressed against that list.** A new failure OUTSIDE the three above, in a file
+that derives nothing from `talent.age`, still triggers it. The three above do not.
+
+**One prediction I can now sharpen, and one I cannot.** The economics class remains unbounded and
+unattributed until the run produces it; nothing here excuses an individual failure, per 765 §3. But
+one repricing is already known and disclosed by the writer rather than discovered: `offerForTalent`
+at `hollywood.ts:224` and `hollywoodTick.ts:140` now prices the COMMITTED floored person, so rival
+contract pricing moves by a small amount. Nothing was re-pinned for it.
+
+**A rule-design error of mine, recorded because it cost something.** I gave the writer "no added or
+removed `it(` lines" as the proxy for "no test authoring". A title is not test authoring, and that
+proxy forced the writer to revert 20 title-only bumps and leave titles that now name versions and
+ranges their bodies no longer use — for example `p14b5-save-v31:186` still reading "LIVE_SAVE_VERSION
+is the literal 32". A misleading title is worse than the risk the rule guarded against. The correct
+invariant is the one I actually verified above: the NUMBER of call sites per file is unchanged. The
+20 titles go to the test author.
