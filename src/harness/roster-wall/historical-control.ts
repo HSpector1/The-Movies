@@ -11,11 +11,28 @@ import type { GameState, GameStateV18 } from '../../core/types.js'
 export { beginFoundingHistoricalControl as beginFounding } from '../../core/employment.js'
 export { makeSaveV18 as makeSave } from '../../core/save.js'
 /** Call only AFTER exact original import/hash checks. This is not gameplay migration. */
-export function liftV18Control(state:GameStateV18):GameState { const cloned=structuredClone(state); return {...cloned,hollywood:null,
+export function liftV18Control(state:GameStateV18):GameState { const cloned=structuredClone(state)
+  // P14C.1 — THE ADAPTER OWES A VALID CURRENT STATE. The original V18 files and the
+  // pinned reproducer are untouched; this function is the ADAPTER that hands one to
+  // the CURRENT engine, and a state the engine refuses is not a lift.
+  //
+  // Record 762 §12 F4 claimed no test imports this and the observatory is a CLI, so a
+  // control is never ticked and never validated. BOTH CLAUSES ARE FALSE and the
+  // comment that repeated them is struck. MEASURED: `tests/bridge-p05a1-owner-
+  // greenlight.test.ts:27` and `tests/bridge-p05a3-roster-liveness.test.ts:34` import
+  // this function, the bridge reaches `validateSaveV33` through `stateDigest`, and
+  // `player-policy.ts:1122` assigns a lifted control and immediately ticks it.
+  //
+  // So the stored ages FLOOR, exactly as `convertV32ToV33` floors, and the anchors
+  // keep the ORIGINAL UNROUNDED ages. Nothing historical is lost: the pre-C.1 fact
+  // survives verbatim in `ageAtMigration`, and it is the cache over it that the engine
+  // requires to be an integer.
+  const people=state.talent.map(withResearchFoundation)
+  return {...cloned,hollywood:null,
   // P13B S5-R07: the live workflow carries `setup`/`planRevision`; a historical control never selected a recipe.
   operations:{...cloned.operations,workflows:cloned.operations.workflows.map(w=>({...w,setup:null,planRevision:0}))},
   // P13B-S6: the live placement record carries `cancellation`; a historical control cancelled nothing.
-  placement:{...cloned.placement,facilities:cloned.placement.facilities.map(f=>({...f,cancellation:null}))},talent:state.talent.map(withResearchFoundation),technology:initialTechnology(state.market.tick),physicalPlans:initialPhysicalPlans(),
+  placement:{...cloned.placement,facilities:cloned.placement.facilities.map(f=>({...f,cancellation:null}))},talent:people.map(person=>({...person,age:Math.floor(person.age)})),technology:initialTechnology(state.market.tick),physicalPlans:initialPhysicalPlans(),
   // P14A.1 (Save V28): a historical control has no industry, so it holds no market
   // case, proposal or receipt — the empty root, exactly what the real lift writes.
   talentMarket:initialTalentMarket(),
@@ -23,15 +40,11 @@ export function liftV18Control(state:GameStateV18):GameState { const cloned=stru
   // promise — the two empty roots, exactly what the real lift writes.
   // P14B.5 (Save V31): it shares no work — the empty relationship root.
   firstTakes:[],promises:[],relationships:[],
-  // P14C.1 (Save V33, record 762 §12 F4): `GameState` now requires the provenance
-  // root, so the control gets one — built from its OWN EXISTING ages at
-  // `boundaryWeek = market.tick`, and DELIBERATELY NOT FLOORED. A historical control
-  // is a frozen artifact whose ages are pre-C.1 facts: it is never ticked, never
-  // saved at V33 (it uses `makeSaveV18`), so nothing materializes over it, and C.1
-  // has no authority to move an accepted historical artifact. This is the one root
-  // in the codebase that is legitimately out of step with validator condition 2,
-  // because no V33 validator ever sees it.
-  talentProvenance:buildTalentProvenance(state.talent,state.market.tick,'legacy_age_anchor')} }
+  // P14C.1 (Save V33): one `legacy_age_anchor` per person, anchored on the control's
+  // OWN EXISTING age UNROUNDED at `boundaryWeek = market.tick`. The anchor is where the
+  // pre-C.1 fact is preserved; `talent` above stores each floor of it, so the lifted
+  // state satisfies validator condition 2 the moment the bridge or a tick reaches it.
+  talentProvenance:buildTalentProvenance(people,state.market.tick,'legacy_age_anchor')} }
 export function historicalHashState<T extends object>(state:T):object {
   if(!('technology' in state) && !('hollywood' in state) && !('physicalPlans' in state) && !('talentMarket' in state)
     && !('firstTakes' in state) && !('promises' in state) && !('relationships' in state) && !('talentProvenance' in state))return state

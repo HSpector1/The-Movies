@@ -266,3 +266,52 @@ Two things follow, and the writer owns both.
 so the full-core run does not exercise it and this is a compile-and-honesty obligation rather than a
 suite failure. **If any historical hash does move, the writer REPORTS it and stops. It is never
 re-pinned to recover the old number.**
+
+---
+
+## 13. §12 F4 IS STRUCK. Both of its clauses were false, and this replaces it.
+
+F4 told the writer that `liftV18Control` must NOT floor its ages, on my claim — which I marked
+MEASURED — that no test imports it and the observatory is a CLI, so the control is never ticked and
+never validated. **Both clauses are false.** `tests/bridge-p05a1-owner-greenlight.test.ts:27` and
+`tests/bridge-p05a3-roster-liveness.test.ts:34` import it; the bridge reaches `validateSaveV33`
+through `stateDigest`; and `src/harness/roster-wall/player-policy.ts:1122` assigns a lifted control
+and immediately ticks it. An unfloored root violates condition 2 the moment either happens, which is
+what those 10 failures were.
+
+**THE RULE THAT REPLACES IT — the artifact/adapter split, and it is the Owner's.**
+
+> The historical ARTIFACT and its live ADAPTER are different responsibilities. The original V18 files
+> and the pinned reproducer are unchanged. The adapter handed to the current engine must produce a
+> VALID current state. Current-engine results and historical reference results stay distinguishable,
+> and **a historical reference value is never overwritten because the adapter changed.**
+
+`liftV18Control` therefore stores `Math.floor(age)` in `talent` and anchors `talentProvenance` on the
+**original unrounded ages** — the same split `convertV32ToV33` uses, so the pre-C.1 fact survives
+verbatim in the anchor and only the cache over it becomes an integer. Nothing historical is discarded.
+
+**The split holds by CONSTRUCTION, not by care, and that was verified rather than assumed.**
+`player-policy.ts:1122-1123` captures `freshEntryState = freshEntry.state` BEFORE the lift and hashes
+THAT. The accepted `stateHash` pin is taken on the frozen artifact and is structurally out of the
+adapter's reach.
+
+**Measured, and the answer to the question nobody had taken:** lifting the same control both ways —
+identical except the floor — and ticking both 26 weeks leaves cash, `rngState`, contract count, ledger
+rows and ledger total all unchanged. No accepted roster-wall number moved. That is stronger than a
+green suite, which would only say that nothing PINNED moved.
+
+**The repricing this repair does earn, reported and NOT re-pinned by the writer.** All 60 ages move on
+both fixtures and `ageFactor` is not one-signed: **42 rise, 15 fall, 3 unchanged** (the three sit
+outside the `(12, 56)` band where the bell is flat). Seven of eight published weeklies move on p05a1,
+six of eight on p05a3. **Exactly one PINNED constant moves**, at
+`tests/bridge-p05a3-roster-liveness.test.ts:56`:
+
+| field | pinned | now | delta |
+| --- | --- | --- | --- |
+| `weekly` | 6040 | 6025 | −15 (−0.248%) |
+| `guaranteed` | 314080 | 313300 | −780 |
+| `bonus` | 56536 | 56398 | −138 |
+
+Traced end to end: `t-act-17` 25.440489233845923 → 25 → `ageFactor` 0.977294 → 0.974897 (−0.2453%) →
+`offerForTalent` (`employment.ts:283`, where `ageFactor` is the only factor the floor touches) → the
+published offer. The −0.248% on the money matches the −0.2453% on `ageFactor` to rounding.
