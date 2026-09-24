@@ -195,3 +195,19 @@ export function materializeAges(state: GameState, week: number): GameState
 ```
 
 §3's single-argument signature is superseded by this one.
+
+---
+
+## 11. Why the save bump is NECESSARY and not chosen
+
+Verified rather than assumed, because "does this slice really need a save step" is the question that
+decides the whole shape of the work. `src/core/save.ts:4827` and `:4952` both call
+`v12ExactKeys(state, V14_STATE_KEYS, "state", V11_OPTIONAL_STATE_KEYS)`. The state object is
+EXACT-KEYED at the V14 level, and every version above it strips its own root before handing the
+frozen chain what that chain knows (`stripV31Root` at `:8794`, `stripV32Field` at `:8873`).
+
+So a new top-level root cannot be added without a new version and a matching strip: a V32 validator
+meeting `talentProvenance` refuses it as an unknown key. C.1 is a save step because the root makes it
+one, and 759-C amendment 14's finding that the frozen V14 key lists need no change is the same fact
+read from the other side — they need no change precisely BECAUSE the strip keeps the new root away
+from them.
