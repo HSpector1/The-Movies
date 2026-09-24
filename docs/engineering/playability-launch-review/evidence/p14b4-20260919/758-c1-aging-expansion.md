@@ -255,3 +255,56 @@ the world. Age derived from provenance and `market.tick` needs no draw. That ass
 not touch it; the frozen save builders and the frozen V14 key lists need no change; and
 `StudioPersonProfileSnapshot.age` stays declared `number` even though it becomes integer-valued,
 because tightening it would mint a new schema identity and force a bump this slice does not need.
+
+---
+
+## 10. Amendment log (Owner directive, 2026-09-24)
+
+Three implementation pins, applied to the existing test scope. A7's original text is preserved
+above; the correction below supersedes its formula.
+
+**A7-CORRECTION — the fraction runs BACKWARD from the next birthday, and `frac(age) x 52` was the
+wrong direction.** A7 proposed deriving a birth week-of-year as `frac(age) x 52`. The Owner's
+example is the disproof: a person aged **29.75 at migration turns 30 about 13 weeks later, not 39.**
+The fraction measures progress SINCE the previous birthday, so the time remaining is
+`(1 - frac(a0)) x 52`. A7's spreading claim survives — the fractional parts still distribute
+birthdays across the year, and 83 of 84 held-fixture ages are fractional — but its arithmetic would
+have put every birthday three quarters of a year out of phase.
+
+**The derivation, pinned as one formula rather than two.** With `a0` the anchor age (float) and `w0`
+the anchor week:
+
+> `age(w) = floor(a0 + (w - w0) / 52)`
+
+No separate birth-week field exists to disagree with it. The Owner's case: `29.75 + 13/52 = 30.0`,
+floor 30, at exactly `w0 + 13`. An integer anchor (`a0 = 28.0`, the `hollywood.ts:221` floor) is due
+at `w0 + 52`, and those people legitimately share a bucket — **no randomness is introduced to spread
+them**, per the directive.
+
+**The bucket derives from that formula, and is corrected against it rather than computed beside it.**
+A due week is the smallest `w` with `age(w) > n`. The seed is `d = ceil((n + 1 - a0) x 52)`, then
+`d` steps by at most one in each direction until `age(w0 + d - 1) == n` and `age(w0 + d) == n + 1`.
+That correction is not decoration: `(30 - 29.75) x 52` is representable, but a neighbouring anchor
+evaluating to `13.000000000000002` would ceil to 14 and leave a stored age stale for a week, with
+every reader — including `isProven` — reading the stale value. The bucket is a visit list; the floor
+formula is the law, and the two agree by construction.
+
+**Successive birthdays are recomputed from the anchor, never by adding 52.** Same reason.
+
+**A4 is promoted from a finding to a REQUIRED TEST.** The 30 boundary is a market decision, so the
+RED carries a person immediately before and immediately after that birthday, through save and
+reload, and attributes any market difference to the crossing itself. Existing expectations are not
+adjusted to recover old outcomes; a moved outcome is reported and attributed.
+
+**The zero-draw law is sharpened.** 759-C §4's promoted assertion is kept but re-scoped: the binding
+assertion is that **the materialization entry point consumes no RNG** — `rngState` byte-identical
+across a direct call that materializes a birthday. An ordinary weekly advance may legitimately draw
+for other simulation activity, so a whole-tick comparison is a reported diagnostic, not the pin.
+
+**A8's downgrade predicate is restated as a losslessness test, not a shape test.** Matching the V32
+file shape is insufficient. The permitted downgrade must round-trip the anchor's ORIGINAL FRACTIONAL
+age, and the test asserts the recovered float, not the file's key set.
+
+**Endpoint, quoted.** C.1 finishes when persistent professionals including Scientists age correctly
+through calendar advances and save/reload, with existing readers receiving correct ages and
+qualified verification published. Retirement, extensions and profession transitions are §6.2/§6.3.
