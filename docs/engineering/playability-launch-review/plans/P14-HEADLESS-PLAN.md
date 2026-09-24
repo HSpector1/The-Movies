@@ -716,6 +716,33 @@ decrements a skill, genre experience, ceiling, development rate or Star Power. A
 rather than assumed: `CLAUDE.md` lists "aging and career progression" as not-current-scope, and that
 same section provides for supersession by the current campaign, which names P14C explicitly in the
 companion, the slice order and the Owner's continuation packet.
+NEXT761: C.1 T0 IS DONE AND PUBLISHED. Five genuine outgoing V32 worlds minted at `ace2773a` while
+that head was already on the remote (`tests/fixtures/p14/genuine-v32-c1-corpus/`, record 761): bare
+world (hollywood null, tick 0, 60 people ALL fractional); bare TICKED (null hollywood at tick 1, so
+"null industry" and "week zero" separate); fresh tick0 (24 rival rows, 4 INTEGER ages manufactured by
+`hollywood.ts:221` with zero authored people, which is record 760's correction to the audit); authored
+(2 authored, ageMin exactly 18, and `authored-0001` at 29.75); scientist (tick 260, 1 scientist, ages
+to 68.28, so the top-of-draw axis is now covered at two weeks rather than one). The held
+`genuine-v32-owes-two-p1` is NOT re-minted. OWNER CORRECTION APPLIED (2026-09-24, expansion 758 §10):
+A7 derived the birthday as `frac(age) x 52` and that is the WRONG DIRECTION; the fraction measures
+progress SINCE the previous birthday, so 29.75 turns 30 in THIRTEEN weeks, not 39. Pinned as ONE
+formula with no stored birth week to disagree with it: `age(w) = floor(a0 + (w - w0) / 52)`. The
+predicted crossing week is committed INTO the fixture provenance, before any implementation existed,
+so the prediction can falsify the implementation rather than the reverse. Also folded in: the 30
+boundary is promoted from an audit finding to a REQUIRED TEST because `talentMarket.ts:690` `isProven`
+is a market decision and not a display change; the zero-RNG law is re-scoped to the materialization
+entry point, since an ordinary weekly advance may legitimately draw for other activity; and the
+permitted downgrade is restated as a BYTE-IDENTICAL V32->V33->V32 round trip, because matching the
+older file shape alone is insufficient. Record 762 pins the API contract both specialists work from
+(root shape, module surface, the five append sites, tick ordering, the V33 boundary, the downgrade
+predicate) and `src/core/aging.ts` ships as a SCAFFOLD whose every export throws, so the RED fails
+because behaviour is missing rather than because a missing named export bound to `undefined`. Record
+763 is the V32->V33 sweep inventory, keyed on the VALUE: 15 classes, the two large ones being 132
+`migrateToV32` call sites and 92 test literals, each decided PER LINE. Two negative results recorded
+with the positive ones: the C# DTOs carry NO save version, so unlike B.8 a save bump regenerates
+nothing under `generated/`; and `performance-library32` is a false positive whose 32 counts library
+records. Order from here: RED (authored independently against 758 as amended) -> implementation ->
+verification -> publication.
 LOGIC VERIFIED · UNITY NOT VERIFIED. Unity/native deferred. Gross2221 omitted fact cost is NOT
 net saving: cold discovery can shift into next frame. No route-fit claim.
 Draft-discovery, silent-policy, affine and Map alternatives remain unadopted.
