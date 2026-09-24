@@ -87,3 +87,60 @@ work reset, no general audit opened. The writer received one non-disruptive note
 them to implement against the defective equality in item 1 would have cost the exact thing item 1
 exists to protect. Existing specialists, separate file ownership, at most two, one production writer,
 heavy checks serialized. Unity/native acceptance remains deferred.
+
+---
+
+## CORRECTION to §2 — "the tick tail" is NOT "after settlement", and I over-extended the finding
+
+**What I wrote is false.** §2 above says contract §10 "puts materialization at the tick TAIL, after
+settlement", and concludes "the likely truth is the opposite of what the test asserts". Neither
+statement is supported by the source.
+
+**Read at `src/core/tick.ts`, the clock advance is not the last thing the function does.** The
+`finalized` object carries `market: { ...state.market, tick: currentTick + 1 }`, and after it the
+function still runs, in order:
+
+1. the scheduled rival-entry loop (`enterRival`, against `finalized.market.tick`)
+2. `appendFirstTakes(finishHollywoodWeek(finishTechnologyWeek(finalized)), …)`
+3. `advanceRelationshipsWeek(withTakes, …)`
+4. the terminal line, `return advanceTalentMarketWeek(advancePromisesWeek(withBonds))`
+
+**Market settlement is step 4.** So materialization placed at the clock-advance location runs BEFORE
+settlement, provided the materialized people flow into those later calls, which they do because each
+step takes the state forward. The in-tick market consumer in the tick that PRODUCES the crossing week
+therefore does see the new age, which is what the RED's reconstruction asserted.
+
+**I also over-extended the original finding.** It was that the manual reconstruction does not PROVE
+the ordering. It was never that the expected result must be backwards. I turned a statement about
+insufficient evidence into a claim about the answer, which is the same error in the opposite
+direction — and it is the error that would have led a test author to reverse a correct expectation.
+
+**What stands unchanged.** The reconstruction still proves nothing about the real tick, because it
+calls `materializeAges` by hand and builds `tailState` rather than running `tick()`. The disposition
+is unchanged: relabel the component test honestly, and settle the ordering with a real boundary test
+against the actual tick and the actual market consumer. **No simulation stage is reordered and no
+expectation is reversed on either assumption.** The writer's implementation and that test decide it.
+
+## CORRECTION to §1 — two anchor kinds, two different protections
+
+I told the writer that preserving the fraction is "what makes the downgrade lossless and what spreads
+birthdays across the year". That conflates two protections that belong to different row kinds.
+
+- **`legacy_age_anchor`, written by the migration:** the exact fraction protects birthday timing AND
+  the permitted lossless `V32 → V33 → V32` round trip, because the original bytes are recoverable only
+  from the unrounded value.
+- **`authored_exact_week`, written at a new entry:** the exact fraction protects **birthday timing
+  only**. A fresh V33 campaign carries these rows and contract §6's predicate admits only
+  `legacy_age_anchor`, so it is already excluded from the downgrade. There is no round-trip claim to
+  make about a new entrant, and stating one would be a second wrong expectation.
+
+Both kinds must keep the fraction. The reasons are not the same reason, and §12 F3 already said so.
+
+## The corrected test derives its anchor from the INPUT, never from the output
+
+Carried from the same correction, because it is what stops the test and the implementation losing the
+fraction together and agreeing: the expected anchor comes from the **known input after legitimate
+clamps and before flooring**, not from the already-floored person the append returns. For a new
+entrant at 29.75, prove the anchor reads **29.75**, the stored age reads **29**, and the birthday
+falls **13 weeks after the actual entry week**. Verify separately that the pricing path consumed the
+committed age.
