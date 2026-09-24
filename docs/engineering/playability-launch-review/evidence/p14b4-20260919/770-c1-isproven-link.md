@@ -80,3 +80,35 @@ side effect of retirement.
 It does not re-verify the downstream seating results; those remain as the attribution measured them
 per case. It does not measure any other seed or any other population. `provenByCreditOnly: 0` is a
 property of this world at this week, not a law.
+
+---
+
+## TWO LABEL CORRECTIONS (no new probe, no new investigation)
+
+**1. The branch was DERIVED, not observed.** This record says the branch was "read at the branch
+itself" and "measured at the branch". The probe does neither: it computes `promiseBranch` in its own
+helper from the measured age and career facts, mirroring the ternary at `talentMarket.ts:1325`. It
+never instruments `authorRivalPromise` and never observes a call.
+
+The accurate description of the combined evidence is:
+
+> **measured ages and career qualifications** (this probe, every week 0–211) **→ branch derived from
+> the production source** (`authorRivalPromise`'s `isProven(...) ? [p1] : [flexible, p1]`, read at
+> `talentMarket.ts:1325`) **→ previously measured downstream receipts and seating results** (record
+> 771's `approved_behavioral_change` entries for `tests/p14b4-rival-seating-preference.test.ts`, whose
+> per-case `downstream` and `evidence` fields carry the promise family, the `promiseCastSlots` mask
+> and the moved seating outcome).
+
+That chain is sound and sufficient. Only its middle link's label was wrong, and the reused downstream
+evidence is now identified by name rather than gestured at.
+
+**2. "The credit arm is inert in this population" is too strong.** Measured at week 211: **6 people
+are proven by BOTH age and credit.** For those six the credit condition is REDUNDANT to their
+classification at that point — it is not nonexistent and it is not universally inactive. What
+`provenByCreditOnly: 0` establishes is narrower and is all that was ever needed: **nobody in this
+population is proven by credit ALONE**, so "under 30" and "not proven" coincide here by measurement
+rather than by definition.
+
+Both statements are properties of **this seed at week 211** and neither is a law. No gameplay
+consequence follows from the distinction, and D1's recorded position is unaffected: the recommendation
+rests on `provenByCreditOnly: 0`, which is unchanged.
