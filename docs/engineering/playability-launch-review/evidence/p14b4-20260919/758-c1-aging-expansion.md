@@ -139,3 +139,119 @@ no UI-affecting claim rests on the `ui` suite. FU-2's disposition stays open wit
 unmoved. The authority note at record 756 applies: `CLAUDE.md` lists aging as not-current-scope and
 that section provides for supersession by the current campaign, which names P14C in the companion,
 the slice order and the Owner's continuation packet.
+
+---
+
+## 9. Amendment log (record 759-C, with the parent's verification and decisions)
+
+The audit returned PROCEED WITH AMENDMENTS with fourteen items. The original text above is preserved
+unchanged. Every HIGH finding was verified by the parent against the source, and two were verified by
+decompressing the held V32 fixture, which the read-only auditor could not open.
+
+**A1 — §3(a)'s census is WRONG and is corrected.** It omits the dominant write site:
+`src/core/worldgen.ts:488` draws `truncatedNormal(38, 10, 20, 70)` and `:525` writes it, and that is
+the source of every starting population, every `enterRival` fill, every `staff()` supply and every
+research candidate. The four cited lines are each correct; the enumeration is not. **Also corrected,
+and it was mine: the worldgen range is `[20, 70]`, not `[18, 70]`.** `[18, 70]` is the AUTHORED clamp
+only. MEASURED on the held fixture: ages run 20.68 to 68.28.
+
+**A2 — there are FIVE append sites, not two, and one is a PLAYER action.** `worldgen.ts:544`;
+`hollywood.ts:223` (`enterRival`); `hollywoodTick.ts:142` (`staff()` supply); `actions.ts:826`
+(`withCreatedTalent`, covering all three authored creators with one write); and
+**`actions.ts:2842` (`recruitScientist`)**, which appends a person `researchCandidates` derived and who
+was never in `state.talent`. Trap 3 quoted the companion's sentence about *P12* mint sites correctly
+and then treated it as the complete set of ways a person enters the array. Completion condition 7 and
+Trap 3 are restated over all five. Recorded: the parent's own first grep also missed
+`hollywoodTick.ts:142`, which appends to a local array rather than to `state.talent` directly.
+
+**A3 — provenance is written at the APPEND, never at the mint call.** MEASURED:
+`hollywoodTick.ts:136-142` mints at `:138`, checks affordability at `:141` and `continue`s, and appends
+only at `:142`. A rival that cannot pay discards the person it just minted, so provenance written
+inside a shared mint primitive records someone who never enters `state.talent` — one dead row per
+unaffordable rival hire per week, forever, in a save validated on every load. §6.5's shared primitive
+is therefore NOT adopted: taking it would import the scheduler's shape and this hazard together.
+
+**A4 — §1's reader list is incomplete, and the omission reaches a market outcome.**
+`src/core/talentMarket.ts:690-692`, `isProven`, tests `talent.age >= 30` and `priorityOrder` branches
+on it to return two different descriptor orders. **A person crossing 30 changes which studio wins a
+contested market case.** "Every accepted reader ages for free" is true of the three continuous readers
+named and is not true in the same sense of a step function on a law path. Five suites additionally use
+the predicate as a SELECTOR and would silently choose a different subject if stored ages move, and
+`ui/src/engine/adapter.ts:4295` flips player-facing copy at 55.
+
+**A5 — DECIDED: FLOOR, and Trap 1's example is struck.** Floor preserves both integer thresholds
+(`floor(43.405) = 43`, and `43.405 >= 30` and `43 >= 30` agree; `round(29.6) = 30` would flip
+`isProven`) and preserves every already-displayed age at the boundary, because the UI already floors.
+Trap 1's `34.7 -> 35` is wrong under floor and taught the wrong thing. Honest limit: floor is not
+value-neutral, since `ageFactor(34.7)` and `ageFactor(34)` differ in the fifth decimal.
+
+**A6 — C.1 DOES change `bridge/`, and §3(c) failed to say so.** The projection hypothesis is RIGHT
+(no wire shape moves, `apparentAge` withheld), and `bridge/runtime-checkpoint.ts:476-477` still
+hard-codes `saveVersion !== 32` with a literal `must be a current V32 save` message, `:461` aliases
+`SaveFileV32`, and `:479-481` pins canonical V32 bytes. The mirror of B.8's caveat, where the
+projection moved and the C# DTOs regenerated even though native controls stayed deferred.
+
+**A7 — DECIDED: `ageAtMigration` stores the FLOAT and the birth week-of-year derives from its
+fractional part.** As literally specified, `legacy_age_anchor` carries no week-of-year, so every
+pre-C.1 person's birthday derives to the SAME week and the whole population materializes on one tick
+each year: condition 8 satisfied in shape while the annual work equals a full scan, and a once-a-year
+world-wide price step rather than the gradual drift Trap 2 describes. MEASURED: **83 of 84 stored ages
+in the held fixture are fractional**, because `truncatedNormal` (`src/core/rng.ts:187-199`) returns the
+raw gaussian. So `frac(age) x 52` spreads legacy birthdays deterministically from information the
+world already holds and that Trap 1 otherwise discards. One field's type, not a scheduler.
+
+**A8 — DECIDED: the V33 → V32 downgrade is permitted exactly while no age has materialized** (every
+anchor at the boundary and every stored age still equal to its `ageAtMigration`), and refused
+otherwise. That keeps the series' one-lossless-downgrade-under-a-predicate shape while closing the
+truth loss: stripping the root after materialization yields a V32 save whose ages advanced with no
+provenance, which every frozen validator accepts because `v8Number` takes any finite number.
+
+**A9 — the root and the device, named.** A new top-level root on the `stripV31Root` pattern
+(`src/core/save.ts:8794-8797`), `validateSaveV31` (`:8805-8818`) as the template,
+`tests/p14b5-save-v31.test.ts:153` as the live-root assertion to extend.
+
+**A10 — DECIDED: Scientists age.** They are in `state.talent` and condition 1 covers every id there.
+§6.1's profession list predates P13's scientists and the companion's POST-P13 REFRESH flag is for
+exactly this. MEASURED: the held fixture contains ZERO scientists, so this needs a corpus world.
+
+**A11 — Trap 5's corpus axes were WRONG and are replaced.** MEASURED on the held fixture: 24
+rival-employed rows (my axis was redundant), age range 20.68-68.28 (my `[18, 70]` axis was
+unreachable), and the migration branches on no age value (my varied-ages axis bought nothing). The
+axes that matter: **(1) `hollywood === null`**, which distinguishes a boundary read from
+`hollywood.originWeek` from one read from `market.tick`; **(2) `market.tick === 0`**, where a correct
+`migrationWeek` and a defaulted-to-zero one are indistinguishable; (3) an AUTHORED person, the only
+lawful route to an integer stored age; (4) a Scientist; (5) a person near the top of the draw, already
+satisfied. **Axes 1 and 2 are the ones not to ship without.**
+
+**DECIDED, which A7 and axis 1 both turn on: the recording boundary is `market.tick` at migration,
+stored in the new root.** It cannot be `hollywood.originWeek`, because `GameState.hollywood` is
+nullable (`src/core/types.ts:1906`).
+
+**A12 — unbounded age, DISCLOSED.** C.1 ships aging without retirement, so the endurance horizon
+produces working 150-year-olds. Nothing breaks numerically (both consumers floor: `ageFactor` at 0.85
+from 56, `ageRunwayMult` at 0.35 from 60, per the auditor's paper arithmetic). §6.2 owns the fix; C.1
+owns the disclosure.
+
+**A13 — `tests/p14b4-cast-class-policy.test.ts:202` is invalidated BY CONSTRUCTION.** It hand-writes
+`age` onto a real person to flip `isProven`, which condition 3's validator makes illegal. A test author
+rewrites it. **The writer must not touch it.**
+
+**A14 — six precision items, all adopted.** The zero-RNG-draw requirement is promoted into §4 below.
+The birthday bucket must be an ARRAY or sorted numerically on read, because `src/core/save.ts:588`
+sorts object keys lexicographically so `"100"` precedes `"11"`. `bridge/session.ts:609`'s comment
+becomes false. `createTalent` (`actions.ts:744`) stores age unrounded and, unlike `:927` and `:1115`,
+has no `Number.isFinite` guard, so "an integer for authored ones" is false on that path. Trap 2's blast
+radius is narrower than stated, since both consumers are flat outside roughly (12, 56) and (26, 60),
+which tells the writer in advance which fixture people will not move. The 6,240-week figure cites the
+companion for the law, not a measured endurance run.
+
+**PROMOTED INTO THE LAW (from 759-C §4): the RED must assert `rngState` byte-identical across a tick
+that materializes a birthday and one that does not.** `src/core/tick.ts:227` deserializes one shared
+stream and re-serializes it, so any draw the materialization made would move every downstream draw in
+the world. Age derived from provenance and `market.tick` needs no draw. That assertion is what makes
+"derived, never incremented" mechanically enforced rather than merely intended.
+
+**Also adopted from 759-C §5:** `migrateTalent` (`src/core/save.ts:6563`) stays pinned and C.1 must
+not touch it; the frozen save builders and the frozen V14 key lists need no change; and
+`StudioPersonProfileSnapshot.age` stays declared `number` even though it becomes integer-valued,
+because tightening it would mint a new schema identity and force a bump this slice does not need.
