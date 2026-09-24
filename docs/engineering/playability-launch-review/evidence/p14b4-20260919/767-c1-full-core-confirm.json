@@ -1,0 +1,21 @@
+{
+  "sourceSha": "2b85da009c8e5d36fb9b136ff0920bd965bc0d51",
+  "testedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "untrackedSource": [],
+  "command": [
+    "node_modules/.bin/vitest",
+    "run",
+    "--project",
+    "core"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-24T12:21:41.605Z",
+  "end": "2026-09-24T13:12:48.406Z",
+  "exitCode": 1,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "2b85da009c8e5d36fb9b136ff0920bd965bc0d51",
+  "testedDiffSha256AtEnd": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "untrackedSourceAtEnd": [],
+  "fixedSource": true
+}
