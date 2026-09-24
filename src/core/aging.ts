@@ -70,9 +70,17 @@ export function buildTalentProvenance(
   return unbuilt('buildTalentProvenance')
 }
 
-/** Visits only the people `due` this week. Consumes no RNG, takes no RNG argument,
- * and is idempotent. */
-export function materializeAges(_state: GameState): GameState {
+/** Visits only the people `due` at or before `week`. Consumes no RNG, takes no RNG
+ * argument, and is idempotent.
+ *
+ * It takes the week EXPLICITLY rather than reading `state.market.tick`, because the
+ * one call site is the tick TAIL beside the clock advance (`src/core/tick.ts:1047-1049`)
+ * and at that point the clock has not moved yet. `src/core/tick.ts:408-410` states the
+ * rule in its own comment: the clock is the tick's to advance, as its last step.
+ *
+ * The invariant this produces, and the one the validator checks:
+ * on every state the engine emits, `talent[i].age === ageAt(row_i, state.market.tick)`. */
+export function materializeAges(_state: GameState, _week: number): GameState {
   return unbuilt('materializeAges')
 }
 
