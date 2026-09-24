@@ -70,6 +70,47 @@ export function provenanceRowFor(
 }
 
 /**
+ * The ONE canonical insertion into `due`, shared by every writer that adds a single
+ * person to an existing list. Buckets stay ASCENDING by week, and inside a bucket
+ * people stay in `rows` order — which is exactly what `recomputeDue` below produces
+ * and exactly what validator condition 3 compares against. Two writers, one ordering.
+ *
+ * `comesAfter(existingId)` answers whether the person being inserted sits LATER in
+ * `rows` than that existing member. The inserted person lands before the first member
+ * for which the answer is no, so a bucket that was in `rows` order stays in `rows`
+ * order — and the result does not depend on the order several insertions are made in.
+ */
+function insertDue(
+  due: readonly { week: number; personIds: readonly string[] }[],
+  week: number,
+  personId: string,
+  comesAfter: (existingId: string) => boolean,
+): { week: number; personIds: readonly string[] }[] {
+  const next: { week: number; personIds: readonly string[] }[] = []
+  let placed = false
+  for (const bucket of due) {
+    if (!placed && bucket.week === week) {
+      const at = bucket.personIds.findIndex((id) => !comesAfter(id))
+      next.push({
+        week,
+        personIds: at === -1
+          ? [...bucket.personIds, personId]
+          : [...bucket.personIds.slice(0, at), personId, ...bucket.personIds.slice(at)],
+      })
+      placed = true
+      continue
+    }
+    if (!placed && bucket.week > week) {
+      next.push({ week, personIds: [personId] })
+      placed = true
+    }
+    next.push(bucket)
+  }
+  if (!placed) next.push({ week, personIds: [personId] })
+  return next
+}
+
+/**
  * The ONE canonical derivation of the `due` visit list from `rows` and the STORED
  * ages. Every writer in the codebase builds `due` through this, and the V33 validator
  * recomputes it through the same function and refuses a mismatch — so the cache can
@@ -127,25 +168,47 @@ export function buildTalentProvenance(
  */
 export function materializeAges(state: GameState, week: number): GameState {
   const root = state.talentProvenance
-  const due = new Set<string>()
+  // NOTHING DUE, NOTHING CHANGES. This is a correctness statement before it is
+  // anything else: no age moves, and `due` is derived from `rows` and the stored ages,
+  // neither of which moved either. Contract §4's visit list is an in-state bucket, not
+  // a scan, and the endurance horizon is why — a weekly whole-population reschedule
+  // would make `nextBirthdayWeek` run for every person on every tick forever.
+  if (!root.due.some((bucket) => bucket.week <= week)) return state
+
+  // The birthday path. `rank` is the one index this needs: `due` names people, the
+  // materialization needs their rows, and the insertion below needs their `rows`
+  // position to reproduce `recomputeDue`'s order.
+  const rank = new Map(root.rows.map((row, index) => [row.personId, index]))
+  const arrived = new Set<string>()
+  const remaining: { week: number; personIds: readonly string[] }[] = []
   for (const bucket of root.due) {
-    if (bucket.week > week) continue
-    for (const personId of bucket.personIds) due.add(personId)
+    if (bucket.week > week) { remaining.push(bucket); continue }
+    for (const personId of bucket.personIds) arrived.add(personId)
   }
-  const rowById = new Map(root.rows.map((row) => [row.personId, row]))
-  const talent = due.size === 0 ? state.talent : state.talent.map((person) => {
-    if (!due.has(person.id)) return person
-    const row = rowById.get(person.id)
+
+  // One pass over `talent` — inherent, since a new array is returned either way —
+  // writes the new ages and collects exactly who must be rescheduled. A person named
+  // by `due` who has no row, or who is not in `talent` at all, is NOT re-inserted:
+  // `recomputeDue` would not have listed them either, so the two agree on that too.
+  const rescheduled: { personId: string; week: number }[] = []
+  const talent = state.talent.map((person) => {
+    if (!arrived.has(person.id)) return person
+    const index = rank.get(person.id)
+    const row = index === undefined ? undefined : root.rows[index]
     if (row === undefined) return person
     const age = ageAt(row, week)
+    rescheduled.push({ personId: person.id, week: nextBirthdayWeek(row, age) })
     return age === person.age ? person : { ...person, age }
   })
-  const storedAge = new Map(talent.map((person) => [person.id, person.age]))
-  return {
-    ...state,
-    talent,
-    talentProvenance: { ...root, due: recomputeDue(root.rows, (id) => storedAge.get(id)) },
+
+  // Only the people who materialized move. Every other bucket entry is carried by
+  // reference, untouched.
+  let due: readonly { week: number; personIds: readonly string[] }[] = remaining
+  for (const entry of rescheduled) {
+    const mine = rank.get(entry.personId) ?? root.rows.length
+    due = insertDue(due, entry.week, entry.personId, (id) => (rank.get(id) ?? root.rows.length) < mine)
   }
+  return { ...state, talent, talentProvenance: { ...root, due } }
 }
 
 /**
@@ -189,22 +252,9 @@ export function withTalentProvenance(
   const row = provenanceRowFor(person.id, person.age, week, 'authored_exact_week')
   // The visit list is keyed on the STORED age, which is the anchor's floor.
   const dueWeek = nextBirthdayWeek(row, Math.floor(person.age))
-  // Inserted exactly where `recomputeDue` would put it: the new row is last in `rows`,
-  // so it is last inside its bucket, and a new bucket lands in ascending position.
-  const due: { week: number; personIds: readonly string[] }[] = []
-  let placed = false
-  for (const bucket of root.due) {
-    if (!placed && bucket.week === dueWeek) {
-      due.push({ week: bucket.week, personIds: [...bucket.personIds, person.id] })
-      placed = true
-      continue
-    }
-    if (!placed && bucket.week > dueWeek) {
-      due.push({ week: dueWeek, personIds: [person.id] })
-      placed = true
-    }
-    due.push(bucket)
-  }
-  if (!placed) due.push({ week: dueWeek, personIds: [person.id] })
+  // Through the SAME insertion every other writer uses. The appended row is last in
+  // `rows`, so this person comes after every existing member unconditionally — which
+  // is why `comesAfter` is `true` here rather than a rank comparison.
+  const due = insertDue(root.due, dueWeek, person.id, () => true)
   return { ...state, talentProvenance: { ...root, rows: [...root.rows, row], due } }
 }
