@@ -211,3 +211,58 @@ meeting `talentProvenance` refuses it as an unknown key. C.1 is a save step beca
 one, and 759-C amendment 14's finding that the frozen V14 key lists need no change is the same fact
 read from the other side — they need no change precisely BECAUSE the strip keeps the new root away
 from them.
+
+---
+
+## 12. Four items resolved after the RED (at `b4ea6cd7`, RED verified by the parent)
+
+The RED author raised three gaps in this contract and could not resolve them, correctly. A fourth is
+the parent's, found while checking a blast radius neither the contract nor the RED covered.
+
+**F1 — `provenanceRowFor` arity. The SCAFFOLD is authoritative; §3 was wrong.** The real signature is
+four arguments, `(personId, age, week, kind)`. The caller must supply the kind because it knows it and
+the function cannot infer it: `convertV32ToV33` writes `legacy_age_anchor`, every append site writes
+`authored_exact_week`. §3's three-argument declaration is struck.
+
+**F2 — the dispatcher takes the BROAD reading, and the RED's "bonus" test is REQUIRED.** §6 listed the
+V33 functions without saying whether the generic entry points move. Record 763 R2 and R3 already
+decided it and this makes it explicit: `validateSave`'s dispatch gains a `=== 33` arm, its message
+reads "versions 1 through 33", the `SaveFile` union gains `SaveFileV33`, and `loadSave` / `exportSave`
+/ `importSave` therefore accept a V33 envelope. A narrow reading would leave the live writer stamping
+a version the generic loader refuses, which is not a defensible shape.
+
+**F3 — root initialization for a NEW campaign: `generateWorld` owns it.** §4 named five APPEND sites,
+each of which presumes a root to append into, and named no creator. `generateWorld` builds
+`talentProvenance` with `boundaryWeek: 0` and one `authored_exact_week` row per generated person, at
+`worldgen.ts:544` where the population is committed. A fresh campaign has no migration, and every
+person's exact entry week genuinely is 0.
+
+**Its consequence, stated rather than discovered later: a new V33 campaign stores INTEGER ages.**
+Validator condition 2 forces `talent[i].age === ageAt(row, market.tick)`, so `43.40522…` is stored as
+`43` from genesis. New-campaign economics shift very slightly, because `ageFactor(43)` and
+`ageFactor(43.405)` differ. That is Trap 1 and Trap 2 arriving together at world generation, and it is
+intended. **A fresh V33 campaign is therefore NOT downgradable**, since its rows are
+`authored_exact_week` and the predicate in §6 admits only `legacy_age_anchor`. Correct: a V33-native
+campaign has no V32 ancestor bytes to recover, so there is nothing to be lossless about.
+
+**F4 — the historical control and the roster-wall observatory, the parent's finding.**
+`src/harness/roster-wall/historical-control.ts` is the accepted M0A-era acceptance path.
+`historicalHashState` strips each newer root and REFUSES to strip one carrying authority, and
+`frozen.talent` is mapped with only the `research` keys removed, so **`age` is inside the hash**.
+
+Two things follow, and the writer owns both.
+
+1. `liftV18Control` must build a `talentProvenance` root, because `GameState` now requires one. It
+   builds anchors from the control's EXISTING ages at `boundaryWeek = state.market.tick` and **does
+   NOT floor them.** A historical control is a frozen artifact whose ages are pre-C.1 facts, it is
+   never ticked and never saved at V33 (it uses `makeSaveV18`), so nothing materializes over it and
+   C.1 has no authority to move an accepted historical artifact.
+2. `historicalHashState` strips `talentProvenance` after verifying it equals the canonical rebuild
+   from the control's own people, on the `technology` / `physicalPlans` / `talentMarket` precedent
+   rather than the empty-root precedent — this root is legitimately non-empty.
+
+**The falsifier, and the instruction that goes with it.** MEASURED: no test file imports
+`historicalHashState` or `liftV18Control`; the observatory is a CLI (`run-roster-wall-observatory.ts`),
+so the full-core run does not exercise it and this is a compile-and-honesty obligation rather than a
+suite failure. **If any historical hash does move, the writer REPORTS it and stops. It is never
+re-pinned to recover the old number.**
