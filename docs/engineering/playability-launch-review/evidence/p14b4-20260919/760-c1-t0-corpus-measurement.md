@@ -71,3 +71,28 @@ A scientist world is minted as part of 4 or separately, per the minter's own ass
 These are measurements at `f2c28f40` on one seed. Byte counts and counts of people are properties of
 this seed and are not laws. No baseline was touched: no `record-check.mjs`, full-core or `test:ui`
 run occurred in the probe's window.
+
+---
+
+## CORRECTION (2026-09-24, at `ed4b6ffe`) — the 28 floor is narrower than this record said
+
+This record wrote: "`enterRival` raises **any** rival hire drawn below 28 to exactly 28". Read at
+`src/core/hollywood.ts:214-223`, that is too broad on two counts.
+
+**It applies only on the AUTHORED-TEMPLATE path.** The raise at `:221` sits inside
+`if (authored) { … }`, where `authored` is `enterRival`'s own parameter for a scripted rival studio
+template. A rival entering without a template keeps its drawn fractional age.
+
+**It applies only to a NEWLY GENERATED person.** The whole block is inside `if (!person)`, reached
+only when `talent.find(t => t.role === role && !reserved.has(t.id))` finds no reusable free agent. A
+rival hire that reuses an existing person appends nothing and needs no provenance row, which matters
+to C.1: the append at `:223` is the boundary, and it does not fire on every rival hire.
+
+**The measured consequence is unchanged and still correct.** The fresh-hollywood world holds 4
+integer ages with ZERO `Talent.authored` people, so integer stored ages do arrive without any
+player-authored person and the FLOOR decision meets them on the cheapest fixture in the corpus.
+
+**And the hazard record 762 §2 warned about has already bitten, here, in this record.** `enterRival`'s
+`authored` parameter means "built from a scripted rival template". `Talent.authored` means
+"player-created". They are different facts, both spelled `authored`, in the same function, and the
+sentence this correction fixes conflated them.

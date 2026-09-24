@@ -139,3 +139,23 @@ extension, no profession transition, no alumni, no cohort scheduler, no age-driv
 **Disclosed:** C.1 ships aging without retirement, so the endurance horizon produces working
 150-year-olds. Both consumers floor (`ageFactor` at 0.85 from 56, `ageRunwayMult` at 0.35 from 60),
 so nothing breaks numerically. §6.2 owns the fix; C.1 owns the disclosure.
+
+---
+
+## 9. Two contract assumptions verified against source, and one narrowed
+
+**`due` must be an array: CONFIRMED.** `src/core/save.ts:589` is `Object.keys(obj).sort()`, a
+lexicographic sort in the serializer itself, so an object keyed by week really would order `"100"`
+before `"11"`.
+
+**The `enterRival` append site is narrower than record 760 described, and the writer needs the
+narrower reading.** `src/core/hollywood.ts:223` (`talent.push(person)`) sits inside `if (!person)`,
+reached only when no reusable free agent exists, and the `Math.max(28, …)` raise at `:221` sits
+inside a further `if (authored)`, where that flag means "built from a scripted rival template" and is
+NOT `Talent.authored`. Consequences for §4:
+
+- A rival hire that REUSES an existing person appends nothing and must write NO provenance row.
+  Writing one per hire would violate condition 1 on the second hire of the same person.
+- Provenance must capture the age as it is AT THE APPEND, after any raise, not as drawn.
+- `enterRival` pushes into a LOCAL `talent` array copy and commits it later. The provenance write
+  must follow the same commit, not a separate path that can diverge from it.
