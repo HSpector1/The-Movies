@@ -82,3 +82,39 @@ sits between here and there.
    a live wrong answer inside the inherited failure set rather than a deferral.
 3. P14C, expansion written and audited before it begins, on the same rhythm B.7 and B.8 used.
 4. P15 only after its actual defining document is found and read.
+
+---
+
+## CORRECTION — the evaluator-5 item is a DESIGNATED failure, not a live wrong answer
+
+This record ranked `p14b4-cast-class-capacity-evaluator5` as the next concrete obligation, on the
+reasoning that "a test asserting IMPOSSIBLE against an evaluator that returns FRAGILE is either a
+defect in the evaluator or a wrong expectation, and the programme has never established which."
+
+That is wrong, and the file itself says so. Its header (`tests/p14b4-cast-class-capacity-evaluator5.test.ts:1-21`)
+records the disposition explicitly:
+
+> DISPOSITION: a LIVE `it(...)`, executable, and a DESIGNATED failure until evaluator 5 lands. …
+> A writer never rewrites it; test-author reconciles it from evidence when evaluator 5 is designed.
+
+The programme HAS established which side is which. Evaluator 4 is the class-aware scalar and
+correctly returns FRAGILE, because `activePromiseReservations` filters by beneficiary so the
+antagonist's bound lead-class claim is invisible to the SUPPORT target's read. The IMPOSSIBLE
+expectation is the bounded JOINT CERTIFICATE, which only evaluator 5 can issue. The failure is the
+marker of an undesigned evaluator, not a defect in a designed one.
+
+So it is a deferral with an explicit gate, and the gate is "when evaluator 5 is designed". Designing
+evaluator 5 is a substantial new design effort, and the standing constraint excludes an evaluator-5
+campaign without a concrete need. A documented designated failure is not that need.
+
+**Revised order.** Strike step 2. The carried items above are each marked "not blocking" or carry
+their own gate, and none is dependency-ready in the sense the Owner's packet uses. The next
+unfinished, dependency-ready SLICE is **P14C**, and the packet names it. FU-1 blocks UI-affecting
+acceptance claims only, and P14C's engine work is not one.
+
+1. ~~Publish B.8's verification and close P14B.~~ DONE (`8388d726`).
+2. ~~The carried P14 obligations, starting with evaluator 5.~~ **STRUCK, see above.**
+3. **P14C**, expansion written and audited before it begins, on the B.7/B.8 rhythm.
+4. P15 only after its actual defining document is found and read.
+
+Recorded as a correction rather than edited away, because the mischaracterisation was published.
