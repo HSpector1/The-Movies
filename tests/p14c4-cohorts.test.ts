@@ -19,13 +19,21 @@
 //    guaranteed 32-entrant clip (782 §7.1, pinned again by B5) instead of hoping.
 //  - 782/793 §9 (addendum, after demonstration 799 failed 2/3 seeds): `young_p` is now
 //    a LOOK-AHEAD (`ageAt(row, w+52) < 30`, not `ageAt(row, w) < 30`), and the entrant
-//    age validator bound narrows to [20, 29]. NOT YET landed at 476046da — B6, C3 and
-//    E1 target the amended rule and are EXPECTED to disagree with 476046da where noted
-//    (795 §8 lists exactly which).
+//    age validator bound narrows to [20, 29]. Landed at `ccb8ab17` (795 §8 has the
+//    pre-landing repair history; the §9 discriminator case below now PASSES).
+//
+// COVERAGE ADDITIONS (record 801, against `ccb8ab17`+, source review 798's gaps):
+//  - G1: the ORIGINAL B6 ("an empty request still appends a receipt") lost its case
+//    when the repair turned B6 into the §9 discriminator above — restored under its own
+//    "B6:" title, on a world/week REQUIRED by 782 §7.1/§9 to be all-zero (not merely
+//    observed to be).
+//  - G2: 782 §8.5 (a solvent rival may hire a cohort entrant on a later tick) — see the
+//    `it.todo` in the C-series, with the measured reason it could not be built lawfully.
 import { describe, expect, it } from 'vitest'
 import { applyActions, hiringMarketIds, tick } from '../src/core/index.js'
 import { advanceCareerLifecycleWeek, cohortEntrantAge, cohortRequest, isCohortWeek } from '../src/core/careerLifecycle.js'
 import { generateIndustryTalent } from '../src/core/worldgen.js'
+import { ageAt } from '../src/core/aging.js'
 import { TUNING } from '../src/core/tuning.js'
 import type { FilmCreativeRole, GameState } from '../src/core/types.js'
 import {
@@ -160,7 +168,7 @@ describe('P14C.4 B1-B6: the request formula (782 §7.1 REPLACED by §7 item 1)',
     expect(receipt!.personIds).toHaveLength(32)
   })
 
-  it('B6 (782/793 §9 discriminator): a profession whose youngest active person is under 30 today but turns 30 by the NEXT request week must get a floor entrant under §9 — even though it would NOT under the OLD (at-w) §7.1 rule (corpus cohort-week, week 156: writer). EXPECTED TO FAIL against 476046da (§9 not yet implemented there — 795 §8).', () => {
+  it('§9 discriminator (formerly labeled B6 during the pre-§9 repair — 795 §8; 782/793 §9 is now landed at ccb8ab17): a profession whose youngest active person is under 30 today but turns 30 by the NEXT request week must get a floor entrant under §9 — even though it would NOT under the OLD (at-w) §7.1 rule (corpus cohort-week, week 156: writer).', () => {
     const state = advanceTo(c4LiveFixture('genuine-v34-c4-cohort-week'), 156)
     const facts = c4ContinuationFacts('genuine-v34-c4-cohort-week').w1
     expect(facts.week).toBe(156)
@@ -176,11 +184,42 @@ describe('P14C.4 B1-B6: the request formula (782 §7.1 REPLACED by §7 item 1)',
     const oracle = expectedCohortRequestS9(facts.activeByProfession, lookahead)
     expect(oracle.requested, '782/793 §9: writer gets exactly one floor entrant; every other profession still requests 0').toEqual({ actor: 0, director: 0, writer: 1, craft: 0 })
     expect(oracle.clipped).toBe(0)
-    // THE DISCRIMINATING ASSERTION: 476046da still computes young at week 156 itself
-    // (someone IS 29 there, < 30), so its real receipt requests 0 for writer — this
-    // line fails against it and must pass once the writer lands §9.
-    expect(receipt!.requested, '782/793 §9 (not yet implemented at 476046da)').toEqual(oracle.requested)
+    expect(receipt!.requested, '782/793 §9 is now landed at ccb8ab17').toEqual(oracle.requested)
     expect(receipt!.personIds).toHaveLength(1)
+  })
+
+  it('B6: an empty request still appends a receipt, on a world REQUIRED by 782 §7.1/§9 to have one — every profession already at or above its accepted population, with a look-ahead-young person in each (801 G1; a fresh genesis seed at its own first cohort week, week 52 — genesis composition is exactly the accepted sizes, 782 §8 item 4)', () => {
+    let state = p13aGeneratedStudio('p14c4-g1-a')
+    // PRECONDITION, proven from the state BEFORE the cohort week (week 51 — one tick
+    // short of week 52), independent of whatever the real engine computes AT week 52:
+    state = advanceTo(state, 51)
+    const before = expectedActiveAndYoung(state, 51) // reads active_p at week 51 directly
+    for (const role of FILM_ROLE_ORDER) {
+      expect(before[role]!.activeCount, `${role}: must already be at or above its accepted population before the cohort week`).toBeGreaterThanOrEqual(TUNING.COHORT_ACCEPTED_POPULATION[role])
+    }
+    // the look-ahead flag itself needs a (week, week+52) pair; the cohort week is 52,
+    // so the look-ahead target is 104 — computed here directly from week-51 provenance,
+    // still strictly BEFORE the cohort week, over the SAME active people just proven above.
+    const retiredBy51 = new Set(
+      state.careerLifecycle.records.filter((r) => r.status === 'retired' && r.retiredWeek !== null && r.retiredWeek! <= 51).map((r) => r.personId),
+    )
+    for (const role of FILM_ROLE_ORDER) {
+      const activeIds = new Set(before[role]!.activeIds)
+      const stillYoungAt104 = state.talent.some((t) => {
+        if (t.role !== role || !activeIds.has(t.id) || retiredBy51.has(t.id)) return false
+        const row = state.talentProvenance.rows.find((r) => r.personId === t.id)!
+        return ageAt(row, 104) < TUNING.COHORT_YOUTH_BELOW_AGE
+      })
+      expect(stillYoungAt104, `${role}: must have a look-ahead-young active person BEFORE the cohort week`).toBe(true)
+    }
+    // Precondition proven on a state strictly before week 52. Now the real engine runs
+    // week 52's own cohort step; assert it appends exactly one, all-zero receipt.
+    state = tick(state) // -> week 52
+    expect(state.market.tick).toBe(52)
+    expect(state.careerLifecycle.cohorts, 'a receipt must exist even when every count is 0').toHaveLength(1)
+    expect(state.careerLifecycle.cohorts[0]).toMatchObject({
+      week: 52, requested: { actor: 0, director: 0, writer: 0, craft: 0 }, clipped: 0, personIds: [],
+    })
   })
 })
 
@@ -216,7 +255,7 @@ describe('P14C.4 C1-C6: entrant identity, provenance, market membership', () => 
     }
   })
 
-  it('C3: each entrant carries an authored_exact_week provenance row at w whose anchor age is cohortEntrantAge(seed, id); stored Talent.age === floor(that); age in [20, 29] per 782/793 §9 (narrowed from [20,32]). EXPECTED TO FAIL against 476046da for any entrant above 29 (§9 not yet implemented there — 795 §8).', () => {
+  it('C3: each entrant carries an authored_exact_week provenance row at w whose anchor age is cohortEntrantAge(seed, id); stored Talent.age === floor(that); age in [20, 29] per 782/793 §9 (narrowed from [20,32], landed at ccb8ab17).', () => {
     const { state, receipt } = deepDeficitReceipt()
     for (const id of receipt.personIds) {
       const row = state.talentProvenance.rows.find((r) => r.personId === id)
@@ -241,6 +280,31 @@ describe('P14C.4 C1-C6: entrant identity, provenance, market membership', () => 
     const signed = applyActions(funded, [{ kind: 'signContract', talentId: entrantId, termWeeks: 52 }])
     expect(signed.contracts.some((c) => c.talentId === entrantId), 'signContract must succeed the same week the entrant appears').toBe(true)
   })
+
+  // G2 (801, 782 §8.5): "a solvent rival's staff() may hire a cohort entrant on a
+  // later tick... a test pins that the entrant is hireable, not that it stays free."
+  // MEASURED, not forced: a throwaway diagnostic (run and deleted, never committed)
+  // ticked two independent fresh genesis seeds that each produced a real week-52
+  // entrant (a director and a writer) forward to week 260 — the world's own solvent
+  // window (record 792: rivals go insolvent from ~week 260 onward in a passive world;
+  // here rival cash stayed positive and rising throughout, confirming the window was
+  // genuinely open). Zero rival hires of either entrant were observed at any of the
+  // four checkpoints (104/156/208/260). Read directly (not a diff): `staff()`
+  // (`hollywoodTick.ts`) fills a vacancy via `next.find(t => t.role === role &&
+  // !unavailable.has(t.id) && !capped(t.id))` — a scan over ALL of `state.talent` in
+  // ARRAY ORDER, and a cohort entrant is always APPENDED LAST. For the entrant to be
+  // the one `find()` reaches, every earlier same-role person in `state.talent`
+  // (dozens, at genesis scale) must already be unavailable/capped at that exact tick —
+  // a state only reachable by removing or entangling many genuine people, which would
+  // cross into forcing an unlawful/hand-built state (the task's own "do not force it").
+  // 778's own precedent for an analogous "reach the fallback candidate" case (B4b)
+  // needed to remove exactly ONE specific person; reaching this one would need
+  // removing an entire role's genesis population, a different and much larger claim.
+  // Left as `it.todo`; a future task with a wider budget could search a longer horizon
+  // or a role with a naturally thin genesis pool for a genuine natural occurrence.
+  it.todo(
+    'C_G2: a solvent rival\'s staff() may hire a cohort entrant on a later tick (782 §8.5) — MEASURED not naturally reachable within a solvent window without forcing an unlawful state (see comment above); the entrant\'s own hireability (freeAgents/hiringMarketIds membership) is already pinned by C4',
+  )
 
   it('C5: generateIndustryTalent(seed, id, role) with NO age is byte-identical to a golden captured NOW at this scaffold (bd27de93) — a compatibility pin, not a RED failure (782-A amendment 1\'s byte-identity promise for every existing caller)', () => {
     // JUSTIFIED PASS (778 precedent, P1): this calls no unimplemented export — the

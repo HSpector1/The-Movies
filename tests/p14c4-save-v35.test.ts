@@ -17,9 +17,17 @@
 //    was only ever a lawful SUBSTITUTE for a state the (then-unwired) engine could not
 //    yet produce — now that it can, the genuine state is used directly.
 //  - 782/793 §9 (addendum, after demonstration 799 failed 2/3 seeds): the entrant-age
-//    validator bound narrows to [20, 29] (was [20, 32]). NOT YET landed at 476046da —
-//    the "age out of bounds" tamper below now targets age 30 (inside the OLD bound,
-//    outside the NEW one) and is EXPECTED TO FAIL against 476046da (795 §8).
+//    validator bound narrows to [20, 29] (was [20, 32]). Landed at `ccb8ab17` (795 §8
+//    has the pre-landing history; the age-tamper case below now PASSES).
+//
+// COVERAGE ADDITIONS (record 801, against `ccb8ab17`+, source review 798's gaps):
+//  - G3: four new D4 tamperings (extra root key, missing cohorts key, extra receipt
+//    key, receipt dated after market.tick).
+//  - G4: the two provenance tamperings (missing row / wrong week) now discriminate
+//    from each other — see the comment directly above them for why (the SUT's own
+//    thrown text is byte-identical in prose for both; discrimination is by entrant id).
+//  - G5: D3's refusal now asserts the message names the FIRST receipt's week, not
+//    merely that it says "downgrade".
 import { describe, expect, it } from 'vitest'
 import {
   LIVE_SAVE_VERSION, convertV34ToV35, convertV35ToV34, makeSave, migrateToV35, validateSaveV35,
@@ -70,7 +78,23 @@ describe('P14C.4 D3: V35 -> V34 downgrade', () => {
     // construction needed (unlike the scaffold-era version of this case).
     const state = advanceTo(c4LiveFixture('genuine-v34-c4-cohort-week'), 156) // B6's own world/week: a real (near-empty) receipt
     expect(state.careerLifecycle.cohorts.length).toBeGreaterThan(0)
-    expect(() => convertV35ToV34(liveEnvelope(state))).toThrow(/downgrade/i)
+    const firstWeek = state.careerLifecycle.cohorts[0]!.week
+    expect(firstWeek).toBe(156)
+    // G5 (801, 793 §5): "naming the first receipt's week" is its own, separate claim
+    // from merely refusing — a bare /downgrade/i would also match a refusal that named
+    // the WRONG week (or none at all). Anchor the regex on the specific week this
+    // world's own receipt actually carries, checked against the real thrown text.
+    expect(() => convertV35ToV34(liveEnvelope(state))).toThrow(new RegExp(`downgrade.*week ${firstWeek}`, 'is'))
+  })
+
+  it('with two receipts, the downgrade refusal names the FIRST one\'s week, not the second\'s', () => {
+    // A second, independent genuine receipt (week 208) from the SAME world, appended
+    // after the first (156) — proves "first" is not vacuously true with only one
+    // receipt ever tried.
+    const state = advanceTo(c4LiveFixture('genuine-v34-c4-cohort-week'), 208)
+    expect(state.careerLifecycle.cohorts.map((r) => r.week)).toEqual([156, 208])
+    expect(() => convertV35ToV34(liveEnvelope(state))).toThrow(/week 156/)
+    expect(() => convertV35ToV34(liveEnvelope(state))).not.toThrow(/week 208/)
   })
 })
 
@@ -117,25 +141,37 @@ describe('P14C.4 D4: the validator refuses each tampering, one per case, from a 
     expect(() => validateSaveV35(liveEnvelope(withReceipts(state, [tampered])))).toThrow(/which holds/i)
   })
 
+  // G4 (801, source review 798): both provenance tamperings previously matched only
+  // the generic `/provenance/i`. Read directly (not a diff): the real check
+  // (`save.ts` around `validateCohortReceipts`) is `if (row?.kind !== 'authored_exact_week'
+  // || row.entryWeek !== receipt.week) error(...)` — a SINGLE branch whose thrown text
+  // is BYTE-IDENTICAL for "no row at all" and "row present but wrong week" (both read
+  // "entrant {id} has no authored_exact_week provenance row at week {week}"; confirmed
+  // by running both and diffing the actual thrown strings). The two causes are
+  // therefore tampered on TWO DIFFERENT entrants here, and each regex anchors on its
+  // OWN entrant's id — which the OTHER case's thrown text does not contain — so each
+  // assertion discriminates its own case from the other (and would fail if applied to
+  // the other's construction), even though the SUT's prose itself does not distinguish
+  // "missing" from "wrong week" in words. Disclosed, not papered over.
   it('missing provenance row: one entrant loses its authored_exact_week row entirely', () => {
     const { state, receipt } = lawfulBaseline()
-    const droppedId = receipt.personIds[0]!
+    const droppedId = receipt.personIds[0]! // entrant 0 — reserved for "missing"
     const tamperedState: GameState = {
       ...state,
       talentProvenance: { ...state.talentProvenance, rows: state.talentProvenance.rows.filter((r) => r.personId !== droppedId) },
     }
-    expect(() => validateSaveV35(liveEnvelope(tamperedState))).toThrow(/provenance/i)
+    expect(() => validateSaveV35(liveEnvelope(tamperedState))).toThrow(new RegExp(`${droppedId} has no authored_exact_week`))
   })
 
   it('wrong provenance row: one entrant\'s row is anchored at the wrong week (w+1, not w)', () => {
     const { state, receipt } = lawfulBaseline()
-    const targetId = receipt.personIds[0]!
+    const targetId = receipt.personIds[1]! // entrant 1 — a DIFFERENT id from "missing", so the regexes discriminate
     const rows = state.talentProvenance.rows.map((r) => (r.personId === targetId && r.kind === 'authored_exact_week' ? { ...r, entryWeek: r.entryWeek + 1 } : r))
     const tamperedState: GameState = { ...state, talentProvenance: { ...state.talentProvenance, rows } }
-    expect(() => validateSaveV35(liveEnvelope(tamperedState))).toThrow(/provenance/i)
+    expect(() => validateSaveV35(liveEnvelope(tamperedState))).toThrow(new RegExp(`${targetId} has no authored_exact_week`))
   })
 
-  it('age out of bounds per 782/793 §9: one entrant\'s provenance age is pushed to 30 (inside the OLD [20,32] bound, outside the NEW [20,29] one). EXPECTED TO FAIL against 476046da (§9 not yet implemented there — 795 §8).', () => {
+  it('age out of bounds per 782/793 §9: one entrant\'s provenance age is pushed to 30 (inside the OLD [20,32] bound, outside the NEW [20,29] one, landed at ccb8ab17).', () => {
     const { state, receipt } = lawfulBaseline()
     const targetId = receipt.personIds[0]!
     const rows = state.talentProvenance.rows.map((r) => (r.personId === targetId && r.kind === 'authored_exact_week' ? { ...r, ageAtEntry: 30 } : r))
@@ -173,6 +209,41 @@ describe('P14C.4 D4: the validator refuses each tampering, one per case, from a 
     const { state, receipt } = lawfulBaseline()
     const tampered: CohortReceipt = { ...receipt, clipped: receipt.clipped + 5 }
     expect(() => validateSaveV35(liveEnvelope(withReceipts(state, [tampered])))).toThrow(/clipped/i)
+  })
+
+  // G3 (801, source review 798): four tamperings the writer's own source review found
+  // probed but not covered. These operate on the RAW JSON shape (`JSON.parse(JSON.
+  // stringify(...))`), since an extra/missing object key cannot be expressed on the
+  // strictly-typed `CohortReceipt`/`CareerLifecycleRootV35` types themselves —
+  // `validateSaveV35` itself takes `unknown`, exactly for this reason.
+  it('an extra root key on careerLifecycle', () => {
+    const { state, receipt } = lawfulBaseline()
+    const goodEnvelope = liveEnvelope(withReceipts(state, [receipt]))
+    const raw = JSON.parse(JSON.stringify(goodEnvelope)) as { state: { careerLifecycle: Record<string, unknown> } }
+    raw.state.careerLifecycle.bogusExtraKey = 'nope'
+    expect(() => validateSaveV35(raw)).toThrow(/must carry exactly boundaryWeek, cohorts and records/i)
+  })
+
+  it('a missing cohorts key', () => {
+    const { state, receipt } = lawfulBaseline()
+    const goodEnvelope = liveEnvelope(withReceipts(state, [receipt]))
+    const raw = JSON.parse(JSON.stringify(goodEnvelope)) as { state: { careerLifecycle: Record<string, unknown> } }
+    delete raw.state.careerLifecycle.cohorts
+    expect(() => validateSaveV35(raw)).toThrow(/must carry exactly boundaryWeek, cohorts and records/i)
+  })
+
+  it('an extra receipt key', () => {
+    const { state, receipt } = lawfulBaseline()
+    const goodEnvelope = liveEnvelope(withReceipts(state, [receipt]))
+    const raw = JSON.parse(JSON.stringify(goodEnvelope)) as { state: { careerLifecycle: { cohorts: Record<string, unknown>[] } } }
+    raw.state.careerLifecycle.cohorts[0]!.bogusExtra = 1
+    expect(() => validateSaveV35(raw)).toThrow(/must carry exactly clipped,personIds,requested,talentCountBefore,week/i)
+  })
+
+  it('a receipt dated after market.tick', () => {
+    const { state, receipt } = lawfulBaseline()
+    const tampered: CohortReceipt = { ...receipt, week: receipt.week + 52 } // still a valid cohort week (multiple of 52), just after the campaign week
+    expect(() => validateSaveV35(liveEnvelope(withReceipts(state, [tampered])))).toThrow(/after the campaign week/i)
   })
 })
 
