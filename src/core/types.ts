@@ -2282,10 +2282,11 @@ export type GameStateV31 = GameStateV30 & {
 }
 
 // P14B.5 added the `relationships` root at V31, P14B.7 the waived-promise link at
-// V32, P14C.1 the talent provenance root at V33. Since P14C.2a the live gameplay
-// boundary is V34 (the career lifecycle root); V33 remains the frozen prior save
-// shape, and its one lossless-while-no-record downgrade is the only way back.
-export type GameState = GameStateV34
+// V32, P14C.1 the talent provenance root at V33, P14C.2a the career lifecycle root at
+// V34. Since P14C.4 the live gameplay boundary is V35 (the cohort receipts inside that
+// root); V34 remains the frozen prior save shape, and its one lossless-while-no-receipt
+// downgrade is the only way back.
+export type GameState = GameStateV35
 
 // ── P14B.7 — the waived-promise link (Save V32) ─────────────────────────────
 
@@ -2341,8 +2342,8 @@ export type GameStateV33 = GameStateV32 & {
 
 // ── P14C.2a — the retirement lifecycle core (Save V34; records 773 and 777) ────
 //
-// The live shape since P14C.2a (`GameState = GameStateV34`). A record is the P14
-// lifecycle fact for ONE person; nothing about a retirement is ever deleted.
+// The live shape from P14C.2a until P14C.4 (V35 adds the cohort receipts). A record is
+// the P14 lifecycle fact for ONE person; nothing about a retirement is ever deleted.
 
 export type RetirementCause = 'hardBoundary' | 'idleInWindow'
 export type RetirementStatus = 'announced' | 'finishing_commitments' | 'retired'
@@ -2374,7 +2375,8 @@ export type CareerLifecycleRoot = {
 export type GameStateV34 = GameStateV33 & { careerLifecycle: CareerLifecycleRoot }
 
 // ── P14C.4 — deterministic replenishment (Save V35; records 782 §7-8 and 793) ──
-// SCAFFOLD: the types land first; `GameState` moves to V35 with the writer.
+// The live shape since P14C.4 (`GameState = GameStateV35`). `GameStateV34` keeps
+// `CareerLifecycleRoot`, so the frozen V34 chain never learns the new key.
 
 /** One annual cohort request and what it minted (companion §6.5 "one-to-one
  * receipts"). `personIds` are exactly `state.talent.slice(talentCountBefore, …)`. */

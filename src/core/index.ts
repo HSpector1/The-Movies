@@ -1328,7 +1328,8 @@ export {
   convertV33ToV34,
   convertV34ToV33,
   migrateToLive,
-  // P14C.4 SCAFFOLD (record 793): Save V35
+  // P14C.4 — live V34 → NEW V35 + migrateToV35 (the cohort receipts); migrateToLive
+  // lifts to V35 now (record 793 §5).
   validateSaveV35,
   convertV34ToV35,
   convertV35ToV34,
@@ -1615,7 +1616,7 @@ export {
   contractEndRefusal,
   assignmentRefusal,
   advanceCareerLifecycleWeek,
-  // P14C.4 SCAFFOLD (record 793 §4)
+  // P14C.4 deterministic replenishment (record 793 §4)
   isCohortWeek,
   cohortRequest,
   cohortEntrantAge,

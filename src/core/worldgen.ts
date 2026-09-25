@@ -446,7 +446,11 @@ function zeroWorkHistory(): WorkHistory {
 }
 
 // ── Talent generation (§9, B9, D-9.13, N3) ───────────────────────────────────
-function generateTalent(seed: string, blocks = ROLE_BLOCKS): Talent[] {
+// `age`, when given, is an EXACT entry age (P14C.4, record 793 §3). It REPLACES the drawn
+// `talent-age` value before the age-scaled ceilings and genre experience read it; the
+// stream is still drawn once per person in the same order, so every caller that passes
+// no age is byte-identical.
+function generateTalent(seed: string, blocks = ROLE_BLOCKS, age?: number): Talent[] {
   const persona = stream(seed, 'worldgen', 'talent-persona')
   const skillS = stream(seed, 'worldgen', 'talent-skill') // primary center μ_primary (unchanged distribution)
   const fameS = stream(seed, 'worldgen', 'talent-fame')
@@ -487,7 +491,8 @@ function generateTalent(seed: string, blocks = ROLE_BLOCKS): Talent[] {
         TUNING.GEN_SKILL_HI,
       )
       const fame = fameS.truncatedNormal(40, 22, 0, 95)
-      const age = ageS.truncatedNormal(38, 10, 20, 70)
+      const drawnAge = ageS.truncatedNormal(38, 10, 20, 70)
+      const personAge = age ?? drawnAge
 
       const primaryDiscipline = ROLE_TO_DISCIPLINE[block.role]
 
@@ -500,7 +505,7 @@ function generateTalent(seed: string, blocks = ROLE_BLOCKS): Talent[] {
       })
 
       // Step 6: ceilings (age-scaled headroom, ⊥ work ethic).
-      const ceilings = buildCeilings(skills, age, ceilingsS)
+      const ceilings = buildCeilings(skills, personAge, ceilingsS)
 
       // Step 7: work ethic (own stream, ⊥ skills/ceilings/fame).
       const workEthic = clamp(
@@ -513,7 +518,7 @@ function generateTalent(seed: string, blocks = ROLE_BLOCKS): Talent[] {
       const devRate = buildDevRates(devrateS)
 
       // Step 11: starting genre experience (primary pairs only, age-scaled).
-      const genreExperience = buildGenreExperience(primaryDiscipline, age, genreexpS)
+      const genreExperience = buildGenreExperience(primaryDiscipline, personAge, genreexpS)
 
       const first = FIRST_NAMES[Math.floor(nameS.next() * FIRST_NAMES.length)]!
       const last = LAST_NAMES[Math.floor(nameS.next() * LAST_NAMES.length)]!
@@ -524,7 +529,7 @@ function generateTalent(seed: string, blocks = ROLE_BLOCKS): Talent[] {
         id: `t-${block.prefix}-${pad2(idx)}`,
         name: `${first} ${last}`,
         role: block.role,
-        age,
+        age: personAge,
         actual,
         perceived,
         fame,
@@ -549,13 +554,17 @@ function generateTalent(seed: string, blocks = ROLE_BLOCKS): Talent[] {
   return talent
 }
 
-/** Bounded unique-person supply using the existing P10 worldgen laws and isolated seed. */
+/** Bounded unique-person supply using the existing P10 worldgen laws and isolated seed.
+ * `age` (P14C.4, record 793 §3) is the EXACT entrant age, fixed before the age-scaled
+ * draws; the caller floors the stored age and anchors provenance on the exact value. */
 export function generateIndustryTalent(seed: string, id: string, role: Talent['role'], name?: string, age?: number): Talent {
-  // P14C.4 SCAFFOLD (782-A amendment 1, record 793 §3): the entrant age lands with the writer.
-  if (age !== undefined) throw new Error('not implemented (P14C.4)')
-  if (role === 'scientist') return generateScientist(seed, id, name)
+  if (role === 'scientist') {
+    // Scientists keep their own path, and C.4 mints none (782 R4): refuse rather than drop the age.
+    if (age !== undefined) throw new Error(`generateIndustryTalent: no entrant age is defined for a Scientist (${id})`)
+    return generateScientist(seed, id, name)
+  }
   const block = ROLE_BLOCKS.find(row => row.role === role)!
-  const person = generateTalent(`${seed}:industry-person/v1:${id}`, [{...block,count:1}])[0]!
+  const person = generateTalent(`${seed}:industry-person/v1:${id}`, [{...block,count:1}], age)[0]!
   return {...person,id,name:name ?? person.name}
 }
 

@@ -48,6 +48,7 @@ export function liftV18Control(state:GameStateV18):GameState { const cloned=stru
   talentProvenance:buildTalentProvenance(people,state.market.tick,'legacy_age_anchor'),
   // P14C.2a (Save V34): a historical control has no industry, so the lifecycle never
   // engages and nobody announces — the empty root, exactly what the real lift writes.
+  // P14C.4 (Save V35): nor does any cohort enter — the live opener carries `cohorts: []`.
   careerLifecycle:initialCareerLifecycle(state.market.tick)} }
 export function historicalHashState<T extends object>(state:T):object {
   if(!('technology' in state) && !('hollywood' in state) && !('physicalPlans' in state) && !('talentMarket' in state)
@@ -95,6 +96,9 @@ export function historicalHashState<T extends object>(state:T):object {
     // root is lawful to discard only while it holds no record. Its boundary week is the
     // lift week and the hashed world may have ticked since, so only the records are asked.
     if ((state as Partial<GameState>).careerLifecycle?.records.length !== 0) throw new Error('Historical hash cannot discard career lifecycle authority')
+    // P14C.4 (794 §3): the whole root is dropped below, so its cohort receipts must be
+    // empty too, or the entrants they describe would stay in `talent` unexplained.
+    if (((state as Partial<GameState>).careerLifecycle?.cohorts?.length ?? 0) !== 0) throw new Error('Historical hash cannot discard cohort receipt authority')
   }
   const {hollywood: _control, technology: _research, physicalPlans: _plans, talentMarket: _market,
     firstTakes: _takes, promises: _promises, relationships: _relationships, talentProvenance: _provenance,
