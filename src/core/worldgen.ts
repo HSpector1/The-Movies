@@ -550,7 +550,9 @@ function generateTalent(seed: string, blocks = ROLE_BLOCKS): Talent[] {
 }
 
 /** Bounded unique-person supply using the existing P10 worldgen laws and isolated seed. */
-export function generateIndustryTalent(seed: string, id: string, role: Talent['role'], name?: string): Talent {
+export function generateIndustryTalent(seed: string, id: string, role: Talent['role'], name?: string, age?: number): Talent {
+  // P14C.4 SCAFFOLD (782-A amendment 1, record 793 §3): the entrant age lands with the writer.
+  if (age !== undefined) throw new Error('not implemented (P14C.4)')
   if (role === 'scientist') return generateScientist(seed, id, name)
   const block = ROLE_BLOCKS.find(row => row.role === role)!
   const person = generateTalent(`${seed}:industry-person/v1:${id}`, [{...block,count:1}])[0]!

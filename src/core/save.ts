@@ -93,6 +93,7 @@ import type {
   GameStateV32,
   GameStateV33,
   GameStateV34,
+  GameStateV35,
   RetirementRecord,
   TalentProvenanceRow,
   CancellationReceipt,
@@ -554,6 +555,14 @@ export type SaveFileV34 = {
 /** The envelope the live writer stamps. Every caller whose meaning is "lift to what
  * `makeSave` writes" names this and `migrateToLive`, so the next save step moves one
  * definition instead of every call site (record 776). */
+/** P14C.4 SCAFFOLD (record 793 §5): the V35 envelope. `LiveSaveFile` moves with the writer. */
+export type SaveFileV35 = {
+  saveVersion: 35;
+  seed: string;
+  state: GameStateV35;
+  broadcastCache: BroadcastItem[];
+};
+
 export type LiveSaveFile = SaveFileV34;
 
 // Any envelope (the return of the version-dispatching validateSave/loadSave).
@@ -9496,6 +9505,24 @@ export function migrateToV34(save: SaveFile | { saveVersion: number }): SaveFile
  * step, so the next save bump moves this one definition. */
 export function migrateToLive(save: SaveFile | { saveVersion: number }): LiveSaveFile {
   return migrateToV34(save);
+}
+
+// ── P14C.4 SCAFFOLD (record 793 §5): Save V35, every entry throws until the writer lands ──
+
+export function validateSaveV35(_save: unknown): SaveFileV35 {
+  throw new Error('not implemented (P14C.4)');
+}
+
+export function convertV34ToV35(_save: SaveFileV34): SaveFileV35 {
+  throw new Error('not implemented (P14C.4)');
+}
+
+export function convertV35ToV34(_save: SaveFileV35): SaveFileV34 {
+  throw new Error('not implemented (P14C.4)');
+}
+
+export function migrateToV35(_save: SaveFile | { saveVersion: number }): SaveFileV35 {
+  throw new Error('not implemented (P14C.4)');
 }
 
 export function convertV19ToV20(save: SaveFileV19): SaveFileV20 {

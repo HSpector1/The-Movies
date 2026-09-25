@@ -2373,6 +2373,24 @@ export type CareerLifecycleRoot = {
 
 export type GameStateV34 = GameStateV33 & { careerLifecycle: CareerLifecycleRoot }
 
+// ── P14C.4 — deterministic replenishment (Save V35; records 782 §7-8 and 793) ──
+// SCAFFOLD: the types land first; `GameState` moves to V35 with the writer.
+
+/** One annual cohort request and what it minted (companion §6.5 "one-to-one
+ * receipts"). `personIds` are exactly `state.talent.slice(talentCountBefore, …)`. */
+export type CohortReceipt = {
+  week: number
+  talentCountBefore: number
+  requested: Record<FilmCreativeRole, number>
+  clipped: number
+  personIds: readonly string[]
+}
+
+/** The V35 lifecycle root: the V34 root plus the append-only cohort receipts. */
+export type CareerLifecycleRootV35 = CareerLifecycleRoot & { cohorts: readonly CohortReceipt[] }
+
+export type GameStateV35 = Omit<GameStateV34, 'careerLifecycle'> & { careerLifecycle: CareerLifecycleRootV35 }
+
 // ── D-14 Talent Career Impact — frozen career-event record (§7) ───────────────
 // The ONE canonical persisted record of a participant's outcome on one released film.
 // Autopsy (film-centric) and Talent Profile (talent-centric) BOTH render from this —

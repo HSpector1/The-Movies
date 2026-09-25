@@ -1328,6 +1328,11 @@ export {
   convertV33ToV34,
   convertV34ToV33,
   migrateToLive,
+  // P14C.4 SCAFFOLD (record 793): Save V35
+  validateSaveV35,
+  convertV34ToV35,
+  convertV35ToV34,
+  migrateToV35,
   convertV27ToV28,
   convertV28ToV27,
   // P13B-S5-R07 — live V24 → NEW V25 + migrateToV25 (the widened production
@@ -1371,6 +1376,7 @@ export type {
   SaveFileV32,
   SaveFileV33,
   SaveFileV34,
+  SaveFileV35,
   LiveSaveFile,
   SaveFile,
   TalentV1,
@@ -1609,9 +1615,13 @@ export {
   contractEndRefusal,
   assignmentRefusal,
   advanceCareerLifecycleWeek,
+  // P14C.4 SCAFFOLD (record 793 §4)
+  isCohortWeek,
+  cohortRequest,
+  cohortEntrantAge,
 } from './careerLifecycle.js'
 export type { LifecycleStatus } from './careerLifecycle.js'
-export type { RetirementCause, RetirementStatus, RetirementRecord, CareerLifecycleRoot, GameStateV34 } from './types.js'
+export type { RetirementCause, RetirementStatus, RetirementRecord, CareerLifecycleRoot, GameStateV34, CohortReceipt, CareerLifecycleRootV35, GameStateV35 } from './types.js'
 export { campaignDate } from './calendar.js'
 export { SYNCHRONIZED_SOUND, researchWeekQuote, playerTechnologyAccess, technologyAccess, validateTechnologyV2, validateTechnologyV3, liftTechnologyV2, liftTechnologyV3 } from './technology.js'
 export { adoptionQuote, equipmentAssets } from './technologyAdoption.js'

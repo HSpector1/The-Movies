@@ -418,6 +418,15 @@ export const TUNING = {
   RETIREMENT_NOTICE_WEEKS: 52, // the announcement horizon
   RETIREMENT_RECENT_WORK_WEEKS: 104, // D3's recency horizon, and the record span it needs
 
+  // P14C.4 replenishment (companion §6.5; records 782 §7 and 793). PROVISIONAL TUNING:
+  // the companion leaves every count to tuning. The accepted population is the measured
+  // fresh-founding composition (record 792: genesis ROLE_BLOCKS + 4 founding rivals).
+  COHORT_ACCEPTED_POPULATION: { actor: 40, director: 14, writer: 16, craft: 14 } as Readonly<Record<'actor' | 'director' | 'writer' | 'craft', number>>,
+  COHORT_MAX_PER_REQUEST: 32, // companion §6.5 hard maximum; a clipped remainder is not carried
+  COHORT_ENTRANT_AGE: { mean: 24, sd: 3, lo: 20, hi: 32 }, // 782 R5, no era dependence selected
+  COHORT_YOUTH_BELOW_AGE: 30, // the youth floor (782 §7.1): the same 30 `isProven` reads
+  COHORT_REQUEST_WEEKS: 52, // one request per campaign year (782 R2)
+
   // Freelancers (D-11.10). fee = round(salaryCurve × premium); a one-time project cost.
   FREELANCER_FEE_PREMIUM: 1.5, // freelancer one-film fee vs base per-production salary
   HIRING_FREELANCER_MARKET_SIZE: 6, // rotating freelancer listing size

@@ -1,9 +1,11 @@
 # 793 — P14C.4 API contract (the RED and the sole writer both work from this; amended only by a later record)
 
-DRAFT until the 782 §7 audit returns. It pins names, shapes, placement and order so the RED fails on
+Final after review 782-A2 (REFINE, acted on in 782 §8). It pins names, shapes, placement and order so the RED fails on
 missing BEHAVIOUR, never on a missing export. Behaviour is 782 as amended by §6 and §7. The parent ships a
-SCAFFOLD after the T0 corpus (790/791) is published: every new export throws `not implemented (P14C.4)`,
-and the types and tuning land in it.
+SCAFFOLD after the T0 corpus (790/791, published at `95b981eb`): every new export throws
+`not implemented (P14C.4)`, `generateIndustryTalent` throws when handed an age, and the types and tuning
+land in it. The scaffold does NOT move `GameState`, `LiveSaveFile`, `LIVE_SAVE_VERSION` or `initialCareerLifecycle`;
+the writer does.
 
 ## 1. Tuning (`src/core/tuning.ts`, all PROVISIONAL TUNING)
 
@@ -25,12 +27,13 @@ export type CohortReceipt = {
   clipped: number                                // requested before the clip minus after, >= 0
   personIds: string[]                            // = state.talent.slice(talentCountBefore, +n).map(id)
 }
-export type CareerLifecycleRootV34 = { boundaryWeek: number; records: readonly RetirementRecord[] }
-export type CareerLifecycleRoot = CareerLifecycleRootV34 & { cohorts: readonly CohortReceipt[] }
-export type GameStateV35 = Omit<GameStateV34, 'careerLifecycle'> & { careerLifecycle: CareerLifecycleRoot }
-export type GameState = GameStateV35
+// CareerLifecycleRoot keeps its name and its V34 shape (no rename; fewer sites move)
+export type CareerLifecycleRootV35 = CareerLifecycleRoot & { cohorts: readonly CohortReceipt[] }
+export type GameStateV35 = Omit<GameStateV34, 'careerLifecycle'> & { careerLifecycle: CareerLifecycleRootV35 }
+export type GameState = GameStateV35   // the WRITER moves this
 ```
-`GameStateV34` keeps `CareerLifecycleRootV34`, so the frozen V34 chain never learns the new key.
+`GameStateV34` keeps `CareerLifecycleRoot`, so the frozen V34 chain never learns the new key.
+`initialCareerLifecycle` returns `CareerLifecycleRootV35` once the writer lands (§5).
 
 ## 3. The mint primitive (`src/core/worldgen.ts`, 782-A amendment 1)
 
@@ -87,3 +90,16 @@ agent is listed first by `hiringMarketIds`). Projection 50 is expected to stay u
 It must not assume completeness validation (782 §7.4 excludes it), a Scientist cohort, era-dependent ages
 (782 R5), or any change to C.2a's intent rule for entrants. An entrant cannot announce idle until its
 provenance anchor is 104 weeks old (773 D3a).
+
+## 8. Facts from T0 (790/791) and review 782-A2 that the RED and writer must hold
+
+- `state.talent` stayed append-only and order-preserving across every measured continuation
+  (`appendOnlyFromSave.prefixMatches` on all six worlds).
+- `hiringMarketIds` is NOT gated on `hollywood === null` (a null-hollywood world lists 8 rows). That is
+  pre-existing and is not C.4's to change; C.4 adds no cohort there, because the lifecycle step returns first.
+- A solvent rival's `staff()` scans `state.talent`, so it may hire an entrant on the next tick. That is
+  lawful; tests pin that the entrant is hireable, not that it stays free (782 §8.5).
+- `state.freeAgents` is never pruned: the deep-deficit world holds 40 retired ids among 43 free agents. C.4
+  pushes entrants onto it and invents no pruning.
+- Natural clip: `genuine-v34-c4-deep-deficit` (week 2600, 6 active) requests 78 before the clip at its first
+  cohort week, so the clip and its receipt are tested on a genuine world, not an authored one.

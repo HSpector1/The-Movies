@@ -11,7 +11,7 @@
 import { anchorOf } from './aging.js'
 import { activeContract, busyTalentIds } from './employment.js'
 import { TUNING } from './tuning.js'
-import type { CareerLifecycleRoot, CreativeRole, GameState, RetirementRecord } from './types.js'
+import type { CareerLifecycleRoot, CreativeRole, FilmCreativeRole, GameState, RetirementRecord } from './types.js'
 
 export type LifecycleStatus = 'active' | 'announced' | 'finishing_commitments' | 'retired'
 
@@ -207,4 +207,27 @@ export function advanceCareerLifecycleWeek(state: GameState, birthdays: readonly
 
   if (records === null && announced.length === 0) return state
   return { ...state, careerLifecycle: { ...root, records: [...(records ?? root.records), ...announced] } }
+}
+
+// ── P14C.4 SCAFFOLD (record 793 §4): every export throws until the writer lands ──
+
+const C4_SCAFFOLD = 'not implemented (P14C.4)'
+
+/** `week > 0 && week % COHORT_REQUEST_WEEKS === 0` (782 R2). */
+export function isCohortWeek(_week: number): boolean {
+  throw new Error(C4_SCAFFOLD)
+}
+
+/** The request 782 §7.1 derives from `state` as given (the post-settlement state). */
+export function cohortRequest(_state: GameState, _week: number): {
+  requested: Record<FilmCreativeRole, number>
+  clipped: number
+  talentCountBefore: number
+} {
+  throw new Error(C4_SCAFFOLD)
+}
+
+/** The exact entrant age on the entrant's own stream (793 §4). */
+export function cohortEntrantAge(_seed: string, _personId: string): number {
+  throw new Error(C4_SCAFFOLD)
 }
