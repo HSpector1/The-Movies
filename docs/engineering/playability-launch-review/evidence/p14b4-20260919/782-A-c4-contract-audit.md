@@ -2,7 +2,7 @@
 
 Reviewer: contract-auditor role contract through a general-purpose agent (roles not registered in this
 session), model Sonnet, Read-only as required (it reports Glob/Grep unavailable and used direct Reads; no
-Bash). Returned 2026-09-25 ≈21:45 CEST. It could not resolve `plans/P14-HEADLESS-PLAN.md` or 773/777 by path
+Bash). Returned 2026-09-25 before 20:10 CEST (commit `c851afa3`; an earlier draft of this line said ≈21:45, a guessed clock, corrected against the commit time). It could not resolve `plans/P14-HEADLESS-PLAN.md` or 773/777 by path
 and corroborated them through the committed source's citations — recorded as an evidence limit.
 
 VERDICT: REFINE.

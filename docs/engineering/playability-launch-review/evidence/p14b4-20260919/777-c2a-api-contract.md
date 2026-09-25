@@ -120,7 +120,7 @@ Consequence recorded for C.2-RM: `bridge/market.ts:121` lists free agents by `ma
 === 'free_agent'`, so an announced free agent (status `retirement_announced`) leaves that list at
 announcement, consistent with rule 1.
 
-## 8. Amendment A2 (parent, 2026-09-25 ≈19:05, after the writer's record 779)
+## 8. Amendment A2 (parent, 2026-09-25 before 19:16, after the writer's record 779)
 
 §4's phrase "IDLE is pinned exactly as the T0 predictions (775) computed it" was the PARENT'S OVERCLAIM,
 written without reading the minter. The minter's paper predictor

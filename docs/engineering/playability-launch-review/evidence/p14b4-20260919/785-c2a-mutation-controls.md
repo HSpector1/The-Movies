@@ -1,6 +1,6 @@
 # 785 — parent mutation controls for the C.2a tick wiring (targeted, disposable, not committed source)
 
-Run by the parent 2026-09-25 ≈21:00 CEST in a disposable detached worktree
+Run by the parent 2026-09-25 between 19:28 and 20:03 CEST (bounded by commits `93330fc0` and `a820f885`; an earlier draft said ≈21:00, a guessed clock) in a disposable detached worktree
 (`/Users/zacheryspector/The-Movies-c2a-wiring-control`, removed afterwards) holding the FULL implementation
 (`ad154f5b` src) plus the coverage-addition test files of record 784, with ONE edit to `src/core/tick.ts`'s
 final return. Command each time: `node_modules/.bin/vitest run tests/p14c2a-core-lifecycle.test.ts
@@ -14,7 +14,7 @@ Why: record 784's control ran the new tick-wiring case against the SCAFFOLD, whe
 | M1 wiring removed: `return advanceTalentMarketWeek(advancePromisesWeek(withBonds))` | 5 failed / 8 passed: A1, A2a, A2b, A5 and the tick-wiring case, each `AssertionError … expected undefined …` (no record) | GENUINE discrimination: with the helper now driving `tick()` alone, removing the wiring is caught |
 | M2 lifecycle AFTER market: `advanceCareerLifecycleWeek(advanceTalentMarketWeek(…), birthdays)` | the tick-wiring case fails, but by `Error: talentMarket: case for "authored-0000" names employment row "synthetic-tick-wiring-case", which does not exist` (`decisionWeekOf`, `talentMarket.ts:125`) | NOT the intended assertion: the case injected a market case naming a nonexistent employment row — an unlawful state that the correct order merely invalidates before anything dereferences it. Sent back for a lawful construction (real contract, real discovered case); the parent re-runs M2 on the rebuilt case |
 
-## Re-run on the rebuilt case (≈21:20 CEST), disposable worktree `…-c2a-wiring-control2` at `ad154f5b` src
+## Re-run on the rebuilt case (before 20:03 CEST, commit `a820f885`), disposable worktree `…-c2a-wiring-control2` at `ad154f5b` src
 
 `tests/p14c2a-core-lifecycle.test.ts` sha256 `5994ec18…` (record 784 §1: real genesis director, real
 208-week interval shortened to end at 52 — labeled SYNTHETIC, lawful shape — real natural case discovery at

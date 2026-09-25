@@ -3,7 +3,7 @@
 Candidate: implementation `ad154f5b` (RED `0ee95a08`, scaffold base `947d8b5c`); src diff sha256
 `68af54de…` (verified equal to the writer's reported identity). Reviewer: contract-auditor role contract run
 through a general-purpose agent (project roles not registered in this session), model Sonnet. Returned
-2026-09-25 ≈20:25 CEST.
+2026-09-25 before 19:28 CEST (commit `93330fc0`; an earlier draft said ≈20:25, a guessed clock).
 
 **Process deviation, disclosed by the reviewer:** its profile allows Read/Glob/Grep only; it used Bash for
 read-only `grep`/`git log`/`git diff --stat`/`git show --stat` to confirm file identity. Nothing was written
