@@ -103,3 +103,12 @@ provenance anchor is 104 weeks old (773 D3a).
   pushes entrants onto it and invents no pruning.
 - Natural clip: `genuine-v34-c4-deep-deficit` (week 2600, 6 active) requests 78 before the clip at its first
   cohort week, so the clip and its receipt are tested on a genuine world, not an authored one.
+
+## 9. Amendment for 782 §9 (after demonstration run 1 FAILED, record 799)
+
+- `deriveCohortRequest`: `young_p` is true iff some active prefix person of `p` has
+  `ageAt(row, week + TUNING.COHORT_REQUEST_WEEKS) < TUNING.COHORT_YOUTH_BELOW_AGE`. The live step and the
+  validator share it, as before.
+- `TUNING.COHORT_ENTRANT_AGE.hi`: 32 → **29**. `cohortEntrantAge` is unchanged otherwise. The validator's
+  entrant age bound becomes [20, 29].
+- Nothing else moves: names, receipt shape, order, idempotence and the save.

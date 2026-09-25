@@ -1,0 +1,21 @@
+import { join } from 'node:path'
+import { pathToFileURL } from 'node:url'
+const root = process.cwd()
+const load = (p: string) => import(pathToFileURL(join(root, p)).href)
+const { tick } = await load('src/core/index.ts')
+const { careerIdentity } = await load('src/core/talentSummary.ts')
+const { anchorOf } = await load('src/core/aging.ts')
+const { p13aGeneratedStudio } = await load('src/harness/p13a/fixtures.ts')
+const [seed, role, ...weeksArg] = process.argv.slice(2).filter((a) => a !== '--')
+const weeks = weeksArg.map(Number)
+let s: any = p13aGeneratedStudio(seed)
+const dump = (w: number) => {
+  const retired = new Set(s.careerLifecycle.records.filter((r: any) => r.status === 'retired').map((r: any) => r.personId))
+  const rec = new Map(s.careerLifecycle.records.map((r: any) => [r.personId, r]))
+  const rows = new Map(s.talentProvenance.rows.map((r: any) => [r.personId, r]))
+  const people = s.talent.filter((t: any) => t.role === role && !retired.has(t.id))
+  const young = people.map((t: any) => { const a = anchorOf(rows.get(t.id)); return { id: t.id, exact: +(a.age + (w - a.week) / 52).toFixed(3), stored: t.age, credits: careerIdentity(t).identityDisciplines.length, status: (rec.get(t.id) as any)?.status ?? 'active' } }).filter((p: any) => p.exact < 32)
+  const receipt = s.careerLifecycle.cohorts.find((r: any) => r.week === w)
+  console.log(JSON.stringify({ week: w, active: people.length, under32: young, receipt: receipt ? { requested: receipt.requested, personIds: receipt.personIds } : null }))
+}
+for (const w of weeks) { while (s.market.tick < w) s = tick(s); dump(w) }

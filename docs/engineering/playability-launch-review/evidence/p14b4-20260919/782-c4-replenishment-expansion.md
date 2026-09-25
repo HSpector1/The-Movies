@@ -145,3 +145,26 @@ is the demonstration. Every item is DELEGATED + PROVISIONAL TUNING unless marked
    hireable, not that it stays free. `state.freeAgents` is never pruned (retired ids since C.2a, unsigned
    entrants now); the demonstration REPORTS its length per sample, and no pruning is invented here. The
    cohort's entrants form one contiguous block in `state.talent` (the receipt's re-derivation depends on it).
+
+## 9. Amendment after demonstration run 1 FAILED (record 799), parent decision
+
+Run 1 failed 782 §7.5 on 2 of 3 seeds, always at a mid-year sample. 799 §2 traced every miss to one mechanism:
+`young_p` is tested at the request instant, so a person weeks from 30 suppresses the floor. Entrant ages up to
+32 contradict §2's "capable-but-unproven newcomers" under `isProven`'s age test. Class: DELEGATED +
+PROVISIONAL TUNING, the same authority as §7. Both changes express one principle: an entrant, and the presence
+the floor protects, must stay capable-but-unproven-eligible until the next request.
+
+1. **`young_p` looks ahead to the next request:** some active person of `p` has
+   `ageAt(row, w + COHORT_REQUEST_WEEKS) < COHORT_YOUTH_BELOW_AGE`, i.e. is still under 30 at the next request
+   week. The validator re-derives it from provenance exactly as before.
+2. **R5 upper bound 32 → 29:** entrant age TN(24, 3, 20, 29). Every entrant enters under 30 and stays under 30
+   until the next request. Mean and spread are unchanged.
+3. **The pass condition does NOT change.** 782 §7.5 stands word for word.
+4. **Fresh evidence, pre-registered now:** the corrected rule is judged on NEW seeds `p14c4-demo-04`, `-05`
+   and `-06` (primary). Seeds 01–03 are re-run and REPORTED only, because they informed the fix. Run 1's
+   failure stays on the record.
+5. **What the youth clause proves after this change, stated plainly:** in a world where nobody gains credits
+   (F-792-1), a youth presence through the year now follows from the rule BY CONSTRUCTION. The demonstration
+   therefore checks that the IMPLEMENTATION delivers it end to end: entrants really are unproven, really under
+   30, listed, counted in the population band. It does not show an emergent property. The live-economy case,
+   where entrants can gain credits and become proven early, remains undemonstrated (§7.6).
