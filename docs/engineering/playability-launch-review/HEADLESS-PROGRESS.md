@@ -1,12 +1,13 @@
 # HEADLESS-PROGRESS — logic-first window (Owner directive 2026-09-16, `OWNER-HEADLESS-PROGRAM-20260916-01`)
 
-## CURRENT RESUME — read this first (updated 2026-09-25 17:45 CEST; supersedes every "Current …" section below)
+## CURRENT RESUME — read this first (updated 2026-09-25 18:16 CEST; supersedes every "Current …" section below)
 
 - **Repository / branch / worktree:** HSpector1/The-Movies · `wip/headless-program-20260916-ts` · `/Users/zacheryspector/The-Movies-headless-program`.
 - **Owner packet in force:** `OPUS-C2-TO-CODEX-LAUNCH` (2026-09-25): Claude Opus coordinator, max TWO concurrent specialists, ONE production writer, ONE heavy test process, no orchestration fan-out; Codex handoff at the end via this file. Unity/native deferred.
 - **Last qualified checkpoint:** P14C.1 materialized aging, QUALIFIED LOGIC VERIFIED · UNITY NOT VERIFIED at `1d2359d7` (tested source `3aaf55e0`, run 772: 4139 cases, 4076 pass / 55 fail / 8 todo = 25 inherited + 30 deliberate). Save V33 · projection 50 · protocol 4 · promise rules 4.
 - **Current slice:** **P14C.2a retirement lifecycle core** — expansion `evidence/p14b4-20260919/773-c2-retirement-expansion.md` (decisions D1–D16, requirement→test map §6). Plan section: `plans/P14-HEADLESS-PLAN.md` → NEXT773.
-- **Step now:** C.2 T0 — probe the C.2 fixture axes, then mint genuine outgoing V33 worlds at the final V33 writer BEFORE any C.2 source change.
+- **Done this session:** 773 expansion + 773-A review (REFINE, amendments in 773 §9) · T0 corpus `tests/fixtures/p14/genuine-v33-c2-corpus/` (6 genuine V33 worlds with paper predictions; records 774/775) published at `2c346fbc` · 776 V34 sweep inventory · 777 API contract · throwing scaffold published at `9f523db8`.
+- **Step now (2026-09-25 18:16 CEST):** C.2a T1 independent RED (test-author → `tests/p14c2a-*`, record 778) and the sole production writer (sim-core → src/bridge/ui side of V34, record 779) running IN PARALLEL on disjoint paths. Next: test-side V34 sweep (test-author, per 776), focused runs, independent source review, one matched full pass with `evidence/p14b4-20260919/run-fixed-source-c2.mjs`, attribution, publication.
 - **Open Owner question (blocks only C.2c):** retirement × open promise, VOIDED vs WAIVED — 773 §7 has the options, recommendation A and the approval sentence.
 - **Carried qualifications:** FU-1 `ui` reliability unreturned; FU-2 prepared-reuse timeout 3/5; 6,240-week endurance never run; no runtime cost measured; 30 deliberate C.1 failures are coverage debt, not verified behaviour.
 
