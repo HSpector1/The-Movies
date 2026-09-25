@@ -778,6 +778,18 @@ C.2's first design question is the INHERITED AMBIGUITY carried from B.7 and B.8 
 requires propose-and-accept while `VOIDED` would follow automatically from a lifecycle event, and the
 companion still lists retirement under BOTH rows. §6.2 confirms or rejects that reading; until it does,
 the `VOIDED` branch of the outcome enum stays retirement-moot.
+NEXT773 (2026-09-25, Opus coordinator under `OPUS-C2-TO-CODEX-LAUNCH`): **C.2 SPLITS BY DEPENDENCY** —
+C.2a lifecycle core (announcement, notice, term cap, market exit, obligations first, finishing, alumni;
+Save V34, projection 50 unchanged) → C.2b the single one-year extension → C.2c retirement × promises
+(feasibility's retirement input, Owner direction 6, plus the held VOIDED/WAIVED disposition) → C.2-RM read
+models. Expansion, decisions D1–D16 with their class, eight traps and the requirement→test map:
+`../evidence/p14b4-20260919/773-c2-retirement-expansion.md`. THE AMBIGUITY IS NOT SETTLED BY AUTHORITY:
+direction 7 and R14 fit either reading, so ONE question went to the Owner (773 §7, recommendation A:
+VOIDED automatically at announcement only when the effective week makes the promise impossible). MEASURED
+BOUND ON ITS REACH: every promise due week lies inside its contract (`promises.ts:415`) and E is never
+before the end of the contract in force, so only the obligations-first greenlight refusal (`g + 9 > E`)
+can truncate a promise window; C.2a leaves `promises.ts` untouched. T0 NEXT: probe, then mint genuine
+outgoing V33 worlds before any C.2 source change.
 SWEEP GENERALISATION ADDED BY C.1, for the V33 -> V34 step: **a value-keyed inventory does not find an
 ENUMERATED ROOT-STRIP LIST**, because such a list must GROW by one line at every save bump and its
 failure mode is an OMISSION rather than a stale value. Three sites are known and two are test-owned:

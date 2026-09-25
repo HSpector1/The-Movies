@@ -1,5 +1,16 @@
 # CODEX continuation — Project Studio
 
+## CURRENT RESUME — read this first (updated 2026-09-25 17:45 CEST; supersedes every "Current …" section below)
+
+- **Repository / branch / worktree:** HSpector1/The-Movies · `wip/headless-program-20260916-ts` · `/Users/zacheryspector/The-Movies-headless-program`.
+- **Owner packet in force:** `OPUS-C2-TO-CODEX-LAUNCH` (2026-09-25): Claude Opus coordinator, max TWO concurrent specialists, ONE production writer, ONE heavy test process, no orchestration fan-out; Codex handoff at the end via this file. Unity/native deferred.
+- **Last qualified checkpoint:** P14C.1 materialized aging, QUALIFIED LOGIC VERIFIED · UNITY NOT VERIFIED at `1d2359d7` (tested source `3aaf55e0`, run 772: 4139 cases, 4076 pass / 55 fail / 8 todo = 25 inherited + 30 deliberate). Save V33 · projection 50 · protocol 4 · promise rules 4.
+- **Current slice:** **P14C.2a retirement lifecycle core** — expansion `evidence/p14b4-20260919/773-c2-retirement-expansion.md` (decisions D1–D16, requirement→test map §6). Plan section: `plans/P14-HEADLESS-PLAN.md` → NEXT773.
+- **Step now:** C.2 T0 — probe the C.2 fixture axes, then mint genuine outgoing V33 worlds at the final V33 writer BEFORE any C.2 source change.
+- **Open Owner question (blocks only C.2c):** retirement × open promise, VOIDED vs WAIVED — 773 §7 has the options, recommendation A and the approval sentence.
+- **Carried qualifications:** FU-1 `ui` reliability unreturned; FU-2 prepared-reuse timeout 3/5; 6,240-week endurance never run; no runtime cost measured; 30 deliberate C.1 failures are coverage debt, not verified behaviour.
+
+
 ## Current engineering checkpoint — 2026-09-20
 
 Current B4 checkpoint501 qualified (2026-09-20): original first-take + shared
