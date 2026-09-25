@@ -31,7 +31,14 @@ The youth clause fails in BOTH arms at the same weeks. Aging alone (C.1) removes
 ten years, because a passive world adds nobody young. Retirement then removes everyone else. By week 4,680 every
 seed's C.2a world has no working professional. This is the gap C.4 exists to close.
 
-## 2. Pre-existing finding F-792-1: the rival economy collapses in a passive-player world
+## 2. Pre-existing finding F-792-1: the rival economy collapses in a passive-player world, on MOST seeds
+
+**Correction (2026-09-26, after run 2 began):** the collapse is COMMON, not systemic. Seed `p14c4-demo-04`, run
+at the C.2a source `ff7b9ac1` to week 520 (disposable worktree, removed), THRIVES: rival cash reaches $286M,
+$364M and $357M for three of four founders, with 203 industry films by week 520. Seeds 05 and 06 at the same
+source collapse like 01–03, with every founder negative by week 520 and 11–12 films. So 5 of 6 measured seeds
+collapse. The C.4 run of seed 04 matches the C.2a run exactly through week 520, so C.4 does not cause the
+difference. The wording below, written from seeds 01–03 only, overstated the finding as universal.
 
 The finding is present in BOTH arms, so C.2a did not cause it. On all three seeds every rival's cash is negative
 from week 260. Rival active employment reaches 0 by week 416. It returns to 6 only at samples where the newest
