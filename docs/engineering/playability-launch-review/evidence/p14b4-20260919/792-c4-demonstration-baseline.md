@@ -35,7 +35,13 @@ early: seed 01 at 18 by week 572, seed 03 at 9 by week 52, and seed 02 never rel
 the starting manifest. The passive player's own cash turns negative at week 1,352, which is expected when the
 player makes no films. Earlier programme records mention only single-rival insolvency (for example "r04 insolvent at 404",
 `evidence/p14b1-20260919-t4/13-b2-test-preparation.md:128`); none of them records this systemic collapse,
-so this record is its first measurement. **This is recorded, not fixed:** rival solvency is not C.4's to change, and
+so this record is its first measurement. **It predates the whole C track:** the same harness, seed 01, run to
+week 2,080 at `ace2773a` (the final V32 writer, before any C.1 source; disposable worktree, removed) shows every
+rival negative by week 260 and the industry stuck at 17 films by week 104 (`792-c4-demo-preC1-01.json`).
+C.1 aging and C.2a retirement neither caused nor changed it. **Routing:** rival distress, recovery, dormancy and
+closure are P15's by OWNER-APPROVED boundary (`docs/engineering/p14-preparation-8ef5246a/CODEX-P13-P15-OWNER-RULINGS.md`
+§4.1). No P15 plan file exists (756 "P15 and beyond"), so F-792-1 is carried as an input to P15's scope check,
+not fixed inside P14. **This is recorded, not fixed:** rival solvency is not C.4's to change, and
 no plan item authorizes new rival economics. Consequences for C.4:
 - The demonstration measures SUPPLY in a dead industry. In this world nobody gains credits, so every entrant
   stays unproven until 30, and idle retirement at the window start ends every career.
