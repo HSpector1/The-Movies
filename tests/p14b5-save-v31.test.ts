@@ -25,7 +25,7 @@ import { existsSync, readFileSync } from 'node:fs'
 import { gunzipSync } from 'node:zlib'
 import { describe, expect, it } from 'vitest'
 import {
-  LIVE_SAVE_VERSION, convertV30ToV29, convertV30ToV31, convertV31ToV30, convertV31ToV32, convertV32ToV33, exportSave, importSave, loadSave, makeSave,
+  LIVE_SAVE_VERSION, convertV30ToV29, convertV30ToV31, convertV31ToV30, convertV31ToV32, convertV32ToV33, convertV33ToV34, exportSave, importSave, loadSave, makeSave,
   migrateToV26, migrateToV27, migrateToV28, migrateToV29, migrateToV30, migrateToV31, validateSave, validateSaveV29,
   validateSaveV30, validateSaveV31,
 } from '../src/core/save.js'
@@ -168,7 +168,9 @@ function liftsLosslessly(raw: string, save: V30Save) {
   // 763-R8 (P14C.1): the live writer now stamps V33, one further governed step —
   // the provenance root, with each stored age floored against it. Re-expressed at the
   // live boundary rather than weakened, exactly as P14B.7 did at V32.
-  const liveEnvelope = convertV32ToV33(convertV31ToV32(lifted))
+  // 776-S9 (P14C.2a): the live writer now stamps V34, one further governed step —
+  // the empty career-lifecycle root, same reasoning one step further out.
+  const liveEnvelope = convertV33ToV34(convertV32ToV33(convertV31ToV32(lifted)))
   expect(makeSave(liveEnvelope.state)).toEqual(liveEnvelope)
   expect(convertV30ToV31(save)).toEqual(lifted)
   // lossless when empty: both downgrade routes reproduce the V30 bytes
@@ -183,8 +185,8 @@ function liftsLosslessly(raw: string, save: V30Save) {
 
 // ─────────────────────────────────────────────────────────────────────────────────────────────────────
 describe('P14B.5 frozen side — the OUTGOING identities and the T0 corpus (GREEN today; moves only at the T2 values-only sweep)', () => {
-  it('LIVE_SAVE_VERSION is the literal 33 the live writer stamps (stale title corrected post-C.1; body always asserted the live constant); 30 is the OUTGOING identity (R-VERSION class, re-expressed by 735-T after P14B.7 landed V32)', () => {
-    expect(LIVE_SAVE_VERSION).toBe(33)
+  it('LIVE_SAVE_VERSION is the literal 34 the live writer stamps (stale title corrected post-C.2a; body always asserted the live constant); 30 is the OUTGOING identity (R-VERSION class, re-expressed by 735-T after P14B.7 landed V32)', () => {
+    expect(LIVE_SAVE_VERSION).toBe(34)
     expect(V30_AUTHORITY.saveVersion).toBe(30)
   })
 

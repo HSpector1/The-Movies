@@ -9,7 +9,7 @@ import { gunzipSync } from 'node:zlib'
 import { describe, expect, it, vi } from 'vitest'
 import * as promiseModule from '../src/core/promises.js'
 import { attachPromise, promiseFeasibility } from '../src/core/promises.js'
-import { migrateToV33, validateSaveV33 } from '../src/core/save.js'
+import { LIVE_SAVE_VERSION, migrateToLive, validateSaveV34 } from '../src/core/save.js'
 import { advanceTo, p13aGeneratedStudio } from '../src/harness/p13a/fixtures.js'
 import { tick } from '../src/core/tick.js'
 import { fnv1a64 } from '../src/core/math.js'
@@ -20,7 +20,7 @@ const OPEN_CASE_SHA = 'c9ff26fe70b7216784bf5718ed26d2bef10df8ca836b05050f5e1d7bc
 function openCase(): { state: GameState; proposal: TalentMarketProposal } {
   const json = gunzipSync(readFileSync(new URL('./fixtures/p14/legacy-v28-open-case-45.json.gz', import.meta.url))).toString('utf8')
   expect(createHash('sha256').update(json).digest('hex')).toBe(OPEN_CASE_SHA)
-  const state = migrateToV33(JSON.parse(json)).state
+  const state = migrateToLive(JSON.parse(json)).state
   const proposal = state.talentMarket.proposals.find((p) => p.issuerStudioId === state.hollywood!.playerStudioId)!
   expect(proposal).toBeDefined()
   return { state, proposal }
@@ -71,7 +71,7 @@ function boundState(): GameState {
   return boundCache
 }
 
-const envelope = (state: GameState) => ({ saveVersion: 33, seed: state.seed, state, broadcastCache: state.broadcastItems })
+const envelope = (state: GameState) => ({ saveVersion: LIVE_SAVE_VERSION, seed: state.seed, state, broadcastCache: state.broadcastItems })
 type Raw = {
   state: {
     promises: Record<string, unknown>[]
@@ -81,9 +81,9 @@ type Raw = {
 }
 function rejects(state: GameState, mutate: (raw: Raw) => void): void {
   const valid = JSON.parse(JSON.stringify(envelope(state))) as Raw
-  expect(() => validateSaveV33(valid)).not.toThrow()
+  expect(() => validateSaveV34(valid)).not.toThrow()
   mutate(valid)
-  expect(() => validateSaveV33(valid)).toThrow()
+  expect(() => validateSaveV34(valid)).toThrow()
 }
 
 describe('P14B.1 T4: feasibility evidence and lawful contract windows', () => {
@@ -163,7 +163,7 @@ describe('P14B.1 T4: V29 owns every proposal promise leaf', () => {
     const historicalVariant: GameState = { ...state, promises: state.promises.map((p) => p.promiseId === target.promiseId
       ? { ...p, windowStartWeek: oldWindowStart, feasibilityReceipt: oldReceipt } : p) }
     const json = JSON.stringify(envelope(historicalVariant))
-    const loaded = validateSaveV33(JSON.parse(json))
+    const loaded = validateSaveV34(JSON.parse(json))
     expect(JSON.stringify(loaded)).toBe(json)
     const retained = ownPromise(loaded.state)
     expect(retained.contractId).toBe(target.contractId)
@@ -303,7 +303,7 @@ describe('P14B.1 T4: terminal V29 promise reference integrity', () => {
       expect(outcome.week).toBe(promise.outcomeWeek)
     }
     const json = JSON.stringify(envelope(state))
-    expect(JSON.stringify(validateSaveV33(JSON.parse(json)))).toBe(json)
+    expect(JSON.stringify(validateSaveV34(JSON.parse(json)))).toBe(json)
   }, 120_000)
 
   it.each(['missing', 'null', 'unknown', 'wrong receipt kind', 'another beneficiary', 'wrong outcome week'])('rejects %s outcome receipt references', (fault) => {

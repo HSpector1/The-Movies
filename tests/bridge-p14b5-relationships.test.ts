@@ -50,7 +50,7 @@ import { tick } from '../src/core/tick.js'
 import * as marketModule from '../src/core/talentMarket.js'
 import { submitProposal } from '../src/core/talentMarket.js'
 import { attachPromise } from '../src/core/promises.js'
-import { exportSave, importSave, LIVE_SAVE_VERSION, makeSave, migrateToV33, validateSaveV30 } from '../src/core/save.js'
+import { exportSave, importSave, LIVE_SAVE_VERSION, makeSave, migrateToLive, migrateToV33, validateSaveV30 } from '../src/core/save.js'
 import { advanceTo, fund, p13aGeneratedStudio, player, poachingFixture } from './helpers/p14b2-fixtures.js'
 import type { GameState, TalentMarketCase, TalentMarketReceipt } from '../src/core/types.js'
 
@@ -305,14 +305,14 @@ const wireEnum = (): string[] => {
 
 // ─────────────────────────────────────────────────────────────────────────────────────────────────────
 describe('P14B.5 frozen side — the OUTGOING wire identities (R-VERSION class, re-expressed by 700-T2 after P14B.8 landed projection 50 / Save V32 unchanged)', () => {
-  it('projection 50 (49 outgoing), SCHEMA_ID sha256:e2d354dc… (60af24c5… outgoing), LIVE_SAVE_VERSION 33 (stale title corrected post-C.1), exactly the 35 accepted prior ids PLUS the outgoing 47, 48 and 49 with projection-v46 and projection-v47 registered', () => {
+  it('projection 50 (49 outgoing), SCHEMA_ID sha256:e2d354dc… (60af24c5… outgoing), LIVE_SAVE_VERSION 34 (stale title corrected post-C.2a), exactly the 35 accepted prior ids PLUS the outgoing 47, 48 and 49 with projection-v46 and projection-v47 registered', () => {
     expect(PROTOCOL_VERSION).toBe(4)
     expect(PROJECTION_VERSION).toBe(50)
     expect(OUTGOING_PROJECTION).toBe(47)
     // The checked-in contract-manifest schemaId at ad49031f, read independently of this test.
     expect(SCHEMA_ID).toBe('sha256:e2d354dcbae1a6dc93a2367756512c14243b11be202a26107de0c81a4f3e0698')
     expect(SCHEMA_ID).not.toBe(OUTGOING_47)
-    expect(LIVE_SAVE_VERSION).toBe(33)
+    expect(LIVE_SAVE_VERSION).toBe(34)
     expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_35_PRIOR_IDS, OUTGOING_47, OUTGOING_48, OUTGOING_49].sort())
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_46)).toBe('projection-v46')
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_47)).toBe('projection-v47')
@@ -371,7 +371,9 @@ describe('family 11 — projection 48 THIN (RED by value): the enum, the registr
     expect(loaded.migratedFromProtocolVersion).toBe(4)
     const actualBytes = loaded.hydrated.checkpoint[slot]
     assert.ok(typeof actualBytes === 'string')
-    const expected = migrateToV33(importSave(prior[slot]))
+    // 776-S9 (P14C.2a bridge sweep): this "expected" is the LIVE lift, not the
+    // frozen V33 step — migrateToV33 STAYS above only as an existence guard.
+    const expected = migrateToLive(importSave(prior[slot]))
     expect(expected.saveVersion).toBe(LIVE_SAVE_VERSION)
     expect(actualBytes).toBe(exportSave(expected))
     const actual = importSave(actualBytes)
@@ -379,7 +381,8 @@ describe('family 11 — projection 48 THIN (RED by value): the enum, the registr
     // 662-T2b (657 REFINE): narrow the SaveFile union to the live V31 member (the runtime47 :201 guard) so the
     // root reads below typecheck; the literal is R-VERSION class and the pin above already holds the value.
     // 735-T (P14B.7 bridge sweep): the live member is V32 now, one step further.
-    if (actual.saveVersion !== 33) throw new Error('slot did not reach the live Save32')
+    // 776-S9 (P14C.2a bridge sweep): the live member is V34 now, two steps further.
+    if (actual.saveVersion !== LIVE_SAVE_VERSION) throw new Error('slot did not reach the live version')
     expect(actual.state.market.tick).toBe(CHECKPOINT.week)
     expect((actual.state as unknown as { relationships: unknown }).relationships).toEqual([])
     const old = validateSaveV30(JSON.parse(prior[slot]))

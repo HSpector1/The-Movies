@@ -66,6 +66,11 @@ const validateSaveV33 = dynSave['validateSaveV33'] as ((save: unknown) => Envelo
 const convertV32ToV33 = dynSave['convertV32ToV33'] as ((save: unknown) => Envelope) | undefined
 const convertV33ToV32 = dynSave['convertV33ToV32'] as ((save: unknown) => Envelope) | undefined
 const migrateToV33 = dynSave['migrateToV33'] as ((save: unknown) => Envelope) | undefined
+// P14C.2a (776 S9): `tick()` now requires the V34 lifecycle root on any state whose
+// `hollywood` is not null (the market's own rule) — reached normally, since this one
+// is not part of C.1's own missing-export RED (save.ts already carries it).
+const convertV33ToV34 = SaveModule.convertV33ToV34
+const validateSaveV34 = SaveModule.validateSaveV34
 
 const p14 = (relative: string): URL => new URL('./fixtures/' + relative, import.meta.url)
 
@@ -122,6 +127,22 @@ const SIX_WORLDS: readonly { name: string; load: () => { raw: string; save: Retu
 function migrateV33(save: ReturnType<typeof validateSaveV32>): { envelope: Envelope; state: ProvenanceState } {
   const envelope = convertV32ToV33!(save)
   return { envelope, state: withProvenance(envelope.state as object) }
+}
+
+/** P14C.2a (776 S9): `tick()` throws when a live-industry state carries no
+ * lifecycle root — the market's own rule. Cases that TICK a migrated state (as
+ * opposed to testing the frozen V33 boundary itself) lift the one further
+ * governed step first, so the C.1 aging claims under test still reach a state
+ * `tick()` accepts. */
+function liftForTick(migrated: { envelope: Envelope; state: ProvenanceState }): { envelope: Envelope; state: ProvenanceState } {
+  const live = convertV33ToV34(migrated.envelope as Parameters<typeof convertV33ToV34>[0])
+  return { envelope: live, state: withProvenance(live.state as object) }
+}
+
+/** The common case: a case that ticks a migrated state and never inspects the
+ * envelope's own version tag. */
+function migrateForTick(save: ReturnType<typeof validateSaveV32>): ProvenanceState {
+  return liftForTick(migrateV33(save)).state
 }
 
 function tickN(state: ProvenanceState, n: number): ProvenanceState {
@@ -372,7 +393,13 @@ describe('5. V32 -> V33 -> V32 is byte-identical on every held world, and refuse
       expect(downgraded.saveVersion).toBe(32)
       expect(exportSave(downgraded as unknown as SaveFile)).toBe(raw) // byte-identical, not merely shape-identical
 
-      const advancedState = withProvenance(tick(state))
+      // P14C.2a (776 S9): `tick()` now requires the V34 lifecycle root on a
+      // live-industry state — lift one further step to tick legally, then strip
+      // the root back off before feeding `convertV33ToV32` under test; this
+      // case is about ITS OWN downgrade refusal, not the new root.
+      const advancedLive = withProvenance(tick(liftForTick({ envelope: lifted, state }).state))
+      const { careerLifecycle: _cl, ...advancedRest } = advancedLive as unknown as Record<string, unknown>
+      const advancedState = withProvenance(advancedRest)
       const advancedEnvelope: Envelope = { ...lifted, state: advancedState }
       expect(() => convertV33ToV32!(advancedEnvelope)).toThrow()
       let message = ''
@@ -401,7 +428,7 @@ function assertAgeInvariant(state: ProvenanceState): void {
 describe('6. the calendar advance', () => {
   it('week 12: authored-0001 is 29; week 13: authored-0001 is 30 — asserted at BOTH weeks, invariant holds throughout', () => {
     const { save } = loadCorpus('authored')
-    let state = migrateV33(save).state
+    let state = migrateForTick(save)
     assertAgeInvariant(state)
 
     state = tickN(state, 12)
@@ -441,7 +468,7 @@ describe('6. the calendar advance', () => {
 describe('7. the 30 crossing is a market decision (talentMarket.ts:690 isProven)', () => {
   it('external observation: publicPriorityOrder/publicPreferredTerm/publicPreferredOpportunity differ across the crossing, attributable to age alone', () => {
     const { save } = loadCorpus('authored')
-    const migrated = migrateV33(save).state
+    const migrated = migrateForTick(save)
     const state12 = tickN(migrated, 12)
     const state13 = withProvenance(tick(state12))
     const id = 'authored-0001'
@@ -467,7 +494,7 @@ describe('7. the 30 crossing is a market decision (talentMarket.ts:690 isProven)
 
   it('COMPONENT TEST, NOT TICK EVIDENCE (765 §2 finding, applied to itself): a hand-reconstructed successor state, calling `materializeAges` directly and building `tailState` by hand rather than running tick(), shows the aging.ts/talentMarket.ts surface agrees internally — it does NOT and cannot prove what the real tick() settles with, because the real tick() is never called here', () => {
     const { save } = loadCorpus('authored')
-    const migrated = migrateV33(save).state
+    const migrated = migrateForTick(save)
     const state12 = tickN(migrated, 12)
     expect(state12.market.tick).toBe(12)
 
@@ -496,7 +523,7 @@ describe('7. the 30 crossing is a market decision (talentMarket.ts:690 isProven)
     // free actor. Nothing about `tick()`, `enterRival`, `materializeAges` or the
     // market's own decision logic is touched; only the INPUT is arranged.
     const { save } = loadCorpus('authored')
-    const migrated = migrateV33(save).state
+    const migrated = migrateForTick(save)
     const state12 = tickN(migrated, 12)
     expect(state12.market.tick).toBe(12)
     const target = state12.talent.find((t) => t.id === 'authored-0001')!
@@ -576,24 +603,24 @@ describe('7. the 30 crossing is a market decision (talentMarket.ts:690 isProven)
 
 describe('8. save and reload at week 12 and week 13', () => {
   for (const week of [12, 13] as const) {
-    it(`week ${week}: round trip preserves the age and validateSaveV33 accepts the state`, () => {
+    it(`week ${week}: round trip preserves the age and the live validator accepts the state (P14C.2a: was validateSaveV33, now validateSaveV34 — the round trip is through whatever the live writer stamps, not pinned to V33)`, () => {
       const { save } = loadCorpus('authored')
-      const migrated = migrateV33(save).state
+      const migrated = migrateForTick(save)
       const state = tickN(migrated, week)
-      const envelope: Envelope = { saveVersion: 33, seed: state.seed, state, broadcastCache: state.broadcastItems }
+      const envelope: Envelope = { saveVersion: LIVE_SAVE_VERSION, seed: state.seed, state, broadcastCache: state.broadcastItems }
 
       const reloaded = JSON.parse(JSON.stringify(envelope))
-      const validated = validateSaveV33!(reloaded)
+      const validated = validateSaveV34(reloaded)
       const reloadedState = withProvenance(validated.state as object)
       expect(reloadedState.talent.find((t) => t.id === 'authored-0001')!.age).toBe(week === 12 ? 29 : 30)
     })
   }
 
-  it('bonus, not explicitly pinned by contract §6: the GENERIC exportSave/importSave/loadSave dispatcher also accepts a V33 envelope (flags a real gap if validateSave was not given a saveVersion===33 arm — see summary)', () => {
+  it('bonus, not explicitly pinned by contract §6: the GENERIC exportSave/importSave/loadSave dispatcher also accepts a live envelope (flags a real gap if validateSave was not given the live saveVersion arm — see summary; P14C.2a: was V33, now V34)', () => {
     const { save } = loadCorpus('authored')
-    const migrated = migrateV33(save).state
+    const migrated = migrateForTick(save)
     const state = tickN(migrated, 13)
-    const envelope = { saveVersion: 33, seed: state.seed, state, broadcastCache: state.broadcastItems } as unknown as SaveFile
+    const envelope = { saveVersion: LIVE_SAVE_VERSION, seed: state.seed, state, broadcastCache: state.broadcastItems } as unknown as SaveFile
     const json = exportSave(envelope)
     const reloaded = importSave(json)
     const loaded = loadSave(JSON.parse(json))
@@ -609,7 +636,7 @@ describe('8. save and reload at week 12 and week 13', () => {
 describe('9. scientists age', () => {
   it('genuine-v32-scientist: t-sci-00 crosses a birthday, its stored age advances, and its provenance row survives', () => {
     const { save } = loadCorpus('scientist')
-    const migrated = migrateV33(save).state
+    const migrated = migrateForTick(save)
     const row = migrated.talentProvenance.rows.find((r) => r.personId === 't-sci-00')
     expect(row, 'no provenance row for t-sci-00').toBeDefined()
     expect(row!.kind).toBe('legacy_age_anchor')
@@ -637,7 +664,7 @@ describe('9. scientists age', () => {
 describe('10. zero RNG draw', () => {
   it('BINDING: a direct materializeAges call that materializes a birthday leaves rngState byte-identical', () => {
     const { save } = loadCorpus('authored')
-    const migrated = migrateV33(save).state
+    const migrated = migrateForTick(save)
     const state12 = tickN(migrated, 12)
     expect(state12.market.tick).toBe(12)
 
@@ -650,7 +677,7 @@ describe('10. zero RNG draw', () => {
 
   it('DIAGNOSTIC, not the pin: an ordinary weekly tick spanning the crossing may legitimately draw RNG for other simulation activity', () => {
     const { save } = loadCorpus('authored')
-    const migrated = migrateV33(save).state
+    const migrated = migrateForTick(save)
     const state12 = tickN(migrated, 12)
     const state13 = withProvenance(tick(state12))
     const changed = state13.rngState !== state12.rngState
@@ -669,14 +696,19 @@ describe('10. zero RNG draw', () => {
 describe('11. the validator refuses four tampered states, each attributably', () => {
   function baseState(): ProvenanceState {
     const { save } = loadCorpus('authored')
-    const migrated = migrateV33(save).state
+    const migrated = migrateForTick(save)
     return tickN(migrated, 13)
   }
   function refusalMessage(state: ProvenanceState): string {
-    const envelope: Envelope = { saveVersion: 33, seed: state.seed, state, broadcastCache: state.broadcastItems }
+    // P14C.2a: `baseState()` now ticks a live (V34) state, so the envelope built
+    // here is live too; `validateSaveV34` delegates to the frozen V33 chain for
+    // everything this test tampers with, so the four causes stay distinguishable
+    // (each inner message survives inside the wrapping "frozen V33 state is
+    // invalid —" prefix).
+    const envelope: Envelope = { saveVersion: LIVE_SAVE_VERSION, seed: state.seed, state, broadcastCache: state.broadcastItems }
     const json = JSON.parse(JSON.stringify(envelope))
     try {
-      validateSaveV33!(json)
+      validateSaveV34(json)
       return ''
     } catch (error) {
       return (error as Error).message
@@ -734,7 +766,7 @@ describe('11. the validator refuses four tampered states, each attributably', ()
 describe('12. materializeAges is idempotent', () => {
   it('twice on the same state returns an equal state', () => {
     const { save } = loadCorpus('authored')
-    const migrated = migrateV33(save).state
+    const migrated = migrateForTick(save)
     const state = tickN(migrated, 13)
     const once = materializeAges(state, state.market.tick)
     const twice = materializeAges(withProvenance(once), state.market.tick)
@@ -894,7 +926,7 @@ describe('13. provenance is written at the append, not the mint call', () => {
     // `state.talent` — confirmed against the unmodified engine at HEAD before this
     // suite was authored.
     const { save } = loadCorpus('authored')
-    const migrated = migrateV33(save).state
+    const migrated = migrateForTick(save)
     const h = migrated.hollywood!
     const business = h.businesses[0]!
     const studioId = business.studioId
@@ -945,8 +977,9 @@ describe('13. provenance is written at the append, not the mint call', () => {
 
 // keep LIVE_SAVE_VERSION's eventual bump observable in one place, without hard-coding
 // "33" anywhere else in this file (759-C's own convention: relative, not a guessed literal).
+// P14C.2a (776 S10): C.1 landed at 33 as this test predicted, then C.2a bumped once more.
 describe('save version bump (contract §6)', () => {
-  it('LIVE_SAVE_VERSION is 33 once C.1 lands (today: 32)', () => {
-    expect(LIVE_SAVE_VERSION).toBe(33)
+  it('LIVE_SAVE_VERSION is 34 once C.2a lands (today: 33)', () => {
+    expect(LIVE_SAVE_VERSION).toBe(34)
   })
 })

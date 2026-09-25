@@ -26,6 +26,7 @@ import {
   generateWorld,
   importSave,
   initialReleaseAuthority,
+  LIVE_SAVE_VERSION,
   makeSave,
   materializeAges,
   periodSummary,
@@ -61,7 +62,7 @@ function foundStudio(seed: string): GameState {
  * P14C.1 (record 771, inconsistent_fixture): jumping `market.tick` by hand, as
  * this helper always has, skips the tick tail's `materializeAges` step
  * (contract 762 §10), leaving `talent[].age` stale against its own provenance —
- * `validateSaveV33` then refuses the very state the round-trip cases below build.
+ * `validateSaveV34` then refuses the very state the round-trip cases below build (was validateSaveV33).
  * Production is right to check this; the fixture must do what the tick tail
  * does. `materializeAges` is idempotent and a no-op when nothing is due, so this
  * is harmless for callers that pass no `week` at all.
@@ -396,7 +397,7 @@ describe('D-17B §2/§6 — save round-trip and replay determinism', () => {
     const s = buy(studioAt('pub-roundtrip', { week: 9 }), 'whisper')
     const json = exportSave(makeSave(s))
     const back = importSave(json)
-    if (back.saveVersion !== 33) throw new Error('expected V33')
+    if (back.saveVersion !== LIVE_SAVE_VERSION) throw new Error('expected the live version')
     expect(back.state.publicity).toEqual(s.publicity)
     expect(back.state.studio.cash).toBe(s.studio.cash)
     expect(exportSave(makeSave(migrateToCurrentControl(back).state))).toBe(json)
@@ -424,7 +425,7 @@ describe('D-17B §2/§6 — save round-trip and replay determinism', () => {
     const mid = buy(base, 'push')
 
     const reloaded = importSave(exportSave(makeSave(mid)))
-    if (reloaded.saveVersion !== 33) throw new Error('expected V29')
+    if (reloaded.saveVersion !== LIVE_SAVE_VERSION) throw new Error('expected the live version')
     let split = migrateToCurrentControl(reloaded).state
     let continuous = mid
     for (let w = 0; w < 8; w++) {
@@ -437,7 +438,7 @@ describe('D-17B §2/§6 — save round-trip and replay determinism', () => {
   it('the cooldown clocks survive a reload — a reload cannot buy a second campaign early', () => {
     const s = buy(studioAt('pub-reload-cd', { week: 30 }), 'blitz')
     const back = importSave(exportSave(makeSave(s)))
-    if (back.saveVersion !== 33) throw new Error('expected V33')
+    if (back.saveVersion !== LIVE_SAVE_VERSION) throw new Error('expected the live version')
     const soon = {
       ...back.state,
       market: { ...back.state.market, tick: 31 },

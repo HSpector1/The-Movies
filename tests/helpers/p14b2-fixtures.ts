@@ -4,7 +4,7 @@ import { expect } from 'vitest'
 import { applyActions, hiringMarketIds, tick } from '../../src/core/index.js'
 import { attachPromise, trustDescriptor, trustDrivers } from '../../src/core/promises.js'
 import { caseForTalent, currentProposals, publicPreferredTerm, submitProposal, withdrawProposal } from '../../src/core/talentMarket.js'
-import { makeSave, validateSaveV33 } from '../../src/core/save.js'
+import { makeSave, validateSaveV34 } from '../../src/core/save.js'
 import { TUNING } from '../../src/core/tuning.js'
 import type { CastSlot, GameState, ProfessionalPromise, SegmentId } from '../../src/core/types.js'
 import { advanceTo, p13aGeneratedStudio } from '../../src/harness/p13a/fixtures.js'
@@ -119,7 +119,7 @@ export function retentionFixture(): RetentionFixture {
   expect(promiseFor(state, broken.id).outcome).toBe('BROKEN')
   assertOutcome(state, promiseFor(state, broken.id))
   expect(trustDrivers(state, kept.id, player(state), state.market.tick).map((d) => d.kind)).toContain('ranToEnd')
-  validateSaveV33(JSON.parse(JSON.stringify(makeSave(state))))
+  validateSaveV34(JSON.parse(JSON.stringify(makeSave(state))))
   return retentionCache = { submitted, bound, scheduled, kept: keptState, outcomes: state,
     keptId: kept.id, brokenId: broken.id, directorId: director.id, productionId }
 }
@@ -241,7 +241,7 @@ export function poachingFixture() {
   const outcome = advanceTo(due, promise.dueWeekExclusive)
   expect(promiseFor(outcome, talentId).outcome).toBe('BROKEN')
   assertOutcome(outcome, promiseFor(outcome, talentId))
-  validateSaveV33(JSON.parse(JSON.stringify(makeSave(outcome))))
+  validateSaveV34(JSON.parse(JSON.stringify(makeSave(outcome))))
   return poachCache = { submitted, bound, beforeDue, due, outcome, talentId, incumbentId }
 }
 
@@ -256,7 +256,7 @@ export function rivalFixture() {
     if (open !== undefined && promise !== undefined) {
       expect(state.promises.filter((p) => p.issuerStudioId === player(state))).toEqual([])
       assertOutcome(state, promise)
-      validateSaveV33(JSON.parse(JSON.stringify(makeSave(state))))
+      validateSaveV34(JSON.parse(JSON.stringify(makeSave(state))))
       return rivalCache = { open, terminal: state, promise }
     }
     state = tick(state)

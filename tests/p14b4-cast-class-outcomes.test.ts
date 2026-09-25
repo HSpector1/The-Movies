@@ -17,7 +17,7 @@ import { advancePromisesWeek, attachPromise } from '../src/core/promises.js'
 import * as operationsModule from '../src/core/operations.js'
 import { productionTechnologyView } from '../src/core/technologyProduction.js'
 import { currentProposals, submitProposal } from '../src/core/talentMarket.js'
-import { exportSave, importSave, makeSave, migrateToV33, validateSaveV29, validateSaveV33 } from '../src/core/save.js'
+import { exportSave, importSave, makeSave, migrateToLive, validateSaveV29, validateSaveV34 } from '../src/core/save.js'
 import { TUNING } from '../src/core/tuning.js'
 import type { Action, CastSlot, GameState, ProfessionalPromise } from '../src/core/types.js'
 import { advanceTo, fund, p13aGeneratedStudio, player } from './helpers/p14b2-fixtures.js'
@@ -76,7 +76,7 @@ function live(state: GameState): GameState {
   // Existing live writer is the governed strict V31 validation entry after B5.
   // Do not manually stamp a save version or invent a new outcome-test API.
   const validated = makeSave(state)
-  expect(validated.saveVersion).toBe(33)
+  expect(validated.saveVersion).toBe(34)
   return validated.state
 }
 function production(prepared: Prepared) {
@@ -131,7 +131,7 @@ function oldBound() {
     expect(provenance.focus).toHaveLength(2)
     const promiseId: unknown = provenance.focus[0].promiseId
     assert.ok(typeof promiseId === 'string')
-    const state: GameState = structuredClone(migrateToV33(saved).state) // the governed lift: the empty relationship root only
+    const state: GameState = structuredClone(migrateToLive(saved).state) // the governed lift: the empty relationship and lifecycle roots only
     const promised = root(state, promiseId)
     expect(promised).toMatchObject({ family: 'APPEARANCE_COUNT', outcome: null, progress: 0, evidenceRefs: [] })
     expect(promised.feasibilityReceipt).toEqual(provenance.focus[0].originalFeasibilityReceipt)
@@ -352,7 +352,7 @@ describe('P14B4 genuine submit/settle/take routes, no synthetic commitments', ()
     expect(root(prepared.state, bound.promiseId).outcome).toBeNull()
     const after = complete(prepared)
     satisfied(after.state, bound.promiseId, [after.take.eventId])
-    const reloaded = validateSaveV33(importSave(exportSave(makeSave(after.state))))
+    const reloaded = validateSaveV34(importSave(exportSave(makeSave(after.state))))
     expect(reloaded.state.promises).toEqual(after.state.promises)
   })
 

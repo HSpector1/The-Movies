@@ -2,6 +2,7 @@ import { initialTechnology } from '../src/core/technology.js'
 import { initialPhysicalPlans } from '../src/core/physicalPlans.js'
 import { initialTalentMarket } from '../src/core/talentMarket.js'
 import { buildTalentProvenance } from '../src/core/aging.js'
+import { initialCareerLifecycle } from '../src/core/careerLifecycle.js'
 import { beginFoundingHistoricalControl as beginFounding } from '../src/core/employment.js'
 import {migrateToCurrentControl} from './_historicalCurrent.js'
 // SaveFileV11 historical cash/ledger checkpoint regressions.
@@ -50,7 +51,7 @@ import {
   makeSaveV10,
   migrateToV11,
   migrateToV14,
-  validateSaveV33,
+  validateSaveV34,
   stableStringify,
   validateSaveV1,
   validateSaveV2,
@@ -229,7 +230,7 @@ describe("SaveFileV11 cash/ledger checkpoint — historical migration", () => {
     const nativeWorld = generateWorld("checkpoint-native-omission");
     const native = makeSave(nativeWorld);
     expect("cashLedgerCheckpoint" in native.state).toBe(false);
-    expect(validateSaveV33(native)).toBe(native);
+    expect(validateSaveV34(native)).toBe(native);
     expect(migrateToCurrentControl(native)).toBe(native);
 
     const played = applyActions(
@@ -239,7 +240,7 @@ describe("SaveFileV11 cash/ledger checkpoint — historical migration", () => {
     const reconciled = makeSave(played);
     expect(reconciled.state.ledger).toHaveLength(1);
     expect("cashLedgerCheckpoint" in reconciled.state).toBe(false);
-    expect(validateSaveV33(reconciled)).toBe(reconciled);
+    expect(validateSaveV34(reconciled)).toBe(reconciled);
 
     const json = exportSave(reconciled);
     const imported = importSave(json);
@@ -291,7 +292,7 @@ describe("SaveFileV11 cash/ledger checkpoint — historical migration", () => {
       cash: redundant.state.studio.cash,
       ledgerLength: redundant.state.ledger.length,
     };
-    expect(() => validateSaveV33(redundant)).toThrow(
+    expect(() => validateSaveV34(redundant)).toThrow(
       /checkpoint must encode a genuine historical reconciliation boundary/,
     );
   });
@@ -395,6 +396,9 @@ describe("SaveFileV11 cash/ledger checkpoint — post-migration authority", () =
           // Every frozen builder below projects it away, exactly as it projects away
           // `relationships` and `talentMarket`, so nothing this case asserts moves.
           talentProvenance: buildTalentProvenance(invalid.state.talent, invalid.state.market.tick, 'legacy_age_anchor'),
+          // P14C.2a (Save V34): the live root, carried for the same reason —
+          // this case tracks no retirement, so it opens empty.
+          careerLifecycle: initialCareerLifecycle(invalid.state.market.tick),
         }),
       ).toThrow(
         /cannot downgrade or repair a semantically invalid V11 cash-ledger checkpoint/,
@@ -487,25 +491,25 @@ describe("SaveFileV11 cash/ledger checkpoint — post-migration authority", () =
 
     const changedAnchor = clone(valid);
     changedAnchor.state.cashLedgerCheckpoint!.cash += 1;
-    expect(() => validateSaveV33(changedAnchor)).toThrow(
+    expect(() => validateSaveV34(changedAnchor)).toThrow(
       /studio cash must equal the historical checkpoint plus the ordered post-checkpoint ledger/,
     );
 
     const changedCash = clone(valid);
     changedCash.state.studio.cash += 1;
-    expect(() => validateSaveV33(changedCash)).toThrow(
+    expect(() => validateSaveV34(changedCash)).toThrow(
       /studio cash must equal the historical checkpoint plus the ordered post-checkpoint ledger/,
     );
 
     const movedBoundary = clone(valid);
     movedBoundary.state.cashLedgerCheckpoint!.ledgerLength += 1;
-    expect(() => validateSaveV33(movedBoundary)).toThrow(
+    expect(() => validateSaveV34(movedBoundary)).toThrow(
       /construction capex cannot predate the V11 cash-ledger checkpoint/,
     );
 
     const changedSuffix = clone(valid);
     changedSuffix.state.ledger[overheadIndex]!.amount -= 1;
-    expect(() => validateSaveV33(changedSuffix)).toThrow(
+    expect(() => validateSaveV34(changedSuffix)).toThrow(
       /studio cash must equal the historical checkpoint plus the ordered post-checkpoint ledger/,
     );
   });

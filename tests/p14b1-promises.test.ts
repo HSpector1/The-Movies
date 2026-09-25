@@ -500,7 +500,7 @@ describe('P14B.1 test 3: the feasibility service', () => {
     const active = withActivePromise.promises.find((p) => p.promiseId === attachedProposal.promises[0])
     expect(active).toMatchObject({ issuerStudioId, beneficiaryPersonId, contractId: null,
       outcome: null, predicate: { count: 1 }, feasibilityReceipt: first })
-    save.validateSaveV33(save.makeSave(withActivePromise))
+    save.validateSaveV34(save.makeSave(withActivePromise))
     const second = promiseFeasibility(withActivePromise, draft, state.market.tick)
     expect(second.classification).toBe('FRAGILE')
     expect(second.bottleneck ?? '').toMatch(/not.*commission/i)
@@ -658,11 +658,11 @@ describe('P14B.1 test 5: outcomes', () => {
     week: 45,
   }
   type Envelope = { saveVersion: number; seed: string; state: GameState; broadcastCache: unknown[] }
-  type SaveModuleWithV29 = typeof save & { migrateToV33: (envelope: unknown) => Envelope }
+  type SaveModuleWithV29 = typeof save & { migrateToLive: (envelope: unknown) => Envelope }
   const withV29 = save as SaveModuleWithV29
   function loadOpenCase45(): GameState {
     const json = gunzipSync(readFileSync(new URL(OPEN_CASE_45.file, import.meta.url))).toString('utf8')
-    return withV29.migrateToV33(JSON.parse(json)).state
+    return withV29.migrateToLive(JSON.parse(json)).state
   }
 
   it("BROKEN at dueWeekExclusive when the window passes unsatisfied, through a BOUND promise: on genuine legacy-v28-open-case-45, attach a P1 promise to the player's own proposal, settle at 52 (retained -> bound, contractId set), then walk to dueWeekExclusive with no qualifying first take", () => {

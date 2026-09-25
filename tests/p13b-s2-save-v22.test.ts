@@ -10,7 +10,7 @@ import {
   migrateToV20,
   migrateToV21,
   migrateToV22,
-  migrateToV33,
+  migrateToLive,
   validateSave,
   validateSaveV21,
 } from '../src/core/save.js'
@@ -37,17 +37,18 @@ function assertRootUnchangedExceptTechnology(before: GameStateV21, after: GameSt
   expect(strip(after)).toBe(strip(before))
 }
 
-/** P13B-S6: the LIVE writer is V32 (P14B.7 sweep — was V26 at authoring), so a
+/** P13B-S6: the LIVE writer is V34 (P14C.2a sweep — was V26 at authoring, then
+ * V32, then V33), so a
  * V22 envelope is lifted once, through the real migration, before the live
  * round trip. The V21→V22 lift assertions above stay exactly where they were
  * — this file proves the V22 migration, not the live boundary. */
 function live(save: SaveFileV22): GameState {
-  return migrateToV33(save).state
+  return migrateToLive(save).state
 }
 
 function roundTripsByteIdentical(state: GameState): string {
   const direct = exportSave(makeSave(state))
-  const restored = migrateToV33(importSave(direct)).state
+  const restored = migrateToLive(importSave(direct)).state
   expect(exportSave(makeSave(restored))).toBe(direct)
   return direct
 }
@@ -202,21 +203,21 @@ describe('P13B-S2 V21 to V22 migration (test 8)', () => {
 })
 
 describe('P13B-S2 envelope law at the live writer (test 8)', () => {
-  it('makeSave always writes the live saveVersion 33 (stale title corrected post-C.1)', () => {
+  it('makeSave always writes the live saveVersion 34 (stale title corrected post-C.2a)', () => {
     const migrated = migrateToV22(importSave(load('./fixtures/p13b/legacy-v21-staffed-4-seats-263.json.gz')))
-    expect(makeSave(live(migrated)).saveVersion).toBe(33)
+    expect(makeSave(live(migrated)).saveVersion).toBe(34)
   })
 
-  it('refuses an unknown saveVersion 34 with the updated range (stale number corrected post-C.1)', () => {
+  it('refuses an unknown saveVersion 35 with the updated range (stale number corrected post-C.2a)', () => {
     const migrated = migrateToV22(importSave(load('./fixtures/p13b/legacy-v21-staffed-4-seats-263.json.gz')))
     const save = makeSave(live(migrated))
-    expect(() => validateSave({ ...save, saveVersion: 34 })).toThrow(/versions 1 through 33 only/)
+    expect(() => validateSave({ ...save, saveVersion: 35 })).toThrow(/versions 1 through 34 only/)
   })
 
   it('round-trips a migrated two-Laboratory save through exportSave/importSave/migrateToV32 byte-identically', () => {
     const migrated = migrateToV22(importSave(load('./fixtures/p13b/legacy-v21-two-labs-two-briefs-783.json.gz')))
     const direct = exportSave(makeSave(live(migrated)))
-    const restored = migrateToV33(importSave(direct)).state
+    const restored = migrateToLive(importSave(direct)).state
     expect(exportSave(makeSave(restored))).toBe(direct)
   })
 })

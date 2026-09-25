@@ -53,7 +53,7 @@ import {
   // RED-by-design (720 §2 items 1-2): neither exists in src/core/promises.ts today.
   waivePromise, waiverAccepted,
 } from '../src/core/promises.js'
-import { convertV31ToV32, convertV32ToV33, validateSaveV31 } from '../src/core/save.js'
+import { convertV31ToV32, convertV32ToV33, convertV33ToV34, validateSaveV31 } from '../src/core/save.js'
 import { PROJECTION_VERSION } from '../bridge/schema/bridge-schema.ts'
 import { industryPage } from '../bridge/industry.ts'
 import { PROTOCOL_VERSION, SCHEMA_ID } from '../bridge/protocol.ts'
@@ -97,7 +97,10 @@ function boundOpenP1(): GameState {
   // adequate for five of the six consumers. `convertV32ToV33` adds nothing a
   // waived-promise assertion reads (no promise/relationship field moves), so
   // this is a widening of what the fixture honestly represents, not a new fact.
-  return convertV32ToV33(convertV31ToV32(save)).state
+  // 776-S9 (P14C.2a): carried one lawful conversion further still, to V34 — the
+  // LIVE `GameState` now also carries the empty career-lifecycle root, the same
+  // widening, still nothing a waived-promise assertion reads.
+  return convertV33ToV34(convertV32ToV33(convertV31ToV32(save))).state
 }
 function promiseZero(state: GameState): ProfessionalPromise {
   const promise = state.promises.find((p) => p.promiseId === 'promise-0')

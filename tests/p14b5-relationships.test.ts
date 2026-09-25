@@ -70,7 +70,7 @@ import { tick } from '../src/core/tick.js'
 import * as marketModule from '../src/core/talentMarket.js'
 import { publicPreferredTerm, publicPriorityOrder, submitProposal, type FreezeDrop } from '../src/core/talentMarket.js'
 import { attachPromise } from '../src/core/promises.js'
-import { LIVE_SAVE_VERSION, makeSave, migrateToV25, migrateToV26, migrateToV27, migrateToV28, migrateToV29, migrateToV30, migrateToV31, migrateToV33, validateSaveV30, validateSaveV31, validateSaveV33 } from '../src/core/save.js'
+import { LIVE_SAVE_VERSION, makeSave, migrateToLive, migrateToV25, migrateToV26, migrateToV27, migrateToV28, migrateToV29, migrateToV30, migrateToV31, validateSaveV30, validateSaveV31, validateSaveV33, validateSaveV34 } from '../src/core/save.js'
 import { TUNING } from '../src/core/tuning.js'
 import { careerIdentity } from '../src/core/talentSummary.js'
 import { advanceTo, fund, p13aGeneratedStudio, player } from './helpers/p14b2-fixtures.js'
@@ -157,7 +157,7 @@ function fixture(name: CorpusName) {
 }
 /** The lifted V31 world: EMPTY root, everything else the V30 bytes (family 9 proves it byte-for-byte). */
 function lifted(name: CorpusName): GameState {
-  const state = migrateToV33(fixture(name)).state as GameState
+  const state = migrateToLive(fixture(name)).state as GameState
   expect(edges(state)).toEqual([])
   return state
 }
@@ -223,11 +223,21 @@ const stage = (state: GameState, edge: Edge): GameState => live(withEdges(state,
 // probe, archived): stripping both reproduces the ORIGINAL frozen digest
 // byte-for-byte, so the pin itself is UNCHANGED -- this is an extension of
 // what the control ignores, never a re-measurement of what it asserts.
+// P14C.2a: `careerLifecycle` joins the strip for the same reason as
+// `supersededByPromiseId` above -- a new, universally-additive root (every
+// live state now carries it) that nobody retires across this test's 60-65
+// week window, so it is empty on both sides and unrelated to relationship-edge
+// minting; excluded here rather than re-pinning the frozen digest.
 const bytes = (state: GameState): string => {
-  const { relationships: _r, ...rest } = state as unknown as Record<string, unknown> & { promises: Record<string, unknown>[] }
+  const { relationships: _r, careerLifecycle: _cl, ...rest } = state as unknown as Record<string, unknown> & { promises: Record<string, unknown>[] }
   const promises = rest.promises.map((p) => { const { supersededByPromiseId: _s, ...legacy } = p; return legacy })
   return JSON.stringify({ ...rest, promises })
 }
+// P14C.2a: `stripRoot` builds a pre-V31 view for the relationships-root-presence
+// fault test above (family 1's first `it`) -- it strips only the one root that
+// test is about. The state it receives already carries a genuine `careerLifecycle`
+// root from the lift/tick chain; nothing in that test inspects or depends on it,
+// so it stays, undecided-by-omission on purpose, not by oversight.
 function stripRoot(state: GameState): GameState { const { relationships: _r, ...rest } = state as unknown as Record<string, unknown>; return rest as unknown as GameState }
 
 // ── the family-1 world: the genuine player picture at remainingTicks 5, the take scheduled, ONE tick ──
@@ -521,7 +531,7 @@ describe('family 1 — EDGE MINTING at the tick tail from the advance\'s delta (
     assert.ok(existsSync(legacyV28), 'frozen fixture missing: legacy-v28-shooting-5.json.gz (plan :523)')
     const raw = JSON.parse(gunzipSync(readFileSync(legacyV28)).toString('utf8')) as { saveVersion: number }
     expect(raw.saveVersion).toBe(28)
-    const state = migrateToV33(raw).state as GameState
+    const state = migrateToLive(raw).state as GameState
     expect(state.hollywood).toBeNull()
     expect(state.market.tick).toBe(16)
     expect(edges(state)).toEqual([])
@@ -956,22 +966,24 @@ describe('family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; fam
   const expectRefused = (mutate: (edges: Edge[], state: Record<string, unknown>) => void, pattern: RegExp) => {
     const save = v31()
     mutate(save.state.relationships, save.state)
-    expect(() => validateSaveV33(save)).toThrow(pattern)
+    expect(() => validateSaveV34(save)).toThrow(pattern)
     expect(() => validateRelationshipsRoot(save.state)).toThrow(pattern)
   }
 
   it('validateSaveV32/validateRelationshipsRoot exist and admit the genuinely minted world round-trip', () => {
+    // P14C.2a: `validateSaveV33` still exists (it is a frozen historical step,
+    // never removed) — this checks the SYMBOL, unrelated to which one is live.
     expect(typeof validateSaveV33).toBe('function'); expect(typeof validateRelationshipsRoot).toBe('function')
     const save = v31()
     expect(save.saveVersion).toBe(LIVE_SAVE_VERSION)
     expect(save.state.relationships).toHaveLength(6)
-    expect(validateSaveV33(save)).toEqual(save)
+    expect(validateSaveV34(save)).toEqual(save)
   })
 
   it('refuses a missing root', () => {
     const save = v31()
     Reflect.deleteProperty(save.state, 'relationships')
-    expect(() => validateSaveV33(save)).toThrow(/relationships/)
+    expect(() => validateSaveV34(save)).toThrow(/relationships/)
   })
   it('refuses a non-ordinal edgeId', () => expectRefused((e) => { e[0]!.edgeId = 'edge-x' }, /edgeId/))
   it('refuses a duplicate pair', () => expectRefused((e) => { e[1]!.a = e[0]!.a; e[1]!.b = e[0]!.b }, /duplicate|pair/i))
@@ -1006,7 +1018,7 @@ describe('family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; fam
     expect(typeof projectRelationshipsPreV31).toBe('function')
     const save = v31()
     const one = { ...save, state: { ...save.state, relationships: [save.state.relationships[0]!] } }
-    const admitted = validateSaveV33(one)
+    const admitted = validateSaveV34(one)
     const before = JSON.stringify(admitted)
     expect(() => projectRelationshipsPreV31(one.state)).toThrow()
     // RE-EXPRESSED (was: `/cannot downgrade SaveFileV31 or discard the relationship
@@ -1033,9 +1045,15 @@ describe('family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; fam
     // (save.ts:8265 and siblings), "cannot downgrade SaveFileV33 or discard the
     // talent provenance root" — never reaching convertV33ToV32 at all. Neither
     // reaches its own frozen V31-specific arm either way.
-    for (const older of [migrateToV29, migrateToV28, migrateToV27, migrateToV26, migrateToV25]) {
+    for (const older of [migrateToV29, migrateToV28, migrateToV27, migrateToV26]) {
       expect(() => older(admitted as never)).toThrow(/cannot downgrade SaveFileV33/)
     }
+    // P14C.2a: migrateToV25 (and every migrator older than V26) now meets the
+    // NEW unconditional V34 guard FIRST — added directly beside the
+    // pre-existing V33 one, exactly as that V33 arm was once added beside
+    // V31's. It never reaches the V33-specific materialization gate at all;
+    // measured directly from source (save.ts's `migrateToV25`), not assumed.
+    expect(() => migrateToV25(admitted as never)).toThrow(/cannot downgrade SaveFileV34 or discard the career lifecycle root/)
     expect(JSON.stringify(admitted)).toBe(before)
 
     // RE-EXPRESSED (was: "empty is lossless" — `migrateToV30(empty)` succeeded and
@@ -1048,7 +1066,7 @@ describe('family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; fam
     // That downgrade route does not exist for this fixture any more; the correct,
     // current-law assertion is that it is refused too — not a different message,
     // and not a success.
-    const empty = validateSaveV33({ ...save, state: { ...save.state, relationships: [] } })
+    const empty = validateSaveV34({ ...save, state: { ...save.state, relationships: [] } })
     expect(projectRelationshipsPreV31(empty.state)).toBeUndefined()
     expect(() => migrateToV30(empty)).toThrow(/cannot downgrade SaveFileV33 — an age has materialized since week \d+ \(the campaign is at week \d+\), and V32 has nowhere to record the provenance that produced it/)
     // GAP, disclosed rather than hidden: the ORIGINAL claim under test here — that an

@@ -106,8 +106,8 @@ function promisesRootOf(state: GameState | GameStateV29): readonly unknown[] {
 }
 
 describe('P14B.1 test 8: Save V29 (genuine V28 fixture, empty new tables, same digests, round trip, downgrade)', () => {
-  it('LIVE_SAVE_VERSION is 33 (stale title corrected post-C.1; the P14B.5 cutover, record 662, made it 31 at the time — the V29 lift this slice pins is the intermediate step)', () => {
-    expect(save.LIVE_SAVE_VERSION as number).toBe(33)
+  it('LIVE_SAVE_VERSION is 34 (stale title corrected post-C.2a; the P14B.5 cutover, record 662, made it 31 at the time — the V29 lift this slice pins is the intermediate step)', () => {
+    expect(save.LIVE_SAVE_VERSION as number).toBe(34)
   })
 
   it('genuine V28 open-case-45 fixture: sha256 matches, still validates as V28 through the frozen chain, migrates to V29 with EMPTY firstTakes and promises roots and promises: [] on every existing proposal, otherwise byte-identical', () => {
@@ -194,10 +194,10 @@ describe('P14B.1 test 8: Save V29 (genuine V28 fixture, empty new tables, same d
   // The B5 additive reader recognizes V31 (the live writer cut over at record 662,
   // LIVE_SAVE_VERSION 31); 31 is the current dispatch ceiling, not a change to
   // frozen V29 fixture law.
-  it('an unknown saveVersion 34 is refused, naming the handled range "1 through 33 only" (stale numbers corrected post-C.1)', () => {
+  it('an unknown saveVersion 35 is refused, naming the handled range "1 through 34 only" (stale numbers corrected post-C.2a)', () => {
     const json = load(FIXTURE.file)
     const lifted = withV29.migrateToV29(JSON.parse(json))
-    const forged = { ...lifted, saveVersion: 34 }
-    expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 33 only/)
+    const forged = { ...lifted, saveVersion: 35 }
+    expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 34 only/)
   })
 })

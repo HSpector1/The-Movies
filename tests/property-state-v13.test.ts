@@ -62,7 +62,7 @@ import {
   studioPlacementView,
   tick,
   validateSave,
-  validateSaveV33,
+  validateSaveV34,
   assertStudioPlacementInvariants,
   expectedWeeklyOperatingCostAt,
 } from '../src/core/index.js'
@@ -143,6 +143,12 @@ function withoutTalentProvenanceAndAge(state: GameState): Record<string, unknown
   const { talentProvenance: _talentProvenance, ...rest } = state as unknown as Record<string, unknown>
   return {
     ...rest,
+    // P14C.2a: `careerLifecycle.boundaryWeek` is the same kind of representation
+    // artifact as the age anchor above — a migrated twin opens it at the
+    // migration week, a native world opens it at week 0 (worldgen genesis), and
+    // neither week is authority. `.records` stays under the full, unweakened
+    // comparison; only the opening week is neutralized.
+    careerLifecycle: { ...state.careerLifecycle, boundaryWeek: 0 },
     talent: (state.talent as unknown as Record<string, unknown>[]).map((person) => {
       const clone = { ...person }
       delete clone.age
@@ -519,7 +525,7 @@ describe('C1-M1a (b) — nothing assumes eight structures or a small placement c
     // And it all round-trips byte-identically at the live boundary.
     const json = exportSave(makeSave(operational))
     const reloaded = migrateToCurrentControl(importSave(json))
-    expect(reloaded.saveVersion).toBe(33)
+    expect(reloaded.saveVersion).toBe(34)
     expect(exportSave(makeSave(reloaded.state))).toBe(json)
     expect(reloaded.state.property).toEqual(INITIAL_PROPERTY)
     expect(reloaded.state.placement.facilities).toEqual(operational.placement.facilities)
@@ -686,9 +692,9 @@ describe('C1-M1a (d) — SaveFileV13', () => {
       const save = makeSave(state)
       // P13B-S6: the LIVE envelope is now V26. The property root and every claim
       // this case makes about it are unchanged — only which version writes it.
-      expect(save.saveVersion).toBe(33)
+      expect(save.saveVersion).toBe(34)
       expect(validateSave(save)).toBe(save)
-      expect(validateSaveV33(save)).toBe(save)
+      expect(validateSaveV34(save)).toBe(save)
       expect(save.state.property).toEqual(INITIAL_PROPERTY)
       const json = exportSave(save)
       expect(exportSave(importSave(json))).toBe(json)
@@ -785,7 +791,7 @@ describe('C1-M1a (d) — SaveFileV13', () => {
     for (const [, mutate, expected] of cases) {
       const bad = clone(valid)
       mutate(bad)
-      expect(() => validateSaveV33(bad)).toThrow(expected)
+      expect(() => validateSaveV34(bad)).toThrow(expected)
     }
   })
 
@@ -854,7 +860,7 @@ describe('C1-M1a (d) — SaveFileV13', () => {
     for (const [, mutate, expected] of cases) {
       const bad = clone(valid)
       mutate(bad)
-      expect(() => validateSaveV33(bad)).toThrow(expected)
+      expect(() => validateSaveV34(bad)).toThrow(expected)
     }
   })
 
@@ -866,7 +872,7 @@ describe('C1-M1a (d) — SaveFileV13', () => {
     const forged = clone(makeSave(state))
     // Move the Theater onto the Annex's ground. Nothing may stand in a body.
     forged.state.property.structures.find((s) => s.id === 'theater')!.origin = { gx: 7, gy: 15 }
-    expect(() => validateSaveV33(forged)).toThrow(
+    expect(() => validateSaveV34(forged)).toThrow(
       /placed facility 1 overlaps property structure "theater"/,
     )
   })
@@ -927,10 +933,10 @@ describe('C1-M1a (d) — SaveFileV13', () => {
     }
   })
 
-  it('rejects unknown V34 beyond the current V33 reader boundary (stale numbers corrected post-C.1)', () => {
+  it('rejects unknown V35 beyond the current V34 reader boundary (stale numbers corrected post-C.2a)', () => {
     const live = makeSave(managedStudio('c1-m1a-unknown'))
-    expect(() => validateSave({ ...live, saveVersion: 34 })).toThrow(
-      /unknown saveVersion 34.*versions 1 through 33 only/,
+    expect(() => validateSave({ ...live, saveVersion: 35 })).toThrow(
+      /unknown saveVersion 35.*versions 1 through 34 only/,
     )
   })
 })

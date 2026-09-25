@@ -1,7 +1,7 @@
 import { beforeAll, describe, expect, it } from 'vitest'
 import { withTalentProvenance } from '../src/core/aging.js'
 import { applyActions } from '../src/core/actions.js'
-import { exportSave, importSave, makeSave, migrateToV33 } from '../src/core/save.js'
+import { exportSave, importSave, makeSave, migrateToLive } from '../src/core/save.js'
 import { tick } from '../src/core/tick.js'
 import { generateScientist } from '../src/core/worldgen.js'
 import type { GameState } from '../src/core/types.js'
@@ -187,7 +187,7 @@ describe('P13B-S2 conservation, determinism, save/reload and campaign isolation 
     for (let i = 0; i < 2; i++) running = tick(running)
 
     const direct = exportSave(makeSave(running))
-    const reloaded = migrateToV33(importSave(direct)).state
+    const reloaded = migrateToLive(importSave(direct)).state
     expect(exportSave(makeSave(reloaded))).toBe(direct)
 
     let runningFurther = running, reloadedFurther = reloaded

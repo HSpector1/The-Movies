@@ -25,14 +25,15 @@ import {
   initialManagedStudioConstruction,
   initialManagedStudioOperations,
   initialManagedStudioPlacement,
+  LIVE_SAVE_VERSION,
   makeSave,
   makeSaveV15,
   migrateToV15,
-  migrateToV33,
+  migrateToLive,
   mintReleaseCommitmentId,
   stableStringify,
   tick,
-  validateSaveV33,
+  validateSaveV34,
 } from '../src/core/index.js'
 import type { CastSlot, GameState, SegmentId } from '../src/core/index.js'
 
@@ -413,8 +414,8 @@ describe('P06A W1 — save law', () => {
     // P14A.1 live-version sweep: this is the identity lift through whichever
     // version is CURRENTLY live (the variable's own name), not a pinned V25 fact —
     // `tick` below is the live engine and requires every live root.
-    const live = migrateToV33(v15)
-    expect(live.saveVersion).toBe(33)
+    const live = migrateToLive(v15)
+    expect(live.saveVersion).toBe(LIVE_SAVE_VERSION)
     expect(live.state.releaseAuthority).toEqual({ commitments: [] })
 
     // The migrated world HOLDS — the legacy auto-release does not survive import.
@@ -427,16 +428,16 @@ describe('P06A W1 — save law', () => {
     const ready = foundedToReleaseReady('p06a-roundtrip')
     const committed = commit(ready, ready.studio.activeProductions[0]!.id)
     const save = makeSave(committed)
-    expect(save.saveVersion).toBe(33)
+    expect(save.saveVersion).toBe(LIVE_SAVE_VERSION)
 
-    const reimported = migrateToV33(importSave(exportSave(save)))
+    const reimported = migrateToLive(importSave(exportSave(save)))
     expect(stableStringify(reimported)).toBe(stableStringify(save))
     expect(reimported.state.releaseAuthority.commitments).toHaveLength(1)
 
-    expect(() => migrateToV15(save)).toThrow(/cannot downgrade SaveFileV33/)
+    expect(() => migrateToV15(save)).toThrow(/cannot downgrade SaveFileV34/)
   })
 
-  it('validateSaveV32 rejects forged authority at the save boundary', () => {
+  it('validateSaveV34 rejects forged authority at the save boundary (stale title said V32 before this sweep too)', () => {
     const ready = foundedToReleaseReady('p06a-save-forge')
     const id = ready.studio.activeProductions[0]!.id
     const good = makeSave(commit(ready, id))
@@ -445,12 +446,12 @@ describe('P06A W1 — save law', () => {
       state: { releaseAuthority: { commitments: { productionId: string }[] } }
     }
     orphan.state.releaseAuthority.commitments[0]!.productionId = 'prod-9999'
-    expect(() => validateSaveV33(orphan)).toThrow(/foreign identity|orphan/)
+    expect(() => validateSaveV34(orphan)).toThrow(/foreign identity|orphan/)
 
     const extraKey = JSON.parse(exportSave(good)) as {
       state: { releaseAuthority: Record<string, unknown> }
     }
     extraKey.state.releaseAuthority.surprise = true
-    expect(() => validateSaveV33(extraKey)).toThrow(/unknown field .surprise./)
+    expect(() => validateSaveV34(extraKey)).toThrow(/unknown field .surprise./)
   })
 })

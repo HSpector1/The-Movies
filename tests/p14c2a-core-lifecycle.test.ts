@@ -24,7 +24,7 @@ import { TUNING } from '../src/core/tuning.js'
 import type { GameState, GameStateV34, RetirementRecord } from '../src/core/types.js'
 import {
   c2Fixture, initialSyntheticRoot, nullHollywoodFixture, p13aGeneratedStudio, prependSyntheticCandidate, stepWeekWithLifecycle,
-  syntheticRecord, withSyntheticCareerLifecycle,
+  withSyntheticCareerLifecycle,
 } from './helpers/p14c2a-fixtures.js'
 
 /** Drives the real lifecycle step forward from `state.market.tick` to `targetWeek`,

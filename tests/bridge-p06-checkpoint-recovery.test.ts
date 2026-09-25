@@ -14,12 +14,13 @@ import { SCHEMA_ID } from '../bridge/protocol.ts'
 import { canonicalJson } from '../bridge/schema/canonical.ts'
 import type { BridgeCheckpointStore } from '../bridge/runtime/checkpoint-store.ts'
 import { createBridgeRuntimeCoordinator } from '../bridge/runtime/runtime-coordinator.ts'
-import { importSave, type SaveFileV33 } from '../src/core/save.js'
+import { importSave, LIVE_SAVE_VERSION, type SaveFileV34 } from '../src/core/save.js'
 import { buildTalentProvenance } from '../src/core/aging.js'
 import { initialTechnology } from '../src/core/technology.js'
 import { initialPhysicalPlans } from '../src/core/physicalPlans.js'
 import { initialTalentMarket } from '../src/core/talentMarket.js'
 import { withResearchFoundation } from '../src/core/researchPeople.js'
+import { initialCareerLifecycle } from '../src/core/careerLifecycle.js'
 
 // Independent historical authority, not taken from the implementation allowlist:
 // P07-OWNER-ACCEPTANCE-RECEIPT.md at 2753e18ba8fb5f65b936c22cde9531646fecc6cd,
@@ -52,7 +53,7 @@ function previous(bytes: string): BridgeRuntimeCheckpointV1 {
   return JSON.parse(bytes) as BridgeRuntimeCheckpointV1
 }
 
-function expectPreservedGameplay(beforeJson: string, after: SaveFileV33): void {
+function expectPreservedGameplay(beforeJson: string, after: SaveFileV34): void {
   const before = importSave(beforeJson)
   if (before.saveVersion !== 16) throw new Error('Frozen P06 evidence must contain an original Save V16')
   // Assert every old root, including IDs, commitment, cash/ledger, week and RNG,
@@ -70,7 +71,7 @@ function expectPreservedGameplay(beforeJson: string, after: SaveFileV33): void {
   // below, so the expected object widens that leaf explicitly.
   // Comparing with migrateToV31's own output would not prove preservation.
   const oldIds=new Set(before.state.talent.map(t=>t.id))
-  const {hollywood,technology,physicalPlans,talentMarket,firstTakes,promises,relationships,talentProvenance,...afterState}=after.state
+  const {hollywood,technology,physicalPlans,talentMarket,firstTakes,promises,relationships,talentProvenance,careerLifecycle,...afterState}=after.state
   expect(hollywood).toMatchObject({origin:'migration',originWeek:before.state.market.tick,films:[]})
   expect(technology).toEqual(initialTechnology(before.state.market.tick))
   // P13B-S3: V23 adds the physical-plan root, EMPTY — a migrated save planned nothing.
@@ -88,6 +89,10 @@ function expectPreservedGameplay(beforeJson: string, after: SaveFileV33): void {
   // at the migration week. Its visible cost is that every stored age is then FLOORED,
   // which is why the talent comparison below floors too rather than being relaxed.
   expect(talentProvenance).toEqual(buildTalentProvenance(before.state.talent, before.state.market.tick, 'legacy_age_anchor'))
+  // P14C.2a: V34 adds the career-lifecycle root, EMPTY — a migrated save tracked
+  // no retirement, opened at the migration week (the same lift the real
+  // V33->V34 migration writes).
+  expect(careerLifecycle).toEqual(initialCareerLifecycle(before.state.market.tick))
   const flooredBefore = before.state.talent.map(withResearchFoundation).map(person=>({...person,age:Math.floor(person.age)}))
   expect(after.state.talent.filter(t=>oldIds.has(t.id))).toEqual(flooredBefore)
   const oldPeople = after.state.talent.filter(t=>oldIds.has(t.id)).map(person => {
@@ -96,7 +101,7 @@ function expectPreservedGameplay(beforeJson: string, after: SaveFileV33): void {
     return copied
   })
   expect({...after,state:{...afterState,talent:oldPeople}}).toEqual({
-    saveVersion: 33,
+    saveVersion: LIVE_SAVE_VERSION,
     seed: before.seed,
     state: {
       ...before.state,

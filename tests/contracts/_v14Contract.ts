@@ -429,6 +429,15 @@ export function projectToV13State(state: GameState): Record<string, unknown> {
   // unbuildable rather than proving anything. It is simply stripped, exactly
   // like `hollywood`/`foundingRegime`/`studioHistory` above.
   delete raw.talentProvenance
+  // P14C.2a: the career-lifecycle root is V34-only, so a genuine V13 file never
+  // carried one. Real retirement authority is never discarded, exactly as the
+  // guarded roots above (unlike `talentProvenance`, this root IS empty on a
+  // fresh live state, so it takes the same emptiness precondition as
+  // `talentMarket`/`firstTakes`/`promises`/`relationships`).
+  if ((state.careerLifecycle?.records ?? []).length > 0) {
+    throw new Error('V13 twin cannot discard career-lifecycle authority')
+  }
+  delete raw.careerLifecycle
   for (const person of raw.talent as Record<string, unknown>[]) {
     for (const key of ['skills', 'ceilings', 'devRate', 'genreExperience', 'workHistory']) {
       delete (person[key] as Record<string, unknown>).research

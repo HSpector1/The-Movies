@@ -41,7 +41,8 @@ import type {
   FilmConcept,
   Segment,
 } from "../src/core/index.js";
-import type { SaveFileV14, SaveFileV15, SaveFileV33 } from "../src/core/save.js";
+import type { SaveFileV14, SaveFileV15, SaveFileV34 } from "../src/core/save.js";
+import { initialCareerLifecycle } from "../src/core/careerLifecycle.js";
 import { buildTalentProvenance } from "../src/core/aging.js";
 import { initialProperty } from "../src/core/lot.js";
 import { contendedStudio, freePackage } from "./_m4Fixtures.js";
@@ -227,14 +228,17 @@ function makeState(broadcastItems: BroadcastItem[]): GameState {
           // the week it stores (`t1` is 40 at week 8), so validator condition 2
           // holds. Built through the same function every writer uses.
           talentProvenance: buildTalentProvenance([talent], 8, 'authored_exact_week'),
+          // P14C.2a (Save V34): a hand-built LIVE state owes the empty
+          // lifecycle root — nobody retired in this fixture.
+          careerLifecycle: initialCareerLifecycle(8),
   };
 }
 
 // A well-formed save: envelope seed === state.seed, broadcastCache === broadcastItems.
-// `makeSave` is the live boundary (P14C.1): SaveFileV33. Every V1–V13-style shape
-// assertion below is unchanged by the cutover — only the envelope's own version
-// tag moved.
-function wellFormedSave(): SaveFileV33 {
+// `makeSave` is the live boundary (P14C.1: SaveFileV33; P14C.2a moved it once more
+// to SaveFileV34). Every V1–V13-style shape assertion below is unchanged by either
+// cutover — only the envelope's own version tag moved.
+function wellFormedSave(): SaveFileV34 {
   const items = [broadcastItem];
   const state = makeState(items);
   return makeSave(state);
@@ -269,12 +273,12 @@ describe("§17 / §15.7 — export→import→export round-trips byte-identicall
 });
 
 describe("§17 — loud rejection of an unknown saveVersion", () => {
-  it("throws on an unknown saveVersion (e.g. 34; stale example number corrected post-C.1 — 33 is now live and valid)", () => {
+  it("throws on an unknown saveVersion (e.g. 35; stale example number corrected post-C.2a — 34 is now live and valid)", () => {
     // Source: §17 "loud rejection of unknown versions". B5's additive reader
-    // recognizes versions 1–33 before the live writer cutover; the unsupported
+    // recognizes versions 1–34 before the live writer cutover; the unsupported
     // sentinel remains one version past that CURRENT dispatch ceiling.
     const save = wellFormedSave();
-    const bad = { ...save, saveVersion: 34 } as unknown as SaveFileV14;
+    const bad = { ...save, saveVersion: 35 } as unknown as SaveFileV14;
     expect(() => loadSave(bad)).toThrow();
   });
 });
@@ -284,7 +288,7 @@ describe("M14 — loud rejection when envelope seed ≠ state.seed", () => {
     // Source: M14 "the envelope seed must equal state.seed; load validation
     // rejects any divergence loudly (same failure mode as an unknown saveVersion)."
     const save = wellFormedSave();
-    const bad: SaveFileV33 = { ...save, seed: "a-different-seed" };
+    const bad: SaveFileV34 = { ...save, seed: "a-different-seed" };
     expect(() => loadSave(bad)).toThrow();
   });
 });
@@ -298,14 +302,14 @@ describe("M14 — loud rejection when broadcastCache ≠ state.broadcastItems", 
       ...broadcastItem,
       template: "release-worse",
     };
-    const bad: SaveFileV33 = { ...save, broadcastCache: [divergentItem] };
+    const bad: SaveFileV34 = { ...save, broadcastCache: [divergentItem] };
     expect(() => loadSave(bad)).toThrow();
   });
 
   it("throws when broadcastCache differs from state.broadcastItems by length", () => {
     // Source: M14 — any divergence (including cardinality) is rejected.
     const save = wellFormedSave();
-    const bad: SaveFileV33 = { ...save, broadcastCache: [] };
+    const bad: SaveFileV34 = { ...save, broadcastCache: [] };
     expect(() => loadSave(bad)).toThrow();
   });
 });
@@ -429,10 +433,10 @@ describe("P04A §2.5 — SaveFileV15 identity-bearing queue expiry", () => {
     ).toMatchObject({ subjectId: null });
   });
 
-  it("rejects an unknown saveVersion 34 with the updated range, and rejects downgrading V15 to V14 (stale number corrected post-C.1)", () => {
+  it("rejects an unknown saveVersion 35 with the updated range, and rejects downgrading V15 to V14 (stale number corrected post-C.2a)", () => {
     const save = wellFormedV15Save();
-    expect(() => validateSave({ ...save, saveVersion: 34 })).toThrow(
-      /versions 1 through 33 only/,
+    expect(() => validateSave({ ...save, saveVersion: 35 })).toThrow(
+      /versions 1 through 34 only/,
     );
     expect(() => migrateToV14(save)).toThrow(/cannot downgrade SaveFileV15/);
   });

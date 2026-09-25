@@ -1,15 +1,16 @@
-import {migrateToV18,migrateToV33,type SaveFile,type SaveFileV33,type GameStateV18,type GameState} from '../src/core/index.js'
+import {migrateToV18,migrateToLive,LIVE_SAVE_VERSION,type SaveFile,type LiveSaveFile,type GameStateV18,type GameState} from '../src/core/index.js'
 import {buildTalentProvenance} from '../src/core/aging.js'
 import {withResearchFoundation} from '../src/core/researchPeople.js'
 import {initialTechnology} from '../src/core/technology.js'
 import {initialPhysicalPlans} from '../src/core/physicalPlans.js'
 import {initialTalentMarket} from '../src/core/talentMarket.js'
+import {initialCareerLifecycle} from '../src/core/careerLifecycle.js'
 /** Historical player-law control: preserve pre-P12 authority while lifting the
  * type to the current test engine. Native migration uses the real V20 chain. */
-export function migrateToCurrentControl(save:SaveFile):SaveFileV33 {
-  if(save.saveVersion>=19)return migrateToV33(save)
+export function migrateToCurrentControl(save:SaveFile):LiveSaveFile {
+  if(save.saveVersion>=19)return migrateToLive(save)
   const old=migrateToV18(save)
-  return {...old,saveVersion:33,state:liftHistoricalState(old.state)}
+  return {...old,saveVersion:LIVE_SAVE_VERSION,state:liftHistoricalState(old.state)}
 }
 
 export function liftHistoricalState(state:GameStateV18):GameState {
@@ -21,6 +22,9 @@ export function liftHistoricalState(state:GameStateV18):GameState {
     // `market.tick`, with each stored age then FLOORED. This helper hand-builds a
     // LIVE envelope, so it owes the live shape, flooring included.
     talentProvenance:buildTalentProvenance(people,state.market.tick,'legacy_age_anchor'),
+    // P14C.2a (Save V34): the same lift the real V33->V34 migration writes — a
+    // historical campaign tracked no retirement, so the lifecycle root opens empty.
+    careerLifecycle:initialCareerLifecycle(state.market.tick),
     // P14A.1 (Save V28): the same lift the real V27->V28 migration writes — a
     // historical campaign fought no contested expiry, so the market root opens empty.
     talentMarket:initialTalentMarket(),

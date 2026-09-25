@@ -770,7 +770,7 @@ describe('P04A.2 §19G — the split needs no save migration and survives reload
     const save = makeSave(greenlit)
     // NO VERSION BUMP FROM THIS CLAUSE: the credit/assignment split changed no
     // persisted shape. The live version is 16 (P06A W1 release-authority root).
-    expect(save.saveVersion).toBe(33)
+    expect(save.saveVersion).toBe(34)
     // eslint-disable-next-line no-console
     console.log(
       '[P04A.2 WITNESS] §19G saveVersion:',

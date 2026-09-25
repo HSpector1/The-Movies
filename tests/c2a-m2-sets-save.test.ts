@@ -3,6 +3,7 @@ import { buildTalentProvenance } from '../src/core/aging.js'
 import { initialTechnology } from '../src/core/technology.js'
 import { initialPhysicalPlans } from '../src/core/physicalPlans.js'
 import { initialTalentMarket } from '../src/core/talentMarket.js'
+import { initialCareerLifecycle } from '../src/core/careerLifecycle.js'
 import {migrateToCurrentControl} from './_historicalCurrent.js'
 // ── C2a-M2 — sets across the save boundary, and the milestone's own gate ─────
 //
@@ -35,7 +36,7 @@ import {
   setMountedOn,
   stableStringify,
   tick,
-  validateSaveV33,
+  validateSaveV34,
 } from '../src/core/index.js'
 import type { CastSlot, CreativeRole, GameState, SegmentId, Talent } from '../src/core/index.js'
 import { grandfatheredBindings, v13TwinOf } from './contracts/_v14Contract.js'
@@ -170,7 +171,7 @@ describe('C2a-M2 — sets across the save boundary', () => {
     const envelope = JSON.parse(exportSave(makeSave(state))) as {
       state: { sets: Record<string, unknown>[]; nextSetId: number }
     }
-    expect(() => validateSaveV33(envelope)).not.toThrow()
+    expect(() => validateSaveV34(envelope)).not.toThrow()
 
     const forge = (mutate: (sets: Record<string, unknown>[]) => void): unknown => {
       const copy = JSON.parse(JSON.stringify(envelope)) as typeof envelope
@@ -180,7 +181,7 @@ describe('C2a-M2 — sets across the save boundary', () => {
 
     // Two sets on one stage.
     expect(() =>
-      validateSaveV33(
+      validateSaveV34(
         forge((sets) => {
           sets[2]!.mountedOn = STAGE_7
         }),
@@ -189,7 +190,7 @@ describe('C2a-M2 — sets across the save boundary', () => {
 
     // A standing set with no condition — the build/repair discriminator broken.
     expect(() =>
-      validateSaveV33(
+      validateSaveV34(
         forge((sets) => {
           sets[0]!.condition = 0
         }),
@@ -198,7 +199,7 @@ describe('C2a-M2 — sets across the save boundary', () => {
 
     // A set under work that no scenery crew is on.
     expect(() =>
-      validateSaveV33(
+      validateSaveV34(
         forge((sets) => {
           sets[0]!.status = 'under-construction'
           sets[0]!.completesWeek = 400
@@ -260,6 +261,9 @@ describe('C2a-M2 — the §12-M2 gate: a migrated managed V13 save reaches a NEW
           promises: [],
           // P14B.5 (Save V31): a hand-built state shares no work, so it holds no relationship edge.
           relationships: [],
+          // P14C.2a (Save V34): a hand-built LIVE state tracks no retirement,
+          // so the lifecycle root opens empty at the migration week.
+          careerLifecycle: initialCareerLifecycle(migrated.market.tick),
       // P13B-S5-R07: `setup`/`planRevision` are V25-only (younger than every
       // other synthesised root above) — the same `setup: null, planRevision: 0`
       // lift the real V24->V25 migration writes for every legacy workflow.
@@ -297,7 +301,7 @@ describe('C2a-M2 — the §12-M2 gate: a migrated managed V13 save reaches a NEW
     }
 
     // And the whole thing is a legal V15 file at every step.
-    expect(() => validateSaveV33(JSON.parse(exportSave(makeSave(played))))).not.toThrow()
+    expect(() => validateSaveV34(JSON.parse(exportSave(makeSave(played))))).not.toThrow()
   })
 
   it('lets a migrated studio BUILD a set on the stage it just cleared', () => {
@@ -327,6 +331,9 @@ describe('C2a-M2 — the §12-M2 gate: a migrated managed V13 save reaches a NEW
           promises: [],
           // P14B.5 (Save V31): a hand-built state shares no work, so it holds no relationship edge.
           relationships: [],
+          // P14C.2a (Save V34): a hand-built LIVE state tracks no retirement,
+          // so the lifecycle root opens empty at the migration week.
+          careerLifecycle: initialCareerLifecycle(migrated.market.tick),
       // P13B-S5-R07: `setup`/`planRevision` are V25-only — same lift as above.
       operations: {
         ...migrated.operations,

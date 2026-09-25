@@ -48,7 +48,8 @@ import {
   studioCalendar,
   tick,
   validateSave,
-  validateSaveV33,
+  LIVE_SAVE_VERSION,
+  validateSaveV34,
 } from '../src/core/index.js'
 import {
   DEVELOPMENT_CASTING_ANNEX_BLUEPRINT,
@@ -775,9 +776,9 @@ describe('C1-M3a (F) — saves, boundaries, and determinism', () => {
     state = advance(state, 2)
 
     const save = makeSave(state)
-    expect(save.saveVersion).toBe(33)
+    expect(save.saveVersion).toBe(LIVE_SAVE_VERSION)
     expect(validateSave(save)).toBe(save)
-    expect(validateSaveV33(save)).toBe(save)
+    expect(validateSaveV34(save)).toBe(save)
     const json = exportSave(save)
     expect(exportSave(importSave(json))).toBe(json)
     const reloaded = migrateToCurrentControl(importSave(json)).state
@@ -846,6 +847,11 @@ describe('C1-M3a (F) — saves, boundaries, and determinism', () => {
     // emptiness precondition to prove before stripping it, exactly as
     // `hollywood`/`technology`/`physicalPlans` above are stripped unconditionally.
     delete forgedV11.state.talentProvenance
+    // P14C.2a: and the career-lifecycle root (V34), removed only while EMPTY —
+    // this world retired nobody, so no retirement authority is discarded, the
+    // same precondition as the `relationships` root just above.
+    expect((forgedV11.state.careerLifecycle as { records: unknown[] }).records).toEqual([])
+    delete forgedV11.state.careerLifecycle
     for (const person of forgedV11.state.talent as Record<string, unknown>[]) {
       for (const key of ['skills', 'ceilings', 'devRate', 'genreExperience', 'workHistory']) {
         delete (person[key] as Record<string, unknown>).research

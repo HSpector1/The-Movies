@@ -31,7 +31,8 @@ import {
   isContracted,
   makeSave,
   makeSaveV2,
-  migrateToV33,
+  LIVE_SAVE_VERSION,
+  migrateToLive,
   renewalWindowOpen,
   rosterTalent,
   terminationCost,
@@ -547,7 +548,7 @@ describe('D-11 — determinism & live saves', () => {
   it('new games save at the live version and round-trip byte-identically', () => {
     const s = foundStudio('save-v4')
     const save = makeSave(s)
-    expect(save.saveVersion).toBe(33) // P13B-S8: new games save as V27.
+    expect(save.saveVersion).toBe(34) // P13B-S8: new games save as V27.
     const a = exportSave(save)
     const b = exportSave(importSave(a))
     expect(b).toBe(a)
@@ -559,8 +560,8 @@ describe('D-11 — determinism & live saves', () => {
     // Split: advance 3, export/import at the live version, advance 3 more.
     const mid = advanceWeeks(s0, 3)
     const reloaded = importSave(exportSave(makeSave(mid)))
-    if (reloaded.saveVersion !== 33) throw new Error('expected V28')
-    const split = advanceWeeks(migrateToV33(reloaded).state, 3)
+    if (reloaded.saveVersion !== LIVE_SAVE_VERSION) throw new Error('expected the live version, got ' + String(reloaded.saveVersion))
+    const split = advanceWeeks(migrateToLive(reloaded).state, 3)
     expect(split.studio.cash).toBe(continuous.studio.cash)
     expect(split.ledger.length).toBe(continuous.ledger.length)
     expect(exportSave(makeSave(split))).toBe(exportSave(makeSave(continuous)))
