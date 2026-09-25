@@ -637,3 +637,20 @@ unchanged from the recovery pin. LOGIC VERIFIED · UNITY NOT VERIFIED.*
 | Future compile/render/native tests | EditMode: a V33 checkpoint migrates to V34 with an empty lifecycle root; the runtime-checkpoint gate refuses a V33 file with a message naming the live version; a V34 checkpoint holding a record refuses a downgrade. PlayMode: a retirement announcement surfaces where C.2-RM places it; a greenlight including a person whose seat cannot clear before `E` is refused with the token shown. |
 | Migration / integration risks | `bridge/runtime-checkpoint.ts` now gates on `LIVE_SAVE_VERSION` (no literal), and live routes call `migrateToLive`, so the next save bump moves one definition. V34 → V33 is lossless only while no record exists. |
 | Unresolved product choices | **(a)** Retirement × open promise (VOIDED vs WAIVED) — Owner question in 773 §7; only C.2c waits on it. **(b)** Scientist retirement window — not invented (Owner instruction); recommendation: the craft window. **(c)** The intent rule v1 (hard boundary, or idle ≥ 104 weeks with a record span ≥ 104 weeks) is PROVISIONAL; tenure beyond the record span is not an input. |
+
+### P14C.4 — deterministic replenishment (Save V34 → V35; projection expected UNMOVED at 50)
+
+*Entry written during C.4 verification from records 782 (§7–§9), 792, 793, 796 and 799; the measured results
+are appended at the C.4 checkpoint.*
+
+| Field | Entry |
+| --- | --- |
+| Slice | P14C.4, ordered before C.2b by player impact. Once a campaign year (week `52k`), each film profession receives entrants up to the accepted founding composition (actor 40, director 14, writer 16, craft 14), plus one when nobody active in it will still be under 30 at the next request. At most 32 per request. Entrants are 20–29, capable-but-unproven, free agents, appended with birth provenance, and receipted in the lifecycle root. |
+| Identity change | **`LIVE_SAVE_VERSION` 34 → 35**. The `careerLifecycle` root gains `cohorts` (append-only receipts). The projection is expected UNMOVED at 50; the writer measured `generated/` clean. |
+| C# binding change | Expected NONE (a save bump regenerates nothing). |
+| Consumer change — VALUES through existing read models | New people appear in every people listing, the hiring market (free agents are listed first, uncapped) and rival hiring pools from week 52 onward. The hiring listing can grow long in mature campaigns, because `freeAgents` is never pruned (retired ids since C.2a, plus unsigned entrants); a native list must page or filter it. |
+| Consumer change — BEHAVIOUR OVER TIME | Measured in a passive world (799): the population holds at the accepted 84, and the listing never empties across 6,240 weeks. The run-1 rule left mid-year youth gaps, corrected by 782 §9. |
+| Required UI action/feedback | DEFERRED, nothing designed: an "entered the industry" fact on the profile and the people list (the receipt week), and a way to find newcomers in the hiring market. |
+| Future compile/render/native tests | EditMode: a V34 checkpoint migrates to V35 with `cohorts: []`; a V35 checkpoint with a receipt refuses a downgrade. PlayMode: after a cohort week, an entrant is visible and signable in the hiring market. |
+| Migration / integration risks | V35 → V34 is lossless only while `cohorts` is empty. A V34 state is not live: ticking it fails loudly at the next cohort week. |
+| Unresolved product choices | **(a)** Every count and age is PROVISIONAL TUNING under companion §6.5. The youth floor is the parent's delegated reading of the Owner's demonstration criterion. **(b)** Era-dependent entrant ages are not implemented; no era fact was selected. **(c)** F-792-1: rivals are insolvent from week 260 in a passive world, so the demonstration shows supply, not a live market. Routed to P15's scope check. |

@@ -198,3 +198,60 @@ deleted" intent holds, and its equality assertion needs a prefix comparison.
 The test author sweeps `tests/` (794 S9 to S14, the three test strip lists of 794 §3, and E1's prefix
 comparison). The parent then runs the independent RED against this diff, the focused suites, the matched
 full pass, and the 782 §7.5 demonstration on seeds `p14c4-demo-01/02/03`. I have not run the RED.
+
+## 9. Follow-up: 782 §9 and 793 §9 (after demonstration run 1 failed, record 799)
+
+Same role and rules as above. Source identity: HEAD `8f8c9ab0580ee4cc6a5b6d4681276b61cfbf923e`, which holds the
+first diff as commit `476046da`. `git diff HEAD -- src bridge ui scripts | shasum -a 256` =
+`1d7a7f26cee6fcef30357ee60600811d77af4750c1403c9627accce57e01bdaa`: 2 files, +9/−6. The whole C.4 source change
+against the scaffold (`git diff bd27de93 -- src bridge ui scripts`) is 7 files, +399/−80, sha256
+`a0cefcc769546018d22673cec7315c67ca4bd0749603866e2efa8e334a92a674`. Times are from `date`, 2026-09-25 23:56 to
+2026-09-26 00:01 CEST.
+
+### Lines changed
+
+| path | change |
+| --- | --- |
+| `src/core/careerLifecycle.ts` | `deriveCohortRequest`: `young_p` reads `ageAt(row, week + TUNING.COHORT_REQUEST_WEEKS) < TUNING.COHORT_YOUTH_BELOW_AGE`. The live step and the V35 validator still share it. Two comments now say "still under 30 at the next request". |
+| `src/core/tuning.ts` | `COHORT_ENTRANT_AGE.hi` 32 → 29; the two comments name §9. `COHORT_MAX_PER_REQUEST` stays 32. |
+
+The validator's entrant bound reads `TUNING.COHORT_ENTRANT_AGE` (`save.ts`), so it and its message
+(`outside [20, 29]`) follow the constant with no `save.ts` edit. No other source line named 32 as the entrant
+bound.
+
+### Commands
+
+| command | exit | runtime | result |
+| --- | --- | --- | --- |
+| `npm run typecheck` | 2 | 42 s | 54 error lines, all under `tests/` (the concurrent sweep is editing them); 0 in `src/` |
+| `./node_modules/.bin/tsc -p ui/tsconfig.json --noEmit` | 0 | 40 s | clean |
+| `npm run typecheck:bridge` | 2 | 28 s | 1 error line under `tests/`; 0 in `src/` or `bridge/` |
+| `npm run check:bridge-contract` | 0 | 1 s | 3 artifacts verified |
+| `npm run check:bridge-contract:fixtures` | 0 | 1 s | 1 artifact verified |
+| `git status --porcelain generated/` | 0 | <1 s | empty |
+
+### Probes rerun one script at a time (session scratchpad, not committed)
+
+- **Main probe (34 s, exit 0).** On all six genuine V34 worlds: receipts land only at cohort weeks, and
+  entrants are contiguous and anchored at `w`. Every entrant row is now in [20, 29] (asserted). The step
+  run twice is the same object, and `rngState` never moves. Null-hollywood gets no receipt, and downgrades with
+  receipts are refused. Deep deficit: the first cohort still requests 78, allots actor 32 and clips 46; the
+  second allots 5/13/14/0 and clips 14. Save/reload at 130 with both runs continued to 320 is byte-equal. All
+  eleven validator mutations are refused with their own messages. Fresh world to week 1600 in 10.4 s: 30
+  receipts, talent 84 → 152, under-30 actors/directors/writers/craft 11/3/4/2 (before §9: 11/2/3/2).
+- **Requests the lookahead moved on the genuine worlds:** mid-year and cohort-week at 156 now request one
+  writer (before: nothing) and at 208 two actors (before: two actors and one writer). all-statuses at 312
+  requests director 1 and writer 1 (before: writer 1). migrated-chain at 1092 adds one craft. Deep deficit
+  is unchanged.
+- **Independent derivation (38 s, exit 0).** It computes the exact age at `w + 52` inline from the row fields
+  and reads current record status. It agrees with all 24 receipts on four worlds over 320 weeks. The A6b
+  double call still returns the same object. New: an entrant row set to 29.5 is refused with
+  `outside [20, 29]`; the largest entrant age in the deep-deficit receipts is 28.691.
+- **Lookahead unit probe (exit 0).** Every other profession is full and young, and craft is full (14). The
+  youngest craft person at exactly 29.982 on week 5,668 (799's seed-01 case) now fires the floor for one
+  craft entrant. 28.99 (29.99 a year on) does not fire it. 29.0 (30.0 a year on) fires it.
+- **`generateIndustryTalent` identity (8 s, exit 0).** 1,200 calls without an age, and `generateWorld` talent on
+  3 seeds, are byte-identical to the pre-C.4 source (`bd27de93`'s `src`, extracted with `git archive`).
+
+Not run by me: the RED, the focused suites under `tests/` (the sweep owns them mid-edit), and the 782 §9.4
+demonstration on seeds `p14c4-demo-04/05/06`, which is the parent's acceptance step.

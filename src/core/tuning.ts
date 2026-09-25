@@ -423,8 +423,8 @@ export const TUNING = {
   // fresh-founding composition (record 792: genesis ROLE_BLOCKS + 4 founding rivals).
   COHORT_ACCEPTED_POPULATION: { actor: 40, director: 14, writer: 16, craft: 14 } as Readonly<Record<'actor' | 'director' | 'writer' | 'craft', number>>,
   COHORT_MAX_PER_REQUEST: 32, // companion §6.5 hard maximum; a clipped remainder is not carried
-  COHORT_ENTRANT_AGE: { mean: 24, sd: 3, lo: 20, hi: 32 }, // 782 R5, no era dependence selected
-  COHORT_YOUTH_BELOW_AGE: 30, // the youth floor (782 §7.1): the same 30 `isProven` reads
+  COHORT_ENTRANT_AGE: { mean: 24, sd: 3, lo: 20, hi: 29 }, // 782 R5 as amended by §9 (hi 32 → 29: every entrant enters under 30); no era dependence selected
+  COHORT_YOUTH_BELOW_AGE: 30, // the youth floor (782 §7.1, looking ahead to the next request per §9): the same 30 `isProven` reads
   COHORT_REQUEST_WEEKS: 52, // one request per campaign year (782 R2)
 
   // Freelancers (D-11.10). fee = round(salaryCurve × premium); a one-time project cost.

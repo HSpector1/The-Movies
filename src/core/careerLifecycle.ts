@@ -226,7 +226,8 @@ export function advanceCareerLifecycleWeek(state: GameState, birthdays: readonly
 //
 // Once a campaign year, at the week the tick produces with `week % 52 === 0`, the
 // industry requests entrants per film profession: the deficit to the accepted
-// population, or one person when nobody active in the profession is under 30. The
+// population, or one person when nobody active in the profession will still be under 30
+// at the next request (782 §9). The
 // request holds at most 32 people, allotted in profession order; a clipped remainder is
 // recorded, never carried. Entrants are appended to `state.talent` as one contiguous
 // block, anchored in provenance at the request week, and listed as free agents. The only
@@ -244,8 +245,10 @@ export function isCohortWeek(week: number): boolean {
  * 782 §7.1 over an explicit population, shared by the live step and the V35 validator so
  * the two derivations cannot disagree. `prefix` is every person who existed before the
  * request's entrants; `active_p` counts those of `p` with no `retired` record whose
- * `retiredWeek <= week`; `young_p` asks whether one of them is under 30 at `week` by
- * `ageAt` over provenance. A prefix person without a provenance row throws.
+ * `retiredWeek <= week`; `young_p` asks whether one of them is still under 30 at the NEXT
+ * request week, `week + COHORT_REQUEST_WEEKS`, by `ageAt` over provenance (782 §9 / 793 §9:
+ * a person weeks from 30 must not suppress the floor). A prefix person without a
+ * provenance row throws.
  */
 export function deriveCohortRequest(
   prefix: readonly Pick<Talent, 'id' | 'role'>[],
@@ -265,7 +268,7 @@ export function deriveCohortRequest(
     if (row === undefined) throw new Error(`careerLifecycle: ${person.id} has no talent provenance row to derive a cohort request from`)
     if (person.role === 'scientist' || retired.has(person.id)) continue
     active[person.role]++
-    if (ageAt(row, week) < TUNING.COHORT_YOUTH_BELOW_AGE) young[person.role] = true
+    if (ageAt(row, week + TUNING.COHORT_REQUEST_WEEKS) < TUNING.COHORT_YOUTH_BELOW_AGE) young[person.role] = true
   }
   const requested: Record<FilmCreativeRole, number> = { actor: 0, director: 0, writer: 0, craft: 0 }
   let room = TUNING.COHORT_MAX_PER_REQUEST
