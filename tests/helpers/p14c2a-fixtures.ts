@@ -8,8 +8,6 @@ import { existsSync, readFileSync } from 'node:fs'
 import { gunzipSync } from 'node:zlib'
 import { expect } from 'vitest'
 import { convertV32ToV33, validateSaveV33 } from '../../src/core/save.js'
-import { birthdaysDueAt } from '../../src/core/aging.js'
-import { advanceCareerLifecycleWeek } from '../../src/core/careerLifecycle.js'
 import { tick } from '../../src/core/index.js'
 import { advanceTo, fund, p13aGeneratedStudio, player } from './p14b2-fixtures.js'
 export { advanceTo, fund, p13aGeneratedStudio, player }
@@ -125,25 +123,24 @@ export function prependSyntheticCandidate(
 }
 
 /**
- * ONE real tick, with the lifecycle step invoked exactly as 777 §4 specifies it can
- * be driven from outside `tick()` (which does not call it yet): `birthdaysDueAt` is
- * read from the PRE-tick provenance for the week the tick is about to produce
- * (before `materializeAges` consumes that due bucket, same as the contract requires),
- * then `advanceCareerLifecycleWeek` runs on the POST-tick state.
+ * ONE real week, driven ENTIRELY by the production `tick()` — no manual
+ * re-invocation of `advanceCareerLifecycleWeek`/`birthdaysDueAt` afterward. 777 §4
+ * wires the lifecycle step INSIDE `tick()` itself (birthdays captured before
+ * `materializeAges` consumes the due bucket, the step run BEFORE
+ * `advanceTalentMarketWeek`); this helper exists only so every natural-route case in
+ * this suite shares one call site, never to duplicate that wiring itself.
  *
- * DISCLOSED LIMITATION: 777 §4 places the lifecycle step BEFORE
- * `advanceTalentMarketWeek`, which already ran INSIDE this `tick()` call by the time
- * this helper's second half executes — so a same-week market interaction (C1/C2's
- * case invalidation, discovery skipping an announced person) is ONE WEEK LATE here.
- * The A-series intent/settlement law this helper drives does not depend on that
- * ordering; the market tests exercise `advanceTalentMarketWeek` directly on a state
- * that already carries the record at the right week instead of composing through
- * this helper, precisely to avoid that gap.
+ * CHANGED (783, test-coverage gap 1): an earlier revision of this helper called
+ * `advanceCareerLifecycleWeek` a SECOND time after `tick()`. That second call was
+ * idempotent (A6b asserts idempotence directly, never through this helper), so every
+ * natural-route case built on this helper (A1, A2a, A2b, A5, E1, E2, F1) would have
+ * kept passing even if `tick()`'s OWN wiring were removed or misordered — the gap the
+ * source review flagged. The second call is gone; the dedicated tick-wiring case in
+ * `p14c2a-core-lifecycle.test.ts` drives a bare `tick()` with NO helper at all,
+ * precisely to prove `tick()`'s own wiring and its order ahead of the market step.
  */
 export function stepWeekWithLifecycle(state: GameStateV34): GameStateV34 {
-  const birthdays = birthdaysDueAt(state.talentProvenance, state.market.tick + 1)
-  const ticked = tick(state as unknown as GameState) as unknown as GameStateV34
-  return advanceCareerLifecycleWeek(ticked, birthdays) as GameStateV34
+  return tick(state as unknown as GameState) as unknown as GameStateV34
 }
 
 export const sha256Hex = sha256

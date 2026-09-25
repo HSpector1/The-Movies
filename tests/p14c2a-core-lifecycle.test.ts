@@ -19,12 +19,12 @@ import { tick } from '../src/core/index.js'
 import {
   LIFECYCLE_INTENT_RULES_VERSION, advanceCareerLifecycleWeek, retirementRecordFor, retirementWindow,
 } from '../src/core/careerLifecycle.js'
-import { ageAt, birthdaysDueAt } from '../src/core/aging.js'
+import { ageAt, birthdaysDueAt, nextBirthdayWeek, provenanceRowFor, recomputeDue } from '../src/core/aging.js'
 import { TUNING } from '../src/core/tuning.js'
-import type { GameStateV34, RetirementRecord } from '../src/core/types.js'
+import type { GameState, GameStateV34, RetirementRecord } from '../src/core/types.js'
 import {
-  c2Fixture, initialSyntheticRoot, nullHollywoodFixture, prependSyntheticCandidate, stepWeekWithLifecycle, syntheticRecord,
-  withSyntheticCareerLifecycle,
+  c2Fixture, initialSyntheticRoot, nullHollywoodFixture, p13aGeneratedStudio, prependSyntheticCandidate, stepWeekWithLifecycle,
+  syntheticRecord, withSyntheticCareerLifecycle,
 } from './helpers/p14c2a-fixtures.js'
 
 /** Drives the real lifecycle step forward from `state.market.tick` to `targetWeek`,
@@ -240,5 +240,81 @@ describe('P14C.2a A1-A7: the retirement intent/settlement law', () => {
       state = advanceCareerLifecycleWeek(state, birthdays) as GameStateV34
       expect(state.careerLifecycle.records, `still no record at week ${state.market.tick}`).toEqual([])
     }
+  })
+})
+
+// ── tick wiring (783 test-coverage gap 1) ──
+// The RED's own helper (`stepWeekWithLifecycle`) used to call `advanceCareerLifecycleWeek`
+// a SECOND time after every real `tick()`, so every natural-route case above would still
+// pass even if `tick()`'s OWN wiring of the lifecycle step were removed or misordered —
+// nothing proved tick() itself runs the step, or that it runs it BEFORE the market step.
+// This case calls bare `tick()` alone (no helper, no manual re-application of
+// `advanceCareerLifecycleWeek`/`birthdaysDueAt` anywhere in it) and checks BOTH halves of
+// 777 §4's placement claim in the SAME tick: the announcement appears at the due week,
+// and an open market case of that same person is invalidated in that identical tick.
+//
+// REVISED (parent verification, second round): an earlier revision of this case injected
+// a hand-built `TalentMarketCase` whose `contractId` named no real employment row. Under
+// the CORRECT order that row is never dereferenced (the case is invalidated at lifecycle
+// step 1, before anything reads `contractId`), so the case passed — but a MUTATION that
+// moves the lifecycle step AFTER the market step made `advanceTalentMarketWeek` try to
+// read that same nonexistent row (`decisionWeekOf`, `talentMarket.ts:125`) and CRASH,
+// never reaching the "was it invalidated" assertion this case exists to make. An
+// unlawful injected case cannot prove an ordering claim: fixed by using ONLY real
+// mechanics — an ALREADY-EMPLOYED rival (r01's own genesis director, real contractId,
+// real employment row) whose contract is shortened (the same technique D2/B4a/F1 already
+// use in this suite) so its renewal window opens naturally, and whose OWN provenance
+// anchor is overwritten so their REAL hard-boundary birthday (age 75) falls inside that
+// SAME real renewal window — never a synthetic market row.
+describe('P14C.2a tick-wiring (783 gap 1): tick() alone must run the lifecycle step, and run it BEFORE the market', () => {
+  it('a bare tick() (no stepWeekWithLifecycle, no manual advanceCareerLifecycleWeek/birthdaysDueAt call) both announces r01\'s own director at their real due week AND invalidates the REAL market case naturally discovered on their REAL contract, in that SAME tick', () => {
+    const directorId = 'person-studio-aca408ec-r01-1' // r01's genesis director (also B4a/D2's subject)
+    const base = p13aGeneratedStudio() as unknown as GameState
+    expect(base.talent.find((t) => t.id === directorId)?.role).toBe('director') // hard boundary 75 (773 D1)
+    const ordinal = base.hollywood!.employment.findIndex((e) => e.terms.talentId === directorId)
+    expect(ordinal).toBeGreaterThanOrEqual(0)
+    // shorten the REAL genesis contract (208wk) to 52wk, the SAME technique D2/B4a use,
+    // so the renewal window (52 - HIRING_RENEWAL_WINDOW_WEEKS=12 -> week 40) opens within
+    // a short, controlled horizon rather than requiring 200+ real ticks.
+    const employment = base.hollywood!.employment.map((e, i) => (i === ordinal ? { ...e, terms: { ...e.terms, endWeekExclusive: 52 } } : e))
+    let state: GameState = { ...base, hollywood: { ...base.hollywood!, employment } }
+
+    // overwrite the director's OWN provenance anchor so their REAL next birthday (age
+    // 75, hard boundary) lands at week 45 — inside [40, 52), i.e. after the renewal
+    // window opens and before the (shortened) contract's own natural expiry — verified
+    // via the REAL exported `nextBirthdayWeek`, never hand-derived: (75 - 74.15) * 52 =
+    // 44.2, ceil'd and corrected against `ageAt` itself.
+    const anchorAge = 74.15
+    const newRow = provenanceRowFor(directorId, anchorAge, 0, 'authored_exact_week')
+    const dueWeek = nextBirthdayWeek(newRow, 74)
+    expect(dueWeek, 'the birthday must fall strictly inside the renewal window [40, 52)').toBe(45)
+    const rows = state.talentProvenance.rows.map((r) => (r.personId === directorId ? newRow : r))
+    const talent = state.talent.map((t) => (t.id === directorId ? { ...t, age: 74 } : t))
+    state = {
+      ...state, talent,
+      talentProvenance: { ...state.talentProvenance, rows, due: recomputeDue(rows, (id) => talent.find((t) => t.id === id)?.age) },
+    }
+    expect(retirementRecordFor(state as unknown as GameStateV34, directorId)).toBeUndefined()
+
+    // real ticks up to (not including) the birthday: natural discovery must already
+    // have opened a REAL case on this REAL employment row (renewal window opened at
+    // week 40).
+    while (state.market.tick < dueWeek - 1) state = tick(state)
+    expect(state.market.tick).toBe(dueWeek - 1)
+    const discovered = state.talentMarket.cases.find((c) => c.talentId === directorId)
+    expect(discovered, 'a REAL case, from natural market discovery, must already be open before the birthday').toBeDefined()
+    expect(discovered!.contractId).toBe(base.hollywood!.employment[ordinal]!.contractId) // the REAL row, not a synthetic one
+    expect(discovered!.outcome).toBeNull()
+
+    // THE case under test: ONE bare `tick()` call — nothing else.
+    state = tick(state)
+    expect(state.market.tick).toBe(dueWeek)
+    expect(retirementRecordFor(state as unknown as GameStateV34, directorId), 'tick() ALONE must run the intent step at the due week').toMatchObject({
+      cause: 'hardBoundary', announcedWeek: dueWeek,
+    })
+    const settled = state.talentMarket.cases.find((c) => c.talentId === directorId)!
+    expect(settled.outcome, 'the SAME tick must invalidate the REAL case — proving the lifecycle step ran BEFORE the market step (777 §4)').toBe('invalidated')
+    expect(settled.closedWeek).toBe(dueWeek)
+    expect((settled.reason ?? '').toLowerCase()).toMatch(/announced retirement/)
   })
 })

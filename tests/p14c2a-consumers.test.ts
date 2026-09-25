@@ -296,6 +296,26 @@ describe('P14C.2a Amendment A1 (777 §7, parent mid-flight): hiringMarketIds pos
     expect(after).not.toContain(target)
     expect(after).toEqual(before.filter((id) => id !== target)) // no reshuffle, no backfill — a pure omission
   })
+
+  // 783 gap 3: the boundary itself was unasserted — only a deep-inside-the-omitted-
+  // range case (E - week = 10) existed before.
+  it('boundary: a catalogue term ending EXACTLY at week + CONTRACT_MIN_WEEKS keeps the listing; one week later (fewer than CONTRACT_MIN_WEEKS remain) it is omitted', () => {
+    const state = fund(p13aGeneratedStudio())
+    const week = state.market.tick
+    const before = hiringMarketIds(state)
+    const target = before[0]!
+    const person = state.talent.find((t) => t.id === target)!
+    const E = week + TUNING.CONTRACT_MIN_WEEKS // exactly enough for a fresh catalogue term to end lawfully at E
+    const atBoundary = withSyntheticCareerLifecycle(state, {
+      boundaryWeek: week, records: [syntheticRecord({ personId: target, profession: person.role, announcedWeek: week, effectiveWeek: E })],
+    })
+    expect(hiringMarketIds(atBoundary as unknown as GameState), 'exactly CONTRACT_MIN_WEEKS remaining: a term ending at E is lawful, stays listed').toContain(target)
+
+    // one week later, the SAME announcement (E unchanged): E - week is now 51, fewer
+    // than CONTRACT_MIN_WEEKS — no catalogue term can end by E any longer.
+    const oneWeekLater = { ...atBoundary, market: { ...atBoundary.market, tick: week + 1 } }
+    expect(hiringMarketIds(oneWeekLater as unknown as GameState), 'one week later: omitted').not.toContain(target)
+  })
 })
 
 describe('P14C.2a W1: the writing-verb gate already refuses finishing/retired (amendment log item 1)', () => {
@@ -352,6 +372,33 @@ describe('P14C.2a P1: every open promise to an announced person has dueWeekExclu
     const effectiveWeek = Math.max(week + 52, contractEnd) // 773 D5, on facts fixed at week 48 only
     const state = withSyntheticCareerLifecycle(base, {
       boundaryWeek: week, records: [syntheticRecord({ personId: 'authored-0001', profession: 'director', announcedWeek: week, ageAtAnnouncement: age, effectiveWeek })],
+    })
+    const record = state.careerLifecycle.records[0]!
+    expect(promise.dueWeekExclusive).toBeLessThanOrEqual(record.effectiveWeek)
+  })
+
+  // 783 gap 4, the RIVAL-authored complement: the natural route (773 amendment 4).
+  // `authorRivalPromise` (talentMarket.ts) is not exported and only fires from inside
+  // `advanceTalentMarketWeek`'s own rival-decision cadence, so it is exercised here
+  // through a REAL promise this corpus's own natural history already produced, not a
+  // hand-built one: `genuine-v33-c2-hard-boundary-and-idle-window`'s rival studio r05
+  // entered at week 728 (773 trap 1's fixed-208-week rival law) and authored an OPEN
+  // APPEARANCE_COUNT promise, issuer studio-9ed55199-r05 (not the player), to each of
+  // its six fresh hires over their own contract window [728, 936) — confirmed by
+  // direct inspection of the fixture, never invented. t-dir-00 is one of them.
+  it('genuine-v33-c2-hard-boundary-and-idle-window: promise-71 (RIVAL-authored, on the rival-employed director t-dir-00) sits inside E derived from the save week\'s own fixed facts', () => {
+    const base = c2Fixture('genuine-v33-c2-hard-boundary-and-idle-window') // week 780
+    const promise = base.promises.find((p) => p.promiseId === 'promise-71')!
+    expect(promise.beneficiaryPersonId).toBe('t-dir-00')
+    expect(promise.issuerStudioId).not.toBe(player(base)) // the RIVAL half 783 names as untested
+    const week = base.market.tick // 780
+    const ordinal = base.hollywood!.employment.findIndex((e) => e.terms.talentId === 't-dir-00' && e.endedWeek === null)
+    expect(ordinal).toBeGreaterThanOrEqual(0)
+    const intervalEnd = base.hollywood!.employment[ordinal]!.terms.endWeekExclusive // 936, the SAME rival contract the promise's own window rides
+    const age = base.talent.find((t) => t.id === 't-dir-00')!.age // the real, already-materialized age at week 780
+    const effectiveWeek = Math.max(week + 52, intervalEnd) // 773 D5, on facts fixed at week 780 only
+    const state = withSyntheticCareerLifecycle(base, {
+      boundaryWeek: week, records: [syntheticRecord({ personId: 't-dir-00', profession: 'director', announcedWeek: week, ageAtAnnouncement: age, effectiveWeek })],
     })
     const record = state.careerLifecycle.records[0]!
     expect(promise.dueWeekExclusive).toBeLessThanOrEqual(record.effectiveWeek)

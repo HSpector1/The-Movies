@@ -15,6 +15,7 @@ import { assignableForFilm } from '../src/core/employment.js'
 import { marketEligibility } from '../src/core/talentMarket.js'
 import { lifecycleStatus, retirementRecordFor } from '../src/core/careerLifecycle.js'
 import { ageAt } from '../src/core/aging.js'
+import { TUNING } from '../src/core/tuning.js'
 import {
   LIVE_SAVE_VERSION, makeSave,
   // RED-by-design (776 S6): none of these five exist in src/core/save.ts today.
@@ -193,13 +194,16 @@ describe('P14C.2a G1-G5: Save V34', () => {
     expect(() => convertV34ToV33(recordSave as never)).toThrow(/downgrade/i)
   })
 
-  it('G4: the validator refuses each of five distinct mutations, one per case, each naming its own cause', () => {
+  it('G4: the validator refuses each of nine distinct mutations, one per case, each naming its own cause (783 gap 2 closes the remaining four)', () => {
     expect(typeof validateSaveV34, 'RED premise: validateSaveV34 must exist as a named export of src/core/save.ts').toBe('function')
     const base = c2Fixture('genuine-v33-c2-hard-boundary-and-idle-window')
     const id = 'authored-0000'
     const week = base.market.tick
     const lawful = { ...base, careerLifecycle: { boundaryWeek: week, records: [syntheticRecord({ personId: id, profession: 'actor', cause: 'hardBoundary', announcedWeek: week, ageAtAnnouncement: realAge(base, id, week), effectiveWeek: week + 500 })] } }
     const lawfulSave = makeSave(lawful as unknown as GameState) as { state: Record<string, unknown> }
+    // the shared baseline every mutation below starts from — proves each throw below is
+    // caused BY the mutation, not by something already broken in the fixture.
+    expect(() => validateSaveV34(lawfulSave as never), 'the unmutated save must validate').not.toThrow()
 
     const mutate = (fn: (root: typeof lawful.careerLifecycle) => unknown) => ({
       ...lawfulSave, state: { ...lawfulSave.state, careerLifecycle: fn(lawful.careerLifecycle) },
@@ -214,6 +218,56 @@ describe('P14C.2a G1-G5: Save V34', () => {
     expect(() => validateSaveV34(unknownPerson as never)).toThrow()
     const wrongCause = mutate((root) => ({ ...root, records: [{ ...root.records[0]!, cause: root.records[0]!.cause === 'hardBoundary' ? 'idleInWindow' : 'hardBoundary' }] }))
     expect(() => validateSaveV34(wrongCause as never)).toThrow()
+
+    // ── 783 gap 2, the four previously untested causes ──
+
+    // (1) duplicate person record: the SAME record twice, same personId.
+    const duplicatePerson = mutate((root) => ({ ...root, records: [root.records[0]!, root.records[0]!] }))
+    expect(() => validateSaveV34(duplicatePerson as never), 'must name the duplicate-person cause').toThrow(/more than one record/)
+
+    // (2) a contract active after the announcement that ends past E: inject a
+    // synthetic player contract for the SAME subject (authored-0000 carries none in
+    // this fixture — confirmed empty above) ending well past the lawful record's own
+    // effectiveWeek (week + 500).
+    const boundContract = {
+      ...lawfulSave,
+      state: {
+        ...lawfulSave.state,
+        contracts: [...(lawfulSave.state.contracts as readonly unknown[]), {
+          talentId: id, annualSalary: 0, signingBonus: 0, startWeek: week - 10, endWeekExclusive: week + 600, termWeeks: 610,
+        }],
+      },
+    }
+    expect(() => validateSaveV34(boundContract as never), 'must name the past-E binding cause').toThrow(/past the effective week/)
+
+    // (3) status/week disagreement: still `announced` at or after its own effectiveWeek.
+    // Needs tick > announcedWeek (unlike the lawful record's announcedWeek === week), so
+    // effectiveWeek can satisfy BOTH "E >= A + 52" (the shortHorizon cause above) AND
+    // "E <= tick" (this cause) without collapsing into the same mutation.
+    const earlierAnnounce = week - 100
+    const statusDisagrees = mutate(() => ({
+      boundaryWeek: earlierAnnounce,
+      records: [syntheticRecord({
+        personId: id, profession: 'actor', cause: 'hardBoundary', announcedWeek: earlierAnnounce,
+        ageAtAnnouncement: realAge(base, id, earlierAnnounce), effectiveWeek: earlierAnnounce + TUNING.RETIREMENT_NOTICE_WEEKS, // < tick
+      })],
+    }))
+    expect(() => validateSaveV34(statusDisagrees as never), 'must name the status/week disagreement cause').toThrow(/at or after its effective week/)
+
+    // (4) a Scientist record: retirementWindow('scientist') is null (A4), so ANY
+    // record naming a real Scientist is refused, whatever its cause. Reuses a REAL
+    // scientist from this same fixture so the person/profession/age checks ahead of
+    // it in the validator all agree — isolating the Scientist-window cause alone.
+    const scientistId = 'person-studio-9ed55199-r01-supply-265-6'
+    expect(base.talent.find((t) => t.id === scientistId)?.role).toBe('scientist')
+    const scientistRecord = mutate(() => ({
+      boundaryWeek: week,
+      records: [syntheticRecord({
+        personId: scientistId, profession: 'scientist', cause: 'hardBoundary', announcedWeek: week,
+        ageAtAnnouncement: realAge(base, scientistId, week), effectiveWeek: week + 500,
+      })],
+    }))
+    expect(() => validateSaveV34(scientistRecord as never), 'must name the Scientist-record cause').toThrow(/Scientist record/)
   })
 
   it('G5: save/load mid-notice then continue equals the continuous run, byte-for-byte', () => {
