@@ -99,3 +99,23 @@ status/weeks agree: `announced ⇒ tick < effectiveWeek`, `finishing ⇒ finishi
 at a week `>= announcedWeek` ends after `effectiveWeek`), then hands V33 the stripped state.
 `convertV33ToV34` opens `initialCareerLifecycle(market.tick)`. `convertV34ToV33` is lossless iff
 `records` is empty; otherwise refused as a downgrade BEFORE envelope validation. `migrateToLive` (776).
+
+## 7. Amendment A1 (parent, 2026-09-25 18:25, sent to both specialists mid-flight)
+
+`hiringMarketIds` is the player's signability gate (`applySignContract` refuses anyone not in it). An
+announced person more than zero weeks past the announcement week usually has fewer than
+`CONTRACT_MIN_WEEKS` (52) left before `E`, so no catalogue term is lawful. Two rules:
+
+1. `hiringMarketIds` POST-FILTERS its output: a person with
+   `contractEndRefusal(state, id, week + TUNING.CONTRACT_MIN_WEEKS) !== null` is omitted. The sampling
+   pool is NOT changed by this filter (the rotation sample for everyone else stays byte-identical); the
+   listing may therefore hold fewer than `HIRING_MARKET_SIZE` rows. Finishing and retired people leave
+   the pool itself (D11), which is the feature.
+2. In `applySignContract` and `applyRenewContract` the cap check (`contractEndRefusal` on the offer's
+   `endWeekExclusive`) runs BEFORE the hiring-market membership check and before any charge, so an
+   announced person's refusal carries the `retirementAnnounced` token rather than the generic
+   "not currently available to sign (D-11.14)".
+
+Consequence recorded for C.2-RM: `bridge/market.ts:121` lists free agents by `marketEligibility(...).status
+=== 'free_agent'`, so an announced free agent (status `retirement_announced`) leaves that list at
+announcement, consistent with rule 1.
