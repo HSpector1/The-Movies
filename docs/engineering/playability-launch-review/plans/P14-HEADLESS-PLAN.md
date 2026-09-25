@@ -813,6 +813,20 @@ Continue beyond checkpoint; max2 specialists/one writer/heavy checks serial;
 no routine approval pauses/resets/installs/full-gate redo (older Codex-only/
 no-Claude wording superseded for runtime choice only by Owner transfer 2026-09-20).
 
+NEXT789: **P14C.2a IS QUALIFIED CLOSED** (record `../evidence/p14b4-20260919/789-c2a-checkpoint.md`, tested
+source `c34b6674`, run 787 `fixedSource: true`). Save 33 -> 34 (root `careerLifecycle`), projection 50
+UNMOVED, `generated/` unchanged. 361 files / 4179 cases: 62 failed = run 772's 55 retained with the same
+cause + 7 CHANGED-SCENARIO failures traced in 788 (`p14b5-relationships` family 6 lost its natural "listed at
+207 and 208" actor when four idle retirements redrew the rotation; the seed-b ledger lost one row to a rival
+actor's hard-boundary retirement). They are coverage debt, queued as a labeled test-engineering task. FU-2 now
+fails four of six. NEXT: **C.4 deterministic replenishment** before C.2b, by player impact (779: a fresh world
+lost 63 of 84 people by week 1600 and the player's market has no entrant). Expansion 782 as amended §6 after
+782-A: cohorts mint through `generateIndustryTalent` with an optional entrant age; the acceptance criterion
+is the measured 6,240-week demonstration with and without cohorts, pass condition fixed in 782 §4/§6.2.
+T0 first: genuine outgoing V34 worlds holding lifecycle records, minted before any C.4 source change. Then
+C.2b (780 + §5, 780-A REFINE), C.2c after the Owner's VOIDED/WAIVED ruling (773 §7), C.2-RM, C.3.
+LOGIC VERIFIED · UNITY NOT VERIFIED.
+
 Earlier additive foundation checkpoint: V30 data support implemented and independently
 KEEP; qualified report evidence/p14b4-20260919/29-additive-checkpoint.md.
 Corrected candidate bc25e15d…: root+UI and bridge typechecks PASS;137 save tests

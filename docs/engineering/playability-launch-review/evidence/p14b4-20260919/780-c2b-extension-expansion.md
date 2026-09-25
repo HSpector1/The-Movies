@@ -58,3 +58,29 @@ exactly at the new `E`, no gap and no overlap with the old one; free agent in th
 reservation boundary at `ask × 1.10` (equality accepted); bonus charged once at settlement; the extended year
 obeys D7/D9 and can end in `finishing_commitments`; rival incumbent under the same law through the natural
 tick route; save V35 migration of the C.2a V34 corpus; replay determinism.
+
+## 5. Amendments after 780-A (parent decisions; the draft is RED-ready only with these)
+
+1. **The single carve-out (X2/X4).** One exported lifecycle predicate `extensionIssuer(state, personId, week)`
+   returns the incumbent `StudioId` iff an OPEN `retirementExtension` case exists for that person, else `null`.
+   `marketEligibility` for an announced person returns `proposers: [extensionIssuer]` (or `[]`); `submitProposal`'s
+   record refusal admits exactly that issuer on exactly that case and refuses everyone else with the existing
+   token; the proposal's term must end at exactly `E + 52` (anything else refused, typed).
+   `bridge/contract.ts:405` needs no edit: it already reads `marketEligibility`.
+2. **The write-back owner (X6/X9).** The market settles the extension case through the existing commit
+   primitives, then calls ONE lifecycle-owned function `commitRetirementExtension(state, personId, week)`
+   (in `careerLifecycle.ts`) that sets `effectiveWeek += 52`, `extensionUsed = true`,
+   `extendedFromWeek = old E`, inside the same settlement step, before anything else reads the record. Tick
+   order becomes: promises → lifecycle INTENT → market (including extension settlement) → lifecycle
+   SETTLEMENT. C.2a's same-week invalidation and discovery skip are unaffected (they read intent).
+3. **Presentation (X11), decided:** C.2b adds NO read model and keeps projection 50. Every existing
+   case-listing consumer (`bridge/market.ts`, `bridge/people.ts` attention rows, the chooser's sentences)
+   EXCLUDES `retirementExtension` cases, so nothing mis-presents a one-issuer offer as a contest; the player's
+   surface is C.2-RM's. The engine command path is complete and tested headlessly. Recorded in the Unity
+   backlog as a C.2-RM deliverable.
+4. **Validator (X10).** A `retirementExtension` case's subject holds an `announced` record; at most one per
+   person ever; `extensionUsed` iff exactly one SETTLED extension case whose commit starts at the old E;
+   `extendedFromWeek === effectiveWeek − 52` when used.
+5. **Tests added to §4:** every issuer except the live extension issuer refused, AND that issuer refused
+   outside the window and after the case closes; the write-back happens once, same week, before settlement;
+   extension cases absent from every existing bridge listing.
