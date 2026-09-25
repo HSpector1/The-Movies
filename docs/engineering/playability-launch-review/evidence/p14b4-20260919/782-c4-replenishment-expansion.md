@@ -52,3 +52,23 @@ Cohort exactly at week 52·k, never between; size equals prior-year retirements 
 its receipt; no cohort in year zero or in a null-hollywood world; ids unique, append-only, provenance
 row at the cohort week, ages within [20, 32], each in `freeAgents` and signable; replay determinism and
 save/load mid-year; V34 → V35 migration opens `cohorts: []`; downgrade lossless iff no cohort.
+
+## 6. Amendments after 782-A (parent decisions)
+
+1. **One primitive — ADOPTED, realized without a third mint.** The primitive IS the existing exported
+   `generateIndustryTalent(seed, id, role, name?)`, which `staff()`'s supply and `enterRival` already call. It
+   gains ONE optional argument, the entrant age, threaded into `generateTalent` so the age is fixed BEFORE the
+   age-scaled ceilings and starting genre experience are drawn. Byte-identity for every existing caller: the
+   `talent-age` stream is still drawn exactly once per person in the same order, and the override only
+   replaces the value used; with no override the code path is unchanged. The full matched pass is the
+   check (worldgen goldens, rival supply, every seeded suite). Cohorts call the same function with ids from
+   `uniqueIdentity`, so their draws sit in the same per-id isolated namespace
+   (`${seed}:industry-person/v1:${id}`). Provenance stays at the APPEND (C.1's governed split, record 762 §4 /
+   759-C amendment 3: a mint that is discarded must not leave a row), so "writes birth provenance" is realized
+   at the three append sites, not inside the mint. `uniqueIdentity` stays in `hollywood.ts` (a relocation with
+   no behaviour; recorded as deferred, not dropped).
+2. **Demonstration strengthened — ADOPTED.** §4 also records, per sampled year, the total population, the
+   free-agent list length and the hiring-market listing length, with and without cohorts, so unbounded
+   growth is visible. An added pass condition: the population at year 120 is within ±25% of the genesis-plus-
+   rival-supply trajectory WITHOUT retirement (the pre-C.2a world). Outside that band is reported as measured,
+   not tuned away.
