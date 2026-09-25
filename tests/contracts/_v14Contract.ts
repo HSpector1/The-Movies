@@ -437,6 +437,12 @@ export function projectToV13State(state: GameState): Record<string, unknown> {
   if ((state.careerLifecycle?.records ?? []).length > 0) {
     throw new Error('V13 twin cannot discard career-lifecycle authority')
   }
+  // P14C.4: `cohorts` (Save V35) is a second kind of career-lifecycle authority;
+  // a genuine V13 file never carried one either, so it takes the same emptiness
+  // precondition as `records` just above before the whole root is stripped.
+  if ((state.careerLifecycle?.cohorts ?? []).length > 0) {
+    throw new Error('V13 twin cannot discard career-lifecycle authority')
+  }
   delete raw.careerLifecycle
   for (const person of raw.talent as Record<string, unknown>[]) {
     for (const key of ['skills', 'ceilings', 'devRate', 'genreExperience', 'workHistory']) {

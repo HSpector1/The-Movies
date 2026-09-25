@@ -14,7 +14,7 @@ import { SCHEMA_ID } from '../bridge/protocol.ts'
 import { canonicalJson } from '../bridge/schema/canonical.ts'
 import type { BridgeCheckpointStore } from '../bridge/runtime/checkpoint-store.ts'
 import { createBridgeRuntimeCoordinator } from '../bridge/runtime/runtime-coordinator.ts'
-import { importSave, LIVE_SAVE_VERSION, type SaveFileV34 } from '../src/core/save.js'
+import { importSave, LIVE_SAVE_VERSION, type SaveFileV35 } from '../src/core/save.js'
 import { buildTalentProvenance } from '../src/core/aging.js'
 import { initialTechnology } from '../src/core/technology.js'
 import { initialPhysicalPlans } from '../src/core/physicalPlans.js'
@@ -53,7 +53,7 @@ function previous(bytes: string): BridgeRuntimeCheckpointV1 {
   return JSON.parse(bytes) as BridgeRuntimeCheckpointV1
 }
 
-function expectPreservedGameplay(beforeJson: string, after: SaveFileV34): void {
+function expectPreservedGameplay(beforeJson: string, after: SaveFileV35): void {
   const before = importSave(beforeJson)
   if (before.saveVersion !== 16) throw new Error('Frozen P06 evidence must contain an original Save V16')
   // Assert every old root, including IDs, commitment, cash/ledger, week and RNG,
@@ -92,6 +92,9 @@ function expectPreservedGameplay(beforeJson: string, after: SaveFileV34): void {
   // P14C.2a: V34 adds the career-lifecycle root, EMPTY — a migrated save tracked
   // no retirement, opened at the migration week (the same lift the real
   // V33->V34 migration writes).
+  // P14C.4: `initialCareerLifecycle` is the LIVE V35 opener now (`cohorts: []`
+  // too), and `after` genuinely migrates all the way to V35 — this equality is
+  // unchanged, both sides moved together.
   expect(careerLifecycle).toEqual(initialCareerLifecycle(before.state.market.tick))
   const flooredBefore = before.state.talent.map(withResearchFoundation).map(person=>({...person,age:Math.floor(person.age)}))
   expect(after.state.talent.filter(t=>oldIds.has(t.id))).toEqual(flooredBefore)

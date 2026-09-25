@@ -16,7 +16,7 @@ import {
   stableStringify,
   studioConstructionView,
   tick,
-  validateSaveV34,
+  validateSaveV35,
 } from '../src/core/index.js'
 import { DEVELOPMENT_CASTING_ANNEX_FACILITY } from '../src/core/operations.js'
 import type {
@@ -494,7 +494,7 @@ describe('Development & Casting Annex V1 core lifecycle', () => {
     )
     const forgedSave = JSON.parse(stableStringify(makeSave(state))) as ReturnType<typeof makeSave>
     forgedSave.state.operations.workflows[0]!.reservations[0]!.facilityId = ANNEX_FACILITY_ID
-    expect(() => validateSaveV34(forgedSave)).toThrow(
+    expect(() => validateSaveV35(forgedSave)).toThrow(
       /cannot reserve the Annex before Week 13/,
     )
     const laundered = JSON.parse(stableStringify(forged)) as GameState
@@ -502,7 +502,7 @@ describe('Development & Casting Annex V1 core lifecycle', () => {
     expect(() => assertStudioPlacementInvariants(laundered)).toThrow(
       /advanced farther than its startTick permits/,
     )
-    expect(() => validateSaveV34(makeSave(laundered))).toThrow(
+    expect(() => validateSaveV35(makeSave(laundered))).toThrow(
       /advanced farther than its startTick permits/,
     )
 
@@ -563,7 +563,7 @@ describe('Development & Casting Annex V1 core lifecycle', () => {
     const forgedSave = JSON.parse(stableStringify(makeSave(state))) as ReturnType<typeof makeSave>
     forgedSave.state.studio.activeProductions[0]!.startTick = 13
     forgedSave.state.operations.workflows[0]!.reservations[0]!.facilityId = ANNEX_FACILITY_ID
-    expect(() => validateSaveV34(forgedSave)).toThrow(
+    expect(() => validateSaveV35(forgedSave)).toThrow(
       /placed-facility reservation disagrees with its authoritative greenlight week/,
     )
   })
@@ -661,7 +661,7 @@ describe('Development & Casting Annex V1 core lifecycle', () => {
     ).toBe(true)
     expect(state.operations.facilities.at(-1)!.id).toBe(ANNEX_FACILITY_ID)
     expect(state.placement.facilities[0]).toMatchObject({ status: 'operational', completesWeek: 13 })
-    expect(() => validateSaveV34(makeSave(state))).not.toThrow()
+    expect(() => validateSaveV35(makeSave(state))).not.toThrow()
   })
 
   it('accepts only the exact Annex V1 facility set and detects cross-owner collisions', () => {

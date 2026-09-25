@@ -21,7 +21,7 @@ import {
 } from '../src/core/careerLifecycle.js'
 import { ageAt, birthdaysDueAt, nextBirthdayWeek, provenanceRowFor, recomputeDue } from '../src/core/aging.js'
 import { TUNING } from '../src/core/tuning.js'
-import type { GameState, GameStateV34, RetirementRecord } from '../src/core/types.js'
+import type { GameState, RetirementRecord } from '../src/core/types.js'
 import {
   c2Fixture, initialSyntheticRoot, nullHollywoodFixture, p13aGeneratedStudio, prependSyntheticCandidate, stepWeekWithLifecycle,
   withSyntheticCareerLifecycle,
@@ -30,7 +30,7 @@ import {
 /** Drives the real lifecycle step forward from `state.market.tick` to `targetWeek`,
  * one real week at a time, returning the state at `targetWeek`. Fails loud (via the
  * scaffold's own throw) the first week a birthday is due — that IS today's RED. */
-function advanceLifecycleTo(state: GameStateV34, targetWeek: number): GameStateV34 {
+function advanceLifecycleTo(state: GameState, targetWeek: number): GameState {
   let s = state
   while (s.market.tick < targetWeek) s = stepWeekWithLifecycle(s)
   return s
@@ -235,9 +235,9 @@ describe('P14C.2a A1-A7: the retirement intent/settlement law', () => {
     let state = withSyntheticCareerLifecycle(base, initialSyntheticRoot(1))
     for (let i = 0; i < 5; i++) {
       const birthdays = birthdaysDueAt(state.talentProvenance, state.market.tick + 1)
-      state = tick(state as unknown as import('../src/core/types.js').GameState) as unknown as GameStateV34
+      state = tick(state)
       expect(state.hollywood, 'a null-hollywood world never gains one from ticking alone').toBeNull()
-      state = advanceCareerLifecycleWeek(state, birthdays) as GameStateV34
+      state = advanceCareerLifecycleWeek(state, birthdays)
       expect(state.careerLifecycle.records, `still no record at week ${state.market.tick}`).toEqual([])
     }
   })
@@ -294,7 +294,7 @@ describe('P14C.2a tick-wiring (783 gap 1): tick() alone must run the lifecycle s
       ...state, talent,
       talentProvenance: { ...state.talentProvenance, rows, due: recomputeDue(rows, (id) => talent.find((t) => t.id === id)?.age) },
     }
-    expect(retirementRecordFor(state as unknown as GameStateV34, directorId)).toBeUndefined()
+    expect(retirementRecordFor(state, directorId)).toBeUndefined()
 
     // real ticks up to (not including) the birthday: natural discovery must already
     // have opened a REAL case on this REAL employment row (renewal window opened at
@@ -309,7 +309,7 @@ describe('P14C.2a tick-wiring (783 gap 1): tick() alone must run the lifecycle s
     // THE case under test: ONE bare `tick()` call — nothing else.
     state = tick(state)
     expect(state.market.tick).toBe(dueWeek)
-    expect(retirementRecordFor(state as unknown as GameStateV34, directorId), 'tick() ALONE must run the intent step at the due week').toMatchObject({
+    expect(retirementRecordFor(state, directorId), 'tick() ALONE must run the intent step at the due week').toMatchObject({
       cause: 'hardBoundary', announcedWeek: dueWeek,
     })
     const settled = state.talentMarket.cases.find((c) => c.talentId === directorId)!

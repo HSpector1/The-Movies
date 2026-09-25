@@ -70,7 +70,7 @@ import { tick } from '../src/core/tick.js'
 import * as marketModule from '../src/core/talentMarket.js'
 import { publicPreferredTerm, publicPriorityOrder, submitProposal, type FreezeDrop } from '../src/core/talentMarket.js'
 import { attachPromise } from '../src/core/promises.js'
-import { LIVE_SAVE_VERSION, makeSave, migrateToLive, migrateToV25, migrateToV26, migrateToV27, migrateToV28, migrateToV29, migrateToV30, migrateToV31, validateSaveV30, validateSaveV31, validateSaveV33, validateSaveV34 } from '../src/core/save.js'
+import { LIVE_SAVE_VERSION, makeSave, migrateToLive, migrateToV25, migrateToV26, migrateToV27, migrateToV28, migrateToV29, migrateToV30, migrateToV31, validateSaveV30, validateSaveV31, validateSaveV33, validateSaveV35 } from '../src/core/save.js'
 import { TUNING } from '../src/core/tuning.js'
 import { careerIdentity } from '../src/core/talentSummary.js'
 import { advanceTo, fund, p13aGeneratedStudio, player } from './helpers/p14b2-fixtures.js'
@@ -228,6 +228,11 @@ const stage = (state: GameState, edge: Edge): GameState => live(withEdges(state,
 // live state now carries it) that nobody retires across this test's 60-65
 // week window, so it is empty on both sides and unrelated to relationship-edge
 // minting; excluded here rather than re-pinning the frozen digest.
+// P14C.4: the strip is structural (the whole root, key `careerLifecycle`), so
+// it excludes `cohorts` too without any change here -- this window (60-65)
+// is past the week-52 cohort floor, so `cohorts` may now be non-empty on both
+// sides in an eligible hollywood world, but that no longer matters: the root
+// is dropped wholesale before comparison either way.
 const bytes = (state: GameState): string => {
   const { relationships: _r, careerLifecycle: _cl, ...rest } = state as unknown as Record<string, unknown> & { promises: Record<string, unknown>[] }
   const promises = rest.promises.map((p) => { const { supersededByPromiseId: _s, ...legacy } = p; return legacy })
@@ -966,7 +971,7 @@ describe('family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; fam
   const expectRefused = (mutate: (edges: Edge[], state: Record<string, unknown>) => void, pattern: RegExp) => {
     const save = v31()
     mutate(save.state.relationships, save.state)
-    expect(() => validateSaveV34(save)).toThrow(pattern)
+    expect(() => validateSaveV35(save)).toThrow(pattern)
     expect(() => validateRelationshipsRoot(save.state)).toThrow(pattern)
   }
 
@@ -977,13 +982,13 @@ describe('family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; fam
     const save = v31()
     expect(save.saveVersion).toBe(LIVE_SAVE_VERSION)
     expect(save.state.relationships).toHaveLength(6)
-    expect(validateSaveV34(save)).toEqual(save)
+    expect(validateSaveV35(save)).toEqual(save)
   })
 
   it('refuses a missing root', () => {
     const save = v31()
     Reflect.deleteProperty(save.state, 'relationships')
-    expect(() => validateSaveV34(save)).toThrow(/relationships/)
+    expect(() => validateSaveV35(save)).toThrow(/relationships/)
   })
   it('refuses a non-ordinal edgeId', () => expectRefused((e) => { e[0]!.edgeId = 'edge-x' }, /edgeId/))
   it('refuses a duplicate pair', () => expectRefused((e) => { e[1]!.a = e[0]!.a; e[1]!.b = e[0]!.b }, /duplicate|pair/i))
@@ -1018,7 +1023,10 @@ describe('family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; fam
     expect(typeof projectRelationshipsPreV31).toBe('function')
     const save = v31()
     const one = { ...save, state: { ...save.state, relationships: [save.state.relationships[0]!] } }
-    const admitted = validateSaveV34(one)
+    // P14C.4: `one.saveVersion` is genuinely live (35, from `v31()`'s `makeSave`) —
+    // `validateSaveV34` would refuse it outright ("expected version 34"); this
+    // moves to the live validator, same as every other `v31()`-derived save below.
+    const admitted = validateSaveV35(one)
     const before = JSON.stringify(admitted)
     expect(() => projectRelationshipsPreV31(one.state)).toThrow()
     // RE-EXPRESSED (was: `/cannot downgrade SaveFileV31 or discard the relationship
@@ -1048,12 +1056,13 @@ describe('family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; fam
     for (const older of [migrateToV29, migrateToV28, migrateToV27, migrateToV26]) {
       expect(() => older(admitted as never)).toThrow(/cannot downgrade SaveFileV33/)
     }
-    // P14C.2a: migrateToV25 (and every migrator older than V26) now meets the
-    // NEW unconditional V34 guard FIRST — added directly beside the
-    // pre-existing V33 one, exactly as that V33 arm was once added beside
-    // V31's. It never reaches the V33-specific materialization gate at all;
-    // measured directly from source (save.ts's `migrateToV25`), not assumed.
-    expect(() => migrateToV25(admitted as never)).toThrow(/cannot downgrade SaveFileV34 or discard the career lifecycle root/)
+    // P14C.4: migrateToV25 (and every migrator older than V26) now meets the
+    // NEWER unconditional V35 guard FIRST — added directly beside the
+    // P14C.2a-era V34 one, exactly as that V34 arm was once added beside
+    // V33's. It never reaches the V34 arm, the V33-specific materialization
+    // gate, or anything older; measured directly from source (save.ts's
+    // `migrateToV25`), not assumed. `admitted` is genuinely live (V35) here.
+    expect(() => migrateToV25(admitted as never)).toThrow(/cannot downgrade SaveFileV35 or discard the cohort receipts/)
     expect(JSON.stringify(admitted)).toBe(before)
 
     // RE-EXPRESSED (was: "empty is lossless" — `migrateToV30(empty)` succeeded and
@@ -1066,7 +1075,7 @@ describe('family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; fam
     // That downgrade route does not exist for this fixture any more; the correct,
     // current-law assertion is that it is refused too — not a different message,
     // and not a success.
-    const empty = validateSaveV34({ ...save, state: { ...save.state, relationships: [] } })
+    const empty = validateSaveV35({ ...save, state: { ...save.state, relationships: [] } })
     expect(projectRelationshipsPreV31(empty.state)).toBeUndefined()
     expect(() => migrateToV30(empty)).toThrow(/cannot downgrade SaveFileV33 — an age has materialized since week \d+ \(the campaign is at week \d+\), and V32 has nowhere to record the provenance that produced it/)
     // GAP, disclosed rather than hidden: the ORIGINAL claim under test here — that an

@@ -500,7 +500,7 @@ describe('P14B.1 test 3: the feasibility service', () => {
     const active = withActivePromise.promises.find((p) => p.promiseId === attachedProposal.promises[0])
     expect(active).toMatchObject({ issuerStudioId, beneficiaryPersonId, contractId: null,
       outcome: null, predicate: { count: 1 }, feasibilityReceipt: first })
-    save.validateSaveV34(save.makeSave(withActivePromise))
+    save.validateSaveV35(save.makeSave(withActivePromise))
     const second = promiseFeasibility(withActivePromise, draft, state.market.tick)
     expect(second.classification).toBe('FRAGILE')
     expect(second.bottleneck ?? '').toMatch(/not.*commission/i)

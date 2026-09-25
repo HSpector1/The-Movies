@@ -99,7 +99,7 @@ const root = (state: GameState, promiseId: string): ProfessionalPromise => {
 }
 function live(state: GameState): GameState {
   const validated = makeSave(state) // the governed strict V30 entry; no manual version stamp
-  expect(validated.saveVersion).toBe(34)
+  expect(validated.saveVersion).toBe(35)
   return validated.state
 }
 /** Employed, non-busy people of one rival in employment order — the existing seam law at hollywoodTick.ts :156-163. */

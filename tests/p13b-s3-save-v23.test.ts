@@ -102,19 +102,22 @@ describe('P13B-S3 Save V23 (test 7)', () => {
     // P14C.2a (776 S9): the live writer moved on again, to V34; measured
     // directly from source (each of these three carries its own unconditional
     // `saveVersion === 34` arm, ahead of the V33 one), it refuses there first.
+    // P14C.4: the live writer moved on again, to V35; each of these three now
+    // carries a NEWER unconditional `saveVersion === 35` arm ahead of the V34
+    // one, so it refuses there first instead.
     const live = makeSave(p13aLaboratorySlice())
-    expect(() => migrateToV22(live)).toThrow(/cannot downgrade SaveFileV34/)
-    expect(() => migrateToV21(live)).toThrow(/cannot downgrade SaveFileV34/)
-    expect(() => migrateToV20(live)).toThrow(/cannot downgrade SaveFileV34/)
+    expect(() => migrateToV22(live)).toThrow(/cannot downgrade SaveFileV35/)
+    expect(() => migrateToV21(live)).toThrow(/cannot downgrade SaveFileV35/)
+    expect(() => migrateToV20(live)).toThrow(/cannot downgrade SaveFileV35/)
   })
 
-  it('makeSave writes the live saveVersion 34 (stale title corrected post-C.2a)', () => {
-    expect(makeSave(p13aLaboratorySlice()).saveVersion).toBe(34)
+  it('makeSave writes the live saveVersion 35 (stale title corrected post-C.4)', () => {
+    expect(makeSave(p13aLaboratorySlice()).saveVersion).toBe(35)
   })
 
-  it('an unknown saveVersion 35 is refused, naming the handled range (stale number corrected post-C.2a)', () => {
-    const forged = { ...makeSave(p13aLaboratorySlice()), saveVersion: 35 }
-    expect(() => validateSave(forged)).toThrow(/versions 1 through 34 only/)
+  it('an unknown saveVersion 36 is refused, naming the handled range (stale number corrected post-C.4)', () => {
+    const forged = { ...makeSave(p13aLaboratorySlice()), saveVersion: 36 }
+    expect(() => validateSave(forged)).toThrow(/versions 1 through 35 only/)
   })
 
   it('save/reload mid-queue continues identically (byte for byte)', () => {

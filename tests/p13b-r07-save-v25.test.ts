@@ -186,6 +186,10 @@ function asV25Envelope(state: GameState): { saveVersion: 25; seed: string; state
   // Same honest reconstruction as `relationships` above: this rehearsing
   // world retired nobody, so it holds no record and nothing is discarded.
   expect(stripped.careerLifecycle.records).toEqual([])
+  // P14C.4 sweep: same reconstruction for `cohorts` (Save V35) — this
+  // rehearsing world never reaches a cohort week either, so it holds no
+  // entrant receipt and nothing is discarded.
+  expect(stripped.careerLifecycle.cohorts).toEqual([])
   delete (stripped as unknown as { careerLifecycle?: unknown }).careerLifecycle
   return { saveVersion: 25, seed: stripped.seed, state: stripped, broadcastCache: stripped.broadcastItems }
 }
@@ -251,10 +255,10 @@ describe('P13B-S5-R07 Save V25 (test 5)', () => {
   // the CURRENT total supported range, so this case tracks the live boundary
   // forward exactly as p13b-s5-save-v24.test.ts's own sentinel case does
   // (superseded as the canonical proof by tests/p13b-s6-save-v26.test.ts's
-  // "an unknown saveVersion 34..." case, kept here rather than deleted).
-  it('an unknown saveVersion 35 is refused, naming the handled range "1 through 34 only" (B4 additive reader boundary; stale numbers corrected post-C.2a)', () => {
-    const forged = { ...save.makeSave(legacyRehearsingWorld('r07-save-v25-unknown-version')), saveVersion: 35 }
-    expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 34 only/)
+  // "an unknown saveVersion 35..." case, kept here rather than deleted).
+  it('an unknown saveVersion 36 is refused, naming the handled range "1 through 35 only" (B4 additive reader boundary; stale numbers corrected post-C.4)', () => {
+    const forged = { ...save.makeSave(legacyRehearsingWorld('r07-save-v25-unknown-version')), saveVersion: 36 }
+    expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 35 only/)
   })
 
   it('mid-setup save/reload round-trips byte-identically (export/import codec only) — INTERPRETATION 3: hand-authored setup, no genuine producer exists yet', () => {

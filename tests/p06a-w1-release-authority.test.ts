@@ -33,7 +33,7 @@ import {
   mintReleaseCommitmentId,
   stableStringify,
   tick,
-  validateSaveV34,
+  validateSaveV35,
 } from '../src/core/index.js'
 import type { CastSlot, GameState, SegmentId } from '../src/core/index.js'
 
@@ -434,10 +434,12 @@ describe('P06A W1 — save law', () => {
     expect(stableStringify(reimported)).toBe(stableStringify(save))
     expect(reimported.state.releaseAuthority.commitments).toHaveLength(1)
 
-    expect(() => migrateToV15(save)).toThrow(/cannot downgrade SaveFileV34/)
+    // P14C.4: migrateToV15 now meets the NEWER unconditional V35 guard first
+    // (added directly beside the P14C.2a-era V34 arm); `save` is genuinely live.
+    expect(() => migrateToV15(save)).toThrow(/cannot downgrade SaveFileV35/)
   })
 
-  it('validateSaveV34 rejects forged authority at the save boundary (stale title said V32 before this sweep too)', () => {
+  it('validateSaveV35 rejects forged authority at the save boundary (stale title said V32 before this sweep too)', () => {
     const ready = foundedToReleaseReady('p06a-save-forge')
     const id = ready.studio.activeProductions[0]!.id
     const good = makeSave(commit(ready, id))
@@ -446,12 +448,12 @@ describe('P06A W1 — save law', () => {
       state: { releaseAuthority: { commitments: { productionId: string }[] } }
     }
     orphan.state.releaseAuthority.commitments[0]!.productionId = 'prod-9999'
-    expect(() => validateSaveV34(orphan)).toThrow(/foreign identity|orphan/)
+    expect(() => validateSaveV35(orphan)).toThrow(/foreign identity|orphan/)
 
     const extraKey = JSON.parse(exportSave(good)) as {
       state: { releaseAuthority: Record<string, unknown> }
     }
     extraKey.state.releaseAuthority.surprise = true
-    expect(() => validateSaveV34(extraKey)).toThrow(/unknown field .surprise./)
+    expect(() => validateSaveV35(extraKey)).toThrow(/unknown field .surprise./)
   })
 })

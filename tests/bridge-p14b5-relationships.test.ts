@@ -312,7 +312,7 @@ describe('P14B.5 frozen side — the OUTGOING wire identities (R-VERSION class, 
     // The checked-in contract-manifest schemaId at ad49031f, read independently of this test.
     expect(SCHEMA_ID).toBe('sha256:e2d354dcbae1a6dc93a2367756512c14243b11be202a26107de0c81a4f3e0698')
     expect(SCHEMA_ID).not.toBe(OUTGOING_47)
-    expect(LIVE_SAVE_VERSION).toBe(34)
+    expect(LIVE_SAVE_VERSION).toBe(35)
     expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_35_PRIOR_IDS, OUTGOING_47, OUTGOING_48, OUTGOING_49].sort())
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_46)).toBe('projection-v46')
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_47)).toBe('projection-v47')

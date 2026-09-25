@@ -176,7 +176,7 @@ describe('P14B4 genuine outgoing46 runtime compatibility — future Save30/proje
   it('requires literal projection50/Save34 (stale number corrected post-C.2a) and exact 38 prior IDs, excluding the running identity', () => {
     expect(PROTOCOL_VERSION).toBe(4)
     expect(PROJECTION_VERSION).toBe(50)
-    expect(LIVE_SAVE_VERSION).toBe(34)
+    expect(LIVE_SAVE_VERSION).toBe(35)
     expect(SCHEMA_ID).not.toBe(OUTGOING_46)
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)
     expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual(EXPECTED_PRIOR_IDS)

@@ -12,7 +12,7 @@ import { tick } from '../../src/core/index.js'
 import { advanceTo, fund, p13aGeneratedStudio, player } from './p14b2-fixtures.js'
 export { advanceTo, fund, p13aGeneratedStudio, player }
 import type {
-  CareerLifecycleRoot, CreativeRole, GameState, GameStateV34, RetirementCause, RetirementRecord, RetirementStatus,
+  CareerLifecycleRootV35, CreativeRole, GameState, RetirementCause, RetirementRecord, RetirementStatus,
   Talent, TalentProvenanceRow,
 } from '../../src/core/types.js'
 
@@ -73,12 +73,23 @@ export function nullHollywoodFixture(name: NullHollywoodName): GameState {
  * Every unknown field survives a real `tick()`/`applyActions` call (both thread the
  * rest of the state through by spread, never by an explicit field allowlist), so this
  * overlay is safe to carry through natural engine calls. */
-export function withSyntheticCareerLifecycle(state: GameState, root: CareerLifecycleRoot): GameStateV34 {
-  return { ...state, careerLifecycle: root } as unknown as GameStateV34
+// P14C.4: `root` is now the LIVE V35 shape (793 §2: `CareerLifecycleRootV35`) — every
+// overlay this helper builds is threaded through the real `tick()` by callers below
+// (`stepWeekWithLifecycle`), so it must carry `cohorts` or the live cohort step throws
+// "the Save V35 cohort receipts are missing" the first time it reaches a cohort week
+// (796 §4). `CareerLifecycleRoot` itself keeps its frozen V34 shape (793 §2); only this
+// helper's own parameter moved, forcing every call site's inline root literal to add
+// `cohorts` too.
+// P14C.4: the return type moves from `GameStateV34` to `GameState` (= V35) —
+// `root` is now genuinely live-shaped, so the result is too, and every live
+// consumer below (`applyActions`, `tick`, `hiringMarketIds`, `marketEligibility`,
+// ...) can take it directly again, exactly as it could before this bump.
+export function withSyntheticCareerLifecycle(state: GameState, root: CareerLifecycleRootV35): GameState {
+  return { ...state, careerLifecycle: root } as unknown as GameState
 }
 
-export function initialSyntheticRoot(boundaryWeek: number): CareerLifecycleRoot {
-  return { boundaryWeek, records: [] }
+export function initialSyntheticRoot(boundaryWeek: number): CareerLifecycleRootV35 {
+  return { boundaryWeek, records: [], cohorts: [] }
 }
 
 /** Builds one lawful `RetirementRecord`, defaults filled from the announcement week
@@ -139,8 +150,11 @@ export function prependSyntheticCandidate(
  * `p14c2a-core-lifecycle.test.ts` drives a bare `tick()` with NO helper at all,
  * precisely to prove `tick()`'s own wiring and its order ahead of the market step.
  */
-export function stepWeekWithLifecycle(state: GameStateV34): GameStateV34 {
-  return tick(state as unknown as GameState) as unknown as GameStateV34
+// P14C.4: `state`/return move from `GameStateV34` to `GameState` (= V35), same
+// reasoning as `withSyntheticCareerLifecycle` above — every caller threads a
+// genuinely live-shaped state through this helper now.
+export function stepWeekWithLifecycle(state: GameState): GameState {
+  return tick(state)
 }
 
 export const sha256Hex = sha256

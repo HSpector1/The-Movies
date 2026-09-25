@@ -17,7 +17,7 @@ import { beforeAll, describe, expect, it } from 'vitest'
 import { applyActions, hiringMarketIds, SKILL_ORDER, tick } from '../src/core/index.js'
 import { attachPromise, promiseFeasibility, PROMISE_RULES_VERSION, type PromiseDraft } from '../src/core/promises.js'
 import { currentProposals, submitProposal, withdrawProposal } from '../src/core/talentMarket.js'
-import { exportSave, importSave, LIVE_SAVE_VERSION, loadSave, makeSave, migrateToV29, migrateToLive, validateSaveV29, validateSaveV34 } from '../src/core/save.js'
+import { exportSave, importSave, LIVE_SAVE_VERSION, loadSave, makeSave, migrateToV29, migrateToLive, validateSaveV29, validateSaveV35 } from '../src/core/save.js'
 import { TUNING } from '../src/core/tuning.js'
 import type { Action, CastSlot, GameState } from '../src/core/types.js'
 import { buildTalentProvenance } from '../src/core/aging.js'
@@ -68,7 +68,7 @@ function fixture(): Window {
     state = submitProposal(state, { talentId: lead.id, issuerStudioId: player(state), termWeeks: 52, premiumTier: 1.25 })
     expect(state.studio.activeProductions).toEqual([])
     expect(state.promises.filter((p) => p.beneficiaryPersonId === lead.id)).toEqual([])
-    validateSaveV34(makeSave(state))
+    validateSaveV35(makeSave(state))
     cached = { castable, state, crew }
   }
   return structuredClone(cached)
@@ -108,7 +108,7 @@ describe('B-F2: settled has-acting-discipline law, not primary-role eligibility'
     expect(legal.studio.activeProductions.at(-1)!.cast.lead).toBe(crew.leadId)
     expect(legal.studio.activeProductions.at(-1)!.writerId).toBe(crew.writerId)
     expect(legal.talent.find((p) => p.id === crew.leadId)!.role).toBe('writer')
-    validateSaveV34(makeSave(legal))
+    validateSaveV35(makeSave(legal))
     const doubleRole = payload(castable, crew)
     doubleRole.writerId = crew.leadId
     expect(() => applyActions(castable, [{ kind: 'greenlight', production: doubleRole }]))
@@ -240,7 +240,7 @@ describe('B-F2: settled has-acting-discipline law, not primary-role eligibility'
     expect(receipts[0]).toMatchObject({ kind: 'promiseOutcome', week: take.week,
       talentId: crew.leadId, studioId: player(state) })
     expect(state.talent.find((p) => p.id === crew.leadId)!.role).toBe('writer')
-    const loaded = validateSaveV34(importSave(exportSave(makeSave(state)))).state
+    const loaded = validateSaveV35(importSave(exportSave(makeSave(state)))).state
     expect(loaded.promises).toEqual(state.promises)
     expect(loaded.firstTakes).toEqual(state.firstTakes)
   })
@@ -325,6 +325,10 @@ describe('B-F2: genuine old role-refusal evidence survives, fresh evaluations us
     // 776-S9 (P14C.2a, R-VERSION): the live writer now stamps Save34. The governed
     // lift adds the empty career-lifecycle root, opened at this envelope's own
     // tick — an additive field, like V31's and V32's, not a value change.
+    // P14C.4 (R-VERSION): the live writer now stamps Save35. The governed lift
+    // adds `cohorts: []` inside the same root — additive again, like V34's own
+    // root; `initialCareerLifecycle` below already opens it, so both
+    // comparisons below carry it transparently.
     const governed = migrateToLive(importSave(raw))
     expect(governed.saveVersion).toBe(LIVE_SAVE_VERSION)
     const parsedRaw = JSON.parse(raw)
@@ -375,6 +379,6 @@ describe('B-F2: genuine old role-refusal evidence survives, fresh evaluations us
       contractId: null, outcome: null, feasibilityReceipt: fresh })
     expect(JSON.stringify(attached.promises.slice(0, state.promises.length))).toBe(originalRoots)
     expect(attached.talent.find((p) => p.id === old.beneficiaryPersonId)!.role).toBe('writer')
-    expect(validateSaveV34(importSave(exportSave(makeSave(attached)))).state.promises).toEqual(attached.promises)
+    expect(validateSaveV35(importSave(exportSave(makeSave(attached)))).state.promises).toEqual(attached.promises)
   })
 })

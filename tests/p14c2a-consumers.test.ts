@@ -65,7 +65,7 @@ describe('P14C.2a B1-B5, C1-C3, D1-D2: retirement consumers (SYNTHETIC record, r
     // narrowly-scoped simplification, not a change to the renewal-window math itself.
     state = { ...actor.state, market: { ...actor.state.market, tick: 40 } }
     const announced = withSyntheticCareerLifecycle(state, {
-      boundaryWeek: 0, records: [syntheticRecord({ personId: actor.id, profession: 'actor', announcedWeek: 0, effectiveWeek: 150 })],
+      boundaryWeek: 0, cohorts: [], records: [syntheticRecord({ personId: actor.id, profession: 'actor', announcedWeek: 0, effectiveWeek: 150 })],
     })
     const before = snapshot(announced)
     expect(() => applyActions(announced, [{ kind: 'renewContract', talentId: actor.id, termWeeks: 208 }])).toThrow(/retirementAnnounced/)
@@ -81,7 +81,7 @@ describe('P14C.2a B1-B5, C1-C3, D1-D2: retirement consumers (SYNTHETIC record, r
     const { state, id } = found
     const week = state.market.tick
     const announced = withSyntheticCareerLifecycle(state, {
-      boundaryWeek: week, records: [syntheticRecord({ personId: id, profession: 'writer', announcedWeek: week, effectiveWeek: week + 110 })],
+      boundaryWeek: week, cohorts: [], records: [syntheticRecord({ personId: id, profession: 'writer', announcedWeek: week, effectiveWeek: week + 110 })],
     })
     const before = snapshot(announced)
     expect(() => applyActions(announced, [{ kind: 'signContract', talentId: id, termWeeks: 208 }])).toThrow(/retirementAnnounced/)
@@ -95,7 +95,7 @@ describe('P14C.2a B1-B5, C1-C3, D1-D2: retirement consumers (SYNTHETIC record, r
     const base = c2Fixture('genuine-v33-c2-contract-and-case') // week 48; authored-0001 has an OPEN case
     expect(caseForTalent(base, 'authored-0001')).not.toBeNull()
     const state = withSyntheticCareerLifecycle(base, {
-      boundaryWeek: 48, records: [syntheticRecord({ personId: 'authored-0001', profession: 'director', announcedWeek: 48, effectiveWeek: 208 })],
+      boundaryWeek: 48, cohorts: [], records: [syntheticRecord({ personId: 'authored-0001', profession: 'director', announcedWeek: 48, effectiveWeek: 208 })],
     })
     expect(marketEligibility(state, 'authored-0001')).toEqual({ status: 'retirement_announced', proposers: [] })
     const before = snapshot(state)
@@ -109,7 +109,7 @@ describe('P14C.2a B1-B5, C1-C3, D1-D2: retirement consumers (SYNTHETIC record, r
     const base = c2Fixture('genuine-v33-c2-contract-and-case') // week 48
     expect(caseForTalent(base, 'authored-0001')!.status).toBe('proposals_open')
     const state = withSyntheticCareerLifecycle(base, {
-      boundaryWeek: 48, records: [syntheticRecord({ personId: 'authored-0001', profession: 'director', announcedWeek: 48, effectiveWeek: 208 })],
+      boundaryWeek: 48, cohorts: [], records: [syntheticRecord({ personId: 'authored-0001', profession: 'director', announcedWeek: 48, effectiveWeek: 208 })],
     })
     const next = advanceTalentMarketWeek(state)
     const kase = next.talentMarket.cases.find((c) => c.talentId === 'authored-0001')!
@@ -125,7 +125,7 @@ describe('P14C.2a B1-B5, C1-C3, D1-D2: retirement consumers (SYNTHETIC record, r
   it('C2: an announced person under an active contract never opens a market case, through its own real renewal window (natural route via tick)', () => {
     const base = c2Fixture('genuine-v33-c2-contract-and-case') // week 48; authored-0000: 208wk contract (end 208)
     const state = withSyntheticCareerLifecycle(base, {
-      boundaryWeek: 48, records: [syntheticRecord({ personId: 'authored-0000', profession: 'actor', announcedWeek: 48, effectiveWeek: 208 })],
+      boundaryWeek: 48, cohorts: [], records: [syntheticRecord({ personId: 'authored-0000', profession: 'actor', announcedWeek: 48, effectiveWeek: 208 })],
     })
     expect(caseForTalent(state, 'authored-0000')).toBeNull()
     const ticked = advanceTo(state as unknown as GameState, 208) // real ticks through the renewal window (196-207)
@@ -139,6 +139,7 @@ describe('P14C.2a B1-B5, C1-C3, D1-D2: retirement consumers (SYNTHETIC record, r
     const retiredId = hiringMarketIds(base).map((c) => base.talent.find((t) => t.id === c)!).find((t) => t.role === 'director')!.id
     const state = withSyntheticCareerLifecycle(base, {
       boundaryWeek: 0,
+      cohorts: [],
       records: [
         syntheticRecord({ personId: finishingId, profession: 'actor', announcedWeek: 0, effectiveWeek: 10, status: 'finishing_commitments', finishingFromWeek: 10 }),
         syntheticRecord({ personId: retiredId, profession: 'director', announcedWeek: 0, effectiveWeek: 10, status: 'retired', finishingFromWeek: 10, retiredWeek: 20 }),
@@ -180,14 +181,14 @@ describe('P14C.2a B1-B5, C1-C3, D1-D2: retirement consumers (SYNTHETIC record, r
     const cap = week + TUNING.PRODUCTION_TICKS + 1 // g + 9
     // refused: E one week short of the cap
     const refusedState = withSyntheticCareerLifecycle(state, {
-      boundaryWeek: week, records: [syntheticRecord({ personId: director.id, profession: 'director', announcedWeek: week, effectiveWeek: cap - 1 })],
+      boundaryWeek: week, cohorts: [], records: [syntheticRecord({ personId: director.id, profession: 'director', announcedWeek: week, effectiveWeek: cap - 1 })],
     })
     const before = snapshot(refusedState)
     expect(() => applyActions(refusedState, [{ kind: 'greenlight', production }])).toThrow(/retirementAnnounced/)
     expect(snapshot(refusedState)).toBe(before)
     // allowed: E exactly at the cap
     const allowedState = withSyntheticCareerLifecycle(state, {
-      boundaryWeek: week, records: [syntheticRecord({ personId: director.id, profession: 'director', announcedWeek: week, effectiveWeek: cap })],
+      boundaryWeek: week, cohorts: [], records: [syntheticRecord({ personId: director.id, profession: 'director', announcedWeek: week, effectiveWeek: cap })],
     })
     expect(() => applyActions(allowedState, [{ kind: 'greenlight', production }])).not.toThrow()
   })
@@ -214,7 +215,7 @@ describe('P14C.2a B1-B5, C1-C3, D1-D2: retirement consumers (SYNTHETIC record, r
     const employment = base.hollywood!.employment.map((e, i) => (i === ordinal ? { ...e, terms: { ...e.terms, startWeek: 0, endWeekExclusive: contractEnd } } : e))
     const shortened = { ...base, hollywood: { ...base.hollywood!, employment } }
     let state: GameState = withSyntheticCareerLifecycle(shortened, {
-      boundaryWeek: 0, records: [syntheticRecord({ personId: directorId, profession: 'director', announcedWeek: 0, effectiveWeek: contractEnd })],
+      boundaryWeek: 0, cohorts: [], records: [syntheticRecord({ personId: directorId, profession: 'director', announcedWeek: 0, effectiveWeek: contractEnd })],
     }) as unknown as GameState
     for (let w = 0; w < 16; w++) state = tick(state) // past the natural expiry at week 13
     const stillActive = state.hollywood!.employment.some((e) => e.terms.talentId === directorId && e.endedWeek === null)
@@ -239,7 +240,7 @@ describe('P14C.2a B1-B5, C1-C3, D1-D2: retirement consumers (SYNTHETIC record, r
     state = { ...state, talent, hollywood: { ...state.hollywood!, employment, activeEmploymentOrdinals } }
     state = prependSyntheticCandidate(state, 'synthetic-b4b-craft', 'craft', 40)
     let lifecycle: GameState = withSyntheticCareerLifecycle(state, {
-      boundaryWeek: 0, records: [syntheticRecord({ personId: 'synthetic-b4b-craft', profession: 'craft', announcedWeek: 0, effectiveWeek: 52, status: 'retired', finishingFromWeek: 52, retiredWeek: 52 })],
+      boundaryWeek: 0, cohorts: [], records: [syntheticRecord({ personId: 'synthetic-b4b-craft', profession: 'craft', announcedWeek: 0, effectiveWeek: 52, status: 'retired', finishingFromWeek: 52, retiredWeek: 52 })],
     }) as unknown as GameState
     for (let w = 0; w < 10; w++) lifecycle = tick(lifecycle)
     expect(lifecycle.hollywood!.employment.some((e) => e.terms.talentId === 'synthetic-b4b-craft'), 'the retired candidate must never be freshly hired').toBe(false)
@@ -249,7 +250,7 @@ describe('P14C.2a B1-B5, C1-C3, D1-D2: retirement consumers (SYNTHETIC record, r
   it('B5: a retired free candidate, made the FIRST match for r05\'s scheduled entry (week 520), is skipped — r05 mints a fresh person instead, exactly as it does with no candidate at all', () => {
     let state = prependSyntheticCandidate(p13aGeneratedStudio(), 'synthetic-b5-writer', 'writer', 40)
     let lifecycle: GameState = withSyntheticCareerLifecycle(state, {
-      boundaryWeek: 0, records: [syntheticRecord({ personId: 'synthetic-b5-writer', profession: 'writer', announcedWeek: 0, effectiveWeek: 52, status: 'retired', finishingFromWeek: 52, retiredWeek: 52 })],
+      boundaryWeek: 0, cohorts: [], records: [syntheticRecord({ personId: 'synthetic-b5-writer', profession: 'writer', announcedWeek: 0, effectiveWeek: 52, status: 'retired', finishingFromWeek: 52, retiredWeek: 52 })],
     }) as unknown as GameState
     for (let w = 0; w < 520; w++) lifecycle = tick(lifecycle)
     const r05 = lifecycle.hollywood!.businesses.find((b) => b.studioId === 'studio-aca408ec-r05')!
@@ -272,7 +273,7 @@ describe('P14C.2a B1-B5, C1-C3, D1-D2: retirement consumers (SYNTHETIC record, r
     const employment = base.hollywood!.employment.map((e, i) => (i === ordinal ? { ...e, terms: { ...e.terms, endWeekExclusive: 4 } } : e))
     const shortened = { ...base, hollywood: { ...base.hollywood!, employment } }
     let state: GameState = withSyntheticCareerLifecycle(shortened, {
-      boundaryWeek: 0, records: [syntheticRecord({ personId: directorId, profession: 'director', announcedWeek: 0, effectiveWeek: 4 })],
+      boundaryWeek: 0, cohorts: [], records: [syntheticRecord({ personId: directorId, profession: 'director', announcedWeek: 0, effectiveWeek: 4 })],
     }) as unknown as GameState
     for (let w = 0; w < 10; w++) state = tick(state)
     const r01 = state.hollywood!.businesses.find((b) => b.studioId === 'studio-aca408ec-r01')!
@@ -290,7 +291,7 @@ describe('P14C.2a Amendment A1 (777 §7, parent mid-flight): hiringMarketIds pos
     const announced = withSyntheticCareerLifecycle(state, {
       // E = 10: fewer than CONTRACT_MIN_WEEKS (52) remain, so NO catalogue term can
       // end by E — this person must leave the listing entirely, per amendment rule 1.
-      boundaryWeek: 0, records: [syntheticRecord({ personId: target, profession: person.role, announcedWeek: 0, effectiveWeek: 10 })],
+      boundaryWeek: 0, cohorts: [], records: [syntheticRecord({ personId: target, profession: person.role, announcedWeek: 0, effectiveWeek: 10 })],
     })
     const after = hiringMarketIds(announced as unknown as GameState)
     expect(after).not.toContain(target)
@@ -307,7 +308,7 @@ describe('P14C.2a Amendment A1 (777 §7, parent mid-flight): hiringMarketIds pos
     const person = state.talent.find((t) => t.id === target)!
     const E = week + TUNING.CONTRACT_MIN_WEEKS // exactly enough for a fresh catalogue term to end lawfully at E
     const atBoundary = withSyntheticCareerLifecycle(state, {
-      boundaryWeek: week, records: [syntheticRecord({ personId: target, profession: person.role, announcedWeek: week, effectiveWeek: E })],
+      boundaryWeek: week, cohorts: [], records: [syntheticRecord({ personId: target, profession: person.role, announcedWeek: week, effectiveWeek: E })],
     })
     expect(hiringMarketIds(atBoundary as unknown as GameState), 'exactly CONTRACT_MIN_WEEKS remaining: a term ending at E is lawful, stays listed').toContain(target)
 
@@ -327,7 +328,7 @@ describe('P14C.2a W1: the writing-verb gate already refuses finishing/retired (a
     const writerId = state.talent.find((t) => t.role === 'writer' && !state.freeAgents.includes(t.id))?.id
       ?? state.talent.find((t) => t.role === 'writer')!.id
     const withRecord = withSyntheticCareerLifecycle(state, {
-      boundaryWeek: 0, records: [syntheticRecord({ personId: writerId, profession: 'writer', announcedWeek: 0, effectiveWeek: 1, status: 'retired', finishingFromWeek: 1, retiredWeek: 1 })],
+      boundaryWeek: 0, cohorts: [], records: [syntheticRecord({ personId: writerId, profession: 'writer', announcedWeek: 0, effectiveWeek: 1, status: 'retired', finishingFromWeek: 1, retiredWeek: 1 })],
     })
     expect(lifecycleStatus(withRecord, writerId)).toBe('retired')
     const concept = state.concepts[0]!
@@ -343,7 +344,7 @@ describe('P14C.2a W1: the writing-verb gate already refuses finishing/retired (a
     const writer = sign(state, 'writer'); state = writer.state
     const week = state.market.tick
     const announced = withSyntheticCareerLifecycle(state, {
-      boundaryWeek: week, records: [syntheticRecord({ personId: writer.id, profession: 'writer', announcedWeek: week, effectiveWeek: week + 500 })],
+      boundaryWeek: week, cohorts: [], records: [syntheticRecord({ personId: writer.id, profession: 'writer', announcedWeek: week, effectiveWeek: week + 500 })],
     })
     expect(lifecycleStatus(announced, writer.id)).toBe('announced')
     const concept = state.concepts[0]!
@@ -371,7 +372,7 @@ describe('P14C.2a P1: every open promise to an announced person has dueWeekExclu
     const age = base.talent.find((t) => t.id === 'authored-0001')!.age // the real, already-materialized age at week 48
     const effectiveWeek = Math.max(week + 52, contractEnd) // 773 D5, on facts fixed at week 48 only
     const state = withSyntheticCareerLifecycle(base, {
-      boundaryWeek: week, records: [syntheticRecord({ personId: 'authored-0001', profession: 'director', announcedWeek: week, ageAtAnnouncement: age, effectiveWeek })],
+      boundaryWeek: week, cohorts: [], records: [syntheticRecord({ personId: 'authored-0001', profession: 'director', announcedWeek: week, ageAtAnnouncement: age, effectiveWeek })],
     })
     const record = state.careerLifecycle.records[0]!
     expect(promise.dueWeekExclusive).toBeLessThanOrEqual(record.effectiveWeek)
@@ -398,7 +399,7 @@ describe('P14C.2a P1: every open promise to an announced person has dueWeekExclu
     const age = base.talent.find((t) => t.id === 't-dir-00')!.age // the real, already-materialized age at week 780
     const effectiveWeek = Math.max(week + 52, intervalEnd) // 773 D5, on facts fixed at week 780 only
     const state = withSyntheticCareerLifecycle(base, {
-      boundaryWeek: week, records: [syntheticRecord({ personId: 't-dir-00', profession: 'director', announcedWeek: week, ageAtAnnouncement: age, effectiveWeek })],
+      boundaryWeek: week, cohorts: [], records: [syntheticRecord({ personId: 't-dir-00', profession: 'director', announcedWeek: week, ageAtAnnouncement: age, effectiveWeek })],
     })
     const record = state.careerLifecycle.records[0]!
     expect(promise.dueWeekExclusive).toBeLessThanOrEqual(record.effectiveWeek)

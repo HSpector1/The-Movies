@@ -2,12 +2,14 @@
 // (773 §6 rows E1-E3, F1, G1-G5). Controlling order: OPUS-C2-TO-CODEX-LAUNCH.
 // C.2b/C.2c OUT OF SCOPE (no VOIDED/WAIVED/extension assertion anywhere here).
 //
-// RED MECHANISM for G1-G5 (the p14b7-promise-waiver precedent, 725-T): vite/esbuild
+// RED MECHANISM for G1-G4 (the p14b7-promise-waiver precedent, 725-T): vite/esbuild
 // binds a MISSING NAMED EXPORT to `undefined` WITHOUT throwing when the module already
 // exists (src/core/save.ts does). Every case below that calls `validateSaveV34`,
 // `convertV33ToV34`, `convertV34ToV33`, `migrateToV34` or `migrateToLive` asserts
 // `typeof x === 'function'` FIRST — a RED PREMISE — so a missing export fails with a
 // named, attributable message instead of a raw TypeError deep inside the case.
+// P14C.4: G5 alone moved to the LIVE V35 round trip (`makeSave`/`validateSaveV35`,
+// both long-established exports by now), so it carries no such premise.
 import { describe, expect, it } from 'vitest'
 import { applyActions, busyTalentIds, hiringMarketIds, tick } from '../src/core/index.js'
 import { freelancerMarketIds } from '../src/core/employment.js'
@@ -20,6 +22,8 @@ import {
   LIVE_SAVE_VERSION, makeSave,
   // RED-by-design (776 S6): none of these five exist in src/core/save.ts today.
   validateSaveV34, convertV33ToV34, convertV34ToV33, migrateToV34, migrateToLive,
+  // P14C.4: the live validator now (G5 alone drives a real tick()/makeSave round trip).
+  validateSaveV35,
 } from '../src/core/save.js'
 import type { GameState, GameStateV34 } from '../src/core/types.js'
 import {
@@ -49,7 +53,7 @@ describe('P14C.2a E1-E3, F1: settlement and the rival symmetry', () => {
     const talentBefore = state.talent.map((t) => t.id)
     const careerEventsBefore = state.careerEvents
     let lifecycle = withSyntheticCareerLifecycle(state, {
-      boundaryWeek: 0, records: [syntheticRecord({ personId: id, profession: 'actor', announcedWeek: 0, effectiveWeek: 52 })],
+      boundaryWeek: 0, cohorts: [], records: [syntheticRecord({ personId: id, profession: 'actor', announcedWeek: 0, effectiveWeek: 52 })],
     })
     for (let w = lifecycle.market.tick; w < 52; w++) lifecycle = stepWeekWithLifecycle(lifecycle)
     const record = retirementRecordFor(lifecycle, id)!
@@ -69,7 +73,7 @@ describe('P14C.2a E1-E3, F1: settlement and the rival symmetry', () => {
     expect(busyTalentIds(base).has(directorId)).toBe(true)
     const contractEnd = base.contracts.find((c) => c.talentId === directorId)!.endWeekExclusive // 208
     let state = withSyntheticCareerLifecycle(base, {
-      boundaryWeek: 0, records: [syntheticRecord({ personId: directorId, profession: 'director', announcedWeek: 0, effectiveWeek: contractEnd })],
+      boundaryWeek: 0, cohorts: [], records: [syntheticRecord({ personId: directorId, profession: 'director', announcedWeek: 0, effectiveWeek: contractEnd })],
     })
     for (let w = state.market.tick; w < contractEnd; w++) state = stepWeekWithLifecycle(state)
     expect(busyTalentIds(state as unknown as GameState).has(directorId), 'still seated at E: this genuine production has not wrapped by week 208').toBe(true)
@@ -99,7 +103,7 @@ describe('P14C.2a E1-E3, F1: settlement and the rival symmetry', () => {
     const base = fund(p13aGeneratedStudio())
     const id = base.talent.find((t) => t.role === 'actor')!.id
     const state = withSyntheticCareerLifecycle(base, {
-      boundaryWeek: 0, records: [syntheticRecord({ personId: id, profession: 'actor', announcedWeek: 0, effectiveWeek: 1, status: 'retired', finishingFromWeek: 1, retiredWeek: 1 })],
+      boundaryWeek: 0, cohorts: [], records: [syntheticRecord({ personId: id, profession: 'actor', announcedWeek: 0, effectiveWeek: 1, status: 'retired', finishingFromWeek: 1, retiredWeek: 1 })],
     })
     expect(lifecycleStatus(state, id)).toBe('retired')
     expect(hiringMarketIds(state as unknown as GameState)).not.toContain(id)
@@ -127,7 +131,7 @@ describe('P14C.2a E1-E3, F1: settlement and the rival symmetry', () => {
     const employment = base.hollywood!.employment.map((e, i) => (i === ordinal ? { ...e, terms: { ...e.terms, endWeekExclusive: week + 10 } } : e))
     const shortened = { ...base, hollywood: { ...base.hollywood!, employment } }
     let state = withSyntheticCareerLifecycle(shortened, {
-      boundaryWeek: week, records: [syntheticRecord({ personId: 't-dir-00', profession: 'director', announcedWeek: week, ageAtAnnouncement: realAge(base, 't-dir-00', week), effectiveWeek: week + 10 })],
+      boundaryWeek: week, cohorts: [], records: [syntheticRecord({ personId: 't-dir-00', profession: 'director', announcedWeek: week, ageAtAnnouncement: realAge(base, 't-dir-00', week), effectiveWeek: week + 10 })],
     })
     for (let w = state.market.tick; w < week + 10; w++) state = stepWeekWithLifecycle(state)
     const atE = retirementRecordFor(state, 't-dir-00')!
@@ -144,7 +148,7 @@ describe('P14C.2a G1-G5: Save V34', () => {
   // usually too young for that, so the hard-boundary/idle-window T0 world (whose
   // four authored subjects are all independently confirmed atOrPastHard, 775) is
   // reused as the substrate instead, with `cause: 'hardBoundary'` made explicit.
-  it('G1: makeSave/validateSaveV34 round-trips byte-stable with a record in each status (announced, finishing_commitments, retired)', () => {
+  it('G1: validateSaveV34 round-trips a genuine V34 envelope byte-stable with a record in each status (announced, finishing_commitments, retired)', () => {
     assertSaveV34Exports()
     const base = c2Fixture('genuine-v33-c2-hard-boundary-and-idle-window') // week 780
     const announcedId = 'authored-0000' // actor, age 85
@@ -163,8 +167,12 @@ describe('P14C.2a G1-G5: Save V34', () => {
         ],
       },
     }
-    const saved = makeSave(state as unknown as GameState)
-    expect((saved as { saveVersion: number }).saveVersion).toBe(34)
+    // P14C.4: `makeSave` is now the live V35 writer and requires `cohorts` on the root
+    // (793 §5) — this genuine V34 envelope is built directly instead, exactly as G2
+    // already builds its input, so this case still exercises the FROZEN validator,
+    // not the live one.
+    const saved = { saveVersion: 34, seed: state.seed, state, broadcastCache: state.broadcastItems }
+    expect(saved.saveVersion).toBe(34)
     const roundTripped = validateSaveV34(JSON.parse(JSON.stringify(saved)))
     expect(roundTripped.state.careerLifecycle).toEqual(state.careerLifecycle)
   })
@@ -182,7 +190,9 @@ describe('P14C.2a G1-G5: Save V34', () => {
     assertSaveV34Exports()
     const base = c2Fixture('genuine-v33-c2-hard-boundary-and-idle-window')
     const empty: GameStateV34 = { ...base, careerLifecycle: { boundaryWeek: base.market.tick, records: [] } }
-    const emptySave = makeSave(empty as unknown as GameState)
+    // P14C.4: as G1 — a genuine V34 envelope, built directly rather than through
+    // `makeSave` (now the live V35 writer, which requires `cohorts`).
+    const emptySave = { saveVersion: 34, seed: empty.seed, state: empty, broadcastCache: empty.broadcastItems }
     const downgraded = convertV34ToV33(emptySave as never)
     expect(downgraded.saveVersion).toBe(33)
     const id = 'authored-0000'
@@ -190,7 +200,7 @@ describe('P14C.2a G1-G5: Save V34', () => {
       ...base,
       careerLifecycle: { boundaryWeek: base.market.tick, records: [syntheticRecord({ personId: id, profession: 'actor', cause: 'hardBoundary', announcedWeek: base.market.tick, ageAtAnnouncement: realAge(base, id, base.market.tick), effectiveWeek: base.market.tick + 500 })] },
     }
-    const recordSave = makeSave(withRecord as unknown as GameState)
+    const recordSave = { saveVersion: 34, seed: withRecord.seed, state: withRecord, broadcastCache: withRecord.broadcastItems }
     expect(() => convertV34ToV33(recordSave as never)).toThrow(/downgrade/i)
   })
 
@@ -200,7 +210,9 @@ describe('P14C.2a G1-G5: Save V34', () => {
     const id = 'authored-0000'
     const week = base.market.tick
     const lawful = { ...base, careerLifecycle: { boundaryWeek: week, records: [syntheticRecord({ personId: id, profession: 'actor', cause: 'hardBoundary', announcedWeek: week, ageAtAnnouncement: realAge(base, id, week), effectiveWeek: week + 500 })] } }
-    const lawfulSave = makeSave(lawful as unknown as GameState) as { state: Record<string, unknown> }
+    // P14C.4: as G1/G3 — a genuine V34 envelope, built directly rather than through
+    // `makeSave` (now the live V35 writer, which requires `cohorts`).
+    const lawfulSave = { saveVersion: 34, seed: lawful.seed, state: lawful, broadcastCache: lawful.broadcastItems } as unknown as { state: Record<string, unknown> }
     // the shared baseline every mutation below starts from — proves each throw below is
     // caused BY the mutation, not by something already broken in the fixture.
     expect(() => validateSaveV34(lawfulSave as never), 'the unmutated save must validate').not.toThrow()
@@ -271,22 +283,26 @@ describe('P14C.2a G1-G5: Save V34', () => {
   })
 
   it('G5: save/load mid-notice then continue equals the continuous run, byte-for-byte', () => {
-    assertSaveV34Exports()
     const base = c2Fixture('genuine-v33-c2-hard-boundary-and-idle-window')
     const id = 'authored-0000'
     const week = base.market.tick
-    let state: GameStateV34 = {
+    // P14C.4: unlike G1/G3/G4's hand-built FROZEN V34 envelopes (never ticked, never
+    // saved through the live writer), this state IS driven through the real `tick()`
+    // and `makeSave` below, so it needs `cohorts` (793 §5) and the round trip moves
+    // from `validateSaveV34` to `validateSaveV35`, the live validator now.
+    let state: GameState = {
       ...base,
-      careerLifecycle: { boundaryWeek: week, records: [syntheticRecord({ personId: id, profession: 'actor', cause: 'hardBoundary', announcedWeek: week, ageAtAnnouncement: realAge(base, id, week), effectiveWeek: week + 500 })] },
+      careerLifecycle: { boundaryWeek: week, cohorts: [], records: [syntheticRecord({ personId: id, profession: 'actor', cause: 'hardBoundary', announcedWeek: week, ageAtAnnouncement: realAge(base, id, week), effectiveWeek: week + 500 })] },
     }
-    const continuous = tick(tick(state as unknown as GameState)) as unknown as GameStateV34
-    const reloaded = validateSaveV34(JSON.parse(JSON.stringify(makeSave(state as unknown as GameState))) as never).state as unknown as GameStateV34
-    const viaSaveLoad = tick(tick(reloaded as unknown as GameState))
+    const continuous = tick(tick(state))
+    const reloaded = validateSaveV35(JSON.parse(JSON.stringify(makeSave(state))) as never).state
+    const viaSaveLoad = tick(tick(reloaded))
     expect(JSON.stringify(viaSaveLoad)).toBe(JSON.stringify(continuous))
   })
 
   it('records LIVE_SAVE_VERSION and confirms migrateToV34/migrateToLive exist (RED premise only — not exercised further here)', () => {
-    expect(LIVE_SAVE_VERSION).toBe(34)
+    // P14C.4: LIVE_SAVE_VERSION is the live writer's own stamp — moves with the bump.
+    expect(LIVE_SAVE_VERSION).toBe(35)
     expect(typeof migrateToV34, 'RED premise: migrateToV34 must exist as a named export of src/core/save.ts').toBe('function')
     expect(typeof migrateToLive, 'RED premise: migrateToLive must exist as a named export of src/core/save.ts').toBe('function')
   })

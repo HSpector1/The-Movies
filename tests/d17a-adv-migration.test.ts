@@ -270,8 +270,8 @@ describe('D-17A/D — validateSave still guards the version boundary loudly', ()
   // P06A (W1): 16 is now known (SaveFileV16, the live version), so the loud-rejection
   // boundary moved one further, to 17 — the same law the boundary has always followed one
   // bump on.
-  it('rejects unknown V35 loudly (stale title corrected post-C.2a; the boundary moves on every save bump)', () => {
-    expect(() => validateSave({ ...v6, saveVersion: 35 })).toThrow(/unknown saveVersion 35/)
+  it('rejects unknown V36 loudly (stale title corrected post-C.4; the boundary moves on every save bump)', () => {
+    expect(() => validateSave({ ...v6, saveVersion: 36 })).toThrow(/unknown saveVersion 36/)
   })
 
   it('rejects a V6 whose persisted regime fact is missing or not a boolean', () => {

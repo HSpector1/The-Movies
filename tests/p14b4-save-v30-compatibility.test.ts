@@ -171,6 +171,9 @@ function preservesExactly(admitted: OldSave) {
   // invariant extends one more governed step — the empty career-lifecycle root,
   // opened at this envelope's own tick (the same lift the real V33->V34
   // migration writes).
+  // P14C.4 (R-VERSION): the live writer now stamps Save35, so the invariant
+  // extends one more governed step — `cohorts: []` inside the same root;
+  // `initialCareerLifecycle` below already opens both empty.
   const lifted = migrateToLive(migrated)
   const addedFields = (promise: typeof migrated.state.promises[number]) => ({ ...promise, supersededByPromiseId: null })
   const floored = migrated.state.talent.map((person) => ({ ...person, age: Math.floor(person.age) }))
@@ -207,8 +210,8 @@ function assertActualBacking(save: OldSave, root: OldPromise): void {
 }
 
 describe('P14B4 Save30: genuine final V29 corpus, exact old-state preservation', () => {
-  it('pins LIVE_SAVE_VERSION to literal34 (stale number corrected post-C.2a) independently of the value under test (P14B.7, 735-T)', () => {
-    expect(LIVE_SAVE_VERSION).toBe(34)
+  it('pins LIVE_SAVE_VERSION to literal35 (stale number corrected post-C.4) independently of the value under test (P14B.7, 735-T)', () => {
+    expect(LIVE_SAVE_VERSION).toBe(35)
   })
 
   it.each(NAMES)('migrates genuine %s without rewriting roots, receipts, digests or history and downgrades losslessly', (name) => {

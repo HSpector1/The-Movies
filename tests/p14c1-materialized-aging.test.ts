@@ -70,7 +70,12 @@ const migrateToV33 = dynSave['migrateToV33'] as ((save: unknown) => Envelope) | 
 // `hollywood` is not null (the market's own rule) — reached normally, since this one
 // is not part of C.1's own missing-export RED (save.ts already carries it).
 const convertV33ToV34 = SaveModule.convertV33ToV34
-const validateSaveV34 = SaveModule.validateSaveV34
+// P14C.4: same reasoning, one bump on — `tick()` now also requires `cohorts`
+// inside that root once a state reaches a cohort week (week 52); `validateSaveV34`
+// (frozen, unused for a genuinely live envelope now) is not aliased here — every
+// LIVE check below moves straight to `validateSaveV35`.
+const convertV34ToV35 = SaveModule.convertV34ToV35
+const validateSaveV35 = SaveModule.validateSaveV35
 
 const p14 = (relative: string): URL => new URL('./fixtures/' + relative, import.meta.url)
 
@@ -135,7 +140,10 @@ function migrateV33(save: ReturnType<typeof validateSaveV32>): { envelope: Envel
  * governed step first, so the C.1 aging claims under test still reach a state
  * `tick()` accepts. */
 function liftForTick(migrated: { envelope: Envelope; state: ProvenanceState }): { envelope: Envelope; state: ProvenanceState } {
-  const live = convertV33ToV34(migrated.envelope as Parameters<typeof convertV33ToV34>[0])
+  const v34 = convertV33ToV34(migrated.envelope as Parameters<typeof convertV33ToV34>[0])
+  // P14C.4: one further governed step to the true live boundary — `tick()`
+  // now needs `cohorts` too, once a lifted state reaches a cohort week.
+  const live = convertV34ToV35(v34 as Parameters<typeof convertV34ToV35>[0])
   return { envelope: live, state: withProvenance(live.state as object) }
 }
 
@@ -603,20 +611,20 @@ describe('7. the 30 crossing is a market decision (talentMarket.ts:690 isProven)
 
 describe('8. save and reload at week 12 and week 13', () => {
   for (const week of [12, 13] as const) {
-    it(`week ${week}: round trip preserves the age and the live validator accepts the state (P14C.2a: was validateSaveV33, now validateSaveV34 — the round trip is through whatever the live writer stamps, not pinned to V33)`, () => {
+    it(`week ${week}: round trip preserves the age and the live validator accepts the state (P14C.4: was validateSaveV33, then validateSaveV34, now validateSaveV35 — the round trip is through whatever the live writer stamps, not pinned to V33)`, () => {
       const { save } = loadCorpus('authored')
       const migrated = migrateForTick(save)
       const state = tickN(migrated, week)
       const envelope: Envelope = { saveVersion: LIVE_SAVE_VERSION, seed: state.seed, state, broadcastCache: state.broadcastItems }
 
       const reloaded = JSON.parse(JSON.stringify(envelope))
-      const validated = validateSaveV34(reloaded)
+      const validated = validateSaveV35(reloaded)
       const reloadedState = withProvenance(validated.state as object)
       expect(reloadedState.talent.find((t) => t.id === 'authored-0001')!.age).toBe(week === 12 ? 29 : 30)
     })
   }
 
-  it('bonus, not explicitly pinned by contract §6: the GENERIC exportSave/importSave/loadSave dispatcher also accepts a live envelope (flags a real gap if validateSave was not given the live saveVersion arm — see summary; P14C.2a: was V33, now V34)', () => {
+  it('bonus, not explicitly pinned by contract §6: the GENERIC exportSave/importSave/loadSave dispatcher also accepts a live envelope (flags a real gap if validateSave was not given the live saveVersion arm — see summary; P14C.4: was V33, then V34, now V35)', () => {
     const { save } = loadCorpus('authored')
     const migrated = migrateForTick(save)
     const state = tickN(migrated, 13)
@@ -705,10 +713,15 @@ describe('11. the validator refuses four tampered states, each attributably', ()
     // everything this test tampers with, so the four causes stay distinguishable
     // (each inner message survives inside the wrapping "frozen V33 state is
     // invalid —" prefix).
+    // P14C.4: `baseState()` now ticks a live (V35) state; `validateSaveV35`
+    // delegates to `validateSaveV34`, which delegates to the frozen V33 chain —
+    // the four causes below still stay distinguishable, each inner message
+    // surviving through both wrapping prefixes (checked by substring, not
+    // exact-match, below).
     const envelope: Envelope = { saveVersion: LIVE_SAVE_VERSION, seed: state.seed, state, broadcastCache: state.broadcastItems }
     const json = JSON.parse(JSON.stringify(envelope))
     try {
-      validateSaveV34(json)
+      validateSaveV35(json)
       return ''
     } catch (error) {
       return (error as Error).message
@@ -979,7 +992,7 @@ describe('13. provenance is written at the append, not the mint call', () => {
 // "33" anywhere else in this file (759-C's own convention: relative, not a guessed literal).
 // P14C.2a (776 S10): C.1 landed at 33 as this test predicted, then C.2a bumped once more.
 describe('save version bump (contract §6)', () => {
-  it('LIVE_SAVE_VERSION is 34 once C.2a lands (today: 33)', () => {
-    expect(LIVE_SAVE_VERSION).toBe(34)
+  it('LIVE_SAVE_VERSION is 35 once C.4 lands (today: 34)', () => {
+    expect(LIVE_SAVE_VERSION).toBe(35)
   })
 })

@@ -10,7 +10,7 @@ import { beforeAll, describe, expect, it, vi } from 'vitest'
 import * as promiseModule from '../src/core/promises.js'
 import { attachPromise, PROMISE_RULES_VERSION } from '../src/core/promises.js'
 import { currentProposals, submitProposal } from '../src/core/talentMarket.js'
-import { exportSave, importSave, LIVE_SAVE_VERSION, loadSave, makeSave, migrateToV29, migrateToLive, validateSaveV29, validateSaveV34 } from '../src/core/save.js'
+import { exportSave, importSave, LIVE_SAVE_VERSION, loadSave, makeSave, migrateToV29, migrateToLive, validateSaveV29, validateSaveV35 } from '../src/core/save.js'
 import type { GameState, PromiseFeasibilityReceipt } from '../src/core/types.js'
 import { buildTalentProvenance } from '../src/core/aging.js'
 import { initialCareerLifecycle } from '../src/core/careerLifecycle.js'
@@ -130,6 +130,10 @@ describe('P14B.3 continuity under the live evaluator (4 after record 600) with g
     // 776-S9 (P14C.2a, R-VERSION): the live writer now stamps Save34. The governed
     // lift adds the empty career-lifecycle root, opened at this envelope's own
     // tick — an additive field, like V31's and V32's, not a value change.
+    // P14C.4 (R-VERSION): the live writer now stamps Save35. The governed lift
+    // adds `cohorts: []` inside the same root — additive again, like V34's own
+    // root; `initialCareerLifecycle` below already opens it, so both
+    // comparisons below carry it transparently.
     const governed = migrateToLive(importSave(raw))
     expect(governed.saveVersion).toBe(LIVE_SAVE_VERSION)
     const parsedRaw = JSON.parse(raw)
@@ -189,7 +193,7 @@ describe('P14B.3 continuity under the live evaluator (4 after record 600) with g
     expect(JSON.stringify(attached.promises.slice(0, state.promises.length))).toBe(priorRoots)
     expect(currentProposals(attached, proposal.talentId).find((p) => p.issuerStudioId === proposal.issuerStudioId)!.promises)
       .toEqual([fresh.promiseId])
-    const reloaded = validateSaveV34(importSave(exportSave(makeSave(attached)))).state
+    const reloaded = validateSaveV35(importSave(exportSave(makeSave(attached)))).state
     expect(reloaded.promises).toEqual(attached.promises)
   })
 
@@ -231,7 +235,7 @@ describe('P14B.3 continuity under the live evaluator (4 after record 600) with g
       talentId: old.beneficiaryPersonId, studioId: old.issuerStudioId, week: proposal.startWeek }))
     expect(currentProposals(settled, old.beneficiaryPersonId)).toEqual([])
     expect(JSON.stringify(state.promises)).toBe(priorRoots)
-    const reloaded = validateSaveV34(importSave(exportSave(makeSave(settled)))).state
+    const reloaded = validateSaveV35(importSave(exportSave(makeSave(settled)))).state
     expect(reloaded.promises.find((p) => p.promiseId === old.promiseId)).toEqual(bound)
     expect(old.version).toBe(1)
     expect(old.feasibilityReceipt.rulesVersion).toBe(1)

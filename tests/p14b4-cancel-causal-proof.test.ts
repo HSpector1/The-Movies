@@ -23,7 +23,7 @@
 // tick / cancel / releaseTalent routes. Every promise is a REAL BOUND ROOT installed by the labeled state
 // variant `bind`: its `contractId` is read from the person's actual `hollywood.employment` row (never
 // invented); its `feasibilityReceipt` is a placeholder no outcome owner reads; the installed state is
-// then passed through the live writer (`makeSave` -> validateSaveV34, was validateSaveV33) so only a lawful persisted
+// then passed through the live writer (`makeSave` -> validateSaveV35, was validateSaveV34, was validateSaveV33) so only a lawful persisted
 // record is tested. No first take, binding, receipt or outcome is invented: first takes come from the
 // real 5 -> 4 advance (`took`), outcomes only from `advancePromisesWeek`, `tick` and the action seams.
 //
@@ -266,9 +266,9 @@ function bind(state: GameState, spec: BindSpec): GameState {
     : { ...base, family: spec.family, predicate: { count: spec.predicate.count } }
   return { ...state, promises: [...state.promises, promise] }
 }
-/** The live writer validates the whole state (P14C.2a: validateSaveV34, was validateSaveV33); a refusal fails the case with its text. */
+/** The live writer validates the whole state (P14C.2a: validateSaveV35, was validateSaveV34, was validateSaveV33); a refusal fails the case with its text. */
 function lawful(state: GameState): void {
-  expect(makeSave(state).saveVersion).toBe(34)
+  expect(makeSave(state).saveVersion).toBe(35)
 }
 function root(state: GameState, promiseId: string): ProfessionalPromise {
   const rows = state.promises.filter((p) => p.promiseId === promiseId)
