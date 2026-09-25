@@ -743,6 +743,55 @@ with the positive ones: the C# DTOs carry NO save version, so unlike B.8 a save 
 nothing under `generated/`; and `performance-library32` is a false positive whose 32 counts library
 records. Order from here: RED (authored independently against 758 as amended) -> implementation ->
 verification -> publication.
+NEXT772: **P14C.1 IS QUALIFIED CLOSED AND REMOTELY VERIFIED at `1d2359d7`.** Save 32 -> 33, projection
+UNMOVED at 50, `git status generated/` EMPTY so no C# regeneration — C.1 is B.8's exact mirror. Run
+`772-c1-final-verification` on `3aaf55e0`, `fixedSource: true`, empty tree diff at BOTH ends: 358 files
+and 4139 cases EXACTLY as predicted, 55 failures inside the predicted 54 +/-1, all 50 repaired cases
+cleared, ZERO new failures outside the two known sets, and `tests/p14c1-materialized-aging.test.ts` at
+46/46. 55 = 25 inherited + 30 deliberate. The +/-1 was FU-2 named in advance: failed 739, passed 737,
+failed 755, passed 767, failed 772 — THREE OF FIVE, threshold still deliberately unmoved.
+THE 30 DELIBERATE FAILURES KEEP THEIR CAUSES RATHER THAN THEIR NUMBERS. 25 are isolated-population
+loss (`p14b4-rival-seating-preference` 13, `p14b4-cast-class-outcomes` 9, `p14b1-trust-chooser` 2,
+`p14b4-cast-class-policy` 1): each natural search needs a capable-but-unproven subject, and under
+materialized aging those subjects cross `isProven` before the events the search finds, so a wider scan
+window makes it STRICTLY WORSE. 5 are the `poachingFixture` cascade, where the attribution was correct
+but incomplete and the deeper fact was found rather than pinned around: `proposePromise`
+(`tests/helpers/p14b2-fixtures.ts:34`) hard-codes `termWeeks: 52` while `preferredTerm`
+(`talentMarket.ts:711-713`) returns the SHORTEST term when unproven and the LONGEST when proven, so
+the fixture premise held only while the subject was unproven; `priorityOrder` moves `term` from fourth
+to second at the same crossing. Both classes are redesigns, not repairs.
+OWNER RULINGS RECORDED, both with corrections I needed. D1: the shrinking unproven pool is an
+explicitly TEMPORARY C.1 limitation, `isProven` is NOT to be changed to conceal it, and mature-campaign
+balance is not accepted until the lifecycle AND young-talent replenishment work completes — and these
+are TWO dependencies, not one: retirement (§6.2) manages departures, replenishment (§6.5) creates
+entrants. THE ACCEPTANCE CRITERION IS A DEMONSTRATION that mature campaigns retain meaningful access
+to younger talent, not that retirement works. D2: the downgrade predicate stands unchanged, and "no V32
+ancestor" is the chosen SUPPORT POLICY — not a technical impossibility, since `ageAtEntry` holds the
+exact pre-C.1 float (measured 47.445061789257494).
+**EXACT NEXT TASK: P14C.2 — RETIREMENT (companion §6.2), and its T0 comes FIRST.** C.1 moved the live
+save to 33, so before ANY C.2 source change, mint genuine outgoing **V33** fixtures at the final V33
+writer, on the slice rule this programme has followed since B.5 and the archived minter pattern at
+`761-mint-v32-c1-corpus-minter.test.ts`. The five C.1 corpus axes are the starting list, not the
+completion criterion: C.2's own axes must be MEASURED reachable by a probe before a minter commits
+bytes (the 747/760 move, which has twice paid for itself by proving a planned fixture impossible).
+C.2's first design question is the INHERITED AMBIGUITY carried from B.7 and B.8 and still open: `WAIVED`
+requires propose-and-accept while `VOIDED` would follow automatically from a lifecycle event, and the
+companion still lists retirement under BOTH rows. §6.2 confirms or rejects that reading; until it does,
+the `VOIDED` branch of the outcome enum stays retirement-moot.
+SWEEP GENERALISATION ADDED BY C.1, for the V33 -> V34 step: **a value-keyed inventory does not find an
+ENUMERATED ROOT-STRIP LIST**, because such a list must GROW by one line at every save bump and its
+failure mode is an OMISSION rather than a stale value. Three sites are known and two are test-owned:
+`src/core/save.ts` (chained, correct by construction), `src/harness/roster-wall/historical-control.ts`,
+`tests/contracts/_v14Contract.ts`, plus `tests/p13b-r07-save-v25.test.ts` and
+`tests/facility-move-demolish.test.ts` which C.1 also found stale.
+CARRIED OPEN, unchanged by C.1: the 6,240-week endurance scenario has STILL never been run and NO
+runtime cost has been measured by anyone (the scheduler correction closed a shape finding at source
+level only; work is NOT proportional only to birthdays, since a birthday call still builds a `rank`
+index and traverses `state.talent`). FU-1's `ui` reliability finding is still unreturned and the `ui`
+project was not run. FU-2's disposition stays open at three of five. Unity/native verification remains
+deferred; no native control exists for aging and none was run. Two repairs carry disclosed limits in
+record 764: the opt-in `ageResidue` parameter on `tests/_p08HistoryTwins.ts`, and the
+`p13b-s8-finance` provenance recast, whose fixture-mint alternative remains open.
 LOGIC VERIFIED · UNITY NOT VERIFIED. Unity/native deferred. Gross2221 omitted fact cost is NOT
 net saving: cold discovery can shift into next frame. No route-fit claim.
 Draft-discovery, silent-policy, affine and Map alternatives remain unadopted.
