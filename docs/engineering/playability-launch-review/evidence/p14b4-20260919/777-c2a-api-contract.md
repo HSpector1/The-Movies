@@ -119,3 +119,16 @@ announced person more than zero weeks past the announcement week usually has few
 Consequence recorded for C.2-RM: `bridge/market.ts:121` lists free agents by `marketEligibility(...).status
 === 'free_agent'`, so an announced free agent (status `retirement_announced`) leaves that list at
 announcement, consistent with rule 1.
+
+## 8. Amendment A2 (parent, 2026-09-25 ≈19:05, after the writer's record 779)
+
+§4's phrase "IDLE is pinned exactly as the T0 predictions (775) computed it" was the PARENT'S OVERCLAIM,
+written without reading the minter. The minter's paper predictor
+(`775-mint-v33-c2-corpus-minter.test.ts:141-145`) tested P12 employment only AT the birthday, never tested
+the seat, and knew only the contracts fixed at the save week. **773 D3 and the rest of §4's own text
+govern**: no interval or player contract active at any week of `[w − 104, w]`, no seat at `w`, anchor
+`<= w − 104`. The writer implemented that text. The committed predictions are NOT edited; where they
+differ they are recorded as prediction errors with their traced cause (779: the contract-and-case
+director's case settled into a contract; a rival re-hire at 1196 moved E by D5; the seated director is
+not idle by the seat clause). The four authored hard-boundary predictions (announce 832, age 86, E 884)
+and the twelve idle predictions of `genuine-v33-c2-hard-boundary-and-idle-window` held exactly (16/16).

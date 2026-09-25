@@ -1,0 +1,239 @@
+// P14C.2a T1 — INDEPENDENT RED, family 3: settlement, the rival symmetry, and Save V34
+// (773 §6 rows E1-E3, F1, G1-G5). Controlling order: OPUS-C2-TO-CODEX-LAUNCH.
+// C.2b/C.2c OUT OF SCOPE (no VOIDED/WAIVED/extension assertion anywhere here).
+//
+// RED MECHANISM for G1-G5 (the p14b7-promise-waiver precedent, 725-T): vite/esbuild
+// binds a MISSING NAMED EXPORT to `undefined` WITHOUT throwing when the module already
+// exists (src/core/save.ts does). Every case below that calls `validateSaveV34`,
+// `convertV33ToV34`, `convertV34ToV33`, `migrateToV34` or `migrateToLive` asserts
+// `typeof x === 'function'` FIRST — a RED PREMISE — so a missing export fails with a
+// named, attributable message instead of a raw TypeError deep inside the case.
+import { describe, expect, it } from 'vitest'
+import { applyActions, busyTalentIds, hiringMarketIds, tick } from '../src/core/index.js'
+import { freelancerMarketIds } from '../src/core/employment.js'
+import { assignableForFilm } from '../src/core/employment.js'
+import { marketEligibility } from '../src/core/talentMarket.js'
+import { lifecycleStatus, retirementRecordFor } from '../src/core/careerLifecycle.js'
+import { ageAt } from '../src/core/aging.js'
+import {
+  LIVE_SAVE_VERSION, makeSave,
+  // RED-by-design (776 S6): none of these five exist in src/core/save.ts today.
+  validateSaveV34, convertV33ToV34, convertV34ToV33, migrateToV34, migrateToLive,
+} from '../src/core/save.js'
+import type { GameState, GameStateV34 } from '../src/core/types.js'
+import {
+  c2Fixture, fund, p13aGeneratedStudio, stepWeekWithLifecycle, syntheticRecord, withSyntheticCareerLifecycle,
+} from './helpers/p14c2a-fixtures.js'
+
+/** The real materialized age, straight from provenance — required for a LAWFUL
+ * `ageAtAnnouncement` (validateSaveV34 cross-checks it against `ageAt`). */
+function realAge(state: GameState, id: string, week: number): number {
+  const row = state.talentProvenance.rows.find((r) => r.personId === id)!
+  return ageAt(row, week)
+}
+
+function assertSaveV34Exports(): void {
+  expect(typeof validateSaveV34, 'RED premise: validateSaveV34 must exist as a named export of src/core/save.ts').toBe('function')
+  expect(typeof convertV33ToV34, 'RED premise: convertV33ToV34 must exist as a named export of src/core/save.ts').toBe('function')
+  expect(typeof convertV34ToV33, 'RED premise: convertV34ToV33 must exist as a named export of src/core/save.ts').toBe('function')
+}
+
+describe('P14C.2a E1-E3, F1: settlement and the rival symmetry', () => {
+  // ── E1: not busy at E -> retired; contract ended via the existing owners; preserved ──
+  it('E1: a signed, NOT-seated actor announced with E = their own contract end settles to retired exactly at E, via the EXISTING expiry receipt; talent/history untouched', () => {
+    let state = fund(p13aGeneratedStudio())
+    const id = hiringMarketIds(state).map((c) => state.talent.find((t) => t.id === c)).find((t) => t?.role === 'actor')!.id
+    state = applyActions(state, [{ kind: 'signContract', talentId: id, termWeeks: 52 }])
+    expect(busyTalentIds(state).has(id)).toBe(false) // never seated on any production
+    const talentBefore = state.talent.map((t) => t.id)
+    const careerEventsBefore = state.careerEvents
+    let lifecycle = withSyntheticCareerLifecycle(state, {
+      boundaryWeek: 0, records: [syntheticRecord({ personId: id, profession: 'actor', announcedWeek: 0, effectiveWeek: 52 })],
+    })
+    for (let w = lifecycle.market.tick; w < 52; w++) lifecycle = stepWeekWithLifecycle(lifecycle)
+    const record = retirementRecordFor(lifecycle, id)!
+    expect(record).toMatchObject({ status: 'retired', retiredWeek: 52, effectiveWeek: 52 })
+    // the EXISTING P10 expiry wrote the end, not a second lifecycle-owned write
+    expect(lifecycle.contracts.find((c) => c.talentId === id)).toBeUndefined() // expired off the active list
+    expect(lifecycle.freeAgents).toContain(id)
+    // D12 preservation: nothing shortened, nothing reordered, nothing deleted
+    expect(lifecycle.talent.map((t) => t.id)).toEqual(talentBefore)
+    expect(lifecycle.careerEvents).toEqual(careerEventsBefore)
+  })
+
+  // ── E2: seated at E -> finishing_commitments; still seated; retired the first week the seat clears, never earlier ──
+  it('E2: the seated director (genuine-v33-c2-seated) settles to finishing_commitments while busy, and to retired the FIRST week (never earlier) the seat clears', () => {
+    const base = c2Fixture('genuine-v33-c2-seated') // week 0; authored-0000 (director) already greenlit
+    const directorId = 'authored-0000'
+    expect(busyTalentIds(base).has(directorId)).toBe(true)
+    const contractEnd = base.contracts.find((c) => c.talentId === directorId)!.endWeekExclusive // 208
+    let state = withSyntheticCareerLifecycle(base, {
+      boundaryWeek: 0, records: [syntheticRecord({ personId: directorId, profession: 'director', announcedWeek: 0, effectiveWeek: contractEnd })],
+    })
+    for (let w = state.market.tick; w < contractEnd; w++) state = stepWeekWithLifecycle(state)
+    expect(busyTalentIds(state as unknown as GameState).has(directorId), 'still seated at E: this genuine production has not wrapped by week 208').toBe(true)
+    expect(retirementRecordFor(state, directorId)).toMatchObject({ status: 'finishing_commitments', finishingFromWeek: contractEnd })
+    // one more week, still seated (the picture's own real completion mechanics are
+    // NOT modeled further here — out of this isolated case's scope): still finishing.
+    state = stepWeekWithLifecycle(state)
+    expect(retirementRecordFor(state, directorId)!.status).toBe('finishing_commitments')
+    // SYNTHETIC: the seat clears NOW (this picture's own wrap/release pipeline is a
+    // separate, unrelated mechanic — simulated directly here as the one isolated
+    // fact E2 needs: busyTalentIds must stop naming this director).
+    const production = state.studio.activeProductions.find((p) => p.directorId === directorId)
+    expect(production).toBeDefined()
+    const cleared = {
+      ...state,
+      studio: { ...state.studio, activeProductions: state.studio.activeProductions.filter((p) => p.id !== production!.id) },
+      operations: { ...state.operations, workflows: state.operations.workflows.filter((w) => w.productionId !== production!.id) },
+    }
+    expect(busyTalentIds(cleared as unknown as GameState).has(directorId), 'the seat is now clear').toBe(false)
+    const settled = stepWeekWithLifecycle(cleared)
+    expect(retirementRecordFor(settled, directorId)).toMatchObject({ status: 'retired', retiredWeek: settled.market.tick })
+    expect(settled.market.tick).toBeGreaterThan(contractEnd) // never earlier than the seat actually clearing
+  })
+
+  // ── E3: a retired person is absent from both markets and freeAgents listings ──
+  it('E3: a retired person is excluded from hiringMarketIds/freelancerMarketIds, not assignableForFilm, and marketEligibility reads retired_or_ineligible', () => {
+    const base = fund(p13aGeneratedStudio())
+    const id = base.talent.find((t) => t.role === 'actor')!.id
+    const state = withSyntheticCareerLifecycle(base, {
+      boundaryWeek: 0, records: [syntheticRecord({ personId: id, profession: 'actor', announcedWeek: 0, effectiveWeek: 1, status: 'retired', finishingFromWeek: 1, retiredWeek: 1 })],
+    })
+    expect(lifecycleStatus(state, id)).toBe('retired')
+    expect(hiringMarketIds(state as unknown as GameState)).not.toContain(id)
+    expect(freelancerMarketIds(state as unknown as GameState)).not.toContain(id)
+    expect(assignableForFilm(state as unknown as GameState, id)).toBe(false)
+    expect(marketEligibility(state as unknown as GameState, id)).toEqual({ status: 'retired_or_ineligible', proposers: [] })
+  })
+
+  // ── F1: a rival employee meets the same announcement, E and settlement law ──
+  it('F1: a rival employee (t-dir-00) settles under the IDENTICAL law as a player contract once its own interval end is reached', () => {
+    // 777 amendment A2 (parent): a long natural tick range here would risk the SAME
+    // class of error the parent flagged for this fixture's own T0 predictions (a
+    // rival re-hire changing the contract in force before the checked week). Made
+    // safe instead the same way D2/B4a are: the interval end is SHORTENED directly to
+    // match a near, chosen effectiveWeek, so only a short, controlled horizon (10
+    // weeks) needs running — eliminating that whole class of risk.
+    const base = c2Fixture('genuine-v33-c2-rival-in-window') // used only for its real rival/hollywood shape
+    const week = base.market.tick
+    // the CURRENTLY ACTIVE row, not merely the first historical row for this id — a
+    // world built by 1040 real ticks (this fixture's own recipe) can carry an earlier,
+    // already-ended employment row for the same person ahead of the live one.
+    const ordinal = base.hollywood!.employment.findIndex((e) => e.terms.talentId === 't-dir-00' && e.endedWeek === null)
+    expect(ordinal).toBeGreaterThanOrEqual(0)
+    expect(base.hollywood!.activeEmploymentOrdinals).toContain(ordinal)
+    const employment = base.hollywood!.employment.map((e, i) => (i === ordinal ? { ...e, terms: { ...e.terms, endWeekExclusive: week + 10 } } : e))
+    const shortened = { ...base, hollywood: { ...base.hollywood!, employment } }
+    let state = withSyntheticCareerLifecycle(shortened, {
+      boundaryWeek: week, records: [syntheticRecord({ personId: 't-dir-00', profession: 'director', announcedWeek: week, ageAtAnnouncement: realAge(base, 't-dir-00', week), effectiveWeek: week + 10 })],
+    })
+    for (let w = state.market.tick; w < week + 10; w++) state = stepWeekWithLifecycle(state)
+    const atE = retirementRecordFor(state, 't-dir-00')!
+    expect(['finishing_commitments', 'retired']).toContain(atE.status) // settlement ran, exactly as it would for a player contract
+    // the rival's OWN employment row must not still be active past E (D10, symmetric)
+    const stillActive = state.hollywood!.employment.some((e) => e.terms.talentId === 't-dir-00' && e.endedWeek === null && e.terms.endWeekExclusive > week + 10)
+    expect(stillActive).toBe(false)
+  })
+})
+
+describe('P14C.2a G1-G5: Save V34', () => {
+  // Every G-case below needs a subject who is LAWFULLY eligible to carry a record
+  // (in-window or past-hard for their own profession) — fresh worldgen talent is
+  // usually too young for that, so the hard-boundary/idle-window T0 world (whose
+  // four authored subjects are all independently confirmed atOrPastHard, 775) is
+  // reused as the substrate instead, with `cause: 'hardBoundary'` made explicit.
+  it('G1: makeSave/validateSaveV34 round-trips byte-stable with a record in each status (announced, finishing_commitments, retired)', () => {
+    assertSaveV34Exports()
+    const base = c2Fixture('genuine-v33-c2-hard-boundary-and-idle-window') // week 780
+    const announcedId = 'authored-0000' // actor, age 85
+    const finishingId = 'authored-0001' // director, age 85
+    const retiredId = 'authored-0002' // writer, age 85
+    const week = base.market.tick
+    const state: GameStateV34 = {
+      ...base,
+      careerLifecycle: {
+        boundaryWeek: week - 52,
+        // announcement order (773 §3: "Records append in announcement order")
+        records: [
+          syntheticRecord({ personId: finishingId, profession: 'director', cause: 'hardBoundary', announcedWeek: week - 52, ageAtAnnouncement: realAge(base, finishingId, week - 52), effectiveWeek: week, status: 'finishing_commitments', finishingFromWeek: week }),
+          syntheticRecord({ personId: retiredId, profession: 'writer', cause: 'hardBoundary', announcedWeek: week - 52, ageAtAnnouncement: realAge(base, retiredId, week - 52), effectiveWeek: week, status: 'retired', finishingFromWeek: week, retiredWeek: week }),
+          syntheticRecord({ personId: announcedId, profession: 'actor', cause: 'hardBoundary', announcedWeek: week, ageAtAnnouncement: realAge(base, announcedId, week), effectiveWeek: week + 500 }),
+        ],
+      },
+    }
+    const saved = makeSave(state as unknown as GameState)
+    expect((saved as { saveVersion: number }).saveVersion).toBe(34)
+    const roundTripped = validateSaveV34(JSON.parse(JSON.stringify(saved)))
+    expect(roundTripped.state.careerLifecycle).toEqual(state.careerLifecycle)
+  })
+
+  it('G2: every T0 V33 fixture migrates — empty root, boundaryWeek = the migration tick', () => {
+    assertSaveV34Exports()
+    for (const name of ['genuine-v33-c2-hard-boundary-and-idle-window', 'genuine-v33-c2-scientist', 'genuine-v33-c2-seated'] as const) {
+      const v33 = c2Fixture(name)
+      const migrated = convertV33ToV34({ saveVersion: 33, seed: v33.seed, state: v33, broadcastCache: v33.broadcastItems } as never)
+      expect(migrated.state.careerLifecycle).toEqual({ boundaryWeek: v33.market.tick, records: [] })
+    }
+  })
+
+  it('G3: V34 -> V33 is lossless iff no record; refused as a downgrade otherwise', () => {
+    assertSaveV34Exports()
+    const base = c2Fixture('genuine-v33-c2-hard-boundary-and-idle-window')
+    const empty: GameStateV34 = { ...base, careerLifecycle: { boundaryWeek: base.market.tick, records: [] } }
+    const emptySave = makeSave(empty as unknown as GameState)
+    const downgraded = convertV34ToV33(emptySave as never)
+    expect(downgraded.saveVersion).toBe(33)
+    const id = 'authored-0000'
+    const withRecord: GameStateV34 = {
+      ...base,
+      careerLifecycle: { boundaryWeek: base.market.tick, records: [syntheticRecord({ personId: id, profession: 'actor', cause: 'hardBoundary', announcedWeek: base.market.tick, ageAtAnnouncement: realAge(base, id, base.market.tick), effectiveWeek: base.market.tick + 500 })] },
+    }
+    const recordSave = makeSave(withRecord as unknown as GameState)
+    expect(() => convertV34ToV33(recordSave as never)).toThrow(/downgrade/i)
+  })
+
+  it('G4: the validator refuses each of five distinct mutations, one per case, each naming its own cause', () => {
+    expect(typeof validateSaveV34, 'RED premise: validateSaveV34 must exist as a named export of src/core/save.ts').toBe('function')
+    const base = c2Fixture('genuine-v33-c2-hard-boundary-and-idle-window')
+    const id = 'authored-0000'
+    const week = base.market.tick
+    const lawful = { ...base, careerLifecycle: { boundaryWeek: week, records: [syntheticRecord({ personId: id, profession: 'actor', cause: 'hardBoundary', announcedWeek: week, ageAtAnnouncement: realAge(base, id, week), effectiveWeek: week + 500 })] } }
+    const lawfulSave = makeSave(lawful as unknown as GameState) as { state: Record<string, unknown> }
+
+    const mutate = (fn: (root: typeof lawful.careerLifecycle) => unknown) => ({
+      ...lawfulSave, state: { ...lawfulSave.state, careerLifecycle: fn(lawful.careerLifecycle) },
+    })
+    const beforeBoundary = mutate((root) => ({ ...root, boundaryWeek: week + 1 })) // boundaryWeek <= tick violated
+    expect(() => validateSaveV34(beforeBoundary as never)).toThrow()
+    const ageDisagrees = mutate((root) => ({ ...root, records: [{ ...root.records[0]!, ageAtAnnouncement: root.records[0]!.ageAtAnnouncement + 5 }] }))
+    expect(() => validateSaveV34(ageDisagrees as never)).toThrow()
+    const shortHorizon = mutate((root) => ({ ...root, records: [{ ...root.records[0]!, effectiveWeek: root.records[0]!.announcedWeek + 51 }] })) // E < A + 52
+    expect(() => validateSaveV34(shortHorizon as never)).toThrow()
+    const unknownPerson = mutate((root) => ({ ...root, records: [{ ...root.records[0]!, personId: 'no-such-person' }] }))
+    expect(() => validateSaveV34(unknownPerson as never)).toThrow()
+    const wrongCause = mutate((root) => ({ ...root, records: [{ ...root.records[0]!, cause: root.records[0]!.cause === 'hardBoundary' ? 'idleInWindow' : 'hardBoundary' }] }))
+    expect(() => validateSaveV34(wrongCause as never)).toThrow()
+  })
+
+  it('G5: save/load mid-notice then continue equals the continuous run, byte-for-byte', () => {
+    assertSaveV34Exports()
+    const base = c2Fixture('genuine-v33-c2-hard-boundary-and-idle-window')
+    const id = 'authored-0000'
+    const week = base.market.tick
+    let state: GameStateV34 = {
+      ...base,
+      careerLifecycle: { boundaryWeek: week, records: [syntheticRecord({ personId: id, profession: 'actor', cause: 'hardBoundary', announcedWeek: week, ageAtAnnouncement: realAge(base, id, week), effectiveWeek: week + 500 })] },
+    }
+    const continuous = tick(tick(state as unknown as GameState)) as unknown as GameStateV34
+    const reloaded = validateSaveV34(JSON.parse(JSON.stringify(makeSave(state as unknown as GameState))) as never).state as unknown as GameStateV34
+    const viaSaveLoad = tick(tick(reloaded as unknown as GameState))
+    expect(JSON.stringify(viaSaveLoad)).toBe(JSON.stringify(continuous))
+  })
+
+  it('records LIVE_SAVE_VERSION and confirms migrateToV34/migrateToLive exist (RED premise only — not exercised further here)', () => {
+    expect(LIVE_SAVE_VERSION).toBe(34)
+    expect(typeof migrateToV34, 'RED premise: migrateToV34 must exist as a named export of src/core/save.ts').toBe('function')
+    expect(typeof migrateToLive, 'RED premise: migrateToLive must exist as a named export of src/core/save.ts').toBe('function')
+  })
+})
