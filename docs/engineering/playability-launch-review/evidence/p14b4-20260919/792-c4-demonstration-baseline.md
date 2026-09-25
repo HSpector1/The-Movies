@@ -11,7 +11,12 @@ so the same bytes run at every source. Seeds `p14c4-demo-01/02/03`. Outputs: `79
 | `ref` | `f3652852` (C.1 closed, before any C.2 source) in a disposable detached worktree (`git worktree remove`d after the three runs) | the 782 §6.2 reference: no retirement |
 | `c2a` | `ff7b9ac1` (src identical to the C.2a checkpoint `c34b6674`) | retirement, no cohorts: 782 §4's "cohorts disabled" arm |
 
-Both arms record `srcDirty: false`.
+Both arms record `srcDirty: false`. **Harness versions:** the first runs used sha256 `1b2bc45e05c751ed…`, which
+sampled every 52 weeks. The committed harness (`b60c683b3819078b…`) adds a mid-year sample every 26 weeks and
+leaves `sample()` unchanged. All six baseline runs were REPEATED with the committed harness (2026-09-25,
+disposable worktrees at `f3652852` and `ff7b9ac1`, removed afterwards). Every week-52 sample matched the first
+runs exactly (elapsed time aside), which also measures 6,240-week replay determinism for both engines. The
+JSON files in this directory are the repeated runs. The pre-C.1 run below keeps the first harness.
 
 ## 1. The two arms against 782 §4's pass condition
 
