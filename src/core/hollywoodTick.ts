@@ -3,6 +3,7 @@ import { considerRivalSoundPurchase, selectRivalSoundProduction, rivalInstallati
 import { createProductionTechnologyPolicy } from './technologyProduction.js'
 import { busyTalentIds, offerForTalent, weeklySalary, renewalWindowOpen } from './employment.js'
 import { caseOpenForTalent } from './talentMarket.js'
+import { assignmentRefusal, contractEndRefusal } from './careerLifecycle.js'
 import { promisedCastMasks, WEEKS_TO_FIRST_TAKE } from './promises.js'
 import { moveRivalMoney, rivalCapacityOpex, rivalWeeklyOperatingCost, uniqueIdentity } from './hollywood.js'
 import { admitRivalPlansInWeek, advanceRivalResearch, completeRivalPlans, rivalScientistDemand } from './rivalResearch.js'
@@ -106,6 +107,9 @@ function staff(state:GameState,h:HollywoodState,b:RivalBusiness,talent:Talent[],
     // the whole open-case span — the exclusion lands with the case-open check, not
     // with settlement. Under a case the incumbent's retention is its PROPOSAL.
     if(caseOpenForTalent({...state,hollywood:h,talent},old.terms.talentId,week))continue
+    // P14C.2a (773 D7 / trap 1): the fixed 208-week renewal never binds past an
+    // announced person's effective week; they finish this term and are not renewed.
+    if(contractEndRefusal(state,old.terms.talentId,week+TUNING.HOLLYWOOD_CONTRACT_WEEKS)!==null)continue
     const person=talent.find(t=>t.id===old.terms.talentId)!
     const terms=offerForTalent(state.seed,person,TUNING.HOLLYWOOD_CONTRACT_WEEKS,week)
     if(b.account.cash-terms.signingBonus<reserveAfterOffer(terms,ordinal))continue
@@ -123,6 +127,10 @@ function staff(state:GameState,h:HollywoodState,b:RivalBusiness,talent:Talent[],
   for(const e of h.activeEmploymentOrdinals.map(i=>h.employment[i]!))unavailable.add(e.terms.talentId)
   const own=currentEmployees(h,b.studioId)
   const filled=new Set<string>()
+  // P14C.2a (773 D7 / trap 1): a fresh hire or a re-hire is a new 208-week contract, so
+  // nobody it would bind past an effective week is a candidate (announced, finishing or
+  // retired alike). A skipped slot falls through to the next person or a minted one.
+  const capped=(id:string)=>contractEndRefusal(state,id,week+TUNING.HOLLYWOOD_CONTRACT_WEEKS)!==null
   let next=talent
   // P13B-S8: the fixed production team, then the Scientists this studio's own
   // research policy demands — one list, one contract law, one receipt per hire.
@@ -130,8 +138,8 @@ function staff(state:GameState,h:HollywoodState,b:RivalBusiness,talent:Talent[],
     const retained=own.find(e=>!filled.has(e.terms.talentId)&&next.find(t=>t.id===e.terms.talentId)?.role===role)
     if(retained){filled.add(retained.terms.talentId);continue}
     const expired=[...h.employment].reverse().find(e=>e.studioId===b.studioId && next.find(t=>t.id===e.terms.talentId)?.role===role && !filled.has(e.terms.talentId))
-    let person=expired&&!unavailable.has(expired.terms.talentId)?next.find(t=>t.id===expired.terms.talentId):undefined
-    person ??= next.find(t=>t.role===role&&!unavailable.has(t.id))
+    let person=expired&&!unavailable.has(expired.terms.talentId)&&!capped(expired.terms.talentId)?next.find(t=>t.id===expired.terms.talentId):undefined
+    person ??= next.find(t=>t.role===role&&!unavailable.has(t.id)&&!capped(t.id))
     let supplied=false
     let exactAge=0
     if(!person) {
@@ -170,17 +178,20 @@ function decide(state:GameState,h:HollywoodState,b:RivalBusiness,talent:Talent[]
   const busy=busyTalentIds({...state,hollywood:h,talent})
   const people=new Map(talent.map(t=>[t.id,t]))
   const employees=currentEmployees(h,b.studioId).map(e=>people.get(e.terms.talentId)!)
+  // P14C.2a (773 D9): a rival seats nobody whose seat cannot release before their
+  // effective retirement week, and nobody finishing or retired — director, cast and craft.
+  const seatable=(t:Talent)=>!busy.has(t.id)&&assignmentRefusal(state,t.id,week)===null
   for(const ready of hotDevelopment(b).projects.filter(p=>p.status==='ready')) {
     if(b.productions.length!==0)break
-    const director=employees.find(t=>t.role==='director'&&!busy.has(t.id))
-    const craft=employees.find(t=>t.role==='craft'&&!busy.has(t.id))
+    const director=employees.find(t=>t.role==='director'&&seatable(t))
+    const craft=employees.find(t=>t.role==='craft'&&seatable(t))
     // P14B.4 seating preference (plan :215-236): eligible PROMISED people enter the triple first, in employment
     // order; the writer of this screenplay and the chosen director/craft cannot double as cast; with no member
     // the expression below is the historical first-three rule unchanged.
     const masks=promisedCastMasks(state,b.studioId,week+WEEKS_TO_FIRST_TAKE)
     const taken=new Set([ready.writerId,director?.id,craft?.id])
-    const promised=employees.filter(t=>masks.has(t.id)&&!busy.has(t.id)&&!taken.has(t.id)&&t.skills.acting!==undefined)
-    const actors=[...promised,...employees.filter(t=>t.role==='actor'&&!busy.has(t.id)&&!promised.includes(t))].slice(0,3)
+    const promised=employees.filter(t=>masks.has(t.id)&&seatable(t)&&!taken.has(t.id)&&t.skills.acting!==undefined)
+    const actors=[...promised,...employees.filter(t=>t.role==='actor'&&seatable(t)&&!promised.includes(t))].slice(0,3)
     if(director&&actors.length===3&&craft) {
       const cost=b.projects[Number(ready.id.slice(7))]!
       const concept=h.concepts[cost.conceptOrdinal]!

@@ -2282,10 +2282,10 @@ export type GameStateV31 = GameStateV30 & {
 }
 
 // P14B.5 added the `relationships` root at V31, P14B.7 the waived-promise link at
-// V32. Since P14C.1 the live gameplay boundary is V33 (the talent provenance root);
-// V32 remains the frozen prior save shape, and its one lossless-while-unmaterialized
-// downgrade is the only way back.
-export type GameState = GameStateV33
+// V32, P14C.1 the talent provenance root at V33. Since P14C.2a the live gameplay
+// boundary is V34 (the career lifecycle root); V33 remains the frozen prior save
+// shape, and its one lossless-while-no-record downgrade is the only way back.
+export type GameState = GameStateV34
 
 // ── P14B.7 — the waived-promise link (Save V32) ─────────────────────────────
 
@@ -2341,9 +2341,8 @@ export type GameStateV33 = GameStateV32 & {
 
 // ── P14C.2a — the retirement lifecycle core (Save V34; records 773 and 777) ────
 //
-// SCAFFOLD: the V34 shapes are declared here and `GameState` stays `GameStateV33`
-// until the sole production writer flips it with the save step. A record is the
-// P14 lifecycle fact for ONE person; nothing about a retirement is ever deleted.
+// The live shape since P14C.2a (`GameState = GameStateV34`). A record is the P14
+// lifecycle fact for ONE person; nothing about a retirement is ever deleted.
 
 export type RetirementCause = 'hardBoundary' | 'idleInWindow'
 export type RetirementStatus = 'announced' | 'finishing_commitments' | 'retired'

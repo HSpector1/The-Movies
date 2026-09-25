@@ -31,6 +31,7 @@
 import { rivalEmployment, rivalWeeklyOperatingCost, moveRivalMoney } from './hollywood.js'
 import { RIVAL_TEAM_ROLES } from './hollywoodStartingData.js'
 import { recordPlayerEmployment } from './industryEmployment.js'
+import { contractEndRefusal, lifecycleRefusal, retirementRecordFor } from './careerLifecycle.js'
 import { activeContract, canAfford, contractOffer, guaranteedComp, renewalWindowOpen, terminationCost } from './employment.js'
 import type { ContractOffer, TerminationLaw } from './employment.js'
 import { attachPromise, attachedPromiseDigest, promiseFeasibility, proposalDigest, trustDescriptor } from './promises.js'
@@ -71,16 +72,19 @@ export type MarketEligibility = { status: MarketEligibilityStatus; proposers: st
  * and the contract WINDOW — never the `employmentStatus` string, which says
  * `unavailable` both for rival-employed and for off-rotation people.
  *
- * The three P14C rows (`retirement_announced`, `finishing_commitments`,
- * `retired_or_ineligible`) are declared in the type and are NOT reachable before
- * P14C: no accepted engine path announces a retirement or commits a lifecycle
- * transition, and this classifier invents neither.
+ * P14C.2a (773 D8): the three lifecycle rows are read FIRST, off the person's
+ * retirement record, and none of them admits a proposer — the extension's single
+ * issuer is C.2b's, not this table's.
  */
 export function marketEligibility(
   state: GameState,
   talentId: string,
   week: number = state.market.tick,
 ): MarketEligibility {
+  const lifecycle = retirementRecordFor(state, talentId)?.status
+  if (lifecycle === 'announced') return { status: 'retirement_announced', proposers: [] }
+  if (lifecycle === 'finishing_commitments') return { status: 'finishing_commitments', proposers: [] }
+  if (lifecycle === 'retired') return { status: 'retired_or_ineligible', proposers: [] }
   const entered = enteredStudioIds(state.hollywood)
   const terms = subjectTerms(state, talentId, week)
   // Free agents (expired, released early, never employed) stay INSTANT-SIGN in
@@ -404,6 +408,12 @@ function appendReceipt(
 
 export function submitProposal(state: GameState, intent: ProposalIntent): GameState {
   const week = state.market.tick
+  // P14C.2a (773 D8): a person with a retirement record takes no proposal from anyone
+  // (`marketEligibility` → no proposer), refused with the typed token first — their
+  // case was invalidated at the announcement, so the generic "no open case" sentence
+  // would name the wrong cause.
+  const record = retirementRecordFor(state, intent.talentId)
+  if (record !== undefined) throw new Error(`talentMarket: proposal rejected — ${lifecycleRefusal(record, 'no proposal is taken after an announcement')}`)
   requireOpenCase(state, intent.talentId, week)
   const eligible = marketEligibility(state, intent.talentId, week)
   if (!eligible.proposers.includes(intent.issuerStudioId)) {
@@ -1044,6 +1054,11 @@ export type FreezeDrop =
    * relation of the person is on the issuer's roster". Enumerated; UNREACHABLE in
    * B.5 by rule (Nemeses needs a conflict record, and B.5 mints none). */
   | 'nemesisOnRoster'
+  /** P14C.2a (777 §5): the commit would bind a person past their announced retirement
+   * (or bind one finishing or retired at all). Unreachable on the natural route — the
+   * announcement invalidates the case in the same weekly pass — and kept as the
+   * settlement re-check the contract names, so no refused winner is ever committed. */
+  | 'retirementCap'
 
 /** The studio as a person would name it; the id only if this world has no identity
  * for it (a state that could not have produced the proposal in the first place). */
@@ -1066,6 +1081,7 @@ const DROP_SENTENCE: Record<FreezeDrop, (studio: string) => string> = {
   promiseNotFeasible: (studio) => `${studio}'s attached promise no longer had a feasible path by the decision week.`,
   issuerDistrusted: (studio) => `${studio} holds a record this person distrusts.`,
   nemesisOnRoster: (studio) => `${studio}'s roster holds someone this person will not work beside.`,
+  retirementCap: (studio) => `${studio}'s offer would bind this person past their announced retirement.`,
 }
 
 /**
@@ -1096,6 +1112,9 @@ function survivesFreeze(
 ): FreezeDrop | null {
   const hollywood = state.hollywood!
   if (!enteredStudioIds(hollywood).includes(proposal.issuerStudioId)) return 'issuerNotEntered'
+  // P14C.2a (777 §5): the term cap re-checked at settlement, on the term either commit
+  // would write (`week + termWeeks`). A refused proposal is dropped, never committed.
+  if (contractEndRefusal(state, proposal.talentId, week + proposal.termWeeks) !== null) return 'retirementCap'
   // Reservation, P14B.1 (8): this person refuses a Distrusted issuer OUTRIGHT —
   // companion §2.1.7 lists reservation before legality and affordability, and
   // this predicate needs neither a price nor a seat to decide. It is checked
@@ -1222,9 +1241,20 @@ export function advanceTalentMarketWeek(state: GameState): GameState {
 
   // 1. invalidation
   for (const kase of next.talentMarket.cases) {
-    if (kase.outcome !== null || !releasedEarly(next, kase)) continue
-    next = closeCase(next, kase, 'invalidated', week, 'the subject was released early', null,
-      ['the person was released early and is a free agent now'])
+    if (kase.outcome !== null) continue
+    if (releasedEarly(next, kase)) {
+      next = closeCase(next, kase, 'invalidated', week, 'the subject was released early', null,
+        ['the person was released early and is a free agent now'])
+      continue
+    }
+    // P14C.2a (773 D8): an announcement closes the subject's open case AT the
+    // announcement week — the lifecycle step ran just before this one — and
+    // `closeCase` drops its proposals, so nothing binds them past the effective week.
+    const record = retirementRecordFor(next, kase.talentId)
+    if (record !== undefined && record.announcedWeek >= kase.openedWeek) {
+      next = closeCase(next, kase, 'invalidated', week, 'the subject announced retirement', null,
+        ['the person announced their retirement and takes no new contract'])
+    }
   }
 
   // 2. discovery — authoritative and public; every entered studio sees it at once.
@@ -1234,6 +1264,8 @@ export function advanceTalentMarketWeek(state: GameState): GameState {
     if (row.endedWeek !== null) continue
     if (!renewalWindowOpen(row.terms, week)) continue
     if (next.talentMarket.cases.some((c) => c.contractId === row.contractId)) continue
+    // P14C.2a (773 D8): no case opens for anyone holding a retirement record.
+    if (retirementRecordFor(next, row.terms.talentId) !== undefined) continue
     const kase: TalentMarketCase = {
       talentId: row.terms.talentId,
       subjectStudioId: row.studioId,

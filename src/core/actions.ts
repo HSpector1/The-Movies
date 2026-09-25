@@ -3,6 +3,7 @@ import { applyTechnologyAction, researchAfterEmploymentRelease, researchCandidat
 import { discardUnfilmedProductionTechnology } from './technologyProduction.js'
 import { withResearchFoundation } from './researchPeople.js'
 import { withTalentProvenance } from './aging.js'
+import { assignmentRefusal, contractEndRefusal } from './careerLifecycle.js'
 // ── §3 applyActions ──────────────────────────────────────────────────────────
 // `applyActions(state, actions): GameState` — pure; validates, then applies the
 // three action kinds (greenlight / cancel / createTalent). This is the
@@ -338,6 +339,15 @@ function applyGreenlight(
   const busy = activeProductionCompanyTalentIds(state)
   for (const id of activeWritingAssignmentIds(state)) busy.add(id)
   assertGreenlightStaffingIdle(staffing.engagedIds, busy)
+  // P14C.2a (773 D9, obligations first): no seat is assigned that cannot release before
+  // its holder's effective retirement week, and a finishing or retired person takes no
+  // seat at all. The ONE commit both `greenlight` and `greenlightScriptProject` (front
+  // door and dequeue) run, so a queued greenlight meets the same law at its own week.
+  // Director, cast, then craft — the fixed engaged order; the credited writer is not seated.
+  for (const talentId of staffing.engagedIds) {
+    const refusal = assignmentRefusal(state, talentId, currentTick)
+    if (refusal !== null) throw new Error(`applyActions: greenlight rejected — ${refusal}`)
+  }
 
   // ── Apply ──────────────────────────────────────────────────────────────────
   // One allocator serves both preview and apply. Historical persisted ids stay reserved
@@ -2492,6 +2502,11 @@ function applySignContract(state: GameState, action: Action & { kind: 'signContr
   // release-then-re-sign of the SAME person is floored at the terminated
   // contract's annual salary (exploit E1).
   const offer = playerOffer(state, talentId, termWeeks, week)
+  // P14C.2a (773 D7; 777 §7 amendment A1): the term cap runs BEFORE the market
+  // membership check and before any charge, so an announced person's refusal names
+  // `retirementAnnounced` and the effective week rather than "not available to sign".
+  const capRefusal = contractEndRefusal(state, talentId, offer.endWeekExclusive)
+  if (capRefusal !== null) throw new Error(`applyActions: signContract rejected — ${capRefusal}`)
   const contract: Contract = {
     talentId,
     annualSalary: offer.annualSalary,
@@ -2578,6 +2593,9 @@ function applyRenewContract(state: GameState, action: Action & { kind: 'renewCon
     )
   }
   const offer = playerOffer(state, talentId, termWeeks, week)
+  // P14C.2a (773 D7): no renewal binds past the effective week; refused before any charge.
+  const capRefusal = contractEndRefusal(state, talentId, week + offer.termWeeks)
+  if (capRefusal !== null) throw new Error(`applyActions: renewContract rejected — ${capRefusal}`)
   const renewed: Contract = {
     talentId,
     annualSalary: offer.annualSalary,

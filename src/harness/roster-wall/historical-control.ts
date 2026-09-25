@@ -5,6 +5,7 @@ import { initialPhysicalPlans } from '../../core/physicalPlans.js'
 import { initialTalentMarket } from '../../core/talentMarket.js'
 import { withResearchFoundation } from '../../core/researchPeople.js'
 import { buildTalentProvenance } from '../../core/aging.js'
+import { initialCareerLifecycle } from '../../core/careerLifecycle.js'
 import { stableStringify, validateTalentProvenanceRoot } from '../../core/save.js'
 import { SKILL_ORDER, GENRE_ORDER } from '../../core/tuning.js'
 import type { GameState, GameStateV18 } from '../../core/types.js'
@@ -44,10 +45,14 @@ export function liftV18Control(state:GameStateV18):GameState { const cloned=stru
   // OWN EXISTING age UNROUNDED at `boundaryWeek = market.tick`. The anchor is where the
   // pre-C.1 fact is preserved; `talent` above stores each floor of it, so the lifted
   // state satisfies validator condition 2 the moment the bridge or a tick reaches it.
-  talentProvenance:buildTalentProvenance(people,state.market.tick,'legacy_age_anchor')} }
+  talentProvenance:buildTalentProvenance(people,state.market.tick,'legacy_age_anchor'),
+  // P14C.2a (Save V34): a historical control has no industry, so the lifecycle never
+  // engages and nobody announces — the empty root, exactly what the real lift writes.
+  careerLifecycle:initialCareerLifecycle(state.market.tick)} }
 export function historicalHashState<T extends object>(state:T):object {
   if(!('technology' in state) && !('hollywood' in state) && !('physicalPlans' in state) && !('talentMarket' in state)
-    && !('firstTakes' in state) && !('promises' in state) && !('relationships' in state) && !('talentProvenance' in state))return state
+    && !('firstTakes' in state) && !('promises' in state) && !('relationships' in state) && !('talentProvenance' in state)
+    && !('careerLifecycle' in state))return state
   if('hollywood' in state && state.hollywood!==null)throw new Error('Historical hash cannot discard a living industry')
   // P14B.1: the control records no qualifying event and no commitment; an empty
   // pair of roots is the only lawful shape to discard. P14B.5: nor any edge.
@@ -85,9 +90,15 @@ export function historicalHashState<T extends object>(state:T):object {
       throw new Error(`Historical hash cannot discard talent provenance authority — ${(error as Error).message}`)
     }
   }
+  if ('careerLifecycle' in state) {
+    // P14C.2a. A control has no industry, so the lifecycle never engages (773 D6): the
+    // root is lawful to discard only while it holds no record. Its boundary week is the
+    // lift week and the hashed world may have ticked since, so only the records are asked.
+    if ((state as Partial<GameState>).careerLifecycle?.records.length !== 0) throw new Error('Historical hash cannot discard career lifecycle authority')
+  }
   const {hollywood: _control, technology: _research, physicalPlans: _plans, talentMarket: _market,
     firstTakes: _takes, promises: _promises, relationships: _relationships, talentProvenance: _provenance,
-    ...frozen}=state as Partial<GameState>
+    careerLifecycle: _lifecycle, ...frozen}=state as Partial<GameState>
   if (frozen.operations) {
     // P13B S5-R07: the live workflow carries `setup`/`planRevision`; a historical control never selected a recipe, so the only lawful
     // shape to discard is the null record at revision 0.

@@ -263,8 +263,8 @@ export function withTalentProvenance(
  * P14C.2a (record 777 §2): every id in a `due` bucket whose week is `<= week`, in
  * bucket order and then in-bucket order — the people whose age materializes this
  * advance. Pure; it reads the root and never rebuilds it. The tick calls it BEFORE
- * `materializeAges`, which consumes those buckets. SCAFFOLD until the writer lands it.
+ * `materializeAges`, which consumes those buckets.
  */
-export function birthdaysDueAt(_root: TalentProvenanceRoot, _week: number): string[] {
-  throw new Error('aging.birthdaysDueAt: not implemented (P14C.2a scaffold, record 777)')
+export function birthdaysDueAt(root: TalentProvenanceRoot, week: number): string[] {
+  return root.due.filter((bucket) => bucket.week <= week).flatMap((bucket) => bucket.personIds)
 }

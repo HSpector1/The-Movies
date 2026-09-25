@@ -16,6 +16,7 @@ import { stream } from './rng.js'
 import { activeScriptWriterAssignments } from './scriptDevelopment.js'
 import { SCIENTIST_ANNUAL_SALARY, TUNING } from './tuning.js'
 import { freelancerFeeMultiplier } from './facilityEffects.js'
+import { contractEndRefusal, lifecycleStatus, withdrawnPersonIds } from './careerLifecycle.js'
 import type {
   GameStateV3,
   Contract,
@@ -353,9 +354,12 @@ export function assignmentProjectCost(state: GameState, talentId: string): numbe
 
 // ── deterministic markets (D-11.14) ──────────────────────────────────────────
 // The "signable universe": talent neither contracted nor engaged in a production.
+// P14C.2a (773 D11): nor finishing their commitments, nor retired from the profession.
+// An ANNOUNCED person stays in it; the term cap then decides what may bind them.
 function signableUniverse(state: GameState): Talent[] {
   const busy = busyTalentIds(state)
-  return state.talent.filter((t) => !busy.has(t.id) && !isContracted(state, t.id) && rivalEmployment(state,t.id,state.market.tick) === null)
+  const withdrawn = withdrawnPersonIds(state)
+  return state.talent.filter((t) => !busy.has(t.id) && !withdrawn.has(t.id) && !isContracted(state, t.id) && rivalEmployment(state,t.id,state.market.tick) === null)
 }
 
 // Deterministic without-replacement sample of `n` ids from `pool`, drawing from
@@ -393,9 +397,12 @@ export function freelancerMarketIds(state: GameState, week: number = state.marke
 export function hiringMarketIds(state: GameState, week: number = state.market.tick): string[] {
   const out: string[] = []
   const seen = new Set<string>()
+  // P14C.2a (773 trap 2): `freeAgents` is read FIRST and outside `signableUniverse`,
+  // and a person whose contract expired into retirement sits in it. Filter here too.
+  const withdrawn = withdrawnPersonIds(state)
   // free agents first (former employees), in stored order
   for (const id of state.freeAgents) {
-    if (!seen.has(id) && !isContracted(state, id) && rivalEmployment(state,id,week) === null) {
+    if (!seen.has(id) && !withdrawn.has(id) && !isContracted(state, id) && rivalEmployment(state,id,week) === null) {
       seen.add(id)
       out.push(id)
     }
@@ -415,7 +422,12 @@ export function hiringMarketIds(state: GameState, week: number = state.market.ti
   for (const person of universe) {
     if (person.role === 'scientist' && !seen.has(person.id)) out.push(person.id)
   }
-  return out
+  // P14C.2a (777 §7 amendment A1): this listing is the player's signability gate, so a
+  // person no catalogue term may lawfully bind (an announced person with fewer than
+  // `CONTRACT_MIN_WEEKS` left before the effective week) is POST-FILTERED out. The
+  // sampling above is untouched, so everyone else's rotation stays byte-identical and
+  // the listing may hold fewer than `HIRING_MARKET_SIZE` rows.
+  return out.filter((id) => contractEndRefusal(state, id, week + TUNING.CONTRACT_MIN_WEEKS) === null)
 }
 
 // ── employment status (D-11.1) — first-match priority, derived ────────────────
@@ -440,6 +452,10 @@ export function assignableForFilm(
   talentId: string,
   week: number = state.market.tick,
 ): boolean {
+  // P14C.2a (773 D11): finishing and retired people take no new film. An announced
+  // person stays assignable here; the greenlight's seat-release cap (773 D9) decides.
+  const status = lifecycleStatus(state, talentId)
+  if (status === 'finishing_commitments' || status === 'retired') return false
   return isContracted(state, talentId, week) || freelancerMarketIds(state, week).includes(talentId)
 }
 

@@ -34,7 +34,7 @@
 import { mkdirSync, readdirSync, readFileSync, writeFileSync, appendFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { loadSave, migrateToV33 } from '../../core/index.js'
+import { loadSave, migrateToLive } from '../../core/index.js'
 import type { GameState } from '../../core/index.js'
 import { runOne } from './driver.js'
 import type { RunRecord } from './driver.js'
@@ -180,7 +180,7 @@ function loadStates(dir: string): EntryState[] {
       meta: Record<string, unknown>
       save: unknown
     }
-    const save = migrateToV33(loadSave(raw.save))
+    const save = migrateToLive(loadSave(raw.save))
     const state = save.state
     out.push({
       id: String(raw.meta['id'] ?? f.replace(/\.json$/, '')),

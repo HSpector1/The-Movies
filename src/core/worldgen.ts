@@ -63,6 +63,7 @@ import { initialStudioHistory } from './studioHistory.js'
 import { initialPhysicalPlans } from './physicalPlans.js'
 import { initialTalentMarket } from './talentMarket.js'
 import { buildTalentProvenance } from './aging.js'
+import { initialCareerLifecycle } from './careerLifecycle.js'
 import { stream } from './rng.js'
 import { RngStream } from './rng.js'
 import {
@@ -807,5 +808,7 @@ export function generateWorld(seed: string, options?: GenerateWorldOptions): Gam
     // P14C.1: one `authored_exact_week` row per generated person, anchored on the
     // EXACT drawn age at week 0; `talent` above stores each floor of it.
     talentProvenance: buildTalentProvenance(drawn, 0, 'authored_exact_week'),
+    // P14C.2a: a fresh world has announced no retirement; the root records from week 0.
+    careerLifecycle: initialCareerLifecycle(0),
   }
 }

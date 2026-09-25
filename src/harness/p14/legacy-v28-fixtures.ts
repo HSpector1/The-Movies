@@ -22,7 +22,7 @@ import { gunzipSync, gzipSync } from 'node:zlib'
 import { applyActions } from '../../core/actions.js'
 import { hiringMarketIds } from '../../core/employment.js'
 import { exportSave, makeSave, migrateToV28, validateSave } from '../../core/save.js'
-import type { SaveFileV28, SaveFileV29, SaveFileV30, SaveFileV31, SaveFileV32, SaveFileV33 } from '../../core/save.js'
+import type { LiveSaveFile, SaveFileV28, SaveFileV29, SaveFileV30, SaveFileV31, SaveFileV32, SaveFileV33 } from '../../core/save.js'
 import { caseForTalent, currentProposals, submitProposal } from '../../core/talentMarket.js'
 import { tick } from '../../core/tick.js'
 import { TUNING } from '../../core/tuning.js'
@@ -37,7 +37,7 @@ mkdirSync(out, { recursive: true })
  * Write one fixture and PROVE it is re-readable: gzip round trip, then
  * load -> validateSave -> re-serialise must equal the file byte for byte.
  */
-function emit(file: string, save: SaveFileV28 | SaveFileV29 | SaveFileV30 | SaveFileV31 | SaveFileV32 | SaveFileV33, week: number): void {
+function emit(file: string, save: SaveFileV28 | SaveFileV29 | SaveFileV30 | SaveFileV31 | SaveFileV32 | SaveFileV33 | LiveSaveFile, week: number): void {
   const json = exportSave(save)
   const bytes = Buffer.from(json, 'utf8')
   writeFileSync(new URL(file, out), gzipSync(bytes, { level: 9 }))

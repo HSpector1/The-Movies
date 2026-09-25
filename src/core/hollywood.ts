@@ -8,6 +8,7 @@ import { initialReleaseAuthority } from './releaseAuthority.js'
 import { initialManagedScriptDevelopment, scriptProjectWriterIds } from './scriptDevelopment.js'
 import { stream } from './rng.js'
 import { withTalentProvenance } from './aging.js'
+import { contractEndRefusal } from './careerLifecycle.js'
 import { generateIndustryTalent } from './worldgen.js'
 import { initialTechnology } from './technology.js'
 import { FACILITY_BLUEPRINTS, GENRE_ORDER, ROLE_TO_DISCIPLINE, TUNING } from './tuning.js'
@@ -221,7 +222,10 @@ export function enterRival(state: GameState, studioId: string, origin: 'fresh' |
   // pushed into `talent` carries its floor.
   const entered: {id: string; age: number}[] = []
   const credits = RIVAL_TEAM_ROLES.map((role,index) => {
-    let person: Talent | undefined = authored ? undefined : talent.find(t => t.role === role && !reserved.has(t.id))
+    // P14C.2a (773 D7 / trap 1): the entry contract below is 208 weeks, so nobody it
+    // would bind past an effective week — announced, finishing or retired — is picked.
+    let person: Talent | undefined = authored ? undefined : talent.find(t => t.role === role && !reserved.has(t.id)
+      && contractEndRefusal(state,t.id,week+208) === null)
     if (!person) {
       const id = uniqueIdentity(`person-${studioId}-${index}`,peopleTaken)
       person = generateIndustryTalent(state.seed,id,role,authored ? template.names![index] : undefined)

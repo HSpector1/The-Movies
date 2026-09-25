@@ -1314,12 +1314,20 @@ export {
   migrateToV32,
   convertV31ToV32,
   convertV32ToV31,
-  // P14C.1 — live V32 → NEW V33 + migrateToV33 (the talent provenance root).
+  // P14C.1 — V32 → V33 + migrateToV33 (the talent provenance root).
   validateSaveV33,
   validateTalentProvenanceRoot,
   migrateToV33,
   convertV32ToV33,
   convertV33ToV32,
+  // P14C.2a — live V33 → NEW V34 + migrateToV34 (the career lifecycle root), and the
+  // live-route alias every "lift to what makeSave stamps" caller uses (record 776).
+  validateSaveV34,
+  validateCareerLifecycleRoot,
+  migrateToV34,
+  convertV33ToV34,
+  convertV34ToV33,
+  migrateToLive,
   convertV27ToV28,
   convertV28ToV27,
   // P13B-S5-R07 — live V24 → NEW V25 + migrateToV25 (the widened production
@@ -1362,6 +1370,8 @@ export type {
   SaveFileV31,
   SaveFileV32,
   SaveFileV33,
+  SaveFileV34,
+  LiveSaveFile,
   SaveFile,
   TalentV1,
   GameStateV1,
@@ -1591,6 +1601,7 @@ export {
 // ── P14C.2a Retirement lifecycle core (records 773/777) ──
 export {
   LIFECYCLE_INTENT_RULES_VERSION,
+  RETIREMENT_RECENT_WORK_WEEKS,
   retirementWindow,
   initialCareerLifecycle,
   retirementRecordFor,
