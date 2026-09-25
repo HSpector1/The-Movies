@@ -1,0 +1,309 @@
+// P14C.2-T0 CORPUS PROBE — measurement only, ASSERTS NOTHING about the product.
+//
+// Record 773 (§8, T0) requires measuring the C.2a fixture axes by an executable
+// probe BEFORE any C.2 source change exists and before a minter commits bytes.
+// This mirrors the 760/761 T0 pattern for C.1. STRAY-PROBE DISCIPLINE (record 726):
+// run ALONE by positional filename, never inside a suite pass, then archived and
+// removed. One `it` that only prints.
+import assert from 'node:assert/strict'
+import { readFileSync } from 'node:fs'
+import { gunzipSync } from 'node:zlib'
+import { it } from 'vitest'
+import { applyActions, tick } from '../src/core/index.js'
+import { anchorOf, nextBirthdayWeek } from '../src/core/aging.js'
+import { activeContract, busyTalentIds, hiringMarketIds } from '../src/core/employment.js'
+import { rivalEmployment } from '../src/core/hollywood.js'
+import { caseForTalent, caseOpenForTalent } from '../src/core/talentMarket.js'
+import {
+  LIVE_SAVE_VERSION, exportSave, makeSave, migrateToV33, validateSaveV33,
+} from '../src/core/save.js'
+import { advanceTo, p13aGeneratedStudio, p13aResearchReady } from '../src/harness/p13a/fixtures.js'
+import type { GameState } from '../src/core/types.js'
+import { fund, proposePromise, promiseFor } from './helpers/p14b2-fixtures.js'
+
+const SEED = 'p14c2-corpus-01'
+
+// D1, record 773 §3: windows [start, hard).
+const WINDOWS: Record<string, { start: number; hard: number }> = {
+  actor: { start: 60, hard: 70 },
+  director: { start: 65, hard: 75 },
+  writer: { start: 65, hard: 75 },
+  craft: { start: 62, hard: 72 },
+}
+
+function isIdle(state: GameState, id: string, week: number): boolean {
+  if (rivalEmployment(state, id, week) !== null) return false
+  if (activeContract(state, id, week) !== undefined) return false
+  if (busyTalentIds(state).has(id)) return false
+  if (state.contracts.some((c) => c.talentId === id && c.startWeek < week && c.endWeekExclusive > week - 104)) return false
+  return true
+}
+function anchorWeekOf(state: GameState, id: string): number | undefined {
+  const row = state.talentProvenance.rows.find((r) => r.personId === id)
+  return row === undefined ? undefined : anchorOf(row).week
+}
+
+function surveyWindows(state: GameState, week: number) {
+  const out: Record<string, { atOrPastHard: unknown[]; idleInWindow: unknown[]; rivalInWindow: unknown[] }> = {}
+  for (const role of Object.keys(WINDOWS)) out[role] = { atOrPastHard: [], idleInWindow: [], rivalInWindow: [] }
+  for (const t of state.talent) {
+    const w = WINDOWS[t.role]
+    if (w === undefined) continue
+    const bucket = out[t.role]!
+    if (t.age >= w.hard) bucket.atOrPastHard.push({ id: t.id, age: t.age })
+    else if (t.age >= w.start) {
+      const anchorWeek = anchorWeekOf(state, t.id)
+      const rival = rivalEmployment(state, t.id, week)
+      if (rival !== null) bucket.rivalInWindow.push({ id: t.id, age: t.age, endWeekExclusive: rival.terms.endWeekExclusive })
+      else if (anchorWeek !== undefined && anchorWeek <= week - 104 && isIdle(state, t.id, week)) {
+        bucket.idleInWindow.push({ id: t.id, age: t.age, anchorWeek })
+      }
+    }
+  }
+  return out
+}
+
+function saveFacts(state: GameState, label: string) {
+  try {
+    const json = exportSave(makeSave(state))
+    const saveVersion = validateSaveV33(JSON.parse(json)).saveVersion
+    return { label, ok: true, saveVersion, bytes: Buffer.byteLength(json, 'utf8') }
+  } catch (error) { return { label, ok: false, error: (error as Error).message.slice(0, 200) } }
+}
+
+function sign(state: GameState, role: 'actor' | 'writer' | 'director' | 'craft', termWeeks = 208) {
+  for (let i = 0; i < 60; i++) {
+    const person = hiringMarketIds(state, state.market.tick).map((id) => state.talent.find((p) => p.id === id)).find((p) => p?.role === role)
+    if (person !== undefined) return { state: applyActions(state, [{ kind: 'signContract', talentId: person.id, termWeeks }] as never), id: person.id }
+    state = tick(state)
+  }
+  throw new Error(`probe: no signable ${role}`)
+}
+
+it('MEASURES which of the C.2a corpus axes are reachable', () => {
+  const rows: unknown[] = []
+
+  // ── X1 — hard boundary, all four professions. ───────────────────────────
+  let x1: unknown
+  try {
+    let state = fund(p13aGeneratedStudio(SEED))
+    const roles: Array<'actor' | 'director' | 'writer' | 'craft'> = ['actor', 'director', 'writer', 'craft']
+    const ids: Record<string, string> = {}
+    const actions = roles.map((role, i) => ({
+      kind: 'createTalent' as const,
+      talent: {
+        name: `Probe Hard ${role}`, role, age: 70,
+        actual: { warmth: 0.1 * i, gravity: -0.1 * i, physicality: 0.2 },
+        potentialTier: 'Steady' as const, workEthic: 55,
+      },
+    }))
+    state = applyActions(state, actions as never)
+    for (const role of roles) ids[role] = state.talent.find((t) => t.name === `Probe Hard ${role}`)!.id
+    state = advanceTo(state, 260)
+    const ages = Object.fromEntries(roles.map((role) => [role, state.talent.find((t) => t.id === ids[role])!.age]))
+    const windowsAt260 = Object.fromEntries(roles.map((role) => [role, {
+      age: ages[role], hard: WINDOWS[role]!.hard, atOrPastHard: (ages[role] as number) >= WINDOWS[role]!.hard,
+    }]))
+    x1 = { reachable: true, week: 260, ages, windowsAt260, saveFacts: saveFacts(state, 'x1') }
+    rows.push({ axis: 'X1-hard-boundary', ...x1 as object })
+
+    // Reuse this SAME ticked world (natural genesis + rival population aged 5
+    // years) to survey X2 (idle in-window free agents) and part of X3 (rival
+    // employment landing in-window), at zero extra build cost.
+    const survey260 = surveyWindows(state, 260)
+    rows.push({ axis: 'X2-and-X3rival-survey-at-260', survey: survey260 })
+  } catch (error) { x1 = { reachable: false, error: (error as Error).message.slice(0, 300) }; rows.push({ axis: 'X1-hard-boundary', ...x1 as object }) }
+
+  // ── X2 supplemental — director/writer idle-in-window found 0 at week 260 on
+  // the primary seed. Try more seeds and later checkpoints before giving up.
+  let x2supplemental: unknown
+  try {
+    const found: Record<string, unknown[]> = { director: [], writer: [] }
+    const rivalFound: Record<string, unknown[]> = { actor: [], director: [], writer: [], craft: [] }
+    for (const trySeed of [SEED + '-d1', SEED + '-d2', SEED + '-d3', SEED + '-d4', SEED + '-d5']) {
+      let state = p13aGeneratedStudio(trySeed)
+      for (const week of [260, 520, 780, 1040]) {
+        state = advanceTo(state, week)
+        const survey = surveyWindows(state, week)
+        for (const role of ['director', 'writer']) {
+          const hits = (survey[role]!.idleInWindow as { id: string; age: number }[])
+          if (hits.length > 0) found[role]!.push({ seed: trySeed, week, hits })
+        }
+        for (const role of ['actor', 'director', 'writer', 'craft']) {
+          const hits = (survey[role]!.rivalInWindow as { id: string; age: number }[])
+          if (hits.length > 0) rivalFound[role]!.push({ seed: trySeed, week, hits })
+        }
+      }
+    }
+    x2supplemental = { found, rivalFound }
+  } catch (error) { x2supplemental = { error: (error as Error).message.slice(0, 300) } }
+  rows.push({ axis: 'X2-supplemental-director-writer-search', ...x2supplemental as object })
+
+  // ── X2 candidate world for the minter: full 4-profession survey at the
+  // chosen seed/week combo before committing to it. ─────────────────────────
+  let x2candidate: unknown
+  try {
+    const state = advanceTo(p13aGeneratedStudio(SEED + '-d1'), 780)
+    x2candidate = { seed: SEED + '-d1', week: 780, survey: surveyWindows(state, 780), saveFacts: saveFacts(state, 'x2candidate') }
+  } catch (error) { x2candidate = { error: (error as Error).message.slice(0, 300) } }
+  rows.push({ axis: 'X2-candidate-world-d1-780', ...x2candidate as object })
+
+  // ── X7 — scientist role refused by createTalent (structural: no window). ─
+  let x7createAttempt: unknown
+  try {
+    const state = fund(p13aGeneratedStudio(SEED))
+    applyActions(state, [{
+      kind: 'createTalent', talent: {
+        name: 'Probe Scientist', role: 'scientist', age: 60,
+        actual: { warmth: 0, gravity: 0, physicality: 0 },
+        potentialTier: 'Steady', workEthic: 50,
+      },
+    }] as never)
+    x7createAttempt = { refused: false }
+  } catch (error) { x7createAttempt = { refused: true, error: (error as Error).message.slice(0, 200) } }
+  let x7oldest: unknown
+  try {
+    let state = p13aResearchReady()
+    const scientist = state.talent.find((t) => t.role === 'scientist')!
+    const atReady = { week: state.market.tick, age: scientist.age }
+    state = advanceTo(state, state.market.tick + 260)
+    const later = { week: state.market.tick, age: state.talent.find((t) => t.id === scientist.id)!.age }
+    x7oldest = { reachable: true, scientistId: scientist.id, atReady, later }
+  } catch (error) { x7oldest = { reachable: false, error: (error as Error).message.slice(0, 200) } }
+  rows.push({ axis: 'X7-scientist', createTalentScientistAttempt: x7createAttempt, oldestReachable: x7oldest })
+
+  // ── X3 (player contract, D5 contract-end branch) + X4 (open market case) ─
+  // + X6 (open promise on an in-window beneficiary). One combined world.
+  let x3x4x6: unknown
+  try {
+    let state = fund(p13aGeneratedStudio(SEED + '-b'))
+    state = applyActions(state, [
+      {
+        kind: 'createTalent', talent: {
+          name: 'Probe Contract Actor', role: 'actor', age: 65,
+          actual: { warmth: 0.2, gravity: -0.1, physicality: 0.3 },
+          potentialTier: 'Steady', workEthic: 55,
+        },
+      },
+      {
+        kind: 'createTalent', talent: {
+          name: 'Probe Renewal Director', role: 'director', age: 65,
+          actual: { warmth: -0.2, gravity: 0.3, physicality: 0.1 },
+          potentialTier: 'Steady', workEthic: 55,
+        },
+      },
+    ] as never)
+    const a = state.talent.find((t) => t.name === 'Probe Contract Actor')!
+    const b = state.talent.find((t) => t.name === 'Probe Renewal Director')!
+    state = applyActions(state, [
+      { kind: 'signContract', talentId: a.id, termWeeks: 208 },
+      { kind: 'signContract', talentId: b.id, termWeeks: 52 },
+    ] as never)
+    const bContractEnd = state.contracts.find((c) => c.talentId === b.id)!.endWeekExclusive
+    state = advanceTo(state, bContractEnd - 8) // inside the 12-week renewal window
+    const bEligibleForProposal = caseOpenForTalent(state, b.id, state.market.tick)
+    let bPromiseAttached = false
+    try { state = proposePromise(state, b.id); bPromiseAttached = true } catch { /* report only */ }
+    state = advanceTo(state, 48)
+    const aContract = state.contracts.find((c) => c.talentId === a.id)!
+    const aRow = state.talentProvenance.rows.find((r) => r.personId === a.id)!
+    const aNextBirthday = nextBirthdayWeek(aRow, a.age)
+    const bCase = caseForTalent(state, b.id, state.market.tick)
+    const bPromise = bPromiseAttached ? promiseFor(state, b.id) : null
+    x3x4x6 = {
+      reachable: true, week: state.market.tick,
+      x3: {
+        personId: a.id, age: state.talent.find((t) => t.id === a.id)!.age,
+        contractEndWeekExclusive: aContract.endWeekExclusive,
+        nextBirthdayPlus52: aNextBirthday + 52,
+        contractEndBranchExercised: aContract.endWeekExclusive > aNextBirthday + 52,
+      },
+      x4: {
+        personId: b.id, age: state.talent.find((t) => t.id === b.id)!.age,
+        renewalWindowOpenAtOfferWeek: bEligibleForProposal, caseAtSaveWeek: bCase,
+      },
+      x6: { attached: bPromiseAttached, promise: bPromise },
+      saveFacts: saveFacts(state, 'x3x4x6'),
+    }
+    rows.push({ axis: 'X3-player-contract+X4-open-case+X6-open-promise', ...x3x4x6 as object })
+  } catch (error) {
+    x3x4x6 = { reachable: false, error: (error as Error).message.slice(0, 400) }
+    rows.push({ axis: 'X3-player-contract+X4-open-case+X6-open-promise', ...x3x4x6 as object })
+  }
+
+  // ── X5 — an in-window person SEATED in an active player production. ─────
+  let x5: unknown
+  try {
+    let state = fund(p13aGeneratedStudio(SEED + '-c'))
+    state = applyActions(state, [{
+      kind: 'createTalent', talent: {
+        name: 'Probe Seated Director', role: 'director', age: 68,
+        actual: { warmth: 0.1, gravity: 0.2, physicality: -0.1 },
+        potentialTier: 'Steady', workEthic: 60,
+      },
+    }] as never)
+    const inWindowDirector = state.talent.find((t) => t.name === 'Probe Seated Director')!
+    state = applyActions(state, [{ kind: 'signContract', talentId: inWindowDirector.id, termWeeks: 208 }] as never)
+    const s = sign
+    const writer = s(state, 'writer'); state = writer.state
+    const lead = s(state, 'actor'); state = lead.state
+    const antagonist = s(state, 'actor'); state = antagonist.state
+    const support = s(state, 'actor'); state = support.state
+    const craft = s(state, 'craft'); state = craft.state
+    const concept = state.concepts[0]!
+    let greenlightError: string | null = null
+    try {
+      state = applyActions(state, [{
+        kind: 'greenlight', production: {
+          conceptId: concept.id, shape: { opening: 'slowSetup', midpoint: 'revelation', ending: 'bittersweet' },
+          promise: {
+            genre: concept.genre, intendedSegments: ['adult'],
+            ranges: { intimacy: [-0.5, 0.5], tonalWeight: [-0.5, 0.5], kineticEnergy: [-0.5, 0.5] },
+          },
+          writerId: writer.id, directorId: inWindowDirector.id,
+          cast: { lead: lead.id, antagonist: antagonist.id, support: support.id },
+          craftIds: [craft.id],
+          budget: { negative: concept.baseNegativeCost, marketing: 0 },
+        },
+      }] as never)
+    } catch (error) { greenlightError = (error as Error).message.slice(0, 400) }
+    if (greenlightError !== null) {
+      x5 = { reachable: false, stage: 'greenlight-no-set', error: greenlightError }
+    } else {
+      const seatedNow = busyTalentIds(state).has(inWindowDirector.id)
+      x5 = {
+        reachable: true, week: state.market.tick, directorId: inWindowDirector.id,
+        age: state.talent.find((t) => t.id === inWindowDirector.id)!.age, seatedNow,
+        saveFacts: saveFacts(state, 'x5'),
+      }
+    }
+  } catch (error) { x5 = { reachable: false, error: (error as Error).message.slice(0, 400) } }
+  rows.push({ axis: 'X5-seated-in-production', ...x5 as object })
+
+  // ── X8 — a MIGRATED V32 campaign, saved natively at V33 after ticks. ────
+  let x8: unknown
+  try {
+    const fixtureUrl = new URL('../tests/fixtures/p14/genuine-v32-c1-corpus/genuine-v32-authored.json.gz', import.meta.url)
+    const raw = JSON.parse(gunzipSync(readFileSync(fixtureUrl)).toString('utf8'))
+    const migrated = migrateToV33(raw)
+    const kindsAtMigration = [...new Set(migrated.state.talentProvenance.rows.map((r: { kind: string }) => r.kind))]
+    let state = migrated.state as GameState
+    const checkpoints: unknown[] = []
+    for (const target of [50, 100, 150, 200, 260, 320, 400, 500, 700, 900, 1100, 1400, 1800, 2200]) {
+      state = advanceTo(state, target)
+      const kinds = [...new Set(state.talentProvenance.rows.map((r) => r.kind))]
+      checkpoints.push({ week: target, kinds, rowCount: state.talentProvenance.rows.length })
+    }
+    const kindsAfterTicks = [...new Set(state.talentProvenance.rows.map((r) => r.kind))]
+    x8 = {
+      reachable: true, migrationWeek: migrated.state.market.tick, boundaryWeek: migrated.state.talentProvenance.boundaryWeek,
+      kindsAtMigration, weekAfterTicks: state.market.tick, kindsAfterTicks, checkpoints,
+      rowCountAtMigration: migrated.state.talentProvenance.rows.length, rowCountAfterTicks: state.talentProvenance.rows.length,
+      saveFacts: saveFacts(state, 'x8'),
+    }
+  } catch (error) { x8 = { reachable: false, error: (error as Error).message.slice(0, 400) } }
+  rows.push({ axis: 'X8-migrated-v33', ...x8 as object })
+
+  assert.equal(LIVE_SAVE_VERSION, 33)
+  console.log(JSON.stringify({ seed: SEED, rows }, null, 2))
+}, 900_000)

@@ -1,0 +1,1026 @@
+{
+  "authority": {
+    "phase": "P14C.2 T0 / the genuine outgoing Save V33 corpus for the C.2a retirement expansion, minted at the FINAL V33 writer before any C.2 source change",
+    "headSha": "f2d862d7ea3755992284ab29a6f924f941ff3c85",
+    "publishedRecoverySha": "f2d862d7ea3755992284ab29a6f924f941ff3c85",
+    "publicationState": "PUBLISHED: git ls-remote origin wip/headless-program-20260916-ts returned the minting head at mint time.",
+    "expansionRelativePath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/773-c2-retirement-expansion.md",
+    "expansionSha256": "23f38c98dc6555d8f20bf9bd0850d906fb7b8cd6ced690f4202a98f3aaca2cf3",
+    "measurementRelativePath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/774-c2-t0-measurement.md",
+    "measurementSha256": "8ba1eb56963a2e27342f8029fe2b435ab0f1a702f58ea5ca5c74091382cd789e",
+    "saveVersion": 33,
+    "promiseRulesVersion": 4,
+    "relationshipRulesVersion": 1,
+    "approvalEnvironmentVariable": "STUDIO_MINT_V33_C2_CORPUS_APPROVED",
+    "outputRelativePath": "tests/fixtures/p14/genuine-v33-c2-corpus",
+    "windows": {
+      "actor": {
+        "start": 60,
+        "hard": 70
+      },
+      "director": {
+        "start": 65,
+        "hard": 75
+      },
+      "writer": {
+        "start": 65,
+        "hard": 75
+      },
+      "craft": {
+        "start": 62,
+        "hard": 72
+      }
+    },
+    "intentRulesVersionAssumed": 1,
+    "predictionMethodNote": "predictRetirement (this file) walks nextBirthdayWeek/ageAt forward one birthday at a time, testing D3 at each birthday against ONLY the contracts/employment rows already fixed in the save. It is a paper prediction under 773 D3/D5/D13, not an implementation output — no RetirementRecord or V34 root exists anywhere in this corpus."
+  },
+  "fixtures": [
+    {
+      "filename": "genuine-v33-c2-hard-boundary-and-idle-window.json.gz",
+      "provenanceFilename": "genuine-v33-c2-hard-boundary-and-idle-window.provenance.json",
+      "week": 780,
+      "saveVersion": 33,
+      "uncompressedSha256": "c404122a6f0c232f0b41afe5c685972a9140a17ac8ef8be336512ba0b871515e",
+      "compressedSha256": "b7c3c0a4d4f26ce6344de9cb681f3310df96338aee1f3dabec409b0e69b119ed",
+      "byteLength": 1990285,
+      "compressedByteLength": 204395,
+      "axis": "X1: four authored people (actor/director/writer/craft), each authored at the [18,70] clamp edge (70) at week 0 and aged by ticking to week 780 — every one at or past their D1 hard boundary. X2: the SAME world's natural genesis population surveyed for idle in-window free agents per profession (anchor week <= week-104, no contract/rival/seat, no player contract overlapping [week-104,week]).",
+      "focus": {
+        "hardIds": {
+          "actor": "authored-0000",
+          "director": "authored-0001",
+          "writer": "authored-0002",
+          "craft": "authored-0003"
+        },
+        "idleCounts": {
+          "actor": 6,
+          "director": 2,
+          "writer": 3,
+          "craft": 1
+        },
+        "atOrPastHardCounts": {
+          "actor": 2,
+          "director": 1,
+          "writer": 1,
+          "craft": 1
+        },
+        "survey": {
+          "actor": {
+            "atOrPastHard": [
+              {
+                "id": "t-act-21",
+                "age": 70
+              },
+              {
+                "id": "authored-0000",
+                "age": 85
+              }
+            ],
+            "idleInWindow": [
+              {
+                "id": "t-act-07",
+                "age": 60,
+                "anchorWeek": 0
+              },
+              {
+                "id": "t-act-09",
+                "age": 66,
+                "anchorWeek": 0
+              },
+              {
+                "id": "t-act-14",
+                "age": 61,
+                "anchorWeek": 0
+              },
+              {
+                "id": "t-act-20",
+                "age": 63,
+                "anchorWeek": 0
+              },
+              {
+                "id": "t-act-22",
+                "age": 63,
+                "anchorWeek": 0
+              },
+              {
+                "id": "person-studio-9ed55199-r01-4",
+                "age": 66,
+                "anchorWeek": 0
+              }
+            ]
+          },
+          "director": {
+            "atOrPastHard": [
+              {
+                "id": "authored-0001",
+                "age": 85
+              }
+            ],
+            "idleInWindow": [
+              {
+                "id": "t-dir-08",
+                "age": 66,
+                "anchorWeek": 0
+              },
+              {
+                "id": "person-studio-9ed55199-r01-1",
+                "age": 65,
+                "anchorWeek": 0
+              }
+            ]
+          },
+          "writer": {
+            "atOrPastHard": [
+              {
+                "id": "authored-0002",
+                "age": 85
+              }
+            ],
+            "idleInWindow": [
+              {
+                "id": "t-wri-08",
+                "age": 71,
+                "anchorWeek": 0
+              },
+              {
+                "id": "person-studio-9ed55199-r01-0",
+                "age": 67,
+                "anchorWeek": 0
+              },
+              {
+                "id": "person-studio-9ed55199-r02-0",
+                "age": 72,
+                "anchorWeek": 0
+              }
+            ]
+          },
+          "craft": {
+            "atOrPastHard": [
+              {
+                "id": "authored-0003",
+                "age": 85
+              }
+            ],
+            "idleInWindow": [
+              {
+                "id": "t-cra-09",
+                "age": 63,
+                "anchorWeek": 0
+              }
+            ]
+          }
+        },
+        "predictions": {
+          "hard-actor": {
+            "subjectId": "authored-0000",
+            "role": "actor",
+            "resolved": true,
+            "predictedAnnouncedWeek": 832,
+            "predictedAge": 86,
+            "predictedCause": "hardBoundary",
+            "predictedEffectiveWeek": 884,
+            "chain": [
+              {
+                "birthdayIndex": 0,
+                "week": 832,
+                "age": 86,
+                "contractedAtBirthday": false,
+                "rivalEmployedAtBirthday": false,
+                "overlapsPlayerContractRecencyWindow": false,
+                "predictedCause": "hardBoundary",
+                "predictedEffectiveWeek": 884
+              }
+            ],
+            "assumption": "\"under 773 D3/D5/D13, not an implementation output\" — walks ONLY the contracts/employment rows already fixed in this save forward through successive birthdays; a contract, promise or seat created after the save week would change the real outcome and is exactly what this prediction exists to be falsified by."
+          },
+          "hard-director": {
+            "subjectId": "authored-0001",
+            "role": "director",
+            "resolved": true,
+            "predictedAnnouncedWeek": 832,
+            "predictedAge": 86,
+            "predictedCause": "hardBoundary",
+            "predictedEffectiveWeek": 884,
+            "chain": [
+              {
+                "birthdayIndex": 0,
+                "week": 832,
+                "age": 86,
+                "contractedAtBirthday": false,
+                "rivalEmployedAtBirthday": false,
+                "overlapsPlayerContractRecencyWindow": false,
+                "predictedCause": "hardBoundary",
+                "predictedEffectiveWeek": 884
+              }
+            ],
+            "assumption": "\"under 773 D3/D5/D13, not an implementation output\" — walks ONLY the contracts/employment rows already fixed in this save forward through successive birthdays; a contract, promise or seat created after the save week would change the real outcome and is exactly what this prediction exists to be falsified by."
+          },
+          "hard-writer": {
+            "subjectId": "authored-0002",
+            "role": "writer",
+            "resolved": true,
+            "predictedAnnouncedWeek": 832,
+            "predictedAge": 86,
+            "predictedCause": "hardBoundary",
+            "predictedEffectiveWeek": 884,
+            "chain": [
+              {
+                "birthdayIndex": 0,
+                "week": 832,
+                "age": 86,
+                "contractedAtBirthday": false,
+                "rivalEmployedAtBirthday": false,
+                "overlapsPlayerContractRecencyWindow": false,
+                "predictedCause": "hardBoundary",
+                "predictedEffectiveWeek": 884
+              }
+            ],
+            "assumption": "\"under 773 D3/D5/D13, not an implementation output\" — walks ONLY the contracts/employment rows already fixed in this save forward through successive birthdays; a contract, promise or seat created after the save week would change the real outcome and is exactly what this prediction exists to be falsified by."
+          },
+          "hard-craft": {
+            "subjectId": "authored-0003",
+            "role": "craft",
+            "resolved": true,
+            "predictedAnnouncedWeek": 832,
+            "predictedAge": 86,
+            "predictedCause": "hardBoundary",
+            "predictedEffectiveWeek": 884,
+            "chain": [
+              {
+                "birthdayIndex": 0,
+                "week": 832,
+                "age": 86,
+                "contractedAtBirthday": false,
+                "rivalEmployedAtBirthday": false,
+                "overlapsPlayerContractRecencyWindow": false,
+                "predictedCause": "hardBoundary",
+                "predictedEffectiveWeek": 884
+              }
+            ],
+            "assumption": "\"under 773 D3/D5/D13, not an implementation output\" — walks ONLY the contracts/employment rows already fixed in this save forward through successive birthdays; a contract, promise or seat created after the save week would change the real outcome and is exactly what this prediction exists to be falsified by."
+          },
+          "idle-actor-t-act-07": {
+            "subjectId": "t-act-07",
+            "role": "actor",
+            "resolved": true,
+            "predictedAnnouncedWeek": 798,
+            "predictedAge": 61,
+            "predictedCause": "idleInWindow",
+            "predictedEffectiveWeek": 850,
+            "chain": [
+              {
+                "birthdayIndex": 0,
+                "week": 798,
+                "age": 61,
+                "contractedAtBirthday": false,
+                "rivalEmployedAtBirthday": false,
+                "overlapsPlayerContractRecencyWindow": false,
+                "predictedCause": "idleInWindow",
+                "predictedEffectiveWeek": 850
+              }
+            ],
+            "assumption": "\"under 773 D3/D5/D13, not an implementation output\" — walks ONLY the contracts/employment rows already fixed in this save forward through successive birthdays; a contract, promise or seat created after the save week would change the real outcome and is exactly what this prediction exists to be falsified by."
+          },
+          "idle-actor-t-act-09": {
+            "subjectId": "t-act-09",
+            "role": "actor",
+            "resolved": true,
+            "predictedAnnouncedWeek": 796,
+            "predictedAge": 67,
+            "predictedCause": "idleInWindow",
+            "predictedEffectiveWeek": 848,
+            "chain": [
+              {
+                "birthdayIndex": 0,
+                "week": 796,
+                "age": 67,
+                "contractedAtBirthday": false,
+                "rivalEmployedAtBirthday": false,
+                "overlapsPlayerContractRecencyWindow": false,
+                "predictedCause": "idleInWindow",
+                "predictedEffectiveWeek": 848
+              }
+            ],
+            "assumption": "\"under 773 D3/D5/D13, not an implementation output\" — walks ONLY the contracts/employment rows already fixed in this save forward through successive birthdays; a contract, promise or seat created after the save week would change the real outcome and is exactly what this prediction exists to be falsified by."
+          },
+          "idle-actor-t-act-14": {
+            "subjectId": "t-act-14",
+            "role": "actor",
+            "resolved": true,
+            "predictedAnnouncedWeek": 796,
+            "predictedAge": 62,
+            "predictedCause": "idleInWindow",
+            "predictedEffectiveWeek": 848,
+            "chain": [
+              {
+                "birthdayIndex": 0,
+                "week": 796,
+                "age": 62,
+                "contractedAtBirthday": false,
+                "rivalEmployedAtBirthday": false,
+                "overlapsPlayerContractRecencyWindow": false,
+                "predictedCause": "idleInWindow",
+                "predictedEffectiveWeek": 848
+              }
+            ],
+            "assumption": "\"under 773 D3/D5/D13, not an implementation output\" — walks ONLY the contracts/employment rows already fixed in this save forward through successive birthdays; a contract, promise or seat created after the save week would change the real outcome and is exactly what this prediction exists to be falsified by."
+          },
+          "idle-actor-t-act-20": {
+            "subjectId": "t-act-20",
+            "role": "actor",
+            "resolved": true,
+            "predictedAnnouncedWeek": 826,
+            "predictedAge": 64,
+            "predictedCause": "idleInWindow",
+            "predictedEffectiveWeek": 878,
+            "chain": [
+              {
+                "birthdayIndex": 0,
+                "week": 826,
+                "age": 64,
+                "contractedAtBirthday": false,
+                "rivalEmployedAtBirthday": false,
+                "overlapsPlayerContractRecencyWindow": false,
+                "predictedCause": "idleInWindow",
+                "predictedEffectiveWeek": 878
+              }
+            ],
+            "assumption": "\"under 773 D3/D5/D13, not an implementation output\" — walks ONLY the contracts/employment rows already fixed in this save forward through successive birthdays; a contract, promise or seat created after the save week would change the real outcome and is exactly what this prediction exists to be falsified by."
+          },
+          "idle-actor-t-act-22": {
+            "subjectId": "t-act-22",
+            "role": "actor",
+            "resolved": true,
+            "predictedAnnouncedWeek": 820,
+            "predictedAge": 64,
+            "predictedCause": "idleInWindow",
+            "predictedEffectiveWeek": 872,
+            "chain": [
+              {
+                "birthdayIndex": 0,
+                "week": 820,
+                "age": 64,
+                "contractedAtBirthday": false,
+                "rivalEmployedAtBirthday": false,
+                "overlapsPlayerContractRecencyWindow": false,
+                "predictedCause": "idleInWindow",
+                "predictedEffectiveWeek": 872
+              }
+            ],
+            "assumption": "\"under 773 D3/D5/D13, not an implementation output\" — walks ONLY the contracts/employment rows already fixed in this save forward through successive birthdays; a contract, promise or seat created after the save week would change the real outcome and is exactly what this prediction exists to be falsified by."
+          },
+          "idle-actor-person-studio-9ed55199-r01-4": {
+            "subjectId": "person-studio-9ed55199-r01-4",
+            "role": "actor",
+            "resolved": true,
+            "predictedAnnouncedWeek": 809,
+            "predictedAge": 67,
+            "predictedCause": "idleInWindow",
+            "predictedEffectiveWeek": 861,
+            "chain": [
+              {
+                "birthdayIndex": 0,
+                "week": 809,
+                "age": 67,
+                "contractedAtBirthday": false,
+                "rivalEmployedAtBirthday": false,
+                "overlapsPlayerContractRecencyWindow": false,
+                "predictedCause": "idleInWindow",
+                "predictedEffectiveWeek": 861
+              }
+            ],
+            "assumption": "\"under 773 D3/D5/D13, not an implementation output\" — walks ONLY the contracts/employment rows already fixed in this save forward through successive birthdays; a contract, promise or seat created after the save week would change the real outcome and is exactly what this prediction exists to be falsified by."
+          },
+          "idle-director-t-dir-08": {
+            "subjectId": "t-dir-08",
+            "role": "director",
+            "resolved": true,
+            "predictedAnnouncedWeek": 781,
+            "predictedAge": 67,
+            "predictedCause": "idleInWindow",
+            "predictedEffectiveWeek": 833,
+            "chain": [
+              {
+                "birthdayIndex": 0,
+                "week": 781,
+                "age": 67,
+                "contractedAtBirthday": false,
+                "rivalEmployedAtBirthday": false,
+                "overlapsPlayerContractRecencyWindow": false,
+                "predictedCause": "idleInWindow",
+                "predictedEffectiveWeek": 833
+              }
+            ],
+            "assumption": "\"under 773 D3/D5/D13, not an implementation output\" — walks ONLY the contracts/employment rows already fixed in this save forward through successive birthdays; a contract, promise or seat created after the save week would change the real outcome and is exactly what this prediction exists to be falsified by."
+          },
+          "idle-director-person-studio-9ed55199-r01-1": {
+            "subjectId": "person-studio-9ed55199-r01-1",
+            "role": "director",
+            "resolved": true,
+            "predictedAnnouncedWeek": 825,
+            "predictedAge": 66,
+            "predictedCause": "idleInWindow",
+            "predictedEffectiveWeek": 877,
+            "chain": [
+              {
+                "birthdayIndex": 0,
+                "week": 825,
+                "age": 66,
+                "contractedAtBirthday": false,
+                "rivalEmployedAtBirthday": false,
+                "overlapsPlayerContractRecencyWindow": false,
+                "predictedCause": "idleInWindow",
+                "predictedEffectiveWeek": 877
+              }
+            ],
+            "assumption": "\"under 773 D3/D5/D13, not an implementation output\" — walks ONLY the contracts/employment rows already fixed in this save forward through successive birthdays; a contract, promise or seat created after the save week would change the real outcome and is exactly what this prediction exists to be falsified by."
+          },
+          "idle-writer-t-wri-08": {
+            "subjectId": "t-wri-08",
+            "role": "writer",
+            "resolved": true,
+            "predictedAnnouncedWeek": 800,
+            "predictedAge": 72,
+            "predictedCause": "idleInWindow",
+            "predictedEffectiveWeek": 852,
+            "chain": [
+              {
+                "birthdayIndex": 0,
+                "week": 800,
+                "age": 72,
+                "contractedAtBirthday": false,
+                "rivalEmployedAtBirthday": false,
+                "overlapsPlayerContractRecencyWindow": false,
+                "predictedCause": "idleInWindow",
+                "predictedEffectiveWeek": 852
+              }
+            ],
+            "assumption": "\"under 773 D3/D5/D13, not an implementation output\" — walks ONLY the contracts/employment rows already fixed in this save forward through successive birthdays; a contract, promise or seat created after the save week would change the real outcome and is exactly what this prediction exists to be falsified by."
+          },
+          "idle-writer-person-studio-9ed55199-r01-0": {
+            "subjectId": "person-studio-9ed55199-r01-0",
+            "role": "writer",
+            "resolved": true,
+            "predictedAnnouncedWeek": 830,
+            "predictedAge": 68,
+            "predictedCause": "idleInWindow",
+            "predictedEffectiveWeek": 882,
+            "chain": [
+              {
+                "birthdayIndex": 0,
+                "week": 830,
+                "age": 68,
+                "contractedAtBirthday": false,
+                "rivalEmployedAtBirthday": false,
+                "overlapsPlayerContractRecencyWindow": false,
+                "predictedCause": "idleInWindow",
+                "predictedEffectiveWeek": 882
+              }
+            ],
+            "assumption": "\"under 773 D3/D5/D13, not an implementation output\" — walks ONLY the contracts/employment rows already fixed in this save forward through successive birthdays; a contract, promise or seat created after the save week would change the real outcome and is exactly what this prediction exists to be falsified by."
+          },
+          "idle-writer-person-studio-9ed55199-r02-0": {
+            "subjectId": "person-studio-9ed55199-r02-0",
+            "role": "writer",
+            "resolved": true,
+            "predictedAnnouncedWeek": 831,
+            "predictedAge": 73,
+            "predictedCause": "idleInWindow",
+            "predictedEffectiveWeek": 883,
+            "chain": [
+              {
+                "birthdayIndex": 0,
+                "week": 831,
+                "age": 73,
+                "contractedAtBirthday": false,
+                "rivalEmployedAtBirthday": false,
+                "overlapsPlayerContractRecencyWindow": false,
+                "predictedCause": "idleInWindow",
+                "predictedEffectiveWeek": 883
+              }
+            ],
+            "assumption": "\"under 773 D3/D5/D13, not an implementation output\" — walks ONLY the contracts/employment rows already fixed in this save forward through successive birthdays; a contract, promise or seat created after the save week would change the real outcome and is exactly what this prediction exists to be falsified by."
+          },
+          "idle-craft-t-cra-09": {
+            "subjectId": "t-cra-09",
+            "role": "craft",
+            "resolved": true,
+            "predictedAnnouncedWeek": 807,
+            "predictedAge": 64,
+            "predictedCause": "idleInWindow",
+            "predictedEffectiveWeek": 859,
+            "chain": [
+              {
+                "birthdayIndex": 0,
+                "week": 807,
+                "age": 64,
+                "contractedAtBirthday": false,
+                "rivalEmployedAtBirthday": false,
+                "overlapsPlayerContractRecencyWindow": false,
+                "predictedCause": "idleInWindow",
+                "predictedEffectiveWeek": 859
+              }
+            ],
+            "assumption": "\"under 773 D3/D5/D13, not an implementation output\" — walks ONLY the contracts/employment rows already fixed in this save forward through successive birthdays; a contract, promise or seat created after the save week would change the real outcome and is exactly what this prediction exists to be falsified by."
+          }
+        }
+      }
+    },
+    {
+      "filename": "genuine-v33-c2-rival-in-window.json.gz",
+      "provenanceFilename": "genuine-v33-c2-rival-in-window.provenance.json",
+      "week": 1040,
+      "saveVersion": 33,
+      "uncompressedSha256": "d5fbe532d9d5af8eaac98d87ab79ba473a8fb5ece0d32fcae831c77d36cc9655",
+      "compressedSha256": "5f6e1ab1602bbfba74da127dd0cf3b1df0e6df8eb1b7fe1a8c4eff3b2f27c718",
+      "byteLength": 1690872,
+      "compressedByteLength": 178754,
+      "axis": "X3 (rival half): natural rival-hired people, aged by ticking a fresh world to week 1040, whose CURRENT age falls inside their D1 window while under active rival employment. No authored person and no forced enterRival call — pure natural aging + the engine's own rival restaffing over a long run.",
+      "focus": {
+        "rivalRolesReached": [
+          "actor",
+          "director",
+          "writer"
+        ],
+        "rivalSurvey": {
+          "actor": [
+            {
+              "id": "t-act-00",
+              "age": 66,
+              "endWeekExclusive": 1196
+            },
+            {
+              "id": "t-act-02",
+              "age": 61,
+              "endWeekExclusive": 1196
+            }
+          ],
+          "director": [
+            {
+              "id": "t-dir-00",
+              "age": 73,
+              "endWeekExclusive": 1196
+            }
+          ],
+          "writer": [
+            {
+              "id": "t-wri-00",
+              "age": 65,
+              "endWeekExclusive": 1196
+            }
+          ],
+          "craft": []
+        },
+        "predictions": {
+          "rival-actor-t-act-00": {
+            "subjectId": "t-act-00",
+            "role": "actor",
+            "resolved": true,
+            "predictedAnnouncedWeek": 1225,
+            "predictedAge": 70,
+            "predictedCause": "hardBoundary",
+            "predictedEffectiveWeek": 1277,
+            "chain": [
+              {
+                "birthdayIndex": 0,
+                "week": 1069,
+                "age": 67,
+                "contractedAtBirthday": false,
+                "rivalEmployedAtBirthday": true,
+                "overlapsPlayerContractRecencyWindow": false,
+                "predictedCause": null,
+                "predictedEffectiveWeek": null
+              },
+              {
+                "birthdayIndex": 1,
+                "week": 1121,
+                "age": 68,
+                "contractedAtBirthday": false,
+                "rivalEmployedAtBirthday": true,
+                "overlapsPlayerContractRecencyWindow": false,
+                "predictedCause": null,
+                "predictedEffectiveWeek": null
+              },
+              {
+                "birthdayIndex": 2,
+                "week": 1173,
+                "age": 69,
+                "contractedAtBirthday": false,
+                "rivalEmployedAtBirthday": true,
+                "overlapsPlayerContractRecencyWindow": false,
+                "predictedCause": null,
+                "predictedEffectiveWeek": null
+              },
+              {
+                "birthdayIndex": 3,
+                "week": 1225,
+                "age": 70,
+                "contractedAtBirthday": false,
+                "rivalEmployedAtBirthday": false,
+                "overlapsPlayerContractRecencyWindow": false,
+                "predictedCause": "hardBoundary",
+                "predictedEffectiveWeek": 1277
+              }
+            ],
+            "assumption": "\"under 773 D3/D5/D13, not an implementation output\" — walks ONLY the contracts/employment rows already fixed in this save forward through successive birthdays; a contract, promise or seat created after the save week would change the real outcome and is exactly what this prediction exists to be falsified by."
+          },
+          "rival-actor-t-act-02": {
+            "subjectId": "t-act-02",
+            "role": "actor",
+            "resolved": true,
+            "predictedAnnouncedWeek": 1211,
+            "predictedAge": 65,
+            "predictedCause": "idleInWindow",
+            "predictedEffectiveWeek": 1263,
+            "chain": [
+              {
+                "birthdayIndex": 0,
+                "week": 1055,
+                "age": 62,
+                "contractedAtBirthday": false,
+                "rivalEmployedAtBirthday": true,
+                "overlapsPlayerContractRecencyWindow": false,
+                "predictedCause": null,
+                "predictedEffectiveWeek": null
+              },
+              {
+                "birthdayIndex": 1,
+                "week": 1107,
+                "age": 63,
+                "contractedAtBirthday": false,
+                "rivalEmployedAtBirthday": true,
+                "overlapsPlayerContractRecencyWindow": false,
+                "predictedCause": null,
+                "predictedEffectiveWeek": null
+              },
+              {
+                "birthdayIndex": 2,
+                "week": 1159,
+                "age": 64,
+                "contractedAtBirthday": false,
+                "rivalEmployedAtBirthday": true,
+                "overlapsPlayerContractRecencyWindow": false,
+                "predictedCause": null,
+                "predictedEffectiveWeek": null
+              },
+              {
+                "birthdayIndex": 3,
+                "week": 1211,
+                "age": 65,
+                "contractedAtBirthday": false,
+                "rivalEmployedAtBirthday": false,
+                "overlapsPlayerContractRecencyWindow": false,
+                "predictedCause": "idleInWindow",
+                "predictedEffectiveWeek": 1263
+              }
+            ],
+            "assumption": "\"under 773 D3/D5/D13, not an implementation output\" — walks ONLY the contracts/employment rows already fixed in this save forward through successive birthdays; a contract, promise or seat created after the save week would change the real outcome and is exactly what this prediction exists to be falsified by."
+          },
+          "rival-director-t-dir-00": {
+            "subjectId": "t-dir-00",
+            "role": "director",
+            "resolved": true,
+            "predictedAnnouncedWeek": 1139,
+            "predictedAge": 75,
+            "predictedCause": "hardBoundary",
+            "predictedEffectiveWeek": 1196,
+            "chain": [
+              {
+                "birthdayIndex": 0,
+                "week": 1087,
+                "age": 74,
+                "contractedAtBirthday": false,
+                "rivalEmployedAtBirthday": true,
+                "overlapsPlayerContractRecencyWindow": false,
+                "predictedCause": null,
+                "predictedEffectiveWeek": null
+              },
+              {
+                "birthdayIndex": 1,
+                "week": 1139,
+                "age": 75,
+                "contractedAtBirthday": false,
+                "rivalEmployedAtBirthday": true,
+                "overlapsPlayerContractRecencyWindow": false,
+                "predictedCause": "hardBoundary",
+                "predictedEffectiveWeek": 1196
+              }
+            ],
+            "assumption": "\"under 773 D3/D5/D13, not an implementation output\" — walks ONLY the contracts/employment rows already fixed in this save forward through successive birthdays; a contract, promise or seat created after the save week would change the real outcome and is exactly what this prediction exists to be falsified by."
+          },
+          "rival-writer-t-wri-00": {
+            "subjectId": "t-wri-00",
+            "role": "writer",
+            "resolved": true,
+            "predictedAnnouncedWeek": 1237,
+            "predictedAge": 69,
+            "predictedCause": "idleInWindow",
+            "predictedEffectiveWeek": 1289,
+            "chain": [
+              {
+                "birthdayIndex": 0,
+                "week": 1081,
+                "age": 66,
+                "contractedAtBirthday": false,
+                "rivalEmployedAtBirthday": true,
+                "overlapsPlayerContractRecencyWindow": false,
+                "predictedCause": null,
+                "predictedEffectiveWeek": null
+              },
+              {
+                "birthdayIndex": 1,
+                "week": 1133,
+                "age": 67,
+                "contractedAtBirthday": false,
+                "rivalEmployedAtBirthday": true,
+                "overlapsPlayerContractRecencyWindow": false,
+                "predictedCause": null,
+                "predictedEffectiveWeek": null
+              },
+              {
+                "birthdayIndex": 2,
+                "week": 1185,
+                "age": 68,
+                "contractedAtBirthday": false,
+                "rivalEmployedAtBirthday": true,
+                "overlapsPlayerContractRecencyWindow": false,
+                "predictedCause": null,
+                "predictedEffectiveWeek": null
+              },
+              {
+                "birthdayIndex": 3,
+                "week": 1237,
+                "age": 69,
+                "contractedAtBirthday": false,
+                "rivalEmployedAtBirthday": false,
+                "overlapsPlayerContractRecencyWindow": false,
+                "predictedCause": "idleInWindow",
+                "predictedEffectiveWeek": 1289
+              }
+            ],
+            "assumption": "\"under 773 D3/D5/D13, not an implementation output\" — walks ONLY the contracts/employment rows already fixed in this save forward through successive birthdays; a contract, promise or seat created after the save week would change the real outcome and is exactly what this prediction exists to be falsified by."
+          }
+        },
+        "note": "not every profession landed a rival-in-window hire in this single world; unreached: craft. Record 774 measured other seed/week combinations reaching each of these individually; combining all four into one world was not pursued further within budget."
+      }
+    },
+    {
+      "filename": "genuine-v33-c2-contract-and-case.json.gz",
+      "provenanceFilename": "genuine-v33-c2-contract-and-case.provenance.json",
+      "week": 48,
+      "saveVersion": 33,
+      "uncompressedSha256": "b00e4b865974fe7f3b96b51d7b34a9bcfb0689eae00b9093c162548c3cb11804",
+      "compressedSha256": "3bda857bd65b28badce1fee25192644ba5b3f16538ed1e9c9b96527fd023c97a",
+      "byteLength": 472667,
+      "compressedByteLength": 59566,
+      "axis": "X3 (player half): an in-window actor under an active 208-week player contract whose end (208) exceeds nextBirthdayWeek+52 (104), exercising D5's contract-end branch. X4: an in-window director whose original 52-week contract's renewal window is open, producing a non-terminal market case. X6: an open (non-terminal) promise attached to that same in-window director.",
+      "focus": {
+        "personA": "authored-0000",
+        "personB": "authored-0001",
+        "aAge": 65,
+        "aContractEnd": 208,
+        "aNextBirthdayPlus52": 104,
+        "bAge": 65,
+        "bCaseStatus": "proposals_open",
+        "bPromiseId": "promise-0",
+        "predictions": {
+          "personA": {
+            "subjectId": "authored-0000",
+            "role": "actor",
+            "resolved": true,
+            "predictedAnnouncedWeek": 260,
+            "predictedAge": 70,
+            "predictedCause": "hardBoundary",
+            "predictedEffectiveWeek": 312,
+            "chain": [
+              {
+                "birthdayIndex": 0,
+                "week": 52,
+                "age": 66,
+                "contractedAtBirthday": true,
+                "rivalEmployedAtBirthday": false,
+                "overlapsPlayerContractRecencyWindow": true,
+                "predictedCause": null,
+                "predictedEffectiveWeek": null
+              },
+              {
+                "birthdayIndex": 1,
+                "week": 104,
+                "age": 67,
+                "contractedAtBirthday": true,
+                "rivalEmployedAtBirthday": false,
+                "overlapsPlayerContractRecencyWindow": true,
+                "predictedCause": null,
+                "predictedEffectiveWeek": null
+              },
+              {
+                "birthdayIndex": 2,
+                "week": 156,
+                "age": 68,
+                "contractedAtBirthday": true,
+                "rivalEmployedAtBirthday": false,
+                "overlapsPlayerContractRecencyWindow": true,
+                "predictedCause": null,
+                "predictedEffectiveWeek": null
+              },
+              {
+                "birthdayIndex": 3,
+                "week": 208,
+                "age": 69,
+                "contractedAtBirthday": false,
+                "rivalEmployedAtBirthday": false,
+                "overlapsPlayerContractRecencyWindow": true,
+                "predictedCause": null,
+                "predictedEffectiveWeek": null
+              },
+              {
+                "birthdayIndex": 4,
+                "week": 260,
+                "age": 70,
+                "contractedAtBirthday": false,
+                "rivalEmployedAtBirthday": false,
+                "overlapsPlayerContractRecencyWindow": true,
+                "predictedCause": "hardBoundary",
+                "predictedEffectiveWeek": 312
+              }
+            ],
+            "assumption": "\"under 773 D3/D5/D13, not an implementation output\" — walks ONLY the contracts/employment rows already fixed in this save forward through successive birthdays; a contract, promise or seat created after the save week would change the real outcome and is exactly what this prediction exists to be falsified by."
+          },
+          "personB": {
+            "subjectId": "authored-0001",
+            "role": "director",
+            "resolved": true,
+            "predictedAnnouncedWeek": 156,
+            "predictedAge": 68,
+            "predictedCause": "idleInWindow",
+            "predictedEffectiveWeek": 208,
+            "chain": [
+              {
+                "birthdayIndex": 0,
+                "week": 52,
+                "age": 66,
+                "contractedAtBirthday": false,
+                "rivalEmployedAtBirthday": false,
+                "overlapsPlayerContractRecencyWindow": true,
+                "predictedCause": null,
+                "predictedEffectiveWeek": null
+              },
+              {
+                "birthdayIndex": 1,
+                "week": 104,
+                "age": 67,
+                "contractedAtBirthday": false,
+                "rivalEmployedAtBirthday": false,
+                "overlapsPlayerContractRecencyWindow": true,
+                "predictedCause": null,
+                "predictedEffectiveWeek": null
+              },
+              {
+                "birthdayIndex": 2,
+                "week": 156,
+                "age": 68,
+                "contractedAtBirthday": false,
+                "rivalEmployedAtBirthday": false,
+                "overlapsPlayerContractRecencyWindow": false,
+                "predictedCause": "idleInWindow",
+                "predictedEffectiveWeek": 208
+              }
+            ],
+            "assumption": "\"under 773 D3/D5/D13, not an implementation output\" — walks ONLY the contracts/employment rows already fixed in this save forward through successive birthdays; a contract, promise or seat created after the save week would change the real outcome and is exactly what this prediction exists to be falsified by."
+          }
+        }
+      }
+    },
+    {
+      "filename": "genuine-v33-c2-seated.json.gz",
+      "provenanceFilename": "genuine-v33-c2-seated.provenance.json",
+      "week": 0,
+      "saveVersion": 33,
+      "uncompressedSha256": "52347a8b7374036d0d971fbd4c61b459973333b1331109e99d1a9bb970be5d74",
+      "compressedSha256": "493b7ecb434f4d965eddadf966c18beafe75561d81d968fd40b11ddc0d915d7e",
+      "byteLength": 407004,
+      "compressedByteLength": 51703,
+      "axis": "X5: an in-window (age 68, window [65,75)) authored director, contracted and then greenlit onto an active player production — seated in busyTalentIds at the save week.",
+      "focus": {
+        "seatedDirectorId": "authored-0000",
+        "seatedAge": 68,
+        "week": 0,
+        "predictions": {
+          "seatedDirector": {
+            "subjectId": "authored-0000",
+            "role": "director",
+            "resolved": true,
+            "predictedAnnouncedWeek": 312,
+            "predictedAge": 74,
+            "predictedCause": "idleInWindow",
+            "predictedEffectiveWeek": 364,
+            "chain": [
+              {
+                "birthdayIndex": 0,
+                "week": 52,
+                "age": 69,
+                "contractedAtBirthday": true,
+                "rivalEmployedAtBirthday": false,
+                "overlapsPlayerContractRecencyWindow": true,
+                "predictedCause": null,
+                "predictedEffectiveWeek": null
+              },
+              {
+                "birthdayIndex": 1,
+                "week": 104,
+                "age": 70,
+                "contractedAtBirthday": true,
+                "rivalEmployedAtBirthday": false,
+                "overlapsPlayerContractRecencyWindow": true,
+                "predictedCause": null,
+                "predictedEffectiveWeek": null
+              },
+              {
+                "birthdayIndex": 2,
+                "week": 156,
+                "age": 71,
+                "contractedAtBirthday": true,
+                "rivalEmployedAtBirthday": false,
+                "overlapsPlayerContractRecencyWindow": true,
+                "predictedCause": null,
+                "predictedEffectiveWeek": null
+              },
+              {
+                "birthdayIndex": 3,
+                "week": 208,
+                "age": 72,
+                "contractedAtBirthday": false,
+                "rivalEmployedAtBirthday": false,
+                "overlapsPlayerContractRecencyWindow": true,
+                "predictedCause": null,
+                "predictedEffectiveWeek": null
+              },
+              {
+                "birthdayIndex": 4,
+                "week": 260,
+                "age": 73,
+                "contractedAtBirthday": false,
+                "rivalEmployedAtBirthday": false,
+                "overlapsPlayerContractRecencyWindow": true,
+                "predictedCause": null,
+                "predictedEffectiveWeek": null
+              },
+              {
+                "birthdayIndex": 5,
+                "week": 312,
+                "age": 74,
+                "contractedAtBirthday": false,
+                "rivalEmployedAtBirthday": false,
+                "overlapsPlayerContractRecencyWindow": false,
+                "predictedCause": "idleInWindow",
+                "predictedEffectiveWeek": 364
+              }
+            ],
+            "assumption": "\"under 773 D3/D5/D13, not an implementation output\" — walks ONLY the contracts/employment rows already fixed in this save forward through successive birthdays; a contract, promise or seat created after the save week would change the real outcome and is exactly what this prediction exists to be falsified by."
+          }
+        }
+      }
+    },
+    {
+      "filename": "genuine-v33-c2-scientist.json.gz",
+      "provenanceFilename": "genuine-v33-c2-scientist.provenance.json",
+      "week": 520,
+      "saveVersion": 33,
+      "uncompressedSha256": "fda192a00c71fa66284cc51a4e9e5e0a41b409e0919a1c0a050f79cb0904bd2f",
+      "compressedSha256": "81a1136a90abc6b0c8ae88684ac379e9f3a6faeafe68b12acd26f3e8b0154714",
+      "byteLength": 1377282,
+      "compressedByteLength": 144930,
+      "axis": "X7: a Scientist (recruited via the accepted p13aResearchReady harness route) aged past 60 by ticking. D1 assigns Scientists no window and D2 is explicit that none may announce until a future tuning decision; createTalent independently REFUSES role \"scientist\" (\"not a valid CreativeRole\"), confirmed above before this world was built.",
+      "focus": {
+        "scientistId": "t-sci-00",
+        "scientistAge": 61,
+        "week": 520,
+        "createTalentScientistRefused": true
+      }
+    },
+    {
+      "filename": "genuine-v33-c2-migrated-legacy.json.gz",
+      "provenanceFilename": "genuine-v33-c2-migrated-legacy.provenance.json",
+      "week": 260,
+      "saveVersion": 33,
+      "uncompressedSha256": "f6acfbcc90be971907d32da1d140b5aabc88c1b305855e36139fff5ebdece619",
+      "compressedSha256": "3b85c4b3e77d26728303b5a4ed9f15f75b22852c8a3842e036d0252387fd32d9",
+      "byteLength": 898967,
+      "compressedByteLength": 99859,
+      "axis": "X8: tests/fixtures/p14/genuine-v32-c1-corpus/genuine-v32-authored.json.gz, migrated V32->V33 (every person becomes a legacy_age_anchor row, boundaryWeek = the migration week), then ticked 260 more weeks. A DISTINCT V33 shape from a fresh V33 campaign (worlds 1-5), whose genesis rows are all authored_exact_week. Record 774 measured this same fixture out to 2200 ticks with NO natural rival-supply authored_exact_week row appended (every rival role vacancy was filled by reusing an EXISTING free agent of that role rather than minting a new person) — a mixed-kind root stays NOT REACHED within that budget and is reported as such, not forced.",
+      "focus": {
+        "boundaryWeek": 0,
+        "migrationWeek": 0,
+        "weekAfterTicks": 260,
+        "kindsAtMigration": [
+          "legacy_age_anchor"
+        ],
+        "kindsAfterTicks": [
+          "legacy_age_anchor"
+        ],
+        "rowCount": 86,
+        "mixedKindSearch": "NOT REACHED at 50/100/150/200/260/320/400/500/700/900/1100/1400/1800/2200 ticks from migration (record 774); row count stayed constant at every checkpoint"
+      }
+    }
+  ]
+}

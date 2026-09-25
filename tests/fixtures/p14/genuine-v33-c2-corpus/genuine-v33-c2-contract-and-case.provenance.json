@@ -1,0 +1,183 @@
+{
+  "authority": {
+    "phase": "P14C.2 T0 / the genuine outgoing Save V33 corpus for the C.2a retirement expansion, minted at the FINAL V33 writer before any C.2 source change",
+    "headSha": "f2d862d7ea3755992284ab29a6f924f941ff3c85",
+    "publishedRecoverySha": "f2d862d7ea3755992284ab29a6f924f941ff3c85",
+    "publicationState": "PUBLISHED: git ls-remote origin wip/headless-program-20260916-ts returned the minting head at mint time.",
+    "expansionRelativePath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/773-c2-retirement-expansion.md",
+    "expansionSha256": "23f38c98dc6555d8f20bf9bd0850d906fb7b8cd6ced690f4202a98f3aaca2cf3",
+    "measurementRelativePath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/774-c2-t0-measurement.md",
+    "measurementSha256": "8ba1eb56963a2e27342f8029fe2b435ab0f1a702f58ea5ca5c74091382cd789e",
+    "saveVersion": 33,
+    "promiseRulesVersion": 4,
+    "relationshipRulesVersion": 1,
+    "approvalEnvironmentVariable": "STUDIO_MINT_V33_C2_CORPUS_APPROVED",
+    "outputRelativePath": "tests/fixtures/p14/genuine-v33-c2-corpus",
+    "windows": {
+      "actor": {
+        "start": 60,
+        "hard": 70
+      },
+      "director": {
+        "start": 65,
+        "hard": 75
+      },
+      "writer": {
+        "start": 65,
+        "hard": 75
+      },
+      "craft": {
+        "start": 62,
+        "hard": 72
+      }
+    },
+    "intentRulesVersionAssumed": 1,
+    "predictionMethodNote": "predictRetirement (this file) walks nextBirthdayWeek/ageAt forward one birthday at a time, testing D3 at each birthday against ONLY the contracts/employment rows already fixed in the save. It is a paper prediction under 773 D3/D5/D13, not an implementation output — no RetirementRecord or V34 root exists anywhere in this corpus."
+  },
+  "observedHeadSha": "f2d862d7ea3755992284ab29a6f924f941ff3c85",
+  "minterRelativePath": "tests/p14c2-mint-v33-corpus.test.ts",
+  "minterSha256": "2c07fd55cee171727859a7151bf699c418e6e919dc304e20ffc31e13a73a7ff3",
+  "minterArchivedRelativePath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/775-mint-v33-c2-corpus-minter.test.ts",
+  "minterReproduction": "Archived at minterArchivedRelativePath and removed from tests/, so no suite collects it. Reproducing requires copying the archived bytes back to tests/p14c2-mint-v33-corpus.test.ts before running the recorded command.",
+  "nodeVersion": "v20.20.2",
+  "startedAt": "2026-09-25T16:08:43.591Z",
+  "worldBuildMs": 28149.258821,
+  "command": "STUDIO_MINT_V33_C2_CORPUS_APPROVED=f2d862d7ea3755992284ab29a6f924f941ff3c85 node_modules/.bin/vitest run tests/p14c2-mint-v33-corpus.test.ts --minWorkers=1 --maxWorkers=1",
+  "campaign": "generated test campaign (world 6: migrated from the repository's own held V32 fixture); never an Owner save",
+  "scope": "genuine OUTGOING V33 worlds spanning the six measured/minted C.2a corpus axes; no V34 root, no lifecycle step, no native and no Owner acceptance claim",
+  "endedAt": "2026-09-25T16:09:14.130Z",
+  "recipe": {
+    "builder": "fund(p13aGeneratedStudio(\"p14c2-corpus-01-b\")) -> createTalent x2 (age 65 each) -> signContract (208wk actor, 52wk director) -> advanceTo(contract end - 8) -> proposePromise(director) -> advanceTo(48)",
+    "actions": [
+      "real createTalent x2",
+      "real signContract x2",
+      "real submitProposal + attachPromise via proposePromise"
+    ],
+    "compression": "node:zlib gzipSync with library defaults"
+  },
+  "filename": "genuine-v33-c2-contract-and-case.json.gz",
+  "provenanceFilename": "genuine-v33-c2-contract-and-case.provenance.json",
+  "week": 48,
+  "saveVersion": 33,
+  "uncompressedSha256": "b00e4b865974fe7f3b96b51d7b34a9bcfb0689eae00b9093c162548c3cb11804",
+  "compressedSha256": "3bda857bd65b28badce1fee25192644ba5b3f16538ed1e9c9b96527fd023c97a",
+  "byteLength": 472667,
+  "compressedByteLength": 59566,
+  "axis": "X3 (player half): an in-window actor under an active 208-week player contract whose end (208) exceeds nextBirthdayWeek+52 (104), exercising D5's contract-end branch. X4: an in-window director whose original 52-week contract's renewal window is open, producing a non-terminal market case. X6: an open (non-terminal) promise attached to that same in-window director.",
+  "focus": {
+    "personA": "authored-0000",
+    "personB": "authored-0001",
+    "aAge": 65,
+    "aContractEnd": 208,
+    "aNextBirthdayPlus52": 104,
+    "bAge": 65,
+    "bCaseStatus": "proposals_open",
+    "bPromiseId": "promise-0",
+    "predictions": {
+      "personA": {
+        "subjectId": "authored-0000",
+        "role": "actor",
+        "resolved": true,
+        "predictedAnnouncedWeek": 260,
+        "predictedAge": 70,
+        "predictedCause": "hardBoundary",
+        "predictedEffectiveWeek": 312,
+        "chain": [
+          {
+            "birthdayIndex": 0,
+            "week": 52,
+            "age": 66,
+            "contractedAtBirthday": true,
+            "rivalEmployedAtBirthday": false,
+            "overlapsPlayerContractRecencyWindow": true,
+            "predictedCause": null,
+            "predictedEffectiveWeek": null
+          },
+          {
+            "birthdayIndex": 1,
+            "week": 104,
+            "age": 67,
+            "contractedAtBirthday": true,
+            "rivalEmployedAtBirthday": false,
+            "overlapsPlayerContractRecencyWindow": true,
+            "predictedCause": null,
+            "predictedEffectiveWeek": null
+          },
+          {
+            "birthdayIndex": 2,
+            "week": 156,
+            "age": 68,
+            "contractedAtBirthday": true,
+            "rivalEmployedAtBirthday": false,
+            "overlapsPlayerContractRecencyWindow": true,
+            "predictedCause": null,
+            "predictedEffectiveWeek": null
+          },
+          {
+            "birthdayIndex": 3,
+            "week": 208,
+            "age": 69,
+            "contractedAtBirthday": false,
+            "rivalEmployedAtBirthday": false,
+            "overlapsPlayerContractRecencyWindow": true,
+            "predictedCause": null,
+            "predictedEffectiveWeek": null
+          },
+          {
+            "birthdayIndex": 4,
+            "week": 260,
+            "age": 70,
+            "contractedAtBirthday": false,
+            "rivalEmployedAtBirthday": false,
+            "overlapsPlayerContractRecencyWindow": true,
+            "predictedCause": "hardBoundary",
+            "predictedEffectiveWeek": 312
+          }
+        ],
+        "assumption": "\"under 773 D3/D5/D13, not an implementation output\" — walks ONLY the contracts/employment rows already fixed in this save forward through successive birthdays; a contract, promise or seat created after the save week would change the real outcome and is exactly what this prediction exists to be falsified by."
+      },
+      "personB": {
+        "subjectId": "authored-0001",
+        "role": "director",
+        "resolved": true,
+        "predictedAnnouncedWeek": 156,
+        "predictedAge": 68,
+        "predictedCause": "idleInWindow",
+        "predictedEffectiveWeek": 208,
+        "chain": [
+          {
+            "birthdayIndex": 0,
+            "week": 52,
+            "age": 66,
+            "contractedAtBirthday": false,
+            "rivalEmployedAtBirthday": false,
+            "overlapsPlayerContractRecencyWindow": true,
+            "predictedCause": null,
+            "predictedEffectiveWeek": null
+          },
+          {
+            "birthdayIndex": 1,
+            "week": 104,
+            "age": 67,
+            "contractedAtBirthday": false,
+            "rivalEmployedAtBirthday": false,
+            "overlapsPlayerContractRecencyWindow": true,
+            "predictedCause": null,
+            "predictedEffectiveWeek": null
+          },
+          {
+            "birthdayIndex": 2,
+            "week": 156,
+            "age": 68,
+            "contractedAtBirthday": false,
+            "rivalEmployedAtBirthday": false,
+            "overlapsPlayerContractRecencyWindow": false,
+            "predictedCause": "idleInWindow",
+            "predictedEffectiveWeek": 208
+          }
+        ],
+        "assumption": "\"under 773 D3/D5/D13, not an implementation output\" — walks ONLY the contracts/employment rows already fixed in this save forward through successive birthdays; a contract, promise or seat created after the save week would change the real outcome and is exactly what this prediction exists to be falsified by."
+      }
+    }
+  }
+}

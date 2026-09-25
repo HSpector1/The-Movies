@@ -1,0 +1,79 @@
+{
+  "authority": {
+    "phase": "P14C.2 T0 / the genuine outgoing Save V33 corpus for the C.2a retirement expansion, minted at the FINAL V33 writer before any C.2 source change",
+    "headSha": "f2d862d7ea3755992284ab29a6f924f941ff3c85",
+    "publishedRecoverySha": "f2d862d7ea3755992284ab29a6f924f941ff3c85",
+    "publicationState": "PUBLISHED: git ls-remote origin wip/headless-program-20260916-ts returned the minting head at mint time.",
+    "expansionRelativePath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/773-c2-retirement-expansion.md",
+    "expansionSha256": "23f38c98dc6555d8f20bf9bd0850d906fb7b8cd6ced690f4202a98f3aaca2cf3",
+    "measurementRelativePath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/774-c2-t0-measurement.md",
+    "measurementSha256": "8ba1eb56963a2e27342f8029fe2b435ab0f1a702f58ea5ca5c74091382cd789e",
+    "saveVersion": 33,
+    "promiseRulesVersion": 4,
+    "relationshipRulesVersion": 1,
+    "approvalEnvironmentVariable": "STUDIO_MINT_V33_C2_CORPUS_APPROVED",
+    "outputRelativePath": "tests/fixtures/p14/genuine-v33-c2-corpus",
+    "windows": {
+      "actor": {
+        "start": 60,
+        "hard": 70
+      },
+      "director": {
+        "start": 65,
+        "hard": 75
+      },
+      "writer": {
+        "start": 65,
+        "hard": 75
+      },
+      "craft": {
+        "start": 62,
+        "hard": 72
+      }
+    },
+    "intentRulesVersionAssumed": 1,
+    "predictionMethodNote": "predictRetirement (this file) walks nextBirthdayWeek/ageAt forward one birthday at a time, testing D3 at each birthday against ONLY the contracts/employment rows already fixed in the save. It is a paper prediction under 773 D3/D5/D13, not an implementation output — no RetirementRecord or V34 root exists anywhere in this corpus."
+  },
+  "observedHeadSha": "f2d862d7ea3755992284ab29a6f924f941ff3c85",
+  "minterRelativePath": "tests/p14c2-mint-v33-corpus.test.ts",
+  "minterSha256": "2c07fd55cee171727859a7151bf699c418e6e919dc304e20ffc31e13a73a7ff3",
+  "minterArchivedRelativePath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/775-mint-v33-c2-corpus-minter.test.ts",
+  "minterReproduction": "Archived at minterArchivedRelativePath and removed from tests/, so no suite collects it. Reproducing requires copying the archived bytes back to tests/p14c2-mint-v33-corpus.test.ts before running the recorded command.",
+  "nodeVersion": "v20.20.2",
+  "startedAt": "2026-09-25T16:08:43.591Z",
+  "worldBuildMs": 28149.258821,
+  "command": "STUDIO_MINT_V33_C2_CORPUS_APPROVED=f2d862d7ea3755992284ab29a6f924f941ff3c85 node_modules/.bin/vitest run tests/p14c2-mint-v33-corpus.test.ts --minWorkers=1 --maxWorkers=1",
+  "campaign": "generated test campaign (world 6: migrated from the repository's own held V32 fixture); never an Owner save",
+  "scope": "genuine OUTGOING V33 worlds spanning the six measured/minted C.2a corpus axes; no V34 root, no lifecycle step, no native and no Owner acceptance claim",
+  "endedAt": "2026-09-25T16:09:14.134Z",
+  "recipe": {
+    "builder": "migrateToV33(JSON.parse(gunzip(readFileSync(\"tests/fixtures/p14/genuine-v32-c1-corpus/genuine-v32-authored.json.gz\")))) -> advanceTo(+260)",
+    "actions": [
+      "real migrateToV33",
+      "260 real ticks"
+    ],
+    "compression": "node:zlib gzipSync with library defaults"
+  },
+  "filename": "genuine-v33-c2-migrated-legacy.json.gz",
+  "provenanceFilename": "genuine-v33-c2-migrated-legacy.provenance.json",
+  "week": 260,
+  "saveVersion": 33,
+  "uncompressedSha256": "f6acfbcc90be971907d32da1d140b5aabc88c1b305855e36139fff5ebdece619",
+  "compressedSha256": "3b85c4b3e77d26728303b5a4ed9f15f75b22852c8a3842e036d0252387fd32d9",
+  "byteLength": 898967,
+  "compressedByteLength": 99859,
+  "axis": "X8: tests/fixtures/p14/genuine-v32-c1-corpus/genuine-v32-authored.json.gz, migrated V32->V33 (every person becomes a legacy_age_anchor row, boundaryWeek = the migration week), then ticked 260 more weeks. A DISTINCT V33 shape from a fresh V33 campaign (worlds 1-5), whose genesis rows are all authored_exact_week. Record 774 measured this same fixture out to 2200 ticks with NO natural rival-supply authored_exact_week row appended (every rival role vacancy was filled by reusing an EXISTING free agent of that role rather than minting a new person) — a mixed-kind root stays NOT REACHED within that budget and is reported as such, not forced.",
+  "focus": {
+    "boundaryWeek": 0,
+    "migrationWeek": 0,
+    "weekAfterTicks": 260,
+    "kindsAtMigration": [
+      "legacy_age_anchor"
+    ],
+    "kindsAfterTicks": [
+      "legacy_age_anchor"
+    ],
+    "rowCount": 86,
+    "mixedKindSearch": "NOT REACHED at 50/100/150/200/260/320/400/500/700/900/1100/1400/1800/2200 ticks from migration (record 774); row count stayed constant at every checkpoint"
+  }
+}

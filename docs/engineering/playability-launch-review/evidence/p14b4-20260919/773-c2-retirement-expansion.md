@@ -44,18 +44,18 @@ an independent review keeps the stable diff.
 | D3 | intent rule v1 | DELEGATED IMPLEMENTATION + PROVISIONAL TUNING | evaluated ONLY for people whose age materialized this week (the C.1 due bucket, never a scan). age ≥ hard → announce, cause `hardBoundary`. start ≤ age < hard → announce, cause `idleInWindow`, iff IDLE: no P12 employment interval (player or rival) and no player contract overlapping `[w − 104, w]`, no seat at `w` (`busyTalentIds`), and the person's provenance anchor week ≤ `w − 104` |
 | D3a | why the anchor clause | DELEGATED | "no recorded work" is not "no recent work" while the record is younger than the recency horizon. Without it every free agent of a fresh world inside a window would retire at their first birthday for lack of history. The anchor span is also the only tenure fact that exists (no career-start fact is persisted). Tenure is otherwise NOT an input in v1, recorded |
 | D4 | horizon | PROVISIONAL TUNING | 52 weeks |
-| D5 | effective week | companion §6.2, as written | `E = max(A + 52, endWeekExclusive of the contract or P12 interval in force at A)` |
-| D6 | engagement | DELEGATED | lifecycle engages iff `hollywood !== null`, the market's own gate. The null-hollywood corpus keeps only C.1 aging |
-| D7 | term cap | companion §6.2; Owner direction 10 (no chain) | every contract writer refuses `endWeekExclusive > E` with a typed reason and NO mutation: `signContract`, `renewContract`, `submitProposal`/draft, market commit, `staff()` renewal AND fresh hire, `enterRival`'s pick |
-| D8 | market | companion §2.1.2 / §6.2 | `marketEligibility` returns `retirement_announced`, `finishing_commitments`, `retired_or_ineligible`, each with `proposers: []` (the extension's single issuer is C.2b). An open case is invalidated AT the announcement week with a typed reason; discovery opens no case for an announced person |
-| D9 | obligations first | companion §6.2 | a player greenlight and a rival `decide()` refuse an announced person when `week + PRODUCTION_TICKS + 1 > E`; finishing and retired people are refused outright |
-| D10 | settlement | companion §6.2 | at `E`: busy (`busyTalentIds`) → `finishing_commitments`; else `retired`. From finishing: `retired` the first week not busy. The lifecycle NEVER ends a contract: D7 guarantees every contract ends ≤ E, so the existing P10 expiry (tick step 8) and P12 `finishHollywoodWeek` write the ends and their `expiry` receipts. Settlement ASSERTS no contract or interval is active past `E` and fails loud if one is |
-| D11 | the P10 predicate | companion §6.2 | one exported `lifecycleStatus(state, personId, week)`; `signableUniverse`, the free-agent loop of `hiringMarketIds`, `freelancerMarketIds`, `assignableForFilm`, `staff()` and `enterRival` consult it |
-| D12 | preservation | companion §6.2; direction 10 | `state.talent` is never shortened or reordered; nothing else is deleted |
+| D5 | effective week | IMPLEMENTATION RECOMMENDATION (companion §6.2, as written) | `E = max(A + 52, endWeekExclusive of the contract or P12 interval in force at A)` |
+| D6 | engagement | DELEGATED IMPLEMENTATION | lifecycle engages iff `hollywood !== null`, the market's own gate. The null-hollywood corpus keeps only C.1 aging |
+| D7 | term cap | OWNER-SELECTED no-chain (direction 10), realized by the companion §6.2 recommendation | every contract writer refuses `endWeekExclusive > E` with a typed reason and NO mutation: `signContract`, `renewContract`, `submitProposal`/draft, market commit, `staff()` renewal AND fresh hire, `enterRival`'s pick |
+| D8 | market | IMPLEMENTATION RECOMMENDATION (companion §2.1.2 / §6.2) | `marketEligibility` returns `retirement_announced`, `finishing_commitments`, `retired_or_ineligible`, each with `proposers: []` (the extension's single issuer is C.2b). An open case is invalidated AT the announcement week with a typed reason; discovery opens no case for an announced person |
+| D9 | obligations first | OWNER-SELECTED obligations-first (direction 10), realized by the §6.2 recommendation | a player greenlight and a rival `decide()` refuse an announced person when `week + PRODUCTION_TICKS + 1 > E`; finishing and retired people are refused outright |
+| D10 | settlement | DELEGATED READING of the §6.2 recommendation (see §9 item 6) | at `E`: busy (`busyTalentIds`) → `finishing_commitments`; else `retired`. From finishing: `retired` the first week not busy. The lifecycle NEVER ends a contract: D7 guarantees every contract ends ≤ E, so the existing P10 expiry (tick step 8) and P12 `finishHollywoodWeek` write the ends and their `expiry` receipts. Settlement ASSERTS no contract or interval is active past `E` and fails loud if one is |
+| D11 | the P10 predicate | IMPLEMENTATION RECOMMENDATION (companion §6.2) | one exported `lifecycleStatus(state, personId, week)`; `signableUniverse`, the free-agent loop of `hiringMarketIds`, `freelancerMarketIds`, `assignableForFilm`, `staff()` and `enterRival` consult it |
+| D12 | preservation | OWNER-SELECTED (direction 10) | `state.talent` is never shortened or reordered; nothing else is deleted |
 | D13 | migration V33 → V34 | companion §6.6 hypothesis, realized as a DELEGATED choice | the root opens EMPTY with `boundaryWeek = market.tick`. No record is written at migration and none is dated before the boundary. A person already past a hard boundary announces at their next birthday under D3, so `E ≥ migration + 52`: the full announcement horizon from the migration week, as the hypothesis requires, with no invented event |
 | D14 | downgrade V34 → V33 | the C.1 D2 support pattern | lossless iff the root holds no record; refused as a DOWNGRADE otherwise |
 | D15 | promises | HELD for the Owner (§7) | C.2a adds NO retirement promise outcome and does not touch `promises.ts`. Interim: ordinary law. Reach measured in §5 trap 7 |
-| D16 | wire | DELEGATED | projection 50 UNCHANGED, no C# regeneration. Read models are C.2-RM, recorded in the Unity backlog |
+| D16 | wire | DELEGATED IMPLEMENTATION | projection 50 UNCHANGED, no C# regeneration. Read models are C.2-RM, recorded in the Unity backlog |
 
 ### The V34 root (top level, beside `talentProvenance`, R22)
 
@@ -149,6 +149,8 @@ Birthdays are captured from the provenance root BEFORE `materializeAges` consume
 | G3 | V34 → V33 lossless iff no record; refused as a downgrade otherwise | |
 | G4 | validator refusals: before boundary, age disagreeing with provenance, `E < A + 52`, unknown or duplicate person, a contract past `E`, status/week disagreement, a Scientist record, wrong cause | one mutation per refusal |
 | G5 | replay: save/load mid-notice then continue = the continuous run, byte-equal | |
+| W1 | a finishing or retired writer is refused every writing verb by the existing gate; an announced contracted writer may be commissioned, and a draft running past `E` holds them in `finishing_commitments` until it completes (§9 item 1) | player commission across `E` |
+| P1 | every open promise to an announced person, player- or rival-authored, has `dueWeekExclusive ≤ E` | invariant asserted on the natural routes (§9 item 4) |
 
 ## 7. The one Owner question (sent 2026-09-25, not guessed)
 
@@ -166,3 +168,34 @@ bounded contract review of this record → independent RED (test-author) → sol
 (sim-core; src/bridge/ui/scripts side of the V34 sweep) with the test author owning `tests/`'s sweep
 lines → focused runs → independent source review of the stable diff → one matched full pass →
 attribution → publication.
+
+## 9. Amendment log (record 773-A, verified by the parent against the code before adoption)
+
+1. **Writing assignments — ADOPTED as a stated rule, no new refusal.** Verified: every player writing
+   verb goes through `requireCommissionableWriter` (`actions.ts:1932`; callers `:1980`, `:2063`, `:2162`),
+   which refuses a writer without a CURRENT contract or with an active assignment
+   (`productionAdmission.ts:~250-285`). A finishing or retired person holds no contract after `E` (D7), so
+   both are refused by the existing gate; the RED asserts it. An ANNOUNCED writer still under contract may
+   take a new writing assignment: the companion names a release-date refusal only for production seats,
+   and a draft that runs past `E` holds the writer in `finishing_commitments` until it completes, which
+   the draft length bounds. The rival commission in `decide()` picks from current employees only, so the
+   same holds. Recorded as an interpretation of §6.2, not new policy; C.2-RM discloses it.
+2. **eventId — DECLINED, with the reason.** In V34 a record's identity is its `personId`: the validator
+   allows one record per person, and nothing cites an announcement yet. C.2c's VOIDED outcome writes its
+   own `promiseOutcome` market receipt (the B.1 pattern), and C.2-RM reads by person. C.3 transitions make
+   the key `(personId, profession)`; that is C.3's save step and it must amend the one-record rule
+   explicitly. An id with no reader is a field to validate and nothing else.
+3. **`recruitScientist` — ADOPTED as a note.** `actions.ts:2857` signs through `applySignContract`, so it
+   inherits the cap. No Scientist announces (D2), so the cap never binds there in C.2a.
+4. **Rival promises — the audit's premise is WRONG and the conclusion stands anyway.** Rival-authored
+   promises exist: `authorRivalPromise` (`talentMarket.ts:1315`) attaches through the same `attachPromise`
+   with the window `[proposal.startWeek, startWeek + termWeeks)`. After an announcement no case opens
+   and no proposal is accepted (D8), so no new promise of either issuer can reach an announced person;
+   a promise attached before it rode a contract that ends ≤ `E`. ADOPTED anyway as a test: the natural
+   routes assert the invariant "every open promise to an announced person has `dueWeekExclusive ≤ E`".
+5. **Class column — ADOPTED** (§3 rows now name their class).
+6. **D10 — ADOPTED as an explicit delegated reading.** §6.2's settlement write-set names "P10 contract
+   end and assignment clearance receipt". Under D7 no contract can outlive `E`, so the contract's end at
+   or before `E` IS written, by the existing P10 expiry and P12 `finishHollywoodWeek` with their `expiry`
+   receipts. A second ending write at `E` would duplicate an end the owners already recorded. The
+   lifecycle asserts no contract or interval is active at retirement and throws if one is.
