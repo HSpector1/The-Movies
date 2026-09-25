@@ -1,0 +1,171 @@
+{
+  "authority": {
+    "phase": "P14C.4 T0 / the genuine outgoing Save V34 corpus for the C.4 deterministic-replenishment expansion, minted at the FINAL V34 writer before any C.4 source change",
+    "headSha": "ff7b9ac1d334709f1c907e6f7e6d918b935ee9a5",
+    "publishedRecoverySha": "ff7b9ac1d334709f1c907e6f7e6d918b935ee9a5",
+    "publicationState": "PUBLISHED: git ls-remote origin wip/headless-program-20260916-ts returned the minting head at mint time.",
+    "expansionRelativePath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/782-c4-replenishment-expansion.md",
+    "expansionSha256": "94cbf96d1158d49733388b8e4dd2d91bdfa3f8798a1d9aa80f0f97a66bdfcc0a",
+    "measurementRelativePath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/790-c4-t0-measurement.md",
+    "measurementSha256": "c0303b5ded44264c2066dafa5404f9a6fc46bef2be866640b201b67a18c104d4",
+    "saveVersion": 34,
+    "approvalEnvironmentVariable": "STUDIO_MINT_V34_C4_CORPUS_APPROVED",
+    "outputRelativePath": "tests/fixtures/p14/genuine-v34-c4-corpus",
+    "cohortCapAssumed": 32,
+    "acceptedGenesisSizes": {
+      "actor": 40,
+      "director": 14,
+      "writer": 16,
+      "craft": 14
+    },
+    "filmRoles": [
+      "actor",
+      "director",
+      "writer",
+      "craft"
+    ],
+    "predictionMethodNote": "\"V34-engine continuation facts\": continuationFacts (this file) continues the SAVED state under the real, unmodified V34/C.2a engine (no C.4 code anywhere in this repository) to the next TWO 52k weeks via real advanceTo()/tick() calls — never a hand-rolled formula. It is a measured prediction under 782 R3 (as amended) and 773 D3/D5/D13, not an implementation output: no `cohorts` receipt or cohort primitive exists anywhere in this corpus. C.4 must be byte-identical to this same engine until the first cohort week's own lifecycle settlement — that identity is what makes these continuation facts real predictions rather than post-hoc narration."
+  },
+  "observedHeadSha": "ff7b9ac1d334709f1c907e6f7e6d918b935ee9a5",
+  "minterRelativePath": "tests/p14c4-mint-v34-corpus.test.ts",
+  "minterSha256": "0cb343fd08a2c2114e5b451783e3616b429e495e7d3b6490dfa8c1d9a5e54d43",
+  "minterArchivedRelativePath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/791-mint-v34-c4-corpus-minter.test.ts",
+  "minterReproduction": "Archived at minterArchivedRelativePath and removed from tests/, so no suite collects it. Reproducing requires copying the archived bytes back to tests/p14c4-mint-v34-corpus.test.ts before running the recorded command.",
+  "nodeVersion": "v20.20.2",
+  "startedAt": "2026-09-25T20:35:02.391Z",
+  "worldBuildMs": 26014.015025,
+  "command": "STUDIO_MINT_V34_C4_CORPUS_APPROVED=ff7b9ac1d334709f1c907e6f7e6d918b935ee9a5 node_modules/.bin/vitest run tests/p14c4-mint-v34-corpus.test.ts --minWorkers=1 --maxWorkers=1",
+  "campaign": "generated test campaign (world 5: migrated from the repository's own held V33 fixture); never an Owner save",
+  "scope": "genuine OUTGOING V34 worlds spanning the six measured/minted C.4 corpus axes (Y1-Y5, Y8); no cohort primitive, no `cohorts` receipt, no native and no Owner acceptance claim",
+  "endedAt": "2026-09-25T20:35:37.802Z",
+  "recipe": {
+    "builder": "generateWorld(\"p14c4-corpus-01-y4\") -> tick() once -> advanceTo(208)",
+    "actions": [
+      "1 real tick (bare pre-founding state)",
+      "207 more real ticks"
+    ],
+    "compression": "node:zlib gzipSync with library defaults"
+  },
+  "filename": "genuine-v34-c4-null-hollywood.json.gz",
+  "provenanceFilename": "genuine-v34-c4-null-hollywood.provenance.json",
+  "week": 208,
+  "saveVersion": 34,
+  "uncompressedSha256": "5028930968193ac6cfe7e0d67ae5239139c6a843b54f44432dd814039406d2be",
+  "compressedSha256": "a6d3bc7878076ed8cdc0c65e92897c8793fb3380b4450a17f6cc2473d4e0b279",
+  "byteLength": 265942,
+  "compressedByteLength": 35452,
+  "axis": "Y4: generateWorld(seed) directly (pre-founding — no activateStudioOperations/initializeHollywood), ticked 208 real weeks (past cohort week 52*4=208) with hollywood === null and zero careerLifecycle records the entire way — 782 R8/773 D6 predicts NO cohort will ever fire here.",
+  "focus": {
+    "recordCountAtEveryCheckpoint": 0
+  },
+  "core": {
+    "tick": 208,
+    "hollywoodNonNull": false,
+    "recordsByStatusAndProfession": {
+      "announced": {},
+      "finishing_commitments": {},
+      "retired": {}
+    },
+    "talentLength": 60,
+    "freeAgentsLength": 0,
+    "retiredIdsInFreeAgents": [],
+    "hiringMarketIdsLength": 8,
+    "careerLifecycleBoundaryWeek": 0,
+    "continuation": {
+      "w1": {
+        "week": 260,
+        "perRole": {},
+        "total": 0,
+        "clipped": {
+          "actor": 0,
+          "director": 0,
+          "writer": 0,
+          "craft": 0
+        },
+        "requestedTotal": 0,
+        "clippedTotal": 0,
+        "clippedAway": 0,
+        "beforeSave": 0,
+        "perRoleBeforeSave": {},
+        "afterSave": 0,
+        "perRoleAfterSave": {},
+        "talentLength": 60,
+        "activeByProfession": {
+          "actor": {
+            "activeCount": 28,
+            "activeUnder30": 2
+          },
+          "director": {
+            "activeCount": 10,
+            "activeUnder30": 0
+          },
+          "writer": {
+            "activeCount": 12,
+            "activeUnder30": 0
+          },
+          "craft": {
+            "activeCount": 10,
+            "activeUnder30": 1
+          }
+        },
+        "appendOnlyFromSave": {
+          "prefixMatches": true,
+          "appendOnly": true,
+          "beforeCount": 60,
+          "afterCount": 60,
+          "newIdsAppended": 0
+        }
+      },
+      "w2": {
+        "week": 312,
+        "perRole": {},
+        "total": 0,
+        "clipped": {
+          "actor": 0,
+          "director": 0,
+          "writer": 0,
+          "craft": 0
+        },
+        "requestedTotal": 0,
+        "clippedTotal": 0,
+        "clippedAway": 0,
+        "beforeSave": 0,
+        "perRoleBeforeSave": {},
+        "afterSave": 0,
+        "perRoleAfterSave": {},
+        "talentLength": 60,
+        "activeByProfession": {
+          "actor": {
+            "activeCount": 28,
+            "activeUnder30": 0
+          },
+          "director": {
+            "activeCount": 10,
+            "activeUnder30": 0
+          },
+          "writer": {
+            "activeCount": 12,
+            "activeUnder30": 0
+          },
+          "craft": {
+            "activeCount": 10,
+            "activeUnder30": 0
+          }
+        },
+        "appendOnlyFromSave": {
+          "prefixMatches": true,
+          "appendOnly": true,
+          "beforeCount": 60,
+          "afterCount": 60,
+          "newIdsAppended": 0
+        }
+      },
+      "acceptedGenesisSizes": {
+        "actor": 40,
+        "director": 14,
+        "writer": 16,
+        "craft": 14
+      }
+    }
+  }
+}

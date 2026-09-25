@@ -1,0 +1,9299 @@
+{
+ "kind": "p14c4-demonstration",
+ "seed": "p14c4-demo-03",
+ "weeks": 6240,
+ "root": "/Users/zacheryspector/The-Movies-headless-program",
+ "head": "ff7b9ac1d334709f1c907e6f7e6d918b935ee9a5",
+ "srcDirty": false,
+ "hasLifecycleRoot": true,
+ "hasCohorts": false,
+ "node": "v20.20.2",
+ "totalMs": 68259,
+ "samples": [
+  {
+   "week": 0,
+   "elapsedMs": 0,
+   "talent": 84,
+   "active": 84,
+   "scientists": 0,
+   "freeAgentsListLength": 0,
+   "retiredIdsInFreeAgents": 0,
+   "listingLength": 8,
+   "records": 0,
+   "roles": {
+    "actor": {
+     "total": 40,
+     "active": 40,
+     "freeAgents": 0,
+     "under30": 6,
+     "unprovenUnder30": 6,
+     "listing": 4,
+     "listingUnprovenUnder30": 1
+    },
+    "director": {
+     "total": 14,
+     "active": 14,
+     "freeAgents": 0,
+     "under30": 5,
+     "unprovenUnder30": 5,
+     "listing": 1,
+     "listingUnprovenUnder30": 1
+    },
+    "writer": {
+     "total": 16,
+     "active": 16,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 1,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 14,
+     "active": 14,
+     "freeAgents": 0,
+     "under30": 2,
+     "unprovenUnder30": 2,
+     "listing": 2,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 4,
+    "cash": [
+     25644250,
+     22289720,
+     16749024,
+     13600850
+    ],
+    "activeEmployment": 24,
+    "films": 8,
+    "suppliedPeople": 0
+   },
+   "playerCash": 20000000
+  },
+  {
+   "week": 52,
+   "elapsedMs": 2465,
+   "talent": 84,
+   "active": 84,
+   "scientists": 0,
+   "freeAgentsListLength": 0,
+   "retiredIdsInFreeAgents": 0,
+   "listingLength": 8,
+   "records": 0,
+   "roles": {
+    "actor": {
+     "total": 40,
+     "active": 40,
+     "freeAgents": 0,
+     "under30": 5,
+     "unprovenUnder30": 5,
+     "listing": 6,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 14,
+     "active": 14,
+     "freeAgents": 0,
+     "under30": 5,
+     "unprovenUnder30": 5,
+     "listing": 2,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 16,
+     "active": 16,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 14,
+     "active": 14,
+     "freeAgents": 0,
+     "under30": 2,
+     "unprovenUnder30": 2,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 4,
+    "cash": [
+     19622370,
+     14290235,
+     11309128,
+     7337846
+    ],
+    "activeEmployment": 24,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": 19220000
+  },
+  {
+   "week": 104,
+   "elapsedMs": 3846,
+   "talent": 84,
+   "active": 84,
+   "scientists": 0,
+   "freeAgentsListLength": 0,
+   "retiredIdsInFreeAgents": 0,
+   "listingLength": 8,
+   "records": 0,
+   "roles": {
+    "actor": {
+     "total": 40,
+     "active": 40,
+     "freeAgents": 0,
+     "under30": 2,
+     "unprovenUnder30": 2,
+     "listing": 5,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 14,
+     "active": 14,
+     "freeAgents": 0,
+     "under30": 2,
+     "unprovenUnder30": 2,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 16,
+     "active": 16,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 2,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 14,
+     "active": 14,
+     "freeAgents": 0,
+     "under30": 1,
+     "unprovenUnder30": 1,
+     "listing": 1,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 4,
+    "cash": [
+     14464490,
+     7162699,
+     6733232,
+     1938842
+    ],
+    "activeEmployment": 24,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": 18440000
+  },
+  {
+   "week": 156,
+   "elapsedMs": 4605,
+   "talent": 84,
+   "active": 84,
+   "scientists": 0,
+   "freeAgentsListLength": 0,
+   "retiredIdsInFreeAgents": 0,
+   "listingLength": 8,
+   "records": 2,
+   "roles": {
+    "actor": {
+     "total": 40,
+     "active": 40,
+     "freeAgents": 0,
+     "under30": 2,
+     "unprovenUnder30": 2,
+     "listing": 6,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 14,
+     "active": 14,
+     "freeAgents": 0,
+     "under30": 2,
+     "unprovenUnder30": 2,
+     "listing": 1,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 16,
+     "active": 16,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 1,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 14,
+     "active": 14,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 4,
+    "cash": [
+     9306610,
+     35163,
+     2157336,
+     -3460162
+    ],
+    "activeEmployment": 24,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": 17660000
+  },
+  {
+   "week": 208,
+   "elapsedMs": 5464,
+   "talent": 84,
+   "active": 82,
+   "scientists": 0,
+   "freeAgentsListLength": 24,
+   "retiredIdsInFreeAgents": 0,
+   "listingLength": 26,
+   "records": 2,
+   "roles": {
+    "actor": {
+     "total": 40,
+     "active": 39,
+     "freeAgents": 12,
+     "under30": 2,
+     "unprovenUnder30": 2,
+     "listing": 12,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 14,
+     "active": 14,
+     "freeAgents": 4,
+     "under30": 1,
+     "unprovenUnder30": 1,
+     "listing": 4,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 16,
+     "active": 16,
+     "freeAgents": 4,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 5,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 14,
+     "active": 13,
+     "freeAgents": 4,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 5,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 4,
+    "cash": [
+     3697751,
+     -7092373,
+     -2418560,
+     -8859166
+    ],
+    "activeEmployment": 6,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": 16880000
+  },
+  {
+   "week": 260,
+   "elapsedMs": 5641,
+   "talent": 84,
+   "active": 82,
+   "scientists": 0,
+   "freeAgentsListLength": 24,
+   "retiredIdsInFreeAgents": 0,
+   "listingLength": 26,
+   "records": 2,
+   "roles": {
+    "actor": {
+     "total": 40,
+     "active": 39,
+     "freeAgents": 12,
+     "under30": 2,
+     "unprovenUnder30": 2,
+     "listing": 11,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 14,
+     "active": 14,
+     "freeAgents": 4,
+     "under30": 1,
+     "unprovenUnder30": 1,
+     "listing": 3,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 16,
+     "active": 16,
+     "freeAgents": 4,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 8,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 14,
+     "active": 13,
+     "freeAgents": 4,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 4,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 4,
+    "cash": [
+     -1433713,
+     -9250373,
+     -4576560,
+     -11017166
+    ],
+    "activeEmployment": 6,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": 16100000
+  },
+  {
+   "week": 312,
+   "elapsedMs": 5831,
+   "talent": 84,
+   "active": 82,
+   "scientists": 0,
+   "freeAgentsListLength": 24,
+   "retiredIdsInFreeAgents": 0,
+   "listingLength": 25,
+   "records": 4,
+   "roles": {
+    "actor": {
+     "total": 40,
+     "active": 39,
+     "freeAgents": 12,
+     "under30": 2,
+     "unprovenUnder30": 2,
+     "listing": 13,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 14,
+     "active": 14,
+     "freeAgents": 4,
+     "under30": 1,
+     "unprovenUnder30": 1,
+     "listing": 4,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 16,
+     "active": 16,
+     "freeAgents": 4,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 5,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 14,
+     "active": 13,
+     "freeAgents": 4,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 3,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 4,
+    "cash": [
+     -6565177,
+     -11408373,
+     -6734560,
+     -13175166
+    ],
+    "activeEmployment": 6,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": 15320000
+  },
+  {
+   "week": 364,
+   "elapsedMs": 6016,
+   "talent": 84,
+   "active": 80,
+   "scientists": 0,
+   "freeAgentsListLength": 24,
+   "retiredIdsInFreeAgents": 0,
+   "listingLength": 26,
+   "records": 4,
+   "roles": {
+    "actor": {
+     "total": 40,
+     "active": 38,
+     "freeAgents": 12,
+     "under30": 2,
+     "unprovenUnder30": 2,
+     "listing": 11,
+     "listingUnprovenUnder30": 1
+    },
+    "director": {
+     "total": 14,
+     "active": 14,
+     "freeAgents": 4,
+     "under30": 1,
+     "unprovenUnder30": 1,
+     "listing": 5,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 16,
+     "active": 16,
+     "freeAgents": 4,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 5,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 14,
+     "active": 12,
+     "freeAgents": 4,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 5,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 4,
+    "cash": [
+     -11696641,
+     -13566373,
+     -8892560,
+     -15333166
+    ],
+    "activeEmployment": 6,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": 14540000
+  },
+  {
+   "week": 416,
+   "elapsedMs": 6222,
+   "talent": 84,
+   "active": 80,
+   "scientists": 0,
+   "freeAgentsListLength": 24,
+   "retiredIdsInFreeAgents": 0,
+   "listingLength": 32,
+   "records": 4,
+   "roles": {
+    "actor": {
+     "total": 40,
+     "active": 38,
+     "freeAgents": 12,
+     "under30": 2,
+     "unprovenUnder30": 2,
+     "listing": 16,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 14,
+     "active": 14,
+     "freeAgents": 4,
+     "under30": 1,
+     "unprovenUnder30": 1,
+     "listing": 5,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 16,
+     "active": 16,
+     "freeAgents": 4,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 5,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 14,
+     "active": 12,
+     "freeAgents": 4,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 6,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 4,
+    "cash": [
+     -16828105,
+     -15724373,
+     -11050560,
+     -17491166
+    ],
+    "activeEmployment": 0,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": 13760000
+  },
+  {
+   "week": 468,
+   "elapsedMs": 6328,
+   "talent": 84,
+   "active": 80,
+   "scientists": 0,
+   "freeAgentsListLength": 24,
+   "retiredIdsInFreeAgents": 0,
+   "listingLength": 32,
+   "records": 4,
+   "roles": {
+    "actor": {
+     "total": 40,
+     "active": 38,
+     "freeAgents": 12,
+     "under30": 1,
+     "unprovenUnder30": 1,
+     "listing": 15,
+     "listingUnprovenUnder30": 1
+    },
+    "director": {
+     "total": 14,
+     "active": 14,
+     "freeAgents": 4,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 6,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 16,
+     "active": 16,
+     "freeAgents": 4,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 5,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 14,
+     "active": 12,
+     "freeAgents": 4,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 6,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 4,
+    "cash": [
+     -18986105,
+     -17882373,
+     -13208560,
+     -19649166
+    ],
+    "activeEmployment": 0,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": 12980000
+  },
+  {
+   "week": 520,
+   "elapsedMs": 6406,
+   "talent": 84,
+   "active": 80,
+   "scientists": 0,
+   "freeAgentsListLength": 24,
+   "retiredIdsInFreeAgents": 0,
+   "listingLength": 32,
+   "records": 4,
+   "roles": {
+    "actor": {
+     "total": 40,
+     "active": 38,
+     "freeAgents": 12,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 17,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 14,
+     "active": 14,
+     "freeAgents": 4,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 5,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 16,
+     "active": 16,
+     "freeAgents": 4,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 6,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 14,
+     "active": 12,
+     "freeAgents": 4,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 4,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 5,
+    "cash": [
+     -21144105,
+     -20040373,
+     -15366560,
+     -21807166,
+     17604076
+    ],
+    "activeEmployment": 6,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": 12200000
+  },
+  {
+   "week": 572,
+   "elapsedMs": 6825,
+   "talent": 84,
+   "active": 80,
+   "scientists": 0,
+   "freeAgentsListLength": 24,
+   "retiredIdsInFreeAgents": 0,
+   "listingLength": 31,
+   "records": 5,
+   "roles": {
+    "actor": {
+     "total": 40,
+     "active": 38,
+     "freeAgents": 12,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 13,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 14,
+     "active": 14,
+     "freeAgents": 4,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 7,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 16,
+     "active": 16,
+     "freeAgents": 4,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 5,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 14,
+     "active": 12,
+     "freeAgents": 4,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 6,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 5,
+    "cash": [
+     -23302105,
+     -22198373,
+     -17524560,
+     -23965166,
+     9883960
+    ],
+    "activeEmployment": 6,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": 11420000
+  },
+  {
+   "week": 624,
+   "elapsedMs": 7361,
+   "talent": 84,
+   "active": 79,
+   "scientists": 0,
+   "freeAgentsListLength": 24,
+   "retiredIdsInFreeAgents": 1,
+   "listingLength": 31,
+   "records": 5,
+   "roles": {
+    "actor": {
+     "total": 40,
+     "active": 37,
+     "freeAgents": 11,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 15,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 14,
+     "active": 14,
+     "freeAgents": 4,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 4,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 16,
+     "active": 16,
+     "freeAgents": 4,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 6,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 14,
+     "active": 12,
+     "freeAgents": 4,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 6,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 5,
+    "cash": [
+     -25460105,
+     -24356373,
+     -19682560,
+     -26123166,
+     4502844
+    ],
+    "activeEmployment": 6,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": 10640000
+  },
+  {
+   "week": 676,
+   "elapsedMs": 7546,
+   "talent": 84,
+   "active": 79,
+   "scientists": 0,
+   "freeAgentsListLength": 24,
+   "retiredIdsInFreeAgents": 1,
+   "listingLength": 31,
+   "records": 5,
+   "roles": {
+    "actor": {
+     "total": 40,
+     "active": 37,
+     "freeAgents": 11,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 13,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 14,
+     "active": 14,
+     "freeAgents": 4,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 8,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 16,
+     "active": 16,
+     "freeAgents": 4,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 6,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 14,
+     "active": 12,
+     "freeAgents": 4,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 4,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 5,
+    "cash": [
+     -27618105,
+     -26514373,
+     -21840560,
+     -28281166,
+     -878272
+    ],
+    "activeEmployment": 6,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": 9860000
+  },
+  {
+   "week": 728,
+   "elapsedMs": 7748,
+   "talent": 84,
+   "active": 79,
+   "scientists": 0,
+   "freeAgentsListLength": 30,
+   "retiredIdsInFreeAgents": 1,
+   "listingLength": 36,
+   "records": 8,
+   "roles": {
+    "actor": {
+     "total": 40,
+     "active": 37,
+     "freeAgents": 14,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 17,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 14,
+     "active": 14,
+     "freeAgents": 5,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 6,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 16,
+     "active": 16,
+     "freeAgents": 5,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 5,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 14,
+     "active": 12,
+     "freeAgents": 5,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 8,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 5,
+    "cash": [
+     -29776105,
+     -28672373,
+     -23998560,
+     -30439166,
+     -6259388
+    ],
+    "activeEmployment": 0,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": 9080000
+  },
+  {
+   "week": 780,
+   "elapsedMs": 7866,
+   "talent": 84,
+   "active": 76,
+   "scientists": 0,
+   "freeAgentsListLength": 30,
+   "retiredIdsInFreeAgents": 2,
+   "listingLength": 36,
+   "records": 12,
+   "roles": {
+    "actor": {
+     "total": 40,
+     "active": 34,
+     "freeAgents": 13,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 17,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 14,
+     "active": 14,
+     "freeAgents": 5,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 6,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 16,
+     "active": 16,
+     "freeAgents": 5,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 7,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 14,
+     "active": 12,
+     "freeAgents": 5,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 6,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 5,
+    "cash": [
+     -31934105,
+     -30830373,
+     -26156560,
+     -32597166,
+     -8417388
+    ],
+    "activeEmployment": 0,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": 8300000
+  },
+  {
+   "week": 832,
+   "elapsedMs": 8023,
+   "talent": 84,
+   "active": 72,
+   "scientists": 0,
+   "freeAgentsListLength": 30,
+   "retiredIdsInFreeAgents": 2,
+   "listingLength": 35,
+   "records": 15,
+   "roles": {
+    "actor": {
+     "total": 40,
+     "active": 32,
+     "freeAgents": 13,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 16,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 14,
+     "active": 14,
+     "freeAgents": 5,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 5,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 16,
+     "active": 15,
+     "freeAgents": 5,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 6,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 14,
+     "active": 11,
+     "freeAgents": 5,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 8,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 5,
+    "cash": [
+     -34092105,
+     -32988373,
+     -28314560,
+     -34755166,
+     -10575388
+    ],
+    "activeEmployment": 0,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": 7520000
+  },
+  {
+   "week": 884,
+   "elapsedMs": 8147,
+   "talent": 84,
+   "active": 69,
+   "scientists": 0,
+   "freeAgentsListLength": 30,
+   "retiredIdsInFreeAgents": 2,
+   "listingLength": 34,
+   "records": 20,
+   "roles": {
+    "actor": {
+     "total": 40,
+     "active": 31,
+     "freeAgents": 13,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 15,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 14,
+     "active": 13,
+     "freeAgents": 5,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 6,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 16,
+     "active": 14,
+     "freeAgents": 5,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 5,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 14,
+     "active": 11,
+     "freeAgents": 5,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 8,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 5,
+    "cash": [
+     -36250105,
+     -35146373,
+     -30472560,
+     -36913166,
+     -12733388
+    ],
+    "activeEmployment": 0,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": 6740000
+  },
+  {
+   "week": 936,
+   "elapsedMs": 8271,
+   "talent": 84,
+   "active": 64,
+   "scientists": 0,
+   "freeAgentsListLength": 30,
+   "retiredIdsInFreeAgents": 4,
+   "listingLength": 31,
+   "records": 24,
+   "roles": {
+    "actor": {
+     "total": 40,
+     "active": 28,
+     "freeAgents": 13,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 14,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 14,
+     "active": 12,
+     "freeAgents": 4,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 6,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 16,
+     "active": 13,
+     "freeAgents": 4,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 5,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 14,
+     "active": 11,
+     "freeAgents": 5,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 6,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 5,
+    "cash": [
+     -38408105,
+     -37304373,
+     -32630560,
+     -39071166,
+     -14891388
+    ],
+    "activeEmployment": 0,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": 5960000
+  },
+  {
+   "week": 988,
+   "elapsedMs": 8387,
+   "talent": 84,
+   "active": 60,
+   "scientists": 0,
+   "freeAgentsListLength": 30,
+   "retiredIdsInFreeAgents": 7,
+   "listingLength": 25,
+   "records": 29,
+   "roles": {
+    "actor": {
+     "total": 40,
+     "active": 26,
+     "freeAgents": 11,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 11,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 14,
+     "active": 12,
+     "freeAgents": 4,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 4,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 16,
+     "active": 12,
+     "freeAgents": 3,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 4,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 14,
+     "active": 10,
+     "freeAgents": 5,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 6,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 6,
+    "cash": [
+     -40566105,
+     -39462373,
+     -34788560,
+     -41229166,
+     -17049388,
+     19644672
+    ],
+    "activeEmployment": 6,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": 5180000
+  },
+  {
+   "week": 1040,
+   "elapsedMs": 8889,
+   "talent": 84,
+   "active": 55,
+   "scientists": 0,
+   "freeAgentsListLength": 30,
+   "retiredIdsInFreeAgents": 10,
+   "listingLength": 24,
+   "records": 31,
+   "roles": {
+    "actor": {
+     "total": 40,
+     "active": 23,
+     "freeAgents": 9,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 9,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 14,
+     "active": 12,
+     "freeAgents": 4,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 8,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 16,
+     "active": 10,
+     "freeAgents": 2,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 2,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 14,
+     "active": 10,
+     "freeAgents": 5,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 5,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 6,
+    "cash": [
+     -42724105,
+     -41620373,
+     -36946560,
+     -43387166,
+     -19207388,
+     11750080
+    ],
+    "activeEmployment": 6,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": 4400000
+  },
+  {
+   "week": 1092,
+   "elapsedMs": 9427,
+   "talent": 84,
+   "active": 53,
+   "scientists": 0,
+   "freeAgentsListLength": 30,
+   "retiredIdsInFreeAgents": 10,
+   "listingLength": 25,
+   "records": 33,
+   "roles": {
+    "actor": {
+     "total": 40,
+     "active": 23,
+     "freeAgents": 9,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 9,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 14,
+     "active": 11,
+     "freeAgents": 4,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 5,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 16,
+     "active": 10,
+     "freeAgents": 2,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 6,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 14,
+     "active": 9,
+     "freeAgents": 5,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 5,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 6,
+    "cash": [
+     -44882105,
+     -43778373,
+     -39104560,
+     -45545166,
+     -21365388,
+     6594488
+    ],
+    "activeEmployment": 6,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": 3620000
+  },
+  {
+   "week": 1144,
+   "elapsedMs": 9640,
+   "talent": 84,
+   "active": 51,
+   "scientists": 0,
+   "freeAgentsListLength": 30,
+   "retiredIdsInFreeAgents": 10,
+   "listingLength": 22,
+   "records": 38,
+   "roles": {
+    "actor": {
+     "total": 40,
+     "active": 21,
+     "freeAgents": 9,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 8,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 14,
+     "active": 11,
+     "freeAgents": 4,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 4,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 16,
+     "active": 10,
+     "freeAgents": 2,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 3,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 14,
+     "active": 9,
+     "freeAgents": 5,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 7,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 6,
+    "cash": [
+     -47040105,
+     -45936373,
+     -41262560,
+     -47703166,
+     -23523388,
+     1438896
+    ],
+    "activeEmployment": 6,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": 2840000
+  },
+  {
+   "week": 1196,
+   "elapsedMs": 9875,
+   "talent": 84,
+   "active": 46,
+   "scientists": 0,
+   "freeAgentsListLength": 33,
+   "retiredIdsInFreeAgents": 11,
+   "listingLength": 28,
+   "records": 43,
+   "roles": {
+    "actor": {
+     "total": 40,
+     "active": 18,
+     "freeAgents": 9,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 12,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 14,
+     "active": 10,
+     "freeAgents": 5,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 6,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 16,
+     "active": 10,
+     "freeAgents": 3,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 5,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 14,
+     "active": 8,
+     "freeAgents": 5,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 5,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 6,
+    "cash": [
+     -49198105,
+     -48094373,
+     -43420560,
+     -49861166,
+     -25681388,
+     -3716696
+    ],
+    "activeEmployment": 0,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": 2060000
+  },
+  {
+   "week": 1248,
+   "elapsedMs": 10003,
+   "talent": 84,
+   "active": 41,
+   "scientists": 0,
+   "freeAgentsListLength": 33,
+   "retiredIdsInFreeAgents": 12,
+   "listingLength": 25,
+   "records": 47,
+   "roles": {
+    "actor": {
+     "total": 40,
+     "active": 16,
+     "freeAgents": 9,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 9,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 14,
+     "active": 9,
+     "freeAgents": 5,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 7,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 16,
+     "active": 9,
+     "freeAgents": 3,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 5,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 14,
+     "active": 7,
+     "freeAgents": 4,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 4,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 6,
+    "cash": [
+     -51356105,
+     -50252373,
+     -45578560,
+     -52019166,
+     -27839388,
+     -5874696
+    ],
+    "activeEmployment": 0,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": 1280000
+  },
+  {
+   "week": 1300,
+   "elapsedMs": 10154,
+   "talent": 84,
+   "active": 37,
+   "scientists": 0,
+   "freeAgentsListLength": 33,
+   "retiredIdsInFreeAgents": 15,
+   "listingLength": 24,
+   "records": 50,
+   "roles": {
+    "actor": {
+     "total": 40,
+     "active": 13,
+     "freeAgents": 6,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 8,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 14,
+     "active": 9,
+     "freeAgents": 5,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 7,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 16,
+     "active": 9,
+     "freeAgents": 3,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 4,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 14,
+     "active": 6,
+     "freeAgents": 4,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 5,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 6,
+    "cash": [
+     -53514105,
+     -52410373,
+     -47736560,
+     -54177166,
+     -29997388,
+     -8032696
+    ],
+    "activeEmployment": 0,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": 500000
+  },
+  {
+   "week": 1352,
+   "elapsedMs": 10323,
+   "talent": 84,
+   "active": 34,
+   "scientists": 0,
+   "freeAgentsListLength": 33,
+   "retiredIdsInFreeAgents": 17,
+   "listingLength": 23,
+   "records": 51,
+   "roles": {
+    "actor": {
+     "total": 40,
+     "active": 12,
+     "freeAgents": 5,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 7,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 14,
+     "active": 9,
+     "freeAgents": 5,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 7,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 16,
+     "active": 8,
+     "freeAgents": 3,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 5,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 14,
+     "active": 5,
+     "freeAgents": 3,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 4,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 6,
+    "cash": [
+     -55672105,
+     -54568373,
+     -49894560,
+     -56335166,
+     -32155388,
+     -10190696
+    ],
+    "activeEmployment": 0,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": -280000
+  },
+  {
+   "week": 1404,
+   "elapsedMs": 10431,
+   "talent": 84,
+   "active": 33,
+   "scientists": 0,
+   "freeAgentsListLength": 33,
+   "retiredIdsInFreeAgents": 18,
+   "listingLength": 21,
+   "records": 54,
+   "roles": {
+    "actor": {
+     "total": 40,
+     "active": 11,
+     "freeAgents": 4,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 6,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 14,
+     "active": 9,
+     "freeAgents": 5,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 7,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 16,
+     "active": 8,
+     "freeAgents": 3,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 5,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 14,
+     "active": 5,
+     "freeAgents": 3,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 3,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 6,
+    "cash": [
+     -57830105,
+     -56726373,
+     -52052560,
+     -58493166,
+     -34313388,
+     -12348696
+    ],
+    "activeEmployment": 0,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": -1060000
+  },
+  {
+   "week": 1456,
+   "elapsedMs": 10536,
+   "talent": 84,
+   "active": 30,
+   "scientists": 0,
+   "freeAgentsListLength": 33,
+   "retiredIdsInFreeAgents": 18,
+   "listingLength": 17,
+   "records": 61,
+   "roles": {
+    "actor": {
+     "total": 40,
+     "active": 9,
+     "freeAgents": 4,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 4,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 14,
+     "active": 9,
+     "freeAgents": 5,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 7,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 16,
+     "active": 7,
+     "freeAgents": 3,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 3,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 14,
+     "active": 5,
+     "freeAgents": 3,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 3,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 6,
+    "cash": [
+     -59988105,
+     -58884373,
+     -54210560,
+     -60651166,
+     -36471388,
+     -14506696
+    ],
+    "activeEmployment": 0,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": -1840000
+  },
+  {
+   "week": 1508,
+   "elapsedMs": 10637,
+   "talent": 84,
+   "active": 23,
+   "scientists": 0,
+   "freeAgentsListLength": 33,
+   "retiredIdsInFreeAgents": 22,
+   "listingLength": 17,
+   "records": 65,
+   "roles": {
+    "actor": {
+     "total": 40,
+     "active": 7,
+     "freeAgents": 3,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 4,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 14,
+     "active": 8,
+     "freeAgents": 4,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 8,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 16,
+     "active": 5,
+     "freeAgents": 2,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 3,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 14,
+     "active": 3,
+     "freeAgents": 2,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 2,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 6,
+    "cash": [
+     -62146105,
+     -61042373,
+     -56368560,
+     -62809166,
+     -38629388,
+     -16664696
+    ],
+    "activeEmployment": 0,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": -2620000
+  },
+  {
+   "week": 1560,
+   "elapsedMs": 10744,
+   "talent": 84,
+   "active": 19,
+   "scientists": 0,
+   "freeAgentsListLength": 33,
+   "retiredIdsInFreeAgents": 23,
+   "listingLength": 12,
+   "records": 66,
+   "roles": {
+    "actor": {
+     "total": 40,
+     "active": 6,
+     "freeAgents": 3,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 3,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 14,
+     "active": 8,
+     "freeAgents": 4,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 6,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 16,
+     "active": 3,
+     "freeAgents": 2,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 2,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 14,
+     "active": 2,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 1,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 7,
+    "cash": [
+     -64304105,
+     -63200373,
+     -58526560,
+     -64967166,
+     -40787388,
+     -18822696,
+     27658325
+    ],
+    "activeEmployment": 6,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": -3400000
+  },
+  {
+   "week": 1612,
+   "elapsedMs": 11376,
+   "talent": 84,
+   "active": 18,
+   "scientists": 0,
+   "freeAgentsListLength": 33,
+   "retiredIdsInFreeAgents": 24,
+   "listingLength": 12,
+   "records": 66,
+   "roles": {
+    "actor": {
+     "total": 40,
+     "active": 6,
+     "freeAgents": 3,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 3,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 14,
+     "active": 7,
+     "freeAgents": 3,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 6,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 16,
+     "active": 3,
+     "freeAgents": 2,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 2,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 14,
+     "active": 2,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 1,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 7,
+    "cash": [
+     -66462105,
+     -65358373,
+     -60684560,
+     -67125166,
+     -42945388,
+     -20980696,
+     19839497
+    ],
+    "activeEmployment": 6,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": -4180000
+  },
+  {
+   "week": 1664,
+   "elapsedMs": 11855,
+   "talent": 84,
+   "active": 18,
+   "scientists": 0,
+   "freeAgentsListLength": 33,
+   "retiredIdsInFreeAgents": 24,
+   "listingLength": 12,
+   "records": 68,
+   "roles": {
+    "actor": {
+     "total": 40,
+     "active": 6,
+     "freeAgents": 3,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 3,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 14,
+     "active": 7,
+     "freeAgents": 3,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 6,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 16,
+     "active": 3,
+     "freeAgents": 2,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 2,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 14,
+     "active": 2,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 1,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 7,
+    "cash": [
+     -68620105,
+     -67516373,
+     -62842560,
+     -69283166,
+     -45103388,
+     -23138696,
+     14759669
+    ],
+    "activeEmployment": 6,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": -4960000
+  },
+  {
+   "week": 1716,
+   "elapsedMs": 12306,
+   "talent": 84,
+   "active": 16,
+   "scientists": 0,
+   "freeAgentsListLength": 33,
+   "retiredIdsInFreeAgents": 26,
+   "listingLength": 9,
+   "records": 69,
+   "roles": {
+    "actor": {
+     "total": 40,
+     "active": 4,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 1,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 14,
+     "active": 7,
+     "freeAgents": 3,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 6,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 16,
+     "active": 3,
+     "freeAgents": 2,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 1,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 14,
+     "active": 2,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 1,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 7,
+    "cash": [
+     -70778105,
+     -69674373,
+     -65000560,
+     -71441166,
+     -47261388,
+     -25296696,
+     9679841
+    ],
+    "activeEmployment": 6,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": -5740000
+  },
+  {
+   "week": 1768,
+   "elapsedMs": 12830,
+   "talent": 84,
+   "active": 15,
+   "scientists": 0,
+   "freeAgentsListLength": 37,
+   "retiredIdsInFreeAgents": 27,
+   "listingLength": 9,
+   "records": 71,
+   "roles": {
+    "actor": {
+     "total": 40,
+     "active": 4,
+     "freeAgents": 3,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 1,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 14,
+     "active": 7,
+     "freeAgents": 4,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 6,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 16,
+     "active": 2,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 1,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 14,
+     "active": 2,
+     "freeAgents": 2,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 1,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 7,
+    "cash": [
+     -72936105,
+     -71832373,
+     -67158560,
+     -73599166,
+     -49419388,
+     -27454696,
+     4167685
+    ],
+    "activeEmployment": 6,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": -6520000
+  },
+  {
+   "week": 1820,
+   "elapsedMs": 13284,
+   "talent": 84,
+   "active": 13,
+   "scientists": 0,
+   "freeAgentsListLength": 37,
+   "retiredIdsInFreeAgents": 29,
+   "listingLength": 5,
+   "records": 73,
+   "roles": {
+    "actor": {
+     "total": 40,
+     "active": 4,
+     "freeAgents": 3,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 1,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 14,
+     "active": 6,
+     "freeAgents": 3,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 4,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 16,
+     "active": 2,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 14,
+     "active": 1,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 7,
+    "cash": [
+     -75094105,
+     -73990373,
+     -69316560,
+     -75757166,
+     -51577388,
+     -29612696,
+     -860195
+    ],
+    "activeEmployment": 6,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": -7300000
+  },
+  {
+   "week": 1872,
+   "elapsedMs": 13734,
+   "talent": 88,
+   "active": 15,
+   "scientists": 0,
+   "freeAgentsListLength": 37,
+   "retiredIdsInFreeAgents": 29,
+   "listingLength": 3,
+   "records": 73,
+   "roles": {
+    "actor": {
+     "total": 42,
+     "active": 6,
+     "freeAgents": 3,
+     "under30": 1,
+     "unprovenUnder30": 1,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 14,
+     "active": 5,
+     "freeAgents": 3,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 3,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 17,
+     "active": 2,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 15,
+     "active": 2,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 8,
+    "cash": [
+     -77252105,
+     -76148373,
+     -71474560,
+     -77915166,
+     -53735388,
+     -31770696,
+     -5888075,
+     21480125
+    ],
+    "activeEmployment": 12,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": -8080000
+  },
+  {
+   "week": 1924,
+   "elapsedMs": 14498,
+   "talent": 88,
+   "active": 15,
+   "scientists": 0,
+   "freeAgentsListLength": 37,
+   "retiredIdsInFreeAgents": 29,
+   "listingLength": 2,
+   "records": 76,
+   "roles": {
+    "actor": {
+     "total": 42,
+     "active": 6,
+     "freeAgents": 3,
+     "under30": 1,
+     "unprovenUnder30": 1,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 14,
+     "active": 5,
+     "freeAgents": 3,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 2,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 17,
+     "active": 2,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 15,
+     "active": 2,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 8,
+    "cash": [
+     -79410105,
+     -78306373,
+     -73632560,
+     -80073166,
+     -55893388,
+     -33928696,
+     -10915955,
+     12671425
+    ],
+    "activeEmployment": 12,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": -8860000
+  },
+  {
+   "week": 1976,
+   "elapsedMs": 15538,
+   "talent": 88,
+   "active": 12,
+   "scientists": 0,
+   "freeAgentsListLength": 37,
+   "retiredIdsInFreeAgents": 31,
+   "listingLength": 6,
+   "records": 76,
+   "roles": {
+    "actor": {
+     "total": 42,
+     "active": 6,
+     "freeAgents": 3,
+     "under30": 1,
+     "unprovenUnder30": 1,
+     "listing": 3,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 14,
+     "active": 2,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 1,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 17,
+     "active": 2,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 1,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 15,
+     "active": 2,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 1,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 8,
+    "cash": [
+     -81568105,
+     -80464373,
+     -75790560,
+     -82231166,
+     -58051388,
+     -36086696,
+     -15943835,
+     6601725
+    ],
+    "activeEmployment": 6,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": -9640000
+  },
+  {
+   "week": 2028,
+   "elapsedMs": 15813,
+   "talent": 88,
+   "active": 12,
+   "scientists": 0,
+   "freeAgentsListLength": 37,
+   "retiredIdsInFreeAgents": 31,
+   "listingLength": 6,
+   "records": 76,
+   "roles": {
+    "actor": {
+     "total": 42,
+     "active": 6,
+     "freeAgents": 3,
+     "under30": 1,
+     "unprovenUnder30": 1,
+     "listing": 3,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 14,
+     "active": 2,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 1,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 17,
+     "active": 2,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 1,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 15,
+     "active": 2,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 1,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 8,
+    "cash": [
+     -83726105,
+     -82622373,
+     -77948560,
+     -84389166,
+     -60209388,
+     -38244696,
+     -18101835,
+     532025
+    ],
+    "activeEmployment": 6,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": -10420000
+  },
+  {
+   "week": 2080,
+   "elapsedMs": 16112,
+   "talent": 88,
+   "active": 12,
+   "scientists": 0,
+   "freeAgentsListLength": 43,
+   "retiredIdsInFreeAgents": 31,
+   "listingLength": 12,
+   "records": 76,
+   "roles": {
+    "actor": {
+     "total": 42,
+     "active": 6,
+     "freeAgents": 6,
+     "under30": 1,
+     "unprovenUnder30": 1,
+     "listing": 6,
+     "listingUnprovenUnder30": 1
+    },
+    "director": {
+     "total": 14,
+     "active": 2,
+     "freeAgents": 2,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 2,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 17,
+     "active": 2,
+     "freeAgents": 2,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 2,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 15,
+     "active": 2,
+     "freeAgents": 2,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 2,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 8,
+    "cash": [
+     -85884105,
+     -84780373,
+     -80106560,
+     -86547166,
+     -62367388,
+     -40402696,
+     -20259835,
+     -5537675
+    ],
+    "activeEmployment": 0,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": -11200000
+  },
+  {
+   "week": 2132,
+   "elapsedMs": 16259,
+   "talent": 88,
+   "active": 12,
+   "scientists": 0,
+   "freeAgentsListLength": 43,
+   "retiredIdsInFreeAgents": 31,
+   "listingLength": 7,
+   "records": 81,
+   "roles": {
+    "actor": {
+     "total": 42,
+     "active": 6,
+     "freeAgents": 6,
+     "under30": 1,
+     "unprovenUnder30": 1,
+     "listing": 3,
+     "listingUnprovenUnder30": 1
+    },
+    "director": {
+     "total": 14,
+     "active": 2,
+     "freeAgents": 2,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 2,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 17,
+     "active": 2,
+     "freeAgents": 2,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 1,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 15,
+     "active": 2,
+     "freeAgents": 2,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 1,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 8,
+    "cash": [
+     -88042105,
+     -86938373,
+     -82264560,
+     -88705166,
+     -64525388,
+     -42560696,
+     -22417835,
+     -7695675
+    ],
+    "activeEmployment": 0,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": -11980000
+  },
+  {
+   "week": 2184,
+   "elapsedMs": 16439,
+   "talent": 88,
+   "active": 7,
+   "scientists": 0,
+   "freeAgentsListLength": 43,
+   "retiredIdsInFreeAgents": 36,
+   "listingLength": 7,
+   "records": 81,
+   "roles": {
+    "actor": {
+     "total": 42,
+     "active": 3,
+     "freeAgents": 3,
+     "under30": 1,
+     "unprovenUnder30": 1,
+     "listing": 3,
+     "listingUnprovenUnder30": 1
+    },
+    "director": {
+     "total": 14,
+     "active": 2,
+     "freeAgents": 2,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 2,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 17,
+     "active": 1,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 1,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 15,
+     "active": 1,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 1,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 8,
+    "cash": [
+     -90200105,
+     -89096373,
+     -84422560,
+     -90863166,
+     -66683388,
+     -44718696,
+     -24575835,
+     -9853675
+    ],
+    "activeEmployment": 0,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": -12760000
+  },
+  {
+   "week": 2236,
+   "elapsedMs": 16623,
+   "talent": 88,
+   "active": 7,
+   "scientists": 0,
+   "freeAgentsListLength": 43,
+   "retiredIdsInFreeAgents": 36,
+   "listingLength": 5,
+   "records": 83,
+   "roles": {
+    "actor": {
+     "total": 42,
+     "active": 3,
+     "freeAgents": 3,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 2,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 14,
+     "active": 2,
+     "freeAgents": 2,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 1,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 17,
+     "active": 1,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 1,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 15,
+     "active": 1,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 1,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 8,
+    "cash": [
+     -92358105,
+     -91254373,
+     -86580560,
+     -93021166,
+     -68841388,
+     -46876696,
+     -26733835,
+     -12011675
+    ],
+    "activeEmployment": 0,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": -13540000
+  },
+  {
+   "week": 2288,
+   "elapsedMs": 16855,
+   "talent": 88,
+   "active": 5,
+   "scientists": 0,
+   "freeAgentsListLength": 43,
+   "retiredIdsInFreeAgents": 38,
+   "listingLength": 4,
+   "records": 84,
+   "roles": {
+    "actor": {
+     "total": 42,
+     "active": 2,
+     "freeAgents": 2,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 2,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 14,
+     "active": 1,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 17,
+     "active": 1,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 1,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 15,
+     "active": 1,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 1,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 8,
+    "cash": [
+     -94516105,
+     -93412373,
+     -88738560,
+     -95179166,
+     -70999388,
+     -49034696,
+     -28891835,
+     -14169675
+    ],
+    "activeEmployment": 0,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": -14320000
+  },
+  {
+   "week": 2340,
+   "elapsedMs": 17110,
+   "talent": 88,
+   "active": 4,
+   "scientists": 0,
+   "freeAgentsListLength": 43,
+   "retiredIdsInFreeAgents": 39,
+   "listingLength": 4,
+   "records": 84,
+   "roles": {
+    "actor": {
+     "total": 42,
+     "active": 2,
+     "freeAgents": 2,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 2,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 14,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 17,
+     "active": 1,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 1,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 15,
+     "active": 1,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 1,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 8,
+    "cash": [
+     -96674105,
+     -95570373,
+     -90896560,
+     -97337166,
+     -73157388,
+     -51192696,
+     -31049835,
+     -16327675
+    ],
+    "activeEmployment": 0,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": -15100000
+  },
+  {
+   "week": 2392,
+   "elapsedMs": 17348,
+   "talent": 88,
+   "active": 4,
+   "scientists": 0,
+   "freeAgentsListLength": 43,
+   "retiredIdsInFreeAgents": 39,
+   "listingLength": 4,
+   "records": 84,
+   "roles": {
+    "actor": {
+     "total": 42,
+     "active": 2,
+     "freeAgents": 2,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 2,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 14,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 17,
+     "active": 1,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 1,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 15,
+     "active": 1,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 1,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 8,
+    "cash": [
+     -98832105,
+     -97728373,
+     -93054560,
+     -99495166,
+     -75315388,
+     -53350696,
+     -33207835,
+     -18485675
+    ],
+    "activeEmployment": 0,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": -15880000
+  },
+  {
+   "week": 2444,
+   "elapsedMs": 17816,
+   "talent": 88,
+   "active": 4,
+   "scientists": 0,
+   "freeAgentsListLength": 43,
+   "retiredIdsInFreeAgents": 39,
+   "listingLength": 4,
+   "records": 84,
+   "roles": {
+    "actor": {
+     "total": 42,
+     "active": 2,
+     "freeAgents": 2,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 2,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 14,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 17,
+     "active": 1,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 1,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 15,
+     "active": 1,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 1,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 8,
+    "cash": [
+     -100990105,
+     -99886373,
+     -95212560,
+     -101653166,
+     -77473388,
+     -55508696,
+     -35365835,
+     -20643675
+    ],
+    "activeEmployment": 0,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": -16660000
+  },
+  {
+   "week": 2496,
+   "elapsedMs": 18056,
+   "talent": 88,
+   "active": 4,
+   "scientists": 0,
+   "freeAgentsListLength": 43,
+   "retiredIdsInFreeAgents": 39,
+   "listingLength": 4,
+   "records": 84,
+   "roles": {
+    "actor": {
+     "total": 42,
+     "active": 2,
+     "freeAgents": 2,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 2,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 14,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 17,
+     "active": 1,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 1,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 15,
+     "active": 1,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 1,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 8,
+    "cash": [
+     -103148105,
+     -102044373,
+     -97370560,
+     -103811166,
+     -79631388,
+     -57666696,
+     -37523835,
+     -22801675
+    ],
+    "activeEmployment": 0,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": -17440000
+  },
+  {
+   "week": 2548,
+   "elapsedMs": 18274,
+   "talent": 90,
+   "active": 6,
+   "scientists": 0,
+   "freeAgentsListLength": 43,
+   "retiredIdsInFreeAgents": 39,
+   "listingLength": 0,
+   "records": 84,
+   "roles": {
+    "actor": {
+     "total": 43,
+     "active": 3,
+     "freeAgents": 2,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 15,
+     "active": 1,
+     "freeAgents": 0,
+     "under30": 1,
+     "unprovenUnder30": 1,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 17,
+     "active": 1,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 15,
+     "active": 1,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 9,
+    "cash": [
+     -105306105,
+     -104202373,
+     -99528560,
+     -105969166,
+     -81789388,
+     -59824696,
+     -39681835,
+     -24959675,
+     31567492
+    ],
+    "activeEmployment": 6,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": -18220000
+  },
+  {
+   "week": 2600,
+   "elapsedMs": 19152,
+   "talent": 90,
+   "active": 6,
+   "scientists": 0,
+   "freeAgentsListLength": 43,
+   "retiredIdsInFreeAgents": 39,
+   "listingLength": 0,
+   "records": 84,
+   "roles": {
+    "actor": {
+     "total": 43,
+     "active": 3,
+     "freeAgents": 2,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 15,
+     "active": 1,
+     "freeAgents": 0,
+     "under30": 1,
+     "unprovenUnder30": 1,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 17,
+     "active": 1,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 15,
+     "active": 1,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 9,
+    "cash": [
+     -107464105,
+     -106360373,
+     -101686560,
+     -108127166,
+     -83947388,
+     -61982696,
+     -41839835,
+     -27117675,
+     23244108
+    ],
+    "activeEmployment": 6,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": -19000000
+  },
+  {
+   "week": 2652,
+   "elapsedMs": 20069,
+   "talent": 90,
+   "active": 6,
+   "scientists": 0,
+   "freeAgentsListLength": 43,
+   "retiredIdsInFreeAgents": 39,
+   "listingLength": 0,
+   "records": 84,
+   "roles": {
+    "actor": {
+     "total": 43,
+     "active": 3,
+     "freeAgents": 2,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 15,
+     "active": 1,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 17,
+     "active": 1,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 15,
+     "active": 1,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 9,
+    "cash": [
+     -109622105,
+     -108518373,
+     -103844560,
+     -110285166,
+     -86105388,
+     -64140696,
+     -43997835,
+     -29275675,
+     17659724
+    ],
+    "activeEmployment": 6,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": -19780000
+  },
+  {
+   "week": 2704,
+   "elapsedMs": 20808,
+   "talent": 90,
+   "active": 6,
+   "scientists": 0,
+   "freeAgentsListLength": 43,
+   "retiredIdsInFreeAgents": 39,
+   "listingLength": 0,
+   "records": 84,
+   "roles": {
+    "actor": {
+     "total": 43,
+     "active": 3,
+     "freeAgents": 2,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 15,
+     "active": 1,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 17,
+     "active": 1,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 15,
+     "active": 1,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 9,
+    "cash": [
+     -111780105,
+     -110676373,
+     -106002560,
+     -112443166,
+     -88263388,
+     -66298696,
+     -46155835,
+     -31433675,
+     12075340
+    ],
+    "activeEmployment": 6,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": -20560000
+  },
+  {
+   "week": 2756,
+   "elapsedMs": 21732,
+   "talent": 90,
+   "active": 6,
+   "scientists": 0,
+   "freeAgentsListLength": 45,
+   "retiredIdsInFreeAgents": 39,
+   "listingLength": 0,
+   "records": 84,
+   "roles": {
+    "actor": {
+     "total": 43,
+     "active": 3,
+     "freeAgents": 3,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 15,
+     "active": 1,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 17,
+     "active": 1,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 15,
+     "active": 1,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 9,
+    "cash": [
+     -113938105,
+     -112834373,
+     -108160560,
+     -114601166,
+     -90421388,
+     -68456696,
+     -48313835,
+     -33591675,
+     5974273
+    ],
+    "activeEmployment": 6,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": -21340000
+  },
+  {
+   "week": 2808,
+   "elapsedMs": 22345,
+   "talent": 90,
+   "active": 6,
+   "scientists": 0,
+   "freeAgentsListLength": 45,
+   "retiredIdsInFreeAgents": 39,
+   "listingLength": 0,
+   "records": 84,
+   "roles": {
+    "actor": {
+     "total": 43,
+     "active": 3,
+     "freeAgents": 3,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 15,
+     "active": 1,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 17,
+     "active": 1,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 15,
+     "active": 1,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 9,
+    "cash": [
+     -116096105,
+     -114992373,
+     -110318560,
+     -116759166,
+     -92579388,
+     -70614696,
+     -50471835,
+     -35749675,
+     477769
+    ],
+    "activeEmployment": 6,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": -22120000
+  },
+  {
+   "week": 2860,
+   "elapsedMs": 22905,
+   "talent": 90,
+   "active": 6,
+   "scientists": 0,
+   "freeAgentsListLength": 45,
+   "retiredIdsInFreeAgents": 39,
+   "listingLength": 0,
+   "records": 84,
+   "roles": {
+    "actor": {
+     "total": 43,
+     "active": 3,
+     "freeAgents": 3,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 15,
+     "active": 1,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 17,
+     "active": 1,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 15,
+     "active": 1,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 9,
+    "cash": [
+     -118254105,
+     -117150373,
+     -112476560,
+     -118917166,
+     -94737388,
+     -72772696,
+     -52629835,
+     -37907675,
+     -5018735
+    ],
+    "activeEmployment": 6,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": -22900000
+  },
+  {
+   "week": 2912,
+   "elapsedMs": 23432,
+   "talent": 90,
+   "active": 6,
+   "scientists": 0,
+   "freeAgentsListLength": 45,
+   "retiredIdsInFreeAgents": 39,
+   "listingLength": 0,
+   "records": 84,
+   "roles": {
+    "actor": {
+     "total": 43,
+     "active": 3,
+     "freeAgents": 3,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 15,
+     "active": 1,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 17,
+     "active": 1,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 15,
+     "active": 1,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 9,
+    "cash": [
+     -120412105,
+     -119308373,
+     -114634560,
+     -121075166,
+     -96895388,
+     -74930696,
+     -54787835,
+     -40065675,
+     -10515239
+    ],
+    "activeEmployment": 6,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": -23680000
+  },
+  {
+   "week": 2964,
+   "elapsedMs": 24262,
+   "talent": 90,
+   "active": 6,
+   "scientists": 0,
+   "freeAgentsListLength": 45,
+   "retiredIdsInFreeAgents": 39,
+   "listingLength": 6,
+   "records": 84,
+   "roles": {
+    "actor": {
+     "total": 43,
+     "active": 3,
+     "freeAgents": 3,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 3,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 15,
+     "active": 1,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 1,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 17,
+     "active": 1,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 1,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 15,
+     "active": 1,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 1,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 9,
+    "cash": [
+     -122570105,
+     -121466373,
+     -116792560,
+     -123233166,
+     -99053388,
+     -77088696,
+     -56945835,
+     -42223675,
+     -16011743
+    ],
+    "activeEmployment": 0,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": -24460000
+  },
+  {
+   "week": 3016,
+   "elapsedMs": 24539,
+   "talent": 90,
+   "active": 6,
+   "scientists": 0,
+   "freeAgentsListLength": 45,
+   "retiredIdsInFreeAgents": 39,
+   "listingLength": 6,
+   "records": 84,
+   "roles": {
+    "actor": {
+     "total": 43,
+     "active": 3,
+     "freeAgents": 3,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 3,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 15,
+     "active": 1,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 1,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 17,
+     "active": 1,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 1,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 15,
+     "active": 1,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 1,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 9,
+    "cash": [
+     -124728105,
+     -123624373,
+     -118950560,
+     -125391166,
+     -101211388,
+     -79246696,
+     -59103835,
+     -44381675,
+     -18169743
+    ],
+    "activeEmployment": 0,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": -25240000
+  },
+  {
+   "week": 3068,
+   "elapsedMs": 24833,
+   "talent": 90,
+   "active": 6,
+   "scientists": 0,
+   "freeAgentsListLength": 45,
+   "retiredIdsInFreeAgents": 39,
+   "listingLength": 6,
+   "records": 84,
+   "roles": {
+    "actor": {
+     "total": 43,
+     "active": 3,
+     "freeAgents": 3,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 3,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 15,
+     "active": 1,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 1,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 17,
+     "active": 1,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 1,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 15,
+     "active": 1,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 1,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 9,
+    "cash": [
+     -126886105,
+     -125782373,
+     -121108560,
+     -127549166,
+     -103369388,
+     -81404696,
+     -61261835,
+     -46539675,
+     -20327743
+    ],
+    "activeEmployment": 0,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": -26020000
+  },
+  {
+   "week": 3120,
+   "elapsedMs": 25194,
+   "talent": 90,
+   "active": 6,
+   "scientists": 0,
+   "freeAgentsListLength": 45,
+   "retiredIdsInFreeAgents": 39,
+   "listingLength": 3,
+   "records": 87,
+   "roles": {
+    "actor": {
+     "total": 43,
+     "active": 3,
+     "freeAgents": 3,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 1,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 15,
+     "active": 1,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 1,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 17,
+     "active": 1,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 1,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 15,
+     "active": 1,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 9,
+    "cash": [
+     -129044105,
+     -127940373,
+     -123266560,
+     -129707166,
+     -105527388,
+     -83562696,
+     -63419835,
+     -48697675,
+     -22485743
+    ],
+    "activeEmployment": 0,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": -26800000
+  },
+  {
+   "week": 3172,
+   "elapsedMs": 25777,
+   "talent": 90,
+   "active": 3,
+   "scientists": 0,
+   "freeAgentsListLength": 45,
+   "retiredIdsInFreeAgents": 42,
+   "listingLength": 3,
+   "records": 87,
+   "roles": {
+    "actor": {
+     "total": 43,
+     "active": 1,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 1,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 15,
+     "active": 1,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 1,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 17,
+     "active": 1,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 1,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 15,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 9,
+    "cash": [
+     -131202105,
+     -130098373,
+     -125424560,
+     -131865166,
+     -107685388,
+     -85720696,
+     -65577835,
+     -50855675,
+     -24643743
+    ],
+    "activeEmployment": 0,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": -27580000
+  },
+  {
+   "week": 3224,
+   "elapsedMs": 26459,
+   "talent": 90,
+   "active": 3,
+   "scientists": 0,
+   "freeAgentsListLength": 45,
+   "retiredIdsInFreeAgents": 42,
+   "listingLength": 3,
+   "records": 87,
+   "roles": {
+    "actor": {
+     "total": 43,
+     "active": 1,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 1,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 15,
+     "active": 1,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 1,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 17,
+     "active": 1,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 1,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 15,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 9,
+    "cash": [
+     -133360105,
+     -132256373,
+     -127582560,
+     -134023166,
+     -109843388,
+     -87878696,
+     -67735835,
+     -53013675,
+     -26801743
+    ],
+    "activeEmployment": 0,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": -28360000
+  },
+  {
+   "week": 3276,
+   "elapsedMs": 26877,
+   "talent": 90,
+   "active": 3,
+   "scientists": 0,
+   "freeAgentsListLength": 45,
+   "retiredIdsInFreeAgents": 42,
+   "listingLength": 3,
+   "records": 87,
+   "roles": {
+    "actor": {
+     "total": 43,
+     "active": 1,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 1,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 15,
+     "active": 1,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 1,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 17,
+     "active": 1,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 1,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 15,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 9,
+    "cash": [
+     -135518105,
+     -134414373,
+     -129740560,
+     -136181166,
+     -112001388,
+     -90036696,
+     -69893835,
+     -55171675,
+     -28959743
+    ],
+    "activeEmployment": 0,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": -29140000
+  },
+  {
+   "week": 3328,
+   "elapsedMs": 27287,
+   "talent": 90,
+   "active": 3,
+   "scientists": 0,
+   "freeAgentsListLength": 45,
+   "retiredIdsInFreeAgents": 42,
+   "listingLength": 3,
+   "records": 87,
+   "roles": {
+    "actor": {
+     "total": 43,
+     "active": 1,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 1,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 15,
+     "active": 1,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 1,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 17,
+     "active": 1,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 1,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 15,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 9,
+    "cash": [
+     -137676105,
+     -136572373,
+     -131898560,
+     -138339166,
+     -114159388,
+     -92194696,
+     -72051835,
+     -57329675,
+     -31117743
+    ],
+    "activeEmployment": 0,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": -29920000
+  },
+  {
+   "week": 3380,
+   "elapsedMs": 27807,
+   "talent": 90,
+   "active": 3,
+   "scientists": 0,
+   "freeAgentsListLength": 45,
+   "retiredIdsInFreeAgents": 42,
+   "listingLength": 2,
+   "records": 88,
+   "roles": {
+    "actor": {
+     "total": 43,
+     "active": 1,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 1,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 15,
+     "active": 1,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 1,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 17,
+     "active": 1,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 15,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 9,
+    "cash": [
+     -139834105,
+     -138730373,
+     -134056560,
+     -140497166,
+     -116317388,
+     -94352696,
+     -74209835,
+     -59487675,
+     -33275743
+    ],
+    "activeEmployment": 0,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": -30700000
+  },
+  {
+   "week": 3432,
+   "elapsedMs": 28512,
+   "talent": 90,
+   "active": 2,
+   "scientists": 0,
+   "freeAgentsListLength": 45,
+   "retiredIdsInFreeAgents": 43,
+   "listingLength": 2,
+   "records": 88,
+   "roles": {
+    "actor": {
+     "total": 43,
+     "active": 1,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 1,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 15,
+     "active": 1,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 1,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 17,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 15,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 9,
+    "cash": [
+     -141992105,
+     -140888373,
+     -136214560,
+     -142655166,
+     -118475388,
+     -96510696,
+     -76367835,
+     -61645675,
+     -35433743
+    ],
+    "activeEmployment": 0,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": -31480000
+  },
+  {
+   "week": 3484,
+   "elapsedMs": 29264,
+   "talent": 90,
+   "active": 2,
+   "scientists": 0,
+   "freeAgentsListLength": 45,
+   "retiredIdsInFreeAgents": 43,
+   "listingLength": 2,
+   "records": 88,
+   "roles": {
+    "actor": {
+     "total": 43,
+     "active": 1,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 1,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 15,
+     "active": 1,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 1,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 17,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 15,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 9,
+    "cash": [
+     -144150105,
+     -143046373,
+     -138372560,
+     -144813166,
+     -120633388,
+     -98668696,
+     -78525835,
+     -63803675,
+     -37591743
+    ],
+    "activeEmployment": 0,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": -32260000
+  },
+  {
+   "week": 3536,
+   "elapsedMs": 29816,
+   "talent": 90,
+   "active": 2,
+   "scientists": 0,
+   "freeAgentsListLength": 45,
+   "retiredIdsInFreeAgents": 43,
+   "listingLength": 2,
+   "records": 88,
+   "roles": {
+    "actor": {
+     "total": 43,
+     "active": 1,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 1,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 15,
+     "active": 1,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 1,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 17,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 15,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 9,
+    "cash": [
+     -146308105,
+     -145204373,
+     -140530560,
+     -146971166,
+     -122791388,
+     -100826696,
+     -80683835,
+     -65961675,
+     -39749743
+    ],
+    "activeEmployment": 0,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": -33040000
+  },
+  {
+   "week": 3588,
+   "elapsedMs": 30698,
+   "talent": 90,
+   "active": 2,
+   "scientists": 0,
+   "freeAgentsListLength": 45,
+   "retiredIdsInFreeAgents": 43,
+   "listingLength": 2,
+   "records": 88,
+   "roles": {
+    "actor": {
+     "total": 43,
+     "active": 1,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 1,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 15,
+     "active": 1,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 1,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 17,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 15,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 9,
+    "cash": [
+     -148466105,
+     -147362373,
+     -142688560,
+     -149129166,
+     -124949388,
+     -102984696,
+     -82841835,
+     -68119675,
+     -41907743
+    ],
+    "activeEmployment": 0,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": -33820000
+  },
+  {
+   "week": 3640,
+   "elapsedMs": 31214,
+   "talent": 90,
+   "active": 2,
+   "scientists": 0,
+   "freeAgentsListLength": 45,
+   "retiredIdsInFreeAgents": 43,
+   "listingLength": 2,
+   "records": 88,
+   "roles": {
+    "actor": {
+     "total": 43,
+     "active": 1,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 1,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 15,
+     "active": 1,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 1,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 17,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 15,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 9,
+    "cash": [
+     -150624105,
+     -149520373,
+     -144846560,
+     -151287166,
+     -127107388,
+     -105142696,
+     -84999835,
+     -70277675,
+     -44065743
+    ],
+    "activeEmployment": 0,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": -34600000
+  },
+  {
+   "week": 3692,
+   "elapsedMs": 31735,
+   "talent": 90,
+   "active": 2,
+   "scientists": 0,
+   "freeAgentsListLength": 45,
+   "retiredIdsInFreeAgents": 43,
+   "listingLength": 2,
+   "records": 88,
+   "roles": {
+    "actor": {
+     "total": 43,
+     "active": 1,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 1,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 15,
+     "active": 1,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 1,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 17,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 15,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 9,
+    "cash": [
+     -152782105,
+     -151678373,
+     -147004560,
+     -153445166,
+     -129265388,
+     -107300696,
+     -87157835,
+     -72435675,
+     -46223743
+    ],
+    "activeEmployment": 0,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": -35380000
+  },
+  {
+   "week": 3744,
+   "elapsedMs": 32742,
+   "talent": 90,
+   "active": 2,
+   "scientists": 0,
+   "freeAgentsListLength": 45,
+   "retiredIdsInFreeAgents": 43,
+   "listingLength": 2,
+   "records": 88,
+   "roles": {
+    "actor": {
+     "total": 43,
+     "active": 1,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 1,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 15,
+     "active": 1,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 1,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 17,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 15,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 9,
+    "cash": [
+     -154940105,
+     -153836373,
+     -149162560,
+     -155603166,
+     -131423388,
+     -109458696,
+     -89315835,
+     -74593675,
+     -48381743
+    ],
+    "activeEmployment": 0,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": -36160000
+  },
+  {
+   "week": 3796,
+   "elapsedMs": 33541,
+   "talent": 90,
+   "active": 2,
+   "scientists": 0,
+   "freeAgentsListLength": 45,
+   "retiredIdsInFreeAgents": 43,
+   "listingLength": 1,
+   "records": 89,
+   "roles": {
+    "actor": {
+     "total": 43,
+     "active": 1,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 15,
+     "active": 1,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 1,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 17,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 15,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 9,
+    "cash": [
+     -157098105,
+     -155994373,
+     -151320560,
+     -157761166,
+     -133581388,
+     -111616696,
+     -91473835,
+     -76751675,
+     -50539743
+    ],
+    "activeEmployment": 0,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": -36940000
+  },
+  {
+   "week": 3848,
+   "elapsedMs": 34233,
+   "talent": 90,
+   "active": 1,
+   "scientists": 0,
+   "freeAgentsListLength": 45,
+   "retiredIdsInFreeAgents": 44,
+   "listingLength": 1,
+   "records": 89,
+   "roles": {
+    "actor": {
+     "total": 43,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 15,
+     "active": 1,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 1,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 17,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 15,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 9,
+    "cash": [
+     -159256105,
+     -158152373,
+     -153478560,
+     -159919166,
+     -135739388,
+     -113774696,
+     -93631835,
+     -78909675,
+     -52697743
+    ],
+    "activeEmployment": 0,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": -37720000
+  },
+  {
+   "week": 3900,
+   "elapsedMs": 35065,
+   "talent": 90,
+   "active": 1,
+   "scientists": 0,
+   "freeAgentsListLength": 45,
+   "retiredIdsInFreeAgents": 44,
+   "listingLength": 1,
+   "records": 89,
+   "roles": {
+    "actor": {
+     "total": 43,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 15,
+     "active": 1,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 1,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 17,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 15,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 9,
+    "cash": [
+     -161414105,
+     -160310373,
+     -155636560,
+     -162077166,
+     -137897388,
+     -115932696,
+     -95789835,
+     -81067675,
+     -54855743
+    ],
+    "activeEmployment": 0,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": -38500000
+  },
+  {
+   "week": 3952,
+   "elapsedMs": 35652,
+   "talent": 90,
+   "active": 1,
+   "scientists": 0,
+   "freeAgentsListLength": 45,
+   "retiredIdsInFreeAgents": 44,
+   "listingLength": 1,
+   "records": 89,
+   "roles": {
+    "actor": {
+     "total": 43,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 15,
+     "active": 1,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 1,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 17,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 15,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 9,
+    "cash": [
+     -163572105,
+     -162468373,
+     -157794560,
+     -164235166,
+     -140055388,
+     -118090696,
+     -97947835,
+     -83225675,
+     -57013743
+    ],
+    "activeEmployment": 0,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": -39280000
+  },
+  {
+   "week": 4004,
+   "elapsedMs": 36281,
+   "talent": 90,
+   "active": 1,
+   "scientists": 0,
+   "freeAgentsListLength": 45,
+   "retiredIdsInFreeAgents": 44,
+   "listingLength": 1,
+   "records": 89,
+   "roles": {
+    "actor": {
+     "total": 43,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 15,
+     "active": 1,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 1,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 17,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 15,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 9,
+    "cash": [
+     -165730105,
+     -164626373,
+     -159952560,
+     -166393166,
+     -142213388,
+     -120248696,
+     -100105835,
+     -85383675,
+     -59171743
+    ],
+    "activeEmployment": 0,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": -40060000
+  },
+  {
+   "week": 4056,
+   "elapsedMs": 37244,
+   "talent": 90,
+   "active": 1,
+   "scientists": 0,
+   "freeAgentsListLength": 45,
+   "retiredIdsInFreeAgents": 44,
+   "listingLength": 1,
+   "records": 89,
+   "roles": {
+    "actor": {
+     "total": 43,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 15,
+     "active": 1,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 1,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 17,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 15,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 9,
+    "cash": [
+     -167888105,
+     -166784373,
+     -162110560,
+     -168551166,
+     -144371388,
+     -122406696,
+     -102263835,
+     -87541675,
+     -61329743
+    ],
+    "activeEmployment": 0,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": -40840000
+  },
+  {
+   "week": 4108,
+   "elapsedMs": 37971,
+   "talent": 90,
+   "active": 1,
+   "scientists": 0,
+   "freeAgentsListLength": 45,
+   "retiredIdsInFreeAgents": 44,
+   "listingLength": 1,
+   "records": 89,
+   "roles": {
+    "actor": {
+     "total": 43,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 15,
+     "active": 1,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 1,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 17,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 15,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 9,
+    "cash": [
+     -170046105,
+     -168942373,
+     -164268560,
+     -170709166,
+     -146529388,
+     -124564696,
+     -104421835,
+     -89699675,
+     -63487743
+    ],
+    "activeEmployment": 0,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": -41620000
+  },
+  {
+   "week": 4160,
+   "elapsedMs": 38671,
+   "talent": 90,
+   "active": 1,
+   "scientists": 0,
+   "freeAgentsListLength": 45,
+   "retiredIdsInFreeAgents": 44,
+   "listingLength": 1,
+   "records": 89,
+   "roles": {
+    "actor": {
+     "total": 43,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 15,
+     "active": 1,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 1,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 17,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 15,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 9,
+    "cash": [
+     -172204105,
+     -171100373,
+     -166426560,
+     -172867166,
+     -148687388,
+     -126722696,
+     -106579835,
+     -91857675,
+     -65645743
+    ],
+    "activeEmployment": 0,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": -42400000
+  },
+  {
+   "week": 4212,
+   "elapsedMs": 39419,
+   "talent": 90,
+   "active": 1,
+   "scientists": 0,
+   "freeAgentsListLength": 45,
+   "retiredIdsInFreeAgents": 44,
+   "listingLength": 1,
+   "records": 89,
+   "roles": {
+    "actor": {
+     "total": 43,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 15,
+     "active": 1,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 1,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 17,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 15,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 9,
+    "cash": [
+     -174362105,
+     -173258373,
+     -168584560,
+     -175025166,
+     -150845388,
+     -128880696,
+     -108737835,
+     -94015675,
+     -67803743
+    ],
+    "activeEmployment": 0,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": -43180000
+  },
+  {
+   "week": 4264,
+   "elapsedMs": 40108,
+   "talent": 90,
+   "active": 1,
+   "scientists": 0,
+   "freeAgentsListLength": 45,
+   "retiredIdsInFreeAgents": 44,
+   "listingLength": 1,
+   "records": 89,
+   "roles": {
+    "actor": {
+     "total": 43,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 15,
+     "active": 1,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 1,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 17,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 15,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 9,
+    "cash": [
+     -176520105,
+     -175416373,
+     -170742560,
+     -177183166,
+     -153003388,
+     -131038696,
+     -110895835,
+     -96173675,
+     -69961743
+    ],
+    "activeEmployment": 0,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": -43960000
+  },
+  {
+   "week": 4316,
+   "elapsedMs": 40732,
+   "talent": 90,
+   "active": 1,
+   "scientists": 0,
+   "freeAgentsListLength": 45,
+   "retiredIdsInFreeAgents": 44,
+   "listingLength": 1,
+   "records": 89,
+   "roles": {
+    "actor": {
+     "total": 43,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 15,
+     "active": 1,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 1,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 17,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 15,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 9,
+    "cash": [
+     -178678105,
+     -177574373,
+     -172900560,
+     -179341166,
+     -155161388,
+     -133196696,
+     -113053835,
+     -98331675,
+     -72119743
+    ],
+    "activeEmployment": 0,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": -44740000
+  },
+  {
+   "week": 4368,
+   "elapsedMs": 41444,
+   "talent": 90,
+   "active": 1,
+   "scientists": 0,
+   "freeAgentsListLength": 45,
+   "retiredIdsInFreeAgents": 44,
+   "listingLength": 1,
+   "records": 89,
+   "roles": {
+    "actor": {
+     "total": 43,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 15,
+     "active": 1,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 1,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 17,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 15,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 9,
+    "cash": [
+     -180836105,
+     -179732373,
+     -175058560,
+     -181499166,
+     -157319388,
+     -135354696,
+     -115211835,
+     -100489675,
+     -74277743
+    ],
+    "activeEmployment": 0,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": -45520000
+  },
+  {
+   "week": 4420,
+   "elapsedMs": 42021,
+   "talent": 90,
+   "active": 1,
+   "scientists": 0,
+   "freeAgentsListLength": 45,
+   "retiredIdsInFreeAgents": 44,
+   "listingLength": 1,
+   "records": 89,
+   "roles": {
+    "actor": {
+     "total": 43,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 15,
+     "active": 1,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 1,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 17,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 15,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 9,
+    "cash": [
+     -182994105,
+     -181890373,
+     -177216560,
+     -183657166,
+     -159477388,
+     -137512696,
+     -117369835,
+     -102647675,
+     -76435743
+    ],
+    "activeEmployment": 0,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": -46300000
+  },
+  {
+   "week": 4472,
+   "elapsedMs": 42624,
+   "talent": 90,
+   "active": 1,
+   "scientists": 0,
+   "freeAgentsListLength": 45,
+   "retiredIdsInFreeAgents": 44,
+   "listingLength": 0,
+   "records": 90,
+   "roles": {
+    "actor": {
+     "total": 43,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 15,
+     "active": 1,
+     "freeAgents": 1,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 17,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 15,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 9,
+    "cash": [
+     -185152105,
+     -184048373,
+     -179374560,
+     -185815166,
+     -161635388,
+     -139670696,
+     -119527835,
+     -104805675,
+     -78593743
+    ],
+    "activeEmployment": 0,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": -47080000
+  },
+  {
+   "week": 4524,
+   "elapsedMs": 43383,
+   "talent": 90,
+   "active": 0,
+   "scientists": 0,
+   "freeAgentsListLength": 45,
+   "retiredIdsInFreeAgents": 45,
+   "listingLength": 0,
+   "records": 90,
+   "roles": {
+    "actor": {
+     "total": 43,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 15,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 17,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 15,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 9,
+    "cash": [
+     -187310105,
+     -186206373,
+     -181532560,
+     -187973166,
+     -163793388,
+     -141828696,
+     -121685835,
+     -106963675,
+     -80751743
+    ],
+    "activeEmployment": 0,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": -47860000
+  },
+  {
+   "week": 4576,
+   "elapsedMs": 44263,
+   "talent": 90,
+   "active": 0,
+   "scientists": 0,
+   "freeAgentsListLength": 45,
+   "retiredIdsInFreeAgents": 45,
+   "listingLength": 0,
+   "records": 90,
+   "roles": {
+    "actor": {
+     "total": 43,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 15,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 17,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 15,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 9,
+    "cash": [
+     -189468105,
+     -188364373,
+     -183690560,
+     -190131166,
+     -165951388,
+     -143986696,
+     -123843835,
+     -109121675,
+     -82909743
+    ],
+    "activeEmployment": 0,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": -48640000
+  },
+  {
+   "week": 4628,
+   "elapsedMs": 44905,
+   "talent": 90,
+   "active": 0,
+   "scientists": 0,
+   "freeAgentsListLength": 45,
+   "retiredIdsInFreeAgents": 45,
+   "listingLength": 0,
+   "records": 90,
+   "roles": {
+    "actor": {
+     "total": 43,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 15,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 17,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 15,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 9,
+    "cash": [
+     -191626105,
+     -190522373,
+     -185848560,
+     -192289166,
+     -168109388,
+     -146144696,
+     -126001835,
+     -111279675,
+     -85067743
+    ],
+    "activeEmployment": 0,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": -49420000
+  },
+  {
+   "week": 4680,
+   "elapsedMs": 45615,
+   "talent": 90,
+   "active": 0,
+   "scientists": 0,
+   "freeAgentsListLength": 45,
+   "retiredIdsInFreeAgents": 45,
+   "listingLength": 0,
+   "records": 90,
+   "roles": {
+    "actor": {
+     "total": 43,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 15,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 17,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 15,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 9,
+    "cash": [
+     -193784105,
+     -192680373,
+     -188006560,
+     -194447166,
+     -170267388,
+     -148302696,
+     -128159835,
+     -113437675,
+     -87225743
+    ],
+    "activeEmployment": 0,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": -50200000
+  },
+  {
+   "week": 4732,
+   "elapsedMs": 46415,
+   "talent": 90,
+   "active": 0,
+   "scientists": 0,
+   "freeAgentsListLength": 45,
+   "retiredIdsInFreeAgents": 45,
+   "listingLength": 0,
+   "records": 90,
+   "roles": {
+    "actor": {
+     "total": 43,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 15,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 17,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 15,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 9,
+    "cash": [
+     -195942105,
+     -194838373,
+     -190164560,
+     -196605166,
+     -172425388,
+     -150460696,
+     -130317835,
+     -115595675,
+     -89383743
+    ],
+    "activeEmployment": 0,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": -50980000
+  },
+  {
+   "week": 4784,
+   "elapsedMs": 47060,
+   "talent": 90,
+   "active": 0,
+   "scientists": 0,
+   "freeAgentsListLength": 45,
+   "retiredIdsInFreeAgents": 45,
+   "listingLength": 0,
+   "records": 90,
+   "roles": {
+    "actor": {
+     "total": 43,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 15,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 17,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 15,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 9,
+    "cash": [
+     -198100105,
+     -196996373,
+     -192322560,
+     -198763166,
+     -174583388,
+     -152618696,
+     -132475835,
+     -117753675,
+     -91541743
+    ],
+    "activeEmployment": 0,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": -51760000
+  },
+  {
+   "week": 4836,
+   "elapsedMs": 47742,
+   "talent": 90,
+   "active": 0,
+   "scientists": 0,
+   "freeAgentsListLength": 45,
+   "retiredIdsInFreeAgents": 45,
+   "listingLength": 0,
+   "records": 90,
+   "roles": {
+    "actor": {
+     "total": 43,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 15,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 17,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 15,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 9,
+    "cash": [
+     -200258105,
+     -199154373,
+     -194480560,
+     -200921166,
+     -176741388,
+     -154776696,
+     -134633835,
+     -119911675,
+     -93699743
+    ],
+    "activeEmployment": 0,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": -52540000
+  },
+  {
+   "week": 4888,
+   "elapsedMs": 48527,
+   "talent": 90,
+   "active": 0,
+   "scientists": 0,
+   "freeAgentsListLength": 45,
+   "retiredIdsInFreeAgents": 45,
+   "listingLength": 0,
+   "records": 90,
+   "roles": {
+    "actor": {
+     "total": 43,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 15,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 17,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 15,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 9,
+    "cash": [
+     -202416105,
+     -201312373,
+     -196638560,
+     -203079166,
+     -178899388,
+     -156934696,
+     -136791835,
+     -122069675,
+     -95857743
+    ],
+    "activeEmployment": 0,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": -53320000
+  },
+  {
+   "week": 4940,
+   "elapsedMs": 49255,
+   "talent": 90,
+   "active": 0,
+   "scientists": 0,
+   "freeAgentsListLength": 45,
+   "retiredIdsInFreeAgents": 45,
+   "listingLength": 0,
+   "records": 90,
+   "roles": {
+    "actor": {
+     "total": 43,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 15,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 17,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 15,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 9,
+    "cash": [
+     -204574105,
+     -203470373,
+     -198796560,
+     -205237166,
+     -181057388,
+     -159092696,
+     -138949835,
+     -124227675,
+     -98015743
+    ],
+    "activeEmployment": 0,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": -54100000
+  },
+  {
+   "week": 4992,
+   "elapsedMs": 49975,
+   "talent": 90,
+   "active": 0,
+   "scientists": 0,
+   "freeAgentsListLength": 45,
+   "retiredIdsInFreeAgents": 45,
+   "listingLength": 0,
+   "records": 90,
+   "roles": {
+    "actor": {
+     "total": 43,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 15,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 17,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 15,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 9,
+    "cash": [
+     -206732105,
+     -205628373,
+     -200954560,
+     -207395166,
+     -183215388,
+     -161250696,
+     -141107835,
+     -126385675,
+     -100173743
+    ],
+    "activeEmployment": 0,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": -54880000
+  },
+  {
+   "week": 5044,
+   "elapsedMs": 50733,
+   "talent": 90,
+   "active": 0,
+   "scientists": 0,
+   "freeAgentsListLength": 45,
+   "retiredIdsInFreeAgents": 45,
+   "listingLength": 0,
+   "records": 90,
+   "roles": {
+    "actor": {
+     "total": 43,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 15,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 17,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 15,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 9,
+    "cash": [
+     -208890105,
+     -207786373,
+     -203112560,
+     -209553166,
+     -185373388,
+     -163408696,
+     -143265835,
+     -128543675,
+     -102331743
+    ],
+    "activeEmployment": 0,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": -55660000
+  },
+  {
+   "week": 5096,
+   "elapsedMs": 51485,
+   "talent": 90,
+   "active": 0,
+   "scientists": 0,
+   "freeAgentsListLength": 45,
+   "retiredIdsInFreeAgents": 45,
+   "listingLength": 0,
+   "records": 90,
+   "roles": {
+    "actor": {
+     "total": 43,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 15,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 17,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 15,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 9,
+    "cash": [
+     -211048105,
+     -209944373,
+     -205270560,
+     -211711166,
+     -187531388,
+     -165566696,
+     -145423835,
+     -130701675,
+     -104489743
+    ],
+    "activeEmployment": 0,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": -56440000
+  },
+  {
+   "week": 5148,
+   "elapsedMs": 52512,
+   "talent": 90,
+   "active": 0,
+   "scientists": 0,
+   "freeAgentsListLength": 45,
+   "retiredIdsInFreeAgents": 45,
+   "listingLength": 0,
+   "records": 90,
+   "roles": {
+    "actor": {
+     "total": 43,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 15,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 17,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 15,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 9,
+    "cash": [
+     -213206105,
+     -212102373,
+     -207428560,
+     -213869166,
+     -189689388,
+     -167724696,
+     -147581835,
+     -132859675,
+     -106647743
+    ],
+    "activeEmployment": 0,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": -57220000
+  },
+  {
+   "week": 5200,
+   "elapsedMs": 53163,
+   "talent": 90,
+   "active": 0,
+   "scientists": 0,
+   "freeAgentsListLength": 45,
+   "retiredIdsInFreeAgents": 45,
+   "listingLength": 0,
+   "records": 90,
+   "roles": {
+    "actor": {
+     "total": 43,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 15,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 17,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 15,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 9,
+    "cash": [
+     -215364105,
+     -214260373,
+     -209586560,
+     -216027166,
+     -191847388,
+     -169882696,
+     -149739835,
+     -135017675,
+     -108805743
+    ],
+    "activeEmployment": 0,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": -58000000
+  },
+  {
+   "week": 5252,
+   "elapsedMs": 54055,
+   "talent": 90,
+   "active": 0,
+   "scientists": 0,
+   "freeAgentsListLength": 45,
+   "retiredIdsInFreeAgents": 45,
+   "listingLength": 0,
+   "records": 90,
+   "roles": {
+    "actor": {
+     "total": 43,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 15,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 17,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 15,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 9,
+    "cash": [
+     -217522105,
+     -216418373,
+     -211744560,
+     -218185166,
+     -194005388,
+     -172040696,
+     -151897835,
+     -137175675,
+     -110963743
+    ],
+    "activeEmployment": 0,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": -58780000
+  },
+  {
+   "week": 5304,
+   "elapsedMs": 54815,
+   "talent": 90,
+   "active": 0,
+   "scientists": 0,
+   "freeAgentsListLength": 45,
+   "retiredIdsInFreeAgents": 45,
+   "listingLength": 0,
+   "records": 90,
+   "roles": {
+    "actor": {
+     "total": 43,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 15,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 17,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 15,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 9,
+    "cash": [
+     -219680105,
+     -218576373,
+     -213902560,
+     -220343166,
+     -196163388,
+     -174198696,
+     -154055835,
+     -139333675,
+     -113121743
+    ],
+    "activeEmployment": 0,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": -59560000
+  },
+  {
+   "week": 5356,
+   "elapsedMs": 55425,
+   "talent": 90,
+   "active": 0,
+   "scientists": 0,
+   "freeAgentsListLength": 45,
+   "retiredIdsInFreeAgents": 45,
+   "listingLength": 0,
+   "records": 90,
+   "roles": {
+    "actor": {
+     "total": 43,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 15,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 17,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 15,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 9,
+    "cash": [
+     -221838105,
+     -220734373,
+     -216060560,
+     -222501166,
+     -198321388,
+     -176356696,
+     -156213835,
+     -141491675,
+     -115279743
+    ],
+    "activeEmployment": 0,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": -60340000
+  },
+  {
+   "week": 5408,
+   "elapsedMs": 55998,
+   "talent": 90,
+   "active": 0,
+   "scientists": 0,
+   "freeAgentsListLength": 45,
+   "retiredIdsInFreeAgents": 45,
+   "listingLength": 0,
+   "records": 90,
+   "roles": {
+    "actor": {
+     "total": 43,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 15,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 17,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 15,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 9,
+    "cash": [
+     -223996105,
+     -222892373,
+     -218218560,
+     -224659166,
+     -200479388,
+     -178514696,
+     -158371835,
+     -143649675,
+     -117437743
+    ],
+    "activeEmployment": 0,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": -61120000
+  },
+  {
+   "week": 5460,
+   "elapsedMs": 56827,
+   "talent": 90,
+   "active": 0,
+   "scientists": 0,
+   "freeAgentsListLength": 45,
+   "retiredIdsInFreeAgents": 45,
+   "listingLength": 0,
+   "records": 90,
+   "roles": {
+    "actor": {
+     "total": 43,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 15,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 17,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 15,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 9,
+    "cash": [
+     -226154105,
+     -225050373,
+     -220376560,
+     -226817166,
+     -202637388,
+     -180672696,
+     -160529835,
+     -145807675,
+     -119595743
+    ],
+    "activeEmployment": 0,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": -61900000
+  },
+  {
+   "week": 5512,
+   "elapsedMs": 57521,
+   "talent": 90,
+   "active": 0,
+   "scientists": 0,
+   "freeAgentsListLength": 45,
+   "retiredIdsInFreeAgents": 45,
+   "listingLength": 0,
+   "records": 90,
+   "roles": {
+    "actor": {
+     "total": 43,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 15,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 17,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 15,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 9,
+    "cash": [
+     -228312105,
+     -227208373,
+     -222534560,
+     -228975166,
+     -204795388,
+     -182830696,
+     -162687835,
+     -147965675,
+     -121753743
+    ],
+    "activeEmployment": 0,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": -62680000
+  },
+  {
+   "week": 5564,
+   "elapsedMs": 58201,
+   "talent": 90,
+   "active": 0,
+   "scientists": 0,
+   "freeAgentsListLength": 45,
+   "retiredIdsInFreeAgents": 45,
+   "listingLength": 0,
+   "records": 90,
+   "roles": {
+    "actor": {
+     "total": 43,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 15,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 17,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 15,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 9,
+    "cash": [
+     -230470105,
+     -229366373,
+     -224692560,
+     -231133166,
+     -206953388,
+     -184988696,
+     -164845835,
+     -150123675,
+     -123911743
+    ],
+    "activeEmployment": 0,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": -63460000
+  },
+  {
+   "week": 5616,
+   "elapsedMs": 59071,
+   "talent": 90,
+   "active": 0,
+   "scientists": 0,
+   "freeAgentsListLength": 45,
+   "retiredIdsInFreeAgents": 45,
+   "listingLength": 0,
+   "records": 90,
+   "roles": {
+    "actor": {
+     "total": 43,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 15,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 17,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 15,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 9,
+    "cash": [
+     -232628105,
+     -231524373,
+     -226850560,
+     -233291166,
+     -209111388,
+     -187146696,
+     -167003835,
+     -152281675,
+     -126069743
+    ],
+    "activeEmployment": 0,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": -64240000
+  },
+  {
+   "week": 5668,
+   "elapsedMs": 59676,
+   "talent": 90,
+   "active": 0,
+   "scientists": 0,
+   "freeAgentsListLength": 45,
+   "retiredIdsInFreeAgents": 45,
+   "listingLength": 0,
+   "records": 90,
+   "roles": {
+    "actor": {
+     "total": 43,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 15,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 17,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 15,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 9,
+    "cash": [
+     -234786105,
+     -233682373,
+     -229008560,
+     -235449166,
+     -211269388,
+     -189304696,
+     -169161835,
+     -154439675,
+     -128227743
+    ],
+    "activeEmployment": 0,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": -65020000
+  },
+  {
+   "week": 5720,
+   "elapsedMs": 60395,
+   "talent": 90,
+   "active": 0,
+   "scientists": 0,
+   "freeAgentsListLength": 45,
+   "retiredIdsInFreeAgents": 45,
+   "listingLength": 0,
+   "records": 90,
+   "roles": {
+    "actor": {
+     "total": 43,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 15,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 17,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 15,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 9,
+    "cash": [
+     -236944105,
+     -235840373,
+     -231166560,
+     -237607166,
+     -213427388,
+     -191462696,
+     -171319835,
+     -156597675,
+     -130385743
+    ],
+    "activeEmployment": 0,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": -65800000
+  },
+  {
+   "week": 5772,
+   "elapsedMs": 61277,
+   "talent": 90,
+   "active": 0,
+   "scientists": 0,
+   "freeAgentsListLength": 45,
+   "retiredIdsInFreeAgents": 45,
+   "listingLength": 0,
+   "records": 90,
+   "roles": {
+    "actor": {
+     "total": 43,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 15,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 17,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 15,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 9,
+    "cash": [
+     -239102105,
+     -237998373,
+     -233324560,
+     -239765166,
+     -215585388,
+     -193620696,
+     -173477835,
+     -158755675,
+     -132543743
+    ],
+    "activeEmployment": 0,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": -66580000
+  },
+  {
+   "week": 5824,
+   "elapsedMs": 62019,
+   "talent": 90,
+   "active": 0,
+   "scientists": 0,
+   "freeAgentsListLength": 45,
+   "retiredIdsInFreeAgents": 45,
+   "listingLength": 0,
+   "records": 90,
+   "roles": {
+    "actor": {
+     "total": 43,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 15,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 17,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 15,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 9,
+    "cash": [
+     -241260105,
+     -240156373,
+     -235482560,
+     -241923166,
+     -217743388,
+     -195778696,
+     -175635835,
+     -160913675,
+     -134701743
+    ],
+    "activeEmployment": 0,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": -67360000
+  },
+  {
+   "week": 5876,
+   "elapsedMs": 62748,
+   "talent": 90,
+   "active": 0,
+   "scientists": 0,
+   "freeAgentsListLength": 45,
+   "retiredIdsInFreeAgents": 45,
+   "listingLength": 0,
+   "records": 90,
+   "roles": {
+    "actor": {
+     "total": 43,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 15,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 17,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 15,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 9,
+    "cash": [
+     -243418105,
+     -242314373,
+     -237640560,
+     -244081166,
+     -219901388,
+     -197936696,
+     -177793835,
+     -163071675,
+     -136859743
+    ],
+    "activeEmployment": 0,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": -68140000
+  },
+  {
+   "week": 5928,
+   "elapsedMs": 63621,
+   "talent": 90,
+   "active": 0,
+   "scientists": 0,
+   "freeAgentsListLength": 45,
+   "retiredIdsInFreeAgents": 45,
+   "listingLength": 0,
+   "records": 90,
+   "roles": {
+    "actor": {
+     "total": 43,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 15,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 17,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 15,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 9,
+    "cash": [
+     -245576105,
+     -244472373,
+     -239798560,
+     -246239166,
+     -222059388,
+     -200094696,
+     -179951835,
+     -165229675,
+     -139017743
+    ],
+    "activeEmployment": 0,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": -68920000
+  },
+  {
+   "week": 5980,
+   "elapsedMs": 64539,
+   "talent": 90,
+   "active": 0,
+   "scientists": 0,
+   "freeAgentsListLength": 45,
+   "retiredIdsInFreeAgents": 45,
+   "listingLength": 0,
+   "records": 90,
+   "roles": {
+    "actor": {
+     "total": 43,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 15,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 17,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 15,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 9,
+    "cash": [
+     -247734105,
+     -246630373,
+     -241956560,
+     -248397166,
+     -224217388,
+     -202252696,
+     -182109835,
+     -167387675,
+     -141175743
+    ],
+    "activeEmployment": 0,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": -69700000
+  },
+  {
+   "week": 6032,
+   "elapsedMs": 65334,
+   "talent": 90,
+   "active": 0,
+   "scientists": 0,
+   "freeAgentsListLength": 45,
+   "retiredIdsInFreeAgents": 45,
+   "listingLength": 0,
+   "records": 90,
+   "roles": {
+    "actor": {
+     "total": 43,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 15,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 17,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 15,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 9,
+    "cash": [
+     -249892105,
+     -248788373,
+     -244114560,
+     -250555166,
+     -226375388,
+     -204410696,
+     -184267835,
+     -169545675,
+     -143333743
+    ],
+    "activeEmployment": 0,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": -70480000
+  },
+  {
+   "week": 6084,
+   "elapsedMs": 65962,
+   "talent": 90,
+   "active": 0,
+   "scientists": 0,
+   "freeAgentsListLength": 45,
+   "retiredIdsInFreeAgents": 45,
+   "listingLength": 0,
+   "records": 90,
+   "roles": {
+    "actor": {
+     "total": 43,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 15,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 17,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 15,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 9,
+    "cash": [
+     -252050105,
+     -250946373,
+     -246272560,
+     -252713166,
+     -228533388,
+     -206568696,
+     -186425835,
+     -171703675,
+     -145491743
+    ],
+    "activeEmployment": 0,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": -71260000
+  },
+  {
+   "week": 6136,
+   "elapsedMs": 66592,
+   "talent": 90,
+   "active": 0,
+   "scientists": 0,
+   "freeAgentsListLength": 45,
+   "retiredIdsInFreeAgents": 45,
+   "listingLength": 0,
+   "records": 90,
+   "roles": {
+    "actor": {
+     "total": 43,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 15,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 17,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 15,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 9,
+    "cash": [
+     -254208105,
+     -253104373,
+     -248430560,
+     -254871166,
+     -230691388,
+     -208726696,
+     -188583835,
+     -173861675,
+     -147649743
+    ],
+    "activeEmployment": 0,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": -72040000
+  },
+  {
+   "week": 6188,
+   "elapsedMs": 67418,
+   "talent": 90,
+   "active": 0,
+   "scientists": 0,
+   "freeAgentsListLength": 45,
+   "retiredIdsInFreeAgents": 45,
+   "listingLength": 0,
+   "records": 90,
+   "roles": {
+    "actor": {
+     "total": 43,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 15,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 17,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 15,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 9,
+    "cash": [
+     -256366105,
+     -255262373,
+     -250588560,
+     -257029166,
+     -232849388,
+     -210884696,
+     -190741835,
+     -176019675,
+     -149807743
+    ],
+    "activeEmployment": 0,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": -72820000
+  },
+  {
+   "week": 6240,
+   "elapsedMs": 68184,
+   "talent": 90,
+   "active": 0,
+   "scientists": 0,
+   "freeAgentsListLength": 45,
+   "retiredIdsInFreeAgents": 45,
+   "listingLength": 0,
+   "records": 90,
+   "roles": {
+    "actor": {
+     "total": 43,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "director": {
+     "total": 15,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "writer": {
+     "total": 17,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    },
+    "craft": {
+     "total": 15,
+     "active": 0,
+     "freeAgents": 0,
+     "under30": 0,
+     "unprovenUnder30": 0,
+     "listing": 0,
+     "listingUnprovenUnder30": 0
+    }
+   },
+   "rivals": {
+    "businesses": 9,
+    "cash": [
+     -258524105,
+     -257420373,
+     -252746560,
+     -259187166,
+     -235007388,
+     -213042696,
+     -192899835,
+     -178177675,
+     -151965743
+    ],
+    "activeEmployment": 0,
+    "films": 9,
+    "suppliedPeople": 0
+   },
+   "playerCash": -73600000
+  }
+ ],
+ "years": [
+  {
+   "week": 52,
+   "retirements": {
+    "actor": 0,
+    "director": 0,
+    "writer": 0,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 104,
+   "retirements": {
+    "actor": 0,
+    "director": 0,
+    "writer": 0,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 156,
+   "retirements": {
+    "actor": 0,
+    "director": 0,
+    "writer": 0,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 208,
+   "retirements": {
+    "actor": 1,
+    "director": 0,
+    "writer": 0,
+    "craft": 1
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 260,
+   "retirements": {
+    "actor": 0,
+    "director": 0,
+    "writer": 0,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 312,
+   "retirements": {
+    "actor": 0,
+    "director": 0,
+    "writer": 0,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 364,
+   "retirements": {
+    "actor": 1,
+    "director": 0,
+    "writer": 0,
+    "craft": 1
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 416,
+   "retirements": {
+    "actor": 0,
+    "director": 0,
+    "writer": 0,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 468,
+   "retirements": {
+    "actor": 0,
+    "director": 0,
+    "writer": 0,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 520,
+   "retirements": {
+    "actor": 0,
+    "director": 0,
+    "writer": 0,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 572,
+   "retirements": {
+    "actor": 0,
+    "director": 0,
+    "writer": 0,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 624,
+   "retirements": {
+    "actor": 1,
+    "director": 0,
+    "writer": 0,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 676,
+   "retirements": {
+    "actor": 0,
+    "director": 0,
+    "writer": 0,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 728,
+   "retirements": {
+    "actor": 0,
+    "director": 0,
+    "writer": 0,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 780,
+   "retirements": {
+    "actor": 3,
+    "director": 0,
+    "writer": 0,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 832,
+   "retirements": {
+    "actor": 2,
+    "director": 0,
+    "writer": 1,
+    "craft": 1
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 884,
+   "retirements": {
+    "actor": 1,
+    "director": 1,
+    "writer": 1,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 936,
+   "retirements": {
+    "actor": 3,
+    "director": 1,
+    "writer": 1,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 988,
+   "retirements": {
+    "actor": 2,
+    "director": 0,
+    "writer": 1,
+    "craft": 1
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 1040,
+   "retirements": {
+    "actor": 3,
+    "director": 0,
+    "writer": 2,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 1092,
+   "retirements": {
+    "actor": 0,
+    "director": 1,
+    "writer": 0,
+    "craft": 1
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 1144,
+   "retirements": {
+    "actor": 2,
+    "director": 0,
+    "writer": 0,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 1196,
+   "retirements": {
+    "actor": 3,
+    "director": 1,
+    "writer": 0,
+    "craft": 1
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 1248,
+   "retirements": {
+    "actor": 2,
+    "director": 1,
+    "writer": 1,
+    "craft": 1
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 1300,
+   "retirements": {
+    "actor": 3,
+    "director": 0,
+    "writer": 0,
+    "craft": 1
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 1352,
+   "retirements": {
+    "actor": 1,
+    "director": 0,
+    "writer": 1,
+    "craft": 1
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 1404,
+   "retirements": {
+    "actor": 1,
+    "director": 0,
+    "writer": 0,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 1456,
+   "retirements": {
+    "actor": 2,
+    "director": 0,
+    "writer": 1,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 1508,
+   "retirements": {
+    "actor": 2,
+    "director": 1,
+    "writer": 2,
+    "craft": 2
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 1560,
+   "retirements": {
+    "actor": 1,
+    "director": 0,
+    "writer": 2,
+    "craft": 1
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 1612,
+   "retirements": {
+    "actor": 0,
+    "director": 1,
+    "writer": 0,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 1664,
+   "retirements": {
+    "actor": 0,
+    "director": 0,
+    "writer": 0,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 1716,
+   "retirements": {
+    "actor": 2,
+    "director": 0,
+    "writer": 0,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 1768,
+   "retirements": {
+    "actor": 0,
+    "director": 0,
+    "writer": 1,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 1820,
+   "retirements": {
+    "actor": 0,
+    "director": 1,
+    "writer": 0,
+    "craft": 1
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 1872,
+   "retirements": {
+    "actor": 0,
+    "director": 1,
+    "writer": 1,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 1924,
+   "retirements": {
+    "actor": 0,
+    "director": 0,
+    "writer": 0,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 1976,
+   "retirements": {
+    "actor": 0,
+    "director": 3,
+    "writer": 0,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 2028,
+   "retirements": {
+    "actor": 0,
+    "director": 0,
+    "writer": 0,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 2080,
+   "retirements": {
+    "actor": 0,
+    "director": 0,
+    "writer": 0,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 2132,
+   "retirements": {
+    "actor": 0,
+    "director": 0,
+    "writer": 0,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 2184,
+   "retirements": {
+    "actor": 3,
+    "director": 0,
+    "writer": 1,
+    "craft": 1
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 2236,
+   "retirements": {
+    "actor": 0,
+    "director": 0,
+    "writer": 0,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 2288,
+   "retirements": {
+    "actor": 1,
+    "director": 1,
+    "writer": 0,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 2340,
+   "retirements": {
+    "actor": 0,
+    "director": 1,
+    "writer": 0,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 2392,
+   "retirements": {
+    "actor": 0,
+    "director": 0,
+    "writer": 0,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 2444,
+   "retirements": {
+    "actor": 0,
+    "director": 0,
+    "writer": 0,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 2496,
+   "retirements": {
+    "actor": 0,
+    "director": 0,
+    "writer": 0,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 2548,
+   "retirements": {
+    "actor": 0,
+    "director": 0,
+    "writer": 0,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 2600,
+   "retirements": {
+    "actor": 0,
+    "director": 0,
+    "writer": 0,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 2652,
+   "retirements": {
+    "actor": 0,
+    "director": 0,
+    "writer": 0,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 2704,
+   "retirements": {
+    "actor": 0,
+    "director": 0,
+    "writer": 0,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 2756,
+   "retirements": {
+    "actor": 0,
+    "director": 0,
+    "writer": 0,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 2808,
+   "retirements": {
+    "actor": 0,
+    "director": 0,
+    "writer": 0,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 2860,
+   "retirements": {
+    "actor": 0,
+    "director": 0,
+    "writer": 0,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 2912,
+   "retirements": {
+    "actor": 0,
+    "director": 0,
+    "writer": 0,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 2964,
+   "retirements": {
+    "actor": 0,
+    "director": 0,
+    "writer": 0,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 3016,
+   "retirements": {
+    "actor": 0,
+    "director": 0,
+    "writer": 0,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 3068,
+   "retirements": {
+    "actor": 0,
+    "director": 0,
+    "writer": 0,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 3120,
+   "retirements": {
+    "actor": 0,
+    "director": 0,
+    "writer": 0,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 3172,
+   "retirements": {
+    "actor": 2,
+    "director": 0,
+    "writer": 0,
+    "craft": 1
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 3224,
+   "retirements": {
+    "actor": 0,
+    "director": 0,
+    "writer": 0,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 3276,
+   "retirements": {
+    "actor": 0,
+    "director": 0,
+    "writer": 0,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 3328,
+   "retirements": {
+    "actor": 0,
+    "director": 0,
+    "writer": 0,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 3380,
+   "retirements": {
+    "actor": 0,
+    "director": 0,
+    "writer": 0,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 3432,
+   "retirements": {
+    "actor": 0,
+    "director": 0,
+    "writer": 1,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 3484,
+   "retirements": {
+    "actor": 0,
+    "director": 0,
+    "writer": 0,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 3536,
+   "retirements": {
+    "actor": 0,
+    "director": 0,
+    "writer": 0,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 3588,
+   "retirements": {
+    "actor": 0,
+    "director": 0,
+    "writer": 0,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 3640,
+   "retirements": {
+    "actor": 0,
+    "director": 0,
+    "writer": 0,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 3692,
+   "retirements": {
+    "actor": 0,
+    "director": 0,
+    "writer": 0,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 3744,
+   "retirements": {
+    "actor": 0,
+    "director": 0,
+    "writer": 0,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 3796,
+   "retirements": {
+    "actor": 0,
+    "director": 0,
+    "writer": 0,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 3848,
+   "retirements": {
+    "actor": 1,
+    "director": 0,
+    "writer": 0,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 3900,
+   "retirements": {
+    "actor": 0,
+    "director": 0,
+    "writer": 0,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 3952,
+   "retirements": {
+    "actor": 0,
+    "director": 0,
+    "writer": 0,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 4004,
+   "retirements": {
+    "actor": 0,
+    "director": 0,
+    "writer": 0,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 4056,
+   "retirements": {
+    "actor": 0,
+    "director": 0,
+    "writer": 0,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 4108,
+   "retirements": {
+    "actor": 0,
+    "director": 0,
+    "writer": 0,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 4160,
+   "retirements": {
+    "actor": 0,
+    "director": 0,
+    "writer": 0,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 4212,
+   "retirements": {
+    "actor": 0,
+    "director": 0,
+    "writer": 0,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 4264,
+   "retirements": {
+    "actor": 0,
+    "director": 0,
+    "writer": 0,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 4316,
+   "retirements": {
+    "actor": 0,
+    "director": 0,
+    "writer": 0,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 4368,
+   "retirements": {
+    "actor": 0,
+    "director": 0,
+    "writer": 0,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 4420,
+   "retirements": {
+    "actor": 0,
+    "director": 0,
+    "writer": 0,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 4472,
+   "retirements": {
+    "actor": 0,
+    "director": 0,
+    "writer": 0,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 4524,
+   "retirements": {
+    "actor": 0,
+    "director": 1,
+    "writer": 0,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 4576,
+   "retirements": {
+    "actor": 0,
+    "director": 0,
+    "writer": 0,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 4628,
+   "retirements": {
+    "actor": 0,
+    "director": 0,
+    "writer": 0,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 4680,
+   "retirements": {
+    "actor": 0,
+    "director": 0,
+    "writer": 0,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 4732,
+   "retirements": {
+    "actor": 0,
+    "director": 0,
+    "writer": 0,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 4784,
+   "retirements": {
+    "actor": 0,
+    "director": 0,
+    "writer": 0,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 4836,
+   "retirements": {
+    "actor": 0,
+    "director": 0,
+    "writer": 0,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 4888,
+   "retirements": {
+    "actor": 0,
+    "director": 0,
+    "writer": 0,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 4940,
+   "retirements": {
+    "actor": 0,
+    "director": 0,
+    "writer": 0,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 4992,
+   "retirements": {
+    "actor": 0,
+    "director": 0,
+    "writer": 0,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 5044,
+   "retirements": {
+    "actor": 0,
+    "director": 0,
+    "writer": 0,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 5096,
+   "retirements": {
+    "actor": 0,
+    "director": 0,
+    "writer": 0,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 5148,
+   "retirements": {
+    "actor": 0,
+    "director": 0,
+    "writer": 0,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 5200,
+   "retirements": {
+    "actor": 0,
+    "director": 0,
+    "writer": 0,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 5252,
+   "retirements": {
+    "actor": 0,
+    "director": 0,
+    "writer": 0,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 5304,
+   "retirements": {
+    "actor": 0,
+    "director": 0,
+    "writer": 0,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 5356,
+   "retirements": {
+    "actor": 0,
+    "director": 0,
+    "writer": 0,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 5408,
+   "retirements": {
+    "actor": 0,
+    "director": 0,
+    "writer": 0,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 5460,
+   "retirements": {
+    "actor": 0,
+    "director": 0,
+    "writer": 0,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 5512,
+   "retirements": {
+    "actor": 0,
+    "director": 0,
+    "writer": 0,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 5564,
+   "retirements": {
+    "actor": 0,
+    "director": 0,
+    "writer": 0,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 5616,
+   "retirements": {
+    "actor": 0,
+    "director": 0,
+    "writer": 0,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 5668,
+   "retirements": {
+    "actor": 0,
+    "director": 0,
+    "writer": 0,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 5720,
+   "retirements": {
+    "actor": 0,
+    "director": 0,
+    "writer": 0,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 5772,
+   "retirements": {
+    "actor": 0,
+    "director": 0,
+    "writer": 0,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 5824,
+   "retirements": {
+    "actor": 0,
+    "director": 0,
+    "writer": 0,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 5876,
+   "retirements": {
+    "actor": 0,
+    "director": 0,
+    "writer": 0,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 5928,
+   "retirements": {
+    "actor": 0,
+    "director": 0,
+    "writer": 0,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 5980,
+   "retirements": {
+    "actor": 0,
+    "director": 0,
+    "writer": 0,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 6032,
+   "retirements": {
+    "actor": 0,
+    "director": 0,
+    "writer": 0,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 6084,
+   "retirements": {
+    "actor": 0,
+    "director": 0,
+    "writer": 0,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 6136,
+   "retirements": {
+    "actor": 0,
+    "director": 0,
+    "writer": 0,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 6188,
+   "retirements": {
+    "actor": 0,
+    "director": 0,
+    "writer": 0,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  },
+  {
+   "week": 6240,
+   "retirements": {
+    "actor": 0,
+    "director": 0,
+    "writer": 0,
+    "craft": 0
+   },
+   "entrants": null,
+   "clipped": null
+  }
+ ]
+}

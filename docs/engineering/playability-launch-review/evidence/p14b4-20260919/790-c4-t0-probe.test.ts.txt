@@ -1,0 +1,432 @@
+// P14C.4-T0 CORPUS PROBE — measurement only, ASSERTS NOTHING about the product.
+//
+// Record 782 (§8-style T0, mirroring 773's for C.2a) requires measuring the C.4
+// replenishment fixture axes (Y1-Y7) by an executable probe BEFORE any C.4 source
+// change exists and before a minter commits bytes. This mirrors the 774/775 T0
+// pattern for C.2a. STRAY-PROBE DISCIPLINE (record 726): run ALONE by positional
+// filename, never inside a suite pass, then archived and removed. One `it` that
+// only prints.
+//
+// C.4 does not exist in src/ yet: `state.careerLifecycle` here is produced ENTIRELY
+// by the live C.2a engine (records 773/777, already the sole writer of `src/`).
+// Every "cohort" fact below is therefore a MEASUREMENT of what C.2a's retirement
+// records already look like — the exact input a future C.4 primitive would consume
+// — never a simulation of C.4 itself.
+import assert from 'node:assert/strict'
+import { readFileSync } from 'node:fs'
+import { gunzipSync } from 'node:zlib'
+import { it } from 'vitest'
+import {
+  applyActions, tick, hiringMarketIds, busyTalentIds, generateWorld,
+  LIVE_SAVE_VERSION, exportSave, makeSave, validateSaveV33, validateSaveV34, convertV33ToV34,
+} from '../src/core/index.js'
+import { advanceTo, p13aGeneratedStudio } from '../src/harness/p13a/fixtures.js'
+import type { CreativeRole, GameState } from '../src/core/index.js'
+import { fund } from './helpers/p14b2-fixtures.js'
+
+const SEED = 'p14c4-corpus-01'
+const FILM_ROLES: CreativeRole[] = ['actor', 'director', 'writer', 'craft'] // 782 R3 profession order; R4 no Scientists
+const V33_MIGRATION_FIXTURE = 'tests/fixtures/p14/genuine-v33-c2-corpus/genuine-v33-c2-hard-boundary-and-idle-window.json.gz'
+const COHORT_CAP = 32 // 782 R3
+
+function saveFactsV34(state: GameState, label: string) {
+  try {
+    const json = exportSave(makeSave(state))
+    const back = validateSaveV34(JSON.parse(json))
+    return { label, ok: true, saveVersion: back.saveVersion, bytes: Buffer.byteLength(json, 'utf8') }
+  } catch (error) { return { label, ok: false, error: (error as Error).message.slice(0, 300) } }
+}
+
+function authoredAt(name: string, role: CreativeRole, age: number, i: number) {
+  return {
+    kind: 'createTalent' as const,
+    talent: {
+      name, role, age,
+      actual: { warmth: 0.1 * i, gravity: -0.1 * i, physicality: 0.2 },
+      potentialTier: 'Steady' as const, workEthic: 55,
+    },
+  }
+}
+
+function sign(state: GameState, role: 'actor' | 'writer' | 'director' | 'craft', termWeeks = 208) {
+  for (let i = 0; i < 60; i++) {
+    const person = hiringMarketIds(state, state.market.tick).map((id) => state.talent.find((p) => p.id === id)).find((p) => p?.role === role)
+    if (person !== undefined) return { state: applyActions(state, [{ kind: 'signContract', talentId: person.id, termWeeks }] as never), id: person.id }
+    state = tick(state)
+  }
+  throw new Error(`probe: no signable ${role}`)
+}
+
+function statusSnapshot(state: GameState) {
+  const out: Record<string, Record<string, number>> = { announced: {}, finishing_commitments: {}, retired: {} }
+  for (const r of state.careerLifecycle.records) {
+    out[r.status]![r.profession] = (out[r.status]![r.profession] ?? 0) + 1
+  }
+  return out
+}
+
+/** 782 R3: retired-in-window per profession + total, for the year ending at `w`. */
+function retiredInWindow(state: GameState, w: number) {
+  const perRole: Record<string, number> = {}
+  let total = 0
+  for (const r of state.careerLifecycle.records) {
+    if (r.status !== 'retired' || r.retiredWeek === null) continue
+    if (r.retiredWeek > w - 52 && r.retiredWeek <= w) {
+      perRole[r.profession] = (perRole[r.profession] ?? 0) + 1
+      total++
+    }
+  }
+  return { perRole, total }
+}
+
+/** R3's clip: allotted in profession order, remainder dropped (not carried). */
+function clipRequest(perRole: Record<string, number>) {
+  let remaining = COHORT_CAP
+  const clipped: Record<string, number> = {}
+  for (const role of FILM_ROLES) {
+    const want = perRole[role] ?? 0
+    const take = Math.min(want, remaining)
+    clipped[role] = take
+    remaining -= take
+  }
+  const requestedTotal = FILM_ROLES.reduce((s, r) => s + (perRole[r] ?? 0), 0)
+  const clippedTotal = FILM_ROLES.reduce((s, r) => s + clipped[r]!, 0)
+  return { clipped, requestedTotal, clippedTotal, clippedAway: requestedTotal - clippedTotal }
+}
+
+function retiredIdsInFreeAgents(state: GameState): string[] {
+  const retiredIds = new Set(state.careerLifecycle.records.filter((r) => r.status === 'retired').map((r) => r.personId))
+  return state.freeAgents.filter((id) => retiredIds.has(id))
+}
+
+const nextMultipleOf52After = (week: number): number => (Math.floor(week / 52) + 1) * 52
+
+// Coordinator addendum (mid-task): the parent is amending 782 R3's sizing rule
+// towards max(0, accepted_p - active_p(W)), raised to >=1 when p has no active
+// person under 30, where accepted_p is the genesis worldgen size below. Recorded
+// here for LABELING only, per the addendum's own scope ("everything else stands").
+const ACCEPTED_GENESIS_SIZES: Record<string, number> = { actor: 40, director: 14, writer: 16, craft: 14 }
+
+/** Coordinator addendum: per profession, "active" = a talent of that profession with
+ * NO `retired` record (announced/finishing/no-record all count as active), counted on
+ * the state the tick producing W returns (i.e. AFTER W's settlement); activeUnder30
+ * is the same set filtered on the materialized `Talent.age` at W. */
+function activeByProfession(state: GameState, _week: number) {
+  const retiredIds = new Set(state.careerLifecycle.records.filter((r) => r.status === 'retired').map((r) => r.personId))
+  const out: Record<string, { activeCount: number; activeUnder30: number }> = {}
+  for (const role of FILM_ROLES) out[role] = { activeCount: 0, activeUnder30: 0 }
+  for (const t of state.talent) {
+    const bucket = out[t.role]
+    if (bucket === undefined || retiredIds.has(t.id)) continue
+    bucket.activeCount++
+    if (t.age < 30) bucket.activeUnder30++
+  }
+  return out
+}
+
+/** Coordinator addendum: state.talent must stay append-only across the continuation
+ * — the SAME ids in the SAME order, with any new ids only at the end. */
+function appendOnlyCheck(beforeIds: readonly string[], afterIds: readonly string[]) {
+  const prefixMatches = beforeIds.every((id, i) => afterIds[i] === id)
+  return { prefixMatches, appendOnly: prefixMatches && afterIds.length >= beforeIds.length, beforeCount: beforeIds.length, afterCount: afterIds.length, newIdsAppended: afterIds.length - beforeIds.length }
+}
+
+/** "V34-engine continuation facts": continue the SAVED state under the real,
+ * unmodified V34 engine (no C.4 exists) to the next TWO 52k weeks, splitting each
+ * window's retirements into "already in the save" vs "happened during continuation". */
+function continuationFacts(saved: GameState, saveWeek: number) {
+  const savedIds = saved.talent.map((t) => t.id)
+  const w1 = nextMultipleOf52After(saveWeek)
+  const w2 = w1 + 52
+  let cont = saved
+  cont = advanceTo(cont, w1)
+  const at1 = { ...windowSplit(cont, w1, saveWeek), activeByProfession: activeByProfession(cont, w1), appendOnlyFromSave: appendOnlyCheck(savedIds, cont.talent.map((t) => t.id)) }
+  cont = advanceTo(cont, w2)
+  const at2 = { ...windowSplit(cont, w2, saveWeek), activeByProfession: activeByProfession(cont, w2), appendOnlyFromSave: appendOnlyCheck(savedIds, cont.talent.map((t) => t.id)) }
+  return { w1: at1, w2: at2, acceptedGenesisSizes: ACCEPTED_GENESIS_SIZES }
+}
+function windowSplit(state: GameState, w: number, saveWeek: number) {
+  const perRole: Record<string, number> = {}
+  const perRoleBeforeSave: Record<string, number> = {}
+  const perRoleAfterSave: Record<string, number> = {}
+  let total = 0, beforeSave = 0, afterSave = 0
+  for (const r of state.careerLifecycle.records) {
+    if (r.status !== 'retired' || r.retiredWeek === null) continue
+    if (r.retiredWeek > w - 52 && r.retiredWeek <= w) {
+      perRole[r.profession] = (perRole[r.profession] ?? 0) + 1
+      total++
+      if (r.retiredWeek <= saveWeek) { beforeSave++; perRoleBeforeSave[r.profession] = (perRoleBeforeSave[r.profession] ?? 0) + 1 }
+      else { afterSave++; perRoleAfterSave[r.profession] = (perRoleAfterSave[r.profession] ?? 0) + 1 }
+    }
+  }
+  return { week: w, perRole, total, ...clipRequest(perRole), beforeSave, perRoleBeforeSave, afterSave, perRoleAfterSave, talentLength: state.talent.length }
+}
+
+it('MEASURES which of the C.4 replenishment corpus axes are reachable', () => {
+  const rows: unknown[] = []
+
+  // ── Y4 — a lawful V34 world with hollywood === null; can it tick? ───────────
+  let y4: unknown
+  try {
+    const bare = generateWorld(SEED + '-y4')
+    const initial = {
+      hollywoodNull: bare.hollywood === null,
+      hasCareerLifecycleRoot: 'careerLifecycle' in bare,
+      boundaryWeek: bare.careerLifecycle.boundaryWeek,
+      recordCount: bare.careerLifecycle.records.length,
+      week: bare.market.tick,
+    }
+    let state = tick(bare) // does a bare (pre-founding) V34 state tick at all?
+    const checkpoints: unknown[] = []
+    for (const target of [52, 104, 156, 208]) {
+      state = advanceTo(state, target)
+      checkpoints.push({ week: target, hollywoodNull: state.hollywood === null, recordCount: state.careerLifecycle.records.length })
+    }
+    y4 = {
+      reachable: true, route: 'generateWorld(seed) — pre-founding, no activateStudioOperations/initializeHollywood',
+      initial, tickedOnce: true, checkpoints, saveFacts: saveFactsV34(state, 'y4'),
+      mintCandidate: { week: state.market.tick, hiringMarketIdsLength: (() => { try { return hiringMarketIds(state, state.market.tick).length } catch (e) { return `error: ${(e as Error).message.slice(0, 120)}` } })() },
+    }
+  } catch (error) { y4 = { reachable: false, error: (error as Error).message.slice(0, 400) } }
+  rows.push({ axis: 'Y4-null-hollywood', ...y4 as object })
+
+  // ── Y5 — a genuine V33 fixture migrated to V34 (live migration), ticked past
+  //    a 52k week so it holds post-migration ("boundaryWeek > 0") records. ──────
+  let y5: unknown
+  try {
+    const raw = JSON.parse(gunzipSync(readFileSync(new URL('../' + V33_MIGRATION_FIXTURE, import.meta.url))).toString('utf8'))
+    const v33 = validateSaveV33(raw)
+    const migrationWeek = v33.state.market.tick
+    const v34 = convertV33ToV34(v33)
+    const boundaryWeek = v34.state.careerLifecycle.boundaryWeek
+    let state = v34.state as unknown as GameState
+    const checkpoints: unknown[] = []
+    for (const target of [migrationWeek + 52, migrationWeek + 104, migrationWeek + 156, migrationWeek + 208]) {
+      state = advanceTo(state, target)
+      checkpoints.push({ week: target, recordCount: state.careerLifecycle.records.length, statuses: statusSnapshot(state) })
+    }
+    const postMigrationRecords = state.careerLifecycle.records.filter((r) => r.announcedWeek >= boundaryWeek)
+    y5 = {
+      reachable: true, migrationWeek, boundaryWeek, boundaryGreaterThanZero: boundaryWeek > 0,
+      checkpoints, postMigrationRecordCount: postMigrationRecords.length,
+      allRecordsPostMigration: postMigrationRecords.length === state.careerLifecycle.records.length,
+      week: state.market.tick, saveFacts: saveFactsV34(state, 'y5'),
+    }
+  } catch (error) { y5 = { reachable: false, error: (error as Error).message.slice(0, 400) } }
+  rows.push({ axis: 'Y5-migrated-chain', ...y5 as object })
+
+  // ── Y1 (mid-year) + Y2 (at a cohort week) — one natural-ish population ticked
+  //    week by week, searching for the first qualifying week of each kind. ──────
+  let y1y2: unknown
+  try {
+    let state = fund(p13aGeneratedStudio(SEED + '-y1y2'))
+    state = applyActions(state, [
+      authoredAt('Authored Quick Actor', 'actor', 70, 0),
+      authoredAt('Authored Quick Writer', 'writer', 70, 1),
+      authoredAt('Authored Quick Craft', 'craft', 70, 2),
+    ] as never)
+    let y1Hit: unknown = null
+    let y2Hit: unknown = null
+    const trace: unknown[] = []
+    while (state.market.tick <= 300 && (y1Hit === null || y2Hit === null)) {
+      state = tick(state)
+      const w = state.market.tick // the label MUST be the state's own actual tick, never a separately-tracked loop counter
+      const win = retiredInWindow(state, w)
+      if (w % 52 !== 0 && win.total > 0 && y1Hit === null) {
+        y1Hit = { week: w, ...win, statuses: statusSnapshot(state) }
+      }
+      if (w % 52 === 0 && w > 0 && win.total > 0 && y2Hit === null) {
+        y2Hit = { week: w, ...win, statuses: statusSnapshot(state) }
+      }
+      if (w % 26 === 0) trace.push({ week: w, ...retiredInWindow(state, w) })
+    }
+    y1y2 = { y1: y1Hit, y2: y2Hit, trace }
+  } catch (error) { y1y2 = { error: (error as Error).message.slice(0, 400) } }
+  rows.push({ axis: 'Y1-mid-year+Y2-cohort-week', ...y1y2 as object })
+
+  // ── Y3 — all three statuses simultaneously, >=2 professions; freeAgents check. ─
+  let y3: unknown
+  try {
+    let state = fund(p13aGeneratedStudio(SEED + '-y3'))
+    state = applyActions(state, [
+      authoredAt('Authored Y3 Actor', 'actor', 70, 0),
+      authoredAt('Authored Y3 Writer', 'writer', 70, 1),
+      authoredAt('Authored Y3 Craft', 'craft', 70, 2),
+    ] as never)
+    // Seat one director on a long (400wk) production and one actor as lead on
+    // another, medium (208wk), production — both greenlit, both left UNRELEASED,
+    // so busyTalentIds stays true past their own effectiveWeek (matches the
+    // accepted E2 test's own finding: this recipe's productions do not wrap on
+    // their own within hundreds of weeks).
+    state = applyActions(state, [authoredAt('Authored Y3 Director', 'director', 70, 3)] as never)
+    const directorId = state.talent.find((t) => t.name === 'Authored Y3 Director')!.id
+    state = applyActions(state, [{ kind: 'signContract', talentId: directorId, termWeeks: 400 }] as never)
+    let w1 = sign(state, 'writer'); state = w1.state
+    let l1 = sign(state, 'actor'); state = l1.state
+    let a1 = sign(state, 'actor'); state = a1.state
+    let s1 = sign(state, 'actor'); state = s1.state
+    let c1 = sign(state, 'craft'); state = c1.state
+    const concept1 = state.concepts[0]!
+    state = applyActions(state, [{
+      kind: 'greenlight', production: {
+        conceptId: concept1.id, shape: { opening: 'slowSetup', midpoint: 'revelation', ending: 'bittersweet' },
+        promise: { genre: concept1.genre, intendedSegments: ['adult'], ranges: { intimacy: [-0.5, 0.5], tonalWeight: [-0.5, 0.5], kineticEnergy: [-0.5, 0.5] } },
+        writerId: w1.id, directorId, cast: { lead: l1.id, antagonist: a1.id, support: s1.id }, craftIds: [c1.id],
+        budget: { negative: concept1.baseNegativeCost, marketing: 0 },
+      },
+    }] as never)
+    state = applyActions(state, [authoredAt('Authored Y3 Lead', 'actor', 70, 4)] as never)
+    const leadId = state.talent.find((t) => t.name === 'Authored Y3 Lead')!.id
+    state = applyActions(state, [{ kind: 'signContract', talentId: leadId, termWeeks: 208 }] as never)
+    let d2 = sign(state, 'director'); state = d2.state
+    let w2 = sign(state, 'writer'); state = w2.state
+    let a2 = sign(state, 'actor'); state = a2.state
+    let s2 = sign(state, 'actor'); state = s2.state
+    let c2 = sign(state, 'craft'); state = c2.state
+    const concept2 = state.concepts.find((c) => c.id !== concept1.id) ?? state.concepts[1]
+    if (concept2 === undefined) throw new Error('probe: only one concept available for the second Y3 production')
+    state = applyActions(state, [{
+      kind: 'greenlight', production: {
+        conceptId: concept2.id, shape: { opening: 'slowSetup', midpoint: 'revelation', ending: 'bittersweet' },
+        promise: { genre: concept2.genre, intendedSegments: ['adult'], ranges: { intimacy: [-0.5, 0.5], tonalWeight: [-0.5, 0.5], kineticEnergy: [-0.5, 0.5] } },
+        writerId: w2.id, directorId: d2.id, cast: { lead: leadId, antagonist: a2.id, support: s2.id }, craftIds: [c2.id],
+        budget: { negative: concept2.baseNegativeCost, marketing: 0 },
+      },
+    }] as never)
+    let found: unknown = null
+    const trace: unknown[] = []
+    while (state.market.tick <= 500 && found === null) {
+      state = tick(state)
+      const w = state.market.tick // the label MUST be the state's own actual tick, never a separately-tracked loop counter
+      const snap = statusSnapshot(state)
+      const allThree = (snap.announced && Object.keys(snap.announced).length > 0)
+        && (snap.finishing_commitments && Object.keys(snap.finishing_commitments).length > 0)
+        && (snap.retired && Object.keys(snap.retired).length > 0)
+      if (w % 26 === 0) trace.push({ week: w, statuses: snap })
+      if (allThree) {
+        const professions = new Set<string>()
+        for (const status of Object.keys(snap)) for (const role of Object.keys(snap[status]!)) professions.add(role)
+        found = {
+          week: w, statuses: snap, professionsRepresented: [...professions],
+          atLeastTwoProfessions: professions.size >= 2,
+          retiredIdsInFreeAgents: retiredIdsInFreeAgents(state),
+          seatedNow: { directorId: busyTalentIds(state).has(directorId), leadId: busyTalentIds(state).has(leadId) },
+          saveFacts: saveFactsV34(state, 'y3'),
+        }
+      }
+    }
+    y3 = { found, trace: found === null ? trace : undefined }
+  } catch (error) { y3 = { reachable: false, error: (error as Error).message.slice(0, 500) } }
+  rows.push({ axis: 'Y3-all-statuses', ...y3 as object })
+
+  // ── Y6 — clip reachability across 5 independent seeds to week 1600. ─────────
+  let y6: unknown
+  try {
+    const seeds = [SEED + '-y6a', SEED + '-y6b', SEED + '-y6c', SEED + '-y6d', SEED + '-y6e']
+    const perSeed: unknown[] = []
+    let maxTotal = 0
+    let maxAt: unknown = null
+    for (const seed of seeds) {
+      let state = p13aGeneratedStudio(seed)
+      const checkpoints: unknown[] = []
+      for (let w = 52; w <= 1600; w += 52) {
+        state = advanceTo(state, w)
+        const win = retiredInWindow(state, w)
+        checkpoints.push({ week: w, ...win })
+        if (win.total > maxTotal) { maxTotal = win.total; maxAt = { seed, week: w, ...win } }
+      }
+      perSeed.push({ seed, checkpoints })
+    }
+    // Fallback primitive: AUTHORED_BUDGET is checked PER createTalent action, so
+    // repeated calls in one world are not budget-limited. Confirm by authoring 40
+    // hard-boundary people (10 per film role, in R3's order) in one batch, then
+    // ticking to week 104 (every one of them announces at their own first
+    // birthday, somewhere in weeks 1-52, then retires exactly 52 weeks later —
+    // so ALL retirements land inside the single (52,104] bucket).
+    let clipState = fund(p13aGeneratedStudio(SEED + '-y6clip'))
+    const clipActions = FILM_ROLES.flatMap((role, ri) => Array.from({ length: 10 }, (_, i) => authoredAt(`Clip ${role} ${i}`, role, 70, ri * 10 + i)))
+    clipState = applyActions(clipState, clipActions as never)
+    const authoredCount = clipActions.length
+    const clipCheckpoints: unknown[] = []
+    let bestClipWindow = { week: 0, ...retiredInWindow(clipState, 0) }
+    for (const target of [104, 156, 208, 260, 312]) {
+      clipState = advanceTo(clipState, target)
+      const win = retiredInWindow(clipState, target)
+      clipCheckpoints.push({ week: target, ...win })
+      if (win.total > bestClipWindow.total) bestClipWindow = { week: target, ...win }
+    }
+    y6 = {
+      perSeed, naturalMax: { total: maxTotal, at: maxAt }, thirtyTwoInOneYearNaturallyReachable: maxTotal >= COHORT_CAP,
+      authoredBudgetFallback: {
+        authoredCount, checkedPerAction: true, checkpoints: clipCheckpoints,
+        bestWindow: bestClipWindow, clipDemonstrated: bestClipWindow.total > COHORT_CAP,
+        ...clipRequest(bestClipWindow.perRole),
+      },
+    }
+  } catch (error) { y6 = { error: (error as Error).message.slice(0, 500) } }
+  rows.push({ axis: 'Y6-clip-reachability', ...y6 as object })
+
+  // ── Y7 — is the week-52 window always empty? Paper reason: E >= A + 52, A >= 1. ─
+  let y7: unknown
+  try {
+    let anyRetiredInFirstWindow = false
+    const y6rows = (y6 as { perSeed?: { checkpoints: { week: number; total: number }[] }[] }).perSeed ?? []
+    for (const s of y6rows) {
+      const first = s.checkpoints.find((c) => c.week === 52)
+      if (first !== undefined && first.total > 0) anyRetiredInFirstWindow = true
+    }
+    y7 = {
+      week52WindowAlwaysEmptyInY6Data: !anyRetiredInFirstWindow,
+      paperReason: 'retiredWeek >= effectiveWeek = max(announcedWeek + 52, endInForce) >= announcedWeek + 52; '
+        + 'announcedWeek (A) is a birthday week, so A >= 1 (no birthday materializes at week 0); '
+        + 'therefore retiredWeek >= 1 + 52 = 53 > 52, so no record can retire inside (0, 52]',
+    }
+  } catch (error) { y7 = { error: (error as Error).message.slice(0, 300) } }
+  rows.push({ axis: 'Y7-year-one', ...y7 as object })
+
+  // ── Y8 (coordinator addendum #2) — DEEP DEFICIT: a purely passive world (no
+  //    player action; fund() NOT called, following 775 world 2's precedent for a
+  //    natural tick-only world) ticked to week 2600 (itself a 52k week, 52*50).
+  //    NOT REACHED if the tick loop alone takes over 90s (measured, not estimated). ─
+  let y8: unknown
+  try {
+    const week = 2600
+    const buildStart = performance.now()
+    const state = advanceTo(p13aGeneratedStudio('p14c4-demo-01'), week)
+    const buildMs = performance.now() - buildStart
+    const active = activeByProfession(state, week)
+    const totalActive = FILM_ROLES.reduce((s, r) => s + active[r]!.activeCount, 0)
+    const hiringListing = hiringMarketIds(state, week)
+    const continuation = continuationFacts(state, week)
+    y8 = {
+      reachable: buildMs <= 90_000,
+      fundCalled: false, buildMs, week,
+      activeByProfession: active, totalActive, hiringListingLength: hiringListing.length,
+      statuses: statusSnapshot(state), continuation, saveFacts: saveFactsV34(state, 'y8'),
+    }
+  } catch (error) { y8 = { reachable: false, error: (error as Error).message.slice(0, 400) } }
+  rows.push({ axis: 'Y8-deep-deficit', ...y8 as object })
+
+  // ── Continuation-fact dry runs for the Y1/Y2/Y4/Y5 candidates (so the minter's
+  //    provenance shape is proved here first, on throwaway copies). ────────────
+  let continuationDryRun: unknown
+  try {
+    const y1y2rows = y1y2 as { y1?: { week: number } | null; y2?: { week: number } | null }
+    const out: Record<string, unknown> = {}
+    if (y1y2rows.y1) {
+      let state = fund(p13aGeneratedStudio(SEED + '-y1y2'))
+      state = applyActions(state, [
+        authoredAt('Authored Quick Actor', 'actor', 70, 0),
+        authoredAt('Authored Quick Writer', 'writer', 70, 1),
+        authoredAt('Authored Quick Craft', 'craft', 70, 2),
+      ] as never)
+      state = advanceTo(state, y1y2rows.y1.week)
+      out.y1 = continuationFacts(state, y1y2rows.y1.week)
+    }
+    continuationDryRun = out
+  } catch (error) { continuationDryRun = { error: (error as Error).message.slice(0, 400) } }
+  rows.push({ axis: 'continuation-facts-dry-run', ...continuationDryRun as object })
+
+  assert.equal(LIVE_SAVE_VERSION, 34)
+  console.log(JSON.stringify({ seed: SEED, ranAt: new Date().toISOString(), rows }, null, 2))
+}, 900_000)

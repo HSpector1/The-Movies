@@ -1,0 +1,953 @@
+{
+  "authority": {
+    "phase": "P14C.4 T0 / the genuine outgoing Save V34 corpus for the C.4 deterministic-replenishment expansion, minted at the FINAL V34 writer before any C.4 source change",
+    "headSha": "ff7b9ac1d334709f1c907e6f7e6d918b935ee9a5",
+    "publishedRecoverySha": "ff7b9ac1d334709f1c907e6f7e6d918b935ee9a5",
+    "publicationState": "PUBLISHED: git ls-remote origin wip/headless-program-20260916-ts returned the minting head at mint time.",
+    "expansionRelativePath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/782-c4-replenishment-expansion.md",
+    "expansionSha256": "94cbf96d1158d49733388b8e4dd2d91bdfa3f8798a1d9aa80f0f97a66bdfcc0a",
+    "measurementRelativePath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/790-c4-t0-measurement.md",
+    "measurementSha256": "c0303b5ded44264c2066dafa5404f9a6fc46bef2be866640b201b67a18c104d4",
+    "saveVersion": 34,
+    "approvalEnvironmentVariable": "STUDIO_MINT_V34_C4_CORPUS_APPROVED",
+    "outputRelativePath": "tests/fixtures/p14/genuine-v34-c4-corpus",
+    "cohortCapAssumed": 32,
+    "acceptedGenesisSizes": {
+      "actor": 40,
+      "director": 14,
+      "writer": 16,
+      "craft": 14
+    },
+    "filmRoles": [
+      "actor",
+      "director",
+      "writer",
+      "craft"
+    ],
+    "predictionMethodNote": "\"V34-engine continuation facts\": continuationFacts (this file) continues the SAVED state under the real, unmodified V34/C.2a engine (no C.4 code anywhere in this repository) to the next TWO 52k weeks via real advanceTo()/tick() calls — never a hand-rolled formula. It is a measured prediction under 782 R3 (as amended) and 773 D3/D5/D13, not an implementation output: no `cohorts` receipt or cohort primitive exists anywhere in this corpus. C.4 must be byte-identical to this same engine until the first cohort week's own lifecycle settlement — that identity is what makes these continuation facts real predictions rather than post-hoc narration."
+  },
+  "fixtures": [
+    {
+      "filename": "genuine-v34-c4-cohort-week.json.gz",
+      "provenanceFilename": "genuine-v34-c4-cohort-week.provenance.json",
+      "week": 104,
+      "saveVersion": 34,
+      "uncompressedSha256": "5b7c2732a681c4c33b94a276118c05742120a73b444d2623975692f782df2fdb",
+      "compressedSha256": "b18eee654b57ae7040c6cddfb878f3e358ee735c757adf481fe88ffa97a91b02",
+      "byteLength": 1091668,
+      "compressedByteLength": 125597,
+      "axis": "Y2: saved at EXACTLY w = 52*2 = 104, holding a retirement in (52,104] — its own cohort week has already passed, so no future C.4 cohort could ever replace it (measured, not judged).",
+      "focus": {
+        "window": {
+          "perRole": {
+            "actor": 1
+          },
+          "total": 1
+        }
+      },
+      "core": {
+        "tick": 104,
+        "hollywoodNonNull": true,
+        "recordsByStatusAndProfession": {
+          "announced": {
+            "writer": 1,
+            "craft": 1
+          },
+          "finishing_commitments": {},
+          "retired": {
+            "actor": 1
+          }
+        },
+        "talentLength": 87,
+        "freeAgentsLength": 3,
+        "retiredIdsInFreeAgents": [
+          "authored-0000"
+        ],
+        "hiringMarketIdsLength": 10,
+        "careerLifecycleBoundaryWeek": 0,
+        "continuation": {
+          "w1": {
+            "week": 156,
+            "perRole": {
+              "writer": 1,
+              "craft": 1
+            },
+            "total": 2,
+            "clipped": {
+              "actor": 0,
+              "director": 0,
+              "writer": 1,
+              "craft": 1
+            },
+            "requestedTotal": 2,
+            "clippedTotal": 2,
+            "clippedAway": 0,
+            "beforeSave": 0,
+            "perRoleBeforeSave": {},
+            "afterSave": 2,
+            "perRoleAfterSave": {
+              "writer": 1,
+              "craft": 1
+            },
+            "talentLength": 87,
+            "activeByProfession": {
+              "actor": {
+                "activeCount": 40,
+                "activeUnder30": 5
+              },
+              "director": {
+                "activeCount": 14,
+                "activeUnder30": 5
+              },
+              "writer": {
+                "activeCount": 16,
+                "activeUnder30": 1
+              },
+              "craft": {
+                "activeCount": 14,
+                "activeUnder30": 1
+              }
+            },
+            "appendOnlyFromSave": {
+              "prefixMatches": true,
+              "appendOnly": true,
+              "beforeCount": 87,
+              "afterCount": 87,
+              "newIdsAppended": 0
+            }
+          },
+          "w2": {
+            "week": 208,
+            "perRole": {
+              "actor": 2
+            },
+            "total": 2,
+            "clipped": {
+              "actor": 2,
+              "director": 0,
+              "writer": 0,
+              "craft": 0
+            },
+            "requestedTotal": 2,
+            "clippedTotal": 2,
+            "clippedAway": 0,
+            "beforeSave": 0,
+            "perRoleBeforeSave": {},
+            "afterSave": 2,
+            "perRoleAfterSave": {
+              "actor": 2
+            },
+            "talentLength": 87,
+            "activeByProfession": {
+              "actor": {
+                "activeCount": 38,
+                "activeUnder30": 4
+              },
+              "director": {
+                "activeCount": 14,
+                "activeUnder30": 4
+              },
+              "writer": {
+                "activeCount": 16,
+                "activeUnder30": 0
+              },
+              "craft": {
+                "activeCount": 14,
+                "activeUnder30": 1
+              }
+            },
+            "appendOnlyFromSave": {
+              "prefixMatches": true,
+              "appendOnly": true,
+              "beforeCount": 87,
+              "afterCount": 87,
+              "newIdsAppended": 0
+            }
+          },
+          "acceptedGenesisSizes": {
+            "actor": 40,
+            "director": 14,
+            "writer": 16,
+            "craft": 14
+          }
+        }
+      }
+    },
+    {
+      "filename": "genuine-v34-c4-mid-year.json.gz",
+      "provenanceFilename": "genuine-v34-c4-mid-year.provenance.json",
+      "week": 105,
+      "saveVersion": 34,
+      "uncompressedSha256": "187bbefb1303c6baf3ceee0edbeb640301d673263c8882d4d7ba91c72b1136c6",
+      "compressedSha256": "6d1e8373b242b2320fb3b6391fcb509156fef04c9834df5cb8da24ff7a0d1ca9",
+      "byteLength": 1093792,
+      "compressedByteLength": 125871,
+      "axis": "Y1: saved at w = 105 (w % 52 !== 0), holding a retirement in the CURRENT incomplete-year window (52,105] — the exact \"first post-migration cohort counts pre-save retirements\" shape.",
+      "focus": {
+        "window": {
+          "perRole": {
+            "actor": 1
+          },
+          "total": 1
+        }
+      },
+      "core": {
+        "tick": 105,
+        "hollywoodNonNull": true,
+        "recordsByStatusAndProfession": {
+          "announced": {
+            "writer": 1,
+            "craft": 1
+          },
+          "finishing_commitments": {},
+          "retired": {
+            "actor": 1
+          }
+        },
+        "talentLength": 87,
+        "freeAgentsLength": 3,
+        "retiredIdsInFreeAgents": [
+          "authored-0000"
+        ],
+        "hiringMarketIdsLength": 8,
+        "careerLifecycleBoundaryWeek": 0,
+        "continuation": {
+          "w1": {
+            "week": 156,
+            "perRole": {
+              "writer": 1,
+              "craft": 1
+            },
+            "total": 2,
+            "clipped": {
+              "actor": 0,
+              "director": 0,
+              "writer": 1,
+              "craft": 1
+            },
+            "requestedTotal": 2,
+            "clippedTotal": 2,
+            "clippedAway": 0,
+            "beforeSave": 0,
+            "perRoleBeforeSave": {},
+            "afterSave": 2,
+            "perRoleAfterSave": {
+              "writer": 1,
+              "craft": 1
+            },
+            "talentLength": 87,
+            "activeByProfession": {
+              "actor": {
+                "activeCount": 40,
+                "activeUnder30": 5
+              },
+              "director": {
+                "activeCount": 14,
+                "activeUnder30": 5
+              },
+              "writer": {
+                "activeCount": 16,
+                "activeUnder30": 1
+              },
+              "craft": {
+                "activeCount": 14,
+                "activeUnder30": 1
+              }
+            },
+            "appendOnlyFromSave": {
+              "prefixMatches": true,
+              "appendOnly": true,
+              "beforeCount": 87,
+              "afterCount": 87,
+              "newIdsAppended": 0
+            }
+          },
+          "w2": {
+            "week": 208,
+            "perRole": {
+              "actor": 2
+            },
+            "total": 2,
+            "clipped": {
+              "actor": 2,
+              "director": 0,
+              "writer": 0,
+              "craft": 0
+            },
+            "requestedTotal": 2,
+            "clippedTotal": 2,
+            "clippedAway": 0,
+            "beforeSave": 0,
+            "perRoleBeforeSave": {},
+            "afterSave": 2,
+            "perRoleAfterSave": {
+              "actor": 2
+            },
+            "talentLength": 87,
+            "activeByProfession": {
+              "actor": {
+                "activeCount": 38,
+                "activeUnder30": 4
+              },
+              "director": {
+                "activeCount": 14,
+                "activeUnder30": 4
+              },
+              "writer": {
+                "activeCount": 16,
+                "activeUnder30": 0
+              },
+              "craft": {
+                "activeCount": 14,
+                "activeUnder30": 1
+              }
+            },
+            "appendOnlyFromSave": {
+              "prefixMatches": true,
+              "appendOnly": true,
+              "beforeCount": 87,
+              "afterCount": 87,
+              "newIdsAppended": 0
+            }
+          },
+          "acceptedGenesisSizes": {
+            "actor": 40,
+            "director": 14,
+            "writer": 16,
+            "craft": 14
+          }
+        }
+      }
+    },
+    {
+      "filename": "genuine-v34-c4-all-statuses.json.gz",
+      "provenanceFilename": "genuine-v34-c4-all-statuses.provenance.json",
+      "week": 227,
+      "saveVersion": 34,
+      "uncompressedSha256": "55b41b7b9bf018895bc85ceaf190cc2a992732739deb6528e4117a24cf96f423",
+      "compressedSha256": "d042e74ab468afe8a43754378caf2301050436679ad8a394c0b5a7da055e21ca",
+      "byteLength": 1897887,
+      "compressedByteLength": 200779,
+      "axis": "Y3: saved at week 227 with one record in each of announced / finishing_commitments / retired, across >=2 professions — two authored people seated on separate held-unreleased productions (400wk and 208wk contracts) plus an unseated hard-boundary trio (actor/writer/craft).",
+      "focus": {
+        "statuses": {
+          "announced": {
+            "writer": 1
+          },
+          "finishing_commitments": {
+            "actor": 2,
+            "craft": 1
+          },
+          "retired": {
+            "actor": 1
+          }
+        },
+        "professionsRepresented": [
+          "writer",
+          "actor",
+          "craft"
+        ],
+        "retiredIdsInFreeAgents": [],
+        "seatedNow": {
+          "directorId": true,
+          "leadId": true
+        }
+      },
+      "core": {
+        "tick": 227,
+        "hollywoodNonNull": true,
+        "recordsByStatusAndProfession": {
+          "announced": {
+            "writer": 1
+          },
+          "finishing_commitments": {
+            "actor": 2,
+            "craft": 1
+          },
+          "retired": {
+            "actor": 1
+          }
+        },
+        "talentLength": 89,
+        "freeAgentsLength": 36,
+        "retiredIdsInFreeAgents": [],
+        "hiringMarketIdsLength": 17,
+        "careerLifecycleBoundaryWeek": 0,
+        "continuation": {
+          "w1": {
+            "week": 260,
+            "perRole": {},
+            "total": 0,
+            "clipped": {
+              "actor": 0,
+              "director": 0,
+              "writer": 0,
+              "craft": 0
+            },
+            "requestedTotal": 0,
+            "clippedTotal": 0,
+            "clippedAway": 0,
+            "beforeSave": 0,
+            "perRoleBeforeSave": {},
+            "afterSave": 0,
+            "perRoleAfterSave": {},
+            "talentLength": 89,
+            "activeByProfession": {
+              "actor": {
+                "activeCount": 41,
+                "activeUnder30": 0
+              },
+              "director": {
+                "activeCount": 15,
+                "activeUnder30": 1
+              },
+              "writer": {
+                "activeCount": 17,
+                "activeUnder30": 1
+              },
+              "craft": {
+                "activeCount": 15,
+                "activeUnder30": 0
+              }
+            },
+            "appendOnlyFromSave": {
+              "prefixMatches": true,
+              "appendOnly": true,
+              "beforeCount": 89,
+              "afterCount": 89,
+              "newIdsAppended": 0
+            }
+          },
+          "w2": {
+            "week": 312,
+            "perRole": {
+              "writer": 2,
+              "actor": 1
+            },
+            "total": 3,
+            "clipped": {
+              "actor": 1,
+              "director": 0,
+              "writer": 2,
+              "craft": 0
+            },
+            "requestedTotal": 3,
+            "clippedTotal": 3,
+            "clippedAway": 0,
+            "beforeSave": 0,
+            "perRoleBeforeSave": {},
+            "afterSave": 3,
+            "perRoleAfterSave": {
+              "writer": 2,
+              "actor": 1
+            },
+            "talentLength": 93,
+            "activeByProfession": {
+              "actor": {
+                "activeCount": 40,
+                "activeUnder30": 0
+              },
+              "director": {
+                "activeCount": 15,
+                "activeUnder30": 1
+              },
+              "writer": {
+                "activeCount": 15,
+                "activeUnder30": 1
+              },
+              "craft": {
+                "activeCount": 15,
+                "activeUnder30": 0
+              }
+            },
+            "appendOnlyFromSave": {
+              "prefixMatches": true,
+              "appendOnly": true,
+              "beforeCount": 89,
+              "afterCount": 93,
+              "newIdsAppended": 4
+            }
+          },
+          "acceptedGenesisSizes": {
+            "actor": 40,
+            "director": 14,
+            "writer": 16,
+            "craft": 14
+          }
+        }
+      }
+    },
+    {
+      "filename": "genuine-v34-c4-null-hollywood.json.gz",
+      "provenanceFilename": "genuine-v34-c4-null-hollywood.provenance.json",
+      "week": 208,
+      "saveVersion": 34,
+      "uncompressedSha256": "5028930968193ac6cfe7e0d67ae5239139c6a843b54f44432dd814039406d2be",
+      "compressedSha256": "a6d3bc7878076ed8cdc0c65e92897c8793fb3380b4450a17f6cc2473d4e0b279",
+      "byteLength": 265942,
+      "compressedByteLength": 35452,
+      "axis": "Y4: generateWorld(seed) directly (pre-founding — no activateStudioOperations/initializeHollywood), ticked 208 real weeks (past cohort week 52*4=208) with hollywood === null and zero careerLifecycle records the entire way — 782 R8/773 D6 predicts NO cohort will ever fire here.",
+      "focus": {
+        "recordCountAtEveryCheckpoint": 0
+      },
+      "core": {
+        "tick": 208,
+        "hollywoodNonNull": false,
+        "recordsByStatusAndProfession": {
+          "announced": {},
+          "finishing_commitments": {},
+          "retired": {}
+        },
+        "talentLength": 60,
+        "freeAgentsLength": 0,
+        "retiredIdsInFreeAgents": [],
+        "hiringMarketIdsLength": 8,
+        "careerLifecycleBoundaryWeek": 0,
+        "continuation": {
+          "w1": {
+            "week": 260,
+            "perRole": {},
+            "total": 0,
+            "clipped": {
+              "actor": 0,
+              "director": 0,
+              "writer": 0,
+              "craft": 0
+            },
+            "requestedTotal": 0,
+            "clippedTotal": 0,
+            "clippedAway": 0,
+            "beforeSave": 0,
+            "perRoleBeforeSave": {},
+            "afterSave": 0,
+            "perRoleAfterSave": {},
+            "talentLength": 60,
+            "activeByProfession": {
+              "actor": {
+                "activeCount": 28,
+                "activeUnder30": 2
+              },
+              "director": {
+                "activeCount": 10,
+                "activeUnder30": 0
+              },
+              "writer": {
+                "activeCount": 12,
+                "activeUnder30": 0
+              },
+              "craft": {
+                "activeCount": 10,
+                "activeUnder30": 1
+              }
+            },
+            "appendOnlyFromSave": {
+              "prefixMatches": true,
+              "appendOnly": true,
+              "beforeCount": 60,
+              "afterCount": 60,
+              "newIdsAppended": 0
+            }
+          },
+          "w2": {
+            "week": 312,
+            "perRole": {},
+            "total": 0,
+            "clipped": {
+              "actor": 0,
+              "director": 0,
+              "writer": 0,
+              "craft": 0
+            },
+            "requestedTotal": 0,
+            "clippedTotal": 0,
+            "clippedAway": 0,
+            "beforeSave": 0,
+            "perRoleBeforeSave": {},
+            "afterSave": 0,
+            "perRoleAfterSave": {},
+            "talentLength": 60,
+            "activeByProfession": {
+              "actor": {
+                "activeCount": 28,
+                "activeUnder30": 0
+              },
+              "director": {
+                "activeCount": 10,
+                "activeUnder30": 0
+              },
+              "writer": {
+                "activeCount": 12,
+                "activeUnder30": 0
+              },
+              "craft": {
+                "activeCount": 10,
+                "activeUnder30": 0
+              }
+            },
+            "appendOnlyFromSave": {
+              "prefixMatches": true,
+              "appendOnly": true,
+              "beforeCount": 60,
+              "afterCount": 60,
+              "newIdsAppended": 0
+            }
+          },
+          "acceptedGenesisSizes": {
+            "actor": 40,
+            "director": 14,
+            "writer": 16,
+            "craft": 14
+          }
+        }
+      }
+    },
+    {
+      "filename": "genuine-v34-c4-migrated-chain.json.gz",
+      "provenanceFilename": "genuine-v34-c4-migrated-chain.provenance.json",
+      "week": 988,
+      "saveVersion": 34,
+      "uncompressedSha256": "f3369ab1934f7ceb632ba4519728f0841706b8337515071028d49ed9939a3d1d",
+      "compressedSha256": "8638591e467b91f22e19f3c6123c6264f2c899dcd6d139cef8474e6e41a59dc3",
+      "byteLength": 2005498,
+      "compressedByteLength": 205503,
+      "axis": "Y5: tests/fixtures/p14/genuine-v33-c2-corpus/genuine-v33-c2-hard-boundary-and-idle-window.json.gz (a genuine V33 C.2a fixture, week 780), migrated V33->V34 via the LIVE migration (convertV33ToV34; boundaryWeek = 780), then ticked 208 more real weeks (past two 52k weeks) — every careerLifecycle record dated at or after the boundary, none invented at migration (773 D13).",
+      "focus": {
+        "migrationWeek": 780,
+        "boundaryWeek": 780,
+        "postMigrationRecordCount": 26
+      },
+      "core": {
+        "tick": 988,
+        "hollywoodNonNull": true,
+        "recordsByStatusAndProfession": {
+          "announced": {
+            "director": 3,
+            "writer": 2,
+            "actor": 1
+          },
+          "finishing_commitments": {},
+          "retired": {
+            "director": 3,
+            "actor": 11,
+            "writer": 4,
+            "craft": 2
+          }
+        },
+        "talentLength": 92,
+        "freeAgentsLength": 38,
+        "retiredIdsInFreeAgents": [
+          "authored-0000",
+          "authored-0001",
+          "authored-0002",
+          "authored-0003",
+          "person-studio-9ed55199-r01-0",
+          "person-studio-9ed55199-r01-1",
+          "person-studio-9ed55199-r01-4",
+          "person-studio-9ed55199-r02-0"
+        ],
+        "hiringMarketIdsLength": 31,
+        "careerLifecycleBoundaryWeek": 780,
+        "continuation": {
+          "w1": {
+            "week": 1040,
+            "perRole": {
+              "director": 3,
+              "writer": 2,
+              "actor": 1
+            },
+            "total": 6,
+            "clipped": {
+              "actor": 1,
+              "director": 3,
+              "writer": 2,
+              "craft": 0
+            },
+            "requestedTotal": 6,
+            "clippedTotal": 6,
+            "clippedAway": 0,
+            "beforeSave": 0,
+            "perRoleBeforeSave": {},
+            "afterSave": 6,
+            "perRoleAfterSave": {
+              "director": 3,
+              "writer": 2,
+              "actor": 1
+            },
+            "talentLength": 92,
+            "activeByProfession": {
+              "actor": {
+                "activeCount": 29,
+                "activeUnder30": 0
+              },
+              "director": {
+                "activeCount": 9,
+                "activeUnder30": 0
+              },
+              "writer": {
+                "activeCount": 11,
+                "activeUnder30": 0
+              },
+              "craft": {
+                "activeCount": 13,
+                "activeUnder30": 0
+              }
+            },
+            "appendOnlyFromSave": {
+              "prefixMatches": true,
+              "appendOnly": true,
+              "beforeCount": 92,
+              "afterCount": 92,
+              "newIdsAppended": 0
+            }
+          },
+          "w2": {
+            "week": 1092,
+            "perRole": {
+              "actor": 1
+            },
+            "total": 1,
+            "clipped": {
+              "actor": 1,
+              "director": 0,
+              "writer": 0,
+              "craft": 0
+            },
+            "requestedTotal": 1,
+            "clippedTotal": 1,
+            "clippedAway": 0,
+            "beforeSave": 0,
+            "perRoleBeforeSave": {},
+            "afterSave": 1,
+            "perRoleAfterSave": {
+              "actor": 1
+            },
+            "talentLength": 92,
+            "activeByProfession": {
+              "actor": {
+                "activeCount": 28,
+                "activeUnder30": 0
+              },
+              "director": {
+                "activeCount": 9,
+                "activeUnder30": 0
+              },
+              "writer": {
+                "activeCount": 11,
+                "activeUnder30": 0
+              },
+              "craft": {
+                "activeCount": 13,
+                "activeUnder30": 0
+              }
+            },
+            "appendOnlyFromSave": {
+              "prefixMatches": true,
+              "appendOnly": true,
+              "beforeCount": 92,
+              "afterCount": 92,
+              "newIdsAppended": 0
+            }
+          },
+          "acceptedGenesisSizes": {
+            "actor": 40,
+            "director": 14,
+            "writer": 16,
+            "craft": 14
+          }
+        }
+      }
+    },
+    {
+      "filename": "genuine-v34-c4-deep-deficit.json.gz",
+      "provenanceFilename": "genuine-v34-c4-deep-deficit.provenance.json",
+      "week": 2600,
+      "saveVersion": 34,
+      "uncompressedSha256": "9d4d7df0f9ce7af8b1c958db82a774a2a34ba2f69c2c3054b17a69bf16433e72",
+      "compressedSha256": "314b8152c0e108f51b0abb3885b7ec06dee520f29deef3bdb0845ed514c1ab5a",
+      "byteLength": 1073291,
+      "compressedByteLength": 101447,
+      "axis": "Y8 (coordinator addendum #2): p13aGeneratedStudio('p14c4-demo-01') with NO player action (fund() NOT called — no cash/ledger bootstrap was needed, matching 775 world 2's precedent for a passive tick-only world), ticked to week 2600 (itself a cohort week, 52*50). Active population (not-retired) is 6 across all four film professions against the accepted genesis sizes (actor 40/director 14/writer 16/craft 14 = 84 total) — the natural clip fixture for the AMENDED sizing rule (a large deficit-driven request), distinct from a large retirement-COUNT request.",
+      "focus": {
+        "buildMs": 18383.187018999997,
+        "activeByProfession": {
+          "actor": {
+            "activeCount": 3,
+            "activeUnder30": 0
+          },
+          "director": {
+            "activeCount": 1,
+            "activeUnder30": 0
+          },
+          "writer": {
+            "activeCount": 1,
+            "activeUnder30": 0
+          },
+          "craft": {
+            "activeCount": 1,
+            "activeUnder30": 0
+          }
+        },
+        "totalActive": 6,
+        "hiringMarketIdsLength": 0
+      },
+      "core": {
+        "tick": 2600,
+        "hollywoodNonNull": true,
+        "recordsByStatusAndProfession": {
+          "announced": {},
+          "finishing_commitments": {},
+          "retired": {
+            "craft": 15,
+            "director": 14,
+            "writer": 16,
+            "actor": 42
+          }
+        },
+        "talentLength": 93,
+        "freeAgentsLength": 43,
+        "retiredIdsInFreeAgents": [
+          "person-studio-5da57a8f-r01-0",
+          "person-studio-5da57a8f-r01-1",
+          "person-studio-5da57a8f-r01-2",
+          "person-studio-5da57a8f-r01-3",
+          "person-studio-5da57a8f-r01-4",
+          "person-studio-5da57a8f-r01-5",
+          "person-studio-5da57a8f-r02-0",
+          "person-studio-5da57a8f-r02-1",
+          "person-studio-5da57a8f-r02-2",
+          "person-studio-5da57a8f-r02-3",
+          "person-studio-5da57a8f-r02-4",
+          "person-studio-5da57a8f-r02-5",
+          "person-studio-5da57a8f-r03-0",
+          "person-studio-5da57a8f-r03-1",
+          "person-studio-5da57a8f-r03-2",
+          "person-studio-5da57a8f-r03-3",
+          "person-studio-5da57a8f-r03-4",
+          "person-studio-5da57a8f-r03-5",
+          "person-studio-5da57a8f-r04-0",
+          "person-studio-5da57a8f-r04-1",
+          "person-studio-5da57a8f-r04-2",
+          "person-studio-5da57a8f-r04-3",
+          "person-studio-5da57a8f-r04-4",
+          "person-studio-5da57a8f-r04-5",
+          "t-wri-00",
+          "t-dir-00",
+          "t-act-00",
+          "t-act-01",
+          "t-act-02",
+          "t-cra-00",
+          "t-act-03",
+          "t-cra-01",
+          "t-wri-01",
+          "t-dir-01",
+          "t-act-04",
+          "t-act-05",
+          "t-cra-03",
+          "t-wri-02",
+          "t-dir-03",
+          "person-studio-5da57a8f-r08-2",
+          "person-studio-5da57a8f-r08-4",
+          "person-studio-5da57a8f-r08-5"
+        ],
+        "hiringMarketIdsLength": 0,
+        "careerLifecycleBoundaryWeek": 0,
+        "continuation": {
+          "w1": {
+            "week": 2652,
+            "perRole": {},
+            "total": 0,
+            "clipped": {
+              "actor": 0,
+              "director": 0,
+              "writer": 0,
+              "craft": 0
+            },
+            "requestedTotal": 0,
+            "clippedTotal": 0,
+            "clippedAway": 0,
+            "beforeSave": 0,
+            "perRoleBeforeSave": {},
+            "afterSave": 0,
+            "perRoleAfterSave": {},
+            "talentLength": 93,
+            "activeByProfession": {
+              "actor": {
+                "activeCount": 3,
+                "activeUnder30": 0
+              },
+              "director": {
+                "activeCount": 1,
+                "activeUnder30": 0
+              },
+              "writer": {
+                "activeCount": 1,
+                "activeUnder30": 0
+              },
+              "craft": {
+                "activeCount": 1,
+                "activeUnder30": 0
+              }
+            },
+            "appendOnlyFromSave": {
+              "prefixMatches": true,
+              "appendOnly": true,
+              "beforeCount": 93,
+              "afterCount": 93,
+              "newIdsAppended": 0
+            }
+          },
+          "w2": {
+            "week": 2704,
+            "perRole": {},
+            "total": 0,
+            "clipped": {
+              "actor": 0,
+              "director": 0,
+              "writer": 0,
+              "craft": 0
+            },
+            "requestedTotal": 0,
+            "clippedTotal": 0,
+            "clippedAway": 0,
+            "beforeSave": 0,
+            "perRoleBeforeSave": {},
+            "afterSave": 0,
+            "perRoleAfterSave": {},
+            "talentLength": 93,
+            "activeByProfession": {
+              "actor": {
+                "activeCount": 3,
+                "activeUnder30": 0
+              },
+              "director": {
+                "activeCount": 1,
+                "activeUnder30": 0
+              },
+              "writer": {
+                "activeCount": 1,
+                "activeUnder30": 0
+              },
+              "craft": {
+                "activeCount": 1,
+                "activeUnder30": 0
+              }
+            },
+            "appendOnlyFromSave": {
+              "prefixMatches": true,
+              "appendOnly": true,
+              "beforeCount": 93,
+              "afterCount": 93,
+              "newIdsAppended": 0
+            }
+          },
+          "acceptedGenesisSizes": {
+            "actor": 40,
+            "director": 14,
+            "writer": 16,
+            "craft": 14
+          }
+        }
+      }
+    }
+  ]
+}

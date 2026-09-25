@@ -1,0 +1,57 @@
+# Paper model (NOT the engine): dead-economy retirement dynamics measured in the C.2a arm
+# (everyone idle; idle clause from week 104; E = A + 52), compared across cohort sizing rules.
+import random, math, sys
+PROF = {'actor':(40,60,70),'director':(14,65,75),'writer':(16,65,75),'craft':(14,62,72)}
+def tn(r,mu,sd,lo,hi):
+    while True:
+        x=r.gauss(mu,sd)
+        if lo<=x<=hi: return x
+def run(seed, rule, entrant=(24,3,20,32), weeks=6240):
+    r=random.Random(seed)
+    people=[]  # dict(prof, anchorAge, anchorWeek, status, E)
+    for p,(n,s,h) in PROF.items():
+        for _ in range(n): people.append(dict(p=p,a0=tn(r,38,10,20,70),w0=0,st='active',E=None,ret=None))
+    samples=[];pop=[]
+    for w in range(1,weeks+1):
+        for q in people:
+            n,s,h=PROF[q['p']]
+            if q['st']=='active':
+                age=q['a0']+(w-q['w0'])/52
+                if math.floor(age)!=math.floor(age-1/52):  # birthday this week
+                    A=math.floor(age)
+                    if A>=h or (A>=s and w>=104 and w-q['w0']>=104):
+                        q['st']='announced';q['E']=w+52
+            elif q['st']=='announced' and w>=q['E']:
+                q['st']='retired';q['ret']=w
+        if w%52==0:
+            req={}
+            for p,(n,s,h) in PROF.items():
+                act=[q for q in people if q['p']==p and q['st']!='retired']
+                rets=sum(1 for q in people if q['p']==p and q['ret'] is not None and w-52<q['ret']<=w)
+                young=any(q['a0']+(w-q['w0'])/52<30 for q in act)
+                if rule=='1to1': k=rets
+                elif rule=='deficit': k=max(0,n-len(act))
+                elif rule=='deficit+youth': k=max(0,n-len(act)); k=max(k,0 if young else 1)
+                elif rule=='1to1+youth': k=max(rets,0 if young else 1)
+                req[p]=k
+            tot=sum(req.values())
+            if tot>32:  # clip in profession order
+                left=32
+                for p in PROF: req[p]=min(req[p],left); left-=req[p]
+            for p,k in req.items():
+                for _ in range(k): people.append(dict(p=p,a0=tn(r,*entrant),w0=w,st='active',E=None,ret=None))
+        if w%26==0 and w%52!=0: pass
+        if w%520==0 or (w%520==260):
+            row={p:sum(1 for q in people if q['p']==p and q['st']!='retired' and q['a0']+(w-q['w0'])/52<30) for p in PROF}
+            samples.append((w,row))
+        if w==6240: pop=sum(1 for q in people if q['st']!='retired')
+    yr=[ (w,row) for w,row in samples if w%520==0 and w>=1040]
+    mid=[ (w,row) for w,row in samples if w%520==260 and w>=1040]
+    ok=all(all(v>0 for v in row.values()) for w,row in yr)
+    okmid=all(all(v>0 for v in row.values()) for w,row in mid)
+    return ok,okmid,pop
+for rule in ['1to1','deficit','1to1+youth','deficit+youth']:
+    res=[run(i,rule) for i in range(200)]
+    print(rule,'P(pass at 52k samples)',sum(a for a,_,_ in res)/len(res),'P(pass at mid-year samples)',sum(b for _,b,_ in res)/len(res),
+          'P(both, joint)',sum(a and b for a,b,_ in res)/len(res),
+          'pop@120 min/median/max',min(c for *_,c in res),sorted(c for *_,c in res)[len(res)//2],max(c for *_,c in res))
