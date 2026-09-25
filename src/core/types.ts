@@ -2339,6 +2339,41 @@ export type GameStateV33 = GameStateV32 & {
   talentProvenance: TalentProvenanceRoot
 }
 
+// ── P14C.2a — the retirement lifecycle core (Save V34; records 773 and 777) ────
+//
+// SCAFFOLD: the V34 shapes are declared here and `GameState` stays `GameStateV33`
+// until the sole production writer flips it with the save step. A record is the
+// P14 lifecycle fact for ONE person; nothing about a retirement is ever deleted.
+
+export type RetirementCause = 'hardBoundary' | 'idleInWindow'
+export type RetirementStatus = 'announced' | 'finishing_commitments' | 'retired'
+
+export type RetirementRecord = {
+  personId: string
+  /** `Talent.role` at announcement. */
+  profession: CreativeRole
+  intentRulesVersion: 1
+  cause: RetirementCause
+  announcedWeek: number
+  /** The materialized integer age that week, cross-checked against provenance. */
+  ageAtAnnouncement: number
+  /** `max(announcedWeek + 52, end of the contract or P12 interval in force)`. */
+  effectiveWeek: number
+  status: RetirementStatus
+  /** `=== effectiveWeek` when a seat held the person past it; otherwise null. */
+  finishingFromWeek: number | null
+  retiredWeek: number | null
+}
+
+/** Top level beside `talentProvenance` (R22). `boundaryWeek` is the recording
+ * boundary: no record is dated before it. At most one record per person in V34. */
+export type CareerLifecycleRoot = {
+  boundaryWeek: number
+  records: readonly RetirementRecord[]
+}
+
+export type GameStateV34 = GameStateV33 & { careerLifecycle: CareerLifecycleRoot }
+
 // ── D-14 Talent Career Impact — frozen career-event record (§7) ───────────────
 // The ONE canonical persisted record of a participant's outcome on one released film.
 // Autopsy (film-centric) and Talent Profile (talent-centric) BOTH render from this —

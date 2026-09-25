@@ -1585,7 +1585,22 @@ export {
   buildTalentProvenance,
   materializeAges,
   withTalentProvenance,
+  birthdaysDueAt,
 } from './aging.js'
+
+// ── P14C.2a Retirement lifecycle core (records 773/777) ──
+export {
+  LIFECYCLE_INTENT_RULES_VERSION,
+  retirementWindow,
+  initialCareerLifecycle,
+  retirementRecordFor,
+  lifecycleStatus,
+  contractEndRefusal,
+  assignmentRefusal,
+  advanceCareerLifecycleWeek,
+} from './careerLifecycle.js'
+export type { LifecycleStatus } from './careerLifecycle.js'
+export type { RetirementCause, RetirementStatus, RetirementRecord, CareerLifecycleRoot, GameStateV34 } from './types.js'
 export { campaignDate } from './calendar.js'
 export { SYNCHRONIZED_SOUND, researchWeekQuote, playerTechnologyAccess, technologyAccess, validateTechnologyV2, validateTechnologyV3, liftTechnologyV2, liftTechnologyV3 } from './technology.js'
 export { adoptionQuote, equipmentAssets } from './technologyAdoption.js'
