@@ -73,6 +73,9 @@ function dollars(value: number): string {
 /** The casting package's term wording, verbatim (`castingPackageReadModel.ts`), so both routes speak one term. */
 export function contractTermLabel(termWeeks: number): string {
   const years = termWeeks / TUNING.TICKS_PER_YEAR
+  // CANDIDATE WORDING (P14C.2b, 811 Follow-up 2): a term of no whole number of years (a
+  // 53–63-week retirement extension) reads in weeks, never as a fraction of years.
+  if (!Number.isInteger(years)) return `${String(termWeeks)} weeks`
   return years === 1 ? '1 year' : `${String(years)} years`
 }
 

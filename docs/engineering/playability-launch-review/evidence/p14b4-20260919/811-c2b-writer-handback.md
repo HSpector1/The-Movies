@@ -308,3 +308,36 @@ Every new failure is the requested throw meeting a test-built V35-shaped state; 
 pass because a missing field then read as unused. The sweep's helper changes (`c4LiveFixture` and
 `syntheticRecord` / `withSyntheticCareerLifecycle` carrying the V36 keys, or `migrateToLive`) clear them.
 No behaviour failure appeared.
+
+## Follow-up 2 (the term label, review 815; 2026-09-26 04:57 to 05:03 CEST)
+
+HEAD `5a287ca43429b0b41b06f1d7c33507b19927d81c` (holds both earlier diffs). `git diff HEAD -- src bridge ui scripts |
+shasum -a 256` = `7e161f86b12102445b70a15c2d105594542f9f89306a065f20ffb65cbb4de1d5`: one file,
+`bridge/contract.ts` `contractTermLabel`. No test edited, nothing committed.
+
+**Change (CANDIDATE WORDING):** when `termWeeks / TICKS_PER_YEAR` is not a whole number, the label is
+`${termWeeks} weeks`; otherwise today's `'1 year'` / `'N years'` byte for byte. It reaches the quote `termLabel`,
+both quote consequence sentences, the renew labels, the Pulse fold detail and the People preference line,
+all through the one helper. `src/core/castingPackageReadModel.ts:587-590` keeps its own copy of the old formula;
+it only ever labels `playerOfferOptions` (catalogue terms), so it is untouched.
+
+**Scratch check (`label-check.mts`, exit 0):** 52, 104, 156, 208 and 0 give `1 year`, `2 years`, `3 years`,
+`4 years` and `0 years`, equal to the old formula. 58, 53 and 63 give `58 weeks`, `53 weeks` and `63 weeks`
+(previously `1.1153846153846154 years`, `1.0192307692307692 years` and `1.2115384615384615 years`).
+
+| command | exit | result |
+| --- | --- | --- |
+| `npm run typecheck:bridge` | 0 | 0 errors (the sweep has cleared `tests/` for this project) |
+| `npm run check:bridge-contract` | 0 | verified |
+| `npm run check:bridge-contract:fixtures` | 0 | verified |
+| `git status --porcelain generated/` | 0 | empty |
+
+Single-file runs (`vitest run <file> --minWorkers=1 --maxWorkers=1`): `bridge-p14c2b-extension` 6/6;
+the files `grep -E "years?\b"` finds in `tests/bridge-*` are `bridge-p05a3-roster-liveness` 9/9 (pins
+`'1 year'`), `bridge-p14a2-market` 16/16 (pins `\d+ years?` in the fold), `bridge-p14b6-relationship-read-models`
+24/24 (pins `Prefers terms of 1 year`), `bridge-founding` 6/6, `bridge-p11-ready` 17/17,
+`bridge-p14b5-relationships` 11/15 (pins `Prefers terms of 1 year`) and `bridge-p14b2-trust` 19/22. No
+uppercase `YEAR` pin exists. The 4 + 3 failures do not come from this change. On HEAD's own source with
+the same working `tests/`, copied into the scratchpad, both files fail identically: `expected 208 to be 52` ×4
+in total, a 47-versus-48 length, and two cases carrying 8 keys against a 7-key literal. Both files are
+under the sweep author's uncommitted edits.
