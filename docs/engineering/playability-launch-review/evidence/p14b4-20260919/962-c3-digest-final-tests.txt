@@ -1,0 +1,22 @@
+{"sourceSha":"183252b2c3f1bb8399f68971c0576c213525159d","testedDiffSha256":"4d84f709b1608a037959b6e15496bd7f7d1287eab3a7d18c5f3e49ba52327b46","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14c3-promise-digest-continuity.test.ts","tests/bridge-p14c3-promise-digest-continuity.test.ts"],"node":"v20.20.2","start":"2026-09-26T19:30:34.717Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p14c3-promise-digest-continuity.test.ts (8 tests) 7901ms
+   ✓ 955 same logical inputs give the same promise feasibility receipt > ignores nested object insertion order with a real active player workflow (tagged P2=false) 2240ms
+   ✓ 955 same logical inputs give the same promise feasibility receipt > ignores nested object insertion order with a real active player workflow (tagged P2=true) 861ms
+   ✓ 955 same logical inputs give the same promise feasibility receipt > keeps an exact refusal, its rules version and its digest invariant under the same key permutation 380ms
+   ✓ 955 genuine207 normal-development continuation > produces identical208 saves and all twelve actual affected receipts from value-identical key orders 2602ms
+   ✓ 955 historical preservation and interim projection52 journal authority > loads genuine-v37-c3-preretirement-week207.json.gz without rewriting its stored promises or other historical bytes 507ms
+   ✓ 955 historical preservation and interim projection52 journal authority > loads genuine-v37-c3-retired-week208.json.gz without rewriting its stored promises or other historical bytes 616ms
+   ✓ 955 historical preservation and interim projection52 journal authority > loads genuine-v37-c3-runtime-current208.json.gz without rewriting its stored promises or other historical bytes 667ms
+ ✓ |core| tests/bridge-p14c3-promise-digest-continuity.test.ts (2 tests) 11004ms
+   ✓ 955 genuine207 normal-development continuation > matches actual BridgeSession advance from saved207 with uninterrupted develop:true on the reordered raw world 6311ms
+   ✓ 955 historical preservation and interim projection52 journal authority > preserves the current52 historical command journal and exact duplicate response without replaying gameplay 4691ms
+
+ Test Files  2 passed (2)
+      Tests  10 passed (10)
+   Start at  21:30:35
+   Duration  15.97s (transform 3.80s, setup 0ms, collect 6.36s, tests 18.90s, environment 1ms, prepare 395ms)
+

@@ -1,0 +1,22 @@
+{
+  "sourceSha": "183252b2c3f1bb8399f68971c0576c213525159d",
+  "testedDiffSha256": "5e97550af35620f52eca6bfeec56fd25aa9c14ec4d8588405e67f50f51fa8de8",
+  "untrackedSource": [],
+  "command": [
+    "node_modules/.bin/vitest",
+    "run",
+    "--project",
+    "core",
+    "tests/p14c3-promise-digest-continuity.test.ts"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-26T19:22:58.883Z",
+  "end": "2026-09-26T19:23:22.020Z",
+  "exitCode": 1,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "183252b2c3f1bb8399f68971c0576c213525159d",
+  "testedDiffSha256AtEnd": "5e97550af35620f52eca6bfeec56fd25aa9c14ec4d8588405e67f50f51fa8de8",
+  "untrackedSourceAtEnd": [],
+  "fixedSource": true
+}

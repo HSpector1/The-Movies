@@ -1,5 +1,50 @@
 # CODEX continuation — Project Studio
 
+## CURRENT — digest correction verified; C.3 Stage A ready
+
+The serialization prerequisite is verified: final962 passes all ten independent
+cases,959 passes36 neighbors, and964/965 pass root, UI and bridge typechecks.
+All runs are closed and fixed-source;960's test-layout failure remains attributed.
+Independent production and layout reviews are KEEP. Save37/projection52/promise4
+remain unchanged. The genuine953 corpus and its historical parity failure remain
+immutable; this correction does not establish old gameplay re-execution parity.
+
+966 publishes the correction, reviewed942/946 contract refinements and frozen963
+Stage A plan (SHA25628587acaab5086597ccb28e124f094f0ad8149c4dded7f1b03c5df925157f043).
+Next: release the test author for Save38/choice/due tests, record their RED, then
+implement the matching production slice. Parent remains sole production writer
+and executor, with the same test and review specialists and one heavy process.
+No C.3 production implementation or full-program qualification is claimed yet.
+
+## CURRENT — digest prerequisite verified; publish966 then C.3 RED
+
+961 completes focusedverification:9575expectedFAIL/5PASS→95810PASS;95936neighborPASS;
+final96210PASS aftertestlayoutsplit;964root/UI and965bridge typesPASS. Everyrunfixed
+source. Independentproduction/layoutKEEP.960167TS5097failure preserved/attributed,
+no compilerconfigchange. Latestprocessclosed19:33:28.062Z; noheavyprocess.
+Onlyproductionchange iscanonicalpromise-inputserialization; sourcepatch
+4d84f709b1608a037959b6e15496bd7f7d1287eab3a7d18c5f3e49ba52327b46
+onpublished183252b2. Save37/projection52/rules4 unchanged; genuine953bytesimmutable.
+Parentpublishes966; testauthor963REDplandoconly, revieweridle/reusable. Nextrelease
+firstindependentC.3tests, recordRED, thensolewriter under942/946 plus946-A/B.
+Save38/projection53 notimplemented. FullC.3regression/endurance and53replayreset
+remainrequired; oldgameplayre-execution/native notclaimed. Same2specialists/onelane.
+
+## CURRENT — digest correction GREEN; final split-test/type gates active
+
+Published HEAD183252b2c3f1bb8399f68971c0576c213525159d.957independentRED reached
+5expectedFAIL/5PASS; minimalpromises.ts serializer then95810PASS and95936neighborPASS.
+ReviewerKEEP.960roottypesfailed167TS5097 fromnewcoretest importingbridge modules;
+all10cases nowpreservedas8core+2bridge, no compilerconfig/assertion/timeout changes.
+962final10PASS closed19:30:51.491Z;964root/UItypesPASS closed19:32:44.888Z.
+Parent965bridge types ACTIVE insolelane. ALLconsumedsource/HEADFROZEN untilclosure. Exact962patch:
+4d84f709b1608a037959b6e15496bd7f7d1287eab3a7d18c5f3e49ba52327b46.
+Testauthor prepares963C.3REDplandoconly; reviewerchecksfinaltestlayoutreadonly.
+NoC.3productionimplementationyet.942/946frozenlaw/API plus946-A/Baudits control.
+953outgoing37/52 andoldparityFAIL remainimmutable. Interim52cachedreplaypreservation
+is distinctfromre-executingoldgameplay; final52→53resetstillrequired. Parentpublishes
+correctivecheckpoint aftergates, thenreleasesindependentC.3RED/solewriter. Native deferred.
+
 ## CURRENT — T0 published0fc34e9e; exact C.3 contract frozen; digest RED next
 
 Actual local/GitHub refs0fc34e9ec8b6ade9ff18485a215193cdbcbd4591 verified equal;

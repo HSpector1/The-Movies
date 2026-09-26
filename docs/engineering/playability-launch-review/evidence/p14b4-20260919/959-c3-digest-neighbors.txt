@@ -1,0 +1,31 @@
+{"sourceSha":"183252b2c3f1bb8399f68971c0576c213525159d","testedDiffSha256":"06e41a0f2658276e874d889c18c6c5a4d8e221aaea706c54d3a4a4621856c9d8","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14b3-reservations.test.ts","tests/p14b4-cast-class-capacity.test.ts","tests/p14bf2-acting-discipline.test.ts"],"node":"v20.20.2","start":"2026-09-26T19:25:28.451Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p14b3-reservations.test.ts (9 tests) 6687ms
+   ✓ P14B.3 F1: real reservation membership and matching feasibility digest > a CURRENT unbound attachment still consumes the only existing path; only its own recheck excludes itself 4166ms
+   ✓ P14B.3 F1: real reservation membership and matching feasibility digest > revise preserves the old unbound root but removes its reservation AND digest contribution 475ms
+   ✓ P14B.3 F1: real reservation membership and matching feasibility digest > a genuinely bound OPEN promise reserves after the winning proposal has left the current table 672ms
+   ✓ P14B.3 F1: real reservation membership and matching feasibility digest > a real terminal BROKEN outcome no longer reserves even though its bound contract identity remains 396ms
+   ✓ P14B.3 F1: real reservation membership and matching feasibility digest > an actually dropped losing draft stays in evidence after settlement but cannot reserve a later overlapping read 519ms
+ ✓ |core| tests/p14bf2-acting-discipline.test.ts (13 tests) 9800ms
+   ✓ B-F2: settled has-acting-discipline law, not primary-role eligibility > the real generated writer is lawfully cast as lead without relabeling or occupying two roles 5797ms
+   ✓ B-F2: settled has-acting-discipline law, not primary-role eligibility > real winning writer P1 binds, then one completed scheduled cast take satisfies it with exact durable references 931ms
+   ✓ B-F2: genuine old role-refusal evidence survives, fresh evaluations use the live evaluator (4 after record 600) > valid load preserves the old erroneous receipt/root/digest bytes exactly without repairing history 1451ms
+   ✓ B-F2: genuine old role-refusal evidence survives, fresh evaluations use the live evaluator (4 after record 600) > actual resubmit/attach evaluates afresh under4 but keeps the original version1 refusal untouched 1089ms
+ ✓ |core| tests/p14b4-cast-class-capacity.test.ts (14 tests) 10184ms
+   ✓ P14B4 bounded fixed-cast capacity, requirement-based owner probes > 'lead' target actually fixed in 'lead': eligible=true 6037ms
+   ✓ P14B4 bounded fixed-cast capacity, requirement-based owner probes > 'lead' target actually fixed in 'antagonist': eligible=false 314ms
+   ✓ P14B4 bounded fixed-cast capacity, requirement-based owner probes > 'lead' target actually fixed in 'support': eligible=false 481ms
+   ✓ P14B4 bounded fixed-cast capacity, requirement-based owner probes > 'leadOrAntagonist' target actually fixed in 'lead': eligible=true 333ms
+   ✓ P14B4 bounded fixed-cast capacity, requirement-based owner probes > one real picture jointly serves lead+flexible+P1, but never splices a later Ready script into its spare witness 443ms
+   ✓ P14B4 bounded fixed-cast capacity, requirement-based owner probes > revise removes a real CURRENT reservation but preserves root/receipt history and digest neutrality 339ms
+   ✓ P14B4 bounded fixed-cast capacity, requirement-based owner probes > withdraw removes a real CURRENT reservation but preserves root/receipt history and digest neutrality 305ms
+   ✓ P14B4 bounded fixed-cast capacity, requirement-based owner probes > class changes material and feasibility digests; unrelated cash and valid RNG words change neither read nor history 673ms
+
+ Test Files  3 passed (3)
+      Tests  36 passed (36)
+   Start at  21:25:28
+   Duration  13.91s (transform 2.29s, setup 0ms, collect 8.72s, tests 26.67s, environment 1ms, prepare 877ms)
+

@@ -193,7 +193,9 @@ while keeping all880-B project/studio/person/date/expiry/malformed-authority gua
 Current offerable P1/P2 promises concern acting. Retired acting stays ineligible even
 after a directing/writing transition. C.3 activates no P3/P4/P5 or writing promise.
 Use the requested profession's retirement in acting feasibility/caps/digests, not
-only the current role. Existing ordinary bound promises are due by contract end<=E;
+only the current role; preserve the distinct current-profession global C.2 restriction
+as well. An original director with an acting profile still observes its announced
+directing boundary for acting promises/seats. Existing ordinary bound promises are due by contract end<=E;
 no blanket transition VOIDED policy is added without a real reachable open case.
 Preserve terminal outcomes, committed-seat precedence, trust and half-open windows.
 

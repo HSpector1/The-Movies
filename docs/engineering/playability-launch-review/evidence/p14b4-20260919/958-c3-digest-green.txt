@@ -1,0 +1,20 @@
+{"sourceSha":"183252b2c3f1bb8399f68971c0576c213525159d","testedDiffSha256":"06e41a0f2658276e874d889c18c6c5a4d8e221aaea706c54d3a4a4621856c9d8","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14c3-promise-digest-continuity.test.ts"],"node":"v20.20.2","start":"2026-09-26T19:24:09.284Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p14c3-promise-digest-continuity.test.ts (10 tests) 14682ms
+   ✓ 955 same logical inputs give the same promise feasibility receipt > ignores nested object insertion order with a real active player workflow (tagged P2=false) 1432ms
+   ✓ 955 same logical inputs give the same promise feasibility receipt > ignores nested object insertion order with a real active player workflow (tagged P2=true) 405ms
+   ✓ 955 genuine207 normal-development continuation > produces identical208 saves and all twelve actual affected receipts from value-identical key orders 1744ms
+   ✓ 955 genuine207 normal-development continuation > matches actual BridgeSession advance from saved207 with uninterrupted develop:true on the reordered raw world 4900ms
+   ✓ 955 historical preservation and interim projection52 journal authority > loads genuine-v37-c3-preretirement-week207.json.gz without rewriting its stored promises or other historical bytes 373ms
+   ✓ 955 historical preservation and interim projection52 journal authority > loads genuine-v37-c3-retired-week208.json.gz without rewriting its stored promises or other historical bytes 349ms
+   ✓ 955 historical preservation and interim projection52 journal authority > loads genuine-v37-c3-runtime-current208.json.gz without rewriting its stored promises or other historical bytes 375ms
+   ✓ 955 historical preservation and interim projection52 journal authority > preserves the current52 historical command journal and exact duplicate response without replaying gameplay 4876ms
+
+ Test Files  1 passed (1)
+      Tests  10 passed (10)
+   Start at  21:24:09
+   Duration  18.87s (transform 2.74s, setup 0ms, collect 3.59s, tests 14.68s, environment 0ms, prepare 143ms)
+

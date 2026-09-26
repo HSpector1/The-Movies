@@ -1,5 +1,21 @@
 # UNITY-INTEGRATION-BACKLOG — work reserved for the replacement laptop
 
+## CURRENT — digest correction verified; C.3 Stage A ready
+
+The serialization prerequisite is verified: final962 passes all ten independent
+cases,959 passes36 neighbors, and964/965 pass root, UI and bridge typechecks.
+All runs are closed and fixed-source;960's test-layout failure remains attributed.
+Independent production and layout reviews are KEEP. Save37/projection52/promise4
+remain unchanged. The genuine953 corpus and its historical parity failure remain
+immutable; this correction does not establish old gameplay re-execution parity.
+
+966 publishes the correction, reviewed942/946 contract refinements and frozen963
+Stage A plan (SHA25628587acaab5086597ccb28e124f094f0ad8149c4dded7f1b03c5df925157f043).
+Next: release the test author for Save38/choice/due tests, record their RED, then
+implement the matching production slice. Parent remains sole production writer
+and executor, with the same test and review specialists and one heavy process.
+No C.3 production implementation or full-program qualification is claimed yet.
+
 ## CURRENT — Scientist and C.2-RM producer complete; native integration deferred
 
 2026-09-26. Producer Save37/projection52/protocol4, schema

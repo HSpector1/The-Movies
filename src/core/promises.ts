@@ -218,13 +218,25 @@ const NOT_OFFERED_IN_B1: Partial<Record<PromiseFamily, string>> = {
   SPECIFIC_PROJECT: 'a named-project promise is not offered in this slice',
 }
 
+/** Input identity follows saved values, not object insertion order. Casts,
+ * workflows and reservations can arrive directly from play or from the sorted
+ * save format (952/957). Keep array order and native JSON scalar/omission rules;
+ * only newly evaluated receipts use this, never stored historical receipts. */
+function serializeFeasibilityInputs(inputs: readonly unknown[]): string {
+  return JSON.stringify(inputs, (_key, value: unknown) => {
+    if (value === null || typeof value !== 'object' || Array.isArray(value)) return value
+    const fields = value as Record<string, unknown>
+    return Object.fromEntries(Object.keys(fields).sort().map(key => [key, fields[key]]))
+  })
+}
+
 function receipt(
   classification: PromiseClassification,
   bottleneck: string | null,
   inputs: readonly unknown[],
   week: number,
 ): PromiseFeasibilityReceipt {
-  return { classification, bottleneck, inputsDigest: fnv1a64(JSON.stringify(inputs)), rulesVersion: PROMISE_RULES_VERSION, week }
+  return { classification, bottleneck, inputsDigest: fnv1a64(serializeFeasibilityInputs(inputs)), rulesVersion: PROMISE_RULES_VERSION, week }
 }
 
 /** The studio's live pictures, whichever owner holds them. */

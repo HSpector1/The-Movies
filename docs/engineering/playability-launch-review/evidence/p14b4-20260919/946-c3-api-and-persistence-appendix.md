@@ -136,6 +136,12 @@ public values; mutation tests state the exact invariant being demonstrated.
 
 ## Scheduling, migration and public core entry points
 
+Public named exports through `src/core/index.ts` are professionAtWeek,
+transitionInputsFor, chooseProfessionTransition, advanceProfessionTransitions and
+TRANSITION_RULES_VERSION. Tests use that existing public namespace; internal module
+organization does not become a consumer contract. Historical validation still uses
+only its explicit proved context, not a public API permission switch.
+
 New TUNING names are PROFESSION_TRANSITION_MIN_ACTING_TAKES=3,
 PROFESSION_TRANSITION_MIN_CONTEXT_PICTURES=2,
 PROFESSION_TRANSITION_RECHECK_WEEKS=52, and
@@ -151,6 +157,14 @@ receipt's week; silently ignoring that contradictory member is insufficient.
 profession for current operations; explicit acting callers retain acting retirement.
 Current helpers therefore require talent alongside careerLifecycle. A separate
 latest completed record helper serves historical alumni and relationship boundaries.
+`assignmentRefusal(state,personId,week,requestedProfession?)` defaults to current
+primary profession. With an explicit requested profession it checks both the
+current profession's global C.2 admission restriction and that requested profession's
+closed episode. Requested-actor promise reads/caps retain the current global boundary
+when distinct; their input digest records both relevant facts. An originally
+Director/Writer with acting skills and an announced current retirement must not
+lose its old C.2 actor-seat/promise cap merely because it has no actor record.
+Conversely, an active transitioned director/writer still cannot reopen retired acting.
 
 `transitionInputsFor(state,personId,week)` derives today's public evidence without
 writing and requires week===state.market.tick. A separate retained-facts helper
@@ -232,7 +246,10 @@ order, at most two. lastChange is the one public change, with a safe reason sent
 derived from its typed reason, never raw inputs, witness counterpart or private terms.
 working includes active/announced/finishing current professionals. awaitingTransition
 means actually deferred or prospectively due retired actor. pendingReconciliation
-means migrated retired non-actor before its first current-law tick. retired requires
+means migrated retired non-actor before its first current-law tick, or any retired
+person whose reconciliation is dormant while Hollywood remains disengaged. A dormant
+actor with no due queue is not falsely labeled awaiting an active transition.
+retired requires
 an actual industryRetirement fact. recordingNotice explains the prospective boundary
 where relevant; no backdated finality is inferred at load.
 
