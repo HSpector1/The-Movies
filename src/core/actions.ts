@@ -1,5 +1,5 @@
 import { buildFilmParticipants } from './filmParticipants.js'
-import { retirementWritingAuthority } from './retirementWriting.js'
+import { liveRetirementWritingAuthority, prepareLiveWritingContext, type LiveWritingContext } from './liveRetirementWriting.js'
 import { applyTechnologyAction, researchAfterEmploymentRelease, researchCandidates, RESEARCH_SCIENTISTS_PER_STUDIO, spelled } from './technology.js'
 import { discardUnfilmedProductionTechnology } from './technologyProduction.js'
 import { withResearchFoundation } from './researchPeople.js'
@@ -1218,13 +1218,14 @@ function applyFoundStudio(state: GameState, _action: Action & { kind: 'foundStud
 function applyActivateStudioOperations(
   state: GameState,
   _action: Action & { kind: 'activateStudioOperations' },
+  writingContext: LiveWritingContext,
 ): GameState {
   // Activation changes construction authority from legacy-empty to the one
   // managed parcel registry plus a managed (empty) placement root. Validate the
   // complete pre-transition boundary first so a forged legacy capex row, cash
   // divergence, or malformed sibling workflow cannot be laundered into an
   // apparently vacant managed state.
-  assertLiveStudioPlacementInvariants(state)
+  assertLiveStudioPlacementInvariants(state, undefined, writingContext)
   if (state.operations.mode !== 'legacy') {
     throw new Error('applyActions: activateStudioOperations rejected — studio operations are already managed')
   }
@@ -1306,11 +1307,12 @@ function rejectIllegalPlacement(
   state: GameState,
   actionName: string,
   request: PlacementRequest,
+  writingContext: LiveWritingContext,
 ): GameState {
   // Reject malformed/stale state before deriving any transition, so a forged
   // capex row, cash divergence, or mismatched facility set cannot be laundered
   // into an apparently legal placement.
-  assertLiveStudioPlacementInvariants(state)
+  assertLiveStudioPlacementInvariants(state, undefined, writingContext)
   if (!placementRegimeReady(state)) {
     throw new Error(
       `applyActions: ${actionName} rejected — placement requires managed operations, a founded studio, and an engaged economy`,
@@ -1373,8 +1375,9 @@ function withFacilityHistoryRow(
 function applyPlaceFacility(
   state: GameState,
   action: Action & { kind: 'placeFacility' },
+  writingContext: LiveWritingContext,
 ): GameState {
-  return rejectIllegalPlacement(state, 'placeFacility', action.placement)
+  return rejectIllegalPlacement(state, 'placeFacility', action.placement, writingContext)
 }
 
 /**
@@ -1388,8 +1391,9 @@ function applyPlaceFacility(
 function applyCancellation(
   state: GameState,
   action: Action & { kind: 'cancelInstallation' | 'cancelAdoption' },
+  writingContext: LiveWritingContext,
 ): GameState {
-  assertLiveStudioPlacementInvariants(state)
+  assertLiveStudioPlacementInvariants(state, undefined, writingContext)
   const target = action.kind === 'cancelInstallation'
     ? { projectId: action.projectId }
     : { adoptionId: action.adoptionId }
@@ -1421,8 +1425,9 @@ function rejectRefusedMutation(
   actionName: string,
   refusal: PlacementMutationRefusal | null,
   apply: (state: GameState) => GameState,
+  writingContext: LiveWritingContext,
 ): GameState {
-  assertLiveStudioPlacementInvariants(state)
+  assertLiveStudioPlacementInvariants(state, undefined, writingContext)
   if (refusal !== null) {
     const detail =
       refusal.code === 'facilityEngaged'
@@ -1446,12 +1451,13 @@ function rejectRefusedMutation(
 function applyMoveFacility(
   state: GameState,
   action: Action & { kind: 'moveFacility' },
+  writingContext: LiveWritingContext,
 ): GameState {
   const next = rejectRefusedMutation(
     state,
     'moveFacility',
     facilityMoveRefusal(state, action.move),
-    (current) => moveFacility(current, action.move),
+    (current) => moveFacility(current, action.move), writingContext,
   )
   const moved = next.placement.facilities.find((placed) => placed.id === action.move.placementId)
   return moved === undefined ? next : withFacilityHistoryRow(next, 'facilityMoved', moved)
@@ -1460,13 +1466,14 @@ function applyMoveFacility(
 function applyDemolishFacility(
   state: GameState,
   action: Action & { kind: 'demolishFacility' },
+  writingContext: LiveWritingContext,
 ): GameState {
   const demolished = state.placement.facilities.find((placed) => placed.id === action.demolition.placementId)
   const next = rejectRefusedMutation(
     state,
     'demolishFacility',
     facilityDemolitionRefusal(state, action.demolition),
-    (current) => demolishFacility(current, action.demolition),
+    (current) => demolishFacility(current, action.demolition), writingContext,
   )
   return demolished === undefined ? next : withFacilityHistoryRow(next, 'facilityDemolished', demolished)
 }
@@ -1478,6 +1485,7 @@ function applyDemolishFacility(
 function applyStartDevelopmentCastingAnnex(
   state: GameState,
   _action: Action & { kind: 'startDevelopmentCastingAnnex' },
+  writingContext: LiveWritingContext,
 ): GameState {
   const identityCollision = annexCanonicalProductionIdCollision(state)
   if (identityCollision !== null) {
@@ -1488,7 +1496,7 @@ function applyStartDevelopmentCastingAnnex(
   return rejectIllegalPlacement(
     state,
     'startDevelopmentCastingAnnex',
-    legacyAnnexPlacementRequest(propertyOf(state)),
+    legacyAnnexPlacementRequest(propertyOf(state)), writingContext,
   )
 }
 
@@ -1508,8 +1516,9 @@ function rejectRefusedSetVerb(
   actionName: string,
   copy: SetRefusalCopy | null,
   apply: (state: GameState) => GameState,
+  writingContext: LiveWritingContext,
 ): GameState {
-  assertLiveStudioPlacementInvariants(state)
+  assertLiveStudioPlacementInvariants(state, undefined, writingContext)
   assertSetsInvariants(state)
   if (copy !== null) {
     throw new Error(`applyActions: ${actionName} rejected — ${copy.reason} ${copy.remedy}`)
@@ -1527,6 +1536,7 @@ function rejectRefusedSetVerb(
 function applyCommissionSet(
   state: GameState,
   action: Action & { kind: 'commissionSet' },
+  writingContext: LiveWritingContext,
 ): GameState {
   // The SOLVENCY gate, not a bare cash comparison: a set is capital spending and
   // goes through the same D-12 gate every other capital verb does.
@@ -1546,11 +1556,11 @@ function applyCommissionSet(
       : setCommissionRefusalCopy(refusal, {
           ...(stage === undefined ? {} : { stageName: stage.name }),
         }),
-    (current) => commissionSet(current, action.commission),
+    (current) => commissionSet(current, action.commission), writingContext,
   )
 }
 
-function applyRepairSet(state: GameState, action: Action & { kind: 'repairSet' }): GameState {
+function applyRepairSet(state: GameState, action: Action & { kind: 'repairSet' }, writingContext: LiveWritingContext): GameState {
   const refusal = repairSetRefusal(state, action.setId, (cost) => canAfford(state, cost).ok)
   const set = setById(state.sets, action.setId)
   return rejectRefusedSetVerb(
@@ -1559,11 +1569,11 @@ function applyRepairSet(state: GameState, action: Action & { kind: 'repairSet' }
     refusal === null
       ? null
       : setRepairRefusalCopy(refusal, { ...(set === null ? {} : { setName: set.name }) }),
-    (current) => repairSet(current, action.setId),
+    (current) => repairSet(current, action.setId), writingContext,
   )
 }
 
-function applyStrikeSet(state: GameState, action: Action & { kind: 'strikeSet' }): GameState {
+function applyStrikeSet(state: GameState, action: Action & { kind: 'strikeSet' }, writingContext: LiveWritingContext): GameState {
   const refusal = strikeSetRefusal(state, action.setId)
   const set = setById(state.sets, action.setId)
   return rejectRefusedSetVerb(
@@ -1582,7 +1592,7 @@ function applyStrikeSet(state: GameState, action: Action & { kind: 'strikeSet' }
         ...next,
         studioEvents: commitStudioEvents(next.studioEvents, events, next.market.tick),
       }
-    },
+    }, writingContext,
   )
 }
 
@@ -1742,6 +1752,7 @@ export function commitQueuedIntent(
   entry: ProductionQueueEntry,
   week: number,
   events: StudioEventSink,
+  writingContext: LiveWritingContext = prepareLiveWritingContext(state),
 ): QueuedIntentOutcome {
   try {
     switch (entry.kind) {
@@ -1750,7 +1761,7 @@ export function commitQueuedIntent(
           outcome: 'granted',
           state: applyCommissionScript(
             state,
-            { kind: 'commissionScript', project: entry.payload },
+            { kind: 'commissionScript', project: entry.payload }, writingContext,
             week,
             false,
           ),
@@ -1760,7 +1771,7 @@ export function commitQueuedIntent(
           outcome: 'granted',
           state: applyCommissionOriginalScreenplay(
             state,
-            { kind: 'commissionOriginalScreenplay', screenplay: entry.payload },
+            { kind: 'commissionOriginalScreenplay', screenplay: entry.payload }, writingContext,
             week,
             false,
           ),
@@ -1770,7 +1781,7 @@ export function commitQueuedIntent(
           outcome: 'granted',
           state: applyStartCastingSession(
             state,
-            { kind: 'startCastingSession', session: entry.payload },
+            { kind: 'startCastingSession', session: entry.payload }, writingContext,
             week,
             false,
           ),
@@ -1780,7 +1791,7 @@ export function commitQueuedIntent(
           outcome: 'granted',
           state: applyGreenlightScriptProject(
             state,
-            { kind: 'greenlightScriptProject', production: entry.payload },
+            { kind: 'greenlightScriptProject', production: entry.payload }, writingContext,
             week,
             false,
             events,
@@ -1888,10 +1899,10 @@ function applyScheduleShootingTake(
 }
 
 // ── Script Projects V1 actions ───────────────────────────────────────────────
-function assertCurrentScriptState(state: GameState): GameState {
+function assertCurrentScriptState(state: GameState, writingContext: LiveWritingContext): GameState {
   assertScriptDevelopmentInvariants(state.scriptDevelopment, {
     studioId: state.hollywood?.playerStudioId,
-    retirementWriting: retirementWritingAuthority(state),
+    retirementWriting: liveRetirementWritingAuthority(state, writingContext),
     currentWeek: state.market.tick,
     concepts: state.concepts,
     talent: state.talent,
@@ -1912,6 +1923,7 @@ function assertCurrentScriptState(state: GameState): GameState {
 function applyActivateScriptDevelopment(
   state: GameState,
   _action: Action & { kind: 'activateScriptDevelopment' },
+  writingContext: LiveWritingContext,
 ): GameState {
   if (state.scriptDevelopment.mode !== 'legacy') {
     throw new Error(
@@ -1941,7 +1953,7 @@ function applyActivateScriptDevelopment(
   return assertCurrentScriptState({
     ...state,
     scriptDevelopment: initialManagedScriptDevelopment(),
-  })
+  }, writingContext)
 }
 
 /**
@@ -1994,6 +2006,7 @@ function assertCurrentScreenplayState(state: GameState): GameState {
 function applyCommissionScript(
   state: GameState,
   action: Action & { kind: 'commissionScript' },
+  writingContext: LiveWritingContext,
   week: number = state.market.tick,
   allowQueue = true,
 ): GameState {
@@ -2049,7 +2062,7 @@ function applyCommissionScript(
             }),
             state.originalScreenplays.nextOrdinal,
           ),
-        }),
+        }, writingContext),
       )
     },
     (queue) => queueCommissionScript(queue, action.project, week),
@@ -2076,6 +2089,7 @@ function applyCommissionScript(
 function applyCommissionOriginalScreenplay(
   state: GameState,
   action: Action & { kind: 'commissionOriginalScreenplay' },
+  writingContext: LiveWritingContext,
   week: number = state.market.tick,
   allowQueue = true,
 ): GameState {
@@ -2166,7 +2180,7 @@ function applyCommissionOriginalScreenplay(
         }),
         ordinal + 1,
       ),
-    }),
+    }, writingContext),
   )
 }
 
@@ -2178,6 +2192,7 @@ function applyCommissionOriginalScreenplay(
 function applyAssignScreenplayWriter(
   state: GameState,
   action: Action & { kind: 'assignScreenplayWriter' },
+  writingContext: LiveWritingContext,
 ): GameState {
   const writer = requireCommissionableWriter(state, action.writerId, 'assignScreenplayWriter')
   const project = state.scriptDevelopment.projects.find(
@@ -2216,7 +2231,7 @@ function applyAssignScreenplayWriter(
       state.market.tick,
       draftWeeks,
     ),
-  })
+  }, writingContext)
 }
 
 /**
@@ -2267,6 +2282,7 @@ function applyRenameScreenplay(
 function applyRequestScriptRewrite(
   state: GameState,
   action: Action & { kind: 'requestScriptRewrite' },
+  writingContext: LiveWritingContext,
 ): GameState {
   const project = state.scriptDevelopment.projects.find(
     (candidate) => candidate.id === action.projectId,
@@ -2295,12 +2311,13 @@ function applyRequestScriptRewrite(
       state.market.tick,
       castingOccupiedFacilitySlots(state.castingSessions),
     ),
-  })
+  }, writingContext)
 }
 
 function applyAcceptScript(
   state: GameState,
   action: Action & { kind: 'acceptScript' },
+  writingContext: LiveWritingContext,
 ): GameState {
   return assertCurrentScriptState({
     ...state,
@@ -2308,12 +2325,13 @@ function applyAcceptScript(
       state.scriptDevelopment,
       action.projectId,
     ),
-  })
+  }, writingContext)
 }
 
 function applyGreenlightScriptProject(
   state: GameState,
   action: Action & { kind: 'greenlightScriptProject' },
+  writingContext: LiveWritingContext,
   week: number = state.market.tick,
   allowQueue = true,
   injectedEvents?: StudioEventSink,
@@ -2356,7 +2374,7 @@ function applyGreenlightScriptProject(
   }
   return admitOrQueue(
     state,
-    () => applyGreenlightScriptProjectNow(state, action, project, injectedEvents),
+    () => applyGreenlightScriptProjectNow(state, action, writingContext, project, injectedEvents),
     (queue) =>
       queueGreenlightScriptProject(queue, action.production.projectId, action.production, week),
     allowQueue,
@@ -2372,6 +2390,7 @@ function applyGreenlightScriptProject(
 function applyGreenlightScriptProjectNow(
   state: GameState,
   action: Action & { kind: 'greenlightScriptProject' },
+  writingContext: LiveWritingContext,
   project: ScriptProject,
   injectedEvents?: StudioEventSink,
 ): GameState {
@@ -2403,13 +2422,14 @@ function applyGreenlightScriptProjectNow(
     project.id,
     injectedEvents,
   )
-  return assertCurrentScriptState(next)
+  return assertCurrentScriptState(next, writingContext)
 }
 
 // ── Casting Sessions V1 actions ─────────────────────────────────────────────
 function applyActivateCastingSessions(
   state: GameState,
   _action: Action & { kind: 'activateCastingSessions' },
+  writingContext: LiveWritingContext,
 ): GameState {
   if (state.castingSessions.mode !== 'legacy') {
     throw new Error(
@@ -2434,12 +2454,13 @@ function applyActivateCastingSessions(
   return assertCurrentScriptState({
     ...state,
     castingSessions: initialManagedCastingSessions(),
-  })
+  }, writingContext)
 }
 
 function applyStartCastingSession(
   state: GameState,
   action: Action & { kind: 'startCastingSession' },
+  writingContext: LiveWritingContext,
   week: number = state.market.tick,
   allowQueue = true,
 ): GameState {
@@ -2477,7 +2498,7 @@ function applyStartCastingSession(
             busyTalentIds: busyTalentIds(state),
           },
         ),
-      }),
+      }, writingContext),
     (queue) => queueStartCastingSession(queue, action.session, week),
     allowQueue,
   )
@@ -2486,6 +2507,7 @@ function applyStartCastingSession(
 function applyAcknowledgeCastingSession(
   state: GameState,
   action: Action & { kind: 'acknowledgeCastingSession' },
+  writingContext: LiveWritingContext,
 ): GameState {
   return assertCurrentScriptState({
     ...state,
@@ -2493,7 +2515,7 @@ function applyAcknowledgeCastingSession(
       state.castingSessions,
       action.sessionId,
     ),
-  })
+  }, writingContext)
 }
 
 // ── D-11 signContract — sign a talent to a studio contract (D-11.4/.5/.6) ─────
@@ -2841,6 +2863,7 @@ function applyCommitPictureToRelease(
 }
 
 export function applyActions(state: GameState, actions: Action[]): GameState {
+  const writingContext = prepareLiveWritingContext(state)
   // B3 — at most one greenlight per call. Reject two loudly (a harness abort).
   let greenlightCount = 0
   for (const action of actions) {
@@ -2936,7 +2959,7 @@ export function applyActions(state: GameState, actions: Action[]): GameState {
         next = applyPublicity(next, action)
         break
       case 'activateStudioOperations':
-        next = applyActivateStudioOperations(next, action)
+        next = applyActivateStudioOperations(next, action, writingContext)
         break
       case 'assignShootingDirector':
         next = applyAssignShootingDirector(next, action)
@@ -2948,16 +2971,16 @@ export function applyActions(state: GameState, actions: Action[]): GameState {
         next = applyScheduleShootingTake(next, action)
         break
       case 'activateScriptDevelopment':
-        next = applyActivateScriptDevelopment(next, action)
+        next = applyActivateScriptDevelopment(next, action, writingContext)
         break
       case 'commissionScript':
-        next = applyCommissionScript(next, action)
+        next = applyCommissionScript(next, action, writingContext)
         break
       case 'commissionOriginalScreenplay':
-        next = applyCommissionOriginalScreenplay(next, action)
+        next = applyCommissionOriginalScreenplay(next, action, writingContext)
         break
       case 'assignScreenplayWriter':
-        next = applyAssignScreenplayWriter(next, action)
+        next = applyAssignScreenplayWriter(next, action, writingContext)
         break
       case 'cancelQueuedIntent':
         next = applyCancelQueuedIntent(next, action)
@@ -2966,47 +2989,47 @@ export function applyActions(state: GameState, actions: Action[]): GameState {
         next = applyRenameScreenplay(next, action)
         break
       case 'requestScriptRewrite':
-        next = applyRequestScriptRewrite(next, action)
+        next = applyRequestScriptRewrite(next, action, writingContext)
         break
       case 'acceptScript':
-        next = applyAcceptScript(next, action)
+        next = applyAcceptScript(next, action, writingContext)
         break
       case 'greenlightScriptProject':
-        next = applyGreenlightScriptProject(next, action)
+        next = applyGreenlightScriptProject(next, action, writingContext)
         break
       case 'activateCastingSessions':
-        next = applyActivateCastingSessions(next, action)
+        next = applyActivateCastingSessions(next, action, writingContext)
         break
       case 'startCastingSession':
-        next = applyStartCastingSession(next, action)
+        next = applyStartCastingSession(next, action, writingContext)
         break
       case 'acknowledgeCastingSession':
-        next = applyAcknowledgeCastingSession(next, action)
+        next = applyAcknowledgeCastingSession(next, action, writingContext)
         break
       case 'startDevelopmentCastingAnnex':
-        next = applyStartDevelopmentCastingAnnex(next, action)
+        next = applyStartDevelopmentCastingAnnex(next, action, writingContext)
         break
       case 'placeFacility':
-        next = applyPlaceFacility(next, action)
+        next = applyPlaceFacility(next, action, writingContext)
         break
       case 'moveFacility':
-        next = applyMoveFacility(next, action)
+        next = applyMoveFacility(next, action, writingContext)
         break
       case 'demolishFacility':
-        next = applyDemolishFacility(next, action)
+        next = applyDemolishFacility(next, action, writingContext)
         break
       case 'cancelInstallation':
       case 'cancelAdoption':
-        next = applyCancellation(next, action)
+        next = applyCancellation(next, action, writingContext)
         break
       case 'commissionSet':
-        next = applyCommissionSet(next, action)
+        next = applyCommissionSet(next, action, writingContext)
         break
       case 'repairSet':
-        next = applyRepairSet(next, action)
+        next = applyRepairSet(next, action, writingContext)
         break
       case 'strikeSet':
-        next = applyStrikeSet(next, action)
+        next = applyStrikeSet(next, action, writingContext)
         break
       case 'setProductionSetupRecipe':
         next = applySetProductionSetupRecipe(next, action)

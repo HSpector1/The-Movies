@@ -1,0 +1,244 @@
+{"sourceSha":"ea4f1b6de24436d9cb8bd6dd4cdfa9ecea9ba425","testedDiffSha256":"a4010793ddcf0645ef5cc4387f89726563e2767bb61c54c0451a6ed5c7e3dd0e","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14c3-second-episode-writing.test.ts"],"node":"v20.20.2","start":"2026-09-26T21:32:58.274Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/p14c3-second-episode-writing.test.ts (12 tests | 8 failed) 21759ms
+   ✓ C.3 B4a actual actor→director second retirement and retained writing > W1 permits and pays the genuine ordinary208-week new-profession renewal 2619ms
+   ✓ C.3 B4a actual actor→director second retirement and retained writing > W2 records the real hard75 destination notice beside the unchanged completed actor episode 2208ms
+   × C.3 B4a actual actor→director second retirement and retained writing > W3 accepts genuine retained writing at E through Save38, Calendar, construction and an unrelated screenplay command 3292ms
+     → live construction must use current profession authority: expected [Function] to not throw an error but 'Error: script development invariant: …' was thrown
+     → actual Calendar must inspect the valid retained-work snapshot: expected [Function] to not throw an error but 'Error: script development invariant: …' was thrown
+     → actual unrelated commission reaches assertCurrentScriptState with a free young writer and real spare slot: expected [Function] to not throw an error but 'Error: script development invariant: …' was thrown
+   × C.3 B4a actual actor→director second retirement and retained writing > W4 loaded and continuous E states finish the same original screenplay on its real clock 809ms
+     → script development invariant: active project "script-0000" writer is not contracted
+   × C.3 B4a actual actor→director second retirement and retained writing > W5 retires the destination after actual clearance and records exactly one noCatalogue finality 877ms
+     → script development invariant: active project "script-0000" writer is not contracted
+   × C.3 B4a actual actor→director second retirement and retained writing > W6 refuses both missing-current and missing-old-actor authority without borrowing or legacy fallback 1295ms
+     → whole38 refuses removed director authority: expected [Function] to throw error matching /active project .*writer is not contra…/ but got 'validateSaveV37: state is invalid — v…'
+     → construction refuses removed actor: expected [Function] to throw an error
+     → Calendar refuses removed actor: expected [Function] to throw an error
+     → unrelated screenplay refuses removed actor: expected [Function] to throw an error
+   ✓ C.3 B4a actual actor→writer second retirement and retained writing > W1 permits and pays the genuine ordinary208-week new-profession renewal 1893ms
+   ✓ C.3 B4a actual actor→writer second retirement and retained writing > W2 records the real hard75 destination notice beside the unchanged completed actor episode 2362ms
+   × C.3 B4a actual actor→writer second retirement and retained writing > W3 accepts genuine retained writing at E through Save38, Calendar, construction and an unrelated screenplay command 3210ms
+     → live construction must use current profession authority: expected [Function] to not throw an error but 'Error: script development invariant: …' was thrown
+     → actual Calendar must inspect the valid retained-work snapshot: expected [Function] to not throw an error but 'Error: script development invariant: …' was thrown
+     → actual unrelated commission reaches assertCurrentScriptState with a free young writer and real spare slot: expected [Function] to not throw an error but 'Error: script development invariant: …' was thrown
+   × C.3 B4a actual actor→writer second retirement and retained writing > W4 loaded and continuous E states finish the same original screenplay on its real clock 873ms
+     → script development invariant: active project "script-0000" writer is not contracted
+   × C.3 B4a actual actor→writer second retirement and retained writing > W5 retires the destination after actual clearance and records exactly one noCatalogue finality 945ms
+     → script development invariant: active project "script-0000" writer is not contracted
+   × C.3 B4a actual actor→writer second retirement and retained writing > W6 refuses both missing-current and missing-old-actor authority without borrowing or legacy fallback 1373ms
+     → whole38 refuses removed writer authority: expected [Function] to throw error matching /active project .*writer is not contra…/ but got 'validateSaveV37: state is invalid — v…'
+     → construction refuses removed actor: expected [Function] to throw an error
+     → Calendar refuses removed actor: expected [Function] to throw an error
+     → unrelated screenplay refuses removed actor: expected [Function] to throw an error
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 8 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14c3-second-episode-writing.test.ts > C.3 B4a actual actor→director second retirement and retained writing > W3 accepts genuine retained writing at E through Save38, Calendar, construction and an unrelated screenplay command
+ FAIL |core|  tests/p14c3-second-episode-writing.test.ts > C.3 B4a actual actor→writer second retirement and retained writing > W3 accepts genuine retained writing at E through Save38, Calendar, construction and an unrelated screenplay command
+AssertionError: live construction must use current profession authority: expected [Function] to not throw an error but 'Error: script development invariant: …' was thrown
+
+- Expected: 
+undefined
+
++ Received: 
+"Error: script development invariant: active project \"script-0000\" writer is not contracted"
+
+ ❯ tests/p14c3-second-episode-writing.test.ts:67:119
+     65|     expect(retirementRecordFor(f.state, f.id, 'actor')).toMatchObject(…
+     66|     expect(retirementRecordFor(f.state, f.id)).toMatchObject({ profess…
+     67|     expect.soft(() => studioConstructionView(f.state), 'live construct…
+       |                                                                                                                       ^
+     68|     expect.soft(() => {
+     69|       const calendar = studioCalendar(f.state)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/18]⎯
+
+ FAIL |core|  tests/p14c3-second-episode-writing.test.ts > C.3 B4a actual actor→director second retirement and retained writing > W3 accepts genuine retained writing at E through Save38, Calendar, construction and an unrelated screenplay command
+ FAIL |core|  tests/p14c3-second-episode-writing.test.ts > C.3 B4a actual actor→writer second retirement and retained writing > W3 accepts genuine retained writing at E through Save38, Calendar, construction and an unrelated screenplay command
+AssertionError: actual Calendar must inspect the valid retained-work snapshot: expected [Function] to not throw an error but 'Error: script development invariant: …' was thrown
+
+- Expected: 
+undefined
+
++ Received: 
+"Error: script development invariant: active project \"script-0000\" writer is not contracted"
+
+ ❯ tests/p14c3-second-episode-writing.test.ts:71:77
+     69|       const calendar = studioCalendar(f.state)
+     70|       expect(calendar.commitments.some(row => row.kind === 'retirement…
+     71|     }, 'actual Calendar must inspect the valid retained-work snapshot'…
+       |                                                                             ^
+     72|     expect(person(f.state, f.youngWriterId)).toMatchObject({ role: 'wr…
+     73|     expect(activeContract(f.state, f.youngWriterId)).toBeDefined()
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/18]⎯
+
+ FAIL |core|  tests/p14c3-second-episode-writing.test.ts > C.3 B4a actual actor→director second retirement and retained writing > W3 accepts genuine retained writing at E through Save38, Calendar, construction and an unrelated screenplay command
+ FAIL |core|  tests/p14c3-second-episode-writing.test.ts > C.3 B4a actual actor→writer second retirement and retained writing > W3 accepts genuine retained writing at E through Save38, Calendar, construction and an unrelated screenplay command
+AssertionError: actual unrelated commission reaches assertCurrentScriptState with a free young writer and real spare slot: expected [Function] to not throw an error but 'Error: script development invariant: …' was thrown
+
+- Expected: 
+undefined
+
++ Received: 
+"Error: script development invariant: active project \"script-0000\" writer is not contracted"
+
+ ❯ tests/p14c3-second-episode-writing.test.ts:85:121
+     83|       expect(next.productionQueue).toEqual(f.state.productionQueue)
+     84|       accepted(next)
+     85|     }, 'actual unrelated commission reaches assertCurrentScriptState w…
+       |                                                                                                                         ^
+     86|     noReplacementEmployment(f.state, f.id, f.effective)
+     87|     expect(stableStringify(f.state)).toBe(before)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/18]⎯
+
+ FAIL |core|  tests/p14c3-second-episode-writing.test.ts > C.3 B4a actual actor→director second retirement and retained writing > W4 loaded and continuous E states finish the same original screenplay on its real clock
+ FAIL |core|  tests/p14c3-second-episode-writing.test.ts > C.3 B4a actual actor→writer second retirement and retained writing > W4 loaded and continuous E states finish the same original screenplay on its real clock
+Error: script development invariant: active project "script-0000" writer is not contracted
+ ❯ invariant src/core/scriptDevelopment.ts:811:25
+    809| 
+    810| function invariant(condition: boolean, message: string): asserts condi…
+    811|   if (!condition) throw new Error(`script development invariant: ${mes…
+       |                         ^
+    812| }
+    813| 
+ ❯ Module.assertScriptDevelopmentInvariants src/core/scriptDevelopment.ts:1115:9
+ ❯ Module.assertStudioConstructionInvariants src/core/construction.ts:397:3
+ ❯ assertStudioPlacementInvariants src/core/placement.ts:2282:3
+ ❯ Module.assertLiveStudioPlacementInvariants src/core/placement.ts:1815:3
+ ❯ Module.tick src/core/tick.ts:219:3
+ ❯ advanceExactly tests/helpers/p14c3-second-episode-fixtures.ts:35:43
+ ❯ Module.completedEpisode tests/helpers/p14c3-second-episode-fixtures.ts:191:28
+ ❯ tests/p14c3-second-episode-writing.test.ts:91:64
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/18]⎯
+
+ FAIL |core|  tests/p14c3-second-episode-writing.test.ts > C.3 B4a actual actor→director second retirement and retained writing > W5 retires the destination after actual clearance and records exactly one noCatalogue finality
+ FAIL |core|  tests/p14c3-second-episode-writing.test.ts > C.3 B4a actual actor→writer second retirement and retained writing > W5 retires the destination after actual clearance and records exactly one noCatalogue finality
+Error: script development invariant: active project "script-0000" writer is not contracted
+ ❯ invariant src/core/scriptDevelopment.ts:811:25
+    809| 
+    810| function invariant(condition: boolean, message: string): asserts condi…
+    811|   if (!condition) throw new Error(`script development invariant: ${mes…
+       |                         ^
+    812| }
+    813| 
+ ❯ Module.assertScriptDevelopmentInvariants src/core/scriptDevelopment.ts:1115:9
+ ❯ Module.assertStudioConstructionInvariants src/core/construction.ts:397:3
+ ❯ assertStudioPlacementInvariants src/core/placement.ts:2282:3
+ ❯ Module.assertLiveStudioPlacementInvariants src/core/placement.ts:1815:3
+ ❯ Module.tick src/core/tick.ts:219:3
+ ❯ advanceExactly tests/helpers/p14c3-second-episode-fixtures.ts:35:43
+ ❯ Module.completedEpisode tests/helpers/p14c3-second-episode-fixtures.ts:191:28
+ ❯ tests/p14c3-second-episode-writing.test.ts:105:54
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/18]⎯
+
+ FAIL |core|  tests/p14c3-second-episode-writing.test.ts > C.3 B4a actual actor→director second retirement and retained writing > W6 refuses both missing-current and missing-old-actor authority without borrowing or legacy fallback
+AssertionError: whole38 refuses removed director authority: expected [Function] to throw error matching /active project .*writer is not contra…/ but got 'validateSaveV37: state is invalid — v…'
+
+- Expected: 
+/active project .*writer is not contracted/
+
++ Received: 
+"validateSaveV37: state is invalid — validateSaveV36: talentMarket.cases[60] is a retirementExtension case for authored-0000, who holds no retirement record"
+
+ ❯ tests/p14c3-second-episode-writing.test.ts:143:102
+    141|         : /active project .*writer is not contracted/
+    142|       expect.soft(() => validateSaveV38({ saveVersion: 38, seed: malfo…
+    143|         broadcastCache: malformed.broadcastItems }), `whole38 refuses …
+       |                                                                                                      ^
+    144|       // Both are deliberately invalid snapshots. Removing old actor h…
+    145|       // not regain the single-row legacy allowance while C3 changes s…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/18]⎯
+
+ FAIL |core|  tests/p14c3-second-episode-writing.test.ts > C.3 B4a actual actor→director second retirement and retained writing > W6 refuses both missing-current and missing-old-actor authority without borrowing or legacy fallback
+ FAIL |core|  tests/p14c3-second-episode-writing.test.ts > C.3 B4a actual actor→writer second retirement and retained writing > W6 refuses both missing-current and missing-old-actor authority without borrowing or legacy fallback
+AssertionError: construction refuses removed actor: expected [Function] to throw an error
+
+- Expected: 
+null
+
++ Received: 
+undefined
+
+ ❯ tests/p14c3-second-episode-writing.test.ts:146:103
+    144|       // Both are deliberately invalid snapshots. Removing old actor h…
+    145|       // not regain the single-row legacy allowance while C3 changes s…
+    146|       expect.soft(() => studioConstructionView(malformed), `constructi…
+       |                                                                                                       ^
+    147|       expect.soft(() => studioCalendar(malformed), `Calendar refuses r…
+    148|       expect.soft(() => applyActions(malformed, [originalCommission(f.…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/18]⎯
+
+ FAIL |core|  tests/p14c3-second-episode-writing.test.ts > C.3 B4a actual actor→director second retirement and retained writing > W6 refuses both missing-current and missing-old-actor authority without borrowing or legacy fallback
+ FAIL |core|  tests/p14c3-second-episode-writing.test.ts > C.3 B4a actual actor→writer second retirement and retained writing > W6 refuses both missing-current and missing-old-actor authority without borrowing or legacy fallback
+AssertionError: Calendar refuses removed actor: expected [Function] to throw an error
+
+- Expected: 
+null
+
++ Received: 
+undefined
+
+ ❯ tests/p14c3-second-episode-writing.test.ts:147:91
+    145|       // not regain the single-row legacy allowance while C3 changes s…
+    146|       expect.soft(() => studioConstructionView(malformed), `constructi…
+    147|       expect.soft(() => studioCalendar(malformed), `Calendar refuses r…
+       |                                                                                           ^
+    148|       expect.soft(() => applyActions(malformed, [originalCommission(f.…
+    149|         `unrelated screenplay refuses removed ${removed}`).toThrow(liv…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/18]⎯
+
+ FAIL |core|  tests/p14c3-second-episode-writing.test.ts > C.3 B4a actual actor→director second retirement and retained writing > W6 refuses both missing-current and missing-old-actor authority without borrowing or legacy fallback
+ FAIL |core|  tests/p14c3-second-episode-writing.test.ts > C.3 B4a actual actor→writer second retirement and retained writing > W6 refuses both missing-current and missing-old-actor authority without borrowing or legacy fallback
+AssertionError: unrelated screenplay refuses removed actor: expected [Function] to throw an error
+
+- Expected: 
+null
+
++ Received: 
+undefined
+
+ ❯ tests/p14c3-second-episode-writing.test.ts:149:60
+    147|       expect.soft(() => studioCalendar(malformed), `Calendar refuses r…
+    148|       expect.soft(() => applyActions(malformed, [originalCommission(f.…
+    149|         `unrelated screenplay refuses removed ${removed}`).toThrow(liv…
+       |                                                            ^
+    150|       expect(stableStringify(malformed)).toBe(malformedBefore)
+    151|     }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/18]⎯
+
+ FAIL |core|  tests/p14c3-second-episode-writing.test.ts > C.3 B4a actual actor→writer second retirement and retained writing > W6 refuses both missing-current and missing-old-actor authority without borrowing or legacy fallback
+AssertionError: whole38 refuses removed writer authority: expected [Function] to throw error matching /active project .*writer is not contra…/ but got 'validateSaveV37: state is invalid — v…'
+
+- Expected: 
+/active project .*writer is not contracted/
+
++ Received: 
+"validateSaveV37: state is invalid — validateSaveV36: talentMarket.cases[60] is a retirementExtension case for authored-0001, who holds no retirement record"
+
+ ❯ tests/p14c3-second-episode-writing.test.ts:143:102
+    141|         : /active project .*writer is not contracted/
+    142|       expect.soft(() => validateSaveV38({ saveVersion: 38, seed: malfo…
+    143|         broadcastCache: malformed.broadcastItems }), `whole38 refuses …
+       |                                                                                                      ^
+    144|       // Both are deliberately invalid snapshots. Removing old actor h…
+    145|       // not regain the single-row legacy allowance while C3 changes s…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/18]⎯
+
+ Test Files  1 failed (1)
+      Tests  8 failed | 4 passed (12)
+   Start at  23:32:58
+   Duration  24.80s (transform 1.73s, setup 0ms, collect 2.36s, tests 21.76s, environment 0ms, prepare 123ms)
+

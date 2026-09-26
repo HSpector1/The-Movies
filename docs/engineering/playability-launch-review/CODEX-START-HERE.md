@@ -1,5 +1,56 @@
 # CODEX continuation — Project Studio
 
+## CURRENT — B4a writing verified; publishing1011 then queued controls
+
+1006 RED is preserved4PASS/8FAIL, with genuine setup and exact attribution.
+The complete-proof/live-context implementation passed1008 all12 second-episode
+cases and1009 all81 legacy-writing/queue neighbors. 1007 coretypes and1010 root/UI
+types passed; final1010 closed21:47:17.713Z70.172s,fixedSource. Source isea4f1b6d
+plus6664c9336f5b45946b61f9fe46f11c19f0484487b8c1a817e7f8396f3780a1db.
+Independent1009-A reviewKEEP. Actual completion/reload/finality now executed.
+All heavy runs CLOSED; parent publishes1011 and independently verifies GitHub.
+Then existing test author receives1008-A's reviewed six-case queued/arriving-due,
+complete-malformed-proof and idle-cost controls in two new files. No production
+edit is justified until their recorded result. B4b dual-used extensions are a
+separate finite docs plan in1002-A, unexecuted. Parent sole production writer/heavy
+executor; reviewer read-only; maximum two existing specialists. Source remains
+Save38/projection52. Remaining971/938, projection53/UI/runtime and full C.3 gates
+continue; Unity/native deferred. No full C.3 or launch acceptance claimed.
+
+## CURRENT — B4a RED attributed; live writing candidate in verification
+
+Local/GitHub refs remain ea4f1b6de24436d9cb8bd6dd4cdfa9ecea9ba425; all newer
+work is preserved. 1006 closed21:33:24.126Z,25.852s,fixedSource:4PASS/8FAIL.
+All actual renewal/notice/expiry and wholeSave38 positive premises passed.
+Sixteen live-path observations expose missing two-episode authority or unsafe
+legacy fallback; two missing-current wholeSave expected-cause mismatches were
+independently attributed to retained retirementExtension cases and corrected only
+by the test owner. Original raw RED remains. Completion/finality were not reached.
+Parent implemented1007-A's complete-proof/candidate gate and explicit copied-context
+transport in seven production paths. 1007 coretypes then1008 first12 GREEN run
+serially; consumed source/HEAD frozen during each. Reviewer owns1009-A read-only
+source review; author1008-A docs-only queued/arriving-due/full-proof/idle-cost plan.
+One production writer, two existing specialists, one heavy process; no new agents.
+Next finish these gates and publish a recoverable partial checkpoint, then the
+remaining genuine B4 and971/938 coverage, projection53/UI/runtime and full gates.
+Save38 partial; projection52 and native deferral unchanged. No full C.3 claim.
+
+## CURRENT — ea4f1b6d published; genuine B4a tests released
+
+Local/GitHub refs matched ea4f1b6de24436d9cb8bd6dd4cdfa9ecea9ba425. Production
+and tests were clean at verification; newer author-only1001-A/1002-A docs remained
+pending and were preserved. 1005 records60PASS and root typesPASS/final reviewKEEP.
+No heavy process active. The existing author now owns only the new second-episode
+writing suite/helper and1006-A handback:12 leaves, two genuine destination branches,
+287-tick maximum per branch. Reviewer refinements make W3's real unrelated script
+action mandatory and W6 tests removal of either current or old actor record, so
+failed C3 proof cannot recover a legacy single-row writing allowance.
+Parent sole production writer/heavy executor. Next freeze and1006 RED, then matching
+phase-safe live writing authority. Separate queued settled-E→E+1 plus arriving-due
+coverage remains required; the inherited E−1→E expiry-receipt timing edge is not
+qualified by B4a. B4b dual-used extensions and remaining971/938/53 work persist.
+Unity/native remains deferred; no full C.3 or launch qualification.
+
 ## CURRENT — C.3 admission and promise boundaries verified; genuine B4 next
 
 1005 records the next partial checkpoint. 1001 recorded8PASS/2expected dispatch

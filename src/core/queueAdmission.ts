@@ -22,6 +22,7 @@
 // queue, it is a lottery with a waiting room.
 
 import { commitQueuedIntent } from './actions.js'
+import { prepareLiveWritingContext, type LiveWritingContext } from './liveRetirementWriting.js'
 import {
   gateSlotAvailable,
   queueEntrySubjectId,
@@ -53,6 +54,7 @@ export function admitQueuedIntents(
   state: GameState,
   week: number,
   events: StudioEventSink,
+  writingContext: LiveWritingContext = prepareLiveWritingContext(state),
 ): QueueAdmissionResult {
   const granted: number[] = []
   const expired: number[] = []
@@ -65,7 +67,7 @@ export function admitQueuedIntents(
     // The gate, asked of the state as it stands after every grant so far: two
     // intents can be admitted in one week if two slots came free in one week.
     if (!gateSlotAvailable(next)) break
-    const result = commitQueuedIntent(next, entry, week, events)
+    const result = commitQueuedIntent(next, entry, week, events, writingContext)
     if (result.outcome === 'granted') {
       next = {
         ...result.state,

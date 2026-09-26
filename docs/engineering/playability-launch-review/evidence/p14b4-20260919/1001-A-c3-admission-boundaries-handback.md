@@ -68,3 +68,21 @@ Revised997-A SHA256:
 No tests, types, probes, generators or fixture producers were executed by this owner.
 Parent owns1001 recording and any matching production release. While source is
 frozen, only requested1002-A genuine B4 continuation planning may proceed.
+
+## Actual1001 RED and1002 combined GREEN
+
+Parent1001 closed2026-09-26T21:17:31.215Z after19.981s, child1/fixedSource:true on
+the recorded d0bb128d patch:8PASS and2 expected failures. N09/N10 both observed
+actual admission calls with fourth argument undefined rather than actor. All other
+premises passed, including the real364 announcement with whole Save38 validation
+and N04–06's observed generic-hash instrumentation. No fixture, import, timeout or
+spy-seam failure occurred. The numeric364 E was not logged; later consumers must
+continue deriving it from actual intervals, not invent a measured416 value.
+
+The recorded failure released the single requested-actor argument in shared promise
+outcome disposition. Test source stayed unchanged. Parent1002 combined the ten
+boundary cases, the first20, existing C2c22 and core955 eight: all60PASS in six files,
+child0/fixedSource:true, closed2026-09-26T21:18:38.283Z after43.070s. Independent
+review1002-B returned KEEP. Root type gate1003 is separate. These results do not
+qualify new-role rival seating or complete B4;1002-A retains genuine continuation
+work as the next proposed slice.

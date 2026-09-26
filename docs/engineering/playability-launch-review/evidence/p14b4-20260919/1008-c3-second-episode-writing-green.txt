@@ -1,0 +1,24 @@
+{"sourceSha":"ea4f1b6de24436d9cb8bd6dd4cdfa9ecea9ba425","testedDiffSha256":"6664c9336f5b45946b61f9fe46f11c19f0484487b8c1a817e7f8396f3780a1db","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14c3-second-episode-writing.test.ts"],"node":"v20.20.2","start":"2026-09-26T21:44:18.752Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p14c3-second-episode-writing.test.ts (12 tests) 31195ms
+   ✓ C.3 B4a actual actor→director second retirement and retained writing > W1 permits and pays the genuine ordinary208-week new-profession renewal 2895ms
+   ✓ C.3 B4a actual actor→director second retirement and retained writing > W2 records the real hard75 destination notice beside the unchanged completed actor episode 2297ms
+   ✓ C.3 B4a actual actor→director second retirement and retained writing > W3 accepts genuine retained writing at E through Save38, Calendar, construction and an unrelated screenplay command 3844ms
+   ✓ C.3 B4a actual actor→director second retirement and retained writing > W4 loaded and continuous E states finish the same original screenplay on its real clock 2243ms
+   ✓ C.3 B4a actual actor→director second retirement and retained writing > W5 retires the destination after actual clearance and records exactly one noCatalogue finality 1869ms
+   ✓ C.3 B4a actual actor→director second retirement and retained writing > W6 refuses both missing-current and missing-old-actor authority without borrowing or legacy fallback 1250ms
+   ✓ C.3 B4a actual actor→writer second retirement and retained writing > W1 permits and pays the genuine ordinary208-week new-profession renewal 2026ms
+   ✓ C.3 B4a actual actor→writer second retirement and retained writing > W2 records the real hard75 destination notice beside the unchanged completed actor episode 2970ms
+   ✓ C.3 B4a actual actor→writer second retirement and retained writing > W3 accepts genuine retained writing at E through Save38, Calendar, construction and an unrelated screenplay command 6702ms
+   ✓ C.3 B4a actual actor→writer second retirement and retained writing > W4 loaded and continuous E states finish the same original screenplay on its real clock 2007ms
+   ✓ C.3 B4a actual actor→writer second retirement and retained writing > W5 retires the destination after actual clearance and records exactly one noCatalogue finality 1873ms
+   ✓ C.3 B4a actual actor→writer second retirement and retained writing > W6 refuses both missing-current and missing-old-actor authority without borrowing or legacy fallback 1217ms
+
+ Test Files  1 passed (1)
+      Tests  12 passed (12)
+   Start at  23:44:19
+   Duration  34.37s (transform 1.78s, setup 0ms, collect 2.38s, tests 31.20s, environment 0ms, prepare 122ms)
+

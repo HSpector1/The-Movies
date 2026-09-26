@@ -1,0 +1,1096 @@
+diff --git a/src/core/actions.ts b/src/core/actions.ts
+index 766a0e3b..d1b491ed 100644
+--- a/src/core/actions.ts
++++ b/src/core/actions.ts
+@@ -1,5 +1,5 @@
+ import { buildFilmParticipants } from './filmParticipants.js'
+-import { retirementWritingAuthority } from './retirementWriting.js'
++import { liveRetirementWritingAuthority, prepareLiveWritingContext, type LiveWritingContext } from './liveRetirementWriting.js'
+ import { applyTechnologyAction, researchAfterEmploymentRelease, researchCandidates, RESEARCH_SCIENTISTS_PER_STUDIO, spelled } from './technology.js'
+ import { discardUnfilmedProductionTechnology } from './technologyProduction.js'
+ import { withResearchFoundation } from './researchPeople.js'
+@@ -1218,13 +1218,14 @@ function applyFoundStudio(state: GameState, _action: Action & { kind: 'foundStud
+ function applyActivateStudioOperations(
+   state: GameState,
+   _action: Action & { kind: 'activateStudioOperations' },
++  writingContext: LiveWritingContext,
+ ): GameState {
+   // Activation changes construction authority from legacy-empty to the one
+   // managed parcel registry plus a managed (empty) placement root. Validate the
+   // complete pre-transition boundary first so a forged legacy capex row, cash
+   // divergence, or malformed sibling workflow cannot be laundered into an
+   // apparently vacant managed state.
+-  assertLiveStudioPlacementInvariants(state)
++  assertLiveStudioPlacementInvariants(state, undefined, writingContext)
+   if (state.operations.mode !== 'legacy') {
+     throw new Error('applyActions: activateStudioOperations rejected — studio operations are already managed')
+   }
+@@ -1306,11 +1307,12 @@ function rejectIllegalPlacement(
+   state: GameState,
+   actionName: string,
+   request: PlacementRequest,
++  writingContext: LiveWritingContext,
+ ): GameState {
+   // Reject malformed/stale state before deriving any transition, so a forged
+   // capex row, cash divergence, or mismatched facility set cannot be laundered
+   // into an apparently legal placement.
+-  assertLiveStudioPlacementInvariants(state)
++  assertLiveStudioPlacementInvariants(state, undefined, writingContext)
+   if (!placementRegimeReady(state)) {
+     throw new Error(
+       `applyActions: ${actionName} rejected — placement requires managed operations, a founded studio, and an engaged economy`,
+@@ -1373,8 +1375,9 @@ function withFacilityHistoryRow(
+ function applyPlaceFacility(
+   state: GameState,
+   action: Action & { kind: 'placeFacility' },
++  writingContext: LiveWritingContext,
+ ): GameState {
+-  return rejectIllegalPlacement(state, 'placeFacility', action.placement)
++  return rejectIllegalPlacement(state, 'placeFacility', action.placement, writingContext)
+ }
+ 
+ /**
+@@ -1388,8 +1391,9 @@ function applyPlaceFacility(
+ function applyCancellation(
+   state: GameState,
+   action: Action & { kind: 'cancelInstallation' | 'cancelAdoption' },
++  writingContext: LiveWritingContext,
+ ): GameState {
+-  assertLiveStudioPlacementInvariants(state)
++  assertLiveStudioPlacementInvariants(state, undefined, writingContext)
+   const target = action.kind === 'cancelInstallation'
+     ? { projectId: action.projectId }
+     : { adoptionId: action.adoptionId }
+@@ -1421,8 +1425,9 @@ function rejectRefusedMutation(
+   actionName: string,
+   refusal: PlacementMutationRefusal | null,
+   apply: (state: GameState) => GameState,
++  writingContext: LiveWritingContext,
+ ): GameState {
+-  assertLiveStudioPlacementInvariants(state)
++  assertLiveStudioPlacementInvariants(state, undefined, writingContext)
+   if (refusal !== null) {
+     const detail =
+       refusal.code === 'facilityEngaged'
+@@ -1446,12 +1451,13 @@ function rejectRefusedMutation(
+ function applyMoveFacility(
+   state: GameState,
+   action: Action & { kind: 'moveFacility' },
++  writingContext: LiveWritingContext,
+ ): GameState {
+   const next = rejectRefusedMutation(
+     state,
+     'moveFacility',
+     facilityMoveRefusal(state, action.move),
+-    (current) => moveFacility(current, action.move),
++    (current) => moveFacility(current, action.move), writingContext,
+   )
+   const moved = next.placement.facilities.find((placed) => placed.id === action.move.placementId)
+   return moved === undefined ? next : withFacilityHistoryRow(next, 'facilityMoved', moved)
+@@ -1460,13 +1466,14 @@ function applyMoveFacility(
+ function applyDemolishFacility(
+   state: GameState,
+   action: Action & { kind: 'demolishFacility' },
++  writingContext: LiveWritingContext,
+ ): GameState {
+   const demolished = state.placement.facilities.find((placed) => placed.id === action.demolition.placementId)
+   const next = rejectRefusedMutation(
+     state,
+     'demolishFacility',
+     facilityDemolitionRefusal(state, action.demolition),
+-    (current) => demolishFacility(current, action.demolition),
++    (current) => demolishFacility(current, action.demolition), writingContext,
+   )
+   return demolished === undefined ? next : withFacilityHistoryRow(next, 'facilityDemolished', demolished)
+ }
+@@ -1478,6 +1485,7 @@ function applyDemolishFacility(
+ function applyStartDevelopmentCastingAnnex(
+   state: GameState,
+   _action: Action & { kind: 'startDevelopmentCastingAnnex' },
++  writingContext: LiveWritingContext,
+ ): GameState {
+   const identityCollision = annexCanonicalProductionIdCollision(state)
+   if (identityCollision !== null) {
+@@ -1488,7 +1496,7 @@ function applyStartDevelopmentCastingAnnex(
+   return rejectIllegalPlacement(
+     state,
+     'startDevelopmentCastingAnnex',
+-    legacyAnnexPlacementRequest(propertyOf(state)),
++    legacyAnnexPlacementRequest(propertyOf(state)), writingContext,
+   )
+ }
+ 
+@@ -1508,8 +1516,9 @@ function rejectRefusedSetVerb(
+   actionName: string,
+   copy: SetRefusalCopy | null,
+   apply: (state: GameState) => GameState,
++  writingContext: LiveWritingContext,
+ ): GameState {
+-  assertLiveStudioPlacementInvariants(state)
++  assertLiveStudioPlacementInvariants(state, undefined, writingContext)
+   assertSetsInvariants(state)
+   if (copy !== null) {
+     throw new Error(`applyActions: ${actionName} rejected — ${copy.reason} ${copy.remedy}`)
+@@ -1527,6 +1536,7 @@ function rejectRefusedSetVerb(
+ function applyCommissionSet(
+   state: GameState,
+   action: Action & { kind: 'commissionSet' },
++  writingContext: LiveWritingContext,
+ ): GameState {
+   // The SOLVENCY gate, not a bare cash comparison: a set is capital spending and
+   // goes through the same D-12 gate every other capital verb does.
+@@ -1546,11 +1556,11 @@ function applyCommissionSet(
+       : setCommissionRefusalCopy(refusal, {
+           ...(stage === undefined ? {} : { stageName: stage.name }),
+         }),
+-    (current) => commissionSet(current, action.commission),
++    (current) => commissionSet(current, action.commission), writingContext,
+   )
+ }
+ 
+-function applyRepairSet(state: GameState, action: Action & { kind: 'repairSet' }): GameState {
++function applyRepairSet(state: GameState, action: Action & { kind: 'repairSet' }, writingContext: LiveWritingContext): GameState {
+   const refusal = repairSetRefusal(state, action.setId, (cost) => canAfford(state, cost).ok)
+   const set = setById(state.sets, action.setId)
+   return rejectRefusedSetVerb(
+@@ -1559,11 +1569,11 @@ function applyRepairSet(state: GameState, action: Action & { kind: 'repairSet' }
+     refusal === null
+       ? null
+       : setRepairRefusalCopy(refusal, { ...(set === null ? {} : { setName: set.name }) }),
+-    (current) => repairSet(current, action.setId),
++    (current) => repairSet(current, action.setId), writingContext,
+   )
+ }
+ 
+-function applyStrikeSet(state: GameState, action: Action & { kind: 'strikeSet' }): GameState {
++function applyStrikeSet(state: GameState, action: Action & { kind: 'strikeSet' }, writingContext: LiveWritingContext): GameState {
+   const refusal = strikeSetRefusal(state, action.setId)
+   const set = setById(state.sets, action.setId)
+   return rejectRefusedSetVerb(
+@@ -1582,7 +1592,7 @@ function applyStrikeSet(state: GameState, action: Action & { kind: 'strikeSet' }
+         ...next,
+         studioEvents: commitStudioEvents(next.studioEvents, events, next.market.tick),
+       }
+-    },
++    }, writingContext,
+   )
+ }
+ 
+@@ -1742,6 +1752,7 @@ export function commitQueuedIntent(
+   entry: ProductionQueueEntry,
+   week: number,
+   events: StudioEventSink,
++  writingContext: LiveWritingContext = prepareLiveWritingContext(state),
+ ): QueuedIntentOutcome {
+   try {
+     switch (entry.kind) {
+@@ -1750,7 +1761,7 @@ export function commitQueuedIntent(
+           outcome: 'granted',
+           state: applyCommissionScript(
+             state,
+-            { kind: 'commissionScript', project: entry.payload },
++            { kind: 'commissionScript', project: entry.payload }, writingContext,
+             week,
+             false,
+           ),
+@@ -1760,7 +1771,7 @@ export function commitQueuedIntent(
+           outcome: 'granted',
+           state: applyCommissionOriginalScreenplay(
+             state,
+-            { kind: 'commissionOriginalScreenplay', screenplay: entry.payload },
++            { kind: 'commissionOriginalScreenplay', screenplay: entry.payload }, writingContext,
+             week,
+             false,
+           ),
+@@ -1770,7 +1781,7 @@ export function commitQueuedIntent(
+           outcome: 'granted',
+           state: applyStartCastingSession(
+             state,
+-            { kind: 'startCastingSession', session: entry.payload },
++            { kind: 'startCastingSession', session: entry.payload }, writingContext,
+             week,
+             false,
+           ),
+@@ -1780,7 +1791,7 @@ export function commitQueuedIntent(
+           outcome: 'granted',
+           state: applyGreenlightScriptProject(
+             state,
+-            { kind: 'greenlightScriptProject', production: entry.payload },
++            { kind: 'greenlightScriptProject', production: entry.payload }, writingContext,
+             week,
+             false,
+             events,
+@@ -1888,10 +1899,10 @@ function applyScheduleShootingTake(
+ }
+ 
+ // ── Script Projects V1 actions ───────────────────────────────────────────────
+-function assertCurrentScriptState(state: GameState): GameState {
++function assertCurrentScriptState(state: GameState, writingContext: LiveWritingContext): GameState {
+   assertScriptDevelopmentInvariants(state.scriptDevelopment, {
+     studioId: state.hollywood?.playerStudioId,
+-    retirementWriting: retirementWritingAuthority(state),
++    retirementWriting: liveRetirementWritingAuthority(state, writingContext),
+     currentWeek: state.market.tick,
+     concepts: state.concepts,
+     talent: state.talent,
+@@ -1912,6 +1923,7 @@ function assertCurrentScriptState(state: GameState): GameState {
+ function applyActivateScriptDevelopment(
+   state: GameState,
+   _action: Action & { kind: 'activateScriptDevelopment' },
++  writingContext: LiveWritingContext,
+ ): GameState {
+   if (state.scriptDevelopment.mode !== 'legacy') {
+     throw new Error(
+@@ -1941,7 +1953,7 @@ function applyActivateScriptDevelopment(
+   return assertCurrentScriptState({
+     ...state,
+     scriptDevelopment: initialManagedScriptDevelopment(),
+-  })
++  }, writingContext)
+ }
+ 
+ /**
+@@ -1994,6 +2006,7 @@ function assertCurrentScreenplayState(state: GameState): GameState {
+ function applyCommissionScript(
+   state: GameState,
+   action: Action & { kind: 'commissionScript' },
++  writingContext: LiveWritingContext,
+   week: number = state.market.tick,
+   allowQueue = true,
+ ): GameState {
+@@ -2049,7 +2062,7 @@ function applyCommissionScript(
+             }),
+             state.originalScreenplays.nextOrdinal,
+           ),
+-        }),
++        }, writingContext),
+       )
+     },
+     (queue) => queueCommissionScript(queue, action.project, week),
+@@ -2076,6 +2089,7 @@ function applyCommissionScript(
+ function applyCommissionOriginalScreenplay(
+   state: GameState,
+   action: Action & { kind: 'commissionOriginalScreenplay' },
++  writingContext: LiveWritingContext,
+   week: number = state.market.tick,
+   allowQueue = true,
+ ): GameState {
+@@ -2166,7 +2180,7 @@ function applyCommissionOriginalScreenplay(
+         }),
+         ordinal + 1,
+       ),
+-    }),
++    }, writingContext),
+   )
+ }
+ 
+@@ -2178,6 +2192,7 @@ function applyCommissionOriginalScreenplay(
+ function applyAssignScreenplayWriter(
+   state: GameState,
+   action: Action & { kind: 'assignScreenplayWriter' },
++  writingContext: LiveWritingContext,
+ ): GameState {
+   const writer = requireCommissionableWriter(state, action.writerId, 'assignScreenplayWriter')
+   const project = state.scriptDevelopment.projects.find(
+@@ -2216,7 +2231,7 @@ function applyAssignScreenplayWriter(
+       state.market.tick,
+       draftWeeks,
+     ),
+-  })
++  }, writingContext)
+ }
+ 
+ /**
+@@ -2267,6 +2282,7 @@ function applyRenameScreenplay(
+ function applyRequestScriptRewrite(
+   state: GameState,
+   action: Action & { kind: 'requestScriptRewrite' },
++  writingContext: LiveWritingContext,
+ ): GameState {
+   const project = state.scriptDevelopment.projects.find(
+     (candidate) => candidate.id === action.projectId,
+@@ -2295,12 +2311,13 @@ function applyRequestScriptRewrite(
+       state.market.tick,
+       castingOccupiedFacilitySlots(state.castingSessions),
+     ),
+-  })
++  }, writingContext)
+ }
+ 
+ function applyAcceptScript(
+   state: GameState,
+   action: Action & { kind: 'acceptScript' },
++  writingContext: LiveWritingContext,
+ ): GameState {
+   return assertCurrentScriptState({
+     ...state,
+@@ -2308,12 +2325,13 @@ function applyAcceptScript(
+       state.scriptDevelopment,
+       action.projectId,
+     ),
+-  })
++  }, writingContext)
+ }
+ 
+ function applyGreenlightScriptProject(
+   state: GameState,
+   action: Action & { kind: 'greenlightScriptProject' },
++  writingContext: LiveWritingContext,
+   week: number = state.market.tick,
+   allowQueue = true,
+   injectedEvents?: StudioEventSink,
+@@ -2356,7 +2374,7 @@ function applyGreenlightScriptProject(
+   }
+   return admitOrQueue(
+     state,
+-    () => applyGreenlightScriptProjectNow(state, action, project, injectedEvents),
++    () => applyGreenlightScriptProjectNow(state, action, writingContext, project, injectedEvents),
+     (queue) =>
+       queueGreenlightScriptProject(queue, action.production.projectId, action.production, week),
+     allowQueue,
+@@ -2372,6 +2390,7 @@ function applyGreenlightScriptProject(
+ function applyGreenlightScriptProjectNow(
+   state: GameState,
+   action: Action & { kind: 'greenlightScriptProject' },
++  writingContext: LiveWritingContext,
+   project: ScriptProject,
+   injectedEvents?: StudioEventSink,
+ ): GameState {
+@@ -2403,13 +2422,14 @@ function applyGreenlightScriptProjectNow(
+     project.id,
+     injectedEvents,
+   )
+-  return assertCurrentScriptState(next)
++  return assertCurrentScriptState(next, writingContext)
+ }
+ 
+ // ── Casting Sessions V1 actions ─────────────────────────────────────────────
+ function applyActivateCastingSessions(
+   state: GameState,
+   _action: Action & { kind: 'activateCastingSessions' },
++  writingContext: LiveWritingContext,
+ ): GameState {
+   if (state.castingSessions.mode !== 'legacy') {
+     throw new Error(
+@@ -2434,12 +2454,13 @@ function applyActivateCastingSessions(
+   return assertCurrentScriptState({
+     ...state,
+     castingSessions: initialManagedCastingSessions(),
+-  })
++  }, writingContext)
+ }
+ 
+ function applyStartCastingSession(
+   state: GameState,
+   action: Action & { kind: 'startCastingSession' },
++  writingContext: LiveWritingContext,
+   week: number = state.market.tick,
+   allowQueue = true,
+ ): GameState {
+@@ -2477,7 +2498,7 @@ function applyStartCastingSession(
+             busyTalentIds: busyTalentIds(state),
+           },
+         ),
+-      }),
++      }, writingContext),
+     (queue) => queueStartCastingSession(queue, action.session, week),
+     allowQueue,
+   )
+@@ -2486,6 +2507,7 @@ function applyStartCastingSession(
+ function applyAcknowledgeCastingSession(
+   state: GameState,
+   action: Action & { kind: 'acknowledgeCastingSession' },
++  writingContext: LiveWritingContext,
+ ): GameState {
+   return assertCurrentScriptState({
+     ...state,
+@@ -2493,7 +2515,7 @@ function applyAcknowledgeCastingSession(
+       state.castingSessions,
+       action.sessionId,
+     ),
+-  })
++  }, writingContext)
+ }
+ 
+ // ── D-11 signContract — sign a talent to a studio contract (D-11.4/.5/.6) ─────
+@@ -2841,6 +2863,7 @@ function applyCommitPictureToRelease(
+ }
+ 
+ export function applyActions(state: GameState, actions: Action[]): GameState {
++  const writingContext = prepareLiveWritingContext(state)
+   // B3 — at most one greenlight per call. Reject two loudly (a harness abort).
+   let greenlightCount = 0
+   for (const action of actions) {
+@@ -2936,7 +2959,7 @@ export function applyActions(state: GameState, actions: Action[]): GameState {
+         next = applyPublicity(next, action)
+         break
+       case 'activateStudioOperations':
+-        next = applyActivateStudioOperations(next, action)
++        next = applyActivateStudioOperations(next, action, writingContext)
+         break
+       case 'assignShootingDirector':
+         next = applyAssignShootingDirector(next, action)
+@@ -2948,16 +2971,16 @@ export function applyActions(state: GameState, actions: Action[]): GameState {
+         next = applyScheduleShootingTake(next, action)
+         break
+       case 'activateScriptDevelopment':
+-        next = applyActivateScriptDevelopment(next, action)
++        next = applyActivateScriptDevelopment(next, action, writingContext)
+         break
+       case 'commissionScript':
+-        next = applyCommissionScript(next, action)
++        next = applyCommissionScript(next, action, writingContext)
+         break
+       case 'commissionOriginalScreenplay':
+-        next = applyCommissionOriginalScreenplay(next, action)
++        next = applyCommissionOriginalScreenplay(next, action, writingContext)
+         break
+       case 'assignScreenplayWriter':
+-        next = applyAssignScreenplayWriter(next, action)
++        next = applyAssignScreenplayWriter(next, action, writingContext)
+         break
+       case 'cancelQueuedIntent':
+         next = applyCancelQueuedIntent(next, action)
+@@ -2966,47 +2989,47 @@ export function applyActions(state: GameState, actions: Action[]): GameState {
+         next = applyRenameScreenplay(next, action)
+         break
+       case 'requestScriptRewrite':
+-        next = applyRequestScriptRewrite(next, action)
++        next = applyRequestScriptRewrite(next, action, writingContext)
+         break
+       case 'acceptScript':
+-        next = applyAcceptScript(next, action)
++        next = applyAcceptScript(next, action, writingContext)
+         break
+       case 'greenlightScriptProject':
+-        next = applyGreenlightScriptProject(next, action)
++        next = applyGreenlightScriptProject(next, action, writingContext)
+         break
+       case 'activateCastingSessions':
+-        next = applyActivateCastingSessions(next, action)
++        next = applyActivateCastingSessions(next, action, writingContext)
+         break
+       case 'startCastingSession':
+-        next = applyStartCastingSession(next, action)
++        next = applyStartCastingSession(next, action, writingContext)
+         break
+       case 'acknowledgeCastingSession':
+-        next = applyAcknowledgeCastingSession(next, action)
++        next = applyAcknowledgeCastingSession(next, action, writingContext)
+         break
+       case 'startDevelopmentCastingAnnex':
+-        next = applyStartDevelopmentCastingAnnex(next, action)
++        next = applyStartDevelopmentCastingAnnex(next, action, writingContext)
+         break
+       case 'placeFacility':
+-        next = applyPlaceFacility(next, action)
++        next = applyPlaceFacility(next, action, writingContext)
+         break
+       case 'moveFacility':
+-        next = applyMoveFacility(next, action)
++        next = applyMoveFacility(next, action, writingContext)
+         break
+       case 'demolishFacility':
+-        next = applyDemolishFacility(next, action)
++        next = applyDemolishFacility(next, action, writingContext)
+         break
+       case 'cancelInstallation':
+       case 'cancelAdoption':
+-        next = applyCancellation(next, action)
++        next = applyCancellation(next, action, writingContext)
+         break
+       case 'commissionSet':
+-        next = applyCommissionSet(next, action)
++        next = applyCommissionSet(next, action, writingContext)
+         break
+       case 'repairSet':
+-        next = applyRepairSet(next, action)
++        next = applyRepairSet(next, action, writingContext)
+         break
+       case 'strikeSet':
+-        next = applyStrikeSet(next, action)
++        next = applyStrikeSet(next, action, writingContext)
+         break
+       case 'setProductionSetupRecipe':
+         next = applySetProductionSetupRecipe(next, action)
+diff --git a/src/core/liveRetirementWriting.ts b/src/core/liveRetirementWriting.ts
+new file mode 100644
+index 00000000..a26e3f04
+--- /dev/null
++++ b/src/core/liveRetirementWriting.ts
+@@ -0,0 +1,35 @@
++import type { GameState } from './types.js'
++import type { ProfessionValidationContext } from './professionHistory.js'
++import { validatedLiveProfessionContext } from './save.js'
++import {
++  retirementWritingAuthority,
++  retirementWritingNeedsProfessionProof,
++  type RetirementWritingAuthority,
++} from './retirementWriting.js'
++
++/** Invocation-local copied profession facts, never a persisted or week-bound
++ * writing grant. Explicit legacy/rejected tokens also prevent re-proving the
++ * temporary arriving-week state before retirement settlement. */
++export type LiveWritingContext = Readonly<
++  | { kind: 'legacy' }
++  | { kind: 'proved'; profession: ProfessionValidationContext }
++  | { kind: 'rejected' }
++>
++
++export function prepareLiveWritingContext(state: GameState): LiveWritingContext {
++  if (!retirementWritingNeedsProfessionProof(state)) return { kind: 'legacy' }
++  try {
++    return { kind: 'proved', profession: validatedLiveProfessionContext(state) }
++  } catch {
++    // Required proof failed: never recover a context-free, single-row grant.
++    return { kind: 'rejected' }
++  }
++}
++
++export function liveRetirementWritingAuthority(
++  state: GameState,
++  context: LiveWritingContext = prepareLiveWritingContext(state),
++): RetirementWritingAuthority | undefined {
++  if (context.kind === 'rejected') return undefined
++  return retirementWritingAuthority(state, context.kind === 'proved' ? context.profession : undefined)
++}
+diff --git a/src/core/placement.ts b/src/core/placement.ts
+index ce22195c..84d5e261 100644
+--- a/src/core/placement.ts
++++ b/src/core/placement.ts
+@@ -1,4 +1,5 @@
+-import { retirementWritingAuthority, type RetirementWritingAuthority } from './retirementWriting.js'
++import type { RetirementWritingAuthority } from './retirementWriting.js'
++import { liveRetirementWritingAuthority, type LiveWritingContext } from './liveRetirementWriting.js'
+ // ── Placement Core V12 (+ C1-M1a property state) ─────────────────────────────
+ // The single construction authority. One parcel map, one TUNING blueprint
+ // catalog, one pure legality query, one commit that re-runs that query before it
+@@ -1811,8 +1812,8 @@ export function demolishedFacilityHistory(
+  * placement policy, which is also what proves the V11 construction root has
+  * genuinely retired (empty projects, vacant parcel).
+  */
+-export function assertLiveStudioPlacementInvariants(state: GameState, options?: { facilityPolicy?: 'placement-v12' | 'configured' }): void {
+-  assertStudioPlacementInvariants(state, { ...options, retirementWriting: retirementWritingAuthority(state) })
++export function assertLiveStudioPlacementInvariants(state: GameState, options?: { facilityPolicy?: 'placement-v12' | 'configured' }, writingContext?: LiveWritingContext): void {
++  assertStudioPlacementInvariants(state, { ...options, retirementWriting: liveRetirementWritingAuthority(state, writingContext) })
+ }
+ 
+ export function assertStudioPlacementInvariants(
+diff --git a/src/core/queueAdmission.ts b/src/core/queueAdmission.ts
+index 94af3cc0..b1430bb1 100644
+--- a/src/core/queueAdmission.ts
++++ b/src/core/queueAdmission.ts
+@@ -22,6 +22,7 @@
+ // queue, it is a lottery with a waiting room.
+ 
+ import { commitQueuedIntent } from './actions.js'
++import { prepareLiveWritingContext, type LiveWritingContext } from './liveRetirementWriting.js'
+ import {
+   gateSlotAvailable,
+   queueEntrySubjectId,
+@@ -53,6 +54,7 @@ export function admitQueuedIntents(
+   state: GameState,
+   week: number,
+   events: StudioEventSink,
++  writingContext: LiveWritingContext = prepareLiveWritingContext(state),
+ ): QueueAdmissionResult {
+   const granted: number[] = []
+   const expired: number[] = []
+@@ -65,7 +67,7 @@ export function admitQueuedIntents(
+     // The gate, asked of the state as it stands after every grant so far: two
+     // intents can be admitted in one week if two slots came free in one week.
+     if (!gateSlotAvailable(next)) break
+-    const result = commitQueuedIntent(next, entry, week, events)
++    const result = commitQueuedIntent(next, entry, week, events, writingContext)
+     if (result.outcome === 'granted') {
+       next = {
+         ...result.state,
+diff --git a/src/core/retirementWriting.ts b/src/core/retirementWriting.ts
+index c9b91ae9..9063283a 100644
+--- a/src/core/retirementWriting.ts
++++ b/src/core/retirementWriting.ts
+@@ -19,6 +19,56 @@ const evidenceWeek = (value: unknown): value is number =>
+   typeof value === 'number' && Number.isSafeInteger(value) && value >= 0
+ const identity = (value: unknown): value is string => typeof value === 'string' && value.length > 0
+ 
++/** A cost gate, never permission. Only an unfinished task without employment at
++ * its own studio can need the current profession-history proof. Idle worlds do
++ * not scan their accumulated career history on every action or week. */
++export function retirementWritingNeedsProfessionProof(input: unknown): boolean {
++  const state = record(input), h = record(state?.hollywood), week = record(state?.market)?.tick
++  if (!state || !h || !identity(h.playerStudioId) || !evidenceWeek(week)) return false
++  const candidates = new Set<string>()
++  const studios = [{ studioId: h.playerStudioId, development: state.scriptDevelopment }, ...rows(h.businesses)]
++  for (const studio of studios) {
++    if (!identity(studio.studioId)) continue
++    for (const project of rows(record(studio.development)?.projects)) {
++      if (project.status !== 'drafting' || !evidenceWeek(project.dueWeek) || project.dueWeek <= week
++        || !Array.isArray(project.writerIds)) continue
++      for (const writerId of project.writerIds) {
++        if (!identity(writerId)) continue
++        const employed = studio.studioId === h.playerStudioId
++          ? rows(state.contracts).some(contract => contract.talentId === writerId
++            && evidenceWeek(contract.startWeek) && contract.startWeek <= week
++            && evidenceWeek(contract.endWeekExclusive) && week < contract.endWeekExclusive)
++          : rows(h.employment).some(interval => {
++            const terms = record(interval.terms)
++            return interval.studioId === studio.studioId && interval.endedWeek === null
++              && terms?.talentId === writerId && evidenceWeek(terms.startWeek) && terms.startWeek <= week
++              && evidenceWeek(terms.endWeekExclusive) && week < terms.endWeekExclusive
++          })
++        if (!employed) candidates.add(writerId)
++      }
++    }
++  }
++  if (candidates.size === 0) return false
++  const lifecycle = record(state.careerLifecycle)
++  if (!lifecycle || !evidenceWeek(lifecycle.transitionBoundaryWeek)) return true
++  for (const key of ['records', 'professionAnchors', 'professionChanges', 'transitionEvaluations', 'industryRetirements', 'transitionDue']) {
++    const value = lifecycle[key]
++    if (!Array.isArray(value) || value.some(row => !identity(record(row)?.personId))) return true
++  }
++  const people = rows(state.talent), anchors = rows(lifecycle.professionAnchors)
++  const changes = rows(lifecycle.professionChanges), retirements = rows(lifecycle.records)
++  for (const personId of candidates) {
++    const peopleForId = people.filter(person => person.id === personId)
++    const anchorsForId = anchors.filter(anchor => anchor.personId === personId)
++    const recordsForId = retirements.filter(row => row.personId === personId)
++    if (peopleForId.length !== 1 || anchorsForId.length !== 1
++      || anchorsForId[0]!.profession !== peopleForId[0]!.role
++      || changes.some(change => change.personId === personId)
++      || recordsForId.length !== 1 || recordsForId[0]!.profession !== peopleForId[0]!.role) return true
++  }
++  return false
++}
++
+ /** Called explicitly by current entry points only. Malformed input confers no
+  * authority; the normal full validators still check every original field. */
+ export function retirementWritingAuthority(input: unknown, professionContext?: ProfessionValidationContext): RetirementWritingAuthority | undefined {
+diff --git a/src/core/save.ts b/src/core/save.ts
+index cf9de010..428b2218 100644
+--- a/src/core/save.ts
++++ b/src/core/save.ts
+@@ -10200,7 +10200,7 @@ export function migrateToV37(save: SaveFile | { saveVersion: number }): SaveFile
+ 
+ 
+ // ── P14C.3 — prospective profession history, Save38 ────────────────────────
+-export function validateSaveV38(save: unknown): SaveFileV38 {
++function proveSaveV38(save: unknown): { save: SaveFileV38; professionContext: ProfessionValidationContext } {
+   if (!isRecord(save)) throw new Error('validateSaveV38: object required');
+   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
+   if (save.saveVersion !== 38) throw new Error('validateSaveV38: expected version 38');
+@@ -10209,7 +10209,17 @@ export function validateSaveV38(save: unknown): SaveFileV38 {
+   const professionContext = validateProfessionHistory(raw);
+   const writing = retirementWritingAuthority(raw, professionContext);
+   validateSaveV37WithProfession({ ...save, saveVersion: 37, state: stripProfessionHistory(raw) }, professionContext, writing);
+-  return save as SaveFileV38;
++  return { save: save as SaveFileV38, professionContext };
++}
++
++export function validateSaveV38(save: unknown): SaveFileV38 {
++  return proveSaveV38(save).save;
++}
++
++/** Internal live-entry proof. Context escapes only after the complete current
++ * save chain succeeds; no serialization or historical projection repairs input. */
++export function validatedLiveProfessionContext(state: GameState): ProfessionValidationContext {
++  return proveSaveV38({ saveVersion: 38, seed: state.seed, state, broadcastCache: state.broadcastItems }).professionContext;
+ }
+ 
+ export function convertV37ToV38(save: SaveFileV37): SaveFileV38 {
+diff --git a/src/core/tick.ts b/src/core/tick.ts
+index a9152e7a..0bdd05de 100644
+--- a/src/core/tick.ts
++++ b/src/core/tick.ts
+@@ -1,3 +1,4 @@
++import { prepareLiveWritingContext } from './liveRetirementWriting.js'
+ import { advanceHollywoodWeek, finishHollywoodWeek } from './hollywoodTick.js'
+ import { birthdaysDueAt, materializeAges, withTalentProvenance } from './aging.js'
+ import { advanceLifecycleIntent, advanceLifecycleSettlement } from './careerLifecycle.js'
+@@ -191,6 +192,7 @@ export type TickOptions = {
+ }
+ 
+ export function tick(state: GameState, options?: TickOptions): GameState {
++  const writingContext = prepareLiveWritingContext(state)
+   const develop = options?.develop ?? false
+   const currentTick = state.market.tick
+ 
+@@ -218,7 +220,7 @@ export function tick(state: GameState, options?: TickOptions): GameState {
+   // history immediately selects the exact V12 facility truth.
+   assertLiveStudioPlacementInvariants(state, {
+     facilityPolicy: state.placement.facilities.length === 0 ? 'configured' : 'placement-v12',
+-  })
++  }, writingContext)
+   // C2a-M2: the Set cross-reference laws, at the same boundary and for the same
+   // reason — a tick may not repair a state in which two sets stand on one stage,
+   // a set is being built by nobody, or a picture is filming on a set that is not
+@@ -414,6 +416,7 @@ export function tick(state: GameState, options?: TickOptions): GameState {
+     },
+     currentTick + 1,
+     events,
++    writingContext,
+   )
+   const queueAdmitted: GameState = { ...admission.state, technology: technologyProduction.technology(), market: state.market }
+ 
+diff --git a/tests/helpers/p14c3-second-episode-fixtures.ts b/tests/helpers/p14c3-second-episode-fixtures.ts
+new file mode 100644
+index 00000000..3a927533
+--- /dev/null
++++ b/tests/helpers/p14c3-second-episode-fixtures.ts
+@@ -0,0 +1,194 @@
++// 1002-A / 1006-A: genuine, bounded second-profession writing. Public actions and
++// develop:true ticks only; neither lifecycle nor employment/history is authored.
++import assert from 'node:assert/strict'
++import { expect } from 'vitest'
++import { applyActions } from '../../src/core/actions.js'
++import { retirementRecordFor } from '../../src/core/careerLifecycle.js'
++import { activeContract, busyTalentIds } from '../../src/core/employment.js'
++import { exportSave, importSave, makeSave, migrateToLive, stableStringify, validateSaveV38 } from '../../src/core/save.js'
++import { availableDevelopmentCastingSlots } from '../../src/core/scriptDevelopment.js'
++import { openMarketCaseFor, submitProposal } from '../../src/core/talentMarket.js'
++import { tick } from '../../src/core/tick.js'
++import { TUNING } from '../../src/core/tuning.js'
++import type { Action, GameState, ScriptProject } from '../../src/core/types.js'
++import { clone, FOCUS, obligationControls, person, type Target } from './p14c3-fixtures.js'
++
++export const B4_TARGETS = ['director', 'writer'] as const
++export type Episode = { target: Target; id: string; state: GameState; origin: GameState }
++export type WritingEpisode = Episode & { projectId: string; due: number; effective: number; youngWriterId: string;
++  commissioned: GameState }
++const renewalCache = new Map<Target, Episode>()
++const announcementCache = new Map<Target, Episode>()
++const writingCache = new Map<Target, WritingEpisode>()
++const completionCache = new Map<Target, { direct: GameState; reopened: GameState }>()
++
++export function accepted(state: GameState): void {
++  const before = stableStringify(state), save = makeSave(state)
++  expect(save.saveVersion).toBe(38)
++  expect(validateSaveV38(save)).toBe(save)
++  expect(stableStringify(state)).toBe(before)
++}
++export function advanceExactly(state: GameState, end: number): GameState {
++  expect(Number.isSafeInteger(end) && end >= state.market.tick && end <= 495,
++    '1002-A finite route: no state may advance beyond208+287').toBe(true)
++  const steps = end - state.market.tick
++  for (let i = 0; i < steps; i++) state = tick(state, { develop: true })
++  expect(state.market.tick).toBe(end)
++  return state
++}
++export function originalCommission(writerId: string): Action {
++  return { kind: 'commissionOriginalScreenplay', screenplay: { writerId, genre: 'crime',
++    shape: { opening: 'mysteryHook', midpoint: 'reversal', ending: 'bittersweet' },
++    promise: { genre: 'crime', intendedSegments: ['adult'], ranges: {
++      intimacy: [-0.4, 0.6], tonalWeight: [0, 0.8], kineticEnergy: [-0.7, 0.2] } } } }
++}
++export function projectFor(state: GameState, projectId: string): ScriptProject {
++  const project = state.scriptDevelopment.projects.find(row => row.id === projectId)
++  assert.ok(project, 'the actual original screenplay remains identifiable')
++  return project
++}
++export function preserveActorHistory(state: GameState, origin: GameState, id: string): void {
++  expect(retirementRecordFor(state, id, 'actor')).toEqual(retirementRecordFor(origin, id, 'actor'))
++  expect(retirementRecordFor(state, id, 'actor')).toMatchObject({ status: 'retired', retiredWeek: 208 })
++  expect(state.careerLifecycle.transitionEvaluations.filter(row => row.personId === id))
++    .toEqual(origin.careerLifecycle.transitionEvaluations.filter(row => row.personId === id))
++  expect(state.careerLifecycle.professionChanges.filter(row => row.personId === id))
++    .toEqual(origin.careerLifecycle.professionChanges.filter(row => row.personId === id))
++  expect(state.careerLifecycle.transitionDue.filter(row => row.personId === id)).toEqual([])
++  expect(state.talentProvenance.rows.find(row => row.personId === id))
++    .toEqual(origin.talentProvenance.rows.find(row => row.personId === id))
++  expect(state.careerLifecycle.professionAnchors.find(row => row.personId === id))
++    .toEqual(origin.careerLifecycle.professionAnchors.find(row => row.personId === id))
++  expect(state.talent.slice(0, origin.talent.length).map(row => row.id)).toEqual(origin.talent.map(row => row.id))
++  const originalTakes = origin.firstTakes.filter(row => Object.values(row.cast).includes(id))
++  expect(originalTakes).toHaveLength(3)
++  for (const take of originalTakes) expect(state.firstTakes.find(row => row.eventId === take.eventId)).toEqual(take)
++  const originalFilms = origin.studio.releasedFilms.filter(row => row.participants
++    && Object.values(row.participants.cast).some(credit => credit.talentId === id))
++  expect(originalFilms).toHaveLength(3)
++  for (const film of originalFilms) {
++    expect(state.studio.releasedFilms.find(row => row.productionId === film.productionId))
++      .toMatchObject({ productionId: film.productionId, releaseTick: film.releaseTick, participants: film.participants })
++  }
++}
++
++export function renewedEpisode(target: Target): Episode {
++  const cached = renewalCache.get(target)
++  if (cached !== undefined) return clone(cached)
++  const control = obligationControls('production')
++  assert.ok(control.laterProduction && control.laterProductionId)
++  let state = applyActions(control.laterProduction, [{ kind: 'cancel', productionId: control.laterProductionId }])
++  const id = FOCUS[target], origin = clone(state)
++  expect(state.market.tick).toBe(208)
++  expect(person(state, id)).toMatchObject({ role: target, age: 72 })
++  expect(activeContract(state, id)).toMatchObject({ startWeek: 208, endWeekExclusive: 260 })
++  expect(busyTalentIds(state).has(id)).toBe(false)
++  accepted(state)
++  state = advanceExactly(state, 253)
++  expect(retirementRecordFor(state, id)).toBeUndefined()
++  const marketCase = openMarketCaseFor(state, id)
++  assert.ok(marketCase, 'real ordinary market case before260')
++  expect(marketCase.variant).toBe('expiry')
++  expect(marketCase.subjectStudioId).toBe(state.hollywood!.playerStudioId)
++  expect(marketCase.outcome).toBeNull()
++  expect(Math.max(...TUNING.MARKET_PREMIUM_TIERS)).toBe(1.25)
++  state = submitProposal(state, { talentId: id, issuerStudioId: state.hollywood!.playerStudioId,
++    termWeeks: 208, premiumTier: 1.25 })
++  expect(state.talentMarket.proposals.find(row => row.talentId === id && row.issuerStudioId === state.hollywood!.playerStudioId))
++    .toMatchObject({ startWeek: 260, termWeeks: 208, premiumTier: 1.25 })
++  state = advanceExactly(state, 260)
++  expect(activeContract(state, id), 'bounded public premise: real own market win, never a forced employer')
++    .toMatchObject({ startWeek: 260, endWeekExclusive: 468, termWeeks: 208 })
++  expect(state.talentMarket.cases.find(row => row.contractId === marketCase.contractId))
++    .toMatchObject({ outcome: 'settled', closedWeek: 260 })
++  expect(state.talentMarket.receipts.filter(row => row.talentId === id && row.kind === 'settled' && row.week === 260))
++    .toEqual([expect.objectContaining({ studioId: state.hollywood!.playerStudioId })])
++  preserveActorHistory(state, origin, id)
++  accepted(state)
++  const result = { target, id, origin, state }
++  renewalCache.set(target, result)
++  return clone(result)
++}
++
++export function announcedEpisode(target: Target): Episode {
++  const cached = announcementCache.get(target)
++  if (cached !== undefined) return clone(cached)
++  const prior = renewedEpisode(target), state = advanceExactly(prior.state, 364)
++  expect(person(state, prior.id)).toMatchObject({ role: target, age: 75 })
++  expect(activeContract(state, prior.id)).toMatchObject({ startWeek: 260, endWeekExclusive: 468 })
++  const ends = state.hollywood!.employment.filter(row => row.terms.talentId === prior.id
++    && row.terms.startWeek <= 364 && 364 < (row.endedWeek ?? row.terms.endWeekExclusive))
++    .map(row => row.terms.endWeekExclusive)
++  const effective = Math.max(364 + TUNING.RETIREMENT_NOTICE_WEEKS, activeContract(state, prior.id)!.endWeekExclusive, ...ends)
++  expect(effective, 'the required actual carrying interval fixes the bounded route').toBe(468)
++  expect(retirementRecordFor(state, prior.id)).toMatchObject({ profession: target, status: 'announced',
++    cause: 'hardBoundary', announcedWeek: 364, ageAtAnnouncement: 75, effectiveWeek: effective })
++  preserveActorHistory(state, prior.origin, prior.id)
++  accepted(state)
++  const result = { ...prior, state }
++  announcementCache.set(target, result)
++  return clone(result)
++}
++
++export function finishingEpisode(target: Target): WritingEpisode {
++  const cached = writingCache.get(target)
++  if (cached !== undefined) return clone(cached)
++  const prior = announcedEpisode(target)
++  const effective = retirementRecordFor(prior.state, prior.id)!.effectiveWeek
++  let state = advanceExactly(prior.state, effective - 1)
++  expect(state.studio.activeProductions).toEqual([])
++  if (state.scriptDevelopment.mode === 'legacy') state = applyActions(state, [{ kind: 'activateScriptDevelopment' }])
++  expect(state.scriptDevelopment.mode).toBe('managed')
++  expect(state.scriptDevelopment.projects).toEqual([])
++  expect(state.castingSessions.sessions).toEqual([])
++  // Prepare the unrelated command before E so later tests reach the screenplay
++  // caller itself, not a creator/signing path on the retained-work snapshot.
++  const count = state.talent.length
++  state = applyActions(state, [{ kind: 'createTalent', talent: { name: `1006 ${target} branch young writer`,
++    role: 'writer', age: 30, actual: { warmth: 0, gravity: 0, physicality: 0.2 }, potentialTier: 'Steady', workEthic: 55 } }])
++  expect(state.talent).toHaveLength(count + 1)
++  const youngWriterId = state.talent.at(-1)!.id
++  state = applyActions(state, [{ kind: 'signContract', talentId: youngWriterId, termWeeks: 52 }])
++  expect(person(state, prior.id).skills.writing).toBeDefined()
++  expect(busyTalentIds(state).has(prior.id)).toBe(false)
++  expect(activeContract(state, prior.id)).toMatchObject({ endWeekExclusive: effective })
++  const countBefore = state.scriptDevelopment.projects.length
++  state = applyActions(state, [originalCommission(prior.id)])
++  expect(state.scriptDevelopment.projects).toHaveLength(countBefore + 1)
++  const project = state.scriptDevelopment.projects.at(-1)!
++  expect(project).toMatchObject({ writerId: prior.id, writerIds: [prior.id], commissionedWeek: effective - 1, status: 'drafting' })
++  assert.ok(project.dueWeek !== null)
++  expect(project.dueWeek, 'real draft must survive both E and E+1; no timing edits').toBeGreaterThan(effective + 1)
++  expect(project.dueWeek).toBeLessThanOrEqual(effective + 26)
++  accepted(state)
++  const commissioned = clone(state)
++  state = advanceExactly(state, effective)
++  expect(projectFor(state, project.id)).toEqual(project)
++  expect(activeContract(state, prior.id)).toBeUndefined()
++  expect(retirementRecordFor(state, prior.id)).toMatchObject({ profession: target, status: 'finishing_commitments',
++    effectiveWeek: effective, finishingFromWeek: effective, retiredWeek: null })
++  expect(state.hollywood!.employment.find(row => row.terms.talentId === prior.id && row.terms.startWeek === 260))
++    .toMatchObject({ studioId: state.hollywood!.playerStudioId, endedWeek: effective, terms: { endWeekExclusive: effective } })
++  expect(state.hollywood!.receipts.filter(row => row.kind === 'employment' && row.reason === 'expiry'
++    && row.talentId === prior.id && row.week === effective)).toHaveLength(1)
++  expect(activeContract(state, youngWriterId)).toMatchObject({ startWeek: effective - 1, endWeekExclusive: effective + 51 })
++  expect(busyTalentIds(state).has(youngWriterId)).toBe(false)
++  expect(availableDevelopmentCastingSlots(state.operations, state.scriptDevelopment, new Set()),
++    'real unrelated commission must have spare capacity, not enter the queue').toBeGreaterThan(0)
++  preserveActorHistory(state, prior.origin, prior.id)
++  accepted(state)
++  const result = { ...prior, state, projectId: project.id, due: project.dueWeek, effective, youngWriterId, commissioned }
++  writingCache.set(target, result)
++  return clone(result)
++}
++
++export function completedEpisode(target: Target): { direct: GameState; reopened: GameState } {
++  const cached = completionCache.get(target)
++  if (cached !== undefined) return clone(cached)
++  const f = finishingEpisode(target), raw = exportSave(makeSave(f.state))
++  const reopened = migrateToLive(importSave(raw)).state
++  expect(stableStringify(reopened)).toBe(stableStringify(f.state))
++  const result = { direct: advanceExactly(f.state, f.due), reopened: advanceExactly(reopened, f.due) }
++  completionCache.set(target, result)
++  return clone(result)
++}
+diff --git a/tests/p14c3-second-episode-writing.test.ts b/tests/p14c3-second-episode-writing.test.ts
+new file mode 100644
+index 00000000..06029753
+--- /dev/null
++++ b/tests/p14c3-second-episode-writing.test.ts
+@@ -0,0 +1,156 @@
++// Independent1002-A B4a: six requirements for each genuinely transitioned person.
++// Real historical and live positive controls precede detached negative mutations.
++import assert from 'node:assert/strict'
++import { describe, expect, it } from 'vitest'
++import { applyActions } from '../src/core/actions.js'
++import { retirementRecordFor } from '../src/core/careerLifecycle.js'
++import { activeContract, busyTalentIds } from '../src/core/employment.js'
++import { studioConstructionView } from '../src/core/placement.js'
++import { exportSave, importSave, makeSave, migrateToLive, stableStringify, validateSaveV38 } from '../src/core/save.js'
++import { availableDevelopmentCastingSlots } from '../src/core/scriptDevelopment.js'
++import { studioCalendar } from '../src/core/studioCalendar.js'
++import { playerOffer } from '../src/core/talentMarket.js'
++import { TUNING } from '../src/core/tuning.js'
++import type { GameState } from '../src/core/types.js'
++import { clone, person } from './helpers/p14c3-fixtures.js'
++import { accepted, advanceExactly, announcedEpisode, B4_TARGETS, completedEpisode, finishingEpisode,
++  originalCommission, preserveActorHistory, projectFor, renewedEpisode } from './helpers/p14c3-second-episode-fixtures.js'
++
++function encoded(state: GameState): string { return exportSave(makeSave(state)) }
++function noReplacementEmployment(state: GameState, id: string, effective: number): void {
++  expect(activeContract(state, id)).toBeUndefined()
++  expect(state.contracts.filter(row => row.talentId === id)).toEqual([])
++  expect(state.hollywood!.employment.filter(row => row.terms.talentId === id && row.terms.startWeek >= effective)).toEqual([])
++  expect(state.ledger.filter(row => row.talentId === id && row.kind === 'signingBonus' && row.week >= effective)).toEqual([])
++  // Other genuine employees remain; aggregate payroll is not a per-person row.
++}
++
++describe.each(B4_TARGETS)('C.3 B4a actual actor→%s second retirement and retained writing', target => {
++  it('W1 permits and pays the genuine ordinary208-week new-profession renewal', () => {
++    const { state, origin, id } = renewedEpisode(target), before = stableStringify(state)
++    const contract = activeContract(state, id)
++    assert.ok(contract)
++    expect(contract).toMatchObject({ startWeek: 260, endWeekExclusive: 468, termWeeks: 208 })
++    const ask = playerOffer(state, id, 208, 260).annualSalary
++    const annualSalary = Math.round(ask * 1.25)
++    const signingBonus = Math.round(annualSalary * TUNING.CONTRACT_SIGNING_BONUS_FRACTION)
++    expect(contract).toMatchObject({ annualSalary, signingBonus })
++    expect(state.ledger.filter(row => row.talentId === id && row.kind === 'signingBonus' && row.week >= 253 && row.week <= 260))
++      .toEqual([expect.objectContaining({ week: 260, amount: -signingBonus })])
++    expect(state.talentMarket.receipts.filter(row => row.talentId === id && row.kind === 'settled' && row.week === 260))
++      .toEqual([expect.objectContaining({ studioId: state.hollywood!.playerStudioId })])
++    expect(retirementRecordFor(state, id)).toBeUndefined()
++    preserveActorHistory(state, origin, id)
++    accepted(state)
++    expect(stableStringify(state)).toBe(before)
++  })
++
++  it('W2 records the real hard75 destination notice beside the unchanged completed actor episode', () => {
++    const { state, origin, id } = announcedEpisode(target)
++    expect(state.market.tick).toBe(364)
++    expect(person(state, id)).toMatchObject({ role: target, age: 75 })
++    expect(state.careerLifecycle.records.filter(row => row.personId === id)).toHaveLength(2)
++    expect(retirementRecordFor(state, id)).toMatchObject({ profession: target, status: 'announced',
++      cause: 'hardBoundary', announcedWeek: 364, effectiveWeek: 468, extensionUsed: false })
++    expect(state.careerLifecycle.industryRetirements.filter(row => row.personId === id)).toEqual([])
++    preserveActorHistory(state, origin, id)
++    accepted(state)
++  })
++
++  it('W3 accepts genuine retained writing at E through Save38, Calendar, construction and an unrelated screenplay command', () => {
++    const f = finishingEpisode(target), before = stableStringify(f.state), old = projectFor(f.state, f.projectId)
++    accepted(f.state)
++    expect(old).toMatchObject({ writerId: f.id, commissionedWeek: f.effective - 1, status: 'drafting', dueWeek: f.due })
++    expect(f.due).toBeGreaterThan(f.effective + 1)
++    expect(retirementRecordFor(f.state, f.id, 'actor')).toMatchObject({ status: 'retired', retiredWeek: 208 })
++    expect(retirementRecordFor(f.state, f.id)).toMatchObject({ profession: target, status: 'finishing_commitments' })
++    expect.soft(() => studioConstructionView(f.state), 'live construction must use current profession authority').not.toThrow()
++    expect.soft(() => {
++      const calendar = studioCalendar(f.state)
++      expect(calendar.commitments.some(row => row.kind === 'retirement' && row.ownerId === f.id && row.week === f.effective)).toBe(true)
++    }, 'actual Calendar must inspect the valid retained-work snapshot').not.toThrow()
++    expect(person(f.state, f.youngWriterId)).toMatchObject({ role: 'writer', age: 30 })
++    expect(activeContract(f.state, f.youngWriterId)).toBeDefined()
++    expect(busyTalentIds(f.state).has(f.youngWriterId)).toBe(false)
++    expect(f.state.castingSessions.sessions).toEqual([])
++    expect(availableDevelopmentCastingSlots(f.state.operations, f.state.scriptDevelopment, new Set())).toBeGreaterThan(0)
++    expect.soft(() => {
++      const next = applyActions(f.state, [originalCommission(f.youngWriterId)])
++      expect(next.scriptDevelopment.projects).toHaveLength(f.state.scriptDevelopment.projects.length + 1)
++      expect(next.scriptDevelopment.projects.at(-1)).toMatchObject({ writerId: f.youngWriterId,
++        commissionedWeek: f.effective, status: 'drafting' })
++      expect(projectFor(next, f.projectId)).toEqual(old)
++      expect(next.productionQueue).toEqual(f.state.productionQueue)
++      accepted(next)
++    }, 'actual unrelated commission reaches assertCurrentScriptState with a free young writer and real spare slot').not.toThrow()
++    noReplacementEmployment(f.state, f.id, f.effective)
++    expect(stableStringify(f.state)).toBe(before)
++  })
++
++  it('W4 loaded and continuous E states finish the same original screenplay on its real clock', () => {
++    const f = finishingEpisode(target), { direct, reopened } = completedEpisode(target)
++    expect(direct.market.tick).toBe(f.due)
++    expect(reopened.market.tick).toBe(f.due)
++    expect(encoded(reopened)).toBe(encoded(direct))
++    expect(projectFor(direct, f.projectId)).toMatchObject({ writerId: f.id, writerIds: [f.id],
++      commissionedWeek: f.effective - 1, status: 'review', dueWeek: null, reservation: null })
++    expect(reopened.scriptDevelopment).toEqual(direct.scriptDevelopment)
++    expect(reopened.hollywood!.receipts).toEqual(direct.hollywood!.receipts)
++    preserveActorHistory(direct, f.origin, f.id)
++    noReplacementEmployment(direct, f.id, f.effective)
++    accepted(direct)
++  })
++
++  it('W5 retires the destination after actual clearance and records exactly one noCatalogue finality', () => {
++    const f = finishingEpisode(target), { direct } = completedEpisode(target)
++    const record = retirementRecordFor(direct, f.id)
++    expect(record).toMatchObject({ profession: target, status: 'retired', effectiveWeek: f.effective, retiredWeek: f.due })
++    const finality = direct.careerLifecycle.industryRetirements.filter(row => row.personId === f.id)
++    expect(finality).toEqual([{ personId: f.id, week: f.due, profession: target,
++      source: { personId: f.id, profession: target }, cause: 'noCatalogue', evaluationId: null }])
++    expect(direct.freeAgents).not.toContain(f.id)
++    preserveActorHistory(direct, f.origin, f.id)
++    const loaded = migrateToLive(importSave(encoded(direct))).state
++    expect(encoded(loaded)).toBe(encoded(direct))
++    const later = advanceExactly(loaded, f.due + 1)
++    expect(retirementRecordFor(later, f.id)).toEqual(record)
++    expect(later.careerLifecycle.industryRetirements.filter(row => row.personId === f.id)).toEqual(finality)
++    preserveActorHistory(later, f.origin, f.id)
++    noReplacementEmployment(later, f.id, f.effective)
++    accepted(later)
++  })
++
++  it('W6 refuses both missing-current and missing-old-actor authority without borrowing or legacy fallback', () => {
++    const f = finishingEpisode(target), before = stableStringify(f.state)
++    accepted(f.state) // mandatory genuine whole38 control before either mutation
++    expect(f.state.careerLifecycle.records.filter(row => row.personId === f.id)).toHaveLength(2)
++    for (const removed of [target, 'actor'] as const) {
++      const malformed = clone(f.state)
++      malformed.careerLifecycle.records = malformed.careerLifecycle.records.filter(row => row.personId !== f.id || row.profession !== removed)
++      expect(malformed.careerLifecycle.records.filter(row => row.personId === f.id)).toHaveLength(1)
++      expect(malformed.careerLifecycle.professionChanges).toEqual(f.state.careerLifecycle.professionChanges)
++      expect(malformed.careerLifecycle.transitionEvaluations).toEqual(f.state.careerLifecycle.transitionEvaluations)
++      expect(malformed.scriptDevelopment).toEqual(f.state.scriptDevelopment)
++      expect(malformed.hollywood!.employment).toEqual(f.state.hollywood!.employment)
++      const malformedBefore = stableStringify(malformed)
++      const fullSaveCause = removed === 'actor'
++        ? /evaluation lacks completed acting retirement predecessor/
++        // The genuine current extension case remains. Its missing dated episode
++        // is rejected by the full reader before the script-employment delegate.
++        : `is a retirementExtension case for ${f.id}, who holds no retirement record`
++      const liveCause = removed === 'actor'
++        ? /evaluation lacks completed acting retirement predecessor|active project .*writer is not contracted/
++        : /active project .*writer is not contracted/
++      expect.soft(() => validateSaveV38({ saveVersion: 38, seed: malformed.seed, state: malformed,
++        broadcastCache: malformed.broadcastItems }), `whole38 refuses removed ${removed} authority`).toThrow(fullSaveCause)
++      // Both are deliberately invalid snapshots. Removing old actor history must
++      // not regain the single-row legacy allowance while C3 changes still exist.
++      expect.soft(() => studioConstructionView(malformed), `construction refuses removed ${removed}`).toThrow(liveCause)
++      expect.soft(() => studioCalendar(malformed), `Calendar refuses removed ${removed}`).toThrow(liveCause)
++      expect.soft(() => applyActions(malformed, [originalCommission(f.youngWriterId)]),
++        `unrelated screenplay refuses removed ${removed}`).toThrow(liveCause)
++      expect(stableStringify(malformed)).toBe(malformedBefore)
++    }
++    expect(stableStringify(f.state)).toBe(before)
++  })
++})

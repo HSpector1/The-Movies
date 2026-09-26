@@ -27,3 +27,11 @@ production writer/heavy executor, existing specialists separate test/review owne
 Hollywood seating, remaining971/938 scope, projection53/runtime/read models/UI and
 full C.3 verification remain. Save38 is partial, projection52 current; no native
 or complete launch qualification.
+
+## Publication receipt
+
+Normally committed/pushed as ea4f1b6de24436d9cb8bd6dd4cdfa9ecea9ba425. Local HEAD
+and independent git ls-remote matched. Production/tests were clean; newer author
+docs1001-A and1002-A remained pending and were preserved. Reviewed B4a first12
+is released with explicit ordinary-action and both missing-row negatives. No
+heavy process is active. All remaining queue/extension/full-program limits persist.

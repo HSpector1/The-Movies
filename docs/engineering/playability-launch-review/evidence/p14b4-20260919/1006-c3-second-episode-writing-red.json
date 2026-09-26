@@ -1,0 +1,22 @@
+{
+  "sourceSha": "ea4f1b6de24436d9cb8bd6dd4cdfa9ecea9ba425",
+  "testedDiffSha256": "a4010793ddcf0645ef5cc4387f89726563e2767bb61c54c0451a6ed5c7e3dd0e",
+  "untrackedSource": [],
+  "command": [
+    "node_modules/.bin/vitest",
+    "run",
+    "--project",
+    "core",
+    "tests/p14c3-second-episode-writing.test.ts"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-26T21:32:58.274Z",
+  "end": "2026-09-26T21:33:24.126Z",
+  "exitCode": 1,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "ea4f1b6de24436d9cb8bd6dd4cdfa9ecea9ba425",
+  "testedDiffSha256AtEnd": "a4010793ddcf0645ef5cc4387f89726563e2767bb61c54c0451a6ed5c7e3dd0e",
+  "untrackedSourceAtEnd": [],
+  "fixedSource": true
+}

@@ -1,0 +1,24 @@
+{
+  "sourceSha": "ea4f1b6de24436d9cb8bd6dd4cdfa9ecea9ba425",
+  "testedDiffSha256": "6664c9336f5b45946b61f9fe46f11c19f0484487b8c1a817e7f8396f3780a1db",
+  "untrackedSource": [],
+  "command": [
+    "node_modules/.bin/vitest",
+    "run",
+    "--project",
+    "core",
+    "tests/p14c2rm-writer-continuation.test.ts",
+    "tests/c2a-m4-queue-admission.test.ts",
+    "tests/c2a-m4-queue-legibility.test.ts"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-26T21:45:27.032Z",
+  "end": "2026-09-26T21:46:03.583Z",
+  "exitCode": 0,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "ea4f1b6de24436d9cb8bd6dd4cdfa9ecea9ba425",
+  "testedDiffSha256AtEnd": "6664c9336f5b45946b61f9fe46f11c19f0484487b8c1a817e7f8396f3780a1db",
+  "untrackedSourceAtEnd": [],
+  "fixedSource": true
+}

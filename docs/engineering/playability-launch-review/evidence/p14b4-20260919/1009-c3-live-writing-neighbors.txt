@@ -1,0 +1,40 @@
+{"sourceSha":"ea4f1b6de24436d9cb8bd6dd4cdfa9ecea9ba425","testedDiffSha256":"6664c9336f5b45946b61f9fe46f11c19f0484487b8c1a817e7f8396f3780a1db","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14c2rm-writer-continuation.test.ts","tests/c2a-m4-queue-admission.test.ts","tests/c2a-m4-queue-legibility.test.ts"],"node":"v20.20.2","start":"2026-09-26T21:45:27.032Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/c2a-m4-queue-legibility.test.ts (4 tests) 1062ms
+   ✓ C2a-M4 G16 — studioQueueView answers law 2 > renders all four facts non-empty for every waiter in a contended run 488ms
+   ✓ C2a-M4 G16 — studioQueueView answers law 2 > offers only remedies the engine can actually perform 304ms
+ ✓ |core| tests/c2a-m4-queue-admission.test.ts (13 tests) 1256ms
+ ✓ |core| tests/p14c2rm-writer-continuation.test.ts (64 tests) 32167ms
+   ✓ 880-B natural retired-writer continuation > keeps the existing active-contract save/load control byte-identical 6822ms
+   ✓ 880-B natural retired-writer continuation > saves and reloads the real E snapshot without adding a contract, changing work or advancing the clock 878ms
+   ✓ 880-B natural retired-writer continuation > continues the real finishing task through its actual due week, then retires once 612ms
+   ✓ 880-B natural retired-writer continuation > loaded and uninterrupted finishing branches produce identical completion and next-week saves 1071ms
+   ✓ 880-B natural retired-writer continuation > allows actual D<E expired writing while still announced, including byte-identical resumed completion 5601ms
+   ✓ 880-B natural retired-writer continuation > a lawful unrelated original commission does not fail on another writer’s retained task 434ms
+   ✓ 880-B natural retired-writer continuation > a real non-attributed pooled writer keeps only their existing assignment across E 1337ms
+   ✓ 880-B natural retired-writer continuation > preserves ordinary new-work and release refusals instead of granting permission from a retained task 341ms
+   ✓ 880-B live allowance stays narrowly scoped > refuses 'missing lifecycle record' without altering caller bytes 377ms
+   ✓ 880-B live allowance stays narrowly scoped > refuses 'another person’s lifecycle record is …' without altering caller bytes 310ms
+   ✓ 880-B live allowance stays narrowly scoped > refuses 'wrong historical employer studio' without altering caller bytes 389ms
+   ✓ 880-B live allowance stays narrowly scoped > refuses 'historical employment did not cover c…' without altering caller bytes 314ms
+   ✓ 880-B live allowance stays narrowly scoped > refuses 'missing historical employment' without altering caller bytes 313ms
+   ✓ 880-B live allowance stays narrowly scoped > refuses 'new work begins at E' without altering caller bytes 327ms
+   ✓ 880-B live allowance stays narrowly scoped > refuses 'future commission week' without altering caller bytes 360ms
+   ✓ 880-B live allowance stays narrowly scoped > refuses 'due week is no longer in the future' without altering caller bytes 374ms
+   ✓ 880-B live allowance stays narrowly scoped > refuses 'due week exceeds the ordinary draft b…' without altering caller bytes 349ms
+   ✓ 880-B live allowance stays narrowly scoped > refuses 'duplicate writer membership' without altering caller bytes 306ms
+   ✓ 880-B live allowance stays narrowly scoped > refuses 'attributed writer is missing from mem…' without altering caller bytes 303ms
+   ✓ 880-B live allowance stays narrowly scoped > refuses a genuinely terminated interval, even if an illegal cross-branch draft is grafted afterward 458ms
+   ✓ 880-B live allowance stays narrowly scoped > frozen public V36 stays strict, and an exceptional current save cannot silently downgrade 1085ms
+   ✓ 880-B live allowance stays narrowly scoped > genuine older migration preserves existing screenplay, employment and work facts 498ms
+   ✓ 880-B live allowance stays narrowly scoped > validation authority never leaks between campaigns with the same project and PersonIds 1332ms
+   ✓ 880-B malformed authority refuses before live work, not only at persistence > tick refuses 'non-finite effective week' 592ms
+
+ Test Files  3 passed (3)
+      Tests  81 passed (81)
+   Start at  23:45:27
+   Duration  35.58s (transform 3.05s, setup 0ms, collect 7.53s, tests 34.49s, environment 2ms, prepare 756ms)
+

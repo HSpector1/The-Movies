@@ -1,0 +1,360 @@
+diff --git a/tests/helpers/p14c3-second-episode-fixtures.ts b/tests/helpers/p14c3-second-episode-fixtures.ts
+new file mode 100644
+index 00000000..3a927533
+--- /dev/null
++++ b/tests/helpers/p14c3-second-episode-fixtures.ts
+@@ -0,0 +1,194 @@
++// 1002-A / 1006-A: genuine, bounded second-profession writing. Public actions and
++// develop:true ticks only; neither lifecycle nor employment/history is authored.
++import assert from 'node:assert/strict'
++import { expect } from 'vitest'
++import { applyActions } from '../../src/core/actions.js'
++import { retirementRecordFor } from '../../src/core/careerLifecycle.js'
++import { activeContract, busyTalentIds } from '../../src/core/employment.js'
++import { exportSave, importSave, makeSave, migrateToLive, stableStringify, validateSaveV38 } from '../../src/core/save.js'
++import { availableDevelopmentCastingSlots } from '../../src/core/scriptDevelopment.js'
++import { openMarketCaseFor, submitProposal } from '../../src/core/talentMarket.js'
++import { tick } from '../../src/core/tick.js'
++import { TUNING } from '../../src/core/tuning.js'
++import type { Action, GameState, ScriptProject } from '../../src/core/types.js'
++import { clone, FOCUS, obligationControls, person, type Target } from './p14c3-fixtures.js'
++
++export const B4_TARGETS = ['director', 'writer'] as const
++export type Episode = { target: Target; id: string; state: GameState; origin: GameState }
++export type WritingEpisode = Episode & { projectId: string; due: number; effective: number; youngWriterId: string;
++  commissioned: GameState }
++const renewalCache = new Map<Target, Episode>()
++const announcementCache = new Map<Target, Episode>()
++const writingCache = new Map<Target, WritingEpisode>()
++const completionCache = new Map<Target, { direct: GameState; reopened: GameState }>()
++
++export function accepted(state: GameState): void {
++  const before = stableStringify(state), save = makeSave(state)
++  expect(save.saveVersion).toBe(38)
++  expect(validateSaveV38(save)).toBe(save)
++  expect(stableStringify(state)).toBe(before)
++}
++export function advanceExactly(state: GameState, end: number): GameState {
++  expect(Number.isSafeInteger(end) && end >= state.market.tick && end <= 495,
++    '1002-A finite route: no state may advance beyond208+287').toBe(true)
++  const steps = end - state.market.tick
++  for (let i = 0; i < steps; i++) state = tick(state, { develop: true })
++  expect(state.market.tick).toBe(end)
++  return state
++}
++export function originalCommission(writerId: string): Action {
++  return { kind: 'commissionOriginalScreenplay', screenplay: { writerId, genre: 'crime',
++    shape: { opening: 'mysteryHook', midpoint: 'reversal', ending: 'bittersweet' },
++    promise: { genre: 'crime', intendedSegments: ['adult'], ranges: {
++      intimacy: [-0.4, 0.6], tonalWeight: [0, 0.8], kineticEnergy: [-0.7, 0.2] } } } }
++}
++export function projectFor(state: GameState, projectId: string): ScriptProject {
++  const project = state.scriptDevelopment.projects.find(row => row.id === projectId)
++  assert.ok(project, 'the actual original screenplay remains identifiable')
++  return project
++}
++export function preserveActorHistory(state: GameState, origin: GameState, id: string): void {
++  expect(retirementRecordFor(state, id, 'actor')).toEqual(retirementRecordFor(origin, id, 'actor'))
++  expect(retirementRecordFor(state, id, 'actor')).toMatchObject({ status: 'retired', retiredWeek: 208 })
++  expect(state.careerLifecycle.transitionEvaluations.filter(row => row.personId === id))
++    .toEqual(origin.careerLifecycle.transitionEvaluations.filter(row => row.personId === id))
++  expect(state.careerLifecycle.professionChanges.filter(row => row.personId === id))
++    .toEqual(origin.careerLifecycle.professionChanges.filter(row => row.personId === id))
++  expect(state.careerLifecycle.transitionDue.filter(row => row.personId === id)).toEqual([])
++  expect(state.talentProvenance.rows.find(row => row.personId === id))
++    .toEqual(origin.talentProvenance.rows.find(row => row.personId === id))
++  expect(state.careerLifecycle.professionAnchors.find(row => row.personId === id))
++    .toEqual(origin.careerLifecycle.professionAnchors.find(row => row.personId === id))
++  expect(state.talent.slice(0, origin.talent.length).map(row => row.id)).toEqual(origin.talent.map(row => row.id))
++  const originalTakes = origin.firstTakes.filter(row => Object.values(row.cast).includes(id))
++  expect(originalTakes).toHaveLength(3)
++  for (const take of originalTakes) expect(state.firstTakes.find(row => row.eventId === take.eventId)).toEqual(take)
++  const originalFilms = origin.studio.releasedFilms.filter(row => row.participants
++    && Object.values(row.participants.cast).some(credit => credit.talentId === id))
++  expect(originalFilms).toHaveLength(3)
++  for (const film of originalFilms) {
++    expect(state.studio.releasedFilms.find(row => row.productionId === film.productionId))
++      .toMatchObject({ productionId: film.productionId, releaseTick: film.releaseTick, participants: film.participants })
++  }
++}
++
++export function renewedEpisode(target: Target): Episode {
++  const cached = renewalCache.get(target)
++  if (cached !== undefined) return clone(cached)
++  const control = obligationControls('production')
++  assert.ok(control.laterProduction && control.laterProductionId)
++  let state = applyActions(control.laterProduction, [{ kind: 'cancel', productionId: control.laterProductionId }])
++  const id = FOCUS[target], origin = clone(state)
++  expect(state.market.tick).toBe(208)
++  expect(person(state, id)).toMatchObject({ role: target, age: 72 })
++  expect(activeContract(state, id)).toMatchObject({ startWeek: 208, endWeekExclusive: 260 })
++  expect(busyTalentIds(state).has(id)).toBe(false)
++  accepted(state)
++  state = advanceExactly(state, 253)
++  expect(retirementRecordFor(state, id)).toBeUndefined()
++  const marketCase = openMarketCaseFor(state, id)
++  assert.ok(marketCase, 'real ordinary market case before260')
++  expect(marketCase.variant).toBe('expiry')
++  expect(marketCase.subjectStudioId).toBe(state.hollywood!.playerStudioId)
++  expect(marketCase.outcome).toBeNull()
++  expect(Math.max(...TUNING.MARKET_PREMIUM_TIERS)).toBe(1.25)
++  state = submitProposal(state, { talentId: id, issuerStudioId: state.hollywood!.playerStudioId,
++    termWeeks: 208, premiumTier: 1.25 })
++  expect(state.talentMarket.proposals.find(row => row.talentId === id && row.issuerStudioId === state.hollywood!.playerStudioId))
++    .toMatchObject({ startWeek: 260, termWeeks: 208, premiumTier: 1.25 })
++  state = advanceExactly(state, 260)
++  expect(activeContract(state, id), 'bounded public premise: real own market win, never a forced employer')
++    .toMatchObject({ startWeek: 260, endWeekExclusive: 468, termWeeks: 208 })
++  expect(state.talentMarket.cases.find(row => row.contractId === marketCase.contractId))
++    .toMatchObject({ outcome: 'settled', closedWeek: 260 })
++  expect(state.talentMarket.receipts.filter(row => row.talentId === id && row.kind === 'settled' && row.week === 260))
++    .toEqual([expect.objectContaining({ studioId: state.hollywood!.playerStudioId })])
++  preserveActorHistory(state, origin, id)
++  accepted(state)
++  const result = { target, id, origin, state }
++  renewalCache.set(target, result)
++  return clone(result)
++}
++
++export function announcedEpisode(target: Target): Episode {
++  const cached = announcementCache.get(target)
++  if (cached !== undefined) return clone(cached)
++  const prior = renewedEpisode(target), state = advanceExactly(prior.state, 364)
++  expect(person(state, prior.id)).toMatchObject({ role: target, age: 75 })
++  expect(activeContract(state, prior.id)).toMatchObject({ startWeek: 260, endWeekExclusive: 468 })
++  const ends = state.hollywood!.employment.filter(row => row.terms.talentId === prior.id
++    && row.terms.startWeek <= 364 && 364 < (row.endedWeek ?? row.terms.endWeekExclusive))
++    .map(row => row.terms.endWeekExclusive)
++  const effective = Math.max(364 + TUNING.RETIREMENT_NOTICE_WEEKS, activeContract(state, prior.id)!.endWeekExclusive, ...ends)
++  expect(effective, 'the required actual carrying interval fixes the bounded route').toBe(468)
++  expect(retirementRecordFor(state, prior.id)).toMatchObject({ profession: target, status: 'announced',
++    cause: 'hardBoundary', announcedWeek: 364, ageAtAnnouncement: 75, effectiveWeek: effective })
++  preserveActorHistory(state, prior.origin, prior.id)
++  accepted(state)
++  const result = { ...prior, state }
++  announcementCache.set(target, result)
++  return clone(result)
++}
++
++export function finishingEpisode(target: Target): WritingEpisode {
++  const cached = writingCache.get(target)
++  if (cached !== undefined) return clone(cached)
++  const prior = announcedEpisode(target)
++  const effective = retirementRecordFor(prior.state, prior.id)!.effectiveWeek
++  let state = advanceExactly(prior.state, effective - 1)
++  expect(state.studio.activeProductions).toEqual([])
++  if (state.scriptDevelopment.mode === 'legacy') state = applyActions(state, [{ kind: 'activateScriptDevelopment' }])
++  expect(state.scriptDevelopment.mode).toBe('managed')
++  expect(state.scriptDevelopment.projects).toEqual([])
++  expect(state.castingSessions.sessions).toEqual([])
++  // Prepare the unrelated command before E so later tests reach the screenplay
++  // caller itself, not a creator/signing path on the retained-work snapshot.
++  const count = state.talent.length
++  state = applyActions(state, [{ kind: 'createTalent', talent: { name: `1006 ${target} branch young writer`,
++    role: 'writer', age: 30, actual: { warmth: 0, gravity: 0, physicality: 0.2 }, potentialTier: 'Steady', workEthic: 55 } }])
++  expect(state.talent).toHaveLength(count + 1)
++  const youngWriterId = state.talent.at(-1)!.id
++  state = applyActions(state, [{ kind: 'signContract', talentId: youngWriterId, termWeeks: 52 }])
++  expect(person(state, prior.id).skills.writing).toBeDefined()
++  expect(busyTalentIds(state).has(prior.id)).toBe(false)
++  expect(activeContract(state, prior.id)).toMatchObject({ endWeekExclusive: effective })
++  const countBefore = state.scriptDevelopment.projects.length
++  state = applyActions(state, [originalCommission(prior.id)])
++  expect(state.scriptDevelopment.projects).toHaveLength(countBefore + 1)
++  const project = state.scriptDevelopment.projects.at(-1)!
++  expect(project).toMatchObject({ writerId: prior.id, writerIds: [prior.id], commissionedWeek: effective - 1, status: 'drafting' })
++  assert.ok(project.dueWeek !== null)
++  expect(project.dueWeek, 'real draft must survive both E and E+1; no timing edits').toBeGreaterThan(effective + 1)
++  expect(project.dueWeek).toBeLessThanOrEqual(effective + 26)
++  accepted(state)
++  const commissioned = clone(state)
++  state = advanceExactly(state, effective)
++  expect(projectFor(state, project.id)).toEqual(project)
++  expect(activeContract(state, prior.id)).toBeUndefined()
++  expect(retirementRecordFor(state, prior.id)).toMatchObject({ profession: target, status: 'finishing_commitments',
++    effectiveWeek: effective, finishingFromWeek: effective, retiredWeek: null })
++  expect(state.hollywood!.employment.find(row => row.terms.talentId === prior.id && row.terms.startWeek === 260))
++    .toMatchObject({ studioId: state.hollywood!.playerStudioId, endedWeek: effective, terms: { endWeekExclusive: effective } })
++  expect(state.hollywood!.receipts.filter(row => row.kind === 'employment' && row.reason === 'expiry'
++    && row.talentId === prior.id && row.week === effective)).toHaveLength(1)
++  expect(activeContract(state, youngWriterId)).toMatchObject({ startWeek: effective - 1, endWeekExclusive: effective + 51 })
++  expect(busyTalentIds(state).has(youngWriterId)).toBe(false)
++  expect(availableDevelopmentCastingSlots(state.operations, state.scriptDevelopment, new Set()),
++    'real unrelated commission must have spare capacity, not enter the queue').toBeGreaterThan(0)
++  preserveActorHistory(state, prior.origin, prior.id)
++  accepted(state)
++  const result = { ...prior, state, projectId: project.id, due: project.dueWeek, effective, youngWriterId, commissioned }
++  writingCache.set(target, result)
++  return clone(result)
++}
++
++export function completedEpisode(target: Target): { direct: GameState; reopened: GameState } {
++  const cached = completionCache.get(target)
++  if (cached !== undefined) return clone(cached)
++  const f = finishingEpisode(target), raw = exportSave(makeSave(f.state))
++  const reopened = migrateToLive(importSave(raw)).state
++  expect(stableStringify(reopened)).toBe(stableStringify(f.state))
++  const result = { direct: advanceExactly(f.state, f.due), reopened: advanceExactly(reopened, f.due) }
++  completionCache.set(target, result)
++  return clone(result)
++}
+diff --git a/tests/p14c3-second-episode-writing.test.ts b/tests/p14c3-second-episode-writing.test.ts
+new file mode 100644
+index 00000000..2e499b58
+--- /dev/null
++++ b/tests/p14c3-second-episode-writing.test.ts
+@@ -0,0 +1,154 @@
++// Independent1002-A B4a: six requirements for each genuinely transitioned person.
++// Real historical and live positive controls precede detached negative mutations.
++import assert from 'node:assert/strict'
++import { describe, expect, it } from 'vitest'
++import { applyActions } from '../src/core/actions.js'
++import { retirementRecordFor } from '../src/core/careerLifecycle.js'
++import { activeContract, busyTalentIds } from '../src/core/employment.js'
++import { studioConstructionView } from '../src/core/placement.js'
++import { exportSave, importSave, makeSave, migrateToLive, stableStringify, validateSaveV38 } from '../src/core/save.js'
++import { availableDevelopmentCastingSlots } from '../src/core/scriptDevelopment.js'
++import { studioCalendar } from '../src/core/studioCalendar.js'
++import { playerOffer } from '../src/core/talentMarket.js'
++import { TUNING } from '../src/core/tuning.js'
++import type { GameState } from '../src/core/types.js'
++import { clone, person } from './helpers/p14c3-fixtures.js'
++import { accepted, advanceExactly, announcedEpisode, B4_TARGETS, completedEpisode, finishingEpisode,
++  originalCommission, preserveActorHistory, projectFor, renewedEpisode } from './helpers/p14c3-second-episode-fixtures.js'
++
++function encoded(state: GameState): string { return exportSave(makeSave(state)) }
++function noReplacementEmployment(state: GameState, id: string, effective: number): void {
++  expect(activeContract(state, id)).toBeUndefined()
++  expect(state.contracts.filter(row => row.talentId === id)).toEqual([])
++  expect(state.hollywood!.employment.filter(row => row.terms.talentId === id && row.terms.startWeek >= effective)).toEqual([])
++  expect(state.ledger.filter(row => row.talentId === id && row.kind === 'signingBonus' && row.week >= effective)).toEqual([])
++  // Other genuine employees remain; aggregate payroll is not a per-person row.
++}
++
++describe.each(B4_TARGETS)('C.3 B4a actual actor→%s second retirement and retained writing', target => {
++  it('W1 permits and pays the genuine ordinary208-week new-profession renewal', () => {
++    const { state, origin, id } = renewedEpisode(target), before = stableStringify(state)
++    const contract = activeContract(state, id)
++    assert.ok(contract)
++    expect(contract).toMatchObject({ startWeek: 260, endWeekExclusive: 468, termWeeks: 208 })
++    const ask = playerOffer(state, id, 208, 260).annualSalary
++    const annualSalary = Math.round(ask * 1.25)
++    const signingBonus = Math.round(annualSalary * TUNING.CONTRACT_SIGNING_BONUS_FRACTION)
++    expect(contract).toMatchObject({ annualSalary, signingBonus })
++    expect(state.ledger.filter(row => row.talentId === id && row.kind === 'signingBonus' && row.week >= 253 && row.week <= 260))
++      .toEqual([expect.objectContaining({ week: 260, amount: -signingBonus })])
++    expect(state.talentMarket.receipts.filter(row => row.talentId === id && row.kind === 'settled' && row.week === 260))
++      .toEqual([expect.objectContaining({ studioId: state.hollywood!.playerStudioId })])
++    expect(retirementRecordFor(state, id)).toBeUndefined()
++    preserveActorHistory(state, origin, id)
++    accepted(state)
++    expect(stableStringify(state)).toBe(before)
++  })
++
++  it('W2 records the real hard75 destination notice beside the unchanged completed actor episode', () => {
++    const { state, origin, id } = announcedEpisode(target)
++    expect(state.market.tick).toBe(364)
++    expect(person(state, id)).toMatchObject({ role: target, age: 75 })
++    expect(state.careerLifecycle.records.filter(row => row.personId === id)).toHaveLength(2)
++    expect(retirementRecordFor(state, id)).toMatchObject({ profession: target, status: 'announced',
++      cause: 'hardBoundary', announcedWeek: 364, effectiveWeek: 468, extensionUsed: false })
++    expect(state.careerLifecycle.industryRetirements.filter(row => row.personId === id)).toEqual([])
++    preserveActorHistory(state, origin, id)
++    accepted(state)
++  })
++
++  it('W3 accepts genuine retained writing at E through Save38, Calendar, construction and an unrelated screenplay command', () => {
++    const f = finishingEpisode(target), before = stableStringify(f.state), old = projectFor(f.state, f.projectId)
++    accepted(f.state)
++    expect(old).toMatchObject({ writerId: f.id, commissionedWeek: f.effective - 1, status: 'drafting', dueWeek: f.due })
++    expect(f.due).toBeGreaterThan(f.effective + 1)
++    expect(retirementRecordFor(f.state, f.id, 'actor')).toMatchObject({ status: 'retired', retiredWeek: 208 })
++    expect(retirementRecordFor(f.state, f.id)).toMatchObject({ profession: target, status: 'finishing_commitments' })
++    expect.soft(() => studioConstructionView(f.state), 'live construction must use current profession authority').not.toThrow()
++    expect.soft(() => {
++      const calendar = studioCalendar(f.state)
++      expect(calendar.commitments.some(row => row.kind === 'retirement' && row.ownerId === f.id && row.week === f.effective)).toBe(true)
++    }, 'actual Calendar must inspect the valid retained-work snapshot').not.toThrow()
++    expect(person(f.state, f.youngWriterId)).toMatchObject({ role: 'writer', age: 30 })
++    expect(activeContract(f.state, f.youngWriterId)).toBeDefined()
++    expect(busyTalentIds(f.state).has(f.youngWriterId)).toBe(false)
++    expect(f.state.castingSessions.sessions).toEqual([])
++    expect(availableDevelopmentCastingSlots(f.state.operations, f.state.scriptDevelopment, new Set())).toBeGreaterThan(0)
++    expect.soft(() => {
++      const next = applyActions(f.state, [originalCommission(f.youngWriterId)])
++      expect(next.scriptDevelopment.projects).toHaveLength(f.state.scriptDevelopment.projects.length + 1)
++      expect(next.scriptDevelopment.projects.at(-1)).toMatchObject({ writerId: f.youngWriterId,
++        commissionedWeek: f.effective, status: 'drafting' })
++      expect(projectFor(next, f.projectId)).toEqual(old)
++      expect(next.productionQueue).toEqual(f.state.productionQueue)
++      accepted(next)
++    }, 'actual unrelated commission reaches assertCurrentScriptState with a free young writer and real spare slot').not.toThrow()
++    noReplacementEmployment(f.state, f.id, f.effective)
++    expect(stableStringify(f.state)).toBe(before)
++  })
++
++  it('W4 loaded and continuous E states finish the same original screenplay on its real clock', () => {
++    const f = finishingEpisode(target), { direct, reopened } = completedEpisode(target)
++    expect(direct.market.tick).toBe(f.due)
++    expect(reopened.market.tick).toBe(f.due)
++    expect(encoded(reopened)).toBe(encoded(direct))
++    expect(projectFor(direct, f.projectId)).toMatchObject({ writerId: f.id, writerIds: [f.id],
++      commissionedWeek: f.effective - 1, status: 'review', dueWeek: null, reservation: null })
++    expect(reopened.scriptDevelopment).toEqual(direct.scriptDevelopment)
++    expect(reopened.hollywood!.receipts).toEqual(direct.hollywood!.receipts)
++    preserveActorHistory(direct, f.origin, f.id)
++    noReplacementEmployment(direct, f.id, f.effective)
++    accepted(direct)
++  })
++
++  it('W5 retires the destination after actual clearance and records exactly one noCatalogue finality', () => {
++    const f = finishingEpisode(target), { direct } = completedEpisode(target)
++    const record = retirementRecordFor(direct, f.id)
++    expect(record).toMatchObject({ profession: target, status: 'retired', effectiveWeek: f.effective, retiredWeek: f.due })
++    const finality = direct.careerLifecycle.industryRetirements.filter(row => row.personId === f.id)
++    expect(finality).toEqual([{ personId: f.id, week: f.due, profession: target,
++      source: { personId: f.id, profession: target }, cause: 'noCatalogue', evaluationId: null }])
++    expect(direct.freeAgents).not.toContain(f.id)
++    preserveActorHistory(direct, f.origin, f.id)
++    const loaded = migrateToLive(importSave(encoded(direct))).state
++    expect(encoded(loaded)).toBe(encoded(direct))
++    const later = advanceExactly(loaded, f.due + 1)
++    expect(retirementRecordFor(later, f.id)).toEqual(record)
++    expect(later.careerLifecycle.industryRetirements.filter(row => row.personId === f.id)).toEqual(finality)
++    preserveActorHistory(later, f.origin, f.id)
++    noReplacementEmployment(later, f.id, f.effective)
++    accepted(later)
++  })
++
++  it('W6 refuses both missing-current and missing-old-actor authority without borrowing or legacy fallback', () => {
++    const f = finishingEpisode(target), before = stableStringify(f.state)
++    accepted(f.state) // mandatory genuine whole38 control before either mutation
++    expect(f.state.careerLifecycle.records.filter(row => row.personId === f.id)).toHaveLength(2)
++    for (const removed of [target, 'actor'] as const) {
++      const malformed = clone(f.state)
++      malformed.careerLifecycle.records = malformed.careerLifecycle.records.filter(row => row.personId !== f.id || row.profession !== removed)
++      expect(malformed.careerLifecycle.records.filter(row => row.personId === f.id)).toHaveLength(1)
++      expect(malformed.careerLifecycle.professionChanges).toEqual(f.state.careerLifecycle.professionChanges)
++      expect(malformed.careerLifecycle.transitionEvaluations).toEqual(f.state.careerLifecycle.transitionEvaluations)
++      expect(malformed.scriptDevelopment).toEqual(f.state.scriptDevelopment)
++      expect(malformed.hollywood!.employment).toEqual(f.state.hollywood!.employment)
++      const malformedBefore = stableStringify(malformed)
++      const fullSaveCause = removed === 'actor'
++        ? /evaluation lacks completed acting retirement predecessor/
++        : /active project .*writer is not contracted/
++      const liveCause = removed === 'actor'
++        ? /evaluation lacks completed acting retirement predecessor|active project .*writer is not contracted/
++        : /active project .*writer is not contracted/
++      expect.soft(() => validateSaveV38({ saveVersion: 38, seed: malformed.seed, state: malformed,
++        broadcastCache: malformed.broadcastItems }), `whole38 refuses removed ${removed} authority`).toThrow(fullSaveCause)
++      // Both are deliberately invalid snapshots. Removing old actor history must
++      // not regain the single-row legacy allowance while C3 changes still exist.
++      expect.soft(() => studioConstructionView(malformed), `construction refuses removed ${removed}`).toThrow(liveCause)
++      expect.soft(() => studioCalendar(malformed), `Calendar refuses removed ${removed}`).toThrow(liveCause)
++      expect.soft(() => applyActions(malformed, [originalCommission(f.youngWriterId)]),
++        `unrelated screenplay refuses removed ${removed}`).toThrow(liveCause)
++      expect(stableStringify(malformed)).toBe(malformedBefore)
++    }
++    expect(stableStringify(f.state)).toBe(before)
++  })
++})

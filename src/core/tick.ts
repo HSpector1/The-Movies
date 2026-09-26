@@ -1,3 +1,4 @@
+import { prepareLiveWritingContext } from './liveRetirementWriting.js'
 import { advanceHollywoodWeek, finishHollywoodWeek } from './hollywoodTick.js'
 import { birthdaysDueAt, materializeAges, withTalentProvenance } from './aging.js'
 import { advanceLifecycleIntent, advanceLifecycleSettlement } from './careerLifecycle.js'
@@ -191,6 +192,7 @@ export type TickOptions = {
 }
 
 export function tick(state: GameState, options?: TickOptions): GameState {
+  const writingContext = prepareLiveWritingContext(state)
   const develop = options?.develop ?? false
   const currentTick = state.market.tick
 
@@ -218,7 +220,7 @@ export function tick(state: GameState, options?: TickOptions): GameState {
   // history immediately selects the exact V12 facility truth.
   assertLiveStudioPlacementInvariants(state, {
     facilityPolicy: state.placement.facilities.length === 0 ? 'configured' : 'placement-v12',
-  })
+  }, writingContext)
   // C2a-M2: the Set cross-reference laws, at the same boundary and for the same
   // reason — a tick may not repair a state in which two sets stand on one stage,
   // a set is being built by nobody, or a picture is filming on a set that is not
@@ -414,6 +416,7 @@ export function tick(state: GameState, options?: TickOptions): GameState {
     },
     currentTick + 1,
     events,
+    writingContext,
   )
   const queueAdmitted: GameState = { ...admission.state, technology: technologyProduction.technology(), market: state.market }
 

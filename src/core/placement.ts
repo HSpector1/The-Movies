@@ -1,4 +1,5 @@
-import { retirementWritingAuthority, type RetirementWritingAuthority } from './retirementWriting.js'
+import type { RetirementWritingAuthority } from './retirementWriting.js'
+import { liveRetirementWritingAuthority, type LiveWritingContext } from './liveRetirementWriting.js'
 // ── Placement Core V12 (+ C1-M1a property state) ─────────────────────────────
 // The single construction authority. One parcel map, one TUNING blueprint
 // catalog, one pure legality query, one commit that re-runs that query before it
@@ -1811,8 +1812,8 @@ export function demolishedFacilityHistory(
  * placement policy, which is also what proves the V11 construction root has
  * genuinely retired (empty projects, vacant parcel).
  */
-export function assertLiveStudioPlacementInvariants(state: GameState, options?: { facilityPolicy?: 'placement-v12' | 'configured' }): void {
-  assertStudioPlacementInvariants(state, { ...options, retirementWriting: retirementWritingAuthority(state) })
+export function assertLiveStudioPlacementInvariants(state: GameState, options?: { facilityPolicy?: 'placement-v12' | 'configured' }, writingContext?: LiveWritingContext): void {
+  assertStudioPlacementInvariants(state, { ...options, retirementWriting: liveRetirementWritingAuthority(state, writingContext) })
 }
 
 export function assertStudioPlacementInvariants(

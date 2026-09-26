@@ -10200,7 +10200,7 @@ export function migrateToV37(save: SaveFile | { saveVersion: number }): SaveFile
 
 
 // ── P14C.3 — prospective profession history, Save38 ────────────────────────
-export function validateSaveV38(save: unknown): SaveFileV38 {
+function proveSaveV38(save: unknown): { save: SaveFileV38; professionContext: ProfessionValidationContext } {
   if (!isRecord(save)) throw new Error('validateSaveV38: object required');
   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
   if (save.saveVersion !== 38) throw new Error('validateSaveV38: expected version 38');
@@ -10209,7 +10209,17 @@ export function validateSaveV38(save: unknown): SaveFileV38 {
   const professionContext = validateProfessionHistory(raw);
   const writing = retirementWritingAuthority(raw, professionContext);
   validateSaveV37WithProfession({ ...save, saveVersion: 37, state: stripProfessionHistory(raw) }, professionContext, writing);
-  return save as SaveFileV38;
+  return { save: save as SaveFileV38, professionContext };
+}
+
+export function validateSaveV38(save: unknown): SaveFileV38 {
+  return proveSaveV38(save).save;
+}
+
+/** Internal live-entry proof. Context escapes only after the complete current
+ * save chain succeeds; no serialization or historical projection repairs input. */
+export function validatedLiveProfessionContext(state: GameState): ProfessionValidationContext {
+  return proveSaveV38({ saveVersion: 38, seed: state.seed, state, broadcastCache: state.broadcastItems }).professionContext;
 }
 
 export function convertV37ToV38(save: SaveFileV37): SaveFileV38 {

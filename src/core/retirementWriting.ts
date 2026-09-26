@@ -19,6 +19,56 @@ const evidenceWeek = (value: unknown): value is number =>
   typeof value === 'number' && Number.isSafeInteger(value) && value >= 0
 const identity = (value: unknown): value is string => typeof value === 'string' && value.length > 0
 
+/** A cost gate, never permission. Only an unfinished task without employment at
+ * its own studio can need the current profession-history proof. Idle worlds do
+ * not scan their accumulated career history on every action or week. */
+export function retirementWritingNeedsProfessionProof(input: unknown): boolean {
+  const state = record(input), h = record(state?.hollywood), week = record(state?.market)?.tick
+  if (!state || !h || !identity(h.playerStudioId) || !evidenceWeek(week)) return false
+  const candidates = new Set<string>()
+  const studios = [{ studioId: h.playerStudioId, development: state.scriptDevelopment }, ...rows(h.businesses)]
+  for (const studio of studios) {
+    if (!identity(studio.studioId)) continue
+    for (const project of rows(record(studio.development)?.projects)) {
+      if (project.status !== 'drafting' || !evidenceWeek(project.dueWeek) || project.dueWeek <= week
+        || !Array.isArray(project.writerIds)) continue
+      for (const writerId of project.writerIds) {
+        if (!identity(writerId)) continue
+        const employed = studio.studioId === h.playerStudioId
+          ? rows(state.contracts).some(contract => contract.talentId === writerId
+            && evidenceWeek(contract.startWeek) && contract.startWeek <= week
+            && evidenceWeek(contract.endWeekExclusive) && week < contract.endWeekExclusive)
+          : rows(h.employment).some(interval => {
+            const terms = record(interval.terms)
+            return interval.studioId === studio.studioId && interval.endedWeek === null
+              && terms?.talentId === writerId && evidenceWeek(terms.startWeek) && terms.startWeek <= week
+              && evidenceWeek(terms.endWeekExclusive) && week < terms.endWeekExclusive
+          })
+        if (!employed) candidates.add(writerId)
+      }
+    }
+  }
+  if (candidates.size === 0) return false
+  const lifecycle = record(state.careerLifecycle)
+  if (!lifecycle || !evidenceWeek(lifecycle.transitionBoundaryWeek)) return true
+  for (const key of ['records', 'professionAnchors', 'professionChanges', 'transitionEvaluations', 'industryRetirements', 'transitionDue']) {
+    const value = lifecycle[key]
+    if (!Array.isArray(value) || value.some(row => !identity(record(row)?.personId))) return true
+  }
+  const people = rows(state.talent), anchors = rows(lifecycle.professionAnchors)
+  const changes = rows(lifecycle.professionChanges), retirements = rows(lifecycle.records)
+  for (const personId of candidates) {
+    const peopleForId = people.filter(person => person.id === personId)
+    const anchorsForId = anchors.filter(anchor => anchor.personId === personId)
+    const recordsForId = retirements.filter(row => row.personId === personId)
+    if (peopleForId.length !== 1 || anchorsForId.length !== 1
+      || anchorsForId[0]!.profession !== peopleForId[0]!.role
+      || changes.some(change => change.personId === personId)
+      || recordsForId.length !== 1 || recordsForId[0]!.profession !== peopleForId[0]!.role) return true
+  }
+  return false
+}
+
 /** Called explicitly by current entry points only. Malformed input confers no
  * authority; the normal full validators still check every original field. */
 export function retirementWritingAuthority(input: unknown, professionContext?: ProfessionValidationContext): RetirementWritingAuthority | undefined {
