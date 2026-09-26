@@ -1,0 +1,222 @@
+// P14C2B-T0 CORPUS PROBE — measurement only, ASSERTS NOTHING about the product.
+//
+// Record 780 §6.3 (folded in by the parent after C.4 landed first) names six axes
+// (a-f) for the C.2b single-final-extension fixture corpus, mirroring the 773/774/775
+// and 782/790/791 T0 pattern. C.2b does not exist in src/ yet: `state.careerLifecycle`
+// here is produced ENTIRELY by the live C.2a+C.4 engine (773/777/782/793), already the
+// sole writer of `src/` (C.4 closed at record 805). Every fact below is a MEASUREMENT
+// of what that engine already produces — the exact input a future C.2b extension case
+// would consume — never a simulation of C.2b itself (no extensionIssuer, no
+// retirementExtension case variant, nothing C.2b adds exists anywhere in this file).
+//
+// STRAY-PROBE DISCIPLINE (record 726): run ALONE by positional filename, never inside
+// a suite pass, then archived and removed. One `it` that only prints.
+import { it } from 'vitest'
+import {
+  applyActions, hiringMarketIds, retirementRecordFor, activeContract, busyTalentIds,
+  LIVE_SAVE_VERSION, exportSave, makeSave, validateSaveV35,
+} from '../src/core/index.js'
+import { rivalEmployment } from '../src/core/hollywood.js'
+import { caseForTalent, caseOpenForTalent } from '../src/core/talentMarket.js'
+import { advanceTo, p13aGeneratedStudio } from '../src/harness/p13a/fixtures.js'
+import type { CreativeRole, GameState, RetirementRecord } from '../src/core/index.js'
+import { fund, player } from './helpers/p14b2-fixtures.js'
+
+const SEED = 'p14c2b-corpus-01'
+
+function authoredAt(name: string, role: CreativeRole, age: number, i: number) {
+  return {
+    kind: 'createTalent' as const,
+    talent: {
+      name, role, age,
+      actual: { warmth: 0.1 * i, gravity: -0.1 * i, physicality: 0.2 },
+      potentialTier: 'Steady' as const, workEthic: 55,
+    },
+  }
+}
+
+function saveFactsV35(state: GameState, label: string) {
+  try {
+    const json = exportSave(makeSave(state))
+    const back = validateSaveV35(JSON.parse(json))
+    return { label, ok: true, saveVersion: back.saveVersion, bytes: Buffer.byteLength(json, 'utf8') }
+  } catch (error) { return { label, ok: false, error: (error as Error).message.slice(0, 300) } }
+}
+
+/** The player-contract mirror row in `state.hollywood.employment` in force for this
+ * person at `week` (806 §4/§8.2: "the P12 mirror carries player contracts too"). */
+function playerEmploymentRowAt(state: GameState, personId: string, week: number) {
+  const owner = state.hollywood?.playerStudioId
+  return (state.hollywood?.employment ?? []).find((row) =>
+    row.studioId === owner && row.terms.talentId === personId &&
+    row.terms.startWeek <= week && week < row.terms.endWeekExclusive &&
+    (row.endedWeek === null || week < row.endedWeek))
+}
+
+/** 806 §4's own extension-term formula, recorded as a paper fact — nothing here
+ * implements it: no `extensionIssuer`, no case variant, no draft anywhere in this file. */
+function impliedExtensionTerm(effectiveWeek: number, decisionWeek: number) {
+  return effectiveWeek + 52 - decisionWeek
+}
+
+/** Axis a/b/c facts (780 §6.3 / 806 §4), for a person with an announced hardBoundary
+ * record and an employment row (player or rival) in force at E-12. */
+function axisFacts(state: GameState, personId: string, employer: 'player' | 'rival') {
+  const record = retirementRecordFor(state, personId) as RetirementRecord | undefined
+  if (record === undefined) return { reached: false as const, reason: 'no retirement record' }
+  const effectiveWeek = record.effectiveWeek
+  const eMinus12 = effectiveWeek - 12
+  const row = employer === 'player' ? playerEmploymentRowAt(state, personId, eMinus12) : rivalEmployment(state, personId, eMinus12)
+  if (row === undefined || row === null) return { reached: false as const, reason: `no ${employer} employment row in force at E-12=${eMinus12}` }
+  const decisionWeek = row.terms.endWeekExclusive
+  return {
+    reached: true as const,
+    personId, announcedWeek: record.announcedWeek, ageAtAnnouncement: record.ageAtAnnouncement,
+    cause: record.cause, effectiveWeek, eMinus12,
+    employerStudioId: row.studioId, contractId: row.contractId ?? null,
+    contractRowStartWeek: row.terms.startWeek, decisionWeek,
+    endWeekExclusiveInWindow: decisionWeek > eMinus12 && decisionWeek < effectiveWeek,
+    endsExactlyAtE: decisionWeek === effectiveWeek,
+    impliedExtensionTermWeeks: impliedExtensionTerm(effectiveWeek, decisionWeek),
+  }
+}
+
+/** "V35-engine continuation facts to E+1" (790's method, applied to C.2b): continue
+ * the SAVED state under the real, unmodified V35 engine (no C.2b code anywhere in this
+ * repository) to `effectiveWeek + 1` and report the DECLINE baseline status — no offer,
+ * no acceptance, nothing C.2b adds exists to make one. */
+function declineBaseline(saved: GameState, personId: string, effectiveWeek: number) {
+  const cont = advanceTo(saved, effectiveWeek + 1)
+  const record = retirementRecordFor(cont, personId) as RetirementRecord | undefined
+  return {
+    atWeek: effectiveWeek + 1,
+    status: record?.status ?? null, retiredWeek: record?.retiredWeek ?? null,
+    finishingFromWeek: record?.finishingFromWeek ?? null,
+    stillHasActivePlayerContract: activeContract(cont, personId, effectiveWeek + 1) !== undefined,
+    stillHasActiveRivalRow: rivalEmployment(cont, personId, effectiveWeek + 1) !== null,
+  }
+}
+
+it('P14C2B-T0: measure the six corpus axes (a-f) by building them, never gated', () => {
+  const startedAt = new Date().toISOString()
+  const report: Record<string, unknown> = { startedAt, liveSaveVersion: LIVE_SAVE_VERSION }
+
+  // ── World 1 (axes a + d + e): three authored people, one contract-in-window
+  //    actor (a), one contract-free writer (d), one ordinary unrelated director
+  //    whose renewal window is open (e). ─────────────────────────────────────
+  {
+    let w = fund(p13aGeneratedStudio(SEED + '-ade'))
+    w = applyActions(w, [
+      authoredAt('C2b Axis A Actor', 'actor', 70, 0),
+      // axis d: a SECOND actor (hard boundary 70, same as axis a) so both announce
+      // at the SAME week-52 birthday; craft/director/writer's own hard boundary
+      // (72/75/75) exceeds createTalent's [18,70] authoring clamp and cannot be
+      // authored directly at the hard boundary.
+      authoredAt('C2b Axis D Actor', 'actor', 70, 1),
+      authoredAt('C2b Axis E Director', 'director', 40, 2),
+    ] as never)
+    const aId = w.talent.find((t) => t.name === 'C2b Axis A Actor')!.id
+    const dId = w.talent.find((t) => t.name === 'C2b Axis D Actor')!.id
+    const eId = w.talent.find((t) => t.name === 'C2b Axis E Director')!.id
+    w = applyActions(w, [
+      { kind: 'signContract', talentId: aId, termWeeks: 98 },
+      { kind: 'signContract', talentId: eId, termWeeks: 60 },
+    ] as never)
+    w = advanceTo(w, 52) // the birthday due-bucket week for a week-0 authored age-70/40 person
+    const saveWeek = w.market.tick
+    const aFacts = axisFacts(w, aId, 'player')
+    const dRecord = retirementRecordFor(w, dId) as RetirementRecord | undefined
+    const dHasAnyEmployment = playerEmploymentRowAt(w, dId, (dRecord?.effectiveWeek ?? 0) - 12) !== undefined
+      || rivalEmployment(w, dId, (dRecord?.effectiveWeek ?? 0) - 12) !== null
+    const eCase = caseForTalent(w, eId, saveWeek)
+    report.world1 = {
+      seed: SEED + '-ade', saveWeek,
+      axisA: aFacts,
+      axisA_declineBaseline: aFacts.reached ? declineBaseline(w, aId, aFacts.effectiveWeek) : null,
+      axisD: {
+        reached: dRecord !== undefined && dRecord.cause === 'hardBoundary',
+        personId: dId, record: dRecord, hasAnyEmploymentAtEMinus12: dHasAnyEmployment,
+        declineBaseline: dRecord !== undefined ? declineBaseline(w, dId, dRecord.effectiveWeek) : null,
+      },
+      axisE: { reached: eCase !== null && caseOpenForTalent(w, eId, saveWeek), personId: eId, case: eCase },
+      saveFacts: saveFactsV35(w, 'world1-ade'),
+    }
+  }
+
+  // ── World 2 (axes b + f): one authored actor whose contract in force at
+  //    announcement ends exactly at E (the literal companion case); the SAME
+  //    world's week-52 tick is a cohort week (f). ──────────────────────────────
+  {
+    let w = fund(p13aGeneratedStudio(SEED + '-bf'))
+    w = applyActions(w, [authoredAt('C2b Axis B Actor', 'actor', 70, 0)] as never)
+    const bId = w.talent.find((t) => t.name === 'C2b Axis B Actor')!.id
+    w = applyActions(w, [{ kind: 'signContract', talentId: bId, termWeeks: 150 }] as never)
+    w = advanceTo(w, 52)
+    const saveWeek = w.market.tick
+    const bFacts = axisFacts(w, bId, 'player')
+    report.world2 = {
+      seed: SEED + '-bf', saveWeek,
+      axisB: bFacts,
+      axisB_declineBaseline: bFacts.reached ? declineBaseline(w, bId, bFacts.effectiveWeek) : null,
+      axisF: { reached: w.careerLifecycle.cohorts.length > 0, cohorts: w.careerLifecycle.cohorts },
+      saveFacts: saveFactsV35(w, 'world2-bf'),
+    }
+  }
+
+  // ── World 3 (axis c): NATURAL search — no forced enterRival, no authored rival
+  //    hire. Tick a fresh, purely natural world (genesis + C.4 cohorts + rival
+  //    restaffing, all live) far forward, then scan EVERY hardBoundary record ever
+  //    written for one whose rival employment row (any point in their P12 history)
+  //    is STILL in force at that record's own E-12 (rivalEmployment reads history
+  //    correctly for a past week even from a far-future state, since employment
+  //    rows are append-only and never deleted). ────────────────────────────────
+  function searchRivalIncumbent(seed: string, toWeek: number) {
+    const w = advanceTo(p13aGeneratedStudio(seed), toWeek)
+    const hardBoundary = w.careerLifecycle.records.filter((r) => r.cause === 'hardBoundary')
+    const hits: unknown[] = []
+    for (const r of hardBoundary) {
+      const eMinus12 = r.effectiveWeek - 12
+      const row = rivalEmployment(w, r.personId, eMinus12)
+      if (row !== null && row.endedWeek === null) {
+        hits.push({
+          personId: r.personId, announcedWeek: r.announcedWeek, ageAtAnnouncement: r.ageAtAnnouncement,
+          effectiveWeek: r.effectiveWeek, eMinus12, employerStudioId: row.studioId, contractId: row.contractId,
+          contractRowStartWeek: row.terms.startWeek, decisionWeek: row.terms.endWeekExclusive,
+          endWeekExclusiveInWindow: row.terms.endWeekExclusive > eMinus12 && row.terms.endWeekExclusive < r.effectiveWeek,
+          endsExactlyAtE: row.terms.endWeekExclusive === r.effectiveWeek,
+          impliedExtensionTermWeeks: impliedExtensionTerm(r.effectiveWeek, row.terms.endWeekExclusive),
+          status: r.status, retiredWeek: r.retiredWeek,
+        })
+      }
+    }
+    return {
+      seed, week: w.market.tick, totalRecords: w.careerLifecycle.records.length,
+      hardBoundaryCount: hardBoundary.length, hits, buildWeek: toWeek,
+    }
+  }
+  const c1 = searchRivalIncumbent(SEED + '-c1', 2600)
+  const c2 = (c1.hits.length === 0) ? searchRivalIncumbent(SEED + '-c2', 2600) : null
+  const c3 = (c1.hits.length === 0 && c2 !== null && c2.hits.length === 0) ? searchRivalIncumbent(SEED + '-c3', 4000) : null
+  report.world3_axisC_search = { c1, c2, c3 }
+  // Decline baseline for the FIRST hit found (rebuilt deterministically from the
+  // same seed to the same week — never mutating the search's own state above).
+  const bestHit = c1.hits[0] as { personId: string; effectiveWeek: number } | undefined
+  if (bestHit !== undefined) {
+    const w = advanceTo(p13aGeneratedStudio(SEED + '-c1'), c1.buildWeek)
+    report.world3_axisC_declineBaseline = declineBaseline(w, bestHit.personId, bestHit.effectiveWeek)
+  }
+
+  // ── Bonus check on world2 (axis f): does the SECOND cohort week (104) mint any
+  //    actual entrant, for a richer (non all-zero) receipt? Measurement only —
+  //    does not change which world is minted for axis b/f. ───────────────────
+  {
+    let w2 = fund(p13aGeneratedStudio(SEED + '-bf'))
+    w2 = applyActions(w2, [authoredAt('C2b Axis B Actor', 'actor', 70, 0)] as never)
+    const bId2 = w2.talent.find((t) => t.name === 'C2b Axis B Actor')!.id
+    w2 = applyActions(w2, [{ kind: 'signContract', talentId: bId2, termWeeks: 150 }] as never)
+    w2 = advanceTo(w2, 104)
+    report.world2_axisF_week104 = w2.careerLifecycle.cohorts.find((c) => c.week === 104) ?? null
+  }
+
+  console.log(JSON.stringify(report, (_key, value) => typeof value === 'bigint' ? String(value) : value, 2))
+})

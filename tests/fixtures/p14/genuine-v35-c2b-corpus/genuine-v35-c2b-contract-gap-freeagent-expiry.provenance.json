@@ -1,0 +1,109 @@
+{
+  "authority": {
+    "phase": "P14C.2b T0 / the genuine outgoing Save V35 corpus for the single final retirement extension, minted at the FINAL V35 writer before any C.2b source change",
+    "headSha": "68783a8acb53aba4989829a2f6ddf95d8d544bc3",
+    "publishedRecoverySha": "68783a8acb53aba4989829a2f6ddf95d8d544bc3",
+    "publicationState": "PUBLISHED: git ls-remote origin wip/headless-program-20260916-ts returned the minting head at mint time.",
+    "expansionRelativePath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/780-c2b-extension-expansion.md",
+    "expansionSha256": "7d8b347401b62aad339cc01bc5e20bdfb77c8811db93fb6d7dd6011c7040a592",
+    "contractRelativePath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/806-c2b-api-contract.md",
+    "contractSha256": "5c5adf542821707fe3bdc5c73016d99bac50f4026a5aa531b983c89988aee281",
+    "measurementRelativePath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/807-c2b-t0-measurement.md",
+    "measurementSha256": "a5afb6f23d33e2a76745ec907e9ec88f0b6d90eceb547837c64c0f500013117b",
+    "saveVersion": 35,
+    "approvalEnvironmentVariable": "STUDIO_MINT_V35_C2B_CORPUS_APPROVED",
+    "outputRelativePath": "tests/fixtures/p14/genuine-v35-c2b-corpus",
+    "predictionMethodNote": "\"V35-engine continuation facts\": declineBaseline (this file) continues the SAVED state under the real, unmodified V35 engine (no extensionIssuer, no retirementExtension case variant, nothing C.2b adds exists anywhere in this file or in src/) to effectiveWeek + 1 via real advanceTo()/tick() calls — never a hand-rolled formula. It is a measured prediction under 780/806, not an implementation output."
+  },
+  "observedHeadSha": "68783a8acb53aba4989829a2f6ddf95d8d544bc3",
+  "minterRelativePath": "tests/p14c2b-mint-v35-corpus.test.ts",
+  "minterSha256": "92280570adc6661cf02f913da0c2f7da15e33f1969a0387eb82d514acda8bdf7",
+  "minterArchivedRelativePath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/808-mint-v35-c2b-corpus-minter.test.ts",
+  "minterReproduction": "Archived at minterArchivedRelativePath and removed from tests/, so no suite collects it. Reproducing requires copying the archived bytes back to tests/p14c2b-mint-v35-corpus.test.ts before running the recorded command.",
+  "nodeVersion": "v20.20.2",
+  "startedAt": "2026-09-26T01:27:39.433Z",
+  "worldBuildMs": 33500.700091,
+  "command": "STUDIO_MINT_V35_C2B_CORPUS_APPROVED=68783a8acb53aba4989829a2f6ddf95d8d544bc3 node_modules/.bin/vitest run tests/p14c2b-mint-v35-corpus.test.ts --minWorkers=1 --maxWorkers=1",
+  "campaign": "generated test campaign only; never an Owner save",
+  "scope": "genuine OUTGOING V35 worlds spanning the six measured/minted C.2b corpus axes (a-f, 780 §6.3); no extensionIssuer, no retirementExtension case variant, no V36 root, no native and no Owner acceptance claim",
+  "endedAt": "2026-09-26T01:28:15.080Z",
+  "recipe": {
+    "builder": "fund(p13aGeneratedStudio(\"p14c2b-corpus-01-ade\")) -> createTalent x3 (actor age 70 x2, director age 40) -> signContract (98wk actor, 60wk director; the second actor is never signed) -> advanceTo(52)",
+    "actions": [
+      "real createTalent x3",
+      "real signContract x2",
+      "52 real ticks"
+    ],
+    "compression": "node:zlib gzipSync with library defaults"
+  },
+  "filename": "genuine-v35-c2b-contract-gap-freeagent-expiry.json.gz",
+  "provenanceFilename": "genuine-v35-c2b-contract-gap-freeagent-expiry.provenance.json",
+  "week": 52,
+  "saveVersion": 35,
+  "uncompressedSha256": "e13625bc7366adbaf819c0635d0be8acbd79287b0fca4337f39929e10815f5c6",
+  "compressedSha256": "f35bd6868904b9b6308e27400ce862d503951c904e4e8007ee25003f187ffee4",
+  "byteLength": 772493,
+  "compressedByteLength": 92767,
+  "axis": "a: an authored hard-boundary actor (age 70, week 0) under a 98-week PLAYER contract signed at week 0 — announced hardBoundary at week 52 (E=104), contract endWeekExclusive 98 falls in (E-12,E)=(92,104), saved at week 52 (before E-12). d: a SECOND authored hard-boundary actor, NEVER given any contract — announced at the same week 52, confirmed to hold no player and no rival employment row in force at its own E-12=92, so no employer can ever be the sole extension issuer. e: an unrelated authored director (age 40) under a 60-week contract, whose renewal-window case is OPEN (non-terminal) at week 52 — the ordinary case shape the future V36 migration must stamp variant: \"expiry\" onto.",
+  "focus": {
+    "axisA": {
+      "personId": "authored-0000",
+      "announcedWeek": 52,
+      "ageAtAnnouncement": 71,
+      "cause": "hardBoundary",
+      "effectiveWeek": 104,
+      "eMinus12": 92,
+      "employerStudioId": "studio-d7df6c8e-player",
+      "contractId": "studio-d7df6c8e-player:contract:authored-0000:0:player-24",
+      "contractRowStartWeek": 0,
+      "decisionWeek": 98,
+      "endWeekExclusiveInWindow": true,
+      "endsExactlyAtE": false,
+      "impliedExtensionTermWeeks": 58
+    },
+    "axisA_declineBaseline": {
+      "atWeek": 105,
+      "status": "retired",
+      "retiredWeek": 104,
+      "finishingFromWeek": null,
+      "stillHasActivePlayerContract": false,
+      "stillHasActiveRivalRow": false
+    },
+    "axisD": {
+      "personId": "authored-0001",
+      "record": {
+        "personId": "authored-0001",
+        "profession": "actor",
+        "intentRulesVersion": 1,
+        "cause": "hardBoundary",
+        "announcedWeek": 52,
+        "ageAtAnnouncement": 71,
+        "effectiveWeek": 104,
+        "status": "announced",
+        "finishingFromWeek": null,
+        "retiredWeek": null
+      },
+      "eMinus12": 92,
+      "declineBaseline": {
+        "atWeek": 105,
+        "status": "retired",
+        "retiredWeek": 104,
+        "finishingFromWeek": null,
+        "stillHasActivePlayerContract": false,
+        "stillHasActiveRivalRow": false
+      }
+    },
+    "axisE": {
+      "personId": "authored-0002",
+      "case": {
+        "talentId": "authored-0002",
+        "subjectTalentId": "authored-0002",
+        "subjectStudioId": "studio-d7df6c8e-player",
+        "contractId": "studio-d7df6c8e-player:contract:authored-0002:0:player-25",
+        "status": "proposals_open",
+        "decisionWeek": 60,
+        "openedWeek": 48
+      }
+    }
+  }
+}

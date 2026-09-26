@@ -1,0 +1,85 @@
+{
+  "authority": {
+    "phase": "P14C.2b T0 / the genuine outgoing Save V35 corpus for the single final retirement extension, minted at the FINAL V35 writer before any C.2b source change",
+    "headSha": "68783a8acb53aba4989829a2f6ddf95d8d544bc3",
+    "publishedRecoverySha": "68783a8acb53aba4989829a2f6ddf95d8d544bc3",
+    "publicationState": "PUBLISHED: git ls-remote origin wip/headless-program-20260916-ts returned the minting head at mint time.",
+    "expansionRelativePath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/780-c2b-extension-expansion.md",
+    "expansionSha256": "7d8b347401b62aad339cc01bc5e20bdfb77c8811db93fb6d7dd6011c7040a592",
+    "contractRelativePath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/806-c2b-api-contract.md",
+    "contractSha256": "5c5adf542821707fe3bdc5c73016d99bac50f4026a5aa531b983c89988aee281",
+    "measurementRelativePath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/807-c2b-t0-measurement.md",
+    "measurementSha256": "a5afb6f23d33e2a76745ec907e9ec88f0b6d90eceb547837c64c0f500013117b",
+    "saveVersion": 35,
+    "approvalEnvironmentVariable": "STUDIO_MINT_V35_C2B_CORPUS_APPROVED",
+    "outputRelativePath": "tests/fixtures/p14/genuine-v35-c2b-corpus",
+    "predictionMethodNote": "\"V35-engine continuation facts\": declineBaseline (this file) continues the SAVED state under the real, unmodified V35 engine (no extensionIssuer, no retirementExtension case variant, nothing C.2b adds exists anywhere in this file or in src/) to effectiveWeek + 1 via real advanceTo()/tick() calls — never a hand-rolled formula. It is a measured prediction under 780/806, not an implementation output."
+  },
+  "observedHeadSha": "68783a8acb53aba4989829a2f6ddf95d8d544bc3",
+  "minterRelativePath": "tests/p14c2b-mint-v35-corpus.test.ts",
+  "minterSha256": "92280570adc6661cf02f913da0c2f7da15e33f1969a0387eb82d514acda8bdf7",
+  "minterArchivedRelativePath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/808-mint-v35-c2b-corpus-minter.test.ts",
+  "minterReproduction": "Archived at minterArchivedRelativePath and removed from tests/, so no suite collects it. Reproducing requires copying the archived bytes back to tests/p14c2b-mint-v35-corpus.test.ts before running the recorded command.",
+  "nodeVersion": "v20.20.2",
+  "startedAt": "2026-09-26T01:27:39.433Z",
+  "worldBuildMs": 33500.700091,
+  "command": "STUDIO_MINT_V35_C2B_CORPUS_APPROVED=68783a8acb53aba4989829a2f6ddf95d8d544bc3 node_modules/.bin/vitest run tests/p14c2b-mint-v35-corpus.test.ts --minWorkers=1 --maxWorkers=1",
+  "campaign": "generated test campaign only; never an Owner save",
+  "scope": "genuine OUTGOING V35 worlds spanning the six measured/minted C.2b corpus axes (a-f, 780 §6.3); no extensionIssuer, no retirementExtension case variant, no V36 root, no native and no Owner acceptance claim",
+  "endedAt": "2026-09-26T01:28:15.082Z",
+  "recipe": {
+    "builder": "fund(p13aGeneratedStudio(\"p14c2b-corpus-01-bf\")) -> createTalent (actor age 70) -> signContract (150wk) -> advanceTo(52)",
+    "actions": [
+      "real createTalent",
+      "real signContract",
+      "52 real ticks"
+    ],
+    "compression": "node:zlib gzipSync with library defaults"
+  },
+  "filename": "genuine-v35-c2b-contract-at-effective-week.json.gz",
+  "provenanceFilename": "genuine-v35-c2b-contract-at-effective-week.provenance.json",
+  "week": 52,
+  "saveVersion": 35,
+  "uncompressedSha256": "28340a4a0ff0c5724d8aae73dda93c47dc07df65bf84744b204f56eeea7a8354",
+  "compressedSha256": "c339695f855e2daf97be959a7a0c75a6ccae72878dc070aef25da4890d694bf3",
+  "byteLength": 763360,
+  "compressedByteLength": 93155,
+  "axis": "b: an authored hard-boundary actor (age 70, week 0) under a 150-week PLAYER contract signed at week 0 — announced hardBoundary at week 52; because the contract (endWeekExclusive 150) is still in force at announcement and outlives A+52=104, IT determines E=150 exactly — the companion draft's own literal \"the contract in force ends there and the extension begins there, with no gap and no overlap\" case (780 §2). Saved at week 52 (before E-12=138). Weak axis f: the SAME save week (52) is a cohort week, so careerLifecycle.cohorts already holds one receipt (all-zero request in THIS seed — see world 3 for a richer one).",
+  "focus": {
+    "axisB": {
+      "personId": "authored-0000",
+      "announcedWeek": 52,
+      "ageAtAnnouncement": 71,
+      "cause": "hardBoundary",
+      "effectiveWeek": 150,
+      "eMinus12": 138,
+      "employerStudioId": "studio-d2e9db93-player",
+      "contractId": "studio-d2e9db93-player:contract:authored-0000:0:player-24",
+      "contractRowStartWeek": 0,
+      "decisionWeek": 150,
+      "endWeekExclusiveInWindow": false,
+      "endsExactlyAtE": true,
+      "impliedExtensionTermWeeks": 52
+    },
+    "axisB_declineBaseline": {
+      "atWeek": 151,
+      "status": "retired",
+      "retiredWeek": 150,
+      "finishingFromWeek": null,
+      "stillHasActivePlayerContract": false,
+      "stillHasActiveRivalRow": false
+    },
+    "axisF_week52Cohort": {
+      "week": 52,
+      "talentCountBefore": 85,
+      "requested": {
+        "actor": 0,
+        "director": 0,
+        "writer": 0,
+        "craft": 0
+      },
+      "clipped": 0,
+      "personIds": []
+    }
+  }
+}

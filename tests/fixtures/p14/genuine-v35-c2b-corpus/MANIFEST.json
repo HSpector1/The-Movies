@@ -1,0 +1,181 @@
+{
+  "authority": {
+    "phase": "P14C.2b T0 / the genuine outgoing Save V35 corpus for the single final retirement extension, minted at the FINAL V35 writer before any C.2b source change",
+    "headSha": "68783a8acb53aba4989829a2f6ddf95d8d544bc3",
+    "publishedRecoverySha": "68783a8acb53aba4989829a2f6ddf95d8d544bc3",
+    "publicationState": "PUBLISHED: git ls-remote origin wip/headless-program-20260916-ts returned the minting head at mint time.",
+    "expansionRelativePath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/780-c2b-extension-expansion.md",
+    "expansionSha256": "7d8b347401b62aad339cc01bc5e20bdfb77c8811db93fb6d7dd6011c7040a592",
+    "contractRelativePath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/806-c2b-api-contract.md",
+    "contractSha256": "5c5adf542821707fe3bdc5c73016d99bac50f4026a5aa531b983c89988aee281",
+    "measurementRelativePath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/807-c2b-t0-measurement.md",
+    "measurementSha256": "a5afb6f23d33e2a76745ec907e9ec88f0b6d90eceb547837c64c0f500013117b",
+    "saveVersion": 35,
+    "approvalEnvironmentVariable": "STUDIO_MINT_V35_C2B_CORPUS_APPROVED",
+    "outputRelativePath": "tests/fixtures/p14/genuine-v35-c2b-corpus",
+    "predictionMethodNote": "\"V35-engine continuation facts\": declineBaseline (this file) continues the SAVED state under the real, unmodified V35 engine (no extensionIssuer, no retirementExtension case variant, nothing C.2b adds exists anywhere in this file or in src/) to effectiveWeek + 1 via real advanceTo()/tick() calls — never a hand-rolled formula. It is a measured prediction under 780/806, not an implementation output."
+  },
+  "fixtures": [
+    {
+      "filename": "genuine-v35-c2b-contract-gap-freeagent-expiry.json.gz",
+      "provenanceFilename": "genuine-v35-c2b-contract-gap-freeagent-expiry.provenance.json",
+      "week": 52,
+      "saveVersion": 35,
+      "uncompressedSha256": "e13625bc7366adbaf819c0635d0be8acbd79287b0fca4337f39929e10815f5c6",
+      "compressedSha256": "f35bd6868904b9b6308e27400ce862d503951c904e4e8007ee25003f187ffee4",
+      "byteLength": 772493,
+      "compressedByteLength": 92767,
+      "axis": "a: an authored hard-boundary actor (age 70, week 0) under a 98-week PLAYER contract signed at week 0 — announced hardBoundary at week 52 (E=104), contract endWeekExclusive 98 falls in (E-12,E)=(92,104), saved at week 52 (before E-12). d: a SECOND authored hard-boundary actor, NEVER given any contract — announced at the same week 52, confirmed to hold no player and no rival employment row in force at its own E-12=92, so no employer can ever be the sole extension issuer. e: an unrelated authored director (age 40) under a 60-week contract, whose renewal-window case is OPEN (non-terminal) at week 52 — the ordinary case shape the future V36 migration must stamp variant: \"expiry\" onto.",
+      "focus": {
+        "axisA": {
+          "personId": "authored-0000",
+          "announcedWeek": 52,
+          "ageAtAnnouncement": 71,
+          "cause": "hardBoundary",
+          "effectiveWeek": 104,
+          "eMinus12": 92,
+          "employerStudioId": "studio-d7df6c8e-player",
+          "contractId": "studio-d7df6c8e-player:contract:authored-0000:0:player-24",
+          "contractRowStartWeek": 0,
+          "decisionWeek": 98,
+          "endWeekExclusiveInWindow": true,
+          "endsExactlyAtE": false,
+          "impliedExtensionTermWeeks": 58
+        },
+        "axisA_declineBaseline": {
+          "atWeek": 105,
+          "status": "retired",
+          "retiredWeek": 104,
+          "finishingFromWeek": null,
+          "stillHasActivePlayerContract": false,
+          "stillHasActiveRivalRow": false
+        },
+        "axisD": {
+          "personId": "authored-0001",
+          "record": {
+            "personId": "authored-0001",
+            "profession": "actor",
+            "intentRulesVersion": 1,
+            "cause": "hardBoundary",
+            "announcedWeek": 52,
+            "ageAtAnnouncement": 71,
+            "effectiveWeek": 104,
+            "status": "announced",
+            "finishingFromWeek": null,
+            "retiredWeek": null
+          },
+          "eMinus12": 92,
+          "declineBaseline": {
+            "atWeek": 105,
+            "status": "retired",
+            "retiredWeek": 104,
+            "finishingFromWeek": null,
+            "stillHasActivePlayerContract": false,
+            "stillHasActiveRivalRow": false
+          }
+        },
+        "axisE": {
+          "personId": "authored-0002",
+          "case": {
+            "talentId": "authored-0002",
+            "subjectTalentId": "authored-0002",
+            "subjectStudioId": "studio-d7df6c8e-player",
+            "contractId": "studio-d7df6c8e-player:contract:authored-0002:0:player-25",
+            "status": "proposals_open",
+            "decisionWeek": 60,
+            "openedWeek": 48
+          }
+        }
+      }
+    },
+    {
+      "filename": "genuine-v35-c2b-contract-at-effective-week.json.gz",
+      "provenanceFilename": "genuine-v35-c2b-contract-at-effective-week.provenance.json",
+      "week": 52,
+      "saveVersion": 35,
+      "uncompressedSha256": "28340a4a0ff0c5724d8aae73dda93c47dc07df65bf84744b204f56eeea7a8354",
+      "compressedSha256": "c339695f855e2daf97be959a7a0c75a6ccae72878dc070aef25da4890d694bf3",
+      "byteLength": 763360,
+      "compressedByteLength": 93155,
+      "axis": "b: an authored hard-boundary actor (age 70, week 0) under a 150-week PLAYER contract signed at week 0 — announced hardBoundary at week 52; because the contract (endWeekExclusive 150) is still in force at announcement and outlives A+52=104, IT determines E=150 exactly — the companion draft's own literal \"the contract in force ends there and the extension begins there, with no gap and no overlap\" case (780 §2). Saved at week 52 (before E-12=138). Weak axis f: the SAME save week (52) is a cohort week, so careerLifecycle.cohorts already holds one receipt (all-zero request in THIS seed — see world 3 for a richer one).",
+      "focus": {
+        "axisB": {
+          "personId": "authored-0000",
+          "announcedWeek": 52,
+          "ageAtAnnouncement": 71,
+          "cause": "hardBoundary",
+          "effectiveWeek": 150,
+          "eMinus12": 138,
+          "employerStudioId": "studio-d2e9db93-player",
+          "contractId": "studio-d2e9db93-player:contract:authored-0000:0:player-24",
+          "contractRowStartWeek": 0,
+          "decisionWeek": 150,
+          "endWeekExclusiveInWindow": false,
+          "endsExactlyAtE": true,
+          "impliedExtensionTermWeeks": 52
+        },
+        "axisB_declineBaseline": {
+          "atWeek": 151,
+          "status": "retired",
+          "retiredWeek": 150,
+          "finishingFromWeek": null,
+          "stillHasActivePlayerContract": false,
+          "stillHasActiveRivalRow": false
+        },
+        "axisF_week52Cohort": {
+          "week": 52,
+          "talentCountBefore": 85,
+          "requested": {
+            "actor": 0,
+            "director": 0,
+            "writer": 0,
+            "craft": 0
+          },
+          "clipped": 0,
+          "personIds": []
+        }
+      }
+    },
+    {
+      "filename": "genuine-v35-c2b-rival-incumbent-cohorts.json.gz",
+      "provenanceFilename": "genuine-v35-c2b-rival-incumbent-cohorts.provenance.json",
+      "week": 2600,
+      "saveVersion": 35,
+      "uncompressedSha256": "8b4c1934222bc28da2bd4517b3967350cc01e2517cb18044246a3a65323f2fa8",
+      "compressedSha256": "afb89ad0a5f1e972564d1389c800fb544e5082e8a8dddb4bbd5a2a43520e085d",
+      "byteLength": 5867589,
+      "compressedByteLength": 566384,
+      "axis": "c: a NATURAL rival incumbent, found with no authored rival hire and no forced enterRival call — subject \"person-cohort-208-actor-1\" was itself minted by a C.4 cohort receipt (week 208), later hired by rival \"studio-25969b11-r01\" on a 208-week contract (starts 2496), announced hardBoundary at week 2566; the SAME rival contract, still in force, determines E=2704 (ends exactly there) and remains in force at E-12=2692. Saved at week 2600 (before E-12). f, richly: this world's 2600 weeks of natural C.4 replenishment already carry 42 cohort receipt(s) with real entrants (not merely an all-zero request) — the natural, byte-for-byte V36 migration target.",
+      "focus": {
+        "axisC": {
+          "personId": "person-cohort-208-actor-1",
+          "announcedWeek": 2566,
+          "ageAtAnnouncement": 70,
+          "cause": "hardBoundary",
+          "effectiveWeek": 2704,
+          "eMinus12": 2692,
+          "employerStudioId": "studio-25969b11-r01",
+          "contractId": "studio-25969b11-r01:contract:person-cohort-208-actor-1:2496",
+          "contractRowStartWeek": 2496,
+          "decisionWeek": 2704,
+          "endWeekExclusiveInWindow": false,
+          "endsExactlyAtE": true,
+          "impliedExtensionTermWeeks": 52
+        },
+        "axisC_declineBaseline": {
+          "atWeek": 2705,
+          "status": "retired",
+          "retiredWeek": 2704,
+          "finishingFromWeek": null,
+          "stillHasActivePlayerContract": false,
+          "stillHasActiveRivalRow": false
+        },
+        "originatingCohortWeek": 208,
+        "totalHardBoundaryRecords": 10,
+        "rivalIncumbentHitCount": 1,
+        "axisF_cohortsWithEntrants": 42,
+        "axisF_totalCohorts": 50
+      }
+    }
+  ]
+}

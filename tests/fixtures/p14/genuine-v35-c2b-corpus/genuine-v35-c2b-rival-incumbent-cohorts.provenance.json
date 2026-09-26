@@ -1,0 +1,76 @@
+{
+  "authority": {
+    "phase": "P14C.2b T0 / the genuine outgoing Save V35 corpus for the single final retirement extension, minted at the FINAL V35 writer before any C.2b source change",
+    "headSha": "68783a8acb53aba4989829a2f6ddf95d8d544bc3",
+    "publishedRecoverySha": "68783a8acb53aba4989829a2f6ddf95d8d544bc3",
+    "publicationState": "PUBLISHED: git ls-remote origin wip/headless-program-20260916-ts returned the minting head at mint time.",
+    "expansionRelativePath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/780-c2b-extension-expansion.md",
+    "expansionSha256": "7d8b347401b62aad339cc01bc5e20bdfb77c8811db93fb6d7dd6011c7040a592",
+    "contractRelativePath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/806-c2b-api-contract.md",
+    "contractSha256": "5c5adf542821707fe3bdc5c73016d99bac50f4026a5aa531b983c89988aee281",
+    "measurementRelativePath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/807-c2b-t0-measurement.md",
+    "measurementSha256": "a5afb6f23d33e2a76745ec907e9ec88f0b6d90eceb547837c64c0f500013117b",
+    "saveVersion": 35,
+    "approvalEnvironmentVariable": "STUDIO_MINT_V35_C2B_CORPUS_APPROVED",
+    "outputRelativePath": "tests/fixtures/p14/genuine-v35-c2b-corpus",
+    "predictionMethodNote": "\"V35-engine continuation facts\": declineBaseline (this file) continues the SAVED state under the real, unmodified V35 engine (no extensionIssuer, no retirementExtension case variant, nothing C.2b adds exists anywhere in this file or in src/) to effectiveWeek + 1 via real advanceTo()/tick() calls — never a hand-rolled formula. It is a measured prediction under 780/806, not an implementation output."
+  },
+  "observedHeadSha": "68783a8acb53aba4989829a2f6ddf95d8d544bc3",
+  "minterRelativePath": "tests/p14c2b-mint-v35-corpus.test.ts",
+  "minterSha256": "92280570adc6661cf02f913da0c2f7da15e33f1969a0387eb82d514acda8bdf7",
+  "minterArchivedRelativePath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/808-mint-v35-c2b-corpus-minter.test.ts",
+  "minterReproduction": "Archived at minterArchivedRelativePath and removed from tests/, so no suite collects it. Reproducing requires copying the archived bytes back to tests/p14c2b-mint-v35-corpus.test.ts before running the recorded command.",
+  "nodeVersion": "v20.20.2",
+  "startedAt": "2026-09-26T01:27:39.433Z",
+  "worldBuildMs": 33500.700091,
+  "command": "STUDIO_MINT_V35_C2B_CORPUS_APPROVED=68783a8acb53aba4989829a2f6ddf95d8d544bc3 node_modules/.bin/vitest run tests/p14c2b-mint-v35-corpus.test.ts --minWorkers=1 --maxWorkers=1",
+  "campaign": "generated test campaign only; never an Owner save",
+  "scope": "genuine OUTGOING V35 worlds spanning the six measured/minted C.2b corpus axes (a-f, 780 §6.3); no extensionIssuer, no retirementExtension case variant, no V36 root, no native and no Owner acceptance claim",
+  "endedAt": "2026-09-26T01:28:15.093Z",
+  "recipe": {
+    "builder": "advanceTo(p13aGeneratedStudio(\"p14c2b-corpus-01-c1\"), 2600)",
+    "actions": [
+      "2600 real ticks, no player action, fund() not called (matching 775/791 precedent for a passive natural world)"
+    ],
+    "compression": "node:zlib gzipSync with library defaults"
+  },
+  "filename": "genuine-v35-c2b-rival-incumbent-cohorts.json.gz",
+  "provenanceFilename": "genuine-v35-c2b-rival-incumbent-cohorts.provenance.json",
+  "week": 2600,
+  "saveVersion": 35,
+  "uncompressedSha256": "8b4c1934222bc28da2bd4517b3967350cc01e2517cb18044246a3a65323f2fa8",
+  "compressedSha256": "afb89ad0a5f1e972564d1389c800fb544e5082e8a8dddb4bbd5a2a43520e085d",
+  "byteLength": 5867589,
+  "compressedByteLength": 566384,
+  "axis": "c: a NATURAL rival incumbent, found with no authored rival hire and no forced enterRival call — subject \"person-cohort-208-actor-1\" was itself minted by a C.4 cohort receipt (week 208), later hired by rival \"studio-25969b11-r01\" on a 208-week contract (starts 2496), announced hardBoundary at week 2566; the SAME rival contract, still in force, determines E=2704 (ends exactly there) and remains in force at E-12=2692. Saved at week 2600 (before E-12). f, richly: this world's 2600 weeks of natural C.4 replenishment already carry 42 cohort receipt(s) with real entrants (not merely an all-zero request) — the natural, byte-for-byte V36 migration target.",
+  "focus": {
+    "axisC": {
+      "personId": "person-cohort-208-actor-1",
+      "announcedWeek": 2566,
+      "ageAtAnnouncement": 70,
+      "cause": "hardBoundary",
+      "effectiveWeek": 2704,
+      "eMinus12": 2692,
+      "employerStudioId": "studio-25969b11-r01",
+      "contractId": "studio-25969b11-r01:contract:person-cohort-208-actor-1:2496",
+      "contractRowStartWeek": 2496,
+      "decisionWeek": 2704,
+      "endWeekExclusiveInWindow": false,
+      "endsExactlyAtE": true,
+      "impliedExtensionTermWeeks": 52
+    },
+    "axisC_declineBaseline": {
+      "atWeek": 2705,
+      "status": "retired",
+      "retiredWeek": 2704,
+      "finishingFromWeek": null,
+      "stillHasActivePlayerContract": false,
+      "stillHasActiveRivalRow": false
+    },
+    "originatingCohortWeek": 208,
+    "totalHardBoundaryRecords": 10,
+    "rivalIncumbentHitCount": 1,
+    "axisF_cohortsWithEntrants": 42,
+    "axisF_totalCohorts": 50
+  }
+}
