@@ -1,0 +1,24 @@
+{"sourceSha":"7b5e4868a91b9259fa0a03745c9e40fec854991b","testedDiffSha256":"24a0c85299805a8e9b58c07a795fbdbe2d2a408b7641e130f2f015189502880f","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14c3-dual-extensions.test.ts"],"node":"v20.20.2","start":"2026-09-26T22:12:59.050Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p14c3-dual-extensions.test.ts (12 tests) 32660ms
+   ✓ C.3 actor→director two genuine profession extensions > X1 observes the real actor notice/window and admits only the exact incumbent extension proposal 3227ms
+   ✓ C.3 actor→director two genuine profession extensions > X2 settles and pays the actual actor208→260 extension once and refuses another in that episode 1053ms
+   ✓ C.3 actor→director two genuine profession extensions > X3 truly retires acting at260, satisfies current eligibility and hires the same identity in its new profession 1556ms
+   ✓ C.3 actor→director two genuine profession extensions > X4 opens a new-profession extension despite the genuinely used old actor extension 4604ms
+   ✓ C.3 actor→director two genuine profession extensions > X5 settles and pays the destination468→520 extension while preserving both dated cases through current persistence 2654ms
+   ✓ C.3 actor→director two genuine profession extensions > X6 opens no third case and records real destination520 finality once through loaded521 3800ms
+   ✓ C.3 actor→writer two genuine profession extensions > X1 observes the real actor notice/window and admits only the exact incumbent extension proposal 2667ms
+   ✓ C.3 actor→writer two genuine profession extensions > X2 settles and pays the actual actor208→260 extension once and refuses another in that episode 922ms
+   ✓ C.3 actor→writer two genuine profession extensions > X3 truly retires acting at260, satisfies current eligibility and hires the same identity in its new profession 1516ms
+   ✓ C.3 actor→writer two genuine profession extensions > X4 opens a new-profession extension despite the genuinely used old actor extension 5026ms
+   ✓ C.3 actor→writer two genuine profession extensions > X5 settles and pays the destination468→520 extension while preserving both dated cases through current persistence 2356ms
+   ✓ C.3 actor→writer two genuine profession extensions > X6 opens no third case and records real destination520 finality once through loaded521 3276ms
+
+ Test Files  1 passed (1)
+      Tests  12 passed (12)
+   Start at  00:12:59
+   Duration  35.71s (transform 1.75s, setup 0ms, collect 2.41s, tests 32.66s, environment 0ms, prepare 117ms)
+

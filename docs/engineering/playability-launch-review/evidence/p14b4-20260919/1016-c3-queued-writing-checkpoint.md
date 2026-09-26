@@ -40,3 +40,16 @@ extensions, multi-episode off-menu terms, rival/cohort/authored transition witne
 remaining971/938 evidence, projection53/readmodels/UI/runtime or full C.3 gates.
 Save38 is partial, projection52 remains, and Unity/native is deferred. Continue
 with the released real B4b task. No full C.3 or launch acceptance claim.
+
+## Publication receipt
+
+Normally pushed7b5e4868a91b9259fa0a03745c9e40fec854991b to the same working
+branch; independent ls-remote matched exact local HEAD after push closure. The
+whole worktree was clean at that verification (the author had not yet written the
+new B4b paths). Subsequent author/record work remains pending for the next checkpoint.
+No force push, main promotion, hooks or persistent configuration changes.
+
+Staged whitespace inspection reported only preserved raw-log terminal blank lines
+in1012/1013 .txt outputs. Those evidence bytes were not rewritten; this is not a
+claim of an all-path whitespace pass. Independent source-file whitespace checks
+passed as recorded in1012-A.

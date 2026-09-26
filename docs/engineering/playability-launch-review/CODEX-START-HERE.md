@@ -1,5 +1,34 @@
 # CODEX continuation — Project Studio
 
+## CURRENT — dual extensions verified; preparing next genuine-evidence batch
+
+1014 first run passed all12 dual-extension cases in36.766s;1015 root TypeScript
+passed31.156s. Both fixed-source on7b5e4868a91b9259fa0a03745c9e40fec854991b
+plus24a0c85299805a8e9b58c07a795fbdbe2d2a408b7641e130f2f015189502880f.
+Both actual Actor208→260 and destination468→520 extensions, dated case/payment
+joins, second-episode refusal, save/load and520/521 finality passed for both targets.
+These are first-run qualifications; no invented RED or new production fix.
+All heavy runs closed. Parent preparing1017 checkpoint after independent1017-A review.
+Existing author owns docs-only1018-A exact G1/G2/G3/G5 plan under frozen1014-A;
+reviewer owns separate plan review. No new source release until that finite handback.
+One production writer, separate test/review ownership, maximum two specialists.
+Next genuine owner isolation, long deferred cadence, held work and later snapshots;
+G4 equal-tuples, off-menu terms, StageC, projection53/UI/runtime and full C.3 gates
+remain. Save38 partial/projection52; Unity/native deferred; no launch acceptance.
+
+## CURRENT — 7b5e4868 published; B4b dual-extension source in development
+
+Local/GitHub refs matched7b5e4868a91b9259fa0a03745c9e40fec854991b; wholeworktree
+clean atverification. 1016records6queued/proofcontrolsPASS, root+bridgetypesPASS,
+independentreviewKEEP. Productionunchanged since4dbca155. Noheavyprocessactive.
+Parentsoleproductionwriter/heavyexecutor. Existingtestauthor owns only NEW B4b
+dual-extension test/helper plus1014-B, reviewed12leaves/max521/836ticks. Existing
+B4a/Qfilesstayfrozen. Reviewer's1013-A includes exactcase/receipt/refusal details;
+1014-A remaininggenuineB1/B3 planisdocs-only. NoaddedD<Esource release.
+Next freeze and1014 firstB4bresult, attribute actualpremises, then continue genuine
+remaining971/938 andprojection53/UI/runtime/fullverification. Save38partial and
+native deferralunchanged; nofullC.3/launchacceptance. Historicalevidencepreserved.
+
 ## CURRENT — six queued-writing controls verified; dual-extension tests released
 
 1012 first result:6PASS,26.767s,fixedSource,closed21:57:29.170Z. Both real
