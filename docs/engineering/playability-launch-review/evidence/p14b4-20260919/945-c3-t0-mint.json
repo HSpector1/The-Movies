@@ -1,0 +1,34 @@
+{
+  "sourceSha": "1f44aa505c0d677430451ab5fcacaf5e0ce205d6",
+  "testedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "producerSha256": "133507f0628cc8e4662b35dcfa1a890236f520346bde3f1acf692c85898b8156",
+  "recorderSha256": "d1a74a7b88406f211bf48ce2efb6b78478a918cdf6bbab6dce451fe67c29617f",
+  "command": [
+    "node_modules/.bin/vite-node",
+    "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/944-c3-t0-producer.ts",
+    "--write"
+  ],
+  "declaredOutputs": [
+    "tests/fixtures/p14/genuine-v37-c3-corpus/MANIFEST.json",
+    "tests/fixtures/p14/genuine-v37-c3-corpus/genuine-v37-c3-announced-week104.json.gz",
+    "tests/fixtures/p14/genuine-v37-c3-corpus/genuine-v37-c3-created-week0.json.gz",
+    "tests/fixtures/p14/genuine-v37-c3-corpus/genuine-v37-c3-postretirement-week209.json.gz",
+    "tests/fixtures/p14/genuine-v37-c3-corpus/genuine-v37-c3-preannouncement-week103.json.gz",
+    "tests/fixtures/p14/genuine-v37-c3-corpus/genuine-v37-c3-preretirement-week207.json.gz",
+    "tests/fixtures/p14/genuine-v37-c3-corpus/genuine-v37-c3-retired-week208.json.gz",
+    "tests/fixtures/p14/genuine-v37-c3-corpus/genuine-v37-c3-three-real-releases.json.gz",
+    "tests/fixtures/p14/genuine-v37-c3-corpus/runtime52-current208-saved207.json.gz"
+  ],
+  "sourceAccounting": "Existing consumed files and undeclared untracked inputs must remain fixed; only these newly generated outputs may appear.",
+  "start": "2026-09-26T18:51:41.713Z",
+  "end": "2026-09-26T18:51:52.806Z",
+  "exitCode": 1,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "1f44aa505c0d677430451ab5fcacaf5e0ce205d6",
+  "testedDiffSha256AtEnd": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "untrackedInputsAtEnd": [],
+  "fixedExistingSource": true,
+  "exactDeclaredOutputs": false,
+  "outputFiles": []
+}

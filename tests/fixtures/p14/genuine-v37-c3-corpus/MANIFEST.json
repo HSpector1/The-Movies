@@ -1,0 +1,1357 @@
+{
+  "generatedAt": "2026-09-26T19:13:45.979Z",
+  "sourceSha": "1f44aa505c0d677430451ab5fcacaf5e0ce205d6",
+  "qualifiedProductionSha": "9afae8874486fbb20dc5d373526698aacbec2114",
+  "producer": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/951-c3-t0-preservation-producer.ts",
+  "producerSha256": "aba3b5c101a1982e2994ce69de0e78633a16d499ebe6cb26bdcc31875235bb4c",
+  "seed": "p14c3-t0-public-actor-careers-01",
+  "sourceBefore": {
+    "head": "1f44aa505c0d677430451ab5fcacaf5e0ce205d6",
+    "diffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "untracked": []
+  },
+  "saveVersion": 37,
+  "projectionVersion": 52,
+  "protocolVersion": 4,
+  "schemaId": "sha256:f036ccdd62c4ac2a700a27796631e1c4f8c85f9cccfb14ac6850083fb8dba5f2",
+  "description": "Public Full Custom authoring followed by three actual released films under supported default develop:false core ticks, natural acting announcement/retirement, and a separate genuine public runtime advance/replay. The known continuation digest parity FAIL is preserved, not repaired. No C.3 transition law exists in these outgoing bytes.",
+  "development": {
+    "continuousTicks": false,
+    "supportedPath": "core tick default develop:false",
+    "normalPlayDevelopmentClaimed": false,
+    "runtimeAdvance": true,
+    "note": "The public runtime advance from207 to208 uses develop:true. The earlier continuous scenario remains exactly the default-development path of944/947; acting takes and released credits are real, but this is not a normal-play development corpus."
+  },
+  "knownParityDefect": {
+    "status": "FAIL",
+    "description": "The actual BridgeSession advance and continuous default tick have twelve different promise feasibility inputsDigest receipts. Original values are preserved separately; no digest or state is repaired.",
+    "attribution": "950 held tick options constant and isolated negative zero: both controls were equal. Canonical import changed 9376 object key orders with no changed key sets; receipt JSON.stringify retains nested raw-object order. This is an existing save/load continuation ordering defect.",
+    "evidence": [
+      "945-c3-t0-mint",
+      "948-c3-t0-diagnostic",
+      "950-c3-t0-causal"
+    ],
+    "comparator": {
+      "left": "actual BridgeSession current208",
+      "right": "continuous default-tick current208"
+    },
+    "bytes": {
+      "left": 1695188,
+      "right": 1695188,
+      "leftSha256": "414b3491ad4d6a7244c9af71e24a7bbe491106d9cf290e1ee30cb9a62b57fb84",
+      "rightSha256": "7de879a5c7a5ab4ffdac819734957572aa58349c5d59768c572c249339739a7f"
+    },
+    "parsed208": {
+      "count": 12,
+      "first": [
+        {
+          "path": "$[\"state\"][\"promises\"][1][\"feasibilityReceipt\"][\"inputsDigest\"]",
+          "left": "3c2ee485f8e9ebe0",
+          "right": "8ffe675a3b23ddec"
+        },
+        {
+          "path": "$[\"state\"][\"promises\"][3][\"feasibilityReceipt\"][\"inputsDigest\"]",
+          "left": "301dc4a29f3a97eb",
+          "right": "e2d8bcde3be545d7"
+        },
+        {
+          "path": "$[\"state\"][\"promises\"][5][\"feasibilityReceipt\"][\"inputsDigest\"]",
+          "left": "8d591496b307b39a",
+          "right": "6b17bcd6a589e50e"
+        },
+        {
+          "path": "$[\"state\"][\"promises\"][7][\"feasibilityReceipt\"][\"inputsDigest\"]",
+          "left": "34ecce2442e5c9a1",
+          "right": "2414d754057944ed"
+        },
+        {
+          "path": "$[\"state\"][\"promises\"][9][\"feasibilityReceipt\"][\"inputsDigest\"]",
+          "left": "50f484b1573b853c",
+          "right": "9cc3646030e678b8"
+        },
+        {
+          "path": "$[\"state\"][\"promises\"][11][\"feasibilityReceipt\"][\"inputsDigest\"]",
+          "left": "7827a662dd1697fc",
+          "right": "b9ce2ec91ae1d260"
+        },
+        {
+          "path": "$[\"state\"][\"promises\"][24][\"feasibilityReceipt\"][\"inputsDigest\"]",
+          "left": "dedea6ada7e38b72",
+          "right": "6fdbcca105a1c78c"
+        },
+        {
+          "path": "$[\"state\"][\"promises\"][26][\"feasibilityReceipt\"][\"inputsDigest\"]",
+          "left": "0e8dc4c7edef5493",
+          "right": "2ab1bd9db0fb24c1"
+        },
+        {
+          "path": "$[\"state\"][\"promises\"][37][\"feasibilityReceipt\"][\"inputsDigest\"]",
+          "left": "a72da426788bb57b",
+          "right": "3e4245fc4c068e15"
+        },
+        {
+          "path": "$[\"state\"][\"promises\"][43][\"feasibilityReceipt\"][\"inputsDigest\"]",
+          "left": "4055dfc0bc86fd1e",
+          "right": "47636dba996b2a3c"
+        },
+        {
+          "path": "$[\"state\"][\"promises\"][45][\"feasibilityReceipt\"][\"inputsDigest\"]",
+          "left": "2825199d2a230ceb",
+          "right": "143571fd532a856d"
+        },
+        {
+          "path": "$[\"state\"][\"promises\"][47][\"feasibilityReceipt\"][\"inputsDigest\"]",
+          "left": "deb1c5e66f14c8c0",
+          "right": "6a63d8a3f1249bb6"
+        }
+      ],
+      "omitted": 0
+    },
+    "pre207MemoryToSerializedState": {
+      "count": 3,
+      "first": [
+        {
+          "path": "$[\"hollywood\"][\"careerEvents\"][44][\"genreExpBefore\"]",
+          "left": {
+            "special": "-0"
+          },
+          "right": 0
+        },
+        {
+          "path": "$[\"talent\"][0][\"genreExperience\"][\"writing\"][\"comedy\"][\"perceived\"]",
+          "left": {
+            "special": "-0"
+          },
+          "right": 0
+        },
+        {
+          "path": "$[\"talent\"][43][\"genreExperience\"][\"acting\"][\"romance\"][\"perceived\"]",
+          "left": {
+            "special": "-0"
+          },
+          "right": 0
+        }
+      ],
+      "omitted": 0
+    },
+    "pre207SerializedStateToBridgeImport": {
+      "count": 0,
+      "first": [],
+      "omitted": 0
+    },
+    "limit": "Outgoing historical preservation only. A successful mint does not make this parity check pass or qualify the ordering defect as fixed."
+  },
+  "bootstrap": {
+    "builder": "p13aGeneratedStudio",
+    "cashBefore": 20000000,
+    "cashAfter": 30000000,
+    "delta": 10000000,
+    "note": "Disclosed generated-fixture funding, not simulated earned film revenue. No other direct world edits."
+  },
+  "authoredInputs": [
+    {
+      "name": "C3 Actor With Directing Aptitude",
+      "role": "actor",
+      "age": 68,
+      "actual": {
+        "warmth": 0,
+        "gravity": 0,
+        "physicality": 0.2
+      },
+      "workEthic": 55,
+      "fame": 25,
+      "skills": {
+        "acting": [
+          75,
+          75,
+          75,
+          75,
+          75,
+          75
+        ],
+        "writing": [
+          20,
+          20,
+          20,
+          20,
+          20,
+          20
+        ],
+        "directing": [
+          80,
+          80,
+          80,
+          80,
+          80,
+          80
+        ],
+        "craft": [
+          20,
+          20,
+          20,
+          20,
+          20,
+          20
+        ],
+        "research": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "name": "C3 Actor With Writing Aptitude",
+      "role": "actor",
+      "age": 68,
+      "actual": {
+        "warmth": 0,
+        "gravity": 0,
+        "physicality": 0.2
+      },
+      "workEthic": 55,
+      "fame": 25,
+      "skills": {
+        "acting": [
+          75,
+          75,
+          75,
+          75,
+          75,
+          75
+        ],
+        "writing": [
+          80,
+          80,
+          80,
+          80,
+          80,
+          80
+        ],
+        "directing": [
+          20,
+          20,
+          20,
+          20,
+          20,
+          20
+        ],
+        "craft": [
+          20,
+          20,
+          20,
+          20,
+          20,
+          20
+        ],
+        "research": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "name": "C3 Recorded Director",
+      "role": "director",
+      "age": 40,
+      "actual": {
+        "warmth": 0,
+        "gravity": 0,
+        "physicality": 0.2
+      },
+      "workEthic": 55,
+      "fame": 25,
+      "skills": {
+        "acting": [
+          20,
+          20,
+          20,
+          20,
+          20,
+          20
+        ],
+        "writing": [
+          20,
+          20,
+          20,
+          20,
+          20,
+          20
+        ],
+        "directing": [
+          75,
+          75,
+          75,
+          75,
+          75,
+          75
+        ],
+        "craft": [
+          20,
+          20,
+          20,
+          20,
+          20,
+          20
+        ],
+        "research": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "name": "C3 Recorded Writer",
+      "role": "writer",
+      "age": 40,
+      "actual": {
+        "warmth": 0,
+        "gravity": 0,
+        "physicality": 0.2
+      },
+      "workEthic": 55,
+      "fame": 25,
+      "skills": {
+        "acting": [
+          20,
+          20,
+          20,
+          20,
+          20,
+          20
+        ],
+        "writing": [
+          75,
+          75,
+          75,
+          75,
+          75,
+          75
+        ],
+        "directing": [
+          20,
+          20,
+          20,
+          20,
+          20,
+          20
+        ],
+        "craft": [
+          20,
+          20,
+          20,
+          20,
+          20,
+          20
+        ],
+        "research": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "name": "C3 Recorded Craft Lead",
+      "role": "craft",
+      "age": 40,
+      "actual": {
+        "warmth": 0,
+        "gravity": 0,
+        "physicality": 0.2
+      },
+      "workEthic": 55,
+      "fame": 25,
+      "skills": {
+        "acting": [
+          20,
+          20,
+          20,
+          20,
+          20,
+          20
+        ],
+        "writing": [
+          20,
+          20,
+          20,
+          20,
+          20,
+          20
+        ],
+        "directing": [
+          20,
+          20,
+          20,
+          20,
+          20,
+          20
+        ],
+        "craft": [
+          75,
+          75,
+          75,
+          75,
+          75,
+          75
+        ],
+        "research": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "name": "C3 Supporting Actor",
+      "role": "actor",
+      "age": 30,
+      "actual": {
+        "warmth": 0,
+        "gravity": 0,
+        "physicality": 0.2
+      },
+      "workEthic": 55,
+      "fame": 25,
+      "skills": {
+        "acting": [
+          75,
+          75,
+          75,
+          75,
+          75,
+          75
+        ],
+        "writing": [
+          20,
+          20,
+          20,
+          20,
+          20,
+          20
+        ],
+        "directing": [
+          20,
+          20,
+          20,
+          20,
+          20,
+          20
+        ],
+        "craft": [
+          20,
+          20,
+          20,
+          20,
+          20,
+          20
+        ],
+        "research": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    }
+  ],
+  "actionTrace": [
+    {
+      "week": 0,
+      "action": {
+        "kind": "createCustomTalent",
+        "talent": {
+          "name": "C3 Actor With Directing Aptitude",
+          "role": "actor",
+          "age": 68,
+          "actual": {
+            "warmth": 0,
+            "gravity": 0,
+            "physicality": 0.2
+          },
+          "workEthic": 55,
+          "fame": 25,
+          "skills": {
+            "acting": [
+              75,
+              75,
+              75,
+              75,
+              75,
+              75
+            ],
+            "writing": [
+              20,
+              20,
+              20,
+              20,
+              20,
+              20
+            ],
+            "directing": [
+              80,
+              80,
+              80,
+              80,
+              80,
+              80
+            ],
+            "craft": [
+              20,
+              20,
+              20,
+              20,
+              20,
+              20
+            ],
+            "research": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          }
+        }
+      }
+    },
+    {
+      "week": 0,
+      "action": {
+        "kind": "signContract",
+        "talentId": "authored-0000",
+        "termWeeks": 208
+      }
+    },
+    {
+      "week": 0,
+      "action": {
+        "kind": "createCustomTalent",
+        "talent": {
+          "name": "C3 Actor With Writing Aptitude",
+          "role": "actor",
+          "age": 68,
+          "actual": {
+            "warmth": 0,
+            "gravity": 0,
+            "physicality": 0.2
+          },
+          "workEthic": 55,
+          "fame": 25,
+          "skills": {
+            "acting": [
+              75,
+              75,
+              75,
+              75,
+              75,
+              75
+            ],
+            "writing": [
+              80,
+              80,
+              80,
+              80,
+              80,
+              80
+            ],
+            "directing": [
+              20,
+              20,
+              20,
+              20,
+              20,
+              20
+            ],
+            "craft": [
+              20,
+              20,
+              20,
+              20,
+              20,
+              20
+            ],
+            "research": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          }
+        }
+      }
+    },
+    {
+      "week": 0,
+      "action": {
+        "kind": "signContract",
+        "talentId": "authored-0001",
+        "termWeeks": 208
+      }
+    },
+    {
+      "week": 0,
+      "action": {
+        "kind": "createCustomTalent",
+        "talent": {
+          "name": "C3 Recorded Director",
+          "role": "director",
+          "age": 40,
+          "actual": {
+            "warmth": 0,
+            "gravity": 0,
+            "physicality": 0.2
+          },
+          "workEthic": 55,
+          "fame": 25,
+          "skills": {
+            "acting": [
+              20,
+              20,
+              20,
+              20,
+              20,
+              20
+            ],
+            "writing": [
+              20,
+              20,
+              20,
+              20,
+              20,
+              20
+            ],
+            "directing": [
+              75,
+              75,
+              75,
+              75,
+              75,
+              75
+            ],
+            "craft": [
+              20,
+              20,
+              20,
+              20,
+              20,
+              20
+            ],
+            "research": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          }
+        }
+      }
+    },
+    {
+      "week": 0,
+      "action": {
+        "kind": "signContract",
+        "talentId": "authored-0002",
+        "termWeeks": 208
+      }
+    },
+    {
+      "week": 0,
+      "action": {
+        "kind": "createCustomTalent",
+        "talent": {
+          "name": "C3 Recorded Writer",
+          "role": "writer",
+          "age": 40,
+          "actual": {
+            "warmth": 0,
+            "gravity": 0,
+            "physicality": 0.2
+          },
+          "workEthic": 55,
+          "fame": 25,
+          "skills": {
+            "acting": [
+              20,
+              20,
+              20,
+              20,
+              20,
+              20
+            ],
+            "writing": [
+              75,
+              75,
+              75,
+              75,
+              75,
+              75
+            ],
+            "directing": [
+              20,
+              20,
+              20,
+              20,
+              20,
+              20
+            ],
+            "craft": [
+              20,
+              20,
+              20,
+              20,
+              20,
+              20
+            ],
+            "research": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          }
+        }
+      }
+    },
+    {
+      "week": 0,
+      "action": {
+        "kind": "signContract",
+        "talentId": "authored-0003",
+        "termWeeks": 208
+      }
+    },
+    {
+      "week": 0,
+      "action": {
+        "kind": "createCustomTalent",
+        "talent": {
+          "name": "C3 Recorded Craft Lead",
+          "role": "craft",
+          "age": 40,
+          "actual": {
+            "warmth": 0,
+            "gravity": 0,
+            "physicality": 0.2
+          },
+          "workEthic": 55,
+          "fame": 25,
+          "skills": {
+            "acting": [
+              20,
+              20,
+              20,
+              20,
+              20,
+              20
+            ],
+            "writing": [
+              20,
+              20,
+              20,
+              20,
+              20,
+              20
+            ],
+            "directing": [
+              20,
+              20,
+              20,
+              20,
+              20,
+              20
+            ],
+            "craft": [
+              75,
+              75,
+              75,
+              75,
+              75,
+              75
+            ],
+            "research": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          }
+        }
+      }
+    },
+    {
+      "week": 0,
+      "action": {
+        "kind": "signContract",
+        "talentId": "authored-0004",
+        "termWeeks": 208
+      }
+    },
+    {
+      "week": 0,
+      "action": {
+        "kind": "createCustomTalent",
+        "talent": {
+          "name": "C3 Supporting Actor",
+          "role": "actor",
+          "age": 30,
+          "actual": {
+            "warmth": 0,
+            "gravity": 0,
+            "physicality": 0.2
+          },
+          "workEthic": 55,
+          "fame": 25,
+          "skills": {
+            "acting": [
+              75,
+              75,
+              75,
+              75,
+              75,
+              75
+            ],
+            "writing": [
+              20,
+              20,
+              20,
+              20,
+              20,
+              20
+            ],
+            "directing": [
+              20,
+              20,
+              20,
+              20,
+              20,
+              20
+            ],
+            "craft": [
+              20,
+              20,
+              20,
+              20,
+              20,
+              20
+            ],
+            "research": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          }
+        }
+      }
+    },
+    {
+      "week": 0,
+      "action": {
+        "kind": "signContract",
+        "talentId": "authored-0005",
+        "termWeeks": 208
+      }
+    },
+    {
+      "week": 0,
+      "action": {
+        "kind": "strikeSet",
+        "setId": "set-0"
+      }
+    },
+    {
+      "week": 0,
+      "action": {
+        "kind": "commissionSet",
+        "commission": {
+          "blueprintId": "set-grand-ballroom",
+          "stageFacilityId": "facility-soundstage-07"
+        }
+      }
+    },
+    {
+      "week": 8,
+      "action": {
+        "kind": "greenlight",
+        "production": {
+          "conceptId": "c-00",
+          "shape": {
+            "opening": "slowSetup",
+            "midpoint": "revelation",
+            "ending": "bittersweet"
+          },
+          "promise": {
+            "genre": "drama",
+            "intendedSegments": [
+              "adult"
+            ],
+            "ranges": {
+              "intimacy": [
+                -0.5,
+                0.5
+              ],
+              "tonalWeight": [
+                -0.5,
+                0.5
+              ],
+              "kineticEnergy": [
+                -0.5,
+                0.5
+              ]
+            }
+          },
+          "writerId": "authored-0003",
+          "directorId": "authored-0002",
+          "cast": {
+            "lead": "authored-0000",
+            "antagonist": "authored-0001",
+            "support": "authored-0005"
+          },
+          "craftIds": [
+            "authored-0004"
+          ],
+          "budget": {
+            "negative": 5208592.827974877,
+            "marketing": 0
+          }
+        }
+      }
+    },
+    {
+      "week": 12,
+      "action": {
+        "kind": "assignShootingDirector",
+        "productionId": "prod-0008",
+        "directorId": "authored-0002"
+      }
+    },
+    {
+      "week": 12,
+      "action": {
+        "kind": "scheduleShootingTake",
+        "productionId": "prod-0008"
+      }
+    },
+    {
+      "week": 16,
+      "action": {
+        "kind": "commitPictureToRelease",
+        "productionId": "prod-0008"
+      }
+    },
+    {
+      "week": 17,
+      "action": {
+        "kind": "greenlight",
+        "production": {
+          "conceptId": "c-01",
+          "shape": {
+            "opening": "slowSetup",
+            "midpoint": "revelation",
+            "ending": "bittersweet"
+          },
+          "promise": {
+            "genre": "crime",
+            "intendedSegments": [
+              "adult"
+            ],
+            "ranges": {
+              "intimacy": [
+                -0.5,
+                0.5
+              ],
+              "tonalWeight": [
+                -0.5,
+                0.5
+              ],
+              "kineticEnergy": [
+                -0.5,
+                0.5
+              ]
+            }
+          },
+          "writerId": "authored-0003",
+          "directorId": "authored-0002",
+          "cast": {
+            "lead": "authored-0000",
+            "antagonist": "authored-0001",
+            "support": "authored-0005"
+          },
+          "craftIds": [
+            "authored-0004"
+          ],
+          "budget": {
+            "negative": 2492712.829636219,
+            "marketing": 0
+          }
+        }
+      }
+    },
+    {
+      "week": 21,
+      "action": {
+        "kind": "assignShootingDirector",
+        "productionId": "prod-0017",
+        "directorId": "authored-0002"
+      }
+    },
+    {
+      "week": 21,
+      "action": {
+        "kind": "scheduleShootingTake",
+        "productionId": "prod-0017"
+      }
+    },
+    {
+      "week": 25,
+      "action": {
+        "kind": "commitPictureToRelease",
+        "productionId": "prod-0017"
+      }
+    },
+    {
+      "week": 26,
+      "action": {
+        "kind": "greenlight",
+        "production": {
+          "conceptId": "c-02",
+          "shape": {
+            "opening": "slowSetup",
+            "midpoint": "revelation",
+            "ending": "bittersweet"
+          },
+          "promise": {
+            "genre": "comedy",
+            "intendedSegments": [
+              "adult"
+            ],
+            "ranges": {
+              "intimacy": [
+                -0.5,
+                0.5
+              ],
+              "tonalWeight": [
+                -0.5,
+                0.5
+              ],
+              "kineticEnergy": [
+                -0.5,
+                0.5
+              ]
+            }
+          },
+          "writerId": "authored-0003",
+          "directorId": "authored-0002",
+          "cast": {
+            "lead": "authored-0000",
+            "antagonist": "authored-0001",
+            "support": "authored-0005"
+          },
+          "craftIds": [
+            "authored-0004"
+          ],
+          "budget": {
+            "negative": 5125523.054748115,
+            "marketing": 0
+          }
+        }
+      }
+    },
+    {
+      "week": 30,
+      "action": {
+        "kind": "assignShootingDirector",
+        "productionId": "prod-0026",
+        "directorId": "authored-0002"
+      }
+    },
+    {
+      "week": 30,
+      "action": {
+        "kind": "scheduleShootingTake",
+        "productionId": "prod-0026"
+      }
+    },
+    {
+      "week": 34,
+      "action": {
+        "kind": "commitPictureToRelease",
+        "productionId": "prod-0026"
+      }
+    }
+  ],
+  "continuousTicks": 209,
+  "separateRuntimeAdvanceCommands": 1,
+  "bounds": {
+    "createdPeople": 6,
+    "releaseCount": 3,
+    "maximumTicksPerFilm": 40,
+    "latestWorkCompletionExclusive": 104,
+    "finalWeek": 209
+  },
+  "focus": {
+    "directorActorId": "authored-0000",
+    "writerActorId": "authored-0001",
+    "directorId": "authored-0002",
+    "writerId": "authored-0003",
+    "craftId": "authored-0004",
+    "supportId": "authored-0005",
+    "filmIds": [
+      "prod-0008",
+      "prod-0017",
+      "prod-0026"
+    ],
+    "workCompletedWeek": 35,
+    "announcementWeek": 104,
+    "effectiveWeek": 208,
+    "retiredWeek": 208,
+    "publicTargetFacts": {
+      "directingActor": {
+        "discipline": "directing",
+        "ovr": 80,
+        "workHistory": 0,
+        "capable": true,
+        "proven": false,
+        "capableButUnproven": true,
+        "publicExpectedPotentialTier": "Limited",
+        "publicExpectedPotentialRange": {
+          "low": 77,
+          "high": 85
+        }
+      },
+      "writingActor": {
+        "discipline": "writing",
+        "ovr": 80,
+        "workHistory": 0,
+        "capable": true,
+        "proven": false,
+        "capableButUnproven": true,
+        "publicExpectedPotentialTier": "Limited",
+        "publicExpectedPotentialRange": {
+          "low": 79,
+          "high": 87
+        }
+      }
+    },
+    "actingTakeEvidence": [
+      {
+        "eventId": "first-take-event-4",
+        "week": 13,
+        "productionId": "prod-0008",
+        "studioId": "studio-de11f27b-player",
+        "directorId": "authored-0002",
+        "cast": {
+          "lead": "authored-0000",
+          "antagonist": "authored-0001",
+          "support": "authored-0005"
+        }
+      },
+      {
+        "eventId": "first-take-event-9",
+        "week": 22,
+        "productionId": "prod-0017",
+        "studioId": "studio-de11f27b-player",
+        "directorId": "authored-0002",
+        "cast": {
+          "lead": "authored-0000",
+          "antagonist": "authored-0001",
+          "support": "authored-0005"
+        }
+      },
+      {
+        "eventId": "first-take-event-14",
+        "week": 31,
+        "productionId": "prod-0026",
+        "studioId": "studio-de11f27b-player",
+        "directorId": "authored-0002",
+        "cast": {
+          "lead": "authored-0000",
+          "antagonist": "authored-0001",
+          "support": "authored-0005"
+        }
+      }
+    ],
+    "releasedCreditEvidence": [
+      {
+        "filmId": "prod-0008",
+        "releaseWeek": 16,
+        "writerId": "authored-0003",
+        "directorId": "authored-0002",
+        "cast": {
+          "lead": "authored-0000",
+          "antagonist": "authored-0001",
+          "support": "authored-0005"
+        }
+      },
+      {
+        "filmId": "prod-0017",
+        "releaseWeek": 25,
+        "writerId": "authored-0003",
+        "directorId": "authored-0002",
+        "cast": {
+          "lead": "authored-0000",
+          "antagonist": "authored-0001",
+          "support": "authored-0005"
+        }
+      },
+      {
+        "filmId": "prod-0026",
+        "releaseWeek": 34,
+        "writerId": "authored-0003",
+        "directorId": "authored-0002",
+        "cast": {
+          "lead": "authored-0000",
+          "antagonist": "authored-0001",
+          "support": "authored-0005"
+        }
+      }
+    ]
+  },
+  "runtime": {
+    "savedWeek": 207,
+    "currentWeek": 208,
+    "journalEntries": 1,
+    "savedSaveArtifact": "genuine-v37-c3-preretirement-week207.json.gz",
+    "actualCurrentSaveArtifact": "genuine-v37-c3-runtime-current208.json.gz",
+    "distinctContinuous208Artifact": "genuine-v37-c3-retired-week208.json.gz",
+    "continuous208Sha256": "7de879a5c7a5ab4ffdac819734957572aa58349c5d59768c572c249339739a7f",
+    "parityStatus": "FAIL",
+    "savedStateDigest": "d6ad88d432b3ec75fbf6a2843493240d4007892c8230aea1f9a2350adc8c1045",
+    "currentStateDigest": "414b3491ad4d6a7244c9af71e24a7bbe491106d9cf290e1ee30cb9a62b57fb84",
+    "journalDigest": "ae10fad6b7984af914b5a898769937346df032af26a7f234557aced34e208974",
+    "command": {
+      "protocolVersion": 4,
+      "schemaId": "sha256:f036ccdd62c4ac2a700a27796631e1c4f8c85f9cccfb14ac6850083fb8dba5f2",
+      "sessionId": "generated-c3-outgoing-runtime52",
+      "expectedStateRevision": 0,
+      "commandId": "generated-c3-207-to-208",
+      "type": "submitIntent",
+      "payload": {
+        "intentId": "intent-v4-f030a4880b3bb573db79f393231a3a83f23c3f0e92aafdb2b88a42f502c43800"
+      }
+    }
+  },
+  "artifacts": [
+    {
+      "filename": "genuine-v37-c3-created-week0.json.gz",
+      "kind": "save",
+      "week": 0,
+      "uncompressedSha256": "215b61730393abc8bc28b747d7d79bf9dcb65d2b03f17aa97b96880bc720fa23",
+      "compressedSha256": "0ce43de9abe897631f415f94ac79e584b87d6001c8bb4b5c37fccf3dcb8204a2",
+      "byteLength": 422221,
+      "compressedByteLength": 49887,
+      "lineage": "continuous default develop:false core path"
+    },
+    {
+      "filename": "genuine-v37-c3-three-real-releases.json.gz",
+      "kind": "save",
+      "week": 35,
+      "uncompressedSha256": "e79df8b3b60af6c651faa36b1ae0a04e8a1ccb9574a59116279d7ca45a2565f8",
+      "compressedSha256": "b4186f1eaa718d6e6235d19cbf2efb7454fe5ac0f9a75c7a84ed497c6ad4e2d1",
+      "byteLength": 685733,
+      "compressedByteLength": 82414,
+      "lineage": "continuous default develop:false core path"
+    },
+    {
+      "filename": "genuine-v37-c3-preannouncement-week103.json.gz",
+      "kind": "save",
+      "week": 103,
+      "uncompressedSha256": "1647dfa321587408a6b797134d2ca91f0537e1a8b9f2e343881c5b9c6bf168b5",
+      "compressedSha256": "9eb5326f7c77f392f3bd87f4cc5687e762d1e5dc394058db5b022a94cc9b9bba",
+      "byteLength": 1081706,
+      "compressedByteLength": 120538,
+      "lineage": "continuous default develop:false core path"
+    },
+    {
+      "filename": "genuine-v37-c3-announced-week104.json.gz",
+      "kind": "save",
+      "week": 104,
+      "uncompressedSha256": "6569b41174845f8633f50e91665eb5d1178d2cdbbc2dd075893bfd12578a8bfc",
+      "compressedSha256": "2bbd85b176ec99befebff675dcc52b22faa3dcac38d11b91e540854c026fef0c",
+      "byteLength": 1101334,
+      "compressedByteLength": 123549,
+      "lineage": "continuous default develop:false core path"
+    },
+    {
+      "filename": "genuine-v37-c3-preretirement-week207.json.gz",
+      "kind": "save",
+      "week": 207,
+      "uncompressedSha256": "d6ad88d432b3ec75fbf6a2843493240d4007892c8230aea1f9a2350adc8c1045",
+      "compressedSha256": "926de1b20fa0cba9b822c05f542f0a3949c7e4b21560c2fa508b6fa3168af5a0",
+      "byteLength": 1687696,
+      "compressedByteLength": 174595,
+      "lineage": "continuous default develop:false core path"
+    },
+    {
+      "filename": "genuine-v37-c3-retired-week208.json.gz",
+      "kind": "save",
+      "week": 208,
+      "uncompressedSha256": "7de879a5c7a5ab4ffdac819734957572aa58349c5d59768c572c249339739a7f",
+      "compressedSha256": "1676652628a7a5e079c755fffa9dff50770ca3a7824b8d7c02f3db9d25b09be9",
+      "byteLength": 1695188,
+      "compressedByteLength": 173919,
+      "lineage": "continuous default develop:false core path"
+    },
+    {
+      "filename": "genuine-v37-c3-runtime-current208.json.gz",
+      "kind": "save",
+      "week": 208,
+      "uncompressedSha256": "414b3491ad4d6a7244c9af71e24a7bbe491106d9cf290e1ee30cb9a62b57fb84",
+      "compressedSha256": "731e4d6d6015569d479fe6e1cdec3bc46c63ca8149a79e6fb39b2c0b7b2eca3e",
+      "byteLength": 1695188,
+      "compressedByteLength": 173914,
+      "lineage": "actual public runtime current208"
+    },
+    {
+      "filename": "runtime52-current208-saved207.json.gz",
+      "kind": "runtimeCheckpoint",
+      "week": 208,
+      "uncompressedSha256": "7ed997a4e63822286fcc91512bfdcb0a792098bdb87cf013d5fc7f0bd93c4264",
+      "compressedSha256": "42a04c37f36760c3c7605aff66773a5463f2107dfeaa84d0a2607e6a7e0061b1",
+      "byteLength": 4915159,
+      "compressedByteLength": 421226,
+      "lineage": "actual public runtime; saved continuous207/current imported-and-advanced208"
+    },
+    {
+      "filename": "genuine-v37-c3-postretirement-week209.json.gz",
+      "kind": "save",
+      "week": 209,
+      "uncompressedSha256": "75a0059b2ac760c4a209faa9d8d669f23f0bde511f859354d8f683a3435a38e5",
+      "compressedSha256": "8ee70174c2d8fddf5ea8c236dccf61c0ed5fbff82f946a5fcc94f8bb5c5540f0",
+      "byteLength": 1695328,
+      "compressedByteLength": 173951,
+      "lineage": "continuous default develop:false core path"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "sourceSha": "1f44aa505c0d677430451ab5fcacaf5e0ce205d6",
+  "testedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "untrackedSource": [],
+  "command": [
+    "node_modules/.bin/vite-node",
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/949-c3-t0-producer.ts"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-26T19:07:45.950Z",
+  "end": "2026-09-26T19:08:00.229Z",
+  "exitCode": 1,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "1f44aa505c0d677430451ab5fcacaf5e0ce205d6",
+  "testedDiffSha256AtEnd": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "untrackedSourceAtEnd": [],
+  "fixedSource": true
+}

@@ -1,0 +1,3319 @@
+{"sourceSha":"1f44aa505c0d677430451ab5fcacaf5e0ce205d6","testedDiffSha256":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","untrackedSource":[],"command":["node_modules/.bin/vite-node","docs/engineering/playability-launch-review/evidence/p14b4-20260919/949-c3-t0-producer.ts"],"node":"v20.20.2","start":"2026-09-26T19:07:45.950Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+{"phase":"created-week0","week":0,"rawSha256":"215b61730393abc8bc28b747d7d79bf9dcb65d2b03f17aa97b96880bc720fa23"}
+{"phase":"real-film-released","index":1,"filmId":"prod-0008","week":17}
+{"phase":"real-film-released","index":2,"filmId":"prod-0017","week":26}
+{"phase":"real-film-released","index":3,"filmId":"prod-0026","week":35}
+{"phase":"three-real-releases","week":35,"rawSha256":"e79df8b3b60af6c651faa36b1ae0a04e8a1ccb9574a59116279d7ca45a2565f8"}
+{"phase":"preannouncement-week103","week":103,"rawSha256":"1647dfa321587408a6b797134d2ca91f0537e1a8b9f2e343881c5b9c6bf168b5"}
+{"phase":"announced-week104","week":104,"rawSha256":"6569b41174845f8633f50e91665eb5d1178d2cdbbc2dd075893bfd12578a8bfc"}
+{"phase":"preretirement-week207","week":207,"rawSha256":"d6ad88d432b3ec75fbf6a2843493240d4007892c8230aea1f9a2350adc8c1045"}
+{"phase":"retired-week208","week":208,"rawSha256":"7de879a5c7a5ab4ffdac819734957572aa58349c5d59768c572c249339739a7f"}
+{
+  "diagnostic": "949 controlled pre207 continuation comparison; no normalization of original scenario or equality oracle",
+  "sourceSha": "1f44aa505c0d677430451ab5fcacaf5e0ce205d6",
+  "qualifiedProductionSha": "9afae8874486fbb20dc5d373526698aacbec2114",
+  "producer": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/949-c3-t0-producer.ts",
+  "producerSha256": "999995103c1cf8b830f31228fb5abade714f68234bdb33481bdf5b34d7961f2a",
+  "sourceBefore": {
+    "head": "1f44aa505c0d677430451ab5fcacaf5e0ce205d6",
+    "diffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "untracked": []
+  },
+  "sourceAfter": {
+    "head": "1f44aa505c0d677430451ab5fcacaf5e0ce205d6",
+    "diffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "untracked": []
+  },
+  "mode": "read-only-no-artifact-writes",
+  "scenario": {
+    "seed": "p14c3-t0-public-actor-careers-01",
+    "originalContinuousTicks": 208,
+    "separateBridgeAdvanceCommands": 1,
+    "additionalIndependentTicks": 3,
+    "fromWeek": 207,
+    "toWeek": 208,
+    "originalMismatch": true
+  },
+  "inputs": {
+    "canonicalSaved207Sha256": "d6ad88d432b3ec75fbf6a2843493240d4007892c8230aea1f9a2350adc8c1045",
+    "raw207": {
+      "nativeJsonSha256": "b3b61a4ce71ed65a4d8d1d9e1cc328ed0ddfd8b9bf8c439bc7fe5f21f24ce6a3",
+      "nativeJsonBytes": 1687607,
+      "canonicalJsonSha256": "4009c4c97a7fd4623655fcedd6f83d21b0b1608d32385dbad59f43556361da5d",
+      "canonicalJsonBytes": 1687607
+    },
+    "imported207": {
+      "nativeJsonSha256": "4009c4c97a7fd4623655fcedd6f83d21b0b1608d32385dbad59f43556361da5d",
+      "nativeJsonBytes": 1687607,
+      "canonicalJsonSha256": "4009c4c97a7fd4623655fcedd6f83d21b0b1608d32385dbad59f43556361da5d",
+      "canonicalJsonBytes": 1687607
+    },
+    "zeroOnly207": {
+      "nativeJsonSha256": "b3b61a4ce71ed65a4d8d1d9e1cc328ed0ddfd8b9bf8c439bc7fe5f21f24ce6a3",
+      "nativeJsonBytes": 1687607,
+      "canonicalJsonSha256": "4009c4c97a7fd4623655fcedd6f83d21b0b1608d32385dbad59f43556361da5d",
+      "canonicalJsonBytes": 1687607
+    },
+    "negativeZeroConversions": 3
+  },
+  "pre207": {
+    "rawToSerializedValues": {
+      "count": 3,
+      "first": [
+        {
+          "path": "$[\"hollywood\"][\"careerEvents\"][44][\"genreExpBefore\"]",
+          "left": {
+            "special": "-0"
+          },
+          "right": 0
+        },
+        {
+          "path": "$[\"talent\"][0][\"genreExperience\"][\"writing\"][\"comedy\"][\"perceived\"]",
+          "left": {
+            "special": "-0"
+          },
+          "right": 0
+        },
+        {
+          "path": "$[\"talent\"][43][\"genreExperience\"][\"acting\"][\"romance\"][\"perceived\"]",
+          "left": {
+            "special": "-0"
+          },
+          "right": 0
+        }
+      ],
+      "omitted": 0
+    },
+    "serializedToBridgeImportValues": {
+      "count": 0,
+      "first": [],
+      "omitted": 0
+    },
+    "rawToImportedValues": {
+      "count": 3,
+      "first": [
+        {
+          "path": "$[\"hollywood\"][\"careerEvents\"][44][\"genreExpBefore\"]",
+          "left": {
+            "special": "-0"
+          },
+          "right": 0
+        },
+        {
+          "path": "$[\"talent\"][0][\"genreExperience\"][\"writing\"][\"comedy\"][\"perceived\"]",
+          "left": {
+            "special": "-0"
+          },
+          "right": 0
+        },
+        {
+          "path": "$[\"talent\"][43][\"genreExperience\"][\"acting\"][\"romance\"][\"perceived\"]",
+          "left": {
+            "special": "-0"
+          },
+          "right": 0
+        }
+      ],
+      "omitted": 0
+    },
+    "rawToSerializedKeyOrder": {
+      "count": 9376,
+      "differentKeySets": 0,
+      "first": [
+        {
+          "path": "$",
+          "leftKeys": [
+            "seed",
+            "hollywood",
+            "technology",
+            "rngState",
+            "market",
+            "era",
+            "studio",
+            "talent",
+            "concepts",
+            "broadcastItems",
+            "coverageContexts",
+            "founding",
+            "contracts",
+            "ledger",
+            "freeAgents",
+            "theatricalRuns"
+          ],
+          "rightKeys": [
+            "broadcastItems",
+            "careerEvents",
+            "careerLifecycle",
+            "castingSessions",
+            "concepts",
+            "construction",
+            "contracts",
+            "coverageContexts",
+            "economyEngagedEver",
+            "era",
+            "firstTakes",
+            "founding",
+            "foundingRegime",
+            "freeAgents",
+            "hollywood",
+            "ledger"
+          ],
+          "keyCount": 40
+        },
+        {
+          "path": "$[\"hollywood\"]",
+          "leftKeys": [
+            "version",
+            "calendarPolicy",
+            "startingManifest",
+            "origin",
+            "originWeek",
+            "worldId",
+            "playerStudioId",
+            "identities",
+            "businesses",
+            "employment",
+            "activeEmploymentOrdinals",
+            "concepts",
+            "films",
+            "careerEvents",
+            "receipts",
+            "nextReceipt"
+          ],
+          "rightKeys": [
+            "activeEmploymentOrdinals",
+            "businesses",
+            "calendarPolicy",
+            "careerEvents",
+            "chart",
+            "concepts",
+            "employment",
+            "films",
+            "identities",
+            "nextReceipt",
+            "origin",
+            "originWeek",
+            "playerStudioId",
+            "previousChart",
+            "receipts",
+            "startingManifest"
+          ],
+          "keyCount": 18
+        },
+        {
+          "path": "$[\"hollywood\"][\"identities\"][0]",
+          "leftKeys": [
+            "studioId",
+            "role",
+            "row",
+            "name",
+            "mark",
+            "color",
+            "founding",
+            "eligibleWeek",
+            "enteredWeek",
+            "recordedFromWeek"
+          ],
+          "rightKeys": [
+            "color",
+            "eligibleWeek",
+            "enteredWeek",
+            "founding",
+            "mark",
+            "name",
+            "recordedFromWeek",
+            "role",
+            "row",
+            "studioId"
+          ],
+          "keyCount": 10
+        },
+        {
+          "path": "$[\"hollywood\"][\"identities\"][1]",
+          "leftKeys": [
+            "studioId",
+            "role",
+            "row",
+            "name",
+            "mark",
+            "color",
+            "founding",
+            "eligibleWeek",
+            "enteredWeek",
+            "recordedFromWeek"
+          ],
+          "rightKeys": [
+            "color",
+            "eligibleWeek",
+            "enteredWeek",
+            "founding",
+            "mark",
+            "name",
+            "recordedFromWeek",
+            "role",
+            "row",
+            "studioId"
+          ],
+          "keyCount": 10
+        },
+        {
+          "path": "$[\"hollywood\"][\"identities\"][2]",
+          "leftKeys": [
+            "studioId",
+            "role",
+            "row",
+            "name",
+            "mark",
+            "color",
+            "founding",
+            "eligibleWeek",
+            "enteredWeek",
+            "recordedFromWeek"
+          ],
+          "rightKeys": [
+            "color",
+            "eligibleWeek",
+            "enteredWeek",
+            "founding",
+            "mark",
+            "name",
+            "recordedFromWeek",
+            "role",
+            "row",
+            "studioId"
+          ],
+          "keyCount": 10
+        },
+        {
+          "path": "$[\"hollywood\"][\"identities\"][3]",
+          "leftKeys": [
+            "studioId",
+            "role",
+            "row",
+            "name",
+            "mark",
+            "color",
+            "founding",
+            "eligibleWeek",
+            "enteredWeek",
+            "recordedFromWeek"
+          ],
+          "rightKeys": [
+            "color",
+            "eligibleWeek",
+            "enteredWeek",
+            "founding",
+            "mark",
+            "name",
+            "recordedFromWeek",
+            "role",
+            "row",
+            "studioId"
+          ],
+          "keyCount": 10
+        },
+        {
+          "path": "$[\"hollywood\"][\"identities\"][4]",
+          "leftKeys": [
+            "studioId",
+            "role",
+            "row",
+            "name",
+            "mark",
+            "color",
+            "founding",
+            "eligibleWeek",
+            "enteredWeek",
+            "recordedFromWeek"
+          ],
+          "rightKeys": [
+            "color",
+            "eligibleWeek",
+            "enteredWeek",
+            "founding",
+            "mark",
+            "name",
+            "recordedFromWeek",
+            "role",
+            "row",
+            "studioId"
+          ],
+          "keyCount": 10
+        },
+        {
+          "path": "$[\"hollywood\"][\"identities\"][5]",
+          "leftKeys": [
+            "studioId",
+            "role",
+            "row",
+            "name",
+            "mark",
+            "color",
+            "founding",
+            "eligibleWeek",
+            "enteredWeek",
+            "recordedFromWeek"
+          ],
+          "rightKeys": [
+            "color",
+            "eligibleWeek",
+            "enteredWeek",
+            "founding",
+            "mark",
+            "name",
+            "recordedFromWeek",
+            "role",
+            "row",
+            "studioId"
+          ],
+          "keyCount": 10
+        },
+        {
+          "path": "$[\"hollywood\"][\"identities\"][6]",
+          "leftKeys": [
+            "studioId",
+            "role",
+            "row",
+            "name",
+            "mark",
+            "color",
+            "founding",
+            "eligibleWeek",
+            "enteredWeek",
+            "recordedFromWeek"
+          ],
+          "rightKeys": [
+            "color",
+            "eligibleWeek",
+            "enteredWeek",
+            "founding",
+            "mark",
+            "name",
+            "recordedFromWeek",
+            "role",
+            "row",
+            "studioId"
+          ],
+          "keyCount": 10
+        },
+        {
+          "path": "$[\"hollywood\"][\"identities\"][7]",
+          "leftKeys": [
+            "studioId",
+            "role",
+            "row",
+            "name",
+            "mark",
+            "color",
+            "founding",
+            "eligibleWeek",
+            "enteredWeek",
+            "recordedFromWeek"
+          ],
+          "rightKeys": [
+            "color",
+            "eligibleWeek",
+            "enteredWeek",
+            "founding",
+            "mark",
+            "name",
+            "recordedFromWeek",
+            "role",
+            "row",
+            "studioId"
+          ],
+          "keyCount": 10
+        },
+        {
+          "path": "$[\"hollywood\"][\"identities\"][8]",
+          "leftKeys": [
+            "studioId",
+            "role",
+            "row",
+            "name",
+            "mark",
+            "color",
+            "founding",
+            "eligibleWeek",
+            "enteredWeek",
+            "recordedFromWeek"
+          ],
+          "rightKeys": [
+            "color",
+            "eligibleWeek",
+            "enteredWeek",
+            "founding",
+            "mark",
+            "name",
+            "recordedFromWeek",
+            "role",
+            "row",
+            "studioId"
+          ],
+          "keyCount": 10
+        },
+        {
+          "path": "$[\"hollywood\"][\"identities\"][9]",
+          "leftKeys": [
+            "studioId",
+            "role",
+            "row",
+            "name",
+            "mark",
+            "color",
+            "founding",
+            "eligibleWeek",
+            "enteredWeek",
+            "recordedFromWeek"
+          ],
+          "rightKeys": [
+            "color",
+            "eligibleWeek",
+            "enteredWeek",
+            "founding",
+            "mark",
+            "name",
+            "recordedFromWeek",
+            "role",
+            "row",
+            "studioId"
+          ],
+          "keyCount": 10
+        },
+        {
+          "path": "$[\"hollywood\"][\"businesses\"][0]",
+          "leftKeys": [
+            "studioId",
+            "entryKey",
+            "account",
+            "standing",
+            "operations",
+            "development",
+            "productions",
+            "activeScriptOrdinals",
+            "activeRunFilmOrdinals",
+            "releaseAuthority",
+            "runs",
+            "projects",
+            "nextDecisionWeek",
+            "policy"
+          ],
+          "rightKeys": [
+            "account",
+            "activeRunFilmOrdinals",
+            "activeScriptOrdinals",
+            "development",
+            "entryKey",
+            "nextDecisionWeek",
+            "operations",
+            "policy",
+            "productions",
+            "projects",
+            "releaseAuthority",
+            "runs",
+            "standing",
+            "studioId"
+          ],
+          "keyCount": 14
+        },
+        {
+          "path": "$[\"hollywood\"][\"businesses\"][0][\"account\"]",
+          "leftKeys": [
+            "openingBalance",
+            "openingBasis",
+            "cash",
+            "periods"
+          ],
+          "rightKeys": [
+            "cash",
+            "openingBalance",
+            "openingBasis",
+            "periods"
+          ],
+          "keyCount": 4
+        },
+        {
+          "path": "$[\"hollywood\"][\"businesses\"][0][\"account\"][\"periods\"][0]",
+          "leftKeys": [
+            "fromWeek",
+            "throughWeek",
+            "opening",
+            "closing",
+            "movements"
+          ],
+          "rightKeys": [
+            "closing",
+            "fromWeek",
+            "movements",
+            "opening",
+            "throughWeek"
+          ],
+          "keyCount": 5
+        },
+        {
+          "path": "$[\"hollywood\"][\"businesses\"][0][\"account\"][\"periods\"][0][\"movements\"]",
+          "leftKeys": [
+            "capacity",
+            "signing",
+            "payroll",
+            "overhead",
+            "facilityOpex",
+            "development",
+            "production",
+            "marketing",
+            "studioRevenue",
+            "technologyAdoption",
+            "researchSpend",
+            "researchCapacity",
+            "technologyRestoration",
+            "technologyRefund"
+          ],
+          "rightKeys": [
+            "capacity",
+            "development",
+            "facilityOpex",
+            "marketing",
+            "overhead",
+            "payroll",
+            "production",
+            "researchCapacity",
+            "researchSpend",
+            "signing",
+            "studioRevenue",
+            "technologyAdoption",
+            "technologyRefund",
+            "technologyRestoration"
+          ],
+          "keyCount": 14
+        },
+        {
+          "path": "$[\"hollywood\"][\"businesses\"][0][\"account\"][\"periods\"][1]",
+          "leftKeys": [
+            "fromWeek",
+            "throughWeek",
+            "opening",
+            "closing",
+            "movements"
+          ],
+          "rightKeys": [
+            "closing",
+            "fromWeek",
+            "movements",
+            "opening",
+            "throughWeek"
+          ],
+          "keyCount": 5
+        },
+        {
+          "path": "$[\"hollywood\"][\"businesses\"][0][\"account\"][\"periods\"][1][\"movements\"]",
+          "leftKeys": [
+            "capacity",
+            "signing",
+            "payroll",
+            "overhead",
+            "facilityOpex",
+            "development",
+            "production",
+            "marketing",
+            "studioRevenue",
+            "technologyAdoption",
+            "researchSpend",
+            "researchCapacity",
+            "technologyRestoration",
+            "technologyRefund"
+          ],
+          "rightKeys": [
+            "capacity",
+            "development",
+            "facilityOpex",
+            "marketing",
+            "overhead",
+            "payroll",
+            "production",
+            "researchCapacity",
+            "researchSpend",
+            "signing",
+            "studioRevenue",
+            "technologyAdoption",
+            "technologyRefund",
+            "technologyRestoration"
+          ],
+          "keyCount": 14
+        },
+        {
+          "path": "$[\"hollywood\"][\"businesses\"][0][\"account\"][\"periods\"][2]",
+          "leftKeys": [
+            "fromWeek",
+            "throughWeek",
+            "opening",
+            "closing",
+            "movements"
+          ],
+          "rightKeys": [
+            "closing",
+            "fromWeek",
+            "movements",
+            "opening",
+            "throughWeek"
+          ],
+          "keyCount": 5
+        },
+        {
+          "path": "$[\"hollywood\"][\"businesses\"][0][\"account\"][\"periods\"][2][\"movements\"]",
+          "leftKeys": [
+            "capacity",
+            "signing",
+            "payroll",
+            "overhead",
+            "facilityOpex",
+            "development",
+            "production",
+            "marketing",
+            "studioRevenue",
+            "technologyAdoption",
+            "researchSpend",
+            "researchCapacity",
+            "technologyRestoration",
+            "technologyRefund"
+          ],
+          "rightKeys": [
+            "capacity",
+            "development",
+            "facilityOpex",
+            "marketing",
+            "overhead",
+            "payroll",
+            "production",
+            "researchCapacity",
+            "researchSpend",
+            "signing",
+            "studioRevenue",
+            "technologyAdoption",
+            "technologyRefund",
+            "technologyRestoration"
+          ],
+          "keyCount": 14
+        },
+        {
+          "path": "$[\"hollywood\"][\"businesses\"][0][\"account\"][\"periods\"][3]",
+          "leftKeys": [
+            "fromWeek",
+            "throughWeek",
+            "opening",
+            "closing",
+            "movements"
+          ],
+          "rightKeys": [
+            "closing",
+            "fromWeek",
+            "movements",
+            "opening",
+            "throughWeek"
+          ],
+          "keyCount": 5
+        },
+        {
+          "path": "$[\"hollywood\"][\"businesses\"][0][\"account\"][\"periods\"][3][\"movements\"]",
+          "leftKeys": [
+            "capacity",
+            "signing",
+            "payroll",
+            "overhead",
+            "facilityOpex",
+            "development",
+            "production",
+            "marketing",
+            "studioRevenue",
+            "technologyAdoption",
+            "researchSpend",
+            "researchCapacity",
+            "technologyRestoration",
+            "technologyRefund"
+          ],
+          "rightKeys": [
+            "capacity",
+            "development",
+            "facilityOpex",
+            "marketing",
+            "overhead",
+            "payroll",
+            "production",
+            "researchCapacity",
+            "researchSpend",
+            "signing",
+            "studioRevenue",
+            "technologyAdoption",
+            "technologyRefund",
+            "technologyRestoration"
+          ],
+          "keyCount": 14
+        },
+        {
+          "path": "$[\"hollywood\"][\"businesses\"][0][\"standing\"]",
+          "leftKeys": [
+            "audienceAwareness",
+            "industryPrestige",
+            "commercialConfidence"
+          ],
+          "rightKeys": [
+            "audienceAwareness",
+            "commercialConfidence",
+            "industryPrestige"
+          ],
+          "keyCount": 3
+        },
+        {
+          "path": "$[\"hollywood\"][\"businesses\"][0][\"operations\"]",
+          "leftKeys": [
+            "mode",
+            "workflows",
+            "facilities"
+          ],
+          "rightKeys": [
+            "facilities",
+            "mode",
+            "workflows"
+          ],
+          "keyCount": 3
+        },
+        {
+          "path": "$[\"hollywood\"][\"businesses\"][0][\"operations\"][\"workflows\"][0]",
+          "leftKeys": [
+            "productionId",
+            "phase",
+            "reservations",
+            "shootingTask",
+            "blocker",
+            "bindings",
+            "setup",
+            "planRevision"
+          ],
+          "rightKeys": [
+            "bindings",
+            "blocker",
+            "phase",
+            "planRevision",
+            "productionId",
+            "reservations",
+            "setup",
+            "shootingTask"
+          ],
+          "keyCount": 8
+        },
+        {
+          "path": "$[\"hollywood\"][\"businesses\"][0][\"operations\"][\"workflows\"][0][\"reservations\"][0]",
+          "leftKeys": [
+            "productionId",
+            "facilityId",
+            "capability",
+            "slot",
+            "phase"
+          ],
+          "rightKeys": [
+            "capability",
+            "facilityId",
+            "phase",
+            "productionId",
+            "slot"
+          ],
+          "keyCount": 5
+        },
+        {
+          "path": "$[\"hollywood\"][\"businesses\"][0][\"operations\"][\"workflows\"][0][\"reservations\"][1]",
+          "leftKeys": [
+            "productionId",
+            "facilityId",
+            "capability",
+            "slot",
+            "phase"
+          ],
+          "rightKeys": [
+            "capability",
+            "facilityId",
+            "phase",
+            "productionId",
+            "slot"
+          ],
+          "keyCount": 5
+        },
+        {
+          "path": "$[\"hollywood\"][\"businesses\"][0][\"operations\"][\"workflows\"][0][\"shootingTask\"]",
+          "leftKeys": [
+            "id",
+            "productionId",
+            "directorId",
+            "soundstageFacilityId",
+            "status"
+          ],
+          "rightKeys": [
+            "directorId",
+            "id",
+            "productionId",
+            "soundstageFacilityId",
+            "status"
+          ],
+          "keyCount": 5
+        },
+        {
+          "path": "$[\"hollywood\"][\"businesses\"][0][\"operations\"][\"workflows\"][0][\"bindings\"]",
+          "leftKeys": [
+            "requiresSetBinding",
+            "stageFacilityId",
+            "setId",
+            "lockedNovelty",
+            "lockedUplift",
+            "heldSinceWeek"
+          ],
+          "rightKeys": [
+            "heldSinceWeek",
+            "lockedNovelty",
+            "lockedUplift",
+            "requiresSetBinding",
+            "setId",
+            "stageFacilityId"
+          ],
+          "keyCount": 6
+        },
+        {
+          "path": "$[\"hollywood\"][\"businesses\"][0][\"operations\"][\"facilities\"][0]",
+          "leftKeys": [
+            "id",
+            "name",
+            "capability",
+            "capacity"
+          ],
+          "rightKeys": [
+            "capability",
+            "capacity",
+            "id",
+            "name"
+          ],
+          "keyCount": 4
+        },
+        {
+          "path": "$[\"hollywood\"][\"businesses\"][0][\"operations\"][\"facilities\"][1]",
+          "leftKeys": [
+            "id",
+            "name",
+            "capability",
+            "capacity"
+          ],
+          "rightKeys": [
+            "capability",
+            "capacity",
+            "id",
+            "name"
+          ],
+          "keyCount": 4
+        },
+        {
+          "path": "$[\"hollywood\"][\"businesses\"][0][\"operations\"][\"facilities\"][2]",
+          "leftKeys": [
+            "id",
+            "name",
+            "capability",
+            "capacity"
+          ],
+          "rightKeys": [
+            "capability",
+            "capacity",
+            "id",
+            "name"
+          ],
+          "keyCount": 4
+        }
+      ],
+      "omitted": 9344,
+      "maximumDisplayedKeysPerObject": 16
+    },
+    "serializedToImportedKeyOrder": {
+      "count": 0,
+      "differentKeySets": 0,
+      "first": [],
+      "omitted": 0,
+      "maximumDisplayedKeysPerObject": 16
+    },
+    "rawToImportedKeyOrder": {
+      "count": 9376,
+      "differentKeySets": 0,
+      "first": [
+        {
+          "path": "$",
+          "leftKeys": [
+            "seed",
+            "hollywood",
+            "technology",
+            "rngState",
+            "market",
+            "era",
+            "studio",
+            "talent",
+            "concepts",
+            "broadcastItems",
+            "coverageContexts",
+            "founding",
+            "contracts",
+            "ledger",
+            "freeAgents",
+            "theatricalRuns"
+          ],
+          "rightKeys": [
+            "broadcastItems",
+            "careerEvents",
+            "careerLifecycle",
+            "castingSessions",
+            "concepts",
+            "construction",
+            "contracts",
+            "coverageContexts",
+            "economyEngagedEver",
+            "era",
+            "firstTakes",
+            "founding",
+            "foundingRegime",
+            "freeAgents",
+            "hollywood",
+            "ledger"
+          ],
+          "keyCount": 40
+        },
+        {
+          "path": "$[\"hollywood\"]",
+          "leftKeys": [
+            "version",
+            "calendarPolicy",
+            "startingManifest",
+            "origin",
+            "originWeek",
+            "worldId",
+            "playerStudioId",
+            "identities",
+            "businesses",
+            "employment",
+            "activeEmploymentOrdinals",
+            "concepts",
+            "films",
+            "careerEvents",
+            "receipts",
+            "nextReceipt"
+          ],
+          "rightKeys": [
+            "activeEmploymentOrdinals",
+            "businesses",
+            "calendarPolicy",
+            "careerEvents",
+            "chart",
+            "concepts",
+            "employment",
+            "films",
+            "identities",
+            "nextReceipt",
+            "origin",
+            "originWeek",
+            "playerStudioId",
+            "previousChart",
+            "receipts",
+            "startingManifest"
+          ],
+          "keyCount": 18
+        },
+        {
+          "path": "$[\"hollywood\"][\"identities\"][0]",
+          "leftKeys": [
+            "studioId",
+            "role",
+            "row",
+            "name",
+            "mark",
+            "color",
+            "founding",
+            "eligibleWeek",
+            "enteredWeek",
+            "recordedFromWeek"
+          ],
+          "rightKeys": [
+            "color",
+            "eligibleWeek",
+            "enteredWeek",
+            "founding",
+            "mark",
+            "name",
+            "recordedFromWeek",
+            "role",
+            "row",
+            "studioId"
+          ],
+          "keyCount": 10
+        },
+        {
+          "path": "$[\"hollywood\"][\"identities\"][1]",
+          "leftKeys": [
+            "studioId",
+            "role",
+            "row",
+            "name",
+            "mark",
+            "color",
+            "founding",
+            "eligibleWeek",
+            "enteredWeek",
+            "recordedFromWeek"
+          ],
+          "rightKeys": [
+            "color",
+            "eligibleWeek",
+            "enteredWeek",
+            "founding",
+            "mark",
+            "name",
+            "recordedFromWeek",
+            "role",
+            "row",
+            "studioId"
+          ],
+          "keyCount": 10
+        },
+        {
+          "path": "$[\"hollywood\"][\"identities\"][2]",
+          "leftKeys": [
+            "studioId",
+            "role",
+            "row",
+            "name",
+            "mark",
+            "color",
+            "founding",
+            "eligibleWeek",
+            "enteredWeek",
+            "recordedFromWeek"
+          ],
+          "rightKeys": [
+            "color",
+            "eligibleWeek",
+            "enteredWeek",
+            "founding",
+            "mark",
+            "name",
+            "recordedFromWeek",
+            "role",
+            "row",
+            "studioId"
+          ],
+          "keyCount": 10
+        },
+        {
+          "path": "$[\"hollywood\"][\"identities\"][3]",
+          "leftKeys": [
+            "studioId",
+            "role",
+            "row",
+            "name",
+            "mark",
+            "color",
+            "founding",
+            "eligibleWeek",
+            "enteredWeek",
+            "recordedFromWeek"
+          ],
+          "rightKeys": [
+            "color",
+            "eligibleWeek",
+            "enteredWeek",
+            "founding",
+            "mark",
+            "name",
+            "recordedFromWeek",
+            "role",
+            "row",
+            "studioId"
+          ],
+          "keyCount": 10
+        },
+        {
+          "path": "$[\"hollywood\"][\"identities\"][4]",
+          "leftKeys": [
+            "studioId",
+            "role",
+            "row",
+            "name",
+            "mark",
+            "color",
+            "founding",
+            "eligibleWeek",
+            "enteredWeek",
+            "recordedFromWeek"
+          ],
+          "rightKeys": [
+            "color",
+            "eligibleWeek",
+            "enteredWeek",
+            "founding",
+            "mark",
+            "name",
+            "recordedFromWeek",
+            "role",
+            "row",
+            "studioId"
+          ],
+          "keyCount": 10
+        },
+        {
+          "path": "$[\"hollywood\"][\"identities\"][5]",
+          "leftKeys": [
+            "studioId",
+            "role",
+            "row",
+            "name",
+            "mark",
+            "color",
+            "founding",
+            "eligibleWeek",
+            "enteredWeek",
+            "recordedFromWeek"
+          ],
+          "rightKeys": [
+            "color",
+            "eligibleWeek",
+            "enteredWeek",
+            "founding",
+            "mark",
+            "name",
+            "recordedFromWeek",
+            "role",
+            "row",
+            "studioId"
+          ],
+          "keyCount": 10
+        },
+        {
+          "path": "$[\"hollywood\"][\"identities\"][6]",
+          "leftKeys": [
+            "studioId",
+            "role",
+            "row",
+            "name",
+            "mark",
+            "color",
+            "founding",
+            "eligibleWeek",
+            "enteredWeek",
+            "recordedFromWeek"
+          ],
+          "rightKeys": [
+            "color",
+            "eligibleWeek",
+            "enteredWeek",
+            "founding",
+            "mark",
+            "name",
+            "recordedFromWeek",
+            "role",
+            "row",
+            "studioId"
+          ],
+          "keyCount": 10
+        },
+        {
+          "path": "$[\"hollywood\"][\"identities\"][7]",
+          "leftKeys": [
+            "studioId",
+            "role",
+            "row",
+            "name",
+            "mark",
+            "color",
+            "founding",
+            "eligibleWeek",
+            "enteredWeek",
+            "recordedFromWeek"
+          ],
+          "rightKeys": [
+            "color",
+            "eligibleWeek",
+            "enteredWeek",
+            "founding",
+            "mark",
+            "name",
+            "recordedFromWeek",
+            "role",
+            "row",
+            "studioId"
+          ],
+          "keyCount": 10
+        },
+        {
+          "path": "$[\"hollywood\"][\"identities\"][8]",
+          "leftKeys": [
+            "studioId",
+            "role",
+            "row",
+            "name",
+            "mark",
+            "color",
+            "founding",
+            "eligibleWeek",
+            "enteredWeek",
+            "recordedFromWeek"
+          ],
+          "rightKeys": [
+            "color",
+            "eligibleWeek",
+            "enteredWeek",
+            "founding",
+            "mark",
+            "name",
+            "recordedFromWeek",
+            "role",
+            "row",
+            "studioId"
+          ],
+          "keyCount": 10
+        },
+        {
+          "path": "$[\"hollywood\"][\"identities\"][9]",
+          "leftKeys": [
+            "studioId",
+            "role",
+            "row",
+            "name",
+            "mark",
+            "color",
+            "founding",
+            "eligibleWeek",
+            "enteredWeek",
+            "recordedFromWeek"
+          ],
+          "rightKeys": [
+            "color",
+            "eligibleWeek",
+            "enteredWeek",
+            "founding",
+            "mark",
+            "name",
+            "recordedFromWeek",
+            "role",
+            "row",
+            "studioId"
+          ],
+          "keyCount": 10
+        },
+        {
+          "path": "$[\"hollywood\"][\"businesses\"][0]",
+          "leftKeys": [
+            "studioId",
+            "entryKey",
+            "account",
+            "standing",
+            "operations",
+            "development",
+            "productions",
+            "activeScriptOrdinals",
+            "activeRunFilmOrdinals",
+            "releaseAuthority",
+            "runs",
+            "projects",
+            "nextDecisionWeek",
+            "policy"
+          ],
+          "rightKeys": [
+            "account",
+            "activeRunFilmOrdinals",
+            "activeScriptOrdinals",
+            "development",
+            "entryKey",
+            "nextDecisionWeek",
+            "operations",
+            "policy",
+            "productions",
+            "projects",
+            "releaseAuthority",
+            "runs",
+            "standing",
+            "studioId"
+          ],
+          "keyCount": 14
+        },
+        {
+          "path": "$[\"hollywood\"][\"businesses\"][0][\"account\"]",
+          "leftKeys": [
+            "openingBalance",
+            "openingBasis",
+            "cash",
+            "periods"
+          ],
+          "rightKeys": [
+            "cash",
+            "openingBalance",
+            "openingBasis",
+            "periods"
+          ],
+          "keyCount": 4
+        },
+        {
+          "path": "$[\"hollywood\"][\"businesses\"][0][\"account\"][\"periods\"][0]",
+          "leftKeys": [
+            "fromWeek",
+            "throughWeek",
+            "opening",
+            "closing",
+            "movements"
+          ],
+          "rightKeys": [
+            "closing",
+            "fromWeek",
+            "movements",
+            "opening",
+            "throughWeek"
+          ],
+          "keyCount": 5
+        },
+        {
+          "path": "$[\"hollywood\"][\"businesses\"][0][\"account\"][\"periods\"][0][\"movements\"]",
+          "leftKeys": [
+            "capacity",
+            "signing",
+            "payroll",
+            "overhead",
+            "facilityOpex",
+            "development",
+            "production",
+            "marketing",
+            "studioRevenue",
+            "technologyAdoption",
+            "researchSpend",
+            "researchCapacity",
+            "technologyRestoration",
+            "technologyRefund"
+          ],
+          "rightKeys": [
+            "capacity",
+            "development",
+            "facilityOpex",
+            "marketing",
+            "overhead",
+            "payroll",
+            "production",
+            "researchCapacity",
+            "researchSpend",
+            "signing",
+            "studioRevenue",
+            "technologyAdoption",
+            "technologyRefund",
+            "technologyRestoration"
+          ],
+          "keyCount": 14
+        },
+        {
+          "path": "$[\"hollywood\"][\"businesses\"][0][\"account\"][\"periods\"][1]",
+          "leftKeys": [
+            "fromWeek",
+            "throughWeek",
+            "opening",
+            "closing",
+            "movements"
+          ],
+          "rightKeys": [
+            "closing",
+            "fromWeek",
+            "movements",
+            "opening",
+            "throughWeek"
+          ],
+          "keyCount": 5
+        },
+        {
+          "path": "$[\"hollywood\"][\"businesses\"][0][\"account\"][\"periods\"][1][\"movements\"]",
+          "leftKeys": [
+            "capacity",
+            "signing",
+            "payroll",
+            "overhead",
+            "facilityOpex",
+            "development",
+            "production",
+            "marketing",
+            "studioRevenue",
+            "technologyAdoption",
+            "researchSpend",
+            "researchCapacity",
+            "technologyRestoration",
+            "technologyRefund"
+          ],
+          "rightKeys": [
+            "capacity",
+            "development",
+            "facilityOpex",
+            "marketing",
+            "overhead",
+            "payroll",
+            "production",
+            "researchCapacity",
+            "researchSpend",
+            "signing",
+            "studioRevenue",
+            "technologyAdoption",
+            "technologyRefund",
+            "technologyRestoration"
+          ],
+          "keyCount": 14
+        },
+        {
+          "path": "$[\"hollywood\"][\"businesses\"][0][\"account\"][\"periods\"][2]",
+          "leftKeys": [
+            "fromWeek",
+            "throughWeek",
+            "opening",
+            "closing",
+            "movements"
+          ],
+          "rightKeys": [
+            "closing",
+            "fromWeek",
+            "movements",
+            "opening",
+            "throughWeek"
+          ],
+          "keyCount": 5
+        },
+        {
+          "path": "$[\"hollywood\"][\"businesses\"][0][\"account\"][\"periods\"][2][\"movements\"]",
+          "leftKeys": [
+            "capacity",
+            "signing",
+            "payroll",
+            "overhead",
+            "facilityOpex",
+            "development",
+            "production",
+            "marketing",
+            "studioRevenue",
+            "technologyAdoption",
+            "researchSpend",
+            "researchCapacity",
+            "technologyRestoration",
+            "technologyRefund"
+          ],
+          "rightKeys": [
+            "capacity",
+            "development",
+            "facilityOpex",
+            "marketing",
+            "overhead",
+            "payroll",
+            "production",
+            "researchCapacity",
+            "researchSpend",
+            "signing",
+            "studioRevenue",
+            "technologyAdoption",
+            "technologyRefund",
+            "technologyRestoration"
+          ],
+          "keyCount": 14
+        },
+        {
+          "path": "$[\"hollywood\"][\"businesses\"][0][\"account\"][\"periods\"][3]",
+          "leftKeys": [
+            "fromWeek",
+            "throughWeek",
+            "opening",
+            "closing",
+            "movements"
+          ],
+          "rightKeys": [
+            "closing",
+            "fromWeek",
+            "movements",
+            "opening",
+            "throughWeek"
+          ],
+          "keyCount": 5
+        },
+        {
+          "path": "$[\"hollywood\"][\"businesses\"][0][\"account\"][\"periods\"][3][\"movements\"]",
+          "leftKeys": [
+            "capacity",
+            "signing",
+            "payroll",
+            "overhead",
+            "facilityOpex",
+            "development",
+            "production",
+            "marketing",
+            "studioRevenue",
+            "technologyAdoption",
+            "researchSpend",
+            "researchCapacity",
+            "technologyRestoration",
+            "technologyRefund"
+          ],
+          "rightKeys": [
+            "capacity",
+            "development",
+            "facilityOpex",
+            "marketing",
+            "overhead",
+            "payroll",
+            "production",
+            "researchCapacity",
+            "researchSpend",
+            "signing",
+            "studioRevenue",
+            "technologyAdoption",
+            "technologyRefund",
+            "technologyRestoration"
+          ],
+          "keyCount": 14
+        },
+        {
+          "path": "$[\"hollywood\"][\"businesses\"][0][\"standing\"]",
+          "leftKeys": [
+            "audienceAwareness",
+            "industryPrestige",
+            "commercialConfidence"
+          ],
+          "rightKeys": [
+            "audienceAwareness",
+            "commercialConfidence",
+            "industryPrestige"
+          ],
+          "keyCount": 3
+        },
+        {
+          "path": "$[\"hollywood\"][\"businesses\"][0][\"operations\"]",
+          "leftKeys": [
+            "mode",
+            "workflows",
+            "facilities"
+          ],
+          "rightKeys": [
+            "facilities",
+            "mode",
+            "workflows"
+          ],
+          "keyCount": 3
+        },
+        {
+          "path": "$[\"hollywood\"][\"businesses\"][0][\"operations\"][\"workflows\"][0]",
+          "leftKeys": [
+            "productionId",
+            "phase",
+            "reservations",
+            "shootingTask",
+            "blocker",
+            "bindings",
+            "setup",
+            "planRevision"
+          ],
+          "rightKeys": [
+            "bindings",
+            "blocker",
+            "phase",
+            "planRevision",
+            "productionId",
+            "reservations",
+            "setup",
+            "shootingTask"
+          ],
+          "keyCount": 8
+        },
+        {
+          "path": "$[\"hollywood\"][\"businesses\"][0][\"operations\"][\"workflows\"][0][\"reservations\"][0]",
+          "leftKeys": [
+            "productionId",
+            "facilityId",
+            "capability",
+            "slot",
+            "phase"
+          ],
+          "rightKeys": [
+            "capability",
+            "facilityId",
+            "phase",
+            "productionId",
+            "slot"
+          ],
+          "keyCount": 5
+        },
+        {
+          "path": "$[\"hollywood\"][\"businesses\"][0][\"operations\"][\"workflows\"][0][\"reservations\"][1]",
+          "leftKeys": [
+            "productionId",
+            "facilityId",
+            "capability",
+            "slot",
+            "phase"
+          ],
+          "rightKeys": [
+            "capability",
+            "facilityId",
+            "phase",
+            "productionId",
+            "slot"
+          ],
+          "keyCount": 5
+        },
+        {
+          "path": "$[\"hollywood\"][\"businesses\"][0][\"operations\"][\"workflows\"][0][\"shootingTask\"]",
+          "leftKeys": [
+            "id",
+            "productionId",
+            "directorId",
+            "soundstageFacilityId",
+            "status"
+          ],
+          "rightKeys": [
+            "directorId",
+            "id",
+            "productionId",
+            "soundstageFacilityId",
+            "status"
+          ],
+          "keyCount": 5
+        },
+        {
+          "path": "$[\"hollywood\"][\"businesses\"][0][\"operations\"][\"workflows\"][0][\"bindings\"]",
+          "leftKeys": [
+            "requiresSetBinding",
+            "stageFacilityId",
+            "setId",
+            "lockedNovelty",
+            "lockedUplift",
+            "heldSinceWeek"
+          ],
+          "rightKeys": [
+            "heldSinceWeek",
+            "lockedNovelty",
+            "lockedUplift",
+            "requiresSetBinding",
+            "setId",
+            "stageFacilityId"
+          ],
+          "keyCount": 6
+        },
+        {
+          "path": "$[\"hollywood\"][\"businesses\"][0][\"operations\"][\"facilities\"][0]",
+          "leftKeys": [
+            "id",
+            "name",
+            "capability",
+            "capacity"
+          ],
+          "rightKeys": [
+            "capability",
+            "capacity",
+            "id",
+            "name"
+          ],
+          "keyCount": 4
+        },
+        {
+          "path": "$[\"hollywood\"][\"businesses\"][0][\"operations\"][\"facilities\"][1]",
+          "leftKeys": [
+            "id",
+            "name",
+            "capability",
+            "capacity"
+          ],
+          "rightKeys": [
+            "capability",
+            "capacity",
+            "id",
+            "name"
+          ],
+          "keyCount": 4
+        },
+        {
+          "path": "$[\"hollywood\"][\"businesses\"][0][\"operations\"][\"facilities\"][2]",
+          "leftKeys": [
+            "id",
+            "name",
+            "capability",
+            "capacity"
+          ],
+          "rightKeys": [
+            "capability",
+            "capacity",
+            "id",
+            "name"
+          ],
+          "keyCount": 4
+        }
+      ],
+      "omitted": 9344,
+      "maximumDisplayedKeysPerObject": 16
+    },
+    "changedRawFeasibilityOwners": {
+      "count": 6,
+      "first": [
+        {
+          "owner": "studio-de11f27b-r01/production-casts",
+          "left": {
+            "nativeJsonSha256": "7d45e998ee9356950faa6bb3412c8af411a623167a0b71dfed45c3aa132a83d2",
+            "nativeJsonBytes": 180,
+            "canonicalJsonSha256": "7404f47170fc57c5744577dfd493c13f6fedd875577a20ceaf65bd044b0fb7ff",
+            "canonicalJsonBytes": 180
+          },
+          "right": {
+            "nativeJsonSha256": "b2ab26646ec75f032cb4f84b89c5e2f8956835c44078e7a732446bd5592f326f",
+            "nativeJsonBytes": 180,
+            "canonicalJsonSha256": "7404f47170fc57c5744577dfd493c13f6fedd875577a20ceaf65bd044b0fb7ff",
+            "canonicalJsonBytes": 180
+          },
+          "values": {
+            "count": 0,
+            "first": [],
+            "omitted": 0
+          },
+          "keyOrder": {
+            "count": 1,
+            "differentKeySets": 0,
+            "first": [
+              {
+                "path": "$[0][\"cast\"]",
+                "leftKeys": [
+                  "lead",
+                  "antagonist",
+                  "support"
+                ],
+                "rightKeys": [
+                  "antagonist",
+                  "lead",
+                  "support"
+                ],
+                "keyCount": 3
+              }
+            ],
+            "omitted": 0,
+            "maximumDisplayedKeysPerObject": 16
+          }
+        },
+        {
+          "owner": "studio-de11f27b-r01/workflows",
+          "left": {
+            "nativeJsonSha256": "12a8dc3e8f4157c0fca3e0386950aeefd4463475043ad2f956624940b56ba972",
+            "nativeJsonBytes": 798,
+            "canonicalJsonSha256": "b0d86d5b6c44f0318b6b25c60f0edf4301514bbc3c12744aeb1da4e9046c35c8",
+            "canonicalJsonBytes": 798
+          },
+          "right": {
+            "nativeJsonSha256": "b0d86d5b6c44f0318b6b25c60f0edf4301514bbc3c12744aeb1da4e9046c35c8",
+            "nativeJsonBytes": 798,
+            "canonicalJsonSha256": "b0d86d5b6c44f0318b6b25c60f0edf4301514bbc3c12744aeb1da4e9046c35c8",
+            "canonicalJsonBytes": 798
+          },
+          "values": {
+            "count": 0,
+            "first": [],
+            "omitted": 0
+          },
+          "keyOrder": {
+            "count": 5,
+            "differentKeySets": 0,
+            "first": [
+              {
+                "path": "$[0]",
+                "leftKeys": [
+                  "productionId",
+                  "phase",
+                  "reservations",
+                  "shootingTask",
+                  "blocker",
+                  "bindings",
+                  "setup",
+                  "planRevision"
+                ],
+                "rightKeys": [
+                  "bindings",
+                  "blocker",
+                  "phase",
+                  "planRevision",
+                  "productionId",
+                  "reservations",
+                  "setup",
+                  "shootingTask"
+                ],
+                "keyCount": 8
+              },
+              {
+                "path": "$[0][\"reservations\"][0]",
+                "leftKeys": [
+                  "productionId",
+                  "facilityId",
+                  "capability",
+                  "slot",
+                  "phase"
+                ],
+                "rightKeys": [
+                  "capability",
+                  "facilityId",
+                  "phase",
+                  "productionId",
+                  "slot"
+                ],
+                "keyCount": 5
+              },
+              {
+                "path": "$[0][\"reservations\"][1]",
+                "leftKeys": [
+                  "productionId",
+                  "facilityId",
+                  "capability",
+                  "slot",
+                  "phase"
+                ],
+                "rightKeys": [
+                  "capability",
+                  "facilityId",
+                  "phase",
+                  "productionId",
+                  "slot"
+                ],
+                "keyCount": 5
+              },
+              {
+                "path": "$[0][\"shootingTask\"]",
+                "leftKeys": [
+                  "id",
+                  "productionId",
+                  "directorId",
+                  "soundstageFacilityId",
+                  "status"
+                ],
+                "rightKeys": [
+                  "directorId",
+                  "id",
+                  "productionId",
+                  "soundstageFacilityId",
+                  "status"
+                ],
+                "keyCount": 5
+              },
+              {
+                "path": "$[0][\"bindings\"]",
+                "leftKeys": [
+                  "requiresSetBinding",
+                  "stageFacilityId",
+                  "setId",
+                  "lockedNovelty",
+                  "lockedUplift",
+                  "heldSinceWeek"
+                ],
+                "rightKeys": [
+                  "heldSinceWeek",
+                  "lockedNovelty",
+                  "lockedUplift",
+                  "requiresSetBinding",
+                  "setId",
+                  "stageFacilityId"
+                ],
+                "keyCount": 6
+              }
+            ],
+            "omitted": 0,
+            "maximumDisplayedKeysPerObject": 16
+          }
+        },
+        {
+          "owner": "studio-de11f27b-r02/production-casts",
+          "left": {
+            "nativeJsonSha256": "0e75529d622bcc96a78c2b13527d3a3adcf7b6218b3a1e7b5068be2062827a54",
+            "nativeJsonBytes": 180,
+            "canonicalJsonSha256": "449abec749a9660788ca7d4cae11d94cd96b3c11c42d9e775e76eb48d6422949",
+            "canonicalJsonBytes": 180
+          },
+          "right": {
+            "nativeJsonSha256": "ec9d01c0619d6a9c8c968b8c1e8f66d10a35bec0da1ed7c41a25b062e719d44d",
+            "nativeJsonBytes": 180,
+            "canonicalJsonSha256": "449abec749a9660788ca7d4cae11d94cd96b3c11c42d9e775e76eb48d6422949",
+            "canonicalJsonBytes": 180
+          },
+          "values": {
+            "count": 0,
+            "first": [],
+            "omitted": 0
+          },
+          "keyOrder": {
+            "count": 1,
+            "differentKeySets": 0,
+            "first": [
+              {
+                "path": "$[0][\"cast\"]",
+                "leftKeys": [
+                  "lead",
+                  "antagonist",
+                  "support"
+                ],
+                "rightKeys": [
+                  "antagonist",
+                  "lead",
+                  "support"
+                ],
+                "keyCount": 3
+              }
+            ],
+            "omitted": 0,
+            "maximumDisplayedKeysPerObject": 16
+          }
+        },
+        {
+          "owner": "studio-de11f27b-r02/workflows",
+          "left": {
+            "nativeJsonSha256": "e5a92e4fa2dce75bb9b2f363ec8e02f307da704b109890d86fe3fe572a9307d4",
+            "nativeJsonBytes": 798,
+            "canonicalJsonSha256": "bca6df4744cd92fcd973ad04bde56515e7460e5ce4be3e388054a9ed72fe7ce6",
+            "canonicalJsonBytes": 798
+          },
+          "right": {
+            "nativeJsonSha256": "bca6df4744cd92fcd973ad04bde56515e7460e5ce4be3e388054a9ed72fe7ce6",
+            "nativeJsonBytes": 798,
+            "canonicalJsonSha256": "bca6df4744cd92fcd973ad04bde56515e7460e5ce4be3e388054a9ed72fe7ce6",
+            "canonicalJsonBytes": 798
+          },
+          "values": {
+            "count": 0,
+            "first": [],
+            "omitted": 0
+          },
+          "keyOrder": {
+            "count": 5,
+            "differentKeySets": 0,
+            "first": [
+              {
+                "path": "$[0]",
+                "leftKeys": [
+                  "productionId",
+                  "phase",
+                  "reservations",
+                  "shootingTask",
+                  "blocker",
+                  "bindings",
+                  "setup",
+                  "planRevision"
+                ],
+                "rightKeys": [
+                  "bindings",
+                  "blocker",
+                  "phase",
+                  "planRevision",
+                  "productionId",
+                  "reservations",
+                  "setup",
+                  "shootingTask"
+                ],
+                "keyCount": 8
+              },
+              {
+                "path": "$[0][\"reservations\"][0]",
+                "leftKeys": [
+                  "productionId",
+                  "facilityId",
+                  "capability",
+                  "slot",
+                  "phase"
+                ],
+                "rightKeys": [
+                  "capability",
+                  "facilityId",
+                  "phase",
+                  "productionId",
+                  "slot"
+                ],
+                "keyCount": 5
+              },
+              {
+                "path": "$[0][\"reservations\"][1]",
+                "leftKeys": [
+                  "productionId",
+                  "facilityId",
+                  "capability",
+                  "slot",
+                  "phase"
+                ],
+                "rightKeys": [
+                  "capability",
+                  "facilityId",
+                  "phase",
+                  "productionId",
+                  "slot"
+                ],
+                "keyCount": 5
+              },
+              {
+                "path": "$[0][\"shootingTask\"]",
+                "leftKeys": [
+                  "id",
+                  "productionId",
+                  "directorId",
+                  "soundstageFacilityId",
+                  "status"
+                ],
+                "rightKeys": [
+                  "directorId",
+                  "id",
+                  "productionId",
+                  "soundstageFacilityId",
+                  "status"
+                ],
+                "keyCount": 5
+              },
+              {
+                "path": "$[0][\"bindings\"]",
+                "leftKeys": [
+                  "requiresSetBinding",
+                  "stageFacilityId",
+                  "setId",
+                  "lockedNovelty",
+                  "lockedUplift",
+                  "heldSinceWeek"
+                ],
+                "rightKeys": [
+                  "heldSinceWeek",
+                  "lockedNovelty",
+                  "lockedUplift",
+                  "requiresSetBinding",
+                  "setId",
+                  "stageFacilityId"
+                ],
+                "keyCount": 6
+              }
+            ],
+            "omitted": 0,
+            "maximumDisplayedKeysPerObject": 16
+          }
+        },
+        {
+          "owner": "studio-de11f27b-r03/production-casts",
+          "left": {
+            "nativeJsonSha256": "dd86e70911bf661e5f9d1a3aa4fe64bb2f5d0919e4a22d0b408633ae4750cdeb",
+            "nativeJsonBytes": 180,
+            "canonicalJsonSha256": "f453b4a9f6f78f6bd0f07182bbc25a55fa1316cb09c0960789b260b4e623de02",
+            "canonicalJsonBytes": 180
+          },
+          "right": {
+            "nativeJsonSha256": "33a70952407800a6a0fb799e0b52b85af88db981f1066852c7e078e0e71b7efd",
+            "nativeJsonBytes": 180,
+            "canonicalJsonSha256": "f453b4a9f6f78f6bd0f07182bbc25a55fa1316cb09c0960789b260b4e623de02",
+            "canonicalJsonBytes": 180
+          },
+          "values": {
+            "count": 0,
+            "first": [],
+            "omitted": 0
+          },
+          "keyOrder": {
+            "count": 1,
+            "differentKeySets": 0,
+            "first": [
+              {
+                "path": "$[0][\"cast\"]",
+                "leftKeys": [
+                  "lead",
+                  "antagonist",
+                  "support"
+                ],
+                "rightKeys": [
+                  "antagonist",
+                  "lead",
+                  "support"
+                ],
+                "keyCount": 3
+              }
+            ],
+            "omitted": 0,
+            "maximumDisplayedKeysPerObject": 16
+          }
+        },
+        {
+          "owner": "studio-de11f27b-r03/workflows",
+          "left": {
+            "nativeJsonSha256": "7896012444d9b79a9fb1ad54b9a4d3f0440bec61ef55fa41dde5a3b4c09d46ac",
+            "nativeJsonBytes": 798,
+            "canonicalJsonSha256": "f5347a50b9e2c04dbb762248a8dd1e195742f80fc6346eec3c1069ca0f75d0d6",
+            "canonicalJsonBytes": 798
+          },
+          "right": {
+            "nativeJsonSha256": "f5347a50b9e2c04dbb762248a8dd1e195742f80fc6346eec3c1069ca0f75d0d6",
+            "nativeJsonBytes": 798,
+            "canonicalJsonSha256": "f5347a50b9e2c04dbb762248a8dd1e195742f80fc6346eec3c1069ca0f75d0d6",
+            "canonicalJsonBytes": 798
+          },
+          "values": {
+            "count": 0,
+            "first": [],
+            "omitted": 0
+          },
+          "keyOrder": {
+            "count": 5,
+            "differentKeySets": 0,
+            "first": [
+              {
+                "path": "$[0]",
+                "leftKeys": [
+                  "productionId",
+                  "phase",
+                  "reservations",
+                  "shootingTask",
+                  "blocker",
+                  "bindings",
+                  "setup",
+                  "planRevision"
+                ],
+                "rightKeys": [
+                  "bindings",
+                  "blocker",
+                  "phase",
+                  "planRevision",
+                  "productionId",
+                  "reservations",
+                  "setup",
+                  "shootingTask"
+                ],
+                "keyCount": 8
+              },
+              {
+                "path": "$[0][\"reservations\"][0]",
+                "leftKeys": [
+                  "productionId",
+                  "facilityId",
+                  "capability",
+                  "slot",
+                  "phase"
+                ],
+                "rightKeys": [
+                  "capability",
+                  "facilityId",
+                  "phase",
+                  "productionId",
+                  "slot"
+                ],
+                "keyCount": 5
+              },
+              {
+                "path": "$[0][\"reservations\"][1]",
+                "leftKeys": [
+                  "productionId",
+                  "facilityId",
+                  "capability",
+                  "slot",
+                  "phase"
+                ],
+                "rightKeys": [
+                  "capability",
+                  "facilityId",
+                  "phase",
+                  "productionId",
+                  "slot"
+                ],
+                "keyCount": 5
+              },
+              {
+                "path": "$[0][\"shootingTask\"]",
+                "leftKeys": [
+                  "id",
+                  "productionId",
+                  "directorId",
+                  "soundstageFacilityId",
+                  "status"
+                ],
+                "rightKeys": [
+                  "directorId",
+                  "id",
+                  "productionId",
+                  "soundstageFacilityId",
+                  "status"
+                ],
+                "keyCount": 5
+              },
+              {
+                "path": "$[0][\"bindings\"]",
+                "leftKeys": [
+                  "requiresSetBinding",
+                  "stageFacilityId",
+                  "setId",
+                  "lockedNovelty",
+                  "lockedUplift",
+                  "heldSinceWeek"
+                ],
+                "rightKeys": [
+                  "heldSinceWeek",
+                  "lockedNovelty",
+                  "lockedUplift",
+                  "requiresSetBinding",
+                  "setId",
+                  "stageFacilityId"
+                ],
+                "keyCount": 6
+              }
+            ],
+            "omitted": 0,
+            "maximumDisplayedKeysPerObject": 16
+          }
+        }
+      ],
+      "omitted": 0
+    }
+  },
+  "comparisons": {
+    "rawDefaultVsRawDevelop": {
+      "exactSaveBytesEqual": true,
+      "leftBytes": 1695188,
+      "rightBytes": 1695188,
+      "leftSha256": "7de879a5c7a5ab4ffdac819734957572aa58349c5d59768c572c249339739a7f",
+      "rightSha256": "7de879a5c7a5ab4ffdac819734957572aa58349c5d59768c572c249339739a7f",
+      "parsedSave": {
+        "count": 0,
+        "first": [],
+        "omitted": 0
+      }
+    },
+    "rawDevelopVsImportedDevelop": {
+      "exactSaveBytesEqual": false,
+      "leftBytes": 1695188,
+      "rightBytes": 1695188,
+      "leftSha256": "7de879a5c7a5ab4ffdac819734957572aa58349c5d59768c572c249339739a7f",
+      "rightSha256": "414b3491ad4d6a7244c9af71e24a7bbe491106d9cf290e1ee30cb9a62b57fb84",
+      "parsedSave": {
+        "count": 12,
+        "first": [
+          {
+            "path": "$[\"state\"][\"promises\"][1][\"feasibilityReceipt\"][\"inputsDigest\"]",
+            "left": "8ffe675a3b23ddec",
+            "right": "3c2ee485f8e9ebe0"
+          },
+          {
+            "path": "$[\"state\"][\"promises\"][3][\"feasibilityReceipt\"][\"inputsDigest\"]",
+            "left": "e2d8bcde3be545d7",
+            "right": "301dc4a29f3a97eb"
+          },
+          {
+            "path": "$[\"state\"][\"promises\"][5][\"feasibilityReceipt\"][\"inputsDigest\"]",
+            "left": "6b17bcd6a589e50e",
+            "right": "8d591496b307b39a"
+          },
+          {
+            "path": "$[\"state\"][\"promises\"][7][\"feasibilityReceipt\"][\"inputsDigest\"]",
+            "left": "2414d754057944ed",
+            "right": "34ecce2442e5c9a1"
+          },
+          {
+            "path": "$[\"state\"][\"promises\"][9][\"feasibilityReceipt\"][\"inputsDigest\"]",
+            "left": "9cc3646030e678b8",
+            "right": "50f484b1573b853c"
+          },
+          {
+            "path": "$[\"state\"][\"promises\"][11][\"feasibilityReceipt\"][\"inputsDigest\"]",
+            "left": "b9ce2ec91ae1d260",
+            "right": "7827a662dd1697fc"
+          },
+          {
+            "path": "$[\"state\"][\"promises\"][24][\"feasibilityReceipt\"][\"inputsDigest\"]",
+            "left": "6fdbcca105a1c78c",
+            "right": "dedea6ada7e38b72"
+          },
+          {
+            "path": "$[\"state\"][\"promises\"][26][\"feasibilityReceipt\"][\"inputsDigest\"]",
+            "left": "2ab1bd9db0fb24c1",
+            "right": "0e8dc4c7edef5493"
+          },
+          {
+            "path": "$[\"state\"][\"promises\"][37][\"feasibilityReceipt\"][\"inputsDigest\"]",
+            "left": "3e4245fc4c068e15",
+            "right": "a72da426788bb57b"
+          },
+          {
+            "path": "$[\"state\"][\"promises\"][43][\"feasibilityReceipt\"][\"inputsDigest\"]",
+            "left": "47636dba996b2a3c",
+            "right": "4055dfc0bc86fd1e"
+          },
+          {
+            "path": "$[\"state\"][\"promises\"][45][\"feasibilityReceipt\"][\"inputsDigest\"]",
+            "left": "143571fd532a856d",
+            "right": "2825199d2a230ceb"
+          },
+          {
+            "path": "$[\"state\"][\"promises\"][47][\"feasibilityReceipt\"][\"inputsDigest\"]",
+            "left": "6a63d8a3f1249bb6",
+            "right": "deb1c5e66f14c8c0"
+          }
+        ],
+        "omitted": 0
+      }
+    },
+    "zeroOnlyDevelopVsImportedDevelop": {
+      "exactSaveBytesEqual": false,
+      "leftBytes": 1695188,
+      "rightBytes": 1695188,
+      "leftSha256": "7de879a5c7a5ab4ffdac819734957572aa58349c5d59768c572c249339739a7f",
+      "rightSha256": "414b3491ad4d6a7244c9af71e24a7bbe491106d9cf290e1ee30cb9a62b57fb84",
+      "parsedSave": {
+        "count": 12,
+        "first": [
+          {
+            "path": "$[\"state\"][\"promises\"][1][\"feasibilityReceipt\"][\"inputsDigest\"]",
+            "left": "8ffe675a3b23ddec",
+            "right": "3c2ee485f8e9ebe0"
+          },
+          {
+            "path": "$[\"state\"][\"promises\"][3][\"feasibilityReceipt\"][\"inputsDigest\"]",
+            "left": "e2d8bcde3be545d7",
+            "right": "301dc4a29f3a97eb"
+          },
+          {
+            "path": "$[\"state\"][\"promises\"][5][\"feasibilityReceipt\"][\"inputsDigest\"]",
+            "left": "6b17bcd6a589e50e",
+            "right": "8d591496b307b39a"
+          },
+          {
+            "path": "$[\"state\"][\"promises\"][7][\"feasibilityReceipt\"][\"inputsDigest\"]",
+            "left": "2414d754057944ed",
+            "right": "34ecce2442e5c9a1"
+          },
+          {
+            "path": "$[\"state\"][\"promises\"][9][\"feasibilityReceipt\"][\"inputsDigest\"]",
+            "left": "9cc3646030e678b8",
+            "right": "50f484b1573b853c"
+          },
+          {
+            "path": "$[\"state\"][\"promises\"][11][\"feasibilityReceipt\"][\"inputsDigest\"]",
+            "left": "b9ce2ec91ae1d260",
+            "right": "7827a662dd1697fc"
+          },
+          {
+            "path": "$[\"state\"][\"promises\"][24][\"feasibilityReceipt\"][\"inputsDigest\"]",
+            "left": "6fdbcca105a1c78c",
+            "right": "dedea6ada7e38b72"
+          },
+          {
+            "path": "$[\"state\"][\"promises\"][26][\"feasibilityReceipt\"][\"inputsDigest\"]",
+            "left": "2ab1bd9db0fb24c1",
+            "right": "0e8dc4c7edef5493"
+          },
+          {
+            "path": "$[\"state\"][\"promises\"][37][\"feasibilityReceipt\"][\"inputsDigest\"]",
+            "left": "3e4245fc4c068e15",
+            "right": "a72da426788bb57b"
+          },
+          {
+            "path": "$[\"state\"][\"promises\"][43][\"feasibilityReceipt\"][\"inputsDigest\"]",
+            "left": "47636dba996b2a3c",
+            "right": "4055dfc0bc86fd1e"
+          },
+          {
+            "path": "$[\"state\"][\"promises\"][45][\"feasibilityReceipt\"][\"inputsDigest\"]",
+            "left": "143571fd532a856d",
+            "right": "2825199d2a230ceb"
+          },
+          {
+            "path": "$[\"state\"][\"promises\"][47][\"feasibilityReceipt\"][\"inputsDigest\"]",
+            "left": "6a63d8a3f1249bb6",
+            "right": "deb1c5e66f14c8c0"
+          }
+        ],
+        "omitted": 0
+      }
+    },
+    "rawDevelopVsZeroOnlyDevelop": {
+      "exactSaveBytesEqual": true,
+      "leftBytes": 1695188,
+      "rightBytes": 1695188,
+      "leftSha256": "7de879a5c7a5ab4ffdac819734957572aa58349c5d59768c572c249339739a7f",
+      "rightSha256": "7de879a5c7a5ab4ffdac819734957572aa58349c5d59768c572c249339739a7f",
+      "parsedSave": {
+        "count": 0,
+        "first": [],
+        "omitted": 0
+      }
+    },
+    "importedDevelopVsActualBridgeAdvance": {
+      "exactSaveBytesEqual": true,
+      "leftBytes": 1695188,
+      "rightBytes": 1695188,
+      "leftSha256": "414b3491ad4d6a7244c9af71e24a7bbe491106d9cf290e1ee30cb9a62b57fb84",
+      "rightSha256": "414b3491ad4d6a7244c9af71e24a7bbe491106d9cf290e1ee30cb9a62b57fb84",
+      "parsedSave": {
+        "count": 0,
+        "first": [],
+        "omitted": 0
+      }
+    },
+    "originalActualBridgeVsContinuousDefault": {
+      "exactSaveBytesEqual": false,
+      "leftBytes": 1695188,
+      "rightBytes": 1695188,
+      "leftSha256": "414b3491ad4d6a7244c9af71e24a7bbe491106d9cf290e1ee30cb9a62b57fb84",
+      "rightSha256": "7de879a5c7a5ab4ffdac819734957572aa58349c5d59768c572c249339739a7f",
+      "parsedSave": {
+        "count": 12,
+        "first": [
+          {
+            "path": "$[\"state\"][\"promises\"][1][\"feasibilityReceipt\"][\"inputsDigest\"]",
+            "left": "3c2ee485f8e9ebe0",
+            "right": "8ffe675a3b23ddec"
+          },
+          {
+            "path": "$[\"state\"][\"promises\"][3][\"feasibilityReceipt\"][\"inputsDigest\"]",
+            "left": "301dc4a29f3a97eb",
+            "right": "e2d8bcde3be545d7"
+          },
+          {
+            "path": "$[\"state\"][\"promises\"][5][\"feasibilityReceipt\"][\"inputsDigest\"]",
+            "left": "8d591496b307b39a",
+            "right": "6b17bcd6a589e50e"
+          },
+          {
+            "path": "$[\"state\"][\"promises\"][7][\"feasibilityReceipt\"][\"inputsDigest\"]",
+            "left": "34ecce2442e5c9a1",
+            "right": "2414d754057944ed"
+          },
+          {
+            "path": "$[\"state\"][\"promises\"][9][\"feasibilityReceipt\"][\"inputsDigest\"]",
+            "left": "50f484b1573b853c",
+            "right": "9cc3646030e678b8"
+          },
+          {
+            "path": "$[\"state\"][\"promises\"][11][\"feasibilityReceipt\"][\"inputsDigest\"]",
+            "left": "7827a662dd1697fc",
+            "right": "b9ce2ec91ae1d260"
+          },
+          {
+            "path": "$[\"state\"][\"promises\"][24][\"feasibilityReceipt\"][\"inputsDigest\"]",
+            "left": "dedea6ada7e38b72",
+            "right": "6fdbcca105a1c78c"
+          },
+          {
+            "path": "$[\"state\"][\"promises\"][26][\"feasibilityReceipt\"][\"inputsDigest\"]",
+            "left": "0e8dc4c7edef5493",
+            "right": "2ab1bd9db0fb24c1"
+          },
+          {
+            "path": "$[\"state\"][\"promises\"][37][\"feasibilityReceipt\"][\"inputsDigest\"]",
+            "left": "a72da426788bb57b",
+            "right": "3e4245fc4c068e15"
+          },
+          {
+            "path": "$[\"state\"][\"promises\"][43][\"feasibilityReceipt\"][\"inputsDigest\"]",
+            "left": "4055dfc0bc86fd1e",
+            "right": "47636dba996b2a3c"
+          },
+          {
+            "path": "$[\"state\"][\"promises\"][45][\"feasibilityReceipt\"][\"inputsDigest\"]",
+            "left": "2825199d2a230ceb",
+            "right": "143571fd532a856d"
+          },
+          {
+            "path": "$[\"state\"][\"promises\"][47][\"feasibilityReceipt\"][\"inputsDigest\"]",
+            "left": "deb1c5e66f14c8c0",
+            "right": "6a63d8a3f1249bb6"
+          }
+        ],
+        "omitted": 0
+      }
+    }
+  },
+  "digestChanges": {
+    "rawDefaultVsRawDevelop": {
+      "count": 0,
+      "first": [],
+      "omitted": 0
+    },
+    "rawDevelopVsImportedDevelop": {
+      "count": 12,
+      "first": [
+        {
+          "promiseId": "promise-1",
+          "left": {
+            "promiseId": "promise-1",
+            "issuerStudioId": "studio-de11f27b-r02",
+            "beneficiaryPersonId": "person-studio-de11f27b-r01-0",
+            "receiptWeek": 208,
+            "inputsDigest": "8ffe675a3b23ddec"
+          },
+          "right": {
+            "promiseId": "promise-1",
+            "issuerStudioId": "studio-de11f27b-r02",
+            "beneficiaryPersonId": "person-studio-de11f27b-r01-0",
+            "receiptWeek": 208,
+            "inputsDigest": "3c2ee485f8e9ebe0"
+          }
+        },
+        {
+          "promiseId": "promise-3",
+          "left": {
+            "promiseId": "promise-3",
+            "issuerStudioId": "studio-de11f27b-r02",
+            "beneficiaryPersonId": "person-studio-de11f27b-r01-1",
+            "receiptWeek": 208,
+            "inputsDigest": "e2d8bcde3be545d7"
+          },
+          "right": {
+            "promiseId": "promise-3",
+            "issuerStudioId": "studio-de11f27b-r02",
+            "beneficiaryPersonId": "person-studio-de11f27b-r01-1",
+            "receiptWeek": 208,
+            "inputsDigest": "301dc4a29f3a97eb"
+          }
+        },
+        {
+          "promiseId": "promise-5",
+          "left": {
+            "promiseId": "promise-5",
+            "issuerStudioId": "studio-de11f27b-r02",
+            "beneficiaryPersonId": "person-studio-de11f27b-r01-2",
+            "receiptWeek": 208,
+            "inputsDigest": "6b17bcd6a589e50e"
+          },
+          "right": {
+            "promiseId": "promise-5",
+            "issuerStudioId": "studio-de11f27b-r02",
+            "beneficiaryPersonId": "person-studio-de11f27b-r01-2",
+            "receiptWeek": 208,
+            "inputsDigest": "8d591496b307b39a"
+          }
+        },
+        {
+          "promiseId": "promise-7",
+          "left": {
+            "promiseId": "promise-7",
+            "issuerStudioId": "studio-de11f27b-r02",
+            "beneficiaryPersonId": "person-studio-de11f27b-r01-3",
+            "receiptWeek": 208,
+            "inputsDigest": "2414d754057944ed"
+          },
+          "right": {
+            "promiseId": "promise-7",
+            "issuerStudioId": "studio-de11f27b-r02",
+            "beneficiaryPersonId": "person-studio-de11f27b-r01-3",
+            "receiptWeek": 208,
+            "inputsDigest": "34ecce2442e5c9a1"
+          }
+        },
+        {
+          "promiseId": "promise-9",
+          "left": {
+            "promiseId": "promise-9",
+            "issuerStudioId": "studio-de11f27b-r02",
+            "beneficiaryPersonId": "person-studio-de11f27b-r01-4",
+            "receiptWeek": 208,
+            "inputsDigest": "9cc3646030e678b8"
+          },
+          "right": {
+            "promiseId": "promise-9",
+            "issuerStudioId": "studio-de11f27b-r02",
+            "beneficiaryPersonId": "person-studio-de11f27b-r01-4",
+            "receiptWeek": 208,
+            "inputsDigest": "50f484b1573b853c"
+          }
+        },
+        {
+          "promiseId": "promise-11",
+          "left": {
+            "promiseId": "promise-11",
+            "issuerStudioId": "studio-de11f27b-r02",
+            "beneficiaryPersonId": "person-studio-de11f27b-r01-5",
+            "receiptWeek": 208,
+            "inputsDigest": "b9ce2ec91ae1d260"
+          },
+          "right": {
+            "promiseId": "promise-11",
+            "issuerStudioId": "studio-de11f27b-r02",
+            "beneficiaryPersonId": "person-studio-de11f27b-r01-5",
+            "receiptWeek": 208,
+            "inputsDigest": "7827a662dd1697fc"
+          }
+        },
+        {
+          "promiseId": "promise-24",
+          "left": {
+            "promiseId": "promise-24",
+            "issuerStudioId": "studio-de11f27b-r01",
+            "beneficiaryPersonId": "person-studio-de11f27b-r03-0",
+            "receiptWeek": 208,
+            "inputsDigest": "6fdbcca105a1c78c"
+          },
+          "right": {
+            "promiseId": "promise-24",
+            "issuerStudioId": "studio-de11f27b-r01",
+            "beneficiaryPersonId": "person-studio-de11f27b-r03-0",
+            "receiptWeek": 208,
+            "inputsDigest": "dedea6ada7e38b72"
+          }
+        },
+        {
+          "promiseId": "promise-26",
+          "left": {
+            "promiseId": "promise-26",
+            "issuerStudioId": "studio-de11f27b-r01",
+            "beneficiaryPersonId": "person-studio-de11f27b-r03-1",
+            "receiptWeek": 208,
+            "inputsDigest": "2ab1bd9db0fb24c1"
+          },
+          "right": {
+            "promiseId": "promise-26",
+            "issuerStudioId": "studio-de11f27b-r01",
+            "beneficiaryPersonId": "person-studio-de11f27b-r03-1",
+            "receiptWeek": 208,
+            "inputsDigest": "0e8dc4c7edef5493"
+          }
+        },
+        {
+          "promiseId": "promise-37",
+          "left": {
+            "promiseId": "promise-37",
+            "issuerStudioId": "studio-de11f27b-r01",
+            "beneficiaryPersonId": "person-studio-de11f27b-r03-5",
+            "receiptWeek": 208,
+            "inputsDigest": "3e4245fc4c068e15"
+          },
+          "right": {
+            "promiseId": "promise-37",
+            "issuerStudioId": "studio-de11f27b-r01",
+            "beneficiaryPersonId": "person-studio-de11f27b-r03-5",
+            "receiptWeek": 208,
+            "inputsDigest": "a72da426788bb57b"
+          }
+        },
+        {
+          "promiseId": "promise-43",
+          "left": {
+            "promiseId": "promise-43",
+            "issuerStudioId": "studio-de11f27b-r01",
+            "beneficiaryPersonId": "person-studio-de11f27b-r04-2",
+            "receiptWeek": 208,
+            "inputsDigest": "47636dba996b2a3c"
+          },
+          "right": {
+            "promiseId": "promise-43",
+            "issuerStudioId": "studio-de11f27b-r01",
+            "beneficiaryPersonId": "person-studio-de11f27b-r04-2",
+            "receiptWeek": 208,
+            "inputsDigest": "4055dfc0bc86fd1e"
+          }
+        },
+        {
+          "promiseId": "promise-45",
+          "left": {
+            "promiseId": "promise-45",
+            "issuerStudioId": "studio-de11f27b-r01",
+            "beneficiaryPersonId": "person-studio-de11f27b-r04-3",
+            "receiptWeek": 208,
+            "inputsDigest": "143571fd532a856d"
+          },
+          "right": {
+            "promiseId": "promise-45",
+            "issuerStudioId": "studio-de11f27b-r01",
+            "beneficiaryPersonId": "person-studio-de11f27b-r04-3",
+            "receiptWeek": 208,
+            "inputsDigest": "2825199d2a230ceb"
+          }
+        },
+        {
+          "promiseId": "promise-47",
+          "left": {
+            "promiseId": "promise-47",
+            "issuerStudioId": "studio-de11f27b-r01",
+            "beneficiaryPersonId": "person-studio-de11f27b-r04-4",
+            "receiptWeek": 208,
+            "inputsDigest": "6a63d8a3f1249bb6"
+          },
+          "right": {
+            "promiseId": "promise-47",
+            "issuerStudioId": "studio-de11f27b-r01",
+            "beneficiaryPersonId": "person-studio-de11f27b-r04-4",
+            "receiptWeek": 208,
+            "inputsDigest": "deb1c5e66f14c8c0"
+          }
+        }
+      ],
+      "omitted": 0
+    },
+    "zeroOnlyDevelopVsImportedDevelop": {
+      "count": 12,
+      "first": [
+        {
+          "promiseId": "promise-1",
+          "left": {
+            "promiseId": "promise-1",
+            "issuerStudioId": "studio-de11f27b-r02",
+            "beneficiaryPersonId": "person-studio-de11f27b-r01-0",
+            "receiptWeek": 208,
+            "inputsDigest": "8ffe675a3b23ddec"
+          },
+          "right": {
+            "promiseId": "promise-1",
+            "issuerStudioId": "studio-de11f27b-r02",
+            "beneficiaryPersonId": "person-studio-de11f27b-r01-0",
+            "receiptWeek": 208,
+            "inputsDigest": "3c2ee485f8e9ebe0"
+          }
+        },
+        {
+          "promiseId": "promise-3",
+          "left": {
+            "promiseId": "promise-3",
+            "issuerStudioId": "studio-de11f27b-r02",
+            "beneficiaryPersonId": "person-studio-de11f27b-r01-1",
+            "receiptWeek": 208,
+            "inputsDigest": "e2d8bcde3be545d7"
+          },
+          "right": {
+            "promiseId": "promise-3",
+            "issuerStudioId": "studio-de11f27b-r02",
+            "beneficiaryPersonId": "person-studio-de11f27b-r01-1",
+            "receiptWeek": 208,
+            "inputsDigest": "301dc4a29f3a97eb"
+          }
+        },
+        {
+          "promiseId": "promise-5",
+          "left": {
+            "promiseId": "promise-5",
+            "issuerStudioId": "studio-de11f27b-r02",
+            "beneficiaryPersonId": "person-studio-de11f27b-r01-2",
+            "receiptWeek": 208,
+            "inputsDigest": "6b17bcd6a589e50e"
+          },
+          "right": {
+            "promiseId": "promise-5",
+            "issuerStudioId": "studio-de11f27b-r02",
+            "beneficiaryPersonId": "person-studio-de11f27b-r01-2",
+            "receiptWeek": 208,
+            "inputsDigest": "8d591496b307b39a"
+          }
+        },
+        {
+          "promiseId": "promise-7",
+          "left": {
+            "promiseId": "promise-7",
+            "issuerStudioId": "studio-de11f27b-r02",
+            "beneficiaryPersonId": "person-studio-de11f27b-r01-3",
+            "receiptWeek": 208,
+            "inputsDigest": "2414d754057944ed"
+          },
+          "right": {
+            "promiseId": "promise-7",
+            "issuerStudioId": "studio-de11f27b-r02",
+            "beneficiaryPersonId": "person-studio-de11f27b-r01-3",
+            "receiptWeek": 208,
+            "inputsDigest": "34ecce2442e5c9a1"
+          }
+        },
+        {
+          "promiseId": "promise-9",
+          "left": {
+            "promiseId": "promise-9",
+            "issuerStudioId": "studio-de11f27b-r02",
+            "beneficiaryPersonId": "person-studio-de11f27b-r01-4",
+            "receiptWeek": 208,
+            "inputsDigest": "9cc3646030e678b8"
+          },
+          "right": {
+            "promiseId": "promise-9",
+            "issuerStudioId": "studio-de11f27b-r02",
+            "beneficiaryPersonId": "person-studio-de11f27b-r01-4",
+            "receiptWeek": 208,
+            "inputsDigest": "50f484b1573b853c"
+          }
+        },
+        {
+          "promiseId": "promise-11",
+          "left": {
+            "promiseId": "promise-11",
+            "issuerStudioId": "studio-de11f27b-r02",
+            "beneficiaryPersonId": "person-studio-de11f27b-r01-5",
+            "receiptWeek": 208,
+            "inputsDigest": "b9ce2ec91ae1d260"
+          },
+          "right": {
+            "promiseId": "promise-11",
+            "issuerStudioId": "studio-de11f27b-r02",
+            "beneficiaryPersonId": "person-studio-de11f27b-r01-5",
+            "receiptWeek": 208,
+            "inputsDigest": "7827a662dd1697fc"
+          }
+        },
+        {
+          "promiseId": "promise-24",
+          "left": {
+            "promiseId": "promise-24",
+            "issuerStudioId": "studio-de11f27b-r01",
+            "beneficiaryPersonId": "person-studio-de11f27b-r03-0",
+            "receiptWeek": 208,
+            "inputsDigest": "6fdbcca105a1c78c"
+          },
+          "right": {
+            "promiseId": "promise-24",
+            "issuerStudioId": "studio-de11f27b-r01",
+            "beneficiaryPersonId": "person-studio-de11f27b-r03-0",
+            "receiptWeek": 208,
+            "inputsDigest": "dedea6ada7e38b72"
+          }
+        },
+        {
+          "promiseId": "promise-26",
+          "left": {
+            "promiseId": "promise-26",
+            "issuerStudioId": "studio-de11f27b-r01",
+            "beneficiaryPersonId": "person-studio-de11f27b-r03-1",
+            "receiptWeek": 208,
+            "inputsDigest": "2ab1bd9db0fb24c1"
+          },
+          "right": {
+            "promiseId": "promise-26",
+            "issuerStudioId": "studio-de11f27b-r01",
+            "beneficiaryPersonId": "person-studio-de11f27b-r03-1",
+            "receiptWeek": 208,
+            "inputsDigest": "0e8dc4c7edef5493"
+          }
+        },
+        {
+          "promiseId": "promise-37",
+          "left": {
+            "promiseId": "promise-37",
+            "issuerStudioId": "studio-de11f27b-r01",
+            "beneficiaryPersonId": "person-studio-de11f27b-r03-5",
+            "receiptWeek": 208,
+            "inputsDigest": "3e4245fc4c068e15"
+          },
+          "right": {
+            "promiseId": "promise-37",
+            "issuerStudioId": "studio-de11f27b-r01",
+            "beneficiaryPersonId": "person-studio-de11f27b-r03-5",
+            "receiptWeek": 208,
+            "inputsDigest": "a72da426788bb57b"
+          }
+        },
+        {
+          "promiseId": "promise-43",
+          "left": {
+            "promiseId": "promise-43",
+            "issuerStudioId": "studio-de11f27b-r01",
+            "beneficiaryPersonId": "person-studio-de11f27b-r04-2",
+            "receiptWeek": 208,
+            "inputsDigest": "47636dba996b2a3c"
+          },
+          "right": {
+            "promiseId": "promise-43",
+            "issuerStudioId": "studio-de11f27b-r01",
+            "beneficiaryPersonId": "person-studio-de11f27b-r04-2",
+            "receiptWeek": 208,
+            "inputsDigest": "4055dfc0bc86fd1e"
+          }
+        },
+        {
+          "promiseId": "promise-45",
+          "left": {
+            "promiseId": "promise-45",
+            "issuerStudioId": "studio-de11f27b-r01",
+            "beneficiaryPersonId": "person-studio-de11f27b-r04-3",
+            "receiptWeek": 208,
+            "inputsDigest": "143571fd532a856d"
+          },
+          "right": {
+            "promiseId": "promise-45",
+            "issuerStudioId": "studio-de11f27b-r01",
+            "beneficiaryPersonId": "person-studio-de11f27b-r04-3",
+            "receiptWeek": 208,
+            "inputsDigest": "2825199d2a230ceb"
+          }
+        },
+        {
+          "promiseId": "promise-47",
+          "left": {
+            "promiseId": "promise-47",
+            "issuerStudioId": "studio-de11f27b-r01",
+            "beneficiaryPersonId": "person-studio-de11f27b-r04-4",
+            "receiptWeek": 208,
+            "inputsDigest": "6a63d8a3f1249bb6"
+          },
+          "right": {
+            "promiseId": "promise-47",
+            "issuerStudioId": "studio-de11f27b-r01",
+            "beneficiaryPersonId": "person-studio-de11f27b-r04-4",
+            "receiptWeek": 208,
+            "inputsDigest": "deb1c5e66f14c8c0"
+          }
+        }
+      ],
+      "omitted": 0
+    }
+  },
+  "post208RawOwners": {
+    "count": 6,
+    "first": [
+      {
+        "owner": "studio-de11f27b-r01/production-casts",
+        "left": {
+          "nativeJsonSha256": "7d45e998ee9356950faa6bb3412c8af411a623167a0b71dfed45c3aa132a83d2",
+          "nativeJsonBytes": 180,
+          "canonicalJsonSha256": "7404f47170fc57c5744577dfd493c13f6fedd875577a20ceaf65bd044b0fb7ff",
+          "canonicalJsonBytes": 180
+        },
+        "right": {
+          "nativeJsonSha256": "b2ab26646ec75f032cb4f84b89c5e2f8956835c44078e7a732446bd5592f326f",
+          "nativeJsonBytes": 180,
+          "canonicalJsonSha256": "7404f47170fc57c5744577dfd493c13f6fedd875577a20ceaf65bd044b0fb7ff",
+          "canonicalJsonBytes": 180
+        },
+        "values": {
+          "count": 0,
+          "first": [],
+          "omitted": 0
+        },
+        "keyOrder": {
+          "count": 1,
+          "differentKeySets": 0,
+          "first": [
+            {
+              "path": "$[0][\"cast\"]",
+              "leftKeys": [
+                "lead",
+                "antagonist",
+                "support"
+              ],
+              "rightKeys": [
+                "antagonist",
+                "lead",
+                "support"
+              ],
+              "keyCount": 3
+            }
+          ],
+          "omitted": 0,
+          "maximumDisplayedKeysPerObject": 16
+        }
+      },
+      {
+        "owner": "studio-de11f27b-r01/workflows",
+        "left": {
+          "nativeJsonSha256": "a5361494f86c7f36a40f1b128923a914e93a76a6340ef375d6dd034065cad419",
+          "nativeJsonBytes": 434,
+          "canonicalJsonSha256": "7a5d037fb135d50aaa5a036115513d88fb125154f29a03a32c6b410c95d66aea",
+          "canonicalJsonBytes": 434
+        },
+        "right": {
+          "nativeJsonSha256": "d4254eca7c6c2ce7d06c56ad9f635e83d7bab959859c95b63732bcd0060eb373",
+          "nativeJsonBytes": 434,
+          "canonicalJsonSha256": "7a5d037fb135d50aaa5a036115513d88fb125154f29a03a32c6b410c95d66aea",
+          "canonicalJsonBytes": 434
+        },
+        "values": {
+          "count": 0,
+          "first": [],
+          "omitted": 0
+        },
+        "keyOrder": {
+          "count": 2,
+          "differentKeySets": 0,
+          "first": [
+            {
+              "path": "$[0]",
+              "leftKeys": [
+                "productionId",
+                "phase",
+                "reservations",
+                "shootingTask",
+                "blocker",
+                "bindings",
+                "setup",
+                "planRevision"
+              ],
+              "rightKeys": [
+                "bindings",
+                "blocker",
+                "phase",
+                "planRevision",
+                "productionId",
+                "reservations",
+                "setup",
+                "shootingTask"
+              ],
+              "keyCount": 8
+            },
+            {
+              "path": "$[0][\"bindings\"]",
+              "leftKeys": [
+                "requiresSetBinding",
+                "stageFacilityId",
+                "setId",
+                "lockedNovelty",
+                "lockedUplift",
+                "heldSinceWeek"
+              ],
+              "rightKeys": [
+                "heldSinceWeek",
+                "lockedNovelty",
+                "lockedUplift",
+                "requiresSetBinding",
+                "setId",
+                "stageFacilityId"
+              ],
+              "keyCount": 6
+            }
+          ],
+          "omitted": 0,
+          "maximumDisplayedKeysPerObject": 16
+        }
+      },
+      {
+        "owner": "studio-de11f27b-r02/production-casts",
+        "left": {
+          "nativeJsonSha256": "0e75529d622bcc96a78c2b13527d3a3adcf7b6218b3a1e7b5068be2062827a54",
+          "nativeJsonBytes": 180,
+          "canonicalJsonSha256": "449abec749a9660788ca7d4cae11d94cd96b3c11c42d9e775e76eb48d6422949",
+          "canonicalJsonBytes": 180
+        },
+        "right": {
+          "nativeJsonSha256": "ec9d01c0619d6a9c8c968b8c1e8f66d10a35bec0da1ed7c41a25b062e719d44d",
+          "nativeJsonBytes": 180,
+          "canonicalJsonSha256": "449abec749a9660788ca7d4cae11d94cd96b3c11c42d9e775e76eb48d6422949",
+          "canonicalJsonBytes": 180
+        },
+        "values": {
+          "count": 0,
+          "first": [],
+          "omitted": 0
+        },
+        "keyOrder": {
+          "count": 1,
+          "differentKeySets": 0,
+          "first": [
+            {
+              "path": "$[0][\"cast\"]",
+              "leftKeys": [
+                "lead",
+                "antagonist",
+                "support"
+              ],
+              "rightKeys": [
+                "antagonist",
+                "lead",
+                "support"
+              ],
+              "keyCount": 3
+            }
+          ],
+          "omitted": 0,
+          "maximumDisplayedKeysPerObject": 16
+        }
+      },
+      {
+        "owner": "studio-de11f27b-r02/workflows",
+        "left": {
+          "nativeJsonSha256": "ac10a9dd57c4a64732977bcc0ea964cdcdf685fb0b9a6ce8edf7b8702dc85631",
+          "nativeJsonBytes": 434,
+          "canonicalJsonSha256": "d2ed2be587ba979a6d1ac93dba7055d8430deed4d0b902fe5206530f3e755e62",
+          "canonicalJsonBytes": 434
+        },
+        "right": {
+          "nativeJsonSha256": "c35585bfbaeb002625d406e7be00104e4f85ba50c470516ce63b871ce2f78a95",
+          "nativeJsonBytes": 434,
+          "canonicalJsonSha256": "d2ed2be587ba979a6d1ac93dba7055d8430deed4d0b902fe5206530f3e755e62",
+          "canonicalJsonBytes": 434
+        },
+        "values": {
+          "count": 0,
+          "first": [],
+          "omitted": 0
+        },
+        "keyOrder": {
+          "count": 2,
+          "differentKeySets": 0,
+          "first": [
+            {
+              "path": "$[0]",
+              "leftKeys": [
+                "productionId",
+                "phase",
+                "reservations",
+                "shootingTask",
+                "blocker",
+                "bindings",
+                "setup",
+                "planRevision"
+              ],
+              "rightKeys": [
+                "bindings",
+                "blocker",
+                "phase",
+                "planRevision",
+                "productionId",
+                "reservations",
+                "setup",
+                "shootingTask"
+              ],
+              "keyCount": 8
+            },
+            {
+              "path": "$[0][\"bindings\"]",
+              "leftKeys": [
+                "requiresSetBinding",
+                "stageFacilityId",
+                "setId",
+                "lockedNovelty",
+                "lockedUplift",
+                "heldSinceWeek"
+              ],
+              "rightKeys": [
+                "heldSinceWeek",
+                "lockedNovelty",
+                "lockedUplift",
+                "requiresSetBinding",
+                "setId",
+                "stageFacilityId"
+              ],
+              "keyCount": 6
+            }
+          ],
+          "omitted": 0,
+          "maximumDisplayedKeysPerObject": 16
+        }
+      },
+      {
+        "owner": "studio-de11f27b-r03/production-casts",
+        "left": {
+          "nativeJsonSha256": "dd86e70911bf661e5f9d1a3aa4fe64bb2f5d0919e4a22d0b408633ae4750cdeb",
+          "nativeJsonBytes": 180,
+          "canonicalJsonSha256": "f453b4a9f6f78f6bd0f07182bbc25a55fa1316cb09c0960789b260b4e623de02",
+          "canonicalJsonBytes": 180
+        },
+        "right": {
+          "nativeJsonSha256": "33a70952407800a6a0fb799e0b52b85af88db981f1066852c7e078e0e71b7efd",
+          "nativeJsonBytes": 180,
+          "canonicalJsonSha256": "f453b4a9f6f78f6bd0f07182bbc25a55fa1316cb09c0960789b260b4e623de02",
+          "canonicalJsonBytes": 180
+        },
+        "values": {
+          "count": 0,
+          "first": [],
+          "omitted": 0
+        },
+        "keyOrder": {
+          "count": 1,
+          "differentKeySets": 0,
+          "first": [
+            {
+              "path": "$[0][\"cast\"]",
+              "leftKeys": [
+                "lead",
+                "antagonist",
+                "support"
+              ],
+              "rightKeys": [
+                "antagonist",
+                "lead",
+                "support"
+              ],
+              "keyCount": 3
+            }
+          ],
+          "omitted": 0,
+          "maximumDisplayedKeysPerObject": 16
+        }
+      },
+      {
+        "owner": "studio-de11f27b-r03/workflows",
+        "left": {
+          "nativeJsonSha256": "d4cf43be8a2de797289fd75d78994d161e78d1fbae9195895c3c3b56c9db4a45",
+          "nativeJsonBytes": 434,
+          "canonicalJsonSha256": "c261001d55bea8e8b97c44a477e55b951d844a9def125d7233224aaf61a52b28",
+          "canonicalJsonBytes": 434
+        },
+        "right": {
+          "nativeJsonSha256": "6849f43814cb9e12bd4eebde3f9473081e327b889b183aa9fcd008574098168d",
+          "nativeJsonBytes": 434,
+          "canonicalJsonSha256": "c261001d55bea8e8b97c44a477e55b951d844a9def125d7233224aaf61a52b28",
+          "canonicalJsonBytes": 434
+        },
+        "values": {
+          "count": 0,
+          "first": [],
+          "omitted": 0
+        },
+        "keyOrder": {
+          "count": 2,
+          "differentKeySets": 0,
+          "first": [
+            {
+              "path": "$[0]",
+              "leftKeys": [
+                "productionId",
+                "phase",
+                "reservations",
+                "shootingTask",
+                "blocker",
+                "bindings",
+                "setup",
+                "planRevision"
+              ],
+              "rightKeys": [
+                "bindings",
+                "blocker",
+                "phase",
+                "planRevision",
+                "productionId",
+                "reservations",
+                "setup",
+                "shootingTask"
+              ],
+              "keyCount": 8
+            },
+            {
+              "path": "$[0][\"bindings\"]",
+              "leftKeys": [
+                "requiresSetBinding",
+                "stageFacilityId",
+                "setId",
+                "lockedNovelty",
+                "lockedUplift",
+                "heldSinceWeek"
+              ],
+              "rightKeys": [
+                "heldSinceWeek",
+                "lockedNovelty",
+                "lockedUplift",
+                "requiresSetBinding",
+                "setId",
+                "stageFacilityId"
+              ],
+              "keyCount": 6
+            }
+          ],
+          "omitted": 0,
+          "maximumDisplayedKeysPerObject": 16
+        }
+      }
+    ],
+    "omitted": 0
+  },
+  "newlyReleasedPlayerFilms": {
+    "rawDefault": [],
+    "rawDevelop": [],
+    "importedDevelop": [],
+    "zeroOnlyDevelop": []
+  },
+  "interpretationLimit": "Values and key order are separately observed. Zero-only normalization is a diagnostic branch, not a production or mint correction. A remaining mismatch is not excused."
+}
+node:internal/process/promises:391
+    triggerUncaughtException(err, true /* fromPromise */);
+    ^
+
+AssertionError [ERR_ASSERTION]: 949: original public advance and continuous default tick differ; bounded diagnostics above; no artifacts written
+
+true !== false
+
+    at /Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/949-c3-t0-producer.ts:443:8
+    at ViteNodeRunner.runModule (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/vite-node/dist/client.mjs:399:5)
+    at ViteNodeRunner.directRequest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/vite-node/dist/client.mjs:381:5)
+    at ViteNodeRunner.cachedRequest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/vite-node/dist/client.mjs:206:14)
+    at ViteNodeRunner.executeFile (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/vite-node/dist/client.mjs:169:12)
+    at CAC.run (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/vite-node/dist/cli.mjs:99:5) {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: true,
+  expected: false,
+  operator: 'strictEqual'
+}
+
+Node.js v20.20.2

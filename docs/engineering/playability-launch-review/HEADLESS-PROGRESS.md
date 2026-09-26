@@ -1,5 +1,31 @@
 # HEADLESS-PROGRESS — logic-first window (Owner directive 2026-09-16, `OWNER-HEADLESS-PROGRAM-20260916-01`)
 
+## CURRENT — C.2-RM qualified; C.3 contract/T0 with known old-source digest defect
+
+2026-09-26. Published checkpoint1f44aa505c0d677430451ab5fcacaf5e0ce205d6,
+branch wip/headless-program-20260916-ts, existing worktree preserved. Production
+remains qualified9afae887 (same production since17e65c36), Save37/projection52,
+protocol4/lifecycle1/promise4. Scientist and C.2-RM are completed, not next tasks.
+Qualification936 is LOGIC VERIFIED · UNITY NOT VERIFIED: full9274377PASS/58FAIL/
+11todo;932 attributes55 inherited and3 test-only omissions, final934 repairs3PASS,
+935 bridge typesPASS, independent reviewKEEP. All106new C.2-RM cases and27Scientist
+cases passed in927. All older failure, timeout and native/coverage limits remain.
+
+Current C.3 expansion937 and exact942/946 contract precede production. 941's input
+inventory lacked a positive work-history witness, so eligibility was not lowered.
+Outgoing T0 reached three real films and retirement, then exposed a genuine old
+promise digest ordering defect. Failed945/948/950 remain preserved;952 records
+causal controls. Parent will preserve separate actual continuous/runtime results
+with parityFAIL before an independently tested serialization correction. No C.3
+production or runnable test edits yet; Save38/projection53 are drafts only.
+
+Same two specialists, parent sole production writer/executor, separate test/review
+ownership, one heavy lane. No hooks, destructive operations, protected promotion,
+Owner campaign or Unity/native access. All recent runs closed; exact live ownership
+and next action are maintained at the top of CODEX-START-HERE/CONTINUATION-STATE.
+Budget remains93710–15h planning checkpoint including3–4h protected verification;
+C.2-RM full927 cost58m43.641s and earlier program overruns are carried, not reset.
+
 ## CURRENT — C.2c closed qualified; Scientist next
 
 843: full837 fixed-source4311cases/4246PASS/54inheritedFAIL/11todo. NEW0 versus822,

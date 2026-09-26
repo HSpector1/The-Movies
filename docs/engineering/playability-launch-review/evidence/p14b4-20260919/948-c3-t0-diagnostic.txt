@@ -1,0 +1,168 @@
+{"sourceSha":"1f44aa505c0d677430451ab5fcacaf5e0ce205d6","testedDiffSha256":"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855","producerSha256":"938615b2c2a74cca8f025d21f586cae6ef107f8fc87c6fcc4ae9c2200a2f5a5f","recorderSha256":"747ad7611e99ea8e626ee75c2fdb7aa4e15690f892ac3d42d2e410614ca34d7f","command":["node_modules/.bin/vite-node","/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/947-c3-t0-producer.ts","--write"],"declaredOutputs":["tests/fixtures/p14/genuine-v37-c3-corpus/MANIFEST.json","tests/fixtures/p14/genuine-v37-c3-corpus/genuine-v37-c3-announced-week104.json.gz","tests/fixtures/p14/genuine-v37-c3-corpus/genuine-v37-c3-created-week0.json.gz","tests/fixtures/p14/genuine-v37-c3-corpus/genuine-v37-c3-postretirement-week209.json.gz","tests/fixtures/p14/genuine-v37-c3-corpus/genuine-v37-c3-preannouncement-week103.json.gz","tests/fixtures/p14/genuine-v37-c3-corpus/genuine-v37-c3-preretirement-week207.json.gz","tests/fixtures/p14/genuine-v37-c3-corpus/genuine-v37-c3-retired-week208.json.gz","tests/fixtures/p14/genuine-v37-c3-corpus/genuine-v37-c3-three-real-releases.json.gz","tests/fixtures/p14/genuine-v37-c3-corpus/runtime52-current208-saved207.json.gz"],"sourceAccounting":"Existing consumed files and undeclared untracked inputs must remain fixed; only these newly generated outputs may appear.","start":"2026-09-26T18:58:10.784Z","end":null,"exitCode":null}
+
+{"phase":"created-week0","week":0,"rawSha256":"215b61730393abc8bc28b747d7d79bf9dcb65d2b03f17aa97b96880bc720fa23"}
+{"phase":"real-film-released","index":1,"filmId":"prod-0008","week":17}
+{"phase":"real-film-released","index":2,"filmId":"prod-0017","week":26}
+{"phase":"real-film-released","index":3,"filmId":"prod-0026","week":35}
+{"phase":"three-real-releases","week":35,"rawSha256":"e79df8b3b60af6c651faa36b1ae0a04e8a1ccb9574a59116279d7ca45a2565f8"}
+{"phase":"preannouncement-week103","week":103,"rawSha256":"1647dfa321587408a6b797134d2ca91f0537e1a8b9f2e343881c5b9c6bf168b5"}
+{"phase":"announced-week104","week":104,"rawSha256":"6569b41174845f8633f50e91665eb5d1178d2cdbbc2dd075893bfd12578a8bfc"}
+{"phase":"preretirement-week207","week":207,"rawSha256":"d6ad88d432b3ec75fbf6a2843493240d4007892c8230aea1f9a2350adc8c1045"}
+{"phase":"retired-week208","week":208,"rawSha256":"7de879a5c7a5ab4ffdac819734957572aa58349c5d59768c572c249339739a7f"}
+{
+  "diagnostic": "947 exact runtime-vs-continuous mismatch; original equality still fails",
+  "comparator": {
+    "left": "actual BridgeSession current208",
+    "right": "continuous default-tick current208"
+  },
+  "bytes": {
+    "left": 1695188,
+    "right": 1695188,
+    "leftSha256": "414b3491ad4d6a7244c9af71e24a7bbe491106d9cf290e1ee30cb9a62b57fb84",
+    "rightSha256": "7de879a5c7a5ab4ffdac819734957572aa58349c5d59768c572c249339739a7f",
+    "firstDifferentStringOffset": 1190023
+  },
+  "parsed208": {
+    "count": 12,
+    "first": [
+      {
+        "path": "$[\"state\"][\"promises\"][1][\"feasibilityReceipt\"][\"inputsDigest\"]",
+        "left": "3c2ee485f8e9ebe0",
+        "right": "8ffe675a3b23ddec"
+      },
+      {
+        "path": "$[\"state\"][\"promises\"][3][\"feasibilityReceipt\"][\"inputsDigest\"]",
+        "left": "301dc4a29f3a97eb",
+        "right": "e2d8bcde3be545d7"
+      },
+      {
+        "path": "$[\"state\"][\"promises\"][5][\"feasibilityReceipt\"][\"inputsDigest\"]",
+        "left": "8d591496b307b39a",
+        "right": "6b17bcd6a589e50e"
+      },
+      {
+        "path": "$[\"state\"][\"promises\"][7][\"feasibilityReceipt\"][\"inputsDigest\"]",
+        "left": "34ecce2442e5c9a1",
+        "right": "2414d754057944ed"
+      },
+      {
+        "path": "$[\"state\"][\"promises\"][9][\"feasibilityReceipt\"][\"inputsDigest\"]",
+        "left": "50f484b1573b853c",
+        "right": "9cc3646030e678b8"
+      },
+      {
+        "path": "$[\"state\"][\"promises\"][11][\"feasibilityReceipt\"][\"inputsDigest\"]",
+        "left": "7827a662dd1697fc",
+        "right": "b9ce2ec91ae1d260"
+      },
+      {
+        "path": "$[\"state\"][\"promises\"][24][\"feasibilityReceipt\"][\"inputsDigest\"]",
+        "left": "dedea6ada7e38b72",
+        "right": "6fdbcca105a1c78c"
+      },
+      {
+        "path": "$[\"state\"][\"promises\"][26][\"feasibilityReceipt\"][\"inputsDigest\"]",
+        "left": "0e8dc4c7edef5493",
+        "right": "2ab1bd9db0fb24c1"
+      },
+      {
+        "path": "$[\"state\"][\"promises\"][37][\"feasibilityReceipt\"][\"inputsDigest\"]",
+        "left": "a72da426788bb57b",
+        "right": "3e4245fc4c068e15"
+      },
+      {
+        "path": "$[\"state\"][\"promises\"][43][\"feasibilityReceipt\"][\"inputsDigest\"]",
+        "left": "4055dfc0bc86fd1e",
+        "right": "47636dba996b2a3c"
+      },
+      {
+        "path": "$[\"state\"][\"promises\"][45][\"feasibilityReceipt\"][\"inputsDigest\"]",
+        "left": "2825199d2a230ceb",
+        "right": "143571fd532a856d"
+      },
+      {
+        "path": "$[\"state\"][\"promises\"][47][\"feasibilityReceipt\"][\"inputsDigest\"]",
+        "left": "deb1c5e66f14c8c0",
+        "right": "6a63d8a3f1249bb6"
+      }
+    ],
+    "omitted": 0
+  },
+  "pre207MemoryToSerializedState": {
+    "count": 3,
+    "first": [
+      {
+        "path": "$[\"hollywood\"][\"careerEvents\"][44][\"genreExpBefore\"]",
+        "left": {
+          "special": "-0"
+        },
+        "right": 0
+      },
+      {
+        "path": "$[\"talent\"][0][\"genreExperience\"][\"writing\"][\"comedy\"][\"perceived\"]",
+        "left": {
+          "special": "-0"
+        },
+        "right": 0
+      },
+      {
+        "path": "$[\"talent\"][43][\"genreExperience\"][\"acting\"][\"romance\"][\"perceived\"]",
+        "left": {
+          "special": "-0"
+        },
+        "right": 0
+      }
+    ],
+    "omitted": 0
+  },
+  "pre207SerializedStateToBridgeImport": {
+    "count": 0,
+    "first": [],
+    "omitted": 0
+  },
+  "pre207MemoryToBridgeImport": {
+    "count": 3,
+    "first": [
+      {
+        "path": "$[\"hollywood\"][\"careerEvents\"][44][\"genreExpBefore\"]",
+        "left": {
+          "special": "-0"
+        },
+        "right": 0
+      },
+      {
+        "path": "$[\"talent\"][0][\"genreExperience\"][\"writing\"][\"comedy\"][\"perceived\"]",
+        "left": {
+          "special": "-0"
+        },
+        "right": 0
+      },
+      {
+        "path": "$[\"talent\"][43][\"genreExperience\"][\"acting\"][\"romance\"][\"perceived\"]",
+        "left": {
+          "special": "-0"
+        },
+        "right": 0
+      }
+    ],
+    "omitted": 0
+  },
+  "newlyReleasedPlayerFilms": {
+    "continuous": [],
+    "bridge": []
+  },
+  "sourcePathDifference": "Bridge adapter.advanceWeek uses develop:true; producer.step uses default develop:false. This is a source fact, not mismatch attribution."
+}
+/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/947-c3-t0-producer.ts:346
+  throw new Error("947: public advance and continuous tick differ; bounded structural diagnostics above; no artifacts written");
+        ^
+
+Error: 947: public advance and continuous tick differ; bounded structural diagnostics above; no artifacts written
+    at /Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/947-c3-t0-producer.ts:321:9
+    at ViteNodeRunner.runModule (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/vite-node/dist/client.mjs:399:5)
+    at ViteNodeRunner.directRequest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/vite-node/dist/client.mjs:381:5)
+    at ViteNodeRunner.cachedRequest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/vite-node/dist/client.mjs:206:14)
+    at ViteNodeRunner.executeFile (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/vite-node/dist/client.mjs:169:12)
+    at CAC.run (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/vite-node/dist/cli.mjs:99:5)
+
+Node.js v20.20.2

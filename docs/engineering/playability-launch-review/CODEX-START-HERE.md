@@ -1,5 +1,34 @@
 # CODEX continuation — Project Studio
 
+## CURRENT — outgoing C.3 T0 preserved; serialization regression next
+
+953 child0/fixedExistingSource:true/exact10outputs, closed19:13:48.835Z. Genuine
+Save37/projection52 corpus is tests/fixtures/p14/genuine-v37-c3-corpus (eight saves,
+one runtime plusmanifest). Real retirement208 andruntimecurrent208/saved207/replay
+preserved. Manifest retains parityFAIL:952 independently attributes12 promise digest
+ordering differences. Failed945/948/950 andalloldbytes preserved; no productionfixyet.
+Parent publishing954 checkpoint on current1f44aa50; existingconsumedsource still9afae.
+942/946 contractdraft refined by942-A/946-A; event-surfacefinalcheck pending.
+Testauthor prepares955regressionrequirementsdoconly; no tests/source changes until
+parent confirms publication. Reviewerreadonly; noheavyprocess. Next independent
+serializationRED/correction/checks, thenC.3contractfreeze/RED/implementation. Same2
+specialists/onewriter/oneheavylane. Unity/native deferred;936limits remain accurate.
+
+## CURRENT — C.3 T0 diagnosis; contract refinements adopted
+
+Published local/GitHub checkpoint1f44aa505c0d677430451ab5fcacaf5e0ce205d6;
+consumed source remains qualified9afae887, Save37/projection52. Failed945 and948
+both closed child1/fixedExistingSource:true/zero artifacts. Actual films17/26/35,
+announcement104 and retirement208 reached; runtime208 differs only in12 promise
+input digests. Three pre-save negative zeros and possible object-key order are
+under causal diagnosis; neither is yet established as the cause. Failed producers
+944/947 and raw runs remain immutable. No C.3 production/test edits or heavy run.
+Parent owns942 exact contract/API and sole execution; author prepares949 diagnostic;
+reviewer reads historical delegate/anchor seams.942-A accepts all review refinements.
+Next finish causal diagnosis and genuine outgoing T0; freeze/publish exact contract
+and API, independent RED, then sole-writer implementation. Same two specialists,
+one heavy lane. C.2-RM qualification936 limits preserved. Unity/native deferred.
+
 ## CURRENT — C.3 input inventory closed; exact contract and genuine T0 next
 
 C.2-RM qualification remains published9afae887, LOGIC VERIFIED · UNITY NOT VERIFIED.

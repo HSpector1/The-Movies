@@ -1,0 +1,86 @@
+{
+  "sourceSha": "1f44aa505c0d677430451ab5fcacaf5e0ce205d6",
+  "testedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "producerSha256": "aba3b5c101a1982e2994ce69de0e78633a16d499ebe6cb26bdcc31875235bb4c",
+  "recorderSha256": "abf94046f92e9e9551c9ac988cca4aae3bbcb8607d70c9654a695f16e9485053",
+  "command": [
+    "node_modules/.bin/vite-node",
+    "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/951-c3-t0-preservation-producer.ts",
+    "--write"
+  ],
+  "declaredOutputs": [
+    "tests/fixtures/p14/genuine-v37-c3-corpus/MANIFEST.json",
+    "tests/fixtures/p14/genuine-v37-c3-corpus/genuine-v37-c3-announced-week104.json.gz",
+    "tests/fixtures/p14/genuine-v37-c3-corpus/genuine-v37-c3-created-week0.json.gz",
+    "tests/fixtures/p14/genuine-v37-c3-corpus/genuine-v37-c3-postretirement-week209.json.gz",
+    "tests/fixtures/p14/genuine-v37-c3-corpus/genuine-v37-c3-preannouncement-week103.json.gz",
+    "tests/fixtures/p14/genuine-v37-c3-corpus/genuine-v37-c3-preretirement-week207.json.gz",
+    "tests/fixtures/p14/genuine-v37-c3-corpus/genuine-v37-c3-retired-week208.json.gz",
+    "tests/fixtures/p14/genuine-v37-c3-corpus/genuine-v37-c3-runtime-current208.json.gz",
+    "tests/fixtures/p14/genuine-v37-c3-corpus/genuine-v37-c3-three-real-releases.json.gz",
+    "tests/fixtures/p14/genuine-v37-c3-corpus/runtime52-current208-saved207.json.gz"
+  ],
+  "sourceAccounting": "Existing consumed files and undeclared untracked inputs must remain fixed; only these newly generated outputs may appear.",
+  "start": "2026-09-26T19:13:27.317Z",
+  "end": "2026-09-26T19:13:48.835Z",
+  "exitCode": 0,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "1f44aa505c0d677430451ab5fcacaf5e0ce205d6",
+  "testedDiffSha256AtEnd": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "untrackedInputsAtEnd": [],
+  "fixedExistingSource": true,
+  "exactDeclaredOutputs": true,
+  "outputFiles": [
+    {
+      "path": "tests/fixtures/p14/genuine-v37-c3-corpus/MANIFEST.json",
+      "bytes": 32532,
+      "sha256": "b3a3251ae7b3df96a1e2a615991744c5d1e5966a095424693f086a1581244294"
+    },
+    {
+      "path": "tests/fixtures/p14/genuine-v37-c3-corpus/genuine-v37-c3-announced-week104.json.gz",
+      "bytes": 123549,
+      "sha256": "2bbd85b176ec99befebff675dcc52b22faa3dcac38d11b91e540854c026fef0c"
+    },
+    {
+      "path": "tests/fixtures/p14/genuine-v37-c3-corpus/genuine-v37-c3-created-week0.json.gz",
+      "bytes": 49887,
+      "sha256": "0ce43de9abe897631f415f94ac79e584b87d6001c8bb4b5c37fccf3dcb8204a2"
+    },
+    {
+      "path": "tests/fixtures/p14/genuine-v37-c3-corpus/genuine-v37-c3-postretirement-week209.json.gz",
+      "bytes": 173951,
+      "sha256": "8ee70174c2d8fddf5ea8c236dccf61c0ed5fbff82f946a5fcc94f8bb5c5540f0"
+    },
+    {
+      "path": "tests/fixtures/p14/genuine-v37-c3-corpus/genuine-v37-c3-preannouncement-week103.json.gz",
+      "bytes": 120538,
+      "sha256": "9eb5326f7c77f392f3bd87f4cc5687e762d1e5dc394058db5b022a94cc9b9bba"
+    },
+    {
+      "path": "tests/fixtures/p14/genuine-v37-c3-corpus/genuine-v37-c3-preretirement-week207.json.gz",
+      "bytes": 174595,
+      "sha256": "926de1b20fa0cba9b822c05f542f0a3949c7e4b21560c2fa508b6fa3168af5a0"
+    },
+    {
+      "path": "tests/fixtures/p14/genuine-v37-c3-corpus/genuine-v37-c3-retired-week208.json.gz",
+      "bytes": 173919,
+      "sha256": "1676652628a7a5e079c755fffa9dff50770ca3a7824b8d7c02f3db9d25b09be9"
+    },
+    {
+      "path": "tests/fixtures/p14/genuine-v37-c3-corpus/genuine-v37-c3-runtime-current208.json.gz",
+      "bytes": 173914,
+      "sha256": "731e4d6d6015569d479fe6e1cdec3bc46c63ca8149a79e6fb39b2c0b7b2eca3e"
+    },
+    {
+      "path": "tests/fixtures/p14/genuine-v37-c3-corpus/genuine-v37-c3-three-real-releases.json.gz",
+      "bytes": 82414,
+      "sha256": "b4186f1eaa718d6e6235d19cbf2efb7454fe5ac0f9a75c7a84ed497c6ad4e2d1"
+    },
+    {
+      "path": "tests/fixtures/p14/genuine-v37-c3-corpus/runtime52-current208-saved207.json.gz",
+      "bytes": 421226,
+      "sha256": "42a04c37f36760c3c7605aff66773a5463f2107dfeaa84d0a2607e6a7e0061b1"
+    }
+  ]
+}

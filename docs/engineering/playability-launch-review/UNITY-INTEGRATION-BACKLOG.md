@@ -1,5 +1,30 @@
 # UNITY-INTEGRATION-BACKLOG — work reserved for the replacement laptop
 
+## CURRENT — Scientist and C.2-RM producer complete; native integration deferred
+
+2026-09-26. Producer Save37/projection52/protocol4, schema
+sha256:f036ccdd62c4ac2a700a27796631e1c4f8c85f9cccfb14ac6850083fb8dba5f2.
+Qualification936 at9afae887 is LOGIC VERIFIED · UNITY NOT VERIFIED, with full927
+failures and focused repair attribution retained. No generated C# compilation,
+Unity rendering, native UI/UX or Owner acceptance is claimed. Generated declaration
+hash240a304a4d7d0cd85e95577ed1d755ff4fa66c017c1065873c1014c05141b77d.
+
+Deferred consumer work: adopt51 Scientist law and52 lifecycle/alumni/profile/Industry
+fields; show actual retirement dates, unknown finishing dates, per-profession windows,
+one-employer extension opportunity and neutral alumni history. Exercise profile,
+roster, Calendar-to-profile, Market extension, Industry alumni paging, retirement
+Finance facts and relationship as-of/unavailable-history disclosure. Verify actual
+runtime migration with distinct current/saved slots and replay reset; all private
+rival/relationship disclosure limits remain. Preserve the historical schema32–44
+adoption gap and every existing native backlog item below.
+
+C.3 Save38/projection53 is currently a reviewed draft in942/946, not implemented or
+qualified. It will add profession-change/industry-finality distinctions and requires
+its own future consumer contract/compile/render/native gates. Outgoing52 T0 work
+exposed a promise digest serialization-order mismatch (952); no claim that an interim
+same-schema journal is unaffected. Final53 cutover must verify its replay reset.
+Do not treat planned fields or these native requirements as completed consumer work.
+
 Every headless slice records here: producer/consumer versions, required UI action/feedback, C# binding
 changes, exact future compile/render/native tests, and unresolved product choices. Nothing in this file is
 verified in Unity. Generated C# produced by the TypeScript generator is text, not a compiled consumer.
