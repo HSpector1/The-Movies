@@ -1,0 +1,146 @@
+// P14C.2b T1 shared fixtures. Test-author owned (780/806). Loads the genuine T0 V35
+// corpus (tests/fixtures/p14/genuine-v35-c2b-corpus/, records 807/808) and exposes the
+// MANIFEST's own measured axis facts by reading MANIFEST.json directly at runtime
+// (never transcribed by hand, so a copy/paste slip cannot silently diverge from the
+// minted record — same discipline as p14c4-fixtures.ts's c4ContinuationFacts). Every
+// loader re-verifies sha256 from disk, the c2a/c4 precedent.
+//
+// SYNTHETIC-BUT-LAWFUL CONSTRUCTION (disclosed, matching 795 §6.2's D4/D3 precedent):
+// discovery of a `retirementExtension` case is NOT wired into `advanceTalentMarketWeek`
+// on this scaffold (806 §4 describes a SEPARATE discovery pass that does not exist
+// yet), so a case can never be reached by natural ticking alone. `withExtensionCase`
+// and `withProposalFromDraft` graft a case/proposal shaped EXACTLY as 806 §4/§9's own
+// documented fields describe onto a genuine corpus (or genuinely-ticked) state, so the
+// REAL (already-implemented, unmodified) settlement machinery — `advanceTalentMarketWeek`
+// / `settleCase` / `survivesFreeze` — runs on it for real once ticked forward. Nothing
+// here reads or guesses `careerLifecycle.ts`/`talentMarket.ts`'s own C.2b implementation
+// (there isn't one yet); every shape is copied from 806's own text.
+import { createHash } from 'node:crypto'
+import { existsSync, readFileSync } from 'node:fs'
+import { gunzipSync } from 'node:zlib'
+import { expect } from 'vitest'
+import { proposalDraft } from '../../src/core/talentMarket.js'
+import type { ProposalDraft } from '../../src/core/talentMarket.js'
+import { validateSaveV35 } from '../../src/core/save.js'
+import type { SaveFileV35 } from '../../src/core/save.js'
+import { advanceTo, fund, p13aGeneratedStudio, player } from './p14b2-fixtures.js'
+export { advanceTo, fund, p13aGeneratedStudio, player }
+import type {
+  GameState, GameStateV36, RetirementRecordV36, TalentMarketCase, TalentMarketCaseV36, TalentMarketProposal,
+} from '../../src/core/types.js'
+
+const sha256 = (value: string | Uint8Array): string => createHash('sha256').update(value).digest('hex')
+
+// ── the genuine outgoing V35 corpus (records 807/808; MANIFEST.json re-verified by hand) ──
+export const C2B_CORPUS = {
+  'genuine-v35-c2b-contract-gap-freeagent-expiry': { gz: 'f35bd6868904b9b6308e27400ce862d503951c904e4e8007ee25003f187ffee4', week: 52 },
+  'genuine-v35-c2b-contract-at-effective-week': { gz: 'c339695f855e2daf97be959a7a0c75a6ccae72878dc070aef25da4890d694bf3', week: 52 },
+  'genuine-v35-c2b-rival-incumbent-cohorts': { gz: 'afb89ad0a5f1e972564d1389c800fb544e5082e8a8dddb4bbd5a2a43520e085d', week: 2600 },
+} as const
+export type C2bCorpusName = keyof typeof C2B_CORPUS
+
+export function c2bFixture(name: C2bCorpusName): GameState {
+  const path = `tests/fixtures/p14/genuine-v35-c2b-corpus/${name}.json.gz`
+  expect(existsSync(path), `T0 NOT COMPLETE: genuine V35 C.2b artifact missing: ${path}`).toBe(true)
+  const compressed = readFileSync(path)
+  expect(sha256(compressed), `${name}: compressed bytes drifted from record 808's MANIFEST`).toBe(C2B_CORPUS[name].gz)
+  const raw = gunzipSync(compressed).toString('utf8')
+  // The corpus is genuine V35 already (no V34->V35 migration needed, unlike C.4's own
+  // corpus): validate directly through the frozen V35 validator.
+  const save = validateSaveV35(JSON.parse(raw))
+  expect(save.state.market.tick, `${name}: week drifted from record 808's MANIFEST`).toBe(C2B_CORPUS[name].week)
+  return save.state
+}
+
+/** A genuine, already-V35-shaped `GameState` wrapped in its own save envelope, so a
+ * REAL (post-ticked) live state can be round-tripped through `validateSaveV35` or handed
+ * to a V35->V36 boundary function directly. */
+export function liveEnvelope(state: GameState): SaveFileV35 {
+  return validateSaveV35({ saveVersion: 35, seed: state.seed, state, broadcastCache: state.broadcastItems })
+}
+
+/** MANIFEST.json's own `focus` block for one fixture, read fresh from disk (never
+ * transcribed) — every measured axis fact 807/808 committed for that world. */
+export function c2bManifestFocus(name: C2bCorpusName): Record<string, unknown> {
+  const path = 'tests/fixtures/p14/genuine-v35-c2b-corpus/MANIFEST.json'
+  expect(existsSync(path), 'T0 NOT COMPLETE: MANIFEST.json missing').toBe(true)
+  const manifest = JSON.parse(readFileSync(path, 'utf8')) as { fixtures: { filename: string; focus: Record<string, unknown> }[] }
+  const entry = manifest.fixtures.find((f) => f.filename === `${name}.json.gz`)
+  expect(entry, `${name}: no MANIFEST entry`).toBeDefined()
+  return entry!.focus
+}
+
+/**
+ * 806 §2's OWN documented V35->V36 mapping, applied here directly from the contract
+ * TEXT (never from `save.ts`'s own `convertV35ToV36`, which only throws on this
+ * scaffold): "every record gains extensionUsed: false, extendedFromWeek: null; every
+ * case gains variant: 'expiry'". Used ONLY to reach a V36-SHAPED state for S2/S3's own
+ * tampering cases, which cannot otherwise be built once `convertV35ToV36` itself is the
+ * function under test elsewhere in this suite (S1).
+ */
+export function synthesizeV36(state: GameState): GameStateV36 {
+  return {
+    ...state,
+    careerLifecycle: {
+      ...state.careerLifecycle,
+      records: state.careerLifecycle.records.map((r): RetirementRecordV36 => ({ ...r, extensionUsed: false, extendedFromWeek: null })),
+    },
+    talentMarket: {
+      ...state.talentMarket,
+      cases: state.talentMarket.cases.map((c): TalentMarketCaseV36 => ({ ...c, variant: 'expiry' })),
+    },
+  } as unknown as GameStateV36
+}
+
+/** Read-only, always-safe accessors over the runtime-widened (synthetic) fields, so a
+ * case reads its `variant` and a record reads its `extensionUsed`/`extendedFromWeek`
+ * without needing `GameState` itself to be V36 yet (806 §9: it is not, on this
+ * scaffold — the writer moves it). */
+export function casesAsV36(state: Pick<GameState, 'talentMarket'>): readonly TalentMarketCaseV36[] {
+  return state.talentMarket.cases as unknown as readonly TalentMarketCaseV36[]
+}
+export function recordsAsV36(state: Pick<GameState, 'careerLifecycle'>): readonly RetirementRecordV36[] {
+  return state.careerLifecycle.records as unknown as readonly RetirementRecordV36[]
+}
+
+/**
+ * Grafts ONE `retirementExtension` case onto a state, shaped exactly as 806 §4
+ * describes: `{variant: 'retirementExtension', subjectStudioId, contractId, openedWeek,
+ * outcome: null, closedWeek: null, reason: null}`. The ONLY hand-built mutation this
+ * helper performs (labeled, per the task's own synthetic-construction allowance) —
+ * discovery itself is not reachable on this scaffold (806 §4's separate pass does not
+ * exist), so this is the closest lawful substitute: every field is copied from the
+ * contract text, never guessed from `talentMarket.ts`'s own (nonexistent) discovery code.
+ */
+export function withExtensionCase(
+  state: GameState,
+  kase: { talentId: string; subjectStudioId: string; contractId: string; openedWeek: number },
+): GameState {
+  const full: TalentMarketCaseV36 = { ...kase, variant: 'retirementExtension', outcome: null, closedWeek: null, reason: null }
+  const cases = [...casesAsV36(state), full]
+  return { ...state, talentMarket: { ...state.talentMarket, cases: cases as unknown as readonly TalentMarketCase[] } }
+}
+
+/** Builds a lawful `TalentMarketProposal` from a REAL `proposalDraft(...)` output (the
+ * existing, unmodified P10-priced entry) — every material term (price, digest, start
+ * week) is therefore genuine, never hand-computed, so the proposal survives every
+ * EXISTING freeze gate (materialTermsChanged, belowAsk, startWeekMoved) exactly as a
+ * real `submitProposal` call would have produced it, isolating only the GATES 806 §8
+ * amends (retirementCap, the not-yet-existing belowRetirementReservation). */
+export function withProposalFromDraft(state: GameState, draft: ProposalDraft, submittedWeek: number): GameState {
+  const proposal: TalentMarketProposal = {
+    talentId: draft.talentId, issuerStudioId: draft.issuerStudioId, termWeeks: draft.termWeeks, premiumTier: draft.premiumTier,
+    startWeek: draft.startWeek, annualSalary: draft.annualSalary, signingBonus: draft.signingBonus,
+    submittedWeek, digest: draft.digest, promises: [], representation: null,
+  }
+  return { ...state, talentMarket: { ...state.talentMarket, proposals: [...state.talentMarket.proposals, proposal] } }
+}
+
+/** The draft an incumbent's lawful extension offer would carry, through the REAL
+ * (unmodified) `proposalDraft` entry — `startWeek` resolves live off the injected case's
+ * own decision week (`caseForTalent`/`decisionWeekOf` are variant-agnostic already). */
+export function extensionDraft(
+  state: GameState, issuerStudioId: string, talentId: string, termWeeks: number, premiumTier: number, week: number,
+): ProposalDraft {
+  return proposalDraft(state, issuerStudioId, talentId, termWeeks, premiumTier, week)
+}

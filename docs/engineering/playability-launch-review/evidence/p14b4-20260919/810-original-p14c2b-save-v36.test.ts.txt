@@ -1,0 +1,186 @@
+// P14C.2b T1 — INDEPENDENT RED, family S: Save V36 (780 X10, as amended by 780 §5.4 and
+// §6.1, and API contract 806 §2/§8.2). Derived from 806 §2's own documented mapping,
+// never from `save.ts`'s own implementation (every V36 export there throws
+// `not implemented (P14C.2b)` unconditionally on this scaffold).
+//
+// SYNTHETIC-BUT-LAWFUL CONSTRUCTION, disclosed once (795 §6.2's D3/D4 precedent, and
+// this suite's own sibling file's header comment): `convertV35ToV36` itself throws, so a
+// genuine V36 state cannot be produced through the real function under test — S2/S3
+// instead build a V36-SHAPED state directly via `synthesizeV36` (tests/helpers/
+// p14c2b-fixtures.ts), which applies 806 §2's own documented mapping ("every record
+// gains extensionUsed: false, extendedFromWeek: null; every case gains
+// variant: 'expiry'") from the CONTRACT TEXT, never guessed from source. S3's baseline
+// additionally grafts one lawful-BY-CONSTRUCTION extension record/case/contract triple
+// (every field internally consistent with 806 §2/§5/§8.2's own text) — the closest
+// reachable substitute for "a genuine ticked V36 state," since no ticking can produce
+// one yet. Its own lawfulness cannot be independently confirmed through the real
+// validator (that is the function under test), which is disclosed, not hidden.
+import { describe, expect, it } from 'vitest'
+import { LIVE_SAVE_VERSION, convertV35ToV36, convertV36ToV35, makeSave, validateSaveV36 } from '../src/core/save.js'
+import type { SaveFileV36 } from '../src/core/save.js'
+import type { GameStateV36, TalentMarketCaseV36 } from '../src/core/types.js'
+import { C2B_CORPUS, c2bFixture, liveEnvelope, synthesizeV36 } from './helpers/p14c2b-fixtures.js'
+
+const CORPUS_NAMES = Object.keys(C2B_CORPUS) as (keyof typeof C2B_CORPUS)[]
+
+/** A `GameStateV36`-shaped value wrapped in its own V36 envelope literal — built
+ * DIRECTLY (never through `validateSaveV36`, itself the function under test in S3). */
+function envelopeV36(state: GameStateV36): SaveFileV36 {
+  return { saveVersion: 36, seed: state.seed, state, broadcastCache: state.broadcastItems } as unknown as SaveFileV36
+}
+
+describe('P14C.2b S1: every corpus world migrates V35 -> V36 per 806 §2', () => {
+  it.each(CORPUS_NAMES)('%s', (name) => {
+    const state = c2bFixture(name)
+    const migrated = convertV35ToV36(liveEnvelope(state))
+    expect(migrated.saveVersion).toBe(36)
+    const expected = synthesizeV36(state)
+    expect(migrated.state.careerLifecycle.records, 'every record must gain extensionUsed:false, extendedFromWeek:null').toEqual(expected.careerLifecycle.records)
+    expect(migrated.state.talentMarket.cases, 'every case must gain variant:\'expiry\'').toEqual(expected.talentMarket.cases)
+    expect(migrated.state.careerLifecycle.cohorts, 'cohort receipts must be byte-identical').toEqual(state.careerLifecycle.cohorts)
+  })
+})
+
+describe('P14C.2b S2: V36 -> V35 downgrade', () => {
+  it('lossless when no record has extensionUsed and no case is a retirementExtension', () => {
+    const state = c2bFixture('genuine-v35-c2b-contract-gap-freeagent-expiry')
+    const v36 = synthesizeV36(state)
+    const downgraded = convertV36ToV35(envelopeV36(v36))
+    expect(downgraded.saveVersion).toBe(35)
+    expect(JSON.stringify(downgraded)).toBe(JSON.stringify(liveEnvelope(state)))
+  })
+
+  it('refused as a downgrade when a record carries extensionUsed: true', () => {
+    const state = c2bFixture('genuine-v35-c2b-contract-gap-freeagent-expiry')
+    const v36 = synthesizeV36(state)
+    const tampered: GameStateV36 = {
+      ...v36,
+      careerLifecycle: {
+        ...v36.careerLifecycle,
+        records: v36.careerLifecycle.records.map((r) => (r.personId === 'authored-0000' ? { ...r, extensionUsed: true } : r)),
+      },
+    }
+    expect(() => convertV36ToV35(envelopeV36(tampered))).toThrow(/downgrade/i)
+  })
+
+  it('refused as a downgrade when a case carries variant: retirementExtension', () => {
+    const state = c2bFixture('genuine-v35-c2b-contract-gap-freeagent-expiry')
+    const v36 = synthesizeV36(state)
+    const extraCase: TalentMarketCaseV36 = {
+      talentId: 'authored-0000', subjectStudioId: 'studio-d7df6c8e-player',
+      contractId: 'studio-d7df6c8e-player:contract:authored-0000:0:player-24',
+      variant: 'retirementExtension', openedWeek: 92, outcome: null, closedWeek: null, reason: null,
+    }
+    const tampered: GameStateV36 = { ...v36, talentMarket: { ...v36.talentMarket, cases: [...v36.talentMarket.cases, extraCase] } }
+    expect(() => convertV36ToV35(envelopeV36(tampered))).toThrow(/downgrade/i)
+  })
+})
+
+// ── S3: the V36 validator, per 806 §8.2 ───────────────────────────────────────────────
+//
+// A lawful-BY-CONSTRUCTION baseline: axis a's subject (announcedWeek 52, old E 104,
+// decision week 98, per 807/808) with one SETTLED retirementExtension case and one
+// matching new contract (98 -> 156 = 104+52), and the record's own fields updated to
+// match — every field copied from 806 §2/§5/§8.2's own text, not guessed from source.
+function lawfulV36Baseline(): { state: GameStateV36; personId: string; oldE: number; newE: number; decisionWeek: number; contractId: string } {
+  const personId = 'authored-0000'
+  const oldE = 104
+  const newE = 156
+  const decisionWeek = 98
+  const contractId = 'studio-d7df6c8e-player:contract:authored-0000:0:player-24'
+  const v36 = synthesizeV36(c2bFixture('genuine-v35-c2b-contract-gap-freeagent-expiry'))
+  const records = v36.careerLifecycle.records.map((r) =>
+    (r.personId === personId ? { ...r, extensionUsed: true, extendedFromWeek: oldE, effectiveWeek: newE } : r))
+  const extensionCase: TalentMarketCaseV36 = {
+    talentId: personId, subjectStudioId: 'studio-d7df6c8e-player', contractId,
+    variant: 'retirementExtension', openedWeek: oldE - 12, outcome: 'settled', closedWeek: decisionWeek, reason: 'settled at the decision week',
+  }
+  const newContractOrdinal = v36.hollywood!.employment.length
+  const state: GameStateV36 = {
+    ...v36,
+    careerLifecycle: { ...v36.careerLifecycle, records },
+    talentMarket: { ...v36.talentMarket, cases: [...v36.talentMarket.cases, extensionCase] },
+    hollywood: {
+      ...v36.hollywood!,
+      employment: [...v36.hollywood!.employment, {
+        contractId: 'studio-d7df6c8e-player:contract:authored-0000:98:player-99', studioId: 'studio-d7df6c8e-player',
+        terms: { talentId: personId, annualSalary: 1_000_000, signingBonus: 180_000, startWeek: decisionWeek, endWeekExclusive: newE, termWeeks: newE - decisionWeek },
+        endedWeek: null, reason: 'renewal',
+      }],
+      activeEmploymentOrdinals: [...v36.hollywood!.activeEmploymentOrdinals, newContractOrdinal],
+    },
+  }
+  return { state, personId, oldE, newE, decisionWeek, contractId }
+}
+
+describe('P14C.2b S3: the validator refuses each tampering, one per case, from a lawful-by-construction V36 baseline (806 §8.2)', () => {
+  it('the unmutated baseline must validate', () => {
+    const { state } = lawfulV36Baseline()
+    expect(() => validateSaveV36(envelopeV36(state))).not.toThrow()
+  })
+
+  it('a second extension case for the SAME person is refused (at most one per person, ever)', () => {
+    const { state, personId } = lawfulV36Baseline()
+    const second: TalentMarketCaseV36 = {
+      talentId: personId, subjectStudioId: 'studio-d7df6c8e-player',
+      contractId: 'studio-d7df6c8e-player:contract:authored-0000:0:player-24-second',
+      variant: 'retirementExtension', openedWeek: 200, outcome: null, closedWeek: null, reason: null,
+    }
+    const tampered: GameStateV36 = { ...state, talentMarket: { ...state.talentMarket, cases: [...state.talentMarket.cases, second] } }
+    expect(() => validateSaveV36(envelopeV36(tampered))).toThrow(/one extension case|at most one|second/i)
+  })
+
+  it('extensionUsed: true with no SETTLED extension case for that person is refused', () => {
+    const { state, personId } = lawfulV36Baseline()
+    const tampered: GameStateV36 = {
+      ...state,
+      talentMarket: { ...state.talentMarket, cases: state.talentMarket.cases.filter((c) => !(c.talentId === personId && c.variant === 'retirementExtension')) },
+    }
+    expect(() => validateSaveV36(envelopeV36(tampered))).toThrow(/settled/i)
+  })
+
+  it('extendedFromWeek mismatched with effectiveWeek - 52 is refused', () => {
+    const { state, personId, oldE } = lawfulV36Baseline()
+    const tampered: GameStateV36 = {
+      ...state,
+      careerLifecycle: {
+        ...state.careerLifecycle,
+        records: state.careerLifecycle.records.map((r) => (r.personId === personId ? { ...r, extendedFromWeek: oldE - 1 } : r)),
+      },
+    }
+    expect(() => validateSaveV36(envelopeV36(tampered))).toThrow(/extendedFromWeek|effectiveWeek/i)
+  })
+
+  it('no contract ending at the new E is found by TERMS (the new contract\'s endWeekExclusive is altered) — refused', () => {
+    const { state, newE } = lawfulV36Baseline()
+    const tampered: GameStateV36 = {
+      ...state,
+      hollywood: {
+        ...state.hollywood!,
+        employment: state.hollywood!.employment.map((e) =>
+          (e.terms.endWeekExclusive === newE ? { ...e, terms: { ...e.terms, endWeekExclusive: newE + 1 } } : e)),
+      },
+    }
+    expect(() => validateSaveV36(envelopeV36(tampered))).toThrow(/terms|contract|effectiveWeek/i)
+  })
+})
+
+describe('P14C.2b S4: LIVE_SAVE_VERSION, makeSave, replay determinism', () => {
+  it('LIVE_SAVE_VERSION === 36', () => {
+    expect(LIVE_SAVE_VERSION).toBe(36)
+  })
+
+  it('makeSave stamps 36', () => {
+    const state = c2bFixture('genuine-v35-c2b-contract-gap-freeagent-expiry')
+    const saved = makeSave(state)
+    expect((saved as { saveVersion: number }).saveVersion).toBe(36)
+  })
+
+  it('two independent V35 -> V36 migrations of the SAME state are byte-identical', () => {
+    const state = c2bFixture('genuine-v35-c2b-contract-gap-freeagent-expiry')
+    const env = liveEnvelope(state)
+    const a = convertV35ToV36(env)
+    const b = convertV35ToV36(env)
+    expect(JSON.stringify(a)).toBe(JSON.stringify(b))
+  })
+})
