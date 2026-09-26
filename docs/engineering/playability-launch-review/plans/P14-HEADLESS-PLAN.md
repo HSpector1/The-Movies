@@ -843,8 +843,7 @@ case `variant`), projection 50 UNMOVED. At `E - 12` an announced person still un
 `retirementExtension` case whose only issuer is the current employer; an offer ending at `E + 52` that clears
 `ask x 1.10` moves E by exactly 52, once. Rivals extend under the same law with no promise. Run 816 matched
 prediction 814 exactly (366 files, 4287 cases); 4 C.2a/C.4/ledger cases changed by approved C.2b law (817),
-restated lawfully in 819 (seed-b re-pinned with `takes`/`rng` unmoved; C2/B4a assert the extension; D3 on a world with none); final verification 822 (`fixedSource: true`) leaves exactly the 55 inherited failures, NEW 0 against 805. Source review 815 KEEP. The C.4 demonstration re-run under C.2b PASSED on all six seeds (820); on the one live seed rivals make 29% more films. NEXT: C.2c waits on the Owner's VOIDED/WAIVED
-ruling (773 §7), so **C.2-RM read models** come next (773 §1: profile planning fact, announcement on roster /
+restated lawfully in 819 (seed-b re-pinned with `takes`/`rng` unmoved; C2/B4a assert the extension; D3 on a world with none); final verification 822 (`fixedSource: true`) leaves exactly the 55 inherited failures, NEW 0 against 805. Source review 815 KEEP. The C.4 demonstration re-run under C.2b PASSED on all six seeds (820); on the one live seed rivals make 29% more films. NEXT (updated after the Owner rulings, 773 §10): **C.2c retirement × promises is unblocked** (retirement VOIDs an open promise it prevents) and comes first; Scientists now retire on the craft window 62/72 (a C.2a-law amendment with its own RED); then **C.2-RM read models** (773 §1: profile planning fact, announcement on roster /
 calendar / market attention, alumni summary, and now the extension offer; a bridge projection step), then C.3
 profession transitions. C.2-RM starts with its expansion record, since none exists yet.
 

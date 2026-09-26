@@ -199,3 +199,21 @@ attribution → publication.
    or before `E` IS written, by the existing P10 expiry and P12 `finishHollywoodWeek` with their `expiry`
    receipts. A second ending write at `E` would duplicate an end the owners already recorded. The
    lifecycle asserts no contract or interval is active at retirement and throws if one is.
+
+## 10. Owner rulings (2026-09-26 11:36 CEST, given in the coordinator session after the C.2b checkpoint)
+
+1. **Retirement × open promise (§7).** The Owner's words, verbatim: *"void the promise if they retire"*. This
+   selects automatic VOIDED (no trust penalty) over option B ("never automatic; waiver or BROKEN"). The
+   parent reads it as approving option A's substance: VOIDED when retirement prevents fulfilment, while a
+   promise that can still be kept stays under ordinary law, and a terminal outcome (KEPT, BROKEN, WAIVED) never
+   changes. The Owner did not give §7's approval sentence word for word. The C.2c expansion must state the exact
+   trigger week (at announcement when the effective week makes the promise impossible, as option A words it, or
+   at the effective week) and cite these words. C.2c no longer waits on the Owner.
+2. **Scientist retirement (D2).** The Owner's words, verbatim: *"scientists should retire your ruling made sense
+   to me"*, approving D2's recommendation: the craft window, eligible from 62 with the hard boundary at 72, as
+   PROVISIONAL TUNING. Under the existing C.2a law the hard boundary forces an ANNOUNCEMENT, not a removal:
+   notice, obligations first, the effective week, and C.2b's single final extension all apply. Open for the
+   slice that implements it (the parent's note, not a ruling): C.4 refills only the four film professions, so
+   retiring Scientists are not replaced; whether Scientist supply needs its own replenishment must be measured,
+   and the affected Scientist tests and validators reconciled, not a number added to a table.
+

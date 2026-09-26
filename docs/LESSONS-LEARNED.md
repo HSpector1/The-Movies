@@ -3791,8 +3791,9 @@ LOGIC VERIFIED · UNITY NOT VERIFIED. Records under `docs/engineering/playabilit
 
 - **Symptom:** three estimated times in resume notes were wrong by 8 to 45 minutes, and a false cause for a
   wall-time difference was drafted in 820; all were corrected before commit.
-- **Pattern:** any written time comes from a `date` call in the same command. Compare CPU time, not wall time,
-  before blaming code (C.4's orphaned background process tripled wall times; check `ps` after killing a
+- **Pattern:** any written time comes from a `date` call in the same command. Record both elapsed and CPU
+  time: CPU time explains computational cost, elapsed time still governs timeouts and the player's wait. Compare
+  CPU time before blaming code (C.4's orphaned background process tripled wall times; check `ps` after killing a
   backgrounded pipeline).
 
 ## GQ. Read-only reviewers without search leave items unverified; close them by shell — **MG**
