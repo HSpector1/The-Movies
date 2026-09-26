@@ -1,0 +1,44 @@
+{"sourceSha":"7ca52f877878266c9659a7a491693ae2128f681e","testedDiffSha256":"d568138057bbc1e4e2ba8ef01ff84ab3233c46991316f0f87175b565aabab776","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/bridge-owner-ux-projection21-schema.test.ts","tests/bridge-p10a-w0-people-projection.test.ts","tests/bridge-p13b-r07-setup.test.ts","tests/bridge-p13b-s5-adoption.test.ts","tests/bridge-p13b-s6-cancellation.test.ts","tests/bridge-p13b-s7-disclosure.test.ts","tests/bridge-p13b-s8-rivals.test.ts","tests/bridge-p14a1-market.test.ts","tests/bridge-p14a2-market.test.ts","tests/bridge-p14a3-world.test.ts","tests/bridge-p14b1-promises.test.ts","tests/bridge-p14b2-trust.test.ts","tests/bridge-p14b6-relationship-read-models.test.ts","tests/bridge-p14b8-waiver-surface.test.ts","tests/bridge-r3n4-read-model-deltas.test.ts","tests/bridge.test.ts","tests/p14b5-save-v31.test.ts","-t","LIVE_SAVE_VERSION\\ is\\ 35\\ \\(stale\\ title\\ corrected\\ post\\-C\\.4\\)\\ and\\ the\\ live\\ promise\\ surface\\ carries\\ projection\\ 47\\ after\\ the\\ P14B\\.4\\ cutover\\ \\(record\\ 600\\ /\\ 616\\)|PROJECTION_VERSION\\ is\\ 40;\\ schema\\ \\$id\\ and\\ x\\-project\\-studio\\.projectionVersion\\ move\\ with\\ it|PROJECTION_VERSION\\ is\\ 46;\\ the\\ schema\\ \\$id\\ and\\ x\\-project\\-studio\\.projectionVersion\\ move\\ with\\ it|PROJECTION_VERSION\\ is\\ 51\\ and\\ the\\ schema\\ document\\ agrees|R9\\ the\\ served\\ section\\ is\\ projection\\ 32\\ and\\ the\\ projection\\-17/18\\ identities\\ stay\\ accepted|RED:\\ a\\ genuine\\ CURRENT\\ \\(live\\-version\\)\\ checkpoint\\ saved\\ and\\ reloaded\\ through\\ the\\ SAME\\ bridge\\ session\\ reports\\ converted:\\ false|bumps\\ PROJECTION_VERSION\\ to\\ 37\\ and\\ its\\ schema\\ \\$id\\ /\\ x\\-project\\-studio\\.projectionVersion\\ move\\ with\\ it|bumps\\ PROJECTION_VERSION\\ to\\ 41\\ and\\ its\\ schema\\ \\$id\\ /\\ x\\-project\\-studio\\.projectionVersion\\ move\\ with\\ it|family\\ 8\\ —\\ the\\ WIRE|keeps\\ the\\ outgoing\\ projection\\-30\\ identity\\ registered\\ after\\ a\\ later\\ bump|pins\\ protocol\\ v4/projection\\ v32\\ and\\ fingerprints\\ named\\ projections\\ and\\ exact\\ intent\\ fields|pins\\ the\\ exact\\ version,\\ old\\-five\\-plus\\-two\\ attention\\ enum\\ and\\ unchanged\\ intent\\ vocabulary|pins\\ the\\ intended\\ version\\ and\\ required\\ envelope/profile\\ fields\\ independently|every\\ genuine\\ V30\\ case\\ migrates\\ through\\ migrateToV31|the\\ projection\\-47\\ checkpoint's\\ embedded\\ saves\\ load\\ through\\ the\\ live\\ route"],"node":"v20.20.2","start":"2026-09-26T15:32:39.965Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/bridge-p14b6-relationship-read-models.test.ts (24 tests | 21 skipped) 202ms
+ ✓ |core| tests/bridge-p14a2-market.test.ts (16 tests | 15 skipped) 4ms
+ ✓ |core| tests/bridge-p14b8-waiver-surface.test.ts (32 tests | 31 skipped) 4ms
+ ✓ |core| tests/bridge-p13b-s6-cancellation.test.ts (12 tests | 11 skipped) 4ms
+ ✓ |core| tests/bridge-p14a3-world.test.ts (16 tests | 15 skipped) 5ms
+ ✓ |core| tests/bridge-p14b1-promises.test.ts (11 tests | 10 skipped) 4ms
+ ✓ |core| tests/bridge-p14a1-market.test.ts (16 tests | 15 skipped) 4ms
+ ✓ |core| tests/bridge.test.ts (18 tests | 17 skipped) 6561ms
+   ✓ Current-game Unity adoption bridge > pins protocol v4/projection v32 and fingerprints named projections and exact intent fields 6560ms
+ ✓ |core| tests/bridge-p13b-r07-setup.test.ts (13 tests | 11 skipped) 1792ms
+   ✓ extra pin (parent instruction): the bridge's save/load "converted" report against the CURRENT save version, not a stale literal 23 (bridge/session.ts:123) > RED: a genuine CURRENT (live-version) checkpoint saved and reloaded through the SAME bridge session reports converted: false 1788ms
+ ✓ |core| tests/bridge-p13b-s5-adoption.test.ts (11 tests | 10 skipped) 4ms
+ ✓ |core| tests/bridge-p14b2-trust.test.ts (22 tests | 21 skipped) 122ms
+ ✓ |core| tests/bridge-p13b-s8-rivals.test.ts (17 tests | 16 skipped) 5ms
+ ✓ |core| tests/bridge-p10a-w0-people-projection.test.ts (10 tests | 9 skipped) 1047ms
+   ✓ P10A W0 — people projection > R9 the served section is projection 32 and the projection-17/18 identities stay accepted 1045ms
+ ✓ |core| tests/bridge-r3n4-read-model-deltas.test.ts (9 tests | 8 skipped) 4ms
+ ✓ |core| tests/bridge-owner-ux-projection21-schema.test.ts (9 tests | 8 skipped) 7ms
+ ✓ |core| tests/bridge-p13b-s7-disclosure.test.ts (22 tests | 21 skipped) 4ms
+ ✓ |core| tests/p14b5-save-v31.test.ts (57 tests | 42 skipped) 23315ms
+   ✓ family 9 — every genuine V30 case migrates through migrateToV31 with an EMPTY root, otherwise byte-identical; lossless downgrade when empty > genuine V30 empty 1482ms
+   ✓ family 9 — every genuine V30 case migrates through migrateToV31 with an EMPTY root, otherwise byte-identical; lossless downgrade when empty > genuine V30 current-p1 2374ms
+   ✓ family 9 — every genuine V30 case migrates through migrateToV31 with an EMPTY root, otherwise byte-identical; lossless downgrade when empty > genuine V30 bound-open-p1 2277ms
+   ✓ family 9 — every genuine V30 case migrates through migrateToV31 with an EMPTY root, otherwise byte-identical; lossless downgrade when empty > genuine V30 bound-open-p2-lead 2479ms
+   ✓ family 9 — every genuine V30 case migrates through migrateToV31 with an EMPTY root, otherwise byte-identical; lossless downgrade when empty > genuine V30 bound-open-p2-lead-or-antagonist 2403ms
+   ✓ family 9 — every genuine V30 case migrates through migrateToV31 with an EMPTY root, otherwise byte-identical; lossless downgrade when empty > genuine V30 kept-and-broken 1641ms
+   ✓ family 9 — every genuine V30 case migrates through migrateToV31 with an EMPTY root, otherwise byte-identical; lossless downgrade when empty > genuine V30 rival-current-p1-and-p2 2070ms
+   ✓ family 9 — every genuine V30 case migrates through migrateToV31 with an EMPTY root, otherwise byte-identical; lossless downgrade when empty > genuine V30 rival-shared-take-terminal 2383ms
+   ✓ family 9 — every genuine V30 case migrates through migrateToV31 with an EMPTY root, otherwise byte-identical; lossless downgrade when empty > genuine V30 first-take-at-five 1146ms
+   ✓ family 9 — every genuine V30 case migrates through migrateToV31 with an EMPTY root, otherwise byte-identical; lossless downgrade when empty > genuine V30 legacy-count-only-p2-current-draft 906ms
+   ✓ family 9 — every genuine V30 case migrates through migrateToV31 with an EMPTY root, otherwise byte-identical; lossless downgrade when empty > the older routes see a lifted V31 exactly as they saw its V30 source (each migrateToVn gained the 31 route line) 2456ms
+   ✓ family 9 — the projection-47 checkpoint's embedded saves load through the live route > currentSaveJson lifts with an empty root and every other root byte-identical to its own genuine V30 bytes 905ms
+   ✓ family 9 — the projection-47 checkpoint's embedded saves load through the live route > savedSaveJson lifts with an empty root and every other root byte-identical to its own genuine V30 bytes 787ms
+
+ Test Files  17 passed (17)
+      Tests  34 passed | 281 skipped (315)
+   Start at  17:32:40
+   Duration  43.37s (transform 4.16s, setup 0ms, collect 67.31s, tests 33.09s, environment 5ms, prepare 3.56s)
+

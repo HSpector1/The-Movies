@@ -319,7 +319,7 @@ describe('P10A W0 — people projection', () => {
     const state = foundStudio('p10-w0-schema')
     // Owner UX adds explicit public genre cells and saved-slot envelope metadata.
     expect(PROJECTION_VERSION).toBe(51)
-    expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-50')
+    expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-51')
     const context = snapshotBuildContextFor(state)
     const bundle = projectStudioProjectionBundle({ ...context.lotSnapshot(), development: context.development(), casting: context.casting(), release: context.release(), history: context.history(), operationsEvents: context.operationsEvents(), talent: context.people(), finance: context.finance(), industry: context.industry() })
     expect(bundle.talent.talent.profiles.length).toBe(state.talent.length)

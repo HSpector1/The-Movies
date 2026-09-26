@@ -221,7 +221,7 @@ const DIVERGENT_WEEK13 = advanceTo(commitPlacement(p13aGeneratedStudio('p13b-s8-
 describe('P13B-S8-T3 item 1: projection version bump 40 -> 41; converted flag', () => {
   it('bumps PROJECTION_VERSION to 41 and its schema $id / x-project-studio.projectionVersion move with it', () => {
     expect(PROJECTION_VERSION).toBe(51) // RED: today PROJECTION_VERSION is 40
-    expect(BRIDGE_SCHEMA.$id).toContain('projection-50')
+    expect(BRIDGE_SCHEMA.$id).toContain('projection-51')
     expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(51)
   })
 

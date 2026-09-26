@@ -142,7 +142,7 @@ describe('R3-N4-SIM-20 — batched N4/N5/N6 read-model deltas (projection 31)', 
     // that the identity this task retired stays accepted forever.
     expect(PROTOCOL_VERSION).toBe(4)
     expect(PROJECTION_VERSION).toBe(51)
-    expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-50')
+    expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-51')
     // A bump that forgets its outgoing identity bricks every durable checkpoint
     // written under it; a bump that keeps the RUNNING identity re-migrates forever.
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_PROJECTION_30_SCHEMA_ID)).toBe('projection-v30')

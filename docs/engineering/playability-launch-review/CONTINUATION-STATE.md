@@ -1,5 +1,31 @@
 # CONTINUATION STATE — three-week autonomous window (Owner directive 2026-09-15)
 
+## CURRENT — Scientist qualified by871; C.2-RM next
+
+Read evidence/p14b4-20260919/871-scientist-qualification.md. Scientist production
+remains697a6039, Save37/projection51/protocol4. Full861 CLOSED/fixedSource:true on
+published7ca52f87:4242PASS/86FAIL/11todo.866 attributes54 inherited failures, known
+FU-2 timeout and31 stale test expectations. Test-only repairs pass867:34PASS;
+868 root/UI and869 bridge types PASS;870 unchanged FU-2 PASS in isolation.
+This is composite qualification, not an all-green full run on the later commit.
+All27 Scientist tests pass in861. Existing genuine fixtures/new Scientist tests
+unchanged. No active test process or specialist owns this checkpoint.
+
+NEXT: publish/verify actual remote, independently review863's C.2-RM expansion,
+fix API contract, preserve genuine outgoing51 runtime before52 edits, independent
+RED, sole production writer, focused/generated/type/full checks and publication.
+Owner allows fresh specialists for this new task after Scientist verification:
+maximum two, separate test/review ownership, parent sole production writer and
+single heavy-test owner. No nested agents. Unity/native deferred; no scope expansion.
+
+## CURRENT — full861 on published7ca52f87; source frozen
+
+Read862. Local and actual remote7ca52f877878266c9659a7a491693ae2128f681e verified.
+861 began2026-09-26T14:36:06.088Z with empty test patch/no untracked source.
+One heavy process; no commits or consumed-source edits until its JSON closes.
+Compare837 failures by identity/cause, then qualify/publish and continue C.2-RM.
+860's focused checkpoint and supply measurements are complete and published.
+
 ## CURRENT — resumed ownership; Scientist integration verification
 
 Read854. Outgoing handoff publication completed at1f3091e6, verified against actual

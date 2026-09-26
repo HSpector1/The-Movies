@@ -779,7 +779,7 @@ describe('P14B.8 group11 — A8: the waiver draft offers only what this surface 
 describe('P14B.8 group12 — the projection moves 49 -> 50 and the outgoing identity is registered as a prior', () => {
   it('PROJECTION_VERSION is 51 and the schema document agrees', () => {
     expect(PROJECTION_VERSION).toBe(51)
-    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${String(PROTOCOL_VERSION)}:projection-50`)
+    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${String(PROTOCOL_VERSION)}:projection-51`)
     expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(51)
     expect(PROJECTION_VERSION).toBeGreaterThan(OUTGOING_PROJECTION)
   })

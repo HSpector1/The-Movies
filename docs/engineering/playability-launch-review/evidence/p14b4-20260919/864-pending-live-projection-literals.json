@@ -1,0 +1,28 @@
+{
+  "status": "Applied after861 closed and866 attribution; verified867:34PASS,868/869 types PASS",
+  "patchSha256": "5461d3ca811bef095735afa97e1e932c8f08704116f06efbc2d7913d360e132a",
+  "files": [
+    "tests/bridge-owner-ux-projection21-schema.test.ts",
+    "tests/bridge-p10a-w0-people-projection.test.ts",
+    "tests/bridge-p13b-r07-setup.test.ts",
+    "tests/bridge-p13b-s5-adoption.test.ts",
+    "tests/bridge-p13b-s6-cancellation.test.ts",
+    "tests/bridge-p13b-s7-disclosure.test.ts",
+    "tests/bridge-p13b-s8-rivals.test.ts",
+    "tests/bridge-p14a1-market.test.ts",
+    "tests/bridge-p14a2-market.test.ts",
+    "tests/bridge-p14a3-world.test.ts",
+    "tests/bridge-p14b1-promises.test.ts",
+    "tests/bridge-p14b2-trust.test.ts",
+    "tests/bridge-p14b6-relationship-read-models.test.ts",
+    "tests/bridge-p14b8-waiver-surface.test.ts",
+    "tests/bridge-r3n4-read-model-deltas.test.ts",
+    "tests/bridge.test.ts",
+    "tests/p14b5-save-v31.test.ts"
+  ],
+  "namePattern": "LIVE_SAVE_VERSION\\ is\\ 35\\ \\(stale\\ title\\ corrected\\ post\\-C\\.4\\)\\ and\\ the\\ live\\ promise\\ surface\\ carries\\ projection\\ 47\\ after\\ the\\ P14B\\.4\\ cutover\\ \\(record\\ 600\\ /\\ 616\\)|PROJECTION_VERSION\\ is\\ 40;\\ schema\\ \\$id\\ and\\ x\\-project\\-studio\\.projectionVersion\\ move\\ with\\ it|PROJECTION_VERSION\\ is\\ 46;\\ the\\ schema\\ \\$id\\ and\\ x\\-project\\-studio\\.projectionVersion\\ move\\ with\\ it|PROJECTION_VERSION\\ is\\ 51\\ and\\ the\\ schema\\ document\\ agrees|R9\\ the\\ served\\ section\\ is\\ projection\\ 32\\ and\\ the\\ projection\\-17/18\\ identities\\ stay\\ accepted|RED:\\ a\\ genuine\\ CURRENT\\ \\(live\\-version\\)\\ checkpoint\\ saved\\ and\\ reloaded\\ through\\ the\\ SAME\\ bridge\\ session\\ reports\\ converted:\\ false|bumps\\ PROJECTION_VERSION\\ to\\ 37\\ and\\ its\\ schema\\ \\$id\\ /\\ x\\-project\\-studio\\.projectionVersion\\ move\\ with\\ it|bumps\\ PROJECTION_VERSION\\ to\\ 41\\ and\\ its\\ schema\\ \\$id\\ /\\ x\\-project\\-studio\\.projectionVersion\\ move\\ with\\ it|family\\ 8\\ \u2014\\ the\\ WIRE|keeps\\ the\\ outgoing\\ projection\\-30\\ identity\\ registered\\ after\\ a\\ later\\ bump|pins\\ protocol\\ v4/projection\\ v32\\ and\\ fingerprints\\ named\\ projections\\ and\\ exact\\ intent\\ fields|pins\\ the\\ exact\\ version,\\ old\\-five\\-plus\\-two\\ attention\\ enum\\ and\\ unchanged\\ intent\\ vocabulary|pins\\ the\\ intended\\ version\\ and\\ required\\ envelope/profile\\ fields\\ independently|every\\ genuine\\ V30\\ case\\ migrates\\ through\\ migrateToV31|the\\ projection\\-47\\ checkpoint's\\ embedded\\ saves\\ load\\ through\\ the\\ live\\ route",
+  "expectedSelectedCases": 31,
+  "warning": "31 is a selection prediction, not an observed result. Includes the explicit V36\u219237 live-write equality chain; frozen V30/V31 byte assertions remain. Unselected tests are not new todo or newly committed skips.",
+  "fullRunEndBeforeApplication": "2026-09-26T15:29:51.981Z",
+  "observedSelectedCases": 34
+}

@@ -1,0 +1,24 @@
+{
+  "sourceSha": "7ca52f877878266c9659a7a491693ae2128f681e",
+  "testedDiffSha256": "d568138057bbc1e4e2ba8ef01ff84ab3233c46991316f0f87175b565aabab776",
+  "untrackedSource": [],
+  "command": [
+    "node_modules/.bin/vitest",
+    "run",
+    "--project",
+    "core",
+    "tests/bridge-runtime-checkpoint-prepared-reuse.test.ts",
+    "-t",
+    "preserves live authority on failed Save and replays the exact successful receipt after later changes and restart"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-26T15:39:45.119Z",
+  "end": "2026-09-26T15:40:01.051Z",
+  "exitCode": 0,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "7ca52f877878266c9659a7a491693ae2128f681e",
+  "testedDiffSha256AtEnd": "d568138057bbc1e4e2ba8ef01ff84ab3233c46991316f0f87175b565aabab776",
+  "untrackedSourceAtEnd": [],
+  "fixedSource": true
+}

@@ -1,0 +1,306 @@
+{
+  "fullRun": "861",
+  "sourceSha": "7ca52f877878266c9659a7a491693ae2128f681e",
+  "files": 372,
+  "tests": 4339,
+  "passed": 4242,
+  "failed": 86,
+  "todo": 11,
+  "against837": {
+    "new": 32,
+    "vanished": 0,
+    "retainedIdenticalDiagnostic": 53,
+    "retainedChangedDiagnostic": 1
+  },
+  "against822": {
+    "new": 31,
+    "vanished": 0,
+    "retainedIdenticalDiagnostic": 54,
+    "retainedChangedDiagnostic": 1
+  },
+  "temporaryPathOnly": [
+    {
+      "id": "core :: tests/world-first-scenery-load-in-provenance.test.ts > World-First Scenery Load-In V1 \u2014 frozen district provenance > replays the clean exporter and pins its deliberately non-runtime manifest",
+      "difference": "temporary exporter output-directory name only",
+      "sameAfterTempPathNormalization": true
+    }
+  ],
+  "newAttribution": [
+    {
+      "id": "core :: tests/bridge-owner-ux-projection21-schema.test.ts > Owner UX projection21 public field wire boundary > pins the intended version and required envelope/profile fields independently",
+      "preparedRepair": true,
+      "firstLine": "AssertionError: expected 'urn:project-studio:bridge:protocol-4:\u2026' to be 'urn:project-studio:bridge:protocol-4:\u2026' // Object.is equality",
+      "deltaLines": [],
+      "diagnosticSha256": "00cdb0007616a33349860b7571b9e92ac30c5f555755daafae8db4b3384a34e6"
+    },
+    {
+      "id": "core :: tests/bridge-p10a-w0-people-projection.test.ts > P10A W0 \u2014 people projection > R9 the served section is projection 32 and the projection-17/18 identities stay accepted",
+      "preparedRepair": true,
+      "firstLine": "AssertionError: expected 'urn:project-studio:bridge:protocol-4:\u2026' to be 'urn:project-studio:bridge:protocol-4:\u2026' // Object.is equality",
+      "deltaLines": [],
+      "diagnosticSha256": "00cdb0007616a33349860b7571b9e92ac30c5f555755daafae8db4b3384a34e6"
+    },
+    {
+      "id": "core :: tests/bridge-runtime-checkpoint-prepared-reuse.test.ts > prepared checkpoint representation reuse preserves authority boundaries > preserves live authority on failed Save and replays the exact successful receipt after later changes and restart",
+      "preparedRepair": false,
+      "firstLine": "Error: Test timed out in 20000ms.",
+      "deltaLines": [],
+      "diagnosticSha256": "38eac0010f80838ceea50dccc8c7176b09119a0de74496b19efee1ee3cceb00c"
+    },
+    {
+      "id": "core :: tests/bridge-p13b-r07-setup.test.ts > P13B-S5-R07-T3 bridge projection bump (37 -> 38; 46 after the P14B.2 bump) > PROJECTION_VERSION is 40; schema $id and x-project-studio.projectionVersion move with it",
+      "preparedRepair": true,
+      "firstLine": "AssertionError: expected 'urn:project-studio:bridge:protocol-4:\u2026' to contain 'projection-50'",
+      "deltaLines": [],
+      "diagnosticSha256": "892650027ba4ebbab29ee543bedbd96433bc4cad288482a7ff3cf575392c3900"
+    },
+    {
+      "id": "core :: tests/bridge-p13b-r07-setup.test.ts > extra pin (parent instruction): the bridge's save/load \"converted\" report against the CURRENT save version, not a stale literal 23 (bridge/session.ts:123) > RED: a genuine CURRENT (live-version) checkpoint saved and reloaded through the SAME bridge session reports converted: false",
+      "preparedRepair": true,
+      "firstLine": "AssertionError: expected 37 to be 36 // Object.is equality",
+      "deltaLines": [
+        "- 36",
+        "+ 37"
+      ],
+      "diagnosticSha256": "54aa56dfb9108c4fc8142a6a136ff44b4a1b137dea6c98a7fa15b80cab215fdc"
+    },
+    {
+      "id": "core :: tests/bridge-p13b-s5-adoption.test.ts > P13B-S5-T4 bridge adoption wire: projection bump (36 -> 37) > bumps PROJECTION_VERSION to 37 and its schema $id / x-project-studio.projectionVersion move with it",
+      "preparedRepair": true,
+      "firstLine": "AssertionError: expected 'urn:project-studio:bridge:protocol-4:\u2026' to contain 'projection-50'",
+      "deltaLines": [],
+      "diagnosticSha256": "892650027ba4ebbab29ee543bedbd96433bc4cad288482a7ff3cf575392c3900"
+    },
+    {
+      "id": "core :: tests/bridge-p13b-s6-cancellation.test.ts > P13B-S6-T3 item 1: projection version bump (38 -> 39; 46 after the P14B.2 bump) and the cancellationAction intent kind > bumps PROJECTION_VERSION to 41 and its schema $id / x-project-studio.projectionVersion move with it",
+      "preparedRepair": true,
+      "firstLine": "AssertionError: expected 'urn:project-studio:bridge:protocol-4:\u2026' to contain 'projection-50'",
+      "deltaLines": [],
+      "diagnosticSha256": "892650027ba4ebbab29ee543bedbd96433bc4cad288482a7ff3cf575392c3900"
+    },
+    {
+      "id": "core :: tests/bridge-p13b-s7-disclosure.test.ts > P13B-S7-T3 item 1: projection version bump 39 -> 40; 46 after the P14B.2 bump > bumps PROJECTION_VERSION to 41 and its schema $id / x-project-studio.projectionVersion move with it",
+      "preparedRepair": true,
+      "firstLine": "AssertionError: expected 'urn:project-studio:bridge:protocol-4:\u2026' to contain 'projection-50'",
+      "deltaLines": [],
+      "diagnosticSha256": "892650027ba4ebbab29ee543bedbd96433bc4cad288482a7ff3cf575392c3900"
+    },
+    {
+      "id": "core :: tests/bridge-p13b-s8-rivals.test.ts > P13B-S8-T3 item 1: projection version bump 40 -> 41; converted flag > bumps PROJECTION_VERSION to 41 and its schema $id / x-project-studio.projectionVersion move with it",
+      "preparedRepair": true,
+      "firstLine": "AssertionError: expected 'urn:project-studio:bridge:protocol-4:\u2026' to contain 'projection-50'",
+      "deltaLines": [],
+      "diagnosticSha256": "892650027ba4ebbab29ee543bedbd96433bc4cad288482a7ff3cf575392c3900"
+    },
+    {
+      "id": "core :: tests/bridge-p14a1-market.test.ts > group 1: PROJECTION_VERSION > PROJECTION_VERSION is 46; the schema $id and x-project-studio.projectionVersion move with it",
+      "preparedRepair": true,
+      "firstLine": "AssertionError: expected 'urn:project-studio:bridge:protocol-4:\u2026' to be 'urn:project-studio:bridge:protocol-4:\u2026' // Object.is equality",
+      "deltaLines": [],
+      "diagnosticSha256": "00cdb0007616a33349860b7571b9e92ac30c5f555755daafae8db4b3384a34e6"
+    },
+    {
+      "id": "core :: tests/bridge-p14a2-market.test.ts > group 1: PROJECTION_VERSION 46 / schema / view market / converted law > PROJECTION_VERSION is 46; the schema $id and x-project-studio.projectionVersion move with it",
+      "preparedRepair": true,
+      "firstLine": "AssertionError: expected 'urn:project-studio:bridge:protocol-4:\u2026' to be 'urn:project-studio:bridge:protocol-4:\u2026' // Object.is equality",
+      "deltaLines": [],
+      "diagnosticSha256": "00cdb0007616a33349860b7571b9e92ac30c5f555755daafae8db4b3384a34e6"
+    },
+    {
+      "id": "core :: tests/bridge-p14a3-world.test.ts > group 1: PROJECTION_VERSION 46 / schema / converted law > PROJECTION_VERSION is 46; the schema $id and x-project-studio.projectionVersion move with it",
+      "preparedRepair": true,
+      "firstLine": "AssertionError: expected 'urn:project-studio:bridge:protocol-4:\u2026' to be 'urn:project-studio:bridge:protocol-4:\u2026' // Object.is equality",
+      "deltaLines": [],
+      "diagnosticSha256": "00cdb0007616a33349860b7571b9e92ac30c5f555755daafae8db4b3384a34e6"
+    },
+    {
+      "id": "core :: tests/bridge-p14b1-promises.test.ts > group 1: PROJECTION_VERSION / LIVE_SAVE_VERSION > LIVE_SAVE_VERSION is 35 (stale title corrected post-C.4) and the live promise surface carries projection 47 after the P14B.4 cutover (record 600 / 616)",
+      "preparedRepair": true,
+      "firstLine": "AssertionError: expected 'urn:project-studio:bridge:protocol-4:\u2026' to be 'urn:project-studio:bridge:protocol-4:\u2026' // Object.is equality",
+      "deltaLines": [],
+      "diagnosticSha256": "00cdb0007616a33349860b7571b9e92ac30c5f555755daafae8db4b3384a34e6"
+    },
+    {
+      "id": "core :: tests/bridge-p14b2-trust.test.ts > P14B.2 group1 \u2014 projection46, unchanged Save29/intents, closed wire shapes > pins the exact version, old-five-plus-two attention enum and unchanged intent vocabulary",
+      "preparedRepair": true,
+      "firstLine": "AssertionError: expected 'urn:project-studio:bridge:protocol-4:\u2026' to be 'urn:project-studio:bridge:protocol-4:\u2026' // Object.is equality",
+      "deltaLines": [],
+      "diagnosticSha256": "00cdb0007616a33349860b7571b9e92ac30c5f555755daafae8db4b3384a34e6"
+    },
+    {
+      "id": "core :: tests/bridge-p14b6-relationship-read-models.test.ts > family 8 \u2014 the WIRE (RED BY VALUE: version literals and a registry count; no absent module is imported here) > projection 50, schema $id projection-50, LIVE_SAVE_VERSION now 34 (stale title corrected post-C.2a; B.6 itself has no save step), and the outgoing 48 identity is retired",
+      "preparedRepair": true,
+      "firstLine": "AssertionError: expected 51 to be 50 // Object.is equality",
+      "deltaLines": [
+        "- 50",
+        "+ 51"
+      ],
+      "diagnosticSha256": "aa80fda35241683cbf74b9b8e08ea2b33c9df0ba6a75c04d5bd39442a9901ce9"
+    },
+    {
+      "id": "core :: tests/bridge-p14b6-relationship-read-models.test.ts > family 8 \u2014 the WIRE (RED BY VALUE: version literals and a registry count; no absent module is imported here) > the outgoing 00c0075b\u2026 registers as projection-v48 and the prior roster goes 37 -> 38 in sorted position",
+      "preparedRepair": true,
+      "firstLine": "AssertionError: expected [ \u2026(39) ] to deeply equal [ \u2026(38) ]",
+      "deltaLines": [
+        "+   \"sha256:e2d354dcbae1a6dc93a2367756512c14243b11be202a26107de0c81a4f3e0698\","
+      ],
+      "diagnosticSha256": "9f22584dbab5c4ea4f6f47cb6b249f373b98199d18f09eba818b7b74e9f2534c"
+    },
+    {
+      "id": "core :: tests/bridge-p14b6-relationship-read-models.test.ts > family 8 \u2014 the WIRE (RED BY VALUE: version literals and a registry count; no absent module is imported here) > the checked-in generator artifacts equal the running identity (`--check` clean), and priorityOrder keeps its seven members and its line",
+      "preparedRepair": true,
+      "firstLine": "AssertionError: expected 51 to be 50 // Object.is equality",
+      "deltaLines": [
+        "- 50",
+        "+ 51"
+      ],
+      "diagnosticSha256": "aa80fda35241683cbf74b9b8e08ea2b33c9df0ba6a75c04d5bd39442a9901ce9"
+    },
+    {
+      "id": "core :: tests/bridge-p14b8-waiver-surface.test.ts > P14B.8 group12 \u2014 the projection moves 49 -> 50 and the outgoing identity is registered as a prior > PROJECTION_VERSION is 51 and the schema document agrees",
+      "preparedRepair": true,
+      "firstLine": "AssertionError: expected 'urn:project-studio:bridge:protocol-4:\u2026' to be 'urn:project-studio:bridge:protocol-4:\u2026' // Object.is equality",
+      "deltaLines": [],
+      "diagnosticSha256": "00cdb0007616a33349860b7571b9e92ac30c5f555755daafae8db4b3384a34e6"
+    },
+    {
+      "id": "core :: tests/bridge-r3n4-read-model-deltas.test.ts > R3-N4-SIM-20 \u2014 batched N4/N5/N6 read-model deltas (projection 31) > keeps the outgoing projection-30 identity registered after a later bump",
+      "preparedRepair": true,
+      "firstLine": "AssertionError: expected 'urn:project-studio:bridge:protocol-4:\u2026' to be 'urn:project-studio:bridge:protocol-4:\u2026' // Object.is equality",
+      "deltaLines": [],
+      "diagnosticSha256": "00cdb0007616a33349860b7571b9e92ac30c5f555755daafae8db4b3384a34e6"
+    },
+    {
+      "id": "core :: tests/bridge.test.ts > Current-game Unity adoption bridge > pins protocol v4/projection v32 and fingerprints named projections and exact intent fields",
+      "preparedRepair": true,
+      "firstLine": "AssertionError: expected 51 to be 50 // Object.is equality",
+      "deltaLines": [
+        "- 50",
+        "+ 51"
+      ],
+      "diagnosticSha256": "aa80fda35241683cbf74b9b8e08ea2b33c9df0ba6a75c04d5bd39442a9901ce9"
+    },
+    {
+      "id": "core :: tests/p14b5-save-v31.test.ts > family 9 \u2014 every genuine V30 case migrates through migrateToV31 with an EMPTY root, otherwise byte-identical; lossless downgrade when empty > genuine V30 empty",
+      "preparedRepair": true,
+      "firstLine": "AssertionError: expected { saveVersion: 37, \u2026(3) } to deeply equal { saveVersion: 36, \u2026(3) }",
+      "deltaLines": [
+        "-   \"saveVersion\": 36,",
+        "+   \"saveVersion\": 37,"
+      ],
+      "diagnosticSha256": "aa30a3f614934ba5e7f887c6524bd320b0f0d8b9c3824d9b6c0c713f8e640ae3"
+    },
+    {
+      "id": "core :: tests/p14b5-save-v31.test.ts > family 9 \u2014 every genuine V30 case migrates through migrateToV31 with an EMPTY root, otherwise byte-identical; lossless downgrade when empty > genuine V30 current-p1",
+      "preparedRepair": true,
+      "firstLine": "AssertionError: expected { saveVersion: 37, \u2026(3) } to deeply equal { saveVersion: 36, \u2026(3) }",
+      "deltaLines": [
+        "-   \"saveVersion\": 36,",
+        "+   \"saveVersion\": 37,"
+      ],
+      "diagnosticSha256": "aa30a3f614934ba5e7f887c6524bd320b0f0d8b9c3824d9b6c0c713f8e640ae3"
+    },
+    {
+      "id": "core :: tests/p14b5-save-v31.test.ts > family 9 \u2014 every genuine V30 case migrates through migrateToV31 with an EMPTY root, otherwise byte-identical; lossless downgrade when empty > genuine V30 bound-open-p1",
+      "preparedRepair": true,
+      "firstLine": "AssertionError: expected { saveVersion: 37, \u2026(3) } to deeply equal { saveVersion: 36, \u2026(3) }",
+      "deltaLines": [
+        "-   \"saveVersion\": 36,",
+        "+   \"saveVersion\": 37,"
+      ],
+      "diagnosticSha256": "aa30a3f614934ba5e7f887c6524bd320b0f0d8b9c3824d9b6c0c713f8e640ae3"
+    },
+    {
+      "id": "core :: tests/p14b5-save-v31.test.ts > family 9 \u2014 every genuine V30 case migrates through migrateToV31 with an EMPTY root, otherwise byte-identical; lossless downgrade when empty > genuine V30 bound-open-p2-lead",
+      "preparedRepair": true,
+      "firstLine": "AssertionError: expected { saveVersion: 37, \u2026(3) } to deeply equal { saveVersion: 36, \u2026(3) }",
+      "deltaLines": [
+        "-   \"saveVersion\": 36,",
+        "+   \"saveVersion\": 37,"
+      ],
+      "diagnosticSha256": "aa30a3f614934ba5e7f887c6524bd320b0f0d8b9c3824d9b6c0c713f8e640ae3"
+    },
+    {
+      "id": "core :: tests/p14b5-save-v31.test.ts > family 9 \u2014 every genuine V30 case migrates through migrateToV31 with an EMPTY root, otherwise byte-identical; lossless downgrade when empty > genuine V30 bound-open-p2-lead-or-antagonist",
+      "preparedRepair": true,
+      "firstLine": "AssertionError: expected { saveVersion: 37, \u2026(3) } to deeply equal { saveVersion: 36, \u2026(3) }",
+      "deltaLines": [
+        "-   \"saveVersion\": 36,",
+        "+   \"saveVersion\": 37,"
+      ],
+      "diagnosticSha256": "aa30a3f614934ba5e7f887c6524bd320b0f0d8b9c3824d9b6c0c713f8e640ae3"
+    },
+    {
+      "id": "core :: tests/p14b5-save-v31.test.ts > family 9 \u2014 every genuine V30 case migrates through migrateToV31 with an EMPTY root, otherwise byte-identical; lossless downgrade when empty > genuine V30 kept-and-broken",
+      "preparedRepair": true,
+      "firstLine": "AssertionError: expected { saveVersion: 37, \u2026(3) } to deeply equal { saveVersion: 36, \u2026(3) }",
+      "deltaLines": [
+        "-   \"saveVersion\": 36,",
+        "+   \"saveVersion\": 37,"
+      ],
+      "diagnosticSha256": "aa30a3f614934ba5e7f887c6524bd320b0f0d8b9c3824d9b6c0c713f8e640ae3"
+    },
+    {
+      "id": "core :: tests/p14b5-save-v31.test.ts > family 9 \u2014 every genuine V30 case migrates through migrateToV31 with an EMPTY root, otherwise byte-identical; lossless downgrade when empty > genuine V30 rival-current-p1-and-p2",
+      "preparedRepair": true,
+      "firstLine": "AssertionError: expected { saveVersion: 37, \u2026(3) } to deeply equal { saveVersion: 36, \u2026(3) }",
+      "deltaLines": [
+        "-   \"saveVersion\": 36,",
+        "+   \"saveVersion\": 37,"
+      ],
+      "diagnosticSha256": "aa30a3f614934ba5e7f887c6524bd320b0f0d8b9c3824d9b6c0c713f8e640ae3"
+    },
+    {
+      "id": "core :: tests/p14b5-save-v31.test.ts > family 9 \u2014 every genuine V30 case migrates through migrateToV31 with an EMPTY root, otherwise byte-identical; lossless downgrade when empty > genuine V30 rival-shared-take-terminal",
+      "preparedRepair": true,
+      "firstLine": "AssertionError: expected { saveVersion: 37, \u2026(3) } to deeply equal { saveVersion: 36, \u2026(3) }",
+      "deltaLines": [
+        "-   \"saveVersion\": 36,",
+        "+   \"saveVersion\": 37,"
+      ],
+      "diagnosticSha256": "aa30a3f614934ba5e7f887c6524bd320b0f0d8b9c3824d9b6c0c713f8e640ae3"
+    },
+    {
+      "id": "core :: tests/p14b5-save-v31.test.ts > family 9 \u2014 every genuine V30 case migrates through migrateToV31 with an EMPTY root, otherwise byte-identical; lossless downgrade when empty > genuine V30 first-take-at-five",
+      "preparedRepair": true,
+      "firstLine": "AssertionError: expected { saveVersion: 37, \u2026(3) } to deeply equal { saveVersion: 36, \u2026(3) }",
+      "deltaLines": [
+        "-   \"saveVersion\": 36,",
+        "+   \"saveVersion\": 37,"
+      ],
+      "diagnosticSha256": "aa30a3f614934ba5e7f887c6524bd320b0f0d8b9c3824d9b6c0c713f8e640ae3"
+    },
+    {
+      "id": "core :: tests/p14b5-save-v31.test.ts > family 9 \u2014 every genuine V30 case migrates through migrateToV31 with an EMPTY root, otherwise byte-identical; lossless downgrade when empty > genuine V30 legacy-count-only-p2-current-draft",
+      "preparedRepair": true,
+      "firstLine": "AssertionError: expected { saveVersion: 37, \u2026(3) } to deeply equal { saveVersion: 36, \u2026(3) }",
+      "deltaLines": [
+        "-   \"saveVersion\": 36,",
+        "+   \"saveVersion\": 37,"
+      ],
+      "diagnosticSha256": "aa30a3f614934ba5e7f887c6524bd320b0f0d8b9c3824d9b6c0c713f8e640ae3"
+    },
+    {
+      "id": "core :: tests/p14b5-save-v31.test.ts > family 9 \u2014 the projection-47 checkpoint's embedded saves load through the live route > currentSaveJson lifts with an empty root and every other root byte-identical to its own genuine V30 bytes",
+      "preparedRepair": true,
+      "firstLine": "AssertionError: expected { saveVersion: 37, \u2026(3) } to deeply equal { saveVersion: 36, \u2026(3) }",
+      "deltaLines": [
+        "-   \"saveVersion\": 36,",
+        "+   \"saveVersion\": 37,"
+      ],
+      "diagnosticSha256": "7ff381decf32fb1d2503315890cc61fa9389006a92c6bf109153b22597891cad"
+    },
+    {
+      "id": "core :: tests/p14b5-save-v31.test.ts > family 9 \u2014 the projection-47 checkpoint's embedded saves load through the live route > savedSaveJson lifts with an empty root and every other root byte-identical to its own genuine V30 bytes",
+      "preparedRepair": true,
+      "firstLine": "AssertionError: expected { saveVersion: 37, \u2026(3) } to deeply equal { saveVersion: 36, \u2026(3) }",
+      "deltaLines": [
+        "-   \"saveVersion\": 36,",
+        "+   \"saveVersion\": 37,"
+      ],
+      "diagnosticSha256": "7ff381decf32fb1d2503315890cc61fa9389006a92c6bf109153b22597891cad"
+    }
+  ],
+  "inheritedTimeout": "core :: tests/bridge-runtime-checkpoint-prepared-reuse.test.ts > prepared checkpoint representation reuse preserves authority boundaries > preserves live authority on failed Save and replays the exact successful receipt after later changes and restart",
+  "productionDefectClaim": "No new production failure identified; 31 current-boundary test repairs and unchanged timeout verification remain."
+}

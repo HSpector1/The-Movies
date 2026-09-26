@@ -136,7 +136,7 @@ describe('P14B.2 group1 — projection46, unchanged Save29/intents, closed wire 
     readModels(state, state.talent[0]!.id)
     expect(PROJECTION_VERSION).toBe(51)
     expect(LIVE_SAVE_VERSION).toBe(37)
-    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${PROTOCOL_VERSION}:projection-50`)
+    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${PROTOCOL_VERSION}:projection-51`)
     expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(51)
     const attentionSchema = schemaDefinition('StudioMarketAttentionRowSnapshot') as unknown as { properties: { cause: { enum: string[] } } }
     expect(attentionSchema.properties.cause.enum).toEqual(['decisionWeekNear', 'newCompetingProposal', 'termsRevised',

@@ -1,5 +1,33 @@
 # CODEX continuation — Project Studio
 
+## CURRENT — Scientist qualified by871; C.2-RM next
+
+Read evidence/p14b4-20260919/871-scientist-qualification.md. Scientist production
+remains697a6039, Save37/projection51/protocol4. Full861 CLOSED/fixedSource:true on
+published7ca52f87:4242PASS/86FAIL/11todo.866 attributes54 inherited failures, known
+FU-2 timeout and31 stale test expectations. Test-only repairs pass867:34PASS;
+868 root/UI and869 bridge types PASS;870 unchanged FU-2 PASS in isolation.
+This is composite qualification, not an all-green full run on the later commit.
+All27 Scientist tests pass in861. Existing genuine fixtures/new Scientist tests
+unchanged. No active test process or specialist owns this checkpoint.
+
+NEXT: publish/verify actual remote, independently review863's C.2-RM expansion,
+fix API contract, preserve genuine outgoing51 runtime before52 edits, independent
+RED, sole production writer, focused/generated/type/full checks and publication.
+Owner allows fresh specialists for this new task after Scientist verification:
+maximum two, separate test/review ownership, parent sole production writer and
+single heavy-test owner. No nested agents. Unity/native deferred; no scope expansion.
+
+## CURRENT — full Scientist run861 active on published7ca52f87
+
+Read862. Actual GitHub branch and local HEAD verified equal
+7ca52f877878266c9659a7a491693ae2128f681e. 861 started14:36:06.088Z, empty
+tested patch, no untracked source. Inspect861 JSON/process before another heavy
+run or any source edit/commit. Wait for completion, compare837 by failure identity
+and cause, preserve any new defect, then qualify/publish. 860 is the completed
+focused checkpoint:373PASS, root/UI/bridge types and generated checks PASS,
+bounded supply measured. C.2-RM design-ahead only while the full run owns source.
+
 ## CURRENT RESUME — Scientist focused checkpoint; full verification next
 
 Read854-scientist-resumed-verification.md. Recovery waited for the outgoing owner

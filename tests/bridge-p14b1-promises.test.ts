@@ -206,7 +206,7 @@ describe('group 1: PROJECTION_VERSION / LIVE_SAVE_VERSION', () => {
   it('LIVE_SAVE_VERSION is 35 (stale title corrected post-C.4) and the live promise surface carries projection 47 after the P14B.4 cutover (record 600 / 616)', () => {
     expect(LIVE_SAVE_VERSION).toBe(37)
     expect(PROJECTION_VERSION).toBe(51)
-    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${String(PROTOCOL_VERSION)}:projection-50`)
+    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${String(PROTOCOL_VERSION)}:projection-51`)
     expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(51)
   })
 })

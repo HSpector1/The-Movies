@@ -25,7 +25,7 @@ import { existsSync, readFileSync } from 'node:fs'
 import { gunzipSync } from 'node:zlib'
 import { describe, expect, it } from 'vitest'
 import {
-  LIVE_SAVE_VERSION, convertV30ToV29, convertV30ToV31, convertV31ToV30, convertV31ToV32, convertV32ToV33, convertV33ToV34, convertV34ToV35, convertV35ToV36, exportSave, importSave, loadSave, makeSave,
+  LIVE_SAVE_VERSION, convertV30ToV29, convertV30ToV31, convertV31ToV30, convertV31ToV32, convertV32ToV33, convertV33ToV34, convertV34ToV35, convertV35ToV36, convertV36ToV37, exportSave, importSave, loadSave, makeSave,
   migrateToV26, migrateToV27, migrateToV28, migrateToV29, migrateToV30, migrateToV31, validateSave, validateSaveV29,
   validateSaveV30, validateSaveV31,
 } from '../src/core/save.js'
@@ -174,7 +174,8 @@ function liftsLosslessly(raw: string, save: V30Save) {
   // `cohorts` inside the same root, same reasoning one step further out.
   // P14C.2b: the live writer now stamps V36, one further governed step — every
   // record unused and every case `expiry`, same reasoning one step further out.
-  const liveEnvelope = convertV35ToV36(convertV34ToV35(convertV33ToV34(convertV32ToV33(convertV31ToV32(lifted)))))
+  // Scientist: one state-preserving semantic step from36 to the live37 boundary.
+  const liveEnvelope = convertV36ToV37(convertV35ToV36(convertV34ToV35(convertV33ToV34(convertV32ToV33(convertV31ToV32(lifted))))))
   expect(makeSave(liveEnvelope.state)).toEqual(liveEnvelope)
   expect(convertV30ToV31(save)).toEqual(lifted)
   // lossless when empty: both downgrade routes reproduce the V30 bytes
