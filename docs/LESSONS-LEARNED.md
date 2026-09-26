@@ -3731,3 +3731,79 @@ validated. But the experiment's sharpest acquisition lesson is WHERE reuse pays.
   ordinary locator pointer and keyboard proofs at normal scale. Record the distinction explicitly.
 - **Pattern:** geometry proof + real visual-coordinate input. **Anti-pattern:** equating CDP-scaled
   locator coordinates with product hit geometry or using synthetic DOM activation as a substitute.
+
+---
+
+# P14C — retirement, replenishment and the final extension (headless program, 2026-09-25/26)
+
+Context: Claude Opus coordinator under `OPUS-C2-TO-CODEX-LAUNCH`, branch `wip/headless-program-20260916-ts`,
+from `f3652852` to the Codex handoff `f907b1df`. Closed P14C.2a (789), P14C.4 (805) and P14C.2b (818), each
+LOGIC VERIFIED · UNITY NOT VERIFIED. Records under `docs/engineering/playability-launch-review/evidence/p14b4-20260919/`.
+
+## GJ. Never commit during a recorded run — **BR**
+
+- **Symptom:** run 803 lost `fixedSource` because a docs-only resume commit moved HEAD mid-run (804).
+- **Root cause:** the recorder compares HEAD strictly; "docs only" is invisible to it.
+- **Resolution:** a source-path equivalence proof, plus a clean final run (805). Runs 816 and 822 held every
+  commit until the completion notification and both recorded `fixedSource: true`.
+- **Pattern:** stage docs locally during a run; commit after. **Anti-pattern:** "it's only docs".
+
+## GK. A missing required key must throw, never be skipped — **BR**
+
+- **Symptom:** after the C.2b implementation, `p14c2a-consumers` measured green. It was green only because
+  hand-built records lacked `extensionUsed`, so discovery silently skipped them. Once the sweep added the key,
+  three real outcomes appeared (817).
+- **Resolution:** `readExtensionUsed` throws naming the person; the full matched run exposed the true results.
+- **Pattern:** a live reader of a new field fails loudly on its absence. **Anti-pattern:** `!== false` guards
+  that let a legacy-shaped object pass as "not applicable".
+
+## GL. Migrate a pre-live-version state before ticking it — **P, MG**
+
+- **Symptom:** both the C.4 and the C.2b first REDs ticked frozen V34/V35 fixtures under the newer live engine
+  and failed for the wrong reason (795 §8, 810 §8).
+- **Fastest diagnostic:** check which validator the fixture helper calls; a frozen-version validator feeding
+  `tick` is the defect.
+- **Pattern:** fixture helpers return a `migrateToLive` state for anything that ticks or saves.
+
+## GM. Pre-register the matched-pass prediction, including a named sharp falsifier — **MG, BR**
+
+- **What worked:** 814 named, before the run, that seed-b's retired rival row would return as an extension at
+  week 416 with `takes` and `rng` unmoved. The run matched it exactly, and 817 scored every line. The
+  prediction also exposed its own gaps (event-id renumbering, a new reason sentence), which were recorded as
+  refinements rather than hidden.
+- **Anti-pattern:** writing the prediction after seeing results, or bounding it only by counts.
+
+## GN. A sweep's per-file residual list does not replace the full matched run — **BR**
+
+- **Symptom:** the V36 sweep record listed one behavioural failure; the matched run found four, and the sweep
+  record and its author's hand-back disagreed about one of them (817 §5).
+- **Pattern:** treat the sweep's list as input; the full recorded run is the authority. Attribute every
+  new failure by probe (disposable test copy plus a `git archive` of the pre-implementation commit) before
+  changing any expectation.
+
+## GO. A contract that says "passes unmodified" must scope what it covers — **MG**
+
+- **Symptom:** 806 §3 and 780 §6.2 said the C.2a/C.4 suites would pass unmodified. True for the tick split they
+  checked, false once the extension itself reached those worlds (818 §5).
+- **Pattern:** name the mechanism the claim protects, and list the worlds the new behaviour can reach.
+
+## GP. Take every clock time from `date` — **BR**
+
+- **Symptom:** three estimated times in resume notes were wrong by 8 to 45 minutes, and a false cause for a
+  wall-time difference was drafted in 820; all were corrected before commit.
+- **Pattern:** any written time comes from a `date` call in the same command. Compare CPU time, not wall time,
+  before blaming code (C.4's orphaned background process tripled wall times; check `ps` after killing a
+  backgrounded pipeline).
+
+## GQ. Read-only reviewers without search leave items unverified; close them by shell — **MG**
+
+- **Symptom:** the contract-auditor sessions had Read only (no Glob/Grep) in 798 and 815, so exhaustive counts
+  and "no reader exists" claims were marked NOT VERIFIED.
+- **Resolution:** the parent closed each with grep and recorded the commands (815 addendum).
+- **Pattern:** ask the reviewer to list what it could not verify; close each by measurement before checkpoint.
+
+## GR. Author the RED in an isolated worktree at the scaffold — **BR**
+
+- **What worked:** C.4 and C.2b REDs were written against a throwing scaffold, so every non-justified case was
+  shown to fail before the implementation existed, and the originals were archived before any run against the
+  writer's code. Test-side repairs afterwards were traced one by one (root cause first), never tuned to green.
