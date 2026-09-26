@@ -1,5 +1,32 @@
 # CODEX continuation — Project Studio
 
+## CURRENT RESUME — Codex C.2c implementation continuation
+
+Owner's CODEX-ASTRA-CONTINUE packet is active. Source at entry and remote verified
+`9b170660398e605be149994400bf092415c78a07`; branch and worktree unchanged.
+No prior test/worker child jobs overlapped; prior Claude ownership is yielded.
+Codex carries the sim-core/test-author contracts with two specialists maximum,
+one production writer and parent-owned test/publication slots. No Claude invoked.
+
+**NEXT / in flight:** C.2c independent RED before production. Read
+`evidence/p14b4-20260919/823-c2c-retirement-promises-expansion.md` for the corrected
+admission-cutoff trigger and requirement-to-test map. VOIDED is Owner-selected;
+the exact timing is a delegated decision, not Owner-selected announcement timing.
+An early optimistic-capacity trigger was rejected during review before coding.
+Test author owns only new C.2c tests/helpers; production source is still unchanged.
+
+Outgoing runtime preservation completed BEFORE source changes:
+`tests/fixtures/p14/genuine-projection50-runtime-c2rm/MANIFEST.json`, minted by
+the retained `824-mint-outgoing-runtime50.ts` at the entry SHA. Actual projection50 /
+Save36 producer: current week53 and saved week52 independently preserved and decoded.
+No fixture relabeling. Save36 / projection50 / protocol4 / promise rules4 remain live.
+
+Last full test evidence remains 822: 55 inherited failures, qualified, not green.
+No new C.2c test pass or implementation checkpoint is claimed yet. No heavy run
+is active at this note. Next: run the independent RED, implement with sim-core,
+stable review and matched verification; then Scientist62/72 amendment and C.2-RM.
+Unity/native remains deferred. Continue through the authorized later packages.
+
 ## CURRENT RESUME — Codex handoff from the Claude Opus coordinator (written 08:14 CEST 2026-09-26; supersedes every "Current …" section below)
 
 - **Repository / branch / absolute working directory / remote:** HSpector1/The-Movies · `wip/headless-program-20260916-ts` · `/Users/zacheryspector/The-Movies-headless-program` · `origin` = https://github.com/HSpector1/The-Movies.git.
