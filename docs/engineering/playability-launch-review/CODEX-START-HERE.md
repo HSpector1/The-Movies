@@ -1,5 +1,70 @@
 # CODEX continuation — Project Studio
 
+## CURRENT — G4 tests/types/review complete; publishing1037
+
+1021 fourPASS24.184s,269calls;1022roottypesPASS47.825s,closed23:21:48.994Z.
+Samefixedsource0d22d885 plus025017c2;1033-A finalKEEP. Allheavyrunsclosed.
+1036 preservesoriginal1020testlookupfailure andunreachedassertionlimits; only
+testidentitywasrepaired. Parentpublishes1037 now, thenreleases1034 inventory
+producer. Existingauthor/revieweridle; parentsoleproductionwriter/heavyexecutor.
+StageCactualhistory/boundaries,StageD53/runtime/SaveAs,full/endurance remain;
+partialSave38/projection52 andUnity/native deferralunchanged.
+
+## CURRENT — four genuine equal-evidence cases pass; types active
+
+1021 correctedrun4PASS24.184s,fixedSource,269calls(main260+repeat9). Both
+eligibletuples genuinelydeclinedAll at208 andloadedcontinuationremainedfinal
+through260.1036 preserves1020's testidentityfailure; noproductionchange.
+1022roottypes ACTIVE(session63563) on0d22d885 plus025017c2; allsource/HEADfrozen.
+Final1033review/parent1037checkpoint next. Authoridle; revieweronlydocs. After
+publication release1034's128-worldzero-tickinventory beforeanyselectedStageC
+trajectory. RemainingStageC/D/fullverification/native deferralunchanged.
+
+## CURRENT — G4 corrected identity rerun active
+
+1021-c3-equal-tuple-identity-correction started2026-09-26T23:20:22.495Z (session45640),
+soleheavy lane,0d22d885 plus025017c257842f378c35ca556b48eda30bc19a9731a1b409945188e345fef453.
+Only T3's exactmarketcase lookup changed; expectedexpired/208 and all behavior
+assertions remain. Helperunchanged; reviewerindependentlyconfirmedattribution/
+correctionKEEP. Original1020failure preserved in1036. Allsource/HEADfrozen until
+closure; no resultclaim yet. Author only1032docs; reviewer1033docs. Nextreadactual
+result,types/review/checkpoint, then1034 inventory andremainingauthorizedwork.
+
+## CURRENT — G4 first result3PASS/1 test-identity failure
+
+1020 closed23:18:14.960Z,fixedSource,24.065s,3PASS1FAIL. Actual269calls
+(main260/repeat9), fourreleases16/25/34/43.1036 attributes T3's nonexistent
+case.id lookup selecting an unrelatedcase. Expectedno-offerexpired remains;
+onlyexactcaseidentity testcorrection isreleased. Helper/productionunchanged.
+T1/T2/T4 pass; laterT3assertions remainunreached. All heavyprocessesclosed.
+Authorcorrects newtest only/refreezes; reviewer1033 independentlychecks. Parent
+thenrerun/types/checkpoint;1034inventory andlaterStageC/D/full gatesremain.
+
+## CURRENT — genuine equal-tuple first run active
+
+Parent1020-c3-equal-tuple-first started2026-09-26T23:17:50.895Z in soleheavy lane
+(exec session51168), source0d22d885 plus
+6b436c00c451f57680b18f40c7a22691c4f42e96f6a7491f10c5be8be4ebf2b0. Four
+T1–T4 cases/max300ticks/world260. Consumedsource/HEAD frozen until recorded
+closure. Author only1032-A handbackdocs; reviewer1033-A source/results. Corrected
+setup parenthesis beforeexecution; actualearlyreleaseage differsfrom208's73.
+ReadactualJSON/raw beforeclaimingresult. Nextattribute/fixifneeded/types/review/
+checkpoint, then accepted1034-A finitezero-tickinventory, separateStageCactual
+continuations/boundaries,1030StageD53/runtime and1029fullgates. Unity/native deferred.
+
+## CURRENT — 0d22d885 published; G4 equal-evidence tests released
+
+Local/GitHub refs independently matched0d22d885d251d0a02bd1cbd7fb1b51358518a32b;
+wholeworktree clean at verification.1031 records eight off-menu PASS, roottypes
+PASS and1027-A KEEP. Both real58-week extensions and binding floors qualified.
+All heavy processes closed. Existing author owns only NEW1028-A G4 helper/test
+and1032-A: fourleaves/max300ticks/world260, actual A/B/A/B with largerA first,
+smallerB canonical witness, equalpublictuple decline208 and loadedfinality260.
+Reviewer owns1033-A review and docs-only1034-A finite StageC inventory plan.
+Parent soleproductionwriter/heavyexecutor; sourcefreeze beforefirstG4run.
+Then StageC history/append/dormant/isolation,1030 StageD53/runtime/SaveAs,1029
+full/endurance gates. PartialSave38/projection52/native deferral unchanged.
+
 ## CURRENT — off-menu tests and types pass; preparing1031 checkpoint
 
 1018 first eight casesPASS158.906s;1019 roottypesPASS63.640s,closed23:02:36.578Z.

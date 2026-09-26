@@ -1,0 +1,46 @@
+{"sourceSha":"0d22d885d251d0a02bd1cbd7fb1b51358518a32b","testedDiffSha256":"6b436c00c451f57680b18f40c7a22691c4f42e96f6a7491f10c5be8be4ebf2b0","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14c3-equal-tuple-evidence.test.ts"],"node":"v20.20.2","start":"2026-09-26T23:17:50.895Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+stdout | tests/p14c3-equal-tuple-evidence.test.ts
+C3_G4_ACTUAL_ROUTES {"tickCalls":{"main":260,"repeat":9},"totalTickCalls":269,"mainPictures":[{"pair":"A","takeWeek":13,"releaseWeek":16,"stateWeek":17},{"pair":"B","takeWeek":22,"releaseWeek":25,"stateWeek":26},{"pair":"A","takeWeek":31,"releaseWeek":34,"stateWeek":35},{"pair":"B","takeWeek":40,"releaseWeek":43,"stateWeek":44}],"repeatPictures":[{"pair":"A","takeWeek":22,"releaseWeek":25,"stateWeek":26}]}
+
+ ❯ |core| tests/p14c3-equal-tuple-evidence.test.ts (4 tests | 1 failed) 16537ms
+   ✓ C.3 genuine equal public tuples and canonical counterpart evidence > T1 distinguishes A/B from A/A contexts at the same two actual acting pictures 4448ms
+   ✓ C.3 genuine equal public tuples and canonical counterpart evidence > T2 chooses later encountered smaller B witnesses from actual A/B/A/B tied pairs 1363ms
+   × C.3 genuine equal public tuples and canonical counterpart evidence > T3 genuinely declines both eligible equal careers at natural retirement208 4277ms
+     → expected { …(8) } to match object { outcome: 'expired', closedWeek: 208 }
+(6 matching properties omitted from actual)
+   ✓ C.3 genuine equal public tuples and canonical counterpart evidence > T4 reloads actual208 and preserves terminal finality through every week to260 6444ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14c3-equal-tuple-evidence.test.ts > C.3 genuine equal public tuples and canonical counterpart evidence > T3 genuinely declines both eligible equal careers at natural retirement208
+AssertionError: expected { …(8) } to match object { outcome: 'expired', closedWeek: 208 }
+(6 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  Object {
+    "closedWeek": 208,
+-   "outcome": "expired",
++   "outcome": "settled",
+  }
+
+ ❯ tests/p14c3-equal-tuple-evidence.test.ts:170:70
+    168|     assert.ok(kase)
+    169|     expect(kase).toMatchObject({ variant: 'retirementExtension', close…
+    170|     expect(state.talentMarket.cases.find(row => row.id === kase.id)).t…
+       |                                                                      ^
+    171|     expect(state.talentMarket.proposals.filter(row => row.talentId ===…
+    172|     expect(state.talentMarket.receipts.filter(row => row.talentId === …
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 3 passed (4)
+   Start at  01:17:52
+   Duration  21.79s (transform 3.18s, setup 0ms, collect 4.08s, tests 16.54s, environment 0ms, prepare 249ms)
+

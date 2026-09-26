@@ -1,0 +1,19 @@
+{"sourceSha":"0d22d885d251d0a02bd1cbd7fb1b51358518a32b","testedDiffSha256":"025017c257842f378c35ca556b48eda30bc19a9731a1b409945188e345fef453","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14c3-equal-tuple-evidence.test.ts"],"node":"v20.20.2","start":"2026-09-26T23:20:22.495Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+stdout | tests/p14c3-equal-tuple-evidence.test.ts
+C3_G4_ACTUAL_ROUTES {"tickCalls":{"main":260,"repeat":9},"totalTickCalls":269,"mainPictures":[{"pair":"A","takeWeek":13,"releaseWeek":16,"stateWeek":17},{"pair":"B","takeWeek":22,"releaseWeek":25,"stateWeek":26},{"pair":"A","takeWeek":31,"releaseWeek":34,"stateWeek":35},{"pair":"B","takeWeek":40,"releaseWeek":43,"stateWeek":44}],"repeatPictures":[{"pair":"A","takeWeek":22,"releaseWeek":25,"stateWeek":26}]}
+
+ ✓ |core| tests/p14c3-equal-tuple-evidence.test.ts (4 tests) 18072ms
+   ✓ C.3 genuine equal public tuples and canonical counterpart evidence > T1 distinguishes A/B from A/A contexts at the same two actual acting pictures 5401ms
+   ✓ C.3 genuine equal public tuples and canonical counterpart evidence > T2 chooses later encountered smaller B witnesses from actual A/B/A/B tied pairs 1694ms
+   ✓ C.3 genuine equal public tuples and canonical counterpart evidence > T3 genuinely declines both eligible equal careers at natural retirement208 5350ms
+   ✓ C.3 genuine equal public tuples and canonical counterpart evidence > T4 reloads actual208 and preserves terminal finality through every week to260 5623ms
+
+ Test Files  1 passed (1)
+      Tests  4 passed (4)
+   Start at  01:20:23
+   Duration  22.73s (transform 2.74s, setup 0ms, collect 3.79s, tests 18.07s, environment 0ms, prepare 152ms)
+

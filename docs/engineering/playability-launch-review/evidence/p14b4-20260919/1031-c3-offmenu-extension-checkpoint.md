@@ -49,3 +49,10 @@ Next publish this reviewed checkpoint, then release accepted1028-A's four genuin
 equal-tuple/counterpart leaves.1021 Stage C cohort/canonical/rival history,1030
 Stage D readmodels/runtime/Save As, and1029 final gates remain separate. Save38
 is partial, projection52 remains, and Unity/native and Owner acceptance are deferred.
+
+## Publication receipt
+
+Normal commit/push0d22d885d251d0a02bd1cbd7fb1b51358518a32b on the existing
+`wip/headless-program-20260916-ts` branch. Independent remote-ref read matched
+local HEAD; whole worktree was clean at verification. No hooks, force push,
+reset, protected-main promotion or historical fixture rewrite.

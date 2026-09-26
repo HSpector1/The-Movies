@@ -1,0 +1,22 @@
+{
+  "sourceSha": "0d22d885d251d0a02bd1cbd7fb1b51358518a32b",
+  "testedDiffSha256": "6b436c00c451f57680b18f40c7a22691c4f42e96f6a7491f10c5be8be4ebf2b0",
+  "untrackedSource": [],
+  "command": [
+    "node_modules/.bin/vitest",
+    "run",
+    "--project",
+    "core",
+    "tests/p14c3-equal-tuple-evidence.test.ts"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-26T23:17:50.895Z",
+  "end": "2026-09-26T23:18:14.960Z",
+  "exitCode": 1,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "0d22d885d251d0a02bd1cbd7fb1b51358518a32b",
+  "testedDiffSha256AtEnd": "6b436c00c451f57680b18f40c7a22691c4f42e96f6a7491f10c5be8be4ebf2b0",
+  "untrackedSourceAtEnd": [],
+  "fixedSource": true
+}
