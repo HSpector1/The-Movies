@@ -827,6 +827,16 @@ T0 first: genuine outgoing V34 worlds holding lifecycle records, minted before a
 C.2b (780 + §5, 780-A REFINE), C.2c after the Owner's VOIDED/WAIVED ruling (773 §7), C.2-RM, C.3.
 LOGIC VERIFIED · UNITY NOT VERIFIED.
 
+NEXT805: **P14C.4 IS QUALIFIED CLOSED** (record `../evidence/p14b4-20260919/805-c4-checkpoint.md`, source `e32c85b4`,
+run 805 `fixedSource: true`). Save 34 -> 35 (`careerLifecycle.cohorts`), projection 50 UNMOVED. Once a campaign
+year each film profession is refilled to the accepted founding composition (40/14/16/14), plus one entrant when
+nobody active will still be under 30 at the next request; entrants 20-29, clip 32. The acceptance demonstration
+(772 D1) FAILED on run 1 (799, the parent's at-instant youth predicate) and PASSED on run 2 on all six seeds
+(800), including pre-registered 04-06 and one live-economy seed. F-792-1 (rivals insolvent from week 260 on 5 of 6
+passive seeds) predates the C track and routes to P15's scope check. First endurance cost: 6,240 passive weeks
+take about 17 CPU-minutes with a live industry, under 1 when it collapses. NEXT: C.2b (780 + 806 §8), save step
+V36; T0 first.
+
 Earlier additive foundation checkpoint: V30 data support implemented and independently
 KEEP; qualified report evidence/p14b4-20260919/29-additive-checkpoint.md.
 Corrected candidate bc25e15d…: root+UI and bridge typechecks PASS;137 save tests

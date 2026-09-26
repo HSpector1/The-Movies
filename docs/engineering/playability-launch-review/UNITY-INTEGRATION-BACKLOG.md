@@ -640,8 +640,11 @@ unchanged from the recovery pin. LOGIC VERIFIED · UNITY NOT VERIFIED.*
 
 ### P14C.4 — deterministic replenishment (Save V34 → V35; projection expected UNMOVED at 50)
 
-*Entry written during C.4 verification from records 782 (§7–§9), 792, 793, 796 and 799; the measured results
-are appended at the C.4 checkpoint.*
+*Entry written during C.4 verification from records 782 (§7–§9), 792, 793, 796 and 799. Measured at the
+checkpoint (record 805, source `e32c85b4`, run 805 `fixedSource: true`): 363 files, 4236 cases, 63 failed = run
+787's 62 retained with the same cause + 1 predicted C.4 behaviour (`p14c2a` E1); all 57 C.4 cases pass or are
+the one disclosed todo; `generated/` unchanged, projection 50. Demonstration run 2 passed on all six seeds
+(record 800). LOGIC VERIFIED · UNITY NOT VERIFIED.*
 
 | Field | Entry |
 | --- | --- |
