@@ -1,0 +1,203 @@
+// P14C.4 T1 — INDEPENDENT RED, family D: Save V35 (793 §5). Derived from 782 §7.3-§7.4
+// and 793 §5, never from `src/core/save.ts`'s own V35 stubs (`validateSaveV35`,
+// `convertV34ToV35`, `convertV35ToV34`, `migrateToV35` all throw
+// `not implemented (P14C.4)` unconditionally on this scaffold; `LIVE_SAVE_VERSION` is
+// still 34 and `makeSave` still stamps 34 — 793's own preamble: the writer moves
+// these). D4's tamper cases are the ONE place this suite hand-builds a state the
+// engine cannot (yet) reach on its own — labeled as such, exactly as the task
+// authorizes, and built LAWFULLY (mintLawfulCohortReceipt uses only real,
+// already-working primitives: `uniqueIdentity`, `generateIndustryTalent`'s no-age
+// path, `provenanceRowFor`; the one throwing wrapper, `cohortEntrantAge`, is replaced
+// by 793 §4's own documented formula, never reverse-engineered from any
+// implementation).
+import { describe, expect, it } from 'vitest'
+import {
+  LIVE_SAVE_VERSION, convertV34ToV35, convertV35ToV34, makeSave, migrateToV35, validateSaveV34, validateSaveV35,
+} from '../src/core/save.js'
+import type { SaveFileV34, SaveFileV35 } from '../src/core/save.js'
+import type { CohortReceipt, GameStateV34, GameStateV35 } from '../src/core/types.js'
+import { advanceTo, c4Fixture, mintLawfulCohortReceipt } from './helpers/p14c4-fixtures.js'
+
+function envelopeV34(state: GameStateV34): SaveFileV34 {
+  return validateSaveV34({ saveVersion: 34, seed: state.seed, state, broadcastCache: state.broadcastItems })
+}
+
+/** A structurally-typed V35 envelope, built directly (never through the not-yet-real
+ * `convertV34ToV35`) so D3/D4 can exercise `validateSaveV35`/`convertV35ToV34`
+ * in isolation. The `cohorts` overlay is the same in-memory technique
+ * `withSyntheticCareerLifecycle` used during C.2a (778) — never a fixture-file edit. */
+function envelopeV35(state: GameStateV34, cohorts: readonly CohortReceipt[]): SaveFileV35 {
+  const v35State = { ...state, careerLifecycle: { ...state.careerLifecycle, cohorts } } as unknown as GameStateV35
+  return { saveVersion: 35, seed: state.seed, state: v35State, broadcastCache: state.broadcastItems }
+}
+
+const CORPUS_NAMES = [
+  'genuine-v34-c4-mid-year', 'genuine-v34-c4-cohort-week', 'genuine-v34-c4-all-statuses',
+  'genuine-v34-c4-null-hollywood', 'genuine-v34-c4-migrated-chain', 'genuine-v34-c4-deep-deficit',
+] as const
+
+describe('P14C.4 D1: every corpus world migrates V34 -> V35 with cohorts: [] and validates', () => {
+  it.each(CORPUS_NAMES)('%s', (name) => {
+    const state = c4Fixture(name)
+    const migrated = convertV34ToV35(envelopeV34(state)) // THROWS today (793 §5 scaffold)
+    expect(migrated.saveVersion).toBe(35)
+    expect(migrated.state.careerLifecycle.cohorts).toEqual([])
+    const revalidated = validateSaveV35(JSON.parse(JSON.stringify(migrated)))
+    expect(revalidated.state.careerLifecycle).toEqual(migrated.state.careerLifecycle)
+  })
+})
+
+describe('P14C.4 D2: the live boundary moves to 35', () => {
+  it('LIVE_SAVE_VERSION === 35', () => {
+    expect(LIVE_SAVE_VERSION).toBe(35) // fails today: still 34
+  })
+
+  it('makeSave stamps 35', () => {
+    const state = c4Fixture('genuine-v34-c4-mid-year')
+    const saved = makeSave(state)
+    expect((saved as { saveVersion: number }).saveVersion).toBe(35) // fails today: makeSave stamps 34
+  })
+})
+
+describe('P14C.4 D3: V35 -> V34 downgrade', () => {
+  it('lossless iff cohorts is empty', () => {
+    const state = c4Fixture('genuine-v34-c4-mid-year')
+    const migratedEmpty = convertV34ToV35(envelopeV34(state)) // THROWS today
+    const downgraded = convertV35ToV34(migratedEmpty)
+    expect(downgraded.saveVersion).toBe(34)
+    expect(JSON.stringify(downgraded)).toBe(JSON.stringify(envelopeV34(state)))
+  })
+
+  it('refused as a downgrade, naming the first receipt\'s week, when any receipt exists', () => {
+    // The task's D4 tamper cases are the ONE place this suite hand-builds a receipt
+    // with real entrants (the engine cannot yet mint one). This case does not need
+    // that: 793 §5's refusal fires whenever `cohorts` is non-empty AT ALL, so the
+    // SAME naturally-reachable all-zero receipt shape B6 already established (a real
+    // receipt this exact world's own next cohort week would carry, even with zero
+    // entrants) is enough — no synthetic entrant-minting required here.
+    const base = c4Fixture('genuine-v34-c4-cohort-week') // week 104
+    const atW1 = advanceTo(base, 156) // this world's own real next cohort week (B6)
+    const naturalEmptyReceipt: CohortReceipt = {
+      week: 156, talentCountBefore: atW1.talent.length, requested: { actor: 0, director: 0, writer: 0, craft: 0 }, clipped: 0, personIds: [],
+    }
+    expect(() => convertV35ToV34(envelopeV35(atW1, [naturalEmptyReceipt]))).toThrow(/downgrade/i)
+  })
+})
+
+describe('P14C.4 D4: the validator refuses each tampering, one per case, from a genuine V35 state (built LAWFULLY — see file header)', () => {
+  function lawfulBaseline(): { state: GameStateV34; receipt: CohortReceipt } {
+    const base = c4Fixture('genuine-v34-c4-migrated-chain') // week 988
+    const atW1 = advanceTo(base, 1040) // its own real first cohort week (E1/B1's own world)
+    return mintLawfulCohortReceipt(atW1, 1040, atW1.seed) // requested {actor:11,director:5,writer:5,craft:1}, clipped 0
+  }
+
+  it('the unmutated baseline must validate — proves each throw below is caused BY the mutation', () => {
+    const { state, receipt } = lawfulBaseline()
+    expect(() => validateSaveV35(envelopeV35(state, [receipt]))).not.toThrow() // FAILS today: the scaffold throws unconditionally
+  })
+
+  // Every case below asserts `.toThrow(/<field>/i)` rather than a bare `.toThrow()`:
+  // `validateSaveV35` throws `not implemented (P14C.4)` UNCONDITIONALLY on this
+  // scaffold, for ANY input, lawful or tampered — a bare `.toThrow()` would pass today
+  // for a reason having NOTHING to do with the tamper (a counterfeit; probed and
+  // caught by first running these with a bare `.toThrow()`, which all 9 passed
+  // trivially). The generic scaffold message matches none of these field-name regexes,
+  // so each case still fails today for the right reason, and becomes a real
+  // discriminating check once the validator names its own cause per field — the same
+  // technique 778's G4 used (`.toThrow(/more than one record/)` etc.) for the same
+  // total-throw situation.
+
+  it('requested: an inflated count not matching the 782 §7.4 re-derivation', () => {
+    const { state, receipt } = lawfulBaseline()
+    const tampered: CohortReceipt = { ...receipt, requested: { ...receipt.requested, actor: receipt.requested.actor + 1 } }
+    expect(() => validateSaveV35(envelopeV35(state, [tampered]))).toThrow(/requested/i)
+  })
+
+  it('talentCountBefore: off by one from the real talent-length-at-request-time', () => {
+    const { state, receipt } = lawfulBaseline()
+    const tampered: CohortReceipt = { ...receipt, talentCountBefore: receipt.talentCountBefore + 1 }
+    expect(() => validateSaveV35(envelopeV35(state, [tampered]))).toThrow(/talentCountBefore/i)
+  })
+
+  it('personIds: swapped for an id outside the real talent slice at talentCountBefore', () => {
+    const { state, receipt } = lawfulBaseline()
+    const tampered: CohortReceipt = { ...receipt, personIds: [...receipt.personIds.slice(1), 'not-a-real-entrant-id'] }
+    expect(() => validateSaveV35(envelopeV35(state, [tampered]))).toThrow(/personIds/i)
+  })
+
+  it('missing provenance row: one entrant loses its authored_exact_week row entirely', () => {
+    const { state, receipt } = lawfulBaseline()
+    const droppedId = receipt.personIds[0]!
+    const tamperedState: GameStateV34 = {
+      ...state,
+      talentProvenance: { ...state.talentProvenance, rows: state.talentProvenance.rows.filter((r) => r.personId !== droppedId) },
+    }
+    expect(() => validateSaveV35(envelopeV35(tamperedState, [receipt]))).toThrow(/provenance/i)
+  })
+
+  it('wrong provenance row: one entrant\'s row is anchored at the wrong week (w+1, not w)', () => {
+    const { state, receipt } = lawfulBaseline()
+    const targetId = receipt.personIds[0]!
+    const rows = state.talentProvenance.rows.map((r) => (r.personId === targetId && r.kind === 'authored_exact_week' ? { ...r, entryWeek: r.entryWeek + 1 } : r))
+    const tamperedState: GameStateV34 = { ...state, talentProvenance: { ...state.talentProvenance, rows } }
+    expect(() => validateSaveV35(envelopeV35(tamperedState, [receipt]))).toThrow(/provenance/i)
+  })
+
+  it('age out of bounds: one entrant\'s provenance age is pushed to 33 (outside [20,32])', () => {
+    const { state, receipt } = lawfulBaseline()
+    const targetId = receipt.personIds[0]!
+    const rows = state.talentProvenance.rows.map((r) => (r.personId === targetId && r.kind === 'authored_exact_week' ? { ...r, ageAtEntry: 33 } : r))
+    const tamperedState: GameStateV34 = { ...state, talentProvenance: { ...state.talentProvenance, rows } }
+    expect(() => validateSaveV35(envelopeV35(tamperedState, [receipt]))).toThrow(/age/i)
+  })
+
+  it('non-increasing weeks: a second receipt claims the SAME week as the first', () => {
+    const { state, receipt } = lawfulBaseline()
+    const duplicateAtSameWeek: CohortReceipt = {
+      week: receipt.week, // the ONE deliberate defect: must be strictly greater than the prior receipt's week
+      talentCountBefore: state.talent.length, requested: { actor: 0, director: 0, writer: 0, craft: 0 }, clipped: 0, personIds: [],
+    }
+    expect(() => validateSaveV35(envelopeV35(state, [receipt, duplicateAtSameWeek]))).toThrow(/increasing/i)
+  })
+
+  it('a non-52k week: a receipt whose week is not a multiple of 52', () => {
+    const { state, receipt } = lawfulBaseline()
+    const tampered: CohortReceipt = { ...receipt, week: receipt.week + 1 }
+    expect(() => validateSaveV35(envelopeV35(state, [tampered]))).toThrow(/52/)
+  })
+
+  it('wrong clipped: the receipt claims a clip its own requested totals do not support', () => {
+    const { state, receipt } = lawfulBaseline()
+    const tampered: CohortReceipt = { ...receipt, clipped: receipt.clipped + 5 }
+    expect(() => validateSaveV35(envelopeV35(state, [tampered]))).toThrow(/clipped/i)
+  })
+})
+
+describe('P14C.4 D5: replay determinism, and save/load mid-year then continuing equals the uninterrupted run', () => {
+  it('two independent V34 -> V35 migrations of the SAME state are byte-identical', () => {
+    const state = c4Fixture('genuine-v34-c4-mid-year') // week 105
+    const env = envelopeV34(state)
+    const a = convertV34ToV35(env) // THROWS today
+    const b = convertV34ToV35(env)
+    expect(JSON.stringify(a)).toBe(JSON.stringify(b))
+  })
+
+  it('save/load at mid-year (week 105, not a cohort week) then continuing to week 156 equals the uninterrupted tick run, byte-for-byte', () => {
+    const state = c4Fixture('genuine-v34-c4-mid-year') // week 105
+    // the uninterrupted run: real, unmodified V34 tick()/advanceTo() — no C.4 code
+    // exists anywhere in this path yet, matching 793 §8's own "byte-identical until
+    // the first cohort week's own lifecycle settlement" guarantee.
+    const continuous = advanceTo(state, 156)
+    const migratedMidYear = convertV34ToV35(envelopeV34(state)) // THROWS today (793 §5 scaffold)
+    const reloaded = validateSaveV35(JSON.parse(JSON.stringify(migratedMidYear)))
+    const viaSaveLoad = advanceTo(reloaded.state as unknown as GameStateV34, 156)
+    expect(JSON.stringify(viaSaveLoad)).toBe(JSON.stringify(continuous))
+  })
+
+  it('migrateToV35 lifts a genuine V34 envelope the same way convertV34ToV35 does', () => {
+    const state = c4Fixture('genuine-v34-c4-mid-year')
+    const viaMigrate = migrateToV35(envelopeV34(state)) // THROWS today
+    const viaConvert = convertV34ToV35(envelopeV34(state))
+    expect(JSON.stringify(viaMigrate)).toBe(JSON.stringify(viaConvert))
+  })
+})

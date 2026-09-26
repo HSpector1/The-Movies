@@ -1,0 +1,291 @@
+// P14C.4 T1 — INDEPENDENT RED, families A-C and E: deterministic replenishment
+// (782 §3 R1-R9 as amended by §6-§8; API contract 793). Derived from 782/793 and the
+// genuine T0 V34 corpus's "V34-engine continuation facts" (790/791) — a measured
+// prediction under the real, unmodified engine, never an implementation output.
+//
+// Scaffold at HEAD bd27de93: `isCohortWeek`, `cohortRequest`, `cohortEntrantAge` throw
+// `not implemented (P14C.4)` unconditionally; `generateIndustryTalent` throws when
+// handed an `age`; `advanceCareerLifecycleWeek` is the FINAL, working C.2a function —
+// it does not yet call any of the three new exports (confirmed by reading it), so a
+// natural `tick()` through a cohort week does nothing extra today: no throw, no
+// receipt. Every "natural route" case below therefore fails via a clean assertion
+// mismatch (a receipt was expected; `cohorts` stayed absent/empty) rather than a
+// thrown error — probed and disclosed in the RED record (795), never mistaken for a
+// test bug. `GameState === GameStateV34` on this scaffold (793's own preamble: the
+// writer moves it), so no cast is needed to drive `tick()`/`advanceTo` naturally;
+// `cohortsOf()` is the one place that reads the not-yet-existing V35 `.cohorts` field.
+import { describe, expect, it } from 'vitest'
+import { applyActions, hiringMarketIds, tick } from '../src/core/index.js'
+import { advanceCareerLifecycleWeek, cohortEntrantAge, cohortRequest, isCohortWeek } from '../src/core/careerLifecycle.js'
+import { generateIndustryTalent } from '../src/core/worldgen.js'
+import { TUNING } from '../src/core/tuning.js'
+import type { FilmCreativeRole } from '../src/core/types.js'
+import {
+  FILM_ROLE_ORDER, advanceTo, c4ContinuationFacts, c4Fixture, cohortsOf, expectedActiveAndYoung, expectedCohortEntrantAge,
+  expectedCohortRequest, fund, p13aGeneratedStudio,
+} from './helpers/p14c4-fixtures.js'
+
+describe('P14C.4 A1-A3: cadence', () => {
+  it('A1: a fresh world gets a cohort receipt at exactly week 52 and week 104, never at 51/103, through the natural tick() route', () => {
+    let state = p13aGeneratedStudio('p14c4-red-a1')
+    state = advanceTo(state, 51)
+    expect(cohortsOf(state) ?? [], 'no receipt before week 52').toEqual([])
+    state = tick(state) // -> week 52
+    expect(state.market.tick).toBe(52)
+    expect(cohortsOf(state), 'a receipt must exist at week 52 (52 % 52 === 0)').toHaveLength(1)
+    expect(cohortsOf(state)![0]).toMatchObject({ week: 52 })
+    state = advanceTo(state, 103)
+    expect(cohortsOf(state), 'still exactly one receipt through week 103 — none between 52 and 104').toHaveLength(1)
+    state = tick(state) // -> week 104
+    expect(state.market.tick).toBe(104)
+    expect(cohortsOf(state), 'a second receipt must exist at week 104').toHaveLength(2)
+    expect(cohortsOf(state)![1]).toMatchObject({ week: 104 })
+  })
+
+  it('A2: a null-hollywood world (corpus null-hollywood) never gets a cohort, through two of its own cohort weeks (260, 312)', () => {
+    const base = c4Fixture('genuine-v34-c4-null-hollywood') // week 208, hollywood === null
+    expect(base.hollywood).toBeNull()
+    let state = advanceTo(base, 260)
+    expect(state.hollywood, 'ticking alone never founds a studio').toBeNull()
+    expect(cohortsOf(state) ?? [], 'no cohort at week 260 in a null-hollywood world').toEqual([])
+    state = advanceTo(state, 312)
+    expect(cohortsOf(state) ?? [], 'no cohort at week 312 either').toEqual([])
+  })
+
+  it('A3: calling advanceCareerLifecycleWeek twice at a cohort week adds nothing the second time (idempotence, 793 §4)', () => {
+    // Real tick() only, all the way to the cohort week — never a hand-set market.tick.
+    let state = p13aGeneratedStudio('p14c4-red-a3')
+    state = advanceTo(state, 52)
+    expect(state.market.tick).toBe(52)
+    const afterNaturalTick = cohortsOf(state) ?? []
+    expect(afterNaturalTick, 'the natural tick() to week 52 must already have appended one receipt').toHaveLength(1)
+    // 793 §4's own idempotence note: a second call at the SAME week, no new birthdays,
+    // must not append a duplicate — driven directly, the same technique 778's A6b used.
+    const twice = advanceCareerLifecycleWeek(state, [])
+    expect(cohortsOf(twice), 'a second call at the same week must not append a duplicate receipt').toEqual(afterNaturalTick)
+    expect(JSON.stringify(twice)).toBe(JSON.stringify(state))
+  })
+})
+
+describe('P14C.4 B1-B6: the request formula (782 §7.1 REPLACED by §7 item 1)', () => {
+  it('B1: request_p = max(accepted_p - active_p, young_p ? 0 : 1) with accepted 40/14/16/14 (corpus migrated-chain, week 1040, pure deficit — no clip)', () => {
+    let state = c4Fixture('genuine-v34-c4-migrated-chain') // week 988
+    state = advanceTo(state, 1040)
+    const facts = c4ContinuationFacts('genuine-v34-c4-migrated-chain').w1
+    expect(facts.week).toBe(1040)
+    const oracle = expectedCohortRequest(state, 1040)
+    // cross-check MY 782 §7.1 oracle against the T0 minter's own independently
+    // measured facts (790/791) before trusting either — both derive from the SAME
+    // real V34 engine, never from any C.4 implementation.
+    const byFormula = {} as Record<FilmCreativeRole, number>
+    for (const role of FILM_ROLE_ORDER) {
+      const active = facts.activeByProfession[role]!
+      byFormula[role] = Math.max(TUNING.COHORT_ACCEPTED_POPULATION[role] - active.activeCount, active.activeUnder30 > 0 ? 0 : 1)
+    }
+    expect(oracle.requested, 'my requirement-derived oracle must agree with the T0-measured continuation facts').toEqual(byFormula)
+    expect(oracle.requested).toEqual({ actor: 11, director: 5, writer: 5, craft: 1 })
+    expect(oracle.clipped).toBe(0)
+    const actual = cohortRequest(state, 1040) // THROWS today (793 §4 scaffold)
+    expect(actual.requested).toEqual(oracle.requested)
+    expect(actual.clipped).toBe(0)
+    expect(actual.talentCountBefore).toBe(state.talent.length)
+  })
+
+  it('B2: the youth floor fires iff the profession has no active person under 30 (corpus all-statuses, week 260: director has one under-30 active and gets 0 despite a -1 "deficit"; craft has none and gets 1 despite the same -1)', () => {
+    let state = c4Fixture('genuine-v34-c4-all-statuses') // week 227
+    state = advanceTo(state, 260)
+    const facts = c4ContinuationFacts('genuine-v34-c4-all-statuses').w1
+    expect(facts.week).toBe(260)
+    expect(facts.activeByProfession.director).toEqual({ activeCount: 15, activeUnder30: 1 })
+    expect(facts.activeByProfession.craft).toEqual({ activeCount: 15, activeUnder30: 0 })
+    const oracle = expectedCohortRequest(state, 260)
+    expect(oracle.requested.director, 'director has a young active person: the floor must NOT fire').toBe(0)
+    expect(oracle.requested.craft, 'craft has NO young active person: the floor must fire, request >= 1').toBe(1)
+    const actual = cohortRequest(state, 260) // THROWS today
+    expect(actual.requested).toEqual(oracle.requested)
+  })
+
+  it('B3: announced and finishing people count as active (a person with a live careerLifecycle record who is not yet retired still counts toward active_p)', () => {
+    const state = c4Fixture('genuine-v34-c4-cohort-week') // week 104: announced writer x1, craft x1; retired actor x1
+    const announcedWriter = state.careerLifecycle.records.find((r) => r.status === 'announced' && r.profession === 'writer')!
+    expect(announcedWriter, 'the fixture must genuinely hold a live announced writer record').toBeDefined()
+    const active = expectedActiveAndYoung(state, 104)
+    // the announced writer is STILL in `state.talent` and NOT retired — active_p for
+    // writer must count them.
+    expect(active.writer.activeIds, 'the announced writer must be counted in active_p').toContain(announcedWriter.personId)
+    const oracle = expectedCohortRequest(state, 104)
+    expect(oracle.requested.writer).toBe(Math.max(TUNING.COHORT_ACCEPTED_POPULATION.writer - active.writer.activeCount, active.writer.young ? 0 : 1))
+    const actual = cohortRequest(state, 104) // THROWS today
+    expect(actual.requested.writer).toBe(oracle.requested.writer)
+  })
+
+  it('B4: retired people do NOT count as active (the fixture\'s one retired actor at week 104 must be excluded from active_p)', () => {
+    const state = c4Fixture('genuine-v34-c4-cohort-week') // week 104: retired actor x1
+    const retiredActor = state.careerLifecycle.records.find((r) => r.status === 'retired' && r.profession === 'actor')!
+    expect(retiredActor, 'the fixture must genuinely hold a retired actor').toBeDefined()
+    const active = expectedActiveAndYoung(state, 104)
+    expect(active.actor.activeIds, 'the retired actor must NOT be counted in active_p').not.toContain(retiredActor.personId)
+    const oracle = expectedCohortRequest(state, 104)
+    expect(oracle.requested.actor).toBe(Math.max(TUNING.COHORT_ACCEPTED_POPULATION.actor - active.actor.activeCount, active.actor.young ? 0 : 1))
+    const actual = cohortRequest(state, 104) // THROWS today
+    expect(actual.requested.actor).toBe(oracle.requested.actor)
+  })
+
+  it('B5: the clip at 32, allotted in profession order actor/director/writer/craft, with `clipped` on the receipt and no carry-forward (corpus deep-deficit: 6 active at week 2600, 78 requested before the clip at the world\'s next cohort week 2652)', () => {
+    // The fixture's OWN save week (2600) is a 52k week, but it was saved BEFORE any
+    // C.4 code existed — no tick() ever PRODUCED week 2600 under cohort-aware logic,
+    // so the next real trigger is the next tick() that produces a 52k week: 2652,
+    // exactly matching 790/791's own "V1" continuation.
+    let state = c4Fixture('genuine-v34-c4-deep-deficit') // week 2600
+    state = advanceTo(state, 2652)
+    const facts = c4ContinuationFacts('genuine-v34-c4-deep-deficit').w1
+    expect(facts.week).toBe(2652)
+    expect(facts.activeByProfession).toEqual({
+      actor: { activeCount: 3, activeUnder30: 0 }, director: { activeCount: 1, activeUnder30: 0 },
+      writer: { activeCount: 1, activeUnder30: 0 }, craft: { activeCount: 1, activeUnder30: 0 },
+    })
+    const oracle = expectedCohortRequest(state, 2652)
+    expect(oracle.requested, 'requested must sum to at most the 32 cap, allotted actor-first').toEqual({ actor: 32, director: 0, writer: 0, craft: 0 })
+    expect(oracle.clipped, '78 raw requested (37+13+15+13) minus 32 granted = 46 clipped').toBe(46)
+    const actual = cohortRequest(state, 2652) // THROWS today
+    expect(actual.requested).toEqual(oracle.requested)
+    expect(actual.clipped).toBe(oracle.clipped)
+  })
+
+  it('B6: an empty request still appends a receipt (corpus cohort-week, week 156: the accepted population is already met in every profession, requested totals to 0)', () => {
+    let state = c4Fixture('genuine-v34-c4-cohort-week') // week 104
+    state = advanceTo(state, 156)
+    const facts = c4ContinuationFacts('genuine-v34-c4-cohort-week').w1
+    expect(facts.week).toBe(156)
+    const oracle = expectedCohortRequest(state, 156)
+    expect(oracle.requested, 'every profession already meets its accepted size and has a young active person').toEqual({ actor: 0, director: 0, writer: 0, craft: 0 })
+    expect(oracle.clipped).toBe(0)
+    // the receipt must still be appended, one per cohort week, even at an all-zero request.
+    const stepped = advanceCareerLifecycleWeek(state, [])
+    expect(cohortsOf(stepped), 'a receipt must exist even when every count is 0').toHaveLength(1)
+    expect(cohortsOf(stepped)![0]).toMatchObject({ week: 156, requested: { actor: 0, director: 0, writer: 0, craft: 0 }, clipped: 0, personIds: [] })
+  })
+})
+
+describe('P14C.4 C1-C6: entrant identity, provenance, market membership', () => {
+  it('C1: entrant ids are minted person-cohort-<w>-<role>-<n> through uniqueIdentity, at a fresh world\'s first cohort week', () => {
+    let state = p13aGeneratedStudio('p14c4-red-c1')
+    state = advanceTo(state, 52)
+    const receipts = cohortsOf(state) ?? []
+    expect(receipts, 'a receipt at week 52 is the precondition for checking its ids').toHaveLength(1)
+    const receipt = receipts[0]!
+    for (const id of receipt.personIds) expect(id).toMatch(/^person-cohort-52-(actor|director|writer|craft)-\d+$/)
+  })
+
+  it('C2: entrants are appended contiguously at talentCountBefore, in profession order, equal to the receipt\'s personIds', () => {
+    let state = p13aGeneratedStudio('p14c4-red-c2')
+    state = advanceTo(state, 52)
+    const receipt = (cohortsOf(state) ?? [])[0]
+    expect(receipt, 'a receipt must exist').toBeDefined()
+    const appended = state.talent.slice(receipt!.talentCountBefore, receipt!.talentCountBefore + receipt!.personIds.length).map((t) => t.id)
+    expect(appended).toEqual(receipt!.personIds)
+    let cursor = 0
+    for (const role of FILM_ROLE_ORDER) {
+      const n = receipt!.requested[role]
+      for (let i = 0; i < n; i++, cursor++) {
+        expect(state.talent[receipt!.talentCountBefore + cursor]!.role, `entrant ${cursor} must be profession-ordered (${role})`).toBe(role)
+      }
+    }
+  })
+
+  it('C3: each entrant carries an authored_exact_week provenance row at w whose anchor age is cohortEntrantAge(seed, id); stored Talent.age === floor(that); age in [20,32]', () => {
+    let state = p13aGeneratedStudio('p14c4-red-c3')
+    state = advanceTo(state, 52)
+    const receipt = (cohortsOf(state) ?? [])[0]
+    expect(receipt).toBeDefined()
+    for (const id of receipt!.personIds) {
+      const row = state.talentProvenance.rows.find((r) => r.personId === id)
+      expect(row, `${id} must carry a provenance row`).toBeDefined()
+      expect(row!.kind).toBe('authored_exact_week')
+      const anchorAge = (row as { ageAtEntry: number }).ageAtEntry
+      const expectedAge = cohortEntrantAge(state.seed, id) // THROWS today (793 §4 scaffold)
+      expect(anchorAge).toBe(expectedAge)
+      expect(anchorAge).toBeGreaterThanOrEqual(20)
+      expect(anchorAge).toBeLessThanOrEqual(32)
+      const stored = state.talent.find((t) => t.id === id)!.age
+      expect(stored).toBe(Math.floor(anchorAge))
+    }
+  })
+
+  it('C4: each entrant is in state.freeAgents and hiringMarketIds, and the player can sign one the same week', () => {
+    let state = fund(p13aGeneratedStudio('p14c4-red-c4'))
+    state = advanceTo(state, 52)
+    const receipt = (cohortsOf(state) ?? [])[0]
+    expect(receipt).toBeDefined()
+    expect(receipt!.personIds.length, 'a fresh genesis world must produce at least one entrant at week 52').toBeGreaterThan(0)
+    const entrantId = receipt!.personIds[0]!
+    expect(state.freeAgents, `${entrantId} must be pushed onto freeAgents`).toContain(entrantId)
+    expect(hiringMarketIds(state), `${entrantId} must be signable the SAME week`).toContain(entrantId)
+    const signed = applyActions(state, [{ kind: 'signContract', talentId: entrantId, termWeeks: 52 }])
+    expect(signed.contracts.some((c) => c.talentId === entrantId), 'signContract must succeed the same week the entrant appears').toBe(true)
+  })
+
+  it('C5: generateIndustryTalent(seed, id, role) with NO age is byte-identical to a golden captured NOW at this scaffold (bd27de93) — a compatibility pin, not a RED failure (782-A amendment 1\'s byte-identity promise for every existing caller)', () => {
+    // JUSTIFIED PASS (778 precedent, P1): this calls no unimplemented export — the
+    // NO-age path already works today and is untouched by the C.4 amendment; it must
+    // stay untouched once the WITH-age path lands. Golden captured 2026-09-25 at HEAD
+    // bd27de93 (this scaffold), recorded here so a future run that diverges is a real
+    // regression, not a moving target.
+    const golden = generateIndustryTalent('p14c4-red-c5-golden-seed', 'golden-entrant-0', 'actor')
+    expect(JSON.stringify(golden)).toBe(JSON.stringify(generateIndustryTalent('p14c4-red-c5-golden-seed', 'golden-entrant-0', 'actor')))
+    expect(golden).toMatchObject({ id: 'golden-entrant-0', role: 'actor' })
+    expect(typeof golden.age).toBe('number')
+  })
+
+  it('C6: cohortEntrantAge is deterministic and independent of call order', () => {
+    // THROWS today (793 §4 scaffold) — the assertions below are the intended future
+    // check: the SAME id yields the SAME age regardless of what else was drawn first,
+    // and regardless of the order two different ids are asked in.
+    const a1 = cohortEntrantAge('p14c4-red-c6', 'person-cohort-52-actor-0')
+    const b1 = cohortEntrantAge('p14c4-red-c6', 'person-cohort-52-director-0')
+    const b2 = cohortEntrantAge('p14c4-red-c6', 'person-cohort-52-director-0')
+    const a2 = cohortEntrantAge('p14c4-red-c6', 'person-cohort-52-actor-0')
+    expect(b1).toBe(b2)
+    expect(a1).toBe(a2)
+    expect(a1).toBe(expectedCohortEntrantAge('p14c4-red-c6', 'person-cohort-52-actor-0'))
+  })
+})
+
+describe('P14C.4 E1: per-corpus-world cohort request at the first cohort week matches the V34-continuation-derived oracle', () => {
+  const worldsWithHollywood = [
+    'genuine-v34-c4-mid-year', 'genuine-v34-c4-cohort-week', 'genuine-v34-c4-all-statuses',
+    'genuine-v34-c4-migrated-chain', 'genuine-v34-c4-deep-deficit',
+  ] as const
+
+  it.each(worldsWithHollywood)('%s: cohortRequest at its own first cohort week W1 equals max(accepted-active, young?0:1) per profession, clipped at 32', (name) => {
+    let state = c4Fixture(name)
+    expect(state.hollywood, `${name} must carry hollywood (E1 excludes null-hollywood worlds)`).not.toBeNull()
+    const facts = c4ContinuationFacts(name).w1
+    state = advanceTo(state, facts.week)
+    expect(state.market.tick).toBe(facts.week)
+    const oracle = expectedCohortRequest(state, facts.week)
+    const raw = {} as Record<FilmCreativeRole, number>
+    for (const role of FILM_ROLE_ORDER) {
+      const active = facts.activeByProfession[role]!
+      raw[role] = Math.max(TUNING.COHORT_ACCEPTED_POPULATION[role] - active.activeCount, active.activeUnder30 > 0 ? 0 : 1)
+    }
+    let budget = TUNING.COHORT_MAX_PER_REQUEST
+    const clippedExpected = {} as Record<FilmCreativeRole, number>
+    for (const role of FILM_ROLE_ORDER) {
+      clippedExpected[role] = Math.min(raw[role], budget)
+      budget -= clippedExpected[role]
+    }
+    expect(oracle.requested, `${name}: my 782 §7.1 oracle must equal the T0-measured continuation facts' own formula`).toEqual(clippedExpected)
+    const actual = cohortRequest(state, facts.week) // THROWS today (793 §4 scaffold)
+    expect(actual.requested).toEqual(clippedExpected)
+    expect(actual.talentCountBefore).toBe(state.talent.length)
+  })
+})
+
+describe('P14C.4 isCohortWeek', () => {
+  it.each([[0, false], [1, false], [51, false], [52, true], [53, false], [104, true], [156, true]] as const)(
+    'isCohortWeek(%i) === %s', (week, expected) => {
+      expect(isCohortWeek(week)).toBe(expected) // THROWS today (793 §4 scaffold)
+    },
+  )
+})

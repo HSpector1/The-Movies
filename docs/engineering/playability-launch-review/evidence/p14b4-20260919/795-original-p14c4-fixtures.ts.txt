@@ -1,0 +1,193 @@
+// P14C.4 T1 shared fixtures. Test-author owned (782/793). Loads the genuine T0 V34
+// corpus (tests/fixtures/p14/genuine-v34-c4-corpus/, record 791) and the T0 provenance
+// files' "V34-engine continuation facts" (record 790/791, computed by CONTINUING the
+// real unmodified V34 engine — never a C.4 implementation output). Never hand-edits a
+// fixture file; every loader re-verifies sha256 from disk, exactly the c2a precedent
+// (tests/helpers/p14c2a-fixtures.ts).
+import { createHash } from 'node:crypto'
+import { existsSync, readFileSync } from 'node:fs'
+import { gunzipSync } from 'node:zlib'
+import { expect } from 'vitest'
+import { validateSaveV34 } from '../../src/core/save.js'
+import { uniqueIdentity } from '../../src/core/hollywood.js'
+import { generateIndustryTalent } from '../../src/core/worldgen.js'
+import { provenanceRowFor, recomputeDue, ageAt } from '../../src/core/aging.js'
+import { stream } from '../../src/core/rng.js'
+import { TUNING } from '../../src/core/tuning.js'
+import { advanceTo, fund, p13aGeneratedStudio, player } from './p14b2-fixtures.js'
+export { advanceTo, fund, p13aGeneratedStudio, player }
+import type {
+  CareerLifecycleRootV35, CohortReceipt, FilmCreativeRole, GameState, GameStateV34, GameStateV35, Talent,
+} from '../../src/core/types.js'
+
+const sha256 = (value: string | Uint8Array): string => createHash('sha256').update(value).digest('hex')
+
+/** 782 §7.1's own order: "allotted in profession order actor, director, writer, craft." */
+export const FILM_ROLE_ORDER: readonly FilmCreativeRole[] = ['actor', 'director', 'writer', 'craft']
+
+// ── the genuine outgoing V34 corpus (record 791; MANIFEST.json re-verified by hand) ──
+export const C4_CORPUS = {
+  'genuine-v34-c4-mid-year': { gz: '6d1e8373b242b2320fb3b6391fcb509156fef04c9834df5cb8da24ff7a0d1ca9', week: 105 },
+  'genuine-v34-c4-cohort-week': { gz: 'b18eee654b57ae7040c6cddfb878f3e358ee735c757adf481fe88ffa97a91b02', week: 104 },
+  'genuine-v34-c4-all-statuses': { gz: 'd042e74ab468afe8a43754378caf2301050436679ad8a394c0b5a7da055e21ca', week: 227 },
+  'genuine-v34-c4-null-hollywood': { gz: 'a6d3bc7878076ed8cdc0c65e92897c8793fb3380b4450a17f6cc2473d4e0b279', week: 208 },
+  'genuine-v34-c4-migrated-chain': { gz: '8638591e467b91f22e19f3c6123c6264f2c899dcd6d139cef8474e6e41a59dc3', week: 988 },
+  'genuine-v34-c4-deep-deficit': { gz: '314b8152c0e108f51b0abb3885b7ec06dee520f29deef3bdb0845ed514c1ab5a', week: 2600 },
+} as const
+export type C4CorpusName = keyof typeof C4_CORPUS
+
+export function c4Fixture(name: C4CorpusName): GameStateV34 {
+  const path = `tests/fixtures/p14/genuine-v34-c4-corpus/${name}.json.gz`
+  expect(existsSync(path), `T0 NOT COMPLETE: genuine V34 C.4 artifact missing: ${path}`).toBe(true)
+  const compressed = readFileSync(path)
+  expect(sha256(compressed), `${name}: compressed bytes drifted from record 791's MANIFEST`).toBe(C4_CORPUS[name].gz)
+  const raw = gunzipSync(compressed).toString('utf8')
+  const save = validateSaveV34(JSON.parse(raw)) // the genuine frozen V34 validator FIRST
+  expect(save.state.market.tick, `${name}: week drifted from record 791's MANIFEST`).toBe(C4_CORPUS[name].week)
+  return save.state
+}
+
+/** The T0 minter's own "V34-engine continuation facts" (790/791): per-profession
+ * `activeCount`/`activeUnder30` at the world's own next 52k weeks, computed by
+ * CONTINUING the real, unmodified V34 engine — never a C.4 implementation output.
+ * Read straight from the shipped `.provenance.json`, not transcribed by hand, so a
+ * transcription slip cannot silently diverge from the minted record. */
+export function c4ContinuationFacts(name: C4CorpusName): {
+  w1: { week: number; activeByProfession: Record<FilmCreativeRole, { activeCount: number; activeUnder30: number }> }
+  w2: { week: number; activeByProfession: Record<FilmCreativeRole, { activeCount: number; activeUnder30: number }> }
+} {
+  const path = `tests/fixtures/p14/genuine-v34-c4-corpus/${name}.provenance.json`
+  expect(existsSync(path), `T0 NOT COMPLETE: provenance missing: ${path}`).toBe(true)
+  const doc = JSON.parse(readFileSync(path, 'utf8')) as {
+    week: number
+    core: { continuation: { w1: unknown; w2: unknown } }
+  }
+  expect(doc.week, `${name}: provenance week drifted`).toBe(C4_CORPUS[name].week)
+  return doc.core.continuation as never
+}
+
+/**
+ * ORACLE for 782 §7.1's `active_p`/`young_p` alone, derived from the requirement text,
+ * never from `src/core/careerLifecycle.ts` (whose `cohortRequest` only throws):
+ *   active_p = talent[0, talentCountBefore) of role p with no `retired` record whose
+ *              retiredWeek <= week (announced/finishing count as active — 782 §7 item 1)
+ *   young_p  = some active person of role p has ageAt(provenance row, week) < 30
+ * Exposed on its own (not just folded into `expectedCohortRequest` below) so a case
+ * that isolates ONE of these two facts (B3/B4) checks it directly, rather than
+ * re-deriving the whole request formula by hand and risking a second, independent
+ * transcription of the youth-floor branch disagreeing with this one.
+ */
+export function expectedActiveAndYoung(
+  state: GameStateV34, week: number,
+): Record<FilmCreativeRole, { activeCount: number; young: boolean; activeIds: readonly string[] }> {
+  const talentCountBefore = state.talent.length
+  const retiredBy = new Set(
+    state.careerLifecycle.records
+      .filter((r) => r.status === 'retired' && r.retiredWeek !== null && r.retiredWeek <= week)
+      .map((r) => r.personId),
+  )
+  const prefix = state.talent.slice(0, talentCountBefore)
+  const out = {} as Record<FilmCreativeRole, { activeCount: number; young: boolean; activeIds: readonly string[] }>
+  for (const role of FILM_ROLE_ORDER) {
+    const activePeople = prefix.filter((t) => t.role === role && !retiredBy.has(t.id))
+    const young = activePeople.some((t) => {
+      const row = state.talentProvenance.rows.find((r) => r.personId === t.id)
+      expect(row, `${t.id}: no provenance row to read a materialized age from`).toBeDefined()
+      return ageAt(row!, week) < TUNING.COHORT_YOUTH_BELOW_AGE
+    })
+    out[role] = { activeCount: activePeople.length, young, activeIds: activePeople.map((t) => t.id) }
+  }
+  return out
+}
+
+/**
+ * ORACLE for 782 §7.1 (as REPLACED by §7 item 1) in full:
+ *   request_p = max(accepted_p - active_p, young_p ? 0 : 1)
+ *   clipped at COHORT_MAX_PER_REQUEST, allotted greedily in FILM_ROLE_ORDER (793 §4/782 R3)
+ */
+export function expectedCohortRequest(
+  state: GameStateV34, week: number,
+): { requested: Record<FilmCreativeRole, number>; clipped: number; talentCountBefore: number } {
+  const talentCountBefore = state.talent.length
+  const active = expectedActiveAndYoung(state, week)
+  const raw = {} as Record<FilmCreativeRole, number>
+  for (const role of FILM_ROLE_ORDER) {
+    const accepted = TUNING.COHORT_ACCEPTED_POPULATION[role]
+    raw[role] = Math.max(accepted - active[role]!.activeCount, active[role]!.young ? 0 : 1)
+  }
+  let budget = TUNING.COHORT_MAX_PER_REQUEST
+  const requested = {} as Record<FilmCreativeRole, number>
+  for (const role of FILM_ROLE_ORDER) {
+    const take = Math.min(raw[role], budget)
+    requested[role] = take
+    budget -= take
+  }
+  const clipped = FILM_ROLE_ORDER.reduce((sum, r) => sum + raw[r], 0) - FILM_ROLE_ORDER.reduce((sum, r) => sum + requested[r], 0)
+  return { requested, clipped, talentCountBefore }
+}
+
+/** 793 §4's exact documented formula for `cohortEntrantAge`, replicated directly from
+ * the API contract's own text (never by reading `careerLifecycle.ts`'s throwing
+ * wrapper): `stream(seed, 'worldgen', 'p14c4-cohort-age/v1:' + id).truncatedNormal(24,3,20,32)`. */
+export function expectedCohortEntrantAge(seed: string, personId: string): number {
+  return stream(seed, 'worldgen', `p14c4-cohort-age/v1:${personId}`).truncatedNormal(
+    TUNING.COHORT_ENTRANT_AGE.mean, TUNING.COHORT_ENTRANT_AGE.sd, TUNING.COHORT_ENTRANT_AGE.lo, TUNING.COHORT_ENTRANT_AGE.hi,
+  )
+}
+
+/**
+ * A SYNTHETIC-BUT-LAWFUL cohort receipt, built the same way 778's `prependSyntheticCandidate`
+ * built isolated boundary cases: through REAL primitives only (`uniqueIdentity`,
+ * `generateIndustryTalent`'s already-working NO-age path, `provenanceRowFor`,
+ * `recomputeDue`), never a hand-edited save. The one throwing export this cannot call
+ * (`cohortEntrantAge`) is replaced by `expectedCohortEntrantAge` above, 793's own
+ * documented formula — not reverse-engineered from any implementation, since none
+ * exists yet. Used ONLY for Save V35 (D-series) cases, which 793 §5 names as needing a
+ * "genuine V35 state produced by ticking" — unreachable while the cohort step itself is
+ * unwired (793 §4), so this is the lawful substitute, labeled at every call site.
+ */
+export function mintLawfulCohortReceipt(
+  state: GameStateV34, week: number, seed: string,
+): { state: GameStateV34; receipt: CohortReceipt } {
+  const { requested, clipped, talentCountBefore } = expectedCohortRequest(state, week)
+  const taken = new Set(state.talent.map((t) => t.id))
+  const personIds: string[] = []
+  let talent = state.talent
+  let rows = state.talentProvenance.rows
+  for (const role of FILM_ROLE_ORDER) {
+    for (let n = 0; n < requested[role]; n++) {
+      const id = uniqueIdentity(`person-cohort-${week}-${role}-${n}`, taken)
+      const exact = expectedCohortEntrantAge(seed, id)
+      const person: Talent = { ...generateIndustryTalent(seed, id, role), id, age: Math.floor(exact) }
+      talent = [...talent, person]
+      rows = [...rows, provenanceRowFor(id, exact, week, 'authored_exact_week')]
+      personIds.push(id)
+    }
+  }
+  const newState: GameStateV34 = {
+    ...state,
+    talent,
+    talentProvenance: { ...state.talentProvenance, rows, due: recomputeDue(rows, (id) => talent.find((t) => t.id === id)?.age) },
+    freeAgents: [...state.freeAgents, ...personIds],
+  }
+  const receipt: CohortReceipt = { week, talentCountBefore, requested, clipped, personIds }
+  return { state: newState, receipt }
+}
+
+/** Attaches an in-memory V35 `cohorts` array to a genuine V34 state — the SAME overlay
+ * technique `withSyntheticCareerLifecycle` used during C.2a (778): a labeled SYNTHETIC
+ * cast, never a fixture-file edit, safe because every real engine call threads unknown
+ * fields through by spread (`careerLifecycle.ts`'s own `{...root, records: ...}`). Used
+ * only ahead of the save layer for pure-function-level V35 cases. */
+export function withSyntheticCohorts(state: GameStateV34, cohorts: readonly CohortReceipt[]): GameStateV35 {
+  return { ...state, careerLifecycle: { ...state.careerLifecycle, cohorts } as CareerLifecycleRootV35 } as unknown as GameStateV35
+}
+
+/** Reads `.cohorts` off a state whose static type has not yet moved to V35 (`GameState`
+ * is still `GameStateV34` on this scaffold — 793's own preamble: the writer moves it).
+ * Returns `undefined` when the field genuinely does not exist (today, before any
+ * migration/wiring), which is itself the RED signal every A/B/C-series natural-route
+ * case above relies on. */
+export function cohortsOf(state: GameState | GameStateV34 | GameStateV35): readonly CohortReceipt[] | undefined {
+  return (state.careerLifecycle as unknown as CareerLifecycleRootV35 | undefined)?.cohorts
+}
