@@ -407,6 +407,12 @@ export function projectToV13State(state: GameState): Record<string, unknown> {
   if (twinMarket !== undefined && (twinMarket.cases.length > 0 || twinMarket.proposals.length > 0 || twinMarket.receipts.length > 0)) {
     throw new Error('V13 twin cannot discard talent-market authority')
   }
+  // P14C.2b: a settled retirement-extension case is a THIRD kind of talent-market
+  // authority (Save V36) — a genuine V13 file never carried one, so stripping the
+  // whole root must not silently discard one either.
+  if (twinMarket !== undefined && twinMarket.cases.some((kase) => (kase as unknown as { variant?: string }).variant === 'retirementExtension')) {
+    throw new Error('V13 twin cannot discard talent-market authority')
+  }
   delete raw.talentMarket
   // P14B.1: the first-take and promise roots are V29-only, so a genuine V13 file
   // never carried either. Real authority in them is never discarded, as above.
@@ -441,6 +447,12 @@ export function projectToV13State(state: GameState): Record<string, unknown> {
   // a genuine V13 file never carried one either, so it takes the same emptiness
   // precondition as `records` just above before the whole root is stripped.
   if ((state.careerLifecycle?.cohorts ?? []).length > 0) {
+    throw new Error('V13 twin cannot discard career-lifecycle authority')
+  }
+  // P14C.2b: `extensionUsed` (Save V36) is a third kind of career-lifecycle
+  // authority; a genuine V13 file never carried one, so it takes the same
+  // emptiness precondition before the whole root is stripped.
+  if ((state.careerLifecycle?.records ?? []).some((record) => (record as unknown as { extensionUsed?: boolean }).extensionUsed === true)) {
     throw new Error('V13 twin cannot discard career-lifecycle authority')
   }
   delete raw.careerLifecycle

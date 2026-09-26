@@ -107,7 +107,7 @@ function promisesRootOf(state: GameState | GameStateV29): readonly unknown[] {
 
 describe('P14B.1 test 8: Save V29 (genuine V28 fixture, empty new tables, same digests, round trip, downgrade)', () => {
   it('LIVE_SAVE_VERSION is 35 (stale title corrected post-C.4; the P14B.5 cutover, record 662, made it 31 at the time — the V29 lift this slice pins is the intermediate step)', () => {
-    expect(save.LIVE_SAVE_VERSION as number).toBe(35)
+    expect(save.LIVE_SAVE_VERSION as number).toBe(36)
   })
 
   it('genuine V28 open-case-45 fixture: sha256 matches, still validates as V28 through the frozen chain, migrates to V29 with EMPTY firstTakes and promises roots and promises: [] on every existing proposal, otherwise byte-identical', () => {
@@ -134,6 +134,11 @@ describe('P14B.1 test 8: Save V29 (genuine V28 fixture, empty new tables, same d
       expect(p.digest).toBe(beforeMarket.proposals[i]!.digest) // migration never recomputes the digest
     })
 
+    // P14C.2b: this genuine V28-era fixture predates the retirement-extension
+    // market entirely (migrateToV29 stops at V29, long before `variant` exists
+    // on a case), so no settled extension case can be silently discarded by the
+    // strip below — checked directly rather than assumed.
+    expect(afterMarket.cases.some((kase) => (kase as unknown as { variant?: string }).variant === 'retirementExtension')).toBe(false)
     // Strip the two new roots and compare everything else byte-for-byte, exactly
     // as tests/p14a1-save-v28.test.ts does for the V27->V28 lift.
     const { talentMarket: _tm, firstTakes: _ft, promises: _pr, ...afterRest } =
@@ -194,10 +199,10 @@ describe('P14B.1 test 8: Save V29 (genuine V28 fixture, empty new tables, same d
   // The B5 additive reader recognizes V31 (the live writer cut over at record 662,
   // LIVE_SAVE_VERSION 31); 31 is the current dispatch ceiling, not a change to
   // frozen V29 fixture law.
-  it('an unknown saveVersion 36 is refused, naming the handled range "1 through 35 only" (stale numbers corrected post-C.4)', () => {
+  it('an unknown saveVersion 37 is refused, naming the handled range "1 through 36 only" (stale numbers corrected post-C.2b)', () => {
     const json = load(FIXTURE.file)
     const lifted = withV29.migrateToV29(JSON.parse(json))
-    const forged = { ...lifted, saveVersion: 36 }
-    expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 35 only/)
+    const forged = { ...lifted, saveVersion: 37 }
+    expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 36 only/)
   })
 })

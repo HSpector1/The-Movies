@@ -3,7 +3,7 @@ import { gunzipSync } from 'node:zlib'
 import { beforeAll, describe, expect, it } from 'vitest'
 import { applyActions } from '../src/core/actions.js'
 import { initializeHollywood } from '../src/core/hollywood.js'
-import { exportSave, importSave, makeSave, migrateToV25, migrateToLive, validateSaveV19, validateSaveV35 } from '../src/core/save.js'
+import { exportSave, importSave, makeSave, migrateToV25, migrateToLive, validateSaveV19, validateSaveV36 } from '../src/core/save.js'
 import { tick } from '../src/core/tick.js'
 import { technologyMilestoneDrafts } from '../src/core/technologyMilestones.js'
 import type { GameState } from '../src/core/types.js'
@@ -71,14 +71,14 @@ describe('P13A dated public technology history', () => {
     ]) {
       const forged = structuredClone(save)
       Object.assign(milestones(forged.state)[0]!, change)
-      expect(() => validateSaveV35(forged)).toThrow(/technology milestone/)
+      expect(() => validateSaveV36(forged)).toThrow(/technology milestone/)
     }
     const duplicated = structuredClone(save)
     duplicated.state.studioHistory.rows = [...duplicated.state.studioHistory.rows,
       { ...milestones(duplicated.state)[0]!, eventId: duplicated.state.studioHistory.nextEventId++ }]
-    expect(() => validateSaveV35(duplicated)).toThrow(/duplicate technology milestone/)
+    expect(() => validateSaveV36(duplicated)).toThrow(/duplicate technology milestone/)
     const preRecorded = structuredClone(save)
     preRecorded.state.technology.recordingStartedWeek = 260
-    expect(() => validateSaveV35(preRecorded)).toThrow(/invented technology history/)
+    expect(() => validateSaveV36(preRecorded)).toThrow(/invented technology history/)
   })
 })

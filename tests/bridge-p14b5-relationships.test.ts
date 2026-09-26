@@ -52,7 +52,7 @@ import { submitProposal } from '../src/core/talentMarket.js'
 import { attachPromise } from '../src/core/promises.js'
 import { exportSave, importSave, LIVE_SAVE_VERSION, makeSave, migrateToLive, migrateToV33, validateSaveV30 } from '../src/core/save.js'
 import { advanceTo, fund, p13aGeneratedStudio, player, poachingFixture } from './helpers/p14b2-fixtures.js'
-import type { GameState, TalentMarketCase, TalentMarketReceipt } from '../src/core/types.js'
+import type { GameState, TalentMarketCaseV36, TalentMarketReceipt } from '../src/core/types.js'
 
 const OUTGOING_46 = 'sha256:584bdd8565030f049d548b1af4fcbf8c517ca7c9150016736f632f1ef8fcb98c'
 const OUTGOING_47 = 'sha256:6f6b48805aadcf14d456614d87bf1571eb1ce0d9aa0bc44f604e7976f4f85538' // T0 MANIFEST authority.schemaId
@@ -271,7 +271,7 @@ function f6Base(): { at207: GameState; playerId: string; r01: string; offCycle: 
   const row = state.hollywood!.employment.find((e) => e.studioId === F6.incumbent && e.terms.talentId === F6.subject && e.endedWeek === null)!
   expect(row.terms.endWeekExclusive).toBe(F6.W)
   const counter = state.talentMarket.receipts.length
-  const kase: TalentMarketCase = { talentId: F6.subject, subjectStudioId: F6.incumbent, contractId: row.contractId, openedWeek: 196, outcome: null, closedWeek: null, reason: null }
+  const kase: TalentMarketCaseV36 = { talentId: F6.subject, subjectStudioId: F6.incumbent, contractId: row.contractId, openedWeek: 196, outcome: null, closedWeek: null, reason: null, variant: 'expiry' }
   const discovery: TalentMarketReceipt = { eventId: `talent-market-event-${String(counter)}`, kind: 'discovered', week: 196, talentId: F6.subject, studioId: F6.incumbent, reasons: [], dropped: [] }
   state = { ...state, talentMarket: { ...state.talentMarket, cases: [...state.talentMarket.cases, kase], receipts: [...state.talentMarket.receipts, discovery] } }
   const entered = state.hollywood!.identities.filter((s) => s.enteredWeek !== null)
@@ -324,7 +324,7 @@ describe('P14B.5 frozen side — the OUTGOING wire identities (R-VERSION class, 
     // The checked-in contract-manifest schemaId at ad49031f, read independently of this test.
     expect(SCHEMA_ID).toBe('sha256:e2d354dcbae1a6dc93a2367756512c14243b11be202a26107de0c81a4f3e0698')
     expect(SCHEMA_ID).not.toBe(OUTGOING_47)
-    expect(LIVE_SAVE_VERSION).toBe(35)
+    expect(LIVE_SAVE_VERSION).toBe(36)
     expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_35_PRIOR_IDS, OUTGOING_47, OUTGOING_48, OUTGOING_49].sort())
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_46)).toBe('projection-v46')
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_47)).toBe('projection-v47')
@@ -402,7 +402,13 @@ describe('family 11 — projection 48 THIN (RED by value): the enum, the registr
     // adds (nothing else recomputed) -- the same device as runtime47's sibling case.
     expect(actual.state.promises).toEqual(old.state.promises.map((p) => ({ ...p, supersededByPromiseId: null })))
     expect(actual.state.firstTakes).toEqual(old.state.firstTakes)
-    expect(actual.state.talentMarket).toEqual(old.state.talentMarket)
+    // P14C.2b: re-expressed to include the ONE additive field the V35->V36 step
+    // adds to every case (`variant: 'expiry'`; nothing else recomputed) -- the
+    // same device as runtime47's sibling case.
+    expect(actual.state.talentMarket).toEqual({
+      ...old.state.talentMarket,
+      cases: old.state.talentMarket.cases.map((kase) => ({ ...kase, variant: 'expiry' })),
+    })
     expect(actual.state.hollywood).toEqual(old.state.hollywood)
     expect(sha(raw)).toBe(CHECKPOINT.raw)
   })

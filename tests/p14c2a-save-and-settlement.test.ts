@@ -10,6 +10,8 @@
 // named, attributable message instead of a raw TypeError deep inside the case.
 // P14C.4: G5 alone moved to the LIVE V35 round trip (`makeSave`/`validateSaveV35`,
 // both long-established exports by now), so it carries no such premise.
+// P14C.2b: G5's round trip moves once more, to the LIVE V36 validator
+// (`validateSaveV36`) — the live writer's own boundary, same reasoning.
 import { describe, expect, it } from 'vitest'
 import { applyActions, busyTalentIds, hiringMarketIds, tick } from '../src/core/index.js'
 import { freelancerMarketIds } from '../src/core/employment.js'
@@ -22,8 +24,8 @@ import {
   LIVE_SAVE_VERSION, makeSave,
   // RED-by-design (776 S6): none of these five exist in src/core/save.ts today.
   validateSaveV34, convertV33ToV34, convertV34ToV33, migrateToV34, migrateToLive,
-  // P14C.4: the live validator now (G5 alone drives a real tick()/makeSave round trip).
-  validateSaveV35,
+  // P14C.2b: the live validator now (G5 alone drives a real tick()/makeSave round trip).
+  validateSaveV36,
 } from '../src/core/save.js'
 import type { GameState, GameStateV34 } from '../src/core/types.js'
 import {
@@ -35,6 +37,18 @@ import {
 function realAge(state: GameState, id: string, week: number): number {
   const row = state.talentProvenance.rows.find((r) => r.personId === id)!
   return ageAt(row, week)
+}
+
+/** P14C.2b: `syntheticRecord` (helpers/p14c2a-fixtures.ts) now always supplies the
+ * V36 keys, for every LIVE consumer elsewhere in this suite (G5, E1-E3, F1). G1/G3/G4
+ * below build a genuine FROZEN V34 envelope directly (never through `makeSave`), whose
+ * exact-key validator has never heard of `extensionUsed`/`extendedFromWeek` and refuses
+ * them — so this strips the two V36-only keys back off, restoring the frozen V34 shape. */
+function frozenRecord<T extends { extensionUsed?: boolean; extendedFromWeek?: number | null }>(
+  record: T,
+): Omit<T, 'extensionUsed' | 'extendedFromWeek'> {
+  const { extensionUsed: _eu, extendedFromWeek: _efw, ...rest } = record
+  return rest
 }
 
 function assertSaveV34Exports(): void {
@@ -170,9 +184,9 @@ describe('P14C.2a G1-G5: Save V34', () => {
         boundaryWeek: week - 52,
         // announcement order (773 §3: "Records append in announcement order")
         records: [
-          syntheticRecord({ personId: finishingId, profession: 'director', cause: 'hardBoundary', announcedWeek: week - 52, ageAtAnnouncement: realAge(base, finishingId, week - 52), effectiveWeek: week, status: 'finishing_commitments', finishingFromWeek: week }),
-          syntheticRecord({ personId: retiredId, profession: 'writer', cause: 'hardBoundary', announcedWeek: week - 52, ageAtAnnouncement: realAge(base, retiredId, week - 52), effectiveWeek: week, status: 'retired', finishingFromWeek: week, retiredWeek: week }),
-          syntheticRecord({ personId: announcedId, profession: 'actor', cause: 'hardBoundary', announcedWeek: week, ageAtAnnouncement: realAge(base, announcedId, week), effectiveWeek: week + 500 }),
+          frozenRecord(syntheticRecord({ personId: finishingId, profession: 'director', cause: 'hardBoundary', announcedWeek: week - 52, ageAtAnnouncement: realAge(base, finishingId, week - 52), effectiveWeek: week, status: 'finishing_commitments', finishingFromWeek: week })),
+          frozenRecord(syntheticRecord({ personId: retiredId, profession: 'writer', cause: 'hardBoundary', announcedWeek: week - 52, ageAtAnnouncement: realAge(base, retiredId, week - 52), effectiveWeek: week, status: 'retired', finishingFromWeek: week, retiredWeek: week })),
+          frozenRecord(syntheticRecord({ personId: announcedId, profession: 'actor', cause: 'hardBoundary', announcedWeek: week, ageAtAnnouncement: realAge(base, announcedId, week), effectiveWeek: week + 500 })),
         ],
       },
     }
@@ -207,7 +221,7 @@ describe('P14C.2a G1-G5: Save V34', () => {
     const id = 'authored-0000'
     const withRecord: GameStateV34 = {
       ...base,
-      careerLifecycle: { boundaryWeek: base.market.tick, records: [syntheticRecord({ personId: id, profession: 'actor', cause: 'hardBoundary', announcedWeek: base.market.tick, ageAtAnnouncement: realAge(base, id, base.market.tick), effectiveWeek: base.market.tick + 500 })] },
+      careerLifecycle: { boundaryWeek: base.market.tick, records: [frozenRecord(syntheticRecord({ personId: id, profession: 'actor', cause: 'hardBoundary', announcedWeek: base.market.tick, ageAtAnnouncement: realAge(base, id, base.market.tick), effectiveWeek: base.market.tick + 500 }))] },
     }
     const recordSave = { saveVersion: 34, seed: withRecord.seed, state: withRecord, broadcastCache: withRecord.broadcastItems }
     expect(() => convertV34ToV33(recordSave as never)).toThrow(/downgrade/i)
@@ -218,7 +232,7 @@ describe('P14C.2a G1-G5: Save V34', () => {
     const base = c2Fixture('genuine-v33-c2-hard-boundary-and-idle-window')
     const id = 'authored-0000'
     const week = base.market.tick
-    const lawful = { ...base, careerLifecycle: { boundaryWeek: week, records: [syntheticRecord({ personId: id, profession: 'actor', cause: 'hardBoundary', announcedWeek: week, ageAtAnnouncement: realAge(base, id, week), effectiveWeek: week + 500 })] } }
+    const lawful = { ...base, careerLifecycle: { boundaryWeek: week, records: [frozenRecord(syntheticRecord({ personId: id, profession: 'actor', cause: 'hardBoundary', announcedWeek: week, ageAtAnnouncement: realAge(base, id, week), effectiveWeek: week + 500 }))] } }
     // P14C.4: as G1/G3 — a genuine V34 envelope, built directly rather than through
     // `makeSave` (now the live V35 writer, which requires `cohorts`).
     const lawfulSave = { saveVersion: 34, seed: lawful.seed, state: lawful, broadcastCache: lawful.broadcastItems } as unknown as { state: Record<string, unknown> }
@@ -268,10 +282,10 @@ describe('P14C.2a G1-G5: Save V34', () => {
     const earlierAnnounce = week - 100
     const statusDisagrees = mutate(() => ({
       boundaryWeek: earlierAnnounce,
-      records: [syntheticRecord({
+      records: [frozenRecord(syntheticRecord({
         personId: id, profession: 'actor', cause: 'hardBoundary', announcedWeek: earlierAnnounce,
         ageAtAnnouncement: realAge(base, id, earlierAnnounce), effectiveWeek: earlierAnnounce + TUNING.RETIREMENT_NOTICE_WEEKS, // < tick
-      })],
+      }))],
     }))
     expect(() => validateSaveV34(statusDisagrees as never), 'must name the status/week disagreement cause').toThrow(/at or after its effective week/)
 
@@ -283,10 +297,10 @@ describe('P14C.2a G1-G5: Save V34', () => {
     expect(base.talent.find((t) => t.id === scientistId)?.role).toBe('scientist')
     const scientistRecord = mutate(() => ({
       boundaryWeek: week,
-      records: [syntheticRecord({
+      records: [frozenRecord(syntheticRecord({
         personId: scientistId, profession: 'scientist', cause: 'hardBoundary', announcedWeek: week,
         ageAtAnnouncement: realAge(base, scientistId, week), effectiveWeek: week + 500,
-      })],
+      }))],
     }))
     expect(() => validateSaveV34(scientistRecord as never), 'must name the Scientist-record cause').toThrow(/Scientist record/)
   })
@@ -299,19 +313,27 @@ describe('P14C.2a G1-G5: Save V34', () => {
     // saved through the live writer), this state IS driven through the real `tick()`
     // and `makeSave` below, so it needs `cohorts` (793 §5) and the round trip moves
     // from `validateSaveV34` to `validateSaveV35`, the live validator now.
+    // P14C.2b: the round trip moves once more, to `validateSaveV36` — a live record
+    // also owes `extensionUsed`/`extendedFromWeek` now, which `syntheticRecord`
+    // supplies by default (helpers/p14c2a-fixtures.ts).
     let state: GameState = {
       ...base,
       careerLifecycle: { boundaryWeek: week, cohorts: [], records: [syntheticRecord({ personId: id, profession: 'actor', cause: 'hardBoundary', announcedWeek: week, ageAtAnnouncement: realAge(base, id, week), effectiveWeek: week + 500 })] },
+      // P14C.2b: `base` comes straight from the frozen V33 fixture, so its
+      // `talentMarket.cases` carry no `variant` yet either — needed the moment
+      // this state is actually SAVED (`makeSave`/`validateSaveV36`'s exact-key
+      // check) below, though `tick()` alone never reads it.
+      talentMarket: { ...base.talentMarket, cases: base.talentMarket.cases.map((kase) => ({ ...kase, variant: 'expiry' as const })) },
     }
     const continuous = tick(tick(state))
-    const reloaded = validateSaveV35(JSON.parse(JSON.stringify(makeSave(state))) as never).state
+    const reloaded = validateSaveV36(JSON.parse(JSON.stringify(makeSave(state))) as never).state
     const viaSaveLoad = tick(tick(reloaded))
     expect(JSON.stringify(viaSaveLoad)).toBe(JSON.stringify(continuous))
   })
 
   it('records LIVE_SAVE_VERSION and confirms migrateToV34/migrateToLive exist (RED premise only — not exercised further here)', () => {
     // P14C.4: LIVE_SAVE_VERSION is the live writer's own stamp — moves with the bump.
-    expect(LIVE_SAVE_VERSION).toBe(35)
+    expect(LIVE_SAVE_VERSION).toBe(36)
     expect(typeof migrateToV34, 'RED premise: migrateToV34 must exist as a named export of src/core/save.ts').toBe('function')
     expect(typeof migrateToLive, 'RED premise: migrateToLive must exist as a named export of src/core/save.ts').toBe('function')
   })

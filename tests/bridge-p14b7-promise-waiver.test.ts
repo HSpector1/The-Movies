@@ -53,7 +53,7 @@ import {
   // RED-by-design (720 §2 items 1-2): neither exists in src/core/promises.ts today.
   waivePromise, waiverAccepted,
 } from '../src/core/promises.js'
-import { convertV31ToV32, convertV32ToV33, convertV33ToV34, convertV34ToV35, validateSaveV31 } from '../src/core/save.js'
+import { convertV31ToV32, convertV32ToV33, convertV33ToV34, convertV34ToV35, convertV35ToV36, validateSaveV31 } from '../src/core/save.js'
 import { PROJECTION_VERSION } from '../bridge/schema/bridge-schema.ts'
 import { industryPage } from '../bridge/industry.ts'
 import { PROTOCOL_VERSION, SCHEMA_ID } from '../bridge/protocol.ts'
@@ -103,7 +103,11 @@ function boundOpenP1(): GameState {
   // P14C.4: carried one lawful conversion further still, to V35 — the LIVE
   // `GameState` now also carries empty `cohorts` inside the same root, the
   // same widening, still nothing a waived-promise assertion reads.
-  return convertV34ToV35(convertV33ToV34(convertV32ToV33(convertV31ToV32(save)))).state
+  // P14C.2b: carried one lawful conversion further still, to V36 — the LIVE
+  // `GameState` now also carries every record's unused extension and every
+  // case's `expiry` variant, the same widening, still nothing a
+  // waived-promise assertion reads.
+  return convertV35ToV36(convertV34ToV35(convertV33ToV34(convertV32ToV33(convertV31ToV32(save))))).state
 }
 function promiseZero(state: GameState): ProfessionalPromise {
   const promise = state.promises.find((p) => p.promiseId === 'promise-0')

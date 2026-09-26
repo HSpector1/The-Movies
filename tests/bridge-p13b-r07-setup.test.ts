@@ -584,7 +584,7 @@ describe('extra pin (parent instruction): the bridge\'s save/load "converted" re
     expect(saved.accepted).toBe(true)
     if (!saved.accepted) throw new Error(`save refused: ${JSON.stringify(saved)}`)
     const parsedSaveVersion = (JSON.parse(saved.saveJson) as { saveVersion: number }).saveVersion
-    expect(parsedSaveVersion).toBe(35) // the CURRENT live version — confirms this is not genuinely a migration
+    expect(parsedSaveVersion).toBe(36) // the CURRENT live version — confirms this is not genuinely a migration
 
     const loaded = session.load(control(session, nextCommandId('load')))
     expect(loaded.accepted).toBe(true)

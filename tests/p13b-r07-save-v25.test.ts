@@ -162,6 +162,9 @@ function asV25Envelope(state: GameState): { saveVersion: 25; seed: string; state
   } as GameState
   // P14A.1 sweep: a frozen V25 envelope carries no `talentMarket` root — the
   // frozen chain's exact-key law refuses a root V25 never had.
+  // P14C.2b sweep: a settled retirement-extension case is a second kind of
+  // talent-market authority (Save V36); this rehearsing world never opens one.
+  expect(stripped.talentMarket.cases.some((kase) => (kase as unknown as { variant?: string }).variant === 'retirementExtension')).toBe(false)
   delete (stripped as unknown as { talentMarket?: unknown }).talentMarket
   // P14B.1: reconstruct V25 only when no first-take or promise history is lost.
   expect(stripped.firstTakes).toEqual([])
@@ -190,6 +193,10 @@ function asV25Envelope(state: GameState): { saveVersion: 25; seed: string; state
   // rehearsing world never reaches a cohort week either, so it holds no
   // entrant receipt and nothing is discarded.
   expect(stripped.careerLifecycle.cohorts).toEqual([])
+  // P14C.2b sweep: `extensionUsed` (Save V36) is a second kind of
+  // career-lifecycle authority — records is already empty above, so trivially
+  // none is used.
+  expect(stripped.careerLifecycle.records.some((record) => (record as unknown as { extensionUsed?: boolean }).extensionUsed === true)).toBe(false)
   delete (stripped as unknown as { careerLifecycle?: unknown }).careerLifecycle
   return { saveVersion: 25, seed: stripped.seed, state: stripped, broadcastCache: stripped.broadcastItems }
 }
@@ -256,9 +263,9 @@ describe('P13B-S5-R07 Save V25 (test 5)', () => {
   // forward exactly as p13b-s5-save-v24.test.ts's own sentinel case does
   // (superseded as the canonical proof by tests/p13b-s6-save-v26.test.ts's
   // "an unknown saveVersion 35..." case, kept here rather than deleted).
-  it('an unknown saveVersion 36 is refused, naming the handled range "1 through 35 only" (B4 additive reader boundary; stale numbers corrected post-C.4)', () => {
-    const forged = { ...save.makeSave(legacyRehearsingWorld('r07-save-v25-unknown-version')), saveVersion: 36 }
-    expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 35 only/)
+  it('an unknown saveVersion 37 is refused, naming the handled range "1 through 36 only" (B4 additive reader boundary; stale numbers corrected post-C.2b)', () => {
+    const forged = { ...save.makeSave(legacyRehearsingWorld('r07-save-v25-unknown-version')), saveVersion: 37 }
+    expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 36 only/)
   })
 
   it('mid-setup save/reload round-trips byte-identically (export/import codec only) — INTERPRETATION 3: hand-authored setup, no genuine producer exists yet', () => {

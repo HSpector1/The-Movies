@@ -158,6 +158,9 @@ describe('P14A.1 test 8: Save V28 (genuine V27 fixtures, honest lift, downgrade,
     expect(market.proposals).toEqual([])
     expect(market.receipts).toEqual([])
     // Strip the new root and compare everything else byte-for-byte.
+    // P14C.2b: `cases` is already asserted empty just above, so this strip
+    // discards no settled retirement-extension case either — the check still
+    // means what it says.
     const { talentMarket: _tm, ...afterWithoutMarket } = migrated.state as unknown as { talentMarket: unknown } & Record<string, unknown>
     expect(JSON.stringify(afterWithoutMarket)).toBe(JSON.stringify(beforeState))
   })
@@ -246,11 +249,11 @@ describe('P14A.1 test 8: Save V28 (genuine V27 fixtures, honest lift, downgrade,
     expect(() => withV28.validateSaveV28(nonNull as never)).toThrow(/representation/i)
   })
 
-  it('an unknown saveVersion 36 is refused, naming the handled range "1 through 35 only" (stale numbers corrected post-C.4)', () => {
+  it('an unknown saveVersion 37 is refused, naming the handled range "1 through 36 only" (stale numbers corrected post-C.2b)', () => {
     const json = load(V27_FIXTURES.naturalRivalLabs.file)
     const lifted = withV28.migrateToV28(JSON.parse(json))
-    const forged = { ...lifted, saveVersion: 36 }
-    expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 35 only/)
+    const forged = { ...lifted, saveVersion: 37 }
+    expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 36 only/)
   })
 
   it('releaseTalent on a migrateToV28-only state throws the named V29-roots-missing message (T2c: pins the fail-loud behaviour that made the R4 case below need migrateToV29 for its live action)', () => {

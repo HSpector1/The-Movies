@@ -70,11 +70,11 @@ import { tick } from '../src/core/tick.js'
 import * as marketModule from '../src/core/talentMarket.js'
 import { publicPreferredTerm, publicPriorityOrder, submitProposal, type FreezeDrop } from '../src/core/talentMarket.js'
 import { attachPromise } from '../src/core/promises.js'
-import { LIVE_SAVE_VERSION, makeSave, migrateToLive, migrateToV25, migrateToV26, migrateToV27, migrateToV28, migrateToV29, migrateToV30, migrateToV31, validateSaveV30, validateSaveV31, validateSaveV33, validateSaveV35 } from '../src/core/save.js'
+import { LIVE_SAVE_VERSION, makeSave, migrateToLive, migrateToV25, migrateToV26, migrateToV27, migrateToV28, migrateToV29, migrateToV30, migrateToV31, validateSaveV30, validateSaveV31, validateSaveV33, validateSaveV36 } from '../src/core/save.js'
 import { TUNING } from '../src/core/tuning.js'
 import { careerIdentity } from '../src/core/talentSummary.js'
 import { advanceTo, fund, p13aGeneratedStudio, player } from './helpers/p14b2-fixtures.js'
-import type { CastSlot, FilmResult, GameState, Production, TalentMarketCase, TalentMarketReceipt } from '../src/core/types.js'
+import type { CastSlot, FilmResult, GameState, Production, TalentMarketCaseV36, TalentMarketReceipt } from '../src/core/types.js'
 // RED-by-design: src/core/relationships.ts does not exist. Every binding below is CALLED.
 import {
   RELATIONSHIP_BASELINE, RELATIONSHIP_CANCEL_DELTA, RELATIONSHIP_DRIFT_GRACE_WEEKS, RELATIONSHIP_DRIFT_RETURN_WEEKS,
@@ -234,9 +234,23 @@ const stage = (state: GameState, edge: Edge): GameState => live(withEdges(state,
 // sides in an eligible hollywood world, but that no longer matters: the root
 // is dropped wholesale before comparison either way.
 const bytes = (state: GameState): string => {
-  const { relationships: _r, careerLifecycle: _cl, ...rest } = state as unknown as Record<string, unknown> & { promises: Record<string, unknown>[] }
+  // P14C.2b: before the structural strip below silently drops the whole root,
+  // confirm it is dropping no retirement-extension authority — this window
+  // (60-65) never reaches a settled extension either.
+  if (state.careerLifecycle.records.some((record) => (record as unknown as { extensionUsed?: boolean }).extensionUsed === true)) {
+    throw new Error('bytes: a settled retirement extension would be silently dropped by this strip')
+  }
+  const { relationships: _r, careerLifecycle: _cl, ...rest } = state as unknown as Record<string, unknown> & {
+    promises: Record<string, unknown>[]
+    talentMarket: { cases: Record<string, unknown>[] } & Record<string, unknown>
+  }
   const promises = rest.promises.map((p) => { const { supersededByPromiseId: _s, ...legacy } = p; return legacy })
-  return JSON.stringify({ ...rest, promises })
+  // P14C.2b: every case now carries `variant` (V36's own additive default,
+  // `'expiry'` here since this window never settles an extension) -- stripped
+  // for the same reason `supersededByPromiseId` is: a pure schema addition,
+  // not a fact this CANNOT-MOVE control is about.
+  const talentMarket = { ...rest.talentMarket, cases: rest.talentMarket.cases.map((c) => { const { variant: _v, ...legacy } = c; return legacy }) }
+  return JSON.stringify({ ...rest, promises, talentMarket })
 }
 // P14C.2a: `stripRoot` builds a pre-V31 view for the relationships-root-presence
 // fault test above (family 1's first `it`) -- it strips only the one root that
@@ -365,7 +379,7 @@ function f6Base(): F6Base {
     expect(row.terms.endWeekExclusive).toBe(F6.W)
     expect(state.talentMarket.cases.some((c) => c.talentId === F6.subject)).toBe(false)
     const counter = state.talentMarket.receipts.length
-    const kase: TalentMarketCase = { talentId: F6.subject, subjectStudioId: F6.incumbent, contractId: row.contractId, openedWeek: 196, outcome: null, closedWeek: null, reason: null }
+    const kase: TalentMarketCaseV36 = { talentId: F6.subject, subjectStudioId: F6.incumbent, contractId: row.contractId, openedWeek: 196, outcome: null, closedWeek: null, reason: null, variant: 'expiry' }
     const discovery: TalentMarketReceipt = { eventId: `talent-market-event-${String(counter)}`, kind: 'discovered', week: 196, talentId: F6.subject, studioId: F6.incumbent, reasons: [], dropped: [] }
     state = { ...state, talentMarket: { ...state.talentMarket, cases: [...state.talentMarket.cases, kase], receipts: [...state.talentMarket.receipts, discovery] } }
     const entered = state.hollywood!.identities.filter((s) => s.enteredWeek !== null)
@@ -980,7 +994,7 @@ describe('family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; fam
   const expectRefused = (mutate: (edges: Edge[], state: Record<string, unknown>) => void, pattern: RegExp) => {
     const save = v31()
     mutate(save.state.relationships, save.state)
-    expect(() => validateSaveV35(save)).toThrow(pattern)
+    expect(() => validateSaveV36(save)).toThrow(pattern)
     expect(() => validateRelationshipsRoot(save.state)).toThrow(pattern)
   }
 
@@ -991,13 +1005,13 @@ describe('family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; fam
     const save = v31()
     expect(save.saveVersion).toBe(LIVE_SAVE_VERSION)
     expect(save.state.relationships).toHaveLength(6)
-    expect(validateSaveV35(save)).toEqual(save)
+    expect(validateSaveV36(save)).toEqual(save)
   })
 
   it('refuses a missing root', () => {
     const save = v31()
     Reflect.deleteProperty(save.state, 'relationships')
-    expect(() => validateSaveV35(save)).toThrow(/relationships/)
+    expect(() => validateSaveV36(save)).toThrow(/relationships/)
   })
   it('refuses a non-ordinal edgeId', () => expectRefused((e) => { e[0]!.edgeId = 'edge-x' }, /edgeId/))
   it('refuses a duplicate pair', () => expectRefused((e) => { e[1]!.a = e[0]!.a; e[1]!.b = e[0]!.b }, /duplicate|pair/i))
@@ -1035,7 +1049,9 @@ describe('family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; fam
     // P14C.4: `one.saveVersion` is genuinely live (35, from `v31()`'s `makeSave`) —
     // `validateSaveV34` would refuse it outright ("expected version 34"); this
     // moves to the live validator, same as every other `v31()`-derived save below.
-    const admitted = validateSaveV35(one)
+    // P14C.2b: `one.saveVersion` moved once more, to 36 — the live validator moves
+    // with it again, same reasoning.
+    const admitted = validateSaveV36(one)
     const before = JSON.stringify(admitted)
     expect(() => projectRelationshipsPreV31(one.state)).toThrow()
     // RE-EXPRESSED (was: `/cannot downgrade SaveFileV31 or discard the relationship
@@ -1071,7 +1087,10 @@ describe('family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; fam
     // V33's. It never reaches the V34 arm, the V33-specific materialization
     // gate, or anything older; measured directly from source (save.ts's
     // `migrateToV25`), not assumed. `admitted` is genuinely live (V35) here.
-    expect(() => migrateToV25(admitted as never)).toThrow(/cannot downgrade SaveFileV35 or discard the cohort receipts/)
+    // P14C.2b: `migrateToV25` now meets a NEWER unconditional V36 guard FIRST,
+    // added directly beside the P14C.4-era V35 one — `admitted` is genuinely
+    // live (V36) here, so it never reaches the V35 arm either.
+    expect(() => migrateToV25(admitted as never)).toThrow(/cannot downgrade SaveFileV36 or discard the retirement extension/)
     expect(JSON.stringify(admitted)).toBe(before)
 
     // RE-EXPRESSED (was: "empty is lossless" — `migrateToV30(empty)` succeeded and
@@ -1084,7 +1103,7 @@ describe('family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; fam
     // That downgrade route does not exist for this fixture any more; the correct,
     // current-law assertion is that it is refused too — not a different message,
     // and not a success.
-    const empty = validateSaveV35({ ...save, state: { ...save.state, relationships: [] } })
+    const empty = validateSaveV36({ ...save, state: { ...save.state, relationships: [] } })
     expect(projectRelationshipsPreV31(empty.state)).toBeUndefined()
     expect(() => migrateToV30(empty)).toThrow(/cannot downgrade SaveFileV33 — an age has materialized since week \d+ \(the campaign is at week \d+\), and V32 has nowhere to record the provenance that produced it/)
     // GAP, disclosed rather than hidden: the ORIGINAL claim under test here — that an

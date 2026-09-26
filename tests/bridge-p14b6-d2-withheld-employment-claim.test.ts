@@ -58,7 +58,7 @@ import assert from 'node:assert/strict'
 import { describe, expect, it } from 'vitest'
 
 import { beginFounding, generateWorld } from '../src/core/index.js'
-import { LIVE_SAVE_VERSION, makeSave, validateSaveV35 } from '../src/core/save.js'
+import { LIVE_SAVE_VERSION, makeSave, validateSaveV36 } from '../src/core/save.js'
 import type { GameState, RelationshipDriver, RelationshipTier } from '../src/core/types.js'
 import { peopleProjection } from '../bridge/people.ts'
 import { contractedByRole, richFoundedStudio } from './contracts/_contractFixtures.ts'
@@ -79,7 +79,7 @@ const withRoot = (state: GameState, rows: readonly Edge[]): GameState =>
 function admitted(state: GameState): GameState {
   const save = makeSave(state)
   expect(save.saveVersion).toBe(LIVE_SAVE_VERSION)
-  validateSaveV35(JSON.parse(JSON.stringify(save)))
+  validateSaveV36(JSON.parse(JSON.stringify(save)))
   return save.state as GameState
 }
 /** One edge, staged between `x` and `y` at `week` — the single canonical pair, ordinal id 0. */

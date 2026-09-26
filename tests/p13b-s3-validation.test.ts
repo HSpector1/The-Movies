@@ -1,5 +1,5 @@
 import { beforeAll, describe, expect, it } from 'vitest'
-import { exportSave, makeSave, validateSaveV35 } from '../src/core/save.js'
+import { exportSave, makeSave, validateSaveV36 } from '../src/core/save.js'
 import { initialPhysicalPlans } from '../src/core/physicalPlans.js'
 import { TUNING } from '../src/core/tuning.js'
 import type { GameState } from '../src/core/types.js'
@@ -156,7 +156,7 @@ describe('P13B-S3 validator refusals for physicalPlans (test 8)', () => {
   // AMENDED (735-T live-version sweep, 2026-09-23): live envelope now V32.
   it('accepts the unmutated hand-authored baseline directly through validateSaveV32', () => {
     const json = exportSave(makeSave(base))
-    expect(() => validateSaveV35(JSON.parse(json))).not.toThrow()
+    expect(() => validateSaveV36(JSON.parse(json))).not.toThrow()
   })
 
   it('(a) rejects a dependency cycle', () => {

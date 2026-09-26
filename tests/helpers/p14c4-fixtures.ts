@@ -8,8 +8,10 @@ import { createHash } from 'node:crypto'
 import { existsSync, readFileSync } from 'node:fs'
 import { gunzipSync } from 'node:zlib'
 import { expect } from 'vitest'
-import { convertV34ToV35, validateSaveV34, validateSaveV35 } from '../../src/core/save.js'
-import type { SaveFileV34, SaveFileV35 } from '../../src/core/save.js'
+import {
+  convertV36ToV35, LIVE_SAVE_VERSION, migrateToLive, validateSaveV34, validateSaveV36,
+} from '../../src/core/save.js'
+import type { SaveFileV34, SaveFileV35, SaveFileV36 } from '../../src/core/save.js'
 import { ageAt } from '../../src/core/aging.js'
 import { stream } from '../../src/core/rng.js'
 import { TUNING } from '../../src/core/tuning.js'
@@ -52,23 +54,33 @@ export function envelopeV34(state: GameStateV34): SaveFileV34 {
   return validateSaveV34({ saveVersion: 34, seed: state.seed, state, broadcastCache: state.broadcastItems })
 }
 
-/** A genuine, already-V35-shaped `GameState` wrapped in its own save envelope, so a
- * REAL (post-migration, possibly post-tick) live state can be round-tripped through
- * `validateSaveV35`/`convertV35ToV34` directly. */
+/** A REAL (post-migration, possibly post-tick) live `GameState` wrapped in its own
+ * live save envelope, then converted DOWN to the frozen V35 boundary so C.4's own
+ * cohort suite can round-trip it through `validateSaveV35`/`convertV35ToV34` directly,
+ * exactly as before P14C.2b. None of these C.4 worlds ever open or settle a retirement
+ * extension, so `convertV36ToV35` always succeeds (P14C.2b, `812` T8: this function
+ * now builds the live V36 envelope FIRST — the live engine is V36, not V35 — and hands
+ * the frozen chain the V35 it already knew how to read). */
 export function liveEnvelope(state: GameState): SaveFileV35 {
-  return validateSaveV35({ saveVersion: 35, seed: state.seed, state, broadcastCache: state.broadcastItems })
+  const live: SaveFileV36 = validateSaveV36({
+    saveVersion: LIVE_SAVE_VERSION, seed: state.seed, state, broadcastCache: state.broadcastItems,
+  })
+  return convertV36ToV35(live)
 }
 
 /**
- * 782/793 T0 corpus (§8): the live engine is V35 (`GameState = GameStateV35`) — a
- * state that has not yet been migrated has no `cohorts` root at all, and `tick()`ing
- * it throws loudly the first cohort week ("the Save V35 cohort receipts are missing"),
- * exactly as 793 intends (never silently). Every case that ticks or saves a corpus
- * world must migrate it to live FIRST; `c4Fixture` alone (raw V34) is for cases that
- * read the fixture's own untouched save-week state without ever ticking it (B3/B4).
+ * 782/793 T0 corpus (§8), amended by P14C.2b (812 T8): the live engine is now V36 — a
+ * state that has not yet been migrated has no `cohorts` root at all (nor the V36
+ * `extensionUsed`/`extendedFromWeek`/`variant` keys), and `tick()`ing it throws loudly
+ * the first cohort week, exactly as 793 intends (never silently), or on a record
+ * missing `extensionUsed` (`readExtensionUsed`, `careerLifecycle.ts`, P14C.2b). Every
+ * case that ticks or saves a corpus world must migrate it to the LIVE boundary FIRST,
+ * via `migrateToLive` (not merely to V35), so it carries every key the live engine
+ * requires; `c4Fixture` alone (raw V34) is for cases that read the fixture's own
+ * untouched save-week state without ever ticking it (B3/B4).
  */
 export function c4LiveFixture(name: C4CorpusName): GameState {
-  return convertV34ToV35(envelopeV34(c4Fixture(name))).state
+  return migrateToLive(envelopeV34(c4Fixture(name))).state
 }
 
 /** The T0 minter's own "V34-engine continuation facts" (790/791): per-profession

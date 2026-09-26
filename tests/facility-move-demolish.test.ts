@@ -49,7 +49,7 @@ import {
   tick,
   validateSave,
   LIVE_SAVE_VERSION,
-  validateSaveV35,
+  validateSaveV36,
 } from '../src/core/index.js'
 import {
   DEVELOPMENT_CASTING_ANNEX_BLUEPRINT,
@@ -778,7 +778,7 @@ describe('C1-M3a (F) — saves, boundaries, and determinism', () => {
     const save = makeSave(state)
     expect(save.saveVersion).toBe(LIVE_SAVE_VERSION)
     expect(validateSave(save)).toBe(save)
-    expect(validateSaveV35(save)).toBe(save)
+    expect(validateSaveV36(save)).toBe(save)
     const json = exportSave(save)
     expect(exportSave(importSave(json))).toBe(json)
     const reloaded = migrateToCurrentControl(importSave(json)).state
@@ -825,6 +825,9 @@ describe('C1-M3a (F) — saves, boundaries, and determinism', () => {
     // P13B-S3: and the persistent physical-plan root, for the same reason.
     delete forgedV11.state.physicalPlans
     // P14A.1: and the contested-market root (V28), for the same reason.
+    // P14C.2b: a settled retirement-extension case is a second kind of
+    // talent-market authority (Save V36); this world never reaches one either.
+    expect((forgedV11.state.talentMarket as { cases: { variant?: string }[] }).cases.some((kase) => kase.variant === 'retirementExtension')).toBe(false)
     delete forgedV11.state.talentMarket
     // P14B.1: remove only empty V29 roots; no filming or promise history is discarded.
     expect(forgedV11.state.firstTakes).toEqual([])
@@ -854,6 +857,9 @@ describe('C1-M3a (F) — saves, boundaries, and determinism', () => {
     // P14C.4: and `cohorts` (Save V35) — this world never reaches a cohort week
     // (week 52), so no entrant receipt is discarded either.
     expect((forgedV11.state.careerLifecycle as { cohorts: unknown[] }).cohorts).toEqual([])
+    // P14C.2b: `extensionUsed` (Save V36) is a second kind of career-lifecycle
+    // authority — records is already empty above, so trivially none is used.
+    expect((forgedV11.state.careerLifecycle as { records: { extensionUsed?: boolean }[] }).records.some((record) => record.extensionUsed === true)).toBe(false)
     delete forgedV11.state.careerLifecycle
     for (const person of forgedV11.state.talent as Record<string, unknown>[]) {
       for (const key of ['skills', 'ceilings', 'devRate', 'genreExperience', 'workHistory']) {

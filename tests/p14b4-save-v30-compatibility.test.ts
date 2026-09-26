@@ -179,10 +179,15 @@ function preservesExactly(admitted: OldSave) {
   const floored = migrated.state.talent.map((person) => ({ ...person, age: Math.floor(person.age) }))
   const provenance = buildTalentProvenance(migrated.state.talent, migrated.state.market.tick, 'legacy_age_anchor')
   const lifecycle = initialCareerLifecycle(migrated.state.market.tick)
+  // P14C.2b: every pre-V36 case defaults to `variant: 'expiry'` (convertV35ToV36's
+  // own rule) — this corpus predates the retirement-extension market entirely, so
+  // every case here always was one, and `lifted` below defaulted it the same way.
+  const marketV36 = { ...migrated.state.talentMarket, cases: migrated.state.talentMarket.cases.map((kase) => ({ ...kase, variant: 'expiry' as const })) }
   expect(lifted).toEqual({ ...migrated, saveVersion: LIVE_SAVE_VERSION, state: { ...migrated.state, relationships: [],
-    promises: migrated.state.promises.map(addedFields), talent: floored, talentProvenance: provenance, careerLifecycle: lifecycle } })
+    promises: migrated.state.promises.map(addedFields), talent: floored, talentProvenance: provenance, careerLifecycle: lifecycle,
+    talentMarket: marketV36 } })
   expect(makeSave({ ...migrated.state, relationships: [], promises: migrated.state.promises.map(addedFields),
-    talent: floored, talentProvenance: provenance, careerLifecycle: lifecycle })).toEqual(lifted)
+    talent: floored, talentProvenance: provenance, careerLifecycle: lifecycle, talentMarket: marketV36 })).toEqual(lifted)
   const downgraded = convertV30ToV29(migrated)
   expect(validateSaveV29(downgraded)).toEqual(admitted)
   expect(exportSave(downgraded)).toBe(raw)
@@ -210,8 +215,8 @@ function assertActualBacking(save: OldSave, root: OldPromise): void {
 }
 
 describe('P14B4 Save30: genuine final V29 corpus, exact old-state preservation', () => {
-  it('pins LIVE_SAVE_VERSION to literal35 (stale number corrected post-C.4) independently of the value under test (P14B.7, 735-T)', () => {
-    expect(LIVE_SAVE_VERSION).toBe(35)
+  it('pins LIVE_SAVE_VERSION to literal36 (stale number corrected post-C.2b) independently of the value under test (P14B.7, 735-T)', () => {
+    expect(LIVE_SAVE_VERSION).toBe(36)
   })
 
   it.each(NAMES)('migrates genuine %s without rewriting roots, receipts, digests or history and downgrades losslessly', (name) => {

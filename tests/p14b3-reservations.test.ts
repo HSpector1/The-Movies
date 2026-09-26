@@ -9,7 +9,7 @@ import { describe, expect, it } from 'vitest'
 import { applyActions, hiringMarketIds } from '../src/core/index.js'
 import { attachPromise, promiseFeasibility, trustDrivers, type PromiseDraft } from '../src/core/promises.js'
 import { currentProposals, submitProposal, withdrawProposal } from '../src/core/talentMarket.js'
-import { makeSave, validateSaveV35 } from '../src/core/save.js'
+import { makeSave, validateSaveV36 } from '../src/core/save.js'
 import type { GameState, ProfessionalPromise } from '../src/core/types.js'
 import { advanceTo, fund, p13aGeneratedStudio, player } from './helpers/p14b2-fixtures.js'
 
@@ -91,7 +91,7 @@ describe('P14B.3 F1: real reservation membership and matching feasibility digest
     expect(trustDrivers(next, talentId, player(next), next.market.tick))
       .toEqual(trustDrivers(state, talentId, player(state), state.market.tick))
     expect(next.talentMarket.receipts.some((r) => r.kind === 'promiseOutcome' && r.talentId === talentId)).toBe(false)
-    const reloaded = validateSaveV35(JSON.parse(JSON.stringify(makeSave(next)))).state
+    const reloaded = validateSaveV36(JSON.parse(JSON.stringify(makeSave(next)))).state
     expect(reloaded.promises).toEqual(next.promises) // loading never recomputes historical receipts
     expect(read(reloaded, talentId)).toEqual(before)
   })
@@ -131,7 +131,7 @@ describe('P14B.3 F1: real reservation membership and matching feasibility digest
     expect(read(settled, talentId).classification).toBe('FRAGILE')
     expect(read(settled, talentId).bottleneck).toMatch(/not.*commission/i)
     expect(read(settled, talentId, { promiseId: bound.promiseId }).classification).toBe('REASONABLY_ACHIEVABLE')
-    validateSaveV35(JSON.parse(JSON.stringify(makeSave(settled))))
+    validateSaveV36(JSON.parse(JSON.stringify(makeSave(settled))))
   })
 
   it('preserves the existing competing CURRENT cross-issuer reservation policy, without choosing a new alternatives policy', () => {
@@ -174,7 +174,7 @@ describe('P14B.3 F1: real reservation membership and matching feasibility digest
       .toMatchObject({ kind: 'promiseOutcome', week: 52, talentId, studioId: player(released) })
     expect(read(released, talentId).classification).toBe('REASONABLY_ACHIEVABLE')
     expect(read(released, talentId)).toEqual(read(released, talentId, { promiseId: id }))
-    validateSaveV35(JSON.parse(JSON.stringify(makeSave(released))))
+    validateSaveV36(JSON.parse(JSON.stringify(makeSave(released))))
   })
 
   it('an actually dropped losing draft stays in evidence after settlement but cannot reserve a later overlapping read', () => {
@@ -198,6 +198,6 @@ describe('P14B.3 F1: real reservation membership and matching feasibility digest
     const later = { windowStartWeek: 100, dueWeekExclusive: 204, startWeek: 52, termWeeks: 208 }
     expect(read(settled, talentId, later).classification).toBe('REASONABLY_ACHIEVABLE')
     expect(read(settled, talentId, later)).toEqual(read(settled, talentId, { ...later, promiseId: losing.promiseId }))
-    validateSaveV35(JSON.parse(JSON.stringify(makeSave(settled))))
+    validateSaveV36(JSON.parse(JSON.stringify(makeSave(settled))))
   })
 })

@@ -97,7 +97,7 @@ import { hiringMarketIds } from '../src/core/employment.js'
 import { tick } from '../src/core/tick.js'
 import { p13aGeneratedStudio, advanceTo } from '../src/harness/p13a/fixtures.js'
 import { careerIdentity } from '../src/core/talentSummary.js'
-import type { CastRoleCountPredicate, GameState, TalentMarketCase, TalentMarketReceipt } from '../src/core/types.js'
+import type { CastRoleCountPredicate, GameState, TalentMarketCaseV36, TalentMarketReceipt } from '../src/core/types.js'
 import * as marketModule from '../src/core/talentMarket.js'
 import * as promiseModule from '../src/core/promises.js'
 import { publicPriorityOrder, publicPreferredTerm, submitProposal } from '../src/core/talentMarket.js'
@@ -340,8 +340,8 @@ describe('P14B.1 test 6: trust, the widened chooser and the priority order', () 
     expect(state.promises.filter((p) => p.beneficiaryPersonId === talentId)).toEqual([])
     const counter = state.talentMarket.receipts.length
     expect(counter).toBeGreaterThan(0)
-    const kase: TalentMarketCase = { talentId, subjectStudioId: incumbentId, contractId: row.contractId,
-      openedWeek: state.market.tick, outcome: null, closedWeek: null, reason: null }
+    const kase: TalentMarketCaseV36 = { talentId, subjectStudioId: incumbentId, contractId: row.contractId,
+      openedWeek: state.market.tick, outcome: null, closedWeek: null, reason: null, variant: 'expiry' }
     const discovery: TalentMarketReceipt = { eventId: `talent-market-event-${counter}`, kind: 'discovered',
       week: state.market.tick, talentId, studioId: incumbentId, reasons: [], dropped: [] }
     state = { ...state, talentMarket: { ...state.talentMarket,

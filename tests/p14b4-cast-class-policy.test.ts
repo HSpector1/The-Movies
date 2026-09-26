@@ -15,7 +15,7 @@ import { careerIdentity, roleOVR } from '../src/core/talentSummary.js'
 import { tick } from '../src/core/tick.js'
 import { TUNING } from '../src/core/tuning.js'
 import { generateWorld } from '../src/core/worldgen.js'
-import type { GameState, Talent, TalentMarketCase, TalentMarketProposal, TalentMarketReceipt } from '../src/core/types.js'
+import type { GameState, Talent, TalentMarketCaseV36, TalentMarketProposal, TalentMarketReceipt } from '../src/core/types.js'
 import { advanceTo, p13aGeneratedStudio } from '../src/harness/p13a/fixtures.js'
 import * as marketModule from '../src/core/talentMarket.js'
 import * as promiseModule from '../src/core/promises.js'
@@ -237,8 +237,8 @@ function controlledPair(age: 29 | 30) {
   expect(employment.terms.endWeekExclusive).toBe(208)
   expect(state.talentMarket.cases.filter((c) => c.talentId === talentId)).toEqual([])
   expect(state.promises.filter((p) => p.beneficiaryPersonId === talentId)).toEqual([])
-  const kase: TalentMarketCase = { talentId, subjectStudioId: incumbentId, contractId: employment.contractId,
-    openedWeek: state.market.tick, outcome: null, closedWeek: null, reason: null }
+  const kase: TalentMarketCaseV36 = { talentId, subjectStudioId: incumbentId, contractId: employment.contractId,
+    openedWeek: state.market.tick, outcome: null, closedWeek: null, reason: null, variant: 'expiry' }
   const discovery: TalentMarketReceipt = { eventId: `talent-market-event-${state.talentMarket.receipts.length}`, kind: 'discovered',
     week: state.market.tick, talentId, studioId: incumbentId, reasons: [], dropped: [] }
   state = { ...state, talentMarket: { ...state.talentMarket, cases: [...state.talentMarket.cases, kase],

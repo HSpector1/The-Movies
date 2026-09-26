@@ -405,7 +405,7 @@ describe('group 7: save/load', () => {
     expect(saved.accepted).toBe(true)
     if (!saved.accepted) throw new Error(`save refused: ${JSON.stringify(saved)}`)
     const parsed = JSON.parse(saved.saveJson) as { saveVersion: number; state: { talentMarket: { legacyTerminations: unknown[]; representation: null } } }
-    expect(parsed.saveVersion).toBe(35)
+    expect(parsed.saveVersion).toBe(36)
     expect(parsed.state.talentMarket.legacyTerminations).toEqual([])
     expect(parsed.state.talentMarket.representation).toBeNull()
 

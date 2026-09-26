@@ -176,7 +176,7 @@ describe('P14B4 genuine outgoing46 runtime compatibility — future Save30/proje
   it('requires literal projection50/Save34 (stale number corrected post-C.2a) and exact 38 prior IDs, excluding the running identity', () => {
     expect(PROTOCOL_VERSION).toBe(4)
     expect(PROJECTION_VERSION).toBe(50)
-    expect(LIVE_SAVE_VERSION).toBe(35)
+    expect(LIVE_SAVE_VERSION).toBe(36)
     expect(SCHEMA_ID).not.toBe(OUTGOING_46)
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)
     expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual(EXPECTED_PRIOR_IDS)
@@ -214,7 +214,14 @@ describe('P14B4 genuine outgoing46 runtime compatibility — future Save30/proje
     // ONE additive field the V31->V32 step adds (nothing else recomputed).
     expect(actual.state.promises).toEqual(old.state.promises.map((p) => ({ ...p, supersededByPromiseId: null })))
     expect(actual.state.firstTakes).toEqual(old.state.firstTakes)
-    expect(actual.state.talentMarket).toEqual(old.state.talentMarket)
+    // P14C.2b: the governed lift now reaches V36, one step past V32 — re-expressed
+    // to include the ONE additive field the V35->V36 step adds to every case
+    // (`variant: 'expiry'`; nothing else recomputed, and no record here ever used
+    // an extension, so `careerLifecycle` needs no such addendum).
+    expect(actual.state.talentMarket).toEqual({
+      ...old.state.talentMarket,
+      cases: old.state.talentMarket.cases.map((kase) => ({ ...kase, variant: 'expiry' })),
+    })
     expect(actual.state.hollywood).toEqual(old.state.hollywood)
     expect(exportSave(old)).toBe(oldBytes)
     expect(loaded.hydrated.checkpoint.currentSaveJson).not.toBe(loaded.hydrated.checkpoint.savedSaveJson)

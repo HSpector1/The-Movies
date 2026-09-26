@@ -51,19 +51,24 @@ describe('P14B.2 outgoing projection45 runtime compatibility (Save29 unchanged)'
     const addedFields = (promise: Record<string, unknown>) => ({ ...promise, supersededByPromiseId: null })
     for (const slot of ['currentSaveJson', 'savedSaveJson'] as const) {
       const governed = migrateToLive(importSave(before[slot]))
-      expect(governed.saveVersion).toBe(35)
+      expect(governed.saveVersion).toBe(36)
       const source = JSON.parse(before[slot])
       // 763-R8 (P14C.1, R-VERSION): the governed lift now also writes C.1's provenance
       // root and FLOORS every stored age against it — the first step in this chain that
       // changes a value rather than only adding a field, so both are named here.
       // 776-S9 (P14C.2a, R-VERSION): the governed lift now also writes the empty
       // career-lifecycle root, opened at this envelope's own tick.
+      // P14C.2b (R-VERSION): the governed lift now also writes every record's unused
+      // extension and every case's `expiry` variant — additive again, like V34's own
+      // root, so the expected shape below carries it transparently.
       const sourcePeople = source.state.talent as { id: string; age: number }[]
-      expect(JSON.parse(exportSave(governed))).toEqual({ ...source, saveVersion: 35, state: { ...source.state,
+      const sourceCases = (source.state.talentMarket.cases as Record<string, unknown>[]).map((kase) => ({ ...kase, variant: 'expiry' }))
+      expect(JSON.parse(exportSave(governed))).toEqual({ ...source, saveVersion: 36, state: { ...source.state,
         relationships: [], promises: (source.state.promises as Record<string, unknown>[]).map(addedFields),
         talent: sourcePeople.map((person) => ({ ...person, age: Math.floor(person.age) })),
         talentProvenance: buildTalentProvenance(sourcePeople, source.state.market.tick as number, 'legacy_age_anchor'),
-        careerLifecycle: initialCareerLifecycle(source.state.market.tick as number) } })
+        careerLifecycle: initialCareerLifecycle(source.state.market.tick as number),
+        talentMarket: { ...source.state.talentMarket, cases: sourceCases } } })
       expect(after[slot]).toBe(exportSave(governed))
     }
     expect(after.currentStateDigest).toBe(sha(after.currentSaveJson))

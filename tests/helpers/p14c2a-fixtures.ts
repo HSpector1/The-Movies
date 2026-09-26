@@ -12,7 +12,7 @@ import { tick } from '../../src/core/index.js'
 import { advanceTo, fund, p13aGeneratedStudio, player } from './p14b2-fixtures.js'
 export { advanceTo, fund, p13aGeneratedStudio, player }
 import type {
-  CareerLifecycleRootV35, CreativeRole, GameState, RetirementCause, RetirementRecord, RetirementStatus,
+  CareerLifecycleRootV36, CreativeRole, GameState, RetirementCause, RetirementRecordV36, RetirementStatus,
   Talent, TalentProvenanceRow,
 } from '../../src/core/types.js'
 
@@ -84,19 +84,25 @@ export function nullHollywoodFixture(name: NullHollywoodName): GameState {
 // `root` is now genuinely live-shaped, so the result is too, and every live
 // consumer below (`applyActions`, `tick`, `hiringMarketIds`, `marketEligibility`,
 // ...) can take it directly again, exactly as it could before this bump.
-export function withSyntheticCareerLifecycle(state: GameState, root: CareerLifecycleRootV35): GameState {
+// P14C.2b: `root`'s own shape moves from `CareerLifecycleRootV35` to
+// `CareerLifecycleRootV36` — every record now owes `extensionUsed`/
+// `extendedFromWeek` (`readExtensionUsed`, `careerLifecycle.ts`, throws loudly on a
+// live record missing them), which `syntheticRecord` below now always supplies.
+export function withSyntheticCareerLifecycle(state: GameState, root: CareerLifecycleRootV36): GameState {
   return { ...state, careerLifecycle: root } as unknown as GameState
 }
 
-export function initialSyntheticRoot(boundaryWeek: number): CareerLifecycleRootV35 {
+export function initialSyntheticRoot(boundaryWeek: number): CareerLifecycleRootV36 {
   return { boundaryWeek, records: [], cohorts: [] }
 }
 
-/** Builds one lawful `RetirementRecord`, defaults filled from the announcement week
- * onward per 773's own formula (E = max(A+52, endInForce)). Every field can be
- * overridden; the caller is responsible for internal consistency (this is a SYNTHETIC
- * helper, not the production law). */
-export function syntheticRecord(overrides: Partial<RetirementRecord> & { personId: string }): RetirementRecord {
+/** Builds one lawful `RetirementRecordV36`, defaults filled from the announcement week
+ * onward per 773's own formula (E = max(A+52, endInForce)), plus P14C.2b's own
+ * unused-extension default (`extensionUsed: false, extendedFromWeek: null` — none of
+ * this file's synthetic scenarios exercise the retirement-extension market). Every
+ * field can be overridden; the caller is responsible for internal consistency (this is
+ * a SYNTHETIC helper, not the production law). */
+export function syntheticRecord(overrides: Partial<RetirementRecordV36> & { personId: string }): RetirementRecordV36 {
   const announcedWeek = overrides.announcedWeek ?? 0
   return {
     profession: 'actor' as CreativeRole,
@@ -108,6 +114,8 @@ export function syntheticRecord(overrides: Partial<RetirementRecord> & { personI
     status: 'announced' as RetirementStatus,
     finishingFromWeek: null,
     retiredWeek: null,
+    extensionUsed: false,
+    extendedFromWeek: null,
     ...overrides,
   }
 }
