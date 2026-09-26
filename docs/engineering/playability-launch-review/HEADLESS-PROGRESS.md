@@ -1,5 +1,20 @@
 # HEADLESS-PROGRESS — logic-first window (Owner directive 2026-09-16, `OWNER-HEADLESS-PROGRAM-20260916-01`)
 
+## CURRENT — C.3 admission and promise boundaries verified; genuine B4 next
+
+1005 records the next partial checkpoint. 1001 recorded8PASS/2expected dispatch
+failures; the one requested-actor argument fix then passed1002's60 cases across six
+suites. 1003 root TypeScript checks passed21:19:28.272Z after30.628s. Both final runs
+are fixed on3ca0fa25 plus94c22fb5009ac2a8233b55f0d2f110d78c13a059d11cd3174391f87f48574dfd.
+Independent1002-B review is KEEP. The genuine Actor→Director history reached a
+natural hard75 announcement at364 and whole Save38 validation; this does not yet
+prove second retirement or finishing writing. Exact E was derived, not printed.
+All runs are closed. Parent publishes1005 and verifies GitHub. Existing test author
+prepares1002-A genuine B4 plan; reviewer checks phase/fixture premises. Parent sole
+production writer/heavy executor; no source release before that plan review.
+Projection remains52. Full971/938 coverage, live writing, later historical/rival
+paths, projection53/runtime/UI and full C.3 verification remain. Unity/native deferred.
+
 ## CURRENT — C.3 Stage A checkpoint verified; Stage B admission next
 
 993 records the partial Save38 foundation checkpoint. Final 992 root, UI and bridge

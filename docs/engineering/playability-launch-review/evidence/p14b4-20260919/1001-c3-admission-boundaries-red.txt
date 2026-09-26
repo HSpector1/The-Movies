@@ -1,0 +1,62 @@
+{"sourceSha":"3ca0fa25596ae6f9a01ca96d8a4683152b1b56ae","testedDiffSha256":"d0bb128d33856014a400ca7dfca2c10e37180d96c1a2134cd31955dc345dbe4f","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14c3-admission-boundaries.test.ts"],"node":"v20.20.2","start":"2026-09-26T21:17:11.234Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/p14c3-admission-boundaries.test.ts (10 tests | 2 failed) 15454ms
+   ✓ C.3 N01–N10 current global and requested actor boundaries > N01 preserves original nonactor global admission despite having no actor record 1237ms
+   ✓ C.3 N01–N10 current global and requested actor boundaries > N04 retains the legacy single-actor boundary tail and adds no tail for a genuine no-record subject 566ms
+   ✓ C.3 N01–N10 current global and requested actor boundaries > N05 binds the distinct retired-actor tail after a real director transition 965ms
+   ✓ C.3 N01–N10 current global and requested actor boundaries > N06 binds both real profession boundaries after normal208→364 continuation 4627ms
+   × C.3 N01–N10 current global and requested actor boundaries > N09 actual open player promise disposition explicitly requests actor at its real current week 2174ms
+     → acting-promise disposition must explicitly request the actor episode: expected undefined to be 'actor' // Object.is equality
+   × C.3 N01–N10 current global and requested actor boundaries > N10 actual open rival promise disposition explicitly requests actor before its genuine cutoff 5125ms
+     → acting-promise disposition must explicitly request the actor episode: expected undefined to be 'actor' // Object.is equality
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14c3-admission-boundaries.test.ts > C.3 N01–N10 current global and requested actor boundaries > N09 actual open player promise disposition explicitly requests actor at its real current week
+AssertionError: acting-promise disposition must explicitly request the actor episode: expected undefined to be 'actor' // Object.is equality
+
+- Expected: 
+"actor"
+
++ Received: 
+undefined
+
+ ❯ assertOutcomeDispatch tests/p14c3-admission-boundaries.test.ts:152:119
+    150|     expect(stableStringify(after)).toBe(before)
+    151|     expect(stableStringify(state)).toBe(before)
+    152|     for (const call of calls) expect(call[3], 'acting-promise disposit…
+       |                                                                                                                       ^
+    153|   } finally { spy.mockRestore() }
+    154| }
+ ❯ tests/p14c3-admission-boundaries.test.ts:227:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL |core|  tests/p14c3-admission-boundaries.test.ts > C.3 N01–N10 current global and requested actor boundaries > N10 actual open rival promise disposition explicitly requests actor before its genuine cutoff
+AssertionError: acting-promise disposition must explicitly request the actor episode: expected undefined to be 'actor' // Object.is equality
+
+- Expected: 
+"actor"
+
++ Received: 
+undefined
+
+ ❯ assertOutcomeDispatch tests/p14c3-admission-boundaries.test.ts:152:119
+    150|     expect(stableStringify(after)).toBe(before)
+    151|     expect(stableStringify(state)).toBe(before)
+    152|     for (const call of calls) expect(call[3], 'acting-promise disposit…
+       |                                                                                                                       ^
+    153|   } finally { spy.mockRestore() }
+    154| }
+ ❯ tests/p14c3-admission-boundaries.test.ts:241:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 8 passed (10)
+   Start at  23:17:11
+   Duration  18.92s (transform 1.90s, setup 0ms, collect 2.54s, tests 15.45s, environment 0ms, prepare 195ms)
+

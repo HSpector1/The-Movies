@@ -1,5 +1,48 @@
 # CONTINUATION STATE — three-week autonomous window (Owner directive 2026-09-15)
 
+## CURRENT — C.3 admission and promise boundaries verified; genuine B4 next
+
+1005 records the next partial checkpoint. 1001 recorded8PASS/2expected dispatch
+failures; the one requested-actor argument fix then passed1002's60 cases across six
+suites. 1003 root TypeScript checks passed21:19:28.272Z after30.628s. Both final runs
+are fixed on3ca0fa25 plus94c22fb5009ac2a8233b55f0d2f110d78c13a059d11cd3174391f87f48574dfd.
+Independent1002-B review is KEEP. The genuine Actor→Director history reached a
+natural hard75 announcement at364 and whole Save38 validation; this does not yet
+prove second retirement or finishing writing. Exact E was derived, not printed.
+All runs are closed. Parent publishes1005 and verifies GitHub. Existing test author
+prepares1002-A genuine B4 plan; reviewer checks phase/fixture premises. Parent sole
+production writer/heavy executor; no source release before that plan review.
+Projection remains52. Full971/938 coverage, live writing, later historical/rival
+paths, projection53/runtime/UI and full C.3 verification remain. Unity/native deferred.
+
+## CURRENT — follow-up RED attributed;1002 combined GREEN active
+
+1001 closed21:17:31.215Z,19.981s, child1/fixedSource:8PASS/2expectedFAIL.
+The actual original-writer cap, distinct digest facts, real director announcement
+at364 and rival-issuer quote controls passed. N09/N10 observed real settlement
+calls with missing requested-actor argument. Parent changed that one argument only;
+1002 combined60-case GREEN is active in the sole heavy lane. All consumed source/HEAD
+are frozen. Author1001-A/1002-A docs-only; reviewer read-only. No test premise repair
+or fabricated post-transition open promise. Next root type gate and checkpoint,
+then genuine B4 second-episode/writing work under reviewed1002-A.
+Published source3ca0fa25 remains; full C.3/projection53/native limits unchanged.
+
+## CURRENT — ten follow-up admission cases frozen;1001 RED active
+
+Local/GitHub refs matched3ca0fa25596ae6f9a01ca96d8a4683152b1b56ae and the worktree
+was clean at publication. 1000 records the first C.3 admission increment:994
+10PASS/10expectedFAIL →99620PASS;99830neighborsPASS;999root/UI typesPASS; reviewKEEP.
+1001 RED is the sole heavy process. 997-A reviewed KEEP; existing author now owns only the new admission-boundaries
+suite (ten planned leaves) and1001-A handback. Static review found the planned age73 announcement blocked by recent employment;
+no52-week run occurred. Parent authorized the same N06 leaf to use156 develop:true
+ticks from208 to364, the real hard75 birthday, deriving E from actual bindings.
+No further loop extension or fabricated record. Parent records1001 RED before
+any further production correction. All consumed source/HEAD are frozen until
+closure; author1001-A/1002-A docs-only and reviewer read-only.
+Parent stays sole production writer/heavy executor. Continue to genuine second
+profession episodes/live writing, remaining971/938 scope and projection53/runtime.
+All historical failures/native limits remain; this is partial C.3, not qualification.
+
 ## CURRENT — first Stage B verified; publishing1000
 
 Local and GitHub branch verified at d9faac35a435639dacd0a1df020f0651f6e59f31;

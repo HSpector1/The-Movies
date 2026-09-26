@@ -1,0 +1,72 @@
+{"sourceSha":"3ca0fa25596ae6f9a01ca96d8a4683152b1b56ae","testedDiffSha256":"94c22fb5009ac2a8233b55f0d2f110d78c13a059d11cd3174391f87f48574dfd","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14c3-admission-boundaries.test.ts","tests/p14c3-transition-evidence.test.ts","tests/p14c3-profession-episodes.test.ts","tests/p14c2c-retirement-promises.test.ts","tests/p14c2c-rival-promises.test.ts","tests/p14c3-promise-digest-continuity.test.ts"],"node":"v20.20.2","start":"2026-09-26T21:17:55.213Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p14c3-promise-digest-continuity.test.ts (8 tests) 15588ms
+   ✓ 955 same logical inputs give the same promise feasibility receipt > ignores nested object insertion order with a real active player workflow (tagged P2=false) 3892ms
+   ✓ 955 same logical inputs give the same promise feasibility receipt > ignores nested object insertion order with a real active player workflow (tagged P2=true) 926ms
+   ✓ 955 same logical inputs give the same promise feasibility receipt > keeps an exact refusal, its rules version and its digest invariant under the same key permutation 382ms
+   ✓ 955 genuine207 normal-development continuation > produces identical208 saves and all twelve actual affected receipts from value-identical key orders 5472ms
+   ✓ 955 historical preservation and interim projection52 journal authority > loads genuine-v37-c3-preretirement-week207.json.gz without rewriting its stored promises or other historical bytes 1754ms
+   ✓ 955 historical preservation and interim projection52 journal authority > loads genuine-v37-c3-retired-week208.json.gz without rewriting its stored promises or other historical bytes 1692ms
+   ✓ 955 historical preservation and interim projection52 journal authority > loads genuine-v37-c3-runtime-current208.json.gz without rewriting its stored promises or other historical bytes 1423ms
+ ✓ |core| tests/p14c3-transition-evidence.test.ts (8 tests) 5350ms
+   ✓ C.3 B1 retained evidence independently binds coherent recorded questions > B1-01 accepts independent question encoding with exact totals and genuine bounded references 1918ms
+   ✓ C.3 B1 retained evidence independently binds coherent recorded questions > B1-02 refuses a digest-correct total of four with three actual takes and three witnesses 584ms
+   ✓ C.3 B1 retained evidence independently binds coherent recorded questions > B1-03 refuses a digest-correct lead total of two against three actual lead takes 522ms
+   ✓ C.3 B1 retained evidence independently binds coherent recorded questions > B1-04 refuses a digest-correct directing total reduced to its two-witness cap 366ms
+   ✓ C.3 B1 retained evidence independently binds coherent recorded questions > B1-05 refuses a digest-correct writing total reduced to its two-witness cap 485ms
+   ✓ C.3 B1 retained evidence independently binds coherent recorded questions > B1-06 refuses genuine take witnesses rotated out of canonical order with a fresh digest 463ms
+   ✓ C.3 B1 retained evidence independently binds coherent recorded questions > B1-07 refuses genuine context pictures reversed out of canonical order with a fresh digest 553ms
+   ✓ C.3 B1 retained evidence independently binds coherent recorded questions > B1-08 refuses a real but wrong counterpart despite valid picture ids and a fresh digest 457ms
+ ✓ |core| tests/p14c2c-retirement-promises.test.ts (19 tests) 24077ms
+   ✓ P14C.2c retirement causation and normal tick ownership > C1: a real birthday announcement leaves a bound, still-fulfillable promise open 6260ms
+   ✓ P14C.2c retirement causation and normal tick ownership > C2: the first lost fresh-admission week VOIDs once, before the legal promise deadline 416ms
+   ✓ P14C.2c retirement causation and normal tick ownership > C2 control: remove only retirement and real greenlight/schedule/tick still fulfills before due 524ms
+   ✓ P14C.2c retirement causation and normal tick ownership > C3: a real committed lead seat at admission equality survives the cutoff and satisfies 502ms
+   ✓ P14C.2c retirement causation and normal tick ownership > C3 boundary: the actual greenlight command refuses the next week without changing any state 333ms
+   ✓ P14C.2c retirement causation and normal tick ownership > C3 held work: an unscheduled real first take survives the cutoff and counts when its future window opens 1815ms
+   ✓ P14C.2c retirement causation and normal tick ownership > C6 grandfathered work: a post-first-take countdown with no historical receipt is never a future take 2863ms
+   ✓ P14C.2c retirement causation and normal tick ownership > C5 generic P1 control: the same real support seat does protect an appearance promise 675ms
+   ✓ P14C.2c retirement causation and normal tick ownership > C6: a promise already beyond the uncapped physical count remains ordinary law, not VOIDED 730ms
+   ✓ P14C.2c retirement causation and normal tick ownership > C1: reduced future capacity does not VOID a promise while new admission remains open 1221ms
+   ✓ P14C.2c retirement causation and normal tick ownership > C7: a genuinely withdrawn proposal never receives an automatic retirement outcome 2834ms
+   ✓ P14C.2c retirement causation and normal tick ownership > C7: a real accepted waiver is terminal while its still-open substitute follows retirement law 922ms
+   ✓ P14C.2c feasibility, persistence, partial work and extension > C11: new feasibility includes the actual cap, changes the digest, and consumes no RNG 341ms
+   ✓ P14C.2c feasibility, persistence, partial work and extension > C4: real partial first-take progress and its receipt survive VOIDED without extra trust damage 1514ms
+   ✓ P14C.2c feasibility, persistence, partial work and extension > C9: live save/reload across the exact trigger matches continuous tick bytes and preserves identity 892ms
+   ✓ P14C.2c feasibility, persistence, partial work and extension > C8: a genuine final extension uses the moved E for future feasibility and cannot revive VOIDED 1820ms
+ ✓ |core| tests/p14c3-profession-episodes.test.ts (12 tests) 7823ms
+   ✓ C.3 B2 requested-profession admission after genuine acting retirement > B2-01 keeps current new-role admission open while the explicit acting episode stays closed 2917ms
+   ✓ C.3 B2 requested-profession admission after genuine acting retirement > B2-seat refuses current 'director' in new cast.'lead' through actual greenlight 605ms
+   ✓ C.3 B2 requested-profession admission after genuine acting retirement > B2-seat refuses current 'director' in new cast.'antagonist' through actual greenlight 541ms
+   ✓ C.3 B2 requested-profession admission after genuine acting retirement > B2-seat refuses current 'director' in new cast.'support' through actual greenlight 340ms
+   ✓ C.3 B2 requested-profession admission after genuine acting retirement > B2-seat refuses current 'writer' in new cast.'lead' through actual greenlight 398ms
+   ✓ C.3 B2 requested-profession admission after genuine acting retirement > B2-seat refuses current 'writer' in new cast.'antagonist' through actual greenlight 309ms
+   ✓ C.3 B2 requested-profession admission after genuine acting retirement > B2-seat refuses current 'writer' in new cast.'support' through actual greenlight 373ms
+   ✓ C.3 B2 requested-profession admission after genuine acting retirement > B2-promise refuses current 'director' new 'P1' acting feasibility 390ms
+   ✓ C.3 B2 requested-profession admission after genuine acting retirement > B2-promise refuses current 'director' new 'P2' acting feasibility 361ms
+   ✓ C.3 B2 requested-profession admission after genuine acting retirement > B2-promise refuses current 'writer' new 'P1' acting feasibility 327ms
+   ✓ C.3 B2 requested-profession admission after genuine acting retirement > B2-promise refuses current 'writer' new 'P2' acting feasibility 384ms
+   ✓ C.3 B2 requested-profession admission after genuine acting retirement > B2-12 permits the transitioned director to write through existing has-discipline law 875ms
+ ✓ |core| tests/p14c3-admission-boundaries.test.ts (10 tests) 34418ms
+   ✓ C.3 N01–N10 current global and requested actor boundaries > N01 preserves original nonactor global admission despite having no actor record 3332ms
+   ✓ C.3 N01–N10 current global and requested actor boundaries > N02–03 original announced writer caps requested P1 acting feasibility 314ms
+   ✓ C.3 N01–N10 current global and requested actor boundaries > N02–03 original announced writer caps requested P2 acting feasibility 325ms
+   ✓ C.3 N01–N10 current global and requested actor boundaries > N04 retains the legacy single-actor boundary tail and adds no tail for a genuine no-record subject 1212ms
+   ✓ C.3 N01–N10 current global and requested actor boundaries > N05 binds the distinct retired-actor tail after a real director transition 2493ms
+   ✓ C.3 N01–N10 current global and requested actor boundaries > N06 binds both real profession boundaries after normal208→364 continuation 9142ms
+   ✓ C.3 N01–N10 current global and requested actor boundaries > N07–08 rival-issuer P1 quote also refuses the genuinely closed acting episode 720ms
+   ✓ C.3 N01–N10 current global and requested actor boundaries > N09 actual open player promise disposition explicitly requests actor at its real current week 4771ms
+   ✓ C.3 N01–N10 current global and requested actor boundaries > N10 actual open rival promise disposition explicitly requests actor before its genuine cutoff 11854ms
+ ✓ |core| tests/p14c2c-rival-promises.test.ts (3 tests) 12140ms
+   ✓ P14C.2c rival retirement promises > R1: a genuine bound rival promise follows the same exact cutoff, with no new trust penalty 10396ms
+   ✓ P14C.2c rival retirement promises > R2: a rival count already impossible without retirement remains OPEN until ordinary due settlement 767ms
+   ✓ P14C.2c rival retirement promises > R3: real rival VOIDED replay across save/load preserves the source campaign and its outcome identity 975ms
+
+ Test Files  6 passed (6)
+      Tests  60 passed (60)
+   Start at  23:17:55
+   Duration  42.13s (transform 2.75s, setup 0ms, collect 11.57s, tests 99.40s, environment 2ms, prepare 1.22s)
+

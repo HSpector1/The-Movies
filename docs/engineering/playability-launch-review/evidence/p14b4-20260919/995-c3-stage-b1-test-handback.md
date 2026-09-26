@@ -78,3 +78,21 @@ outcome dispatch, committed-seat preservation, longer deferral/finality, multipl
 profession episodes, historical/cohort/rival provenance, read models and runtime53
 remain later slices. Parent requested a docs-only997-A plan for the next bounded
 admission follow-up; no additional source is authorized by that plan.
+
+## Actual994 RED attribution and996 GREEN closure
+
+Parent994 ran the frozen20 cases on d9faac35 plus exact recorded patch
+`e3e51ed51c6a8d23361618e7a471d316635c6f448afbbc02db6befed767dc8d7`.
+It closed child1/fixedSource:true,2026-09-26T21:05:09.632Z→21:05:17.689Z,
+8.057s. Observed10PASS/10FAIL exactly: all eight evidence cases plus direct gate
+and allowed-writing controls passed. Six actual greenlight attempts failed because
+no error was thrown; four acting-promise cases returned REASONABLY_ACHIEVABLE
+instead of IMPOSSIBLE. Every accepted fixture/control premise reached its intended
+assertion. There was no import, setup, invalid-save or timeout failure.
+
+This RED released only the matching action/requested-actor promise admission work.
+The two independent files stayed unchanged. Parent996 then closed all20PASS,
+child0/fixedSource:true at2026-09-26T21:06:15.707Z after7.950s. Neighbor998 is a
+separate parent-owned gate. This20-case result does not independently qualify the
+new distinct-retirement digest tail, original nonactor global cap, rival selection
+or outcome dispatch;997-A plans those additional bounded checks explicitly.

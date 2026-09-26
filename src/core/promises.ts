@@ -801,7 +801,7 @@ function rivalUncappedPromiseCapacity(state: GameState, promise: ProfessionalPro
  * Future extensions do not postpone the check: they decide at the carrying
  * contract's expiry, at or after this promise's unchanged exclusive deadline. */
 function retirementVoidsPromise(state: GameState, promise: ProfessionalPromise, week: number, remaining: number): boolean {
-  if (remaining === 0 || assignmentRefusal(state, promise.beneficiaryPersonId, week) === null) return false
+  if (remaining === 0 || assignmentRefusal(state, promise.beneficiaryPersonId, week, 'actor') === null) return false
   const committed = committedPromiseSeats(state, promise).filter((production) =>
     Math.max(promise.windowStartWeek, earliestTakeWeek(production, week)) < promise.dueWeekExclusive)
   if (committed.length >= remaining) return false

@@ -26,3 +26,9 @@ remaining971/938 coverage, projection53/runtime and full verification remain.
 997-A plans the next bounded independent slice; release follows published checkpoint
 and review. Parent stays sole production writer/heavy executor, with the same
 independent test/review specialists. Unity/native remains deferred.
+
+## Publication receipt
+
+Normally committed/pushed as3ca0fa25596ae6f9a01ca96d8a4683152b1b56ae.
+Local HEAD and independent git ls-remote matched; clean worktree observed.
+Existing author/reviewer continue997-A planning with no heavy process active.

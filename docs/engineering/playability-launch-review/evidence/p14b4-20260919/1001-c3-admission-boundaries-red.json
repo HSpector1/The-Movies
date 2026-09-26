@@ -1,0 +1,22 @@
+{
+  "sourceSha": "3ca0fa25596ae6f9a01ca96d8a4683152b1b56ae",
+  "testedDiffSha256": "d0bb128d33856014a400ca7dfca2c10e37180d96c1a2134cd31955dc345dbe4f",
+  "untrackedSource": [],
+  "command": [
+    "node_modules/.bin/vitest",
+    "run",
+    "--project",
+    "core",
+    "tests/p14c3-admission-boundaries.test.ts"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-26T21:17:11.234Z",
+  "end": "2026-09-26T21:17:31.215Z",
+  "exitCode": 1,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "3ca0fa25596ae6f9a01ca96d8a4683152b1b56ae",
+  "testedDiffSha256AtEnd": "d0bb128d33856014a400ca7dfca2c10e37180d96c1a2134cd31955dc345dbe4f",
+  "untrackedSourceAtEnd": [],
+  "fixedSource": true
+}
