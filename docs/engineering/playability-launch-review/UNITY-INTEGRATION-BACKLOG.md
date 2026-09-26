@@ -657,3 +657,22 @@ the one disclosed todo; `generated/` unchanged, projection 50. Demonstration run
 | Future compile/render/native tests | EditMode: a V34 checkpoint migrates to V35 with `cohorts: []`; a V35 checkpoint with a receipt refuses a downgrade. PlayMode: after a cohort week, an entrant is visible and signable in the hiring market. |
 | Migration / integration risks | V35 → V34 is lossless only while `cohorts` is empty. A V34 state is not live: ticking it fails loudly at the next cohort week. |
 | Unresolved product choices | **(a)** Every count and age is PROVISIONAL TUNING under companion §6.5. The youth floor is the parent's delegated reading of the Owner's demonstration criterion. **(b)** Era-dependent entrant ages are not implemented; no era fact was selected. **(c)** F-792-1: rivals are insolvent from week 260 in a passive world, so the demonstration shows supply, not a live market. Routed to P15's scope check. |
+
+### P14C.2b — the single final extension (Save V35 → V36; projection UNMOVED at 50)
+
+*Entry written at the C.2b checkpoint from records 780 (§5, §6), 806 (§8), 811, 815 and 817. Measured at the
+checkpoint (record 818, source `8599f5f7`, run 816 `fixedSource: true`): 366 files, 4287 cases, 59 failed = 55
+inherited retained with the same cause + 4 changed by approved C.2b law (817), restated in 819; final verification
+822 leaves only the 55 inherited; every C.2b RED case passes or is one of 2 measured todos; `generated/` unchanged, projection 50. LOGIC VERIFIED · UNITY NOT VERIFIED.*
+
+| Field | Entry |
+| --- | --- |
+| Slice | P14C.2b. At `E − 12`, an announced person still under contract gets ONE `retirementExtension` market case naming their current employer as the only permitted issuer. The offer must end exactly at `E + 52` and clear `ask × 1.10`. Acceptance moves `effectiveWeek` by 52 once (`extensionUsed`); decline or no offer leaves E. Rivals extend under the same law at the lowest tier ≥ 1.10, with no promise. |
+| Identity change | **`LIVE_SAVE_VERSION` 35 → 36**. `RetirementRecord` gains `extensionUsed` and `extendedFromWeek`; `TalentMarketCase` gains `variant: 'expiry' \| 'retirementExtension'`. Projection UNMOVED at 50. |
+| C# binding change | NONE (a save bump regenerates nothing; measured `generated/` clean). |
+| Consumer change — VALUES through existing read models | Every bridge case reader EXCLUDES extension cases (market rows, people attention rows and case block, world route, promise rows, the Pulse settlement fold). The contract route rewords the renewal refusal and the proposal quote for an announced person, and a non-whole-year term reads "N weeks". |
+| Consumer change — BEHAVIOUR OVER TIME | Rival incumbents extend announced employees whenever the bonus clears their reserve, so rosters keep some retiring people one more year and later hiring samples shift (817: one extra settled row in the seed-b ledger at week 416). |
+| Required UI action/feedback | DEFERRED to C.2-RM, nothing designed: the extension offer on the person's profile during the 12-week window (who may offer, the exact term, the reservation), the decision week, and the outcome sentence. **The bridge proposal path accepts only catalogue terms**, so today a player reaches an extension through the bridge only when the contract ends exactly at E (a 52-week term). A native surface must offer the one required term. |
+| Future compile/render/native tests | EditMode: a V35 checkpoint migrates to V36 with every record unused and every case `expiry`; a V36 checkpoint with a used extension refuses a downgrade. PlayMode: an announced employee at `E − 12` shows one extension offer from their employer only; accepting moves the retirement a year. |
+| Migration / integration risks | V36 → V35 is lossless only while no extension case or used extension exists. A live record without `extensionUsed` throws at the next market week (`readExtensionUsed`); migrate before ticking. |
+| Unresolved product choices | **(a)** Window 12 and factor 1.10 are PROVISIONAL TUNING. **(b)** No promise rides an extension (806 §7.1), pending the Owner's VOIDED/WAIVED answer (773 §7). **(c)** All new sentences are CANDIDATE wording. |

@@ -1,0 +1,215 @@
+{
+  "baseline": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/805-c4-final-verification.txt",
+  "candidate": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/822-c2b-final-verification.txt",
+  "baselineCount": 63,
+  "candidateCount": 55,
+  "counts": {
+    "NEW": 0,
+    "VANISHED": 8,
+    "RETAINED_SAME_CAUSE": 55,
+    "RETAINED_CHANGED_CAUSE": 0
+  },
+  "NEW": [],
+  "VANISHED": [
+    {
+      "id": "core :: tests/bridge-p14b5-relationships.test.ts > family 12 — the R-D5 natural-chain LEDGER (measured; the frozen controls MUST NOT move at T2; after T2 every settlement is checked against the D5 receipt facts) > seed-b: chain digests, row counts, churn rosters empty under D1, zero exposed rows through 416; the nine frozen drop templates only",
+      "cause": "AssertionError: expected [ { week: 208, …(11) }, …(46) ] to have a length of 48 but got 47"
+    },
+    {
+      "id": "core :: tests/p14b5-relationships.test.ts > family 6 — D5 IN THE CHOOSER under the D1 roster predicate (scope (5); companion :116, :120) > the base (no edge) declines by the tie order: every landed band ties between the two survivors (measured premise)",
+      "cause": "Error: F6 premise: no actor listed at both 207 and 208 for the committed-at-W probe"
+    },
+    {
+      "id": "core :: tests/p14b5-relationships.test.ts > family 6 — D5 IN THE CHOOSER under the D1 roster predicate (scope (5); companion :116, :120) > a CloseFriends counterpart on the player's OFF-CYCLE row (startWeek < W, active at W) settles the case for the player with the D5 sentence as the ONLY reason",
+      "cause": "Error: F6 premise: no actor listed at both 207 and 208 for the committed-at-W probe"
+    },
+    {
+      "id": "core :: tests/p14b5-relationships.test.ts > family 6 — D5 IN THE CHOOSER under the D1 roster predicate (scope (5); companion :116, :120) > the same case at a W where that edge has DRIFTED below Close Friends declines by the tie order",
+      "cause": "Error: F6 premise: no actor listed at both 207 and 208 for the committed-at-W probe"
+    },
+    {
+      "id": "core :: tests/p14b5-relationships.test.ts > family 6 — D5 IN THE CHOOSER under the D1 roster predicate (scope (5); companion :116, :120) > a row CLOSED AT W (the actor signed at 0 for 208 weeks) never counts — the predicate's strict upper end",
+      "cause": "Error: F6 premise: no actor listed at both 207 and 208 for the committed-at-W probe"
+    },
+    {
+      "id": "core :: tests/p14b5-relationships.test.ts > family 6 — D5 IN THE CHOOSER under the D1 roster predicate (scope (5); companion :116, :120) > a row COMMITTED AT W (startWeek === W) never counts — the predicate's strict lower end; the same row one week earlier does",
+      "cause": "Error: F6 premise: no actor listed at both 207 and 208 for the committed-at-W probe"
+    },
+    {
+      "id": "core :: tests/p14b5-relationships.test.ts > family 6 — D5 IN THE CHOOSER under the D1 roster predicate (scope (5); companion :116, :120) > `enemies here` is never read: without a Close Friends counterpart no D5 sentence appears, whatever the value on the record",
+      "cause": "Error: F6 premise: no actor listed at both 207 and 208 for the committed-at-W probe"
+    },
+    {
+      "id": "core :: tests/p14c2a-save-and-settlement.test.ts > P14C.2a E1-E3, F1: settlement and the rival symmetry > E1: a signed, NOT-seated actor announced with E = their own contract end settles to retired exactly at E, via the EXISTING expiry receipt; talent/history untouched",
+      "cause": "AssertionError: expected [ 't-wri-00', 't-wri-01', …(83) ] to deeply equal [ 't-wri-00', 't-wri-01', …(82) ]"
+    }
+  ],
+  "RETAINED_SAME_CAUSE": [
+    {
+      "id": "core :: tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > keeps the shipped Save route and save-before-load consistent with the named record"
+    },
+    {
+      "id": "core :: tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > rejects a corrupted cross-world active binding and stops on an uncertain commit"
+    },
+    {
+      "id": "core :: tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > saves atomically across the bounded replay journal with a new logical session"
+    },
+    {
+      "id": "core :: tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > branches CURRENT complete state, preserves original records, switches scope and survives restart"
+    },
+    {
+      "id": "core :: tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > makes failed writes, cancel/unsaved conflicts, stale targets and rename collisions leave authority intact"
+    },
+    {
+      "id": "core :: tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > requires exact delete/overwrite confirmation and never recreates a deleted active record"
+    },
+    {
+      "id": "core :: tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > imports real old current/saved checkpoints as independently recoverable records without losing original bytes"
+    },
+    {
+      "id": "core :: tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > recovers different-world legacy slots and null saved state, preserving exact originals"
+    },
+    {
+      "id": "core :: tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > branches a full journal without changing source bytes and retries the exact durable copy after restart"
+    },
+    {
+      "id": "core :: tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > durably save dirty progress while preserving two inactive worlds and failed-write authority"
+    },
+    {
+      "id": "core :: tests/bridge-p12-campaign-library.test.ts > R05 independent named campaign transactions > durably discard dirty progress while preserving two inactive worlds and failed-write authority"
+    },
+    {
+      "id": "core :: tests/bridge-runtime-checkpoint-prepared-reuse.test.ts > prepared checkpoint representation reuse preserves authority boundaries > preserves live authority on failed Save and replays the exact successful receipt after later changes and restart"
+    },
+    {
+      "id": "core :: tests/bridge-p13-campaign-isolation.test.ts > P13A research authority across named campaign operations > Save As branches real research, inactive and renamed campaigns stay frozen, and a new campaign receives none of their authority"
+    },
+    {
+      "id": "core :: tests/bridge-p14b2-trust.test.ts > P14B.2 group5 — independent promise attention after cases close > raises due at minus8 but not minus9 for an actual player poaching winner with no proposals"
+    },
+    {
+      "id": "core :: tests/bridge-p14b2-trust.test.ts > P14B.2 group5 — independent promise attention after cases close > raises the poaching winner’s actual outcome only in its recorded week, once per cause/person"
+    },
+    {
+      "id": "core :: tests/bridge-p14b2-trust.test.ts > P14B.2 group5 — independent promise attention after cases close > does not require any case entry to retain a real promise reminder (explicit read-only case-carrier probe)"
+    },
+    {
+      "id": "core :: tests/bridge-p14b5-relationships.test.ts > family 12 — the R-D5 natural-chain LEDGER (measured; the frozen controls MUST NOT move at T2; after T2 every settlement is checked against the D5 receipt facts) > the MOST EXPOSED shared fixture, poachingFixture (p14b2-fixtures.ts :145-211; consumers bridge-p14b2-trust, p14b2-fixture-preconditions): the week-208 reasons pin and endedWeek 208 hold, and under D1 no survivor holds a shared-take counterpart"
+    },
+    {
+      "id": "core :: tests/p13a-scientist-foundation.test.ts > P13A Scientist identity and employment foundation > preserves accepted people, concepts, market, era and RNG for p13a-person-regression-1"
+    },
+    {
+      "id": "core :: tests/p13a-scientist-foundation.test.ts > P13A Scientist identity and employment foundation > preserves accepted people, concepts, market, era and RNG for p13a-person-regression-2"
+    },
+    {
+      "id": "core :: tests/p13a-scientist-foundation.test.ts > P13A Scientist identity and employment foundation > preserves accepted people, concepts, market, era and RNG for m0a-0001"
+    },
+    {
+      "id": "core :: tests/p14b1-trust-chooser.test.ts > P14B.1 test 6: trust, the widened chooser and the priority order > opportunity changes the winner of an otherwise compensation-versus-incumbency 1-1 tie, with two real surviving proposals"
+    },
+    {
+      "id": "core :: tests/p14b1-trust-chooser.test.ts > P14B.1 test 7: rival symmetry > natural rival authoring preserves the first writer IFF, the first actor positive (P1 if proven, flexible P2 if unproven), an unproven flexible-P2 witness, and actual non-achievable zero-attachment witnesses for a proven and an unproven person"
+    },
+    {
+      "id": "core :: tests/p14b2-fixture-preconditions.test.ts > P14B.2 lawful engine fixture preconditions (not bridge verification) > wins a real rival-owned case and reaches reminder/outcome weeks after proposals are gone"
+    },
+    {
+      "id": "core :: tests/p14b4-cast-class-capacity-evaluator5.test.ts > P14B4 evaluator-5 kernel vocabulary (record 600 §3 2(b)): the joint certificate the scalar cannot issue > a conflicting fixed lead claim makes the joint offer impossible, not a target-specific BROKEN winner choice"
+    },
+    {
+      "id": "core :: tests/p14b4-cast-class-outcomes.test.ts > P14B4 genuine submit/settle/take routes, no synthetic commitments > RIVAL: a genuinely naturally authored tagged commitment binds and qualifies through the real scheduled owner transition"
+    },
+    {
+      "id": "core :: tests/p14b4-cast-class-outcomes.test.ts > P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'rival' 'lead' with actual 'lead' seat: qualification=true"
+    },
+    {
+      "id": "core :: tests/p14b4-cast-class-outcomes.test.ts > P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'rival' 'lead' with actual 'antagonist' seat: qualification=false"
+    },
+    {
+      "id": "core :: tests/p14b4-cast-class-outcomes.test.ts > P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'rival' 'lead' with actual 'support' seat: qualification=false"
+    },
+    {
+      "id": "core :: tests/p14b4-cast-class-outcomes.test.ts > P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'rival' 'leadOrAntagonist' with actual 'lead' seat: qualification=true"
+    },
+    {
+      "id": "core :: tests/p14b4-cast-class-outcomes.test.ts > P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'rival' 'leadOrAntagonist' with actual 'antagonist' seat: qualification=true"
+    },
+    {
+      "id": "core :: tests/p14b4-cast-class-outcomes.test.ts > P14B4 labeled outcome-owner probes on real bound roots and actual casts > 'rival' 'leadOrAntagonist' with actual 'support' seat: qualification=false"
+    },
+    {
+      "id": "core :: tests/p14b4-cast-class-outcomes.test.ts > P14B4 labeled outcome-owner probes on real bound roots and actual casts > rival support qualifies for P1 and shape-legacy count-only P2, not tagged P2"
+    },
+    {
+      "id": "core :: tests/p14b4-cast-class-outcomes.test.ts > P14B4 labeled outcome-owner probes on real bound roots and actual casts > rival half-open window counts start, excludes before-start and excludes due"
+    },
+    {
+      "id": "core :: tests/p14b4-cast-class-policy.test.ts > P14B4: natural rival policy uses the real shared service, never staged failed candidates > observes flexible-first, actual P1 fallback, proven P1, and a genuine zero-attachment refusal without extra RNG"
+    },
+    {
+      "id": "core :: tests/p14b4-ready-replay-stale-target.test.ts > P14B4 Ready replay — stale Ready target after genuine release > resolves the same source-now Ready target against the released branch, refuses without resurrection, and retains the real first-take/release prefix"
+    },
+    {
+      "id": "core :: tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — the natural witness (seed-b w211 studio-bc14baf6-r01, record 618 O-T4-1) > search table: the first seed-b decision whose seating matters holds two tagged leadOrAntagonist beneficiaries and one P1 beneficiary in a three-actor pool"
+    },
+    {
+      "id": "core :: tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — the natural witness (seed-b w211 studio-bc14baf6-r01, record 618 O-T4-1) > RED: the real seating serves the maximal DISTINCT-beneficiary count (plan :215-218), the picture is viable and affordable (:223-225), and the real first take then satisfies all three through advancePromisesWeek/qualifyingTakes"
+    },
+    {
+      "id": "core :: tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — the natural witness (seed-b w211 studio-bc14baf6-r01, record 618 O-T4-1) > CONFLICT: the ordinary economic score prefers a two-beneficiary permutation; benefit count wins over score (:216-217) and the real take proves it"
+    },
+    {
+      "id": "core :: tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — the natural witness (seed-b w211 studio-bc14baf6-r01, record 618 O-T4-1) > TIE FALLBACK (labeled reception-input variant): two reception-identical tagged beneficiaries tie on score; the first strict-greater winner in the inherited BILLINGS order is seated — inherited tie behaviour, not fairness (:218-221)"
+    },
+    {
+      "id": "core :: tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — membership (plan :210-213) and masks (:213-215) > another issuer's promise never counts: r02's offers to r01's three actors are present at w202 and at the witness and never enter r01's member set; re-authored r02 offers make the negative discriminating"
+    },
+    {
+      "id": "core :: tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — membership (plan :210-213) and masks (:213-215) > a met promise never counts (control, r02 chain): after r02's w211 picture satisfies its three P1 roots at w216, its next real decision has no member and takes the ordinary pick"
+    },
+    {
+      "id": "core :: tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — membership (plan :210-213) and masks (:213-215) > a met promise never counts (r01 chain, RED today only through the witness defect): after the witness take the SATISFIED roots leave r01's member set at its next real decision"
+    },
+    {
+      "id": "core :: tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — membership (plan :210-213) and masks (:213-215) > a promise whose window excludes the prospective take never counts — 'window starts after every plausible t…'"
+    },
+    {
+      "id": "core :: tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — membership (plan :210-213) and masks (:213-215) > a promise whose window excludes the prospective take never counts — 'window ends before any take can land …'"
+    },
+    {
+      "id": "core :: tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — membership (plan :210-213) and masks (:213-215) > mask derivation through the shared reader — 'tagged lead stays exact: r01-2 counts…'"
+    },
+    {
+      "id": "core :: tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — membership (plan :210-213) and masks (:213-215) > mask derivation through the shared reader — 'legacy count-only LEAD_OR_SIGNIFICANT…'"
+    },
+    {
+      "id": "core :: tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — membership (plan :210-213) and masks (:213-215) > mask derivation through the shared reader — 'APPEARANCE_COUNT is generic cast'"
+    },
+    {
+      "id": "core :: tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — the initial cast seam (plan :225-232) > promised non-primary-actor beneficiaries (the witness rival's writer, director and craft, each bound OPEN P1) are never seated: one person cannot double, and the sole holder of a role is a capacity constraint, not a forged package"
+    },
+    {
+      "id": "core :: tests/r3n1-stale-schedule-take-02.test.ts > R3-N1-DATA-02 — stale production-operation route on r3n1-dense-02: SERVER REFUSAL by the bridge > SERVER REFUSAL — a stale expectedStateRevision on the resolveProductionBlocker intent is rejected (STALE_REVISION / state-stale), with no mutation"
+    },
+    {
+      "id": "core :: tests/r3n1-stale-schedule-take-02.test.ts > R3-N1-DATA-02 — stale production-operation route on r3n1-dense-02: SERVER REFUSAL by the bridge > SERVER REFUSAL — the OLD intentId at the CURRENT revision is INTENT_NOT_AVAILABLE once the state has moved on; the fresh resolveProductionBlocker intent for the same production is then accepted exactly once"
+    },
+    {
+      "id": "core :: tests/r3n1-stale-schedule-take-02p31.test.ts > R3-N4-DATA-03 — stale production-operation route on r3n1-dense-02p31: SERVER REFUSAL by the bridge > SERVER REFUSAL — a stale expectedStateRevision on the resolveProductionBlocker intent is rejected (STALE_REVISION / state-stale), with no mutation"
+    },
+    {
+      "id": "core :: tests/r3n1-stale-schedule-take-02p31.test.ts > R3-N4-DATA-03 — stale production-operation route on r3n1-dense-02p31: SERVER REFUSAL by the bridge > SERVER REFUSAL — the OLD intentId at the CURRENT revision is INTENT_NOT_AVAILABLE once the state has moved on; the fresh resolveProductionBlocker intent for the same production is then accepted exactly once"
+    },
+    {
+      "id": "core :: tests/r3n1-stale-schedule-take-02p32.test.ts > R3-N4-TEST-25 — stale production-operation route on r3n1-dense-02p32: SERVER REFUSAL by the bridge > SERVER REFUSAL — a stale expectedStateRevision on the resolveProductionBlocker intent is rejected (STALE_REVISION / state-stale), with no mutation"
+    },
+    {
+      "id": "core :: tests/r3n1-stale-schedule-take-02p32.test.ts > R3-N4-TEST-25 — stale production-operation route on r3n1-dense-02p32: SERVER REFUSAL by the bridge > SERVER REFUSAL — the OLD intentId at the CURRENT revision is INTENT_NOT_AVAILABLE once the state has moved on; the fresh resolveProductionBlocker intent for the same production is then accepted exactly once"
+    },
+    {
+      "id": "core :: tests/world-first-scenery-load-in-provenance.test.ts > World-First Scenery Load-In V1 — frozen district provenance > replays the clean exporter and pins its deliberately non-runtime manifest"
+    }
+  ],
+  "RETAINED_CHANGED_CAUSE": []
+}

@@ -837,6 +837,17 @@ passive seeds) predates the C track and routes to P15's scope check. First endur
 take about 17 CPU-minutes with a live industry, under 1 when it collapses. NEXT: C.2b (780 + 806 §8), save step
 V36; T0 first.
 
+NEXT818: **P14C.2b IS QUALIFIED CLOSED** (record `../evidence/p14b4-20260919/818-c2b-checkpoint.md`, production
+source `8599f5f7`, run 816 `fixedSource: true` on `1b244006`). Save 35 -> 36 (`extensionUsed`, `extendedFromWeek`,
+case `variant`), projection 50 UNMOVED. At `E - 12` an announced person still under contract gets one
+`retirementExtension` case whose only issuer is the current employer; an offer ending at `E + 52` that clears
+`ask x 1.10` moves E by exactly 52, once. Rivals extend under the same law with no promise. Run 816 matched
+prediction 814 exactly (366 files, 4287 cases); 4 C.2a/C.4/ledger cases changed by approved C.2b law (817),
+restated lawfully in 819 (seed-b re-pinned with `takes`/`rng` unmoved; C2/B4a assert the extension; D3 on a world with none); final verification 822 (`fixedSource: true`) leaves exactly the 55 inherited failures, NEW 0 against 805. Source review 815 KEEP. The C.4 demonstration re-run under C.2b PASSED on all six seeds (820); on the one live seed rivals make 29% more films. NEXT: C.2c waits on the Owner's VOIDED/WAIVED
+ruling (773 §7), so **C.2-RM read models** come next (773 §1: profile planning fact, announcement on roster /
+calendar / market attention, alumni summary, and now the extension offer; a bridge projection step), then C.3
+profession transitions. C.2-RM starts with its expansion record, since none exists yet.
+
 Earlier additive foundation checkpoint: V30 data support implemented and independently
 KEEP; qualified report evidence/p14b4-20260919/29-additive-checkpoint.md.
 Corrected candidate bc25e15d…: root+UI and bridge typechecks PASS;137 save tests
