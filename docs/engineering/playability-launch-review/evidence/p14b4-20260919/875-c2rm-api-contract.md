@@ -115,6 +115,13 @@ never advertise a second extension. Calendar staffing-horizon fields/copy must
 also avoid presenting an unavailable ordinary window as open; use a lifecycle
 qualification if its retained date remains for historical/contract context.
 
+Implementation clarification: reuse contractEndRefusal over published ordinary term
+options at max(currentWeek, openingWeek), so a rare still-lawful term ending exactly
+at E is not hidden merely because a record exists. Calendar staffing's
+`renewalWindowWeek` becomes nullable when no ordinary term can fit; `renewalOpen`
+is false in that branch and its UI says ordinary renewal is unavailable while
+retaining the exact expiry. This changes presentation, not admission.
+
 ## 3. Extension case and command route
 
 Market list rows and profile/selected case blocks gain required

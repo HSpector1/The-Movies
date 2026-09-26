@@ -1,0 +1,274 @@
+{"sourceSha":"6575a8a4c2b33759f5e4b58c0fe9780ebfdaf4be","testedDiffSha256":"2a73ba10df3ae9e026d01b0b3371164ce0fb1dcd5d91a620f2bfe9f6b7425016","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/bridge-p14c2rm-runtime.test.ts","tests/bridge-p14c2rm-proposals.test.ts"],"node":"v20.20.2","start":"2026-09-26T15:58:47.044Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/bridge-p14c2rm-runtime.test.ts (8 tests | 5 failed) 14626ms
+   ✓ C.2-RM genuine projection51 recovery > preserves the real producer, actual nonempty journal and independent announced669/retired670 slots 961ms
+   × C.2-RM genuine projection51 recovery > steps projection once to52 while retaining Save37/protocol4 and enumerating actual outgoing51 exactly once 53ms
+     → expected 51 to be 52 // Object.is equality
+   × C.2-RM genuine projection51 recovery > lifts both slots byte-exactly but resets old journal/revision/session authority, then reopens52 without migration 1277ms
+     → expected null to be 4 // Object.is equality
+   × C.2-RM genuine projection51 recovery > rejects the old command identity and replays only a new52 saved-slot LOAD receipt after restart 914ms
+     → expected null to be 4 // Object.is equality
+   ✓ C.2-RM genuine projection51 recovery > rejects invalid currentSaveJson through whole-save validation before creating a new session 379ms
+   ✓ C.2-RM genuine projection51 recovery > rejects invalid savedSaveJson through whole-save validation before creating a new session 544ms
+   × C.2-RM genuine projection51 recovery > refuses unknown schema, corrupted digest and a reused prior session id without touching the artifact 2869ms
+     → expected [Function] to throw an error
+   × C.2-RM genuine projection51 recovery > keeps independently recovered Save As branches isolated despite identical PersonIds and source bytes 7627ms
+     → expected 1 to be +0 // Object.is equality
+ ❯ |core| tests/bridge-p14c2rm-proposals.test.ts (12 tests | 10 failed) 22902ms
+   × C.2-RM discovered one-issuer extension through every existing reader > gap real case publishes one exact opportunity, shared across profile, list, detail and world route 2247ms
+     → 875 extension detail must be discoverable: expected null not to be null
+   × C.2-RM discovered one-issuer extension through every existing reader > exact real case publishes one exact opportunity, shared across profile, list, detail and world route 1828ms
+     → 875 extension detail must be discoverable: expected null not to be null
+   × C.2-RM discovered one-issuer extension through every existing reader > rival extension is readable but read-only, with exact UNKNOWN figures and no own extension alert 8977ms
+     → expected null not to be null
+   × C.2-RM exact public proposal commands > gap quote -> submit -> revise -> withdraw uses exact term and never charges before settlement 389ms
+     → 875 public quote quote-propose: {"protocolVersion":4,"schemaId":"sha256:a690e6f9e6f93f3a78f8eed8eaa20a1532a9ebd82812b0bc9414a04fdcb5968f","sessionId":"c2rm-gap-verbs","commandId":"quote-propose","accepted":false,"reasonCode":"ENGINE_REJECTED","rejection":{"category":"authority-refusal","blocker":"The authoritative TypeScript engine refused the submitted intent.","currentHolder":null,"remedy":"Follow the current blocker guidance, refresh the studio, and try the action again."},"message":"Choose one of the published terms before proposing.","stateRevision":0,"gameWeek":92,"stateDigest":"1b3024a955cd2723a05f29d3404096c0c81cd41ccc0388ac3900ca5a35611d20","processingMs":125.46079399999871}: expected false to be true // Object.is equality
+   ✓ C.2-RM exact public proposal commands > exact quote -> submit -> revise -> withdraw uses exact term and never charges before settlement 6678ms
+   ✓ C.2-RM exact public proposal commands > wrong terms, no case, promises, ordinary off-catalogue terms and forged issuer are refused without state changes 1806ms
+   × C.2-RM exact public proposal commands > a real58-week proposal settles once at98, survives save/runtime replay, and never opens a second opportunity 92ms
+     → 875 public quote quote58: {"protocolVersion":4,"schemaId":"sha256:a690e6f9e6f93f3a78f8eed8eaa20a1532a9ebd82812b0bc9414a04fdcb5968f","sessionId":"c2rm-gap-settlement","commandId":"quote58","accepted":false,"reasonCode":"ENGINE_REJECTED","rejection":{"category":"authority-refusal","blocker":"The authoritative TypeScript engine refused the submitted intent.","currentHolder":null,"remedy":"Follow the current blocker guidance, refresh the studio, and try the action again."},"message":"Choose one of the published terms before proposing.","stateRevision":0,"gameWeek":92,"stateDigest":"1b3024a955cd2723a05f29d3404096c0c81cd41ccc0388ac3900ca5a35611d20","processingMs":71.77502599999934}: expected false to be true // Object.is equality
+   × C.2-RM exact public proposal commands > commit revalidation refuses a formerly valid quote after a lawful employer release 21ms
+     → expected false to be true // Object.is equality
+   × C.2-RM exact public proposal commands > SYNTHETIC cash-only whole-save variant has a fixed-term affordability remedy, not shortening 268ms
+     → 875 public quote unaffordable58: {"protocolVersion":4,"schemaId":"sha256:a690e6f9e6f93f3a78f8eed8eaa20a1532a9ebd82812b0bc9414a04fdcb5968f","sessionId":"c2rm-cash","commandId":"unaffordable58","accepted":false,"reasonCode":"ENGINE_REJECTED","rejection":{"category":"authority-refusal","blocker":"The authoritative TypeScript engine refused the submitted intent.","currentHolder":null,"remedy":"Follow the current blocker guidance, refresh the studio, and try the action again."},"message":"Choose one of the published terms before proposing.","stateRevision":0,"gameWeek":92,"stateDigest":"af472ac9a5e8e8dbf31edf97cfa7a1eeedf951829348df516c676b45385b5336","processingMs":107.21648099999948}: expected false to be true // Object.is equality
+   × C.2-RM exact public proposal commands > real expired history retains variant and issuer without a fresh offer block 308ms
+     → expected null to match object { Object (variant, soleIssuerStudioId, ...) }
+   × C.2-RM exact public proposal commands > real declined history retains variant and issuer without a fresh offer block 130ms
+     → expected null to match object { Object (variant, soleIssuerStudioId, ...) }
+   × C.2-RM exact public proposal commands > real invalidated history retains variant and issuer without a fresh offer block 157ms
+     → expected null to match object { Object (variant, soleIssuerStudioId, ...) }
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 15 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/bridge-p14c2rm-proposals.test.ts > C.2-RM discovered one-issuer extension through every existing reader > gap real case publishes one exact opportunity, shared across profile, list, detail and world route
+ FAIL |core|  tests/bridge-p14c2rm-proposals.test.ts > C.2-RM discovered one-issuer extension through every existing reader > exact real case publishes one exact opportunity, shared across profile, list, detail and world route
+AssertionError: 875 extension detail must be discoverable: expected null not to be null
+ ❯ tests/bridge-p14c2rm-proposals.test.ts:54:69
+     52|     expect(caseForTalent(state, facts.personId)?.decisionWeek, 'fixtur…
+     53|     const detail = marketCaseProjection(state, facts.personId, owner(s…
+     54|     expect(detail, '875 extension detail must be discoverable').not.to…
+       |                                                                     ^
+     55|     expect(detail as unknown as ExtensionFields).toMatchObject({ varia…
+     56|       soleIssuerStudioId: facts.issuer, retirementExtension: { issuerS…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/15]⎯
+
+ FAIL |core|  tests/bridge-p14c2rm-proposals.test.ts > C.2-RM discovered one-issuer extension through every existing reader > rival extension is readable but read-only, with exact UNKNOWN figures and no own extension alert
+AssertionError: expected null not to be null
+ ❯ tests/bridge-p14c2rm-proposals.test.ts:81:24
+     79|     admitted(state)
+     80|     const detail = marketCaseProjection(state, facts.personId, owner(s…
+     81|     expect(detail).not.toBeNull()
+       |                        ^
+     82|     expect(detail as unknown as ExtensionFields).toMatchObject({ varia…
+     83|       soleIssuerStudioId: facts.issuer, retirementExtension: { viewerC…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/15]⎯
+
+ FAIL |core|  tests/bridge-p14c2rm-proposals.test.ts > C.2-RM exact public proposal commands > gap quote -> submit -> revise -> withdraw uses exact term and never charges before settlement
+AssertionError: 875 public quote quote-propose: {"protocolVersion":4,"schemaId":"sha256:a690e6f9e6f93f3a78f8eed8eaa20a1532a9ebd82812b0bc9414a04fdcb5968f","sessionId":"c2rm-gap-verbs","commandId":"quote-propose","accepted":false,"reasonCode":"ENGINE_REJECTED","rejection":{"category":"authority-refusal","blocker":"The authoritative TypeScript engine refused the submitted intent.","currentHolder":null,"remedy":"Follow the current blocker guidance, refresh the studio, and try the action again."},"message":"Choose one of the published terms before proposing.","stateRevision":0,"gameWeek":92,"stateDigest":"1b3024a955cd2723a05f29d3404096c0c81cd41ccc0388ac3900ca5a35611d20","processingMs":125.46079399999871}: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ quote tests/bridge-p14c2rm-proposals.test.ts:26:91
+     24| function quote(session: BridgeSession, commandId: string, draft: Bridg…
+     25|   const response = session.quote({ ...header(session, commandId), type…
+     26|   expect(response.accepted, `875 public quote ${commandId}: ${JSON.str…
+       |                                                                                           ^
+     27|   if (!response.accepted) throw new Error(response.message)
+     28|   expect(parseWireValue(BRIDGE_SCHEMA.$defs.StudioBridgeQuoteResponse,…
+ ❯ tests/bridge-p14c2rm-proposals.test.ts:98:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/15]⎯
+
+ FAIL |core|  tests/bridge-p14c2rm-proposals.test.ts > C.2-RM exact public proposal commands > a real58-week proposal settles once at98, survives save/runtime replay, and never opens a second opportunity
+AssertionError: 875 public quote quote58: {"protocolVersion":4,"schemaId":"sha256:a690e6f9e6f93f3a78f8eed8eaa20a1532a9ebd82812b0bc9414a04fdcb5968f","sessionId":"c2rm-gap-settlement","commandId":"quote58","accepted":false,"reasonCode":"ENGINE_REJECTED","rejection":{"category":"authority-refusal","blocker":"The authoritative TypeScript engine refused the submitted intent.","currentHolder":null,"remedy":"Follow the current blocker guidance, refresh the studio, and try the action again."},"message":"Choose one of the published terms before proposing.","stateRevision":0,"gameWeek":92,"stateDigest":"1b3024a955cd2723a05f29d3404096c0c81cd41ccc0388ac3900ca5a35611d20","processingMs":71.77502599999934}: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ quote tests/bridge-p14c2rm-proposals.test.ts:26:91
+     24| function quote(session: BridgeSession, commandId: string, draft: Bridg…
+     25|   const response = session.quote({ ...header(session, commandId), type…
+     26|   expect(response.accepted, `875 public quote ${commandId}: ${JSON.str…
+       |                                                                                           ^
+     27|   if (!response.accepted) throw new Error(response.message)
+     28|   expect(parseWireValue(BRIDGE_SCHEMA.$defs.StudioBridgeQuoteResponse,…
+ ❯ tests/bridge-p14c2rm-proposals.test.ts:147:21
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/15]⎯
+
+ FAIL |core|  tests/bridge-p14c2rm-proposals.test.ts > C.2-RM exact public proposal commands > commit revalidation refuses a formerly valid quote after a lawful employer release
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ tests/bridge-p14c2rm-proposals.test.ts:179:27
+    177|     const conversion = marketProposalDraftToEngine(state, { verb: 'pro…
+    178|       issuerStudioId: facts.issuer, termWeeks: 58, premiumTier: 1.1 })
+    179|     expect(conversion.ok).toBe(true)
+       |                           ^
+    180|     if (!conversion.ok) throw new Error(conversion.error)
+    181|     const released = applyActions(state, [{ kind: 'releaseTalent', tal…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/15]⎯
+
+ FAIL |core|  tests/bridge-p14c2rm-proposals.test.ts > C.2-RM exact public proposal commands > SYNTHETIC cash-only whole-save variant has a fixed-term affordability remedy, not shortening
+AssertionError: 875 public quote unaffordable58: {"protocolVersion":4,"schemaId":"sha256:a690e6f9e6f93f3a78f8eed8eaa20a1532a9ebd82812b0bc9414a04fdcb5968f","sessionId":"c2rm-cash","commandId":"unaffordable58","accepted":false,"reasonCode":"ENGINE_REJECTED","rejection":{"category":"authority-refusal","blocker":"The authoritative TypeScript engine refused the submitted intent.","currentHolder":null,"remedy":"Follow the current blocker guidance, refresh the studio, and try the action again."},"message":"Choose one of the published terms before proposing.","stateRevision":0,"gameWeek":92,"stateDigest":"af472ac9a5e8e8dbf31edf97cfa7a1eeedf951829348df516c676b45385b5336","processingMs":107.21648099999948}: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ quote tests/bridge-p14c2rm-proposals.test.ts:26:91
+     24| function quote(session: BridgeSession, commandId: string, draft: Bridg…
+     25|   const response = session.quote({ ...header(session, commandId), type…
+     26|   expect(response.accepted, `875 public quote ${commandId}: ${JSON.str…
+       |                                                                                           ^
+     27|   if (!response.accepted) throw new Error(response.message)
+     28|   expect(parseWireValue(BRIDGE_SCHEMA.$defs.StudioBridgeQuoteResponse,…
+ ❯ tests/bridge-p14c2rm-proposals.test.ts:190:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/15]⎯
+
+ FAIL |core|  tests/bridge-p14c2rm-proposals.test.ts > C.2-RM exact public proposal commands > real expired history retains variant and issuer without a fresh offer block
+ FAIL |core|  tests/bridge-p14c2rm-proposals.test.ts > C.2-RM exact public proposal commands > real declined history retains variant and issuer without a fresh offer block
+ FAIL |core|  tests/bridge-p14c2rm-proposals.test.ts > C.2-RM exact public proposal commands > real invalidated history retains variant and issuer without a fresh offer block
+AssertionError: expected null to match object { Object (variant, soleIssuerStudioId, ...) }
+
+- Expected: 
+Object {
+  "retirementExtension": null,
+  "soleIssuerStudioId": "studio-d7df6c8e-player",
+  "variant": "retirementExtension",
+}
+
++ Received: 
+null
+
+ ❯ tests/bridge-p14c2rm-proposals.test.ts:207:50
+    205|       'fixture premise: actual terminal receipt').toBe(outcome)
+    206|     const detail = marketCaseProjection(state, facts.personId, owner(s…
+    207|     expect(detail as unknown as ExtensionFields).toMatchObject({ varia…
+       |                                                  ^
+    208|     const market = marketPage(state, { view: 'market', targetId: facts…
+    209|     expect(market.cases.closed.rows.find(row => row.talentId === facts…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/15]⎯
+
+ FAIL |core|  tests/bridge-p14c2rm-runtime.test.ts > C.2-RM genuine projection51 recovery > steps projection once to52 while retaining Save37/protocol4 and enumerating actual outgoing51 exactly once
+AssertionError: expected 51 to be 52 // Object.is equality
+
+- Expected
++ Received
+
+- 52
++ 51
+
+ ❯ tests/bridge-p14c2rm-runtime.test.ts:46:32
+     44| 
+     45|   it('steps projection once to52 while retaining Save37/protocol4 and …
+     46|     expect(PROJECTION_VERSION).toBe(52)
+       |                                ^
+     47|     expect(PROTOCOL_VERSION).toBe(4)
+     48|     expect(LIVE_SAVE_VERSION).toBe(37)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/15]⎯
+
+ FAIL |core|  tests/bridge-p14c2rm-runtime.test.ts > C.2-RM genuine projection51 recovery > lifts both slots byte-exactly but resets old journal/revision/session authority, then reopens52 without migration
+AssertionError: expected null to be 4 // Object.is equality
+
+- Expected: 
+4
+
++ Received: 
+null
+
+ ❯ tests/bridge-p14c2rm-runtime.test.ts:57:48
+     55|     const { raw, prior } = artifact(), factory = vi.fn(() => 'c2rm-cur…
+     56|     const loaded = loadBridgeRuntimeCheckpoint(raw, undefined, factory)
+     57|     expect(loaded.migratedFromProtocolVersion).toBe(4)
+       |                                                ^
+     58|     expect(factory).toHaveBeenCalledTimes(1)
+     59|     const checkpoint = loaded.hydrated.checkpoint
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/15]⎯
+
+ FAIL |core|  tests/bridge-p14c2rm-runtime.test.ts > C.2-RM genuine projection51 recovery > rejects the old command identity and replays only a new52 saved-slot LOAD receipt after restart
+AssertionError: expected null to be 4 // Object.is equality
+
+- Expected: 
+4
+
++ Received: 
+null
+
+ ❯ tests/bridge-p14c2rm-runtime.test.ts:79:48
+     77|     const { raw, prior } = artifact()
+     78|     const loaded = loadBridgeRuntimeCheckpoint(raw, undefined, () => '…
+     79|     expect(loaded.migratedFromProtocolVersion).toBe(4)
+       |                                                ^
+     80|     const session = BridgeSession.fromRuntimeCheckpoint(loaded.hydrate…
+     81|     const before = exportSave(makeSave(session.gameState))
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/15]⎯
+
+ FAIL |core|  tests/bridge-p14c2rm-runtime.test.ts > C.2-RM genuine projection51 recovery > refuses unknown schema, corrupted digest and a reused prior session id without touching the artifact
+AssertionError: expected [Function] to throw an error
+
+- Expected: 
+null
+
++ Received: 
+undefined
+
+ ❯ tests/bridge-p14c2rm-runtime.test.ts:120:86
+    118|       expect(factory).not.toHaveBeenCalled()
+    119|     }
+    120|     expect(() => loadBridgeRuntimeCheckpoint(raw, undefined, () => pri…
+       |                                                                                      ^
+    121|     expect(readRuntime51()).toBe(raw)
+    122|   })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/15]⎯
+
+ FAIL |core|  tests/bridge-p14c2rm-runtime.test.ts > C.2-RM genuine projection51 recovery > keeps independently recovered Save As branches isolated despite identical PersonIds and source bytes
+AssertionError: expected 1 to be +0 // Object.is equality
+
+- Expected
++ Received
+
+- 0
++ 1
+
+ ❯ tests/bridge-p14c2rm-runtime.test.ts:134:34
+    132|     expect(retirementRecordFor(first.gameState, SCI)?.status).toBe('an…
+    133|     expect(retirementRecordFor(second.gameState, SCI)?.status).toBe('r…
+    134|     expect(second.stateRevision).toBe(0)
+       |                                  ^
+    135|     expect(second.exportRuntimeCheckpoint().journal).toEqual([])
+    136|   })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/15]⎯
+
+ Test Files  2 failed (2)
+      Tests  15 failed | 5 passed (20)
+   Start at  17:58:47
+   Duration  26.91s (transform 2.92s, setup 0ms, collect 6.63s, tests 37.53s, environment 1ms, prepare 251ms)
+
