@@ -36,6 +36,7 @@
 
 import { beforeAll, describe, expect, it } from 'vitest'
 import { generateScientist } from '../src/core/worldgen.js'
+import { withTalentProvenance } from '../src/core/aging.js'
 import { technologyEntry } from '../src/core/technologyCatalogue.js'
 import { technologyAnnouncements, technologyForecast } from '../src/core/technologyDisclosure.js'
 import { advanceTo, p13aGeneratedStudio } from '../src/harness/p13a/fixtures.js'
@@ -79,12 +80,20 @@ function withRivalResearch(state: GameState): GameState {
     seats: scientists.map(s => ({ talentId: s.id, laboratoryFacilityId: labId, assignedWeek: week, releasedWeek: null })),
     weeks: [], legacy: null,
   }
-  return {
+  const withRoster: GameState = {
     ...state,
-    talent: [...state.talent, ...scientists],
+    // P14C.4: every live person carries a talentProvenance row (V33+ validator
+    // condition, C.1) — the forged Scientists are lawful talent (a rival research
+    // append), not just research furniture, so each gets one, via the same
+    // floor-then-anchor convention the real append site uses (actions.ts's
+    // recruitScientist): `state.talent` stores the floored age, `withTalentProvenance`
+    // anchors the row on the exact generated age. This is a lawful append, not a
+    // rival RESEARCH fact — it changes nothing the precondition test below checks.
+    talent: [...state.talent, ...scientists.map(s => ({ ...s, age: Math.floor(s.age) }))],
     hollywood: { ...hollywood, employment, activeEmploymentOrdinals, businesses },
     technology: { ...state.technology, projects: [...state.technology.projects, project] },
   }
+  return scientists.reduce((next, s) => withTalentProvenance(next, s), withRoster)
 }
 
 describe('P13B-S8 non-leak: forecast/announcements identical across states differing ONLY in rival RESEARCH state (test 5, upgrades S7\'s PARTIAL to genuine)', () => {
@@ -102,7 +111,11 @@ describe('P13B-S8 non-leak: forecast/announcements identical across states diffe
     expect(rivalResearchVariant).not.toEqual(base)
     // Player-owned roots and the shared chart/announcement clock untouched —
     // only rival research facts (technology.projects, hollywood.employment,
-    // hollywood.talent) differ.
+    // hollywood.talent) differ. `talent`/`talentProvenance` also differ (the
+    // forged Scientists and their provenance rows), but that is the SAME lawful
+    // talent append the roster line above already names, not a second, separate
+    // "research" fact — a live person always carries a provenance row (C.1), so
+    // appending one without the other would be the actual leak.
     expect(rivalResearchVariant.operations).toEqual(base.operations)
     expect(rivalResearchVariant.placement).toEqual(base.placement)
     expect(rivalResearchVariant.technology.access).toEqual(base.technology.access)

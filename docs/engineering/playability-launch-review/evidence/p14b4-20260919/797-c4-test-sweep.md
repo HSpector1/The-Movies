@@ -368,3 +368,51 @@ grep -rln "convertV33ToV34" tests/ | grep -v "^tests/p14c4-"
 grep -rn "\bV34\b" tests/ | grep -v "^tests/p14c4-"
 date
 ```
+
+## After run 803
+
+The parent's matched full-core run 803 found 4 new test-side failures against HEAD
+`c52e8792` or later. All 4 traced and fixed below; same rules as the main sweep (no
+behavioural expectation moved).
+
+| # | Finding | Change |
+|---|---|---|
+| 1 | `tests/d12-economy.test.ts:281` — `if (reloaded.saveVersion !== 34) throw ...` — a live-version reload guard using `!==`, missed by the S10 grep (which matched `toBe(34)`/`saveVersion: 34`/`===` but not `!==`). | Imported `LIVE_SAVE_VERSION` from `../src/core/index.js`; replaced the literal with `reloaded.saveVersion !== LIVE_SAVE_VERSION`, message extended to report the actual version (matching `d11-employment.test.ts:563`'s existing pattern). Re-run: 17/17 pass. |
+| 2 | `tests/d11-cycle2.test.ts:227` — same `!== 34` guard, same miss. | Same fix: `LIVE_SAVE_VERSION` imported and substituted. Re-run: 19/19 pass. |
+| 3 | `tests/ruling-a-development-in-play.test.ts:452` — same `!== 34` guard, same miss. | Same fix. Re-run: 18/18 pass. |
+| 4 | `tests/p13b-s8-nonleak.test.ts`'s `withRivalResearch` (lines 57–88 at the time of the report; now ~59–98) appended two `generateScientist` people straight to `state.talent` with no `talentProvenance` row — unlawful under the V33+ validator condition (C.1: every live person carries one). C.4's cohort request at week 832 reads every row during `tick`'s advance to week 900 and throws `... has no talent provenance row ...`, correctly, since C.4 is the first pass to actually read that far into a state built this way. | Imported `withTalentProvenance` from `../src/core/aging.js`. Rebuilt the roster: `state.talent` now stores `{ ...s, age: Math.floor(s.age) }` for each forged Scientist (the floor-then-anchor convention `actions.ts`'s `recruitScientist` — the one other real append site — already uses), then `scientists.reduce((next, s) => withTalentProvenance(next, s), withRoster)` appends one exact-age-anchored row per person on top, matching the real site's convention exactly. No `expect(...)` line touched. Re-run: 5/5 pass, including the week-900 `advanceTo` case that was the actual failure site. |
+
+**Precondition re-check (item 4).** The file's own precondition test ("the
+rival-research variant genuinely differs from the base world in rival RESEARCH facts
+only") does not assert on `talent` or `talentProvenance` equality/inequality at all —
+it only checks `operations`, `placement`, `technology.access`, `technology.adoptions`
+and `hollywood.chart` for equality, none of which the fix touches. The precondition
+holds truthfully after the fix: **the two new `talentProvenance` rows are a
+consequence of the SAME lawful talent append the test's own comment already named
+("hollywood.talent" differs), not a second, independent research fact.** A live
+person always carries exactly one provenance row (C.1) — appending the person without
+it would have been the actual leak, not a research-state difference. Added one
+clarifying comment in the test (no assertion changed) saying exactly this, since the
+"only differ" comment enumerating affected fields would otherwise read as
+contradicted by the new provenance rows.
+
+Typecheck re-verified clean after all 4 fixes: `npm run typecheck` 0 errors, `npm run
+typecheck:bridge` 0 errors (`date`: 2026-09-26 ~02:10 local).
+
+`tests/p14c2a-save-and-settlement.test.ts`'s "E1" is unaffected by this follow-up and
+remains the sole class (b) residual failure, as expected.
+
+Exhaustive re-grep for any remaining version-34 literal in a live-meaning position
+(every comparison operator, any variable name), excluding `tests/p14c4-*`:
+```
+grep -rnE '(===|!==|==|!=|>=|<=|>|<)\s*34\b|\b34\s*(===|!==|==|!=|>=|<=|>|<)' tests/ | grep -v "^tests/p14c4-"
+```
+Five hits remain, all comments/prose, none a live assertion: `p14b4-cancel-causal-proof.test.ts:673`
+(unrelated quote-estimate arithmetic in a comment), `bridge-p13b-s2-labs.test.ts:20`
+(historical "projection 33 -> 34" narrative), `property-state-v13.test.ts:437`
+(an unrelated "34-week run" comment, previously confirmed a false positive),
+`p14b1-first-take.test.ts:291` (historical R-VERSION comment, correct as written),
+`p13b-s3-save-v23.test.ts:104` (an OLDER entry in an R-VERSION comment chain whose
+NEWEST entry, two lines below at `:105-107`, already correctly documents the current
+V35-ahead-of-V34 arm ordering — the older entry is accurate history, not stale).
+No further live-code literal-34 sites found.

@@ -84,3 +84,20 @@ tick route; save V35 migration of the C.2a V34 corpus; replay determinism.
 5. **Tests added to §4:** every issuer except the live extension issuer refused, AND that issuer refused
    outside the window and after the case closes; the write-back happens once, same week, before settlement;
    extension cases absent from every existing bridge listing.
+
+## 6. Consequences of C.4 landing first (parent, 2026-09-26, before C.2b T0)
+
+1. **The save step is V36, not V35.** C.4 took V35 (record 793). X10's `RetirementRecord` fields
+   (`extensionUsed`, `extendedFromWeek`) and `TalentMarketCase.variant` form V36. The downgrade is lossless iff no
+   extension case and no `extensionUsed`. The V36 validator must keep C.4's receipt re-derivation intact: an
+   extension moves `effectiveWeek`, never `retiredWeek`, and the cohort request counts only `retired` records.
+2. **X9's split carries the cohort with SETTLEMENT.** The tick becomes promises → lifecycle INTENT → market
+   (including extension settlement) → lifecycle SETTLEMENT → COHORT. Moving the cohort after the market is
+   behaviour-neutral for C.4's request, on paper: the market signs and settles but appends no talent and writes
+   no retirement record, so `active_p`, `young_p` and `talentCountBefore` are unchanged. The C.4 suites
+   (`tests/p14c4-*`) and the demonstration harness are the check, and they must stay green unmodified.
+3. **T0 for C.2b mints genuine V35 worlds at the FINAL C.4 writer** (after the C.4 checkpoint), holding:
+   (a) an announced player employee whose contract ends inside `[E − 12, E)`; (b) one whose contract ends
+   exactly at `E`; (c) an announced rival employee over the same window (rival incumbent); (d) an announced free
+   agent (no extension case may open); (e) an open ordinary `expiry` case, to pin the V36 `variant` migration;
+   (f) a world with cohort receipts, so V35 → V36 preserves them byte for byte.

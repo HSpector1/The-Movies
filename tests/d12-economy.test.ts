@@ -39,6 +39,7 @@ import {
   generateWorld,
   importSave,
   legacyTheatricalRun,
+  LIVE_SAVE_VERSION,
   makeSave,
   makeSaveV3,
   openTheatricalRun,
@@ -278,7 +279,7 @@ describe('D-12: reload equals continuous play with an active run straddling the 
 
     const continuous = advance(midRun, 6)
     const reloaded = importSave(exportSave(makeSave(midRun)))
-    if (reloaded.saveVersion !== 34) throw new Error('expected the live version')
+    if (reloaded.saveVersion !== LIVE_SAVE_VERSION) throw new Error('expected the live version, got ' + String(reloaded.saveVersion))
     const split = advance(migrateToCurrentControl(reloaded).state, 6)
 
     expect(exportSave(makeSave(split))).toBe(exportSave(makeSave(continuous)))

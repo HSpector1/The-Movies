@@ -38,6 +38,7 @@ import {
   TUNING,
   SKILL_ORDER,
   DISCIPLINE_ORDER,
+  LIVE_SAVE_VERSION,
 } from '../src/core/index.js'
 import type {
   Action,
@@ -449,7 +450,7 @@ describe('RULING A — development survives save round-trips without duplication
     const released = runOneFilm('A-save-3', true).released
     const reloaded = importSave(exportSave(makeSave(released)))
     // The reloaded state is the live SaveFileV11; drive it forward, no greenlights.
-    if (reloaded.saveVersion !== 34) throw new Error('expected the live save version')
+    if (reloaded.saveVersion !== LIVE_SAVE_VERSION) throw new Error('expected the live save version, got ' + String(reloaded.saveVersion))
     const liftedReloaded = migrateToCurrentControl(reloaded).state
     const advanced = advanceDev(liftedReloaded, 5)
     // Byte-identical except `age`, which the clock alone moves (record 771).
