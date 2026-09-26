@@ -1,14 +1,14 @@
 // Fixed-source run recorder for P14C.2 (the 772 record shape: .json, .patch, .txt).
-// usage: node docs/engineering/playability-launch-review/evidence/p14b4-20260919/run-fixed-source-c2.mjs <NNN-name> <command> [args...]
+// usage: node docs/engineering/playability-launch-review/evidence/p14b4-20260919/run-fixed-source-c2.mjs <NNN-or-NNNN-name> <command> [args...]
 // Records the source identity and the tested working diff at START and END, runs the
-// command with its output to <NNN-name>.txt, and marks fixedSource false if HEAD, the
+// command with its output to <NNN-or-NNNN-name>.txt, and marks fixedSource false if HEAD, the
 // tested diff or the untracked source list moved during the run. Refuses to overwrite.
 import { spawnSync } from 'node:child_process'
 import { createHash } from 'node:crypto'
 import { closeSync, existsSync, openSync, writeFileSync } from 'node:fs'
 
 const [name, command, ...args] = process.argv.slice(2)
-if (!name || !/^\d{3}[a-z0-9-]*$/.test(name) || !command) throw new Error('usage: <NNN-name> <command> [args...]')
+if (!name || !/^\d{3,4}[a-z0-9-]*$/.test(name) || !command) throw new Error('usage: <NNN-or-NNNN-name> <command> [args...]')
 const dir = new URL('.', import.meta.url).pathname
 const base = `${dir}${name}`
 for (const ext of ['.json', '.patch', '.txt']) if (existsSync(base + ext)) throw new Error(`refusing to overwrite ${name}${ext}`)

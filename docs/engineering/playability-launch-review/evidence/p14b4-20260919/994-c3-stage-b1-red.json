@@ -1,0 +1,23 @@
+{
+  "sourceSha": "d9faac35a435639dacd0a1df020f0651f6e59f31",
+  "testedDiffSha256": "e3e51ed51c6a8d23361618e7a471d316635c6f448afbbc02db6befed767dc8d7",
+  "untrackedSource": [],
+  "command": [
+    "node_modules/.bin/vitest",
+    "run",
+    "--project",
+    "core",
+    "tests/p14c3-transition-evidence.test.ts",
+    "tests/p14c3-profession-episodes.test.ts"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-26T21:05:09.632Z",
+  "end": "2026-09-26T21:05:17.689Z",
+  "exitCode": 1,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "d9faac35a435639dacd0a1df020f0651f6e59f31",
+  "testedDiffSha256AtEnd": "e3e51ed51c6a8d23361618e7a471d316635c6f448afbbc02db6befed767dc8d7",
+  "untrackedSourceAtEnd": [],
+  "fixedSource": true
+}

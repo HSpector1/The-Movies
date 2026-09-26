@@ -332,6 +332,7 @@ function feasibilityInputs(state: GameState, draft: PromiseDraft, week: number):
   const from = Math.max(draft.windowStartWeek, week)
   const person = state.talent.find((t) => t.id === draft.beneficiaryPersonId)
   const retirement = retirementRecordFor(state, draft.beneficiaryPersonId)
+  const actingRetirement = retirementRecordFor(state, draft.beneficiaryPersonId, 'actor')
   return [
     draft.family, draft.issuerStudioId, draft.beneficiaryPersonId, draft.predicate.count,
     draft.windowStartWeek, draft.dueWeekExclusive, draft.startWeek, draft.termWeeks, week,
@@ -357,6 +358,10 @@ function feasibilityInputs(state: GameState, draft: PromiseDraft, week: number):
     // C.2c: append only an actual boundary. An unannounced person's historical
     // input tuple remains byte-identical; an accepted extension changes this fact.
     ...(retirement === undefined ? [] : [['retirement', retirement.status, retirement.effectiveWeek]]),
+    // C.3 acting promises see the requested episode as well as today's global
+    // boundary. Keep the existing tuple unchanged when both refer to one row.
+    ...(actingRetirement === undefined || actingRetirement === retirement ? []
+      : [['requestedRetirement', 'actor', actingRetirement.status, actingRetirement.effectiveWeek]]),
   ]
 }
 
@@ -416,7 +421,7 @@ function committedPromiseSeats(
  * the earliest k-th event without inventing an extra simultaneous seat. */
 function retirementQuoteTakeWeek(state: GameState, draft: PromiseDraft, week: number, k: number, capped = true): number {
   const admitted = (greenlightWeek: number): boolean => !capped
-    || assignmentRefusal(state, draft.beneficiaryPersonId, greenlightWeek) === null
+    || assignmentRefusal(state, draft.beneficiaryPersonId, greenlightWeek, 'actor') === null
   const freshTake = Math.max(draft.windowStartWeek, week + WEEKS_TO_FIRST_TAKE)
   const freshGreenlight = k === 0 ? week : freshTake + k * SEAT_CYCLE_WEEKS - WEEKS_TO_FIRST_TAKE
   let earliest = admitted(freshGreenlight) ? freshTake + k * SEAT_CYCLE_WEEKS : Infinity
@@ -478,8 +483,9 @@ export function promiseFeasibility(state: GameState, draft: PromiseDraft, week: 
 
   const from = Math.max(draft.windowStartWeek, week)
   const reserved = reservedByActivePromises(state, draft, from)
-  const retirement = retirementRecordFor(state, draft.beneficiaryPersonId)
-  const expectedTake = (k: number): number => retirement === undefined
+  const hasRetirement = retirementRecordFor(state, draft.beneficiaryPersonId) !== undefined
+    || retirementRecordFor(state, draft.beneficiaryPersonId, 'actor') !== undefined
+  const expectedTake = (k: number): number => !hasRetirement
     ? expectedFirstTakeWeek(state, draft, from, k)
     : retirementQuoteTakeWeek(state, draft, week, k)
 
@@ -491,7 +497,7 @@ export function promiseFeasibility(state: GameState, draft: PromiseDraft, week: 
     if (nMax > 1000) break // bounded: a window can never buy more than this
   }
   if (X > nMax) {
-    if (retirement !== undefined && retirementQuoteTakeWeek(state, draft, week, X - 1, false) < draft.dueWeekExclusive) {
+    if (hasRetirement && retirementQuoteTakeWeek(state, draft, week, X - 1, false) < draft.dueWeekExclusive) {
       return refuse('retirement leaves too few qualifying production seats inside the window')
     }
     return refuse('no filming week inside the window can reach that many pictures')

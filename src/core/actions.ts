@@ -345,8 +345,15 @@ function applyGreenlight(
   // seat at all. The ONE commit both `greenlight` and `greenlightScriptProject` (front
   // door and dequeue) run, so a queued greenlight meets the same law at its own week.
   // Director, cast, then craft — the fixed engaged order; the credited writer is not seated.
-  for (const talentId of staffing.engagedIds) {
-    const refusal = assignmentRefusal(state, talentId, currentTick)
+  const requestedSeats: readonly [string, CreativeRole][] = [
+    [director.id, 'director'],
+    ...CAST_SLOTS.map((slot): [string, CreativeRole] => [cast[slot].id, 'actor']),
+    ...craftHires.map((person): [string, CreativeRole] => [person.id, 'craft']),
+  ]
+  for (const [talentId, profession] of requestedSeats) {
+    // A new primary profession does not reopen a completed acting episode.
+    // The helper also retains the current profession's global admission cap.
+    const refusal = assignmentRefusal(state, talentId, currentTick, profession)
     if (refusal !== null) throw new Error(`applyActions: greenlight rejected — ${refusal}`)
   }
 

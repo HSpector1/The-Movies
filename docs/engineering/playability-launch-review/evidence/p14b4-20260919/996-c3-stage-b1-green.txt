@@ -1,0 +1,18 @@
+{"sourceSha":"d9faac35a435639dacd0a1df020f0651f6e59f31","testedDiffSha256":"5998b6359d1b4fcdc11f0af589171d2b293bb8977299ee2a7ce910eee7ae514d","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14c3-transition-evidence.test.ts","tests/p14c3-profession-episodes.test.ts"],"node":"v20.20.2","start":"2026-09-26T21:06:07.757Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p14c3-transition-evidence.test.ts (8 tests) 3599ms
+   ✓ C.3 B1 retained evidence independently binds coherent recorded questions > B1-01 accepts independent question encoding with exact totals and genuine bounded references 1498ms
+   ✓ C.3 B1 retained evidence independently binds coherent recorded questions > B1-02 refuses a digest-correct total of four with three actual takes and three witnesses 356ms
+   ✓ C.3 B1 retained evidence independently binds coherent recorded questions > B1-03 refuses a digest-correct lead total of two against three actual lead takes 347ms
+ ✓ |core| tests/p14c3-profession-episodes.test.ts (12 tests) 3913ms
+   ✓ C.3 B2 requested-profession admission after genuine acting retirement > B2-01 keeps current new-role admission open while the explicit acting episode stays closed 1787ms
+   ✓ C.3 B2 requested-profession admission after genuine acting retirement > B2-12 permits the transitioned director to write through existing has-discipline law 357ms
+
+ Test Files  2 passed (2)
+      Tests  20 passed (20)
+   Start at  23:06:08
+   Duration  7.12s (transform 2.37s, setup 0ms, collect 4.68s, tests 7.51s, environment 1ms, prepare 607ms)
+

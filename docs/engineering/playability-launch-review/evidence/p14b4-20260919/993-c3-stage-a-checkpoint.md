@@ -44,3 +44,10 @@ Remaining971 stages cover current and requested profession episodes, genuine
 new-role work, extension cases and live writing. Projection53 fields, generated
 consumer, runtime reset/replay/actual Save As, full938 obligations and C-track
 verification remain. Unity/native work remains deferred.
+
+## Publication receipt
+
+Committed and normally pushed as d9faac35a435639dacd0a1df020f0651f6e59f31.
+Independent git ls-remote matched local HEAD; worktree was clean at publication.
+The existing test specialist is released for984; reviewer continues read-only.
+No repeated completed suite or new historical mint is scheduled for that slice.

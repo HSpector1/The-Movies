@@ -1,5 +1,18 @@
 # CODEX continuation — Project Studio
 
+## CURRENT — first Stage B verified; publishing1000
+
+Local and GitHub branch verified at d9faac35a435639dacd0a1df020f0651f6e59f31;
+clean at publication. 993 is the partial Save38 foundation checkpoint. The existing
+test specialist now owns984's two new suites (20 planned cases) and995 handback.
+Reviewer reads admission/promise seams; parent is sole production writer and heavy
+executor. 994 RED closed10PASS/10expectedFAIL with valid premises. Parent changed only
+actions requested-seat roles and promise quote/input facts. 996 passed20;998 passed30 C2c/digest neighbors. 999 root/UI type checks passed21:08:37.988Z after75.494s, child0/fixedSource.
+No heavy process active. Parent publishes1000 and verifies GitHub before releasing
+the next reviewed997-A slice. Author is docs-only; independent review is KEEP.
+Static994-A cutover inventory remains later maintenance; no completed work repeats.
+Projection53, later971/938 obligations and full C.3 verification remain. Native deferred.
+
 ## CURRENT — C.3 Stage A checkpoint verified; Stage B admission next
 
 993 records the partial Save38 foundation checkpoint. Final 992 root, UI and bridge

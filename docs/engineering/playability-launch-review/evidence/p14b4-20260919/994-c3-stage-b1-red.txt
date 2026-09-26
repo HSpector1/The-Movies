@@ -1,0 +1,100 @@
+{"sourceSha":"d9faac35a435639dacd0a1df020f0651f6e59f31","testedDiffSha256":"e3e51ed51c6a8d23361618e7a471d316635c6f448afbbc02db6befed767dc8d7","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14c3-transition-evidence.test.ts","tests/p14c3-profession-episodes.test.ts"],"node":"v20.20.2","start":"2026-09-26T21:05:09.632Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/p14c3-profession-episodes.test.ts (12 tests | 10 failed) 3699ms
+   ✓ C.3 B2 requested-profession admission after genuine acting retirement > B2-01 keeps current new-role admission open while the explicit acting episode stays closed 1911ms
+   × C.3 B2 requested-profession admission after genuine acting retirement > B2-seat refuses current 'director' in new cast.'lead' through actual greenlight 113ms
+     → expected [Function] to throw an error
+   × C.3 B2 requested-profession admission after genuine acting retirement > B2-seat refuses current 'director' in new cast.'antagonist' through actual greenlight 177ms
+     → expected [Function] to throw an error
+   × C.3 B2 requested-profession admission after genuine acting retirement > B2-seat refuses current 'director' in new cast.'support' through actual greenlight 135ms
+     → expected [Function] to throw an error
+   × C.3 B2 requested-profession admission after genuine acting retirement > B2-seat refuses current 'writer' in new cast.'lead' through actual greenlight 125ms
+     → expected [Function] to throw an error
+   × C.3 B2 requested-profession admission after genuine acting retirement > B2-seat refuses current 'writer' in new cast.'antagonist' through actual greenlight 116ms
+     → expected [Function] to throw an error
+   × C.3 B2 requested-profession admission after genuine acting retirement > B2-seat refuses current 'writer' in new cast.'support' through actual greenlight 107ms
+     → expected [Function] to throw an error
+   × C.3 B2 requested-profession admission after genuine acting retirement > B2-promise refuses current 'director' new 'P1' acting feasibility 154ms
+     → expected { …(5) } to match object { rulesVersion: 4, week: 208, …(1) }
+(2 matching properties omitted from actual)
+   × C.3 B2 requested-profession admission after genuine acting retirement > B2-promise refuses current 'director' new 'P2' acting feasibility 125ms
+     → expected { …(5) } to match object { rulesVersion: 4, week: 208, …(1) }
+(2 matching properties omitted from actual)
+   × C.3 B2 requested-profession admission after genuine acting retirement > B2-promise refuses current 'writer' new 'P1' acting feasibility 110ms
+     → expected { …(5) } to match object { rulesVersion: 4, week: 208, …(1) }
+(2 matching properties omitted from actual)
+   × C.3 B2 requested-profession admission after genuine acting retirement > B2-promise refuses current 'writer' new 'P2' acting feasibility 267ms
+     → expected { …(5) } to match object { rulesVersion: 4, week: 208, …(1) }
+(2 matching properties omitted from actual)
+   ✓ C.3 B2 requested-profession admission after genuine acting retirement > B2-12 permits the transitioned director to write through existing has-discipline law 356ms
+ ✓ |core| tests/p14c3-transition-evidence.test.ts (8 tests) 4070ms
+   ✓ C.3 B1 retained evidence independently binds coherent recorded questions > B1-01 accepts independent question encoding with exact totals and genuine bounded references 1668ms
+   ✓ C.3 B1 retained evidence independently binds coherent recorded questions > B1-02 refuses a digest-correct total of four with three actual takes and three witnesses 304ms
+   ✓ C.3 B1 retained evidence independently binds coherent recorded questions > B1-03 refuses a digest-correct lead total of two against three actual lead takes 350ms
+   ✓ C.3 B1 retained evidence independently binds coherent recorded questions > B1-04 refuses a digest-correct directing total reduced to its two-witness cap 317ms
+   ✓ C.3 B1 retained evidence independently binds coherent recorded questions > B1-05 refuses a digest-correct writing total reduced to its two-witness cap 341ms
+   ✓ C.3 B1 retained evidence independently binds coherent recorded questions > B1-06 refuses genuine take witnesses rotated out of canonical order with a fresh digest 448ms
+   ✓ C.3 B1 retained evidence independently binds coherent recorded questions > B1-07 refuses genuine context pictures reversed out of canonical order with a fresh digest 332ms
+   ✓ C.3 B1 retained evidence independently binds coherent recorded questions > B1-08 refuses a real but wrong counterpart despite valid picture ids and a fresh digest 308ms
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 10 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14c3-profession-episodes.test.ts > C.3 B2 requested-profession admission after genuine acting retirement > B2-seat refuses current 'director' in new cast.'lead' through actual greenlight
+ FAIL |core|  tests/p14c3-profession-episodes.test.ts > C.3 B2 requested-profession admission after genuine acting retirement > B2-seat refuses current 'director' in new cast.'antagonist' through actual greenlight
+ FAIL |core|  tests/p14c3-profession-episodes.test.ts > C.3 B2 requested-profession admission after genuine acting retirement > B2-seat refuses current 'director' in new cast.'support' through actual greenlight
+ FAIL |core|  tests/p14c3-profession-episodes.test.ts > C.3 B2 requested-profession admission after genuine acting retirement > B2-seat refuses current 'writer' in new cast.'lead' through actual greenlight
+ FAIL |core|  tests/p14c3-profession-episodes.test.ts > C.3 B2 requested-profession admission after genuine acting retirement > B2-seat refuses current 'writer' in new cast.'antagonist' through actual greenlight
+ FAIL |core|  tests/p14c3-profession-episodes.test.ts > C.3 B2 requested-profession admission after genuine acting retirement > B2-seat refuses current 'writer' in new cast.'support' through actual greenlight
+AssertionError: expected [Function] to throw an error
+
+- Expected: 
+null
+
++ Received: 
+undefined
+
+ ❯ tests/p14c3-profession-episodes.test.ts:105:50
+    103|     const request: Action = { kind: 'greenlight', production: { ...pro…
+    104|     const requestBefore = stableStringify(request)
+    105|     expect(() => applyActions(state, [request])).toThrow(/retiredFromP…
+       |                                                  ^
+    106|     expect(stableStringify(state)).toBe(before)
+    107|     expect(stableStringify(request)).toBe(requestBefore)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/10]⎯
+
+ FAIL |core|  tests/p14c3-profession-episodes.test.ts > C.3 B2 requested-profession admission after genuine acting retirement > B2-promise refuses current 'director' new 'P1' acting feasibility
+ FAIL |core|  tests/p14c3-profession-episodes.test.ts > C.3 B2 requested-profession admission after genuine acting retirement > B2-promise refuses current 'director' new 'P2' acting feasibility
+ FAIL |core|  tests/p14c3-profession-episodes.test.ts > C.3 B2 requested-profession admission after genuine acting retirement > B2-promise refuses current 'writer' new 'P1' acting feasibility
+ FAIL |core|  tests/p14c3-profession-episodes.test.ts > C.3 B2 requested-profession admission after genuine acting retirement > B2-promise refuses current 'writer' new 'P2' acting feasibility
+AssertionError: expected { …(5) } to match object { rulesVersion: 4, week: 208, …(1) }
+(2 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  Object {
+-   "classification": "IMPOSSIBLE",
++   "classification": "REASONABLY_ACHIEVABLE",
+    "rulesVersion": 4,
+    "week": 208,
+  }
+
+ ❯ tests/p14c3-profession-episodes.test.ts:118:20
+    116|     const draft = promiseDraft(state, id, family), draftBefore = stabl…
+    117|     const result = promiseFeasibility(state, draft, 208)
+    118|     expect(result).toMatchObject({ rulesVersion: 4, week: 208, classif…
+       |                    ^
+    119|     expect(result.bottleneck).toMatch(/retire/i)
+    120|     expect(stableStringify(state)).toBe(before)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/10]⎯
+
+ Test Files  1 failed | 1 passed (2)
+      Tests  10 failed | 10 passed (20)
+   Start at  23:05:10
+   Duration  7.05s (transform 2.40s, setup 0ms, collect 4.61s, tests 7.77s, environment 1ms, prepare 304ms)
+

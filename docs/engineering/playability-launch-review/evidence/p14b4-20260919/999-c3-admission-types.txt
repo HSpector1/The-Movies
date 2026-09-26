@@ -1,0 +1,6 @@
+{"sourceSha":"d9faac35a435639dacd0a1df020f0651f6e59f31","testedDiffSha256":"5998b6359d1b4fcdc11f0af589171d2b293bb8977299ee2a7ce910eee7ae514d","untrackedSource":[],"command":["npm","run","typecheck"],"node":"v20.20.2","start":"2026-09-26T21:07:22.494Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+
+> project-studio-core@0.1.0 typecheck
+> tsc --noEmit && tsc -p ui/tsconfig.json --noEmit
+
