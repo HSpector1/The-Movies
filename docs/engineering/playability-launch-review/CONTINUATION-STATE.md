@@ -1,5 +1,20 @@
 # CONTINUATION STATE — three-week autonomous window (Owner directive 2026-09-15)
 
+## CURRENT — C.2-RM API875 reviewed KEEP; independent tests in progress
+
+Scientist qualification published48a76a87; genuine outgoing51 T0 published and
+actual remote verified6d339eba04043bf52824eb1844f259660a9cbd32. Production remains
+697a6039 (Save37/projection51).873 review corrected the Calendar premise;875 fixes
+exact lifecycle/alumni/extension/attention/as-of shapes and875-A independently
+accepts KEEP. Actual Calendar immediate announcement visibility is required;
+Finance windows remain honestly bounded. No new game law or native work.
+
+c2rm_tests owns new875 tests/helpers and Calendar component coverage; no test has
+run. c2rm_contract_review yielded after KEEP. Parent owns production (NOT released
+before RED), legacy-test maintenance and the sole heavy-test lane. No active heavy
+process. Next freeze independent files, record876 RED on unchanged51, attribute
+premises, then implement875 and verify/publish before C.3. Old worktrees untouched.
+
 ## CURRENT — C.2-RM started; genuine outgoing51 preserved
 
 Scientist871 qualified and published48a76a87bca624d6dff81118d5ecb6df56ca00d2,
