@@ -1,5 +1,16 @@
 # CODEX continuation — Project Studio
 
+## CURRENT — C.2-RM started; genuine outgoing51 preserved
+
+Scientist871 qualified and published48a76a87bca624d6dff81118d5ecb6df56ca00d2,
+actual remote verified.872 T0 producer PASS: genuine37 saves617/618/669/670 and
+actual runtime51 saved669/current670 with one accepted-command journal entry,
+exact validation/reopen/duplicate replay. Read872-c2rm-outgoing51-result.md and
+fixture MANIFEST. No52 source edits yet. Fresh native specialists own independent
+C.2-RM review (873 pending) and test planning (874); parent sole production writer
+and heavy-test owner. No active heavy process. Next finish review/API contract,
+record independent RED against unchanged51, then implement the bounded contract.
+
 ## CURRENT — Scientist qualified by871; C.2-RM next
 
 Read evidence/p14b4-20260919/871-scientist-qualification.md. Scientist production

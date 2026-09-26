@@ -1,0 +1,76 @@
+{
+  "generatedAt": "2026-09-26T15:44:23.551Z",
+  "sourceSha": "48a76a87bca624d6dff81118d5ecb6df56ca00d2",
+  "qualifiedSourceSha": "48a76a87bca624d6dff81118d5ecb6df56ca00d2",
+  "productionBaseSha": "697a60398f531abcbd1d6c643a55546fa5cd65d9",
+  "producer": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/872-mint-outgoing-runtime51.ts",
+  "producerSha256": "701d48863eb7682d470d6c1c5691cdd2a675751c9fbdd757ef80c77f31ac4814",
+  "input": "tests/fixtures/p14/genuine-v33-c2-corpus/genuine-v33-c2-scientist.json.gz",
+  "inputCompressedSha256": "81a1136a90abc6b0c8ae88684ac379e9f3a6faeafe68b12acd26f3e8b0154714",
+  "inputUncompressedSha256": "fda192a00c71fa66284cc51a4e9e5e0a41b409e0919a1c0a050f79cb0904bd2f",
+  "saveVersion": 37,
+  "projectionVersion": 51,
+  "protocolVersion": 4,
+  "schemaId": "sha256:a690e6f9e6f93f3a78f8eed8eaa20a1532a9ebd82812b0bc9414a04fdcb5968f",
+  "savedWeek": 669,
+  "currentWeek": 670,
+  "journalEntries": 1,
+  "runtimeStateRevision": 1,
+  "currentStateDigest": "c119e1aac5b1dda794bf6c6967dceade05eeace2626002eebdae68628d31db72",
+  "savedStateDigest": "4482ac4eaedae72245fc36ef58242e412cba7fdaeee80322b4fa364845667d1e",
+  "journalDigest": "cb804269140603f3d426e027053304a593f453aa8ec8fd104cd607dcac423206",
+  "description": "Genuine V33 continuation under qualified Save37/projection51, no age/history edits. Real public advance command straddles Scientist announcement618/E670: saved669 announced, current670 retired. Actual nonempty journal and exact current-schema duplicate replay.",
+  "command": {
+    "protocolVersion": 4,
+    "schemaId": "sha256:a690e6f9e6f93f3a78f8eed8eaa20a1532a9ebd82812b0bc9414a04fdcb5968f",
+    "sessionId": "generated-c2rm-outgoing-runtime51",
+    "expectedStateRevision": 0,
+    "commandId": "generated-c2rm-669-to-670",
+    "type": "submitIntent",
+    "payload": {
+      "intentId": "intent-v4-d74ca7da9e75bf7df7e7ac291c696300192812bbdc28e4442919751abba6d49b"
+    }
+  },
+  "artifacts": [
+    {
+      "filename": "genuine-v37-scientist-week617.json.gz",
+      "kind": "save",
+      "uncompressedSha256": "f549047f4b99cae8b0a085aac043235d9ea2070f833a69a034da4b99416c4393",
+      "compressedSha256": "ce1ff03c6c23516fc356ae9f5ad595c49f2ff095b905e860ec3096e44177c3fe",
+      "byteLength": 1555451,
+      "compressedByteLength": 156066
+    },
+    {
+      "filename": "genuine-v37-scientist-week618.json.gz",
+      "kind": "save",
+      "uncompressedSha256": "6b144ae7ae1543a721773c14294a78e73dcb8468b842ca83487ffc8ad3a2b664",
+      "compressedSha256": "d166d42cd47d36fdeec62e093bc008402e40f49ffe41b2bfc91c184c088d44d2",
+      "byteLength": 1556471,
+      "compressedByteLength": 156140
+    },
+    {
+      "filename": "genuine-v37-scientist-week669.json.gz",
+      "kind": "save",
+      "uncompressedSha256": "4482ac4eaedae72245fc36ef58242e412cba7fdaeee80322b4fa364845667d1e",
+      "compressedSha256": "a957c4a6d7d3c549a3e4e65c2a3268ec484deffc53592d17f82aa98cd10e0fb1",
+      "byteLength": 1585006,
+      "compressedByteLength": 158350
+    },
+    {
+      "filename": "genuine-v37-scientist-week670.json.gz",
+      "kind": "save",
+      "uncompressedSha256": "c119e1aac5b1dda794bf6c6967dceade05eeace2626002eebdae68628d31db72",
+      "compressedSha256": "34f0ac18280f8e5fef2482e6e1dcc5c48f30a1ef10d3ca9eaece8699ece99861",
+      "byteLength": 1585751,
+      "compressedByteLength": 158386
+    },
+    {
+      "filename": "runtime51-current670-saved669.json.gz",
+      "kind": "runtimeCheckpoint",
+      "uncompressedSha256": "acd644d005b4c0077a53e07257b965e3b4ebb1bd04e6d720e9e8d4b3ac261acf",
+      "compressedSha256": "6a5b2566d061464fd3c352266535e491b5bcbe90a5e6f48e52548029178b403c",
+      "byteLength": 4584009,
+      "compressedByteLength": 385853
+    }
+  ]
+}
