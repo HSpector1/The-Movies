@@ -93,7 +93,7 @@ export function addPerson(state: GameState, name: string, role: CreativeRole, ag
 }
 export const freshWorld = (seed = 'c2rm-independent-read-models') => fund(p13aGeneratedStudio(seed))
 
-type WriterFixture = { commissioned: GameState; finishing: GameState; retired: GameState; writerId: string; dueWeek: number }
+type WriterFixture = { ready: GameState; commissioned: GameState; finishing: GameState; writerId: string; dueWeek: number }
 let writerCache: WriterFixture | undefined
 /** Entirely natural: a70-year-old writer reaches hard75 at260; no age/clock edits. */
 export function finishingWriter(): WriterFixture {
@@ -110,6 +110,7 @@ export function finishingWriter(): WriterFixture {
     expect(retirementRecordFor(state, writerId), 'writer premise: real hard75 birthday').toMatchObject({
       announcedWeek: 260, ageAtAnnouncement: 75, effectiveWeek: 312, status: 'announced' })
     state = advanceTo(state, 311)
+    const ready = admitted(state)
     state = applyActions(state, [{ kind: 'commissionOriginalScreenplay', screenplay: {
       writerId, genre: 'crime', shape: { opening: 'mysteryHook', midpoint: 'reversal', ending: 'bittersweet' },
       promise: { genre: 'crime', intendedSegments: ['adult'], ranges: {
@@ -123,9 +124,10 @@ export function finishingWriter(): WriterFixture {
     //contract. Keep this real state and test persistence separately; do not label
     //it a validated save or repair/drop its retained task to make a fixture pass.
     expect(retirementRecordFor(finishing, writerId)).toMatchObject({ status: 'finishing_commitments', finishingFromWeek: 312 })
-    const retired = admitted(advanceTo(finishing, dueWeek))
-    expect(retirementRecordFor(retired, writerId)).toMatchObject({ status: 'retired', retiredWeek: dueWeek })
-    writerCache = { commissioned, finishing, retired, writerId, dueWeek }
+    // Completion is an assertion owned by the consuming test. Eagerly ticking
+    // here used to mask the independently useful commissioned/E snapshots when
+    // the same employment guard refused the next construction validation.
+    writerCache = { ready, commissioned, finishing, writerId, dueWeek }
   }
   return structuredClone(writerCache)
 }

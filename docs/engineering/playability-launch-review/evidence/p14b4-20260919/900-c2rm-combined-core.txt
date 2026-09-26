@@ -1,0 +1,82 @@
+{"sourceSha":"ff7c93999644f8f9289e70f8e93d22f8497fcaef","testedDiffSha256":"5a9bf250394e442a40465414056f3ca83e7b1257e2e555ab7c882083c2833f56","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14c2rm-writer-continuation.test.ts","tests/bridge-p14c2rm-runtime.test.ts","tests/bridge-p14c2rm-proposals.test.ts","tests/bridge-p14c2rm-retirement.test.ts"],"node":"v20.20.2","start":"2026-09-26T16:47:01.632Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p14c2rm-writer-continuation.test.ts (32 tests) 63639ms
+   ✓ 880-B natural retired-writer continuation > keeps the existing active-contract save/load control byte-identical 16115ms
+   ✓ 880-B natural retired-writer continuation > saves and reloads the real E snapshot without adding a contract, changing work or advancing the clock 3362ms
+   ✓ 880-B natural retired-writer continuation > continues the real finishing task through its actual due week, then retires once 2165ms
+   ✓ 880-B natural retired-writer continuation > loaded and uninterrupted finishing branches produce identical completion and next-week saves 3463ms
+   ✓ 880-B natural retired-writer continuation > allows actual D<E expired writing while still announced, including byte-identical resumed completion 15306ms
+   ✓ 880-B natural retired-writer continuation > the real Calendar and construction callers accept the same retained finishing work without mutations 649ms
+   ✓ 880-B natural retired-writer continuation > a lawful unrelated original commission does not fail on another writer’s retained task 862ms
+   ✓ 880-B natural retired-writer continuation > a real non-attributed pooled writer keeps only their existing assignment across E 2586ms
+   ✓ 880-B natural retired-writer continuation > preserves ordinary new-work and release refusals instead of granting permission from a retained task 776ms
+   ✓ 880-B live allowance stays narrowly scoped > refuses 'missing lifecycle record' without altering caller bytes 814ms
+   ✓ 880-B live allowance stays narrowly scoped > refuses 'retired lifecycle cannot own active w…' without altering caller bytes 771ms
+   ✓ 880-B live allowance stays narrowly scoped > refuses 'another person’s lifecycle record is …' without altering caller bytes 655ms
+   ✓ 880-B live allowance stays narrowly scoped > refuses 'wrong historical employer studio' without altering caller bytes 843ms
+   ✓ 880-B live allowance stays narrowly scoped > refuses 'historical employment did not cover c…' without altering caller bytes 725ms
+   ✓ 880-B live allowance stays narrowly scoped > refuses 'missing historical employment' without altering caller bytes 794ms
+   ✓ 880-B live allowance stays narrowly scoped > refuses 'new work begins at E' without altering caller bytes 734ms
+   ✓ 880-B live allowance stays narrowly scoped > refuses 'future commission week' without altering caller bytes 614ms
+   ✓ 880-B live allowance stays narrowly scoped > refuses 'due week is no longer in the future' without altering caller bytes 711ms
+   ✓ 880-B live allowance stays narrowly scoped > refuses 'due week exceeds the ordinary draft b…' without altering caller bytes 746ms
+   ✓ 880-B live allowance stays narrowly scoped > refuses 'unknown writer membership' without altering caller bytes 806ms
+   ✓ 880-B live allowance stays narrowly scoped > refuses 'uncontracted second writer without re…' without altering caller bytes 565ms
+   ✓ 880-B live allowance stays narrowly scoped > refuses 'duplicate writer membership' without altering caller bytes 733ms
+   ✓ 880-B live allowance stays narrowly scoped > refuses 'attributed writer is missing from mem…' without altering caller bytes 745ms
+   ✓ 880-B live allowance stays narrowly scoped > refuses 'reservation belongs to another project' without altering caller bytes 657ms
+   ✓ 880-B live allowance stays narrowly scoped > refuses 'reservation slot is outside capacity' without altering caller bytes 692ms
+   ✓ 880-B live allowance stays narrowly scoped > refuses 'unknown concept reference' without altering caller bytes 724ms
+   ✓ 880-B live allowance stays narrowly scoped > refuses 'duplicate active project cannot borro…' without altering caller bytes 820ms
+   ✓ 880-B live allowance stays narrowly scoped > refuses a genuinely terminated interval, even if an illegal cross-branch draft is grafted afterward 1046ms
+   ✓ 880-B live allowance stays narrowly scoped > still refuses extra project/save keys at the exact public schema boundary 443ms
+   ✓ 880-B live allowance stays narrowly scoped > frozen public V36 stays strict, and an exceptional current save cannot silently downgrade 1218ms
+   ✓ 880-B live allowance stays narrowly scoped > genuine older migration preserves existing screenplay, employment and work facts 1249ms
+   ✓ 880-B live allowance stays narrowly scoped > validation authority never leaks between campaigns with the same project and PersonIds 1246ms
+ ✓ |core| tests/bridge-p14c2rm-runtime.test.ts (8 tests) 36339ms
+   ✓ C.2-RM genuine projection51 recovery > preserves the real producer, actual nonempty journal and independent announced669/retired670 slots 1066ms
+   ✓ C.2-RM genuine projection51 recovery > lifts both slots byte-exactly but resets old journal/revision/session authority, then reopens52 without migration 9484ms
+   ✓ C.2-RM genuine projection51 recovery > rejects the old command identity and replays only a new52 saved-slot LOAD receipt after restart 14124ms
+   ✓ C.2-RM genuine projection51 recovery > rejects invalid currentSaveJson through whole-save validation before creating a new session 940ms
+   ✓ C.2-RM genuine projection51 recovery > rejects invalid savedSaveJson through whole-save validation before creating a new session 1219ms
+   ✓ C.2-RM genuine projection51 recovery > refuses unknown schema, corrupted digest and a reused prior session id without touching the artifact 1580ms
+   ✓ C.2-RM genuine projection51 recovery > keeps independently recovered Save As branches isolated despite identical PersonIds and source bytes 7923ms
+ ✓ |core| tests/bridge-p14c2rm-retirement.test.ts (21 tests) 108772ms
+   ✓ C.2-RM planning and actual retirement announcements > actor profile states literal eligibility 60/hard70 without inventing intent 1513ms
+   ✓ C.2-RM planning and actual retirement announcements > director profile states literal eligibility 65/hard75 without inventing intent 999ms
+   ✓ C.2-RM planning and actual retirement announcements > writer profile states literal eligibility 65/hard75 without inventing intent 691ms
+   ✓ C.2-RM planning and actual retirement announcements > craft profile states literal eligibility 62/hard72 without inventing intent 615ms
+   ✓ C.2-RM planning and actual retirement announcements > scientist profile states literal eligibility 62/hard72 without inventing intent 3089ms
+   ✓ C.2-RM planning and actual retirement announcements > a genuine old save lifted past hard age stays active until an actual recorded announcement 1564ms
+   ✓ C.2-RM planning and actual retirement announcements > natural Scientist announcement is immediate on real Calendar, with honest finite Finance exclusion 2972ms
+   ✓ C.2-RM planning and actual retirement announcements > announcement news lasts exactly13 weeks even without a case; profiles and Calendar persist afterward 3252ms
+   ✓ C.2-RM obligations, retired discovery and public boundaries > actual held Scientist work stays finishing through overdue E, then real cancel/tick retires without deleting identity 10984ms
+   ✓ C.2-RM obligations, retired discovery and public boundaries > a naturally announced contracted writer can start genuine writing at E−1 and finishes it after E 16240ms
+   ✓ C.2-RM obligations, retired discovery and public boundaries > a lawful original screenplay crossing E remains a saveable whole live campaign while its writer finishes 686ms
+   ✓ C.2-RM obligations, retired discovery and public boundaries > unavailable ordinary windows disappear before/open/after the final extension while actual expiry stays 4205ms
+   ✓ C.2-RM obligations, retired discovery and public boundaries > a naturally announced actor retains an exactly capped lawful ordinary renewal, then loses it one week later 4027ms
+   ✓ C.2-RM obligations, retired discovery and public boundaries > 65 actual retirement boundaries remain in Calendar, bounded Finance rows count exact overflow, and alumni paginate deterministically 6852ms
+   ✓ C.2-RM alumni evidence and disclosure > an actual release and real retirement preserve credit/promise/employer routes and invent no honors 7545ms
+   ✓ C.2-RM alumni evidence and disclosure > SYNTHETIC validated imported role-credit variant counts two roles on one actual film, not one distinct film 369ms
+   ✓ C.2-RM alumni evidence and disclosure > a genuine long-career alumnus counts the complete >24 credit record, not the bounded profile rows 6325ms
+   ✓ C.2-RM alumni evidence and disclosure > natural retired tiers stay fixed across real drift while lawful current employment changes disclosure 17688ms
+   ✓ C.2-RM alumni evidence and disclosure > SYNTHETIC imported newer edge withholds unreconstructible retirement tier, with no hidden-counterpart notice leak 1582ms
+   ✓ C.2-RM alumni evidence and disclosure > whole snapshots validate and campaign-local people with identical ids never share lifecycle data 17318ms
+ ✓ |core| tests/bridge-p14c2rm-proposals.test.ts (13 tests) 118603ms
+   ✓ C.2-RM discovered one-issuer extension through every existing reader > gap real case publishes one exact opportunity, shared across profile, list, detail and world route 3696ms
+   ✓ C.2-RM discovered one-issuer extension through every existing reader > exact real case publishes one exact opportunity, shared across profile, list, detail and world route 3676ms
+   ✓ C.2-RM discovered one-issuer extension through every existing reader > rival extension is readable but read-only, with exact UNKNOWN figures and no own extension alert 20844ms
+   ✓ C.2-RM exact public proposal commands > a new extension never inherits a genuine earlier ordinary settlement explanation 11041ms
+   ✓ C.2-RM exact public proposal commands > gap quote -> submit -> revise -> withdraw uses exact term and never charges before settlement 16449ms
+   ✓ C.2-RM exact public proposal commands > exact quote -> submit -> revise -> withdraw uses exact term and never charges before settlement 17900ms
+   ✓ C.2-RM exact public proposal commands > wrong terms, no case, promises, ordinary off-catalogue terms and forged issuer are refused without state changes 5721ms
+   ✓ C.2-RM exact public proposal commands > a real58-week proposal settles once at98, survives save/runtime replay, and never opens a second opportunity 38179ms
+
+ Test Files  4 passed (4)
+      Tests  74 passed (74)
+   Start at  18:47:02
+   Duration  123.56s (transform 5.04s, setup 0ms, collect 12.33s, tests 327.35s, environment 85ms, prepare 1.21s)
+

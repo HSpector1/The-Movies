@@ -70,7 +70,7 @@ import {
 } from './castingSessions.js'
 import { completeDueConstruction } from './construction.js'
 import {
-  assertStudioPlacementInvariants,
+  assertLiveStudioPlacementInvariants,
   blueprintById,
   completeDuePlacements,
   weeklyPlacementOperatingCost,
@@ -216,7 +216,7 @@ export function tick(state: GameState, options?: TickOptions): GameState {
   // retain their explicit configured-capacity policy (the V11 rule, one version
   // on: it keyed off `construction.projects.length === 0`); any real placement
   // history immediately selects the exact V12 facility truth.
-  assertStudioPlacementInvariants(state, {
+  assertLiveStudioPlacementInvariants(state, {
     facilityPolicy: state.placement.facilities.length === 0 ? 'configured' : 'placement-v12',
   })
   // C2a-M2: the Set cross-reference laws, at the same boundary and for the same

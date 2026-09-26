@@ -182,8 +182,9 @@ describe('C.2-RM obligations, retired discovery and public boundaries', () => {
     expect(lifecycle(f.finishing, f.writerId)).toMatchObject({ status: 'finishing_commitments', effectiveWeek: 312, retiredWeek: null })
     expect(profile(f.finishing, f.writerId).work).toMatchObject({ kind: 'assigned', assignmentKind: 'script' })
     expect(peopleProjection(f.finishing).roster.rows.find(row => row.talentId === f.writerId)).toMatchObject({ lifecycleStatus: 'finishing_commitments' })
-    expect(lifecycle(f.retired, f.writerId)).toMatchObject({ status: 'retired', retiredWeek: f.dueWeek })
-    expect(profile(f.retired, f.writerId).alumni?.retiredWeek).toBe(f.dueWeek)
+    const retired = admitted(advanceTo(f.finishing, f.dueWeek))
+    expect(lifecycle(retired, f.writerId)).toMatchObject({ status: 'retired', retiredWeek: f.dueWeek })
+    expect(profile(retired, f.writerId).alumni?.retiredWeek).toBe(f.dueWeek)
   })
 
   it('a lawful original screenplay crossing E remains a saveable whole live campaign while its writer finishes', () => {

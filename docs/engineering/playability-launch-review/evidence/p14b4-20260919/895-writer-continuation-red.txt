@@ -1,0 +1,186 @@
+{"sourceSha":"ff7c93999644f8f9289e70f8e93d22f8497fcaef","testedDiffSha256":"40030187e07e9175c436b7c9c6ec17efd1f80e3099da1d6f1625c329b1bf7dc1","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14c2rm-writer-continuation.test.ts"],"node":"v20.20.2","start":"2026-09-26T16:39:38.525Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/p14c2rm-writer-continuation.test.ts (32 tests | 9 failed) 18336ms
+   ✓ 880-B natural retired-writer continuation > keeps the existing active-contract save/load control byte-identical 5870ms
+   × 880-B natural retired-writer continuation > saves and reloads the real E snapshot without adding a contract, changing work or advancing the clock 352ms
+     → validateSaveV37: state is invalid — validateSaveV36: frozen V35 state is invalid — validateSaveV35: frozen V34 state is invalid — validateSaveV34: frozen V33 state is invalid — validateSaveV33: frozen V32 state is invalid — validateSaveV32: frozen V31 state is invalid — validateSaveV31: frozen V30 state is invalid — validateSaveV30: frozen V28 state is invalid — validateSaveV28: frozen V27 state is invalid — validateSaveV27: frozen V26 state is invalid — validateSaveV26: frozen V25 state is invalid — validateSaveV25: frozen V24 state is invalid — validateSaveV18: frozen V17 state is invalid — validateSaveV17: frozen V16 state is invalid — validateSaveV16: frozen V15 state is invalid — validateSaveV15: frozen V14 state is invalid — validateSaveV14: frozen V13 state is invalid — validateSaveV13: frozen V12 state is invalid — validateSaveV12: frozen V11 state is invalid — validateSaveV11: frozen V10 state is invalid — validateSaveV10: frozen V9 state is invalid — validateSaveV9: script development invariant: active project "script-0000" writer is not contracted
+   × 880-B natural retired-writer continuation > continues the real finishing task through its actual due week, then retires once 149ms
+     → script development invariant: active project "script-0000" writer is not contracted
+   × 880-B natural retired-writer continuation > loaded and uninterrupted finishing branches produce identical completion and next-week saves 247ms
+     → validateSaveV37: state is invalid — validateSaveV36: frozen V35 state is invalid — validateSaveV35: frozen V34 state is invalid — validateSaveV34: frozen V33 state is invalid — validateSaveV33: frozen V32 state is invalid — validateSaveV32: frozen V31 state is invalid — validateSaveV31: frozen V30 state is invalid — validateSaveV30: frozen V28 state is invalid — validateSaveV28: frozen V27 state is invalid — validateSaveV27: frozen V26 state is invalid — validateSaveV26: frozen V25 state is invalid — validateSaveV25: frozen V24 state is invalid — validateSaveV18: frozen V17 state is invalid — validateSaveV17: frozen V16 state is invalid — validateSaveV16: frozen V15 state is invalid — validateSaveV15: frozen V14 state is invalid — validateSaveV14: frozen V13 state is invalid — validateSaveV13: frozen V12 state is invalid — validateSaveV12: frozen V11 state is invalid — validateSaveV11: frozen V10 state is invalid — validateSaveV10: frozen V9 state is invalid — validateSaveV9: script development invariant: active project "script-0000" writer is not contracted
+   × 880-B natural retired-writer continuation > allows actual D<E expired writing while still announced, including byte-identical resumed completion 3856ms
+     → validateSaveV37: state is invalid — validateSaveV36: frozen V35 state is invalid — validateSaveV35: frozen V34 state is invalid — validateSaveV34: frozen V33 state is invalid — validateSaveV33: frozen V32 state is invalid — validateSaveV32: frozen V31 state is invalid — validateSaveV31: frozen V30 state is invalid — validateSaveV30: frozen V28 state is invalid — validateSaveV28: frozen V27 state is invalid — validateSaveV27: frozen V26 state is invalid — validateSaveV26: frozen V25 state is invalid — validateSaveV25: frozen V24 state is invalid — validateSaveV18: frozen V17 state is invalid — validateSaveV17: frozen V16 state is invalid — validateSaveV16: frozen V15 state is invalid — validateSaveV15: frozen V14 state is invalid — validateSaveV14: frozen V13 state is invalid — validateSaveV13: frozen V12 state is invalid — validateSaveV12: frozen V11 state is invalid — validateSaveV11: frozen V10 state is invalid — validateSaveV10: frozen V9 state is invalid — validateSaveV9: script development invariant: active project "script-0000" writer is not contracted
+   × 880-B natural retired-writer continuation > the real Calendar and construction callers accept the same retained finishing work without mutations 229ms
+     → expected [Function] to not throw an error but 'Error: script development invariant: …' was thrown
+   × 880-B natural retired-writer continuation > a lawful unrelated original commission does not fail on another writer’s retained task 122ms
+     → script development invariant: active project "script-0000" writer is not contracted
+   × 880-B natural retired-writer continuation > a real non-attributed pooled writer keeps only their existing assignment across E 590ms
+     → validateSaveV37: state is invalid — validateSaveV36: frozen V35 state is invalid — validateSaveV35: frozen V34 state is invalid — validateSaveV34: frozen V33 state is invalid — validateSaveV33: frozen V32 state is invalid — validateSaveV32: frozen V31 state is invalid — validateSaveV31: frozen V30 state is invalid — validateSaveV30: frozen V28 state is invalid — validateSaveV28: frozen V27 state is invalid — validateSaveV27: frozen V26 state is invalid — validateSaveV26: frozen V25 state is invalid — validateSaveV25: frozen V24 state is invalid — validateSaveV18: frozen V17 state is invalid — validateSaveV17: frozen V16 state is invalid — validateSaveV16: frozen V15 state is invalid — validateSaveV15: frozen V14 state is invalid — validateSaveV14: frozen V13 state is invalid — validateSaveV13: frozen V12 state is invalid — validateSaveV12: frozen V11 state is invalid — validateSaveV11: frozen V10 state is invalid — validateSaveV10: frozen V9 state is invalid — validateSaveV9: script development invariant: active project "script-0000" writer is not contracted
+   ✓ 880-B live allowance stays narrowly scoped > refuses 'another person’s lifecycle record is …' without altering caller bytes 332ms
+   ✓ 880-B live allowance stays narrowly scoped > refuses 'wrong historical employer studio' without altering caller bytes 314ms
+   ✓ 880-B live allowance stays narrowly scoped > refuses 'duplicate writer membership' without altering caller bytes 332ms
+   ✓ 880-B live allowance stays narrowly scoped > refuses 'attributed writer is missing from mem…' without altering caller bytes 415ms
+   ✓ 880-B live allowance stays narrowly scoped > refuses a genuinely terminated interval, even if an illegal cross-branch draft is grafted afterward 386ms
+   × 880-B live allowance stays narrowly scoped > frozen public V36 stays strict, and an exceptional current save cannot silently downgrade 196ms
+     → validateSaveV37: state is invalid — validateSaveV36: frozen V35 state is invalid — validateSaveV35: frozen V34 state is invalid — validateSaveV34: frozen V33 state is invalid — validateSaveV33: frozen V32 state is invalid — validateSaveV32: frozen V31 state is invalid — validateSaveV31: frozen V30 state is invalid — validateSaveV30: frozen V28 state is invalid — validateSaveV28: frozen V27 state is invalid — validateSaveV27: frozen V26 state is invalid — validateSaveV26: frozen V25 state is invalid — validateSaveV25: frozen V24 state is invalid — validateSaveV18: frozen V17 state is invalid — validateSaveV17: frozen V16 state is invalid — validateSaveV16: frozen V15 state is invalid — validateSaveV15: frozen V14 state is invalid — validateSaveV14: frozen V13 state is invalid — validateSaveV13: frozen V12 state is invalid — validateSaveV12: frozen V11 state is invalid — validateSaveV11: frozen V10 state is invalid — validateSaveV10: frozen V9 state is invalid — validateSaveV9: script development invariant: active project "script-0000" writer is not contracted
+   ✓ 880-B live allowance stays narrowly scoped > genuine older migration preserves existing screenplay, employment and work facts 443ms
+   × 880-B live allowance stays narrowly scoped > validation authority never leaks between campaigns with the same project and PersonIds 266ms
+     → expected [Function] to not throw an error but 'Error: validateSaveV37: state is inva…' was thrown
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 9 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14c2rm-writer-continuation.test.ts > 880-B natural retired-writer continuation > saves and reloads the real E snapshot without adding a contract, changing work or advancing the clock
+Error: validateSaveV37: state is invalid — validateSaveV36: frozen V35 state is invalid — validateSaveV35: frozen V34 state is invalid — validateSaveV34: frozen V33 state is invalid — validateSaveV33: frozen V32 state is invalid — validateSaveV32: frozen V31 state is invalid — validateSaveV31: frozen V30 state is invalid — validateSaveV30: frozen V28 state is invalid — validateSaveV28: frozen V27 state is invalid — validateSaveV27: frozen V26 state is invalid — validateSaveV26: frozen V25 state is invalid — validateSaveV25: frozen V24 state is invalid — validateSaveV18: frozen V17 state is invalid — validateSaveV17: frozen V16 state is invalid — validateSaveV16: frozen V15 state is invalid — validateSaveV15: frozen V14 state is invalid — validateSaveV14: frozen V13 state is invalid — validateSaveV13: frozen V12 state is invalid — validateSaveV12: frozen V11 state is invalid — validateSaveV11: frozen V10 state is invalid — validateSaveV10: frozen V9 state is invalid — validateSaveV9: script development invariant: active project "script-0000" writer is not contracted
+ ❯ validateSaveV37 src/core/save.ts:10058:11
+    10056|     validateSaveV36WithPolicy({ ...save, saveVersion: 36 }, retirement…
+    10057|   } catch (error) {
+    10058|     throw new Error(`validateSaveV37: state is invalid — ${(error as E…
+       |           ^
+    10059|   }
+    10060|   return save as SaveFileV37;
+ ❯ Module.makeSave src/core/save.ts:6499:16
+ ❯ readBack tests/p14c2rm-writer-continuation.test.ts:29:50
+ ❯ tests/p14c2rm-writer-continuation.test.ts:60:22
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/9]⎯
+
+ FAIL |core|  tests/p14c2rm-writer-continuation.test.ts > 880-B natural retired-writer continuation > continues the real finishing task through its actual due week, then retires once
+Error: script development invariant: active project "script-0000" writer is not contracted
+ ❯ invariant src/core/scriptDevelopment.ts:808:25
+    806| 
+    807| function invariant(condition: boolean, message: string): asserts condi…
+    808|   if (!condition) throw new Error(`script development invariant: ${mes…
+       |                         ^
+    809| }
+    810| 
+ ❯ Module.assertScriptDevelopmentInvariants src/core/scriptDevelopment.ts:1112:9
+ ❯ Module.assertStudioConstructionInvariants src/core/construction.ts:396:3
+ ❯ Module.assertStudioPlacementInvariants src/core/placement.ts:2276:3
+ ❯ Module.tick src/core/tick.ts:219:3
+ ❯ Module.advanceTo src/harness/p13a/fixtures.ts:15:44
+ ❯ tests/p14c2rm-writer-continuation.test.ts:67:32
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/9]⎯
+
+ FAIL |core|  tests/p14c2rm-writer-continuation.test.ts > 880-B natural retired-writer continuation > loaded and uninterrupted finishing branches produce identical completion and next-week saves
+Error: validateSaveV37: state is invalid — validateSaveV36: frozen V35 state is invalid — validateSaveV35: frozen V34 state is invalid — validateSaveV34: frozen V33 state is invalid — validateSaveV33: frozen V32 state is invalid — validateSaveV32: frozen V31 state is invalid — validateSaveV31: frozen V30 state is invalid — validateSaveV30: frozen V28 state is invalid — validateSaveV28: frozen V27 state is invalid — validateSaveV27: frozen V26 state is invalid — validateSaveV26: frozen V25 state is invalid — validateSaveV25: frozen V24 state is invalid — validateSaveV18: frozen V17 state is invalid — validateSaveV17: frozen V16 state is invalid — validateSaveV16: frozen V15 state is invalid — validateSaveV15: frozen V14 state is invalid — validateSaveV14: frozen V13 state is invalid — validateSaveV13: frozen V12 state is invalid — validateSaveV12: frozen V11 state is invalid — validateSaveV11: frozen V10 state is invalid — validateSaveV10: frozen V9 state is invalid — validateSaveV9: script development invariant: active project "script-0000" writer is not contracted
+ ❯ validateSaveV37 src/core/save.ts:10058:11
+    10056|     validateSaveV36WithPolicy({ ...save, saveVersion: 36 }, retirement…
+    10057|   } catch (error) {
+    10058|     throw new Error(`validateSaveV37: state is invalid — ${(error as E…
+       |           ^
+    10059|   }
+    10060|   return save as SaveFileV37;
+ ❯ Module.makeSave src/core/save.ts:6499:16
+ ❯ readBack tests/p14c2rm-writer-continuation.test.ts:29:50
+ ❯ tests/p14c2rm-writer-continuation.test.ts:79:43
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/9]⎯
+
+ FAIL |core|  tests/p14c2rm-writer-continuation.test.ts > 880-B natural retired-writer continuation > allows actual D<E expired writing while still announced, including byte-identical resumed completion
+Error: validateSaveV37: state is invalid — validateSaveV36: frozen V35 state is invalid — validateSaveV35: frozen V34 state is invalid — validateSaveV34: frozen V33 state is invalid — validateSaveV33: frozen V32 state is invalid — validateSaveV32: frozen V31 state is invalid — validateSaveV31: frozen V30 state is invalid — validateSaveV30: frozen V28 state is invalid — validateSaveV28: frozen V27 state is invalid — validateSaveV27: frozen V26 state is invalid — validateSaveV26: frozen V25 state is invalid — validateSaveV25: frozen V24 state is invalid — validateSaveV18: frozen V17 state is invalid — validateSaveV17: frozen V16 state is invalid — validateSaveV16: frozen V15 state is invalid — validateSaveV15: frozen V14 state is invalid — validateSaveV14: frozen V13 state is invalid — validateSaveV13: frozen V12 state is invalid — validateSaveV12: frozen V11 state is invalid — validateSaveV11: frozen V10 state is invalid — validateSaveV10: frozen V9 state is invalid — validateSaveV9: script development invariant: active project "script-0000" writer is not contracted
+ ❯ validateSaveV37 src/core/save.ts:10058:11
+    10056|     validateSaveV36WithPolicy({ ...save, saveVersion: 36 }, retirement…
+    10057|   } catch (error) {
+    10058|     throw new Error(`validateSaveV37: state is invalid — ${(error as E…
+       |           ^
+    10059|   }
+    10060|   return save as SaveFileV37;
+ ❯ Module.makeSave src/core/save.ts:6499:16
+ ❯ readBack tests/p14c2rm-writer-continuation.test.ts:29:50
+ ❯ tests/p14c2rm-writer-continuation.test.ts:92:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/9]⎯
+
+ FAIL |core|  tests/p14c2rm-writer-continuation.test.ts > 880-B natural retired-writer continuation > the real Calendar and construction callers accept the same retained finishing work without mutations
+AssertionError: expected [Function] to not throw an error but 'Error: script development invariant: …' was thrown
+
+- Expected: 
+undefined
+
++ Received: 
+"Error: script development invariant: active project \"script-0000\" writer is not contracted"
+
+ ❯ tests/p14c2rm-writer-continuation.test.ts:102:59
+    100|   it('the real Calendar and construction callers accept the same retai…
+    101|     const f = finishingWriter(), before = stableStringify(f.finishing)
+    102|     expect(() => studioConstructionView(f.finishing)).not.toThrow()
+       |                                                           ^
+    103|     const calendar = studioCalendar(f.finishing)
+    104|     expect(calendar.commitments.some(row => row.kind === 'retirement' …
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/9]⎯
+
+ FAIL |core|  tests/p14c2rm-writer-continuation.test.ts > 880-B natural retired-writer continuation > a lawful unrelated original commission does not fail on another writer’s retained task
+Error: script development invariant: active project "script-0000" writer is not contracted
+ ❯ invariant src/core/scriptDevelopment.ts:808:25
+    806| 
+    807| function invariant(condition: boolean, message: string): asserts condi…
+    808|   if (!condition) throw new Error(`script development invariant: ${mes…
+       |                         ^
+    809| }
+    810| 
+ ❯ Module.assertScriptDevelopmentInvariants src/core/scriptDevelopment.ts:1112:9
+ ❯ assertCurrentScriptState src/core/actions.ts:1884:3
+ ❯ applyCommissionOriginalScreenplay src/core/actions.ts:2139:5
+ ❯ Module.applyActions src/core/actions.ts:2947:16
+ ❯ tests/p14c2rm-writer-continuation.test.ts:115:27
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/9]⎯
+
+ FAIL |core|  tests/p14c2rm-writer-continuation.test.ts > 880-B natural retired-writer continuation > a real non-attributed pooled writer keeps only their existing assignment across E
+Error: validateSaveV37: state is invalid — validateSaveV36: frozen V35 state is invalid — validateSaveV35: frozen V34 state is invalid — validateSaveV34: frozen V33 state is invalid — validateSaveV33: frozen V32 state is invalid — validateSaveV32: frozen V31 state is invalid — validateSaveV31: frozen V30 state is invalid — validateSaveV30: frozen V28 state is invalid — validateSaveV28: frozen V27 state is invalid — validateSaveV27: frozen V26 state is invalid — validateSaveV26: frozen V25 state is invalid — validateSaveV25: frozen V24 state is invalid — validateSaveV18: frozen V17 state is invalid — validateSaveV17: frozen V16 state is invalid — validateSaveV16: frozen V15 state is invalid — validateSaveV15: frozen V14 state is invalid — validateSaveV14: frozen V13 state is invalid — validateSaveV13: frozen V12 state is invalid — validateSaveV12: frozen V11 state is invalid — validateSaveV11: frozen V10 state is invalid — validateSaveV10: frozen V9 state is invalid — validateSaveV9: script development invariant: active project "script-0000" writer is not contracted
+ ❯ validateSaveV37 src/core/save.ts:10058:11
+    10056|     validateSaveV36WithPolicy({ ...save, saveVersion: 36 }, retirement…
+    10057|   } catch (error) {
+    10058|     throw new Error(`validateSaveV37: state is invalid — ${(error as E…
+       |           ^
+    10059|   }
+    10060|   return save as SaveFileV37;
+ ❯ Module.makeSave src/core/save.ts:6499:16
+ ❯ readBack tests/p14c2rm-writer-continuation.test.ts:29:50
+ ❯ tests/p14c2rm-writer-continuation.test.ts:126:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/9]⎯
+
+ FAIL |core|  tests/p14c2rm-writer-continuation.test.ts > 880-B live allowance stays narrowly scoped > frozen public V36 stays strict, and an exceptional current save cannot silently downgrade
+Error: validateSaveV37: state is invalid — validateSaveV36: frozen V35 state is invalid — validateSaveV35: frozen V34 state is invalid — validateSaveV34: frozen V33 state is invalid — validateSaveV33: frozen V32 state is invalid — validateSaveV32: frozen V31 state is invalid — validateSaveV31: frozen V30 state is invalid — validateSaveV30: frozen V28 state is invalid — validateSaveV28: frozen V27 state is invalid — validateSaveV27: frozen V26 state is invalid — validateSaveV26: frozen V25 state is invalid — validateSaveV25: frozen V24 state is invalid — validateSaveV18: frozen V17 state is invalid — validateSaveV17: frozen V16 state is invalid — validateSaveV16: frozen V15 state is invalid — validateSaveV15: frozen V14 state is invalid — validateSaveV14: frozen V13 state is invalid — validateSaveV13: frozen V12 state is invalid — validateSaveV12: frozen V11 state is invalid — validateSaveV11: frozen V10 state is invalid — validateSaveV10: frozen V9 state is invalid — validateSaveV9: script development invariant: active project "script-0000" writer is not contracted
+ ❯ validateSaveV37 src/core/save.ts:10058:11
+    10056|     validateSaveV36WithPolicy({ ...save, saveVersion: 36 }, retirement…
+    10057|   } catch (error) {
+    10058|     throw new Error(`validateSaveV37: state is invalid — ${(error as E…
+       |           ^
+    10059|   }
+    10060|   return save as SaveFileV37;
+ ❯ Module.makeSave src/core/save.ts:6499:16
+ ❯ tests/p14c2rm-writer-continuation.test.ts:229:21
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/9]⎯
+
+ FAIL |core|  tests/p14c2rm-writer-continuation.test.ts > 880-B live allowance stays narrowly scoped > validation authority never leaks between campaigns with the same project and PersonIds
+AssertionError: expected [Function] to not throw an error but 'Error: validateSaveV37: state is inva…' was thrown
+
+- Expected: 
+undefined
+
++ Received: 
+"Error: validateSaveV37: state is invalid — validateSaveV36: frozen V35 state is invalid — validateSaveV35: frozen V34 state is invalid — validateSaveV34: frozen V33 state is invalid — validateSaveV33: frozen V32 state is invalid — validateSaveV32: frozen V31 state is invalid — validateSaveV31: frozen V30 state is invalid — validateSaveV30: frozen V28 state is invalid — validateSaveV28: frozen V27 state is invalid — validateSaveV27: frozen V26 state is invalid — validateSaveV26: frozen V25 state is invalid — validateSaveV25: frozen V24 state is invalid — validateSaveV18: frozen V17 state is invalid — validateSaveV17: frozen V16 state is invalid — validateSaveV16: frozen V15 state is invalid — validateSaveV15: frozen V14 state is invalid — validateSaveV14: frozen V13 state is invalid — validateSaveV13: frozen V12 state is invalid — validateSaveV12: frozen V11 state is invalid — validateSaveV11: frozen V10 state is invalid — validateSaveV10: frozen V9 state is invalid — validateSaveV9: script development invariant: active project \"script-0000\" writer is not contracted"
+
+ ❯ tests/p14c2rm-writer-continuation.test.ts:252:48
+    250|     const legalBefore = stableStringify(legal), illegalBefore = stable…
+    251|     for (let round = 0; round < 2; round++) {
+    252|       expect(() => validateSaveV37(legal)).not.toThrow()
+       |                                                ^
+    253|       expect(() => validateSaveV37(illegal)).toThrow()
+    254|       expect(() => validateSaveV36(envelope(f.finishing, 36))).toThrow…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/9]⎯
+
+ Test Files  1 failed (1)
+      Tests  9 failed | 23 passed (32)
+   Start at  18:39:39
+   Duration  21.33s (transform 1.79s, setup 0ms, collect 2.40s, tests 18.34s, environment 0ms, prepare 97ms)
+

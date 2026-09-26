@@ -1,5 +1,83 @@
 # CONTINUATION STATE — three-week autonomous window (Owner directive 2026-09-15)
 
+## CURRENT — writer correction verified; recoverable checkpoint publication next
+
+913 records closed910 writer64PASS,911root/UItypesPASS and912bridgetypesPASS,
+all fixedSource:true. Independent909 review KEEP; natural rival runtime coverage
+limit remains explicit. Parent source and tests frozen for checkpoint publication.
+Same test author prepares914 legacy selection in docs only. C.2-RM remains NOT
+QUALIFIED: next legacy RED/attributed boundary maintenance, final focused checks,
+matched full core gate and publication. Last verified remote isff7c9399 until the
+following actual push/ref read. Same two specialists, one production writer and
+one heavy lane. All old work/fixtures/raw diagnostics preserved; Unity deferred.
+
+
+## CURRENT — temporal RED closed; refined writer validation under verification
+
+907 observed24 expected live-guard failures and8 passing controls (32prior cases
+unselected);908 attributes every cause.906 selected zero due to parent filter error
+and is not a pass. Parent corrected only the reviewed temporal guards and optional
+context types.909 freezes the refined production diff.910 writer64-case suite then
+911root/UI and912bridge types are queued in one lane; both writers FROZEN until
+all close. Current published source remainsff7c9399. Same specialists, no overlapping
+owner. Read-only reviewer also identifying legacy boundary expectations. Full matched
+qualification and publication remain pending; no C.3 implementation yet.
+
+
+## CURRENT — 900–904 CLOSED; temporal-negative tests being authored
+
+900 combined core74PASS;903/904 generated checksPASS.901/902 typesFAIL at ten
+production optional-context sites, now repaired by declaration-only edits; reruns
+pending. All fixedSource:true, exactpatch5a9bf250…3f56.905 records attribution and
+independent REFINE: strengthen live retirement-writing temporal authority guards.
+Parent behavior unchanged pending independent negative RED. c2rm_tests owns only
+its tests; parent sole production writer/executor, reviewer read-only. No heavy
+process. ff7c9399 remains published checkpoint; candidate NOT qualified. Next freeze
+new tests, recordRED, guard correction, focused/typechecks, then full qualification.
+
+
+## CURRENT — 900–904 verification ACTIVE; reviewer temporal-guard REFINE pending
+
+Published sourceff7c9399 plus uncommitted880-B candidate.895closed23PASS/9expectedFAIL;
+896released implementation.897closed31PASS/1raw-negative-zero assertion failure;
+899records attribution and independent canonical-JSON repair.898freezes production
+patch95290e00a8d3332ac02f0bd26c4dc25ca5d7e9d645f9155f20d94ddf7c50772b.
+900combinedcore→901root/UItypes→902bridgetypes→903/904generated checks are ACTIVE
+sequentially in one shell/test lane. Inspect all JSON/processes before source edits,
+commits or another heavy run. Parent and tests FROZEN. Independent review found
+retirementWritingAuthority needs stronger finite/date/status chronology guards on
+live core paths (Save validation already rejects malformed records). Do NOT fix
+until this series closes; then test author adds narrow live-entry negative RED,
+parent refines guards and verifies. Strict public historical readers/live private
+threading otherwise under review. Candidate NOT qualified; full gate still pending.
+
+
+## CURRENT — 895 writer-continuation RED RUNNING on publishedff7c9399
+
+Same branch/source ff7c93999644f8f9289e70f8e93d22f8497fcaef plus independent
+four-file test patch. Production validation is unchanged.895-writer-continuation-red
+is ACTIVE: inspect its JSON/process before editing consumed source, committing or
+starting another heavy process. All writers FROZEN. New tests cover880-B (32declared,
+execution owns observed count); natural rival expired-draft premise remains unproven.
+894 records the independent exact live/frozen call-path audit. Next close/attribute
+895, repair test premises if needed before narrowing independentRED, then implement
+only880-B and verify. Read-model candidate893 remains published but unqualified.
+Same two specialists, parent sole production/test executor. No native/destructive work.
+
+
+## CURRENT — published ff7c9399; independent880-B tests being authored
+
+Actual local/GitHub branch verified equal ff7c93999644f8f9289e70f8e93d22f8497fcaef
+with clean worktree after publication.893 is the recoverable IN-PROGRESS C.2-RM
+candidate; qualification is still pending. No heavy process. Same c2rm_tests now
+owns dedicated writer-continuation tests/helpers and the small lazy-fixture repair;
+c2rm_contract_review audits exact validation call paths read-only. Parent sole
+production writer, validation source unchanged until independent880-B RED.
+Next freeze that batch, recordRED, attribute every premise, then narrowly repair
+existing-obligation validation while keeping historical readers strict. All875
+full/final gates remain required afterward. No new agents/native/destructive work.
+
+
 ## CURRENT — C.2-RM candidate checkpoint893; writer validation correction next
 
 Read893-c2rm-candidate-checkpoint.md and880-B-retirement-writer-validation-contract.md.

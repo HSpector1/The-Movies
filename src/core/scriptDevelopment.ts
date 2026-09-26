@@ -1,4 +1,5 @@
 import { productionCompanyTalentIds } from './productionPeople.js'
+import { permitsRetirementWriting, type RetirementWritingAuthority } from './retirementWriting.js'
 // ── Script Projects V1 ───────────────────────────────────────────────────────
 // Authoritative, deterministic screenplay development. This module is pure: it
 // consumes no RNG, reads no wall clock, performs no I/O, and mutates no input.
@@ -795,6 +796,8 @@ export function scriptWriterAssignment(
 }
 
 export type ScriptDevelopmentInvariantContext = {
+  studioId?: string | undefined
+  retirementWriting?: RetirementWritingAuthority | undefined
   currentWeek: number
   concepts: readonly FilmConcept[]
   talent: readonly Talent[]
@@ -1110,7 +1113,8 @@ export function assertScriptDevelopmentInvariants(
           `project "${project.id}" references unknown writer "${writerId}"`,
         )
         invariant(
-          activeContractAt(context.contracts, writerId, context.currentWeek),
+          activeContractAt(context.contracts, writerId, context.currentWeek)
+            || permitsRetirementWriting(context.retirementWriting, context.studioId, context.currentWeek, project, writerId),
           `active project "${project.id}" writer is not contracted`,
         )
         invariant(

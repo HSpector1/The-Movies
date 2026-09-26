@@ -1,0 +1,24 @@
+{
+  "sourceSha": "ff7c93999644f8f9289e70f8e93d22f8497fcaef",
+  "testedDiffSha256": "6045ccd7eb2a790b0cc5246d1d97c34de6d440a0a8b9d818881848f0ecf3a948",
+  "untrackedSource": [],
+  "command": [
+    "node_modules/.bin/vitest",
+    "run",
+    "--project",
+    "core",
+    "tests/p14c2rm-writer-continuation.test.ts",
+    "-t",
+    "880-B malformed authority refuses"
+  ],
+  "node": "v20.20.2",
+  "start": "2026-09-26T16:53:24.559Z",
+  "end": "2026-09-26T16:53:38.100Z",
+  "exitCode": 1,
+  "signal": null,
+  "error": null,
+  "sourceShaAtEnd": "ff7c93999644f8f9289e70f8e93d22f8497fcaef",
+  "testedDiffSha256AtEnd": "6045ccd7eb2a790b0cc5246d1d97c34de6d440a0a8b9d818881848f0ecf3a948",
+  "untrackedSourceAtEnd": [],
+  "fixedSource": true
+}

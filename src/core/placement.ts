@@ -1,3 +1,4 @@
+import { retirementWritingAuthority, type RetirementWritingAuthority } from './retirementWriting.js'
 // ── Placement Core V12 (+ C1-M1a property state) ─────────────────────────────
 // The single construction authority. One parcel map, one TUNING blueprint
 // catalog, one pure legality query, one commit that re-runs that query before it
@@ -1810,13 +1811,17 @@ export function demolishedFacilityHistory(
  * placement policy, which is also what proves the V11 construction root has
  * genuinely retired (empty projects, vacant parcel).
  */
+export function assertLiveStudioPlacementInvariants(state: GameState, options?: { facilityPolicy?: 'placement-v12' | 'configured' }): void {
+  assertStudioPlacementInvariants(state, { ...options, retirementWriting: retirementWritingAuthority(state) })
+}
+
 export function assertStudioPlacementInvariants(
   state: GameState,
   // The committed facilities observatory projects arbitrary counterfactual
   // capacity, so it keeps its explicit `configured` escape hatch: every placement
   // law below still runs, only the exact operational facility SET is delegated to
   // the generic capacity check. Every live surface uses the default.
-  options?: { facilityPolicy?: 'placement-v12' | 'configured' },
+  options?: { facilityPolicy?: 'placement-v12' | 'configured'; retirementWriting?: RetirementWritingAuthority | undefined },
 ): void {
   const configured = (options?.facilityPolicy ?? 'placement-v12') === 'configured'
   const { placement, operations } = state
@@ -1852,6 +1857,7 @@ export function assertStudioPlacementInvariants(
     invariant(capexRows.length === 0, 'legacy mode cannot have construction capex')
     invariant(opexRows.length === 0, 'legacy mode cannot have facility operating cost')
     assertStudioConstructionInvariants(state, {
+      retirementWriting: options?.retirementWriting,
       facilityPolicy: 'placement-v12',
       ...(configured ? {} : { expectedFacilities: [], foundingFacilities: foundingFacilitiesOf(property) }),
     })
@@ -2274,6 +2280,7 @@ export function assertStudioPlacementInvariants(
   }
 
   assertStudioConstructionInvariants(state, {
+    retirementWriting: options?.retirementWriting,
     facilityPolicy: 'placement-v12',
     // P13B-S4: the bodies a conversion has CLOSED. The registry law stays exact —
     // a zero-capacity entry is legal exactly for these ids and for no other.
@@ -2407,7 +2414,7 @@ export function studioConstructionView(
   // did under V11. Every live surface uses the default: the full V12 authority.
   options?: { facilityPolicy?: 'placement-v12' | 'configured' },
 ): StudioConstructionView {
-  assertStudioPlacementInvariants(state, {
+  assertLiveStudioPlacementInvariants(state, {
     facilityPolicy: options?.facilityPolicy ?? 'placement-v12',
   })
   const blueprint = DEVELOPMENT_CASTING_ANNEX_BLUEPRINT

@@ -1,0 +1,773 @@
+diff --git a/src/core/actions.ts b/src/core/actions.ts
+index c0155e34..8c628676 100644
+--- a/src/core/actions.ts
++++ b/src/core/actions.ts
+@@ -1,4 +1,5 @@
+ import { buildFilmParticipants } from './filmParticipants.js'
++import { retirementWritingAuthority } from './retirementWriting.js'
+ import { applyTechnologyAction, researchAfterEmploymentRelease, researchCandidates, RESEARCH_SCIENTISTS_PER_STUDIO, spelled } from './technology.js'
+ import { discardUnfilmedProductionTechnology } from './technologyProduction.js'
+ import { withResearchFoundation } from './researchPeople.js'
+@@ -78,7 +79,7 @@ import {
+   initialManagedStudioConstruction,
+ } from './construction.js'
+ import {
+-  assertStudioPlacementInvariants,
++  assertLiveStudioPlacementInvariants,
+   blueprintById,
+   commitPlacement,
+   demolishFacility,
+@@ -1216,7 +1217,7 @@ function applyActivateStudioOperations(
+   // complete pre-transition boundary first so a forged legacy capex row, cash
+   // divergence, or malformed sibling workflow cannot be laundered into an
+   // apparently vacant managed state.
+-  assertStudioPlacementInvariants(state)
++  assertLiveStudioPlacementInvariants(state)
+   if (state.operations.mode !== 'legacy') {
+     throw new Error('applyActions: activateStudioOperations rejected — studio operations are already managed')
+   }
+@@ -1302,7 +1303,7 @@ function rejectIllegalPlacement(
+   // Reject malformed/stale state before deriving any transition, so a forged
+   // capex row, cash divergence, or mismatched facility set cannot be laundered
+   // into an apparently legal placement.
+-  assertStudioPlacementInvariants(state)
++  assertLiveStudioPlacementInvariants(state)
+   if (!placementRegimeReady(state)) {
+     throw new Error(
+       `applyActions: ${actionName} rejected — placement requires managed operations, a founded studio, and an engaged economy`,
+@@ -1381,7 +1382,7 @@ function applyCancellation(
+   state: GameState,
+   action: Action & { kind: 'cancelInstallation' | 'cancelAdoption' },
+ ): GameState {
+-  assertStudioPlacementInvariants(state)
++  assertLiveStudioPlacementInvariants(state)
+   const target = action.kind === 'cancelInstallation'
+     ? { projectId: action.projectId }
+     : { adoptionId: action.adoptionId }
+@@ -1414,7 +1415,7 @@ function rejectRefusedMutation(
+   refusal: PlacementMutationRefusal | null,
+   apply: (state: GameState) => GameState,
+ ): GameState {
+-  assertStudioPlacementInvariants(state)
++  assertLiveStudioPlacementInvariants(state)
+   if (refusal !== null) {
+     const detail =
+       refusal.code === 'facilityEngaged'
+@@ -1501,7 +1502,7 @@ function rejectRefusedSetVerb(
+   copy: SetRefusalCopy | null,
+   apply: (state: GameState) => GameState,
+ ): GameState {
+-  assertStudioPlacementInvariants(state)
++  assertLiveStudioPlacementInvariants(state)
+   assertSetsInvariants(state)
+   if (copy !== null) {
+     throw new Error(`applyActions: ${actionName} rejected — ${copy.reason} ${copy.remedy}`)
+@@ -1882,6 +1883,8 @@ function applyScheduleShootingTake(
+ // ── Script Projects V1 actions ───────────────────────────────────────────────
+ function assertCurrentScriptState(state: GameState): GameState {
+   assertScriptDevelopmentInvariants(state.scriptDevelopment, {
++    studioId: state.hollywood?.playerStudioId,
++    retirementWriting: retirementWritingAuthority(state),
+     currentWeek: state.market.tick,
+     concepts: state.concepts,
+     talent: state.talent,
+diff --git a/src/core/construction.ts b/src/core/construction.ts
+index 99d548b2..ac7191d3 100644
+--- a/src/core/construction.ts
++++ b/src/core/construction.ts
+@@ -93,6 +93,7 @@ function isExactAnnexFacility(operations: StudioOperations): boolean {
+ }
+ 
+ export type ConstructionInvariantOptions = {
++  retirementWriting?: import('./retirementWriting.js').RetirementWritingAuthority
+   // `configured` exists only so the committed research observatory can continue
+   // projecting arbitrary counterfactual capacity. SaveFileV11 always uses the
+   // default exact Annex V1 policy; SaveFileV12 always uses `placement-v12`.
+@@ -394,6 +395,8 @@ export function assertStudioConstructionInvariants(
+     ),
+   }
+   assertScriptDevelopmentInvariants(orderedScriptDevelopment, {
++    studioId: options?.retirementWriting?.playerStudioId,
++    retirementWriting: options?.retirementWriting,
+     currentWeek: state.market.tick,
+     concepts: state.concepts,
+     talent: state.talent,
+diff --git a/src/core/hollywoodValidation.ts b/src/core/hollywoodValidation.ts
+index 79795051..c19b9869 100644
+--- a/src/core/hollywoodValidation.ts
++++ b/src/core/hollywoodValidation.ts
+@@ -1,4 +1,5 @@
+ import { flattenParticipants } from './starPower.js'
++import type { RetirementWritingAuthority } from './retirementWriting.js'
+ import { sameContractTerms } from './industryEmployment.js'
+ import { HOLLYWOOD_STARTING_MANIFEST, RIVAL_CREDIT_ROLES, RIVAL_TEAM_ROLES } from './hollywoodStartingData.js'
+ import { persistedConceptIds, persistedProductionIds } from './productionIdentity.js'
+@@ -61,7 +62,7 @@ export type HollywoodLeafValidators = {
+ // explicitly by the caller that knows which era it is reading (never sniffed off
+ // the state). It defaults to the FROZEN pre-V28 law, so every existing frozen
+ // reader keeps reconciling under the law its own era wrote.
+-export function validateHollywood(value: unknown, state: GameStateV18, shared: HollywoodLeafValidators, technology?: Pick<StudioTechnology, 'access' | 'adoptions'> | Pick<StudioTechnologyV3, 'access' | 'adoptions'>, research = false, plans: readonly PhysicalPlan[] = [], terminationLaw: TerminationLaw = PRE_V28_TERMINATION_LAW): asserts value is HollywoodState | null {
++export function validateHollywood(value: unknown, state: GameStateV18, shared: HollywoodLeafValidators, technology?: Pick<StudioTechnology, 'access' | 'adoptions'> | Pick<StudioTechnologyV3, 'access' | 'adoptions'>, research = false, plans: readonly PhysicalPlan[] = [], terminationLaw: TerminationLaw = PRE_V28_TERMINATION_LAW, retirementWriting?: RetirementWritingAuthority): asserts value is HollywoodState | null {
+   const researchKinds = new Set<string>(RIVAL_RESEARCH_MONEY_KINDS)
+   const moneyKinds = RIVAL_MONEY_KINDS.filter(kind =>
+     (technology !== undefined || kind !== 'technologyAdoption') && (research || !researchKinds.has(kind)))
+@@ -350,6 +351,7 @@ export function validateHollywood(value: unknown, state: GameStateV18, shared: H
+     assertStudioOperationsInvariants(b.operations,b.productions,{facilityPolicy:'configured'})
+     const ownedConcepts = b.development.projects.map(p=>{const c=hollywoodConcepts.get(p.conceptId);requireFact(c,'screenplay concept owner missing');return c})
+     assertScriptDevelopmentInvariants(b.development,{currentWeek:state.market.tick,concepts:ownedConcepts,talent:state.talent,
++      studioId:b.studioId,retirementWriting,
+       contracts:employed.filter(e=>e.endedWeek===null).map(e=>e.terms),
+       operations:b.operations,activeProductions:b.productions,
+       releasedFilms:ownedFilms.flatMap(f=>f.provenance==='simulation/v1'?[f.result]:[])})
+diff --git a/src/core/placement.ts b/src/core/placement.ts
+index e976d81f..68b87e30 100644
+--- a/src/core/placement.ts
++++ b/src/core/placement.ts
+@@ -1,3 +1,4 @@
++import { retirementWritingAuthority, type RetirementWritingAuthority } from './retirementWriting.js'
+ // ── Placement Core V12 (+ C1-M1a property state) ─────────────────────────────
+ // The single construction authority. One parcel map, one TUNING blueprint
+ // catalog, one pure legality query, one commit that re-runs that query before it
+@@ -1810,13 +1811,17 @@ export function demolishedFacilityHistory(
+  * placement policy, which is also what proves the V11 construction root has
+  * genuinely retired (empty projects, vacant parcel).
+  */
++export function assertLiveStudioPlacementInvariants(state: GameState, options?: { facilityPolicy?: 'placement-v12' | 'configured' }): void {
++  assertStudioPlacementInvariants(state, { ...options, retirementWriting: retirementWritingAuthority(state) })
++}
++
+ export function assertStudioPlacementInvariants(
+   state: GameState,
+   // The committed facilities observatory projects arbitrary counterfactual
+   // capacity, so it keeps its explicit `configured` escape hatch: every placement
+   // law below still runs, only the exact operational facility SET is delegated to
+   // the generic capacity check. Every live surface uses the default.
+-  options?: { facilityPolicy?: 'placement-v12' | 'configured' },
++  options?: { facilityPolicy?: 'placement-v12' | 'configured'; retirementWriting?: RetirementWritingAuthority },
+ ): void {
+   const configured = (options?.facilityPolicy ?? 'placement-v12') === 'configured'
+   const { placement, operations } = state
+@@ -1852,6 +1857,7 @@ export function assertStudioPlacementInvariants(
+     invariant(capexRows.length === 0, 'legacy mode cannot have construction capex')
+     invariant(opexRows.length === 0, 'legacy mode cannot have facility operating cost')
+     assertStudioConstructionInvariants(state, {
++      retirementWriting: options?.retirementWriting,
+       facilityPolicy: 'placement-v12',
+       ...(configured ? {} : { expectedFacilities: [], foundingFacilities: foundingFacilitiesOf(property) }),
+     })
+@@ -2274,6 +2280,7 @@ export function assertStudioPlacementInvariants(
+   }
+ 
+   assertStudioConstructionInvariants(state, {
++    retirementWriting: options?.retirementWriting,
+     facilityPolicy: 'placement-v12',
+     // P13B-S4: the bodies a conversion has CLOSED. The registry law stays exact —
+     // a zero-capacity entry is legal exactly for these ids and for no other.
+@@ -2407,7 +2414,7 @@ export function studioConstructionView(
+   // did under V11. Every live surface uses the default: the full V12 authority.
+   options?: { facilityPolicy?: 'placement-v12' | 'configured' },
+ ): StudioConstructionView {
+-  assertStudioPlacementInvariants(state, {
++  assertLiveStudioPlacementInvariants(state, {
+     facilityPolicy: options?.facilityPolicy ?? 'placement-v12',
+   })
+   const blueprint = DEVELOPMENT_CASTING_ANNEX_BLUEPRINT
+diff --git a/src/core/retirementWriting.ts b/src/core/retirementWriting.ts
+new file mode 100644
+index 00000000..9a5e6b6f
+--- /dev/null
++++ b/src/core/retirementWriting.ts
+@@ -0,0 +1,68 @@
++//880-B: evidence for validating existing writing after natural employment expiry.
++// This grants no action and changes no contract, assignment or retirement law.
++import type { ScriptProject } from './types.js'
++
++type WritingGrant = Readonly<{
++  studioId: string; projectId: string; writerId: string; commissionedWeek: number; dueWeek: number
++}>
++export type RetirementWritingAuthority = Readonly<{
++  week: number; playerStudioId: string; grants: readonly WritingGrant[]
++}>
++
++const record = (value: unknown): Record<string, unknown> | undefined =>
++  typeof value === 'object' && value !== null && !Array.isArray(value) ? value as Record<string, unknown> : undefined
++const rows = (value: unknown): Record<string, unknown>[] =>
++  Array.isArray(value) ? value.flatMap(item => { const row = record(item); return row ? [row] : [] }) : []
++
++/** Called explicitly by current entry points only. Malformed input confers no
++ * authority; the normal full validators still check every original field. */
++export function retirementWritingAuthority(input: unknown): RetirementWritingAuthority | undefined {
++  const state = record(input), h = record(state?.hollywood), lifecycle = record(state?.careerLifecycle)
++  const week = record(state?.market)?.tick
++  if (!state || !h || !lifecycle || typeof h.playerStudioId !== 'string' || typeof week !== 'number' || !Number.isInteger(week)) return undefined
++  const retiring = new Map(rows(lifecycle.records).filter(row =>
++    (row.status === 'announced' || row.status === 'finishing_commitments') && row.retiredWeek === null
++    && typeof row.personId === 'string' && typeof row.announcedWeek === 'number' && row.announcedWeek <= week
++    && typeof row.effectiveWeek === 'number').map(row => [row.personId as string, row]))
++  if (retiring.size === 0) return undefined
++  const studios = [{ studioId: h.playerStudioId, development: state.scriptDevelopment }, ...rows(h.businesses)]
++  const candidates: WritingGrant[] = []
++  for (const studio of studios) {
++    if (typeof studio.studioId !== 'string') continue
++    for (const project of rows(record(studio.development)?.projects)) {
++      if (project.status !== 'drafting' || typeof project.id !== 'string' || typeof project.commissionedWeek !== 'number'
++        || typeof project.dueWeek !== 'number' || project.dueWeek <= week || !Array.isArray(project.writerIds)) continue
++      for (const writerId of project.writerIds) {
++        if (typeof writerId !== 'string') continue
++        const retirement = retiring.get(writerId)
++        if (!retirement || project.commissionedWeek >= (retirement.effectiveWeek as number)) continue
++        candidates.push({ studioId: studio.studioId, projectId: project.id, writerId,
++          commissionedWeek: project.commissionedWeek, dueWeek: project.dueWeek })
++      }
++    }
++  }
++  if (candidates.length === 0) return undefined
++  const employment = rows(h.employment), receipts = rows(h.receipts)
++  const grants = candidates.filter(candidate => employment.some(interval => {
++    const terms = record(interval.terms)
++    if (!terms || interval.studioId !== candidate.studioId || terms.talentId !== candidate.writerId
++      || typeof terms.startWeek !== 'number' || typeof terms.endWeekExclusive !== 'number'
++      || terms.startWeek > candidate.commissionedWeek || candidate.commissionedWeek >= terms.endWeekExclusive
++      || interval.endedWeek !== terms.endWeekExclusive || terms.endWeekExclusive > week
++      || terms.endWeekExclusive > (retiring.get(candidate.writerId)!.effectiveWeek as number)) return false
++    // An actual expiry, never an early release, is the employment evidence.
++    return receipts.some(receipt => receipt.kind === 'employment' && receipt.reason === 'expiry'
++      && receipt.contractId === interval.contractId && receipt.talentId === candidate.writerId
++      && receipt.studioId === candidate.studioId && receipt.fromStudioId === candidate.studioId
++      && receipt.toStudioId === null && receipt.week === interval.endedWeek)
++  })).map(grant => Object.freeze(grant))
++  return grants.length === 0 ? undefined : Object.freeze({ week, playerStudioId: h.playerStudioId, grants: Object.freeze(grants) })
++}
++
++/** Collision-safe exact tuple and dates; an allowance cannot follow another task. */
++export function permitsRetirementWriting(authority: RetirementWritingAuthority | undefined, studioId: string | undefined,
++  week: number, project: ScriptProject, writerId: string): boolean {
++  return authority !== undefined && authority.week === week && project.status === 'drafting'
++    && authority.grants.some(grant => grant.studioId === studioId && grant.projectId === project.id && grant.writerId === writerId
++      && grant.commissionedWeek === project.commissionedWeek && grant.dueWeek === project.dueWeek)
++}
+diff --git a/src/core/save.ts b/src/core/save.ts
+index c3bc2be4..80e02017 100644
+--- a/src/core/save.ts
++++ b/src/core/save.ts
+@@ -1,3 +1,4 @@
++import { retirementWritingAuthority, type RetirementWritingAuthority } from './retirementWriting.js';
+ import { initialTechnology, initialTechnologyV1, liftTechnologyV1, liftTechnologyV2, liftTechnologyV3, validateTechnology, validateTechnologyV1, validateTechnologyV2, validateTechnologyV3 } from './technology.js'
+ import { withResearchFoundation } from './researchPeople.js'
+ import { validateProductionSetup } from './productionSetup.js'
+@@ -3551,6 +3552,7 @@ function checkScriptDevelopmentShape(
+ function validateSaveV9WithPolicy(
+   save: unknown,
+   policy: LiveStateValidationPolicy,
++  retirementWriting?: RetirementWritingAuthority,
+ ): SaveFileV9 {
+   if (!isRecord(save))
+     throw new Error("validateSaveV9: save is not a plain object");
+@@ -3591,6 +3593,8 @@ function validateSaveV9WithPolicy(
+   const typedState = state as GameStateV9;
+   try {
+     assertScriptDevelopmentInvariants(scriptDevelopment, {
++      studioId: retirementWriting?.playerStudioId,
++      retirementWriting,
+       currentWeek: typedState.market.tick,
+       concepts: typedState.concepts,
+       talent: typedState.talent,
+@@ -3779,6 +3783,7 @@ function checkCastingSessionsShape(value: unknown): CastingSessions {
+ function validateSaveV10WithPolicy(
+   save: unknown,
+   policy: LiveStateValidationPolicy,
++  retirementWriting?: RetirementWritingAuthority,
+ ): SaveFileV10 {
+   if (!isRecord(save)) {
+     throw new Error("validateSaveV10: save is not a plain object");
+@@ -3806,7 +3811,7 @@ function validateSaveV10WithPolicy(
+       seed: save.seed,
+       state: v9State,
+       broadcastCache: save.broadcastCache,
+-    }, policy);
++    }, policy, retirementWriting);
+   } catch (error) {
+     throw new Error(
+       `validateSaveV10: frozen V9 state is invalid — ${(error as Error).message}`,
+@@ -4012,6 +4017,7 @@ function checkConstructionShape(
+ function validateSaveV11WithPolicy(
+   save: unknown,
+   policy: LiveStateValidationPolicy,
++  retirementWriting?: RetirementWritingAuthority,
+ ): SaveFileV11 {
+   if (!isRecord(save)) {
+     throw new Error("validateSaveV11: save is not a plain object");
+@@ -4056,7 +4062,7 @@ function validateSaveV11WithPolicy(
+         state: v10State,
+         broadcastCache: save.broadcastCache,
+       },
+-      placementAwarePolicy(policy) ? policy : "annex-v1",
++      placementAwarePolicy(policy) ? policy : "annex-v1", retirementWriting,
+     );
+   } catch (error) {
+     throw new Error(
+@@ -4077,7 +4083,7 @@ function validateSaveV11WithPolicy(
+   if (!placementAwarePolicy(policy)) {
+     try {
+       // The checker reads no V12 root, so a frozen V11 fragment is a valid input.
+-      assertStudioConstructionInvariants(state as unknown as GameState);
++      assertStudioConstructionInvariants(state as unknown as GameState, { retirementWriting });
+     } catch (error) {
+       throw new Error(`validateSaveV11: ${(error as Error).message}`);
+     }
+@@ -4236,6 +4242,7 @@ function checkPlacementShape(value: unknown, policy: LiveStateValidationPolicy =
+ function validateSaveV12WithPolicy(
+   save: unknown,
+   policy: "placement-v12" | "property-v13" | "sets-v14" | "technology-v20" | "cancellation-v26" | "research-v27" | "research-v27" | "research-v27",
++  retirementWriting?: RetirementWritingAuthority,
+ ): SaveFileV12 {
+   if (!isRecord(save)) {
+     throw new Error("validateSaveV12: save is not a plain object");
+@@ -4272,7 +4279,7 @@ function validateSaveV12WithPolicy(
+       // rows survive the frozen-V12 projection, while a genuine V12 file is still
+       // validated under "placement-v12" and still refuses them. C2a-M1 threads
+       // "sets-v14" the same way, one version on.
+-      propertyAwarePolicy(policy) ? policy : "placement-v12",
++      propertyAwarePolicy(policy) ? policy : "placement-v12", retirementWriting,
+     );
+   } catch (error) {
+     throw new Error(
+@@ -4286,7 +4293,7 @@ function validateSaveV12WithPolicy(
+       // A frozen V12 state carries no property root, so the authority reads the
+       // initial authored property — which IS the property every V12 file was
+       // written against. See `propertyOf`.
+-      assertStudioPlacementInvariants(state as unknown as GameState);
++      assertStudioPlacementInvariants(state as unknown as GameState, { retirementWriting });
+     } catch (error) {
+       throw new Error(`validateSaveV12: ${(error as Error).message}`);
+     }
+@@ -4421,6 +4428,7 @@ function checkPropertyShape(value: unknown): PropertyState {
+ function validateSaveV13WithPolicy(
+   save: unknown,
+   policy: "property-v13" | "sets-v14" | "technology-v20" | "cancellation-v26" | "research-v27" | "research-v27",
++  retirementWriting?: RetirementWritingAuthority,
+ ): SaveFileV13 {
+   if (!isRecord(save)) {
+     throw new Error("validateSaveV13: save is not a plain object");
+@@ -4450,7 +4458,7 @@ function validateSaveV13WithPolicy(
+         state: v12State,
+         broadcastCache: save.broadcastCache,
+       },
+-      policy,
++      policy, retirementWriting,
+     );
+   } catch (error) {
+     throw new Error(
+@@ -4460,7 +4468,7 @@ function validateSaveV13WithPolicy(
+ 
+   checkPropertyShape(rawProperty);
+   try {
+-    assertStudioPlacementInvariants(state as unknown as GameState);
++    assertStudioPlacementInvariants(state as unknown as GameState, { retirementWriting });
+   } catch (error) {
+     throw new Error(`validateSaveV13: ${(error as Error).message}`);
+   }
+@@ -4880,7 +4888,7 @@ export function validateSaveV14(save: unknown): SaveFileV14 {
+   return validateSaveV14WithPolicy(save, "sets-v14");
+ }
+ 
+-function validateSaveV14WithPolicy(save: unknown, policy: "sets-v14" | "technology-v20" | "cancellation-v26" | "research-v27"): SaveFileV14 {
++function validateSaveV14WithPolicy(save: unknown, policy: "sets-v14" | "technology-v20" | "cancellation-v26" | "research-v27", retirementWriting?: RetirementWritingAuthority): SaveFileV14 {
+   if (!isRecord(save)) {
+     throw new Error("validateSaveV14: save is not a plain object");
+   }
+@@ -4909,7 +4917,7 @@ function validateSaveV14WithPolicy(save: unknown, policy: "sets-v14" | "technolo
+         state: v13State,
+         broadcastCache: save.broadcastCache,
+       },
+-      policy,
++      policy, retirementWriting,
+     );
+   } catch (error) {
+     throw new Error(
+@@ -5004,7 +5012,7 @@ export function validateSaveV15(save: unknown): SaveFileV15 {
+   return validateSaveV15WithPolicy(save, "sets-v14");
+ }
+ 
+-function validateSaveV15WithPolicy(save: unknown, policy: "sets-v14" | "technology-v20" | "cancellation-v26" | "research-v27"): SaveFileV15 {
++function validateSaveV15WithPolicy(save: unknown, policy: "sets-v14" | "technology-v20" | "cancellation-v26" | "research-v27", retirementWriting?: RetirementWritingAuthority): SaveFileV15 {
+   if (!isRecord(save)) {
+     throw new Error("validateSaveV15: save is not a plain object");
+   }
+@@ -5042,7 +5050,7 @@ function validateSaveV15WithPolicy(save: unknown, policy: "sets-v14" | "technolo
+         studioEvents: { ...rawStudioEvents, rows: strippedRows },
+       },
+       broadcastCache: save.broadcastCache,
+-    }, policy);
++    }, policy, retirementWriting);
+   } catch (error) {
+     throw new Error(
+       `validateSaveV15: frozen V14 state is invalid — ${(error as Error).message}`,
+@@ -5077,7 +5085,7 @@ export function validateSaveV16(save: unknown): SaveFileV16 {
+   return validateSaveV16WithPolicy(save, "sets-v14");
+ }
+ 
+-function validateSaveV16WithPolicy(save: unknown, policy: "sets-v14" | "technology-v20" | "cancellation-v26" | "research-v27"): SaveFileV16 {
++function validateSaveV16WithPolicy(save: unknown, policy: "sets-v14" | "technology-v20" | "cancellation-v26" | "research-v27", retirementWriting?: RetirementWritingAuthority): SaveFileV16 {
+   if (!isRecord(save)) {
+     throw new Error("validateSaveV16: save is not a plain object");
+   }
+@@ -5117,7 +5125,7 @@ function validateSaveV16WithPolicy(save: unknown, policy: "sets-v14" | "technolo
+         studioEvents: { ...rawStudioEventsV16, rows: nonCommitmentRows },
+       },
+       broadcastCache: save.broadcastCache,
+-    }, policy);
++    }, policy, retirementWriting);
+   } catch (error) {
+     throw new Error(
+       `validateSaveV16: frozen V15 state is invalid — ${(error as Error).message}`,
+@@ -5176,7 +5184,7 @@ export function validateSaveV17(save: unknown): SaveFileV17 {
+   return validateSaveV17WithPolicy(save, "sets-v14");
+ }
+ 
+-function validateSaveV17WithPolicy(save: unknown, policy: "sets-v14" | "technology-v20" | "cancellation-v26" | "research-v27"): SaveFileV17 {
++function validateSaveV17WithPolicy(save: unknown, policy: "sets-v14" | "technology-v20" | "cancellation-v26" | "research-v27", retirementWriting?: RetirementWritingAuthority): SaveFileV17 {
+   if (!isRecord(save)) {
+     throw new Error("validateSaveV17: save is not a plain object");
+   }
+@@ -5197,7 +5205,7 @@ function validateSaveV17WithPolicy(save: unknown, policy: "sets-v14" | "technolo
+       seed: save.seed,
+       state: v16State,
+       broadcastCache: save.broadcastCache,
+-    }, policy);
++    }, policy, retirementWriting);
+   } catch (error) {
+     throw new Error(
+       `validateSaveV17: frozen V16 state is invalid — ${(error as Error).message}`,
+@@ -5279,7 +5287,7 @@ export function validateSaveV18(save: unknown): SaveFileV18 {
+   return validateSaveV18WithPolicy(save, "sets-v14");
+ }
+ 
+-function validateSaveV18WithPolicy(save: unknown, policy: "sets-v14" | "technology-v20" | "cancellation-v26" | "research-v27"): SaveFileV18 {
++function validateSaveV18WithPolicy(save: unknown, policy: "sets-v14" | "technology-v20" | "cancellation-v26" | "research-v27", retirementWriting?: RetirementWritingAuthority): SaveFileV18 {
+   if (!isRecord(save)) {
+     throw new Error("validateSaveV18: save is not a plain object");
+   }
+@@ -5300,7 +5308,7 @@ function validateSaveV18WithPolicy(save: unknown, policy: "sets-v14" | "technolo
+       seed: save.seed,
+       state: v17State,
+       broadcastCache: save.broadcastCache,
+-    }, policy);
++    }, policy, retirementWriting);
+   } catch (error) {
+     throw new Error(
+       `validateSaveV18: frozen V17 state is invalid — ${(error as Error).message}`,
+@@ -7854,6 +7862,7 @@ function validateSaveV19WithPolicy(
+   // same reason `plans` does — the V28 root that names the legacy charges is
+   // stripped before this chain ever sees the state.
+   terminationLaw: TerminationLaw = PRE_V28_TERMINATION_LAW,
++  retirementWriting?: RetirementWritingAuthority,
+ ): SaveFileV19 {
+   if (!isRecord(save)) throw new Error('validateSaveV19: object required');
+   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
+@@ -7861,7 +7870,7 @@ function validateSaveV19WithPolicy(
+   const raw = v14Record(checkEnvelope(save, 'validateSaveV19'), 'state');
+   if (!Object.hasOwn(raw, 'hollywood')) throw new Error('validateSaveV19: Hollywood root missing');
+   const { hollywood, ...legacy } = raw;
+-  const frozen = validateSaveV18WithPolicy({ saveVersion: 18, seed: save.seed, state: legacy, broadcastCache: save.broadcastCache }, policy);
++  const frozen = validateSaveV18WithPolicy({ saveVersion: 18, seed: save.seed, state: legacy, broadcastCache: save.broadcastCache }, policy, retirementWriting);
+   const people = new Set(frozen.state.talent.map(t => t.id));
+   validateHollywood(hollywood, frozen.state, {
+     concept: v => { v8Concept(v, 'hollywood.concept') },
+@@ -7878,7 +7887,7 @@ function validateSaveV19WithPolicy(
+     // `validateHollywood` immediately afterwards.
+     operations: (v, productions) => checkOperationsContext({ operations: v, activeProductions: productions, engaged: true, founding: null }, 'hollywood.operations', policy === 'research-v27' ? policy : 'sets-v14'),
+     development: v => checkScriptDevelopmentShape(v, 'sets-v14'),
+-  }, technology, policy === 'research-v27', plans ?? [], terminationLaw);
++  }, technology, policy === 'research-v27', plans ?? [], terminationLaw, retirementWriting);
+   return save as SaveFileV19;
+ }
+ 
+@@ -8122,7 +8131,7 @@ export function validateSaveV24(save: unknown): SaveFileV24 {
+  * and refund rows, while a genuine V24 or V25 file is still validated under
+  * 'technology-v20' and still refuses both.
+  */
+-function validateSaveV24WithPolicy(save: unknown, policy: 'technology-v20' | 'cancellation-v26' | 'research-v27', terminationLaw: TerminationLaw = PRE_V28_TERMINATION_LAW): SaveFileV24 {
++function validateSaveV24WithPolicy(save: unknown, policy: 'technology-v20' | 'cancellation-v26' | 'research-v27', terminationLaw: TerminationLaw = PRE_V28_TERMINATION_LAW, retirementWriting?: RetirementWritingAuthority): SaveFileV24 {
+   if (!isRecord(save)) throw new Error('validateSaveV24: object required');
+   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
+   if (save.saveVersion !== 24) throw new Error('validateSaveV24: expected version 24');
+@@ -8133,7 +8142,7 @@ function validateSaveV24WithPolicy(save: unknown, policy: 'technology-v20' | 'ca
+   validateTechnology(typed.state as unknown as GameState);
+   validatePhysicalPlans(typed.state as unknown as GameState);
+   const { technology, physicalPlans: _physicalPlans, ...legacy } = raw;
+-  validateSaveV19WithPolicy({ saveVersion: 19, seed: save.seed, state: legacy, broadcastCache: save.broadcastCache }, policy, technology as StudioTechnology, typed.state.physicalPlans.plans, terminationLaw);
++  validateSaveV19WithPolicy({ saveVersion: 19, seed: save.seed, state: legacy, broadcastCache: save.broadcastCache }, policy, technology as StudioTechnology, typed.state.physicalPlans.plans, terminationLaw, retirementWriting);
+   assertNoDoubleBookedResourceSlots(typed.state as unknown as GameState);
+   return typed;
+ }
+@@ -8293,7 +8302,7 @@ export function validateSaveV25(save: unknown): SaveFileV25 {
+ }
+ 
+ /** See `validateSaveV24WithPolicy`: the V26 chain threads its own policy down. */
+-function validateSaveV25WithPolicy(save: unknown, policy: 'technology-v20' | 'cancellation-v26' | 'research-v27', terminationLaw: TerminationLaw = PRE_V28_TERMINATION_LAW): SaveFileV25 {
++function validateSaveV25WithPolicy(save: unknown, policy: 'technology-v20' | 'cancellation-v26' | 'research-v27', terminationLaw: TerminationLaw = PRE_V28_TERMINATION_LAW, retirementWriting?: RetirementWritingAuthority): SaveFileV25 {
+   if (!isRecord(save)) throw new Error('validateSaveV25: object required');
+   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
+   if (save.saveVersion !== 25) throw new Error('validateSaveV25: expected version 25');
+@@ -8341,7 +8350,7 @@ function validateSaveV25WithPolicy(save: unknown, policy: 'technology-v20' | 'ca
+         studioEvents: strippedEvents,
+       },
+       broadcastCache: save.broadcastCache,
+-    }, policy, terminationLaw);
++    }, policy, terminationLaw, retirementWriting);
+   } catch (error) {
+     throw new Error(`validateSaveV25: frozen V24 state is invalid — ${(error as Error).message}`);
+   }
+@@ -8498,7 +8507,7 @@ export function validateSaveV26(save: unknown): SaveFileV26 {
+ }
+ 
+ /** See `validateSaveV25WithPolicy`: the V27 chain threads its own policy down. */
+-function validateSaveV26WithPolicy(save: unknown, policy: 'cancellation-v26' | 'research-v27', terminationLaw: TerminationLaw = PRE_V28_TERMINATION_LAW): SaveFileV26 {
++function validateSaveV26WithPolicy(save: unknown, policy: 'cancellation-v26' | 'research-v27', terminationLaw: TerminationLaw = PRE_V28_TERMINATION_LAW, retirementWriting?: RetirementWritingAuthority): SaveFileV26 {
+   if (!isRecord(save)) throw new Error('validateSaveV26: object required');
+   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
+   if (save.saveVersion !== 26) throw new Error('validateSaveV26: expected version 26');
+@@ -8519,7 +8528,7 @@ function validateSaveV26WithPolicy(save: unknown, policy: 'cancellation-v26' | '
+         technology: { ...technologyRaw, adoptions: strippedAdoptions },
+       },
+       broadcastCache: save.broadcastCache,
+-    }, policy, terminationLaw);
++    }, policy, terminationLaw, retirementWriting);
+   } catch (error) {
+     throw new Error(`validateSaveV26: frozen V25 state is invalid — ${(error as Error).message}`);
+   }
+@@ -8650,14 +8659,14 @@ export function validateSaveV27(save: unknown): SaveFileV27 {
+ 
+ /** P14A.1/R4: V28 reads the same frozen V27 state under ITS OWN era's
+  * termination law. Everything else about the chain is unchanged. */
+-function validateSaveV27WithLaw(save: unknown, terminationLaw: TerminationLaw): SaveFileV27 {
++function validateSaveV27WithLaw(save: unknown, terminationLaw: TerminationLaw, retirementWriting?: RetirementWritingAuthority): SaveFileV27 {
+   if (!isRecord(save)) throw new Error('validateSaveV27: object required');
+   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
+   if (save.saveVersion !== 27) throw new Error('validateSaveV27: expected version 27');
+   const raw = v14Record(checkEnvelope(save, 'validateSaveV27'), 'state');
+   v27Movements(raw);
+   try {
+-    validateSaveV26WithPolicy({ saveVersion: 26, seed: save.seed, state: raw, broadcastCache: save.broadcastCache }, 'research-v27', terminationLaw);
++    validateSaveV26WithPolicy({ saveVersion: 26, seed: save.seed, state: raw, broadcastCache: save.broadcastCache }, 'research-v27', terminationLaw, retirementWriting);
+   } catch (error) {
+     throw new Error(`validateSaveV27: frozen V26 state is invalid — ${(error as Error).message}`);
+   }
+@@ -8739,6 +8748,10 @@ export function migrateToV27(save: SaveFile | { saveVersion: number }): SaveFile
+  * for the physical-plan root.
+  */
+ export function validateSaveV28(save: unknown): SaveFileV28 {
++  return validateSaveV28WithWriting(save);
++}
++
++function validateSaveV28WithWriting(save: unknown, retirementWriting?: RetirementWritingAuthority): SaveFileV28 {
+   if (!isRecord(save)) throw new Error('validateSaveV28: object required');
+   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
+   if (save.saveVersion !== 28) throw new Error('validateSaveV28: expected version 28');
+@@ -8747,7 +8760,7 @@ export function validateSaveV28(save: unknown): SaveFileV28 {
+   validateTalentMarketRoot(raw.talentMarket, raw);
+   const { talentMarket: _talentMarket, ...legacy } = raw;
+   try {
+-    validateSaveV27WithLaw({ saveVersion: 27, seed: save.seed, state: legacy, broadcastCache: save.broadcastCache }, talentMarketTerminationLaw(raw.talentMarket));
++    validateSaveV27WithLaw({ saveVersion: 27, seed: save.seed, state: legacy, broadcastCache: save.broadcastCache }, talentMarketTerminationLaw(raw.talentMarket), retirementWriting);
+   } catch (error) {
+     throw new Error(`validateSaveV28: frozen V27 state is invalid — ${(error as Error).message}`);
+   }
+@@ -8927,6 +8940,10 @@ export function migrateToV29(save: SaveFile | { saveVersion: number }): SaveFile
+ /** Validate the actual V30 roots, then the genuine shared frozen lower state.
+  * Never erase a tag to make a new promise masquerade as a V29 record. */
+ export function validateSaveV30(save: unknown): SaveFileV30 {
++  return validateSaveV30WithWriting(save);
++}
++
++function validateSaveV30WithWriting(save: unknown, retirementWriting?: RetirementWritingAuthority): SaveFileV30 {
+   if (!isRecord(save)) throw new Error('validateSaveV30: object required');
+   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
+   if (save.saveVersion !== 30) throw new Error('validateSaveV30: expected version 30');
+@@ -8935,7 +8952,7 @@ export function validateSaveV30(save: unknown): SaveFileV30 {
+   if (!Object.hasOwn(raw, 'promises')) throw new Error('validateSaveV30: promises root missing');
+   validatePromiseRootsV30(raw);
+   try {
+-    validateSaveV28({ saveVersion: 28, seed: save.seed, state: stripV29Roots(raw), broadcastCache: save.broadcastCache });
++    validateSaveV28WithWriting({ saveVersion: 28, seed: save.seed, state: stripV29Roots(raw), broadcastCache: save.broadcastCache }, retirementWriting);
+   } catch (error) {
+     throw new Error(`validateSaveV30: frozen V28 state is invalid — ${(error as Error).message}`);
+   }
+@@ -8990,6 +9007,10 @@ function stripV31Root(raw: Record<string, unknown>): Record<string, unknown> {
+  * knows.
+  */
+ export function validateSaveV31(save: unknown): SaveFileV31 {
++  return validateSaveV31WithWriting(save);
++}
++
++function validateSaveV31WithWriting(save: unknown, retirementWriting?: RetirementWritingAuthority): SaveFileV31 {
+   if (!isRecord(save)) throw new Error('validateSaveV31: object required');
+   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
+   if (save.saveVersion !== 31) throw new Error('validateSaveV31: expected version 31');
+@@ -8997,7 +9018,7 @@ export function validateSaveV31(save: unknown): SaveFileV31 {
+   if (!Object.hasOwn(raw, 'relationships')) throw new Error('validateSaveV31: relationships root missing');
+   validateRelationshipsRoot(raw);
+   try {
+-    validateSaveV30({ saveVersion: 30, seed: save.seed, state: stripV31Root(raw), broadcastCache: save.broadcastCache });
++    validateSaveV30WithWriting({ saveVersion: 30, seed: save.seed, state: stripV31Root(raw), broadcastCache: save.broadcastCache }, retirementWriting);
+   } catch (error) {
+     throw new Error(`validateSaveV31: frozen V30 state is invalid — ${(error as Error).message}`);
+   }
+@@ -9081,13 +9102,17 @@ function stripV32Field(raw: Record<string, unknown>): Record<string, unknown> {
+  * `stripV31Root` device, one level down at the row instead of the root.
+  */
+ export function validateSaveV32(save: unknown): SaveFileV32 {
++  return validateSaveV32WithWriting(save);
++}
++
++function validateSaveV32WithWriting(save: unknown, retirementWriting?: RetirementWritingAuthority): SaveFileV32 {
+   if (!isRecord(save)) throw new Error('validateSaveV32: object required');
+   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
+   if (save.saveVersion !== 32) throw new Error('validateSaveV32: expected version 32');
+   const raw = v14Record(checkEnvelope(save, 'validateSaveV32'), 'state');
+   validateWaivedPromiseLinks(raw);
+   try {
+-    validateSaveV31({ saveVersion: 31, seed: save.seed, state: stripV32Field(raw), broadcastCache: save.broadcastCache });
++    validateSaveV31WithWriting({ saveVersion: 31, seed: save.seed, state: stripV32Field(raw), broadcastCache: save.broadcastCache }, retirementWriting);
+   } catch (error) {
+     throw new Error(`validateSaveV32: frozen V31 state is invalid — ${(error as Error).message}`);
+   }
+@@ -9294,6 +9319,10 @@ export function validateTalentProvenanceRoot(raw: Record<string, unknown>): void
+  * hands the frozen V32 chain exactly what V32 knows — the `stripV31Root` device.
+  */
+ export function validateSaveV33(save: unknown): SaveFileV33 {
++  return validateSaveV33WithWriting(save);
++}
++
++function validateSaveV33WithWriting(save: unknown, retirementWriting?: RetirementWritingAuthority): SaveFileV33 {
+   if (!isRecord(save)) throw new Error('validateSaveV33: object required');
+   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
+   if (save.saveVersion !== 33) throw new Error('validateSaveV33: expected version 33');
+@@ -9301,7 +9330,7 @@ export function validateSaveV33(save: unknown): SaveFileV33 {
+   if (!Object.hasOwn(raw, 'talentProvenance')) throw new Error('validateSaveV33: talentProvenance root missing');
+   validateTalentProvenanceRoot(raw);
+   try {
+-    validateSaveV32({ saveVersion: 32, seed: save.seed, state: stripV33Root(raw), broadcastCache: save.broadcastCache });
++    validateSaveV32WithWriting({ saveVersion: 32, seed: save.seed, state: stripV33Root(raw), broadcastCache: save.broadcastCache }, retirementWriting);
+   } catch (error) {
+     throw new Error(`validateSaveV33: frozen V32 state is invalid — ${(error as Error).message}`);
+   }
+@@ -9574,7 +9603,7 @@ export function validateSaveV34(save: unknown): SaveFileV34 {
+   return validateSaveV34WithPolicy(save, frozenLifecycleWindow);
+ }
+ 
+-function validateSaveV34WithPolicy(save: unknown, windowOf: LifecycleWindowPolicy): SaveFileV34 {
++function validateSaveV34WithPolicy(save: unknown, windowOf: LifecycleWindowPolicy, retirementWriting?: RetirementWritingAuthority): SaveFileV34 {
+   if (!isRecord(save)) throw new Error('validateSaveV34: object required');
+   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
+   if (save.saveVersion !== 34) throw new Error('validateSaveV34: expected version 34');
+@@ -9582,7 +9611,7 @@ function validateSaveV34WithPolicy(save: unknown, windowOf: LifecycleWindowPolic
+   if (!Object.hasOwn(raw, 'careerLifecycle')) throw new Error('validateSaveV34: careerLifecycle root missing');
+   validateCareerLifecycleRootWithPolicy(raw, windowOf);
+   try {
+-    validateSaveV33({ saveVersion: 33, seed: save.seed, state: stripV34Root(raw), broadcastCache: save.broadcastCache });
++    validateSaveV33WithWriting({ saveVersion: 33, seed: save.seed, state: stripV34Root(raw), broadcastCache: save.broadcastCache }, retirementWriting);
+   } catch (error) {
+     throw new Error(`validateSaveV34: frozen V33 state is invalid — ${(error as Error).message}`);
+   }
+@@ -9767,7 +9796,7 @@ export function validateSaveV35(save: unknown): SaveFileV35 {
+   return validateSaveV35WithPolicy(save, frozenLifecycleWindow);
+ }
+ 
+-function validateSaveV35WithPolicy(save: unknown, windowOf: LifecycleWindowPolicy): SaveFileV35 {
++function validateSaveV35WithPolicy(save: unknown, windowOf: LifecycleWindowPolicy, retirementWriting?: RetirementWritingAuthority): SaveFileV35 {
+   if (!isRecord(save)) throw new Error('validateSaveV35: object required');
+   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
+   if (save.saveVersion !== 35) throw new Error('validateSaveV35: expected version 35');
+@@ -9775,7 +9804,7 @@ function validateSaveV35WithPolicy(save: unknown, windowOf: LifecycleWindowPolic
+   if (!Object.hasOwn(raw, 'careerLifecycle')) throw new Error('validateSaveV35: careerLifecycle root missing');
+   validateCohortReceipts(raw);
+   try {
+-    validateSaveV34WithPolicy({ saveVersion: 34, seed: save.seed, state: stripV35Cohorts(raw), broadcastCache: save.broadcastCache }, windowOf);
++    validateSaveV34WithPolicy({ saveVersion: 34, seed: save.seed, state: stripV35Cohorts(raw), broadcastCache: save.broadcastCache }, windowOf, retirementWriting);
+   } catch (error) {
+     throw new Error(`validateSaveV35: frozen V34 state is invalid — ${(error as Error).message}`);
+   }
+@@ -9974,7 +10003,7 @@ export function validateSaveV36(save: unknown): SaveFileV36 {
+   return validateSaveV36WithPolicy(save, frozenLifecycleWindow);
+ }
+ 
+-function validateSaveV36WithPolicy(save: unknown, windowOf: LifecycleWindowPolicy): SaveFileV36 {
++function validateSaveV36WithPolicy(save: unknown, windowOf: LifecycleWindowPolicy, retirementWriting?: RetirementWritingAuthority): SaveFileV36 {
+   if (!isRecord(save)) throw new Error('validateSaveV36: object required');
+   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
+   if (save.saveVersion !== 36) throw new Error('validateSaveV36: expected version 36');
+@@ -9983,7 +10012,7 @@ function validateSaveV36WithPolicy(save: unknown, windowOf: LifecycleWindowPolic
+   if (!Object.hasOwn(raw, 'talentMarket')) throw new Error('validateSaveV36: talentMarket root missing');
+   validateRetirementExtensions(raw);
+   try {
+-    validateSaveV35WithPolicy({ saveVersion: 35, seed: save.seed, state: stripV36Extension(raw), broadcastCache: save.broadcastCache }, windowOf);
++    validateSaveV35WithPolicy({ saveVersion: 35, seed: save.seed, state: stripV36Extension(raw), broadcastCache: save.broadcastCache }, windowOf, retirementWriting);
+   } catch (error) {
+     throw new Error(`validateSaveV36: frozen V35 state is invalid — ${(error as Error).message}`);
+   }
+@@ -10052,8 +10081,11 @@ export function validateSaveV37(save: unknown): SaveFileV37 {
+   if (!isRecord(save)) throw new Error('validateSaveV37: object required');
+   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
+   if (save.saveVersion !== 37) throw new Error('validateSaveV37: expected version 37');
++  // Existing obligations, evidenced by this invocation's original live roots.
++  // They travel beside stripped fragments; public historical entry points omit them.
++  const retirementWriting = retirementWritingAuthority(save.state);
+   try {
+-    validateSaveV36WithPolicy({ ...save, saveVersion: 36 }, retirementWindow);
++    validateSaveV36WithPolicy({ ...save, saveVersion: 36 }, retirementWindow, retirementWriting);
+   } catch (error) {
+     throw new Error(`validateSaveV37: state is invalid — ${(error as Error).message}`);
+   }
+diff --git a/src/core/scriptDevelopment.ts b/src/core/scriptDevelopment.ts
+index cf1c8dc6..a0729870 100644
+--- a/src/core/scriptDevelopment.ts
++++ b/src/core/scriptDevelopment.ts
+@@ -1,4 +1,5 @@
+ import { productionCompanyTalentIds } from './productionPeople.js'
++import { permitsRetirementWriting, type RetirementWritingAuthority } from './retirementWriting.js'
+ // ── Script Projects V1 ───────────────────────────────────────────────────────
+ // Authoritative, deterministic screenplay development. This module is pure: it
+ // consumes no RNG, reads no wall clock, performs no I/O, and mutates no input.
+@@ -795,6 +796,8 @@ export function scriptWriterAssignment(
+ }
+ 
+ export type ScriptDevelopmentInvariantContext = {
++  studioId?: string
++  retirementWriting?: RetirementWritingAuthority
+   currentWeek: number
+   concepts: readonly FilmConcept[]
+   talent: readonly Talent[]
+@@ -1110,7 +1113,8 @@ export function assertScriptDevelopmentInvariants(
+           `project "${project.id}" references unknown writer "${writerId}"`,
+         )
+         invariant(
+-          activeContractAt(context.contracts, writerId, context.currentWeek),
++          activeContractAt(context.contracts, writerId, context.currentWeek)
++            || permitsRetirementWriting(context.retirementWriting, context.studioId, context.currentWeek, project, writerId),
+           `active project "${project.id}" writer is not contracted`,
+         )
+         invariant(
+diff --git a/src/core/tick.ts b/src/core/tick.ts
+index 74a79e8c..b800fe14 100644
+--- a/src/core/tick.ts
++++ b/src/core/tick.ts
+@@ -70,7 +70,7 @@ import {
+ } from './castingSessions.js'
+ import { completeDueConstruction } from './construction.js'
+ import {
+-  assertStudioPlacementInvariants,
++  assertLiveStudioPlacementInvariants,
+   blueprintById,
+   completeDuePlacements,
+   weeklyPlacementOperatingCost,
+@@ -216,7 +216,7 @@ export function tick(state: GameState, options?: TickOptions): GameState {
+   // retain their explicit configured-capacity policy (the V11 rule, one version
+   // on: it keyed off `construction.projects.length === 0`); any real placement
+   // history immediately selects the exact V12 facility truth.
+-  assertStudioPlacementInvariants(state, {
++  assertLiveStudioPlacementInvariants(state, {
+     facilityPolicy: state.placement.facilities.length === 0 ? 'configured' : 'placement-v12',
+   })
+   // C2a-M2: the Set cross-reference laws, at the same boundary and for the same

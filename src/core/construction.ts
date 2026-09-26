@@ -93,6 +93,7 @@ function isExactAnnexFacility(operations: StudioOperations): boolean {
 }
 
 export type ConstructionInvariantOptions = {
+  retirementWriting?: import('./retirementWriting.js').RetirementWritingAuthority | undefined
   // `configured` exists only so the committed research observatory can continue
   // projecting arbitrary counterfactual capacity. SaveFileV11 always uses the
   // default exact Annex V1 policy; SaveFileV12 always uses `placement-v12`.
@@ -394,6 +395,8 @@ export function assertStudioConstructionInvariants(
     ),
   }
   assertScriptDevelopmentInvariants(orderedScriptDevelopment, {
+    studioId: options?.retirementWriting?.playerStudioId,
+    retirementWriting: options?.retirementWriting,
     currentWeek: state.market.tick,
     concepts: state.concepts,
     talent: state.talent,

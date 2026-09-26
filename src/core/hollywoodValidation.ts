@@ -1,4 +1,5 @@
 import { flattenParticipants } from './starPower.js'
+import type { RetirementWritingAuthority } from './retirementWriting.js'
 import { sameContractTerms } from './industryEmployment.js'
 import { HOLLYWOOD_STARTING_MANIFEST, RIVAL_CREDIT_ROLES, RIVAL_TEAM_ROLES } from './hollywoodStartingData.js'
 import { persistedConceptIds, persistedProductionIds } from './productionIdentity.js'
@@ -61,7 +62,7 @@ export type HollywoodLeafValidators = {
 // explicitly by the caller that knows which era it is reading (never sniffed off
 // the state). It defaults to the FROZEN pre-V28 law, so every existing frozen
 // reader keeps reconciling under the law its own era wrote.
-export function validateHollywood(value: unknown, state: GameStateV18, shared: HollywoodLeafValidators, technology?: Pick<StudioTechnology, 'access' | 'adoptions'> | Pick<StudioTechnologyV3, 'access' | 'adoptions'>, research = false, plans: readonly PhysicalPlan[] = [], terminationLaw: TerminationLaw = PRE_V28_TERMINATION_LAW): asserts value is HollywoodState | null {
+export function validateHollywood(value: unknown, state: GameStateV18, shared: HollywoodLeafValidators, technology?: Pick<StudioTechnology, 'access' | 'adoptions'> | Pick<StudioTechnologyV3, 'access' | 'adoptions'>, research = false, plans: readonly PhysicalPlan[] = [], terminationLaw: TerminationLaw = PRE_V28_TERMINATION_LAW, retirementWriting?: RetirementWritingAuthority): asserts value is HollywoodState | null {
   const researchKinds = new Set<string>(RIVAL_RESEARCH_MONEY_KINDS)
   const moneyKinds = RIVAL_MONEY_KINDS.filter(kind =>
     (technology !== undefined || kind !== 'technologyAdoption') && (research || !researchKinds.has(kind)))
@@ -350,6 +351,7 @@ export function validateHollywood(value: unknown, state: GameStateV18, shared: H
     assertStudioOperationsInvariants(b.operations,b.productions,{facilityPolicy:'configured'})
     const ownedConcepts = b.development.projects.map(p=>{const c=hollywoodConcepts.get(p.conceptId);requireFact(c,'screenplay concept owner missing');return c})
     assertScriptDevelopmentInvariants(b.development,{currentWeek:state.market.tick,concepts:ownedConcepts,talent:state.talent,
+      studioId:b.studioId,retirementWriting,
       contracts:employed.filter(e=>e.endedWeek===null).map(e=>e.terms),
       operations:b.operations,activeProductions:b.productions,
       releasedFilms:ownedFilms.flatMap(f=>f.provenance==='simulation/v1'?[f.result]:[])})

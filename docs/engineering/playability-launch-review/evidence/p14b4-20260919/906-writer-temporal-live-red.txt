@@ -1,0 +1,12 @@
+{"sourceSha":"ff7c93999644f8f9289e70f8e93d22f8497fcaef","testedDiffSha256":"6045ccd7eb2a790b0cc5246d1d97c34de6d440a0a8b9d818881848f0ecf3a948","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14c2rm-writer-continuation.test.ts","-t","880-B live callers reject malformed retirement authority"],"node":"v20.20.2","start":"2026-09-26T16:53:05.447Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ↓ |core| tests/p14c2rm-writer-continuation.test.ts (64 tests | 64 skipped)
+
+ Test Files  1 skipped (1)
+      Tests  64 skipped (64)
+   Start at  18:53:05
+   Duration  2.94s (transform 1.74s, setup 0ms, collect 2.38s, tests 0ms, environment 0ms, prepare 147ms)
+

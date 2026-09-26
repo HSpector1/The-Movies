@@ -1,0 +1,97 @@
+{"sourceSha":"ff7c93999644f8f9289e70f8e93d22f8497fcaef","testedDiffSha256":"6045ccd7eb2a790b0cc5246d1d97c34de6d440a0a8b9d818881848f0ecf3a948","untrackedSource":[],"command":["node_modules/.bin/vitest","run","--project","core","tests/p14c2rm-writer-continuation.test.ts","-t","880-B malformed authority refuses"],"node":"v20.20.2","start":"2026-09-26T16:53:24.559Z","end":null,"exitCode":null,"signal":null,"error":null}
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/p14c2rm-writer-continuation.test.ts (64 tests | 24 failed | 32 skipped) 9487ms
+   × 880-B malformed authority refuses before live work, not only at persistence > tick refuses 'non-finite effective week' 6114ms
+     → live permission must also reject malformed authority: expected [Function] to throw an error
+   × 880-B malformed authority refuses before live work, not only at persistence > tick refuses 'fractional effective/finishing week' 103ms
+     → live permission must also reject malformed authority: expected [Function] to throw an error
+   × 880-B malformed authority refuses before live work, not only at persistence > tick refuses 'announced status at the effective week' 108ms
+     → live permission must also reject malformed authority: expected [Function] to throw an error
+   × 880-B malformed authority refuses before live work, not only at persistence > tick refuses 'finishing date differs from the effec…' 92ms
+     → live permission must also reject malformed authority: expected [Function] to throw an error
+   × 880-B malformed authority refuses before live work, not only at persistence > tick refuses 'duplicate lifecycle person authority' 85ms
+     → live permission must also reject malformed authority: expected [Function] to throw an error
+   × 880-B malformed authority refuses before live work, not only at persistence > tick refuses 'unsupported lifecycle intent version' 99ms
+     → live permission must also reject malformed authority: expected [Function] to throw an error
+   × 880-B malformed authority refuses before live work, not only at persistence > Calendar refuses 'non-finite effective week' 110ms
+     → live permission must also reject malformed authority: expected [Function] to throw an error
+   × 880-B malformed authority refuses before live work, not only at persistence > Calendar refuses 'fractional effective/finishing week' 113ms
+     → live permission must also reject malformed authority: expected [Function] to throw an error
+   × 880-B malformed authority refuses before live work, not only at persistence > Calendar refuses 'announced status at the effective week' 97ms
+     → live permission must also reject malformed authority: expected [Function] to throw an error
+   × 880-B malformed authority refuses before live work, not only at persistence > Calendar refuses 'finishing date differs from the effec…' 88ms
+     → live permission must also reject malformed authority: expected [Function] to throw an error
+   × 880-B malformed authority refuses before live work, not only at persistence > Calendar refuses 'duplicate lifecycle person authority' 94ms
+     → live permission must also reject malformed authority: expected [Function] to throw an error
+   × 880-B malformed authority refuses before live work, not only at persistence > Calendar refuses 'unsupported lifecycle intent version' 94ms
+     → live permission must also reject malformed authority: expected [Function] to throw an error
+   × 880-B malformed authority refuses before live work, not only at persistence > construction view refuses 'non-finite effective week' 89ms
+     → live permission must also reject malformed authority: expected [Function] to throw an error
+   × 880-B malformed authority refuses before live work, not only at persistence > construction view refuses 'fractional effective/finishing week' 97ms
+     → live permission must also reject malformed authority: expected [Function] to throw an error
+   × 880-B malformed authority refuses before live work, not only at persistence > construction view refuses 'announced status at the effective week' 93ms
+     → live permission must also reject malformed authority: expected [Function] to throw an error
+   × 880-B malformed authority refuses before live work, not only at persistence > construction view refuses 'finishing date differs from the effec…' 86ms
+     → live permission must also reject malformed authority: expected [Function] to throw an error
+   × 880-B malformed authority refuses before live work, not only at persistence > construction view refuses 'duplicate lifecycle person authority' 83ms
+     → live permission must also reject malformed authority: expected [Function] to throw an error
+   × 880-B malformed authority refuses before live work, not only at persistence > construction view refuses 'unsupported lifecycle intent version' 96ms
+     → live permission must also reject malformed authority: expected [Function] to throw an error
+   × 880-B malformed authority refuses before live work, not only at persistence > unrelated screenplay action refuses 'non-finite effective week' 83ms
+     → live permission must also reject malformed authority: expected [Function] to throw an error
+   × 880-B malformed authority refuses before live work, not only at persistence > unrelated screenplay action refuses 'fractional effective/finishing week' 84ms
+     → live permission must also reject malformed authority: expected [Function] to throw an error
+   × 880-B malformed authority refuses before live work, not only at persistence > unrelated screenplay action refuses 'announced status at the effective week' 84ms
+     → live permission must also reject malformed authority: expected [Function] to throw an error
+   × 880-B malformed authority refuses before live work, not only at persistence > unrelated screenplay action refuses 'finishing date differs from the effec…' 84ms
+     → live permission must also reject malformed authority: expected [Function] to throw an error
+   × 880-B malformed authority refuses before live work, not only at persistence > unrelated screenplay action refuses 'duplicate lifecycle person authority' 80ms
+     → live permission must also reject malformed authority: expected [Function] to throw an error
+   × 880-B malformed authority refuses before live work, not only at persistence > unrelated screenplay action refuses 'unsupported lifecycle intent version' 100ms
+     → live permission must also reject malformed authority: expected [Function] to throw an error
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 24 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14c2rm-writer-continuation.test.ts > 880-B malformed authority refuses before live work, not only at persistence > tick refuses 'non-finite effective week'
+ FAIL |core|  tests/p14c2rm-writer-continuation.test.ts > 880-B malformed authority refuses before live work, not only at persistence > tick refuses 'fractional effective/finishing week'
+ FAIL |core|  tests/p14c2rm-writer-continuation.test.ts > 880-B malformed authority refuses before live work, not only at persistence > tick refuses 'announced status at the effective week'
+ FAIL |core|  tests/p14c2rm-writer-continuation.test.ts > 880-B malformed authority refuses before live work, not only at persistence > tick refuses 'finishing date differs from the effec…'
+ FAIL |core|  tests/p14c2rm-writer-continuation.test.ts > 880-B malformed authority refuses before live work, not only at persistence > tick refuses 'duplicate lifecycle person authority'
+ FAIL |core|  tests/p14c2rm-writer-continuation.test.ts > 880-B malformed authority refuses before live work, not only at persistence > tick refuses 'unsupported lifecycle intent version'
+ FAIL |core|  tests/p14c2rm-writer-continuation.test.ts > 880-B malformed authority refuses before live work, not only at persistence > Calendar refuses 'non-finite effective week'
+ FAIL |core|  tests/p14c2rm-writer-continuation.test.ts > 880-B malformed authority refuses before live work, not only at persistence > Calendar refuses 'fractional effective/finishing week'
+ FAIL |core|  tests/p14c2rm-writer-continuation.test.ts > 880-B malformed authority refuses before live work, not only at persistence > Calendar refuses 'announced status at the effective week'
+ FAIL |core|  tests/p14c2rm-writer-continuation.test.ts > 880-B malformed authority refuses before live work, not only at persistence > Calendar refuses 'finishing date differs from the effec…'
+ FAIL |core|  tests/p14c2rm-writer-continuation.test.ts > 880-B malformed authority refuses before live work, not only at persistence > Calendar refuses 'duplicate lifecycle person authority'
+ FAIL |core|  tests/p14c2rm-writer-continuation.test.ts > 880-B malformed authority refuses before live work, not only at persistence > Calendar refuses 'unsupported lifecycle intent version'
+ FAIL |core|  tests/p14c2rm-writer-continuation.test.ts > 880-B malformed authority refuses before live work, not only at persistence > construction view refuses 'non-finite effective week'
+ FAIL |core|  tests/p14c2rm-writer-continuation.test.ts > 880-B malformed authority refuses before live work, not only at persistence > construction view refuses 'fractional effective/finishing week'
+ FAIL |core|  tests/p14c2rm-writer-continuation.test.ts > 880-B malformed authority refuses before live work, not only at persistence > construction view refuses 'announced status at the effective week'
+ FAIL |core|  tests/p14c2rm-writer-continuation.test.ts > 880-B malformed authority refuses before live work, not only at persistence > construction view refuses 'finishing date differs from the effec…'
+ FAIL |core|  tests/p14c2rm-writer-continuation.test.ts > 880-B malformed authority refuses before live work, not only at persistence > construction view refuses 'duplicate lifecycle person authority'
+ FAIL |core|  tests/p14c2rm-writer-continuation.test.ts > 880-B malformed authority refuses before live work, not only at persistence > construction view refuses 'unsupported lifecycle intent version'
+ FAIL |core|  tests/p14c2rm-writer-continuation.test.ts > 880-B malformed authority refuses before live work, not only at persistence > unrelated screenplay action refuses 'non-finite effective week'
+ FAIL |core|  tests/p14c2rm-writer-continuation.test.ts > 880-B malformed authority refuses before live work, not only at persistence > unrelated screenplay action refuses 'fractional effective/finishing week'
+ FAIL |core|  tests/p14c2rm-writer-continuation.test.ts > 880-B malformed authority refuses before live work, not only at persistence > unrelated screenplay action refuses 'announced status at the effective week'
+ FAIL |core|  tests/p14c2rm-writer-continuation.test.ts > 880-B malformed authority refuses before live work, not only at persistence > unrelated screenplay action refuses 'finishing date differs from the effec…'
+ FAIL |core|  tests/p14c2rm-writer-continuation.test.ts > 880-B malformed authority refuses before live work, not only at persistence > unrelated screenplay action refuses 'duplicate lifecycle person authority'
+ FAIL |core|  tests/p14c2rm-writer-continuation.test.ts > 880-B malformed authority refuses before live work, not only at persistence > unrelated screenplay action refuses 'unsupported lifecycle intent version'
+AssertionError: live permission must also reject malformed authority: expected [Function] to throw an error
+ ❯ tests/p14c2rm-writer-continuation.test.ts:323:108
+    321|       const invalid = corrupt(f.state, f.retiringId), before = structu…
+    322|       expect(() => validateSaveV37(envelope(invalid)), 'existing full-…
+    323|       expect(() => caller.run(invalid, f.youngId), 'live permission mu…
+       |                                                                                                            ^
+    324|       // Compare in memory so NaN and signed zero are not hidden by JS…
+    325|       expect(invalid).toEqual(before)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/24]⎯
+
+ Test Files  1 failed (1)
+      Tests  24 failed | 8 passed | 32 skipped (64)
+   Start at  18:53:25
+   Duration  12.66s (transform 1.85s, setup 0ms, collect 2.51s, tests 9.49s, environment 0ms, prepare 98ms)
+

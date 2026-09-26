@@ -1,4 +1,5 @@
 import { buildFilmParticipants } from './filmParticipants.js'
+import { retirementWritingAuthority } from './retirementWriting.js'
 import { applyTechnologyAction, researchAfterEmploymentRelease, researchCandidates, RESEARCH_SCIENTISTS_PER_STUDIO, spelled } from './technology.js'
 import { discardUnfilmedProductionTechnology } from './technologyProduction.js'
 import { withResearchFoundation } from './researchPeople.js'
@@ -78,7 +79,7 @@ import {
   initialManagedStudioConstruction,
 } from './construction.js'
 import {
-  assertStudioPlacementInvariants,
+  assertLiveStudioPlacementInvariants,
   blueprintById,
   commitPlacement,
   demolishFacility,
@@ -1216,7 +1217,7 @@ function applyActivateStudioOperations(
   // complete pre-transition boundary first so a forged legacy capex row, cash
   // divergence, or malformed sibling workflow cannot be laundered into an
   // apparently vacant managed state.
-  assertStudioPlacementInvariants(state)
+  assertLiveStudioPlacementInvariants(state)
   if (state.operations.mode !== 'legacy') {
     throw new Error('applyActions: activateStudioOperations rejected — studio operations are already managed')
   }
@@ -1302,7 +1303,7 @@ function rejectIllegalPlacement(
   // Reject malformed/stale state before deriving any transition, so a forged
   // capex row, cash divergence, or mismatched facility set cannot be laundered
   // into an apparently legal placement.
-  assertStudioPlacementInvariants(state)
+  assertLiveStudioPlacementInvariants(state)
   if (!placementRegimeReady(state)) {
     throw new Error(
       `applyActions: ${actionName} rejected — placement requires managed operations, a founded studio, and an engaged economy`,
@@ -1381,7 +1382,7 @@ function applyCancellation(
   state: GameState,
   action: Action & { kind: 'cancelInstallation' | 'cancelAdoption' },
 ): GameState {
-  assertStudioPlacementInvariants(state)
+  assertLiveStudioPlacementInvariants(state)
   const target = action.kind === 'cancelInstallation'
     ? { projectId: action.projectId }
     : { adoptionId: action.adoptionId }
@@ -1414,7 +1415,7 @@ function rejectRefusedMutation(
   refusal: PlacementMutationRefusal | null,
   apply: (state: GameState) => GameState,
 ): GameState {
-  assertStudioPlacementInvariants(state)
+  assertLiveStudioPlacementInvariants(state)
   if (refusal !== null) {
     const detail =
       refusal.code === 'facilityEngaged'
@@ -1501,7 +1502,7 @@ function rejectRefusedSetVerb(
   copy: SetRefusalCopy | null,
   apply: (state: GameState) => GameState,
 ): GameState {
-  assertStudioPlacementInvariants(state)
+  assertLiveStudioPlacementInvariants(state)
   assertSetsInvariants(state)
   if (copy !== null) {
     throw new Error(`applyActions: ${actionName} rejected — ${copy.reason} ${copy.remedy}`)
@@ -1882,6 +1883,8 @@ function applyScheduleShootingTake(
 // ── Script Projects V1 actions ───────────────────────────────────────────────
 function assertCurrentScriptState(state: GameState): GameState {
   assertScriptDevelopmentInvariants(state.scriptDevelopment, {
+    studioId: state.hollywood?.playerStudioId,
+    retirementWriting: retirementWritingAuthority(state),
     currentWeek: state.market.tick,
     concepts: state.concepts,
     talent: state.talent,

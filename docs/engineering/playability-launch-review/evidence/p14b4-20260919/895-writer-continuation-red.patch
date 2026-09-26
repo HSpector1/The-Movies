@@ -1,0 +1,398 @@
+diff --git a/tests/bridge-p14c2rm-retirement.test.ts b/tests/bridge-p14c2rm-retirement.test.ts
+index e7ac537f..221ef74b 100644
+--- a/tests/bridge-p14c2rm-retirement.test.ts
++++ b/tests/bridge-p14c2rm-retirement.test.ts
+@@ -182,8 +182,9 @@ describe('C.2-RM obligations, retired discovery and public boundaries', () => {
+     expect(lifecycle(f.finishing, f.writerId)).toMatchObject({ status: 'finishing_commitments', effectiveWeek: 312, retiredWeek: null })
+     expect(profile(f.finishing, f.writerId).work).toMatchObject({ kind: 'assigned', assignmentKind: 'script' })
+     expect(peopleProjection(f.finishing).roster.rows.find(row => row.talentId === f.writerId)).toMatchObject({ lifecycleStatus: 'finishing_commitments' })
+-    expect(lifecycle(f.retired, f.writerId)).toMatchObject({ status: 'retired', retiredWeek: f.dueWeek })
+-    expect(profile(f.retired, f.writerId).alumni?.retiredWeek).toBe(f.dueWeek)
++    const retired = admitted(advanceTo(f.finishing, f.dueWeek))
++    expect(lifecycle(retired, f.writerId)).toMatchObject({ status: 'retired', retiredWeek: f.dueWeek })
++    expect(profile(retired, f.writerId).alumni?.retiredWeek).toBe(f.dueWeek)
+   })
+ 
+   it('a lawful original screenplay crossing E remains a saveable whole live campaign while its writer finishes', () => {
+diff --git a/tests/helpers/p14c2rm-fixtures.ts b/tests/helpers/p14c2rm-fixtures.ts
+index 5446f63f..d7346628 100644
+--- a/tests/helpers/p14c2rm-fixtures.ts
++++ b/tests/helpers/p14c2rm-fixtures.ts
+@@ -93,7 +93,7 @@ export function addPerson(state: GameState, name: string, role: CreativeRole, ag
+ }
+ export const freshWorld = (seed = 'c2rm-independent-read-models') => fund(p13aGeneratedStudio(seed))
+ 
+-type WriterFixture = { commissioned: GameState; finishing: GameState; retired: GameState; writerId: string; dueWeek: number }
++type WriterFixture = { ready: GameState; commissioned: GameState; finishing: GameState; writerId: string; dueWeek: number }
+ let writerCache: WriterFixture | undefined
+ /** Entirely natural: a70-year-old writer reaches hard75 at260; no age/clock edits. */
+ export function finishingWriter(): WriterFixture {
+@@ -110,6 +110,7 @@ export function finishingWriter(): WriterFixture {
+     expect(retirementRecordFor(state, writerId), 'writer premise: real hard75 birthday').toMatchObject({
+       announcedWeek: 260, ageAtAnnouncement: 75, effectiveWeek: 312, status: 'announced' })
+     state = advanceTo(state, 311)
++    const ready = admitted(state)
+     state = applyActions(state, [{ kind: 'commissionOriginalScreenplay', screenplay: {
+       writerId, genre: 'crime', shape: { opening: 'mysteryHook', midpoint: 'reversal', ending: 'bittersweet' },
+       promise: { genre: 'crime', intendedSegments: ['adult'], ranges: {
+@@ -123,9 +124,10 @@ export function finishingWriter(): WriterFixture {
+     //contract. Keep this real state and test persistence separately; do not label
+     //it a validated save or repair/drop its retained task to make a fixture pass.
+     expect(retirementRecordFor(finishing, writerId)).toMatchObject({ status: 'finishing_commitments', finishingFromWeek: 312 })
+-    const retired = admitted(advanceTo(finishing, dueWeek))
+-    expect(retirementRecordFor(retired, writerId)).toMatchObject({ status: 'retired', retiredWeek: dueWeek })
+-    writerCache = { commissioned, finishing, retired, writerId, dueWeek }
++    // Completion is an assertion owned by the consuming test. Eagerly ticking
++    // here used to mask the independently useful commissioned/E snapshots when
++    // the same employment guard refused the next construction validation.
++    writerCache = { ready, commissioned, finishing, writerId, dueWeek }
+   }
+   return structuredClone(writerCache)
+ }
+diff --git a/tests/helpers/p14c2rm-writer-fixtures.ts b/tests/helpers/p14c2rm-writer-fixtures.ts
+new file mode 100644
+index 00000000..17f0fa19
+--- /dev/null
++++ b/tests/helpers/p14c2rm-writer-fixtures.ts
+@@ -0,0 +1,75 @@
++// Independent 880-B fixtures. Public creator/sign/proposal/commission/tick paths;
++// no invented retirement authority, employment interval, work date or receipt.
++import { expect } from 'vitest'
++import { applyActions } from '../../src/core/actions.js'
++import { retirementRecordFor } from '../../src/core/careerLifecycle.js'
++import { activeContract } from '../../src/core/employment.js'
++import { submitProposal } from '../../src/core/talentMarket.js'
++import { tick } from '../../src/core/tick.js'
++import type { Action, GameState } from '../../src/core/types.js'
++import { addPerson, admitted, advanceTo, finishingWriter, freshWorld, owner } from './p14c2rm-fixtures.js'
++
++export function originalCommission(writerId: string): Action {
++  return { kind: 'commissionOriginalScreenplay', screenplay: {
++    writerId, genre: 'crime', shape: { opening: 'mysteryHook', midpoint: 'reversal', ending: 'bittersweet' },
++    promise: { genre: 'crime', intendedSegments: ['adult'], ranges: {
++      intimacy: [-0.4, 0.6], tonalWeight: [0, 0.8], kineticEnergy: [-0.7, 0.2],
++    } },
++  } }
++}
++
++type GapWriter = { commissioned: GameState; expired: GameState; writerId: string; dueWeek: number }
++let gapCache: GapWriter | undefined
++/** Writer70 at0 cannot be authored74 (the creator caps70). A real52-week
++ * renewal at208 ends260; the hard75 birthday260 announces E312. Commission259
++ * therefore yields existing work after genuine expiry D260, while announced. */
++export function announcedGapWriter(): GapWriter {
++  if (gapCache === undefined) {
++    const made = addPerson(freshWorld('c2rm-writer-natural-gap'), 'C2RM Gap Writer', 'writer', 70)
++    let state = applyActions(made.state, [{ kind: 'signContract', talentId: made.id, termWeeks: 208 },
++      { kind: 'activateScriptDevelopment' }])
++    state = advanceTo(state, 201)
++    state = submitProposal(state, { talentId: made.id, issuerStudioId: owner(state), termWeeks: 52, premiumTier: 1.25 })
++    state = advanceTo(state, 208)
++    expect(activeContract(state, made.id), 'D<E premise: real shorter renewal').toMatchObject({ startWeek: 208, endWeekExclusive: 260 })
++    state = advanceTo(state, 259)
++    expect(retirementRecordFor(state, made.id), 'still employed before hard75 birthday').toBeUndefined()
++    const commissioned = admitted(applyActions(state, [originalCommission(made.id)]))
++    const dueWeek = commissioned.scriptDevelopment.projects.at(-1)!.dueWeek!
++    expect(dueWeek, 'genuine original draft outlasts actual contract').toBeGreaterThan(260)
++    const expired = tick(commissioned)
++    expect(expired.market.tick).toBe(260)
++    expect(activeContract(expired, made.id)).toBeUndefined()
++    expect(retirementRecordFor(expired, made.id)).toMatchObject({
++      announcedWeek: 260, effectiveWeek: 312, status: 'announced', finishingFromWeek: null,
++    })
++    expect(expired.hollywood!.employment.find(row => row.terms.talentId === made.id && row.terms.startWeek === 208))
++      .toMatchObject({ studioId: owner(expired), endedWeek: 260, terms: { endWeekExclusive: 260 } })
++    gapCache = { commissioned, expired, writerId: made.id, dueWeek }
++  }
++  return structuredClone(gapCache)
++}
++
++type PooledWriter = { commissioned: GameState; finishing: GameState; writerId: string; attributedId: string; dueWeek: number }
++let pooledCache: PooledWriter | undefined
++/** The retiring writer is the SECOND writer, never the attributed writer. */
++export function pooledFinishingWriter(): PooledWriter {
++  if (pooledCache === undefined) {
++    const f = finishingWriter()
++    const young = addPerson(f.ready, 'C2RM Attributed Young Writer', 'writer', 40)
++    let state = applyActions(young.state, [{ kind: 'signContract', talentId: young.id, termWeeks: 52 },
++      originalCommission(young.id)])
++    const projectId = state.scriptDevelopment.projects.at(-1)!.id
++    state = applyActions(state, [{ kind: 'assignScreenplayWriter', projectId, writerId: f.writerId }])
++    const project = state.scriptDevelopment.projects.find(row => row.id === projectId)!
++    expect(project.writerIds, 'pool membership is actual public assignment').toEqual([young.id, f.writerId])
++    expect(project.writerId).toBe(young.id)
++    expect(project.dueWeek, 'pool acceleration must leave real work beyond E').toBeGreaterThan(312)
++    const commissioned = admitted(state), finishing = tick(state)
++    expect(retirementRecordFor(finishing, f.writerId)).toMatchObject({ status: 'finishing_commitments', effectiveWeek: 312 })
++    expect(activeContract(finishing, young.id)).toBeDefined()
++    expect(activeContract(finishing, f.writerId)).toBeUndefined()
++    pooledCache = { commissioned, finishing, writerId: f.writerId, attributedId: young.id, dueWeek: project.dueWeek! }
++  }
++  return structuredClone(pooledCache)
++}
+diff --git a/tests/p14c2rm-writer-continuation.test.ts b/tests/p14c2rm-writer-continuation.test.ts
+new file mode 100644
+index 00000000..79de9853
+--- /dev/null
++++ b/tests/p14c2rm-writer-continuation.test.ts
+@@ -0,0 +1,260 @@
++// Independent 880-B: preserve already-lawful retirement writing obligations.
++// This is a bounded live-validation correction, not new work admission or a
++// historical reader amendment. Expected outcomes come from the reviewed contract.
++import { describe, expect, it } from 'vitest'
++import { applyActions } from '../src/core/actions.js'
++import { retirementRecordFor } from '../src/core/careerLifecycle.js'
++import { activeContract } from '../src/core/employment.js'
++import { studioConstructionView } from '../src/core/placement.js'
++import { availableDevelopmentCastingSlots } from '../src/core/scriptDevelopment.js'
++import { studioCalendar } from '../src/core/studioCalendar.js'
++import { tick } from '../src/core/tick.js'
++import { convertV37ToV36, exportSave, importSave, makeSave, migrateToLive, stableStringify,
++  validateSaveV36, validateSaveV37 } from '../src/core/save.js'
++import type { GameState, ScriptProject } from '../src/core/types.js'
++import { c2Fixture } from './helpers/p14c2a-fixtures.js'
++import { addPerson, admitted, advanceTo, bytes, finishingWriter, owner } from './helpers/p14c2rm-fixtures.js'
++import { announcedGapWriter, originalCommission, pooledFinishingWriter } from './helpers/p14c2rm-writer-fixtures.js'
++
++function envelope(state: GameState, saveVersion = 37) {
++  return { saveVersion, seed: state.seed, state, broadcastCache: state.broadcastItems }
++}
++function writeProject(state: GameState, writerId: string): ScriptProject {
++  const rows = state.scriptDevelopment.projects.filter(row => row.writerIds.includes(writerId)
++    && (row.status === 'drafting' || row.status === 'rewriting'))
++  expect(rows, 'premise: exactly one real retained screenplay obligation').toHaveLength(1)
++  return rows[0]!
++}
++function readBack(state: GameState): GameState {
++  const before = stableStringify(state), saved = makeSave(state)
++  const reopened = migrateToLive(importSave(exportSave(saved))).state
++  expect(stableStringify(reopened), 'save/load changes no authoritative fact').toBe(before)
++  expect(stableStringify(state), 'validation/write/read never mutates its input').toBe(before)
++  return reopened
++}
++function noExpiryPayroll(state: GameState, writerId: string, start: number) {
++  // Payroll is one aggregate player row, not a per-person row. Establish the
++  // no-other-employees premise before asserting that no further payroll exists.
++  expect(state.contracts.filter(row => row.startWeek <= start && start < row.endWeekExclusive),
++    'payroll control: this fixture has no other player employee at expiry').toEqual([])
++  expect(state.hollywood!.employment.filter(row => row.studioId === owner(state) && row.terms.talentId === writerId
++    && row.terms.startWeek >= start), 'retained work must not invent a replacement contract').toEqual([])
++  const invalid = state.ledger.filter(row => row.kind === 'payroll' && row.week >= start)
++  expect(invalid, 'retained writing must not mint employment or post-expiry payroll').toEqual([])
++}
++
++describe('880-B natural retired-writer continuation', () => {
++  it('keeps the existing active-contract save/load control byte-identical', () => {
++    const f = finishingWriter()
++    expect(activeContract(f.commissioned, f.writerId)).toMatchObject({ endWeekExclusive: 312 })
++    expect(writeProject(f.commissioned, f.writerId)).toMatchObject({ commissionedWeek: 311, status: 'drafting' })
++    expect(readBack(f.commissioned)).toEqual(f.commissioned)
++  })
++
++  it('saves and reloads the real E snapshot without adding a contract, changing work or advancing the clock', () => {
++    const f = finishingWriter(), before = stableStringify(f.finishing)
++    expect(f.finishing.market.tick).toBe(312)
++    expect(activeContract(f.finishing, f.writerId)).toBeUndefined()
++    expect(retirementRecordFor(f.finishing, f.writerId)).toMatchObject({ status: 'finishing_commitments', effectiveWeek: 312 })
++    expect(writeProject(f.finishing, f.writerId)).toEqual(writeProject(f.commissioned, f.writerId))
++    const reopened = readBack(f.finishing)
++    expect(validateSaveV37(envelope(reopened)).state).toEqual(f.finishing)
++    expect(stableStringify(f.finishing)).toBe(before)
++  })
++
++  it('continues the real finishing task through its actual due week, then retires once', () => {
++    const f = finishingWriter(), project = writeProject(f.finishing, f.writerId)
++    const completed = admitted(advanceTo(f.finishing, f.dueWeek))
++    expect(completed.scriptDevelopment.projects.find(row => row.id === project.id)).toMatchObject({
++      status: 'review', dueWeek: null, reservation: null, writerId: f.writerId,
++    })
++    expect(retirementRecordFor(completed, f.writerId)).toMatchObject({ status: 'retired', retiredWeek: f.dueWeek })
++    const later = admitted(tick(completed))
++    expect(retirementRecordFor(later, f.writerId)).toEqual(retirementRecordFor(completed, f.writerId))
++    expect(activeContract(completed, f.writerId)).toBeUndefined()
++    noExpiryPayroll(later, f.writerId, 312)
++  })
++
++  it('loaded and uninterrupted finishing branches produce identical completion and next-week saves', () => {
++    const f = finishingWriter(), loaded = readBack(f.finishing)
++    const direct = advanceTo(f.finishing, f.dueWeek + 1), resumed = advanceTo(loaded, f.dueWeek + 1)
++    expect(bytes(resumed)).toBe(bytes(direct))
++    expect(resumed.hollywood!.receipts).toEqual(direct.hollywood!.receipts)
++    expect(resumed.scriptDevelopment).toEqual(direct.scriptDevelopment)
++  })
++
++  it('allows actual D<E expired writing while still announced, including byte-identical resumed completion', () => {
++    const f = announcedGapWriter(), project = writeProject(f.expired, f.writerId)
++    expect(project.commissionedWeek).toBe(259)
++    expect(f.expired.market.tick).toBe(260)
++    expect(project.dueWeek).toBeGreaterThan(260)
++    expect(retirementRecordFor(f.expired, f.writerId)).toMatchObject({ status: 'announced', effectiveWeek: 312 })
++    const loaded = readBack(f.expired)
++    const direct = admitted(advanceTo(f.expired, f.dueWeek)), resumed = admitted(advanceTo(loaded, f.dueWeek))
++    expect(bytes(resumed)).toBe(bytes(direct))
++    expect(direct.scriptDevelopment.projects.find(row => row.id === project.id)).toMatchObject({ status: 'review', dueWeek: null })
++    expect(retirementRecordFor(direct, f.writerId)).toMatchObject({ status: 'announced', retiredWeek: null })
++    noExpiryPayroll(direct, f.writerId, 260)
++  })
++
++  it('the real Calendar and construction callers accept the same retained finishing work without mutations', () => {
++    const f = finishingWriter(), before = stableStringify(f.finishing)
++    expect(() => studioConstructionView(f.finishing)).not.toThrow()
++    const calendar = studioCalendar(f.finishing)
++    expect(calendar.commitments.some(row => row.kind === 'retirement' && row.ownerId === f.writerId && row.week === 312)).toBe(true)
++    expect(stableStringify(f.finishing)).toBe(before)
++  })
++
++  it('a lawful unrelated original commission does not fail on another writer’s retained task', () => {
++    const f = finishingWriter(), old = writeProject(f.finishing, f.writerId)
++    const made = addPerson(f.finishing, '880-B New Young Writer', 'writer', 40)
++    const signed = applyActions(made.state, [{ kind: 'signContract', talentId: made.id, termWeeks: 52 }])
++    expect(activeContract(signed, made.id)).toBeDefined()
++    expect(availableDevelopmentCastingSlots(signed.operations, signed.scriptDevelopment, new Set()),
++      'unrelated commission premise: genuine spare development capacity').toBeGreaterThan(0)
++    const next = admitted(applyActions(signed, [originalCommission(made.id)]))
++    expect(writeProject(next, f.writerId)).toEqual(old)
++    expect(writeProject(next, made.id)).toMatchObject({ writerId: made.id, commissionedWeek: 312 })
++    expect(() => applyActions(next, [{ kind: 'assignScreenplayWriter',
++      projectId: writeProject(next, made.id).id, writerId: f.writerId }])).toThrow()
++  })
++
++  it('a real non-attributed pooled writer keeps only their existing assignment across E', () => {
++    const f = pooledFinishingWriter(), project = writeProject(f.finishing, f.writerId)
++    expect(project.writerId).toBe(f.attributedId)
++    expect(project.writerIds).toEqual([f.attributedId, f.writerId])
++    const loaded = readBack(f.finishing), completed = admitted(advanceTo(loaded, f.dueWeek))
++    expect(completed.scriptDevelopment.projects.find(row => row.id === project.id)).toMatchObject({ status: 'review', writerIds: [f.attributedId, f.writerId] })
++    expect(retirementRecordFor(completed, f.writerId)).toMatchObject({ status: 'retired', retiredWeek: f.dueWeek })
++    expect(activeContract(completed, f.attributedId)).toBeDefined()
++  })
++
++  it('preserves ordinary new-work and release refusals instead of granting permission from a retained task', () => {
++    const f = finishingWriter(), original = stableStringify(f.finishing)
++    expect(() => applyActions(f.commissioned, [{ kind: 'releaseTalent', talentId: f.writerId }])).toThrow(/finish.*screenplay/i)
++    expect(() => applyActions(f.finishing, [originalCommission(f.writerId)])).toThrow()
++    const unused = f.finishing.concepts.find(row => !f.finishing.scriptDevelopment.projects.some(p => p.conceptId === row.id))!
++    expect(unused).toBeDefined()
++    expect(() => applyActions(f.finishing, [{ kind: 'commissionScript', project: {
++      conceptId: unused.id, writerId: f.writerId, shape: { opening: 'mysteryHook', midpoint: 'reversal', ending: 'bittersweet' },
++      promise: { genre: unused.genre, intendedSegments: ['adult'], ranges: { intimacy: [-1, 1], tonalWeight: [-1, 1], kineticEnergy: [-1, 1] } },
++    } }])).toThrow()
++    expect(() => applyActions(f.finishing, [{ kind: 'requestScriptRewrite', projectId: writeProject(f.finishing, f.writerId).id }])).toThrow()
++    expect(stableStringify(f.finishing)).toBe(original)
++  })
++})
++
++type InvalidCase = { name: string; corrupt: (state: GameState, writerId: string) => GameState }
++const changeProject = (state: GameState, id: string, patch: Partial<ScriptProject>): GameState => ({ ...state,
++  scriptDevelopment: { ...state.scriptDevelopment, projects: state.scriptDevelopment.projects.map(row => row.writerIds.includes(id) ? { ...row, ...patch } : row) },
++})
++function anotherUncontractedWriter(state: GameState, id: string): string {
++  const person = state.talent.find(row => row.role === 'writer' && row.id !== id && !activeContract(state, row.id)
++    && !retirementRecordFor(state, row.id))
++  expect(person, 'negative control premise: an existing writer with no player contract or retirement authority').toBeDefined()
++  return person!.id
++}
++const invalidCases: InvalidCase[] = [
++  { name: 'missing lifecycle record', corrupt: (state, id) => ({ ...state, careerLifecycle: { ...state.careerLifecycle,
++    records: state.careerLifecycle.records.filter(row => row.personId !== id) } }) },
++  { name: 'retired lifecycle cannot own active writing', corrupt: (state, id) => ({ ...state, careerLifecycle: { ...state.careerLifecycle,
++    records: state.careerLifecycle.records.map(row => row.personId === id ? { ...row, status: 'retired', retiredWeek: state.market.tick } : row) } }) },
++  { name: 'another person’s lifecycle record is not authority', corrupt: (state, id) => ({ ...state, careerLifecycle: { ...state.careerLifecycle,
++    records: state.careerLifecycle.records.map(row => row.personId === id ? { ...row, personId: state.talent.find(t => t.role === 'writer' && t.id !== id)!.id } : row) } }) },
++  { name: 'wrong historical employer studio', corrupt: (state, id) => ({ ...state, hollywood: { ...state.hollywood!,
++    employment: state.hollywood!.employment.map(row => row.terms.talentId === id && row.terms.endWeekExclusive === 312
++      ? { ...row, studioId: state.hollywood!.businesses[0]!.studioId } : row) } }) },
++  { name: 'historical employment did not cover commissioning', corrupt: (state, id) => ({ ...state, hollywood: { ...state.hollywood!,
++    employment: state.hollywood!.employment.map(row => row.terms.talentId === id && row.terms.endWeekExclusive === 312
++      ? { ...row, terms: { ...row.terms, startWeek: 312 } } : row) } }) },
++  { name: 'missing historical employment', corrupt: (state, id) => ({ ...state, hollywood: { ...state.hollywood!,
++    employment: state.hollywood!.employment.filter(row => row.terms.talentId !== id) } }) },
++  { name: 'new work begins at E', corrupt: (state, id) => changeProject(state, id, { commissionedWeek: 312 }) },
++  { name: 'future commission week', corrupt: (state, id) => changeProject(state, id, { commissionedWeek: 313 }) },
++  { name: 'due week is no longer in the future', corrupt: (state, id) => changeProject(state, id, { dueWeek: 312 }) },
++  { name: 'due week exceeds the ordinary draft bound', corrupt: (state, id) => changeProject(state, id, { dueWeek: 318 }) },
++  { name: 'unknown writer membership', corrupt: (state, id) => changeProject(state, id, { writerIds: [id, 'missing-writer'] }) },
++  { name: 'uncontracted second writer without retirement authority', corrupt: (state, id) => changeProject(state, id, {
++    writerIds: [id, anotherUncontractedWriter(state, id)],
++  }) },
++  { name: 'duplicate writer membership', corrupt: (state, id) => changeProject(state, id, { writerIds: [id, id] }) },
++  { name: 'attributed writer is missing from membership', corrupt: (state, id) => changeProject(state, id, { writerIds: [] }) },
++  { name: 'reservation belongs to another project', corrupt: (state, id) => changeProject(state, id, {
++    reservation: { ...writeProject(state, id).reservation!, projectId: 'script-9999' },
++  }) },
++  { name: 'reservation slot is outside capacity', corrupt: (state, id) => changeProject(state, id, {
++    reservation: { ...writeProject(state, id).reservation!, slot: 999 },
++  }) },
++  { name: 'unknown concept reference', corrupt: (state, id) => changeProject(state, id, { conceptId: 'missing-concept' }) },
++  { name: 'duplicate active project cannot borrow the same writer or slot', corrupt: (state, id) => ({ ...state,
++    scriptDevelopment: { ...state.scriptDevelopment, projects: [...state.scriptDevelopment.projects, { ...writeProject(state, id), id: 'script-0001' }] },
++  }) },
++]
++
++describe('880-B live allowance stays narrowly scoped', () => {
++  it.each(invalidCases)('refuses $name without altering caller bytes', ({ corrupt }) => {
++    const f = finishingWriter(), state = corrupt(f.finishing, f.writerId), input = envelope(state), before = stableStringify(input)
++    expect(() => validateSaveV37(input)).toThrow()
++    expect(stableStringify(input)).toBe(before)
++  })
++
++  it('refuses a genuinely terminated interval, even if an illegal cross-branch draft is grafted afterward', () => {
++    const f = finishingWriter()
++    const terminated = admitted(applyActions(f.ready, [{ kind: 'releaseTalent', talentId: f.writerId }]))
++    expect(terminated.hollywood!.employment.find(row => row.terms.talentId === f.writerId && row.terms.endWeekExclusive === 312))
++      .toMatchObject({ endedWeek: 311 })
++    // Explicitly INVALID alternate-branch combination. The release, payment and
++    // receipt are genuine; this task was commissioned only on the unreleased
++    // branch, so it cannot borrow retirement to become lawful here.
++    const illegal = { ...terminated, concepts: f.commissioned.concepts, scriptDevelopment: f.commissioned.scriptDevelopment,
++      originalScreenplays: f.commissioned.originalScreenplays }
++    expect(() => validateSaveV37(envelope(illegal))).toThrow()
++    expect(() => applyActions(terminated, [originalCommission(f.writerId)])).toThrow()
++  })
++
++  it('still refuses extra project/save keys at the exact public schema boundary', () => {
++    const f = finishingWriter()
++    const input = envelope({ ...f.finishing, scriptDevelopment: { ...f.finishing.scriptDevelopment,
++      projects: f.finishing.scriptDevelopment.projects.map(row => ({ ...row, retirementBypass: true })),
++    } })
++    expect(() => validateSaveV37(input)).toThrow()
++    expect(() => validateSaveV37({ ...envelope(f.finishing), retirementBypass: true })).toThrow()
++  })
++
++  it('frozen public V36 stays strict, and an exceptional current save cannot silently downgrade', () => {
++    const f = finishingWriter()
++    expect(f.commissioned.careerLifecycle.records.every(row => row.profession !== 'scientist'), 'frozen-reader control has no unsupported Scientist record').toBe(true)
++    expect(() => validateSaveV36(envelope(f.commissioned, 36))).not.toThrow()
++    expect(() => validateSaveV36(envelope(f.finishing, 36))).toThrow(/not contracted/i)
++    const current = makeSave(f.finishing), before = stableStringify(current)
++    expect(() => convertV37ToV36(current)).toThrow()
++    expect(stableStringify(current)).toBe(before)
++  })
++
++  it('genuine older migration preserves existing screenplay, employment and work facts', () => {
++    const old = c2Fixture('genuine-v33-c2-contract-and-case'), before = stableStringify(old)
++    const live = migrateToLive(importSave(stableStringify(envelope(old, 33)))).state
++    expect(live.scriptDevelopment).toEqual(old.scriptDevelopment)
++    expect(live.contracts).toEqual(old.contracts)
++    expect(live.hollywood).toEqual(old.hollywood)
++    expect(live.talent).toEqual(old.talent)
++    expect(live.originalScreenplays).toEqual(old.originalScreenplays)
++    expect(stableStringify(old)).toBe(before)
++    expect(bytes(readBack(live))).toBe(bytes(live))
++  })
++
++  it('validation authority never leaks between campaigns with the same project and PersonIds', () => {
++    const f = finishingWriter(), legal = envelope(f.finishing)
++    const illegal = envelope({ ...f.finishing, careerLifecycle: { ...f.finishing.careerLifecycle,
++      records: f.finishing.careerLifecycle.records.filter(row => row.personId !== f.writerId) } })
++    const legalBefore = stableStringify(legal), illegalBefore = stableStringify(illegal)
++    for (let round = 0; round < 2; round++) {
++      expect(() => validateSaveV37(legal)).not.toThrow()
++      expect(() => validateSaveV37(illegal)).toThrow()
++      expect(() => validateSaveV36(envelope(f.finishing, 36))).toThrow()
++    }
++    expect(stableStringify(legal)).toBe(legalBefore)
++    expect(stableStringify(illegal)).toBe(illegalBefore)
++    expect(owner(legal.state)).toBe(owner(illegal.state)) // identical IDs alone confer no authority.
++  })
++})
