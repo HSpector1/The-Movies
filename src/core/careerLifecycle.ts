@@ -371,6 +371,18 @@ function advanceCohort(state: GameState, week: number): GameState {
 // one-year extension from that employer (the market owns the case and the choice). This
 // module owns the record fields: nobody else writes `extensionUsed` / `extendedFromWeek`.
 
+/** The record's `extensionUsed`, read by every piece of extension logic. Loud, never
+ * silent: a live V36 record without it is an unmigrated record, never an unused
+ * extension, so the read throws naming the person. */
+export function readExtensionUsed(record: RetirementRecordV36): boolean {
+  if (typeof record.extensionUsed !== 'boolean') {
+    throw new Error(
+      `careerLifecycle: the retirement record for ${record.personId} carries no Save V36 extensionUsed — migrate this state to V36 before ticking it`,
+    )
+  }
+  return record.extensionUsed
+}
+
 /** The subject studio of this person's OPEN `retirementExtension` case at `week`, else
  * `null` (806 §4): the single issuer the market's one carve-out admits. */
 export function extensionIssuer(state: GameState, personId: string, week: number): string | null {
@@ -388,7 +400,7 @@ export function commitRetirementExtension(state: GameState, personId: string, we
   const record = root.records[index]
   if (record === undefined) throw new Error(`careerLifecycle: ${personId} holds no retirement record to extend`)
   if (record.status !== 'announced') throw new Error(`careerLifecycle: ${personId} is ${record.status}, and only an announced retirement can be extended`)
-  if (record.extensionUsed) {
+  if (readExtensionUsed(record)) {
     throw new Error(`careerLifecycle: ${personId} already took the one final extension (from week ${String(record.extendedFromWeek)}) — there is no second`)
   }
   if (week > record.effectiveWeek) {

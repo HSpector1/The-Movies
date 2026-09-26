@@ -201,6 +201,9 @@ function pulseSettlementFold(state:GameState,people:Map<string,Person>):{drop:Se
     h.receipts.find((r):r is EmploymentReceipt=>r.kind==='employment'&&r.talentId===talentId&&r.week===week&&reasons.includes(r.reason))
   for(const settled of state.talentMarket.receipts) {
     if(settled.kind!=='settled')continue
+    // P14C.2b (780 §5.3): a settled one final extension is no contract case; its two
+    // P12 rows stay the ordinary employment transitions they are, unfolded.
+    if(state.talentMarket.cases.some(c=>c.variant==='retirementExtension'&&c.talentId===settled.talentId&&c.outcome==='settled'&&c.closedWeek===settled.week))continue
     const expiry=receipt(settled.talentId,settled.week,['expiry'])
     const start=receipt(settled.talentId,settled.week,['replacement','player-contract'])
     if(!expiry||!start||start.toStudioId===null)continue

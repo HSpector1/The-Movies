@@ -31,7 +31,9 @@
 import { rivalEmployment, rivalWeeklyOperatingCost, moveRivalMoney } from './hollywood.js'
 import { RIVAL_TEAM_ROLES } from './hollywoodStartingData.js'
 import { recordPlayerEmployment } from './industryEmployment.js'
-import { commitRetirementExtension, contractEndRefusal, extensionIssuer, lifecycleRefusal, retirementRecordFor } from './careerLifecycle.js'
+import {
+  commitRetirementExtension, contractEndRefusal, extensionIssuer, lifecycleRefusal, readExtensionUsed, retirementRecordFor,
+} from './careerLifecycle.js'
 import { activeContract, canAfford, contractOffer, guaranteedComp, renewalWindowOpen, terminationCost } from './employment.js'
 import type { ContractOffer, TerminationLaw } from './employment.js'
 import { attachPromise, attachedPromiseDigest, promiseFeasibility, proposalDigest, trustDescriptor } from './promises.js'
@@ -1090,7 +1092,8 @@ function studioLabel(state: GameState, studioId: string): string {
 /** CANDIDATE WORDING (the coordinator pinned the CONTRACT — one sentence per
  * dropped proposal, the issuing studio named, the predicate from this closed
  * vocabulary — not the prose). Ordering-only: no amount appears in any of them,
- * and "reservation" appears for the ask predicate ALONE. */
+ * and "reservation" appears for the ask predicates ALONE (`belowAsk`, and P14C.2b's
+ * `belowRetirementReservation`, which is the same ask times the retirement factor). */
 const DROP_SENTENCE: Record<FreezeDrop, (studio: string) => string> = {
   issuerNotEntered: (studio) => `${studio} had not entered the industry by the decision week.`,
   subjectCommittedElsewhere: (studio) => `${studio}'s offer lapsed — this person was already committed elsewhere by the decision week.`,
@@ -1103,7 +1106,7 @@ const DROP_SENTENCE: Record<FreezeDrop, (studio: string) => string> = {
   issuerDistrusted: (studio) => `${studio} holds a record this person distrusts.`,
   nemesisOnRoster: (studio) => `${studio}'s roster holds someone this person will not work beside.`,
   retirementCap: (studio) => `${studio}'s offer would bind this person past their announced retirement.`,
-  belowRetirementReservation: (studio) => `${studio}'s offer fell short of what this person asks to postpone their retirement.`,
+  belowRetirementReservation: (studio) => `${studio}'s offer fell below this person's reservation for postponing their retirement.`,
 }
 
 /**
@@ -1315,7 +1318,7 @@ export function advanceTalentMarketWeek(state: GameState): GameState {
   // holds them at exactly `E − 12` gets ONE case naming that employment row. C.2a
   // invalidated the row's `expiry` case at the announcement; that must not block this.
   for (const record of next.careerLifecycle.records) {
-    if (record.status !== 'announced' || record.extensionUsed !== false) continue
+    if (record.status !== 'announced' || readExtensionUsed(record)) continue
     if (week !== record.effectiveWeek - TUNING.RETIREMENT_EXTENSION_WINDOW_WEEKS) continue
     const row = next.hollywood!.employment.find((e) => e.terms.talentId === record.personId &&
       e.terms.startWeek <= week && week < (e.endedWeek ?? e.terms.endWeekExclusive))
@@ -1654,6 +1657,15 @@ function extensionReservation(askAnnual: number): number {
 function extensionTier(): number | undefined {
   const tiers = TUNING.MARKET_PREMIUM_TIERS.filter((tier) => tier >= TUNING.RETIREMENT_EXTENSION_RESERVATION_FACTOR)
   return tiers.length === 0 ? undefined : Math.min(...tiers)
+}
+
+/** True when the person's LATEST case — the one `caseForTalent` answers with, open or
+ * closed — is the one-issuer `retirementExtension`. Every existing case-listing consumer
+ * excludes that person (780 §5.3, 806 §6): the extension is not a contest, and its player
+ * surface is C.2-RM's. */
+export function latestCaseIsExtension(state: GameState, talentId: string): boolean {
+  const kase = latestCase(state, talentId)
+  return kase !== undefined && isExtensionCase(kase)
 }
 
 /** The person's OPEN market case at `week`, of either variant, else `undefined` (806 §8.4). */

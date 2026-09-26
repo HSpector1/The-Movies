@@ -35,7 +35,7 @@
 // No figure of any kind crosses this module: a status line carries a derived week, and a
 // case reference carries a talentId. A.1's disclosure law is untouched.
 import { studioPresence } from '../src/core/presence.ts'
-import { caseForTalent } from '../src/core/talentMarket.ts'
+import { caseForTalent, latestCaseIsExtension } from '../src/core/talentMarket.ts'
 import type { GameState } from '../src/core/types.ts'
 import type { BridgeWorldRouteSnapshot } from './schema/bridge-schema.ts'
 
@@ -59,7 +59,8 @@ export function personWorldRoute(
   const present = onLot ?? studioPresence(state).people.some((person) => person.talentId === talentId)
   const reach = present ? 'playerLot' : 'industry'
   const view = caseForTalent(state, talentId, week)
-  if (view === null || TERMINAL.has(view.status)) return { statusLine: null, caseRef: null, reach }
+  // P14C.2b (780 §5.3): the one-issuer extension is no renewal window and no market case to open.
+  if (view === null || TERMINAL.has(view.status) || latestCaseIsExtension(state, talentId)) return { statusLine: null, caseRef: null, reach }
   const statusLine =
     view.decisionWeek <= week + 1
       ? `Decides next week · Week ${String(view.decisionWeek)}`

@@ -12,12 +12,12 @@
 // The workspace adds no fact the Profile could not already state; it gathers them.
 import { campaignDate } from '../src/core/calendar.js'
 import {
-  caseForTalent, marketEligibility, playerOffer, type MarketCaseView,
+  caseForTalent, latestCaseIsExtension, marketEligibility, playerOffer, type MarketCaseView,
 } from '../src/core/talentMarket.js'
 import { PERSON_DISCIPLINE_ORDER, ROLE_TO_DISCIPLINE, TUNING } from '../src/core/tuning.js'
 import type { GameState, TalentMarketCase } from '../src/core/types.js'
 import { castingDraftToEngine } from './casting.ts'
-import { latestCaseIsExtension, marketAttentionRows, marketCaseProjection, peopleProjection } from './people.ts'
+import { marketAttentionRows, marketCaseProjection, peopleProjection } from './people.ts'
 import { promiseAttentionRows, promiseRowsForPerson } from './trust.ts'
 import type {
   BridgeMarketAttentionRowSnapshot, BridgeMarketCaseDetail, BridgeMarketCaseRow,

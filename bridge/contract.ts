@@ -51,6 +51,7 @@ import { financialConsequence } from './finance-consequence.ts'
 import { corePredicateOf, promiseQuoteSnapshot } from './promises.ts'
 import type { WirePromiseDraft } from './promises.ts'
 import { attachPromise } from '../src/core/promises.ts'
+import { latestCaseIsExtension } from '../src/core/talentMarket.ts'
 import { TUNING } from '../src/core/tuning.ts'
 import type { ActionOutcome } from '../ui/src/engine/adapter.ts'
 import type {
@@ -136,6 +137,15 @@ export function renewalRefusal(state: GameState, talent: Talent, contract: Contr
   // so the Profile can never offer a renewal the commit would throw on.
   if (caseOpenForTalent(state, talent.id, week)) {
     const decisionWeek = caseForTalent(state, talent.id, week)?.decisionWeek ?? contract.endWeekExclusive
+    // P14C.2b (780 §5.3): the engine refuses the same way for the one final extension, but
+    // that case is one issuer's offer, never a contest, and no sentence presents it as one.
+    if (latestCaseIsExtension(state, talent.id)) {
+      return {
+        code: 'underMarketCase',
+        reason: `${talent.name} has announced their retirement — renewing in term is closed, and their one final extension is decided in Week ${String(decisionWeek)}.`,
+        remedy: 'The extension is settled at that decision week; no renewal is available.',
+      }
+    }
     return {
       code: 'underMarketCase',
       reason: `${talent.name} is under an open market case — renewing in term is closed, and the incumbent's renewal is now a proposal settled in Week ${String(decisionWeek)} against every competing proposal.`,
@@ -552,7 +562,10 @@ export function marketProposalQuoteSnapshot(
       ? conversion.promise.message ?? 'This promise is not offerable.'
       : draft.verb === 'withdraw'
         ? `Withdraws your proposal for ${talent.name}. Nothing is charged, and you may propose again while the case is open.`
-        : `Stands until Week ${String(decisionWeek ?? state.market.tick)}, when ${talent.name} chooses among every proposal on the table. If they choose yours, the contract runs ${contractTermLabel(termWeeks ?? 0)} at ${dollars(annualSalary ?? 0)} a year and the ${dollars(signingBonus ?? 0)} signing bonus is paid then — nothing is charged now. A competing studio's terms stay UNKNOWN.`
+        // P14C.2b (780 §5.3): the one final extension is one issuer's offer, never a contest.
+        : latestCaseIsExtension(state, talent.id)
+          ? `Stands until Week ${String(decisionWeek ?? state.market.tick)}, when ${talent.name} decides on this one final extension before retiring. If they accept, the contract runs ${contractTermLabel(termWeeks ?? 0)} at ${dollars(annualSalary ?? 0)} a year and the ${dollars(signingBonus ?? 0)} signing bonus is paid then — nothing is charged now.`
+          : `Stands until Week ${String(decisionWeek ?? state.market.tick)}, when ${talent.name} chooses among every proposal on the table. If they choose yours, the contract runs ${contractTermLabel(termWeeks ?? 0)} at ${dollars(annualSalary ?? 0)} a year and the ${dollars(signingBonus ?? 0)} signing bonus is paid then — nothing is charged now. A competing studio's terms stay UNKNOWN.`
   return {
     intentId,
     kind: 'marketProposalAction',

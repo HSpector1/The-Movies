@@ -21,7 +21,7 @@
 
 import { allPromises, promiseFeasibility, waiverAccepted, waivePromise } from '../src/core/promises.ts'
 import type { PromiseAttachment } from '../src/core/promises.ts'
-import { caseDisclosure, caseForTalent, UNKNOWN } from '../src/core/talentMarket.ts'
+import { caseDisclosure, caseForTalent, latestCaseIsExtension, UNKNOWN } from '../src/core/talentMarket.ts'
 import type { Disclosed, DisclosedPromise } from '../src/core/talentMarket.ts'
 import type { GameState, PromiseClassification } from '../src/core/types.ts'
 import type { ActionOutcome } from '../ui/src/engine/adapter.ts'
@@ -81,7 +81,8 @@ export function promiseRowsFor(
   viewerStudioId: string,
   week: number = state.market.tick,
 ): MarketPromiseRow[] {
-  if (caseForTalent(state, talentId, week) === null) return []
+  // P14C.2b (780 §5.3): the extension is excluded exactly as `marketCaseProjection` excludes it.
+  if (caseForTalent(state, talentId, week) === null || latestCaseIsExtension(state, talentId)) return []
   return caseDisclosure(state, talentId, viewerStudioId, week).proposals
     .map((proposal) => ({ issuerStudioId: proposal.issuerStudioId, promise: proposal.promise }))
 }

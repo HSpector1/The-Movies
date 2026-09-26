@@ -225,3 +225,86 @@ rival world survive unchanged. World 2 (`D = E = 150`): a 52-week player extensi
 The test author sweeps `tests/` (section 5's 37 type errors, the fourteen class (a) suite failures and the
 helpers `c4LiveFixture`, `liveEnvelope`, `syntheticRecord` and `withSyntheticCareerLifecycle`). The parent
 runs the independent RED against this diff, then the matched pass. I have not run the RED.
+
+## Follow-up (coordinator items 1 to 3, 2026-09-26 04:15 to 04:27 CEST)
+
+Same role and rules. Source identity: HEAD `8cf6bed21104faa9ca876e745fdcc35ab40d7930`, which holds the diff above
+(`git diff 7c0ee86e 8cf6bed2 -- src bridge ui scripts | shasum -a 256` = `3db9f1f6…`, verified). Follow-up
+diff: `git diff HEAD -- src bridge ui scripts | shasum -a 256` =
+`89dcbe2e61f5ab8a283eae1cd827e88ecd222817f181b73625361bb8473067df`, 8 files, +57/−27, recomputed after the
+last verification command. `tests/` untouched. The three untracked `tests/p14c2b-*` files were not opened;
+typecheck output is only counted for them below.
+
+### 1. Presentation: every case consumer in `bridge/` and `ui/src/`
+
+The shared predicate moved from `bridge/people.ts` into the engine as
+`latestCaseIsExtension(state, talentId)` (`talentMarket.ts`, reusing `latestCase`; not in the barrel), so
+`world.ts`, `promises.ts` and `contract.ts` read it without a bridge import cycle. Every reader found by
+grepping `talentMarket.cases|proposals|receipts`, `caseForTalent`, `caseOpenForTalent`, `caseDisclosure`,
+`currentProposals`, `marketEligibility`, `submitProposal` and `withdrawProposal` over `bridge/` and `ui/src/`
+(`ui/src/` holds none):
+
+| consumer | disposition |
+| --- | --- |
+| `bridge/market.ts` `caseEntries` (case rows; `caseRow` proposals; `selectedDetail`; `ownDroppedReasons`) | excluded (first pass); now imports the engine predicate |
+| `bridge/market.ts` `freeAgentRows` (`marketEligibility`) | unchanged: reads only `free_agent`, which an announced person never is |
+| `bridge/people.ts` `marketAttentionRows` (with `hasRevised`, `proposalWouldFailNow`, receipts) | excluded (first pass) |
+| `bridge/people.ts` `marketCaseProjection` (`caseDisclosure`) | excluded, returns `null` (first pass) |
+| `bridge/world.ts` `personWorldRoute` | **excluded**: no "Renewal window open" line and no `caseRef` |
+| `bridge/promises.ts` `promiseRowsFor` | **excluded**: returns `[]`, the same absence as `marketCaseProjection`'s `null` |
+| `bridge/industry.ts` `pulseSettlementFold` | **excluded**: a settlement whose person holds a `settled` extension case closed that week is not folded. The two P12 rows show as the ordinary transitions "X: contract ended" / "X: joined Studio" ("Contract terms remain private"). The years label is not reformatted for anyone else. Measured: on the e2e state at 98 the old fold's own join matched (`expiry` + `player-contract`), so it would have shown the extension |
+| `bridge/industry.ts` promise-outcome loop (receipts) | unchanged: an extension carries no promise |
+| `bridge/contract.ts` `renewalRefusal` | **reworded** for an extension: the refusal stays `underMarketCase` with renewal unavailable, because the engine throws exactly that and a closed wire enum allows no new code. It now reads "X has announced their retirement — renewing in term is closed, and their one final extension is decided in Week D." with remedy "The extension is settled at that decision week; no renewal is available." |
+| `bridge/contract.ts` `marketProposalQuoteSnapshot` consequence ("chooses among every proposal … A competing studio's terms stay UNKNOWN") | **reworded** for an extension: "Stands until Week D, when X decides on this one final extension before retiring. If they accept, the contract runs … — nothing is charged now." |
+| `bridge/contract.ts` `liveMarketRefusal` / `marketProposalDraftToEngine` / `prepareMarketProposal` | unchanged: the command route, which presents no contest. It reaches the engine's own refusals (a non-catalogue term is refused by the bridge; a catalogue term that misses `E + 52` surfaces the engine's `retirementExtension` sentence as a conversion error) |
+
+Items I changed wording on rather than excluded: `renewalRefusal` and the quote consequence. Excluding the
+extension from `renewalRefusal` would publish a renewal the engine refuses, and excluding it from the
+proposal route would remove the only headless player path. Both are recorded here for the parent's call.
+Projection 50 and `generated/` did not move.
+
+### 2. Fail loud on a record missing `extensionUsed`
+
+`readExtensionUsed(record)` (`careerLifecycle.ts`, exported, not in the barrel) throws
+`careerLifecycle: the retirement record for <personId> carries no Save V36 extensionUsed — migrate this
+state to V36 before ticking it`. The two places that read the field in extension logic now call it:
+market step 2b (every `announced` record, every week, before the window test) and
+`commitRetirementExtension`. The V36 validator already refuses such a record, and `convertV36ToV35`
+reaches that validator. Not extended to a case missing `variant`: pre-V36 cases are expiry cases by the
+migration's own rule, so that reading loses nothing. Section 4 item 9 above is superseded.
+
+### 3. Drop sentence (CANDIDATE WORDING)
+
+`belowRetirementReservation` now reads "`${studio}'s offer fell below this person's reservation for
+postponing their retirement.`", following `belowAsk`. The typed key is unchanged. The `DROP_SENTENCE`
+comment now names both ask predicates as the only users of "reservation".
+
+### Commands (04:21:27 to 04:25:56)
+
+| command | exit | runtime | result |
+| --- | --- | --- | --- |
+| `npm run typecheck` | 2 | 30 s | 0 in `src/`; 27 lines under `tests/` as before, plus 2 lines in the untracked `p14c2b` files (counted, not read) |
+| `./node_modules/.bin/tsc -p ui/tsconfig.json --noEmit` | 0 | 41 s | clean |
+| `npm run typecheck:bridge` | 2 | 25 s | 0 in `src/`/`bridge/`; 10 under `tests/` as before |
+| `npm run check:bridge-contract` | 0 | 2 s | verified |
+| `npm run check:bridge-contract:fixtures` | 0 | 1 s | verified |
+| `git status --porcelain generated/` | 0 | <1 s | empty |
+| e2e (`e2e-c2b.mts`) | 0 | 6 s | E2E PASS: everything in section 5, plus: world route, promise rows, Profile case block and renewal reason all exclude or reword; the Pulse shows two unfolded rows for the extension; the drop sentence is the new wording; `tick`, `commitRetirementExtension` and `makeSave` each throw on a record stripped of `extensionUsed`, naming `authored-0000` |
+| probe (`probe-rival.mts`) | 0 | 10 s | PROBE PASS; plus world 2's bridge quote reads the extension sentence and neither "competing" nor "every proposal" |
+
+Suites, one file each (the sweep author is editing `tests/` concurrently):
+
+| file | result | new failures, class |
+| --- | --- | --- |
+| `p14c2a-core-lifecycle` | 13/13 | none |
+| `p14c2a-consumers` | 13/17 | 4 × fail-loud throw on a hand-built V35-shaped record (`authored-0000`, `authored-0001`, `person-studio-aca408ec-r01-1` ×2) |
+| `p14c2a-save-and-settlement` | 5/10 | literal (1) plus 4 fail-loud throws (`authored-0000` ×2, `t-act-09`, `t-dir-00`) |
+| `p14c4-cohorts` | 21/28 + 1 todo | 7 fail-loud throws: `c4LiveFixture` converts to V35, not `migrateToLive`, then ticks |
+| `p14c4-save-v35` | 23/28 | literal (1), `makeSave` on a V35 record (1), 3 fail-loud throws |
+| `p14a1-settlement`, `p14a1-decline-reasons`, `bridge-p10a-r1-contract-quote`, `bridge-p12-industry` | all pass | none |
+| `bridge-p14a1-market` 15/16, `bridge-p14a2-market` 12/16, `bridge-p14a3-world` 11/16 + 1 todo, `bridge-p14b1-promises` 8/11 | | version literal 36 vs 35 only |
+
+Every new failure is the requested throw meeting a test-built V35-shaped state; those passed in the first
+pass because a missing field then read as unused. The sweep's helper changes (`c4LiveFixture` and
+`syntheticRecord` / `withSyntheticCareerLifecycle` carrying the V36 keys, or `migrateToLive`) clear them.
+No behaviour failure appeared.
