@@ -1,0 +1,20 @@
+import json, sys
+def ev(path):
+    d = json.load(open(path)); s = {x['week']: x for x in d['samples']}
+    weeks = []
+    for w in range(1040, 6241, 520): weeks += [w - 26, w]
+    miss = []; mins = {}
+    for w in weeks:
+        x = s[w]
+        if x['listingLength'] <= 0: miss.append((w, 'listing'))
+        for r, v in x['roles'].items():
+            mins[r] = min(mins.get(r, 10**9), v['unprovenUnder30'])
+            if v['unprovenUnder30'] < 1: miss.append((w, r))
+    last = s[6240]
+    ok = not miss and 63 <= last['active'] <= 105
+    rv = last['rivals']
+    return dict(seed=d['seed'], head=d['head'][:8], srcDirty=d['srcDirty'], samples=len(weeks), miss=miss, minUnprovenU30=mins,
+                active6240=last['active'], talent=last['talent'], films=rv.get('films'), rivalBusinesses=rv.get('businesses'),
+                rivalActiveEmployment=rv.get('activeEmployment'), totalMin=round(d['totalMs']/60000,1), PASS=ok,
+                retirements=sum(sum(y['retirements'].values()) if isinstance(y['retirements'],dict) else y['retirements'] for y in d['years']), entrants=sum(sum(y['entrants'].values()) if isinstance(y['entrants'],dict) else y['entrants'] for y in d['years']))
+for p in sys.argv[1:]: print(json.dumps(ev(p)))
